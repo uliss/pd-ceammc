@@ -25,4 +25,6 @@ public:
     void onList(const AtomList& l) override;
 };
 
+void setup_conv_lin2lin();
+
 #endif // CONV_LIN2LIN_H

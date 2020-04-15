@@ -31,4 +31,6 @@ private:
     t_float convert(t_float v);
 };
 
+void setup_conv_cc2amp();
+
 #endif // CONV_CC2AMP_H

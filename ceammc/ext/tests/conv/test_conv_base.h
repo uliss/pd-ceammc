@@ -14,4 +14,9 @@
 #ifndef TEST_CONV_BASE_H
 #define TEST_CONV_BASE_H
 
+#include "test_base.h"
+#include "test_external.h"
+
+#include "test_catch2.hpp"
+
 #endif // TEST_CONV_BASE_H

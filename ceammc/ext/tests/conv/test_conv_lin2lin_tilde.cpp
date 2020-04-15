@@ -11,8 +11,8 @@
  * contact the author of this file, or the owner of the project in which
  * this file belongs to.
  *****************************************************************************/
-#include "../conv/conv_lin2lin_tilde.h"
-#include "test_external.h"
+#include "conv_lin2lin_tilde.h"
+#include "test_conv_base.h"
 #include "test_sound.h"
 
 PD_COMPLETE_SND_TEST_SETUP(Lin2LinTilde, conv, lin2lin_tilde)

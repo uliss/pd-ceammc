@@ -11,23 +11,20 @@
  * contact the author of this file, or the owner of the project in which
  * this file belongs to.
  *****************************************************************************/
-#include "../conv/conv_cc2amp.h"
-#include "test_base.h"
-#include "catch.hpp"
+#include "conv_cc2amp.h"
+#include "test_conv_base.h"
 
-#include <stdio.h>
-
-typedef TestExternal<CC2Amp> CC2AmpTest;
+PD_COMPLETE_TEST_SETUP(CC2Amp, conv, cc2amp)
 
 TEST_CASE("conv.cc2amp", "[externals]")
 {
-    obj_init();
+    pd_test_init();
 
     SECTION("test create with:")
     {
         SECTION("empty arguments")
         {
-            CC2AmpTest t("conv.cc2amp", L());
+            TObj t("conv.cc2amp", L());
             REQUIRE(t.numInlets() == 1);
             REQUIRE(t.numOutlets() == 1);
 
@@ -37,7 +34,7 @@ TEST_CASE("conv.cc2amp", "[externals]")
 
         SECTION("property arguments")
         {
-            CC2AmpTest t("conv.cc2amp", LA("@from", 10, "@to", 100));
+            TObj t("conv.cc2amp", LA("@from", 10, "@to", 100));
 
             REQUIRE_PROPERTY(t, @from, 10);
             REQUIRE_PROPERTY(t, @to, 100);
@@ -45,7 +42,7 @@ TEST_CASE("conv.cc2amp", "[externals]")
 
         SECTION("positional arguments")
         {
-            CC2AmpTest t("conv.cc2amp", LF(20, 40));
+            TObj t("conv.cc2amp", LF(20, 40));
 
             REQUIRE_PROPERTY(t, @from, 20);
             REQUIRE_PROPERTY(t, @to, 40);
@@ -53,7 +50,7 @@ TEST_CASE("conv.cc2amp", "[externals]")
 
         SECTION("mixed arguments")
         {
-            CC2AmpTest t("conv.cc2amp", LA(20, 40, "@from", 1, "@to", -1));
+            TObj t("conv.cc2amp", LA(20, 40, "@from", 1, "@to", -1));
 
             REQUIRE_PROPERTY(t, @from, 1);
             REQUIRE_PROPERTY(t, @to, -1);
@@ -70,7 +67,7 @@ TEST_CASE("conv.cc2amp", "[externals]")
 
         SECTION("default")
         {
-            CC2AmpTest t("conv.cc2amp", L());
+            TObj t("conv.cc2amp", L());
             REQUIRE_PROPERTY(t, @from, 0.f);
             REQUIRE_PROPERTY(t, @to, 1.f);
 
@@ -86,7 +83,7 @@ TEST_CASE("conv.cc2amp", "[externals]")
 
         SECTION("default")
         {
-            CC2AmpTest t("conv.cc2amp", LA(-1, 1));
+            TObj t("conv.cc2amp", LA(-1, 1));
 
             C2A(t, 0, -1);
             C2A(t, 127, 1);

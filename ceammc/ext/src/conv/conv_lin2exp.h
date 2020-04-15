@@ -24,4 +24,6 @@ public:
     void onFloat(t_float value) override;
 };
 
+void setup_conv_lin2exp();
+
 #endif // CONV_LIN2EXP_H

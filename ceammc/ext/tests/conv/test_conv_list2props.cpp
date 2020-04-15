@@ -11,10 +11,8 @@
  * contact the author of this file, or the owner of the project in which
  * this file belongs to.
  *****************************************************************************/
-#include "../conv/conv_list2props.h"
-#include "ceammc_pd.h"
-#include "test_base.h"
-#include "test_external.h"
+#include "conv_list2props.h"
+#include "test_conv_base.h"
 
 PD_COMPLETE_TEST_SETUP(ConvList2Props, list, to_props)
 

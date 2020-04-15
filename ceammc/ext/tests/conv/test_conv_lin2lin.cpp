@@ -11,22 +11,20 @@
  * contact the author of this file, or the owner of the project in which
  * this file belongs to.
  *****************************************************************************/
-#include "../conv/conv_lin2lin.h"
-#include "catch.hpp"
-#include "test_base.h"
+#include "conv_lin2lin.h"
+#include "test_conv_base.h"
 
-typedef TestExternal<Lin2Lin> Lin2LinTest;
+PD_COMPLETE_TEST_SETUP(Lin2Lin, conv, lin2lin)
 
 TEST_CASE("conv.lin2lin", "[externals]")
 {
-    obj_init();
-    test::pdPrintToStdError();
+    pd_test_init();
 
     SECTION("test create with:")
     {
         SECTION("empty arguments")
         {
-            Lin2LinTest t("conv.lin2lin", L());
+            TObj t("conv.lin2lin", L());
             REQUIRE(t.numInlets() == 1);
             REQUIRE(t.numOutlets() == 1);
 
@@ -40,7 +38,7 @@ TEST_CASE("conv.lin2lin", "[externals]")
         SECTION("property arguments")
         {
             {
-                Lin2LinTest t("conv.lin2lin", LA("@in_from", 10, "@in_to", 100));
+                TObj t("conv.lin2lin", LA("@in_from", 10, "@in_to", 100));
                 REQUIRE_PROPERTY(t, @in_from, 10.f);
                 REQUIRE_PROPERTY(t, @in_to, 100.f);
                 REQUIRE_PROPERTY(t, @out_from, 0.f);
@@ -49,7 +47,7 @@ TEST_CASE("conv.lin2lin", "[externals]")
             }
 
             {
-                Lin2LinTest t("conv.lin2lin", LA("@out_from", 10, "@out_to", 100));
+                TObj t("conv.lin2lin", LA("@out_from", 10, "@out_to", 100));
                 REQUIRE_PROPERTY(t, @in_from, 0.f);
                 REQUIRE_PROPERTY(t, @in_to, 127);
                 REQUIRE_PROPERTY(t, @out_from, 10);
@@ -59,7 +57,7 @@ TEST_CASE("conv.lin2lin", "[externals]")
 
             // clip
             {
-                Lin2LinTest t("conv.lin2lin", LA("@clip", "noclip"));
+                TObj t("conv.lin2lin", LA("@clip", "noclip"));
                 REQUIRE_PROPERTY(t, @in_from, 0.f);
                 REQUIRE_PROPERTY(t, @in_to, 127);
                 REQUIRE_PROPERTY(t, @out_from, 0.f);
@@ -69,7 +67,7 @@ TEST_CASE("conv.lin2lin", "[externals]")
 
             // invalid clip
             {
-                Lin2LinTest t("conv.lin2lin", LA("@clip", "invalid"));
+                TObj t("conv.lin2lin", LA("@clip", "invalid"));
                 REQUIRE_PROPERTY(t, @in_from, 0.f);
                 REQUIRE_PROPERTY(t, @in_to, 127);
                 REQUIRE_PROPERTY(t, @out_from, 0.f);
@@ -80,7 +78,7 @@ TEST_CASE("conv.lin2lin", "[externals]")
 
             // alias @noclip
             {
-                Lin2LinTest t("conv.lin2lin", LA("@noclip"));
+                TObj t("conv.lin2lin", LA("@noclip"));
                 REQUIRE_PROPERTY(t, @in_from, 0.f);
                 REQUIRE_PROPERTY(t, @in_to, 127);
                 REQUIRE_PROPERTY(t, @out_from, 0.f);
@@ -90,7 +88,7 @@ TEST_CASE("conv.lin2lin", "[externals]")
 
             // alias @minmax
             {
-                Lin2LinTest t("conv.lin2lin", LA("@minmax"));
+                TObj t("conv.lin2lin", LA("@minmax"));
                 REQUIRE_PROPERTY(t, @in_from, 0.f);
                 REQUIRE_PROPERTY(t, @in_to, 127);
                 REQUIRE_PROPERTY(t, @out_from, 0.f);
@@ -100,7 +98,7 @@ TEST_CASE("conv.lin2lin", "[externals]")
 
             // alias @min
             {
-                Lin2LinTest t("conv.lin2lin", LA("@min"));
+                TObj t("conv.lin2lin", LA("@min"));
                 REQUIRE_PROPERTY(t, @in_from, 0.f);
                 REQUIRE_PROPERTY(t, @in_to, 127);
                 REQUIRE_PROPERTY(t, @out_from, 0.f);
@@ -110,7 +108,7 @@ TEST_CASE("conv.lin2lin", "[externals]")
 
             // alias @max
             {
-                Lin2LinTest t("conv.lin2lin", LA("@max"));
+                TObj t("conv.lin2lin", LA("@max"));
                 REQUIRE_PROPERTY(t, @in_from, 0.f);
                 REQUIRE_PROPERTY(t, @in_to, 127);
                 REQUIRE_PROPERTY(t, @out_from, 0.f);
@@ -122,7 +120,7 @@ TEST_CASE("conv.lin2lin", "[externals]")
         SECTION("positional arguments")
         {
             {
-                Lin2LinTest t("conv.lin2lin", LF(20, 40));
+                TObj t("conv.lin2lin", LF(20, 40));
                 REQUIRE_PROPERTY(t, @in_from, 20);
                 REQUIRE_PROPERTY(t, @in_to, 40);
                 REQUIRE_PROPERTY(t, @out_from, 0.f);
@@ -130,7 +128,7 @@ TEST_CASE("conv.lin2lin", "[externals]")
             }
 
             {
-                Lin2LinTest t("conv.lin2lin", LF(20, 40, 1, 2));
+                TObj t("conv.lin2lin", LF(20, 40, 1, 2));
                 REQUIRE_PROPERTY(t, @in_from, 20);
                 REQUIRE_PROPERTY(t, @in_to, 40);
                 REQUIRE_PROPERTY(t, @out_from, 1);
@@ -140,7 +138,7 @@ TEST_CASE("conv.lin2lin", "[externals]")
 
         SECTION("mixed arguments")
         {
-            Lin2LinTest t("conv.lin2lin", LA(20, 40, "@noclip"));
+            TObj t("conv.lin2lin", LA(20, 40, "@noclip"));
 
             REQUIRE_PROPERTY(t, @in_from, 20);
             REQUIRE_PROPERTY(t, @in_to, 40);
@@ -161,7 +159,7 @@ TEST_CASE("conv.lin2lin", "[externals]")
 
         SECTION("default")
         {
-            Lin2LinTest t("conv.lin2lin", L());
+            TObj t("conv.lin2lin", L());
 
             REQUIRE_L2E(t, 0, 0);
             REQUIRE_L2E(t, 127, 1);
@@ -171,7 +169,7 @@ TEST_CASE("conv.lin2lin", "[externals]")
         {
             SECTION("minmax")
             {
-                Lin2LinTest t("conv.lin2lin", LA("@minmax"));
+                TObj t("conv.lin2lin", LA("@minmax"));
 
                 REQUIRE_L2E(t, -10, 0);
                 REQUIRE_L2E(t, 200, 1);
@@ -179,7 +177,7 @@ TEST_CASE("conv.lin2lin", "[externals]")
 
             SECTION("min")
             {
-                Lin2LinTest t("conv.lin2lin", LA("@min"));
+                TObj t("conv.lin2lin", LA("@min"));
 
                 REQUIRE_L2E(t, -10, 0);
                 REQUIRE_L2E(t, 254, 2);
@@ -187,7 +185,7 @@ TEST_CASE("conv.lin2lin", "[externals]")
 
             SECTION("max")
             {
-                Lin2LinTest t("conv.lin2lin", LA("@max"));
+                TObj t("conv.lin2lin", LA("@max"));
 
                 REQUIRE_L2E(t, -127, -1);
                 REQUIRE_L2E(t, 254, 1);
@@ -195,7 +193,7 @@ TEST_CASE("conv.lin2lin", "[externals]")
 
             SECTION("noclip")
             {
-                Lin2LinTest t("conv.lin2lin", LA("@noclip"));
+                TObj t("conv.lin2lin", LA("@noclip"));
 
                 REQUIRE_L2E(t, -127, -1);
                 REQUIRE_L2E(t, 254, 2);
@@ -204,7 +202,7 @@ TEST_CASE("conv.lin2lin", "[externals]")
 
         SECTION("conv")
         {
-            Lin2LinTest t("conv.lin2lin", LF(-5, 5, 1, 2));
+            TObj t("conv.lin2lin", LF(-5, 5, 1, 2));
             REQUIRE_L2E(t, -5, 1);
             REQUIRE_L2E(t, -4, 1.1);
             REQUIRE_L2E(t, -3, 1.2);
@@ -220,7 +218,7 @@ TEST_CASE("conv.lin2lin", "[externals]")
 
         SECTION("conv @clip minmax")
         {
-            Lin2LinTest t("conv.lin2lin", LA(-5, 5, 1, 2, "@minmax"));
+            TObj t("conv.lin2lin", LA(-5, 5, 1, 2, "@minmax"));
             REQUIRE_L2E(t, -5.1, 1);
             REQUIRE_L2E(t, -5, 1);
             REQUIRE_L2E(t, -4, 1.1);
@@ -231,7 +229,7 @@ TEST_CASE("conv.lin2lin", "[externals]")
 
         SECTION("conv @clip min")
         {
-            Lin2LinTest t("conv.lin2lin", LA(-5, 5, 1, 2, "@min"));
+            TObj t("conv.lin2lin", LA(-5, 5, 1, 2, "@min"));
             REQUIRE_L2E(t, -5.1, 1);
             REQUIRE_L2E(t, -5, 1);
             REQUIRE_L2E(t, -4, 1.1);
@@ -242,7 +240,7 @@ TEST_CASE("conv.lin2lin", "[externals]")
 
         SECTION("conv @clip max")
         {
-            Lin2LinTest t("conv.lin2lin", LA(-5, 5, 1, 2, "@max"));
+            TObj t("conv.lin2lin", LA(-5, 5, 1, 2, "@max"));
             REQUIRE_L2E(t, -6, 0.9);
             REQUIRE_L2E(t, -5, 1);
             REQUIRE_L2E(t, -4, 1.1);
@@ -253,7 +251,7 @@ TEST_CASE("conv.lin2lin", "[externals]")
 
         SECTION("conv @clip noclip")
         {
-            Lin2LinTest t("conv.lin2lin", LA(-5, 5, 1, 2, "@noclip"));
+            TObj t("conv.lin2lin", LA(-5, 5, 1, 2, "@noclip"));
             REQUIRE_L2E(t, -6, 0.9);
             REQUIRE_L2E(t, -5, 1);
             REQUIRE_L2E(t, -4, 1.1);
@@ -264,7 +262,7 @@ TEST_CASE("conv.lin2lin", "[externals]")
 
         SECTION("invalid range")
         {
-            Lin2LinTest t("conv.lin2lin", LA(2, 2, 1, 100, "@noclip"));
+            TObj t("conv.lin2lin", LA(2, 2, 1, 100, "@noclip"));
 
             REQUIRE_PROPERTY(t, @clip, S("noclip"));
             REQUIRE_PROPERTY(t, @in_from, 2);
@@ -289,31 +287,31 @@ TEST_CASE("conv.lin2lin", "[externals]")
 
         SECTION("conv")
         {
-            Lin2LinTest t("conv.lin2lin", LF(-5, 5, 1, 2));
+            TObj t("conv.lin2lin", LF(-5, 5, 1, 2));
             REQUIRE_L2L(t, LF(-5, -4, -3, -2, -1), LX(1, 1.1, 1.2, 1.3, 1.4));
         }
 
         SECTION("conv @clip minmax")
         {
-            Lin2LinTest t("conv.lin2lin", LA(-5, 5, 1, 2, "@minmax"));
+            TObj t("conv.lin2lin", LA(-5, 5, 1, 2, "@minmax"));
             REQUIRE_L2L(t, LF(-5.1, -5, 0, 5, 5.1), LX(1, 1, 1.5, 2, 2));
         }
 
         SECTION("conv @clip min")
         {
-            Lin2LinTest t("conv.lin2lin", LA(-5, 5, 1, 2, "@min"));
+            TObj t("conv.lin2lin", LA(-5, 5, 1, 2, "@min"));
             REQUIRE_L2L(t, LF(-5.1, -5, 0, 5, 6), LX(1, 1, 1.5, 2, 2.1));
         }
 
         SECTION("conv @clip max")
         {
-            Lin2LinTest t("conv.lin2lin", LA(-5, 5, 1, 2, "@max"));
+            TObj t("conv.lin2lin", LA(-5, 5, 1, 2, "@max"));
             REQUIRE_L2L(t, LF(-6, -5, 0, 5, 6), LX(0.9, 1, 1.5, 2, 2));
         }
 
         SECTION("conv @clip noclip")
         {
-            Lin2LinTest t("conv.lin2lin", LA(-5, 5, 1, 2, "@noclip"));
+            TObj t("conv.lin2lin", LA(-5, 5, 1, 2, "@noclip"));
             REQUIRE_L2L(t, LF(-6, -5, 0, 5, 6), LX(0.9, 1, 1.5, 2, 2.1));
         }
     }

@@ -11,21 +11,20 @@
  * contact the author of this file, or the owner of the project in which
  * this file belongs to.
  *****************************************************************************/
-#include "../conv/conv_lin2exp.h"
-#include "test_base.h"
-#include "catch.hpp"
+#include "conv_lin2exp.h"
+#include "test_conv_base.h"
 
-typedef TestExternal<Lin2Exp> Lin2ExpTest;
+PD_COMPLETE_TEST_SETUP(Lin2Exp, conv, lin2exp)
 
 TEST_CASE("conv.lin2exp", "[externals]")
 {
-    obj_init();
+    pd_test_init();
 
     SECTION("test create with:")
     {
         SECTION("empty arguments")
         {
-            Lin2ExpTest t("conv.lin2exp", L());
+            TObj t("conv.lin2exp", L());
             REQUIRE(t.numInlets() == 1);
             REQUIRE(t.numOutlets() == 1);
 
@@ -39,7 +38,7 @@ TEST_CASE("conv.lin2exp", "[externals]")
         SECTION("property arguments")
         {
             {
-                Lin2ExpTest t("conv.lin2exp", LA("@in_from", 10, "@in_to", 100));
+                TObj t("conv.lin2exp", LA("@in_from", 10, "@in_to", 100));
                 REQUIRE_PROPERTY(t, @in_from, 10.f);
                 REQUIRE_PROPERTY(t, @in_to, 100.f);
                 REQUIRE_PROPERTY(t, @out_from, 0.01f);
@@ -48,7 +47,7 @@ TEST_CASE("conv.lin2exp", "[externals]")
             }
 
             {
-                Lin2ExpTest t("conv.lin2exp", LA("@out_from", 10, "@out_to", 100));
+                TObj t("conv.lin2exp", LA("@out_from", 10, "@out_to", 100));
                 REQUIRE_PROPERTY(t, @in_from, 0.f);
                 REQUIRE_PROPERTY(t, @in_to, 127);
                 REQUIRE_PROPERTY(t, @out_from, 10);
@@ -58,7 +57,7 @@ TEST_CASE("conv.lin2exp", "[externals]")
 
             // clip
             {
-                Lin2ExpTest t("conv.lin2exp", LA("@clip", "noclip"));
+                TObj t("conv.lin2exp", LA("@clip", "noclip"));
                 REQUIRE_PROPERTY(t, @in_from, 0.f);
                 REQUIRE_PROPERTY(t, @in_to, 127);
                 REQUIRE_PROPERTY(t, @out_from, 0.01f);
@@ -68,7 +67,7 @@ TEST_CASE("conv.lin2exp", "[externals]")
 
             // invalid clip
             {
-                Lin2ExpTest t("conv.lin2exp", LA("@clip", "invalid"));
+                TObj t("conv.lin2exp", LA("@clip", "invalid"));
                 REQUIRE_PROPERTY(t, @in_from, 0.f);
                 REQUIRE_PROPERTY(t, @in_to, 127);
                 REQUIRE_PROPERTY(t, @out_from, 0.01f);
@@ -79,7 +78,7 @@ TEST_CASE("conv.lin2exp", "[externals]")
 
             // alias @noclip
             {
-                Lin2ExpTest t("conv.lin2exp", LA("@noclip"));
+                TObj t("conv.lin2exp", LA("@noclip"));
                 REQUIRE_PROPERTY(t, @in_from, 0.f);
                 REQUIRE_PROPERTY(t, @in_to, 127);
                 REQUIRE_PROPERTY(t, @out_from, 0.01f);
@@ -89,7 +88,7 @@ TEST_CASE("conv.lin2exp", "[externals]")
 
             // alias @minmax
             {
-                Lin2ExpTest t("conv.lin2exp", LA("@minmax"));
+                TObj t("conv.lin2exp", LA("@minmax"));
                 REQUIRE_PROPERTY(t, @in_from, 0.f);
                 REQUIRE_PROPERTY(t, @in_to, 127);
                 REQUIRE_PROPERTY(t, @out_from, 0.01f);
@@ -99,7 +98,7 @@ TEST_CASE("conv.lin2exp", "[externals]")
 
             // alias @min
             {
-                Lin2ExpTest t("conv.lin2exp", LA("@min"));
+                TObj t("conv.lin2exp", LA("@min"));
                 REQUIRE_PROPERTY(t, @in_from, 0.f);
                 REQUIRE_PROPERTY(t, @in_to, 127);
                 REQUIRE_PROPERTY(t, @out_from, 0.01f);
@@ -109,7 +108,7 @@ TEST_CASE("conv.lin2exp", "[externals]")
 
             // alias @max
             {
-                Lin2ExpTest t("conv.lin2exp", LA("@max"));
+                TObj t("conv.lin2exp", LA("@max"));
                 REQUIRE_PROPERTY(t, @in_from, 0.f);
                 REQUIRE_PROPERTY(t, @in_to, 127);
                 REQUIRE_PROPERTY(t, @out_from, 0.01f);
@@ -121,7 +120,7 @@ TEST_CASE("conv.lin2exp", "[externals]")
         SECTION("positional arguments")
         {
             {
-                Lin2ExpTest t("conv.lin2exp", LF(20, 40));
+                TObj t("conv.lin2exp", LF(20, 40));
                 REQUIRE_PROPERTY(t, @in_from, 20);
                 REQUIRE_PROPERTY(t, @in_to, 40);
                 REQUIRE_PROPERTY(t, @out_from, 0.01f);
@@ -129,7 +128,7 @@ TEST_CASE("conv.lin2exp", "[externals]")
             }
 
             {
-                Lin2ExpTest t("conv.lin2exp", LF(20, 40, 1, 2));
+                TObj t("conv.lin2exp", LF(20, 40, 1, 2));
                 REQUIRE_PROPERTY(t, @in_from, 20);
                 REQUIRE_PROPERTY(t, @in_to, 40);
                 REQUIRE_PROPERTY(t, @out_from, 1);
@@ -139,7 +138,7 @@ TEST_CASE("conv.lin2exp", "[externals]")
 
         SECTION("mixed arguments")
         {
-            Lin2ExpTest t("conv.lin2exp", LA(20, 40, "@noclip"));
+            TObj t("conv.lin2exp", LA(20, 40, "@noclip"));
 
             REQUIRE_PROPERTY(t, @in_from, 20);
             REQUIRE_PROPERTY(t, @in_to, 40);
@@ -160,7 +159,7 @@ TEST_CASE("conv.lin2exp", "[externals]")
 
         SECTION("default")
         {
-            Lin2ExpTest t("conv.lin2exp", L());
+            TObj t("conv.lin2exp", L());
 
             REQUIRE_L2E(t, 0, 0.01);
             REQUIRE_L2E(t, 127, 1);
@@ -170,7 +169,7 @@ TEST_CASE("conv.lin2exp", "[externals]")
         {
             SECTION("minmax")
             {
-                Lin2ExpTest t("conv.lin2exp", LA("@minmax"));
+                TObj t("conv.lin2exp", LA("@minmax"));
 
                 REQUIRE_L2E(t, -10, 0.01);
                 REQUIRE_L2E(t, 200, 1);
@@ -178,7 +177,7 @@ TEST_CASE("conv.lin2exp", "[externals]")
 
             SECTION("min")
             {
-                Lin2ExpTest t("conv.lin2exp", LA("@min"));
+                TObj t("conv.lin2exp", LA("@min"));
 
                 REQUIRE_L2E(t, -10, 0.01);
                 REQUIRE_L2E(t, 254, 100);
@@ -186,7 +185,7 @@ TEST_CASE("conv.lin2exp", "[externals]")
 
             SECTION("max")
             {
-                Lin2ExpTest t("conv.lin2exp", LA("@max"));
+                TObj t("conv.lin2exp", LA("@max"));
 
                 REQUIRE_L2E(t, -127, 0.0001);
                 REQUIRE_L2E(t, 254, 1);
@@ -194,7 +193,7 @@ TEST_CASE("conv.lin2exp", "[externals]")
 
             SECTION("noclip")
             {
-                Lin2ExpTest t("conv.lin2exp", LA("@noclip"));
+                TObj t("conv.lin2exp", LA("@noclip"));
 
                 REQUIRE_L2E(t, -127, 0.0001);
                 REQUIRE_L2E(t, 254, 100);
@@ -203,7 +202,7 @@ TEST_CASE("conv.lin2exp", "[externals]")
 
         SECTION("conv")
         {
-            Lin2ExpTest t("conv.lin2lin", LF(-5, 5, 1, 2));
+            TObj t("conv.lin2lin", LF(-5, 5, 1, 2));
             REQUIRE_L2E(t, -5, 1);
             REQUIRE_L2E(t, -4, 1.0717734625363);
             REQUIRE_L2E(t, -3, 1.148698354997);
