@@ -71,7 +71,7 @@ ceammc_list_extension(zip)
 ceammc_list_extension(zip)
 
 add_library(ceammc_list STATIC mod_list.h mod_list.cpp ${LIST_SOURCES})
-target_link_libraries(ceammc_list PRIVATE fmt::fmt-header-only)
+target_include_directories(ceammc_list PRIVATE $<TARGET_PROPERTY:fmt,INCLUDE_DIRECTORIES>)
 
 if(UNIX)
     set_target_properties(ceammc_list PROPERTIES COMPILE_FLAGS "-fPIC")

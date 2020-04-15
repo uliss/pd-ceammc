@@ -56,7 +56,7 @@ list(APPEND BASE_SOURCES
     xfade2_tilde.cpp)
 
 add_library(ceammc_base STATIC mod_base.cpp ${BASE_SOURCES})
-target_link_libraries(ceammc_base PRIVATE fmt::fmt-header-only)
+target_include_directories(ceammc_base PRIVATE $<TARGET_PROPERTY:fmt,INCLUDE_DIRECTORIES>)
 if(UNIX)
     set_target_properties(ceammc_base PROPERTIES COMPILE_FLAGS "-fPIC")
 endif()

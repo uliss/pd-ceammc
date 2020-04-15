@@ -46,4 +46,4 @@ endif()
 
 target_link_libraries(ceammc_flow PRIVATE ceammc_base) # for function calls
 target_link_libraries(ceammc_flow PRIVATE re2)
-target_link_libraries(ceammc_flow PRIVATE fmt::fmt-header-only)
+target_include_directories(ceammc_flow PRIVATE $<TARGET_PROPERTY:fmt,INCLUDE_DIRECTORIES>)

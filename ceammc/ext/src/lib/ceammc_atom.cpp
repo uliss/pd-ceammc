@@ -573,6 +573,8 @@ bool Atom::operator<(const Atom& b) const noexcept
             } else
                 return dataType() < b.dataType();
         }
+        default:
+            return false;
         }
     } else
         return t < b.type();
@@ -664,6 +666,8 @@ bool Atom::operator==(const Atom& x) const noexcept
     }
     case NONE:
         return true;
+    default:
+        return false;
     }
 }
 

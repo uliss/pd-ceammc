@@ -90,6 +90,6 @@ pd_add_external(NAME ceammc
     FILES ceammc_lib_external.cpp mod_init.cpp
     INTERNAL True
     LIBRARY ceammc
-    LINK ${CEAMMC_EXT_LINK_LIBRARIES})
+    LINK ${CEAMMC_EXT_LINK_LIBRARIES} fmt::fmt)
 
 add_custom_target(ceammc_lib_src SOURCES gen_lib.sh)

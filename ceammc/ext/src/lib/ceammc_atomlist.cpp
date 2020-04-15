@@ -698,6 +698,8 @@ AtomList AtomList::add(const AtomList& a, const AtomList& b, NonEqualLengthBehai
         return listAdd(a, b, &AtomList::wrapAt);
     case FOLD:
         return listAdd(a, b, &AtomList::foldAt);
+    default:
+        return a;
     }
 }
 
@@ -763,6 +765,8 @@ AtomList AtomList::sub(const AtomList& a, const AtomList& b, AtomList::NonEqualL
         return listSubstract(a, b, &AtomList::wrapAt);
     case FOLD:
         return listSubstract(a, b, &AtomList::foldAt);
+    default:
+        return a;
     }
 }
 

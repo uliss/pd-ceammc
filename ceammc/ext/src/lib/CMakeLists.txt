@@ -153,8 +153,9 @@ add_library(ceammc_core SHARED
 target_link_libraries(ceammc_core PUBLIC puredata-core)
 target_link_libraries(ceammc_core PUBLIC re2)
 target_link_libraries(ceammc_core PRIVATE reflex)
-target_link_libraries(ceammc_core PRIVATE fmt::fmt-header-only)
-target_include_directories(ceammc_core PRIVATE ${PROJECT_SOURCE_DIR}/ceammc/extra/re2)
+target_link_libraries(ceammc_core PRIVATE fmt::fmt)
+target_include_directories(ceammc_core PRIVATE $<TARGET_PROPERTY:re2,INCLUDE_DIRECTORIES>)
+target_include_directories(ceammc_core PRIVATE $<TARGET_PROPERTY:reflex,INCLUDE_DIRECTORIES>)
 
 set_target_properties(ceammc_core PROPERTIES
     COMPILE_FLAGS "${LIBCEAMMC_COMPILE_FLAGS}"
@@ -186,7 +187,7 @@ set(CEAMMC_LOAD_SRC
 
 target_sources(ceammc_sound PRIVATE ${CEAMMC_LOAD_SRC})
 target_compile_options(ceammc_sound PRIVATE ${LIBCEAMMC_COMPILE_FLAGS})
-target_link_libraries(ceammc_sound PRIVATE fmt::fmt-header-only)
+target_include_directories(ceammc_sound PRIVATE $<TARGET_PROPERTY:fmt,INCLUDE_DIRECTORIES>)
 target_include_directories(ceammc_sound PRIVATE $<TARGET_PROPERTY:reflex,INCLUDE_DIRECTORIES>)
 target_link_libraries(ceammc_sound PUBLIC ceammc_core)
 
@@ -235,7 +236,8 @@ if(ENABLE_TESTS)
     target_link_libraries(ext_props puredata-core ${CEAMMC_EXT_LINK_LIBRARIES})
 
     add_executable(ext_info ext_info.cpp ../mod_init.cpp)
-    target_link_libraries(ext_info puredata-core ${CEAMMC_EXT_LINK_LIBRARIES})
+    target_link_libraries(ext_info PRIVATE ${CEAMMC_EXT_LINK_LIBRARIES} puredata-core)
+    target_include_directories(ext_info PRIVATE $<TARGET_PROPERTY:fmt,INCLUDE_DIRECTORIES>)
 endif()
 
 add_custom_target(ceammc_cicm_tcl_gen

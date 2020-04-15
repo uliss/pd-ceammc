@@ -166,6 +166,8 @@ bool Property::reset()
         return setAtom(info().defaultAtom());
     case PropValueType::LIST:
         return setList(info().defaultList());
+    default:
+        return false;
     }
 }
 

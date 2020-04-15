@@ -586,6 +586,8 @@ bool PropertyInfo::setView(PropValueView v)
             return false;
         }
         break;
+    default:
+        return false;
     }
 }
 
