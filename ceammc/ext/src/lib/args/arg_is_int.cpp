@@ -118,6 +118,7 @@ bool ArgIsInt::checkAtom(const Atom& a, CheckerContext& ctx) const
         return rc;
     }
     case INT_ANY:
+    default:
         return true;
     }
 }

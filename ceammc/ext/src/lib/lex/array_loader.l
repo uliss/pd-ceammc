@@ -1,8 +1,5 @@
 %top {
     # include <string>
-    # include <memory>
-    # include <cstdint>
-    # include <cmath>
 
     # include "lex/array_loader.parser.hpp"
 
@@ -11,9 +8,6 @@
 
 %class {
     private:
-        std::vector<uint8_t> channels_;
-        bool finished_ = {false};
-
         size_t output_indent_ = {0};
 
     public:

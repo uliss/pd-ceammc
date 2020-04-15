@@ -44,9 +44,6 @@
 #line 1 "array_loader.l"
 
     # include <string>
-    # include <memory>
-    # include <cstdint>
-    # include <cmath>
 
     # include "lex/array_loader.parser.hpp"
 
@@ -79,12 +76,9 @@
 namespace ceammc {
 
 class ArrayLoaderLexer : public reflex::AbstractLexer<reflex::Matcher> {
-#line 12 "array_loader.l"
+#line 9 "array_loader.l"
 
     private:
-        std::vector<uint8_t> channels_;
-        bool finished_ = {false};
-
         size_t output_indent_ = {0};
 
     public:
