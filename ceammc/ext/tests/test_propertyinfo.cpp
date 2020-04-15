@@ -492,19 +492,19 @@ TEST_CASE("PropertyInfo", "[core]")
             pi.setDefault(100);
             REQUIRE(pi.getDict(d));
             REQUIRE(*d.toJSON()
-                == R"({"access":"readonly","default":100.0,"name":"@float","type":"float","view":"slider","visibility":"public"})");
+                == R"({"access":"readonly","default":100,"name":"@float","type":"float","view":"slider","visibility":"public"})");
 
             pi.setUnits(PropValueUnits::BPM);
             REQUIRE(pi.getDict(d));
             REQUIRE(*d.toJSON()
-                == R"({"access":"readonly","default":100.0,"name":"@float","type":"float","units":"bpm","view":"slider","visibility":"public"})");
+                == R"({"access":"readonly","default":100,"name":"@float","type":"float","units":"bpm","view":"slider","visibility":"public"})");
 
             pi.setConstraints(PropValueConstraints::GREATER_EQUAL);
             REQUIRE(pi.setMinFloat(-10));
 
             REQUIRE(pi.getDict(d));
             REQUIRE(*d.toJSON()
-                == R"({"access":"readonly","constraints":">=","default":100.0,"min":-10.0,"name":"@float","type":"float","units":"bpm","view":"slider","visibility":"public"})");
+                == R"({"access":"readonly","constraints":">=","default":100,"min":-10,"name":"@float","type":"float","units":"bpm","view":"slider","visibility":"public"})");
         }
     }
 }
