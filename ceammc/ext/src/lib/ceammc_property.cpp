@@ -23,6 +23,7 @@
 
 #include <algorithm>
 #include <cctype>
+#include <cmath>
 
 #define PROP_ERR() LogPdObject(owner(), LOG_ERROR).stream() << errorPrefix()
 #define PROP_CHECK_ERR(v)                                                \
@@ -189,8 +190,8 @@ bool Property::setFloatCheckFn(Property::PropFloatCheckFn fn, const std::string&
 
 bool Property::setIntCheckFn(Property::PropIntCheckFn fn, const std::string& err)
 {
-    if (!isInt()) {
-        PROP_ERR() << "not int property";
+    if (!isInt() && !isList()) {
+        PROP_ERR() << "not int or list property";
         return false;
     }
 
@@ -216,8 +217,8 @@ bool Property::setIntCheckFn(Property::PropIntCheckFn fn, const std::string& err
 
 bool Property::setSymbolCheckFn(Property::PropSymbolCheckFn fn, const std::string& err)
 {
-    if (!isSymbol()) {
-        PROP_ERR() << "not symbol property";
+    if (!isSymbol() && !isList()) {
+        PROP_ERR() << "not symbol or list property";
         return false;
     }
 
@@ -235,8 +236,8 @@ bool Property::setSymbolCheckFn(Property::PropSymbolCheckFn fn, const std::strin
 
 bool Property::setAtomCheckFn(Property::PropAtomCheckFn fn, const std::string& err)
 {
-    if (!isAtom()) {
-        PROP_ERR() << "not atom property";
+    if (!isAtom() && !isList()) {
+        PROP_ERR() << "not atom or list property";
         return false;
     }
 
@@ -662,28 +663,72 @@ bool Property::checkAtom(const Atom& a) const
 
 bool Property::checkList(const AtomList& l) const
 {
-    if (check_fn_ptr_) {
-        auto fn = std::get<4>(*check_fn_ptr_);
-        if (fn && !fn(l)) {
+    if (!check_fn_ptr_)
+        return true;
+
+    PropListCheckFn list_fn = std::get<4>(*check_fn_ptr_);
+    if (list_fn) {
+        if (!list_fn(l)) {
             PROP_CHECK_ERR(l);
             return false;
-        } else {
-            PropFloatCheckFn float_fn = std::get<0>(*check_fn_ptr_);
-            if (float_fn) {
-                // check for all floats
-                for (auto& a : l) {
-                    if (!a.isFloat()) {
-                        LogPdObject(owner(), LogLevel::LOG_ERROR).stream() << errorPrefix() << "list of floats expected, got: " << l;
-                        return false;
-                    }
+        } else
+            return true;
+    }
 
-                    if (!float_fn(a.asFloat())) {
-                        PROP_CHECK_ERR(l);
-                        return false;
-                    }
-                }
+    PropFloatCheckFn float_fn = std::get<0>(*check_fn_ptr_);
+    if (float_fn) {
+        // check for all floats
+        for (auto& a : l) {
+            if (!a.isFloat()) {
+                LogPdObject(owner(), LogLevel::LOG_ERROR).stream() << errorPrefix() << "list of floats expected, got: " << l;
+                return false;
+            }
+
+            if (!float_fn(a.asFloat())) {
+                PROP_CHECK_ERR(l);
+                return false;
             }
         }
+
+        return true;
+    }
+
+    PropIntCheckFn int_fn = std::get<1>(*check_fn_ptr_);
+    if (int_fn) {
+        // check for all ints
+        for (auto& a : l) {
+            if (!a.isInteger()) {
+                LogPdObject(owner(), LogLevel::LOG_ERROR).stream()
+                    << errorPrefix() << "list of integers expected, got: " << l;
+                return false;
+            }
+
+            if (!int_fn(a.asInt())) {
+                PROP_CHECK_ERR(l);
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+    PropSymbolCheckFn sym_fn = std::get<2>(*check_fn_ptr_);
+    if (sym_fn) {
+        // check for all symbols
+        for (auto& a : l) {
+            if (!a.isSymbol()) {
+                LogPdObject(owner(), LogLevel::LOG_ERROR).stream()
+                    << errorPrefix() << "list of symbols expected, got: " << l;
+                return false;
+            }
+
+            if (!sym_fn(a.asSymbol())) {
+                PROP_CHECK_ERR(l);
+                return false;
+            }
+        }
+
+        return true;
     }
 
     return true;
@@ -787,10 +832,18 @@ bool ListProperty::getList(AtomList& l) const
 
 bool ListProperty::setValue(const AtomList& l)
 {
-    if (!checkList(l))
+    AtomList args = l;
+
+    if (filter_)
+        args = args.filtered(filter_);
+
+    if (map_)
+        args = args.map(map_);
+
+    if (!checkList(args))
         return false;
 
-    lst_ = l;
+    lst_ = args;
     return true;
 }
 
@@ -876,6 +929,41 @@ bool ListProperty::checkRangeElementCount(size_t min, size_t max)
     }
 
     return res;
+}
+
+void ListProperty::acceptFloats()
+{
+    setFilterAtomFn([](const Atom& a) { return a.isFloat(); });
+}
+
+void ListProperty::acceptIntegers()
+{
+    setFilterAtomFn([](const Atom& a) { return a.isInteger(); });
+}
+
+void ListProperty::acceptSymbols()
+{
+    setFilterAtomFn([](const Atom& a) { return a.isSymbol(); });
+}
+
+void ListProperty::roundFloats()
+{
+    setMapAtomFn([](const Atom& a) { return a.isFloat() ? atomFrom(std::round(a.asFloat())) : a; });
+}
+
+void ListProperty::truncateFloats()
+{
+    setMapAtomFn([](const Atom& a) { return a.isFloat() ? atomFrom(std::trunc(a.asFloat())) : a; });
+}
+
+void ListProperty::setFilterAtomFn(Property::PropAtomCheckFn fn)
+{
+    filter_ = fn;
+}
+
+void ListProperty::setMapAtomFn(AtomMapFunction fn)
+{
+    map_ = fn;
 }
 
 AtomList ListProperty::get() const
@@ -1313,5 +1401,4 @@ bool CombinedProperty::getList(AtomList& l) const
     l = get();
     return true;
 }
-
 }

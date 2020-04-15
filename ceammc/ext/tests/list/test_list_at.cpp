@@ -69,6 +69,12 @@ TEST_CASE("list.at", "[externals]")
                 REQUIRE_THAT(t, hasProperty(&t, "@index", 0));
             }
         }
+
+        SECTION("floats")
+        {
+            TObj t("list.at", LF(1, 2.5, 5));
+            REQUIRE_PROPERTY(t, @index, 1, 5);
+        }
     }
 
     SECTION("do")

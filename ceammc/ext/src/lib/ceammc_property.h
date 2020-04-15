@@ -401,6 +401,8 @@ public:
  */
 class ListProperty : public Property {
     AtomList lst_;
+    PropAtomCheckFn filter_;
+    AtomMapFunction map_;
 
 public:
     ListProperty(const std::string& name, const AtomList& init = AtomList(), PropValueAccess access = PropValueAccess::READWRITE);
@@ -421,6 +423,26 @@ public:
     bool checkMinElementCount(size_t n);
     bool checkMaxElementCount(size_t n);
     bool checkRangeElementCount(size_t min, size_t max);
+
+    /**
+     * pass atoms from list for which fn returns true
+     * the order is: filter -> map -> check
+     */
+    void setFilterAtomFn(PropAtomCheckFn pred);
+
+    /**
+     * maps each list value
+     * the order is: filter -> map -> check
+     **/
+    void setMapAtomFn(AtomMapFunction fn);
+
+    // easy to use filter function setup
+    void acceptFloats();
+    void acceptIntegers();
+    void acceptSymbols();
+    // ready map function
+    void roundFloats();
+    void truncateFloats();
 
 public:
     using value_type = AtomList;

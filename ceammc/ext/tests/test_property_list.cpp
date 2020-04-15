@@ -83,9 +83,9 @@ TEST_CASE("Properties", "[ceammc::properties]")
     {
         ListProperty p("@l", LF(1, 2));
 
-        REQUIRE_FALSE(p.setIntCheckFn(nullptr));
-        REQUIRE_FALSE(p.setAtomCheckFn(nullptr));
-        REQUIRE_FALSE(p.setSymbolCheckFn(nullptr));
+        REQUIRE(p.setIntCheckFn(nullptr));
+        REQUIRE(p.setAtomCheckFn(nullptr));
+        REQUIRE(p.setSymbolCheckFn(nullptr));
 
         p.setListCheckFn([](const AtomList& l) { return l.size() == 2 && l.allOf(isFloat); });
         REQUIRE_FALSE(p.set(L()));
@@ -214,6 +214,65 @@ TEST_CASE("Properties", "[ceammc::properties]")
             REQUIRE(p.set(LF(1, 2, 3)));
             REQUIRE_FALSE(p.set(L()));
             REQUIRE_FALSE(p.set(LF(1, 2, 3, 4)));
+        }
+    }
+
+    SECTION("filter")
+    {
+        ListProperty p("@l");
+
+        SECTION("float")
+        {
+            p.setFilterAtomFn(isFloat);
+            REQUIRE(p.set(LA(1, 2.5, "a", 3)));
+            REQUIRE(p.get() == LF(1, 2.5, 3));
+        }
+
+        SECTION("int")
+        {
+            p.acceptIntegers();
+            REQUIRE(p.set(LA(1, 2.5, "a", 3)));
+            REQUIRE(p.get() == LF(1, 3));
+        }
+
+        SECTION("symbol")
+        {
+            p.acceptSymbols();
+            REQUIRE(p.set(LA(1, 2.5, "a", 3)));
+            REQUIRE(p.get() == LA("a"));
+        }
+
+        SECTION("float")
+        {
+            p.acceptFloats();
+            REQUIRE(p.set(LA(1, 2.5, "a", 3)));
+            REQUIRE(p.get() == LF(1, 2.5, 3));
+        }
+    }
+
+    SECTION("apply")
+    {
+        ListProperty p("@l");
+
+        SECTION("apply")
+        {
+            p.setMapAtomFn([](const Atom& a) { return a.isSymbol() ? A("S") : A("."); });
+            REQUIRE(p.set(LA(1, 2.5, "a", 3)));
+            REQUIRE(p.get() == LA(".", ".", "S", "."));
+        }
+
+        SECTION("round")
+        {
+            p.roundFloats();
+            REQUIRE(p.set(LA(1, 2.6, "a", 3)));
+            REQUIRE(p.get() == LA(1, 3, "a", 3));
+        }
+
+        SECTION("trunc")
+        {
+            p.truncateFloats();
+            REQUIRE(p.set(LA(1, 2.6, "a", 3, -2.1)));
+            REQUIRE(p.get() == LA(1, 2, "a", 3, -2));
         }
     }
 }
