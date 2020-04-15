@@ -20,9 +20,10 @@
 
 %code requires {
     # include <cstddef>
+    # include <cstdint>
     # include <cstdio>
-    # include <vector>
     # include <string>
+    # include <vector>
 
     namespace ceammc {
         class ArrayLoaderLexer;
@@ -44,10 +45,10 @@
     using OPT = ceammc::ArrayLoader::OptionType;
     using OFFSET = ceammc::ArrayLoader::ArrayOffsetType;
 
-    static StringList generateStringRange(uint from, uint to) {
+    static StringList generateStringRange(size_t from, size_t to) {
         StringList res;
         res.reserve(to - from + 1);
-        for(uint i = from; i <= to; i++)
+        for(size_t i = from; i <= to; i++)
             res.emplace_back(std::to_string(i));
 
         return res;
@@ -76,9 +77,9 @@
 %token                  OFFSET_END
 %token  <std::string>   SMPTE
 %token  <double>        FLOAT
-%token  <int>           INT
-%token  <uint>          UINT
-%token  <uint>          RANGE_BEGIN RANGE_END
+%token  <int32_t>       INT
+%token  <uint32_t>      UINT
+%token  <uint32_t>      RANGE_BEGIN RANGE_END
 %token                  SEC MSEC SAMPLES DB
 %token                  COLON ':'  "colon"
 %token                  DOT   '.'  "dot"

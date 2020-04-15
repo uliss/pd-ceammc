@@ -102,7 +102,8 @@ arr_pattern [^@ \[\]][^ \[\]]*
 <ARRAY>{arr_pattern}    { return ArrayLoaderParser::make_SYMBOL(text(), location()); }
 <ARRAY>\[               { start(PATTERN); return ArrayLoaderParser::make_PATTERN_BEGIN(location()); }
 
-<PATTERN>{uint}         { return ArrayLoaderParser::make_UINT(std::stoi(text()), location()); }
+<PATTERN>{uint}         { size_t n = std::stoi(text());
+                          return ArrayLoaderParser::make_UINT(n, location()); }
 <PATTERN>\-             { return ArrayLoaderParser::make_RANGE_DELIM(location()); }
 <PATTERN>\|             { return ArrayLoaderParser::make_VAR_DELIM(location()); }
 <PATTERN>[\w]+          { return ArrayLoaderParser::make_SYMBOL(text(), location()); }
@@ -125,7 +126,9 @@ arr_pattern [^@ \[\]][^ \[\]]*
 <OPTIONS>{space}
 
 <OPTIONS>{smpte}        { start(SMPTE); matcher().less(0); /*push back smpte value and go to SMPTE*/ }
-<OPTIONS>{uint}/-{uint} { start(RANGE); return ArrayLoaderParser::make_RANGE_BEGIN(std::stoi(text()), location()); }
+<OPTIONS>{uint}/-{uint} { start(RANGE);
+                          size_t n = std::stoi(text());
+                          return ArrayLoaderParser::make_RANGE_BEGIN(n, location()); }
 <OPTIONS>{int}          { return ArrayLoaderParser::make_INT(std::stoi(text()), location()); }
 <OPTIONS>{float}        { return ArrayLoaderParser::make_FLOAT(std::stod(text()), location()); }
 <OPTIONS>(ms|msec)      { return ArrayLoaderParser::make_MSEC(location()); }
@@ -135,9 +138,12 @@ arr_pattern [^@ \[\]][^ \[\]]*
 <OPTIONS>\/             { return ArrayLoaderParser::make_FRAC(location()); }
 <OPTIONS>end            { return ArrayLoaderParser::make_OFFSET_END(location()); }
 
-<RANGE>-{uint}          { start(OPTIONS); return ArrayLoaderParser::make_RANGE_END(std::stoi(text()+1), location()); }
+<RANGE>-{uint}          { start(OPTIONS);
+                          size_t n = std::stoi(text()+1);
+                          return ArrayLoaderParser::make_RANGE_END(n, location()); }
 
-<SMPTE>[0-9][0-9]       { return ArrayLoaderParser::make_UINT(std::stoi(text(), nullptr, 10), location()); }
+<SMPTE>[0-9][0-9]       { size_t n = std::stol(text(), nullptr, 10);
+                          return ArrayLoaderParser::make_UINT(n, location()); }
 <SMPTE>:                { return ArrayLoaderParser::make_COLON(location()); }
 <SMPTE>\.               { return ArrayLoaderParser::make_DOT(location()); }
 <SMPTE>[ ]              { start(OPTIONS); /*go to next option*/  }

@@ -47,9 +47,10 @@
 #line 21 "array_loader.y"
 
     # include <cstddef>
+    # include <cstdint>
     # include <cstdio>
-    # include <vector>
     # include <string>
+    # include <vector>
 
     namespace ceammc {
         class ArrayLoaderLexer;
@@ -59,7 +60,7 @@
     using StringList = std::vector<std::string>;
     using ChannelList = std::vector<int>;
 
-#line 63 "array_loader.parser.hpp"
+#line 64 "array_loader.parser.hpp"
 
 # include <cassert>
 # include <cstdlib> // std::abort
@@ -194,7 +195,7 @@
 
 #line 7 "array_loader.y"
 namespace ceammc {
-#line 198 "array_loader.parser.hpp"
+#line 199 "array_loader.parser.hpp"
 
 
 
@@ -410,7 +411,7 @@ namespace ceammc {
       char dummy3[sizeof (double)];
 
       // INT
-      char dummy4[sizeof (int)];
+      char dummy4[sizeof (int32_t)];
 
       // time
       // smpte
@@ -424,7 +425,7 @@ namespace ceammc {
       // UINT
       // RANGE_BEGIN
       // RANGE_END
-      char dummy7[sizeof (uint)];
+      char dummy7[sizeof (uint32_t)];
     };
 
     /// The size of the largest semantic type.
@@ -596,13 +597,13 @@ namespace ceammc {
       {}
 #endif
 #if 201103L <= YY_CPLUSPLUS
-      basic_symbol (typename Base::kind_type t, int&& v, location_type&& l)
+      basic_symbol (typename Base::kind_type t, int32_t&& v, location_type&& l)
         : Base (t)
         , value (std::move (v))
         , location (std::move (l))
       {}
 #else
-      basic_symbol (typename Base::kind_type t, const int& v, const location_type& l)
+      basic_symbol (typename Base::kind_type t, const int32_t& v, const location_type& l)
         : Base (t)
         , value (v)
         , location (l)
@@ -635,13 +636,13 @@ namespace ceammc {
       {}
 #endif
 #if 201103L <= YY_CPLUSPLUS
-      basic_symbol (typename Base::kind_type t, uint&& v, location_type&& l)
+      basic_symbol (typename Base::kind_type t, uint32_t&& v, location_type&& l)
         : Base (t)
         , value (std::move (v))
         , location (std::move (l))
       {}
 #else
-      basic_symbol (typename Base::kind_type t, const uint& v, const location_type& l)
+      basic_symbol (typename Base::kind_type t, const uint32_t& v, const location_type& l)
         : Base (t)
         , value (v)
         , location (l)
@@ -685,7 +686,7 @@ switch (yytype)
         break;
 
       case 21: // INT
-        value.template destroy< int > ();
+        value.template destroy< int32_t > ();
         break;
 
       case 37: // time
@@ -702,7 +703,7 @@ switch (yytype)
       case 22: // UINT
       case 23: // RANGE_BEGIN
       case 24: // RANGE_END
-        value.template destroy< uint > ();
+        value.template destroy< uint32_t > ();
         break;
 
       default:
@@ -804,13 +805,13 @@ switch (yytype)
       }
 #endif
 #if 201103L <= YY_CPLUSPLUS
-      symbol_type (int tok, int v, location_type l)
+      symbol_type (int tok, int32_t v, location_type l)
         : super_type(token_type (tok), std::move (v), std::move (l))
       {
         YY_ASSERT (tok == token::TOK_INT);
       }
 #else
-      symbol_type (int tok, const int& v, const location_type& l)
+      symbol_type (int tok, const int32_t& v, const location_type& l)
         : super_type(token_type (tok), v, l)
       {
         YY_ASSERT (tok == token::TOK_INT);
@@ -830,13 +831,13 @@ switch (yytype)
       }
 #endif
 #if 201103L <= YY_CPLUSPLUS
-      symbol_type (int tok, uint v, location_type l)
+      symbol_type (int tok, uint32_t v, location_type l)
         : super_type(token_type (tok), std::move (v), std::move (l))
       {
         YY_ASSERT (tok == token::TOK_UINT || tok == token::TOK_RANGE_BEGIN || tok == token::TOK_RANGE_END);
       }
 #else
-      symbol_type (int tok, const uint& v, const location_type& l)
+      symbol_type (int tok, const uint32_t& v, const location_type& l)
         : super_type(token_type (tok), v, l)
       {
         YY_ASSERT (tok == token::TOK_UINT || tok == token::TOK_RANGE_BEGIN || tok == token::TOK_RANGE_END);
@@ -1167,14 +1168,14 @@ switch (yytype)
 #if 201103L <= YY_CPLUSPLUS
       static
       symbol_type
-      make_INT (int v, location_type l)
+      make_INT (int32_t v, location_type l)
       {
         return symbol_type (token::TOK_INT, std::move (v), std::move (l));
       }
 #else
       static
       symbol_type
-      make_INT (const int& v, const location_type& l)
+      make_INT (const int32_t& v, const location_type& l)
       {
         return symbol_type (token::TOK_INT, v, l);
       }
@@ -1182,14 +1183,14 @@ switch (yytype)
 #if 201103L <= YY_CPLUSPLUS
       static
       symbol_type
-      make_UINT (uint v, location_type l)
+      make_UINT (uint32_t v, location_type l)
       {
         return symbol_type (token::TOK_UINT, std::move (v), std::move (l));
       }
 #else
       static
       symbol_type
-      make_UINT (const uint& v, const location_type& l)
+      make_UINT (const uint32_t& v, const location_type& l)
       {
         return symbol_type (token::TOK_UINT, v, l);
       }
@@ -1197,14 +1198,14 @@ switch (yytype)
 #if 201103L <= YY_CPLUSPLUS
       static
       symbol_type
-      make_RANGE_BEGIN (uint v, location_type l)
+      make_RANGE_BEGIN (uint32_t v, location_type l)
       {
         return symbol_type (token::TOK_RANGE_BEGIN, std::move (v), std::move (l));
       }
 #else
       static
       symbol_type
-      make_RANGE_BEGIN (const uint& v, const location_type& l)
+      make_RANGE_BEGIN (const uint32_t& v, const location_type& l)
       {
         return symbol_type (token::TOK_RANGE_BEGIN, v, l);
       }
@@ -1212,14 +1213,14 @@ switch (yytype)
 #if 201103L <= YY_CPLUSPLUS
       static
       symbol_type
-      make_RANGE_END (uint v, location_type l)
+      make_RANGE_END (uint32_t v, location_type l)
       {
         return symbol_type (token::TOK_RANGE_END, std::move (v), std::move (l));
       }
 #else
       static
       symbol_type
-      make_RANGE_END (const uint& v, const location_type& l)
+      make_RANGE_END (const uint32_t& v, const location_type& l)
       {
         return symbol_type (token::TOK_RANGE_END, v, l);
       }
@@ -1737,7 +1738,7 @@ switch (yytype)
         break;
 
       case 21: // INT
-        value.move< int > (std::move (that.value));
+        value.move< int32_t > (std::move (that.value));
         break;
 
       case 37: // time
@@ -1754,7 +1755,7 @@ switch (yytype)
       case 22: // UINT
       case 23: // RANGE_BEGIN
       case 24: // RANGE_END
-        value.move< uint > (std::move (that.value));
+        value.move< uint32_t > (std::move (that.value));
         break;
 
       default:
@@ -1787,7 +1788,7 @@ switch (yytype)
         break;
 
       case 21: // INT
-        value.copy< int > (YY_MOVE (that.value));
+        value.copy< int32_t > (YY_MOVE (that.value));
         break;
 
       case 37: // time
@@ -1804,7 +1805,7 @@ switch (yytype)
       case 22: // UINT
       case 23: // RANGE_BEGIN
       case 24: // RANGE_END
-        value.copy< uint > (YY_MOVE (that.value));
+        value.copy< uint32_t > (YY_MOVE (that.value));
         break;
 
       default:
@@ -1844,7 +1845,7 @@ switch (yytype)
         break;
 
       case 21: // INT
-        value.move< int > (YY_MOVE (s.value));
+        value.move< int32_t > (YY_MOVE (s.value));
         break;
 
       case 37: // time
@@ -1861,7 +1862,7 @@ switch (yytype)
       case 22: // UINT
       case 23: // RANGE_BEGIN
       case 24: // RANGE_END
-        value.move< uint > (YY_MOVE (s.value));
+        value.move< uint32_t > (YY_MOVE (s.value));
         break;
 
       default:
@@ -1920,7 +1921,7 @@ switch (yytype)
 
 #line 7 "array_loader.y"
 } // ceammc
-#line 1924 "array_loader.parser.hpp"
+#line 1925 "array_loader.parser.hpp"
 
 
 
