@@ -30,13 +30,13 @@ int DataStorage::registerNewType(const std::string& name,
     CreateFromListFn fromListFn,
     CreateFromDictFn fromDictFn)
 {
-    constexpr auto MAX_TYPE = TypeList::static_capacity;
     constexpr auto FIRST_TYPE_ID = 256;
 
     if (type_list_.empty()) {
         type_list_.emplace_back(FIRST_TYPE_ID, name, fromListFn, fromDictFn);
         return FIRST_TYPE_ID;
     } else {
+        const auto MAX_TYPE = TypeList::capacity();
         const auto LAST_ID = type_list_.back().type;
 
         if (LAST_ID >= 1024) {
