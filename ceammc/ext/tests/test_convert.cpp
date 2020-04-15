@@ -356,7 +356,7 @@ TEST_CASE("convert", "[PureData]")
 
     SECTION("lin2sigmoid")
     {
-#define L2S(x, x0, x1, y0, y1, v) REQUIRE(lin2sigmoid(x, x0, x1, y0, y1, 50) == Approx(v))
+#define L2S(x, x0, x1, y0, y1, v) REQUIRE(lin2sigmoid(x, x0, x1, y0, y1, 50) == Approx(v).margin(0.00001))
         L2S(0, 0, 1, 0, 1, 0);
         L2S(0, 0, 1, 0, 2, 0);
         L2S(0, 0, 2, 0, 2, 0);
@@ -563,7 +563,7 @@ TEST_CASE("convert", "[PureData]")
         REQUIRE(midi2freq(69.f, 442) == Approx(442));
         REQUIRE(midi2freq(69.f, 415) == Approx(415));
 
-        REQUIRE(midi2freq(-60.f) == Approx(0.25549f));
+        REQUIRE(midi2freq(-60.f) == Approx(0.25549f).epsilon(0.001));
         REQUIRE(midi2freq(127.f) == Approx(12543.85547f));
         REQUIRE(freq2midi(0.f) == Approx(-1));
         REQUIRE(freq2midi(-10.f) == Approx(-1));

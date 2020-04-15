@@ -81,7 +81,7 @@ TEST_CASE("CoreAudio", "[ceammc::ceammc_loader_coreaudio]")
 
                 REQUIRE(ceammc_coreaudio_load(TEST_DATA_DIR "/test_data0.wav", 0, 0, 1024, buf) == 441);
                 for (int i = 0; i < 441; i++) {
-                    REQUIRE(buf[i].w_float == Approx((10.f * i) / 32767.f));
+                    REQUIRE(buf[i].w_float == Approx((10.f * i) / 32767.f).epsilon(0.0001));
                 }
             }
 
@@ -104,12 +104,12 @@ TEST_CASE("CoreAudio", "[ceammc::ceammc_loader_coreaudio]")
 
                 REQUIRE(ceammc_coreaudio_load(TEST_DATA_DIR "/test_data1.wav", 0, 0, 1024, buf) == 441);
                 for (int i = 0; i < 441; i++) {
-                    REQUIRE(buf[i].w_float == Approx((10.f * i) / 32767.f));
+                    REQUIRE(buf[i].w_float == Approx((10.f * i) / 32767.f).epsilon(0.0001));
                 }
 
                 REQUIRE(ceammc_coreaudio_load(TEST_DATA_DIR "/test_data1.wav", 1, 0, 1024, buf) == 441);
                 for (int i = 0; i < 441; i++) {
-                    REQUIRE(buf[i].w_float == Approx((10.f * i) / -32767.f));
+                    REQUIRE(buf[i].w_float == Approx((10.f * i) / -32767.f).epsilon(0.0001));
                 }
             }
         }
@@ -123,12 +123,12 @@ TEST_CASE("CoreAudio", "[ceammc::ceammc_loader_coreaudio]")
         REQUIRE(sf.read(buf, 1024, 0, 0) == 441);
         REQUIRE(sf.read(buf, 1024, 1) == -1);
         for (int i = 0; i < 441; i++) {
-            REQUIRE(buf[i].w_float == Approx((10.f * i) / 32767.f));
+            REQUIRE(buf[i].w_float == Approx((10.f * i) / 32767.f).epsilon(0.0001));
         }
 
         REQUIRE(sf.read(buf, 1024, 0, 100) == 341);
         for (int i = 0; i < 341; i++) {
-            REQUIRE(buf[i].w_float == Approx((10.f * (i + 100)) / 32767.f));
+            REQUIRE(buf[i].w_float == Approx((10.f * (i + 100)) / 32767.f).epsilon(0.0001));
         }
 
         REQUIRE(sf.read(buf, 1024, 0, -100) == -1);

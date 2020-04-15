@@ -32,7 +32,7 @@ add_library(tests_main_lib2 STATIC
 )
 target_link_libraries(tests_main_lib2 PUBLIC Catch2::Catch)
 
-target_include_directories(tests_main_lib1 PUBLIC Catch/single_include)
+target_link_libraries(tests_main_lib1 PUBLIC Catch2::Catch)
 
 if(APPLE)
     set(CMAKE_INSTALL_RPATH "@loader_path/../src/lib")

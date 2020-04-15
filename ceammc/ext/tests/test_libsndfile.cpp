@@ -122,7 +122,7 @@ TEST_CASE("ceammc::libsndfile", "sndfile")
         t_word buf[1024];
         REQUIRE(sf.read(buf, 1024, 0) == 441);
         for (int i = 0; i < 441; i++) {
-            REQUIRE(buf[i].w_float == Approx((10.f * i) / 32767.f));
+            REQUIRE(buf[i].w_float == Approx((10.f * i) / 32767.f).epsilon(0.0001));
         }
     }
 
@@ -141,8 +141,8 @@ TEST_CASE("ceammc::libsndfile", "sndfile")
         REQUIRE(sf.read(right_buf, 1024, 2) == -1);
 
         for (int i = 0; i < 441; i++) {
-            REQUIRE(left_buf[i].w_float == Approx(10 * i / 32767.0));
-            REQUIRE(right_buf[i].w_float == Approx(10 * i / -32767.0));
+            REQUIRE(left_buf[i].w_float == Approx(10 * i / 32767.0).epsilon(0.0001));
+            REQUIRE(right_buf[i].w_float == Approx(10 * i / -32767.0).epsilon(0.0001));
         }
     }
 
@@ -154,12 +154,12 @@ TEST_CASE("ceammc::libsndfile", "sndfile")
         REQUIRE(sf.read(buf, 1024, 0, 0) == 441);
         REQUIRE(sf.read(buf, 1024, 1) == -1);
         for (int i = 0; i < 441; i++) {
-            REQUIRE(buf[i].w_float == Approx((10.f * i) / 32767.f));
+            REQUIRE(buf[i].w_float == Approx((10.f * i) / 32767.f).epsilon(0.0001));
         }
 
         REQUIRE(sf.read(buf, 1024, 0, 100) == 341);
         for (int i = 0; i < 341; i++) {
-            REQUIRE(buf[i].w_float == Approx((10.f * (i + 100)) / 32767.f));
+            REQUIRE(buf[i].w_float == Approx((10.f * (i + 100)) / 32767.f).epsilon(0.0001));
         }
 
         REQUIRE(sf.read(buf, 1024, 0, -100) == -1);
