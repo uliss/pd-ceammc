@@ -28,7 +28,8 @@ function(add_system_test src)
     target_sources(test_ext_system PRIVATE "test_system_${src}.cpp")
 endfunction()
 
+add_executable(test_exec test_exec.cpp)
+add_dependencies(test_ext_system test_exec)
 
 add_system_test(getenv)
 add_system_test(shell)
-#target_include_directories(test_ext_system_shell PUBLIC ${PROJECT_SOURCE_DIR}/ceammc/extra)

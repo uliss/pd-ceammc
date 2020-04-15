@@ -232,8 +232,6 @@ ceammc_add_test_linked(TITLE "class_wrapper::class" NAME test_wrapper_class LINK
 ceammc_add_test_linked(TITLE "class_wrapper::method" NAME test_wrapper_method LINK wrapper_lib)
 ceammc_add_test_linked(TITLE "class_wrapper::static_method" NAME test_wrapper_static_method LINK wrapper_lib)
 
-add_executable(test_exec test_exec.cpp)
-
 add_custom_target(test_src SOURCES gen_test_wav.py)
 
 add_subdirectory(array)

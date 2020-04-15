@@ -17,15 +17,15 @@
 
 PD_COMPLETE_TEST_SETUP(SystemShell, system, shell)
 
+#define TEST_EXEC TEST_DIR "/test_exec "
+
 TEST_CASE("system.shell", "[externals]")
 {
     pd_test_init();
 
     SECTION("create")
     {
-        //        test::pdPrintToStdError();
-
-        TestSystemShell t("system.shell");
+        TObj t("system.shell");
         REQUIRE(t.numInlets() == 1);
         REQUIRE(t.numOutlets() == 2);
     }
@@ -40,91 +40,113 @@ TEST_CASE("system.shell", "[externals]")
 #define MS(n) n
 #endif
 
-        TestExtSystemShell t("system.shell");
+        TExt t("system.shell");
         REQUIRE(t.object());
 
-        t << TEST_BIN_DIR "/test_exec 0";
-        test::pdRunMainLoopMs(MS(50));
-        REQUIRE(t.outputFloatAt(1) == 0);
-
-        t << TEST_BIN_DIR "/test_exec 1";
-        test::pdRunMainLoopMs(MS(50));
-        REQUIRE(t.outputFloatAt(1) == 100);
-
-        // infinite loop
-        t << TEST_BIN_DIR "/test_exec 2";
-        test::pdRunMainLoopMs(MS(50));
-        REQUIRE(!t.hasOutput());
-        t.call("terminate");
-        test::pdRunMainLoopMs(MS(5));
-        REQUIRE(t.outputFloatAt(1) == 0);
-
-        // no interrupt
-        t << TEST_BIN_DIR "/test_exec 3";
-        test::pdRunMainLoopMs(MS(100));
-        t.call("terminate");
-        test::pdRunMainLoopMs(MS(100));
-
-        // no terminate
-        t << TEST_BIN_DIR "/test_exec 4";
-        test::pdRunMainLoopMs(MS(100));
-        t.call("kill");
-        test::pdRunMainLoopMs(MS(100));
-
-        // stdout test
-        t << TEST_BIN_DIR "/test_exec 5";
-        test::pdRunMainLoopMs(MS(100));
-        REQUIRE(t.hasOutputAt(1));
-        REQUIRE(t.outputFloatAt(1) == 0);
-        REQUIRE(dataAt(t, 0_out) == StringAtom("stdout test"));
-
-        // no stderr on windows
-#ifndef __WIN32
-        // stderr test
-        t << TEST_BIN_DIR "/test_exec 6";
-        test::pdRunMainLoopMs(50);
-        REQUIRE(!t.hasOutputAt(0));
-        REQUIRE(t.hasOutputAt(1));
-        REQUIRE(t.outputFloatAt(1) == 0);
-#endif
-
-        // no new line
-        t << TEST_BIN_DIR "/test_exec 7";
-        test::pdRunMainLoopMs(MS(40));
-        REQUIRE(t.hasOutputAt(1));
-        REQUIRE(t.outputFloatAt(1) == 0);
-        REQUIRE(!t.hasOutputAt(0));
-
+        SECTION("rc = 0")
         {
-            TestExtSystemShell t1("system.shell", LA("@nosplit"));
-            REQUIRE(t1.object());
-
-            t1 << TEST_BIN_DIR "/test_exec 7";
-            test::pdRunMainLoopMs(MS(40));
-            REQUIRE(t1.hasOutputAt(1));
-            REQUIRE(t1.outputFloatAt(1) == 0);
-            REQUIRE(t1.hasOutputAt(0));
-            REQUIRE(dataAt(t).asData()->toString() == "no newline");
+            t << TEST_EXEC "0";
+            test::pdRunMainLoopMs(MS(50));
+            REQUIRE(t.outputFloatAt(1) == 0);
         }
 
-        // big output
-        t << TEST_BIN_DIR "/test_exec 8";
-        test::pdRunMainLoopMs(MS(100));
-        REQUIRE(t.hasOutputAt(1));
-        REQUIRE(t.outputFloatAt(1) == 0);
-        REQUIRE(t.hasOutputAt(0));
+        SECTION("rc = 100")
+        {
+            t << TEST_EXEC "1";
+            test::pdRunMainLoopMs(MS(50));
+            REQUIRE(t.outputFloatAt(1) == 100);
+        }
 
-        // huge output - many lines
-        t << TEST_BIN_DIR "/test_exec 9";
-        test::pdRunMainLoopMs(MS(200));
-        REQUIRE(t.hasOutputAt(1));
-        REQUIRE(t.outputFloatAt(1) == 0);
-        REQUIRE(t.hasOutputAt(0));
+        SECTION("inf loop")
+        {
+            t << TEST_EXEC "2";
+            test::pdRunMainLoopMs(MS(50));
+            REQUIRE(!t.hasOutput());
+            t.call("terminate");
+            test::pdRunMainLoopMs(MS(5));
+            REQUIRE(t.outputFloatAt(1) == 0);
+        }
+
+        SECTION("inf loop no interrupt")
+        {
+            t << TEST_EXEC "3";
+            test::pdRunMainLoopMs(MS(100));
+            t.call("terminate");
+            test::pdRunMainLoopMs(MS(100));
+        }
+
+        SECTION("inf loop, no terminate")
+        {
+            t << TEST_EXEC "4";
+            test::pdRunMainLoopMs(MS(100));
+            t.call("terminate");
+            test::pdRunMainLoopMs(MS(100));
+            t.call("kill");
+            test::pdRunMainLoopMs(MS(100));
+        }
+
+        SECTION("stdout")
+        {
+            t << TEST_EXEC "5";
+            test::pdRunMainLoopMs(MS(100));
+            REQUIRE(floatAt(t, 1_out) == 0);
+            REQUIRE(dataAt(t, 0_out) == StringAtom("stdout test"));
+        }
+
+        SECTION("stderr")
+        {
+            // no stderr on windows
+#ifndef __WIN32
+            // stderr test
+            t << TEST_EXEC "6";
+            test::pdRunMainLoopMs(50);
+            REQUIRE(!t.hasOutputAt(0));
+            REQUIRE(floatAt(t, 1_out) == 0);
+#endif
+        }
+
+        SECTION("stdout no new line")
+        {
+            t << TEST_EXEC "7";
+            test::pdRunMainLoopMs(MS(40));
+            REQUIRE(floatAt(t, 1_out) == 0);
+            REQUIRE(!t.hasOutputAt(0));
+        }
+
+        SECTION("")
+        {
+            TExt t1("system.shell", "@nosplit");
+            REQUIRE(t1.object());
+
+            t1 << TEST_EXEC "7";
+            test::pdRunMainLoopMs(MS(40));
+            REQUIRE(floatAt(t1, 1_out) == 0);
+            REQUIRE(t1.hasOutputAt(0));
+            REQUIRE(dataAt(t1).asData()->toString() == "no newline");
+        }
+
+        SECTION("bit output")
+        {
+            t << TEST_EXEC "8";
+            test::pdRunMainLoopMs(MS(100));
+            REQUIRE(floatAt(t, 1_out) == 0);
+            REQUIRE(t.hasOutputAt(0));
+        }
+
+        SECTION("huge output")
+        {
+            // huge output - many lines
+            t << TEST_EXEC "9";
+            test::pdRunMainLoopMs(MS(200));
+            REQUIRE(t.hasOutputAt(1));
+            REQUIRE(t.outputFloatAt(1) == 0);
+            REQUIRE(t.hasOutputAt(0));
+        }
     }
 
     SECTION("invalid input")
     {
-        TestExtSystemShell t("system.shell");
+        TExt t("system.shell");
 
         t.bang();
         REQUIRE(!t.hasOutput());
@@ -134,7 +156,7 @@ TEST_CASE("system.shell", "[externals]")
 
     SECTION("symbol")
     {
-        TestExtSystemShell t("system.shell");
+        TExt t("system.shell");
 
         // symbol
         t << "ls";
@@ -173,7 +195,7 @@ TEST_CASE("system.shell", "[externals]")
 
     SECTION("background process &")
     {
-        TestExtSystemShell t("system.shell");
+        TExt t("system.shell");
         REQUIRE(t.object());
 
         t << "echo test &";
