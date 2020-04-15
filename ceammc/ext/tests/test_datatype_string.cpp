@@ -378,13 +378,9 @@ TEST_CASE("DataTypeString", "[core]")
     {
         auto fn = DataStorage::instance().fromListFunction("String");
         REQUIRE(fn);
-        std::unique_ptr<DSTR> pstr(static_cast<DSTR*>(fn(LA("abc"))));
-        REQUIRE(pstr);
-        REQUIRE(pstr->str() == "abc");
-
-        pstr.reset(static_cast<DSTR*>(fn(LF(1, 2, 3))));
-        REQUIRE(pstr);
-        REQUIRE(pstr->str() == "1 2 3");
+        Atom pstr = fn(LA("abc"));
+        REQUIRE(pstr.isA<DataTypeString>());
+        REQUIRE(pstr.asD<DataTypeString>()->str() == "abc");
     }
 
     SECTION("clone")

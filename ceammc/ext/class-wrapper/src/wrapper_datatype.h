@@ -160,13 +160,13 @@ AbstractDataWrapper<T>& AbstractDataWrapper<T>::operator=(AbstractDataWrapper&& 
 template <typename T>
 const int AbstractDataWrapper<T>::dataType = ceammc::DataStorage::instance().registerNewType(
     T::typeName(),
-    [](const AtomList& lst) -> AbstractData* {
+    [](const AtomList& lst) -> Atom {
         T data;
         auto st = data.setFromPd(lst);
         std::string err;
         if (st.error(&err)) {
             LIB_ERR << err;
-            return nullptr;
+            return Atom();
         } else {
             return new AbstractDataWrapper(data);
         }

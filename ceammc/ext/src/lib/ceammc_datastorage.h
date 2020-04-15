@@ -30,8 +30,8 @@ class AtomList;
 
 using DictEntry = std::pair<std::string, AtomList>;
 using Dict = std::vector<DictEntry>;
-using CreateFromListFn = AbstractData* (*)(const AtomList&);
-using CreateFromDictFn = AbstractData* (*)(const Dict&);
+using CreateFromListFn = Atom (*)(const AtomList&);
+using CreateFromDictFn = Atom (*)(const Dict&);
 
 class DataStorage {
 
@@ -56,7 +56,7 @@ class DataStorage {
     using TypeList = boost::container::static_vector<DataTypeRecord, 1024>;
     using type_iterator = TypeList::const_iterator;
 
-    DataStorage() = default;
+    DataStorage();
     DataStorage(const DataStorage& s) = delete;
     void operator=(const DataStorage& s) = delete;
 

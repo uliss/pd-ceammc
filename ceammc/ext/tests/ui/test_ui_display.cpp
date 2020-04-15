@@ -65,10 +65,10 @@ TEST_CASE("ui.display", "[ui.display]")
 
         t.send(StringAtom("test string"));
         REQUIRE(t->text() == "test string");
-        REQUIRE(t->type() == "data");
+        REQUIRE(t->type() == "String");
 
         t.send(IntAtom(-200));
         REQUIRE(t->text() == "-200");
-        REQUIRE(t->type() == "data");
+        REQUIRE(t->type() == "IntData");
     }
 }

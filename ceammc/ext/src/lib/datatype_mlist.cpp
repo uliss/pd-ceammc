@@ -23,7 +23,7 @@
 
 namespace ceammc {
 
-static AbstractData* newMList(const AtomList& args)
+static Atom newMList(const AtomList& args)
 {
     return new DataTypeMList(args);
 }

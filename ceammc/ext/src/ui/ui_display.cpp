@@ -15,6 +15,7 @@
 #include <algorithm>
 #include <cmath>
 
+#include "ceammc_abstractdata.h"
 #include "ceammc_atomlist.h"
 #include "ceammc_format.h"
 
@@ -46,38 +47,60 @@ static const int TYPE_WIDTH = 50;
 static const int TEXT_XPAD = 3;
 static const int TEXT_YPAD = 2;
 
-static inline const t_rgba& msg_color(t_symbol* s_type)
+static inline UIMessageType symbol2type(t_symbol* s_type)
 {
     if (s_type == &s_list)
-        return COLOR_LIST_TYPE;
+        return MSG_TYPE_LIST;
     else if (s_type == &s_float)
-        return COLOR_FLOAT_TYPE;
+        return MSG_TYPE_FLOAT;
     else if (s_type == &s_bang)
-        return COLOR_BANG_TYPE;
+        return MSG_TYPE_BANG;
     else if (s_type == &s_symbol)
-        return COLOR_SYMBOL_TYPE;
+        return MSG_TYPE_SYMBOL;
     else if (s_type == SYM_DATA_TYPE)
-        return COLOR_DATA_TYPE;
+        return MSG_TYPE_DATA;
     else if (s_type->s_name[0] == '@')
-        return COLOR_PROPERTY_TYPE;
+        return MSG_TYPE_PROPERTY;
     else
+        return MSG_TYPE_ANY;
+}
+
+static inline const t_rgba& msg_color(UIMessageType type)
+{
+    switch (type) {
+    case MSG_TYPE_BANG:
+        return COLOR_BANG_TYPE;
+    case MSG_TYPE_FLOAT:
+        return COLOR_FLOAT_TYPE;
+    case MSG_TYPE_SYMBOL:
+        return COLOR_SYMBOL_TYPE;
+    case MSG_TYPE_PROPERTY:
+        return COLOR_PROPERTY_TYPE;
+    case MSG_TYPE_LIST:
+        return COLOR_LIST_TYPE;
+    case MSG_TYPE_DATA:
+        return COLOR_DATA_TYPE;
+    case MSG_TYPE_ANY:
+    default:
         return COLOR_DEFAULT_TYPE;
+    }
 }
 
 UIDisplay::UIDisplay()
     : prop_display_events(1)
     , prop_display_type(0)
     , prop_auto_size(1)
-    , on_bang_(false)
     , type_width_(-1)
-    , prop_active_color(rgba_white)
     , prop_text_color(rgba_black)
+    , prop_active_color(rgba_white)
     , font_(gensym(FONT_FAMILY), FONT_SIZE)
     , txt_value_(font_.font(), ColorRGBA::black(), ETEXT_UP_LEFT, ETEXT_JLEFT, ETEXT_WRAP)
     , txt_type_(font_.font(), ColorRGBA::black(), ETEXT_UP_LEFT, ETEXT_JLEFT, ETEXT_NOWRAP)
-    , msg_type_(gensym("..."))
+    , msg_type_txt_(gensym("..."))
     , timer_(this, &UIDisplay::onClock)
     , last_update_(clock_getlogicaltime())
+    , on_bang_(false)
+    , msg_type_(MSG_TYPE_ANY)
 {
 }
 
@@ -102,7 +125,7 @@ void UIDisplay::paint()
             p.drawRect(0, 0, type_width_ * zoom(), r.height);
             p.fill();
 
-            txt_type_.set(msg_type_->s_name, 0 + TEXT_XPAD, 0 + TEXT_YPAD, type_width_ - TEXT_XPAD, r.height);
+            txt_type_.set(msg_type_txt_->s_name, 0 + TEXT_XPAD, 0 + TEXT_YPAD, type_width_ - TEXT_XPAD, r.height);
             txt_type_.setColor(prop_text_color);
             p.drawText(txt_type_);
 
@@ -131,7 +154,8 @@ void UIDisplay::okSize(t_rect* newrect)
 void UIDisplay::onBang()
 {
     msg_txt_ = "";
-    msg_type_ = &s_bang;
+    msg_type_txt_ = &s_bang;
+    msg_type_ = MSG_TYPE_BANG;
 
     flash();
     update();
@@ -143,7 +167,8 @@ void UIDisplay::onFloat(t_float f)
     snprintf(buf, 63, "%g", f);
 
     msg_txt_ = buf;
-    msg_type_ = &s_float;
+    msg_type_txt_ = &s_float;
+    msg_type_ = MSG_TYPE_FLOAT;
 
     flash();
     update();
@@ -152,7 +177,8 @@ void UIDisplay::onFloat(t_float f)
 void UIDisplay::onSymbol(t_symbol* s)
 {
     msg_txt_ = s->s_name;
-    msg_type_ = &s_symbol;
+    msg_type_txt_ = &s_symbol;
+    msg_type_ = MSG_TYPE_SYMBOL;
 
     flash();
     update();
@@ -160,16 +186,24 @@ void UIDisplay::onSymbol(t_symbol* s)
 
 void UIDisplay::onList(const AtomList& lst)
 {
-    onAny(&s_list, lst);
+    if (lst.isData()) {
+        msg_type_txt_ = gensym(lst[0].asData()->typeName().c_str());
+        msg_type_ = MSG_TYPE_DATA;
+        msg_txt_ = lst[0].asData()->toString();
+    } else {
+        msg_type_txt_ = &s_list;
+        msg_type_ = MSG_TYPE_LIST;
+        msg_txt_ = to_string(lst);
+    }
+
+    flash();
+    update();
 }
 
 void UIDisplay::onAny(t_symbol* s, const AtomList& lst)
 {
     msg_txt_ = to_string(lst);
-    msg_type_ = s;
-
-    if (lst.size() == 1 && lst[0].isData())
-        msg_type_ = SYM_DATA_TYPE;
+    msg_type_txt_ = s;
 
     flash();
     update();
@@ -198,7 +232,7 @@ const std::string& UIDisplay::text() const
 
 const std::string UIDisplay::type() const
 {
-    return msg_type_->s_name;
+    return msg_type_txt_->s_name;
 }
 
 void UIDisplay::setup()
@@ -255,14 +289,10 @@ void UIDisplay::update()
     last_update_ = clock_getlogicaltime();
 
     if (prop_display_type) {
-        const bool calc_type_wd = (msg_type_ != &s_float
-            && msg_type_ != &s_bang
-            && msg_type_ != &s_symbol
-            && msg_type_ != &s_list
-            && msg_type_ != SYM_DATA_TYPE);
+        const bool calc_type_wd = (msg_type_ == MSG_TYPE_ANY || msg_type_ == MSG_TYPE_DATA);
 
         if (calc_type_wd)
-            type_width_ = std::max<int>(TYPE_WIDTH, strlen(msg_type_->s_name) * 7) + 3;
+            type_width_ = std::max<int>(TYPE_WIDTH, strlen(msg_type_txt_->s_name) * 7) + 3;
         else
             type_width_ = TYPE_WIDTH;
 

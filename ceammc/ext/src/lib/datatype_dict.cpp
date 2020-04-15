@@ -44,7 +44,7 @@ static t_symbol* atom_to_symbol(const Atom& a)
         return gensym(to_string(a).c_str());
 }
 
-static AbstractData* newFromDict(const Dict& d)
+static Atom newFromDict(const Dict& d)
 {
     auto dict = new DataTypeDict;
 

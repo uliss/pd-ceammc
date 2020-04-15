@@ -49,6 +49,7 @@ string     \"([^`\"]|`\"|``|`\.|`:|`\(|`\))*\"
 
 space      [ \t\n]+
 data_type  [A-Z][a-zA-Z]*
+func_call  [a-z][a-z0-9]*
 open_list  \(
 close_list \)
 open_dict  \[
@@ -69,6 +70,7 @@ false                   { return DataStringParser::make_FLOAT(0, location()); }
 S/{string}              { return DataStringParser::make_DATA_TYPE_STRING(location()); }
 {data_type}/{open_list} { return DataStringParser::make_DATA_TYPE(text(), location()); }
 {data_type}/{open_dict} { return DataStringParser::make_DATA_TYPE(text(), location()); }
+{func_call}/{open_list} { return DataStringParser::make_FUNC_CALL(text(), location()); }
 {open_dict}             { return DataStringParser::make_OPEN_DICT_BRACKET(location()); }
 {close_dict}            { return DataStringParser::make_CLOSE_DICT_BRACKET(location()); }
 {open_list}             { return DataStringParser::make_OPEN_LIST_BRACKET(location()); }

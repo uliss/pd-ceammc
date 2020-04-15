@@ -19,11 +19,20 @@
 
 using namespace ceammc;
 
+enum UIMessageType : char {
+    MSG_TYPE_BANG = 0,
+    MSG_TYPE_FLOAT,
+    MSG_TYPE_SYMBOL,
+    MSG_TYPE_PROPERTY,
+    MSG_TYPE_LIST,
+    MSG_TYPE_DATA,
+    MSG_TYPE_ANY
+};
+
 class UIDisplay : public UIObject {
     int prop_display_events;
     int prop_display_type;
     int prop_auto_size;
-    bool on_bang_;
     int type_width_;
     t_rgba prop_text_color;
     t_rgba prop_active_color;
@@ -33,9 +42,11 @@ private:
     UITextLayout txt_value_;
     UITextLayout txt_type_;
     std::string msg_txt_;
-    t_symbol* msg_type_;
+    t_symbol* msg_type_txt_;
     ClockMemberFunction<UIDisplay> timer_;
     double last_update_;
+    bool on_bang_;
+    UIMessageType msg_type_;
 
 public:
     UIDisplay();

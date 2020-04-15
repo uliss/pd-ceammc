@@ -26,7 +26,7 @@ namespace ceammc {
 
 #define NDEBUG 1
 
-static AbstractData* newString(const AtomList& l)
+static Atom newString(const AtomList& l)
 {
     return new DataTypeString(l);
 }

@@ -17,25 +17,25 @@
 
 #include <sstream>
 
-static ceammc::AbstractData* newIntData(const ceammc::AtomList& args)
+static ceammc::Atom newIntData(const ceammc::AtomList& args)
 {
     if (args.isInteger())
         return new IntData(args.asT<int>());
     else {
         using namespace ceammc;
         LIB_ERR << "integer is expected, got: " << args;
-        return nullptr;
+        return Atom();
     }
 }
 
-static ceammc::AbstractData* newStrData(const ceammc::AtomList& args)
+static ceammc::Atom newStrData(const ceammc::AtomList& args)
 {
     if (args.isSymbol())
         return new StrData(args.asT<t_symbol*>()->s_name);
     else {
         using namespace ceammc;
         LIB_ERR << "string is expected, got: " << args;
-        return nullptr;
+        return Atom();
     }
 }
 

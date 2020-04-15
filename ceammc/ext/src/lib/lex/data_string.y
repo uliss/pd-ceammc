@@ -93,12 +93,11 @@
 
         auto fn = DataStorage::instance().fromListFunction(name);
         if(!fn) {
-            LIB_ERR << fmt::format("can't create type {} from list {}", name, to_string(args));
+            LIB_ERR << fmt::format("function {}() not found", name);
             return Atom();
         }
 
-        auto data = fn(args);
-        return (data) ? data : Atom();
+        return fn(args);
     }
 
     static inline ceammc::Atom createFromDict(const std::string& name, const ceammc::Dict& v) {
@@ -110,8 +109,7 @@
             return Atom();
         }
 
-        auto data = fn(v);
-        return (data) ? data : Atom();
+        return fn(v);
     }
 
     # undef yylex
@@ -129,58 +127,57 @@
 %token <std::string>          KEY
 %token <std::string>          DATA_TYPE
 %token                        DATA_TYPE_STRING
-%token                        DATA_TYPE_MLIST
+%token <std::string>          FUNC_CALL
 %token <std::string>          STRING
 %token                        END 0 "end of string"
 
-%nterm <ceammc::Atom>         DATA
-%nterm <ceammc::Atom>         ATOM
-%nterm <ceammc::AtomList>     ATOM_LIST
-%nterm <ceammc::AtomList>     EXPR
-%nterm <ceammc::DictEntry>    PAIR
-%nterm <ceammc::Dict>         PAIR_LIST
+%nterm <ceammc::Atom>         atom data function_call
+%nterm <ceammc::AtomList>     atom_list expr
+%nterm <ceammc::DictEntry>    pair
+%nterm <ceammc::Dict>         pair_list
 
 
-%start EXPR
+%start expr
 
 %%
 
-ATOM
+atom
     : NULL                    { $$ = ceammc::Atom(); }
     | FLOAT                   { $$ = ceammc::Atom($1); }
     | SYMBOL                  { $$ = ceammc::Atom(gensym($1)); }
     | STRING                  { $$ = createSimpleString($1); }
     | DATA_TYPE_STRING STRING { $$ = createDataString($2); }
-    | DATA
+    | data
+    | function_call
     ;
 
-ATOM_LIST
+atom_list
     : %empty           { $$ = ceammc::AtomList(); }
-    | ATOM_LIST ATOM   { $$.append($1); $$.append($2); }
+    | atom_list atom   { $$.append($1); $$.append($2); }
     ;
 
-PAIR
-    : KEY ATOM_LIST   { $$ = { $1, $2 }; }
+pair
+    : KEY atom_list   { $$ = { $1, $2 }; }
     ;
 
-PAIR_LIST
+pair_list
     : %empty         { $$ = Dict(); }
-    | PAIR_LIST PAIR { $$.insert($$.end(), $1.begin(), $1.end()); $$.push_back($2); }
+    | pair_list pair { $$.insert($$.end(), $1.begin(), $1.end()); $$.push_back($2); }
     ;
 
-DATA 
-    : OPEN_DICT_BRACKET PAIR_LIST CLOSE_DICT_BRACKET {
-        $$ = createDataDict($2); }
-    | DATA_TYPE OPEN_DICT_BRACKET PAIR_LIST CLOSE_DICT_BRACKET {
-        $$ = createFromDict($1, $3); }
-    | OPEN_LIST_BRACKET ATOM_LIST CLOSE_LIST_BRACKET {
-        $$ = createDataList($2); }
-    | DATA_TYPE OPEN_LIST_BRACKET ATOM_LIST CLOSE_LIST_BRACKET {
-        $$ = createFromList($1, $3); }
+function_call
+    : FUNC_CALL OPEN_LIST_BRACKET atom_list CLOSE_LIST_BRACKET   { $$ = createFromList($1, $3); }
     ;
 
-EXPR
-    : ATOM_LIST { result.append($1); }
+data
+    : OPEN_DICT_BRACKET pair_list CLOSE_DICT_BRACKET             { $$ = createDataDict($2); }
+    | DATA_TYPE OPEN_DICT_BRACKET pair_list CLOSE_DICT_BRACKET   { $$ = createFromDict($1, $3); }
+    | OPEN_LIST_BRACKET atom_list CLOSE_LIST_BRACKET             { $$ = createDataList($2); }
+    | DATA_TYPE OPEN_LIST_BRACKET atom_list CLOSE_LIST_BRACKET   { $$ = createFromList($1, $3); }
+    ;
+
+expr
+    : atom_list { result.append($1); }
     ;
 
 %%

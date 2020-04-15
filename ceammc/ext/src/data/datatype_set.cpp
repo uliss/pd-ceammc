@@ -22,7 +22,7 @@
 
 namespace {
 
-AbstractData* newFromList(const AtomList& lst)
+Atom newFromList(const AtomList& lst)
 {
     return new DataTypeSet(lst);
 }

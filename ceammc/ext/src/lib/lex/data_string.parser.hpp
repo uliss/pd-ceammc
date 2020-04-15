@@ -377,18 +377,19 @@ namespace ceammc {
     /// An auxiliary type to compute the largest semantic type.
     union union_type
     {
-      // DATA
-      // ATOM
+      // atom
+      // data
+      // function_call
       char dummy1[sizeof (ceammc::Atom)];
 
-      // ATOM_LIST
-      // EXPR
+      // atom_list
+      // expr
       char dummy2[sizeof (ceammc::AtomList)];
 
-      // PAIR_LIST
+      // pair_list
       char dummy3[sizeof (ceammc::Dict)];
 
-      // PAIR
+      // pair
       char dummy4[sizeof (ceammc::DictEntry)];
 
       // SYMBOL
@@ -399,6 +400,7 @@ namespace ceammc {
 
       // KEY
       // DATA_TYPE
+      // FUNC_CALL
       // STRING
       char dummy7[sizeof (std::string)];
     };
@@ -457,7 +459,7 @@ namespace ceammc {
         TOK_KEY = 266,
         TOK_DATA_TYPE = 267,
         TOK_DATA_TYPE_STRING = 268,
-        TOK_DATA_TYPE_MLIST = 269,
+        TOK_FUNC_CALL = 269,
         TOK_STRING = 270
       };
     };
@@ -626,21 +628,22 @@ namespace ceammc {
         // Type destructor.
 switch (yytype)
     {
-      case 17: // DATA
-      case 18: // ATOM
+      case 17: // atom
+      case 18: // data
+      case 19: // function_call
         value.template destroy< ceammc::Atom > ();
         break;
 
-      case 19: // ATOM_LIST
-      case 20: // EXPR
+      case 20: // atom_list
+      case 21: // expr
         value.template destroy< ceammc::AtomList > ();
         break;
 
-      case 22: // PAIR_LIST
+      case 23: // pair_list
         value.template destroy< ceammc::Dict > ();
         break;
 
-      case 21: // PAIR
+      case 22: // pair
         value.template destroy< ceammc::DictEntry > ();
         break;
 
@@ -654,6 +657,7 @@ switch (yytype)
 
       case 11: // KEY
       case 12: // DATA_TYPE
+      case 14: // FUNC_CALL
       case 15: // STRING
         value.template destroy< std::string > ();
         break;
@@ -734,13 +738,13 @@ switch (yytype)
       symbol_type (int tok, location_type l)
         : super_type(token_type (tok), std::move (l))
       {
-        YY_ASSERT (tok == token::TOK_END || tok == token::TOK_NULL || tok == token::TOK_OPEN_DICT_BRACKET || tok == token::TOK_CLOSE_DICT_BRACKET || tok == token::TOK_OPEN_LIST_BRACKET || tok == token::TOK_CLOSE_LIST_BRACKET || tok == token::TOK_LEXER_ERROR || tok == token::TOK_DATA_TYPE_STRING || tok == token::TOK_DATA_TYPE_MLIST);
+        YY_ASSERT (tok == token::TOK_END || tok == token::TOK_NULL || tok == token::TOK_OPEN_DICT_BRACKET || tok == token::TOK_CLOSE_DICT_BRACKET || tok == token::TOK_OPEN_LIST_BRACKET || tok == token::TOK_CLOSE_LIST_BRACKET || tok == token::TOK_LEXER_ERROR || tok == token::TOK_DATA_TYPE_STRING);
       }
 #else
       symbol_type (int tok, const location_type& l)
         : super_type(token_type (tok), l)
       {
-        YY_ASSERT (tok == token::TOK_END || tok == token::TOK_NULL || tok == token::TOK_OPEN_DICT_BRACKET || tok == token::TOK_CLOSE_DICT_BRACKET || tok == token::TOK_OPEN_LIST_BRACKET || tok == token::TOK_CLOSE_LIST_BRACKET || tok == token::TOK_LEXER_ERROR || tok == token::TOK_DATA_TYPE_STRING || tok == token::TOK_DATA_TYPE_MLIST);
+        YY_ASSERT (tok == token::TOK_END || tok == token::TOK_NULL || tok == token::TOK_OPEN_DICT_BRACKET || tok == token::TOK_CLOSE_DICT_BRACKET || tok == token::TOK_OPEN_LIST_BRACKET || tok == token::TOK_CLOSE_LIST_BRACKET || tok == token::TOK_LEXER_ERROR || tok == token::TOK_DATA_TYPE_STRING);
       }
 #endif
 #if 201103L <= YY_CPLUSPLUS
@@ -773,13 +777,13 @@ switch (yytype)
       symbol_type (int tok, std::string v, location_type l)
         : super_type(token_type (tok), std::move (v), std::move (l))
       {
-        YY_ASSERT (tok == token::TOK_KEY || tok == token::TOK_DATA_TYPE || tok == token::TOK_STRING);
+        YY_ASSERT (tok == token::TOK_KEY || tok == token::TOK_DATA_TYPE || tok == token::TOK_FUNC_CALL || tok == token::TOK_STRING);
       }
 #else
       symbol_type (int tok, const std::string& v, const location_type& l)
         : super_type(token_type (tok), v, l)
       {
-        YY_ASSERT (tok == token::TOK_KEY || tok == token::TOK_DATA_TYPE || tok == token::TOK_STRING);
+        YY_ASSERT (tok == token::TOK_KEY || tok == token::TOK_DATA_TYPE || tok == token::TOK_FUNC_CALL || tok == token::TOK_STRING);
       }
 #endif
     };
@@ -1002,16 +1006,16 @@ switch (yytype)
 #if 201103L <= YY_CPLUSPLUS
       static
       symbol_type
-      make_DATA_TYPE_MLIST (location_type l)
+      make_FUNC_CALL (std::string v, location_type l)
       {
-        return symbol_type (token::TOK_DATA_TYPE_MLIST, std::move (l));
+        return symbol_type (token::TOK_FUNC_CALL, std::move (v), std::move (l));
       }
 #else
       static
       symbol_type
-      make_DATA_TYPE_MLIST (const location_type& l)
+      make_FUNC_CALL (const std::string& v, const location_type& l)
       {
-        return symbol_type (token::TOK_DATA_TYPE_MLIST, l);
+        return symbol_type (token::TOK_FUNC_CALL, v, l);
       }
 #endif
 #if 201103L <= YY_CPLUSPLUS
@@ -1335,9 +1339,9 @@ switch (yytype)
     enum
     {
       yyeof_ = 0,
-      yylast_ = 43,     ///< Last index in yytable_.
-      yynnts_ = 7,  ///< Number of nonterminal symbols.
-      yyfinal_ = 13, ///< Termination state number.
+      yylast_ = 59,     ///< Last index in yytable_.
+      yynnts_ = 8,  ///< Number of nonterminal symbols.
+      yyfinal_ = 15, ///< Termination state number.
       yyntokens_ = 16  ///< Number of tokens.
     };
 
@@ -1406,21 +1410,22 @@ switch (yytype)
   {
     switch (this->type_get ())
     {
-      case 17: // DATA
-      case 18: // ATOM
+      case 17: // atom
+      case 18: // data
+      case 19: // function_call
         value.move< ceammc::Atom > (std::move (that.value));
         break;
 
-      case 19: // ATOM_LIST
-      case 20: // EXPR
+      case 20: // atom_list
+      case 21: // expr
         value.move< ceammc::AtomList > (std::move (that.value));
         break;
 
-      case 22: // PAIR_LIST
+      case 23: // pair_list
         value.move< ceammc::Dict > (std::move (that.value));
         break;
 
-      case 21: // PAIR
+      case 22: // pair
         value.move< ceammc::DictEntry > (std::move (that.value));
         break;
 
@@ -1434,6 +1439,7 @@ switch (yytype)
 
       case 11: // KEY
       case 12: // DATA_TYPE
+      case 14: // FUNC_CALL
       case 15: // STRING
         value.move< std::string > (std::move (that.value));
         break;
@@ -1453,21 +1459,22 @@ switch (yytype)
   {
     switch (this->type_get ())
     {
-      case 17: // DATA
-      case 18: // ATOM
+      case 17: // atom
+      case 18: // data
+      case 19: // function_call
         value.copy< ceammc::Atom > (YY_MOVE (that.value));
         break;
 
-      case 19: // ATOM_LIST
-      case 20: // EXPR
+      case 20: // atom_list
+      case 21: // expr
         value.copy< ceammc::AtomList > (YY_MOVE (that.value));
         break;
 
-      case 22: // PAIR_LIST
+      case 23: // pair_list
         value.copy< ceammc::Dict > (YY_MOVE (that.value));
         break;
 
-      case 21: // PAIR
+      case 22: // pair
         value.copy< ceammc::DictEntry > (YY_MOVE (that.value));
         break;
 
@@ -1481,6 +1488,7 @@ switch (yytype)
 
       case 11: // KEY
       case 12: // DATA_TYPE
+      case 14: // FUNC_CALL
       case 15: // STRING
         value.copy< std::string > (YY_MOVE (that.value));
         break;
@@ -1507,21 +1515,22 @@ switch (yytype)
     super_type::move (s);
     switch (this->type_get ())
     {
-      case 17: // DATA
-      case 18: // ATOM
+      case 17: // atom
+      case 18: // data
+      case 19: // function_call
         value.move< ceammc::Atom > (YY_MOVE (s.value));
         break;
 
-      case 19: // ATOM_LIST
-      case 20: // EXPR
+      case 20: // atom_list
+      case 21: // expr
         value.move< ceammc::AtomList > (YY_MOVE (s.value));
         break;
 
-      case 22: // PAIR_LIST
+      case 23: // pair_list
         value.move< ceammc::Dict > (YY_MOVE (s.value));
         break;
 
-      case 21: // PAIR
+      case 22: // pair
         value.move< ceammc::DictEntry > (YY_MOVE (s.value));
         break;
 
@@ -1535,6 +1544,7 @@ switch (yytype)
 
       case 11: // KEY
       case 12: // DATA_TYPE
+      case 14: // FUNC_CALL
       case 15: // STRING
         value.move< std::string > (YY_MOVE (s.value));
         break;
@@ -1595,7 +1605,7 @@ switch (yytype)
 
 #line 8 "data_string.y"
 } // ceammc
-#line 1599 "data_string.parser.hpp"
+#line 1609 "data_string.parser.hpp"
 
 
 
