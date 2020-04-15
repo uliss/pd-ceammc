@@ -252,14 +252,14 @@ TEST_CASE("arrayname_parser", "[arrayname_parser]")
         REQUIRE(parse_array_string("to array_[0|1|10]"));
         REQUIRE(parse_array_string("to array_[0|1|9|13] @r"));
         REQUIRE(parse_array_string("to array_[0|1|9|13] @resize @offset 1ms"));
-        REQUIRE(parse_array_string("to array_[0|1|9|13] @resize @begin 2 sec"));
-        REQUIRE(parse_array_string("to array_[0|1|9|13] @offset 01:30"));
-        REQUIRE(parse_array_string("to array_[0|1|9|13] @offset 01:30:02.78"));
+        REQUIRE(parse_array_string("to array_[0|1|9|13] @resize @begin 0.75 sec"));
+        REQUIRE(parse_array_string("to array_[0|1|9|13] @offset 00:01"));
+        REQUIRE(parse_array_string("to array_[0|1|9|13] @offset 00:00:01.01"));
         REQUIRE(parse_array_string("to array_[0|1|9|13] @l 150 ms"));
         REQUIRE(parse_array_string("to []_pat @r @g 0.5"));
         REQUIRE(parse_array_string("to array_[0-3]_gr @r @g -0.5db @resample 48000"));
         REQUIRE(parse_array_string("to a1 a2 @n"));
-        REQUIRE(parse_array_string("to array_[0|1|9|13] @b 01:30 @l 30 sec"));
+        REQUIRE(parse_array_string("to array_[0|1|9|13] @b 00:01 @l 30 sec"));
         REQUIRE(parse_array_string("to a1 @ch 1"));
         REQUIRE(parse_array_string("to a1 a2 @ch 1 2"));
         REQUIRE(parse_array_string("to a[1-4] @ch 2-4 1"));
