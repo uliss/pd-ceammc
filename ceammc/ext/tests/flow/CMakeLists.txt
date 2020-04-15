@@ -13,7 +13,7 @@ target_include_directories(test_ext_flow
         "${CATCH_INCLUDE_DIR}")
 
 target_link_libraries(test_ext_flow PUBLIC
-    tests_main_lib2
+    tests_main_lib
     ceammc_flow
     ceammc_core
     ceammc_sound

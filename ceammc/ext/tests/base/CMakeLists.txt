@@ -12,7 +12,7 @@ target_include_directories(test_ext_base
         "${CATCH_INCLUDE_DIR}")
 
 target_link_libraries(test_ext_base PUBLIC
-    tests_main_lib2
+    tests_main_lib
     ceammc_base
     ceammc_core
     ceammc_sound

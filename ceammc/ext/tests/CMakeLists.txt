@@ -9,20 +9,11 @@ if(WIN32)
     remove_definitions(-DPD_INTERNAL)
 endif()
 
-add_library(tests_main_lib1 STATIC
-    tests_main.cpp
-    test_approx.cpp
-    test_datatypes.cpp
-    test_external.cpp
-    test_external_log_output.cpp
-    test_wrappers.cpp
-)
-
 set(CATCH_INCLUDE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/Catch2)
 add_library(Catch2::Catch IMPORTED INTERFACE)
 set_target_properties(Catch2::Catch PROPERTIES INTERFACE_INCLUDE_DIRECTORIES "${CATCH_INCLUDE_DIR}")
 
-add_library(tests_main_lib2 STATIC
+add_library(tests_main_lib STATIC
     tests_main.cpp
     test_approx.cpp
     test_datatypes.cpp
@@ -30,9 +21,8 @@ add_library(tests_main_lib2 STATIC
     test_external_log_output.cpp
     test_wrappers.cpp
 )
-target_link_libraries(tests_main_lib2 PUBLIC Catch2::Catch)
 
-target_link_libraries(tests_main_lib1 PUBLIC Catch2::Catch)
+target_include_directories(tests_main_lib PUBLIC "${CATCH_INCLUDE_DIR}")
 
 if(APPLE)
     set(CMAKE_INSTALL_RPATH "@loader_path/../src/lib")
@@ -179,8 +169,8 @@ ceammc_add_test_linked(TITLE "firmata::Pin" NAME test_firmata_pin LINK proto_fir
 ceammc_add_test_linked(TITLE "ArduinoThread"
     NAME test_arduino_thread
     INCLUDE_DIRECTORIES ${CMAKE_SOURCE_DIR}/ceammc/extra/serial/serial/include
-    LINK tests_main_lib1 hw_arduino ceammc_core puredata-core)
-ceammc_add_test_linked(TITLE "Arduino" NAME test_arduino LINK tests_main_lib1 hw_arduino ceammc_core puredata-core)
+    LINK tests_main_lib hw_arduino ceammc_core puredata-core)
+ceammc_add_test_linked(TITLE "Arduino" NAME test_arduino LINK tests_main_lib hw_arduino ceammc_core puredata-core)
 
 if(WITH_TTS_FLITE)
     ceammc_external_test(misc speech_flite)
