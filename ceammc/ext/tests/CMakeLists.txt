@@ -115,10 +115,6 @@ ceammc_external_test(preset float)
 ceammc_external_test(preset symbol)
 ceammc_external_test(preset list)
 
-ceammc_external_test(system getenv)
-ceammc_external_test(system shell)
-target_include_directories(test_ext_system_shell PUBLIC ${PROJECT_SOURCE_DIR}/ceammc/extra)
-
 ceammc_external_test(path exists)
 ceammc_external_test(path lsdir)
 
@@ -250,4 +246,5 @@ add_subdirectory(math)
 add_subdirectory(midi)
 add_subdirectory(random)
 add_subdirectory(string)
+add_subdirectory(system)
 add_subdirectory(ui)

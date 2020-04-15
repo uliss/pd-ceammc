@@ -11,23 +11,20 @@
  * contact the author of this file, or the owner of the project in which
  * this file belongs to.
  *****************************************************************************/
-#include "../system/system_getenv.h"
-#include "test_base.h"
-#include "catch.hpp"
+#include "system_getenv.h"
+#include "test_system_base.h"
 
-#include <stdio.h>
-
-typedef TestExternal<SystemGetEnv> SystemGetEnvTest;
+PD_COMPLETE_TEST_SETUP(SystemGetEnv, system, getenv)
 
 TEST_CASE("system.getenv", "[externals]")
 {
-    obj_init();
+    pd_test_init();
 
     SECTION("test create with:")
     {
         SECTION("empty arguments")
         {
-            SystemGetEnvTest t("system.getenv", L());
+            TObj t("system.getenv", L());
             REQUIRE(t.numInlets() == 1);
             REQUIRE(t.numOutlets() == 1);
 
@@ -40,7 +37,7 @@ TEST_CASE("system.getenv", "[externals]")
 
         SECTION("symbol")
         {
-            SystemGetEnvTest t("system.getenv", LA("HOME"));
+            TObj t("system.getenv", LA("HOME"));
             REQUIRE(t.numInlets() == 1);
             REQUIRE(t.numOutlets() == 1);
 

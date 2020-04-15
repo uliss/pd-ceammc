@@ -1,6 +1,6 @@
 #include "mod_system.h"
 
-extern "C" void setup_system0x2egetenv();
+void setup_system_getenv();
 extern "C" void setup_system0x2ehostname();
 extern "C" void setup_system0x2ememsize();
 extern "C" void setup_system0x2ememused();
@@ -12,7 +12,7 @@ void setup_system_shell();
 
 void ceammc_system_setup()
 {
-    setup_system0x2egetenv();
+    setup_system_getenv();
     setup_system0x2ehostname();
     setup_system0x2ememsize();
     setup_system0x2ememused();

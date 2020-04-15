@@ -11,12 +11,13 @@
  * contact the author of this file, or the owner of the project in which
  * this file belongs to.
  *****************************************************************************/
+#include "datatype_string.h"
 #include "system_shell.h"
-#include "test_external.h"
+#include "test_system_base.h"
 
 PD_COMPLETE_TEST_SETUP(SystemShell, system, shell)
 
-TEST_CASE("system.getenv", "[externals]")
+TEST_CASE("system.shell", "[externals]")
 {
     pd_test_init();
 
@@ -75,8 +76,7 @@ TEST_CASE("system.getenv", "[externals]")
         test::pdRunMainLoopMs(MS(100));
         REQUIRE(t.hasOutputAt(1));
         REQUIRE(t.outputFloatAt(1) == 0);
-        REQUIRE(t.hasOutputAt(0));
-        REQUIRE(t.outputAtomAt(0)->toString() == "stdout test");
+        REQUIRE(dataAt(t, 0_out) == StringAtom("stdout test"));
 
         // no stderr on windows
 #ifndef __WIN32
@@ -104,7 +104,7 @@ TEST_CASE("system.getenv", "[externals]")
             REQUIRE(t1.hasOutputAt(1));
             REQUIRE(t1.outputFloatAt(1) == 0);
             REQUIRE(t1.hasOutputAt(0));
-            REQUIRE(t1.outputDataAt(0)->toString() == "no newline");
+            REQUIRE(dataAt(t).asData()->toString() == "no newline");
         }
 
         // big output
@@ -142,7 +142,7 @@ TEST_CASE("system.getenv", "[externals]")
 
         REQUIRE(t.hasOutput());
         REQUIRE(t.outputFloatAt(1) == 0);
-        std::string fname = t.outputAtomAt(0)->toString();
+        std::string fname = dataAt(t, 0_out).asData()->toString();
         REQUIRE(fname != "");
         REQUIRE_FALSE(t->isRunning());
 
@@ -152,7 +152,7 @@ TEST_CASE("system.getenv", "[externals]")
 
         REQUIRE(t.hasOutput());
         REQUIRE(t.outputFloatAt(1) == 0);
-        REQUIRE(t.outputAtomAt(0)->toString() == "test test test");
+        REQUIRE(dataAt(t, 0_out).asData()->toString() == "test test test");
 
         // message
         t.call("ls");
@@ -160,7 +160,7 @@ TEST_CASE("system.getenv", "[externals]")
 
         REQUIRE(t.hasOutput());
         REQUIRE(t.outputFloatAt(1) == 0);
-        REQUIRE(t.outputAtomAt(0)->toString() == fname);
+        REQUIRE(dataAt(t, 0_out).asData()->toString() == fname);
 
         // not exists
         t << "not-exists";
@@ -181,6 +181,6 @@ TEST_CASE("system.getenv", "[externals]")
 
         REQUIRE(t.hasOutput());
         REQUIRE(t.outputFloatAt(1) == 0);
-        REQUIRE(t.outputAtomAt(0)->toString() == "test");
+        REQUIRE(dataAt(t, 0_out).asData()->toString() == "test");
     }
 }

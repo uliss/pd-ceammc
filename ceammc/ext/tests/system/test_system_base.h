@@ -1,5 +1,5 @@
 /*****************************************************************************
- * Copyright 2017 Serge Poltavsky. All rights reserved.
+ * Copyright 2020 Serge Poltavsky. All rights reserved.
  *
  * This file may be distributed under the terms of GNU Public License version
  * 3 (GPL v3) as defined by the Free Software Foundation (FSF). A copy of the
@@ -11,23 +11,10 @@
  * contact the author of this file, or the owner of the project in which
  * this file belongs to.
  *****************************************************************************/
-#ifndef SYSTEM_GETENV_H
-#define SYSTEM_GETENV_H
+#ifndef TEST_SYSTEM_BASE_H
+#define TEST_SYSTEM_BASE_H
 
-#include "ceammc_factory.h"
-#include "ceammc_object.h"
+#include "test_external.h"
+#include "test_catch2.hpp"
 
-using namespace ceammc;
-
-class SystemGetEnv : public BaseObject {
-    t_symbol* var_name_;
-
-public:
-    SystemGetEnv(const PdArgs& a);
-    void onBang() override;
-    void onSymbol(t_symbol* s) override;
-};
-
-void setup_system_getenv();
-
-#endif // SYSTEM_GETENV_H
+#endif // TEST_SYSTEM_BASE_H

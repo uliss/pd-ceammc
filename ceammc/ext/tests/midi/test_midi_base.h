@@ -39,13 +39,6 @@ using IntA = DataAtom<IntData>;
 
 using Msg = std::pair<t_symbol*, AtomList>;
 
-struct NotAny : public ceammc::Exception {
-    NotAny(const std::string& msg)
-        : ceammc::Exception("not a any message: " + msg)
-    {
-    }
-};
-
 /** msg */
 template <typename T>
 Msg msgAt(const T& t, OutletIdx idx = 0_out)
