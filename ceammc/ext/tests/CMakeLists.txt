@@ -93,21 +93,9 @@ ceammc_add_core_test("class_wrapper::tuple" test_wrapper_tuple)
 ceammc_add_core_test("pd::ceammc" test_pd_core)
 
 ceammc_external_test(analyze onset)
-
 ceammc_external_test(flt median)
-
 ceammc_external_test(fx looper)
-
-ceammc_external_test(conv amp2dbfs)
-ceammc_external_test(conv cc2amp)
-ceammc_external_test(conv dbfs2amp)
-ceammc_external_test(conv lin2exp)
-ceammc_external_test(conv lin2lin)
-ceammc_external_test(conv lin2lin_tilde)
-ceammc_external_test(conv list2props)
-
 ceammc_external_test(proto firmata)
-
 ceammc_external_test(net host)
 target_include_directories(test_ext_net_host PUBLIC ${PROJECT_SOURCE_DIR}/ceammc/extra)
 
@@ -210,6 +198,7 @@ add_custom_target(test_src SOURCES gen_test_wav.py)
 
 add_subdirectory(array)
 add_subdirectory(base)
+add_subdirectory(conv)
 add_subdirectory(data)
 add_subdirectory(env)
 add_subdirectory(flow)
