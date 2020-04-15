@@ -28,7 +28,6 @@ using namespace ceammc::json;
 
 using MA = MListAtom;
 using SA = StringAtom;
-using KV = DictKeyValue;
 using DA = DictAtom;
 
 TEST_CASE("json", "[core]")
@@ -72,16 +71,15 @@ TEST_CASE("json", "[core]")
         DataTypeDict dict("[a: b]");
         REQUIRE(dict.size() == 1);
         REQUIRE(dict.keys() == LA("a"));
-        REQUIRE(dict.contains(A("a")));
-        REQUIRE(*dict.valueT<Atom>(A("a")) == A("b"));
+        REQUIRE(dict.contains("a"));
+        REQUIRE(dict.at("a") == A("b"));
         REQUIRE(dict.valueToJsonString() == R"({"a":"b"})");
 
-        using namespace ceammc::dict;
         using DT = DataTypeDict;
-        REQUIRE(DT({ pair("a", "b") }).valueToJsonString() == R"({"a":"b"})");
-        REQUIRE(DT({ pair("a", 1, 2) }).valueToJsonString() == R"({"a":[1,2]})");
-        DT d0 = DT({ pair("a", DA(pair("asd", 12))) });
-        //        REQUIRE().valueToJsonString() == R"({"a":[1,2]})");
+        REQUIRE(DT({ { "a", "b" } }).valueToJsonString() == R"({"a":"b"})");
+        REQUIRE(DT({ { "a", 1, 2 } }).valueToJsonString() == R"({"a":[1,2]})");
+        DT d0({ { "a", DA("[b: c]") } });
+        REQUIRE(d0.valueToJsonString() == R"({"a":{"b":"c"}})");
     }
 }
 
