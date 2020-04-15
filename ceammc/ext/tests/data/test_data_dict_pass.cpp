@@ -56,13 +56,12 @@ TEST_CASE("dict.pass", "[externals]")
 
     SECTION("pass ")
     {
-        using P = DataTypeDict::DictEntry;
         TExt t("dict.pass", "a");
         REQUIRE(t.object());
 
         // pass a
         t.send(DictA("[a: b c: d e: f]"));
-        REQUIRE(dataAt(t) == DictA({ { P("a", "b") } }));
+        REQUIRE(dataAt(t) == DictA("[a: b]"));
 
         // set new pass list
         t.sendListTo(LA("c", "e", "@p"), 1);

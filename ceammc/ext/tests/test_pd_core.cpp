@@ -15,6 +15,7 @@
 #include "g_ceammc_draw.h"
 
 #include <cstdlib>
+#include <cstring>
 #include <ctime>
 
 extern "C" void strcpy_safe_tcl(char* dest, const char* src);
