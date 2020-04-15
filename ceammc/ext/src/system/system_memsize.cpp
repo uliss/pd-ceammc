@@ -17,7 +17,7 @@ static void* system_memsize_new()
     return static_cast<void*>(x);
 }
 
-extern "C" void setup_system0x2ememsize()
+void setup_system_memsize()
 {
     system_memsize_class = class_new(gensym("system.memsize"),
         reinterpret_cast<t_newmethod>(system_memsize_new),

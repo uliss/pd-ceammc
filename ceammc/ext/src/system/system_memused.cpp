@@ -25,7 +25,7 @@ static void system_memused_free(t_system_memused* x)
     outlet_free(x->x_peak);
 }
 
-extern "C" void setup_system0x2ememused()
+void setup_system_memused()
 {
     system_memused_class = class_new(gensym("system.memused"),
         reinterpret_cast<t_newmethod>(system_memused_new),
