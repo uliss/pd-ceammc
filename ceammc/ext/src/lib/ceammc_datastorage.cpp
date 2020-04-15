@@ -36,11 +36,12 @@ int DataStorage::registerNewType(const std::string& name,
         type_list_.emplace_back(FIRST_TYPE_ID, name, fromListFn, fromDictFn);
         return FIRST_TYPE_ID;
     } else {
-        const auto MAX_TYPE = TypeList::capacity();
         const auto LAST_ID = type_list_.back().type;
 
-        if (LAST_ID >= 1024) {
-            LIB_ERR << fmt::format("can't register type {}, max number of types ({}) is exceed: {}", name, MAX_TYPE, __FUNCTION__);
+        if (LAST_ID >= type_list_.capacity()) {
+            LIB_ERR << fmt::format(
+                "can't register type {}, max number of types ({}) is exceed: {}",
+                name, type_list_.capacity(), __FUNCTION__);
             return data::DATA_INVALID;
         }
 
