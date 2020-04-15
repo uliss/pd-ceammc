@@ -303,7 +303,7 @@ ceammc::ArrayLoaderParser::symbol_type ceammc::ArrayLoaderLexer::lex()
           case 1: // rule at line 105: (?:(?:0|[1-9][0-9]*))
             if (debug()) std::cerr << "--\033[1;35maccepting rule at line 105\033[0m (\"\033[1m" << matcher().text() << "\033[0m\")\n";
 #line 105 "array_loader.l"
-{ size_t n = std::stoi(text());
+{ auto n = std::stoi(text());
                           return ArrayLoaderParser::make_UINT(n, location()); }
             break;
           case 2: // rule at line 107: -
@@ -425,7 +425,7 @@ ceammc::ArrayLoaderParser::symbol_type ceammc::ArrayLoaderLexer::lex()
             if (debug()) std::cerr << "--\033[1;35maccepting rule at line 129\033[0m (\"\033[1m" << matcher().text() << "\033[0m\")\n";
 #line 129 "array_loader.l"
 { start(RANGE);
-                          size_t n = std::stoi(text());
+                          auto n = std::stoi(text());
                           return ArrayLoaderParser::make_RANGE_BEGIN(n, location()); }
             break;
           case 15: // rule at line 132: (?:[\x2b\x2d]?(?:0|[1-9][0-9]*))
@@ -497,7 +497,7 @@ ceammc::ArrayLoaderParser::symbol_type ceammc::ArrayLoaderLexer::lex()
           case 1: // rule at line 145: [0-9][0-9]
             if (debug()) std::cerr << "--\033[1;35maccepting rule at line 145\033[0m (\"\033[1m" << matcher().text() << "\033[0m\")\n";
 #line 145 "array_loader.l"
-{ size_t n = std::stol(text(), nullptr, 10);
+{ auto n = std::stol(text(), nullptr, 10);
                           return ArrayLoaderParser::make_UINT(n, location()); }
             break;
           case 2: // rule at line 147: :
@@ -546,7 +546,7 @@ ceammc::ArrayLoaderParser::symbol_type ceammc::ArrayLoaderLexer::lex()
             if (debug()) std::cerr << "--\033[1;35maccepting rule at line 141\033[0m (\"\033[1m" << matcher().text() << "\033[0m\")\n";
 #line 141 "array_loader.l"
 { start(OPTIONS);
-                          size_t n = std::stoi(text()+1);
+                          auto n = std::stoi(text()+1);
                           return ArrayLoaderParser::make_RANGE_END(n, location()); }
 
             break;

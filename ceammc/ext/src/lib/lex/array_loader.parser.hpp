@@ -411,6 +411,8 @@ namespace ceammc {
       char dummy3[sizeof (double)];
 
       // INT
+      // time
+      // smpte
       char dummy4[sizeof (int32_t)];
 
       // SYMBOL
@@ -421,8 +423,6 @@ namespace ceammc {
       // UINT
       // RANGE_BEGIN
       // RANGE_END
-      // time
-      // smpte
       char dummy6[sizeof (uint32_t)];
     };
 
@@ -671,6 +671,8 @@ switch (yytype)
         break;
 
       case 21: // INT
+      case 37: // time
+      case 38: // smpte
         value.template destroy< int32_t > ();
         break;
 
@@ -683,8 +685,6 @@ switch (yytype)
       case 22: // UINT
       case 23: // RANGE_BEGIN
       case 24: // RANGE_END
-      case 37: // time
-      case 38: // smpte
         value.template destroy< uint32_t > ();
         break;
 
@@ -1720,6 +1720,8 @@ switch (yytype)
         break;
 
       case 21: // INT
+      case 37: // time
+      case 38: // smpte
         value.move< int32_t > (std::move (that.value));
         break;
 
@@ -1732,8 +1734,6 @@ switch (yytype)
       case 22: // UINT
       case 23: // RANGE_BEGIN
       case 24: // RANGE_END
-      case 37: // time
-      case 38: // smpte
         value.move< uint32_t > (std::move (that.value));
         break;
 
@@ -1767,6 +1767,8 @@ switch (yytype)
         break;
 
       case 21: // INT
+      case 37: // time
+      case 38: // smpte
         value.copy< int32_t > (YY_MOVE (that.value));
         break;
 
@@ -1779,8 +1781,6 @@ switch (yytype)
       case 22: // UINT
       case 23: // RANGE_BEGIN
       case 24: // RANGE_END
-      case 37: // time
-      case 38: // smpte
         value.copy< uint32_t > (YY_MOVE (that.value));
         break;
 
@@ -1821,6 +1821,8 @@ switch (yytype)
         break;
 
       case 21: // INT
+      case 37: // time
+      case 38: // smpte
         value.move< int32_t > (YY_MOVE (s.value));
         break;
 
@@ -1833,8 +1835,6 @@ switch (yytype)
       case 22: // UINT
       case 23: // RANGE_BEGIN
       case 24: // RANGE_END
-      case 37: // time
-      case 38: // smpte
         value.move< uint32_t > (YY_MOVE (s.value));
         break;
 

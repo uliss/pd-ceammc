@@ -46,10 +46,10 @@
     using OPT = ceammc::ArrayLoader::OptionType;
     using OFFSET = ceammc::ArrayLoader::ArrayOffsetType;
 
-    static StringList generateStringRange(size_t from, size_t to) {
+    static StringList generateStringRange(int from, int to) {
         StringList res;
         res.reserve(to - from + 1);
-        for(size_t i = from; i <= to; i++)
+        for(int i = from; i <= to; i++)
             res.emplace_back(std::to_string(i));
 
         return res;
@@ -294,6 +294,8 @@ namespace ceammc {
         break;
 
       case 21: // INT
+      case 37: // time
+      case 38: // smpte
         value.YY_MOVE_OR_COPY< int32_t > (YY_MOVE (that.value));
         break;
 
@@ -306,8 +308,6 @@ namespace ceammc {
       case 22: // UINT
       case 23: // RANGE_BEGIN
       case 24: // RANGE_END
-      case 37: // time
-      case 38: // smpte
         value.YY_MOVE_OR_COPY< uint32_t > (YY_MOVE (that.value));
         break;
 
@@ -341,6 +341,8 @@ namespace ceammc {
         break;
 
       case 21: // INT
+      case 37: // time
+      case 38: // smpte
         value.move< int32_t > (YY_MOVE (that.value));
         break;
 
@@ -353,8 +355,6 @@ namespace ceammc {
       case 22: // UINT
       case 23: // RANGE_BEGIN
       case 24: // RANGE_END
-      case 37: // time
-      case 38: // smpte
         value.move< uint32_t > (YY_MOVE (that.value));
         break;
 
@@ -388,6 +388,8 @@ namespace ceammc {
         break;
 
       case 21: // INT
+      case 37: // time
+      case 38: // smpte
         value.copy< int32_t > (that.value);
         break;
 
@@ -400,8 +402,6 @@ namespace ceammc {
       case 22: // UINT
       case 23: // RANGE_BEGIN
       case 24: // RANGE_END
-      case 37: // time
-      case 38: // smpte
         value.copy< uint32_t > (that.value);
         break;
 
@@ -434,6 +434,8 @@ namespace ceammc {
         break;
 
       case 21: // INT
+      case 37: // time
+      case 38: // smpte
         value.move< int32_t > (that.value);
         break;
 
@@ -446,8 +448,6 @@ namespace ceammc {
       case 22: // UINT
       case 23: // RANGE_BEGIN
       case 24: // RANGE_END
-      case 37: // time
-      case 38: // smpte
         value.move< uint32_t > (that.value);
         break;
 
@@ -716,6 +716,8 @@ namespace ceammc {
         break;
 
       case 21: // INT
+      case 37: // time
+      case 38: // smpte
         yylhs.value.emplace< int32_t > ();
         break;
 
@@ -728,8 +730,6 @@ namespace ceammc {
       case 22: // UINT
       case 23: // RANGE_BEGIN
       case 24: // RANGE_END
-      case 37: // time
-      case 38: // smpte
         yylhs.value.emplace< uint32_t > ();
         break;
 
@@ -755,25 +755,25 @@ namespace ceammc {
             {
   case 2:
 #line 101 "array_loader.y"
-                                          { yylhs.value.as < uint32_t > () = loader.smpte2samples(0, yystack_[2].value.as < uint32_t > (), yystack_[0].value.as < uint32_t > (), 0); }
+                                          { yylhs.value.as < int32_t > () = loader.smpte2samples(0, yystack_[2].value.as < uint32_t > (), yystack_[0].value.as < uint32_t > (), 0); }
 #line 760 "array_loader.parser.cpp"
     break;
 
   case 3:
 #line 102 "array_loader.y"
-                                          { yylhs.value.as < uint32_t > () = loader.smpte2samples(0, yystack_[4].value.as < uint32_t > (), yystack_[2].value.as < uint32_t > (), yystack_[0].value.as < uint32_t > ()); }
+                                          { yylhs.value.as < int32_t > () = loader.smpte2samples(0, yystack_[4].value.as < uint32_t > (), yystack_[2].value.as < uint32_t > (), yystack_[0].value.as < uint32_t > ()); }
 #line 766 "array_loader.parser.cpp"
     break;
 
   case 4:
 #line 103 "array_loader.y"
-                                          { yylhs.value.as < uint32_t > () = loader.smpte2samples(yystack_[4].value.as < uint32_t > (), yystack_[2].value.as < uint32_t > (), yystack_[0].value.as < uint32_t > (), 0); }
+                                          { yylhs.value.as < int32_t > () = loader.smpte2samples(yystack_[4].value.as < uint32_t > (), yystack_[2].value.as < uint32_t > (), yystack_[0].value.as < uint32_t > (), 0); }
 #line 772 "array_loader.parser.cpp"
     break;
 
   case 5:
 #line 104 "array_loader.y"
-                                          { yylhs.value.as < uint32_t > () = loader.smpte2samples(yystack_[6].value.as < uint32_t > (), yystack_[4].value.as < uint32_t > (), yystack_[2].value.as < uint32_t > (), yystack_[0].value.as < uint32_t > ()); }
+                                          { yylhs.value.as < int32_t > () = loader.smpte2samples(yystack_[6].value.as < uint32_t > (), yystack_[4].value.as < uint32_t > (), yystack_[2].value.as < uint32_t > (), yystack_[0].value.as < uint32_t > ()); }
 #line 778 "array_loader.parser.cpp"
     break;
 
@@ -791,31 +791,31 @@ namespace ceammc {
 
   case 8:
 #line 113 "array_loader.y"
-                      { yylhs.value.as < uint32_t > () = yystack_[0].value.as < double > (); }
+                      { yylhs.value.as < int32_t > () = yystack_[0].value.as < double > (); }
 #line 796 "array_loader.parser.cpp"
     break;
 
   case 9:
 #line 114 "array_loader.y"
-                      { yylhs.value.as < uint32_t > () = loader.sec2samples(yystack_[1].value.as < double > ()); }
+                      { yylhs.value.as < int32_t > () = loader.sec2samples(yystack_[1].value.as < double > ()); }
 #line 802 "array_loader.parser.cpp"
     break;
 
   case 10:
 #line 115 "array_loader.y"
-                      { yylhs.value.as < uint32_t > () = loader.ms2samples(yystack_[1].value.as < double > ()); }
+                      { yylhs.value.as < int32_t > () = loader.ms2samples(yystack_[1].value.as < double > ()); }
 #line 808 "array_loader.parser.cpp"
     break;
 
   case 11:
 #line 116 "array_loader.y"
-                      { yylhs.value.as < uint32_t > () = yystack_[1].value.as < double > (); }
+                      { yylhs.value.as < int32_t > () = yystack_[1].value.as < double > (); }
 #line 814 "array_loader.parser.cpp"
     break;
 
   case 12:
 #line 117 "array_loader.y"
-                      { yylhs.value.as < uint32_t > () = yystack_[0].value.as < uint32_t > (); }
+                      { yylhs.value.as < int32_t > () = yystack_[0].value.as < int32_t > (); }
 #line 820 "array_loader.parser.cpp"
     break;
 
@@ -851,21 +851,21 @@ namespace ceammc {
 
   case 18:
 #line 129 "array_loader.y"
-                                  { if(!loader.setSampleOption(OPT::OPT_BEGIN, yystack_[0].value.as < uint32_t > ()))
+                                  { if(!loader.setSampleOption(OPT::OPT_BEGIN, yystack_[0].value.as < int32_t > ()))
                                         { error(yystack_[0].location, "invalid @begin value"); return 1; }}
 #line 857 "array_loader.parser.cpp"
     break;
 
   case 19:
 #line 131 "array_loader.y"
-                                  { if(!loader.setSampleOption(OPT::OPT_END, yystack_[0].value.as < uint32_t > ()))
+                                  { if(!loader.setSampleOption(OPT::OPT_END, yystack_[0].value.as < int32_t > ()))
                                         { error(yystack_[0].location, "invalid @end value"); return 1; }}
 #line 864 "array_loader.parser.cpp"
     break;
 
   case 20:
 #line 133 "array_loader.y"
-                                  { if(!loader.setSampleOption(OPT::OPT_LENGTH, yystack_[0].value.as < uint32_t > ()))
+                                  { if(!loader.setSampleOption(OPT::OPT_LENGTH, yystack_[0].value.as < int32_t > ()))
                                         { error(yystack_[0].location, "invalid @length value"); return 1; }}
 #line 871 "array_loader.parser.cpp"
     break;

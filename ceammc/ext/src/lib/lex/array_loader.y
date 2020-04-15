@@ -45,10 +45,10 @@
     using OPT = ceammc::ArrayLoader::OptionType;
     using OFFSET = ceammc::ArrayLoader::ArrayOffsetType;
 
-    static StringList generateStringRange(size_t from, size_t to) {
+    static StringList generateStringRange(int from, int to) {
         StringList res;
         res.reserve(to - from + 1);
-        for(size_t i = from; i <= to; i++)
+        for(int i = from; i <= to; i++)
             res.emplace_back(std::to_string(i));
 
         return res;
@@ -87,7 +87,7 @@
 %token                  STRING_END 0 "end of string"
 %token                  LEXER_ERROR
 
-%nterm  <uint32_t>      time smpte
+%nterm  <int32_t>       time smpte
 %nterm  <double>        number
 %nterm  <StringList>    array_pattern var_list
 %nterm  <std::string>   var
