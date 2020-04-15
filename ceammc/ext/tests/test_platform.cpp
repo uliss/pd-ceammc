@@ -287,7 +287,8 @@ TEST_CASE("ceammc::platform", "[ceammc::lib]")
         REQUIRE(cnv);
         REQUIRE(cnv->pd_canvas());
         REQUIRE(ceammc::platform::find_in_std_path(cnv->pd_canvas(), "test").empty());
-        REQUIRE(ceammc::platform::find_in_std_path(cnv->pd_canvas(), "test_01.mid") == TEST_DATA_DIR "/test_01.mid");
+        REQUIRE(ceammc::platform::find_in_std_path(cnv->pd_canvas(), "snd_mono_48k.wav")
+            == TEST_DATA_DIR "/snd_mono_48k.wav");
 
         // full path
         REQUIRE(ceammc::platform::find_in_std_path(cnv->pd_canvas(), TEST_DATA_DIR) == TEST_DATA_DIR);
