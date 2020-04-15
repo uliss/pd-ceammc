@@ -933,17 +933,35 @@ bool ListProperty::checkRangeElementCount(size_t min, size_t max)
 
 void ListProperty::acceptFloats()
 {
-    setFilterAtomFn([](const Atom& a) { return a.isFloat(); });
+    setFilterAtomFn([this](const Atom& a) {
+        bool rc = a.isFloat();
+        if (!rc)
+            PROP_ERR() << "reject non-float value: " << a;
+
+        return rc;
+    });
 }
 
 void ListProperty::acceptIntegers()
 {
-    setFilterAtomFn([](const Atom& a) { return a.isInteger(); });
+    setFilterAtomFn([this](const Atom& a) {
+        bool rc = a.isInteger();
+        if (!rc)
+            PROP_ERR() << "reject non-integer value: " << a;
+
+        return rc;
+    });
 }
 
 void ListProperty::acceptSymbols()
 {
-    setFilterAtomFn([](const Atom& a) { return a.isSymbol(); });
+    setFilterAtomFn([this](const Atom& a) {
+        bool rc = a.isSymbol();
+        if (!rc)
+            PROP_ERR() << "reject non-symbol value: " << a;
+
+        return rc;
+    });
 }
 
 void ListProperty::roundFloats()

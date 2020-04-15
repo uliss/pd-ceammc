@@ -85,6 +85,7 @@ static_assert(sizeof(MListAtom) == sizeof(Atom), "DataAtom size mismatch");
  * @return parsed list on success or unmodified list if parsing failed
  */
 AtomList parseDataList(const AtomList& lst) noexcept;
+AtomList parseDataList(const AtomListView& view) noexcept;
 
 /**
  * @throw std::runtime_error on error

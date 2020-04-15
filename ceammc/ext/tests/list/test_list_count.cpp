@@ -37,25 +37,25 @@ TEST_CASE("list.count", "[externals]")
         SECTION("positional symbol")
         {
             TObj t("list.count", LA("c"));
-            REQUIRE_THAT(t, hasProperty(&t, "@pattern", "c")); 
+            REQUIRE_THAT(t, hasProperty(&t, "@pattern", "c"));
         }
 
         SECTION("positional float")
         {
             TObj t("list.count", LF(2));
-            REQUIRE_THAT(t, hasProperty(&t, "@pattern", 2)); 
+            REQUIRE_THAT(t, hasProperty(&t, "@pattern", 2));
         }
 
         SECTION("positional list")
         {
             TObj t("list.count", LA(1, 2, 3, 4, 5));
-            REQUIRE_THAT(t, hasProperty(&t, "@pattern", 1)); 
+            REQUIRE_THAT(t, hasProperty(&t, "@pattern", 1));
         }
 
         SECTION("properties")
         {
             TObj t("list.count", LA("@pattern", 111));
-            REQUIRE_THAT(t, hasProperty(&t, "@pattern", 111)); 
+            REQUIRE_THAT(t, hasProperty(&t, "@pattern", 111));
         }
     }
 
@@ -79,19 +79,19 @@ TEST_CASE("list.count", "[externals]")
     SECTION("inlet 2")
     {
         TObj t("list.count", LF(2));
-        REQUIRE_THAT(t, hasProperty(&t, "@pattern", 2)); 
+        REQUIRE_THAT(t, hasProperty(&t, "@pattern", 2));
 
         WHEN_SEND_FLOAT_TO(1, t, 122);
-        REQUIRE_THAT(t, hasProperty(&t, "@pattern", 122)); 
+        REQUIRE_THAT(t, hasProperty(&t, "@pattern", 122));
 
         WHEN_SEND_SYMBOL_TO(1, t, "A");
-        REQUIRE_THAT(t, hasProperty(&t, "@pattern", "A")); 
+        REQUIRE_THAT(t, hasProperty(&t, "@pattern", "A"));
 
         WHEN_SEND_LIST_TO(1, t, LA("C", "B", "A"));
-        REQUIRE_THAT(t, hasProperty(&t, "@pattern", "C")); 
+        REQUIRE_THAT(t, hasProperty(&t, "@pattern", "C"));
 
         WHEN_SEND_LIST_TO(1, t, L());
-        REQUIRE_THAT(t, hasProperty(&t, "@pattern", "C")); 
+        REQUIRE_THAT(t, hasProperty(&t, "@pattern", "C"));
     }
 
     SECTION("external simple")
@@ -110,15 +110,24 @@ TEST_CASE("list.count", "[externals]")
 
     SECTION("external data")
     {
-        TExt t("list.count", LA(IntA(100)));
+        TExt t("list.count", "(1 2)");
 
-        t.send(1, 2, 3, 100);
-        REQUIRE_THAT(t, outputFalse(&t));
+        t.send(1, 2);
+        REQUIRE(floatAt(t) == 0);
 
-        t.send(1, 2, 100, IntA(200));
-        REQUIRE_THAT(t, outputFalse(&t));
+        t.send(1, 2, 3, MLA());
+        REQUIRE(floatAt(t) == 0);
 
-        t.send(1, 2, IntA(100), 100);
-        REQUIRE_THAT(t, outputTrue(&t));
+        t.send(1, 2, 3, MLA(1));
+        REQUIRE(floatAt(t) == 0);
+
+        t.send(1, 2, 3, MLA(1, 2));
+        REQUIRE(floatAt(t) == 1);
+
+        t.send(1, 2, 3, MLA(1, 2), 4, MLA(1, 2));
+        REQUIRE(floatAt(t) == 2);
+
+        t.send(MLA(1, MLA(1, 2)));
+        REQUIRE(floatAt(t) == 1);
     }
 }

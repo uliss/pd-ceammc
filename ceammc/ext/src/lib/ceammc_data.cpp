@@ -67,4 +67,26 @@ AtomList parseDataString(const std::string& str)
         return AtomList();
     }
 }
+
+AtomList parseDataList(const AtomListView& view) noexcept
+{
+    if (view.empty())
+        return view;
+
+    auto str = to_string(view, " ");
+    if (str.empty())
+        return view;
+
+    try {
+        AtomList res;
+        DataStringLexer lex(str);
+        DataStringParser p(lex, res);
+
+        return (p.parse() == 0) ? res : view.operator AtomList();
+
+    } catch (std::exception& e) {
+        return view;
+    }
+}
+
 }

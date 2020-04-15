@@ -16,7 +16,7 @@ ListAt::ListAt(const PdArgs& a)
     createOutlet();
 
     pos_ = new ListProperty("@index", AtomList(Atom(0.f)));
-    pos_->setFloatCheckFn([](t_float) { return true; });
+    pos_->acceptIntegers();
     pos_->setArgIndex(0);
 
     addProperty(pos_);

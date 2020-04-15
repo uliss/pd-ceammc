@@ -13,6 +13,7 @@
  *****************************************************************************/
 #include "ceammc_object.h"
 #include "ceammc_convert.h"
+#include "ceammc_data.h"
 #include "ceammc_datatypes.h"
 #include "ceammc_format.h"
 #include "ceammc_log.h"
@@ -595,7 +596,8 @@ void BaseObject::parseProperties()
 {
     const size_t PROP_START = pd_.args.findPos([](const Atom& a) { return a.isProperty(); });
 
-    AtomList parsed_positional_args = pd_.args.view(0, PROP_START).parseQuoted(false);
+
+    AtomList parsed_positional_args = parseDataList(pd_.args.view(0, PROP_START));
     AtomList parsed_props = pd_.args.view(PROP_START).parseQuoted(true);
 
     const size_t NPOS_ARGS = parsed_positional_args.size();

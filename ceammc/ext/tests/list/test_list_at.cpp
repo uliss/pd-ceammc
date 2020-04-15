@@ -51,8 +51,8 @@ TEST_CASE("list.at", "[externals]")
 
         SECTION("positional arguments and props mixed")
         {
-            TObj t("list.at", LA(100, "@index", 10));
-            REQUIRE_THAT(t, hasProperty(&t, "@index", 10));
+            TObj t("list.at", LA(100, "@index", 10.9));
+            REQUIRE_THAT(t, hasProperty(&t, "@index"));
         }
 
         SECTION("invalid args")
@@ -60,13 +60,16 @@ TEST_CASE("list.at", "[externals]")
             SECTION("props")
             {
                 TObj t("list.at", LA("@index", "none"));
-                REQUIRE_THAT(t, hasProperty(&t, "@index", 0));
+                REQUIRE_THAT(t, hasProperty(&t, "@index"));
             }
 
             SECTION("positional")
             {
                 TObj t("list.at", LA("none"));
-                REQUIRE_THAT(t, hasProperty(&t, "@index", 0));
+                REQUIRE_THAT(t, hasProperty(&t, "@index"));
+
+                t << LF(1,2,3);
+                REQUIRE(listAt(t) == L());
             }
         }
 
