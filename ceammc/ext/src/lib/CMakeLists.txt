@@ -188,6 +188,7 @@ target_sources(ceammc_sound PRIVATE ${CEAMMC_LOAD_SRC})
 target_compile_options(ceammc_sound PRIVATE ${LIBCEAMMC_COMPILE_FLAGS})
 target_link_libraries(ceammc_sound PRIVATE fmt::fmt-header-only)
 target_link_libraries(ceammc_sound PRIVATE reflex)
+target_link_libraries(ceammc_sound PUBLIC ceammc_core)
 
 # libsndfile backend
 if(LIBSNDFILE_FOUND)
