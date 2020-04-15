@@ -11,9 +11,8 @@
  * contact the author of this file, or the owner of the project in which
  * this file belongs to.
  *****************************************************************************/
-#include "../src/spat/hoa_connections.h"
-#include "test_base.h"
-#include "test_external.h"
+#include "hoa_connections.h"
+#include "test_spat_base.h"
 
 PD_COMPLETE_TEST_SETUP(HoaIn, spat, hoa_connections)
 

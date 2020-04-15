@@ -11,13 +11,10 @@
  * contact the author of this file, or the owner of the project in which
  * this file belongs to.
  *****************************************************************************/
-#include "../src/spat/hoa_process.h"
-#include "../src/spat/mod_spat.h"
+#include "hoa_process.h"
+#include "mod_spat.h"
 
-#include "catch.hpp"
-#include "test_base.h"
-#include "test_external.h"
-#include "test_sound.h"
+#include "test_spat_base.h"
 
 PD_COMPLETE_TEST_SETUP(HoaProcess, spat, hoa_process)
 

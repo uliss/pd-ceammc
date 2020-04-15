@@ -11,10 +11,8 @@
  * contact the author of this file, or the owner of the project in which
  * this file belongs to.
  *****************************************************************************/
-#include "../spat/pan_spread.h"
-#include "ceammc_pd.h"
-#include "test_sound.h"
-#include "test_external.h"
+#include "pan_spread.h"
+#include "test_spat_base.h"
 
 PD_COMPLETE_SND_TEST_SETUP(PanSpread, pan, spread)
 

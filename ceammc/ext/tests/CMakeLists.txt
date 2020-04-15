@@ -118,27 +118,6 @@ ceammc_external_test(preset list)
 ceammc_external_test(path exists)
 ceammc_external_test(path lsdir)
 
-ceammc_external_test(spat pan_lin)
-ceammc_external_test(spat pan_sqrt)
-ceammc_external_test(spat pan_cos)
-ceammc_external_test(spat pan_spread)
-ceammc_add_test_linked(
-    TITLE "hoa_process"
-    NAME test_ext_spat_hoa_process
-    LINK ceammc_spat ceammc_core puredata-core ceammc_core
-    INCLUDE_DIRECTORIES
-        ${PROJECT_SOURCE_DIR}/ceammc/extra/HoaLibrary-Light/Sources
-        ${EIGEN3_DIR}
-)
-ceammc_add_test_linked(
-    TITLE "hoa_in"
-    NAME test_ext_spat_hoa_in
-    LINK ceammc_spat ceammc_core puredata-core ceammc_core
-    INCLUDE_DIRECTORIES
-        ${PROJECT_SOURCE_DIR}/ceammc/extra/HoaLibrary-Light/Sources
-        ${EIGEN3_DIR}
-)
-
 ceammc_add_test_linked(TITLE "tl.transport"
     NAME test_ext_tl_transport
     LINK ceammc_tl ceammc_ui ceammc_core puredata-core ceammc_core)
@@ -150,11 +129,6 @@ ceammc_add_extension_test("ext_symbol_num_compare" "../src/symbol/symbol_num_com
 ceammc_add_test_linked(TITLE "tl::parser" NAME test_tl_parser LINK ceammc_tl)
 ceammc_add_test_linked(TITLE "ceammc::preset" NAME test_preset LINK ceammc_preset ceammc_core puredata-core ceammc_core)
 ceammc_add_test_linked(TITLE "ceammc::pd" NAME test_pd SRC "../src/base/debug_gensym.cpp" LINK ceammc_core puredata-core)
-
-#ceammc_add_test_linked(TITLE "[flow.change]"
-#    NAME test_ext_flow_change
-#    SRC test_ext_flow_change.cpp
-#    LINK ceammc_core puredata-core ceammc_base ceammc_flow ceammc_core)
 
 ceammc_add_test_linked(TITLE "ceammc::DataTypeMidiStream"
     NAME test_datatype_midistream
@@ -242,6 +216,7 @@ add_subdirectory(flow)
 add_subdirectory(list)
 add_subdirectory(math)
 add_subdirectory(midi)
+add_subdirectory(spat)
 add_subdirectory(random)
 add_subdirectory(string)
 add_subdirectory(system)

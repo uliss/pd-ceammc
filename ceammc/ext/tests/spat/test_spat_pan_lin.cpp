@@ -11,16 +11,14 @@
  * contact the author of this file, or the owner of the project in which
  * this file belongs to.
  *****************************************************************************/
-#include "../spat/pan_linear.h"
-#include "ceammc_pd.h"
-#include "test_external.h"
-#include "test_sound.h"
+#include "pan_linear.h"
+#include "test_spat_base.h"
 
 PD_COMPLETE_SND_TEST_SETUP(PanLinear, pan, linear)
 
 typedef TestSoundExternal<PanLinear> PanLinTest;
 
-using namespace ceammc;
+static inline Approx approx(t_float f) { return Approx(f).margin(0.00001); }
 
 TEST_CASE("pan.lin~", "[externals]")
 {
@@ -46,26 +44,26 @@ TEST_CASE("pan.lin~", "[externals]")
         }
 
         sm.setSmoothTime(2, 1000, 1);
-        REQUIRE(sm.get(0) == Approx(5));
-        REQUIRE(sm.get(0) == Approx(2.5));
-        REQUIRE(sm.get(0) == Approx(1.25));
-        REQUIRE(sm.get(0) == Approx(0.625));
-        REQUIRE(sm.get(0) == Approx(0.3125));
-        REQUIRE(sm.get(0) == Approx(0.15625));
-        REQUIRE(sm.get(0) == Approx(0.07812));
-        REQUIRE(sm.get(0) == Approx(0.03906));
-        REQUIRE(sm.get(0) == Approx(0.01953));
-        REQUIRE(sm.get(0) == Approx(0.00977));
-        REQUIRE(sm.get(0) == Approx(0.00488));
-        REQUIRE(sm.get(0) == Approx(0.00244));
-        REQUIRE(sm.get(0) == Approx(0.00122));
-        REQUIRE(sm.get(0) == Approx(0.00061));
-        REQUIRE(sm.get(0) == Approx(0.00030));
-        REQUIRE(sm.get(0) == Approx(0.00015));
-        REQUIRE(sm.get(0) == Approx(0.00007));
-        REQUIRE(sm.get(0) == Approx(0.00003));
-        REQUIRE(sm.get(0) == Approx(0.00001));
-        REQUIRE(sm.get(0) == Approx(0.00000));
+        REQUIRE(sm.get(0) == approx(5));
+        REQUIRE(sm.get(0) == approx(2.5));
+        REQUIRE(sm.get(0) == approx(1.25));
+        REQUIRE(sm.get(0) == approx(0.625));
+        REQUIRE(sm.get(0) == approx(0.3125));
+        REQUIRE(sm.get(0) == approx(0.15625));
+        REQUIRE(sm.get(0) == approx(0.07812));
+        REQUIRE(sm.get(0) == approx(0.03906));
+        REQUIRE(sm.get(0) == approx(0.01953));
+        REQUIRE(sm.get(0) == approx(0.00977));
+        REQUIRE(sm.get(0) == approx(0.00488));
+        REQUIRE(sm.get(0) == approx(0.00244));
+        REQUIRE(sm.get(0) == approx(0.00122));
+        REQUIRE(sm.get(0) == approx(0.00061));
+        REQUIRE(sm.get(0) == approx(0.00031f));
+        REQUIRE(sm.get(0) == approx(0.00015));
+        REQUIRE(sm.get(0) == approx(0.00007));
+        REQUIRE(sm.get(0) == approx(0.00003));
+        REQUIRE(sm.get(0) == approx(0.00001));
+        REQUIRE(sm.get(0) == approx(0.00000));
     }
 
     SECTION("process")
