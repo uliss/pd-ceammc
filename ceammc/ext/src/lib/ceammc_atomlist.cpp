@@ -23,6 +23,7 @@
 #include <iostream>
 #include <iterator>
 #include <string>
+#include <cstring>
 
 #include "lex/quoted_atomlist_lexer.h"
 #include "lex/quoted_string.parser.hpp"
