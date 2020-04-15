@@ -1,5 +1,6 @@
 #include "ceammc_factory.h"
 #include "ceammc_object.h"
+#include <cmath>
 
 using namespace ceammc;
 
