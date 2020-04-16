@@ -388,6 +388,7 @@ patch.props		.		.
 path.basename		.		.
 path.dirname		.		.
 path.exists		.		.
+path.is_dir		.		..
 path.lsdir,path.ls		.		.
 preset.float,preset.f		.		.
 preset.list,preset.l		.		.

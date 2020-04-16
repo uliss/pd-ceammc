@@ -1178,6 +1178,9 @@
     <entry descr="checks if given path exists" name="path.exists" ref_view="object">
       <xi:include href="path.exists.pddoc" parse="xml"/>
     </entry>
+    <entry descr="check if path is directory" name="path.is_dir" ref_view="object">
+      <xi:include href="path.is_dir.pddoc" parse="xml"/>
+    </entry>
     <entry descr="list directory contents" name="path.lsdir" ref_view="object">
       <xi:include href="path.lsdir.pddoc" parse="xml"/>
     </entry>

@@ -11,12 +11,22 @@
  * contact the author of this file, or the owner of the project in which
  * this file belongs to.
  *****************************************************************************/
-#ifndef TEST_PATH_BASE_H
-#define TEST_PATH_BASE_H
+#ifndef PATH_IS_DIR_H
+#define PATH_IS_DIR_H
 
-#include "datatype_string.h"
-#include "test_external.h"
+#include "ceammc_data.h"
+#include "ceammc_object.h"
 
-#include "test_catch2.hpp"
+using namespace ceammc;
 
-#endif // TEST_PATH_BASE_H
+class PathIsDir : public BaseObject {
+public:
+    PathIsDir(const PdArgs& args);
+
+    void onSymbol(t_symbol* s) override;
+    void onDataT(const StringAtom& sa);
+};
+
+void setup_path_is_dir();
+
+#endif // PATH_IS_DIR_H

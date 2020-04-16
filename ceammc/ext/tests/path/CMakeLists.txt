@@ -28,4 +28,5 @@ function(add_path_test src)
 endfunction()
 
 add_path_test(exists)
+add_path_test(is_dir)
 add_path_test(lsdir)

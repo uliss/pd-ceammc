@@ -390,6 +390,7 @@ set(DOC_FILES
     path.basename
     path.dirname
     path.exists
+    path.is_dir
     path.lsdir
     preset.float
     preset.list
