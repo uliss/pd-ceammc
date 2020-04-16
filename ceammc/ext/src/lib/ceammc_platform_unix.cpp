@@ -172,5 +172,17 @@ namespace platform {
         perror("getcwd() error");
         return std::string();
     }
+
+    bool unix_is_file(const char *path)
+    {
+        struct stat statbuf;
+        if (::stat(path, &statbuf) != -1) {
+            if (S_ISREG(statbuf.st_mode))
+                return true;
+            else
+                return false;
+        }
+        return false;
+    }
 }
 }

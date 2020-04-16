@@ -14,17 +14,11 @@
 #include "ceammc_format.h"
 #include "datatype_string.h"
 #include "path_listdir.h"
-#include "test_external.h"
+#include "test_path_base.h"
 
-#include <stdio.h>
-#include <vector>
+PD_COMPLETE_TEST_SETUP(PathListDir, path, lsdir)
 
-typedef TestExternal<PathListDir> ListDirTest;
 typedef std::vector<std::string> FileList;
-
-#ifndef TEST_DATA_DIR
-#define TEST_DATA_DIR "."
-#endif
 
 static FileList dataToList(const Message& m)
 {
@@ -39,6 +33,8 @@ static FileList dataToList(const Message& m)
 
 TEST_CASE("path.lsdir", "[externals]")
 {
+    pd_test_init();
+
     FileList files;
     files.push_back("test_data0.mp3");
     files.push_back("test_data0_vbr.mp3");
@@ -47,7 +43,7 @@ TEST_CASE("path.lsdir", "[externals]")
     {
         SECTION("empty arguments")
         {
-            ListDirTest t("path.ls", L());
+            TObj t("path.ls", L());
             REQUIRE_PROPERTY(t, @match, "");
 
             WHEN_SEND_BANG_TO(0, t);
@@ -65,7 +61,7 @@ TEST_CASE("path.lsdir", "[externals]")
 
         SECTION("properties")
         {
-            ListDirTest t("path.ls", LA("@match", "*.mp3"));
+            TObj t("path.ls", LA("@match", "*.mp3"));
             REQUIRE_PROPERTY(t, @match, A("*.mp3"));
 
             WHEN_SEND_BANG_TO(0, t);
@@ -82,7 +78,7 @@ TEST_CASE("path.lsdir", "[externals]")
 
         SECTION("properties")
         {
-            ListDirTest t("path.ls", LA(".", "@match", "*.mp3"));
+            TObj t("path.ls", LA(".", "@match", "*.mp3"));
             REQUIRE_PROPERTY(t, @match, A("*.mp3"));
 
             WHEN_SEND_BANG_TO(0, t);
@@ -97,12 +93,12 @@ TEST_CASE("path.lsdir", "[externals]")
 
     SECTION("test errors")
     {
-        ListDirTest t("path.ls", L());
+        TObj t("path.ls", L());
 
         WHEN_SEND_SYMBOL_TO(0, t, TEST_DATA_DIR "non-exists");
         REQUIRE_LIST_AT_OUTLET(0, t, L());
 
-        WHEN_SEND_SYMBOL_TO(0, t, ".");
+        WHEN_SEND_SYMBOL_TO(0, t, "~");
         REQUIRE(t.hasNewMessages(0));
         REQUIRE(t.lastMessage(0).isList());
         REQUIRE(t.lastMessage(0).listValue().size() > 0);

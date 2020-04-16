@@ -11,30 +11,11 @@
  * contact the author of this file, or the owner of the project in which
  * this file belongs to.
  *****************************************************************************/
-#include "datatype_string.h"
-#include "path_exists.h"
+#ifndef TEST_PATH_BASE_H
+#define TEST_PATH_BASE_H
+
 #include "test_external.h"
 
-PD_COMPLETE_TEST_SETUP(PathExists, path, exists)
+#include "test_catch2.hpp"
 
-#ifndef TEST_DATA_DIR
-#define TEST_DATA_DIR "."
-#endif
-
-TEST_CASE("path.exists", "[externals]")
-{
-    pd_test_init();
-
-    SECTION("init")
-    {
-        TestExtPathExists t("path.exists");
-        REQUIRE(t.numInlets() == 1);
-        REQUIRE(t.numOutlets() == 1);
-
-        t.sendSymbol(TEST_DATA_DIR "/test_data0.mp3");
-        REQUIRE(t.outputFloatAt(0) == 1);
-
-        t.sendSymbol(TEST_DATA_DIR "/test_data0.mp3???");
-        REQUIRE(t.outputFloatAt(0) == 0);
-    }
-}
+#endif // TEST_PATH_BASE_H

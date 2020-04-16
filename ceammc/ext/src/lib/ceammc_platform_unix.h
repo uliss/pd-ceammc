@@ -29,6 +29,7 @@ namespace platform {
     bool unix_rmdir(const char* path);
     std::string unix_home_directory();
     bool unix_is_dir(const char* path);
+    bool unix_is_file(const char* path);
     std::string unix_current_working_directory();
     Either<NetAddressList, PlatformError> unix_hostnametoip(const char* name, NetAddressType type);
     Either<int, PlatformError> unix_fd_set_non_blocking(int fd);

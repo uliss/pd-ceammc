@@ -36,4 +36,6 @@ private:
     void readDirList();
 };
 
+void setup_path_lsdir();
+
 #endif // PATH_LISTDIR_H

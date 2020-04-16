@@ -60,31 +60,31 @@ void PathListDir::readDirList()
         }
     }
 
-    DIR* dir = opendir(path.c_str());
-    if (dir == NULL) {
+    std::unique_ptr<DIR, int (*)(DIR*)> dir(opendir(path.c_str()),
+        [](DIR* d) -> int { return d ? closedir(d) : 0; });
+
+    if (!dir) {
         OBJ_ERR << "can't read directory: '" << path << "'. Error: " << strerror(errno);
         return;
     }
 
     struct dirent* p_dirent;
-    while ((p_dirent = readdir(dir)) != NULL) {
+    while ((p_dirent = readdir(dir.get())) != NULL) {
         // skip hidden files on UNIX
         if (p_dirent->d_name[0] == '.')
             continue;
 
         if (match_->s_name[0] != 0) {
             if (platform::fnmatch(match_->s_name, p_dirent->d_name)) {
-                ls_.append(new DataTypeString(p_dirent->d_name));
+                ls_.append(StringAtom(p_dirent->d_name));
             }
         } else {
-            ls_.append(new DataTypeString(p_dirent->d_name));
+            ls_.append(StringAtom(p_dirent->d_name));
         }
     }
-
-    closedir(dir);
 }
 
-extern "C" void setup_path0x2elsdir()
+void setup_path_lsdir()
 {
     ObjectFactory<PathListDir> obj("path.lsdir");
     obj.addAlias("path.ls");

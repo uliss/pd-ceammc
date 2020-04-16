@@ -125,7 +125,7 @@ TEST_CASE("system.shell", "[externals]")
             REQUIRE(dataAt(t1).asData()->toString() == "no newline");
         }
 
-        SECTION("bit output")
+        SECTION("big output")
         {
             t << TEST_EXEC "8";
             test::pdRunMainLoopMs(MS(100));
@@ -198,7 +198,7 @@ TEST_CASE("system.shell", "[externals]")
         TExt t("system.shell");
         REQUIRE(t.object());
 
-        t << "echo test &";
+        t << "echo test";
         test::pdRunMainLoopMs(MS(500));
 
         REQUIRE(t.hasOutput());

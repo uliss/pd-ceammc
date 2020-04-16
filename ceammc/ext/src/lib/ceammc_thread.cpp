@@ -56,8 +56,8 @@ void ThreadExternalBase::processCommand(int code)
 ThreadExternalBase::ThreadExternalBase(const PdArgs& args, thread::Task* task)
     : BaseObject(args)
     , task_(task)
-    , pipe_dbg_(new thread::Pipe(64))
     , pipe_err_(new thread::Pipe(64))
+    , pipe_dbg_(new thread::Pipe(64))
 {
     task_->setPipeErr(pipe_err_.get());
     task_->setPipeDebug(pipe_dbg_.get());

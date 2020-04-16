@@ -115,9 +115,9 @@ public:
             std::this_thread::sleep_for(std::chrono::milliseconds(10));
         }
 
-#ifdef __WIN32
+//#ifdef __WIN32
         std::cerr << "process exit: " << rc << "\n";
-#endif
+//#endif
 
     end:
         return rc;
