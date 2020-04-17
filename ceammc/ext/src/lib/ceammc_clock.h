@@ -3,7 +3,45 @@
 
 #include "m_pd.h"
 
+#include <functional>
+
 namespace ceammc {
+
+class ClockLambdaFunction {
+    std::function<void()> fn_;
+    t_clock* clock_;
+
+public:
+    ClockLambdaFunction(std::function<void()> fn)
+        : fn_(fn)
+        , clock_(nullptr)
+    {
+        clock_ = clock_new(static_cast<void*>(this), reinterpret_cast<t_method>(tick));
+    }
+
+    void unset()
+    {
+        if (clock_)
+            clock_unset(clock_);
+    }
+
+    void delay(double ms)
+    {
+        if (clock_)
+            clock_delay(clock_, ms);
+    }
+
+    ~ClockLambdaFunction()
+    {
+        if (clock_)
+            clock_free(clock_);
+    }
+
+    static void tick(ClockLambdaFunction* fn)
+    {
+        fn->fn_();
+    }
+};
 
 template <class T>
 class ClockFunction {
