@@ -79,7 +79,7 @@ void pdRunMainLoopMs(int ms)
         return 1;
     });
 
-    sys_stopgui();
+//    sys_stopgui();
     setTestSampleRate(44100);
     m_mainloop();
 

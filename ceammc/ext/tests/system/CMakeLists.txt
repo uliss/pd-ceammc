@@ -31,5 +31,6 @@ endfunction()
 add_executable(test_exec test_exec.cpp)
 add_dependencies(test_ext_system test_exec)
 
+add_system_test(exec)
 add_system_test(getenv)
 add_system_test(shell)
