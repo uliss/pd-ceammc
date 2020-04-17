@@ -44,42 +44,6 @@ public:
 };
 
 template <class T>
-class ClockFunction {
-    t_clock* clock_;
-
-public:
-    typedef void (*FunPtr)(T*);
-
-protected:
-    FunPtr fn_;
-    T* arg_;
-
-public:
-    ClockFunction(FunPtr fn, T* arg)
-        : clock_(nullptr)
-        , fn_(fn)
-        , arg_(arg)
-    {
-        clock_ = clock_new(static_cast<void*>(arg_), reinterpret_cast<t_method>(fn_));
-    }
-
-    void unset()
-    {
-        clock_unset(clock_);
-    }
-
-    void delay(double ms)
-    {
-        clock_delay(clock_, ms);
-    }
-
-    ~ClockFunction()
-    {
-        clock_free(clock_);
-    }
-};
-
-template <class T>
 class ClockMemberFunction {
 public:
     typedef void (T::*MemberFunPtr)();
