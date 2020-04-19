@@ -22,10 +22,20 @@
 #include <unistd.h>
 #endif
 
+#ifdef __WIN32__
+#include <handleapi.h>
+using ProcessId = HANDLE;
+#define INVALID_PROCESS_ID INVALID_HANDLE_VALUE
+#else
+using ProcessId = pid_t;
+constexpr pid_t INVALID_PROCESS_ID = -1;
+#endif
+
 #include <algorithm>
 #include <cerrno>
 #include <cstring>
 #include <iostream>
+#include <memory>
 #include <stdexcept>
 #include <string>
 #include <vector>
@@ -85,7 +95,7 @@ namespace sys {
         bool checkState();
 
         /** process pid */
-        pid_t id() const { return pid_; };
+        ProcessId id() const { return pid_; };
 
         /** send signal to process */
         bool sendSignal(SignalType sig);
@@ -105,7 +115,7 @@ namespace sys {
         bool readFd(const FDescriptor& fd, std::string& out);
 
     private:
-        pid_t pid_ = { -1 };
+        ProcessId pid_ = { INVALID_PROCESS_ID };
         std::ostream* log_;
         std::string err_;
         State state_ = { NOT_STARTED };

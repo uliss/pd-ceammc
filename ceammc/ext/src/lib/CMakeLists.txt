@@ -153,7 +153,7 @@ add_library(ceammc_core SHARED
 target_link_libraries(ceammc_core PUBLIC puredata-core)
 target_link_libraries(ceammc_core PUBLIC re2)
 target_link_libraries(ceammc_core PRIVATE reflex)
-target_link_libraries(ceammc_core PRIVATE fmt::fmt)
+target_link_libraries(ceammc_core PRIVATE  -Wl,--whole-archive fmt::fmt -Wl,--no-whole-archive)
 target_include_directories(ceammc_core PRIVATE $<TARGET_PROPERTY:re2,INCLUDE_DIRECTORIES>)
 target_include_directories(ceammc_core PRIVATE $<TARGET_PROPERTY:reflex,INCLUDE_DIRECTORIES>)
 

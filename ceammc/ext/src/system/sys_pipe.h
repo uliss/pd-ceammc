@@ -18,21 +18,30 @@
 #include <utility>
 #include <vector>
 
+#ifdef __WIN32__
+#include <handleapi.h>
+using FHandle = HANDLE;
+#define INVALID_FHANDLE INVALID_HANDLE_VALUE
+#else
+using FHandle = int;
+constexpr int INVALID_FHANDLE = -1;
+#endif
+
 namespace ceammc {
 namespace sys {
 
     class FDescriptor {
-        int fd_ = { -1 };
+        FHandle fd_ = { INVALID_FHANDLE };
 
     public:
-        FDescriptor(int fd = -1) noexcept;
+        FDescriptor(FHandle fd = INVALID_FHANDLE) noexcept;
         FDescriptor(FDescriptor&&) noexcept;
         FDescriptor& operator=(FDescriptor&&) noexcept;
 
         FDescriptor(const FDescriptor&) = delete;
         FDescriptor& operator=(const FDescriptor&) = delete;
 
-        operator int() const { return fd_; }
+        operator FHandle() const { return fd_; }
 
         ~FDescriptor() noexcept;
 

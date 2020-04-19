@@ -46,6 +46,10 @@ if(UNIX)
                     sys_process_unix.cpp
                     sys_fileactions.cpp
                     sys_fileactions.h)
+elseif(WIN32)
+    target_sources(ceammc_system PRIVATE
+                  sys_pipe_win.cpp
+                  sys_process_win.cpp)
 endif()
 
 if(UNIX)
@@ -53,4 +57,3 @@ if(UNIX)
 endif()
 
 target_link_libraries(ceammc_system tiny-process-library)
-
