@@ -166,7 +166,8 @@ namespace sys {
                 return true;
             } else if (WIFSIGNALED(wait_st)) {
                 *log_ << fmt::format("[process {}] exit by signal: {}\n", pid_, WTERMSIG(wait_st));
-                return WTERMSIG(wait_st);
+                exit_status_ = -1;
+                return true;
             } else {
                 *log_ << fmt::format("[process {}] waitpid rc: {}\n", pid_, wait_st);
                 exit_status_ = wait_st;

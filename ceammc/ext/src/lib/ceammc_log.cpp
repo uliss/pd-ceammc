@@ -144,24 +144,29 @@ void LogPdObject::flush()
     if (!log_empty_ && str().empty())
         return;
 
+    auto s = str();
+    if (s.back() == '\n')
+        s.pop_back();
+
     if (!pd_objectmaker) {
-        std::cerr << str() << "\n";
+        std::cerr << s << "\n";
+        str("");
         return;
     }
 
     switch (level_) {
     case LogLevel::LOG_FATAL:
     case LogLevel::LOG_ERROR:
-        error(str());
+        error(s);
         break;
     case LOG_DEBUG:
-        debug(str());
+        debug(s);
         break;
     case LogLevel::LOG_ALL:
-        pdLog(obj_, level_, str());
+        pdLog(obj_, level_, s);
         break;
     case LogLevel::LOG_POST:
-        post(str());
+        post(s);
         break;
     case LogLevel::LOG_NONE:
         break;

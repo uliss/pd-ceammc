@@ -132,6 +132,8 @@ void SystemExec::checkProcess()
 {
     constexpr int DELAY_TIME = 15;
 
+    log_.flush();
+
     if (!process_->checkState()) {
         OBJ_ERR << fmt::format("check state error: {}", process_->error());
         return;
@@ -166,6 +168,7 @@ void SystemExec::checkProcess()
     if (process_->finished()) {
         floatTo(0, process_->exitStatus());
         process_.reset(new sys::Process);
+        log_.flush();
     } else if (should_close_stdin_) {
         if (!process_->closeStdIn()) {
             OBJ_ERR << fmt::format("stdin close error: ", process_->error());
