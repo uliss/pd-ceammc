@@ -11,17 +11,20 @@
  * contact the author of this file, or the owner of the project in which
  * this file belongs to.
  *****************************************************************************/
-#include "sys_pipe.h"
 #include "fmt/format.h"
+#include "sys_pipe.h"
 
 #ifdef HAVE_UNISTD_H
 #include <unistd.h>
 #endif
 
+#ifdef HAVE_FCNTL_H
+#include <fcntl.h>
+#endif
+
 #include <cerrno>
 #include <climits>
 #include <cstring>
-#include <fcntl.h>
 #include <iostream>
 
 #define NDEBUG

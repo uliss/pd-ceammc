@@ -3,9 +3,6 @@ include_directories(${PROJECT_SOURCE_DIR}/ceammc/extra) # for readerwriterqueue
 include_directories(${PROJECT_SOURCE_DIR}/ceammc/extra/subprocess/tiny-process-library)
 
 set(SYSTEM_SOURCES
-    sys_fileactions.cpp
-    sys_fileactions.h
-    sys_pipe.cpp
     sys_pipe.h
     sys_process.cpp
     sys_process.h
@@ -43,6 +40,13 @@ ceammc_system_extension(screen_size)
 
 add_library(ceammc_system STATIC mod_system.cpp ${SYSTEM_SOURCES})
 target_include_directories(ceammc_system PRIVATE $<TARGET_PROPERTY:fmt,INCLUDE_DIRECTORIES>)
+
+if(UNIX)
+    target_sources(ceammc_system PRIVATE
+                    sys_pipe_unix.cpp
+                    sys_fileactions.cpp
+                    sys_fileactions.h)
+endif()
 
 if(UNIX)
     set_target_properties(ceammc_system PROPERTIES COMPILE_FLAGS "-fPIC")
