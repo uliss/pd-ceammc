@@ -15,6 +15,8 @@
 #include "ceammc_args.h"
 #include "ceammc_factory.h"
 #include "ceammc_format.h"
+#include "ceammc_string.h"
+#include "datatype_string.h"
 #include "fmt/format.h"
 #include "process.hpp"
 #include "sys_process.h"
@@ -66,16 +68,19 @@ void SystemExec::onList(const AtomList& l)
         return;
     }
 
-    if (!process_)
+    if (!process_) {
         process_.reset(new sys::Process());
+    }
 
     if (process_->started()) {
         OBJ_ERR << "process is running";
         return;
     }
 
+    process_->setLog(log_);
+
     if (!process_->run(prepareArgs(l))) {
-        OBJ_ERR << fmt::format("can't run {}: {}", to_string(l), process_->error());
+        OBJ_ERR << fmt::format("can't run '{}': {}", to_string(l), process_->error());
         return;
     }
 
@@ -83,6 +88,7 @@ void SystemExec::onList(const AtomList& l)
     if (!process_->setPriority(pri))
         OBJ_ERR << fmt::format("can't set priority {}: {}", pri, process_->error());
 
+    should_close_stdin_ = false;
     checkProcess();
 }
 
@@ -107,6 +113,21 @@ void SystemExec::m_terminate(t_symbol* s, const AtomList& l)
         process_->sendSignal(sys::Process::TERMINATE);
 }
 
+void SystemExec::m_write(t_symbol* s, const AtomList& l)
+{
+    if (!isRunning()) {
+        OBJ_ERR << "process is not running...";
+        return;
+    }
+
+    process_->scheduleWriteLn(to_string(l, " "));
+}
+
+void SystemExec::m_eof(t_symbol* s, const AtomList&)
+{
+    should_close_stdin_ = true;
+}
+
 void SystemExec::checkProcess()
 {
     constexpr int DELAY_TIME = 15;
@@ -120,25 +141,36 @@ void SystemExec::checkProcess()
     if (!process_->started())
         OBJ_ERR << process_->error();
 
-    if (process_->running()) {
-        clock_.delay(DELAY_TIME);
-        OBJ_LOG << fmt::format("process is still running, check in {}ms", DELAY_TIME);
+    // write to stdin
+    if (!process_->writeStdIn())
+        OBJ_ERR << process_->error();
+
+    // read stdout
+    std::string out_str;
+    if (process_->readStdOut(out_str) && !out_str.empty()) {
+        std::vector<std::string> lines;
+        string::split(lines, out_str, "\n");
+        for (auto& l : lines)
+            atomTo(1, StringAtom(l));
     }
 
     // read stderr
     std::string err_str;
     if (process_->readStdErr(err_str) && !err_str.empty())
-        OBJ_ERR << "error: " << err_str;
+        OBJ_ERR << "[stderr] " << err_str;
 
-    // read stdout
-    std::string out_str;
-    if (process_->readStdOut(out_str) && !out_str.empty())
-        OBJ_LOG << "output: " << out_str;
+    if (process_->running())
+        clock_.delay(DELAY_TIME);
 
     // remove if finished
     if (process_->finished()) {
         floatTo(0, process_->exitStatus());
         process_.reset(new sys::Process);
+    } else if (should_close_stdin_) {
+        if (!process_->closeStdIn()) {
+            OBJ_ERR << fmt::format("stdin close error: ", process_->error());
+            should_close_stdin_ = false;
+        }
     }
 }
 
@@ -152,4 +184,6 @@ void setup_system_exec()
     ObjectFactory<SystemExec> obj("system.exec");
     obj.addMethod("stop", &SystemExec::m_stop);
     obj.addMethod("terminate", &SystemExec::m_terminate);
+    obj.addMethod("write", &SystemExec::m_write);
+    obj.addMethod("eof", &SystemExec::m_eof);
 }

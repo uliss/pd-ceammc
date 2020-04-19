@@ -11,6 +11,7 @@
  * contact the author of this file, or the owner of the project in which
  * this file belongs to.
  *****************************************************************************/
+#include "datatype_mlist.h"
 #include "datatype_string.h"
 #include "system_exec.h"
 #include "test_system_base.h"
@@ -117,35 +118,30 @@ TEST_CASE("system.exec", "[externals]")
         {
             t << LA(TEST_EXEC, 0.f);
             REQUIRE_PROPERTY(t, @is_running, 1);
-            REQUIRE_FALSE(t.hasNewMessages(0));
         }
 
         SECTION("inf loop")
         {
             t << LA(TEST_EXEC, 2);
             REQUIRE_PROPERTY(t, @is_running, 1);
-            REQUIRE_FALSE(t.hasNewMessages(0));
         }
 
         SECTION("inf loop no int")
         {
             t << LA(TEST_EXEC, 3);
             REQUIRE_PROPERTY(t, @is_running, 1);
-            REQUIRE_FALSE(t.hasNewMessages(0));
         }
 
         SECTION("inf loop no term")
         {
             t << LA(TEST_EXEC, 4);
             REQUIRE_PROPERTY(t, @is_running, 1);
-            REQUIRE_FALSE(t.hasNewMessages(0));
         }
 
         SECTION("ls")
         {
             t << LA("ls");
             REQUIRE_PROPERTY(t, @is_running, 1);
-            REQUIRE_FALSE(t.hasNewMessages(0));
             test::pdRunMainLoopMs(150);
             REQUIRE_PROPERTY(t, @is_running, 0);
         }
@@ -160,6 +156,126 @@ TEST_CASE("system.exec", "[externals]")
 
             test::pdRunMainLoopMs(50);
             REQUIRE_PROPERTY(t, @is_running, 1);
+        }
+    }
+
+    SECTION("test stdout")
+    {
+        TExt t("system.exec");
+
+        SECTION("stdout")
+        {
+            t << LA(TEST_EXEC, 5);
+            test::pdRunMainLoopMs(20);
+            REQUIRE_PROPERTY(t, @is_running, 0);
+            REQUIRE(floatAt(t, 0_out) == 0);
+            REQUIRE(atomAt(t, 1_out) == StringAtom("stdout test"));
+        }
+
+        SECTION("stderr")
+        {
+            t << LA(TEST_EXEC, 6);
+            test::pdRunMainLoopMs(20);
+            REQUIRE_PROPERTY(t, @is_running, 0);
+            REQUIRE(floatAt(t, 0_out) == 0);
+            REQUIRE(t.hasNewMessages(1) == false);
+        }
+
+        SECTION("stdout no newline")
+        {
+            t << LA(TEST_EXEC, 7);
+            test::pdRunMainLoopMs(20);
+            REQUIRE_PROPERTY(t, @is_running, 0);
+            REQUIRE(floatAt(t, 0_out) == 0);
+            REQUIRE(atomAt(t, 1_out) == StringAtom("no newline"));
+        }
+
+        SECTION("stdout big output")
+        {
+            t << LA(TEST_EXEC, 8);
+            test::pdRunMainLoopMs(50);
+            REQUIRE_PROPERTY(t, @is_running, 0);
+            REQUIRE(floatAt(t, 0_out) == 0);
+            REQUIRE(atomAt(t, 1_out) == StringAtom(std::string(100, '1')));
+        }
+
+        SECTION("stdout huge output")
+        {
+            t << LA(TEST_EXEC, 9);
+            test::pdRunMainLoopMs(100);
+            REQUIRE_PROPERTY(t, @is_running, 0);
+            REQUIRE(floatAt(t, 0_out) == 0);
+            REQUIRE(atomAt(t, 1_out) == StringAtom(std::string(100, '2')));
+        }
+    }
+
+    SECTION("test stdin")
+    {
+        TExt t("system.exec");
+
+        SECTION("cin>>")
+        {
+            t << LA(TEST_EXEC, 10);
+            t <<= LA("write", 6, 5, 4, 3, 2, 1);
+            test::pdRunMainLoopMs(40);
+
+            REQUIRE_PROPERTY(t, @is_running, 0);
+            REQUIRE(atomAt(t, 1_out) == StringAtom("got: 6 5 4 3 2 1"));
+        }
+
+        SECTION("cin>>")
+        {
+            t << LA(TEST_EXEC, 11);
+
+            t <<= LA("write", 1, 2, 3);
+            test::pdRunMainLoopMs(40);
+            REQUIRE(atomAt(t, 1_out) == StringAtom("got: 1 2 3"));
+
+            t <<= LA("write", 4, 5, 6);
+            test::pdRunMainLoopMs(40);
+            REQUIRE(atomAt(t, 1_out) == StringAtom("got: 4 5 6"));
+
+            test::pdRunMainLoopMs(40);
+            REQUIRE_PROPERTY(t, @is_running, 1);
+
+            t <<= LA("eof");
+            test::pdRunMainLoopMs(40);
+            REQUIRE_PROPERTY(t, @is_running, 0);
+        }
+
+        SECTION("sort")
+        {
+            t << LA("sort", "-n", "-r");
+            REQUIRE_FALSE(t.hasNewMessages(0));
+
+            for (int i = 30; i > 10; i--)
+                t <<= LA("write", i);
+
+            test::pdRunMainLoopMs(50);
+            REQUIRE_PROPERTY(t, @is_running, 1);
+
+            t <<= LA("eof");
+            test::pdRunMainLoopMs(50);
+            REQUIRE(atomAt(t, 1_out) == StringAtom("11"));
+            REQUIRE_PROPERTY(t, @is_running, 0);
+        }
+
+        SECTION("cat")
+        {
+            t << LA("cat");
+            REQUIRE_FALSE(t.hasNewMessages(0));
+
+            t.sendMessage("write", "TEST");
+            test::pdRunMainLoopMs(20);
+//            REQUIRE(atomAt(t, 1_out) == StringAtom("TEST"));
+
+            t.sendMessage("write", "TEST2");
+            test::pdRunMainLoopMs(20);
+            //            REQUIRE(atomAt(t, 1_out) == StringAtom("TEST2"));
+
+            t <<= LA("eof");
+            test::pdRunMainLoopMs(50);
+            REQUIRE_PROPERTY(t, @is_running, 0);
         }
     }
 }

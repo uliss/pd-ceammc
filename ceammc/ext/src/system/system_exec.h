@@ -33,6 +33,7 @@ class SystemExec : public BaseObject {
     SymbolEnumProperty* priority_;
     LogBaseObject log_;
     std::unique_ptr<sys::Process> process_;
+    bool should_close_stdin_ = { false };
 
 public:
     SystemExec(const PdArgs& args);
@@ -42,6 +43,8 @@ public:
 
     void m_stop(t_symbol* s, const AtomList& l);
     void m_terminate(t_symbol* s, const AtomList& l);
+    void m_write(t_symbol* s, const AtomList& l);
+    void m_eof(t_symbol* s, const AtomList&);
 
 private:
     void checkProcess();

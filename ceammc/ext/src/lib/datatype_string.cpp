@@ -19,7 +19,6 @@
 #include "ceammc_string.h"
 
 #include <algorithm>
-#include <boost/algorithm/string.hpp>
 #include <iostream>
 
 namespace ceammc {
@@ -232,15 +231,7 @@ void DataTypeString::splitEveryChar(std::vector<std::string>& res) const
 
 void DataTypeString::splitBySep(std::vector<std::string>& res, const std::string& sep) const
 {
-    res.clear();
-    if (str_.empty())
-        return;
-
-    boost::algorithm::split(res, str_, boost::is_any_of(sep), boost::token_compress_on);
-    // remove all empty elements
-    res.erase(
-        std::remove_if(res.begin(), res.end(), [](const std::string& s) { return s.empty(); }),
-        res.end());
+    string::split(res, str_, sep.c_str());
 }
 
 std::ostream& operator<<(std::ostream& os, const DataTypeString& d)

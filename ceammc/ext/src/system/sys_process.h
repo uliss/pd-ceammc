@@ -31,6 +31,7 @@ namespace ceammc {
 namespace sys {
 
     using ProcessException = std::runtime_error;
+    using ProcessBuffer = std::vector<char>;
 
     struct IpcFd;
     class FDescriptor;
@@ -75,8 +76,12 @@ namespace sys {
 
         bool sendSignal(SignalType sig);
 
+        bool closeStdIn();
+        bool writeStdIn();
         bool readStdErr(std::string& out);
         bool readStdOut(std::string& out);
+
+        void scheduleWriteLn(const std::string& str);
 
     private:
         bool readFd(const FDescriptor& fd, std::string& out);
@@ -88,6 +93,7 @@ namespace sys {
         State state_ = { NOT_STARTED };
         int exit_status_ = { -1 };
 
+        ProcessBuffer buffer_;
         std::unique_ptr<IpcFd> ipc_;
     };
 #endif

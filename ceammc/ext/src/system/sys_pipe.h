@@ -16,6 +16,7 @@
 
 #include <string>
 #include <utility>
+#include <vector>
 
 namespace ceammc {
 namespace sys {
@@ -35,9 +36,11 @@ namespace sys {
 
         ~FDescriptor() noexcept;
 
+        bool isClosed() const;
         bool close();
 
         bool readNonBlocking(std::string& out) const;
+        bool write(std::vector<char>& buf);
 
         /**
          * @brief set descriptor to non-blocking mode

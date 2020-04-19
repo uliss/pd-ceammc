@@ -43,6 +43,11 @@ namespace sys {
         close();
     }
 
+    bool FDescriptor::isClosed() const
+    {
+        return fd_ == -1;
+    }
+
     bool FDescriptor::close()
     {
         if (fd_ < 3)
@@ -75,9 +80,28 @@ namespace sys {
             return false;
     }
 
+    bool FDescriptor::write(std::vector<char>& buf)
+    {
+        if (buf.empty())
+            return true;
+
+        ssize_t n = 0;
+        while ((n = ::write(fd_, (void*)buf.data(), buf.size())) > 0) {
+            buf.erase(buf.begin(), buf.begin() + n);
+        }
+
+        return (n >= 0);
+    }
+
     void FDescriptor::setNonBlocking()
     {
-        if (fcntl(fd_, F_SETFL, O_NONBLOCK) == -1)
+        auto flags = fcntl(fd_, F_GETFL);
+        if (flags == -1)
+            throw std::runtime_error(fmt::format("[fd] fcntl error: {}", strerror(errno)));
+
+        flags |= O_NONBLOCK;
+
+        if (fcntl(fd_, F_SETFL, flags) == -1)
             throw std::runtime_error(fmt::format("[fd] can't set to non-blocking mode: {}", strerror(errno)));
     }
 

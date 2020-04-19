@@ -342,3 +342,16 @@ std::string ceammc::string::replace_last(const std::string& input, const std::st
 {
     return boost::algorithm::replace_last_copy(input, from, to);
 }
+
+void ceammc::string::split(std::vector<std::string>& vec, const std::string& str, const char* anysep)
+{
+    vec.clear();
+    if (str.empty())
+        return;
+
+    boost::algorithm::split(vec, str, boost::is_any_of(anysep), boost::token_compress_on);
+    // remove all empty elements
+    vec.erase(
+        std::remove_if(vec.begin(), vec.end(), [](const std::string& s) { return s.empty(); }),
+        vec.end());
+}

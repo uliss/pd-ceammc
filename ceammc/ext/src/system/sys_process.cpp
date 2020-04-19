@@ -13,6 +13,7 @@
  *****************************************************************************/
 #include "sys_process.h"
 #include "fmt/format.h"
+#include "readerwriterqueue/readerwriterqueue.h"
 #include "sys_fileactions.h"
 #include "sys_pipe.h"
 
@@ -38,6 +39,8 @@ namespace sys {
     Process::~Process()
     {
         if (checkState() && running()) {
+            std::this_thread::sleep_for(std::chrono::milliseconds(10));
+
             // first attempt
             if (!sendSignal(INTERRUPT))
                 std::cerr << error() << std::endl;
@@ -88,7 +91,7 @@ namespace sys {
                 "can't set ({}) priority to {}: {}", pid_, nice + p, strerror(errno));
             return false;
         } else {
-            *log_ << fmt::format("setting priority of ({}) to {}\n", pid_, nice + p);
+            *log_ << fmt::format("[process {}] set priority: {}\n", pid_, nice + p);
             return true;
         }
     }
@@ -101,8 +104,6 @@ namespace sys {
         }
 
         try {
-            *log_ << fmt::format("running command: {}\n", fmt::join(args, " "));
-
             // prepare arguments
             std::vector<char*> argv;
             for (auto& s : args)
@@ -110,7 +111,8 @@ namespace sys {
             // zero terminated
             argv.push_back(nullptr);
 
-            auto p_in = FDescriptor::pipe(true);
+            // blocking in
+            auto p_in = FDescriptor::pipe(false);
             auto p_out = FDescriptor::pipe(true);
             auto p_err = FDescriptor::pipe(true);
 
@@ -153,26 +155,25 @@ namespace sys {
         int wait_st;
         int rc = ::waitpid(pid_, &wait_st, WNOHANG);
         if (rc == 0) {
-            *log_ << fmt::format("child is running: {}\n", pid_);
             state_ = RUNNING;
             return true;
         } else if (rc > 0) {
             state_ = FINISHED;
 
             if (WIFEXITED(wait_st)) {
-                *log_ << fmt::format("child exited: {}\n", WEXITSTATUS(wait_st));
+                *log_ << fmt::format("[process {}] finished: {}\n", pid_, WEXITSTATUS(wait_st));
                 exit_status_ = WEXITSTATUS(wait_st);
                 return true;
             } else if (WIFSIGNALED(wait_st)) {
-                *log_ << fmt::format("child exit by signal: {}\n", WTERMSIG(wait_st));
+                *log_ << fmt::format("[process {}] exit by signal: {}\n", pid_, WTERMSIG(wait_st));
                 return WTERMSIG(wait_st);
             } else {
-                *log_ << fmt::format("waitpid result state={}\n", wait_st);
+                *log_ << fmt::format("[process {}] waitpid rc: {}\n", pid_, wait_st);
                 exit_status_ = wait_st;
                 return true;
             }
         } else {
-            err_ = fmt::format("waitpid error: {}", strerror(errno));
+            err_ = fmt::format("[process {}] waitpid error: {}", pid_, strerror(errno));
             return false;
         }
     }
@@ -190,12 +191,37 @@ namespace sys {
                 } else
                     return true;
             } else {
-                err_ = fmt::format("process ({}) finished with code: {}", pid_, exit_status_);
+                err_ = fmt::format("[process {}] already finished: {}", pid_, exit_status_);
                 return false;
             }
         }
 
         return false;
+    }
+
+    bool Process::closeStdIn()
+    {
+        if (!ipc_->in.close()) {
+            err_ = fmt::format("fd ({}) close error", ipc_->in);
+            return false;
+        }
+
+        return true;
+    }
+
+    bool Process::writeStdIn()
+    {
+        if (!started()) {
+            err_ = "not started";
+            return false;
+        }
+
+        if (!ipc_->in.write(buffer_)) {
+            err_ = fmt::format("write to ({}) error: '{}'", (int)ipc_->in, strerror(errno));
+            return false;
+        }
+
+        return true;
     }
 
     bool Process::readStdErr(std::string& out)
@@ -206,6 +232,12 @@ namespace sys {
     bool Process::readStdOut(std::string& out)
     {
         return readFd(ipc_->out, out);
+    }
+
+    void Process::scheduleWriteLn(const std::string& str)
+    {
+        std::copy(str.begin(), str.end(), std::back_inserter(buffer_));
+        buffer_.push_back('\n');
     }
 
     bool Process::readFd(const FDescriptor& fd, std::string& out)
@@ -222,6 +254,5 @@ namespace sys {
 
         return true;
     }
-
 }
 }
