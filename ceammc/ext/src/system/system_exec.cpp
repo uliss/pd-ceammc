@@ -120,7 +120,7 @@ void SystemExec::m_write(t_symbol* s, const AtomList& l)
         return;
     }
 
-    process_->scheduleWriteLn(to_string(l, " "));
+    process_->addLineToInBuffer(to_string(l, " "));
 }
 
 void SystemExec::m_eof(t_symbol* s, const AtomList&)

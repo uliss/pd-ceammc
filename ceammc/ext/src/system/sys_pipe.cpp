@@ -53,10 +53,8 @@ namespace sys {
         if (fd_ < 3)
             return false;
 
-        if (::close(fd_) == -1) {
-            std::cerr << fmt::format("[fd] close error: {}\n", strerror(errno));
+        if (::close(fd_) == -1)
             return false;
-        }
 
 #ifndef NDEBUG
         std::cerr << fmt::format("[fd] closed: {}\n", fd_);
@@ -80,15 +78,14 @@ namespace sys {
             return false;
     }
 
-    bool FDescriptor::write(std::vector<char>& buf)
+    bool FDescriptor::write(std::string& buf)
     {
         if (buf.empty())
             return true;
 
         ssize_t n = 0;
-        while ((n = ::write(fd_, (void*)buf.data(), buf.size())) > 0) {
-            buf.erase(buf.begin(), buf.begin() + n);
-        }
+        while ((n = ::write(fd_, (void*)buf.data(), buf.size())) > 0)
+            buf.erase(0, n);
 
         return (n >= 0);
     }

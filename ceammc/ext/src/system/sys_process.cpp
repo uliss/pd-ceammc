@@ -235,9 +235,9 @@ namespace sys {
         return readFd(ipc_->out, out);
     }
 
-    void Process::scheduleWriteLn(const std::string& str)
+    void Process::addLineToInBuffer(const std::string& str)
     {
-        std::copy(str.begin(), str.end(), std::back_inserter(buffer_));
+        buffer_ = str;
         buffer_.push_back('\n');
     }
 

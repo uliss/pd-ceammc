@@ -31,7 +31,6 @@ namespace ceammc {
 namespace sys {
 
     using ProcessException = std::runtime_error;
-    using ProcessBuffer = std::vector<char>;
 
     struct IpcFd;
     class FDescriptor;
@@ -60,28 +59,45 @@ namespace sys {
         Process() noexcept;
         ~Process();
 
+        /** set log stream */
         void setLog(std::ostream& os) noexcept;
+        /** return last error string */
         const std::string& error() const { return err_; }
+        /** tries to set priority */
         bool setPriority(Priority p);
 
+        /** current process state */
         State state() const { return state_; }
         bool started() const { return state_ != NOT_STARTED; }
         bool running() const { return state_ == RUNNING; }
         bool finished() const { return state_ == FINISHED; }
 
+        /**
+         * run process, search in standart paths
+         * @param - args, first args is programm name
+         */
         bool run(const std::vector<std::string>& args);
+
+        /** process exit status */
         int exitStatus() const { return exit_status_; }
         bool checkState();
+
+        /** process pid */
         pid_t id() const { return pid_; };
 
+        /** send signal to process */
         bool sendSignal(SignalType sig);
 
+        /** close stdin process descriptor, means <EOF> for child process */
         bool closeStdIn();
+        /** write data in stdin buffer to child stdin */
         bool writeStdIn();
+        /** read child stderr */
         bool readStdErr(std::string& out);
+        /** read child stderr */
         bool readStdOut(std::string& out);
 
-        void scheduleWriteLn(const std::string& str);
+        void addLineToInBuffer(const std::string& str);
 
     private:
         bool readFd(const FDescriptor& fd, std::string& out);
@@ -93,7 +109,7 @@ namespace sys {
         State state_ = { NOT_STARTED };
         int exit_status_ = { -1 };
 
-        ProcessBuffer buffer_;
+        std::string buffer_;
         std::unique_ptr<IpcFd> ipc_;
     };
 #endif

@@ -36,11 +36,29 @@ namespace sys {
 
         ~FDescriptor() noexcept;
 
+        /** check if descriptor not opened */
         bool isClosed() const;
+
+        /**
+         * Close file descriptor, return true on success, false on error
+         */
         bool close();
 
+        /**
+         * non-blocking read, return immidiately
+         * @param out - where store result
+         * @return false on error, true if read was successful,
+         * check out.length() to get number of bytes readed
+         */
         bool readNonBlocking(std::string& out) const;
-        bool write(std::vector<char>& buf);
+
+        /**
+         * blocking write
+         * @param - buf to write, call modifies the buffer
+         * @return true if bytes were written, otherwise false
+         * @note use buf.size() to get number of bytes written
+         */
+        bool write(std::string& buf);
 
         /**
          * @brief set descriptor to non-blocking mode

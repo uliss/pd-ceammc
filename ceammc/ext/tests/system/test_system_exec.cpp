@@ -266,12 +266,12 @@ TEST_CASE("system.exec", "[externals]")
             REQUIRE_FALSE(t.hasNewMessages(0));
 
             t.sendMessage("write", "TEST");
-            test::pdRunMainLoopMs(20);
-//            REQUIRE(atomAt(t, 1_out) == StringAtom("TEST"));
+            test::pdRunMainLoopMs(100);
+            REQUIRE(atomAt(t, 1_out) == StringAtom("TEST"));
 
             t.sendMessage("write", "TEST2");
-            test::pdRunMainLoopMs(20);
-            //            REQUIRE(atomAt(t, 1_out) == StringAtom("TEST2"));
+            test::pdRunMainLoopMs(100);
+            REQUIRE(atomAt(t, 1_out) == StringAtom("TEST2"));
 
             t <<= LA("eof");
             test::pdRunMainLoopMs(50);
