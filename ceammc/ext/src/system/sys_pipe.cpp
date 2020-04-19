@@ -19,6 +19,7 @@
 #endif
 
 #include <cerrno>
+#include <climits>
 #include <cstring>
 #include <fcntl.h>
 #include <iostream>
