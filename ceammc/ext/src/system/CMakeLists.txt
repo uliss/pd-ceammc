@@ -4,7 +4,6 @@ include_directories(${PROJECT_SOURCE_DIR}/ceammc/extra/subprocess/tiny-process-l
 
 set(SYSTEM_SOURCES
     sys_pipe.h
-    sys_process.cpp
     sys_process.h
 )
 
@@ -44,6 +43,7 @@ target_include_directories(ceammc_system PRIVATE $<TARGET_PROPERTY:fmt,INCLUDE_D
 if(UNIX)
     target_sources(ceammc_system PRIVATE
                     sys_pipe_unix.cpp
+                    sys_process_unix.cpp
                     sys_fileactions.cpp
                     sys_fileactions.h)
 endif()
