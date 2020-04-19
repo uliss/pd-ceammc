@@ -11,10 +11,10 @@
  * contact the author of this file, or the owner of the project in which
  * this file belongs to.
  *****************************************************************************/
-#include "sys_process.h"
 #include "fmt/format.h"
 #include "sys_fileactions.h"
 #include "sys_pipe.h"
+#include "sys_process.h"
 
 #include <algorithm>
 #include <chrono>
@@ -22,6 +22,7 @@
 
 #include <signal.h>
 #include <spawn.h>
+#include <sys/resource.h>
 #include <sys/select.h>
 #include <sys/wait.h>
 

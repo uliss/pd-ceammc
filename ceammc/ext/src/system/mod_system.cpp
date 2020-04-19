@@ -8,7 +8,6 @@ void setup_system_hostname();
 void setup_system_memsize();
 void setup_system_memused();
 void setup_system_screen_size();
-void setup_system_shell();
 
 void ceammc_system_setup()
 {
@@ -20,5 +19,4 @@ void ceammc_system_setup()
     setup_system_memsize();
     setup_system_memused();
     setup_system_screen_size();
-    setup_system_shell();
 }
