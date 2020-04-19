@@ -41,7 +41,7 @@ TEST_CASE("system.exec", "[externals]")
         REQUIRE_PROPERTY(t, @is_running, 1);
         REQUIRE_FALSE(t.hasNewMessages(0));
 
-        test::pdRunMainLoopMs(20);
+        test::pdRunMainLoopMs(50);
         REQUIRE(t.hasNewMessages(0));
         REQUIRE(floatAt(t, 0_out) == 255);
         REQUIRE_PROPERTY(t, @is_running, 0);
@@ -72,12 +72,12 @@ TEST_CASE("system.exec", "[externals]")
         REQUIRE_PROPERTY(t, @is_running, 1);
 
         t <<= LA("stop");
-        test::pdRunMainLoopMs(40);
+        test::pdRunMainLoopMs(50);
         REQUIRE_PROPERTY(t, @is_running, 0);
         REQUIRE(floatAt(t, 0_out) == -1);
 
         t <<= LA("stop");
-        test::pdRunMainLoopMs(40);
+        test::pdRunMainLoopMs(50);
 
         /* infinite loop no interrupt */
         t << LA(TEST_EXEC, 3);
@@ -86,11 +86,11 @@ TEST_CASE("system.exec", "[externals]")
         REQUIRE_PROPERTY(t, @is_running, 1);
 
         t <<= LA("stop");
-        test::pdRunMainLoopMs(40);
+        test::pdRunMainLoopMs(50);
         REQUIRE_PROPERTY(t, @is_running, 1);
 
         t <<= LA("terminate");
-        test::pdRunMainLoopMs(40);
+        test::pdRunMainLoopMs(50);
         REQUIRE_PROPERTY(t, @is_running, 0);
         REQUIRE(floatAt(t, 0_out) == -1);
 
@@ -101,11 +101,11 @@ TEST_CASE("system.exec", "[externals]")
         REQUIRE_PROPERTY(t, @is_running, 1);
 
         t <<= LA("terminate");
-        test::pdRunMainLoopMs(40);
+        test::pdRunMainLoopMs(50);
         REQUIRE_PROPERTY(t, @is_running, 1);
 
         t <<= LA("terminate", "true");
-        test::pdRunMainLoopMs(40);
+        test::pdRunMainLoopMs(50);
         REQUIRE_PROPERTY(t, @is_running, 0);
         REQUIRE(floatAt(t, 0_out) == -1);
     }
@@ -217,7 +217,7 @@ TEST_CASE("system.exec", "[externals]")
         {
             t << LA(TEST_EXEC, 10);
             t <<= LA("write", 6, 5, 4, 3, 2, 1);
-            test::pdRunMainLoopMs(40);
+            test::pdRunMainLoopMs(50);
 
             REQUIRE_PROPERTY(t, @is_running, 0);
             REQUIRE(atomAt(t, 1_out) == StringAtom("got: 6 5 4 3 2 1"));
@@ -228,18 +228,18 @@ TEST_CASE("system.exec", "[externals]")
             t << LA(TEST_EXEC, 11);
 
             t <<= LA("write", 1, 2, 3);
-            test::pdRunMainLoopMs(40);
+            test::pdRunMainLoopMs(50);
             REQUIRE(atomAt(t, 1_out) == StringAtom("got: 1 2 3"));
 
             t <<= LA("write", 4, 5, 6);
-            test::pdRunMainLoopMs(40);
+            test::pdRunMainLoopMs(50);
             REQUIRE(atomAt(t, 1_out) == StringAtom("got: 4 5 6"));
 
-            test::pdRunMainLoopMs(40);
+            test::pdRunMainLoopMs(50);
             REQUIRE_PROPERTY(t, @is_running, 1);
 
             t <<= LA("eof");
-            test::pdRunMainLoopMs(40);
+            test::pdRunMainLoopMs(50);
             REQUIRE_PROPERTY(t, @is_running, 0);
         }
 
