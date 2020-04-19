@@ -14,8 +14,11 @@
 #ifndef SYS_PROCESS_H
 #define SYS_PROCESS_H
 
-#if defined(__APPLE__)
+#ifdef HAVE_SYS_TYPES_H
 #include <sys/types.h>
+#endif
+
+#ifdef HAVE_UNISTD_H
 #include <unistd.h>
 #endif
 
@@ -35,7 +38,6 @@ namespace sys {
     struct IpcFd;
     class FDescriptor;
 
-#if defined(__APPLE__)
     class Process {
     public:
         enum Priority {
@@ -112,7 +114,6 @@ namespace sys {
         std::string buffer_;
         std::unique_ptr<IpcFd> ipc_;
     };
-#endif
 }
 }
 

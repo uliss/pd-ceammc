@@ -13,7 +13,6 @@
  *****************************************************************************/
 #include "sys_process.h"
 #include "fmt/format.h"
-#include "readerwriterqueue/readerwriterqueue.h"
 #include "sys_fileactions.h"
 #include "sys_pipe.h"
 
@@ -25,7 +24,6 @@
 #include <spawn.h>
 #include <sys/select.h>
 #include <sys/wait.h>
-#include <unistd.h>
 
 namespace ceammc {
 namespace sys {
