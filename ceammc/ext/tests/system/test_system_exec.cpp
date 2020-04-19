@@ -145,18 +145,6 @@ TEST_CASE("system.exec", "[externals]")
             test::pdRunMainLoopMs(150);
             REQUIRE_PROPERTY(t, @is_running, 0);
         }
-
-        SECTION("htop")
-        {
-            t << LA("top");
-            REQUIRE_PROPERTY(t, @is_running, 1);
-            REQUIRE_FALSE(t.hasNewMessages(0));
-            test::pdRunMainLoopMs(50);
-            REQUIRE_PROPERTY(t, @is_running, 1);
-
-            test::pdRunMainLoopMs(50);
-            REQUIRE_PROPERTY(t, @is_running, 1);
-        }
     }
 
     SECTION("test stdout")
