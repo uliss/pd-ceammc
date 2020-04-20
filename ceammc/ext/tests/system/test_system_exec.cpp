@@ -18,7 +18,11 @@
 
 PD_COMPLETE_TEST_SETUP(SystemExec, system, exec)
 
+#ifdef __WIN32__
 #define TEST_EXEC TEST_DIR "/test_exec.exe"
+#else
+#define TEST_EXEC TEST_DIR "/test_exec"
+#endif
 
 #ifdef __WIN32__
 #define MS(n) n * 3
@@ -142,8 +146,8 @@ TEST_CASE("system.exec", "[externals]")
         SECTION("normal exit")
         {
             t << LA(TEST_EXEC, 0.f);
-            // test::pdRunMainLoopMs(10);
-            // REQUIRE_PROPERTY(t, @is_running, 1);
+            test::pdRunMainLoopMs(10);
+            REQUIRE_PROPERTY(t, @is_running, 1);
         }
 
         SECTION("inf loop")
