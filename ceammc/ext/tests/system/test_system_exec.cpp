@@ -19,12 +19,6 @@
 PD_COMPLETE_TEST_SETUP(SystemExec, system, exec)
 
 #ifdef __WIN32__
-#define TEST_EXEC TEST_DIR "/test_exec.exe"
-#else
-#define TEST_EXEC TEST_DIR "/test_exec"
-#endif
-
-#ifdef __WIN32__
 #define MS(n) n * 3
 #else
 #define MS(n) n

@@ -184,6 +184,8 @@ ceammc_add_test_linked(TITLE "class_wrapper::static_method" NAME test_wrapper_st
 
 add_custom_target(test_src SOURCES gen_test_wav.py)
 
+set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR})
+
 add_subdirectory(array)
 add_subdirectory(base)
 add_subdirectory(conv)
