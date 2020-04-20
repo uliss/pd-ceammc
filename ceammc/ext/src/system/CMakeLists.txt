@@ -47,9 +47,7 @@ if(UNIX)
                     sys_fileactions.cpp
                     sys_fileactions.h)
 elseif(WIN32)
-    target_sources(ceammc_system PRIVATE
-                  sys_pipe_win.cpp
-                  sys_process_win.cpp)
+    target_sources(ceammc_system PRIVATE sys_process_win.cpp)
 endif()
 
 if(UNIX)

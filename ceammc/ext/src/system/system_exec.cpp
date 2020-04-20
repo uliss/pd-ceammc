@@ -151,7 +151,7 @@ void SystemExec::checkProcess()
     std::string out_str;
     if (process_->readStdOut(out_str) && !out_str.empty()) {
         std::vector<std::string> lines;
-        string::split(lines, out_str, "\n");
+        string::split(lines, out_str, "\r\n");
         for (auto& l : lines)
             atomTo(1, StringAtom(l));
     }

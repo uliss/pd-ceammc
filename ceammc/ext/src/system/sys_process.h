@@ -23,9 +23,12 @@
 #endif
 
 #ifdef __WIN32__
-#include <handleapi.h>
-using ProcessId = HANDLE;
-#define INVALID_PROCESS_ID INVALID_HANDLE_VALUE
+#include "readerwriterqueue/readerwriterqueue.h"
+namespace TinyProcessLib { class Process; }
+using ProcessPtr = std::unique_ptr<TinyProcessLib::Process>;
+using Queue = moodycamel::ReaderWriterQueue<char>;
+using ProcessId = int;
+#define INVALID_PROCESS_ID -1
 #else
 using ProcessId = pid_t;
 constexpr pid_t INVALID_PROCESS_ID = -1;
@@ -39,6 +42,8 @@ constexpr pid_t INVALID_PROCESS_ID = -1;
 #include <stdexcept>
 #include <string>
 #include <vector>
+#include <future>
+#include <thread>
 
 namespace ceammc {
 namespace sys {
@@ -112,7 +117,9 @@ namespace sys {
         void addLineToInBuffer(const std::string& str);
 
     private:
+#ifndef __WIN32__
         bool readFd(const FDescriptor& fd, std::string& out);
+#endif
 
     private:
         ProcessId pid_ = { INVALID_PROCESS_ID };
@@ -122,7 +129,13 @@ namespace sys {
         int exit_status_ = { -1 };
 
         std::string buffer_;
+
+#ifdef __WIN32__
+        ProcessPtr child_;
+        Queue queue_;
+#else
         std::unique_ptr<IpcFd> ipc_;
+#endif
     };
 }
 }
