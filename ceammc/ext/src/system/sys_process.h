@@ -132,7 +132,7 @@ namespace sys {
 
 #ifdef __WIN32__
         ProcessPtr child_;
-        Queue queue_;
+        Queue stdout_, stderr_;
 #else
         std::unique_ptr<IpcFd> ipc_;
 #endif

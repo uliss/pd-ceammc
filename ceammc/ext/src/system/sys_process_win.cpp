@@ -67,10 +67,11 @@ namespace sys {
                 args, {},
                 [&](const char* bytes, size_t n) {
                     for (size_t i = 0; i < n; i++)
-                        queue_.enqueue(bytes[i]);
+                        stdout_.enqueue(bytes[i]);
                 },
                 [&](const char* bytes, size_t n) {
-                    //writeError(std::string(bytes, n).c_str());
+                    for (size_t i = 0; i < n; i++)
+                        stderr_.enqueue(bytes[i]);
                 },
                 true));
 
@@ -141,6 +142,9 @@ namespace sys {
 
     bool Process::readStdErr(std::string& out)
     {
+        char ch;
+        while (stderr_.try_dequeue(ch))
+            out += ch;
 
         return true;
     }
@@ -148,7 +152,7 @@ namespace sys {
     bool Process::readStdOut(std::string& out)
     {
         char ch;
-        while (queue_.try_dequeue(ch))
+        while (stdout_.try_dequeue(ch))
             out += ch;
 
         return true;
