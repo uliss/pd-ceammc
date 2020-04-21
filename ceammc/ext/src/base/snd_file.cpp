@@ -1,10 +1,7 @@
 #include "snd_file.h"
-#include "array_load_pattern.h"
 #include "ceammc_array.h"
 #include "ceammc_factory.h"
-#include "ceammc_fn_list.h"
 #include "ceammc_format.h"
-#include "ceammc_object.h"
 #include "ceammc_platform.h"
 #include "ceammc_property_callback.h"
 #include "ceammc_sound.h"
@@ -14,19 +11,6 @@
 
 #include "config.h"
 
-extern "C" {
-#include "g_canvas.h"
-#include "s_stuff.h"
-}
-
-#ifdef HAVE_UNISTD_H
-#include <unistd.h>
-#else
-#include <io.h>
-#define close(fd) _close(fd)
-#endif
-
-#include <cassert>
 #include <cctype>
 
 using namespace ceammc;
@@ -184,21 +168,6 @@ bool SndFile::extractLoadArgs(const AtomList& lst, std::string& fname, std::stri
     array_opts = to_string(lst.view(array_opt_pos), " ");
     return true;
 }
-
-//void SndFile::outputInfo(SoundFilePtr file)
-//{
-//    AtomList info;
-//    info.append(gensym("@channels"));
-//    info.append(file->channels());
-//    info.append(gensym("@samplerate"));
-//    info.append(file->sampleRate());
-//    info.append(gensym("@samples"));
-//    info.append(file->sampleCount());
-//    info.append(gensym("@duration"));
-//    info.append(float(double(file->sampleCount()) / file->sampleRate()));
-
-//    anyTo(0, info);
-//}
 
 void setup_snd_file()
 {
