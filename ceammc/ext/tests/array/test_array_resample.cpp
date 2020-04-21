@@ -63,6 +63,25 @@ TEST_CASE("array.resample", "[externals]")
         REQUIRE(aptr2->size() == 10);
     }
 
+    SECTION("simple 1")
+    {
+        Array a0("ars0");
+        Array a1("ars1");
+        TObj t("array.resample", LA("ars0", "ars1", "@ratio", 1));
+
+        WHEN_SEND_BANG_TO(0, t);
+        REQUIRE(floatAt(t) == 20);
+
+        REQUIRE(a0.update());
+        REQUIRE(a1.update());
+        REQUIRE(a1.size() == 20);
+
+        for (size_t i = 0; i < 20; i++) {
+            REQUIRE(a0[i] == Approx(0.25));
+            REQUIRE(a1[i] == Approx(0.25));
+        }
+    }
+
     SECTION("inplace")
     {
         ArrayPtr aptr3 = cnv->createArray("ars3", 10);

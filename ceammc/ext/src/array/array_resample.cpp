@@ -7,6 +7,8 @@
 
 #include <cmath>
 
+constexpr size_t MAX_ARRAY_SIZE = 44100 * 600;
+
 static int symbol2quality(t_symbol* s)
 {
     static t_symbol* names[] = { gensym("fast"), gensym("low"), gensym("medium"), gensym("high"), gensym("best") };
@@ -71,7 +73,7 @@ void ArrayResample::onBang()
     }
 
     if (dest_name_->value() == &s_) {
-        resampleSrc();
+        resampleSingle();
     } else {
         if (!dest_array_.open(dest_name_->value())) {
             OBJ_ERR << fmt::format("can't open destination array: '{}'", dest_name_->value()->s_name);
@@ -91,7 +93,7 @@ void ArrayResample::resampleCopy()
     double orate = 1;
 
     if (ratio_->value() == 0) {
-        if (dest_array_.size()) {
+        if (dest_array_.size() == 0) {
             OBJ_ERR << fmt::format(
                 "resample ratio is not specified and destination array '{}' has zero length",
                 dest_name_->value()->s_name);
@@ -103,7 +105,12 @@ void ArrayResample::resampleCopy()
         orate = ratio_->value();
     }
 
-    const auto DEST_LEN = static_cast<size_t>(std::round(src_array_.size() * orate / IN_RATE));
+    const auto DEST_LEN = static_cast<size_t>(std::round(src_array_.size() * orate));
+    if (DEST_LEN < 1 || DEST_LEN > MAX_ARRAY_SIZE) {
+        OBJ_ERR << fmt::format("invalid destination size: {}", DEST_LEN);
+        return;
+    }
+
     if (!dest_array_.resize(DEST_LEN)) {
         OBJ_ERR << fmt::format(
             "can't resize output array '{}' to {} samples",
@@ -114,6 +121,8 @@ void ArrayResample::resampleCopy()
 
     if (orate == 1) {
         std::copy(src_array_.begin(), src_array_.end(), dest_array_.begin());
+        dest_array_.redraw();
+        floatTo(0, dest_array_.size());
         return;
     }
 
@@ -132,7 +141,7 @@ void ArrayResample::resampleCopy()
     }
 
     constexpr size_t BUF_TOTAL_LEN = 10000;
-    const size_t OUT_LEN = std::round(orate * BUF_TOTAL_LEN / (IN_RATE + orate));
+    const size_t OUT_LEN = (size_t)(orate * BUF_TOTAL_LEN / (IN_RATE + orate) + .5);
     const size_t IN_LEN = BUF_TOTAL_LEN - OUT_LEN;
     std::unique_ptr<t_sample[]> out(new t_sample[OUT_LEN]);
     std::unique_ptr<t_sample[]> in(new t_sample[IN_LEN]);
@@ -187,7 +196,7 @@ void ArrayResample::resampleCopy()
     floatTo(0, dest_array_.size());
 }
 
-void ArrayResample::resampleSrc()
+void ArrayResample::resampleSingle()
 {
     const double IN_RATE = 1;
     const double OUT_RATE = ratio_->value();
@@ -198,6 +207,11 @@ void ArrayResample::resampleSrc()
     }
 
     const auto DEST_LEN = static_cast<size_t>(std::round(src_array_.size() * OUT_RATE / IN_RATE));
+    if (DEST_LEN < 1 || DEST_LEN > MAX_ARRAY_SIZE) {
+        OBJ_ERR << fmt::format("invalid destination size: {}", DEST_LEN);
+        return;
+    }
+
     std::vector<t_sample> tmp(DEST_LEN);
 
     soxr_quality_spec_t q_spec = soxr_quality_spec(symbol2quality(quality_->value()), 0);

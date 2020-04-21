@@ -22,7 +22,7 @@ public:
 
 private:
     void resampleCopy();
-    void resampleSrc();
+    void resampleSingle();
 };
 
 void setup_array_resample();
