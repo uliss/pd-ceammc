@@ -21,9 +21,10 @@
 
         static const std::vector<std::string>& options() {
             static const std::vector<std::string> opts = {
-                "[@ch | @chan | @channel <value>...]",
+                "[@ch | @chan | @channel | @channels <value>...]",
                 "[@b | @begin <value>]",
-                "([@e | @end <value>] | [@l | @length <value>])",
+                "([@e | @end <value>] | [@l | @len | @length <value>])",
+                "[@aoff | @aoffset | @array_offset <value>]",
                 "[@r | @resize]",
                 "[@g | @gain <value>]",
                 "[@n | @norm | @normalize]",

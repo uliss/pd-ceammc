@@ -22,6 +22,13 @@
 - list.contains @all_of, @any_of, @none_of, @sublist (default) properties added
 - is_data @in_list property added to search data inside list
 - path.is_dir added
+- snd.file load options added:
+  - @gain (or @g) - to apply gain. use like: @gain 0.5 or @gain +2.4db
+  - @begin (or @b) - to specify start read position in input file
+  - @end (or @e) - to specify end position
+  - @length (or @l, @len) - to specify read segment length (cannot be used simultaneously with @end)
+  - @normalize (or @n, @norm) - to normalize file right after loading
+  - @aoffset (or @aoff) - to specify write offset position in destination array
 
 ## [0.8]
 ### Added:

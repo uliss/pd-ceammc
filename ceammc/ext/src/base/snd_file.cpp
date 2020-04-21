@@ -99,6 +99,7 @@ void SndFile::m_load(t_symbol* s, const AtomList& lst)
         return;
     }
 
+    // set gain after parse, but before loading
     file->setGain(loader.gain());
 
     if (!loader.loadArrays(file, true)) {
