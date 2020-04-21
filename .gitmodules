@@ -49,3 +49,6 @@
 [submodule "ceammc/extra/reflex/RE-flex"]
 	path = ceammc/extra/reflex/RE-flex
 	url = https://github.com/Genivia/RE-flex
+[submodule "ceammc/extra/soxr/code"]
+	path = ceammc/extra/soxr/code
+	url = https://git.code.sf.net/p/soxr/code

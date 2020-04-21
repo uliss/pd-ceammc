@@ -16,6 +16,7 @@ ceammc_array_extension(hist)
 ceammc_array_extension(mean)
 ceammc_array_extension(minmax)
 ceammc_array_extension(p2s)
+ceammc_array_extension(resample)
 ceammc_array_extension(rms)
 ceammc_array_extension(s2p)
 ceammc_array_extension(set)
@@ -28,7 +29,13 @@ ceammc_array_extension(vline_play)
 ceammc_array_extension(window)
 
 add_library(ceammc_array STATIC mod_array.h mod_array.cpp ${ARRAY_SOURCES})
-target_link_libraries(ceammc_array soundtouch)
+
+target_include_directories(ceammc_array PRIVATE $<TARGET_PROPERTY:fmt,INCLUDE_DIRECTORIES>)
+target_include_directories(ceammc_array PRIVATE $<TARGET_PROPERTY:soxr,INCLUDE_DIRECTORIES>)
+
+target_link_libraries(ceammc_array PRIVATE soundtouch)
+target_link_libraries(ceammc_array PRIVATE soxr)
+
 if(UNIX)
     set_target_properties(ceammc_array PROPERTIES COMPILE_FLAGS "-fPIC")
 endif()
