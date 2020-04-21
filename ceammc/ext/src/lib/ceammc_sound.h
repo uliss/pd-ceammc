@@ -29,6 +29,7 @@ namespace sound {
 
     class SoundFile {
         std::string fname_;
+        t_float gain_ = { 1 };
 
     public:
         SoundFile(const std::string& fname);
@@ -36,6 +37,9 @@ namespace sound {
 
         virtual std::string filename();
         virtual bool close() = 0;
+
+        t_float gain() const { return gain_; }
+        void setGain(t_float g) { gain_ = g; }
 
         /**
          * @brief size in samples
@@ -48,11 +52,14 @@ namespace sound {
 
         /**
          * @brief read samples to given buffer
-         * @param sz - destination buffer size
          * @param dest - pointer to destination
+         * @param sz - destination buffer size
+         * @param channel - input channel
+         * @param offset - start position to read in samples
+         * @param gain - applied gain coefficent tipically (0..1)
          * @return
          */
-        virtual long read(t_word* dest, size_t sz, size_t channel, long offset = 0) = 0;
+        virtual long read(t_word* dest, size_t sz, size_t channel, long offset) = 0;
 
         virtual bool isOpened() const = 0;
     };

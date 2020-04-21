@@ -222,7 +222,7 @@ int ceammc_coreaudio_getinfo(const char* path, audiofile_info_t* info)
     return 0;
 }
 
-int64_t ceammc_coreaudio_load(const char* path, size_t channel, size_t offset, size_t count, t_word* buf)
+int64_t ceammc_coreaudio_load(const char* path, size_t channel, size_t offset, size_t count, t_word* buf, t_float gain)
 {
     if (count == 0 || buf == 0)
         return INVALID_ARGS;
@@ -287,7 +287,7 @@ int64_t ceammc_coreaudio_load(const char* path, size_t channel, size_t offset, s
             float* data = (float*)audioBuffer.mData;
 
             for (UInt32 i = 0; i < frameCount && (frameIdx < count); i++) {
-                buf[frameIdx].w_float = data[audioFormat.mChannelsPerFrame * i + channel];
+                buf[frameIdx].w_float = data[audioFormat.mChannelsPerFrame * i + channel] * gain;
                 frameIdx++;
             }
 

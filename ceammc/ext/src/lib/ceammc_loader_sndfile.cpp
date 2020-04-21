@@ -86,7 +86,7 @@ namespace sound {
 
             // write channel data to destination
             for (sf_count_t j = 0; j < frames_read; j++) {
-                x->w_float = frame_buf[j * n + ch];
+                x->w_float = frame_buf[j * n + ch] * gain();
                 x++;
             }
 
@@ -102,7 +102,7 @@ namespace sound {
 
             // write channel data to destination
             for (sf_count_t j = 0; j < frames_read; j++) {
-                x->w_float = frame_buf[j * n + ch];
+                x->w_float = frame_buf[j * n + ch] * gain();
                 x++;
             }
         }

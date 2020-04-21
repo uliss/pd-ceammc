@@ -129,6 +129,8 @@ public:
     /** sets sample option */
     bool setSampleOption(OptionType opt, long samp_pos);
 
+    /** return loading gain */
+    double gain() const { return gain_; }
     /** sets applied gain while loading */
     bool setGain(double amp);
 

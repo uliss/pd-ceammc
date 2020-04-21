@@ -99,6 +99,8 @@ void SndFile::m_load(t_symbol* s, const AtomList& lst)
         return;
     }
 
+    file->setGain(loader.gain());
+
     if (!loader.loadArrays(file, true)) {
         OBJ_ERR << fmt::format("can't load file '{}' to arrays: {}",
             *mfull_path, fmt::join(loader.arrays(), ", "));
