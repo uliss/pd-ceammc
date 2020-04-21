@@ -17,7 +17,9 @@ add_subdirectory(soxr)
 add_subdirectory(stk)
 add_subdirectory(subprocess)
 add_subdirectory(reflex)
-add_subdirectory(fmt EXCLUDE_FROM_ALL)
+
+set(BUILD_SHARED_LIBS ON CACHE BOOL "" FORCE)
+add_subdirectory(fmt)
 
 option(RE2_BUILD_TESTING "" OFF)
 set(RE2_BUILD_TESTING OFF CACHE BOOL "" FORCE)

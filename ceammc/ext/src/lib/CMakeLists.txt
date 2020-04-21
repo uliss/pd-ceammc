@@ -153,11 +153,7 @@ add_library(ceammc_core SHARED
 target_link_libraries(ceammc_core PUBLIC puredata-core)
 target_link_libraries(ceammc_core PUBLIC re2)
 target_link_libraries(ceammc_core PRIVATE reflex)
-if(WIN32)
-    target_link_libraries(ceammc_core PRIVATE -Wl,--whole-archive fmt::fmt -Wl,--no-whole-archive)
-else()
-    target_link_libraries(ceammc_core PRIVATE fmt::fmt)
-endif()
+target_link_libraries(ceammc_core PRIVATE fmt)
 
 target_include_directories(ceammc_core PRIVATE $<TARGET_PROPERTY:re2,INCLUDE_DIRECTORIES>)
 target_include_directories(ceammc_core PRIVATE $<TARGET_PROPERTY:reflex,INCLUDE_DIRECTORIES>)
@@ -241,8 +237,7 @@ if(ENABLE_TESTS)
     target_link_libraries(ext_props puredata-core ${CEAMMC_EXT_LINK_LIBRARIES})
 
     add_executable(ext_info ext_info.cpp ../mod_init.cpp)
-    target_link_libraries(ext_info PRIVATE ${CEAMMC_EXT_LINK_LIBRARIES} puredata-core)
-    target_include_directories(ext_info PRIVATE $<TARGET_PROPERTY:fmt,INCLUDE_DIRECTORIES>)
+    target_link_libraries(ext_info PRIVATE ${CEAMMC_EXT_LINK_LIBRARIES} puredata-core fmt)
 endif()
 
 add_custom_target(ceammc_cicm_tcl_gen

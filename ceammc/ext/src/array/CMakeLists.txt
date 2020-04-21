@@ -30,12 +30,13 @@ add_library(ceammc_array STATIC mod_array.h mod_array.cpp ${ARRAY_SOURCES})
 target_include_directories(ceammc_array PRIVATE
     "${PROJECT_SOURCE_DIR}/src"
     "$<TARGET_PROPERTY:soundtouch,INCLUDE_DIRECTORIES>"
-    "$<TARGET_PROPERTY:fmt,INCLUDE_DIRECTORIES>"
-    "$<TARGET_PROPERTY:soxr,INCLUDE_DIRECTORIES>"
 )
 
-target_link_libraries(ceammc_array PRIVATE soundtouch)
-target_link_libraries(ceammc_array PRIVATE soxr)
+target_link_libraries(ceammc_array PRIVATE
+    soundtouch
+    soxr
+    fmt
+)
 
 if(UNIX)
     set_target_properties(ceammc_array PROPERTIES COMPILE_FLAGS "-fPIC")
