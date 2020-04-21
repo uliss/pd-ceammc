@@ -1,6 +1,3 @@
-include_directories(${CMAKE_SOURCE_DIR}/src)
-include_directories(${CMAKE_SOURCE_DIR}/ceammc/extra/SoundTouch/soundtouch/include)
-
 set(ARRAY_SOURCES array_base.cpp)
 
 macro(ceammc_array_extension name)
@@ -30,8 +27,12 @@ ceammc_array_extension(window)
 
 add_library(ceammc_array STATIC mod_array.h mod_array.cpp ${ARRAY_SOURCES})
 
-target_include_directories(ceammc_array PRIVATE $<TARGET_PROPERTY:fmt,INCLUDE_DIRECTORIES>)
-target_include_directories(ceammc_array PRIVATE $<TARGET_PROPERTY:soxr,INCLUDE_DIRECTORIES>)
+target_include_directories(ceammc_array PRIVATE
+    "${PROJECT_SOURCE_DIR}/src"
+    "$<TARGET_PROPERTY:soundtouch,INCLUDE_DIRECTORIES>"
+    "$<TARGET_PROPERTY:fmt,INCLUDE_DIRECTORIES>"
+    "$<TARGET_PROPERTY:soxr,INCLUDE_DIRECTORIES>"
+)
 
 target_link_libraries(ceammc_array PRIVATE soundtouch)
 target_link_libraries(ceammc_array PRIVATE soxr)
