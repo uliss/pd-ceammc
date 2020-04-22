@@ -17,7 +17,7 @@
 
 using namespace ceammc;
 
-TEST_CASE("list functions", "[core]")
+TEST_CASE("list functions2", "[core]")
 {
     SECTION("histogram")
     {
