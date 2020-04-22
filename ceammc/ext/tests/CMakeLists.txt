@@ -135,24 +135,24 @@ if(LIBSNDFILE_FOUND)
     ceammc_add_test_linked(
         TITLE "ceammc::libsndfile"
         NAME test_libsndfile
-        LINK ceammc_sound)
+        LINK ceammc_core)
 
     ceammc_add_test_linked(
         TITLE "ceammc::sound"
         NAME test_sound
-        LINK ceammc_sound)
+        LINK ceammc_core)
 endif()
 
 ceammc_add_test_linked(
     TITLE "ceammc::arrayname_parser"
     NAME test_arrayname_parser
-    LINK ceammc_sound)
+    LINK ceammc_core)
 
 if(APPLE AND CMAKE_CXX_COMPILER_ID MATCHES "Clang")
     ceammc_add_test_linked(
         TITLE "ceammc::coreaudio_loader"
         NAME test_coreaudio
-        LINK ceammc_sound)
+        LINK ceammc_core)
 endif()
 
 ceammc_add_test_linked(

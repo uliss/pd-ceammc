@@ -16,7 +16,6 @@ target_link_libraries(test_ext_ui PUBLIC
     ceammc_ui
     ceammc_env
     ceammc_core
-    ceammc_sound
     puredata-core)
 
 add_test(NAME test_ext_ui

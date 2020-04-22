@@ -18,7 +18,6 @@ target_link_libraries(test_ext_spat PUBLIC
     tests_main_lib
     ceammc_spat
     ceammc_core
-    ceammc_sound
     puredata-core)
 
 add_test(NAME test_ext_spat

@@ -15,7 +15,6 @@ target_link_libraries(test_ext_base PUBLIC
     tests_main_lib
     ceammc_base
     ceammc_core
-    ceammc_sound
     puredata-core)
 
 add_test(NAME test_ext_base
@@ -48,7 +47,4 @@ add_base_test(radio)
 add_base_test(replace)
 add_base_test(xfade)
 add_base_test(xfade2)
-
-if(TARGET ceammc_sound)
-    add_base_test(snd_file)
-endif()
+add_base_test(snd_file)

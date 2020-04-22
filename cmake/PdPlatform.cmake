@@ -133,20 +133,8 @@ if(WIN32)
         DESTINATION
             ${CMAKE_INSTALL_PREFIX})
 
-    if(${CMAKE_SYSTEM_NAME} STREQUAL "WindowsStore")
-        message("Building for UWP")
-        set(FIPS_UWP 1)
-    else()
-        set(FIPS_UWP 0)
-    endif()
-
-    if (FIPS_UWP)
-        set(CMAKE_CXX_STANDARD_LIBRARIES "WindowsApp.lib")
-        set(CMAKE_C_STANDARD_LIBRARIES "WindowsApp.lib")
-    else()
-        set(CMAKE_CXX_STANDARD_LIBRARIES "-lkernel32 -lgdi32 -lole32 -lwinmm -luuid -lwsock32 -lws2_32")
-        set(CMAKE_C_STANDARD_LIBRARIES ${CMAKE_CXX_STANDARD_LIBRARIES})
-    endif()
+    set(CMAKE_CXX_STANDARD_LIBRARIES "-lkernel32 -lgdi32 -lole32 -lwinmm -luuid -lwsock32 -lws2_32")
+    set(CMAKE_C_STANDARD_LIBRARIES ${CMAKE_CXX_STANDARD_LIBRARIES})
 
     add_definitions(-DPD_INTERNAL -DWINVER=0x0502 -D_WIN32_WINNT=0x0502 -D_USE_MATH_DEFINES -D_WINDOWS)
     set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -mms-bitfields")
@@ -170,7 +158,6 @@ if(WIN32)
     add_custom_target(prepare_win_tests
         COMMAND ${CMAKE_COMMAND} -E copy "$<TARGET_FILE:puredata-core>" "${PROJECT_BINARY_DIR}/ceammc/ext/tests"
         COMMAND ${CMAKE_COMMAND} -E copy "$<TARGET_FILE:ceammc_core>" "${PROJECT_BINARY_DIR}/ceammc/ext/tests"
-        COMMAND ${CMAKE_COMMAND} -E copy "$<TARGET_FILE:ceammc_sound>" "${PROJECT_BINARY_DIR}/ceammc/ext/tests"
         COMMAND ${CMAKE_COMMAND} -E copy "$<TARGET_FILE:wrapper_lib>" "${PROJECT_BINARY_DIR}/ceammc/ext/tests"
     )
 endif()

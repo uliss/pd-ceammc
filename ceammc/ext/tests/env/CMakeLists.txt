@@ -17,7 +17,6 @@ target_link_libraries(test_ext_env PUBLIC
     ceammc_env
     ceammc_array
     ceammc_core
-    ceammc_sound
     puredata-core)
 
 add_test(NAME test_ext_env

@@ -16,7 +16,6 @@ target_link_libraries(test_ext_string PUBLIC
     tests_main_lib
     ceammc_string
     ceammc_core
-    ceammc_sound
     puredata-core)
 
 add_test(NAME test_ext_string
@@ -42,4 +41,3 @@ add_string_test(starts_with)
 add_string_test(str)
 add_string_test(substr)
 add_string_test(to_symbol)
-

@@ -172,8 +172,6 @@ endif()
 #
 # sound library
 #
-add_library(ceammc_sound SHARED snd_tmp.c)
-
 set(CEAMMC_LOAD_SRC
     ceammc_sound.h
     ceammc_sound.cpp
@@ -184,10 +182,6 @@ set(CEAMMC_LOAD_SRC
     array_load_pattern.cpp)
 
 target_sources(ceammc_core PRIVATE ${CEAMMC_LOAD_SRC})
-# target_compile_options(ceammc_sound PRIVATE ${LIBCEAMMC_COMPILE_FLAGS})
-# target_include_directories(ceammc_sound PRIVATE $<TARGET_PROPERTY:reflex,INCLUDE_DIRECTORIES>)
-# target_include_directories(ceammc_sound PRIVATE $<TARGET_PROPERTY:fmt,INCLUDE_DIRECTORIES>)
-# target_link_libraries(ceammc_sound PUBLIC ceammc_core)
 
 # libsndfile backend
 if(LIBSNDFILE_FOUND)
@@ -212,10 +206,8 @@ endif()
 # install
 if(WIN32)
     install(TARGETS ceammc_core  RUNTIME DESTINATION ${PD_INTERNAL_EXT_INSTALL_PATH}/ceammc)
-    # install(TARGETS ceammc_sound RUNTIME DESTINATION ${PD_INTERNAL_EXT_INSTALL_PATH}/ceammc)
 else()
     install(TARGETS ceammc_core  LIBRARY DESTINATION ${PDCORE_LIB_INSTALL_PATH})
-    # install(TARGETS ceammc_sound LIBRARY DESTINATION ${PDCORE_LIB_INSTALL_PATH})
 endif()
 
 # utilities used while developing

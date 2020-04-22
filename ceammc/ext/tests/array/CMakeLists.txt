@@ -16,7 +16,6 @@ target_link_libraries(test_ext_array PUBLIC
     tests_main_lib
     ceammc_array
     ceammc_core
-    ceammc_sound
     puredata-core)
 
 add_test(NAME test_ext_array
