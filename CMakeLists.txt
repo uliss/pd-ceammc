@@ -89,7 +89,8 @@ endif()
 
 # libsndfile backend
 if(WITH_LIBSNDFILE)
-    include(FindLibSndFile)
+    include(FindLibSndFile REQUIRED)
+    set(CEAMMC_HAVE_LIBSNDFILE TRUE)
 endif()
 
 # FFTW3
