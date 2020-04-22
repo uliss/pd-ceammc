@@ -13,7 +13,8 @@ ceammc_random_extension(pwconst)
 ceammc_random_extension(pwlin)
 
 add_library(ceammc_random STATIC ${RANDOM_SOURCES})
-target_link_libraries(ceammc_random PRIVATE fmt)
+target_include_directories(ceammc_random
+    PRIVATE "$<TARGET_PROPERTY:fmt,INCLUDE_DIRECTORIES>")
 
 if(UNIX)
     set_target_properties(ceammc_random PROPERTIES COMPILE_FLAGS "-fPIC")

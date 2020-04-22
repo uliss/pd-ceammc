@@ -23,7 +23,6 @@ if(UNIX)
     set_target_properties(ceammc_string PROPERTIES COMPILE_FLAGS "-fPIC")
 endif()
 
-target_link_libraries(ceammc_string re2 fmt)
 target_include_directories(ceammc_string
-    PRIVATE ${PROJECT_SOURCE_DIR}/ceammc/extra/re2
-    PRIVATE ${PROJECT_SOURCE_DIR}/ceammc/extra/fmt/include)
+    PRIVATE "$<TARGET_PROPERTY:fmt,INCLUDE_DIRECTORIES>"
+            "$<TARGET_PROPERTY:re2,INCLUDE_DIRECTORIES>")

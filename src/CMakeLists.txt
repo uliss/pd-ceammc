@@ -180,6 +180,7 @@ if(WIN32 OR MSYS)
 
     add_library(puredata-core SHARED ${D_SRC} ${G_SRC} ${M_SRC} ${S_SRC} ${X_SRC})
     set_target_properties(puredata-core PROPERTIES PREFIX "" OUTPUT_NAME pd)
+    target_link_options(puredata-core PRIVATE "-Wl,--export-all-symbols")
     add_executable(pd WIN32 s_entry.c ${RESOURCE})
 else()
     add_library(puredata-core STATIC ${D_SRC} ${G_SRC} ${M_SRC} ${S_SRC} ${X_SRC} ${MISC_H})

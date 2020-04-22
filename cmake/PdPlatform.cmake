@@ -155,7 +155,8 @@ if(WIN32)
     set(CMAKE_C_FLAGS_RELEASE "${CMAKE_C_FLAGS_RELEASE} -mms-bitfields -O2 -funroll-loops -fomit-frame-pointer")
     set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} -std=c++11 -mms-bitfields -O2 -funroll-loops -fomit-frame-pointer")
 
-    set(CMAKE_SHARED_LINKER_FLAGS "-Wl,--export-all-symbols -lpthread")
+    set(CMAKE_SHARED_LINKER_FLAGS "-lpthread")
+    # set(CMAKE_SHARED_LINKER_FLAGS "-Wl,--export-all-symbols -lpthread")
     set(CMAKE_EXE_LINKER_FLAGS "-shared-libgcc -lpthread")
 
     list(APPEND PLATFORM_LINK_LIBRARIES ${CMAKE_THREAD_LIBS_INIT})

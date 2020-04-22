@@ -1,15 +1,12 @@
-include_directories(${CMAKE_BINARY_DIR}) # for config.h
-include_directories(${PROJECT_SOURCE_DIR}/src)
-include_directories(${PROJECT_SOURCE_DIR}/ceammc/extra)
-include_directories(${CMAKE_CURRENT_SOURCE_DIR})
-include_directories(${CMAKE_CURRENT_SOURCE_DIR}/utf8rewind)
-
-set(LIBCEAMMC_COMPILE_FLAGS "${PD_EXTERNAL_CFLAGS}")
-set(LIBCEAMMC_LINK_FLAGS ${PD_EXTERNAL_LDFLAGS})
-
-if(WIN32)
-    set(LIBCEAMMC_LINK_FLAGS "")
-endif()
+# main shared library
+add_library(ceammc_core SHARED)
+target_include_directories(ceammc_core PRIVATE ${CMAKE_BINARY_DIR}) # for config.h
+target_include_directories(ceammc_core PRIVATE
+    ${PROJECT_SOURCE_DIR}/src # m_pd.h
+    ${PROJECT_SOURCE_DIR}/ceammc/extra
+    ${CMAKE_CURRENT_SOURCE_DIR}
+    ${CMAKE_CURRENT_SOURCE_DIR}/utf8rewind
+)
 
 set(UTF8REWIND_SOURCES
     utf8rewind/utf8rewind.c
@@ -20,7 +17,9 @@ set(UTF8REWIND_SOURCES
     utf8rewind/internal/database.c
     utf8rewind/internal/decomposition.c
     utf8rewind/internal/seeking.c
-    utf8rewind/internal/streaming.c)
+    utf8rewind/internal/streaming.c
+)
+target_sources(ceammc_core PRIVATE ${UTF8REWIND_SOURCES})
 
 set(CEAMMC_LIB_SOURCES
     ceammc.h
@@ -86,19 +85,24 @@ set(CEAMMC_LIB_SOURCES
     ceammc_timeline.cpp
     ceammc_units.cpp
     ceammc_window.cpp
-
     datatype_dict.cpp
     datatype_mlist.cpp
     datatype_property.cpp
     datatype_string.cpp
-
-    ${UTF8REWIND_SOURCES}
 )
+
+if(UNIX)
+    list(APPEND CEAMMC_LIB_SOURCES ceammc_platform_unix.cpp)
+elseif(WIN32)
+    list(APPEND CEAMMC_LIB_SOURCES ceammc_platform_win.cpp)
+endif()
+
+target_sources(ceammc_core PRIVATE ${CEAMMC_LIB_SOURCES})
 
 #
 # UI library
 #
-include_directories(cicm/Sources)
+target_include_directories(ceammc_core PRIVATE cicm/Sources)
 
 set(CEAMMC_UI_SRC
     cicm/Sources/ebox.cpp
@@ -114,14 +118,9 @@ set(CEAMMC_UI_SRC
     ceammc_ui_object.cpp
     image_detect.cpp)
 
-if(UNIX)
-    list(APPEND CEAMMC_LIB_SOURCES ceammc_platform_unix.cpp)
-elseif(WIN32)
-    list(APPEND CEAMMC_LIB_SOURCES ceammc_platform_win.cpp)
-endif()
+target_sources(ceammc_core PRIVATE ${CEAMMC_UI_SRC})
 
 if(BISON_FOUND AND FLEX_FOUND)
-
     add_custom_target(ceammc_argcheck_gen
         COMMAND $<TARGET_FILE:reflex-bin> argcheck.l
         COMMAND ${BISON_EXECUTABLE} argcheck.yy
@@ -145,25 +144,23 @@ if(BISON_FOUND AND FLEX_FOUND)
         WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/lex)
 endif()
 
-# main shared library
-add_library(ceammc_core SHARED
-    ${CEAMMC_LIB_SOURCES}
-    ${CEAMMC_UI_SRC})
-
 target_link_libraries(ceammc_core PUBLIC puredata-core)
-target_link_libraries(ceammc_core PUBLIC re2)
+target_link_libraries(ceammc_core PRIVATE re2)
 target_link_libraries(ceammc_core PRIVATE reflex)
-target_link_libraries(ceammc_core PRIVATE fmt)
+target_link_libraries(ceammc_core PRIVATE -Wl,--whole-archive fmt::fmt -Wl,--no-whole-archive)
 
 target_include_directories(ceammc_core PRIVATE $<TARGET_PROPERTY:re2,INCLUDE_DIRECTORIES>)
+target_include_directories(ceammc_core PRIVATE $<TARGET_PROPERTY:fmt,INCLUDE_DIRECTORIES>)
 target_include_directories(ceammc_core PRIVATE $<TARGET_PROPERTY:reflex,INCLUDE_DIRECTORIES>)
 
-set_target_properties(ceammc_core PROPERTIES
-    COMPILE_FLAGS "${LIBCEAMMC_COMPILE_FLAGS}"
-    LINK_FLAGS    "${LIBCEAMMC_LINK_FLAGS}")
+set(LIBCEAMMC_COMPILE_FLAGS "${PD_EXTERNAL_CFLAGS}")
+
+target_compile_options(ceammc_core PRIVATE "${LIBCEAMMC_COMPILE_FLAGS}")
+# target_link_options(ceammc_core PRIVATE ${PD_EXTERNAL_LDFLAGS})
 
 if(WIN32)
     target_link_libraries(ceammc_core PUBLIC psapi shlwapi userenv puredata-core)
+    target_link_options(ceammc_core PRIVATE "-Wl,--enable-auto-import")
 
     # copy library to tests folder
     add_custom_command(TARGET ceammc_core POST_BUILD
@@ -175,7 +172,7 @@ endif()
 #
 # sound library
 #
-add_library(ceammc_sound SHARED)
+add_library(ceammc_sound SHARED snd_tmp.c)
 
 set(CEAMMC_LOAD_SRC
     ceammc_sound.h
@@ -186,23 +183,22 @@ set(CEAMMC_LOAD_SRC
     array_load_pattern.h
     array_load_pattern.cpp)
 
-target_sources(ceammc_sound PRIVATE ${CEAMMC_LOAD_SRC})
-target_compile_options(ceammc_sound PRIVATE ${LIBCEAMMC_COMPILE_FLAGS})
-target_include_directories(ceammc_sound PRIVATE $<TARGET_PROPERTY:fmt,INCLUDE_DIRECTORIES>)
-target_include_directories(ceammc_sound PRIVATE $<TARGET_PROPERTY:reflex,INCLUDE_DIRECTORIES>)
-target_link_libraries(ceammc_sound PUBLIC ceammc_core)
+target_sources(ceammc_core PRIVATE ${CEAMMC_LOAD_SRC})
+# target_compile_options(ceammc_sound PRIVATE ${LIBCEAMMC_COMPILE_FLAGS})
+# target_include_directories(ceammc_sound PRIVATE $<TARGET_PROPERTY:reflex,INCLUDE_DIRECTORIES>)
+# target_include_directories(ceammc_sound PRIVATE $<TARGET_PROPERTY:fmt,INCLUDE_DIRECTORIES>)
+# target_link_libraries(ceammc_sound PUBLIC ceammc_core)
 
 # libsndfile backend
 if(LIBSNDFILE_FOUND)
-    target_compile_definitions(ceammc_sound PRIVATE "-DWITH_LIBSOUNDFILE")
-    target_sources(ceammc_sound PRIVATE ceammc_loader_sndfile.cpp)
-    target_include_directories(ceammc_sound PRIVATE ${LIBSNDFILE_INCLUDE_DIRS})
-    target_link_libraries(ceammc_sound PUBLIC ${LIBSNDFILE_LIBRARIES})
+    target_sources(ceammc_core PRIVATE ceammc_loader_sndfile.cpp)
+    target_include_directories(ceammc_core PRIVATE ${LIBSNDFILE_INCLUDE_DIRS})
+    target_link_libraries(ceammc_core PUBLIC ${LIBSNDFILE_LIBRARIES})
 endif()
 
 # coreaudio backend
 if(APPLE AND CMAKE_CXX_COMPILER_ID MATCHES "Clang")
-    target_sources(ceammc_sound PRIVATE
+    target_sources(ceammc_core PRIVATE
         ceammc_loader_coreaudio.cpp
         ceammc_loader_coreaudio_impl.m)
 
@@ -210,34 +206,38 @@ if(APPLE AND CMAKE_CXX_COMPILER_ID MATCHES "Clang")
     find_library(QUICKTIME_LIBRARY QuickTime)
     find_library(APP_SERVICES_LIBRARY ApplicationServices)
 
-    target_link_libraries(ceammc_sound PUBLIC ${FOUNDATION_LIBRARY})
-
-    separate_arguments(__ceammc_sound_link_flags UNIX_COMMAND ${LIBCEAMMC_LINK_FLAGS})
-    target_link_options(ceammc_sound PRIVATE ${__ceammc_sound_link_flags})
+    target_link_libraries(ceammc_core PUBLIC ${FOUNDATION_LIBRARY})
 endif()
 
 # install
 if(WIN32)
     install(TARGETS ceammc_core  RUNTIME DESTINATION ${PD_INTERNAL_EXT_INSTALL_PATH}/ceammc)
-    install(TARGETS ceammc_sound RUNTIME DESTINATION ${PD_INTERNAL_EXT_INSTALL_PATH}/ceammc)
+    # install(TARGETS ceammc_sound RUNTIME DESTINATION ${PD_INTERNAL_EXT_INSTALL_PATH}/ceammc)
 else()
     install(TARGETS ceammc_core  LIBRARY DESTINATION ${PDCORE_LIB_INSTALL_PATH})
-    install(TARGETS ceammc_sound LIBRARY DESTINATION ${PDCORE_LIB_INSTALL_PATH})
+    # install(TARGETS ceammc_sound LIBRARY DESTINATION ${PDCORE_LIB_INSTALL_PATH})
 endif()
 
 # utilities used while developing
 if(ENABLE_TESTS)
     add_executable(ext_list ext_list.cpp ../mod_init.cpp)
-    target_link_libraries(ext_list puredata-core ${CEAMMC_EXT_LINK_LIBRARIES})
+    target_include_directories(ext_list PRIVATE ${CMAKE_CURRENT_SOURCE_DIR})
+    target_link_libraries(ext_list puredata-core ${CEAMMC_EXT_LINK_LIBRARIES} puredata-core)
 
     add_executable(ext_methods ext_methods.cpp ../mod_init.cpp)
-    target_link_libraries(ext_methods puredata-core ${CEAMMC_EXT_LINK_LIBRARIES})
+    target_include_directories(ext_methods PRIVATE ${CMAKE_CURRENT_SOURCE_DIR})
+    target_link_libraries(ext_methods puredata-core ${CEAMMC_EXT_LINK_LIBRARIES} puredata-core)
 
     add_executable(ext_props ext_props.cpp ../mod_init.cpp)
-    target_link_libraries(ext_props puredata-core ${CEAMMC_EXT_LINK_LIBRARIES})
+    target_include_directories(ext_props PRIVATE ${CMAKE_CURRENT_SOURCE_DIR})
+    target_link_libraries(ext_props puredata-core ${CEAMMC_EXT_LINK_LIBRARIES} puredata-core)
 
     add_executable(ext_info ext_info.cpp ../mod_init.cpp)
-    target_link_libraries(ext_info PRIVATE ${CEAMMC_EXT_LINK_LIBRARIES} puredata-core fmt)
+    target_include_directories(ext_info
+        PRIVATE
+            ${CMAKE_CURRENT_SOURCE_DIR}
+            "$<TARGET_PROPERTY:fmt,INCLUDE_DIRECTORIES>")
+    target_link_libraries(ext_info PRIVATE ${CEAMMC_EXT_LINK_LIBRARIES} puredata-core)
 endif()
 
 add_custom_target(ceammc_cicm_tcl_gen

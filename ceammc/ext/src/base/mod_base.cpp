@@ -85,9 +85,7 @@ void ceammc_base_setup()
     setup_prop0x2eget();
     setup_prop0x2eset();
 
-#ifdef WITH_SND_FILE
     setup_snd_file();
-#endif
 
     setup_test0x2edata();
     setup_test0x2eexpect();

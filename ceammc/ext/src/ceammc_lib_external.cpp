@@ -17,6 +17,12 @@
 
 #include "m_pd.h"
 
+#ifdef __WIN32__
+#define CEAMMC_EXTERN __declspec(dllexport)
+#else
+#define CEAMMC_EXTERN
+#endif
+
 t_class* ceammc_class = 0;
 
 static void ceammc_info_message()
@@ -71,7 +77,7 @@ static void ceammc_bang(t_object* x)
     endpost();
 }
 
-extern "C" void ceammc_setup()
+extern "C" CEAMMC_EXTERN void ceammc_setup()
 {
     if (ceammc_class) {
         post("%s", "already loaded");

@@ -18,7 +18,8 @@ add_subdirectory(stk)
 add_subdirectory(subprocess)
 add_subdirectory(reflex)
 
-set(BUILD_SHARED_LIBS ON CACHE BOOL "" FORCE)
+set(BUILD_SHARED_LIBS OFF CACHE BOOL "" FORCE)
+set(CMAKE_BUILD_TYPE Release)
 add_subdirectory(fmt)
 
 option(RE2_BUILD_TESTING "" OFF)
