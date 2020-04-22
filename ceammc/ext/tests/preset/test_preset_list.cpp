@@ -11,28 +11,22 @@
  * contact the author of this file, or the owner of the project in which
  * this file belongs to.
  *****************************************************************************/
-
-#include "../preset/preset_list.h"
-#include "test_base.h"
-#include "ceammc_pd.h"
 #include "ceammc_platform.h"
 #include "ceammc_preset.h"
+#include "preset_list.h"
+#include "test_base.h"
+#include "test_catch2.hpp"
+#include "test_external.h"
 
-#include "catch.hpp"
-
-typedef TestExternal<PresetList> PresetListTest;
-
-CanvasPtr ptr = PureData::instance().createTopCanvas("test_canvas");
+PD_COMPLETE_TEST_SETUP(PresetList, preset, list)
 
 TEST_CASE("preset.list", "[PureData]")
 {
-    pd_init();
+    pd_test_init();
 
     SECTION("init")
     {
-        setup_preset_list();
-
-        PresetListTest t("preset.list", LA("pf1"));
+        TObj t("preset.list", LA("pf1"));
         REQUIRE(t.numInlets() == 1);
         REQUIRE(t.numOutlets() == 1);
         REQUIRE_PROPERTY(t, @id, "pf1");
@@ -43,7 +37,7 @@ TEST_CASE("preset.list", "[PureData]")
 
         SECTION("init value")
         {
-            PresetListTest t("preset.list", LA("pf2", 123, "A", 1, "C"));
+            TObj t("preset.list", LA("pf2", 123, "A", 1, "C"));
             REQUIRE_PROPERTY(t, @path, "/pf2");
             REQUIRE_PROPERTY_LIST(t, @init, LA(123, "A", 1, "C"));
         }
@@ -51,7 +45,7 @@ TEST_CASE("preset.list", "[PureData]")
 
     SECTION("do")
     {
-        PresetListTest p1("preset.list", LA("p1"));
+        TObj p1("preset.list", LA("p1"));
 
         WHEN_SEND_LIST_TO(0, p1, LF(100, 200));
         p1.m_store(0, LF(0.f));
@@ -71,7 +65,7 @@ TEST_CASE("preset.list", "[PureData]")
         AtomList long_list;
         long_list.fill(Atom(123), 1024 * 100);
 
-        PresetListTest p1("preset.list", LA("p1"));
+        TObj p1("preset.list", LA("p1"));
         WHEN_SEND_LIST_TO(0, p1, long_list);
         p1.m_store(0, LF(1));
 

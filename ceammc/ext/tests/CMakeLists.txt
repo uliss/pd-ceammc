@@ -70,10 +70,6 @@ ceammc_external_test(proto firmata)
 ceammc_external_test(net host)
 target_include_directories(test_ext_net_host PUBLIC ${PROJECT_SOURCE_DIR}/ceammc/extra)
 
-ceammc_external_test(preset float)
-ceammc_external_test(preset symbol)
-ceammc_external_test(preset list)
-
 ceammc_add_test_linked(TITLE "tl.transport"
     NAME test_ext_tl_transport
     LINK ceammc_tl ceammc_ui ceammc_core puredata-core ceammc_core)
@@ -157,6 +153,7 @@ add_subdirectory(list)
 add_subdirectory(math)
 add_subdirectory(midi)
 add_subdirectory(path)
+add_subdirectory(preset)
 add_subdirectory(spat)
 add_subdirectory(random)
 add_subdirectory(string)

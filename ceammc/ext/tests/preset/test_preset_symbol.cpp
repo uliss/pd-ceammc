@@ -11,27 +11,22 @@
  * contact the author of this file, or the owner of the project in which
  * this file belongs to.
  *****************************************************************************/
-
-#include "../preset/preset_storage.h"
-#include "../preset/preset_symbol.h"
+#include "preset_storage.h"
+#include "preset_symbol.h"
 #include "test_base.h"
-#include "ceammc_pd.h"
+#include "test_catch2.hpp"
+#include "test_external.h"
 
-#include "catch.hpp"
-
-typedef TestExternal<PresetSymbol> PresetSymbolTest;
-
-CanvasPtr ptr = PureData::instance().createTopCanvas("test_canvas");
+PD_COMPLETE_TEST_SETUP(PresetSymbol, preset, symbol)
 
 TEST_CASE("preset.symbol", "[PureData]")
 {
-    pd_init();
+    pd_test_init();
 
     SECTION("init")
     {
-        setup_preset_symbol();
 
-        PresetSymbolTest t("preset.symbol", LA("pf1"));
+        TObj t("preset.symbol", LA("pf1"));
         REQUIRE(t.numInlets() == 1);
         REQUIRE(t.numOutlets() == 1);
         REQUIRE_PROPERTY(t, @id, "pf1");
@@ -42,7 +37,7 @@ TEST_CASE("preset.symbol", "[PureData]")
 
         SECTION("init value")
         {
-            PresetSymbolTest t("preset.symbol", LA("pf2", "ABC"));
+            TObj t("preset.symbol", LA("pf2", "ABC"));
             REQUIRE_PROPERTY(t, @path, "/pf2");
             REQUIRE_PROPERTY(t, @init, "ABC");
         }
@@ -50,7 +45,7 @@ TEST_CASE("preset.symbol", "[PureData]")
 
     SECTION("do")
     {
-        PresetSymbolTest p1("preset.symbol", LA("p1"));
+        TObj p1("preset.symbol", LA("p1"));
 
         WHEN_SEND_SYMBOL_TO(0, p1, "ABC");
 
