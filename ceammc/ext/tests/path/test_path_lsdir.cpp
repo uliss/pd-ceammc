@@ -98,9 +98,16 @@ TEST_CASE("path.lsdir", "[externals]")
         WHEN_SEND_SYMBOL_TO(0, t, TEST_DATA_DIR "non-exists");
         REQUIRE_LIST_AT_OUTLET(0, t, L());
 
+#ifdef __WIN32__
+        WHEN_SEND_SYMBOL_TO(0, t, "C:/Windows");
+        REQUIRE(t.hasNewMessages(0));
+        REQUIRE(t.lastMessage(0).isList());
+        REQUIRE(t.lastMessage(0).listValue().size() > 0);
+#else
         WHEN_SEND_SYMBOL_TO(0, t, "~");
         REQUIRE(t.hasNewMessages(0));
         REQUIRE(t.lastMessage(0).isList());
         REQUIRE(t.lastMessage(0).listValue().size() > 0);
+#endif
     }
 }
