@@ -30,33 +30,12 @@ endif()
 
 ceammc_add_core_test("ceammc::Array" test_array)
 ceammc_add_core_test("ceammc::arrayname_parser" test_arrayname_parser)
-ceammc_add_core_test("ceammc::Atom" test_atom)
-ceammc_add_core_test("ceammc::Atom2" test_atom2)
-ceammc_add_core_test("ceammc::AtomList" test_atomlist)
-ceammc_add_core_test("ceammc::AtomList2" test_atomlist2)
-ceammc_add_core_test("ceammc::AtomListView" test_atomlist_view)
 ceammc_add_core_test("ceammc::BaseObject" test_baseobject)
 ceammc_add_core_test("ceammc::Canvas" test_canvas)
-ceammc_add_core_test("ceammc::DataAtom" test_data)
-ceammc_add_core_test("ceammc::DataTypeDict" test_datatype_dict)
-ceammc_add_core_test("ceammc::DataTypeMList" test_datatype_mlist)
-ceammc_add_core_test("ceammc::DataTypeString" test_datatype_string)
 ceammc_add_core_test("ceammc::External" test_pd_external)
 ceammc_add_core_test("ceammc::Factory" test_factory)
 
-ceammc_add_core_test("ceammc::DataStreamParser" test_parser_data_string)
-target_include_directories(test_parser_data_string PRIVATE $<TARGET_PROPERTY:reflex,INCLUDE_DIRECTORIES>)
-
-ceammc_add_core_test("ceammc::properties" test_properties)
-ceammc_add_core_test("ceammc::properties2" test_properties2)
-ceammc_add_core_test("ceammc::FloatProperty" test_property_float)
-ceammc_add_core_test("ceammc::IntProperty" test_property_int)
-ceammc_add_core_test("ceammc::ListProperty" test_property_list)
-ceammc_add_core_test("ceammc::SymbolProperty" test_property_symbol)
-
-ceammc_add_core_test("ceammc::Message" test_message)
 ceammc_add_core_test("ceammc::ObjectInfoStorage" test_object_info)
-ceammc_add_core_test("ceammc::PropertyInfo" test_propertyinfo)
 ceammc_add_core_test("ceammc::SharedData" test_shareddata)
 ceammc_add_core_test("ceammc::SoundExternal" test_sound_external)
 ceammc_add_core_test("ceammc::args" test_args)
@@ -176,6 +155,8 @@ add_custom_target(test_src SOURCES gen_test_wav.py)
 
 # put binaries from subdir targets in current directory
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR})
+
+add_subdirectory(cells)
 
 add_subdirectory(array)
 add_subdirectory(base)

@@ -20,7 +20,7 @@
 
 using namespace ceammc;
 
-TEST_CASE("Properties", "[ceammc::properties]")
+TEST_CASE("Properties2", "[ceammc::properties]")
 {
     test::pdPrintToStdError();
 

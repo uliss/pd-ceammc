@@ -13,7 +13,7 @@
  *****************************************************************************/
 #include "test_property.h"
 
-TEST_CASE("FloatProperty", "[core]")
+TEST_CASE("IntProperty", "[core]")
 {
     test::pdPrintToStdError();
     IntProperty p("int", 120);

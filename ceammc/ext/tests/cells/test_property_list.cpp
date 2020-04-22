@@ -35,7 +35,7 @@ static inline std::ostream& operator<<(std::ostream& os, t_symbol s)
     return os;
 }
 
-TEST_CASE("Properties", "[ceammc::properties]")
+TEST_CASE("ListProperty", "[ceammc::properties]")
 {
     test::pdPrintToStdError();
 

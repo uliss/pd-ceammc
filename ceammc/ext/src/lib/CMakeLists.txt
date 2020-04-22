@@ -147,7 +147,15 @@ endif()
 target_link_libraries(ceammc_core PUBLIC puredata-core)
 target_link_libraries(ceammc_core PRIVATE re2)
 target_link_libraries(ceammc_core PRIVATE reflex)
-target_link_libraries(ceammc_core PRIVATE -Wl,--whole-archive fmt::fmt -Wl,--no-whole-archive)
+
+if(WIN32)
+    # this is rather important thing, we link ceammc_core to fmt whole static archive and then
+    # we DON'T LINK(!) to fmt no more. If we need to use fmt we should link to ceammc_core
+    target_link_libraries(ceammc_core PRIVATE -Wl,--whole-archive fmt::fmt -Wl,--no-whole-archive)
+else()
+    target_link_libraries(ceammc_core PRIVATE fmt::fmt)
+endif()
+
 
 target_include_directories(ceammc_core PRIVATE $<TARGET_PROPERTY:re2,INCLUDE_DIRECTORIES>)
 target_include_directories(ceammc_core PRIVATE $<TARGET_PROPERTY:fmt,INCLUDE_DIRECTORIES>)
@@ -197,10 +205,11 @@ if(APPLE AND CMAKE_CXX_COMPILER_ID MATCHES "Clang")
         ceammc_loader_coreaudio_impl.m)
 
     find_library(FOUNDATION_LIBRARY Foundation)
+    find_library(AUDIOTOOLBOX_LIBRARY AudioToolBox)
     find_library(QUICKTIME_LIBRARY QuickTime)
     find_library(APP_SERVICES_LIBRARY ApplicationServices)
 
-    target_link_libraries(ceammc_core PUBLIC ${FOUNDATION_LIBRARY})
+    target_link_libraries(ceammc_core PUBLIC ${FOUNDATION_LIBRARY} ${AUDIOTOOLBOX_LIBRARY})
 endif()
 
 # install
