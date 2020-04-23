@@ -124,7 +124,6 @@ void ceammc_init()
     ceammc_random_setup();
     ceammc_spat_setup();
     ceammc_string_setup();
-    ceammc_symbol_setup();
     ceammc_synth_setup();
     ceammc_system_setup();
     ceammc_tl_setup();
