@@ -78,7 +78,6 @@ ceammc_add_extension_test("ext_symbol_equal" "../src/symbol/symbol_equal.cpp")
 ceammc_add_extension_test("ext_symbol_num_compare" "../src/symbol/symbol_num_compare.cpp")
 
 ceammc_add_test_linked(TITLE "tl::parser" NAME test_tl_parser LINK ceammc_tl)
-ceammc_add_test_linked(TITLE "ceammc::preset" NAME test_preset LINK ceammc_preset ceammc_core puredata-core ceammc_core)
 ceammc_add_test_linked(TITLE "ceammc::pd" NAME test_pd SRC "../src/base/debug_gensym.cpp" LINK ceammc_core puredata-core)
 
 ceammc_add_test_linked(TITLE "ceammc::DataTypeMidiStream"

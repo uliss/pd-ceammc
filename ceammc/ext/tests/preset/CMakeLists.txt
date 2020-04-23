@@ -29,3 +29,5 @@ endfunction()
 add_preset_test(float)
 add_preset_test(symbol)
 add_preset_test(list)
+
+add_preset_test(lib)
