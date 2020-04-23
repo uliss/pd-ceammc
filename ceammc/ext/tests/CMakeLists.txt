@@ -61,7 +61,6 @@ endif()
 
 
 ceammc_external_test(analyze onset)
-ceammc_external_test(fx looper)
 ceammc_external_test(proto firmata)
 
 ceammc_add_test_linked(TITLE "ceammc::pd" NAME test_pd SRC "../src/base/debug_gensym.cpp" LINK ceammc_core puredata-core)
@@ -122,6 +121,7 @@ add_subdirectory(data)
 add_subdirectory(env)
 add_subdirectory(flow)
 add_subdirectory(flt)
+add_subdirectory(fx)
 add_subdirectory(list)
 add_subdirectory(math)
 add_subdirectory(midi)
