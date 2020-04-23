@@ -29,4 +29,6 @@ public:
     t_symbol* pattern() const;
 };
 
+void setup_symbol_equal();
+
 #endif // SYMBOL_EQUAL_H

@@ -14,6 +14,9 @@
 #include "string_to_symbol.h"
 
 void setup_string_match();
+void setup_symbol_equal();
+void setup_symbol_length();
+void setup_symbol_num_compare();
 
 void ceammc_string_setup()
 {
@@ -31,4 +34,8 @@ void ceammc_string_setup()
     setup_string_str();
     setup_string_substr();
     setup_string_to_symbol();
+
+    setup_symbol_equal();
+    setup_symbol_length();
+    setup_symbol_num_compare();
 }

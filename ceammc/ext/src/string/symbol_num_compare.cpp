@@ -65,7 +65,7 @@ int SymbolNumCompare::numPart(t_symbol* s)
     return res;
 }
 
-extern "C" void setup_symbol0x2enum_compare()
+void setup_symbol_num_compare()
 {
     ObjectFactory<SymbolNumCompare> obj("symbol.num_compare");
 }

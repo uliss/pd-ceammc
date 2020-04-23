@@ -17,6 +17,7 @@ ceammc_string_extension(to_symbol)
 ceammc_string_extension(substr)
 ceammc_string_extension(match)
 
+list(APPEND STRING_SOURCES symbol_equal.cpp symbol_length.cpp symbol_num_compare.cpp)
 
 add_library(ceammc_string STATIC mod_string.cpp ${STRING_SOURCES})
 if(UNIX)

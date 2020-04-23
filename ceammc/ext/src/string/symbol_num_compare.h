@@ -11,44 +11,25 @@
  * contact the author of this file, or the owner of the project in which
  * this file belongs to.
  *****************************************************************************/
-#include "symbol_equal.h"
-#include "ceammc_factory.h"
+#ifndef SYMBOL_NUM_COMPARE_H
+#define SYMBOL_NUM_COMPARE_H
 
-SymbolEqual::SymbolEqual(const PdArgs& a)
-    : BaseObject(a)
-    , pattern_(nullptr)
-{
-    createInlet(&pattern_);
-    createOutlet();
+#include "ceammc_object.h"
 
-    pattern_ = positionalSymbolConstant(0, nullptr);
-}
+using namespace ceammc;
 
-void SymbolEqual::onSymbol(t_symbol* s)
-{
-    floatTo(0, s == pattern_);
-}
+class SymbolNumCompare : public BaseObject {
+    t_symbol* cmp_with_;
 
-void SymbolEqual::onList(const AtomList& l)
-{
-    if (l.size() < 1)
-        return;
+public:
+    SymbolNumCompare(const PdArgs& a);
+    void onSymbol(t_symbol* s) override;
+    void onList(const AtomList& lst) override;
 
-    t_symbol* s = l[0].asSymbol();
-    if (l.size() > 1) {
-        if (!l[1].getSymbol(&pattern_))
-            pattern_ = 0;
-    }
+public:
+    static int numPart(t_symbol* s);
+};
 
-    floatTo(0, s == pattern_);
-}
+void setup_symbol_num_compare();
 
-t_symbol* SymbolEqual::pattern() const
-{
-    return pattern_;
-}
-
-extern "C" void setup_symbol0x2eequal()
-{
-    ObjectFactory<SymbolEqual> obj("symbol.equal");
-}
+#endif // SYMBOL_NUM_COMPARE_H

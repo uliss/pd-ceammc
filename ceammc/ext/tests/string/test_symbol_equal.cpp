@@ -11,23 +11,20 @@
  * contact the author of this file, or the owner of the project in which
  * this file belongs to.
  *****************************************************************************/
-#include "../symbol/symbol_equal.h"
-#include "test_base.h"
-#include "catch.hpp"
+#include "symbol_equal.h"
+#include "test_string_base.h"
 
-#include <stdio.h>
-
-typedef TestExternal<SymbolEqual> SymbolEqTest;
+PD_COMPLETE_TEST_SETUP(SymbolEqual, symbol, equal)
 
 TEST_CASE("symbol.equal", "[externals]")
 {
-    obj_init();
+    pd_test_init();
 
     SECTION("test create with:")
     {
         SECTION("empty arguments")
         {
-            SymbolEqTest t("symbol.equal", L());
+            TObj t("symbol.equal", L());
             REQUIRE(t.numInlets() == 2);
             REQUIRE(t.numOutlets() == 1);
             REQUIRE(t.pattern() == 0);
@@ -37,7 +34,7 @@ TEST_CASE("symbol.equal", "[externals]")
 
         SECTION("positional args")
         {
-            SymbolEqTest t("symbol.equal", A("abc"));
+            TObj t("symbol.equal", A("abc"));
             REQUIRE(t.pattern() == gensym("abc"));
 
             WHEN_SEND_SYMBOL_TO(0, t, "a");
@@ -56,7 +53,7 @@ TEST_CASE("symbol.equal", "[externals]")
 
     SECTION("list propagation")
     {
-        SymbolEqTest t("symbol.equal", L());
+        TObj t("symbol.equal", L());
 
         WHEN_SEND_LIST_TO(0, t, LA("a", "b"));
         REQUIRE_FLOAT_AT_OUTLET(0, t, 0);

@@ -11,23 +11,20 @@
  * contact the author of this file, or the owner of the project in which
  * this file belongs to.
  *****************************************************************************/
-#include "../symbol/symbol_num_compare.h"
-#include "test_base.h"
-#include "catch.hpp"
+#include "symbol_num_compare.h"
+#include "test_string_base.h"
 
-#include <stdio.h>
-
-typedef TestExternal<SymbolNumCompare> SymbolNumCmpTest;
+PD_COMPLETE_TEST_SETUP(SymbolNumCompare, symbol, num_compare)
 
 TEST_CASE("symbol.num_compare", "[externals]")
 {
-    obj_init();
+    pd_test_init();
 
     SECTION("test create with:")
     {
         SECTION("empty arguments")
         {
-            SymbolNumCmpTest t("symbol.num_compare", L());
+            TObj t("symbol.num_compare", L());
             REQUIRE_PROPERTY_NONE(t, @with);
 
             WHEN_SEND_SYMBOL_TO(0, t, "123");
@@ -54,7 +51,7 @@ TEST_CASE("symbol.num_compare", "[externals]")
 
         SECTION("properties")
         {
-            SymbolNumCmpTest t("symbol.num_compare", LA("@with", "199.test.txt"));
+            TObj t("symbol.num_compare", LA("@with", "199.test.txt"));
             REQUIRE_PROPERTY(t, @with, A("199.test.txt"));
 
             WHEN_SEND_SYMBOL_TO(0, t, "abc");
@@ -72,7 +69,7 @@ TEST_CASE("symbol.num_compare", "[externals]")
 
         SECTION("positional args")
         {
-            SymbolNumCmpTest t("symbol.num_compare", A("20_abc"));
+            TObj t("symbol.num_compare", A("20_abc"));
             REQUIRE_PROPERTY(t, @with, "20_abc");
 
             WHEN_SEND_SYMBOL_TO(0, t, "19_def");
@@ -81,14 +78,14 @@ TEST_CASE("symbol.num_compare", "[externals]")
 
         SECTION("invalid args")
         {
-            SymbolNumCmpTest t("symbol.num_compare", A(25));
+            TObj t("symbol.num_compare", A(25));
             REQUIRE_PROPERTY_NONE(t, @with);
         }
     }
 
     SECTION("list propagation")
     {
-        SymbolNumCmpTest t("symbol.num_compare", L());
+        TObj t("symbol.num_compare", L());
         REQUIRE_PROPERTY_NONE(t, @with);
 
         WHEN_SEND_LIST_TO(0, t, LF(1, 2));
