@@ -43,7 +43,6 @@
 #include "random/mod_random.h"
 #include "spat/mod_spat.h"
 #include "string/mod_string.h"
-#include "symbol/mod_symbol.h"
 #include "synth/mod_synth.h"
 #include "system/mod_system.h"
 #include "tl/mod_tl.h"
