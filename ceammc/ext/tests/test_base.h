@@ -48,9 +48,6 @@ static t_object* make_owner(const char* name)
     static ObjectOwnerList obj_owner_list;
 
     if (test_pd_class == nullptr) {
-        if (!pd_objectmaker)
-            pd_init();
-
         test_pd_class = class_new(gensym(name),
             nullptr, nullptr,
             sizeof(PdObject<T>), 0, A_NULL);

@@ -39,8 +39,6 @@ typedef UIObjectFactory<TestUI> TestFactory;
 
 TEST_CASE("UIObjectFactory", "[ceammc::UIObjectFactory]")
 {
-    pd_init();
-
     SECTION("base")
     {
         REQUIRE(UIObjectFactory<UIObject>::pd_class == 0);

@@ -23,9 +23,6 @@
 
 #include "catch.hpp"
 
-extern "C" void obj_init();
-extern "C" void pd_init();
-
 using namespace ceammc;
 
 namespace test {

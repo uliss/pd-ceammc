@@ -21,8 +21,6 @@ inline void sleep_ms(int ms)
 
 TEST_CASE("hw::Arduino", "[hw]")
 {
-    obj_init();
-
     SECTION("init")
     {
         Arduino a;

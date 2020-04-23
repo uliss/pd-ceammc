@@ -21,8 +21,6 @@ typedef TestExternal<Replace> ReplaceTest;
 
 TEST_CASE("replace", "[PureData]")
 {
-    obj_init();
-
     SECTION("test create with:")
     {
         SECTION("empty arguments")

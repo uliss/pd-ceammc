@@ -31,8 +31,6 @@ typedef TestExternal<MathGCD> MathGCDTest;
 
 TEST_CASE("math.gcd", "[externals]")
 {
-    obj_init();
-
     SECTION("default")
     {
         MathGCDTest t("math.gcd", LF(10));

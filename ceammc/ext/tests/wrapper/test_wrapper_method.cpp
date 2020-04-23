@@ -16,13 +16,9 @@
 #include "wrapper_macros.h"
 
 PD_TEST_CANVAS();
-PD_TEST_CORE_INIT()
 
 TEST_CASE("wrapper_method", "[class-wrapper]")
 {
-    test::pdPrintToStdError(true);
-    pd_test_core_init();
-
     SECTION("is_negative")
     {
         using mtype = std::tuple<bool (WrapperInt::*)() const>;

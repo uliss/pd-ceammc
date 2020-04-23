@@ -23,6 +23,7 @@ extern int sys_verbose;
 
 TEST_CASE("Canvas", "[ceammc::Canvas]")
 {
+    const bool i = []() { PureData::instance(); return true; }();
     test::pdPrintToStdError();
 
     SECTION("utils")
@@ -30,20 +31,20 @@ TEST_CASE("Canvas", "[ceammc::Canvas]")
         SECTION("name")
         {
             REQUIRE(canvas_info_name(0)->s_name == std::string());
-            REQUIRE(canvas_info_name(0) == &s_);
+            REQUIRE(canvas_info_name(0) == gensym(""));
 
             CanvasPtr cnv = PureData::instance().createTopCanvas("test");
             REQUIRE(canvas_info_name(cnv->pd_canvas()) == gensym("test"));
             REQUIRE(cnv->name() == gensym("test"));
 
             Canvas null(nullptr);
-            REQUIRE(null.name() == &s_);
+            REQUIRE(null.name() == gensym(""));
         }
 
         SECTION("dir")
         {
             REQUIRE(canvas_info_dir(0)->s_name == std::string());
-            REQUIRE(canvas_info_dir(0) == &s_);
+            REQUIRE(canvas_info_dir(0) == gensym(""));
 
             CanvasPtr cnv = PureData::instance().createTopCanvas("test");
             REQUIRE(canvas_info_dir(cnv->pd_canvas()) == gensym("~"));

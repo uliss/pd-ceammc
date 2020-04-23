@@ -24,8 +24,6 @@ static int asBool(const Atom& a)
 
 TEST_CASE("math.and", "[externals]")
 {
-    obj_init();
-
     SECTION("init")
     {
         {

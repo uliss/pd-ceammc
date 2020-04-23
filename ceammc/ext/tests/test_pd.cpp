@@ -18,8 +18,6 @@
 #include "ceammc_platform.h"
 #include "g_ceammc_draw.h"
 
-extern "C" void pd_init();
-
 #include <set>
 #include <stdio.h>
 
@@ -75,8 +73,6 @@ TEST_CASE("PD", "[PureData]")
 
     SECTION("test current object list")
     {
-        pd_init();
-
         using namespace ceammc;
         typedef std::vector<std::string> slist;
         typedef std::set<std::string> sset;

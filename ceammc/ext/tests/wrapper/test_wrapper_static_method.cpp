@@ -26,7 +26,6 @@
 using namespace wrapper;
 
 PD_TEST_CANVAS();
-PD_TEST_CORE_INIT()
 
 class WrapperInt : public DataIFace {
     int v_;
@@ -118,9 +117,6 @@ public:
 
 TEST_CASE("wrapper static method", "[class-wrapper]")
 {
-    test::pdPrintToStdError(true);
-    pd_test_core_init();
-
     SECTION("parse")
     {
         using DataType = AbstractDataWrapper<WrapperInt>;

@@ -24,9 +24,6 @@ using Dict = DataTypeDict;
 
 TEST_CASE("DataTypeDict", "[core]")
 {
-    obj_init();
-    test::pdPrintToStdError();
-
     SECTION("init")
     {
         SECTION("empty")

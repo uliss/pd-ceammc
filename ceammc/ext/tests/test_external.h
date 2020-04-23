@@ -51,15 +51,6 @@ extern "C" t_float* get_sys_dacsr();
         }                                                        \
     };
 
-#define PD_TEST_CORE_INIT()         \
-    static void pd_test_core_init() \
-    {                               \
-        pd_init();                  \
-        LogExternalOutput::setup(); \
-        ListenerExternal::setup();  \
-        test::pdPrintToStdError();  \
-    }
-
 #define PD_TEST_MOD_INIT(mod, name)               \
     static void pd_test_mod_init_##mod##_##name() \
     {                                             \
@@ -72,7 +63,6 @@ extern "C" t_float* get_sys_dacsr();
         static bool done = false;             \
         if (done)                             \
             return;                           \
-        pd_test_core_init();                  \
         pd_test_mod_init_##mod##_##name();    \
         done = true;                          \
     }                                         \
@@ -82,7 +72,6 @@ extern "C" t_float* get_sys_dacsr();
         static bool done = false;             \
         if (done)                             \
             return;                           \
-        pd_test_core_init();                  \
         pd_test_mod_init_##mod##_##name();    \
         fn();                                 \
         done = true;                          \
@@ -91,7 +80,6 @@ extern "C" t_float* get_sys_dacsr();
 #define PD_COMPLETE_TEST_SETUP(T, mod, name) \
     PD_TEST_CANVAS();                        \
     PD_TEST_TYPEDEF(T);                      \
-    PD_TEST_CORE_INIT();                     \
     PD_TEST_MOD_INIT(mod, name);             \
     PD_TEST_FULL_INIT(mod, name);
 
@@ -99,7 +87,6 @@ extern "C" t_float* get_sys_dacsr();
     PD_TEST_CANVAS();                            \
     PD_TEST_SND_TYPEDEF(T);                      \
     PD_TEST_SND_DSP(T);                          \
-    PD_TEST_CORE_INIT();                         \
     PD_TEST_MOD_INIT(mod, name);                 \
     PD_TEST_FULL_INIT(mod, name);
 

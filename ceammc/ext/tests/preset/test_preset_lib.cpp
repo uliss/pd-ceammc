@@ -25,8 +25,6 @@ CanvasPtr ptr = PureData::instance().createTopCanvas("test_canvas");
 
 TEST_CASE("ceammc_preset", "[PureData]")
 {
-    pd_init();
-
     SECTION("PresetBase")
     {
         REQUIRE(ptr->owner() == 0);

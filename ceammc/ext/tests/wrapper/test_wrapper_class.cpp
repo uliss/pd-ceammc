@@ -19,13 +19,9 @@
 using namespace wrapper;
 
 PD_TEST_CANVAS();
-PD_TEST_CORE_INIT()
 
 TEST_CASE("wrapper_class", "[class-wrapper]")
 {
-    test::pdPrintToStdError(true);
-    pd_test_core_init();
-
     SECTION("constructor0")
     {
         using ExternalType = wrapper::ClassConstructorCustom<WrapperDataVoid>;

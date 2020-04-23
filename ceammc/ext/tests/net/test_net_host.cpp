@@ -11,7 +11,7 @@
  * contact the author of this file, or the owner of the project in which
  * this file belongs to.
  *****************************************************************************/
-#include "../net/net_host.h"
+#include "net_host.h"
 #include "test_base.h"
 #include "test_external.h"
 
@@ -20,7 +20,6 @@ PD_COMPLETE_TEST_SETUP(NetHost, net, host)
 TEST_CASE("net.host->ip", "[externals]")
 {
     pd_test_init();
-    test::pdPrintToStdError();
 
     SECTION("create")
     {

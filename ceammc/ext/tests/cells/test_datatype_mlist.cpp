@@ -24,8 +24,6 @@ using ML = DataTypeMList;
 
 TEST_CASE("DataTypeMList", "[core]")
 {
-    pd_init();
-
     SECTION("data")
     {
         DataTypeMList ml;

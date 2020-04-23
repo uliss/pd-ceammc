@@ -27,18 +27,6 @@ using namespace ceammc;
 
 const BANG__ BANG;
 
-static bool setup_test_output()
-{
-    if (!pd_objectmaker)
-        pd_init();
-
-    setup_log_output_single();
-    setup_log_output_multi();
-    return true;
-}
-
-static bool test_output_init = setup_test_output();
-
 void setTestSampleRate(size_t sr)
 {
     *get_sys_dacsr() = sr;

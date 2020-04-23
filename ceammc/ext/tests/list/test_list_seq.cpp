@@ -24,9 +24,6 @@ using TExt = TestExtListSeq;
 
 TEST_CASE("list.seq", "[externals]")
 {
-    obj_init();
-    test::pdPrintToStdError();
-
     SECTION("test create with:")
     {
         SECTION("empty arguments")

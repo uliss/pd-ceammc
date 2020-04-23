@@ -25,9 +25,6 @@ static CanvasPtr cnv = PureData::instance().createTopCanvas("test_canvas");
 
 TEST_CASE("pd external", "[pd::External]")
 {
-    pd_init();
-    LogExternalOutput::setup();
-
     SECTION("coords")
     {
         External t("*");

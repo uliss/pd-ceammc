@@ -25,9 +25,6 @@ using namespace ceammc::pd;
 
 TEST_CASE("list.reduce", "[externals]")
 {
-    pd_init();
-    LogExternalOutput::setup();
-
     SECTION("test create with:")
     {
         SECTION("empty arguments")

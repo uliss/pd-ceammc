@@ -35,13 +35,13 @@ endfunction()
 
 macro(ceammc_add_core_test title name)
     add_executable(${name} "${name}.cpp")
-    target_link_libraries(${name} tests_main_lib  ceammc_core puredata-core ceammc_core)
+    target_link_libraries(${name} tests_main_lib ceammc_core puredata-core)
     set_test_command(${title} ${name})
 endmacro()
 
 macro(ceammc_add_test title name)
     add_executable(${name} "${name}.cpp")
-    target_link_libraries(${name} tests_main_lib  ceammc_core ceammc_base puredata-core ceammc_core)
+    target_link_libraries(${name} tests_main_lib ceammc_base ceammc_core puredata-core)
     set_test_command(${title} ${name})
 endmacro()
 

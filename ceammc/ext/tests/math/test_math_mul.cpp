@@ -19,8 +19,6 @@ typedef TestExternal<MathMul> MathMulTest;
 
 TEST_CASE("math.mul", "[externals]")
 {
-    obj_init();
-
     SECTION("init")
     {
         {

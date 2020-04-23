@@ -24,9 +24,6 @@ using namespace ceammc;
 
 TEST_CASE("DataTypeEnv", "[ceammc::DataTypeEnv]")
 {
-    pd_init();
-    test::pdPrintToStdError();
-
     SECTION("init")
     {
         DataTypeEnv env;

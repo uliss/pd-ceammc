@@ -24,11 +24,8 @@ extern "C" void setup_tl0x2etransport();
 extern "C" void setup_tl0x2ecue();
 void epd_init();
 
-PD_TEST_CORE_INIT();
-
 TEST_CASE("tl.transport", "[externals]")
 {
-    pd_test_core_init();
     epd_init();
     ceammc_tl_setup();
 

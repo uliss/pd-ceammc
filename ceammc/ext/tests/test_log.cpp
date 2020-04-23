@@ -30,8 +30,6 @@ static void print_hook(const char* msg)
 
 TEST_CASE("ceammc_log", "[ceammc_log]")
 {
-    obj_init();
-
     test::pdSetPrintFunction(print_hook);
 
     SECTION("operator<< t_symbol*")

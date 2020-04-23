@@ -24,6 +24,7 @@
 #include <thread>
 
 #include "test_base.h"
+#include "test_external.h"
 
 extern "C" {
 #include "s_stuff.h"
@@ -35,6 +36,8 @@ void sys_exit();
 void sys_stopgui();
 void sched_reopenmeplease(void);
 }
+
+extern "C" void pd_init();
 
 #ifdef __WIN32
 static bool initWinSock()
@@ -79,10 +82,38 @@ void pdRunMainLoopMs(int ms)
         return 1;
     });
 
-//    sys_stopgui();
+    //    sys_stopgui();
     setTestSampleRate(44100);
     m_mainloop();
 
     f.wait();
 }
+
+struct PdInitListener : Catch::TestEventListenerBase {
+    using TestEventListenerBase::TestEventListenerBase;
+
+    void testRunStarting(Catch::TestRunInfo const& testRunInfo) override
+    {
+        if (!pd_canvasmaker) {
+            std::cerr << "[test] pd_init()" << std::endl;
+            pd_init();
+        }
+
+        LogExternalOutput::setup();
+        std::cerr << "[test] LogExternalOutput::setup()" << std::endl;
+
+        ListenerExternal::setup();
+        std::cerr << "[test] ListenerExternal::setup()" << std::endl;
+
+        test::pdPrintToStdError();
+    }
+
+    void testCaseEnded(Catch::TestCaseStats const& testCaseStats) override
+    {
+        //        auto glist = pd_getcanvaslist();
+    }
+};
+
+CATCH_REGISTER_LISTENER(PdInitListener)
+
 }

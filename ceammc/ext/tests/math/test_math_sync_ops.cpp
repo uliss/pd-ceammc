@@ -35,7 +35,7 @@ TEST_USING(MathSyncGreaterEqual);
 TEST_USING(MathSyncAnd);
 TEST_USING(MathSyncOr);
 TEST_USING(MathSyncXor);
-PD_TEST_CORE_INIT()
+
 PD_TEST_MOD_INIT(math, sync_op)
 PD_TEST_FULL_INIT(math, sync_op)
 

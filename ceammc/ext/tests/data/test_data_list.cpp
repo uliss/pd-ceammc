@@ -11,8 +11,8 @@
  * contact the author of this file, or the owner of the project in which
  * this file belongs to.
  *****************************************************************************/
-#include "data_list.h"
 #include "catch.hpp"
+#include "data_list.h"
 #include "test_base.h"
 
 #include <stdio.h>
@@ -36,8 +36,6 @@ typedef TestExternal<DataList> DataListTest;
 
 TEST_CASE("data.list", "[externals]")
 {
-    obj_init();
-
     SECTION("main")
     {
 

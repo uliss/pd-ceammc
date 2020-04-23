@@ -80,14 +80,10 @@ static void setup_test_extc()
 
 PD_TEST_CANVAS();
 PD_TEST_TYPEDEF(EXT_C);
-PD_TEST_CORE_INIT();
 PD_TEST_MOD_INIT(test, extc);
 
 TEST_CASE("BaseObject", "[ceammc::BaseObject]")
 {
-    pd_test_core_init();
-    test::pdPrintToStdError();
-
     SECTION("test prop key")
     {
         REQUIRE(BaseObject::tryGetPropKey(gensym("@")) == 0);

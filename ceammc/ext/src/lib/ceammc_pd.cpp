@@ -464,7 +464,8 @@ std::vector<PropertyInfo> pd::External::properties() const
 
 PureData::PureData()
 {
-    pd_init();
+    if (!pd_objectmaker)
+        pd_init();
 }
 
 CanvasPtr PureData::createTopCanvas(const char* name, const AtomList& args)

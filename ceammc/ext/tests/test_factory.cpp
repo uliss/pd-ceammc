@@ -149,9 +149,6 @@ public:
 
 TEST_CASE("ceammc_factory", "[core]")
 {
-    obj_init();
-    test::pdPrintToStdError();
-
     SECTION("new")
     {
         typedef PdObject<TestClass> PdExternal;

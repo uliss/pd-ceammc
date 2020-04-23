@@ -14,18 +14,19 @@
 #ifndef CEAMMC_SOUND_H
 #define CEAMMC_SOUND_H
 
-#include <boost/shared_ptr.hpp>
-#include <m_pd.h>
+#include "m_pd.h"
+
+#include <memory>
 #include <string>
 #include <utility>
 #include <vector>
 
 namespace ceammc {
 namespace sound {
-    typedef std::pair<std::string, std::string> FormatDescription;
-    typedef std::vector<FormatDescription> FormatList;
+    using FormatDescription = std::pair<std::string, std::string>;
+    using FormatList = std::vector<FormatDescription>;
     class SoundFile;
-    typedef boost::shared_ptr<SoundFile> SoundFilePtr;
+    using SoundFilePtr = std::shared_ptr<SoundFile>;
 
     class SoundFile {
         std::string fname_;

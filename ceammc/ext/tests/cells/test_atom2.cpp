@@ -21,8 +21,6 @@ using namespace ceammc;
 
 TEST_CASE("Atom2", "[core]")
 {
-    pd_init();
-
     SECTION("data")
     {
         SECTION("nullptr")

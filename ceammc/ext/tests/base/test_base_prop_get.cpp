@@ -16,16 +16,13 @@
 extern "C" void setup_prop0x2eget();
 
 PD_TEST_CANVAS();
-PD_TEST_CORE_INIT();
 
 struct Dummy {
 };
 
 TEST_CASE("prop.get", "[externals]")
 {
-    pd_test_core_init();
     setup_prop0x2eget();
-    test::pdPrintToStdError(true);
 
     SECTION("init")
     {

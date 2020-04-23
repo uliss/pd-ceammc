@@ -29,8 +29,6 @@ static void lessThree(ListNoneOfTest* obj, size_t, const Atom& a)
 
 TEST_CASE("list.none_of", "[externals]")
 {
-    obj_init();
-
     SECTION("init")
     {
         ListNoneOfTest t("list.none_of", L());

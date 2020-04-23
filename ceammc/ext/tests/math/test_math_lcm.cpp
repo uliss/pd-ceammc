@@ -31,8 +31,6 @@ typedef TestExternal<MathLCM> MathLCMTest;
 
 TEST_CASE("math.lcm", "[externals]")
 {
-    obj_init();
-
     SECTION("default")
     {
         MathLCMTest t("math.lcm", LF(5));

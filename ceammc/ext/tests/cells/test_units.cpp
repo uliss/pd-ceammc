@@ -20,9 +20,6 @@ using namespace ceammc::units;
 
 TEST_CASE("units", "[ceammc::ceammc_units]")
 {
-    pd_init();
-    test::pdPrintToStdError();
-
     SECTION("time")
     {
         UnitParseError err;
