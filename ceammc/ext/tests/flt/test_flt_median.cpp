@@ -11,7 +11,7 @@
  * contact the author of this file, or the owner of the project in which
  * this file belongs to.
  *****************************************************************************/
-#include "../flt/flt_median.h"
+#include "flt_median.h"
 #include "test_external.h"
 
 PD_COMPLETE_TEST_SETUP(FltMedian, flt, median)
@@ -19,7 +19,6 @@ PD_COMPLETE_TEST_SETUP(FltMedian, flt, median)
 TEST_CASE("flt.median", "[externals]")
 {
     pd_test_init();
-    test::pdPrintToStdError();
 
     SECTION("init")
     {
