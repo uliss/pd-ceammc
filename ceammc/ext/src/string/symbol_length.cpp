@@ -18,7 +18,7 @@ public:
     }
 };
 
-extern "C" void setup_symbol0x2elength()
+void setup_symbol_length()
 {
     ObjectFactory<SymbolLength> obj("symbol.length");
 }
