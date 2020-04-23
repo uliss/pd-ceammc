@@ -26,7 +26,6 @@ PD_COMPLETE_SND_TEST_SETUP(Fluid, misc, fluid)
 TEST_CASE("misc.fluid~", "[externals]")
 {
     pd_test_init();
-    test::pdPrintToStdError();
 
     SECTION("main")
     {

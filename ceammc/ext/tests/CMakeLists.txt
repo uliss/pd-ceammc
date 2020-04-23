@@ -119,14 +119,6 @@ ceammc_add_test_linked(TITLE "ArduinoThread"
     LINK tests_main_lib hw_arduino ceammc_core puredata-core)
 ceammc_add_test_linked(TITLE "Arduino" NAME test_arduino LINK tests_main_lib hw_arduino ceammc_core puredata-core)
 
-if(WITH_TTS_FLITE)
-    ceammc_external_test(misc speech_flite)
-endif()
-
-if(WITH_FLUIDSYNTH)
-    ceammc_external_test(misc fluid)
-endif()
-
 ceammc_add_test_linked(TITLE "class_wrapper::class" NAME test_wrapper_class LINK wrapper_lib)
 ceammc_add_test_linked(TITLE "class_wrapper::method" NAME test_wrapper_method LINK wrapper_lib)
 ceammc_add_test_linked(TITLE "class_wrapper::static_method" NAME test_wrapper_static_method LINK wrapper_lib)
@@ -148,6 +140,7 @@ add_subdirectory(flt)
 add_subdirectory(list)
 add_subdirectory(math)
 add_subdirectory(midi)
+add_subdirectory(misc)
 add_subdirectory(path)
 add_subdirectory(preset)
 add_subdirectory(spat)
