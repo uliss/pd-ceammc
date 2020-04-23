@@ -59,8 +59,6 @@ if(WITH_LIBSNDFILE)
     endif()
 endif()
 
-
-ceammc_external_test(analyze onset)
 ceammc_external_test(proto firmata)
 
 ceammc_add_test_linked(TITLE "ceammc::pd" NAME test_pd SRC "../src/base/debug_gensym.cpp" LINK ceammc_core puredata-core)
@@ -114,6 +112,7 @@ set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR})
 
 add_subdirectory(cells)
 
+add_subdirectory(an)
 add_subdirectory(array)
 add_subdirectory(base)
 add_subdirectory(conv)
