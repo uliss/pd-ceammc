@@ -12,119 +12,16 @@
  * this file belongs to.
  *****************************************************************************/
 
-#include "../class-wrapper/src/wrapper_macros.h"
-#include "catch.hpp"
+#include "wrapper_macros.h"
+#include "test_wrapper_base.h"
 #include "datatype_dict.h"
-#include "test_external.h"
-
-#include <iostream>
 
 using namespace wrapper;
 
 PD_TEST_CANVAS();
 PD_TEST_CORE_INIT()
 
-class WrapperDataVoid : public DataIFace {
-public:
-    WrapperDataVoid() {}
-
-    bool operator==(const WrapperDataVoid& d) const
-    {
-        return true;
-    }
-
-    std::string toString() const
-    {
-        return "void";
-    }
-
-    static const char* typeName()
-    {
-        return "DataVoid";
-    }
-};
-
-class WrapperDataInt : public DataIFace {
-    int v_;
-
-public:
-    WrapperDataInt(int v = 0)
-        : v_(v)
-    {
-    }
-
-    bool operator==(const WrapperDataInt& d) const
-    {
-        return v_ == d.v_;
-    }
-
-    std::string toString() const
-    {
-        return std::string("int: ") + std::to_string(v_);
-    }
-
-    Result setFromFloat(t_float v) override
-    {
-        v_ = static_cast<decltype(v_)>(v);
-        return ok();
-    }
-
-    static const char* typeName()
-    {
-        return "DataInt";
-    }
-
-    int get() const
-    {
-        return v_;
-    }
-};
-
-class WrapperDataPair : public DataIFace {
-    std::pair<int, int> v_;
-
-public:
-    WrapperDataPair(int v0 = 0, int v1 = 0)
-        : v_(v0, v1)
-    {
-    }
-
-    bool operator==(const WrapperDataPair& d) const
-    {
-        return v_ == d.v_;
-    }
-
-    std::string toString() const
-    {
-        return std::string("pair: ") + std::to_string(v_.first) + " " + std::to_string(v_.second);
-    }
-
-    static const char* typeName()
-    {
-        return "DataPair";
-    }
-
-    std::pair<int, int> get() const
-    {
-        return v_;
-    }
-
-    Result setFromList(const AtomList& l) override
-    {
-        if (l.size() != 2)
-            return error("v0 v1 expected");
-
-        if (!(l[0].isFloat() && l[1].isFloat()))
-            return error("float arguments required");
-
-        v_.first = l[0].asFloat();
-        v_.second = l[1].asFloat();
-
-        return ok();
-    }
-};
-
-TEST_CASE("wrapper class", "[class-wrapper]")
+TEST_CASE("wrapper_class", "[class-wrapper]")
 {
     test::pdPrintToStdError(true);
     pd_test_core_init();

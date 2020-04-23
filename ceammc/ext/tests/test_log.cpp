@@ -16,6 +16,7 @@
 
 #include "catch.hpp"
 #include "ceammc_log.h"
+#include "test_base.h"
 #include "test_external.h"
 
 #include <sstream>
@@ -29,6 +30,8 @@ static void print_hook(const char* msg)
 
 TEST_CASE("ceammc_log", "[ceammc_log]")
 {
+    obj_init();
+
     test::pdSetPrintFunction(print_hook);
 
     SECTION("operator<< t_symbol*")

@@ -12,10 +12,8 @@
  * this file belongs to.
  *****************************************************************************/
 
-#include "../class-wrapper/src/wrapper_fn_traits.h"
-#include "catch.hpp"
-
-#include <iostream>
+#include "wrapper_fn_traits.h"
+#include "test_wrapper_base.h"
 
 using namespace wrapper;
 

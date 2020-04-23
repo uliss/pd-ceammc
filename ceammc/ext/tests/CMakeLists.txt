@@ -47,8 +47,6 @@ ceammc_add_core_test("ceammc::music_theory_pitch_name" test_music_theory_pitch_n
 ceammc_add_core_test("ceammc::proxy" test_proxy)
 ceammc_add_core_test("ceammc::signal" test_signal)
 ceammc_add_core_test("ceammc::window" test_window)
-ceammc_add_core_test("class_wrapper::fn_traits" test_wrapper_fn_traits)
-ceammc_add_core_test("class_wrapper::tuple" test_wrapper_tuple)
 
 ceammc_add_core_test("pd::ceammc" test_pd_core)
 
@@ -112,10 +110,6 @@ ceammc_add_test_linked(TITLE "ArduinoThread"
     LINK tests_main_lib hw_arduino ceammc_core puredata-core)
 ceammc_add_test_linked(TITLE "Arduino" NAME test_arduino LINK tests_main_lib hw_arduino ceammc_core puredata-core)
 
-ceammc_add_test_linked(TITLE "class_wrapper::class" NAME test_wrapper_class LINK wrapper_lib)
-ceammc_add_test_linked(TITLE "class_wrapper::method" NAME test_wrapper_method LINK wrapper_lib)
-ceammc_add_test_linked(TITLE "class_wrapper::static_method" NAME test_wrapper_static_method LINK wrapper_lib)
-
 add_custom_target(test_src SOURCES gen_test_wav.py)
 
 # put binaries from subdir targets in current directory
@@ -142,3 +136,4 @@ add_subdirectory(string)
 add_subdirectory(system)
 add_subdirectory(tl)
 add_subdirectory(ui)
+add_subdirectory(wrapper)
