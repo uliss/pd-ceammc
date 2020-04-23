@@ -11,7 +11,7 @@
  * contact the author of this file, or the owner of the project in which
  * this file belongs to.
  *****************************************************************************/
-#include "../tl/tl_cmd_driver.h"
+#include "tl_cmd_driver.h"
 #include "catch.hpp"
 
 class Target : public ceammc::tl::TlIFace {

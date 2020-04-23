@@ -11,7 +11,7 @@
  * contact the author of this file, or the owner of the project in which
  * this file belongs to.
  *****************************************************************************/
-#include "../tl/tl_timeline.h"
+#include "tl_timeline.h"
 #include "test_external.h"
 
 PD_COMPLETE_TEST_SETUP(TlTimeLine, tl, timeline)

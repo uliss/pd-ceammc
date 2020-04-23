@@ -33,8 +33,6 @@ TimelineData* CbActionTest::orig = 0;
 
 TEST_CASE("timeline", "[ceammc::timelime]")
 {
-    t_symbol* s = gensym("timeline");
-
     SECTION("CueData")
     {
         CueData c1(0, 0);

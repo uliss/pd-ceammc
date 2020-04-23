@@ -11,13 +11,9 @@
  * contact the author of this file, or the owner of the project in which
  * this file belongs to.
  *****************************************************************************/
-#include "../tl/mod_tl.h"
+#include "mod_tl.h"
 #include "ceammc_timeline.h"
 #include "test_external.h"
-
-extern "C" {
-#include "g_canvas.h"
-}
 
 struct Dummy {
 };

@@ -46,7 +46,6 @@ ceammc_add_core_test("ceammc::music_theory_pitch_class" test_music_theory_pitch_
 ceammc_add_core_test("ceammc::music_theory_pitch_name" test_music_theory_pitch_name)
 ceammc_add_core_test("ceammc::proxy" test_proxy)
 ceammc_add_core_test("ceammc::signal" test_signal)
-ceammc_add_core_test("ceammc::timeline" test_timeline)
 ceammc_add_core_test("ceammc::window" test_window)
 ceammc_add_core_test("class_wrapper::fn_traits" test_wrapper_fn_traits)
 ceammc_add_core_test("class_wrapper::tuple" test_wrapper_tuple)
@@ -69,12 +68,6 @@ ceammc_external_test(proto firmata)
 ceammc_external_test(net host)
 target_include_directories(test_ext_net_host PUBLIC ${PROJECT_SOURCE_DIR}/ceammc/extra)
 
-ceammc_add_test_linked(TITLE "tl.transport"
-    NAME test_ext_tl_transport
-    LINK ceammc_tl ceammc_ui ceammc_core puredata-core ceammc_core)
-ceammc_external_test(tl timeline)
-
-ceammc_add_test_linked(TITLE "tl::parser" NAME test_tl_parser LINK ceammc_tl)
 ceammc_add_test_linked(TITLE "ceammc::pd" NAME test_pd SRC "../src/base/debug_gensym.cpp" LINK ceammc_core puredata-core)
 
 ceammc_add_test_linked(TITLE "ceammc::DataTypeMidiStream"
@@ -147,4 +140,5 @@ add_subdirectory(spat)
 add_subdirectory(random)
 add_subdirectory(string)
 add_subdirectory(system)
+add_subdirectory(tl)
 add_subdirectory(ui)
