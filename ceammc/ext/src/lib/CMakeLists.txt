@@ -153,7 +153,7 @@ if(WIN32)
     # we DON'T LINK(!) to fmt no more. If we need to use fmt we should link to ceammc_core
     target_link_libraries(ceammc_core PRIVATE -Wl,--whole-archive fmt::fmt -Wl,--no-whole-archive)
 else()
-    target_link_libraries(ceammc_core PRIVATE fmt::fmt)
+    target_link_libraries(ceammc_core PRIVATE fmt)
 endif()
 
 
