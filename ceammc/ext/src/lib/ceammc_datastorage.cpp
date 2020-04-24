@@ -93,6 +93,11 @@ CreateFromDictFn DataStorage::fromDictFunction(const std::string& name) const
     return (it == type_list_.end()) ? nullptr : it->from_dict_fn;
 }
 
+void DataStorage::clearAll()
+{
+    type_list_.clear();
+}
+
 DataStorage::DataStorage()
 {
     registerNewType("pi", [](const AtomList&) -> Atom { return Atom(3.14159265358979); });

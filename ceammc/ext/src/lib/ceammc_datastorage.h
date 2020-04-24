@@ -22,7 +22,6 @@
 #include <string>
 #include <utility>
 #include <vector>
-#include <string>
 
 namespace ceammc {
 
@@ -78,6 +77,8 @@ public:
     std::string nameByType(int type) const;
     CreateFromListFn fromListFunction(const std::string& name) const;
     CreateFromDictFn fromDictFunction(const std::string& name) const;
+
+    void clearAll();
 
 private:
     TypeList type_list_;
