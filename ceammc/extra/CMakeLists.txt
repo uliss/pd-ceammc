@@ -34,6 +34,7 @@ add_subdirectory(reflex)
 set(BUILD_SHARED_LIBS OFF CACHE BOOL "" FORCE)
 set(CMAKE_BUILD_TYPE Release)
 add_subdirectory(fmt)
+set_target_properties(fmt PROPERTIES DEBUG_POSTFIX "")
 
 option(RE2_BUILD_TESTING "" OFF)
 set(RE2_BUILD_TESTING OFF CACHE BOOL "" FORCE)
