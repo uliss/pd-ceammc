@@ -222,23 +222,26 @@ endif()
 # utilities used while developing
 if(ENABLE_TESTS)
     add_executable(ext_list ext_list.cpp ../mod_init.cpp)
-    target_include_directories(ext_list PRIVATE ${CMAKE_CURRENT_SOURCE_DIR})
-    target_link_libraries(ext_list puredata-core ${CEAMMC_EXT_LINK_LIBRARIES} puredata-core)
+    target_include_directories(ext_list
+        PRIVATE
+            "${CMAKE_CURRENT_SOURCE_DIR}"
+            "${PROJECT_SOURCE_DIR}/src")
+    target_link_libraries(ext_list PRIVATE ${CEAMMC_EXT_LINK_LIBRARIES})
 
     add_executable(ext_methods ext_methods.cpp ../mod_init.cpp)
     target_include_directories(ext_methods PRIVATE ${CMAKE_CURRENT_SOURCE_DIR})
-    target_link_libraries(ext_methods puredata-core ${CEAMMC_EXT_LINK_LIBRARIES} puredata-core)
+    target_link_libraries(ext_methods ${CEAMMC_EXT_LINK_LIBRARIES})
 
     add_executable(ext_props ext_props.cpp ../mod_init.cpp)
     target_include_directories(ext_props PRIVATE ${CMAKE_CURRENT_SOURCE_DIR})
-    target_link_libraries(ext_props puredata-core ${CEAMMC_EXT_LINK_LIBRARIES} puredata-core)
+    target_link_libraries(ext_props ${CEAMMC_EXT_LINK_LIBRARIES})
 
     add_executable(ext_info ext_info.cpp ../mod_init.cpp)
     target_include_directories(ext_info
         PRIVATE
             ${CMAKE_CURRENT_SOURCE_DIR}
             "$<TARGET_PROPERTY:fmt,INCLUDE_DIRECTORIES>")
-    target_link_libraries(ext_info PRIVATE ${CEAMMC_EXT_LINK_LIBRARIES} puredata-core)
+    target_link_libraries(ext_info PRIVATE ${CEAMMC_EXT_LINK_LIBRARIES})
 endif()
 
 add_custom_target(ceammc_cicm_tcl_gen

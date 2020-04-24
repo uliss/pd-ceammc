@@ -4,6 +4,7 @@
 *'
 +'
 -'
+-x
 .f
 .float
 .i
@@ -18,6 +19,7 @@
 @->
 @~>
 ^'
+^2
 _tcl.version
 amp->dbfs
 an.onset
@@ -37,6 +39,8 @@ array.minmax
 array.p->s
 array.p2s
 array.phase->sample
+array.r
+array.resample
 array.rms
 array.s->p
 array.s2p
@@ -97,7 +101,6 @@ data.list
 data.mlist
 data.set
 data.set2list
-data.tree
 dbfs->amp
 demux2~
 demux~
@@ -562,6 +565,7 @@ patch.props
 path.basename
 path.dirname
 path.exists
+path.is_dir
 path.ls
 path.lsdir
 phase->rad
@@ -668,12 +672,12 @@ synth.shakers~
 synth.wurley~
 system.colorpanel
 system.cursor
+system.exec
 system.getenv
 system.hostname
 system.memsize
 system.memused
 system.screen_size
-system.shell
 tee~
 test.data
 test.expect
@@ -685,13 +689,6 @@ tl.t
 tl.timeline
 tl.toggle
 tl.transport
-tree.at
-tree.f
-tree.float
-tree.keys
-tree.s
-tree.size
-tree.symbol
 ui.aview
 ui.b
 ui.bang
