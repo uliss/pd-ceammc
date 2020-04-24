@@ -14,6 +14,7 @@ target_include_directories(test_ext_flow
 
 target_link_libraries(test_ext_flow PUBLIC
     tests_main_lib
+    ceammc_base
     ceammc_flow
     ceammc_core
     puredata-core)
