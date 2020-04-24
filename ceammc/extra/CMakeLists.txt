@@ -2,14 +2,27 @@ include(library_pddoc.cmake)
 
 add_subdirectory(SoundTouch)
 add_subdirectory(aubio)
-add_subdirectory(autotune)
 add_subdirectory(comport)
-add_subdirectory(fftease)
-add_subdirectory(flext)
 add_subdirectory(helmholtz)
 add_subdirectory(import)
 add_subdirectory(libdir)
-add_subdirectory(lyonpotpourri)
+
+if(WITH_EXT_AUTOTUNE)
+    add_subdirectory(autotune)
+endif()
+
+if(WITH_EXT_FLEXT)
+    add_subdirectory(flext)
+endif()
+
+if(WITH_EXT_FFTEASE)
+    add_subdirectory(fftease)
+endif()
+
+if(WITH_EXT_LYONPOTPOURRI)
+    add_subdirectory(lyonpotpourri)
+endif()
+
 add_subdirectory(midifile)
 add_subdirectory(serial)
 add_subdirectory(sf2)
