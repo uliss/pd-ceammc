@@ -15,27 +15,25 @@
 #include "flow_change.h"
 #include "test_flow_base.h"
 
+PD_COMPLETE_TEST_SETUP(FlowChange, flow, change)
 
 typedef TestExternal<Function> FunctionTest;
-typedef TestExternal<FlowChange> FlowChangeTest;
-
-static CanvasPtr cnv = PureData::instance().createTopCanvas("test_canvas");
 
 TEST_CASE("flow.change", "[externals]")
 {
+    pd_test_init();
+
     SECTION("init")
     {
-        FlowChangeTest t("flow.change");
+        TObj t("flow.change");
         REQUIRE(t.numInlets() == 1);
         REQUIRE(t.numOutlets() == 1);
         REQUIRE_PROPERTY(t, @onrepeat, "");
-
-        setup_flow0x2echange();
     }
 
     SECTION("process")
     {
-        FlowChangeTest t("flow.change");
+        TObj t("flow.change");
         WHEN_SEND_BANG_TO(0, t);
         REQUIRE_NO_MESSAGES_AT_OUTLET(0, t);
 
@@ -78,7 +76,7 @@ TEST_CASE("flow.change", "[externals]")
 
     SECTION("reset")
     {
-        FlowChangeTest t("flow.change");
+        TObj t("flow.change");
         WHEN_SEND_BANG_TO(0, t);
         REQUIRE_NO_MESSAGES_AT_OUTLET(0, t);
 
@@ -95,7 +93,7 @@ TEST_CASE("flow.change", "[externals]")
 
     SECTION("set")
     {
-        FlowChangeTest t("flow.change");
+        TObj t("flow.change");
 
         WHEN_SEND_FLOAT_TO(0, t, 2);
         REQUIRE_FLOAT_AT_OUTLET(0, t, 2);
@@ -129,7 +127,7 @@ TEST_CASE("flow.change", "[externals]")
         REQUIRE(Function::exists(gensym("test_callback1")));
         REQUIRE(Function::exists(gensym("test_callback2")));
 
-        FlowChangeTest t("flow.change", LA("@onrepeat", "test_callback1"));
+        TObj t("flow.change", LA("@onrepeat", "test_callback1"));
         REQUIRE_PROPERTY(t, @onrepeat, gensym("test_callback1"));
 
         SECTION("float")
@@ -263,7 +261,7 @@ TEST_CASE("flow.change", "[externals]")
 
         SECTION("invalid callback")
         {
-            FlowChangeTest t("flow.change", LA("@onrepeat", "test_callback????"));
+            TObj t("flow.change", LA("@onrepeat", "test_callback????"));
             REQUIRE_PROPERTY(t, @onrepeat, gensym("test_callback????"));
 
             STORE();

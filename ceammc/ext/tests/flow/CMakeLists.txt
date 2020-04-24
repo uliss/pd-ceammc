@@ -26,7 +26,7 @@ function(add_flow_test src)
     target_sources(test_ext_flow PRIVATE "test_flow_${src}.cpp")
 endfunction()
 
-
+add_flow_test(change)
 add_flow_test(count)
 add_flow_test(gate)
 add_flow_test(group)

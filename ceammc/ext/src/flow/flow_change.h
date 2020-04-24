@@ -37,6 +37,6 @@ private:
     void onRepeat();
 };
 
-extern "C" void setup_flow0x2echange();
+void setup_flow_change();
 
 #endif // FLOW_CHANGE_H

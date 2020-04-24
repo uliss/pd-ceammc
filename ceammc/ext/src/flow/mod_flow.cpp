@@ -32,11 +32,11 @@ void setup_flow_match();
 
 void ceammc_flow_setup()
 {
-    setup_flow0x2echange();
     setup_flow0x2esync();
     setup_flow0x2etee_tilde();
 
     setup_flow_append();
+    setup_flow_change();
     setup_flow_count();
     setup_flow_demultiplex();
     setup_flow_demultiplex2_tilde();

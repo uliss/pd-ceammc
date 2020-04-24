@@ -104,7 +104,7 @@ void FlowChange::onRepeat()
     fn->onBang();
 }
 
-extern "C" void setup_flow0x2echange()
+void setup_flow_change()
 {
     ObjectFactory<FlowChange> obj("flow.change");
     obj.addMethod("reset", &FlowChange::m_reset);
