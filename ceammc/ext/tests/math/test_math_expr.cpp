@@ -27,6 +27,7 @@ PD_COMPLETE_TEST_SETUP(MathExpr, math, expr)
 TEST_CASE("math.expr", "[externals]")
 {
     pd_test_init();
+    auto cnv = PureData::instance().findCanvas("test_canvas");
 
     SECTION("init")
     {

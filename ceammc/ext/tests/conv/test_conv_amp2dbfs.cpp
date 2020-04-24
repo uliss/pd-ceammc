@@ -11,17 +11,12 @@
  * contact the author of this file, or the owner of the project in which
  * this file belongs to.
  *****************************************************************************/
-#include "../conv/conv_amp2dbfs.h"
-#include "test_base.h"
-#include "catch.hpp"
-#include "ceammc_pd.h"
+#include "conv_amp2dbfs.h"
+#include "test_conv_base.h"
 
-#include <stdio.h>
-
-typedef TestExternal<Amp2dbfs> Amp2dbfsTest;
+PD_COMPLETE_TEST_SETUP(Amp2dbfs, conv, amp2dbfs)
 
 using namespace ceammc;
-static CanvasPtr cnv = PureData::instance().createTopCanvas("test_canvas");
 
 #define A2D(obj, in, out)                             \
     {                                                 \
@@ -31,18 +26,18 @@ static CanvasPtr cnv = PureData::instance().createTopCanvas("test_canvas");
 
 TEST_CASE("conv.amp2dbfs", "[externals]")
 {
-    setup_conv_amp2dbfs();
+    pd_test_init();
 
     SECTION("test create with:")
     {
-        Amp2dbfsTest t("conv.amp2dbfs");
+        TObj t("conv.amp2dbfs");
         REQUIRE(t.numInlets() == 1);
         REQUIRE(t.numOutlets() == 1);
     }
 
     SECTION("convert")
     {
-        Amp2dbfsTest t("conv.amp2dbfs");
+        TObj t("conv.amp2dbfs");
 
         A2D(t, 1, 0);
         A2D(t, 0.5, -6.0206);

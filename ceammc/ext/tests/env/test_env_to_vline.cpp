@@ -11,18 +11,10 @@
  * contact the author of this file, or the owner of the project in which
  * this file belongs to.
  *****************************************************************************/
-#include "../env/env_to_vline.h"
-#include "catch.hpp"
-#include "ceammc_pd.h"
-#include "test_base.h"
+#include "env_to_vline.h"
+#include "test_env_base.h"
 
-#include <stdio.h>
-
-typedef TestExternal<Env2VLine> Env2VLineTest;
-
-static CanvasPtr cnv = PureData::instance().createTopCanvas("test_canvas");
-
-using EnvAtom = DataAtom<DataTypeEnv>;
+PD_COMPLETE_TEST_SETUP(Env2VLine, env, to_vline)
 
 #define REQUIRE_OUTPUT(obj, n, data)                      \
     {                                                     \
@@ -33,11 +25,13 @@ using EnvAtom = DataAtom<DataTypeEnv>;
 
 TEST_CASE("env->vline", "[externals]")
 {
+    pd_test_init();
+
     SECTION("init")
     {
         setup_env_to_vline();
 
-        Env2VLineTest t("env->vline");
+        TObj t("env->vline");
         REQUIRE(t.numInlets() == 1);
         REQUIRE(t.numOutlets() == 1);
         REQUIRE_PROPERTY(t, @sync, 0.f);
@@ -49,7 +43,7 @@ TEST_CASE("env->vline", "[externals]")
         EnvAtom env;
         env->setAR(LF(10, 20));
 
-        Env2VLineTest t("env->vline");
+        TObj t("env->vline");
         t.onDataT(env);
         t.onBang();
 
@@ -66,7 +60,7 @@ TEST_CASE("env->vline", "[externals]")
         EnvAtom env;
         env->setASR(LF(20, 30));
 
-        Env2VLineTest t("evn->vline");
+        TObj t("evn->vline");
 
         WHEN_SEND_FLOAT_TO(0, t, 1);
         REQUIRE_NO_MSG(t);
@@ -133,7 +127,7 @@ TEST_CASE("env->vline", "[externals]")
 
     SECTION("ADSR")
     {
-        Env2VLineTest t("evn->vline");
+        TObj t("evn->vline");
 
         // empty envelope
         WHEN_SEND_FLOAT_TO(0, t, 1);
@@ -184,7 +178,7 @@ TEST_CASE("env->vline", "[externals]")
         EnvAtom env;
         env->setLine(LA(0.5, 10, 1, 20, 0.1));
 
-        Env2VLineTest t("env->vline");
+        TObj t("env->vline");
         t.onDataT(env);
         t.onBang();
 
@@ -265,7 +259,7 @@ TEST_CASE("env->vline", "[externals]")
         EnvAtom env;
         env->setStep(LA(0.5, 10, 1, 20, 0.1));
 
-        Env2VLineTest t("env->vline");
+        TObj t("env->vline");
         t.onDataT(env);
         t.onBang();
 
@@ -350,7 +344,7 @@ TEST_CASE("env->vline", "[externals]")
         REQUIRE(env->setExponential(LA(0.1, 16, -2) + LA(0.7, 20, -2) + LA(0.2, 60, -3, 0.f)));
         REQUIRE(env->numPoints() == 4);
 
-        Env2VLineTest t("env->vline");
+        TObj t("env->vline");
         t.onDataT(env);
 
         t.cleanAllMessages();
@@ -433,7 +427,7 @@ TEST_CASE("env->vline", "[externals]")
         REQUIRE(env->setSin2(LA(0.1, 20, 1, 40, 0.f)));
         REQUIRE(env->numPoints() == 3);
 
-        Env2VLineTest t("env->vline");
+        TObj t("env->vline");
         t.onDataT(env);
 
         t.cleanAllMessages();
@@ -500,7 +494,7 @@ TEST_CASE("env->vline", "[externals]")
         REQUIRE(env->setSigmoid(LA(0.1, 20, 0.f) + LF(1, 25, 1) + LA(0.2, 40, 1) + LA(0.1, 6, -1, 0.f)));
         REQUIRE(env->numPoints() == 5);
 
-        Env2VLineTest t("env->vline");
+        TObj t("env->vline");
         t.onDataT(env);
 
         t.cleanAllMessages();
@@ -581,7 +575,7 @@ TEST_CASE("env->vline", "[externals]")
         EnvAtom env;
         env->setAR(100, 200);
 
-        Env2VLineTest t("env->vline");
+        TObj t("env->vline");
         REQUIRE_PROPERTY(t, @sync, 0.f);
         t.cleanAllMessages();
         t.storeAllMessageCount();

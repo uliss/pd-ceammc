@@ -11,15 +11,10 @@
  * contact the author of this file, or the owner of the project in which
  * this file belongs to.
  *****************************************************************************/
-#include "../string/string_format.h"
-#include "ceammc_pd.h"
-#include "test_base.h"
+#include "string_format.h"
+#include "test_string_base.h"
 
-#include "catch.hpp"
-
-using namespace ceammc;
-
-typedef TestExternal<StringFormat> StringFormatTest;
+PD_COMPLETE_TEST_SETUP(StringFormat, string, format)
 
 #define REQUIRE_STRING_OUTPUT(t, str_)                                               \
     {                                                                                \
@@ -31,17 +26,15 @@ typedef TestExternal<StringFormat> StringFormatTest;
 
 #define NO_DATA(t) REQUIRE_NO_MESSAGES_AT_OUTLET(0, t);
 
-static CanvasPtr cnv = PureData::instance().createTopCanvas("test_canvas");
-
 TEST_CASE("string.format", "[external]")
 {
-    setup_string_format();
+    pd_test_init();
 
     SECTION("create")
     {
         SECTION("empty")
         {
-            StringFormatTest t("string.format");
+            TObj t("string.format");
             REQUIRE(t.numInlets() == 1);
             REQUIRE(t.numOutlets() == 1);
 
@@ -64,7 +57,7 @@ TEST_CASE("string.format", "[external]")
 
         SECTION("no-%")
         {
-            StringFormatTest t("string.format", LA("SAMPLE"));
+            TObj t("string.format", LA("SAMPLE"));
             REQUIRE_PROPERTY_LIST(t, @format, LA("SAMPLE"));
 
             WHEN_SEND_BANG_TO(0, t);
@@ -85,7 +78,7 @@ TEST_CASE("string.format", "[external]")
     {
         SECTION("format: %d")
         {
-            StringFormatTest t("string.format", LA("%d"));
+            TObj t("string.format", LA("%d"));
 
             WHEN_SEND_BANG_TO(0, t);
             REQUIRE_STRING_OUTPUT(t, "");
@@ -120,7 +113,7 @@ TEST_CASE("string.format", "[external]")
 
         SECTION("format: %d++")
         {
-            StringFormatTest t("string.format", LA("%+d"));
+            TObj t("string.format", LA("%+d"));
 
             WHEN_SEND_FLOAT_TO(0, t, 123);
             REQUIRE_STRING_OUTPUT(t, "+123");
@@ -155,7 +148,7 @@ TEST_CASE("string.format", "[external]")
         {
             SECTION("float mode")
             {
-                StringFormatTest t("string.format", LA("%o"));
+                TObj t("string.format", LA("%o"));
 
                 WHEN_SEND_FLOAT_TO(0, t, 64);
                 REQUIRE_STRING_OUTPUT(t, "64");
@@ -169,7 +162,7 @@ TEST_CASE("string.format", "[external]")
 
             SECTION("int mode")
             {
-                StringFormatTest t("string.format", LA("%o", "@int"));
+                TObj t("string.format", LA("%o", "@int"));
 
                 WHEN_SEND_FLOAT_TO(0, t, 64);
                 REQUIRE_STRING_OUTPUT(t, "100");
@@ -184,7 +177,7 @@ TEST_CASE("string.format", "[external]")
 
         SECTION("format: %x")
         {
-            StringFormatTest t("string.format", LA("%x", "@int"));
+            TObj t("string.format", LA("%x", "@int"));
 
             WHEN_SEND_FLOAT_TO(0, t, 15);
             REQUIRE_STRING_OUTPUT(t, "f");
@@ -200,7 +193,7 @@ TEST_CASE("string.format", "[external]")
         {
             SECTION("float mode")
             {
-                StringFormatTest t("string.format", LA("0x%X"));
+                TObj t("string.format", LA("0x%X"));
 
                 WHEN_SEND_FLOAT_TO(0, t, 15);
                 REQUIRE_STRING_OUTPUT(t, "0x15");
@@ -214,7 +207,7 @@ TEST_CASE("string.format", "[external]")
 
             SECTION("int mode ")
             {
-                StringFormatTest t("string.format", LA("0x%X", "@int"));
+                TObj t("string.format", LA("0x%X", "@int"));
 
                 WHEN_SEND_FLOAT_TO(0, t, 15);
                 REQUIRE_STRING_OUTPUT(t, "0xF");
@@ -230,7 +223,7 @@ TEST_CASE("string.format", "[external]")
             {
                 SECTION("int")
                 {
-                    StringFormatTest t("string.format", LA("%#X", "@int"));
+                    TObj t("string.format", LA("%#X", "@int"));
                     WHEN_SEND_FLOAT_TO(0, t, 15);
                     REQUIRE_STRING_OUTPUT(t, "0XF");
 
@@ -241,7 +234,7 @@ TEST_CASE("string.format", "[external]")
 
                 SECTION("float")
                 {
-                    StringFormatTest t("string.format", LA("%#X"));
+                    TObj t("string.format", LA("%#X"));
                     WHEN_SEND_FLOAT_TO(0, t, 15);
                     REQUIRE_STRING_OUTPUT(t, "15.0000");
 
@@ -253,7 +246,7 @@ TEST_CASE("string.format", "[external]")
 
             SECTION("-")
             {
-                StringFormatTest t("string.format", LA("%-d", "@int"));
+                TObj t("string.format", LA("%-d", "@int"));
                 WHEN_SEND_FLOAT_TO(0, t, 15);
                 REQUIRE_STRING_OUTPUT(t, "15");
 
@@ -264,7 +257,7 @@ TEST_CASE("string.format", "[external]")
 
             SECTION(" ")
             {
-                StringFormatTest t("string.format", LA("% d", "@int"));
+                TObj t("string.format", LA("% d", "@int"));
                 WHEN_SEND_FLOAT_TO(0, t, 15);
                 REQUIRE_STRING_OUTPUT(t, " 15");
 
@@ -275,14 +268,14 @@ TEST_CASE("string.format", "[external]")
 
             SECTION("*")
             {
-                StringFormatTest t("string.format", LA("%2*d", "@int"));
+                TObj t("string.format", LA("%2*d", "@int"));
                 WHEN_SEND_LIST_TO(0, t, LF(12, 10));
                 REQUIRE_STRING_OUTPUT(t, "          10");
             }
 
             SECTION(".")
             {
-                StringFormatTest t("string.format", LA("%.*d"));
+                TObj t("string.format", LA("%.*d"));
                 WHEN_SEND_LIST_TO(0, t, LF(12, 10));
                 REQUIRE_STRING_OUTPUT(t, "000000000010");
 
@@ -293,7 +286,7 @@ TEST_CASE("string.format", "[external]")
 
             SECTION("*")
             {
-                StringFormatTest t("string.format", LA("%E"));
+                TObj t("string.format", LA("%E"));
                 WHEN_SEND_FLOAT_TO(0, t, 15);
                 REQUIRE_STRING_OUTPUT(t, "1.500000E+01");
 
@@ -304,7 +297,7 @@ TEST_CASE("string.format", "[external]")
 
             SECTION("f")
             {
-                StringFormatTest t("string.format", LA("%f"));
+                TObj t("string.format", LA("%f"));
                 WHEN_SEND_FLOAT_TO(0, t, 15);
                 REQUIRE_STRING_OUTPUT(t, "15.000000");
 
@@ -315,14 +308,14 @@ TEST_CASE("string.format", "[external]")
 
             SECTION("n")
             {
-                StringFormatTest t("string.format", LA("%n"));
+                TObj t("string.format", LA("%n"));
                 WHEN_SEND_FLOAT_TO(0, t, 15);
                 REQUIRE_NO_MESSAGES_AT_OUTLET(0, t);
             }
 
             SECTION("%")
             {
-                StringFormatTest t("string.format", LA("%s%%"));
+                TObj t("string.format", LA("%s%%"));
                 WHEN_SEND_SYMBOL_TO(0, t, "100");
                 REQUIRE_STRING_OUTPUT(t, "100%");
             }
@@ -331,7 +324,7 @@ TEST_CASE("string.format", "[external]")
 
     SECTION("invalid args")
     {
-        StringFormatTest t("string.format", LA("%d-%d-%d"));
+        TObj t("string.format", LA("%d-%d-%d"));
         WHEN_SEND_FLOAT_TO(0, t, 15);
         REQUIRE_NO_MESSAGES_AT_OUTLET(0, t);
 
@@ -347,18 +340,18 @@ TEST_CASE("string.format", "[external]")
 
     SECTION("list")
     {
-        StringFormatTest t("string.format", LA("A:%s D:%d"));
+        TObj t("string.format", LA("A:%s D:%d"));
         WHEN_SEND_LIST_TO(0, t, LA("string", 100));
         REQUIRE_STRING_OUTPUT(t, "A:string D:100");
     }
 
     SECTION("data")
     {
-//        DataPtr d(new IntData(158));
+        //        DataPtr d(new IntData(158));
 
-//        StringFormatTest t("string.format", LA("DATA-%s"));
+        //        TObj t("string.format", LA("DATA-%s"));
 
-//        WHEN_SEND_DATA_TO(0, t, d);
-//        REQUIRE_STRING_OUTPUT(t, "DATA-158");
+        //        WHEN_SEND_DATA_TO(0, t, d);
+        //        REQUIRE_STRING_OUTPUT(t, "DATA-158");
     }
 }

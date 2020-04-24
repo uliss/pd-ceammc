@@ -19,6 +19,7 @@ PD_COMPLETE_TEST_SETUP(ArrayResample, array, resample)
 TEST_CASE("array.resample", "[externals]")
 {
     pd_test_init();
+    auto cnv = PureData::instance().findCanvas("test_canvas");
 
     SECTION("empty")
     {

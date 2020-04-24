@@ -74,7 +74,7 @@ bool FlowPass::processAnyProps(t_symbol* sel, const AtomList& lst)
     return false;
 }
 
-extern "C" void setup_flow0x2epass()
+void setup_flow_pass()
 {
     ObjectFactory<FlowPass> obj("flow.pass");
     obj.addAlias("pass");

@@ -11,20 +11,18 @@
  * contact the author of this file, or the owner of the project in which
  * this file belongs to.
  *****************************************************************************/
-
-#include "../preset/preset_base.h"
 #include "ceammc_pd.h"
 #include "ceammc_platform.h"
 #include "ceammc_preset.h"
+#include "preset_base.h"
 
 #include "test_base.h"
-
-typedef TestExternal<PresetBase> PresetBaseTest;
-
-CanvasPtr ptr = PureData::instance().createTopCanvas("test_canvas");
+using PresetBaseTest = TestExternal<PresetBase>;
 
 TEST_CASE("ceammc_preset", "[PureData]")
 {
+    auto ptr = PureData::instance().findCanvas("test_canvas");
+
     SECTION("PresetBase")
     {
         REQUIRE(ptr->owner() == 0);

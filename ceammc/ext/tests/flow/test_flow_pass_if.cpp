@@ -13,18 +13,16 @@
  *****************************************************************************/
 #include "flow_pass_if.h"
 #include "test_flow_base.h"
-#include "test_external.h"
 
-
-typedef TestExternal<FlowPassIf> FlowPassIfTest;
-
-static CanvasPtr cnv = PureData::instance().createTopCanvas("test_canvas");
+PD_COMPLETE_TEST_SETUP(FlowPassIf, flow, pass_if)
 
 TEST_CASE("flow.pass_if", "[externals]")
 {
+    pd_test_init();
+
     SECTION("init")
     {
-        FlowPassIfTest t("flow.pass_if");
+        TObj t("flow.pass_if");
         REQUIRE(t.numInlets() == 2);
         REQUIRE(t.numOutlets() == 2);
         REQUIRE(t.canvas() != 0);
@@ -33,7 +31,7 @@ TEST_CASE("flow.pass_if", "[externals]")
 
     SECTION("float")
     {
-        FlowPassIfTest t("flow.pass_if");
+        TObj t("flow.pass_if");
         WHEN_SEND_BANG_TO(0, t);
         REQUIRE_BANG_AT_OUTLET(1, t);
         REQUIRE_NO_MESSAGES_AT_OUTLET(0, t);
@@ -41,7 +39,7 @@ TEST_CASE("flow.pass_if", "[externals]")
 
     SECTION("float")
     {
-        FlowPassIfTest t("flow.pass_if");
+        TObj t("flow.pass_if");
         WHEN_SEND_FLOAT_TO(0, t, 2);
         REQUIRE_FLOAT_AT_OUTLET(1, t, 2);
         REQUIRE_NO_MESSAGES_AT_OUTLET(0, t);
@@ -49,7 +47,7 @@ TEST_CASE("flow.pass_if", "[externals]")
 
     SECTION("symbol")
     {
-        FlowPassIfTest t("flow.pass_if");
+        TObj t("flow.pass_if");
 
         WHEN_SEND_SYMBOL_TO(0, t, "c");
         REQUIRE_SYMBOL_AT_OUTLET(1, t, "c");
@@ -58,7 +56,7 @@ TEST_CASE("flow.pass_if", "[externals]")
 
     SECTION("list")
     {
-        FlowPassIfTest t("flow.pass_if");
+        TObj t("flow.pass_if");
 
         WHEN_SEND_LIST_TO(0, t, LA("a", "b"));
         REQUIRE_LIST_AT_OUTLET(1, t, LA("a", "b"));
@@ -67,7 +65,7 @@ TEST_CASE("flow.pass_if", "[externals]")
 
     SECTION("any")
     {
-        FlowPassIfTest t("flow.pass_if");
+        TObj t("flow.pass_if");
 
         WHEN_SEND_ANY_TO(t, "a", LF(1, 2));
         REQUIRE_ANY_AT_OUTLET(1, t, LA("a", 1, 2));
@@ -76,9 +74,6 @@ TEST_CASE("flow.pass_if", "[externals]")
 
     SECTION("puredata")
     {
-        setup_flow0x2epass_if();
-        LogExternalOutput::setup();
-
         pd::External flow_pass_if("flow.pass_if");
         REQUIRE_FALSE(flow_pass_if.isNull());
 

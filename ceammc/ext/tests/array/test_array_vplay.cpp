@@ -20,6 +20,7 @@ TEST_CASE("array.vplay", "[externals]")
 {
     pd_test_init();
     setTestSampleRate(100);
+    auto cnv = PureData::instance().findCanvas("test_canvas");
 
     SECTION("empty")
     {

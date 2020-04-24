@@ -19,6 +19,7 @@ PD_COMPLETE_TEST_SETUP(ArrayStretch, array, stretch)
 TEST_CASE("array.stretch", "[externals]")
 {
     pd_test_init();
+    auto cnv = PureData::instance().findCanvas("test_canvas");
 
     SECTION("create")
     {

@@ -18,6 +18,9 @@ PD_COMPLETE_TEST_SETUP(ArrayDo, array, do)
 
 TEST_CASE("array.do", "[externals]")
 {
+    pd_test_init();
+    auto cnv = PureData::instance().findCanvas("test_canvas");
+
     SECTION("test create")
     {
         TObj t("array.do");

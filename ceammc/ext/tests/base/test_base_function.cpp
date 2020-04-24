@@ -21,8 +21,6 @@
 
 typedef TestExternal<Function> FunctionTest;
 
-static CanvasPtr cnv = PureData::instance().createTopCanvas("test_canvas");
-
 void f1() { FunctionTest t("func"); }
 void f2() { FunctionTest t("sqrt"); }
 

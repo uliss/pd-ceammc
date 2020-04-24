@@ -19,6 +19,7 @@ PD_COMPLETE_TEST_SETUP(ArrayRMS, array, rms)
 TEST_CASE("array.rms", "[externals]")
 {
     pd_test_init();
+    auto cnv = PureData::instance().findCanvas("test_canvas");
 
     SECTION("empty")
     {

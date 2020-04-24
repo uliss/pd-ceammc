@@ -13,23 +13,20 @@
  *****************************************************************************/
 #include "list_reduce.h"
 #include "test_list_base.h"
-#include "catch.hpp"
-#include "ceammc_pd.h"
 
-#include <stdio.h>
-
-typedef TestExternal<ListReduce> ListReduceTest;
-static CanvasPtr cnv = PureData::instance().createTopCanvas("test_canvas");
+PD_COMPLETE_TEST_SETUP(ListReduce, list, reduce)
 
 using namespace ceammc::pd;
 
 TEST_CASE("list.reduce", "[externals]")
 {
+    pd_test_init();
+
     SECTION("test create with:")
     {
         SECTION("empty arguments")
         {
-            ListReduceTest t("list.reduce", L());
+            TObj t("list.reduce", L());
             REQUIRE(t.numInlets() == 2);
             REQUIRE(t.numOutlets() == 2);
 

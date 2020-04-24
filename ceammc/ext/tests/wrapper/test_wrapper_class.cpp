@@ -18,8 +18,6 @@
 
 using namespace wrapper;
 
-PD_TEST_CANVAS();
-
 TEST_CASE("wrapper_class", "[class-wrapper]")
 {
     SECTION("constructor0")

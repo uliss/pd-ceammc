@@ -30,8 +30,6 @@ extern "C" void sched_tick();
 extern "C" int* get_sys_schedblocksize();
 extern "C" t_float* get_sys_dacsr();
 
-#define PD_TEST_CANVAS() static CanvasPtr cnv = PureData::instance().createTopCanvas("test_canvas")
-
 #define PD_TEST_TYPEDEF(T)                \
     typedef TestPdExternal<T> TestExt##T; \
     typedef TestExternal<T> Test##T;      \
@@ -78,13 +76,11 @@ extern "C" t_float* get_sys_dacsr();
     }
 
 #define PD_COMPLETE_TEST_SETUP(T, mod, name) \
-    PD_TEST_CANVAS();                        \
     PD_TEST_TYPEDEF(T);                      \
     PD_TEST_MOD_INIT(mod, name);             \
     PD_TEST_FULL_INIT(mod, name);
 
 #define PD_COMPLETE_SND_TEST_SETUP(T, mod, name) \
-    PD_TEST_CANVAS();                            \
     PD_TEST_SND_TYPEDEF(T);                      \
     PD_TEST_SND_DSP(T);                          \
     PD_TEST_MOD_INIT(mod, name);                 \

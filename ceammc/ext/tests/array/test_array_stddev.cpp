@@ -19,6 +19,7 @@ PD_COMPLETE_TEST_SETUP(ArrayStdDeviation, array, stddev)
 TEST_CASE("array.stddev", "[externals]")
 {
     pd_test_init();
+    auto cnv = PureData::instance().findCanvas("test_canvas");
 
     SECTION("empty")
     {

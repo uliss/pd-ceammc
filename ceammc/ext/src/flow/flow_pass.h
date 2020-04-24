@@ -33,6 +33,6 @@ public:
     bool processAnyProps(t_symbol* sel, const AtomList& lst)  override;
 };
 
-extern "C" void setup_flow0x2epass();
+void setup_flow_pass();
 
 #endif // FLOW_PASS_H

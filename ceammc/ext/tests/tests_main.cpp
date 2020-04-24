@@ -27,6 +27,7 @@
 #include "test_external.h"
 
 extern "C" {
+#include "g_canvas.h"
 #include "s_stuff.h"
 
 void sys_bail(int n);
@@ -108,9 +109,36 @@ struct PdInitListener : Catch::TestEventListenerBase {
         test::pdPrintToStdError();
     }
 
+    void testCaseStarting(Catch::TestCaseInfo const& testInfo) override
+    {
+        auto top = PureData::instance().createTopCanvas("test_canvas");
+
+        auto cnv = canvas_getcurrent();
+        if (cnv)
+            std::cerr << "current canvas: " << cnv->gl_name << "\n";
+        else
+            canvas_setcurrent(top->pd_canvas());
+    }
+
     void testCaseEnded(Catch::TestCaseStats const& testCaseStats) override
     {
-        //        auto glist = pd_getcanvaslist();
+        t_canvas* cur = canvas_getcurrent();
+        std::vector<t_canvas*> cnvl;
+
+        auto glist = pd_getcanvaslist();
+        for (auto c = glist; c != nullptr; c = c->gl_next) {
+            if (c->gl_name->s_name[0] == '_')
+                continue;
+
+            std::cerr << "canvas: " << c->gl_name << "\n";
+            cnvl.push_back(c);
+        }
+
+        if (cur)
+            canvas_unsetcurrent(cur);
+
+        for (auto c : cnvl)
+            pd_free(&c->gl_obj.te_g.g_pd);
     }
 };
 

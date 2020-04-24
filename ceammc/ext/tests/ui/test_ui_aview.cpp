@@ -22,6 +22,7 @@ extern "C" void garray_init(void);
 TEST_CASE("ui.aview", "[ui.aview]")
 {
     ui_test_init();
+    auto cnv = PureData::instance().findCanvas("test_canvas");
     setTestSampleRate(10000);
 
     SECTION("construct")

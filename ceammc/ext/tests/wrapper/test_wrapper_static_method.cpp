@@ -25,8 +25,6 @@
 
 using namespace wrapper;
 
-PD_TEST_CANVAS();
-
 class WrapperInt : public DataIFace {
     int v_;
 

@@ -78,7 +78,6 @@ static void setup_test_extc()
     obj.processData<IntData>();
 }
 
-PD_TEST_CANVAS();
 PD_TEST_TYPEDEF(EXT_C);
 PD_TEST_MOD_INIT(test, extc);
 

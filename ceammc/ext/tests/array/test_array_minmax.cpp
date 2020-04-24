@@ -19,6 +19,7 @@ PD_COMPLETE_TEST_SETUP(ArrayMinMax, array, minmax)
 TEST_CASE("array.minmax", "[externals]")
 {
     pd_test_init();
+    auto cnv = PureData::instance().findCanvas("test_canvas");
 
     SECTION("empty")
     {

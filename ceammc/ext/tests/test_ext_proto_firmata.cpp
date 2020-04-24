@@ -19,8 +19,6 @@
 
 #include <stdio.h>
 
-static CanvasPtr cnv = PureData::instance().createTopCanvas("test_canvas");
-
 TEST_CASE("proto.firmata", "[externals]")
 {
     proto_firmata_setup();

@@ -19,6 +19,7 @@ PD_COMPLETE_TEST_SETUP(ArrayVariance, array, variance)
 TEST_CASE("array.variance", "[externals]")
 {
     pd_test_init();
+    auto cnv = PureData::instance().findCanvas("test_canvas");
 
     SECTION("empty")
     {

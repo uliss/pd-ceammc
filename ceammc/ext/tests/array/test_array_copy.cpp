@@ -30,6 +30,7 @@ PD_COMPLETE_TEST_SETUP(ArrayCopy, array, copy)
 TEST_CASE("array.copy", "[externals]")
 {
     pd_test_init();
+    auto cnv = PureData::instance().findCanvas("test_canvas");
 
     SECTION("empty")
     {

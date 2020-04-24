@@ -138,6 +138,7 @@ public:
     static PureData& instance();
     CanvasPtr createTopCanvas(const char* name, const AtomList& args = AtomList());
     CanvasPtr createSubpatch(_glist* parent, const char* name);
+    CanvasPtr findCanvas(const char* name);
 
     PureData(const PureData&) = delete;
     PureData& operator=(const PureData&) = delete;

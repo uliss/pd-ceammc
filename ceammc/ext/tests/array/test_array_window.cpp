@@ -19,6 +19,7 @@ PD_COMPLETE_TEST_SETUP(ArrayWindow, array, window)
 TEST_CASE("array.window", "[externals]")
 {
     pd_test_init();
+    auto cnv = PureData::instance().findCanvas("test_canvas");
 
     SECTION("empty")
     {
@@ -94,7 +95,7 @@ TEST_CASE("array.window", "[externals]")
         REQUIRE(aptr->at(3) == Approx(0));
         REQUIRE(aptr->at(4) == Approx(0));
 
-//        return;
+        //        return;
 
         TObj t("array.window", LA("array_window3", "@type", "rect"));
 

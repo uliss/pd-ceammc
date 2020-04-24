@@ -23,8 +23,6 @@
 
 typedef TestSoundExternal<Gain> GainTest;
 
-static CanvasPtr cnv = PureData::instance().createTopCanvas("test_canvas");
-
 TEST_CASE("gain~", "[externals]")
 {
     SECTION("construct")

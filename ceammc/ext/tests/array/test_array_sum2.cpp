@@ -19,6 +19,7 @@ PD_COMPLETE_TEST_SETUP(ArraySum2, array, sum2)
 TEST_CASE("array.sum2", "[externals]")
 {
     pd_test_init();
+    auto cnv = PureData::instance().findCanvas("test_canvas");
 
     SECTION("empty")
     {

@@ -43,6 +43,7 @@ PD_COMPLETE_TEST_SETUP(ArraySampleToPhase, array, s2p)
 TEST_CASE("array.s2p", "[externals]")
 {
     pd_test_init();
+    auto cnv = PureData::instance().findCanvas("test_canvas");
 
     SECTION("test create with:")
     {

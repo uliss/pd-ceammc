@@ -472,9 +472,9 @@ CanvasPtr PureData::createTopCanvas(const char* name, const AtomList& args)
 {
     CanvasPtr ptr;
 
-    CanvasMap::iterator it = canvas_map_.find(name);
-    if (it != canvas_map_.end())
-        return it->second;
+    //    CanvasMap::iterator it = canvas_map_.find(name);
+    //    if (it != canvas_map_.end())
+    //        return it->second;
 
     AtomList l(0.f, 0.f); // x, y
     l.append(Atom(600)); // width
@@ -504,7 +504,6 @@ CanvasPtr PureData::createTopCanvas(const char* name, const AtomList& args)
     cnv->gl_loading = 0;
 
     ptr.reset(new Canvas(cnv));
-    canvas_map_[name] = ptr;
     return ptr;
 }
 
@@ -518,6 +517,17 @@ CanvasPtr PureData::createSubpatch(_glist* parent, const char* name)
     cnv->gl_owner = parent;
 
     return CanvasPtr(new Canvas(cnv));
+}
+
+CanvasPtr PureData::findCanvas(const char* name)
+{
+    t_symbol* s = gensym(name);
+    for (auto c = pd_getcanvaslist(); c != nullptr; c = c->gl_next) {
+        if (c->gl_name == s)
+            return CanvasPtr(new Canvas(c));
+    }
+
+    return {};
 }
 
 PureData& PureData::instance()

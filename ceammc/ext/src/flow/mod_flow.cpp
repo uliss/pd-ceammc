@@ -33,8 +33,6 @@ void setup_flow_match();
 void ceammc_flow_setup()
 {
     setup_flow0x2echange();
-    setup_flow0x2epass();
-    setup_flow0x2epass_if();
     setup_flow0x2esync();
     setup_flow0x2etee_tilde();
 
@@ -55,6 +53,8 @@ void ceammc_flow_setup()
     setup_flow_multiplex_tilde();
     setup_flow_once();
     setup_flow_pack();
+    setup_flow_pass();
+    setup_flow_pass_if();
     setup_flow_reject();
     setup_flow_reject_if();
     setup_flow_route();

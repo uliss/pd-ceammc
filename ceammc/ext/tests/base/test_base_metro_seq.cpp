@@ -11,7 +11,7 @@
  * contact the author of this file, or the owner of the project in which
  * this file belongs to.
  *****************************************************************************/
-#include "../base/metro_seq.h"
+#include "metro_seq.h"
 #include "catch.hpp"
 #include "ceammc_pd.h"
 #include "test_base.h"
@@ -19,8 +19,6 @@
 #include <stdio.h>
 
 typedef TestExternal<MetroSeq> MetroSeqTest;
-
-static CanvasPtr cnv = PureData::instance().createTopCanvas("test_canvas");
 
 TEST_CASE("metro.seq", "[externals]")
 {

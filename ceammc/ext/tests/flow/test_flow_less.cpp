@@ -14,22 +14,17 @@
 #include "flow_less.h"
 #include "test_flow_base.h"
 
-
-typedef TestExternal<FlowLess> FlowLessTest;
-
-static CanvasPtr cnv = PureData::instance().createTopCanvas("test_canvas");
+PD_COMPLETE_TEST_SETUP(FlowLess, flow, less)
 
 TEST_CASE("flow.less", "[externals]")
 {
-    test::pdPrintToStdError();
+    pd_test_init();
 
     SECTION("init")
     {
-        setup_flow_less();
-
         SECTION("default")
         {
-            FlowLessTest t("flow.less");
+            TObj t("flow.less");
             REQUIRE(t.numInlets() == 1);
             REQUIRE(t.numOutlets() == 1);
             REQUIRE(t.outletAt(0) != 0);
@@ -41,7 +36,7 @@ TEST_CASE("flow.less", "[externals]")
 
         SECTION("single")
         {
-            FlowLessTest t("flow.less", LF(1));
+            TObj t("flow.less", LF(1));
             REQUIRE(t.numOutlets() == 2);
 
             WHEN_SEND_FLOAT_TO(0, t, -100);
@@ -56,7 +51,7 @@ TEST_CASE("flow.less", "[externals]")
 
         SECTION("multiple")
         {
-            FlowLessTest t("flow.less", LF(-10, 1, 10)); // [. -10 . 1 . 10 .]
+            TObj t("flow.less", LF(-10, 1, 10)); // [. -10 . 1 . 10 .]
             REQUIRE(t.numOutlets() == 4);
 
             // 1st outlet
@@ -93,7 +88,7 @@ TEST_CASE("flow.less", "[externals]")
 
         SECTION("wrong args")
         {
-            FlowLessTest t("flow.less", LF(1, 10, 2)); // [. -10 . 1 . 10 .]
+            TObj t("flow.less", LF(1, 10, 2)); // [. -10 . 1 . 10 .]
             REQUIRE(t.numOutlets() == 3);
         }
     }

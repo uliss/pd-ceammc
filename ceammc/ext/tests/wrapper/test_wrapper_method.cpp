@@ -15,8 +15,6 @@
 #include "test_wrapper_base.h"
 #include "wrapper_macros.h"
 
-PD_TEST_CANVAS();
-
 TEST_CASE("wrapper_method", "[class-wrapper]")
 {
     SECTION("is_negative")

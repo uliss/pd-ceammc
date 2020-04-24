@@ -11,20 +11,13 @@
  * contact the author of this file, or the owner of the project in which
  * this file belongs to.
  *****************************************************************************/
-#include "../env/env_to_array.h"
-#include "test_base.h"
-#include "catch.hpp"
-#include "ceammc_pd.h"
-
-#include <stdio.h>
+#include "env_to_array.h"
+//#include "test_env_base.h"
+#include "test_external.h"
 
 extern "C" {
 #include "s_stuff.h"
 }
-
-typedef TestExternal<Env2Array> Env2ArrayTest;
-
-static CanvasPtr cnv = PureData::instance().createTopCanvas("test_canvas");
 
 #define REQUIRE_ZERO_ARRAY(arr)                    \
     {                                              \
@@ -33,15 +26,18 @@ static CanvasPtr cnv = PureData::instance().createTopCanvas("test_canvas");
         }                                          \
     }
 
+using TObj = TestExternal<Env2Array>;
+
 TEST_CASE("env.to_array", "[externals]")
 {
+    setup_env_to_array();
+    auto cnv = PureData::instance().findCanvas("test_canvas");
+
     SECTION("init")
     {
-        setup_env_to_array();
-
         SECTION("empty")
         {
-            Env2ArrayTest t("env.to_array");
+            TObj t("env.to_array");
             REQUIRE(t.numInlets() == 1);
             REQUIRE(t.numOutlets() == 1);
             REQUIRE_PROPERTY(t, @mode, "fit");
@@ -49,43 +45,43 @@ TEST_CASE("env.to_array", "[externals]")
 
         SECTION("@prop")
         {
-            Env2ArrayTest t("env.to_array", LA("@mode", "raw"));
+            TObj t("env.to_array", LA("@mode", "raw"));
             REQUIRE_PROPERTY(t, @mode, "raw");
         }
 
         SECTION("@prop")
         {
-            Env2ArrayTest t("env.to_array", LA("@mode", "fit"));
+            TObj t("env.to_array", LA("@mode", "fit"));
             REQUIRE_PROPERTY(t, @mode, "fit");
         }
 
         SECTION("@prop")
         {
-            Env2ArrayTest t("env.to_array", LA("@mode", "resize"));
+            TObj t("env.to_array", LA("@mode", "resize"));
             REQUIRE_PROPERTY(t, @mode, "resize");
         }
 
         SECTION("@prop invalid")
         {
-            Env2ArrayTest t("env.to_array", LA("@mode", "??resize"));
+            TObj t("env.to_array", LA("@mode", "??resize"));
             REQUIRE_PROPERTY(t, @mode, "fit");
         }
 
         SECTION("@prop")
         {
-            Env2ArrayTest t("env.to_array", LA("@fit"));
+            TObj t("env.to_array", LA("@fit"));
             REQUIRE_PROPERTY(t, @mode, "fit");
         }
 
         SECTION("@prop")
         {
-            Env2ArrayTest t("env.to_array", LA("@raw"));
+            TObj t("env.to_array", LA("@raw"));
             REQUIRE_PROPERTY(t, @mode, "raw");
         }
 
         SECTION("@prop")
         {
-            Env2ArrayTest t("env.to_array", LA("@resize"));
+            TObj t("env.to_array", LA("@resize"));
             REQUIRE_PROPERTY(t, @mode, "resize");
         }
     }
@@ -97,7 +93,7 @@ TEST_CASE("env.to_array", "[externals]")
             ArrayPtr aptr = cnv->createArray("array1", 101);
             REQUIRE_ZERO_ARRAY(aptr);
 
-            Env2ArrayTest t("env->array", LA("array1", "@fit"));
+            TObj t("env->array", LA("array1", "@fit"));
 
             WHEN_SEND_TDATA_TO(0, t, DataTypeEnv());
             REQUIRE_ZERO_ARRAY(aptr);
@@ -118,7 +114,7 @@ TEST_CASE("env.to_array", "[externals]")
             ArrayPtr aptr = cnv->createArray("array2", 10);
             REQUIRE_ZERO_ARRAY(aptr);
 
-            Env2ArrayTest t("env->array", LA("array2", "@resize"));
+            TObj t("env->array", LA("array2", "@resize"));
 
             WHEN_SEND_TDATA_TO(0, t, DataTypeEnv());
             REQUIRE_ZERO_ARRAY(aptr);
@@ -144,7 +140,7 @@ TEST_CASE("env.to_array", "[externals]")
             ArrayPtr aptr = cnv->createArray("array5", 10);
             REQUIRE_ZERO_ARRAY(aptr);
 
-            Env2ArrayTest t("env->array", LA("array5", "@resize"));
+            TObj t("env->array", LA("array5", "@resize"));
 
             WHEN_SEND_TDATA_TO(0, t, DataTypeEnv());
             REQUIRE_ZERO_ARRAY(aptr);
@@ -172,7 +168,7 @@ TEST_CASE("env.to_array", "[externals]")
             ArrayPtr aptr = cnv->createArray("array3", 100);
             REQUIRE_ZERO_ARRAY(aptr);
 
-            Env2ArrayTest t("env->array", LA("array3", "@raw"));
+            TObj t("env->array", LA("array3", "@raw"));
 
             WHEN_SEND_TDATA_TO(0, t, DataTypeEnv());
             REQUIRE_ZERO_ARRAY(aptr);
@@ -200,7 +196,7 @@ TEST_CASE("env.to_array", "[externals]")
             ArrayPtr aptr = cnv->createArray("array4", 100);
             REQUIRE_ZERO_ARRAY(aptr);
 
-            Env2ArrayTest t("env->array", LA("array4", "@raw"));
+            TObj t("env->array", LA("array4", "@raw"));
 
             WHEN_SEND_TDATA_TO(0, t, DataTypeEnv());
             REQUIRE_ZERO_ARRAY(aptr);

@@ -23,11 +23,9 @@ void test_ui_main_init();
     using namespace ceammc;                                                         \
     typedef TestUIPtr<UI##T, UIObjectFactory<UI##T> > Test##T;                      \
     typedef TestUIExternal<UI##T> TestExt##T;                                       \
-    static CanvasPtr cnv = PureData::instance().createTopCanvas("test_canvas");     \
     static void ui_test_init()                                                      \
     {                                                                               \
         test_ui_main_init();                                                        \
-        test::pdPrintToStdError();                                                  \
     }
 
 template <class T, class F = UIObjectFactory<T> >

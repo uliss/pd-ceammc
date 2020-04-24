@@ -21,7 +21,7 @@ PD_COMPLETE_TEST_SETUP(SndFile, snd, file)
 
 static ArrayPtr testArray1(t_float v = 0.0, size_t sz = 100)
 {
-    static ArrayPtr arr = cnv->createArray("snd_file1", 100);
+    static ArrayPtr arr = PureData::instance().findCanvas("test_canvas")->createArray("snd_file1", 100);
     arr->resize(sz);
     arr->fillWith(v);
     return arr;
@@ -29,7 +29,7 @@ static ArrayPtr testArray1(t_float v = 0.0, size_t sz = 100)
 
 static ArrayPtr testArray2(t_float v = 0.0, size_t sz = 200)
 {
-    static ArrayPtr arr = cnv->createArray("snd_file2", 200);
+    static ArrayPtr arr = PureData::instance().findCanvas("test_canvas")->createArray("snd_file2", 200);
     arr->resize(sz);
     arr->fillWith(v);
     return arr;

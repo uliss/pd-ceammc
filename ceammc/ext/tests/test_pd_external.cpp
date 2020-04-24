@@ -21,8 +21,6 @@
 using namespace ceammc;
 using namespace ceammc::pd;
 
-static CanvasPtr cnv = PureData::instance().createTopCanvas("test_canvas");
-
 TEST_CASE("pd external", "[pd::External]")
 {
     SECTION("coords")

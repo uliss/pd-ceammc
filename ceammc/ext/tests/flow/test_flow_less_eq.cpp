@@ -14,14 +14,11 @@
 #include "flow_less_eq.h"
 #include "test_flow_base.h"
 
-
-typedef TestExternal<FlowLessEq> FlowLessEqTest;
-
-static CanvasPtr cnv = PureData::instance().createTopCanvas("test_canvas");
+PD_COMPLETE_TEST_SETUP(FlowLessEq, flow, less_eq)
 
 TEST_CASE("flow.less_eq", "[externals]")
 {
-    test::pdPrintToStdError();
+    pd_test_init();
 
     SECTION("init")
     {
@@ -29,7 +26,7 @@ TEST_CASE("flow.less_eq", "[externals]")
 
         SECTION("default")
         {
-            FlowLessEqTest t("flow.less_eq");
+            TObj t("flow.less_eq");
             REQUIRE(t.numInlets() == 1);
             REQUIRE(t.numOutlets() == 1);
 
@@ -39,7 +36,7 @@ TEST_CASE("flow.less_eq", "[externals]")
 
         SECTION("single")
         {
-            FlowLessEqTest t("flow.less_eq", LF(1));
+            TObj t("flow.less_eq", LF(1));
             REQUIRE(t.numOutlets() == 2);
 
             WHEN_SEND_FLOAT_TO(0, t, -100);
@@ -57,7 +54,7 @@ TEST_CASE("flow.less_eq", "[externals]")
 
         SECTION("multiple")
         {
-            FlowLessEqTest t("flow.less_eq", LF(-10, 1, 10)); // [. -10 . 1 . 10 .]
+            TObj t("flow.less_eq", LF(-10, 1, 10)); // [. -10 . 1 . 10 .]
             REQUIRE(t.numOutlets() == 4);
 
             // 1st outlet
@@ -97,7 +94,7 @@ TEST_CASE("flow.less_eq", "[externals]")
 
         SECTION("wrong args")
         {
-            FlowLessEqTest t("flow.less_eq", LF(1, 10, 10)); // [. -10 . 1 . 10 .]
+            TObj t("flow.less_eq", LF(1, 10, 10)); // [. -10 . 1 . 10 .]
             REQUIRE(t.numOutlets() == 3);
         }
     }

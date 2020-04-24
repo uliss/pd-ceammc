@@ -88,7 +88,7 @@ static void prop_get_free(t_prop* x)
         outlet_free(x->all_prop);
 }
 
-extern "C" void setup_prop0x2eget()
+void setup_prop_get()
 {
     prop_get_class = class_new(gensym("prop.get"),
         reinterpret_cast<t_newmethod>(prop_get_new),

@@ -14,23 +14,22 @@
 #include "flow_split.h"
 #include "test_flow_base.h"
 
-
-typedef TestExternal<FlowSplit> FlowSplitTest;
-
-static CanvasPtr cnv = PureData::instance().createTopCanvas("test_canvas");
+PD_COMPLETE_TEST_SETUP(FlowSplit, flow, split)
 
 TEST_CASE("flow.split", "[externals]")
 {
+    pd_test_init();
+
     SECTION("init")
     {
-        FlowSplitTest t("flow.split");
+        TObj t("flow.split");
         REQUIRE(t.numInlets() == 2);
         REQUIRE(t.numOutlets() == 3);
     }
 
     SECTION("bang")
     {
-        FlowSplitTest t("flow.split");
+        TObj t("flow.split");
         WHEN_SEND_BANG_TO(0, t);
         REQUIRE_BANG_AT_OUTLET(2, t);
         REQUIRE_BANG_AT_OUTLET(1, t);
@@ -38,7 +37,7 @@ TEST_CASE("flow.split", "[externals]")
 
     SECTION("float")
     {
-        FlowSplitTest t("flow.split");
+        TObj t("flow.split");
         WHEN_SEND_FLOAT_TO(0, t, 2);
         REQUIRE_FLOAT_AT_OUTLET(2, t, 2);
         REQUIRE_FLOAT_AT_OUTLET(1, t, 2);
@@ -46,7 +45,7 @@ TEST_CASE("flow.split", "[externals]")
 
     SECTION("symbol")
     {
-        FlowSplitTest t("flow.split");
+        TObj t("flow.split");
         WHEN_SEND_SYMBOL_TO(0, t, "a");
         REQUIRE_SYMBOL_AT_OUTLET(2, t, "a");
         REQUIRE_SYMBOL_AT_OUTLET(1, t, "a");
@@ -54,7 +53,7 @@ TEST_CASE("flow.split", "[externals]")
 
     SECTION("list")
     {
-        FlowSplitTest t("flow.split");
+        TObj t("flow.split");
         WHEN_SEND_LIST_TO(0, t, LF(1, 2, 3));
         REQUIRE_LIST_AT_OUTLET(2, t, LF(1, 2, 3));
         REQUIRE_LIST_AT_OUTLET(1, t, LF(1, 2, 3));
@@ -62,7 +61,7 @@ TEST_CASE("flow.split", "[externals]")
 
     SECTION("any")
     {
-        FlowSplitTest t("flow.split");
+        TObj t("flow.split");
         WHEN_SEND_ANY_TO(t, "go", LF(1, 2));
         REQUIRE_ANY_AT_OUTLET(2, t, LA("go", 1, 2));
         REQUIRE_ANY_AT_OUTLET(1, t, LA("go", 1, 2));

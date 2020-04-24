@@ -21,7 +21,7 @@ PD_COMPLETE_TEST_SETUP(HoaProcess, spat, hoa_process)
 TEST_CASE("hoa.process~", "[externals]")
 {
     pd_test_init([]() { ceammc_spat_setup(); });
-    test::pdPrintToStdError();
+    auto cnv = PureData::instance().findCanvas("test_canvas");
 
     SECTION("init")
     {

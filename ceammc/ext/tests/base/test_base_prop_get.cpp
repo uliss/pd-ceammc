@@ -13,16 +13,14 @@
  *****************************************************************************/
 #include "test_external.h"
 
-extern "C" void setup_prop0x2eget();
-
-PD_TEST_CANVAS();
+void setup_prop_get();
 
 struct Dummy {
 };
 
 TEST_CASE("prop.get", "[externals]")
 {
-    setup_prop0x2eget();
+    setup_prop_get();
 
     SECTION("init")
     {

@@ -132,7 +132,7 @@ static void prop_setup_dsp(t_prop_tilde* /*x*/, t_signal** sp)
     dsp_add(prop_dsp_perform, 3, sp[0]->s_vec, sp[1]->s_vec, sp[0]->s_n);
 }
 
-extern "C" void setup_prop0x2eget_tilde()
+void setup_prop_get_tilde()
 {
     prop_get_tilde_class = class_new(gensym("prop.get~"),
         reinterpret_cast<t_newmethod>(prop_get_new),

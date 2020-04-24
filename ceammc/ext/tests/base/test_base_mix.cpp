@@ -21,8 +21,6 @@
 
 typedef TestSoundExternal<Mix> TestMix;
 
-static CanvasPtr cnv = PureData::instance().createTopCanvas("test_canvas");
-
 template <size_t N = 2>
 class TestMixSignal : public TestSignal<N, 1> {
 public:

@@ -41,6 +41,7 @@ TEST_CASE("speech.flite", "[externals]")
 
     SECTION("render")
     {
+        auto cnv = PureData::instance().findCanvas("test_canvas");
         ArrayPtr arr = cnv->createArray("array2", 10);
 
         TObj t("speech.flite", LA("@array", "array2"));

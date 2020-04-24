@@ -76,7 +76,7 @@ void FlowPassIf::onInlet(size_t n, const AtomList& l)
     pass_ = (l.toT<size_t>(0) == 1) ? 1 : 0;
 }
 
-extern "C" void setup_flow0x2epass_if()
+void setup_flow_pass_if()
 {
     ObjectFactory<FlowPassIf> obj("flow.pass_if");
     obj.addAlias("pass_if");

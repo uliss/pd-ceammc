@@ -16,7 +16,6 @@
 
 #include <random>
 
-PD_TEST_CANVAS();
 #define TEST_USING(name) using TestExt##name = TestPdExternal<name>;
 // arithmetic
 TEST_USING(MathSyncAdd);
