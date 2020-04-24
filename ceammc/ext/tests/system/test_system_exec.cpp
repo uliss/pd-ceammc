@@ -42,7 +42,7 @@ TEST_CASE("system.exec", "[externals]")
         TExt t("system.exec");
 
         t << LA(TEST_EXEC);
-        // REQUIRE_PROPERTY(t, @is_running, 1);
+        REQUIRE_PROPERTY(t, @is_running, 1);
 #ifndef __WIN32__
         REQUIRE_FALSE(t.hasNewMessages(0));
 #endif

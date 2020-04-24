@@ -43,7 +43,7 @@ TEST_CASE("canvas.current", "[externals]")
 
         CanvasPtr cnv = PureData::instance().createTopCanvas(TEST_DATA_DIR "/patch");
 
-        {   
+        {
             TestExtCanvasCurrent t("canvas.current");
             REQUIRE(t.numInlets() == 1);
             REQUIRE(t.numOutlets() == 1);
