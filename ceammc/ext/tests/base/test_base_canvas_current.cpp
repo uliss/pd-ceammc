@@ -11,7 +11,7 @@
  * contact the author of this file, or the owner of the project in which
  * this file belongs to.
  *****************************************************************************/
-#include "../base/canvas_current.h"
+#include "canvas_current.h"
 #include "test_base.h"
 #include "test_external.h"
 

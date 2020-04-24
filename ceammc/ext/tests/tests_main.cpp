@@ -109,14 +109,16 @@ struct PdInitListener : Catch::TestEventListenerBase {
         test::pdPrintToStdError();
     }
 
+    void testRunEnded(Catch::TestRunStats const& testRunStats) override
+    {
+    }
+
     void testCaseStarting(Catch::TestCaseInfo const& testInfo) override
     {
         auto top = PureData::instance().createTopCanvas("test_canvas");
 
         auto cnv = canvas_getcurrent();
-        if (cnv)
-            std::cerr << "current canvas: " << cnv->gl_name << "\n";
-        else
+        if (!cnv)
             canvas_setcurrent(top->pd_canvas());
     }
 
@@ -130,7 +132,6 @@ struct PdInitListener : Catch::TestEventListenerBase {
             if (c->gl_name->s_name[0] == '_')
                 continue;
 
-            std::cerr << "canvas: " << c->gl_name << "\n";
             cnvl.push_back(c);
         }
 
