@@ -23,6 +23,8 @@
 #include <future>
 #include <thread>
 
+#include "ceammc_preset.h"
+#include "ceammc_datastorage.h"
 #include "test_base.h"
 #include "test_external.h"
 
@@ -140,6 +142,8 @@ struct PdInitListener : Catch::TestEventListenerBase {
 
         for (auto c : cnvl)
             pd_free(&c->gl_obj.te_g.g_pd);
+
+        PresetStorage::instance().clearAll();
     }
 };
 
