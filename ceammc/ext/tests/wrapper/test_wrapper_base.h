@@ -83,57 +83,13 @@ public:
     }
 };
 
-class WrapperDataPair : public DataIFace {
-    std::pair<int, int> v_;
-
-public:
-    WrapperDataPair(int v0 = 0, int v1 = 0)
-        : v_(v0, v1)
-    {
-    }
-
-    bool operator==(const WrapperDataPair& d) const
-    {
-        return v_ == d.v_;
-    }
-
-    std::string toString() const
-    {
-        return std::string("pair: ") + std::to_string(v_.first) + " " + std::to_string(v_.second);
-    }
-
-    static const char* typeName()
-    {
-        return "DataPair";
-    }
-
-    std::pair<int, int> get() const
-    {
-        return v_;
-    }
-
-    Result setFromList(const AtomList& l) override
-    {
-        if (l.size() != 2)
-            return error("v0 v1 expected");
-
-        if (!(l[0].isFloat() && l[1].isFloat()))
-            return error("float arguments required");
-
-        v_.first = l[0].asFloat();
-        v_.second = l[1].asFloat();
-
-        return ok();
-    }
-};
-
 class WrapperIntPair : public DataIFace {
     int v0_, v1_;
 
 public:
-    WrapperIntPair()
-        : v0_(0)
-        , v1_(0)
+    WrapperIntPair(int v0 = 0, int v1 = 0)
+        : v0_(v0)
+        , v1_(v1)
     {
     }
 
@@ -149,18 +105,26 @@ public:
 
     static const char* typeName()
     {
-        return "Pair";
+        return "IntPair";
     }
 
-    Result setFromList(const AtomList& lst) override
+    Result setFromList(const AtomList& l) override
     {
-        if (lst.size() != 2)
-            return error("x y expected");
+        if (l.size() != 2)
+            return error("v0 v1 expected");
 
-        v0_ = lst[0].asFloat();
-        v1_ = lst[1].asFloat();
+        if (!(l[0].isFloat() && l[1].isFloat()))
+            return error("float arguments required");
+
+        v0_ = l[0].asFloat();
+        v1_ = l[1].asFloat();
 
         return ok();
+    }
+
+    std::pair<int, int> get() const
+    {
+        return std::make_pair(v0_, v1_);
     }
 
     int sum() const { return v0_ + v1_; }

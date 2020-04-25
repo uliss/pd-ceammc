@@ -247,13 +247,13 @@ TEST_CASE("wrapper_class", "[class-wrapper]")
 
     SECTION("constructor2")
     {
-        using DataType = wrapper::ClassConstructorCustom<WrapperDataPair>::TypeWrapped;
-        using TestType = TestPdExternal<WrapperDataPair>;
+        using DataType = wrapper::ClassConstructorCustom<WrapperIntPair>::TypeWrapped;
+        using TestType = TestPdExternal<WrapperIntPair>;
         using IntPair = std::pair<int, int>;
 
         SECTION("ctor")
         {
-            WRAP_CLASS(WrapperDataPair, "data2.new");
+            WRAP_CLASS(WrapperIntPair, "data2.new");
         }
 
         SECTION("empty")
@@ -304,7 +304,7 @@ TEST_CASE("wrapper_class", "[class-wrapper]")
 
         SECTION("type arg")
         {
-            TestType t("data2.new", AtomList::parseString("DataPair(100 200)"));
+            TestType t("data2.new", AtomList::parseString("IntPair(100 200)"));
             t << BANG;
 
             REQUIRE(t.isOutputDataAt(0));
@@ -319,7 +319,7 @@ TEST_CASE("wrapper_class", "[class-wrapper]")
 
         SECTION("wrong type arg")
         {
-            TestType t("data2.new", AtomList::parseString("DataPair(100 XXX)"));
+            TestType t("data2.new", AtomList::parseString("IntPair(100 XXX)"));
             t << BANG;
 
             REQUIRE(t.isOutputDataAt(0));
