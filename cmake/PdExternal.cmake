@@ -30,7 +30,7 @@ endif()
 if(LINUX)
     set(PD_EXTERNAL_EXTENSION ".pd_linux")
     set(PD_EXTERNAL_CFLAGS "-fPIC")
-    set(PD_EXTERNAL_LDFLAGS "-Wl,--export-dynamic -shared -fPIC")
+    set(PD_EXTERNAL_LDFLAGS -Wl,--export-dynamic -shared -fPIC)
 endif()
 
 if(WIN32)
@@ -44,7 +44,7 @@ if(WIN32)
     endif()
 
     set(PD_EXTERNAL_CFLAGS "-mms-bitfields")
-    set(PD_EXTERNAL_LDFLAGS "-shared -Wl,--enable-auto-import")
+    set(PD_EXTERNAL_LDFLAGS -shared -Wl,--enable-auto-import)
 endif()
 
 # adds puredata external
