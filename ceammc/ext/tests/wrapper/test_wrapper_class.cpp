@@ -62,13 +62,13 @@ TEST_CASE("wrapper_class", "[class-wrapper]")
 
     SECTION("constructor1")
     {
-        using ExternalType = wrapper::ClassConstructorCustom<WrapperDataInt>;
-        using DataType = wrapper::ClassConstructorCustom<WrapperDataInt>::TypeWrapped;
+        using ExternalType = wrapper::ClassConstructorCustom<WrapperInt>;
+        using DataType = wrapper::ClassConstructorCustom<WrapperInt>::TypeWrapped;
         using TestType = TestPdExternal<ExternalType>;
 
         SECTION("ctor")
         {
-            WRAP_CLASS(WrapperDataInt, "data1.new");
+            WRAP_CLASS(WrapperInt, "data1.new");
         }
 
         SECTION("empty")
@@ -171,7 +171,7 @@ TEST_CASE("wrapper_class", "[class-wrapper]")
             REQUIRE_FALSE(t.hasOutputAt(0));
 
             // data is supported
-            Atom dptr(new DataType(WrapperDataInt(300)));
+            Atom dptr(new DataType(WrapperInt(300)));
             t.send(dptr);
             REQUIRE(t.hasOutputAt(0));
             REQUIRE(t.isOutputDataAt(0));
@@ -226,7 +226,7 @@ TEST_CASE("wrapper_class", "[class-wrapper]")
 
                 // data ok
                 t.clearAll();
-                Atom d0(new AbstractDataWrapper<WrapperDataInt>(300));
+                Atom d0(new AbstractDataWrapper<WrapperInt>(300));
                 t.sendMessage(gensym("set"), d0);
                 REQUIRE_FALSE(t.hasOutputAt(0));
 

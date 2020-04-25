@@ -47,42 +47,6 @@ public:
     }
 };
 
-class WrapperDataInt : public DataIFace {
-    int v_;
-
-public:
-    WrapperDataInt(int v = 0)
-        : v_(v)
-    {
-    }
-
-    bool operator==(const WrapperDataInt& d) const
-    {
-        return v_ == d.v_;
-    }
-
-    std::string toString() const
-    {
-        return std::string("int: ") + std::to_string(v_);
-    }
-
-    Result setFromFloat(t_float v) override
-    {
-        v_ = static_cast<decltype(v_)>(v);
-        return ok();
-    }
-
-    static const char* typeName()
-    {
-        return "DataInt";
-    }
-
-    int get() const
-    {
-        return v_;
-    }
-};
-
 class WrapperIntPair : public DataIFace {
     int v0_, v1_;
 
