@@ -11,7 +11,6 @@
  * contact the author of this file, or the owner of the project in which
  * this file belongs to.
  *****************************************************************************/
-#include "mod_tl.h"
 #include "ceammc_timeline.h"
 #include "test_external.h"
 
@@ -20,15 +19,9 @@ struct Dummy {
 
 typedef TestPdExternal<Dummy> TestExt;
 
-extern "C" void setup_tl0x2etransport();
-extern "C" void setup_tl0x2ecue();
-void epd_init();
 
 TEST_CASE("tl.transport", "[externals]")
 {
-    epd_init();
-    ceammc_tl_setup();
-
     SECTION("init")
     {
         test::pdPrintToStdError();
