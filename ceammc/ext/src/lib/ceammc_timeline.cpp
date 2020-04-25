@@ -71,7 +71,6 @@ namespace tl {
 
         sort(cnv);
         enumerate(cnv);
-        std::cerr << "add cue: " << c << "\n";
         return true;
     }
 
