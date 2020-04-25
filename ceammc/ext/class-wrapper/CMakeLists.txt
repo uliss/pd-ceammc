@@ -25,7 +25,7 @@ include_directories(${PROJECT_SOURCE_DIR}/src)
 include_directories(${PROJECT_SOURCE_DIR}/ceammc/ext/src/lib)
 
 add_library(wrapper_lib SHARED ${CLASS_WRAPPER_SOURCES})
-target_link_options(wrapper_lib PRIVATE ${PD_EXTERNAL_LDFLAGS})
+set_property(TARGET wrapper_lib APPEND_STRING PROPERTY LINK_FLAGS "${PD_EXTERNAL_LDFLAGS}")
 target_link_libraries(wrapper_lib PRIVATE ceammc_core)
 
 function(wrapper_add NAME)

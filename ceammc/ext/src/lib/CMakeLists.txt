@@ -161,7 +161,9 @@ target_include_directories(ceammc_core PRIVATE $<TARGET_PROPERTY:fmt,INCLUDE_DIR
 target_include_directories(ceammc_core PRIVATE $<TARGET_PROPERTY:reflex,INCLUDE_DIRECTORIES>)
 
 target_compile_options(ceammc_core PRIVATE "${PD_EXTERNAL_CFLAGS}")
-target_link_options(ceammc_core PRIVATE ${PD_EXTERNAL_LDFLAGS})
+
+# we don't have target_link_options on travis now
+set_property(TARGET ceammc_core APPEND_STRING PROPERTY LINK_FLAGS "${PD_EXTERNAL_LDFLAGS}")
 
 if(WIN32)
     target_link_libraries(ceammc_core PUBLIC psapi shlwapi userenv puredata-core)

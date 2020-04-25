@@ -24,13 +24,13 @@ if(APPLE)
         endif()
     endif()
     set(PD_EXTERNAL_CFLAGS "-fPIC")
-    set(PD_EXTERNAL_LDFLAGS -flat_namespace -undefined dynamic_lookup)
+    set(PD_EXTERNAL_LDFLAGS "-flat_namespace -undefined dynamic_lookup")
 endif()
 
 if(LINUX)
     set(PD_EXTERNAL_EXTENSION ".pd_linux")
     set(PD_EXTERNAL_CFLAGS "-fPIC")
-    set(PD_EXTERNAL_LDFLAGS -Wl,--export-dynamic -shared -fPIC)
+    set(PD_EXTERNAL_LDFLAGS "-Wl,--export-dynamic -shared -fPIC")
 endif()
 
 if(WIN32)
@@ -44,7 +44,7 @@ if(WIN32)
     endif()
 
     set(PD_EXTERNAL_CFLAGS "-mms-bitfields")
-    set(PD_EXTERNAL_LDFLAGS -shared -Wl,--enable-auto-import)
+    set(PD_EXTERNAL_LDFLAGS "-shared -Wl,--enable-auto-import")
 endif()
 
 # adds puredata external
@@ -120,7 +120,8 @@ function(pd_add_external)
         endif()
 
         target_link_libraries(${TARGET_NAME} PRIVATE ${_PD_EXT_LINK})
-        target_link_options(${TARGET_NAME} PRIVATE ${PD_EXTERNAL_LDFLAGS})
+        # we don't have target_link_options on travis now
+        set_property(TARGET ${TARGET_NAME} APPEND_STRING PROPERTY LINK_FLAGS "${PD_EXTERNAL_LDFLAGS}")
     else()
         message(FATAL_ERROR "pd_add_external: 'NAME' argument required.")
     endif()
