@@ -50,8 +50,4 @@ elseif(WIN32)
     target_sources(ceammc_system PRIVATE sys_process_win.cpp)
 endif()
 
-if(UNIX)
-    set_target_properties(ceammc_system PROPERTIES COMPILE_FLAGS "-fPIC")
-endif()
-
 target_link_libraries(ceammc_system tiny-process-library)

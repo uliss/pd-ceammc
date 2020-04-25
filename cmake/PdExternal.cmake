@@ -24,7 +24,7 @@ if(APPLE)
         endif()
     endif()
     set(PD_EXTERNAL_CFLAGS "-fPIC")
-    set(PD_EXTERNAL_LDFLAGS "-flat_namespace -undefined dynamic_lookup")
+    set(PD_EXTERNAL_LDFLAGS -flat_namespace -undefined dynamic_lookup)
 endif()
 
 if(LINUX)
@@ -103,13 +103,15 @@ function(pd_add_external)
             set_source_files_properties(${_src_file} COMPILE_FLAGS "")
         endforeach()
 
-        include_directories(${_PD_INCLUDE_DIR})
-        include_directories(${CMAKE_SOURCE_DIR}/src)
+        target_include_directories(${TARGET_NAME}
+            PRIVATE
+                ${_PD_INCLUDE_DIR}
+                ${PROJECT_SOURCE_DIR}/src)
+
         set_target_properties(${TARGET_NAME} PROPERTIES
             PREFIX        ""
             SUFFIX        "${PD_EXTERNAL_EXTENSION}"
             COMPILE_FLAGS "${PD_EXTERNAL_CFLAGS}"
-            LINK_FLAGS    "${PD_EXTERNAL_LDFLAGS}"
             OUTPUT        "${_PD_EXT_NAME}"
             )
 
@@ -117,7 +119,8 @@ function(pd_add_external)
             list(APPEND _PD_EXT_LINK puredata-core)
         endif()
 
-        target_link_libraries(${TARGET_NAME} ${_PD_EXT_LINK})
+        target_link_libraries(${TARGET_NAME} PRIVATE ${_PD_EXT_LINK})
+        target_link_options(${TARGET_NAME} PRIVATE ${PD_EXTERNAL_LDFLAGS})
     else()
         message(FATAL_ERROR "pd_add_external: 'NAME' argument required.")
     endif()
@@ -174,7 +177,7 @@ function(pd_add_external)
         install(FILES ${_extra_file} DESTINATION "${INSTALL_DIR}")
     endforeach()
 
-    # install extension binary
+    # install external binary
     if(WIN32)
         install(TARGETS ${TARGET_NAME} DESTINATION "${INSTALL_DIR}")
     else()

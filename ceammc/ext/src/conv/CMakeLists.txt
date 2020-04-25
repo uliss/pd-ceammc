@@ -26,7 +26,3 @@ ceammc_conv_external(str2sec)
 
 add_library(ceammc_conv STATIC  ${CONV_SOURCES})
 target_include_directories(ceammc_conv PRIVATE ${PROJECT_SOURCE_DIR}/src)
-
-if(UNIX)
-    set_target_properties(ceammc_conv PROPERTIES COMPILE_FLAGS "-fPIC")
-endif()

@@ -144,10 +144,6 @@ if(BISON_FOUND AND FLEX_FOUND)
         WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/lex)
 endif()
 
-target_link_libraries(ceammc_core PUBLIC puredata-core)
-target_link_libraries(ceammc_core PRIVATE re2)
-target_link_libraries(ceammc_core PRIVATE reflex)
-
 if(WIN32)
     # this is rather important thing, we link ceammc_core to fmt whole static archive and then
     # we DON'T LINK(!) to fmt no more. If we need to use fmt we should link to ceammc_core
@@ -156,15 +152,16 @@ else()
     target_link_libraries(ceammc_core PRIVATE fmt)
 endif()
 
+target_link_libraries(ceammc_core PRIVATE re2)
+target_link_libraries(ceammc_core PRIVATE reflex)
+#target_link_libraries(ceammc_core PRIVATE puredata-core)
 
 target_include_directories(ceammc_core PRIVATE $<TARGET_PROPERTY:re2,INCLUDE_DIRECTORIES>)
 target_include_directories(ceammc_core PRIVATE $<TARGET_PROPERTY:fmt,INCLUDE_DIRECTORIES>)
 target_include_directories(ceammc_core PRIVATE $<TARGET_PROPERTY:reflex,INCLUDE_DIRECTORIES>)
 
-set(LIBCEAMMC_COMPILE_FLAGS "${PD_EXTERNAL_CFLAGS}")
-
-target_compile_options(ceammc_core PRIVATE "${LIBCEAMMC_COMPILE_FLAGS}")
-# target_link_options(ceammc_core PRIVATE ${PD_EXTERNAL_LDFLAGS})
+target_compile_options(ceammc_core PRIVATE "${PD_EXTERNAL_CFLAGS}")
+target_link_options(ceammc_core PRIVATE ${PD_EXTERNAL_LDFLAGS})
 
 if(WIN32)
     target_link_libraries(ceammc_core PUBLIC psapi shlwapi userenv puredata-core)
@@ -209,7 +206,7 @@ if(APPLE AND CMAKE_CXX_COMPILER_ID MATCHES "Clang")
     find_library(QUICKTIME_LIBRARY QuickTime)
     find_library(APP_SERVICES_LIBRARY ApplicationServices)
 
-    target_link_libraries(ceammc_core PUBLIC ${FOUNDATION_LIBRARY} ${AUDIOTOOLBOX_LIBRARY})
+    target_link_libraries(ceammc_core PRIVATE ${FOUNDATION_LIBRARY} ${AUDIOTOOLBOX_LIBRARY})
 endif()
 
 # install
@@ -226,22 +223,22 @@ if(ENABLE_TESTS)
         PRIVATE
             "${CMAKE_CURRENT_SOURCE_DIR}"
             "${PROJECT_SOURCE_DIR}/src")
-    target_link_libraries(ext_list PRIVATE ${CEAMMC_EXT_LINK_LIBRARIES})
+    target_link_libraries(ext_list PRIVATE ${CEAMMC_EXT_LINK_LIBRARIES} puredata-core)
 
     add_executable(ext_methods ext_methods.cpp ../mod_init.cpp)
     target_include_directories(ext_methods PRIVATE ${CMAKE_CURRENT_SOURCE_DIR})
-    target_link_libraries(ext_methods ${CEAMMC_EXT_LINK_LIBRARIES})
+    target_link_libraries(ext_methods ${CEAMMC_EXT_LINK_LIBRARIES} puredata-core)
 
     add_executable(ext_props ext_props.cpp ../mod_init.cpp)
     target_include_directories(ext_props PRIVATE ${CMAKE_CURRENT_SOURCE_DIR})
-    target_link_libraries(ext_props ${CEAMMC_EXT_LINK_LIBRARIES})
+    target_link_libraries(ext_props ${CEAMMC_EXT_LINK_LIBRARIES} puredata-core)
 
     add_executable(ext_info ext_info.cpp ../mod_init.cpp)
     target_include_directories(ext_info
         PRIVATE
             ${CMAKE_CURRENT_SOURCE_DIR}
             "$<TARGET_PROPERTY:fmt,INCLUDE_DIRECTORIES>")
-    target_link_libraries(ext_info PRIVATE ${CEAMMC_EXT_LINK_LIBRARIES})
+    target_link_libraries(ext_info PRIVATE ${CEAMMC_EXT_LINK_LIBRARIES} puredata-core)
 endif()
 
 add_custom_target(ceammc_cicm_tcl_gen

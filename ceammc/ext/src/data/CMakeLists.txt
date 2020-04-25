@@ -50,7 +50,3 @@ ceammc_data_external(local mlist)
 ceammc_data_external(local set)
 
 add_library(ceammc_data STATIC mod_data.h mod_data.cpp ${DATA_SOURCES})
-
-if(UNIX)
-    set_target_properties(ceammc_data PROPERTIES COMPILE_FLAGS "-fPIC")
-endif()

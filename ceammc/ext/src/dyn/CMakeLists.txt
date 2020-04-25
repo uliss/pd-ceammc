@@ -18,7 +18,3 @@ ceammc_dyn_obj_ext(softclip)
 
 add_library(ceammc_dyn STATIC mod_dyn.cpp ${DYN_SOURCES})
 target_compile_definitions(ceammc_dyn PRIVATE "FAUST_MACRO")
-
-if(UNIX)
-    set_target_properties(ceammc_dyn PROPERTIES COMPILE_FLAGS "-fPIC")
-endif()

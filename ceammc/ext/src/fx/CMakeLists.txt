@@ -34,6 +34,3 @@ ceammc_fx_obj_external(zita_rev1)
 
 add_library(ceammc_fx STATIC mod_fx.cpp ${FX_SOURCES})
 set_target_properties(ceammc_fx PROPERTIES COMPILE_DEFINITIONS "FAUST_MACRO")
-if(UNIX)
-    set_target_properties(ceammc_fx PROPERTIES COMPILE_FLAGS "-fPIC")
-endif()

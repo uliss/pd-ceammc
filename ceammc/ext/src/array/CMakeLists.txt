@@ -38,7 +38,3 @@ target_link_libraries(ceammc_array PRIVATE
     soundtouch
     soxr
 )
-
-if(UNIX)
-    set_target_properties(ceammc_array PROPERTIES COMPILE_FLAGS "-fPIC")
-endif()

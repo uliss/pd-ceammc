@@ -43,7 +43,3 @@ set_target_properties(ceammc_spat PROPERTIES COMPILE_DEFINITIONS "FAUST_MACRO")
 set_property(TARGET ceammc_spat PROPERTY CXX_STANDARD 14)
 target_include_directories(ceammc_spat PRIVATE $<TARGET_PROPERTY:fmt,INCLUDE_DIRECTORIES>)
 target_compile_definitions(ceammc_spat PUBLIC -DFMT_USE_CONSTEXPR=0)
-
-if(UNIX)
-    set_target_properties(ceammc_spat PROPERTIES COMPILE_FLAGS "-fPIC")
-endif()

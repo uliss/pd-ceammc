@@ -28,6 +28,3 @@ ceammc_env_obj_external(smooth)
 
 add_library(ceammc_env STATIC mod_env.cpp ${ENV_SOURCES})
 set_target_properties(ceammc_env PROPERTIES COMPILE_DEFINITIONS "FAUST_MACRO")
-if(UNIX)
-    set_target_properties(ceammc_env PROPERTIES COMPILE_FLAGS "-fPIC")
-endif()

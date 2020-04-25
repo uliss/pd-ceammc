@@ -7,7 +7,3 @@ set(FIRMATA_SOURCES
     firmata_proto_request.cpp)
 
 add_library(proto_firmata STATIC ${FIRMATA_SOURCES})
-
-if(UNIX)
-    set_target_properties(proto_firmata PROPERTIES COMPILE_FLAGS "-fPIC")
-endif()

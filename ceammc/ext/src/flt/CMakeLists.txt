@@ -41,6 +41,3 @@ list(APPEND FLT_SOURCES "flt_median.h" "flt_median.cpp")
 
 add_library(ceammc_flt STATIC mod_flt.h mod_flt.cpp ${FLT_SOURCES})
 set_target_properties(ceammc_flt PROPERTIES COMPILE_DEFINITIONS "FAUST_MACRO")
-if(UNIX)
-    set_target_properties(ceammc_flt PROPERTIES COMPILE_FLAGS "-fPIC")
-endif()

@@ -30,7 +30,3 @@ if(WITH_TTS_FLITE)
     target_link_libraries(ceammc_misc PUBLIC ${FLITE_LIBRARIES})
     target_sources(ceammc_misc PRIVATE speech_flite.cpp fliterender.cpp)
 endif()
-
-if(UNIX)
-    set_target_properties(ceammc_misc PROPERTIES COMPILE_FLAGS "-fPIC")
-endif()

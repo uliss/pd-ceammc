@@ -12,6 +12,3 @@ ceammc_path_extension(listdir)
 ceammc_path_extension(is_dir)
 
 add_library(ceammc_path STATIC mod_path.cpp ${PATH_SOURCES})
-if(UNIX)
-    set_target_properties(ceammc_path PROPERTIES COMPILE_FLAGS "-fPIC")
-endif()

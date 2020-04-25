@@ -49,8 +49,5 @@ ceammc_ui_extension(tab)
 ceammc_ui_extension(toggle)
 
 add_library(ceammc_ui STATIC mod_ui.cpp ${UI_SOURCES})
-if(UNIX)
-    set_target_properties(ceammc_ui PROPERTIES COMPILE_FLAGS "-fPIC")
-endif()
 
 target_link_libraries(ceammc_ui ceammc_env)

@@ -73,10 +73,6 @@ if(CMAKE_CXX_COMPILER_ID MATCHES "GNU")
     endforeach()
 endif()
 
-if(UNIX)
-    set_target_properties(ceammc_math PROPERTIES COMPILE_FLAGS "-fPIC")
-endif()
-
 if(BISON_FOUND AND FLEX_FOUND)
     add_custom_target(math_expr_gen
         COMMAND ${FLEX_EXECUTABLE} --header-file=lex.math_expr.h math_expr.lex

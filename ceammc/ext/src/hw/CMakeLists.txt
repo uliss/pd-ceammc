@@ -58,8 +58,3 @@ target_link_libraries(ceammc_hw hw_arduino ${HW_LINK_LIBRARIES})
 #if(LIBUSB_1_FOUND)
 #    target_link_libraries(ceammc_hw ${LIBUSB_1_LIBRARIES})
 #endif()
-
-if(UNIX)
-    set_target_properties(ceammc_hw PROPERTIES COMPILE_FLAGS "-fPIC")
-endif()
-

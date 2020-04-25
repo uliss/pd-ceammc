@@ -20,9 +20,6 @@ ceammc_string_extension(match)
 list(APPEND STRING_SOURCES symbol_equal.cpp symbol_length.cpp symbol_num_compare.cpp)
 
 add_library(ceammc_string STATIC mod_string.cpp ${STRING_SOURCES})
-if(UNIX)
-    set_target_properties(ceammc_string PROPERTIES COMPILE_FLAGS "-fPIC")
-endif()
 
 target_include_directories(ceammc_string
     PRIVATE "$<TARGET_PROPERTY:fmt,INCLUDE_DIRECTORIES>"

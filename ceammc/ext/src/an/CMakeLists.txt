@@ -17,7 +17,3 @@ target_include_directories(ceammc_analyze
 )
 
 target_link_libraries(ceammc_analyze PUBLIC helmholtz_ptrack aubio)
-
-if(UNIX)
-    target_compile_options(ceammc_analyze PRIVATE "-fPIC")
-endif()

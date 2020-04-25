@@ -40,10 +40,5 @@ target_include_directories(ceammc_flow PUBLIC ${PROJECT_SOURCE_DIR}/src)
 target_include_directories(ceammc_flow PRIVATE $<TARGET_PROPERTY:re2,INCLUDE_DIRECTORIES>)
 target_include_directories(ceammc_flow PRIVATE $<TARGET_PROPERTY:fmt,INCLUDE_DIRECTORIES>)
 
-
-if(UNIX)
-    set_target_properties(ceammc_flow PROPERTIES COMPILE_FLAGS "-fPIC")
-endif()
-
 target_link_libraries(ceammc_flow PRIVATE ceammc_base) # for function calls
 target_link_libraries(ceammc_flow PRIVATE re2)

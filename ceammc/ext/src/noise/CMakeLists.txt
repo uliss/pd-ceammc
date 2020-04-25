@@ -47,7 +47,3 @@ list(APPEND NOISE_SOURCES chaos_standard.cpp chaos_gbman.cpp)
 add_library(ceammc_noise STATIC ${NOISE_SOURCES})
 target_include_directories(ceammc_noise PUBLIC ${PROJECT_SOURCE_DIR}/src)
 target_compile_definitions(ceammc_noise PUBLIC "FAUST_MACRO")
-
-if(UNIX)
-    set_target_properties(ceammc_noise PROPERTIES COMPILE_FLAGS "-fPIC")
-endif()
