@@ -22,7 +22,11 @@ PathListDir::PathListDir(const PdArgs& a)
 
     addProperty(new PointerProperty<t_symbol*>("@match", &match_, PropValueAccess::READWRITE));
 
-    path_ = to_string(positionalArguments());
+    createCbListProperty(
+        "@path",
+        [this]() -> AtomList { return AtomList(gensym(path_.c_str())); },
+        [this](const AtomList& l) -> bool {path_ = to_string(l); return true; })
+        ->setArgIndex(0);
 }
 
 void PathListDir::onBang()

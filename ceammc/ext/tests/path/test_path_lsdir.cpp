@@ -63,6 +63,7 @@ TEST_CASE("path.lsdir", "[externals]")
         {
             TObj t("path.ls", LA("@match", "*.mp3"));
             REQUIRE_PROPERTY(t, @match, A("*.mp3"));
+            REQUIRE_PROPERTY(t, @path, "");
 
             WHEN_SEND_BANG_TO(0, t);
             REQUIRE_LIST_AT_OUTLET(0, t, L());
@@ -80,6 +81,7 @@ TEST_CASE("path.lsdir", "[externals]")
         {
             TObj t("path.ls", LA(".", "@match", "*.mp3"));
             REQUIRE_PROPERTY(t, @match, A("*.mp3"));
+            REQUIRE_PROPERTY(t, @path, ".");
 
             WHEN_SEND_BANG_TO(0, t);
             REQUIRE_LIST_AT_OUTLET(0, t, L());
@@ -88,6 +90,12 @@ TEST_CASE("path.lsdir", "[externals]")
             REQUIRE(t.hasNewMessages(0));
             REQUIRE(t.lastMessage(0).isList());
             REQUIRE(dataToList(t.lastMessage(0)) == files);
+        }
+
+        SECTION("properties")
+        {
+            TObj t("path.ls", LA("\"a", "file.mp3\""));
+            REQUIRE_PROPERTY(t, @path, "a file.mp3");
         }
     }
 
