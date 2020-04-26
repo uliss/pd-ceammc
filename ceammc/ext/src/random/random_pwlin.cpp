@@ -1,22 +1,22 @@
-#include <boost/algorithm/cxx11/is_sorted.hpp>
-#include <boost/random/mersenne_twister.hpp>
-#include <boost/random/piecewise_linear_distribution.hpp>
+#include <boost/algorithm/cxx11/is_sorted.hpp> // for is_strictly_increasing
 #include <ctime>
+#include <random>
 
 #include "ceammc_factory.h"
 #include "random_pwlin.h"
 
-static boost::random::mt19937 random_gen(std::time(0));
+static std::mt19937 random_gen(std::time(0));
 
 RandomPwLinear::RandomPwLinear(const PdArgs& a)
     : BaseObject(a)
 {
     createOutlet();
 
-    // the interval boundaries interleaved with weights
-    createCbProperty("@v", &RandomPwLinear::propValues, &RandomPwLinear::propSetValues);
-    if (positionalArguments().size() > 1)
-        set(positionalArguments());
+    createCbListProperty(
+        "@v",
+        [this]() -> AtomList { return values_; },
+        [this](const AtomList& l) -> bool { return set(l); })
+        ->setArgIndex(0);
 
     createCbProperty("@bounds", &RandomPwLinear::propBounds);
     createCbProperty("@weights", &RandomPwLinear::propWeights);
@@ -29,7 +29,7 @@ void RandomPwLinear::onBang()
         return;
     }
 
-    boost::random::piecewise_linear_distribution<t_float> dist(
+    std::piecewise_linear_distribution<t_float> dist(
         bounds_.begin(), bounds_.end(), weights_.begin());
 
     floatTo(0, dist(random_gen));
@@ -65,7 +65,7 @@ bool RandomPwLinear::set(const AtomList& data)
         return false;
     }
 
-    if (std::count_if(w.begin(), w.end(), std::bind2nd(std::less<t_float>(), 0))) {
+    if (std::count_if(w.begin(), w.end(), [](t_float f) { return f < 0; })) {
         OBJ_ERR << "negative weights are found: " << w;
         return false;
     }
@@ -76,22 +76,12 @@ bool RandomPwLinear::set(const AtomList& data)
     return true;
 }
 
-AtomList RandomPwLinear::propValues() const
-{
-    return values_;
-}
-
-void RandomPwLinear::propSetValues(const AtomList& s)
-{
-    set(s);
-}
-
 static AtomList vector2list(const std::vector<t_float>& v)
 {
     AtomList res;
     res.reserve(v.size());
-    for (size_t i = 0; i < v.size(); i++)
-        res.append(v[i]);
+    for (auto& x : v)
+        res.append(x);
 
     return res;
 }

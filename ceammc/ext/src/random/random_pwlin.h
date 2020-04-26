@@ -15,8 +15,6 @@ public:
     void onList(const AtomList& w) override;
 
     bool set(const AtomList& data);
-    AtomList propValues() const;
-    void propSetValues(const AtomList& s);
 
     AtomList propBounds() const;
     AtomList propWeights() const;
