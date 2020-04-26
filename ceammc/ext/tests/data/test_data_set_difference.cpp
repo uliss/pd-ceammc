@@ -54,6 +54,15 @@ TEST_CASE("set.diff", "[externals]")
             WHEN_SEND_TDATA_TO(0, t, DataTypeSet());
             REQUIRE_SET_OUTPUT(t, SetA());
         }
+
+        SECTION("args data")
+        {
+            TObj t("set.diff", AtomList::parseString("\"a b c\" pi()"));
+
+            // {"a b c"} \ {"a b c" 3.1415} = {}
+            WHEN_SEND_TDATA_TO(0, t, DataTypeSet("a b c"));
+            REQUIRE_SET_OUTPUT(t, SetA());
+        }
     }
 
     SECTION("do")
