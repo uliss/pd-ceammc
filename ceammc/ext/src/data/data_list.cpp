@@ -8,7 +8,11 @@ DataList::DataList(const PdArgs& a)
     createInlet();
     createOutlet();
 
-    list_ = positionalArguments();
+    createCbListProperty(
+        "@value",
+        [this]() -> AtomList { return list_; },
+        [this](const AtomList& l) -> bool {list_ = l; return true; })
+        ->setArgIndex(0);
 }
 
 void setup_data_list()

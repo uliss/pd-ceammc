@@ -13,6 +13,7 @@
  *****************************************************************************/
 #include "catch.hpp"
 #include "data_list.h"
+#include "datatype_string.h"
 #include "test_base.h"
 
 #include <stdio.h>
@@ -133,10 +134,20 @@ TEST_CASE("data.list", "[externals]")
 
     SECTION("construct args")
     {
-        DataListTest t("data.list", LA(1, 2, 3, 4, 5));
-        REQUIRE_LIST(t, LA(1, 2, 3, 4, 5));
+        DataListTest t("data.list", LF(1, 2, 3, 4, 5));
+        REQUIRE_LIST(t, LF(1, 2, 3, 4, 5));
 
-        REQUIRE_PROPERTY_FLOAT(t, @size, 5);
-        REQUIRE_PROPERTY_FLOAT(t, @empty, 0);
+        REQUIRE_PROPERTY(t, @size, 5);
+        REQUIRE_PROPERTY(t, @empty, 0);
+        REQUIRE_PROPERTY(t, @value, 1, 2, 3, 4, 5);
+    }
+
+    SECTION("construct args")
+    {
+        DataListTest t("data.list", AtomList::parseString("\"a b c\" S\"a b c\""));
+
+        REQUIRE_PROPERTY(t, @size, 2);
+        REQUIRE_PROPERTY(t, @empty, 0);
+        REQUIRE_PROPERTY(t, @value, "a b c", StringAtom("a b c"));
     }
 }
