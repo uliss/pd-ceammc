@@ -669,10 +669,12 @@ static void set_constraints(PropertyInfo& info, t_eattr* a)
         if (info.isNumeric()) {
             info.setConstraints(PropValueConstraints::GREATER_EQUAL);
 
-            if (info.isFloat())
-                info.setMinFloat(a->minimum);
-            else if (info.isInt())
-                info.setMinInt(a->minimum);
+            if (info.isFloat()) {
+                if (!info.setMinFloat(a->minimum))
+                    LIB_ERR << "can't set min float";
+            } else if (info.isInt())
+                if (!info.setMinInt(a->minimum))
+                    LIB_ERR << "can't set min int";
         }
     }
 
@@ -683,10 +685,11 @@ static void set_constraints(PropertyInfo& info, t_eattr* a)
             else
                 info.setConstraints(PropValueConstraints::LESS_EQUAL);
 
-            if (info.isFloat())
-                info.setMaxFloat(a->maximum);
-            else
-                info.setMaxInt(a->maximum);
+            if (info.isFloat()) {
+                if (!info.setMaxFloat(a->maximum))
+                    LIB_ERR << "can't set max float";
+            } else if (!info.setMaxInt(a->maximum))
+                LIB_ERR << "can't set max int";
         }
     }
 
@@ -694,8 +697,10 @@ static void set_constraints(PropertyInfo& info, t_eattr* a)
         info.setView(PropValueView::MENU);
         info.setConstraints(PropValueConstraints::ENUM);
 
-        for (size_t i = 0; i < a->itemssize; i++)
-            info.addEnum(a->itemslist[i]);
+        for (size_t i = 0; i < a->itemssize; i++) {
+            if (!info.addEnum(a->itemslist[i]))
+                LIB_ERR << "can't append enum";
+        }
     }
 }
 
