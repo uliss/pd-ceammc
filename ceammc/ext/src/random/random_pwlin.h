@@ -15,9 +15,6 @@ public:
     void onList(const AtomList& w) override;
 
     bool set(const AtomList& data);
-
-    AtomList propBounds() const;
-    AtomList propWeights() const;
 };
 
 void setup_random_pw_lin();

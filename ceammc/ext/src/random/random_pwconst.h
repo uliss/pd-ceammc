@@ -14,12 +14,6 @@ public:
     void onBang() override;
     void onList(const AtomList& v) override;
 
-    AtomList propBounds() const;
-    AtomList propWeights() const;
-
-    AtomList propValues() const;
-    void propSetValues(const AtomList& s);
-
 private:
     bool set(const AtomList& data);
 };

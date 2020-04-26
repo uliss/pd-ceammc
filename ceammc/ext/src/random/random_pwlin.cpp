@@ -7,6 +7,16 @@
 
 static std::mt19937 random_gen(std::time(0));
 
+static AtomList vector2list(const std::vector<t_float>& v)
+{
+    AtomList res;
+    res.reserve(v.size());
+    for (auto& x : v)
+        res.append(x);
+
+    return res;
+}
+
 RandomPwLinear::RandomPwLinear(const PdArgs& a)
     : BaseObject(a)
 {
@@ -18,8 +28,8 @@ RandomPwLinear::RandomPwLinear(const PdArgs& a)
         [this](const AtomList& l) -> bool { return set(l); })
         ->setArgIndex(0);
 
-    createCbProperty("@bounds", &RandomPwLinear::propBounds);
-    createCbProperty("@weights", &RandomPwLinear::propWeights);
+    createCbListProperty("@bounds", [this]() { return vector2list(bounds_); });
+    createCbListProperty("@weights", [this]() { return vector2list(weights_); });
 }
 
 void RandomPwLinear::onBang()
@@ -74,26 +84,6 @@ bool RandomPwLinear::set(const AtomList& data)
     bounds_ = b;
     weights_ = w;
     return true;
-}
-
-static AtomList vector2list(const std::vector<t_float>& v)
-{
-    AtomList res;
-    res.reserve(v.size());
-    for (auto& x : v)
-        res.append(x);
-
-    return res;
-}
-
-AtomList RandomPwLinear::propBounds() const
-{
-    return vector2list(bounds_);
-}
-
-AtomList RandomPwLinear::propWeights() const
-{
-    return vector2list(weights_);
 }
 
 void setup_random_pw_lin()
