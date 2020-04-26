@@ -16,7 +16,7 @@
 
 SetSymmetricDifference::SetSymmetricDifference(const PdArgs& a)
     : BaseObject(a)
-    , set1_(positionalArguments())
+    , set1_(parseDataList(a.args))
 {
     createInlet();
     createOutlet();
