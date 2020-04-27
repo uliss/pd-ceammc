@@ -12,6 +12,9 @@
             <category>math</category>
             <keywords>math negate</keywords>
             <since>0.1</since>
+            <aliases>
+                <alias>-x</alias>
+            </aliases>
         </meta>
         <info>
             <par>Returns value with opposite sign</par>
