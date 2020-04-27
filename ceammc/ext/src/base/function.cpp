@@ -133,7 +133,7 @@ Function* Function::function(t_symbol* name)
     return FunctionMap::instance().get(name);
 }
 
-extern "C" void function_setup()
+void function_setup()
 {
     ObjectFactory<Function> f("function");
     f.addAlias("func");

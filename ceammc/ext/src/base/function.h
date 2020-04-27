@@ -39,6 +39,6 @@ public:
     static Function* function(t_symbol* name);
 };
 
-extern "C" void function_setup();
+void function_setup();
 
 #endif // FUNCTION_H
