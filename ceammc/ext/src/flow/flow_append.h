@@ -20,7 +20,7 @@
 using namespace ceammc;
 
 class FlowAppend : public BaseObject {
-    AtomList msg_;
+    ListProperty* msg_;
     FloatProperty* delay_time_;
     FlagProperty* as_msg_;
     ClockMemberFunction<FlowAppend> clock_;
@@ -32,10 +32,9 @@ public:
     void onSymbol(t_symbol* s) override;
     void onList(const AtomList& lst) override;
     void onAny(t_symbol* s, const AtomList& lst) override;
+    void onInlet(size_t n, const AtomList& lst) override;
 
-    bool processAnyInlets(t_symbol* sel, const AtomList& lst) override;
-    bool processAnyProps(t_symbol*s, const AtomList& lst) override;
-    void parseProperties() override;
+    bool processAnyProps(t_symbol* s, const AtomList& lst) override;
 
 private:
     void process();

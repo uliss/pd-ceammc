@@ -216,7 +216,7 @@ void BaseObject::anyTo(size_t n, const AtomList& l)
     }
 
     if (!outletAny(outlets_[n], l))
-        OBJ_ERR << "internal error call BaseObject::anyTo";
+        OBJ_ERR << "invalid message: " << l;
 }
 
 void BaseObject::anyTo(size_t n, t_symbol* s, const Atom& a)
@@ -595,7 +595,6 @@ t_symbol* BaseObject::positionalSymbolArgument(size_t pos, t_symbol* def) const
 void BaseObject::parseProperties()
 {
     const size_t PROP_START = pd_.args.findPos([](const Atom& a) { return a.isProperty(); });
-
 
     AtomList parsed_positional_args = parseDataList(pd_.args.view(0, PROP_START));
     AtomList parsed_props = pd_.args.view(PROP_START).parseQuoted(true);

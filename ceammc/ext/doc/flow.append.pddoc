@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <pddoc version="1.0">
     <object name="flow.append">
-        <title>flow.append~</title>
+        <title>flow.append</title>
         <meta>
             <authors>
                 <author>Serge Poltavsky</author>
@@ -13,16 +13,26 @@
             <keywords>append</keywords>
             <since>0.6</since>
         </meta>
+        <arguments>
+            <argument type="list" name="VAL">append value</argument>
+        </arguments>
         <properties>
-            <property name="@delay" type="float" default="0" minvalue="0" units="millisecond">
+            <property name="@delay" type="float" default="0" minvalue="-1" units="millisecond">
             message delay. If &gt; 0 schedules message output in the future, if == 0 - send in next
             time tick, if &lt; 0 - output immidiately</property>
             <property name="@msg" type="flag" enum="0 1">output as message, not as list (by
             default)</property>
+            <property name="@value" type="list">append value</property>
         </properties>
         <inlets>
             <inlet>
                 <xinfo>input</xinfo>
+            </inlet>
+            <inlet>
+                <xinfo>set append value</xinfo>
+            </inlet>
+            <inlet>
+                <xinfo>set delay</xinfo>
             </inlet>
         </inlets>
         <outlets>
