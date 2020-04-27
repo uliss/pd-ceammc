@@ -221,9 +221,6 @@
     <entry descr="converts set to list" name="data.set2list" ref_view="object">
       <xi:include href="data.set2list.pddoc" parse="xml"/>
     </entry>
-    <entry descr="JSON like structure for storing values" name="data.tree" ref_view="object">
-      <xi:include href="data.tree.pddoc" parse="xml"/>
-    </entry>
     <entry descr="predicate to check if dict contains a keys" name="dict.contains" ref_view="object">
       <xi:include href="dict.contains.pddoc" parse="xml"/>
     </entry>
@@ -277,12 +274,6 @@
     </entry>
     <entry descr="output union of given sets" name="set.union" ref_view="object">
       <xi:include href="set.union.pddoc" parse="xml"/>
-    </entry>
-    <entry descr="convert tree node to float value" name="tree.float" ref_view="object">
-      <xi:include href="tree.float.pddoc" parse="xml"/>
-    </entry>
-    <entry descr="convert tree node to symbol value" name="tree.symbol" ref_view="object">
-      <xi:include href="tree.symbol.pddoc" parse="xml"/>
     </entry>
   </category>
   <category name="dyn">
@@ -872,6 +863,9 @@
   <category name="math">
     <entry descr="absolute value function" name="math.abs" ref_view="object">
       <xi:include href="math.abs.pddoc" parse="xml"/>
+    </entry>
+    <entry descr="absolute value function for signals" name="math.abs~" ref_view="object">
+      <xi:include href="math.abs~.pddoc" parse="xml"/>
     </entry>
     <entry descr="arc cosine function" name="math.acos" ref_view="object">
       <xi:include href="math.acos.pddoc" parse="xml"/>
