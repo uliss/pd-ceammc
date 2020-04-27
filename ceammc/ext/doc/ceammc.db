@@ -9,6 +9,7 @@ array.hist		.		.
 array.mean		.		.
 array.minmax		.		..
 array.p2s,array.p->s,array.phase->sample		.		.
+array.resample,array.r		.		.
 array.rms		.		.
 array.s2p,array.s->p,array.sample->phase		.		.
 array.set,list->array		.		-
