@@ -30,7 +30,9 @@
   - @end (or @e) - to specify end position
   - @length (or @l, @len) - to specify read segment length (cannot be used simultaneously with @end)
   - @normalize (or @n, @norm) - to normalize file right after loading
+  - @gain (or @g) - to specify applied gain in amp or db
   - @aoffset (or @aoff) - to specify write offset position in destination array
+- array.resample (with alias array.r) added. Resamples array with SoxR library
 
 ## [0.8]
 ### Added:
