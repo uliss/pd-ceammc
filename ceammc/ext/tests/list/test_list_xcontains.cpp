@@ -11,13 +11,11 @@
  * contact the author of this file, or the owner of the project in which
  * this file belongs to.
  *****************************************************************************/
+#include "datatype_mlist.h"
 #include "list_xcontains.h"
 #include "test_list_base.h"
 
 PD_COMPLETE_TEST_SETUP(ListXContains, list, xcontains)
-
-using TExt = TestExtListXContains;
-using TObj = TestListXContains;
 
 TEST_CASE("list.^contains", "[externals]")
 {
@@ -27,15 +25,33 @@ TEST_CASE("list.^contains", "[externals]")
     {
         SECTION("empty")
         {
-            TestListXContains t("list.^contains");
+            TObj t("list.^contains");
             REQUIRE(t.numInlets() == 2);
             REQUIRE(t.numOutlets() == 1);
+        }
+
+        SECTION("args")
+        {
+            TObj t("list.^contains", LF(1, 2));
+            REQUIRE_PROPERTY(t, @subj, 1, 2);
+        }
+
+        SECTION("spaces and quotes")
+        {
+            TObj t("list.^contains", LA("\"a b c\""));
+            REQUIRE_PROPERTY(t, @subj, "a b c");
+        }
+
+        SECTION("args mlist")
+        {
+            TObj t("list.^contains", AtomList::parseString("(1 2 3 (4 5 6))"));
+            REQUIRE_PROPERTY(t, @subj, MListAtom(*DataTypeMList::parse("( 1 2 3 ( 4 5 6 ) )")));
         }
     }
 
     SECTION("empty")
     {
-        TestListXContains t("list.^contains");
+        TObj t("list.^contains");
 
         WHEN_SEND_BANG_TO(0, t);
         REQUIRE_THAT(t, !hasOutput(&t));
@@ -55,7 +71,7 @@ TEST_CASE("list.^contains", "[externals]")
 
     SECTION("empty")
     {
-        TestListXContains t("list.^contains", LA(1, 2, 3, "A"));
+        TObj t("list.^contains", LA(1, 2, 3, "A"));
 
         WHEN_SEND_BANG_TO(0, t);
         REQUIRE_THAT(t, !hasOutput(&t));
@@ -157,6 +173,10 @@ TEST_CASE("list.^contains", "[externals]")
 
     SECTION("inlet 2")
     {
-        TestListXContains t("list.^contains", LF(2));
+        TExt t("list.^contains", 1, 2, 3);
+        REQUIRE_PROPERTY(t, @subj, 1, 2, 3);
+
+        t.sendSymbolTo("ABC", 1);
+        REQUIRE_PROPERTY(t, @subj, "ABC");
     }
 }
