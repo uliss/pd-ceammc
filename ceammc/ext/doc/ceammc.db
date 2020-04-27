@@ -326,7 +326,7 @@ math.sign		.		.
 math.sin		.		.
 math.sinh		.		.
 math.sqrt		.		.
-math.squared		.		.
+math.squared,^2		.		.
 math.sync_add,math.+',+'		..		.
 math.sync_and,math.&&',&&'		..		.
 math.sync_div,math./',/'		..		.
