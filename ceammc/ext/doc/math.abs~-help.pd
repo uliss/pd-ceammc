@@ -8,9 +8,10 @@
 #X obj 210 80 cnv 1 555 50 empty empty empty 17 7 0 10 -257983 -1 0;
 #X text 215 80 The abs() function computes the absolute value of the
 float input.;
-#X obj 50 158 lfo.tri~ 0.1;
+#X obj 50 158 lfo.tri~ 20;
 #X obj 50 187 math.abs~;
 #X obj 50 216 ui.scope~ @size 150 100;
+#X obj 184 216 ui.dsp~;
 #X obj 20 338 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 343 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
 0;

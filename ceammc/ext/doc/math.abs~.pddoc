@@ -30,11 +30,11 @@
         <example>
             <pdascii>
 <![CDATA[
-[lfo.tri~ 0.1]
+[lfo.tri~ 20]
 |
 [math.abs~]
 |
-[ui.scope~]
+[ui.scope~]   [ui.dsp~]
 ]]>
             </pdascii>
         </example>
