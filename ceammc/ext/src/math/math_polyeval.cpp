@@ -30,12 +30,12 @@ static FloatList atomlist2coeffs(const AtomList& lst)
 
 MathPolyEval::MathPolyEval(const PdArgs& args)
     : BaseObject(args)
-    , coeffs_(atomlist2coeffs(positionalArguments()))
 {
     createInlet();
     createOutlet();
 
-    createCbProperty("@coeffs", &MathPolyEval::propCoeffs, &MathPolyEval::propSetCoeffs);
+    createCbProperty("@coeffs", &MathPolyEval::propCoeffs, &MathPolyEval::propSetCoeffs)
+        ->setArgIndex(0);
 }
 
 template <size_t N>
