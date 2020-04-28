@@ -24,12 +24,17 @@ static t_symbol* SYM_FOLD;
 
 ListXAt::ListXAt(const PdArgs& args)
     : BaseObject(args)
-    , list_(positionalArguments())
     , def_(nullptr)
     , at_method_(nullptr)
 {
     createInlet();
     createOutlet();
+
+    createCbListProperty(
+        "@value",
+        [this]() -> AtomList { return list_; },
+        [this](const AtomList& l) -> bool { list_ = l; return true; })
+        ->setArgIndex(0);
 
     def_ = new AtomProperty("@default", Atom());
     addProperty(def_);
