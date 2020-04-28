@@ -33,7 +33,7 @@ class HoaDecoder : public HoaBase {
 public:
     HoaDecoder(const PdArgs& args);
 
-    void parseProperties() override;
+    void initDone() override;
     void processBlock(const t_sample** in, t_sample** out) override;
     void setupDSP(t_signal** sp) override;
     void blockSizeChanged(size_t bs) override;
@@ -69,7 +69,6 @@ private:
     }
 
     void initDecoder();
-    void parseMode();
     void parsePlainWavesNum();
 };
 

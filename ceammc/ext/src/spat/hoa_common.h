@@ -72,6 +72,7 @@ public:
         order_ = new IntProperty("@order", positionalConstant<HOA_DEFAULT_ORDER, HOA_MIN_ORDER, HOA_MAX_ORDER>(0));
         order_->setInitOnly();
         order_->checkClosedRange(HOA_MIN_ORDER, HOA_MAX_ORDER);
+        order_->setArgIndex(0);
         addProperty(order_);
     }
 

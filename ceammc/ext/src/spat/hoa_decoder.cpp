@@ -39,12 +39,14 @@ HoaDecoder::HoaDecoder(const PdArgs& args)
     , crop_size_(0)
 {
     mode_ = new SymbolEnumProperty("@mode", { SYM_REGULAR, SYM_IRREGULAR, SYM_BINAURAL });
+    mode_->setArgIndex(1);
     addProperty(mode_);
     addProperty(new SymbolEnumAlias("@regular", mode_, SYM_REGULAR));
     addProperty(new SymbolEnumAlias("@irregular", mode_, SYM_IRREGULAR));
     addProperty(new SymbolEnumAlias("@binaural", mode_, SYM_BINAURAL));
 
     plane_waves_ = new IntProperty("@nwaves", 0);
+    plane_waves_->setArgIndex(2);
     plane_waves_->setInitOnly();
     addProperty(plane_waves_);
 
@@ -77,16 +79,8 @@ HoaDecoder::HoaDecoder(const PdArgs& args)
         ->setUnits(PropValueUnits::DEG);
 }
 
-void HoaDecoder::parseMode()
-{
-    if (positionalArguments().size() > 1 && positionalArguments()[1].isSymbol())
-        mode_->setValue(positionalArguments()[1].asSymbol());
-}
-
 void HoaDecoder::parsePlainWavesNum()
 {
-    const int NWAVES_ARG_IDX = 2;
-
     // num of plane waves ignored in binaural mode
     if (mode_->value() == SYM_BINAURAL) {
         plane_waves_->setValue(2);
@@ -94,9 +88,9 @@ void HoaDecoder::parsePlainWavesNum()
         const int MIN_PW_COUNT = 2 * order() + 1;
         const int DEFAULT = 2 * order() + 2;
 
-        // property was not specified, try positional arg
+        // property was not specified, set default
         if (plane_waves_->value() == 0)
-            plane_waves_->setValue(positionalFloatArgumentT(NWAVES_ARG_IDX, DEFAULT));
+            plane_waves_->setValue(DEFAULT);
 
         const auto N = plane_waves_->value();
 
@@ -111,9 +105,9 @@ void HoaDecoder::parsePlainWavesNum()
         const int MIN_PW_COUNT = 1;
         const int DEFAULT = 5;
 
-        // property was not specified, try positional arg
+        // property was not specified, use default
         if (plane_waves_->value() == 0)
-            plane_waves_->setValue(positionalFloatArgumentT(NWAVES_ARG_IDX, DEFAULT));
+            plane_waves_->setValue(DEFAULT);
 
         const auto N = plane_waves_->value();
 
@@ -129,11 +123,8 @@ void HoaDecoder::parsePlainWavesNum()
     }
 }
 
-void HoaDecoder::parseProperties()
+void HoaDecoder::initDone()
 {
-    HoaBase::parseProperties();
-
-    parseMode();
     parsePlainWavesNum();
 
     initDecoder();
