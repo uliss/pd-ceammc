@@ -19,12 +19,27 @@
 
 ListXSearch::ListXSearch(const PdArgs& args)
     : BaseObject(args)
-    , lst_(positionalArguments())
     , start_(nullptr)
     , end_(nullptr)
 {
     createInlet();
     createOutlet();
+
+    createCbListProperty(
+        "@value",
+        [this]() -> AtomList { return lst_; },
+        [this](const AtomList& l) -> bool {
+            if (l.isData() && !l.isA<DataTypeMList>()) {
+                OBJ_ERR << fmt::format(
+                    "invalid datatype {}, only data.mlist is supported",
+                    l.first()->asData()->typeName());
+
+                return false;
+            }
+
+            lst_ = l;
+            return true;
+        });
 
     start_ = new SizeTProperty("@start", 0);
     addProperty(start_);
@@ -57,12 +72,7 @@ void ListXSearch::onData(const Atom& a)
 
 void ListXSearch::onInlet(size_t n, const AtomList& lst)
 {
-    if (lst.isData() && !lst.isA<DataTypeMList>()) {
-        OBJ_ERR << fmt::format("invalid datatype {}, only data.mlist is supported", lst.first()->asData()->typeName());
-        return;
-    }
-
-    lst_ = lst;
+    property("@value")->set(lst);
 }
 
 void ListXSearch::search(const Atom& a)
