@@ -16,23 +16,20 @@
 
 PD_COMPLETE_TEST_SETUP(ListRLDecode, list, rldecode)
 
-using TExt = TestExtListRLDecode;
-using TObj = TestListRLDecode;
-
 TEST_CASE("list.rldecode", "[externals]")
 {
     pd_test_init();
 
     SECTION("create")
     {
-        TestListRLDecode t("list.rldecode");
+        TObj t("list.rldecode");
         REQUIRE(t.numInlets() == 2);
         REQUIRE(t.numOutlets() == 1);
     }
 
     SECTION("do")
     {
-        TestListRLDecode t("list.rldecode");
+        TObj t("list.rldecode");
 
         WHEN_SEND_LIST_TO(0, t, LF(1, 2));
         REQUIRE_LIST_AT_OUTLET(0, t, L());
@@ -52,5 +49,13 @@ TEST_CASE("list.rldecode", "[externals]")
         REQUIRE_LIST_AT_OUTLET(0, t, LF(1, 2, 2, 2));
         WHEN_SEND_LIST_TO(0, t, LA("A", "B"));
         REQUIRE_LIST_AT_OUTLET(0, t, LA("A", "B", "B", "B"));
+    }
+
+    SECTION("do")
+    {
+        TExt t("list.rldecode", 1, 2, 3);
+
+        t << LA("a", "b", "c");
+        REQUIRE(listAt(t) == LA("a", "b", "b", "c", "c", "c"));
     }
 }

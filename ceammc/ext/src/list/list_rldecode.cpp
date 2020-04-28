@@ -20,10 +20,15 @@
 
 ListRLDecode::ListRLDecode(const PdArgs& args)
     : BaseObject(args)
-    , len_(positionalArguments())
 {
     createInlet();
     createOutlet();
+
+    createCbListProperty(
+        "@l",
+        [this]() -> AtomList { return len_; },
+        [this](const AtomList& l) -> bool { len_ = l; return true; })
+        ->setArgIndex(0);
 }
 
 void ListRLDecode::onList(const AtomList& l)
