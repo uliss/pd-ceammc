@@ -9,9 +9,13 @@ class ListRoute : public ListBase {
     FlagProperty* trim_;
     FlagProperty* as_any_;
     BoolProperty* simplify_types_;
+    ListProperty* args_;
 
 public:
     ListRoute(const PdArgs& args);
+
+    void initDone() override;
+
     void onFloat(t_float f) override;
     void onSymbol(t_symbol* s) override;
     void onList(const AtomList& lst) override;
