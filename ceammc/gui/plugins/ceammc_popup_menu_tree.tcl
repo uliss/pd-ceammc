@@ -36,27 +36,31 @@
     }}
     {array {
         array.bpm array.copy array.do array.each array.fill array.hist
-        array.mean array.minmax array.rms array.set array.stddev array.stretch
-        array.sum array.sum2 array.variance array.vplay array.window
+        array.mean array.minmax array.resample array.rms array.set
+        array.stddev array.stretch array.sum array.sum2 array.variance
+        array.vplay array.window
     }}
     {base {
         function function.call gain~ matrix~ metro.pattern metro.random
         metro.seq mix~ obj.props radio window xdac~ xfade2~ xfade~
+    }}
+    {chaos {
+        chaos.gbman0 chaos.gbman0~
     }}
     {conv {
         array.p2s array.s2p conv.amp2dbfs conv.bpm2hz conv.bpm2ms conv.bpm2sec
         conv.car2pol conv.cc2amp conv.dbfs2amp conv.lin2curve conv.lin2exp
         conv.lin2lin conv.lin2lin~ conv.list2props conv.midi2freq
         conv.phase2rad conv.phase2rad~ conv.pitch2midi conv.pol2car
-        conv.rad2phase conv.rad2phase~ conv.samp2sec conv.sec2samp
-        conv.sec2str conv.str2sec
+        conv.rad2phase conv.rad2phase~ conv.samp2ms conv.samp2sec
+        conv.sec2samp conv.sec2str conv.str2sec
     }}
     {data {
         data.dict data.fifo data.float data.int data.list data.mlist data.set
-        data.set2list data.tree dict.contains dict.each dict.from_list
-        dict.get dict.keys dict.pass dict.reject dict.size dict.to_list
-        dict.values mlist.flatten set.contains set.diff set.equal
-        set.intersect set.size set.symdiff set.union tree.float tree.symbol
+        data.set2list dict.contains dict.each dict.from_list dict.get
+        dict.keys dict.pass dict.reject dict.size dict.to_list dict.values
+        mlist.flatten set.contains set.diff set.equal set.intersect set.size
+        set.symdiff set.union
     }}
     {dyn {
         dyn.comp2~ dyn.comp~ dyn.gate2~ dyn.gate~ dyn.limit2~ dyn.limit~
@@ -109,10 +113,10 @@
         list.insert list.integrator list.last list.length list.max list.mean
         list.min list.none_of list.normalize list.pass_if list.prepend
         list.product list.range list.reduce list.remove list.remove_if
-        list.repack list.repeat list.resize list.reverse list.rldecode
-        list.rlencode list.rotate list.route list.search list.separate
-        list.seq list.set list.shift list.shuffle list.slice list.sort
-        list.sort_with list.split list.stretch list.sum list.unique
+        list.repack list.repeat list.resample list.resize list.reverse
+        list.rldecode list.rlencode list.rotate list.route list.search
+        list.separate list.seq list.set list.shift list.shuffle list.slice
+        list.sort list.sort_with list.split list.stretch list.sum list.unique
         list.unpack list.unzip list.walk list.zip
     }}
     {live {
@@ -122,7 +126,7 @@
         local.dict local.float local.int local.list local.mlist local.set
     }}
     {math {
-        math.abs math.acos math.acosh math.and math.approx math.asin
+        math.abs math.abs~ math.acos math.acosh math.and math.approx math.asin
         math.asinh math.atan math.atanh math.cbrt math.cdiv~ math.ceil
         math.cmul~ math.cos math.cosh math.div math.e math.exp math.exp2
         math.expr math.floor math.gcd math.inf math.lcm math.log math.log10
@@ -158,7 +162,7 @@
         patch.args
     }}
     {path {
-        path.basename path.dirname path.exists path.lsdir
+        path.basename path.dirname path.exists path.is_dir path.lsdir
     }}
     {predicates {
         is_any is_bang is_data is_dict is_even is_file is_float is_list is_odd

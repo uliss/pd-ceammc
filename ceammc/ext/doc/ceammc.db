@@ -256,6 +256,7 @@ list.remove		..		.
 list.remove_if		..		..
 list.repack		.		..
 list.repeat		..		.
+list.resample,list.r		..		.
 list.resize		.		.
 list.reverse		.		.
 list.rldecode,list.unwrap		..		.

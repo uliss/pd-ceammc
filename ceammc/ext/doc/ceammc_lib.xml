@@ -764,6 +764,9 @@
     <entry descr="creates new list by repeating given list specified times" name="list.repeat" ref_view="object">
       <xi:include href="list.repeat.pddoc" parse="xml"/>
     </entry>
+    <entry descr="resample list with specified ratio" name="list.resample" ref_view="object">
+      <xi:include href="list.resample.pddoc" parse="xml"/>
+    </entry>
     <entry descr="changes list size" name="list.resize" ref_view="object">
       <xi:include href="list.resize.pddoc" parse="xml"/>
     </entry>
@@ -812,7 +815,7 @@
     <entry descr="splits list into two parts, the length of first list is specified by the argument." name="list.split" ref_view="object">
       <xi:include href="list.split.pddoc" parse="xml"/>
     </entry>
-    <entry descr="stretches list - chenges its size with linear interpolation." name="list.stretch" ref_view="object">
+    <entry descr="stretches list - changes its size with linear interpolation" name="list.stretch" ref_view="object">
       <xi:include href="list.stretch.pddoc" parse="xml"/>
     </entry>
     <entry descr="calculates sum of floats in list" name="list.sum" ref_view="object">

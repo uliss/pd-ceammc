@@ -257,6 +257,7 @@ set(DOC_FILES
     list.remove_if
     list.repack
     list.repeat
+    list.resample
     list.resize
     list.reverse
     list.rldecode

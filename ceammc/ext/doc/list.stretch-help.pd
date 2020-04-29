@@ -1,7 +1,7 @@
 #N canvas 0 0 785 555 12;
 #X declare -lib ceammc;
-#X obj 302 50 cnv 1 463 23 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 302 50 stretches list - chenges its size with linear interpolation.;
+#X obj 308 50 cnv 1 457 23 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 308 50 stretches list - changes its size with linear interpolation;
 #X obj 1 1 cnv 5 765 40 empty empty list.stretch 20 20 0 20 -104026
 -4096 0;
 #X obj 654 11 list.stretch;

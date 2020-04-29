@@ -1,28 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
 <pddoc version="1.0">
-    <object name="list.stretch">
-        <title>list.stretch</title>
+    <object name="list.resample">
+        <title>list.resample</title>
         <meta>
             <authors>
-                <author>Alex Nadzharov</author>
                 <author>Serge Poltavsky</author>
             </authors>
-            <description>stretches list - changes its size with linear interpolation</description>
+            <description>resample list with specified ratio</description>
             <license>GPL3 or later</license>
             <library>ceammc</library>
             <category>list</category>
             <keywords>list</keywords>
-            <since>0.1</since>
+            <since>0.9</since>
+            <aliases>
+                <alias>list.r</alias>
+            </aliases>
             <also>
-                <see>list.shift</see>
+                <see>list.stretch</see>
             </also>
         </meta>
         <properties>
-            <property name="@size" type="int" minvalue="1" default="1">new size</property>
+            <property name="@ratio" type="float" minvalue="0" maxvalue="100" default="1">resample
+            ratio (src/dest)</property>
         </properties>
         <arguments>
-            <argument name="stretch" type="int" minvalue="1">New size of output list. Input list
-            will be stretched to the new size with linear interpolation</argument>
+            <argument name="RATIO" type="float" minvalue="0" maxvalue="100">resample
+            ratio</argument>
         </arguments>
         <inlets>
             <inlet>
@@ -30,7 +33,7 @@
                 <xinfo on="data:mlist">input mlist</xinfo>
             </inlet>
             <inlet>
-                <xinfo>new length of output list</xinfo>
+                <xinfo>set ratio</xinfo>
             </inlet>
         </inlets>
         <outlets>
@@ -39,7 +42,7 @@
         <example>
             <pdascii>
 <![CDATA[
-[ui.sliders]
+[ui.sliders]    [ui.sliders @auto_range 1 #b]
 |
 |
 |
@@ -47,19 +50,11 @@
 |
 |
 |
-|            [F]
+|            [ui.hrd]
 |            |.
-[list.stretch 32]
-|
-[ui.sliders @count 32]
-|
-|
-|
-|
-|
-|
-|
-[print]
+[list.resample 4 #a]
+
+[X a->b]
 ]]>
             </pdascii>
         </example>

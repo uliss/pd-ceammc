@@ -33,6 +33,7 @@
   - @gain (or @g) - to specify applied gain in amp or db
   - @aoffset (or @aoff) - to specify write offset position in destination array
 - array.resample (with alias array.r) added. Resamples array with SoxR library
+- list.resample (with alias list.r) added.
 
 ## [0.8]
 ### Added:

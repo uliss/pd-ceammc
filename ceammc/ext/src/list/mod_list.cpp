@@ -37,6 +37,7 @@ void setup_list_remove();
 void setup_list_remove_if();
 void setup_list_repack();
 void setup_list_repeat();
+void setup_list_resample();
 void setup_list_resize();
 void setup_list_reverse();
 void setup_list_rldecode();
@@ -101,6 +102,7 @@ void ceammc_list_setup()
     setup_list_remove_if();
     setup_list_repack();
     setup_list_repeat();
+    setup_list_resample();
     setup_list_resize();
     setup_list_reverse();
     setup_list_rldecode();
