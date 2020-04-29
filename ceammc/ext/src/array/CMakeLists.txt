@@ -27,6 +27,10 @@ ceammc_array_extension(window)
 
 add_library(ceammc_array STATIC mod_array.h mod_array.cpp ${ARRAY_SOURCES})
 
+if(UNIX)
+    target_link_libraries(ceammc_array PRIVATE soxr)
+endif()
+
 target_include_directories(ceammc_array PRIVATE
     "${PROJECT_SOURCE_DIR}/src"
     "$<TARGET_PROPERTY:soundtouch,INCLUDE_DIRECTORIES>"

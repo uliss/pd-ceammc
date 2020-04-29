@@ -340,12 +340,14 @@ list.normalize
 list.pass_if
 list.prepend
 list.product
+list.r
 list.range
 list.reduce
 list.remove
 list.remove_if
 list.repack
 list.repeat
+list.resample
 list.resize
 list.reverse
 list.rldecode

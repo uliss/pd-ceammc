@@ -18,10 +18,6 @@ target_link_libraries(test_ext_array PUBLIC
     ceammc_core
     puredata-core)
 
-if(UNIX)
-    target_link_libraries(test_ext_array PRIVATE soxr)
-endif()
-
 add_test(NAME test_ext_array
     COMMAND test_ext_array
     WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR})
