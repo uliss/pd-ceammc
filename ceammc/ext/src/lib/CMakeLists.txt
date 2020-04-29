@@ -159,6 +159,7 @@ target_link_libraries(ceammc_core PRIVATE reflex)
 target_include_directories(ceammc_core PRIVATE $<TARGET_PROPERTY:re2,INCLUDE_DIRECTORIES>)
 target_include_directories(ceammc_core PRIVATE $<TARGET_PROPERTY:fmt,INCLUDE_DIRECTORIES>)
 target_include_directories(ceammc_core PRIVATE $<TARGET_PROPERTY:reflex,INCLUDE_DIRECTORIES>)
+target_include_directories(ceammc_core PRIVATE $<TARGET_PROPERTY:soxr,INCLUDE_DIRECTORIES>)
 
 target_compile_options(ceammc_core PRIVATE "${PD_EXTERNAL_CFLAGS}")
 
