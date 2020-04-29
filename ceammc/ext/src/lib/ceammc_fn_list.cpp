@@ -12,6 +12,7 @@
  * this file belongs to.
  *****************************************************************************/
 #include "ceammc_fn_list.h"
+#include "soxr.h"
 
 #include <algorithm>
 #include <boost/functional/hash.hpp>
@@ -593,6 +594,56 @@ namespace list {
         }
 
         return false;
+    }
+
+    bool resample(const AtomList& src, AtomList& dest, t_float ratio)
+    {
+        if (ratio <= 0)
+            return false;
+
+        if (ratio == 1) {
+            dest = src;
+            return true;
+        }
+
+        std::vector<t_float> in;
+        in.reserve(src.size());
+        std::cerr << "in:\n\t";
+        for (auto& x : src) {
+            std::cerr << x << " ";
+            in.push_back(x.asFloat());
+        }
+
+        std::cerr << "\n";
+
+        std::vector<t_float> out;
+        const size_t OUTS = std::round(in.size() * ratio);
+        if (OUTS < 1) {
+            dest = AtomList();
+            return true;
+        }
+
+        out.resize(OUTS);
+
+        size_t idone = 0;
+        size_t odone = 0;
+        auto err = soxr_oneshot(1, ratio, 1,
+            in.data(), in.size(), &idone,
+            out.data(), OUTS, &odone,
+            nullptr, nullptr, nullptr);
+
+        if (err) {
+            std::cerr << err << "\n";
+            return false;
+        }
+
+        std::cerr << "idone: " << idone << "\n";
+        std::cerr << "odone: " << odone << "\n";
+
+        for (auto f : out)
+            dest.append(f);
+
+        return true;
     }
 
 }

@@ -147,9 +147,9 @@ endif()
 if(WIN32)
     # this is rather important thing, we link ceammc_core to fmt whole static archive and then
     # we DON'T LINK(!) to fmt no more. If we need to use fmt we should link to ceammc_core
-    target_link_libraries(ceammc_core PRIVATE -Wl,--whole-archive fmt::fmt -Wl,--no-whole-archive)
+    target_link_libraries(ceammc_core PRIVATE -Wl,--whole-archive fmt::fmt soxr -Wl,--no-whole-archive)
 else()
-    target_link_libraries(ceammc_core PRIVATE fmt)
+    target_link_libraries(ceammc_core PRIVATE fmt soxr)
 endif()
 
 target_link_libraries(ceammc_core PRIVATE re2)

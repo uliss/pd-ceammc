@@ -76,6 +76,15 @@ namespace list {
     bool normalizeByRange(const AtomList& src, AtomList& dest);
 
     /**
+     * Resample list
+     * @param src - source data
+     * @param dest - output data
+     * @param ratio - resample ratio (src/desc)
+     * @return treu on success, false on error
+     */
+    bool resample(const AtomList& src, AtomList& dest, t_float ratio);
+
+    /**
      * Return vector of types containing in lst, elements of other types are discarded
      */
     template <typename T>

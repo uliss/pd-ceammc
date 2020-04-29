@@ -11,8 +11,8 @@
  * contact the author of this file, or the owner of the project in which
  * this file belongs to.
  *****************************************************************************/
-#include "ceammc_fn_list.h"
 #include "ceammc_data.h"
+#include "ceammc_fn_list.h"
 #include "test_common.h"
 
 using namespace ceammc;
@@ -305,5 +305,40 @@ TEST_CASE("list functions2", "[core]")
 
         std::vector<t_symbol*> symbol_res_expected { SYM("A"), SYM("C"), SYM("true") };
         REQUIRE(list::extractByType<t_symbol*>(src) == symbol_res_expected);
+    }
+
+    SECTION("resample")
+    {
+        AtomList res;
+        REQUIRE(list::resample(L(), res, 1));
+        REQUIRE(res.empty());
+
+        REQUIRE(list::resample(LF(1, 2), res, 1));
+        REQUIRE(res == LF(1, 2));
+
+        REQUIRE_FALSE(list::resample(LF(1, 2, 3), res, 0));
+        REQUIRE(res == LF(1, 2));
+
+        res.clear();
+        REQUIRE(list::resample(LF(0, 1, 0, -1, 0, 1, 0, -1), res, 2));
+
+#define REQUIRE_FLOAT(a, b) REQUIRE(a.asFloat() == Approx(b).margin(0.00001))
+
+        REQUIRE_FLOAT(res[0], 0.0951107);
+        REQUIRE_FLOAT(res[1], 0.5723056);
+        REQUIRE_FLOAT(res[2], 0.9112480);
+        REQUIRE_FLOAT(res[3], 0.7417413);
+        REQUIRE_FLOAT(res[4], 0.0687988);
+        REQUIRE_FLOAT(res[5], -0.6919080);
+        REQUIRE_FLOAT(res[6], -1.0375848);
+        REQUIRE_FLOAT(res[7], -0.7455387);
+        REQUIRE_FLOAT(res[8], 0);
+        REQUIRE_FLOAT(res[9], 0.7455388);
+        REQUIRE_FLOAT(res[10], 1.0375848);
+        REQUIRE_FLOAT(res[11], 0.6919080);
+        REQUIRE_FLOAT(res[12], -0.0687987);
+        REQUIRE_FLOAT(res[13], -0.7417413);
+        REQUIRE_FLOAT(res[14], -0.9112480);
+        REQUIRE_FLOAT(res[15], -0.5723056);
     }
 }
