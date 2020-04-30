@@ -608,13 +608,9 @@ namespace list {
 
         std::vector<t_float> in;
         in.reserve(src.size());
-        std::cerr << "in:\n\t";
-        for (auto& x : src) {
-            std::cerr << x << " ";
-            in.push_back(x.asFloat());
-        }
 
-        std::cerr << "\n";
+        for (auto& x : src)
+            in.push_back(x.asFloat());
 
         std::vector<t_float> out;
         const size_t OUTS = std::round(in.size() * ratio);
@@ -636,9 +632,6 @@ namespace list {
             std::cerr << err << "\n";
             return false;
         }
-
-        std::cerr << "idone: " << idone << "\n";
-        std::cerr << "odone: " << odone << "\n";
 
         for (auto f : out)
             dest.append(f);
