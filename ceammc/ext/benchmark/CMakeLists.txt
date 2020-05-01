@@ -9,6 +9,9 @@ set(BM_HTML_DIR "${CMAKE_CURRENT_BINARY_DIR}")
 
 function(add_benchmark name)
     add_executable(bm_${name} bm_${name}.cpp)
+    if(UNIX)
+        target_compile_options(bm_${name} PRIVATE "-fPIC")
+    endif()
     target_link_libraries(bm_${name} bm_main ceammc_base
         ceammc_list ceammc_array ceammc_data ceammc_core puredata-core)
 
