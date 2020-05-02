@@ -47,8 +47,8 @@ before_script:
 - cd ${CEAMMC_BUILD_DIR}
 
 script:
-- make -j2
-- make test
+- cmake --build .
+- ctest
 - ../ceammc/scripts/travis_package.sh
 
 after_success:
