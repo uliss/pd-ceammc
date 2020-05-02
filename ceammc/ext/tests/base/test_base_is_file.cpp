@@ -22,6 +22,8 @@
 
 PD_COMPLETE_TEST_SETUP(IsFile, is, file)
 
+#define THIS_FILE PROJECT_SOURCE_DIR "/ceammc/ext/tests/base/test_base_is_file.cpp"
+
 TEST_CASE("is_file", "[externals]")
 {
     pd_test_init();
@@ -45,12 +47,12 @@ TEST_CASE("is_file", "[externals]")
         REQUIRE(floatAt(t, 0_out) == 0);
         REQUIRE(!t.hasOutputAt(1));
 
-        t << __FILE__;
+        t << THIS_FILE;
         REQUIRE(floatAt(t, 0_out) == 1);
-        REQUIRE(symbolAt(t, 1_out) == __FILE__);
+        REQUIRE(symbolAt(t, 1_out) == THIS_FILE);
 
-        t << StringAtom(__FILE__);
+        t << StringAtom(THIS_FILE);
         REQUIRE(floatAt(t, 0_out) == 1);
-        REQUIRE(dataAt(t, 1_out) == StringAtom(__FILE__));
+        REQUIRE(dataAt(t, 1_out) == StringAtom(THIS_FILE));
     }
 }

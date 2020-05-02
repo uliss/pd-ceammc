@@ -25,7 +25,7 @@ TEST_CASE("canvas.top", "[externals]")
     SECTION("init")
     {
         CanvasPtr cnv = PureData::instance().createTopCanvas("patch");
-        cnv->createObject("declare", LA("-stdpath", __FILE__));
+        cnv->createObject("declare", LA("-stdpath", TEST_DIR));
 
         TExt t("canvas.top");
         REQUIRE(t->canvas() == cnv->pd_canvas());
@@ -42,11 +42,11 @@ TEST_CASE("canvas.top", "[externals]")
         REQUIRE_PROPERTY(t, @y, 0.f);
 
         REQUIRE_PROPERTY(t, @size, 600, 400);
-        REQUIRE_PROPERTY(t, @paths, __FILE__);
+        REQUIRE_PROPERTY(t, @paths, TEST_DIR);
 
         t.bang();
         REQUIRE(dataAt(t) == DictAtom("[x: 0 y: 0 size: 600 400 font: 10 dir: \"~\" "
-                                      "name: patch paths: \"" __FILE__ "\" width: 600 height: 400]"));
+                                      "name: patch paths: \"" TEST_DIR "\" width: 600 height: 400]"));
 
         CanvasPtr subpatch = PureData::instance().createSubpatch(cnv->pd_canvas(), "sub1");
         REQUIRE(subpatch->owner() == cnv->pd_canvas());

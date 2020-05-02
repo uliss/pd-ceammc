@@ -38,14 +38,12 @@
 #define TEST_DATA_DIR "."
 #endif
 
+#define THIS_FILE PROJECT_SOURCE_DIR "/ceammc/ext/tests/cells/test_platform.cpp"
+
 using namespace ceammc::platform;
 
 #define basename_(str) ceammc::platform::basename(str)
 #define dirname_(str) ceammc::platform::dirname(str)
-
-#ifndef TEST_DATA_DIR
-#define TEST_DATA_DIR "."
-#endif
 
 TEST_CASE("ceammc::platform", "[ceammc::lib]")
 {
@@ -226,7 +224,7 @@ TEST_CASE("ceammc::platform", "[ceammc::lib]")
     SECTION("path_exists")
     {
         using namespace ceammc::platform;
-        REQUIRE(path_exists(__FILE__));
+        REQUIRE(path_exists(THIS_FILE));
         REQUIRE(path_exists(TEST_DATA_DIR));
         REQUIRE_FALSE(path_exists(TEST_DATA_DIR "not-exists"));
 
