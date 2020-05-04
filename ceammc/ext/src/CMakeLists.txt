@@ -92,6 +92,7 @@ pd_add_external(NAME ceammc
 
 if(WIN32)
     target_link_options(ceammc PRIVATE -Wl,--exclude-all-symbols)
+    target_link_libraries(ceammc PRIVATE soxr)
 endif()
 
 add_custom_target(ceammc_lib_src SOURCES gen_lib.sh)
