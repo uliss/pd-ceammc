@@ -230,11 +230,11 @@ if(ENABLE_TESTS)
 
     add_executable(ext_methods ext_methods.cpp ../mod_init.cpp)
     target_include_directories(ext_methods PRIVATE ${CMAKE_CURRENT_SOURCE_DIR})
-    target_link_libraries(ext_methods ${CEAMMC_EXT_LINK_LIBRARIES} puredata-core)
+    target_link_libraries(ext_methods PRIVATE ${CEAMMC_EXT_LINK_LIBRARIES} puredata-core)
 
     add_executable(ext_props ext_props.cpp ../mod_init.cpp)
     target_include_directories(ext_props PRIVATE ${CMAKE_CURRENT_SOURCE_DIR})
-    target_link_libraries(ext_props ${CEAMMC_EXT_LINK_LIBRARIES} puredata-core)
+    target_link_libraries(ext_props PRIVATE ${CEAMMC_EXT_LINK_LIBRARIES} puredata-core)
 
     add_executable(ext_info ext_info.cpp ../mod_init.cpp)
     target_include_directories(ext_info
@@ -242,6 +242,13 @@ if(ENABLE_TESTS)
             ${CMAKE_CURRENT_SOURCE_DIR}
             "$<TARGET_PROPERTY:fmt,INCLUDE_DIRECTORIES>")
     target_link_libraries(ext_info PRIVATE ${CEAMMC_EXT_LINK_LIBRARIES} puredata-core)
+
+    if(WIN32)
+        target_link_libraries(ext_info PRIVATE soxr)
+        target_link_libraries(ext_list PRIVATE soxr)
+        target_link_libraries(ext_methods PRIVATE soxr)
+        target_link_libraries(ext_props PRIVATE soxr)
+    endif()
 endif()
 
 add_custom_target(ceammc_cicm_tcl_gen
