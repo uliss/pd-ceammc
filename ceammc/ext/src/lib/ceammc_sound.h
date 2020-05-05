@@ -31,6 +31,7 @@ namespace sound {
     class SoundFile {
         std::string fname_;
         t_float gain_ = { 1 };
+        double resample_ratio_ = { 1 };
 
     public:
         SoundFile(const std::string& fname);
@@ -41,6 +42,9 @@ namespace sound {
 
         t_float gain() const { return gain_; }
         void setGain(t_float g) { gain_ = g; }
+
+        double resampleRatio() const { return resample_ratio_; }
+        void setResampleRatio(double r) { resample_ratio_ = r; }
 
         /**
          * @brief size in samples

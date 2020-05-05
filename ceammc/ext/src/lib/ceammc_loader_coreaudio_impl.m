@@ -226,7 +226,7 @@ int ceammc_coreaudio_getinfo(const char* path, audiofile_info_t* info)
     return 0;
 }
 
-int64_t ceammc_coreaudio_load(const char* path, size_t channel, size_t offset, size_t count, t_word* buf, t_float gain)
+int64_t ceammc_coreaudio_load(const char* path, size_t channel, size_t offset, size_t count, t_word* buf, t_float gain, double resample_ratio)
 {
     if (count == 0 || buf == 0)
         return INVALID_ARGS;
@@ -250,6 +250,15 @@ int64_t ceammc_coreaudio_load(const char* path, size_t channel, size_t offset, s
 
     AudioStreamBasicDescription audioOutFmt;
     fillOutputASBD(&audioOutFmt, &asbd);
+
+    if (resample_ratio != 1) {
+        if(resample_ratio < 0.001) {
+            ExtAudioFileDispose(converter);
+            return INVALID_RS_RATIO;
+        }
+
+        audioOutFmt.mSampleRate *= resample_ratio;
+    }
 
     if (!setOutputFormat(converter, &audioOutFmt)) {
         ExtAudioFileDispose(converter);
