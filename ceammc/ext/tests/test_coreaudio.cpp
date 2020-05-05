@@ -130,6 +130,8 @@ TEST_CASE("CoreAudio", "[ceammc::ceammc_loader_coreaudio]")
     SECTION("offset")
     {
         sound::CoreAudioFile sf(TEST_DATA_DIR "/test_data0.wav");
+        REQUIRE(sf.resampleRatio() == 1);
+        REQUIRE(sf.gain() == 1);
 
         t_word buf[1024];
         REQUIRE(sf.read(buf, 1024, 0, 0) == 441);
@@ -153,6 +155,30 @@ TEST_CASE("CoreAudio", "[ceammc::ceammc_loader_coreaudio]")
 
         t_word buf2[10];
         REQUIRE(sf3.read(buf2, 10, 0, 100) == 341);
+    }
+
+    SECTION("gain")
+    {
+        sound::CoreAudioFile sf(TEST_DATA_DIR "/test_data0.wav");
+        REQUIRE(sf.gain() == 1);
+
+        t_word buf[1024];
+        sf.setGain(0.5);
+        REQUIRE(sf.read(buf, 1024, 0, 0) == 441);
+        for (int i = 0; i < 441; i++) {
+            REQUIRE(buf[i].w_float == Approx((5.f * i) / 32767.f).epsilon(0.0001));
+        }
+    }
+
+    SECTION("resample")
+    {
+        sound::CoreAudioFile sf(TEST_DATA_DIR "/test_data0.wav");
+        REQUIRE(sf.resampleRatio() == 1);
+
+        t_word buf[1024];
+        sf.setResampleRatio(48000.0 / 44100);
+        REQUIRE(sf.resampleRatio() == Approx(48000.0 / 44100));
+        REQUIRE(sf.read(buf, 1024, 0, 0) == 480);
     }
 
     SECTION("player")
