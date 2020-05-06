@@ -61,10 +61,10 @@ namespace sound {
          * @param sz - destination buffer size
          * @param channel - input channel
          * @param offset - start position to read in samples
-         * @param gain - applied gain coefficent tipically (0..1)
+         * @param max_samples - max samples to write to array
          * @return
          */
-        virtual long read(t_word* dest, size_t sz, size_t channel, long offset) = 0;
+        virtual long read(t_word* dest, size_t sz, size_t channel, long offset, size_t max_samples) = 0;
 
         virtual bool isOpened() const = 0;
     };

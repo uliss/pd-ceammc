@@ -226,7 +226,8 @@ int ceammc_coreaudio_getinfo(const char* path, audiofile_info_t* info)
     return 0;
 }
 
-int64_t ceammc_coreaudio_load(const char* path, size_t channel, size_t offset, size_t count, t_word* buf, t_float gain, double resample_ratio)
+int64_t ceammc_coreaudio_load(const char* path, size_t channel, size_t offset, size_t count, t_word* buf, t_float gain, double resample_ratio,
+    size_t max_samples)
 {
     if (count == 0 || buf == 0)
         return INVALID_ARGS;
@@ -252,7 +253,7 @@ int64_t ceammc_coreaudio_load(const char* path, size_t channel, size_t offset, s
     fillOutputASBD(&audioOutFmt, &asbd);
 
     if (resample_ratio != 1) {
-        if(resample_ratio < 0.001) {
+        if (resample_ratio < 0.001) {
             ExtAudioFileDispose(converter);
             return INVALID_RS_RATIO;
         }
@@ -279,7 +280,7 @@ int64_t ceammc_coreaudio_load(const char* path, size_t channel, size_t offset, s
     convertedData.mBuffers[0].mData = outputBuffer;
 
     UInt32 frameCount = numSamples;
-    size_t frameIdx = 0, k = 0;
+    size_t frameIdx = 0;
 
     OSStatus err = ExtAudioFileSeek(converter, offset);
     if (err != noErr) {
@@ -300,12 +301,10 @@ int64_t ceammc_coreaudio_load(const char* path, size_t channel, size_t offset, s
             AudioBuffer audioBuffer = convertedData.mBuffers[0];
             float* data = (float*)audioBuffer.mData;
 
-            for (UInt32 i = 0; i < frameCount && (frameIdx < count); i++) {
+            for (UInt32 i = 0; i < frameCount && (frameIdx < count) && (frameIdx < max_samples); i++) {
                 buf[frameIdx].w_float = data[audioOutFmt.mChannelsPerFrame * i + channel] * gain;
                 frameIdx++;
-            }
-
-            k += frameCount;
+            } 
         }
     }
 
@@ -313,7 +312,7 @@ int64_t ceammc_coreaudio_load(const char* path, size_t channel, size_t offset, s
 
     free(outputBuffer);
 
-    return k;
+    return frameIdx;
 }
 
 t_audio_player* ceammc_coreaudio_player_create()

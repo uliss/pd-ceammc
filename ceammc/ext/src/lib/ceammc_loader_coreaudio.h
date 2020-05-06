@@ -33,7 +33,7 @@ namespace sound {
         bool isOpened() const override;
         bool close() override;
 
-        long read(t_word* dest, size_t sz, size_t channel, long offset) override;
+        long read(t_word* dest, size_t sz, size_t channel, long offset, size_t max_samples) override;
 
     public:
         static FormatList supportedFormats();
