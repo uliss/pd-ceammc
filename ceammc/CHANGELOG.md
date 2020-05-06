@@ -32,6 +32,7 @@
   - @normalize (or @n, @norm) - to normalize file right after loading
   - @gain (or @g) - to specify applied gain in amp or db
   - @aoffset (or @aoff) - to specify write offset position in destination array
+  - @resample - to specify data resampling while loading
 - array.resample (with alias array.r) added. Resamples array with SoxR library
 - list.resample (with alias list.r) added.
 

@@ -134,6 +134,8 @@ public:
     /** sets applied gain while loading */
     bool setGain(double amp);
 
+    /** return resample ratio, 0 if not set */
+    double resampleRatio() const { return resample_ratio_; }
     /** sets resample ratio */
     bool setResampleRatio(long dest, long src);
 

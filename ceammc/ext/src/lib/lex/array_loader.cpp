@@ -117,7 +117,7 @@ bool ArrayLoader::loadArrays(const sound::SoundFilePtr& file, bool redraw)
         return false;
     }
 
-    const auto SRC_LENGTH = end_ - begin_;
+    const auto SRC_LEN = end_ - begin_;
     const auto NITEMS = std::min(arrays_.size(), channels_.size());
 
     for (size_t i = 0; i < NITEMS; i++) {
@@ -146,7 +146,8 @@ bool ArrayLoader::loadArrays(const sound::SoundFilePtr& file, bool redraw)
         }
 
         if (resize()) {
-            const size_t NEW_ARRAY_SIZE = ARRAY_OFFSET + SRC_LENGTH;
+            const size_t DEST_LEN = resampleRatio() > 0 ? std::round(SRC_LEN * resampleRatio()) : SRC_LEN;
+            const size_t NEW_ARRAY_SIZE = ARRAY_OFFSET + DEST_LEN;
 
             if (!arr.resize(NEW_ARRAY_SIZE)) {
                 err() << fmt::format("can't resize array '{}' to {} samples\n", name, NEW_ARRAY_SIZE);
@@ -166,14 +167,14 @@ bool ArrayLoader::loadArrays(const sound::SoundFilePtr& file, bool redraw)
 
             // read data from file to array
             t_word* vecs = reinterpret_cast<t_word*>(&arr.at(ARRAY_OFFSET));
-            long read = file->read(vecs, SRC_LENGTH, channel, begin_);
+            long read = file->read(vecs, SRC_LEN, channel, begin_, DEST_LEN);
 
-            if (read != SRC_LENGTH) {
-                err() << fmt::format("can't read {} samples to array '{}'\n", SRC_LENGTH, name);
+            if (read != DEST_LEN) {
+                err() << fmt::format("can't read {} samples to array '{}'\n", DEST_LEN, name);
                 return false;
             }
 
-            loaded_samples_.push_back(SRC_LENGTH);
+            loaded_samples_.push_back(DEST_LEN);
 
         } else {
             if (ARRAY_SIZE <= ARRAY_OFFSET) { // write beyond file end
@@ -181,16 +182,20 @@ bool ArrayLoader::loadArrays(const sound::SoundFilePtr& file, bool redraw)
                 return false;
             }
 
-            const auto NSAMPLES = std::min<size_t>(ARRAY_SIZE - ARRAY_OFFSET, SRC_LENGTH);
+            const auto DEST_MAX_SAMPLES = ARRAY_SIZE - ARRAY_OFFSET;
+            const size_t NOUT_SAMPLES = std::min<size_t>(DEST_MAX_SAMPLES,
+                resampleRatio() > 0 ? SRC_LEN * resampleRatio() : SRC_LEN);
+
+            const size_t NIN_SAMPLES = resampleRatio() > 0 ? NOUT_SAMPLES / resampleRatio() : NOUT_SAMPLES;
 
             t_word* vecs = reinterpret_cast<t_word*>(&arr.at(ARRAY_OFFSET));
-            long read = file->read(vecs, NSAMPLES, channel, begin_);
-            if (read != NSAMPLES) {
-                err() << fmt::format("can't read {} samples to array '{}'\n", NSAMPLES, name);
+            long read = file->read(vecs, NIN_SAMPLES, channel, begin_, DEST_MAX_SAMPLES);
+            if (read != NOUT_SAMPLES) {
+                err() << fmt::format("can't read {} samples to array '{}', got {}\n", NOUT_SAMPLES, name, read);
                 return false;
             }
 
-            loaded_samples_.push_back(NSAMPLES);
+            loaded_samples_.push_back(NIN_SAMPLES);
         }
 
         if (debug_) {

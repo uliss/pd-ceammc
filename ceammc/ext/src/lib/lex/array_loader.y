@@ -138,7 +138,7 @@ opt
                                         { error(@2, "invalid @gain value"); return 1; }}
     | RESAMPLE                    { if(!loader.setResampleRatio(loader.destSamplerate(), loader.srcSampleRate()))
                                         { error(@1, "invalid ratio"); return 1; }}
-    | RESAMPLE number             { if(!loader.setResampleRatio($2, loader.srcSampleRate()))
+    | RESAMPLE number             { if(!loader.setResampleRatio($2 * loader.srcSampleRate(), loader.srcSampleRate()))
                                         { error(@2, "invalid ratio"); return 1; }}
     | RESAMPLE INT FRAC INT       { if(!loader.setResampleRatio($2, $4))
                                         { error(@2, "invalid ratio"); return 1; }}

@@ -58,9 +58,9 @@ bool CoreAudioFile::close()
     return true;
 }
 
-long CoreAudioFile::read(t_word* dest, size_t sz, size_t channel, long offset)
+long CoreAudioFile::read(t_word* dest, size_t sz, size_t channel, long offset, size_t max_samples)
 {
-    int64_t res = ceammc_coreaudio_load(filename().c_str(), channel, offset, sz, dest, gain(), resampleRatio());
+    int64_t res = ceammc_coreaudio_load(filename().c_str(), channel, offset, sz, dest, gain(), resampleRatio(), max_samples);
     return res < 0 ? -1 : res;
 }
 

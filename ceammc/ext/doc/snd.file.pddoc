@@ -69,6 +69,8 @@
 |                   |.
 [dac~               ]
 
+[snd.file.resample-help] [snd.file.gain-help]
+
 [X play->a2]
 [X stop->a2]
 ]]>

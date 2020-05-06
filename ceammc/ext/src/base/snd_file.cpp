@@ -79,6 +79,11 @@ void SndFile::m_load(t_symbol* s, const AtomList& lst)
         return;
     }
 
+    // src samplerate set from this moment
+    // set destination samplerate before parse -
+    // after parse resampleRatio can be set
+    loader.setDestSamplerate(sys_getsr());
+
     if (!loader.parse(array_opts)) {
         OBJ_ERR << "can't parse options: " << array_opts;
         return postLoadUsage();
@@ -101,6 +106,9 @@ void SndFile::m_load(t_symbol* s, const AtomList& lst)
 
     // set gain after parse, but before loading
     file->setGain(loader.gain());
+    // set resample after parse, but before loading
+    if (loader.resampleRatio() > 0)
+        file->setResampleRatio(loader.resampleRatio());
 
     if (!loader.loadArrays(file, true)) {
         OBJ_ERR << fmt::format("can't load file '{}' to arrays: {}",

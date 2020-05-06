@@ -893,7 +893,7 @@ namespace ceammc {
 
   case 24:
 #line 141 "array_loader.y"
-                                  { if(!loader.setResampleRatio(yystack_[0].value.as < double > (), loader.srcSampleRate()))
+                                  { if(!loader.setResampleRatio(yystack_[0].value.as < double > () * loader.srcSampleRate(), loader.srcSampleRate()))
                                         { error(yystack_[0].location, "invalid ratio"); return 1; }}
 #line 899 "array_loader.parser.cpp"
     break;
