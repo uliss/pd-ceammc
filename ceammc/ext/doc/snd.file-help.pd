@@ -40,57 +40,58 @@ into arrays. Various formats are supported. Supports array name patterns.;
 #X obj 50 447 dac~;
 #X obj 50 476 snd.file.resample-help;
 #X obj 290 476 snd.file.gain-help;
-#X obj 20 515 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 520 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
+#X obj 50 504 snd.file.pattern-help;
+#X obj 20 543 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 548 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
 -49933 0;
-#X msg 110 555 @formats;
-#X text 245 555 (readonly) Get list of supported formats. Type: list.;
-#X obj 20 594 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 599 cnv 5 73 26 empty empty methods: 4 10 0 14 -262144
+#X msg 110 583 @formats;
+#X text 245 583 (readonly) Get list of supported formats. Type: list.;
+#X obj 20 622 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 627 cnv 5 73 26 empty empty methods: 4 10 0 14 -262144
 -49933 0;
-#X msg 110 634 info;
-#X text 245 634 Outputs info about sound file as properties: @channels
+#X msg 110 662 info;
+#X text 245 662 Outputs info about sound file as properties: @channels
 - number of channels \, @samples - number of samples \, @samplerate
 - sound file samplerate \, @duration - file duration in seconds. Arguments
 are:;
-#X obj 255 702 cnv 1 36 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 702 PATH: path to soundfile. Type: symbol.;
-#X msg 110 727 load;
-#X text 245 727 Loads sound file. Outputs info properties and number
+#X obj 255 730 cnv 1 36 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 730 PATH: path to soundfile. Type: symbol.;
+#X msg 110 755 load;
+#X text 245 755 Loads sound file. Outputs info properties and number
 of loaded samples after load. Arguments are:;
-#X obj 255 765 cnv 1 36 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 765 PATH: path to soundfile. Type: symbol.;
-#X obj 255 788 cnv 1 114 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 788 @to ARRAY_NAME: destination array name or pattern.
+#X obj 255 793 cnv 1 36 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 793 PATH: path to soundfile. Type: symbol.;
+#X obj 255 816 cnv 1 114 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 816 @to ARRAY_NAME: destination array name or pattern.
 Array patterns specified in square braces: array_[1-4] means - array_1
 \, array_2 \, array_3 \, array_4\. array_[left|right] means array_left
 and array_right. Type: symbol.;
-#X obj 255 856 cnv 1 70 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 856 [@resize]: resize array to feet loaded file. Type:
+#X obj 255 884 cnv 1 70 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 884 [@resize]: resize array to feet loaded file. Type:
 property.;
-#X obj 255 879 cnv 1 131 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 879 [@offset SAMPLES]: offset in samples from beginning
+#X obj 255 907 cnv 1 131 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 907 [@offset SAMPLES]: offset in samples from beginning
 of file. Type: property.;
-#X obj 255 917 cnv 1 146 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 917 [@channel N1 N2\..]: channels to load. Type: symbol.;
-#X obj 20 952 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 957 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
+#X obj 255 945 cnv 1 146 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 945 [@channel N1 N2\..]: channels to load. Type: symbol.;
+#X obj 20 980 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 985 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
-#X text 110 958 1\.;
-#X text 245 958 input inlet.;
-#X obj 20 988 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 993 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
+#X text 110 986 1\.;
+#X text 245 986 input inlet.;
+#X obj 20 1016 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1021 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 994 1\.;
-#X text 245 994 number of loaded samples or file info properties.;
+#X text 110 1022 1\.;
+#X text 245 1022 number of loaded samples or file info properties.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 115 45 ::;
 #X obj 131 48 ui.link @title snd @url ceammc.snd-help.pd;
-#X obj 1 1044 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 1047 library: ceammc v0.8.0;
-#N canvas 10 1066 400 290 info 0;
+#X obj 1 1072 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1075 library: ceammc v0.8.0;
+#N canvas 10 1094 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
@@ -114,7 +115,7 @@ https://github.com/uliss/pure-data;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 generated by pddoc;
-#X restore 10 1066 pd info;
+#X restore 10 1094 pd info;
 #X connect 6 0 8 0;
 #X connect 8 0 10 0;
 #X connect 10 0 11 0;
