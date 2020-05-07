@@ -21,7 +21,7 @@
             <method name="load">Loads sound file. Outputs info properties and number of loaded
             samples after load. 
             <param type="symbol" required="true" name="PATH">path to soundfile</param>
-            <param type="symbol" required="true" name="@to ARRAY_NAME">destination array name or
+            <param type="symbol" required="true" name="@to ARRAY_NAME">destination array names or
             pattern. Array patterns specified in square braces: array_[1-4] means - array_1,
             array_2, array_3, array_4. array_[left|right] means array_left and array_right</param>
             <param type="property" name="@resize">resize array to fit loaded samples</param>
@@ -42,16 +42,14 @@
             Deprecated, use @begin instead</param>
             <param type="property" name="@resample R?">if R is not specified - resample from file
             samplerate to current Pd samplerate. But you can manually specify R as float value or
-            fraction - 44100/48000</param>
-            <param type="symbol" name="@channel N1 N2..">channels to load</param></method>
-            <method name="info">Outputs info about sound file as properties: @channels - number of
-            channels, @samples - number of samples, @samplerate - sound file samplerate, @duration
-            - file duration in seconds. 
-            <param type="symbol" required="true" name="PATH">path to soundfile</param></method>
+            fraction - 44100/48000</param></method>
         </methods>
         <properties>
             <property name="@formats" readonly="true" type="list">list of supported
             formats</property>
+            <property name="@sr" readonly="true" type="list">source file samplerate</property>
+            <property name="@filename" readonly="true" type="list">filename</property>
+            <property name="@samples" readonly="true" type="list">list of loaded samples to each array</property>
         </properties>
         <inlets>
             <inlet type="control">
