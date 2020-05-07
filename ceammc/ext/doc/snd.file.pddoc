@@ -49,7 +49,10 @@
             formats</property>
             <property name="@sr" readonly="true" type="list">source file samplerate</property>
             <property name="@filename" readonly="true" type="list">filename</property>
-            <property name="@samples" readonly="true" type="list">list of loaded samples to each array</property>
+            <property name="@samples" readonly="true" type="list">list of loaded samples to each
+            array</property>
+            <property name="@smpte_fr" type="float" minvalue="1" maxvalue="99" default="30">SMPTE
+            framerate for SMPTE offset calculations</property>
         </properties>
         <inlets>
             <inlet type="control">

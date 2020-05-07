@@ -20,6 +20,7 @@ SndFile::SndFile(const PdArgs& a)
     : BaseObject(a)
     , verbose_(nullptr)
     , debug_(nullptr)
+    , smpte_framerate_(nullptr)
 {
     createOutlet();
 
@@ -28,6 +29,10 @@ SndFile::SndFile(const PdArgs& a)
 
     debug_ = new FlagProperty("@.debug");
     addProperty(debug_);
+
+    smpte_framerate_ = new FloatProperty("@smpte_fr", 30);
+    smpte_framerate_->checkClosedRange(1, 99);
+    addProperty(smpte_framerate_);
 
     createCbListProperty("@sr", [this]() -> AtomList { return samplerates_; });
     createCbListProperty("@filename", [this]() -> AtomList { return filenames_; });
@@ -69,6 +74,7 @@ void SndFile::m_load(t_symbol* s, const AtomList& lst)
 
     ArrayLoader loader;
     loader.setDebug(debug_->value());
+    loader.setSmpteFramerate(smpte_framerate_->value());
 
     loader.setErr(&err.stream());
     loader.setLog(&log.stream());
