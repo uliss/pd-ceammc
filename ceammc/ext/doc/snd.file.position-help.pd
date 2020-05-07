@@ -1,4 +1,4 @@
-#N canvas 590 23 838 807 12;
+#N canvas 590 23 849 807 12;
 #N canvas 0 22 450 278 (subpatch) 0;
 #X array sfpos1 512 float 2;
 #X coords 0 1 512 -1 512 100 1 0 0;
@@ -17,35 +17,37 @@ f 80;
 #X text 58 237 @begin 00:02 or @begin 00:00:02 - means start file read
 2 seconds after beginning \, according file (not Pd!) samplerate.,
 f 80;
-#X text 58 277 @begin -2000 - means start file read 2 seconds before
-end., f 80;
-#X text 39 14 Input file can loaded partially. To address loaded segment
-you can you three options: @begin \, @end and @length (@b \, @e \,
-@l or @len). Last two can not be used simultaneously. All options can
-be specified in samples (by default) \, time in seconds or milliseconds
-(source file sample rate used for this calculations). @begin should
-be less then @end \, but both of them can be negative \, which means
-offset from the end of source file., f 88;
-#X text 58 303 @end (@e) option is the same;
-#X text 58 331 @length (@l or @len) option should be positive.;
-#X text 277 367 load last 5 seconds file F to array A;
-#X msg 33 368 load F to A @b -5sec;
-#X msg 33 398 load F to A @b -5s @l 2s;
-#X text 277 397 load 2 second from file F to array A \, stargin 5 seconds
-before the end, f 77;
-#X msg 33 428 load F to A @b 100ms @e -100ms;
-#X text 277 427 load file F to A except first and last 100 milliseconds
-, f 77;
+#X text 307 367 load last 5 seconds file F to array A;
+#X text 307 427 load file F to A except first and last 100 milliseconds
+, f 73;
 #X msg 57 662 load %CEAMMC%/sin_ch4_44.1k.wav to sfpos1 @ch 1 @aoff
 100;
 #X obj 523 692 array.fill sfpos1;
 #X obj 523 662 msg.onload uniform -1 1;
 #X msg 32 601 load %CEAMMC%/sin_ch4_44.1k.wav to sfpos1 @ch 1 @l 8ms
 ;
-#X msg 47 632 load %CEAMMC%/sin_ch4_44.1k.wav to sfpos1 @ch 2 @b -5ms
+#X text 39 14 Input file can loaded partially. To address loaded segment
+you can you three options: @begin \, @end and @length (@b \, @e \,
+@l or @len). Last two can not be used simultaneously. All options can
+be specified in samples (by default) \, time in seconds or milliseconds
+(source file sample rate used for this calculations). @begin should
+be less then @end and both can use end-OFF \, which means offset from
+the end of source file., f 88;
+#X text 58 303 @end (@e) option is the same. If not specified - read
+until source file end, f 80;
+#X text 58 331 @length (@l or @len) option should be positive and cannot
+be used together with @end, f 85;
+#X msg 47 632 load %CEAMMC%/sin_ch4_44.1k.wav to sfpos1 @ch 2 @b $-5ms
 ;
+#X text 58 277 @begin $-2s - means start file read 2 seconds before
+end., f 80;
+#X msg 33 368 load F to A @begin $-5sec;
+#X msg 33 398 load F to A @begin $-5s @length 2s;
+#X msg 33 428 load F to A @begin 100ms @end $-100ms;
+#X text 307 397 load 2 second from file F to array A \, starting 5
+seconds before the end, f 73;
 #X connect 1 0 2 0;
-#X connect 17 0 1 0;
-#X connect 19 0 18 0;
-#X connect 20 0 1 0;
-#X connect 21 0 1 0;
+#X connect 9 0 1 0;
+#X connect 11 0 10 0;
+#X connect 12 0 1 0;
+#X connect 16 0 1 0;
