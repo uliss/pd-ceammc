@@ -213,7 +213,7 @@ bool ArrayLoader::loadArrays(const sound::SoundFilePtr& file, bool redraw)
     return true;
 }
 
-bool ArrayLoader::setArrayOffset(long n, ArrayLoader::ArrayOffsetType t)
+bool ArrayLoader::setArrayOffset(long n, ArrayLoader::OffsetType t)
 {
     if (t == OFF_BEGIN && n < 0) {
         err() << fmt::format(
@@ -311,75 +311,65 @@ bool ceammc::ArrayLoader::setFlagOption(OptionType opt)
     }
 }
 
-bool ceammc::ArrayLoader::setSampleOption(OptionType opt, long samp_pos)
+bool ceammc::ArrayLoader::setBeginOption(long pos, ArrayLoader::OffsetType off)
 {
-    switch (opt) {
-    case OPT_BEGIN: {
-        if (samp_pos >= long(src_sample_count_)) {
-            err() << fmt::format(
-                "begin position should be <{}, got: {}\n",
-                src_sample_count_, samp_pos);
+    const long samp_pos = (off == OFF_END) ? long(src_sample_count_) + pos : pos;
 
-            return false;
-        } else if (samp_pos < 0) {
-            if (std::abs(samp_pos) >= src_sample_count_) {
-                err() << fmt::format(
-                    "negative begin offset should be |x|<{}, got: {}\n",
-                    src_sample_count_, samp_pos);
+    if (samp_pos >= long(src_sample_count_)) {
+        err() << fmt::format(
+            "begin position should be <{}, got: {}\n",
+            src_sample_count_, samp_pos);
 
-                return false;
-            } else {
-                begin_ = long(src_sample_count_) + samp_pos;
-            }
-        } else
-            begin_ = samp_pos;
-
-        return true;
-    }
-    case OPT_END: {
-        if (samp_pos >= long(src_sample_count_)) { // this case is common typo, so just show warning
-            err() << fmt::format(
-                "end position should be >= {} and < {}, got: {}, ignoring\n",
-                begin_, src_sample_count_, samp_pos);
-
-            return true;
-        } else if (samp_pos <= begin_) {
-            err() << fmt::format(
-                "end position should be > {}, got: {}\n", begin_, samp_pos);
-
-            return false;
-        } else if (samp_pos < 0) { // only this case is error
-            err() << fmt::format(
-                "negative end offset is not supported: {}\n", samp_pos);
-
-            return false;
-        } else
-            end_ = samp_pos;
-
-        return true;
-    }
-    case OPT_LENGTH: {
-        if (samp_pos < 0) {
-            err() << fmt::format(
-                "negative length is not supported: {}\n", samp_pos);
-
-            return false;
-        } else if ((begin_ + samp_pos) >= long(src_sample_count_)) { // tipical use case, no error, just warning
-            err() << fmt::format(
-                "length should be < {}, got: {}, clipping to max length\n",
-                src_sample_count_ - begin_, samp_pos);
-
-            end_ = src_sample_count_;
-            return true;
-        } else {
-            end_ = begin_ + samp_pos;
-            return true;
-        }
-    }
-    default:
-        err() << fmt::format("unknown time option: '@{}'\n", optionToString(opt));
         return false;
-        break;
+    } else if (samp_pos < 0) {
+        err() << fmt::format(
+            "negative begin offset ({0}) is not supported, if you need relative to the end offset, use 'end{0}' syntax", samp_pos);
+
+        return false;
+    } else
+        begin_ = samp_pos;
+
+    return true;
+}
+
+bool ArrayLoader::setEndOption(long pos, ArrayLoader::OffsetType off)
+{
+    const long samp_pos = (off == OFF_END) ? long(src_sample_count_) + pos : pos;
+
+    if (samp_pos >= long(src_sample_count_)) { // this case is common typo, so just show warning
+        err() << fmt::format(
+            "end position should be >= {} and < {}, got: {}, ignoring\n",
+            begin_, src_sample_count_, samp_pos);
+
+        return true;
+    } else if (samp_pos <= long(begin_)) {
+        err() << fmt::format(
+            "end position should be greater then begin position ({}), got: {}\n", begin_, samp_pos);
+
+        return false;
+    } else
+        end_ = samp_pos;
+
+    return true;
+}
+
+bool ArrayLoader::setLengthOption(long pos)
+{
+    if (pos < 0) {
+        err() << fmt::format(
+            "negative length is not supported: {}\n", pos);
+
+        return false;
+    } else if ((begin_ + pos) >= long(src_sample_count_)) { // tipical use case, no error, just warning
+        err() << fmt::format(
+            "length should be < {}, got: {}, clipping to max length\n",
+            src_sample_count_ - begin_, pos);
+
+        end_ = src_sample_count_;
+        return true;
+    } else {
+        end_ = begin_ + pos;
+        return true;
     }
 }
 

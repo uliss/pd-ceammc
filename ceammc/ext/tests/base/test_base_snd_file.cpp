@@ -656,11 +656,11 @@ TEST_CASE("snd.file", "[externals]")
                 REQUIRE(all_eq(arr1->begin(), arr1->end(), -1));
             }
 
-            SECTION("48k: begin -2.5ms")
+            SECTION("48k: begin end-2.5ms")
             {
                 t <<= load_str("load " TEST_DATA_DIR
                                "/base/snd0_ch02_48k_480samp.wav to snd_file1 "
-                               "@begin -2.5ms @resize");
+                               "@begin end-2.5ms @resize");
                 REQUIRE(arr1->update());
                 REQUIRE(arr1->size() == 120);
                 REQUIRE_PROPERTY(t, @samples, 120);
@@ -668,23 +668,37 @@ TEST_CASE("snd.file", "[externals]")
                 REQUIRE(all_eq(arr1->begin(), arr1->end(), -1));
             }
 
-            SECTION("48k: begin -20ms")
+            SECTION("48k: begin end-20ms")
             {
                 t <<= load_str("load " TEST_DATA_DIR
                                "/base/snd0_ch02_48k_480samp.wav to snd_file1 "
-                               "@begin -20ms @resize");
+                               "@begin end-20ms @resize");
                 REQUIRE(!t.hasNewMessages(0));
             }
         }
 
         SECTION("end")
         {
-            SECTION("48k: end -20ms")
+            SECTION("48k: end begin-100 end-20")
             {
                 t <<= load_str("load " TEST_DATA_DIR
                                "/base/snd0_ch02_48k_480samp.wav to snd_file1 "
-                               "@end -20ms @resize");
-                REQUIRE(!t.hasNewMessages(0));
+                               "@begin end-100 @end end-20 @resize");
+                REQUIRE(t.hasNewMessages(0));
+                REQUIRE(arr1->update());
+                REQUIRE(arr1->size() == 80);
+                REQUIRE_PROPERTY(t, @samples, 80);
+            }
+
+            SECTION("48k: end end-20ms")
+            {
+                t <<= load_str("load " TEST_DATA_DIR
+                               "/base/snd0_ch02_48k_480samp.wav to snd_file1 "
+                               "@end end-20 @resize");
+                REQUIRE(t.hasNewMessages(0));
+                REQUIRE(arr1->update());
+                REQUIRE(arr1->size() == 460);
+                REQUIRE_PROPERTY(t, @samples, 460);
             }
 
             SECTION("48k: end 2000ms")

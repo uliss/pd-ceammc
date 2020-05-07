@@ -43,7 +43,7 @@
     # include "ceammc_convert.h"
 
     using OPT = ceammc::ArrayLoader::OptionType;
-    using OFFSET = ceammc::ArrayLoader::ArrayOffsetType;
+    using OFFSET = ceammc::ArrayLoader::OffsetType;
 
     static StringList generateStringRange(int from, int to) {
         StringList res;
@@ -126,11 +126,15 @@ channel_list
 opt
     : RESIZE                      { loader.setFlagOption(OPT::OPT_RESIZE); }
     | NORMALIZE                   { loader.setFlagOption(OPT::OPT_NORMALIZE); }
-    | BEGIN     time              { if(!loader.setSampleOption(OPT::OPT_BEGIN, $2))
+    | BEGIN     time              { if(!loader.setBeginOption($2, OFFSET::OFF_BEGIN))
                                         { error(@2, "invalid @begin value"); return 1; }}
-    | END       time              { if(!loader.setSampleOption(OPT::OPT_END, $2))
+    | BEGIN     OFFSET_END time   { if(!loader.setBeginOption($3, OFFSET::OFF_END))
+                                        { error(@2, "invalid @begin value"); return 1; }}
+    | END       time              { if(!loader.setEndOption($2, OFFSET::OFF_BEGIN))
                                         { error(@2, "invalid @end value"); return 1; }}
-    | LENGTH    time              { if(!loader.setSampleOption(OPT::OPT_LENGTH, $2))
+    | END       OFFSET_END time   { if(!loader.setEndOption($3, OFFSET::OFF_END))
+                                        { error(@2, "invalid @end value"); return 1; }}
+    | LENGTH    time              { if(!loader.setLengthOption($2))
                                         { error(@2, "invalid @length value"); return 1; }}
     | GAIN      number            { if(!loader.setGain($2))
                                         { error(@2, "invalid @gain value"); return 1; }}

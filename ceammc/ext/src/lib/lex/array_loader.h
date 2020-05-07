@@ -38,7 +38,7 @@ public:
         OPT_RESIZE
     };
 
-    enum ArrayOffsetType {
+    enum OffsetType {
         OFF_BEGIN = 0,
         OFF_END
     };
@@ -119,7 +119,7 @@ public:
     long arrayOffset() const { return array_offset_; }
 
     /** set array offset */
-    bool setArrayOffset(long n, ArrayOffsetType t);
+    bool setArrayOffset(long n, OffsetType t);
 
     // options
 
@@ -127,7 +127,9 @@ public:
     bool setFlagOption(OptionType opt);
 
     /** sets sample option */
-    bool setSampleOption(OptionType opt, long samp_pos);
+    bool setBeginOption(long pos, OffsetType off);
+    bool setEndOption(long pos, OffsetType off);
+    bool setLengthOption(long pos);
 
     /** return loading gain */
     double gain() const { return gain_; }
@@ -189,7 +191,7 @@ private:
 
     double dest_samplerate_ = { 44100 };
     long array_offset_ = { 0 };
-    ArrayOffsetType array_offset_type_ = { OFF_BEGIN };
+    OffsetType array_offset_type_ = { OFF_BEGIN };
 
     // load options
     bool resize_ = { false };
