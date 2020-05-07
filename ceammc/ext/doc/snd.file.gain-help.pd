@@ -7,13 +7,11 @@
 #X array sfg2 512 float 2;
 #X coords 0 1 512 -1 200 140 1 0 0;
 #X restore 268 242 graph;
-#X obj 52 197 print;
 #X obj 52 140 expand_env;
-#X obj 52 171 snd.file @verbose;
 #X msg 52 44 symbol sin_440_48k.wav;
 #X msg 52 81 load %CEAMMC%/\$1 to sfg1 \, load %CEAMMC%/\$1 to sfg2
 @gain -3db, f 29;
+#X obj 52 171 snd.file;
+#X connect 2 0 5 0;
 #X connect 3 0 4 0;
 #X connect 4 0 2 0;
-#X connect 5 0 6 0;
-#X connect 6 0 3 0;

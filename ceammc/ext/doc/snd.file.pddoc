@@ -24,9 +24,25 @@
             <param type="symbol" required="true" name="@to ARRAY_NAME">destination array name or
             pattern. Array patterns specified in square braces: array_[1-4] means - array_1,
             array_2, array_3, array_4. array_[left|right] means array_left and array_right</param>
-            <param type="property" name="@resize">resize array to feet loaded file</param>
-            <param type="property" name="@offset SAMPLES">offset in samples from beginning of
-            file</param>
+            <param type="property" name="@resize">resize array to fit loaded samples</param>
+            <param type="property" name="@channel N">specify input channels. Spaces separated list
+            or range x-y.</param>
+            <param type="property" name="@normalize">normalize array after loading</param>
+            <param type="property" name="@gain V">apply gain to loaded samples, examples: +3.1db,
+            -6db, 0.5 etc.</param>
+            <param type="property" name="@begin X">specify input file begin position, by default in
+            samples, but you can use other units: 1s, 10ms, 00:01.12 (smpte). Also you can use
+            negative value to specify position from the end of file</param>
+            <param type="property" name="@end X">specify input file end position, by default in
+            samples, but you can use other units: 1s, 10ms, 00:01.12 (smpte). Also you can use
+            negative value to specify position from the end of file</param>
+            <param type="property" name="@length X">specify input length, by default in samples,
+            but you can use other units: 1s, 10ms, 00:00:02.00 (smpte)</param>
+            <param type="property" name="@offset SAMPLES">offset in samples from beginning of file.
+            Deprecated, use @begin instead</param>
+            <param type="property" name="@resample R?">if R is not specified - resample from file
+            samplerate to current Pd samplerate. But you can manually specify R as float value or
+            fraction - 44100/48000</param>
             <param type="symbol" name="@channel N1 N2..">channels to load</param></method>
             <method name="info">Outputs info about sound file as properties: @channels - number of
             channels, @samples - number of samples, @samplerate - sound file samplerate, @duration

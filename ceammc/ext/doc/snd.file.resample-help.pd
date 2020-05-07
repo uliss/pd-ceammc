@@ -7,17 +7,13 @@
 #X array sfr2 512 float 2;
 #X coords 0 1 512 -1 200 140 1 0 0;
 #X restore 268 242 graph;
-#X obj 52 192 print;
-#X obj 52 135 expand_env;
-#X obj 234 156 print;
-#X msg 52 44 symbol sin_440_96k.wav;
-#X obj 52 166 snd.file @verbose;
-#X msg 232 44 symbol sin_440_48k.wav;
-#X msg 52 84 load %CEAMMC%/\$1 to sfr1 @ch 0 \, load %CEAMMC%/\$1 to
-sfr2 @ch 0 @resample;
-#X connect 3 0 4 0;
-#X connect 3 0 6 0;
-#X connect 5 0 8 0;
-#X connect 6 0 2 0;
-#X connect 7 0 8 0;
-#X connect 8 0 3 0;
+#X obj 52 145 expand_env;
+#X msg 52 34 symbol sin_440_96k.wav;
+#X msg 232 34 symbol sin_440_48k.wav;
+#X msg 52 74 load %CEAMMC%/\$1 to sfr1 @ch 0 \, load %CEAMMC%/\$1 to
+sfr2 @ch 0 @resample, f 33;
+#X obj 52 173 snd.file;
+#X connect 2 0 6 0;
+#X connect 3 0 5 0;
+#X connect 4 0 5 0;
+#X connect 5 0 2 0;
