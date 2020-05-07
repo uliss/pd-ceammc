@@ -2,6 +2,7 @@
 set(GIT_BRANCH "master")
 set(GIT_COMMIT "")
 string(TIMESTAMP BUILD_DATETIME "%d %m %Y UTC %H:%M:%S " UTC)
+
 if(EXISTS "${CMAKE_SOURCE_DIR}/.git")
     find_program(_GIT git)
     if(_GIT)
@@ -90,9 +91,6 @@ else()
     set(DOC_INSTALL_PATH "${PD_DOC_INSTALL_PATH}/extra/ceammc")
 endif()
 
-# extra doc file: presets, sound examples etc.
-set(EXTRA_DOC_FILES prs.txt stargazing.mod guitar1.wav)
-
 # install all help files
 foreach(_doc_file ${DOC_FILES})
     install(FILES "${_doc_file}-help.pd"
@@ -108,8 +106,14 @@ install(FILES "${CMAKE_CURRENT_BINARY_DIR}/about.pd" DESTINATION ${DOC_INSTALL_P
 install(FILES "index-help.pd" DESTINATION "${DOC_INSTALL_PATH}/.."
     PERMISSIONS OWNER_READ GROUP_READ WORLD_READ)
 
+# extra doc file: presets, sound examples etc.
+set(EXTRA_DOC_FILES prs.txt stargazing.mod)
+file(GLOB _PDDOC_WAV "*.wav")
+file(GLOB _PDDOC_EXAMPLES "snd.file.*.pd")
+
 # install extra files
-install(FILES ${EXTRA_DOC_FILES} DESTINATION ${DOC_INSTALL_PATH}
+install(FILES ${EXTRA_DOC_FILES} ${_PDDOC_WAV} ${_PDDOC_EXAMPLES}
+    DESTINATION ${DOC_INSTALL_PATH}
     PERMISSIONS OWNER_READ GROUP_READ WORLD_READ)
 
 install(
@@ -119,12 +123,12 @@ install(
 )
 
 if(APPLE)
-find_program(TIDY tidy PATHS /usr/local/bin /usr/bin
-    NO_DEFAULT_PATH
-    NO_CMAKE_ENVIRONMENT_PATH
-    NO_SYSTEM_ENVIRONMENT_PATH
-    NO_CMAKE_SYSTEM_PATH
-    NO_CMAKE_PATH)
+    find_program(TIDY tidy PATHS /usr/local/bin /usr/bin
+        NO_DEFAULT_PATH
+        NO_CMAKE_ENVIRONMENT_PATH
+        NO_SYSTEM_ENVIRONMENT_PATH
+        NO_CMAKE_SYSTEM_PATH
+        NO_CMAKE_PATH)
 else()
     find_program(TIDY tidy)
 endif()
