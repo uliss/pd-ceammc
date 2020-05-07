@@ -84,13 +84,13 @@ property.;
 #X obj 255 1070 cnv 1 77 23 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 255 1070 [@begin X]: specify input file begin position \, by
 default in samples \, but you can use other units: 1s \, 10ms \, 00:01.12
-(smpte). Also you can use negative value to specify position from the
-end of file. Type: property.;
+(smpte). To specify value relative to file end you can use end-X syntax.
+Type: property.;
 #X obj 255 1138 cnv 1 62 23 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 255 1138 [@end X]: specify input file end position \, by default
 in samples \, but you can use other units: 1s \, 10ms \, 00:01.12 (smpte).
-Also you can use negative value to specify position from the end of
-file. Type: property.;
+To specify value relative to file end you can use end-X syntax. Type:
+property.;
 #X obj 255 1206 cnv 1 85 23 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 255 1206 [@length X]: specify input length \, by default in
 samples \, but you can use other units: 1s \, 10ms \, 00:00:02.00 (smpte).
@@ -101,7 +101,7 @@ of file. Deprecated \, use @begin instead. Type: property.;
 #X obj 255 1297 cnv 1 108 23 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 255 1297 [@resample R?]: if R is not specified - resample from
 file samplerate to current Pd samplerate. But you can manually specify
-R as float value or fraction - 44100/48000\. Type: property.;
+R as float value or integer fraction - 44100/48000\. Type: property.;
 #X obj 20 1377 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 1382 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144
 -49933 0;

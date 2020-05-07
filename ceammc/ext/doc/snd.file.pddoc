@@ -31,18 +31,18 @@
             <param type="property" name="@gain V">apply gain to loaded samples, examples: +3.1db,
             -6db, 0.5 etc.</param>
             <param type="property" name="@begin X">specify input file begin position, by default in
-            samples, but you can use other units: 1s, 10ms, 00:01.12 (smpte). Also you can use
-            negative value to specify position from the end of file</param>
+            samples, but you can use other units: 1s, 10ms, 00:01.12 (smpte). To specify value
+            relative to file end you can use end-X syntax</param>
             <param type="property" name="@end X">specify input file end position, by default in
-            samples, but you can use other units: 1s, 10ms, 00:01.12 (smpte). Also you can use
-            negative value to specify position from the end of file</param>
+            samples, but you can use other units: 1s, 10ms, 00:01.12 (smpte). To specify value
+            relative to file end you can use end-X syntax</param>
             <param type="property" name="@length X">specify input length, by default in samples,
             but you can use other units: 1s, 10ms, 00:00:02.00 (smpte)</param>
             <param type="property" name="@offset SAMPLES">offset in samples from beginning of file.
             Deprecated, use @begin instead</param>
             <param type="property" name="@resample R?">if R is not specified - resample from file
             samplerate to current Pd samplerate. But you can manually specify R as float value or
-            fraction - 44100/48000</param></method>
+            integer fraction - 44100/48000</param></method>
         </methods>
         <properties>
             <property name="@formats" readonly="true" type="list">list of supported
