@@ -73,6 +73,7 @@ public:
     void drawLog2X(UIPainter& p, float wd, float ht);
     void drawLog10X(UIPainter& p, float wd, float ht);
     void drawLnX(UIPainter& p, float wd, float ht);
+    void drawLinX(UIPainter& p, float wd, float ht);
 
     void onPropChange(t_symbol* prop_name);
 

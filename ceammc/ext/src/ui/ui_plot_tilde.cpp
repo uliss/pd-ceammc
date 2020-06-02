@@ -27,6 +27,8 @@ constexpr float XTICK_MAJ = 6;
 constexpr float XTICK_MIN = 3;
 constexpr float XGRID_AVOID = 20;
 
+constexpr float GRID_OUTLINE = -0.18;
+
 static t_symbol* SYM_YAUTO;
 static t_symbol* SYM_YMIN;
 static t_symbol* SYM_YMAX;
@@ -266,8 +268,6 @@ void UIPlotTilde::addXLabelLn(int n, float x, float y, etextjustify_flags align,
     for (int i = 30; n && i; --i, n /= 10)
         strcat(buf, digits[n % 10]);
 
-    //    snprintf(buf, 16, "e^%d", n);
-
     txt_x_.push_back(UITextLayout(font_.font()));
     txt_x_.back().setJustify(align);
     txt_x_.back().setAnchor(anchor);
@@ -307,6 +307,8 @@ void UIPlotTilde::drawBorder()
     const float wd = width() - (xoff + MIN_XOFF);
     const float ht = height() - 2 * yoff;
 
+    const t_rgba color_outlined = rgba_addContrast(prop_color_border, GRID_OUTLINE);
+
     p.setMatrix({ 1, 0, 0, 1, xoff, yoff });
     p.setColor(prop_color_border);
     p.drawRect(xoff, yoff, wd, ht);
@@ -336,17 +338,15 @@ void UIPlotTilde::drawBorder()
             const auto i2 = ytick_base + int(i);
 
             if (i2 % 10 == 0 && ymaj_ticks_) {
-                p.setLineWidth(1);
                 p.drawLine(-6, y, 0, y);
             } else if (ymin_ticks_) {
-                p.setLineWidth(1);
                 p.drawLine(-3, y, 0, y);
             }
 
             if (i2 % 5 == 0 && ymaj_grid_) {
-                // zero
-                p.setLineWidth((v == 0) ? 2 : 1);
+                p.setColor((v == 0) ? color_outlined : prop_color_border);
                 p.drawLine(0, y, wd, y);
+                p.setColor(prop_color_border);
             }
 
             if (i2 % 10 == 0 && ylabels_) {
@@ -364,26 +364,7 @@ void UIPlotTilde::drawBorder()
         p.drawText(txt_x_.back());
 
         if (log_base_ == LB_NONE) {
-            const auto tick_step = std::pow(10, std::round(std::log10(std::fabs(xmax_ - xmin_)) - 0.5) - 1);
-            const auto xtick_base = int(std::trunc(xmin_ / tick_step));
-            const auto xtick_min = std::trunc(xmin_ / tick_step) * tick_step;
-            const auto xtick_max = std::trunc(xmax_ / tick_step) * tick_step;
-
-            const size_t N = std::fabs(xtick_max - xtick_min) / tick_step;
-            for (size_t i = 0; i < N; i++) {
-                auto v = xtick_min + i * tick_step;
-                auto x = convert::lin2lin<float>(v, xmin_, xmax_, 0, wd);
-
-                const auto i2 = xtick_base + int(i);
-                const float tick_h = (i2 % 10 != 0) ? 3 : 6;
-                p.setLineWidth(1);
-                p.drawLine(x, ht, x, ht + tick_h);
-
-                if (i2 % 5 == 0) {
-                    p.setLineWidth((v == 0) ? 2 : 1);
-                    p.drawLine(x, 0, x, ht);
-                }
-            }
+            drawLinX(p, wd, ht);
         } else if (log_base_ == LB_2) {
             drawLog2X(p, wd, ht);
         } else if (log_base_ == LB_10) {
@@ -534,6 +515,41 @@ void UIPlotTilde::drawLnX(UIPainter& p, float wd, float ht)
         // draw labels
         if (xlabels_) {
             addXLabelLn(i, x + LABEL_XPAD, ht + LABEL_YPAD, ETEXT_JLEFT, ETEXT_UP_LEFT);
+            p.drawText(txt_x_.back());
+        }
+    }
+}
+
+void UIPlotTilde::drawLinX(UIPainter& p, float wd, float ht)
+{
+    const auto tick_step = std::pow(10, std::trunc(std::log10(std::fabs(xmax_ - xmin_)) + 0.3) - 1);
+    const int xtick_min = std::ceil(xmin_ / tick_step);
+    const int xtick_max = std::floor(xmax_ / tick_step);
+
+    for (int i = xtick_min; i <= xtick_max; i++) {
+        auto x = convert::lin2lin<float>(i * tick_step, xmin_, xmax_, 0, wd);
+
+        const bool is_maj = (i % 10 == 0);
+        const bool is_min = !is_maj;
+
+        // draw ticks
+        if (is_maj && xmaj_ticks_)
+            p.drawLine(x, ht, x, ht + XTICK_MAJ);
+        else if (is_min && xmin_ticks_)
+            p.drawLine(x, ht, x, ht + XTICK_MIN);
+
+        if (is_maj && xmaj_grid_)
+            p.drawLine(x, 0, x, ht);
+        else if (is_min && xmin_grid_)
+            p.drawLine(x, 0, x, ht);
+
+        // too close to the border
+        if (x < XGRID_AVOID || x > (wd - XGRID_AVOID))
+            continue;
+
+        // draw labels
+        if (is_maj && xlabels_) {
+            addXLabel(i * tick_step, x + LABEL_XPAD, ht + LABEL_YPAD, ETEXT_JLEFT, ETEXT_UP_LEFT);
             p.drawText(txt_x_.back());
         }
     }
