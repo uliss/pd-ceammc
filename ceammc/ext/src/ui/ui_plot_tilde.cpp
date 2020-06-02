@@ -18,9 +18,14 @@
 #include <cstdio>
 
 constexpr float MIN_XOFF = 20;
-constexpr float MIN_YOFF = 10;
+constexpr float MIN_YOFF = 20;
 constexpr float OFF_K = 0.05;
-constexpr float WIDTH_K = 1 - OFF_K * 2;
+
+constexpr float LABEL_XPAD = 2;
+constexpr float LABEL_YPAD = 5;
+constexpr float XTICK_MAJ = 6;
+constexpr float XTICK_MIN = 3;
+constexpr float XGRID_AVOID = 20;
 
 static t_symbol* SYM_YAUTO;
 static t_symbol* SYM_YMIN;
@@ -93,13 +98,14 @@ UIPlotTilde::UIPlotTilde()
     , xmin_ticks_(1)
     , xmaj_grid_(1)
     , xmin_grid_(0)
+    , prop_nins_(1)
     , log_base_(LB_NONE)
     , plot_layer_(asEBox(), gensym("plot_layer"))
     , border_layer_(asEBox(), gensym("border_layer"))
     , font_(gensym(FONT_FAMILY), FONT_SIZE_SMALL - 1)
     , running_(false)
 {
-    buf_.resize(10);
+    buffers_[0].resize(10);
 }
 
 bool UIPlotTilde::okSize(t_rect* newrect)
@@ -184,42 +190,50 @@ private:
 
 void UIPlotTilde::drawPlot()
 {
-    const t_rect r = rect();
+    static Fsm fsm;
 
+    const t_rect r = rect();
     UIPainter p = plot_layer_.painter(r);
     if (!p)
         return;
 
-    static Fsm fsm;
-
     const float xoff = std::max(MIN_XOFF, width() * OFF_K);
     const float yoff = std::max(MIN_YOFF, height() * OFF_K);
+    const float wd = width() - (xoff + MIN_XOFF);
+    const float ht = height() - 2 * yoff;
+
     p.setMatrix({ 1, 0, 0, 1, xoff, yoff });
 
-    fsm.reset();
+    const t_rgba* colors[] = { &plot_color0_, &plot_color1_, &plot_color2_, &plot_color3_ };
 
-    for (size_t i = 0; i < buf_.size(); i++) {
-        auto x = convert::lin2lin<float>(i, 0, buf_.size() - 1, 0, r.width * WIDTH_K);
+    for (size_t j = 0; j < prop_nins_; j++) {
+        fsm.reset();
 
-        auto v = buf_[i];
-        if (!std::isnormal(v))
-            v = 0;
+        p.setColor(*colors[j]);
 
-        if (std::isinf(v) || std::isnan(v))
-            fsm.push(Fsm::PEN_NONE, p, x, 0);
-        else if (yauto_) {
-            auto y = convert::lin2lin<float>(v, sig_min_, sig_max_, r.height * WIDTH_K, 0);
-            fsm.push(Fsm::PEN_IN, p, x, y);
-        } else {
-            auto y = convert::lin2lin<float>(v, ymin_, ymax_, r.height * WIDTH_K, 0);
-            if (v < ymin_ || v > ymax_)
-                fsm.push(Fsm::PEN_OUT, p, x, y);
-            else
+        for (size_t i = 0; i < buffers_[j].size(); i++) {
+            auto x = convert::lin2lin<float>(i, 0, buffers_[j].size() - 1, 0, wd);
+
+            auto v = buffers_[j][i];
+            if (!std::isnormal(v))
+                v = 0;
+
+            if (std::isinf(v) || std::isnan(v))
+                fsm.push(Fsm::PEN_NONE, p, x, 0);
+            else if (yauto_) {
+                auto y = convert::lin2lin<float>(v, sig_min_, sig_max_, ht, 0);
                 fsm.push(Fsm::PEN_IN, p, x, y);
+            } else {
+                auto y = convert::lin2lin<float>(v, ymin_, ymax_, ht, 0);
+                if (v < ymin_ || v > ymax_)
+                    fsm.push(Fsm::PEN_OUT, p, x, y);
+                else
+                    fsm.push(Fsm::PEN_IN, p, x, y);
+            }
         }
-    }
 
-    p.stroke();
+        p.stroke();
+    }
 }
 
 void UIPlotTilde::addXLabel(float v, float x, float y, etextjustify_flags align, etextanchor_flags anchor)
@@ -250,6 +264,12 @@ void UIPlotTilde::addYLabel(float v, float x, float y, etextanchor_flags anchor)
     txt_y_.back().set(buf, x - 2, y, 20, FONT_SIZE_SMALL);
 }
 
+void UIPlotTilde::resizeBuffers(size_t n)
+{
+    for (int i = 0; i < prop_nins_ && prop_nins_ < buffers_.size(); i++)
+        buffers_[i].resize(n);
+}
+
 void UIPlotTilde::drawBorder()
 {
     const t_rect r = rect();
@@ -260,8 +280,8 @@ void UIPlotTilde::drawBorder()
 
     const float xoff = std::max(MIN_XOFF, width() * OFF_K);
     const float yoff = std::max(MIN_YOFF, height() * OFF_K);
-    const float wd = width() * WIDTH_K;
-    const float ht = height() * WIDTH_K;
+    const float wd = width() - (xoff + MIN_XOFF);
+    const float ht = height() - 2 * yoff;
 
     p.setMatrix({ 1, 0, 0, 1, xoff, yoff });
     p.setColor(prop_color_border);
@@ -290,13 +310,22 @@ void UIPlotTilde::drawBorder()
             auto y = convert::lin2lin<float>(v, YMIN, YMAX, ht, 0); // in pixels
 
             const auto i2 = ytick_base + int(i);
-            const float tick_w = (i2 % 10 != 0) ? 3 : 6;
-            p.setLineWidth(1);
-            p.drawLine(-tick_w, y, 0, y);
 
-            if (i2 % 5 == 0) {
+            if (i2 % 10 == 0 && ymaj_ticks_) {
+                p.setLineWidth(1);
+                p.drawLine(-6, y, 0, y);
+            } else if (ymin_ticks_) {
+                p.setLineWidth(1);
+                p.drawLine(-3, y, 0, y);
+            }
+
+            if (i2 % 5 == 0 && ymaj_grid_) {
+                // zero
                 p.setLineWidth((v == 0) ? 2 : 1);
-                p.drawLine(0, y, ht, y);
+                p.drawLine(0, y, wd, y);
+            }
+
+            if (i2 % 10 == 0 && ylabels_) {
                 addYLabel(v, 0, y, ETEXT_DOWN_RIGHT);
                 p.drawText(txt_y_.back());
             }
@@ -304,12 +333,6 @@ void UIPlotTilde::drawBorder()
     }
 
     if (xmax_ != xmin_) {
-        constexpr float LABEL_XPAD = 2;
-        constexpr float LABEL_YPAD = 5;
-        constexpr float XTICK_MAJ = 6;
-        constexpr float XTICK_MIN = 3;
-        constexpr float XGRID_AVOID = 20;
-
         txt_x_.clear();
         addXLabel(xmin_, 3, ht + LABEL_YPAD, ETEXT_JLEFT, ETEXT_UP_LEFT);
         p.drawText(txt_x_.back());
@@ -338,88 +361,113 @@ void UIPlotTilde::drawBorder()
                 }
             }
         } else if (log_base_ == LB_2) {
-            if (xmin_ <= 0 || xmax_ <= 0) {
-                UI_ERR << "positive x-range expected: " << xmin_ << " " << xmax_;
-                return;
-            }
-
-            const auto lin_a = std::log2(xmin_);
-            const auto lin_b = std::log2(xmax_);
-            const size_t nbig_ticks = std::floor(lin_b) - std::floor(lin_a);
-            size_t N = nbig_ticks;
-            if (nbig_ticks == 0) {
-                N = std::floor(std::log2(xmax_ - xmin_));
-            }
-
-            for (size_t i = 0; i <= N; i++) {
-                for (size_t j = 0; j < 4; j++) {
-                    auto log_maj = std::pow(2, i);
-                    auto log_min = j * (log_maj / 4);
-                    auto lin_v = std::log2(log_maj + log_min);
-                    const auto x = convert::lin2lin<float>(lin_v, lin_a, lin_b, 0, wd);
-
-                    if (x > wd)
-                        break;
-
-                    const float tick_h = (lin_v != int(lin_v)) ? 3 : 6;
-                    p.drawLine(x, ht, x, ht + tick_h);
-
-                    if (x < 20 || x > (wd - 20))
-                        continue;
-
-                    // major 2^n tick
-                    if (lin_v == int(lin_v)) {
-                        p.drawLine(x, 0, x, ht);
-                        addXLabel(log_maj, x + LABEL_XPAD, ht + LABEL_YPAD, ETEXT_JLEFT, ETEXT_UP_LEFT);
-                        p.drawText(txt_x_.back());
-                    }
-                }
-            }
+            drawLog2X(p, wd, ht);
         } else if (log_base_ == LB_10) {
-            if (xmin_ <= 0 || xmax_ <= 0) {
-                UI_ERR << "positive x-range expected: " << xmin_ << " " << xmax_;
-                return;
+            drawLog10X(p, wd, ht);
+        }
+    }
+}
+
+void UIPlotTilde::drawLog2X(UIPainter& p, float wd, float ht)
+{
+    if (xmin_ <= 0 || xmax_ <= 0) {
+        UI_ERR << "positive x-range expected: " << xmin_ << " " << xmax_;
+        return;
+    }
+
+    const auto lin_a = std::log2(xmin_);
+    const auto lin_b = std::log2(xmax_);
+
+    const size_t nbig_ticks = std::floor(lin_b) - std::floor(lin_a);
+    size_t N = nbig_ticks;
+    if (nbig_ticks == 0)
+        N = std::floor(std::log2(xmax_ - xmin_));
+
+    for (size_t i = 0; i <= N; i++) {
+        for (size_t j = 0; j < 4; j++) {
+            auto log_maj = std::pow(2, i);
+            auto log_min = j * (log_maj / 4);
+            auto lin_v = std::log2(log_maj + log_min);
+            const auto x = convert::lin2lin<float>(lin_v, lin_a, lin_b, 0, wd);
+
+            if (x > wd)
+                break;
+
+            // draw ticks
+            const bool is_maj = (lin_v == int(lin_v));
+            const bool is_min = !is_maj;
+
+            if (is_maj && xmaj_ticks_)
+                p.drawLine(x, ht, x, ht + XTICK_MAJ);
+            else if (is_min && xmin_ticks_)
+                p.drawLine(x, ht, x, ht + XTICK_MIN);
+
+            // draw grid
+            if (is_maj && xmaj_grid_)
+                p.drawLine(x, 0, x, ht);
+            else if (is_min && xmin_grid_)
+                p.drawLine(x, 0, x, ht);
+
+            // too close to the border
+            if (x < XGRID_AVOID || x > (wd - XGRID_AVOID))
+                continue;
+
+            // draw labels
+            if (is_maj && xlabels_) {
+                addXLabel(log_maj, x + LABEL_XPAD, ht + LABEL_YPAD, ETEXT_JLEFT, ETEXT_UP_LEFT);
+                p.drawText(txt_x_.back());
             }
+        }
+    }
+}
 
-            const auto lin_a = std::log10(xmin_);
-            const auto lin_b = std::log10(xmax_);
-            const int lin_ai = std::floor(lin_a);
-            const int lin_bi = std::ceil(lin_b);
+void UIPlotTilde::drawLog10X(UIPainter& p, float wd, float ht)
+{
+    if (xmin_ <= 0 || xmax_ <= 0) {
+        UI_ERR << "positive x-range expected: " << xmin_ << " " << xmax_;
+        return;
+    }
 
-            for (int i = lin_ai; i <= lin_bi; i++) {
-                for (int j = 0; j < 10; j++) {
-                    auto log_maj = fast_pow10(i);
-                    auto log_v = (1 + j) * log_maj;
-                    if (log_v <= xmin_)
-                        continue;
-                    if (log_v >= xmax_)
-                        break;
+    const auto lin_a = std::log10(xmin_);
+    const auto lin_b = std::log10(xmax_);
+    const int lin_ai = std::floor(lin_a);
+    const int lin_bi = std::ceil(lin_b);
 
-                    auto lin_v = fast_log10(1 + j) + i;
-                    const auto x = convert::lin2lin<float>(lin_v, lin_a, lin_b, 0, wd);
+    for (int i = lin_ai; i <= lin_bi; i++) {
+        for (int j = 0; j < 10; j++) {
+            auto log_maj = fast_pow10(i);
+            auto log_v = (1 + j) * log_maj;
+            if (log_v <= xmin_)
+                continue;
+            if (log_v >= xmax_)
+                break;
 
-                    // draw ticks
-                    if (j == 0 && xmaj_ticks_)
-                        p.drawLine(x, ht, x, ht + XTICK_MAJ);
-                    else if (j != 0 && xmin_ticks_)
-                        p.drawLine(x, ht, x, ht + XTICK_MIN);
+            auto lin_v = fast_log10(1 + j) + i;
+            const auto x = convert::lin2lin<float>(lin_v, lin_a, lin_b, 0, wd);
 
-                    // too close to border
-                    if (x < XGRID_AVOID || x > (wd - XGRID_AVOID))
-                        continue;
+            const bool is_maj = (j == 0);
+            const bool is_min = !is_maj;
 
-                    // draw grid
-                    if (j == 0) { // major
-                        if (xmaj_grid_)
-                            p.drawLine(x, 0, x, ht);
+            // draw ticks
+            if (is_maj && xmaj_ticks_)
+                p.drawLine(x, ht, x, ht + XTICK_MAJ);
+            else if (is_min && xmin_ticks_)
+                p.drawLine(x, ht, x, ht + XTICK_MIN);
 
-                        addXLabel(log_maj, x + LABEL_XPAD, ht + LABEL_YPAD, ETEXT_JLEFT, ETEXT_UP_LEFT);
-                        p.drawText(txt_x_.back());
-                    } else { // minor
-                        if (xmin_grid_)
-                            p.drawLine(x, 0, x, ht);
-                    }
-                }
+            // draw grid
+            if (is_maj && xmaj_grid_)
+                p.drawLine(x, 0, x, ht);
+            else if (is_min && xmin_grid_)
+                p.drawLine(x, 0, x, ht);
+
+            // too close to the border
+            if (x < XGRID_AVOID || x > (wd - XGRID_AVOID))
+                continue;
+
+            // draw labels
+            if (is_maj && xlabels_) {
+                addXLabel(log_maj, x + LABEL_XPAD, ht + LABEL_YPAD, ETEXT_JLEFT, ETEXT_UP_LEFT);
+                p.drawText(txt_x_.back());
             }
         }
     }
@@ -427,23 +475,15 @@ void UIPlotTilde::drawBorder()
 
 void UIPlotTilde::onPropChange(t_symbol* prop_name)
 {
-    static t_symbol* SYM_YAUTO = gensym("yauto");
-    static t_symbol* SYM_YMIN = gensym("ymin");
-    static t_symbol* SYM_YMAX = gensym("ymax");
-
-    if (prop_name == SYM_YAUTO || prop_name == SYM_YMIN || prop_name == SYM_YMAX) {
-        plot_layer_.invalidate();
-        border_layer_.invalidate();
-        redraw();
-    }
+    plot_layer_.invalidate();
+    border_layer_.invalidate();
+    redraw();
 }
 
 void UIPlotTilde::init(t_symbol* name, const AtomList& args, bool usePresets)
 {
     UIDspObject::init(name, args, false);
     dspSetup(1, 0);
-
-    in2_ = inlet_new(asPdObject(), asPd(), &s_list, gensym("_inlet_2"));
 }
 
 void UIPlotTilde::dspProcess(t_sample** ins, long n_ins, t_sample** outs, long n_outs, long sampleframes)
@@ -462,28 +502,40 @@ void UIPlotTilde::dspProcess(t_sample** ins, long n_ins, t_sample** outs, long n
         }
     }
 
-    for (long i = 0; i < sampleframes; i++) {
-        if (phase_ < total_) {
-            t_sample v = ins[0][i];
+    auto bphase = phase_;
 
-            if (yauto_) {
-                if (!std::isnan(v) && !std::isinf(v)) {
-                    sig_min_ = std::min(sig_min_, v);
-                    sig_max_ = std::max(sig_max_, v);
+    for (long j = 0; j < n_ins && j < prop_nins_; j++) {
+        //        std::cerr << "j:" << j << "\n";
+        if (buffers_[j].size() < total_)
+            buffers_[j].resize(total_);
+
+        phase_ = bphase;
+
+        for (long i = 0; i < sampleframes; i++) {
+            if (phase_ < total_) {
+                t_sample v = ins[j][i];
+
+                //                std::cerr << "v[" << j << "]=" << v << "\n";
+
+                if (yauto_) {
+                    if (!std::isnan(v) && !std::isinf(v)) {
+                        sig_min_ = std::min(sig_min_, v);
+                        sig_max_ = std::max(sig_max_, v);
+                    }
+                } else {
+                    //                if (!std::isnan(v) && !std::isinf(v))
+                    //                    v = clip(v, ymin_, ymax_);
                 }
+
+                buffers_[j][phase_++] = v;
+
             } else {
-                //                if (!std::isnan(v) && !std::isinf(v))
-                //                    v = clip(v, ymin_, ymax_);
+                running_ = false;
+                if (total_ != 0)
+                    clock_.delay(0);
+
+                break;
             }
-
-            buf_[phase_++] = v;
-
-        } else {
-            running_ = false;
-            if (total_ != 0)
-                clock_.delay(0);
-
-            break;
         }
     }
 
@@ -496,7 +548,6 @@ void UIPlotTilde::dspProcess(t_sample** ins, long n_ins, t_sample** outs, long n
 void UIPlotTilde::onInlet(const AtomList& args)
 {
     constexpr int NMAX = 1024;
-    UI_DBG << args;
 
     if (args.empty()) {
         running_ = true;
@@ -504,7 +555,7 @@ void UIPlotTilde::onInlet(const AtomList& args)
         total_ = width() * 0.9;
         xmin_ = 0;
         xmax_ = total_;
-        buf_.resize(total_);
+        resizeBuffers(total_);
         return;
     } else {
         if (!args[0].isInteger()) {
@@ -522,8 +573,8 @@ void UIPlotTilde::onInlet(const AtomList& args)
             phase_ = 0;
             total_ = N;
 
-            if (buf_.size() != total_) {
-                buf_.resize(total_);
+            if (buffers_.size() != total_) {
+                resizeBuffers(total_);
                 UI_DBG << "setting number of points: " << total_;
             }
 
@@ -551,6 +602,24 @@ void UIPlotTilde::onInlet(const AtomList& args)
     }
 }
 
+float UIPlotTilde::propNumInputs() const
+{
+    return prop_nins_;
+}
+
+void UIPlotTilde::propSetNumInputs(float n)
+{
+    prop_nins_ = clip<int, 1, 4>(n);
+    int dspState = canvas_suspend_dsp();
+
+    eobj_resize_inputs(asEBox(), 0);
+    eobj_resize_inputs(asEBox(), prop_nins_);
+    eobj_resize_inputs(asEBox(), n + 1, &s_list, gensym("_inlet_2"));
+
+    canvas_update_dsp();
+    canvas_resume_dsp(dspState);
+}
+
 void UIPlotTilde::setup()
 {
     UIObjectFactory<UIPlotTilde> obj("ui.plot~", EBOX_GROWLINK);
@@ -567,8 +636,24 @@ void UIPlotTilde::setup()
     obj.addBoolProperty("xmin_ticks", _("Minor ticks on x-axis"), 1, &UIPlotTilde::xmin_ticks_, _("Bounds"));
     obj.addBoolProperty("xmaj_grid", _("Major grid on x-axis"), 1, &UIPlotTilde::xmaj_grid_, _("Bounds"));
     obj.addBoolProperty("xmin_grid", _("Minor grid on x-axis"), 0, &UIPlotTilde::xmin_grid_, _("Bounds"));
+    obj.addBoolProperty("xlabels", _("Labels on x-axis"), 0, &UIPlotTilde::xlabels_, _("Bounds"));
+    obj.addBoolProperty("ymaj_ticks", _("Major ticks on y-axis"), 1, &UIPlotTilde::ymaj_ticks_, _("Bounds"));
+    obj.addBoolProperty("ymin_ticks", _("Minor ticks on y-axis"), 1, &UIPlotTilde::ymin_ticks_, _("Bounds"));
+    obj.addBoolProperty("ymaj_grid", _("Major grid on y-axis"), 1, &UIPlotTilde::ymaj_grid_, _("Bounds"));
+    obj.addBoolProperty("ymin_grid", _("Minor grid on y-axis"), 0, &UIPlotTilde::ymin_grid_, _("Bounds"));
+    obj.addBoolProperty("ylabels", _("Labels on y-axis"), 0, &UIPlotTilde::ylabels_, _("Bounds"));
+
+    obj.addIntProperty("n", _("Number of inputs"), 1, &UIPlotTilde::prop_nins_, "Main");
+    obj.setPropertyAccessor("n", &UIPlotTilde::propNumInputs, &UIPlotTilde::propSetNumInputs);
+    obj.setPropertyRange("n", 1, 4);
+
+    obj.addColorProperty("plot_color0", _("First plot color"), DEFAULT_ACTIVE_COLOR, &UIPlotTilde::plot_color0_);
+    obj.addColorProperty("plot_color1", _("Second plot color"), "0.75 0 1 1", &UIPlotTilde::plot_color1_);
+    obj.addColorProperty("plot_color2", _("Third plot color"), "1 0 0.75 1", &UIPlotTilde::plot_color2_);
+    obj.addColorProperty("plot_color3", _("Fourth plot color"), "1 0.75 0 1", &UIPlotTilde::plot_color3_);
 
     obj.addMethod("_inlet_2", &UIPlotTilde::onInlet);
+    obj.addMethod("plot", &UIPlotTilde::onInlet);
 }
 
 void setup_ui_plot_tilde()

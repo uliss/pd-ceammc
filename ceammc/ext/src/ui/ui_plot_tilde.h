@@ -17,6 +17,7 @@
 #include "ceammc_clock.h"
 #include "ceammc_ui_object.h"
 
+#include <array>
 #include <vector>
 
 using namespace ceammc;
@@ -31,7 +32,10 @@ enum LogBase {
 using TextList = std::vector<UITextLayout>;
 
 class UIPlotTilde : public UIDspObject {
-    std::vector<t_sample> buf_;
+    using SampleBuffer = std::vector<t_sample>;
+    using SampleBufferList = std::array<SampleBuffer, 4>;
+
+    SampleBufferList buffers_;
     ClockLambdaFunction clock_;
     t_inlet* in2_;
     size_t phase_;
@@ -43,6 +47,14 @@ class UIPlotTilde : public UIDspObject {
     int xlog_;
     int xmaj_ticks_, xmin_ticks_;
     int xmaj_grid_, xmin_grid_;
+    int ymaj_ticks_, ymin_ticks_;
+    int ymaj_grid_, ymin_grid_;
+    int xlabels_, ylabels_;
+    int prop_nins_;
+    t_rgba plot_color0_;
+    t_rgba plot_color1_;
+    t_rgba plot_color2_;
+    t_rgba plot_color3_;
     LogBase log_base_;
     UILayer plot_layer_;
     UILayer border_layer_;
@@ -58,6 +70,8 @@ public:
     void paint();
     void drawPlot();
     void drawBorder();
+    void drawLog2X(UIPainter& p, float wd, float ht);
+    void drawLog10X(UIPainter& p, float wd, float ht);
 
     void onPropChange(t_symbol* prop_name);
 
@@ -66,12 +80,17 @@ public:
 
     void onInlet(const AtomList& args);
 
+    float propNumInputs() const;
+    void propSetNumInputs(float n);
+
 public:
     static void setup();
 
 private:
     void addXLabel(float v, float x, float y, etextjustify_flags align, etextanchor_flags anchor);
     void addYLabel(float v, float x, float y, etextanchor_flags anchor);
+
+    void resizeBuffers(size_t n);
 };
 
 void setup_ui_plot_tilde();
