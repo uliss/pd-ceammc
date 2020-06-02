@@ -17,7 +17,7 @@
 
 #include <cstdio>
 
-constexpr float MIN_XOFF = 20;
+constexpr float MIN_XOFF = 25;
 constexpr float MIN_YOFF = 20;
 constexpr float OFF_K = 0.05;
 
@@ -102,7 +102,7 @@ UIPlotTilde::UIPlotTilde()
     , log_base_(LB_NONE)
     , plot_layer_(asEBox(), gensym("plot_layer"))
     , border_layer_(asEBox(), gensym("border_layer"))
-    , font_(gensym(FONT_FAMILY), FONT_SIZE_SMALL - 1)
+    , font_(gensym(FONT_FAMILY), FONT_SIZE_SMALL + 1)
     , running_(false)
 {
     buffers_[0].resize(10);
@@ -242,7 +242,31 @@ void UIPlotTilde::addXLabel(float v, float x, float y, etextjustify_flags align,
     if (v == int(v))
         snprintf(buf, 16, "%d", int(v));
     else
-        snprintf(buf, 16, "%.1f", v);
+        snprintf(buf, 16, "%g", v);
+
+    txt_x_.push_back(UITextLayout(font_.font()));
+    txt_x_.back().setJustify(align);
+    txt_x_.back().setAnchor(anchor);
+    txt_x_.back().set(buf, x, y, 20, FONT_SIZE_SMALL);
+}
+
+void UIPlotTilde::addXLabelLn(int n, float x, float y, etextjustify_flags align, etextanchor_flags anchor)
+{
+    static const char* digits[] = {
+        "\u2070", "\u00B9", "\u00B2", "\u00B3", "\u2074", "\u2075", "\u2076", "\u2077", "\u2078", "\u2079"
+    };
+
+    char buf[16] = "";
+    if (n < 0)
+        strcat(buf, "e\u207B"); // minus superscript
+    else
+        strcat(buf, "e");
+
+    n = std::abs(n);
+    for (int i = 30; n && i; --i, n /= 10)
+        strcat(buf, digits[n % 10]);
+
+    //    snprintf(buf, 16, "e^%d", n);
 
     txt_x_.push_back(UITextLayout(font_.font()));
     txt_x_.back().setJustify(align);
@@ -256,7 +280,7 @@ void UIPlotTilde::addYLabel(float v, float x, float y, etextanchor_flags anchor)
     if (v == int(v))
         snprintf(buf, 16, "%d", int(v));
     else
-        snprintf(buf, 16, "%.1f", v);
+        snprintf(buf, 16, "%g", v);
 
     txt_y_.push_back(UITextLayout(font_.font()));
     txt_y_.back().setJustify(ETEXT_JRIGHT);
@@ -364,6 +388,8 @@ void UIPlotTilde::drawBorder()
             drawLog2X(p, wd, ht);
         } else if (log_base_ == LB_10) {
             drawLog10X(p, wd, ht);
+        } else if (log_base_ == LB_E) {
+            drawLnX(p, wd, ht);
         }
     }
 }
@@ -436,14 +462,13 @@ void UIPlotTilde::drawLog10X(UIPainter& p, float wd, float ht)
     for (int i = lin_ai; i <= lin_bi; i++) {
         for (int j = 0; j < 10; j++) {
             auto log_maj = fast_pow10(i);
-            auto log_v = (1 + j) * log_maj;
-            if (log_v <= xmin_)
-                continue;
-            if (log_v >= xmax_)
-                break;
-
             auto lin_v = fast_log10(1 + j) + i;
             const auto x = convert::lin2lin<float>(lin_v, lin_a, lin_b, 0, wd);
+
+            if (x <= 0)
+                continue;
+            if (x >= wd)
+                break;
 
             const bool is_maj = (j == 0);
             const bool is_min = !is_maj;
@@ -469,6 +494,47 @@ void UIPlotTilde::drawLog10X(UIPainter& p, float wd, float ht)
                 addXLabel(log_maj, x + LABEL_XPAD, ht + LABEL_YPAD, ETEXT_JLEFT, ETEXT_UP_LEFT);
                 p.drawText(txt_x_.back());
             }
+        }
+    }
+}
+
+void UIPlotTilde::drawLnX(UIPainter& p, float wd, float ht)
+{
+    if (xmin_ <= 0 || xmax_ <= 0) {
+        UI_ERR << "positive x-range expected: " << xmin_ << " " << xmax_;
+        return;
+    }
+
+    const auto lin_a = std::log(xmin_);
+    const auto lin_b = std::log(xmax_);
+    const int lin_ai = std::floor(lin_a);
+    const int lin_bi = std::ceil(lin_b);
+
+    for (int i = lin_ai; i <= lin_bi; i++) {
+        auto log_v = std::exp(i);
+        if (log_v <= xmin_)
+            continue;
+        if (log_v >= xmax_)
+            break;
+
+        const auto x = convert::lin2lin<float>(i, lin_a, lin_b, 0, wd);
+
+        // draw ticks
+        if (xmaj_ticks_)
+            p.drawLine(x, ht, x, ht + XTICK_MAJ);
+
+        // draw grid
+        if (xmaj_grid_)
+            p.drawLine(x, 0, x, ht);
+
+        // too close to the border
+        if (x < XGRID_AVOID || x > (wd - XGRID_AVOID))
+            continue;
+
+        // draw labels
+        if (xlabels_) {
+            addXLabelLn(i, x + LABEL_XPAD, ht + LABEL_YPAD, ETEXT_JLEFT, ETEXT_UP_LEFT);
+            p.drawText(txt_x_.back());
         }
     }
 }
