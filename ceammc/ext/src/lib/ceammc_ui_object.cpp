@@ -954,7 +954,7 @@ void UIDspObject::dspSetup(size_t n_in, size_t n_out)
 {
     std::vector<t_outlet*> outs(n_out, 0);
 
-    eobj_dspsetup(asEBox(), n_in, n_out, 0, outs.data());
+    eobj_dspsetup(asEBox(), n_in, n_out, nullptr, outs.data());
     std::copy(outs.begin(), outs.end(), std::back_inserter(outlets_));
 }
 
