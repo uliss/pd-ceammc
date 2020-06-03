@@ -74,6 +74,8 @@ public:
     void drawLog10X(UIPainter& p, float wd, float ht);
     void drawLnX(UIPainter& p, float wd, float ht);
     void drawLinX(UIPainter& p, float wd, float ht);
+    void drawLinY(UIPainter& p, float wd, float ht);
+    void drawYRangeLabels(UIPainter& p, float from, float to, float wd, float ht);
 
     void onPropChange(t_symbol* prop_name);
 
@@ -91,7 +93,7 @@ public:
 private:
     void addXLabel(float v, float x, float y, etextjustify_flags align, etextanchor_flags anchor);
     void addXLabelLn(int n, float x, float y, etextjustify_flags align, etextanchor_flags anchor);
-    void addYLabel(float v, float x, float y, etextanchor_flags anchor);
+    void addYLabel(float v, float x, float y, etextjustify_flags align, etextanchor_flags anchor);
 
     void resizeBuffers(size_t n);
 };

@@ -396,8 +396,8 @@ typedef struct t_etext {
 } t_etext;
 
 /**
- * @struct t_etext
- * @brief The text structure.
+ * @struct t_eimage
+ * @brief The image structure.
  * @details It contains the all the informations to be drawn.
  */
 typedef struct t_eimage {
