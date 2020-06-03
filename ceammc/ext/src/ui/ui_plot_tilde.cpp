@@ -305,7 +305,7 @@ void UIPlotTilde::drawBorder()
     p.setMatrix({ 1, 0, 0, 1, xoff, yoff });
     p.setColor(prop_color_border);
     // draw plot frame
-    p.drawRect(xoff, yoff, wd, ht);
+    p.drawRect(0, 0, wd, ht);
     p.stroke();
 
     const float YMIN = (!yauto_) ? ymin_ : sig_min_;
@@ -335,6 +335,9 @@ void UIPlotTilde::drawBorder()
             drawLnX(p, wd, ht);
         }
     }
+
+    drawXCtrlButtons(p);
+    drawYCtrlButtons(p);
 }
 
 void UIPlotTilde::drawLog2X(UIPainter& p, float wd, float ht)
@@ -584,6 +587,58 @@ void UIPlotTilde::drawYRangeLabels(UIPainter& p, float from, float to, float wd,
     p.drawText(txt_y_.back());
 }
 
+void UIPlotTilde::drawXCtrlButtons(UIPainter& p)
+{
+}
+
+t_rect UIPlotTilde::calcXButton(int n, bool real) const
+{
+    if (n < 0 || n > 4)
+        return { 0 };
+
+    const float xoff = std::max(MIN_XOFF, width() * OFF_K);
+    const float yoff = std::max(MIN_YOFF, height() * OFF_K);
+    const float wd = width() - (xoff + MIN_XOFF);
+    const float ht = height() - 2 * yoff;
+
+    float x = wd + 3;
+    float y = ht;
+    float bsz = 12;
+    auto yy = y - (n + 1) * (bsz + 2);
+
+    if (real) {
+        x += xoff;
+        yy += yoff;
+    }
+
+    return { x, yy, bsz, bsz };
+}
+
+void UIPlotTilde::drawYCtrlButtons(UIPainter& p)
+{
+    p.setColor(rgba_black);
+    const char* txt[] = { "T", "g", "G", "L" };
+    const int props[] = { xmin_ticks_ || xmaj_ticks_, xmin_grid_, xmaj_grid_, xlabels_ };
+    constexpr size_t N0 = sizeof(txt) / sizeof(txt[0]);
+
+    for (int i = 0; i < N0; i++) {
+        t_rect r = calcXButton(i, false);
+        p.drawRect(r.x, r.y, r.width, r.height);
+        if (props[i]) {
+            p.setColor(prop_color_border);
+            p.fillPreserve();
+        }
+        p.setColor(rgba_black);
+        p.stroke();
+
+        txt_y_.push_back(UITextLayout(font_.font()));
+        txt_y_.back().setJustify(ETEXT_JCENTER);
+        txt_y_.back().setAnchor(ETEXT_CENTER);
+        txt_y_.back().set(txt[i], r.x + r.width / 2 + 1, r.y + r.height / 2 + 1, r.width, FONT_SIZE_SMALL);
+        p.drawText(txt_y_.back());
+    }
+}
+
 void UIPlotTilde::onPropChange(t_symbol* prop_name)
 {
     plot_layer_.invalidate();
@@ -703,8 +758,48 @@ void UIPlotTilde::onInlet(const AtomList& args)
     }
 }
 
+static bool inRect(const t_pt& p, const t_rect& r)
+{
+    if (p.x < r.x || p.x > (r.x + r.width))
+        return false;
+    else if (p.y < r.y || p.y > (r.y + r.height))
+        return false;
+    else
+        return true;
+}
+
 void UIPlotTilde::onMouseDown(t_object*, const t_pt& pt, const t_pt& abs_pt, long modifiers)
 {
+    for (int i = 0; i < 4; i++) {
+        t_rect r = calcXButton(i, true);
+        if (inRect(pt, r)) {
+            UI_ERR << "clicked";
+            switch (i) {
+            case 0:
+                xmaj_ticks_ ^= 0x1;
+                xmin_ticks_ = xmaj_ticks_;
+                border_layer_.invalidate();
+                redraw();
+                break;
+            case 2:
+                xmaj_grid_ ^= 0x1;
+                border_layer_.invalidate();
+                redraw();
+                break;
+            case 1:
+                xmin_grid_ ^= 0x1;
+                border_layer_.invalidate();
+                redraw();
+                break;
+            case 3:
+                xlabels_ ^= 0x1;
+                border_layer_.invalidate();
+                redraw();
+                break;
+            }
+            return;
+        }
+    }
 }
 
 float UIPlotTilde::propNumInputs() const
@@ -732,6 +827,7 @@ void UIPlotTilde::setup()
 
     obj.setDefaultSize(200, 200);
     obj.useBang();
+    obj.useMouseEvents(UI_MOUSE_DOWN);
 
     obj.addBoolProperty(SYM_YAUTO->s_name, _("Auto Y-range"), 0, &UIPlotTilde::yauto_, _("Bounds"));
     obj.addFloatProperty(SYM_YMIN->s_name, _("Minimum Y-value"), -1, &UIPlotTilde::ymin_, _("Bounds"));

@@ -76,6 +76,8 @@ public:
     void drawLinX(UIPainter& p, float wd, float ht);
     void drawLinY(UIPainter& p, float wd, float ht);
     void drawYRangeLabels(UIPainter& p, float from, float to, float wd, float ht);
+    void drawXCtrlButtons(UIPainter& p);
+    void drawYCtrlButtons(UIPainter& p);
 
     void onPropChange(t_symbol* prop_name);
 
@@ -97,6 +99,7 @@ private:
     void addYLabel(float v, float x, float y, etextjustify_flags align, etextanchor_flags anchor);
 
     void resizeBuffers(size_t n);
+    t_rect calcXButton(int n, bool real) const;
 };
 
 void setup_ui_plot_tilde();
