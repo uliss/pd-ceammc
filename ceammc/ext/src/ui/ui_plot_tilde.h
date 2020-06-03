@@ -100,6 +100,7 @@ private:
 
     void resizeBuffers(size_t n);
     t_rect calcXButton(int n, bool real) const;
+    t_rect calcYButton(int n, bool real) const;
 };
 
 void setup_ui_plot_tilde();

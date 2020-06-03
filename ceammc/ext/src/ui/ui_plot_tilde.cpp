@@ -31,6 +31,10 @@ static t_symbol* SYM_YAUTO;
 static t_symbol* SYM_YMIN;
 static t_symbol* SYM_YMAX;
 
+constexpr float BTN_SIZE = 12;
+static const char* BTN_LABELS[] = { "T", "g", "G", "L" };
+constexpr size_t N_BTNS = sizeof(BTN_LABELS) / sizeof(BTN_LABELS[0]);
+
 static double fast_pow10(int n)
 {
     switch (n) {
@@ -587,13 +591,9 @@ void UIPlotTilde::drawYRangeLabels(UIPainter& p, float from, float to, float wd,
     p.drawText(txt_y_.back());
 }
 
-void UIPlotTilde::drawXCtrlButtons(UIPainter& p)
-{
-}
-
 t_rect UIPlotTilde::calcXButton(int n, bool real) const
 {
-    if (n < 0 || n > 4)
+    if (n < 0 || n > N_BTNS)
         return { 0 };
 
     const float xoff = std::max(MIN_XOFF, width() * OFF_K);
@@ -601,40 +601,93 @@ t_rect UIPlotTilde::calcXButton(int n, bool real) const
     const float wd = width() - (xoff + MIN_XOFF);
     const float ht = height() - 2 * yoff;
 
-    float x = wd + 3;
+    const float pad = 2;
+    // location - right bottom plot side
+    float x = wd + pad;
     float y = ht;
-    float bsz = 12;
-    auto yy = y - (n + 1) * (bsz + 2);
+    auto yy = y - (n + 1) * (BTN_SIZE + pad);
 
     if (real) {
         x += xoff;
         yy += yoff;
     }
 
-    return { x, yy, bsz, bsz };
+    return { x, yy, BTN_SIZE, BTN_SIZE };
 }
 
-void UIPlotTilde::drawYCtrlButtons(UIPainter& p)
+t_rect UIPlotTilde::calcYButton(int n, bool real) const
 {
-    p.setColor(rgba_black);
-    const char* txt[] = { "T", "g", "G", "L" };
-    const int props[] = { xmin_ticks_ || xmaj_ticks_, xmin_grid_, xmaj_grid_, xlabels_ };
-    constexpr size_t N0 = sizeof(txt) / sizeof(txt[0]);
+    if (n < 0 || n > N_BTNS)
+        return { 0 };
 
-    for (int i = 0; i < N0; i++) {
-        t_rect r = calcXButton(i, false);
+    const float xoff = std::max(MIN_XOFF, width() * OFF_K);
+    const float yoff = std::max(MIN_YOFF, height() * OFF_K);
+
+    const float pad = 2;
+    float x = n * (BTN_SIZE + pad);
+    float y = -(BTN_SIZE + pad);
+
+    if (real) {
+        x += xoff;
+        y += yoff;
+    }
+
+    return { x, y, BTN_SIZE, BTN_SIZE };
+}
+
+void UIPlotTilde::drawXCtrlButtons(UIPainter& p)
+{
+    const int props[] = { xmin_ticks_ || xmaj_ticks_, xmin_grid_, xmaj_grid_, xlabels_ };
+    constexpr size_t N = sizeof(props) / sizeof(props[0]);
+    static_assert(N == N_BTNS, "size mismatch");
+
+    for (int i = 0; i < N_BTNS; i++) {
+        const t_rect r = calcXButton(i, false);
         p.drawRect(r.x, r.y, r.width, r.height);
         if (props[i]) {
             p.setColor(prop_color_border);
             p.fillPreserve();
         }
+
+        p.setColor(rgba_black);
+        p.stroke();
+
+        txt_x_.push_back(UITextLayout(font_.font()));
+        txt_x_.back().setJustify(ETEXT_JCENTER);
+        txt_x_.back().setAnchor(ETEXT_CENTER);
+
+        auto xc = r.x + r.width / 2 + 1; // button x-center
+        auto yc = r.y + r.height / 2 + 1; // button y-center
+        txt_x_.back().set(BTN_LABELS[i], xc, yc, r.width, FONT_SIZE_SMALL);
+        p.drawText(txt_x_.back());
+    }
+}
+
+void UIPlotTilde::drawYCtrlButtons(UIPainter& p)
+{
+    const int props[] = { ymin_ticks_ || ymaj_ticks_, ymin_grid_, ymaj_grid_, ylabels_ };
+    constexpr size_t N = sizeof(props) / sizeof(props[0]);
+    static_assert(N == N_BTNS, "size mismatch");
+
+    for (int i = 0; i < N_BTNS; i++) {
+        int btn_idx = N_BTNS - (i + 1);
+        const t_rect r = calcYButton(i, false);
+        p.drawRect(r.x, r.y, r.width, r.height);
+        if (props[btn_idx]) {
+            p.setColor(prop_color_border);
+            p.fillPreserve();
+        }
+
         p.setColor(rgba_black);
         p.stroke();
 
         txt_y_.push_back(UITextLayout(font_.font()));
         txt_y_.back().setJustify(ETEXT_JCENTER);
         txt_y_.back().setAnchor(ETEXT_CENTER);
-        txt_y_.back().set(txt[i], r.x + r.width / 2 + 1, r.y + r.height / 2 + 1, r.width, FONT_SIZE_SMALL);
+
+        auto xc = r.x + r.width / 2 + 1; // button x-center
+        auto yc = r.y + r.height / 2 + 1; // button y-center
+        txt_y_.back().set(BTN_LABELS[btn_idx], xc, yc, r.width, FONT_SIZE_SMALL);
         p.drawText(txt_y_.back());
     }
 }
@@ -650,6 +703,9 @@ void UIPlotTilde::init(t_symbol* name, const AtomList& args, bool usePresets)
 {
     UIDspObject::init(name, args, false);
     dspSetup(1, 0);
+
+    sig_min_ = ymin_;
+    sig_max_ = ymax_;
 }
 
 void UIPlotTilde::dspProcess(t_sample** ins, long n_ins, t_sample** outs, long n_outs, long sampleframes)
@@ -771,9 +827,7 @@ static bool inRect(const t_pt& p, const t_rect& r)
 void UIPlotTilde::onMouseDown(t_object*, const t_pt& pt, const t_pt& abs_pt, long modifiers)
 {
     for (int i = 0; i < 4; i++) {
-        t_rect r = calcXButton(i, true);
-        if (inRect(pt, r)) {
-            UI_ERR << "clicked";
+        if (inRect(pt, calcXButton(i, true))) {
             switch (i) {
             case 0:
                 xmaj_ticks_ ^= 0x1;
@@ -793,6 +847,33 @@ void UIPlotTilde::onMouseDown(t_object*, const t_pt& pt, const t_pt& abs_pt, lon
                 break;
             case 3:
                 xlabels_ ^= 0x1;
+                border_layer_.invalidate();
+                redraw();
+                break;
+            }
+            return;
+        }
+
+        if (inRect(pt, calcYButton(i, true))) {
+            switch (i) {
+            case 3:
+                ymaj_ticks_ ^= 0x1;
+                ymin_ticks_ = ymaj_ticks_;
+                border_layer_.invalidate();
+                redraw();
+                break;
+            case 1:
+                ymaj_grid_ ^= 0x1;
+                border_layer_.invalidate();
+                redraw();
+                break;
+            case 2:
+                ymin_grid_ ^= 0x1;
+                border_layer_.invalidate();
+                redraw();
+                break;
+            case 0:
+                ylabels_ ^= 0x1;
                 border_layer_.invalidate();
                 redraw();
                 break;
