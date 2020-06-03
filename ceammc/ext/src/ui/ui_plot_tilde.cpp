@@ -522,7 +522,7 @@ void UIPlotTilde::drawLinY(UIPainter& p, float wd, float ht)
     const float YMIN = (!yauto_) ? ymin_ : sig_min_;
     const float YMAX = (!yauto_) ? ymax_ : sig_max_;
 
-    const auto tick_step = std::pow(10, std::round(std::log10(std::fabs(YMAX - YMIN)) - 0.5) - 1);
+    const auto tick_step = std::pow(10, std::floor(std::log10(std::fabs(YMAX - YMIN)) - 0.05) - 1);
     const auto ytick_base = int(std::trunc(YMIN / tick_step));
     const auto ytick_min = std::trunc(YMIN / tick_step) * tick_step;
     const auto ytick_max = std::trunc(YMAX / tick_step) * tick_step;
@@ -701,6 +701,10 @@ void UIPlotTilde::onInlet(const AtomList& args)
             total_ = 0;
         }
     }
+}
+
+void UIPlotTilde::onMouseDown(t_object*, const t_pt& pt, const t_pt& abs_pt, long modifiers)
+{
 }
 
 float UIPlotTilde::propNumInputs() const
