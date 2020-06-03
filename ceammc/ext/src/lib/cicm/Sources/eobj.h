@@ -195,7 +195,7 @@ void eobj_dspfree(void* x);
  * \param x     The edspobj pointer.
  * \param nins  The number of signal inputs.
  */
-void eobj_resize_inputs(void* x, long nins);
+void eobj_resize_inputs(void* x, long nins, t_symbol* from = &s_signal, t_symbol* to = &s_signal);
 
 /*!
  * \fn          t_sample* eobj_getsignalinput(void *x, long index)

@@ -16,7 +16,7 @@
 #include <inttypes.h>
 #include <string>
 
-static t_eproxy* eproxy_new(void* owner, t_symbol* s);
+static t_eproxy* eproxy_new(void* owner, t_symbol* sym_from, t_symbol* sym_to);
 static void eproxy_free(void* owner, t_eproxy* proxy);
 void eclass_attr_setter(t_object* x, t_symbol* s, size_t argc, t_atom* argv);
 void eclass_attr_getter(t_object* x, t_symbol* s, int* argc, t_atom** argv);
@@ -34,7 +34,7 @@ void* eobj_new(t_eclass* c)
         }
 
         x->o_nproxy = 0;
-        x->o_proxy = NULL;
+        x->o_proxy = nullptr;
         x->o_canvas = canvas_getcurrent();
         sprintf(buffer, "#%s%" PRIxPTR, c->c_class.c_name->s_name, (uintptr_t)x);
         x->o_id = gensym(buffer);
@@ -69,7 +69,7 @@ t_pd_err eobj_iscicm(void* x)
 
 t_eproxy* eobj_proxynew(void* x)
 {
-    return eproxy_new(x, NULL);
+    return eproxy_new(x, nullptr, nullptr);
 }
 
 int eobj_getproxy(void* x)
@@ -277,7 +277,7 @@ void eobj_dspsetup(void* x, long nins, long nouts, t_eproxy** inlets, t_outlet**
         }
 
         for (int i = obj_nsiginlets((t_object*)x), inlet_idx = 0; i < nins; i++, inlet_idx++) {
-            t_eproxy* p = eproxy_new(x, &s_signal);
+            t_eproxy* p = eproxy_new(x, &s_signal, &s_signal);
 
             if (inlets)
                 inlets[inlet_idx] = p;
@@ -307,21 +307,30 @@ void eobj_dspfree(void* x)
     eobj_free(x);
 }
 
-void eobj_resize_inputs(void* x, long nins)
+void eobj_resize_inputs(void* x, long nins, t_symbol* from, t_symbol* to)
 {
-    int i, cinlts;
     t_eobj* obj = (t_eobj*)x;
     nins = (long)pd_clip_min(nins, 1);
-    cinlts = obj_nsiginlets((t_object*)x);
+    const int cinlts = obj_ninlets((t_object*)x);
+    //    int cinlts = obj_nsiginlets((t_object*)x);
+    //    const int cinlts = obj->o_nproxy;
+
     if (nins > cinlts) {
-        for (i = cinlts; i < nins; i++) {
-            eproxy_new(obj, &s_signal);
+        for (int i = cinlts; i < nins; i++) {
+            eproxy_new(obj, from, to);
         }
     } else if (nins < cinlts) {
-        for (i = obj->o_nproxy - 1; i >= nins; --i) {
-            eproxy_free(obj, obj->o_proxy[i]);
+        std::cerr << "nins: " << nins << "\n";
+        std::cerr << "cinlts: " << cinlts << "\n";
+        std::cerr << "obj->o_nproxy: " << obj->o_nproxy << "\n";
+
+        for (int i = cinlts; i > nins && obj->o_nproxy > 0; --i) {
+            std::cerr << "delete proxy " << i << "\n";
+            std::cerr << "obj->o_nproxy: " << obj->o_nproxy << "\n";
+            eproxy_free(obj, obj->o_proxy[obj->o_nproxy - 1]);
         }
     }
+
     canvas_fixlinesfor(eobj_getcanvas(obj), (t_text*)x);
 }
 
@@ -536,9 +545,6 @@ union inletunion {
     t_gpointer* iu_pointerslot;
     t_float* iu_floatslot;
     t_symbol** iu_symslot;
-#ifdef PD_BLOBS
-    t_blob** iu_blobslot;
-#endif
     t_float iu_floatsignalvalue;
 };
 
@@ -746,10 +752,10 @@ static t_class* eproxy_setup()
     }
 }
 
-static t_inlet* einlet_new(t_object* owner, t_pd* proxy, t_symbol* s)
+static t_inlet* einlet_new(t_object* owner, t_pd* proxy, t_symbol* from_sym, t_symbol* to_sym)
 {
     t_class* inlet_class;
-    t_inlet* inlet = inlet_new((t_object*)owner, (t_pd*)proxy, s, s);
+    t_inlet* inlet = inlet_new((t_object*)owner, (t_pd*)proxy, from_sym, to_sym);
     if (inlet) {
         inlet_class = inlet->i_pd;
         inlet_class->c_bangmethod = (t_bangmethod)new_inlet_bang;
@@ -762,7 +768,7 @@ static t_inlet* einlet_new(t_object* owner, t_pd* proxy, t_symbol* s)
     return inlet;
 }
 
-static t_eproxy* eproxy_new(void* owner, t_symbol* s)
+static t_eproxy* eproxy_new(void* owner, t_symbol* sym_from, t_symbol* sym_to)
 {
     t_eproxy* proxy;
     t_eproxy** temp;
@@ -780,15 +786,19 @@ static t_eproxy* eproxy_new(void* owner, t_symbol* s)
         proxy->p_owner = (t_object*)owner;
         proxy->p_pd = eproxy_class;
         proxy->p_index = z->o_nproxy;
-        proxy->p_inlet = einlet_new((t_object*)owner, (t_pd*)proxy, s);
+        proxy->p_inlet = einlet_new((t_object*)owner, (t_pd*)proxy, sym_from, sym_to);
         if (dsp) {
-            proxy->p_inlet->i_un.iu_floatsignalvalue = dsp->d_float;
+            if (sym_from == sym_to && sym_to == &s_signal)
+                proxy->p_inlet->i_un.iu_floatsignalvalue = dsp->d_float;
+            else
+                proxy->p_inlet->i_un.iu_symto = sym_to;
         }
+
         z->o_proxy[z->o_nproxy] = proxy;
         z->o_nproxy++;
         return proxy;
     } else {
-        pd_error(z, "cons't allocate memory for a new proxy inlet.");
+        pd_error(z, "can't allocate memory for a new proxy inlet.");
         return NULL;
     }
 }
@@ -817,7 +827,8 @@ static void eproxy_free(void* owner, t_eproxy* proxy)
             canvas_deletelines_for_io(eobj_getcanvas(owner), (t_text*)owner, proxy->p_inlet, NULL);
             inlet_free(proxy->p_inlet);
             if (z->o_nproxy == 1) {
-                pd_free((t_pd*)z->o_proxy);
+                free(z->o_proxy);
+                z->o_proxy = nullptr;
                 z->o_nproxy = 0;
             } else {
                 temp = (t_eproxy**)realloc(z->o_proxy, (size_t)(z->o_nproxy - 1) * sizeof(t_eproxy*));
