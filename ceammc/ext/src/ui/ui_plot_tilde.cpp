@@ -226,12 +226,10 @@ void UIPlotTilde::drawPlot()
             auto x = convert::lin2lin<float>(i, 0, buffers_[j].size() - 1, 0, wd);
 
             auto v = buffers_[j][i];
-            if (!std::isnormal(v))
-                v = 0;
 
-            if (std::isinf(v) || std::isnan(v))
+            if (std::isinf(v) || std::isnan(v)) {
                 fsm.push(Fsm::PEN_NONE, p, x, 0);
-            else if (yauto_) {
+            } else if (yauto_) {
                 auto y = convert::lin2lin<float>(v, sig_min_, sig_max_, ht, 0);
                 fsm.push(Fsm::PEN_IN, p, x, y);
             } else {
