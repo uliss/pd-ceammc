@@ -451,8 +451,7 @@ void ebox_new(t_ebox* x, long flags)
     x->b_flags = flags;
     x->b_ready_to_draw = false;
     x->b_have_window = false;
-    x->b_number_of_layers = 0;
-    x->b_layers = NULL;
+    x->b_layers = nullptr;
     x->b_window_id = NULL;
     x->b_receive_id = s_null;
     x->b_send_id = s_null;
@@ -1927,9 +1926,10 @@ void ebox_get_rect_for_view(t_ebox* x, t_rect* rect)
 t_elayer* ebox_start_layer(t_ebox* x, t_symbol* name, float width, float height)
 {
     char text[MAXPDSTRING];
-    t_elayer *temp, *graphic;
-    for (int i = 0; i < x->b_number_of_layers; i++) {
-        graphic = &x->b_layers[i];
+    const int N = (x->b_layers) ? x->b_layers->size() : 0;
+
+    for (int i = 0; i < N; i++) {
+        t_elayer* graphic = &((*(x->b_layers))[i]);
         if (graphic->e_name == name) {
             if (graphic->e_state == EGRAPHICS_INVALID) {
                 graphic->e_owner = (t_object*)x;
@@ -1970,66 +1970,67 @@ t_elayer* ebox_start_layer(t_ebox* x, t_symbol* name, float width, float height)
                 graphic->e_new_objects.e_image = NULL;
 
                 graphic->e_state = EGRAPHICS_OPEN;
-                return &x->b_layers[i];
+                return &((*(x->b_layers))[i]);
             } else {
-                return NULL;
+                return nullptr;
             }
         }
     }
-    if (x->b_layers == NULL) {
-        temp = (t_elayer*)calloc(1, sizeof(t_elayer));
-    } else {
-        temp = (t_elayer*)realloc(x->b_layers, (size_t)(x->b_number_of_layers + 1) * sizeof(t_elayer));
-    }
-    if (temp) {
-        x->b_layers = temp;
-        graphic = x->b_layers + x->b_number_of_layers;
-        x->b_number_of_layers++;
 
-        graphic->e_owner = (t_object*)x;
+    if (x->b_layers == nullptr)
+        x->b_layers = new std::vector<t_elayer>();
 
-        egraphics_matrix_init(&graphic->e_matrix, 1., 0., 0., 1., 0., 0.);
-        graphic->e_line_width = 1.f;
-        graphic->e_line_capstyle = ECAPSTYLE_BUTT;
-        graphic->e_line_dashstyle = EDASHSTYLE_NONE;
-        graphic->e_line_smooth = ESMOOTH_NONE;
-        graphic->e_color = 0;
-        graphic->e_rect.x = 0.f;
-        graphic->e_rect.y = 0.f;
-        graphic->e_rect.height = (float)pd_clip_min(height, 0.);
-        graphic->e_rect.width = (float)pd_clip_min(width, 0.);
+    x->b_layers->push_back({ 0 });
+    t_elayer* graphic = &x->b_layers->back();
 
-        graphic->e_number_objects = 0;
-        graphic->e_new_objects.e_points = NULL;
-        graphic->e_new_objects.e_npoints = 0;
-        graphic->e_objects = NULL;
+    graphic->e_owner = (t_object*)x;
 
-        graphic->e_name = name;
-        sprintf(text, "%s%" PRIdPTR, name->s_name, (intptr_t)x);
-        graphic->e_state = EGRAPHICS_OPEN;
-        graphic->e_id = gensym(text);
-        return graphic;
-    } else {
-        return NULL;
-    }
+    egraphics_matrix_init(&graphic->e_matrix, 1., 0., 0., 1., 0., 0.);
+    graphic->e_line_width = 1.f;
+    graphic->e_line_capstyle = ECAPSTYLE_BUTT;
+    graphic->e_line_dashstyle = EDASHSTYLE_NONE;
+    graphic->e_line_smooth = ESMOOTH_NONE;
+    graphic->e_color = 0;
+    graphic->e_rect.x = 0.f;
+    graphic->e_rect.y = 0.f;
+    graphic->e_rect.height = (float)pd_clip_min(height, 0.);
+    graphic->e_rect.width = (float)pd_clip_min(width, 0.);
+
+    graphic->e_number_objects = 0;
+    graphic->e_new_objects.e_points = NULL;
+    graphic->e_new_objects.e_npoints = 0;
+    graphic->e_objects = NULL;
+
+    graphic->e_name = name;
+    sprintf(text, "%s%" PRIdPTR, name->s_name, (intptr_t)x);
+    graphic->e_state = EGRAPHICS_OPEN;
+    graphic->e_id = gensym(text);
+    return graphic;
 }
 
 t_pd_err ebox_end_layer(t_ebox* x, t_symbol* name)
 {
-    for (int i = 0; i < x->b_number_of_layers; i++) {
-        if (x->b_layers[i].e_name == name) {
-            x->b_layers[i].e_state = EGRAPHICS_TODRAW;
+    if (!x->b_layers)
+        return -1;
+
+    for (auto& l : *x->b_layers) {
+        if (l.e_name == name) {
+            l.e_state = EGRAPHICS_TODRAW;
             return 0;
         }
     }
+
     return -1;
 }
 
 static inline t_elayer* ebox_get_layer(t_ebox* x, t_symbol const* name)
 {
-    for (int i = 0; i < x->b_number_of_layers; i++) {
-        if (x->b_layers[i].e_name == name)
-            return x->b_layers + i;
+    if (!x->b_layers)
+        return nullptr;
+
+    for (auto& l : *x->b_layers) {
+        if (l.e_name == name)
+            return &l;
     }
 
     return nullptr;
@@ -2315,17 +2316,21 @@ static void ebox_draw_iolets(t_ebox* x)
 
 static void ebox_invalidate_all(t_ebox* x)
 {
-    for (int i = 0; i < x->b_number_of_layers; i++) {
-        x->b_layers[i].e_state = EGRAPHICS_INVALID;
-    }
+    if (!x->b_layers)
+        return;
+
+    for (auto& l : *x->b_layers)
+        l.e_state = EGRAPHICS_INVALID;
 }
 
 static void layers_erase(t_ebox* x)
 {
-    for (int i = 0; i < x->b_number_of_layers; i++) {
-        if (x->b_layers[i].e_state == EGRAPHICS_INVALID) {
-            sys_vgui("%s delete %s\n", x->b_drawing_id->s_name, x->b_layers[i].e_id->s_name);
-        }
+    if (!x->b_layers)
+        return;
+
+    for (auto& l : *x->b_layers) {
+        if (l.e_state == EGRAPHICS_INVALID)
+            sys_vgui("%s delete %s\n", x->b_drawing_id->s_name, l.e_id->s_name);
     }
 }
 
@@ -2346,13 +2351,12 @@ static void ebox_erase(t_ebox* x)
     }
 
     if (x->b_layers) {
-        for (long i = 0; i < x->b_number_of_layers; i++)
-            elayer_free_content(x->b_layers[i]);
+        for (auto& l : *x->b_layers)
+            elayer_free_content(l);
 
-        free(x->b_layers);
-        x->b_layers = NULL;
+        delete x->b_layers;
+        x->b_layers = nullptr;
     }
-    x->b_number_of_layers = 0;
 }
 
 static void ebox_select(t_ebox* x)

@@ -40,6 +40,7 @@ extern "C" {
 #include <stdarg.h>
 #include <stdlib.h>
 #include <string.h>
+#include <vector>
 
 #ifdef _MSC_VER
 
@@ -804,8 +805,7 @@ typedef struct t_ebox_ {
     bool b_isinsubcanvas; /*!< If the box is in a sub canvas. */
     t_edrawparams b_boxparameters; /*!< The ebox parameters. */
 
-    t_elayer* b_layers; /*!< The ebox layers. */
-    long b_number_of_layers; /*!< The ebox number of layers. */
+    std::vector<t_elayer>* b_layers; /*!< The ebox layers. */
 
     t_symbol* b_label; /*!< The UI label. */
     t_symbol* label_align; /*!< The UI label align: left center or right */
