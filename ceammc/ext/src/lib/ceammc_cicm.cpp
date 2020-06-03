@@ -65,7 +65,7 @@ void UIFont::operator=(const UIFont& font)
     font_ = efont_create(family_, toSymbol(dec_), toSymbol(w_), size_);
 }
 
-UIFont::~UIFont()
+UIFont::~UIFont() noexcept
 {
     efont_destroy(font_);
 }
@@ -76,9 +76,9 @@ UITextLayout::UITextLayout(t_efont* font,
     const ColorRGBA& c,
     etextanchor_flags anchor,
     etextjustify_flags justify,
-    etextwrap_flags wrap)
+    etextwrap_flags wrap) noexcept
 
-    : text_(0)
+    : text_(nullptr)
     , font_(font)
     , anchor_(anchor)
     , justify_(justify)
@@ -94,9 +94,29 @@ UITextLayout::UITextLayout(t_efont* font,
     etext_layout_settextcolor(text_, &color);
 }
 
-UITextLayout::~UITextLayout()
+UITextLayout::UITextLayout(UITextLayout&& l) noexcept
+    : text_(l.text_)
+    , font_(l.font_)
+    , anchor_(l.anchor_)
+    , justify_(l.justify_)
+    , wrap_(l.wrap_)
+    , x_(l.x_)
+    , y_(l.y_)
+    , w_(l.w_)
+    , h_(l.h_)
 {
-    etext_layout_destroy(text_);
+    l.text_ = nullptr;
+    l.font_ = nullptr;
+    l.x_ = -1;
+    l.y_ = -1;
+    l.w_ = 0;
+    l.h_ = 0;
+}
+
+UITextLayout::~UITextLayout() noexcept
+{
+    if (text_)
+        etext_layout_destroy(text_);
 }
 
 ColorRGBA UITextLayout::color() const

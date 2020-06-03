@@ -54,7 +54,7 @@ public:
         FontDecoration decoration = FONT_DECORATION_NONE,
         FontWeight w = FONT_WEIGHT_NORMAL);
 
-    ~UIFont();
+    ~UIFont() noexcept;
 
     UIFont(const UIFont& font);
     void operator=(const UIFont& font);
@@ -78,9 +78,10 @@ public:
         const ColorRGBA& c = ColorRGBA::black(),
         etextanchor_flags anchor = ETEXT_LEFT,
         etextjustify_flags justify = ETEXT_JLEFT,
-        etextwrap_flags wrap = ETEXT_NOWRAP);
+        etextwrap_flags wrap = ETEXT_NOWRAP) noexcept;
+    UITextLayout(UITextLayout&& l) noexcept;
 
-    ~UITextLayout();
+    ~UITextLayout() noexcept;
 
     ColorRGBA color() const;
     void setColor(const ColorRGBA& c);
@@ -98,6 +99,8 @@ public:
     void setJustify(etextjustify_flags j);
     void setAnchor(etextanchor_flags a);
     void setWrap(bool v);
+
+    const char* text() const { return text_->c_text; }
 
 public:
     friend class UILayer;
