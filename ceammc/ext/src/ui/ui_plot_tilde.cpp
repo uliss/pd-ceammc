@@ -32,6 +32,7 @@ static t_symbol* SYM_YMIN;
 static t_symbol* SYM_YMAX;
 
 constexpr float BTN_SIZE = 12;
+constexpr float BTN_PAD = 2;
 static const char* BTN_LABELS[] = { "T", "g", "G", "L" };
 constexpr size_t N_BTNS = sizeof(BTN_LABELS) / sizeof(BTN_LABELS[0]);
 
@@ -340,8 +341,11 @@ void UIPlotTilde::drawBorder()
         }
     }
 
-    drawXCtrlButtons(p);
-    drawYCtrlButtons(p);
+    if (ht > N_BTNS * (BTN_SIZE + BTN_PAD))
+        drawXCtrlButtons(p);
+
+    if (wd > N_BTNS * (BTN_SIZE + BTN_PAD))
+        drawYCtrlButtons(p);
 }
 
 void UIPlotTilde::drawLog2X(UIPainter& p, float wd, float ht)
@@ -614,11 +618,10 @@ t_rect UIPlotTilde::calcXButton(int n, bool real) const
     const float wd = width() - (xoff + MIN_XOFF);
     const float ht = height() - 2 * yoff;
 
-    const float pad = 2;
     // location - right bottom plot side
-    float x = wd + pad;
+    float x = wd + BTN_PAD;
     float y = ht;
-    auto yy = y - (n + 1) * (BTN_SIZE + pad);
+    auto yy = y - (n + 1) * (BTN_SIZE + BTN_PAD);
 
     if (real) {
         x += xoff;
@@ -636,9 +639,8 @@ t_rect UIPlotTilde::calcYButton(int n, bool real) const
     const float xoff = std::max(MIN_XOFF, width() * OFF_K);
     const float yoff = std::max(MIN_YOFF, height() * OFF_K);
 
-    const float pad = 2;
-    float x = n * (BTN_SIZE + pad);
-    float y = -(BTN_SIZE + pad);
+    float x = n * (BTN_SIZE + BTN_PAD);
+    float y = -(BTN_SIZE + BTN_PAD);
 
     if (real) {
         x += xoff;
@@ -795,7 +797,7 @@ void UIPlotTilde::onInlet(const AtomList& args)
         auto N = args[0].toT<int>(0);
         if (N > NMAX) {
             running_ = false;
-            //            UI_ERR << fmt::format("requested plot size is too big: {}, max size is {}", N, NMAX);
+            UI_ERR << "requested plot size is too big: " << N << ", max size is " << NMAX;
             return;
         } else if (N > 0) {
             running_ = true;
@@ -916,7 +918,7 @@ void UIPlotTilde::propSetNumInputs(float n)
 
 void UIPlotTilde::setup()
 {
-    UIObjectFactory<UIPlotTilde> obj("ui.plot~", EBOX_GROWLINK);
+    UIObjectFactory<UIPlotTilde> obj("ui.plot~");
     obj.hideLabelInner();
 
     obj.setDefaultSize(200, 200);
