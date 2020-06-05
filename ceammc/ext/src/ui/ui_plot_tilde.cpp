@@ -546,23 +546,36 @@ void UIPlotTilde::drawLinY(UIPainter& p, float wd, float ht)
         const bool is_min = !is_maj;
 
         // ticks
-        if (is_maj && ymaj_ticks_)
-            p.drawLine(-XTICK_MAJ, y, 0, y);
-        else if (is_min && ymin_ticks_)
-            p.drawLine(-XTICK_MIN, y, 0, y);
+        if (is_maj && ymaj_ticks_) {
+            p.moveTo(-XTICK_MAJ, y);
+            p.drawLineTo(0, y);
+        } else if (is_min && ymin_ticks_) {
+            p.moveTo(-XTICK_MIN, y);
+            p.drawLineTo(0, y);
+        }
 
         // grid
-        if (is_maj && ymaj_grid_)
-            p.drawLine(0, y, wd, y);
-        else if (is_min && ymin_grid_)
-            p.drawLine(0, y, wd, y);
+        if (is_maj && ymaj_grid_) {
+            p.moveTo(0, y);
+            p.drawLineTo(wd, y);
+        } else if (is_min && ymin_grid_) {
+            p.moveTo(0, y);
+            p.drawLineTo(wd, y);
+        }
+    }
 
-        // too close to the border
-        if (y < XGRID_AVOID || y > (ht - XGRID_AVOID))
-            continue;
+    p.stroke();
 
-        // labels
-        if (is_maj && ylabels_) {
+    if (ylabels_) {
+        const auto ts10 = 10 * tick_step;
+        for (size_t i = 0; i < (N / 10); i++) {
+            auto v = std::trunc(YMIN / ts10) * ts10 + i * ts10;
+            auto y = convert::lin2lin<float>(v, YMIN, YMAX, ht, 0); // in pixels
+
+            // too close to the border
+            if (y < XGRID_AVOID || y > (ht - XGRID_AVOID))
+                continue;
+
             addYLabel(v, 0, y, ETEXT_JLEFT, ETEXT_DOWN_RIGHT);
             p.drawText(txt_y_.back());
         }
