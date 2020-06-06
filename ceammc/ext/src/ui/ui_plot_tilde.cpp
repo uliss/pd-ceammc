@@ -17,6 +17,8 @@
 
 #include <cstdio>
 
+constexpr int MIN_INPUTS = 1;
+constexpr int MAX_INPUTS = 4;
 constexpr float MIN_XOFF = 25;
 constexpr float MIN_YOFF = 20;
 constexpr float OFF_K = 0.05;
@@ -120,6 +122,7 @@ UIPlotTilde::UIPlotTilde()
     , border_layer_(asEBox(), gensym("border_layer"))
     , font_(gensym(FONT_FAMILY), FONT_SIZE_SMALL + 1)
     , running_(false)
+    , plot_show_mask_(0xff)
 {
     buffers_[0].resize(10);
 }
@@ -199,7 +202,7 @@ public:
     }
 
 private:
-    PenTransitions pen_fsm_[4];
+    PenTransitions pen_fsm_[MAX_INPUTS];
     PenPosition pen_position_;
     std::pair<float, float> pt_;
 };
@@ -224,6 +227,9 @@ void UIPlotTilde::drawPlot()
     const t_rgba* colors[] = { &plot_color0_, &plot_color1_, &plot_color2_, &plot_color3_ };
 
     for (size_t j = 0; j < prop_nins_; j++) {
+        if (!(plot_show_mask_ & (1 << j)))
+            continue;
+
         fsm.reset();
 
         p.setColor(*colors[j]);
@@ -348,6 +354,9 @@ void UIPlotTilde::drawBorder()
 
     if (wd > N_BTNS * (BTN_SIZE + BTN_PAD))
         drawYCtrlButtons(p);
+
+    if (prop_nins_ > 1 && wd > (N_BTNS + prop_nins_) * (BTN_SIZE + BTN_PAD))
+        drawInCtrlButtons(p);
 }
 
 void UIPlotTilde::drawLog2X(UIPainter& p, float wd, float ht)
@@ -659,11 +668,34 @@ t_rect UIPlotTilde::calcYButton(int n, bool real) const
     return { x, y, BTN_SIZE, BTN_SIZE };
 }
 
+t_rect UIPlotTilde::calcInButton(int n, bool real) const
+{
+    if (n < 0 || n > N_BTNS)
+        return { 0 };
+
+    const float xoff = std::max(MIN_XOFF, width() * OFF_K);
+    const float yoff = std::max(MIN_YOFF, height() * OFF_K);
+    const float wd = width() - (xoff + MIN_XOFF);
+
+    float x = wd - (n + 1) * (BTN_SIZE + BTN_PAD);
+    float y = -(BTN_SIZE + BTN_PAD);
+
+    if (real) {
+        x += xoff;
+        y += yoff;
+    }
+
+    return { x, y, BTN_SIZE, BTN_SIZE };
+}
+
 void UIPlotTilde::drawXCtrlButtons(UIPainter& p)
 {
     const int props[] = { xmin_ticks_ || xmaj_ticks_, xmin_grid_, xmaj_grid_, xlabels_ };
     constexpr size_t N = sizeof(props) / sizeof(props[0]);
     static_assert(N == N_BTNS, "size mismatch");
+
+    // 4 rects and 4 labels
+    p.preAllocObjects(N_BTNS * 2);
 
     for (int i = 0; i < N_BTNS; i++) {
         const t_rect r = calcXButton(i, false);
@@ -693,6 +725,9 @@ void UIPlotTilde::drawYCtrlButtons(UIPainter& p)
     constexpr size_t N = sizeof(props) / sizeof(props[0]);
     static_assert(N == N_BTNS, "size mismatch");
 
+    // 4 rects and 4 labels
+    p.preAllocObjects(N_BTNS * 2);
+
     for (int i = 0; i < N_BTNS; i++) {
         int btn_idx = N_BTNS - (i + 1);
         const t_rect r = calcYButton(i, false);
@@ -712,6 +747,36 @@ void UIPlotTilde::drawYCtrlButtons(UIPainter& p)
         auto xc = r.x + r.width / 2 + 1; // button x-center
         auto yc = r.y + r.height / 2 + 1; // button y-center
         txt_y_.back().set(BTN_LABELS[btn_idx], xc, yc, r.width, FONT_SIZE_SMALL);
+        p.drawText(txt_y_.back());
+    }
+}
+
+void UIPlotTilde::drawInCtrlButtons(UIPainter& p)
+{
+    const char* txt[] = { "1", "2", "3", "4" };
+    const t_rgba* colors[] = { &plot_color0_, &plot_color1_, &plot_color2_, &plot_color3_ };
+
+    p.preAllocObjects(prop_nins_ * 2);
+
+    for (int i = 0; i < prop_nins_; i++) {
+        int btn_idx = N_BTNS - (i + 1);
+        const t_rect r = calcInButton(i, false);
+        p.drawRect(r.x, r.y, r.width, r.height);
+        if (plot_show_mask_ & (1 << btn_idx)) {
+            p.setColor(*colors[btn_idx]);
+            p.fillPreserve();
+        }
+
+        p.setColor(rgba_black);
+        p.stroke();
+
+        txt_y_.push_back(UITextLayout(font_.font()));
+        txt_y_.back().setJustify(ETEXT_JCENTER);
+        txt_y_.back().setAnchor(ETEXT_CENTER);
+
+        auto xc = r.x + r.width / 2 + 1; // button x-center
+        auto yc = r.y + r.height / 2 + 1; // button y-center
+        txt_y_.back().set(txt[btn_idx], xc, yc, r.width, FONT_SIZE_SMALL);
         p.drawText(txt_y_.back());
     }
 }
@@ -905,6 +970,16 @@ void UIPlotTilde::onMouseDown(t_object*, const t_pt& pt, const t_pt& abs_pt, lon
             return;
         }
     }
+
+    for (int i = 0; i < MAX_INPUTS; i++) {
+        if (inRect(pt, calcInButton(i, true))) {
+            plot_show_mask_ ^= (0x1 << (MAX_INPUTS - (i + 1)));
+            border_layer_.invalidate();
+            plot_layer_.invalidate();
+            redraw();
+            return;
+        }
+    }
 }
 
 float UIPlotTilde::propNumInputs() const
@@ -914,7 +989,7 @@ float UIPlotTilde::propNumInputs() const
 
 void UIPlotTilde::propSetNumInputs(float n)
 {
-    prop_nins_ = clip<int, 1, 4>(n);
+    prop_nins_ = clip<int, MIN_INPUTS, MAX_INPUTS>(n);
     int dspState = canvas_suspend_dsp();
 
     eobj_resize_inputs(asEBox(), 0);
@@ -951,7 +1026,7 @@ void UIPlotTilde::setup()
 
     obj.addIntProperty("n", _("Number of inputs"), 1, &UIPlotTilde::prop_nins_, "Main");
     obj.setPropertyAccessor("n", &UIPlotTilde::propNumInputs, &UIPlotTilde::propSetNumInputs);
-    obj.setPropertyRange("n", 1, 4);
+    obj.setPropertyRange("n", MIN_INPUTS, MAX_INPUTS);
 
     obj.addColorProperty("plot_color0", _("First plot color"), DEFAULT_ACTIVE_COLOR, &UIPlotTilde::plot_color0_);
     obj.addColorProperty("plot_color1", _("Second plot color"), "0.75 0 1 1", &UIPlotTilde::plot_color1_);

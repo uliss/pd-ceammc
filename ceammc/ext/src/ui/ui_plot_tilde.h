@@ -18,6 +18,7 @@
 #include "ceammc_ui_object.h"
 
 #include <array>
+#include <cstdint>
 #include <vector>
 
 using namespace ceammc;
@@ -62,6 +63,7 @@ class UIPlotTilde : public UIDspObject {
     TextList txt_y_;
     TextList txt_x_;
     bool running_;
+    uint8_t plot_show_mask_;
 
 public:
     UIPlotTilde();
@@ -78,6 +80,7 @@ public:
     void drawYRangeLabels(UIPainter& p, float from, float to, float wd, float ht);
     void drawXCtrlButtons(UIPainter& p);
     void drawYCtrlButtons(UIPainter& p);
+    void drawInCtrlButtons(UIPainter& p);
 
     void onPropChange(t_symbol* prop_name);
 
@@ -101,6 +104,7 @@ private:
     void resizeBuffers(size_t n);
     t_rect calcXButton(int n, bool real) const;
     t_rect calcYButton(int n, bool real) const;
+    t_rect calcInButton(int n, bool real) const;
 };
 
 void setup_ui_plot_tilde();
