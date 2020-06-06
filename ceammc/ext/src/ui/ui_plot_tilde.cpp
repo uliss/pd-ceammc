@@ -219,6 +219,7 @@ void UIPlotTilde::drawPlot()
     const float ht = height() - 2 * yoff;
 
     p.setMatrix({ 1, 0, 0, 1, xoff, yoff });
+    p.preAllocObjects(prop_nins_);
 
     const t_rgba* colors[] = { &plot_color0_, &plot_color1_, &plot_color2_, &plot_color3_ };
 
@@ -226,6 +227,7 @@ void UIPlotTilde::drawPlot()
         fsm.reset();
 
         p.setColor(*colors[j]);
+        p.preAllocPoints(3 * buffers_[j].size());
 
         for (size_t i = 0; i < buffers_[j].size(); i++) {
             auto x = convert::lin2lin<float>(i, 0, buffers_[j].size() - 1, 0, wd);
@@ -541,6 +543,11 @@ void UIPlotTilde::drawLinY(UIPainter& p, float wd, float ht)
     const size_t N = std::fabs(ytick_max - ytick_min) / tick_step;
     p.setColor(prop_color_border);
 
+    const size_t NMAJ_LINES = N / 10 * (ymaj_grid_ + ymaj_ticks_);
+    const size_t NMIN_LINES = (0.9 * N) * (ymin_grid_ + ymin_ticks_);
+
+    p.preAllocPoints(4 * (NMAJ_LINES + NMIN_LINES));
+
     for (size_t i = 1; i <= N; i++) {
         auto v = ytick_min + i * tick_step;
         auto y = convert::lin2lin<float>(v, YMIN, YMAX, ht, 0); // in pixels
@@ -571,6 +578,8 @@ void UIPlotTilde::drawLinY(UIPainter& p, float wd, float ht)
     p.stroke();
 
     if (ylabels_) {
+        p.preAllocObjects(N / 10);
+
         const auto ts10 = 10 * tick_step;
         for (size_t i = 0; i < (N / 10); i++) {
             auto v = std::trunc(YMIN / ts10) * ts10 + i * ts10;
