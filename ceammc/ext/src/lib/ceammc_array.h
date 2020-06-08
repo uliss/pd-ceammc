@@ -223,6 +223,21 @@ public:
     bool setYBounds(t_float yBottom, t_float yTop);
 
     /**
+     * @brief setYTicks - set array y ticks
+     * @param step - tick value step
+     * @param bigN - big tick every bigN, 0 - to disable all ticks
+     * @return true on sucess, false on error
+     */
+    bool setYTicks(t_float step, size_t bigN);
+
+    /**
+     * @brief setYLabels
+     * @param labels - list of float values on which show labels
+     * @return true on sucess, false on error
+     */
+    bool setYLabels(const AtomList& labels);
+
+    /**
      * If true - save array contains in patch (convenient for small arrays)
      */
     bool setSaveInPatch(bool value);

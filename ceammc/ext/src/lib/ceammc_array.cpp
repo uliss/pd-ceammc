@@ -14,7 +14,13 @@
 #include "ceammc_array.h"
 #include "m_pd.h"
 
+extern "C" {
+#include "g_canvas.h"
+#include "m_imp.h"
+}
+
 #include <algorithm>
+#include <cmath>
 
 using namespace ceammc;
 
@@ -228,6 +234,42 @@ bool Array::setYBounds(t_float yBottom, t_float yTop)
     SETFLOAT(&args[2], t_float(size_));
     SETFLOAT(&args[3], yBottom);
     pd_typedmess(name_->s_thing, SYM_BOUNDS, 4, args);
+    return true;
+}
+
+bool Array::setYTicks(t_float step, size_t bigN)
+{
+    static t_symbol* SYM_YTICKS = gensym("yticks");
+
+    if (!isValid() || !name_->s_thing)
+        return false;
+
+    t_atom args[4];
+    SETFLOAT(&args[0], 0);
+    SETFLOAT(&args[1], step);
+    SETFLOAT(&args[2], bigN);
+    pd_typedmess(name_->s_thing, SYM_YTICKS, 3, args);
+    return true;
+}
+
+bool Array::setYLabels(const AtomList& labels)
+{
+    static t_symbol* SYM_YLABELS = gensym("ylabel");
+
+    if (!isValid() || !name_->s_thing)
+        return false;
+
+    if (!(*name_->s_thing)->c_gobj)
+        return false;
+
+    auto gl = garray_getglist(array_);
+    t_float el_wd = 1;
+    if (gl)
+        el_wd = t_float(size()) / gl->gl_pixwidth;
+
+    AtomList args(std::round(-4 * el_wd));
+    args.append(labels);
+    pd_typedmess(name_->s_thing, SYM_YLABELS, args.size(), args.toPdData());
     return true;
 }
 
