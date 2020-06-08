@@ -38,7 +38,7 @@ constexpr float BTN_PAD = 2;
 static const char* BTN_LABELS[] = { "T", "g", "G", "L" };
 constexpr size_t N_BTNS = sizeof(BTN_LABELS) / sizeof(BTN_LABELS[0]);
 
-static double fast_pow10(int n)
+static inline double fast_pow10(int n)
 {
     switch (n) {
     case 0:
@@ -63,6 +63,26 @@ static double fast_pow10(int n)
         return 0.0001;
     default:
         return std::pow(10.0, n);
+    }
+}
+
+static inline double fast_pow2(int n)
+{
+    switch (n) {
+    case 0:
+        return 1;
+    case -1:
+        return 0.5;
+    case -2:
+        return 0.25;
+    case -3:
+        return 0.125;
+    case -4:
+        return 0.0625;
+    case -5:
+        return 0.03125;
+    default:
+        return (n > 0) ? (0x1 << n) : std::pow(2, n);
     }
 }
 
@@ -106,12 +126,11 @@ UIPlotTilde::UIPlotTilde()
     , total_(0)
     , ymin_(0)
     , ymax_(0)
-    , sig_min_(0)
-    , sig_max_(0)
     , xmin_(0)
     , xmax_(256)
+    , sig_min_(0)
+    , sig_max_(0)
     , yauto_(1)
-    , xlog_(1)
     , xmaj_ticks_(1)
     , xmin_ticks_(1)
     , xmaj_grid_(1)
@@ -368,26 +387,25 @@ void UIPlotTilde::drawLog2X(UIPainter& p, float wd, float ht)
 
     const auto lin_a = std::log2(xmin_);
     const auto lin_b = std::log2(xmax_);
+    const int lin_ai = std::floor(lin_a);
+    const int lin_bi = std::ceil(lin_b);
 
-    const size_t nbig_ticks = std::floor(lin_b) - std::floor(lin_a);
-    size_t N = nbig_ticks;
-    if (nbig_ticks == 0)
-        N = std::floor(std::log2(xmax_ - xmin_));
-
-    for (size_t i = 0; i <= N; i++) {
-        for (size_t j = 0; j < 4; j++) {
-            auto log_maj = std::pow(2, i);
+    for (int i = lin_ai; i <= lin_bi; i++) {
+        for (int j = 0; j < 4; j++) {
+            auto log_maj = fast_pow2(i);
             auto log_min = j * (log_maj / 4);
             auto lin_v = std::log2(log_maj + log_min);
             const auto x = convert::lin2lin<float>(lin_v, lin_a, lin_b, 0, wd);
 
-            if (x > wd)
+            if (x <= 0)
+                continue;
+            if (x >= wd)
                 break;
 
-            // draw ticks
-            const bool is_maj = (lin_v == int(lin_v));
+            const bool is_maj = (j == 0);
             const bool is_min = !is_maj;
 
+            // draw ticks
             if (is_maj && xmaj_ticks_)
                 p.drawLine(x, ht, x, ht + XTICK_MAJ);
             else if (is_min && xmin_ticks_)
@@ -590,7 +608,7 @@ void UIPlotTilde::drawLinY(UIPainter& p, float wd, float ht)
         p.preAllocObjects(N / 10);
 
         const auto ts10 = 10 * tick_step;
-        for (size_t i = 0; i < (N / 10); i++) {
+        for (size_t i = 0; i <= (N / 10); i++) {
             auto v = std::trunc(YMIN / ts10) * ts10 + i * ts10;
             auto y = convert::lin2lin<float>(v, YMIN, YMAX, ht, 0); // in pixels
 
@@ -759,11 +777,11 @@ void UIPlotTilde::drawInCtrlButtons(UIPainter& p)
     p.preAllocObjects(prop_nins_ * 2);
 
     for (int i = 0; i < prop_nins_; i++) {
-        int btn_idx = N_BTNS - (i + 1);
-        const t_rect r = calcInButton(i, false);
+        const int btn_idx = prop_nins_ - (i + 1);
+        const t_rect r = calcInButton(btn_idx, false);
         p.drawRect(r.x, r.y, r.width, r.height);
-        if (plot_show_mask_ & (1 << btn_idx)) {
-            p.setColor(*colors[btn_idx]);
+        if (plot_show_mask_ & (1 << i)) {
+            p.setColor(*colors[i]);
             p.fillPreserve();
         }
 
@@ -776,7 +794,7 @@ void UIPlotTilde::drawInCtrlButtons(UIPainter& p)
 
         auto xc = r.x + r.width / 2 + 1; // button x-center
         auto yc = r.y + r.height / 2 + 1; // button y-center
-        txt_y_.back().set(txt[btn_idx], xc, yc, r.width, FONT_SIZE_SMALL);
+        txt_y_.back().set(txt[i], xc, yc, r.width, FONT_SIZE_SMALL);
         p.drawText(txt_y_.back());
     }
 }
@@ -971,9 +989,9 @@ void UIPlotTilde::onMouseDown(t_object*, const t_pt& pt, const t_pt& abs_pt, lon
         }
     }
 
-    for (int i = 0; i < MAX_INPUTS; i++) {
-        if (inRect(pt, calcInButton(i, true))) {
-            plot_show_mask_ ^= (0x1 << (MAX_INPUTS - (i + 1)));
+    for (int i = 0; i < prop_nins_; i++) {
+        if (inRect(pt, calcInButton(prop_nins_ - (i + 1), true))) {
+            plot_show_mask_ ^= (0x1 << i);
             border_layer_.invalidate();
             plot_layer_.invalidate();
             redraw();
@@ -1012,7 +1030,6 @@ void UIPlotTilde::setup()
     obj.addBoolProperty(SYM_YAUTO->s_name, _("Auto Y-range"), 0, &UIPlotTilde::yauto_, _("Bounds"));
     obj.addFloatProperty(SYM_YMIN->s_name, _("Minimum Y-value"), -1, &UIPlotTilde::ymin_, _("Bounds"));
     obj.addFloatProperty(SYM_YMAX->s_name, _("Maximum Y-value"), 1, &UIPlotTilde::ymax_, _("Bounds"));
-    obj.addBoolProperty("xlog", _("Log scaled x-axis"), 0, &UIPlotTilde::xlog_, _("Bounds"));
     obj.addBoolProperty("xmaj_ticks", _("Major ticks on x-axis"), 1, &UIPlotTilde::xmaj_ticks_, _("Bounds"));
     obj.addBoolProperty("xmin_ticks", _("Minor ticks on x-axis"), 1, &UIPlotTilde::xmin_ticks_, _("Bounds"));
     obj.addBoolProperty("xmaj_grid", _("Major grid on x-axis"), 1, &UIPlotTilde::xmaj_grid_, _("Bounds"));

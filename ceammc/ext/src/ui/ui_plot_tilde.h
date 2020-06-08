@@ -45,7 +45,6 @@ class UIPlotTilde : public UIDspObject {
     float xmin_, xmax_;
     t_sample sig_min_, sig_max_;
     int yauto_;
-    int xlog_;
     int xmaj_ticks_, xmin_ticks_;
     int xmaj_grid_, xmin_grid_;
     int ymaj_ticks_, ymin_ticks_;
