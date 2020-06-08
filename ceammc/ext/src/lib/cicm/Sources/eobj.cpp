@@ -312,21 +312,13 @@ void eobj_resize_inputs(void* x, long nins, t_symbol* from, t_symbol* to)
     t_eobj* obj = (t_eobj*)x;
     nins = (long)pd_clip_min(nins, 1);
     const int cinlts = obj_ninlets((t_object*)x);
-    //    int cinlts = obj_nsiginlets((t_object*)x);
-    //    const int cinlts = obj->o_nproxy;
 
     if (nins > cinlts) {
         for (int i = cinlts; i < nins; i++) {
             eproxy_new(obj, from, to);
         }
     } else if (nins < cinlts) {
-        std::cerr << "nins: " << nins << "\n";
-        std::cerr << "cinlts: " << cinlts << "\n";
-        std::cerr << "obj->o_nproxy: " << obj->o_nproxy << "\n";
-
         for (int i = cinlts; i > nins && obj->o_nproxy > 0; --i) {
-            std::cerr << "delete proxy " << i << "\n";
-            std::cerr << "obj->o_nproxy: " << obj->o_nproxy << "\n";
             eproxy_free(obj, obj->o_proxy[obj->o_nproxy - 1]);
         }
     }

@@ -416,8 +416,7 @@ typedef struct t_eimage {
  * @todo should keep the allocated memory
  */
 typedef struct t_egobj {
-    t_pt* e_points; /*!< The points of the graphical object. */
-    int e_npoints; /*!< The number of points of the graphical object. */
+    std::vector<t_pt> e_points; /*!< The points of the graphical object. */
     t_efont e_font; /*!< The font of the graphical object. */
     const char* e_text; /*!< The text of the graphical object. */
     t_eimage* e_image; /*!< The image of the graphical object. */
@@ -444,13 +443,12 @@ typedef struct t_elayer {
     t_object* e_owner; /*!< The layer owner. */
     t_symbol* e_name; /*!< The layer name. */
     t_symbol* e_id; /*!< The layer canvas ID. */
-    t_egobj* e_objects; /*!< The layer objects. */
+    std::vector<t_egobj> e_objects; /*!< The layer objects. */
     t_rect e_rect; /*!< The layer size. */
     t_matrix e_matrix; /*!< The layer matrix. */
     t_egobj e_new_objects; /*!< The layer new object. */
 
     uint32_t e_color; /*!< The layer color. */
-    uint16_t e_number_objects; /*!< The number of layer objects. */
     uint16_t e_line_width; /*!< The layer line width. */
 
     elayer_flags e_state; /*!< The layer state. */

@@ -148,6 +148,8 @@ public:
 
     void rotate(float angle);
     void setMatrix(const t_matrix& mtx);
+    void preAllocObjects(size_t n);
+    void preAllocPoints(size_t n);
 };
 
 class UILayer {

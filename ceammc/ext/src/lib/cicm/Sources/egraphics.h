@@ -132,6 +132,18 @@ void egraphics_rotate(t_elayer* g, float angle);
  */
 void egraphics_move_to(t_elayer* g, const float x, const float y);
 
+/**
+ * Reserves space for new drawing points
+ * Use for performance optimisation
+ */
+void egraphics_preallocate_points(t_elayer* g, size_t npoints);
+
+/**
+ * Reserves space for new drawing objects
+ * Use for performance optimisation
+ */
+void egraphics_preallocate_objects(t_elayer* g, size_t nobj);
+
 /*!
  * \fn          void egraphics_line_to(t_elayer *g, float x, float y)
  * \brief       Adds a line in the current path of a t_elayer.
@@ -286,7 +298,6 @@ void egraphics_arc_oval(t_elayer* g, float xc, float yc, float radiusx, float ra
 void egraphics_image(t_elayer* g, float xc, float yc, t_eimage* image);
 void egraphics_poly(t_elayer* g, const std::vector<t_pt>& points);
 void egraphics_raise(t_elayer* over, t_elayer* l);
-
 
 /*!
  * \fn          t_etext* etext_layout_create(void)

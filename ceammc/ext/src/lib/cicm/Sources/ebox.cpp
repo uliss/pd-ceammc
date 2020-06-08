@@ -1926,11 +1926,13 @@ void ebox_get_rect_for_view(t_ebox* x, t_rect* rect)
 t_elayer* ebox_start_layer(t_ebox* x, t_symbol* name, float width, float height)
 {
     char text[MAXPDSTRING];
-    const int N = (x->b_layers) ? x->b_layers->size() : 0;
 
-    for (int i = 0; i < N; i++) {
-        t_elayer* graphic = &((*(x->b_layers))[i]);
-        if (graphic->e_name == name) {
+    if (x->b_layers == nullptr)
+        x->b_layers = new std::vector<t_elayer>();
+
+    for (auto& l : *x->b_layers) {
+        if (l.e_name == name) {
+            t_elayer* graphic = &l;
             if (graphic->e_state == EGRAPHICS_INVALID) {
                 graphic->e_owner = (t_object*)x;
 
@@ -1945,24 +1947,8 @@ t_elayer* ebox_start_layer(t_ebox* x, t_symbol* name, float width, float height)
                 graphic->e_rect.height = (float)pd_clip_min(height, 0.);
                 graphic->e_rect.width = (float)pd_clip_min(width, 0.);
 
-                for (int j = 0; j < graphic->e_number_objects; j++) {
-                    if (graphic->e_objects[j].e_npoints && graphic->e_objects[j].e_points) {
-                        free(graphic->e_objects[j].e_points);
-                    }
-                    graphic->e_objects[j].e_points = NULL;
-                    graphic->e_objects[j].e_npoints = 0;
-                }
-                if (graphic->e_objects) {
-                    free(graphic->e_objects);
-                    graphic->e_objects = NULL;
-                }
-                graphic->e_number_objects = 0;
-
-                if (graphic->e_new_objects.e_points) {
-                    free(graphic->e_new_objects.e_points);
-                }
-                graphic->e_new_objects.e_points = NULL;
-                graphic->e_new_objects.e_npoints = 0;
+                graphic->e_objects.clear();
+                graphic->e_new_objects.e_points.clear();
 
                 sprintf(text, "%s%" PRIdPTR, name->s_name, (intptr_t)x);
                 graphic->e_id = gensym(text);
@@ -1970,17 +1956,15 @@ t_elayer* ebox_start_layer(t_ebox* x, t_symbol* name, float width, float height)
                 graphic->e_new_objects.e_image = NULL;
 
                 graphic->e_state = EGRAPHICS_OPEN;
-                return &((*(x->b_layers))[i]);
+                return graphic;
             } else {
                 return nullptr;
             }
         }
     }
 
-    if (x->b_layers == nullptr)
-        x->b_layers = new std::vector<t_elayer>();
-
-    x->b_layers->push_back({ 0 });
+    // if layer not found - create one
+    x->b_layers->emplace_back();
     t_elayer* graphic = &x->b_layers->back();
 
     graphic->e_owner = (t_object*)x;
@@ -1995,11 +1979,6 @@ t_elayer* ebox_start_layer(t_ebox* x, t_symbol* name, float width, float height)
     graphic->e_rect.y = 0.f;
     graphic->e_rect.height = (float)pd_clip_min(height, 0.);
     graphic->e_rect.width = (float)pd_clip_min(width, 0.);
-
-    graphic->e_number_objects = 0;
-    graphic->e_new_objects.e_points = NULL;
-    graphic->e_new_objects.e_npoints = 0;
-    graphic->e_objects = NULL;
 
     graphic->e_name = name;
     sprintf(text, "%s%" PRIdPTR, name->s_name, (intptr_t)x);
@@ -2058,7 +2037,7 @@ t_pd_err ebox_invalidate_border(t_ebox* x)
 
 static void ebox_do_paint_rect(t_elayer* g, t_ebox* x, t_egobj const* gobj, float x_p, float y_p)
 {
-    t_pt const* pt = gobj->e_points;
+    t_pt const* pt = &gobj->e_points[0];
 
     sys_vgui("%s create rectangle %d %d %d %d ", x->b_drawing_id->s_name,
         (int)(pt[1].x + x_p), (int)(pt[1].y + y_p),
@@ -2075,7 +2054,7 @@ static void ebox_do_paint_rect(t_elayer* g, t_ebox* x, t_egobj const* gobj, floa
 
 static void ebox_do_paint_oval(t_elayer* g, t_ebox* x, t_egobj const* gobj, float x_p, float y_p)
 {
-    t_pt const* pt = gobj->e_points;
+    t_pt const* pt = &gobj->e_points[0];
 
     sys_vgui("%s create oval %d %d %d %d ", x->b_drawing_id->s_name,
         (int)(pt[1].x + x_p), (int)(pt[1].y + y_p),
@@ -2092,7 +2071,7 @@ static void ebox_do_paint_oval(t_elayer* g, t_ebox* x, t_egobj const* gobj, floa
 
 static void ebox_do_paint_arc(t_elayer* g, t_ebox* x, t_egobj const* gobj, float x_p, float y_p)
 {
-    t_pt const* pt = gobj->e_points;
+    t_pt const* pt = &gobj->e_points[0];
 
     sys_vgui("%s create arc %d %d %d %d -extent %.2f -start %.2f ", x->b_drawing_id->s_name,
         (int)(pt[1].x + x_p), (int)(pt[1].y + y_p),
@@ -2109,7 +2088,7 @@ static void ebox_do_paint_arc(t_elayer* g, t_ebox* x, t_egobj const* gobj, float
 
 static void ebox_do_paint_image(t_elayer* g, t_ebox* x, t_egobj const* gobj, float x_p, float y_p)
 {
-    t_pt const* pt = gobj->e_points;
+    t_pt const* pt = &gobj->e_points[0];
 
     sys_vgui("image create photo %s -width %u -height %u -data %s\n",
         gobj->e_image->name->s_name,
@@ -2132,90 +2111,92 @@ t_pd_err ebox_paint_layer(t_ebox* x, t_symbol* name, float x_p, float y_p)
     if (g && g->e_state == EGRAPHICS_TODRAW) {
         x_p += x->b_boxparameters.d_borderthickness;
         y_p += x->b_boxparameters.d_borderthickness;
-        for (int i = 0; i < g->e_number_objects; i++) {
-            t_egobj const* gobj = g->e_objects + i;
-            t_pt const* pt = gobj->e_points;
-            t_pt start;
-            if (gobj->e_type == E_GOBJ_PATH) {
-                int mode = E_PATH_MOVE;
-                if (gobj->e_filled) {
+        for (const auto& gobj : g->e_objects) {
+            if (gobj.e_type == E_GOBJ_PATH) {
+                if (gobj.e_filled) {
                     sprintf(header, "%s create polygon ", x->b_drawing_id->s_name);
                     sprintf(bottom, "-fill #%6.6x -width 0 -tags { %s %s }\n",
-                        gobj->e_color, g->e_id->s_name, x->b_all_id->s_name);
+                        gobj.e_color, g->e_id->s_name, x->b_all_id->s_name);
                 } else {
                     sprintf(header, "%s create line ", x->b_drawing_id->s_name);
                     sprintf(bottom, "-fill #%6.6x -width %.1f -capstyle %s %s %s -tags { %s %s }\n",
-                        gobj->e_color, gobj->e_width,
-                        my_capstylelist[gobj->e_capstyle],
-                        my_dashstylelist[gobj->e_dashstyle],
-                        gobj->e_smooth == ESMOOTH_NONE ? "" : "-smooth true",
+                        gobj.e_color, gobj.e_width,
+                        my_capstylelist[gobj.e_capstyle],
+                        my_dashstylelist[gobj.e_dashstyle],
+                        gobj.e_smooth == ESMOOTH_NONE ? "" : "-smooth true",
                         g->e_id->s_name, x->b_all_id->s_name);
                 }
 
-                for (int j = 0; j < gobj->e_npoints;) {
-                    if (pt[0].x == E_PATH_MOVE) {
-                        if (mode != E_PATH_MOVE) {
+                int mode = E_PATH_MOVE;
+                for (int j = 0; j < gobj.e_points.size();) {
+                    switch ((int)gobj.e_points[j].x) {
+                    case E_PATH_MOVE:
+                        if (mode != E_PATH_MOVE) // output previous
                             sys_vgui("%s", bottom);
-                        }
+
                         sys_vgui("%s", header);
-                        sys_vgui("%d %d ", (int)(pt[1].x + x_p), (int)(pt[1].y + y_p));
-                        start = pt[1];
-                        pt += 2;
+                        sys_vgui("%d %d ",
+                            (int)(gobj.e_points[j + 1].x + x_p),
+                            (int)(gobj.e_points[j + 1].y + y_p));
                         j += 2;
                         mode = E_PATH_MOVE;
-                    } else if (pt[0].x == E_PATH_LINE) {
+                        break;
+                    case E_PATH_LINE:
                         sys_vgui("%d %d ",
-                            (int)(pt[1].x + x_p), (int)(pt[1].y + y_p));
-                        pt += 2;
+                            (int)(gobj.e_points[j + 1].x + x_p),
+                            (int)(gobj.e_points[j + 1].y + y_p));
                         j += 2;
                         mode = E_PATH_LINE;
-                    } else if (pt[0].x == E_PATH_CURVE) {
+                        break;
+                    case E_PATH_CURVE:
                         sys_vgui("%d %d %d %d %d %d ",
-                            (int)(pt[1].x + x_p), (int)(pt[1].y + y_p),
-                            (int)(pt[2].x + x_p), (int)(pt[2].y + y_p),
-                            (int)(pt[3].x + x_p), (int)(pt[3].y + y_p));
-                        pt += 4;
+                            (int)(gobj.e_points[j + 1].x + x_p), (int)(gobj.e_points[j + 1].y + y_p),
+                            (int)(gobj.e_points[j + 2].x + x_p), (int)(gobj.e_points[j + 2].y + y_p),
+                            (int)(gobj.e_points[j + 3].x + x_p), (int)(gobj.e_points[j + 3].y + y_p));
                         j += 4;
                         mode = E_PATH_CURVE;
-                    } else if (pt[0].x == E_PATH_CLOSE) {
-                        pt += 1;
+                        break;
+                    case E_PATH_CLOSE:
                         j += 1;
                         mode = E_PATH_CLOSE;
+                        break;
                     }
                 }
                 sys_vgui("%s", bottom);
-            } else if (gobj->e_type == E_GOBJ_TEXT) {
+            } else if (gobj.e_type == E_GOBJ_TEXT) {
                 int zoom = ebox_getzoom(x);
-                sys_vgui("%s create text %d %d -text {%s} -anchor %s -justify %s -font {{%s} %d %s %s} -fill #%6.6x -width %d -tags { %s %s }\n",
+                sys_vgui("%s create text %d %d -text {%s} "
+                         "-anchor %s -justify %s -font {{%s} %d %s %s} "
+                         "-fill #%6.6x -width %d -tags { %s %s }\n",
                     x->b_drawing_id->s_name,
-                    (int)(gobj->e_points[0].x + x_p),
-                    (int)(gobj->e_points[0].y + y_p),
-                    gobj->e_text,
-                    anchor_to_symbol(gobj->e_anchor),
-                    justify_to_symbol(gobj->e_justify),
-                    gobj->e_font.c_family->s_name,
-                    (int)gobj->e_font.c_size * zoom,
-                    gobj->e_font.c_weight->s_name,
-                    gobj->e_font.c_slant->s_name,
-                    gobj->e_color,
-                    (int)(gobj->e_points[1].x),
+                    (int)(gobj.e_points[0].x + x_p),
+                    (int)(gobj.e_points[0].y + y_p),
+                    gobj.e_text,
+                    anchor_to_symbol(gobj.e_anchor),
+                    justify_to_symbol(gobj.e_justify),
+                    gobj.e_font.c_family->s_name,
+                    (int)gobj.e_font.c_size * zoom,
+                    gobj.e_font.c_weight->s_name,
+                    gobj.e_font.c_slant->s_name,
+                    gobj.e_color,
+                    (int)(gobj.e_points[1].x),
                     g->e_id->s_name,
                     x->b_all_id->s_name);
 
-            } else if (gobj->e_type == E_GOBJ_SHAPE) {
-                int type = gobj->e_points[0].x;
+            } else if (gobj.e_type == E_GOBJ_SHAPE) {
+                int type = gobj.e_points[0].x;
                 switch (type) {
                 case E_SHAPE_RECT:
-                    ebox_do_paint_rect(g, x, gobj, x_p, y_p);
+                    ebox_do_paint_rect(g, x, &gobj, x_p, y_p);
                     break;
                 case E_SHAPE_OVAL:
-                    ebox_do_paint_oval(g, x, gobj, x_p, y_p);
+                    ebox_do_paint_oval(g, x, &gobj, x_p, y_p);
                     break;
                 case E_SHAPE_ARC:
-                    ebox_do_paint_arc(g, x, gobj, x_p, y_p);
+                    ebox_do_paint_arc(g, x, &gobj, x_p, y_p);
                     break;
                 case E_SHAPE_IMAGE:
-                    ebox_do_paint_image(g, x, gobj, x_p, y_p);
+                    ebox_do_paint_image(g, x, &gobj, x_p, y_p);
                     break;
                 }
             } else {
@@ -2437,18 +2418,8 @@ float ebox_fontheight(t_ebox* x)
 
 void elayer_free_content(t_elayer& l)
 {
-    for (int i = 0; i < l.e_number_objects; i++) {
-        if (l.e_objects[i].e_npoints && l.e_objects[i].e_points) {
-            free(l.e_objects[i].e_points);
-        }
-        l.e_objects[i].e_points = NULL;
-        l.e_objects[i].e_npoints = 0;
-    }
-
-    if (l.e_objects) {
-        free(l.e_objects);
-        l.e_objects = NULL;
-    }
+    l.e_objects.clear();
+    l.e_new_objects.e_points.clear();
 }
 
 void ebox_free_layer(t_elayer* l)
