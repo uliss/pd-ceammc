@@ -415,6 +415,16 @@ void UIPainter::setMatrix(const t_matrix& mtx)
     egraphics_set_matrix(layer_, &mtx);
 }
 
+void UIPainter::preAllocObjects(size_t n)
+{
+    egraphics_preallocate_objects(layer_, n);
+}
+
+void UIPainter::preAllocPoints(size_t n)
+{
+    egraphics_preallocate_points(layer_, n);
+}
+
 UIPopupMenu::UIPopupMenu(t_eobj* x,
     const PopupMenuCallbacks& items,
     const t_pt& absPos,
