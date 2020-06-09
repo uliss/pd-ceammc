@@ -116,9 +116,8 @@ static const char* to_label(float v)
 
 UIPlotTilde::UIPlotTilde()
     : clock_([this]() {
+        border_layer_.invalidate();
         plot_layer_.invalidate();
-        if (yauto_)
-            border_layer_.invalidate();
         redraw();
     })
     , in2_(nullptr)
@@ -910,8 +909,6 @@ void UIPlotTilde::onInlet(const AtomList& args)
                 log_base_ = LB_E;
             else
                 log_base_ = LB_NONE;
-
-            UI_DBG << "logbase: " << sym_lb << "; lb: " << log_base_;
 
         } else {
             running_ = false;
