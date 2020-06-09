@@ -90,5 +90,4 @@ void PlotLinTilde::processBlock(const t_sample** in, t_sample** out)
 void setup_plot_lin_tilde()
 {
     SoundExternalFactory<PlotLinTilde> obj("plot.lin~", OBJECT_FACTORY_DEFAULT);
-    //    obj.useDefaultPdFloatFn();
 }
