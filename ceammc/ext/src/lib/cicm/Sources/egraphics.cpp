@@ -119,7 +119,7 @@ void etext_layout_draw(t_etext* textlayout, t_elayer* g)
 
     last.e_type = E_GOBJ_TEXT;
     last.e_points.assign({ { textlayout->c_rect.x, textlayout->c_rect.y },
-        { textlayout->c_rect.width, textlayout->c_rect.height } });
+        { textlayout->c_rect.x + textlayout->c_rect.width, textlayout->c_rect.y + textlayout->c_rect.height } });
     last.e_color = rgba_to_hex_int(textlayout->c_color);
 
     last.e_font = textlayout->c_font;
@@ -716,6 +716,14 @@ void egraphics_rotate(t_elayer* g, float angle)
     g->e_matrix.yy = temp.xy * sinRad + temp.yy * cosRad;
 }
 
+static inline void apply_matrix_to(const t_matrix& mx, t_pt& pt)
+{
+    auto x_p = pt.x * mx.xx + pt.y * mx.xy + mx.x0;
+    auto y_p = pt.x * mx.yx + pt.y * mx.yy + mx.y0;
+    pt.x = x_p;
+    pt.y = y_p;
+}
+
 static void egraphics_apply_matrix(t_elayer* g, t_egobj* gobj)
 {
     float x_p, y_p;
@@ -762,25 +770,15 @@ static void egraphics_apply_matrix(t_elayer* g, t_egobj* gobj)
             gobj->e_points[2].y = y_p;
         } break;
         case E_SHAPE_RECT: {
-            x_p = gobj->e_points[1].x * g->e_matrix.xx + gobj->e_points[1].y * g->e_matrix.xy + g->e_matrix.x0;
-            y_p = gobj->e_points[1].x * g->e_matrix.yx + gobj->e_points[1].y * g->e_matrix.yy + g->e_matrix.y0;
-            gobj->e_points[1].x = x_p;
-            gobj->e_points[1].y = y_p;
-            x_p = gobj->e_points[2].x * g->e_matrix.xx + gobj->e_points[2].y * g->e_matrix.xy + g->e_matrix.x0;
-            y_p = gobj->e_points[2].x * g->e_matrix.yx + gobj->e_points[2].y * g->e_matrix.yy + g->e_matrix.y0;
-            gobj->e_points[2].x = x_p;
-            gobj->e_points[2].y = y_p;
+            apply_matrix_to(g->e_matrix, gobj->e_points[1]);
+            apply_matrix_to(g->e_matrix, gobj->e_points[2]);
         } break;
         default:
             break;
         }
-    } else {
-        for (int i = 0; i < gobj->e_points.size(); i++) {
-            x_p = gobj->e_points[i].x * g->e_matrix.xx + gobj->e_points[i].y * g->e_matrix.xy + g->e_matrix.x0;
-            y_p = gobj->e_points[i].x * g->e_matrix.yx + gobj->e_points[i].y * g->e_matrix.yy + g->e_matrix.y0;
-            gobj->e_points[i].x = x_p;
-            gobj->e_points[i].y = y_p;
-        }
+    } else if (gobj->e_type == E_GOBJ_TEXT) {
+        apply_matrix_to(g->e_matrix, gobj->e_points[0]);
+        apply_matrix_to(g->e_matrix, gobj->e_points[1]);
     }
 }
 

@@ -2179,7 +2179,7 @@ t_pd_err ebox_paint_layer(t_ebox* x, t_symbol* name, float x_p, float y_p)
                     gobj.e_font.c_weight->s_name,
                     gobj.e_font.c_slant->s_name,
                     gobj.e_color,
-                    (int)(gobj.e_points[1].x),
+                    (int)(gobj.e_points[1].x - gobj.e_points[0].x),
                     g->e_id->s_name,
                     x->b_all_id->s_name);
 
