@@ -303,7 +303,7 @@ void UIPlotTilde::addXLabelLn(int n, float x, float y, etextjustify_flags align,
     txt_x_.push_back(UITextLayout(font_.font()));
     txt_x_.back().setJustify(align);
     txt_x_.back().setAnchor(anchor);
-    txt_x_.back().set(buf, x, y, 20, FONT_SIZE_SMALL);
+    txt_x_.back().set(buf, x, y, 0, FONT_SIZE_SMALL);
 }
 
 void UIPlotTilde::addYLabel(float v, float x, float y, etextjustify_flags align, etextanchor_flags anchor)
@@ -311,7 +311,7 @@ void UIPlotTilde::addYLabel(float v, float x, float y, etextjustify_flags align,
     txt_y_.push_back(UITextLayout(font_.font()));
     txt_y_.back().setJustify(align);
     txt_y_.back().setAnchor(anchor);
-    txt_y_.back().set(to_label(v), x - 2, y, 20, FONT_SIZE_SMALL);
+    txt_y_.back().set(to_label(v), x - 2, y, 0, FONT_SIZE_SMALL);
 }
 
 void UIPlotTilde::resizeBuffers(size_t n)
