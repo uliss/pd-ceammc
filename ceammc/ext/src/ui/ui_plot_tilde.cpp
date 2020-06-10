@@ -154,6 +154,11 @@ bool UIPlotTilde::okSize(t_rect* newrect)
 
 void UIPlotTilde::paint()
 {
+    if (yauto_ && sig_min_ == sig_max_) {
+        sig_min_ = std::floor(sig_min_);
+        sig_max_ = sig_min_ + 1;
+    }
+
     drawBorder();
     drawPlot();
 }
@@ -870,6 +875,7 @@ void UIPlotTilde::dspProcess(t_sample** ins, long n_ins, t_sample** outs, long n
 void UIPlotTilde::onInlet(const AtomList& args)
 {
     constexpr int NMAX = 1024;
+    constexpr int NMIN = 4;
 
     if (args.empty()) {
         running_ = true;
@@ -877,6 +883,7 @@ void UIPlotTilde::onInlet(const AtomList& args)
         total_ = width() * 0.9;
         xmin_ = 0;
         xmax_ = total_;
+        log_base_ = LB_NONE;
         resizeBuffers(total_);
         return;
     } else {
@@ -889,6 +896,10 @@ void UIPlotTilde::onInlet(const AtomList& args)
         if (N > NMAX) {
             running_ = false;
             UI_ERR << "requested plot size is too big: " << N << ", max size is " << NMAX;
+            return;
+        } else if (N > 0 && N < NMIN) {
+            running_ = false;
+            UI_ERR << "requested plot size is too smalll: " << N << ", min size is " << NMIN;
             return;
         } else if (N > 0) {
             running_ = true;
