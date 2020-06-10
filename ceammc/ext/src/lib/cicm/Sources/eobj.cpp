@@ -611,7 +611,13 @@ static void new_inlet_float(t_inlet* x, t_float f)
 {
     if (x->i_symfrom == &s_float)
         pd_vmess(x->i_dest, x->i_un.iu_symto, "f", (t_floatarg)f);
-    else if (*x->i_dest == eproxy_class) {
+    else if (!x->i_symfrom) {
+        pd_float(x->i_dest, f);
+    } else if (x->i_symfrom == &s_list) {
+        t_atom a;
+        SETFLOAT(&a, f);
+        new_inlet_list(x, &s_float, 1, &a);
+    } else if (*x->i_dest == eproxy_class) {
         t_atom a;
         t_eproxy* proxy = (t_eproxy*)x->i_dest;
         t_eobj* z = (t_eobj*)proxy->p_owner;
@@ -619,14 +625,8 @@ static void new_inlet_float(t_inlet* x, t_float f)
         SETFLOAT(&a, f);
         pd_typedmess((t_pd*)x->i_dest, &s_float, 1, &a);
         z->o_current_proxy = 0;
-    } else if (x->i_symfrom == &s_signal)
+    } else if (x->i_symfrom == &s_signal) {
         x->i_un.iu_floatsignalvalue = f;
-    else if (!x->i_symfrom)
-        pd_float(x->i_dest, f);
-    else if (x->i_symfrom == &s_list) {
-        t_atom a;
-        SETFLOAT(&a, f);
-        new_inlet_list(x, &s_float, 1, &a);
     } else
         inlet_wrong(x, &s_float);
 }
