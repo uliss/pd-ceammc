@@ -796,6 +796,7 @@ typedef struct t_ebox_ {
 
     bool b_mouse_down; /*!< The mouse state. */
     bool b_resize; /*!< Widget is in resize state */
+    bool b_resize_redraw_all; /*!< Widget in resize state and redraw all layers */
 
     bool b_visible; /*!< The visible state. */
     bool b_ready_to_draw; /*!< The ebox state for drawing. */

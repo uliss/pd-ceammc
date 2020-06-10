@@ -483,6 +483,7 @@ void ebox_ready(t_ebox* x)
     x->b_selected_outlet = -1;
     x->b_mouse_down = 0;
     x->b_resize = false;
+    x->b_resize_redraw_all = true;
     x->b_zoom = 1;
 
     x->b_boxparameters.d_borderthickness = 1;
@@ -1069,6 +1070,8 @@ void ebox_mouse_move(t_ebox* x, t_floatarg xpos, t_floatarg ypos, t_floatarg mod
                         atom_setfloat(av + 1, mouse.y);
                     }
                 }
+
+                x->b_resize_redraw_all = !(modif & EMOD_SHIFT);
                 x->b_resize = true;
                 mess3((t_pd*)x, s_attr_size, s_attr_size, (void*)2, (void*)av);
                 x->b_resize = false;
@@ -1108,6 +1111,7 @@ void ebox_mouse_down(t_ebox* x, t_floatarg xpos, t_floatarg ypos, t_floatarg abs
             x->b_rect_last = br;
         }
     }
+
     x->b_mouse_down = true;
 }
 
@@ -1122,8 +1126,15 @@ void ebox_mouse_up(t_ebox* x, t_floatarg xpos, t_floatarg ypos, t_floatarg mod)
             c->c_widget.w_mouseup(x, x->b_obj.o_canvas, mouse, modif);
         }
     } else {
+        if (!x->b_isinsubcanvas && !x->b_resize_redraw_all) {
+            ebox_invalidate_all(x);
+            ebox_redraw(x);
+            x->b_resize_redraw_all = true;
+        }
+
         sys_vgui("eobj_canvas_up %s\n", x->b_canvas_id->s_name);
     }
+
     x->b_mouse_down = false;
 }
 
@@ -1642,9 +1653,16 @@ bool ebox_notify(t_ebox* x, t_symbol* s)
 {
     t_eclass* c = eobj_getclass(x);
     if (s == s_size) {
-        if (c->c_widget.w_oksize != NULL)
+        if (c->c_widget.w_oksize != nullptr)
             c->c_widget.w_oksize(x, &x->b_rect);
-        ebox_invalidate_all(x);
+
+        if (x->b_resize_redraw_all) {
+            ebox_invalidate_all(x);
+        } else {
+            ebox_invalidate_io(x);
+            ebox_invalidate_border(x);
+        }
+
         if (ebox_isvisible(x)) {
             sys_vgui("%s itemconfigure %s -width %d -height %d\n", x->b_canvas_id->s_name, x->b_window_id->s_name,
                 int(x->b_rect.width * x->b_zoom + x->b_boxparameters.d_borderthickness * 2.),
@@ -1653,7 +1671,9 @@ bool ebox_notify(t_ebox* x, t_symbol* s)
 
             ebox_update_label_pos(x);
         }
+
         ebox_redraw(x);
+
     } else if (s == s_pinned && ebox_isvisible(x)) {
         if (x->b_pinned) {
             sys_vgui("lower %s\n", x->b_drawing_id->s_name);

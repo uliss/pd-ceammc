@@ -1027,6 +1027,7 @@ void eclass_attr_setter(t_object* x, t_symbol* s, size_t argc, t_atom* argv)
             }
 
             ebox_notify(z, s);
+
             if (c->c_widget.w_notify != nullptr) {
                 c->c_widget.w_notify(x, s, s_attr_modified);
             }
