@@ -805,9 +805,10 @@ void UIPlotTilde::drawInCtrlButtons(UIPainter& p)
 
 void UIPlotTilde::onPropChange(t_symbol* prop_name)
 {
-    plot_layer_.invalidate();
-    border_layer_.invalidate();
-    redraw();
+    if (prop_name == s_size)
+        return;
+
+    clock_.delay(0);
 }
 
 void UIPlotTilde::init(t_symbol* name, const AtomList& args, bool usePresets)
