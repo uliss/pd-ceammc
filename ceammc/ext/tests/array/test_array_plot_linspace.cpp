@@ -130,4 +130,50 @@ TEST_CASE("plot.linspace~", "[externals]")
             REQUIRE(s0.out[0][i] == Approx(15.5));
         }
     }
+
+    SECTION("dsp neg")
+    {
+        TExt t("plot.linspace~", LF(16, 8, 9));
+        REQUIRE_PROPERTY(t, @start, 16);
+        REQUIRE_PROPERTY(t, @stop, 8);
+        REQUIRE_PROPERTY(t, @n, 9);
+        REQUIRE_PROPERTY(t, @endpoint, 1);
+
+        TSig s0;
+        TDsp dsp(s0, t);
+        dsp.processBlock();
+
+        WHEN_SEND_BANG_TO(0, t);
+        REQUIRE(listAt(t, 1_out) == LF(9, 16, 8, 0));
+
+        dsp.processBlock(1);
+        for (size_t i = 0; i < 9; i++) {
+            REQUIRE(s0.out[0][i] == Approx(16 - i));
+        }
+
+        for (size_t i = 9; i < t.blockSize(); i++) {
+            REQUIRE(s0.out[0][i] == 8);
+        }
+    }
+
+    SECTION("dsp const")
+    {
+        TExt t("plot.linspace~", LF(8, 8, 9));
+        REQUIRE_PROPERTY(t, @start, 8);
+        REQUIRE_PROPERTY(t, @stop, 8);
+        REQUIRE_PROPERTY(t, @n, 9);
+        REQUIRE_PROPERTY(t, @endpoint, 1);
+
+        TSig s0;
+        TDsp dsp(s0, t);
+        dsp.processBlock();
+
+        WHEN_SEND_BANG_TO(0, t);
+        REQUIRE(listAt(t, 1_out) == LF(9, 8, 8, 0));
+
+        dsp.processBlock(1);
+        for (size_t i = 0; i < t.blockSize(); i++) {
+            REQUIRE(s0.out[0][i] == 8);
+        }
+    }
 }

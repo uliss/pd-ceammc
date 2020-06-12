@@ -49,11 +49,6 @@ PlotLinTilde::PlotLinTilde(const PdArgs& a)
 
 void PlotLinTilde::onBang()
 {
-    if (start_->value() >= stop_->value()) {
-        OBJ_ERR << fmt::format("@xmin < @xmax expected, got: {} >= {}", start_->value(), stop_->value());
-        return;
-    }
-
     const int n = (num_->value() - (endpoint_->value() ? 1 : 0));
 
     clock_.unset();
