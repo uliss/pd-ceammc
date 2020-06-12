@@ -280,8 +280,10 @@ UIPainter::UIPainter(t_ebox* box, t_symbol* name, const t_rect& brect)
 
 UIPainter::~UIPainter()
 {
-    if (layer_)
+    if (layer_) {
         ebox_end_layer(parent_, name_);
+        layer_->e_optimize = false;
+    }
 
     ebox_paint_layer(parent_, name_, 0, 0);
 }
@@ -423,6 +425,11 @@ void UIPainter::preAllocObjects(size_t n)
 void UIPainter::preAllocPoints(size_t n)
 {
     egraphics_preallocate_points(layer_, n);
+}
+
+void UIPainter::optimizeLines(bool v)
+{
+    layer_->e_optimize = v;
 }
 
 UIPopupMenu::UIPopupMenu(t_eobj* x,

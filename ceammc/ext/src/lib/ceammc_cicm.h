@@ -150,6 +150,8 @@ public:
     void setMatrix(const t_matrix& mtx);
     void preAllocObjects(size_t n);
     void preAllocPoints(size_t n);
+
+    void optimizeLines(bool v);
 };
 
 class UILayer {
