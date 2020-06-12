@@ -140,13 +140,33 @@ void egraphics_move_to(t_elayer* g, const float x, const float y)
     }
 }
 
+static inline bool is_on_line(const t_pt& p1, const t_pt& p2, const t_pt& p3) // returns true if p3 is on line p1, p2
+{
+    // kx + b
+    const auto k = (p2.y - p1.y) / (p2.x - p1.x);
+    return std::round(((k * (p3.x - p1.x)) - (p3.y - p1.y)) * 8) == 0;
+}
+
 void egraphics_line_to(t_elayer* g, const float x, const float y)
 {
+    constexpr t_pt p_line = { E_PATH_LINE, 0 };
+
     if (g->e_state == EGRAPHICS_OPEN) {
         auto& p = g->e_new_objects.e_points;
+        const size_t n = p.size();
+        if (g->e_optimize && n >= 4 && p[n - 2] == p_line && p[n - 4] == p_line) {
+            if (int(p[n - 1].y) == int(y) && int(p[n - 3].y) == int(y)) {
+                p[n - 1].x = x;
+                return;
+            } else if (is_on_line(p[n - 3], p[n - 1], { x, y })) {
+                p[n - 1] = { x, y };
+                return;
+            }
+        }
+
         g->e_new_objects.e_type = E_GOBJ_PATH;
-        p.reserve(p.size() + 2);
-        p.push_back({ E_PATH_LINE, 0 });
+        p.reserve(n + 2);
+        p.push_back(p_line);
         p.push_back({ x, y });
     }
 }

@@ -1966,6 +1966,7 @@ t_elayer* ebox_start_layer(t_ebox* x, t_symbol* name, float width, float height)
                 graphic->e_rect.y = 0.f;
                 graphic->e_rect.height = (float)pd_clip_min(height, 0.);
                 graphic->e_rect.width = (float)pd_clip_min(width, 0.);
+                graphic->e_optimize = false;
 
                 graphic->e_objects.clear();
                 graphic->e_new_objects.e_points.clear();

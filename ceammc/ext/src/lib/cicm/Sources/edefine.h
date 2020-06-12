@@ -243,36 +243,42 @@ enum eclip_flags {
  * @brief A point structure.
  * @details It contains the members x and y for abscissa and ordinate.
  */
-typedef struct t_pt {
+struct t_pt {
     float x; /*!< The abscissa coordiante. */
     float y; /*!< The ordiante coordiante. */
-} t_pt;
+
+    bool operator==(const t_pt& pt) const { return x == pt.x && y == pt.y; }
+    bool operator!=(const t_pt& pt) const { return !this->operator==(pt); }
+};
 
 /**
  * @struct t_rect
  * @brief A rectangle structure.
  * @details It contains the members x, y, width and height for abscissa and ordinate and size.
  */
-typedef struct t_rect {
+struct t_rect {
     float x; /*!< The abscissa coordiante. */
     float y; /*!< The ordiante coordiante. */
     float width; /*!< The width of the rectangle */
     float height; /*!< The height of the rectangle */
-} t_rect;
+
+    bool operator==(const t_rect& r) const { return r.x == x && r.y == y && r.width == width && r.height == height; }
+    bool operator!=(const t_rect& r) const { return !this->operator==(r); }
+};
 
 /**
  * @struct t_matrix
  * @brief A matrix structure.
  * @details It contains the members xx, yx, xy, yy, x0 and y0
  */
-typedef struct t_matrix {
+struct t_matrix {
     float xx; /*!< The abscissa-abscissa translation of the matrix */
     float yx; /*!< The abscissa-ordiante translation of the matrix */
     float xy; /*!< The ordiante-abscissa translation of the matrix */
     float yy; /*!< The ordiante-ordiante translation of the matrix */
     float x0; /*!< The abscissa origin of the matrix */
     float y0; /*!< The ordiante origin of the matrix */
-} t_matrix;
+};
 
 /**
  * @struct t_rgb
@@ -455,6 +461,7 @@ typedef struct t_elayer {
     t_capstyle e_line_capstyle; /*!< The layer line capstyle. */
     t_dashstyle e_line_dashstyle; /*!< The layer line dashstyle. */
     t_smooth e_line_smooth; /*!< The layer line dashstyle. */
+    bool e_optimize;
 } t_elayer;
 
 /** @} */
