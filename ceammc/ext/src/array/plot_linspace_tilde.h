@@ -11,8 +11,8 @@
  * contact the author of this file, or the owner of the project in which
  * this file belongs to.
  *****************************************************************************/
-#ifndef PLOT_LIN_TILDE_H
-#define PLOT_LIN_TILDE_H
+#ifndef PLOT_LINSPACE_TILDE_H
+#define PLOT_LINSPACE_TILDE_H
 
 #include "ceammc_clock.h"
 #include "ceammc_sound_external.h"
@@ -39,4 +39,4 @@ public:
 
 void setup_plot_linspace_tilde();
 
-#endif // PLOT_LIN_TILDE_H
+#endif // PLOT_LINSPACE_TILDE_H

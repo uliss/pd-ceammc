@@ -11,7 +11,7 @@
  * contact the author of this file, or the owner of the project in which
  * this file belongs to.
  *****************************************************************************/
-#include "plot_lin_tilde.h"
+#include "plot_linspace_tilde.h"
 #include "test_array_base.h"
 #include "test_sound.h"
 

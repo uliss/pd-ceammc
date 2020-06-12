@@ -11,7 +11,7 @@
  * contact the author of this file, or the owner of the project in which
  * this file belongs to.
  *****************************************************************************/
-#include "plot_lin_tilde.h"
+#include "plot_linspace_tilde.h"
 #include "ceammc_factory.h"
 #include "fmt/format.h"
 
