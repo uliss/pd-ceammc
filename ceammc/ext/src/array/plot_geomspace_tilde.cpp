@@ -11,7 +11,7 @@
  * contact the author of this file, or the owner of the project in which
  * this file belongs to.
  *****************************************************************************/
-#include "plot_logspace_tilde.h"
+#include "plot_geomspace_tilde.h"
 #include "ceammc_factory.h"
 #include "fmt/format.h"
 
@@ -19,7 +19,7 @@ static t_symbol* SYM_BASE_10;
 static t_symbol* SYM_BASE_2;
 static t_symbol* SYM_BASE_E;
 
-PlotLogTilde::PlotLogTilde(const PdArgs& a)
+PlotGeomSpaceTilde::PlotGeomSpaceTilde(const PdArgs& a)
     : SoundExternal(a)
     , xmin_(nullptr)
     , xmax_(nullptr)
@@ -30,10 +30,12 @@ PlotLogTilde::PlotLogTilde(const PdArgs& a)
 {
     xmin_ = new FloatProperty("@xmin", 0);
     xmin_->setArgIndex(0);
+    xmin_->checkMin(0);
     addProperty(xmin_);
 
     xmax_ = new FloatProperty("@xmax", 2);
     xmax_->setArgIndex(1);
+    xmax_->checkMin(0);
     addProperty(xmax_);
 
     steps_ = new IntProperty("@steps", 256);
@@ -52,10 +54,10 @@ PlotLogTilde::PlotLogTilde(const PdArgs& a)
     createOutlet();
 }
 
-void PlotLogTilde::onBang()
+void PlotGeomSpaceTilde::onBang()
 {
-    if (xmin_->value() == xmax_->value()) {
-        OBJ_ERR << fmt::format("{} != {} expected, got: {} == {}",
+    if (xmin_->value() >= xmax_->value()) {
+        OBJ_ERR << fmt::format("{} < {} expected, got: {} >= {}",
             xmin_->name()->s_name,
             xmax_->name()->s_name,
             xmin_->value(),
@@ -66,57 +68,44 @@ void PlotLogTilde::onBang()
 
     clock_.unset();
 
-    const t_float R = xmax_->value() - xmin_->value();
-    value_ = xmin_->value();
-    incr_ = R / steps_->value();
+    const t_float R = xmax_->value() / xmin_->value();
+    value_ = std::log(xmin_->value());
+    incr_ = std::log(R) / steps_->value();
     phase_ = 0;
     running_ = true;
 
-    if (base_->value() == SYM_BASE_2)
-        fbase_ = 2;
-    else if (base_->value() == SYM_BASE_E)
-        fbase_ = std::exp(t_sample(1));
-    else if (base_->value() == SYM_BASE_10)
-        fbase_ = 10;
-
-    listTo(1, { (t_float)steps_->value() + 1, std::pow(fbase_, xmin_->value()), std::pow(fbase_, xmax_->value()), base_->value() });
+    listTo(1, { (t_float)steps_->value() + 1, xmin_->value(), xmax_->value(), base_->value() });
 }
 
-void PlotLogTilde::onFloat(t_float f)
-{
-    if (!steps_->setValue(f))
-        return;
-
-    onBang();
-}
-
-void PlotLogTilde::processBlock(const t_sample** in, t_sample** out)
+void PlotGeomSpaceTilde::processBlock(const t_sample** in, t_sample** out)
 {
     const auto BS = blockSize();
     const size_t T = steps_->value();
+    const auto v0 = xmin_->value();
     const auto v1 = xmax_->value();
 
     for (size_t i = 0; i < BS; i++) {
 
         if (!running_) {
-            out[0][i] = 0;
+            out[0][i] = v0;
         } else if (phase_ < T) {
-            out[0][i] = std::pow(fbase_, value_);
+            out[0][i] = std::exp(value_);
             value_ += incr_;
             phase_++;
         } else if (phase_ == T) {
-            out[0][i] = std::pow(fbase_, v1);
+            out[0][i] = v1;
             clock_.delay(0);
             running_ = false;
         }
     }
 }
 
-void setup_plot_log_tilde()
+void setup_plot_geomspace_tilde()
 {
     SYM_BASE_10 = gensym("log10");
     SYM_BASE_2 = gensym("log2");
     SYM_BASE_E = gensym("ln");
 
-    SoundExternalFactory<PlotLogTilde> obj("plot.logspace~", OBJECT_FACTORY_DEFAULT);
+    SoundExternalFactory<PlotGeomSpaceTilde> obj("plot.geomspace~", OBJECT_FACTORY_DEFAULT);
+    obj.useDefaultPdFloatFn();
 }

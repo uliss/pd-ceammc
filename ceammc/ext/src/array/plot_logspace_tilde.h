@@ -38,6 +38,7 @@ public:
     PlotLogTilde(const PdArgs& a);
 
     void onBang() override;
+    void onFloat(t_float f) override;
     void processBlock(const t_sample** in, t_sample** out) override;
 };
 

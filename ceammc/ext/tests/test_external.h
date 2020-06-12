@@ -36,8 +36,9 @@ extern "C" t_float* get_sys_dacsr();
     using TObj = Test##T;                 \
     using TExt = TestExt##T
 
-#define PD_TEST_SND_TYPEDEF(T) \
-    typedef TestSoundExternal<T> TestExt##T;
+#define PD_TEST_SND_TYPEDEF(T)               \
+    typedef TestSoundExternal<T> TestExt##T; \
+    using TExt = TestExt##T;
 
 #define PD_TEST_SND_DSP(T)                                       \
     template <size_t IN, size_t OUT>                             \

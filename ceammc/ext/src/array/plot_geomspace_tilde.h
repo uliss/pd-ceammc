@@ -11,32 +11,36 @@
  * contact the author of this file, or the owner of the project in which
  * this file belongs to.
  *****************************************************************************/
-#ifndef PLOT_LIN_TILDE_H
-#define PLOT_LIN_TILDE_H
+#ifndef PLOT_GEOMSPACE_TILDE_H
+#define PLOT_GEOMSPACE_TILDE_H
 
 #include "ceammc_clock.h"
+#include "ceammc_property_enum.h"
 #include "ceammc_sound_external.h"
+
+#include <cmath>
+
 using namespace ceammc;
 
-class PlotLinTilde : public SoundExternal {
-    FloatProperty* start_;
-    FloatProperty* stop_;
-    IntProperty* num_;
-    BoolProperty* endpoint_;
+class PlotGeomSpaceTilde : public SoundExternal {
+    FloatProperty* xmin_;
+    FloatProperty* xmax_;
+    IntProperty* steps_;
     t_sample value_;
+    t_sample fbase_;
     t_sample incr_;
-    int phase_;
-    ClockLambdaFunction clock_;
+    long phase_;
     bool running_;
+    ClockLambdaFunction clock_;
+    SymbolEnumProperty* base_;
 
 public:
-    PlotLinTilde(const PdArgs& a);
+    PlotGeomSpaceTilde(const PdArgs& a);
 
     void onBang() override;
-    void onFloat(t_float n) override;
     void processBlock(const t_sample** in, t_sample** out) override;
 };
 
-void setup_plot_linspace_tilde();
+void setup_plot_geomspace_tilde();
 
-#endif // PLOT_LIN_TILDE_H
+#endif // PLOT_GEOMSPACE_TILDE_H
