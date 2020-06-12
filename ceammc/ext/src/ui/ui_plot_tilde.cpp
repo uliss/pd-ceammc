@@ -239,6 +239,8 @@ void UIPlotTilde::drawPlot()
     if (!p)
         return;
 
+    p.optimizeLines(true);
+
     const float xoff = std::max(MIN_XOFF, width() * OFF_K);
     const float yoff = std::max(MIN_YOFF, height() * OFF_K);
     const float wd = width() - (xoff + MIN_XOFF);
