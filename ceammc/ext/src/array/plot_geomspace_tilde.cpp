@@ -77,6 +77,14 @@ void PlotGeomSpaceTilde::onBang()
     listTo(1, { (t_float)num_->value(), start_->value(), stop_->value(), base_->value() });
 }
 
+void PlotGeomSpaceTilde::onFloat(t_float n)
+{
+    if (!num_->setValue(n))
+        return;
+
+    onBang();
+}
+
 void PlotGeomSpaceTilde::processBlock(const t_sample** in, t_sample** out)
 {
     const auto BS = blockSize();
@@ -106,5 +114,4 @@ void PlotGeomSpaceTilde::processBlock(const t_sample** in, t_sample** out)
 void setup_plot_geomspace_tilde()
 {
     SoundExternalFactory<PlotGeomSpaceTilde> obj("plot.geomspace~", OBJECT_FACTORY_DEFAULT);
-    obj.useDefaultPdFloatFn();
 }
