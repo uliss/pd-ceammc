@@ -913,15 +913,16 @@ void UIPlotTilde::onInlet(const AtomList& args)
             xmin_ = args.floatAt(1, 0);
             xmax_ = args.floatAt(2, total_);
 
-            auto sym_lb = args.symbolAt(3, &s_);
-
-            if (sym_lb == gensym("log10"))
-                log_base_ = LB_10;
-            else if (sym_lb == gensym("log2"))
-                log_base_ = LB_2;
-            else if (sym_lb == gensym("ln"))
-                log_base_ = LB_E;
-            else
+            if (args.size() >= 3) {
+                if (args[3] == Atom(10))
+                    log_base_ = LB_10;
+                else if (args[3] == Atom(2))
+                    log_base_ = LB_2;
+                else if (args[3] == Atom(gensym("e")))
+                    log_base_ = LB_E;
+                else
+                    log_base_ = LB_NONE;
+            } else
                 log_base_ = LB_NONE;
 
         } else {

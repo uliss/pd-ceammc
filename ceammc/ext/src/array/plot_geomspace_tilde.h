@@ -32,7 +32,6 @@ class PlotGeomSpaceTilde : public SoundExternal {
     t_sample incr_;
     long phase_;
     bool running_;
-    ClockLambdaFunction clock_;
     EnumProperty<Atom>* base_;
 
 public:

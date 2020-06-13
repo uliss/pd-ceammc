@@ -24,7 +24,6 @@ PlotLogTilde::PlotLogTilde(const PdArgs& a)
     , num_(nullptr)
     , endpoint_(nullptr)
     , running_(false)
-    , clock_([this]() { floatTo(1, 0); })
     , base_(nullptr)
 {
     start_ = new FloatProperty("@start", 0);
@@ -69,8 +68,6 @@ void PlotLogTilde::onBang()
         return;
     }
 
-    clock_.unset();
-
     const t_float R = stop_->value() - start_->value();
     value_ = start_->value();
     incr_ = R / (num_->value() - (endpoint_->value() ? 1 : 0));
@@ -114,7 +111,6 @@ void PlotLogTilde::processBlock(const t_sample** in, t_sample** out)
             vend = std::pow(fbase_, value_);
             out[0][i] = vend;
             running_ = false;
-            clock_.delay(0);
         }
     }
 }

@@ -36,6 +36,7 @@ TEST_CASE("plot.geomspace~", "[externals]")
             REQUIRE_PROPERTY(t, @stop, 10);
             REQUIRE_PROPERTY(t, @n, 100);
             REQUIRE_PROPERTY(t, @base, 10);
+            REQUIRE_PROPERTY(t, @endpoint, 1);
         }
 
         SECTION("args")
@@ -46,6 +47,7 @@ TEST_CASE("plot.geomspace~", "[externals]")
             REQUIRE_PROPERTY(t, @stop, 1000);
             REQUIRE_PROPERTY(t, @n, 5);
             REQUIRE_PROPERTY(t, @base, 2);
+            REQUIRE_PROPERTY(t, @endpoint, 1);
         }
 
         SECTION("args")
@@ -56,6 +58,7 @@ TEST_CASE("plot.geomspace~", "[externals]")
             REQUIRE_PROPERTY(t, @stop, 6);
             REQUIRE_PROPERTY(t, @n, 5);
             REQUIRE_PROPERTY(t, @base, "e");
+            REQUIRE_PROPERTY(t, @endpoint, 1);
         }
     }
 
@@ -90,6 +93,10 @@ TEST_CASE("plot.geomspace~", "[externals]")
             for (size_t i = 5; i < t.blockSize(); i++) {
                 REQUIRE(s0.out[0][i] == 1000);
             }
+
+            WHEN_SEND_FLOAT_TO(0, t, 10);
+            REQUIRE_PROPERTY(t, @n, 10);
+            REQUIRE(listAt(t, 1_out) == LF(10, 0.1, 1000, 10));
         }
 
         SECTION("log2")

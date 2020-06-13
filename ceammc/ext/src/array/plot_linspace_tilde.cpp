@@ -24,7 +24,6 @@ PlotLinTilde::PlotLinTilde(const PdArgs& a)
     , value_(0)
     , incr_(0)
     , phase_(0)
-    , clock_([this] { floatTo(1, 0); })
     , running_(false)
 {
     start_ = new FloatProperty("@start", 0);
@@ -51,7 +50,6 @@ void PlotLinTilde::onBang()
 {
     const int n = (num_->value() - (endpoint_->value() ? 1 : 0));
 
-    clock_.unset();
     phase_ = 0;
     value_ = start_->value();
     incr_ = (stop_->value() - start_->value()) / n;
@@ -86,7 +84,6 @@ void PlotLinTilde::processBlock(const t_sample** in, t_sample** out)
 
             out[0][i] = value_;
             running_ = false;
-            clock_.delay(0);
         }
     }
 }

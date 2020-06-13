@@ -24,7 +24,6 @@ PlotGeomSpaceTilde::PlotGeomSpaceTilde(const PdArgs& a)
     , num_(nullptr)
     , endpoint_(nullptr)
     , running_(false)
-    , clock_([this]() { floatTo(1, 0); })
     , base_(nullptr)
 {
     start_ = new FloatProperty("@start", 0.1);
@@ -69,8 +68,6 @@ void PlotGeomSpaceTilde::onBang()
         return;
     }
 
-    clock_.unset();
-
     const t_float R = stop_->value() / start_->value();
     value_ = std::log(start_->value());
     incr_ = std::log(R) / (num_->value() - 1);
@@ -101,7 +98,6 @@ void PlotGeomSpaceTilde::processBlock(const t_sample** in, t_sample** out)
                 vend = std::exp(value_);
 
             out[0][i] = vend;
-            clock_.delay(0);
             running_ = false;
         }
     }

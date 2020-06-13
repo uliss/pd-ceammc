@@ -32,7 +32,6 @@ class PlotLogTilde : public SoundExternal {
     t_sample incr_;
     int phase_;
     bool running_;
-    ClockLambdaFunction clock_;
     EnumProperty<Atom>* base_;
 
 public:

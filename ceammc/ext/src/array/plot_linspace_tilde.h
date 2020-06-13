@@ -14,7 +14,6 @@
 #ifndef PLOT_LINSPACE_TILDE_H
 #define PLOT_LINSPACE_TILDE_H
 
-#include "ceammc_clock.h"
 #include "ceammc_sound_external.h"
 using namespace ceammc;
 
@@ -26,7 +25,6 @@ class PlotLinTilde : public SoundExternal {
     t_sample value_;
     t_sample incr_;
     int phase_;
-    ClockLambdaFunction clock_;
     bool running_;
 
 public:

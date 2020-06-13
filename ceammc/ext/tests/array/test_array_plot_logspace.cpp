@@ -36,6 +36,7 @@ TEST_CASE("plot.logspace~", "[externals]")
             REQUIRE_PROPERTY(t, @stop, 2);
             REQUIRE_PROPERTY(t, @n, 100);
             REQUIRE_PROPERTY(t, @base, 10);
+            REQUIRE_PROPERTY(t, @endpoint, 1);
         }
 
         SECTION("args")
@@ -46,6 +47,7 @@ TEST_CASE("plot.logspace~", "[externals]")
             REQUIRE_PROPERTY(t, @stop, -4);
             REQUIRE_PROPERTY(t, @n, 5);
             REQUIRE_PROPERTY(t, @base, 2);
+            REQUIRE_PROPERTY(t, @endpoint, 1);
         }
 
         SECTION("args")
