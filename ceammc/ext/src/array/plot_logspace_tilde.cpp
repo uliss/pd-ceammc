@@ -99,29 +99,23 @@ void PlotLogTilde::processBlock(const t_sample** in, t_sample** out)
 {
     const auto BS = blockSize();
     const int T = num_->value() - 1;
+    t_sample vend = std::pow(fbase_, value_);
 
-    size_t i = 0;
-
-    if (running_) {
-        for (i = 0; i < BS; i++, phase_++) {
-            if (phase_ < T) {
-                out[0][i] = std::pow(fbase_, value_);
-                value_ += incr_;
-            } else {
-                if (endpoint_->value())
-                    value_ = stop_->value();
-
-                running_ = false;
-                clock_.delay(0);
-                break;
-            }
-        }
-    }
-
-    // not else branch!
-    if (!running_) {
-        for (; i < BS; i++)
+    for (size_t i = 0; i < BS; i++, phase_++) {
+        if (!running_) {
+            out[0][i] = vend;
+        } else if (phase_ < T) {
             out[0][i] = std::pow(fbase_, value_);
+            value_ += incr_;
+        } else {
+            if (endpoint_->value())
+                value_ = stop_->value();
+
+            vend = std::pow(fbase_, value_);
+            out[0][i] = vend;
+            running_ = false;
+            clock_.delay(0);
+        }
     }
 }
 
