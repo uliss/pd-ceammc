@@ -52,10 +52,12 @@ ArrayPlotTilde::ArrayPlotTilde(const PdArgs& a)
         ->setArgIndex(0);
 
     ymin_ = new FloatProperty("@ymin", -1);
-    ymin_->checkClosedRange(PLOT_YMIN,  PLOT_YMAX);
+    ymin_->checkClosedRange(PLOT_YMIN, PLOT_YMAX);
+    ymin_->setArgIndex(1);
     addProperty(ymin_);
     ymax_ = new FloatProperty("@ymax", 1);
-    ymax_->checkClosedRange(PLOT_YMIN,  PLOT_YMAX);
+    ymax_->checkClosedRange(PLOT_YMIN, PLOT_YMAX);
+    ymax_->setArgIndex(2);
     addProperty(ymax_);
     yauto_ = new BoolProperty("@yauto", false);
     addProperty(yauto_);
@@ -129,7 +131,7 @@ void ArrayPlotTilde::processBlock(const t_sample** in, t_sample** out)
     }
 
     const auto BS = blockSize();
-    for (size_t i = 0; i < BS; i++) {
+    for (size_t i = 0; i < BS; i++, phase_++) {
         if (phase_ < total_) {
             t_sample v = in[0][i];
 
@@ -151,7 +153,7 @@ void ArrayPlotTilde::processBlock(const t_sample** in, t_sample** out)
                 v = clip(v, ymin, ymax);
             }
 
-            array_[phase_++] = v;
+            array_[phase_] = v;
 
         } else {
             running_ = false;
