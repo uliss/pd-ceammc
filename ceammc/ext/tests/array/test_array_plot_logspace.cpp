@@ -105,4 +105,54 @@ TEST_CASE("plot.logspace~", "[externals]")
             }
         }
     }
+
+    SECTION("log2")
+    {
+        TExt t("plot.linspace~", LA(-2, 2, 5, "@2"));
+        TSig s0;
+        TDsp dsp(s0, t);
+        dsp.processBlock();
+
+        SECTION("bang")
+        {
+            WHEN_SEND_BANG_TO(0, t);
+            REQUIRE(listAt(t, 1_out) == LF(5, 0.25, 4, 2));
+
+            dsp.processBlock(1);
+            REQUIRE(s0.out[0][0] == Approx(0.25));
+            REQUIRE(s0.out[0][1] == Approx(0.5));
+            REQUIRE(s0.out[0][2] == Approx(1));
+            REQUIRE(s0.out[0][3] == Approx(2));
+            REQUIRE(s0.out[0][4] == Approx(4));
+
+            for (size_t i = 5; i < t.blockSize(); i++) {
+                REQUIRE(s0.out[0][i] == 4);
+            }
+        }
+    }
+
+    SECTION("ln")
+    {
+        TExt t("plot.linspace~", LA(1, 2, 5, "e"));
+        TSig s0;
+        TDsp dsp(s0, t);
+        dsp.processBlock();
+
+        SECTION("bang")
+        {
+            WHEN_SEND_BANG_TO(0, t);
+            REQUIRE(listAt(t, 1_out) == LA(5, std::exp(1), std::exp(2), "e"));
+
+            dsp.processBlock(1);
+            REQUIRE(s0.out[0][0] == Approx(std::exp(1)));
+            REQUIRE(s0.out[0][1] == Approx(std::exp(1.25)));
+            REQUIRE(s0.out[0][2] == Approx(std::exp(1.5)));
+            REQUIRE(s0.out[0][3] == Approx(std::exp(1.75)));
+            REQUIRE(s0.out[0][4] == Approx(std::exp(2)));
+
+            for (size_t i = 5; i < t.blockSize(); i++) {
+                REQUIRE(s0.out[0][i] == Approx(std::exp(2)));
+            }
+        }
+    }
 }
