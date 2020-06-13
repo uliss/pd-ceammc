@@ -23,16 +23,16 @@
 using namespace ceammc;
 
 class PlotLogTilde : public SoundExternal {
-    FloatProperty* xmin_;
-    FloatProperty* xmax_;
-    IntProperty* steps_;
+    FloatProperty* start_;
+    FloatProperty* stop_;
+    IntProperty* num_;
     t_sample value_;
     t_sample fbase_;
     t_sample incr_;
-    long phase_;
+    int phase_;
     bool running_;
     ClockLambdaFunction clock_;
-    SymbolEnumProperty* base_;
+    EnumProperty<Atom>* base_;
 
 public:
     PlotLogTilde(const PdArgs& a);
@@ -42,6 +42,6 @@ public:
     void processBlock(const t_sample** in, t_sample** out) override;
 };
 
-void setup_plot_log_tilde();
+void setup_plot_logspace_tilde();
 
 #endif // PLOT_LOG_TILDE_H

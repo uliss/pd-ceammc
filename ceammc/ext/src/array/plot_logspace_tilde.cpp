@@ -15,38 +15,37 @@
 #include "ceammc_factory.h"
 #include "fmt/format.h"
 
-static t_symbol* SYM_BASE_10;
-static t_symbol* SYM_BASE_2;
-static t_symbol* SYM_BASE_E;
+using PropAlias = AliasProperty<EnumProperty<Atom>>;
 
 PlotLogTilde::PlotLogTilde(const PdArgs& a)
     : SoundExternal(a)
-    , xmin_(nullptr)
-    , xmax_(nullptr)
-    , steps_(nullptr)
+    , start_(nullptr)
+    , stop_(nullptr)
+    , num_(nullptr)
     , running_(false)
     , clock_([this]() { floatTo(1, 0); })
     , base_(nullptr)
 {
-    xmin_ = new FloatProperty("@xmin", 0);
-    xmin_->setArgIndex(0);
-    addProperty(xmin_);
+    start_ = new FloatProperty("@start", 0);
+    start_->setArgIndex(0);
+    addProperty(start_);
 
-    xmax_ = new FloatProperty("@xmax", 2);
-    xmax_->setArgIndex(1);
-    addProperty(xmax_);
+    stop_ = new FloatProperty("@stop", 2);
+    stop_->setArgIndex(1);
+    addProperty(stop_);
 
-    steps_ = new IntProperty("@steps", 256);
-    steps_->checkClosedRange(4, 1024);
-    steps_->setArgIndex(2);
-    addProperty(steps_);
+    num_ = new IntProperty("@n", 100);
+    num_->checkClosedRange(4, 1024);
+    num_->setArgIndex(2);
+    addProperty(num_);
 
-    base_ = new SymbolEnumProperty("@base", { SYM_BASE_10, SYM_BASE_2, SYM_BASE_E });
+    base_ = new EnumProperty<Atom>("@base", { Atom(10), Atom(2), Atom(gensym("e")) });
+    base_->setArgIndex(3);
     addProperty(base_);
 
-    addProperty(new SymbolEnumAlias("@10", base_, SYM_BASE_10));
-    addProperty(new SymbolEnumAlias("@2", base_, SYM_BASE_2));
-    addProperty(new SymbolEnumAlias("@e", base_, SYM_BASE_E));
+    addProperty(new PropAlias("@10", base_, 10));
+    addProperty(new PropAlias("@2", base_, 2));
+    addProperty(new PropAlias("@e", base_, gensym("e")));
 
     createSignalOutlet();
     createOutlet();
@@ -54,37 +53,39 @@ PlotLogTilde::PlotLogTilde(const PdArgs& a)
 
 void PlotLogTilde::onBang()
 {
-    if (xmin_->value() == xmax_->value()) {
+    static const t_sample m_e = std::exp(t_sample(1));
+
+    if (start_->value() == stop_->value()) {
         OBJ_ERR << fmt::format("{} != {} expected, got: {} == {}",
-            xmin_->name()->s_name,
-            xmax_->name()->s_name,
-            xmin_->value(),
-            xmax_->value());
+            start_->name()->s_name,
+            stop_->name()->s_name,
+            start_->value(),
+            stop_->value());
 
         return;
     }
 
     clock_.unset();
 
-    const t_float R = xmax_->value() - xmin_->value();
-    value_ = xmin_->value();
-    incr_ = R / steps_->value();
+    const t_float R = stop_->value() - start_->value();
+    value_ = start_->value();
+    incr_ = R / (num_->value() - 1);
     phase_ = 0;
     running_ = true;
 
-    if (base_->value() == SYM_BASE_2)
+    if (base_->value() == Atom(2))
         fbase_ = 2;
-    else if (base_->value() == SYM_BASE_E)
-        fbase_ = std::exp(t_sample(1));
-    else if (base_->value() == SYM_BASE_10)
+    else if (base_->value() == Atom(10))
         fbase_ = 10;
+    else if (base_->value() == Atom(gensym("e")))
+        fbase_ = m_e;
 
-    listTo(1, { (t_float)steps_->value() + 1, std::pow(fbase_, xmin_->value()), std::pow(fbase_, xmax_->value()), base_->value() });
+    listTo(1, { (t_float)num_->value(), std::pow(fbase_, start_->value()), std::pow(fbase_, stop_->value()), base_->value() });
 }
 
 void PlotLogTilde::onFloat(t_float f)
 {
-    if (!steps_->setValue(f))
+    if (!num_->setValue(f))
         return;
 
     onBang();
@@ -93,30 +94,25 @@ void PlotLogTilde::onFloat(t_float f)
 void PlotLogTilde::processBlock(const t_sample** in, t_sample** out)
 {
     const auto BS = blockSize();
-    const size_t T = steps_->value();
-    const auto v1 = xmax_->value();
+    const int T = num_->value() - 1;
+    const auto v1 = stop_->value();
+    const auto end = std::pow(fbase_, v1);
 
-    for (size_t i = 0; i < BS; i++) {
-
+    for (size_t i = 0; i < BS; i++, phase_++) {
         if (!running_) {
-            out[0][i] = 0;
+            out[0][i] = end;
         } else if (phase_ < T) {
             out[0][i] = std::pow(fbase_, value_);
             value_ += incr_;
-            phase_++;
         } else if (phase_ == T) {
-            out[0][i] = std::pow(fbase_, v1);
+            out[0][i] = end;
             clock_.delay(0);
             running_ = false;
         }
     }
 }
 
-void setup_plot_log_tilde()
+void setup_plot_logspace_tilde()
 {
-    SYM_BASE_10 = gensym("log10");
-    SYM_BASE_2 = gensym("log2");
-    SYM_BASE_E = gensym("ln");
-
     SoundExternalFactory<PlotLogTilde> obj("plot.logspace~", OBJECT_FACTORY_DEFAULT);
 }
