@@ -17,7 +17,9 @@
 - pi alias added for math.pi and argument added [pi 2] means two-pi value
 - math.pi~ added (with pi~ alias)
 - "-x" alias added for math.neg
-- ^2 alias added for math.square
+- ^2 alias added for math.squared
+- math.squared~ (with math.^2~ and ^2~ aliases) added
+- math.reciprocal~ (with 1/x~ alias) added
 - conv.lin2lin~ (with lin->lin~ and l->l~ aliases) added
 - chaos.gbman0 chaotic generator added
 - chaos.gbman0~ chaotic generator added

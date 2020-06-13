@@ -11,6 +11,7 @@
 .int
 /'
 1/x
+1/x~
 <'
 <='
 =='
@@ -20,6 +21,7 @@
 @~>
 ^'
 ^2
+^2~
 _tcl.version
 amp->dbfs
 an.onset
@@ -39,6 +41,7 @@ array.minmax
 array.p->s
 array.p2s
 array.phase->sample
+array.plot~
 array.r
 array.resample
 array.rms
@@ -401,6 +404,8 @@ math.=='
 math.>'
 math.>='
 math.^'
+math.^2
+math.^2~
 math.abs
 math.abs~
 math.acos
@@ -453,6 +458,7 @@ math.pi
 math.pi~
 math.polyeval
 math.reciprocal
+math.reciprocal~
 math.round
 math.round~
 math.sign
@@ -463,6 +469,7 @@ math.sin~
 math.sqrt
 math.sqrt~
 math.squared
+math.squared~
 math.sync_add
 math.sync_and
 math.sync_div
@@ -575,6 +582,9 @@ phase->rad~
 pi
 pitch->midi
 pi~
+plot.geomspace~
+plot.linspace~
+plot.logspace~
 pol->car
 prepend
 preset.f
@@ -724,6 +734,7 @@ ui.n
 ui.number
 ui.number~
 ui.n~
+ui.plot~
 ui.polar
 ui.preset
 ui.radio
