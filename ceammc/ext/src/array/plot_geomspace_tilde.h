@@ -23,16 +23,17 @@
 using namespace ceammc;
 
 class PlotGeomSpaceTilde : public SoundExternal {
-    FloatProperty* xmin_;
-    FloatProperty* xmax_;
-    IntProperty* steps_;
+    FloatProperty* start_;
+    FloatProperty* stop_;
+    IntProperty* num_;
+    BoolProperty* endpoint_;
     t_sample value_;
     t_sample fbase_;
     t_sample incr_;
     long phase_;
     bool running_;
     ClockLambdaFunction clock_;
-    SymbolEnumProperty* base_;
+    EnumProperty<Atom>* base_;
 
 public:
     PlotGeomSpaceTilde(const PdArgs& a);
