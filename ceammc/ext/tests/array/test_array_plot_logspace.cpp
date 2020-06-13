@@ -155,4 +155,30 @@ TEST_CASE("plot.logspace~", "[externals]")
             }
         }
     }
+
+    SECTION("endpoint log2")
+    {
+        TExt t("plot.linspace~", LA(0., 4, 4, "@2", "@endpoint", "false"));
+        TSig s0;
+        TDsp dsp(s0, t);
+        dsp.processBlock();
+        REQUIRE_PROPERTY(t, @endpoint, 0);
+
+        SECTION("bang")
+        {
+            WHEN_SEND_BANG_TO(0, t);
+            REQUIRE(listAt(t, 1_out) == LF(4, 1, 16, 2));
+
+            dsp.processBlock(1);
+            REQUIRE(s0.out[0][0] == Approx(1));
+            REQUIRE(s0.out[0][1] == Approx(2));
+            REQUIRE(s0.out[0][2] == Approx(4));
+            REQUIRE(s0.out[0][3] == Approx(8));
+            REQUIRE(s0.out[0][4] == Approx(8));
+
+            for (size_t i = 5; i < t.blockSize(); i++) {
+                REQUIRE(s0.out[0][i] == 8);
+            }
+        }
+    }
 }

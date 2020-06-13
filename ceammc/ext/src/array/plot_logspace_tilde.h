@@ -26,6 +26,7 @@ class PlotLogTilde : public SoundExternal {
     FloatProperty* start_;
     FloatProperty* stop_;
     IntProperty* num_;
+    BoolProperty* endpoint_;
     t_sample value_;
     t_sample fbase_;
     t_sample incr_;

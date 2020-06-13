@@ -72,24 +72,23 @@ void PlotLinTilde::processBlock(const t_sample** in, t_sample** out)
 {
     const auto BS = blockSize();
     const auto T = num_->value() - 1;
-    size_t i = 0;
 
-    if (running_) {
-        for (i = 0; i < BS; i++, phase_++) {
-            if (phase_ < T) {
-                out[0][i] = value_;
-                value_ += incr_;
-            } else {
-                running_ = false;
-                clock_.delay(0);
-                break;
-            }
+    for (size_t i = 0; i < BS; i++, phase_++) {
+        out[0][i] = value_;
+
+        if (!running_)
+            continue;
+        else if (phase_ < T)
+            value_ += incr_;
+        else {
+            if (endpoint_->value())
+                value_ = stop_->value();
+
+            out[0][i] = value_;
+            running_ = false;
+            clock_.delay(0);
         }
     }
-
-    // remaining
-    for (; i < BS; i++)
-        out[0][i] = value_;
 }
 
 void setup_plot_linspace_tilde()

@@ -22,6 +22,7 @@ PlotLogTilde::PlotLogTilde(const PdArgs& a)
     , start_(nullptr)
     , stop_(nullptr)
     , num_(nullptr)
+    , endpoint_(nullptr)
     , running_(false)
     , clock_([this]() { floatTo(1, 0); })
     , base_(nullptr)
@@ -47,6 +48,9 @@ PlotLogTilde::PlotLogTilde(const PdArgs& a)
     addProperty(new PropAlias("@2", base_, 2));
     addProperty(new PropAlias("@e", base_, gensym("e")));
 
+    endpoint_ = new BoolProperty("@endpoint", true);
+    addProperty(endpoint_);
+
     createSignalOutlet();
     createOutlet();
 }
@@ -69,7 +73,7 @@ void PlotLogTilde::onBang()
 
     const t_float R = stop_->value() - start_->value();
     value_ = start_->value();
-    incr_ = R / (num_->value() - 1);
+    incr_ = R / (num_->value() - (endpoint_->value() ? 1 : 0));
     phase_ = 0;
     running_ = true;
 
@@ -95,20 +99,29 @@ void PlotLogTilde::processBlock(const t_sample** in, t_sample** out)
 {
     const auto BS = blockSize();
     const int T = num_->value() - 1;
-    const auto v1 = stop_->value();
-    const auto end = std::pow(fbase_, v1);
 
-    for (size_t i = 0; i < BS; i++, phase_++) {
-        if (!running_) {
-            out[0][i] = end;
-        } else if (phase_ < T) {
-            out[0][i] = std::pow(fbase_, value_);
-            value_ += incr_;
-        } else if (phase_ == T) {
-            out[0][i] = end;
-            clock_.delay(0);
-            running_ = false;
+    size_t i = 0;
+
+    if (running_) {
+        for (i = 0; i < BS; i++, phase_++) {
+            if (phase_ < T) {
+                out[0][i] = std::pow(fbase_, value_);
+                value_ += incr_;
+            } else {
+                if (endpoint_->value())
+                    value_ = stop_->value();
+
+                running_ = false;
+                clock_.delay(0);
+                break;
+            }
         }
+    }
+
+    // not else branch!
+    if (!running_) {
+        for (; i < BS; i++)
+            out[0][i] = std::pow(fbase_, value_);
     }
 }
 
