@@ -115,6 +115,22 @@ TEST_CASE("Properties2", "[ceammc::properties]")
                 REQUIRE(i == 2);
             }
         }
+
+        SECTION("atom")
+        {
+            using AtomEnumProperty = EnumProperty<Atom>;
+            AtomEnumProperty p("@atomenum", { Atom(1), Atom(gensym("e")) });
+
+            REQUIRE(p.isAtom());
+            REQUIRE(p.get() == Atom(1));
+            REQUIRE(p.value() == Atom(1));
+            REQUIRE(p.defaultValue() == Atom(1));
+
+            REQUIRE(p.set(LA("e")));
+            REQUIRE(p.value() == Atom(gensym("e")));
+
+            REQUIRE_FALSE(p.set(LA("E")));
+        }
     }
 
     SECTION("callback")

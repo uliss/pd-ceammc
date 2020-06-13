@@ -617,6 +617,11 @@ bool PropertyInfo::addEnum(const char* s)
 
 bool PropertyInfo::addEnum(t_symbol* s)
 {
+    return addEnum(Atom(s));
+}
+
+bool PropertyInfo::addEnum(const Atom& a)
+{
     if (!hasEnumLimit()) {
         PROP_LOG() << "no enum constraints";
         return false;
@@ -626,7 +631,7 @@ bool PropertyInfo::addEnum(t_symbol* s)
         if (!enum_)
             enum_.reset(new AtomList);
 
-        enum_->append(Atom(s));
+        enum_->append(a);
         return true;
     } else {
         PROP_LOG() << "should not have symbol in enum";
@@ -693,6 +698,28 @@ bool PropertyInfo::addEnums(std::initializer_list<const char*> c_list)
         enum_->reserve(c_list.size() + 1);
         for (auto c : c_list)
             enum_->append(Atom(gensym(c)));
+
+        return true;
+    } else {
+        PROP_LOG() << "should not have symbol in enum";
+        return false;
+    }
+}
+
+bool PropertyInfo::addEnums(std::initializer_list<Atom> a_list)
+{
+    if (!hasEnumLimit()) {
+        PROP_LOG() << "no enum constraints";
+        return false;
+    }
+
+    if (isSymbol() || isVariant() || isList()) {
+        if (!enum_)
+            enum_.reset(new AtomList);
+
+        enum_->reserve(a_list.size() + 1);
+        for (auto& a : a_list)
+            enum_->append(a);
 
         return true;
     } else {
