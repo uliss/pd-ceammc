@@ -15,6 +15,7 @@ option(WITH_EXT_FLEXT "Build flext externals" ON)
 
 if(UNIX)
     option(WITH_ASAN "Build with address sanitizer" OFF)
+    option(WITH_PROFILE "Build with gprof support" OFF)
 endif()
 
 option(ENABLE_TESTS "Enable tests" ON)
