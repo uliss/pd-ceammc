@@ -66,6 +66,12 @@
     <entry descr="fill array with window" name="array.window" ref_view="object">
       <xi:include href="array.window.pddoc" parse="xml"/>
     </entry>
+    <entry descr="outputs numbers spaced evenly on a log scale (a geometric progression)" name="plot.geomspace~" ref_view="object">
+      <xi:include href="plot.geomspace~.pddoc" parse="xml"/>
+    </entry>
+    <entry descr="outputs numbers spaced evenly spaced over a specified interval" name="plot.linspace~" ref_view="object">
+      <xi:include href="plot.linspace~.pddoc" parse="xml"/>
+    </entry>
   </category>
   <category name="base">
     <entry descr="named function" name="function" ref_view="link">
@@ -978,6 +984,9 @@
     <entry descr="calculate reciprocal number" name="math.reciprocal" ref_view="object">
       <xi:include href="math.reciprocal.pddoc" parse="xml"/>
     </entry>
+    <entry descr="calculate reciprocal number for signals" name="math.reciprocal~" ref_view="object">
+      <xi:include href="math.reciprocal~.pddoc" parse="xml"/>
+    </entry>
     <entry descr="round to integral value, regardless of rounding direction" name="math.round" ref_view="object">
       <xi:include href="math.round.pddoc" parse="xml"/>
     </entry>
@@ -998,6 +1007,9 @@
     </entry>
     <entry descr="value square" name="math.squared" ref_view="object">
       <xi:include href="math.squared.pddoc" parse="xml"/>
+    </entry>
+    <entry descr="signal value square" name="math.squared~" ref_view="object">
+      <xi:include href="math.squared~.pddoc" parse="xml"/>
     </entry>
     <entry descr="sync addition" name="math.sync_add" ref_view="object">
       <xi:include href="math.sync_add.pddoc" parse="xml"/>
@@ -1566,6 +1578,9 @@
     </entry>
     <entry descr="counterpart of the vanilla [nbx] for signal" name="ui.number~" ref_view="link">
       <xi:include href="ui.number~.pddoc" parse="xml"/>
+    </entry>
+    <entry descr="signal plotter" name="ui.plot~" ref_view="object">
+      <xi:include href="ui.plot~.pddoc" parse="xml"/>
     </entry>
     <entry descr="2D slider in polar coordinates" name="ui.polar" ref_view="link">
       <xi:include href="ui.polar.pddoc" parse="xml"/>

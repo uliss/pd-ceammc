@@ -325,6 +325,7 @@ math.pi,pi		.		.
 math.pi~,pi~		-		.
 math.polyeval		..		.
 math.reciprocal,1/x		.		.
+math.reciprocal~,1/x~		~		~
 math.round		.		.
 math.round~,round~		.		.
 math.sign		.		.
@@ -332,6 +333,7 @@ math.sin		.		.
 math.sinh		.		.
 math.sqrt		.		.
 math.squared,^2		.		.
+math.squared~,^2~,math.^2~		~		.
 math.sync_add,math.+',+'		..		.
 math.sync_and,math.&&',&&'		..		.
 math.sync_div,math./',/'		..		.
@@ -395,6 +397,8 @@ path.dirname		.		.
 path.exists		.		.
 path.is_dir		.		..
 path.lsdir,path.ls		.		.
+plot.geomspace~		.		~.
+plot.linspace~		.		~.
 preset.float,preset.f		.		.
 preset.list,preset.l		.		.
 preset.storage		.		.
@@ -492,6 +496,7 @@ ui.mouse_filter,ui.mf		.		.
 ui.mouse_route,ui.mr		.		?
 ui.number,ui.n		.		.
 ui.number~,ui.n~		~		~
+ui.plot~		?		-
 ui.polar		.		.
 ui.preset		.		-
 ui.radio,ui.radio*,ui.hrd,ui.hrd*,ui.vrd,ui.vrd*		.		.

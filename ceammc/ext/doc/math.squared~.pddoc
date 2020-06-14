@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="math.squared~">
+        <title>math.squared~</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>signal value square</description>
+            <license>GPL3 or later</license>
+            <library>ceammc</library>
+            <category>math</category>
+            <keywords>math square</keywords>
+            <since>0.9</since>
+            <aliases>
+                <alias>^2~</alias>
+                <alias>math.^2~</alias>
+            </aliases>
+        </meta>
+        <inlets>
+            <inlet type="audio">
+                <xinfo>input signal</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet>output signal</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[B]
+|
+[plot.linspace~ -5 5 #a]
+|
+[math.squared~]
+|
+[ui.plot~ #b @xlabels 1 @ylabels 1 @ymin 0 @ymax 25]
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+[ui.dsp~]
+[X a:1->b:1]
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

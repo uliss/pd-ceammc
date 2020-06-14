@@ -1,57 +1,65 @@
 <?xml version="1.0" encoding="utf-8"?>
 <pddoc version="1.0">
-    <object name="array.plot~">
-        <title>array.plot~</title>
+    <object name="ui.plot~" type="gui">
+        <title>ui.plot~</title>
         <meta>
             <authors>
                 <author>Serge Poltavsky</author>
             </authors>
-            <description>plot signal on specified array</description>
+            <description>signal plotter</description>
             <license>GPL3 or later</license>
             <library>ceammc</library>
-            <category>array</category>
-            <keywords>array plot</keywords>
+            <category>ui</category>
+            <keywords>plot</keywords>
             <also>
-                <see view="link">ui.plot~</see>
+                <see>array.plot~</see>
             </also>
             <since>0.9</since>
         </meta>
         <properties>
-            <property name="@array" type="symbol" default="">array name</property>
             <property name="@ymin" minvalue="-1024" maxvalue="1024" type="float" default="-1">minimal y-axis value</property>
             <property name="@ymax" minvalue="-1024" maxvalue="1024" type="float" default="1">minimal y-axis value</property>
             <property name="@yauto" type="int" enum="0 1" default="0">calculate y-axis range automatically</property>
         </properties>
-        <inlets>
+        <inlets dynamic="true">
             <inlet type="audio">
                 <xinfo>input signal</xinfo>
             </inlet>
             <inlet>
-                <xinfo on="bang">plot all samples fitted to specified array</xinfo>
-                <xinfo on="float">plot specified number of samples, resizes array</xinfo>
+                <xinfo on="bang">plot default number of samples</xinfo>
+                <xinfo on="float">plot specified number of samples</xinfo>
             </inlet>
         </inlets>
         <outlets/>
         <example>
             <pdascii>
 <![CDATA[
-                    [array APL1 size=100 w=200 h=200]
+[B]                                           [ui.plot~.lin1-help]
+|
+[plot.linspace~ -5 5 256 #a]
+|      |            |     |
+[1/x~] [math.exp2~] [^2~] [expr~ sin($v1)*20] [ui.plot~.lin1-help]
+|      |.           |..   |...
+[ui.plot~ @xlabels 1 @ylabels 1 @size 250 250 @n 4 @ymin -40 @ymax 40 #b]
+
+
+                                              [ui.plot~.lin3-help]
+
+
+
+                                              [ui.plot~.log2-help]
+
+
+
+
+
+
 
 
 
 
 [ui.dsp~]
-
-
-[osc~ 440]   [B]
-|            |.
-[array.plot~ APL1]
-
-[B]
-|
-[plot.geomspace~ 2 1024]
-|   ^|.
-[array.plot~ APL1 @yauto 1]
+[X a:1->b:4]
 ]]>
             </pdascii>
         </example>

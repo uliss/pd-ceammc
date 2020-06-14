@@ -326,6 +326,7 @@ set(DOC_FILES
     math.pi~
     math.polyeval
     math.reciprocal
+    math.reciprocal~
     math.round
     math.round~
     math.sign
@@ -333,6 +334,7 @@ set(DOC_FILES
     math.sinh
     math.sqrt
     math.squared
+    math.squared~
     math.sync_add
     math.sync_and
     math.sync_div
@@ -396,6 +398,8 @@ set(DOC_FILES
     path.exists
     path.is_dir
     path.lsdir
+    plot.geomspace~
+    plot.linspace~
     preset.float
     preset.list
     preset.storage
@@ -490,6 +494,7 @@ set(DOC_FILES
     ui.label
     ui.link
     ui.number~
+    ui.plot~
     ui.polar
     ui.preset
     ui.scope~

@@ -40,7 +40,13 @@
 #X text 200 575 simple array player for using with vline~;
 #X obj 30 602 array.window;
 #X text 200 602 fill array with window;
+#X obj 30 629 plot.geomspace~;
+#X text 200 629 outputs numbers spaced evenly on a log scale (a geometric
+progression);
+#X obj 30 669 plot.linspace~;
+#X text 200 669 outputs numbers spaced evenly spaced over a specified
+interval;
 #X obj 1 1 cnv 5 740 40 empty empty ceammc::array 20 20 0 20 -104026
 -4096 0;
-#X obj 1 629 cnv 5 740 40 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 20 639 library: ceammc;
+#X obj 1 709 cnv 5 740 40 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 20 719 library: ceammc;
