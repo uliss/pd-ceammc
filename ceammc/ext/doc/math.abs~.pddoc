@@ -30,12 +30,12 @@
         <example>
             <pdascii>
 <![CDATA[
-[256(                        [array mabs {w=200,h=200}]
+[bang(                        [array mabs {w=200,h=200}]
 |
-[plot.lin~ -1 1]
-|
-[math.abs~]
-|
+[plot.linspace~ -1 1]
+|             ^|
+[math.abs~]    |
+|              |.
 [array.plot~ mabs @yauto 1]
 ]]>
             </pdascii>

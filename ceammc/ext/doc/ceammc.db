@@ -9,6 +9,7 @@ array.hist		.		.
 array.mean		.		.
 array.minmax		.		..
 array.p2s,array.p->s,array.phase->sample		.		.
+array.plot~		~.		-
 array.resample,array.r		.		.
 array.rms		.		.
 array.s2p,array.s->p,array.sample->phase		.		.
@@ -291,6 +292,7 @@ math.abs		.		.
 math.abs~		~		~
 math.acos		~		~
 math.acosh		.		.
+math.acos~		~		~
 math.and,and		?		.
 math.approx,approx		...		.
 math.asin		.		.

@@ -10,6 +10,7 @@ set(DOC_FILES
     array.mean
     array.minmax
     array.p2s
+    array.plot~
     array.resample
     array.rms
     array.s2p

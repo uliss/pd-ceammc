@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <pddoc version="1.0">
-    <object name="math.acos">
-        <title>math.acos</title>
+    <object name="math.acos~">
+        <title>math.acos~</title>
         <meta>
             <authors>
                 <author>Serge Poltavsky</author>
