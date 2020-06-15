@@ -305,6 +305,7 @@ math.carg~,carg~		~~		~
 math.cbrt		.		.
 math.cdiv~,cdiv~		~~~~		~~
 math.ceil		.		.
+math.cexp~,cexp~		~~		~~
 math.cmul~,cmul~		~~~~		~~
 math.cos		.		.
 math.cosh		.		.

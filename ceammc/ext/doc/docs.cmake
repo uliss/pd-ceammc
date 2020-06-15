@@ -306,6 +306,7 @@ set(DOC_FILES
     math.cbrt
     math.cdiv~
     math.ceil
+    math.cexp~
     math.cmul~
     math.cos
     math.cosh

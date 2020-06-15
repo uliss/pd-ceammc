@@ -924,6 +924,9 @@
     <entry descr="round to smallest integral value not less than input value" name="math.ceil" ref_view="object">
       <xi:include href="math.ceil.pddoc" parse="xml"/>
     </entry>
+    <entry descr="exponent of a complex signals" name="math.cexp~" ref_view="object">
+      <xi:include href="math.cexp~.pddoc" parse="xml"/>
+    </entry>
     <entry descr="multiplication of complex signals" name="math.cmul~" ref_view="object">
       <xi:include href="math.cmul~.pddoc" parse="xml"/>
     </entry>
