@@ -301,6 +301,7 @@ math.asinh		.		.
 math.atan		.		.
 math.atanh		.		.
 math.cabs~,cabs~		~~		~
+math.carg~,carg~		~~		~
 math.cbrt		.		.
 math.cdiv~,cdiv~		~~~~		~~
 math.ceil		.		.

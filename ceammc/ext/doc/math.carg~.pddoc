@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="math.carg~">
+        <title>math.carg~</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>phase angle of a complex signals</description>
+            <license>GPL3 or later</license>
+            <library>ceammc</library>
+            <category>math</category>
+            <keywords>math complex phase angle</keywords>
+            <aliases>
+                <alias>carg~</alias>
+            </aliases>
+            <since>0.9</since>
+            <also>
+                <see>math.cabs~</see>
+            </also>
+        </meta>
+        <info>
+            <par>outputs the phase angle in the interval [−π π]</par>
+        </info>
+        <inlets>
+            <inlet type="audio">
+                <xinfo>real part of input signal</xinfo>
+            </inlet>
+            <inlet type="audio">
+                <xinfo>imag part of input signal</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet type="audio">signal phase angle in radians</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[ui.slider2d @show_grid=1]
+|
+|
+|
+|
+|
+|
+|
+[unpack f f]
+|       ^|
+[sig~] [sig~]
+|      |.
+[math.carg~]  [ui.dsp~]
+|
+[ui.n~]
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

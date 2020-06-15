@@ -302,6 +302,7 @@ set(DOC_FILES
     math.atan
     math.atanh
     math.cabs~
+    math.carg~
     math.cbrt
     math.cdiv~
     math.ceil
