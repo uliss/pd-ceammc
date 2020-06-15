@@ -135,7 +135,7 @@ UIPlotTilde::UIPlotTilde()
     , xmaj_grid_(1)
     , xmin_grid_(0)
     , prop_nins_(1)
-    , log_base_(LB_NONE)
+    , xscale_base_(SB_LIN10)
     , plot_layer_(asEBox(), gensym("plot_layer"))
     , border_layer_(asEBox(), gensym("border_layer"))
     , font_(gensym(FONT_FAMILY), FONT_SIZE_SMALL + 1)
@@ -363,13 +363,13 @@ void UIPlotTilde::drawBorder()
             p.drawText(txt_x_.back());
         }
 
-        if (log_base_ == LB_NONE) {
+        if (xscale_base_ == SB_LIN10) {
             drawLinX(p, wd, ht);
-        } else if (log_base_ == LB_2) {
+        } else if (xscale_base_ == SB_LOG2) {
             drawLog2X(p, wd, ht);
-        } else if (log_base_ == LB_10) {
+        } else if (xscale_base_ == SB_LOG10) {
             drawLog10X(p, wd, ht);
-        } else if (log_base_ == LB_E) {
+        } else if (xscale_base_ == SB_LN) {
             drawLnX(p, wd, ht);
         }
     }
@@ -909,7 +909,7 @@ void UIPlotTilde::onInlet(const AtomList& args)
         total_ = width() * 0.9;
         xmin_ = 0;
         xmax_ = total_;
-        log_base_ = LB_NONE;
+        xscale_base_ = SB_LIN10;
         resizeBuffers(total_);
         return;
     } else {
@@ -938,15 +938,15 @@ void UIPlotTilde::onInlet(const AtomList& args)
 
             if (args.size() >= 3) {
                 if (args[3] == Atom(10))
-                    log_base_ = LB_10;
+                    xscale_base_ = SB_LOG10;
                 else if (args[3] == Atom(2))
-                    log_base_ = LB_2;
+                    xscale_base_ = SB_LOG2;
                 else if (args[3] == Atom(gensym("e")))
-                    log_base_ = LB_E;
+                    xscale_base_ = SB_LN;
                 else
-                    log_base_ = LB_NONE;
+                    xscale_base_ = SB_LIN10;
             } else
-                log_base_ = LB_NONE;
+                xscale_base_ = SB_LIN10;
 
         } else {
             running_ = false;

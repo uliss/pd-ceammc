@@ -23,11 +23,11 @@
 
 using namespace ceammc;
 
-enum LogBase {
-    LB_NONE,
-    LB_2,
-    LB_E,
-    LB_10
+enum ScaleBase {
+    SB_LIN10,
+    SB_LOG2,
+    SB_LN,
+    SB_LOG10
 };
 
 using TextList = std::vector<UITextLayout>;
@@ -55,7 +55,7 @@ class UIPlotTilde : public UIDspObject {
     t_rgba plot_color1_;
     t_rgba plot_color2_;
     t_rgba plot_color3_;
-    LogBase log_base_;
+    ScaleBase xscale_base_;
     UILayer plot_layer_;
     UILayer border_layer_;
     UIFont font_;
