@@ -21,6 +21,7 @@
 - math.squared~ (with math.^2~ and ^2~ aliases) added
 - math.reciprocal~ (with 1/x~ alias) added
 - conv.lin2lin~ (with lin->lin~ and l->l~ aliases) added
+- conv.amp2dbfs~ (with amp->dbfs~ alias) added
 - chaos.gbman0 chaotic generator added
 - chaos.gbman0~ chaotic generator added
 - list.contains @all_of, @any_of, @none_of, @sublist (default) properties added
@@ -36,7 +37,7 @@
   - @aoffset (or @aoff) - to specify write offset position in destination array
   - @resample - to specify data resampling while loading
 - array.resample (with alias array.r) added. Resamples array with SoxR library
-- list.resample (with alias list.r) added.
+- list.resample (with alias list.r) added
 
 ## [0.8]
 ### Added:
