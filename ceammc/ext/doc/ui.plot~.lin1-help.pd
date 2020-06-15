@@ -1,0 +1,22 @@
+#N canvas 653 283 684 414 12;
+#X obj 50 94 ui.plot~ @size 349 261 @receive "(null)" @send "(null)"
+@pinned 0 @background_color 0.93 0.93 0.93 1 @border_color 0.6 0.6
+0.6 1 @label_color 0 0 0 1 @plot_color0 0 0.75 1 1 @plot_color1 0.75
+0 1 1 @plot_color2 1 0 0.75 1 @plot_color3 1 0.75 0 1 @fontname "Helvetica"
+@fontweight "normal" @fontslant "roman" @fontsize 11 @label "(null)"
+@label_inner 0 @label_side "top" @label_align "left" @label_valign
+"top" @label_margins 0 0 @yauto 0 @ymin -1 @ymax 1 @xmaj_ticks 1 @xmin_ticks
+1 @xmaj_grid 1 @xmin_grid 0 @xlabels 1 @ymaj_ticks 1 @ymin_ticks 1
+@ymaj_grid 0 @ymin_grid 0 @ylabels 1 @n 1;
+#X obj 50 37 osc~ 440;
+#X msg 393 43 bang;
+#X msg 440 42 32;
+#X msg 480 42 64;
+#X msg 520 42 128;
+#X msg 560 42 256;
+#X connect 1 0 0 0;
+#X connect 2 0 0 1;
+#X connect 3 0 0 1;
+#X connect 4 0 0 1;
+#X connect 5 0 0 1;
+#X connect 6 0 0 1;
