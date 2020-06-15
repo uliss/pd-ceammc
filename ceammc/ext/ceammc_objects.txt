@@ -24,6 +24,7 @@
 ^2~
 _tcl.version
 amp->dbfs
+amp->dbfs~
 an.onset
 an.onset~
 an.pitchtrack~
@@ -59,14 +60,17 @@ array.window
 bpm->hz
 bpm->ms
 bpm->sec
+cabs~
 canvas.current
 canvas.dir
 canvas.name
 canvas.path
 canvas.top
 car->pol
+carg~
 cc->amp
 cdiv~
+cexp~
 chaos.gbman0
 chaos.gbman0~
 chaos.std0
@@ -74,6 +78,7 @@ chaos.std0~
 click~
 cmul~
 conv.amp2dbfs
+conv.amp2dbfs~
 conv.bpm2hz
 conv.bpm2ms
 conv.bpm2sec
@@ -142,6 +147,7 @@ env.vscale
 env2array
 env2vline
 envelope
+exp2~
 expand_env
 flow.<
 flow.<=
@@ -196,6 +202,7 @@ flt.dcblock~
 flt.eq10~
 flt.eq_peak_cq~
 flt.eq_peak~
+flt.freqz~
 flt.highshelf~
 flt.hpf12~
 flt.hpf24~
@@ -422,11 +429,14 @@ math.atan
 math.atanh
 math.atanh~
 math.atan~
+math.cabs~
+math.carg~
 math.cbrt
 math.cbrt~
 math.cdiv~
 math.ceil
 math.ceil~
+math.cexp~
 math.cmul~
 math.cos
 math.cosh
