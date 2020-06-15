@@ -31,6 +31,7 @@ set(DOC_FILES
     chaos.gbman0~
     click~
     conv.amp2dbfs
+    conv.amp2dbfs~
     conv.bpm2hz
     conv.bpm2ms
     conv.bpm2sec
@@ -310,6 +311,7 @@ set(DOC_FILES
     math.e
     math.exp
     math.exp2
+    math.exp2~
     math.expr
     math.floor
     math.gcd

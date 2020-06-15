@@ -58,5 +58,6 @@ public:
 void setup_math_exp2() {
     ObjectFactory<MathExp2> obj0("math.exp2");
     SoundExternalFactory<MathExp2Tilde> obj1("math.exp2~");
+    obj1.addAlias("exp2~");
 }
         

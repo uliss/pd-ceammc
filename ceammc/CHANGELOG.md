@@ -20,6 +20,7 @@
 - ^2 alias added for math.squared
 - math.squared~ (with math.^2~ and ^2~ aliases) added
 - math.reciprocal~ (with 1/x~ alias) added
+- math.exp2~ (with exp2~ alias) added
 - conv.lin2lin~ (with lin->lin~ and l->l~ aliases) added
 - conv.amp2dbfs~ (with amp->dbfs~ alias) added
 - chaos.gbman0 chaotic generator added
@@ -38,6 +39,7 @@
   - @resample - to specify data resampling while loading
 - array.resample (with alias array.r) added. Resamples array with SoxR library
 - list.resample (with alias list.r) added
+- ui.plot~ added
 
 ## [0.8]
 ### Added:

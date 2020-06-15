@@ -30,6 +30,7 @@ chaos.gbman0		.		.
 chaos.gbman0~		~		.
 click~		.		~
 conv.amp2dbfs,amp->dbfs		.		.
+conv.amp2dbfs~,amp->dbfs~		~		~
 conv.bpm2hz,bpm->hz		.		.
 conv.bpm2ms,bpm->ms		.		.
 conv.bpm2sec,bpm->sec		.		.
@@ -309,6 +310,7 @@ math.div,math./		..		.
 math.e		.		.
 math.exp		.		.
 math.exp2		.		.
+math.exp2~,exp2~		~		~
 math.expr		..		.
 math.floor		.		.
 math.gcd		..		.
