@@ -25,6 +25,7 @@ using namespace ceammc;
 
 enum ScaleBase {
     SB_LIN10,
+    SB_LINPI,
     SB_LOG2,
     SB_LN,
     SB_LOG10
@@ -96,6 +97,7 @@ public:
     static void setup();
 
 private:
+    void addXLabel(const char* txt, float x, float y, etextjustify_flags align, etextanchor_flags anchor);
     void addXLabel(float v, float x, float y, etextjustify_flags align, etextanchor_flags anchor);
     void addXLabelLn(int n, float x, float y, etextjustify_flags align, etextanchor_flags anchor);
     void addYLabel(float v, float x, float y, etextjustify_flags align, etextanchor_flags anchor);

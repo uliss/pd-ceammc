@@ -103,9 +103,36 @@ static double fast_log10(int i)
     return log10[i - 1];
 }
 
-static const char* to_label(float v)
+static const char* to_label(float v, ScaleBase sb = SB_LIN10)
 {
+    static const float m_pi = std::acosf(-1);
     static char buf[32];
+
+    if (sb == SB_LINPI) { // close to pi
+        const float n0 = v / m_pi;
+        const float n1 = std::round(n0);
+
+        if (std::fabs(n1 - n0) < 0.001) {
+            int i = n1;
+            switch (i) {
+            case 0:
+                strcpy(buf, "0");
+                break;
+            case 1:
+                strcpy(buf, "π");
+                break;
+            case -1:
+                strcpy(buf, "-π");
+                break;
+            default:
+                sprintf(buf, "%dπ", i);
+                break;
+            }
+
+            return buf;
+        }
+    }
+
     if (v == (int)v)
         snprintf(buf, 32, "%d", (int)v);
     else
@@ -283,6 +310,14 @@ void UIPlotTilde::drawPlot()
     }
 }
 
+void UIPlotTilde::addXLabel(const char* txt, float x, float y, etextjustify_flags align, etextanchor_flags anchor)
+{
+    txt_x_.push_back(UITextLayout(font_.font()));
+    txt_x_.back().setJustify(align);
+    txt_x_.back().setAnchor(anchor);
+    txt_x_.back().set(txt, x, y, 20, FONT_SIZE_SMALL);
+}
+
 void UIPlotTilde::addXLabel(float v, float x, float y, etextjustify_flags align, etextanchor_flags anchor)
 {
     txt_x_.push_back(UITextLayout(font_.font()));
@@ -357,20 +392,25 @@ void UIPlotTilde::drawBorder()
     if (xmax_ != xmin_) {
         if (xlabels_) {
             txt_x_.clear();
-            addXLabel(xmin_, 3, ht + LABEL_YPAD, ETEXT_JLEFT, ETEXT_UP_LEFT);
+            addXLabel(to_label(xmin_, xscale_base_), 3, ht + LABEL_YPAD, ETEXT_JLEFT, ETEXT_UP_LEFT);
             p.drawText(txt_x_.back());
-            addXLabel(xmax_, wd, ht + LABEL_YPAD, ETEXT_JRIGHT, ETEXT_UP_RIGHT);
+            addXLabel(to_label(xmax_, xscale_base_), wd, ht + LABEL_YPAD, ETEXT_JRIGHT, ETEXT_UP_RIGHT);
             p.drawText(txt_x_.back());
         }
 
-        if (xscale_base_ == SB_LIN10) {
-            drawLinX(p, wd, ht);
-        } else if (xscale_base_ == SB_LOG2) {
+        switch (xscale_base_) {
+        case SB_LOG2:
             drawLog2X(p, wd, ht);
-        } else if (xscale_base_ == SB_LOG10) {
-            drawLog10X(p, wd, ht);
-        } else if (xscale_base_ == SB_LN) {
+            break;
+        case SB_LN:
             drawLnX(p, wd, ht);
+            break;
+        case SB_LOG10:
+            drawLog10X(p, wd, ht);
+            break;
+        default:
+            drawLinX(p, wd, ht);
+            break;
         }
     }
 
@@ -541,8 +581,15 @@ void UIPlotTilde::drawLnX(UIPainter& p, float wd, float ht)
 
 void UIPlotTilde::drawLinX(UIPainter& p, float wd, float ht)
 {
+    constexpr int PI_TICK_DIV = 4;
     const auto xmm = std::minmax(xmin_, xmax_);
-    const auto tick_step = std::pow(10, std::trunc(std::log10(xmm.second - xmm.first) + 0.3) - 1);
+
+    t_float tick_step = 0.1;
+    if (xscale_base_ == SB_LIN10)
+        tick_step = std::pow(10, std::trunc(std::log10(xmm.second - xmm.first) + 0.3) - 1);
+    else if (xscale_base_ == SB_LINPI)
+        tick_step = std::acos(-1) / PI_TICK_DIV;
+
     const int xtick_min = std::ceil(xmm.first / tick_step);
     const int xtick_max = std::floor(xmm.second / tick_step);
 
@@ -559,7 +606,7 @@ void UIPlotTilde::drawLinX(UIPainter& p, float wd, float ht)
     for (int i = xtick_min; i <= xtick_max; i++) {
         auto x = convert::lin2lin<float>(i * tick_step, xmin_, xmax_, 0, wd);
 
-        const bool is_maj = (i % 10 == 0);
+        const bool is_maj = (xscale_base_ == SB_LINPI) ? (i % PI_TICK_DIV == 0) : (i % 10 == 0);
         const bool is_min = !is_maj;
 
         // draw ticks
@@ -575,12 +622,15 @@ void UIPlotTilde::drawLinX(UIPainter& p, float wd, float ht)
 
         // draw labels
         if (is_maj && xlabels_) {
-            const int lbl_wd = strlen(to_label(i * tick_step)) * DIGIT_WD;
+            // non-thread safe!!!
+            const char* txt = to_label(i * tick_step, xscale_base_);
+
+            const int lbl_wd = strlen(txt) * DIGIT_WD;
             // too close to the border
             if (x < x0_avoid || x > (x1_avoid - lbl_wd))
                 continue;
 
-            addXLabel(i * tick_step, x + LABEL_XPAD, ht + LABEL_YPAD, ETEXT_JLEFT, ETEXT_UP_LEFT);
+            addXLabel(txt, x + LABEL_XPAD, ht + LABEL_YPAD, ETEXT_JLEFT, ETEXT_UP_LEFT);
             p.drawText(txt_x_.back());
         }
     }
@@ -943,6 +993,8 @@ void UIPlotTilde::onInlet(const AtomList& args)
                     xscale_base_ = SB_LOG2;
                 else if (args[3] == Atom(gensym("e")))
                     xscale_base_ = SB_LN;
+                else if (args[3] == Atom(gensym("pi")))
+                    xscale_base_ = SB_LINPI;
                 else
                     xscale_base_ = SB_LIN10;
             } else
