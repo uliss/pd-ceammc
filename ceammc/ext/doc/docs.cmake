@@ -301,6 +301,7 @@ set(DOC_FILES
     math.asinh
     math.atan
     math.atanh
+    math.cabs~
     math.cbrt
     math.cdiv~
     math.ceil

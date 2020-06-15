@@ -300,6 +300,7 @@ math.asin		.		.
 math.asinh		.		.
 math.atan		.		.
 math.atanh		.		.
+math.cabs~,cabs~		~~		~
 math.cbrt		.		.
 math.cdiv~,cdiv~		~~~~		~~
 math.ceil		.		.

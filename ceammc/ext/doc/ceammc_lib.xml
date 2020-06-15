@@ -909,6 +909,9 @@
     <entry descr="inverse hyperbolic tangent function" name="math.atanh" ref_view="object">
       <xi:include href="math.atanh.pddoc" parse="xml"/>
     </entry>
+    <entry descr="magnitude of a complex signals" name="math.cabs~" ref_view="object">
+      <xi:include href="math.cabs~.pddoc" parse="xml"/>
+    </entry>
     <entry descr="cube root function" name="math.cbrt" ref_view="object">
       <xi:include href="math.cbrt.pddoc" parse="xml"/>
     </entry>
