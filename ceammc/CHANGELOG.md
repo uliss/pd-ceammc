@@ -14,13 +14,14 @@
 - preset.s alias added for preset.symbol
 - preset.l alias added for preset.list
 - metro.random added
-- pi alias added for math.pi and argument added [pi 2] means two-pi value
-- math.pi~ added (with pi~ alias)
-- "-x" alias added for math.neg
-- ^2 alias added for math.squared
-- math.squared~ (with math.^2~ and ^2~ aliases) added
-- math.reciprocal~ (with 1/x~ alias) added
-- math.exp2~ (with exp2~ alias) added
+- math module added:
+  - pi alias added for math.pi and argument added [pi 2] means two-pi value
+  - math.pi~ added (with pi~ alias)
+  - "-x" alias added for math.neg
+  - ^2 alias added for math.squared
+  - math.squared~ (with math.^2~ and ^2~ aliases) added
+  - math.reciprocal~ (with 1/x~ alias) added
+  - math.exp2~ (with exp2~ alias) added
 - complex math for signals added:
   - math.cabs~
   - math.carg~
@@ -30,6 +31,7 @@
 - chaos.gbman0 chaotic generator added
 - chaos.gbman0~ chaotic generator added
 - list.contains @all_of, @any_of, @none_of, @sublist (default) properties added
+- list.resample (with alias list.r) added
 - is_data @in_list property added to search data inside list
 - path.is_dir added
 - snd.file load options added:
@@ -42,7 +44,6 @@
   - @aoffset (or @aoff) - to specify write offset position in destination array
   - @resample - to specify data resampling while loading
 - array.resample (with alias array.r) added. Resamples array with SoxR library
-- list.resample (with alias list.r) added
 - ui.plot~ added
 
 ## [0.8]
