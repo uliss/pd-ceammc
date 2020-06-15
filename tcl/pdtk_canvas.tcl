@@ -217,6 +217,7 @@ proc pdtk_canvas_mouseup {tkcanvas x y b {f 0}} {
 
 proc pdtk_canvas_rightclick {tkcanvas x y b} {
     set mytoplevel [winfo toplevel $tkcanvas]
+    ::pd_bindings::window_focusin $mytoplevel
     pdsend "$mytoplevel mouse [$tkcanvas canvasx $x] [$tkcanvas canvasy $y] $b 8"
 }
 
