@@ -27,7 +27,7 @@ constexpr float LABEL_XPAD = 2;
 constexpr float LABEL_YPAD = 5;
 constexpr float XTICK_MAJ = 6;
 constexpr float XTICK_MIN = 3;
-constexpr float XGRID_AVOID = 20;
+constexpr float XGRID_AVOID = 10;
 
 static t_symbol* SYM_YAUTO;
 static t_symbol* SYM_YMIN;
@@ -448,6 +448,16 @@ void UIPlotTilde::drawLog10X(UIPainter& p, float wd, float ht)
     const int lin_ai = std::floor(lin_a);
     const int lin_bi = std::ceil(lin_b);
 
+    const int DIGIT_WD = FONT_SIZE_SMALL * 2 / 3;
+
+    const auto x0_avoid = (xlabels_ && txt_x_.size() > 0)
+        ? strlen(txt_x_[0].text()) * DIGIT_WD + XGRID_AVOID
+        : 0;
+
+    const auto x1_avoid = (xlabels_ && txt_x_.size() > 1)
+        ? wd - (strlen(txt_x_[1].text()) * DIGIT_WD + XGRID_AVOID)
+        : 0;
+
     for (int i = lin_ai; i <= lin_bi; i++) {
         for (int j = 0; j < 10; j++) {
             auto log_maj = fast_pow10(i);
@@ -474,12 +484,13 @@ void UIPlotTilde::drawLog10X(UIPainter& p, float wd, float ht)
             else if (is_min && xmin_grid_)
                 p.drawLine(x, 0, x, ht);
 
-            // too close to the border
-            if (x < XGRID_AVOID || x > (wd - XGRID_AVOID))
-                continue;
-
             // draw labels
             if (is_maj && xlabels_) {
+                const int lbl_wd = strlen(to_label(log_maj)) * DIGIT_WD;
+                // too close to the border and first/last labl
+                if (x < x0_avoid || x > (x1_avoid - lbl_wd))
+                    continue;
+
                 addXLabel(log_maj, x + LABEL_XPAD, ht + LABEL_YPAD, ETEXT_JLEFT, ETEXT_UP_LEFT);
                 p.drawText(txt_x_.back());
             }
@@ -530,9 +541,20 @@ void UIPlotTilde::drawLnX(UIPainter& p, float wd, float ht)
 
 void UIPlotTilde::drawLinX(UIPainter& p, float wd, float ht)
 {
-    const auto tick_step = std::pow(10, std::trunc(std::log10(std::fabs(xmax_ - xmin_)) + 0.3) - 1);
-    const int xtick_min = std::ceil(xmin_ / tick_step);
-    const int xtick_max = std::floor(xmax_ / tick_step);
+    const auto xmm = std::minmax(xmin_, xmax_);
+    const auto tick_step = std::pow(10, std::trunc(std::log10(xmm.second - xmm.first) + 0.3) - 1);
+    const int xtick_min = std::ceil(xmm.first / tick_step);
+    const int xtick_max = std::floor(xmm.second / tick_step);
+
+    const int DIGIT_WD = FONT_SIZE_SMALL * 2 / 3;
+
+    const auto x0_avoid = (xlabels_ && txt_x_.size() > 0)
+        ? strlen(txt_x_[0].text()) * DIGIT_WD + XGRID_AVOID
+        : 0;
+
+    const auto x1_avoid = (xlabels_ && txt_x_.size() > 1)
+        ? wd - (strlen(txt_x_[1].text()) * DIGIT_WD + XGRID_AVOID)
+        : 0;
 
     for (int i = xtick_min; i <= xtick_max; i++) {
         auto x = convert::lin2lin<float>(i * tick_step, xmin_, xmax_, 0, wd);
@@ -551,12 +573,13 @@ void UIPlotTilde::drawLinX(UIPainter& p, float wd, float ht)
         else if (is_min && xmin_grid_)
             p.drawLine(x, 0, x, ht);
 
-        // too close to the border
-        if (x < XGRID_AVOID || x > (wd - XGRID_AVOID))
-            continue;
-
         // draw labels
         if (is_maj && xlabels_) {
+            const int lbl_wd = strlen(to_label(i * tick_step)) * DIGIT_WD;
+            // too close to the border
+            if (x < x0_avoid || x > (x1_avoid - lbl_wd))
+                continue;
+
             addXLabel(i * tick_step, x + LABEL_XPAD, ht + LABEL_YPAD, ETEXT_JLEFT, ETEXT_UP_LEFT);
             p.drawText(txt_x_.back());
         }
