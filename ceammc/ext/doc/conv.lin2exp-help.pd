@@ -11,7 +11,7 @@
 exceeds the input range \, by default clip is applied.;
 #X msg 50 158 0 1001;
 #N canvas 0 22 450 300 (subpatch) 0;
-#X array array1 1000 float 0;
+#X array array1 1000 float 1;
 #A 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
@@ -44,7 +44,7 @@ exceeds the input range \, by default clip is applied.;
 #X coords 0 1 1000 0 200 140 1;
 #X restore 395 158 graph;
 #X obj 50 187 list.seq;
-#X obj 50 216 list.unpack;
+#X obj 50 216 list.separate;
 #X obj 50 245 lin->exp 0 1001 0.01 1;
 #X obj 50 274 tabwrite array1;
 #X obj 20 320 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
