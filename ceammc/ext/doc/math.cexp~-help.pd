@@ -15,7 +15,7 @@ e^x (cos(y) + j sin(y));
 complex plane and has no branch cuts;
 #X text 50 238 Plot FIR frequency response: |H(w)| = 0.5 + 0.5e^-jw;
 #X msg 50 267 bang;
-#X obj 50 296 plot.linspace~ 0 3.1415926;
+#X obj 50 296 plot.linspace~ 0 3.141592 @pi;
 #X obj 50 325 *~ -1;
 #X obj 50 354 math.cexp~;
 #X obj 174 354 sig~ 0.5;
