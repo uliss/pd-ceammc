@@ -14,6 +14,7 @@
 #ifndef PLOT_LINSPACE_TILDE_H
 #define PLOT_LINSPACE_TILDE_H
 
+#include "ceammc_property_enum.h"
 #include "ceammc_sound_external.h"
 using namespace ceammc;
 
@@ -22,6 +23,7 @@ class PlotLinTilde : public SoundExternal {
     FloatProperty* stop_;
     IntProperty* num_;
     BoolProperty* endpoint_;
+    EnumProperty<Atom>* base_;
     t_sample value_;
     t_sample incr_;
     int phase_;

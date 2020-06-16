@@ -15,12 +15,15 @@
 #include "ceammc_factory.h"
 #include "fmt/format.h"
 
+using PropAlias = AliasProperty<EnumProperty<Atom>>;
+
 PlotLinTilde::PlotLinTilde(const PdArgs& a)
     : SoundExternal(a)
     , start_(nullptr)
     , stop_(nullptr)
     , num_(nullptr)
     , endpoint_(nullptr)
+    , base_(nullptr)
     , value_(0)
     , incr_(0)
     , phase_(0)
@@ -44,6 +47,10 @@ PlotLinTilde::PlotLinTilde(const PdArgs& a)
 
     createSignalOutlet();
     createOutlet();
+
+    base_ = new EnumProperty<Atom>("@base", { Atom(0.f), Atom(gensym("pi")) });
+    addProperty(base_);
+    addProperty(new PropAlias("@pi", base_, gensym("pi")));
 }
 
 void PlotLinTilde::onBang()
@@ -55,7 +62,7 @@ void PlotLinTilde::onBang()
     incr_ = (stop_->value() - start_->value()) / n;
     running_ = true;
 
-    listTo(1, { (t_float)num_->value(), start_->value(), stop_->value(), 0 });
+    listTo(1, { (t_float)num_->value(), start_->value(), stop_->value(), base_->value() });
 }
 
 void PlotLinTilde::onFloat(t_float n)
