@@ -23,7 +23,8 @@ complex plane and has no branch cuts;
 #X obj 50 411 +~ 0.5;
 #X obj 50 440 math.cabs~;
 #X obj 50 469 ui.plot~ @size 475 150 @xlabels 1 @ylabels 1 @ymin 0
-@ymax 1;
+@ymax 1 @ymin_ticks 0 @ymax_ticks 0 @xmin_ticks 0 @xmaj_ticks 0
+@xmin_grid 1;
 #X obj 50 627 ui.dsp~;
 #X obj 20 666 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 671 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933

@@ -55,7 +55,7 @@
 |          |.
 [math.cabs~ ]
 |
-[ui.plot~ @size 475 150 @xlabels 1 @ylabels 1 @ymin 0 @ymax 1 #b]
+[ui.plot~ @size 475 150 @xlabels 1 @ylabels 1 @ymin 0 @ymax 1 @ymin_ticks 0 @ymax_ticks 0 @xmin_ticks 0 @xmaj_ticks 0 @xmin_grid 1 #b]
 
 
 
