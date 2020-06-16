@@ -34,6 +34,7 @@
 - list.resample (with alias list.r) added
 - is_data @in_list property added to search data inside list
 - path.is_dir added
+- flt.freqz~ (amp/phase frequency response calculator)
 - snd.file load options added:
   - @gain (or @g) - to apply gain. use like: @gain 0.5 or @gain +2.4db
   - @begin (or @b) - to specify start read position in input file

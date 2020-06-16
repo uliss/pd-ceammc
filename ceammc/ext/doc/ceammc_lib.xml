@@ -493,6 +493,9 @@
     <entry descr="second order &quot;peaking equalizer&quot; section (gain boost or cut near some frequency). Also called a &quot;parametric equalizer&quot; section." name="flt.eq_peak~" ref_view="object">
       <xi:include href="flt.eq_peak~.pddoc" parse="xml"/>
     </entry>
+    <entry descr="compute the frequency response of a digital filter" name="flt.freqz~" ref_view="object">
+      <xi:include href="flt.freqz~.pddoc" parse="xml"/>
+    </entry>
     <entry descr="gain boost|cut above some frequency" name="flt.highshelf~" ref_view="object">
       <xi:include href="flt.highshelf~.pddoc" parse="xml"/>
     </entry>

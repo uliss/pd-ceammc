@@ -1,5 +1,6 @@
-set(FLT_SOURCES "")
 include_directories(${CMAKE_SOURCE_DIR}/src)
+
+set(FLT_SOURCES flt_freqz.cpp)
 
 macro(ceammc_flt_obj name)
     list(APPEND FLT_SOURCES "flt_${name}.h" "flt_${name}.cpp")

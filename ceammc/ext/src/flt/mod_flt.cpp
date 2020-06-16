@@ -26,6 +26,7 @@ extern void setup_flt_moog_vcf_tilde();
 extern void setup_flt_notch_tilde();
 extern void setup_flt_resonbp_tilde();
 extern void setup_flt_median();
+extern void setup_flt_freqz();
 
 void ceammc_flt_setup()
 {
@@ -55,4 +56,6 @@ void ceammc_flt_setup()
     setup_flt_notch_tilde();
     setup_flt_resonbp_tilde();
     setup_flt_median();
+
+    setup_flt_freqz();
 }
