@@ -686,17 +686,24 @@ void UIPlotTilde::drawLinY(UIPainter& p, float wd, float ht)
     if (ylabels_) {
         p.preAllocObjects(N / 10);
 
+        float cur_y = -10000;
+
         const auto ts10 = 10 * tick_step;
         for (size_t i = 0; i <= (N / 10); i++) {
             auto v = std::trunc(YMIN / ts10) * ts10 + i * ts10;
             auto y = convert::lin2lin<float>(v, YMIN, YMAX, ht, 0); // in pixels
 
             // too close to the border
-            if (y < XGRID_AVOID || y > (ht - XGRID_AVOID))
+            if (y < XGRID_AVOID * 2 || y > (ht - XGRID_AVOID))
+                continue;
+
+            if (cur_y > 0 && std::fabs(cur_y - y) < FONT_SIZE_SMALL)
                 continue;
 
             addYLabel(v, 0, y, ETEXT_JLEFT, ETEXT_DOWN_RIGHT);
             p.drawText(txt_y_.back());
+
+            cur_y = y;
         }
     }
 }
