@@ -15,6 +15,7 @@
 #define CONV_SAMP2MS_H
 
 #include "ceammc_object.h"
+#include "ceammc_sound_external.h"
 
 using namespace ceammc;
 
@@ -24,4 +25,13 @@ public:
     void onFloat(t_float v) override;
     void onList(const AtomList& lst) override;
 };
+
+class SampleToMsTilde : public SoundExternal {
+public:
+    SampleToMsTilde(const PdArgs& a);
+    void processBlock(const t_sample** in, t_sample** out) final;
+};
+
+void setup_conv_samp2ms();
+
 #endif // CONV_SAMP2MS_H

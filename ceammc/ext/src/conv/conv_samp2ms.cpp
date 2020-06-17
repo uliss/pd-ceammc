@@ -30,8 +30,33 @@ void SampleToMs::onList(const AtomList& lst)
     listTo(0, (lst * 1000) / sys_getsr());
 }
 
+SampleToMsTilde::SampleToMsTilde(const PdArgs& a)
+    : SoundExternal(a)
+{
+    createSignalOutlet();
+}
+
+void SampleToMsTilde::processBlock(const t_sample** in, t_sample** out)
+{
+    const t_sample k = t_sample(1000) / samplerate();
+    const auto BS = blockSize();
+    for (size_t i = 0; i < BS; i += 8) {
+        out[0][i + 0] = k * in[0][i + 0];
+        out[0][i + 1] = k * in[0][i + 1];
+        out[0][i + 2] = k * in[0][i + 2];
+        out[0][i + 3] = k * in[0][i + 3];
+        out[0][i + 4] = k * in[0][i + 4];
+        out[0][i + 5] = k * in[0][i + 5];
+        out[0][i + 6] = k * in[0][i + 6];
+        out[0][i + 7] = k * in[0][i + 7];
+    }
+}
+
 void setup_conv_samp2ms()
 {
     ObjectFactory<SampleToMs> obj("conv.samp2ms");
     obj.addAlias("samp->ms");
+
+    SoundExternalFactory<SampleToMsTilde> obj1("conv.samp2ms~");
+    obj1.addAlias("samp->ms~");
 }

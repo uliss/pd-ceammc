@@ -33,8 +33,11 @@
   - math.cabs~
   - math.carg~
   - math.cexp~
-- conv.lin2lin~ (with lin->lin~ and l->l~ aliases) added
-- conv.amp2dbfs~ (with amp->dbfs~ alias) added
+- converters module:
+  - conv.lin2lin~ (with lin->lin~ and l->l~ aliases) added
+  - conv.amp2dbfs~ (with amp->dbfs~ alias) added
+  - conv.samp2ms (with samp->ms alias) added
+  - conv.samp2ms~ (with samp->ms~ alias) added
 - chaos.gbman0 chaotic generator added
 - chaos.gbman0~ chaotic generator added
 - list.contains @all_of, @any_of, @none_of, @sublist (default) properties added

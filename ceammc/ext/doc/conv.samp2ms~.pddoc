@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="conv.samp2ms~">
+        <title>conv.samp2ms~</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>convert samples to milliseconds according to samplerate</description>
+            <license>GPL3 or later</license>
+            <library>ceammc</library>
+            <category>conv</category>
+            <keywords>conv samp</keywords>
+            <since>0.9</since>
+            <aliases>
+                <alias>samp-&gt;ms~</alias>
+            </aliases>
+            <also>
+                <see>conv.samp2ms~</see>
+            </also>
+        </meta>
+        <inlets>
+            <inlet type="audio">
+                <xinfo on="int">input signal</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet type="audio">output signal</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[0, 44100 10000( [stop( [ui.dsp~]
+|                |
+[line~           ]
+|
+[samp->ms~]
+|
+[ui.n~]
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

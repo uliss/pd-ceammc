@@ -195,6 +195,9 @@
     <entry descr="convert samples to time according to samplerate" name="conv.samp2ms" ref_view="object">
       <xi:include href="conv.samp2ms.pddoc" parse="xml"/>
     </entry>
+    <entry descr="convert samples to milliseconds according to samplerate" name="conv.samp2ms~" ref_view="object">
+      <xi:include href="conv.samp2ms~.pddoc" parse="xml"/>
+    </entry>
     <entry descr="convert samples to time according to samplerate" name="conv.samp2sec" ref_view="object">
       <xi:include href="conv.samp2sec.pddoc" parse="xml"/>
     </entry>
