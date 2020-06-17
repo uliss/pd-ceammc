@@ -31,7 +31,7 @@ PlotGeomSpaceTilde::PlotGeomSpaceTilde(const PdArgs& a)
     start_->checkMin(0);
     addProperty(start_);
 
-    stop_ = new FloatProperty("@stop", 10);
+    stop_ = new FloatProperty("@stop", 100);
     stop_->setArgIndex(1);
     stop_->checkMin(0);
     addProperty(stop_);
