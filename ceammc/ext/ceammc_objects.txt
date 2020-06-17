@@ -457,6 +457,8 @@ math.gamma~
 math.gcd
 math.inf
 math.lcm
+math.lgamma
+math.lgamma~
 math.log
 math.log10
 math.log10~
