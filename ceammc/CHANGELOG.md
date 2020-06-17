@@ -21,7 +21,8 @@
   - ^2 alias added for math.squared
   - math.squared~ (with math.^2~ and ^2~ aliases) added
   - math.reciprocal~ (with 1/x~ alias) added
-  - math.exp2~ (with exp2~ alias) added
+  - math.exp2~ added
+  - math.gamma and math.gamma~ added
 - complex math for signals added:
   - math.cabs~
   - math.carg~

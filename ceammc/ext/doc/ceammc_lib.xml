@@ -960,6 +960,12 @@
     <entry descr="round to largest integral value not greater than x" name="math.floor" ref_view="object">
       <xi:include href="math.floor.pddoc" parse="xml"/>
     </entry>
+    <entry descr="gamma function" name="math.gamma" ref_view="object">
+      <xi:include href="math.gamma.pddoc" parse="xml"/>
+    </entry>
+    <entry descr="gamma function for floating point signals" name="math.gamma~" ref_view="object">
+      <xi:include href="math.gamma~.pddoc" parse="xml"/>
+    </entry>
     <entry descr="calculate greatest common divisor" name="math.gcd" ref_view="object">
       <xi:include href="math.gcd.pddoc" parse="xml"/>
     </entry>

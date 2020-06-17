@@ -318,6 +318,8 @@ set(DOC_FILES
     math.exp2~
     math.expr
     math.floor
+    math.gamma
+    math.gamma~
     math.gcd
     math.inf
     math.lcm
