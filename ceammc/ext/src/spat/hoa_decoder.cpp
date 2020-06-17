@@ -58,7 +58,7 @@ HoaDecoder::HoaDecoder(const PdArgs& args)
     pcrop->setUnits(PropValueUnits::SAMP);
     pcrop->setIntCheck(PropValueConstraints::CLOSED_RANGE, 0, 512);
 
-    createCbIntProperty("@nharm", [this]() -> int { return decoder_->getNumberOfHarmonics(); });
+    createCbIntProperty("@nharm", [this]() -> int { return decoder_ ? decoder_->getNumberOfHarmonics() : 0; });
     createCbListProperty("@pw_x", [this]() -> AtomList { return propPlaneWavesX(); })
         ->setUnits(PropValueUnits::RAD);
     createCbListProperty("@pw_y", [this]() -> AtomList { return propPlaneWavesY(); })
@@ -74,7 +74,7 @@ HoaDecoder::HoaDecoder(const PdArgs& args)
 
     createCbFloatProperty(
         "@offset",
-        [this]() -> t_float { return convert::rad2degree(decoder_->getPlanewavesRotationZ()); },
+        [this]() -> t_float { return decoder_ ? convert::rad2degree(decoder_->getPlanewavesRotationZ()) : 0; },
         [this](t_float f) -> bool { return propSetOffset(f); })
         ->setUnits(PropValueUnits::DEG);
 }
@@ -139,6 +139,8 @@ void HoaDecoder::initDone()
 
     in_buf_.resize(numInputChannels() * HOA_DEFAULT_BLOCK_SIZE);
     out_buf_.resize(numOutputChannels() * HOA_DEFAULT_BLOCK_SIZE);
+
+    updatePropertyDefaults();
 }
 
 void HoaDecoder::processBlock(const t_sample** in, t_sample** out)
@@ -239,6 +241,9 @@ bool HoaDecoder::propSetCropSize(int lst)
 
 AtomList HoaDecoder::propPlaneWavesX() const
 {
+    if (!decoder_)
+        return {};
+
     auto N = decoder_->getNumberOfPlanewaves();
     AtomList res;
     res.reserve(N);
@@ -250,6 +255,9 @@ AtomList HoaDecoder::propPlaneWavesX() const
 
 AtomList HoaDecoder::propPlaneWavesY() const
 {
+    if (!decoder_)
+        return {};
+
     auto N = decoder_->getNumberOfPlanewaves();
     AtomList res;
     res.reserve(N);
@@ -261,6 +269,9 @@ AtomList HoaDecoder::propPlaneWavesY() const
 
 AtomList HoaDecoder::propPlaneWavesZ() const
 {
+    if (!decoder_)
+        return {};
+
     auto N = decoder_->getNumberOfPlanewaves();
     AtomList res;
     res.reserve(N);
@@ -272,6 +283,9 @@ AtomList HoaDecoder::propPlaneWavesZ() const
 
 AtomList HoaDecoder::propAngles() const
 {
+    if (!decoder_)
+        return {};
+
     auto N = decoder_->getNumberOfPlanewaves();
     AtomList res;
     res.reserve(N);
