@@ -17,8 +17,8 @@
             <since>0.9</since>
         </meta>
         <info>
-            <par>The acos() function computes the principle value of the arc cosine of input signal.
-            The result is in the range [0, pi].</par>
+            <par>The acos() function computes the principle value of the arc cosine of input
+            signal. The result is in the range [0, pi].</par>
             <par>Special values:</par>
             <par>acos(1) returns +0.</par>
             <par>acos(x) returns a NAN.</par>

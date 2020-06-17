@@ -60,7 +60,7 @@
             </inlet>
         </inlets>
         <outlets>
-            <outlet>number of loaded samples </outlet>
+            <outlet>number of loaded samples</outlet>
         </outlets>
         <example>
             <pdascii>

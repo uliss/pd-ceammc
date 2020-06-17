@@ -17,9 +17,12 @@
             <since>0.9</since>
         </meta>
         <properties>
-            <property name="@ymin" minvalue="-1024" maxvalue="1024" type="float" default="-1">minimal y-axis value</property>
-            <property name="@ymax" minvalue="-1024" maxvalue="1024" type="float" default="1">minimal y-axis value</property>
-            <property name="@yauto" type="int" enum="0 1" default="0">calculate y-axis range automatically</property>
+            <property name="@ymin" minvalue="-1024" maxvalue="1024" type="float" default="-1">
+            minimal y-axis value</property>
+            <property name="@ymax" minvalue="-1024" maxvalue="1024" type="float" default="1">
+            minimal y-axis value</property>
+            <property name="@yauto" type="int" enum="0 1" default="0">calculate y-axis range
+            automatically</property>
         </properties>
         <inlets dynamic="true">
             <inlet type="audio">
@@ -30,7 +33,7 @@
                 <xinfo on="float">plot specified number of samples</xinfo>
             </inlet>
         </inlets>
-        <outlets/>
+        <outlets />
         <example>
             <pdascii>
 <![CDATA[

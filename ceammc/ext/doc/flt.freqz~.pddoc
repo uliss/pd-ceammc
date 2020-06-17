@@ -18,13 +18,16 @@
             poles and two zeros.</par>
         </info>
         <properties>
-            <property name="@a" type="list">denominator (poles) coefficients. 'a0' always implicitly set to 1, property value set a1...an coefficients</property>
+            <property name="@a" type="list">denominator (poles) coefficients. 'a0' always
+            implicitly set to 1, property value set a1...an coefficients</property>
             <property name="@b" type="list" default="1">numerator (zeros) coefficients</property>
-            <property name="@sr" type="int" enum="0 1" default="0">normalize using current samplerate</property>
+            <property name="@sr" type="int" enum="0 1" default="0">normalize using current
+            samplerate</property>
         </properties>
         <inlets>
             <inlet type="audio">
-                <xinfo>input frequency in radians [0, pi] or in hertz [0 sr/2] if @sr property is true</xinfo>
+                <xinfo>input frequency in radians [0, pi] or in hertz [0 sr/2] if @sr property is
+                true</xinfo>
             </inlet>
         </inlets>
         <outlets>
