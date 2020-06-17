@@ -23,6 +23,7 @@
   - math.reciprocal~ (with 1/x~ alias) added
   - math.exp2~ added
   - math.gamma and math.gamma~ added
+  - math.lgamma and math.lgamma~ added
 - complex math for signals added:
   - math.cabs~
   - math.carg~

@@ -323,6 +323,7 @@ set(DOC_FILES
     math.gcd
     math.inf
     math.lcm
+    math.lgamma~
     math.log
     math.log10
     math.log2

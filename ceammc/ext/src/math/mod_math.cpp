@@ -26,6 +26,7 @@ void setup_math_exp2();
 void setup_math_expr();
 void setup_math_floor();
 void setup_math_gamma();
+void setup_math_lgamma();
 void setup_math_gcd();
 void setup_math_inf();
 void setup_math_inf();
@@ -93,6 +94,7 @@ void ceammc_math_setup()
     setup_math_gcd();
     setup_math_inf();
     setup_math_lcm();
+    setup_math_lgamma();
     setup_math_log();
     setup_math_log10();
     setup_math_log2();

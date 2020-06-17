@@ -20,6 +20,7 @@ UNARY_EXT = [
     ('exp2',  'exp2f',  'exp2'),
     ('floor', 'floorf', 'floor'),
     ('gamma', 'tgamma', 'tgamma'),
+    ('lgamma', 'lgamma', 'lgamma'),
     ('log',   'logf',   'log'),
     ('log10', 'log10f', 'log10'),
     ('log2',  'log2f',  'log2'),
