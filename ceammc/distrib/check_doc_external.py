@@ -314,15 +314,26 @@ if __name__ == '__main__':
                 v0 = set(p0["enum"])
                 v1 = set(p1["enum"].split(" "))
 
-                if len(p0["enum"]) > 0 and isinstance(p0["enum"][0], int):
-                    v1 = set(map(lambda x: int(x), p1["enum"].split(" ")))
+                if len(p0["enum"]) > 0:
+                    e1 = []
+                    for x in p1["enum"].split(" "):
+                        try:
+                            y = float(x)
+                            if y.is_integer():
+                                y = int(x)
+
+                            e1.append(y)
+                        except:
+                            e1.append(x)
+
+                    v1 = set(e1)
 
                 if v0 != v1:
                     cprint(f"[{ext_name}] invalid value for enum attribute \"{p}\": {v0} != {v1}", 'magenta')
                     d0 = v0 - v1
                     d1 = v1 - v0
                     if len(d0):
-                        cprint(f"[{ext_name}] non-documented elements are: {d0}", 'magenta')
+                        cprint(f"[{ext_name}] missing elements are: {d0}", 'magenta')
                     if len(d1):
                         cprint(f"[{ext_name}] invalid elements in doc are: {d1}", 'magenta')
 
