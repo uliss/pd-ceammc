@@ -1,7 +1,7 @@
 #N canvas 0 0 785 555 12;
 #X declare -lib ceammc;
 #X obj 293 50 cnv 1 472 38 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 293 50 natural logorithm of the absolute value of the gamma
+#X text 293 50 natural logarithm of the absolute value of the gamma
 function for signals;
 #X obj 1 1 cnv 5 765 40 empty empty math.lgamma~ 20 20 0 20 -104026
 -4096 0;

@@ -975,7 +975,10 @@
     <entry descr="calculate least common multiple" name="math.lcm" ref_view="object">
       <xi:include href="math.lcm.pddoc" parse="xml"/>
     </entry>
-    <entry descr="natural logorithm of the absolute value of the gamma function for signals" name="math.lgamma~" ref_view="object">
+    <entry descr="natural logarithm of the absolute value of the gamma function" name="math.lgamma" ref_view="object">
+      <xi:include href="math.lgamma.pddoc" parse="xml"/>
+    </entry>
+    <entry descr="natural logarithm of the absolute value of the gamma function for signals" name="math.lgamma~" ref_view="object">
       <xi:include href="math.lgamma~.pddoc" parse="xml"/>
     </entry>
     <entry descr="logarithm functions" name="math.log" ref_view="object">
