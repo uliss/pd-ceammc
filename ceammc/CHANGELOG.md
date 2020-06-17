@@ -27,6 +27,8 @@
   - math.erf and math.erf~ added
   - math.sin~ added
   - math.cos~ added
+  - math.ceil~ added
+  - math.floor~ added
 - complex math for signals added:
   - math.cabs~
   - math.carg~

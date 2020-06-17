@@ -307,6 +307,7 @@ set(DOC_FILES
     math.cbrt
     math.cdiv~
     math.ceil
+    math.ceil~
     math.cexp~
     math.cmul~
     math.cos
@@ -320,6 +321,7 @@ set(DOC_FILES
     math.exp2~
     math.expr
     math.floor
+    math.floor~
     math.gamma
     math.gamma~
     math.gcd
