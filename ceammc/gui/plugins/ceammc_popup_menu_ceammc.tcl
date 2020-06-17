@@ -4,9 +4,9 @@
     }}
     {array {
         array.bpm array.copy array.do array.each array.fill array.hist
-        array.mean array.minmax array.resample array.rms array.set
+        array.mean array.minmax array.plot~ array.resample array.rms array.set
         array.stddev array.stretch array.sum array.sum2 array.variance
-        array.vplay array.window
+        array.vplay array.window plot.geomspace~ plot.linspace~
     }}
     {base {
         function function.call gain~ matrix~ metro.pattern metro.random
@@ -16,11 +16,11 @@
         chaos.gbman0 chaos.gbman0~
     }}
     {conv {
-        array.p2s array.s2p conv.amp2dbfs conv.bpm2hz conv.bpm2ms conv.bpm2sec
-        conv.car2pol conv.cc2amp conv.dbfs2amp conv.lin2curve conv.lin2exp
-        conv.lin2lin conv.lin2lin~ conv.list2props conv.midi2freq
-        conv.phase2rad conv.phase2rad~ conv.pitch2midi conv.pol2car
-        conv.rad2phase conv.rad2phase~ conv.samp2ms conv.samp2sec
+        array.p2s array.s2p conv.amp2dbfs conv.amp2dbfs~ conv.bpm2hz
+        conv.bpm2ms conv.bpm2sec conv.car2pol conv.cc2amp conv.dbfs2amp
+        conv.lin2curve conv.lin2exp conv.lin2lin conv.lin2lin~ conv.list2props
+        conv.midi2freq conv.phase2rad conv.phase2rad~ conv.pitch2midi
+        conv.pol2car conv.rad2phase conv.rad2phase~ conv.samp2ms conv.samp2sec
         conv.sec2samp conv.sec2str conv.str2sec
     }}
     {data {
@@ -51,8 +51,8 @@
         flt.biquad~ flt.bpf12~ flt.bpf24~ flt.c_bpf~ flt.c_highshelf~
         flt.c_hpf~ flt.c_lowshelf~ flt.c_lpf~ flt.c_notch~ flt.c_peak~
         flt.dcblock2~ flt.dcblock~ flt.eq10~ flt.eq_peak_cq~ flt.eq_peak~
-        flt.highshelf~ flt.hpf12~ flt.hpf24~ flt.lowshelf~ flt.lpf12~
-        flt.lpf24~ flt.median flt.moog_vcf~ flt.notch~ flt.resonbp~
+        flt.freqz~ flt.highshelf~ flt.hpf12~ flt.hpf24~ flt.lowshelf~
+        flt.lpf12~ flt.lpf24~ flt.median flt.moog_vcf~ flt.notch~ flt.resonbp~
     }}
     {fx {
         fx.bitdown~ fx.chorus~ fx.distortion1~ fx.distortion2~ fx.distortion3~
@@ -94,16 +94,19 @@
         local.dict local.float local.int local.list local.mlist local.set
     }}
     {math {
-        math.abs math.abs~ math.acos math.acosh math.and math.approx math.asin
-        math.asinh math.atan math.atanh math.cbrt math.cdiv~ math.ceil
-        math.cmul~ math.cos math.cosh math.div math.e math.exp math.exp2
-        math.expr math.floor math.gcd math.inf math.lcm math.log math.log10
+        math.abs math.abs~ math.acos math.acosh math.acos~ math.and
+        math.approx math.asin math.asinh math.atan math.atanh math.cabs~
+        math.carg~ math.cbrt math.cdiv~ math.ceil math.cexp~ math.cmul~
+        math.cos math.cosh math.div math.e math.erf~ math.exp math.exp2
+        math.exp2~ math.expr math.floor math.gamma math.gamma~ math.gcd
+        math.inf math.lcm math.lgamma math.lgamma~ math.log math.log10
         math.log2 math.mul math.nan math.neg math.or math.pi math.pi~
-        math.polyeval math.reciprocal math.round math.round~ math.sign
-        math.sin math.sinh math.sqrt math.squared math.sync_add math.sync_and
-        math.sync_div math.sync_eq math.sync_ge math.sync_gt math.sync_le
-        math.sync_lt math.sync_mod math.sync_mul math.sync_ne math.sync_or
-        math.sync_sub math.sync_xor math.tan math.tanh math.trunc
+        math.polyeval math.reciprocal math.reciprocal~ math.round math.round~
+        math.sign math.sin math.sinh math.sqrt math.squared math.squared~
+        math.sync_add math.sync_and math.sync_div math.sync_eq math.sync_ge
+        math.sync_gt math.sync_le math.sync_lt math.sync_mod math.sync_mul
+        math.sync_ne math.sync_or math.sync_sub math.sync_xor math.tan
+        math.tanh math.trunc
     }}
     {midi {
         midi.ctl2str midi.event2ctl midi.event2note midi.event2prg midi.file
@@ -183,7 +186,7 @@
         ui.aview ui.bang ui.colorpanel ui.display ui.dsp~ ui.env ui.gain2~
         ui.gain~ ui.icon ui.incdec ui.keyboard ui.knob ui.label ui.link
         ui.matrix ui.menu ui.meter~ ui.mouse_filter ui.mouse_route ui.number
-        ui.number~ ui.polar ui.preset ui.radio ui.rslider ui.scope~ ui.slider
-        ui.slider2d ui.sliders ui.spectroscope~ ui.tab ui.toggle
+        ui.number~ ui.plot~ ui.polar ui.preset ui.radio ui.rslider ui.scope~
+        ui.slider ui.slider2d ui.sliders ui.spectroscope~ ui.tab ui.toggle
     }}
 }
