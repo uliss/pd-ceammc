@@ -130,9 +130,9 @@ interval;
 #X text 200 1860 convert from midi pitch to frequency in hz (with various
 base A and temperament);
 #X obj 30 1900 conv.phase2rad;
-#X text 200 1900 convert phase value [0-1] to radians;
+#X text 200 1900 convert phase value [0-1] to radians [0-2π];
 #X obj 30 1927 conv.phase2rad~;
-#X text 200 1927 convert phase value [0-1] to radians;
+#X text 200 1927 convert phase value [0-1] to radians [0-2π];
 #X obj 30 1954 conv.pitch2midi;
 #X text 200 1954 converts symbol pitch name to MIDI note number;
 #X obj 30 1981 conv.pol2car;
