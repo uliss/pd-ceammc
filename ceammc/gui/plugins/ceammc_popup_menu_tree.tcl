@@ -129,16 +129,16 @@
         math.abs math.abs~ math.acos math.acosh math.acos~ math.and
         math.approx math.asin math.asinh math.atan math.atanh math.cabs~
         math.carg~ math.cbrt math.cdiv~ math.ceil math.cexp~ math.cmul~
-        math.cos math.cosh math.div math.e math.erf~ math.exp math.exp2
-        math.exp2~ math.expr math.floor math.gamma math.gamma~ math.gcd
-        math.inf math.lcm math.lgamma math.lgamma~ math.log math.log10
-        math.log2 math.mul math.nan math.neg math.or math.pi math.pi~
-        math.polyeval math.reciprocal math.reciprocal~ math.round math.round~
-        math.sign math.sin math.sinh math.sqrt math.squared math.squared~
-        math.sync_add math.sync_and math.sync_div math.sync_eq math.sync_ge
-        math.sync_gt math.sync_le math.sync_lt math.sync_mod math.sync_mul
-        math.sync_ne math.sync_or math.sync_sub math.sync_xor math.tan
-        math.tanh math.trunc
+        math.cos math.cosh math.cos~ math.div math.e math.erf~ math.exp
+        math.exp2 math.exp2~ math.expr math.floor math.gamma math.gamma~
+        math.gcd math.inf math.lcm math.lgamma math.lgamma~ math.log
+        math.log10 math.log2 math.mul math.nan math.neg math.or math.pi
+        math.pi~ math.polyeval math.reciprocal math.reciprocal~ math.round
+        math.round~ math.sign math.sin math.sinh math.sin~ math.sqrt
+        math.squared math.squared~ math.sync_add math.sync_and math.sync_div
+        math.sync_eq math.sync_ge math.sync_gt math.sync_le math.sync_lt
+        math.sync_mod math.sync_mul math.sync_ne math.sync_or math.sync_sub
+        math.sync_xor math.tan math.tanh math.trunc
     }}
     {midi {
         midi.ctl2str midi.event2ctl midi.event2note midi.event2prg midi.file
