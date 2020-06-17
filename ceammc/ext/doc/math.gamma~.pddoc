@@ -22,30 +22,36 @@
             <par>For any positive integer n, Γ(n) = (n−1)!</par>
         </info>
         <inlets>
-            <inlet>
-                <xinfo on="float">input value</xinfo>
-                <xinfo on="list">apply to all numeric values</xinfo>
+            <inlet type="audio">
+                <xinfo>input signal</xinfo>
             </inlet>
         </inlets>
         <outlets>
-            <outlet>result value or list</outlet>
+            <outlet type="audio">output signal</outlet>
         </outlets>
         <example>
             <pdascii>
 <![CDATA[
-[bang(                   [array GAMMA size=170 w=300 h=150]
+[bang(
 |
-[list.seq -4 4 0.05]
+[plot.linspace~ -4 5 400 #a]
 |
-[math.gamma]
+[math.gamma~]
 |
-[list.enum]
-|
-[list.sep @enumerate]
-|
-[unpack f f]
-|   ^|.
-[tabwrite GAMMA]
+[ui.plot~ @xlabels 1 @ylabels 1 @ymin -20 @ymax 40 @size 400 170 @ymin_ticks 0 #b]
+
+
+
+
+
+
+
+
+
+
+
+[ui.dsp~]
+[X a:1->b:1]
 ]]>
             </pdascii>
         </example>
