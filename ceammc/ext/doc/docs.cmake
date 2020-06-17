@@ -313,6 +313,7 @@ set(DOC_FILES
     math.cosh
     math.div
     math.e
+    math.erf~
     math.exp
     math.exp2
     math.exp2~

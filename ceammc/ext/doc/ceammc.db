@@ -312,6 +312,7 @@ math.cos		.		.
 math.cosh		.		.
 math.div,math./		..		.
 math.e		.		.
+math.erf~		~		~
 math.exp		.		.
 math.exp2		.		.
 math.exp2~,exp2~		~		~
