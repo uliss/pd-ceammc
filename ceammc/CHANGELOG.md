@@ -25,6 +25,7 @@
   - math.gamma and math.gamma~ added
   - math.lgamma and math.lgamma~ added
   - math.erf and math.erf~ added
+  - math.sin~ added
 - complex math for signals added:
   - math.cabs~
   - math.carg~

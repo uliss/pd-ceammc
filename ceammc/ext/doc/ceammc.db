@@ -310,6 +310,7 @@ math.cexp~,cexp~		~~		~~
 math.cmul~,cmul~		~~~~		~~
 math.cos		.		.
 math.cosh		.		.
+math.cos~		~		~
 math.div,math./		..		.
 math.e		.		.
 math.erf~		~		~
@@ -342,6 +343,7 @@ math.round~,round~		.		.
 math.sign		.		.
 math.sin		.		.
 math.sinh		.		.
+math.sin~		~		~
 math.sqrt		.		.
 math.squared,^2		.		.
 math.squared~,^2~,math.^2~		~		.

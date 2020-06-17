@@ -310,6 +310,7 @@ set(DOC_FILES
     math.cexp~
     math.cmul~
     math.cos
+    math.cos~
     math.cosh
     math.div
     math.e
@@ -342,6 +343,7 @@ set(DOC_FILES
     math.round~
     math.sign
     math.sin
+    math.sin~
     math.sinh
     math.sqrt
     math.squared
