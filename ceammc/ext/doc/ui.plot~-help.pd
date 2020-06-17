@@ -10,9 +10,9 @@
 -1;
 #X obj 50 147 plot.linspace~ -5 5 256, f 50;
 #X obj 50 176 1/x~;
-#X obj 117 176 exp2~;
-#X obj 203 176 ^2~;
-#X obj 261 176 expr~ sin($v1)*20;
+#X obj 117 176 math.exp2~;
+#X obj 242 176 ^2~;
+#X obj 299 176 expr~ sin($v1)*20;
 #X obj 491 176 ui.plot~.lin1-help;
 #X obj 50 219 ui.plot~ @xlabels 1 @ylabels 1 @size 250 250 @n 4 @ymin
 -40 @ymax 40;

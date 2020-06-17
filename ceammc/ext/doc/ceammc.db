@@ -317,7 +317,7 @@ math.e		.		.
 math.erf~		~		~
 math.exp		.		.
 math.exp2		.		.
-math.exp2~,exp2~		~		~
+math.exp2~		~		~
 math.expr		..		.
 math.floor		.		.
 math.floor~		~		~

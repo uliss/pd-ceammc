@@ -1624,7 +1624,7 @@
     <entry descr="counterpart of the vanilla [nbx] for signal" name="ui.number~" ref_view="link">
       <xi:include href="ui.number~.pddoc" parse="xml"/>
     </entry>
-    <entry descr="signal plotter" name="ui.plot~" ref_view="object">
+    <entry descr="signal plotter" name="ui.plot~" ref_view="link">
       <xi:include href="ui.plot~.pddoc" parse="xml"/>
     </entry>
     <entry descr="2D slider in polar coordinates" name="ui.polar" ref_view="link">

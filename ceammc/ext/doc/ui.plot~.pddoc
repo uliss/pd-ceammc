@@ -9,7 +9,7 @@
             <description>signal plotter</description>
             <license>GPL3 or later</license>
             <library>ceammc</library>
-            <category>ui</category>
+            <category view="link">ui</category>
             <keywords>plot</keywords>
             <also>
                 <see>array.plot~</see>
@@ -40,10 +40,10 @@
 [B]
 |
 [plot.linspace~ -5 5 256 #a {w=50}]
-|      |        |     |
-[1/x~] [exp2~]  [^2~] [expr~ sin($v1)*20]     [ui.plot~.lin1-help]
-|      |        |     |
-|      |.       |..   |...
+|      |            |     |
+[1/x~] [math.exp2~] [^2~] [expr~ sin($v1)*20] [ui.plot~.lin1-help]
+|      |            |     |
+|      |.           |..   |...
 [ui.plot~ @xlabels 1 @ylabels 1 @size 250 250 @n 4 @ymin -40 @ymax 40 #b]
 
 

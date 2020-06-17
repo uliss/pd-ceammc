@@ -14,9 +14,6 @@
             <also>
                 <see>math.log2~</see>
             </also>
-            <aliases>
-                <alias>exp2~</alias>
-            </aliases>
             <since>0.9</since>
         </meta>
         <info>
