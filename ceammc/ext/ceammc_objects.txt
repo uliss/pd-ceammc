@@ -147,7 +147,6 @@ env.vscale
 env2array
 env2vline
 envelope
-exp2~
 expand_env
 flow.<
 flow.<=
@@ -444,6 +443,8 @@ math.cosh~
 math.cos~
 math.div
 math.e
+math.erf
+math.erf~
 math.exp
 math.exp2
 math.exp2~
@@ -451,6 +452,8 @@ math.expr
 math.exp~
 math.floor
 math.floor~
+math.gamma
+math.gamma~
 math.gcd
 math.inf
 math.lcm
