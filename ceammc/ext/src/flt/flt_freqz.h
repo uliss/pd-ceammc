@@ -23,6 +23,7 @@ using namespace ceammc;
 class FltFreqZTilde : public SoundExternal {
     ListProperty *ca_, *cb_;
     BoolProperty* use_sr_;
+    BoolProperty* db_scale_;
     std::vector<t_sample> kb_, ka_;
 
 public:

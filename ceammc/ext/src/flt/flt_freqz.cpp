@@ -24,6 +24,7 @@ FltFreqZTilde::FltFreqZTilde(const PdArgs& args)
     , ca_(nullptr)
     , cb_(nullptr)
     , use_sr_(nullptr)
+    , db_scale_(nullptr)
     , kb_ { 1 }
     , ka_ { 1 }
 {
@@ -58,17 +59,21 @@ FltFreqZTilde::FltFreqZTilde(const PdArgs& args)
 
     use_sr_ = new BoolProperty("@sr", false);
     addProperty(use_sr_);
+
+    db_scale_ = new BoolProperty("@db", false);
+    addProperty(db_scale_);
 }
 
 void FltFreqZTilde::processBlock(const t_sample** in, t_sample** out)
 {
     const size_t BS = blockSize();
     const t_float norm = use_sr_->value() ? (m_2pi / (t_sample)samplerate()) : 1;
+    bool db = db_scale_->value();
 
     for (size_t i = 0; i < BS; i++) {
         t_sample w = norm * in[0][i];
         auto Hw = Bjw(w) / Ajw(w);
-        out[0][i] = std::abs(Hw);
+        out[0][i] = db ? 20 * std::log(std::abs(Hw)) : std::abs(Hw);
         out[1][i] = std::arg(Hw);
     }
 }
