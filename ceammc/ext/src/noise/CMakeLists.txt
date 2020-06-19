@@ -35,12 +35,11 @@ ceammc_noise_extension(stein)
 ceammc_noise_extension(torus)
 ceammc_noise_extension(verhulst)
 
-ceammc_faust_noise_extension(white)
-ceammc_faust_noise_extension(pink)
-
 ceammc_faust_noise_obj(crackle)
 ceammc_faust_noise_obj(lfreq)
 ceammc_faust_noise_obj(lfreq0)
+ceammc_faust_noise_obj(pink)
+ceammc_faust_noise_obj(white)
 
 list(APPEND NOISE_SOURCES chaos_standard.cpp chaos_gbman.cpp)
 
