@@ -15,7 +15,7 @@
         </meta>
         <info>
             <par>Given the M-order numerator b and N-order denominator a of a digital filter, compute its frequency response:
-            H(e) = B(e^jw)/A(e^jw) = (b[0]+b[1]e^jw+...+b[M]e^jwM)/(1+a[1]e^jw+...+a[N]e^jwN)</par>
+            H(eʲʷ) = B(eʲʷ)/A(eʲʷ) = (b⁰+b¹e⁻ʲʷ+...+bᴹe⁻ʲʷᴹ)/(1+a¹e⁻ʲʷ+...+aᴺe⁻ʲʷᴺ)</par>
         </info>
         <properties>
             <property name="@a" type="list">denominator (poles) coefficients. 'a0' always
