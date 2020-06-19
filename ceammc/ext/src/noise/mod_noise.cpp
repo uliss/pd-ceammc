@@ -1,8 +1,6 @@
 #include "mod_noise.h"
 #include "m_pd.h"
 
-extern "C" void setup_noise0x2epink_tilde();
-extern "C" void setup_noise0x2ewhite_tilde();
 extern "C" void setup_noise0x2ebaker();
 extern "C" void setup_noise0x2eclifford();
 extern "C" void setup_noise0x2ecollatz();
@@ -23,16 +21,18 @@ extern "C" void setup_noise0x2estein();
 extern "C" void setup_noise0x2etorus();
 extern "C" void setup_noise0x2everhulst();
 
-extern void setup_noise_crackle_tilde();
-extern void setup_noise_lfreq_tilde();
-extern void setup_noise_lfreq0_tilde();
-extern void setup_chaos_standard();
 extern void setup_chaos_gbman();
+extern void setup_chaos_standard();
+extern void setup_noise_crackle_tilde();
+extern void setup_noise_lfreq0_tilde();
+extern void setup_noise_lfreq_tilde();
+extern void setup_noise_pink_tilde();
+extern void setup_noise_white_tilde();
 
 void ceammc_noise_setup()
 {
-    setup_noise0x2epink_tilde();
-    setup_noise0x2ewhite_tilde();
+    setup_noise_pink_tilde();
+    setup_noise_white_tilde();
     setup_noise0x2ebaker();
     setup_noise0x2eclifford();
     setup_noise0x2ecollatz();
@@ -54,8 +54,10 @@ void ceammc_noise_setup()
     setup_noise0x2everhulst();
 
     setup_noise_crackle_tilde();
-    setup_noise_lfreq_tilde();
     setup_noise_lfreq0_tilde();
+    setup_noise_lfreq_tilde();
+    setup_noise_pink_tilde();
+    setup_noise_white_tilde();
 
     setup_chaos_gbman();
     setup_chaos_standard();
