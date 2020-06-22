@@ -203,7 +203,7 @@ public:
     using PenTransitions = PenTransitionFn[4];
 
     Fsm()
-        : pen_fsm_ {
+        : pen_lines_fsm_ {
             {
                 // INIT
                 nullptr,
@@ -233,7 +233,37 @@ public:
                 [](UIPainter& p, float x, float y) -> PenPosition { return PEN_NONE; },
             }
         }
+        , pen_bars_fsm_ { {
+                              // INIT
+                              nullptr,
+                              [this](UIPainter& p, float x, float y) -> PenPosition { p.moveTo(x, zero_y_); p.drawLineTo(x, y); return PEN_IN; },
+                              [this](UIPainter& p, float x, float y) -> PenPosition { p.moveTo(x, zero_y_); p.drawLineTo(x, y); return PEN_OUT; },
+                              [](UIPainter& p, float x, float y) -> PenPosition { return PEN_NONE; },
+                          },
+            {
+                // IN
+                nullptr,
+                [this](UIPainter& p, float x, float y) -> PenPosition { p.moveTo(x, zero_y_); p.drawLineTo(x, y); return PEN_IN; },
+                [this](UIPainter& p, float x, float y) -> PenPosition { p.moveTo(x, zero_y_); p.drawLineTo(x, y); return PEN_OUT; },
+                [](UIPainter& p, float x, float y) -> PenPosition { return PEN_NONE; },
+            },
+            {
+                // OUT
+                nullptr,
+                [this](UIPainter& p, float x, float y) -> PenPosition { p.moveTo(x, zero_y_); p.drawLineTo(x, y); return PEN_IN; },
+                [this](UIPainter& p, float x, float y) -> PenPosition { p.moveTo(x, zero_y_); p.drawLineTo(x, y); return PEN_OUT; },
+                [](UIPainter& p, float x, float y) -> PenPosition { return PEN_NONE; },
+            },
+            {
+                // NONE
+                nullptr,
+                [this](UIPainter& p, float x, float y) -> PenPosition { p.moveTo(x, zero_y_); p.drawLineTo(x, y); return PEN_IN; },
+                [this](UIPainter& p, float x, float y) -> PenPosition { p.moveTo(x, zero_y_); p.drawLineTo(x, y); return PEN_OUT; },
+                [](UIPainter& p, float x, float y) -> PenPosition { return PEN_NONE; },
+            } }
+        , pen_fsm_(pen_lines_fsm_)
         , pen_position_(PEN_INIT)
+        , zero_y_(0)
     {
     }
 
@@ -251,15 +281,31 @@ public:
         pen_position_ = PEN_INIT;
     }
 
+    void setDrawStyle(t_symbol* s)
+    {
+        static t_symbol* SYM_BAR = gensym("bars");
+
+        if (s == SYM_BAR)
+            pen_fsm_ = pen_bars_fsm_;
+        else
+            pen_fsm_ = pen_lines_fsm_;
+    }
+
+    void setZeroY(float y) { zero_y_ = y; }
+
 private:
-    PenTransitions pen_fsm_[MAX_INPUTS];
+    PenTransitions pen_lines_fsm_[MAX_INPUTS];
+    PenTransitions pen_bars_fsm_[MAX_INPUTS];
+    PenTransitions* pen_fsm_;
     PenPosition pen_position_;
     std::pair<float, float> pt_;
+    float zero_y_;
 };
 
 void UIPlotTilde::drawPlot()
 {
     static Fsm fsm;
+    static t_symbol* SYM_BAR = gensym("bars");
 
     const t_rect r = rect();
     UIPainter p = plot_layer_.painter(r);
@@ -273,8 +319,27 @@ void UIPlotTilde::drawPlot()
     const float wd = width() - (xoff + MIN_XOFF);
     const float ht = height() - 2 * yoff;
 
-    p.setMatrix({ 1, 0, 0, 1, xoff, yoff });
+    float wd1 = wd;
+    float xoff1 = xoff;
+    if (prop_draw_mode_ == SYM_BAR) {
+        auto bw0 = std::round(wd / buffers_[0].size());
+        auto bw1 = int(bw0) - 2;
+        if (bw1 < 1)
+            bw1 = 1;
+        else if (bw1 > 2) {
+            xoff1 += bw0 / 2;
+            wd1 -= bw0;
+        }
+
+        p.setLineWidth(bw1);
+        p.optimizeLines(false);
+    }
+
+    p.setMatrix({ 1, 0, 0, 1, xoff1, yoff });
     p.preAllocObjects(prop_nins_);
+
+    fsm.setDrawStyle(prop_draw_mode_);
+    fsm.setZeroY(convert::lin2lin<float>(0, (yauto_ ? sig_min_ : ymin_), (yauto_ ? sig_max_ : ymax_), ht, 0));
 
     const t_rgba* colors[] = { &plot_color0_, &plot_color1_, &plot_color2_, &plot_color3_ };
 
@@ -288,7 +353,7 @@ void UIPlotTilde::drawPlot()
         p.preAllocPoints(3 * buffers_[j].size());
 
         for (size_t i = 0; i < buffers_[j].size(); i++) {
-            auto x = convert::lin2lin<float>(i, 0, buffers_[j].size() - 1, 0, wd);
+            auto x = convert::lin2lin<float>(i, 0, buffers_[j].size() - 1, 0, wd1);
 
             auto v = buffers_[j][i];
 
@@ -1138,6 +1203,8 @@ void UIPlotTilde::setup()
     obj.addIntProperty("n", _("Number of inputs"), 1, &UIPlotTilde::prop_nins_, "Main");
     obj.setPropertyAccessor("n", &UIPlotTilde::propNumInputs, &UIPlotTilde::propSetNumInputs);
     obj.setPropertyRange("n", MIN_INPUTS, MAX_INPUTS);
+
+    obj.addMenuProperty("mode", _("Mode"), "lines", &UIPlotTilde::prop_draw_mode_, "lines bars", "Main");
 
     obj.addColorProperty("plot_color0", _("First plot color"), DEFAULT_ACTIVE_COLOR, &UIPlotTilde::plot_color0_);
     obj.addColorProperty("plot_color1", _("Second plot color"), "0.75 0 1 1", &UIPlotTilde::plot_color1_);

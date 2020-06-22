@@ -31,6 +31,12 @@ enum ScaleBase {
     SB_LOG10
 };
 
+enum DrawMode {
+    DM_LINE,
+    DOT,
+    BAR
+};
+
 using TextList = std::vector<UITextLayout>;
 
 class UIPlotTilde : public UIDspObject {
@@ -52,6 +58,7 @@ class UIPlotTilde : public UIDspObject {
     int ymaj_grid_, ymin_grid_;
     int xlabels_, ylabels_;
     int prop_nins_;
+    t_symbol* prop_draw_mode_;
     t_rgba plot_color0_;
     t_rgba plot_color1_;
     t_rgba plot_color2_;
