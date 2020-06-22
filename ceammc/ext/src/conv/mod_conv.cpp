@@ -12,6 +12,7 @@ void setup_conv_cc2amp();
 
 void setup_conv_samp2sec();
 void setup_conv_samp2ms();
+void setup_conv_ms2samp();
 void setup_conv_sec2samp();
 void setup_conv_bpm2ms();
 void setup_conv_bpm2sec();
@@ -39,6 +40,7 @@ void ceammc_conv_setup()
 
     setup_conv_samp2sec();
     setup_conv_samp2ms();
+    setup_conv_ms2samp();
     setup_conv_sec2samp();
     setup_conv_bpm2ms();
     setup_conv_bpm2sec();
