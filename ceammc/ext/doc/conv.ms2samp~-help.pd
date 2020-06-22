@@ -1,16 +1,17 @@
 #N canvas 0 0 785 555 12;
 #X declare -lib ceammc;
-#X obj 338 50 cnv 1 427 23 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 338 50 convert samples to milliseconds according to samplerate;
-#X obj 1 1 cnv 5 765 40 empty empty conv.samp2ms~ 20 20 0 20 -104026
+#X obj 308 50 cnv 1 457 38 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 308 50 convert time in milliseconds to number of samples according
+to current samplerate;
+#X obj 1 1 cnv 5 765 40 empty empty conv.ms2samp~ 20 20 0 20 -104026
 -4096 0;
-#X obj 554 11 samp->ms~;
-#X obj 645 11 conv.samp2ms~;
+#X obj 554 11 ms->samp~;
+#X obj 645 11 conv.ms2samp~;
 #X msg 50 118 bang;
-#X obj 50 147 plot.linspace~ 0 sr();
-#X obj 50 176 samp->ms~;
+#X obj 50 147 plot.linspace~ 0 1000;
+#X obj 50 176 ms->samp~;
 #X obj 50 205 ui.plot~ @size 400 170 @xlabels 1 @ylabels 1 @ymin 0
-@ymax 1000 @ymin_ticks 0;
+@ymax 1000 @yauto 1 @ymin_ticks 0;
 #X obj 50 406 ui.dsp~;
 #X obj 20 445 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 450 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
@@ -30,7 +31,7 @@
 #X obj 1 537 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 10 540 library: ceammc v0.8.0;
 #X text 571 552 see also:;
-#X obj 645 552 conv.samp2ms~;
+#X obj 645 552 conv.ms2samp~;
 #N canvas 10 559 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;
@@ -38,7 +39,7 @@
 #X text 10 32 version:;
 #X text 120 32 0.8.0;
 #X text 10 54 object:;
-#X text 120 54 conv.samp2ms~;
+#X text 120 54 conv.ms2samp~;
 #X text 10 76 category:;
 #X text 120 76 conv;
 #X text 10 98 since:;
@@ -48,7 +49,7 @@
 #X text 10 142 license:;
 #X text 120 142 GPL3 or later;
 #X text 10 164 keywords:;
-#X text 120 164 conv \, samp;
+#X text 120 164 conv \, samp \, ms;
 #X text 10 186 website:;
 #X obj 120 189 ui.link @title https://github.com/uliss/pure-data @url
 https://github.com/uliss/pure-data;

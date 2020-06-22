@@ -177,6 +177,9 @@
     <entry descr="convert time in milliseconds to number of samples according to current samplerate" name="conv.ms2samp" ref_view="object">
       <xi:include href="conv.ms2samp.pddoc" parse="xml"/>
     </entry>
+    <entry descr="convert time in milliseconds to number of samples according to current samplerate" name="conv.ms2samp~" ref_view="object">
+      <xi:include href="conv.ms2samp~.pddoc" parse="xml"/>
+    </entry>
     <entry descr="convert phase value [0-1] to radians [0-2π]" name="conv.phase2rad" ref_view="object">
       <xi:include href="conv.phase2rad.pddoc" parse="xml"/>
     </entry>

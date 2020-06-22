@@ -39,33 +39,36 @@ base A and temperament);
 #X obj 30 574 conv.ms2samp;
 #X text 200 574 convert time in milliseconds to number of samples according
 to current samplerate;
-#X obj 30 614 conv.phase2rad;
-#X text 200 614 convert phase value [0-1] to radians [0-2π];
-#X obj 30 641 conv.phase2rad~;
-#X text 200 641 convert phase value [0-1] to radians [0-2π];
-#X obj 30 668 conv.pitch2midi;
-#X text 200 668 converts symbol pitch name to MIDI note number;
-#X obj 30 695 conv.pol2car;
-#X text 200 695 convert from polar coordinates to cartesian;
-#X obj 30 722 conv.rad2phase;
-#X text 200 722 convert radians value to phase;
-#X obj 30 749 conv.rad2phase~;
-#X text 200 749 convert radians value to phase;
-#X obj 30 776 conv.samp2ms;
-#X text 200 776 convert samples to time according to samplerate;
-#X obj 30 803 conv.samp2ms~;
-#X text 200 803 convert samples to milliseconds according to samplerate;
-#X obj 30 830 conv.samp2sec;
-#X text 200 830 convert samples to time according to samplerate;
-#X obj 30 857 conv.sec2samp;
-#X text 200 857 convert time in seconds to number of samples according
+#X obj 30 614 conv.ms2samp~;
+#X text 200 614 convert time in milliseconds to number of samples according
 to current samplerate;
-#X obj 30 897 conv.sec2str;
-#X text 200 897 converts float time in seconds to formated symbol (or
+#X obj 30 654 conv.phase2rad;
+#X text 200 654 convert phase value [0-1] to radians [0-2π];
+#X obj 30 681 conv.phase2rad~;
+#X text 200 681 convert phase value [0-1] to radians [0-2π];
+#X obj 30 708 conv.pitch2midi;
+#X text 200 708 converts symbol pitch name to MIDI note number;
+#X obj 30 735 conv.pol2car;
+#X text 200 735 convert from polar coordinates to cartesian;
+#X obj 30 762 conv.rad2phase;
+#X text 200 762 convert radians value to phase;
+#X obj 30 789 conv.rad2phase~;
+#X text 200 789 convert radians value to phase;
+#X obj 30 816 conv.samp2ms;
+#X text 200 816 convert samples to time according to samplerate;
+#X obj 30 843 conv.samp2ms~;
+#X text 200 843 convert samples to milliseconds according to samplerate;
+#X obj 30 870 conv.samp2sec;
+#X text 200 870 convert samples to time according to samplerate;
+#X obj 30 897 conv.sec2samp;
+#X text 200 897 convert time in seconds to number of samples according
+to current samplerate;
+#X obj 30 937 conv.sec2str;
+#X text 200 937 converts float time in seconds to formated symbol (or
 string);
-#X obj 30 924 conv.str2sec;
-#X text 200 924 converts formatted time to float value in seconds;
+#X obj 30 964 conv.str2sec;
+#X text 200 964 converts formatted time to float value in seconds;
 #X obj 1 1 cnv 5 740 40 empty empty ceammc::conv 20 20 0 20 -104026
 -4096 0;
-#X obj 1 951 cnv 5 740 40 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 20 961 library: ceammc;
+#X obj 1 991 cnv 5 740 40 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 20 1001 library: ceammc;
