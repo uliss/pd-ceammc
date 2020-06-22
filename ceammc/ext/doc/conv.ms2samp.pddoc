@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="conv.ms2samp">
+        <title>conv.ms2samp</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>convert time in milliseconds to number of samples according to current
+            samplerate</description>
+            <license>GPL3 or later</license>
+            <library>ceammc</library>
+            <category>conv</category>
+            <keywords>conv samp ms</keywords>
+            <since>0.2</since>
+            <aliases>
+                <alias>ms-&gt;samp</alias>
+            </aliases>
+            <also>
+                <see>conv.samp2ms</see>
+            </also>
+        </meta>
+        <inlets>
+            <inlet>
+                <xinfo on="float">time in milliseconds</xinfo>
+                <xinfo on="list">list of times in milliseconds</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet>converted value (float or list)</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[F digits=10]
+|
+[ms->samp]
+|
+[F digits=10]
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>
