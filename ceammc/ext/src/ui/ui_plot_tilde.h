@@ -37,13 +37,21 @@ enum DrawMode {
     BAR
 };
 
+struct TickXPoint {
+    float v;
+    float x;
+    bool is_maj;
+};
+
 using TextList = std::vector<UITextLayout>;
+using XTicks = std::vector<TickXPoint>;
 
 class UIPlotTilde : public UIDspObject {
     using SampleBuffer = std::vector<t_sample>;
     using SampleBufferList = std::array<SampleBuffer, 4>;
 
     SampleBufferList buffers_;
+    XTicks xticks_;
     ClockLambdaFunction clock_;
     t_inlet* in2_;
     size_t phase_;
@@ -105,14 +113,18 @@ public:
 
 private:
     void addXLabel(const char* txt, float x, float y, etextjustify_flags align, etextanchor_flags anchor);
-    void addXLabel(float v, float x, float y, etextjustify_flags align, etextanchor_flags anchor);
-    void addXLabelLn(int n, float x, float y, etextjustify_flags align, etextanchor_flags anchor);
     void addYLabel(float v, float x, float y, etextjustify_flags align, etextanchor_flags anchor);
 
     void resizeBuffers(size_t n);
     t_rect calcXButton(int n, bool real) const;
     t_rect calcYButton(int n, bool real) const;
     t_rect calcInButton(int n, bool real) const;
+
+    void drawXMajTicks(UIPainter& p, float ht);
+    void drawXMinTicks(UIPainter& p, float ht);
+    void drawXMajGrid(UIPainter& p, float ht);
+    void drawXMinGrid(UIPainter& p, float ht);
+    void drawXLabels(UIPainter& p, float wd, float ht);
 };
 
 void setup_ui_plot_tilde();

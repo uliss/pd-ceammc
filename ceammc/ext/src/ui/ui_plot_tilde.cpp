@@ -105,6 +105,10 @@ static double fast_log10(int i)
 
 static const char* to_label(float v, ScaleBase sb = SB_LIN10)
 {
+    static const char* digits[] = { // UTF superscripts
+        "\u2070", "\u00B9", "\u00B2", "\u00B3", "\u2074", "\u2075", "\u2076", "\u2077", "\u2078", "\u2079"
+    };
+
     static const float m_pi = std::acosf(-1);
     static char buf[32];
 
@@ -131,6 +135,20 @@ static const char* to_label(float v, ScaleBase sb = SB_LIN10)
 
             return buf;
         }
+    } else if (sb == SB_LN) {
+        int n = v;
+        if (n < 0)
+            strcpy(buf, "e\u207B"); // minus superscript
+        else if (n == 0)
+            strcpy(buf, "1");
+        else
+            strcpy(buf, "e");
+
+        n = std::abs(n);
+        for (int i = 30; n && i; --i, n /= 10)
+            strcat(buf, digits[n % 10]);
+
+        return buf;
     }
 
     if (v == (int)v)
@@ -431,36 +449,6 @@ void UIPlotTilde::addXLabel(const char* txt, float x, float y, etextjustify_flag
     txt_x_.back().set(txt, x, y, 20, FONT_SIZE_SMALL);
 }
 
-void UIPlotTilde::addXLabel(float v, float x, float y, etextjustify_flags align, etextanchor_flags anchor)
-{
-    txt_x_.push_back(UITextLayout(font_.font()));
-    txt_x_.back().setJustify(align);
-    txt_x_.back().setAnchor(anchor);
-    txt_x_.back().set(to_label(v), x, y, 20, FONT_SIZE_SMALL);
-}
-
-void UIPlotTilde::addXLabelLn(int n, float x, float y, etextjustify_flags align, etextanchor_flags anchor)
-{
-    static const char* digits[] = {
-        "\u2070", "\u00B9", "\u00B2", "\u00B3", "\u2074", "\u2075", "\u2076", "\u2077", "\u2078", "\u2079"
-    };
-
-    char buf[16] = "";
-    if (n < 0)
-        strcat(buf, "e\u207B"); // minus superscript
-    else
-        strcat(buf, "e");
-
-    n = std::abs(n);
-    for (int i = 30; n && i; --i, n /= 10)
-        strcat(buf, digits[n % 10]);
-
-    txt_x_.push_back(UITextLayout(font_.font()));
-    txt_x_.back().setJustify(align);
-    txt_x_.back().setAnchor(anchor);
-    txt_x_.back().set(buf, x, y, 0, FONT_SIZE_SMALL);
-}
-
 void UIPlotTilde::addYLabel(float v, float x, float y, etextjustify_flags align, etextanchor_flags anchor)
 {
     txt_y_.push_back(UITextLayout(font_.font()));
@@ -506,14 +494,6 @@ void UIPlotTilde::drawBorder()
     }
 
     if (xmax_ != xmin_) {
-        if (xlabels_) {
-            txt_x_.clear();
-            addXLabel(to_label(xmin_, xscale_base_), 3, ht + LABEL_YPAD, ETEXT_JLEFT, ETEXT_UP_LEFT);
-            p.drawText(txt_x_.back());
-            addXLabel(to_label(xmax_, xscale_base_), wd, ht + LABEL_YPAD, ETEXT_JRIGHT, ETEXT_UP_RIGHT);
-            p.drawText(txt_x_.back());
-        }
-
         switch (xscale_base_) {
         case SB_LOG2:
             drawLog2X(p, wd, ht);
@@ -552,6 +532,9 @@ void UIPlotTilde::drawLog2X(UIPainter& p, float wd, float ht)
     const int lin_ai = std::floor(lin_a);
     const int lin_bi = std::ceil(lin_b);
 
+    xticks_.reserve(lin_bi - lin_ai + 1);
+    xticks_.clear();
+
     for (int i = lin_ai; i <= lin_bi; i++) {
         for (int j = 0; j < 4; j++) {
             auto log_maj = fast_pow2(i);
@@ -564,32 +547,18 @@ void UIPlotTilde::drawLog2X(UIPainter& p, float wd, float ht)
             if (x >= wd)
                 break;
 
-            const bool is_maj = (j == 0);
-            const bool is_min = !is_maj;
-
-            // draw ticks
-            if (is_maj && xmaj_ticks_)
-                p.drawLine(x, ht, x, ht + XTICK_MAJ);
-            else if (is_min && xmin_ticks_)
-                p.drawLine(x, ht, x, ht + XTICK_MIN);
-
-            // draw grid
-            if (is_maj && xmaj_grid_)
-                p.drawLine(x, 0, x, ht);
-            else if (is_min && xmin_grid_)
-                p.drawLine(x, 0, x, ht);
-
-            // too close to the border
-            if (x < XGRID_AVOID || x > (wd - XGRID_AVOID))
-                continue;
-
-            // draw labels
-            if (is_maj && xlabels_) {
-                addXLabel(log_maj, x + LABEL_XPAD, ht + LABEL_YPAD, ETEXT_JLEFT, ETEXT_UP_LEFT);
-                p.drawText(txt_x_.back());
-            }
+            xticks_.emplace_back();
+            xticks_.back().v = log_maj;
+            xticks_.back().x = x;
+            xticks_.back().is_maj = (j == 0);
         }
     }
+
+    drawXMajTicks(p, ht);
+    drawXMinTicks(p, ht);
+    drawXMajGrid(p, ht);
+    drawXMinGrid(p, ht);
+    drawXLabels(p, wd, ht);
 }
 
 void UIPlotTilde::drawLog10X(UIPainter& p, float wd, float ht)
@@ -604,15 +573,8 @@ void UIPlotTilde::drawLog10X(UIPainter& p, float wd, float ht)
     const int lin_ai = std::floor(lin_a);
     const int lin_bi = std::ceil(lin_b);
 
-    const int DIGIT_WD = FONT_SIZE_SMALL * 2 / 3;
-
-    const auto x0_avoid = (xlabels_ && txt_x_.size() > 0)
-        ? strlen(txt_x_[0].text()) * DIGIT_WD + XGRID_AVOID
-        : 0;
-
-    const auto x1_avoid = (xlabels_ && txt_x_.size() > 1)
-        ? wd - (strlen(txt_x_[1].text()) * DIGIT_WD + XGRID_AVOID)
-        : 0;
+    xticks_.reserve(lin_bi - lin_ai + 1);
+    xticks_.clear();
 
     for (int i = lin_ai; i <= lin_bi; i++) {
         for (int j = 0; j < 10; j++) {
@@ -625,33 +587,18 @@ void UIPlotTilde::drawLog10X(UIPainter& p, float wd, float ht)
             if (x >= wd)
                 break;
 
-            const bool is_maj = (j == 0);
-            const bool is_min = !is_maj;
-
-            // draw ticks
-            if (is_maj && xmaj_ticks_)
-                p.drawLine(x, ht, x, ht + XTICK_MAJ);
-            else if (is_min && xmin_ticks_)
-                p.drawLine(x, ht, x, ht + XTICK_MIN);
-
-            // draw grid
-            if (is_maj && xmaj_grid_)
-                p.drawLine(x, 0, x, ht);
-            else if (is_min && xmin_grid_)
-                p.drawLine(x, 0, x, ht);
-
-            // draw labels
-            if (is_maj && xlabels_) {
-                const int lbl_wd = strlen(to_label(log_maj)) * DIGIT_WD;
-                // too close to the border and first/last labl
-                if (x < x0_avoid || x > (x1_avoid - lbl_wd))
-                    continue;
-
-                addXLabel(log_maj, x + LABEL_XPAD, ht + LABEL_YPAD, ETEXT_JLEFT, ETEXT_UP_LEFT);
-                p.drawText(txt_x_.back());
-            }
+            xticks_.emplace_back();
+            xticks_.back().v = log_maj;
+            xticks_.back().x = x;
+            xticks_.back().is_maj = (j == 0);
         }
     }
+
+    drawXMajTicks(p, ht);
+    drawXMinTicks(p, ht);
+    drawXMajGrid(p, ht);
+    drawXMinGrid(p, ht);
+    drawXLabels(p, wd, ht);
 }
 
 void UIPlotTilde::drawLnX(UIPainter& p, float wd, float ht)
@@ -666,6 +613,9 @@ void UIPlotTilde::drawLnX(UIPainter& p, float wd, float ht)
     const int lin_ai = std::floor(lin_a);
     const int lin_bi = std::ceil(lin_b);
 
+    xticks_.reserve(lin_bi - lin_ai + 1);
+    xticks_.clear();
+
     for (int i = lin_ai; i <= lin_bi; i++) {
         auto log_v = std::exp(i);
         if (log_v <= xmin_)
@@ -673,25 +623,128 @@ void UIPlotTilde::drawLnX(UIPainter& p, float wd, float ht)
         if (log_v >= xmax_)
             break;
 
-        const auto x = convert::lin2lin<float>(i, lin_a, lin_b, 0, wd);
+        xticks_.emplace_back();
+        xticks_.back().v = i;
+        xticks_.back().x = convert::lin2lin<float>(i, lin_a, lin_b, 0, wd);
+        xticks_.back().is_maj = true;
+    }
 
-        // draw ticks
-        if (xmaj_ticks_)
-            p.drawLine(x, ht, x, ht + XTICK_MAJ);
+    drawXMajTicks(p, ht);
+    drawXMajGrid(p, ht);
+    drawXLabels(p, wd, ht);
+}
 
-        // draw grid
-        if (xmaj_grid_)
-            p.drawLine(x, 0, x, ht);
+void UIPlotTilde::drawXMajTicks(UIPainter& p, float ht)
+{
+    if (xmaj_ticks_) {
+        for (auto& t : xticks_) {
+            if (!t.is_maj)
+                continue;
 
-        // too close to the border
-        if (x < XGRID_AVOID || x > (wd - XGRID_AVOID))
-            continue;
-
-        // draw labels
-        if (xlabels_) {
-            addXLabelLn(i, x + LABEL_XPAD, ht + LABEL_YPAD, ETEXT_JLEFT, ETEXT_UP_LEFT);
-            p.drawText(txt_x_.back());
+            p.moveTo(t.x, ht);
+            p.drawLineTo(t.x, ht + XTICK_MAJ);
         }
+
+        p.stroke();
+    }
+}
+
+void UIPlotTilde::drawXMinTicks(UIPainter& p, float ht)
+{
+    if (xmin_ticks_) {
+        for (auto& t : xticks_) {
+            if (t.is_maj)
+                continue;
+
+            p.moveTo(t.x, ht);
+            p.drawLineTo(t.x, ht + XTICK_MIN);
+        }
+
+        p.stroke();
+    }
+}
+
+//static t_rgba rgba_mix()
+
+void UIPlotTilde::drawXMajGrid(UIPainter& p, float ht)
+{
+    if (xmaj_grid_) {
+        for (auto& t : xticks_) {
+            if (!t.is_maj)
+                continue;
+
+            p.moveTo(t.x, 0);
+            p.drawLineTo(t.x, ht);
+        }
+
+        p.setColor(rgba_color_sum(&prop_color_background, &prop_color_border, 0.6));
+        p.stroke();
+        p.setColor(prop_color_border);
+    }
+}
+
+void UIPlotTilde::drawXMinGrid(UIPainter& p, float ht)
+{
+    if (xmin_grid_) {
+        for (auto& t : xticks_) {
+            if (t.is_maj)
+                continue;
+
+            p.moveTo(t.x, 0);
+            p.drawLineTo(t.x, ht);
+        }
+
+        p.setColor(rgba_color_sum(&prop_color_background, &prop_color_border, 0.6));
+        p.stroke();
+        p.setColor(prop_color_border);
+    }
+}
+
+void UIPlotTilde::drawXLabels(UIPainter& p, float wd, float ht)
+{
+    if (xlabels_) {
+        txt_x_.clear();
+
+        std::string x0, xn;
+
+        if (xscale_base_ == SB_LN) {
+            x0 = to_label(std::log(xmin_), xscale_base_);
+            xn = to_label(std::log(xmax_), xscale_base_);
+        } else {
+            x0 = to_label(xmin_, xscale_base_);
+            xn = to_label(xmax_, xscale_base_);
+        }
+
+        addXLabel(x0.c_str(), 3, ht + LABEL_YPAD, ETEXT_JLEFT, ETEXT_UP_LEFT);
+        addXLabel(xn.c_str(), wd, ht + LABEL_YPAD, ETEXT_JRIGHT, ETEXT_UP_RIGHT);
+
+        const int DIGIT_WD = FONT_SIZE_SMALL * 2 / 3;
+
+        const auto x0_avoid = (txt_x_.size() > 0)
+            ? x0.size() * DIGIT_WD + XGRID_AVOID
+            : 0;
+
+        const auto x1_avoid = (txt_x_.size() > 1)
+            ? wd - (xn.size() * DIGIT_WD + XGRID_AVOID)
+            : 0;
+
+        for (auto& t : xticks_) {
+            if (!t.is_maj)
+                continue;
+
+            // non-thread safe!!!
+            const char* txt = to_label(t.v, xscale_base_);
+            const int lbl_wd = strlen(txt) * DIGIT_WD;
+
+            // too close to the border
+            if (t.x < x0_avoid || t.x > (x1_avoid - lbl_wd))
+                continue;
+
+            addXLabel(txt, t.x + LABEL_XPAD, ht + LABEL_YPAD, ETEXT_JLEFT, ETEXT_UP_LEFT);
+        }
+
+        for (auto& txt : txt_x_)
+            p.drawText(txt);
     }
 }
 
@@ -709,47 +762,28 @@ void UIPlotTilde::drawLinX(UIPainter& p, float wd, float ht)
     const int xtick_min = std::ceil(xmm.first / tick_step);
     const int xtick_max = std::floor(xmm.second / tick_step);
 
-    const int DIGIT_WD = FONT_SIZE_SMALL * 2 / 3;
-
-    const auto x0_avoid = (xlabels_ && txt_x_.size() > 0)
-        ? strlen(txt_x_[0].text()) * DIGIT_WD + XGRID_AVOID
-        : 0;
-
-    const auto x1_avoid = (xlabels_ && txt_x_.size() > 1)
-        ? wd - (strlen(txt_x_[1].text()) * DIGIT_WD + XGRID_AVOID)
-        : 0;
+    const int nticks = xtick_max - xtick_min + 1;
+    xticks_.reserve(nticks);
+    xticks_.clear();
 
     for (int i = xtick_min; i <= xtick_max; i++) {
-        auto x = convert::lin2lin<float>(i * tick_step, xmin_, xmax_, 0, wd);
+        t_float v = i * tick_step;
+        if (v <= xmin_)
+            continue;
+        if (v >= xmax_)
+            break;
 
-        const bool is_maj = (xscale_base_ == SB_LINPI) ? (i % PI_TICK_DIV == 0) : (i % 10 == 0);
-        const bool is_min = !is_maj;
-
-        // draw ticks
-        if (is_maj && xmaj_ticks_)
-            p.drawLine(x, ht, x, ht + XTICK_MAJ);
-        else if (is_min && xmin_ticks_)
-            p.drawLine(x, ht, x, ht + XTICK_MIN);
-
-        if (is_maj && xmaj_grid_)
-            p.drawLine(x, 0, x, ht);
-        else if (is_min && xmin_grid_)
-            p.drawLine(x, 0, x, ht);
-
-        // draw labels
-        if (is_maj && xlabels_) {
-            // non-thread safe!!!
-            const char* txt = to_label(i * tick_step, xscale_base_);
-
-            const int lbl_wd = strlen(txt) * DIGIT_WD;
-            // too close to the border
-            if (x < x0_avoid || x > (x1_avoid - lbl_wd))
-                continue;
-
-            addXLabel(txt, x + LABEL_XPAD, ht + LABEL_YPAD, ETEXT_JLEFT, ETEXT_UP_LEFT);
-            p.drawText(txt_x_.back());
-        }
+        xticks_.emplace_back();
+        xticks_.back().v = v;
+        xticks_.back().x = convert::lin2lin<float>(i * tick_step, xmin_, xmax_, 0, wd);
+        xticks_.back().is_maj = (xscale_base_ == SB_LINPI) ? (i % PI_TICK_DIV == 0) : (i % 10 == 0);
     }
+
+    drawXMajTicks(p, ht);
+    drawXMinTicks(p, ht);
+    drawXMajGrid(p, ht);
+    drawXMinGrid(p, ht);
+    drawXLabels(p, wd, ht);
 }
 
 void UIPlotTilde::drawLinY(UIPainter& p, float wd, float ht)
@@ -770,34 +804,56 @@ void UIPlotTilde::drawLinY(UIPainter& p, float wd, float ht)
 
     p.preAllocPoints(4 * (NMAJ_LINES + NMIN_LINES));
 
-    for (size_t i = 1; i <= N; i++) {
-        auto v = ytick_min + i * tick_step;
-        auto y = convert::lin2lin<float>(v, YMIN, YMAX, ht, 0); // in pixels
+    if (ymaj_ticks_ || ymin_ticks_) {
+        for (size_t i = 1; i <= N; i++) {
+            auto v = ytick_min + i * tick_step;
+            auto y = convert::lin2lin<float>(v, YMIN, YMAX, ht, 0); // in pixels
 
-        const auto i2 = ytick_base + int(i);
-        const bool is_maj = (i2 % 10 == 0);
-        const bool is_min = !is_maj;
+            const auto i2 = ytick_base + int(i);
+            const bool is_maj = (i2 % 10 == 0);
+            const bool is_min = !is_maj;
 
-        // ticks
-        if (is_maj && ymaj_ticks_) {
-            p.moveTo(-XTICK_MAJ, y);
-            p.drawLineTo(0, y);
-        } else if (is_min && ymin_ticks_) {
-            p.moveTo(-XTICK_MIN, y);
-            p.drawLineTo(0, y);
+            // ticks
+            if (is_maj && ymaj_ticks_) {
+                p.moveTo(-XTICK_MAJ, y);
+                p.drawLineTo(0, y);
+            } else if (is_min && ymin_ticks_) {
+                p.moveTo(-XTICK_MIN, y);
+                p.drawLineTo(0, y);
+            }
         }
 
-        // grid
-        if (is_maj && ymaj_grid_) {
-            p.moveTo(0, y);
-            p.drawLineTo(wd, y);
-        } else if (is_min && ymin_grid_) {
-            p.moveTo(0, y);
-            p.drawLineTo(wd, y);
-        }
+        p.stroke();
     }
 
-    p.stroke();
+    if (ymaj_grid_ || ymin_grid_) {
+        for (size_t i = 1; i <= N; i++) {
+            auto v = ytick_min + i * tick_step;
+            if (v <= YMIN)
+                continue;
+            if (v >= YMAX)
+                break;
+
+            auto y = convert::lin2lin<float>(v, YMIN, YMAX, ht, 0); // in pixels
+
+            const auto i2 = ytick_base + int(i);
+            const bool is_maj = (i2 % 10 == 0);
+            const bool is_min = !is_maj;
+
+            // grid
+            if (is_maj && ymaj_grid_) {
+                p.moveTo(0, y);
+                p.drawLineTo(wd, y);
+            } else if (is_min && ymin_grid_) {
+                p.moveTo(0, y);
+                p.drawLineTo(wd, y);
+            }
+        }
+
+        p.setColor(rgba_color_sum(&prop_color_background, &prop_color_border, 0.6));
+        p.stroke();
+        p.setColor(prop_color_border);
+    }
 
     if (ylabels_) {
         p.preAllocObjects(N / 10);
@@ -1109,7 +1165,7 @@ void UIPlotTilde::onInlet(const AtomList& args)
             xmin_ = args.floatAt(1, 0);
             xmax_ = args.floatAt(2, total_);
 
-            if (args.size() >= 3) {
+            if (args.size() > 3) {
                 if (args[3] == Atom(10))
                     xscale_base_ = SB_LOG10;
                 else if (args[3] == Atom(2))
