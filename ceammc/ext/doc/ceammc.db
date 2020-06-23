@@ -315,6 +315,7 @@ math.cexp~,cexp~		~~		~~
 math.cmul~,cmul~		~~~~		~~
 math.cos		.		.
 math.cosh		.		.
+math.cosh~		~		~
 math.cos~		~		~
 math.div,math./		..		.
 math.e		.		.

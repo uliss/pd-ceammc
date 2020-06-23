@@ -30,6 +30,7 @@
   - math.asin~ added
   - math.cos~ added
   - math.acos~ added
+  - math.cosh~ added
   - math.ceil~ added
   - math.floor~ added
 - complex math for signals added:

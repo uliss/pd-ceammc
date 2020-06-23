@@ -317,6 +317,7 @@ set(DOC_FILES
     math.cos
     math.cos~
     math.cosh
+    math.cosh~
     math.div
     math.e
     math.erf

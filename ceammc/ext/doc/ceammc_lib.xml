@@ -957,6 +957,9 @@
     <entry descr="hyperbolic cosine function" name="math.cosh" ref_view="object">
       <xi:include href="math.cosh.pddoc" parse="xml"/>
     </entry>
+    <entry descr="hyperbolic cosine for signals" name="math.cosh~" ref_view="object">
+      <xi:include href="math.cosh~.pddoc" parse="xml"/>
+    </entry>
     <entry descr="cosine function" name="math.cos~" ref_view="object">
       <xi:include href="math.cos~.pddoc" parse="xml"/>
     </entry>
