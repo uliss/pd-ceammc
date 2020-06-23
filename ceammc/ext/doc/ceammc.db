@@ -417,6 +417,7 @@ path.is_dir		.		..
 path.lsdir,path.ls		.		.
 plot.geomspace~		.		~.
 plot.linspace~		.		~.
+plot.logspace~		.		~.
 preset.float,preset.f		.		.
 preset.list,preset.l		.		.
 preset.storage		.		.

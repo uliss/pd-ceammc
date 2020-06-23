@@ -72,6 +72,9 @@
     <entry descr="outputs numbers spaced evenly spaced over a specified interval" name="plot.linspace~" ref_view="object">
       <xi:include href="plot.linspace~.pddoc" parse="xml"/>
     </entry>
+    <entry descr="outputs numbers spaced evenly on a log scale" name="plot.logspace~" ref_view="object">
+      <xi:include href="plot.logspace~.pddoc" parse="xml"/>
+    </entry>
   </category>
   <category name="base">
     <entry descr="named function" name="function" ref_view="link">

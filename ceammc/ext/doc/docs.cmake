@@ -418,6 +418,7 @@ set(DOC_FILES
     path.lsdir
     plot.geomspace~
     plot.linspace~
+    plot.logspace~
     preset.float
     preset.list
     preset.storage
