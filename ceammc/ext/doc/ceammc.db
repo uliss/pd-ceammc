@@ -352,7 +352,7 @@ math.sin		.		.
 math.sinh		.		.
 math.sin~		~		~
 math.sqrt		.		.
-math.squared,^2		.		.
+math.squared,^2,math.^2		.		.
 math.squared~,^2~,math.^2~		~		.
 math.sync_add,math.+',+'		..		.
 math.sync_and,math.&&',&&'		..		.
