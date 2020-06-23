@@ -31,8 +31,6 @@ extern void setup_noise_white_tilde();
 
 void ceammc_noise_setup()
 {
-    setup_noise_pink_tilde();
-    setup_noise_white_tilde();
     setup_noise0x2ebaker();
     setup_noise0x2eclifford();
     setup_noise0x2ecollatz();

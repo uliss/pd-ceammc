@@ -91,12 +91,16 @@ conv.lin2lin
 conv.lin2lin~
 conv.list2props
 conv.midi2freq
+conv.ms2samp
+conv.ms2samp~
 conv.phase2rad
 conv.phase2rad~
 conv.pitch2midi
 conv.pol2car
 conv.rad2phase
 conv.rad2phase~
+conv.samp2ms
+conv.samp2ms~
 conv.samp2sec
 conv.sec2samp
 conv.sec2str
@@ -249,6 +253,7 @@ global.mlist
 global.set
 group
 helmholtz~
+hist~
 hoa.2d.decoder~
 hoa.2d.encoder~
 hoa.2d.map~
@@ -530,6 +535,8 @@ ml
 mlist
 mlist.flatten
 modplug~
+ms->samp
+ms->samp~
 msg
 msg.after
 msg.onload
@@ -598,6 +605,7 @@ pi
 pitch->midi
 pi~
 plot.geomspace~
+plot.hist~
 plot.linspace~
 plot.logspace~
 pol->car
@@ -634,6 +642,8 @@ random.pw_lin
 reject
 reject_if
 replace
+samp->ms
+samp->ms~
 samp->sec
 sec->samp
 sec->str
