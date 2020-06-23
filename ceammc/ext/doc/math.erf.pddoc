@@ -34,9 +34,9 @@
         <example>
             <pdascii>
 <![CDATA[
-[100(                 [array ERF y=0..1 w=300]
+[bang(                 [array ERF y=0..1 w=320]
 |
-[list.seq -4 4 0.1]
+[list.seq -4 4 0.025]
 |
 [math.erf]
 |
