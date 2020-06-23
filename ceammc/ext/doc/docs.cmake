@@ -302,6 +302,7 @@ set(DOC_FILES
     math.and
     math.approx
     math.asin
+    math.asin~
     math.asinh
     math.atan
     math.atanh

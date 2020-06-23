@@ -918,6 +918,9 @@
     <entry descr="inverse hyperbolic sine function" name="math.asinh" ref_view="object">
       <xi:include href="math.asinh.pddoc" parse="xml"/>
     </entry>
+    <entry descr="arc sine for signals" name="math.asin~" ref_view="object">
+      <xi:include href="math.asin~.pddoc" parse="xml"/>
+    </entry>
     <entry descr="arc tangent function" name="math.atan" ref_view="object">
       <xi:include href="math.atan.pddoc" parse="xml"/>
     </entry>

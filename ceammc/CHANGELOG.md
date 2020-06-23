@@ -27,7 +27,9 @@
   - math.lgamma and math.lgamma~ added
   - math.erf and math.erf~ added
   - math.sin~ added
+  - math.asin~ added
   - math.cos~ added
+  - math.acos~ added
   - math.ceil~ added
   - math.floor~ added
 - complex math for signals added:
