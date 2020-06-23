@@ -44,19 +44,19 @@
 [1/x~] [math.exp2~] [^2~] [expr~ sin($v1)*20] [ui.plot~.lin1-help]
 |      |            |     |
 |      |.           |..   |...
-[ui.plot~ @xlabels 1 @ylabels 1 @size 250 250 @n 4 @ymin -40 @ymax 40 #b]
+[ui.plot~ @xlabels 1 @ylabels 1 @size 353 250 @n 4 @ymin -40 @ymax 40 #b]
 
 
                                               [ui.plot~.lin3-help]
 
 
+                                              [ui.plot~.log10-help]
+
 
                                               [ui.plot~.log2-help]
 
 
-
-
-
+                                              [ui.plot~.ln-help]
 
 
 

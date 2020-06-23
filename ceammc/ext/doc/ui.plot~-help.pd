@@ -14,10 +14,12 @@
 #X obj 242 176 ^2~;
 #X obj 299 176 expr~ sin($v1)*20;
 #X obj 491 176 ui.plot~.lin1-help;
-#X obj 50 219 ui.plot~ @xlabels 1 @ylabels 1 @size 250 250 @n 4 @ymin
+#X obj 50 219 ui.plot~ @xlabels 1 @ylabels 1 @size 353 250 @n 4 @ymin
 -40 @ymax 40;
 #X obj 491 262 ui.plot~.lin3-help;
-#X obj 491 320 ui.plot~.log2-help;
+#X obj 491 305 ui.plot~.log10-help;
+#X obj 491 349 ui.plot~.log2-help;
+#X obj 491 392 ui.plot~.ln-help;
 #X obj 50 478 ui.dsp~;
 #X obj 20 517 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 522 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
