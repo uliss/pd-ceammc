@@ -353,6 +353,7 @@ set(DOC_FILES
     math.sin~
     math.sinh
     math.sqrt
+    math.sqrt~
     math.squared
     math.squared~
     math.sync_add
