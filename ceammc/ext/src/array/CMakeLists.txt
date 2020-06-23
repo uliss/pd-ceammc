@@ -4,6 +4,7 @@ set(ARRAY_SOURCES
     plot_logspace_tilde.cpp
     plot_geomspace_tilde.cpp
     plot_hist_tilde.cpp
+    plot_response_tilde.cpp
 )
 
 macro(ceammc_array_external name)
