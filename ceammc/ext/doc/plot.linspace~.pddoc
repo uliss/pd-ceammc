@@ -49,9 +49,20 @@
 [B]          [ui.dsp~]
 |
 |
-[plot.linspace~ 2 1024]
+[plot.linspace~ -5 5]
 |      ^|.
-[ui.plot~ @yauto]
+[ui.plot~ @size 400 150 @xlabels 1 @ylabels 1 @xmin_grid 0 @ymin_ticks 0 @xmin_ticks 0 @yauto 1]
+
+
+
+
+
+
+
+
+
+
+[ui.dsp~]
 ]]>
             </pdascii>
         </example>
