@@ -17,7 +17,7 @@
                 <alias>ms-&gt;samp~</alias>
             </aliases>
             <also>
-                <see>conv.ms2samp~</see>
+                <see>conv.samp2ms~</see>
             </also>
         </meta>
         <inlets>
