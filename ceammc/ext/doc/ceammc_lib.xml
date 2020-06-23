@@ -963,6 +963,9 @@
     <entry descr="mathematical constant, base of the natural logarithm" name="math.e" ref_view="object">
       <xi:include href="math.e.pddoc" parse="xml"/>
     </entry>
+    <entry descr="error function" name="math.erf" ref_view="object">
+      <xi:include href="math.erf.pddoc" parse="xml"/>
+    </entry>
     <entry descr="error function for signals" name="math.erf~" ref_view="object">
       <xi:include href="math.erf~.pddoc" parse="xml"/>
     </entry>
