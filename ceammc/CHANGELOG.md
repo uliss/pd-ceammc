@@ -57,6 +57,10 @@
   - @aoffset (or @aoff) - to specify write offset position in destination array
   - @resample - to specify data resampling while loading
 - array.resample (with alias array.r) added. Resamples array with SoxR library
+- plot.linspace~ added
+- plot.logspace~ added
+- plot.geomspace~ added
+- plot.hist~ added
 - ui.plot~ added
 
 ## [0.8]

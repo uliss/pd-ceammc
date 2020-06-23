@@ -24,6 +24,7 @@ void setup_array_s2p();
 void setup_plot_linspace_tilde();
 void setup_plot_logspace_tilde();
 void setup_plot_geomspace_tilde();
+void setup_plot_hist_tilde();
 
 void ceammc_array_setup()
 {
@@ -52,4 +53,5 @@ void ceammc_array_setup()
     setup_plot_linspace_tilde();
     setup_plot_logspace_tilde();
     setup_plot_geomspace_tilde();
+    setup_plot_hist_tilde();
 }

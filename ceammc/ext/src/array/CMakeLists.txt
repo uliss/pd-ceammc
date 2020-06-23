@@ -1,4 +1,10 @@
-set(ARRAY_SOURCES array_base.cpp plot_linspace_tilde.cpp plot_logspace_tilde.cpp plot_geomspace_tilde.cpp)
+set(ARRAY_SOURCES
+    array_base.cpp
+    plot_linspace_tilde.cpp
+    plot_logspace_tilde.cpp
+    plot_geomspace_tilde.cpp
+    plot_hist_tilde.cpp
+)
 
 macro(ceammc_array_external name)
     list(APPEND ARRAY_SOURCES "array_${name}.cpp")
