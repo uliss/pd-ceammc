@@ -141,6 +141,54 @@ static const char* to_label(float v, ScaleBase sb = SB_LIN10)
     return buf;
 }
 
+static const char* to_ylabel(float v, ScaleBase sb = SB_LIN10, bool kylo = false)
+{
+    static const float m_pi = std::acosf(-1);
+    static char buf[32];
+
+    if (sb == SB_LINPI) { // close to pi
+        const float n0 = v / m_pi;
+        const float n1 = std::round(n0);
+
+        if (std::fabs(n1 - n0) < 0.001) {
+            int i = n1;
+            switch (i) {
+            case 0:
+                strcpy(buf, "0");
+                break;
+            case 1:
+                strcpy(buf, "π");
+                break;
+            case -1:
+                strcpy(buf, "-π");
+                break;
+            default:
+                sprintf(buf, "%dπ", i);
+                break;
+            }
+
+            return buf;
+        }
+    }
+
+    if (kylo) {
+        auto v0 = v / 1000;
+
+        if (v0 == 0)
+            strcpy(buf, "0");
+        else if (v0 == (int)v0)
+            snprintf(buf, 32, "%dk", (int)v0);
+        else
+            snprintf(buf, 32, "%.1fk", v0);
+
+    } else if (v == (int)v) {
+        snprintf(buf, 32, "%d", (int)v);
+    } else
+        snprintf(buf, 32, "%g", v);
+
+    return buf;
+}
+
 UIPlotTilde::UIPlotTilde()
     : clock_([this]() {
         border_layer_.invalidate();
@@ -418,7 +466,10 @@ void UIPlotTilde::addYLabel(float v, float x, float y, etextjustify_flags align,
     txt_y_.push_back(UITextLayout(font_.font()));
     txt_y_.back().setJustify(align);
     txt_y_.back().setAnchor(anchor);
-    txt_y_.back().set(to_label(v), x - 2, y, 0, FONT_SIZE_SMALL);
+    constexpr t_sample M = 9000;
+    const bool kylo = yauto_ ? (std::fabs(sig_max_) > M || std::fabs(sig_min_) > M)
+                             : (std::fabs(ymax_) > M || std::fabs(ymin_) > M);
+    txt_y_.back().set(to_ylabel(v, xscale_base_, kylo), x - 2, y, 0, FONT_SIZE_SMALL);
 }
 
 void UIPlotTilde::resizeBuffers(size_t n)
