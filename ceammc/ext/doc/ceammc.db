@@ -323,6 +323,7 @@ math.exp		.		.
 math.exp2		.		.
 math.exp2~		~		~
 math.expr		..		.
+math.exp~		~		~
 math.floor		.		.
 math.floor~		~		~
 math.gamma		.		.

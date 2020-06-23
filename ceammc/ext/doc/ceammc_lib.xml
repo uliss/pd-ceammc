@@ -981,6 +981,9 @@
     <entry descr="dynamic [expr]" name="math.expr" ref_view="object">
       <xi:include href="math.expr.pddoc" parse="xml"/>
     </entry>
+    <entry descr="base-e exponential for signal" name="math.exp~" ref_view="object">
+      <xi:include href="math.exp~.pddoc" parse="xml"/>
+    </entry>
     <entry descr="round to largest integral value not greater than x" name="math.floor" ref_view="object">
       <xi:include href="math.floor.pddoc" parse="xml"/>
     </entry>

@@ -22,6 +22,7 @@
   - math.squared~ (with math.^2~ and ^2~ aliases) added
   - math.reciprocal~ (with 1/x~ alias) added
   - math.exp2~ added
+  - math.exp~ added
   - math.gamma and math.gamma~ added
   - math.lgamma and math.lgamma~ added
   - math.erf and math.erf~ added

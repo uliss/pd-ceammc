@@ -321,6 +321,7 @@ set(DOC_FILES
     math.erf
     math.erf~
     math.exp
+    math.exp~
     math.exp2
     math.exp2~
     math.expr
