@@ -79,11 +79,19 @@ void FlowSync::onSymbol(t_symbol* s)
 
 void FlowSync::sync()
 {
-    for (size_t i = msg_list_.size(); i > 0; i--)
-        messageTo(i - 1, msg_list_[i - 1]);
+    for (size_t i = msg_list_.size(); i > 0; i--) {
+        auto idx = i - 1;
+        const Message& m = msg_list_[idx];
+
+        if (m.isNone())
+            bangTo(idx);
+        else
+            messageTo(idx, m);
+    }
 }
 
-extern "C" void setup_flow0x2esync()
+void setup_flow_sync()
 {
     ObjectFactory<FlowSync> obj("flow.sync");
+    obj.addAlias("flow.'");
 }

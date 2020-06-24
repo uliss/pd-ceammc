@@ -32,7 +32,6 @@ void setup_flow_match();
 
 void ceammc_flow_setup()
 {
-    setup_flow0x2esync();
     setup_flow0x2etee_tilde();
 
     setup_flow_append();
@@ -60,5 +59,6 @@ void ceammc_flow_setup()
     setup_flow_route();
     setup_flow_speedlim();
     setup_flow_split();
+    setup_flow_sync();
     setup_flow_sync_pack();
 }

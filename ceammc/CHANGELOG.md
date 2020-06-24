@@ -74,6 +74,10 @@
 - plot.geomspace~ added
 - plot.hist~ added (with hist~ alias)
 - ui.plot~ added
+- flow.' alias added for flow.sync
+
+### Changed:
+- flow.sync bang output on unitialized value
 
 ## [0.8]
 ### Added:
