@@ -376,6 +376,7 @@ set(DOC_FILES
     math.tan
     math.tanh
     math.trunc
+    math.trunc~
     matrix~
     metro.pattern
     metro.random

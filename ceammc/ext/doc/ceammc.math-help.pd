@@ -174,7 +174,9 @@ direction;
 #X text 200 2289 hyperbolic tangent function;
 #X obj 30 2316 math.trunc;
 #X text 200 2316 truncate to integer value;
+#X obj 30 2343 math.trunc~;
+#X text 200 2343 truncate to integer value;
 #X obj 1 1 cnv 5 740 40 empty empty ceammc::math 20 20 0 20 -104026
 -4096 0;
-#X obj 1 2343 cnv 5 740 40 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 20 2353 library: ceammc;
+#X obj 1 2370 cnv 5 740 40 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 20 2380 library: ceammc;

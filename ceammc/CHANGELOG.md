@@ -34,6 +34,7 @@
   - math.ceil~ added
   - math.floor~ added
   - math.atan~ added
+  - math.trunc~ added
 - complex math for signals added:
   - math.cabs~
   - math.carg~

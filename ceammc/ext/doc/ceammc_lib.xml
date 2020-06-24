@@ -1137,6 +1137,9 @@
     <entry descr="truncate to integer value" name="math.trunc" ref_view="object">
       <xi:include href="math.trunc.pddoc" parse="xml"/>
     </entry>
+    <entry descr="truncate to integer value" name="math.trunc~" ref_view="object">
+      <xi:include href="math.trunc~.pddoc" parse="xml"/>
+    </entry>
     <xi:include href="ceammc_category_math.xml" parse="xml"/>
   </category>
   <category name="midi">

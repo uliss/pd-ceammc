@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <pddoc version="1.0">
-    <object name="math.trunc">
-        <title>math.trunc</title>
+    <object name="math.trunc~">
+        <title>math.trunc~</title>
         <meta>
             <authors>
                 <author>Serge Poltavsky</author>
@@ -12,36 +12,55 @@
             <category>math</category>
             <keywords>math trunc</keywords>
             <also>
-                <see>math.ceil</see>
-                <see>math.floor</see>
-                <see>math.round</see>
-                <see>math.math</see>
+                <see>math.trunc</see>
+                <see>math.ceil~</see>
+                <see>math.round~</see>
             </also>
-            <since>0.1</since>
+            <since>0.9</since>
         </meta>
         <info>
             <par>Outputs the integral value nearest to but no larger in
             magnitude than x</par>
+            <a href="https://en.wikipedia.org/wiki/Floor_and_ceiling_functions">wiki: Floor and ceiling functions</a>
         </info>
         <inlets>
-            <inlet>
-                <xinfo on="float">input value</xinfo>
-                <xinfo on="list">apply to all numeric values</xinfo>
+            <inlet type="audio">
+                <xinfo>input signal</xinfo>
             </inlet>
         </inlets>
         <outlets>
-            <outlet>result value</outlet>
+            <outlet type="audio">result signal</outlet>
         </outlets>
         <example>
             <pdascii>
 <![CDATA[
-[bang(                 [array TRUNC yr=-4..4 w=320]
+[bang(
 |
-[list.seq -4 4 0.025]
-|
-[math.trunc]
-|
-[list->array TRUNC]
+[plot.linspace~ -3 3 #a]
+|             |
+[math.trunc~] [math.floor~]
+|             |.
+[ui.plot~ @ymin_ticks 0 @xlabels 1 @ylabels 1 @ymin -3 @ymax 3 @size 260 260 @n 2 #b]
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+[ui.dsp~]
+[X a:1->b:2]
 ]]>
             </pdascii>
         </example>
