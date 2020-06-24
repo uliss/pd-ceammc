@@ -28,9 +28,12 @@
   - math.erf and math.erf~ added
   - math.sin~ added
   - math.asin~ added
+  - math.sinh~ added
+  - math.asinh~ added
   - math.cos~ added
   - math.acos~ added
   - math.cosh~ added
+  - math.acosh~ added
   - math.ceil~ added
   - math.floor~ added
   - math.atan~ added
@@ -39,7 +42,6 @@
   - math.log~ added
   - math.log10~ added
   - math.tan~ added
-  - math.acosh~ added
 - complex math for signals added:
   - math.cabs~
   - math.carg~

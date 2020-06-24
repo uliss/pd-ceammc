@@ -307,6 +307,7 @@ set(DOC_FILES
     math.asin
     math.asin~
     math.asinh
+    math.asinh~
     math.atan
     math.atan~
     math.atanh

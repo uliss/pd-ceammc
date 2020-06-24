@@ -930,6 +930,9 @@
     <entry descr="inverse hyperbolic sine function" name="math.asinh" ref_view="object">
       <xi:include href="math.asinh.pddoc" parse="xml"/>
     </entry>
+    <entry descr="hyperbolic arc sine for signals" name="math.asinh~" ref_view="object">
+      <xi:include href="math.asinh~.pddoc" parse="xml"/>
+    </entry>
     <entry descr="arc sine for signals" name="math.asin~" ref_view="object">
       <xi:include href="math.asin~.pddoc" parse="xml"/>
     </entry>

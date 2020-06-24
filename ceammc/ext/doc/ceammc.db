@@ -305,6 +305,7 @@ math.and,and		?		.
 math.approx,approx		...		.
 math.asin		.		.
 math.asinh		.		.
+math.asinh~		~		~
 math.asin~		~		~
 math.atan		.		.
 math.atanh		.		.
