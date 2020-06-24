@@ -124,7 +124,7 @@ flow.reject_if,reject_if		..		..
 flow.route		.		?
 flow.speedlim,speedlim		.		.
 flow.split,split		..		...
-flow.sync		?		?
+flow.sync,flow.'		?		?
 flow.sync_pack,flow.pack'		?		.
 flow.tee~,tee~,~->		~		~.
 flt.biquad~		~~~~~~		~

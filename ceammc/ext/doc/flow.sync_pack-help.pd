@@ -26,7 +26,7 @@
 #X text 150 290 list;
 #X obj 246 291 cnv 1 39 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 245 290 VALS: default values for all inlets. If not enough
-default values given it sets to 0\..;
+default values given it sets to 0\.;
 #X obj 20 335 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 340 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
 0;

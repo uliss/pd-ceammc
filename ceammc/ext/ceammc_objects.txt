@@ -152,6 +152,7 @@ env2array
 env2vline
 envelope
 expand_env
+flow.'
 flow.<
 flow.<=
 flow.>
