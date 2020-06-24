@@ -1,6 +1,6 @@
 /* ------------------------------------------------------------
 name: "noise_pink"
-Code generated with Faust 2.22.5 (https://faust.grame.fr)
+Code generated with Faust 2.25.3 (https://faust.grame.fr)
 Compilation options: -lang cpp -scal -ftz 0
 ------------------------------------------------------------ */
 
@@ -83,7 +83,7 @@ class dsp {
     
         /**
          * Trigger the ui_interface parameter with instance specific calls
-         * to 'addBtton', 'addVerticalSlider'... in order to build the UI.
+         * to 'openTabBox', 'addButton', 'addVerticalSlider'... in order to build the UI.
          *
          * @param ui_interface - the user interface builder
          */
@@ -530,7 +530,7 @@ class noise_pink : public dsp {
 		m->declare("maths.lib/copyright", "GRAME");
 		m->declare("maths.lib/license", "LGPL with exception");
 		m->declare("maths.lib/name", "Faust Math Library");
-		m->declare("maths.lib/version", "2.2");
+		m->declare("maths.lib/version", "2.3");
 		m->declare("name", "noise_pink");
 		m->declare("noises.lib/name", "Faust Noise Generator Library");
 		m->declare("noises.lib/version", "0.0");
