@@ -67,7 +67,6 @@ void ChaosGbmanTilde::processBlock(const t_sample** in, t_sample** out)
 {
     const t_float freq = in[0][0];
     const size_t SR = samplerate();
-    t_float output = xn_;
     long call_period = (freq < SR) ? (SR / std::max<t_float>(freq, MIN_FREQ)) : MIN_PERIOD;
     call_period = std::max<long>(call_period, MIN_PERIOD);
 
@@ -79,8 +78,8 @@ void ChaosGbmanTilde::processBlock(const t_sample** in, t_sample** out)
         }
 
         counter_++;
-        out[0][i] = output;
-        out[1][i] = output;
+        out[0][i] = xn_;
+        out[1][i] = yn_;
     }
 }
 

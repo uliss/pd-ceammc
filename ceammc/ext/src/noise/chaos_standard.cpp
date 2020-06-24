@@ -20,7 +20,6 @@
 
 constexpr double PI = 3.141592653589793;
 constexpr double TWO_PI = 2 * PI;
-constexpr double RECIP_PI = 1 / PI;
 constexpr double RECIP_2PI = 1 / TWO_PI;
 
 constexpr t_float DEF_K = 1;
@@ -32,7 +31,7 @@ static inline t_sample wrap_pi(t_sample x)
     return (x - PI) * RECIP_2PI;
 }
 
-static inline double standard_next(double k, double& xn, double& yn)
+static inline void standard_next(double k, double& xn, double& yn)
 {
     /// y(n+1) = (y(n) + k * sin(x(n))) % 2pi
     auto yn1 = std::fmod(yn + k * std::sin(xn), TWO_PI);
@@ -46,8 +45,6 @@ static inline double standard_next(double k, double& xn, double& yn)
     }
 
     std::feclearexcept(FE_ALL_EXCEPT);
-
-    return xn;
 }
 
 ChaosStandard::ChaosStandard(const PdArgs& args)
@@ -58,11 +55,14 @@ ChaosStandard::ChaosStandard(const PdArgs& args)
 {
     createInlet(&k_);
     createOutlet();
+    createOutlet();
 }
 
 void ChaosStandard::onBang()
 {
-    floatTo(0, wrap_pi(standard_next(k_, xn_, yn_)));
+    standard_next(k_, xn_, yn_);
+    floatTo(1, wrap_pi(yn_));
+    floatTo(0, wrap_pi(xn_));
 }
 
 ChaosStandardTilde::ChaosStandardTilde(const PdArgs& args)
@@ -73,26 +73,26 @@ ChaosStandardTilde::ChaosStandardTilde(const PdArgs& args)
 {
     createSignalInlet();
     createSignalOutlet();
+    createSignalOutlet();
 }
 
 void ChaosStandardTilde::processBlock(const t_sample** in, t_sample** out)
 {
     t_float freq = in[0][0];
-    t_float output = xn_;
     t_float call_period = (freq < samplerate()) ? (samplerate() / std::max<t_float>(freq, 0.001)) : 1;
     call_period = std::max<t_float>(call_period, 1);
 
     const auto BS = blockSize();
-    for (size_t i = 0; i < BS; i++) {
+    for (size_t i = 0; i < BS; i++, counter_++) {
         if (counter_ >= call_period) {
             counter_ -= call_period;
 
             auto k = in[1][i];
-            output = standard_next(k, xn_, yn_);
+            standard_next(k, xn_, yn_);
         }
 
-        counter_++;
-        out[0][i] = wrap_pi(output);
+        out[0][i] = wrap_pi(xn_);
+        out[1][i] = wrap_pi(yn_);
     }
 }
 

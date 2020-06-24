@@ -21,7 +21,7 @@ https://en.wikipedia.org/wiki/Gingerbreadman_map;
 #X obj 50 260 sig~ 10;
 #X obj 328 260 chaos.gbman0~;
 #X obj 50 289 chaos.gbman0~;
-#X obj 328 289 l->l~ -3 6 50 10000 @clip;
+#X obj 328 289 l->l~ -3 6 50 10000 @clip minmax;
 #X obj 50 318 dyn.limit~;
 #X obj 328 318 osc.sin~;
 #X obj 50 347 ui.hgain~;

@@ -44,7 +44,7 @@
 |    |     |                 |
 [sig~    10]                 [chaos.gbman0~]
 |                            |
-[chaos.gbman0~]              [l->l~ -3 6 50 10000 @clip]
+[chaos.gbman0~]              [l->l~ -3 6 50 10000 @clip minmax]
 |                            |
 [dyn.limit~]                 [osc.sin~]
 |                            |

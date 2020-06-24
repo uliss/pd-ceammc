@@ -29,6 +29,7 @@ set(DOC_FILES
     canvas.top
     chaos.gbman0
     chaos.gbman0~
+    chaos.std0
     click~
     conv.amp2dbfs
     conv.amp2dbfs~
