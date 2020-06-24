@@ -33,6 +33,7 @@
   - math.cosh~ added
   - math.ceil~ added
   - math.floor~ added
+  - math.atan~ added
 - complex math for signals added:
   - math.cabs~
   - math.carg~

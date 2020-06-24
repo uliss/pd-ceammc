@@ -305,6 +305,7 @@ math.asinh		.		.
 math.asin~		~		~
 math.atan		.		.
 math.atanh		.		.
+math.atan~		~		~
 math.cabs~,cabs~		~~		~
 math.carg~,carg~		~~		~
 math.cbrt		.		.
