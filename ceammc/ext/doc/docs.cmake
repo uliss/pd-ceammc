@@ -340,6 +340,7 @@ set(DOC_FILES
     math.log
     math.log~
     math.log10
+    math.log10~
     math.log2
     math.log2~
     math.mul

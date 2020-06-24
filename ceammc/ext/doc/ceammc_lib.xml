@@ -1026,6 +1026,9 @@
     <entry descr="logarithm functions" name="math.log10" ref_view="object">
       <xi:include href="math.log10.pddoc" parse="xml"/>
     </entry>
+    <entry descr="natural logarithm" name="math.log10~" ref_view="object">
+      <xi:include href="math.log10~.pddoc" parse="xml"/>
+    </entry>
     <entry descr="logarithm functions" name="math.log2" ref_view="object">
       <xi:include href="math.log2.pddoc" parse="xml"/>
     </entry>
