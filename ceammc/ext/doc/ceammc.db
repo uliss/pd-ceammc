@@ -340,6 +340,7 @@ math.log		.		.
 math.log10		.		.
 math.log2		.		.
 math.log2~		~		~
+math.log~		~		~
 math.mul,math.*		..		.
 math.nan		.		.
 math.neg,-x		.		.

@@ -36,6 +36,7 @@
   - math.atan~ added
   - math.trunc~ added
   - math.log2~ added
+  - math.log~ added
 - complex math for signals added:
   - math.cabs~
   - math.carg~

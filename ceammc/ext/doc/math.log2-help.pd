@@ -20,7 +20,7 @@ of argument x to base 2\.;
 #X coords 0 4 100 -4 320 140 1;
 #X restore 280 233 graph;
 #X obj 50 262 list.seq -1 16 0.125;
-#X obj 50 291 math.log;
+#X obj 50 291 math.log2;
 #X obj 50 320 list->array LOG2;
 #X obj 20 395 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 400 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933

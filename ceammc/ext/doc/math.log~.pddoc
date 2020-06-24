@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <pddoc version="1.0">
-    <object name="math.log">
-        <title>math.log</title>
+    <object name="math.log~">
+        <title>math.log~</title>
         <meta>
             <authors>
                 <author>Serge Poltavsky</author>
@@ -12,38 +12,50 @@
             <category>math</category>
             <keywords>math log</keywords>
             <also>
-                <see>math.exp</see>
+                <see>math.exp~</see>
+                <see>math.log2</see>
             </also>
-            <since>0.1</since>
+            <since>0.9</since>
         </meta>
         <info>
-            <par>Computes the value of the natural logarithm of argument
-            x.</par>
+            <par>Outputs the value of the natural logarithm </par>
             <par>Special values:</par>
-            <par>log(+-0) return -infinity</par>
             <par>log(1) return +0.</par>
-            <par>log(x) return a NaN</par>
             <par>log(+infinity) return +infinity.</par>
         </info>
         <inlets>
-            <inlet>
-                <xinfo on="float">input value</xinfo>
-                <xinfo on="list">apply to all numeric values</xinfo>
+            <inlet type="audio">
+                <xinfo>input signal</xinfo>
             </inlet>
         </inlets>
         <outlets>
-            <outlet>result value</outlet>
+            <outlet type="audio">result signal</outlet>
         </outlets>
         <example>
             <pdascii>
 <![CDATA[
-[bang(                  [array LOG yr=-4..4 w=320]
+[B]
 |
-[list.seq -1 16 0.125]
-|
-[math.log]
-|
-[list->array LOG]
+[plot.linspace~ -4 30]
+|                 ^|
+[math.log~]        |
+|                  |.
+[ui.plot~ @xlabels 1 @ylabels 1 @ymin -5 @ymax 5 @size 400 200]
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+[ui.dsp~]
 ]]>
             </pdascii>
         </example>

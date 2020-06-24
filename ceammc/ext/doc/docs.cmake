@@ -338,6 +338,7 @@ set(DOC_FILES
     math.lgamma
     math.lgamma~
     math.log
+    math.log~
     math.log10
     math.log2
     math.log2~

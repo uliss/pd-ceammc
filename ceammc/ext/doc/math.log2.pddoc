@@ -39,7 +39,7 @@
 |
 [list.seq -1 16 0.125]
 |
-[math.log]
+[math.log2]
 |
 [list->array LOG2]
 ]]>
