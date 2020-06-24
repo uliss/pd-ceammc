@@ -339,6 +339,7 @@ math.lgamma~		~		~
 math.log		.		.
 math.log10		.		.
 math.log2		.		.
+math.log2~		~		~
 math.mul,math.*		..		.
 math.nan		.		.
 math.neg,-x		.		.
@@ -374,7 +375,7 @@ math.sync_sub,math.-',-'		..		.
 math.sync_xor,math.^',^'		..		.
 math.tan		.		.
 math.tanh		.		.
-math.trunc		.		.
+math.trunc		~		~
 math.trunc~		~		~
 matrix~		?		?
 metro.pattern		.		..

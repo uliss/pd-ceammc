@@ -1029,6 +1029,9 @@
     <entry descr="logarithm functions" name="math.log2" ref_view="object">
       <xi:include href="math.log2.pddoc" parse="xml"/>
     </entry>
+    <entry descr="base-2 logarithm" name="math.log2~" ref_view="object">
+      <xi:include href="math.log2~.pddoc" parse="xml"/>
+    </entry>
     <entry descr="multiplication (on lists too)" name="math.mul" ref_view="object">
       <xi:include href="math.mul.pddoc" parse="xml"/>
     </entry>

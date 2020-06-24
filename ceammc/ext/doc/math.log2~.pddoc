@@ -1,27 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
 <pddoc version="1.0">
-    <object name="math.trunc">
-        <title>math.trunc</title>
+    <object name="math.log2~">
+        <title>math.log2~</title>
         <meta>
             <authors>
                 <author>Serge Poltavsky</author>
             </authors>
-            <description>truncate to integer value</description>
+            <description>base-2 logarithm</description>
             <license>GPL3 or later</license>
             <library>ceammc</library>
             <category>math</category>
-            <keywords>math trunc</keywords>
+            <keywords>math log2</keywords>
             <also>
-                <see>math.ceil</see>
-                <see>math.floor</see>
-                <see>math.round</see>
-                <see>math.math</see>
+                <see>math.exp2~</see>
+                <see>math.log2</see>
             </also>
-            <since>0.1</since>
+            <since>0.9</since>
         </meta>
         <info>
-            <par>Outputs the integral value nearest to but no larger in
-            magnitude than x</par>
+            <par>Outputs the value of the logarithm of argument x to base
+            2</par>
+            <par>Special values:</par>
+            <par>log2(1) return +0.</par>
+            <par>log2(+infinity) return +infinity.</par>
         </info>
         <inlets>
             <inlet type="audio">
@@ -34,13 +35,28 @@
         <example>
             <pdascii>
 <![CDATA[
-[bang(                 [array TRUNC yr=-4..4 w=320]
+[B]
 |
-[list.seq -4 4 0.025]
-|
-[math.trunc]
-|
-[list->array TRUNC]
+[plot.linspace~ -5 32]
+|                 ^|
+[math.log2~]       |
+|                  |.
+[ui.plot~ @xlabels 1 @ylabels 1 @ymin -5 @ymax 5 @size 400 200]
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+[ui.dsp~]
 ]]>
             </pdascii>
         </example>
