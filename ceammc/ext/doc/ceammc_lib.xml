@@ -1152,6 +1152,9 @@
     <entry descr="hyperbolic tangent function" name="math.tanh" ref_view="object">
       <xi:include href="math.tanh.pddoc" parse="xml"/>
     </entry>
+    <entry descr="tangent function" name="math.tan~" ref_view="object">
+      <xi:include href="math.tan~.pddoc" parse="xml"/>
+    </entry>
     <entry descr="truncate to integer value" name="math.trunc" ref_view="object">
       <xi:include href="math.trunc.pddoc" parse="xml"/>
     </entry>

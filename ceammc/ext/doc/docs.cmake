@@ -379,6 +379,7 @@ set(DOC_FILES
     math.sync_sub
     math.sync_xor
     math.tan
+    math.tan~
     math.tanh
     math.trunc
     math.trunc~

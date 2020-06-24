@@ -38,6 +38,7 @@
   - math.log2~ added
   - math.log~ added
   - math.log10~ added
+  - math.tan~ added
 - complex math for signals added:
   - math.cabs~
   - math.carg~
@@ -51,6 +52,8 @@
   - conv.ms2samp~ (with ms->samp~ alias) added
 - chaos.gbman0 chaotic generator added
 - chaos.gbman0~ chaotic generator added
+- chaos.std0 chaotic generator added
+- chaos.std0~ chaotic generator added
 - list.contains @all_of, @any_of, @none_of, @sublist (default) properties added
 - list.resample (with alias list.r) added
 - is_data @in_list property added to search data inside list

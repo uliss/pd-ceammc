@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="math.tan~">
+        <title>math.tan~</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>tangent function</description>
+            <license>GPL3 or later</license>
+            <library>ceammc</library>
+            <category>math</category>
+            <keywords>math tan</keywords>
+            <also>
+                <see>math.tan~</see>
+                <see>math.asin</see>
+                <see>math.atan</see>
+            </also>
+            <since>0.9</since>
+        </meta>
+        <info>
+            <par>Outputs the tangent of x (measured in radians).</par>
+        </info>
+        <inlets>
+            <inlet type="audio">
+                <xinfo>input signal</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet type="audio">result signal</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[bang(
+|
+[plot.linspace~ -5 5 @pi #a]
+|
+[math.tan~]
+|
+[ui.plot~ @xlabels 1 @ylabels 1 @size 400 170 @ymin -5 @ymax 5 #b]
+
+
+
+
+
+
+
+
+
+
+
+
+[ui.dsp~]
+[X a:1->b:1]
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>
