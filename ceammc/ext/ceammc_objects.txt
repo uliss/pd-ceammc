@@ -608,6 +608,7 @@ plot.geomspace~
 plot.hist~
 plot.linspace~
 plot.logspace~
+plot.response~
 pol->car
 prepend
 preset.f
