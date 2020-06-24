@@ -35,15 +35,34 @@
         </inlets>
         <outlets>
             <outlet>outputs x-value</outlet>
+            <outlet>outputs y-value</outlet>
         </outlets>
         <example>
             <pdascii>
 <![CDATA[
-[bang(
+[T]         [ui.dsp~]
 |
-[chaos.gbman0]
+[metro 100]
 |
-[F digits=12]
+[3(
+|
+[list.gen] X [chaos.gbman0]
+|
+[l->l -2 7 100 250]
+|
+[list.unpack 3      ]
+|          ^|     ^^|
+[sig~]     [* 10]   [/ 250]
+|          |        |
+[lop~ 25]  [sig~]   [@res $1(
+|          |        |
+[osc.saw~] [lop~ 4] |
+|          |.       |
+[flt.moog_vcf~      ]
+|
+[ui.hgain~]
+| \
+[dac~]
 ]]>
             </pdascii>
         </example>

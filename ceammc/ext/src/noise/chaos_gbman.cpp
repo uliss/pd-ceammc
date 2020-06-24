@@ -21,14 +21,13 @@ constexpr t_float DEF_Y = 2.1;
 constexpr t_float MIN_FREQ = 0.001;
 constexpr long MIN_PERIOD = 1;
 
-static inline double gbman_next(double& xn, double& yn)
+static inline void gbman_next(double& xn, double& yn)
 {
     //    x(n+1) = 1 - y(n) + |x(n)|
     //    y(n+1) = x(n)
     double xn0 = xn;
     xn = 1 - yn + std::fabs(xn0);
     yn = xn0;
-    return xn;
 }
 
 ChaosGbman::ChaosGbman(const PdArgs& args)
@@ -37,11 +36,14 @@ ChaosGbman::ChaosGbman(const PdArgs& args)
     , yn_(positionalFloatArgumentT(1, DEF_Y))
 {
     createOutlet();
+    createOutlet();
 }
 
 void ChaosGbman::onBang()
 {
-    floatTo(0, gbman_next(xn_, yn_));
+    gbman_next(xn_, yn_);
+    floatTo(1, yn_);
+    floatTo(0, xn_);
 }
 
 void ChaosGbman::dump() const
@@ -58,6 +60,7 @@ ChaosGbmanTilde::ChaosGbmanTilde(const PdArgs& args)
     , counter_(0)
 {
     createSignalOutlet();
+    createSignalOutlet();
 }
 
 void ChaosGbmanTilde::processBlock(const t_sample** in, t_sample** out)
@@ -72,11 +75,12 @@ void ChaosGbmanTilde::processBlock(const t_sample** in, t_sample** out)
     for (size_t i = 0; i < BS; i++) {
         if (counter_ >= call_period) {
             counter_ -= call_period;
-            output = gbman_next(xn_, yn_);
+            gbman_next(xn_, yn_);
         }
 
         counter_++;
         out[0][i] = output;
+        out[1][i] = output;
     }
 }
 

@@ -34,7 +34,8 @@
             </inlet>
         </inlets>
         <outlets>
-            <outlet>outputs x value</outlet>
+            <outlet type="audio">outputs x value</outlet>
+            <outlet type="audio">outputs y value</outlet>
         </outlets>
         <example>
             <pdascii>
