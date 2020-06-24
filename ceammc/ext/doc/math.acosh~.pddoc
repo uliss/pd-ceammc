@@ -1,25 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
 <pddoc version="1.0">
-    <object name="math.asin~">
-        <title>math.asin~</title>
+    <object name="math.acosh~">
+        <title>math.acosh~</title>
         <meta>
             <authors>
                 <author>Serge Poltavsky</author>
             </authors>
-            <description>arc sine for signals</description>
+            <description>hyperbolic arc cosine for signals</description>
             <license>GPL3 or later</license>
             <library>ceammc</library>
             <category>math</category>
-            <keywords>math asin</keywords>
+            <keywords>math hyperbolic arc cosine</keywords>
             <also>
-                <see>math.asin</see>
-                <see>math.acos~</see>
+                <see>math.cosh~</see>
+                <see>math.acosh~</see>
             </also>
             <since>0.9</since>
         </meta>
         <info>
-            <par>Outputs the principle value of the arc sine of input
-            signal. The result is in the range [-pi/2, +pi/2]</par>
+            <par>Outputs the principle value of the hyperbolic arc cosine of input
+            signal. Input signal expected to be >= 1, otherwise output will be NAN</par>
         </info>
         <inlets>
             <inlet type="audio">
@@ -34,11 +34,11 @@
 <![CDATA[
 [B]
 |
-[plot.linspace~ -1 1 @pi]
+[plot.linspace~ 0 15]
 |                 ^|
-[math.asin~]       |
+[math.acosh~]      |
 |                  |.
-[ui.plot~ @xlabels 1 @ylabels 1 @ymin -1.6 @ymax 1.6 @ymin_ticks 0 @ymaj_ticks 0 @size 200 200]
+[ui.plot~ @xlabels 1 @ylabels 1 @ymin -1 @ymax 4 @ymin_ticks 0 @ymaj_ticks 0 @size 400 200]
 
 
 

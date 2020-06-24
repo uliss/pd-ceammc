@@ -301,6 +301,7 @@ set(DOC_FILES
     math.acos
     math.acos~
     math.acosh
+    math.acosh~
     math.and
     math.approx
     math.asin

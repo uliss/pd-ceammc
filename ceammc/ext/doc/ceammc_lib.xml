@@ -912,6 +912,9 @@
     <entry descr="inverse hyperbolic cosine function" name="math.acosh" ref_view="object">
       <xi:include href="math.acosh.pddoc" parse="xml"/>
     </entry>
+    <entry descr="hyperbolic arc cosine for signals" name="math.acosh~" ref_view="object">
+      <xi:include href="math.acosh~.pddoc" parse="xml"/>
+    </entry>
     <entry descr="arc cosine function for signals" name="math.acos~" ref_view="object">
       <xi:include href="math.acos~.pddoc" parse="xml"/>
     </entry>

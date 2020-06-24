@@ -299,6 +299,7 @@ math.abs		.		.
 math.abs~		~		~
 math.acos		~		~
 math.acosh		.		.
+math.acosh~		~		~
 math.acos~		~		~
 math.and,and		?		.
 math.approx,approx		...		.

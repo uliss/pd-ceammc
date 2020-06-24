@@ -39,6 +39,7 @@
   - math.log~ added
   - math.log10~ added
   - math.tan~ added
+  - math.acosh~ added
 - complex math for signals added:
   - math.cabs~
   - math.carg~
