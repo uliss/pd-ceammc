@@ -16,6 +16,9 @@
                 <see>plot.geomspace~</see>
                 <see>plot.response~</see>
             </also>
+            <aliases>
+                <alias>hist~</alias>
+            </aliases>
             <since>0.9</since>
         </meta>
         <arguments>

@@ -69,7 +69,7 @@
 - plot.linspace~ added
 - plot.logspace~ added
 - plot.geomspace~ added
-- plot.hist~ added
+- plot.hist~ added (with hist~ alias)
 - ui.plot~ added
 
 ## [0.8]
