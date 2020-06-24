@@ -30,6 +30,7 @@ set(DOC_FILES
     chaos.gbman0
     chaos.gbman0~
     chaos.std0
+    chaos.std0~
     click~
     conv.amp2dbfs
     conv.amp2dbfs~

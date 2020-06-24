@@ -28,7 +28,7 @@ constexpr t_float DEF_Y = 0;
 
 static inline t_sample wrap_pi(t_sample x)
 {
-    return (x - PI) * RECIP_2PI;
+    return x * RECIP_2PI;
 }
 
 static inline void standard_next(double k, double& xn, double& yn)

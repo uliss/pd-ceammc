@@ -29,6 +29,7 @@ canvas.top		.		.
 chaos.gbman0		.		..
 chaos.gbman0~		~		~~
 chaos.std0		.		..
+chaos.std0~		~~		~~
 click~		.		~
 conv.amp2dbfs,amp->dbfs		.		.
 conv.amp2dbfs~,amp->dbfs~		~		~
