@@ -25,6 +25,7 @@ class PlotHistTilde : public SoundExternal {
     IntProperty* nbins_;
     FloatProperty* min_;
     FloatProperty* max_;
+    BoolProperty* clip_;
     std::vector<uint32_t> buf_;
     ClockLambdaFunction clock_;
     int phase_;

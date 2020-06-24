@@ -426,6 +426,7 @@ path.exists		.		.
 path.is_dir		.		..
 path.lsdir,path.ls		.		.
 plot.geomspace~		.		~.
+plot.hist~		~		~.
 plot.linspace~		.		~.
 plot.logspace~		.		~.
 preset.float,preset.f		.		.

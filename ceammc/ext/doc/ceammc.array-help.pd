@@ -43,12 +43,14 @@
 #X obj 30 629 plot.geomspace~;
 #X text 200 629 outputs numbers spaced evenly on a log scale (a geometric
 progression);
-#X obj 30 669 plot.linspace~;
-#X text 200 669 outputs numbers spaced evenly spaced over a specified
+#X obj 30 669 plot.hist~;
+#X text 200 669 calculate and output signal histogram;
+#X obj 30 696 plot.linspace~;
+#X text 200 696 outputs numbers spaced evenly spaced over a specified
 interval;
-#X obj 30 709 plot.logspace~;
-#X text 200 709 outputs numbers spaced evenly on a log scale;
+#X obj 30 736 plot.logspace~;
+#X text 200 736 outputs numbers spaced evenly on a log scale;
 #X obj 1 1 cnv 5 740 40 empty empty ceammc::array 20 20 0 20 -104026
 -4096 0;
-#X obj 1 736 cnv 5 740 40 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 20 746 library: ceammc;
+#X obj 1 763 cnv 5 740 40 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 20 773 library: ceammc;

@@ -69,6 +69,9 @@
     <entry descr="outputs numbers spaced evenly on a log scale (a geometric progression)" name="plot.geomspace~" ref_view="object">
       <xi:include href="plot.geomspace~.pddoc" parse="xml"/>
     </entry>
+    <entry descr="calculate and output signal histogram" name="plot.hist~" ref_view="object">
+      <xi:include href="plot.hist~.pddoc" parse="xml"/>
+    </entry>
     <entry descr="outputs numbers spaced evenly spaced over a specified interval" name="plot.linspace~" ref_view="object">
       <xi:include href="plot.linspace~.pddoc" parse="xml"/>
     </entry>

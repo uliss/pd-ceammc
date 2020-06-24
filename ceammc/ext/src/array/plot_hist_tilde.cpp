@@ -16,7 +16,7 @@
 #include "ceammc_factory.h"
 #include "fmt/format.h"
 
-constexpr size_t NBINS_DEFAULT = 128;
+constexpr size_t NBINS_DEFAULT = 63;
 
 PlotHistTilde::PlotHistTilde(const PdArgs& args)
     : SoundExternal(args)
@@ -24,6 +24,7 @@ PlotHistTilde::PlotHistTilde(const PdArgs& args)
     , nbins_(nullptr)
     , min_(nullptr)
     , max_(nullptr)
+    , clip_(nullptr)
     , buf_(NBINS_DEFAULT + 1)
     , clock_([this] {
         state_ = OUTPUT;
@@ -32,7 +33,6 @@ PlotHistTilde::PlotHistTilde(const PdArgs& args)
     })
     , phase_(0)
 {
-    createInlet();
     createSignalOutlet();
     createOutlet();
 
@@ -43,7 +43,6 @@ PlotHistTilde::PlotHistTilde(const PdArgs& args)
 
     nbins_ = new IntProperty("@nbins", NBINS_DEFAULT);
     nbins_->checkClosedRange(8, 512);
-    //    nbins_->setSuccessFn([this](Property*) { buf_.resize(nbins_->value()); });
     addProperty(nbins_);
 
     min_ = new FloatProperty("@min", -1);
@@ -51,6 +50,9 @@ PlotHistTilde::PlotHistTilde(const PdArgs& args)
 
     max_ = new FloatProperty("@max", 1);
     addProperty(max_);
+
+    clip_ = new BoolProperty("@clip", true);
+    addProperty(clip_);
 }
 
 void PlotHistTilde::onBang()
@@ -82,7 +84,7 @@ void PlotHistTilde::processBlock(const t_sample** in, t_sample** out)
         const t_sample a = min_->value();
         const t_sample b = max_->value();
         const t_sample r = b - a;
-        const bool do_clip = true;
+        const bool do_clip = clip_->value();
 
         for (size_t i = 0; i < BS; i++, phase_++) {
             if (phase_ < NSAMP) {

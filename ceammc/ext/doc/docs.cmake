@@ -426,6 +426,7 @@ set(DOC_FILES
     path.exists
     path.is_dir
     path.lsdir
+    plot.hist~
     plot.geomspace~
     plot.linspace~
     plot.logspace~
