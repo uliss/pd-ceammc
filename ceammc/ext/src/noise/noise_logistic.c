@@ -66,13 +66,9 @@ void logistic_set(logistic* x, t_symbol* msg, short argc, t_atom* argv) //input 
 
         if (argc > 1) {
             if (argv[1].a_type == A_FLOAT)
-                x->lambda = argv[1].a_w.w_float;
-            if (argv[1].a_type == A_FLOAT)
                 x->lambda = (double)argv[1].a_w.w_float;
         }
         if (argc > 0) {
-            if (argv[0].a_type == A_FLOAT)
-                x->seedinit = argv[0].a_w.w_float;
             if (argv[0].a_type == A_FLOAT)
                 x->seedinit = (double)argv[0].a_w.w_float;
 
@@ -135,10 +131,12 @@ void logistic_free() {}
 void setup_noise0x2elogistic()
 {
 
-    logistic_class = class_new(gensym("noise.logistic"),
+    logistic_class = class_new(gensym("chaos.logistic"),
         (t_newmethod)(logistic_new),
         (t_method)(logistic_free),
         sizeof(logistic), 0, A_GIMME, 0);
+
+    class_addcreator((t_newmethod)(logistic_new), gensym("noise.logistic"), A_GIMME, 0);
 
     class_addbang(logistic_class, (t_method)logistic_bang);
 
@@ -149,5 +147,3 @@ void setup_noise0x2elogistic()
     class_addmethod(logistic_class, (t_method)logistic_seed, gensym("seed"), A_DEFFLOAT, 0);
     class_addmethod(logistic_class, (t_method)logistic_om, gensym("om"), A_DEFFLOAT, 0);
 }
-
-

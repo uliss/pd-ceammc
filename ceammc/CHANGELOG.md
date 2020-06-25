@@ -60,6 +60,8 @@
 - chaos.gbman0~ chaotic generator added
 - chaos.std0 chaotic generator added
 - chaos.std0~ chaotic generator added
+- chaos.logistic alias added for noise.logistic
+- noise.logistic documentation added
 - list.contains @all_of, @any_of, @none_of, @sublist (default) properties added
 - list.resample (with alias list.r) added
 - is_data @in_list property added to search data inside list

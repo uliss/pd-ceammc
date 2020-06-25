@@ -130,6 +130,9 @@
     <entry descr="Gingerbreadman map chaotic generator" name="chaos.gbman0~" ref_view="object">
       <xi:include href="chaos.gbman0~.pddoc" parse="xml"/>
     </entry>
+    <entry descr="Logistic map chaotic generator" name="chaos.logistic" ref_view="object">
+      <xi:include href="chaos.logistic.pddoc" parse="xml"/>
+    </entry>
     <entry descr="Standard map chaotic generator" name="chaos.std0" ref_view="object">
       <xi:include href="chaos.std0.pddoc" parse="xml"/>
     </entry>
@@ -1738,6 +1741,7 @@
     <authors>
       <author>Albert Graef</author>
       <author>Alex Nadzharov</author>
+      <author>André Sier</author>
       <author>Eliott Paris</author>
       <author>Hans-Christoph Steiner</author>
       <author>Julian Parker</author>
