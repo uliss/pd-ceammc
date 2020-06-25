@@ -314,6 +314,7 @@ math.atan~		~		~
 math.cabs~,cabs~		~~		~
 math.carg~,carg~		~~		~
 math.cbrt		.		.
+math.cbrt~		~		~
 math.cdiv~,cdiv~		~~~~		~~
 math.ceil		.		.
 math.ceil~		~		~

@@ -44,6 +44,7 @@
   - math.atan~ added
   - math.tanh~ added
   - math.atanh~ added
+  - math.cbrt~ added
 - complex math for signals added:
   - math.cabs~
   - math.carg~

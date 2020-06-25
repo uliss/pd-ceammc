@@ -957,6 +957,9 @@
     <entry descr="cube root function" name="math.cbrt" ref_view="object">
       <xi:include href="math.cbrt.pddoc" parse="xml"/>
     </entry>
+    <entry descr="cube root function for signals" name="math.cbrt~" ref_view="object">
+      <xi:include href="math.cbrt~.pddoc" parse="xml"/>
+    </entry>
     <entry descr="division of complex signals" name="math.cdiv~" ref_view="object">
       <xi:include href="math.cdiv~.pddoc" parse="xml"/>
     </entry>

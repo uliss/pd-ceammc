@@ -315,6 +315,7 @@ set(DOC_FILES
     math.cabs~
     math.carg~
     math.cbrt
+    math.cbrt~
     math.cdiv~
     math.ceil
     math.ceil~
