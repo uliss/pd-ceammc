@@ -382,6 +382,7 @@ math.sync_sub,math.-',-'		..		.
 math.sync_xor,math.^',^'		..		.
 math.tan		.		.
 math.tanh		.		.
+math.tanh~		~		~
 math.tan~		~		~
 math.trunc		~		~
 math.trunc~		~		~

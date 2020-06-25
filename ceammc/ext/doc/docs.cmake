@@ -384,6 +384,7 @@ set(DOC_FILES
     math.tan
     math.tan~
     math.tanh
+    math.tanh~
     math.trunc
     math.trunc~
     matrix~
