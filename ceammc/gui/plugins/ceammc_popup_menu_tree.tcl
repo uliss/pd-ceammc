@@ -38,14 +38,15 @@
         array.bpm array.copy array.do array.each array.fill array.hist
         array.mean array.minmax array.plot~ array.resample array.rms array.set
         array.stddev array.stretch array.sum array.sum2 array.variance
-        array.vplay array.window plot.geomspace~ plot.linspace~ plot.logspace~
+        array.vplay array.window plot.geomspace~ plot.hist~ plot.linspace~
+        plot.logspace~
     }}
     {base {
         function function.call gain~ matrix~ metro.pattern metro.random
         metro.seq mix~ obj.props radio window xdac~ xfade2~ xfade~
     }}
     {chaos {
-        chaos.gbman0 chaos.gbman0~
+        chaos.gbman0 chaos.gbman0~ chaos.std0 chaos.std0~
     }}
     {conv {
         array.p2s array.s2p conv.amp2dbfs conv.amp2dbfs~ conv.bpm2hz
@@ -127,21 +128,22 @@
         local.dict local.float local.int local.list local.mlist local.set
     }}
     {math {
-        math.abs math.abs~ math.acos math.acosh math.acos~ math.and
-        math.approx math.asin math.asinh math.asin~ math.atan math.atanh
-        math.atan~ math.cabs~ math.carg~ math.cbrt math.cdiv~ math.ceil
-        math.ceil~ math.cexp~ math.cmul~ math.cos math.cosh math.cosh~
-        math.cos~ math.div math.e math.erf math.erf~ math.exp math.exp2
-        math.exp2~ math.expr math.exp~ math.floor math.floor~ math.gamma
-        math.gamma~ math.gcd math.inf math.lcm math.lgamma math.lgamma~
-        math.log math.log10 math.log10~ math.log2 math.log2~ math.log~
-        math.mul math.nan math.neg math.or math.pi math.pi~ math.polyeval
-        math.reciprocal math.reciprocal~ math.round math.round~ math.sign
-        math.sin math.sinh math.sin~ math.sqrt math.sqrt~ math.squared
-        math.squared~ math.sync_add math.sync_and math.sync_div math.sync_eq
-        math.sync_ge math.sync_gt math.sync_le math.sync_lt math.sync_mod
-        math.sync_mul math.sync_ne math.sync_or math.sync_sub math.sync_xor
-        math.tan math.tanh math.trunc math.trunc~
+        math.abs math.abs~ math.acos math.acosh math.acosh~ math.acos~
+        math.and math.approx math.asin math.asinh math.asinh~ math.asin~
+        math.atan math.atanh math.atanh~ math.atan~ math.cabs~ math.carg~
+        math.cbrt math.cbrt~ math.cdiv~ math.ceil math.ceil~ math.cexp~
+        math.cmul~ math.cos math.cosh math.cosh~ math.cos~ math.div math.e
+        math.erf math.erf~ math.exp math.exp2 math.exp2~ math.expr math.exp~
+        math.floor math.floor~ math.gamma math.gamma~ math.gcd math.inf
+        math.lcm math.lgamma math.lgamma~ math.log math.log10 math.log10~
+        math.log2 math.log2~ math.log~ math.mul math.nan math.neg math.or
+        math.pi math.pi~ math.polyeval math.reciprocal math.reciprocal~
+        math.round math.round~ math.sign math.sin math.sinh math.sinh~
+        math.sin~ math.sqrt math.sqrt~ math.squared math.squared~
+        math.sync_add math.sync_and math.sync_div math.sync_eq math.sync_ge
+        math.sync_gt math.sync_le math.sync_lt math.sync_mod math.sync_mul
+        math.sync_ne math.sync_or math.sync_sub math.sync_xor math.tan
+        math.tanh math.tanh~ math.tan~ math.trunc math.trunc~
     }}
     {midi {
         midi.ctl2str midi.event2ctl midi.event2note midi.event2prg midi.file
