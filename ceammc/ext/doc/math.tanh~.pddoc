@@ -18,9 +18,9 @@
             <since>0.9</since>
         </meta>
         <info>
-            <par>Outputs hyperbolic tangent of input
-            signal</par>
-            <a href="https://en.wikipedia.org/wiki/Hyperbolic_functions">wiki: Hyperbolic functions</a>
+            <par>Outputs hyperbolic tangent of input signal</par>
+            <a href="https://en.wikipedia.org/wiki/Hyperbolic_functions">wiki: Hyperbolic
+            functions</a>
         </info>
         <inlets>
             <inlet type="audio">

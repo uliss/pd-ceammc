@@ -20,8 +20,7 @@
             <since>0.1</since>
         </meta>
         <info>
-            <par>Outputs the integral value nearest to but no larger in
-            magnitude than x</par>
+            <par>Outputs the integral value nearest to but no larger in magnitude than x</par>
         </info>
         <inlets>
             <inlet type="audio">

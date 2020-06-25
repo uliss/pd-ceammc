@@ -18,9 +18,9 @@
             <since>0.9</since>
         </meta>
         <info>
-            <par>Outputs the principle value of the hyperbolic arc sine of input
-            signal</par>
-            <a href="https://en.wikipedia.org/wiki/Inverse_hyperbolic_functions">wiki: Inverse hyperbolic functions</a>
+            <par>Outputs the principle value of the hyperbolic arc sine of input signal</par>
+            <a href="https://en.wikipedia.org/wiki/Inverse_hyperbolic_functions">wiki: Inverse
+            hyperbolic functions</a>
         </info>
         <inlets>
             <inlet type="audio">

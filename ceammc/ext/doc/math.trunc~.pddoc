@@ -19,9 +19,9 @@
             <since>0.9</since>
         </meta>
         <info>
-            <par>Outputs the integral value nearest to but no larger in
-            magnitude than x</par>
-            <a href="https://en.wikipedia.org/wiki/Floor_and_ceiling_functions">wiki: Floor and ceiling functions</a>
+            <par>Outputs the integral value nearest to but no larger in magnitude than x</par>
+            <a href="https://en.wikipedia.org/wiki/Floor_and_ceiling_functions">wiki: Floor and
+            ceiling functions</a>
         </info>
         <inlets>
             <inlet type="audio">

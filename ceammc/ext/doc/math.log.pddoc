@@ -17,8 +17,7 @@
             <since>0.1</since>
         </meta>
         <info>
-            <par>Computes the value of the natural logarithm of argument
-            x.</par>
+            <par>Computes the value of the natural logarithm of argument x.</par>
             <par>Special values:</par>
             <par>log(+-0) return -infinity</par>
             <par>log(1) return +0.</par>

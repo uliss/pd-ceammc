@@ -20,7 +20,8 @@
             <since>0.9</since>
         </meta>
         <info>
-            <a href="https://en.wikipedia.org/wiki/Floor_and_ceiling_functions">wiki: Floor and ceiling functions</a>
+            <a href="https://en.wikipedia.org/wiki/Floor_and_ceiling_functions">wiki: Floor and
+            ceiling functions</a>
         </info>
         <inlets>
             <inlet type="audio">

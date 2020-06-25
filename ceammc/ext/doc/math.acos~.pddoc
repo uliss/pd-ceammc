@@ -17,8 +17,8 @@
             <since>0.9</since>
         </meta>
         <info>
-            <par>Outputs the principle value of the arc cosine of input
-            signal. The result is in the range [0, pi]</par>
+            <par>Outputs the principle value of the arc cosine of input signal. The result is in
+            the range [0, pi]</par>
         </info>
         <inlets>
             <inlet type="audio">

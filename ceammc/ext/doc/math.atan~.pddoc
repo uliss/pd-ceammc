@@ -18,8 +18,7 @@
             <since>0.9</since>
         </meta>
         <info>
-            <par>Outputs arc tangent of input
-            signal. The result is in the range [-π/2, +π/2]</par>
+            <par>Outputs arc tangent of input signal. The result is in the range [-π/2, +π/2]</par>
         </info>
         <inlets>
             <inlet type="audio">

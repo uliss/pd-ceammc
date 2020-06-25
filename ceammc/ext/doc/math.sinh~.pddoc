@@ -18,10 +18,10 @@
             <since>0.9</since>
         </meta>
         <info>
-            <par>Outputs hyperbolic sine of input
-            signal</par>
+            <par>Outputs hyperbolic sine of input signal</par>
             <par>sinh x = (ℯˣ - ℯ⁻ˣ)/2</par>
-            <a href="https://en.wikipedia.org/wiki/Hyperbolic_functions">wiki: Hyperbolic functions</a>
+            <a href="https://en.wikipedia.org/wiki/Hyperbolic_functions">wiki: Hyperbolic
+            functions</a>
         </info>
         <inlets>
             <inlet type="audio">

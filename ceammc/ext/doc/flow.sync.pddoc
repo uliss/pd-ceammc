@@ -20,9 +20,9 @@
             </also>
         </meta>
         <info>
-            <par>Sync data flow. All inlets are 'hot'. When float, symbol or list arrives to
-            inlet, it's value stored. Then output all stored values from all inlets from rightmost
-            to leftmost</par>
+            <par>Sync data flow. All inlets are 'hot'. When float, symbol or list arrives to inlet,
+            it's value stored. Then output all stored values from all inlets from rightmost to
+            leftmost</par>
         </info>
         <arguments>
             <argument type="int" minvalue="1" maxvalue="16" name="N">Number of
