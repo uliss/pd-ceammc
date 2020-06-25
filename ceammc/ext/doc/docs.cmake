@@ -311,6 +311,7 @@ set(DOC_FILES
     math.atan
     math.atan~
     math.atanh
+    math.atanh~
     math.cabs~
     math.carg~
     math.cbrt
