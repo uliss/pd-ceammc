@@ -360,6 +360,7 @@ math.round~,round~		.		.
 math.sign		.		.
 math.sin		.		.
 math.sinh		.		.
+math.sinh~		~		~
 math.sin~		~		~
 math.sqrt		.		.
 math.sqrt~		~		~

@@ -1095,6 +1095,9 @@
     <entry descr="hyperbolic sine function" name="math.sinh" ref_view="object">
       <xi:include href="math.sinh.pddoc" parse="xml"/>
     </entry>
+    <entry descr="hyperbolic sine for signals" name="math.sinh~" ref_view="object">
+      <xi:include href="math.sinh~.pddoc" parse="xml"/>
+    </entry>
     <entry descr="sine function" name="math.sin~" ref_view="object">
       <xi:include href="math.sin~.pddoc" parse="xml"/>
     </entry>

@@ -362,6 +362,7 @@ set(DOC_FILES
     math.sin
     math.sin~
     math.sinh
+    math.sinh~
     math.sqrt
     math.sqrt~
     math.squared
