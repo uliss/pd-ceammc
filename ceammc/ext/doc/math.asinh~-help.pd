@@ -9,7 +9,7 @@
 #X text 215 80 Outputs the principle value of the hyperbolic arc sine
 of input signal;
 #X obj 215 120 ui.link @background_color 0.98039 0.98039 0.98039
-@title wiki: Inverse hyperbolic functions @url
+@title wiki: Inverse             hyperbolic functions @url
 https://en.wikipedia.org/wiki/Inverse_hyperbolic_functions;
 #X obj 50 181 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
 -1;

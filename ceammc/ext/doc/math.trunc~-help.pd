@@ -9,7 +9,7 @@
 #X text 215 80 Outputs the integral value nearest to but no larger
 in magnitude than x;
 #X obj 215 120 ui.link @background_color 0.98039 0.98039 0.98039
-@title wiki: Floor and ceiling functions @url
+@title wiki: Floor and             ceiling functions @url
 https://en.wikipedia.org/wiki/Floor_and_ceiling_functions;
 #X msg 50 181 bang;
 #X obj 50 210 plot.linspace~ -3 3;

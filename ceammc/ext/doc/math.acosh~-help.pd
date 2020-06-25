@@ -10,7 +10,7 @@
 of input signal. Input signal expected to be >= 1 \, otherwise output
 will be NAN;
 #X obj 215 135 ui.link @background_color 0.98039 0.98039 0.98039
-@title wiki: Inverse hyperbolic functions @url
+@title wiki: Inverse             hyperbolic functions @url
 https://en.wikipedia.org/wiki/Inverse_hyperbolic_functions;
 #X obj 50 196 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
 -1;
