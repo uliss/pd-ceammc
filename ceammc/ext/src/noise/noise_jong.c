@@ -63,10 +63,7 @@ static t_class* jong_class;
 
 void* jong_new(t_symbol* msg, short argc, t_atom* argv) //input the args
 {
-    jong* x;
-    int i;
-
-    x = (jong*)pd_new(jong_class);
+    jong* x = (jong*)pd_new(jong_class);
 
     x->c_out2 = outlet_new(&x->x_obj, &s_float);
     x->c_out = outlet_new(&x->x_obj, &s_float);
@@ -102,23 +99,17 @@ void jong_set(jong* x, t_symbol* msg, short argc, t_atom* argv) //input the args
         if (argc > 5) {
             if (argv[5].a_type == A_FLOAT)
                 x->nyinit = (double)argv[5].a_w.w_float;
-            else if (argv[5].a_type == A_FLOAT)
-                x->nyinit = (double)argv[5].a_w.w_float;
             x->ny = x->nyinit;
         }
 
         if (argc > 4) {
             if (argv[4].a_type == A_FLOAT)
                 x->nxinit = (double)argv[4].a_w.w_float;
-            else if (argv[4].a_type == A_FLOAT)
-                x->nyinit = (double)argv[4].a_w.w_float;
             x->nx = x->nxinit;
         }
 
         if (argc > 3) {
             if (argv[3].a_type == A_FLOAT)
-                x->dinit = (double)argv[3].a_w.w_float;
-            else if (argv[3].a_type == A_FLOAT)
                 x->dinit = (double)argv[3].a_w.w_float;
             x->d = x->dinit;
         }
@@ -126,23 +117,17 @@ void jong_set(jong* x, t_symbol* msg, short argc, t_atom* argv) //input the args
         if (argc > 2) {
             if (argv[2].a_type == A_FLOAT)
                 x->cinit = (double)argv[2].a_w.w_float;
-            else if (argv[2].a_type == A_FLOAT)
-                x->cinit = (double)argv[2].a_w.w_float;
             x->c = x->cinit;
         }
 
         if (argc > 1) {
             if (argv[1].a_type == A_FLOAT)
                 x->binit = (double)argv[1].a_w.w_float;
-            else if (argv[1].a_type == A_FLOAT)
-                x->binit = (double)argv[1].a_w.w_float;
             x->b = x->binit;
         }
 
         if (argc > 0) {
             if (argv[0].a_type == A_FLOAT)
-                x->ainit = (double)argv[0].a_w.w_float;
-            else if (argv[0].a_type == A_FLOAT)
                 x->ainit = (double)argv[0].a_w.w_float;
             x->a = x->ainit;
         }
@@ -238,10 +223,12 @@ void jong_free() {}
 void setup_noise0x2ejong()
 {
 
-    jong_class = class_new(gensym("noise.jong"),
+    jong_class = class_new(gensym("chaos.jong"),
         (t_newmethod)(jong_new),
         (t_method)(jong_free),
         sizeof(jong), 0, A_GIMME, 0);
+
+    class_addcreator((t_newmethod)(jong_new), gensym("noise.jong"), A_GIMME, 0);
 
     class_addbang(jong_class, (t_method)jong_bang);
     class_addmethod(jong_class, (t_method)jong_reset, gensym("reset"), A_GIMME, 0);
@@ -254,5 +241,3 @@ void setup_noise0x2ejong()
     class_addmethod(jong_class, (t_method)jong_d, gensym("d"), A_DEFFLOAT, 0);
     class_addmethod(jong_class, (t_method)jong_om, gensym("om"), A_DEFFLOAT, 0);
 }
-
-
