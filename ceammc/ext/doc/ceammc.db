@@ -28,6 +28,7 @@ canvas.path		.		.
 canvas.top		.		.
 chaos.gbman0		.		..
 chaos.gbman0~		~		~~
+chaos.jong,noise.jong		.		..
 chaos.logistic,noise.logistic		.		.
 chaos.std0		.		..
 chaos.std0~		~~		~~

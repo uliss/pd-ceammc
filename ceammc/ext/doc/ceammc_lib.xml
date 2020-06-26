@@ -130,6 +130,9 @@
     <entry descr="Gingerbreadman map chaotic generator" name="chaos.gbman0~" ref_view="object">
       <xi:include href="chaos.gbman0~.pddoc" parse="xml"/>
     </entry>
+    <entry descr="Peter de Jong attractor" name="chaos.jong" ref_view="object">
+      <xi:include href="chaos.jong.pddoc" parse="xml"/>
+    </entry>
     <entry descr="Logistic map chaotic generator" name="chaos.logistic" ref_view="object">
       <xi:include href="chaos.logistic.pddoc" parse="xml"/>
     </entry>
