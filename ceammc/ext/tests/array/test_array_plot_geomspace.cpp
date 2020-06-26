@@ -33,7 +33,7 @@ TEST_CASE("plot.geomspace~", "[externals]")
             REQUIRE(t.numOutlets() == 2);
 
             REQUIRE_PROPERTY(t, @start, 0.1);
-            REQUIRE_PROPERTY(t, @stop, 10);
+            REQUIRE_PROPERTY(t, @stop, 100);
             REQUIRE_PROPERTY(t, @n, 100);
             REQUIRE_PROPERTY(t, @base, 10);
             REQUIRE_PROPERTY(t, @endpoint, 1);
@@ -67,7 +67,7 @@ TEST_CASE("plot.geomspace~", "[externals]")
         TExt t("plot.geomspace~");
 
         WHEN_SEND_BANG_TO(0, t);
-        REQUIRE(listAt(t, 1_out) == LA(100, 0.1, 10, 10));
+        REQUIRE(listAt(t, 1_out) == LA(100, 0.1, 100, 10));
     }
 
     SECTION("dsp")
