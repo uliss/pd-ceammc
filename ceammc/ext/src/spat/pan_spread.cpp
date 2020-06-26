@@ -9,12 +9,17 @@
 constexpr int DEF_NCHAN = 2;
 constexpr int MIN_NCHAN = 2;
 constexpr int MAX_NCHAN = 16;
+constexpr t_float SPREAD_DEFAULT = 1;
+constexpr t_float CENTER_DEFAULT = 0;
 
 PanSpread::PanSpread(const PdArgs& args)
     : SoundExternal(args)
     , channels_(nullptr)
     , compensate_(nullptr)
 {
+    spread_.setTargetValue(SPREAD_DEFAULT);
+    center_.setTargetValue(CENTER_DEFAULT);
+
     channels_ = new IntProperty("@ch", DEF_NCHAN);
     channels_->checkClosedRange(MIN_NCHAN, MAX_NCHAN);
     channels_->setArgIndex(0);
@@ -31,8 +36,6 @@ PanSpread::PanSpread(const PdArgs& args)
         [this]() -> t_float { return spread_.target(); },
         [this](t_float f) -> bool { spread_.setTargetValue(f); return true; })
         ->setFloatCheck(PropValueConstraints::CLOSED_RANGE, 0, 1);
-
-    spread_.setTargetValue(1);
 
     compensate_ = new BoolProperty("@compensate", false);
     addProperty(compensate_);
@@ -64,8 +67,7 @@ void PanSpread::initDone()
 
     spread_.setDurationMs(5, samplerate());
     center_.setDurationMs(5, samplerate());
-    spread_.setTargetValue(1);
-    center_.setTargetValue(0);
+
     calcCoefficents();
 }
 

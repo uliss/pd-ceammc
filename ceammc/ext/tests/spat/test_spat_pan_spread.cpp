@@ -16,8 +16,6 @@
 
 PD_COMPLETE_SND_TEST_SETUP(PanSpread, pan, spread)
 
-typedef TestSoundExternal<PanSpread> PanSpreadTest;
-
 using namespace ceammc;
 
 TEST_CASE("pan.spread~", "[externals]")
@@ -29,7 +27,7 @@ TEST_CASE("pan.spread~", "[externals]")
     {
         SECTION("default")
         {
-            PanSpreadTest t("pan.spread~", L(), true);
+            TExt t("pan.spread~", L(), true);
             REQUIRE_PROPERTY(t, @ch, 2);
             REQUIRE_PROPERTY(t, @spread, 1);
             REQUIRE_PROPERTY(t, @center, 0.f);
@@ -43,7 +41,7 @@ TEST_CASE("pan.spread~", "[externals]")
 
         SECTION("num")
         {
-            PanSpreadTest t("pan.spread~", LF(3), true);
+            TExt t("pan.spread~", LF(3), true);
             REQUIRE_PROPERTY(t, @ch, 3);
 
             REQUIRE(t.numInlets() == 3);
@@ -54,48 +52,54 @@ TEST_CASE("pan.spread~", "[externals]")
 
         SECTION("prop")
         {
-            PanSpreadTest t("pan.spread~", LA("@ch", 6), true);
+            TExt t("pan.spread~", LA("@ch", 6), true);
             REQUIRE_PROPERTY(t, @ch, 6);
 
             REQUIRE(t.numInlets() == 6);
             REQUIRE(t.numInputChannels() == 6);
         }
 
+        SECTION("spread")
+        {
+            TExt t("pan.spread~", LA("@spread", 0.1), true);
+            REQUIRE_PROPERTY(t, @spread, 0.1);
+        }
+
         SECTION("invalid")
         {
             SECTION("min")
             {
-                PanSpreadTest t("pan.spread~", LF(1), true);
+                TExt t("pan.spread~", LF(1), true);
                 REQUIRE_PROPERTY(t, @ch, 2);
             }
 
             SECTION("max")
             {
-                PanSpreadTest t("pan.spread~", LF(32), true);
+                TExt t("pan.spread~", LF(32), true);
                 REQUIRE_PROPERTY(t, @ch, 2);
             }
 
             SECTION("min prop")
             {
-                PanSpreadTest t("pan.spread~", LA("@ch", -6), true);
+                TExt t("pan.spread~", LA("@ch", -6), true);
                 REQUIRE_PROPERTY(t, @ch, 2);
             }
 
             SECTION("max prop")
             {
-                PanSpreadTest t("pan.spread~", LA("@ch", 32), true);
+                TExt t("pan.spread~", LA("@ch", 32), true);
                 REQUIRE_PROPERTY(t, @ch, 2);
             }
 
             SECTION("other")
             {
-                PanSpreadTest t("pan.spread~", LA("ABC"), true);
+                TExt t("pan.spread~", LA("ABC"), true);
                 REQUIRE_PROPERTY(t, @ch, 2);
             }
 
             SECTION("mixed")
             {
-                PanSpreadTest t("pan.spread~", LA(5, "@ch", 3), true);
+                TExt t("pan.spread~", LA(5, "@ch", 3), true);
                 REQUIRE_PROPERTY(t, @ch, 3);
             }
         }
@@ -103,7 +107,7 @@ TEST_CASE("pan.spread~", "[externals]")
 
     SECTION("process")
     {
-        PanSpreadTest t("pan.spread~", LF(3), true);
+        TExt t("pan.spread~", LF(3), true);
         REQUIRE(t.blockSize() == 64);
         REQUIRE(t.samplerate() == 48000);
         REQUIRE(t.numInputChannels() == 3);
