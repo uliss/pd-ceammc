@@ -16,6 +16,7 @@
 #include "ceammc_ui.h"
 
 #include <cstdio>
+#include <cmath>
 
 constexpr int MIN_INPUTS = 1;
 constexpr int MAX_INPUTS = 4;
