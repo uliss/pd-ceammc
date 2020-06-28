@@ -57,8 +57,6 @@ endmacro()
 
 # adds _underscored_ target MODULE_NAME
 macro(ceammc_faust_gen_obj module name)
-    # since faust 2.8.* mydsp global replacement removed
-    # so we are using GNU sed
     set(options JSON VEC FTZ OCPP)
     cmake_parse_arguments(FAUST_OPT "${options}" "" "" ${ARGN})
 
@@ -82,10 +80,11 @@ macro(ceammc_faust_gen_obj module name)
     add_custom_target("faust_${module}_${name}"
         COMMAND ${FAUST_BIN} -i
             -a ${CMAKE_SOURCE_DIR}/ceammc/faust/ceammc_dsp_ext.cpp
-            --class-name "${module}_${name}" ${_args}
+            --class-name "${module}_${name}"
+            --super-class-name "${module}_${name}_dsp"
+            ${_args}
             "${CMAKE_SOURCE_DIR}/ceammc/faust/${module}_${name}.dsp"
-            -o ${CMAKE_CURRENT_SOURCE_DIR}/${module}_${name}.h
-        COMMAND gsed -i 's/mydsp/${module}_${name}/g' ${CMAKE_CURRENT_SOURCE_DIR}/${module}_${name}.h)
+            -o ${CMAKE_CURRENT_SOURCE_DIR}/${module}_${name}.h)
 endmacro()
 
 # adds target "faust_MODULE_NAME" for updating faust DSP extension.
