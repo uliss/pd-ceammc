@@ -1,7 +1,7 @@
 /* ------------------------------------------------------------
 name: "flt.bpf24"
 Code generated with Faust 2.25.3 (https://faust.grame.fr)
-Compilation options: -lang cpp -scal -ftz 0
+Compilation options: -lang cpp -double -ftz 2
 ------------------------------------------------------------ */
 
 #ifndef  __flt_bpf24_H__
@@ -497,13 +497,13 @@ struct flt_bpf24 : public flt_bpf24_dsp {
 #include <cmath>
 #include <math.h>
 
-static float flt_bpf24_faustpower2_f(float value) {
+static double flt_bpf24_faustpower2_f(double value) {
 	return (value * value);
 }
-static float flt_bpf24_faustpower3_f(float value) {
+static double flt_bpf24_faustpower3_f(double value) {
 	return ((value * value) * value);
 }
-static float flt_bpf24_faustpower4_f(float value) {
+static double flt_bpf24_faustpower4_f(double value) {
 	return (((value * value) * value) * value);
 }
 
@@ -521,24 +521,27 @@ class flt_bpf24 : public flt_bpf24_dsp {
  private:
 	
 	int fSampleRate;
-	float fConst0;
-	float fConst1;
-	float fConst2;
-	float fConst3;
-	float fConst4;
-	float fConst5;
+	double fConst0;
+	double fConst1;
+	double fConst2;
+	double fConst3;
+	double fConst4;
 	FAUSTFLOAT fVslider0;
-	float fRec1[2];
+	double fRec0[2];
 	FAUSTFLOAT fVslider1;
-	float fRec2[2];
-	float fConst6;
-	float fConst7;
-	float fConst8;
-	float fConst9;
-	float fConst10;
-	float fConst11;
-	float fConst12;
-	float fRec0[5];
+	double fRec1[2];
+	double fConst5;
+	double fConst6;
+	double fConst7;
+	double fConst8;
+	double fConst9;
+	double fConst10;
+	double fConst11;
+	double fConst12;
+	double fRec3[5];
+	double fConst13;
+	double fConst14;
+	double fRec2[5];
 	
  public:
 	
@@ -549,13 +552,16 @@ class flt_bpf24 : public flt_bpf24_dsp {
 		m->declare("filters.lib/bandpass0_bandstop1:author", "Julius O. Smith III");
 		m->declare("filters.lib/bandpass0_bandstop1:copyright", "Copyright (C) 2003-2019 by Julius O. Smith III <jos@ccrma.stanford.edu>");
 		m->declare("filters.lib/bandpass0_bandstop1:license", "MIT-style STK-4.3 license");
+		m->declare("filters.lib/bandpass:author", "Julius O. Smith III");
+		m->declare("filters.lib/bandpass:copyright", "Copyright (C) 2003-2019 by Julius O. Smith III <jos@ccrma.stanford.edu>");
+		m->declare("filters.lib/bandpass:license", "MIT-style STK-4.3 license");
 		m->declare("filters.lib/fir:author", "Julius O. Smith III");
 		m->declare("filters.lib/fir:copyright", "Copyright (C) 2003-2019 by Julius O. Smith III <jos@ccrma.stanford.edu>");
 		m->declare("filters.lib/fir:license", "MIT-style STK-4.3 license");
 		m->declare("filters.lib/iir:author", "Julius O. Smith III");
 		m->declare("filters.lib/iir:copyright", "Copyright (C) 2003-2019 by Julius O. Smith III <jos@ccrma.stanford.edu>");
 		m->declare("filters.lib/iir:license", "MIT-style STK-4.3 license");
-		m->declare("filters.lib/lowpass0_highpass1", "MIT-style STK-4.3 license");
+		m->declare("filters.lib/lowpass0_highpass1", "Copyright (C) 2003-2019 by Julius O. Smith III <jos@ccrma.stanford.edu>");
 		m->declare("filters.lib/name", "Faust Filters Library");
 		m->declare("filters.lib/tf2sb:author", "Julius O. Smith III");
 		m->declare("filters.lib/tf2sb:copyright", "Copyright (C) 2003-2019 by Julius O. Smith III <jos@ccrma.stanford.edu>");
@@ -612,35 +618,44 @@ class flt_bpf24 : public flt_bpf24_dsp {
 	
 	virtual void instanceConstants(int sample_rate) {
 		fSampleRate = sample_rate;
-		fConst0 = std::min<float>(192000.0f, std::max<float>(1.0f, float(fSampleRate)));
-		fConst1 = (1.0f / fConst0);
+		fConst0 = std::min<double>(192000.0, std::max<double>(1.0, double(fSampleRate)));
+		fConst1 = (1.0 / fConst0);
 		fConst2 = flt_bpf24_faustpower2_f(fConst1);
-		fConst3 = flt_bpf24_faustpower3_f(fConst1);
-		fConst4 = (4.0f * flt_bpf24_faustpower2_f(fConst0));
-		fConst5 = (3.14159274f / fConst0);
-		fConst6 = (0.499000013f * fConst0);
-		fConst7 = (2.0f * fConst0);
-		fConst8 = (0.5f / fConst0);
-		fConst9 = (4.0f * fConst1);
-		fConst10 = (22.6274166f / fConst0);
-		fConst11 = (6.0f * fConst2);
-		fConst12 = (11.3137083f / fConst0);
+		fConst3 = (2.0 * fConst0);
+		fConst4 = (3.1415926535897931 / fConst0);
+		fConst5 = (0.499 * fConst0);
+		fConst6 = (0.5 / fConst0);
+		fConst7 = (4.0 * flt_bpf24_faustpower2_f(fConst0));
+		fConst8 = flt_bpf24_faustpower3_f(fConst1);
+		fConst9 = (4.0 * fConst1);
+		fConst10 = (29.564145040361176 / fConst0);
+		fConst11 = (6.0 * fConst2);
+		fConst12 = (14.782072520180588 / fConst0);
+		fConst13 = (12.245869835682871 / fConst0);
+		fConst14 = (6.1229349178414356 / fConst0);
 	}
 	
 	virtual void instanceResetUserInterface() {
-		fVslider0 = FAUSTFLOAT(1000.0f);
-		fVslider1 = FAUSTFLOAT(2.0f);
+		fVslider0 = FAUSTFLOAT(1000.0);
+		fVslider1 = FAUSTFLOAT(2.0);
 	}
 	
 	virtual void instanceClear() {
+		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l0 = 0; (l0 < 2); l0 = (l0 + 1)) {
-			fRec1[l0] = 0.0f;
+			fRec0[l0] = 0.0;
 		}
+		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l1 = 0; (l1 < 2); l1 = (l1 + 1)) {
-			fRec2[l1] = 0.0f;
+			fRec1[l1] = 0.0;
 		}
+		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l2 = 0; (l2 < 5); l2 = (l2 + 1)) {
-			fRec0[l2] = 0.0f;
+			fRec3[l2] = 0.0;
+		}
+		#pragma clang loop vectorize(enable) interleave(enable)
+		for (int l3 = 0; (l3 < 5); l3 = (l3 + 1)) {
+			fRec2[l3] = 0.0;
 		}
 	}
 	
@@ -665,40 +680,58 @@ class flt_bpf24 : public flt_bpf24_dsp {
 	virtual void buildUserInterface(UI* ui_interface) {
 		ui_interface->openVerticalBox("flt.bpf24");
 		ui_interface->declare(&fVslider0, "unit", "Hz");
-		ui_interface->addVerticalSlider("freq", &fVslider0, 1000.0f, 20.0f, 20000.0f, 0.100000001f);
-		ui_interface->addVerticalSlider("q", &fVslider1, 2.0f, 0.00999999978f, 100.0f, 0.100000001f);
+		ui_interface->addVerticalSlider("freq", &fVslider0, 1000.0, 20.0, 20000.0, 0.10000000000000001);
+		ui_interface->addVerticalSlider("q", &fVslider1, 2.0, 0.01, 100.0, 0.10000000000000001);
 		ui_interface->closeBox();
 	}
 	
 	virtual void compute(int count, FAUSTFLOAT** inputs, FAUSTFLOAT** outputs) {
 		FAUSTFLOAT* input0 = inputs[0];
 		FAUSTFLOAT* output0 = outputs[0];
-		float fSlow0 = (0.00100000005f * float(fVslider0));
-		float fSlow1 = (0.00100000005f * float(fVslider1));
+		double fSlow0 = (0.0010000000000000009 * double(fVslider0));
+		double fSlow1 = (0.0010000000000000009 * double(fVslider1));
+		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int i = 0; (i < count); i = (i + 1)) {
-			fRec1[0] = (fSlow0 + (0.999000013f * fRec1[1]));
-			fRec2[0] = (fSlow1 + (0.999000013f * fRec2[1]));
-			float fTemp0 = (0.5f / fRec2[0]);
-			float fTemp1 = std::tan((fConst5 * std::min<float>((fRec1[0] * (fTemp0 + 1.0f)), fConst6)));
-			float fTemp2 = std::sqrt((fConst4 * (std::tan((fConst5 * std::max<float>((fRec1[0] * (1.0f - fTemp0)), 20.0f))) * fTemp1)));
-			float fTemp3 = flt_bpf24_faustpower2_f(fTemp2);
-			float fTemp4 = ((fConst7 * fTemp1) - (fConst8 * (fTemp3 / fTemp1)));
-			float fTemp5 = (5.65685415f * fTemp4);
-			float fTemp6 = (fConst9 * fTemp3);
-			float fTemp7 = (fConst10 * fTemp4);
-			float fTemp8 = flt_bpf24_faustpower2_f(fTemp4);
-			float fTemp9 = (8.0f * fTemp8);
-			float fTemp10 = ((4.0f * fTemp8) + (8.0f * fTemp3));
-			float fTemp11 = (fConst1 * fTemp3);
-			float fTemp12 = (2.82842708f * fTemp4);
-			float fTemp13 = (fConst12 * fTemp4);
-			float fTemp14 = (((fConst2 * (fTemp10 + (fConst1 * (fTemp3 * (fTemp11 + fTemp12))))) + fTemp13) + 16.0f);
-			fRec0[0] = (float(input0[i]) - (((((fRec0[1] * ((fConst3 * (fTemp3 * (fTemp5 + fTemp6))) + (-64.0f - fTemp7))) + (fRec0[2] * ((fConst2 * ((0.0f - (fTemp9 + (16.0f * fTemp3))) + (fConst11 * flt_bpf24_faustpower4_f(fTemp2)))) + 96.0f))) + (fRec0[3] * ((fTemp7 + (fConst3 * (fTemp3 * (fTemp6 - fTemp5)))) + -64.0f))) + (fRec0[4] * ((fConst2 * (fTemp10 + (fConst1 * (fTemp3 * (fTemp11 - fTemp12))))) + (16.0f - fTemp13)))) / fTemp14));
-			output0[i] = FAUSTFLOAT((fConst2 * ((((fRec0[2] * (0.0f - fTemp9)) + (4.0f * (fRec0[0] * fTemp8))) + (4.0f * (fTemp8 * fRec0[4]))) / fTemp14)));
+			double fTempFTZ0 = (fSlow0 + (0.999 * fRec0[1]));
+			fRec0[0] = ((*reinterpret_cast<long long*>(&fTempFTZ0) & 9218868437227405312) ? fTempFTZ0 : 0.0);
+			double fTempFTZ1 = (fSlow1 + (0.999 * fRec1[1]));
+			fRec1[0] = ((*reinterpret_cast<long long*>(&fTempFTZ1) & 9218868437227405312) ? fTempFTZ1 : 0.0);
+			double fTemp0 = (0.5 / fRec1[0]);
+			double fTemp1 = std::tan((fConst4 * std::min<double>((fRec0[0] * (fTemp0 + 1.0)), fConst5)));
+			double fTemp2 = std::sqrt((fConst7 * (std::tan((fConst4 * std::max<double>((fRec0[0] * (1.0 - fTemp0)), 20.0))) * fTemp1)));
+			double fTemp3 = flt_bpf24_faustpower2_f(fTemp2);
+			double fTemp4 = ((fConst3 * fTemp1) - (fConst6 * (fTemp3 / fTemp1)));
+			double fTemp5 = flt_bpf24_faustpower2_f(fTemp4);
+			double fTemp6 = (8.0 * fTemp5);
+			double fTemp7 = (0.0 - fTemp6);
+			double fTemp8 = (7.3910362600902939 * fTemp4);
+			double fTemp9 = (fConst9 * fTemp3);
+			double fTemp10 = (fConst10 * fTemp4);
+			double fTemp11 = ((fConst2 * ((0.0 - (fTemp6 + (16.0 * fTemp3))) + (fConst11 * flt_bpf24_faustpower4_f(fTemp2)))) + 96.0);
+			double fTemp12 = ((4.0 * fTemp5) + (8.0 * fTemp3));
+			double fTemp13 = (fConst1 * fTemp3);
+			double fTemp14 = (3.695518130045147 * fTemp4);
+			double fTemp15 = (fConst12 * fTemp4);
+			double fTemp16 = (((fConst2 * (fTemp12 + (fConst1 * (fTemp3 * (fTemp13 + fTemp14))))) + fTemp15) + 16.0);
+			double fTempFTZ2 = (double(input0[i]) - (((((fRec3[1] * ((fConst8 * (fTemp3 * (fTemp8 + fTemp9))) + (-64.0 - fTemp10))) + (fRec3[2] * fTemp11)) + (fRec3[3] * ((fTemp10 + (fConst8 * (fTemp3 * (fTemp9 - fTemp8)))) + -64.0))) + (fRec3[4] * ((fConst2 * (fTemp12 + (fConst1 * (fTemp3 * (fTemp13 - fTemp14))))) + (16.0 - fTemp15)))) / fTemp16));
+			fRec3[0] = ((*reinterpret_cast<long long*>(&fTempFTZ2) & 9218868437227405312) ? fTempFTZ2 : 0.0);
+			double fTemp17 = (3.0614674589207178 * fTemp4);
+			double fTemp18 = (fConst13 * fTemp4);
+			double fTemp19 = (1.5307337294603589 * fTemp4);
+			double fTemp20 = (fConst14 * fTemp4);
+			double fTemp21 = (((fConst2 * (fTemp12 + (fConst1 * (fTemp3 * (fTemp13 + fTemp19))))) + fTemp20) + 16.0);
+			double fTempFTZ3 = ((fConst2 * ((((fRec3[2] * fTemp7) + (4.0 * (fRec3[0] * fTemp5))) + (4.0 * (fTemp5 * fRec3[4]))) / fTemp16)) - (((((fRec2[1] * ((fConst8 * (fTemp3 * (fTemp9 + fTemp17))) + (-64.0 - fTemp18))) + (fTemp11 * fRec2[2])) + (fRec2[3] * ((fTemp18 + (fConst8 * (fTemp3 * (fTemp9 - fTemp17)))) + -64.0))) + (fRec2[4] * ((fConst2 * (fTemp12 + (fConst1 * (fTemp3 * (fTemp13 - fTemp19))))) + (16.0 - fTemp20)))) / fTemp21));
+			fRec2[0] = ((*reinterpret_cast<long long*>(&fTempFTZ3) & 9218868437227405312) ? fTempFTZ3 : 0.0);
+			output0[i] = FAUSTFLOAT((fConst2 * ((((fTemp7 * fRec2[2]) + (4.0 * (fRec2[0] * fTemp5))) + (4.0 * (fTemp5 * fRec2[4]))) / fTemp21)));
+			fRec0[1] = fRec0[0];
 			fRec1[1] = fRec1[0];
-			fRec2[1] = fRec2[0];
+			#pragma clang loop vectorize(enable) interleave(enable)
 			for (int j0 = 4; (j0 > 0); j0 = (j0 - 1)) {
-				fRec0[j0] = fRec0[(j0 - 1)];
+				fRec3[j0] = fRec3[(j0 - 1)];
+			}
+			#pragma clang loop vectorize(enable) interleave(enable)
+			for (int j1 = 4; (j1 > 0); j1 = (j1 - 1)) {
+				fRec2[j1] = fRec2[(j1 - 1)];
 			}
 		}
 	}

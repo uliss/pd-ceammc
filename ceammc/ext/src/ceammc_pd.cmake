@@ -57,7 +57,7 @@ endmacro()
 
 # adds _underscored_ target MODULE_NAME
 macro(ceammc_faust_gen_obj module name)
-    set(options JSON VEC FTZ OCPP)
+    set(options JSON VEC FTZ OCPP DOUBLE)
     cmake_parse_arguments(FAUST_OPT "${options}" "" "" ${ARGN})
 
     set(_args "")
@@ -77,11 +77,16 @@ macro(ceammc_faust_gen_obj module name)
         list(APPEND _args "-lang" "ocpp")
     endif()
 
+    if(FAUST_OPT_DOUBLE)
+        list(APPEND _args "--double-precision-floats")
+    endif()
+
     add_custom_target("faust_${module}_${name}"
         COMMAND ${FAUST_BIN} -i
             -a ${CMAKE_SOURCE_DIR}/ceammc/faust/ceammc_dsp_ext.cpp
             --class-name "${module}_${name}"
             --super-class-name "${module}_${name}_dsp"
+            --clang
             ${_args}
             "${CMAKE_SOURCE_DIR}/ceammc/faust/${module}_${name}.dsp"
             -o ${CMAKE_CURRENT_SOURCE_DIR}/${module}_${name}.h)
