@@ -14,7 +14,7 @@ Compilation options: -lang cpp -scal -ftz 0
 #include <memory>
 #include <string>
 
-/************************** BEGIN dsp.h **************************/
+/************************** BEGIN flt_bpf24_dsp.h **************************/
 /************************************************************************
  FAUST Architecture File
  Copyright (C) 2003-2017 GRAME, Centre National de Creation Musicale
@@ -68,12 +68,12 @@ struct dsp_memory_manager {
 * Signal processor definition.
 */
 
-class dsp {
+class flt_bpf24_dsp {
 
     public:
 
-        dsp() {}
-        virtual ~dsp() {}
+        flt_bpf24_dsp() {}
+        virtual ~flt_bpf24_dsp() {}
 
         /* Return instance number of audio inputs */
         virtual int getNumInputs() = 0;
@@ -126,7 +126,7 @@ class dsp {
          *
          * @return a copy of the instance on success, otherwise a null pointer.
          */
-        virtual dsp* clone() = 0;
+        virtual flt_bpf24_dsp* clone() = 0;
     
         /**
          * Trigger the Meta* parameter with instance specific calls to 'declare' (key, value) metadata.
@@ -162,15 +162,15 @@ class dsp {
  * Generic DSP decorator.
  */
 
-class decorator_dsp : public dsp {
+class decorator_dsp : public flt_bpf24_dsp {
 
     protected:
 
-        dsp* fDSP;
+        flt_bpf24_dsp* fDSP;
 
     public:
 
-        decorator_dsp(dsp* dsp = nullptr):fDSP(dsp) {}
+        decorator_dsp(flt_bpf24_dsp* flt_bpf24_dsp = nullptr):fDSP(flt_bpf24_dsp) {}
         virtual ~decorator_dsp() { delete fDSP; }
 
         virtual int getNumInputs() { return fDSP->getNumInputs(); }
@@ -210,7 +210,7 @@ class dsp_factory {
         virtual std::vector<std::string> getLibraryList() = 0;
         virtual std::vector<std::string> getIncludePathnames() = 0;
     
-        virtual dsp* createDSPInstance() = 0;
+        virtual flt_bpf24_dsp* createDSPInstance() = 0;
     
         virtual void setMemoryManager(dsp_memory_manager* manager) = 0;
         virtual dsp_memory_manager* getMemoryManager() = 0;
@@ -234,7 +234,7 @@ class dsp_factory {
 #endif
 
 #endif
-/**************************  END  dsp.h **************************/
+/**************************  END  flt_bpf24_dsp.h **************************/
 /************************** BEGIN UI.h **************************/
 /************************************************************************
  FAUST Architecture File
@@ -482,7 +482,7 @@ using namespace ceammc::faust;
 
 // clang-format off
 #ifndef FAUST_MACRO
-struct flt_bpf24 : public dsp {
+struct flt_bpf24 : public flt_bpf24_dsp {
 };
 #endif
 // clang-format on
@@ -516,7 +516,7 @@ static float flt_bpf24_faustpower4_f(float value) {
 #define exp10 __exp10
 #endif
 
-class flt_bpf24 : public dsp {
+class flt_bpf24 : public flt_bpf24_dsp {
 	
  private:
 	
@@ -549,16 +549,13 @@ class flt_bpf24 : public dsp {
 		m->declare("filters.lib/bandpass0_bandstop1:author", "Julius O. Smith III");
 		m->declare("filters.lib/bandpass0_bandstop1:copyright", "Copyright (C) 2003-2019 by Julius O. Smith III <jos@ccrma.stanford.edu>");
 		m->declare("filters.lib/bandpass0_bandstop1:license", "MIT-style STK-4.3 license");
-		m->declare("filters.lib/bandpass:author", "Julius O. Smith III");
-		m->declare("filters.lib/bandpass:copyright", "Copyright (C) 2003-2019 by Julius O. Smith III <jos@ccrma.stanford.edu>");
-		m->declare("filters.lib/bandpass:license", "MIT-style STK-4.3 license");
 		m->declare("filters.lib/fir:author", "Julius O. Smith III");
 		m->declare("filters.lib/fir:copyright", "Copyright (C) 2003-2019 by Julius O. Smith III <jos@ccrma.stanford.edu>");
 		m->declare("filters.lib/fir:license", "MIT-style STK-4.3 license");
 		m->declare("filters.lib/iir:author", "Julius O. Smith III");
 		m->declare("filters.lib/iir:copyright", "Copyright (C) 2003-2019 by Julius O. Smith III <jos@ccrma.stanford.edu>");
 		m->declare("filters.lib/iir:license", "MIT-style STK-4.3 license");
-		m->declare("filters.lib/lowpass0_highpass1", "Copyright (C) 2003-2019 by Julius O. Smith III <jos@ccrma.stanford.edu>");
+		m->declare("filters.lib/lowpass0_highpass1", "MIT-style STK-4.3 license");
 		m->declare("filters.lib/name", "Faust Filters Library");
 		m->declare("filters.lib/tf2sb:author", "Julius O. Smith III");
 		m->declare("filters.lib/tf2sb:copyright", "Copyright (C) 2003-2019 by Julius O. Smith III <jos@ccrma.stanford.edu>");
@@ -621,7 +618,7 @@ class flt_bpf24 : public dsp {
 		fConst3 = flt_bpf24_faustpower3_f(fConst1);
 		fConst4 = (4.0f * flt_bpf24_faustpower2_f(fConst0));
 		fConst5 = (3.14159274f / fConst0);
-		fConst6 = (0.5f * fConst0);
+		fConst6 = (0.499000013f * fConst0);
 		fConst7 = (2.0f * fConst0);
 		fConst8 = (0.5f / fConst0);
 		fConst9 = (4.0f * fConst1);
@@ -683,7 +680,7 @@ class flt_bpf24 : public dsp {
 			fRec2[0] = (fSlow1 + (0.999000013f * fRec2[1]));
 			float fTemp0 = (0.5f / fRec2[0]);
 			float fTemp1 = std::tan((fConst5 * std::min<float>((fRec1[0] * (fTemp0 + 1.0f)), fConst6)));
-			float fTemp2 = std::sqrt((fConst4 * (std::tan((fConst5 * std::max<float>((fRec1[0] * (1.0f - fTemp0)), 0.0f))) * fTemp1)));
+			float fTemp2 = std::sqrt((fConst4 * (std::tan((fConst5 * std::max<float>((fRec1[0] * (1.0f - fTemp0)), 20.0f))) * fTemp1)));
 			float fTemp3 = flt_bpf24_faustpower2_f(fTemp2);
 			float fTemp4 = ((fConst7 * fTemp1) - (fConst8 * (fTemp3 / fTemp1)));
 			float fTemp5 = (5.65685415f * fTemp4);
