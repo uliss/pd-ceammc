@@ -12,6 +12,6 @@ with {
 
     bandwidth = freq / q;
     halfband = bandwidth / 2.0;
-    freq_low = max(freq - halfband, 0);
-    freq_high = min(freq + halfband, ma.SR * 0.5);
+    freq_low = max(freq - halfband, 20);
+    freq_high = min(freq + halfband, ma.SR * 0.49);
 };

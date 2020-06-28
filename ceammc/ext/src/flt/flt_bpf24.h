@@ -1,7 +1,7 @@
 /* ------------------------------------------------------------
 name: "flt.bpf24"
 Code generated with Faust 2.25.3 (https://faust.grame.fr)
-Compilation options: -lang cpp -double -ftz 2
+Compilation options: -lang cpp -double -ftz 0
 ------------------------------------------------------------ */
 
 #ifndef  __flt_bpf24_H__
@@ -692,10 +692,8 @@ class flt_bpf24 : public flt_bpf24_dsp {
 		double fSlow1 = (0.0010000000000000009 * double(fVslider1));
 		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int i = 0; (i < count); i = (i + 1)) {
-			double fTempFTZ0 = (fSlow0 + (0.999 * fRec0[1]));
-			fRec0[0] = ((*reinterpret_cast<long long*>(&fTempFTZ0) & 9218868437227405312) ? fTempFTZ0 : 0.0);
-			double fTempFTZ1 = (fSlow1 + (0.999 * fRec1[1]));
-			fRec1[0] = ((*reinterpret_cast<long long*>(&fTempFTZ1) & 9218868437227405312) ? fTempFTZ1 : 0.0);
+			fRec0[0] = (fSlow0 + (0.999 * fRec0[1]));
+			fRec1[0] = (fSlow1 + (0.999 * fRec1[1]));
 			double fTemp0 = (0.5 / fRec1[0]);
 			double fTemp1 = std::tan((fConst4 * std::min<double>((fRec0[0] * (fTemp0 + 1.0)), fConst5)));
 			double fTemp2 = std::sqrt((fConst7 * (std::tan((fConst4 * std::max<double>((fRec0[0] * (1.0 - fTemp0)), 20.0))) * fTemp1)));
@@ -713,15 +711,13 @@ class flt_bpf24 : public flt_bpf24_dsp {
 			double fTemp14 = (3.695518130045147 * fTemp4);
 			double fTemp15 = (fConst12 * fTemp4);
 			double fTemp16 = (((fConst2 * (fTemp12 + (fConst1 * (fTemp3 * (fTemp13 + fTemp14))))) + fTemp15) + 16.0);
-			double fTempFTZ2 = (double(input0[i]) - (((((fRec3[1] * ((fConst8 * (fTemp3 * (fTemp8 + fTemp9))) + (-64.0 - fTemp10))) + (fRec3[2] * fTemp11)) + (fRec3[3] * ((fTemp10 + (fConst8 * (fTemp3 * (fTemp9 - fTemp8)))) + -64.0))) + (fRec3[4] * ((fConst2 * (fTemp12 + (fConst1 * (fTemp3 * (fTemp13 - fTemp14))))) + (16.0 - fTemp15)))) / fTemp16));
-			fRec3[0] = ((*reinterpret_cast<long long*>(&fTempFTZ2) & 9218868437227405312) ? fTempFTZ2 : 0.0);
+			fRec3[0] = (double(input0[i]) - (((((fRec3[1] * ((fConst8 * (fTemp3 * (fTemp8 + fTemp9))) + (-64.0 - fTemp10))) + (fRec3[2] * fTemp11)) + (fRec3[3] * ((fTemp10 + (fConst8 * (fTemp3 * (fTemp9 - fTemp8)))) + -64.0))) + (fRec3[4] * ((fConst2 * (fTemp12 + (fConst1 * (fTemp3 * (fTemp13 - fTemp14))))) + (16.0 - fTemp15)))) / fTemp16));
 			double fTemp17 = (3.0614674589207178 * fTemp4);
 			double fTemp18 = (fConst13 * fTemp4);
 			double fTemp19 = (1.5307337294603589 * fTemp4);
 			double fTemp20 = (fConst14 * fTemp4);
 			double fTemp21 = (((fConst2 * (fTemp12 + (fConst1 * (fTemp3 * (fTemp13 + fTemp19))))) + fTemp20) + 16.0);
-			double fTempFTZ3 = ((fConst2 * ((((fRec3[2] * fTemp7) + (4.0 * (fRec3[0] * fTemp5))) + (4.0 * (fTemp5 * fRec3[4]))) / fTemp16)) - (((((fRec2[1] * ((fConst8 * (fTemp3 * (fTemp9 + fTemp17))) + (-64.0 - fTemp18))) + (fTemp11 * fRec2[2])) + (fRec2[3] * ((fTemp18 + (fConst8 * (fTemp3 * (fTemp9 - fTemp17)))) + -64.0))) + (fRec2[4] * ((fConst2 * (fTemp12 + (fConst1 * (fTemp3 * (fTemp13 - fTemp19))))) + (16.0 - fTemp20)))) / fTemp21));
-			fRec2[0] = ((*reinterpret_cast<long long*>(&fTempFTZ3) & 9218868437227405312) ? fTempFTZ3 : 0.0);
+			fRec2[0] = ((fConst2 * ((((fRec3[2] * fTemp7) + (4.0 * (fRec3[0] * fTemp5))) + (4.0 * (fTemp5 * fRec3[4]))) / fTemp16)) - (((((fRec2[1] * ((fConst8 * (fTemp3 * (fTemp9 + fTemp17))) + (-64.0 - fTemp18))) + (fTemp11 * fRec2[2])) + (fRec2[3] * ((fTemp18 + (fConst8 * (fTemp3 * (fTemp9 - fTemp17)))) + -64.0))) + (fRec2[4] * ((fConst2 * (fTemp12 + (fConst1 * (fTemp3 * (fTemp13 - fTemp19))))) + (16.0 - fTemp20)))) / fTemp21));
 			output0[i] = FAUSTFLOAT((fConst2 * ((((fTemp7 * fRec2[2]) + (4.0 * (fRec2[0] * fTemp5))) + (4.0 * (fTemp5 * fRec2[4]))) / fTemp21)));
 			fRec0[1] = fRec0[0];
 			fRec1[1] = fRec1[0];
