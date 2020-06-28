@@ -12,12 +12,18 @@ macro(ceammc_flt_obj_json name)
     ceammc_faust_gen_obj(flt ${name} JSON)
 endmacro()
 
+macro(ceammc_flt_obj_json_double name)
+    list(APPEND FLT_SOURCES "flt_${name}.h" "flt_${name}.cpp")
+    ceammc_faust_gen_obj(flt ${name} JSON DOUBLE)
+endmacro()
+
 ceammc_flt_obj(biquad)
 ceammc_flt_obj(dcblock)
 ceammc_flt_obj(dcblock2)
 
-ceammc_flt_obj_json(bpf12)
-ceammc_flt_obj_json(bpf24)
+ceammc_flt_obj_json_double(bpf12)
+ceammc_flt_obj_json_double(bpf24)
+
 ceammc_flt_obj_json(c_bpf)
 ceammc_flt_obj_json(c_highshelf)
 ceammc_flt_obj_json(c_hpf)
