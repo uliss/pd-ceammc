@@ -1,6 +1,6 @@
 /* ------------------------------------------------------------
 name: "flt_biquad"
-Code generated with Faust 2.22.5 (https://faust.grame.fr)
+Code generated with Faust 2.25.3 (https://faust.grame.fr)
 Compilation options: -lang cpp -scal -ftz 0
 ------------------------------------------------------------ */
 
@@ -109,7 +109,7 @@ class dsp {
     
         /**
          * Trigger the ui_interface parameter with instance specific calls
-         * to 'addBtton', 'addVerticalSlider'... in order to build the UI.
+         * to 'openTabBox', 'addButton', 'addVerticalSlider'... in order to build the UI.
          *
          * @param ui_interface - the user interface builder
          */

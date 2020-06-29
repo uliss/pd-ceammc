@@ -1,7 +1,7 @@
 {
 	"name": "fx.drive",
 	"filename": "fx_drive.dsp",
-	"version": "2.22.5",
+	"version": "2.25.3",
 	"compile_options": "-lang cpp -scal -ftz 0",
 	"library_list": ["/Users/serj/work/music/pure-data/ceammc/faust/guitarix.lib","/usr/local/share/faust/basics.lib","/usr/local/share/faust/signals.lib","/Users/serj/work/music/pure-data/ceammc/faust/ceammc_ui.lib"],
 	"include_pathnames": ["/usr/local/share/faust","/usr/local/share/faust","/usr/share/faust","/Users/serj/work/music/pure-data/ceammc/faust","/Users/serj/work/music/pure-data/ceammc/faust"],

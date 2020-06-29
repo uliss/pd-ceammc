@@ -1,6 +1,6 @@
 /* ------------------------------------------------------------
 name: "osc_sinfb"
-Code generated with Faust 2.22.5 (https://faust.grame.fr)
+Code generated with Faust 2.25.3 (https://faust.grame.fr)
 Compilation options: -lang cpp -scal -ftz 0
 ------------------------------------------------------------ */
 
@@ -14,7 +14,7 @@ Compilation options: -lang cpp -scal -ftz 0
 #include <memory>
 #include <string>
 
-/************************** BEGIN dsp.h **************************/
+/************************** BEGIN osc_sinfb_dsp.h **************************/
 /************************************************************************
  FAUST Architecture File
  Copyright (C) 2003-2017 GRAME, Centre National de Creation Musicale
@@ -68,12 +68,12 @@ struct dsp_memory_manager {
 * Signal processor definition.
 */
 
-class dsp {
+class osc_sinfb_dsp {
 
     public:
 
-        dsp() {}
-        virtual ~dsp() {}
+        osc_sinfb_dsp() {}
+        virtual ~osc_sinfb_dsp() {}
 
         /* Return instance number of audio inputs */
         virtual int getNumInputs() = 0;
@@ -83,7 +83,7 @@ class dsp {
     
         /**
          * Trigger the ui_interface parameter with instance specific calls
-         * to 'addBtton', 'addVerticalSlider'... in order to build the UI.
+         * to 'openTabBox', 'addButton', 'addVerticalSlider'... in order to build the UI.
          *
          * @param ui_interface - the user interface builder
          */
@@ -126,7 +126,7 @@ class dsp {
          *
          * @return a copy of the instance on success, otherwise a null pointer.
          */
-        virtual dsp* clone() = 0;
+        virtual osc_sinfb_dsp* clone() = 0;
     
         /**
          * Trigger the Meta* parameter with instance specific calls to 'declare' (key, value) metadata.
@@ -162,15 +162,15 @@ class dsp {
  * Generic DSP decorator.
  */
 
-class decorator_dsp : public dsp {
+class decorator_dsp : public osc_sinfb_dsp {
 
     protected:
 
-        dsp* fDSP;
+        osc_sinfb_dsp* fDSP;
 
     public:
 
-        decorator_dsp(dsp* dsp = nullptr):fDSP(dsp) {}
+        decorator_dsp(osc_sinfb_dsp* osc_sinfb_dsp = nullptr):fDSP(osc_sinfb_dsp) {}
         virtual ~decorator_dsp() { delete fDSP; }
 
         virtual int getNumInputs() { return fDSP->getNumInputs(); }
@@ -210,7 +210,7 @@ class dsp_factory {
         virtual std::vector<std::string> getLibraryList() = 0;
         virtual std::vector<std::string> getIncludePathnames() = 0;
     
-        virtual dsp* createDSPInstance() = 0;
+        virtual osc_sinfb_dsp* createDSPInstance() = 0;
     
         virtual void setMemoryManager(dsp_memory_manager* manager) = 0;
         virtual dsp_memory_manager* getMemoryManager() = 0;
@@ -234,7 +234,7 @@ class dsp_factory {
 #endif
 
 #endif
-/**************************  END  dsp.h **************************/
+/**************************  END  osc_sinfb_dsp.h **************************/
 /************************** BEGIN UI.h **************************/
 /************************************************************************
  FAUST Architecture File
@@ -482,7 +482,7 @@ using namespace ceammc::faust;
 
 // clang-format off
 #ifndef FAUST_MACRO
-struct osc_sinfb : public dsp {
+struct osc_sinfb : public osc_sinfb_dsp {
 };
 #endif
 // clang-format on
@@ -537,12 +537,14 @@ class osc_sinfbSIG0 {
 	}
 	
 	void instanceInitosc_sinfbSIG0(int sample_rate) {
+		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l0 = 0; (l0 < 2); l0 = (l0 + 1)) {
 			iRec1[l0] = 0;
 		}
 	}
 	
 	void fillosc_sinfbSIG0(int count, float* table) {
+		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int i = 0; (i < count); i = (i + 1)) {
 			iRec1[0] = (iRec1[1] + 1);
 			table[i] = std::sin((9.58738019e-05f * float((iRec1[0] + -1))));
@@ -595,12 +597,14 @@ class osc_sinfbSIG1 {
 	}
 	
 	void instanceInitosc_sinfbSIG1(int sample_rate) {
+		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l3 = 0; (l3 < 2); l3 = (l3 + 1)) {
 			iRec4[l3] = 0;
 		}
 	}
 	
 	void fillosc_sinfbSIG1(int count, float* table) {
+		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int i = 0; (i < count); i = (i + 1)) {
 			iRec4[0] = (iRec4[1] + 1);
 			table[i] = std::cos((9.58738019e-05f * float((iRec4[0] + -1))));
@@ -625,7 +629,7 @@ static float ftbl1osc_sinfbSIG1[65536];
 #define exp10 __exp10
 #endif
 
-class osc_sinfb : public dsp {
+class osc_sinfb : public osc_sinfb_dsp {
 	
  private:
 	
@@ -646,10 +650,10 @@ class osc_sinfb : public dsp {
 		m->declare("maths.lib/copyright", "GRAME");
 		m->declare("maths.lib/license", "LGPL with exception");
 		m->declare("maths.lib/name", "Faust Math Library");
-		m->declare("maths.lib/version", "2.2");
+		m->declare("maths.lib/version", "2.3");
 		m->declare("name", "osc_sinfb");
 		m->declare("oscillators.lib/name", "Faust Oscillator Library");
-		m->declare("oscillators.lib/version", "0.0");
+		m->declare("oscillators.lib/version", "0.1");
 		m->declare("platform.lib/name", "Generic Platform Library");
 		m->declare("platform.lib/version", "0.1");
 		m->declare("signals.lib/name", "Faust Signal Routing Library");
@@ -712,12 +716,15 @@ class osc_sinfb : public dsp {
 	}
 	
 	virtual void instanceClear() {
+		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l1 = 0; (l1 < 2); l1 = (l1 + 1)) {
 			fRec2[l1] = 0.0f;
 		}
+		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l2 = 0; (l2 < 2); l2 = (l2 + 1)) {
 			fRec3[l2] = 0.0f;
 		}
+		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l4 = 0; (l4 < 2); l4 = (l4 + 1)) {
 			fRec0[l4] = 0.0f;
 		}
@@ -751,6 +758,7 @@ class osc_sinfb : public dsp {
 		FAUSTFLOAT* input0 = inputs[0];
 		FAUSTFLOAT* output0 = outputs[0];
 		float fSlow0 = (0.00100000005f * float(fHslider0));
+		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int i = 0; (i < count); i = (i + 1)) {
 			float fTemp0 = (fRec2[1] + (fConst0 * float(input0[i])));
 			fRec2[0] = (fTemp0 - std::floor(fTemp0));

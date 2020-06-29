@@ -16,10 +16,10 @@
 		{ "maths.lib/copyright": "GRAME" },
 		{ "maths.lib/license": "LGPL with exception" },
 		{ "maths.lib/name": "Faust Math Library" },
-		{ "maths.lib/version": "2.2" },
+		{ "maths.lib/version": "2.3" },
 		{ "name": "synth.dx7" },
 		{ "oscillators.lib/name": "Faust Oscillator Library" },
-		{ "oscillators.lib/version": "0.0" },
+		{ "oscillators.lib/version": "0.1" },
 		{ "platform.lib/name": "Generic Platform Library" },
 		{ "platform.lib/version": "0.1" }
 	],
