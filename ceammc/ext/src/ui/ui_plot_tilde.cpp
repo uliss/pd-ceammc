@@ -110,7 +110,7 @@ static const char* to_label(float v, ScaleBase sb = SB_LIN10)
         "\u2070", "\u00B9", "\u00B2", "\u00B3", "\u2074", "\u2075", "\u2076", "\u2077", "\u2078", "\u2079"
     };
 
-    static const float m_pi = std::acosf(-1);
+    static const float m_pi = std::acos(-1.f);
     static char buf[32];
 
     if (sb == SB_LINPI) { // close to pi
