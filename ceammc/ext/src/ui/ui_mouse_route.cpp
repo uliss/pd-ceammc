@@ -15,6 +15,7 @@
 #include "ceammc_factory.h"
 
 #include <array>
+#include <algorithm>
 
 UIMouseRoute::UIMouseRoute(const PdArgs& args)
     : BaseObject(args)

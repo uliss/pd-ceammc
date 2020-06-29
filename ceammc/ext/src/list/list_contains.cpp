@@ -16,6 +16,8 @@
 #include "ceammc_factory.h"
 #include "ceammc_fn_list.h"
 
+#include <algorithm>
+
 ListContains::ListContains(const PdArgs& args)
     : BaseObject(args)
     , needle_(positionalArguments())

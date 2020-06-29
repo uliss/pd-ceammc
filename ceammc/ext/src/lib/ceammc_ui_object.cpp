@@ -3,6 +3,8 @@
 #include "ceammc_preset.h"
 #include "ceammc_ui.h"
 
+#include <algorithm>
+
 namespace ceammc {
 
 const char* UIObjectImpl::BG_LAYER = "background_layer";

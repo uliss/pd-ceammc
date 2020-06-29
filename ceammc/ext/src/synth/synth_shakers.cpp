@@ -16,6 +16,8 @@
 
 #include "Shakers.h"
 
+#include <algorithm>
+
 typedef std::pair<t_symbol*, ShakerType> SymType;
 typedef std::vector<SymType> SymTypeList;
 
