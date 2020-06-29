@@ -13,8 +13,10 @@
  *****************************************************************************/
 #include "ceammc_datastorage.h"
 #include "ceammc_datatypes.h"
+#include "ceammc_format.h"
 #include "ceammc_log.h"
 #include "fmt/format.h"
+#include "lex/exprtk.hpp"
 
 #include <algorithm>
 
@@ -102,6 +104,30 @@ DataStorage::DataStorage()
 {
     registerNewType("pi", [](const AtomList&) -> Atom { return Atom(3.14159265358979); });
     registerNewType("e", [](const AtomList&) -> Atom { return Atom(2.71828182846); });
+    registerNewType("sr", [](const AtomList&) -> Atom { return Atom(sys_getsr()); });
+    registerNewType("bs", [](const AtomList&) -> Atom { return Atom(sys_getblksize()); });
+    registerNewType("expr", [](const AtomList& expr) -> Atom {
+        using symbol_table_t = exprtk::symbol_table<t_float>;
+        using expression_t = exprtk::expression<t_float>;
+        using parser_t = exprtk::parser<t_float>;
+
+        const std::string expression_string = to_string(expr);
+
+        symbol_table_t symbol_table;
+        symbol_table.add_constants();
+        symbol_table.add_constant("e", std::exp(1));
+        symbol_table.add_constant("sr", sys_getsr());
+        symbol_table.add_constant("bs", sys_getblksize());
+
+
+        expression_t expression;
+        expression.register_symbol_table(symbol_table);
+
+        parser_t parser;
+        parser.compile(expression_string, expression);
+
+        return Atom(expression.value());
+    });
 }
 
 DataStorage::type_iterator DataStorage::findByName(const std::string& name) const
