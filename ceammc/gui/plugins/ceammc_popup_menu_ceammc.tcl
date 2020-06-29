@@ -7,14 +7,15 @@
         array.mean array.minmax array.plot~ array.resample array.rms array.set
         array.stddev array.stretch array.sum array.sum2 array.variance
         array.vplay array.window plot.geomspace~ plot.hist~ plot.linspace~
-        plot.logspace~
+        plot.logspace~ plot.response~
     }}
     {base {
         function function.call gain~ matrix~ metro.pattern metro.random
         metro.seq mix~ obj.props radio window xdac~ xfade2~ xfade~
     }}
     {chaos {
-        chaos.gbman0 chaos.gbman0~ chaos.std0 chaos.std0~
+        chaos.gbman0 chaos.gbman0~ chaos.jong chaos.logistic chaos.std0
+        chaos.std0~
     }}
     {conv {
         array.p2s array.s2p conv.amp2dbfs conv.amp2dbfs~ conv.bpm2hz
