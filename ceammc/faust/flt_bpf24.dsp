@@ -5,7 +5,7 @@ ui = library("ceammc_ui.lib");
 ma = library("maths.lib");
 si = library("signals.lib");
 
-process = fi.bandpass(4, freq_low, freq_high)
+process = fi.bandpass(2, freq_low, freq_high)
 with {
     // UI
     freq = ui.freq(1000);
