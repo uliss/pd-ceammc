@@ -17,20 +17,19 @@ static t_symbol* SYM_AR;
 static t_symbol* SYM_EADSR;
 static t_symbol* SYM_EASR;
 static t_symbol* SYM_EAR;
+static t_symbol* SYM_EMPTY;
 
 Envelope::Envelope(const PdArgs& args)
     : BaseObject(args)
 {
     createOutlet();
 
-    t_symbol* method = positionalSymbolConstant(0, nullptr);
+    t_symbol* method = positionalSymbolConstant(0, SYM_EMPTY);
 
     if (env_->isNamedEnvelope(method))
         env_->setNamedEnvelope(method, positionalArguments().slice(1));
-    else if (method != nullptr) // wrong name
+    else if (method != SYM_EMPTY) // wrong name
         OBJ_ERR << "unknown arguments: " << positionalArguments();
-    else // default value
-        env_->setNamedEnvelope(SYM_ADSR, { 20, 40, 40, 500 });
 
     {
         Property* p = createCbIntProperty("@npoints",
@@ -426,6 +425,7 @@ void setup_envelope_env()
     SYM_EADSR = gensym("eadsr");
     SYM_EASR = gensym("easr");
     SYM_EAR = gensym("ear");
+    SYM_EMPTY = gensym("empty");
 
     ObjectFactory<Envelope> obj("envelope");
     obj.addAlias("env");
