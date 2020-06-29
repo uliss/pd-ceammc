@@ -113,6 +113,12 @@ file(GLOB _PDDOC_EXAMPLES "snd.file.*.pd")
 
 # install extra files
 install(FILES ${EXTRA_DOC_FILES} ${_PDDOC_WAV} ${_PDDOC_EXAMPLES}
+        ui.plot~.lin1-help.pd
+        ui.plot~.lin2-help.pd
+        ui.plot~.lin3-help.pd
+        ui.plot~.ln-help.pd
+        ui.plot~.log2-help.pd
+        ui.plot~.log10-help.pd
     DESTINATION ${DOC_INSTALL_PATH}
     PERMISSIONS OWNER_READ GROUP_READ WORLD_READ)
 
