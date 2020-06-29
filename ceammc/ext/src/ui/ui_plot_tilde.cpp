@@ -39,6 +39,20 @@ constexpr float BTN_PAD = 2;
 static const char* BTN_LABELS[] = { "T", "g", "G", "L" };
 constexpr size_t N_BTNS = sizeof(BTN_LABELS) / sizeof(BTN_LABELS[0]);
 
+#ifdef __linux__
+template <size_t N> struct IntNAN {};
+template<> struct IntNAN<sizeof(float)> { static const uint32_t nan = 0xffc00000; };
+#endif
+
+static inline bool is_inf_nan(t_sample v)
+{
+#ifdef __linux__
+    return std::isinf(v) || std::isnan(v) || *(uint32_t*)(&v) == IntNAN<sizeof(v)>::nan;
+#else
+    return std::isinf(v) || std::isnan(v);
+#endif
+}
+
 static inline double fast_pow10(int n)
 {
     switch (n) {
@@ -423,8 +437,7 @@ void UIPlotTilde::drawPlot()
             auto x = convert::lin2lin<float>(i, 0, buffers_[j].size() - 1, 0, wd1);
 
             auto v = buffers_[j][i];
-
-            if (std::isinf(v) || std::isnan(v)) {
+            if (is_inf_nan(v)) {
                 fsm.push(Fsm::PEN_NONE, p, x, 0);
             } else if (yauto_) {
                 auto y = convert::lin2lin<float>(v, sig_min_, sig_max_, ht, 0);
@@ -1080,7 +1093,7 @@ void UIPlotTilde::dspProcess(t_sample** ins, long n_ins, t_sample** outs, long n
 
     if (phase_ == 0 && yauto_) {
         t_sample v0 = ins[0][0];
-        if (!std::isnan(v0) && !std::isinf(v0)) {
+        if (!is_inf_nan(v0)) {
             sig_min_ = ins[0][0];
             sig_max_ = sig_min_;
         } else {
@@ -1102,7 +1115,7 @@ void UIPlotTilde::dspProcess(t_sample** ins, long n_ins, t_sample** outs, long n
                 t_sample v = ins[j][i];
 
                 if (yauto_) {
-                    if (!std::isnan(v) && !std::isinf(v)) {
+                    if (!is_inf_nan(v)) {
                         sig_min_ = std::min(sig_min_, v);
                         sig_max_ = std::max(sig_max_, v);
                     }
