@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Pure\\ Data 0.50.1_ceammc\n"
 "Report-Msgid-Bugs-To: pd-dev@iem.at\n"
-"POT-Creation-Date: 2019-11-19 03:38+0300\n"
+"POT-Creation-Date: 2020-06-29 13:02+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -56,8 +56,8 @@ msgstr ""
 
 #: ../ceammc/ext/src/lib/cicm/Sources/eclass.cpp
 #: ../ceammc/ext/src/ui/cicm/Sources/eclass.c ../ceammc/ext/src/ui/ui_gain.cpp
-#: ../ceammc/ext/src/ui/ui_gain2.cpp ../ceammc/ext/src/ui/ui_rslider.cpp
-#: ../ceammc/ext/src/ui/ui_scope.cpp
+#: ../ceammc/ext/src/ui/ui_gain2.cpp ../ceammc/ext/src/ui/ui_plot_tilde.cpp
+#: ../ceammc/ext/src/ui/ui_rslider.cpp ../ceammc/ext/src/ui/ui_scope.cpp
 msgid "Bounds"
 msgstr ""
 
@@ -309,18 +309,18 @@ msgstr ""
 msgid "Knob Color"
 msgstr ""
 
-#: ../ceammc/ext/src/ui/ui_gain.cpp ../ceammc/ext/src/ui/ui_knob.cpp
-#: ../ceammc/ext/src/ui/ui_slider.cpp
+#: ../ceammc/ext/src/ui/ui_gain.cpp ../ceammc/ext/src/ui/ui_gain2.cpp
+#: ../ceammc/ext/src/ui/ui_knob.cpp ../ceammc/ext/src/ui/ui_slider.cpp
 msgid "MIDI channel"
 msgstr ""
 
-#: ../ceammc/ext/src/ui/ui_gain.cpp ../ceammc/ext/src/ui/ui_knob.cpp
-#: ../ceammc/ext/src/ui/ui_slider.cpp
+#: ../ceammc/ext/src/ui/ui_gain.cpp ../ceammc/ext/src/ui/ui_gain2.cpp
+#: ../ceammc/ext/src/ui/ui_knob.cpp ../ceammc/ext/src/ui/ui_slider.cpp
 msgid "MIDI control"
 msgstr ""
 
-#: ../ceammc/ext/src/ui/ui_gain.cpp ../ceammc/ext/src/ui/ui_knob.cpp
-#: ../ceammc/ext/src/ui/ui_slider.cpp
+#: ../ceammc/ext/src/ui/ui_gain.cpp ../ceammc/ext/src/ui/ui_gain2.cpp
+#: ../ceammc/ext/src/ui/ui_knob.cpp ../ceammc/ext/src/ui/ui_slider.cpp
 msgid "MIDI pickup"
 msgstr ""
 
@@ -356,7 +356,7 @@ msgstr ""
 msgid "Icon"
 msgstr ""
 
-#: ../ceammc/ext/src/ui/ui_icon.cpp
+#: ../ceammc/ext/src/ui/ui_icon.cpp ../ceammc/ext/src/ui/ui_plot_tilde.cpp
 msgid "Mode"
 msgstr ""
 
@@ -382,6 +382,38 @@ msgstr ""
 
 #: ../ceammc/ext/src/ui/ui_keyboard.cpp
 msgid "release all"
+msgstr ""
+
+#: ../ceammc/ext/src/ui/ui_keyboard.cpp
+msgid "maj"
+msgstr ""
+
+#: ../ceammc/ext/src/ui/ui_keyboard.cpp ../ceammc/ext/src/ui/ui_knob.cpp
+msgid "min"
+msgstr ""
+
+#: ../ceammc/ext/src/ui/ui_keyboard.cpp
+msgid "aug"
+msgstr ""
+
+#: ../ceammc/ext/src/ui/ui_keyboard.cpp
+msgid "dim"
+msgstr ""
+
+#: ../ceammc/ext/src/ui/ui_keyboard.cpp
+msgid "7"
+msgstr ""
+
+#: ../ceammc/ext/src/ui/ui_keyboard.cpp
+msgid "maj7"
+msgstr ""
+
+#: ../ceammc/ext/src/ui/ui_keyboard.cpp
+msgid "min7"
+msgstr ""
+
+#: ../ceammc/ext/src/ui/ui_keyboard.cpp
+msgid "aug7"
 msgstr ""
 
 #: ../ceammc/ext/src/ui/ui_knob.cpp ../ceammc/ext/src/ui/ui_slider.cpp
@@ -415,10 +447,6 @@ msgstr ""
 
 #: ../ceammc/ext/src/ui/ui_knob.cpp
 msgid "max"
-msgstr ""
-
-#: ../ceammc/ext/src/ui/ui_knob.cpp
-msgid "min"
 msgstr ""
 
 #: ../ceammc/ext/src/ui/ui_label.cpp
@@ -495,7 +523,7 @@ msgid "reset"
 msgstr ""
 
 #: ../ceammc/ext/src/ui/ui_matrix.cpp
-msgid "save"
+msgid "reset column"
 msgstr ""
 
 #: ../ceammc/ext/src/ui/ui_matrix.cpp
@@ -503,7 +531,7 @@ msgid "reset row"
 msgstr ""
 
 #: ../ceammc/ext/src/ui/ui_matrix.cpp
-msgid "reset column"
+msgid "save"
 msgstr ""
 
 #: ../ceammc/ext/src/ui/ui_menu.cpp ../ceammc/ext/src/ui/ui_tab.cpp
@@ -548,6 +576,78 @@ msgstr ""
 
 #: ../ceammc/ext/src/ui/ui_number_tilde.cpp
 msgid "Decimal precision"
+msgstr ""
+
+#: ../ceammc/ext/src/ui/ui_plot_tilde.cpp
+msgid "Auto Y-range"
+msgstr ""
+
+#: ../ceammc/ext/src/ui/ui_plot_tilde.cpp ../ceammc/ext/src/ui/ui_slider2d.cpp
+msgid "Minimum Y-value"
+msgstr ""
+
+#: ../ceammc/ext/src/ui/ui_plot_tilde.cpp ../ceammc/ext/src/ui/ui_slider2d.cpp
+msgid "Maximum Y-value"
+msgstr ""
+
+#: ../ceammc/ext/src/ui/ui_plot_tilde.cpp
+msgid "Major ticks on x-axis"
+msgstr ""
+
+#: ../ceammc/ext/src/ui/ui_plot_tilde.cpp
+msgid "Minor ticks on x-axis"
+msgstr ""
+
+#: ../ceammc/ext/src/ui/ui_plot_tilde.cpp
+msgid "Major grid on x-axis"
+msgstr ""
+
+#: ../ceammc/ext/src/ui/ui_plot_tilde.cpp
+msgid "Minor grid on x-axis"
+msgstr ""
+
+#: ../ceammc/ext/src/ui/ui_plot_tilde.cpp
+msgid "Labels on x-axis"
+msgstr ""
+
+#: ../ceammc/ext/src/ui/ui_plot_tilde.cpp
+msgid "Major ticks on y-axis"
+msgstr ""
+
+#: ../ceammc/ext/src/ui/ui_plot_tilde.cpp
+msgid "Minor ticks on y-axis"
+msgstr ""
+
+#: ../ceammc/ext/src/ui/ui_plot_tilde.cpp
+msgid "Major grid on y-axis"
+msgstr ""
+
+#: ../ceammc/ext/src/ui/ui_plot_tilde.cpp
+msgid "Minor grid on y-axis"
+msgstr ""
+
+#: ../ceammc/ext/src/ui/ui_plot_tilde.cpp
+msgid "Labels on y-axis"
+msgstr ""
+
+#: ../ceammc/ext/src/ui/ui_plot_tilde.cpp
+msgid "Number of inputs"
+msgstr ""
+
+#: ../ceammc/ext/src/ui/ui_plot_tilde.cpp
+msgid "First plot color"
+msgstr ""
+
+#: ../ceammc/ext/src/ui/ui_plot_tilde.cpp
+msgid "Second plot color"
+msgstr ""
+
+#: ../ceammc/ext/src/ui/ui_plot_tilde.cpp
+msgid "Third plot color"
+msgstr ""
+
+#: ../ceammc/ext/src/ui/ui_plot_tilde.cpp
+msgid "Fourth plot color"
 msgstr ""
 
 #: ../ceammc/ext/src/ui/ui_polar.cpp
@@ -600,6 +700,10 @@ msgstr ""
 
 #: ../ceammc/ext/src/ui/ui_preset.cpp
 msgid "write"
+msgstr ""
+
+#: ../ceammc/ext/src/ui/ui_preset.cpp
+msgid "duplicate all"
 msgstr ""
 
 #: ../ceammc/ext/src/ui/ui_radio.cpp
@@ -663,15 +767,7 @@ msgid "Maximum X-value"
 msgstr ""
 
 #: ../ceammc/ext/src/ui/ui_slider2d.cpp
-msgid "Maximum Y-value"
-msgstr ""
-
-#: ../ceammc/ext/src/ui/ui_slider2d.cpp
 msgid "Minimum X-value"
-msgstr ""
-
-#: ../ceammc/ext/src/ui/ui_slider2d.cpp
-msgid "Minimum Y-value"
 msgstr ""
 
 #: ../ceammc/ext/src/ui/ui_slider2d.cpp
@@ -713,6 +809,18 @@ msgstr ""
 
 #: ../ceammc/ext/src/ui/ui_sliders.cpp
 msgid "linear up"
+msgstr ""
+
+#: ../ceammc/ext/src/ui/ui_sliders.cpp
+msgid "fill with max"
+msgstr ""
+
+#: ../ceammc/ext/src/ui/ui_sliders.cpp
+msgid "fill with mean"
+msgstr ""
+
+#: ../ceammc/ext/src/ui/ui_sliders.cpp
+msgid "fill with min"
 msgstr ""
 
 #: ../ceammc/ext/src/ui/ui_spectroscope.cpp

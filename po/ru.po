@@ -3,8 +3,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Pure Data 0.47.1_ceammc\n"
 "Report-Msgid-Bugs-To: pd-dev@iem.at\n"
-"POT-Creation-Date: 2019-11-19 03:38+0300\n"
-"PO-Revision-Date: 2019-11-28 13:34+0300\n"
+"POT-Creation-Date: 2020-06-29 13:02+0300\n"
+"PO-Revision-Date: 2020-06-29 13:15+0300\n"
 "Last-Translator: Serge Poltavski <serge.poltavski@gmail.com>\n"
 "Language-Team: Russian\n"
 "Language: ru\n"
@@ -17,7 +17,7 @@ msgstr ""
 "X-Language: ru_RU\n"
 "X-Source-Language: C\n"
 "X-Loco-Parser: loco_parse_po\n"
-"X-Generator: Poedit 2.2.1\n"
+"X-Generator: Poedit 2.3.1\n"
 
 #: ../tcl/dialog_font.tcl
 #, tcl-format
@@ -128,6 +128,10 @@ msgstr "5:"
 #: ../tcl/dialog_midi.tcl
 msgid "6:"
 msgstr "6:"
+
+#: ../ceammc/ext/src/ui/ui_keyboard.cpp
+msgid "7"
+msgstr "7"
 
 #: ../tcl/dialog_midi.tcl
 msgid "7:"
@@ -256,6 +260,10 @@ msgstr "Включить звук"
 msgid "Audio..."
 msgstr "Аудио..."
 
+#: ../ceammc/ext/src/ui/ui_plot_tilde.cpp
+msgid "Auto Y-range"
+msgstr "Автоматический Y-диапазон"
+
 #: ../ceammc/ext/src/ui/ui_sliders.cpp
 msgid "Auto range"
 msgstr "Автоматический диапазон"
@@ -308,8 +316,8 @@ msgstr "Нижнее Y-значение"
 
 #: ../ceammc/ext/src/lib/cicm/Sources/eclass.cpp
 #: ../ceammc/ext/src/ui/cicm/Sources/eclass.c ../ceammc/ext/src/ui/ui_gain.cpp
-#: ../ceammc/ext/src/ui/ui_gain2.cpp ../ceammc/ext/src/ui/ui_rslider.cpp
-#: ../ceammc/ext/src/ui/ui_scope.cpp
+#: ../ceammc/ext/src/ui/ui_gain2.cpp ../ceammc/ext/src/ui/ui_plot_tilde.cpp
+#: ../ceammc/ext/src/ui/ui_rslider.cpp ../ceammc/ext/src/ui/ui_scope.cpp
 msgid "Bounds"
 msgstr "Границы"
 
@@ -638,6 +646,10 @@ msgstr "Начальный оттенок"
 msgid "First Lightness"
 msgstr "Начальная светлота"
 
+#: ../ceammc/ext/src/ui/ui_plot_tilde.cpp
+msgid "First plot color"
+msgstr "Цвет первого графика"
+
 #: ../tcl/dialog_iemgui.tcl
 msgid "Flash Time (msec)"
 msgstr "Время индикации нажатия (мкс)"
@@ -678,6 +690,10 @@ msgstr "Удалить все…"
 #, tcl-format
 msgid "Found '%1$s' in %2$s"
 msgstr "Найдено ‘%1$s’ в %2$s"
+
+#: ../ceammc/ext/src/ui/ui_plot_tilde.cpp
+msgid "Fourth plot color"
+msgstr "Цвет четвертого графика"
 
 #: ../tcl/dialog_iemgui.tcl
 msgid "Front"
@@ -859,6 +875,14 @@ msgstr "Сторона ярлыка"
 msgid "Label vertical align"
 msgstr "Вертикальное выравнивание ярлыка"
 
+#: ../ceammc/ext/src/ui/ui_plot_tilde.cpp
+msgid "Labels on x-axis"
+msgstr "Лейблы по оси х"
+
+#: ../ceammc/ext/src/ui/ui_plot_tilde.cpp
+msgid "Labels on y-axis"
+msgstr "Лейблы по оси y"
+
 #: ../tcl/dialog_array.tcl
 msgid "Last graph"
 msgstr "Последний graph"
@@ -940,18 +964,18 @@ msgstr "Настройки MIDI"
 msgid "MIDI Settings..."
 msgstr "Настройки MIDI..."
 
-#: ../ceammc/ext/src/ui/ui_gain.cpp ../ceammc/ext/src/ui/ui_knob.cpp
-#: ../ceammc/ext/src/ui/ui_slider.cpp
+#: ../ceammc/ext/src/ui/ui_gain.cpp ../ceammc/ext/src/ui/ui_gain2.cpp
+#: ../ceammc/ext/src/ui/ui_knob.cpp ../ceammc/ext/src/ui/ui_slider.cpp
 msgid "MIDI channel"
 msgstr "MIDI канал"
 
-#: ../ceammc/ext/src/ui/ui_gain.cpp ../ceammc/ext/src/ui/ui_knob.cpp
-#: ../ceammc/ext/src/ui/ui_slider.cpp
+#: ../ceammc/ext/src/ui/ui_gain.cpp ../ceammc/ext/src/ui/ui_gain2.cpp
+#: ../ceammc/ext/src/ui/ui_knob.cpp ../ceammc/ext/src/ui/ui_slider.cpp
 msgid "MIDI control"
 msgstr "MIDI контроллер"
 
-#: ../ceammc/ext/src/ui/ui_gain.cpp ../ceammc/ext/src/ui/ui_knob.cpp
-#: ../ceammc/ext/src/ui/ui_slider.cpp
+#: ../ceammc/ext/src/ui/ui_gain.cpp ../ceammc/ext/src/ui/ui_gain2.cpp
+#: ../ceammc/ext/src/ui/ui_knob.cpp ../ceammc/ext/src/ui/ui_slider.cpp
 msgid "MIDI pickup"
 msgstr "Подхват MIDI значения"
 
@@ -972,6 +996,22 @@ msgstr "MIDI…"
 #: ../ceammc/ext/src/ui/ui_rslider.cpp ../ceammc/ext/src/ui/ui_scope.cpp
 msgid "Main"
 msgstr "Основные"
+
+#: ../ceammc/ext/src/ui/ui_plot_tilde.cpp
+msgid "Major grid on x-axis"
+msgstr "Основная сетка на оси x"
+
+#: ../ceammc/ext/src/ui/ui_plot_tilde.cpp
+msgid "Major grid on y-axis"
+msgstr "Основная сетка на оси y"
+
+#: ../ceammc/ext/src/ui/ui_plot_tilde.cpp
+msgid "Major ticks on x-axis"
+msgstr "Основные засечки на оси x"
+
+#: ../ceammc/ext/src/ui/ui_plot_tilde.cpp
+msgid "Major ticks on y-axis"
+msgstr "Основные засечки на оси y"
 
 #: ../ceammc/ext/src/ui/ui_label.cpp
 msgid "Margin bottom"
@@ -1035,7 +1075,7 @@ msgstr "Максимальное значение"
 msgid "Maximum X-value"
 msgstr "Максимальное X-значение"
 
-#: ../ceammc/ext/src/ui/ui_slider2d.cpp
+#: ../ceammc/ext/src/ui/ui_plot_tilde.cpp ../ceammc/ext/src/ui/ui_slider2d.cpp
 msgid "Maximum Y-value"
 msgstr "Максимальное Y-значение"
 
@@ -1074,7 +1114,7 @@ msgstr "Минимальное значение"
 msgid "Minimum X-value"
 msgstr "Минимальное X-значение"
 
-#: ../ceammc/ext/src/ui/ui_slider2d.cpp
+#: ../ceammc/ext/src/ui/ui_plot_tilde.cpp ../ceammc/ext/src/ui/ui_slider2d.cpp
 msgid "Minimum Y-value"
 msgstr "Минимальное Y-значение"
 
@@ -1083,11 +1123,27 @@ msgstr "Минимальное Y-значение"
 msgid "Minimum value"
 msgstr "Минимальное значение"
 
+#: ../ceammc/ext/src/ui/ui_plot_tilde.cpp
+msgid "Minor grid on x-axis"
+msgstr "Малая сетка на оси x"
+
+#: ../ceammc/ext/src/ui/ui_plot_tilde.cpp
+msgid "Minor grid on y-axis"
+msgstr "Малая сетка на оси y"
+
+#: ../ceammc/ext/src/ui/ui_plot_tilde.cpp
+msgid "Minor ticks on x-axis"
+msgstr "Малые засечки на оси x"
+
+#: ../ceammc/ext/src/ui/ui_plot_tilde.cpp
+msgid "Minor ticks on y-axis"
+msgstr "Малые засечки на оси y"
+
 #: ../ceammc/ext/src/ui/ui_gain.cpp ../ceammc/ext/src/ui/ui_gain2.cpp
 msgid "Misc"
 msgstr "Разное"
 
-#: ../ceammc/ext/src/ui/ui_icon.cpp
+#: ../ceammc/ext/src/ui/ui_icon.cpp ../ceammc/ext/src/ui/ui_plot_tilde.cpp
 msgid "Mode"
 msgstr "Режим"
 
@@ -1152,6 +1208,10 @@ msgstr "Число"
 #: ../ceammc/ext/src/ui/ui_radio.cpp
 msgid "Number of Items"
 msgstr "Число элементов"
+
+#: ../ceammc/ext/src/ui/ui_plot_tilde.cpp
+msgid "Number of inputs"
+msgstr "Число входов"
 
 #: ../tcl/dialog_iemgui.tcl ../tcl/pd_menus.tcl
 msgid "Number2"
@@ -1511,6 +1571,10 @@ msgstr "Поиск в %s:"
 msgid "Searching for externals..."
 msgstr "Поиск расширений…"
 
+#: ../ceammc/ext/src/ui/ui_plot_tilde.cpp
+msgid "Second plot color"
+msgstr "Цвет второго графика"
+
 #: ../ceammc/ext/src/lib/cicm/Sources/eclass.cpp
 #: ../ceammc/ext/src/ui/cicm/Sources/eclass.c
 msgid "Select"
@@ -1684,6 +1748,10 @@ msgstr "Цвет текста"
 msgid "Text color"
 msgstr "Цвет текста"
 
+#: ../ceammc/ext/src/ui/ui_plot_tilde.cpp
+msgid "Third plot color"
+msgstr "Цвет третьего графика"
+
 #: ../tcl/pd_menus.tcl
 msgid "Tidy Up"
 msgstr "Расставить"
@@ -1715,7 +1783,7 @@ msgstr "Верхнее Y-значение"
 
 #: ../tcl/pd_menus.tcl
 msgid "Triggerize"
-msgstr ""
+msgstr "Триггеризовать"
 
 #: ../tcl/pd_deken.tcl
 msgid "Try to remove libraries before (re)installing them?"
@@ -2060,6 +2128,14 @@ msgstr ""
 msgid "all"
 msgstr "все"
 
+#: ../ceammc/ext/src/ui/ui_keyboard.cpp
+msgid "aug"
+msgstr ""
+
+#: ../ceammc/ext/src/ui/ui_keyboard.cpp
+msgid "aug7"
+msgstr ""
+
 #: ../ceammc/ext/src/ui/ui_polar.cpp ../ceammc/ext/src/ui/ui_slider2d.cpp
 msgid "bottom center"
 msgstr "внизу по центру"
@@ -2077,6 +2153,14 @@ msgstr "по центру"
 msgid "debug"
 msgstr "отладка"
 
+#: ../ceammc/ext/src/ui/ui_keyboard.cpp
+msgid "dim"
+msgstr ""
+
+#: ../ceammc/ext/src/ui/ui_preset.cpp
+msgid "duplicate all"
+msgstr "дублировать все"
+
 #: ../tcl/pdwindow.tcl
 msgid "error"
 msgstr "ошибки"
@@ -2089,6 +2173,18 @@ msgstr "критические ошибки"
 #, c-format
 msgid "fill with %f"
 msgstr "заполнить %f"
+
+#: ../ceammc/ext/src/ui/ui_sliders.cpp
+msgid "fill with max"
+msgstr "заполнить максимальным"
+
+#: ../ceammc/ext/src/ui/ui_sliders.cpp
+msgid "fill with mean"
+msgstr "заполнить средним"
+
+#: ../ceammc/ext/src/ui/ui_sliders.cpp
+msgid "fill with min"
+msgstr "заполнить минимальным"
 
 #: ../ceammc/ext/src/ui/ui_matrix.cpp ../ceammc/ext/src/ui/ui_radio.cpp
 msgid "flip"
@@ -2158,6 +2254,14 @@ msgstr "логарифмическая шкала"
 msgid "log-height:"
 msgstr ""
 
+#: ../ceammc/ext/src/ui/ui_keyboard.cpp
+msgid "maj"
+msgstr ""
+
+#: ../ceammc/ext/src/ui/ui_keyboard.cpp
+msgid "maj7"
+msgstr ""
+
 #: ../ceammc/ext/src/ui/ui_knob.cpp
 msgid "max"
 msgstr "max"
@@ -2166,9 +2270,13 @@ msgstr "max"
 msgid "max:"
 msgstr "макс:"
 
-#: ../ceammc/ext/src/ui/ui_knob.cpp
+#: ../ceammc/ext/src/ui/ui_keyboard.cpp ../ceammc/ext/src/ui/ui_knob.cpp
 msgid "min"
 msgstr "min"
+
+#: ../ceammc/ext/src/ui/ui_keyboard.cpp
+msgid "min7"
+msgstr ""
 
 #: iemgui_dynamic_strings.tcl
 msgid "min:"
@@ -2190,7 +2298,7 @@ msgstr "случайное значение"
 
 #: ../ceammc/ext/src/ui/ui_preset.cpp
 msgid "read"
-msgstr ""
+msgstr "читать"
 
 #: ../ceammc/ext/src/ui/ui_keyboard.cpp
 msgid "release all"
@@ -2251,7 +2359,7 @@ msgstr "ширина:"
 
 #: ../ceammc/ext/src/ui/ui_preset.cpp
 msgid "write"
-msgstr ""
+msgstr "записать"
 
 #~ msgid "Active Cell Color"
 #~ msgstr "Цвет активной ячейки"
@@ -2270,12 +2378,6 @@ msgstr ""
 
 #~ msgid "Label vertical margin"
 #~ msgstr "Вертикальный отступ ярлыка"
-
-#~ msgid "Label x-margin"
-#~ msgstr "Отступ ярлыка по x"
-
-#~ msgid "Label y-margin"
-#~ msgstr "Отступ ярлыка по y"
 
 #~ msgid "Number of decimal"
 #~ msgstr "Число разрядов"
