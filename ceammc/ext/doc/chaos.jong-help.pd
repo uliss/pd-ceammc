@@ -12,7 +12,7 @@ equations:;
 #X text 215 120 x[n+1] = sin(a * y[n]) - cos(b * x[n]);
 #X text 215 145 y[n+1] = sin(c * x[n]) - cos(d * y[n]);
 #X obj 215 170 ui.link @background_color 0.98039 0.98039 0.98039
-@title wiki: Peter de Jong Attractors @url
+@title wiki: Peter de Jong             Attractors @url
 http://paulbourke.net/fractals/peterdejong/;
 #X obj 50 231 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1;
 #X obj 309 231 r~ jong;
