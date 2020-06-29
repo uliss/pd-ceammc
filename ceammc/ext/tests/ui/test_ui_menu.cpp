@@ -161,7 +161,7 @@ TEST_CASE("ui.menu", "[ui.menu]")
     {
         TestExtMenu t("ui.menu", LF(1, 2, 3));
         t << 1;
-        REQUIRE_OUTPUT_LIST(t, 0, LA(1, "2"));
+        REQUIRE_OUTPUT_LIST(t, 0, LA(1, 2));
         REQUIRE_UI_FLOAT_PROPERTY(t, "index", 1);
 
         // fail
@@ -196,7 +196,7 @@ TEST_CASE("ui.menu", "[ui.menu]")
         REQUIRE_UI_LIST_PROPERTY(t, "value", LA("A"));
 
         t << "2";
-        REQUIRE_OUTPUT_LIST(t, 0, LA(1, "2"));
+        REQUIRE_OUTPUT_LIST(t, 0, LA(1, 2));
 
         t <<= LA("A");
         REQUIRE_OUTPUT_LIST(t, 0, LA(0.f, "A"));

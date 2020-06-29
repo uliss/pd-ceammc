@@ -35,8 +35,17 @@ UIMenu::UIMenu()
 void UIMenu::init(t_symbol* name, const AtomList& args, bool usePresets)
 {
     UIObject::init(name, args, usePresets);
-    if (args.size() > 0 && !args[0].isProperty()) {
-        items_.append(args);
+
+    AtomList items;
+    for (auto& a : args) {
+        if (a.isProperty())
+            break;
+
+        items.append(a);
+    }
+
+    if (items.size() > 0) {
+        propSetItems(items);
         current_idx_ = 0;
         syncLabels();
     }
@@ -497,8 +506,7 @@ void UIMenu::output()
         return;
     }
 
-    std::string title = to_string(items_[current_idx_]);
-    AtomList res(Atom(current_idx_), gensym(title.c_str()));
+    AtomList res(Atom(current_idx_), items_[current_idx_]);
     listTo(0, res);
     send(res);
 }

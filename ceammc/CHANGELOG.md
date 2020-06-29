@@ -90,6 +90,8 @@
 
 ### Fixed:
 - ui.tab init from args fixed
+- ui.menu init from args fixed
+- ui.menu outputs numeric labels as numbers not as symbols as before
 - flt.bpf12~ non-stability fixed (by using double precision)
 - flt.bpf24~ non-stability fixed (by using double precision)
 
