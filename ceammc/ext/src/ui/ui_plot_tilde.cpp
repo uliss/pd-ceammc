@@ -665,8 +665,6 @@ void UIPlotTilde::drawXMinTicks(UIPainter& p, float ht)
     }
 }
 
-//static t_rgba rgba_mix()
-
 void UIPlotTilde::drawXMajGrid(UIPainter& p, float ht)
 {
     if (xmaj_grid_) {
