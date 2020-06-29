@@ -41,12 +41,13 @@ PlotResponseTilde::PlotResponseTilde(const PdArgs& a)
         if (use_sr_->value())
             listTo(2, { (t_float)N / 2, 0., sys_getsr() / 2, 0 });
         else
-            listTo(2, { (t_float)N / 2, 0., std::acos(-1) / 2, gensym("pi") });
+            listTo(2, { (t_float)N / 2, 0., std::acos(-1), gensym("pi") });
     })
 {
     n_ = new IntProperty("@n", 512);
     n_->checkClosedRange(32, 8192);
     n_->setSuccessFn([this](Property*) { real_.resize(n_->value()); imag_.resize(real_.size()); });
+    n_->setArgIndex(0);
     addProperty(n_);
 
     dbfs_ = new BoolProperty("@db", false);
