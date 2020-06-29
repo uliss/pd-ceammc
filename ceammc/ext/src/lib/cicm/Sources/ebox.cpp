@@ -567,38 +567,38 @@ void ebox_set_cursor(t_ebox* x, t_cursor cursor)
 
 void ebox_attrprocess_viatoms(void* x, int argc, t_atom* argv)
 {
-    char buffer[MAXPDSTRING];
+    char buffer[MAXPDSTRING] = "@";
     int defc = 0;
-    t_atom* defv = NULL;
+    t_atom* defv = nullptr;
     t_eclass* c = eobj_getclass(x);
 
     for (size_t i = 0; i < c->c_nattr; i++) {
-        sprintf(buffer, "@%s", c->c_attr[i]->name->s_name);
+        strcpy(&buffer[1], c->c_attr[i]->name->s_name); // append to buffer preserving initial '@'
         atoms_get_attribute(argc, argv, gensym(buffer), &defc, &defv);
         if (defc && defv) {
             eobj_attr_setvalueof(x, c->c_attr[i]->name, defc, defv);
             defc = 0;
             free(defv);
-            defv = NULL;
+            defv = nullptr;
         }
     }
 }
 
 void ebox_attrprocess_viabinbuf(void* x, t_binbuf* d)
 {
-    char attr_name[MAXPDSTRING];
+    char attr_name[MAXPDSTRING] = "@";
 
     int defc = 0;
-    t_atom* defv = NULL;
+    t_atom* defv = nullptr;
     t_eclass* c = eobj_getclass(x);
     for (size_t i = 0; i < c->c_nattr; i++) {
-        sprintf(attr_name, "@%s", c->c_attr[i]->name->s_name);
+        strcpy(&attr_name[1], c->c_attr[i]->name->s_name);
         binbuf_get_attribute(d, gensym(attr_name), &defc, &defv);
         if (defc && defv) {
             eobj_attr_setvalueof(x, c->c_attr[i]->name, defc, defv);
             defc = 0;
             free(defv);
-            defv = NULL;
+            defv = nullptr;
         }
     }
 }
