@@ -94,6 +94,7 @@
 - ui.menu outputs numeric labels as numbers not as symbols as before
 - flt.bpf12~ non-stability fixed (by using double precision)
 - flt.bpf24~ non-stability fixed (by using double precision)
+- using puredata-ceammc.png icon when running on linux
 
 ## [0.8]
 ### Added:
