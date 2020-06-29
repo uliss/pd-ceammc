@@ -87,6 +87,9 @@
 ### Changed:
 - flow.sync bang output on unitialized value
 
+### Fixed:
+- ui.tab init from args fixed
+
 ## [0.8]
 ### Added:
 - conv.car2pol converter from Cartesian to Polar coordinates added (with alias car->pol)

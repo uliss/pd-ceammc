@@ -12,6 +12,7 @@
  * this file belongs to.
  *****************************************************************************/
 #include "ui_tab.h"
+
 #include "test_ui.h"
 
 UI_COMPLETE_TEST_SETUP(Tab)
@@ -32,6 +33,13 @@ TEST_CASE("ui.tab", "[ui.tab]")
         {
             TestTab t("ui.tab", LA("a", "b", 10));
             REQUIRE_UI_LIST_PROPERTY(t, "items", LA("a", "b", 10));
+        }
+
+        SECTION("mixed items")
+        {
+            TestTab t("ui.tab", LA("a", "b", 10, "@size", 40, 20));
+            REQUIRE_UI_LIST_PROPERTY(t, "items", LA("a", "b", 10));
+            REQUIRE_UI_LIST_PROPERTY(t, "size", LF(40, 20));
         }
 
         SECTION("@items property")
