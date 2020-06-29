@@ -23,12 +23,14 @@ Envelope::Envelope(const PdArgs& args)
 {
     createOutlet();
 
-    t_symbol* method = positionalSymbolConstant(0, &s_);
+    t_symbol* method = positionalSymbolConstant(0, nullptr);
 
     if (env_->isNamedEnvelope(method))
         env_->setNamedEnvelope(method, positionalArguments().slice(1));
-    else if (method != 0)
+    else if (method != nullptr) // wrong name
         OBJ_ERR << "unknown arguments: " << positionalArguments();
+    else // default value
+        env_->setNamedEnvelope(SYM_ADSR, { 20, 40, 40, 500 });
 
     {
         Property* p = createCbIntProperty("@npoints",
