@@ -441,6 +441,7 @@ set(DOC_FILES
     plot.geomspace~
     plot.linspace~
     plot.logspace~
+    plot.response~
     preset.float
     preset.list
     preset.storage

@@ -81,6 +81,7 @@
 - plot.logspace~ added
 - plot.geomspace~ added
 - plot.hist~ added (with hist~ alias)
+- plot.response~ added
 - ui.plot~ added
 - flow.' alias added for flow.sync
 
@@ -89,6 +90,8 @@
 
 ### Fixed:
 - ui.tab init from args fixed
+- flt.bpf12~ non-stability fixed (by using double precision)
+- flt.bpf24~ non-stability fixed (by using double precision)
 
 ## [0.8]
 ### Added:

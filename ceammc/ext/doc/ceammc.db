@@ -440,6 +440,7 @@ plot.geomspace~		.		~.
 plot.hist~,hist~		~		~.
 plot.linspace~		.		~.
 plot.logspace~		.		~.
+plot.response~		~.		~~.
 preset.float,preset.f		.		.
 preset.list,preset.l		.		.
 preset.storage		.		.

@@ -5,9 +5,9 @@
 #X obj 30 116 flt.biquad~;
 #X text 200 116 second order IIR filter.;
 #X obj 30 143 flt.bpf12~;
-#X text 200 143 Band-pass filter with 12/db per octave slope;
+#X text 200 143 Two pole band-pass butterworth filter;
 #X obj 30 170 flt.bpf24~;
-#X text 200 170 Band-pass filter with 24/db per octave slope;
+#X text 200 170 Four pole band-pass butterworth filter;
 #X obj 30 197 flt.c_bpf~;
 #X text 200 197 BPF coefficient calculator for biquad filter;
 #X obj 30 224 flt.c_highshelf~;

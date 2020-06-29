@@ -78,6 +78,9 @@
     <entry descr="outputs numbers spaced evenly on a log scale" name="plot.logspace~" ref_view="object">
       <xi:include href="plot.logspace~.pddoc" parse="xml"/>
     </entry>
+    <entry descr="output amp/phase freq response to impulse" name="plot.response~" ref_view="object">
+      <xi:include href="plot.response~.pddoc" parse="xml"/>
+    </entry>
   </category>
   <category name="base">
     <entry descr="named function" name="function" ref_view="link">
@@ -478,10 +481,10 @@
     <entry descr="second order IIR filter." name="flt.biquad~" ref_view="object">
       <xi:include href="flt.biquad~.pddoc" parse="xml"/>
     </entry>
-    <entry descr="Band-pass filter with 12/db per octave slope" name="flt.bpf12~" ref_view="object">
+    <entry descr="Two pole band-pass butterworth filter" name="flt.bpf12~" ref_view="object">
       <xi:include href="flt.bpf12~.pddoc" parse="xml"/>
     </entry>
-    <entry descr="Band-pass filter with 24/db per octave slope" name="flt.bpf24~" ref_view="object">
+    <entry descr="Four pole band-pass butterworth filter" name="flt.bpf24~" ref_view="object">
       <xi:include href="flt.bpf24~.pddoc" parse="xml"/>
     </entry>
     <entry descr="BPF coefficient calculator for biquad filter" name="flt.c_bpf~" ref_view="object">

@@ -50,7 +50,9 @@ progression);
 interval;
 #X obj 30 736 plot.logspace~;
 #X text 200 736 outputs numbers spaced evenly on a log scale;
+#X obj 30 763 plot.response~;
+#X text 200 763 output amp/phase freq response to impulse;
 #X obj 1 1 cnv 5 740 40 empty empty ceammc::array 20 20 0 20 -104026
 -4096 0;
-#X obj 1 763 cnv 5 740 40 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 20 773 library: ceammc;
+#X obj 1 790 cnv 5 740 40 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 20 800 library: ceammc;
