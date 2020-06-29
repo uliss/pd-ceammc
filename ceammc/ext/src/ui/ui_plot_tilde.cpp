@@ -151,7 +151,7 @@ static const char* to_label(float v, ScaleBase sb = SB_LIN10)
             return buf;
         }
     } else if (sb == SB_LN) {
-        int n = v;
+        int n = std::round(v);
         if (n < 0)
             strcpy(buf, "e\u207B"); // minus superscript
         else if (n == 0)
