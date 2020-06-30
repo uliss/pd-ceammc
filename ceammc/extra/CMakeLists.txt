@@ -24,6 +24,7 @@ if(WITH_EXT_LYONPOTPOURRI)
 endif()
 
 add_subdirectory(midifile)
+add_subdirectory(muparser)
 add_subdirectory(serial)
 add_subdirectory(sf2)
 add_subdirectory(soxr)

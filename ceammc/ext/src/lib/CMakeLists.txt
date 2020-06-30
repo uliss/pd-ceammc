@@ -154,6 +154,7 @@ endif()
 
 target_link_libraries(ceammc_core PRIVATE re2)
 target_link_libraries(ceammc_core PRIVATE reflex)
+target_link_libraries(ceammc_core PRIVATE muparser)
 #target_link_libraries(ceammc_core PRIVATE puredata-core)
 
 target_include_directories(ceammc_core PRIVATE $<TARGET_PROPERTY:re2,INCLUDE_DIRECTORIES>)
