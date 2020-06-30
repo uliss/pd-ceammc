@@ -17,7 +17,9 @@ DataDict::DataDict(const PdArgs& args)
     : DictIFace<BaseObject>(args)
 {
     createOutlet();
-    dict_->fromString(to_string(args.args, " "));
+
+    if (args.args.size() > 0)
+        dict_->fromString(to_string(args.args, " "));
 }
 
 void setup_data_dict()
