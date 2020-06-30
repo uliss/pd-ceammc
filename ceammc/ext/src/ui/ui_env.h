@@ -57,6 +57,7 @@ class UIEnv : public UIObject {
     UITextLayout txt_value0;
     UITextLayout txt_value1;
     UITextLayout txt_value2;
+    t_symbol* output_mode_;
 
 public:
     UIEnv();
@@ -111,7 +112,7 @@ private:
     bool hasSelectedEdge() const;
 
     void outputEnvelope();
-    static bool shouldOutput(long mod);
+    static bool isCmdPressed(long mod);
 
 public:
     static void setup();
