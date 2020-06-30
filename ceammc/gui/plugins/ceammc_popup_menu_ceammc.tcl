@@ -182,8 +182,8 @@
         synth.risset_arp~ synth.risset_tone~ synth.shakers~ synth.wurley~
     }}
     {system {
-        system.colorpanel system.cursor system.getenv system.hostname
-        system.memsize system.memused system.screen_size system.shell
+        system.colorpanel system.cursor system.exec system.getenv
+        system.hostname system.memsize system.memused system.screen_size
     }}
     {tl {
         tl.bang tl.cue tl.timeline tl.toggle tl.transport
