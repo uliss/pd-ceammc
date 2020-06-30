@@ -16,9 +16,10 @@
 #include "ceammc_format.h"
 #include "ceammc_log.h"
 #include "fmt/format.h"
-#include "lex/exprtk.hpp"
+#include "muparser/muparser/include/muParser.h"
 
 #include <algorithm>
+#include <cmath>
 
 namespace ceammc {
 
@@ -107,26 +108,23 @@ DataStorage::DataStorage()
     registerNewType("sr", [](const AtomList&) -> Atom { return Atom(sys_getsr()); });
     registerNewType("bs", [](const AtomList&) -> Atom { return Atom(sys_getblksize()); });
     registerNewType("expr", [](const AtomList& expr) -> Atom {
-        using symbol_table_t = exprtk::symbol_table<t_float>;
-        using expression_t = exprtk::expression<t_float>;
-        using parser_t = exprtk::parser<t_float>;
+        try {
+            using DD = double (*)(double);
+            mu::Parser p;
+            p.DefineConst("sr", sys_getsr());
+            p.DefineConst("bs", sys_getblksize());
+            p.DefineConst("e", std::exp(1));
+            p.DefineConst("pi", std::acos(-1));
+            p.DefineFun("floor", (DD)std::floor);
+            p.DefineFun("ceil", (DD)std::ceil);
+            p.SetExpr(to_string(expr));
 
-        const std::string expression_string = to_string(expr);
+            return Atom(p.Eval());
+        } catch (mu::Parser::exception_type& e) {
+            pd_error(nullptr, "[muparser] exception: %s", e.GetMsg().c_str());
+        }
 
-        symbol_table_t symbol_table;
-        symbol_table.add_constants();
-        symbol_table.add_constant("e", std::exp(1));
-        symbol_table.add_constant("sr", sys_getsr());
-        symbol_table.add_constant("bs", sys_getblksize());
-
-
-        expression_t expression;
-        expression.register_symbol_table(symbol_table);
-
-        parser_t parser;
-        parser.compile(expression_string, expression);
-
-        return Atom(expression.value());
+        return Atom(0.f);
     });
 }
 
