@@ -5,7 +5,8 @@
 # not in Edit Mode.  Also, if a patch is switched to Run Mode, the
 # menubar will be removed.
 
-package require base64
+# try enabling base64 if possible
+catch {package require base64}
 package require tooltip
 
 proc make_pd_button {mytoplevel name tooltip} {
