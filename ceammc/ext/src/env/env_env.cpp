@@ -428,7 +428,6 @@ void setup_envelope_env()
     SYM_EMPTY = gensym("empty");
 
     ObjectFactory<Envelope> obj("envelope");
-    obj.addAlias("env");
     obj.processData<DataTypeEnv>();
     obj.addMethod("add_point", &Envelope::m_addPoint);
     obj.addMethod("remove_point", &Envelope::m_removePoint);

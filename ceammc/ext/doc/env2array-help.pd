@@ -13,7 +13,7 @@
 #X obj 453 147 tabplay~ env_arr;
 #X msg 88 176 ear 20 -3 500 -8 \, bang;
 #X obj 338 176 *~;
-#X obj 50 205 env;
+#X obj 50 205 envelope;
 #X obj 338 205 dac~;
 #X msg 69 234 @fit;
 #X msg 136 234 @raw;
@@ -21,7 +21,7 @@
 #X obj 50 262 env->array env_arr;
 #X floatatom 50 291 5 0 0 0 - - -;
 #N canvas 0 22 450 300 (subpatch) 0;
-#X array env_arr 1000 float 0;
+#X array env_arr 1000 float 1;
 #A 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0

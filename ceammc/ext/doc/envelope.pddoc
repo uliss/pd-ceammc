@@ -12,9 +12,6 @@
             <category>env</category>
             <keywords>envelope</keywords>
             <since>0.5</since>
-            <aliases>
-                <alias>env</alias>
-            </aliases>
             <also>
                 <see>env-&gt;array</see>
                 <see>env-&gt;vline</see>
@@ -236,7 +233,7 @@
 | | |
 | | | [eadsr 20 -5 70 -12 30 100 -7, bang( [sin2 0 80 1 80 0, bang #d(
 | | | |
-[env #env]
+[envelope #env]
 |
 [env->array env_arr]
 
