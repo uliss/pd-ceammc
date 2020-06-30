@@ -5,7 +5,7 @@
 #X obj 1 1 cnv 5 765 40 empty empty dict.each 20 20 0 20 -104026 -4096
 0;
 #X obj 675 11 dict.each;
-#X msg 50 118 [a: 1] [c: 2] [e: 3] \, bang;
+#X msg 50 118 [a: 1 c: 2 e: 3] \, bang;
 #X obj 50 147 dict;
 #X obj 50 176 dict.each;
 #X obj 184 176 * 100;
