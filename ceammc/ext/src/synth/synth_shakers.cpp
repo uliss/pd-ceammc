@@ -12,6 +12,7 @@
  * this file belongs to.
  *****************************************************************************/
 #include "synth_shakers.h"
+#include "ceammc_property_callback.h"
 #include "stk_synth_factory.h"
 
 #include "Shakers.h"
@@ -92,9 +93,75 @@ static ShakerType typeFromArgs(t_symbol* s)
     return t;
 }
 
+class TypeProperty : public CallbackProperty {
+    ShakerType type_;
+
+public:
+    TypeProperty(ShakerType type)
+        : CallbackProperty(
+            "@type",
+            [this]() -> Atom { return propType(); },
+            [this](const Atom& a) -> bool { return propSetType(a); })
+        , type_(type)
+    {
+        info().setConstraints(PropValueConstraints::ENUM);
+        info().clearEnum();
+        for (auto s : MACRO_SHAKER_NAMES)
+            info().addEnum(gensym(s));
+    }
+
+    Atom propType() const
+    {
+        auto it = std::find_if(std::begin(type_list), std::end(type_list),
+            [this](SymTypeList::value_type& e) { return e.second == type_; });
+
+        if (it == std::end(type_list))
+            return {};
+        else
+            return it->first;
+    }
+
+    bool propSetType(const Atom& a)
+    {
+        if (a.isInteger()) {
+            // try instrument index
+            int idx = a.asInt();
+
+            if (idx < 0 || idx >= SHAKER_TYPE_MAX) {
+                LIB_ERR << "invalid instrument index: " << idx;
+                return false;
+            } else {
+                type_ = static_cast<ShakerType>(idx);
+                return true;
+            }
+        } else if (a.isSymbol()) {
+            // try instrument name
+            t_symbol* t = a.asSymbol();
+
+            auto type = SynthShakers::nameToType(t);
+            if (type == UNKNOWN) {
+                LIB_ERR << "invalid instrument name: " << a;
+                LIB_ERR << "expected values are:";
+                for (auto& i : type_list) {
+                    LIB_ERR << "    " << i.first->s_name;
+                }
+
+                return false;
+            }
+
+            type_ = type;
+            return true;
+        } else {
+            LIB_ERR << "unsuported value: " << a;
+            return false;
+        }
+    }
+
+    int type() const { return type_; }
+};
+
 SynthShakers::SynthShakers(const PdArgs& args)
     : StkBase(args, new MyShakers())
-    , type_(typeFromArgs(positionalSymbolConstant(0, gensym("maraca"))))
     , gate_(0)
 {
     createCbFloatProperty(
@@ -102,7 +169,7 @@ SynthShakers::SynthShakers(const PdArgs& args)
         [this](t_float v) -> bool {
             gate_ = v;
             if (gate_ > 0)
-                synth_->noteOn(type_, gate_);
+                synth_->noteOn(type_->type(), gate_);
             else
                 synth_->noteOff(0);
 
@@ -110,60 +177,10 @@ SynthShakers::SynthShakers(const PdArgs& args)
         })
         ->setFloatCheck(PropValueConstraints::CLOSED_RANGE, 0, 1);
 
-    Property* type = createCbAtomProperty(
-        "@type",
-        [this]() -> Atom { return propType(); },
-        [this](const Atom& a) -> bool { return propSetType(a); });
-    type->setSymbolEnumCheck(MACRO_SHAKER_NAMES);
+    type_ = new TypeProperty(typeFromArgs(positionalSymbolConstant(0, gensym("maraca"))));
+    addProperty(type_);
 
     createCbProperty("@types", &SynthShakers::propTypes);
-}
-
-Atom SynthShakers::propType() const
-{
-    auto it = std::find_if(std::begin(type_list), std::end(type_list),
-        [this](SymTypeList::value_type& e) { return e.second == type_; });
-
-    if (it == std::end(type_list))
-        return {};
-    else
-        return it->first;
-}
-
-bool SynthShakers::propSetType(const Atom& a)
-{
-    if (a.isInteger()) {
-        // try instrument index
-        int idx = a.asInt();
-
-        if (idx < 0 || idx >= SHAKER_TYPE_MAX) {
-            OBJ_ERR << "invalid instrument index: " << idx;
-            return false;
-        } else {
-            type_ = static_cast<ShakerType>(idx);
-            return true;
-        }
-    } else if (a.isSymbol()) {
-        // try instrument name
-        t_symbol* t = a.asSymbol();
-
-        auto type = nameToType(t);
-        if (type == UNKNOWN) {
-            OBJ_ERR << "invalid instrument name: " << a;
-            OBJ_ERR << "expected values are:";
-            for (auto& i : type_list) {
-                OBJ_ERR << "    " << i.first->s_name;
-            }
-
-            return false;
-        }
-
-        type_ = type;
-        return true;
-    } else {
-        OBJ_ERR << "unsuported value: " << a;
-        return false;
-    }
 }
 
 AtomList SynthShakers::propTypes() const

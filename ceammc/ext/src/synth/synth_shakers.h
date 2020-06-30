@@ -44,15 +44,15 @@ enum ShakerType {
     SHAKER_TYPE_MAX
 };
 
+class TypeProperty;
+
 class SynthShakers : public StkBase {
-    ShakerType type_;
+    TypeProperty* type_;
     t_float gate_;
 
 public:
     SynthShakers(const PdArgs& args);
 
-    Atom propType() const;
-    bool propSetType(const Atom& a);
     AtomList propTypes() const;
 
 public:
