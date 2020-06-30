@@ -1605,6 +1605,9 @@
     <entry descr="Output cursor motion, mousewheel and buttonclicks" name="system.cursor" ref_view="object">
       <xi:include href="system.cursor.pddoc" parse="xml"/>
     </entry>
+    <entry descr="run external command in separate process" name="system.exec" ref_view="object">
+      <xi:include href="system.exec.pddoc" parse="xml"/>
+    </entry>
     <entry descr="Get system environment variables" name="system.getenv" ref_view="object">
       <xi:include href="system.getenv.pddoc" parse="xml"/>
     </entry>
@@ -1619,9 +1622,6 @@
     </entry>
     <entry descr="returns current screen size in pixels" name="system.screen_size" ref_view="object">
       <xi:include href="system.screen_size.pddoc" parse="xml"/>
-    </entry>
-    <entry descr="run external command in separate process" name="system.shell" ref_view="object">
-      <xi:include href="system.shell.pddoc" parse="xml"/>
     </entry>
   </category>
   <category name="tl">

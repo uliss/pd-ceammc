@@ -1166,20 +1166,20 @@ tone bar connected to tube;
 #X text 200 16044 System color panel dialog popup;
 #X obj 30 16071 system.cursor;
 #X text 200 16071 Output cursor motion \, mousewheel and buttonclicks;
-#X obj 30 16098 system.getenv;
-#X text 200 16098 Get system environment variables;
-#X obj 30 16125 system.hostname;
-#X text 200 16125 outputs system hostname;
-#X obj 30 16152 system.memsize;
-#X text 200 16152 returns the size of physical memory (RAM) in bytes
+#X obj 30 16098 system.exec;
+#X text 200 16098 run external command in separate process;
+#X obj 30 16125 system.getenv;
+#X text 200 16125 Get system environment variables;
+#X obj 30 16152 system.hostname;
+#X text 200 16152 outputs system hostname;
+#X obj 30 16179 system.memsize;
+#X text 200 16179 returns the size of physical memory (RAM) in bytes
 round to float data type.;
-#X obj 30 16192 system.memused;
-#X text 200 16192 returns the process physical memory use - current
+#X obj 30 16219 system.memused;
+#X text 200 16219 returns the process physical memory use - current
 and peak;
-#X obj 30 16219 system.screen_size;
-#X text 200 16219 returns current screen size in pixels;
-#X obj 30 16246 system.shell;
-#X text 200 16246 run external command in separate process;
+#X obj 30 16246 system.screen_size;
+#X text 200 16246 returns current screen size in pixels;
 #X obj 20 16273 cnv 5 28 31 empty empty tl 4 13 0 17 -262144 -49933 0;
 #X obj 20 16314 cnv 1 720 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 30 16325 tl.bang;

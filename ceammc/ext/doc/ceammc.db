@@ -504,6 +504,7 @@ synth.shakers~		.		~
 synth.wurley~		.		~
 system.colorpanel		.		.
 system.cursor		.		.
+system.exec		.		..
 system.getenv		.		.
 system.hostname		.		.
 system.memsize		.		.
