@@ -5,9 +5,9 @@
 #X obj 1 1 cnv 5 765 40 empty empty dict.get 20 20 0 20 -104026 -4096
 0;
 #X obj 682 11 dict.get;
-#X msg 50 118 [a: b] [@prop: val] [1: 100] \, bang;
+#X msg 50 118 [a: b @prop: val 1: 100] \, bang;
 #X obj 50 176 data.dict;
-#X obj 50 205 dict.get @prop 1 a ?;
+#X obj 50 205 dict.get "@prop" "1" a "?";
 #X symbolatom 50 262 5 0 0 0 - - -;
 #X floatatom 117 262 5 0 0 0 - - -;
 #X symbolatom 184 262 5 0 0 0 - - -;
