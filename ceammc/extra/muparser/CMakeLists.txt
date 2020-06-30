@@ -12,7 +12,7 @@ add_library(muparser
     muparser/src/muParser.cpp
     muparser/src/muParserDLL.cpp
     muparser/src/muParserError.cpp
-#    muparser/src/muParserInt.cpp
+    muparser/src/muParserInt.cpp
 #    muparser/src/muParserTest.cpp
     muparser/src/muParserTokenReader.cpp
 )
