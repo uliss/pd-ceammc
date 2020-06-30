@@ -35,9 +35,9 @@
         <example>
             <pdascii>
 <![CDATA[
-[ls( [ls -l( [open #a(     [winver #c(
+[ls( [ls -l( [open #a(
 |    |
-|    | [top(
+|    | [top(      [winver.exe #c(
 |    | |
 [list  #b]  [terminate(
 |           |
