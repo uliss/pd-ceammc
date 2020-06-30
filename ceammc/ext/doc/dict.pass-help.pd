@@ -5,7 +5,7 @@
 #X obj 1 1 cnv 5 765 40 empty empty dict.pass 20 20 0 20 -104026 -4096
 0;
 #X obj 675 11 dict.pass;
-#X msg 50 118 [a: b] [c: d] [e: f] \, bang;
+#X msg 50 118 [a: b c: d e: f] \, bang;
 #X obj 50 147 dict;
 #X obj 50 176 dict.pass a e;
 #X obj 50 205 ui.d;

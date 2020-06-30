@@ -6,7 +6,7 @@
 -4096 0;
 #X obj 556 11 dict->list;
 #X obj 653 11 dict.to_list;
-#X msg 50 118 [a: b] [c: d e f] \, bang;
+#X msg 50 118 [a: b c: d e f] \, bang;
 #X obj 50 147 data.dict;
 #X obj 50 176 dict->list;
 #X obj 50 205 ui.d;

@@ -31,7 +31,7 @@
 <![CDATA[
 [B]
 |
-[data.dict \[bpm: 120\] \[title: "Unknown masterpiece"\] \[freqs: 1 2 3 4\]]
+[data.dict \[bpm: 120 title: "Unknown masterpiece" freqs: 1 2 3 4\]]
 |
 |
 |
