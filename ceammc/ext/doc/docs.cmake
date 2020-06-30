@@ -509,8 +509,8 @@ set(DOC_FILES
     system.hostname
     system.memsize
     system.memused
+    system.exec
     system.screen_size
-    system.shell
     tl.bang
     tl.cue
     tl.timeline

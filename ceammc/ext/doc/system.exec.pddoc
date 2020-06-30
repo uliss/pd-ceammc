@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <pddoc version="1.0">
-    <object name="system.shell">
-        <title>system.shell</title>
+    <object name="system.exec">
+        <title>system.exec</title>
         <meta>
             <authors>
                 <author>Serge Poltavsky</author>
@@ -10,16 +10,17 @@
             <license>GPL3 or later</license>
             <library>ceammc</library>
             <category>system</category>
-            <keywords>system shell</keywords>
+            <keywords>system execute</keywords>
             <since>0.7</since>
         </meta>
         <properties>
-            <property name="@nosplit" type="flag">do not split process output to lines. Output as
-            single string</property>
+            <property name="@is_running" type="int" enum="0 1" readonly="true">is process is running</property>
         </properties>
         <methods>
+            <method name="eof">send EOF to running processes</method>
+            <method name="stop">stop running process</method>
             <method name="terminate">terminate running process</method>
-            <method name="kill">kill running process</method>
+            <method name="write">write data to process stdin</method>
         </methods>
         <inlets>
             <inlet>
@@ -28,23 +29,23 @@
             </inlet>
         </inlets>
         <outlets>
-            <outlet>output list of strings</outlet>
             <outlet>output process exit code</outlet>
+            <outlet>output list of strings</outlet>
         </outlets>
         <example>
             <pdascii>
 <![CDATA[
-[ls( [ls -l(
+[ls( [ls -l( [open #a(     [winver #c(
 |    |
-|    | [top(     [terminate(
-|    | |         |
-|    | |  [kill( |
-|    | |  |      |
-[system.shell    ]
-|               ^|
-[str->sym]      [F]
-|
-[print]
+|    | [top(
+|    | |
+[list  #b]  [terminate(
+|           |
+[system.exec ]
+|           ^|
+[F]         [print EXEC]
+[X a->b] [X c->b]
+#a /Applications/TextEdit.app
 ]]>
             </pdascii>
         </example>

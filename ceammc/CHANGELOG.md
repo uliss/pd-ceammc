@@ -87,6 +87,7 @@
 
 ### Changed:
 - flow.sync bang output on unitialized value
+- system.shell renamed to system.exec because it not used shell any more
 
 ### Fixed:
 - ui.tab init from args fixed
