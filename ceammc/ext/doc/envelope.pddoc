@@ -16,6 +16,9 @@
                 <see>env-&gt;array</see>
                 <see>env-&gt;vline</see>
             </also>
+            <aliases>
+                <alias>env</alias>
+            </aliases>
         </meta>
         <info>
             <par>Data type for sound envelope. Contains points specified by time and value. Points

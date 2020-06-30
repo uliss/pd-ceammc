@@ -99,7 +99,7 @@ env.tshift		.		.
 env.vscale		.		.
 env2array,env->array		.		.
 env2vline,env->vline		.		.
-envelope		.		.
+envelope,env		.		.
 expand_env		.		.
 flow.append		...		.
 flow.change		.		.
