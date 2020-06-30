@@ -268,5 +268,5 @@ void setup_array_stretch()
 
     ObjectFactory<ArrayStretch> obj("array.stretch");
     soundtouch::SoundTouch st;
-    LIB_DBG << " SoundTouch " << st.getVersionString();
+    LIB_DBG << "SoundTouch " << st.getVersionString();
 }
