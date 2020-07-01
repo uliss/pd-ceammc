@@ -99,6 +99,7 @@
 - flt.bpf12~ non-stability fixed (by using double precision)
 - flt.bpf24~ non-stability fixed (by using double precision)
 - using puredata-ceammc.png icon when running on linux
+- soundtouch~ installation fixed on linux
 
 ## [0.8]
 ### Added:
