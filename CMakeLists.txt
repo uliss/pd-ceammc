@@ -42,6 +42,8 @@ if(NOT CMAKE_BUILD_TYPE)
     set(CMAKE_BUILD_TYPE Debug)
 endif()
 
+cmake_policy(SET CMP0074 NEW)
+
 if(UNIX)
     if(APPLE)
         set(CMAKE_MACOSX_RPATH FALSE)
