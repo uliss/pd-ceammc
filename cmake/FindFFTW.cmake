@@ -17,6 +17,8 @@ if(NOT FFTW_ROOT AND ENV{FFTWDIR})
     set(FFTW_ROOT $ENV{FFTWDIR})
 endif()
 
+cmake_policy(SET CMP0074 NEW)
+
 if(FFTW_ROOT)
 
     find_path(FFTW_INCLUDE_DIR
@@ -28,7 +30,7 @@ if(FFTW_ROOT)
     find_library(FFTW_FLOAT_LIBRARY
         NAMES "fftw3f"
         PATHS ${FFTW_ROOT}
-        PATH_SUFFIXES "lib" "lib64"
+        PATH_SUFFIXES "lib" "lib64" "lib/arm-linux-gnueabihf"
         NO_DEFAULT_PATH)
 
 else()
@@ -53,6 +55,7 @@ else()
     find_library(FFTW_FLOAT_LIBRARY
         NAMES "fftw3f"
         HINTS ${PKGCONFIG_FFTW_LIBDIR} ${PKGCONFIG_FFTW_LIBRARY_DIRS}
+	PATH_SUFFIXES lib lib/arm-linux-gnueabihf
         PATHS
           ${LIB_INSTALL_DIR}
           /usr/lib
