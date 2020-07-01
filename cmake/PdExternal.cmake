@@ -68,21 +68,6 @@ function(pd_add_external)
 
     cmake_parse_arguments(_PD_EXT "${_OPTIONS_ARGS}" "${_ONE_VALUE_ARGS}" "${_MULTI_VALUE_ARGS}" ${ARGN})
 
-    find_path(_PD_INCLUDE_DIR
-      NAMES
-        m_pd.h
-      PATHS
-        ${CMAKE_SOURCE_DIR}/src
-        ${PD_INCLUDE_DIR}
-        /usr/include
-        /usr/local/include
-        /opt/local/include
-        /Applications/Pd.app/Contents/Resources/include
-        /Applications/Pd.app/Contents/Resources/src
-        $ENV{PROGRAMFILES}/Pd/include
-      PATH_SUFFIXES pd
-    )
-
     if(_PD_EXT_NAME)
         set(TARGET_NAME ${_PD_EXT_NAME})
 
@@ -104,9 +89,7 @@ function(pd_add_external)
         endforeach()
 
         target_include_directories(${TARGET_NAME}
-            PRIVATE
-                ${_PD_INCLUDE_DIR}
-                ${PROJECT_SOURCE_DIR}/src)
+            PRIVATE ${PROJECT_SOURCE_DIR}/src)
 
         set_target_properties(${TARGET_NAME} PROPERTIES
             PREFIX        ""
