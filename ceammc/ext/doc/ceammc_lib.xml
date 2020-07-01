@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <library xmlns:xi="http://www.w3.org/2001/XInclude" name="ceammc" version="1.0">
   <category name="an">
+    <entry descr="onset detector for arrays" name="an.onset" ref_view="object">
+      <xi:include href="an.onset.pddoc" parse="xml"/>
+    </entry>
     <entry descr="onset detector" name="an.onset~" ref_view="object">
       <xi:include href="an.onset~.pddoc" parse="xml"/>
     </entry>

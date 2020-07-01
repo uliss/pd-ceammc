@@ -58,10 +58,21 @@ AubioOnset::AubioOnset(const PdArgs& args)
     addProperty(hop_size_);
     addProperty(method_);
 
+    addProperty(new SymbolEnumAlias("@hfc", method_, gensym("hfc")));
+    addProperty(new SymbolEnumAlias("@energy", method_, gensym("energy")));
+    addProperty(new SymbolEnumAlias("@complex", method_, gensym("complex")));
+    addProperty(new SymbolEnumAlias("@phase", method_, gensym("phase")));
+    addProperty(new SymbolEnumAlias("@wphase", method_, gensym("wphase")));
+    addProperty(new SymbolEnumAlias("@specdiff", method_, gensym("specdiff")));
+    addProperty(new SymbolEnumAlias("@kl", method_, gensym("kl")));
+    addProperty(new SymbolEnumAlias("@mkl", method_, gensym("mkl")));
+    addProperty(new SymbolEnumAlias("@specflux", method_, gensym("specflux")));
+
     threshold_ = new OnsetFloatProperty(
         "@threshold",
         [this]() -> t_float { return aubio_onset_get_threshold(onset_.get()); },
         [this](t_float t) -> bool { return aubio_onset_set_threshold(onset_.get(), t) == AUBIO_OK; });
+    addProperty(threshold_);
 
     speedlim_ = new OnsetFloatProperty(
         "@speedlim",
@@ -69,6 +80,7 @@ AubioOnset::AubioOnset(const PdArgs& args)
         [this](t_float ms) -> bool { return aubio_onset_set_minioi_ms(onset_.get(), ms) == AUBIO_OK; });
     speedlim_->setUnitsMs();
     speedlim_->setFloatCheck(PropValueConstraints::GREATER_EQUAL, 1);
+    addProperty(speedlim_);
 
     silence_threshold_ = new OnsetFloatProperty(
         "@silence",
@@ -76,6 +88,7 @@ AubioOnset::AubioOnset(const PdArgs& args)
         [this](t_float t) -> bool { return aubio_onset_set_silence(onset_.get(), t) == AUBIO_OK; });
     silence_threshold_->setUnitsDb();
     silence_threshold_->setFloatCheck(PropValueConstraints::CLOSED_RANGE, -80, 0);
+    addProperty(silence_threshold_);
 
     auto delay = createCbFloatProperty(
         "@delay",

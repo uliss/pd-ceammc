@@ -2,9 +2,13 @@
 
 ## [unreleased]
 ### Added:
-- flow.< alias added for flow.less
-- flow.<= alias added for flow.less_eq
-- flow.greater added (with flow.> alias)
+- an.onset - onset analyzer for array (using aubio library)
+- an.onset~ - onset analyzer for signals (using aubio library)
+    - flow module updates:
+    - flow.< alias added for flow.less
+    - flow.<= alias added for flow.less_eq
+    - flow.greater added (with flow.> alias)
+    - flow.' alias added for flow.sync
 - tl.t alias added for tl.toggle
 - tl.b alias added for tl.bang
 - duplicate method added to ui.preset and preset.storage
@@ -83,7 +87,6 @@
 - plot.hist~ added (with hist~ alias)
 - plot.response~ added
 - ui.plot~ added
-- flow.' alias added for flow.sync
 
 ### Changed:
 - flow.sync bang output on unitialized value

@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <pddoc version="1.0">
-    <object name="an.onset~">
-        <title>an.onset~</title>
+    <object name="an.onset">
+        <title>an.onset</title>
         <meta>
             <authors>
                 <author>Serge Poltavsky</author>
             </authors>
-            <description>onset detector</description>
+            <description>onset detector for arrays</description>
             <license>GPL3 or later</license>
             <library>ceammc</library>
             <category>an</category>
             <keywords>onset</keywords>
             <since>0.9</since>
             <also>
-                <see>an.onset</see>
+                <see>an.onset~</see>
             </also>
         </meta>
         <info>
@@ -21,12 +21,14 @@
             <a href="https://aubio.org/">https://aubio.org</a>
         </info>
         <arguments>
+            <argument name="ARRAY" type="symbol">array name</argument>
             <argument name="BS" type="int" minvalue="64" units="sample">buffer size</argument>
             <argument name="METHOD" type="symbol" enum="1">overlap of analysis frames</argument>
             <argument name="HS" type="int" minvalue="0">hop size (by default
             buffer_size/2)</argument>
         </arguments>
         <properties>
+            <property name="@array" type="symbol">name of analyzed array</property>
             <property name="@bs" type="int" minvalue="64" default="1024" units="sample">buffer
             size</property>
             <property name="@hs" type="int" minvalue="0" default="0" units="sample">hop size. 0
@@ -64,30 +66,44 @@
             whitening</property>
             <property name="@delay" type="float" minvalue="0" default="49.9093"
             units="millisecond">constant system delay to take back from detection time</property>
-            <property name="@active" type="int" default="1" enum="0 1">audio processing
-            state</property>
         </properties>
         <inlets>
-            <inlet type="audio">
-                <xinfo>input signal</xinfo>
+            <inlet>
+                <xinfo on="bang">analyze array</xinfo>
             </inlet>
         </inlets>
         <outlets>
-            <outlet>bang if onset detected</outlet>
-            <outlet>output time of the latest onset detected in millisecond</outlet>
+            <outlet>output list of detected onsets</outlet>
         </outlets>
         <example>
             <pdascii>
 <![CDATA[
-[adc~ 1]     [ui.dsp~]
+[symbol #s(           [B] [array AONSET w=380 h=100]
+|                     |
+[expand_env]  [openpanel]
+|             |
+[load $1 to AONSET @resize(
 |
-|   [T]   [ui.menu hfc energy complex phase wphase specdiff specflux kl mkl]
-|   |.    |
-[gain~]   [@method $1, dump(
-|         |
-[an.onset~ 2048]
-|      ^|
-[B]    [F digits=10]
+[snd.file]
+|
+[b] [shuffle, bang #r(    [$1 #m(
+|                         |
+[an.onset #a]  [T] [F #f] [array.s->p AONSET]
+|              |   |.     |
+[data.list #l] [metro 70] [ui.hsl @size 16 380]
+|              |
+[list.walk @fold]         [r off            #r1][F]
+|                         |                 |     |
+[pack f f  #p]            [tabplay~ AONSET] [b] [@release $1 #ar(
+|                         |                 |   |
+[ms->samp]                [env.ar~ 10 500       ]
+|                         |
+[s off]                   [ui.hgain~]
+                          |\
+[ui.dsp~]                 [dac~]
+[X f->p:1] [X r->l] [X f->ar] [X r1->m]
+#a AONSET
+#s %DOC%/sound/voice.wav
 ]]>
             </pdascii>
         </example>
