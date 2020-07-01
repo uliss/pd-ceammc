@@ -32,7 +32,7 @@
 }
 {ceammc
     {an {
-        an.onset~ an.pitchtrack~
+        an.onset an.onset~ an.pitchtrack~
     }}
     {array {
         array.bpm array.copy array.do array.each array.fill array.hist
