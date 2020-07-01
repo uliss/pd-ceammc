@@ -532,19 +532,19 @@
     <entry descr="gain boost|cut above some frequency" name="flt.highshelf~" ref_view="object">
       <xi:include href="flt.highshelf~.pddoc" parse="xml"/>
     </entry>
-    <entry descr="High-pass filter with 12/db per octave slope" name="flt.hpf12~" ref_view="object">
+    <entry descr="High-pass second order Butterworth filter" name="flt.hpf12~" ref_view="object">
       <xi:include href="flt.hpf12~.pddoc" parse="xml"/>
     </entry>
-    <entry descr="High-pass filter with 24/db per octave slope" name="flt.hpf24~" ref_view="object">
+    <entry descr="High-pass fourth order Butterworth filter" name="flt.hpf24~" ref_view="object">
       <xi:include href="flt.hpf24~.pddoc" parse="xml"/>
     </entry>
     <entry descr="gain boost|cut below some frequency" name="flt.lowshelf~" ref_view="object">
       <xi:include href="flt.lowshelf~.pddoc" parse="xml"/>
     </entry>
-    <entry descr="Low-pass filter with 12/db per octave slope" name="flt.lpf12~" ref_view="object">
+    <entry descr="Low-pass second order Butterworth filter" name="flt.lpf12~" ref_view="object">
       <xi:include href="flt.lpf12~.pddoc" parse="xml"/>
     </entry>
-    <entry descr="Low-pass filter with 24/db per octave slope" name="flt.lpf24~" ref_view="object">
+    <entry descr="Low-pass fourth order Butterworth filter" name="flt.lpf24~" ref_view="object">
       <xi:include href="flt.lpf24~.pddoc" parse="xml"/>
     </entry>
     <entry descr="Median control flow filter" name="flt.median" ref_view="object">

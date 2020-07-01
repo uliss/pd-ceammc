@@ -7,7 +7,7 @@
                 <author>Alex Nadzharov</author>
                 <author>Serge Poltavsky</author>
             </authors>
-            <description>Low-pass filter with 12/db per octave slope</description>
+            <description>Low-pass second order Butterworth filter</description>
             <license>GPL3 or later</license>
             <library>ceammc</library>
             <category>flt</category>
@@ -23,6 +23,9 @@
             <par>A low-pass filter is a filter that passes signals with a frequency lower than a
             certain cutoff frequency and attenuates signals with frequencies higher than the cutoff
             frequency. A low-pass filter is the complement of a high-pass filter.</par>
+            <par>Butterworth filter is a type of filter designed to have a frequency response as
+            flat as possible in the passband.</par>
+            <a href="https://en.wikipedia.org/wiki/Butterworth_filter">wiki: Butterworth filter</a>
         </info>
         <properties>
             <property name="@freq" type="float" units="herz" minvalue="20" maxvalue="20000"

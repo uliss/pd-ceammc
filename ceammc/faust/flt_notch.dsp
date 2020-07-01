@@ -1,7 +1,7 @@
 declare name "flt.notch";
 
 si = library("signals.lib");
-// using olg version (without s), because it compiles with 2.14
+// using old version (without s), because it compiles with 2.14
 fi = library("filter.lib");
 
 freq = vslider("freq [unit:Hz]", 1000, 20, 20000, 0.1) : si.smoo;
