@@ -416,6 +416,7 @@ set(DOC_FILES
     noise.white~
     noise.lfreq~
     noise.lfreq0~
+    nsig~
     obj.props
     osc.blit~
     osc.impulse~

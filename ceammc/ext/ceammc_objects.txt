@@ -571,6 +571,7 @@ noise.stein
 noise.torus
 noise.verhulst
 noise.white~
+nsig~
 obj.info
 obj.props
 once

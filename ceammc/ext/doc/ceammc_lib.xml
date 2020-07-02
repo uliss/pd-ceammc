@@ -110,6 +110,9 @@
     <entry descr="multislot signal mixer" name="mix~" ref_view="object">
       <xi:include href="mix~.pddoc" parse="xml"/>
     </entry>
+    <entry descr="Mulitchannel converter from control to audio rate" name="nsig~" ref_view="object">
+      <xi:include href="nsig~.pddoc" parse="xml"/>
+    </entry>
     <entry descr="property extractor" name="obj.props" ref_view="object">
       <xi:include href="obj.props.pddoc" parse="xml"/>
     </entry>

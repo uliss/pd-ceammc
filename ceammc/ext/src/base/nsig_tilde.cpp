@@ -34,10 +34,13 @@ NSigTilde::NSigTilde(const PdArgs& args)
         "@values", [this]() -> AtomList {
         AtomList res;
         res.reserve(samp_.size());
-        std::copy(samp_.begin(), samp_.end(), res.begin());
+        for(auto f: samp_)
+            res.append(Atom(f));
+
         return res; },
         [this](const AtomList& lst) -> bool {
-            if (lst.size() >= samp_.size())
+            updateSamples();
+            if (lst.size() > samp_.size())
                 OBJ_ERR << "extra list values are ignored: " << lst.slice(samp_.size());
 
             const size_t N = std::min(samp_.size(), lst.size());
@@ -75,7 +78,7 @@ void NSigTilde::onInlet(size_t n, const AtomList& l)
 
 void NSigTilde::onList(const AtomList& lst)
 {
-    //    values_->set(lst);
+    setProperty("@values", lst);
 }
 
 void NSigTilde::processBlock(const t_sample** in, t_sample** out)

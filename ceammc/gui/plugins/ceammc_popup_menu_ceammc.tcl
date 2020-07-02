@@ -11,7 +11,7 @@
     }}
     {base {
         function function.call gain~ matrix~ metro.pattern metro.random
-        metro.seq mix~ obj.props radio window xdac~ xfade2~ xfade~
+        metro.seq mix~ nsig~ obj.props radio window xdac~ xfade2~ xfade~
     }}
     {chaos {
         chaos.gbman0 chaos.gbman0~ chaos.jong chaos.logistic chaos.std0

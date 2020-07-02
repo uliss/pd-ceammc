@@ -87,6 +87,7 @@
 - plot.hist~ added (with hist~ alias)
 - plot.response~ added
 - ui.plot~ added
+- nsig~ multichannel control to audio rate converter
 
 ### Changed:
 - flow.sync bang output on unitialized value
