@@ -8,12 +8,7 @@ set(ENV_SOURCES datatype_env.cpp
     env_tshift.cpp
     env_vscale.cpp
     vline_to_env.cpp
-    )
-
-macro(ceammc_env_external name)
-    list(APPEND ENV_SOURCES "env_${name}.cpp")
-    ceammc_faust_gen(env ${name})
-endmacro()
+)
 
 macro(ceammc_env_obj_external name)
     list(APPEND ENV_SOURCES "env_${name}.cpp")

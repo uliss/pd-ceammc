@@ -7,11 +7,6 @@ set(SYNTH_STK_SOURCES
     synth_bthree.cpp
     synth_rhodey.cpp)
 
-macro(ceammc_synth_extension name)
-    list(APPEND SYNTH_SOURCES "synth_${name}.cpp")
-    ceammc_faust_gen(synth ${name})
-endmacro()
-
 macro(ceammc_synth_obj name)
     list(APPEND SYNTH_SOURCES "synth_${name}.cpp")
     ceammc_faust_gen_obj(synth ${name} JSON)
