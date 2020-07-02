@@ -1,9 +1,9 @@
 #include "mod_flt.h"
 
-extern "C" void setup_flt0x2ebiquad_tilde();
 extern "C" void setup_flt0x2edcblock2_tilde();
 extern "C" void setup_flt0x2edcblock_tilde();
 
+extern void setup_flt_biquad_tilde();
 extern void setup_flt_bpf12_tilde();
 extern void setup_flt_bpf24_tilde();
 extern void setup_flt_c_bpf_tilde();
@@ -30,10 +30,10 @@ extern void setup_flt_freqz();
 
 void ceammc_flt_setup()
 {
-    setup_flt0x2ebiquad_tilde();
     setup_flt0x2edcblock2_tilde();
     setup_flt0x2edcblock_tilde();
 
+    setup_flt_biquad_tilde();
     setup_flt_bpf12_tilde();
     setup_flt_bpf24_tilde();
     setup_flt_c_bpf_tilde();
