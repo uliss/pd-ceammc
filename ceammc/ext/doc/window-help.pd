@@ -21,7 +21,7 @@
 #X obj 50 248 window gauss 512;
 #X obj 50 277 array.set array-window;
 #N canvas 0 22 450 300 (subpatch) 0;
-#X array array-window 512 float 0;
+#X array array-window 512 float 1;
 #A 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
