@@ -11,7 +11,7 @@ filter \, containing two poles and two zeros.;
 #X text 215 120 transfer function: H(z)=(b0 + b1*z⁻¹ + b2*z⁻²)/(1 +
 a1*z⁻¹ + a2*z⁻²);
 #X obj 215 160 ui.link @background_color 0.98039 0.98039 0.98039
-@title wiki: Digital biquad filter @url
+@title wiki: Digital biquad             filter @url
 https://en.wikipedia.org/wiki/Digital_biquad_filter;
 #X msg 50 221 bang;
 #X msg 146 221 0.5 0 0.5;
