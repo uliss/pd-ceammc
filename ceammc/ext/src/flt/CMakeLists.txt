@@ -4,7 +4,7 @@ set(FLT_SOURCES flt_freqz.cpp)
 
 macro(ceammc_flt_obj name)
     list(APPEND FLT_SOURCES "flt_${name}.h" "flt_${name}.cpp")
-    ceammc_faust_gen(flt ${name})
+    ceammc_faust_gen_obj(flt ${name})
 endmacro()
 
 macro(ceammc_flt_obj_json name)
