@@ -7,7 +7,8 @@
 #X obj 624 11 flt.c_highshelf~;
 #X obj 210 80 cnv 1 555 75 empty empty empty 17 7 0 10 -257983 -1 0;
 #X text 215 80 gain boost|cut above some frequency;
-#X text 215 105 Calculates coefficients for transfer function: H(z)=(b0+b1*z^-1+b2*z^-2)/(1+a1*z^-1+a2*z^-2);
+#X text 215 105 Calculates coefficients for transfer function: H(z)=(b0
++ b1*z⁻¹ + b2*z⁻²)/(1 + a1*z⁻¹ + a2*z⁻²);
 #X obj 50 183 noise.pink~;
 #X obj 78 212 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1;
 #X obj 50 241 *~;

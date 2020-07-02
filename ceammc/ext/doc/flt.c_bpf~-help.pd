@@ -6,7 +6,8 @@
 -4096 0;
 #X obj 667 11 flt.c_bpf~;
 #X obj 210 80 cnv 1 555 50 empty empty empty 17 7 0 10 -257983 -1 0;
-#X text 215 80 Calculates coefficients for transfer function: H(z)=(b0+b1*z^-1+b2*z^-2)/(1+a1*z^-1+a2*z^-2);
+#X text 215 80 Calculates coefficients for transfer function: H(z)=(b0
++ b1*z⁻¹ + b2*z⁻²)/(1 + a1*z⁻¹ + a2*z⁻²);
 #X obj 50 158 noise.pink~;
 #X obj 184 158 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1;
 #X floatatom 222 158 5 0 0 0 - - -;
