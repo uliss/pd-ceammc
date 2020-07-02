@@ -28,6 +28,6 @@ TEST_CASE("ceammc::ObjectInfoStorage", "[core]")
         REQUIRE(ObjectInfoStorage::instance().info(nullptr).deprecated == false);
         REQUIRE(ObjectInfoStorage::instance().info(nullptr).api == 0);
         REQUIRE(ObjectInfoStorage::instance().libName() == "ceammc");
-        REQUIRE(ObjectInfoStorage::instance().libStrVersion() == "0.8");
+        REQUIRE(ObjectInfoStorage::instance().libStrVersion() == "0.9");
     }
 }
