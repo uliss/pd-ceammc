@@ -52,6 +52,7 @@ list(APPEND BASE_SOURCES
     gain.cpp
     matrix.cpp
     mix.cpp
+    nsig_tilde.cpp
     xfade_tilde.cpp
     xfade2_tilde.cpp)
 
