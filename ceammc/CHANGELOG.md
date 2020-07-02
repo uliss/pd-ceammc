@@ -1,6 +1,6 @@
 # CEAMMC external library changelog
 
-## [unreleased]
+## [0.9]
 ### Added:
 - an.onset - onset analyzer for array (using aubio library)
 - an.onset~ - onset analyzer for signals (using aubio library)
