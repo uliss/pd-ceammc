@@ -61,19 +61,21 @@ set(AUBIO_SRC
 #    aubio/src/utils/windll.c
 )
 
+add_library(aubio STATIC ${AUBIO_SRC})
+target_include_directories(aubio PRIVATE
+    ${PROJECT_BINARY_DIR}
+     aubio/src)
+target_compile_definitions(aubio PRIVATE -DHAVE_CONFIG_H -DHAVE_WAVWRITE -DHAVE_WAVREAD)
+
 check_include_file_cxx("complex" HAVE_COMPLEX)
 if(HAVE_COMPLEX)
-    add_definitions(-DHAVE_COMPLEX_H)
+    target_compile_definitions(aubio PRIVATE -DHAVE_COMPLEX_H)
 endif()
 
 if(WITH_FFTW)
-    add_definitions(-DHAVE_FFTW3 -DHAVE_FFTW3F)
+    target_compile_definitions(aubio PRIVATE -DHAVE_FFTW3 -DHAVE_FFTW3F)
+    target_link_libraries(aubio PRIVATE ${FFTW_LIBRARIES})
 endif()
-
-add_definitions(-DHAVE_CONFIG_H -DHAVE_WAVWRITE -DHAVE_WAVREAD)
-include_directories(aubio/src)
-include_directories(${PROJECT_BINARY_DIR})
-add_library(aubio STATIC ${AUBIO_SRC})
 
 if(UNIX)
     set_target_properties(aubio PROPERTIES COMPILE_FLAGS "-fPIC")
