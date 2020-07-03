@@ -300,7 +300,7 @@ local.mlist		.		.
 local.set		.		.
 math.abs		.		.
 math.abs~		~		~
-math.acos		~		~
+math.acos		.		.
 math.acosh		.		.
 math.acosh~		~		~
 math.acos~		~		~
