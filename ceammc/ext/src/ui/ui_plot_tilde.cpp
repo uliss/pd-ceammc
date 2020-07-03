@@ -15,8 +15,8 @@
 #include "ceammc_convert.h"
 #include "ceammc_ui.h"
 
-#include <cstdio>
 #include <cmath>
+#include <cstdio>
 
 constexpr int MIN_INPUTS = 1;
 constexpr int MAX_INPUTS = 4;
@@ -40,8 +40,13 @@ static const char* BTN_LABELS[] = { "T", "g", "G", "L" };
 constexpr size_t N_BTNS = sizeof(BTN_LABELS) / sizeof(BTN_LABELS[0]);
 
 #ifdef __linux__
-template <size_t N> struct IntNAN {};
-template<> struct IntNAN<sizeof(float)> { static const uint32_t nan = 0xffc00000; };
+template <size_t N>
+struct IntNAN {
+};
+template <>
+struct IntNAN<sizeof(float)> {
+    static const uint32_t nan = 0xffc00000;
+};
 #endif
 
 static inline bool is_inf_nan(t_sample v)
@@ -242,7 +247,14 @@ UIPlotTilde::UIPlotTilde()
     , xmin_ticks_(1)
     , xmaj_grid_(1)
     , xmin_grid_(0)
+    , ymaj_ticks_(1)
+    , ymin_ticks_(1)
+    , ymaj_grid_(1)
+    , ymin_grid_(0)
+    , xlabels_(0)
+    , ylabels_(0)
     , prop_nins_(1)
+    , prop_draw_mode_(gensym("lines"))
     , xscale_base_(SB_LIN10)
     , plot_layer_(asEBox(), gensym("plot_layer"))
     , border_layer_(asEBox(), gensym("border_layer"))

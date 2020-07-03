@@ -5,6 +5,7 @@
 PresetSymbol::PresetSymbol(const PdArgs& args)
     : PresetBase(args)
     , init_(nullptr)
+    , current_value_(nullptr)
 {
     // 1st positionalSymbolArgument is preset name - in base class
     // 2nd positionalSymbolArgument we are using as init value

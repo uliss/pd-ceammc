@@ -162,6 +162,7 @@ public:
 
 SynthShakers::SynthShakers(const PdArgs& args)
     : StkBase(args, new MyShakers())
+    , type_(nullptr)
     , gate_(0)
 {
     createCbFloatProperty(

@@ -24,6 +24,7 @@ namespace ceammc {
 ArgIsData::ArgIsData()
     : ArgCheckerSingle()
     , type_(0)
+    , name_(nullptr)
 {
     setName("d");
 }
@@ -48,11 +49,11 @@ bool ArgIsData::checkAtom(const Atom& a, CheckerContext& ctx) const
 void ArgIsData::setType(const char* name)
 {
     static const std::map<t_symbol*, uint16_t> types = {
-        { gensym("String"), DataStorage::instance().typeByName("String")  },
+        { gensym("String"), DataStorage::instance().typeByName("String") },
         { gensym("Tree"), DataStorage::instance().typeByName("Tree") },
-        { gensym("Dict"), DataStorage::instance().typeByName("Dict")  },
-        { gensym("Set"), DataStorage::instance().typeByName("Set")  },
-        { gensym("Mlist"), DataStorage::instance().typeByName("MList")  }
+        { gensym("Dict"), DataStorage::instance().typeByName("Dict") },
+        { gensym("Set"), DataStorage::instance().typeByName("Set") },
+        { gensym("Mlist"), DataStorage::instance().typeByName("MList") }
     };
 
     name_ = gensym(name);

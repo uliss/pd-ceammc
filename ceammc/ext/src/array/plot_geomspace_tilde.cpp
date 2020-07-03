@@ -23,6 +23,7 @@ PlotGeomSpaceTilde::PlotGeomSpaceTilde(const PdArgs& a)
     , stop_(nullptr)
     , num_(nullptr)
     , endpoint_(nullptr)
+    , phase_(0)
     , running_(false)
     , base_(nullptr)
 {
