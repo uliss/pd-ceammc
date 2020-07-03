@@ -4,7 +4,7 @@ msgstr ""
 "Project-Id-Version: Pure Data 0.47.1_ceammc\n"
 "Report-Msgid-Bugs-To: pd-dev@iem.at\n"
 "POT-Creation-Date: 2020-07-04 01:04+0300\n"
-"PO-Revision-Date: 2020-07-04 01:26+0300\n"
+"PO-Revision-Date: 2020-07-04 01:45+0300\n"
 "Last-Translator: Serge Poltavski <serge.poltavski@gmail.com>\n"
 "Language-Team: Russian\n"
 "Language: ru\n"
@@ -1107,7 +1107,7 @@ msgstr "Максимальное значение"
 
 #: pd_dynamic_strings.tcl
 msgid "Media"
-msgstr ""
+msgstr "Медиа"
 
 #: ../tcl/pd_menus.tcl
 msgid "Message"
@@ -1372,7 +1372,7 @@ msgstr "Руководство по Pd от Johannes Kreidler"
 
 #: ../tcl/dialog_find.tcl ../tcl/pd_menus.tcl
 msgid "Pd window"
-msgstr ""
+msgstr "Pd window"
 
 #: ../ceammc/ext/src/lib/cicm/Sources/eclass.cpp
 #: ../ceammc/ext/src/ui/cicm/Sources/eclass.c

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Pure\\ Data 0.50.1_ceammc\n"
 "Report-Msgid-Bugs-To: pd-dev@iem.at\n"
-"POT-Creation-Date: 2020-07-04 01:04+0300\n"
+"POT-Creation-Date: 2020-07-04 01:46+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -999,16 +999,16 @@ msgstr ""
 msgid "Settings"
 msgstr ""
 
+#: ../tcl/dialog_audio.tcl ../tcl/dialog_midi.tcl
+msgid "Use Multiple Devices"
+msgstr ""
+
 #: ../tcl/dialog_audio.tcl
 msgid "Use callbacks"
 msgstr ""
 
 #: ../tcl/dialog_audio.tcl ../tcl/dialog_midi.tcl
 msgid "Use multiple devices"
-msgstr ""
-
-#: ../tcl/dialog_audio.tcl ../tcl/dialog_midi.tcl
-msgid "Use Multiple Devices"
 msgstr ""
 
 #: ../tcl/dialog_canvas.tcl
@@ -2271,6 +2271,10 @@ msgid "width:"
 msgstr ""
 
 #: pd_dynamic_strings.tcl
+msgid "(re-save preferences to reinstate them)"
+msgstr ""
+
+#: pd_dynamic_strings.tcl
 #, tcl-format
 msgid "Discard changes to '%s'?"
 msgstr ""
@@ -2278,6 +2282,22 @@ msgstr ""
 #: pd_dynamic_strings.tcl
 #, tcl-format
 msgid "Do you want to save the changes you made in '%s'?"
+msgstr ""
+
+#: pd_dynamic_strings.tcl
+msgid "Edit"
+msgstr ""
+
+#: pd_dynamic_strings.tcl
+msgid "File"
+msgstr ""
+
+#: pd_dynamic_strings.tcl
+msgid "Media"
+msgstr ""
+
+#: pd_dynamic_strings.tcl
+msgid "Put"
 msgstr ""
 
 #: pd_dynamic_strings.tcl
@@ -2313,6 +2333,10 @@ msgid "Redo typing"
 msgstr ""
 
 #: pd_dynamic_strings.tcl
+msgid "Show &Hidden Files and Directories"
+msgstr ""
+
+#: pd_dynamic_strings.tcl
 msgid "Undo clear"
 msgstr ""
 
@@ -2345,11 +2369,7 @@ msgid "Undo typing"
 msgstr ""
 
 #: pd_dynamic_strings.tcl
-msgid "no Pd settings to clear"
-msgstr ""
-
-#: pd_dynamic_strings.tcl
-msgid "removed .pdsettings file"
+msgid "Window"
 msgstr ""
 
 #: pd_dynamic_strings.tcl
@@ -2357,11 +2377,15 @@ msgid "couldn't delete .pdsettings file"
 msgstr ""
 
 #: pd_dynamic_strings.tcl
+msgid "erased Pd settings"
+msgstr ""
+
+#: pd_dynamic_strings.tcl
 msgid "failed to erase Pd settings"
 msgstr ""
 
 #: pd_dynamic_strings.tcl
-msgid "erased Pd settings"
+msgid "no Pd settings to clear"
 msgstr ""
 
 #: pd_dynamic_strings.tcl
@@ -2369,33 +2393,9 @@ msgid "no Pd settings to erase"
 msgstr ""
 
 #: pd_dynamic_strings.tcl
+msgid "removed .pdsettings file"
+msgstr ""
+
+#: pd_dynamic_strings.tcl
 msgid "skipping loading preferences... Pd seems to have crashed on startup."
-msgstr ""
-
-#: pd_dynamic_strings.tcl
-msgid "(re-save preferences to reinstate them)"
-msgstr ""
-
-#: pd_dynamic_strings.tcl
-msgid "File"
-msgstr ""
-
-#: pd_dynamic_strings.tcl
-msgid "Edit"
-msgstr ""
-
-#: pd_dynamic_strings.tcl
-msgid "Put"
-msgstr ""
-
-#: pd_dynamic_strings.tcl
-msgid "Media"
-msgstr ""
-
-#: pd_dynamic_strings.tcl
-msgid "Window"
-msgstr ""
-
-#: pd_dynamic_strings.tcl
-msgid "Show &Hidden Files and Directories"
 msgstr ""
