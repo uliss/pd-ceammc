@@ -1,10 +1,9 @@
 declare name "flt.notch";
 
 si = library("signals.lib");
-// using olg version (without s), because it compiles with 2.14
-fi = library("filter.lib");
+fi = library("filters.lib");
+ui = library("ceammc_ui.lib");
 
-freq = vslider("freq [unit:Hz]", 1000, 20, 20000, 0.1) : si.smoo;
 width = vslider("width [unit:Hz]", 50, 1, 10000, 0.1) : si.smoo;
 
-process = fi.notchw(width, freq);
+process = fi.notchw(width, ui.freq(1000));

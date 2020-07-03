@@ -19,7 +19,7 @@ HwAppleSMC::HwAppleSMC(const PdArgs& args)
 {
     createOutlet();
 
-    createCbProperty("@keys", &HwAppleSMC::propKeys);
+    createCbListProperty("@keys", [this]() -> AtomList { return propKeys(); });
 
 #ifndef WITH_SMC
     OBJ_ERR << "no system management control support for this device";

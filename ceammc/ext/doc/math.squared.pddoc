@@ -12,6 +12,10 @@
             <category>math</category>
             <keywords>math square</keywords>
             <since>0.1</since>
+            <aliases>
+                <alias>^2</alias>
+                <alias>math.^2</alias>
+            </aliases>
         </meta>
         <inlets>
             <inlet>

@@ -17,14 +17,14 @@
 #include "local_base.h"
 #include "mlist_iface.h"
 
-typedef DataMListIFace<LocalBase<DataTypeMList>> LocalMListBase;
+typedef DataMListIFace<LocalBase<MListAtom>> LocalMListBase;
 
 class LocalMList : public LocalMListBase {
 public:
     LocalMList(const PdArgs& args);
 
-    DataTypeMList& mlist() final { return ref(); }
-    const DataTypeMList& mlist() const final { return ref(); }
+    MListAtom& mlist() override { return ref(); }
+    const MListAtom& mlist() const override { return ref(); }
 };
 
 void setup_local_mlist();

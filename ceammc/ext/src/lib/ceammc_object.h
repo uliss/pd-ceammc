@@ -15,17 +15,28 @@
 #define CEAMMC_OBJECT_H
 
 #include "ceammc_atomlist.h"
-#include "ceammc_data.h"
 #include "ceammc_message.h"
+#include "ceammc_object_info.h"
 #include "ceammc_property.h"
 
+#include <initializer_list>
 #include <iostream>
 #include <map>
 #include <sstream>
 #include <string>
+#include <unordered_map>
 #include <vector>
 
 namespace ceammc {
+
+#define OBJ_ERR Error(this).stream()
+#define OBJ_DBG Debug(this).stream()
+#define OBJ_LOG Log(this).stream()
+#define OBJ_POST Post(this).stream()
+#define METHOD_ERR(s) OBJ_ERR << "[" << s->s_name << "( "
+#define METHOD_DBG(s) OBJ_DBG << "[" << s->s_name << "( "
+#define METHOD_LOG(s) OBJ_LOG << "[" << s->s_name << "( "
+#define METHOD_POST(s) OBJ_POST << "[" << s->s_name << "( "
 
 class PdArgs {
 public:
@@ -56,11 +67,11 @@ public:
 
 class BaseObject {
     const PdArgs pd_;
-    typedef std::vector<t_inlet*> InletList;
-    typedef std::vector<t_outlet*> OutletList;
-    typedef std::vector<t_symbol*> SymbolList;
-    typedef std::map<t_symbol*, Property*> Properties;
-    typedef void (*PropCallback)(BaseObject*, t_symbol*);
+    using InletList = std::vector<t_inlet*>;
+    using OutletList = std::vector<t_outlet*>;
+    using SymbolList = std::vector<t_symbol*>;
+    using Properties = std::vector<Property*>;
+
     InletList inlets_;
     OutletList outlets_;
     SymbolList inlets_s_;
@@ -68,7 +79,6 @@ class BaseObject {
     AtomList positional_args_;
     t_symbol* receive_from_;
     t_canvas* cnv_;
-    PropCallback prop_set_callback_;
 
 public:
     typedef AtomList (BaseObject::*GetterFn)() const;
@@ -92,28 +102,83 @@ public:
     BaseObject(const PdArgs& args);
     virtual ~BaseObject();
 
+    CEAMMC_DEPRECATED t_float positionalFloatArgumentT(size_t pos, t_float def = 0) const
+    {
+        return positionalFloatArgument(pos, def);
+    }
+
+    template <size_t def, size_t min, size_t max>
+    size_t positionalConstant(size_t pos) const
+    {
+        static_assert(min < max, "min < max expected");
+        static_assert(min <= def, "min <= def expected");
+        static_assert(def <= max, "def <= max expected");
+
+        return positionalConstantP(pos, def, min, max);
+    }
+
+    t_symbol* positionalSymbolConstant(size_t pos, t_symbol* def) const;
+
+private:
+    size_t positionalConstantP(size_t pos, size_t def, size_t min, size_t max) const;
+
     /**
      * Returns specified position argument (before property list)
      * @param pos - argument position
      * @param def - default value, if searched argument not exists
      */
-    Atom positionalArgument(size_t pos, const Atom& def = Atom()) const;
+    const Atom& positionalArgument(size_t pos, const Atom& def = Atom()) const;
 
     /**
      * Same as positionalArgument, but for t_float type
      */
-    t_float positionalFloatArgument(size_t pos, t_float def = 0.f) const;
+    t_float positionalFloatArgument(size_t pos, t_float def = 0) const;
+
+    /**
+     * Same as positionalFloatArgument, but for t_float type and >= 0
+     */
+    t_float nonNegativeFloatArgAt(size_t pos, t_float def = 0) const;
+    size_t nonNegativeIntArgAt(size_t pos, size_t def = 0) const;
+
+    /**
+     * Same as positionalFloatArgument, but for t_float type and > 0
+     */
+    t_float positiveFloatArgAt(size_t pos, t_float def = 0) const;
+    size_t positiveIntArgAt(size_t pos, size_t def = 0) const;
+
+    /**
+     * Same as positionalArgument, but for int type
+     */
+    int positionalIntArgument(size_t pos, int def = 0) const;
 
     /**
      * Same as positionalArgument, but for t_symbol* type
      */
-    t_symbol* positionalSymbolArgument(size_t pos, t_symbol* def = 0) const;
-    inline const AtomList& positionalArguments() const { return positional_args_; }
+    t_symbol* positionalSymbolArgument(size_t pos, t_symbol* def = nullptr) const;
+
+public:
+    CEAMMC_DEPRECATED inline const AtomList& positionalArguments() const { return positional_args_; }
 
     /**
      * Parse initial constructor arguments and extract properties
      */
     virtual void parseProperties();
+
+    /**
+     * Parse positional arguments and set corresponding properties
+     * this allows to have properties that contains all arguments, not only positional
+     */
+    virtual void parsePositionalProperties();
+
+    /**
+     * Updates PropertyInfo defaults value, that can be available after parse step
+     */
+    virtual void updatePropertyDefaults();
+
+    /**
+     * called when object init is done
+     */
+    virtual void initDone();
 
     /**
      * Method args checking
@@ -154,10 +219,10 @@ public:
      * You should override this functions to react upon arrived messages.
      */
     virtual void onBang();
-    virtual void onFloat(float);
+    virtual void onFloat(t_float);
     virtual void onSymbol(t_symbol*);
     virtual void onList(const AtomList&);
-    virtual void onData(const DataPtr&);
+    virtual void onData(const Atom&);
     virtual void onAny(t_symbol* s, const AtomList&);
 
     /**
@@ -192,6 +257,10 @@ public:
      */
     virtual void onCloseBang() {}
 
+    /**
+     * Creates inlet
+     * @return pointer
+     */
     t_inlet* createInlet();
 
     /**
@@ -199,7 +268,7 @@ public:
      * @param v - pointer to binded float value
      * @return pointer to new inlet
      */
-    t_inlet* createInlet(float* v);
+    t_inlet* createInlet(t_float* v);
 
     /**
      * Creates symbol inlet - all incoming messages will change binded symbol value
@@ -230,24 +299,109 @@ public:
      */
     size_t numOutlets() const { return outlets_.size(); }
 
-    void createProperty(Property* p);
+    /**
+     * Adds property to obejct and takes owner ship on it
+     * @p - pointer to property
+     * @return pointer to property
+     */
+    Property* addProperty(Property* p);
+
+    /**
+     * Creates callback property
+     */
     template <class T>
     Property* createCbProperty(const std::string& name,
         AtomList (T::*getter)() const,
-        void (T::*setter)(const AtomList&) = 0)
+        void (T::*setter)(const AtomList&) = nullptr)
     {
-        CallbackProperty<T>* p = new CallbackProperty<T>(name, static_cast<T*>(this), getter, setter);
-        createProperty(p);
-        return p;
+        return createCbListProperty(
+            name,
+            [this, getter]() -> AtomList { return (static_cast<T*>(this)->*getter)(); },
+            setter ? [this, setter](const AtomList& l) -> bool {
+                (static_cast<T*>(this)->*setter)(l);
+                return true;
+            }
+                   : PropertyListSetter());
     }
+
+    /**
+     * Create callback float property
+     * @return pointer to created prperty
+     */
+    Property* createCbFloatProperty(const std::string& name,
+        PropertyFloatGetter g,
+        PropertyFloatSetter s = nullptr);
+
+    /**
+     * Create callback int property
+     * @return pointer to created prperty
+     */
+    Property* createCbIntProperty(const std::string& name,
+        PropertyIntGetter g,
+        PropertyIntSetter s = nullptr);
+
+    /**
+     * Create callback bool property
+     * @return pointer to created prperty
+     */
+    Property* createCbBoolProperty(const std::string& name,
+        PropertyBoolGetter g,
+        PropertyBoolSetter s = nullptr);
+
+    /**
+     * Create callback symbol property
+     * @return pointer to created prperty
+     */
+    Property* createCbSymbolProperty(const std::string& name,
+        PropertySymbolGetter g,
+        PropertySymbolSetter s = nullptr);
+
+    /**
+     * Create callback atom property
+     * @return pointer to created prperty
+     */
+    Property* createCbAtomProperty(const std::string& name,
+        PropertyAtomGetter g,
+        PropertyAtomSetter s = nullptr);
+
+    /**
+     * Create callback list property
+     * @return pointer to created prperty
+     */
+    Property* createCbListProperty(const std::string& name,
+        PropertyListGetter g,
+        PropertyListSetter s = nullptr);
+
+    /**
+     * Check if object has specified property
+     * @param key - property name
+     * @return true on success, false on error
+     */
     bool hasProperty(t_symbol* key) const;
-    bool hasProperty(const char* key) const;
+    inline bool hasProperty(const char* key) const { return hasProperty(gensym(key)); }
+
+    /**
+     * Get pointer to specified property
+     * @param key - property name
+     * @return pointer to property on success, nullptr if not found
+     */
     Property* property(t_symbol* key);
-    Property* property(const char* key);
+    Property* property(const char* key) { return property(gensym(key)); }
+    const Property* property(t_symbol* key) const;
+
+    /**
+     * Set property value
+     * @param key - property name
+     * @param v - property value
+     * @return false on error
+     */
     bool setProperty(t_symbol* key, const AtomList& v);
     bool setProperty(const char* key, const AtomList& v);
-    bool setPropertyFromPositionalArg(Property* p, size_t n);
-    const Properties& properties() const;
+
+    /**
+     * Get list of object properties
+     */
+    inline const Properties& properties() const { return props_; }
 
     /**
      * Outputs atom to specified outlet
@@ -263,11 +417,18 @@ public:
     virtual void bangTo(size_t n);
 
     /**
+     * Outputs 1 or 0 to specified outlet
+     * @n - outlet number
+     * @v - bool value
+     */
+    virtual void boolTo(size_t n, bool v);
+
+    /**
      * Outputs float value to specified outlet
      * @param n - outlet number
-     * @param v - float value
+     * @param v - t_float value
      */
-    virtual void floatTo(size_t n, float v);
+    virtual void floatTo(size_t n, t_float v);
 
     /**
      * Outputs symbol value to specified outlet
@@ -284,6 +445,13 @@ public:
     virtual void listTo(size_t n, const AtomList& l);
 
     /**
+     * Outputs list view to specified outlet
+     * @param n - outlet number
+     * @param v - listview
+     */
+    virtual void listTo(size_t n, const AtomListView& v);
+
+    /**
      * Outputs message to specified outlet
      * @param n - outlet number
      * @param msg - message value
@@ -293,13 +461,6 @@ public:
     virtual void anyTo(size_t n, const AtomList& l);
     virtual void anyTo(size_t n, t_symbol* s, const Atom& a);
     virtual void anyTo(size_t n, t_symbol* s, const AtomList& l);
-
-    /**
-     * Sends data to specified outlet
-     * @param n - output number
-     * @param d - data pointer
-     */
-    virtual void dataTo(size_t n, const DataPtr& d);
 
     virtual bool processAnyInlets(t_symbol* sel, const AtomList& lst);
 
@@ -382,13 +543,10 @@ protected:
     void freeInlets();
     void freeOutlets();
     void freeProps();
-    AtomList propNumInlets();
-    AtomList propNumOutlets();
     const AtomList& args() const { return pd_.args; }
     void appendInlet(t_inlet* in);
     void appendOutlet(t_outlet* out);
     bool queryProperty(t_symbol* key, AtomList& res) const;
-    void setPropertyCallback(PropCallback cb);
 
 private:
     void extractPositionalArguments();

@@ -13,30 +13,43 @@
  *****************************************************************************/
 #include "string_substr.h"
 #include "ceammc_factory.h"
+#include "datatype_string.h"
 
 StringSubstr::StringSubstr(const PdArgs& a)
     : BaseObject(a)
 {
+    createInlet();
+    createInlet();
     createOutlet();
 
-    from_ = new IntProperty("@from", positionalArgument(0).asInt(0));
-    len_ = new SizeTProperty("@len", positionalArgument(1).asInt(-1));
+    from_ = new IntProperty("@from", 0);
+    from_->setArgIndex(0);
+    len_ = new SizeTProperty("@len", size_t(-1));
+    len_->setArgIndexNext(from_);
 
-    createProperty(from_);
-    createProperty(len_);
+    addProperty(from_);
+    addProperty(len_);
 }
 
-void StringSubstr::onDataT(const DataTPtr<DataTypeString>& dptr)
+void StringSubstr::onDataT(const StringAtom& str)
 {
-    dataTo(0, DataTPtr<DataTypeString>(dptr->substr(from_->value(), len_->value())));
+    atomTo(0, StringAtom(str->substr(from_->value(), len_->value())));
 }
 
 void StringSubstr::onSymbol(t_symbol* s)
 {
-    dataTo(0, DataTPtr<DataTypeString>(DataTypeString(s).substr(from_->value(), len_->value())));
+    onDataT(StringAtom(s));
 }
 
-extern "C" void setup_string0x2esubstr()
+void StringSubstr::onInlet(size_t n, const AtomList& l)
+{
+    if (n == 1)
+        from_->set(l);
+    else if (n == 2)
+        len_->set(l);
+}
+
+void setup_string_substr()
 {
     ObjectFactory<StringSubstr> obj("string.substr");
     obj.processData<DataTypeString>();

@@ -19,8 +19,8 @@
             </also>
         </meta>
         <info>
-            <par>Calculates coefficients for transfer function:
-            H(z)=(b0+b1*z^-1+b2*z^-2)/(1+a1*z^-1+a2*z^-2)</par>
+            <par>Calculates coefficients for transfer function: H(z)=(b0 + b1*z⁻¹ + b2*z⁻²)/(1 +
+            a1*z⁻¹ + a2*z⁻²)</par>
         </info>
         <arguments>
             <argument name="freq" type="float" units="herz" minvalue="20" maxvalue="20000">center
@@ -66,7 +66,6 @@
 [dac~]
 
 [ui.dsp~]
-
 ]]>
             </pdascii>
         </example>

@@ -17,6 +17,9 @@
                 <see>tl.bang</see>
                 <see view="link">tl.cue</see>
             </also>
+            <aliases>
+                <alias>tl.t</alias>
+            </aliases>
         </meta>
         <info>
             <par>Output 1 when cue section activated, 0 when switched to other cue section</par>

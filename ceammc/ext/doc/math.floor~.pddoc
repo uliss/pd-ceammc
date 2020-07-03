@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="math.floor~">
+        <title>math.floor~</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>round to largest integral value not greater than x</description>
+            <license>GPL3 or later</license>
+            <library>ceammc</library>
+            <category>math</category>
+            <keywords>math floor</keywords>
+            <also>
+                <see>math.floor</see>
+                <see>math.ceil~</see>
+                <see>math.round~</see>
+                <see>math.trunc~</see>
+            </also>
+            <since>0.9</since>
+        </meta>
+        <info>
+            <a href="https://en.wikipedia.org/wiki/Floor_and_ceiling_functions">wiki: Floor and
+            ceiling functions</a>
+        </info>
+        <inlets>
+            <inlet type="audio">
+                <xinfo>input signal</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet type="audio">result signal</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[bang(
+|
+[plot.linspace~ -3 3 #a]
+|            |
+[math.ceil~] [math.floor~]
+|            |.
+[ui.plot~ @ymin_ticks 0 @xlabels 1 @ylabels 1 @ymin -3 @ymax 3 @size 260 260 @n 2 #b]
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+[ui.dsp~]
+[X a:1->b:2]
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

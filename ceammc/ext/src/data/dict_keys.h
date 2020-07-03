@@ -14,6 +14,7 @@
 #ifndef DICT_KEYS_H
 #define DICT_KEYS_H
 
+#include "ceammc_data.h"
 #include "ceammc_object.h"
 #include "datatype_dict.h"
 
@@ -22,7 +23,7 @@ using namespace ceammc;
 class DictKeys : public BaseObject {
 public:
     DictKeys(const PdArgs& args);
-    void onDataT(const DataTPtr<DataTypeDict>& dptr);
+    void onDataT(const DictAtom& dict);
 };
 
 void setup_dict_keys();

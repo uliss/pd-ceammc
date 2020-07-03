@@ -23,10 +23,10 @@ class MathLCM : public BaseObject {
 
 public:
     MathLCM(const PdArgs& a);
-    void onFloat(float v);
-    void onList(const AtomList& l);
+    void onFloat(t_float v) override;
+    void onList(const AtomList& l) override;
 };
 
-extern "C" void setup_math0x2elcm();
+void setup_math_lcm();
 
 #endif // MATH_LCM_H

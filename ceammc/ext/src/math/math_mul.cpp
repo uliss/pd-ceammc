@@ -16,10 +16,11 @@
 
 MathMul::MathMul(const PdArgs& args)
     : BaseObject(args)
-    , mul_(0)
+    , mul_(nullptr)
 {
-    mul_ = new FloatProperty("@mul", positionalFloatArgument(0, 1.f));
-    createProperty(mul_);
+    mul_ = new FloatProperty("@mul", 1);
+    mul_->setArgIndex(0);
+    addProperty(mul_);
 
     createInlet();
     createOutlet();

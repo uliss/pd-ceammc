@@ -91,69 +91,88 @@ FxLooper::FxLooper(const PdArgs& args)
 {
     initTansitionTable();
 
-    capacity_sec_ = new FloatProperty("@capacity", positionalFloatArgument(0, DEFAULT_CAPACITY_SEC));
-    capacity_sec_->info().setUnits(PropertyInfoUnits::SEC);
-    createProperty(capacity_sec_);
+    capacity_sec_ = new FloatProperty("@capacity", DEFAULT_CAPACITY_SEC);
+    capacity_sec_->setArgIndex(0);
+    capacity_sec_->setUnitsSec();
+    addProperty(capacity_sec_);
 
     loop_bang_ = new BoolProperty("@loop_bang", false);
-    createProperty(loop_bang_);
+    addProperty(loop_bang_);
 
-    loop_smooth_ms_ = new FloatPropertyMinEq("@loop_smooth", 10, 0);
-    createProperty(loop_smooth_ms_);
+    loop_smooth_ms_ = new FloatProperty("@loop_smooth", 10);
+    loop_smooth_ms_->checkMinEq(0);
+    addProperty(loop_smooth_ms_);
 
     x_play_to_stop_ = new LinFadeoutProperty("@play_to_stop_time", 10);
-    createProperty(x_play_to_stop_);
+    addProperty(x_play_to_stop_);
 
     x_play_to_dub_ = new LinFadeinProperty("@play_to_dub_time", 10);
-    createProperty(x_play_to_dub_);
+    addProperty(x_play_to_dub_);
 
     x_stop_to_play_ = new LinFadeinProperty("@stop_to_play_time", 10);
-    createProperty(x_stop_to_play_);
+    addProperty(x_stop_to_play_);
 
     x_rec_to_play_ = new PowXFadeProperty("@rec_to_play_time", 30);
-    createProperty(x_rec_to_play_);
+    addProperty(x_rec_to_play_);
 
     x_dub_to_play_ = new LinFadeoutProperty("@dub_to_play_time", 20);
-    createProperty(x_dub_to_play_);
+    addProperty(x_dub_to_play_);
 
     x_dub_to_stop_ = new LinFadeoutProperty("@dub_to_stop_time", 20);
-    createProperty(x_dub_to_stop_);
+    addProperty(x_dub_to_stop_);
 
     round_ = new IntProperty("@round", 0);
-    createProperty(round_);
+    addProperty(round_);
 
     {
-        PropertyInfo& pi = createCbProperty("@length", &FxLooper::p_length)->info();
-        pi.setType(PropertyInfoType::FLOAT);
-        pi.setMin(0);
-        pi.setUnits(PropertyInfoUnits::SEC);
+        Property* p = createCbFloatProperty(
+            "@length",
+            [this]() -> t_float { return loop_len_ / sys_getsr(); });
+        p->setUnitsSec();
+        p->checkNonNegative();
     }
 
     {
-        PropertyInfo& pi = createCbProperty("@play_pos", &FxLooper::p_play_pos)->info();
-        pi.setUnits(PropertyInfoUnits::SEC);
-        pi.setMin(0);
-        pi.setType(PropertyInfoType::FLOAT);
+        Property* p = createCbFloatProperty(
+            "@play_pos",
+            [this]() -> t_float { return play_phase_ / sys_getsr(); });
+        p->setUnitsSec();
+        p->checkNonNegative();
     }
 
     {
-        PropertyInfo& pi = createCbProperty("@play_phase", &FxLooper::p_play_phase)->info();
-        pi.setType(PropertyInfoType::FLOAT);
-        pi.setRange(0, 1);
+        Property* p = createCbFloatProperty(
+            "@play_phase",
+            [this]() -> t_float { return (loop_len_ == 0) ? 0 : (play_phase_ / t_float(loop_len_)); });
+        p->setFloatCheck(PropValueConstraints::CLOSED_RANGE, 0, 1);
     }
 
-    {
-        PropertyInfo& pi = createCbProperty("@state", &FxLooper::p_state)->info();
-        pi.setType(PropertyInfoType::SYMBOL);
-        pi.addEnum("record");
-        pi.addEnum("init");
-        pi.addEnum("overdub");
-        pi.addEnum("stop");
-        pi.addEnum("play");
-    }
+    createCbSymbolProperty("@state",
+        [this]() -> t_symbol* {
+            static t_symbol* states[] = {
+                gensym("init"),
+                gensym("record"),
+                gensym("rec->play"),
+                gensym("rec->stop"),
+                gensym("rec->dub"),
+                gensym("overdub"),
+                gensym("dub->stop"),
+                gensym("dub->play"),
+                gensym("pause"),
+                gensym("play"),
+                gensym("play->stop"),
+                gensym("play->dub"),
+                gensym("stop"),
+                gensym("stop->play")
+            };
+
+            static_assert((sizeof(states) / sizeof(states[0])) == (STATE_COUNT_), "invalid state count");
+
+            return states[state_];
+        });
 
     array_name_ = new SymbolProperty("@array", &s_);
-    createProperty(array_name_);
+    addProperty(array_name_);
 
     createSignalOutlet();
     createOutlet();
@@ -490,48 +509,6 @@ void FxLooper::m_smooth(t_symbol* s, const AtomList& lst)
     const TimeValue& tm = res.value();
     const size_t N = std::abs(tm.toSamples(samplerate()));
     doApplyFades(N);
-}
-
-AtomList FxLooper::p_length() const
-{
-    return AtomList(loop_len_ / sys_getsr());
-}
-
-AtomList FxLooper::p_play_pos() const
-{
-    return AtomList(play_phase_ / sys_getsr());
-}
-
-AtomList FxLooper::p_play_phase() const
-{
-    if (loop_len_ == 0)
-        return Atom(0.f);
-
-    return AtomList(t_float(play_phase_) / t_float(loop_len_));
-}
-
-AtomList FxLooper::p_state() const
-{
-    static t_symbol* states[] = {
-        gensym("init"),
-        gensym("record"),
-        gensym("rec->play"),
-        gensym("rec->stop"),
-        gensym("rec->dub"),
-        gensym("overdub"),
-        gensym("dub->stop"),
-        gensym("dub->play"),
-        gensym("pause"),
-        gensym("play"),
-        gensym("play->stop"),
-        gensym("play->dub"),
-        gensym("stop"),
-        gensym("stop->play")
-    };
-
-    static_assert((sizeof(states) / sizeof(states[0])) == (STATE_COUNT_), "invalid state count");
-
-    return AtomList(states[state_]);
 }
 
 std::vector<t_sample> FxLooper::loop() const
@@ -910,7 +887,8 @@ XFadeProperty::XFadeProperty(const std::string& name, float ms)
     , sr_(10000)
     , bs_(32)
 {
-    info().setMin(0);
+    checkMinEq(0);
+    setUnitsMs();
 }
 
 void XFadeProperty::calc(size_t sr, size_t bs)

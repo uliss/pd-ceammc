@@ -14,22 +14,21 @@
 #ifndef LIST_GEN_H
 #define LIST_GEN_H
 
-#include "ceammc_dataatomlist.h"
 #include "ceammc_object.h"
 
 using namespace ceammc;
 
 class ListGenerate : public BaseObject {
-    DataAtomList gen_values_;
-    IntPropertyClosedRange* count_;
+    AtomList gen_values_;
+    IntProperty* count_;
     bool in_process_;
 
 public:
     ListGenerate(const PdArgs& a);
 
-    void onBang();
-    void onFloat(float v);
-    void onInlet(size_t n, const AtomList& l);
+    void onBang() override;
+    void onFloat(t_float v) override;
+    void onInlet(size_t n, const AtomList& l) override;
 
     bool loopbackDetected();
 

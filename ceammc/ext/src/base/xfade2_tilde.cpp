@@ -29,11 +29,12 @@ XFade2Tilde::XFade2Tilde(const PdArgs& args)
 void XFade2Tilde::processBlock(const t_sample** in, t_sample** out)
 {
     const size_t BS = blockSize();
+    const size_t N = gain_.size();
 
     for (size_t i = 0; i < BS; i++) {
         t_sample v0 = 0;
         t_sample v1 = 0;
-        for (size_t j = 0; j < n_; j++) {
+        for (size_t j = 0; j < N; j++) {
             auto k = gain_[j]();
 
             t_sample s0 = k * in[2 * j][i];

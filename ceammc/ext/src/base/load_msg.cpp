@@ -41,12 +41,12 @@ void LoadMsg::parseProperties()
 {
 }
 
-bool LoadMsg::processAnyProps(t_symbol* sel, const AtomList& lst)
+bool LoadMsg::processAnyProps(t_symbol* /*sel*/, const AtomList& /*lst*/)
 {
     return true;
 }
 
-void LoadMsg::onClick(t_floatarg xpos, t_floatarg ypos, t_floatarg shift, t_floatarg ctrl, t_floatarg alt)
+void LoadMsg::onClick(t_floatarg /*xpos*/, t_floatarg /*ypos*/, t_floatarg /*shift*/, t_floatarg /*ctrl*/, t_floatarg /*alt*/)
 {
     output();
 }

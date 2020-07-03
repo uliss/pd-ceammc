@@ -15,6 +15,7 @@
 #define HW_SERIAL_H
 
 #include "ceammc_pollfd.h"
+#include "ceammc_property_enum.h"
 #include "ceammc_thread.h"
 
 #include <future>

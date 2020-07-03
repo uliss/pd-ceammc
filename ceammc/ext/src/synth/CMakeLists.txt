@@ -7,11 +7,6 @@ set(SYNTH_STK_SOURCES
     synth_bthree.cpp
     synth_rhodey.cpp)
 
-macro(ceammc_synth_extension name)
-    list(APPEND SYNTH_SOURCES "synth_${name}.cpp")
-    ceammc_faust_gen(synth ${name})
-endmacro()
-
 macro(ceammc_synth_obj name)
     list(APPEND SYNTH_SOURCES "synth_${name}.cpp")
     ceammc_faust_gen_obj(synth ${name} JSON)
@@ -34,6 +29,3 @@ include_directories(${CMAKE_SOURCE_DIR}/ceammc/extra/stk/stk/include)
 add_library(ceammc_synth STATIC mod_synth.cpp ${SYNTH_SOURCES} ${SYNTH_STK_SOURCES})
 target_link_libraries(ceammc_synth stk)
 set_target_properties(ceammc_synth PROPERTIES COMPILE_DEFINITIONS "FAUST_MACRO")
-if(UNIX)
-    set_target_properties(ceammc_synth PROPERTIES COMPILE_FLAGS "-fPIC")
-endif()

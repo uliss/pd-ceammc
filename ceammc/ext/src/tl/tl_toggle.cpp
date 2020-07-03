@@ -32,5 +32,6 @@ void TlToggle::onCueLeave()
 void setup_tl_toggle()
 {
     ObjectFactory<TlToggle> obj("tl.toggle");
+    obj.addAlias("tl.t");
     TlToggle::setDisplaceFn(obj.classPointer());
 }

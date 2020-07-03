@@ -8,8 +8,8 @@ class ArraySet : public ArrayMod {
 
 public:
     ArraySet(const PdArgs& a);
-    void onSymbol(t_symbol* s);
-    void onList(const AtomList& values);
+    void onSymbol(t_symbol* s) override;
+    void onList(const AtomList& values) override;
     void set(const AtomList& v);
 };
 

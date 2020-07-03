@@ -27,13 +27,13 @@ namespace sound {
 
     public:
         CoreAudioFile(const std::string& fname);
-        size_t sampleCount() const;
-        size_t sampleRate() const;
-        size_t channels() const;
-        bool isOpened() const;
-        bool close();
+        size_t sampleCount() const override;
+        size_t sampleRate() const override;
+        size_t channels() const override;
+        bool isOpened() const override;
+        bool close() override;
 
-        long read(t_word* dest, size_t sz, size_t channel, long offset = 0);
+        long read(t_word* dest, size_t sz, size_t channel, long offset, size_t max_samples) override;
 
     public:
         static FormatList supportedFormats();

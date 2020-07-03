@@ -11,7 +11,3 @@ ceammc_proto_extension(sp_alpaca)
 
 add_library(ceammc_proto STATIC mod_proto.cpp ${PROTO_SOURCES})
 target_link_libraries(ceammc_proto proto_firmata)
-
-if(UNIX)
-    set_target_properties(ceammc_proto PROPERTIES COMPILE_FLAGS "-fPIC")
-endif()

@@ -1,11 +1,19 @@
-set(CEAMMC_LIB_VERSION "0.8.0")
+set(CEAMMC_LIB_VERSION_MAJOR 0)
+set(CEAMMC_LIB_VERSION_MINOR 9)
+set(CEAMMC_LIB_VERSION_PATCH 0)
+set(CEAMMC_LIB_VERSION "${CEAMMC_LIB_VERSION_MAJOR}.${CEAMMC_LIB_VERSION_MINOR}.${CEAMMC_LIB_VERSION_PATCH}")
+set(CEAMMC_LIB_VERSION ${CEAMMC_LIB_VERSION} PARENT_SCOPE)
 set(CEAMMC_LIB_HOME "https://github.com/uliss/pure-data")
 
 # we need 1.50.0 for boost random uniform distribution
 find_package(Boost 1.50.0 REQUIRED)
 include_directories(${Boost_INCLUDE_DIRS})
 
-configure_file(${CMAKE_CURRENT_SOURCE_DIR}/ceammc_config.h.in ${CMAKE_CURRENT_BINARY_DIR}/ceammc_config.h)
+configure_file(
+    ${CMAKE_CURRENT_SOURCE_DIR}/ceammc_config.h.in
+    ${CMAKE_CURRENT_BINARY_DIR}/ceammc_config.h
+    @ONLY)
+
 include_directories(${CMAKE_CURRENT_BINARY_DIR})
 
 find_program(PD_DOC2PD pd_doc2pd)

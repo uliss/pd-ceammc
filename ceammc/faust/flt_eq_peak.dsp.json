@@ -1,9 +1,9 @@
 {
 	"name": "flt.eq_peak",
 	"filename": "flt_eq_peak.dsp",
-	"version": "2.22.1",
+	"version": "2.25.3",
 	"compile_options": "-lang cpp -scal -ftz 0",
-	"library_list": ["/usr/local/share/faust/filters.lib","/usr/local/share/faust/signals.lib","/Users/serj/work/music/pure-data/ceammc/faust/ceammc_ui.lib","/usr/local/share/faust/maths.lib","/usr/local/share/faust/basics.lib"],
+	"library_list": ["/usr/local/share/faust/filters.lib","/usr/local/share/faust/signals.lib","/Users/serj/work/music/pure-data/ceammc/faust/ceammc_ui.lib","/usr/local/share/faust/maths.lib","/usr/local/share/faust/platform.lib","/usr/local/share/faust/basics.lib"],
 	"include_pathnames": ["/usr/local/share/faust","/usr/local/share/faust","/usr/share/faust","/Users/serj/work/music/pure-data/ceammc/faust","/Users/serj/work/music/pure-data/ceammc/faust"],
 	"inputs": 1,
 	"outputs": 1,
@@ -34,8 +34,10 @@
 		{ "maths.lib/copyright": "GRAME" },
 		{ "maths.lib/license": "LGPL with exception" },
 		{ "maths.lib/name": "Faust Math Library" },
-		{ "maths.lib/version": "2.1" },
+		{ "maths.lib/version": "2.3" },
 		{ "name": "flt.eq_peak" },
+		{ "platform.lib/name": "Generic Platform Library" },
+		{ "platform.lib/version": "0.1" },
 		{ "signals.lib/name": "Faust Signal Routing Library" },
 		{ "signals.lib/version": "0.0" }
 	],

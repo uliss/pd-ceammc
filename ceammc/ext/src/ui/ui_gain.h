@@ -17,7 +17,7 @@
 #include "ceammc_control.h"
 #include "ceammc_object.h"
 #include "ceammc_proxy.h"
-#include "ceammc_ui_dsp_object.h"
+#include "ceammc_ui_object.h"
 
 #include <functional>
 #include <unordered_map>

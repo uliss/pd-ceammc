@@ -6,7 +6,7 @@
             <authors>
                 <author>Serge Poltavsky</author>
             </authors>
-            <description>on input dict outputs value to corresponding key outlet</description>
+            <description>output dict values</description>
             <license>GPL3 or later</license>
             <library>ceammc</library>
             <category>data</category>
@@ -20,6 +20,11 @@
         <arguments>
             <argument name="KEYS" type="list">keys</argument>
         </arguments>
+        <properties>
+            <property name="@keys" type="list">extracted keys</property>
+            <property name="@default" type="atom">default value when key is not found in
+            dictionary. If not specified no output is performed.</property>
+        </properties>
         <inlets>
             <inlet>
                 <xinfo on="data:dict">input dictionary</xinfo>
@@ -33,13 +38,13 @@
         <example>
             <pdascii>
 <![CDATA[
-[\[a: b\] \[@prop: val\] \[1: 100\], bang(
+[\[a: b @prop: val 1: 100\], bang(
 |
 |
 |
 [data.dict]
 |
-[dict.get @prop 1 a ?]
+[dict.get "@prop" "1" a "?"]
 |     ^|    ^^|   ^^^|
 |      |      |      |
 |      |      |      |

@@ -14,8 +14,8 @@
 #ifndef STRING_CONTAINS_H
 #define STRING_CONTAINS_H
 
+#include "ceammc_data.h"
 #include "ceammc_object.h"
-#include "datatype_string.h"
 
 using namespace ceammc;
 
@@ -25,11 +25,11 @@ class StringContains : public BaseObject {
 public:
     StringContains(const PdArgs& a);
 
-    void onSymbol(t_symbol* s);
-    void onDataT(const DataTPtr<DataTypeString>& dptr);
-    void onInlet(size_t, const AtomList& l);
+    void onSymbol(t_symbol* s) override;
+    void onDataT(const StringAtom& str);
+    void onInlet(size_t, const AtomList& l) override;
 };
 
-extern "C" void setup_string0x2econtains();
+void setup_string_contains();
 
 #endif // STRING_CONTAINS_H

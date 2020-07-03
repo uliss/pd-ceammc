@@ -21,7 +21,7 @@ FlowPass::FlowPass(const PdArgs& a)
     createOutlet();
 
     values_ = new ListProperty("@values", a.args);
-    createProperty(values_);
+    addProperty(values_);
 }
 
 void FlowPass::onBang()
@@ -29,7 +29,7 @@ void FlowPass::onBang()
     bangTo(0);
 }
 
-void FlowPass::onFloat(float v)
+void FlowPass::onFloat(t_float v)
 {
     if (values_->value().contains(v))
         floatTo(0, v);
@@ -74,7 +74,7 @@ bool FlowPass::processAnyProps(t_symbol* sel, const AtomList& lst)
     return false;
 }
 
-extern "C" void setup_flow0x2epass()
+void setup_flow_pass()
 {
     ObjectFactory<FlowPass> obj("flow.pass");
     obj.addAlias("pass");

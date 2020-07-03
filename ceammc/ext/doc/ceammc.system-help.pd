@@ -6,20 +6,20 @@
 #X text 200 116 System color panel dialog popup;
 #X obj 30 143 system.cursor;
 #X text 200 143 Output cursor motion \, mousewheel and buttonclicks;
-#X obj 30 170 system.getenv;
-#X text 200 170 Get system environment variables;
-#X obj 30 197 system.hostname;
-#X text 200 197 outputs system hostname;
-#X obj 30 224 system.memsize;
-#X text 200 224 returns the size of physical memory (RAM) in bytes
+#X obj 30 170 system.exec;
+#X text 200 170 run external command in separate process;
+#X obj 30 197 system.getenv;
+#X text 200 197 Get system environment variables;
+#X obj 30 224 system.hostname;
+#X text 200 224 outputs system hostname;
+#X obj 30 251 system.memsize;
+#X text 200 251 returns the size of physical memory (RAM) in bytes
 round to float data type.;
-#X obj 30 264 system.memused;
-#X text 200 264 returns the process physical memory use - current and
+#X obj 30 291 system.memused;
+#X text 200 291 returns the process physical memory use - current and
 peak;
-#X obj 30 291 system.screen_size;
-#X text 200 291 returns current screen size in pixels;
-#X obj 30 318 system.shell;
-#X text 200 318 run external command in separate process;
+#X obj 30 318 system.screen_size;
+#X text 200 318 returns current screen size in pixels;
 #X obj 1 1 cnv 5 740 40 empty empty ceammc::system 20 20 0 20 -104026
 -4096 0;
 #X obj 1 513 cnv 5 740 40 empty empty empty 17 7 0 10 -203890 -1 0;

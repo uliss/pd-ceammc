@@ -1,7 +1,7 @@
 #include "list_stretch.h"
-#include "datatype_mlist.h"
 #include "ceammc_factory.h"
 #include "ceammc_fn_list.h"
+#include "datatype_mlist.h"
 
 ListStretch::ListStretch(const PdArgs& args)
     : BaseObject(args)
@@ -10,8 +10,10 @@ ListStretch::ListStretch(const PdArgs& args)
     createInlet();
     createOutlet();
 
-    n_ = new IntPropertyMinEq("@size", positionalFloatArgument(0, 1), 1);
-    createProperty(n_);
+    n_ = new IntProperty("@size", 1);
+    n_->setArgIndex(0);
+    n_->checkPositive();
+    addProperty(n_);
 }
 
 void ListStretch::onList(const AtomList& lst)
@@ -27,12 +29,12 @@ void ListStretch::onInlet(size_t n, const AtomList& lst)
     n_->set(lst);
 }
 
-void ListStretch::onDataT(const DataTPtr<DataTypeMList>& dptr)
+void ListStretch::onDataT(const MListAtom& ml)
 {
-    if (dptr->empty())
+    if (ml->empty())
         return;
 
-    dataTo(0, DataTPtr<DataTypeMList>(DataTypeMList(list::stretch(dptr->toList(), n_->value()))));
+    atomTo(0, MListAtom(list::stretch(ml->data(), n_->value())));
 }
 
 void setup_list_stretch()

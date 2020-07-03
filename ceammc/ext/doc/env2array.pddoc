@@ -51,7 +51,7 @@
 | |                           |           |.
 | | [ear 20 -3 500 -8, bang(  [*~          ]
 | | |                         |\
-[env]                         [dac~]
+[envelope]                    [dac~]
 |
 | [@fit( [@raw( [@resize(
 | |      |      |

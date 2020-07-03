@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Pure\\ Data 0.50.1_ceammc\n"
 "Report-Msgid-Bugs-To: pd-dev@iem.at\n"
-"POT-Creation-Date: 2019-11-19 03:38+0300\n"
+"POT-Creation-Date: 2020-07-04 01:46+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -56,8 +56,8 @@ msgstr ""
 
 #: ../ceammc/ext/src/lib/cicm/Sources/eclass.cpp
 #: ../ceammc/ext/src/ui/cicm/Sources/eclass.c ../ceammc/ext/src/ui/ui_gain.cpp
-#: ../ceammc/ext/src/ui/ui_gain2.cpp ../ceammc/ext/src/ui/ui_rslider.cpp
-#: ../ceammc/ext/src/ui/ui_scope.cpp
+#: ../ceammc/ext/src/ui/ui_gain2.cpp ../ceammc/ext/src/ui/ui_plot_tilde.cpp
+#: ../ceammc/ext/src/ui/ui_rslider.cpp ../ceammc/ext/src/ui/ui_scope.cpp
 msgid "Bounds"
 msgstr ""
 
@@ -303,24 +303,28 @@ msgstr ""
 msgid "Line Color"
 msgstr ""
 
+#: ../ceammc/ext/src/ui/ui_env.cpp
+msgid "Output Mode"
+msgstr ""
+
 #: ../ceammc/ext/src/ui/ui_gain.cpp ../ceammc/ext/src/ui/ui_gain2.cpp
 #: ../ceammc/ext/src/ui/ui_knob.cpp ../ceammc/ext/src/ui/ui_rslider.cpp
 #: ../ceammc/ext/src/ui/ui_slider.cpp
 msgid "Knob Color"
 msgstr ""
 
-#: ../ceammc/ext/src/ui/ui_gain.cpp ../ceammc/ext/src/ui/ui_knob.cpp
-#: ../ceammc/ext/src/ui/ui_slider.cpp
+#: ../ceammc/ext/src/ui/ui_gain.cpp ../ceammc/ext/src/ui/ui_gain2.cpp
+#: ../ceammc/ext/src/ui/ui_knob.cpp ../ceammc/ext/src/ui/ui_slider.cpp
 msgid "MIDI channel"
 msgstr ""
 
-#: ../ceammc/ext/src/ui/ui_gain.cpp ../ceammc/ext/src/ui/ui_knob.cpp
-#: ../ceammc/ext/src/ui/ui_slider.cpp
+#: ../ceammc/ext/src/ui/ui_gain.cpp ../ceammc/ext/src/ui/ui_gain2.cpp
+#: ../ceammc/ext/src/ui/ui_knob.cpp ../ceammc/ext/src/ui/ui_slider.cpp
 msgid "MIDI control"
 msgstr ""
 
-#: ../ceammc/ext/src/ui/ui_gain.cpp ../ceammc/ext/src/ui/ui_knob.cpp
-#: ../ceammc/ext/src/ui/ui_slider.cpp
+#: ../ceammc/ext/src/ui/ui_gain.cpp ../ceammc/ext/src/ui/ui_gain2.cpp
+#: ../ceammc/ext/src/ui/ui_knob.cpp ../ceammc/ext/src/ui/ui_slider.cpp
 msgid "MIDI pickup"
 msgstr ""
 
@@ -356,7 +360,7 @@ msgstr ""
 msgid "Icon"
 msgstr ""
 
-#: ../ceammc/ext/src/ui/ui_icon.cpp
+#: ../ceammc/ext/src/ui/ui_icon.cpp ../ceammc/ext/src/ui/ui_plot_tilde.cpp
 msgid "Mode"
 msgstr ""
 
@@ -373,11 +377,43 @@ msgid "Step increment"
 msgstr ""
 
 #: ../ceammc/ext/src/ui/ui_keyboard.cpp
+msgid "7"
+msgstr ""
+
+#: ../ceammc/ext/src/ui/ui_keyboard.cpp
 msgid "Keys"
 msgstr ""
 
 #: ../ceammc/ext/src/ui/ui_keyboard.cpp
 msgid "Leftmost MIDI note"
+msgstr ""
+
+#: ../ceammc/ext/src/ui/ui_keyboard.cpp
+msgid "aug"
+msgstr ""
+
+#: ../ceammc/ext/src/ui/ui_keyboard.cpp
+msgid "aug7"
+msgstr ""
+
+#: ../ceammc/ext/src/ui/ui_keyboard.cpp
+msgid "dim"
+msgstr ""
+
+#: ../ceammc/ext/src/ui/ui_keyboard.cpp
+msgid "maj"
+msgstr ""
+
+#: ../ceammc/ext/src/ui/ui_keyboard.cpp
+msgid "maj7"
+msgstr ""
+
+#: ../ceammc/ext/src/ui/ui_keyboard.cpp ../ceammc/ext/src/ui/ui_knob.cpp
+msgid "min"
+msgstr ""
+
+#: ../ceammc/ext/src/ui/ui_keyboard.cpp
+msgid "min7"
 msgstr ""
 
 #: ../ceammc/ext/src/ui/ui_keyboard.cpp
@@ -415,10 +451,6 @@ msgstr ""
 
 #: ../ceammc/ext/src/ui/ui_knob.cpp
 msgid "max"
-msgstr ""
-
-#: ../ceammc/ext/src/ui/ui_knob.cpp
-msgid "min"
 msgstr ""
 
 #: ../ceammc/ext/src/ui/ui_label.cpp
@@ -495,7 +527,7 @@ msgid "reset"
 msgstr ""
 
 #: ../ceammc/ext/src/ui/ui_matrix.cpp
-msgid "save"
+msgid "reset column"
 msgstr ""
 
 #: ../ceammc/ext/src/ui/ui_matrix.cpp
@@ -503,7 +535,7 @@ msgid "reset row"
 msgstr ""
 
 #: ../ceammc/ext/src/ui/ui_matrix.cpp
-msgid "reset column"
+msgid "save"
 msgstr ""
 
 #: ../ceammc/ext/src/ui/ui_menu.cpp ../ceammc/ext/src/ui/ui_tab.cpp
@@ -550,6 +582,78 @@ msgstr ""
 msgid "Decimal precision"
 msgstr ""
 
+#: ../ceammc/ext/src/ui/ui_plot_tilde.cpp
+msgid "Auto Y-range"
+msgstr ""
+
+#: ../ceammc/ext/src/ui/ui_plot_tilde.cpp
+msgid "First plot color"
+msgstr ""
+
+#: ../ceammc/ext/src/ui/ui_plot_tilde.cpp
+msgid "Fourth plot color"
+msgstr ""
+
+#: ../ceammc/ext/src/ui/ui_plot_tilde.cpp
+msgid "Labels on x-axis"
+msgstr ""
+
+#: ../ceammc/ext/src/ui/ui_plot_tilde.cpp
+msgid "Labels on y-axis"
+msgstr ""
+
+#: ../ceammc/ext/src/ui/ui_plot_tilde.cpp
+msgid "Major grid on x-axis"
+msgstr ""
+
+#: ../ceammc/ext/src/ui/ui_plot_tilde.cpp
+msgid "Major grid on y-axis"
+msgstr ""
+
+#: ../ceammc/ext/src/ui/ui_plot_tilde.cpp
+msgid "Major ticks on x-axis"
+msgstr ""
+
+#: ../ceammc/ext/src/ui/ui_plot_tilde.cpp
+msgid "Major ticks on y-axis"
+msgstr ""
+
+#: ../ceammc/ext/src/ui/ui_plot_tilde.cpp ../ceammc/ext/src/ui/ui_slider2d.cpp
+msgid "Maximum Y-value"
+msgstr ""
+
+#: ../ceammc/ext/src/ui/ui_plot_tilde.cpp ../ceammc/ext/src/ui/ui_slider2d.cpp
+msgid "Minimum Y-value"
+msgstr ""
+
+#: ../ceammc/ext/src/ui/ui_plot_tilde.cpp
+msgid "Minor grid on x-axis"
+msgstr ""
+
+#: ../ceammc/ext/src/ui/ui_plot_tilde.cpp
+msgid "Minor grid on y-axis"
+msgstr ""
+
+#: ../ceammc/ext/src/ui/ui_plot_tilde.cpp
+msgid "Minor ticks on x-axis"
+msgstr ""
+
+#: ../ceammc/ext/src/ui/ui_plot_tilde.cpp
+msgid "Minor ticks on y-axis"
+msgstr ""
+
+#: ../ceammc/ext/src/ui/ui_plot_tilde.cpp
+msgid "Number of inputs"
+msgstr ""
+
+#: ../ceammc/ext/src/ui/ui_plot_tilde.cpp
+msgid "Second plot color"
+msgstr ""
+
+#: ../ceammc/ext/src/ui/ui_plot_tilde.cpp
+msgid "Third plot color"
+msgstr ""
+
 #: ../ceammc/ext/src/ui/ui_polar.cpp
 msgid "Clockwise"
 msgstr ""
@@ -592,6 +696,10 @@ msgstr ""
 
 #: ../ceammc/ext/src/ui/ui_preset.cpp
 msgid "Stored Button Color"
+msgstr ""
+
+#: ../ceammc/ext/src/ui/ui_preset.cpp
+msgid "duplicate all"
 msgstr ""
 
 #: ../ceammc/ext/src/ui/ui_preset.cpp
@@ -663,15 +771,7 @@ msgid "Maximum X-value"
 msgstr ""
 
 #: ../ceammc/ext/src/ui/ui_slider2d.cpp
-msgid "Maximum Y-value"
-msgstr ""
-
-#: ../ceammc/ext/src/ui/ui_slider2d.cpp
 msgid "Minimum X-value"
-msgstr ""
-
-#: ../ceammc/ext/src/ui/ui_slider2d.cpp
-msgid "Minimum Y-value"
 msgstr ""
 
 #: ../ceammc/ext/src/ui/ui_slider2d.cpp
@@ -705,6 +805,18 @@ msgstr ""
 #: ../ceammc/ext/src/ui/ui_sliders.cpp
 #, c-format
 msgid "fill with %f"
+msgstr ""
+
+#: ../ceammc/ext/src/ui/ui_sliders.cpp
+msgid "fill with max"
+msgstr ""
+
+#: ../ceammc/ext/src/ui/ui_sliders.cpp
+msgid "fill with mean"
+msgstr ""
+
+#: ../ceammc/ext/src/ui/ui_sliders.cpp
+msgid "fill with min"
 msgstr ""
 
 #: ../ceammc/ext/src/ui/ui_sliders.cpp
@@ -887,6 +999,10 @@ msgstr ""
 msgid "Settings"
 msgstr ""
 
+#: ../tcl/dialog_audio.tcl ../tcl/dialog_midi.tcl
+msgid "Use Multiple Devices"
+msgstr ""
+
 #: ../tcl/dialog_audio.tcl
 msgid "Use callbacks"
 msgstr ""
@@ -965,7 +1081,7 @@ msgstr ""
 msgid "Couldn't find '%s' in %s"
 msgstr ""
 
-#: ../tcl/dialog_find.tcl
+#: ../tcl/dialog_find.tcl pd_dynamic_strings.tcl
 msgid "Find"
 msgstr ""
 
@@ -1271,10 +1387,6 @@ msgstr ""
 
 #: ../tcl/dialog_midi.tcl
 msgid "Out Ports:"
-msgstr ""
-
-#: ../tcl/dialog_midi.tcl
-msgid "Use Multiple Devices"
 msgstr ""
 
 #: ../tcl/dialog_path.tcl
@@ -1725,6 +1837,11 @@ msgid ""
 "Choose a new location?"
 msgstr ""
 
+#: ../tcl/pd_guiprefs.tcl
+#, tcl-format
+msgid "Couldn't create preferences \"%1$s\" in %2$s"
+msgstr ""
+
 #: ../tcl/pd_menus.tcl
 msgid "(Dis)Connect Selection"
 msgstr ""
@@ -1987,7 +2104,7 @@ msgstr ""
 msgid "puredata.info"
 msgstr ""
 
-#: ../tcl/pdtk_canvas.tcl
+#: ../tcl/pdtk_canvas.tcl pd_dynamic_strings.tcl
 msgid "Help"
 msgstr ""
 
@@ -2154,6 +2271,10 @@ msgid "width:"
 msgstr ""
 
 #: pd_dynamic_strings.tcl
+msgid "(re-save preferences to reinstate them)"
+msgstr ""
+
+#: pd_dynamic_strings.tcl
 #, tcl-format
 msgid "Discard changes to '%s'?"
 msgstr ""
@@ -2161,6 +2282,22 @@ msgstr ""
 #: pd_dynamic_strings.tcl
 #, tcl-format
 msgid "Do you want to save the changes you made in '%s'?"
+msgstr ""
+
+#: pd_dynamic_strings.tcl
+msgid "Edit"
+msgstr ""
+
+#: pd_dynamic_strings.tcl
+msgid "File"
+msgstr ""
+
+#: pd_dynamic_strings.tcl
+msgid "Media"
+msgstr ""
+
+#: pd_dynamic_strings.tcl
+msgid "Put"
 msgstr ""
 
 #: pd_dynamic_strings.tcl
@@ -2196,6 +2333,10 @@ msgid "Redo typing"
 msgstr ""
 
 #: pd_dynamic_strings.tcl
+msgid "Show &Hidden Files and Directories"
+msgstr ""
+
+#: pd_dynamic_strings.tcl
 msgid "Undo clear"
 msgstr ""
 
@@ -2225,4 +2366,36 @@ msgstr ""
 
 #: pd_dynamic_strings.tcl
 msgid "Undo typing"
+msgstr ""
+
+#: pd_dynamic_strings.tcl
+msgid "Window"
+msgstr ""
+
+#: pd_dynamic_strings.tcl
+msgid "couldn't delete .pdsettings file"
+msgstr ""
+
+#: pd_dynamic_strings.tcl
+msgid "erased Pd settings"
+msgstr ""
+
+#: pd_dynamic_strings.tcl
+msgid "failed to erase Pd settings"
+msgstr ""
+
+#: pd_dynamic_strings.tcl
+msgid "no Pd settings to clear"
+msgstr ""
+
+#: pd_dynamic_strings.tcl
+msgid "no Pd settings to erase"
+msgstr ""
+
+#: pd_dynamic_strings.tcl
+msgid "removed .pdsettings file"
+msgstr ""
+
+#: pd_dynamic_strings.tcl
+msgid "skipping loading preferences... Pd seems to have crashed on startup."
 msgstr ""

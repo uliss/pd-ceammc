@@ -21,7 +21,8 @@ uDMX::uDMX(const PdArgs& args)
     , udmx_(new uDMX_Handle)
     , channel_(nullptr)
 {
-    channel_ = new IntPropertyClosedRange("@ch", positionalFloatArgument(0, 0), 0, 512);
+    channel_ = new IntProperty("@ch", positionalFloatArgument(0, 0));
+    channel_->checkClosedRange(0, 512);
     createProperty(channel_);
 
     createInlet();

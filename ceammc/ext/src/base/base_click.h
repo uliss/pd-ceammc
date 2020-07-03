@@ -9,8 +9,8 @@ class Click : public SoundExternal {
 
 public:
     Click(const PdArgs& a);
-    void onBang();
-    void processBlock(const t_sample** in, t_sample** out);
+    void onBang() override;
+    void processBlock(const t_sample** in, t_sample** out) override;
 };
 
 extern "C" void click_tilde_setup();

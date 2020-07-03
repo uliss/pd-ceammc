@@ -26,7 +26,7 @@ int MathAnd::operate() const
     return (std::find(vars_.begin(), vars_.begin() + long(arg_num_), false) == vars_.end()) ? 1 : 0;
 }
 
-extern "C" void setup_math0x2eand()
+void setup_math_and()
 {
     ObjectFactory<MathAnd> obj("math.and");
     obj.addAlias("and");

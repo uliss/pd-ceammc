@@ -24,11 +24,11 @@ class SetIntersection : public BaseObject {
 
 public:
     SetIntersection(const PdArgs& a);
-    void onList(const AtomList& lst);
-    void onDataT(const DataTPtr<DataTypeSet>& s);
-    void onInlet(size_t, const AtomList& l);
+    void onList(const AtomList& lst) override;
+    void onDataT(const SetAtom& set);
+    void onInlet(size_t, const AtomList& l) override;
 };
 
-extern "C" void setup_set0x2eintersection();
+void setup_set_intersection();
 
 #endif // SET_INTERSECTION_H

@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="path.is_dir">
+        <title>path.is_dir</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>check if path is directory</description>
+            <license>GPL3 or later</license>
+            <library>ceammc</library>
+            <category>path</category>
+            <keywords>path dir</keywords>
+            <since>0.9</since>
+        </meta>
+        <inlets>
+            <inlet>
+                <xinfo on="symbol">output 1 if given path is found and is directory, otherwise
+                false</xinfo>
+                <xinfo on="data:string">same as for symbol</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet>1 or 0</outlet>
+            <outlet>output path if it's directory</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[symbol ~( [symbol abc(
+|          |
+[path.is_dir]
+|
+[T]
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

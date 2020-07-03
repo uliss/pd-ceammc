@@ -62,7 +62,7 @@ void ArrayEach::finish()
     bangTo(0);
 }
 
-extern "C" void setup_array0x2eeach()
+void setup_array_each()
 {
     ObjectFactory<ArrayEach> obj("array.each");
 }

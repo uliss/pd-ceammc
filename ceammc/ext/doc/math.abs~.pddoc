@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="math.abs~">
+        <title>math.abs~</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>absolute value function for signals</description>
+            <license>GPL3 or later</license>
+            <library>ceammc</library>
+            <category>math</category>
+            <keywords>math abs</keywords>
+            <also>
+                <see>math.abs</see>
+            </also>
+            <since>0.9</since>
+        </meta>
+        <info>
+            <par>The abs() function computes the absolute value of the float input.</par>
+        </info>
+        <inlets>
+            <inlet type="audio">
+                <xinfo>input signal</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet type="audio">output signal</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[bang(                        [array mabs {w=200,h=200}]
+|
+[plot.linspace~ -1 1]
+|             ^|
+[math.abs~]    |
+|              |.
+[array.plot~ mabs @yauto 1]
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

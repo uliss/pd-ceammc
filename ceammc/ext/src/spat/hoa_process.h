@@ -28,13 +28,11 @@ class HoaProcess : public SoundExternal {
     std::vector<ProcessInstance> instances_;
     std::vector<ProcessInlet> ins_;
 
-    t_float canvas_yoff_;
-
     Buffer in_buf_;
     Buffer out_buf_;
 
     SymbolEnumProperty* domain_;
-    IntPropertyMinEq* num_;
+    IntProperty* num_;
 
     // used to send loadbang to instances
     ClockMemberFunction<HoaProcess> clock_;

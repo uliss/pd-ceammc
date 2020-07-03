@@ -23,9 +23,9 @@ class MathDiv : public BaseObject {
 
 public:
     MathDiv(const PdArgs& args);
-    void onFloat(t_float f);
-    void onList(const AtomList& lst);
-    void onInlet(const size_t n, const AtomList& lst);
+    void onFloat(t_float f) override;
+    void onList(const AtomList& lst) override;
+    void onInlet(const size_t n, const AtomList& lst) override;
 
 private:
     bool zeroCheck() const;

@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="an.onset">
+        <title>an.onset</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>onset detector for arrays</description>
+            <license>GPL3 or later</license>
+            <library>ceammc</library>
+            <category>an</category>
+            <keywords>onset</keywords>
+            <since>0.9</since>
+            <also>
+                <see>an.onset~</see>
+            </also>
+        </meta>
+        <info>
+            <par>Onset detector based on aubio library</par>
+            <a href="https://aubio.org/">https://aubio.org</a>
+        </info>
+        <arguments>
+            <argument name="ARRAY" type="symbol">array name</argument>
+            <argument name="BS" type="int" minvalue="64" units="sample">buffer size</argument>
+            <argument name="METHOD" type="symbol" enum="1">overlap of analysis frames</argument>
+            <argument name="HS" type="int" minvalue="0">hop size (by default
+            buffer_size/2)</argument>
+        </arguments>
+        <properties>
+            <property name="@array" type="symbol">name of analyzed array</property>
+            <property name="@bs" type="int" minvalue="64" default="1024" units="sample">buffer
+            size</property>
+            <property name="@hs" type="int" minvalue="0" default="0" units="sample">hop size. 0
+            means @bs/2</property>
+            <property name="@method" type="symbol"
+            enum="specflux phase energy hfc kl complex default specdiff wphase rolloff spread kurtosis skewness complexdomain decrease slope centroid"
+            default="default">onset method. Default is hfc.</property>
+            <property name="@hfc" type="alias">alias to @method hfc. High Frequency Content onset
+            detection</property>
+            <property name="@energy" type="alias">alias to @method energy. Energy based onset
+            detection function</property>
+            <property name="@complex" type="alias">alias to @method complex. Complex Domain Method
+            onset detection function</property>
+            <property name="@phase" type="alias">alias to @method phase. Phase Based Method onset
+            detection function</property>
+            <property name="@wphase" type="alias">alias to @method phase.Weighted Phase Deviation
+            onset detection function</property>
+            <property name="@specdiff" type="alias">alias to @method specdiff. Spectral difference
+            method onset detection function</property>
+            <property name="@kl" type="alias">alias to @method kl. Kullback-Liebler onset detection
+            function</property>
+            <property name="@mkl" type="alias">alias to @method mkl. Modified Kullback-Liebler
+            onset detection function</property>
+            <property name="@specflux" type="alias">alias to @method specflux. Spectral
+            Flux</property>
+            <property name="@threshold" type="float" default="0.058">peak picking
+            threshold</property>
+            <property name="@speedlim" type="float" units="millisecond" minvalue="1" default="50">
+            minimum interval between two consecutive onsets</property>
+            <property name="@silence" type="float" units="decibel" default="-70" minvalue="-80"
+            maxvalue="0">onset detection silence threshold</property>
+            <property name="@compression" type="float" minvalue="0" default="1">lambda logarithmic
+            compression factor, 0 to disable</property>
+            <property name="@awhitening" type="int" default="0" enum="0 1">adaptive
+            whitening</property>
+            <property name="@delay" type="float" minvalue="0" default="49.9093"
+            units="millisecond">constant system delay to take back from detection time</property>
+        </properties>
+        <inlets>
+            <inlet>
+                <xinfo on="bang">analyze array</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet>output list of detected onsets</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[symbol #s(           [B] [array AONSET w=380 h=100]
+|                     |
+[expand_env]  [openpanel]
+|             |
+[load $1 to AONSET @resize(
+|
+[snd.file]
+|
+[b] [shuffle, bang #r(    [$1 #m(
+|                         |
+[an.onset #a]  [T] [F #f] [array.s->p AONSET]
+|              |   |.     |
+[data.list #l] [metro 70] [ui.hsl @size 16 380]
+|              |
+[list.walk @fold]         [r off            #r1][F]
+|                         |                 |     |
+[pack f f  #p]            [tabplay~ AONSET] [b] [@release $1 #ar(
+|                         |                 |   |
+[ms->samp]                [env.ar~ 10 500       ]
+|                         |
+[s off]                   [ui.hgain~]
+                          |\
+[ui.dsp~]                 [dac~]
+[X f->p:1] [X r->l] [X f->ar] [X r1->m]
+#a AONSET
+#s %DOC%/sound/voice.wav
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

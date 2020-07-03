@@ -14,20 +14,19 @@
 #ifndef LIST_PASS_IF_H
 #define LIST_PASS_IF_H
 
+#include "ceammc_data.h"
 #include "ceammc_object.h"
 
 using namespace ceammc;
-
-class DataTypeMList;
 
 class ListPassIf : public BaseObject {
     bool pass_flag_;
 
 public:
     ListPassIf(const PdArgs& a);
-    void onList(const AtomList& lst);
-    void onInlet(size_t n, const AtomList& l);
-    void onDataT(const DataTPtr<DataTypeMList>& lst);
+    void onList(const AtomList& lst) override;
+    void onInlet(size_t n, const AtomList& l) override;
+    void onDataT(const MListAtom& ml);
 };
 
 void setup_list_pass_if();

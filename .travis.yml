@@ -19,6 +19,7 @@ addons:
       - libjack-jackd2-dev
       - libfftw3-dev
       - libboost-dev
+      - ninja-build
 
 env:
   global:
@@ -47,8 +48,8 @@ before_script:
 - cd ${CEAMMC_BUILD_DIR}
 
 script:
-- make -j2
-- make test
+- ninja
+- ctest
 - ../ceammc/scripts/travis_package.sh
 
 after_success:

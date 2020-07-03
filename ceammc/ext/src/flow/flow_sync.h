@@ -28,15 +28,15 @@ class FlowSync : public BaseObject {
 public:
     FlowSync(const PdArgs& a);
 
-    void onInlet(size_t n, const AtomList& l);
-    void onList(const AtomList& l);
-    void onFloat(float v);
-    void onSymbol(t_symbol* s);
+    void onInlet(size_t n, const AtomList& l) override;
+    void onList(const AtomList& l) override;
+    void onFloat(t_float v) override;
+    void onSymbol(t_symbol* s) override;
 
 private:
     void sync();
 };
 
-extern "C" void setup_flow0x2esync();
+void setup_flow_sync();
 
 #endif // FLOW_SYNC_H

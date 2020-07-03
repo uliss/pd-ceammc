@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="math.exp~">
+        <title>math.exp~</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>base-e exponential for signal</description>
+            <license>GPL3 or later</license>
+            <library>ceammc</library>
+            <category>math</category>
+            <keywords>math exp2</keywords>
+            <also>
+                <see>math.log~</see>
+                <see>math.exp2~</see>
+            </also>
+            <since>0.9</since>
+        </meta>
+        <inlets>
+            <inlet type="audio">
+                <xinfo on="float">input signal</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet type="audio">output signal</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[B]
+|
+[plot.linspace~ -2 4]
+|                 ^|
+[math.exp~]        |
+|                  |.
+[ui.plot~ @xlabels 1 @ylabels 1 @ymin 0 @ymax 60 @size 400 200]
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+[ui.dsp~]
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

@@ -17,37 +17,51 @@
 #ifndef CEAMMC_H
 #define CEAMMC_H
 
-#ifdef __cplusplus
-extern "C" {
-#endif
-
 #include "m_pd.h"
 
-#include <stddef.h>
+#include <stdexcept>
+#include <string>
 
-/**
- * @brief compare atoms
- * @return 0 - if a1 == a2, _-1); -1 - if a1 < a2; +1 - if a1 > a2
- * @see ceammc_atoms_equal
- */
-int ceammc_atoms_compare(const t_atom* a1, const t_atom* a2);
+namespace ceammc {
 
-t_atom* ceammc_atoms_alloc(size_t n);
-void ceammc_atoms_free(t_atom* mem, size_t n);
-t_atom* ceammc_atoms_alloc_copy(size_t, t_atom* from);
-void output_atom(t_outlet* out, t_atom* atom);
+struct OutletIdx {
+    unsigned long long n;
 
-typedef t_float (*ceammc_float_unary_func)(t_float);
-typedef t_float (*ceammc_float_binary_func)(t_float, t_float);
-void ceammc_atoms_map_float(size_t n, t_atom* a, ceammc_float_unary_func func);
-void ceammc_atoms_map_float_to_outlet(t_outlet* o, t_symbol* s, int n, t_atom* a, ceammc_float_unary_func func);
+    operator unsigned long long() const { return n; }
+};
 
-size_t ceammc_memory_size();
-size_t ceammc_memory_current_rss();
-size_t ceammc_memory_peak_rss();
+struct InletIdx {
+    unsigned long long n;
 
-#ifdef __cplusplus
+    operator unsigned long long() const { return n; }
+};
+
+namespace literals {
+    inline OutletIdx operator"" _out(unsigned long long n) { return { n }; }
+    inline InletIdx operator"" _in(unsigned long long n) { return { n }; }
 }
-#endif
+
+struct Exception : public std::runtime_error {
+public:
+    Exception(const char* msg)
+        : std::runtime_error(msg)
+    {
+    }
+
+    Exception(const std::string& msg)
+        : std::runtime_error(msg)
+    {
+    }
+};
+
+class InvalidOutlet : public Exception {
+    OutletIdx n_;
+
+public:
+    InvalidOutlet(OutletIdx n) noexcept;
+    const char* what() const noexcept;
+};
+
+}
 
 #endif // CEAMMC_H

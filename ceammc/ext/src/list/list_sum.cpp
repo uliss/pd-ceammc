@@ -8,7 +8,7 @@ ListSum::ListSum(const PdArgs& a)
     createOutlet();
 }
 
-void ListSum::onFloat(float f)
+void ListSum::onFloat(t_float f)
 {
     floatTo(0, f);
 }

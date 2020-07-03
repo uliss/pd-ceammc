@@ -37,27 +37,27 @@
  *
  * usage: WRAP_LIBRARY(super_library, "0.1beta", "super_library")
  */
-#define WRAP_LIBRARY(name, version, pd_name)                                  \
-    wrapper_init();                                                           \
-    class lib_##name : public BaseObject {                                    \
-        SymbolProperty* name_;                                                \
-        SymbolProperty* version_;                                             \
-                                                                              \
-    public:                                                                   \
-        lib_##name(const PdArgs& args)                                        \
-            : BaseObject(args)                                                \
-            , name_(new SymbolProperty("@name", gensym(pd_name), true))       \
-            , version_(new SymbolProperty("@version", gensym(version), true)) \
-        {                                                                     \
-            createProperty(name_);                                            \
-            createProperty(version_);                                         \
-            createOutlet();                                                   \
-        }                                                                     \
-        void onBang() override                                                \
-        {                                                                     \
-            OBJ_DBG << "library: " << pd_name;                                \
-        }                                                                     \
-    };                                                                        \
+#define WRAP_LIBRARY(name, version, pd_name)                                                       \
+    wrapper_init();                                                                                \
+    class lib_##name : public BaseObject {                                                         \
+        SymbolProperty* name_;                                                                     \
+        SymbolProperty* version_;                                                                  \
+                                                                                                   \
+    public:                                                                                        \
+        lib_##name(const PdArgs& args)                                                             \
+            : BaseObject(args)                                                                     \
+            , name_(new SymbolProperty("@name", gensym(pd_name), PropValueAccess::READONLY))       \
+            , version_(new SymbolProperty("@version", gensym(version), PropValueAccess::READONLY)) \
+        {                                                                                          \
+            addProperty(name_);                                                                 \
+            addProperty(version_);                                                              \
+            createOutlet();                                                                        \
+        }                                                                                          \
+        void onBang() override                                                                     \
+        {                                                                                          \
+            OBJ_DBG << "library: " << pd_name;                                                     \
+        }                                                                                          \
+    };                                                                                             \
     ObjectFactory<lib_##name> obj_##name(pd_name);
 
 /*

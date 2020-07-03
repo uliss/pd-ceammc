@@ -14,9 +14,10 @@
 #ifndef SYSTEM_COLORPANEL_H
 #define SYSTEM_COLORPANEL_H
 
-#include <cinttypes>
+#include <cstdint>
 
 #include "ceammc_object.h"
+#include "ceammc_property_enum.h"
 using namespace ceammc;
 
 class SystemColorpanel : public BaseObject {
@@ -36,13 +37,11 @@ public:
 
 private:
     bool setHex(t_symbol* s);
-    AtomList propHex() const { return Atom(gensym(hex_)); }
     AtomList propInt() const { return AtomList({ t_float(r_), t_float(g_), t_float(b_) }); }
     AtomList propFloat() const { return AtomList({ r_ / t_float(255), g_ / t_float(255), b_ / t_float(255) }); }
 
     void propSetFloat(const AtomList& v);
     void propSetInt(const AtomList& v);
-    void propSetHex(const AtomList& v);
 };
 
 void setup_system_colorpanel();

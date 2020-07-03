@@ -36,7 +36,8 @@
             <property name="@fold" type="alias">alias for "@oversize fold" property. Pad shortest
             list with repeated values from the end to the beginning, then back and so
             on.</property>
-            <property name="@pad" type="atom">pad value for pad method of resizing</property>
+            <property name="@pad" type="atom" default="0">pad value for pad method of
+            resizing</property>
             <property name="@l0" type="list" readonly="true">first list</property>
             <property name="@l1" type="list" readonly="true">second list, etc.</property>
         </properties>

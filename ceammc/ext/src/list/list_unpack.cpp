@@ -5,13 +5,13 @@
 
 #include <algorithm>
 
-const static size_t MIN_OUTLETS = 1;
-const static size_t MAX_OUTLETS = 32;
-const static size_t DEFAULT_OUTLETS = 1;
+constexpr size_t MIN_OUTLETS = 1;
+constexpr size_t MAX_OUTLETS = 32;
+constexpr size_t DEFAULT_OUTLETS = 1;
 
 ListUnpack::ListUnpack(const PdArgs& a)
     : BaseObject(a)
-    , n_(clip<int>(positionalFloatArgument(0, DEFAULT_OUTLETS), MIN_OUTLETS, MAX_OUTLETS))
+    , n_(positionalConstant<DEFAULT_OUTLETS, MIN_OUTLETS, MAX_OUTLETS>(0))
 {
     for (size_t i = 0; i < n_; i++)
         createOutlet();
@@ -25,11 +25,9 @@ void ListUnpack::onList(const AtomList& l)
         atomTo(i - 1, l[i - 1]);
 }
 
-void ListUnpack::onDataT(const DataTPtr<DataTypeMList>& dptr)
+void ListUnpack::onDataT(const MListAtom& ml)
 {
-    const size_t N = std::min<size_t>(dptr->size(), n_);
-    for (size_t i = N; i > 0; i--)
-        atomTo(i - 1, (*dptr)[i - 1].toAtom());
+    onList(ml->data());
 }
 
 void setup_list_unpack()

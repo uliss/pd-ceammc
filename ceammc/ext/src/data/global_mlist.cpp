@@ -23,6 +23,6 @@ void setup_global_mlist()
 {
     ListIFaceFactory<GlobalMList> obj("global.mlist");
     obj.processData<DataTypeMList>();
-    obj.mapFloatToList();
-    obj.mapSymbolToList();
+    obj.useDefaultPdFloatFn();
+    obj.useDefaultPdSymbolFn();
 }

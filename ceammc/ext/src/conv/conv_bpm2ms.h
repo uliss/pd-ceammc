@@ -21,8 +21,8 @@ using namespace ceammc;
 class BpmToMs : public BaseObject {
 public:
     BpmToMs(const PdArgs& a);
-    void onFloat(t_float v);
-    void onList(const AtomList& lst);
+    void onFloat(t_float v) override;
+    void onList(const AtomList& lst) override;
 };
 
 #endif // CONV_BPM2MS_H

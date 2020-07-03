@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="list.resample">
+        <title>list.resample</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>resample list with specified ratio</description>
+            <license>GPL3 or later</license>
+            <library>ceammc</library>
+            <category>list</category>
+            <keywords>list</keywords>
+            <since>0.9</since>
+            <aliases>
+                <alias>list.r</alias>
+            </aliases>
+            <also>
+                <see>list.stretch</see>
+            </also>
+        </meta>
+        <properties>
+            <property name="@ratio" type="float" minvalue="0" maxvalue="100" default="1">resample
+            ratio (src/dest)</property>
+        </properties>
+        <arguments>
+            <argument name="RATIO" type="float" minvalue="0" maxvalue="100">resample
+            ratio</argument>
+        </arguments>
+        <inlets>
+            <inlet>
+                <xinfo on="list">input list.</xinfo>
+                <xinfo on="data:mlist">input mlist</xinfo>
+            </inlet>
+            <inlet>
+                <xinfo>set ratio</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet>new modified list</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[ui.sliders]    [ui.sliders @auto_range 1 #b]
+|
+|
+|
+|
+|
+|
+|
+|            [ui.hrd]
+|            |.
+[list.resample 4 #a]
+
+[X a->b]
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

@@ -23,7 +23,7 @@ class Lin2Curve : public BaseRangeConverter {
 
 public:
     Lin2Curve(const PdArgs& a);
-    void onFloat(float value);
+    void onFloat(t_float value) override;
 };
 
 #endif // CONV_LIN2CURVE_H

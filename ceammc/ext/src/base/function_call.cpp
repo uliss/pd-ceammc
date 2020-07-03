@@ -18,14 +18,10 @@
 
 FunctionCall::FunctionCall(const PdArgs& a)
     : BaseObject(a)
-    , name_(0)
+    , name_(positionalSymbolConstant(0, &s_))
 {
     createInlet(&name_);
     createOutlet();
-
-    Atom name = positionalArgument(0, Atom());
-    if (name.isSymbol())
-        name_ = name.asSymbol();
 }
 
 void FunctionCall::onBang()
@@ -38,7 +34,7 @@ void FunctionCall::onBang()
     outputResult(fn);
 }
 
-void FunctionCall::onFloat(float f)
+void FunctionCall::onFloat(t_float f)
 {
     Function* fn = getFunc();
     if (!fn)

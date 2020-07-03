@@ -4,6 +4,7 @@
 #include "ceammc_abstractdata.h"
 #include "ceammc_atomlist.h"
 #include "ceammc_convert.h"
+#include "ceammc_data.h"
 
 #include <algorithm>
 #include <vector>
@@ -88,6 +89,9 @@ static double intervalMs(const EnvelopePoint& p0, const EnvelopePoint& p1)
 
 typedef std::vector<EnvelopePoint> PointList;
 
+class DataTypeEnv;
+using EnvAtom = DataAtom<DataTypeEnv>;
+
 class DataTypeEnv : public AbstractData {
     PointList points_;
 
@@ -101,9 +105,9 @@ public:
     DataTypeEnv& operator=(const DataTypeEnv& env);
     DataTypeEnv& operator=(DataTypeEnv&& env);
 
-    DataType type() const;
+    int type() const noexcept;
     std::string toString() const;
-    bool isEqual(const AbstractData* d) const;
+    bool isEqual(const AbstractData* d) const noexcept;
 
     iterator begin();
     iterator end();
@@ -312,7 +316,7 @@ public:
     bool isADSR(bool checkVal = false) const;
 
 public:
-    static DataType dataType;
+    static int dataType;
 };
 
 std::ostream& operator<<(std::ostream& os, const DataTypeEnv& env);

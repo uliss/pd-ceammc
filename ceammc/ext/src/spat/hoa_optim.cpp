@@ -60,19 +60,19 @@ HoaOptim::HoaOptim(const PdArgs& args)
 
     mode_->appendEnum(SYM_MAXRE);
     mode_->appendEnum(SYM_INPHASE);
-    createProperty(mode_);
+    addProperty(mode_);
 
-    createProperty(new SymbolEnumAlias("@basic", mode_, SYM_BASIC));
-    createProperty(new SymbolEnumAlias("@maxre", mode_, SYM_MAXRE));
-    createProperty(new SymbolEnumAlias("@inphase", mode_, SYM_INPHASE));
+    addProperty(new SymbolEnumAlias("@basic", mode_, SYM_BASIC));
+    addProperty(new SymbolEnumAlias("@maxre", mode_, SYM_MAXRE));
+    addProperty(new SymbolEnumAlias("@inphase", mode_, SYM_INPHASE));
 }
 
 void HoaOptim::parseProperties()
 {
     HoaBase::parseProperties();
 
-    if (positionalSymbolArgument(1, nullptr))
-        mode_->setValue(positionalSymbolArgument(1));
+    if (positionalSymbolConstant(1, nullptr))
+        mode_->setValue(positionalSymbolConstant(1, &s_));
 
     optim_.reset(new Optim2d(order()));
 

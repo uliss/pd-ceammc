@@ -14,11 +14,10 @@
 #ifndef LIST_SLICE_H
 #define LIST_SLICE_H
 
+#include "ceammc_data.h"
 #include "ceammc_object.h"
 
 using namespace ceammc;
-
-class DataTypeMList;
 
 class ListSlice : public BaseObject {
     IntProperty* from_;
@@ -27,8 +26,8 @@ class ListSlice : public BaseObject {
 
 public:
     ListSlice(const PdArgs& a);
-    void onList(const AtomList& l);
-    void onDataT(const DataTypeMList& l);
+    void onList(const AtomList& l) override;
+    void onDataT(const MListAtom& ml);
 };
 
 void setup_list_slice();

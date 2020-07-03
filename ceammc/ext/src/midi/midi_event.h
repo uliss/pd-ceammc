@@ -37,7 +37,7 @@ protected:
 public:
     BaseMidiEventExternal(const PdArgs& a);
 
-    void onAny(t_symbol* s, const AtomList& args);
+    void onAny(t_symbol* s, const AtomList& args) override;
     virtual void processEvent() = 0;
 };
 

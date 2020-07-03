@@ -13,13 +13,10 @@
  *****************************************************************************/
 #include "hoa_process.h"
 #include "ceammc_factory.h"
-#include "ceammc_property_extra.h"
 #include "fmt/format.h"
 
 #include <cmath>
 #include <stdexcept>
-
-static const t_float YOFF = 30;
 
 t_symbol* HoaProcess::SYM_SWITCH;
 t_symbol* HoaProcess::SYM_BLOCK;
@@ -32,30 +29,34 @@ t_symbol* HoaProcess::SYM_DSP;
 
 HoaProcess::HoaProcess(const PdArgs& args)
     : SoundExternal(args)
-    , canvas_yoff_(10)
     , domain_(nullptr)
     , num_(nullptr)
     , clock_(this, &HoaProcess::clockTick)
 {
     domain_ = new SymbolEnumProperty("@domain", SYM_HARMONICS);
     domain_->appendEnum(SYM_PLANEWAVES);
-    createProperty(domain_);
+    domain_->setInitOnly();
+    addProperty(domain_);
 
-    num_ = new IntPropertyMinEq("@n", 0, 0);
-    createProperty(num_);
+    num_ = new IntProperty("@n", 0);
+    num_->setInitOnly();
+    num_->checkMinEq(0);
+    addProperty(num_);
 }
 
 void HoaProcess::parseProperties()
 {
     try {
         // handle position patch name
-        t_symbol* patch = positionalArguments().symbolAt(1, nullptr);
+        t_symbol* patch = positionalSymbolConstant(1, nullptr);
+        if (!patch)
+            throw std::invalid_argument("bad argument, second argument must be a patch name");
 
         // hangle positional mode arg
-        if (positionalSymbolArgument(2, nullptr))
-            domain_->setValue(positionalSymbolArgument(2));
+        if (positionalSymbolConstant(2, nullptr))
+            domain_->setValue(positionalSymbolConstant(2, &s_));
 
-        const auto ARG0 = positionalFloatArgument(0, -1);
+        const auto ARG0 = positionalFloatArgumentT(0, -1);
 
         if (domain_->value() == SYM_HARMONICS) {
             if (ARG0 > 0)
@@ -71,9 +72,6 @@ void HoaProcess::parseProperties()
 
         if (!init())
             throw std::runtime_error("can't init canvas");
-
-        if (!patch)
-            throw std::invalid_argument("bad argument, second argument must be a patch name");
 
         AtomList patch_args = args().slice(3);
 
@@ -97,9 +95,6 @@ void HoaProcess::parseProperties()
             OBJ_LOG << e.what(); // object without args - used in help
     }
 
-    // set prop readonly
-    num_->setReadonly(true);
-    domain_->setReadonly(true);
     clock_.delay(5);
 }
 

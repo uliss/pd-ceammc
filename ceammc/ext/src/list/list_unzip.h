@@ -14,12 +14,13 @@
 #ifndef LIST_UNZIP_H
 #define LIST_UNZIP_H
 
+#include "ceammc_property_enum.h"
 #include "list_base.h"
 
 using namespace ceammc;
 
 class ListUnzip : public ListBase {
-    const size_t out_count_;
+    const size_t n_;
     AtomList in_list_;
     std::vector<AtomList> out_lists_;
     Atom pad_;
@@ -32,11 +33,6 @@ public:
 
 private:
     void clearOutputList();
-    void initOutlets();
-    void initProperties();
-
-    AtomList getPadValue() const;
-    void setPadValue(const AtomList& l);
 };
 
 void setup_list_unzip();

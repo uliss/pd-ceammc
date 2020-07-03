@@ -19,11 +19,11 @@
             <since>0.1</since>
         </meta>
         <info>
-            <par>The atan() function computes the principal value of the arc tangent of input
-            value. The result is in the range [-pi/2, +pi/2].</par>
+            <par>Outputs the principal value of the arc tangent of input value. The result is in
+            the range [-π/2, +π/2].</par>
             <par>Special values:</par>
             <par>atan(+-0) returns +-0.</par>
-            <par>atan(+-infinity) returns +-pi/2</par>
+            <par>atan(+-infinity) returns +-π/2</par>
         </info>
         <inlets>
             <inlet>
@@ -37,11 +37,13 @@
         <example>
             <pdascii>
 <![CDATA[
-[F]
+[bang(                 [array ATAN yr=-2..2 w=320]
+|
+[list.seq -4 4 0.025]
 |
 [math.atan]
 |
-[F]
+[list->array ATAN]
 ]]>
             </pdascii>
         </example>

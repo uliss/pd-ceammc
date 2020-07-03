@@ -6,20 +6,21 @@ PanBase::PanBase(const PdArgs& args)
     , smooth_(0)
     , pos_(0)
 {
-    smooth_ = new InitIntPropertyClosedRange(new IntPropertyClosedRange("@smooth", 20, 0, 100));
-    createProperty(smooth_);
+    smooth_ = new IntProperty("@smooth", 20);
+    smooth_->setInitOnly();
+    smooth_->checkClosedRange(0, 100);
+    smooth_->setSuccessFn(
+        [this](Property*) { smooth_pos_.setSmoothTime(smooth_->value(), samplerate(), 8); });
+    addProperty(smooth_);
 
-    pos_ = new FloatPropertyClosedRange("@pos", 0, -1, 1);
-    setPropertyFromPositionalArg(pos_, 0);
-    createProperty(pos_);
+    pos_ = new FloatProperty("@pos", 0);
+    pos_->checkClosedRange(-1, 1);
+    pos_->setArgIndex(0);
+    addProperty(pos_);
 
     createInlet();
     createSignalOutlet();
     createSignalOutlet();
-
-    parseProperties();
-    // after parse
-    smooth_pos_.setSmoothTime(smooth_->value(), samplerate(), 8);
 }
 
 void PanBase::onInlet(size_t n, const AtomList& l)

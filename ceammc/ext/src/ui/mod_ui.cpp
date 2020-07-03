@@ -21,6 +21,7 @@
 #include "ui_mouse_route.h"
 #include "ui_number.h"
 #include "ui_number_tilde.h"
+#include "ui_plot_tilde.h"
 #include "ui_polar.h"
 #include "ui_preset.h"
 #include "ui_radio.h"
@@ -56,6 +57,7 @@ void ceammc_ui_setup()
     setup_ui_mouse_route();
     setup_ui_number();
     setup_ui_number_tilde();
+    setup_ui_plot_tilde();
     setup_ui_polar();
     setup_ui_preset();
     setup_ui_radio();

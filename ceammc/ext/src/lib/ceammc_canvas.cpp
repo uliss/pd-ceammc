@@ -178,6 +178,10 @@ Canvas::Canvas(t_canvas* c)
 {
 }
 
+Canvas::~Canvas()
+{
+}
+
 ArrayPtr Canvas::createArray(const char* name, size_t n)
 {
     ArrayPtr ptr;
@@ -198,7 +202,7 @@ bool Canvas::connect(t_object* src, size_t nout, t_object* dest, size_t ninl)
     if (!src || !dest)
         return false;
 
-    t_outconnect* c = obj_connect(src, nout, dest, ninl);
+    t_outconnect* c = obj_connect(src, int(nout), dest, int(ninl));
     return c != 0;
 }
 
@@ -297,7 +301,7 @@ void Canvas::createPdObject(int x, int y, t_symbol* name, const AtomList& args)
     xargs.append(Atom(name));
     xargs.append(args);
 
-    pd_typedmess(&canvas_->gl_obj.te_g.g_pd, SYM_OBJ, xargs.size(), xargs.toPdData());
+    pd_typedmess(&canvas_->gl_obj.te_g.g_pd, SYM_OBJ, static_cast<int>(xargs.size()), xargs.toPdData());
 }
 
 _glist* Canvas::createAbstraction(int x, int y, t_symbol* name, const AtomList& args)

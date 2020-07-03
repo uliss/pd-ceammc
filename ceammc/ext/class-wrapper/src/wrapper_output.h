@@ -39,10 +39,10 @@ namespace wrapper {
  * @brief Dumps values to Pd window
  */
 class PdDump {
-    ceammc::Debug& os_;
+    ceammc::LogBaseObject& os_;
 
 public:
-    PdDump(ceammc::Debug& stream)
+    PdDump(ceammc::LogBaseObject& stream)
         : os_(stream)
     {
     }
@@ -137,7 +137,7 @@ struct PdOutput {
 
     void output(size_t n, const V& v)
     {
-        t_->dataTo(n, DataPtr(new AbstractDataWrapper<V>(v)));
+        t_->atomTo(n, DataAtom<AbstractDataWrapper<V>>(v));
     }
 };
 

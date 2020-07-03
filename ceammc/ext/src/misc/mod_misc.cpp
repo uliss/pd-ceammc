@@ -18,7 +18,7 @@ void ceammc_misc_setup()
     setup_live_capture_tilde();
 
 #ifdef WITH_MODPLUG
-    setup_misc0x2emodplug_tilde();
+    setup_misc_modplug_tilde();
 #endif
 
 #ifdef CEAMMC_HAVE_FLUIDSYNTH

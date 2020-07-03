@@ -7,7 +7,7 @@
                 <author>Alex Nadzharov</author>
                 <author>Serge Poltavsky</author>
             </authors>
-            <description>stretches list - chenges its size with linear interpolation.</description>
+            <description>stretches list - changes its size with linear interpolation</description>
             <license>GPL3 or later</license>
             <library>ceammc</library>
             <category>list</category>

@@ -5,17 +5,20 @@ EnvTimeScale::EnvTimeScale(const PdArgs& a)
     : BaseObject(a)
     , scale_(0)
 {
-    scale_ = new FloatPropertyMin("@scale", positionalFloatArgument(0, 1), 0);
-    createProperty(scale_);
+    scale_ = new FloatProperty("@scale", 1);
+    scale_->setArgIndex(0);
+    scale_->checkPositive();
+    addProperty(scale_);
 
     createOutlet();
 }
 
-void EnvTimeScale::onDataT(const DataTPtr<DataTypeEnv>& dptr)
+void EnvTimeScale::onDataT(const EnvAtom& env)
 {
-    DataTypeEnv env(*dptr);
-    env.scaleTime(scale_->value());
-    dataTo(0, DataTPtr<DataTypeEnv>(env));
+    EnvAtom res = env;
+    res.detachData();
+    res->scaleTime(scale_->value());
+    atomTo(0, res);
 }
 
 void setup_env_tscale()

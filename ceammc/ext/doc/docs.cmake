@@ -1,4 +1,6 @@
 set(DOC_FILES
+    an.onset
+    an.onset~
     an.pitchtrack~
     array.bpm
     array.copy
@@ -9,6 +11,8 @@ set(DOC_FILES
     array.mean
     array.minmax
     array.p2s
+    array.plot~
+    array.resample
     array.rms
     array.s2p
     array.set
@@ -24,8 +28,15 @@ set(DOC_FILES
     canvas.name
     canvas.path
     canvas.top
+    chaos.gbman0
+    chaos.gbman0~
+    chaos.jong
+    chaos.logistic
+    chaos.std0
+    chaos.std0~
     click~
     conv.amp2dbfs
+    conv.amp2dbfs~
     conv.bpm2hz
     conv.bpm2ms
     conv.bpm2sec
@@ -35,14 +46,19 @@ set(DOC_FILES
     conv.lin2curve
     conv.lin2exp
     conv.lin2lin
+    conv.lin2lin~
     conv.list2props
     conv.midi2freq
+    conv.ms2samp
+    conv.ms2samp~
     conv.phase2rad
     conv.phase2rad~
     conv.pitch2midi
     conv.pol2car
     conv.rad2phase
     conv.rad2phase~
+    conv.samp2ms
+    conv.samp2ms~
     conv.samp2sec
     conv.sec2samp
     conv.sec2str
@@ -91,6 +107,7 @@ set(DOC_FILES
     flow.change
     flow.count
     flow.gate
+    flow.greater
     flow.group
     flow.less
     flow.less_eq
@@ -129,6 +146,7 @@ set(DOC_FILES
     flt.eq10~
     flt.eq_peak~
     flt.eq_peak_cq~
+    flt.freqz~
     flt.highshelf~
     flt.hpf12~
     flt.hpf24~
@@ -250,6 +268,7 @@ set(DOC_FILES
     list.remove_if
     list.repack
     list.repeat
+    list.resample
     list.resize
     list.reverse
     list.rldecode
@@ -281,46 +300,78 @@ set(DOC_FILES
     local.mlist
     local.set
     math.abs
+    math.abs~
     math.acos
+    math.acos~
     math.acosh
+    math.acosh~
     math.and
     math.approx
     math.asin
+    math.asin~
     math.asinh
+    math.asinh~
     math.atan
+    math.atan~
     math.atanh
+    math.atanh~
+    math.cabs~
+    math.carg~
     math.cbrt
+    math.cbrt~
     math.cdiv~
     math.ceil
+    math.ceil~
+    math.cexp~
     math.cmul~
     math.cos
+    math.cos~
     math.cosh
+    math.cosh~
     math.div
     math.e
+    math.erf
+    math.erf~
     math.exp
+    math.exp~
     math.exp2
+    math.exp2~
     math.expr
     math.floor
+    math.floor~
+    math.gamma
+    math.gamma~
     math.gcd
     math.inf
     math.lcm
+    math.lgamma
+    math.lgamma~
     math.log
+    math.log~
     math.log10
+    math.log10~
     math.log2
+    math.log2~
     math.mul
     math.nan
     math.neg
     math.or
     math.pi
+    math.pi~
     math.polyeval
     math.reciprocal
+    math.reciprocal~
     math.round
     math.round~
     math.sign
     math.sin
+    math.sin~
     math.sinh
+    math.sinh~
     math.sqrt
+    math.sqrt~
     math.squared
+    math.squared~
     math.sync_add
     math.sync_and
     math.sync_div
@@ -336,10 +387,14 @@ set(DOC_FILES
     math.sync_sub
     math.sync_xor
     math.tan
+    math.tan~
     math.tanh
+    math.tanh~
     math.trunc
+    math.trunc~
     matrix~
     metro.pattern
+    metro.random
     metro.seq
     midi.ctl2str
     midi.file
@@ -361,6 +416,7 @@ set(DOC_FILES
     noise.white~
     noise.lfreq~
     noise.lfreq0~
+    nsig~
     obj.props
     osc.blit~
     osc.impulse~
@@ -381,7 +437,13 @@ set(DOC_FILES
     path.basename
     path.dirname
     path.exists
+    path.is_dir
     path.lsdir
+    plot.hist~
+    plot.geomspace~
+    plot.linspace~
+    plot.logspace~
+    plot.response~
     preset.float
     preset.list
     preset.storage
@@ -449,8 +511,8 @@ set(DOC_FILES
     system.hostname
     system.memsize
     system.memused
+    system.exec
     system.screen_size
-    system.shell
     tl.bang
     tl.cue
     tl.timeline
@@ -476,6 +538,7 @@ set(DOC_FILES
     ui.label
     ui.link
     ui.number~
+    ui.plot~
     ui.polar
     ui.preset
     ui.scope~

@@ -12,9 +12,9 @@
  * this file belongs to.
  *****************************************************************************/
 #include "list_histogram.h"
-#include "datatype_mlist.h"
 #include "ceammc_factory.h"
 #include "ceammc_fn_list.h"
+#include "datatype_mlist.h"
 
 ListHistogram::ListHistogram(const PdArgs& a)
     : ListBase(a)
@@ -23,8 +23,9 @@ ListHistogram::ListHistogram(const PdArgs& a)
     createInlet();
     createOutlet();
 
-    bins_ = new IntProperty("@bins", int(positionalFloatArgument(0, 100)));
-    createProperty(bins_);
+    bins_ = new IntProperty("@bins", 100);
+    bins_->setArgIndex(0);
+    addProperty(bins_);
 }
 
 void ListHistogram::onList(const AtomList& l)

@@ -23,9 +23,13 @@
 #include <future>
 #include <thread>
 
+#include "ceammc_preset.h"
+#include "ceammc_datastorage.h"
 #include "test_base.h"
+#include "test_external.h"
 
 extern "C" {
+#include "g_canvas.h"
 #include "s_stuff.h"
 
 void sys_bail(int n);
@@ -35,6 +39,8 @@ void sys_exit();
 void sys_stopgui();
 void sched_reopenmeplease(void);
 }
+
+extern "C" void pd_init();
 
 #ifdef __WIN32
 static bool initWinSock()
@@ -79,10 +85,68 @@ void pdRunMainLoopMs(int ms)
         return 1;
     });
 
-    sys_stopgui();
+    //    sys_stopgui();
     setTestSampleRate(44100);
     m_mainloop();
 
     f.wait();
 }
+
+struct PdInitListener : Catch::TestEventListenerBase {
+    using TestEventListenerBase::TestEventListenerBase;
+
+    void testRunStarting(Catch::TestRunInfo const& testRunInfo) override
+    {
+        if (!pd_canvasmaker) {
+            std::cerr << "[test] pd_init()" << std::endl;
+            pd_init();
+        }
+
+        LogExternalOutput::setup();
+        std::cerr << "[test] LogExternalOutput::setup()" << std::endl;
+
+        ListenerExternal::setup();
+        std::cerr << "[test] ListenerExternal::setup()" << std::endl;
+
+        test::pdPrintToStdError();
+    }
+
+    void testRunEnded(Catch::TestRunStats const& testRunStats) override
+    {
+    }
+
+    void testCaseStarting(Catch::TestCaseInfo const& testInfo) override
+    {
+        auto top = PureData::instance().createTopCanvas("test_canvas");
+
+        auto cnv = canvas_getcurrent();
+        if (!cnv)
+            canvas_setcurrent(top->pd_canvas());
+    }
+
+    void testCaseEnded(Catch::TestCaseStats const& testCaseStats) override
+    {
+        t_canvas* cur = canvas_getcurrent();
+        std::vector<t_canvas*> cnvl;
+
+        auto glist = pd_getcanvaslist();
+        for (auto c = glist; c != nullptr; c = c->gl_next) {
+            if (c->gl_name->s_name[0] == '_')
+                continue;
+
+            cnvl.push_back(c);
+        }
+
+        if (cur)
+            canvas_unsetcurrent(cur);
+
+        for (auto c : cnvl)
+            pd_free(&c->gl_obj.te_g.g_pd);
+
+        PresetStorage::instance().clearAll();
+    }
+};
+
+CATCH_REGISTER_LISTENER(PdInitListener)
+
 }

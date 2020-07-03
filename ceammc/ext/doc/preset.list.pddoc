@@ -17,6 +17,9 @@
                 <see>preset.float</see>
                 <see>preset.symbol</see>
             </also>
+            <aliases>
+                <alias>preset.l</alias>
+            </aliases>
         </meta>
         <info>
             <par>Named list preset entry. Can store/load up to 16 various lists</par>

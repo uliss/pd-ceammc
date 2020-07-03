@@ -1,0 +1,19 @@
+#N canvas 556 418 549 429 12;
+#N canvas 0 22 450 278 (subpatch) 0;
+#X array sfr1 512 float 2;
+#X coords 0 1 512 -1 200 140 1 0 0;
+#X restore 50 241 graph;
+#N canvas 0 22 450 278 (subpatch) 0;
+#X array sfr2 512 float 2;
+#X coords 0 1 512 -1 200 140 1 0 0;
+#X restore 268 242 graph;
+#X obj 52 145 expand_env;
+#X msg 52 34 symbol sin_440_96k.wav;
+#X msg 232 34 symbol sin_440_48k.wav;
+#X msg 52 74 load %CEAMMC%/\$1 to sfr1 @ch 0 \, load %CEAMMC%/\$1 to
+sfr2 @ch 0 @resample, f 33;
+#X obj 52 173 snd.file;
+#X connect 2 0 6 0;
+#X connect 3 0 5 0;
+#X connect 4 0 5 0;
+#X connect 5 0 2 0;

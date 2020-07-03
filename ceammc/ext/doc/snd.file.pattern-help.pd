@@ -1,0 +1,35 @@
+#N canvas 846 455 733 372 12;
+#X obj 52 115 expand_env;
+#N canvas 0 22 450 278 (subpatch) 0;
+#X array sfp1 200 float 2;
+#X coords 0 1 200 -1 100 60 1 0 0;
+#X restore 49 270 graph;
+#N canvas 0 22 450 278 (subpatch) 0;
+#X array sfp2 200 float 2;
+#X coords 0 1 200 -1 100 60 1 0 0;
+#X restore 169 270 graph;
+#N canvas 0 22 450 278 (subpatch) 0;
+#X array sfp3 200 float 2;
+#X coords 0 1 200 -1 100 60 1 0 0;
+#X restore 289 270 graph;
+#N canvas 0 22 450 278 (subpatch) 0;
+#X array sfp4 200 float 2;
+#X coords 0 1 200 -1 100 60 1 0 0;
+#X restore 409 270 graph;
+#X msg 52 64 load %CEAMMC%/\$1 to sfp[1-4];
+#X msg 52 24 symbol sin_ch4_44.1k.wav;
+#X text 273 65 Note: only single pattern can be specified in array
+name. If you want to use array names \, that looks like pattern \,
+use quotes: "spf[1-4]" - will not expand. There are to pattern options:
+range [x-y] or alternative [a|b|c]., f 58;
+#X obj 52 146 snd.file;
+#X text 272 21 By default each input file channel loaded to matched
+array \, if it exists.;
+#X text 273 194 sfp_[left|right] will expand to: sfp_left sfp_right
+;
+#X text 273 214 sfp_[] - same as sfp_[0-9];
+#X text 272 153 sfp[1-4] will expand to: sfp1 sfp2 sfp3 sfp4;
+#X text 272 173 sfp[9-7] will expand to: sfp9 sfp8 sfp7;
+#X connect 0 0 8 0;
+#X connect 5 0 0 0;
+#X connect 6 0 5 0;

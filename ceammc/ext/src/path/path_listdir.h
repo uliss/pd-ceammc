@@ -16,26 +16,26 @@
 
 #include <string>
 
-#include "ceammc_dataatomlist.h"
+#include "ceammc_data.h"
 #include "ceammc_object.h"
 
 using namespace ceammc;
-class DataTypeString;
 
 class PathListDir : public BaseObject {
-    DataAtomList ls_;
+    AtomList ls_;
     std::string path_;
     t_symbol* match_;
-    t_canvas* cnv_;
 
 public:
     PathListDir(const PdArgs& a);
-    void onBang();
-    void onSymbol(t_symbol* path);
-    void onDataT(const DataTPtr<DataTypeString>& dptr);
+    void onBang() override;
+    void onSymbol(t_symbol* path) override;
+    void onDataT(const StringAtom& dptr);
 
 private:
     void readDirList();
 };
+
+void setup_path_lsdir();
 
 #endif // PATH_LISTDIR_H

@@ -19,7 +19,7 @@
 
 static const int MIN_INLETS = 2;
 static const int MAX_INLETS = 16;
-static const int DEFAULT_INLETS = MIN_INLETS;
+static const int DEF_NCHAN = MIN_INLETS;
 
 static int iround(float v) { return static_cast<int>(lroundf(v)); }
 static int iround(double v) { return static_cast<int>(lround(v)); }
@@ -27,9 +27,9 @@ static int iround(double v) { return static_cast<int>(lround(v)); }
 FlowSync::FlowSync(const PdArgs& a)
     : BaseObject(a)
 {
-    int num = DEFAULT_INLETS;
+    int num = DEF_NCHAN;
     if (a.args.size() > 0)
-        num = iround(clip<t_float>(a.args[0].asFloat(DEFAULT_INLETS), MIN_INLETS, MAX_INLETS));
+        num = iround(clip<t_float>(a.args[0].asFloat(DEF_NCHAN), MIN_INLETS, MAX_INLETS));
 
     for (int i = 0; i < num; i++) {
         if (i > 0)
@@ -65,7 +65,7 @@ void FlowSync::onList(const AtomList& l)
     sync();
 }
 
-void FlowSync::onFloat(float v)
+void FlowSync::onFloat(t_float v)
 {
     msg_list_[0].setFloat(v);
     sync();
@@ -79,11 +79,19 @@ void FlowSync::onSymbol(t_symbol* s)
 
 void FlowSync::sync()
 {
-    for (size_t i = msg_list_.size(); i > 0; i--)
-        messageTo(i - 1, msg_list_[i - 1]);
+    for (size_t i = msg_list_.size(); i > 0; i--) {
+        auto idx = i - 1;
+        const Message& m = msg_list_[idx];
+
+        if (m.isNone())
+            bangTo(idx);
+        else
+            messageTo(idx, m);
+    }
 }
 
-extern "C" void setup_flow0x2esync()
+void setup_flow_sync()
 {
     ObjectFactory<FlowSync> obj("flow.sync");
+    obj.addAlias("flow.'");
 }

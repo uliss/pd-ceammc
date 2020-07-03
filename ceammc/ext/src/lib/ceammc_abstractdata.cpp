@@ -12,22 +12,39 @@
  * this file belongs to.
  *****************************************************************************/
 #include "ceammc_abstractdata.h"
+#include "ceammc_datastorage.h"
+#include "ceammc_log.h"
+#include "fmt/format.h"
 
 #include <cstdio>
 #include <typeinfo>
 
 namespace ceammc {
 
-AbstractData::~AbstractData() {}
+AbstractData::~AbstractData() noexcept = default;
+
+void AbstractData::dump() const
+{
+    LIB_DBG << toString();
+}
 
 std::string AbstractData::toString() const
 {
-    char buf[120];
-    sprintf(buf, "[Data %s id: %i]", typeid(*this).name(), type());
-    return buf;
+    throw std::runtime_error("not implemented");
+    return fmt::format("{[Data {} id: {}]}", typeid(*this).name(), type());
 }
 
-bool AbstractData::isEqual(const AbstractData* d) const
+std::string AbstractData::objectToJsonString() const
+{
+    return fmt::format(R"({{"datatype":"{}","value":{}}})", typeName(), valueToJsonString());
+}
+
+std::string AbstractData::valueToJsonString() const
+{
+    return "null";
+}
+
+bool AbstractData::isEqual(const AbstractData* d) const noexcept
 {
     if (type() != d->type())
         return false;
@@ -35,11 +52,17 @@ bool AbstractData::isEqual(const AbstractData* d) const
     return this == d;
 }
 
-bool AbstractData::isLess(const AbstractData* d) const
+bool AbstractData::isLess(const AbstractData* d) const noexcept
 {
     if (type() != d->type())
         return type() < d->type();
 
     return false;
 }
+
+std::string AbstractData::typeName() const noexcept
+{
+    return DataStorage::instance().nameByType(type());
+}
+
 }

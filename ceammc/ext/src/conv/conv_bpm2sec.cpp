@@ -32,10 +32,10 @@ void BpmToSec::onFloat(t_float v)
 
 void BpmToSec::onList(const AtomList& lst)
 {
-    listTo(0, lst.map(bpm2sec));
+    listTo(0, lst.mapFloat(bpm2sec));
 }
 
-extern "C" void setup_conv0x2ebpm2sec()
+void setup_conv_bpm2sec()
 {
     ObjectFactory<BpmToSec> obj("conv.bpm2sec");
     obj.addAlias("bpm->sec");

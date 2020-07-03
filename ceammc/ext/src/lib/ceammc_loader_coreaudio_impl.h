@@ -36,14 +36,15 @@ enum ceammc_coreaudio_error {
     INVALID_CHAN = -5,
     OFFSET_ERR = -6,
     READ_ERR = -7,
-    CONVERTER_ERR = -8
+    CONVERTER_ERR = -8,
+    INVALID_RS_RATIO = -9
 };
 
 struct audio_player;
 typedef struct audio_player t_audio_player;
 
 int ceammc_coreaudio_getinfo(const char* path, audiofile_info_t* info);
-int64_t ceammc_coreaudio_load(const char* path, size_t channel, size_t offset, size_t count, t_word* buf);
+int64_t ceammc_coreaudio_load(const char* path, size_t channel, size_t offset, size_t count, t_word* buf, t_float gain, double resample_ratio, size_t max_samples);
 
 t_audio_player* ceammc_coreaudio_player_create();
 int ceammc_coreaudio_player_open(t_audio_player* p, const char* path, int sample_rate);

@@ -111,7 +111,7 @@ void eclass_new_attr_typed(t_eclass* c, const char* attrname, const char* type, 
  * \param argc      The size of the array of atoms
  * \param argv      The array of atoms that contains the attributes values
  */
-void eclass_attr_setter(t_object* x, t_symbol* s, int argc, t_atom* argv);
+void eclass_attr_setter(t_object* x, t_symbol* s, size_t argc, t_atom* argv);
 
 /*!
  * \fn       void eclass_attr_getter(t_object* x, t_symbol *s, int* argc, t_atom** argv)
@@ -292,7 +292,7 @@ void eclass_attr_redirect(t_eclass* c, const char* attrname, t_gotfn fn);
 std::pair<int, int> eclass_tcl_version();
 
 //! @cond
-#define calcoffset(x, y) ((ptrdiff_t)(&(((x*)0L)->y)))
+#define calcoffset(x, y) (reinterpret_cast<ptrdiff_t>(&((static_cast<x*>(0L))->y)))
 //! @endcond
 
 //! Macros that create an int attribute
@@ -390,7 +390,7 @@ std::pair<int, int> eclass_tcl_version();
 //! Macros that define the visible behavior of the attributes
 #define CLASS_ATTR_INVISIBLE(c, name) eclass_attr_invisible(c, name)
 //! Macros that define the setter and getter of the attributes
-#define CLASS_ATTR_ACCESSORS(c, name, getter, setter) eclass_attr_accessor(c, name, (t_err_method)getter, (t_err_method)setter)
+#define CLASS_ATTR_ACCESSORS(c, name, getter, setter) eclass_attr_accessor(c, name, reinterpret_cast<t_err_method>(getter), reinterpret_cast<t_err_method>(setter))
 //! Macros that define the items list of the attributes
 #define CLASS_ATTR_ITEMS(c, name, list) eclass_attr_itemlist(c, name, list)
 //! Macros that define the deault value, save and paint bbehavior of the attributes

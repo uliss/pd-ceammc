@@ -5,15 +5,16 @@
 
 FlowSpeedLimit::FlowSpeedLimit(const PdArgs& a)
     : BaseObject(a)
-    , period_(0)
+    , period_(nullptr)
     , is_closed_(false)
     , clock_(this, &FlowSpeedLimit::clock_handler)
 {
     createOutlet();
 
-    period_ = new IntProperty("@limit", positionalFloatArgument(0, 0));
-    period_->info().setUnits(PropertyInfoUnits::MSEC);
-    createProperty(period_);
+    period_ = new IntProperty("@limit", 0);
+    period_->setArgIndex(0);
+    period_->setUnitsMs();
+    addProperty(period_);
 }
 
 void FlowSpeedLimit::onBang()
@@ -61,13 +62,13 @@ void FlowSpeedLimit::onAny(t_symbol* s, const AtomList& l)
     anyTo(0, s, l);
 }
 
-void FlowSpeedLimit::onData(const DataPtr& p)
+void FlowSpeedLimit::onData(const Atom& data)
 {
     if (is_closed_)
         return;
 
     accept();
-    dataTo(0, p);
+    atomTo(0, data);
 }
 
 void FlowSpeedLimit::accept()

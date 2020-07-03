@@ -17,16 +17,14 @@
 
 #include <algorithm>
 
-static const size_t MIN_INLETS = 1;
-static const size_t MAX_INLETS = 256;
-static const size_t DEF_INLETS = 1;
+constexpr size_t MIN_INLETS = 1;
+constexpr size_t MAX_INLETS = 256;
+constexpr size_t DEF_INLETS = 1;
 
 FlowPack::FlowPack(const PdArgs& args)
     : BaseObject(args)
-    , n_(DEF_INLETS)
+    , n_(positionalConstant<DEF_INLETS, MIN_INLETS, MAX_INLETS>(0))
 {
-    n_ = static_cast<size_t>(clip<int, MIN_INLETS, MAX_INLETS>(positionalFloatArgument(0, MIN_INLETS)));
-
     // (in/out)lets
     for (size_t i = 1; i < n_; i++)
         createInlet();

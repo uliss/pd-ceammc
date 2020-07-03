@@ -20,13 +20,13 @@ using namespace ceammc;
 
 class RandomGauss : public BaseObject {
     FloatProperty* mu_;
-    FloatPropertyMinEq* sigma_;
+    FloatProperty* sigma_;
 
 public:
     RandomGauss(const PdArgs& a);
-    void onBang();
+    void onBang() override;
 };
 
-extern "C" void setup_random0x2egauss();
+void setup_random_gauss();
 
 #endif // RANDOM_GAUSS_H

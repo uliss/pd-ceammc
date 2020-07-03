@@ -11,7 +11,7 @@
 exceeds the input range \, by default clip is applied.;
 #X msg 50 158 0 1001;
 #N canvas 0 22 450 300 (subpatch) 0;
-#X array array1 1000 float 0;
+#X array array1 1000 float 1;
 #A 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
@@ -44,7 +44,7 @@ exceeds the input range \, by default clip is applied.;
 #X coords 0 1 1000 0 200 140 1;
 #X restore 395 158 graph;
 #X obj 50 187 list.seq;
-#X obj 50 216 list.unpack;
+#X obj 50 216 list.separate;
 #X obj 50 245 lin->exp 0 1001 0.01 1;
 #X obj 50 274 tabwrite array1;
 #X obj 20 320 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
@@ -110,7 +110,7 @@ value: 0.01\.;
 #X text 115 45 ::;
 #X obj 131 48 ui.link @title conv @url ceammc.conv-help.pd;
 #X obj 1 894 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 897 library: ceammc v0.8.0;
+#X text 10 897 library: ceammc v0.9.0;
 #X text 464 909 see also:;
 #X obj 538 909 conv.lin2lin;
 #X obj 639 909 conv.lin2curve;
@@ -119,7 +119,7 @@ value: 0.01\.;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
 #X text 10 32 version:;
-#X text 120 32 0.8.0;
+#X text 120 32 0.9.0;
 #X text 10 54 object:;
 #X text 120 54 conv.lin2exp;
 #X text 10 76 category:;

@@ -11,17 +11,12 @@ class RandomPwLinear : public BaseObject {
 
 public:
     RandomPwLinear(const PdArgs& a);
-    void onBang();
-    void onList(const AtomList& w);
+    void onBang() override;
+    void onList(const AtomList& w) override;
 
     bool set(const AtomList& data);
-    AtomList propValues() const;
-    void propSetValues(const AtomList& s);
-
-    AtomList propBounds() const;
-    AtomList propWeights() const;
 };
 
-extern "C" void setup_random0x2epw_lin();
+void setup_random_pw_lin();
 
 #endif // RANDOM_PW_LIN_H

@@ -14,6 +14,7 @@
 #ifndef LIST_AT_H
 #define LIST_AT_H
 
+#include "ceammc_property_enum.h"
 #include "list_base.h"
 
 using namespace ceammc;
@@ -25,8 +26,8 @@ class ListAt : public ListBase {
 
 public:
     ListAt(const PdArgs& a);
-    void onInlet(size_t idx, const AtomList& l);
-    void onList(const AtomList& l);
+    void onInlet(size_t idx, const AtomList& l) override;
+    void onList(const AtomList& l) override;
 
 private:
     const Atom* at(const AtomList& l, const Atom& p);

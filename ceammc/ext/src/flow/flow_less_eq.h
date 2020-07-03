@@ -14,18 +14,15 @@
 #ifndef FLOW_LESS_EQ_H
 #define FLOW_LESS_EQ_H
 
-#include "ceammc_object.h"
+#include "flow_compare_base.h"
 
-using namespace ceammc;
-
-class FlowLessEq : public BaseObject {
-    std::vector<t_float> args_;
-
+class FlowLessEq : public FlowCompareBase {
 public:
     FlowLessEq(const PdArgs& a);
 
-    void onFloat(t_float f);
+    static bool cmp(t_float f0, t_float f1);
 };
+
 
 void setup_flow_less_eq();
 

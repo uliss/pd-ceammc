@@ -14,21 +14,22 @@
 #ifndef LIST_REPEAT_H
 #define LIST_REPEAT_H
 
+#include "ceammc_data.h"
 #include "ceammc_object.h"
 
 using namespace ceammc;
 
 class ListRepeat : public BaseObject {
-    IntPropertyClosedRange* times_;
+    IntProperty* times_;
 
 public:
     ListRepeat(const PdArgs& a);
-    void onFloat(float f);
-    void onSymbol(t_symbol* s);
-    void onList(const AtomList& l);
-    void onData(const DataPtr& d);
+    void onFloat(t_float f) override;
+    void onSymbol(t_symbol* s) override;
+    void onList(const AtomList& l) override;
+    void onData(const Atom& d) override;
 
-    void onInlet(size_t, const AtomList& l);
+    void onInlet(size_t, const AtomList& l) override;
 };
 
 void setup_list_repeat();

@@ -18,7 +18,7 @@ void FlowTeeTilde::onSymbol(t_symbol* s)
     symbolTo(1, s);
 }
 
-void FlowTeeTilde::onFloat(float f)
+void FlowTeeTilde::onFloat(t_float f)
 {
     floatTo(1, f);
 }

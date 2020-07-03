@@ -2,8 +2,6 @@
 #include "ceammc_factory.h"
 #include "datatype_mlist.h"
 
-#include <algorithm>
-
 ListShuffle::ListShuffle(const PdArgs& args)
     : BaseObject(args)
 {
@@ -13,15 +11,15 @@ ListShuffle::ListShuffle(const PdArgs& args)
 void ListShuffle::onList(const AtomList& lst)
 {
     AtomList res(lst);
-    std::random_shuffle(res.begin(), res.end());
+    res.shuffle();
     listTo(0, res);
 }
 
-void ListShuffle::onDataT(const DataTPtr<DataTypeMList>& lst)
+void ListShuffle::onDataT(const MListAtom& ml)
 {
-    DataTypeMList res(*lst);
-    std::random_shuffle(res.begin(), res.end());
-    dataTo(0, DataTPtr<DataTypeMList>(res));
+    MListAtom res(*ml);
+    res->shuffle();
+    atomTo(0, res);
 }
 
 void setup_list_shuffle()

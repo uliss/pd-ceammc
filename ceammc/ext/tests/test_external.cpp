@@ -27,16 +27,6 @@ using namespace ceammc;
 
 const BANG__ BANG;
 
-static bool setup_test_output()
-{
-    pd_init();
-    setup_log_output_single();
-    setup_log_output_multi();
-    return true;
-}
-
-static bool test_output_init = setup_test_output();
-
 void setTestSampleRate(size_t sr)
 {
     *get_sys_dacsr() = sr;
@@ -86,11 +76,17 @@ static void test_listener_any(t_test_listener* x, t_symbol* s, int argc, t_atom*
 
 static void setup_test_listener()
 {
+    static std::unique_ptr<t_class, std::function<void(t_class*)>> cls_owner(
+        nullptr,
+        [](t_class* c) { free(c); });
+
     test_listener_class = class_new(gensym("test_listener"),
         reinterpret_cast<t_newmethod>(test_listener_new),
         reinterpret_cast<t_method>(test_listener_free),
         sizeof(t_test_listener), 0, A_DEFSYM, A_NULL);
     class_addanything(test_listener_class, test_listener_any);
+
+    cls_owner.reset(test_listener_class);
 }
 
 /********************************

@@ -14,7 +14,7 @@ b1) \, each with its own weight;
 #X obj 50 213 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
 -1;
 #N canvas 0 22 450 300 (subpatch) 0;
-#X array array1 100 float 0;
+#X array array1 100 float 1;
 #A 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0;
@@ -65,7 +65,7 @@ propabilities. Type: list.;
 #X text 115 45 ::;
 #X obj 131 48 ui.link @title random @url ceammc.random-help.pd;
 #X obj 1 802 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 805 library: ceammc v0.8.0;
+#X text 10 805 library: ceammc v0.9.0;
 #X text 465 817 see also:;
 #X obj 539 817 random.linear;
 #X obj 647 817 random.pw_lin;
@@ -74,7 +74,7 @@ propabilities. Type: list.;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
 #X text 10 32 version:;
-#X text 120 32 0.8.0;
+#X text 120 32 0.9.0;
 #X text 10 54 object:;
 #X text 120 54 random.pw_const;
 #X text 10 76 category:;

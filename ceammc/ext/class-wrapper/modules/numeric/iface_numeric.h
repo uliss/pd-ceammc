@@ -446,7 +446,7 @@ public:
         return "Complex";
     }
 
-    Result setFromFloat(float f) override
+    Result setFromFloat(t_float f) override
     {
         v_ = std::complex<float>(f, 0);
         return ok();
@@ -1025,7 +1025,7 @@ public:
         return ok();
     }
 
-    Result setFromFloat(float f) override
+    Result setFromFloat(t_float f) override
     {
         r_.assign(int(f), 1);
         return ok();

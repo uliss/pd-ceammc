@@ -15,7 +15,7 @@
 #define UI_SPECTROSCOPE_H
 
 #include "ceammc_clock.h"
-#include "ceammc_ui_dsp_object.h"
+#include "ceammc_ui_object.h"
 
 #include <boost/scoped_array.hpp>
 

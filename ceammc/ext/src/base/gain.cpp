@@ -12,6 +12,7 @@
  * this file belongs to.
  *****************************************************************************/
 #include "gain.h"
+#include "ceammc_property_callback.h"
 #include "ceammc_convert.h"
 #include "ceammc_factory.h"
 #include "ceammc_signal.h"
@@ -29,13 +30,18 @@ static t_float fromDb(t_float db)
     return convert::dbfs2amp(db);
 }
 
+constexpr size_t DEFAULT_N = 1;
+constexpr size_t MIN_N = 1;
+constexpr size_t MAX_N = 64;
+
 Gain::Gain(const PdArgs& args)
     : SoundExternal(args)
     , prev_bs_(0)
-    , n_(std::max<int>(1, static_cast<int>(positionalFloatArgument(0, 1))))
     , smooth_(nullptr)
 {
-    for (size_t i = 1; i < n_; i++) {
+    const size_t NCHAN(positionalConstant<DEFAULT_N, MIN_N, MAX_N>(0));
+
+    for (size_t i = 1; i < NCHAN; i++) {
         createSignalInlet();
         createSignalOutlet();
     }
@@ -44,14 +50,15 @@ Gain::Gain(const PdArgs& args)
     createSignalOutlet();
 
     allocateOutBlocks();
-    gain_.assign(n_, 0);
+    gain_.assign(NCHAN, 0);
 
     createCbProperty("@db", &Gain::propDb, &Gain::propSetDb);
     createCbProperty("@value", &Gain::propGain, &Gain::propSetGain);
 
-    smooth_ = new FloatPropertyMin("@smooth_time", 20, 1);
-    smooth_->info().setUnits(PropertyInfoUnits::MSEC);
-    createProperty(smooth_);
+    smooth_ = new FloatProperty("@smooth_time", 20);
+    smooth_->checkMin(1);
+    smooth_->setUnitsMs();
+    addProperty(smooth_);
 }
 
 void Gain::onInlet(size_t n, const AtomList& lst)
@@ -108,7 +115,7 @@ void Gain::setupDSP(t_signal** sp)
 
 AtomList Gain::propDb() const
 {
-    return propGain().map(toDb);
+    return propGain().mapFloat(toDb);
 }
 
 AtomList Gain::propGain() const
@@ -124,7 +131,7 @@ AtomList Gain::propGain() const
 
 void Gain::propSetDb(const AtomList& lst)
 {
-    propSetGain(lst.map(fromDb));
+    propSetGain(lst.mapFloat(fromDb));
 }
 
 void Gain::propSetGain(const AtomList& lst)
@@ -202,7 +209,7 @@ void Gain::m_setDb(t_symbol* s, const AtomList& lst)
 
 void Gain::allocateOutBlocks()
 {
-    const size_t N = std::max<size_t>(1, n_) * blockSize();
+    const size_t N = std::max<size_t>(1, gain_.size()) * blockSize();
     outs_.resize(N, 0);
 }
 

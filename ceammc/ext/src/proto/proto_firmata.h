@@ -11,8 +11,8 @@ class Firmata : public BaseObject {
 
 public:
     Firmata(const PdArgs& a);
-    void onFloat(t_float f);
-    void onAny(t_symbol* s, const AtomList& lst);
+    void onFloat(t_float f) override;
+    void onAny(t_symbol* s, const AtomList& lst) override;
 
     void processFirmataInput(int cmd);
     void toArduino(const std::string& cmd);

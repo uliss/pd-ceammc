@@ -16,32 +16,29 @@
 
 SetContains::SetContains(const PdArgs& a)
     : BaseObject(a)
-    , patterns_(positionalArguments())
+    , element_(nullptr)
 {
+    element_ = new AtomProperty("@subj", Atom());
+    element_->setArgIndex(0);
+    addProperty(element_);
+
     createInlet();
     createOutlet();
 }
 
-void SetContains::onDataT(const DataTPtr<DataTypeSet>& dptr)
+void SetContains::onDataT(const SetAtom& set)
 {
-    const size_t n = patterns_.size();
-    if (n < 1)
-        return;
-
-    if (n == 1) {
-        floatTo(0, dptr->contains(patterns_[0].toAtom()));
-    } else {
-        floatTo(0, dptr->contains(patterns_.toList()));
-    }
+    boolTo(0, set->contains(element_->value()));
 }
 
 void SetContains::onInlet(size_t n, const AtomList& lst)
 {
-    patterns_.set(lst);
+    element_->set(lst);
 }
 
-extern "C" void setup_set0x2econtains()
+void setup_set_contains()
 {
     ObjectFactory<SetContains> obj("set.contains");
+    obj.parseOnlyPositionalProps(true);
     obj.processData<DataTypeSet>();
 }

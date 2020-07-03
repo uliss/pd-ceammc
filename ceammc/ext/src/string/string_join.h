@@ -14,8 +14,8 @@
 #ifndef STRING_JOIN_H
 #define STRING_JOIN_H
 
+#include "ceammc_data.h"
 #include "ceammc_object.h"
-#include "datatype_string.h"
 
 using namespace ceammc;
 
@@ -25,18 +25,15 @@ class StringJoin : public BaseObject {
 
 public:
     StringJoin(const PdArgs& a);
-    void onBang();
-    void onSymbol(t_symbol* s);
-    void onData(const DataPtr& d);
-    void onList(const AtomList& l);
+    void onBang() override;
+    void onSymbol(t_symbol* s) override;
+    void onData(const Atom& d) override;
+    void onList(const AtomList& l) override;
+    void onInlet(size_t n, const AtomList& l) override;
 
-    AtomList propGetSeparator() const;
-    void propSetSeparator(const AtomList& l);
-
-private:
-    void parseArgs();
+    void onDataT(const MListAtom& ml);
 };
 
-extern "C" void setup_string0x2ejoin();
+void setup_string_join();
 
 #endif // STRING_JOIN_H

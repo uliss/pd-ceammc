@@ -145,7 +145,7 @@ void setup_noise0x2everhulst()
     class_addmethod(verhulst_class, (t_method)verhulst_reset, gensym("reset"), A_GIMME, 0);
     class_addmethod(verhulst_class, (t_method)verhulst_set, gensym("set"), A_GIMME, 0);
     class_addmethod(verhulst_class, (t_method)verhulst_int, gensym("int"), A_GIMME, 0);
-    class_addfloat(verhulst_class, (t_method)verhulst_float);
+    class_doaddfloat(verhulst_class, (t_method)verhulst_float);
     class_addmethod(verhulst_class, (t_method)verhulst_lambda, gensym("lambda"), A_DEFFLOAT, 0);
     class_addmethod(verhulst_class, (t_method)verhulst_seed, gensym("seed"), A_DEFFLOAT, 0);
     class_addmethod(verhulst_class, (t_method)verhulst_om, gensym("om"), A_DEFFLOAT, 0);

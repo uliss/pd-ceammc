@@ -24,7 +24,8 @@
             <argument name="VAL" type="float">set initial value</argument>
         </arguments>
         <properties>
-            <property name="@value" readonly="true" type="float">current value</property>
+            <property name="@value" readonly="true" type="float" default="0">current
+            value</property>
         </properties>
         <methods>
             <method name="set">sets new value without output</method>

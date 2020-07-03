@@ -23,7 +23,20 @@ ListRemove::ListRemove(const PdArgs& args)
     createInlet();
     createOutlet();
 
-    setRemoveList(positionalArguments());
+    createCbListProperty(
+        "@idxs",
+        [this]() -> AtomList {
+            AtomList res;
+            for (auto x : idx_)
+                res.append(x);
+
+            return res;
+        },
+        [this](const AtomList& l) -> bool {
+            setRemoveList(l);
+            return true;
+        })
+        ->setArgIndex(0);
 }
 
 void ListRemove::setRemoveList(const AtomList& lst)
@@ -59,11 +72,12 @@ void ListRemove::onList(const AtomList& lst)
     listTo(0, res);
 }
 
-void ListRemove::onDataT(const DataTPtr<DataTypeMList>& dptr)
+void ListRemove::onDataT(const MListAtom& ml)
 {
-    size_t N = dptr->size();
-    DataTypeMList res;
-    res.reserve(N);
+    const size_t N = ml->size();
+
+    MListAtom res;
+    res->reserve(N);
 
     precalcIndexes(N);
 
@@ -72,10 +86,10 @@ void ListRemove::onDataT(const DataTPtr<DataTypeMList>& dptr)
         if (it != calc_idx_.end())
             continue;
 
-        res.append((*dptr)[i]);
+        res->append((*ml)[i]);
     }
 
-    dataTo(0, DataTPtr<DataTypeMList>(res));
+    atomTo(0, res);
 }
 
 void ListRemove::precalcIndexes(size_t N)
@@ -95,6 +109,6 @@ void setup_list_remove()
 {
     ObjectFactory<ListRemove> obj("list.remove");
     obj.processData<DataTypeMList>();
-    obj.mapFloatToList();
-    obj.mapSymbolToList();
+    obj.useDefaultPdFloatFn();
+    obj.useDefaultPdSymbolFn();
 }

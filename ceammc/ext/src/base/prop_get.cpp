@@ -1,7 +1,7 @@
 #include "ceammc_atomlist.h"
 #include "ceammc_log.h"
+#include "ceammc_output.h"
 
-#include <m_pd.h>
 #include <map>
 #include <string>
 #include <vector>
@@ -54,13 +54,15 @@ static void prop_get_anything(t_prop* x, t_symbol* s, int argc, t_atom* argv)
         // get mapped to property outlet
         t_outlet* prop_out = get_prop_outlet(x, props[i].first()->asSymbol());
         if (prop_out != 0) {
-            to_outlet(prop_out, props[i].slice(1), true);
+            outletAtomList(prop_out, props[i].slice(1), true);
         } else
             unmatched.append(props[i]);
     }
 
-    if (!unmatched.empty())
-        unmatched.outputAsAny(x->all_prop);
+    if (!unmatched.empty()) {
+        if (!outletAny(x->all_prop, unmatched))
+            bug("prop_get_anything\n");
+    }
 }
 
 static void* prop_get_new(t_symbol*, int argc, t_atom* argv)
@@ -86,7 +88,7 @@ static void prop_get_free(t_prop* x)
         outlet_free(x->all_prop);
 }
 
-extern "C" void setup_prop0x2eget()
+void setup_prop_get()
 {
     prop_get_class = class_new(gensym("prop.get"),
         reinterpret_cast<t_newmethod>(prop_get_new),
@@ -94,7 +96,8 @@ extern "C" void setup_prop0x2eget()
         sizeof(t_prop), 0, A_GIMME, A_NULL);
     class_addcreator(reinterpret_cast<t_newmethod>(prop_get_new), gensym("prop->"), A_GIMME, A_NULL);
     class_addcreator(reinterpret_cast<t_newmethod>(prop_get_new), gensym("@->"), A_GIMME, A_NULL);
-    class_addanything(prop_get_class, prop_get_anything);
+
+    class_addanything(prop_get_class, reinterpret_cast<t_method>(prop_get_anything));
     class_addmethod(prop_get_class, reinterpret_cast<t_method>(prop_get_dump), gensym("dump"), A_NULL);
     class_sethelpsymbol(prop_get_class, gensym("prop.get"));
 }

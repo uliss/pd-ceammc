@@ -26,11 +26,11 @@ static void* math_prime_new()
     return static_cast<void*>(x);
 }
 
-extern "C" void setup_math0x2eprime()
+void setup_math_prime()
 {
     math_prime_class = class_new(gensym("math.prime"),
         reinterpret_cast<t_newmethod>(math_prime_new),
         reinterpret_cast<t_method>(0),
         sizeof(t_math_prime), 0, A_NULL);
-    class_addfloat(math_prime_class, math_prime_float);
+    class_doaddfloat(math_prime_class, reinterpret_cast<t_method>(math_prime_float));
 }

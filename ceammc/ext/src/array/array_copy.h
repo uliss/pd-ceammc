@@ -36,11 +36,11 @@ struct Range {
 };
 
 class ArrayCopy : public BaseObject {
-    FlagProperty* resize_;
+    BoolProperty* resize_;
 
 public:
     ArrayCopy(const PdArgs& a);
-    void onList(const AtomList& l);
+    void onList(const AtomList& l) override;
     void m_copy(t_symbol*, const AtomList& lst);
 
 private:
@@ -48,5 +48,7 @@ private:
     void copyRange(t_symbol* src, const Range& range, t_symbol* dest, size_t destpos);
     bool checkArrays(const Array& src, const Array& dest) const;
 };
+
+void setup_array_copy();
 
 #endif // ARRAY_COPY_H

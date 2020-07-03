@@ -21,10 +21,10 @@ RandomLinear::RandomLinear(const PdArgs& a)
     p0_ = new FloatProperty("@p0", 1);
     p1_ = new FloatProperty("@p1", 0);
 
-    createProperty(v0_);
-    createProperty(v1_);
-    createProperty(p0_);
-    createProperty(p1_);
+    addProperty(v0_);
+    addProperty(v1_);
+    addProperty(p0_);
+    addProperty(p1_);
 }
 
 void RandomLinear::onBang()
@@ -44,7 +44,7 @@ void RandomLinear::onBang()
     floatTo(0, dist(random_gen));
 }
 
-extern "C" void setup_random0x2elinear()
+void setup_random_linear()
 {
     ObjectFactory<RandomLinear> obj("random.linear");
 }

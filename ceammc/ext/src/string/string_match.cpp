@@ -15,6 +15,7 @@
 #include "ceammc_factory.h"
 #include "ceammc_format.h"
 #include "ceammc_regexp.h"
+#include "datatype_string.h"
 #include "re2/re2.h"
 
 #include <algorithm>
@@ -22,31 +23,30 @@
 StringMatch::StringMatch(const PdArgs& args)
     : BaseObject(args)
 {
-    createCbProperty("@re", &StringMatch::propRe2, &StringMatch::propSetRe2);
-    if (!positionalArguments().empty())
-        propSetRe2(positionalArguments());
+    createCbListProperty(
+        "@re",
+        [this]() -> AtomList { return propRe2(); },
+        [this](const AtomList& l) -> bool { return propSetRe2(l); })
+        ->setArgIndex(0);
 
     createOutlet();
     createInlet();
 }
 
+// for std::unique_ptr
+StringMatch::~StringMatch() = default;
+
 void StringMatch::onSymbol(t_symbol* s)
 {
-    if (!re_) {
-        OBJ_ERR << "no regexp specified";
-        return;
-    }
-
-    if (!re_->ok()) {
-        OBJ_ERR << "invalid regexp: " << re_->error();
-        return;
-    }
-
-    bool v = (RE2::FullMatch(s->s_name, *re_));
-    floatTo(0, v ? 1 : 0);
+    doMatch(s->s_name);
 }
 
-void StringMatch::onDataT(const DataTPtr<DataTypeString>& dptr)
+void StringMatch::onDataT(const StringAtom& str)
+{
+    doMatch(str->str().c_str());
+}
+
+void StringMatch::doMatch(const char* str)
 {
     if (!re_) {
         OBJ_ERR << "no regexp specified";
@@ -58,8 +58,7 @@ void StringMatch::onDataT(const DataTPtr<DataTypeString>& dptr)
         return;
     }
 
-    bool v = (RE2::FullMatch(dptr->str(), *re_));
-    floatTo(0, v ? 1 : 0);
+    boolTo(0, RE2::FullMatch(str, *re_));
 }
 
 void StringMatch::onInlet(size_t n, const AtomList& l)
@@ -78,14 +77,17 @@ AtomList StringMatch::propRe2() const
         return Atom(&s_);
 }
 
-void StringMatch::propSetRe2(const AtomList& lst)
+bool StringMatch::propSetRe2(const AtomList& lst)
 {
     if (lst.empty())
-        return;
+        return false;
 
     re_.reset(new re2::RE2(regexp::escape(to_string(lst, " "))));
-    if (!re_->ok())
+    if (!re_->ok()) {
         OBJ_ERR << "invalid regexp: " << lst[0];
+        return false;
+    } else
+        return true;
 }
 
 void setup_string_match()

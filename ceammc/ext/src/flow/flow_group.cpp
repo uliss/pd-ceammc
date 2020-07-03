@@ -16,19 +16,20 @@
 
 FlowGroup::FlowGroup(const PdArgs& a)
     : BaseObject(a)
-    , group_size_(0)
+    , group_size_(nullptr)
 {
     createOutlet();
 
-    group_size_ = new IntProperty("@by", positionalFloatArgument(0, 1));
-    createProperty(group_size_);
+    group_size_ = new IntProperty("@by", 1);
+    group_size_->setArgIndex(0);
+    addProperty(group_size_);
 
-    createCbProperty("@free", &FlowGroup::propFree)
-        ->info()
-        .setType(PropertyInfoType::INTEGER);
+    createCbIntProperty("@free",
+        [this]() -> int { return atoms_.size(); })
+        ->checkNonNegative();
 }
 
-void FlowGroup::onFloat(float v)
+void FlowGroup::onFloat(t_float v)
 {
     checkFull();
     atoms_.append(v);
@@ -48,15 +49,10 @@ void FlowGroup::onList(const AtomList& l)
     }
 }
 
-void FlowGroup::onData(const DataPtr& d)
+void FlowGroup::onData(const Atom& d)
 {
     checkFull();
     atoms_.append(d);
-}
-
-AtomList FlowGroup::propFree() const
-{
-    return Atom(atoms_.size());
 }
 
 void FlowGroup::m_flush(t_symbol*, const AtomList& l)
@@ -76,7 +72,7 @@ size_t FlowGroup::size() const
 
 void FlowGroup::flush()
 {
-    listTo(0, atoms_.toList());
+    listTo(0, atoms_);
     atoms_.clear();
 }
 
@@ -86,7 +82,7 @@ void FlowGroup::checkFull()
         flush();
 }
 
-extern "C" void setup_flow0x2egroup()
+void setup_flow_group()
 {
     ObjectFactory<FlowGroup> obj("flow.group");
     obj.processData();

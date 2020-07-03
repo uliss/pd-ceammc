@@ -66,11 +66,11 @@ void SoundExternal::dump() const
     post("[%s] samplerate: %i", className()->s_name, samplerate());
 }
 
-void SoundExternal::blockSizeChanged(size_t bs)
+void SoundExternal::blockSizeChanged(size_t /*bs*/)
 {
 }
 
-void SoundExternal::samplerateChanged(size_t sr)
+void SoundExternal::samplerateChanged(size_t /*sr*/)
 {
 }
 

@@ -19,8 +19,8 @@
 
 using namespace ceammc;
 
-typedef long GlobalIntType;
-typedef NumericIFace<LocalBase<GlobalIntType>, GlobalIntType> GlobalIntBase;
+typedef int GlobalIntType;
+using GlobalIntBase = NumericIFace<LocalBase<GlobalIntType>, GlobalIntType>;
 
 class GlobalInt : public GlobalIntBase {
 public:

@@ -12,9 +12,6 @@ if(MINGW AND WINE_EXE)
         COMMAND ${CMAKE_COMMAND} -E copy_if_different ${CMAKE_BINARY_DIR}/ceammc/ext/src/lib/libceammc_core.dll
         ${CMAKE_CURRENT_BINARY_DIR}/libceammc_core.dll
 
-        COMMAND ${CMAKE_COMMAND} -E copy_if_different ${CMAKE_BINARY_DIR}/ceammc/ext/src/lib/libceammc_sound.dll
-        ${CMAKE_CURRENT_BINARY_DIR}/libceammc_sound.dll
-
         COMMAND ${CMAKE_COMMAND} -E copy_if_different ${CMAKE_BINARY_DIR}/ceammc/ext/src/ceammc.dll
         ${CMAKE_CURRENT_BINARY_DIR}/ceammc.dll)
 endif()
@@ -36,9 +33,15 @@ function(set_test_command title exec_path)
     endif()
 endfunction()
 
+macro(ceammc_add_core_test title name)
+    add_executable(${name} "${name}.cpp")
+    target_link_libraries(${name} tests_main_lib ceammc_core puredata-core)
+    set_test_command(${title} ${name})
+endmacro()
+
 macro(ceammc_add_test title name)
     add_executable(${name} "${name}.cpp")
-    target_link_libraries(${name} tests_main_lib ceammc_core ceammc_base puredata-core ceammc_core)
+    target_link_libraries(${name} tests_main_lib ceammc_base ceammc_core puredata-core)
     set_test_command(${title} ${name})
 endmacro()
 
@@ -52,7 +55,7 @@ macro(ceammc_add_test_linked)
     set(name ${_TEST_NAME})
     set(title ${_TEST_TITLE})
     add_executable(${name} "${name}.cpp" ${_TEST_SRC})
-    target_link_libraries(${name} ${_TEST_LINK} tests_main_lib ceammc_core)
+    target_link_libraries(${name} ${_TEST_LINK} tests_main_lib ceammc_core puredata-core)
     target_include_directories(${name} PUBLIC ${_TEST_INCLUDE_DIRECTORIES})
     set_test_command(${title} ${name})
 endmacro()
@@ -61,7 +64,7 @@ macro(ceammc_add_extension_test name extpath)
     set(_target "test_${name}")
     add_executable(${_target} "${_target}.cpp" ${extpath})
     target_link_libraries(${_target}
-        tests_main_lib puredata-core ceammc_core puredata-core ceammc_sound)
+        tests_main_lib puredata-core ceammc_core puredata-core)
     set(_exec_cmd ${_target})
     set_test_command("Extension::${name}" ${_exec_cmd})
 endmacro()
@@ -69,10 +72,12 @@ endmacro()
 macro(ceammc_external_test external name)
     set(_target "test_ext_${external}_${name}")
     add_executable(${_target} "${_target}.cpp")
+    target_compile_definitions(${_target} PRIVATE -DPROJECT_SOURCE_DIR="${PROJECT_SOURCE_DIR}")
+    target_include_directories(${_target} PRIVATE ${PROJECT_SOURCE_DIR}/ceammc/ext/src/${external})
     # library repeats are done to make mingw linker happy
-    target_link_libraries(${_target}
+    target_link_libraries(${_target} PUBLIC
         tests_main_lib puredata-core
-        "ceammc_${external}" ceammc_array ceammc_data ceammc_string ceammc_core ceammc_sound puredata-core)
+        "ceammc_${external}" ceammc_array ceammc_data ceammc_string ceammc_core puredata-core)
     set(_exec_cmd ${_target})
     set_test_command("[${external}.${name}]" ${_exec_cmd})
 endmacro()
@@ -138,13 +143,3 @@ if(${WITH_COVERAGE})
         endif()
     endif()
 endif()
-
-macro(ceammc_ui_test name)
-    string(REGEX REPLACE "[~]$" "" output ${name})
-    string(REGEX REPLACE "[.]" "_" output ${output})
-    ceammc_add_test_linked(TITLE "[${name}]"
-        NAME test_ext_${output}
-        INCLUDE_DIRECTORIES ${CMAKE_CURRENT_SOURCE_DIR}/../src/ui
-        LINK ceammc_ui ceammc_core puredata-core)
-endmacro()
-

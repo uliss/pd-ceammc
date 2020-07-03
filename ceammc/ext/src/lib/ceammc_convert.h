@@ -53,6 +53,30 @@ T clip01(T v)
     return clip<T, 0, 1>(v);
 }
 
+template <typename T>
+T clip_min(T v, T min)
+{
+    return std::max<T>(v, min);
+}
+
+template <typename T, int min>
+T clip_min(T v)
+{
+    return std::max<T>(v, min);
+}
+
+template <typename T>
+T clip_max(T v, T max)
+{
+    return std::min<T>(v, max);
+}
+
+template <typename T, int max>
+T clip_max(T v)
+{
+    return std::min<T>(v, max);
+}
+
 /**
  * Wraps input values to specified range:
  * -3 -2 -1 0 1 2 3
@@ -69,7 +93,6 @@ typename std::make_unsigned<T>::type wrapInteger(T v, typename std::make_unsigne
     static_assert(std::is_signed<T>(), "Signed type expected");
 
     typedef typename std::make_unsigned<T>::type Unsigned;
-    typedef typename std::make_signed<T>::type Signed;
 
     if (v >= 0)
         return Unsigned(v) % n;
@@ -93,7 +116,6 @@ typename std::make_unsigned<T>::type foldInteger(T v, typename std::make_unsigne
     static_assert(std::is_signed<T>(), "Signed type expected");
 
     typedef typename std::make_unsigned<T>::type Unsigned;
-    typedef typename std::make_signed<T>::type Signed;
 
     if (n == 1)
         return 0;
@@ -110,21 +132,50 @@ typename std::make_unsigned<T>::type foldInteger(T v, typename std::make_unsigne
     return (is_lower * wrap2n) | (is_upper * wrap2n_comp);
 }
 
+/**
+ * maps [-n n) range to [0 n)
+ * negative indexes mapped in backward directions
+ * -3 -2 -1 0 1 2
+ * maps to
+ * +0 +1 +2 0 1 2
+ *
+ * @return -1 if input value outside of [-n, n) range
+ */
 template <typename T>
-T relativeIndex(T v, typename std::make_unsigned<T>::type n)
+T relativeIndex(T v, size_t n)
 {
     static_assert(std::is_integral<T>(), "Integral type expected");
     static_assert(std::is_signed<T>(), "Signed type expected");
 
-    typedef typename std::make_unsigned<T>::type Unsigned;
     typedef typename std::make_signed<T>::type Signed;
 
-    const Signed N(n);
+    const Signed N(static_cast<Signed>(n));
 
     if (v >= N || v < -N)
         return -1;
 
     return (v < 0) ? v + N : v;
+}
+
+/**
+ * n > 0
+ * map index -> [0, n) range,
+ * negative indexes mapped in backward directions
+ * @example -1 -> n-1, -2 -> n-2, etc.
+ * -4 -3 -2 -1 0 1 2 3 4 5
+ * with n=3 maps to
+ * +1 +0 +1 +2 0 1 2 0 1 2
+ */
+template <typename T>
+T normalizeIndex(T v, size_t n)
+{
+    static_assert(std::is_integral<T>(), "Integral type expected");
+    static_assert(std::is_signed<T>(), "Signed type expected");
+
+    using Signed = typename std::make_signed<T>::type;
+    const Signed N(static_cast<Signed>(n));
+    const auto rem = std::ldiv(v, N).rem;
+    return (rem < 0) ? rem + N : rem;
 }
 
 /**

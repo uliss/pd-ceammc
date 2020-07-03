@@ -42,7 +42,7 @@ min. Allowed values: min \, pad.;
 #X msg 110 632 @pad;
 #X text 245 632 Get/Set padding value. Pads result lists with specified
 value \, if number of elements in the input list is not multiple of
-number of outputs. Type: list.;
+number of outputs. Type: atom. Default value: 0\.;
 #X obj 20 699 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 704 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
@@ -60,7 +60,7 @@ number of outputs. Type: list.;
 #X text 115 45 ::;
 #X obj 131 48 ui.link @title list @url ceammc.list-help.pd;
 #X obj 1 791 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 794 library: ceammc v0.8.0;
+#X text 10 794 library: ceammc v0.9.0;
 #X text 608 806 see also:;
 #X obj 682 806 list.zip;
 #N canvas 10 813 400 290 info 0;
@@ -68,7 +68,7 @@ number of outputs. Type: list.;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
 #X text 10 32 version:;
-#X text 120 32 0.8.0;
+#X text 120 32 0.9.0;
 #X text 10 54 object:;
 #X text 120 54 list.unzip;
 #X text 10 76 category:;

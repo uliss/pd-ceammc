@@ -13,14 +13,14 @@ source to destination array;
 #X msg 50 202 symbol voice.wav;
 #X msg 232 202 symbol bell.aiff;
 #N canvas 0 22 450 300 (subpatch) 0;
-#X array A1 100 float 0;
+#X array A1 100 float 1;
 #A 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0;
 #X coords 0 1 100 -1 100 140 1;
 #X restore 414 202 graph;
 #N canvas 0 22 450 300 (subpatch) 0;
-#X array A2 100 float 0;
+#X array A2 100 float 1;
 #A 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0;
@@ -79,7 +79,7 @@ sound sequences are mixed back together \, to form a continuous sound
 stream \, this parameter defines over how long period the two consecutive
 sequences are let to overlap each other. Increasing this value increases
 computational burden & vice versa. Type: int. Units: ms. Default value:
-8\. Range: 1\...100\.;
+8\. Range: 0\...100\.;
 #X msg 110 1005 @pitch;
 #X text 245 1005 Get/Set relative pitch change while keeping the original
 tempo. Type: float. Units: semitone. Default value: 0\.;
@@ -135,13 +135,13 @@ sound pitch. Type: float. Units: %. Default value: 0\. Range: -50\...100\.;
 #X text 115 45 ::;
 #X obj 131 48 ui.link @title array @url ceammc.array-help.pd;
 #X obj 1 1736 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 1739 library: ceammc v0.8.0;
+#X text 10 1739 library: ceammc v0.9.0;
 #N canvas 10 1758 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
 #X text 10 32 version:;
-#X text 120 32 0.8.0;
+#X text 120 32 0.9.0;
 #X text 10 54 object:;
 #X text 120 54 array.stretch;
 #X text 10 76 category:;

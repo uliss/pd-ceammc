@@ -14,52 +14,60 @@
 #ifndef TEST_DATATYPES_H
 #define TEST_DATATYPES_H
 
+#include <iostream>
 #include <string>
 
 #include "ceammc_abstractdata.h"
-#include "ceammc_data.h"
 
 class IntData : public ceammc::AbstractData {
     int v_;
 
 public:
-    IntData(int v);
-    ~IntData();
+    IntData(int v) noexcept;
+    IntData(const IntData& i);
+    ~IntData() noexcept;
 
-    int value() const;
-    void setValue(int v);
-    bool isEqual(const AbstractData* d) const;
-    bool isLess(const AbstractData* d) const;
+    int value() const noexcept;
+    void setValue(int v) noexcept;
+    bool isEqual(const AbstractData* d) const noexcept override;
+    bool isLess(const AbstractData* d) const noexcept override;
 
-    std::string toString() const;
-    ceammc::DataType type() const;
-    IntData* clone() const;
+    std::string toString() const override;
+    std::string valueToJsonString() const override;
+    int type() const noexcept override;
+    IntData* clone() const override;
 
     static void init();
 
+    bool operator==(const IntData& d) const noexcept;
+
 public:
-    static ceammc::DataType dataType;
+    static int dataType;
     static int constructor_called;
     static int destructor_called;
 };
+
+std::ostream& operator<<(std::ostream& os, const IntData& d);
 
 class StrData : public ceammc::AbstractData {
     std::string v_;
 
 public:
     StrData(const std::string& v);
-    ~StrData();
+    ~StrData() noexcept;
 
-    const std::string& get() const;
+    const std::string& get() const noexcept;
     void setValue(const std::string& v);
-    bool isEqual(const AbstractData* d) const;
+    bool isEqual(const AbstractData* d) const noexcept override;
 
-    std::string toString() const;
-    ceammc::DataType type() const;
-    StrData* clone() const;
+    std::string toString() const override;
+    int type() const noexcept override;
+    StrData* clone() const override;
+
+    bool operator==(const StrData& d) const noexcept;
 
 public:
-    static ceammc::DataType dataType;
+    static int dataType;
     static int constructor_called;
     static int destructor_called;
 };

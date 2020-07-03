@@ -23,5 +23,6 @@ void Synth8Bit::processBlock(const t_sample** in, t_sample** out)
 
 void setup_fx_8bit()
 {
-    SoundExternalFactory<Synth8Bit> obj("synth.8bit~", OBJECT_FACTORY_DEFAULT | OBJECT_FACTORY_NO_FLOAT);
+    SoundExternalFactory<Synth8Bit> obj("synth.8bit~", OBJECT_FACTORY_DEFAULT);
+    obj.useDefaultPdFloatFn();
 }

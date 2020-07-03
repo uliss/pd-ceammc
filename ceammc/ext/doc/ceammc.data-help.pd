@@ -19,13 +19,13 @@
 #X obj 30 305 data.set2list;
 #X text 200 305 converts set to list;
 #X obj 30 332 dict.contains;
-#X text 200 332 predicate to check dict contains key;
+#X text 200 332 predicate to check if dict contains a keys;
 #X obj 30 359 dict.each;
 #X text 200 359 map each value in dict;
 #X obj 30 386 dict.from_list;
 #X text 200 386 creates dictionary from list;
 #X obj 30 413 dict.get;
-#X text 200 413 on input dict outputs value to corresponding key outlet;
+#X text 200 413 output dict values;
 #X obj 30 440 dict.keys;
 #X text 200 440 get list of dict keys;
 #X obj 30 467 dict.pass;

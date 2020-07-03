@@ -15,30 +15,29 @@
 #define LIST_ZIP_H
 
 #include "ceammc_object.h"
+#include "ceammc_property_enum.h"
 
 using namespace ceammc;
 
 class ListZip : public BaseObject {
-    const size_t in_count_;
+    IntProperty* n_;
+    SymbolEnumProperty* method_;
     std::vector<AtomList> in_list_;
     AtomList out_list_;
-    SymbolEnumProperty* method_;
     Atom pad_;
 
 public:
     ListZip(const PdArgs& a);
+    void initDone() override;
 
-    void onBang();
-    void onList(const AtomList& l);
-    void onInlet(size_t n, const AtomList& l);
-    void dump() const;
+    void onBang() override;
+    void onList(const AtomList& l) override;
+    void onInlet(size_t n, const AtomList& l) override;
+    void dump() const override;
 
 private:
     void initInlets();
     void initLists();
-    void initProperties();
-    AtomList getPadValue() const;
-    void setPadValue(const AtomList& l);
 };
 
 void setup_list_zip();

@@ -14,11 +14,10 @@
 #ifndef CEAMMC_PLATFORM_H
 #define CEAMMC_PLATFORM_H
 
-#include <boost/optional.hpp>
-#include <boost/variant.hpp>
 #include <string>
 #include <vector>
 
+#include "ceammc_either.h"
 #include "m_pd.h"
 
 /**
@@ -33,36 +32,9 @@ namespace platform {
         std::string msg;
     };
 
-    template <class T>
-    struct Either : public boost::variant<T, PlatformError> {
-        Either(const PlatformError& err)
-            : boost::variant<T, PlatformError>(err)
-        {
-        }
-
-        Either(const T& value)
-            : boost::variant<T, PlatformError>(value)
-        {
-        }
-
-        bool matchError(PlatformError& err) const
-        {
-            if (boost::variant<T, PlatformError>::which() != 1)
-                return false;
-
-            err = boost::get<PlatformError>(*this);
-            return true;
-        }
-
-        bool matchValue(T& value) const
-        {
-            if (boost::variant<T, PlatformError>::which() != 0)
-                return false;
-
-            value = boost::get<T>(*this);
-            return true;
-        }
-    };
+    size_t memory_size();
+    size_t memory_current_rss();
+    size_t memory_peak_rss();
 
     const char* platform_name();
     bool is_path_relative(const char* path);
@@ -70,6 +42,9 @@ namespace platform {
     std::string basename(const char* path);
     std::string dirname(const char* path);
     std::string expandenv(const char* str);
+
+    std::string get_env(const char* varname);
+    void set_env(const char* varname, const char* val);
 
     bool fnmatch(const char* pattern, const char* str);
 
@@ -171,10 +146,10 @@ namespace platform {
     /**
      * Returns list of addresses
      */
-    Either<NetAddressList> hostnametoip(const char* name, NetAddressType type);
+    Either<NetAddressList, PlatformError> hostnametoip(const char* name, NetAddressType type);
 
-    Either<int> fd_set_non_blocking(int fd);
-    Either<bool> init_pipe(int fd[]);
+    Either<int, PlatformError> fd_set_non_blocking(int fd);
+    Either<bool, PlatformError> init_pipe(int fd[]);
 }
 }
 

@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="array.resample">
+        <title>array.resample</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>array resampler</description>
+            <license>GPL3 or later</license>
+            <library>ceammc</library>
+            <category>array</category>
+            <keywords>array resample</keywords>
+            <since>0.9</since>
+            <aliases>
+                <alias>array.r</alias>
+            </aliases>
+        </meta>
+        <arguments>
+            <argument name="SRC" type="symbol">source array</argument>
+            <argument name="DEST" type="symbol">destination array</argument>
+        </arguments>
+        <properties>
+            <property name="@src" type="symbol" default="">source array</property>
+            <property name="@dest" type="symbol" default="">destination array</property>
+            <property name="@ratio" type="float" minvalue="0" default="0">resample ratio
+            (src/dest)</property>
+            <property name="@quality" type="symbol" enum="high fast low medium best"
+            default="high">resample quality</property>
+            <property name="@high" type="alias">alias to @quality high</property>
+            <property name="@fast" type="alias">alias to @quality fast</property>
+            <property name="@low" type="alias">alias to @quality low</property>
+            <property name="@medium" type="alias">alias to @quality medium</property>
+            <property name="@best" type="alias">alias to @quality best</property>
+        </properties>
+        <inlets>
+            <inlet>
+                <xinfo on="bang">starts resampling</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet>number of samples written</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[msg.onload]            [array ARS1 #a]     [array ARS2 #b]
+|
+[-1 0.2 0.7 0.1 -0.5 0.6 0.7(
+|
+[array set ARS1]
+
+[bang(  [ui.hsl @min 1 @max 20]
+|       |
+|       [@ratio $1, bang(
+|       |
+[array.resample ARS1 ARS2 @ratio 4]
+|
+[F]
+
+#a w=160 h=100 style=point size=7
+#b w=160 h=100 style=point
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

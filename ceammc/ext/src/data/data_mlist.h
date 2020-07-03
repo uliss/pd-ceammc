@@ -14,17 +14,19 @@
 #ifndef DATA_MLIST_H
 #define DATA_MLIST_H
 
+#include "ceammc_data.h"
 #include "mlist_iface.h"
 
-typedef DataMListIFace<BaseObject> DataMListBase;
+using DataMListBase = DataMListIFace<BaseObject>;
 
 class DataMList : public DataMListBase {
-    DataTypeMList mlist_;
+    MListAtom mlist_;
 
 public:
     DataMList(const PdArgs& args);
-    DataTypeMList& mlist() final { return mlist_; }
-    const DataTypeMList& mlist() const final { return mlist_; }
+
+    MListAtom& mlist() { return mlist_; }
+    const MListAtom& mlist() const { return mlist_; }
 };
 
 void setup_data_mlist();

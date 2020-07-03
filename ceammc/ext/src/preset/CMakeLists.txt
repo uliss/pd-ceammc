@@ -13,6 +13,3 @@ ceammc_preset_extension(list)
 ceammc_preset_extension(storage)
 
 add_library(ceammc_preset STATIC mod_preset.h mod_preset.cpp ${PRESET_SOURCES})
-if(UNIX)
-    set_target_properties(ceammc_preset PROPERTIES COMPILE_FLAGS "-fPIC")
-endif()

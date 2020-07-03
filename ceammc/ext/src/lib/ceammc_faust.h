@@ -19,6 +19,7 @@
 #include <cctype>
 #include <cstring>
 #include <initializer_list>
+#include <memory>
 #include <string>
 #include <unordered_map>
 #include <vector>
@@ -28,9 +29,26 @@
 #include "ceammc_object.h"
 #include "ceammc_property_info.h"
 #include "ceammc_sound_external.h"
+#include "ceammc_output.h"
 
 #ifndef FAUSTFLOAT
-#define FAUSTFLOAT float
+#define FAUSTFLOAT t_float
+#endif
+
+/**
+ * On Intel set FZ (Flush to Zero) and DAZ (Denormals Are Zero)
+ * flags to avoid costly denormals.
+ */
+
+#ifdef __SSE__
+#include <xmmintrin.h>
+#ifdef __SSE2__
+#define AVOIDDENORMALS _mm_setcsr(_mm_getcsr() | 0x8040)
+#else
+#define AVOIDDENORMALS _mm_setcsr(_mm_getcsr() | 0x8000)
+#endif
+#else
+#define AVOIDDENORMALS
 #endif
 
 struct Soundfile;
@@ -40,7 +58,7 @@ namespace faust {
 
     class UIElement;
 
-    PropertyInfoUnits to_units(const char* u);
+    PropValueUnits to_units(const char* u);
 
     class UIProperty : public Property {
         UIElement* el_;
@@ -48,27 +66,27 @@ namespace faust {
     public:
         UIProperty(UIElement* el);
 
-        bool set(const AtomList& lst) override;
+        bool setList(const AtomList& lst) override;
         AtomList get() const override;
-        float value() const;
-        void setValue(float v, bool clip = false) const;
+        t_float value() const;
+        void setValue(t_float v, bool clip = false) const;
     };
 
-    static inline void zero_samples(int n_ch, size_t bs, t_sample** out)
+    static inline void zero_samples(size_t n_ch, size_t bs, t_sample** out)
     {
-        for (int i = 0; i < n_ch; i++)
+        for (size_t i = 0; i < n_ch; i++)
 #ifdef __STDC_IEC_559__
             /* IEC 559 a.k.a. IEEE 754 floats can be initialized faster like this */
             memset(out[i], 0, bs * sizeof(t_sample));
 #else
             for (size_t j = 0; j < bs; j++)
-                out[i][j] = 0.0f;
+                out[i][j] = t_sample(0);
 #endif
     }
 
-    static inline void copy_samples(int n_ch, size_t bs, const t_sample** in, t_sample** out)
+    static inline void copy_samples(size_t n_ch, size_t bs, const t_sample** in, t_sample** out)
     {
-        for (int i = 0; i < n_ch; i++)
+        for (size_t i = 0; i < n_ch; i++)
             memcpy(out[i], in[i], bs * sizeof(t_sample));
     }
 
@@ -94,8 +112,6 @@ namespace faust {
         void initSignalInputs(size_t n);
         void initSignalOutputs(size_t n);
         float xfadeTime() const;
-        void propSetActive(const AtomList& lst);
-        AtomList propActive() const;
 
     private:
         void bufFadeIn(const t_sample** in, t_sample** out, float k0);
@@ -155,7 +171,7 @@ namespace faust {
         void dump(t_outlet* out);
 
         const PropertyInfo& propInfo() const { return pinfo_; }
-        void setUnits(PropertyInfoUnits u) { pinfo_.setUnits(u); }
+        void setUnits(PropValueUnits u) { pinfo_.setUnits(u); }
     };
 
     inline const std::string& UIElement::label() const
@@ -212,7 +228,7 @@ namespace faust {
         UIElement* uiAt(size_t pos);
         const UIElement* uiAt(size_t pos) const;
         size_t uiCount() const { return ui_elements_.size(); }
-        void addSoundfile(const char* label, const char* filename, Soundfile** sf_zone) {}
+        void addSoundfile(const char* /*label*/, const char* /*filename*/, Soundfile** /*sf_zone*/) {}
 
     protected:
         void add_elem(UIElementType type, const std::string& label, float* zone);
@@ -256,9 +272,12 @@ namespace faust {
 
     template <typename DSP, typename ui_tag>
     class FaustExternal : public FaustExternalBase {
+        using DspPtr = std::unique_ptr<DSP>;
+        using UiPtr = std::unique_ptr<PdUI<ui_tag>>;
+
     protected:
-        DSP* dsp_;
-        PdUI<ui_tag>* ui_;
+        DspPtr dsp_;
+        UiPtr ui_;
 
     public:
         FaustExternal(const PdArgs& args)
@@ -266,21 +285,15 @@ namespace faust {
             , dsp_(new DSP())
             , ui_(new PdUI<ui_tag>(ui_tag::name, ""))
         {
-            initSignalInputs(dsp_->getNumInputs());
-            initSignalOutputs(dsp_->getNumOutputs());
+            initSignalInputs(static_cast<size_t>(dsp_->getNumInputs()));
+            initSignalOutputs(static_cast<size_t>(dsp_->getNumOutputs()));
 
-            dsp_->init(samplerate());
-            dsp_->buildUserInterface(ui_);
+            dsp_->init(static_cast<int>(samplerate()));
+            dsp_->buildUserInterface(ui_.get());
 
-            size_t n_ui = ui_->uiCount();
+            const size_t n_ui = ui_->uiCount();
             for (size_t i = 0; i < n_ui; i++)
-                createProperty(new UIProperty(ui_->uiAt(i)));
-        }
-
-        ~FaustExternal()
-        {
-            delete dsp_;
-            delete ui_;
+                addProperty(new UIProperty(ui_->uiAt(i)));
         }
 
         void setupDSP(t_signal** sp) override
@@ -293,7 +306,7 @@ namespace faust {
             if (rate_ <= 0) {
                 std::vector<FAUSTFLOAT> z = ui_->uiValues();
                 /* set the proper sample rate; this requires reinitializing the dsp */
-                dsp_->init(SR);
+                dsp_->init(int(SR));
                 ui_->setUIValues(z);
             }
 
@@ -302,6 +315,8 @@ namespace faust {
 
         void processBlock(const t_sample** in, t_sample** out) override
         {
+            AVOIDDENORMALS;
+
             if (!dsp_)
                 return;
 
@@ -309,11 +324,11 @@ namespace faust {
             const size_t BS = blockSize();
 
             if (xfade_ > 0) {
-                dsp_->compute(BS, (t_sample**)in, faust_buf_.data());
+                dsp_->compute(static_cast<int>(BS), const_cast<t_sample**>(in), faust_buf_.data());
                 processXfade(in, out);
             } else if (active_) {
-                dsp_->compute(BS, (t_sample**)in, faust_buf_.data());
-                copy_samples(N_OUT, BS, (const t_sample**)faust_buf_.data(), out);
+                dsp_->compute(static_cast<int>(BS), const_cast<t_sample**>(in), faust_buf_.data());
+                copy_samples(N_OUT, BS, const_cast<const t_sample**>(faust_buf_.data()), out);
             } else
                 processInactive(in, out);
         }
@@ -529,7 +544,7 @@ namespace faust {
         for (size_t i = 0; i < uiCount(); i++)
             l.append(ui_elements_[i]->setPropertySym());
 
-        l.output(out);
+        outletAtomList(out, l);
     }
 
     template <typename T>

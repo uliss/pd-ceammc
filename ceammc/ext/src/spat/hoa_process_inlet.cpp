@@ -351,11 +351,11 @@ void setup_spat_hoa_process_inlet()
         0, 0, sizeof(ProcessInlet), CLASS_PD, A_CANT, A_NULL);
 
     if (c) {
-        class_addbang(c, (t_method)hoa_process_inlet_bang);
-        class_addfloat(c, (t_method)hoa_process_inlet_float);
-        class_addsymbol(c, (t_method)hoa_process_inlet_symbol);
-        class_addlist(c, (t_method)hoa_process_inlet_list);
-        class_addanything(c, (t_method)hoa_process_inlet_anything);
+        class_addbang(c, reinterpret_cast<t_method>(hoa_process_inlet_bang));
+        class_doaddfloat(c, reinterpret_cast<t_method>(hoa_process_inlet_float));
+        class_addsymbol(c, reinterpret_cast<t_method>(hoa_process_inlet_symbol));
+        class_addlist(c, reinterpret_cast<t_method>(hoa_process_inlet_list));
+        class_addanything(c, reinterpret_cast<t_method>(hoa_process_inlet_anything));
     }
 
     hoa_process_inlet_class = c;

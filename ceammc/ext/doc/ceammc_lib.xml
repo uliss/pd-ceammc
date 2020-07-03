@@ -1,6 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <library xmlns:xi="http://www.w3.org/2001/XInclude" name="ceammc" version="1.0">
   <category name="an">
+    <entry descr="onset detector for arrays" name="an.onset" ref_view="object">
+      <xi:include href="an.onset.pddoc" parse="xml"/>
+    </entry>
+    <entry descr="onset detector" name="an.onset~" ref_view="object">
+      <xi:include href="an.onset~.pddoc" parse="xml"/>
+    </entry>
     <entry descr="pitch tracker" name="an.pitchtrack~" ref_view="object">
       <xi:include href="an.pitchtrack~.pddoc" parse="xml"/>
     </entry>
@@ -30,6 +36,12 @@
     <entry descr="find array min and max element value" name="array.minmax" ref_view="object">
       <xi:include href="array.minmax.pddoc" parse="xml"/>
     </entry>
+    <entry descr="plot signal on specified array" name="array.plot~" ref_view="object">
+      <xi:include href="array.plot~.pddoc" parse="xml"/>
+    </entry>
+    <entry descr="array resampler" name="array.resample" ref_view="object">
+      <xi:include href="array.resample.pddoc" parse="xml"/>
+    </entry>
     <entry descr="calculates root mean square value for array" name="array.rms" ref_view="object">
       <xi:include href="array.rms.pddoc" parse="xml"/>
     </entry>
@@ -57,6 +69,21 @@
     <entry descr="fill array with window" name="array.window" ref_view="object">
       <xi:include href="array.window.pddoc" parse="xml"/>
     </entry>
+    <entry descr="outputs numbers spaced evenly on a log scale (a geometric progression)" name="plot.geomspace~" ref_view="object">
+      <xi:include href="plot.geomspace~.pddoc" parse="xml"/>
+    </entry>
+    <entry descr="calculate and output signal histogram" name="plot.hist~" ref_view="object">
+      <xi:include href="plot.hist~.pddoc" parse="xml"/>
+    </entry>
+    <entry descr="outputs numbers spaced evenly spaced over a specified interval" name="plot.linspace~" ref_view="object">
+      <xi:include href="plot.linspace~.pddoc" parse="xml"/>
+    </entry>
+    <entry descr="outputs numbers spaced evenly on a log scale" name="plot.logspace~" ref_view="object">
+      <xi:include href="plot.logspace~.pddoc" parse="xml"/>
+    </entry>
+    <entry descr="output amp/phase freq response to impulse" name="plot.response~" ref_view="object">
+      <xi:include href="plot.response~.pddoc" parse="xml"/>
+    </entry>
   </category>
   <category name="base">
     <entry descr="named function" name="function" ref_view="link">
@@ -74,11 +101,17 @@
     <entry descr="metro with rhythmic patterns" name="metro.pattern" ref_view="object">
       <xi:include href="metro.pattern.pddoc" parse="xml"/>
     </entry>
+    <entry descr="metro random bang with specified range" name="metro.random" ref_view="object">
+      <xi:include href="metro.random.pddoc" parse="xml"/>
+    </entry>
     <entry descr="metro sequencer" name="metro.seq" ref_view="object">
       <xi:include href="metro.seq.pddoc" parse="xml"/>
     </entry>
     <entry descr="multislot signal mixer" name="mix~" ref_view="object">
       <xi:include href="mix~.pddoc" parse="xml"/>
+    </entry>
+    <entry descr="Mulitchannel converter from control to audio rate" name="nsig~" ref_view="object">
+      <xi:include href="nsig~.pddoc" parse="xml"/>
     </entry>
     <entry descr="property extractor" name="obj.props" ref_view="object">
       <xi:include href="obj.props.pddoc" parse="xml"/>
@@ -99,6 +132,26 @@
       <xi:include href="xfade~.pddoc" parse="xml"/>
     </entry>
   </category>
+  <category name="chaos">
+    <entry descr="Gingerbreadman map chaotic generator" name="chaos.gbman0" ref_view="object">
+      <xi:include href="chaos.gbman0.pddoc" parse="xml"/>
+    </entry>
+    <entry descr="Gingerbreadman map chaotic generator" name="chaos.gbman0~" ref_view="object">
+      <xi:include href="chaos.gbman0~.pddoc" parse="xml"/>
+    </entry>
+    <entry descr="Peter de Jong attractor" name="chaos.jong" ref_view="object">
+      <xi:include href="chaos.jong.pddoc" parse="xml"/>
+    </entry>
+    <entry descr="Logistic map chaotic generator" name="chaos.logistic" ref_view="object">
+      <xi:include href="chaos.logistic.pddoc" parse="xml"/>
+    </entry>
+    <entry descr="Standard map chaotic generator" name="chaos.std0" ref_view="object">
+      <xi:include href="chaos.std0.pddoc" parse="xml"/>
+    </entry>
+    <entry descr="Standard map chaotic generator" name="chaos.std0~" ref_view="object">
+      <xi:include href="chaos.std0~.pddoc" parse="xml"/>
+    </entry>
+  </category>
   <category name="conv">
     <entry descr="convert array phase [0..1] to sample position" name="array.p2s" ref_view="object">
       <xi:include href="array.p2s.pddoc" parse="xml"/>
@@ -108,6 +161,9 @@
     </entry>
     <entry descr="convert from amplitude to decibel full scale" name="conv.amp2dbfs" ref_view="object">
       <xi:include href="conv.amp2dbfs.pddoc" parse="xml"/>
+    </entry>
+    <entry descr="convert from amplitude to decibel full scale" name="conv.amp2dbfs~" ref_view="object">
+      <xi:include href="conv.amp2dbfs~.pddoc" parse="xml"/>
     </entry>
     <entry descr="converts BPM to frequency in herz" name="conv.bpm2hz" ref_view="object">
       <xi:include href="conv.bpm2hz.pddoc" parse="xml"/>
@@ -136,16 +192,25 @@
     <entry descr="convert from one linear range to another" name="conv.lin2lin" ref_view="object">
       <xi:include href="conv.lin2lin.pddoc" parse="xml"/>
     </entry>
+    <entry descr="convert from one linear range to another for signals" name="conv.lin2lin~" ref_view="object">
+      <xi:include href="conv.lin2lin~.pddoc" parse="xml"/>
+    </entry>
     <entry descr="converts list to series of property messages" name="conv.list2props" ref_view="object">
       <xi:include href="conv.list2props.pddoc" parse="xml"/>
     </entry>
     <entry descr="convert from midi pitch to frequency in hz (with various base A and temperament)" name="conv.midi2freq" ref_view="object">
       <xi:include href="conv.midi2freq.pddoc" parse="xml"/>
     </entry>
-    <entry descr="convert phase value [0-1] to radians" name="conv.phase2rad" ref_view="object">
+    <entry descr="convert time in milliseconds to number of samples according to current samplerate" name="conv.ms2samp" ref_view="object">
+      <xi:include href="conv.ms2samp.pddoc" parse="xml"/>
+    </entry>
+    <entry descr="convert time in milliseconds to number of samples according to current samplerate" name="conv.ms2samp~" ref_view="object">
+      <xi:include href="conv.ms2samp~.pddoc" parse="xml"/>
+    </entry>
+    <entry descr="convert phase value [0-1] to radians [0-2π]" name="conv.phase2rad" ref_view="object">
       <xi:include href="conv.phase2rad.pddoc" parse="xml"/>
     </entry>
-    <entry descr="convert phase value [0-1] to radians" name="conv.phase2rad~" ref_view="object">
+    <entry descr="convert phase value [0-1] to radians [0-2π]" name="conv.phase2rad~" ref_view="object">
       <xi:include href="conv.phase2rad~.pddoc" parse="xml"/>
     </entry>
     <entry descr="converts symbol pitch name to MIDI note number" name="conv.pitch2midi" ref_view="object">
@@ -159,6 +224,12 @@
     </entry>
     <entry descr="convert radians value to phase" name="conv.rad2phase~" ref_view="object">
       <xi:include href="conv.rad2phase~.pddoc" parse="xml"/>
+    </entry>
+    <entry descr="convert samples to time according to samplerate" name="conv.samp2ms" ref_view="object">
+      <xi:include href="conv.samp2ms.pddoc" parse="xml"/>
+    </entry>
+    <entry descr="convert samples to milliseconds according to samplerate" name="conv.samp2ms~" ref_view="object">
+      <xi:include href="conv.samp2ms~.pddoc" parse="xml"/>
     </entry>
     <entry descr="convert samples to time according to samplerate" name="conv.samp2sec" ref_view="object">
       <xi:include href="conv.samp2sec.pddoc" parse="xml"/>
@@ -198,7 +269,7 @@
     <entry descr="converts set to list" name="data.set2list" ref_view="object">
       <xi:include href="data.set2list.pddoc" parse="xml"/>
     </entry>
-    <entry descr="predicate to check dict contains key" name="dict.contains" ref_view="object">
+    <entry descr="predicate to check if dict contains a keys" name="dict.contains" ref_view="object">
       <xi:include href="dict.contains.pddoc" parse="xml"/>
     </entry>
     <entry descr="map each value in dict" name="dict.each" ref_view="object">
@@ -207,7 +278,7 @@
     <entry descr="creates dictionary from list" name="dict.from_list" ref_view="object">
       <xi:include href="dict.from_list.pddoc" parse="xml"/>
     </entry>
-    <entry descr="on input dict outputs value to corresponding key outlet" name="dict.get" ref_view="object">
+    <entry descr="output dict values" name="dict.get" ref_view="object">
       <xi:include href="dict.get.pddoc" parse="xml"/>
     </entry>
     <entry descr="get list of dict keys" name="dict.keys" ref_view="object">
@@ -345,6 +416,9 @@
     <entry descr="control flow gate. [spigot] analog" name="flow.gate" ref_view="object">
       <xi:include href="flow.gate.pddoc" parse="xml"/>
     </entry>
+    <entry descr="numeric stream router" name="flow.greater" ref_view="object">
+      <xi:include href="flow.greater.pddoc" parse="xml"/>
+    </entry>
     <entry descr="group data atoms in list of specified size" name="flow.group" ref_view="object">
       <xi:include href="flow.group.pddoc" parse="xml"/>
     </entry>
@@ -413,10 +487,10 @@
     <entry descr="second order IIR filter." name="flt.biquad~" ref_view="object">
       <xi:include href="flt.biquad~.pddoc" parse="xml"/>
     </entry>
-    <entry descr="Band-pass filter with 12/db per octave slope" name="flt.bpf12~" ref_view="object">
+    <entry descr="Two pole band-pass butterworth filter" name="flt.bpf12~" ref_view="object">
       <xi:include href="flt.bpf12~.pddoc" parse="xml"/>
     </entry>
-    <entry descr="Band-pass filter with 24/db per octave slope" name="flt.bpf24~" ref_view="object">
+    <entry descr="Four pole band-pass butterworth filter" name="flt.bpf24~" ref_view="object">
       <xi:include href="flt.bpf24~.pddoc" parse="xml"/>
     </entry>
     <entry descr="BPF coefficient calculator for biquad filter" name="flt.c_bpf~" ref_view="object">
@@ -455,22 +529,25 @@
     <entry descr="second order &quot;peaking equalizer&quot; section (gain boost or cut near some frequency). Also called a &quot;parametric equalizer&quot; section." name="flt.eq_peak~" ref_view="object">
       <xi:include href="flt.eq_peak~.pddoc" parse="xml"/>
     </entry>
+    <entry descr="compute the frequency response of a digital filter" name="flt.freqz~" ref_view="object">
+      <xi:include href="flt.freqz~.pddoc" parse="xml"/>
+    </entry>
     <entry descr="gain boost|cut above some frequency" name="flt.highshelf~" ref_view="object">
       <xi:include href="flt.highshelf~.pddoc" parse="xml"/>
     </entry>
-    <entry descr="High-pass filter with 12/db per octave slope" name="flt.hpf12~" ref_view="object">
+    <entry descr="High-pass second order Butterworth filter" name="flt.hpf12~" ref_view="object">
       <xi:include href="flt.hpf12~.pddoc" parse="xml"/>
     </entry>
-    <entry descr="High-pass filter with 24/db per octave slope" name="flt.hpf24~" ref_view="object">
+    <entry descr="High-pass fourth order Butterworth filter" name="flt.hpf24~" ref_view="object">
       <xi:include href="flt.hpf24~.pddoc" parse="xml"/>
     </entry>
     <entry descr="gain boost|cut below some frequency" name="flt.lowshelf~" ref_view="object">
       <xi:include href="flt.lowshelf~.pddoc" parse="xml"/>
     </entry>
-    <entry descr="Low-pass filter with 12/db per octave slope" name="flt.lpf12~" ref_view="object">
+    <entry descr="Low-pass second order Butterworth filter" name="flt.lpf12~" ref_view="object">
       <xi:include href="flt.lpf12~.pddoc" parse="xml"/>
     </entry>
-    <entry descr="Low-pass filter with 24/db per octave slope" name="flt.lpf24~" ref_view="object">
+    <entry descr="Low-pass fourth order Butterworth filter" name="flt.lpf24~" ref_view="object">
       <xi:include href="flt.lpf24~.pddoc" parse="xml"/>
     </entry>
     <entry descr="Median control flow filter" name="flt.median" ref_view="object">
@@ -648,7 +725,7 @@
     <entry descr="returns random element from list" name="list.choice" ref_view="object">
       <xi:include href="list.choice.pddoc" parse="xml"/>
     </entry>
-    <entry descr="on input list checks if it contains specified subsequence" name="list.contains" ref_view="object">
+    <entry descr="checks if input list contains specified atoms" name="list.contains" ref_view="object">
       <xi:include href="list.contains.pddoc" parse="xml"/>
     </entry>
     <entry descr="returns the number of items that equal to specified value" name="list.count" ref_view="object">
@@ -738,6 +815,9 @@
     <entry descr="creates new list by repeating given list specified times" name="list.repeat" ref_view="object">
       <xi:include href="list.repeat.pddoc" parse="xml"/>
     </entry>
+    <entry descr="resample list with specified ratio" name="list.resample" ref_view="object">
+      <xi:include href="list.resample.pddoc" parse="xml"/>
+    </entry>
     <entry descr="changes list size" name="list.resize" ref_view="object">
       <xi:include href="list.resize.pddoc" parse="xml"/>
     </entry>
@@ -786,7 +866,7 @@
     <entry descr="splits list into two parts, the length of first list is specified by the argument." name="list.split" ref_view="object">
       <xi:include href="list.split.pddoc" parse="xml"/>
     </entry>
-    <entry descr="stretches list - chenges its size with linear interpolation." name="list.stretch" ref_view="object">
+    <entry descr="stretches list - changes its size with linear interpolation" name="list.stretch" ref_view="object">
       <xi:include href="list.stretch.pddoc" parse="xml"/>
     </entry>
     <entry descr="calculates sum of floats in list" name="list.sum" ref_view="object">
@@ -838,11 +918,20 @@
     <entry descr="absolute value function" name="math.abs" ref_view="object">
       <xi:include href="math.abs.pddoc" parse="xml"/>
     </entry>
+    <entry descr="absolute value function for signals" name="math.abs~" ref_view="object">
+      <xi:include href="math.abs~.pddoc" parse="xml"/>
+    </entry>
     <entry descr="arc cosine function" name="math.acos" ref_view="object">
       <xi:include href="math.acos.pddoc" parse="xml"/>
     </entry>
     <entry descr="inverse hyperbolic cosine function" name="math.acosh" ref_view="object">
       <xi:include href="math.acosh.pddoc" parse="xml"/>
+    </entry>
+    <entry descr="hyperbolic arc cosine for signals" name="math.acosh~" ref_view="object">
+      <xi:include href="math.acosh~.pddoc" parse="xml"/>
+    </entry>
+    <entry descr="arc cosine function for signals" name="math.acos~" ref_view="object">
+      <xi:include href="math.acos~.pddoc" parse="xml"/>
     </entry>
     <entry descr="operation AND for multiple arguments" name="math.and" ref_view="object">
       <xi:include href="math.and.pddoc" parse="xml"/>
@@ -856,20 +945,47 @@
     <entry descr="inverse hyperbolic sine function" name="math.asinh" ref_view="object">
       <xi:include href="math.asinh.pddoc" parse="xml"/>
     </entry>
+    <entry descr="hyperbolic arc sine for signals" name="math.asinh~" ref_view="object">
+      <xi:include href="math.asinh~.pddoc" parse="xml"/>
+    </entry>
+    <entry descr="arc sine for signals" name="math.asin~" ref_view="object">
+      <xi:include href="math.asin~.pddoc" parse="xml"/>
+    </entry>
     <entry descr="arc tangent function" name="math.atan" ref_view="object">
       <xi:include href="math.atan.pddoc" parse="xml"/>
     </entry>
     <entry descr="inverse hyperbolic tangent function" name="math.atanh" ref_view="object">
       <xi:include href="math.atanh.pddoc" parse="xml"/>
     </entry>
+    <entry descr="hyperbolic arc tangent for signals" name="math.atanh~" ref_view="object">
+      <xi:include href="math.atanh~.pddoc" parse="xml"/>
+    </entry>
+    <entry descr="arc tangent for signals" name="math.atan~" ref_view="object">
+      <xi:include href="math.atan~.pddoc" parse="xml"/>
+    </entry>
+    <entry descr="magnitude of a complex signals" name="math.cabs~" ref_view="object">
+      <xi:include href="math.cabs~.pddoc" parse="xml"/>
+    </entry>
+    <entry descr="phase angle of a complex signals" name="math.carg~" ref_view="object">
+      <xi:include href="math.carg~.pddoc" parse="xml"/>
+    </entry>
     <entry descr="cube root function" name="math.cbrt" ref_view="object">
       <xi:include href="math.cbrt.pddoc" parse="xml"/>
+    </entry>
+    <entry descr="cube root function for signals" name="math.cbrt~" ref_view="object">
+      <xi:include href="math.cbrt~.pddoc" parse="xml"/>
     </entry>
     <entry descr="division of complex signals" name="math.cdiv~" ref_view="object">
       <xi:include href="math.cdiv~.pddoc" parse="xml"/>
     </entry>
     <entry descr="round to smallest integral value not less than input value" name="math.ceil" ref_view="object">
       <xi:include href="math.ceil.pddoc" parse="xml"/>
+    </entry>
+    <entry descr="round to smallest integral value not less than input value" name="math.ceil~" ref_view="object">
+      <xi:include href="math.ceil~.pddoc" parse="xml"/>
+    </entry>
+    <entry descr="exponent of a complex signals" name="math.cexp~" ref_view="object">
+      <xi:include href="math.cexp~.pddoc" parse="xml"/>
     </entry>
     <entry descr="multiplication of complex signals" name="math.cmul~" ref_view="object">
       <xi:include href="math.cmul~.pddoc" parse="xml"/>
@@ -880,11 +996,23 @@
     <entry descr="hyperbolic cosine function" name="math.cosh" ref_view="object">
       <xi:include href="math.cosh.pddoc" parse="xml"/>
     </entry>
+    <entry descr="hyperbolic cosine for signals" name="math.cosh~" ref_view="object">
+      <xi:include href="math.cosh~.pddoc" parse="xml"/>
+    </entry>
+    <entry descr="cosine function" name="math.cos~" ref_view="object">
+      <xi:include href="math.cos~.pddoc" parse="xml"/>
+    </entry>
     <entry descr="division (on lists too)" name="math.div" ref_view="object">
       <xi:include href="math.div.pddoc" parse="xml"/>
     </entry>
     <entry descr="mathematical constant, base of the natural logarithm" name="math.e" ref_view="object">
       <xi:include href="math.e.pddoc" parse="xml"/>
+    </entry>
+    <entry descr="error function" name="math.erf" ref_view="object">
+      <xi:include href="math.erf.pddoc" parse="xml"/>
+    </entry>
+    <entry descr="error function for signals" name="math.erf~" ref_view="object">
+      <xi:include href="math.erf~.pddoc" parse="xml"/>
     </entry>
     <entry descr="exponential functions" name="math.exp" ref_view="object">
       <xi:include href="math.exp.pddoc" parse="xml"/>
@@ -892,11 +1020,26 @@
     <entry descr="exponential functions" name="math.exp2" ref_view="object">
       <xi:include href="math.exp2.pddoc" parse="xml"/>
     </entry>
+    <entry descr="base-2 exponential for signal" name="math.exp2~" ref_view="object">
+      <xi:include href="math.exp2~.pddoc" parse="xml"/>
+    </entry>
     <entry descr="dynamic [expr]" name="math.expr" ref_view="object">
       <xi:include href="math.expr.pddoc" parse="xml"/>
     </entry>
+    <entry descr="base-e exponential for signal" name="math.exp~" ref_view="object">
+      <xi:include href="math.exp~.pddoc" parse="xml"/>
+    </entry>
     <entry descr="round to largest integral value not greater than x" name="math.floor" ref_view="object">
       <xi:include href="math.floor.pddoc" parse="xml"/>
+    </entry>
+    <entry descr="round to largest integral value not greater than x" name="math.floor~" ref_view="object">
+      <xi:include href="math.floor~.pddoc" parse="xml"/>
+    </entry>
+    <entry descr="gamma function" name="math.gamma" ref_view="object">
+      <xi:include href="math.gamma.pddoc" parse="xml"/>
+    </entry>
+    <entry descr="gamma function for floating point signals" name="math.gamma~" ref_view="object">
+      <xi:include href="math.gamma~.pddoc" parse="xml"/>
     </entry>
     <entry descr="calculate greatest common divisor" name="math.gcd" ref_view="object">
       <xi:include href="math.gcd.pddoc" parse="xml"/>
@@ -907,14 +1050,29 @@
     <entry descr="calculate least common multiple" name="math.lcm" ref_view="object">
       <xi:include href="math.lcm.pddoc" parse="xml"/>
     </entry>
-    <entry descr="logarithm functions" name="math.log" ref_view="object">
+    <entry descr="natural logarithm of the absolute value of the gamma function" name="math.lgamma" ref_view="object">
+      <xi:include href="math.lgamma.pddoc" parse="xml"/>
+    </entry>
+    <entry descr="natural logarithm of the absolute value of the gamma function for signals" name="math.lgamma~" ref_view="object">
+      <xi:include href="math.lgamma~.pddoc" parse="xml"/>
+    </entry>
+    <entry descr="natural logarithm" name="math.log" ref_view="object">
       <xi:include href="math.log.pddoc" parse="xml"/>
     </entry>
     <entry descr="logarithm functions" name="math.log10" ref_view="object">
       <xi:include href="math.log10.pddoc" parse="xml"/>
     </entry>
+    <entry descr="natural logarithm" name="math.log10~" ref_view="object">
+      <xi:include href="math.log10~.pddoc" parse="xml"/>
+    </entry>
     <entry descr="logarithm functions" name="math.log2" ref_view="object">
       <xi:include href="math.log2.pddoc" parse="xml"/>
+    </entry>
+    <entry descr="base-2 logarithm" name="math.log2~" ref_view="object">
+      <xi:include href="math.log2~.pddoc" parse="xml"/>
+    </entry>
+    <entry descr="natural logarithm" name="math.log~" ref_view="object">
+      <xi:include href="math.log~.pddoc" parse="xml"/>
     </entry>
     <entry descr="multiplication (on lists too)" name="math.mul" ref_view="object">
       <xi:include href="math.mul.pddoc" parse="xml"/>
@@ -931,11 +1089,17 @@
     <entry descr="mathematical constant" name="math.pi" ref_view="object">
       <xi:include href="math.pi.pddoc" parse="xml"/>
     </entry>
+    <entry descr="mathematical constant" name="math.pi~" ref_view="object">
+      <xi:include href="math.pi~.pddoc" parse="xml"/>
+    </entry>
     <entry descr="evaluates the polynomial described by the coefficients list" name="math.polyeval" ref_view="object">
       <xi:include href="math.polyeval.pddoc" parse="xml"/>
     </entry>
     <entry descr="calculate reciprocal number" name="math.reciprocal" ref_view="object">
       <xi:include href="math.reciprocal.pddoc" parse="xml"/>
+    </entry>
+    <entry descr="calculate reciprocal number for signals" name="math.reciprocal~" ref_view="object">
+      <xi:include href="math.reciprocal~.pddoc" parse="xml"/>
     </entry>
     <entry descr="round to integral value, regardless of rounding direction" name="math.round" ref_view="object">
       <xi:include href="math.round.pddoc" parse="xml"/>
@@ -952,11 +1116,23 @@
     <entry descr="hyperbolic sine function" name="math.sinh" ref_view="object">
       <xi:include href="math.sinh.pddoc" parse="xml"/>
     </entry>
+    <entry descr="hyperbolic sine for signals" name="math.sinh~" ref_view="object">
+      <xi:include href="math.sinh~.pddoc" parse="xml"/>
+    </entry>
+    <entry descr="sine function" name="math.sin~" ref_view="object">
+      <xi:include href="math.sin~.pddoc" parse="xml"/>
+    </entry>
     <entry descr="square root function" name="math.sqrt" ref_view="object">
       <xi:include href="math.sqrt.pddoc" parse="xml"/>
     </entry>
+    <entry descr="square root for signal" name="math.sqrt~" ref_view="object">
+      <xi:include href="math.sqrt~.pddoc" parse="xml"/>
+    </entry>
     <entry descr="value square" name="math.squared" ref_view="object">
       <xi:include href="math.squared.pddoc" parse="xml"/>
+    </entry>
+    <entry descr="signal value square" name="math.squared~" ref_view="object">
+      <xi:include href="math.squared~.pddoc" parse="xml"/>
     </entry>
     <entry descr="sync addition" name="math.sync_add" ref_view="object">
       <xi:include href="math.sync_add.pddoc" parse="xml"/>
@@ -1006,8 +1182,17 @@
     <entry descr="hyperbolic tangent function" name="math.tanh" ref_view="object">
       <xi:include href="math.tanh.pddoc" parse="xml"/>
     </entry>
+    <entry descr="hyperbolic tangent for signals" name="math.tanh~" ref_view="object">
+      <xi:include href="math.tanh~.pddoc" parse="xml"/>
+    </entry>
+    <entry descr="tangent function" name="math.tan~" ref_view="object">
+      <xi:include href="math.tan~.pddoc" parse="xml"/>
+    </entry>
     <entry descr="truncate to integer value" name="math.trunc" ref_view="object">
       <xi:include href="math.trunc.pddoc" parse="xml"/>
+    </entry>
+    <entry descr="truncate to integer value" name="math.trunc~" ref_view="object">
+      <xi:include href="math.trunc~.pddoc" parse="xml"/>
     </entry>
     <xi:include href="ceammc_category_math.xml" parse="xml"/>
   </category>
@@ -1142,6 +1327,9 @@
     </entry>
     <entry descr="checks if given path exists" name="path.exists" ref_view="object">
       <xi:include href="path.exists.pddoc" parse="xml"/>
+    </entry>
+    <entry descr="check if path is directory" name="path.is_dir" ref_view="object">
+      <xi:include href="path.is_dir.pddoc" parse="xml"/>
     </entry>
     <entry descr="list directory contents" name="path.lsdir" ref_view="object">
       <xi:include href="path.lsdir.pddoc" parse="xml"/>
@@ -1423,6 +1611,9 @@
     <entry descr="Output cursor motion, mousewheel and buttonclicks" name="system.cursor" ref_view="object">
       <xi:include href="system.cursor.pddoc" parse="xml"/>
     </entry>
+    <entry descr="run external command in separate process" name="system.exec" ref_view="object">
+      <xi:include href="system.exec.pddoc" parse="xml"/>
+    </entry>
     <entry descr="Get system environment variables" name="system.getenv" ref_view="object">
       <xi:include href="system.getenv.pddoc" parse="xml"/>
     </entry>
@@ -1437,9 +1628,6 @@
     </entry>
     <entry descr="returns current screen size in pixels" name="system.screen_size" ref_view="object">
       <xi:include href="system.screen_size.pddoc" parse="xml"/>
-    </entry>
-    <entry descr="run external command in separate process" name="system.shell" ref_view="object">
-      <xi:include href="system.shell.pddoc" parse="xml"/>
     </entry>
   </category>
   <category name="tl">
@@ -1523,6 +1711,9 @@
     <entry descr="counterpart of the vanilla [nbx] for signal" name="ui.number~" ref_view="link">
       <xi:include href="ui.number~.pddoc" parse="xml"/>
     </entry>
+    <entry descr="signal plotter" name="ui.plot~" ref_view="link">
+      <xi:include href="ui.plot~.pddoc" parse="xml"/>
+    </entry>
     <entry descr="2D slider in polar coordinates" name="ui.polar" ref_view="link">
       <xi:include href="ui.polar.pddoc" parse="xml"/>
     </entry>
@@ -1558,10 +1749,11 @@
     </entry>
   </category>
   <meta>
-    <version>0.8.0</version>
+    <version>0.9.0</version>
     <authors>
       <author>Albert Graef</author>
       <author>Alex Nadzharov</author>
+      <author>André Sier</author>
       <author>Eliott Paris</author>
       <author>Hans-Christoph Steiner</author>
       <author>Julian Parker</author>

@@ -14,7 +14,7 @@ ListChoice::ListChoice(const PdArgs& a)
 {
     // do not repeat index value (not the values itself in list!)
     no_repeat_ = new BoolProperty("@norepeat", false);
-    createProperty(no_repeat_);
+    addProperty(no_repeat_);
 
     createOutlet();
 }
@@ -56,6 +56,6 @@ void ListChoice::onList(const AtomList& l)
 void setup_list_choice()
 {
     ObjectFactory<ListChoice> obj("list.choice");
-    obj.mapFloatToList();
+    obj.useDefaultPdFloatFn();
     obj.processData<DataTypeMList>();
 }

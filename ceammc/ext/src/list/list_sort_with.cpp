@@ -54,22 +54,23 @@ void ListSortWith::onInlet(size_t n, const AtomList& l)
     }
 }
 
-void ListSortWith::onDataT(const DataTPtr<DataTypeMList>& dptr)
+void ListSortWith::onDataT(const MListAtom& ml)
 {
-    if (dptr->size() < 2) {
-        dataTo(0, dptr);
+    if (ml->size() < 2) {
+        atomTo(0, MListAtom(*ml));
         return;
     }
 
     less_ = true;
 
-    DataTypeMList res(*dptr);
-    std::sort(res.begin(), res.end(), [this](const DataAtom& a0, const DataAtom& a1) {
-        this->listTo(1, AtomList(a0.toAtom(), a1.toAtom()));
-        return !this->less_;
-    });
+    MListAtom res(*ml);
+    std::sort(res->begin(), res->end(),
+        [this](const Atom& a0, const Atom& a1) {
+            this->listTo(1, { a0, a1 });
+            return !this->less_;
+        });
 
-    dataTo(0, DataTPtr<DataTypeMList>(res));
+    atomTo(0, res);
 }
 
 void setup_list_sort_with()

@@ -7,9 +7,9 @@ using namespace ceammc;
 class ArrayBPM : public ArrayBase {
 public:
     ArrayBPM(const PdArgs& a);
-    void onBang();
+    void onBang() override;
 };
 
-extern "C" void setup_array0x2ebpm();
+void setup_array_bpm();
 
 #endif // ARRAY_BPM_H

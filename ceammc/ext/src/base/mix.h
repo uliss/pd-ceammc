@@ -36,9 +36,6 @@ public:
     void processBlock(const t_sample** in, t_sample** out) override;
     void setupDSP(t_signal** in) override;
 
-    AtomList propXFadeTime() const;
-    void setPropXFadeTime(const AtomList& ms);
-
     AtomList propValue() const;
     void setPropValue(const AtomList& lst);
     AtomList propDb() const;

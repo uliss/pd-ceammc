@@ -14,100 +14,23 @@
  * contact the author of this file, or the owner of the project in which
  * this file belongs to.
  *****************************************************************************/
-
-#include "ceammc.hpp"
+#include "ceammc.h"
 #include "config.h"
-
-extern "C" {
-#include "m_imp.h"
-}
-
-#include "ceammc_format.h"
-#include "ceammc_pd.h"
-
-#include <algorithm>
-#include <cassert>
-#include <cstdlib>
-#include <cstring>
-#include <limits>
+#include "fmt/format.h"
 
 namespace ceammc {
 
-std::vector<std::string> currentExtensionList()
+InvalidOutlet::InvalidOutlet(OutletIdx n) noexcept
+    : Exception("")
+    , n_(n)
 {
-    std::vector<std::string> res;
-    t_methodentry* m = pd_objectmaker->c_methods;
-    if (!m)
-        return res;
-
-    for (int i = 0; i < pd_objectmaker->c_nmethod; i++)
-        res.push_back(m[i].me_name->s_name);
-
-    return res;
 }
 
-std::vector<t_symbol*>& objectExternalsList()
+const char* InvalidOutlet::what() const noexcept
 {
-    static std::vector<t_symbol*> lst;
-    return lst;
+    static char buf[64];
+    fmt::format_to(buf, FMT_STRING("invalid outlet index: {}"), n_.n);
+    return buf;
 }
 
-std::string get_env(const char* varname)
-{
-    std::string res;
-    char* env = ::getenv(varname);
-    if (env)
-        res = env;
-
-    return res;
-}
-
-void set_env(const char* varname, const char* val)
-{
-#ifdef HAVE_SETENV
-    ::setenv(varname, val, 1);
-#else
-    std::string str(varname);
-    str += '=';
-    str += val;
-    ::putenv(str.c_str());
-#endif
-}
-
-static t_listmethod old_print_mlist = nullptr;
-
-static void print_list_replace(t_pd* pd, t_symbol* s, int argc, t_atom* argv)
-{
-    if (!old_print_mlist)
-        return;
-
-    bool contains_data = false;
-    for (int i = 0; i < argc; i++) {
-        if (Atom(argv[i]).isData()) {
-            contains_data = true;
-            break;
-        }
-    }
-
-    if (contains_data) {
-        post("[data] %s", to_string(AtomList(argc, argv)).c_str());
-    } else
-        old_print_mlist(pd, s, argc, argv);
-}
-
-bool addPdPrintDataSupport()
-{
-    pd::External p("print");
-    if (!p.object())
-        return false;
-
-    t_class* print_class = p.object()->te_g.g_pd;
-    if (!print_class)
-        return false;
-
-    // save old callback
-    old_print_mlist = print_class->c_listmethod;
-    print_class->c_listmethod = print_list_replace;
-    return true;
-}
 }

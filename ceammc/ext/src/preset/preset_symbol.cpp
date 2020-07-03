@@ -4,17 +4,26 @@
 
 PresetSymbol::PresetSymbol(const PdArgs& args)
     : PresetBase(args)
+    , init_(nullptr)
+    , current_value_(nullptr)
 {
     // 1st positionalSymbolArgument is preset name - in base class
-    // 2nd positionalSymbolArgument weare using as init value
-    init_ = new SymbolProperty("@init", positionalSymbolArgument(1, &s_), true);
-    current_value_ = init_->value();
-    createProperty(init_);
+    // 2nd positionalSymbolArgument we are using as init value
+    init_ = new SymbolProperty("@init", &s_);
+    init_->setArgIndex(1);
+    init_->setInitOnly();
+    addProperty(init_);
 }
 
 void PresetSymbol::onSymbol(t_symbol* s)
 {
     current_value_ = s;
+}
+
+void PresetSymbol::initDone()
+{
+    PresetBase::initDone();
+    current_value_ = init_->value();
 }
 
 void PresetSymbol::loadFrom(size_t idx)
@@ -31,4 +40,5 @@ void PresetSymbol::storeAt(size_t idx)
 void setup_preset_symbol()
 {
     PresetIFaceFactory<PresetSymbol> obj("preset.symbol");
+    obj.addAlias("preset.s");
 }

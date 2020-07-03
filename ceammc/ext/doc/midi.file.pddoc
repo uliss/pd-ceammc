@@ -15,14 +15,15 @@
         </meta>
         <properties>
             <property name="@filename" type="symbol" readonly="true">current filename</property>
-            <property name="@tracks" type="float" readonly="true">number of tracks</property>
-            <property name="@tempo" type="float" readonly="true">midi tempo in ticks per
-            quarter</property>
-            <property name="@length_sec" type="float" readonly="true" units="second">file
-            length</property>
-            <property name="@length_tick" type="float" readonly="true">file length on
+            <property name="@tracks" type="float" readonly="true" default="1">number of
+            tracks</property>
+            <property name="@tempo" type="float" readonly="true" default="120">midi tempo in ticks
+            per quarter</property>
+            <property name="@length_sec" type="float" readonly="true" units="second" default="0">
+            file length</property>
+            <property name="@length_tick" type="float" readonly="true" default="0">file length on
             ticks</property>
-            <property name="@length_beat" type="float" readonly="true">file length in
+            <property name="@length_beat" type="float" readonly="true" default="0">file length in
             quarters</property>
         </properties>
         <methods>

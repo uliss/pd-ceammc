@@ -21,7 +21,7 @@ FlowReject::FlowReject(const PdArgs& a)
     createOutlet();
 
     values_ = new ListProperty("@values", a.args);
-    createProperty(values_);
+    addProperty(values_);
 }
 
 void FlowReject::onBang()
@@ -29,7 +29,7 @@ void FlowReject::onBang()
     bangTo(0);
 }
 
-void FlowReject::onFloat(float v)
+void FlowReject::onFloat(t_float v)
 {
     if (values_->value().contains(v))
         return;
@@ -80,7 +80,7 @@ bool FlowReject::processAnyProps(t_symbol* sel, const AtomList& lst)
     return false;
 }
 
-extern "C" void setup_flow0x2ereject()
+void setup_flow_reject()
 {
     ObjectFactory<FlowReject> obj("flow.reject");
     obj.addAlias("reject");

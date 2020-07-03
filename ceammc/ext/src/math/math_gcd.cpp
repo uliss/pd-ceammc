@@ -18,13 +18,13 @@
 
 MathGCD::MathGCD(const PdArgs& a)
     : BaseObject(a)
-    , b_(positionalFloatArgument(0, 0))
+    , b_(positionalFloatArgumentT(0, 0))
 {
     createInlet(&b_);
     createOutlet();
 }
 
-void MathGCD::onFloat(float f)
+void MathGCD::onFloat(t_float f)
 {
     floatTo(0, boost::math::gcd(int(f), int(b_)));
 }
@@ -41,7 +41,7 @@ void MathGCD::onList(const AtomList& l)
     onFloat(l[0].asFloat());
 }
 
-extern "C" void setup_math0x2egcd()
+void setup_math_gcd()
 {
     ObjectFactory<MathGCD> obj("math.gcd");
 }

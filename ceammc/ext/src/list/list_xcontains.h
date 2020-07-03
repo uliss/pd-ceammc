@@ -14,14 +14,13 @@
 #ifndef LIST_CONTAINSX_H
 #define LIST_CONTAINSX_H
 
-#include "datatype_mlist.h"
-#include "ceammc_dataatomlist.h"
 #include "ceammc_object.h"
+#include "datatype_mlist.h"
 
 using namespace ceammc;
 
 class ListXContains : public BaseObject {
-    DataAtomList lst_;
+    AtomList lst_;
 
 public:
     ListXContains(const PdArgs& args);
@@ -29,25 +28,13 @@ public:
     void onFloat(t_float f) override;
     void onSymbol(t_symbol* s) override;
     void onList(const AtomList& lst) override;
-    void onData(const DataPtr& ptr) override;
+    void onData(const Atom& d) override;
 
     void onInlet(size_t n, const AtomList& lst) override;
 
 private:
-    void output(bool v);
-    template <typename T>
-    void contains(const T& v);
+    void contains(const AtomList& v);
 };
-
-template <typename T>
-void ListXContains::contains(const T& v)
-{
-    auto mlist = lst_.asSingle<DataTypeMList>();
-    if (mlist)
-        output(mlist->contains(v));
-    else
-        output(lst_.contains(v));
-}
 
 void setup_list_xcontains();
 

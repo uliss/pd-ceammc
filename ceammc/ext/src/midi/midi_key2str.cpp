@@ -13,21 +13,19 @@ MidiKey2Str::MidiKey2Str(const PdArgs& args)
 {
     clearCache();
 
-    if (positionalArguments().size() > 0) {
-        std::string str = to_string(positionalArguments());
-        if (!music::from_string(str, tonality_, music::NAMING_SCHEME_SPN))
-            OBJ_ERR << "can't parse tonality: " << str;
-    }
+    createCbListProperty(
+        "@tonality",
+        [this]() -> AtomList { return p_tonality(); },
+        [this](const AtomList& l) -> bool { return p_setTonality(l); })
+        ->setArgIndex(0);
 
-    createCbProperty("@tonality", &MidiKey2Str::p_tonality, &MidiKey2Str::p_setTonality);
-    property("@tonality")->info().setType(PropertyInfoType::SYMBOL);
     as_symbol_ = new FlagProperty("@symbol");
-    createProperty(as_symbol_);
+    addProperty(as_symbol_);
 
     createOutlet();
 }
 
-void MidiKey2Str::onFloat(float f)
+void MidiKey2Str::onFloat(t_float f)
 {
     int key = f;
     if (key < 0 || key > 127) {
@@ -43,7 +41,7 @@ void MidiKey2Str::onFloat(float f)
     if (as_symbol_->value())
         symbolTo(0, cache_[key]);
     else
-        dataTo(0, DataPtr(new DataTypeString(cache_[key]->s_name)));
+        atomTo(0, new DataTypeString(cache_[key]->s_name));
 }
 
 AtomList MidiKey2Str::p_tonality() const
@@ -52,15 +50,16 @@ AtomList MidiKey2Str::p_tonality() const
     return Atom(gensym(name.c_str()));
 }
 
-void MidiKey2Str::p_setTonality(const AtomList& l)
+bool MidiKey2Str::p_setTonality(const AtomList& l)
 {
     std::string str = to_string(l);
     if (!music::from_string(str, tonality_, music::NAMING_SCHEME_SPN)) {
         OBJ_ERR << "can't parse tonality: " << str;
-        return;
+        return false;
     }
 
     clearCache();
+    return true;
 }
 
 void MidiKey2Str::clearCache()

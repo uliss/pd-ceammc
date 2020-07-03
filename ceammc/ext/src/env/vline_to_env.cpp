@@ -26,7 +26,7 @@ Vline2Env::Vline2Env(const PdArgs& args)
 
 void Vline2Env::onBang()
 {
-    dataTo(0, DataPtr(env_.clone()));
+    atomTo(0, EnvAtom(env_));
 }
 
 void Vline2Env::onList(const AtomList& lst)
@@ -71,5 +71,5 @@ void setup_vline_to_env()
     ObjectFactory<Vline2Env> obj("vline2env");
     obj.addAlias("vline->env");
 
-    obj.mapFloatToList();
+    obj.useDefaultPdFloatFn();
 }

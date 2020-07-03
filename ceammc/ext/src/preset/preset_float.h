@@ -12,10 +12,11 @@ class PresetFloat : public PresetBase {
 
 public:
     PresetFloat(const PdArgs& args);
-    void onFloat(float f);
+    void onFloat(t_float f) override;
+    void initDone() override;
 
-    void loadFrom(size_t idx);
-    void storeAt(size_t idx);
+    void loadFrom(size_t idx) override;
+    void storeAt(size_t idx) override;
 };
 
 void setup_preset_float();

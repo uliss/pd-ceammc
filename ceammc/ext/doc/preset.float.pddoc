@@ -17,6 +17,9 @@
                 <see>preset.symbol</see>
                 <see>preset.list</see>
             </also>
+            <aliases>
+                <alias>preset.f</alias>
+            </aliases>
         </meta>
         <info>
             <par>Named float preset entry. Can store/load up to 16 various float values</par>

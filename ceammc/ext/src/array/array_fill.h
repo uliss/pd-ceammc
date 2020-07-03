@@ -22,9 +22,9 @@ class ArrayFill : public ArrayMod {
 
 public:
     ArrayFill(const PdArgs& a);
-    void onSymbol(t_symbol* s);
-    void onFloat(float f);
-    void onList(const AtomList& l);
+    void onSymbol(t_symbol* s) override;
+    void onFloat(t_float f) override;
+    void onList(const AtomList& l) override;
 
     void m_gauss(t_symbol* m, const AtomList& l);
     void m_uniform(t_symbol* m, const AtomList& l);

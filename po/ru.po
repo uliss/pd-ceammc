@@ -3,8 +3,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Pure Data 0.47.1_ceammc\n"
 "Report-Msgid-Bugs-To: pd-dev@iem.at\n"
-"POT-Creation-Date: 2019-11-19 03:38+0300\n"
-"PO-Revision-Date: 2019-11-28 13:34+0300\n"
+"POT-Creation-Date: 2020-07-04 01:04+0300\n"
+"PO-Revision-Date: 2020-07-04 01:45+0300\n"
 "Last-Translator: Serge Poltavski <serge.poltavski@gmail.com>\n"
 "Language-Team: Russian\n"
 "Language: ru\n"
@@ -17,7 +17,7 @@ msgstr ""
 "X-Language: ru_RU\n"
 "X-Source-Language: C\n"
 "X-Loco-Parser: loco_parse_po\n"
-"X-Generator: Poedit 2.2.1\n"
+"X-Generator: Poedit 2.3.1\n"
 
 #: ../tcl/dialog_font.tcl
 #, tcl-format
@@ -54,9 +54,13 @@ msgstr ""
 msgid "(Tcl) UNHANDLED ERROR: "
 msgstr ""
 
+#: pd_dynamic_strings.tcl
+msgid "(re-save preferences to reinstate them)"
+msgstr "(сохраните еще раз настройки, чтобы заново их инициализировать)"
+
 #: ../tcl/dialog_audio.tcl
 msgid "(same as input device)..."
-msgstr ""
+msgstr "(такие же как у входного устройства)"
 
 #: ../tcl/dialog_message.tcl
 msgid "(use arrow keys ↑↓ for history)"
@@ -128,6 +132,10 @@ msgstr "5:"
 #: ../tcl/dialog_midi.tcl
 msgid "6:"
 msgstr "6:"
+
+#: ../ceammc/ext/src/ui/ui_keyboard.cpp
+msgid "7"
+msgstr "7"
 
 #: ../tcl/dialog_midi.tcl
 msgid "7:"
@@ -256,6 +264,10 @@ msgstr "Включить звук"
 msgid "Audio..."
 msgstr "Аудио..."
 
+#: ../ceammc/ext/src/ui/ui_plot_tilde.cpp
+msgid "Auto Y-range"
+msgstr "Автоматический Y-диапазон"
+
 #: ../ceammc/ext/src/ui/ui_sliders.cpp
 msgid "Auto range"
 msgstr "Автоматический диапазон"
@@ -308,8 +320,8 @@ msgstr "Нижнее Y-значение"
 
 #: ../ceammc/ext/src/lib/cicm/Sources/eclass.cpp
 #: ../ceammc/ext/src/ui/cicm/Sources/eclass.c ../ceammc/ext/src/ui/ui_gain.cpp
-#: ../ceammc/ext/src/ui/ui_gain2.cpp ../ceammc/ext/src/ui/ui_rslider.cpp
-#: ../ceammc/ext/src/ui/ui_scope.cpp
+#: ../ceammc/ext/src/ui/ui_gain2.cpp ../ceammc/ext/src/ui/ui_plot_tilde.cpp
+#: ../ceammc/ext/src/ui/ui_rslider.cpp ../ceammc/ext/src/ui/ui_scope.cpp
 msgid "Bounds"
 msgstr "Границы"
 
@@ -323,7 +335,7 @@ msgstr "Обзор"
 
 #: ../tcl/pd_menus.tcl
 msgid "Browser..."
-msgstr "Обзор справки…"
+msgstr "Обзор справки..."
 
 #: ../tcl/pd_menus.tcl
 msgid "CEAMMC objects"
@@ -405,7 +417,7 @@ msgid ""
 msgstr ""
 "Начало загрузки:\n"
 "%1$s\n"
-"в %2$s…"
+"в %2$s..."
 
 #: ../tcl/pd_deken.tcl
 #, tcl-format
@@ -416,7 +428,7 @@ msgid ""
 msgstr ""
 "Начало загрузки:\n"
 "%s\n"
-"в %s…"
+"в %s..."
 
 #: ../tcl/pd_menus.tcl
 msgid "Comment"
@@ -439,6 +451,11 @@ msgstr "Невозможно создать каталог «externals» в %s\n
 #, tcl-format
 msgid "Couldn't create Pd documents directory: %s\n"
 msgstr "Невозможно создать каталог для Pd документов: %s\n"
+
+#: ../tcl/pd_guiprefs.tcl
+#, tcl-format
+msgid "Couldn't create preferences \"%1$s\" in %2$s"
+msgstr "Невозможно создать настройки \"%1$s\" in %2$s"
 
 #: ../tcl/dialog_find.tcl
 #, tcl-format
@@ -582,6 +599,10 @@ msgstr "Рисовать:"
 msgid "Duplicate"
 msgstr "Дублировать"
 
+#: pd_dynamic_strings.tcl
+msgid "Edit"
+msgstr "Правка"
+
 #: ../tcl/pd_menus.tcl
 msgid "Edit Mode"
 msgstr "Режим редактирования"
@@ -592,7 +613,7 @@ msgstr "Изменить библиотеку"
 
 #: ../tcl/scrollbox.tcl
 msgid "Edit..."
-msgstr "Правка…"
+msgstr "Правка..."
 
 #: ../ceammc/ext/src/ui/ui_preset.cpp
 msgid "Empty Button Color"
@@ -610,7 +631,11 @@ msgstr "Каталог установки расширений"
 msgid "FLOSS Manual..."
 msgstr "FLOSS руководство..."
 
-#: ../tcl/dialog_find.tcl
+#: pd_dynamic_strings.tcl
+msgid "File"
+msgstr "Файл"
+
+#: ../tcl/dialog_find.tcl pd_dynamic_strings.tcl
 msgid "Find"
 msgstr "Найти"
 
@@ -637,6 +662,10 @@ msgstr "Начальный оттенок"
 #: ../ceammc/ext/src/ui/ui_colorpanel.cpp
 msgid "First Lightness"
 msgstr "Начальная светлота"
+
+#: ../ceammc/ext/src/ui/ui_plot_tilde.cpp
+msgid "First plot color"
+msgstr "Цвет первого графика"
 
 #: ../tcl/dialog_iemgui.tcl
 msgid "Flash Time (msec)"
@@ -672,12 +701,16 @@ msgstr "Цвет переднего плана"
 
 #: ../tcl/pd_menus.tcl
 msgid "Forget All..."
-msgstr "Удалить все…"
+msgstr "Удалить все..."
 
 #: ../tcl/dialog_find.tcl
 #, tcl-format
 msgid "Found '%1$s' in %2$s"
 msgstr "Найдено ‘%1$s’ в %2$s"
+
+#: ../ceammc/ext/src/ui/ui_plot_tilde.cpp
+msgid "Fourth plot color"
+msgstr "Цвет четвертого графика"
 
 #: ../tcl/dialog_iemgui.tcl
 msgid "Front"
@@ -703,7 +736,7 @@ msgstr "Руководство в формате HTML..."
 msgid "Height:"
 msgstr "Высота:"
 
-#: ../tcl/pdtk_canvas.tcl
+#: ../tcl/pdtk_canvas.tcl pd_dynamic_strings.tcl
 msgid "Help"
 msgstr "Справка"
 
@@ -859,6 +892,14 @@ msgstr "Сторона ярлыка"
 msgid "Label vertical align"
 msgstr "Вертикальное выравнивание ярлыка"
 
+#: ../ceammc/ext/src/ui/ui_plot_tilde.cpp
+msgid "Labels on x-axis"
+msgstr "Лейблы по оси х"
+
+#: ../ceammc/ext/src/ui/ui_plot_tilde.cpp
+msgid "Labels on y-axis"
+msgstr "Лейблы по оси y"
+
 #: ../tcl/dialog_array.tcl
 msgid "Last graph"
 msgstr "Последний graph"
@@ -909,7 +950,7 @@ msgstr "Индикатор загрузки"
 
 #: ../tcl/pd_menus.tcl
 msgid "Load from..."
-msgstr "Загрузить из…"
+msgstr "Загрузить из..."
 
 #: ../tcl/dialog_iemgui.tcl
 msgid "Log height:"
@@ -940,24 +981,24 @@ msgstr "Настройки MIDI"
 msgid "MIDI Settings..."
 msgstr "Настройки MIDI..."
 
-#: ../ceammc/ext/src/ui/ui_gain.cpp ../ceammc/ext/src/ui/ui_knob.cpp
-#: ../ceammc/ext/src/ui/ui_slider.cpp
+#: ../ceammc/ext/src/ui/ui_gain.cpp ../ceammc/ext/src/ui/ui_gain2.cpp
+#: ../ceammc/ext/src/ui/ui_knob.cpp ../ceammc/ext/src/ui/ui_slider.cpp
 msgid "MIDI channel"
 msgstr "MIDI канал"
 
-#: ../ceammc/ext/src/ui/ui_gain.cpp ../ceammc/ext/src/ui/ui_knob.cpp
-#: ../ceammc/ext/src/ui/ui_slider.cpp
+#: ../ceammc/ext/src/ui/ui_gain.cpp ../ceammc/ext/src/ui/ui_gain2.cpp
+#: ../ceammc/ext/src/ui/ui_knob.cpp ../ceammc/ext/src/ui/ui_slider.cpp
 msgid "MIDI control"
 msgstr "MIDI контроллер"
 
-#: ../ceammc/ext/src/ui/ui_gain.cpp ../ceammc/ext/src/ui/ui_knob.cpp
-#: ../ceammc/ext/src/ui/ui_slider.cpp
+#: ../ceammc/ext/src/ui/ui_gain.cpp ../ceammc/ext/src/ui/ui_gain2.cpp
+#: ../ceammc/ext/src/ui/ui_knob.cpp ../ceammc/ext/src/ui/ui_slider.cpp
 msgid "MIDI pickup"
 msgstr "Подхват MIDI значения"
 
 #: ../tcl/pd_menus.tcl
 msgid "MIDI..."
-msgstr "MIDI…"
+msgstr "MIDI..."
 
 #: ../ceammc/ext/src/lib/cicm/Sources/eclass.cpp
 #: ../ceammc/ext/src/spat/hoa_2d_scope.cpp
@@ -972,6 +1013,22 @@ msgstr "MIDI…"
 #: ../ceammc/ext/src/ui/ui_rslider.cpp ../ceammc/ext/src/ui/ui_scope.cpp
 msgid "Main"
 msgstr "Основные"
+
+#: ../ceammc/ext/src/ui/ui_plot_tilde.cpp
+msgid "Major grid on x-axis"
+msgstr "Основная сетка на оси x"
+
+#: ../ceammc/ext/src/ui/ui_plot_tilde.cpp
+msgid "Major grid on y-axis"
+msgstr "Основная сетка на оси y"
+
+#: ../ceammc/ext/src/ui/ui_plot_tilde.cpp
+msgid "Major ticks on x-axis"
+msgstr "Основные засечки на оси x"
+
+#: ../ceammc/ext/src/ui/ui_plot_tilde.cpp
+msgid "Major ticks on y-axis"
+msgstr "Основные засечки на оси y"
 
 #: ../ceammc/ext/src/ui/ui_label.cpp
 msgid "Margin bottom"
@@ -1035,7 +1092,7 @@ msgstr "Максимальное значение"
 msgid "Maximum X-value"
 msgstr "Максимальное X-значение"
 
-#: ../ceammc/ext/src/ui/ui_slider2d.cpp
+#: ../ceammc/ext/src/ui/ui_plot_tilde.cpp ../ceammc/ext/src/ui/ui_slider2d.cpp
 msgid "Maximum Y-value"
 msgstr "Максимальное Y-значение"
 
@@ -1047,6 +1104,10 @@ msgstr "Максимальная длина"
 #: ../ceammc/ext/src/ui/ui_scope.cpp
 msgid "Maximum value"
 msgstr "Максимальное значение"
+
+#: pd_dynamic_strings.tcl
+msgid "Media"
+msgstr "Медиа"
 
 #: ../tcl/pd_menus.tcl
 msgid "Message"
@@ -1074,7 +1135,7 @@ msgstr "Минимальное значение"
 msgid "Minimum X-value"
 msgstr "Минимальное X-значение"
 
-#: ../ceammc/ext/src/ui/ui_slider2d.cpp
+#: ../ceammc/ext/src/ui/ui_plot_tilde.cpp ../ceammc/ext/src/ui/ui_slider2d.cpp
 msgid "Minimum Y-value"
 msgstr "Минимальное Y-значение"
 
@@ -1083,11 +1144,27 @@ msgstr "Минимальное Y-значение"
 msgid "Minimum value"
 msgstr "Минимальное значение"
 
+#: ../ceammc/ext/src/ui/ui_plot_tilde.cpp
+msgid "Minor grid on x-axis"
+msgstr "Малая сетка на оси x"
+
+#: ../ceammc/ext/src/ui/ui_plot_tilde.cpp
+msgid "Minor grid on y-axis"
+msgstr "Малая сетка на оси y"
+
+#: ../ceammc/ext/src/ui/ui_plot_tilde.cpp
+msgid "Minor ticks on x-axis"
+msgstr "Малые засечки на оси x"
+
+#: ../ceammc/ext/src/ui/ui_plot_tilde.cpp
+msgid "Minor ticks on y-axis"
+msgstr "Малые засечки на оси y"
+
 #: ../ceammc/ext/src/ui/ui_gain.cpp ../ceammc/ext/src/ui/ui_gain2.cpp
 msgid "Misc"
 msgstr "Разное"
 
-#: ../ceammc/ext/src/ui/ui_icon.cpp
+#: ../ceammc/ext/src/ui/ui_icon.cpp ../ceammc/ext/src/ui/ui_plot_tilde.cpp
 msgid "Mode"
 msgstr "Режим"
 
@@ -1113,7 +1190,7 @@ msgstr "Новый graph"
 
 #: ../tcl/scrollbox.tcl
 msgid "New..."
-msgstr "Новый…"
+msgstr "Новый..."
 
 #: ../tcl/pd_menus.tcl
 msgid "Next Window"
@@ -1152,6 +1229,10 @@ msgstr "Число"
 #: ../ceammc/ext/src/ui/ui_radio.cpp
 msgid "Number of Items"
 msgstr "Число элементов"
+
+#: ../ceammc/ext/src/ui/ui_plot_tilde.cpp
+msgid "Number of inputs"
+msgstr "Число входов"
 
 #: ../tcl/dialog_iemgui.tcl ../tcl/pd_menus.tcl
 msgid "Number2"
@@ -1201,6 +1282,10 @@ msgstr "Порты вывода:"
 msgid "Output Devices"
 msgstr "Устройства вывода"
 
+#: ../ceammc/ext/src/ui/ui_env.cpp
+msgid "Output Mode"
+msgstr "Режим вывода"
+
 #: ../tcl/dialog_iemgui.tcl
 msgid "Output Range"
 msgstr "Диапазон значений"
@@ -1235,7 +1320,7 @@ msgstr "Вставить"
 
 #: ../tcl/pd_menus.tcl
 msgid "Paste Replace"
-msgstr ""
+msgstr "Вставка/Замена"
 
 #: ../ceammc/ext/src/lib/cicm/Sources/eclass.cpp
 #: ../ceammc/ext/src/ui/cicm/Sources/eclass.c
@@ -1287,7 +1372,7 @@ msgstr "Руководство по Pd от Johannes Kreidler"
 
 #: ../tcl/dialog_find.tcl ../tcl/pd_menus.tcl
 msgid "Pd window"
-msgstr ""
+msgstr "Pd window"
 
 #: ../ceammc/ext/src/lib/cicm/Sources/eclass.cpp
 #: ../ceammc/ext/src/ui/cicm/Sources/eclass.c
@@ -1351,6 +1436,10 @@ msgstr "Печать..."
 #: ../tcl/pdtk_canvas.tcl
 msgid "Properties"
 msgstr "Свойства"
+
+#: pd_dynamic_strings.tcl
+msgid "Put"
+msgstr "Добавить"
 
 #: ../tcl/dialog_array.tcl
 msgid "Put array into:"
@@ -1480,7 +1569,7 @@ msgstr "Сохранять содержимое"
 
 #: ../tcl/pd_menus.tcl
 msgid "Save to..."
-msgstr "Сохранить в…"
+msgstr "Сохранить в..."
 
 #: ../tcl/dialog_canvas.tcl
 msgid "Scale"
@@ -1509,7 +1598,11 @@ msgstr "Поиск в %s:"
 
 #: ../tcl/pd_deken.tcl
 msgid "Searching for externals..."
-msgstr "Поиск расширений…"
+msgstr "Поиск расширений..."
+
+#: ../ceammc/ext/src/ui/ui_plot_tilde.cpp
+msgid "Second plot color"
+msgstr "Цвет второго графика"
 
 #: ../ceammc/ext/src/lib/cicm/Sources/eclass.cpp
 #: ../ceammc/ext/src/ui/cicm/Sources/eclass.c
@@ -1548,6 +1641,10 @@ msgstr "Настройки"
 #: ../tcl/pd_deken.tcl
 msgid "Should newly installed libraries be added to Pd's search path?"
 msgstr "Добавлять установленные библиотеки к путям поиска Pd?"
+
+#: pd_dynamic_strings.tcl
+msgid "Show &Hidden Files and Directories"
+msgstr "Показывать скрытые файлы и директории"
 
 #: ../ceammc/ext/src/ui/ui_arrayview.cpp
 msgid "Show Labels"
@@ -1684,6 +1781,10 @@ msgstr "Цвет текста"
 msgid "Text color"
 msgstr "Цвет текста"
 
+#: ../ceammc/ext/src/ui/ui_plot_tilde.cpp
+msgid "Third plot color"
+msgstr "Цвет третьего графика"
+
 #: ../tcl/pd_menus.tcl
 msgid "Tidy Up"
 msgstr "Расставить"
@@ -1715,7 +1816,7 @@ msgstr "Верхнее Y-значение"
 
 #: ../tcl/pd_menus.tcl
 msgid "Triggerize"
-msgstr ""
+msgstr "Триггеризовать"
 
 #: ../tcl/pd_deken.tcl
 msgid "Try to remove libraries before (re)installing them?"
@@ -1754,7 +1855,7 @@ msgstr "Невозможно выполнить поиск. Вы онлайн?"
 #: ../tcl/pd_deken.tcl
 #, tcl-format
 msgid "Unable to remove stray file %s"
-msgstr ""
+msgstr "Невозможно удалить оставшийся файл %s"
 
 #: ../tcl/pd_deken.tcl
 #, tcl-format
@@ -1816,7 +1917,7 @@ msgstr "Добавлено пользователем %s @ %s"
 msgid "Upper:"
 msgstr "До:"
 
-#: ../tcl/dialog_midi.tcl
+#: ../tcl/dialog_audio.tcl ../tcl/dialog_midi.tcl
 msgid "Use Multiple Devices"
 msgstr "Использовать несколько устройств"
 
@@ -1920,6 +2021,10 @@ msgstr "Ширина в разрядах:"
 msgid "Width:"
 msgstr "Ширина:"
 
+#: pd_dynamic_strings.tcl
+msgid "Window"
+msgstr "Окно"
+
 #: ../ceammc/ext/src/ui/ui_scope.cpp
 msgid "Window size"
 msgstr "Размер окна"
@@ -2022,7 +2127,7 @@ msgstr "[deken]: Подходящие расширения не найдены."
 
 #: ../tcl/pd_deken.tcl
 msgid "[deken]: Start searching for externals..."
-msgstr "[deken]: Начинаю поиск расширений…"
+msgstr "[deken]: Начинаю поиск расширений..."
 
 #: ../tcl/pd_deken.tcl
 msgid "[deken]: Unable to extract package automatically."
@@ -2060,6 +2165,14 @@ msgstr ""
 msgid "all"
 msgstr "все"
 
+#: ../ceammc/ext/src/ui/ui_keyboard.cpp
+msgid "aug"
+msgstr ""
+
+#: ../ceammc/ext/src/ui/ui_keyboard.cpp
+msgid "aug7"
+msgstr ""
+
 #: ../ceammc/ext/src/ui/ui_polar.cpp ../ceammc/ext/src/ui/ui_slider2d.cpp
 msgid "bottom center"
 msgstr "внизу по центру"
@@ -2073,13 +2186,33 @@ msgstr "снизу:"
 msgid "center"
 msgstr "по центру"
 
+#: pd_dynamic_strings.tcl
+msgid "couldn't delete .pdsettings file"
+msgstr "невозможно удалить файл .pdsettings"
+
 #: ../tcl/pdwindow.tcl
 msgid "debug"
 msgstr "отладка"
 
+#: ../ceammc/ext/src/ui/ui_keyboard.cpp
+msgid "dim"
+msgstr ""
+
+#: ../ceammc/ext/src/ui/ui_preset.cpp
+msgid "duplicate all"
+msgstr "дублировать все"
+
+#: pd_dynamic_strings.tcl
+msgid "erased Pd settings"
+msgstr "стерты настройки Pd"
+
 #: ../tcl/pdwindow.tcl
 msgid "error"
 msgstr "ошибки"
+
+#: pd_dynamic_strings.tcl
+msgid "failed to erase Pd settings"
+msgstr "ошибка при удалении настроек Pd"
 
 #: ../tcl/pdwindow.tcl
 msgid "fatal"
@@ -2089,6 +2222,18 @@ msgstr "критические ошибки"
 #, c-format
 msgid "fill with %f"
 msgstr "заполнить %f"
+
+#: ../ceammc/ext/src/ui/ui_sliders.cpp
+msgid "fill with max"
+msgstr "заполнить максимальным"
+
+#: ../ceammc/ext/src/ui/ui_sliders.cpp
+msgid "fill with mean"
+msgstr "заполнить средним"
+
+#: ../ceammc/ext/src/ui/ui_sliders.cpp
+msgid "fill with min"
+msgstr "заполнить минимальным"
 
 #: ../ceammc/ext/src/ui/ui_matrix.cpp ../ceammc/ext/src/ui/ui_radio.cpp
 msgid "flip"
@@ -2158,6 +2303,14 @@ msgstr "логарифмическая шкала"
 msgid "log-height:"
 msgstr ""
 
+#: ../ceammc/ext/src/ui/ui_keyboard.cpp
+msgid "maj"
+msgstr ""
+
+#: ../ceammc/ext/src/ui/ui_keyboard.cpp
+msgid "maj7"
+msgstr ""
+
 #: ../ceammc/ext/src/ui/ui_knob.cpp
 msgid "max"
 msgstr "max"
@@ -2166,13 +2319,25 @@ msgstr "max"
 msgid "max:"
 msgstr "макс:"
 
-#: ../ceammc/ext/src/ui/ui_knob.cpp
+#: ../ceammc/ext/src/ui/ui_keyboard.cpp ../ceammc/ext/src/ui/ui_knob.cpp
 msgid "min"
 msgstr "min"
+
+#: ../ceammc/ext/src/ui/ui_keyboard.cpp
+msgid "min7"
+msgstr ""
 
 #: iemgui_dynamic_strings.tcl
 msgid "min:"
 msgstr "мин:"
+
+#: pd_dynamic_strings.tcl
+msgid "no Pd settings to clear"
+msgstr "нет настроек для очистки"
+
+#: pd_dynamic_strings.tcl
+msgid "no Pd settings to erase"
+msgstr "нет настроек для удаления"
 
 #: ../ceammc/ext/src/lib/cicm/Sources/eclass.cpp
 #: ../ceammc/ext/src/ui/cicm/Sources/eclass.c ../tcl/pdwindow.tcl
@@ -2190,11 +2355,15 @@ msgstr "случайное значение"
 
 #: ../ceammc/ext/src/ui/ui_preset.cpp
 msgid "read"
-msgstr ""
+msgstr "читать"
 
 #: ../ceammc/ext/src/ui/ui_keyboard.cpp
 msgid "release all"
 msgstr "отпустить все"
+
+#: pd_dynamic_strings.tcl
+msgid "removed .pdsettings file"
+msgstr "файл настроек .pdsettings удален"
 
 #: ../ceammc/ext/src/ui/ui_matrix.cpp ../ceammc/ext/src/ui/ui_radio.cpp
 msgid "reset"
@@ -2229,6 +2398,11 @@ msgstr "поиск «%s»"
 msgid "size:"
 msgstr "размер:"
 
+#: pd_dynamic_strings.tcl
+msgid "skipping loading preferences... Pd seems to have crashed on startup."
+msgstr ""
+"пропускаю загрузку настроек... Возможно прошлый запуск Pd был с ошибкой."
+
 #: ../tcl/dialog_canvas.tcl
 msgid "to"
 msgstr "до"
@@ -2251,7 +2425,7 @@ msgstr "ширина:"
 
 #: ../ceammc/ext/src/ui/ui_preset.cpp
 msgid "write"
-msgstr ""
+msgstr "записать"
 
 #~ msgid "Active Cell Color"
 #~ msgstr "Цвет активной ячейки"
@@ -2270,12 +2444,6 @@ msgstr ""
 
 #~ msgid "Label vertical margin"
 #~ msgstr "Вертикальный отступ ярлыка"
-
-#~ msgid "Label x-margin"
-#~ msgstr "Отступ ярлыка по x"
-
-#~ msgid "Label y-margin"
-#~ msgstr "Отступ ярлыка по y"
 
 #~ msgid "Number of decimal"
 #~ msgstr "Число разрядов"

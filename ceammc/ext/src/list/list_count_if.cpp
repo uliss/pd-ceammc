@@ -1,6 +1,7 @@
 #include "list_count_if.h"
-#include "datatype_mlist.h"
 #include "ceammc_factory.h"
+#include "ceammc_output.h"
+#include "datatype_mlist.h"
 
 ListCountIf::ListCountIf(const PdArgs& a)
     : ListBase(a)
@@ -19,7 +20,11 @@ void ListCountIf::onBang()
 void ListCountIf::onList(const AtomList& lst)
 {
     count_ = 0;
-    lst.outputAtoms(outletAt(1));
+
+    auto out = outletAt(1);
+    for(auto& a: lst)
+        outletAtom(out, a);
+
     onBang();
 }
 

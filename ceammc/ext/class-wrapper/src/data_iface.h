@@ -113,7 +113,7 @@ public:
  *     -  static const char* typeName() - data type name
  *
  * Also you can override this functions:
- *     - Result setFromFloat(float f)
+ *     - Result setFromFloat(t_float f)
  *     - Result setFromSymbol(t_symbol* s)
  *     - Result setFromList(const ceammc::AtomList& l)
  *
@@ -152,7 +152,7 @@ public:
      * @param f - input float
      * @return operation result
      */
-    virtual Result setFromFloat(float f)
+    virtual Result setFromFloat(t_float f)
     {
         return Result(std::string("unexpected float: ") + std::to_string(f), NOT_SUPPORTED);
     }
@@ -193,7 +193,12 @@ public:
      * @param lst - input list
      * @return operation result
      */
-    Result setFromPd(const ceammc::AtomList& lst, t_symbol* prefix = &s_);
+    Result setFromPd(const ceammc::AtomList& lst);
+
+    /**
+     * @brief toJsonString
+     */
+    virtual std::string toJsonString() const { return ""; }
 
 public:
     /**

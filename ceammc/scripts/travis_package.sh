@@ -3,7 +3,7 @@
 if [[ ${CEAMMC_BUILD_TYPE} == "Release" ]]
 then 
 	echo "Building DEB package..."
-	make package
+	cmake --build . --target  package
 	ls *.deb
 else 
 	echo "Skip DEB package build..."

@@ -14,19 +14,18 @@
 #ifndef SET_CONTAINS_H
 #define SET_CONTAINS_H
 
-#include "ceammc_dataatomlist.h"
 #include "ceammc_object.h"
 #include "datatype_set.h"
 
 class SetContains : public BaseObject {
-    DataAtomList patterns_;
+    AtomProperty* element_;
 
 public:
     SetContains(const PdArgs& a);
-    void onDataT(const DataTPtr<DataTypeSet>& s);
-    void onInlet(size_t n, const AtomList& lst);
+    void onDataT(const SetAtom& set);
+    void onInlet(size_t n, const AtomList& lst) override;
 };
 
-extern "C" void setup_set0x2econtains();
+void setup_set_contains();
 
 #endif // SET_CONTAINS_H

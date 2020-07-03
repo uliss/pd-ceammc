@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="array.plot~">
+        <title>array.plot~</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>plot signal on specified array</description>
+            <license>GPL3 or later</license>
+            <library>ceammc</library>
+            <category>array</category>
+            <keywords>array plot</keywords>
+            <also>
+                <see view="link">ui.plot~</see>
+            </also>
+            <since>0.9</since>
+        </meta>
+        <properties>
+            <property name="@array" type="symbol" default="">array name</property>
+            <property name="@ymin" minvalue="-1024" maxvalue="1024" type="float" default="-1">
+            minimal y-axis value</property>
+            <property name="@ymax" minvalue="-1024" maxvalue="1024" type="float" default="1">
+            minimal y-axis value</property>
+            <property name="@yauto" type="int" enum="0 1" default="0">calculate y-axis range
+            automatically</property>
+        </properties>
+        <inlets>
+            <inlet type="audio">
+                <xinfo>input signal</xinfo>
+            </inlet>
+            <inlet>
+                <xinfo on="bang">plot all samples fitted to specified array</xinfo>
+                <xinfo on="float">plot specified number of samples, resizes array</xinfo>
+            </inlet>
+        </inlets>
+        <outlets />
+        <example>
+            <pdascii>
+<![CDATA[
+                    [array APL1 size=100 w=200 h=200]
+
+
+
+
+[ui.dsp~]
+
+
+[osc~ 440]   [B]
+|            |.
+[array.plot~ APL1]
+
+[B]
+|
+[plot.geomspace~ 2 1024]
+|   ^|.
+[array.plot~ APL1 @yauto 1]
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

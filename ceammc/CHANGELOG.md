@@ -1,5 +1,108 @@
 # CEAMMC external library changelog
 
+## [0.9]
+### Added:
+- an.onset - onset analyzer for array (using aubio library)
+- an.onset~ - onset analyzer for signals (using aubio library)
+    - flow module updates:
+    - flow.< alias added for flow.less
+    - flow.<= alias added for flow.less_eq
+    - flow.greater added (with flow.> alias)
+    - flow.' alias added for flow.sync
+- tl.t alias added for tl.toggle
+- tl.b alias added for tl.bang
+- duplicate method added to ui.preset and preset.storage
+- random.i alias added for random.int
+- random.f alias added for random.float
+- preset.f alias added for preset.float
+- preset.s alias added for preset.symbol
+- preset.l alias added for preset.list
+- metro.random added
+- math module added:
+  - pi alias added for math.pi and argument added [pi 2] means two-pi value
+  - math.pi~ added (with pi~ alias)
+  - "-x" alias added for math.neg
+  - ^2 alias added for math.squared
+  - math.squared~ (with math.^2~ and ^2~ aliases) added
+  - math.reciprocal~ (with 1/x~ alias) added
+  - math.exp2~ added
+  - math.exp~ added
+  - math.gamma and math.gamma~ added
+  - math.lgamma and math.lgamma~ added
+  - math.erf and math.erf~ added
+  - math.sin~ added
+  - math.asin~ added
+  - math.sinh~ added
+  - math.asinh~ added
+  - math.cos~ added
+  - math.acos~ added
+  - math.cosh~ added
+  - math.acosh~ added
+  - math.ceil~ added
+  - math.floor~ added
+  - math.trunc~ added
+  - math.log2~ added
+  - math.log~ added
+  - math.log10~ added
+  - math.tan~ added
+  - math.atan~ added
+  - math.tanh~ added
+  - math.atanh~ added
+  - math.cbrt~ added
+- complex math for signals added:
+  - math.cabs~
+  - math.carg~
+  - math.cexp~
+- converters module:
+  - conv.lin2lin~ (with lin->lin~ and l->l~ aliases) added
+  - conv.amp2dbfs~ (with amp->dbfs~ alias) added
+  - conv.samp2ms (with samp->ms alias) added
+  - conv.samp2ms~ (with samp->ms~ alias) added
+  - conv.ms2samp (with ms->samp alias) added
+  - conv.ms2samp~ (with ms->samp~ alias) added
+- chaos.gbman0 chaotic generator added
+- chaos.gbman0~ chaotic generator added
+- chaos.std0 chaotic generator added
+- chaos.std0~ chaotic generator added
+- chaos.logistic alias added for noise.logistic
+- noise.logistic documentation added
+- list.contains @all_of, @any_of, @none_of, @sublist (default) properties added
+- list.resample (with alias list.r) added
+- is_data @in_list property added to search data inside list
+- path.is_dir added
+- flt.freqz~ (amp/phase frequency response calculator)
+- snd.file load options added:
+  - @gain (or @g) - to apply gain. use like: @gain 0.5 or @gain +2.4db
+  - @begin (or @b) - to specify start read position in input file
+  - @end (or @e) - to specify end position
+  - @length (or @l, @len) - to specify read segment length (cannot be used simultaneously with @end)
+  - @normalize (or @n, @norm) - to normalize file right after loading
+  - @gain (or @g) - to specify applied gain in amp or db
+  - @aoffset (or @aoff) - to specify write offset position in destination array
+  - @resample - to specify data resampling while loading
+- array.resample (with alias array.r) added. Resamples array with SoxR library
+- plot.linspace~ added
+- plot.logspace~ added
+- plot.geomspace~ added
+- plot.hist~ added (with hist~ alias)
+- plot.response~ added
+- ui.plot~ added
+- nsig~ multichannel control to audio rate converter
+
+### Changed:
+- flow.sync bang output on unitialized value
+- system.shell renamed to system.exec because it not used shell any more
+
+### Fixed:
+- ui.tab init from args fixed
+- ui.menu init from args fixed
+- ui.menu outputs numeric labels as numbers not as symbols as before
+- flt.bpf12~ non-stability fixed (by using double precision)
+- flt.bpf24~ non-stability fixed (by using double precision)
+- using puredata-ceammc.png icon when running on linux
+- soundtouch~ installation fixed on linux
+- flt.biquad~ fixed
+
 ## [0.8]
 ### Added:
 - conv.car2pol converter from Cartesian to Polar coordinates added (with alias car->pol)

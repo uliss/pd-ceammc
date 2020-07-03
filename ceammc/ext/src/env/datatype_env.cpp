@@ -1,6 +1,6 @@
 #include "datatype_env.h"
 #include "ceammc_convert.h"
-#include "ceammc_datatypes.h"
+#include "ceammc_datastorage.h"
 #include "ceammc_log.h"
 
 #include "../string/tinyformat.h"
@@ -156,7 +156,7 @@ static bool isValidSustain(const Atom& p)
         }                                                    \
     }
 
-DataType DataTypeEnv::dataType = data::DATA_ENVELOPE;
+int DataTypeEnv::dataType = DataStorage::instance().registerNewType("Env");
 
 DataTypeEnv::DataTypeEnv()
 {
@@ -172,9 +172,9 @@ DataTypeEnv::DataTypeEnv(DataTypeEnv&& env)
 {
 }
 
-DataType DataTypeEnv::type() const
+int DataTypeEnv::type() const noexcept
 {
-    return data::DATA_ENVELOPE;
+    return dataType;
 }
 
 static const char* to_string(CurveType t)
@@ -200,7 +200,7 @@ std::string DataTypeEnv::toString() const
     return res;
 }
 
-bool DataTypeEnv::isEqual(const AbstractData* d) const
+bool DataTypeEnv::isEqual(const AbstractData* d) const noexcept
 {
     if (d->type() != dataType)
         return false;
@@ -1060,7 +1060,7 @@ AtomList EnvelopePoint::toList() const
     AtomList res;
     res.fill(Atom(), 7);
 
-    res[0] = gensym(SYM_ENVELOPE_POINT);
+    res[0].setSymbol(gensym(SYM_ENVELOPE_POINT), true);
     res[1] = Atom(utime);
     res[2] = Atom(value);
     res[3] = Atom(data);

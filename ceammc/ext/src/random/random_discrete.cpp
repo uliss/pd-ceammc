@@ -13,9 +13,11 @@ RandomDiscrete::RandomDiscrete(const PdArgs& a)
     createOutlet();
 
     // the interval boundaries interleaved with weights
-    createCbProperty("@weights", &RandomDiscrete::propWeights, &RandomDiscrete::setPropWeights);
-    if (!positionalArguments().empty())
-        set(positionalArguments());
+    createCbListProperty(
+        "@weights",
+        [this]() -> AtomList { return propWeights(); },
+        [this](const AtomList& l) -> bool { setPropWeights(l); return true; })
+        ->setArgIndex(0);
 }
 
 void RandomDiscrete::onBang()
@@ -81,7 +83,7 @@ bool RandomDiscrete::set(const AtomList& l)
     return true;
 }
 
-extern "C" void setup_random0x2ediscrete()
+void setup_random_discrete()
 {
     ObjectFactory<RandomDiscrete> obj("random.discrete");
 }

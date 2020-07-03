@@ -1,3 +1,4 @@
+#include "path_exists.h"
 #include "ceammc_factory.h"
 #include "ceammc_object.h"
 #include "ceammc_platform.h"
@@ -13,31 +14,28 @@ static Atom exists(const Atom& a)
     return Atom(platform::path_exists(a.asSymbol()->s_name) ? 1.f : 0.f);
 }
 
-class PathExists : public BaseObject {
-public:
-    PathExists(const PdArgs& a)
-        : BaseObject(a)
-    {
-        createOutlet();
-    }
+PathExists::PathExists(const PdArgs& a)
+    : BaseObject(a)
+{
+    createOutlet();
+}
 
-    void onSymbol(t_symbol* s)
-    {
-        floatTo(0, platform::path_exists(s->s_name) ? 1 : 0);
-    }
+void PathExists::onSymbol(t_symbol* s)
+{
+    boolTo(0, platform::path_exists(s->s_name));
+}
 
-    void onList(const AtomList& l)
-    {
-        listTo(0, l.map(exists));
-    }
+void PathExists::onList(const AtomList& l)
+{
+    listTo(0, l.map(exists));
+}
 
-    void onDataT(const DataTPtr<DataTypeString>& dptr)
-    {
-        floatTo(0, platform::path_exists(dptr->str().c_str()) ? 1 : 0);
-    }
-};
+void PathExists::onDataT(const StringAtom& str)
+{
+    boolTo(0, platform::path_exists(str->str().c_str()));
+}
 
-extern "C" void setup_path0x2eexists()
+void setup_path_exists()
 {
     ObjectFactory<PathExists> obj("path.exists");
     obj.processData<DataTypeString>();

@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="conv.amp2dbfs~">
+        <title>conv.amp2dbfs~</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>convert from amplitude to decibel full scale</description>
+            <license>GPL3 or later</license>
+            <library>ceammc</library>
+            <category>conv</category>
+            <keywords>conv amp dbfs decibel</keywords>
+            <since>0.6</since>
+            <also>
+                <see>dbfs-&gt;amp~</see>
+            </also>
+            <aliases>
+                <alias>amp-&gt;dbfs~</alias>
+            </aliases>
+        </meta>
+        <info>
+            <par>formulae: 20 * log10(amp)</par>
+            <par>Note: amplitude value &lt;=0 is converted to -144 db (24-bit range)</par>
+        </info>
+        <inlets>
+            <inlet type="audio">
+                <xinfo>input signal</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet type="audio">converted signal</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[bang(
+|
+[plot.linspace~ 1 -0.1]
+|                    ^|
+[amp->dbfs~]          |
+|                     |.
+[ui.plot~ @ymin -144 @ymax 0 @ylabels 1 @xlabels 1 @size 600 160]
+
+
+
+
+
+
+
+
+
+
+
+[ui.dsp~]
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

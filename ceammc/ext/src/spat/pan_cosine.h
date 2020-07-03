@@ -7,7 +7,7 @@ class PanCosine : public PanBase {
 
 public:
     PanCosine(const PdArgs& args);
-    void processBlock(const t_sample** in, t_sample** out);
+    void processBlock(const t_sample** in, t_sample** out) override;
 };
 
 void setup_pan_cosine();

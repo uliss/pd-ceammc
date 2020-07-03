@@ -14,7 +14,13 @@
 #include "ceammc_array.h"
 #include "m_pd.h"
 
+extern "C" {
+#include "g_canvas.h"
+#include "m_imp.h"
+}
+
 #include <algorithm>
+#include <cmath>
 
 using namespace ceammc;
 
@@ -54,6 +60,14 @@ Array::Array(const char* name, std::initializer_list<t_sample> l)
         if (resize(l.size()))
             std::copy(l.begin(), l.end(), begin());
     }
+}
+
+Array::Array(const Array& array)
+    : name_(array.name_)
+    , array_(array.array_)
+    , size_(array.size_)
+    , data_(array.data_)
+{
 }
 
 Array::iterator Array::begin()
@@ -134,7 +148,7 @@ std::string Array::name() const
     return name_ == 0 ? std::string() : std::string(name_->s_name);
 }
 
-const float& Array::at(size_t n) const
+const t_float& Array::at(size_t n) const
 {
     if (array_ == 0)
         throw Exception("invalid array");
@@ -145,7 +159,7 @@ const float& Array::at(size_t n) const
     return data_[n].w_float;
 }
 
-float& Array::at(size_t n)
+t_float& Array::at(size_t n)
 {
     if (array_ == 0)
         throw Exception("invalid array");
@@ -153,16 +167,6 @@ float& Array::at(size_t n)
     if (n >= size_)
         throw Exception("invalid index");
 
-    return data_[n].w_float;
-}
-
-const float& Array::operator[](size_t n) const
-{
-    return data_[n].w_float;
-}
-
-float& Array::operator[](size_t n)
-{
     return data_[n].w_float;
 }
 
@@ -171,41 +175,29 @@ bool Array::resize(size_t n)
     if (!isValid())
         return false;
 
-    garray_resize_long(array_, n);
+    garray_resize_long(array_, static_cast<long>(n));
     return update();
 }
 
-void Array::copyFrom(const float* src, size_t n)
+void Array::copyFrom(const t_float* src, size_t n)
 {
     std::copy(src, src + std::min(n, size_), begin());
 }
 
-void Array::copyTo(float* dest, size_t n)
+void Array::copyTo(t_float* dest, size_t n)
 {
-    std::copy(begin(), begin() + n, dest);
+    std::copy(begin(), begin() + long(n), dest);
 }
 
-void Array::fillWith(float v)
+void Array::fillWith(t_float v)
 {
     std::fill(begin(), end(), v);
 }
 
-struct SampleGenerator {
-    size_t n;
-    FloatValueGenerator g;
-    SampleGenerator(FloatValueGenerator gen)
-        : n(0)
-        , g(gen)
-    {
-    }
-
-    float operator()() { return g(n++); }
-};
-
 void Array::fillWith(FloatValueGenerator gen)
 {
-    SampleGenerator g(gen);
-    std::generate(begin(), end(), g);
+    size_t n = 0;
+    std::generate(begin(), end(), [&n, gen]() { return gen(n++); });
 }
 
 bool Array::set(const AtomList& l)
@@ -229,7 +221,7 @@ bool Array::set(std::initializer_list<t_sample> l)
     return true;
 }
 
-bool Array::setYBounds(float yBottom, float yTop)
+bool Array::setYBounds(t_float yBottom, t_float yTop)
 {
     static t_symbol* SYM_BOUNDS = gensym("bounds");
 
@@ -242,6 +234,64 @@ bool Array::setYBounds(float yBottom, float yTop)
     SETFLOAT(&args[2], t_float(size_));
     SETFLOAT(&args[3], yBottom);
     pd_typedmess(name_->s_thing, SYM_BOUNDS, 4, args);
+    return true;
+}
+
+bool Array::setYTicks(t_float step, size_t bigN)
+{
+    static t_symbol* SYM_YTICKS = gensym("yticks");
+
+    if (!isValid() || !name_->s_thing)
+        return false;
+
+    t_atom args[4];
+    SETFLOAT(&args[0], 0);
+    SETFLOAT(&args[1], step);
+    SETFLOAT(&args[2], bigN);
+    pd_typedmess(name_->s_thing, SYM_YTICKS, 3, args);
+    return true;
+}
+
+bool Array::setYLabels(const AtomList& labels)
+{
+    static t_symbol* SYM_YLABELS = gensym("ylabel");
+
+    if (!isValid() || !name_->s_thing)
+        return false;
+
+    if (!(*name_->s_thing)->c_gobj)
+        return false;
+
+    auto gl = garray_getglist(array_);
+    t_float el_wd = 1;
+    if (gl)
+        el_wd = t_float(size()) / gl->gl_pixwidth;
+
+    AtomList args(std::round(-4 * el_wd));
+    args.append(labels);
+    pd_typedmess(name_->s_thing, SYM_YLABELS, args.size(), args.toPdData());
+    return true;
+}
+
+bool Array::setSaveInPatch(bool value)
+{
+    if (array_) {
+        garray_setsaveit(array_, value ? 1 : 0);
+        return true;
+    } else
+        return false;
+}
+
+bool Array::normalize(t_float f)
+{
+    static t_symbol* SYM_NORMALIZE = gensym("normalize");
+
+    if (!isValid() || !name_->s_thing)
+        return false;
+
+    t_atom arg;
+    SETFLOAT(&arg, f);
+    pd_typedmess(name_->s_thing, SYM_NORMALIZE, 1, &arg);
     return true;
 }
 
@@ -269,69 +319,6 @@ ArrayIterator& ArrayIterator::operator=(const ArrayIterator& i)
 {
     data_ = i.data_;
     return *this;
-}
-
-float& ArrayIterator::operator*()
-{
-    return data_->w_float;
-}
-
-const float& ArrayIterator::operator*() const
-{
-    return data_->w_float;
-}
-
-float& ArrayIterator::operator[](const size_t n)
-{
-    return data_[n].w_float;
-}
-
-ceammc::ArrayIterator& ceammc::ArrayIterator::operator++()
-{
-    ++data_;
-    return *this;
-}
-
-ArrayIterator& ArrayIterator::operator--()
-{
-    --data_;
-    return *this;
-}
-
-ArrayIterator ArrayIterator::operator++(int)
-{
-    ArrayIterator tmp(*this);
-    ++data_;
-    return tmp;
-}
-
-ArrayIterator ArrayIterator::operator--(int)
-{
-    ArrayIterator tmp(*this);
-    --data_;
-    return tmp;
-}
-
-ArrayIterator& ArrayIterator::operator+=(difference_type v)
-{
-    data_ += v;
-    return *this;
-}
-
-ArrayIterator& ArrayIterator::operator-=(difference_type v)
-{
-    data_ -= v;
-    return *this;
-}
-
-ArrayIterator ArrayIterator::operator+(difference_type v)
-{
-    return ArrayIterator(data_ + v);
-}
-
-ArrayIterator ArrayIterator::operator-(difference_type v)
-{
-    return ArrayIterator(data_ - v);
 }
 
 ArrayIterator::difference_type ArrayIterator::operator-(const ArrayIterator& it) const

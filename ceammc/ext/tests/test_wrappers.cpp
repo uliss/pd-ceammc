@@ -30,12 +30,3 @@ Atom test_atom_wrap(const Atom& v)
 {
     return v;
 }
-Atom test_atom_wrap(const DataPtr& d)
-{
-    return d.asAtom();
-}
-
-Atom D(DataType t, DataId id)
-{
-    return Atom(DataDesc(t, id));
-}

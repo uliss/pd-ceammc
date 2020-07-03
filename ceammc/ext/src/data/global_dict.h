@@ -19,14 +19,13 @@
 
 using namespace ceammc;
 
-typedef DictIFace<GlobalBase<DataTypeDict>> GlobalDictBase;
+typedef DictIFace<GlobalBase<DictAtom>> GlobalDictBase;
 
 class GlobalDict : public GlobalDictBase {
 public:
     GlobalDict(const PdArgs& args);
-
-    DataTypeDict& dict() final { return ref(); }
-    const DataTypeDict& dict() const final { return ref(); }
+    const DictAtom& dict() const final { return ref(); }
+    DictAtom& dict() final { return ref(); }
 };
 
 void setup_global_dict();

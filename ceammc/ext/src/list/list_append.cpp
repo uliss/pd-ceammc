@@ -12,71 +12,53 @@
  * this file belongs to.
  *****************************************************************************/
 #include "list_append.h"
-#include "datatype_mlist.h"
 #include "ceammc_factory.h"
+#include "datatype_mlist.h"
 
 ListAppend::ListAppend(const PdArgs& args)
     : BaseObject(args)
-    , lst_(args.args)
+    , lst_(nullptr)
 {
+    lst_ = new ListProperty("@value");
+    lst_->setArgIndex(0);
+    addProperty(lst_);
+
     createInlet();
     createOutlet();
 }
 
-void ListAppend::parseProperties()
-{
-    // empty
-}
-
 void ListAppend::onBang()
 {
-    // bang processed as empty list
-    listTo(0, lst_.toList());
-}
-
-void ListAppend::onFloat(t_float f)
-{
-    onList(AtomList(f));
-}
-
-void ListAppend::onSymbol(t_symbol* s)
-{
-    onList(AtomList(s));
+    listTo(0, lst_->value());
 }
 
 void ListAppend::onList(const AtomList& lst)
 {
-    AtomList res(lst);
-    res.reserve(lst.size() + lst_.size());
-    res.append(lst_.toList());
-    listTo(0, res);
+    listTo(0, lst + lst_->value());
 }
 
-void ListAppend::onData(const DataPtr& d)
+void ListAppend::onDataT(const MListAtom& d)
 {
-    if (d.isValid() && d->type() == DataTypeMList::dataType) {
-        auto lst = d->as<DataTypeMList>();
-        if (!lst) {
-            OBJ_ERR << "invalid data pointer: " << d.data();
-            return;
-        }
+    MListAtom ml = d;
+    ml.detachData();
+    ml->append(lst_->value());
+    atomTo(0, ml);
+}
 
-        auto res = new DataTypeMList(*lst);
-        DataPtr dptr(res);
-
-        res->append(lst_);
-        dataTo(0, dptr);
-    } else
-        onList(AtomList(d.asAtom()));
+void ListAppend::onData(const Atom& d)
+{
+    onList(d);
 }
 
 void ListAppend::onInlet(size_t n, const AtomList& lst)
 {
-    lst_.set(lst);
+    lst_->set(lst);
 }
 
 void setup_list_append()
 {
     ObjectFactory<ListAppend> obj("list.append");
-    obj.processData();
+    obj.processData<DataTypeMList>();
+    obj.useDefaultPdFloatFn();
+    obj.useDefaultPdSymbolFn();
 }

@@ -13,10 +13,12 @@
  *****************************************************************************/
 #include "dict_each.h"
 #include "ceammc_factory.h"
+#include "ceammc_format.h"
 #include "datatype_dict.h"
 
 DictEach::DictEach(const PdArgs& args)
-    : BaseObject(args)
+    : DictBase(args)
+    , current_key_(&s_)
 {
     createInlet();
     createOutlet();
@@ -26,35 +28,25 @@ DictEach::DictEach(const PdArgs& args)
 void DictEach::onInlet(size_t n, const AtomList& lst)
 {
     if (lst.isData())
-        dict_.insert(current_key_, DataAtom(lst[0]));
+        dict_->insert(current_key_, lst[0]);
     else if (lst.isList())
-        dict_.insert(current_key_, lst);
-    else if (lst.size() == 1)
-        dict_.insert(current_key_, lst[0]);
+        dict_->insert(current_key_, lst);
+    else if (lst.isAtom())
+        dict_->insert(current_key_, lst[0]);
     else
         return; // skip empty values
 }
 
-void DictEach::onDataT(const DataTPtr<DataTypeDict>& dptr)
+void DictEach::onDataT(const DictAtom& dict)
 {
-    dict_.clear();
+    dict_->clear();
 
-    const DataTypeDict::DictMap& dict = dptr->innerData();
-    for (auto& kv : dict) {
+    for (auto& kv : *dict) {
         current_key_ = kv.first;
-        auto val = kv.second;
-
-        if (val.type() == typeid(Atom))
-            atomTo(1, boost::get<Atom>(val));
-        else if (val.type() == typeid(AtomList))
-            listTo(1, boost::get<AtomList>(val));
-        else if (val.type() == typeid(DataAtom)) {
-            const DataAtom& datom = boost::get<DataAtom>(val);
-            to_outlet(outletAt(1), datom);
-        }
+        listTo(1, kv.second);
     }
 
-    dataTo(0, DataTPtr<DataTypeDict>(dict_));
+    atomTo(0, dict_);
 }
 
 void setup_dict_each()

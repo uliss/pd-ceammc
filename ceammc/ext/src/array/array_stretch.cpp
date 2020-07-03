@@ -77,87 +77,92 @@ public:
 
 ArrayStretch::ArrayStretch(const PdArgs& a)
     : BaseObject(a)
-    , src_array_name_(positionalSymbolArgument(0))
-    , dest_array_name_(positionalSymbolArgument(1))
+    , src_array_name_(&s_)
+    , dest_array_name_(&s_)
     , speech_(false)
-    , pitch_(0)
-    , tempo_(0)
-    , rate_(0)
+    , pitch_(nullptr)
+    , tempo_(nullptr)
+    , rate_(nullptr)
     , soundtouch_(new PdSoundTouch())
 {
     createOutlet();
 
     pitch_ = new FloatProperty("@pitch", 0);
-    pitch_->info().setUnits(PropertyInfoUnits::SEMITONE);
+    pitch_->setUnits(PropValueUnits::SEMITONE);
     tempo_ = new FloatProperty("@tempo", 0);
-    tempo_->info().setUnits(PropertyInfoUnits::PERCENT);
+    tempo_->setUnits(PropValueUnits::PERCENT);
     rate_ = new FloatProperty("@rate", 1);
 
-    createProperty(pitch_);
-    createProperty(tempo_);
-    createProperty(rate_);
+    addProperty(pitch_);
+    addProperty(tempo_);
+    addProperty(rate_);
 
-    if (src_array_name_)
-        src_array_.open(src_array_name_);
+    createCbSymbolProperty(
+        "@src",
+        [this]() -> t_symbol* { return src_array_name_; },
+        [this](t_symbol* s) -> bool { return setSrcArray(s); })
+        ->setArgIndex(0);
 
-    if (dest_array_name_)
-        dest_array_.open(dest_array_name_);
-
-    createCbProperty("@src", &ArrayStretch::propSrcArray, &ArrayStretch::propSetSrcArray);
-    property("@src")->info().setType(PropertyInfoType::SYMBOL);
-    createCbProperty("@dest", &ArrayStretch::propDestArray, &ArrayStretch::propSetDestArray);
-    property("@dest")->info().setType(PropertyInfoType::SYMBOL);
+    createCbSymbolProperty(
+        "@dest",
+        [this]() -> t_symbol* { return dest_array_name_; },
+        [this](t_symbol* s) -> bool { return setDestArray(s); })
+        ->setArgIndex(1);
 
     // time-stretch params
     // @sequence
-    createCbProperty(PROP_SEQUENCE->s_name,
-        &ArrayStretch::propSequence,
-        &ArrayStretch::propSetSequence);
-    property(PROP_SEQUENCE)->info().setType(PropertyInfoType::INTEGER);
-    property(PROP_SEQUENCE)->info().setDefault(0);
-    property(PROP_SEQUENCE)->info().setRange(0, 100);
-    property(PROP_SEQUENCE)->info().setUnits(PropertyInfoUnits::MSEC);
+    Property* pseq = createCbIntProperty(
+        PROP_SEQUENCE->s_name,
+        [this]() -> int { return soundtouch_->getSetting(SETTING_SEQUENCE_MS); },
+        [this](int v) -> bool { return soundtouch_->setSetting(SETTING_SEQUENCE_MS, v); });
+    pseq->setIntCheck(PropValueConstraints::CLOSED_RANGE, 0, 100);
+    pseq->setUnitsMs();
 
     // @seekwindow
-    createCbProperty(PROP_SEEK_WINDOW->s_name,
-        &ArrayStretch::propSeekWindow,
-        &ArrayStretch::propSetSeekWindow);
-    property(PROP_SEEK_WINDOW)->info().setType(PropertyInfoType::INTEGER);
-    property(PROP_SEEK_WINDOW)->info().setDefault(0);
-    property(PROP_SEEK_WINDOW)->info().setRange(0, 100);
-    property(PROP_SEEK_WINDOW)->info().setUnits(PropertyInfoUnits::MSEC);
+    Property* seekwindow = createCbIntProperty(
+        PROP_SEEK_WINDOW->s_name,
+        [this]() -> int { return soundtouch_->getSetting(SETTING_SEEKWINDOW_MS); },
+        [this](int v) -> bool { return soundtouch_->setSetting(SETTING_SEEKWINDOW_MS, v); });
+    seekwindow->setIntCheck(PropValueConstraints::CLOSED_RANGE, 0, 100);
+    seekwindow->setUnitsMs();
 
     // @overlap
-    createCbProperty(PROP_OVERLAP->s_name,
-        &ArrayStretch::propOverlap,
-        &ArrayStretch::propSetOverlap);
-    property(PROP_OVERLAP)->info().setType(PropertyInfoType::INTEGER);
-    property(PROP_OVERLAP)->info().setDefault(8);
-    property(PROP_OVERLAP)->info().setRange(1, 100);
-    property(PROP_OVERLAP)->info().setUnits(PropertyInfoUnits::MSEC);
+    Property* overlap = createCbIntProperty(
+        PROP_OVERLAP->s_name,
+        [this]() -> int { return soundtouch_->getSetting(SETTING_OVERLAP_MS); },
+        [this](int v) -> bool { return soundtouch_->setSetting(SETTING_OVERLAP_MS, v); });
+    overlap->setIntCheck(PropValueConstraints::CLOSED_RANGE, 0, 100);
+    overlap->setUnitsMs();
 
     // pitch-shift params
     // antialias
-    createCbProperty(PROP_ANTIALIAS->s_name,
-        &ArrayStretch::propAnitAlias,
-        &ArrayStretch::propSetAntiAlias);
-    property(PROP_ANTIALIAS)->info().setType(PropertyInfoType::BOOLEAN);
-    property(PROP_ANTIALIAS)->info().setDefault(true);
+    createCbBoolProperty(
+        PROP_ANTIALIAS->s_name,
+        [this]() -> bool { return soundtouch_->getSetting(SETTING_USE_AA_FILTER); },
+        [this](bool b) -> bool { return soundtouch_->setSetting(SETTING_USE_AA_FILTER, b); });
 
     // antialias length
-    createCbProperty(PROP_ANTIALIAS_LENGTH->s_name,
-        &ArrayStretch::propAnitAliasLength,
-        &ArrayStretch::propSetAntiAliasLength);
-    property(PROP_ANTIALIAS_LENGTH)->info().setType(PropertyInfoType::INTEGER);
-    property(PROP_ANTIALIAS_LENGTH)->info().setDefault(64);
-    property(PROP_ANTIALIAS_LENGTH)->info().setRange(8, 128);
+    auto alen = createCbIntProperty(
+        PROP_ANTIALIAS_LENGTH->s_name,
+        [this]() -> int { return soundtouch_->getSetting(SETTING_AA_FILTER_LENGTH); },
+        [this](int v) -> bool { return soundtouch_->setSetting(SETTING_AA_FILTER_LENGTH, v); });
+    alen->setIntCheck(PropValueConstraints::CLOSED_RANGE, 8, 128);
 
     // optimise for speech
-    createCbProperty(PROP_SPEECH->s_name,
-        &ArrayStretch::propSpeech,
-        &ArrayStretch::propSetSpeech);
-    property(PROP_SPEECH)->info().setType(PropertyInfoType::BOOLEAN);
-    property(PROP_SPEECH)->info().setDefault(false);
+    createCbBoolProperty(
+        PROP_SPEECH->s_name,
+        [this]() -> bool { return speech_; },
+        [this](bool b) -> bool {
+            speech_ = b;
+
+            if (speech_) {
+                soundtouch_->setSetting(SETTING_SEQUENCE_MS, 40);
+                soundtouch_->setSetting(SETTING_SEEKWINDOW_MS, 15);
+                soundtouch_->setSetting(SETTING_OVERLAP_MS, 8);
+            }
+
+            return true;
+        });
 }
 
 void ArrayStretch::onBang()
@@ -209,36 +214,6 @@ void ArrayStretch::onBang()
     floatTo(0, out_array.size());
 }
 
-AtomList ArrayStretch::propSrcArray() const
-{
-    return AtomList(src_array_name_ ? src_array_name_ : Atom());
-}
-
-AtomList ArrayStretch::propDestArray() const
-{
-    return AtomList(dest_array_name_ ? dest_array_name_ : Atom());
-}
-
-void ArrayStretch::propSetSrcArray(const AtomList& l)
-{
-    if (l.empty() || !l[0].isSymbol()) {
-        OBJ_ERR << "source array name required";
-        return;
-    }
-
-    setSrcArray(l[0].asSymbol());
-}
-
-void ArrayStretch::propSetDestArray(const AtomList& l)
-{
-    if (l.empty() || !l[0].isSymbol()) {
-        OBJ_ERR << "destination array name required";
-        return;
-    }
-
-    setDestArray(l[0].asSymbol());
-}
-
 bool ArrayStretch::setSrcArray(t_symbol* s)
 {
     src_array_name_ = s;
@@ -261,92 +236,13 @@ bool ArrayStretch::setDestArray(t_symbol* s)
     return true;
 }
 
-AtomList ArrayStretch::propAnitAlias() const
-{
-    return Atom(soundtouch_->getSetting(SETTING_USE_AA_FILTER));
-}
-
-void ArrayStretch::propSetAntiAlias(const AtomList& l)
-{
-    if (!checkArgs(l, ARG_BOOL, gensym("@antialias")))
-        return;
-
-    soundtouch_->setSetting(SETTING_USE_AA_FILTER, l[0].asInt());
-}
-
-AtomList ArrayStretch::propAnitAliasLength() const
-{
-    return Atom(soundtouch_->getSetting(SETTING_AA_FILTER_LENGTH));
-}
-
-void ArrayStretch::propSetAntiAliasLength(const AtomList& l)
-{
-    if (!checkArgs(l, ARG_FLOAT, PROP_ANTIALIAS_LENGTH))
-        return;
-
-    int len = clip<int>(l[0].asInt(), 8, 128);
-    soundtouch_->setSetting(SETTING_AA_FILTER_LENGTH, len);
-}
-
-AtomList ArrayStretch::propSequence() const
-{
-    return Atom(soundtouch_->getSetting(SETTING_SEQUENCE_MS));
-}
-
-void ArrayStretch::propSetSequence(const AtomList& ms)
-{
-    if (!checkArgs(ms, ARG_FLOAT, PROP_SEQUENCE))
-        return;
-
-    int sequence = clip<int>(ms[0].asInt(), 0, 100);
-    soundtouch_->setSetting(SETTING_SEQUENCE_MS, sequence);
-}
-
-AtomList ArrayStretch::propSeekWindow() const
-{
-    return Atom(soundtouch_->getSetting(SETTING_SEEKWINDOW_MS));
-}
-
-void ArrayStretch::propSetSeekWindow(const AtomList& ms)
-{
-    if (!checkArgs(ms, ARG_FLOAT, PROP_SEEK_WINDOW))
-        return;
-
-    int sw = clip<int>(ms[0].asInt(), 0, 100);
-    soundtouch_->setSetting(SETTING_SEEKWINDOW_MS, sw);
-}
-
-AtomList ArrayStretch::propOverlap() const
-{
-    return Atom(soundtouch_->getSetting(SETTING_OVERLAP_MS));
-}
-
 void ArrayStretch::propSetOverlap(const AtomList& ms)
 {
     if (!checkArgs(ms, ARG_FLOAT, PROP_OVERLAP))
         return;
 
     int overlap = clip<int>(ms[0].asInt(), 1, 100);
-    soundtouch_->setSetting(SETTING_OVERLAP_MS, overlap);
-}
-
-AtomList ArrayStretch::propSpeech() const
-{
-    return Atom(speech_ ? 1 : 0);
-}
-
-void ArrayStretch::propSetSpeech(const AtomList& l)
-{
-    if (l.empty())
-        speech_ = true;
-    else
-        speech_ = l[0].asInt(0) != 0;
-
-    if (speech_) {
-        soundtouch_->setSetting(SETTING_SEQUENCE_MS, 40);
-        soundtouch_->setSetting(SETTING_SEEKWINDOW_MS, 15);
-        soundtouch_->setSetting(SETTING_OVERLAP_MS, 8);
-    }
+    ;
 }
 
 void ArrayStretch::setupSoundTouch()
@@ -361,7 +257,7 @@ void ArrayStretch::setupSoundTouch()
     soundtouch_->setRate(rate_->value());
 }
 
-extern "C" void setup_array0x2estretch()
+void setup_array_stretch()
 {
     PROP_SEQUENCE = gensym("@sequence");
     PROP_SEEK_WINDOW = gensym("@seekwindow");
@@ -372,5 +268,5 @@ extern "C" void setup_array0x2estretch()
 
     ObjectFactory<ArrayStretch> obj("array.stretch");
     soundtouch::SoundTouch st;
-    LIB_DBG << " SoundTouch " << st.getVersionString();
+    LIB_DBG << "SoundTouch " << st.getVersionString();
 }

@@ -14,14 +14,12 @@
 #ifndef LIST_XSEARCH_H
 #define LIST_XSEARCH_H
 
-#include "datatype_mlist.h"
-#include "ceammc_dataatomlist.h"
 #include "ceammc_object.h"
 
 using namespace ceammc;
 
 class ListXSearch : public BaseObject {
-    DataAtomList lst_;
+    AtomList lst_;
     SizeTProperty* start_;
     IntProperty* end_;
 
@@ -31,27 +29,13 @@ public:
     void onFloat(t_float f) override;
     void onSymbol(t_symbol* s) override;
     void onList(const AtomList& lst) override;
-    void onData(const DataPtr& ptr) override;
+    void onData(const Atom& a) override;
 
     void onInlet(size_t n, const AtomList& lst) override;
 
 private:
-    void output(long idx);
-    size_t end() const;
-
-    template <typename T>
-    void search(const T& v);
+    void search(const Atom& a);
 };
-
-template <typename T>
-void ListXSearch::search(const T& v)
-{
-    auto mlist = lst_.asSingle<DataTypeMList>();
-    if (mlist)
-        output(mlist->data().search(v, start_->value(), end()));
-    else
-        output(lst_.search(v, start_->value(), end()));
-}
 
 void setup_list_xsearch();
 

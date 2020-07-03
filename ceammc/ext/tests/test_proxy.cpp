@@ -45,8 +45,6 @@ typedef PdListProxy<TestProxy> TestListProxy;
 
 TEST_CASE("proxy", "[ceammc::proxy]")
 {
-    pd_init();
-
     SECTION("float")
     {
         TestProxy t;

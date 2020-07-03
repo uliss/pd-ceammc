@@ -22,22 +22,23 @@
 
 MathExpr::MathExpr(const PdArgs& args)
     : BaseObject(args)
-    , ast_(0)
+    , ast_(nullptr, ast_free)
 {
-    expr_ = to_string(positionalArguments(), "");
-
-    updateAST();
+    createCbListProperty(
+        "@expr",
+        [this]() -> AtomList { return Atom(gensym(expr_.c_str())); },
+        [this](const AtomList& l) -> bool {
+            expr_ = to_string(l, "");
+            updateAST();
+            return true;
+        })
+        ->setArgIndex(0);
 
     createInlet();
     createOutlet();
-
-    createCbProperty("@expr", &MathExpr::propExpr, &MathExpr::propSetExpr);
 }
 
-MathExpr::~MathExpr()
-{
-    ast_free(ast_);
-}
+MathExpr::~MathExpr() = default;
 
 void MathExpr::onFloat(t_float v)
 {
@@ -46,16 +47,16 @@ void MathExpr::onFloat(t_float v)
         return;
     }
 
-    if (!ast_ok(ast_)) {
+    if (!ast_ok(ast_.get())) {
         OBJ_ERR << "invalid AST: not parsed...";
         return;
     }
 
-    ast_clear_vars(ast_);
-    ast_bind_var(ast_, 0, v);
+    ast_clear_vars(ast_.get());
+    ast_bind_var(ast_.get(), 0, v);
 
     double res = 0;
-    int err = ast_eval(ast_, &res);
+    int err = ast_eval(ast_.get(), &res);
     if (err) {
         OBJ_ERR << "eval error";
         return;
@@ -66,19 +67,19 @@ void MathExpr::onFloat(t_float v)
 
 void MathExpr::onInlet(size_t n, const AtomList& lst)
 {
-    expr_ = to_string(lst, "");
-    updateAST();
+    setProperty("@expr", lst);
 }
 
 void MathExpr::onList(const AtomList& lst)
 {
     //  bind vars
-    ast_clear_vars(ast_);
-    for (size_t i = 0; i < std::min<size_t>(10, lst.size()); i++)
-        ast_bind_var(ast_, i, lst[i].asFloat());
+    ast_clear_vars(ast_.get());
+    auto NVARS = std::min<size_t>(10, lst.size());
+    for (size_t i = 0; i < NVARS; i++)
+        ast_bind_var(ast_.get(), i, lst[i].asFloat());
 
     double res = 0;
-    int err = ast_eval(ast_, &res);
+    int err = ast_eval(ast_.get(), &res);
     if (err) {
         OBJ_ERR << "eval error";
         return;
@@ -87,26 +88,11 @@ void MathExpr::onList(const AtomList& lst)
     floatTo(0, res);
 }
 
-AtomList MathExpr::propExpr() const
-{
-    return Atom(gensym(expr_.c_str()));
-}
-
-void MathExpr::propSetExpr(const AtomList& lst)
-{
-    expr_ = to_string(lst, "");
-    updateAST();
-}
-
 void MathExpr::updateAST()
 {
-    if (ast_) {
-        ast_free(ast_);
-    }
+    ast_.reset(ast_new());
 
-    ast_ = ast_new();
-
-    int err = math_expr_parse_ast(ast_, expr_.c_str());
+    int err = math_expr_parse_ast(ast_.get(), expr_.c_str());
     if (err)
         return;
 }

@@ -11,6 +11,7 @@ set(BASE_SOURCES
     function_call.cpp
     load_msg.cpp
     metro_pattern.cpp
+    metro_random.cpp
     metro_seq.cpp
     msg.cpp
     msg_after.cpp
@@ -51,19 +52,15 @@ list(APPEND BASE_SOURCES
     gain.cpp
     matrix.cpp
     mix.cpp
+    nsig_tilde.cpp
     xfade_tilde.cpp
     xfade2_tilde.cpp)
 
-if(TARGET ceammc_sound)
-    add_definitions(-DWITH_SND_FILE)
-    list(APPEND BASE_SOURCES snd_file.cpp)
-endif()
-
 add_library(ceammc_base STATIC mod_base.cpp ${BASE_SOURCES})
-if(UNIX)
-    set_target_properties(ceammc_base PROPERTIES COMPILE_FLAGS "-fPIC")
-endif()
+target_compile_definitions(ceammc_base PUBLIC -DWITH_SND_FILE)
+target_sources(ceammc_base PRIVATE snd_file.cpp)
+target_include_directories(ceammc_base PRIVATE "$<TARGET_PROPERTY:fmt,INCLUDE_DIRECTORIES>")
 
 # separate extension:
-# becaust it use CEAMMC Pd API
+# because it use CEAMMC Pd API
 ceammc_cxx_extension(debug gensym)

@@ -17,13 +17,13 @@
 #include "array_base.h"
 
 class ArrayHist : public ArrayBase {
-    SizeTPropertyClosedRange* nbins_;
+    IntProperty* nbins_;
     FloatProperty* min_;
     FloatProperty* max_;
 
 public:
     ArrayHist(const PdArgs& args);
-    void onBang();
+    void onBang() override;
 };
 
 void setup_array_hist();

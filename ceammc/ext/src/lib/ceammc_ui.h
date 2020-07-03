@@ -3,7 +3,6 @@
 
 #include "ceammc_atomlist.h"
 #include "ceammc_cicm.h"
-#include "ceammc_data.h"
 #include "ceammc_externals.h"
 #include "ceammc_format.h"
 #include "ceammc_log.h"
@@ -866,7 +865,7 @@ public:
 
         // invalidate mouse pointer coord on mouseLeave to prevent mouseWheel handle
         // when mouse is outside of widget
-        updateMousePos({std::numeric_limits<decltype(t_pt::x)>::max(), std::numeric_limits<decltype(t_pt::y)>::max()});
+        updateMousePos({ std::numeric_limits<decltype(t_pt::x)>::max(), std::numeric_limits<decltype(t_pt::y)>::max() });
 
         outputMouse(z, SYM, true);
         z->onMouseLeave(view, pt, modifiers);
@@ -1163,17 +1162,10 @@ public:
 
     static void onData(UI* z, t_symbol*, int argc, t_atom* argv)
     {
-        AtomList l(argc, argv);
-        if (l.size() == 1 && l[0].isData()) {
-            DataPtr ptr(l[0]);
-            if (ptr.isValid()) {
-                z->onData(ptr);
-            } else {
-                DataDesc desc = l[0].getData();
-                LIB_ERR << "can't get data with type=" << desc.type << " and id=" << desc.id;
-            }
+        if (argc == 1 && Atom::is_data(argv)) {
+            z->onData(Atom(*argv));
         } else {
-            z->onList(l);
+            z->onList(AtomList(argc, argv));
         }
     }
 

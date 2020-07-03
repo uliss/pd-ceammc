@@ -13,6 +13,7 @@
  *****************************************************************************/
 #include "function.h"
 #include "ceammc_factory.h"
+#include "ceammc_output.h"
 
 #include <map>
 #include <stdexcept>
@@ -58,18 +59,13 @@ public:
 
 Function::Function(const PdArgs& a)
     : BaseObject(a)
-    , name_(0)
+    , name_(positionalSymbolConstant(0, nullptr))
 {
-    Atom name = positionalArgument(0, Atom());
-    if (name.isNone() || !name.isSymbol()) {
+    if (!name_)
         throw std::runtime_error("function name required!");
-    }
 
-    name_ = name.asSymbol();
-
-    if (FunctionMap::instance().exists(name_)) {
+    if (FunctionMap::instance().exists(name_))
         throw std::runtime_error("function already exists");
-    }
 
     FunctionMap::instance().add(name_, this);
 
@@ -91,7 +87,7 @@ void Function::onBang()
     bangTo(1);
 }
 
-void Function::onFloat(float f)
+void Function::onFloat(t_float f)
 {
     result_ = Message();
     floatTo(1, f);
@@ -114,7 +110,7 @@ void Function::onInlet(size_t n, const AtomList& l)
 
     result_ = l;
     // output simplified type
-    to_outlet(outletAt(0), l, true);
+    outletAtomList(outletAt(0), l, true);
 }
 
 Message& Function::result()
@@ -137,7 +133,7 @@ Function* Function::function(t_symbol* name)
     return FunctionMap::instance().get(name);
 }
 
-extern "C" void function_setup()
+void function_setup()
 {
     ObjectFactory<Function> f("function");
     f.addAlias("func");

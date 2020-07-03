@@ -38,9 +38,6 @@ public:
     void setupDSP(t_signal** in) override;
 
     void m_cell(t_symbol* s, const AtomList& lst);
-
-    AtomList propRows() const;
-    AtomList propColumns() const;
 };
 
 void setup_base_matrix();

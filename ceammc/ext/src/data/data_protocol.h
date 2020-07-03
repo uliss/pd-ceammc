@@ -18,6 +18,7 @@
 #include "ceammc_format.h"
 #include "ceammc_object.h"
 #include "ceammc_platform.h"
+#include "ceammc_property_callback.h"
 
 #include <fstream>
 
@@ -32,12 +33,12 @@ public:
         static_assert(std::is_base_of<BaseObject, T>::value, "need to be ancestor of BaseObject");
     }
 
-    void m_set(t_symbol* s, const AtomList& lst)
+    void m_set(t_symbol* /*s*/, const AtomList& lst)
     {
         proto_set(lst);
     }
 
-    virtual void proto_set(const AtomList& lst) = 0;
+    virtual void proto_set(const AtomList&) = 0;
 };
 
 template <typename T, typename NumType>
@@ -46,17 +47,18 @@ public:
     NumericIFace(const PdArgs& args)
         : BaseIFace<T>(args)
     {
-        T::createCbProperty("@value", &NumericIFace::propValue);
+        using F = std::function<NumType()>;
+        T::addProperty(new CallbackProperty("@value", F([this]() -> NumType { return value(); }), nullptr));
     }
 
     void onBang() override
     {
-        this->floatTo(0, value());
+        this->floatTo(0, static_cast<NumType>(value()));
     }
 
     void onFloat(t_float f) override
     {
-        value() = f;
+        value() = static_cast<NumType>(f);
         onBang();
     }
 
@@ -75,7 +77,7 @@ public:
         onFloat(l[0].asFloat());
     }
 
-    void onInlet(size_t n, const AtomList& lst) override
+    void onInlet(size_t /*n*/, const AtomList& lst) override
     {
         proto_set(lst);
     }
@@ -123,7 +125,7 @@ public:
         }
 
         t_float v = lst[0].asFloat();
-        if (v == t_float(0)) {
+        if (std::equal_to<t_float>()(v, 0)) {
             METHOD_ERR(s) << "division by zero";
             return;
         }
@@ -131,7 +133,7 @@ public:
         value() /= NumType(v);
     }
 
-    void m_set(t_symbol* s, const AtomList& lst)
+    void m_set(t_symbol* /*s*/, const AtomList& lst)
     {
         proto_set(lst);
     }
@@ -148,7 +150,7 @@ public:
             return;
         }
 
-        value() = lst[0].asFloat();
+        value() = static_cast<NumType>(lst[0].asFloat());
     }
 };
 
@@ -158,13 +160,10 @@ public:
     CollectionIFace(const PdArgs& args)
         : BaseIFace<T>(args)
     {
-        T::createCbProperty("@size", &CollectionIFace::propSize);
-        PropertyInfo& size_info = T::property("@size")->info();
-        size_info.setType(PropertyInfoType::INTEGER);
-        size_info.setMin(0);
+        T::createCbIntProperty("@size", [this]() { return proto_size(); })
+            ->setIntCheck(PropValueConstraints::GREATER_EQUAL, 0);
 
-        T::createCbProperty("@empty", &CollectionIFace::propEmpty);
-        T::property("@empty")->info().setType(PropertyInfoType::BOOLEAN);
+        T::createCbBoolProperty("@empty", [this]() { return proto_size() == 0; });
     }
 
     virtual void proto_add(const AtomList& lst) = 0;
@@ -188,19 +187,9 @@ public:
             METHOD_ERR(s) << "can't remove element at: " << lst;
     }
 
-    void m_clear(t_symbol* s, const AtomList& lst)
+    void m_clear(t_symbol* /*s*/, const AtomList& /*lst*/)
     {
         proto_clear();
-    }
-
-    AtomList propSize() const
-    {
-        return Atom(proto_size());
-    }
-
-    AtomList propEmpty() const
-    {
-        return Atom(proto_size() == 0 ? 1 : 0);
     }
 };
 
@@ -210,13 +199,10 @@ public:
     ListIFace(const PdArgs& args)
         : BaseIFace<T>(args)
     {
-        T::createCbProperty("@size", &ListIFace::propSize);
-        PropertyInfo& size_info = T::property("@size")->info();
-        size_info.setType(PropertyInfoType::INTEGER);
-        size_info.setMin(0);
+        T::createCbIntProperty("@size", [this]() { return proto_size(); })
+            ->setIntCheck(PropValueConstraints::GREATER_EQUAL, 0);
 
-        T::createCbProperty("@empty", &ListIFace::propEmpty);
-        T::property("@empty")->info().setType(PropertyInfoType::BOOLEAN);
+        T::createCbBoolProperty("@empty", [this]() { return proto_size() == 0; });
     }
 
     virtual void proto_append(const AtomList& lst) = 0;
@@ -232,12 +218,12 @@ public:
     virtual void proto_shuffle() = 0;
     virtual size_t proto_size() const = 0;
 
-    void m_append(t_symbol* s, const AtomList& lst)
+    void m_append(t_symbol* /*s*/, const AtomList& lst)
     {
         proto_append(lst);
     }
 
-    void m_prepend(t_symbol* s, const AtomList& lst)
+    void m_prepend(t_symbol* /*s*/, const AtomList& lst)
     {
         proto_prepend(lst);
     }
@@ -263,7 +249,7 @@ public:
             METHOD_ERR(s) << "can't insert to " << lst[0];
     }
 
-    void m_pop(t_symbol* s, const AtomList& lst)
+    void m_pop(t_symbol* s, const AtomList& /*lst*/)
     {
         if (proto_size() < 1) {
             METHOD_ERR(s) << "empty collection";
@@ -294,7 +280,7 @@ public:
             METHOD_ERR(s) << "can't remove element: " << lst[0];
     }
 
-    void m_clear(t_symbol* s, const AtomList& lst)
+    void m_clear(t_symbol* /*s*/, const AtomList& /*lst*/)
     {
         proto_clear();
     }
@@ -309,29 +295,19 @@ public:
         proto_fill(lst[0]);
     }
 
-    void m_sort(t_symbol* s, const AtomList& lst)
+    void m_sort(t_symbol* /*s*/, const AtomList& /*lst*/)
     {
         proto_sort();
     }
 
-    void m_reverse(t_symbol* s, const AtomList& lst)
+    void m_reverse(t_symbol* /*s*/, const AtomList& /*lst*/)
     {
         proto_reverse();
     }
 
-    void m_shuffle(t_symbol* s, const AtomList& lst)
+    void m_shuffle(t_symbol* /*s*/, const AtomList& /*lst*/)
     {
         proto_shuffle();
-    }
-
-    AtomList propSize() const
-    {
-        return Atom(proto_size());
-    }
-
-    AtomList propEmpty() const
-    {
-        return Atom(proto_size() == 0 ? 1 : 0);
     }
 };
 

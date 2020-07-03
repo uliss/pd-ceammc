@@ -84,7 +84,7 @@ bool operator==(const AtomListApprox& la, const AtomList& al)
         if (a0.isSymbol() && a0 != a1)
             return false;
 
-        if (a0.asFloat() != Approx(a1.asFloat()))
+        if (a0.asFloat() != Approx(a1.asFloat()).epsilon(0.1))
             return false;
     }
 

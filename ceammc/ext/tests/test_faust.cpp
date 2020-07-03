@@ -13,6 +13,7 @@
  *****************************************************************************/
 #include "catch.hpp"
 #include "ceammc_faust.h"
+#include "test_external.h"
 
 using namespace ceammc::faust;
 
@@ -36,6 +37,7 @@ t_outlet outlet()
 
 TEST_CASE("Faust", "[ceammc::faust]")
 {
+    PureData::instance();
     SECTION("UIElement")
     {
         UIElement e(UI_BUTTON, "/ui/test", "test");

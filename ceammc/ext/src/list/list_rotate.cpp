@@ -11,8 +11,9 @@ ListRotate::ListRotate(const PdArgs& a)
     createInlet();
     createOutlet();
 
-    step_ = new IntProperty("@step", int(positionalFloatArgument(0, 1)));
-    createProperty(step_);
+    step_ = new IntProperty("@step", 1);
+    step_->setArgIndex(0);
+    addProperty(step_);
 }
 
 void ListRotate::onList(const AtomList& l)
@@ -25,9 +26,11 @@ void ListRotate::onInlet(size_t, const AtomList& step)
     step_->set(step);
 }
 
-void ListRotate::onDataT(const DataTPtr<DataTypeMList>& ml)
+void ListRotate::onDataT(const MListAtom& ml)
 {
-    dataTo(0, DataTPtr<DataTypeMList>(ml->rotateLeft(step_->value() * rotate_dir_)));
+    MListAtom res(*ml);
+    res->rotateLeft(step_->value() * rotate_dir_);
+    atomTo(0, res);
 }
 
 void setup_list_rotate()

@@ -20,6 +20,7 @@
 
 #include <cmath>
 #include <cstddef>
+#include <type_traits>
 
 namespace ceammc {
 namespace window {
@@ -42,147 +43,138 @@ namespace window {
     }
 
     template <class T>
-    inline T triangle(size_t idx, size_t n);
-
-    template <>
-    inline float triangle<float>(size_t idx, size_t n)
+    inline T triangle(size_t idx, size_t n)
     {
-        if (idx >= n || n < 2)
-            return 0.f;
+        static_assert(std::is_floating_point<T>::value, "not a float type");
 
-        return 1 - fabsf(float(2 * idx) / float(n - 1) - 1);
+        if (idx >= n || n < 2)
+            return 0;
+
+        return 1 - std::fabs(T(2 * idx) / T(n - 1) - 1);
     }
 
     template <class T>
     inline T welch(size_t idx, size_t n)
     {
-        if (idx >= n || n < 2)
-            return 0.f;
+        static_assert(std::is_floating_point<T>::value, "not a float type");
 
-        T x = (T(2 * idx) / T(n - 1) - 1);
-        return 1 - x * x;
+        if (idx >= n || n < 2)
+            return 0;
+
+        auto x = ((2 * idx) / double(n - 1) - 1);
+        return static_cast<T>(1 - x * x);
     }
 
     template <class T>
-    inline T hann(size_t idx, size_t n);
-
-    template <>
-    inline float hann<float>(size_t idx, size_t n)
+    inline T hann(size_t idx, size_t n)
     {
-        if (idx >= n || n < 2)
-            return 0.f;
+        static_assert(std::is_floating_point<T>::value, "not a float type");
 
-        return 0.5f * (1 - cosf(float(2.0 * M_PI * idx) / (n - 1)));
+        if (idx >= n || n < 2)
+            return 0;
+
+        return static_cast<T>(0.5 * (1 - std::cos(double(2 * M_PI * idx) / (n - 1))));
     }
 
     template <class T>
-    inline T rect(size_t idx, size_t n);
-
-    template <>
-    inline float rect<float>(size_t /*idx*/, size_t /*n*/)
+    inline T rect(size_t /*idx*/, size_t /*n*/)
     {
         return 1;
     }
 
     template <class T>
-    inline T sine(size_t idx, size_t n);
-
-    template <>
-    inline float sine<float>(size_t idx, size_t n)
+    inline T sine(size_t idx, size_t n)
     {
-        return sinf((M_PI * idx) / float(n - 1));
+        static_assert(std::is_floating_point<T>::value, "not a float type");
+
+        return static_cast<T>(std::sin((M_PI * idx) / double(n - 1)));
     }
 
     template <class T>
-    inline T hamming(size_t idx, size_t n);
-
-    template <>
-    inline float hamming<float>(size_t idx, size_t n)
+    inline T hamming(size_t idx, size_t n)
     {
-        static const float a = 0.54f;
-        static const float b = 1 - a;
-        return a - b * cosf((2 * M_PI * idx) / float(n - 1));
+        static_assert(std::is_floating_point<T>::value, "not a float type");
+
+        constexpr double a = 0.54;
+        constexpr double b = 1 - a;
+        return static_cast<T>(a - b * std::cos((2 * M_PI * idx) / double(n - 1)));
     }
 
     template <class T>
-    inline T blackman(size_t idx, size_t n);
-
-    template <>
-    inline float blackman<float>(size_t idx, size_t n)
+    inline T blackman(size_t idx, size_t n)
     {
-        static const float a = 0.16f;
-        static const float a0 = (1 - a) / 2;
-        static const float a1 = 0.5f;
-        static const float a2 = a / 2;
-        const float N = n - 1;
+        static_assert(std::is_floating_point<T>::value, "not a float type");
 
-        return a0
-            - a1 * cosf((2 * M_PI * idx) / N)
-            + a2 * cosf((4 * M_PI * idx) / N);
+        constexpr double a = 0.16;
+        constexpr double a0 = (1 - a) / 2;
+        constexpr double a1 = 0.5;
+        constexpr double a2 = a / 2;
+        const double N = n - 1;
+
+        return static_cast<T>(a0
+            - a1 * std::cos((2 * M_PI * idx) / N)
+            + a2 * std::cos((4 * M_PI * idx) / N));
     }
 
     template <class T>
-    inline T nuttall(size_t idx, size_t n);
-
-    template <>
-    inline float nuttall<float>(size_t idx, size_t n)
+    inline T nuttall(size_t idx, size_t n)
     {
-        static const float a0 = 0.355768f;
-        static const float a1 = 0.487396f;
-        static const float a2 = 0.144232f;
-        static const float a3 = 0.012604f;
-        const float N = n - 1;
+        static_assert(std::is_floating_point<T>::value, "not a float type");
 
-        return a0
-            - a1 * cosf((2 * M_PI * idx) / N)
-            + a2 * cosf((4 * M_PI * idx) / N)
-            - a3 * cosf((6 * M_PI * idx) / N);
+        constexpr double a0 = 0.355768;
+        constexpr double a1 = 0.487396;
+        constexpr double a2 = 0.144232;
+        constexpr double a3 = 0.012604;
+        const double N = n - 1;
+
+        return static_cast<T>(a0
+            - a1 * std::cos((2 * M_PI * idx) / N)
+            + a2 * std::cos((4 * M_PI * idx) / N)
+            - a3 * std::cos((6 * M_PI * idx) / N));
     }
 
     template <class T>
-    inline T blackman_harris(size_t idx, size_t n);
-
-    template <>
-    inline float blackman_harris<float>(size_t idx, size_t n)
+    inline T blackman_harris(size_t idx, size_t n)
     {
-        static const float a0 = 0.35875f;
-        static const float a1 = 0.48829f;
-        static const float a2 = 0.14128f;
-        static const float a3 = 0.01168f;
-        const float N = n - 1;
+        static_assert(std::is_floating_point<T>::value, "not a float type");
 
-        return a0
-            - a1 * cosf((2 * M_PI * idx) / N)
-            + a2 * cosf((4 * M_PI * idx) / N)
-            - a3 * cosf((6 * M_PI * idx) / N);
+        constexpr double a0 = 0.35875;
+        constexpr double a1 = 0.48829;
+        constexpr double a2 = 0.14128;
+        constexpr double a3 = 0.01168;
+        const double N = n - 1;
+
+        return static_cast<T>(a0
+            - a1 * std::cos((2 * M_PI * idx) / N)
+            + a2 * std::cos((4 * M_PI * idx) / N)
+            - a3 * std::cos((6 * M_PI * idx) / N));
     }
 
     template <class T>
-    inline T flattop(size_t idx, size_t n);
-
-    template <>
-    inline float flattop<float>(size_t idx, size_t n)
+    inline T flattop(size_t idx, size_t n)
     {
-        static const float a0 = 0.21557895f;
-        static const float a1 = 0.41663158f;
-        static const float a2 = 0.27726316f;
-        static const float a3 = 0.08357895f;
-        static const float a4 = 0.00694737f;
-        const float N = n - 1;
+        static_assert(std::is_floating_point<T>::value, "not a float type");
 
-        return a0
-            - a1 * cosf((2 * M_PI * idx) / N)
-            + a2 * cosf((4 * M_PI * idx) / N)
-            - a3 * cosf((6 * M_PI * idx) / N)
-            + a4 * cosf((8 * M_PI * idx) / N);
+        constexpr double a0 = 0.21557895;
+        constexpr double a1 = 0.41663158;
+        constexpr double a2 = 0.27726316;
+        constexpr double a3 = 0.08357895;
+        constexpr double a4 = 0.00694737;
+        const double N = n - 1;
+
+        return static_cast<T>(a0
+            - a1 * std::cos((2 * M_PI * idx) / N)
+            + a2 * std::cos((4 * M_PI * idx) / N)
+            - a3 * std::cos((6 * M_PI * idx) / N)
+            + a4 * std::cos((8 * M_PI * idx) / N));
     }
 
-    template <int SIGMA>
-    inline float gauss(size_t idx, size_t n)
+    template <class T, int SIGMA>
+    inline T gauss(size_t idx, size_t n)
     {
-        const float A = (n - 1) / 2.0f;
-        const float x = (idx - A) / ((float(SIGMA) / 100.f) * A);
-        return expf(-0.5 * x * x);
+        const double A = (n - 1) / double(2);
+        const double x = (idx - A) / ((SIGMA / double(100)) * A);
+        return static_cast<T>(std::exp(-0.5 * x * x));
     }
 }
 }

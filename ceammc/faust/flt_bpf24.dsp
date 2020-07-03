@@ -1,10 +1,11 @@
 declare name "flt.bpf24";
 
-fl = library("filters.lib");
+fi = library("filters.lib");
 ui = library("ceammc_ui.lib");
 ma = library("maths.lib");
+si = library("signals.lib");
 
-process = fl.bandpass(2, freq_low, freq_high)
+process = fi.bandpass(2, freq_low, freq_high)
 with {
     // UI
     freq = ui.freq(1000);
@@ -12,6 +13,6 @@ with {
 
     bandwidth = freq / q;
     halfband = bandwidth / 2.0;
-    freq_low = max(freq - halfband, 0);
-    freq_high = min(freq + halfband, ma.SR * 0.5);
+    freq_low = max(freq - halfband, 20);
+    freq_high = min(freq + halfband, ma.SR * 0.499);
 };

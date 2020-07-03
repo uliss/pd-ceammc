@@ -38,8 +38,8 @@ UIMouseRoute::UIMouseRoute(const PdArgs& args)
 
     for (size_t i = 0; i < ALL_PROPS.size(); i++) {
         BoolProperty* b = new BoolProperty(ALL_FULL_PROPS[i]->s_name, false);
-        createProperty(b);
-        createProperty(new AliasProperty<BoolProperty, bool>(ALL_PROPS[i]->s_name, b, true));
+        addProperty(b);
+        addProperty(new AliasProperty<BoolProperty>(ALL_PROPS[i]->s_name, b, true));
     }
 
     auto toProp = [this](t_symbol* s) {
@@ -124,10 +124,10 @@ void UIMouseRoute::onAny(t_symbol* s, const AtomList& l)
         anyTo(index_, s, l);
 }
 
-void UIMouseRoute::onData(const DataPtr& ptr)
+void UIMouseRoute::onData(const Atom& data)
 {
     if (index_ >= 0)
-        dataTo(index_, ptr);
+        atomTo(index_, data);
 }
 
 void setup_ui_mouse_route()

@@ -17,14 +17,14 @@ Lin2Exp::Lin2Exp(const PdArgs& a)
     createOutlet();
 }
 
-void Lin2Exp::onFloat(float value)
+void Lin2Exp::onFloat(t_float value)
 {
     const t_float x0 = in_from();
     const t_float x1 = in_to();
     const t_float y0 = out_from();
     const t_float y1 = out_to();
 
-    if (doClip(value))
+    if (doClip(value, clipType()))
         return floatTo(0, value);
 
     if (x0 == x1) {
@@ -40,7 +40,7 @@ void Lin2Exp::onFloat(float value)
     floatTo(0, convert::lin2exp(value, x0, x1, y0, y1));
 }
 
-extern "C" void setup_conv0x2elin2exp()
+void setup_conv_lin2exp()
 {
     ObjectFactory<Lin2Exp> obj("conv.lin2exp");
     obj.addAlias("lin->exp");

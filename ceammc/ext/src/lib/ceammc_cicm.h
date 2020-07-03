@@ -54,7 +54,7 @@ public:
         FontDecoration decoration = FONT_DECORATION_NONE,
         FontWeight w = FONT_WEIGHT_NORMAL);
 
-    ~UIFont();
+    ~UIFont() noexcept;
 
     UIFont(const UIFont& font);
     void operator=(const UIFont& font);
@@ -78,9 +78,10 @@ public:
         const ColorRGBA& c = ColorRGBA::black(),
         etextanchor_flags anchor = ETEXT_LEFT,
         etextjustify_flags justify = ETEXT_JLEFT,
-        etextwrap_flags wrap = ETEXT_NOWRAP);
+        etextwrap_flags wrap = ETEXT_NOWRAP) noexcept;
+    UITextLayout(UITextLayout&& l) noexcept;
 
-    ~UITextLayout();
+    ~UITextLayout() noexcept;
 
     ColorRGBA color() const;
     void setColor(const ColorRGBA& c);
@@ -98,6 +99,8 @@ public:
     void setJustify(etextjustify_flags j);
     void setAnchor(etextanchor_flags a);
     void setWrap(bool v);
+
+    const char* text() const { return text_->c_text; }
 
 public:
     friend class UILayer;
@@ -145,6 +148,10 @@ public:
 
     void rotate(float angle);
     void setMatrix(const t_matrix& mtx);
+    void preAllocObjects(size_t n);
+    void preAllocPoints(size_t n);
+
+    void optimizeLines(bool v);
 };
 
 class UILayer {
@@ -161,9 +168,9 @@ bool contains_point(const t_rect& r, const t_pt& pt);
 
 class PopupMenuCallbacks {
 public:
-    typedef std::function<void(const t_pt&)> MenuEntryFn;
-    typedef std::tuple<std::string, MenuEntryFn> Entry;
-    typedef std::vector<Entry> MenuItems;
+    using MenuEntryFn = std::function<void(const t_pt&)>;
+    using Entry = std::tuple<std::string, MenuEntryFn>;
+    using MenuItems = std::vector<Entry>;
 
 private:
     MenuItems items_;
@@ -183,7 +190,7 @@ public:
 public:
     static Entry sep()
     {
-        return { "", [](const t_pt&) {} };
+        return std::make_tuple(std::string(), MenuEntryFn([](const t_pt&) {}));
     }
 };
 

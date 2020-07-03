@@ -1,28 +1,38 @@
 #include "list_route.h"
-#include "datatype_mlist.h"
 #include "ceammc_factory.h"
+#include "datatype_mlist.h"
 
 ListRoute::ListRoute(const PdArgs& args)
     : ListBase(args)
-    , trim_(0)
-    , as_any_(0)
+    , trim_(nullptr)
+    , as_any_(nullptr)
+    , args_(nullptr)
 {
     createOutlet();
 
-    for (size_t i = 0; i < positionalArguments().size(); i++)
-        createOutlet();
+    args_ = new ListProperty("@args");
+    args_->setInitOnly();
+    args_->setArgIndex(0);
+    addProperty(args_);
 
     trim_ = new FlagProperty("@trim");
-    createProperty(trim_);
+    addProperty(trim_);
     as_any_ = new FlagProperty("@as_any");
-    createProperty(as_any_);
+    addProperty(as_any_);
     simplify_types_ = new BoolProperty("@simplify", true);
-    createProperty(simplify_types_);
+    addProperty(simplify_types_);
+}
+
+void ListRoute::initDone()
+{
+    const auto N = args_->value().size();
+    for (size_t i = 0; i < N; i++)
+        createOutlet();
 }
 
 void ListRoute::onFloat(t_float f)
 {
-    int idx = positionalArguments().findPos(Atom(f));
+    int idx = args_->value().findPos(Atom(f));
 
     if (idx == -1) {
         return floatTo(numOutlets() - 1, f);
@@ -36,7 +46,7 @@ void ListRoute::onFloat(t_float f)
 
 void ListRoute::onSymbol(t_symbol* s)
 {
-    int idx = positionalArguments().findPos(Atom(s));
+    int idx = args_->value().findPos(Atom(s));
 
     if (idx == -1) {
         return symbolTo(numOutlets() - 1, s);
@@ -57,7 +67,7 @@ void ListRoute::onList(const AtomList& lst)
     if (lst.empty())
         return;
 
-    int idx = positionalArguments().findPos(lst.at(0));
+    int idx = args_->value().findPos(lst.at(0));
 
     // no match
     if (idx == -1) {
@@ -72,7 +82,7 @@ void ListRoute::onList(const AtomList& lst)
 
 int ListRoute::outletIndex(const Atom& a) const
 {
-    return positionalArguments().findPos(a);
+    return args_->value().findPos(a);
 }
 
 void ListRoute::outputList(size_t idx, const AtomList& l)

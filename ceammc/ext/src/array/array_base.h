@@ -26,14 +26,10 @@ public:
     ArrayBase(const PdArgs& a);
 
     bool setArray(t_symbol* s);
-    bool checkArray();
+    bool checkArray(bool log = true);
 
 protected:
     Array array_;
-
-private:
-    AtomList propArray() const;
-    void propSetArray(const AtomList& l);
 };
 
 class ArrayMod : public ArrayBase {

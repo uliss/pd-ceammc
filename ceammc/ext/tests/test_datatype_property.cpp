@@ -46,7 +46,7 @@ TEST_CASE("DataTypeProperty", "[ceammc::DataTypeProperty]")
         REQUIRE(f1.enumValues() == f2->enumValues());
 
         REQUIRE(f2->isInt());
-        long i;
+        int i;
         REQUIRE(f2->getInt(i));
         REQUIRE(i == 4);
         f2->setInt(6);
@@ -137,9 +137,9 @@ TEST_CASE("DataTypeProperty", "[ceammc::DataTypeProperty]")
         REQUIRE_FALSE(i1.setSymbol(&s_list));
         REQUIRE_FALSE(i1.setList(L()));
 
-        REQUIRE(i1.propertyType() == DataTypeProperty::T_INT);
+        REQUIRE(i1.propertyType() == PropValueType::INTEGER);
         i1.setInt(2000);
-        long i1_;
+        int i1_;
         REQUIRE(i1.getInt(i1_));
         REQUIRE(i1_ == 2000);
         // default now is 1
@@ -172,7 +172,7 @@ TEST_CASE("DataTypeProperty", "[ceammc::DataTypeProperty]")
         REQUIRE_FALSE(b1.setSymbol(&s_list));
         REQUIRE_FALSE(b1.setList(L()));
 
-        REQUIRE(b1.propertyType() == DataTypeProperty::T_BOOL);
+        REQUIRE(b1.propertyType() == PropValueType::BOOLEAN);
         b1.setBool(true);
         bool b1_;
         REQUIRE(b1.getBool(b1_));
@@ -196,7 +196,7 @@ TEST_CASE("DataTypeProperty", "[ceammc::DataTypeProperty]")
         REQUIRE_FALSE(s1.setBool(0));
         REQUIRE_FALSE(s1.setList(L()));
 
-        REQUIRE(s1.propertyType() == DataTypeProperty::T_SYMBOL);
+        REQUIRE(s1.propertyType() == PropValueType::SYMBOL);
         t_symbol* s;
         REQUIRE(s1.getSymbol(&s));
         REQUIRE(s == SYM("z"));
@@ -229,6 +229,8 @@ TEST_CASE("DataTypeProperty", "[ceammc::DataTypeProperty]")
     {
         DataTypeProperty l1(SYM("l1"));
         l1.setTypeList(LX(1, 2, 3));
+
+        REQUIRE(l1.propertyType() == PropValueType::LIST);
 
         REQUIRE_FALSE(l1.setFloat(0));
         REQUIRE_FALSE(l1.setInt(0));

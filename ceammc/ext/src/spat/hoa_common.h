@@ -22,19 +22,28 @@
 #define _WINDOWS 1
 #endif
 #endif
+
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wold-style-cast"
+#pragma clang diagnostic ignored "-Wsign-conversion"
+#pragma clang diagnostic ignored "-Wextra-semi"
+#pragma clang diagnostic ignored "-Wextra"
 #include "Hoa.hpp"
 // temporal fix: this file not exists in newest Hoa-Library-Light
 #include "Hoa_Scope.hpp"
 #include "Hoa_Tools.hpp"
+#pragma clang diagnostic pop
+
 #include "m_pd.h"
 
+#include "ceammc_property_enum.h"
 #include "ceammc_sound_external.h"
 using namespace ceammc;
 
-static const int HOA_MIN_ORDER = 1;
-static const int HOA_MAX_ORDER = 63;
-static const int HOA_DEFAULT_ORDER = 1;
-static const int HOA_DEFAULT_BLOCK_SIZE = 64;
+constexpr size_t HOA_MIN_ORDER = 1;
+constexpr size_t HOA_MAX_ORDER = 63;
+constexpr size_t HOA_DEFAULT_ORDER = 1;
+constexpr size_t HOA_DEFAULT_BLOCK_SIZE = 64;
 
 typedef hoa::Optim<hoa::Hoa2d, t_sample> Optim2d;
 typedef hoa::Decoder<hoa::Hoa2d, t_sample> Decoder2d;
@@ -53,25 +62,18 @@ typedef std::vector<t_sample> Buffer;
 
 class HoaBase : public SoundExternal {
 private:
-    IntPropertyClosedRange* order_;
+    IntProperty* order_;
 
 public:
     HoaBase(const PdArgs& args)
         : SoundExternal(args)
         , order_(nullptr)
     {
-        order_ = new IntPropertyClosedRange("@order",
-            positionalFloatArgument(0, HOA_DEFAULT_ORDER), HOA_MIN_ORDER, HOA_MAX_ORDER);
-        order_->info().setType(PropertyInfoType::INTEGER);
-        order_->info().setRange(HOA_MIN_ORDER, HOA_MAX_ORDER);
-        order_->info().setDefault(HOA_DEFAULT_ORDER);
-        createProperty(order_);
-    }
-
-    void parseProperties() override
-    {
-        SoundExternal::parseProperties();
-        order_->setReadonly(true);
+        order_ = new IntProperty("@order", positionalConstant<HOA_DEFAULT_ORDER, HOA_MIN_ORDER, HOA_MAX_ORDER>(0));
+        order_->setInitOnly();
+        order_->checkClosedRange(HOA_MIN_ORDER, HOA_MAX_ORDER);
+        order_->setArgIndex(0);
+        addProperty(order_);
     }
 
     int order() const { return order_->value(); }
@@ -89,7 +91,7 @@ public:
     }
 
 protected:
-    IntPropertyClosedRange* prop_order() { return order_; }
+    IntProperty* prop_order() { return order_; }
 };
 
 #endif // HOA_COMMON_H

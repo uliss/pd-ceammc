@@ -14,33 +14,41 @@
 #include "string_contains.h"
 #include "ceammc_factory.h"
 #include "ceammc_format.h"
+#include "ceammc_string.h"
+#include "datatype_string.h"
 
 StringContains::StringContains(const PdArgs& a)
     : BaseObject(a)
-    , subj_(to_string(positionalArguments()))
 {
+    auto p = addProperty(new SymbolProperty("@subj", &s_));
+    p->setArgIndex(0);
+    p->setSuccessFn([this](Property* p) { subj_ = static_cast<SymbolProperty*>(p)->value()->s_name; });
+
     createInlet();
     createOutlet();
 }
 
 void StringContains::onSymbol(t_symbol* s)
 {
-    floatTo(0, DataTypeString(s).contains(subj_));
+    boolTo(0, string::contains(s->s_name, subj_.c_str()));
 }
 
-void StringContains::onDataT(const DataTPtr<DataTypeString>& dptr)
+void StringContains::onDataT(const StringAtom& str)
 {
-    floatTo(0, dptr->contains(subj_));
+    boolTo(0, string::contains(str->str(), subj_));
 }
 
 void StringContains::onInlet(size_t, const AtomList& l)
 {
-    subj_ = to_string(l);
+    subj_ = parse_quoted(l);
 }
 
-extern "C" void setup_string0x2econtains()
+void setup_string_contains()
 {
     ObjectFactory<StringContains> obj("string.contains");
     obj.processData<DataTypeString>();
     obj.addAlias("str.contains");
+    obj.setCategory("string");
+    obj.setKeywords({ "contains", "search" });
+    obj.setDescription("checks if string contains specified substring");
 }

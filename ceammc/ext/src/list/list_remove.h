@@ -14,10 +14,9 @@
 #ifndef LIST_REMOVE_H
 #define LIST_REMOVE_H
 
+#include "ceammc_data.h"
 #include "ceammc_object.h"
 using namespace ceammc;
-
-class DataTypeMList;
 
 class ListRemove : public BaseObject {
     typedef std::vector<int> IndexList;
@@ -30,7 +29,7 @@ public:
     void onInlet(size_t, const AtomList&) final;
     void onList(const AtomList& lst) final;
 
-    void onDataT(const DataTPtr<DataTypeMList>& l);
+    void onDataT(const MListAtom& ml);
 
 private:
     void precalcIndexes(size_t N);

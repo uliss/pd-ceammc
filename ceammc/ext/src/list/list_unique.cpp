@@ -8,7 +8,7 @@ ListUnique::ListUnique(const ceammc::PdArgs& a)
     , stable_(nullptr)
 {
     stable_ = new BoolProperty("@stable", true);
-    createProperty(stable_);
+    addProperty(stable_);
 
     createOutlet();
 }
@@ -21,12 +21,12 @@ void ListUnique::onList(const AtomList& l)
         listTo(0, list::uniqueSorted(l));
 }
 
-void ListUnique::onDataT(const DataTPtr<DataTypeMList>& l)
+void ListUnique::onDataT(const MListAtom& ml)
 {
     if (stable_->value())
-        dataTo(0, DataTPtr<DataTypeMList>(DataTypeMList(list::uniqueStable(l->toList()))));
+        atomTo(0, MListAtom(list::uniqueStable(ml->data())));
     else
-        dataTo(0, DataTPtr<DataTypeMList>(DataTypeMList(list::uniqueSorted(l->toList()))));
+        atomTo(0, MListAtom(list::uniqueSorted(ml->data())));
 }
 
 void setup_list_unique()

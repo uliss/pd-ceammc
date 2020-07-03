@@ -59,7 +59,7 @@ void BaseProp::onBang()
         if (prop->getFloat(f))
             floatTo(0, f);
     } else if (prop->isInt()) {
-        long i = 0;
+        int i = 0;
         if (prop->getInt(i))
             floatTo(0, i);
     } else if (prop->isBool()) {
@@ -174,7 +174,7 @@ void BaseProp::dump() const
 
     OBJ_DBG << "name:      " << name_->s_name << "\n"
             << "full name: " << full_name_ << "\n"
-            << "type:      " << prop->propertyStrType() << "\n"
+            << "type:      " << to_string(prop->propertyType()) << "\n"
             << "value:     " << prop->propertyStrValue();
 
     if (prop->hasMinValue())

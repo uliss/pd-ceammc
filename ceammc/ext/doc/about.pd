@@ -56,5 +56,5 @@ based on original 'vanilla' Pd-@PD_TEXT_VERSION_SHORT@ by Miller Puckette.
 #X restore 585 150 pd info;
 #X text 60 389 This distribution contains ceammc-@CEAMMC_LIB_VERSION@
 library \, that aims to be standard base for education and artists
-purposes. It contains over 150 objects for working with lists \, GUI
+purposes. It contains over 550 objects for working with lists \, GUI
 etc.;

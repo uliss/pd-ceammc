@@ -19,8 +19,7 @@
 using namespace ceammc;
 
 class FlowPack : public BaseObject {
-private:
-    size_t n_;
+    const size_t n_;
 
 protected:
     AtomList msg_;

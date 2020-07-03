@@ -23,11 +23,12 @@ Lin2Curve::Lin2Curve(const PdArgs& a)
 {
     createOutlet();
 
-    curve_ = new FloatProperty("@curve", positionalFloatArgument(4, -4));
-    createProperty(curve_);
+    curve_ = new FloatProperty("@curve", -4);
+    curve_->setArgIndexNext(output_to_);
+    addProperty(curve_);
 }
 
-void Lin2Curve::onFloat(float value)
+void Lin2Curve::onFloat(t_float value)
 {
     const t_float x0 = in_from();
     const t_float x1 = in_to();
@@ -35,7 +36,7 @@ void Lin2Curve::onFloat(float value)
     const t_float y1 = out_to();
     const t_float curve = curve_->value();
 
-    if (doClip(value))
+    if (doClip(value, clipType()))
         return floatTo(0, value);
 
     if (x0 == x1) {
@@ -46,7 +47,7 @@ void Lin2Curve::onFloat(float value)
     floatTo(0, convert::lin2curve(value, x0, x1, y0, y1, curve));
 }
 
-extern "C" void setup_conv0x2elin2curve()
+void setup_conv_lin2curve()
 {
     ObjectFactory<Lin2Curve> obj("conv.lin2curve");
     obj.addAlias("lin->curve");

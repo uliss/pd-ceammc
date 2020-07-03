@@ -14,21 +14,19 @@
 #ifndef DICT_REJECT_H
 #define DICT_REJECT_H
 
-#include "ceammc_object.h"
 #include "datatype_dict.h"
+#include "dict_base.h"
 
 using namespace ceammc;
 
-class DictReject : public BaseObject {
-    AtomList keys_;
+class DictReject : public DictBase {
+    ListProperty* keys_;
 
 public:
     DictReject(const PdArgs& args);
 
-    void parseProperties() override;
     void onInlet(size_t, const AtomList& lst) override;
-
-    void onDataT(const DataTPtr<DataTypeDict>& d);
+    void onDataT(const DictAtom& dict) final;
 };
 
 void setup_dict_reject();

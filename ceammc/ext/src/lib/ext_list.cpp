@@ -23,7 +23,7 @@
 #include "m_pd.h"
 
 #include "../mod_init.h"
-#include "ceammc.hpp"
+#include "ceammc_pd.h"
 
 static t_symbol* any = &s_anything;
 extern "C" void pd_init();
@@ -37,7 +37,7 @@ int main(int argc, char* argv[])
 
     bool vanilla = argc > 1 && string(argv[1]) == "-v";
     if (vanilla) {
-        vector<string> l = ceammc::currentExtensionList();
+        vector<string> l = ceammc::pd::currentListOfExternals();
         set<string> vanilla_set(l.begin(), l.end());
         copy(vanilla_set.begin(), vanilla_set.end(), ostream_iterator<string>(cout, "\n"));
         return EXIT_SUCCESS;

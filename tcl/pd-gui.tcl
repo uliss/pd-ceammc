@@ -320,7 +320,7 @@ proc init_for_platform {} {
             set ::windowframey 53
             # trying loading icon in the GUI directory
             if {$::tcl_version >= 8.5} {
-                set icon [file join $::sys_guidir pd.gif]
+                set icon [file join $::sys_guidir "puredata-ceammc.png"]
                 if {[file readable $icon]} {
                     catch {
                         wm iconphoto . -default [image create photo -file "$icon"]

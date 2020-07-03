@@ -14,18 +14,17 @@
 #ifndef LIST_RANGE_H
 #define LIST_RANGE_H
 
+#include "ceammc_data.h"
 #include "ceammc_object.h"
 
 using namespace ceammc;
-
-class DataTypeMList;
 
 class ListRange : public BaseObject {
 public:
     ListRange(const PdArgs& a);
 
-    void onList(const AtomList& l);
-    void onDataT(const DataTPtr<DataTypeMList>& l);
+    void onList(const AtomList& l) override;
+    void onDataT(const MListAtom& ml);
 };
 
 void setup_list_range();

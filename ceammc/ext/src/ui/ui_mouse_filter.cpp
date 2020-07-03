@@ -20,9 +20,9 @@ UIMouseFilter::UIMouseFilter(const PdArgs& args)
 {
     auto makeProp = [this](const char* sym, const char* alias) {
         BoolProperty* b = new BoolProperty(sym, false);
-        createProperty(b);
+        addProperty(b);
         mouse_events_.push_back(b);
-        createProperty(new AliasProperty<BoolProperty, bool>(alias, b, true));
+        addProperty(new AliasProperty<BoolProperty>(alias, b, true));
     };
 
     makeProp("@mouse_up", "@up");
@@ -81,10 +81,10 @@ void UIMouseFilter::onAny(t_symbol* s, const AtomList& l)
         anyTo(0, s, l);
 }
 
-void UIMouseFilter::onData(const DataPtr& ptr)
+void UIMouseFilter::onData(const Atom& data)
 {
     if (!closed_)
-        dataTo(0, ptr);
+        atomTo(0, data);
 }
 
 void setup_ui_mouse_filter()

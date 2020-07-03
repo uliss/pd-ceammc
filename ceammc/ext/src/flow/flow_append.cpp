@@ -16,18 +16,25 @@
 
 FlowAppend::FlowAppend(const PdArgs& args)
     : BaseObject(args)
+    , msg_(nullptr)
     , delay_time_(0)
     , as_msg_(0)
     , clock_(this, &FlowAppend::tick)
 {
-    delay_time_ = new FloatProperty("@delay", 0, 0);
-    delay_time_->info().setUnits(PropertyInfoUnits::MSEC);
-    createProperty(delay_time_);
+    delay_time_ = new FloatProperty("@delay", 0);
+    delay_time_->setFloatCheck(PropValueConstraints::GREATER_EQUAL, -1);
+    delay_time_->setUnits(PropValueUnits::MSEC);
+    addProperty(delay_time_);
 
     as_msg_ = new FlagProperty("@msg");
-    createProperty(as_msg_);
+    addProperty(as_msg_);
 
-    msg_ = positionalArguments();
+    msg_ = new ListProperty("@value");
+    msg_->setArgIndex(0);
+    addProperty(msg_);
+
+    createInlet();
+    createInlet();
 
     createOutlet();
 }
@@ -62,59 +69,27 @@ void FlowAppend::onAny(t_symbol* s, const AtomList& lst)
     process();
 }
 
-bool FlowAppend::processAnyInlets(t_symbol* sel, const AtomList& lst)
+void FlowAppend::onInlet(size_t n, const AtomList& lst)
 {
-    return false;
+    if (n == 1)
+        msg_->set(lst);
+    else if (n == 2)
+        delay_time_->set(lst);
+    else
+        OBJ_ERR << "invalid inlet: " << n;
 }
 
 bool FlowAppend::processAnyProps(t_symbol* s, const AtomList& lst)
 {
-    static t_symbol* SYM_PROP_GET_DELAY = gensym("@delay?");
-    static t_symbol* SYM_PROP_DELAY = gensym("@delay");
-
-    // get
-    if (s == SYM_PROP_GET_DELAY) {
-        anyTo(0, SYM_PROP_DELAY, delay_time_->get());
-        return true;
-    }
-
-    // set
-    if (s == SYM_PROP_DELAY) {
-        delay_time_->set(lst);
-        return true;
-    }
-
     return false;
-}
-
-void FlowAppend::parseProperties()
-{
-    std::deque<AtomList> p = args().properties();
-    for (size_t i = 0; i < p.size(); i++) {
-        if (p[i].size() < 1)
-            continue;
-
-        t_symbol* pname = p[i][0].asSymbol();
-
-        if (!hasProperty(pname)) {
-            msg_.append(p[i]);
-            continue;
-        }
-
-        // skip readonly properties
-        if (property(pname)->readonly())
-            continue;
-
-        property(pname)->set(p[i].slice(1));
-    }
 }
 
 void FlowAppend::process()
 {
     if (delay_time_->value() >= 0) {
         clock_.delay(delay_time_->value());
-        return;
     } else {
+
         outputAppend();
     }
 }
@@ -127,9 +102,9 @@ void FlowAppend::tick()
 void FlowAppend::outputAppend()
 {
     if (as_msg_->value()) {
-        anyTo(0, msg_);
+        anyTo(0, msg_->get());
     } else {
-        listTo(0, msg_);
+        listTo(0, msg_->get());
     }
 }
 

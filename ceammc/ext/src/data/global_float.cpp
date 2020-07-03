@@ -4,7 +4,6 @@
 GlobalFloat::GlobalFloat(const PdArgs& a)
     : GlobalFloatBase(a)
 {
-    property("@value")->info().setType(PropertyInfoType::FLOAT);
 }
 
 void setup_global_float()

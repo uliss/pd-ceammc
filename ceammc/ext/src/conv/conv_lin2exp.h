@@ -21,7 +21,9 @@ using namespace ceammc;
 class Lin2Exp : public BaseRangeConverter {
 public:
     Lin2Exp(const PdArgs& a);
-    void onFloat(float value);
+    void onFloat(t_float value) override;
 };
+
+void setup_conv_lin2exp();
 
 #endif // CONV_LIN2EXP_H

@@ -1,7 +1,4 @@
-include_directories(${CMAKE_SOURCE_DIR}/src)
-include_directories(${PROJECT_SOURCE_DIR}/ceammc/extra/re2)
-
-set(FLOW_SOURCES "")
+set(FLOW_SOURCES mod_flow.h mod_flow.cpp)
 
 macro(ceammc_flow_extension name)
     list(APPEND FLOW_SOURCES "flow_${name}.cpp")
@@ -9,11 +6,13 @@ endmacro()
 
 ceammc_flow_extension(append)
 ceammc_flow_extension(change)
+ceammc_flow_extension(compare_base)
 ceammc_flow_extension(count)
 ceammc_flow_extension(demultiplex)
 ceammc_flow_extension(demultiplex_tilde)
 ceammc_flow_extension(demultiplex2_tilde)
 ceammc_flow_extension(gate)
+ceammc_flow_extension(greater)
 ceammc_flow_extension(group)
 ceammc_flow_extension(interval)
 ceammc_flow_extension(less)
@@ -35,9 +34,11 @@ ceammc_flow_extension(sync)
 ceammc_flow_extension(sync_pack)
 ceammc_flow_extension(tee_tilde)
 
-add_library(ceammc_flow STATIC mod_flow.h mod_flow.cpp ${FLOW_SOURCES})
-if(UNIX)
-    set_target_properties(ceammc_flow PROPERTIES COMPILE_FLAGS "-fPIC")
-endif()
+add_library(ceammc_flow STATIC ${FLOW_SOURCES})
 
-target_link_libraries(ceammc_flow ceammc_base re2) # for function calls
+target_include_directories(ceammc_flow PUBLIC ${PROJECT_SOURCE_DIR}/src)
+target_include_directories(ceammc_flow PRIVATE $<TARGET_PROPERTY:re2,INCLUDE_DIRECTORIES>)
+target_include_directories(ceammc_flow PRIVATE $<TARGET_PROPERTY:fmt,INCLUDE_DIRECTORIES>)
+
+target_link_libraries(ceammc_flow PRIVATE ceammc_base) # for function calls
+target_link_libraries(ceammc_flow PRIVATE re2)

@@ -7,34 +7,31 @@ static t_symbol* SYM_RESIZE;
 
 Env2Array::Env2Array(const PdArgs& args)
     : ArrayMod(args)
-    , mode_(0)
-    , mode_alias_(0)
+    , mode_(nullptr)
 {
     createOutlet();
 
-    mode_ = new SymbolEnumProperty("@mode", SYM_FIT);
-    mode_->appendEnum(SYM_RAW);
-    mode_->appendEnum(SYM_RESIZE);
-    createProperty(mode_);
+    mode_ = new SymbolEnumProperty("@mode", { SYM_FIT, SYM_RAW, SYM_RESIZE });
+    addProperty(mode_);
 
-    createProperty(new SymbolEnumAlias("@fit", mode_, SYM_FIT));
-    createProperty(new SymbolEnumAlias("@raw", mode_, SYM_RAW));
-    createProperty(new SymbolEnumAlias("@resize", mode_, SYM_RESIZE));
+    addProperty(new SymbolEnumAlias("@fit", mode_, SYM_FIT));
+    addProperty(new SymbolEnumAlias("@raw", mode_, SYM_RAW));
+    addProperty(new SymbolEnumAlias("@resize", mode_, SYM_RESIZE));
 }
 
-void Env2Array::onDataT(const DataTPtr<DataTypeEnv>& dptr)
+void Env2Array::onDataT(const DataAtom<DataTypeEnv>& env)
 {
     if (!checkArray())
         return;
 
-    if (dptr->empty()) {
+    if (env->empty()) {
         OBJ_ERR << "empty envelope";
         return;
     }
 
     // resize if needed
     if (mode_->value() == SYM_RESIZE) {
-        size_t n = (sys_getsr() / 1000) * (dptr->back().timeMs()) + 1;
+        size_t n = (sys_getsr() / 1000) * (env->back().timeMs()) + 1;
         if (!array_.resize(n)) {
             OBJ_ERR << "can't resize array to " << n;
             return;
@@ -42,13 +39,13 @@ void Env2Array::onDataT(const DataTPtr<DataTypeEnv>& dptr)
     }
 
     // if shifted envelope
-    if (dptr->numPoints() > 0 && dptr->pointAt(0).utime > 0) {
-        DataTypeEnv env_fixed(*dptr);
+    if (env->numPoints() > 0 && env->pointAt(0).utime > 0) {
+        DataTypeEnv env_fixed(*env);
         // insert start point with STEP segment
         env_fixed.insertPoint(EnvelopePoint(0, 0, false, CURVE_STEP));
         render(env_fixed);
     } else {
-        render(*dptr);
+        render(*env);
     }
 
     if (shouldRedraw())

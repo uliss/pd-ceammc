@@ -139,7 +139,7 @@ void eobj_attrprocess_viatoms(void* x, int argc, t_atom* argv);
  * \param argc The number of the atoms.
  * \param argv The array of the atoms.
  */
-void eobj_attr_setvalueof(void* x, t_symbol* s, int argc, t_atom* argv);
+void eobj_attr_setvalueof(void* x, t_symbol* s, size_t argc, t_atom* argv);
 
 /*!
  * \fn      void eobj_attr_getvalueof(void *x, t_symbol* s, int *argc, t_atom **argv)
@@ -195,7 +195,7 @@ void eobj_dspfree(void* x);
  * \param x     The edspobj pointer.
  * \param nins  The number of signal inputs.
  */
-void eobj_resize_inputs(void* x, long nins);
+void eobj_resize_inputs(void* x, long nins, t_symbol* from = &s_signal, t_symbol* to = &s_signal);
 
 /*!
  * \fn          t_sample* eobj_getsignalinput(void *x, long index)
@@ -264,7 +264,7 @@ void eobj_write(t_eobj* x, t_symbol* s, int argc, t_atom* argv);
  * \param argc      The size of the array of atoms
  * \param argv      The array of atoms
  */
-void eobj_read(t_eobj* x, t_symbol* s, int argc, t_atom* argv);
+void eobj_read(t_eobj* x, t_symbol* s, size_t argc, t_atom* argv);
 
 //! The dsp method (PRIVATE)
 /*

@@ -27,7 +27,7 @@ public:
 
     void onList(const AtomList& lst) override;
     void onAny(t_symbol* s, const AtomList& lst) override;
-    void onData(const DataPtr& ptr) override;
+    void onData(const Atom& data) override;
 };
 
 void setup_flow_route();

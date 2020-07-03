@@ -14,21 +14,19 @@
 #ifndef DICT_PASS_H
 #define DICT_PASS_H
 
-#include "ceammc_object.h"
 #include "datatype_dict.h"
+#include "dict_base.h"
 
 using namespace ceammc;
 
-class DictPass : public BaseObject {
-    AtomList keys_;
+class DictPass : public DictBase {
+    ListProperty* keys_;
 
 public:
     DictPass(const PdArgs& args);
 
-    void parseProperties() override;
     void onInlet(size_t, const AtomList&) override;
-
-    void onDataT(const DataTPtr<DataTypeDict>& dptr);
+    void onDataT(const DictAtom& dict) final;
 };
 
 void setup_dict_pass();

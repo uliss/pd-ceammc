@@ -10,8 +10,9 @@ ListShift::ListShift(const PdArgs& args)
     createInlet();
     createOutlet();
 
-    shift_ = new FloatProperty("@shift", positionalFloatArgument(0, 0));
-    createProperty(shift_);
+    shift_ = new FloatProperty("@shift", 0);
+    shift_->setArgIndex(0);
+    addProperty(shift_);
 }
 
 void ListShift::onList(const AtomList& lst)
@@ -24,12 +25,9 @@ void ListShift::onInlet(size_t n, const AtomList& lst)
     shift_->set(lst);
 }
 
-void ListShift::onDataT(const DataTPtr<DataTypeMList>& dptr)
+void ListShift::onDataT(const MListAtom& ml)
 {
-    auto is_float = [](const DataAtom& a) { return a.isAtom() && a.toAtom().isFloat(); };
-    auto floats = dptr->toList(is_float);
-
-    dataTo(0, DataTPtr<DataTypeMList>(DataTypeMList(list::shift(floats, shift_->value()))));
+    atomTo(0, MListAtom(list::shift(ml->data(), shift_->value())));
 }
 
 void setup_list_shift()

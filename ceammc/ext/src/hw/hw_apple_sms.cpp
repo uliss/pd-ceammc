@@ -19,7 +19,7 @@ HwAppleSMS::HwAppleSMS(const PdArgs& args)
     , raw_(nullptr)
 {
     raw_ = new BoolProperty("@raw", false);
-    createProperty(raw_);
+    addProperty(raw_);
 
     createOutlet();
 }

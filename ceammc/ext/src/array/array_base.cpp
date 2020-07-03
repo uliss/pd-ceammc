@@ -15,14 +15,13 @@
 
 ArrayBase::ArrayBase(const PdArgs& a)
     : BaseObject(a)
-    , array_name_(positionalSymbolArgument(0, 0))
+    , array_name_(nullptr)
 {
-    if (array_name_)
-        array_.open(array_name_);
-
-    createCbProperty("@array", &ArrayBase::propArray, &ArrayBase::propSetArray);
-    auto& pinfo = property("@array")->info();
-    pinfo.setType(PropertyInfoType::SYMBOL);
+    createCbSymbolProperty(
+        "@array",
+        [this]() -> t_symbol* { return array_name_; },
+        [this](t_symbol* s) -> bool { setArray(s); return true; })
+        ->setArgIndex(0);
 }
 
 bool ArrayBase::setArray(t_symbol* s)
@@ -36,25 +35,13 @@ bool ArrayBase::setArray(t_symbol* s)
     return true;
 }
 
-AtomList ArrayBase::propArray() const
+bool ArrayBase::checkArray(bool log)
 {
-    return AtomList(array_name_);
-}
+    if (array_name_ == nullptr || !array_.open(array_name_)) {
+        if (log) {
+            OBJ_ERR << "invalid array: " << array_.name();
+        }
 
-void ArrayBase::propSetArray(const AtomList& l)
-{
-    if (l.empty() || !l[0].isSymbol()) {
-        OBJ_ERR << "array name required";
-        return;
-    }
-
-    setArray(l[0].asSymbol());
-}
-
-bool ArrayBase::checkArray()
-{
-    if (array_name_ == 0 || !array_.open(array_name_)) {
-        OBJ_ERR << "invalid array: " << array_.name();
         return false;
     }
 
@@ -63,10 +50,10 @@ bool ArrayBase::checkArray()
 
 ArrayMod::ArrayMod(const PdArgs& a)
     : ArrayBase(a)
-    , redraw_(0)
+    , redraw_(nullptr)
 {
     redraw_ = new BoolProperty("@redraw", true);
-    createProperty(redraw_);
+    addProperty(redraw_);
 }
 
 bool ArrayMod::shouldRedraw() const

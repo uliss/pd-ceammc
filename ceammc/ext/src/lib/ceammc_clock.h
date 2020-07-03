@@ -3,41 +3,43 @@
 
 #include "m_pd.h"
 
+#include <functional>
+
 namespace ceammc {
 
-template <class T>
-class ClockFunction {
+class ClockLambdaFunction {
+    std::function<void()> fn_;
     t_clock* clock_;
 
 public:
-    typedef void (*FunPtr)(T*);
-
-protected:
-    FunPtr fn_;
-    T* arg_;
-
-public:
-    ClockFunction(FunPtr fn, T* arg)
-        : clock_(0)
-        , fn_(fn)
-        , arg_(arg)
+    ClockLambdaFunction(std::function<void()> fn)
+        : fn_(fn)
+        , clock_(nullptr)
     {
-        clock_ = clock_new(static_cast<void*>(arg_), reinterpret_cast<t_method>(fn_));
+        clock_ = clock_new(static_cast<void*>(this), reinterpret_cast<t_method>(tick));
     }
 
     void unset()
     {
-        clock_unset(clock_);
+        if (clock_)
+            clock_unset(clock_);
     }
 
     void delay(double ms)
     {
-        clock_delay(clock_, ms);
+        if (clock_)
+            clock_delay(clock_, ms);
     }
 
-    ~ClockFunction()
+    ~ClockLambdaFunction()
     {
-        clock_free(clock_);
+        if (clock_)
+            clock_free(clock_);
+    }
+
+    static void tick(ClockLambdaFunction* fn)
+    {
+        fn->fn_();
     }
 };
 
@@ -48,7 +50,7 @@ public:
 
 public:
     ClockMemberFunction(T* this__, MemberFunPtr fn)
-        : clock_(0)
+        : clock_(nullptr)
         , this_(this__)
         , mem_fn_(fn)
     {
@@ -84,9 +86,9 @@ private:
     }
 
 private:
-    MemberFunPtr mem_fn_;
-    T* this_;
     t_clock* clock_;
+    T* this_;
+    MemberFunPtr mem_fn_;
 };
 }
 

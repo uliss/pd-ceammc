@@ -14,6 +14,7 @@
 #ifndef LIST_NORMALIZE_H
 #define LIST_NORMALIZE_H
 
+#include "ceammc_property_enum.h"
 #include "list_base.h"
 
 using namespace ceammc;
@@ -23,7 +24,7 @@ class ListNormalize : public ListBase {
 
 public:
     ListNormalize(const PdArgs& a);
-    void onList(const AtomList& lst);
+    void onList(const AtomList& lst) override;
 };
 
 void setup_list_normalize();

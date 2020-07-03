@@ -19,7 +19,7 @@
 class ArrayStdDeviation : public ArrayBase {
 public:
     ArrayStdDeviation(const PdArgs& args);
-    void onBang();
+    void onBang() override;
 };
 
 void setup_array_stddev();

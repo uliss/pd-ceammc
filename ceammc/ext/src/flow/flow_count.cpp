@@ -16,10 +16,11 @@
 
 FlowCount::FlowCount(const PdArgs& a)
     : BaseObject(a)
-    , counter_(0)
+    , counter_(nullptr)
 {
-    counter_ = new SizeTProperty("@value", 0);
-    createProperty(counter_);
+    counter_ = new IntProperty("@value", 0);
+    counter_->setIntCheck(PropValueConstraints::GREATER_EQUAL, 0);
+    addProperty(counter_);
 
     // counter flow
     createOutlet();
@@ -50,7 +51,7 @@ void FlowCount::onAny(t_symbol* s, const AtomList& l)
     tick();
 }
 
-void FlowCount::onData(const DataPtr&)
+void FlowCount::onData(const Atom &)
 {
     tick();
 }

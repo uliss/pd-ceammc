@@ -20,7 +20,7 @@ FlowChange::FlowChange(const PdArgs& a)
     , on_repeat_(NULL)
 {
     on_repeat_ = new SymbolProperty("@onrepeat", &s_);
-    createProperty(on_repeat_);
+    addProperty(on_repeat_);
     createOutlet();
 }
 
@@ -32,7 +32,7 @@ void FlowChange::onBang()
     messageTo(0, msg_);
 }
 
-void FlowChange::onFloat(float f)
+void FlowChange::onFloat(t_float f)
 {
     if (msg_.isEqual(f)) {
         onRepeat();
@@ -104,7 +104,7 @@ void FlowChange::onRepeat()
     fn->onBang();
 }
 
-extern "C" void setup_flow0x2echange()
+void setup_flow_change()
 {
     ObjectFactory<FlowChange> obj("flow.change");
     obj.addMethod("reset", &FlowChange::m_reset);

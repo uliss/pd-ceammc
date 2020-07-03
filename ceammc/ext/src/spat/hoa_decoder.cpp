@@ -38,57 +38,49 @@ HoaDecoder::HoaDecoder(const PdArgs& args)
     , plane_waves_(nullptr)
     , crop_size_(0)
 {
-    mode_ = new SymbolEnumProperty("@mode", SYM_REGULAR);
-    mode_->appendEnum(SYM_IRREGULAR);
-    mode_->appendEnum(SYM_BINAURAL);
-    createProperty(mode_);
-    createProperty(new SymbolEnumAlias("@regular", mode_, SYM_REGULAR));
-    createProperty(new SymbolEnumAlias("@irregular", mode_, SYM_IRREGULAR));
-    createProperty(new SymbolEnumAlias("@binaural", mode_, SYM_BINAURAL));
+    mode_ = new SymbolEnumProperty("@mode", { SYM_REGULAR, SYM_IRREGULAR, SYM_BINAURAL });
+    mode_->setArgIndex(1);
+    addProperty(mode_);
+    addProperty(new SymbolEnumAlias("@regular", mode_, SYM_REGULAR));
+    addProperty(new SymbolEnumAlias("@irregular", mode_, SYM_IRREGULAR));
+    addProperty(new SymbolEnumAlias("@binaural", mode_, SYM_BINAURAL));
 
     plane_waves_ = new IntProperty("@nwaves", 0);
-    createProperty(plane_waves_);
+    plane_waves_->setArgIndex(2);
+    plane_waves_->setInitOnly();
+    addProperty(plane_waves_);
 
-    Property* pcrop = createCbProperty("@crop", &HoaDecoder::propCropSize, &HoaDecoder::propSetCropSize);
-    auto& pinfo = pcrop->info();
-    pinfo.setDefault(0);
-    pinfo.setMin(0);
-    pinfo.setMax(512);
-    pinfo.setUnits(PropertyInfoUnits::SAMP);
-    pinfo.setType(PropertyInfoType::INTEGER);
+    Property* pcrop = createCbIntProperty(
+        "@crop",
+        [this]() -> int { return propCropSize(); },
+        [this](int v) -> bool { return propSetCropSize(v); });
 
-    createCbProperty("@nharm", &HoaDecoder::propNumHarmonics);
-    property("@nharm")->info().setType(PropertyInfoType::INTEGER);
-    createCbProperty("@pw_x", &HoaDecoder::propPlaneWavesX);
-    createCbProperty("@pw_y", &HoaDecoder::propPlaneWavesY);
-    createCbProperty("@pw_z", &HoaDecoder::propPlaneWavesZ);
+    pcrop->setUnits(PropValueUnits::SAMP);
+    pcrop->setIntCheck(PropValueConstraints::CLOSED_RANGE, 0, 512);
 
-    property("@pw_x")->info().setUnits(PropertyInfoUnits::RAD);
-    property("@pw_y")->info().setUnits(PropertyInfoUnits::RAD);
-    property("@pw_z")->info().setUnits(PropertyInfoUnits::RAD);
+    createCbIntProperty("@nharm", [this]() -> int { return decoder_ ? decoder_->getNumberOfHarmonics() : 0; });
+    createCbListProperty("@pw_x", [this]() -> AtomList { return propPlaneWavesX(); })
+        ->setUnits(PropValueUnits::RAD);
+    createCbListProperty("@pw_y", [this]() -> AtomList { return propPlaneWavesY(); })
+        ->setUnits(PropValueUnits::RAD);
+    createCbListProperty("@pw_z", [this]() -> AtomList { return propPlaneWavesZ(); })
+        ->setUnits(PropValueUnits::RAD);
 
-    createCbProperty("@angles", &HoaDecoder::propAngles, &HoaDecoder::propSetAngles);
-    property("@angles")->info().setType(PropertyInfoType::LIST);
-    property("@angles")->info().setUnits(PropertyInfoUnits::DEG);
+    createCbListProperty(
+        "@angles",
+        [this]() -> AtomList { return propAngles(); },
+        [this](const AtomList& l) -> bool { return propSetAngles(l); })
+        ->setUnits(PropValueUnits::DEG);
 
-    createCbProperty("@offset", &HoaDecoder::propOffset, &HoaDecoder::propSetOffset);
-    property("@offset")->info().setType(PropertyInfoType::FLOAT);
-    property("@offset")->info().setUnits(PropertyInfoUnits::DEG);
-}
-
-void HoaDecoder::parseMode()
-{
-    auto pos_arg = positionalSymbolArgument(1, nullptr);
-    if (pos_arg != nullptr)
-        mode_->setValue(pos_arg);
-
-    mode_->setReadonly(true);
+    createCbFloatProperty(
+        "@offset",
+        [this]() -> t_float { return decoder_ ? convert::rad2degree(decoder_->getPlanewavesRotationZ()) : 0; },
+        [this](t_float f) -> bool { return propSetOffset(f); })
+        ->setUnits(PropValueUnits::DEG);
 }
 
 void HoaDecoder::parsePlainWavesNum()
 {
-    const int NWAVES_ARG_IDX = 2;
-
     // num of plane waves ignored in binaural mode
     if (mode_->value() == SYM_BINAURAL) {
         plane_waves_->setValue(2);
@@ -96,9 +88,9 @@ void HoaDecoder::parsePlainWavesNum()
         const int MIN_PW_COUNT = 2 * order() + 1;
         const int DEFAULT = 2 * order() + 2;
 
-        // property was not specified, try positional arg
+        // property was not specified, set default
         if (plane_waves_->value() == 0)
-            plane_waves_->setValue(positionalFloatArgument(NWAVES_ARG_IDX, DEFAULT));
+            plane_waves_->setValue(DEFAULT);
 
         const auto N = plane_waves_->value();
 
@@ -113,9 +105,9 @@ void HoaDecoder::parsePlainWavesNum()
         const int MIN_PW_COUNT = 1;
         const int DEFAULT = 5;
 
-        // property was not specified, try positional arg
+        // property was not specified, use default
         if (plane_waves_->value() == 0)
-            plane_waves_->setValue(positionalFloatArgument(NWAVES_ARG_IDX, DEFAULT));
+            plane_waves_->setValue(DEFAULT);
 
         const auto N = plane_waves_->value();
 
@@ -129,21 +121,15 @@ void HoaDecoder::parsePlainWavesNum()
     } else {
         OBJ_ERR << "unknown mode: " << mode_->value();
     }
-
-    plane_waves_->setReadonly(true);
 }
 
-void HoaDecoder::parseProperties()
+void HoaDecoder::initDone()
 {
-    HoaBase::parseProperties();
-
-    parseMode();
     parsePlainWavesNum();
 
     initDecoder();
 
-    if (!init_offset_.empty())
-        propSetOffset(init_offset_);
+    propSetOffset(init_offset_);
 
     if (!init_angles_.empty())
         propSetAngles(init_angles_);
@@ -153,6 +139,8 @@ void HoaDecoder::parseProperties()
 
     in_buf_.resize(numInputChannels() * HOA_DEFAULT_BLOCK_SIZE);
     out_buf_.resize(numOutputChannels() * HOA_DEFAULT_BLOCK_SIZE);
+
+    updatePropertyDefaults();
 }
 
 void HoaDecoder::processBlock(const t_sample** in, t_sample** out)
@@ -228,29 +216,18 @@ void HoaDecoder::initDecoder()
     }
 }
 
-AtomList HoaDecoder::propCropSize() const
+int HoaDecoder::propCropSize() const
 {
     if (mode_->value() == SYM_BINAURAL) {
         DecoderBinaural2d* p = static_cast<DecoderBinaural2d*>(decoder_.get());
-        return Atom(p->getCropSize());
+        return p->getCropSize();
     } else
-        return Atom(crop_size_);
+        return crop_size_;
 }
 
-void HoaDecoder::propSetCropSize(const AtomList& lst)
+bool HoaDecoder::propSetCropSize(int lst)
 {
-    if (!checkArgs(lst, ARG_FLOAT)) {
-        OBJ_ERR << "crop size value expected: " << lst;
-        return;
-    }
-
-    int v = lst.floatAt(0, 0);
-    if (v < 0) {
-        OBJ_ERR << "crop size should be >= 0";
-        return;
-    }
-
-    crop_size_ = v;
+    crop_size_ = lst;
 
     if (mode_->value() == SYM_BINAURAL) {
         DecoderBinaural2d* p = static_cast<DecoderBinaural2d*>(decoder_.get());
@@ -258,10 +235,15 @@ void HoaDecoder::propSetCropSize(const AtomList& lst)
         // to assure limits
         crop_size_ = p->getCropSize();
     }
+
+    return true;
 }
 
 AtomList HoaDecoder::propPlaneWavesX() const
 {
+    if (!decoder_)
+        return {};
+
     auto N = decoder_->getNumberOfPlanewaves();
     AtomList res;
     res.reserve(N);
@@ -273,6 +255,9 @@ AtomList HoaDecoder::propPlaneWavesX() const
 
 AtomList HoaDecoder::propPlaneWavesY() const
 {
+    if (!decoder_)
+        return {};
+
     auto N = decoder_->getNumberOfPlanewaves();
     AtomList res;
     res.reserve(N);
@@ -284,6 +269,9 @@ AtomList HoaDecoder::propPlaneWavesY() const
 
 AtomList HoaDecoder::propPlaneWavesZ() const
 {
+    if (!decoder_)
+        return {};
+
     auto N = decoder_->getNumberOfPlanewaves();
     AtomList res;
     res.reserve(N);
@@ -293,13 +281,11 @@ AtomList HoaDecoder::propPlaneWavesZ() const
     return res;
 }
 
-AtomList HoaDecoder::propNumHarmonics() const
-{
-    return Atom(decoder_->getNumberOfHarmonics());
-}
-
 AtomList HoaDecoder::propAngles() const
 {
+    if (!decoder_)
+        return {};
+
     auto N = decoder_->getNumberOfPlanewaves();
     AtomList res;
     res.reserve(N);
@@ -309,17 +295,17 @@ AtomList HoaDecoder::propAngles() const
     return res;
 }
 
-void HoaDecoder::propSetAngles(const AtomList& lst)
+bool HoaDecoder::propSetAngles(const AtomList& lst)
 {
     if (lst.empty()) {
         OBJ_ERR << "angle list in degrees expected";
-        return;
+        return false;
     }
 
     if (decoder_) {
         if (mode_->value() != SYM_IRREGULAR) {
             OBJ_ERR << "not in irregular mode: can not set angles";
-            return;
+            return false;
         }
 
         auto N = std::min<size_t>(decoder_->getNumberOfPlanewaves(), lst.size());
@@ -329,31 +315,25 @@ void HoaDecoder::propSetAngles(const AtomList& lst)
         // on init stage
         init_angles_ = lst;
     }
+
+    return true;
 }
 
-AtomList HoaDecoder::propOffset() const
+bool HoaDecoder::propSetOffset(t_float f)
 {
-    return Atom(convert::rad2degree(decoder_->getPlanewavesRotationZ()));
-}
-
-void HoaDecoder::propSetOffset(const AtomList& lst)
-{
-    if (!checkArgs(lst, ARG_FLOAT)) {
-        OBJ_ERR << "offset angle in degrees expected: " << lst;
-        return;
-    }
-
     if (decoder_) {
         if (mode_->value() == SYM_BINAURAL) {
             OBJ_ERR << "can not set offset in binaural mode";
-            return;
+            return false;
         }
 
-        decoder_->setPlanewavesRotation(0, 0, convert::degree2rad(lst[0].asFloat()));
+        decoder_->setPlanewavesRotation(0, 0, convert::degree2rad(f));
     } else {
         // on init stage
-        init_offset_ = lst;
+        init_offset_ = f;
     }
+
+    return true;
 }
 
 void setup_spat_hoa_decoder()

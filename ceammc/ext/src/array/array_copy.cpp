@@ -21,12 +21,12 @@
 
 ArrayCopy::ArrayCopy(const PdArgs& a)
     : BaseObject(a)
-    , resize_(0)
+    , resize_(nullptr)
 {
     createOutlet();
 
-    resize_ = new FlagProperty("@resize");
-    createProperty(resize_);
+    resize_ = new BoolProperty("@resize", false);
+    addProperty(resize_);
 }
 
 void ArrayCopy::onList(const AtomList& l)
@@ -155,7 +155,7 @@ void ArrayCopy::copyRange(t_symbol* src, const Range& range, t_symbol* dest, siz
 
 Range Range::clip(size_t max) const
 {
-    return Range(from, std::min(to, max));
+    return { from, std::min(to, max) };
 }
 
 bool ArrayCopy::checkArrays(const Array& src, const Array& dest) const
@@ -173,7 +173,7 @@ bool ArrayCopy::checkArrays(const Array& src, const Array& dest) const
     return true;
 }
 
-extern "C" void setup_array0x2ecopy()
+void setup_array_copy()
 {
     ObjectFactory<ArrayCopy> obj("array.copy");
     obj.addMethod("copy", &ArrayCopy::m_copy);

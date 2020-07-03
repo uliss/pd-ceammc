@@ -25,10 +25,12 @@ class CC2Amp : public BaseObject {
 
 public:
     CC2Amp(const PdArgs& a);
-    void onFloat(t_float v);
+    void onFloat(t_float v) override;
 
 private:
     t_float convert(t_float v);
 };
+
+void setup_conv_cc2amp();
 
 #endif // CONV_CC2AMP_H

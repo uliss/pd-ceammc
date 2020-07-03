@@ -14,16 +14,18 @@
 #ifndef DICT_FROM_LIST_H
 #define DICT_FROM_LIST_H
 
+#include "ceammc_data.h"
 #include "ceammc_object.h"
 using namespace ceammc;
 
 class DictFromList : public BaseObject {
-    IntPropertyMinEq* n_;
+    IntProperty* n_;
 
 public:
     DictFromList(const PdArgs& args);
 
     void onList(const AtomList& l) override;
+    void onDataT(const MListAtom& ml);
 };
 
 void setup_dict_from_list();

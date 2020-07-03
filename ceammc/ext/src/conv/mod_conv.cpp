@@ -5,40 +5,48 @@
 #include "conv_midi2freq.h"
 #include "conv_pitch2midi.h"
 
-extern "C" void setup_conv0x2esec2str();
-extern "C" void setup_conv0x2estr2sec();
-extern "C" void setup_conv0x2elin2curve();
-extern "C" void setup_conv0x2elin2exp();
-extern "C" void setup_conv0x2elin2lin();
+void setup_conv_sec2str();
+void setup_conv_str2sec();
 
-extern "C" void setup_conv0x2ecc2amp();
+void setup_conv_cc2amp();
 
-extern "C" void setup_conv0x2esamp2sec();
-extern "C" void setup_conv0x2esec2samp();
-extern "C" void setup_conv0x2ebpm2ms();
-extern "C" void setup_conv0x2ebpm2sec();
-extern "C" void setup_conv0x2ebpm2hz();
+void setup_conv_samp2sec();
+void setup_conv_samp2ms();
+void setup_conv_ms2samp();
+void setup_conv_sec2samp();
+void setup_conv_bpm2ms();
+void setup_conv_bpm2sec();
+void setup_conv_bpm2hz();
 
-extern void setup_conv_angles();
+void setup_conv_angles();
+
+void setup_conv_lin2curve();
+void setup_conv_lin2exp();
+void setup_conv_lin2lin();
+void setup_conv_lin2lin();
+void setup_conv_lin2lin_tilde();
 
 void ceammc_conv_setup()
 {
-    setup_conv0x2esec2str();
-    setup_conv0x2estr2sec();
+    setup_conv_sec2str();
+    setup_conv_str2sec();
 
-    setup_conv0x2elin2curve();
-    setup_conv0x2elin2exp();
-    setup_conv0x2elin2lin();
+    setup_conv_lin2curve();
+    setup_conv_lin2exp();
+    setup_conv_lin2lin();
+    setup_conv_lin2lin_tilde();
 
-    setup_conv0x2ecc2amp();
+    setup_conv_cc2amp();
 
-    setup_conv0x2esamp2sec();
-    setup_conv0x2esec2samp();
-    setup_conv0x2ebpm2ms();
-    setup_conv0x2ebpm2sec();
-    setup_conv0x2ebpm2hz();
+    setup_conv_samp2sec();
+    setup_conv_samp2ms();
+    setup_conv_ms2samp();
+    setup_conv_sec2samp();
+    setup_conv_bpm2ms();
+    setup_conv_bpm2sec();
+    setup_conv_bpm2hz();
 
-    setup_conv0x2epitch2midi();
+    setup_conv_pitch2midi();
     setup_conv_amp2dbfs();
     setup_conv_dbfs2amp();
 

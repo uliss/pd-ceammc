@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="math.cosh~">
+        <title>math.cosh~</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>hyperbolic cosine for signals</description>
+            <license>GPL3 or later</license>
+            <library>ceammc</library>
+            <category>math</category>
+            <keywords>math cosh hyperbolic</keywords>
+            <also>
+                <see>math.cosh</see>
+                <see>math.acosh~</see>
+            </also>
+            <since>0.9</since>
+        </meta>
+        <info>
+            <par>Outputs hyperbolic cosine of input signal</par>
+            <par>cosh x = (ℯˣ + ℯ⁻ˣ)/2</par>
+            <a href="https://en.wikipedia.org/wiki/Hyperbolic_functions">wiki: Hyperbolic
+            functions</a>
+        </info>
+        <inlets>
+            <inlet type="audio">
+                <xinfo>input signal</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet type="audio">result signal</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[B]
+|
+[plot.linspace~ -3 3  {w=50} #a]
+|            |           |
+|            |           [*~ -1]
+|            |           |
+[math.cosh~] [math.exp~] [math.exp~]
+|            |.          |..
+[ui.plot~ @xlabels 1 @ylabels 1 @ymin 0 @ymax 20 @size 400 200 @n 3 #b]
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+[ui.dsp~]
+[X a:1->b:3]
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

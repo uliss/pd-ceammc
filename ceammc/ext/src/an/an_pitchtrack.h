@@ -2,6 +2,7 @@
 #define AN_PITCHTRACK_H
 
 #include "ceammc_clock.h"
+#include "ceammc_property_enum.h"
 #include "ceammc_sound_external.h"
 #include "helmholtz/Helmholtz.h"
 
@@ -9,17 +10,13 @@
 
 using namespace ceammc;
 
-class PitchTrack;
-typedef CallbackMemFnProperty<PitchTrack, FloatPropertyClosedRange> PitchTrackFloatProperty;
-typedef CallbackMemFnProperty<PitchTrack, IntEnumProperty> PitchTrackEnumProperty;
-
 class PitchTrack : public SoundExternal {
     t_float freq_, fidelity_;
-    PitchTrackEnumProperty* framesize_;
-    PitchTrackEnumProperty* overlap_;
-    PitchTrackFloatProperty* bias_;
-    FloatPropertyClosedRange* maxfreq_;
-    FloatPropertyClosedRange* fidelity_threshold_;
+    IntEnumProperty* framesize_;
+    IntEnumProperty* overlap_;
+    FloatProperty* bias_;
+    FloatProperty* maxfreq_;
+    FloatProperty* fidelity_threshold_;
 
     std::unique_ptr<Helmholtz> helmholtz_;
     ClockMemberFunction<PitchTrack> clock_;

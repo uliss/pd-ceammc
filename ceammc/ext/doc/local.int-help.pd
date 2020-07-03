@@ -31,7 +31,8 @@ accessible even from subpatch.;
 #X obj 20 417 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
 -49933 0;
 #X msg 110 452 @value;
-#X text 245 452 (readonly) Get current value. Type: int.;
+#X text 245 452 (readonly) Get current value. Type: int. Default value:
+0\.;
 #X obj 20 491 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 496 cnv 5 73 26 empty empty methods: 4 10 0 14 -262144
 -49933 0;
@@ -65,7 +66,7 @@ outlet.;
 #X text 115 45 ::;
 #X obj 131 48 ui.link @title local @url ceammc.local-help.pd;
 #X obj 1 788 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 791 library: ceammc v0.8.0;
+#X text 10 791 library: ceammc v0.9.0;
 #X text 413 803 see also:;
 #X obj 487 803 local.float;
 #X obj 581 803 local.list;
@@ -75,7 +76,7 @@ outlet.;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
 #X text 10 32 version:;
-#X text 120 32 0.8.0;
+#X text 120 32 0.9.0;
 #X text 10 54 object:;
 #X text 120 54 local.int;
 #X text 10 76 category:;

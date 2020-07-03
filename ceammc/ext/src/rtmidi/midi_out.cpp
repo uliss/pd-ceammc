@@ -10,7 +10,7 @@
 
 #include "RtMidi.h"
 
-#include "ceammc.hpp"
+#include "ceammc.h"
 #include "ceammc_factory.h"
 #include "ceammc_fn_list.h"
 #include "ceammc_log.h"

@@ -46,8 +46,6 @@ public:
     void m_to_event(t_symbol* s, const AtomList& lst);
     void m_to_time(t_symbol* s, const AtomList& lst);
 
-    AtomList propIsRunning() const;
-    AtomList propLength() const;
     AtomList propNumEvents() const;
     AtomList propCurrentTime() const;
     AtomList propLoop() const;

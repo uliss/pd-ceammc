@@ -34,8 +34,7 @@ public:
     void setupDSP(t_signal** sp) final;
     void processBlock(const t_sample** in, t_sample** out) final;
 
-    AtomList propSoundFont() const;
-    void propSetSoundFont(const AtomList& lst);
+    bool propSetSoundFont(t_symbol* s);
     AtomList propVersion() const;
     AtomList propSoundFonts() const;
 

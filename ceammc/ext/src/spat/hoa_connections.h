@@ -20,7 +20,7 @@
 using namespace ceammc;
 
 class HoaXlet : public BaseObject {
-    IntPropertyMinEq* extra_;
+    IntProperty* extra_;
 
 public:
     HoaXlet(const PdArgs& args);
@@ -62,7 +62,7 @@ public:
 };
 
 class HoaXletTilde : public SoundExternal {
-    IntPropertyMinEq* extra_;
+    IntProperty* extra_;
 
 protected:
     t_sample* signal_;

@@ -1,8 +1,9 @@
-/* A Bison parser, made by GNU Bison 3.0.4.  */
+/* A Bison parser, made by GNU Bison 3.5.  */
 
 /* Bison interface for Yacc-like parsers in C
 
-   Copyright (C) 1984, 1989-1990, 2000-2015 Free Software Foundation, Inc.
+   Copyright (C) 1984, 1989-1990, 2000-2015, 2018-2019 Free Software Foundation,
+   Inc.
 
    This program is free software: you can redistribute it and/or modify
    it under the terms of the GNU General Public License as published by
@@ -29,6 +30,9 @@
 
    This special exception was added by the Free Software Foundation in
    version 2.2 of Bison.  */
+
+/* Undocumented macros, especially those whose name start with YY_,
+   are private implementation details.  Do not rely on them.  */
 
 #ifndef YY_MATH_EXPR_MATH_EXPR_TAB_H_INCLUDED
 # define YY_MATH_EXPR_MATH_EXPR_TAB_H_INCLUDED
@@ -57,33 +61,33 @@ extern int math_expr_debug;
     T_REF = 259,
     T_EQ = 260,
     T_NOT_EQ = 261,
-    T_ARRAY_BEGIN = 262,
-    T_ARRAY_END = 263,
-    T_UFUNC = 264,
-    T_BFUNC = 265,
-    T_ERROR = 266,
-    T_LE = 267,
-    T_LT = 268,
-    T_GT = 269,
-    T_GE = 270,
-    T_NEG = 271
+    T_APPROX_EQ = 262,
+    T_ARRAY_BEGIN = 263,
+    T_ARRAY_END = 264,
+    T_UFUNC = 265,
+    T_BFUNC = 266,
+    T_ERROR = 267,
+    T_LE = 268,
+    T_LT = 269,
+    T_GT = 270,
+    T_GE = 271,
+    T_NEG = 272
   };
 #endif
 
 /* Value type.  */
 #if ! defined MATH_EXPR_STYPE && ! defined MATH_EXPR_STYPE_IS_DECLARED
-
 union MATH_EXPR_STYPE
 {
-#line 47 "math_expr.y" /* yacc.c:1915  */
+#line 59 "math_expr.y"
 
   double val;   /* for returning numbers                  */
   const char* txt;
   Node* node;
 
-#line 85 "math_expr.tab.h" /* yacc.c:1915  */
-};
+#line 89 "math_expr.tab.h"
 
+};
 typedef union MATH_EXPR_STYPE MATH_EXPR_STYPE;
 # define MATH_EXPR_STYPE_IS_TRIVIAL 1
 # define MATH_EXPR_STYPE_IS_DECLARED 1

@@ -7,7 +7,7 @@
                 <author>Alex Nadzharov</author>
                 <author>Serge Poltavsky</author>
             </authors>
-            <description>Band-pass filter with 24/db per octave slope</description>
+            <description>Four pole band-pass butterworth filter</description>
             <license>GPL3 or later</license>
             <library>ceammc</library>
             <category>flt</category>
@@ -20,6 +20,9 @@
         <info>
             <par>Band-pass filter passes frequencies within a certain range and rejects frequencies
             outside that range.</par>
+            <par>Butterworth filter is a type of filter designed to have a frequency response as
+            flat as possible in the passband.</par>
+            <a href="https://en.wikipedia.org/wiki/Butterworth_filter">wiki: Butterworth filter</a>
         </info>
         <properties>
             <property name="@freq" type="float" units="herz" default="1000" minvalue="20"
@@ -35,6 +38,9 @@
             @freq/BANDWIDTH</argument>
             <argument name="ID" type="symbol">object ID for OSC control</argument>
         </arguments>
+        <methods>
+            <method name="reset">reset filter state</method>
+        </methods>
         <inlets>
             <inlet type="audio">
                 <xinfo>input signal</xinfo>
@@ -46,20 +52,49 @@
         <example>
             <pdascii>
 <![CDATA[
-[F]              [400( [800( [1000( [1200( [2400(
-|                |     |     |      |      |
-[osc~ 1000]      [F                        ]
-|      |         |
-|      |         [@freq $1(
-|      |         |
-|      [flt.bpf24~ 1000 2.5] /*800-1200*/
-|      |
-[env~] [env~]
-|      |
-[F]    [F]
+[ui.tab 100 500 1000 5000 10000 15000 20000 @size 300 15]
+|
+[$2(
+|
+[F digits=5] [F]     [bang #a(/*plot response*/
+|            |       |
+[@freq #b(   [@q #c( [click~ #d]
+
+
+
+[flt.bpf24~ #e]      [flt.bpf12~ #f]
+|
+[plot.response~ #g]  [plot.response~ #h]
+
+
+[ui.plot~ #z]
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 [ui.dsp~]
-
+[X a->g:1]
+[X a->h:1]
+[X b->f] [X b->e]
+[X c->f] [X c->e]
+[X d->f] [X d->e]
+[X f->h]
+[X g->z] [X h->z:1] [X h:2->z:2]
+#b $1
+#c $1
+#g @sr 1
+#h @sr 1
+#z @xlabels 1 @ylabels 1 @ymin 0 @ymax 1 @ymin_ticks 0 @ymaj_ticks 0 @n 2 @size 400 200
 ]]>
             </pdascii>
         </example>

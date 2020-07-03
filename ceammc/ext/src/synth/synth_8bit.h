@@ -10,7 +10,7 @@ class Synth8Bit : public SoundExternal {
 
 public:
     Synth8Bit(const PdArgs& args);
-    void processBlock(const t_sample** in, t_sample** out);
+    void processBlock(const t_sample** in, t_sample** out) override;
 };
 
 void setup_fx_8bit();

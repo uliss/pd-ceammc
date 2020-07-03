@@ -30,7 +30,7 @@
 <![CDATA[
 [B]         [B]
 |           |
-[data.dict] [data.dict \[a: b\] \[c: 200\] \[12: 15151\]]
+[data.dict] [data.dict \[a: b c: 200 12: 15151\]]
 |           |
 [dict.size  ]
 |

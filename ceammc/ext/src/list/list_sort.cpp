@@ -2,8 +2,6 @@
 #include "ceammc_factory.h"
 #include "datatype_mlist.h"
 
-#include <algorithm>
-
 ListSort::ListSort(const PdArgs& args)
     : BaseObject(args)
 {
@@ -12,19 +10,16 @@ ListSort::ListSort(const PdArgs& args)
 
 void ListSort::onList(const AtomList& lst)
 {
-    // sort only floats and symbols
-    auto pred = [](const Atom& a) { return a.isSymbol() || a.isFloat(); };
-
-    AtomList res(lst.filter(pred));
-    std::sort(res.begin(), res.end());
+    AtomList res(lst);
+    res.sort();
     listTo(0, res);
 }
 
-void ListSort::onDataT(const DataTPtr<DataTypeMList>& lst)
+void ListSort::onDataT(const MListAtom& ml)
 {
-    DataTypeMList res(*lst);
-    res.sort();
-    dataTo(0, DataTPtr<DataTypeMList>(res));
+    MListAtom res(*ml);
+    res->sort();
+    atomTo(0, res);
 }
 
 void setup_list_sort()

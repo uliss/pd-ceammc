@@ -17,9 +17,8 @@ class MetroPattern : public BaseObject {
 public:
     MetroPattern(const PdArgs& args);
 
-    void onFloat(t_float on);
-    AtomList p_pattern() const;
-    void p_set_pattern(const AtomList& l);
+    void onFloat(t_float on) override;
+    bool p_set_pattern(const AtomList& l);
 
 public:
     void tick();

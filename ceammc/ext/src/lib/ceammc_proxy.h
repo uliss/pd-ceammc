@@ -72,12 +72,12 @@ public:
         : owner_(o)
         , method_ptr_(p)
     {
-        if (proxy_class_ == 0)
+        if (proxy_class_ == nullptr)
             initClass();
 
         assert(proxy_class_);
 
-        t_object* tmp = (t_object*)pd_new(proxy_class_);
+        t_object* tmp = reinterpret_cast<t_object*>(pd_new(proxy_class_));
         memcpy(&obj_, tmp, sizeof(t_object));
         pd_free((t_pd*)tmp);
     }
@@ -96,7 +96,7 @@ public:
     static void initClass()
     {
         PdFloatProxy::proxy_class_ = class_new(gensym("proxy float"), 0, 0, sizeof(PdFloatProxy), CLASS_PD, A_NULL);
-        class_addfloat(PdFloatProxy::proxy_class_, PdFloatProxy::on_float);
+        class_doaddfloat(PdFloatProxy::proxy_class_, reinterpret_cast<t_method>(PdFloatProxy::on_float));
     }
 
 private:
@@ -108,7 +108,7 @@ protected:
 };
 
 template <class T>
-t_class* PdFloatProxy<T>::proxy_class_ = 0;
+t_class* PdFloatProxy<T>::proxy_class_ = nullptr;
 
 template <class T>
 class PdListProxy : public PdBindObject {
@@ -119,12 +119,12 @@ public:
         : owner_(o)
         , method_ptr_(p)
     {
-        if (proxy_class_ == 0)
+        if (proxy_class_ == nullptr)
             initClass();
 
         assert(proxy_class_);
 
-        t_object* tmp = (t_object*)pd_new(proxy_class_);
+        t_object* tmp = reinterpret_cast<t_object*>(pd_new(proxy_class_));
         memcpy(&obj_, tmp, sizeof(t_object));
         pd_free((t_pd*)tmp);
     }
@@ -143,7 +143,7 @@ public:
     static void initClass()
     {
         PdListProxy::proxy_class_ = class_new(gensym("proxy list"), 0, 0, sizeof(PdListProxy), CLASS_PD, A_NULL);
-        class_addlist(PdListProxy::proxy_class_, PdListProxy::on_list);
+        class_addlist(PdListProxy::proxy_class_, reinterpret_cast<t_method>(PdListProxy::on_list));
     }
 
 private:
@@ -155,7 +155,7 @@ protected:
 };
 
 template <class T>
-t_class* PdListProxy<T>::proxy_class_ = 0;
+t_class* PdListProxy<T>::proxy_class_ = nullptr;
 }
 
 #endif // CEAMMC_PROXY_H

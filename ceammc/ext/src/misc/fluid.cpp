@@ -37,9 +37,6 @@ Fluid::Fluid(const PdArgs& args)
     fluid_settings_setnum(settings, "synth.polyphony", 256);
     fluid_settings_setnum(settings, "synth.gain", 0.6);
     fluid_settings_setnum(settings, "synth.sample-rate", 44100);
-    fluid_settings_setstr(settings, "synth.chorus.active", "no");
-    fluid_settings_setstr(settings, "synth.reverb.active", "no");
-    fluid_settings_setstr(settings, "synth.ladspa.active", "no");
 
     // Create fluidsynth instance:
     synth_ = new_fluid_synth(settings);
@@ -47,15 +44,12 @@ Fluid::Fluid(const PdArgs& args)
     if (synth_ == nullptr)
         OBJ_ERR << "couldn't create synth";
 
-    {
-        Property* p = createCbProperty("@sf", &Fluid::propSoundFont, &Fluid::propSetSoundFont);
-        p->info().setType(PropertyInfoType::SYMBOL);
-    }
+    createCbSymbolProperty(
+        "@sf", [this]() -> t_symbol* { return sound_font_; },
+        [this](t_symbol* s) -> bool { return propSetSoundFont(s); });
 
-    {
-        Property* p = createCbProperty("@version", &Fluid::propVersion);
-        p->info().setType(PropertyInfoType::SYMBOL);
-    }
+    createCbSymbolProperty("@version",
+        [this]() -> t_symbol* { return gensym(FLUIDSYNTH_VERSION); });
 
     createCbProperty("@soundfonts", &Fluid::propSoundFonts);
 }
@@ -87,32 +81,21 @@ void Fluid::setupDSP(t_signal** sp)
     }
 }
 
-AtomList Fluid::propSoundFont() const
-{
-    return Atom(sound_font_);
-}
-
-void Fluid::propSetSoundFont(const AtomList& lst)
+bool Fluid::propSetSoundFont(t_symbol* s)
 {
     if (!synth_) {
         OBJ_ERR << "NULL synth";
-        return;
+        return false;
     }
 
-    if (!checkArgs(lst, ARG_SYMBOL)) {
-        OBJ_ERR << "path to soundfont expected: " << lst;
-        return;
-    }
-
-    const char* fn = lst.symbolAt(0, &s_)->s_name;
-    std::string filename = findInStdPaths(fn);
+    std::string filename = findInStdPaths(s->s_name);
 
     if (filename.empty()) {
-        filename = platform::find_in_exernal_dir(owner(), fn);
+        filename = platform::find_in_exernal_dir(owner(), s->s_name);
 
         if (filename.empty()) {
-            OBJ_ERR << "sound font is not found: " << lst;
-            return;
+            OBJ_ERR << "sound font is not found: " << s;
+            return false;
         }
     }
 
@@ -121,15 +104,13 @@ void Fluid::propSetSoundFont(const AtomList& lst)
         OBJ_DBG << "loaded soundfont: " << filename;
         fluid_synth_program_reset(synth_);
 
-        sound_font_ = lst.symbolAt(0, &s_);
+        sound_font_ = s;
     } else {
-        OBJ_ERR << "can't load soundfont: " << lst;
+        OBJ_ERR << "can't load soundfont: " << s;
+        return false;
     }
-}
 
-AtomList Fluid::propVersion() const
-{
-    return Atom(gensym(FLUIDSYNTH_VERSION));
+    return true;
 }
 
 AtomList Fluid::propSoundFonts() const

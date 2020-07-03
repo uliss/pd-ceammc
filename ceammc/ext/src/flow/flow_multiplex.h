@@ -11,13 +11,13 @@ class FlowMultiplex : public BaseObject {
 public:
     FlowMultiplex(const PdArgs& args);
 
-    void onBang();
-    void onFloat(float f);
-    void onSymbol(t_symbol* s);
-    void onList(const AtomList& l);
-    void onAny(t_symbol* sel, const AtomList& args);
-    void onData(const DataPtr& ptr);
-    void onInlet(size_t idx, const AtomList& l);
+    void onBang() override;
+    void onFloat(t_float f) override;
+    void onSymbol(t_symbol* s) override;
+    void onList(const AtomList& l) override;
+    void onAny(t_symbol* sel, const AtomList& args) override;
+    void onData(const Atom& data) override;
+    void onInlet(size_t idx, const AtomList& l) override;
 };
 
 void setup_flow_multiplex();

@@ -15,7 +15,9 @@ class PresetBase : public BaseObject {
 
 public:
     PresetBase(const PdArgs& args);
-    ~PresetBase();
+    ~PresetBase() override;
+
+    void initDone() override;
 
     t_symbol* makePath() const;
     t_symbol* makePresetPath() const;

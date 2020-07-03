@@ -24,8 +24,10 @@ public:
      * @brief converts sample position to phase [0..1]
      * @param sample position
      */
-    void onFloat(t_float sample);
-    void onList(const AtomList& lst);
+    void onFloat(t_float sample) override;
+    void onList(const AtomList& lst) override;
 };
+
+void setup_array_s2p();
 
 #endif // ARRAY_S2P_H

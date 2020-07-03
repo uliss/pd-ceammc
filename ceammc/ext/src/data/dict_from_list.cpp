@@ -14,39 +14,38 @@
 #include "dict_from_list.h"
 #include "ceammc_factory.h"
 #include "datatype_dict.h"
+#include "datatype_mlist.h"
 
-static const int MIN_STEP = 2;
-static const int DEFAULT_STEP = 2;
+constexpr int MIN_STEP = 2;
+constexpr int DEFAULT_STEP = 2;
 
 DictFromList::DictFromList(const PdArgs& args)
     : BaseObject(args)
     , n_(nullptr)
 {
-    n_ = new IntPropertyMinEq("@step", positionalFloatArgument(0, DEFAULT_STEP), MIN_STEP);
-    createProperty(n_);
+    n_ = new IntProperty("@step", DEFAULT_STEP);
+    n_->setArgIndex(0);
+    n_->checkMinEq(MIN_STEP);
+    addProperty(n_);
 
     createOutlet();
 }
 
 void DictFromList::onList(const AtomList& l)
 {
-    DataTypeDict dict;
-    size_t STEP = n_->value();
-    size_t T = (l.size() / STEP) * STEP;
+    DictAtom dict;
+    *dict = DataTypeDict::fromList(l, n_->value());
+    atomTo(0, dict);
+}
 
-    if (STEP == 2) {
-        for (size_t i = 0; i < T; i += STEP)
-            dict.insert(l[i], l[i + 1]);
-    } else {
-        for (size_t i = 0; i < T; i += STEP)
-            dict.insert(l[i], l.slice(i + 1, i + STEP - 1));
-    }
-
-    dataTo(0, DataTPtr<DataTypeDict>(dict));
+void DictFromList::onDataT(const MListAtom& ml)
+{
+    onList(ml->data());
 }
 
 void setup_dict_from_list()
 {
     ObjectFactory<DictFromList> obj("dict.from_list");
     obj.addAlias("list->dict");
+    obj.processData<DataTypeMList>();
 }

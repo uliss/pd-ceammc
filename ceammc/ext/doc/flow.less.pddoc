@@ -12,7 +12,11 @@
             <category>flow</category>
             <keywords>gate</keywords>
             <since>0.4</since>
+            <aliases>
+                <alias>flow.&lt;</alias>
+            </aliases>
             <also>
+                <see>flow.greater</see>
                 <see>flow.less_eq</see>
             </also>
         </meta>

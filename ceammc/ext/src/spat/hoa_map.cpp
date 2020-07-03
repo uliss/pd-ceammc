@@ -22,23 +22,25 @@ HoaMap::HoaMap(const PdArgs& args)
     , nins_(nullptr)
     , ramp_(nullptr)
 {
-    nins_ = new IntPropertyMinEq("@nsrc", positionalFloatArgument(1, 1), 1);
-    createProperty(nins_);
+    nins_ = new IntProperty("@nsrc", 1);
+    nins_->setArgIndex(1);
+    nins_->setInitOnly();
+    nins_->checkMinEq(1);
+    addProperty(nins_);
 
-    ramp_ = new RampProperty(
-        this, [](HoaMap* map, const AtomList& l) {
-            map->lines_->setRamp(l.floatAt(0, 0) / 1000. * sys_getsr());
-        },
-        "@ramp", 100, 0);
+    ramp_ = new FloatProperty("@ramp", 100);
+    ramp_->checkMinEq(0);
+    ramp_->setSuccessFn(
+        [this](Property*) {
+            lines_->setRamp(ramp_->value() / 1000. * sys_getsr());
+        });
 
-    createProperty(ramp_);
+    addProperty(ramp_);
 }
 
 void HoaMap::parseProperties()
 {
     HoaBase::parseProperties();
-
-    nins_->setReadonly(true);
 
     map_.reset(new MultiEncoder2d(order(), nins_->value()));
     lines_.reset(new PolarLines2d(map_->getNumberOfSources()));

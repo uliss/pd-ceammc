@@ -14,7 +14,7 @@
 #include "array_minmax.h"
 #include "ceammc_factory.h"
 
-#include <boost/algorithm/minmax_element.hpp>
+#include <algorithm>
 
 ArrayMinMax::ArrayMinMax(const PdArgs& a)
     : ArrayBase(a)
@@ -41,7 +41,7 @@ void ArrayMinMax::onSymbol(t_symbol* s)
 
 void ArrayMinMax::perform()
 {
-    std::pair<ArrayIterator, ArrayIterator> minmax = boost::minmax_element(array_.begin(), array_.end());
+    auto minmax = std::minmax_element(array_.begin(), array_.end());
 
     if (minmax.first == array_.end())
         return;
@@ -50,7 +50,7 @@ void ArrayMinMax::perform()
     listTo(0, AtomList(*minmax.first, *minmax.second));
 }
 
-extern "C" void setup_array0x2eminmax()
+void setup_array_minmax()
 {
     ObjectFactory<ArrayMinMax> obj("array.minmax");
 }

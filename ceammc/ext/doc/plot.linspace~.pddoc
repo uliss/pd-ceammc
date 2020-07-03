@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="plot.linspace~">
+        <title>plot.linspace~</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>outputs numbers spaced evenly spaced over a specified
+            interval</description>
+            <license>GPL3 or later</license>
+            <library>ceammc</library>
+            <category>array</category>
+            <keywords>array linear scale</keywords>
+            <also>
+                <see>plot.geomspace~</see>
+                <see>plot.logspace~</see>
+            </also>
+            <since>0.9</since>
+        </meta>
+        <properties>
+            <property name="@start" minvalue="0" type="float" default="0">the starting value of the
+            sequence</property>
+            <property name="@stop" minvalue="0" type="float" default="255">the final value of the
+            sequence, unless @endpoint is false. In that case, @n + 1 values are spaced over the
+            interval in lin-space, of which all but the last (a sequence of length @n) are
+            returned.</property>
+            <property name="@n" minvalue="4" maxvalue="1024" type="int" default="256">number of
+            points</property>
+            <property name="@base" enum="0 pi" type="atom" default="0">x-axis scale base</property>
+            <property name="@pi" type="atom">alias to @base pi</property>
+            <property name="@endpoint" type="int" enum="0 1" default="1">include @stop to
+            interval</property>
+        </properties>
+        <inlets>
+            <inlet>
+                <xinfo on="bang">starts output</xinfo>
+                <xinfo on="float">output specified number of values, change @n property
+                valuue</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet type="audio">signal output</outlet>
+            <outlet>output to [array.plot~] or [ui.plot~]</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[B]          [ui.dsp~]
+|
+|
+[plot.linspace~ -5 5]
+|      ^|.
+[ui.plot~ @size 400 150 @xlabels 1 @ylabels 1 @xmin_grid 0 @ymin_ticks 0 @xmin_ticks 0 @yauto 1]
+
+
+
+
+
+
+
+
+
+
+[ui.dsp~]
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

@@ -1,8 +1,8 @@
 #include "list_apply_to.h"
-#include "datatype_mlist.h"
 #include "ceammc_convert.h"
 #include "ceammc_factory.h"
 #include "ceammc_fn_list.h"
+#include "datatype_mlist.h"
 
 ListApplyTo::ListApplyTo(const ceammc::PdArgs& args)
     : BaseObject(args)
@@ -14,7 +14,20 @@ ListApplyTo::ListApplyTo(const ceammc::PdArgs& args)
     createOutlet();
     createOutlet();
 
-    onInlet(1, positionalArguments());
+    createCbListProperty(
+        "@indexes",
+        [this]() -> AtomList {
+            AtomList res;
+            for (auto i : idxs_)
+                res.append(i);
+
+            return res;
+        },
+        [this](const AtomList& l) -> bool {
+            setIndexes(l);
+            return true;
+        })
+        ->setArgIndex(0);
 }
 
 bool ListApplyTo::processAnyProps(t_symbol* sel, const AtomList& lst)
@@ -60,9 +73,9 @@ void ListApplyTo::onInlet(size_t n, const AtomList& lst)
     }
 }
 
-void ListApplyTo::onDataT(const DataTPtr<DataTypeMList>& dptr)
+void ListApplyTo::onDataT(const MListAtom& ml)
 {
-    const int N = dptr->size();
+    const int N = ml->size();
     mapped_.clear();
     mapped_.reserve(N);
     normalizeIndexes(N);
@@ -75,13 +88,13 @@ void ListApplyTo::onDataT(const DataTPtr<DataTypeMList>& dptr)
 
         // no proccessing required
         if (it == norm_idxs_.end())
-            mapped_.append((*dptr)[cur_idx_].toAtom());
+            mapped_.append((*ml)[cur_idx_]);
         else
-            atomTo(1, (*dptr)[cur_idx_].toAtom());
+            atomTo(1, (*ml)[cur_idx_]);
     }
 
     on_loop_ = false;
-    dataTo(0, DataTPtr<DataTypeMList>(DataTypeMList(mapped_)));
+    atomTo(0, new DataTypeMList(mapped_));
 }
 
 void ListApplyTo::setIndexes(const AtomList& lst)
@@ -128,6 +141,6 @@ void setup_list_apply_to()
 {
     ObjectFactory<ListApplyTo> obj("list.apply_to");
     obj.processData<DataTypeMList>();
-    obj.mapFloatToList();
-    obj.mapSymbolToList();
+    obj.useDefaultPdFloatFn();
+    obj.useDefaultPdSymbolFn();
 }

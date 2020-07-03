@@ -11,6 +11,7 @@
  * contact the author of this file, or the owner of the project in which
  * this file belongs to.
  *****************************************************************************/
+#include "ceammc_externals.h"
 #include "ceammc_pd.h"
 #include "test_base.h"
 #include "test_external.h"
@@ -20,13 +21,8 @@
 using namespace ceammc;
 using namespace ceammc::pd;
 
-static CanvasPtr cnv = PureData::instance().createTopCanvas("test_canvas");
-
 TEST_CASE("pd external", "[pd::External]")
 {
-    pd_init();
-    LogExternalOutput::setup();
-
     SECTION("coords")
     {
         External t("*");

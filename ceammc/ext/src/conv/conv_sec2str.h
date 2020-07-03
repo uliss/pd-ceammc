@@ -14,7 +14,6 @@
 #ifndef TIME_SEC2STR_H
 #define TIME_SEC2STR_H
 
-#include "ceammc_factory.h"
 #include "ceammc_object.h"
 
 using namespace ceammc;
@@ -25,7 +24,7 @@ class SecToStr : public BaseObject {
 
 public:
     SecToStr(const PdArgs& a);
-    void onFloat(t_float v);
+    void onFloat(t_float v) override;
 };
 
 #endif // TIME_SEC2STR_H

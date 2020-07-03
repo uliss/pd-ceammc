@@ -21,16 +21,16 @@ using namespace ceammc;
 typedef float (*WindowFuncPtr)(size_t, size_t);
 
 class Window : public BaseObject {
-    IntPropertyMinEq* size_;
+    IntProperty* size_;
     t_symbol* type_;
     WindowFuncPtr fn_;
 
 public:
     Window(const PdArgs& a);
-    void onBang();
-    void onFloat(float v);
-    void onList(const AtomList& l);
-    void setWindowFunc(t_symbol* name);
+    void onBang() override;
+    void onFloat(t_float v) override;
+    void onList(const AtomList& l) override;
+    bool setWindowFunc(t_symbol* name);
     WindowFuncPtr windowFunc();
 
     void m_hann(t_symbol*, const AtomList&);
@@ -44,10 +44,6 @@ public:
     void m_blackman_harris(t_symbol*, const AtomList&);
     void m_flattop(t_symbol*, const AtomList&);
     void m_gauss(t_symbol*, const AtomList&);
-
-private:
-    void pTypeSet(const AtomList& l);
-    AtomList pTypeGet() const;
 };
 
 extern "C" void window_setup();

@@ -3,6 +3,7 @@
 
 #include "ceammc_array.h"
 #include "ceammc_clock.h"
+#include "ceammc_property_enum.h"
 #include "ceammc_sound_external.h"
 
 #include <array>
@@ -79,7 +80,7 @@ class FxLooper : public SoundExternal {
     LinFadeinProperty* x_play_to_dub_;
     LinFadeoutProperty* x_dub_to_play_;
     LinFadeoutProperty* x_dub_to_stop_;
-    FloatPropertyMinEq* loop_smooth_ms_;
+    FloatProperty* loop_smooth_ms_;
     size_t max_samples_;
     size_t loop_len_;
     size_t play_phase_;
@@ -122,11 +123,6 @@ public:
     void m_clear(t_symbol*, const AtomList&);
     void m_adjust(t_symbol*, const AtomList& lst);
     void m_smooth(t_symbol*, const AtomList& lst);
-
-    AtomList p_length() const;
-    AtomList p_play_pos() const;
-    AtomList p_play_phase() const;
-    AtomList p_state() const;
 
     // test functions
     FxLooperState state() const { return state_; }

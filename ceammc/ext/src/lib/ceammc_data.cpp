@@ -13,154 +13,80 @@
  *****************************************************************************/
 #include "ceammc_data.h"
 #include "ceammc_datastorage.h"
-#include "ceammc_datatypes.h"
+#include "ceammc_format.h"
+#include "ceammc_json.h"
+#include "ceammc_log.h"
+#include "lex/data_string.lexer.h"
+#include "lex/data_string.parser.hpp"
 
-using namespace ceammc;
+namespace ceammc {
 
-static const DataDesc INVALID(data::DATA_INVALID, DataId(-1));
-
-DataPtr::DataPtr()
-    : desc_(INVALID)
-    , data_(nullptr)
+AtomList parseDataList(const AtomList& lst) noexcept
 {
-}
+    if (lst.empty())
+        return lst;
 
-DataPtr::DataPtr(AbstractData* data)
-    : desc_(INVALID)
-    , data_(data)
-{
-    desc_ = DataStorage::instance().add(data_);
-}
+    auto str = to_string(lst, " ");
+    if (str.empty())
+        return lst;
 
-DataPtr::DataPtr(const Atom& data)
-    : desc_(INVALID)
-    , data_(nullptr)
-{
-    if (!data.isData())
-        return;
+    try {
+        AtomList res;
+        DataStringLexer lex(str);
+        DataStringParser p(lex, res);
 
-    desc_ = data.getData();
-    data_ = DataStorage::instance().acquire(desc_);
-}
+        return (p.parse() == 0) ? res : lst;
 
-DataPtr::DataPtr(const DataPtr& d)
-    : desc_(d.desc_)
-    , data_(DataStorage::instance().acquire(desc_))
-{
-}
-
-DataPtr::DataPtr(DataPtr&& d)
-    : desc_(d.desc_)
-    , data_(d.data_)
-{
-    d.desc_ = INVALID;
-    d.data_ = nullptr;
-}
-
-DataPtr& DataPtr::operator=(const DataPtr& d)
-{
-    if (this == &d)
-        return *this;
-
-    invalidate();
-
-    desc_ = d.desc_;
-    data_ = DataStorage::instance().acquire(desc_);
-    return *this;
-}
-
-DataPtr& DataPtr::operator=(DataPtr&& d)
-{
-    if (this == &d)
-        return *this;
-
-    invalidate();
-    desc_ = d.desc_;
-    data_ = d.data_;
-
-    d.desc_ = INVALID;
-    d.data_ = nullptr;
-
-    return *this;
-}
-
-DataPtr::~DataPtr()
-{
-    invalidate();
-}
-
-bool DataPtr::isValid() const
-{
-    return desc_ != INVALID && data_ != nullptr;
-}
-
-DataDesc DataPtr::desc() const
-{
-    return desc_;
-}
-
-size_t DataPtr::refCount() const
-{
-    return DataStorage::instance().refCount(desc_);
-}
-
-const AbstractData* DataPtr::data() const
-{
-    return data_;
-}
-
-const AbstractData* DataPtr::operator->() const
-{
-    return data_;
-}
-
-Atom DataPtr::asAtom() const
-{
-    return Atom(desc_);
-}
-
-bool DataPtr::operator==(const DataPtr& d) const
-{
-    if (data_ == d.data_)
-        return true;
-
-    if (isValid() && d.isValid())
-        return data_->isEqual(d.data_);
-
-    return false;
-}
-
-bool DataPtr::operator!=(const DataPtr& d) const
-{
-    return !this->operator==(d);
-}
-
-void DataPtr::invalidate()
-{
-    if (isNull())
-        return;
-
-    DataStorage::instance().release(desc_);
-    data_ = nullptr;
-    desc_ = INVALID;
-}
-
-bool ceammc::operator<(const DataPtr& d0, const DataPtr& d1)
-{
-    if (&d0 == &d1)
-        return false;
-
-    if (d0.data() == d1.data())
-        return false;
-
-    if (d0.isValid()) {
-        return d1.isValid() ? d0.data()->isLess(d1.data()) : false;
-    } else {
-        return true;
+    } catch (std::exception& e) {
+        return lst;
     }
 }
 
-bool ceammc::DataPtr::isNull() const
+AtomList parseDataString(const std::string& str)
 {
-    return desc_ == INVALID || data_ == nullptr;
+    if (str.empty())
+        return AtomList();
+
+    try {
+        LogPdObject logger(nullptr, LOG_ERROR);
+        logger.setLogEmpty(false);
+
+        AtomList res;
+        DataStringLexer lex(str);
+        lex.output_indent = logger.prefix().length() + 1;
+        lex.out(logger);
+        DataStringParser p(lex, res);
+
+        if (p.parse() != 0)
+            return AtomList();
+
+        return res;
+
+    } catch (std::exception& e) {
+        LIB_ERR << "parse error: " << e.what();
+        return AtomList();
+    }
+}
+
+AtomList parseDataList(const AtomListView& view) noexcept
+{
+    if (view.empty())
+        return view;
+
+    auto str = to_string(view, " ");
+    if (str.empty())
+        return view;
+
+    try {
+        AtomList res;
+        DataStringLexer lex(str);
+        DataStringParser p(lex, res);
+
+        return (p.parse() == 0) ? res : view.operator AtomList();
+
+    } catch (std::exception& e) {
+        return view;
+    }
+}
+
 }

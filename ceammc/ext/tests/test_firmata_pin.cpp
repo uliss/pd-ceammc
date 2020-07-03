@@ -1,7 +1,7 @@
 #include "../proto/firmata/firmata_pin.h"
 
-#include "test_base.h"
 #include "catch.hpp"
+#include "test_base.h"
 
 #include <iostream>
 #include <sstream>
@@ -10,8 +10,6 @@ using namespace firmata;
 
 TEST_CASE("firmata::Pin", "[firmata]")
 {
-    obj_init();
-
     SECTION("base")
     {
         Pin p(10);

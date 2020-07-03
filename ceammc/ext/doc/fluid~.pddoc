@@ -15,7 +15,8 @@
         </meta>
         <properties>
             <property name="@sf" type="symbol">path to SoundFont</property>
-            <property name="@version" type="symbol" readonly="true">FluidSynth version</property>
+            <property name="@version" type="symbol" readonly="true" default="2.0.0">FluidSynth
+            version</property>
             <property name="@soundfonts" type="list" readonly="true">list of found
             soundfonts</property>
         </properties>

@@ -12,8 +12,8 @@
  * this file belongs to.
  *****************************************************************************/
 #include "list_prepend.h"
-#include "datatype_mlist.h"
 #include "ceammc_factory.h"
+#include "datatype_mlist.h"
 
 ListPrepend::ListPrepend(const PdArgs& args)
     : BaseObject(args)
@@ -31,7 +31,7 @@ void ListPrepend::parseProperties()
 void ListPrepend::onBang()
 {
     // bang processed as empty list
-    listTo(0, lst_.toList());
+    listTo(0, lst_);
 }
 
 void ListPrepend::onFloat(t_float f)
@@ -46,37 +46,29 @@ void ListPrepend::onSymbol(t_symbol* s)
 
 void ListPrepend::onList(const AtomList& lst)
 {
-    AtomList res(lst_.toList());
-    res.reserve(lst.size() + lst_.size());
-    res.append(lst);
-    listTo(0, res);
+    listTo(0, lst_ + lst);
 }
 
-void ListPrepend::onData(const DataPtr& d)
+void ListPrepend::onData(const Atom& d)
 {
-    if (d.isValid() && d->type() == DataTypeMList::dataType) {
-        auto lst = d->as<DataTypeMList>();
-        if (!lst) {
-            OBJ_ERR << "invalid data pointer: " << d.data();
-            return;
-        }
+    onList(d);
+}
 
-        auto res = new DataTypeMList(*lst);
-        DataPtr dptr(res);
-
-        res->prepend(lst_);
-        dataTo(0, dptr);
-    } else
-        onList(AtomList(d.asAtom()));
+void ListPrepend::onDataT(const MListAtom& ml)
+{
+    MListAtom res(ml);
+    res.detachData();
+    res->prepend(lst_);
+    atomTo(0, res);
 }
 
 void ListPrepend::onInlet(size_t n, const AtomList& lst)
 {
-    lst_.set(lst);
+    lst_ = lst;
 }
 
 void setup_list_prepend()
 {
     ObjectFactory<ListPrepend> obj("list.prepend");
-    obj.processData();
+    obj.processData<DataTypeMList>();
 }

@@ -14,21 +14,21 @@
 #ifndef STRING_ENDS_WITH_H
 #define STRING_ENDS_WITH_H
 
+#include "ceammc_data.h"
 #include "ceammc_object.h"
-#include "datatype_string.h"
 
-using namespace std;
+using namespace ceammc;
 
 class StringEndsWith : public BaseObject {
     std::string suffix_;
 
 public:
     StringEndsWith(const PdArgs& a);
-    void onSymbol(t_symbol* s);
-    void onInlet(size_t, const AtomList& l);
-    void onDataT(const DataTPtr<DataTypeString>& dptr);
+    void onSymbol(t_symbol* s) override;
+    void onInlet(size_t, const AtomList& l) override;
+    void onDataT(const StringAtom& str);
 };
 
-extern "C" void setup_string0x2eends_with();
+void setup_string_ends_with();
 
 #endif // STRING_ENDS_WITH_H

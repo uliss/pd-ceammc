@@ -27,7 +27,6 @@ class MultiplexTilde : public SoundExternal {
 protected:
     typedef SmoothLinT<t_float> t_smooth;
     std::vector<t_smooth> gain_;
-    const size_t n_;
 
 public:
     MultiplexTilde(const PdArgs& args);

@@ -70,10 +70,20 @@ if(DEKEN)
 endif()
 
 # documentation check
-configure_file(${CMAKE_CURRENT_SOURCE_DIR}/list_all_doc_externals.sh ${PROJECT_BINARY_DIR} @ONLY)
-configure_file(${CMAKE_CURRENT_SOURCE_DIR}/check_doc_external.py ${PROJECT_BINARY_DIR} @ONLY)
-configure_file(${CMAKE_CURRENT_SOURCE_DIR}/doc_check_methods.sh ${PROJECT_BINARY_DIR} @ONLY)
-configure_file(${CMAKE_CURRENT_SOURCE_DIR}/check_all_pddoc_refs.sh ${PROJECT_BINARY_DIR} @ONLY)
+set(DOC_CHECK_SCRIPTS
+    check_all_pddoc_refs.sh
+    doc_check_methods.sh
+    list_all_doc_externals.sh
+    check_doc_external.py
+    fill_doc_properties.py
+    gen_doc_template.py
+)
+
+add_custom_target(distrib_doc_check_scripts SOURCES ${DOC_CHECK_SCRIPTS})
+
+foreach(_s ${DOC_CHECK_SCRIPTS})
+    configure_file(${CMAKE_CURRENT_SOURCE_DIR}/${_s} ${PROJECT_BINARY_DIR} @ONLY)
+endforeach()
 
 add_custom_target(ceammc_doc_check_methods
     COMMAND ${PROJECT_BINARY_DIR}/doc_check_methods.sh

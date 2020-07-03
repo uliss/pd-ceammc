@@ -20,9 +20,9 @@ MListFlatten::MListFlatten(const PdArgs& args)
     createOutlet();
 }
 
-void MListFlatten::onDataT(const DataTPtr<DataTypeMList>& dptr)
+void MListFlatten::onDataT(const MListAtom& ml)
 {
-    dataTo(0, DataTPtr<DataTypeMList>(dptr->flatten()));
+    atomTo(0, MListAtom(ml->flatten()));
 }
 
 void setup_mlist_flatten()

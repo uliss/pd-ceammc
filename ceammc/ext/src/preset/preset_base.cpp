@@ -11,36 +11,43 @@ static const std::string SEPARATOR("/");
 PresetBase::PresetBase(const PdArgs& args)
     : BaseObject(args)
     , global_(0)
-    , subpatch_(0)
+    , subpatch_(nullptr)
     , name_(&s_)
     , path_(&s_)
     , preset_path_(&s_)
 {
     createOutlet();
 
+    Property* name = createCbSymbolProperty(
+        "@id",
+        [this]() -> t_symbol* { return name_; },
+        [this](t_symbol* s) -> bool { name_ = s; return true; });
+    name->setInitOnly();
+    name->setArgIndex(0);
+
     global_ = new FlagProperty("@global");
-    createProperty(global_);
+    addProperty(global_);
 
     subpatch_ = new FlagProperty("@subpatch");
-    createProperty(subpatch_);
+    addProperty(subpatch_);
 
     // virtual @path property
-    createProperty(new PointerProperty<t_symbol*>("@path", &preset_path_, true));
-    createProperty(new PointerProperty<t_symbol*>("@id", &name_, true));
-
-    // to get @global and @subpatch flags before makeName() call
-    parseProperties();
-
-    name_ = positionalSymbolArgument(0, &s_);
-    path_ = makePath();
-    preset_path_ = makePresetPath();
-
-    bind();
+    addProperty(new PointerProperty<t_symbol*>("@path", &preset_path_));
 }
 
 PresetBase::~PresetBase()
 {
     unbind();
+}
+
+void PresetBase::initDone()
+{
+    BaseObject::initDone();
+
+    path_ = makePath();
+    preset_path_ = makePresetPath();
+
+    bind();
 }
 
 void PresetBase::m_update(t_symbol*, const AtomList&)
@@ -57,7 +64,7 @@ void PresetBase::m_update(t_symbol*, const AtomList&)
 
 void PresetBase::m_clear(t_symbol*, const AtomList& index)
 {
-    size_t idx = index.asSizeT(0);
+    size_t idx = index.toT<size_t>(0);
 
     PresetStorage& storage = PresetStorage::instance();
 
@@ -112,7 +119,7 @@ t_symbol* PresetBase::makePath() const
 
 void PresetBase::m_store(t_symbol*, const AtomList& index)
 {
-    size_t idx = index.asSizeT(0);
+    size_t idx = index.toT<size_t>(0);
 
     PresetStorage& storage = PresetStorage::instance();
 
@@ -192,7 +199,7 @@ t_symbol* PresetBase::name()
 
 void PresetBase::m_load(t_symbol*, const AtomList& index)
 {
-    size_t idx = index.asSizeT(0);
+    size_t idx = index.toT<size_t>(0);
 
     PresetStorage& storage = PresetStorage::instance();
 

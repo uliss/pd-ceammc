@@ -128,7 +128,7 @@ void UIRadio::onList(const AtomList& lst)
     redrawItems();
 }
 
-const int UIRadio::click2Cell(const t_pt& pt)
+int UIRadio::click2Cell(const t_pt& pt) const
 {
     auto r = rect();
     return isVertical() ? (pt.y / r.height * prop_nitems_) : (pt.x / r.width * prop_nitems_);
@@ -317,7 +317,7 @@ void UIRadio::m_plus(t_float f)
         return;
     }
 
-    int v = idx_ + int(f);
+    int v = idx_ + static_cast<int>(f);
     idx_ = (v >= 0) ? v % prop_nitems_ : prop_nitems_ - (abs(v) % prop_nitems_);
     output();
     redrawItems();

@@ -21,10 +21,10 @@ ListSeparate::ListSeparate(const PdArgs& a)
     , from_(nullptr)
 {
     enumerate_ = new BoolProperty("@enumerate", false);
-    createProperty(enumerate_);
+    addProperty(enumerate_);
 
     from_ = new IntProperty("@from", 0);
-    createProperty(from_);
+    addProperty(from_);
 
     createOutlet();
     createOutlet();
@@ -44,15 +44,15 @@ void ListSeparate::onList(const AtomList& l)
     bangTo(1);
 }
 
-void ListSeparate::onDataT(const DataTPtr<DataTypeMList>& l)
+void ListSeparate::onDataT(const MListAtom& ml)
 {
     if (!enumerate_->value()) {
-        for (auto& el : *l)
-            atomTo(0, el.toAtom());
+        for (auto& x : *ml)
+            atomTo(0, x);
     } else {
         int idx = from_->value();
-        for (auto& el : *l)
-            listTo(0, AtomList(Atom(idx++), el.toAtom()));
+        for (auto& x : *ml)
+            listTo(0, { Atom(idx++), x });
     }
 
     bangTo(1);

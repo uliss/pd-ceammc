@@ -20,15 +20,9 @@ DictKeys::DictKeys(const PdArgs& args)
     createOutlet();
 }
 
-void DictKeys::onDataT(const DataTPtr<DataTypeDict>& dptr)
+void DictKeys::onDataT(const DictAtom& dict)
 {
-    AtomList res;
-
-    const auto& d = dptr->innerData();
-    for (auto& kv : d)
-        res.append(kv.first);
-
-    listTo(0, res);
+    listTo(0, dict->keys());
 }
 
 void setup_dict_keys()

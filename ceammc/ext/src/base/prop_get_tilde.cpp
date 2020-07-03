@@ -117,9 +117,9 @@ static void prop_get_free(t_prop_tilde* x)
 
 static t_int* prop_dsp_perform(t_int* w)
 {
-    t_sample* in = (t_sample*)(w[1]);
-    t_sample* out = (t_sample*)(w[2]);
-    int n = (int)(w[3]);
+    t_sample* in = reinterpret_cast<t_sample*>(w[1]);
+    t_sample* out = reinterpret_cast<t_sample*>(w[2]);
+    auto n = w[3];
 
     while (n-- > 0)
         *out++ = (*in++);
@@ -127,12 +127,12 @@ static t_int* prop_dsp_perform(t_int* w)
     return (w + 4);
 }
 
-static void prop_setup_dsp(t_prop_tilde* x, t_signal** sp)
+static void prop_setup_dsp(t_prop_tilde* /*x*/, t_signal** sp)
 {
     dsp_add(prop_dsp_perform, 3, sp[0]->s_vec, sp[1]->s_vec, sp[0]->s_n);
 }
 
-extern "C" void setup_prop0x2eget_tilde()
+void setup_prop_get_tilde()
 {
     prop_get_tilde_class = class_new(gensym("prop.get~"),
         reinterpret_cast<t_newmethod>(prop_get_new),
@@ -140,11 +140,12 @@ extern "C" void setup_prop0x2eget_tilde()
         sizeof(t_prop_tilde), 0, A_GIMME, A_NULL);
     class_addcreator(reinterpret_cast<t_newmethod>(prop_get_new), gensym("prop~>"), A_GIMME, A_NULL);
     class_addcreator(reinterpret_cast<t_newmethod>(prop_get_new), gensym("@~>"), A_GIMME, A_NULL);
-    class_addanything(prop_get_tilde_class, prop_get_anything);
+
+    class_addanything(prop_get_tilde_class, reinterpret_cast<t_method>(prop_get_anything));
 
     class_addmethod(prop_get_tilde_class, reinterpret_cast<t_method>(prop_setup_dsp), gensym("dsp"), A_CANT, A_NULL);
     class_addmethod(prop_get_tilde_class, reinterpret_cast<t_method>(prop_get_dump), gensym("dump"), A_NULL);
 
-    CLASS_MAINSIGNALIN(prop_get_tilde_class, t_prop_tilde, f);
+    class_domainsignalin(prop_get_tilde_class, offsetof(t_prop_tilde, f));
     class_sethelpsymbol(prop_get_tilde_class, gensym("prop.get~"));
 }

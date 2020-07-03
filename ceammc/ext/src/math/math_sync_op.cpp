@@ -53,11 +53,9 @@ MathSyncEqual::MathSyncEqual(const PdArgs& args)
         args)
     , epsilon_(nullptr)
 {
-    prop_int_->setReadonly(true);
-    prop_int_->setVisible(false);
-
-    epsilon_ = new FloatPropertyMinEq("@epsilon", 0, 0);
-    createProperty(epsilon_);
+    epsilon_ = new FloatProperty("@epsilon", 0);
+    epsilon_->checkMinEq(0);
+    addProperty(epsilon_);
 }
 
 MathSyncNotEqual::MathSyncNotEqual(const PdArgs& args)
@@ -70,39 +68,29 @@ MathSyncNotEqual::MathSyncNotEqual(const PdArgs& args)
         args)
     , epsilon_(nullptr)
 {
-    prop_int_->setReadonly(true);
-    prop_int_->setVisible(false);
-
-    epsilon_ = new FloatPropertyMinEq("@epsilon", 0, 0);
-    createProperty(epsilon_);
+    epsilon_ = new FloatProperty("@epsilon");
+    epsilon_->checkMinEq(0);
+    addProperty(epsilon_);
 }
 
 MathSyncLessThen::MathSyncLessThen(const PdArgs& args)
     : MathSyncBase([](t_float v1, t_float v2) { return v1 < v2; }, args)
 {
-    prop_int_->setReadonly(true);
-    prop_int_->setVisible(false);
 }
 
 MathSyncLessEqual::MathSyncLessEqual(const PdArgs& args)
     : MathSyncBase([](t_float v1, t_float v2) { return v1 <= v2; }, args)
 {
-    prop_int_->setReadonly(true);
-    prop_int_->setVisible(false);
 }
 
 MathSyncGreaterThen::MathSyncGreaterThen(const PdArgs& args)
     : MathSyncBase([](t_float v1, t_float v2) { return v1 > v2; }, args)
 {
-    prop_int_->setReadonly(true);
-    prop_int_->setVisible(false);
 }
 
 MathSyncGreaterEqual::MathSyncGreaterEqual(const PdArgs& args)
     : MathSyncBase([](t_float v1, t_float v2) { return v1 >= v2; }, args)
 {
-    prop_int_->setReadonly(true);
-    prop_int_->setVisible(false);
 }
 
 MathSyncMod::MathSyncMod(const PdArgs& args)

@@ -1,15 +1,23 @@
 #include "datatype_miditrack.h"
-#include "MidiEventList.h"
+#include "ceammc_datastorage.h"
 #include "ceammc_datatypes.h"
 
-#include <boost/make_shared.hpp>
+#include "MidiEventList.h"
 
-const DataType DataTypeMidiTrack::dataType = data::DATA_MIDI_TRACK;
+const int DataTypeMidiTrack::dataType = DataStorage::instance().registerNewType("MidiTrack");
 
 DataTypeMidiTrack::DataTypeMidiTrack()
-    : events_(boost::make_shared<MidiEventList>())
+    : events_(new MidiEventList())
 {
 }
+
+DataTypeMidiTrack::DataTypeMidiTrack(const DataTypeMidiTrack& mt)
+{
+    setEventList(*mt.events_);
+}
+
+// for std::unique_ptr
+DataTypeMidiTrack::~DataTypeMidiTrack() = default;
 
 DataTypeMidiTrack::DataTypeMidiTrack(const MidiEventList& lst)
     : events_(new MidiEventList(lst))
@@ -17,14 +25,29 @@ DataTypeMidiTrack::DataTypeMidiTrack(const MidiEventList& lst)
     events_->linkNotePairs();
 }
 
+void DataTypeMidiTrack::setEventList(const MidiEventList& lst)
+{
+    events_.reset(new MidiEventList(lst));
+    events_->linkNotePairs();
+}
+
+DataTypeMidiTrack& DataTypeMidiTrack::operator=(const DataTypeMidiTrack& mt)
+{
+    if (this == &mt)
+        return *this;
+
+    events_.reset(new MidiEventList(*mt.events_));
+    return *this;
+}
+
 DataTypeMidiTrack* DataTypeMidiTrack::clone() const
 {
     return new DataTypeMidiTrack(*this);
 }
 
-DataType DataTypeMidiTrack::type() const
+int DataTypeMidiTrack::type() const noexcept
 {
-    return data::DATA_MIDI_TRACK;
+    return dataType;
 }
 
 size_t DataTypeMidiTrack::eventCount() const
@@ -65,9 +88,4 @@ DataTypeMidiTrack::const_iterator DataTypeMidiTrack::begin() const
 DataTypeMidiTrack::const_iterator DataTypeMidiTrack::end() const
 {
     return events_->end();
-}
-
-DataTypeMidiTrack::DataTypeMidiTrack(const DataTypeMidiTrack& dt)
-    : events_(new MidiEventList(*dt.events_))
-{
 }

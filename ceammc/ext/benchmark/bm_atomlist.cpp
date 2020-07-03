@@ -12,8 +12,6 @@
  * this file belongs to.
  *****************************************************************************/
 #include "ceammc_atomlist.h"
-#include "ceammc_data.h"
-#include "ceammc_dataatomlist.h"
 
 #include <nonius/nonius.h++>
 #include <random>

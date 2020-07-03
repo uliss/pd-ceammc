@@ -8,7 +8,7 @@ public:
         : faust_lfo_square_pos_tilde(args)
     {
         createInlet();
-        setInitSignalValue(positionalFloatArgument(0, 0));
+        setInitSignalValue(positionalFloatArgumentT(0, 0));
     }
 
     void onInlet(size_t n, const AtomList&) override

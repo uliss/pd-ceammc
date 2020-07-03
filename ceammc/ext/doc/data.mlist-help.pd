@@ -29,10 +29,10 @@ of 1 \, 2 and 3;
 -49933 0;
 #X msg 110 445 @empty;
 #X text 245 445 (readonly) Get 1 if list is empty \, otherwise 0\.
-Type: int. Allowed values: 0 \, 1\.;
+Type: int. Default value: 1\. Allowed values: 0 \, 1\.;
 #X msg 110 487 @size;
 #X text 245 487 (readonly) Get number of elements in list. Type: int.
-Min value: 0\.;
+Default value: 0\. Min value: 0\.;
 #X obj 20 539 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 544 cnv 5 73 26 empty empty methods: 4 10 0 14 -262144
 -49933 0;
@@ -96,7 +96,7 @@ are:;
 #X text 115 45 ::;
 #X obj 131 48 ui.link @title data @url ceammc.data-help.pd;
 #X obj 1 1201 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 1204 library: ceammc v0.8.0;
+#X text 10 1204 library: ceammc v0.9.0;
 #X text 601 1216 see also:;
 #X obj 675 1216 data.list;
 #N canvas 10 1223 400 290 info 0;
@@ -104,7 +104,7 @@ are:;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
 #X text 10 32 version:;
-#X text 120 32 0.8.0;
+#X text 120 32 0.9.0;
 #X text 10 54 object:;
 #X text 120 54 data.mlist;
 #X text 10 76 category:;

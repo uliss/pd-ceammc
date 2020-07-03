@@ -29,8 +29,8 @@ class HwKeyboardLight : public BaseObject {
 public:
     HwKeyboardLight(const PdArgs& args);
     ~HwKeyboardLight();
-    void onBang();
-    void onFloat(t_float v);
+    void onBang() override;
+    void onFloat(t_float v) override;
 
 private:
     t_float currentLevel() const;

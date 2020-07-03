@@ -1,5 +1,6 @@
 #include "ceammc_ui_object.h"
 #include "ceammc_log.h"
+#include "ceammc_output.h"
 #include "ceammc_preset.h"
 #include "ceammc_ui.h"
 
@@ -356,7 +357,7 @@ void UIObjectImpl::onKeyFilter(int k, long modifiers)
 {
 }
 
-void UIObjectImpl::onData(const DataPtr& ptr)
+void UIObjectImpl::onData(const AbstractData* ptr)
 {
 }
 
@@ -401,6 +402,14 @@ void UIObjectImpl::symbolTo(size_t n, t_symbol* s)
     outlet_symbol(outlets_[n], s);
 }
 
+void UIObjectImpl::atomTo(size_t n, const Atom& a)
+{
+    if (n >= outlets_.size())
+        return;
+
+    outlet_list(outlets_[n], &s_list, 1, const_cast<t_atom*>(&a.atom()));
+}
+
 void UIObjectImpl::listTo(size_t n, const AtomList& lst)
 {
     if (n >= outlets_.size())
@@ -429,17 +438,6 @@ void UIObjectImpl::anyTo(size_t n, const AtomList& msg)
         return;
 
     outlet_anything(outlets_[n], msg[0].asSymbol(), msg.size() - 1, msg.toPdData() + 1);
-}
-
-void UIObjectImpl::dataTo(size_t n, const DataPtr& ptr)
-{
-    if (n >= outlets_.size())
-        return;
-
-    if (ptr.isNull())
-        return;
-
-    ptr.asAtom().output(outlets_[n]);
 }
 
 void UIObjectImpl::sendBang()
@@ -599,7 +597,7 @@ bool UIObjectImpl::hasProperty(t_symbol* name) const
 {
     t_eclass* c = (t_eclass*)asPdObject()->te_g.g_pd;
 
-    for (int i = 0; i < c->c_nattr; i++) {
+    for (size_t i = 0; i < c->c_nattr; i++) {
         if (c->c_attr[i]->name == name)
             return true;
     }
@@ -664,22 +662,47 @@ static AtomList sym_to_list(t_symbol* sym)
     return res;
 }
 
-static void set_constrains(PropertyInfo& info, t_eattr* a)
+static void set_constraints(PropertyInfo& info, t_eattr* a)
 {
     if (a->step)
         info.setStep(a->step);
 
-    if (a->clipped & E_CLIP_MIN)
-        info.setMin(a->minimum);
+    if (a->clipped & E_CLIP_MIN) {
+        if (info.isNumeric()) {
+            info.setConstraints(PropValueConstraints::GREATER_EQUAL);
 
-    if (a->clipped & E_CLIP_MAX)
-        info.setMax(a->maximum);
+            if (info.isFloat()) {
+                if (!info.setMinFloat(a->minimum))
+                    LIB_ERR << "can't set min float";
+            } else if (info.isInt())
+                if (!info.setMinInt(a->minimum))
+                    LIB_ERR << "can't set min int";
+        }
+    }
+
+    if (a->clipped & E_CLIP_MAX) {
+        if (info.isNumeric()) {
+            if (info.hasConstraintsMin())
+                info.setConstraints(PropValueConstraints::CLOSED_RANGE);
+            else
+                info.setConstraints(PropValueConstraints::LESS_EQUAL);
+
+            if (info.isFloat()) {
+                if (!info.setMaxFloat(a->maximum))
+                    LIB_ERR << "can't set max float";
+            } else if (!info.setMaxInt(a->maximum))
+                LIB_ERR << "can't set max int";
+        }
+    }
 
     if (a->itemssize > 0) {
-        info.setView(PropertyInfoView::MENU);
+        info.setView(PropValueView::MENU);
+        info.setConstraints(PropValueConstraints::ENUM);
 
-        for (int i = 0; i < a->itemssize; i++)
-            info.addEnum(a->itemslist[i]);
+        for (size_t i = 0; i < a->itemssize; i++) {
+            if (!info.addEnum(a->itemslist[i]))
+                LIB_ERR << "can't append enum";
+        }
     }
 }
 
@@ -701,21 +724,20 @@ static PropertyInfo attr_to_prop(t_eattr* a)
     static t_symbol* SYM_UNIT_RAD = gensym("rad");
     static t_symbol* SYM_UNIT_HZ = gensym("hz");
 
-    PropertyInfo res(std::string("@") + a->name->s_name, PropertyInfoType::VARIANT);
+    PropertyInfo res(std::string("@") + a->name->s_name, PropValueType::ATOM);
 
     if (a->type == SYM_FLOAT || a->type == SYM_DOUBLE) {
         if (a->size == 1) {
-            res.setType(PropertyInfoType::FLOAT);
-            set_constrains(res, a);
+            res.setType(PropValueType::FLOAT);
+            set_constraints(res, a);
 
             if (a->defvals)
-                res.setDefault((float)strtof(a->defvals->s_name, NULL));
-
+                res.setDefault((t_float)strtof(a->defvals->s_name, NULL));
         } else if (a->size > 1) {
-            res.setType(PropertyInfoType::LIST);
+            res.setType(PropValueType::LIST);
 
             if (a->style == SYM_COLOR)
-                res.setView(PropertyInfoView::COLOR);
+                res.setView(PropValueView::COLOR);
 
             if (a->defvals)
                 res.setDefault(sym_to_list(a->defvals));
@@ -726,22 +748,21 @@ static PropertyInfo attr_to_prop(t_eattr* a)
     } else if (a->type == SYM_INT || a->type == SYM_LONG) {
         if (a->size == 1) {
             if (a->style == SYM_CHECKBOX) {
-                res.setType(PropertyInfoType::BOOLEAN);
-                res.setView(PropertyInfoView::TOGGLE);
-                res.setRange(0, 1);
+                res.setType(PropValueType::BOOLEAN);
+                res.setView(PropValueView::TOGGLE);
 
                 if (a->defvals)
                     res.setDefault(a->defvals->s_name[0] == '1');
 
             } else {
-                res.setType(PropertyInfoType::INTEGER);
-                set_constrains(res, a);
+                res.setType(PropValueType::INTEGER);
+                set_constraints(res, a);
 
                 if (a->defvals)
                     res.setDefault((int)strtol(a->defvals->s_name, NULL, 10));
             }
         } else if (a->size > 1) {
-            res.setType(PropertyInfoType::LIST);
+            res.setType(PropValueType::LIST);
             if (a->defvals)
                 res.setDefault(sym_to_list(a->defvals));
         } else {
@@ -749,13 +770,13 @@ static PropertyInfo attr_to_prop(t_eattr* a)
         }
     } else if (a->type == SYM_SYMBOL) {
         if (a->size == 1) {
-            res.setType(PropertyInfoType::SYMBOL);
-            set_constrains(res, a);
+            res.setType(PropValueType::SYMBOL);
+            set_constraints(res, a);
 
             if (a->defvals)
                 res.setDefault(a->defvals);
         } else if (a->size > 1) {
-            res.setType(PropertyInfoType::LIST);
+            res.setType(PropValueType::LIST);
             if (a->defvals)
                 res.setDefault(sym_to_list(a->defvals));
         } else {
@@ -763,13 +784,13 @@ static PropertyInfo attr_to_prop(t_eattr* a)
         }
     } else if (a->type == SYM_ATOM) {
         if (a->size == 1) {
-            res.setType(PropertyInfoType::VARIANT);
-            set_constrains(res, a);
+            res.setType(PropValueType::ATOM);
+            set_constraints(res, a);
 
             if (a->defvals)
                 res.setDefault(Atom(a->defvals));
         } else if (a->size > 1) {
-            res.setType(PropertyInfoType::LIST);
+            res.setType(PropValueType::LIST);
             if (a->defvals)
                 res.setDefault(sym_to_list(a->defvals));
         } else {
@@ -779,25 +800,26 @@ static PropertyInfo attr_to_prop(t_eattr* a)
 
     if (a->units != &s_) {
         if (a->units == SYM_UNIT_DB)
-            res.setUnits(PropertyInfoUnits::DB);
+            res.setUnits(PropValueUnits::DB);
         else if (a->units == SYM_UNIT_MSEC)
-            res.setUnits(PropertyInfoUnits::MSEC);
+            res.setUnits(PropValueUnits::MSEC);
         else if (a->units == SYM_UNIT_SEC)
-            res.setUnits(PropertyInfoUnits::SEC);
+            res.setUnits(PropValueUnits::SEC);
         else if (a->units == SYM_UNIT_SAMP)
-            res.setUnits(PropertyInfoUnits::SAMP);
+            res.setUnits(PropValueUnits::SAMP);
         else if (a->units == SYM_UNIT_DEG)
-            res.setUnits(PropertyInfoUnits::DEG);
+            res.setUnits(PropValueUnits::DEG);
         else if (a->units == SYM_UNIT_RAD)
-            res.setUnits(PropertyInfoUnits::RAD);
+            res.setUnits(PropValueUnits::RAD);
         else if (a->units == SYM_UNIT_HZ)
-            res.setUnits(PropertyInfoUnits::HZ);
+            res.setUnits(PropValueUnits::HZ);
         else
             std::cerr << "unknown unit: " << a->units->s_name << "\n";
     }
 
-    if (a->getter != 0)
-        res.setReadonly(a->setter == 0);
+    //
+    if (a->getter != 0 && a->setter == 0)
+        res.setAccess(PropValueAccess::READONLY);
 
     return res;
 }
@@ -809,7 +831,7 @@ std::vector<PropertyInfo> UIObjectImpl::propsInfo() const
     std::vector<PropertyInfo> res;
     res.reserve(c->c_nattr);
 
-    for (int i = 0; i < c->c_nattr; i++)
+    for (size_t i = 0; i < c->c_nattr; i++)
         res.push_back(attr_to_prop(c->c_attr[i]));
 
     return res;
@@ -899,42 +921,9 @@ UIError::UIError(const UIObjectImpl* obj)
 {
 }
 
-static void pdDebug(const char* name, const std::string& s)
-{
-    // strlen '[%s] '
-    const size_t N = MAXPDSTRING - (strlen(name) + 10);
-
-    if (s.size() < N) {
-        post("[%s] %s", name, s.c_str());
-    } else {
-        for (size_t i = 0; i < s.size(); i += N) {
-            post("[%s] %s", name,
-                s.substr(i, std::min<size_t>(N, s.size() - i)).c_str());
-        }
-    }
-}
-
-static void pdError(void* obj, const char* name, const std::string& s)
-{
-    // strlen '[%s] '
-    const size_t N = MAXPDSTRING - (strlen(name) + 10);
-
-    if (s.size() < N) {
-        pd_error(obj, "[%s] %s", name, s.c_str());
-    } else {
-        for (size_t i = 0; i < s.size(); i += N) {
-            pd_error(obj, "[%s] %s", name,
-                s.substr(i, std::min<size_t>(N, s.size() - i)).c_str());
-        }
-    }
-}
-
 UIError::~UIError()
 {
-    if (obj_ != 0)
-        pdError(obj_->asPd(), obj_->name()->s_name, str());
-    else
-        pdError(0, "ceammc", str());
+    pdError(obj_->asPd(), str());
 }
 
 UIDebug::UIDebug(const UIObjectImpl* obj)
@@ -944,10 +933,7 @@ UIDebug::UIDebug(const UIObjectImpl* obj)
 
 UIDebug::~UIDebug()
 {
-    if (obj_ != 0)
-        pdDebug(obj_->name()->s_name, str());
-    else
-        pdDebug("ceammc", str());
+    pdDebug(obj_->asPd(), str());
 }
 
 UIObject::UIObject()
@@ -970,7 +956,7 @@ void UIDspObject::dspSetup(size_t n_in, size_t n_out)
 {
     std::vector<t_outlet*> outs(n_out, 0);
 
-    eobj_dspsetup(asEBox(), n_in, n_out, 0, outs.data());
+    eobj_dspsetup(asEBox(), n_in, n_out, nullptr, outs.data());
     std::copy(outs.begin(), outs.end(), std::back_inserter(outlets_));
 }
 
@@ -985,5 +971,4 @@ void UIDspObject::dspProcess(t_sample** ins, long n_ins,
     long sampleframes)
 {
 }
-
 }

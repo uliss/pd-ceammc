@@ -22,7 +22,7 @@ class ListSum : public ListBase {
 public:
     ListSum(const PdArgs& a);
 
-    void onFloat(float f) override;
+    void onFloat(t_float f) override;
     void onList(const AtomList& l) override;
 };
 

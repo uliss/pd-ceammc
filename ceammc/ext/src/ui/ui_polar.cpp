@@ -382,17 +382,26 @@ AtomList UIPolar::realValue() const
 
 t_float UIPolar::realAngle() const
 {
+    constexpr t_float EPSILON_K = 8;
+
+    t_float res = 0;
+
     if (prop_radians_) {
         if (prop_positive_)
-            return wrapFloatMax<t_float>(angle_, 2 * M_PI);
+            res = wrapFloatMax<t_float>(angle_, 2 * M_PI);
         else
-            return wrapFloatMinMax<t_float>(angle_, -M_PI, M_PI);
+            res = wrapFloatMinMax<t_float>(angle_, -M_PI, M_PI);
     } else {
         if (prop_positive_)
-            return wrapFloatMax<t_float>(angle_, 360);
+            res = wrapFloatMax<t_float>(angle_, 360);
         else
-            return wrapFloatMinMax<t_float>(angle_, -180, 180);
+            res = wrapFloatMinMax<t_float>(angle_, -180, 180);
     }
+
+    if (std::fabs(res) < std::numeric_limits<t_float>::epsilon() * EPSILON_K)
+        return 0;
+    else
+        return res;
 }
 
 t_float UIPolar::realRadius() const

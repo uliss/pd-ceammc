@@ -4,7 +4,6 @@
 GlobalInt::GlobalInt(const PdArgs& a)
     : GlobalIntBase(a)
 {
-    property("@value")->info().setType(PropertyInfoType::INTEGER);
 }
 
 void setup_global_int()
