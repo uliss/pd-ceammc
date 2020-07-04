@@ -24,7 +24,8 @@
 		{ "maths.lib/version": "2.3" },
 		{ "name": "noise_pink" },
 		{ "noises.lib/name": "Faust Noise Generator Library" },
-		{ "noises.lib/version": "0.0" }
+		{ "noises.lib/version": "0.0" },
+		{ "ui": "disable" }
 	],
 	"ui": [ 
 		{
