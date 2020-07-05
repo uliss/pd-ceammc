@@ -83,6 +83,17 @@ else()
         DEPENDS ${DOC_PD_FILES} "ceammc_lib.xml" ceammc_pddoc_cat "ceammc-help.pd"
         COMMAND cat "*-xlet_db.txt" | sort > ceammc.db
         COMMAND ${CMAKE_COMMAND} -E copy_if_different ceammc.db ${CMAKE_CURRENT_SOURCE_DIR})
+
+    if(NOT PD_LIB2DEKEN)
+        message(STATUS "pd_lib2deken not found.")
+    else()
+        message(STATUS "pd_lib2deken found at: ${PD_LIB2DEKEN}")
+        add_custom_target(ceammc_pddoc_gen_deken_objlist
+            DEPENDS "ceammc_lib.xml"
+            COMMAND ${PD_LIB2DEKEN} --aliases --force --output "ceammc_deken_objlist.txt" "ceammc_lib.xml"
+            WORKING_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}")
+        add_dependencies(ceammc_pddoc ceammc_pddoc_gen_deken_objlist)
+    endif()
 endif()
 
 if(WIN32)

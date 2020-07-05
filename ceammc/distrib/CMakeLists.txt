@@ -57,16 +57,24 @@ endif()
 find_program(DEKEN deken PATH $ENV{HOME}/bin)
 
 if(DEKEN)
-    message(STATUS "deken program found: ${DEKEN}. Target `make deken` is available")
+    message(STATUS "deken program found: ${DEKEN}. Target `make deken_package` is available")
 
     set(DEKEN_MAKE_PACKAGE "${PROJECT_BINARY_DIR}/dist/deken_make_package.sh")
     configure_file(${CMAKE_CURRENT_SOURCE_DIR}/deken_make_package.sh ${DEKEN_MAKE_PACKAGE} @ONLY)
 
-    add_custom_target(deken
+    set(DEKEN_UPLOAD_PACKAGE "${PROJECT_BINARY_DIR}/dist/deken_upload_package.sh")
+    configure_file(${CMAKE_CURRENT_SOURCE_DIR}/deken_upload_package.sh ${DEKEN_UPLOAD_PACKAGE} @ONLY)
+
+    add_custom_target(deken_package
         COMMAND ${DEKEN_MAKE_PACKAGE}
         WORKING_DIRECTORY "${PROJECT_BINARY_DIR}/dist"
-        DEPENDS ceammc_lib
         SOURCES deken_make_package.sh)
+
+    add_custom_target(deken_upload
+        COMMAND ${DEKEN_UPLOAD_PACKAGE}
+        WORKING_DIRECTORY "${PROJECT_BINARY_DIR}/dist"
+        DEPENDS deken_package
+        SOURCES deken_upload_package.sh)
 endif()
 
 # documentation check
