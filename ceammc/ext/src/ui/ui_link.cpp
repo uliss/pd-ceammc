@@ -6,8 +6,9 @@
 //
 //
 
+#include <cinttypes>
 #include <cmath>
-#include <stdio.h>
+#include <cstdio>
 
 #include "ceammc_format.h"
 #include "ceammc_ui.h"
@@ -15,6 +16,7 @@
 #include "ui_link_tcl.h"
 
 static t_symbol* LINK_FONT;
+constexpr int FIX_LINK_X_OFF = 3;
 #ifdef __WIN32
 static float FIX_LINK_Y_POS = 5;
 static float FIX_TEXT_Y_OFF = 0;
@@ -62,8 +64,7 @@ UILink::UILink()
 
 void UILink::okSize(t_rect* newrect)
 {
-    float w = prop_title ? text_width(prop_title, FONT_SIZE) : 40;
-    newrect->width = pd_clip_min(w, 20);
+    newrect->width = pd_clip_min(newrect->width, FONT_SIZE);
     float h = ebox_fontheight(asEBox());
 
 #ifdef __APPLE__
@@ -86,7 +87,7 @@ void UILink::paint()
     link_text_.setFont(&asEBox()->b_font);
 
     link_text_.setColor(hover_ ? prop_color_hover : prop_color_link);
-    link_text_.set(prop_title->s_name, 3, r.height / 2 + FIX_TEXT_Y_OFF, 0, 0);
+    link_text_.set(prop_title->s_name, FIX_LINK_X_OFF, r.height / 2 + FIX_TEXT_Y_OFF, 0, 0);
 
     p.drawText(link_text_);
 }
@@ -101,8 +102,10 @@ void UILink::setDrawParams(t_edrawparams* params)
 void UILink::onPropChange(t_symbol* prop_name)
 {
     if (prop_name == gensym("title")) {
-        size_t w = text_width(prop_title, FONT_SIZE) * zoom();
-        resize(w, 0);
+        char buf[MAXPDSTRING] = { 0 };
+        sprintf(buf, "#ui.link%" PRIxPTR, reinterpret_cast<uintptr_t>(this));
+        sys_vgui("pdsend \"%s @size [expr %d + [font measure UILinkFont {%s}]] 16\"\n",
+            buf, FIX_LINK_X_OFF * 2, prop_title->s_name);
     }
 }
 
@@ -142,13 +145,14 @@ void UILink::p_setTitle(const AtomList& lst)
 
 void UILink::setup()
 {
-    UIObjectFactory<UILink> obj("ui.link", EBOX_GROWNO, CLASS_NOINLET);
+    UIObjectFactory<UILink> obj("ui.link", /*EBOX_GROWNO*/ EBOX_GROWINDI, CLASS_NOINLET);
     obj.hideProperty("send");
     obj.hideProperty("receive");
     obj.hideProperty("size");
     obj.hideLabel();
     obj.hideProperty(PROP_BACKGROUND_COLOR);
     obj.hideProperty(PROP_BORDER_COLOR);
+    obj.setPropertySave("@size", false);
 
     obj.setDefaultSize(120, 15);
     obj.setPropertyDefaultValue(PROP_BACKGROUND_COLOR, "1.0 1.0 1.0 1.0");
@@ -173,5 +177,6 @@ void setup_ui_link()
 #endif
 
     uilink_tcl_init();
+    sys_vgui("font create UILinkFont -family {%s} -size %d\n", LINK_FONT->s_name, UILink::FONT_SIZE);
     UILink::setup();
 }
