@@ -14,9 +14,16 @@ then
     exit 1
 fi
 
-cd "@BINDIR@"
-rm -f ceammc[v@CEAMMC_LIB_VERSION@*.dek.txt
+cd "$BINDIR"
 
-$DEKEN package --version $VERSION \
+if [ ! -f ceammc[v@CEAMMC_LIB_VERSION@*.dek ]
+then
+    echo "deken file not found: $CEAMMC_LIB_DIR"
+    echo "may be you should call make deken_package"
+    exit 1
+fi
+
+$DEKEN upload --version $VERSION \
     --objects "${OBJLIST}" \
-    "${CEAMMC_LIB_DIR}"
+    --no-source-error \
+    ceammc[v@CEAMMC_LIB_VERSION@*.dek

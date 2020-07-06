@@ -42,7 +42,10 @@ if(NOT CMAKE_BUILD_TYPE)
     set(CMAKE_BUILD_TYPE Debug)
 endif()
 
-cmake_policy(SET CMP0074 NEW)
+if(POLICY CMP0074)
+    #policy for <PackageName>_ROOT variables
+    cmake_policy(SET CMP0074 NEW)
+endif()
 
 if(UNIX)
     if(APPLE)

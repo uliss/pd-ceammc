@@ -11,7 +11,8 @@
 		{ "filename": "noise_white.dsp" },
 		{ "name": "noise_white" },
 		{ "noises.lib/name": "Faust Noise Generator Library" },
-		{ "noises.lib/version": "0.0" }
+		{ "noises.lib/version": "0.0" },
+		{ "ui": "disable" }
 	],
 	"ui": [ 
 		{

@@ -2,7 +2,7 @@
 #
 # Usage:
 #   find_package(FFTW [REQUIRED] [QUIET])
-#     
+#
 # It sets the following variables:
 #   FFTW_FOUND               ... true if fftw is found on the system
 #   FFTW_LIBRARIES           ... full path to fftw library
@@ -17,7 +17,10 @@ if(NOT FFTW_ROOT AND ENV{FFTWDIR})
     set(FFTW_ROOT $ENV{FFTWDIR})
 endif()
 
-cmake_policy(SET CMP0074 NEW)
+if(POLICY CMP0074)
+    #policy for <PackageName>_ROOT variables
+    cmake_policy(SET CMP0074 NEW)
+endif()
 
 if(FFTW_ROOT)
 
@@ -78,4 +81,3 @@ endif()
 
 
 mark_as_advanced(FFTW_INCLUDES FFTW_LIBRARIES FFTWF_LIB)
-

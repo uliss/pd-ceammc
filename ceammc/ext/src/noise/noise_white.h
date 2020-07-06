@@ -520,6 +520,7 @@ class noise_white : public noise_white_dsp {
 		m->declare("name", "noise_white");
 		m->declare("noises.lib/name", "Faust Noise Generator Library");
 		m->declare("noises.lib/version", "0.0");
+		m->declare("ui", "disable");
 	}
 
 	virtual int getNumInputs() {

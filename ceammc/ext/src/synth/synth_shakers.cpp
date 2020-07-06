@@ -17,6 +17,8 @@
 
 #include "Shakers.h"
 
+#include <algorithm>
+
 using SymType = std::pair<t_symbol*, ShakerType>;
 using SymTypeList = std::vector<SymType>;
 

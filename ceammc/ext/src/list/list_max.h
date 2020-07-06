@@ -14,6 +14,8 @@
 #ifndef LIST_MAX_H
 #define LIST_MAX_H
 
+#include <algorithm>
+
 #include "ceammc_data.h"
 #include "ceammc_object.h"
 #include "ceammc_property_enum.h"

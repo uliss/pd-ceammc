@@ -534,6 +534,7 @@ class noise_pink : public noise_pink_dsp {
 		m->declare("name", "noise_pink");
 		m->declare("noises.lib/name", "Faust Noise Generator Library");
 		m->declare("noises.lib/version", "0.0");
+		m->declare("ui", "disable");
 	}
 
 	virtual int getNumInputs() {

@@ -16,6 +16,8 @@
 #include "ceammc_fn_list.h"
 #include "datatype_mlist.h"
 
+#include <algorithm>
+
 ListContains::ListContains(const PdArgs& args)
     : BaseObject(args)
     , sublist_(nullptr)
