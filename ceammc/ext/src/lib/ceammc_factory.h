@@ -49,8 +49,20 @@ enum ObjectFactoryFlags : uint32_t {
     OBJECT_FACTORY_NO_SYMBOL = 0x10,
     OBJECT_FACTORY_NO_LIST = 0x20,
     OBJECT_FACTORY_NO_ANY = 0x40,
-    OBJECT_FACTORY_PARSE_POSITIONAL_PROPS_ONLY = 0x80
+    OBJECT_FACTORY_PARSE_POSITIONAL_PROPS_ONLY = 0x80,
+    OBJECT_FACTORY_NO_TOOLTIPS = 0x100
 };
+
+using factory_visfn = void (*)(t_gobj* x, struct _glist* glist, int flag);
+using factory_wb_deleter = void (*)(t_widgetbehavior*);
+using factory_wb_pointer = std::unique_ptr<t_widgetbehavior, factory_wb_deleter>;
+
+void factory_show_inlet_tooltip(t_glist* glist, t_object* x, size_t idx, const std::string& str);
+void factory_show_outlet_tooltip(t_glist* glist, t_object* x, size_t idx, const std::string& str);
+factory_visfn factory_set_widget_behavior(t_class* c, t_widgetbehavior* wb, factory_visfn new_fn);
+
+factory_wb_pointer factory_create_wb(t_class* c);
+void factory_free_wb(t_widgetbehavior* wb);
 
 template <typename T>
 class ObjectFactory {
@@ -122,6 +134,10 @@ public:
 
         if (!(flags_ & OBJECT_FACTORY_NO_ANY))
             setAnyFn(processAny);
+
+        // xlet tooltips()
+        if (!(flags_ & OBJECT_FACTORY_NO_TOOLTIPS))
+            setWidgetBehavior();
     }
 
     /** use default pd bang handler */
@@ -487,9 +503,35 @@ private:
         };
     };
 
+    static void visFn(t_gobj* z, t_glist* glist, int vis)
+    {
+        class_oldvisfn_(z, glist, vis);
+
+        if (vis) {
+            size_t n = 0;
+            for (auto& str : ObjectInfoStorage::instance().info(class_).inlets_info)
+                factory_show_inlet_tooltip(glist, (t_object*)z, n++, str);
+
+            n = 0;
+            for (auto& str : ObjectInfoStorage::instance().info(class_).outlets_info)
+                factory_show_outlet_tooltip(glist, (t_object*)z, n++, str);
+        }
+    }
+
+    static void setWidgetBehavior()
+    {
+        if (!class_wb_)
+            class_wb_ = factory_create_wb(class_);
+
+        class_oldvisfn_ = factory_set_widget_behavior(class_, class_wb_.get(), visFn);
+    }
+
 private:
     static t_class* class_;
     static t_symbol* class_name_;
+
+    static factory_visfn class_oldvisfn_;
+    static factory_wb_pointer class_wb_;
     static MethodListMap list_methods_;
     static uint32_t flags_;
 
@@ -528,10 +570,16 @@ public:
 };
 
 template <typename T>
-t_class* ObjectFactory<T>::class_;
+t_class* ObjectFactory<T>::class_ = nullptr;
 
 template <typename T>
 t_symbol* ObjectFactory<T>::class_name_ = 0;
+
+template <typename T>
+factory_wb_pointer ObjectFactory<T>::class_wb_(nullptr, &factory_free_wb);
+
+template <typename T>
+factory_visfn ObjectFactory<T>::class_oldvisfn_ = nullptr;
 
 template <typename T>
 typename ObjectFactory<T>::MethodListMap ObjectFactory<T>::list_methods_;

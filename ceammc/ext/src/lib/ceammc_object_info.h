@@ -31,6 +31,8 @@ public:
     using AliasList = std::vector<std::string>;
     using Keywords = std::vector<std::string>;
     using Version = std::pair<uint8_t, uint8_t>;
+    using InletsInfo = std::vector<std::string>;
+    using OutletsInfo = std::vector<std::string>;
     using ApiVersion = uint16_t;
 
     struct Info {
@@ -38,6 +40,8 @@ public:
         AuthorList authors;
         AliasList aliases;
         Keywords keywords;
+        InletsInfo inlets_info;
+        OutletsInfo outlets_info;
         Version since_version;
         ApiVersion api;
         bool deprecated;
