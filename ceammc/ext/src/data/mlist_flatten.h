@@ -23,6 +23,7 @@ using namespace ceammc;
 class MListFlatten : public BaseObject {
 public:
     MListFlatten(const PdArgs& args);
+    void onList(const AtomList& lst) override;
     void onDataT(const MListAtom& lst);
 };
 

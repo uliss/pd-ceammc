@@ -1,5 +1,10 @@
 # CEAMMC external library changelog
 
+## [Unreleased]
+### Added:
+- mlist.flatten - simple list support added
+
+
 ## [0.9]
 ### Added:
 - an.onset - onset analyzer for array (using aubio library)

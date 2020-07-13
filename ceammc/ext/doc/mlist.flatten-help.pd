@@ -13,13 +13,15 @@
 #X obj 20 250 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
 #X text 110 251 1\.;
-#X text 150 251 *data:mlist*;
-#X text 245 251 mlist input.;
-#X obj 20 281 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 286 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
+#X text 150 251 *list*;
+#X text 245 251 list of mlists.;
+#X text 150 271 *data:mlist*;
+#X text 245 271 mlist input.;
+#X obj 20 301 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 306 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 287 1\.;
-#X text 245 287 mlist output.;
+#X text 110 307 1\.;
+#X text 245 307 mlist output.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;

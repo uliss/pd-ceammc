@@ -18,6 +18,7 @@
         </meta>
         <inlets>
             <inlet>
+                <xinfo on="list">list of mlists</xinfo>
                 <xinfo on="data:mlist">mlist input</xinfo>
             </inlet>
         </inlets>
