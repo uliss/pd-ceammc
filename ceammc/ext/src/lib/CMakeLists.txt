@@ -54,6 +54,7 @@ set(CEAMMC_LIB_SOURCES
     ceammc_datastorage.cpp
     ceammc_externals.cpp
     ceammc_factory.h
+    ceammc_factory.cpp
     ceammc_faust.cpp
     ceammc_fn_list.cpp
     ceammc_format.cpp
@@ -155,6 +156,7 @@ endif()
 target_link_libraries(ceammc_core PRIVATE re2)
 target_link_libraries(ceammc_core PRIVATE reflex)
 target_link_libraries(ceammc_core PRIVATE muparser)
+#target_link_libraries(ceammc_core PRIVATE ${Boost_FILESYSTEM_LIBRARY} ${Boost_SYSTEM_LIBRARY})
 #target_link_libraries(ceammc_core PRIVATE puredata-core)
 
 target_include_directories(ceammc_core PRIVATE $<TARGET_PROPERTY:re2,INCLUDE_DIRECTORIES>)
