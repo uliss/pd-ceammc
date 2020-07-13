@@ -94,8 +94,22 @@ int main(int argc, char* argv[])
 
     jobj["name"] = pd::object_name(ext.object())->s_name;
     jobj["dir"] = pd::object_dir(ext.object())->s_name;
-    jobj["inlets"] = ext.numInlets();
-    jobj["outlets"] = ext.numOutlets();
+
+    jobj["inlets"] = json::array();
+    for (int i = 0; i < ext.numInlets(); i++) {
+        if (ext.inletInfo(i).isSignal())
+            jobj["inlets"].push_back("audio");
+        else
+            jobj["inlets"].push_back("control");
+    }
+
+    jobj["outlets"] = json::array();
+    for (int i = 0; i < ext.numOutlets(); i++) {
+        if (ext.outletInfo(i).isSignal())
+            jobj["outlets"].push_back("audio");
+        else
+            jobj["outlets"].push_back("control");
+    }
 
     // add methods
     for (auto m : ext.methods()) {
