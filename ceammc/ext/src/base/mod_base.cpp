@@ -16,7 +16,9 @@
 #include "obj_info.h"
 #include "obj_props.h"
 #include "patch_args.h"
+#include "patch_deps.h"
 #include "patch_props.h"
+#include "patch_tree.h"
 #include "prop.h"
 #include "prop_declare.h"
 #include "radio.h"
@@ -91,7 +93,9 @@ void ceammc_base_setup()
     setup_obj_info();
     setup_obj_props();
     setup_patch_args();
+    setup_patch_deps();
     setup_patch_props();
+    setup_patch_tree();
     setup_prop_declare();
     setup_prop_get();
     setup_prop_get_tilde();

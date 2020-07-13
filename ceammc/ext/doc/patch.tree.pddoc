@@ -1,0 +1,46 @@
+<?xml version='1.0' encoding='utf-8'?>
+<pddoc version="1.0">
+    <object name="patch.tree">
+        <title>patch.tree</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavski</author>
+            </authors>
+            <description>patch tree</description>
+            <license>GPL3 or later</license>
+            <library>ceammc</library>
+            <category>patch</category>
+            <keywords>patch tree</keywords>
+            <since>0.9.0</since>
+            <also>
+                <see>patch.deps</see>
+            </also>
+        </meta>
+        <properties>
+            <property name="@mode" type="symbol" enum="deps abs obj">...</property>
+            <property name="@deps" type="symbol">...</property>
+            <property name="@abs" type="symbol">...</property>
+            <property name="@obj" type="symbol">...</property>
+        </properties>
+        <methods>
+            <method name="dump">...</method>
+        </methods>
+        <inlets>
+            <inlet type="control">
+                <xinfo>inlet 0</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet type="control">outlet 0</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[bang(
+|
+[patch.tree]
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

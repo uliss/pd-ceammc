@@ -1,0 +1,7 @@
+#N canvas 472 406 700 500 12;
+#X obj 39 48 mtof;
+#X obj 38 93 patch_deps0;
+#X obj 99 48 osc~;
+#N canvas 0 23 700 500 test 1;
+#X obj 175 133 noise~;
+#X restore 81 181 pd test;

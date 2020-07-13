@@ -34,6 +34,21 @@ class UIObject;
 
 namespace pd {
 
+    struct XletInfo {
+        enum Type {
+            NONE,
+            CONTROL,
+            SIGNAL
+        };
+
+        Type type = { NONE };
+        XletInfo(Type t)
+            : type(t)
+        {
+        }
+        bool isSignal() const { return type == SIGNAL; }
+    };
+
     std::vector<std::string> currentListOfExternals();
 
     bool addPdPrintDataSupport();
@@ -102,6 +117,9 @@ namespace pd {
 
         int numOutlets() const;
         int numInlets() const;
+
+        XletInfo inletInfo(int i) const;
+        XletInfo outletInfo(int i) const;
 
         int xPos() const;
         int yPos() const;

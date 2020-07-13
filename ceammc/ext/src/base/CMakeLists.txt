@@ -18,7 +18,9 @@ set(BASE_SOURCES
     obj_info.cpp
     obj_props.cpp
     patch_args.cpp
+    patch_deps.cpp
     patch_props.cpp
+    patch_tree.cpp
     prop.cpp
     prop_get.cpp
     prop_get_tilde.cpp

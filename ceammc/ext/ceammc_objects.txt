@@ -596,6 +596,8 @@ pan~
 pass
 pass_if
 patch.args
+patch.deps
+patch.objlist
 patch.props
 path.basename
 path.dirname

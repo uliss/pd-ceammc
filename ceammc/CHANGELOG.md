@@ -3,7 +3,12 @@
 ## [Unreleased]
 ### Added:
 - mlist.flatten - simple list support added
+- patch.deps added - list current patch dependencies
 
+### Changed:
+- ext_info output format changed.
+    "inlets": ["audio", "control"...] instead of inlet number.
+    "outlets": ["audio", "control"...] instead of outlet number
 
 ## [0.9]
 ### Added:

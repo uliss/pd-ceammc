@@ -1317,6 +1317,12 @@
     <entry name="patch.args" descr="Get patch or subpatch arguments" ref_view="object">
       <xi:include href="patch.args.pddoc" parse="xml"/>
     </entry>
+    <entry name="patch.deps" descr="patch dependencies: used objects and abstractions" ref_view="object">
+      <xi:include href="patch.deps.pddoc" parse="xml"/>
+    </entry>
+    <entry name="patch.tree" descr="patch tree" ref_view="object">
+      <xi:include href="patch.tree.pddoc" parse="xml"/>
+    </entry>
   </category>
   <category name="path">
     <entry name="path.basename" descr="outputs filename portion of pathname" ref_view="object">

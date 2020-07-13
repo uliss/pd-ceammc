@@ -24,7 +24,6 @@
 #include <string>
 
 struct _glist;
-struct _symbol;
 struct _text;
 typedef struct _text t_object;
 
@@ -32,6 +31,36 @@ namespace ceammc {
 
 namespace pd {
     class External;
+
+    class CanvasTree {
+    public:
+        t_symbol* cnv_name;
+        t_symbol* cnv_dir;
+
+        enum Type {
+            OBJECT,
+            SUBPATCH,
+            ABSTRACTION
+        };
+
+        struct Object {
+            t_symbol* obj_name;
+            t_symbol* obj_dir;
+            std::unique_ptr<CanvasTree> obj_tree;
+            Type obj_type;
+
+            Object(t_symbol* name, t_symbol* dir, Type t);
+            Object(Object&& obj);
+            Object& operator=(Object&& obj);
+        };
+
+        std::vector<Object> objects;
+
+        CanvasTree(t_symbol* name, t_symbol* dir);
+        CanvasTree(CanvasTree&& t);
+        CanvasTree& operator=(CanvasTree&& t);
+        void appendObj(Object&& obj) { objects.push_back(std::move(obj)); }
+    };
 }
 
 /**
@@ -93,6 +122,13 @@ struct t_rect {
  * @param c - pointer to canvas
  */
 t_rect canvas_info_rect(const _glist* c);
+
+/**
+ * Returns canvas object tree
+ * @param c - pointer to canvas
+ * @return tree
+ */
+std::unique_ptr<pd::CanvasTree> canvas_info_tree(const _glist* c);
 
 class BaseObject;
 typedef std::shared_ptr<Array> ArrayPtr;
