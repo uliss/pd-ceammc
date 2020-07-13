@@ -20,6 +20,8 @@ if(APPLE)
                    ${PROJECT_BINARY_DIR}/dist/github_upload_release.sh @ONLY)
     configure_file(${CMAKE_CURRENT_SOURCE_DIR}/mac/install_external.sh
                    ${PROJECT_BINARY_DIR}/dist/install_external.sh @ONLY)
+    configure_file(${CMAKE_CURRENT_SOURCE_DIR}/update_cpp_src_from_doc.sh
+                   ${PROJECT_BINARY_DIR}/update_cpp_src_from_doc.sh @ONLY)
 endif()
 
 if(UNIX AND NOT APPLE)
