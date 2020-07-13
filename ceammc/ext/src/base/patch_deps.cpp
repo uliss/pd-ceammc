@@ -133,6 +133,6 @@ void setup_patch_deps()
     obj.setCategory("patch");
     obj.setSinceVersion(0, 9);
 
-    obj.addInletInfo("on bang: output patch dependencies");
-    obj.addOutletInfo("data: Dict");
+    PatchDeps::setInletsInfo(obj.classPointer(), { "on bang: output patch dependencies" });
+    PatchDeps::setOutletsInfo(obj.classPointer(), { "data: Dict" });
 }

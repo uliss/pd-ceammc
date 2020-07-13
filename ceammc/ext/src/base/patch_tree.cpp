@@ -77,6 +77,6 @@ void setup_patch_tree()
     obj.setCategory("patch");
     obj.setSinceVersion(0, 9);
 
-    obj.addInletInfo("on bang: output patch tree");
-    obj.addOutletInfo("data: Dict");
+    PatchTree::setInletsInfo(obj.classPointer(), { "on bang: output patch tree" });
+    PatchTree::setOutletsInfo(obj.classPointer(), { "data: Dict" });
 }

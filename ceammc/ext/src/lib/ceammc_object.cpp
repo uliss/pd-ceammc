@@ -37,6 +37,10 @@ extern "C" {
 
 namespace ceammc {
 
+// static init
+BaseObject::XletMap BaseObject::inlet_info_map;
+BaseObject::XletMap BaseObject::outlet_info_map;
+
 t_outlet* BaseObject::outletAt(size_t n)
 {
     if (n >= outlets_.size()) {
@@ -45,6 +49,21 @@ t_outlet* BaseObject::outletAt(size_t n)
     }
 
     return outlets_[n];
+}
+
+const char* BaseObject::annotateOutlet(size_t n) const
+{
+    auto it = outlet_info_map.find(classPointer());
+    if (it == outlet_info_map.end())
+        return nullptr;
+
+    if (n >= it->second.size())
+        return nullptr;
+
+    if (it->second[n].empty())
+        return nullptr;
+
+    return it->second[n].c_str();
 }
 
 Property* BaseObject::addProperty(Property* p)
@@ -395,6 +414,21 @@ void BaseObject::freeInlets()
 size_t BaseObject::numInlets() const
 {
     return pd_.owner ? static_cast<size_t>(obj_ninlets(pd_.owner)) : 0;
+}
+
+const char* BaseObject::annotateInlet(size_t n) const
+{
+    auto it = inlet_info_map.find(classPointer());
+    if (it == inlet_info_map.end())
+        return nullptr;
+
+    if (n >= it->second.size())
+        return nullptr;
+
+    if (it->second[n].empty())
+        return nullptr;
+
+    return it->second[n].c_str();
 }
 
 t_inlet* BaseObject::createInlet()
@@ -1023,5 +1057,25 @@ t_symbol* BaseObject::tryGetPropKey(t_symbol* sel)
 bool BaseObject::isAbsolutePath(const char* path)
 {
     return sys_isabsolutepath(path) == 1;
+}
+
+void BaseObject::addInletInfo(t_class* c, const std::string& txt)
+{
+    inlet_info_map[c].push_back(txt);
+}
+
+void BaseObject::addOutletInfo(_class* c, const std::string& txt)
+{
+    outlet_info_map[c].push_back(txt);
+}
+
+void BaseObject::setInletsInfo(_class* c, const BaseObject::XletInfo& l)
+{
+    inlet_info_map[c] = l;
+}
+
+void BaseObject::setOutletsInfo(_class* c, const BaseObject::XletInfo& l)
+{
+    outlet_info_map[c] = l;
 }
 }

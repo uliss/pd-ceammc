@@ -283,6 +283,13 @@ public:
     size_t numInlets() const;
 
     /**
+     * Inlet description
+     * @param n - inlet index
+     * @return inlet description constant string pointer, 0 if not exists
+     */
+    virtual const char* annotateInlet(size_t n) const;
+
+    /**
      * Creates control outlet
      */
     t_outlet* createOutlet();
@@ -298,6 +305,13 @@ public:
      * Returns number of outlets.
      */
     size_t numOutlets() const { return outlets_.size(); }
+
+    /**
+     * Outlet description
+     * @param n - outlet index
+     * @return outlet description constant string pointer, 0 if not exists
+     */
+    virtual const char* annotateOutlet(size_t n) const;
 
     /**
      * Adds property to obejct and takes owner ship on it
@@ -539,6 +553,15 @@ public:
      */
     static bool isAbsolutePath(const char* path);
 
+    using XletInfo = std::vector<std::string>;
+    using XletMap = std::map<t_class*, XletInfo>;
+
+    static void addInletInfo(t_class* c, const std::string& txt);
+    static void addOutletInfo(t_class* c, const std::string& txt);
+
+    static void setInletsInfo(t_class* c, const XletInfo& l);
+    static void setOutletsInfo(t_class* c, const XletInfo& l);
+
 protected:
     void freeInlets();
     void freeOutlets();
@@ -550,6 +573,9 @@ protected:
 
 private:
     void extractPositionalArguments();
+
+    static XletMap inlet_info_map;
+    static XletMap outlet_info_map;
 };
 }
 

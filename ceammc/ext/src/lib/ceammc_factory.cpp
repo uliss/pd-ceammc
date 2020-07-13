@@ -19,7 +19,7 @@ extern "C" {
 #include "m_imp.h"
 }
 
-void ceammc::factory_show_inlet_tooltip(t_glist* glist, t_object* x, size_t idx, const std::string& str)
+void ceammc::factory_bind_inlet_tooltip(t_glist* glist, t_object* x, size_t idx, const char* str)
 {
     static bool tooltip_init = false;
     if (!tooltip_init) {
@@ -68,7 +68,7 @@ void ceammc::factory_show_inlet_tooltip(t_glist* glist, t_object* x, size_t idx,
         tooltip_init = true;
     }
 
-    if (str.empty())
+    if (!str || str[0] == '\0')
         return;
 
     const size_t N = obj_ninlets(x);
@@ -79,12 +79,12 @@ void ceammc::factory_show_inlet_tooltip(t_glist* glist, t_object* x, size_t idx,
 
     const char* tag = rtext_gettag(glist_findrtext(glist, x));
     sys_vgui("::ceammc_tt::txt .x%lx.c %si%d 1 \"%s\"\n",
-        glist, tag, (int)idx, str.c_str());
+        glist, tag, (int)idx, str);
 }
 
-void ceammc::factory_show_outlet_tooltip(t_glist* glist, t_object* x, size_t idx, const std::string& str)
+void ceammc::factory_bind_outlet_tooltip(t_glist* glist, t_object* x, size_t idx, const char* str)
 {
-    if (str.empty())
+    if (!str || str[0] == '\0')
         return;
 
     const size_t N = obj_noutlets(x);
@@ -95,7 +95,7 @@ void ceammc::factory_show_outlet_tooltip(t_glist* glist, t_object* x, size_t idx
 
     const char* tag = rtext_gettag(glist_findrtext(glist, x));
     sys_vgui("::ceammc_tt::txt .x%lx.c %so%d 0 \"%s\"\n",
-        glist, tag, (int)idx, str.c_str());
+        glist, tag, (int)idx, str);
 }
 
 ceammc::factory_visfn ceammc::factory_set_widget_behavior(t_class* c, t_widgetbehavior* wb, factory_visfn new_fn)

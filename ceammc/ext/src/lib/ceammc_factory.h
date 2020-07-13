@@ -57,8 +57,8 @@ using factory_visfn = void (*)(t_gobj* x, struct _glist* glist, int flag);
 using factory_wb_deleter = void (*)(t_widgetbehavior*);
 using factory_wb_pointer = std::unique_ptr<t_widgetbehavior, factory_wb_deleter>;
 
-void factory_show_inlet_tooltip(t_glist* glist, t_object* x, size_t idx, const std::string& str);
-void factory_show_outlet_tooltip(t_glist* glist, t_object* x, size_t idx, const std::string& str);
+void factory_bind_inlet_tooltip(t_glist* glist, t_object* x, size_t idx, const char* str);
+void factory_bind_outlet_tooltip(t_glist* glist, t_object* x, size_t idx, const char* str);
 factory_visfn factory_set_widget_behavior(t_class* c, t_widgetbehavior* wb, factory_visfn new_fn);
 
 factory_wb_pointer factory_create_wb(t_class* c);
@@ -270,16 +270,6 @@ public:
     void setApiVersion(uint16_t v)
     {
         ObjectInfoStorage::instance().info(class_).api = v;
-    }
-
-    void addInletInfo(const std::string& txt)
-    {
-        ObjectInfoStorage::instance().info(class_).inlets_info.push_back(txt);
-    }
-
-    void addOutletInfo(const std::string& txt)
-    {
-        ObjectInfoStorage::instance().info(class_).outlets_info.push_back(txt);
     }
 
     ObjectInfoStorage::Info& info()
@@ -523,13 +513,18 @@ private:
         class_oldvisfn_(z, glist, vis);
 
         if (vis) {
-            size_t n = 0;
-            for (auto& str : ObjectInfoStorage::instance().info(class_).inlets_info)
-                factory_show_inlet_tooltip(glist, (t_object*)z, n++, str);
+            ObjectProxy* x = reinterpret_cast<ObjectProxy*>(z);
+            for (size_t i = 0; i < x->impl->numInlets(); i++) {
+                auto txt = x->impl->annotateInlet(i);
+                if (txt)
+                    factory_bind_inlet_tooltip(glist, (t_object*)z, i, txt);
+            }
 
-            n = 0;
-            for (auto& str : ObjectInfoStorage::instance().info(class_).outlets_info)
-                factory_show_outlet_tooltip(glist, (t_object*)z, n++, str);
+            for (size_t i = 0; i < x->impl->numOutlets(); i++) {
+                auto txt = x->impl->annotateOutlet(i);
+                if (txt)
+                    factory_bind_outlet_tooltip(glist, (t_object*)z, i, txt);
+            }
         }
     }
 
