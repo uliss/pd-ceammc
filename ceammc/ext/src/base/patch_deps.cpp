@@ -132,6 +132,7 @@ void setup_patch_deps()
     obj.setKeywords({ "patch", "canvas", "deps" });
     obj.setCategory("patch");
     obj.setSinceVersion(0, 9);
-    ObjectInfoStorage::instance().info(obj.classPointer()).inlets_info.push_back("on bang: output patch dependencies");
-    ObjectInfoStorage::instance().info(obj.classPointer()).outlets_info.push_back("data: Dict");
+
+    obj.addInletInfo("on bang: output patch dependencies");
+    obj.addOutletInfo("data: Dict");
 }

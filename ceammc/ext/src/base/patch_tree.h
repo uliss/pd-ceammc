@@ -15,12 +15,9 @@
 #define PATCH_TREE_H
 
 #include "ceammc_object.h"
-#include "ceammc_property_enum.h"
 using namespace ceammc;
 
 class PatchTree : public BaseObject {
-    SymbolEnumProperty* mode_;
-
 public:
     PatchTree(const PdArgs& a);
     void onBang() override;

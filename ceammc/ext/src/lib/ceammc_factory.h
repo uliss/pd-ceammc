@@ -272,6 +272,21 @@ public:
         ObjectInfoStorage::instance().info(class_).api = v;
     }
 
+    void addInletInfo(const std::string& txt)
+    {
+        ObjectInfoStorage::instance().info(class_).inlets_info.push_back(txt);
+    }
+
+    void addOutletInfo(const std::string& txt)
+    {
+        ObjectInfoStorage::instance().info(class_).outlets_info.push_back(txt);
+    }
+
+    ObjectInfoStorage::Info& info()
+    {
+        return ObjectInfoStorage::instance().info(class_);
+    }
+
     void setFlag(uint32_t f, bool on)
     {
         if (on)

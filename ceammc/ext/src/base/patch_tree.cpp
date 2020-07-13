@@ -17,109 +17,66 @@
 #include "ceammc_platform.h"
 #include "datatype_dict.h"
 
-extern "C" {
-#include "g_canvas.h"
-#include "m_imp.h"
-}
-
 PatchTree::PatchTree(const PdArgs& a)
     : BaseObject(a)
-    , mode_(nullptr)
 {
     createOutlet();
-
-    mode_ = new SymbolEnumProperty("@mode", { "deps", "abs", "obj" });
-    addProperty(mode_);
-    addProperty(new SymbolEnumAlias("@deps", mode_, gensym("deps")));
-    addProperty(new SymbolEnumAlias("@abs", mode_, gensym("abs")));
-    addProperty(new SymbolEnumAlias("@obj", mode_, gensym("obj")));
 }
 
-static DataTypeDict canvas_tree(t_gobj* x)
+namespace {
+using namespace ceammc::pd;
+
+DataTypeDict canvas_tree(CanvasTree* tree)
 {
     DataTypeDict t;
+    if (tree == nullptr)
+        return t;
 
-    for (; x != nullptr; x = x->g_next) {
-        auto pdobj = x->g_pd;
-        if (!pd_checkobject(&pdobj))
-            continue;
+    for (auto& obj : tree->objects) {
+        switch (obj.obj_type) {
+        case CanvasTree::ABSTRACTION: {
+            t_symbol* k = gensym((std::string(obj.obj_name->s_name) + ".pd").c_str());
+            if (!t.contains(k))
+                t.insert(k, AtomList());
 
-        if (pd_class(&pdobj) == canvas_class) {
+            t.at(k).append(DictAtom(canvas_tree(obj.obj_tree.get())));
+        } break;
+        case CanvasTree::SUBPATCH: {
+            t_symbol* k = gensym((std::string("pd ") + obj.obj_name->s_name).c_str());
+            if (!t.contains(k))
+                t.insert(k, AtomList());
 
-            t_canvas* c = reinterpret_cast<t_canvas*>(x);
+            t.at(k).append(DictAtom(canvas_tree(obj.obj_tree.get())));
+        } break;
+        case CanvasTree::OBJECT:
+        default: {
+            if (!t.contains("obj"))
+                t.insert("obj", AtomList());
 
-            if (canvas_isabstraction(c)) {
-                std::string dir = canvas_info_dir(c)->s_name;
-                std::string name = canvas_info_name(c)->s_name;
-                t_symbol* full_path = gensym((dir + "/" + name).c_str());
-                if (!t.contains(full_path)) {
-                    DataTypeDict d;
-                    d.insert("n", 1);
-                    d.insert("obj", full_path);
-                    t.insert(full_path, DictAtom(d));
-                } else {
-                    auto& kv = t.at(full_path);
-                    auto d = const_cast<DataTypeDict*>(kv[0].asD<DataTypeDict>());
-                    d->at("n")[0].applyFloat([](t_float f) { return f + 1; });
-                }
-            }
-
-            for (auto& kv : canvas_tree(c->gl_list)) {
-                if (!t.contains(kv.first))
-                    t.innerData().insert(kv);
-                else {
-                    auto& info = t.at(kv.first);
-                    auto d = const_cast<DataTypeDict*>(info[0].asD<DataTypeDict>());
-                    auto& n = d->at("n")[0];
-                    auto& objlist_src = kv.second[0].asD<DataTypeDict>()->at("obj");
-                    auto& objlist_dest = d->at("obj");
-                    for (auto& a : objlist_src) {
-                        n.applyFloat([](t_float f) { return f + 1; });
-                        if (!objlist_dest.contains(a)) {
-                            objlist_dest.append(a);
-                        }
-                    }
-                }
-            }
-
-            continue;
+            t.at("obj").append(Atom(obj.obj_name));
         }
-
-        auto name = pdobj->c_name;
-        if (pdobj->c_externdir) {
-            if (!t.contains(pdobj->c_externdir)) {
-                DataTypeDict d;
-                d.insert("n", 1);
-                d.insert("obj", name);
-                t.insert(pdobj->c_externdir, DictAtom(d));
-            } else {
-                auto& kv = t.at(pdobj->c_externdir);
-                auto d = const_cast<DataTypeDict*>(kv[0].asD<DataTypeDict>());
-                d->at("n")[0].applyFloat([](t_float f) { return f + 1; });
-                auto& objlist = d->at("obj");
-                if (!objlist.contains(name))
-                    objlist.append(Atom(name));
-            }
         }
-        //        t.insert(pdobj->c_externdir, 1);
-        //        if (pdobj->c_helpname)
-        //            info->insert("help", pdobj->c_helpname);
-
-        //        t.insert(name, info);
-        //        LIB_DBG << "insert: " << name;
     }
 
     return t;
 }
+}
 
 void PatchTree::onBang()
 {
-//    if (mode_->value() == SYM_DEPS) {
-        atomTo(0, DictAtom(canvas_tree(canvas()->gl_list)));
-//    }
+    auto t = canvas_info_tree(canvas());
+    atomTo(0, DictAtom(canvas_tree(t.get())));
 }
 
 void setup_patch_tree()
 {
     ObjectFactory<PatchTree> obj("patch.tree");
+    obj.setDescription("patch tree");
+    obj.addAuthor("Serge Poltavski");
+    obj.setKeywords({ "patch", "tree" });
+    obj.setCategory("patch");
+    obj.setSinceVersion(0, 9);
+
+    obj.addInletInfo("on bang: output patch tree");
+    obj.addOutletInfo("data: Dict");
 }
