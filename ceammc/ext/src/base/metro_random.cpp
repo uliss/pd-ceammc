@@ -81,4 +81,10 @@ double MetroRandom::gen() const
 void setup_metro_random()
 {
     ObjectFactory<MetroRandom> obj("metro.random");
+
+    obj.setDescription("metro random bang with specified range");
+    obj.addAuthor("Serge Poltavsky");
+    obj.setKeywords({"metro", "random"});
+    obj.setCategory("base");
+    obj.setSinceVersion(0, 9);
 }

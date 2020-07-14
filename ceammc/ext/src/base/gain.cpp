@@ -224,4 +224,10 @@ void setup_gain_tilde()
     obj.addMethod("-all", &Gain::m_minusAll);
     obj.addMethod("set", &Gain::m_set);
     obj.addMethod("set_db", &Gain::m_setDb);
+
+    obj.setDescription("multislot signal gain");
+    obj.addAuthor("Serge Poltavsky");
+    obj.setKeywords({"gain", "amplitude", "decibel"});
+    obj.setCategory("base");
+    obj.setSinceVersion(0, 6);
 }

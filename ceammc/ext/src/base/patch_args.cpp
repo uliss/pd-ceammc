@@ -16,4 +16,10 @@ void PatchArgs::onBang()
 void setup_patch_args()
 {
     ObjectFactory<PatchArgs> obj("patch.args");
+
+    obj.setDescription("Get patch or subpatch arguments");
+    obj.addAuthor("Serge Poltavsky");
+    obj.setKeywords({"patch", "args", "arguments", "canvas"});
+    obj.setCategory("patch");
+    obj.setSinceVersion(0, 4);
 }

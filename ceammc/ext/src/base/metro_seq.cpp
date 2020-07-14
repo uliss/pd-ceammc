@@ -79,4 +79,10 @@ void MetroSeq::clockTick()
 void setup_metro_seq()
 {
     ObjectFactory<MetroSeq> obj("metro.seq");
+
+    obj.setDescription("metro sequencer");
+    obj.addAuthor("Serge Poltavsky");
+    obj.setKeywords({"metro", "sequencer"});
+    obj.setCategory("base");
+    obj.setSinceVersion(0, 5);
 }

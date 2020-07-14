@@ -136,4 +136,10 @@ void MetroPattern::output(bool on_start)
 void setup_metro_pattern()
 {
     ObjectFactory<MetroPattern> obj("metro.pattern");
+
+    obj.setDescription("metro with rhythmic patterns");
+    obj.addAuthor("Serge Poltavsky");
+    obj.setKeywords({"metro", "pattern", "rhythm"});
+    obj.setCategory("base");
+    obj.setSinceVersion(0, 5);
 }

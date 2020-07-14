@@ -58,4 +58,10 @@ void setup_base_radio()
 {
     ObjectFactory<Radio> obj("radio");
     obj.addMethod("reset", &Radio::m_reset);
+
+    obj.setDescription("float index to outlet values as radio switch");
+    obj.addAuthor("Serge Poltavsky");
+    obj.setKeywords({"radio"});
+    obj.setCategory("base");
+    obj.setSinceVersion(0, 6);
 }

@@ -244,4 +244,10 @@ void setup_base_mix()
     SoundExternalFactory<Mix> obj("mix~");
     obj.addMethod("mute", &Mix::m_mute);
     obj.addMethod("solo", &Mix::m_solo);
+
+    obj.setDescription("multislot signal mixer");
+    obj.addAuthor("Serge Poltavsky");
+    obj.setKeywords({"mix", "amplitude", "decibel"});
+    obj.setCategory("base");
+    obj.setSinceVersion(0, 6);
 }

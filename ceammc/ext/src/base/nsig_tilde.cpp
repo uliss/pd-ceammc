@@ -102,4 +102,10 @@ void NSigTilde::updateSamples()
 void setup_nsig_tilde()
 {
     SoundExternalFactory<NSigTilde> obj("nsig~", OBJECT_FACTORY_DEFAULT);
+
+    obj.setDescription("Mulitchannel converter from control to audio rate");
+    obj.addAuthor("Serge Poltavsky");
+    obj.setKeywords({"sig", "list"});
+    obj.setCategory("base");
+    obj.setSinceVersion(0, 9);
 }

@@ -257,4 +257,10 @@ void setup_prop_declare()
 
     ObjectFactory<PropDeclare> obj("prop.declare", OBJECT_FACTORY_NO_DEFAULT_INLET);
     obj.useLoadBang();
+
+    obj.setDescription("declare named property for subpatch or abstraction");
+    obj.addAuthor("Serge Poltavsky");
+    obj.setKeywords({"property", "declare"});
+    obj.setCategory("property");
+    obj.setSinceVersion(0, 7);
 }

@@ -49,4 +49,10 @@ void setup_is_file()
 {
     ObjectFactory<IsFile> obj("is_file");
     obj.processData<DataTypeString>();
+
+    obj.setDescription("checks if file exists and accessible");
+    obj.addAuthor("Serge Poltavsky");
+    obj.setKeywords({"predicate", "filesystem"});
+    obj.setCategory("predicates");
+    obj.setSinceVersion(0, 2);
 }

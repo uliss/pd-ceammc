@@ -86,4 +86,10 @@ extern "C" void function_call_setup()
 {
     ObjectFactory<FunctionCall> f("function.call");
     f.addAlias("func.call");
+
+    f.setDescription("call named function");
+    f.addAuthor("Serge Poltavsky");
+    f.setKeywords({"function", "call"});
+    f.setCategory("base");
+    f.setSinceVersion(0, 3);
 }

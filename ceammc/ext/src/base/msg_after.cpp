@@ -99,4 +99,10 @@ void MessageAfter::tick()
 void setup_msg_after()
 {
     ObjectFactory<MessageAfter> obj("msg.after");
+
+    obj.setDescription("send specified message after incoming message");
+    obj.addAuthor("Serge Poltavsky");
+    obj.setKeywords({"message", "after", "onload"});
+    obj.setCategory("msg");
+    obj.setSinceVersion(0, 7);
 }

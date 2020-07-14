@@ -85,4 +85,10 @@ void setup_base_msg()
     ObjectFactory<Msg> obj("msg");
     obj.addAlias("m");
     obj.addAlias("prepend");
+
+    obj.setDescription("message constructor");
+    obj.addAuthor("Serge Poltavsky");
+    obj.setKeywords({"msg", "message"});
+    obj.setCategory("msg");
+    obj.setSinceVersion(0, 1);
 }

@@ -56,4 +56,10 @@ void setup_is_data()
 {
     ObjectFactory<IsData> obj("is_data");
     obj.processData();
+
+    obj.setDescription("checks if input data has *data* type");
+    obj.addAuthor("Serge Poltavsky");
+    obj.setKeywords({"predicate", "data"});
+    obj.setCategory("predicates");
+    obj.setSinceVersion(0, 6);
 }

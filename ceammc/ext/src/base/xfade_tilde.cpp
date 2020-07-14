@@ -12,9 +12,9 @@
  * this file belongs to.
  *****************************************************************************/
 #include "xfade_tilde.h"
-#include "ceammc_property_callback.h"
 #include "ceammc_convert.h"
 #include "ceammc_factory.h"
+#include "ceammc_property_callback.h"
 
 #include <algorithm>
 
@@ -151,4 +151,10 @@ void setup_base_xfade_tilde()
     SYM_LIN = gensym("lin");
 
     SoundExternalFactory<XFadeTilde> obj("xfade~");
+
+    obj.setDescription("multi signal crossfade");
+    obj.addAuthor("Serge Poltavsky");
+    obj.setKeywords({ "crossfade", "xfade" });
+    obj.setCategory("base");
+    obj.setSinceVersion(0, 6);
 }

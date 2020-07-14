@@ -190,4 +190,10 @@ void setup_snd_file()
 {
     ObjectFactory<SndFile> obj("snd.file");
     obj.addMethod("load", &SndFile::m_load);
+
+    obj.setDescription("Sound file loader on steroids");
+    obj.addAuthor("Serge Poltavsky");
+    obj.setKeywords({"soundfiler"});
+    obj.setCategory("snd");
+    obj.setSinceVersion(0, 1);
 }

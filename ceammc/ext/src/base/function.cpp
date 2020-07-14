@@ -137,4 +137,10 @@ void function_setup()
 {
     ObjectFactory<Function> f("function");
     f.addAlias("func");
+
+    f.setDescription("named function");
+    f.addAuthor("Serge Poltavsky");
+    f.setKeywords({"function"});
+    f.setCategory("base");
+    f.setSinceVersion(0, 3);
 }

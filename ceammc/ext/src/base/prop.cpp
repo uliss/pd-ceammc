@@ -194,4 +194,10 @@ void setup_base_prop()
 
     ObjectFactory<BaseProp> obj("prop");
     obj.addMethod("default", &BaseProp::m_default);
+
+    obj.setDescription("get/set named property value for subpatch or abstraction");
+    obj.addAuthor("Serge Poltavsky");
+    obj.setKeywords({"property"});
+    obj.setCategory("property");
+    obj.setSinceVersion(0, 7);
 }

@@ -110,4 +110,10 @@ void setup_base_matrix()
 {
     SoundExternalFactory<Matrix> obj("matrix~");
     obj.addMethod("cell", &Matrix::m_cell);
+
+    obj.setDescription("signal routing matrix");
+    obj.addAuthor("Serge Poltavsky");
+    obj.setKeywords({"matrix"});
+    obj.setCategory("base");
+    obj.setSinceVersion(0, 6);
 }

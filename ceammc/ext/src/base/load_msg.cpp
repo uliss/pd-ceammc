@@ -62,4 +62,10 @@ void setup_load_msg()
     obj.addAlias("loadmsg");
     obj.useClick();
     obj.useLoadBang();
+
+    obj.setDescription("send message when patch loads");
+    obj.addAuthor("Serge Poltavsky");
+    obj.setKeywords({"message", "loadbang", "onload"});
+    obj.setCategory("msg");
+    obj.setSinceVersion(0, 7);
 }
