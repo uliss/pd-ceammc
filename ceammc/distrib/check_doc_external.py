@@ -53,7 +53,7 @@ def read_props(name):
         if name in SPECIAL_OBJ:
             args.append(SPECIAL_OBJ[name])
 
-        s = subprocess.check_output(args, stderr=subprocess.DEVNULL, env={"RAWWAVES": STK_RAWWAVES_PATH}).decode()
+        s = subprocess.check_output(args, stderr=subprocess.DEVNULL, env={"RAWWAVES": STK_RAWWAVES_PATH}, encoding="utf-8", errors="ignore")
         js = json.loads(s)
         return set(js.keys()), js
     except(subprocess.CalledProcessError) as e:
