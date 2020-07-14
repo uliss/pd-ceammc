@@ -17,12 +17,41 @@
 
 CeammcSearch::CeammcSearch(const PdArgs& args)
     : BaseObject(args)
+    , max_(nullptr)
 {
     createOutlet();
+
+    max_ = new IntProperty("@max", 10);
+    max_->checkClosedRange(1, 50);
+    addProperty(max_);
+
+    auto& st = ObjectInfoStorage::instance();
+    std::copy(st.baseSet().begin(), st.baseSet().end(), std::back_inserter(all_classes_));
+    std::copy(st.faust().begin(), st.faust().end(), std::back_inserter(all_classes_));
+    std::copy(st.uiSet().begin(), st.uiSet().end(), std::back_inserter(all_classes_));
+    std::copy(st.flextSet().begin(), st.flextSet().end(), std::back_inserter(all_classes_));
 }
 
 void CeammcSearch::onSymbol(t_symbol* s)
 {
+    AtomList res;
+    int n = 0;
+
+    auto& st = ObjectInfoStorage::instance();
+    for (auto c : all_classes_) {
+        if (st.hasInfo(c)) {
+            auto& info = st.info(c);
+            auto it = info.dict.find("description");
+            if (it != info.dict.end() && it->second.find(s->s_name) != std::string::npos) {
+                res.append(gensym(class_getname(c)));
+                if (++n >= max_->value()) // check for max results
+                    goto done;
+            }
+        }
+    }
+
+done:
+    listTo(0, res);
 }
 
 void CeammcSearch::m_keywords(t_symbol* s, const AtomList& l)
@@ -32,22 +61,56 @@ void CeammcSearch::m_keywords(t_symbol* s, const AtomList& l)
 
     t_symbol* subj = l.asT<t_symbol*>();
     AtomList res;
+    int n = 0;
 
     auto& st = ObjectInfoStorage::instance();
-    for (auto& c : st.baseSet()) {
+    for (auto c : all_classes_) {
         if (st.hasInfo(c)) {
             auto& info = st.info(c);
             for (auto& kw : info.keywords) {
-                if (kw == subj->s_name) {
+                if (kw.find(subj->s_name) != std::string::npos) {
                     res.append(gensym(class_getname(c)));
-                    goto kw_found;
+                    if (++n >= max_->value()) // check for max results
+                        goto done;
                 }
             }
-
-        kw_found:;
         }
     }
 
+done:
+    listTo(0, res);
+}
+
+void CeammcSearch::m_objects(t_symbol* s, const AtomList& l)
+{
+    if (!checkArgs(l, ARG_SYMBOL, s))
+        return;
+
+    t_symbol* subj = l.asT<t_symbol*>();
+    AtomList res;
+    int n = 0;
+
+    auto& st = ObjectInfoStorage::instance();
+
+    for (auto c : all_classes_) {
+        std::string name(class_getname(c));
+        if (name.find(subj->s_name) != std::string::npos) {
+            res.append(gensym(name.c_str()));
+            if (++n >= max_->value())
+                goto done;
+
+        } else if (st.hasInfo(c)) {
+            for (auto& alias : st.info(c).aliases) {
+                if (alias.find(subj->s_name) != std::string::npos) {
+                    res.append(gensym(alias.c_str()));
+                    if (++n >= max_->value())
+                        goto done;
+                }
+            }
+        }
+    }
+
+done:
     listTo(0, res);
 }
 
@@ -61,4 +124,6 @@ void setup_ceammc_search()
 
     obj.addMethod("keywords", &CeammcSearch::m_keywords);
     obj.addMethod("k", &CeammcSearch::m_keywords);
+    obj.addMethod("objects", &CeammcSearch::m_objects);
+    obj.addMethod("o", &CeammcSearch::m_objects);
 }

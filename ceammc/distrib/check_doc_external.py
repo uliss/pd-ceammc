@@ -14,7 +14,6 @@ import os.path
 from lxml import etree
 from termcolor import colored, cprint
 import json
-import jamspell
 
 SRC_PATH = "@PROJECT_SOURCE_DIR@/"
 BIN_PATH = "@PROJECT_BINARY_DIR@/ceammc/ext/src/lib/"
@@ -26,8 +25,6 @@ EXT_METHODS = BIN_PATH + "ext_methods"
 EXT_PROPS = BIN_PATH + "ext_props"
 
 SPECIAL_OBJ = {"function": "f"}
-
-corrector = jamspell.TSpellCorrector()
 
 def read_all_externals():
     return list(filter(lambda x: len(x), subprocess.check_output([EXT_LIST], stderr=subprocess.DEVNULL).decode().split('\n')))
@@ -345,6 +342,9 @@ if __name__ == '__main__':
 
 
     if args.spell:
+        import jamspell
+        corrector = jamspell.TSpellCorrector()
+
         corrector.LoadLangModel('ceammc.bin')
         cprint(f"checking [{ext_name}] ...", "blue")
         check_spell(root)

@@ -16,7 +16,12 @@
         <methods>
             <method name="keywords">search in keywords</method>
             <method name="k">alias to keywords method</method>
+            <method name="objects">search in objects names</method>
+            <method name="o">alias to objects method</method>
         </methods>
+        <properties>
+            <property name="@max" type="int" minvalue="1" maxvalue="50" default="10">maximum number of result</property>
+        </properties>
         <inlets>
             <inlet type="control">
                 <xinfo on="symbol">search in descriptions</xinfo>
@@ -28,11 +33,11 @@
         <example>
             <pdascii>
 <![CDATA[
-[S digits=10]
-|
-[k $1(
-|
-[ceammc.search]
+[S digits=10] [S digits=10]
+|             |
+[k $1(        [o $1( [S digits=10]
+|             |      |
+[ceammc.search       ]
 |
 [ui.display]
 ]]>
