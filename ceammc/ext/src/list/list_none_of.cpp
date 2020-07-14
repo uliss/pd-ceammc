@@ -54,4 +54,13 @@ void setup_list_none_of()
 {
     ObjectFactory<ListNoneOf> obj("list.none_of");
     obj.processData<DataTypeMList>();
+
+    obj.setDescription("checks if none of list atoms is accepted by predicate");
+    obj.addAuthor("Serge Poltavsky");
+    obj.setKeywords({"list", "predicate", "none"});
+    obj.setCategory("list");
+    obj.setSinceVersion(0, 1);
+
+    ListNoneOf::setInletsInfo(obj.classPointer(), { "list or Mlist", "int: 1 or 0 from predicate" });
+    ListNoneOf::setOutletsInfo(obj.classPointer(), { "int: 1 or 0", "atom: to predicate" });
 }

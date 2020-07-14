@@ -58,4 +58,13 @@ void setup_list_any_of()
 {
     ObjectFactory<ListAnyOf> obj("list.any_of");
     obj.processData<DataTypeMList>();
+
+    obj.setDescription("checks if at least one list element is accepted by predicate");
+    obj.addAuthor("Serge Poltavsky");
+    obj.setKeywords({"list", "predicate", "any"});
+    obj.setCategory("list");
+    obj.setSinceVersion(0, 1);
+
+    ListAnyOf::setInletsInfo(obj.classPointer(), { "list or Mlist", "int: 1 or 0 from predicate" });
+    ListAnyOf::setOutletsInfo(obj.classPointer(), { "int: 1 or 0", "atom: to predicate" });
 }

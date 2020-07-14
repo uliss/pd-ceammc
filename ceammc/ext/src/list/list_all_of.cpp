@@ -58,4 +58,13 @@ void setup_list_all_of()
 {
     ObjectFactory<ListAllOf> obj("list.all_of");
     obj.processData<DataTypeMList>();
+
+    obj.setDescription("checks if all list atoms accepted by predicate");
+    obj.addAuthor("Serge Poltavsky");
+    obj.setKeywords({ "list", "predicate", "all" });
+    obj.setCategory("list");
+    obj.setSinceVersion(0, 1);
+
+    ListAllOf::setInletsInfo(obj.classPointer(), { "list or Mlist", "int: 1 or 0 from predicate" });
+    ListAllOf::setOutletsInfo(obj.classPointer(), { "int: 1 or 0", "atom: to predicate" });
 }
