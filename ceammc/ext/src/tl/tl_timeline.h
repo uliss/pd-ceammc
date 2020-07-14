@@ -48,13 +48,8 @@ public:
 
     AtomList propNumEvents() const;
     AtomList propCurrentTime() const;
-    AtomList propLoop() const;
     AtomList propPhase() const;
     AtomList propEvents() const;
-    void propSetLoop(const AtomList& l);
-
-    AtomList propMode() const;
-    void propSetMode(const AtomList& lst);
 
     tl::RunState state() const;
 

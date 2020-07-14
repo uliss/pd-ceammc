@@ -50,8 +50,33 @@ TlTimeLine::TlTimeLine(const PdArgs& args)
 
     createCbProperty("@events", &TlTimeLine::propEvents);
 
-    createCbProperty("@loop", &TlTimeLine::propLoop, &TlTimeLine::propSetLoop);
-    createCbProperty("@mode", &TlTimeLine::propMode, &TlTimeLine::propSetMode);
+    createCbBoolProperty(
+        "@loop",
+        [this]() -> bool { return tl_.isLoop(); },
+        [this](bool v) -> bool { tl_.setLoop(v); return true; });
+
+    createCbSymbolProperty(
+        "@mode",
+        [this]() -> t_symbol* {
+            switch (tl_.mode()) {
+            case tl::MODE_FIXED:
+                return gensym(SYM_FIXED);
+            case tl::MODE_INFINITE:
+            default:
+                return gensym(SYM_INF);
+            } },
+        [this](t_symbol* s) -> bool {
+            if (s == gensym(SYM_INF) || s == gensym(SYM_INF2))
+                tl_.setMode(tl::MODE_INFINITE);
+            else if (s == gensym(SYM_FIXED))
+                tl_.setMode(tl::MODE_FIXED);
+            else {
+                OBJ_ERR << gensym(SYM_INF) << " or " << gensym(SYM_FIXED) << " expected";
+                return false;
+            }
+
+            return true;
+        });
 }
 
 void TlTimeLine::dump() const
@@ -144,11 +169,6 @@ AtomList TlTimeLine::propCurrentTime() const
     return Atom(tl_.currentTime());
 }
 
-AtomList TlTimeLine::propLoop() const
-{
-    return Atom(tl_.isLoop());
-}
-
 AtomList TlTimeLine::propPhase() const
 {
     return Atom(tl_.currentTime() / tl_.length());
@@ -161,33 +181,6 @@ AtomList TlTimeLine::propEvents() const
         res.append(Atom(e.name));
 
     return res;
-}
-
-void TlTimeLine::propSetLoop(const AtomList& l)
-{
-    tl_.setLoop(atomlistToValue<bool>(l, false));
-}
-
-AtomList TlTimeLine::propMode() const
-{
-    switch (tl_.mode()) {
-    case tl::MODE_FIXED:
-        return Atom(gensym(SYM_FIXED));
-    case tl::MODE_INFINITE:
-        return Atom(gensym(SYM_INF));
-    }
-}
-
-void TlTimeLine::propSetMode(const AtomList& lst)
-{
-    t_symbol* s = lst.symbolAt(0, 0);
-
-    if (s == gensym(SYM_INF) || s == gensym(SYM_INF2))
-        tl_.setMode(tl::MODE_INFINITE);
-    else if (s == gensym(SYM_FIXED))
-        tl_.setMode(tl::MODE_FIXED);
-    else
-        OBJ_ERR << gensym(SYM_INF) << " or " << gensym(SYM_FIXED) << " expected";
 }
 
 tl::RunState TlTimeLine::state() const
