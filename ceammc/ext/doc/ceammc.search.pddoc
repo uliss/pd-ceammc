@@ -20,7 +20,8 @@
             <method name="o">alias to objects method</method>
         </methods>
         <properties>
-            <property name="@max" type="int" minvalue="1" maxvalue="50" default="10">maximum number of result</property>
+            <property name="@max" type="int" minvalue="1" maxvalue="50" default="10">maximum number
+            of result</property>
         </properties>
         <inlets>
             <inlet type="control">
