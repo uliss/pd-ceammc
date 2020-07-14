@@ -25,8 +25,8 @@
             [min..max)</par>
         </info>
         <arguments>
-            <argument name="MIN" type="float">random range lower bound</argument>
-            <argument name="MAX" type="float">random range upper bound</argument>
+            <argument name="ARG" type="list">@min=ARG[0], @max=ARG[1], in case of signle arg:
+            @min=0, @max=ARG[0]</argument>
         </arguments>
         <properties>
             <property name="@min" type="float" default="0">random range lower bound</property>

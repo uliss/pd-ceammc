@@ -5,6 +5,7 @@
 - mlist.flatten - simple list support added
 - patch.deps added - list current patch dependencies
 - ceammc.search added
+- random.int @seed property added to gen reproducible random sequences
 
 ### Changed:
 - ext_info output format changed.
