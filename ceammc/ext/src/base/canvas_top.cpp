@@ -49,5 +49,5 @@ void setup_canvas_top()
     obj.addAuthor("Serge Poltavsky");
     obj.setKeywords({"canvas"});
     obj.setCategory("patch");
-    obj.setSinceVersion(0, 4)
+    obj.setSinceVersion(0, 4);
 }
