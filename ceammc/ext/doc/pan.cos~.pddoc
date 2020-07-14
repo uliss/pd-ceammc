@@ -12,9 +12,6 @@
             <category>spat</category>
             <keywords>pan span</keywords>
             <since>0.5</since>
-            <aliases>
-                <alias>pan~</alias>
-            </aliases>
             <also>
                 <see>pan.lin~</see>
                 <see>pan.sqrt~</see>

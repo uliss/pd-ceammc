@@ -427,7 +427,7 @@ osc.sinfb~		~.		~
 osc.sin~		~.		~
 osc.square~		~.		~
 osc.tri~		~.		~
-pan.cos~,pan~		~.		~~
+pan.cos~		~.		~~
 pan.linsig~		~~		~~
 pan.lin~,pan~		~.		~~
 pan.spread~		?		~~
