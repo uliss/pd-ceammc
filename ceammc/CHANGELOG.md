@@ -7,6 +7,8 @@
 - ceammc.search added
 - random.int @seed property added to gen reproducible random sequences
 - random.float @seed property added to gen reproducible random sequences
+- random.gauss @seed property added to gen reproducible random sequences
+- random.linear @seed property added to gen reproducible random sequences
 
 ### Changed:
 - ext_info output format changed.

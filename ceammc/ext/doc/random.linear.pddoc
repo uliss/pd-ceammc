@@ -20,12 +20,15 @@
         <info>
             <par>Generates random number in interval [@v0, @v1) with linear distribution [@p0,
             @p1)</par>
+            <par>Use @seed property to get reproducible sequences. If @seed property was not
+            explicitly set or specified, uses generator initialized with current time.</par>
         </info>
         <properties>
             <property name="@v0" type="float" default="0">begin of value interval</property>
             <property name="@v1" type="float" default="1">end of value interval</property>
             <property name="@p0" type="float" default="1">probability at begin</property>
             <property name="@p1" type="float" default="0">probability at end</property>
+            <property name="@seed" type="int" minvalue="0" default="0">generator seed</property>
         </properties>
         <inlets>
             <inlet>
