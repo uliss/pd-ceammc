@@ -89,4 +89,10 @@ bool RandomPwLinear::set(const AtomList& data)
 void setup_random_pw_lin()
 {
     ObjectFactory<RandomPwLinear> obj("random.pw_lin");
+
+    obj.setDescription("piecewise linear random distribution");
+    obj.addAuthor("Serge Poltavsky");
+    obj.setKeywords({ "linear", "random", "piecewise" });
+    obj.setCategory("random");
+    obj.setSinceVersion(0, 4);
 }

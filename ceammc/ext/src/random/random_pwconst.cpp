@@ -91,4 +91,10 @@ bool RandomPWConst::set(const AtomList& data)
 void setup_random_pw_const()
 {
     ObjectFactory<RandomPWConst> obj("random.pw_const");
+
+    obj.setDescription("piecewise constant random distribution");
+    obj.addAuthor("Serge Poltavsky");
+    obj.setKeywords({ "linear", "random", "piecewise" });
+    obj.setCategory("random");
+    obj.setSinceVersion(0, 4);
 }

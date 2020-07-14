@@ -86,4 +86,10 @@ bool RandomDiscrete::set(const AtomList& l)
 void setup_random_discrete()
 {
     ObjectFactory<RandomDiscrete> obj("random.discrete");
+
+    obj.setDescription("random weighted integers on interval [0, n)");
+    obj.addAuthor("Serge Poltavsky");
+    obj.setKeywords({ "linear", "random", "discrete" });
+    obj.setCategory("random");
+    obj.setSinceVersion(0, 4);
 }

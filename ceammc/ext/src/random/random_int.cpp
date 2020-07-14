@@ -55,7 +55,7 @@ void setup_random_int()
 
     obj.setDescription("Random integer generator in specified range");
     obj.addAuthor("Serge Poltavsky");
-    obj.setKeywords({ "random" });
+    obj.setKeywords({ "random", "int" });
     obj.setCategory("random");
     obj.setSinceVersion(0, 1);
 }

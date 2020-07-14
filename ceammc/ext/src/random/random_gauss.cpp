@@ -32,4 +32,10 @@ void RandomGauss::onBang()
 void setup_random_gauss()
 {
     ObjectFactory<RandomGauss> obj("random.gauss");
+
+    obj.setDescription("gaussian random distribution");
+    obj.addAuthor("Serge Poltavsky");
+    obj.setKeywords({"gauss", "random"});
+    obj.setCategory("random");
+    obj.setSinceVersion(0, 1);
 }

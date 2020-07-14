@@ -47,4 +47,10 @@ void RandomLinear::onBang()
 void setup_random_linear()
 {
     ObjectFactory<RandomLinear> obj("random.linear");
+
+    obj.setDescription("random linear distribution");
+    obj.addAuthor("Serge Poltavsky");
+    obj.setKeywords({ "linear", "random" });
+    obj.setCategory("random");
+    obj.setSinceVersion(0, 4);
 }
