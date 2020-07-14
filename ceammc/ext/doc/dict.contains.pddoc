@@ -20,12 +20,15 @@
         <arguments>
             <argument name="KEY" type="list">checked keys</argument>
         </arguments>
+        <properties>
+            <property name="@keys" type="list">checked keys</property>
+        </properties>
         <inlets>
             <inlet>
                 <xinfo on="data">Data.dict expected</xinfo>
             </inlet>
             <inlet>
-                <xinfo on="atom">change searched key</xinfo>
+                <xinfo on="list">set searched keys</xinfo>
             </inlet>
         </inlets>
         <outlets>
