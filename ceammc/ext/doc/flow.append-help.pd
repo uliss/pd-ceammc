@@ -30,8 +30,8 @@ in the future \, if == 0 - send in next time tick \, if < 0 - output
 immidiately. Type: float. Units: ms. Default value: 0\. Min value:
 -1\.;
 #X msg 110 570 @msg;
-#X text 245 570 output as message \, not as list (by default). Allowed
-values: 0 \, 1\.;
+#X text 245 570 output as message \, not as list (by default). Default
+value: 0\. Allowed values: 0 \, 1\.;
 #X msg 110 612 @value;
 #X text 245 612 Get/Set append value. Type: list.;
 #X obj 20 651 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;

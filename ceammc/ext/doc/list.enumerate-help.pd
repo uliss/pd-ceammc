@@ -16,7 +16,8 @@
 #X obj 20 279 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
 -49933 0;
 #X msg 110 314 @append;
-#X text 245 314 put element index after element value.;
+#X text 245 314 put element index after element value. Default value:
+0\.;
 #X msg 110 343 @from;
 #X text 245 343 Get/Set start enumeration index. Type: int. Default
 value: 0\.;

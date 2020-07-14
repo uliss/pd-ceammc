@@ -22,10 +22,10 @@ string);
 #X obj 20 278 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
 -49933 0;
 #X msg 110 313 @ms;
-#X text 245 313 output milliseconds.;
+#X text 245 313 output milliseconds. Default value: 0\.;
 #X msg 110 342 @symbol;
 #X text 245 342 if specified - output formatted time as symbol \, otherwise
-as string.;
+as string. Default value: 0\.;
 #X obj 20 394 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 399 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
 0;

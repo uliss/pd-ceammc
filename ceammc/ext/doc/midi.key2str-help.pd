@@ -17,21 +17,22 @@
 #X obj 20 278 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
 -49933 0;
 #X msg 110 313 @symbol;
-#X text 245 313 output as symbol instead of string by default.;
-#X msg 110 342 @tonality;
-#X text 245 342 Get/Set current tonality. Type: symbol. Default value:
+#X text 245 313 output as symbol instead of string by default. Default
+value: 0\.;
+#X msg 110 355 @tonality;
+#X text 245 355 Get/Set current tonality. Type: symbol. Default value:
 C major.;
-#X obj 20 394 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 399 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
+#X obj 20 407 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 412 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
-#X text 110 400 1\.;
-#X text 150 400 *float*;
-#X text 245 400 standart MIDI key number [0-127].;
-#X obj 20 430 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 435 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
+#X text 110 413 1\.;
+#X text 150 413 *float*;
+#X text 245 413 standart MIDI key number [0-127].;
+#X obj 20 443 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 448 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 436 1\.;
-#X text 245 436 output key name.;
+#X text 110 449 1\.;
+#X text 245 449 output key name.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;

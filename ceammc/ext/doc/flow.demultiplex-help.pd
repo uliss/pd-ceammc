@@ -28,7 +28,8 @@
 Default value: 0\. Min value: 0\.;
 #X msg 110 410 @noprops;
 #X text 245 410 pass all properties requests. When this flag is specified
-you can't get or set @index property of current object: use right inlet.;
+you can't get or set @index property of current object: use right inlet.
+Default value: 0\.;
 #X obj 20 477 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 482 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
 0;

@@ -19,8 +19,8 @@
 #X obj 20 278 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
 -49933 0;
 #X msg 110 313 @is_running;
-#X text 245 313 (readonly) Get is process is running. Type: int. Allowed
-values: 0 \, 1\.;
+#X text 245 313 (readonly) Get is process is running. Type: int. Default
+value: 0\. Allowed values: 0 \, 1\.;
 #X obj 20 365 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 370 cnv 5 73 26 empty empty methods: 4 10 0 14 -262144
 -49933 0;

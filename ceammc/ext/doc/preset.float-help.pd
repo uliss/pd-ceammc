@@ -30,7 +30,7 @@ float values;
 #X obj 20 379 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
 -49933 0;
 #X msg 110 414 @global;
-#X text 245 414 use global path like /ID.;
+#X text 245 414 use global path like /ID. Default value: 0\.;
 #X msg 110 443 @id;
 #X text 245 443 (readonly) Get preset id. Type: symbol.;
 #X msg 110 472 @init;
@@ -41,7 +41,7 @@ float values;
 id \, abstraction name and may be subpatch name separated by slashes.
 Type: symbol.;
 #X msg 110 558 @subpatch;
-#X text 245 558 include subpatch name to path.;
+#X text 245 558 include subpatch name to path. Default value: 0\.;
 #X obj 20 597 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 602 cnv 5 73 26 empty empty methods: 4 10 0 14 -262144
 -49933 0;

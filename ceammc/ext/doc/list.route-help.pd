@@ -62,14 +62,15 @@ to last outlet if no match;
 #X obj 20 661 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
 -49933 0;
 #X msg 110 696 @as_any;
-#X text 245 696 trim list or symbol selector on output.;
+#X text 245 696 trim list or symbol selector on output. Default value:
+0\.;
 #X msg 110 725 @simplify;
 #X text 245 725 Get/Set one element list simplification - transform
 them to floats or symbols. Type: int. Default value: 1\. Allowed values:
 0 \, 1\.;
 #X msg 110 782 @trim;
 #X text 245 782 cut first element from list \, transform float or symbol
-to bang.;
+to bang. Default value: 0\.;
 #X obj 20 834 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 839 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
 0;

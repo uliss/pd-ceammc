@@ -37,7 +37,7 @@ ms. Default value: 0\.;
 values: 0 \, 1\.;
 #X msg 110 525 @pos;
 #X text 245 525 Get/Set position in mod file. Type: float. Units: ms.
-Default value: 0\.;
+Default value: -1\.;
 #X msg 110 567 @rpos;
 #X text 245 567 Get/Set relative position in mod file. Type: float.
 Default value: 0\. Range: 0\...1\.;
