@@ -618,11 +618,11 @@ prop<-	Property injector
 proto.firmata	Firmata Arduino protocol support
 proto.sp.alpaca	protocol parser for Arduino-based CEAMMC footswitch
 random.discrete	random weighted integers on interval [0, n)
-random.float	random float generator in specified range
-random.f	random float generator in specified range
+random.float	uniform random float generator in specified range
+random.f	uniform random float generator in specified range
 random.gauss	gaussian random distribution
-random.int	Random integer generator in specified range
-random.i	Random integer generator in specified range
+random.int	uniform random integer generator in specified range
+random.i	uniform random integer generator in specified range
 random.linear	random linear distribution
 random.pw_const	piecewise constant random distribution
 random.pw_lin	piecewise linear random distribution

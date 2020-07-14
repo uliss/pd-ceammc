@@ -53,7 +53,7 @@ void setup_random_float()
     ObjectFactory<RandomFloat> obj("random.float");
     obj.addAlias("random.f");
 
-    obj.setDescription("random float generator in specified range");
+    obj.setDescription("uniform random float generator in specified range");
     obj.addAuthor("Serge Poltavsky");
     obj.setKeywords({ "random", "float" });
     obj.setCategory("random");

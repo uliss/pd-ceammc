@@ -5,11 +5,11 @@
 #X obj 30 116 random.discrete;
 #X text 200 116 random weighted integers on interval [0 \, n);
 #X obj 30 143 random.float;
-#X text 200 143 random float generator in specified range;
+#X text 200 143 uniform random float generator in specified range;
 #X obj 30 170 random.gauss;
 #X text 200 170 gaussian random distribution;
 #X obj 30 197 random.int;
-#X text 200 197 Random integer generator in specified range;
+#X text 200 197 uniform random integer generator in specified range;
 #X obj 30 224 random.linear;
 #X text 200 224 random linear distribution;
 #X obj 30 251 random.pw_const;

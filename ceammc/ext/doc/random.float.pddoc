@@ -6,11 +6,11 @@
             <authors>
                 <author>Serge Poltavsky</author>
             </authors>
-            <description>random float generator in specified range</description>
+            <description>uniform random float generator in specified range</description>
             <license>GPL3 or later</license>
             <library>ceammc</library>
             <category>random</category>
-            <keywords>random</keywords>
+            <keywords>random float</keywords>
             <since>0.1</since>
             <also>
                 <see>random.int</see>

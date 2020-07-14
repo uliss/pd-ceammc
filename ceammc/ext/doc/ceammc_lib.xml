@@ -1425,13 +1425,13 @@
     <entry name="random.discrete" descr="random weighted integers on interval [0, n)" ref_view="object">
       <xi:include href="random.discrete.pddoc" parse="xml"/>
     </entry>
-    <entry name="random.float" descr="random float generator in specified range" ref_view="object">
+    <entry name="random.float" descr="uniform random float generator in specified range" ref_view="object">
       <xi:include href="random.float.pddoc" parse="xml"/>
     </entry>
     <entry name="random.gauss" descr="gaussian random distribution" ref_view="object">
       <xi:include href="random.gauss.pddoc" parse="xml"/>
     </entry>
-    <entry name="random.int" descr="Random integer generator in specified range" ref_view="object">
+    <entry name="random.int" descr="uniform random integer generator in specified range" ref_view="object">
       <xi:include href="random.int.pddoc" parse="xml"/>
     </entry>
     <entry name="random.linear" descr="random linear distribution" ref_view="object">
