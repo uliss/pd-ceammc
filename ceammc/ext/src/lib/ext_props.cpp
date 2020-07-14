@@ -61,7 +61,8 @@ static std::string pddoc_units(const std::string& u)
         { "samp", "sample" },
         { "db", "decibel" },
         { "hz", "herz" },
-        { "msec", "millisecond" }
+        { "msec", "millisecond" },
+        { "sec", "second" },
     };
     auto it = um.find(u);
     if (it == um.end())
