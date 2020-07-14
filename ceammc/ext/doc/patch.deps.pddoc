@@ -22,7 +22,8 @@
         <inlets>
             <inlet type="control">
                 <xinfo on="bang">output patch dependencies as Dict. Keys are library external paths
-                or abstraction full paths, values are external or abstraction names. PureData core objects listed under "_core" key.</xinfo>
+                or abstraction full paths, values are external or abstraction names. PureData core
+                objects listed under "_core" key.</xinfo>
             </inlet>
         </inlets>
         <outlets>

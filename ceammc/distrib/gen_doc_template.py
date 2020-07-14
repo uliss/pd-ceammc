@@ -80,7 +80,7 @@ def create_object(root, name):
             "license": "GPL3 or later",
             "library": "ceammc",
             "category": name.split('.')[0],
-            "keywords": " ",
+            "keywords": "",
             "since": VERSION,
             "also": {"see": " "}
         })
@@ -113,7 +113,7 @@ def create_xml():
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(
-        description='CEAMMC Pd documentation checker')
+        description='CEAMMC Pd pddoc template generator')
     parser.add_argument('-v', '--verbose',
                         help='verbose output', action='store_true')
     parser.add_argument('-p', '--stdout',
@@ -155,14 +155,24 @@ if __name__ == '__main__':
 
     obj = xml["object"]
 
+    # description
+    obj.meta.description = " "
+    if "info" in info["object"] and "description" in info["object"]["info"]:
+        obj.meta.description = info["object"]["info"]["description"]
+
+    # category
+    obj.meta.category = " "
+    if "info" in info["object"] and "category" in info["object"]["info"]:
+        obj.meta.category = info["object"]["info"]["category"]
+
     # aliases
-    obj.meta.aliases = ""
-    if "object" in info["object"] and "aliases" in info["object"]["info"]:
+    if "info" in info["object"] and "aliases" in info["object"]["info"]:
+        obj.meta.aliases = ""
         for a in info["object"]["info"]["aliases"]:
             obj.meta.aliases.alias = f"{a}"
 
     # keywords
-    if "object" in info["object"] and "keywords" in info["object"]["info"]:
+    if "info" in info["object"] and "keywords" in info["object"]["info"]:
         obj.meta.keywords = " ".join(info["object"]["info"]["keywords"])
 
     # create properties
