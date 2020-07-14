@@ -2,12 +2,15 @@
 #define RANDOM_PWCONST_H
 
 #include "ceammc_object.h"
+#include "rnd_gen.h"
 using namespace ceammc;
 
 class RandomPWConst : public BaseObject {
     AtomList values_;
     std::vector<t_float> bounds_;
     std::vector<t_float> weights_;
+    RandomGen gen_;
+    SizeTProperty* seed_;
 
 public:
     RandomPWConst(const PdArgs& a);
