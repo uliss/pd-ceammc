@@ -8,6 +8,7 @@ RandomGauss::RandomGauss(const PdArgs& a)
     : BaseObject(a)
     , mu_(nullptr)
     , sigma_(nullptr)
+    , seed_(nullptr)
 {
     createOutlet();
 
@@ -19,14 +20,16 @@ RandomGauss::RandomGauss(const PdArgs& a)
 
     addProperty(mu_);
     addProperty(sigma_);
+
+    seed_ = new SizeTProperty("@seed", 0);
+    seed_->setSuccessFn([this](Property* p) { gen_.setSeed(seed_->value()); });
+    addProperty(seed_);
 }
 
 void RandomGauss::onBang()
 {
-    static std::mt19937 random_gen(std::time(0));
-
     std::normal_distribution<t_float> dist(mu_->value(), sigma_->value());
-    floatTo(0, dist(random_gen));
+    floatTo(0, dist(gen_.get()));
 }
 
 void setup_random_gauss()
@@ -35,7 +38,7 @@ void setup_random_gauss()
 
     obj.setDescription("gaussian random distribution");
     obj.addAuthor("Serge Poltavsky");
-    obj.setKeywords({"gauss", "random"});
+    obj.setKeywords({ "gauss", "random" });
     obj.setCategory("random");
     obj.setSinceVersion(0, 1);
 }

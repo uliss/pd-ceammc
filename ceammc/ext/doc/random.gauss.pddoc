@@ -25,6 +25,8 @@
             or sigma. 68.26% of all results will occur in the interval with width +-SIGMA, centered
             by the mean; the random variable is unbounded, both as above and below the mean.</par>
             <par>99.74% of all results fall within +-3 SIGMA.</par>
+            <par>Use @seed property to get reproducible sequences. If @seed property was not
+            explicitly set or specified, uses generator initialized with current time.</par>
         </info>
         <arguments>
             <argument name="MU" type="float">the mean</argument>
@@ -34,6 +36,7 @@
             <property name="@mu" type="float" default="0">the mean</property>
             <property name="@sigma" type="float" minvalue="0" default="0">the standard
             deviation</property>
+            <property name="@seed" type="int" minvalue="0" default="0">generator seed</property>
         </properties>
         <inlets>
             <inlet>
