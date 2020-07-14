@@ -143,4 +143,13 @@ void setup_list_apply_to()
     obj.processData<DataTypeMList>();
     obj.useDefaultPdFloatFn();
     obj.useDefaultPdSymbolFn();
+
+    obj.setDescription("modifies list value at specified position, filtering it via external object");
+    obj.addAuthor("Serge Poltavsky");
+    obj.setKeywords({ "list", "functional", "apply" });
+    obj.setCategory("list");
+    obj.setSinceVersion(0, 1);
+
+    ListApplyTo::setInletsInfo(obj.classPointer(), { "list or Mlist", "list: set list indexes", "atom: processed value from side-chain" });
+    ListApplyTo::setOutletsInfo(obj.classPointer(), { "list or Mlist", "atom: to side-chain" });
 }
