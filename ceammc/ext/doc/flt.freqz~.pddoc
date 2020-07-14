@@ -24,6 +24,7 @@
             <property name="@b" type="list" default="1">numerator (zeros) coefficients</property>
             <property name="@sr" type="int" enum="0 1" default="0">normalize using current
             samplerate</property>
+            <property name="@db" type="int" enum="0 1" default="0">output amp response in db scale</property>
         </properties>
         <inlets>
             <inlet type="audio">
