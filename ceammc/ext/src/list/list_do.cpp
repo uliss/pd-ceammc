@@ -42,7 +42,7 @@ void setup_list_do()
 
     obj.setDescription("iterate and modify list contents via side-chain");
     obj.addAuthor("Alex Nadzharov");
-    obj.setKeywords({ "list" });
+    obj.setKeywords({ "list", "iterate" });
     obj.setCategory("list");
     obj.setSinceVersion(0, 5);
 
