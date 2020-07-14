@@ -38,4 +38,10 @@ extern "C" void click_tilde_setup()
 {
     SoundExternalFactory<Click> obj("click~", OBJECT_FACTORY_DEFAULT);
     obj.useDefaultPdFloatFn();
+
+    obj.setDescription("Output single impulse on bang");
+    obj.addAuthor("Serge Poltavsky");
+    obj.setKeywords({"click"});
+    obj.setCategory("misc");
+    obj.setSinceVersion(0, 4);
 }
