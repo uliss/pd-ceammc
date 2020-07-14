@@ -112,4 +112,13 @@ void setup_list_at()
 {
     ObjectFactory<ListAt> obj("list.at");
     obj.processData<DataTypeMList>();
+
+    obj.setDescription("outputs list element(s) at specified index(es)");
+    obj.addAuthor("Serge Poltavsky");
+    obj.setKeywords({ "list" });
+    obj.setCategory("list");
+    obj.setSinceVersion(0, 1);
+
+    ListAt::setInletsInfo(obj.classPointer(), { "list or Mlist", "set list of indexes" });
+    ListAt::setOutletsInfo(obj.classPointer(), { "atom or list" });
 }

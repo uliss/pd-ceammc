@@ -1,7 +1,7 @@
 #include "list_choice.h"
-#include "datatype_mlist.h"
 #include "ceammc_factory.h"
 #include "ceammc_log.h"
+#include "datatype_mlist.h"
 
 #include <cstdlib>
 
@@ -58,4 +58,13 @@ void setup_list_choice()
     ObjectFactory<ListChoice> obj("list.choice");
     obj.useDefaultPdFloatFn();
     obj.processData<DataTypeMList>();
+
+    obj.setDescription("outputs random element from list");
+    obj.addAuthor("Serge Poltavsky");
+    obj.setKeywords({ "list", "random", "choice" });
+    obj.setCategory("list");
+    obj.setSinceVersion(0, 1);
+
+    ListChoice::setInletsInfo(obj.classPointer(), { "list or Mlist" });
+    ListChoice::setOutletsInfo(obj.classPointer(), { "atom" });
 }
