@@ -674,10 +674,12 @@ class fx_sdelay : public fx_sdelay_dsp {
 	virtual void buildUserInterface(UI* ui_interface) {
 		ui_interface->openVerticalBox("fx.sdelay");
 		ui_interface->addCheckButton("bypass", &fCheckbox0);
+		ui_interface->declare(&fHslider1, "unit", "ms");
 		ui_interface->addHorizontalSlider("delay", &fHslider1, 1.0f, 0.0f, 6000.0f, 0.100000001f);
 		ui_interface->declare(&fHslider0, "style", "knob");
 		ui_interface->addHorizontalSlider("drywet", &fHslider0, 1.0f, 0.0f, 1.0f, 0.00999999978f);
 		ui_interface->addHorizontalSlider("feedback", &fHslider3, 0.0f, 0.0f, 1.0f, 0.00100000005f);
+		ui_interface->declare(&fHslider2, "unit", "ms");
 		ui_interface->addHorizontalSlider("interpolation", &fHslider2, 20.0f, 1.0f, 200.0f, 0.100000001f);
 		ui_interface->closeBox();
 	}

@@ -21,9 +21,9 @@ smoothdelay =  (+ :de.sdelay(MAX_SIZE, interp, dtime)) ~ *(fback)
     {
         s = 0.999; // smoothing parameter (one-fi.pole fi.pole location)
         MAX_SIZE = int(ma.SR * 6);
-        dtime	= hslider("delay", 1, 0, 6000, 0.1) * ma.SR / 1000.0 : si.smooth(s);
+        dtime	= hslider("delay [unit:ms]", 1, 0, 6000, 0.1) * ma.SR / 1000.0 : si.smooth(s);
         fback 	= hslider("feedback", 0, 0, 1, 0.001);
-        interp 	= hslider("interpolation", 20, 1, 200, 0.1) * ma.SR / 1000.0;
+        interp 	= hslider("interpolation [unit:ms]", 20, 1, 200, 0.1) * ma.SR / 1000.0;
 
     };
 

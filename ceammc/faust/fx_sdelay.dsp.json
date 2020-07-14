@@ -46,6 +46,9 @@
 					"type": "hslider",
 					"label": "delay",
 					"address": "/fx.sdelay/delay",
+					"meta": [
+						{ "unit": "ms" }
+					],
 					"init": 1,
 					"min": 0,
 					"max": 6000,
@@ -76,6 +79,9 @@
 					"type": "hslider",
 					"label": "interpolation",
 					"address": "/fx.sdelay/interpolation",
+					"meta": [
+						{ "unit": "ms" }
+					],
 					"init": 20,
 					"min": 1,
 					"max": 200,
