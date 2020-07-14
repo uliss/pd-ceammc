@@ -11,6 +11,7 @@
 - random.linear @seed property added to gen reproducible random sequences
 - random.pw_const @seed property added to gen reproducible random sequences
 - random.pw_lin @seed property added to gen reproducible random sequences
+- random.discrete @seed property added to gen reproducible random sequences
 
 ### Changed:
 - ext_info output format changed.

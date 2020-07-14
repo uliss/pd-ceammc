@@ -100,7 +100,7 @@ void setup_random_pw_const()
     obj.setSinceVersion(0, 4);
 
     RandomPWConst::setInletsInfo(obj.classPointer(), { "bang: output new random\n"
-                                                       "list: set new distribution values\n"
+                                                       "list: set new distribution values and output\n"
                                                        "args: b0 w0 b1 w1 b2..." });
     RandomPWConst::setOutletsInfo(obj.classPointer(), { "float: piecewise constant distributed random" });
 }
