@@ -70,6 +70,7 @@ car->pol
 carg~
 cc->amp
 cdiv~
+ceammc.search
 cexp~
 chaos.gbman0
 chaos.gbman0~
@@ -597,8 +598,8 @@ pass
 pass_if
 patch.args
 patch.deps
-patch.objlist
 patch.props
+patch.tree
 path.basename
 path.dirname
 path.exists

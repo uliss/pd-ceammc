@@ -4,6 +4,7 @@
 #include "base_dac.h"
 #include "canvas_current.h"
 #include "canvas_top.h"
+#include "ceammc_search.h"
 #include "function.h"
 #include "function_call.h"
 #include "gain.h"
@@ -81,6 +82,7 @@ void ceammc_base_setup()
     setup_base_xfade_tilde();
     setup_canvas_current();
     setup_canvas_top();
+    setup_ceammc_search();
     setup_gain_tilde();
     setup_is_data();
     setup_is_file();

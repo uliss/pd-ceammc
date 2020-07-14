@@ -6,6 +6,7 @@ set(BASE_SOURCES
     canvas_name.cpp
     canvas_path.cpp
     canvas_top.cpp
+    ceammc_search.cpp
     expand_env.cpp
     function.cpp
     function_call.cpp

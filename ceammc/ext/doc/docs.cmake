@@ -28,6 +28,7 @@ set(DOC_FILES
     canvas.name
     canvas.path
     canvas.top
+    ceammc.search
     chaos.gbman0
     chaos.gbman0~
     chaos.jong

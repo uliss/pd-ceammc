@@ -4,6 +4,7 @@
 ### Added:
 - mlist.flatten - simple list support added
 - patch.deps added - list current patch dependencies
+- ceammc.search added
 
 ### Changed:
 - ext_info output format changed.

@@ -1,0 +1,42 @@
+<?xml version='1.0' encoding='utf-8'?>
+<pddoc version="1.0">
+    <object name="ceammc.search">
+        <title>ceammc.search</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavski</author>
+            </authors>
+            <description>ceammc library search object</description>
+            <license>GPL3 or later</license>
+            <library>ceammc</library>
+            <category>base</category>
+            <keywords>search</keywords>
+            <since>0.9.1</since>
+        </meta>
+        <methods>
+            <method name="keywords">search in keywords</method>
+            <method name="k">alias to keywords method</method>
+        </methods>
+        <inlets>
+            <inlet type="control">
+                <xinfo on="symbol">search in descriptions</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet type="control">list of matched object names</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[S digits=10]
+|
+[k $1(
+|
+[ceammc.search]
+|
+[ui.display]
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>
