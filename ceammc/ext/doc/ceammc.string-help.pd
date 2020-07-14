@@ -5,11 +5,11 @@
 #X obj 30 116 string;
 #X text 200 116 string constructor;
 #X obj 30 143 string.contains;
-#X text 200 143 checks if given string contains specified substring;
+#X text 200 143 checks if string contains specified substring;
 #X obj 30 170 string.ends_with;
-#X text 200 170 checks if given string ends with specified suffix;
+#X text 200 170 checks if string ends with specified substring;
 #X obj 30 197 string.equal;
-#X text 200 197 check strings for equality;
+#X text 200 197 check strings or symbols for equality;
 #X obj 30 224 string.format;
 #X text 200 224 formats string like printf.;
 #X obj 30 251 string.join;
@@ -25,7 +25,7 @@
 #X obj 30 386 string.split;
 #X text 200 386 split string by separator;
 #X obj 30 413 string.starts_with;
-#X text 200 413 checks if given string starts with specified prefix;
+#X text 200 413 checks if string starts with specified substring;
 #X obj 30 440 string.substr;
 #X text 200 440 extract substring from input string;
 #X obj 30 467 string2symbol;

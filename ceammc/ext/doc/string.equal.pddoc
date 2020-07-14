@@ -6,11 +6,11 @@
             <authors>
                 <author>Serge Poltavsky</author>
             </authors>
-            <description>check strings for equality</description>
+            <description>check strings or symbols for equality</description>
             <license>GPL3 or later</license>
             <library>ceammc</library>
             <category>string</category>
-            <keywords>string compare equal</keywords>
+            <keywords>compare equal</keywords>
             <since>0.3</since>
             <aliases>
                 <alias>str.equal</alias>

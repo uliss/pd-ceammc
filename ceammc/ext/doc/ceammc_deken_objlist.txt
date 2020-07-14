@@ -183,7 +183,7 @@ envelope	Envelope data type
 env	Envelope data type
 vline2env	Converts vline messages to env
 vline->env	Converts vline messages to env
-expand_env	Substitute enviroment variables in data stream
+expand_env	Substitute environment variables in data stream
 flow.append	inject message into flow
 flow.change	rejects redundant input values
 flow.count	control flow event counter
@@ -553,6 +553,7 @@ modplug~	MOD file player (using libmodplug)
 speech.flite	render speech to array
 msg	message constructor
 m	message constructor
+prepend	message constructor
 msg.after	send specified message after incoming message
 msg.onload	send message when patch loads
 loadmsg	send message when patch loads
@@ -654,6 +655,7 @@ pan.cos~	two channel equal power sine/cosine panner
 pan~	two channel equal power sine/cosine panner
 pan.linsig~	two channel linear panner with signal control
 pan.lin~	two channel linear panner
+pan~	two channel linear panner
 pan.spread~	spreads input channels across the stereo field
 pan.sqrt~	two channel equal power square root panner
 spat.pan4~	GMEM SPAT: 4-outputs spatializer
@@ -662,12 +664,12 @@ spat.pan8~	GMEM SPAT: 8-outputs spatializer
 pan8~	GMEM SPAT: 8-outputs spatializer
 string	string constructor
 str	string constructor
-string.contains	checks if given string contains specified substring
-str.contains	checks if given string contains specified substring
-string.ends_with	checks if given string ends with specified suffix
-str.ends_with	checks if given string ends with specified suffix
-string.equal	check strings for equality
-str.equal	check strings for equality
+string.contains	checks if string contains specified substring
+str.contains	checks if string contains specified substring
+string.ends_with	checks if string ends with specified substring
+str.ends_with	checks if string ends with specified substring
+string.equal	check strings or symbols for equality
+str.equal	check strings or symbols for equality
 string.format	formats string like printf.
 str.format	formats string like printf.
 string.join	joins (concatenates) strings with separator
@@ -682,8 +684,8 @@ string.replace	replace from one substring to another in input string
 str.replace	replace from one substring to another in input string
 string.split	split string by separator
 str.split	split string by separator
-string.starts_with	checks if given string starts with specified prefix
-str.starts_with	checks if given string starts with specified prefix
+string.starts_with	checks if string starts with specified substring
+str.starts_with	checks if string starts with specified substring
 string.substr	extract substring from input string
 str.substr	extract substring from input string
 string2symbol	converts string to symbol

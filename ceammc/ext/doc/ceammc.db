@@ -407,7 +407,7 @@ midi.track		.		..
 mix~		?		~
 mlist.flatten		.		.
 modplug~		.		~~
-msg,m		..		.
+msg,m,prepend		..		.
 msg.after		..		.
 msg.onload,loadmsg		-		.
 net.host2ip,net.host->ip		.		.
@@ -429,7 +429,7 @@ osc.square~		~.		~
 osc.tri~		~.		~
 pan.cos~,pan~		~.		~~
 pan.linsig~		~~		~~
-pan.lin~		~.		~~
+pan.lin~,pan~		~.		~~
 pan.spread~		?		~~
 pan.sqrt~		~.		~~
 patch.args		.		.

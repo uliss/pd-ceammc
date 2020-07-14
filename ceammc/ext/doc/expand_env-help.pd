@@ -1,7 +1,7 @@
 #N canvas 0 0 785 555 12;
 #X declare -lib ceammc;
-#X obj 407 50 cnv 1 358 23 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 407 50 Substitute enviroment variables in data stream;
+#X obj 399 50 cnv 1 366 23 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 399 50 Substitute environment variables in data stream;
 #X obj 1 1 cnv 5 765 40 empty empty expand_env 20 20 0 20 -104026
 -4096 0;
 #X obj 667 11 expand_env;

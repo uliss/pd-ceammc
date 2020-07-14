@@ -395,7 +395,7 @@
     </entry>
   </category>
   <category name="flow">
-    <entry name="expand_env" descr="Substitute enviroment variables in data stream" ref_view="object">
+    <entry name="expand_env" descr="Substitute environment variables in data stream" ref_view="object">
       <xi:include href="expand_env.pddoc" parse="xml"/>
     </entry>
     <entry name="flow.append" descr="inject message into flow" ref_view="object">
@@ -1521,13 +1521,13 @@
     <entry name="string" descr="string constructor" ref_view="object">
       <xi:include href="string.pddoc" parse="xml"/>
     </entry>
-    <entry name="string.contains" descr="checks if given string contains specified substring" ref_view="object">
+    <entry name="string.contains" descr="checks if string contains specified substring" ref_view="object">
       <xi:include href="string.contains.pddoc" parse="xml"/>
     </entry>
-    <entry name="string.ends_with" descr="checks if given string ends with specified suffix" ref_view="object">
+    <entry name="string.ends_with" descr="checks if string ends with specified substring" ref_view="object">
       <xi:include href="string.ends_with.pddoc" parse="xml"/>
     </entry>
-    <entry name="string.equal" descr="check strings for equality" ref_view="object">
+    <entry name="string.equal" descr="check strings or symbols for equality" ref_view="object">
       <xi:include href="string.equal.pddoc" parse="xml"/>
     </entry>
     <entry name="string.format" descr="formats string like printf." ref_view="object">
@@ -1551,7 +1551,7 @@
     <entry name="string.split" descr="split string by separator" ref_view="object">
       <xi:include href="string.split.pddoc" parse="xml"/>
     </entry>
-    <entry name="string.starts_with" descr="checks if given string starts with specified prefix" ref_view="object">
+    <entry name="string.starts_with" descr="checks if string starts with specified substring" ref_view="object">
       <xi:include href="string.starts_with.pddoc" parse="xml"/>
     </entry>
     <entry name="string.substr" descr="extract substring from input string" ref_view="object">

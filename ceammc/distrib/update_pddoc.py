@@ -20,8 +20,7 @@ VERSION="@CEAMMC_LIB_VERSION@"
 EXT_LIST = BIN_PATH + "ext_list"
 EXT_INFO = BIN_PATH + "ext_info"
 
-IGNORE_METHODS = ["dsp"]
-
+SPECIAL_OBJ = {"function": "f"}
 
 def read_all_externals():
     return list(filter(lambda x: len(x), subprocess.check_output([EXT_LIST], stderr=subprocess.DEVNULL).decode().split('\n')))
@@ -30,6 +29,9 @@ def read_all_externals():
 def read_info(name, *args):
     try:
         args = [EXT_INFO, name]
+        if name in SPECIAL_OBJ:
+            args.append(SPECIAL_OBJ[name])
+
         s = subprocess.check_output(args, stderr=subprocess.DEVNULL, env={
                                     "RAWWAVES": STK_RAWWAVES_PATH}, encoding="utf-8")
         return json.loads(s)
@@ -79,6 +81,8 @@ if __name__ == '__main__':
     parser = etree.XMLParser(strip_cdata=False)
     root = etree.XML(xml.encode(), parser)
 
+    upd_counter = 0
+
     # description
     for match in parse("object.info.description").find(info):
         new_descr = match.value
@@ -90,6 +94,7 @@ if __name__ == '__main__':
             cprint(f"updating description", "green")
             print(f"\t{new_descr}")
             el[0].text = new_descr
+            upd_counter += 1
 
     # category
     for match in parse("object.info.category").find(info):
@@ -102,6 +107,7 @@ if __name__ == '__main__':
             cprint(f"updating category", "green")
             print(f"\t{new_cat}")
             el[0].text = new_cat
+            upd_counter += 1
 
     # keywords
     kw = parse("object.info.keywords[*]").find(info)
@@ -116,6 +122,7 @@ if __name__ == '__main__':
             el[0].text = new_kw
             cprint(f"updating keywords", "green")
             print(f"\t{new_kw}")
+            upd_counter += 1
 
     # aliases
     aliases = parse("object.info.aliases[*]").find(info)
@@ -144,13 +151,18 @@ if __name__ == '__main__':
             cprint(f"adding aliases:", "green")
             print(f"\t{add_al}")
 
-        el[0].clear()
-        for a in aliases:
-            na = etree.Element("alias")
-            na.text = a.value
-            el[0].append(na)
+        if len(del_al) > 0 or len(add_al) > 0:
+            upd_counter += 1
+            el[0].clear()
+            for a in aliases:
+                na = etree.Element("alias")
+                na.text = a.value
+                el[0].append(na)
 
     try:
+        if upd_counter < 1:
+            sys.exit(0)
+
         if args.verbose:
             print(etree.tostring(root, pretty_print=True).decode("utf-8"))
 

@@ -13,6 +13,7 @@
             <keywords>msg message</keywords>
             <aliases>
                 <alias>m</alias>
+                <alias>prepend</alias>
             </aliases>
             <since>0.1</since>
         </meta>

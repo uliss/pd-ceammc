@@ -3,7 +3,7 @@
 #X text 62 50 ::;
 #X obj 79 53 ui.link @title ceammc @url ceammc-help.pd;
 #X obj 30 116 expand_env;
-#X text 200 116 Substitute enviroment variables in data stream;
+#X text 200 116 Substitute environment variables in data stream;
 #X obj 30 143 flow.append;
 #X text 200 143 inject message into flow;
 #X obj 30 170 flow.change;
