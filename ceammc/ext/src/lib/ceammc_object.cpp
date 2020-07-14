@@ -17,6 +17,7 @@
 #include "ceammc_datatypes.h"
 #include "ceammc_format.h"
 #include "ceammc_log.h"
+#include "ceammc_object_info.h"
 #include "ceammc_output.h"
 #include "ceammc_platform.h"
 #include "ceammc_property_callback.h"
@@ -890,6 +891,11 @@ bool BaseObject::checkArgs(const AtomList& lst, BaseObject::ArgumentType a1,
 
 void BaseObject::dump() const
 {
+    auto& dict = ObjectInfoStorage::instance().info(classPointer()).dict;
+    auto it = dict.find("description");
+    if (it != dict.end() && !it->second.empty())
+        post("**%s**", it->second.c_str());
+
     // cast from size_t -> int; for all supported OS-platform to be happy
     post("[%s] inlets: %i", className()->s_name, static_cast<int>(numInlets()));
     post("[%s] outlets: %i", className()->s_name, static_cast<int>(numOutlets()));
