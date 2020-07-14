@@ -22,6 +22,8 @@
             linear probability density function within each of the several subintervals [b0,
             b1)</par>
             <par>Linear segments specified as: bound0, prob0, bound1, prob1, etc</par>
+            <par>Use @seed property to get reproducible sequences. If @seed property was not
+            explicitly set or specified, uses generator initialized with current time.</par>
         </info>
         <arguments>
             <argument type="list" name="P">interleaved interval boundaries and boundary
@@ -34,6 +36,7 @@
             distribution</property>
             <property name="@bounds" type="list" readonly="true">list of boundaries</property>
             <property name="@weights" type="list" readonly="true">list of weights</property>
+            <property name="@seed" type="int" minvalue="0" default="0">generator seed</property>
         </properties>
         <inlets>
             <inlet>
