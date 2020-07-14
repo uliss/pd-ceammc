@@ -55,6 +55,21 @@ static std::string to_string2(const AtomList& lst)
     return res;
 }
 
+static std::string pddoc_units(const std::string& u)
+{
+    static std::map<string, string> um = {
+        { "samp", "sample" },
+        { "db", "decibel" },
+        { "hz", "herz" },
+        { "msec", "millisecond" }
+    };
+    auto it = um.find(u);
+    if (it == um.end())
+        return it->first;
+    else
+        return it->second;
+}
+
 static void printInfo(std::ostream& os, const PropertyInfo& pi)
 {
     os << "  \"" << pi.name()->s_name << "\": {\n";
@@ -97,7 +112,7 @@ static void printInfo(std::ostream& os, const PropertyInfo& pi)
     }
 
     if (pi.units() != PropValueUnits::NONE)
-        os << "    \"units\": \"" << to_string(pi.units()) << "\",\n";
+        os << "    \"units\": \"" << pddoc_units(to_string(pi.units())) << "\",\n";
 
     os << "    \"name\": \"" << pi.name()->s_name << "\",\n";
     os << "    \"access\": \"" << to_string(pi.access()) << "\",\n";
