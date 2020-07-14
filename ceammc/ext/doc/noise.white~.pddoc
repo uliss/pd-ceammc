@@ -16,6 +16,10 @@
                 <see>noise.pink~</see>
             </also>
         </meta>
+        <properties>
+            <property name="@active" type="int" enum="0 1" default="1">on/off dsp
+            processing</property>
+        </properties>
         <info>
             <par>outputs random numbers between -1 and 1 at signal rate.</par>
         </info>
