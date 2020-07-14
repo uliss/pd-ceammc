@@ -58,4 +58,7 @@ void setup_random_float()
     obj.setKeywords({ "random", "float" });
     obj.setCategory("random");
     obj.setSinceVersion(0, 1);
+
+    RandomFloat::setInletsInfo(obj.classPointer(), { "bang" });
+    RandomFloat::setOutletsInfo(obj.classPointer(), { "float: random within [@min..@max) range" });
 }

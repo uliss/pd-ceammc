@@ -41,4 +41,7 @@ void setup_random_gauss()
     obj.setKeywords({ "gauss", "random" });
     obj.setCategory("random");
     obj.setSinceVersion(0, 1);
+
+    RandomGauss::setInletsInfo(obj.classPointer(), { "bang" });
+    RandomGauss::setOutletsInfo(obj.classPointer(), { "float: gaussian distributed random with mean=@mu and stddev=@sigma" });
 }
