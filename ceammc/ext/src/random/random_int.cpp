@@ -52,4 +52,10 @@ void setup_random_int()
 {
     ObjectFactory<RandomInt> obj("random.int");
     obj.addAlias("random.i");
+
+    obj.setDescription("Random integer generator in specified range");
+    obj.addAuthor("Serge Poltavsky");
+    obj.setKeywords({ "random" });
+    obj.setCategory("random");
+    obj.setSinceVersion(0, 1);
 }
