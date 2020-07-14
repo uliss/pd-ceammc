@@ -65,7 +65,7 @@ static std::string pddoc_units(const std::string& u)
     };
     auto it = um.find(u);
     if (it == um.end())
-        return it->first;
+        return u;
     else
         return it->second;
 }
