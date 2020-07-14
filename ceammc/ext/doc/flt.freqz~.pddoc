@@ -28,7 +28,7 @@
         </properties>
         <inlets>
             <inlet type="audio">
-                <xinfo>input frequency in radians [0, pi] or in hertz [0 sr/2] if @sr property is
+                <xinfo>input frequency in radians [0, π] or in hertz [0 sr/2] if @sr property is
                 true</xinfo>
             </inlet>
         </inlets>
