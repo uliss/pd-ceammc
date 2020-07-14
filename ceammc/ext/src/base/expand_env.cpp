@@ -57,4 +57,10 @@ void ExpandEnv::onAny(t_symbol* sel, const AtomList& l)
 void setup_base_expand_env()
 {
     ObjectFactory<ExpandEnv> obj("expand_env");
+
+    obj.setDescription("Substitute enviroment variables in data stream");
+    obj.addAuthor("Serge Poltavsky");
+    obj.setKeywords({"expand_env", "test"});
+    obj.setCategory("flow");
+    obj.setSinceVersion(0, 1);
 }

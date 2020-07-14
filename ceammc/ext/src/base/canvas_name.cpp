@@ -29,4 +29,10 @@ void CanvasName::onBang()
 void setup_base_canvas_name()
 {
     ObjectFactory<CanvasName> obj("canvas.name");
+
+    obj.setDescription("current canvas name");
+    obj.addAuthor("Serge Poltavsky");
+    obj.setKeywords({"canvas", "name"});
+    obj.setCategory("patch");
+    obj.setSinceVersion(0, 8);
 }

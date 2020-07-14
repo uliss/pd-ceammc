@@ -44,4 +44,10 @@ AtomList CanvasCurrent::p_size() const
 void setup_canvas_current()
 {
     ObjectFactory<CanvasCurrent> obj("canvas.current");
+
+    obj.setDescription("verbose information about current canvas");
+    obj.addAuthor("Serge Poltavsky");
+    obj.setKeywords({"canvas"});
+    obj.setCategory("patch");
+    obj.setSinceVersion(0, 4);
 }
