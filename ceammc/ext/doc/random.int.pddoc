@@ -47,8 +47,8 @@
         <example>
             <pdascii>
 <![CDATA[
-[B]
-|
+[B] [@seed 0(
+|   |
 [random.int -10 10]
 |
 [F]
