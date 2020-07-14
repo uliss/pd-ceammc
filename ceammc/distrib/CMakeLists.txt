@@ -87,6 +87,7 @@ set(DOC_CHECK_SCRIPTS
     check_doc_external.py
     fill_doc_properties.py
     gen_doc_template.py
+    update_pddoc.py
 )
 
 add_custom_target(distrib_doc_check_scripts SOURCES ${DOC_CHECK_SCRIPTS})

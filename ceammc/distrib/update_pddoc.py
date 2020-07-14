@@ -9,6 +9,7 @@ import os.path
 from lxml import etree, objectify
 from termcolor import colored, cprint
 import json
+from jsonpath_ng import jsonpath, parse
 
 SRC_PATH = "@PROJECT_SOURCE_DIR@/"
 BIN_PATH = "@PROJECT_BINARY_DIR@/ceammc/ext/src/lib/"
@@ -30,85 +31,13 @@ def read_info(name, *args):
     try:
         args = [EXT_INFO, name]
         s = subprocess.check_output(args, stderr=subprocess.DEVNULL, env={
-                                    "RAWWAVES": STK_RAWWAVES_PATH}).decode()
+                                    "RAWWAVES": STK_RAWWAVES_PATH}, encoding="utf-8")
         return json.loads(s)
     except(subprocess.CalledProcessError) as e:
         if e.returncode != 4:
             cprint(f"[{name}] can't get properties", "red")
 
         return None
-
-
-def dict2xml(name, dic):
-    """
-    Returns etree object with xml from dict
-    Expects dicts that can be transformed to the following structure:
-    <key>value</key> or <key>dict</key>
-    i.e. something like dict = {str:str|dict}
-    """
-    def __subnodes(inner_dic):
-        subnodes = []
-        for k, v in inner_dic.items():
-            elem = etree.Element(k)
-            if isinstance(v, dict):
-                for subnode in __subnodes(v):
-                    elem.append(subnode)
-            else:
-                elem.text = v.__str__()
-
-            subnodes.append(elem)
-        return subnodes
-
-    try:
-        root = etree.Element(name)
-        for node in __subnodes(dic):
-            root.append(node)
-    except Exception as e:
-        raise
-    return root
-
-
-def create_object(root, name):
-    obj = objectify.Element("object")
-    obj.set("name", name)
-    obj.title = name
-
-    obj.append(
-        dict2xml("meta", {
-            "authors": {"author": "Serge Poltavski"},
-            "description": " ",
-            "license": "GPL3 or later",
-            "library": "ceammc",
-            "category": name.split('.')[0],
-            "keywords": "",
-            "since": VERSION,
-            "also": {"see": " "}
-        })
-    )
-
-    obj.append(
-        dict2xml("arguments", {
-            "argument": " "
-        })
-    )
-
-    obj.append(
-        dict2xml("properties", {
-            "property": " "
-        })
-    )
-
-    root.append(obj)
-
-
-def create_xml():
-    xml = '''<?xml version="1.0" encoding="utf-8"?>
-    <pddoc></pddoc>
-    '''
-
-    root = objectify.fromstring(xml.encode())
-    root.set("version", "1.0")
-    return root
 
 
 if __name__ == '__main__':
@@ -136,122 +65,97 @@ if __name__ == '__main__':
     if info is None:
         sys.exit(3)
 
-    if not args.stdout:
-        pddoc_path = f"{DOC_PATH}{ext_name}.pddoc"
-        if not args.force and os.path.exists(pddoc_path):
-            cprint(f"Error: {pddoc_path} already exists ...", "red")
-            sys.exit(2)
+    if args.verbose:
+        print(f" - checking [{ext_name}] external ...")
 
-        if args.verbose:
-            cprint(f" - pddoc file: \"{pddoc_path}\"", "blue")
+    pddoc_path = f"{DOC_PATH}{ext_name}.pddoc"
+    if not os.path.exists(pddoc_path):
+        print(f"Error: {pddoc_path} is not found ...")
+        sys.exit(2)
 
-    xml = create_xml()
+    with open(pddoc_path) as fobj:
+        xml = fobj.read()
 
-    create_object(xml, info["object"]["name"])
-
-    obj = xml["object"]
+    parser = etree.XMLParser(strip_cdata=False)
+    root = etree.XML(xml.encode(), parser)
 
     # description
-    obj.meta.description = " "
-    if "info" in info["object"] and "description" in info["object"]["info"]:
-        obj.meta.description = info["object"]["info"]["description"]
+    for match in parse("object.info.description").find(info):
+        new_descr = match.value
+        if len(new_descr) < 1:
+            break
+
+        el = root.xpath("//object/meta/description")
+        if len(el) == 1 and el[0].text != new_descr:
+            cprint(f"updating description", "green")
+            print(f"\t{new_descr}")
+            el[0].text = new_descr
 
     # category
-    obj.meta.category = " "
-    if "info" in info["object"] and "category" in info["object"]["info"]:
-        obj.meta.category = info["object"]["info"]["category"]
+    for match in parse("object.info.category").find(info):
+        new_cat = match.value
+        if len(new_cat) < 1:
+            break
 
-    # aliases
-    if "info" in info["object"] and "aliases" in info["object"]["info"]:
-        obj.meta.aliases = ""
-        for a in info["object"]["info"]["aliases"]:
-            obj.meta.aliases.alias = f"{a}"
+        el = root.xpath("//object/meta/category")
+        if len(el) == 1 and el[0].text != new_cat:
+            cprint(f"updating category", "green")
+            print(f"\t{new_cat}")
+            el[0].text = new_cat
 
     # keywords
-    if "info" in info["object"] and "keywords" in info["object"]["info"]:
-        obj.meta.keywords = " ".join(info["object"]["info"]["keywords"])
+    kw = parse("object.info.keywords[*]").find(info)
+    if len(kw) > 0:
+        el = root.xpath("//object/meta/keywords")
+        if len(el) == 0:
+            root.xpath("//object/meta")[0].append(etree.Element("keywords"))
+            el = root.xpath("//object/meta/keywords")
 
-    # create properties
-    obj.properties = ""
-    if "properties" in info["object"]:
-        for p in info["object"]["properties"]:
-            m = etree.Element("property")
-            m.set("name", p["name"])
-            m.set("type", p["type"])
-            if "units" in p:
-                m.set("units", p["units"])
-            if "default" in p:
-                m.set("default", p["default"].__str__())
-            if "min" in p:
-                m.set("minvalue", p["min"].__str__())
-            if "max" in p:
-                m.set("maxvalue", p["max"].__str__())
-            if "enum" in p:
-                m.set("enum", " ".join(p["enum"]))
-            m.text = "..."
-            obj.properties.append(m)
+        new_kw = " ".join(map(lambda x: x.value, kw))
+        if new_kw != el[0].text:
+            el[0].text = new_kw
+            cprint(f"updating keywords", "green")
+            print(f"\t{new_kw}")
 
-    # create methods
-    obj.methods = ""
-    if "methods" in info["object"]:
-        nm = len(info["object"]["methods"])
-        if nm > 0:
-            for i in range(nm):
-                mname = info["object"]["methods"][i]
-                if mname in IGNORE_METHODS:
-                    continue
+    # aliases
+    aliases = parse("object.info.aliases[*]").find(info)
+    if len(aliases) > 0:
+        el = root.xpath("//object/meta/aliases")
+        if len(el) == 0:
+            root.xpath("//object/meta")[0].append(etree.Element("aliases"))
+            el = root.xpath("//object/meta/aliases")
 
-                m = etree.SubElement(obj.methods, "method")
-                m.set("name", mname)
-                m._setText("...")
+        src_al = set()
+        for xel in el[0]:
+            src_al.add(xel.text.strip())
 
-    # create inlets
-    ninl = len(info["object"]["inlets"])
-    obj.inlets = ""
-    if ninl > 0:
-        for i in range(ninl):
-            obj.inlets.inlet = ""
-            obj.inlets.inlet.set("type", info["object"]["inlets"][i])
-            obj.inlets.inlet.xinfo = f"inlet {i}"
+        dest_al = set()
+        for a in aliases:
+            dest_al.add(a.value)
 
-    # create outlets
-    nout = len(info["object"]["outlets"])
-    obj.outlets = ""
-    if nout > 0:
-        for i in range(nout):
-            obj.outlets.outlet = f"outlet {i}"
-            obj.outlets.outlet.set("type", info["object"]["inlets"][i])
+        del_al = src_al - dest_al
+        add_al = dest_al - src_al
 
-    # create example
-    obj.example = ""
-    pdascii = etree.Element("pdascii")
-    pdascii.text = etree.CDATA(f'\n[bang(\n|\n[{ext_name}]\n')
-    obj.example.append(pdascii)
+        if len(del_al) > 0:
+            cprint(f"removing aliases:", "red")
+            print(f"\t{del_al}")
 
-    objectify.deannotate(xml)
-    etree.cleanup_namespaces(xml)
+        if len(add_al) > 0:
+            cprint(f"adding aliases:", "green")
+            print(f"\t{add_al}")
+
+        el[0].clear()
+        for a in aliases:
+            na = etree.Element("alias")
+            na.text = a.value
+            el[0].append(na)
 
     try:
-        xml_str = etree.tostring(
-            xml, pretty_print=True, xml_declaration=True, encoding='utf-8').decode("utf-8")
         if args.verbose:
-            print(xml_str)
+            print(etree.tostring(root, pretty_print=True).decode("utf-8"))
 
-        if args.stdout:
-            sys.stdout.write(
-                etree.tostring(
-                    xml,
-                    pretty_print=True,
-                    xml_declaration=True,
-                    encoding='utf-8').decode('utf-8'))
-        else:
-            with open(pddoc_path, "wb") as xml_writer:
-                xml_writer.write(
-                    etree.tostring(
-                        xml,
-                        pretty_print=True,
-                        xml_declaration=True,
-                        encoding='utf-8'))
+        with open(pddoc_path, 'wb') as f:
+            f.write(etree.tostring(root, pretty_print=True, doctype='<?xml version="1.0" encoding="utf-8"?>'))
 
     except IOError:
         pass
