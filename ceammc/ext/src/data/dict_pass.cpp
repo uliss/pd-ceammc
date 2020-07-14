@@ -53,5 +53,5 @@ void setup_dict_pass()
     obj.setSinceVersion(0, 7);
 
     DictPass::setInletsInfo(obj.classPointer(), { "Dict", "list: set passed keys" });
-    DictPass::setOutletsInfo(obj.classPointer(), { "new Dict" });
+    DictPass::setOutletsInfo(obj.classPointer(), { "Dict" });
 }

@@ -45,4 +45,13 @@ void setup_dict_reject()
 {
     ObjectFactory<DictReject> obj("dict.reject");
     obj.processData<DataTypeDict>();
+
+    obj.setDescription("rejects specified keys from dict");
+    obj.addAuthor("Serge Poltavsky");
+    obj.setKeywords({ "reject", "dictionary" });
+    obj.setCategory("data");
+    obj.setSinceVersion(0, 7);
+
+    DictReject::setInletsInfo(obj.classPointer(), { "Dict", "list: set rejected keys" });
+    DictReject::setOutletsInfo(obj.classPointer(), { "Dict" });
 }
