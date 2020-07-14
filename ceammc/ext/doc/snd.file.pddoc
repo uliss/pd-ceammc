@@ -4,7 +4,7 @@
         <title>snd.file</title>
         <meta>
             <authors>
-                <author>Pierre Guillot</author>
+                <author>Serge Poltavsky</author>
             </authors>
             <description>Sound file loader on steroids</description>
             <license>GPL3 or later</license>

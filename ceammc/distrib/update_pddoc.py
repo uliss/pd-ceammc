@@ -159,6 +159,42 @@ if __name__ == '__main__':
                 na.text = a.value
                 el[0].append(na)
 
+    # authors
+    authors = parse("object.info.authors[*]").find(info)
+    if len(authors) > 0:
+        el = root.xpath("//object/meta/authors")
+        if len(el) == 0:
+            root.xpath("//object/meta")[0].append(etree.Element("authors"))
+            el = root.xpath("//object/meta/authors")
+
+        src_a = set()
+        for xel in el[0]:
+            src_a.add(xel.text.strip())
+
+        dest_a = set()
+        for a in authors:
+            dest_a.add(a.value)
+
+        del_a = src_a - dest_a
+        add_a = dest_a - src_a
+
+        if len(del_a) > 0:
+            cprint(f"removing authors:", "red")
+            print(f"\t{del_a}")
+
+        if len(add_a) > 0:
+            cprint(f"adding authors:", "green")
+            print(f"\t{add_a}")
+
+        if len(del_a) > 0 or len(add_a) > 0:
+            upd_counter += 1
+            el[0].clear()
+            for a in authors:
+                na = etree.Element("author")
+                na.text = a.value
+                el[0].append(na)
+
+
     try:
         if upd_counter < 1:
             sys.exit(0)
