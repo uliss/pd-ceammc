@@ -1,16 +1,12 @@
-#include <ctime>
-#include <random>
-
+#include "random_int.h"
 #include "ceammc_factory.h"
 #include "fmt/format.h"
-#include "random_int.h"
-
-static std::mt19937 random_gen(std::time(0));
 
 RandomInt::RandomInt(const PdArgs& a)
     : BaseObject(a)
     , min_(nullptr)
     , max_(nullptr)
+    , seed_(nullptr)
 {
     createOutlet();
 
@@ -31,6 +27,10 @@ RandomInt::RandomInt(const PdArgs& a)
     default:
         break;
     }
+
+    seed_ = new SizeTProperty("@seed", 0);
+    seed_->setSuccessFn([this](Property* p) { gen_.setSeed(seed_->value()); });
+    addProperty(seed_);
 }
 
 void RandomInt::onBang()
@@ -45,7 +45,7 @@ void RandomInt::onBang()
         return floatTo(0, min_->value());
 
     std::uniform_int_distribution<int> dist(min_->value(), max_->value());
-    floatTo(0, dist(random_gen));
+    floatTo(0, dist(gen_.get()));
 }
 
 void setup_random_int()
@@ -59,6 +59,6 @@ void setup_random_int()
     obj.setCategory("random");
     obj.setSinceVersion(0, 1);
 
-    RandomInt::setInletsInfo(obj.classPointer(), {"bang: generate new randomly distributed integer"});
-    RandomInt::setInletsInfo(obj.classPointer(), {"randomly distributed integer in @min @max range"});
+    RandomInt::setInletsInfo(obj.classPointer(), { "bang: generate new randomly distributed integer" });
+    RandomInt::setInletsInfo(obj.classPointer(), { "randomly distributed integer in @min @max range" });
 }

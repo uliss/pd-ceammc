@@ -1,5 +1,5 @@
 /*****************************************************************************
- * Copyright 2017 Serge Poltavsky. All rights reserved.
+ * Copyright 2020 Serge Poltavsky. All rights reserved.
  *
  * This file may be distributed under the terms of GNU Public License version
  * 3 (GPL v3) as defined by the Free Software Foundation (FSF). A copy of the
@@ -11,25 +11,24 @@
  * contact the author of this file, or the owner of the project in which
  * this file belongs to.
  *****************************************************************************/
-#ifndef RANDOM_INT_H
-#define RANDOM_INT_H
+#ifndef RND_GEN_H
+#define RND_GEN_H
 
-#include "ceammc_object.h"
-#include "rnd_gen.h"
+#include <memory>
+#include <random>
 
-using namespace ceammc;
+namespace ceammc {
 
-class RandomInt : public BaseObject {
-    RandomGen gen_;
-    IntProperty* min_;
-    IntProperty* max_;
-    SizeTProperty* seed_;
+using RandomGenT = std::mt19937;
+
+class RandomGen {
+    std::shared_ptr<RandomGenT> gen_;
 
 public:
-    RandomInt(const PdArgs& a);
-    void onBang() override;
+    RandomGen();
+    void setSeed(uint_fast32_t v);
+    RandomGenT& get() { return *gen_; }
 };
+}
 
-void setup_random_int();
-
-#endif // RANDOM_INT_H
+#endif // RND_GEN_H
