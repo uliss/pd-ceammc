@@ -60,5 +60,5 @@ void setup_random_int()
     obj.setSinceVersion(0, 1);
 
     RandomInt::setInletsInfo(obj.classPointer(), { "bang" });
-    RandomInt::setInletsInfo(obj.classPointer(), { "int: random in [@min..@max] range" });
+    RandomInt::setOutletsInfo(obj.classPointer(), { "int: random in \\[@min..@max\\] range" });
 }
