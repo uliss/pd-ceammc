@@ -88,6 +88,6 @@ void setup_flt_freqz()
     obj.setCategory("flt");
     obj.setSinceVersion(0, 9);
 
-    FltFreqZTilde::setInletsInfo(obj.classPointer(), { "input freq in [0..π] or [0..sr/2] range" });
+    FltFreqZTilde::setInletsInfo(obj.classPointer(), { "input freq in \\[0..π\\] or \\[0..sr/2\\] range" });
     FltFreqZTilde::setOutletsInfo(obj.classPointer(), { "amplitude response", "phase response" });
 }
