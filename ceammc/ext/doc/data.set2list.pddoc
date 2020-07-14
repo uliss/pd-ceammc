@@ -24,7 +24,8 @@
             output</par>
         </info>
         <properties>
-            <property name="@sort" type="flag">if specified - sort output list</property>
+            <property name="@sort" type="flag" default="0">if specified - sort output
+            list</property>
         </properties>
         <inlets>
             <inlet>

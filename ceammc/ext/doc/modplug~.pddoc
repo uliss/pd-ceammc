@@ -19,7 +19,7 @@
             <property name="@len" type="float" readonly="true" units="millisecond" default="0">
             length of mod file</property>
             <property name="@name" type="symbol" readonly="true">mod name</property>
-            <property name="@pos" type="float" units="millisecond" default="0">position in mod
+            <property name="@pos" type="float" units="millisecond" default="-1">position in mod
             file</property>
             <property name="@rpos" type="float" minvalue="0" maxvalue="1" default="0">relative
             position in mod file</property>

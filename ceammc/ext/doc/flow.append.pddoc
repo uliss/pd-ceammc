@@ -20,8 +20,8 @@
             <property name="@delay" type="float" default="0" minvalue="-1" units="millisecond">
             message delay. If &gt; 0 schedules message output in the future, if == 0 - send in next
             time tick, if &lt; 0 - output immidiately</property>
-            <property name="@msg" type="flag" enum="0 1">output as message, not as list (by
-            default)</property>
+            <property name="@msg" type="flag" enum="0 1" default="0">output as message, not as list
+            (by default)</property>
             <property name="@value" type="list">append value</property>
         </properties>
         <inlets>

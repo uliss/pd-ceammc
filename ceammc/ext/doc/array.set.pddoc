@@ -24,8 +24,8 @@
         </arguments>
         <properties>
             <property name="@array" type="symbol" default="">array name</property>
-            <property name="@normalize" type="flag">scale input values to fit them in [0, 1]
-            range</property>
+            <property name="@normalize" type="flag" default="0">scale input values to fit them in
+            [0, 1] range</property>
             <property name="@redraw" type="int" enum="0 1" default="1">redraw array view</property>
         </properties>
         <inlets>
