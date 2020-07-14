@@ -23,6 +23,10 @@
         <info>
             <par>Generates pseudo-random number in specified closed interval.</par>
         </info>
+        <properties>
+            <property name="@min" type="int" default="0">random range lower bound</property>
+            <property name="@max" type="int" default="255">random range upper bound</property>
+        </properties>
         <inlets>
             <inlet>
                 <xinfo on="bang">generates random number</xinfo>
