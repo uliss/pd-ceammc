@@ -41,13 +41,13 @@ value: 30\. Min value: 1\.;
 #X msg 110 626 @goffset;
 #X text 245 626 Get/Set offset parameter that controls grain pointer
 jumps between enveloped grain segments. Type: int. Units: ms. Default
-value: 0\.;
+value: 0\. Min value: 0\.;
 #X msg 110 683 @gramp;
 #X text 245 683 Get/Set grain ramp. For values of @gramp greater than
 zero \, a linear envelope will be applied to each grain. If @gramp
-= 1 \, the resultant grain "window" is triangular while @gramp = 0.5
-produces a trapezoidal window. Type: float. Default value: 0.5\. Range:
-0\...1\.;
+= 100 \, the resultant grain "window" is triangular while @gramp =
+50 produces a trapezoidal window. Type: int. Units: %. Default value:
+50\. Range: 1\...100\.;
 #X msg 110 770 @random;
 #X text 245 770 Get/Set factor used when setting individual grain parameters.
 This random factor is applied when all grain state durations are calculated.

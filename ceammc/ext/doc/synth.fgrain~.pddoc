@@ -36,14 +36,15 @@
             @random=0.5, a grain segment of length duration will be randomly augmented by up to
             +-duration seconds (i.e., a 30 millisecond length will be augmented by an extra length
             of up to +15 or -15 milliseconds)</property>
-            <property name="@gramp" type="float" minvalue="0" maxvalue="1" default="0.5">grain
-            ramp. For values of @gramp greater than zero, a linear envelope will be applied to each
-            grain. If @gramp = 1, the resultant grain "window" is triangular while @gramp = 0.5
-            produces a trapezoidal window.</property>
+            <property name="@gramp" type="int" minvalue="1" maxvalue="100" default="50"
+            units="percent">grain ramp. For values of @gramp greater than zero, a linear envelope
+            will be applied to each grain. If @gramp = 100, the resultant grain "window" is
+            triangular while @gramp = 50 produces a trapezoidal window.</property>
             <property name="@gdur" type="int" minvalue="1" default="30" units="millisecond">grain
             duration</property>
-            <property name="@goffset" type="int" default="0" units="millisecond">offset parameter
-            that controls grain pointer jumps between enveloped grain segments.</property>
+            <property name="@goffset" type="int" default="0" units="millisecond" minvalue="0">
+            offset parameter that controls grain pointer jumps between enveloped grain
+            segments.</property>
             <property name="@gdelay" type="int" minvalue="0" default="0" units="millisecond">delay
             parameter that causes grain calculations to pause between grains</property>
         </properties>

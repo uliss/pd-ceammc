@@ -29,7 +29,7 @@ public:
     size_t grainDuration() const { return gDuration_; }
     size_t grainDelay() const { return gDelay_; }
     int grainOffset() const { return gOffset_; }
-    t_float grainRamp() const { return gRampPercent_ / 100.f; }
+    t_float grainRamp() const { return gRampPercent_; }
     t_float grainRandomFactor() const { return gRandomFactor_ / 0.97; }
 
     void setGrainDuration(size_t d) { setGrainParameters(d, gRampPercent_, gOffset_, gDelay_); }
