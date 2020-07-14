@@ -59,4 +59,13 @@ void setup_list_each()
 {
     ObjectFactory<ListEach> obj("list.each");
     obj.processData<DataTypeMList>();
+
+    obj.setDescription("maps each list value via external side-chain");
+    obj.addAuthor("Serge Poltavsky");
+    obj.setKeywords({ "list", "functional", "map", "iterate" });
+    obj.setCategory("list");
+    obj.setSinceVersion(0, 1);
+
+    ListEach::setInletsInfo(obj.classPointer(), { "list or Mlist", "value(s) from side-chain" });
+    ListEach::setOutletsInfo(obj.classPointer(), { "list or Mlist", "atom or list to side-chain (depends on @step property)" });
 }

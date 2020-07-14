@@ -537,7 +537,7 @@ floats and the previous one.;
 #X obj 30 7493 list.do;
 #X text 200 7493 iterate and modify list contents via side-chain;
 #X obj 30 7520 list.each;
-#X text 200 7520 maps each list value via external object(s);
+#X text 200 7520 maps each list value via external side-chain;
 #X obj 30 7547 list.enumerate;
 #X text 200 7547 enumerates input list;
 #X obj 30 7574 list.equal;

@@ -746,7 +746,7 @@
     <entry name="list.do" descr="iterate and modify list contents via side-chain" ref_view="object">
       <xi:include href="list.do.pddoc" parse="xml"/>
     </entry>
-    <entry name="list.each" descr="maps each list value via external object(s)" ref_view="object">
+    <entry name="list.each" descr="maps each list value via external side-chain" ref_view="object">
       <xi:include href="list.each.pddoc" parse="xml"/>
     </entry>
     <entry name="list.enumerate" descr="enumerates input list" ref_view="object">

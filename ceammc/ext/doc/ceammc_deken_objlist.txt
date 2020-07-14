@@ -323,7 +323,7 @@ list.count_if	returns the number of items that satisfy to external predicate.
 list.delta	returns the difference between the current list of floats and the previous one.
 list.distribution	list value distribution
 list.do	iterate and modify list contents via side-chain
-list.each	maps each list value via external object(s)
+list.each	maps each list value via external side-chain
 list.enumerate	enumerates input list
 list.equal	checks if given lists are equal
 list.first	returns first list element

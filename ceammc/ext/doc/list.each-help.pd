@@ -1,7 +1,7 @@
 #N canvas 0 0 785 555 12;
 #X declare -lib ceammc;
-#X obj 432 50 cnv 1 333 23 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 432 50 maps each list value via external object(s);
+#X obj 422 50 cnv 1 343 23 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 422 50 maps each list value via external side-chain;
 #X obj 1 1 cnv 5 765 40 empty empty list.each 20 20 0 20 -104026 -4096
 0;
 #X obj 675 11 list.each;
@@ -87,7 +87,7 @@ on each iteration. Type: int. Default value: 1\. Range: 1\...1024\.;
 #X text 10 142 license:;
 #X text 120 142 GPL3 or later;
 #X text 10 164 keywords:;
-#X text 120 164 list \, functional;
+#X text 120 164 list \, functional \, map \, iterate;
 #X text 10 186 website:;
 #X obj 120 189 ui.link @title https://github.com/uliss/pure-data @url
 https://github.com/uliss/pure-data;
