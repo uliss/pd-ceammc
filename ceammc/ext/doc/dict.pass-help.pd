@@ -17,18 +17,23 @@
 #X obj 246 285 cnv 1 39 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 245 284 KEYS: keys.;
 #X obj 20 314 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 319 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
-0;
-#X text 110 320 1\.;
-#X text 150 320 *data:dict*;
-#X text 245 320 input dictionary.;
-#X text 110 340 2\.;
-#X text 245 340 set new keys.;
-#X obj 20 370 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 375 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
+#X obj 20 319 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
 -49933 0;
-#X text 110 376 1\.;
-#X text 245 376 dict with passed keys.;
+#X msg 110 354 @keys;
+#X text 245 354 Get/Set passed keys. Type: list.;
+#X obj 20 393 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 398 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
+0;
+#X text 110 399 1\.;
+#X text 150 399 *data:dict*;
+#X text 245 399 input dictionary.;
+#X text 110 419 2\.;
+#X text 245 419 set passed keys.;
+#X obj 20 449 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 454 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
+-49933 0;
+#X text 110 455 1\.;
+#X text 245 455 dict with passed keys.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;
