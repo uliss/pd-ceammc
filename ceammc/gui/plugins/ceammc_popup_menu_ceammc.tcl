@@ -10,8 +10,9 @@
         plot.logspace~ plot.response~
     }}
     {base {
-        function function.call gain~ matrix~ metro.pattern metro.random
-        metro.seq mix~ nsig~ obj.props radio window xdac~ xfade2~ xfade~
+        ceammc.search function function.call gain~ matrix~ metro.pattern
+        metro.random metro.seq mix~ nsig~ obj.props radio window xdac~ xfade2~
+        xfade~
     }}
     {chaos {
         chaos.gbman0 chaos.gbman0~ chaos.jong chaos.logistic chaos.std0
@@ -136,7 +137,7 @@
     }}
     {patch {
         canvas.current canvas.dir canvas.name canvas.path canvas.top
-        patch.args
+        patch.args patch.deps patch.tree
     }}
     {path {
         path.basename path.dirname path.exists path.is_dir path.lsdir
