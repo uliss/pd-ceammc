@@ -28,4 +28,13 @@ void setup_list_last()
 {
     ObjectFactory<ListLast> obj("list.last");
     obj.processData<DataTypeMList>();
+
+    obj.setDescription("output last list element");
+    obj.addAuthor("Serge Poltavsky");
+    obj.setKeywords({ "list", "last", "back" });
+    obj.setCategory("list");
+    obj.setSinceVersion(0, 1);
+
+    ListLast::setInletsInfo(obj.classPointer(), { "list or Mlist" });
+    ListLast::setOutletsInfo(obj.classPointer(), { "atom" });
 }

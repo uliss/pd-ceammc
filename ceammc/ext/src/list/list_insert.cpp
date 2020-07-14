@@ -92,4 +92,13 @@ void setup_list_insert()
 {
     ObjectFactory<ListInsert> obj("list.insert");
     obj.processData<DataTypeMList>();
+
+    obj.setDescription("insert atom or list to the specified position of input list");
+    obj.addAuthor("Serge Poltavsky");
+    obj.setKeywords({ "list", "insert" });
+    obj.setCategory("list");
+    obj.setSinceVersion(0, 6);
+
+    ListInsert::setInletsInfo(obj.classPointer(), { "list or Mlist", "list: inserted atoms", "int: index position" });
+    ListInsert::setOutletsInfo(obj.classPointer(), { "list or Mlist" });
 }

@@ -26,4 +26,13 @@ void setup_list_length()
     obj.addAlias("list.size");
     obj.setListFn(list_size_fn);
     obj.setFlag(OBJECT_FACTORY_NO_LIST, true);
+
+    obj.setDescription("output the number of atoms in the list");
+    obj.addAuthor("Serge Poltavsky");
+    obj.setKeywords({ "list", "length", "size" });
+    obj.setCategory("list");
+    obj.setSinceVersion(0, 1);
+
+    ListLength::setInletsInfo(obj.classPointer(), { "list or Mlist" });
+    ListLength::setOutletsInfo(obj.classPointer(), { "int" });
 }
