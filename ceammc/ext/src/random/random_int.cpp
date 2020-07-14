@@ -58,4 +58,7 @@ void setup_random_int()
     obj.setKeywords({ "random", "int" });
     obj.setCategory("random");
     obj.setSinceVersion(0, 1);
+
+    RandomInt::setInletsInfo(obj.classPointer(), {"bang: generate new randomly distributed integer"});
+    RandomInt::setInletsInfo(obj.classPointer(), {"randomly distributed integer in @min @max range"});
 }
