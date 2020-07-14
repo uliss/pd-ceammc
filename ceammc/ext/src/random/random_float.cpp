@@ -1,16 +1,12 @@
-#include <ctime>
-#include <random>
-
+#include "random_float.h"
 #include "ceammc_factory.h"
 #include "fmt/format.h"
-#include "random_float.h"
-
-static std::mt19937 random_gen(std::time(0));
 
 RandomFloat::RandomFloat(const PdArgs& a)
     : BaseObject(a)
     , min_(nullptr)
     , max_(nullptr)
+    , seed_(nullptr)
 {
     createOutlet();
 
@@ -31,6 +27,10 @@ RandomFloat::RandomFloat(const PdArgs& a)
     default:
         break;
     }
+
+    seed_ = new SizeTProperty("@seed", 0);
+    seed_->setSuccessFn([this](Property* p) { gen_.setSeed(seed_->value()); });
+    addProperty(seed_);
 }
 
 void RandomFloat::onBang()
@@ -45,7 +45,7 @@ void RandomFloat::onBang()
         return floatTo(0, min_->value());
 
     std::uniform_real_distribution<t_float> dist(min_->value(), max_->value());
-    floatTo(0, dist(random_gen));
+    floatTo(0, dist(gen_.get()));
 }
 
 void setup_random_float()
