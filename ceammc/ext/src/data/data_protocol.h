@@ -486,15 +486,14 @@ namespace protocol {
     };
 
     template <template <typename T> class Factory, typename T>
-    class Storage : public Factory<T> {
+    class Storage {
     public:
-        Storage(Factory<T>& obj)
-            : Factory<T>(obj)
+        Storage(Factory<T>* obj)
         {
-            obj.addMethod("clear", &T::m_clear);
-            obj.addMethod("store", &T::m_store);
-            obj.addMethod("load", &T::m_load);
-            obj.addMethod("update", &T::m_update);
+            obj->addMethod("clear", &T::m_clear);
+            obj->addMethod("store", &T::m_store);
+            obj->addMethod("load", &T::m_load);
+            obj->addMethod("update", &T::m_update);
         }
     };
 }

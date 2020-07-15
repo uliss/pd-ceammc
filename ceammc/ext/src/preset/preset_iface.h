@@ -25,7 +25,7 @@ public:
     PresetIFaceFactory(const char* name, int flags = OBJECT_FACTORY_DEFAULT)
         : ObjectFactory<T>(name, flags)
     {
-        protocol::Storage<ObjectFactory, T> obj(*this);
+        protocol::Storage<ObjectFactory, T> obj(this);
     }
 };
 
