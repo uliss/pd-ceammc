@@ -66,6 +66,9 @@ void factory_free_wb(t_widgetbehavior* wb);
 
 template <typename T>
 class ObjectFactory {
+    ObjectFactory(ObjectFactory&) = delete;
+    ObjectFactory& operator=(ObjectFactory) = delete;
+
 public:
     typedef PdObject<T> ObjectProxy;
 
