@@ -49,4 +49,14 @@ void setup_list_split()
 {
     ObjectFactory<ListSplit> obj("list.split");
     obj.processData<DataTypeMList>();
+
+    obj.setDescription("splits list into two parts, the length of first list is specified by the argument");
+    obj.addAuthor("Alex Nadzharov");
+    obj.addAuthor("Serge Poltavsky");
+    obj.setKeywords({ "list", "split", "moses" });
+    obj.setCategory("list");
+    obj.setSinceVersion(0, 1);
+
+    ListSplit::setInletsInfo(obj.classPointer(), { "list or Mlist" });
+    ListSplit::setOutletsInfo(obj.classPointer(), { "list or Mlist: first", "list or Mlist: second" });
 }

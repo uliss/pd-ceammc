@@ -36,4 +36,13 @@ void setup_list_search()
 {
     ObjectFactory<ListSearch> obj("list.search");
     obj.processData<DataTypeMList>();
+
+    obj.setDescription("search specified items in input list");
+    obj.addAuthor("Serge Poltavsky");
+    obj.setKeywords({ "list", "search", "find" });
+    obj.setCategory("list");
+    obj.setSinceVersion(0, 6);
+
+    ListSearch::setInletsInfo(obj.classPointer(), { "list or Mlist", "list: set search items" });
+    ListSearch::setOutletsInfo(obj.classPointer(), { "list: list of element indexes in input list, -1 if not found" });
 }
