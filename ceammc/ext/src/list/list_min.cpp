@@ -46,4 +46,13 @@ void setup_list_min()
     obj.useDefaultPdSymbolFn();
 
     obj.processData<DataTypeMList>();
+
+    obj.setDescription("returns smallest element in the list");
+    obj.addAuthor("Serge Poltavsky");
+    obj.setKeywords({ "list", "min", "compare" });
+    obj.setCategory("list");
+    obj.setSinceVersion(0, 1);
+
+    ListMin::setInletsInfo(obj.classPointer(), { "list or Mlist" });
+    ListMin::setOutletsInfo(obj.classPointer(), { "atom" });
 }

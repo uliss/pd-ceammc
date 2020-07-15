@@ -26,9 +26,13 @@ ListRoute::ListRoute(const PdArgs& args)
 
 void ListRoute::initDone()
 {
+    out_annotations_.reserve(args_->value().size() + 1);
+    char buf[MAXPDSTRING];
+
     for (auto& a : args_->value()) {
         createOutlet();
-        out_annotations_.push_back(std::string("lists starting with '") + to_string(a) + "'");
+        sprintf(buf, "lists starting with '%s'", atom_gensym(&a.atom())->s_name);
+        out_annotations_.push_back(buf);
     }
 
     out_annotations_.push_back("non-matched values");

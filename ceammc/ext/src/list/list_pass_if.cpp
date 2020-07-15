@@ -71,4 +71,13 @@ void setup_list_pass_if()
     obj.useDefaultPdFloatFn();
 
     obj.processData<DataTypeMList>();
+
+    obj.setDescription("leave only elements accepted by predicate");
+    obj.addAuthor("Serge Poltavsky");
+    obj.setKeywords({ "list", "pass", "accept", "leave", "predicate" });
+    obj.setCategory("list");
+    obj.setSinceVersion(0, 3);
+
+    ListPassIf::setInletsInfo(obj.classPointer(), { "list or Mlist", "int: 1 or 0 from predicate" });
+    ListPassIf::setOutletsInfo(obj.classPointer(), { "list or Mlist", "atom: to predicate" });
 }

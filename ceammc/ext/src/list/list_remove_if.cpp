@@ -68,4 +68,13 @@ void setup_list_remove_if()
 {
     ObjectFactory<ListRemoveIf> obj("list.remove_if");
     obj.processData<DataTypeMList>();
+
+    obj.setDescription("remove elements by predicate");
+    obj.addAuthor("Serge Poltavsky");
+    obj.setKeywords({ "list", "remove", "predicate" });
+    obj.setCategory("list");
+    obj.setSinceVersion(0, 1);
+
+    ListRemoveIf::setInletsInfo(obj.classPointer(), { "list or Mlist", "int: 1 or 0 from predicate" });
+    ListRemoveIf::setOutletsInfo(obj.classPointer(), { "list or Mlist", "atom: to predicate" });
 }
