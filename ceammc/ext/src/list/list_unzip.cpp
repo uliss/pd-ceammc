@@ -65,6 +65,26 @@ void ListUnzip::onList(const AtomList& l)
     onBang();
 }
 
+const char* ListUnzip::annotateOutlet(size_t n) const
+{
+    static std::vector<std::string> out_info_;
+
+    if (n >= out_info_.size()) {
+        out_info_.reserve(n + 1 - out_info_.size());
+        char buf[32];
+        for (size_t i = out_info_.size(); i <= n; i++) {
+            if (i == 0) {
+                out_info_.emplace_back("L\\[i*n\\]");
+            } else {
+                sprintf(buf, "L\\[i*n+%d\\]", (int)i);
+                out_info_.emplace_back(buf);
+            }
+        }
+    }
+
+    return out_info_[n].c_str();
+}
+
 void ListUnzip::clearOutputList()
 {
     for (size_t i = 0; i < out_lists_.size(); i++)
@@ -79,4 +99,13 @@ void setup_list_unzip()
     ObjectFactory<ListUnzip> obj("list.unzip");
     obj.addAlias("list.deinterleave");
     obj.processData<DataTypeMList>();
+
+    obj.setDescription("splits list to N lists, each to separate output");
+    obj.addAuthor("Alex Nadzharov");
+    obj.addAuthor("Serge Poltavsky");
+    obj.setKeywords({ "list" });
+    obj.setCategory("list");
+    obj.setSinceVersion(0, 1);
+
+    ListUnzip::setInletsInfo(obj.classPointer(), { "list or Mlist" });
 }

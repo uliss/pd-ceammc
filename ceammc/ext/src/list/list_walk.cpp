@@ -203,4 +203,19 @@ void setup_list_walk()
     obj.addMethod("next", &ListWalk::m_next);
     obj.addMethod("prev", &ListWalk::m_prev);
     obj.addMethod("reset", &ListWalk::m_reset);
+
+    obj.setDescription("Walks thru the list");
+    obj.addAuthor("Serge Poltavsky");
+    obj.setKeywords({ "list", "walk", "iterate" });
+    obj.setCategory("list");
+    obj.setSinceVersion(0, 1);
+
+    ListWalk::setInletsInfo(obj.classPointer(), { "bang:    output current element, then move to next position\n"
+                                                  "float N: output current element, then move N-steps forward/back\n"
+                                                  "list:    set list, reset position, no output\n"
+                                                  "current: output current element\n"
+                                                  "next N:  move to next N, then output\n"
+                                                  "prev N:  move to prev N, then output\n"
+                                                  "reset:   reset position, no output" });
+    ListWalk::setOutletsInfo(obj.classPointer(), { "atom", "bang: when last element reached" });
 }

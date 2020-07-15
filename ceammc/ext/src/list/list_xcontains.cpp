@@ -95,4 +95,16 @@ void setup_list_xcontains()
 {
     ObjectFactory<ListXContains> obj("list.^contains");
     obj.processData();
+
+    obj.setDescription("on input atom or list checks if specified list contains it");
+    obj.addAuthor("Serge Poltavsky");
+    obj.setKeywords({ "list", "predicate", "any" });
+    obj.setCategory("list");
+    obj.setSinceVersion(0, 6);
+
+    ListXContains::setInletsInfo(obj.classPointer(), { "float:  check if float in list\n"
+                                                       "symbol: check if symbol in list\n"
+                                                       "list:   check if sublist in list",
+                                                         "list: set list value" });
+    ListXContains::setOutletsInfo(obj.classPointer(), { "int: 1 or 0" });
 }

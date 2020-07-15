@@ -88,4 +88,17 @@ void setup_list_xsearch()
 {
     ObjectFactory<ListXSearch> obj("list.^search");
     obj.processData();
+
+    obj.setDescription("on input atom returns it index in list");
+    obj.addAuthor("Serge Poltavsky");
+    obj.setKeywords({ "list", "search", "index", "find" });
+    obj.setCategory("list");
+    obj.setSinceVersion(0, 6);
+
+    ListXSearch::setInletsInfo(obj.classPointer(), { "float:  search float position in list\n"
+                                                     "symbol: search symbol position in list\n"
+                                                     "list:   search sublist position in list"
+                                                     "Mlist:  search sublist position in list",
+                                                       "list: set list value" });
+    ListXSearch::setOutletsInfo(obj.classPointer(), { "int: found position or -1 if not found" });
 }

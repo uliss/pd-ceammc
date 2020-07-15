@@ -89,9 +89,9 @@
 |
 [osc~]
 |
-[*~ 0.1]
+[ui.hgain~]
 | \
-[dac~]
+[dac~] [ui.dsp~]
 ]]>
             </pdascii>
         </example>
