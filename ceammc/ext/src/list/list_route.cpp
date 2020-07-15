@@ -1,5 +1,6 @@
 #include "list_route.h"
 #include "ceammc_factory.h"
+#include "ceammc_format.h"
 #include "datatype_mlist.h"
 
 ListRoute::ListRoute(const PdArgs& args)
@@ -25,9 +26,12 @@ ListRoute::ListRoute(const PdArgs& args)
 
 void ListRoute::initDone()
 {
-    const auto N = args_->value().size();
-    for (size_t i = 0; i < N; i++)
+    for (auto& a : args_->value()) {
         createOutlet();
+        out_annotations_.push_back(std::string("lists starting with '") + to_string(a) + "'");
+    }
+
+    out_annotations_.push_back("non-matched values");
 }
 
 void ListRoute::onFloat(t_float f)
@@ -85,6 +89,14 @@ int ListRoute::outletIndex(const Atom& a) const
     return args_->value().findPos(a);
 }
 
+const char* ListRoute::annotateOutlet(size_t n) const
+{
+    if (n >= out_annotations_.size())
+        return nullptr;
+
+    return out_annotations_[n].c_str();
+}
+
 void ListRoute::outputList(size_t idx, const AtomList& l)
 {
     const size_t sz = l.size();
@@ -107,4 +119,12 @@ void setup_list_route()
 {
     ObjectFactory<ListRoute> obj("list.route");
     obj.processData<DataTypeMList>();
+
+    obj.setDescription("acts like [route] but for lists");
+    obj.addAuthor("Serge Poltavsky");
+    obj.setKeywords({ "list", "route" });
+    obj.setCategory("list");
+    obj.setSinceVersion(0, 5);
+
+    ListRoute::setInletsInfo(obj.classPointer(), { "list or Mlist" });
 }
