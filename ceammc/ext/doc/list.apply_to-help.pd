@@ -2,7 +2,7 @@
 #X declare -lib ceammc;
 #X obj 307 50 cnv 1 458 38 empty empty empty 17 7 0 10 -245760 -1 0;
 #X text 307 50 modifies list value at specified position \, filtering
-it via external object.;
+it via external object;
 #X obj 1 1 cnv 5 765 40 empty empty list.apply_to 20 20 0 20 -104026
 -4096 0;
 #X obj 646 11 list.apply_to;

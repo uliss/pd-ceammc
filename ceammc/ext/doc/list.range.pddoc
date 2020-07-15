@@ -6,7 +6,7 @@
             <authors>
                 <author>Serge Poltavsky</author>
             </authors>
-            <description>returns list smallest and largest value</description>
+            <description>output list smallest and largest value</description>
             <license>GPL3 or later</license>
             <library>ceammc</library>
             <category>list</category>

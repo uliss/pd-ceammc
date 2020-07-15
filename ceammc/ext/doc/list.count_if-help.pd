@@ -1,8 +1,8 @@
 #N canvas 0 0 785 555 12;
 #X declare -lib ceammc;
-#X obj 362 50 cnv 1 403 38 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 362 50 returns the number of items that satisfy to external
-predicate.;
+#X obj 292 50 cnv 1 473 23 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 292 50 output the number of items that satisfy to external
+predicate;
 #X obj 1 1 cnv 5 765 40 empty empty list.count_if 20 20 0 20 -104026
 -4096 0;
 #X obj 646 11 list.count_if;

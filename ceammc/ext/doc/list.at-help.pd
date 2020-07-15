@@ -1,7 +1,7 @@
 #N canvas 0 0 785 555 12;
 #X declare -lib ceammc;
-#X obj 340 50 cnv 1 425 23 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 340 50 on input list outputs element(s) at specified index(es);
+#X obj 409 50 cnv 1 356 23 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 409 50 outputs list element(s) at specified index(es);
 #X obj 1 1 cnv 5 765 40 empty empty list.at 20 20 0 20 -104026 -4096
 0;
 #X obj 690 11 list.at;

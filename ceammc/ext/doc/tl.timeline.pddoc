@@ -39,7 +39,8 @@
             events in timeline</property>
             <property name="@current" readonly="true" type="float" units="millisecond" default="0">
             current time</property>
-            <property name="@phase" readonly="true" type="float" minvalue="0" maxvalue="1" default="0">current phase in [0-1) range</property>
+            <property name="@phase" readonly="true" type="float" minvalue="0" maxvalue="1"
+            default="0">current phase in [0-1) range</property>
             <property name="@events" readonly="true" type="list" default="end">list of event names
             in chronological order</property>
             <property name="@loop" type="int" enum="0 1" default="0">loop mode</property>

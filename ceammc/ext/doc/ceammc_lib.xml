@@ -719,22 +719,22 @@
     <entry name="list.append" descr="append atom or list to the end of input list" ref_view="object">
       <xi:include href="list.append.pddoc" parse="xml"/>
     </entry>
-    <entry name="list.apply_to" descr="modifies list value at specified position, filtering it via external object." ref_view="object">
+    <entry name="list.apply_to" descr="modifies list value at specified position, filtering it via external object" ref_view="object">
       <xi:include href="list.apply_to.pddoc" parse="xml"/>
     </entry>
-    <entry name="list.at" descr="on input list outputs element(s) at specified index(es)" ref_view="object">
+    <entry name="list.at" descr="outputs list element(s) at specified index(es)" ref_view="object">
       <xi:include href="list.at.pddoc" parse="xml"/>
     </entry>
-    <entry name="list.choice" descr="returns random element from list" ref_view="object">
+    <entry name="list.choice" descr="outputs random element from list" ref_view="object">
       <xi:include href="list.choice.pddoc" parse="xml"/>
     </entry>
     <entry name="list.contains" descr="checks if input list contains specified atoms" ref_view="object">
       <xi:include href="list.contains.pddoc" parse="xml"/>
     </entry>
-    <entry name="list.count" descr="returns the number of items that equal to specified value" ref_view="object">
+    <entry name="list.count" descr="output the number of items that equal to specified value" ref_view="object">
       <xi:include href="list.count.pddoc" parse="xml"/>
     </entry>
-    <entry name="list.count_if" descr="returns the number of items that satisfy to external predicate." ref_view="object">
+    <entry name="list.count_if" descr="output the number of items that satisfy to external predicate" ref_view="object">
       <xi:include href="list.count_if.pddoc" parse="xml"/>
     </entry>
     <entry name="list.delta" descr="returns the difference between the current list of floats and the previous one." ref_view="object">
@@ -770,13 +770,13 @@
     <entry name="list.integrator" descr="returns the sum of the previously stored list and the current one then stores this sum" ref_view="object">
       <xi:include href="list.integrator.pddoc" parse="xml"/>
     </entry>
-    <entry name="list.last" descr="returns last list element" ref_view="object">
+    <entry name="list.last" descr="output last list element" ref_view="object">
       <xi:include href="list.last.pddoc" parse="xml"/>
     </entry>
-    <entry name="list.length" descr="returns the number of atoms in the list" ref_view="object">
+    <entry name="list.length" descr="output the number of atoms in the list" ref_view="object">
       <xi:include href="list.length.pddoc" parse="xml"/>
     </entry>
-    <entry name="list.max" descr="returns largest element in the list" ref_view="object">
+    <entry name="list.max" descr="output largest element in the list" ref_view="object">
       <xi:include href="list.max.pddoc" parse="xml"/>
     </entry>
     <entry name="list.mean" descr="calculates average of list of floats" ref_view="object">
@@ -800,22 +800,22 @@
     <entry name="list.product" descr="calculates product of floats in list" ref_view="object">
       <xi:include href="list.product.pddoc" parse="xml"/>
     </entry>
-    <entry name="list.range" descr="returns list smallest and largest value" ref_view="object">
+    <entry name="list.range" descr="output list smallest and largest value" ref_view="object">
       <xi:include href="list.range.pddoc" parse="xml"/>
     </entry>
     <entry name="list.reduce" descr="apply function of two arguments cumulatively to the list" ref_view="object">
       <xi:include href="list.reduce.pddoc" parse="xml"/>
     </entry>
-    <entry name="list.remove" descr="on input list remove element(s) at specified positions" ref_view="object">
+    <entry name="list.remove" descr="remove list element(s) at specified positions" ref_view="object">
       <xi:include href="list.remove.pddoc" parse="xml"/>
     </entry>
     <entry name="list.remove_if" descr="remove elements by predicate" ref_view="object">
       <xi:include href="list.remove_if.pddoc" parse="xml"/>
     </entry>
-    <entry name="list.repack" descr="repack input list to specified size" ref_view="object">
+    <entry name="list.repack" descr="repack list to specified size" ref_view="object">
       <xi:include href="list.repack.pddoc" parse="xml"/>
     </entry>
-    <entry name="list.repeat" descr="creates new list by repeating given list specified times" ref_view="object">
+    <entry name="list.repeat" descr="output new list by repeating input list specified times" ref_view="object">
       <xi:include href="list.repeat.pddoc" parse="xml"/>
     </entry>
     <entry name="list.resample" descr="resample list with specified ratio" ref_view="object">
@@ -848,7 +848,7 @@
     <entry name="list.seq" descr="numeric sequence list generator" ref_view="object">
       <xi:include href="list.seq.pddoc" parse="xml"/>
     </entry>
-    <entry name="list.set" descr="on input list set value at specified position" ref_view="object">
+    <entry name="list.set" descr="set list value at specified position" ref_view="object">
       <xi:include href="list.set.pddoc" parse="xml"/>
     </entry>
     <entry name="list.shift" descr="shifts the contents of the list with linear interpolation" ref_view="object">
@@ -866,7 +866,7 @@
     <entry name="list.sort_with" descr="sort list with user defined side-chain" ref_view="object">
       <xi:include href="list.sort_with.pddoc" parse="xml"/>
     </entry>
-    <entry name="list.split" descr="splits list into two parts, the length of first list is specified by the argument." ref_view="object">
+    <entry name="list.split" descr="splits list into two parts, the length of first list is specified by the argument" ref_view="object">
       <xi:include href="list.split.pddoc" parse="xml"/>
     </entry>
     <entry name="list.stretch" descr="stretches list - changes its size with linear interpolation" ref_view="object">

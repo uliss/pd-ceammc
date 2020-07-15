@@ -314,12 +314,12 @@ list.^search	on input atom returns it index in list
 list.all_of	checks if all list atoms accepted by predicate
 list.any_of	checks if at least one list element is accepted by predicate
 list.append	append atom or list to the end of input list
-list.apply_to	modifies list value at specified position, filtering it via external object.
-list.at	on input list outputs element(s) at specified index(es)
-list.choice	returns random element from list
+list.apply_to	modifies list value at specified position, filtering it via external object
+list.at	outputs list element(s) at specified index(es)
+list.choice	outputs random element from list
 list.contains	checks if input list contains specified atoms
-list.count	returns the number of items that equal to specified value
-list.count_if	returns the number of items that satisfy to external predicate.
+list.count	output the number of items that equal to specified value
+list.count_if	output the number of items that satisfy to external predicate
 list.delta	returns the difference between the current list of floats and the previous one.
 list.distribution	list value distribution
 list.do	iterate and modify list contents via side-chain
@@ -331,10 +331,10 @@ list.gen	generates list of specified length via external generator
 list.histogram	outputs distribution histogram
 list.insert	insert atom or list to the specified position of input list
 list.integrator	returns the sum of the previously stored list and the current one then stores this sum
-list.last	returns last list element
-list.length	returns the number of atoms in the list
-list.size	returns the number of atoms in the list
-list.max	returns largest element in the list
+list.last	output last list element
+list.length	output the number of atoms in the list
+list.size	output the number of atoms in the list
+list.max	output largest element in the list
 list.mean	calculates average of list of floats
 list.average	calculates average of list of floats
 list.min	returns smallest element in the list
@@ -344,14 +344,14 @@ list.pass_if	leave only elements accepted by predicate
 list.filter	leave only elements accepted by predicate
 list.prepend	prepend atom or list before input list
 list.product	calculates product of floats in list
-list.range	returns list smallest and largest value
-list.minmax	returns list smallest and largest value
+list.range	output list smallest and largest value
+list.minmax	output list smallest and largest value
 list.reduce	apply function of two arguments cumulatively to the list
 list.foldl	apply function of two arguments cumulatively to the list
-list.remove	on input list remove element(s) at specified positions
+list.remove	remove list element(s) at specified positions
 list.remove_if	remove elements by predicate
-list.repack	repack input list to specified size
-list.repeat	creates new list by repeating given list specified times
+list.repack	repack list to specified size
+list.repeat	output new list by repeating input list specified times
 list.resample	resample list with specified ratio
 list.r	resample list with specified ratio
 list.resize	changes list size
@@ -368,13 +368,13 @@ list.search	search specified items in input list
 list.separate	sends list elements one by one separately
 list.sep	sends list elements one by one separately
 list.seq	numeric sequence list generator
-list.set	on input list set value at specified position
+list.set	set list value at specified position
 list.shift	shifts the contents of the list with linear interpolation
 list.shuffle	randomly rearranges elements in list
 list.slice	extract sublist
 list.sort	sorts list values by ascending order
 list.sort_with	sort list with user defined side-chain
-list.split	splits list into two parts, the length of first list is specified by the argument.
+list.split	splits list into two parts, the length of first list is specified by the argument
 list.stretch	stretches list - changes its size with linear interpolation
 list.sum	calculates sum of floats in list
 list.unique	removes duplicates from input list

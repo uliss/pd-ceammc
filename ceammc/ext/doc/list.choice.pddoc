@@ -6,7 +6,7 @@
             <authors>
                 <author>Serge Poltavsky</author>
             </authors>
-            <description>returns random element from list</description>
+            <description>outputs random element from list</description>
             <license>GPL3 or later</license>
             <library>ceammc</library>
             <category>list</category>

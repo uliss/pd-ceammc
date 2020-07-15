@@ -2,7 +2,7 @@
 #X declare -lib ceammc;
 #X obj 339 50 cnv 1 426 38 empty empty empty 17 7 0 10 -245760 -1 0;
 #X text 339 50 splits list into two parts \, the length of first list
-is specified by the argument.;
+is specified by the argument;
 #X obj 1 1 cnv 5 765 40 empty empty list.split 20 20 0 20 -104026
 -4096 0;
 #X obj 668 11 list.split;
@@ -68,7 +68,7 @@ Min value: 0\.;
 #X text 10 142 license:;
 #X text 120 142 GPL3 or later;
 #X text 10 164 keywords:;
-#X text 120 164 list;
+#X text 120 164 list \, split \, moses;
 #X text 10 186 website:;
 #X obj 120 189 ui.link @title https://github.com/uliss/pure-data @url
 https://github.com/uliss/pure-data;

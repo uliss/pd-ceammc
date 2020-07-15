@@ -6,7 +6,7 @@
             <authors>
                 <author>Serge Poltavsky</author>
             </authors>
-            <description>returns largest element in the list</description>
+            <description>output largest element in the list</description>
             <license>GPL3 or later</license>
             <library>ceammc</library>
             <category>list</category>

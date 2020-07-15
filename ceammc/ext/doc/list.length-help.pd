@@ -1,7 +1,7 @@
 #N canvas 0 0 785 555 12;
 #X declare -lib ceammc;
-#X obj 462 50 cnv 1 303 23 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 462 50 returns the number of atoms in the list;
+#X obj 469 50 cnv 1 296 23 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 469 50 output the number of atoms in the list;
 #X obj 1 1 cnv 5 765 40 empty empty list.length 20 20 0 20 -104026
 -4096 0;
 #X obj 571 11 list.size;

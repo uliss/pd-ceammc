@@ -26,8 +26,9 @@ element and when move to next - use [1( message \, Otherwise - use
 #X obj 50 332 + 60;
 #X obj 50 361 mtof;
 #X obj 50 390 osc~;
-#X obj 50 419 *~ 0.1;
+#X obj 50 419 ui.hgain~;
 #X obj 50 448 dac~;
+#X obj 117 448 ui.dsp~;
 #X obj 20 487 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 492 cnv 5 90 26 empty empty arguments: 4 10 0 14 -262144
 -49933 0;

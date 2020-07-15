@@ -1,7 +1,7 @@
 #N canvas 0 0 785 555 12;
 #X declare -lib ceammc;
-#X obj 462 50 cnv 1 303 23 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 462 50 returns list smallest and largest value;
+#X obj 468 50 cnv 1 297 23 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 468 50 output list smallest and largest value;
 #X obj 1 1 cnv 5 765 40 empty empty list.range 20 20 0 20 -104026
 -4096 0;
 #X obj 563 11 list.minmax;

@@ -6,7 +6,7 @@
             <authors>
                 <author>Serge Poltavsky</author>
             </authors>
-            <description>on input list remove element(s) at specified positions</description>
+            <description>remove list element(s) at specified positions</description>
             <license>GPL3 or later</license>
             <library>ceammc</library>
             <category>list</category>

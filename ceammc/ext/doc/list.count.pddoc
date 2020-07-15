@@ -6,11 +6,11 @@
             <authors>
                 <author>Serge Poltavsky</author>
             </authors>
-            <description>returns the number of items that equal to specified value</description>
+            <description>output the number of items that equal to specified value</description>
             <license>GPL3 or later</license>
             <library>ceammc</library>
             <category>list</category>
-            <keywords>list</keywords>
+            <keywords>list count</keywords>
             <since>0.1</since>
             <also>
                 <see>list.count_if</see>
