@@ -111,4 +111,13 @@ void setup_list_remove()
     obj.processData<DataTypeMList>();
     obj.useDefaultPdFloatFn();
     obj.useDefaultPdSymbolFn();
+
+    obj.setDescription("remove list element(s) at specified positions");
+    obj.addAuthor("Serge Poltavsky");
+    obj.setKeywords({ "list", "remove" });
+    obj.setCategory("list");
+    obj.setSinceVersion(0, 6);
+
+    ListRemove::setInletsInfo(obj.classPointer(), { "list or Mlist", "list: set remove indexes" });
+    ListRemove::setOutletsInfo(obj.classPointer(), { "list or Mlist" });
 }

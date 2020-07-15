@@ -39,4 +39,13 @@ void setup_list_rotate()
     obj.addAlias("list.<<");
     obj.addAlias("list.>>");
     obj.processData<DataTypeMList>();
+
+    obj.setDescription("rotates list");
+    obj.addAuthor("Serge Poltavsky");
+    obj.setKeywords({ "list", "rotate" });
+    obj.setCategory("list");
+    obj.setSinceVersion(0, 1);
+
+    ListRotate::setInletsInfo(obj.classPointer(), { "list or Mlist", "int: rotation step" });
+    ListRotate::setOutletsInfo(obj.classPointer(), { "list or Mlist" });
 }

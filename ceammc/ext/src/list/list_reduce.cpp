@@ -47,4 +47,13 @@ void setup_list_reduce()
     obj.useDefaultPdFloatFn();
     obj.useDefaultPdSymbolFn();
     obj.processData<DataTypeMList>();
+
+    obj.setDescription("apply function of two arguments cumulatively to the list");
+    obj.addAuthor("Serge Poltavsky");
+    obj.setKeywords({"list", "min", "compare"});
+    obj.setCategory("list");
+    obj.setSinceVersion(0, 1);
+
+    ListReduce::setInletsInfo(obj.classPointer(), { "list or Mlist", "atom: from side-chain" });
+    ListReduce::setOutletsInfo(obj.classPointer(), { "atom", "list: ACCUM ATOM" });
 }
