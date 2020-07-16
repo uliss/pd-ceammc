@@ -4,7 +4,7 @@
 #   find_package(ModPlug [REQUIRED] [QUIET])
 #
 # It sets the following variables:
-#   MODPLUG_FOUND               ... true if modplug is found on the system
+#   ModPlug_FOUND               ... true if modplug is found on the system
 #   MODPLUG_LIBRARIES           ... full path to modplug library
 #   MODPLUG_INCLUDES            ... modplug include directory
 #
@@ -68,9 +68,9 @@ else()
 endif()
 
 include(FindPackageHandleStandardArgs)
-find_package_handle_standard_args(MODPLUG DEFAULT_MSG MODPLUG_INCLUDE_DIR MODPLUG_LIBRARY)
+find_package_handle_standard_args(ModPlug DEFAULT_MSG MODPLUG_INCLUDE_DIR MODPLUG_LIBRARY)
 
-if(MODPLUG_FOUND)
+if(ModPlug_FOUND)
     set(MODPLUG_INCLUDES ${MODPLUG_INCLUDE_DIR})
     set(MODPLUG_LIBRARIES ${MODPLUG_LIBRARY})
 endif()
