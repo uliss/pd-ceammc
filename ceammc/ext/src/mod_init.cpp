@@ -15,8 +15,12 @@
 #include "ceammc_pd.h"
 #include "ceammc_platform.h"
 #include "lib/ceammc.h"
+
+extern "C" {
+#include "g_canvas.h"
 #include "m_imp.h"
 #include "s_stuff.h"
+}
 
 #include "an/mod_analyze.h"
 #include "array/mod_array.h"
@@ -83,10 +87,116 @@ static void setup_env_ceammc_doc_path()
     ceammc::platform::set_env("CEAMMC", path.c_str());
 }
 
-using namespace std;
+namespace {
+
+t_visfn ceammc_pd_vanilla_visfn = nullptr;
+
+void ceammc_init_tooltips()
+{
+    sys_vgui("%s\n",
+        "namespace eval ::ceammc_tt {\n"
+        "    set txt {}\n"
+        "    set active 0\n"
+        "}\n"
+        "proc ::ceammc_tt::txt {c tag xlet text} {\n"
+        "    $c bind $tag <Enter>  [list ::ceammc_tt::enter $c $tag $xlet $text]\n"
+        "    $c bind $tag <Leave>  [list ::ceammc_tt::leave $c]\n"
+        " }\n"
+        "proc ::ceammc_tt::show {c tag xlet} {\n"
+        "    if {$::ceammc_tt::active == 0} return\n"
+        "    $c delete ceammc_tt\n"
+        "    foreach {x - - y} [$c bbox $tag] break\n"
+        "    if [info exists y] {\n"
+        "        variable id\n"
+        "        if {$xlet == 0} { \n"
+        "           incr y 7 \n"
+        "           set id [$c create text $x $y -text $::ceammc_tt::txt -font TkTooltipFont -anchor nw -tag ceammc_tt]\n"
+        "        } else {\n"
+        "           incr y -10\n"
+        "           set id [$c create text $x $y -text $::ceammc_tt::txt -font TkTooltipFont -anchor sw -tag ceammc_tt]\n"
+        "        }\n"
+        "        foreach {x0 y0 x1 y1} [$c bbox $id] break\n"
+        "        $c create rect [expr $x0-2] [expr $y0-1] [expr $x1+2] [expr $y1+1] -fill lightblue -tag ceammc_tt\n"
+        "        $c raise $id\n"
+        "        $c bind $id <Leave> [list ::ceammc_tt::leave $c]\n"
+        "    }\n"
+        "}\n"
+        "proc ::ceammc_tt::enter {c tag xlet text} {\n"
+        "    set ::ceammc_tt::active 1\n"
+        "    set ::ceammc_tt::txt $text\n"
+        "    after 500 ::ceammc_tt::show $c $tag $xlet\n"
+        "}\n"
+        "proc ::ceammc_tt::delete {c} {\n"
+        "    if {$::ceammc_tt::active == 1} return\n"
+        "    $c delete ceammc_tt\n"
+        "}\n"
+        "proc ::ceammc_tt::leave {c} {\n"
+        "    set ::ceammc_tt::active 0\n"
+        "    after 50 ::ceammc_tt::delete $c\n"
+        "}");
+}
+
+void ceammc_vis_fn(t_gobj* z, t_glist* glist, int vis)
+{
+    enum XletType {
+        XLET_IN = 1,
+        XLET_OUT = 0
+    };
+
+    using AnnotateFn = const char* (*)(t_object*, int, int);
+
+    static t_symbol* SYM_ANNOTATE = nullptr;
+
+    if (!SYM_ANNOTATE) {
+        SYM_ANNOTATE = gensym(".annotate");
+        ceammc_init_tooltips();
+    }
+
+    ceammc_pd_vanilla_visfn(z, glist, vis);
+
+    if (vis) {
+        auto fn = (AnnotateFn)zgetfn(&z->g_pd, SYM_ANNOTATE);
+        if (fn) {
+            t_object* o = (t_object*)z;
+            const int NINS = obj_ninlets(o);
+            const int NOUTS = obj_noutlets(o);
+
+            // annotate inlets
+            for (int i = 0; i < NINS; i++) {
+                auto str = fn(o, XLET_IN, i);
+                if (!str || str[0] == '\0')
+                    continue;
+
+                const char* tag = rtext_gettag(glist_findrtext(glist, o));
+                sys_vgui("::ceammc_tt::txt .x%lx.c %si%d 1 \"%s\"\n",
+                    glist, tag, i, str);
+            }
+
+            // annotate outlets
+            for (int i = 0; i < NOUTS; i++) {
+                auto str = fn(o, XLET_OUT, i);
+                if (!str || str[0] == '\0')
+                    continue;
+
+                const char* tag = rtext_gettag(glist_findrtext(glist, o));
+                sys_vgui("::ceammc_tt::txt .x%lx.c %so%d 0 \"%s\"\n",
+                    glist, tag, i, str);
+            }
+        }
+    }
+}
+}
 
 void ceammc_init()
 {
+    using namespace std;
+
+    if (text_widgetbehavior.w_visfn != ceammc_vis_fn) {
+        ceammc_pd_vanilla_visfn = text_widgetbehavior.w_visfn;
+        // ceammc const cast hack :(
+        ((t_widgetbehavior&)text_widgetbehavior).w_visfn = ceammc_vis_fn;
+    }
+
     ceammc::pd::addPdPrintDataSupport();
 
     // setup env variables
