@@ -46,7 +46,7 @@ static MIDIPortRef input_port;
 static MIDIPortRef output_port;
 static CMSimpleQueueRef input_queue;
 // map: pd portno -> endpoint index in coremidi_dest
-static int open_dest_map[MAX_MIDI_MAP_SIZE];
+static int portno_to_dest_index_map[MAX_MIDI_MAP_SIZE];
 
 static void coremidi_init();
 static Boolean coremidi_init_sources();
@@ -623,6 +623,15 @@ void sys_do_open_midi(int nmidiin, int* midiinvec, int nmidiout, int* midioutvec
         return;
 
     coremidi_connect_sources(nmidiin, midiinvec);
+
+    // map destinations
+    // clean
+    for (int i = 0; i < MAX_MIDI_MAP_SIZE; i++)
+        portno_to_dest_index_map[i] = -1;
+
+    // map
+    for (int i = 0; i < nmidiout && i < MAX_MIDI_MAP_SIZE; i++)
+        portno_to_dest_index_map[i] = midioutvec[i];
 }
 
 void sys_close_midi(void)
@@ -645,7 +654,12 @@ void sys_putmidimess(int portno, int a, int b, int c)
     if (sys_verbose)
         post("[coremidi] %s: %d msg: [%d %d %d]", __FUNCTION__, portno, a, b, c);
 
-    if (portno < 0 || portno >= coremidi_ndest)
+    if (portno < 0 || portno >= MAX_MIDI_MAP_SIZE)
+        return;
+
+    // get destination index by portno
+    int devidx = portno_to_dest_index_map[portno];
+    if (devidx < 0 || devidx >= coremidi_ndest)
         return;
 
     MIDIPacketList packetlist;
@@ -654,7 +668,7 @@ void sys_putmidimess(int portno, int a, int b, int c)
     Byte msg[3] = { (Byte)a, (Byte)b, (Byte)c };
     MIDIPacketListAdd(&packetlist, sizeof(packetlist), packet, 0, sizeof(msg), msg);
 
-    coremidi_send_packet_list(coremidi_dest[portno], &packetlist);
+    coremidi_send_packet_list(coremidi_dest[devidx], &packetlist);
 }
 
 void sys_putmidibyte(int portno, int byte)
