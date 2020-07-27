@@ -24,7 +24,8 @@
 
 enum {
     MIDI_QUEUE_SIZE = 1024,
-    MAX_COREMIDI_DEVS = 256
+    MAX_COREMIDI_DEVS = 256,
+    MAX_MIDI_MAP_SIZE = 16
 };
 
 typedef struct DeviceInfo {
@@ -39,10 +40,13 @@ static size_t coremidi_ndest = 0;
 static MIDIEntityRef coremidi_dest[MAX_COREMIDI_DEVS];
 static MIDIEntityRef virtual_src_output;
 static MIDIEntityRef virtual_dest_input;
+static int virtual_dest_input_portno;
 static MIDIClientRef coremidi_client;
 static MIDIPortRef input_port;
 static MIDIPortRef output_port;
 static CMSimpleQueueRef input_queue;
+// map: pd portno -> endpoint index in coremidi_dest
+static int open_dest_map[MAX_MIDI_MAP_SIZE];
 
 static void coremidi_init();
 static Boolean coremidi_init_sources();
@@ -309,11 +313,19 @@ void coremidi_read(const MIDIPacketList* lst, void* refCon, void* connRefCon)
 {
     const MIDIPacket* p = &lst->packet[0];
     DeviceInfo* src = (DeviceInfo*)connRefCon;
-    const Byte portno = (src != NULL) ? src->portno : 0;
+
+    if (src == NULL && virtual_dest_input_portno < 0) {
+        // virtual port is not opened
+        return;
+    }
+
+    // when this callback called for virtual source connRefCon pointer is not passed
+    // so we are using virtual_dest_input_portno which should be set while midi opening
+    const Byte portno = (src != NULL) ? src->portno : virtual_dest_input_portno;
 
     for (UInt32 i = 0; i < lst->numPackets; i++) {
         for (UInt16 j = 0; j < p->length; j++) {
-            // encode midi byte avoiding 0 for queue
+            // pack midi byte and port to UInt64 avoiding insertion of 0 into the queue
             UInt64 val = (portno << 24) | (p->data[j] << 16) | 0xFF;
             CMSimpleQueueEnqueue(input_queue, (void*)val);
         }
@@ -482,6 +494,8 @@ Boolean coremidi_connect_source(DeviceInfo* dev, int portno)
 
 void coremidi_connect_sources(int nmidiin, int* midiinvec)
 {
+    virtual_dest_input_portno = -1;
+
     for (int i = 0; i < nmidiin; i++) {
         int dev_idx = midiinvec[i];
         if (dev_idx < 0 || dev_idx >= coremidi_nsrc) {
@@ -489,8 +503,11 @@ void coremidi_connect_sources(int nmidiin, int* midiinvec)
             continue;
         }
 
-        if (coremidi_src[dev_idx].ref == virtual_dest_input) // skip virtual destination
+        if (coremidi_src[dev_idx].ref == virtual_dest_input) {
+            // skip virtual destination and set portno for virtual input
+            virtual_dest_input_portno = i;
             continue;
+        }
 
         if (!coremidi_connect_source(&coremidi_src[dev_idx], i))
             continue;
