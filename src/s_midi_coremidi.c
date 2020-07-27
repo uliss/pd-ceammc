@@ -23,6 +23,23 @@
 #include <stdio.h>
 
 enum {
+    /* channel voice messages */
+    MIDI_NOTEOFF = 0x80,
+    MIDI_NOTEON = 0x90,
+    MIDI_POLYAFTERTOUCH = 0xa0,
+    MIDI_CONTROLCHANGE = 0xb0,
+    MIDI_PROGRAMCHANGE = 0xc0,
+    MIDI_AFTERTOUCH = 0xd0,
+    MIDI_PITCHBEND = 0xe0,
+    /* system common messages */
+    MIDI_SYSEX = 0xf0,
+    MIDI_TIMECODE = 0xf1,
+    MIDI_SONGPOS = 0xf2,
+    MIDI_SONGSELECT = 0xf3,
+    MIDI_SYSEXEND = 0xf7,
+};
+
+enum {
     MIDI_QUEUE_SIZE = 1024,
     MAX_COREMIDI_DEVS = 256,
     MAX_MIDI_MAP_SIZE = 16
@@ -666,8 +683,19 @@ void sys_putmidimess(int portno, int a, int b, int c)
     MIDIPacket* packet = MIDIPacketListInit(&packetlist);
 
     Byte msg[3] = { (Byte)a, (Byte)b, (Byte)c };
-    MIDIPacketListAdd(&packetlist, sizeof(packetlist), packet, 0, sizeof(msg), msg);
+    ByteCount msg_len = sizeof(msg);
+    const int msgtype = ((a & 0xf0) == 0xf0 ? a : (a & 0xf0));
+    switch (msgtype) {
+    /* 1 data byte */
+    case MIDI_PROGRAMCHANGE:
+    case MIDI_AFTERTOUCH:
+    case MIDI_TIMECODE:
+    case MIDI_SONGSELECT:
+        msg_len = 2;
+        break;
+    }
 
+    MIDIPacketListAdd(&packetlist, sizeof(packetlist), packet, 0, msg_len, msg);
     coremidi_send_packet_list(coremidi_dest[devidx], &packetlist);
 }
 
@@ -677,6 +705,11 @@ void sys_putmidibyte(int portno, int byte)
         post("[coremidi] %s: %d", __FUNCTION__, portno);
 
     if (portno < 0 || portno >= coremidi_ndest)
+        return;
+
+    // get destination index by portno
+    int devidx = portno_to_dest_index_map[portno];
+    if (devidx < 0 || devidx >= coremidi_ndest)
         return;
 
     MIDIPacketList packetlist;
