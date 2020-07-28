@@ -14,7 +14,13 @@ endif()
 option(WITH_OSS "Use OSS sound API" OFF)
 
 option(WITH_PORTAUDIO "Use PortAudio sound API" ON)
-option(WITH_PORTMIDI "Use PortMidi sound API" ON)
+
+if(APPLE) # use coremidi backend by default
+    option(WITH_PORTMIDI "Use PortMidi sound API" OFF)
+    option(WITH_COREMIDI "Use CoreMIDI sound API" ON)
+else()
+    option(WITH_PORTMIDI "Use PortMidi sound API" ON)
+endif()
 
 if(MSYS OR WIN32)
     option(WITH_MMIO "Use MMIO sound API" ON)
@@ -94,7 +100,8 @@ endif()
 if(NOT WITH_ALSA_MIDI AND
         NOT WITH_OSS AND
         NOT WITH_PORTMIDI AND
-        NOT WITH_DUMMY_MIDI)
+        NOT WITH_DUMMY_MIDI AND
+        NOT WITH_COREMIDI)
     message(FATAL_ERROR "At least one midi module required! See `cmake -L` for available config options.
         You can build with dummy midi with cmake -DWITH_DUMMY_MIDI=ON option.")
 endif()

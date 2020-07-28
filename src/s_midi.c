@@ -76,15 +76,22 @@ int midi_inhead, midi_intail;
 static double sys_midiinittime;
 #define API_DEFAULTMIDI 0
 
+#ifdef __APPLE__
+#define USEAPI_COREMIDI 1
+#endif
+
 #if (defined USEAPI_ALSA) && (defined USEAPI_MIDIDUMMY)
         /* if the only available MIDI-backend is ALSA, choose that */
 # define FORCEAPI_ALSA
+#elif defined(USEAPI_COREMIDI)
+# define FORCEAPI_COREMIDI
 #endif
-
 
 int sys_midiapi =
 #ifdef FORCEAPI_ALSA
     API_ALSA
+#elif defined(FORCEAPI_COREMIDI)
+    API_COREMIDI
 #else
     API_DEFAULTMIDI
 #endif

@@ -195,6 +195,7 @@ void sys_setalarm(int microsec);
 #define API_AUDIOUNIT 7
 #define API_ESD 8           /* no idea what this was, probably gone now */
 #define API_DUMMY 9
+#define API_COREMIDI 10
 
     /* figure out which API should be the default.  The one we judge most
     likely to offer a working device takes precedence so that if you
