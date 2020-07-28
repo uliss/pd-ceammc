@@ -33,6 +33,10 @@
 #define snprintf _snprintf
 #endif
 
+#ifdef __APPLE__
+#include <CoreFoundation/CoreFoundation.h>
+#endif
+
 void sys_doflags(void);
 
 static PERTHREAD char *sys_prefbuf;
@@ -239,40 +243,32 @@ static int sys_getpreference(const char *key, char *value, int size)
         return (1);
 #endif /* _WIN32 */
 #ifdef __APPLE__
-        char cmdbuf[256];
-        int nread = 0, nleft = size;
-        char embedded_prefs[MAXPDSTRING];
-        char user_prefs[MAXPDSTRING];
-        char *homedir = getenv("HOME");
-        struct stat statbuf;
-       /* the 'defaults' command expects the filename without .plist at the
-            end */
-        snprintf(embedded_prefs, MAXPDSTRING, "%s/../%s",
-            sys_libdir->s_name, MACOSX_CONFIG_NAME);
-        snprintf(user_prefs, MAXPDSTRING,
-            "%s/Library/Preferences/%s.plist", homedir, MACOSX_CONFIG_NAME);
-        if (stat(user_prefs, &statbuf) == 0)
-            snprintf(cmdbuf, 256, "defaults read %s %s 2> /dev/null\n",
-                MACOSX_CONFIG_NAME, key);
-        else snprintf(cmdbuf, 256, "defaults read %s %s 2> /dev/null\n",
-                embedded_prefs, key);
-        FILE *fp = popen(cmdbuf, "r");
-        while (nread < size)
-        {
-            int newread = fread(value+nread, 1, size-nread, fp);
-            if (newread <= 0)
-                break;
-            nread += newread;
+        /// ceammc
+        CFStringRef ckey = CFStringCreateWithCString(kCFAllocatorDefault, key, kCFStringEncodingASCII);
+        CFStringRef app_id = CFStringCreateWithCString(kCFAllocatorDefault, MACOSX_CONFIG_NAME, kCFStringEncodingASCII);
+        CFPropertyListRef lst = CFPreferencesCopyAppValue(ckey, app_id);
+        if (lst == NULL)
+            return 0;
+
+        CFTypeID type_id = CFGetTypeID(lst);
+        if (type_id == CFStringGetTypeID()) {
+            CFStringRef str = (CFStringRef)lst;
+            CFStringGetCString(str, value, size, kCFStringEncodingUTF8);
+        } else if (type_id == CFNumberGetTypeID()) {
+            CFNumberRef num = (CFNumberRef)lst;
+            CFStringRef str = CFStringCreateWithFormat(kCFAllocatorDefault, NULL, CFSTR("%@"), num);
+            CFStringGetCString(str, value, size, kCFStringEncodingUTF8);
+            CFRelease(str);
+        } else if (type_id == CFBooleanGetTypeID()) {
+            CFBooleanRef b = (CFBooleanRef)lst;
+            CFStringRef str = CFStringCreateWithFormat(kCFAllocatorDefault, NULL, CFSTR("%@"), b);
+            CFStringGetCString(str, value, size, kCFStringEncodingUTF8);
+            CFRelease(str);
         }
-        pclose(fp);
-        if (nread < 1)
-            return (0);
-        if (nread >= size)
-            nread = size-1;
-        value[nread] = 0;
-        if (value[nread-1] == '\n')     /* remove newline character at end */
-            value[nread-1] = 0;
-        return(1);
+
+        CFRelease(lst);
+        return 1;
+        /// ceammc
 #endif /* __APPLE__ */
     }
 }
@@ -299,10 +295,17 @@ static void sys_putpreference(const char *key, const char *value)
         RegCloseKey(hkey);
 #endif /* _WIN32 */
 #ifdef __APPLE__
-        char cmdbuf[MAXPDSTRING];
-        snprintf(cmdbuf, MAXPDSTRING,
-            "defaults write %s %s \"%s\" 2> /dev/null\n", MACOSX_CONFIG_NAME, key, value);
-        system(cmdbuf);
+        /// ceammc
+        CFStringRef ckey = CFStringCreateWithCString(kCFAllocatorDefault, key, kCFStringEncodingASCII);
+        CFStringRef cval = CFStringCreateWithCString(kCFAllocatorDefault, value, kCFStringEncodingASCII);
+        CFStringRef app_id = CFStringCreateWithCString(kCFAllocatorDefault, MACOSX_CONFIG_NAME, kCFStringEncodingASCII);
+        CFPreferencesSetAppValue(ckey, cval, app_id);
+        if (!CFPreferencesAppSynchronize(app_id))
+            error("unable to save preference entry: %s", key);
+        CFRelease(ckey);
+        CFRelease(cval);
+        CFRelease(app_id);
+        /// ceammc
 #endif /* __APPLE__ */
     }
 }
