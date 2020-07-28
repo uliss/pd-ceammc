@@ -111,10 +111,6 @@ static Boolean coremidi_create_output_port();
 static void coremidi_connect_sources(int nmidiin, int* midiinvec);
 static Boolean coremidi_connect_source(DeviceInfo* dev, int portno);
 static void coremidi_disconnect_sources();
-static void coremidi_dispose_input_port();
-static void coremidi_dispose_output_port();
-static void coremidi_dispose_virtual_source();
-static void coremidi_dispose_virtual_destination();
 static void coremidi_send_packet_list(MIDIEntityRef dest, MIDIPacketList* pktlst);
 
 // MIDI parser finite state machine
@@ -516,9 +512,9 @@ void coremidi_notify(const MIDINotification* msg, void* refCon)
         case kMIDIObjectType_Source:
             coremidi_append_src_device(add_remove_msg->child);
             break;
-        case kMIDIObjectType_Destination: {
+        case kMIDIObjectType_Destination:
             coremidi_append_dest_device(add_remove_msg->child);
-        } break;
+            break;
         default:
             break;
         }
@@ -589,6 +585,21 @@ void coremidi_init()
 
     coremidi_init_sources();
     coremidi_init_destinations();
+
+    if (!coremidi_create_client())
+        return;
+
+    if (!coremidi_create_virtual_source())
+        return;
+
+    if (!coremidi_create_input_port())
+        return;
+
+    if (!coremidi_create_virtual_destination())
+        return;
+
+    if (!coremidi_create_output_port())
+        return;
 
     done = TRUE;
 }
@@ -773,63 +784,6 @@ void coremidi_disconnect_sources()
     }
 }
 
-void coremidi_dispose_input_port()
-{
-    if (input_port) {
-        OSStatus err = MIDIPortDispose(input_port);
-        if (err != noErr)
-            coremidi_print_error(err, "MIDIPortDispose");
-
-        input_port = 0;
-    }
-}
-
-void coremidi_dispose_output_port()
-{
-    if (output_port) {
-        OSStatus err = MIDIPortDispose(output_port);
-        if (err != noErr)
-            coremidi_print_error(err, "MIDIPortDispose");
-
-        output_port = 0;
-    }
-}
-
-void coremidi_dispose_virtual_source()
-{
-    if (virtual_src_output) {
-        OSStatus err = MIDIEndpointDispose(virtual_src_output);
-        if (err != noErr)
-            coremidi_print_error(err, "MIDIEndpointDispose");
-
-        coremidi_remove_dest_device(virtual_src_output);
-        virtual_src_output = 0;
-    }
-}
-
-void coremidi_dispose_virtual_destination()
-{
-    if (virtual_dest_input) {
-        OSStatus err = MIDIEndpointDispose(virtual_dest_input);
-        if (err != noErr)
-            coremidi_print_error(err, "MIDIEndpointDispose");
-
-        coremidi_remove_src_device(virtual_dest_input);
-        virtual_dest_input = 0;
-    }
-}
-
-void coremidi_dispose_client()
-{
-    if (coremidi_client) {
-        OSStatus err = MIDIClientDispose(coremidi_client);
-        if (err != noErr)
-            coremidi_print_error(err, "MIDIClientDispose");
-
-        coremidi_client = 0;
-    }
-}
-
 void coremidi_send_packet_list(MIDIEndpointRef dest, MIDIPacketList* pktlst)
 {
     if (dest == virtual_src_output) { // sending to virtual source is a special case
@@ -846,20 +800,8 @@ void coremidi_send_packet_list(MIDIEndpointRef dest, MIDIPacketList* pktlst)
 
 void sys_do_open_midi(int nmidiin, int* midiinvec, int nmidiout, int* midioutvec)
 {
-    if (!coremidi_create_client())
-        return;
-
-    if (!coremidi_create_virtual_source())
-        return;
-
-    if (!coremidi_create_input_port())
-        return;
-
-    if (!coremidi_create_virtual_destination())
-        return;
-
-    if (!coremidi_create_output_port())
-        return;
+    if (sys_verbose)
+        post("[coremidi] %s", __FUNCTION__);
 
     coremidi_connect_sources(nmidiin, midiinvec);
 
@@ -877,14 +819,12 @@ void sys_do_open_midi(int nmidiin, int* midiinvec, int nmidiout, int* midioutvec
 
 void sys_close_midi(void)
 {
-    coremidi_disconnect_sources();
-    coremidi_dispose_output_port();
-    coremidi_dispose_virtual_destination();
-    coremidi_dispose_input_port();
-    coremidi_dispose_virtual_source();
-    coremidi_dispose_client();
+    if (sys_verbose)
+        post("[coremidi] %s", __FUNCTION__);
 
-    // queue
+    coremidi_disconnect_sources();
+
+    // clear queue
     OSStatus err = CMSimpleQueueReset(input_queue);
     if (err != noErr)
         coremidi_print_error(err, "CMSimpleQueueReset");
@@ -971,6 +911,7 @@ void midi_getdevs(char* indevlist, int* nindevs,
     coremidi_init();
 
     CFRunLoopRunInMode(kCFRunLoopDefaultMode, 0, true);
+
     coremidi_getindevs(indevlist, nindevs, maxndev, devdescsize);
     coremidi_getoutdevs(outdevlist, noutdevs, maxndev, devdescsize);
 }
