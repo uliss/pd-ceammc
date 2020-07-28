@@ -26,6 +26,8 @@ void setup_conv_lin2lin();
 void setup_conv_lin2lin();
 void setup_conv_lin2lin_tilde();
 
+void setup_conv_hex2int();
+
 void ceammc_conv_setup()
 {
     setup_conv_sec2str();
@@ -54,4 +56,5 @@ void ceammc_conv_setup()
     setup_list_to_props();
 
     setup_conv_angles();
+    setup_conv_hex2int();
 }
