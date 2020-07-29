@@ -635,7 +635,8 @@ void coremidi_getindevs(char* indevlist, int* nindevs, int maxndev, int devdescs
         char* pname = &indevlist[devdescsize * n++];
 
         CFRange range = { 0, CFStringGetLength(dev_name) };
-        CFStringGetBytes(dev_name, range, kCFStringEncodingUTF8, 0, false, (UInt8*)pname, devdescsize, NULL);
+        CFIndex nbytes = CFStringGetBytes(dev_name, range, kCFStringEncodingUTF8, 0, false, (UInt8*)pname, devdescsize - 1, NULL);
+        pname[nbytes] = '\0';
         CFRelease(dev_name);
 
         if (sys_verbose)
@@ -657,7 +658,8 @@ void coremidi_getoutdevs(char* outdevlist, int* noutdevs, int maxndev, int devde
         char* pname = &outdevlist[devdescsize * n++];
 
         CFRange range = { 0, CFStringGetLength(dev_name) };
-        CFStringGetBytes(dev_name, range, kCFStringEncodingUTF8, 0, false, (UInt8*)pname, devdescsize, NULL);
+        CFIndex nbytes = CFStringGetBytes(dev_name, range, kCFStringEncodingUTF8, 0, false, (UInt8*)pname, devdescsize - 1, NULL);
+        pname[nbytes] = '\0';
         CFRelease(dev_name);
 
         if (sys_verbose)
@@ -748,7 +750,8 @@ Boolean coremidi_connect_source(DeviceInfo* dev, int portno)
 
         UInt8 buf[255];
         CFRange range = { 0, CFStringGetLength(str) };
-        CFStringGetBytes(str, range, kCFStringEncodingUTF8, 0, false, buf, sizeof(buf), NULL);
+        CFIndex nbytes = CFStringGetBytes(str, range, kCFStringEncodingUTF8, 0, false, buf, sizeof(buf) - 1, NULL);
+        buf[nbytes] = 0;
         CFRelease(str);
 
         post("[coremidi] connect to: %s", buf);
