@@ -649,16 +649,26 @@ void glob_forgetpreferences(t_pd *dummy)
     else post("couldn't delete " UNIX_CONFIG_FILENAME " file");
 #endif  /* !defined(_WIN32) && !defined(__APPLE__) */
 #ifdef __APPLE__
-    char cmdbuf[MAXPDSTRING];
-    int warn = 1;
-    if (!sys_getpreference("audioapi", cmdbuf, MAXPDSTRING))
-        post("no Pd settings to clear"), warn = 0;
-            /* do it anyhow, why not... */
-    snprintf(cmdbuf, MAXPDSTRING,
-        "defaults delete %s 2> /dev/null\n", MACOSX_CONFIG_NAME);
-    if (system(cmdbuf) && warn)
-        post("failed to erase Pd settings");
-    else if(warn) post("erased Pd settings");
+    /// ceammc
+    CFStringRef app_id = CFStringCreateWithCString(kCFAllocatorDefault, MACOSX_CONFIG_NAME, kCFStringEncodingASCII);
+    CFArrayRef keys = CFPreferencesCopyKeyList(app_id, kCFPreferencesCurrentUser, kCFPreferencesAnyHost);
+    if (keys) {
+        CFIndex n = CFArrayGetCount(keys);
+        for (CFIndex i = 0; i < n; i++) {
+            CFStringRef key = CFArrayGetValueAtIndex(keys, i);
+            CFPreferencesSetAppValue(key, NULL, app_id);
+        }
+
+        Boolean ok = CFPreferencesAppSynchronize(app_id);
+        CFRelease(keys);
+
+        if(ok)
+            post("erased Pd settings");
+        else
+            post("failed to erase Pd settings");
+    }
+    CFRelease(app_id);
+    /// ceammc
 #endif /* __APPLE__ */
 #ifdef _WIN32
     HKEY hkey;
