@@ -635,7 +635,8 @@ void coremidi_getindevs(char* indevlist, int* nindevs, int maxndev, int devdescs
         char* pname = &indevlist[devdescsize * n++];
 
         CFRange range = { 0, CFStringGetLength(dev_name) };
-        CFIndex nbytes = CFStringGetBytes(dev_name, range, kCFStringEncodingUTF8, 0, false, (UInt8*)pname, devdescsize - 1, NULL);
+        CFIndex nbytes = 0;
+        CFStringGetBytes(dev_name, range, kCFStringEncodingUTF8, 0, false, (UInt8*)pname, devdescsize - 1, &nbytes);
         pname[nbytes] = '\0';
         CFRelease(dev_name);
 
@@ -658,7 +659,8 @@ void coremidi_getoutdevs(char* outdevlist, int* noutdevs, int maxndev, int devde
         char* pname = &outdevlist[devdescsize * n++];
 
         CFRange range = { 0, CFStringGetLength(dev_name) };
-        CFIndex nbytes = CFStringGetBytes(dev_name, range, kCFStringEncodingUTF8, 0, false, (UInt8*)pname, devdescsize - 1, NULL);
+        CFIndex nbytes = 0;
+        CFStringGetBytes(dev_name, range, kCFStringEncodingUTF8, 0, false, (UInt8*)pname, devdescsize - 1, &nbytes);
         pname[nbytes] = '\0';
         CFRelease(dev_name);
 
@@ -750,7 +752,8 @@ Boolean coremidi_connect_source(DeviceInfo* dev, int portno)
 
         UInt8 buf[255];
         CFRange range = { 0, CFStringGetLength(str) };
-        CFIndex nbytes = CFStringGetBytes(str, range, kCFStringEncodingUTF8, 0, false, buf, sizeof(buf) - 1, NULL);
+        CFIndex nbytes = 0;
+        CFStringGetBytes(str, range, kCFStringEncodingUTF8, 0, false, buf, sizeof(buf) - 1, &nbytes);
         buf[nbytes] = 0;
         CFRelease(str);
 
