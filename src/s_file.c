@@ -32,8 +32,7 @@
 #ifdef _MSC_VER  /* This is only for Microsoft's compiler, not cygwin, e.g. */
 #define snprintf _snprintf
 #endif
-
-#ifdef __APPLE__
+#ifdef __APPLE__ /* needed for plist handling */
 #include <CoreFoundation/CoreFoundation.h>
 #endif
 
@@ -204,17 +203,20 @@ static void sys_initloadpreferences(void)
     if (sys_prefbuf)
         bug("sys_initloadpreferences");
 }
-static void sys_doneloadpreferences( void)
+
+static void sys_doneloadpreferences(void)
 {
     if (sys_prefbuf)
         sys_doneloadpreferences_file();
 }
-static void sys_initsavepreferences( void)
+
+static void sys_initsavepreferences(void)
 {
     if (sys_prefsavefp)
         bug("sys_initsavepreferences");
 }
-static void sys_donesavepreferences( void)
+
+static void sys_donesavepreferences(void)
 {
     if (sys_prefsavefp)
         sys_donesavepreferences_file();
@@ -700,7 +702,7 @@ int sys_oktoloadfiles(int done)
             strcmp(prefbuf, "no"))
         {
             post(
-    "skipping loading preferences... Pd seems to have crashed on startup.");
+    "skipping loading preferences... Pd seems to have crashed on startup");
             post("(re-save preferences to reinstate them)");
             return (0);
         }
