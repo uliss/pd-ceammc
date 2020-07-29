@@ -102,7 +102,7 @@ static void coremidi_read(const MIDIPacketList* lst, void* refCon, void* connRef
 static void coremidi_append_src_device(MIDIEntityRef dev);
 static void coremidi_append_dest_device(MIDIEntityRef dest);
 static int coremidi_unique_id(Boolean isInput);
-static CFStringRef coremidi_get_device_name(MIDIEndpointRef dev);
+static CFStringRef coremidi_copy_device_name(MIDIEndpointRef dev);
 static Boolean coremidi_create_client();
 static Boolean coremidi_create_virtual_source();
 static Boolean coremidi_create_virtual_destination();
@@ -604,7 +604,7 @@ void coremidi_init()
     done = TRUE;
 }
 
-CFStringRef coremidi_get_device_name(MIDIEndpointRef dev)
+CFStringRef coremidi_copy_device_name(MIDIEndpointRef dev)
 {
     CFStringRef dev_name = NULL;
     OSStatus rc = MIDIObjectGetStringProperty(dev, kMIDIPropertyDisplayName, &dev_name);
@@ -616,7 +616,11 @@ CFStringRef coremidi_get_device_name(MIDIEndpointRef dev)
         }
     }
 
-    return dev_name;
+    CFMutableStringRef safe_dev_name = CFStringCreateMutableCopy(kCFAllocatorDefault, 256, dev_name);
+    CFRange range = { 0, CFStringGetLength(safe_dev_name) };
+    CFStringFindAndReplace(safe_dev_name, CFSTR("{"), CFSTR("("), range, kCFCompareEqualTo);
+    CFStringFindAndReplace(safe_dev_name, CFSTR("}"), CFSTR(")"), range, kCFCompareEqualTo);
+    return safe_dev_name;
 }
 
 void coremidi_getindevs(char* indevlist, int* nindevs, int maxndev, int devdescsize)
@@ -624,12 +628,14 @@ void coremidi_getindevs(char* indevlist, int* nindevs, int maxndev, int devdescs
     int n = 0;
 
     for (int i = 0; i < coremidi_nsrc && i < maxndev; i++) {
-        CFStringRef dev_name = coremidi_get_device_name(coremidi_src[i].ref);
+        CFStringRef dev_name = coremidi_copy_device_name(coremidi_src[i].ref);
         if (!dev_name)
             break;
 
         char* pname = &indevlist[devdescsize * n++];
         CFStringGetCString(dev_name, pname, devdescsize, kCFStringEncodingUTF8);
+        CFRelease(dev_name);
+
         if (sys_verbose)
             post("[coremidi] (%d) source: %s", n, pname);
     }
@@ -642,12 +648,14 @@ void coremidi_getoutdevs(char* outdevlist, int* noutdevs, int maxndev, int devde
     int n = 0;
 
     for (int i = 0; i < coremidi_ndest && i < maxndev; i++) {
-        CFStringRef dev_name = coremidi_get_device_name(coremidi_dest[i]);
+        CFStringRef dev_name = coremidi_copy_device_name(coremidi_dest[i]);
         if (!dev_name)
             break;
 
         char* pname = &outdevlist[devdescsize * n++];
         CFStringGetCString(dev_name, pname, devdescsize, kCFStringEncodingUTF8);
+        CFRelease(dev_name);
+
         if (sys_verbose)
             post("[coremidi] (%d) destination: %s", n, pname);
     }
@@ -732,11 +740,12 @@ Boolean coremidi_connect_source(DeviceInfo* dev, int portno)
     dev->portno = portno;
 
     if (sys_verbose) {
-        CFStringRef str = coremidi_get_device_name(dev->ref);
+        CFStringRef str = coremidi_copy_device_name(dev->ref);
 
         char buf[255];
         CFStringGetCString(str, buf, sizeof(buf), kCFStringEncodingUTF8);
         post("[coremidi] connect to: %s", buf);
+        CFRelease(str);
     }
 
     return TRUE;
