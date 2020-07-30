@@ -247,6 +247,36 @@ struct t_pt {
     float x; /*!< The abscissa coordiante. */
     float y; /*!< The ordiante coordiante. */
 
+    constexpr t_pt()
+        : x(0)
+        , y(0)
+    {
+    }
+
+    constexpr t_pt(epath_types path, float y_)
+        : x(path)
+        , y(y_)
+    {
+    }
+
+    constexpr t_pt(eshape_types shape, float y_)
+        : x(shape)
+        , y(y_)
+    {
+    }
+
+    constexpr t_pt(float x_, float y_)
+        : x(x_)
+        , y(y_)
+    {
+    }
+
+    constexpr t_pt(double x_, double y_)
+        : x(x_)
+        , y(y_)
+    {
+    }
+
     bool operator==(const t_pt& pt) const { return x == pt.x && y == pt.y; }
     bool operator!=(const t_pt& pt) const { return !this->operator==(pt); }
 };

@@ -849,7 +849,7 @@ static void ebox_create_widget(t_ebox* x)
 
 static t_pt ebox_calc_pos(t_ebox* x, t_glist* glist)
 {
-    t_pt pos = { 0, 0 };
+    t_pt pos;
 
     if (!glist->gl_havewindow) {
         pos.x = x->b_obj.o_obj.te_xpix;
