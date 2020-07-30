@@ -161,9 +161,9 @@ TEST_CASE("ui.colorpanel", "[ui.colorpanel]")
     {
         TestExtColorPanel t("ui.colorpanel");
 
-        REQUIRE_UI_LIST_PROPERTY(t, "rgb", LF(1, 1, 1));
+        REQUIRE_UI_LIST_PROPERTY(t, "rgb", LX(1, 1, 1));
         t.mouseDown(4, 5);
-        REQUIRE_UI_LIST_PROPERTY(t, "rgb", LF(1, 1, 1));
+        REQUIRE_UI_LIST_PROPERTY(t, "rgb", LX(1, 1, 1));
         t.mouseDown(24, 35);
         REQUIRE_UI_LIST_PROPERTY(t, "rgb", LX(1, 0.692307, 0.384615));
     }

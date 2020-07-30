@@ -241,7 +241,7 @@ public:
         sendBang();
     }
 
-    void call(const char* method, float f)
+    void call(const char* method, t_float f)
     {
         clearAll();
         sendMessage(gensym(method), AtomList(Atom(f)));
