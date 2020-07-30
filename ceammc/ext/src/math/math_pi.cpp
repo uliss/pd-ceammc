@@ -30,9 +30,7 @@ MathPi::MathPi(const PdArgs& args)
 
 void MathPi::onBang()
 {
-    static const t_float v = k_->value() * PI;
-
-    floatTo(0, v);
+    floatTo(0, PI * k_->value());
 }
 
 MathPiTilde::MathPiTilde(const PdArgs& args)
