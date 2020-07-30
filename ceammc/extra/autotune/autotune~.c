@@ -41,13 +41,6 @@
 #include <math.h>
 #include "m_pd.h"
 
-#ifndef MAYER_H
-#define MAYER_H
-#define REAL t_float
-void mayer_realfft(int n, REAL *real);
-void mayer_realifft(int n, REAL *real);
-#endif
-
 #define PI (t_float)3.14159265358979323846
 #define L2SC (t_float)3.32192809488736218171
 
@@ -60,7 +53,7 @@ typedef struct
 {
 	int nfft;        // size of FFT
 	int numfreqs;    // number of frequencies represented (nfft/2 + 1)
-	float* fft_data; // array for writing/reading to/from FFT function
+        t_sample* fft_data; // array for writing/reading to/from FFT function
 } fft_vars;
 
 // Constructor for FFT routine
@@ -71,7 +64,7 @@ fft_vars* fft_con(int nfft)
 	membvars->nfft = nfft;
 	membvars->numfreqs = nfft/2 + 1;
 
-	membvars->fft_data = (float*) calloc(nfft, sizeof(float));
+        membvars->fft_data = (t_sample*) calloc(nfft, sizeof(t_sample));
 
 	return membvars;
 }
