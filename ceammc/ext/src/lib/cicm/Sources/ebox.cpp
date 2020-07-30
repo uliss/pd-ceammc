@@ -1258,7 +1258,7 @@ void ebox_dosave(t_ebox* x, t_binbuf* b)
     }
 }
 
-void ebox_pos(t_ebox* x, float newx, float newy)
+void ebox_pos(t_ebox* x, t_float newx, t_float newy)
 {
     x->b_rect.x = newx;
     x->b_rect.y = newy;

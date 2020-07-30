@@ -314,7 +314,7 @@ void ebox_dosave(t_ebox* x, t_binbuf* b);
  * \param newx      The new abscissa
  * \param newy      The new ordinate
  */
-void ebox_pos(t_ebox* x, float newx, float newy);
+void ebox_pos(t_ebox* x, t_float newx, t_float newy);
 
 //! The method to show or hide an UI ebox (PRIVATE)
 /*
