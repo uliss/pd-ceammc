@@ -3,8 +3,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Pure Data 0.47.1_ceammc\n"
 "Report-Msgid-Bugs-To: pd-dev@iem.at\n"
-"POT-Creation-Date: 2020-07-30 04:00+0300\n"
-"PO-Revision-Date: 2020-07-30 04:08+0300\n"
+"POT-Creation-Date: 2020-07-30 05:15+0300\n"
+"PO-Revision-Date: 2020-07-30 05:21+0300\n"
 "Last-Translator: Serge Poltavski <serge.poltavski@gmail.com>\n"
 "Language-Team: Russian\n"
 "Language: ru\n"
@@ -28,6 +28,11 @@ msgstr "Шрифт %s"
 #, tcl-format
 msgid "%s Properties"
 msgstr "Свойства %s"
+
+#: ../tcl/pd-gui.tcl
+#, tcl-format
+msgid "'%1$s' already loaded, ignoring: '%2$s'"
+msgstr ""
 
 #: ../tcl/pd_menus.tcl
 msgid "(Dis)Connect Selection"
@@ -57,6 +62,7 @@ msgstr "(сохраните еще раз настройки, чтобы зан�
 msgid "(same as input device)..."
 msgstr "(такие же как у входного устройства)"
 
+#: ../tcl/dialog_message.tcl
 msgid "(use arrow keys for history)"
 msgstr "(используйте стрелки для навигации по истории)"
 
@@ -92,6 +98,7 @@ msgstr ""
 msgid "------visible_rectangle(pix)(pix):------"
 msgstr ""
 
+#: ../tcl/pd_deken.tcl
 msgid "... aborting"
 msgstr ""
 
@@ -100,6 +107,7 @@ msgstr ""
 msgid "1. Unzip %s."
 msgstr "Распаковка %s."
 
+#: ../tcl/pd_deken.tcl
 #, tcl-format
 msgid "1. unzip %s"
 msgstr "1. распаковка %s"
@@ -113,6 +121,7 @@ msgstr "1:"
 msgid "2. Copy the contents into %s."
 msgstr "2. Копирую содержимое в %s."
 
+#: ../tcl/pd_deken.tcl
 #, tcl-format
 msgid "2. copy the contents into %s"
 msgstr "2. копирование содержимого в %s"
@@ -582,9 +591,24 @@ msgstr "Экспортировать патч в SVG..."
 msgid "Externals Install Directory"
 msgstr "Каталог установки расширений"
 
+#: ../tcl/pd-gui.tcl
+#, tcl-format
+msgid "FAILED TO LOAD %s"
+msgstr "НЕВОЗМОЖНО ЗАГРУЗИТЬ %s"
+
 #: ../tcl/pd_menus.tcl
 msgid "FLOSS Manual..."
 msgstr "FLOSS руководство..."
+
+#: ../tcl/pd-gui.tcl
+#, tcl-format
+msgid "Failed to find plugins in %s ...skipping!"
+msgstr "Не удалось найти плагины в %s ... пропуск!"
+
+#: ../tcl/pd-gui.tcl
+#, tcl-format
+msgid "Failed to read plugin %s ...skipping!"
+msgstr "Не удалось прочитать плагин %s ... Пропуск!"
 
 #: pd_dynamic_strings.tcl
 msgid "File"
@@ -860,6 +884,11 @@ msgstr "Индикатор загрузки"
 #: ../tcl/pd_menus.tcl
 msgid "Load from..."
 msgstr "Загрузить из..."
+
+#: ../tcl/pd-gui.tcl
+#, tcl-format
+msgid "Loading plugin: %s"
+msgstr ""
 
 #: ../tcl/dialog_iemgui.tcl
 msgid "Log height:"
@@ -1671,6 +1700,11 @@ msgstr "Пытаться удалить установленные библио�
 msgid "Try using the full name e.g. 'freeverb'."
 msgstr "Попробуйте использовать полное имя, например ‘freeverb’."
 
+#: ../tcl/pd-gui.tcl
+#, tcl-format
+msgid "UNHANDLED ERROR: %s"
+msgstr ""
+
 #: ../ceammc/ext/src/ui/ui_link.cpp
 msgid "URL"
 msgstr "URL"
@@ -1820,6 +1854,18 @@ msgstr ""
 msgid "WARNING: Font weight '%s' not found, using default (%s)\n"
 msgstr ""
 "ВНИМАНИЕ: Жирность шрифта «%s» не найдена, используется по умолчанию (%s)\n"
+
+#: ../tcl/pd-gui.tcl
+#, tcl-format
+msgid "WARNING: font family '%s' not found, using default (%s)\n"
+msgstr ""
+"ВНИМАНИЕ: Шрифт ‘%s’ не найден, используется шрифт по умолчанию (%s)\n"
+
+#: ../tcl/pd-gui.tcl
+#, tcl-format
+msgid "WARNING: font weight '%s' not found, using default (%s)\n"
+msgstr ""
+"ВНИМАНИЕ: Толщина шрифта ‘%s’ не найдена, используется по умолчанию (%s)\n"
 
 #: ../tcl/dialog_canvas.tcl
 msgid "WARNING: unknown graphme flags received in pdtk_canvas_dialog"
@@ -1977,6 +2023,7 @@ msgstr ""
 msgid "aborting.\n"
 msgstr ""
 
+#: ../tcl/pd_deken.tcl
 #, tcl-format
 msgid "added %s to search paths"
 msgstr "добавлен %s к путям поиска"
@@ -2006,6 +2053,7 @@ msgstr "снизу:"
 msgid "center"
 msgstr "по центру"
 
+#: ../tcl/pd_deken.tcl
 #, tcl-format
 msgid ""
 "commencing downloading of:\n"
@@ -2016,10 +2064,12 @@ msgstr ""
 "%1$s\n"
 "в %2$s..."
 
+#: ../tcl/pd_docsdir.tcl
 #, tcl-format
 msgid "couldn't create \"externals\" directory in: %s\n"
 msgstr "невозможно создать каталог «externals» в %s\n"
 
+#: ../tcl/pd_docsdir.tcl
 #, tcl-format
 msgid "couldn't create Pd documents directory: %s\n"
 msgstr "невозможно создать каталог для Pd документов: %s\n"
@@ -2032,6 +2082,7 @@ msgstr "невозможно удалить файл .pdsettings"
 msgid "debug"
 msgstr "отладка"
 
+#: ../tcl/pd_deken.tcl
 #, tcl-format
 msgid "deken-plugin.tcl (Pd externals search) loaded from %s"
 msgstr "deken-plugin.tcl (поиск расширений Pd) загружен из %s"
@@ -2092,22 +2143,27 @@ msgstr "высота:"
 msgid "hold:"
 msgstr ""
 
+#: ../tcl/wheredoesthisgo.tcl
 #, tcl-format
 msgid "ignoring '%s': doesn't exist"
 msgstr "игнорирование \" %s\": не существует"
 
+#: ../tcl/wheredoesthisgo.tcl
 #, tcl-format
 msgid "ignoring '%s': doesn't look like a Pd file"
 msgstr "пропускаю ‘%s’: не формат Pd-файла"
 
+#: ../tcl/pd_deken.tcl
 #, tcl-format
 msgid "installed version [%1$s] < %2$s...overwriting!"
 msgstr "установленная версия [%1$s] < %2$s…перезаписываю!"
 
+#: ../tcl/pd_deken.tcl
 #, tcl-format
 msgid "installed version [%1$s] == %2$s...skipping!"
 msgstr "установленная версия [%1$s] == %2$s…пропускаю!"
 
+#: ../tcl/pd_deken.tcl
 #, tcl-format
 msgid "installed version [%1$s] > %2$s...skipping!"
 msgstr "установленная версия [%1$s] > %2$s… пропускаю!"
@@ -2192,6 +2248,7 @@ msgstr "нет настроек для очистки"
 msgid "no Pd settings to erase"
 msgstr "нет настроек для удаления"
 
+#: ../tcl/pd_deken.tcl
 msgid "no matching externals found"
 msgstr "подходящие расширения не найдены"
 
@@ -2199,18 +2256,22 @@ msgstr "подходящие расширения не найдены"
 msgid "normal"
 msgstr "обычный"
 
+#: ../tcl/pd_deken.tcl
 #, tcl-format
 msgid "online? %s"
 msgstr "онлайн? %s"
 
+#: ../tcl/pd_deken.tcl
 #, tcl-format
 msgid "platform detected: %s"
 msgstr "платформа определена: %s"
 
+#: ../tcl/pd_deken.tcl
 #, tcl-format
 msgid "platform re-detected: %s"
 msgstr "платформа определена заново: %s"
 
+#: ../tcl/pd_deken.tcl
 msgid "please perform the following steps manually:"
 msgstr "пожалуйста, сделайте вручную следующие шаги:"
 
@@ -2273,9 +2334,11 @@ msgid "skipping loading preferences... Pd seems to have crashed on startup"
 msgstr ""
 "пропускаю загрузку настроек... Возможно прошлый запуск Pd был с ошибкой"
 
+#: ../tcl/pd_deken.tcl
 msgid "start searching for externals..."
 msgstr "начинаю поиск расширений..."
 
+#: ../tcl/pd_deken.tcl
 #, tcl-format
 msgid "successfully unzipped %1$s into %2$s"
 msgstr "файл %1$s успешно распакован в директорию %2$s"
@@ -2292,35 +2355,44 @@ msgstr "вверху по центру"
 msgid "top:"
 msgstr "сверху:"
 
+#: ../tcl/pd_deken.tcl
 msgid "try using the full name e.g. 'freeverb'"
 msgstr "попробуйте использовать полное имя, например ‘freeverb’."
 
+#: ../tcl/pd_deken.tcl
 #, tcl-format
 msgid "unable to add %s to search paths"
 msgstr "невозможно добавить %s в пути поиска"
 
+#: ../tcl/pd_deken.tcl
 #, tcl-format
 msgid "unable to download from %1$s [%2$s]"
 msgstr "невозможно загрузить из %1$s [%2$s]"
 
+#: ../tcl/pd_deken.tcl
 msgid "unable to extract package automatically"
 msgstr "невозможно распаковать пакет автоматически"
 
+#: ../tcl/pd_deken.tcl
 msgid "unable to perform search"
 msgstr "невозможно выполнить поиск"
 
+#: ../tcl/pd_deken.tcl
 #, tcl-format
 msgid "unable to remove stray file %s"
 msgstr "невозможно удалить оставшийся файл %s"
 
+#: ../tcl/pd_deken.tcl
 #, tcl-format
 msgid "unable to rename downloaded file to %s"
 msgstr "невозможно переименовать загруженный файл в %s"
 
+#: ../tcl/pd_deken.tcl
 #, tcl-format
 msgid "uninstalling %1$s from %2$s failed!"
 msgstr "не удалось удалить %1$s из %2$s!"
 
+#: ../tcl/pd_deken.tcl
 #, tcl-format
 msgid "uninstalling '%s'"
 msgstr "удаление ’%s’"
