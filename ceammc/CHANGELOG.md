@@ -12,6 +12,7 @@
 - random.pw_const @seed property added to gen reproducible random sequences
 - random.pw_lin @seed property added to gen reproducible random sequences
 - random.discrete @seed property added to gen reproducible random sequences
+- ui.toggle @on_value/@off_value properties added
 
 ### Changed:
 - ext_info output format changed.

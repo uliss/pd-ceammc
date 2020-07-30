@@ -4,7 +4,9 @@
 
 UIToggle::UIToggle()
     : prop_color_active(rgba_black)
-    , value_(0)
+    , prop_value_on_(1)
+    , prop_value_off_(0)
+    , value_(false)
 {
     createOutlet();
 }
@@ -16,7 +18,7 @@ t_float UIToggle::value() const
 
 void UIToggle::setValue(t_float v)
 {
-    value_ = v;
+    value_ = (v != 0);
 }
 
 void UIToggle::flip()
@@ -26,8 +28,9 @@ void UIToggle::flip()
 
 void UIToggle::output()
 {
-    floatTo(0, value());
-    send(value());
+    const t_float v = value() ? prop_value_on_ : prop_value_off_;
+    floatTo(0, v);
+    send(v);
 }
 
 void UIToggle::okSize(t_rect* newrect)
@@ -109,6 +112,9 @@ void UIToggle::setup()
 
     obj.addProperty("active_color", _("Active Color"), DEFAULT_ACTIVE_COLOR, &UIToggle::prop_color_active);
     obj.addProperty("value", &UIToggle::value, &UIToggle::setValue);
+
+    obj.addFloatProperty("on_value", _("On value"), 1, &UIToggle::prop_value_on_, _("Main"));
+    obj.addFloatProperty("off_value", _("Off value"), 0, &UIToggle::prop_value_off_, _("Main"));
 }
 
 void UIToggle::redrawAll()
