@@ -66,8 +66,8 @@ public:
     typedef void (UI::*bangMethodPtr)();
     typedef void (UI::*floatMethodPtr)(t_float);
     typedef void (UI::*listMethodPtr)(const AtomList&);
-    typedef float (UI::*propFloatGet)() const;
-    typedef void (UI::*propFloatSet)(float);
+    typedef t_float (UI::*propFloatGet)() const;
+    typedef void (UI::*propFloatSet)(t_float);
     typedef AtomList (UI::*propListGet)() const;
     typedef void (UI::*propListSet)(const AtomList&);
     typedef std::pair<propFloatGet, propFloatSet> propertyFloatAccess;
@@ -538,8 +538,8 @@ public:
      * @param setter - member pointer to setter function
      */
     void addHiddenFloatCbProperty(const char* name,
-        float (UI::*getter)() const,
-        void (UI::*setter)(float))
+        t_float (UI::*getter)() const,
+        void (UI::*setter)(t_float))
     {
         eclass_new_attr_typed(pd_class, name, "float", 1, 0, 0);
         eclass_attr_invisible(pd_class, name);
@@ -561,7 +561,7 @@ public:
         setPropertyAccessor(name, getter, setter);
     }
 
-    void addProperty(const char* name, const char* label, float def, float UI::*m, const char* category = "Misc")
+    void addProperty(const char* name, const char* label, t_float def, t_float UI::*m, const char* category = "Misc")
     {
         char buf[32];
         snprintf(buf, 30, "%g", def);
@@ -641,12 +641,12 @@ public:
         eclass_attr_category(pd_class, name, category);
     }
 
-    void setPropertyMin(const char* name, float v)
+    void setPropertyMin(const char* name, t_float v)
     {
         eclass_attr_filter_min(pd_class, name, v);
     }
 
-    void setPropertyMax(const char* name, float v)
+    void setPropertyMax(const char* name, t_float v)
     {
         eclass_attr_filter_max(pd_class, name, v);
     }
@@ -656,7 +656,7 @@ public:
         eclass_attr_label(pd_class, name, label);
     }
 
-    void setPropertyRange(const char* name, float min, float max)
+    void setPropertyRange(const char* name, t_float min, t_float max)
     {
         setPropertyMin(name, min);
         setPropertyMax(name, max);
@@ -672,7 +672,7 @@ public:
         eclass_attr_default(pd_class, name, def);
     }
 
-    void setPropertyStep(const char* name, float step)
+    void setPropertyStep(const char* name, t_float step)
     {
         eclass_attr_step(pd_class, name, step);
     }
@@ -701,8 +701,8 @@ public:
     }
 
     void addProperty(const char* name,
-        float (UI::*getter)() const,
-        void (UI::*setter)(float))
+        t_float (UI::*getter)() const,
+        void (UI::*setter)(t_float))
     {
         eclass_new_attr_typed(pd_class, name, "float", 1, 0, 0);
         eclass_attr_invisible(pd_class, name);
@@ -746,7 +746,7 @@ public:
         eclass_attr_itemlist(pd_class, name, items);
     }
 
-    void setPropertyAccessor(const char* name, float (UI::*getter)() const, void (UI::*setter)(float))
+    void setPropertyAccessor(const char* name, t_float (UI::*getter)() const, void (UI::*setter)(t_float))
     {
         t_err_method m = reinterpret_cast<t_err_method>(setter != nullptr ? floatPropSetter : nullptr);
         eclass_attr_accessor(pd_class, name, (t_err_method)floatPropGetter, m);
@@ -883,7 +883,7 @@ public:
         outputMouse(z, SYM, false);
     }
 
-    static void mouseWheel(UI* z, t_pt pt, long modifiers, float delta)
+    static void mouseWheel(UI* z, t_pt pt, long modifiers, t_float delta)
     {
         z->onMouseWheel(mouse_pos_, modifiers, delta);
     }
@@ -1020,7 +1020,7 @@ public:
 
     static void customMethodList(UI* z, t_symbol* s, int argc, t_atom* argv)
     {
-        typename ListMethodMap::iterator it = list_map.find(s);
+        auto it = list_map.find(s);
         if (it == list_map.end()) {
             pd_error(z->asPdObject(), "[%s] unknown method: %s", z->name()->s_name, s->s_name);
             return;
@@ -1041,7 +1041,7 @@ public:
         if (argc < 1)
             return;
 
-        typename FloatMethodMap::iterator it = float_map.find(s);
+        auto it = float_map.find(s);
         if (it == float_map.end()) {
             pd_error(z->asPdObject(), "[%s] unknown method: %s", z->name()->s_name, s->s_name);
             return;
@@ -1082,7 +1082,7 @@ public:
 
     static t_pd_err floatPropGetter(UI* z, t_eattr* attr, int* argc, t_atom** argv)
     {
-        typename FloatPropertyMap::iterator it = prop_float_map.find(attr->name);
+        auto it = prop_float_map.find(attr->name);
         if (it == prop_float_map.end())
             return 1;
 
@@ -1103,7 +1103,7 @@ public:
 
     static t_pd_err floatPropSetter(UI* z, t_eattr* attr, int argc, t_atom* argv)
     {
-        typename FloatPropertyMap::iterator it = prop_float_map.find(attr->name);
+        auto it = prop_float_map.find(attr->name);
         if (it == prop_float_map.end())
             return 1;
 

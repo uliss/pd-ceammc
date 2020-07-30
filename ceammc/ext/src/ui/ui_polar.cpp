@@ -361,7 +361,7 @@ bool UIPolar::setRealValue(const AtomList& lst)
     if (lst.size() != 2)
         return false;
 
-    float r, a;
+    t_float r, a;
     if (!lst[0].getFloat(&r) || !lst[1].getFloat(&a)) {
         UI_ERR << "invalid value: " << lst;
         return false;
@@ -428,7 +428,7 @@ AtomList UIPolar::propAngle() const
 
 void UIPolar::propSetRadius(const AtomList& lst)
 {
-    float r;
+    t_float r;
 
     if (lst.empty() || !lst[0].getFloat(&r)) {
         UI_ERR << "radius float value expected: " << lst;
@@ -441,7 +441,7 @@ void UIPolar::propSetRadius(const AtomList& lst)
 
 void UIPolar::propSetAngle(const AtomList& lst)
 {
-    float a;
+    t_float a;
 
     if (lst.empty() || !lst[0].getFloat(&a)) {
         UI_ERR << "angle float value expected: " << lst;

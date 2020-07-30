@@ -1290,12 +1290,12 @@ void UIPlotTilde::onMouseDown(t_object*, const t_pt& pt, const t_pt& abs_pt, lon
     }
 }
 
-float UIPlotTilde::propNumInputs() const
+t_float UIPlotTilde::propNumInputs() const
 {
     return prop_nins_;
 }
 
-void UIPlotTilde::propSetNumInputs(float n)
+void UIPlotTilde::propSetNumInputs(t_float n)
 {
     prop_nins_ = clip<int, MIN_INPUTS, MAX_INPUTS>(n);
     int dspState = canvas_suspend_dsp();

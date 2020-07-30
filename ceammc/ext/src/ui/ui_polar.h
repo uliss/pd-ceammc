@@ -23,8 +23,8 @@ class UIPolar : public UIObject {
     UITextLayout txt_radius_;
     UITextLayout txt_angle_;
     UILayer knob_layer_;
-    float radius_;
-    float angle_;
+    t_float radius_;
+    t_float angle_;
     t_symbol* prop_direction_;
     bool mouse_down_;
     int prop_clockwise_;

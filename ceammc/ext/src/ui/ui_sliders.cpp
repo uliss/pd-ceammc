@@ -296,14 +296,14 @@ void UISliders::setRealValueAt(size_t n, t_float v)
     pos_values_[n] = clip<float, 0, 1>((v - prop_min) / (prop_max - prop_min));
 }
 
-float UISliders::realValueAt(size_t n) const
+t_float UISliders::realValueAt(size_t n) const
 {
     return pos_values_[n] * (prop_max - prop_min) + prop_min;
 }
 
 bool UISliders::setRealValues(const AtomList& l)
 {
-    float range = prop_max - prop_min;
+    t_float range = prop_max - prop_min;
 
     if (l.empty()) {
         UI_ERR << "empty list given";
@@ -311,8 +311,8 @@ bool UISliders::setRealValues(const AtomList& l)
     }
 
     if (prop_auto_range) {
-        float min = l.min()->asFloat(0);
-        float max = l.max()->asFloat(1);
+        auto min = l.min()->asFloat(0);
+        auto max = l.max()->asFloat(1);
         range = max - min;
 
         if (range == 0.f) {
@@ -332,7 +332,7 @@ bool UISliders::setRealValues(const AtomList& l)
 
     const size_t N = std::min(l.size(), pos_values_.size());
     for (size_t i = 0; i < N; i++) {
-        float f = 0;
+        t_float f = 0;
 
         if (!l[i].getFloat(&f))
             UI_ERR << "float value expected: " << l[i];
@@ -344,31 +344,31 @@ bool UISliders::setRealValues(const AtomList& l)
     return true;
 }
 
-float UISliders::propCount() const
+t_float UISliders::propCount() const
 {
     return pos_values_.size();
 }
 
-void UISliders::setPropCount(float f)
+void UISliders::setPropCount(t_float f)
 {
     prop_count = clip<int>(f, 1, MAX_SLIDERS_NUM);
     pos_values_.resize(prop_count, prop_min);
     redrawAll();
 }
 
-float UISliders::propAutoRange() const
+t_float UISliders::propAutoRange() const
 {
     return prop_auto_range;
 }
 
-void UISliders::setPropAutoRange(float f)
+void UISliders::setPropAutoRange(t_float f)
 {
     prop_auto_range = (f) ? 1 : 0;
     if (prop_auto_range && !isPatchLoading())
         normalize();
 }
 
-float UISliders::propRange() const
+t_float UISliders::propRange() const
 {
     return prop_max - prop_min;
 }

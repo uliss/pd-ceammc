@@ -224,7 +224,7 @@ void UISlider2D::m_move(const AtomList& lst)
         return;
     }
 
-    float x, y;
+    t_float x, y;
     if (!lst[0].getFloat(&x) || !lst[1].getFloat(&y)) {
         UI_ERR << "float offsets are expected: " << lst;
         return;
@@ -253,7 +253,7 @@ bool UISlider2D::setRealValue(const AtomList& lst)
     if (lst.size() != 2)
         return false;
 
-    float x, y;
+    t_float x, y;
     if (!lst[0].getFloat(&x) || !lst[1].getFloat(&y)) {
         UI_ERR << "invalid value: " << lst;
         return false;
@@ -313,7 +313,7 @@ AtomList UISlider2D::propYValue() const
 
 void UISlider2D::propSetXValue(const AtomList& lst)
 {
-    float x;
+    t_float x;
     if (lst.empty() || !lst[0].getFloat(&x)) {
         UI_ERR << "x float value expected: " << lst;
         return;
@@ -331,7 +331,7 @@ void UISlider2D::propSetXValue(const AtomList& lst)
 
 void UISlider2D::propSetYValue(const AtomList& lst)
 {
-    float y;
+    t_float y;
     if (lst.empty() || !lst[0].getFloat(&y)) {
         UI_ERR << "y float value expected: " << lst;
         return;
@@ -391,10 +391,10 @@ void UISlider2D::redrawAll()
     redraw();
 }
 
-void UISlider2D::setMouse(float x, float y)
+void UISlider2D::setMouse(t_float x, t_float y)
 {
-    x_pos_ = convert::lin2lin_clip<float>(x, 0, width(), prop_x_left, prop_x_right);
-    y_pos_ = convert::lin2lin_clip<float>(y, 0, height(), prop_y_top, prop_y_bottom);
+    x_pos_ = convert::lin2lin_clip<t_float>(x, 0, width(), prop_x_left, prop_x_right);
+    y_pos_ = convert::lin2lin_clip<t_float>(y, 0, height(), prop_y_top, prop_y_bottom);
 }
 
 void UISlider2D::updateLabels()

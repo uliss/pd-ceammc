@@ -3,18 +3,18 @@
 #include "ceammc_ui.h"
 
 UIToggle::UIToggle()
-    : value_(0)
-    , prop_color_active(rgba_black)
+    : prop_color_active(rgba_black)
+    , value_(0)
 {
     createOutlet();
 }
 
-float UIToggle::value() const
+t_float UIToggle::value() const
 {
     return value_ ? 1 : 0;
 }
 
-void UIToggle::setValue(float v)
+void UIToggle::setValue(t_float v)
 {
     value_ = v;
 }

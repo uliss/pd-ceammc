@@ -21,10 +21,10 @@
 using namespace ceammc;
 
 class UISlider2D : public UIObject {
-    float prop_x_left;
-    float prop_x_right;
-    float prop_y_top;
-    float prop_y_bottom;
+    t_float prop_x_left;
+    t_float prop_x_right;
+    t_float prop_y_top;
+    t_float prop_y_bottom;
     int prop_show_range;
     int prop_show_grid;
 
@@ -33,8 +33,8 @@ private:
     UITextLayout txt_xrange_;
     UITextLayout txt_yrange_;
     UILayer knob_layer_;
-    float x_pos_;
-    float y_pos_;
+    t_float x_pos_;
+    t_float y_pos_;
     bool mouse_down_;
 
 public:
@@ -78,7 +78,7 @@ public:
 public:
     static void setup();
 
-    void setMouse(float x, float y);
+    void setMouse(t_float x, t_float y);
     void updateLabels();
 
 private:

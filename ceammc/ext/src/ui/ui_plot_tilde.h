@@ -105,8 +105,8 @@ public:
     void onInlet(const AtomList& args);
     void onMouseDown(t_object*, const t_pt& pt, const t_pt& abs_pt, long modifiers);
 
-    float propNumInputs() const;
-    void propSetNumInputs(float n);
+    t_float propNumInputs() const;
+    void propSetNumInputs(t_float n);
 
 public:
     static void setup();

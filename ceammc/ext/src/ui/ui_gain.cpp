@@ -253,13 +253,13 @@ void UIGain::onDblClick(t_object* view, const t_pt& pt, long modifiers)
         onMouseDown(view, pt, {}, modifiers);
 }
 
-void UIGain::onMouseWheel(const t_pt& pt, long modifiers, float delta)
+void UIGain::onMouseWheel(const t_pt& pt, long modifiers, t_float delta)
 {
-    float k = 0.01;
+    t_float k = 0.01;
     if (modifiers & EMOD_SHIFT)
         k *= 0.1;
 
-    knob_phase_ = clip<float, 0, 1>(knob_phase_ + delta * k);
+    knob_phase_ = clip<t_float, 0, 1>(knob_phase_ + delta * k);
     redrawBGLayer();
 
     if (prop_output_value)

@@ -51,10 +51,10 @@ public:
     void showPopup(const t_pt& pt, const t_pt& abs_pt);
 
     // props
-    float p_numItems() const;
-    void p_setNumItems(float n);
-    float p_mode() const;
-    void p_setMode(float p_mode);
+    t_float p_numItems() const;
+    void p_setNumItems(t_float n);
+    t_float p_mode() const;
+    void p_setMode(t_float p_mode);
     AtomList p_value() const;
     void p_setValue(const AtomList& lst);
 
