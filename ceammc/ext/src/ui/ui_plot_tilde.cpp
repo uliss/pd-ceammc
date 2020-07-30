@@ -1304,9 +1304,9 @@ void UIPlotTilde::propSetNumInputs(t_float n)
     prop_nins_ = clip<int, MIN_INPUTS, MAX_INPUTS>(n);
     int dspState = canvas_suspend_dsp();
 
-    eobj_resize_inputs(asEBox(), 0);
-    eobj_resize_inputs(asEBox(), prop_nins_);
-    eobj_resize_inputs(asEBox(), n + 1, &s_list, gensym("_inlet_2"));
+    eobj_resize_inputs(asEObj(), 0);
+    eobj_resize_inputs(asEObj(), prop_nins_);
+    eobj_resize_inputs(asEObj(), n + 1, &s_list, gensym("_inlet_2"));
 
     canvas_update_dsp();
     canvas_resume_dsp(dspState);

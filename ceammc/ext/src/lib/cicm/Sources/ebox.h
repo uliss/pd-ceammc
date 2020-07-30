@@ -121,7 +121,7 @@ bool ebox_isvisible(t_ebox* x);
  * \param x The t_ebox pointer.
  * \param d The binbuf pointer.
  */
-void ebox_attrprocess_viabinbuf(void* x, t_binbuf* d);
+void ebox_attrprocess_viabinbuf(t_ebox* x, t_binbuf* d);
 
 /*!
  * \fn      void ebox_attrprocess_viatoms(void *x, int argc, t_atom *argv)
@@ -131,7 +131,7 @@ void ebox_attrprocess_viabinbuf(void* x, t_binbuf* d);
  * \param argc The number of atoms.
  * \param argv The pointer to the atoms.
  */
-void ebox_attrprocess_viatoms(void* x, int argc, t_atom* argv);
+void ebox_attrprocess_viatoms(t_ebox* x, int argc, t_atom* argv);
 
 /*!
  * \fn      void ebox_set_cursor(t_ebox* x, int cursor)

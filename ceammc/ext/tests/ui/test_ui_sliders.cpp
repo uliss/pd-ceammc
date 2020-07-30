@@ -293,8 +293,8 @@ TEST_CASE("ui.sliders", "[ui.sliders]")
     {
         TestExtSliders t("ui.sliders");
 
-        t.call("+", 0.1);
-        REQUIRE_UI_LIST_PROPERTY(t, "value", AtomList::filled(0.1, 8));
+        t.call("+", 0.125);
+        REQUIRE_UI_LIST_PROPERTY(t, "value", AtomList::filled(0.125, 8));
         t.call("+", 2);
         REQUIRE_UI_LIST_PROPERTY(t, "value", AtomList::ones(8));
 
@@ -353,14 +353,14 @@ TEST_CASE("ui.sliders", "[ui.sliders]")
         t << BANG;
         REQUIRE_LIST_WAS_SEND(t, "r1", AtomList::zeroes(8));
 
-        t << LF(0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8);
-        REQUIRE_LIST_WAS_SEND(t, "r1", LF(0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8));
+        t << LF(0.125, 0.25, 0.375, 0.5, 0.625, 0.75, 0.875, 1);
+        REQUIRE_LIST_WAS_SEND(t, "r1", LX(0.125, 0.25, 0.375, 0.5, 0.625, 0.75, 0.875, 1));
 
         t.call("fill", 0.5);
         t << BANG;
-        REQUIRE_LIST_WAS_SEND(t, "r1", AtomList::filled(0.5f, 8));
+        REQUIRE_LIST_WAS_SEND(t, "r1", AtomList::filled(0.5, 8));
 
-        t.mouseDown(10, 30);
-        REQUIRE_LIST_WAS_SEND(t, "r1", LF(0.7) + AtomList::filled(0.5f, 7));
+        t.mouseDown(10, 25);
+        REQUIRE_LIST_WAS_SEND(t, "r1", LF(0.75) + AtomList::filled(0.5, 7));
     }
 }

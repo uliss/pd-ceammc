@@ -190,6 +190,6 @@ TEST_CASE("ui.toggle", "[ui.toggle]")
         REQUIRE_OUTPUT_FLOAT(t, 0, -1);
         t->onFloat(-1);
         REQUIRE(t->value() == 1);
-        REQUIRE_OUTPUT_FLOAT(t, 0, -1);
+        REQUIRE_OUTPUT_FLOAT(t, 0, 0.5);
     }
 }

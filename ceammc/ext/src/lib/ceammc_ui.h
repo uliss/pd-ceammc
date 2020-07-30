@@ -124,8 +124,8 @@ public:
 
             ebox_new(x->asEBox(), 0 | flags);
             dspInit(x);
-            ebox_attrprocess_viabinbuf(x, d);
-            ebox_ready((t_ebox*)x);
+            ebox_attrprocess_viabinbuf(x->asEBox(), d);
+            ebox_ready(x->asEBox());
             binbuf_free(d);
 
             x->init(s, AtomList(argc, argv), use_presets);
@@ -564,7 +564,7 @@ public:
     void addProperty(const char* name, const char* label, t_float def, t_float UI::*m, const char* category = "Misc")
     {
         char buf[32];
-        snprintf(buf, 30, "%g", def);
+        snprintf(buf, sizeof(buf) - 1, "%g", def);
 
         eclass_new_attr_typed(pd_class, name, "float", 1, 0, offset(m));
         eclass_attr_label(pd_class, name, label);

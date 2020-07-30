@@ -93,7 +93,7 @@ static void layers_erase(t_ebox* x);
 static void ebox_erase(t_ebox* x);
 static void ebox_select(t_ebox* x);
 static void ebox_move(t_ebox* x);
-static void ebox_attrprocess_default(void* x);
+static void ebox_attrprocess_default(t_ebox *x);
 static void ebox_newzoom(t_ebox* x);
 static void elayer_free_content(t_elayer& l);
 
@@ -470,13 +470,13 @@ void ebox_new(t_ebox* x, long flags)
 
     x->wis_canvas = nullptr;
 
-    eobj_getclass(x)->c_widget.w_dosave = reinterpret_cast<t_typ_method>(ebox_dosave);
+    eobj_getclass(&x->b_obj)->c_widget.w_dosave = reinterpret_cast<t_typ_method>(ebox_dosave);
     ebox_attrprocess_default(x);
 }
 
 void ebox_ready(t_ebox* x)
 {
-    t_eclass* c = eobj_getclass(x);
+    t_eclass* c = eobj_getclass(&x->b_obj);
     x->b_selected_item = EITEM_NONE;
     x->b_selected_box = 0;
     x->b_selected_inlet = -1;
@@ -501,17 +501,17 @@ void ebox_ready(t_ebox* x)
 
 void ebox_free(t_ebox* x)
 {
-    eobj_free(x);
+    eobj_free(&x->b_obj);
     if (x->b_receive_id && x->b_receive_id != s_null) {
         // replace #n => $d
         t_symbol* sname_dollar = gensym(ceammc_raute2dollar(x->b_receive_id->s_name).c_str());
-        t_symbol* sname = canvas_realizedollar(eobj_getcanvas(x), sname_dollar);
+        t_symbol* sname = canvas_realizedollar(eobj_getcanvas(&x->b_obj), sname_dollar);
         pd_unbind(&x->b_obj.o_obj.te_g.g_pd, sname);
     }
     gfxstub_deleteforkey(x);
-    if (eobj_isdsp(x)) {
-        eobj_dspfree(x);
-    }
+
+    if (eobj_isdsp(&x->b_obj))
+        eobj_dspfree(&x->b_obj);
 }
 
 t_symbol* ebox_getfontname(t_ebox* x)
@@ -538,7 +538,7 @@ t_pd* ebox_getsender(t_ebox* x)
 {
     if (x->b_send_id && x->b_send_id != s_null) {
         t_symbol* dollar_sname = gensym(ceammc_raute2dollar(x->b_send_id->s_name).c_str());
-        t_symbol* sname = canvas_realizedollar(eobj_getcanvas(x), dollar_sname);
+        t_symbol* sname = canvas_realizedollar(eobj_getcanvas(&x->b_obj), dollar_sname);
 
         if (sname && sname->s_thing)
             return sname->s_thing;
@@ -549,7 +549,7 @@ t_pd* ebox_getsender(t_ebox* x)
 
 bool ebox_isdrawable(t_ebox* x)
 {
-    if (eobj_isbox(x) && x->b_obj.o_canvas) {
+    if (eobj_isbox(&x->b_obj) && x->b_obj.o_canvas) {
         if (x->b_ready_to_draw && glist_isvisible(x->b_obj.o_canvas)) {
             return true;
         }
@@ -565,18 +565,18 @@ void ebox_set_cursor(t_ebox* x, t_cursor cursor)
     }
 }
 
-void ebox_attrprocess_viatoms(void* x, int argc, t_atom* argv)
+void ebox_attrprocess_viatoms(t_ebox *x, int argc, t_atom* argv)
 {
     char buffer[MAXPDSTRING] = "@";
     int defc = 0;
     t_atom* defv = nullptr;
-    t_eclass* c = eobj_getclass(x);
+    t_eclass* c = eobj_getclass(&x->b_obj);
 
     for (size_t i = 0; i < c->c_nattr; i++) {
         strcpy(&buffer[1], c->c_attr[i]->name->s_name); // append to buffer preserving initial '@'
         atoms_get_attribute(argc, argv, gensym(buffer), &defc, &defv);
         if (defc && defv) {
-            eobj_attr_setvalueof(x, c->c_attr[i]->name, defc, defv);
+            eobj_attr_setvalueof(&x->b_obj, c->c_attr[i]->name, defc, defv);
             defc = 0;
             free(defv);
             defv = nullptr;
@@ -584,18 +584,18 @@ void ebox_attrprocess_viatoms(void* x, int argc, t_atom* argv)
     }
 }
 
-void ebox_attrprocess_viabinbuf(void* x, t_binbuf* d)
+void ebox_attrprocess_viabinbuf(t_ebox *x, t_binbuf* d)
 {
     char attr_name[MAXPDSTRING] = "@";
 
     int defc = 0;
     t_atom* defv = nullptr;
-    t_eclass* c = eobj_getclass(x);
+    t_eclass* c = eobj_getclass(&x->b_obj);
     for (size_t i = 0; i < c->c_nattr; i++) {
         strcpy(&attr_name[1], c->c_attr[i]->name->s_name);
         binbuf_get_attribute(d, gensym(attr_name), &defc, &defv);
         if (defc && defv) {
-            eobj_attr_setvalueof(x, c->c_attr[i]->name, defc, defv);
+            eobj_attr_setvalueof(&x->b_obj, c->c_attr[i]->name, defc, defv);
             defc = 0;
             free(defv);
             defv = nullptr;
@@ -603,9 +603,9 @@ void ebox_attrprocess_viabinbuf(void* x, t_binbuf* d)
     }
 }
 
-static void ebox_attrprocess_default(void* x)
+static void ebox_attrprocess_default(t_ebox* x)
 {
-    t_eclass* c = eobj_getclass(x);
+    t_eclass* c = eobj_getclass(&x->b_obj);
 
     for (size_t i = 0; i < c->c_nattr; i++) {
         // skip if default is not set
@@ -671,7 +671,7 @@ static void ebox_attrprocess_default(void* x)
             }
         }
 
-        eobj_attr_setvalueof(x, c->c_attr[i]->name, int(N), defv);
+        eobj_attr_setvalueof(&x->b_obj, c->c_attr[i]->name, int(N), defv);
     }
 }
 
@@ -702,7 +702,7 @@ static void ebox_paint(t_ebox* x)
     if (x->b_pinned)
         sys_vgui("lower %s\n", x->b_drawing_id->s_name);
 
-    t_eclass* c = eobj_getclass(x);
+    t_eclass* c = eobj_getclass(&x->b_obj);
 
     if (c->c_widget.w_paint)
         c->c_widget.w_paint(x);
@@ -730,7 +730,7 @@ void ebox_wvis(t_gobj* z, t_glist* glist, int vis)
     x->wis_canvas = glist;
 
     if (vis) {
-        if (eobj_isbox(x) && x->b_ready_to_draw && x->b_visible) {
+        if (eobj_isbox(&x->b_obj) && x->b_ready_to_draw && x->b_visible) {
 
             ebox_invalidate_all(x);
             ebox_create_window(x, glist);
@@ -815,7 +815,7 @@ static void ebox_bind_event(t_ebox* x, const char* name)
 
 static void ebox_bind_events(t_ebox* x)
 {
-    t_eclass* c = eobj_getclass(x);
+    t_eclass* c = eobj_getclass(&x->b_obj);
 
     ebox_bind_event(x, "ceammc_bind_mouse_down");
     ebox_bind_event(x, "ceammc_bind_mouse_up");
@@ -898,7 +898,7 @@ static void ebox_create_window(t_ebox* x, t_glist* glist)
         ebox_create_label(x);
 
     // create callback
-    t_eclass* c = eobj_getclass(x);
+    t_eclass* c = eobj_getclass(&x->b_obj);
     if (c->c_widget.w_create)
         c->c_widget.w_create(x);
 
@@ -937,7 +937,7 @@ static long modifier_wrapper(long mod)
 
 void ebox_mouse_enter(t_ebox* x)
 {
-    t_eclass* c = eobj_getclass(x);
+    t_eclass* c = eobj_getclass(&x->b_obj);
 
     if (!x->b_obj.o_canvas->gl_edit && !x->b_mouse_down) {
         sys_vgui("focus %s\n", x->b_drawing_id->s_name);
@@ -949,7 +949,7 @@ void ebox_mouse_enter(t_ebox* x)
 
 void ebox_mouse_leave(t_ebox* x)
 {
-    t_eclass* c = eobj_getclass(x);
+    t_eclass* c = eobj_getclass(&x->b_obj);
 
     if (!x->b_obj.o_canvas->gl_edit && !x->b_mouse_down) {
         if (c->c_widget.w_mouseleave) {
@@ -966,7 +966,7 @@ void ebox_mouse_move(t_ebox* x, t_floatarg xpos, t_floatarg ypos, t_floatarg mod
     const t_pt mouse { xpos, ypos };
     t_atom av[2];
     long modif = modifier_wrapper(static_cast<long>(mod));
-    t_eclass* c = eobj_getclass(x);
+    t_eclass* c = eobj_getclass(&x->b_obj);
 
     // mouse move
     if (!x->b_mouse_down) {
@@ -1086,7 +1086,7 @@ void ebox_mouse_down(t_ebox* x, t_floatarg xpos, t_floatarg ypos, t_floatarg abs
 {
     const auto modif = modifier_wrapper(static_cast<long>(mod));
 
-    t_eclass* c = eobj_getclass(x);
+    t_eclass* c = eobj_getclass(&x->b_obj);
     if (is_for_box(x, modif)) {
         if (c->c_widget.w_mousedown && !(x->b_flags & EBOX_IGNORELOCKCLICK)) {
             t_pt mouse { xpos, ypos };
@@ -1119,7 +1119,7 @@ void ebox_mouse_up(t_ebox* x, t_floatarg xpos, t_floatarg ypos, t_floatarg mod)
 {
     const auto modif = modifier_wrapper(static_cast<long>(mod));
 
-    t_eclass* c = eobj_getclass(x);
+    t_eclass* c = eobj_getclass(&x->b_obj);
     if (is_for_box(x, modif)) {
         if (c->c_widget.w_mouseup && !(x->b_flags & EBOX_IGNORELOCKCLICK)) {
             t_pt mouse { xpos, ypos };
@@ -1141,7 +1141,7 @@ void ebox_mouse_up(t_ebox* x, t_floatarg xpos, t_floatarg ypos, t_floatarg mod)
 void ebox_mouse_dblclick(t_ebox* x, t_symbol* /*s*/, int argc, t_atom* argv)
 {
     t_pt mouse;
-    t_eclass* c = eobj_getclass(x);
+    t_eclass* c = eobj_getclass(&x->b_obj);
     long modif = modifier_wrapper((long)atom_getfloat(argv + 2));
     if (is_for_box(x, modif) && c->c_widget.w_dblclick && !(x->b_flags & EBOX_IGNORELOCKCLICK)) {
         mouse.x = atom_getfloat(argv);
@@ -1152,13 +1152,13 @@ void ebox_mouse_dblclick(t_ebox* x, t_symbol* /*s*/, int argc, t_atom* argv)
 
 static void ebox_open_help(t_ebox* x)
 {
-    t_eclass* c = eobj_getclass(x);
+    t_eclass* c = eobj_getclass(&x->b_obj);
     open_via_helppath(class_gethelpname(&c->c_class), class_gethelpdir(&c->c_class));
 }
 
 void ebox_mouse_rightclick(t_ebox* x, t_floatarg xpos, t_floatarg ypos, t_floatarg absx, t_floatarg absy, t_floatarg mod)
 {
-    t_eclass* c = eobj_getclass(x);
+    t_eclass* c = eobj_getclass(&x->b_obj);
     const auto modif = modifier_wrapper(static_cast<long>(mod));
 
     // show help menu in all modes (edit/performance) with pressed Shift
@@ -1186,14 +1186,14 @@ void ebox_mouse_wheel(t_ebox* x, t_floatarg xpos, t_floatarg ypos, t_floatarg de
 {
     const auto modif = modifier_wrapper(static_cast<long>(mod));
 
-    t_eclass* c = eobj_getclass(x);
+    t_eclass* c = eobj_getclass(&x->b_obj);
     if (is_for_box(x, modif) && c->c_widget.w_mousewheel && !(x->b_flags & EBOX_IGNORELOCKCLICK))
         c->c_widget.w_mousewheel(x, { xpos, ypos }, modif, delta);
 }
 
 void ebox_key(t_ebox* x, t_symbol* s, int argc, t_atom* argv)
 {
-    t_eclass* c = eobj_getclass(x);
+    t_eclass* c = eobj_getclass(&x->b_obj);
 
     if (argc >= 2 && argv && atom_gettype(argv + 1) == A_FLOAT) {
         if (!x->b_obj.o_canvas->gl_edit) {
@@ -1232,15 +1232,15 @@ void ebox_key(t_ebox* x, t_symbol* s, int argc, t_atom* argv)
 
 void ebox_dosave(t_ebox* x, t_binbuf* b)
 {
-    t_eclass* c = eobj_getclass(x);
+    t_eclass* c = eobj_getclass(&x->b_obj);
     if (c && b) {
         auto state = canvas_suspend_dsp();
-        binbuf_addv(b, "ssiis", &s__X, s_obj, (int)x->b_obj.o_obj.te_xpix, (int)x->b_obj.o_obj.te_ypix, eobj_getclassname(x));
+        binbuf_addv(b, "ssiis", &s__X, s_obj, (int)x->b_obj.o_obj.te_xpix, (int)x->b_obj.o_obj.te_ypix, eobj_getclassname(&x->b_obj));
         for (size_t i = 0; i < c->c_nattr; i++) {
             if (c->c_attr[i] && c->c_attr[i]->save && c->c_attr[i]->name) {
                 int argc = 0;
                 t_atom* argv = nullptr;
-                eobj_attr_getvalueof(x, c->c_attr[i]->name, &argc, &argv);
+                eobj_attr_getvalueof(&x->b_obj, c->c_attr[i]->name, &argc, &argv);
                 if (argc && argv) {
                     char attr_name[MAXPDSTRING];
                     snprintf(attr_name, MAXPDSTRING, "@%s", c->c_attr[i]->name->s_name);
@@ -1306,7 +1306,7 @@ t_pd_err ebox_set_receiveid(t_ebox* x, t_object* /*attr*/, int argc, t_atom* arg
         if (x->b_receive_id != s_null) {
             // replace #n => $d
             t_symbol* sname_dollar = gensym(ceammc_raute2dollar(x->b_receive_id->s_name).c_str());
-            t_symbol* sname = canvas_realizedollar(eobj_getcanvas(x), sname_dollar);
+            t_symbol* sname = canvas_realizedollar(eobj_getcanvas(&x->b_obj), sname_dollar);
             if (sname)
                 pd_unbind(&x->b_obj.o_obj.ob_pd, sname);
         }
@@ -1314,13 +1314,13 @@ t_pd_err ebox_set_receiveid(t_ebox* x, t_object* /*attr*/, int argc, t_atom* arg
         // bind new
         x->b_receive_id = new_sym;
         t_symbol* sname_dollar = gensym(ceammc_raute2dollar(x->b_receive_id->s_name).c_str());
-        t_symbol* sname = canvas_realizedollar(eobj_getcanvas(x), sname_dollar);
+        t_symbol* sname = canvas_realizedollar(eobj_getcanvas(&x->b_obj), sname_dollar);
         pd_bind(&x->b_obj.o_obj.ob_pd, sname);
     } else {
         // unbind
         if (x->b_receive_id != s_null) {
             t_symbol* sname_dollar = gensym(ceammc_raute2dollar(x->b_receive_id->s_name).c_str());
-            t_symbol* sname = canvas_realizedollar(eobj_getcanvas(x), sname_dollar);
+            t_symbol* sname = canvas_realizedollar(eobj_getcanvas(&x->b_obj), sname_dollar);
             pd_unbind(&x->b_obj.o_obj.ob_pd, sname);
         }
 
@@ -1407,7 +1407,7 @@ t_pd_err ebox_set_label_align(t_ebox* x, t_object* /*attr*/, int argc, t_atom* a
 
         auto it = std::find(std::begin(items), std::end(items), s);
         if (it == std::end(items)) {
-            pd_error(x, "[%s] invalid @label_align property value: %s", eobj_getclassname(x)->s_name, s->s_name);
+            pd_error(x, "[%s] invalid @label_align property value: %s", eobj_getclassname(&x->b_obj)->s_name, s->s_name);
 
             std::string values;
             for (t_symbol* it : items) {
@@ -1415,7 +1415,7 @@ t_pd_err ebox_set_label_align(t_ebox* x, t_object* /*attr*/, int argc, t_atom* a
                 values += it->s_name;
             }
 
-            pd_error(x, "[%s] supported values are:%s", eobj_getclassname(x)->s_name, values.c_str());
+            pd_error(x, "[%s] supported values are:%s", eobj_getclassname(&x->b_obj)->s_name, values.c_str());
             return 1;
         }
 
@@ -1439,7 +1439,7 @@ t_pd_err ebox_set_label_valign(t_ebox* x, t_object* /*attr*/, int argc, t_atom* 
 
         auto it = std::find(std::begin(items), std::end(items), s);
         if (it == std::end(items)) {
-            pd_error(x, "[%s] invalid @label_valign property value: %s", eobj_getclassname(x)->s_name, s->s_name);
+            pd_error(x, "[%s] invalid @label_valign property value: %s", eobj_getclassname(&x->b_obj)->s_name, s->s_name);
 
             std::string values;
             for (t_symbol* it : items) {
@@ -1447,7 +1447,7 @@ t_pd_err ebox_set_label_valign(t_ebox* x, t_object* /*attr*/, int argc, t_atom* 
                 values += it->s_name;
             }
 
-            pd_error(x, "[%s] supported values are:%s", eobj_getclassname(x)->s_name, values.c_str());
+            pd_error(x, "[%s] supported values are:%s", eobj_getclassname(&x->b_obj)->s_name, values.c_str());
             return 1;
         }
 
@@ -1471,7 +1471,7 @@ t_pd_err ebox_set_label_side(t_ebox* x, t_object* /*attr*/, int argc, t_atom* ar
         t_symbol* s = atom_getsymbol(argv);
         auto it = std::find(std::begin(items), std::end(items), s);
         if (it == std::end(items)) {
-            pd_error(x, "[%s] invalid @label_side property value: %s", eobj_getclassname(x)->s_name, s->s_name);
+            pd_error(x, "[%s] invalid @label_side property value: %s", eobj_getclassname(&x->b_obj)->s_name, s->s_name);
 
             std::string values;
             for (t_symbol* it : items) {
@@ -1479,7 +1479,7 @@ t_pd_err ebox_set_label_side(t_ebox* x, t_object* /*attr*/, int argc, t_atom* ar
                 values += it->s_name;
             }
 
-            pd_error(x, "[%s] supported values are:%s", eobj_getclassname(x)->s_name, values.c_str());
+            pd_error(x, "[%s] supported values are:%s", eobj_getclassname(&x->b_obj)->s_name, values.c_str());
             return 1;
         }
 
@@ -1518,7 +1518,7 @@ t_pd_err ebox_set_label_margins(t_ebox* x, t_object* /*attr*/, int argc, t_atom*
         x->label_margins[1] = int(atom_getfloat(argv + 1));
         ebox_update_label_pos(x);
     } else
-        pd_error(x, "[%s] X Y margin pair expected", eobj_getclassname(x)->s_name);
+        pd_error(x, "[%s] X Y margin pair expected", eobj_getclassname(&x->b_obj)->s_name);
 
     return 0;
 }
@@ -1651,7 +1651,7 @@ t_pd_err ebox_size_set(t_ebox* x, t_object* /*attr*/, int argc, t_atom* argv)
 
 bool ebox_notify(t_ebox* x, t_symbol* s)
 {
-    t_eclass* c = eobj_getclass(x);
+    t_eclass* c = eobj_getclass(&x->b_obj);
     if (s == s_size) {
         if (c->c_widget.w_oksize != nullptr)
             c->c_widget.w_oksize(x, &x->b_rect);
@@ -1705,11 +1705,11 @@ void ebox_attr_dump(t_ebox* x)
     post("[%s] outlets: %i", name, obj_noutlets(xobj));
 
     // print properties
-    t_eclass* c = eobj_getclass(x);
+    t_eclass* c = eobj_getclass(&x->b_obj);
     for (size_t i = 0; i < c->c_nattr; i++) {
         int argc = 0;
         t_atom* argv = nullptr;
-        eobj_attr_getvalueof(x, c->c_attr[i]->name, &argc, &argv);
+        eobj_attr_getvalueof(&x->b_obj, c->c_attr[i]->name, &argc, &argv);
 
         if (argc && argv) {
             char buf[MAXPDSTRING];
@@ -1735,7 +1735,7 @@ void ebox_output_all_attrs(t_ebox* x)
         return;
     }
 
-    t_eclass* c = eobj_getclass(x);
+    t_eclass* c = eobj_getclass(&x->b_obj);
     size_t argc = c->c_nattr;
     if (argc < 1) {
         post("[%s] no properties", class_getname(((t_object*)x)->te_pd));
@@ -1755,7 +1755,7 @@ void ebox_output_all_attrs(t_ebox* x)
 
 void ebox_properties(t_ebox* x, t_glist* glist)
 {
-    t_eclass* c = eobj_getclass(x);
+    t_eclass* c = eobj_getclass(&x->b_obj);
     char temp[MAXPDSTRING];
 
     sprintf(temp, "pdtk_%s_dialog %%s", c->c_class.c_name->s_name);
@@ -1765,7 +1765,7 @@ void ebox_properties(t_ebox* x, t_glist* glist)
         if (!c->c_attr[i]->invisible) {
             t_atom* argv = 0;
             int argc = 0;
-            eobj_attr_getvalueof(x, c->c_attr[i]->name, &argc, &argv);
+            eobj_attr_getvalueof(&x->b_obj, c->c_attr[i]->name, &argc, &argv);
             // tcl: using curly brackets instead of double quotes
             // to prevent variable (with $) substitution
             buffer += " {";
@@ -1842,7 +1842,7 @@ std::string ceammc_quote_str(const std::string& str, char q)
 
 void ebox_dialog(t_ebox* x, t_symbol* s, int argc, t_atom* argv)
 {
-    t_eclass* c = eobj_getclass(x);
+    t_eclass* c = eobj_getclass(&x->b_obj);
     t_atom* av = NULL;
     int ac;
     char temp[MAXPDSTRING];
@@ -1861,7 +1861,7 @@ void ebox_dialog(t_ebox* x, t_symbol* s, int argc, t_atom* argv)
                 snprintf(WIDGET_ID, sizeof(WIDGET_ID), "%s.t.w%i",
                     atom_getsymbol(argv)->s_name, attrindex + 1);
 
-                eobj_attr_getvalueof((t_object*)x, c->c_attr[attrindex]->name, &ac, &av);
+                eobj_attr_getvalueof(&x->b_obj, c->c_attr[attrindex]->name, &ac, &av);
 
                 if (ac && av) {
                     if (c->c_attr[attrindex]->style == gensym(SYM_CHECKBUTTON)) {
@@ -2341,7 +2341,7 @@ static void ebox_erase(t_ebox* x)
     if (x->b_obj.o_canvas && glist_isvisible(x->b_obj.o_canvas) && x->b_have_window) {
         if (x->b_obj.o_canvas->gl_havewindow) {
             // erase callback
-            t_eclass* c = eobj_getclass(x);
+            t_eclass* c = eobj_getclass(&x->b_obj);
             if (c->c_widget.w_erase)
                 c->c_widget.w_erase(x);
 
@@ -2397,7 +2397,7 @@ void ebox_setzoom(t_ebox* x, t_float f)
 {
     x->b_zoom = f;
 
-    t_eclass* c = eobj_getclass(x);
+    t_eclass* c = eobj_getclass(&x->b_obj);
     if (c->c_widget.w_onzoom)
         c->c_widget.w_onzoom(x, f);
 }

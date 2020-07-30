@@ -329,7 +329,7 @@ void eclass_guiinit(t_eclass* c, long /*flags*/)
     class_addmethod(cc, reinterpret_cast<t_method>(ebox_setzoom), gensym(SYM_ZOOM), A_CANT, 0);
 
     class_setwidget(cc, (t_widgetbehavior*)&c->c_widget);
-    class_setsavefn(cc, eobj_save);
+    class_setsavefn(cc, (t_savefn)eobj_save);
 }
 
 void eclass_dspinit(t_eclass* c)
@@ -1042,8 +1042,8 @@ void eclass_attr_setter(t_object* x, t_symbol* s, size_t argc, t_atom* argv)
 
                 ebox_redraw(z);
             }
-            if (c->c_attr[i]->save && eobj_isbox(x) && ebox_isdrawable(z)) {
-                canvas_dirty(eobj_getcanvas(x), 1);
+            if (c->c_attr[i]->save && eobj_isbox(&z->b_obj) && ebox_isdrawable(z)) {
+                canvas_dirty(eobj_getcanvas(&z->b_obj), 1);
             }
         }
     }

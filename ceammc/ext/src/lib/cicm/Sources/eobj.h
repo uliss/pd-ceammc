@@ -38,7 +38,7 @@ void* eobj_new(t_eclass* c);
  * \details     Detaches the t_eobj from Pure Data and frees the proxy inlets.
  * \param x     The t_eobj pointer
  */
-void eobj_free(void* x);
+void eobj_free(t_eobj* x);
 
 /*!
  * \fn          t_pd_err eobj_iscicm(void* x)
@@ -55,7 +55,7 @@ t_pd_err eobj_iscicm(void* x);
  * \param x     The t_eobj pointer.
   * \return     This function returns a pointer to the new proxy inlet.
  */
-t_eproxy* eobj_proxynew(void* x);
+t_eproxy* eobj_proxynew(t_eobj* x);
 
 /*!
  * \fn          int eobj_getproxy(void* x)
@@ -64,7 +64,7 @@ t_eproxy* eobj_proxynew(void* x);
  * \param x     The t_eobj pointer.
  * \return      This function return the index of the current proxy.
  */
-int eobj_getproxy(void* x);
+int eobj_getproxy(t_eobj* x);
 
 /*!
  * \fn          t_eclass* eobj_getclass(void* x)
@@ -73,7 +73,7 @@ int eobj_getproxy(void* x);
  * \param x     The t_eobj pointer.
  * \return      This function returns a pointer to the eclass of the t_eobj.
  */
-t_eclass* eobj_getclass(void* x);
+t_eclass* eobj_getclass(t_eobj* x);
 
 /*!
  * \fn          t_symbol* eobj_getclassname(void* x)
@@ -82,7 +82,7 @@ t_eclass* eobj_getclass(void* x);
  * \param x     The t_eobj pointer.
  * \return      This function returns the name of the class of the t_eobj.
  */
-t_symbol* eobj_getclassname(void* x);
+t_symbol* eobj_getclassname(t_eobj* x);
 
 /*!
  * \fn          t_canvas* eobj_getcanvas(void *x)
@@ -91,7 +91,7 @@ t_symbol* eobj_getclassname(void* x);
  * \param x     The t_eobj pointer.
  * \return      This function returns a pointer the canvas that owns the t_eobj.
  */
-t_canvas* eobj_getcanvas(void* x);
+t_canvas* eobj_getcanvas(t_eobj* x);
 
 /*!
  * \fn          char eobj_isbox(void *x)
@@ -100,7 +100,7 @@ t_canvas* eobj_getcanvas(void* x);
  * \param x     The t_eobj pointer.
  * \return      This function returns true if the t_eobj is a GUI and false if not.
  */
-bool eobj_isbox(void* x);
+bool eobj_isbox(t_eobj* x);
 
 /*!
  * \fn          char eobj_isdsp(void *x)
@@ -109,7 +109,7 @@ bool eobj_isbox(void* x);
  * \param x     The t_eobj pointer.
  * \return      This function returns true if the t_eobj is a DSP object and false if not.
  */
-bool eobj_isdsp(void* x);
+bool eobj_isdsp(t_eobj* x);
 
 /*!
  * \fn      void eobj_attrprocess_viabinbuf(void *x, t_binbuf *d)
@@ -118,7 +118,7 @@ bool eobj_isdsp(void* x);
  * \param x The t_ebox pointer.
  * \param d The binbuf pointer.
  */
-void eobj_attrprocess_viabinbuf(void* x, t_binbuf* d);
+void eobj_attrprocess_viabinbuf(t_eobj* x, t_binbuf* d);
 
 /*!
  * \fn      void eobj_attrprocess_viatoms(void *x, int argc, t_atom *argv)
@@ -128,7 +128,7 @@ void eobj_attrprocess_viabinbuf(void* x, t_binbuf* d);
  * \param argc The number of atoms.
  * \param argv The pointer to the atoms.
  */
-void eobj_attrprocess_viatoms(void* x, int argc, t_atom* argv);
+void eobj_attrprocess_viatoms(t_eobj* x, int argc, t_atom* argv);
 
 /*!
  * \fn      void eobj_attr_setvalueof(void *x, t_symbol* s, int argc, t_atom *argv)
@@ -139,7 +139,7 @@ void eobj_attrprocess_viatoms(void* x, int argc, t_atom* argv);
  * \param argc The number of the atoms.
  * \param argv The array of the atoms.
  */
-void eobj_attr_setvalueof(void* x, t_symbol* s, size_t argc, t_atom* argv);
+void eobj_attr_setvalueof(t_eobj* x, t_symbol* s, size_t argc, t_atom* argv);
 
 /*!
  * \fn      void eobj_attr_getvalueof(void *x, t_symbol* s, int *argc, t_atom **argv)
@@ -150,7 +150,7 @@ void eobj_attr_setvalueof(void* x, t_symbol* s, size_t argc, t_atom* argv);
  * \param argc The pointer to an int that will be initialize with the number of the atoms.
  * \param argv The pointer to the array of the atoms that will be allocated if the attribute exist.
  */
-void eobj_attr_getvalueof(void* x, t_symbol* s, int* argc, t_atom** argv);
+void eobj_attr_getvalueof(t_eobj* x, t_symbol* s, int* argc, t_atom** argv);
 
 /** @} */
 
@@ -168,7 +168,7 @@ void eobj_attr_getvalueof(void* x, t_symbol* s, int* argc, t_atom** argv);
  * \param inlets Write created inlets to given pointer, if NULL given - no write
  * \param outlets Write created outlets to given pointer, if NULL given - no write
  */
-void eobj_dspsetup(void* x, long nins, long nouts, t_eproxy** inlets, t_outlet** outlets);
+void eobj_dspsetup(t_eobj* x, long nins, long nouts, t_eproxy** inlets, t_outlet** outlets);
 
 /*!
  * \fn void eobj_dspflags(void *x, long flags)
@@ -178,7 +178,7 @@ void eobj_dspsetup(void* x, long nins, long nouts, t_eproxy** inlets, t_outlet**
  * \param flags The dsp flags.
  * \see edsp_flags
  */
-void eobj_dspflags(void* x, long flags);
+void eobj_dspflags(t_eobj* x, long flags);
 
 /*!
  * \fn          void eobj_dspfree(void *x)
@@ -186,7 +186,7 @@ void eobj_dspflags(void* x, long flags);
  * \details     Frees the memory allocated for digital dignal processing of a t_edspobj. \n This function should replace pd_free() and you shouldn't have to call eobj_free();
  * \param x     The edspobj pointer
  */
-void eobj_dspfree(void* x);
+void eobj_dspfree(t_eobj* x);
 
 /*!
  * \fn          void eobj_resize_inputs(void *x, long nins)
@@ -195,7 +195,7 @@ void eobj_dspfree(void* x);
  * \param x     The edspobj pointer.
  * \param nins  The number of signal inputs.
  */
-void eobj_resize_inputs(void* x, long nins, t_symbol* from = &s_signal, t_symbol* to = &s_signal);
+void eobj_resize_inputs(t_eobj* x, long nins, t_symbol* from = &s_signal, t_symbol* to = &s_signal);
 
 /*!
  * \fn          t_sample* eobj_getsignalinput(void *x, long index)
@@ -205,7 +205,7 @@ void eobj_resize_inputs(void* x, long nins, t_symbol* from = &s_signal, t_symbol
  * \param index The index of the input.
  * \return      A pointer to the signal vector or NULL.
  */
-t_sample* eobj_getsignalinput(void* x, long index);
+t_sample* eobj_getsignalinput(t_eobj* x, long index);
 
 /*!
  * \fn          t_sample* eobj_getsignaloutput(void *x, long index)
@@ -215,7 +215,7 @@ t_sample* eobj_getsignalinput(void* x, long index);
  * \param index The index of the output.
  * \return      A pointer to the signal vector or NULL.
  */
-t_sample* eobj_getsignaloutput(void* x, long index);
+t_sample* eobj_getsignaloutput(t_eobj* x, long index);
 
 /** @} */
 
@@ -227,7 +227,7 @@ t_sample* eobj_getsignaloutput(void* x, long index);
  * \param z         The eobj pointor
  * \param b         The binbuf
  */
-void eobj_save(t_gobj* x, t_binbuf* b);
+void eobj_save(t_eobj* x, t_binbuf* b);
 
 //! The default save method for UI ebox (PRIVATE)
 /*
@@ -271,7 +271,7 @@ void eobj_read(t_eobj* x, t_symbol* s, size_t argc, t_atom* argv);
  * \param x     The edspobj pointer
  * \param sp    The pointers to signal structures
  */
-void eobj_dsp(void* x, t_signal** sp);
+void eobj_dsp(t_eobj* x, t_signal** sp);
 
 //! The perform method for no inplace(PRIVATE)
 /*
@@ -294,7 +294,7 @@ t_int* eobj_perform_noinplace(t_int* w);
  * \param flags     The user perform flags
  * \param userparam The user perform parameters
  */
-void eobj_dsp_add(void* x, t_symbol* s, t_object* obj, t_typ_method m, long flags, void* userparam);
+void eobj_dsp_add(t_eobj* x, t_symbol* s, t_object* obj, t_typ_method m, long flags, void* userparam);
 //! @endcond
 
 #endif
