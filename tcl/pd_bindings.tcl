@@ -1,5 +1,5 @@
-
 package provide pd_bindings 0.1
+
 package require pd_menucommands
 package require dialog_find
 
@@ -269,11 +269,11 @@ proc ::pd_bindings::patch_bindings {mytoplevel} {
     }
 
     # <Tab> key to cycle through selection
-    # bind $tkcanvas <KeyPress-Tab>        "::pd_bindings::canvas_cycle %W  1 %K %A 0 %k"
-    # bind $tkcanvas <Shift-Tab>           "::pd_bindings::canvas_cycle %W -1 %K %A 1 %k"
+    bind $tkcanvas <KeyPress-Tab>        "::pd_bindings::canvas_cycle %W  1 %K %A 0 %k"
+    bind $tkcanvas <Shift-Tab>           "::pd_bindings::canvas_cycle %W -1 %K %A 1 %k"
     # on X11, <Shift-Tab> is a different key by the name 'ISO_Left_Tab'...
     # other systems (at least aqua) do not like this name, so we 'catch' any errors
-    # catch {bind $tkcanvas <KeyPress-ISO_Left_Tab> "::pd_bindings::canvas_cycle %W -1 %K %A 1 %k" } stderr
+    catch {bind $tkcanvas <KeyPress-ISO_Left_Tab> "::pd_bindings::canvas_cycle %W -1 %K %A 1 %k" } stderr
 
     # window protocol bindings
     wm protocol $mytoplevel WM_DELETE_WINDOW "pdsend \"$mytoplevel menuclose 0\""
