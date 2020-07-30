@@ -342,7 +342,7 @@ namespace list {
         l.range(amin, amax);
         const t_float min = amin.asFloat();
         const t_float max = amax.asFloat();
-        t_float range = fabsf(max - min);
+        t_float range = std::fabs(max - min);
 
         if (range == 0) {
             hist[0] = max * bins;
