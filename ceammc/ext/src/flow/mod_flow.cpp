@@ -6,12 +6,14 @@
 #include "flow_demultiplex.h"
 #include "flow_demultiplex2_tilde.h"
 #include "flow_demultiplex_tilde.h"
+#include "flow_dup.h"
 #include "flow_gate.h"
 #include "flow_greater.h"
 #include "flow_group.h"
 #include "flow_interval.h"
 #include "flow_less.h"
 #include "flow_less_eq.h"
+#include "flow_loop.h"
 #include "flow_multiplex.h"
 #include "flow_multiplex2_tilde.h"
 #include "flow_multiplex_tilde.h"
@@ -40,12 +42,14 @@ void ceammc_flow_setup()
     setup_flow_demultiplex();
     setup_flow_demultiplex2_tilde();
     setup_flow_demultiplex_tilde();
+    setup_flow_dup();
     setup_flow_gate();
     setup_flow_greater();
     setup_flow_group();
     setup_flow_interval();
     setup_flow_less();
     setup_flow_less_eq();
+    setup_flow_loop();
     setup_flow_match();
     setup_flow_multiplex();
     setup_flow_multiplex2_tilde();
