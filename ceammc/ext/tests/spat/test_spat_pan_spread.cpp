@@ -61,8 +61,8 @@ TEST_CASE("pan.spread~", "[externals]")
 
         SECTION("spread")
         {
-            TExt t("pan.spread~", LA("@spread", 0.1), true);
-            REQUIRE_PROPERTY(t, @spread, 0.1);
+            TExt t("pan.spread~", LA("@spread", 0.25), true);
+            REQUIRE_PROPERTY(t, @spread, 0.25);
         }
 
         SECTION("invalid")
