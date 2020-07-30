@@ -43,9 +43,9 @@ static PERTHREAD int sys_prefbufsize;
 static PERTHREAD FILE *sys_prefsavefp;
 
 #define UNIX_CONFIG_FILENAME ".pd_ceammc_settings"
+#define MACOSX_CONFIG_NAME "com.ceammc.pd"
 static const char* WIN_CONFIG_REGNAME = "Software\\Pd-ceammc";
 static const char* WIN_CONFIG_KEYNAME = "Pd-ceammc";
-static const char* MACOSX_CONFIG_NAME = "com.ceammc.pd";
 
 static void sys_initloadpreferences_file(const char *filename)
 {
@@ -137,66 +137,258 @@ static void sys_donesavepreferences_file(void)
     }
 }
 
+#if defined(__APPLE__)
+/*****  macos: read and write to ~/Library/Preferences plist file ******/
 
-/*****  linux/android/BSD etc: read and write to ~/.pd_ceammc_settings file ******/
-#if !defined(_WIN32) && !defined(__APPLE__)
+static PERTHREAD CFMutableDictionaryRef sys_prefdict = NULL;
+
+// get preferences file load path into dst, returns 1 if embedded
+static int preferences_getloadpath(char *dst, size_t size)
+{
+    char embedded_prefs[MAXPDSTRING];
+    char user_prefs[MAXPDSTRING];
+    char *homedir = getenv("HOME");
+    struct stat statbuf;
+    snprintf(embedded_prefs, MAXPDSTRING, "%s/../" MACOSX_CONFIG_NAME, // ceammc
+        sys_libdir->s_name);
+    snprintf(user_prefs, MAXPDSTRING,
+        "%s/Library/Preferences/" MACOSX_CONFIG_NAME ".plist", homedir); // ceammc
+    if (stat(user_prefs, &statbuf) == 0)
+    {
+        strncpy(dst, user_prefs, size);
+        return 0;
+    }
+    else
+    {
+        strncpy(dst, embedded_prefs, size);
+        return 1;
+    }
+}
+
+// get preferences file save path
+static void preferences_getsavepath(char *dst, size_t size)
+{
+    char user_prefs[MAXPDSTRING];
+    snprintf(user_prefs, MAXPDSTRING,
+        "%s/Library/Preferences/" MACOSX_CONFIG_NAME ".plist", getenv("HOME")); // ceammc
+    strncpy(dst, user_prefs, size);
+}
 
 static void sys_initloadpreferences(void)
 {
-    char filenamebuf[MAXPDSTRING], *homedir = getenv("HOME");
-    int fd, length;
-    char user_prefs_file[MAXPDSTRING]; /* user prefs file */
-        /* default prefs embedded in the package */
-    char default_prefs_file[MAXPDSTRING];
-    struct stat statbuf;
+    char user_prefs[MAXPDSTRING];
+    CFStringRef path = NULL;
+    CFURLRef fileURL = NULL;
+    CFReadStreamRef stream = NULL;
+    CFErrorRef err = NULL;
+    CFPropertyListRef plist = NULL;
 
-    snprintf(default_prefs_file, MAXPDSTRING, "%s/default.pdsettings",
-        sys_libdir->s_name);
-    snprintf(user_prefs_file, MAXPDSTRING, "%s/%s",
-        (homedir ? homedir : "."), UNIX_CONFIG_FILENAME);
-    if (stat(user_prefs_file, &statbuf) == 0)
-        strncpy(filenamebuf, user_prefs_file, MAXPDSTRING);
-    else if (stat(default_prefs_file, &statbuf) == 0)
-        strncpy(filenamebuf, default_prefs_file, MAXPDSTRING);
-    else return;
-    filenamebuf[MAXPDSTRING-1] = 0;
-    sys_initloadpreferences_file(filenamebuf);
-}
+    if (sys_prefbuf || sys_prefdict)
+    {
+        bug("sys_initloadpreferences");
+        return;
+    }
 
-static int sys_getpreference(const char *key, char *value, int size)
-{
-    return (sys_getpreference_file(key, value, size));
+    // open read stream
+    preferences_getloadpath(user_prefs, MAXPDSTRING);
+    path = CFStringCreateWithCStringNoCopy(kCFAllocatorDefault, user_prefs,
+        kCFStringEncodingUTF8, kCFAllocatorNull);
+    fileURL = CFURLCreateWithFileSystemPath(kCFAllocatorDefault, path,
+        kCFURLPOSIXPathStyle, false); // false -> not a directory
+    stream = CFReadStreamCreateWithFile(kCFAllocatorDefault, fileURL);
+    if (!stream || !CFReadStreamOpen(stream)) goto cleanup;
+
+    // read plist
+    plist = CFPropertyListCreateWithStream(kCFAllocatorDefault, stream, 0,
+        kCFPropertyListImmutable, NULL, &err);
+    if (!plist) {
+        CFStringRef errString = CFErrorCopyDescription(err);
+        error("couldn't read preferences plist: %s",
+            CFStringGetCStringPtr(errString, kCFStringEncodingUTF8));
+        CFRelease(errString);
+        goto cleanup;
+    }
+    CFRetain(plist);
+    sys_prefdict = (CFMutableDictionaryRef)plist;
+
+cleanup:
+    if (stream) {
+        if (CFReadStreamGetStatus(stream) == kCFStreamStatusOpen) {
+            CFReadStreamClose(stream);
+        }
+        CFRelease(stream);
+    }
+    if (fileURL) {CFRelease(fileURL);}
+    if (path) {CFRelease(path);}
+    if (err) {CFRelease(err);}
 }
 
 static void sys_doneloadpreferences(void)
 {
-    sys_doneloadpreferences_file();
+    if (sys_prefbuf)
+        sys_doneloadpreferences_file();
+    if (sys_prefdict)
+    {
+        CFRelease(sys_prefdict);
+        sys_prefdict = NULL;
+    }
 }
 
 static void sys_initsavepreferences(void)
 {
-    char filenamebuf[MAXPDSTRING],
-        *homedir = getenv("HOME");
-    FILE *fp;
-
-    if (!homedir)
+    if (sys_prefsavefp)
+    {
+        bug("sys_initsavepreferences");
         return;
-    snprintf(filenamebuf, MAXPDSTRING, "%s/%s", homedir, UNIX_CONFIG_FILENAME);
-    filenamebuf[MAXPDSTRING-1] = 0;
-    sys_initsavepreferences_file(filenamebuf);
-}
-
-static void sys_putpreference(const char *key, const char *value)
-{
-    sys_putpreference_file(key, value);
+    }
+    sys_prefdict = CFDictionaryCreateMutable(kCFAllocatorDefault, 0,
+        &kCFTypeDictionaryKeyCallBacks, &kCFTypeDictionaryValueCallBacks);
 }
 
 static void sys_donesavepreferences(void)
 {
-    sys_donesavepreferences_file();
+    char user_prefs[MAXPDSTRING];
+    CFStringRef path = NULL;
+    CFURLRef fileURL = NULL;
+    CFWriteStreamRef stream = NULL;
+    CFErrorRef err = NULL;
+    CFDataRef data = NULL;
+
+    if (sys_prefsavefp)
+        sys_donesavepreferences_file();
+    if (!sys_prefdict) return;
+
+    // convert dict to plist data
+    data = CFPropertyListCreateData(kCFAllocatorDefault,
+                                    (CFPropertyListRef)sys_prefdict,
+                                    kCFPropertyListBinaryFormat_v1_0, 0, &err);
+    if (!data)
+    {
+        CFStringRef errString = CFErrorCopyDescription(err);
+        error("couldn't write preferences plist: %s",
+            CFStringGetCStringPtr(errString, kCFStringEncodingUTF8));
+        CFRelease(errString);
+        goto cleanup;
+    }
+
+    // open write stream
+    preferences_getsavepath(user_prefs, MAXPDSTRING);
+    path = CFStringCreateWithCStringNoCopy(kCFAllocatorDefault, user_prefs,
+        kCFStringEncodingUTF8, kCFAllocatorNull);
+    fileURL = CFURLCreateWithFileSystemPath(kCFAllocatorDefault, path,
+        kCFURLPOSIXPathStyle, false); // false -> not a directory
+    stream = CFWriteStreamCreateWithFile(kCFAllocatorDefault, fileURL);
+    if (!stream || !CFWriteStreamOpen(stream)) goto cleanup;
+
+    // write plist
+    if (CFWriteStreamWrite(stream, CFDataGetBytePtr(data),
+                                   CFDataGetLength(data)) < 0) {
+        error("couldn't write preferences plist");
+        goto cleanup;
+    }
+
+cleanup:
+    if (sys_prefdict)
+    {
+        CFRelease(sys_prefdict);
+        sys_prefdict = NULL;
+    }
+    if (data) {CFRelease(data);}
+    if (stream) {
+        if(CFWriteStreamGetStatus(stream) == kCFStreamStatusOpen) {
+            CFWriteStreamClose(stream);
+        }
+        CFRelease(stream);
+    }
+    if (fileURL) {CFRelease(fileURL);}
+    if (path) {CFRelease(path);}
+    if (err) {CFRelease(err);}
 }
 
-#else  /* !defined(_WIN32) && !defined(__APPLE__) */
+static int sys_getpreference(const char *key, char *value, int size)
+{
+    if (sys_prefbuf)
+        return (sys_getpreference_file(key, value, size));
+    if (sys_prefdict) {
+        /* read from loaded plist dict */
+        CFStringRef k = CFStringCreateWithCStringNoCopy(kCFAllocatorDefault,
+            key, kCFStringEncodingUTF8, kCFAllocatorNull);
+        void *v = NULL;
+        int ret = 0;
+        if (CFDictionaryGetValueIfPresent(sys_prefdict, k,
+                                          (const void **)&v)) {
+            ret = CFStringGetCString((CFStringRef)v, value, size,
+                                     kCFStringEncodingUTF8);
+#if 0
+            if (ret) fprintf(stderr, "plist read %s = %s\n", key, value);
+#endif
+            if (v) CFRelease(v);
+        }
+        CFRelease(k);
+        return (ret);
+    }
+    else {
+        /* fallback to defaults command */
+        char cmdbuf[256];
+        int nread = 0, nleft = size;
+        char path[MAXPDSTRING];
+        int embedded = preferences_getloadpath(path, MAXPDSTRING);
+        if (embedded)
+            snprintf(cmdbuf, 256, "defaults read %s %s 2> /dev/null\n",
+                path, key);
+        else
+            snprintf(cmdbuf, 256, "defaults read " MACOSX_CONFIG_NAME " %s 2> /dev/null\n", // ceammc
+                key);
+        FILE *fp = popen(cmdbuf, "r");
+        while (nread < size)
+        {
+            int newread = fread(value+nread, 1, size-nread, fp);
+            if (newread <= 0)
+                break;
+            nread += newread;
+        }
+        pclose(fp);
+        if (nread < 1)
+            return (0);
+        if (nread >= size)
+            nread = size-1;
+        value[nread] = 0;
+        if (value[nread-1] == '\n')     /* remove newline character at end */
+            value[nread-1] = 0;
+        return (1);
+    }
+}
+
+static void sys_putpreference(const char *key, const char *value)
+{
+    if (sys_prefsavefp)
+    {
+        sys_putpreference_file(key, value);
+        return;
+    }
+    if (sys_prefdict) {
+        CFStringRef k = CFStringCreateWithCString(kCFAllocatorDefault, key,
+                                                  kCFStringEncodingUTF8);
+        CFStringRef v = CFStringCreateWithCString(kCFAllocatorDefault, value,
+                                                  kCFStringEncodingUTF8);
+        CFDictionarySetValue((CFMutableDictionaryRef)sys_prefdict, k, v);
+        CFRelease(k);
+        CFRelease(v);
+#if 0
+        fprintf(stderr, "plist write %s = %s\n", key, value);
+#endif
+    }
+    else {
+        /* fallback to defaults command */
+        char cmdbuf[MAXPDSTRING];
+        snprintf(cmdbuf, MAXPDSTRING,
+            "defaults write " MACOSX_CONFIG_NAME " %s \"%s\" 2> /dev/null\n", key, value); // ceammc
+        system(cmdbuf);
+    }
+}
+
+#elif defined(_WIN32)
+/*****  windows: read and write to registry ******/
 
 static void sys_initloadpreferences(void)
 {
@@ -228,7 +420,6 @@ static int sys_getpreference(const char *key, char *value, int size)
         return (sys_getpreference_file(key, value, size));
     else
     {
-#ifdef _WIN32
         HKEY hkey;
         DWORD bigsize = size;
         LONG err = RegOpenKeyEx(HKEY_CURRENT_USER,
@@ -243,35 +434,6 @@ static int sys_getpreference(const char *key, char *value, int size)
         }
         RegCloseKey(hkey);
         return (1);
-#endif /* _WIN32 */
-#ifdef __APPLE__
-        /// ceammc
-        CFStringRef ckey = CFStringCreateWithCString(kCFAllocatorDefault, key, kCFStringEncodingASCII);
-        CFStringRef app_id = CFStringCreateWithCString(kCFAllocatorDefault, MACOSX_CONFIG_NAME, kCFStringEncodingASCII);
-        CFPropertyListRef lst = CFPreferencesCopyAppValue(ckey, app_id);
-        if (lst == NULL)
-            return 0;
-
-        CFTypeID type_id = CFGetTypeID(lst);
-        if (type_id == CFStringGetTypeID()) {
-            CFStringRef str = (CFStringRef)lst;
-            CFStringGetCString(str, value, size, kCFStringEncodingUTF8);
-        } else if (type_id == CFNumberGetTypeID()) {
-            CFNumberRef num = (CFNumberRef)lst;
-            CFStringRef str = CFStringCreateWithFormat(kCFAllocatorDefault, NULL, CFSTR("%@"), num);
-            CFStringGetCString(str, value, size, kCFStringEncodingUTF8);
-            CFRelease(str);
-        } else if (type_id == CFBooleanGetTypeID()) {
-            CFBooleanRef b = (CFBooleanRef)lst;
-            CFStringRef str = CFStringCreateWithFormat(kCFAllocatorDefault, NULL, CFSTR("%@"), b);
-            CFStringGetCString(str, value, size, kCFStringEncodingUTF8);
-            CFRelease(str);
-        }
-
-        CFRelease(lst);
-        return 1;
-        /// ceammc
-#endif /* __APPLE__ */
     }
 }
 
@@ -281,7 +443,6 @@ static void sys_putpreference(const char *key, const char *value)
         sys_putpreference_file(key, value);
     else
     {
-#ifdef _WIN32
         HKEY hkey;
         LONG err = RegCreateKeyEx(HKEY_CURRENT_USER,
             WIN_CONFIG_REGNAME, 0, NULL, REG_OPTION_NON_VOLATILE, KEY_SET_VALUE,
@@ -295,23 +456,68 @@ static void sys_putpreference(const char *key, const char *value)
         if (err != ERROR_SUCCESS)
             error("unable to set registry entry: %s\n", key);
         RegCloseKey(hkey);
-#endif /* _WIN32 */
-#ifdef __APPLE__
-        /// ceammc
-        CFStringRef ckey = CFStringCreateWithCString(kCFAllocatorDefault, key, kCFStringEncodingASCII);
-        CFStringRef cval = CFStringCreateWithCString(kCFAllocatorDefault, value, kCFStringEncodingASCII);
-        CFStringRef app_id = CFStringCreateWithCString(kCFAllocatorDefault, MACOSX_CONFIG_NAME, kCFStringEncodingASCII);
-        CFPreferencesSetAppValue(ckey, cval, app_id);
-        if (!CFPreferencesAppSynchronize(app_id))
-            error("unable to save preference entry: %s", key);
-        CFRelease(ckey);
-        CFRelease(cval);
-        CFRelease(app_id);
-        /// ceammc
-#endif /* __APPLE__ */
     }
 }
-#endif  /* !defined(_WIN32) && !defined(__APPLE__) */
+
+#else
+/*****  linux/android/BSD etc: read and write to ~/.pdsettings file ******/
+
+static void sys_initloadpreferences(void)
+{
+    char filenamebuf[MAXPDSTRING], *homedir = getenv("HOME");
+    int fd, length;
+    char user_prefs_file[MAXPDSTRING]; /* user prefs file */
+        /* default prefs embedded in the package */
+    char default_prefs_file[MAXPDSTRING];
+    struct stat statbuf;
+
+    snprintf(default_prefs_file, MAXPDSTRING, "%s/default.pdsettings",
+        sys_libdir->s_name);
+    snprintf(user_prefs_file, MAXPDSTRING, "%s/.pdsettings",
+        (homedir ? homedir : "."));
+    if (stat(user_prefs_file, &statbuf) == 0)
+        strncpy(filenamebuf, user_prefs_file, MAXPDSTRING);
+    else if (stat(default_prefs_file, &statbuf) == 0)
+        strncpy(filenamebuf, default_prefs_file, MAXPDSTRING);
+    else return;
+    filenamebuf[MAXPDSTRING-1] = 0;
+    sys_initloadpreferences_file(filenamebuf);
+}
+
+static int sys_getpreference(const char *key, char *value, int size)
+{
+    return (sys_getpreference_file(key, value, size));
+}
+
+static void sys_doneloadpreferences(void)
+{
+    sys_doneloadpreferences_file();
+}
+
+static void sys_initsavepreferences(void)
+{
+    char filenamebuf[MAXPDSTRING],
+        *homedir = getenv("HOME");
+    FILE *fp;
+
+    if (!homedir)
+        return;
+    snprintf(filenamebuf, MAXPDSTRING, "%s/.pdsettings", homedir);
+    filenamebuf[MAXPDSTRING-1] = 0;
+    sys_initsavepreferences_file(filenamebuf);
+}
+
+static void sys_putpreference(const char *key, const char *value)
+{
+    sys_putpreference_file(key, value);
+}
+
+static void sys_donesavepreferences(void)
+{
+    sys_donesavepreferences_file();
+}
+
+#endif
 
 void sys_loadpreferences(const char *filename, int startingup)
 {
@@ -485,14 +691,10 @@ void sys_loadpreferences(const char *filename, int startingup)
     if (sys_defeatrt)
         sys_hipriority = 0;
     else
-#if defined(__linux__) || defined(__CYGWIN__)
-        sys_hipriority = 1;
-#else
-#if defined(_WIN32) || defined(ANDROID)
+#if defined(ANDROID)
         sys_hipriority = 0;
 #else
         sys_hipriority = 1;
-#endif
 #endif
     if (sys_getpreference("zoom", prefbuf, MAXPDSTRING))
         sscanf(prefbuf, "%d", &sys_zoom_open);
@@ -648,29 +850,21 @@ void glob_forgetpreferences(t_pd *dummy)
         post("no Pd settings to clear");
     else if (!system("rm ~/" UNIX_CONFIG_FILENAME "\n"))
         post("removed " UNIX_CONFIG_FILENAME " file");
-    else post("couldn't delete " UNIX_CONFIG_FILENAME " file");
+    else
+        post("couldn't delete " UNIX_CONFIG_FILENAME " file");
 #endif  /* !defined(_WIN32) && !defined(__APPLE__) */
 #ifdef __APPLE__
-    /// ceammc
-    CFStringRef app_id = CFStringCreateWithCString(kCFAllocatorDefault, MACOSX_CONFIG_NAME, kCFStringEncodingASCII);
-    CFArrayRef keys = CFPreferencesCopyKeyList(app_id, kCFPreferencesCurrentUser, kCFPreferencesAnyHost);
-    if (keys) {
-        CFIndex n = CFArrayGetCount(keys);
-        for (CFIndex i = 0; i < n; i++) {
-            CFStringRef key = CFArrayGetValueAtIndex(keys, i);
-            CFPreferencesSetAppValue(key, NULL, app_id);
-        }
-
-        Boolean ok = CFPreferencesAppSynchronize(app_id);
-        CFRelease(keys);
-
-        if(ok)
-            post("erased Pd settings");
-        else
-            post("failed to erase Pd settings");
-    }
-    CFRelease(app_id);
-    /// ceammc
+    char cmdbuf[MAXPDSTRING];
+    int warn = 1;
+    if (!sys_getpreference("audioapi", cmdbuf, MAXPDSTRING))
+        post("no Pd settings to clear"), warn = 0;
+            /* do it anyhow, why not... */
+    snprintf(cmdbuf, MAXPDSTRING,
+        "defaults delete " MACOSX_CONFIG_NAME " 2> /dev/null\n");
+    if (system(cmdbuf) && warn)
+        post("failed to erase Pd settings");
+    else if(warn)
+        post("erased Pd settings");
 #endif /* __APPLE__ */
 #ifdef _WIN32
     HKEY hkey;
