@@ -13,7 +13,6 @@
  *****************************************************************************/
 
 #include <algorithm>
-#include <boost/algorithm/minmax_element.hpp>
 #include <chrono>
 #include <random>
 
@@ -152,9 +151,9 @@ void UISliders::paintSliders()
     // draw bins
     const size_t N = pos_values_.size();
     for (size_t i = 0; i < N; i++) {
-        const float v = pos_values_[i];
+        const t_float v = pos_values_[i];
 
-        float x, y, w, h;
+        t_float x, y, w, h;
 
         if (is_vertical_) {
             x = 0;
@@ -221,20 +220,20 @@ void UISliders::onMouseDown(t_object* view, const t_pt& pt, const t_pt& abs_pt, 
     const size_t N = pos_values_.size();
 
     size_t idx = 0;
-    float val = 0.f;
+    t_float val = 0.f;
 
     if (is_vertical_) {
         if (pt.y < 0)
             return;
 
         idx = clip<size_t>(floorf(pt.y / r.height * N), 0, N - 1);
-        val = clip<float>(pt.x / r.width, 0, 1);
+        val = clip<t_float>(pt.x / r.width, 0, 1);
     } else {
         if (pt.x < 0)
             return;
 
         idx = clip<size_t>(floorf(pt.x / r.width * N), 0, N - 1);
-        val = clip<float>(1.f - pt.y / r.height, 0, 1);
+        val = clip<t_float>(1.f - pt.y / r.height, 0, 1);
     }
 
     pos_values_[idx] = val;
@@ -283,7 +282,7 @@ void UISliders::m_get(const AtomList& l)
 AtomList UISliders::realValues() const
 {
     AtomList res;
-    res.fill(0.f, pos_values_.size());
+    res.fill(0., pos_values_.size());
 
     for (size_t i = 0; i < pos_values_.size(); i++)
         res[i] = realValueAt(i);
@@ -293,7 +292,7 @@ AtomList UISliders::realValues() const
 
 void UISliders::setRealValueAt(size_t n, t_float v)
 {
-    pos_values_[n] = clip<float, 0, 1>((v - prop_min) / (prop_max - prop_min));
+    pos_values_[n] = clip<t_float, 0, 1>((v - prop_min) / (prop_max - prop_min));
 }
 
 t_float UISliders::realValueAt(size_t n) const
@@ -315,7 +314,7 @@ bool UISliders::setRealValues(const AtomList& l)
         auto max = l.max()->asFloat(1);
         range = max - min;
 
-        if (range == 0.f) {
+        if (range == 0.) {
             UI_ERR << "zero value range";
             return false;
         }
@@ -396,13 +395,11 @@ void UISliders::normalize()
     if (pos_values_.empty())
         return;
 
-    typedef std::vector<float>::iterator Iterator;
-
-    std::pair<Iterator, Iterator> mm = boost::minmax_element(pos_values_.begin(), pos_values_.end());
-    const float range = prop_max - prop_min;
-    const float real_min = (*mm.first) * range + prop_min;
-    const float real_max = (*mm.second) * range + prop_min;
-    const float new_range = real_max - real_min;
+    auto mm = std::minmax_element(pos_values_.begin(), pos_values_.end());
+    const t_float range = prop_max - prop_min;
+    const t_float real_min = (*mm.first) * range + prop_min;
+    const t_float real_max = (*mm.second) * range + prop_min;
+    const t_float new_range = real_max - real_min;
 
     if (*mm.second == *mm.first) {
         UI_ERR << "normalize error - invalid range: " << new_range;

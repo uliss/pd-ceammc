@@ -24,7 +24,7 @@ class UISliders : public UIObject {
     UITextLayout txt_max_;
     long select_idx_;
     bool is_vertical_;
-    std::vector<float> pos_values_;
+    std::vector<t_float> pos_values_;
     UILayer sliders_layer_;
 
 private:
