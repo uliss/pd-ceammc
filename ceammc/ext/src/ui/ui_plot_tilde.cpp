@@ -42,13 +42,13 @@ constexpr size_t N_BTNS = sizeof(BTN_LABELS) / sizeof(BTN_LABELS[0]);
 #ifdef __linux__
 inline bool is_int_nan(float f)
 {
-    const uint32 u = *(uint32*)&f;
+    const uint32_t u = *(uint32_t*)&f;
     return (u&0x7F800000) == 0x7F800000 && (u&0x7FFFFF);    // Both NaN and qNan.
 }
 
 inline bool is_int_nan(double d)
 {
-    const uint64 u = *(uint64*)&d;
+    const uint64_t u = *(uint64_t*)&d;
     return (u&0x7FF0000000000000ULL) == 0x7FF0000000000000ULL && (u&0xFFFFFFFFFFFFFULL);
 }
 #endif

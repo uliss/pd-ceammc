@@ -14,8 +14,8 @@
 #include "flow_loop.h"
 #include "ceammc_factory.h"
 
-#include <numeric>
 #include <cmath>
+#include <numeric>
 
 FlowLoop::FlowLoop(const PdArgs& a)
     : BaseObject(a)
@@ -27,6 +27,8 @@ FlowLoop::FlowLoop(const PdArgs& a)
         play();
     })
     , mode_(MODE_REC)
+    , last_event_time_(0)
+    , play_idx_(0)
 {
     createInlet();
     createOutlet();
