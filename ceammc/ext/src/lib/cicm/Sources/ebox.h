@@ -479,7 +479,7 @@ void ebox_wdelete(t_gobj* z, t_glist* glist);
 
 // ceammc
 float ebox_getzoom(t_ebox* x);
-void ebox_setzoom(t_ebox* x, float f);
+void ebox_setzoom(t_ebox* x, t_float f);
 float ebox_fontwidth(t_ebox* x);
 float ebox_fontheight(t_ebox* x);
 

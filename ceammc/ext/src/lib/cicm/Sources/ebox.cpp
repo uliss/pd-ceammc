@@ -2393,7 +2393,7 @@ static void ebox_move(t_ebox* x)
     canvas_fixlinesfor(glist_getcanvas(x->b_obj.o_canvas), (t_text*)x);
 }
 
-void ebox_setzoom(t_ebox* x, float f)
+void ebox_setzoom(t_ebox* x, t_float f)
 {
     x->b_zoom = f;
 
