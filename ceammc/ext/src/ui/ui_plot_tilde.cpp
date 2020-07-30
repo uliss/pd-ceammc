@@ -40,19 +40,23 @@ static const char* BTN_LABELS[] = { "T", "g", "G", "L" };
 constexpr size_t N_BTNS = sizeof(BTN_LABELS) / sizeof(BTN_LABELS[0]);
 
 #ifdef __linux__
-template <size_t N>
-struct IntNAN {
-};
-template <>
-struct IntNAN<sizeof(float)> {
-    static const uint32_t nan = 0xffc00000;
-};
+inline bool is_int_nan(float f)
+{
+    const uint32 u = *(uint32*)&f;
+    return (u&0x7F800000) == 0x7F800000 && (u&0x7FFFFF);    // Both NaN and qNan.
+}
+
+inline bool is_int_nan(double d)
+{
+    const uint64 u = *(uint64*)&d;
+    return (u&0x7FF0000000000000ULL) == 0x7FF0000000000000ULL && (u&0xFFFFFFFFFFFFFULL);
+}
 #endif
 
 static inline bool is_inf_nan(t_sample v)
 {
 #ifdef __linux__
-    return std::isinf(v) || std::isnan(v) || *(uint32_t*)(&v) == IntNAN<sizeof(v)>::nan;
+    return std::isinf(v) || std::isnan(v) || is_int_nan(v);
 #else
     return std::isinf(v) || std::isnan(v);
 #endif
