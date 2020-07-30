@@ -281,13 +281,13 @@ TEST_CASE("ui.sliders", "[ui.sliders]")
         REQUIRE_NO_OUTPUT(t);
         REQUIRE_UI_LIST_PROPERTY(t, "value", AtomList::zeroes(8));
 
-        t.call("set", LA("slider", -1, 0.3));
+        t.call("set", LA("slider", -1, 0.375));
         REQUIRE_NO_OUTPUT(t);
         REQUIRE_UI_LIST_PROPERTY(t, "value", AtomList::zeroes(8));
 
-        t.call("set", LA("slider", 1, 0.3));
+        t.call("set", LA("slider", 1, 0.375));
         REQUIRE_NO_OUTPUT(t);
-        REQUIRE_UI_LIST_PROPERTY(t, "value", LF(0, 0.3) + AtomList::zeroes(6));
+        REQUIRE_UI_LIST_PROPERTY(t, "value", LF(0, 0.375) + AtomList::zeroes(6));
     }
 
     SECTION("operator")
@@ -306,11 +306,11 @@ TEST_CASE("ui.sliders", "[ui.sliders]")
 
         t.call("*", 10);
         REQUIRE_UI_LIST_PROPERTY(t, "value", AtomList::zeroes(8));
-        t.call("+", 0.15);
-        REQUIRE_UI_LIST_PROPERTY(t, "value", AtomList::filled(0.15f, 8));
+        t.call("+", 0.25);
+        REQUIRE_UI_LIST_PROPERTY(t, "value", AtomList::filled(0.25, 8));
 
         t.call("*", 2);
-        REQUIRE_UI_LIST_PROPERTY(t, "value", AtomList::filled(0.3f, 8));
+        REQUIRE_UI_LIST_PROPERTY(t, "value", AtomList::filled(0.5, 8));
         t.call("*", 4);
         REQUIRE_UI_LIST_PROPERTY(t, "value", AtomList::ones(8));
 
