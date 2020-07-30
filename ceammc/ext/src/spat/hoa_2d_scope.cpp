@@ -55,12 +55,12 @@ void Hoa2dScope::paint()
     drawHarmonics();
 }
 
-float Hoa2dScope::propOrder() const
+t_float Hoa2dScope::propOrder() const
 {
     return prop_order_;
 }
 
-void Hoa2dScope::propSetOrder(float v)
+void Hoa2dScope::propSetOrder(t_float v)
 {
     auto order = clip<int>(v, HOA_MIN_ORDER, HOA_MAX_ORDER);
 
@@ -78,12 +78,12 @@ void Hoa2dScope::propSetOrder(float v)
     }
 }
 
-float Hoa2dScope::propView() const
+t_float Hoa2dScope::propView() const
 {
     return prop_view_;
 }
 
-void Hoa2dScope::propSetView(float angle)
+void Hoa2dScope::propSetView(t_float angle)
 {
     int dspState = canvas_suspend_dsp();
     prop_view_ = wrapFloatMax<float>(angle, 360);

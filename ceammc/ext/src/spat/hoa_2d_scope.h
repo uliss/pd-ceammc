@@ -26,8 +26,8 @@ class Hoa2dScope : public UIDspObject {
     std::unique_ptr<Scope2d> scope_;
     Buffer in_buf_;
     int prop_order_;
-    float prop_gain_;
-    float prop_view_;
+    t_float prop_gain_;
+    t_float prop_view_;
     int prop_refresh_;
     t_rgba prop_ph_color_;
     t_rgba prop_nh_color_;
@@ -45,10 +45,10 @@ public:
     void okSize(t_rect* newrect);
     void paint();
 
-    float propOrder() const;
-    void propSetOrder(float v);
-    float propView() const;
-    void propSetView(float angle);
+    t_float propOrder() const;
+    void propSetOrder(t_float v);
+    t_float propView() const;
+    void propSetView(t_float angle);
 
     void tick();
 

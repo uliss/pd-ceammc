@@ -436,7 +436,7 @@ public:
      * @param m - member pointer to property
      * @param category - property category
      */
-    void addFloatProperty(const char* name, const char* label, float def, float UI::*m, const char* category = "Misc")
+    void addFloatProperty(const char* name, const char* label, t_float def, t_float UI::*m, const char* category = "Misc")
     {
         char buf[32];
         snprintf(buf, 30, "%g", def);
