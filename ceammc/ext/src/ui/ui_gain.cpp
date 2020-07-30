@@ -33,7 +33,6 @@ UIGain::UIGain()
     , font_(gensym(FONT_FAMILY), FONT_SIZE_SMALL)
     , txt_max_(font_.font(), ColorRGBA::black(), ETEXT_UP_LEFT, ETEXT_JLEFT)
     , txt_min_(font_.font(), ColorRGBA::black(), ETEXT_DOWN_LEFT, ETEXT_JLEFT)
-    , click_pos_ { 0, 0 }
     , knob_phase_(0)
     , is_horizontal_(false)
     , prop_relative_mode(0)
