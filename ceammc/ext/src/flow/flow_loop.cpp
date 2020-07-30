@@ -15,6 +15,7 @@
 #include "ceammc_factory.h"
 
 #include <numeric>
+#include <cmath>
 
 FlowLoop::FlowLoop(const PdArgs& a)
     : BaseObject(a)
