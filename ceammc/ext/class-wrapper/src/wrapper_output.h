@@ -94,6 +94,12 @@ public:
             os_ << ' ' << i;
     }
 
+    void operator()(int, const std::vector<double>& v)
+    {
+        for (auto& i : v)
+            os_ << ' ' << i;
+    }
+
     void operator()(int, const std::vector<std::string>& v)
     {
         for (auto& i : v)
@@ -274,6 +280,26 @@ struct PdOutput<T, std::vector<float>> {
 };
 
 template <typename T>
+struct PdOutput<T, std::vector<double>> {
+    T* t_;
+    PdOutput(T* t)
+        : t_(t)
+    {
+    }
+
+    void output(size_t n, const std::vector<double>& v)
+    {
+        AtomList res;
+        res.reserve(v.size());
+
+        for (auto f : v)
+            res.append(Atom(f));
+
+        t_->listTo(n, res);
+    }
+};
+
+template <typename T>
 struct PdOutput<T, std::vector<int>> {
     T* t_;
     PdOutput(T* t)
@@ -415,6 +441,15 @@ private:
         }
 
         void operator()(int index, const std::vector<float>& v)
+        {
+            AtomList res;
+            for (auto& f : v)
+                res.append(f);
+
+            t_->listTo(n_ + index, res);
+        }
+
+        void operator()(int index, const std::vector<double>& v)
         {
             AtomList res;
             for (auto& f : v)

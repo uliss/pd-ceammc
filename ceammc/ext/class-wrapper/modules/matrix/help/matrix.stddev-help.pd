@@ -1,11 +1,11 @@
-#N canvas 0 0 760 555 12;
+#N canvas 0 0 785 555 12;
 #X declare -lib ceammc;
 #X declare -lib matrix;
-#X obj 449 50 cnv 1 291 21 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 449 50 standart deviation for matrix values;
-#X obj 1 1 cnv 5 740 40 empty empty matrix.stddev 20 20 0 20 -104026
+#X obj 484 50 cnv 1 281 23 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 484 50 standart deviation for matrix values;
+#X obj 1 1 cnv 5 765 40 empty empty matrix.stddev 20 20 0 20 -104026
 -4096 0;
-#X obj 620 11 matrix.stddev;
+#X obj 645 11 matrix.stddev;
 #X obj 50 118 declare -lib matrix;
 #X msg 50 162 5 5;
 #X msg 194 162 5 5;
@@ -13,40 +13,40 @@
 #X obj 194 190 matrix.randn;
 #X obj 50 219 matrix.stddev;
 #X floatatom 50 248 8 0 0 0 - - -;
-#X obj 20 287 cnv 1 720 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 287 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 292 cnv 5 90 26 empty empty arguments: 4 10 0 14 -262144
 -49933 0;
-#X text 120 297 1\.;
-#X text 150 297 int;
-#X obj 281 298 cnv 1 81 18 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 297 NORM_TYPE: if 0 given \, N-1 normalization used \, if
-1 - N.;
-#X obj 20 325 cnv 1 720 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 330 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
+#X text 110 327 1\.;
+#X text 150 327 int;
+#X obj 246 328 cnv 1 78 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 245 327 NORM_TYPE: if 0 given \, N-1 normalization used \,
+if 1 - N.;
+#X obj 20 357 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 362 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
-#X text 120 335 1\.;
-#X text 150 335 *list*;
-#X text 280 335 Matrix data constructor: NROWS NCOLS ....;
-#X text 150 353 *data*;
-#X text 280 353 Matrix data.;
-#X text 120 371 2\.;
-#X text 150 371 *int*;
-#X text 280 371 if 0 given \, N-1 normalization used \, if 1 - N.;
-#X obj 20 399 cnv 1 720 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 404 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
+#X text 110 363 1\.;
+#X text 150 363 *list*;
+#X text 245 363 Matrix data constructor: NROWS NCOLS ...;
+#X text 150 383 *data*;
+#X text 245 383 Matrix data.;
+#X text 110 403 2\.;
+#X text 150 403 *int*;
+#X text 245 403 if 0 given \, N-1 normalization used \, if 1 - N.;
+#X obj 20 433 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 438 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 120 409 1\.;
-#X text 280 409 output standart deviation (float);
+#X text 110 439 1\.;
+#X text 245 439 output standart deviation (float).;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 67 48 ui.link @title matrix @url matrix-help.pd;
 #X text 116 45 ::;
 #X obj 132 48 ui.link @title matrix @url matrix.matrix-help.pd;
-#X obj 1 505 cnv 5 740 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 1 505 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 10 508 library: matrix v0.1;
-#X text 382 520 see also:;
-#X obj 458 520 matrix.stddev_col;
-#X obj 596 520 matrix.stddev_row;
+#X text 404 520 see also:;
+#X obj 478 520 matrix.stddev_col;
+#X obj 616 520 matrix.stddev_row;
 #N canvas 10 527 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;

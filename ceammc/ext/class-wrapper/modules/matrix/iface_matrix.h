@@ -27,7 +27,7 @@ static void wrapper_init()
  * @constructor NROWS NCOLS ...
  */
 class Matrix : public DataIFace {
-    using ValueType = float;
+    using ValueType = t_float;
     using MatT = Mat<ValueType>;
     enum {
         DIR_COL = 0,
@@ -233,7 +233,7 @@ public:
      * |
      * [ui.display @display_type=1]
      */
-    static Matrix full(unsigned int m, unsigned int n, float v);
+    static Matrix full(unsigned int m, unsigned int n, t_float v);
 
     /**
      * @brief fill input Matrix with value
@@ -251,7 +251,7 @@ public:
      * |
      * [ui.display @display_type=1]
      */
-    Matrix fill(float v) const;
+    Matrix fill(t_float v) const;
 
     /**
      * @brief generates Matrix with uniform distribution [0-1]
@@ -303,7 +303,7 @@ public:
      * |
      * [ui.display @display_type=1]
      */
-    Matrix replace(float old_value, float new_value) const;
+    Matrix replace(t_float old_value, t_float new_value) const;
 
     /**
      * @brief change size while keeping elements
@@ -492,7 +492,7 @@ public:
      * |
      * [F digits=8]
      */
-    float min() const;
+    t_float min() const;
 
     /**
      * @brief returns maximum in Matrix
@@ -508,7 +508,7 @@ public:
      * |
      * [F digits=8]
      */
-    float max() const;
+    t_float max() const;
 
     /**
      * @brief transpose Matrix
@@ -577,7 +577,7 @@ public:
      * |
      * [ui.display @display_type=1]
      */
-    Matrix add(float v) const;
+    Matrix add(t_float v) const;
     /**
      * @param m - matrix to add
      */
@@ -603,7 +603,7 @@ public:
     /**
      * @param v - float to add to all matrix elements
      */
-    Matrix sub(float v) const;
+    Matrix sub(t_float v) const;
 
     /**
      * @brief element-wise matrix multiplication
@@ -622,7 +622,7 @@ public:
     /**
      * @param v - float to multiply all elements
      */
-    Matrix mul(float v) const;
+    Matrix mul(t_float v) const;
 
     /**
      * @brief element-wise matrix division
@@ -644,7 +644,7 @@ public:
     /**
      * @param v - float to divide all elements
      */
-    Matrix div(float v) const;
+    Matrix div(t_float v) const;
 
     /**
      * @brief matrix product
@@ -718,7 +718,7 @@ public:
      * |                   ^|
      * [ui.display]      [ui.display]
      */
-    std::tuple<std::vector<float>, std::vector<float>> toList() const;
+    std::tuple<std::vector<t_float>, std::vector<t_float>> toList() const;
 
     /**
      * @brief Solve a system of linear equations, A*X = B, where X is unknown
@@ -801,7 +801,7 @@ public:
     /**
      * @param v - float to compare
      */
-    Matrix gt(float v) const;
+    Matrix gt(t_float v) const;
 
     /**
      * @brief element-wise greater equal comparasion
@@ -821,7 +821,7 @@ public:
     /**
      * @param v - float to compare
      */
-    Matrix ge(float v) const;
+    Matrix ge(t_float v) const;
 
     /**
      * @brief element-wise less equal comparasion
@@ -841,7 +841,7 @@ public:
     /**
      * @param v - float to compare
      */
-    Matrix le(float v) const;
+    Matrix le(t_float v) const;
 
     /**
      * @brief element-wise less then comparasion
@@ -861,7 +861,7 @@ public:
     /**
      * @param v - float to compare
      */
-    Matrix lt(float v) const;
+    Matrix lt(t_float v) const;
 
     /**
      * @brief element-wise matrix equal comparasion
@@ -877,7 +877,7 @@ public:
      * |
      * [ui.display @display_type=1]
      */
-    Matrix eq(float v) const;
+    Matrix eq(t_float v) const;
     /**
      * @param b - matrix to compare
      */
@@ -897,7 +897,7 @@ public:
      * |
      * [ui.display @display_type=1]
      */
-    Matrix ne(float v) const;
+    Matrix ne(t_float v) const;
     /**
      * @param b - matrix to compare
      */
@@ -977,7 +977,7 @@ public:
      * |
      * [ui.display @display_type=1]
      */
-    static Matrix fromList(const std::vector<float>& v);
+    static Matrix fromList(const std::vector<t_float>& v);
 
     /**
      * @brief create Matrix column with specified values
@@ -992,7 +992,7 @@ public:
      * |       |
      * [print] [ui.display @display_type=1]
      */
-    static Matrix col(const std::vector<float>& v);
+    static Matrix col(const std::vector<t_float> &v);
 
     /**
      * @brief create Matrix row with specified values
@@ -1007,7 +1007,7 @@ public:
      * |       |
      * [print] [ui.display @display_type=1]
      */
-    static Matrix row(const std::vector<float>& v);
+    static Matrix row(const std::vector<t_float>& v);
 
     /**
      * @brief generate row with linearly spaced N elements
@@ -1025,7 +1025,7 @@ public:
      * |
      * [ui.display @display_type=1]
      */
-    static Matrix linspace(float start, float end, unsigned int N);
+    static Matrix linspace(t_float start, t_float end, unsigned int N);
 
     /**
      * @brief generate row with N elements spaced logarithmically
@@ -1043,7 +1043,7 @@ public:
      * |
      * [ui.display @display_type=1]
      */
-    static Matrix logspace(float A, float B, unsigned int N);
+    static Matrix logspace(t_float A, t_float B, unsigned int N);
 
     /**
      * @brief calc abs value for each matrix element
@@ -1074,7 +1074,7 @@ public:
      * |
      * [F]
      */
-    float accu() const;
+    t_float accu() const;
 
     /**
      * @brief check if all elements of the matrix are non-zero
@@ -1193,7 +1193,7 @@ public:
      * |
      * [ui.display @display_type=1]
      */
-    Matrix clip(float min, float max) const;
+    Matrix clip(t_float min, t_float max) const;
 
     /**
      * @brief determinant of square matrix
@@ -1208,7 +1208,7 @@ public:
      * |
      * [F digits=8]
      */
-    float det() const;
+    t_float det() const;
 
     /**
      * @brief mean matrix value
@@ -1224,7 +1224,7 @@ public:
      * |
      * [F digits=8]
      */
-    float mean() const;
+    t_float mean() const;
 
     /**
      * @brief mean value for each matrix column
@@ -1270,7 +1270,7 @@ public:
      * |               |
      * [F digits=8]    [F digits=8]
      */
-    float median() const;
+    t_float median() const;
 
     /**
      * @brief median matrix value for each column
@@ -1315,7 +1315,7 @@ public:
      * |
      * [F digits=8]
      */
-    float stddev(bool norm_type) const;
+    t_float stddev(bool norm_type) const;
 
     /**
      * @brief standart deviation matrix value for each column
@@ -1359,7 +1359,7 @@ public:
      * |
      * [F]
      */
-    float range() const;
+    t_float range() const;
 
     /**
      * @brief matrix column range (difference between max and min)
@@ -1748,7 +1748,7 @@ public:
      * |
      * [F]
      */
-    float at(unsigned int m, unsigned int n) const;
+    t_float at(unsigned int m, unsigned int n) const;
 
 public:
     std::string toString() const
@@ -1812,13 +1812,13 @@ Matrix Matrix::identity(unsigned int n)
     return Matrix(MatT(n, n, fill::eye));
 }
 
-Matrix Matrix::full(unsigned int m, unsigned int n, float v)
+Matrix Matrix::full(unsigned int m, unsigned int n, t_float v)
 {
     MatT mtx(m, n);
     return Matrix(mtx.fill(v));
 }
 
-Matrix Matrix::fill(float v) const
+Matrix Matrix::fill(t_float v) const
 {
     MatT m(m_);
     return Matrix(m.fill(v));
@@ -1834,7 +1834,7 @@ Matrix Matrix::randn(unsigned int m, unsigned int n)
     return Matrix(MatT(m, n, fill::randn));
 }
 
-Matrix Matrix::replace(float old_value, float new_value) const
+Matrix Matrix::replace(t_float old_value, t_float new_value) const
 {
     MatT m(m_);
     return Matrix(m.replace(old_value, new_value));
@@ -1987,12 +1987,12 @@ Matrix Matrix::swap_rows(unsigned int a, unsigned int b) const
     return Matrix(m);
 }
 
-float Matrix::min() const
+t_float Matrix::min() const
 {
     return m_.min();
 }
 
-float Matrix::max() const
+t_float Matrix::max() const
 {
     return m_.max();
 }
@@ -2037,7 +2037,7 @@ Matrix Matrix::add(const Matrix& m) const
     return Matrix(m_ + m.m_);
 }
 
-Matrix Matrix::add(float v) const
+Matrix Matrix::add(t_float v) const
 {
     return Matrix(m_ + v);
 }
@@ -2047,7 +2047,7 @@ Matrix Matrix::sub(const Matrix& m) const
     return Matrix(m_ - m.m_);
 }
 
-Matrix Matrix::sub(float v) const
+Matrix Matrix::sub(t_float v) const
 {
     return Matrix(m_ - v);
 }
@@ -2057,7 +2057,7 @@ Matrix Matrix::matmul(const Matrix& m) const
     return Matrix(m_ * m.m_);
 }
 
-Matrix Matrix::mul(float v) const
+Matrix Matrix::mul(t_float v) const
 {
     return Matrix(m_ * v);
 }
@@ -2092,7 +2092,7 @@ Matrix Matrix::div(const Matrix& m) const
     return Matrix(m_ / m.m_);
 }
 
-Matrix Matrix::div(float v) const
+Matrix Matrix::div(t_float v) const
 {
     return Matrix(m_ / v);
 }
@@ -2107,9 +2107,9 @@ Matrix Matrix::shift_row(int n) const
     return Matrix(shift(m_, n, 1));
 }
 
-std::tuple<std::vector<float>, std::vector<float>> Matrix::toList() const
+std::tuple<std::vector<t_float>, std::vector<t_float>> Matrix::toList() const
 {
-    std::tuple<std::vector<float>, std::vector<float>> res;
+    std::tuple<std::vector<t_float>, std::vector<t_float>> res;
 
     for (int i = 0; i < m_.n_rows; i++) {
         for (int j = 0; j < m_.n_cols; j++)
@@ -2136,7 +2136,7 @@ Matrix Matrix::gt(const Matrix& b) const
     return Matrix(arma::conv_to<MatT>::from(m_ > b.m_));
 }
 
-Matrix Matrix::gt(float v) const
+Matrix Matrix::gt(t_float v) const
 {
     return Matrix(arma::conv_to<MatT>::from(m_ > MatT(arma::size(m_)).fill(v)));
 }
@@ -2146,7 +2146,7 @@ Matrix Matrix::ge(const Matrix& b) const
     return Matrix(arma::conv_to<MatT>::from(m_ >= b.m_));
 }
 
-Matrix Matrix::ge(float v) const
+Matrix Matrix::ge(t_float v) const
 {
     return Matrix(arma::conv_to<MatT>::from(m_ >= MatT(arma::size(m_)).fill(v)));
 }
@@ -2156,12 +2156,12 @@ Matrix Matrix::le(const Matrix& b) const
     return Matrix(arma::conv_to<MatT>::from(m_ <= b.m_));
 }
 
-Matrix Matrix::le(float v) const
+Matrix Matrix::le(t_float v) const
 {
     return Matrix(arma::conv_to<MatT>::from(m_ <= MatT(arma::size(m_)).fill(v)));
 }
 
-Matrix Matrix::lt(float v) const
+Matrix Matrix::lt(t_float v) const
 {
     return Matrix(arma::conv_to<MatT>::from(m_ < MatT(arma::size(m_)).fill(v)));
 }
@@ -2176,7 +2176,7 @@ Matrix Matrix::eq(const Matrix& b) const
     return Matrix(arma::conv_to<MatT>::from(m_ == b.m_));
 }
 
-Matrix Matrix::ne(float v) const
+Matrix Matrix::ne(t_float v) const
 {
     return Matrix(arma::conv_to<MatT>::from(m_ != MatT(arma::size(m_)).fill(v)));
 }
@@ -2186,7 +2186,7 @@ Matrix Matrix::ne(const Matrix& b) const
     return Matrix(arma::conv_to<MatT>::from(m_ != b.m_));
 }
 
-Matrix Matrix::eq(float v) const
+Matrix Matrix::eq(t_float v) const
 {
     return Matrix(arma::conv_to<MatT>::from(m_ == MatT(arma::size(m_)).fill(v)));
 }
@@ -2196,7 +2196,7 @@ Matrix Matrix::mul(const Matrix& b) const
     return Matrix(m_ % b.m_);
 }
 
-Matrix Matrix::fromList(const std::vector<float>& v)
+Matrix Matrix::fromList(const std::vector<t_float> &v)
 {
     if (v.size() < 2)
         throw std::runtime_error("expected MROWS NCOLS [values...]");
@@ -2228,24 +2228,24 @@ Matrix Matrix::fromList(const std::vector<float>& v)
     return Matrix(res);
 }
 
-Matrix Matrix::col(const std::vector<float>& v)
+Matrix Matrix::col(const std::vector<t_float>& v)
 {
     return Matrix(Col<ValueType>(v));
 }
 
-Matrix Matrix::row(const std::vector<float>& v)
+Matrix Matrix::row(const std::vector<t_float> &v)
 {
-    return Matrix(Row<float>(v));
+    return Matrix(Row<ValueType>(v));
 }
 
-Matrix Matrix::linspace(float start, float end, unsigned int N)
+Matrix Matrix::linspace(t_float start, t_float end, unsigned int N)
 {
-    return Matrix(arma::linspace<frowvec>(start, end, (N == 0) ? 100 : N));
+    return Matrix(arma::linspace<Row<ValueType>>(start, end, (N == 0) ? 100 : N));
 }
 
-Matrix Matrix::logspace(float A, float B, unsigned int N)
+Matrix Matrix::logspace(t_float A, t_float B, unsigned int N)
 {
-    return Matrix(arma::logspace<frowvec>(A, B, (N == 0) ? 50 : N));
+    return Matrix(arma::logspace<Row<ValueType>>(A, B, (N == 0) ? 50 : N));
 }
 
 Matrix Matrix::abs() const
@@ -2253,7 +2253,7 @@ Matrix Matrix::abs() const
     return Matrix(arma::abs(m_));
 }
 
-float Matrix::accu() const
+t_float Matrix::accu() const
 {
     return arma::accu(m_);
 }
@@ -2288,17 +2288,17 @@ Matrix Matrix::any_row() const
     return Matrix(arma::conv_to<MatT>::from(arma::any(m_, 1)));
 }
 
-Matrix Matrix::clip(float min, float max) const
+Matrix Matrix::clip(t_float min, t_float max) const
 {
     return Matrix(arma::clamp(m_, min, max));
 }
 
-float Matrix::det() const
+t_float Matrix::det() const
 {
     return arma::det(m_);
 }
 
-float Matrix::mean() const
+t_float Matrix::mean() const
 {
     return arma::mean(arma::mean(m_));
 }
@@ -2313,7 +2313,7 @@ Matrix Matrix::mean_row() const
     return Matrix(arma::mean(m_, DIR_ROW));
 }
 
-float Matrix::median() const
+t_float Matrix::median() const
 {
     return arma::median(arma::vectorise(m_));
 }
@@ -2328,7 +2328,7 @@ Matrix Matrix::median_row() const
     return Matrix(arma::median(m_, DIR_ROW));
 }
 
-float Matrix::stddev(bool norm_type) const
+t_float Matrix::stddev(bool norm_type) const
 {
     return arma::stddev(arma::vectorise(m_), norm_type ? 1 : 0);
 }
@@ -2343,7 +2343,7 @@ Matrix Matrix::stddev_row(bool norm_type) const
     return Matrix(arma::stddev(m_, norm_type ? 1 : 0, DIR_ROW));
 }
 
-float Matrix::range() const
+t_float Matrix::range() const
 {
     return arma::range(arma::vectorise(m_));
 }
@@ -2458,7 +2458,7 @@ Matrix Matrix::vectorise(bool dim) const
     return Matrix(arma::vectorise(m_, dim ? DIR_ROW : DIR_COL));
 }
 
-float Matrix::at(unsigned int m, unsigned int n) const
+t_float Matrix::at(unsigned int m, unsigned int n) const
 {
     return m_(m, n);
 }
