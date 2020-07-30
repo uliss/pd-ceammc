@@ -14,7 +14,7 @@
 #include "math_pi.h"
 #include "ceammc_factory.h"
 
-constexpr t_float PI = 3.14159265359;
+const static t_float PI = std::acos(t_float(-1));
 
 MathPi::MathPi(const PdArgs& args)
     : BaseObject(args)
