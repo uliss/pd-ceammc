@@ -23,7 +23,7 @@
             </inlet>
         </inlets>
         <outlets>
-            <outlet>output list of real and imaginary part (std::vector&lt;float&gt;)</outlet>
+            <outlet>output list of real and imaginary part (list)</outlet>
         </outlets>
         <example>
             <pdascii>

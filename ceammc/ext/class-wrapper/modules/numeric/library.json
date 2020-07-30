@@ -388,7 +388,7 @@
                     "doc_outlets": [
                         {
                             "info": "1 if numbers are equal, otherwise 0",
-                            "type": "bool"
+                            "type": "int"
                         }
                     ],
                     "example": "\n[2 4(  [3 6(  [B]\n|      |      |\n|      |      [complex.new 3 6]\n|      |      |.\n[complex.==  2 4]\n|\n[F]",
@@ -719,7 +719,7 @@
                     "doc_outlets": [
                         {
                             "info": "1 if numbers are not equal, otherwise 0",
-                            "type": "bool"
+                            "type": "int"
                         }
                     ],
                     "example": "\n[2 4(  [3 6(  [B]\n|      |      |\n|      |      [complex.new 2 4]\n|      |      |.\n[complex.!=  3 6]\n|\n[F]",
@@ -1210,7 +1210,7 @@
                     "doc_outlets": [
                         {
                             "info": "list of real and imaginary part",
-                            "type": "std::vector<float>"
+                            "type": "list"
                         }
                     ],
                     "example": "\n[0 0( [1 0( [2 2(\n|     |     |\n[complex->list]\n|\n[ui.display @display_type=1]",
@@ -1578,7 +1578,7 @@
                     "doc_outlets": [
                         {
                             "info": "1 if numbers are equal, otherwise 0",
-                            "type": "bool"
+                            "type": "int"
                         }
                     ],
                     "example": "\n[2 1(  [3 6(\n|      |\n|      |      [0.5(\n|      |      |.\n[rational.==  2 1]\n|\n[F]",
@@ -1723,7 +1723,7 @@
                     "doc_outlets": [
                         {
                             "info": "1 if left number is greater equal then right",
-                            "type": "bool"
+                            "type": "int"
                         }
                     ],
                     "example": "\n[1 3(    [1 3( [1 4( [F]\n|        |.    |.    |.\n[rational.>=        1 5]\n|\n[F]",
@@ -1806,7 +1806,7 @@
                     "doc_outlets": [
                         {
                             "info": "1 if left number is greater then right",
-                            "type": "bool"
+                            "type": "int"
                         }
                     ],
                     "example": "\n[1 3(    [1 3( [1 4( [F]\n|        |.    |.    |.\n[rational.>        1 5]\n|\n[F]",
@@ -1889,7 +1889,7 @@
                     "doc_outlets": [
                         {
                             "info": "1 if left number is less equal then right",
-                            "type": "bool"
+                            "type": "int"
                         }
                     ],
                     "example": "\n[1 3(    [1 3( [1 4( [F]\n|        |.    |.    |.\n[rational.<=       2 3]\n|\n[F]",
@@ -1972,7 +1972,7 @@
                     "doc_outlets": [
                         {
                             "info": "1 if left number is less then right",
-                            "type": "bool"
+                            "type": "int"
                         }
                     ],
                     "example": "\n[1 3(    [1 3( [1 4( [F]\n|        |.    |.    |.\n[rational.<      2 3  ]\n|\n[F]",
@@ -2138,7 +2138,7 @@
                     "doc_outlets": [
                         {
                             "info": "1 if numbers are not equal, otherwise 0",
-                            "type": "bool"
+                            "type": "int"
                         }
                     ],
                     "example": "\n[2 3(  [3 6(\n|      |\n|      |      [1 2(  [0.5(\n|      |      |.     |.\n[rational.!=  2 3     ]\n|\n[F]",
@@ -2431,7 +2431,7 @@
                     "doc_outlets": [
                         {
                             "info": "list of numerator and denominator parts",
-                            "type": "std::vector<float>"
+                            "type": "list"
                         }
                     ],
                     "example": "\n[0 0( [1 0( [2 2(\n|     |     |\n[rational->list]\n|\n[ui.display @display_type=1]",
