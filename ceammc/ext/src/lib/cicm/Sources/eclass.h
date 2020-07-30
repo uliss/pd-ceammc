@@ -202,7 +202,7 @@ void eclass_attr_default(t_eclass* c, const char* attrname, const char* value);
  * \param attrname  The attribute name
  * \param value     The minimum value of the attribute
  */
-void eclass_attr_filter_min(t_eclass* c, const char* attrname, float value);
+void eclass_attr_filter_min(t_eclass* c, const char* attrname, t_float value);
 
 /*!
  * \fn          void eclass_attr_filter_max(t_eclass* c, const char* attrname, float value)
@@ -212,7 +212,7 @@ void eclass_attr_filter_min(t_eclass* c, const char* attrname, float value);
  * \param attrname  The attribute name
  * \param value     The maximum value of the attribute
  */
-void eclass_attr_filter_max(t_eclass* c, const char* attrname, float value);
+void eclass_attr_filter_max(t_eclass* c, const char* attrname, t_float value);
 
 /*!
  * \fn          void eclass_attr_step(t_eclass* c, const char* attrname, float value)
@@ -222,7 +222,7 @@ void eclass_attr_filter_max(t_eclass* c, const char* attrname, float value);
  * \param attrname  The attribute name
  * \param value     The maximum value of the attribute
  */
-void eclass_attr_step(t_eclass* c, const char* attrname, float value);
+void eclass_attr_step(t_eclass* c, const char* attrname, t_float value);
 
 /*!
  * \fn          void eclass_attr_save(t_eclass* c, const char* attrname, long flags)

@@ -441,7 +441,11 @@ public:
         char buf[32];
         snprintf(buf, 30, "%g", def);
 
-        eclass_new_attr_typed(pd_class, name, "float", 1, 0, offset(m));
+        if (sizeof(t_float) == sizeof(float))
+            eclass_new_attr_typed(pd_class, name, "float", 1, 0, offset(m));
+        else if (sizeof(t_float) == sizeof(double))
+            eclass_new_attr_typed(pd_class, name, "double", 1, 0, offset(m));
+
         eclass_attr_label(pd_class, name, label);
         eclass_attr_save(pd_class, name);
         eclass_attr_paint(pd_class, name);
@@ -559,20 +563,6 @@ public:
         eclass_new_attr_typed(pd_class, name, "atom", 1, 0, 0);
         eclass_attr_invisible(pd_class, name);
         setPropertyAccessor(name, getter, setter);
-    }
-
-    void addProperty(const char* name, const char* label, t_float def, t_float UI::*m, const char* category = "Misc")
-    {
-        char buf[32];
-        snprintf(buf, sizeof(buf) - 1, "%g", def);
-
-        eclass_new_attr_typed(pd_class, name, "float", 1, 0, offset(m));
-        eclass_attr_label(pd_class, name, label);
-        eclass_attr_save(pd_class, name);
-        eclass_attr_paint(pd_class, name);
-        eclass_attr_default(pd_class, name, buf);
-        eclass_attr_style(pd_class, name, "number");
-        eclass_attr_category(pd_class, name, category);
     }
 
     void addProperty(const char* name, const char* label, int def, int UI::*m, const char* category = "Misc")

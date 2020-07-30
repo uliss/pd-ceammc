@@ -691,7 +691,7 @@ void eclass_attr_itemlist(t_eclass* c, const char* attrname, const char* list)
     }
 }
 
-void eclass_attr_filter_min(t_eclass* c, const char* attrname, float value)
+void eclass_attr_filter_min(t_eclass* c, const char* attrname, t_float value)
 {
     t_symbol* sel = gensym(attrname);
     for (size_t i = 0; i < c->c_nattr; i++) {
@@ -703,7 +703,7 @@ void eclass_attr_filter_min(t_eclass* c, const char* attrname, float value)
     }
 }
 
-void eclass_attr_filter_max(t_eclass* c, const char* attrname, float value)
+void eclass_attr_filter_max(t_eclass* c, const char* attrname, t_float value)
 {
     t_symbol* sel = gensym(attrname);
     for (size_t i = 0; i < c->c_nattr; i++) {
@@ -715,7 +715,7 @@ void eclass_attr_filter_max(t_eclass* c, const char* attrname, float value)
     }
 }
 
-void eclass_attr_step(t_eclass* c, const char* attrname, float value)
+void eclass_attr_step(t_eclass* c, const char* attrname, t_float value)
 {
     t_symbol* s_attrname = gensym(attrname);
     for (size_t i = 0; i < c->c_nattr; i++) {

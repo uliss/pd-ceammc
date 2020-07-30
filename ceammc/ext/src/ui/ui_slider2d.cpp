@@ -353,10 +353,10 @@ void UISlider2D::setup()
 
     obj.setDefaultSize(100, 100);
 
-    obj.addProperty("x_left", _("Left X-value"), -1, &UISlider2D::prop_x_left, "Bounds");
-    obj.addProperty("x_right", _("Right X-value"), 1, &UISlider2D::prop_x_right, "Bounds");
-    obj.addProperty("y_top", _("Top Y-value"), 1, &UISlider2D::prop_y_top, "Bounds");
-    obj.addProperty("y_bottom", _("Bottom Y-value"), -1, &UISlider2D::prop_y_bottom, "Bounds");
+    obj.addFloatProperty("x_left", _("Left X-value"), -1, &UISlider2D::prop_x_left, "Bounds");
+    obj.addFloatProperty("x_right", _("Right X-value"), 1, &UISlider2D::prop_x_right, "Bounds");
+    obj.addFloatProperty("y_top", _("Top Y-value"), 1, &UISlider2D::prop_y_top, "Bounds");
+    obj.addFloatProperty("y_bottom", _("Bottom Y-value"), -1, &UISlider2D::prop_y_bottom, "Bounds");
 
     obj.addProperty("x_range", &UISlider2D::propXRange, 0);
     obj.addProperty("y_range", &UISlider2D::propYRange, 0);

@@ -311,8 +311,8 @@ void UINumber::setup()
 
     obj.setDefaultSize(53, 15);
 
-    obj.addProperty("min", _("Minimum Value"), -std::numeric_limits<float>::max(), &UINumber::prop_min, "Bounds");
-    obj.addProperty("max", _("Maximum Value"), std::numeric_limits<float>::max(), &UINumber::prop_max, "Bounds");
+    obj.addFloatProperty("min", _("Minimum Value"), -std::numeric_limits<float>::max(), &UINumber::prop_min, "Bounds");
+    obj.addFloatProperty("max", _("Maximum Value"), std::numeric_limits<float>::max(), &UINumber::prop_max, "Bounds");
 
     obj.addProperty("digits", _("Digits"), -1, &UINumber::prop_digits);
     obj.setPropertyMin("digits", -1);

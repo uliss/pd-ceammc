@@ -546,8 +546,8 @@ void UISliders::setup()
     obj.setPropertyRange("count", 1, MAX_SLIDERS_NUM);
     obj.setPropertyAccessor("count", &UISliders::propCount, &UISliders::setPropCount);
 
-    obj.addProperty("min", _("Minimum Value"), 0, &UISliders::prop_min, "Bounds");
-    obj.addProperty("max", _("Maximum Value"), 1, &UISliders::prop_max, "Bounds");
+    obj.addFloatProperty("min", _("Minimum Value"), 0., &UISliders::prop_min, "Bounds");
+    obj.addFloatProperty("max", _("Maximum Value"), 1., &UISliders::prop_max, "Bounds");
 
     obj.addProperty("auto_range", _("Auto range"), false, &UISliders::prop_auto_range, "Main");
     obj.setPropertyAccessor("auto_range", &UISliders::propAutoRange, &UISliders::setPropAutoRange);

@@ -149,7 +149,7 @@ void UIIncDec::setup()
     obj.useMouseEvents(UI_MOUSE_DOWN | UI_MOUSE_UP);
 
     obj.addProperty("arrow_color", _("Arrow Color"), DEFAULT_BORDER_COLOR, &UIIncDec::prop_color_arrow);
-    obj.addProperty("step", _("Step increment"), 1.f, &UIIncDec::prop_step, _("Main"));
+    obj.addFloatProperty("step", _("Step increment"), 1., &UIIncDec::prop_step, _("Main"));
     obj.addProperty("value", &UIIncDec::propValue, &UIIncDec::propSetValue);
     obj.addMethod("set", &UIIncDec::propSetValue);
     obj.addMethod("inc", &UIIncDec::m_inc);

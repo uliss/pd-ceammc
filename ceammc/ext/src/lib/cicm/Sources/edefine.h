@@ -596,9 +596,9 @@ typedef struct t_eattr {
     size_t offset; /*!< The offset of the attribute in the object structure. */
     size_t sizemax; /*!< The maximum size of the attribute if the attribute is an array. */
     size_t size; /*!< The size of the attribute if the attribute is an array. */
-    float minimum; /*!< The minimum value of the attribute. */
-    float maximum; /*!< The maximum value of the attribute. */
-    float step; /*!< The increment or decrement step calue of the attribute. */
+    t_float minimum; /*!< The minimum value of the attribute. */
+    t_float maximum; /*!< The maximum value of the attribute. */
+    t_float step; /*!< The increment or decrement step calue of the attribute. */
     int order; /*!< The dummy order of the attribute. */
     eclip_flags clipped; /*!< If the attribute is clipped if it's value or an array of numerical values. */
     bool save; /*!< If the attribute should be saved. */

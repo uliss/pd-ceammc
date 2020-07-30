@@ -640,6 +640,7 @@ static void ebox_attrprocess_default(t_ebox* x)
             for (size_t j = 0; j < N; j++) {
                 const char* s = result[j].c_str();
                 char* e = nullptr;
+#if PD_FLOATSIZE == 32
                 float f = std::strtof(s, &e);
                 if (f == HUGE_VALF) {
                     pd_error(x, "[%s] value is too big: %s", c->c_class.c_name->s_name, s);
@@ -650,6 +651,18 @@ static void ebox_attrprocess_default(t_ebox* x)
                 } else {
                     atom_setfloat(&defv[j], f);
                 }
+#elif PD_FLOATSIZE == 64
+                double f = std::strtod(s, &e);
+                if (f == HUGE_VAL) {
+                    pd_error(x, "[%s] value is too big: %s", c->c_class.c_name->s_name, s);
+                    return;
+                } else if (f == 0 && e == s) {
+                    pd_error(x, "[%s] can't parse value: %s", c->c_class.c_name->s_name, s);
+                    return;
+                } else {
+                    atom_setfloat(&defv[j], f);
+                }
+#endif
             }
         } else {
             // single symbol
