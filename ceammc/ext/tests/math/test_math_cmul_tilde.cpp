@@ -35,16 +35,16 @@ struct CMulSignal : public TestSignal<4, 2> {
 
     void clear()
     {
-        fillInput(0.f);
+        fillInput(0);
     }
 
-    void setComplex0(float r, float i)
+    void setComplex0(t_float r, t_float i)
     {
         fillInputN(0, r);
         fillInputN(1, i);
     }
 
-    void setComplex1(float r, float i)
+    void setComplex1(t_float r, t_float i)
     {
         fillInputN(2, r);
         fillInputN(3, i);

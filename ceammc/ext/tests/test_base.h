@@ -114,7 +114,7 @@ public:
     void listTo(size_t n, const AtomList& lst) override;
     void listTo(size_t n, const AtomListView& v) override;
     void symbolTo(size_t n, t_symbol* s) override;
-    void floatTo(size_t n, float f) override;
+    void floatTo(size_t n, t_float f) override;
     void atomTo(size_t n, const Atom& a) override;
     void anyTo(size_t n, const AtomList& lst) override;
     void anyTo(size_t n, t_symbol* sel, const AtomList& lst) override;
@@ -492,7 +492,7 @@ void TestExternal<T>::symbolTo(size_t n, t_symbol* s)
 }
 
 template <class T>
-void TestExternal<T>::floatTo(size_t n, float f)
+void TestExternal<T>::floatTo(size_t n, t_float f)
 {
     msg_[n].push_back(Message(f));
 }

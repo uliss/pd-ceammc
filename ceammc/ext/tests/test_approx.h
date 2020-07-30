@@ -27,7 +27,7 @@ class ListApprox {
 
 public:
     ListApprox();
-    ListApprox(std::initializer_list<float> l);
+    ListApprox(std::initializer_list<t_float> l);
     std::string toString() const;
     friend ListApprox operator+(const ListApprox& l0, const ListApprox& l1);
     friend bool operator==(const ListApprox& la, const AtomList& al);

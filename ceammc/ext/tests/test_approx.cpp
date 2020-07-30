@@ -55,7 +55,7 @@ ListApprox::ListApprox()
 {
 }
 
-ListApprox::ListApprox(std::initializer_list<float> l)
+ListApprox::ListApprox(std::initializer_list<t_float> l)
     : lst_(l)
 {
 }
