@@ -77,7 +77,8 @@ proc ::dialog_message::create_dialog {mytoplevel} {
     ttk::frame .message.f
     ttk::frame .message.f.pad
     ttk::label .message.f.pad.semicolon -text ";"
-    ttk::entry .message.f.pad.entry -width 50
+    # ceammc: width
+    ttk::entry .message.f.pad.entry -width 40
     focus .message.f.pad.entry
     ttk::label .message.f.pad.label -text [_ "(use arrow keys for history)"]
 
