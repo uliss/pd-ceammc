@@ -64,6 +64,7 @@ proc ::scrollboxwindow::make {mytoplevel listdata add_method edit_method commit_
     }
     wm transient $mytoplevel .pdwindow
     wm protocol $mytoplevel WM_DELETE_WINDOW "::scrollboxwindow::cancel $mytoplevel"
+    # ceammc: padx, pady
     $mytoplevel config -padx 4 -pady 4
 
     # Enforce a minimum size for the window
@@ -81,17 +82,20 @@ proc ::scrollboxwindow::make {mytoplevel listdata add_method edit_method commit_
 
     # buttons
     frame $mytoplevel.nb.buttonframe -pady 5
-    pack $mytoplevel.nb.buttonframe -side right -fill x -padx 5 -pady 2
+    pack $mytoplevel.nb.buttonframe -side right -fill x -padx 2m
 
+    # ceammc: padx
     button $mytoplevel.nb.buttonframe.cancel -text [_ "Cancel"] \
         -command "::scrollboxwindow::cancel $mytoplevel" -padx 10
-    pack $mytoplevel.nb.buttonframe.cancel -side left -expand 1 -fill x -padx 5
+    pack $mytoplevel.nb.buttonframe.cancel -side left -expand 1 -fill x -padx 15 -ipadx 10
     if {$::windowingsystem ne "aqua"} {
+        # ceammc: padx
         button $mytoplevel.nb.buttonframe.apply -text [_ "Apply"] \
             -command "::scrollboxwindow::apply $mytoplevel $commit_method" -padx 10
-        pack $mytoplevel.nb.buttonframe.apply -side left -expand 1 -fill x -padx 5 -pady 5
+        pack $mytoplevel.nb.buttonframe.apply -side left -expand 1 -fill x -padx 15 -ipadx 10
     }
+    # ceammc: padx
     button $mytoplevel.nb.buttonframe.ok -text [_ "OK"] \
         -command "::scrollboxwindow::ok $mytoplevel $commit_method" -padx 10
-    pack $mytoplevel.nb.buttonframe.ok -side left -expand 1 -fill x -padx 5 -pady 5
+    pack $mytoplevel.nb.buttonframe.ok -side left -expand 1 -fill x -padx 15 -ipadx 10
 }
