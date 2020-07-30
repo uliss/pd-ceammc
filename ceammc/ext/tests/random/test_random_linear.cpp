@@ -37,13 +37,13 @@ TEST_CASE("random_linear", "[externals]")
 
         SECTION("properties")
         {
-            TObj t("random.linear", LA("@v0", 2, "@v1", 20, "@p0", 1.2f, "@p1", 0.1f));
+            TObj t("random.linear", LA("@v0", 2, "@v1", 20, "@p0", 1.5, "@p1", 0.125));
 
             REQUIRE_THAT(t, hasProperty(&t, "@v0", 2));
             REQUIRE_THAT(t, hasProperty(&t, "@v1", 20));
 
-            REQUIRE_THAT(t, hasProperty(&t, "@p0", 1.2));
-            REQUIRE_THAT(t, hasProperty(&t, "@p1", 0.1));
+            REQUIRE_THAT(t, hasProperty(&t, "@p0", 1.5));
+            REQUIRE_THAT(t, hasProperty(&t, "@p1", 0.125));
         }
     }
 
