@@ -37,18 +37,18 @@ static WFuncMap win_func_map;
 
 static bool initFuncMap()
 {
-    win_func_map[WIN_DEFAULT] = window::hann<t_float>;
-    win_func_map[WIN_WELCH] = window::welch<t_float>;
-    win_func_map[WIN_TRIANGLE] = window::triangle<t_float>;
-    win_func_map[WIN_HANN] = window::hann<t_float>;
-    win_func_map[WIN_RECT] = window::rect<t_float>;
-    win_func_map[WIN_SINE] = window::sine<t_float>;
-    win_func_map[WIN_HAMMING] = window::hamming<t_float>;
-    win_func_map[WIN_BLACKMAN] = window::blackman<t_float>;
-    win_func_map[WIN_NUTTALL] = window::nuttall<t_float>;
-    win_func_map[WIN_BLACKMAN_HARRIS] = window::blackman_harris<t_float>;
-    win_func_map[WIN_FLATTOP] = window::flattop<t_float>;
-    win_func_map[WIN_GAUSS] = window::gauss<t_float, 20>;
+    win_func_map[WIN_DEFAULT] = window::hann<t_sample>;
+    win_func_map[WIN_WELCH] = window::welch<t_sample>;
+    win_func_map[WIN_TRIANGLE] = window::triangle<t_sample>;
+    win_func_map[WIN_HANN] = window::hann<t_sample>;
+    win_func_map[WIN_RECT] = window::rect<t_sample>;
+    win_func_map[WIN_SINE] = window::sine<t_sample>;
+    win_func_map[WIN_HAMMING] = window::hamming<t_sample>;
+    win_func_map[WIN_BLACKMAN] = window::blackman<t_sample>;
+    win_func_map[WIN_NUTTALL] = window::nuttall<t_sample>;
+    win_func_map[WIN_BLACKMAN_HARRIS] = window::blackman_harris<t_sample>;
+    win_func_map[WIN_FLATTOP] = window::flattop<t_sample>;
+    win_func_map[WIN_GAUSS] = window::gauss<t_sample, 20>;
     return true;
 }
 
@@ -56,7 +56,7 @@ Window::Window(const PdArgs& a)
     : BaseObject(a)
     , size_(nullptr)
     , type_(WIN_DEFAULT)
-    , fn_(window::hann<float>)
+    , fn_(window::hann<t_sample>)
 {
     createCbSymbolProperty(
         "@type",
