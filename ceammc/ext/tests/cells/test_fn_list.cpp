@@ -247,9 +247,9 @@ TEST_CASE("list functions", "[ceammc::list]")
     SECTION("average")
     {
         REQUIRE(list::average(L()) == boost::none);
-        REQUIRE(list::average(AtomList::ones(100.f)) == 1.f);
-        REQUIRE(list::average(AtomList::zeroes(10.f)) == 0.f);
-        REQUIRE(list::average(LF(1.0, 2.0, 3.0, 4.0, 5.0)) == 3.f);
+        REQUIRE(list::average(AtomList::ones(100.f)) == MaybeFloat(1));
+        REQUIRE(list::average(AtomList::zeroes(10.f)) == MaybeFloat(0));
+        REQUIRE(list::average(LF(1.0, 2.0, 3.0, 4.0, 5.0)) == MaybeFloat(3));
 
         AtomList l;
         l.append(gensym("a"));
@@ -257,9 +257,9 @@ TEST_CASE("list functions", "[ceammc::list]")
         l.append(gensym("b"));
         REQUIRE(list::average(l) == boost::none);
         l.append(1.0);
-        REQUIRE(list::average(l) == 1.f);
+        REQUIRE(list::average(l) == MaybeFloat(1));
         l.append(2.0);
-        REQUIRE(list::average(l) == 1.5f);
+        REQUIRE(list::average(l) == MaybeFloat(1.5));
     }
 
     SECTION("count repeats")

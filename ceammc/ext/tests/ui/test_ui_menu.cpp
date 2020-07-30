@@ -336,7 +336,7 @@ TEST_CASE("ui.menu", "[ui.menu]")
         REQUIRE_UI_FLOAT_PROPERTY(t, "count", 0);
 
         t <<= LA("file_glob", "*.wav", TEST_DATA_DIR);
-        float c = 0;
+        t_float c = 0;
         t->getProperty(gensym("count"), c);
         REQUIRE(c > 0);
     }

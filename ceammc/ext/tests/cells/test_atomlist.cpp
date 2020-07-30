@@ -26,7 +26,7 @@ static float atomSum(const Atom& a, const Atom& b)
     return a.asFloat(0) + b.asFloat(0);
 }
 
-static float floatSum(float a, float b)
+static t_float floatSum(t_float a, t_float b)
 {
     return a + b;
 }
@@ -36,7 +36,7 @@ static float atomMul(const Atom& a, const Atom& b)
     return a.asFloat(1) * b.asFloat(1);
 }
 
-static float floatMul(float a, float b)
+static t_float floatMul(t_float a, t_float b)
 {
     return a * b;
 }
@@ -1061,18 +1061,18 @@ TEST_CASE("AtomList", "[ceammc::AtomList]")
         SECTION("template")
         {
             AtomList l;
-            REQUIRE(l.reduce<t_float>(1, &atomSum) == 1.f);
-            REQUIRE(l.reduce<t_float>(1, &atomMul) == 1.f);
+            REQUIRE(l.reduce<t_float>(1, &atomSum) == MaybeFloat(1));
+            REQUIRE(l.reduce<t_float>(1, &atomMul) == MaybeFloat(1));
             l.append(1.f);
             l.append(2.f);
-            REQUIRE(l.reduce<t_float>(0.5f, &atomSum) == 3.5f);
-            REQUIRE(l.reduce<t_float>(2, &atomMul) == 4.f);
+            REQUIRE(l.reduce<t_float>(0.5f, &atomSum) == MaybeFloat(3.5));
+            REQUIRE(l.reduce<t_float>(2, &atomMul) == MaybeFloat(4));
             l.append(gensym("a"));
-            REQUIRE(l.reduce<t_float>(0.5f, &atomSum) == 3.5f);
-            REQUIRE(l.reduce<t_float>(2, &atomMul) == 4.f);
+            REQUIRE(l.reduce<t_float>(0.5f, &atomSum) == MaybeFloat(3.5));
+            REQUIRE(l.reduce<t_float>(2, &atomMul) == MaybeFloat(4));
             l.append(2.f);
-            REQUIRE(l.reduce<t_float>(0.5f, &atomSum) == 5.5f);
-            REQUIRE(l.reduce<t_float>(2, &atomMul) == 8.f);
+            REQUIRE(l.reduce<t_float>(0.5f, &atomSum) == MaybeFloat(5.5));
+            REQUIRE(l.reduce<t_float>(2, &atomMul) == MaybeFloat(8));
         }
 
         SECTION("float")
@@ -1083,14 +1083,14 @@ TEST_CASE("AtomList", "[ceammc::AtomList]")
             REQUIRE(l.reduceFloat(1.f, &floatMul) == boost::none);
             l.append(1.f);
             l.append(2.f);
-            REQUIRE(l.reduceFloat(0.5f, &floatSum) == 3.5f);
-            REQUIRE(l.reduceFloat(2.f, &floatMul) == 4.f);
+            REQUIRE(l.reduceFloat(0.5f, &floatSum) == MaybeFloat(3.5));
+            REQUIRE(l.reduceFloat(2.f, &floatMul) == MaybeFloat(4));
             l.append(gensym("a"));
-            REQUIRE(l.reduceFloat(0.5f, &floatSum) == 3.5f);
-            REQUIRE(l.reduceFloat(2.f, &floatMul) == 4.f);
+            REQUIRE(l.reduceFloat(0.5f, &floatSum) == MaybeFloat(3.5));
+            REQUIRE(l.reduceFloat(2.f, &floatMul) == MaybeFloat(4));
             l.append(2.f);
-            REQUIRE(l.reduceFloat(0.5f, &floatSum) == 5.5f);
-            REQUIRE(l.reduceFloat(2.f, &floatMul) == 8.f);
+            REQUIRE(l.reduceFloat(0.5f, &floatSum) == MaybeFloat(5.5));
+            REQUIRE(l.reduceFloat(2.f, &floatMul) == MaybeFloat(8));
         }
     }
 

@@ -182,7 +182,7 @@ public:
 
 #define REQUIRE_UI_FLOAT_PROPERTY(t, name, f)     \
     {                                             \
-        float p;                                  \
+        t_float p;                                \
         REQUIRE(t->getProperty(gensym(name), p)); \
         REQUIRE(p == Approx(f).epsilon(0.0001));  \
     }

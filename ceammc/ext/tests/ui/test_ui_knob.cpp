@@ -29,7 +29,7 @@ TEST_CASE("ui.knob", "[ui.knob]")
         REQUIRE(t->knobPhase() == 0);
         REQUIRE(t->value() == 0);
 
-        float prop_min, prop_max, f;
+        t_float prop_min, prop_max, f;
         AtomList l;
 
         HAS_PROPERTY(t, "min");

@@ -159,7 +159,7 @@ TEST_CASE("Array", "[ceammc::Atom]")
 
     SECTION("copyFrom")
     {
-        float data[5] = { -1, 0, 1, 2, 3 };
+        t_sample data[5] = { -1, 0, 1, 2, 3 };
 
         Array b("array1");
         b.copyFrom(data, 5);

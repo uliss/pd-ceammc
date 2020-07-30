@@ -60,7 +60,7 @@ TEST_CASE("Faust", "[ceammc::faust]")
         e.setValue(2.0, true);
         REQUIRE(e.value() == 0.f);
 
-        float v = 40.f;
+        t_float v = 40.f;
         e.setValuePtr(&v);
         REQUIRE(e.valuePtr() == &v);
         REQUIRE(e.value() == 0.f);
@@ -96,7 +96,7 @@ TEST_CASE("Faust", "[ceammc::faust]")
             REQUIRE(e.max() == 16.f);
             REQUIRE(e.step() == 1.0f);
 
-            float v;
+            t_float v;
             e.setValuePtr(&v);
             REQUIRE(v == 2.0f);
         }
@@ -112,7 +112,7 @@ TEST_CASE("Faust", "[ceammc::faust]")
 
             t_outlet xlet = outlet();
             e.dump(&xlet);
-            float v;
+            t_float v;
             e.setValuePtr(&v);
             e.dump(&xlet);
         }
@@ -244,7 +244,7 @@ TEST_CASE("Faust", "[ceammc::faust]")
 
         SECTION("uiAt")
         {
-            float b;
+            t_float b;
             UI a("osc.tri~", "osc1");
             REQUIRE(a.uiAt(0) == 0);
             REQUIRE(a.findElementByLabel("run") == 0);
@@ -271,23 +271,23 @@ TEST_CASE("Faust", "[ceammc::faust]")
 
         SECTION("ui values")
         {
-            float v;
-            std::vector<float> v_empty;
+            t_float v;
+            std::vector<t_float> v_empty;
             UI a("test", "id1");
             REQUIRE(a.uiValues() == v_empty);
             a.addVerticalSlider("vsl", &v, 5.f, -20, 20, 0.0f);
             REQUIRE(a.uiCount() == 1);
             REQUIRE(a.uiAt(0)->typeSymbol() == gensym("vslider"));
-            REQUIRE(v == 5.f);
+            REQUIRE(v == 5);
 
-            float v1;
+            t_float v1;
             a.addNumEntry("num", &v1, 1.f, 0, 10, 0.1f);
             REQUIRE(v1 == 1.f);
             REQUIRE(a.uiAt(1)->typeSymbol() == gensym("nentry"));
 
-            std::vector<float> vals1;
-            vals1.push_back(5.f);
-            vals1.push_back(1.f);
+            std::vector<t_float> vals1;
+            vals1.push_back(5);
+            vals1.push_back(1);
             REQUIRE(a.uiValues() == vals1);
         }
     }

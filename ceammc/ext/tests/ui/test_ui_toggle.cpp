@@ -29,7 +29,7 @@ TEST_CASE("ui.toggle", "[ui.toggle]")
         REQUIRE(t->value() == 0);
         HAS_PROPERTY(t, "value");
 
-        float f;
+        t_float f;
         t->getProperty(gensym("value"), f);
         REQUIRE(f == 0);
 
