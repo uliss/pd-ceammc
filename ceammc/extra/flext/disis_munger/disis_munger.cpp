@@ -161,39 +161,39 @@ public:
 protected:
 	virtual bool CbDsp();
 	virtual void CbSignal();
-	void	m_float1(float v) { grate = v; tempgrate = v; grate_connected += 1;}
-	void	m_float2(float v) { grate_var = v; grate_var_connected += 1;}
-	void	m_float3(float v) { glen = v; glen_connected  += 1;}
-	void	m_float4(float v) { glen_var = v; glen_var_connected += 1;}
-	void	m_float5(float v) { gpitch = v; gpitch_connected += 1;}
-	void	m_float6(float v) { gpitch_var = v; gpitch_var_connected += 1;}
-	void	m_float7(float v) { gpan_spread = v; gpan_spread_connected += 1;}
+    void	m_float1(t_float v) { grate = v; tempgrate = v; grate_connected += 1;}
+    void	m_float2(t_float v) { grate_var = v; grate_var_connected += 1;}
+    void	m_float3(t_float v) { glen = v; glen_connected  += 1;}
+    void	m_float4(t_float v) { glen_var = v; glen_var_connected += 1;}
+    void	m_float5(t_float v) { gpitch = v; gpitch_connected += 1;}
+    void	m_float6(t_float v) { gpitch_var = v; gpitch_var_connected += 1;}
+    void	m_float7(t_float v) { gpan_spread = v; gpan_spread_connected += 1;}
 
 	float	maxdelay;
 
 //user controlled vars
-	float	grate;							//grain rate
-	float	tempgrate;						//grain rate assessed using variation
-	float	grate_var;						//grain rate variation; percentage of grain rate
-	float	glen;							//grain length
-	float	glen_var;
-	float	gpitch;
-	float	gpitch_var;
-	float	gpan_spread;					//how much to spread the grains around center
+    t_float	grate;							//grain rate
+    t_float	tempgrate;						//grain rate assessed using variation
+    t_float	grate_var;						//grain rate variation; percentage of grain rate
+    t_float	glen;							//grain length
+    t_float	glen_var;
+    t_float	gpitch;
+    t_float	gpitch_var;
+    t_float	gpan_spread;					//how much to spread the grains around center
 
-	float	pitchTable[PITCHTABLESIZE];		//table of pitch values to draw from
-	float	twelfth;						//1/12
-	float	semitone;
+    t_float	pitchTable[PITCHTABLESIZE];		//table of pitch values to draw from
+    t_float	twelfth;						//1/12
+    t_float	semitone;
 	short	smoothPitch;
 	int		scale_len;
 
-	float	gain, randgain;
-	float	position;						//playback position (0-1) (if ==-1, then RANDOM(), which is default)
+    t_float	gain, randgain;
+    t_float	position;						//playback position (0-1) (if ==-1, then RANDOM(), which is default)
 
 	int		buflen;
-	float	maxsize, minsize;
-	float	twothirdBufsize, onethirdBufsize;
-	float	initbuflen;
+    t_float	maxsize, minsize;
+    t_float	twothirdBufsize, onethirdBufsize;
+    t_float	initbuflen;
 	long	maxvoices;
 
 	char	*munger_name;
@@ -212,9 +212,9 @@ protected:
 
 //window stuff
 	short	doHanning;
-	float	*winTime, *winRate;
-	float	winTable[WINLENGTH];
-	float	rampLength;				//for simple linear ramp
+    t_float	*winTime, *winRate;
+    t_float	winTable[WINLENGTH];
+    t_float	rampLength;				//for simple linear ramp
 
 //voice parameters
 	long	*gvoiceSize;			//sample size
@@ -223,27 +223,27 @@ protected:
 	int		*gvoiceDirection;		//1 = forward, -1 backwards
 	int		*gvoiceOn;				//currently playing? boolean
 	long	*gvoiceDone;			//how many samples already played from grain
-	float	*gvoiceLPan;
-	float	*gvoiceRPan;
-	float	*gvoiceRamp;
-	float	*gvoiceOneOverRamp;
-	float	*gvoiceGain;
+    t_sample	*gvoiceLPan;
+    t_sample	*gvoiceRPan;
+    t_sample	*gvoiceRamp;
+    t_sample	*gvoiceOneOverRamp;
+    t_sample	*gvoiceGain;
 	int		voices;
-	float	gimme;
+    t_sample	gimme;
 
 	//ADSR	gvoiceADSR[MAXVOICES];	//MSVC+flext currently not happy with dynamic allocation
 	stk::ADSR	*gvoiceADSR;
 	int		*gvoiceADSRon; 			//set this to 1 if ADSR is desired instead of symmetrical ramp envelope
-	float	*channelGain;
-	float	*channelGainSpread;
+    t_sample	*channelGain;
+    t_sample	*channelGainSpread;
 	int		discretepan;
 
-	float	**gvoiceSpat;
-	float	**notechannelGain;
-	float	**notechannelGainSpread;
+    t_sample	**gvoiceSpat;
+    t_sample	**notechannelGain;
+    t_sample	**notechannelGainSpread;
 
 //sample buffer
-	float	*recordBuf;
+    t_sample	*recordBuf;
 	int		recordOn;			//boolean
 	int		recordRampVal;		//ramp for when toggling record on and off
 	int		rec_ramping;		//-1 when ramping down, 1 when ramping up, 0 when not ramping. who's a ramp?
@@ -256,8 +256,8 @@ protected:
 	int		num_channels;
 	int		numvoices;
 
-	float	srate, one_over_srate;
-	float	srate_ms, one_over_srate_ms;
+    t_float	srate, one_over_srate;
+    t_float	srate_ms, one_over_srate_ms;
 
 //external record buffer vars
 	t_symbol *bufname;
@@ -268,13 +268,13 @@ protected:
 //note and oneshot stuff
 	short	oneshot;
 	int		newnote;
-	float	*noteTransp, *noteSize, *notePan, *noteGain;
-	float	*noteAttack, *noteDecay, *noteSustain, *noteRelease;
+    t_float	*noteTransp, *noteSize, *notePan, *noteGain;
+    t_float	*noteAttack, *noteDecay, *noteSustain, *noteRelease;
 	int		*noteDirection;
 
 //sample handling
-	float **out;
-	float *outsamp;
+    t_sample **out;
+    t_sample *outsamp;
 
 //destructor
 	~disis_munger();
@@ -1318,7 +1318,7 @@ void disis_munger::munger_ambidirectional(short argc, t_atom *argv)
 
 void disis_munger::munger_gain(short argc, t_atom *argv)
 {
-	float temp;
+    t_float temp;
 
 	if (argc)
 	{
@@ -1382,51 +1382,51 @@ void disis_munger::munger_alloc()
 {
 	int i;
 
-	recordBuf = new float[buflen+1];
+    recordBuf = new t_sample[buflen+1];
 	if (!recordBuf)
 	{
 		error("disis_munger~ %s: out of memory", munger_name);
 	}
 
-	winTime = new float[numvoices];
-	winRate = new float[numvoices];
+    winTime = new t_sample[numvoices];
+    winRate = new t_sample[numvoices];
 	gvoiceSize = new long[numvoices];
 	gvoiceSpeed = new double[numvoices];
 	gvoiceCurrent = new double[numvoices];
 	gvoiceDirection = new int[numvoices];
 	gvoiceOn = new int[numvoices];
 	gvoiceDone = new long[numvoices];
-	gvoiceLPan = new float[numvoices];
-	gvoiceRPan = new float[numvoices];
-	gvoiceRamp = new float[numvoices];
-	gvoiceOneOverRamp = new float[numvoices];
-	gvoiceGain = new float[numvoices];
+    gvoiceLPan = new t_sample[numvoices];
+    gvoiceRPan = new t_sample[numvoices];
+    gvoiceRamp = new t_sample[numvoices];
+    gvoiceOneOverRamp = new t_sample[numvoices];
+    gvoiceGain = new t_sample[numvoices];
 	gvoiceADSR = new stk::ADSR[numvoices];
-	gvoiceADSRon = new int[numvoices];
-	noteTransp = new float[numvoices];
-	noteSize = new float[numvoices];
-	notePan = new float[numvoices];
-	noteGain = new float[numvoices];
-	noteAttack = new float[numvoices];
-	noteDecay = new float[numvoices];
-	noteSustain = new float[numvoices];
-	noteRelease = new float[numvoices];
+    gvoiceADSRon = new int[numvoices];
+    noteTransp = new t_sample[numvoices];
+    noteSize = new t_sample[numvoices];
+    notePan = new t_sample[numvoices];
+    noteGain = new t_sample[numvoices];
+    noteAttack = new t_sample[numvoices];
+    noteDecay = new t_sample[numvoices];
+    noteSustain = new t_sample[numvoices];
+    noteRelease = new t_sample[numvoices];
 	noteDirection = new int[numvoices];
 
-	gvoiceSpat = new float *[numvoices];
-	notechannelGain = new float *[numvoices];
-	notechannelGainSpread = new float *[numvoices];
+    gvoiceSpat = new t_sample *[numvoices];
+    notechannelGain = new t_sample *[numvoices];
+    notechannelGainSpread = new t_sample *[numvoices];
 	for (i=0; i < numvoices; i++)
 	{
-		gvoiceSpat[i] = new float[num_channels];
-		notechannelGain[i] = new float[num_channels];
-		notechannelGainSpread[i] = new float[num_channels];
+        gvoiceSpat[i] = new t_sample[num_channels];
+        notechannelGain[i] = new t_sample[num_channels];
+        notechannelGainSpread[i] = new t_sample[num_channels];
 	}
 
-	out = new float *[num_channels];
-	outsamp = new float [num_channels];
-	channelGain = new float [num_channels];
-	channelGainSpread = new float [num_channels];
+    out = new t_sample *[num_channels];
+    outsamp = new t_sample [num_channels];
+    channelGain = new t_sample [num_channels];
+    channelGainSpread = new t_sample [num_channels];
 }
 
 void disis_munger::munger_clear(short argc, t_atom *argv)
@@ -1491,11 +1491,11 @@ void disis_munger::CbSignal()
 	float samp;
 	int newvoice, i, j, n;
 
-	const float *ins1 = InSig(0);
+    const t_sample *ins1 = InSig(0);
 	n = Blocksize();
 
 	for (i=0;i<num_channels;i++) {
-		out[i] = (float *)(OutSig(i));
+        out[i] = (t_sample *)(OutSig(i));
 	}
 
 	//bypass stuff
@@ -1600,7 +1600,7 @@ void disis_munger::CbSignal()
 
 bool disis_munger::CbDsp()
 {
-	float old_srate;
+    t_float old_srate;
 
 	// recheck buffer on DSP update
 	if (externalBuffer) munger_checkbuffer(true);
