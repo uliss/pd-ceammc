@@ -623,10 +623,14 @@ namespace list {
 
         size_t idone = 0;
         size_t odone = 0;
+
+        constexpr soxr_datatype_t samptype = (sizeof(t_sample) == sizeof(float)) ? SOXR_FLOAT32_I : SOXR_FLOAT64_I;
+        const auto spec = soxr_io_spec(samptype, samptype);
+
         auto err = soxr_oneshot(1, ratio, 1,
             in.data(), in.size(), &idone,
             out.data(), OUTS, &odone,
-            nullptr, nullptr, nullptr);
+            &spec, nullptr, nullptr);
 
         if (err) {
             std::cerr << err << "\n";
