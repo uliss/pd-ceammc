@@ -100,8 +100,10 @@ TEST_CASE("DataTypeMList", "[core]")
         REQUIRE_PARSE_STR("( a b c d    )", ML("a", "b", "c", "d"));
         REQUIRE_PARSE_STR(u8"(\"русские\"     \"буквы\")", ML("русские", "буквы"));
         REQUIRE_PARSE_STR("(1 2 3(a () 124) )", ML(1, 2, 3, MA("a", MA(), 124)));
+#if PD_FLOATSIZE == 32
         REQUIRE_PARSE_STR("(1 2 3(pi() 124) )", ML(1, 2, 3, MA(3.1415926, 124)));
         REQUIRE_PARSE_STR("(1 2 3( pi() 124 ) )", ML(1, 2, 3, MA(3.1415926, 124)));
+#endif
         REQUIRE_PARSE_STR("((a) (b))", ML(MA("a"), MA("b")));
         REQUIRE_PARSE_STR("((a)(b))", ML(MA("a"), MA("b")));
         REQUIRE_PARSE_STR("(\"``\")", ML("`"));
