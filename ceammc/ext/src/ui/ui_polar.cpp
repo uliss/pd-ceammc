@@ -13,7 +13,8 @@
  *****************************************************************************/
 
 #include <algorithm>
-#include <stdio.h>
+#include <cmath>
+#include <cstdio>
 
 #include "ceammc_atomlist.h"
 #include "ceammc_convert.h"
@@ -382,15 +383,16 @@ AtomList UIPolar::realValue() const
 
 t_float UIPolar::realAngle() const
 {
+    static const t_float m_pi = std::acos(t_float(-1));
     constexpr t_float EPSILON_K = 8;
 
     t_float res = 0;
 
     if (prop_radians_) {
         if (prop_positive_)
-            res = wrapFloatMax<t_float>(angle_, 2 * M_PI);
+            res = wrapFloatMax<t_float>(angle_, 2 * m_pi);
         else
-            res = wrapFloatMinMax<t_float>(angle_, -M_PI, M_PI);
+            res = wrapFloatMinMax<t_float>(angle_, -m_pi, m_pi);
     } else {
         if (prop_positive_)
             res = wrapFloatMax<t_float>(angle_, 360);

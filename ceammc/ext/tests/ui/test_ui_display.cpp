@@ -42,7 +42,7 @@ TEST_CASE("ui.display", "[ui.display]")
         REQUIRE(t->text() == "ABC 2");
         REQUIRE(t->type() == "@send");
 
-        t.send(20.f);
+        t.send(20);
         CHECK(t->text() == "20");
         CHECK(t->type() == "float");
 

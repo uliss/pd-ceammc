@@ -241,7 +241,7 @@ TEST_CASE("ui.radio", "[ui.radio]")
         t.bang();
         REQUIRE_OUTPUT_FLOAT(t, 0, 0);
 
-        t.send(3.f);
+        t.send(3);
         REQUIRE_OUTPUT_FLOAT(t, 0, 3);
         t.call("@value", LF(2));
         REQUIRE_NO_OUTPUT(t);
