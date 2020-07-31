@@ -48,7 +48,7 @@ TEST_CASE("array.p2s", "[externals]")
             ON_FLOAT_REQUIRE(0.5, t, 0);
             ON_FLOAT_REQUIRE(1, t, 0);
 
-            ON_LIST_REQUIRE(LF(0.1f, 0.2f, 0.3f), t, LF(0.f, 0.f, 0.f));
+            ON_LIST_REQUIRE(LF(0.125, 0.25, 0.3), t, LF(0.f, 0.f, 0.f));
         }
 
         SECTION("symbol arguments")
@@ -63,7 +63,7 @@ TEST_CASE("array.p2s", "[externals]")
             ON_FLOAT_REQUIRE(-1, t, 0);
             ON_FLOAT_REQUIRE(2, t, 10);
 
-            ON_LIST_REQUIRE(LF(0.1f, 0.2f, 0.3f), t, LF(1, 2, 3));
+            ON_LIST_REQUIRE(LF(0.125, 0.25, 0.375), t, LF(1.25, 2.5, 3.75));
             ON_LIST_REQUIRE(LF(-1, -20, 40), t, LF(0.f, 0.f, 10));
         }
     }
