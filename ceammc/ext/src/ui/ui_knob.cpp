@@ -120,7 +120,7 @@ void UIKnob::paint()
             const float xoff = (1 + (r.width > 50)) * zoom();
             const float yoff = (1 + (r.height > 50)) * zoom();
 
-            char buf[10];
+            char buf[14];
             sprintf(buf, "%g", minValue());
 
             txt_min.set(buf, xoff, r.height - yoff, r.width * 2, r.height / 2);
