@@ -150,6 +150,16 @@ t_outlet* UIObjectImpl::createOutlet()
     return out;
 }
 
+const char* UIObjectImpl::annotateInlet(int n) const
+{
+    return nullptr;
+}
+
+const char* UIObjectImpl::annotateOutlet(int n) const
+{
+    return nullptr;
+}
+
 t_canvas* UIObjectImpl::canvas() const
 {
     return asEObj()->o_canvas;

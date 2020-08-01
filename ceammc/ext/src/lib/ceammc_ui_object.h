@@ -170,6 +170,8 @@ public:
     size_t numOutlets() const;
     const std::vector<t_outlet*>& outlets() const { return outlets_; }
     t_outlet* createOutlet();
+    const char* annotateInlet(int n) const;
+    const char* annotateOutlet(int n) const;;
 
     bool hasProperty(t_symbol* name) const;
     bool getProperty(t_symbol* name, t_float& f) const;
