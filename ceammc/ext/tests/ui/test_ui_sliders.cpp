@@ -12,6 +12,7 @@
  * this file belongs to.
  *****************************************************************************/
 #include "ui_sliders.h"
+
 #include "test_ui.h"
 
 UI_COMPLETE_TEST_SETUP(Sliders)
@@ -201,7 +202,7 @@ TEST_CASE("ui.sliders", "[ui.sliders]")
 
             t->m_set(LF(1, 2, 3));
             t.bang();
-            REQUIRE_OUTPUT_LIST(t, 0, LF(1, 1, 1, 0, 0, 0, 0, 0));
+            REQUIRE_OUTPUT_LIST(t, 0, LX(1, 1, 1, 0, 0, 0, 0, 0));
         }
 
         SECTION("onList")
@@ -211,13 +212,13 @@ TEST_CASE("ui.sliders", "[ui.sliders]")
             REQUIRE_NO_OUTPUT(t);
 
             t.send(LF(100));
-            REQUIRE_OUTPUT_LIST(t, 0, LF(1) + AtomList::zeroes(7));
+            REQUIRE_OUTPUT_LIST(t, 0, LX(1, 0, 0, 0, 0, 0, 0, 0));
 
             t.send(LF(100, 100));
-            REQUIRE_OUTPUT_LIST(t, 0, LF(1, 1) + AtomList::zeroes(6));
+            REQUIRE_OUTPUT_LIST(t, 0, LX(1, 1, 0, 0, 0, 0, 0, 0));
 
-            t.send(LF(0.1, 0.2, 0.3));
-            REQUIRE_OUTPUT_LIST(t, 0, LF(0.1, 0.2, 0.3) + AtomList::zeroes(5));
+            t.send(LF(0.125, 0.25, 0.375));
+            REQUIRE_OUTPUT_LIST(t, 0, LX(0.125, 0.25, 0.375, 0, 0, 0, 0, 0));
         }
 
         SECTION("onList auto_range")
@@ -237,7 +238,7 @@ TEST_CASE("ui.sliders", "[ui.sliders]")
             REQUIRE(t->realValues() == AtomList::zeroes(8));
 
             t.send(LF(1, 2));
-            REQUIRE_OUTPUT_LIST(t, 0, LF(1, 2));
+            REQUIRE_OUTPUT_LIST(t, 0, LX(1, 2));
             REQUIRE_UI_FLOAT_PROPERTY(t, "count", 2);
             REQUIRE_UI_FLOAT_PROPERTY(t, "min", 1);
             REQUIRE_UI_FLOAT_PROPERTY(t, "max", 2);
@@ -280,36 +281,36 @@ TEST_CASE("ui.sliders", "[ui.sliders]")
         REQUIRE_NO_OUTPUT(t);
         REQUIRE_UI_LIST_PROPERTY(t, "value", AtomList::zeroes(8));
 
-        t.call("set", LA("slider", -1, 0.3));
+        t.call("set", LA("slider", -1, 0.375));
         REQUIRE_NO_OUTPUT(t);
         REQUIRE_UI_LIST_PROPERTY(t, "value", AtomList::zeroes(8));
 
-        t.call("set", LA("slider", 1, 0.3));
+        t.call("set", LA("slider", 1, 0.375));
         REQUIRE_NO_OUTPUT(t);
-        REQUIRE_UI_LIST_PROPERTY(t, "value", LF(0, 0.3) + AtomList::zeroes(6));
+        REQUIRE_UI_LIST_PROPERTY(t, "value", LF(0, 0.375) + AtomList::zeroes(6));
     }
 
     SECTION("operator")
     {
-        TestExtSliders t("ui.sliders");
+        TestExtSliders t("ui.sliders", LA("@size", 128, 64));
 
-        t.call("+", 0.1);
-        REQUIRE_UI_LIST_PROPERTY(t, "value", AtomList::filled(0.1, 8));
+        t.call("+", 0.125);
+        REQUIRE_UI_LIST_PROPERTY(t, "value", AtomList::filled(0.125, 8));
         t.call("+", 2);
-        REQUIRE_UI_LIST_PROPERTY(t, "value", AtomList::ones(8));
+        REQUIRE_UI_LIST_PROPERTY(t, "value", LX(1, 1, 1, 1, 1, 1, 1, 1));
 
-        t.call("-", 0.1);
-        REQUIRE_UI_LIST_PROPERTY(t, "value", AtomList::filled(0.9f, 8));
+        t.call("-", 0.125);
+        REQUIRE_UI_LIST_PROPERTY(t, "value", AtomList::filled(0.875, 8));
         t.call("-", 10);
         REQUIRE_UI_LIST_PROPERTY(t, "value", AtomList::zeroes(8));
 
         t.call("*", 10);
         REQUIRE_UI_LIST_PROPERTY(t, "value", AtomList::zeroes(8));
-        t.call("+", 0.15);
-        REQUIRE_UI_LIST_PROPERTY(t, "value", AtomList::filled(0.15f, 8));
+        t.call("+", 0.25);
+        REQUIRE_UI_LIST_PROPERTY(t, "value", AtomList::filled(0.25, 8));
 
         t.call("*", 2);
-        REQUIRE_UI_LIST_PROPERTY(t, "value", AtomList::filled(0.3f, 8));
+        REQUIRE_UI_LIST_PROPERTY(t, "value", AtomList::filled(0.5, 8));
         t.call("*", 4);
         REQUIRE_UI_LIST_PROPERTY(t, "value", AtomList::ones(8));
 
@@ -353,14 +354,14 @@ TEST_CASE("ui.sliders", "[ui.sliders]")
         t << BANG;
         REQUIRE_LIST_WAS_SEND(t, "r1", AtomList::zeroes(8));
 
-        t << LF(0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8);
-        REQUIRE_LIST_WAS_SEND(t, "r1", LF(0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8));
+        t << LF(0.125, 0.25, 0.375, 0.5, 0.625, 0.75, 0.875, 1);
+        REQUIRE_LIST_WAS_SEND(t, "r1", LX(0.125, 0.25, 0.375, 0.5, 0.625, 0.75, 0.875, 1));
 
         t.call("fill", 0.5);
         t << BANG;
-        REQUIRE_LIST_WAS_SEND(t, "r1", AtomList::filled(0.5f, 8));
+        REQUIRE_LIST_WAS_SEND(t, "r1", AtomList::filled(0.5, 8));
 
-        t.mouseDown(10, 30);
-        REQUIRE_LIST_WAS_SEND(t, "r1", LF(0.7) + AtomList::filled(0.5f, 7));
+        t.mouseDown(10, 25);
+        REQUIRE_LIST_WAS_SEND(t, "r1", LX(0.75, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5));
     }
 }

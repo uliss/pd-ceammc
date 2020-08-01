@@ -66,7 +66,7 @@ public:
 template <class T>
 class PdFloatProxy : public PdBindObject {
 public:
-    typedef void (T::*ProxyFnPtr)(float);
+    typedef void (T::*ProxyFnPtr)(t_float);
 
     PdFloatProxy(T* o, ProxyFnPtr p)
         : owner_(o)

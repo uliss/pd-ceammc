@@ -23,7 +23,7 @@
             </inlet>
         </inlets>
         <outlets>
-            <outlet>output list of numerator and denominator parts (std::vector&lt;float&gt;)</outlet>
+            <outlet>output list of numerator and denominator parts (list)</outlet>
         </outlets>
         <example>
             <pdascii>

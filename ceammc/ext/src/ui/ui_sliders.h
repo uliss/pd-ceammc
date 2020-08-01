@@ -24,14 +24,14 @@ class UISliders : public UIObject {
     UITextLayout txt_max_;
     long select_idx_;
     bool is_vertical_;
-    std::vector<float> pos_values_;
+    std::vector<t_float> pos_values_;
     UILayer sliders_layer_;
 
 private:
     t_rgba prop_slider_color;
     t_rgba prop_select_color;
-    float prop_min;
-    float prop_max;
+    t_float prop_min;
+    t_float prop_max;
     int prop_auto_range;
     int prop_show_range;
     int prop_count;
@@ -83,15 +83,15 @@ public:
 
 private:
     void setRealValueAt(size_t n, t_float v);
-    float realValueAt(size_t n) const;
+    t_float realValueAt(size_t n) const;
     bool setRealValues(const AtomList& l);
 
-    float propCount() const;
-    void setPropCount(float f);
-    float propAutoRange() const;
-    void setPropAutoRange(float f);
+    t_float propCount() const;
+    void setPropCount(t_float f);
+    t_float propAutoRange() const;
+    void setPropAutoRange(t_float f);
 
-    float propRange() const;
+    t_float propRange() const;
     AtomList propValue() const;
 
     void generateTxtLabels();

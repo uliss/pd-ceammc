@@ -77,34 +77,22 @@ public:
 
     void mouseUp(float x, float y, long modifiers = 0)
     {
-        t_pt p;
-        p.x = x;
-        p.y = y;
-        obj->onMouseUp(0, p, modifiers);
+        obj->onMouseUp(0, { x, y }, modifiers);
     }
 
     void mouseMove(float x, float y, long modifiers = 0)
     {
-        t_pt p;
-        p.x = x;
-        p.y = y;
-        obj->onMouseMove(0, p, modifiers);
+        obj->onMouseMove(0, { x, y }, modifiers);
     }
 
     void mouseDrag(float x, float y, long modifiers = 0)
     {
-        t_pt p;
-        p.x = x;
-        p.y = y;
-        obj->onMouseDrag(0, p, modifiers);
+        obj->onMouseDrag(0, { x, y }, modifiers);
     }
 
     void doubleClick(float x, float y, long modifiers = 0)
     {
-        t_pt p;
-        p.x = x;
-        p.y = y;
-        obj->onDblClick(0, p, modifiers);
+        obj->onDblClick(0, { x, y }, modifiers);
     }
 };
 
@@ -182,7 +170,7 @@ public:
 
 #define REQUIRE_UI_FLOAT_PROPERTY(t, name, f)     \
     {                                             \
-        float p;                                  \
+        t_float p;                                \
         REQUIRE(t->getProperty(gensym(name), p)); \
         REQUIRE(p == Approx(f).epsilon(0.0001));  \
     }
@@ -216,12 +204,12 @@ public:
         t.clearAt(n);                 \
     }
 
-#define REQUIRE_OUTPUT_FLOAT(t, n, f)     \
-    {                                     \
-        REQUIRE(t.hasOutputAt(n));        \
-        REQUIRE(t.isOutputFloatAt(n));    \
-        REQUIRE(t.outputFloatAt(n) == f); \
-        t.clearAt(n);                     \
+#define REQUIRE_OUTPUT_FLOAT(t, n, f)             \
+    {                                             \
+        REQUIRE(t.hasOutputAt(n));                \
+        REQUIRE(t.isOutputFloatAt(n));            \
+        REQUIRE(t.outputFloatAt(n) == Approx(f)); \
+        t.clearAt(n);                             \
     }
 
 #define REQUIRE_OUTPUT_LIST(t, n, l)     \

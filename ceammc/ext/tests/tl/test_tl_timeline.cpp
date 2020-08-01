@@ -544,7 +544,7 @@ TEST_CASE("tl.timeline", "[externals]")
         NO_OUTPUT_NTICKS(t, 79);
         REQUIRE_PROPERTY_FLOAT(t, @current, 99_ticks);
         t.schedTicks(2);
-        REQUIRE(t.outputListAt(0) == LA("end", 100_ticks));
+        REQUIRE(t.outputListAt(0) == LAX("end", 100_ticks));
 
         // next loop iteration
         NO_OUTPUT_NTICKS(t, 49);

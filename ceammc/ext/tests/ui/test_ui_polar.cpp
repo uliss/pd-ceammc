@@ -163,10 +163,10 @@ TEST_CASE("ui.polar", "[ui.polar]")
                 REQUIRE(t->realValue() == LX(1, -3.13319));
 
                 t->setRealValue(LF(1, 6.27));
-                REQUIRE(t->realValue() == LX(1, -0.0131857));
+                REQUIRE(t->realValue() == LX(1, -0.013185).margin(0.00001));
 
                 t->setRealValue(LF(1, 6.3));
-                REQUIRE(t->realValue() == LX(1, 0.0168149));
+                REQUIRE(t->realValue() == LX(1, 0.0168157).margin(0.00001));
             }
 
             SECTION("clockwise")
@@ -215,7 +215,7 @@ TEST_CASE("ui.polar", "[ui.polar]")
                 REQUIRE(t->realValue() == LX(1, 6.27));
 
                 t->setRealValue(LF(1, 6.3));
-                REQUIRE(t->realValue() == LX(1, 0.0168149));
+                REQUIRE(t->realValue() == LX(1, 0.0168152).margin(0.000001));
             }
         }
 
@@ -529,7 +529,7 @@ TEST_CASE("ui.polar", "[ui.polar]")
         {
             TestExtPolar t("ui.polar", LA("@radians", 1));
             t.mouseDown(50, 0);
-            REQUIRE_OUTPUT_LIST(t, 0, LX(1, 0.));
+            REQUIRE_OUTPUT_LIST(t, 0, LX(1, 0).margin(0.00001));
             t.mouseDown(0, 50);
             REQUIRE_OUTPUT_LIST(t, 0, LX(1, -M_PI_2));
             t.mouseDown(50, 50);

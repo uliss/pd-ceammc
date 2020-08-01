@@ -302,7 +302,7 @@
                     "doc_outlets": [
                         {
                             "info": "1 or 0",
-                            "type": "bool"
+                            "type": "int"
                         }
                     ],
                     "example": "\n[2 2(         [3 3(          [4(\n|             |              |\n[matrix.ones] [matrix.zeros] [matrix.id]\n|             |              |\n|             |              |\n|             |              |\n[matrix.all                  ]\n|\n[F]",
@@ -433,7 +433,7 @@
                     "doc_outlets": [
                         {
                             "info": "1 or 0",
-                            "type": "bool"
+                            "type": "int"
                         }
                     ],
                     "example": "\n[2 2(         [3 3(          [4(\n|             |              |\n[matrix.ones] [matrix.zeros] [matrix.id]\n|             |              |\n|             |              |\n|             |              |\n[matrix.any                  ]\n|\n[F]",
@@ -4510,7 +4510,7 @@
                     "doc_outlets": [
                         {
                             "info": "list (rows, columns)",
-                            "type": "std::vector<int>"
+                            "type": "list"
                         }
                     ],
                     "example": "\n[bang( [2 2 1 2 3 4(\n|      |\n[matrix.new 10 16]\n|\n[matrix.size]\n|\n[ui.display @display_type=1]",

@@ -7,13 +7,15 @@ using namespace ceammc;
 
 class UIToggle : public UIObject {
     t_rgba prop_color_active;
+    t_float prop_value_on_;
+    t_float prop_value_off_;
     bool value_;
 
 public:
     UIToggle();
 
-    float value() const;
-    void setValue(float v);
+    t_float value() const;
+    void setValue(t_float v);
     void flip();
     void output();
 

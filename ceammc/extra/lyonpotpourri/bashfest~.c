@@ -447,14 +447,14 @@ t_int *bashfest_perform_hosed(t_int *w)
     
     //  t_bashfest *x = (t_bashfest *) (w[1]);
     //  float *trigger = (t_float *)(w[2]);
-    float *outchanL = (t_float *)(w[3]);
-    float *outchanR = (t_float *)(w[4]);
+    t_sample *outchanL = (t_sample *)(w[3]);
+    t_sample *outchanR = (t_sample *)(w[4]);
     int n = (int) w[5];
     
     // try bzero
     //  while(n--) *outchanL++ = *outchanR++ = 0.0;
-    memset((char *)outchanL, 0, sizeof(float) * n);
-    memset((char *)outchanR, 0, sizeof(float) * n);
+    memset((char *)outchanL, 0, sizeof(t_sample) * n);
+    memset((char *)outchanR, 0, sizeof(t_sample) * n);
     return(w+6);
     
 }
@@ -464,9 +464,9 @@ t_int *bashfest_perform_hosed(t_int *w)
 t_int *bashfest_perform(t_int *w)
 {
     t_bashfest *x = (t_bashfest *) (w[1]);
-    float *t_vec = (t_float *)(w[2]);
-    float *outchanL = (t_float *)(w[3]);
-    float *outchanR = (t_float *)(w[4]);
+    t_sample *t_vec = (t_sample *)(w[2]);
+    t_sample *outchanL = (t_sample *)(w[3]);
+    t_sample *outchanR = (t_sample *)(w[4]);
     int n = (int) w[5];
 
     t_word *b_samples;

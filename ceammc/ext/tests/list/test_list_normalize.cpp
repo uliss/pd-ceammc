@@ -57,7 +57,7 @@ TEST_CASE("list.normalize", "[externals]")
     {
         ListNormalizeTest t("list.normalize");
         WHEN_SEND_LIST_TO(0, t, LF(1, 2, 3, 4));
-        REQUIRE_LIST_AT_OUTLET(0, t, LF(0.1f, 0.2f, 0.3f, 0.4f));
+        REQUIRE_LIST_AT_OUTLET(0, t, LF(0.1, 0.2, 0.3, 0.4));
 
         // sum == 0
         WHEN_SEND_LIST_TO(0, t, LF(-1, -2, 1, 2));
@@ -65,7 +65,7 @@ TEST_CASE("list.normalize", "[externals]")
 
         // sum == 0
         WHEN_SEND_LIST_TO(0, t, LF(-1, -2, -3, -4));
-        REQUIRE_LIST_AT_OUTLET(0, t, LF(0.1f, 0.2f, 0.3f, 0.4f));
+        REQUIRE_LIST_AT_OUTLET(0, t, LF(0.1, 0.2, 0.3, 0.4));
     }
 
     SECTION("sum")

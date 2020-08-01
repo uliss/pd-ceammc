@@ -44,7 +44,6 @@ UIArrayView::UIArrayView()
     , render_clock_(this, &UIArrayView::renderTick)
     , render_index_(0)
     , selection_mode_(SELECTION_NONE)
-    , prev_mouse_pt_ { 0, 0 }
     , prop_array(&s_)
     , prop_color_wave(rgba_blue)
     , prop_color_cursor(rgba_blue)

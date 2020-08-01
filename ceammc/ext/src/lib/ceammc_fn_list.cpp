@@ -342,7 +342,7 @@ namespace list {
         l.range(amin, amax);
         const t_float min = amin.asFloat();
         const t_float max = amax.asFloat();
-        t_float range = fabsf(max - min);
+        t_float range = std::fabs(max - min);
 
         if (range == 0) {
             hist[0] = max * bins;
@@ -623,10 +623,14 @@ namespace list {
 
         size_t idone = 0;
         size_t odone = 0;
+
+        constexpr soxr_datatype_t samptype = (sizeof(t_sample) == sizeof(float)) ? SOXR_FLOAT32_I : SOXR_FLOAT64_I;
+        const auto io_spec = soxr_io_spec(samptype, samptype);
+
         auto err = soxr_oneshot(1, ratio, 1,
             in.data(), in.size(), &idone,
             out.data(), OUTS, &odone,
-            nullptr, nullptr, nullptr);
+            &io_spec, nullptr, nullptr);
 
         if (err) {
             std::cerr << err << "\n";

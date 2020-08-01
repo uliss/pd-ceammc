@@ -40,19 +40,23 @@ static const char* BTN_LABELS[] = { "T", "g", "G", "L" };
 constexpr size_t N_BTNS = sizeof(BTN_LABELS) / sizeof(BTN_LABELS[0]);
 
 #ifdef __linux__
-template <size_t N>
-struct IntNAN {
-};
-template <>
-struct IntNAN<sizeof(float)> {
-    static const uint32_t nan = 0xffc00000;
-};
+inline bool is_int_nan(float f)
+{
+    const uint32_t u = *(uint32_t*)&f;
+    return (u&0x7F800000) == 0x7F800000 && (u&0x7FFFFF);    // Both NaN and qNan.
+}
+
+inline bool is_int_nan(double d)
+{
+    const uint64_t u = *(uint64_t*)&d;
+    return (u&0x7FF0000000000000ULL) == 0x7FF0000000000000ULL && (u&0xFFFFFFFFFFFFFULL);
+}
 #endif
 
 static inline bool is_inf_nan(t_sample v)
 {
 #ifdef __linux__
-    return std::isinf(v) || std::isnan(v) || *(uint32_t*)(&v) == IntNAN<sizeof(v)>::nan;
+    return std::isinf(v) || std::isnan(v) || is_int_nan(v);
 #else
     return std::isinf(v) || std::isnan(v);
 #endif
@@ -1290,19 +1294,19 @@ void UIPlotTilde::onMouseDown(t_object*, const t_pt& pt, const t_pt& abs_pt, lon
     }
 }
 
-float UIPlotTilde::propNumInputs() const
+t_float UIPlotTilde::propNumInputs() const
 {
     return prop_nins_;
 }
 
-void UIPlotTilde::propSetNumInputs(float n)
+void UIPlotTilde::propSetNumInputs(t_float n)
 {
     prop_nins_ = clip<int, MIN_INPUTS, MAX_INPUTS>(n);
     int dspState = canvas_suspend_dsp();
 
-    eobj_resize_inputs(asEBox(), 0);
-    eobj_resize_inputs(asEBox(), prop_nins_);
-    eobj_resize_inputs(asEBox(), n + 1, &s_list, gensym("_inlet_2"));
+    eobj_resize_inputs(asEObj(), 0);
+    eobj_resize_inputs(asEObj(), prop_nins_);
+    eobj_resize_inputs(asEObj(), n + 1, &s_list, gensym("_inlet_2"));
 
     canvas_update_dsp();
     canvas_resume_dsp(dspState);

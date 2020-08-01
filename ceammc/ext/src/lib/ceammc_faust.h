@@ -27,9 +27,9 @@
 #include "ceammc_atom.h"
 #include "ceammc_atomlist.h"
 #include "ceammc_object.h"
+#include "ceammc_output.h"
 #include "ceammc_property_info.h"
 #include "ceammc_sound_external.h"
-#include "ceammc_output.h"
 
 #ifndef FAUSTFLOAT
 #define FAUSTFLOAT t_float
@@ -231,20 +231,20 @@ namespace faust {
         void addSoundfile(const char* /*label*/, const char* /*filename*/, Soundfile** /*sf_zone*/) {}
 
     protected:
-        void add_elem(UIElementType type, const std::string& label, float* zone);
-        void add_elem(UIElementType type, const std::string& label, float* zone,
-            float init, float min, float max, float step);
-        void add_elem(UIElementType type, const std::string& label, float* zone, float min, float max);
+        void add_elem(UIElementType type, const std::string& label, t_float* zone);
+        void add_elem(UIElementType type, const std::string& label, t_float* zone,
+            t_float init, t_float min, t_float max, t_float step);
+        void add_elem(UIElementType type, const std::string& label, t_float* zone, t_float min, t_float max);
 
     public:
-        virtual void addButton(const char* label, float* zone);
-        virtual void addCheckButton(const char* label, float* zone);
-        virtual void addVerticalSlider(const char* label, float* zone, float init, float min, float max, float step);
-        virtual void addHorizontalSlider(const char* label, float* zone, float init, float min, float max, float step);
-        virtual void addNumEntry(const char* label, float* zone, float init, float min, float max, float step);
+        virtual void addButton(const char* label, t_float* zone);
+        virtual void addCheckButton(const char* label, t_float* zone);
+        virtual void addVerticalSlider(const char* label, t_float* zone, t_float init, t_float min, t_float max, t_float step);
+        virtual void addHorizontalSlider(const char* label, t_float* zone, t_float init, t_float min, t_float max, t_float step);
+        virtual void addNumEntry(const char* label, t_float* zone, t_float init, t_float min, t_float max, t_float step);
 
-        virtual void addHorizontalBargraph(const char* label, float* zone, float min, float max);
-        virtual void addVerticalBargraph(const char* label, float* zone, float min, float max);
+        virtual void addHorizontalBargraph(const char* label, t_float* zone, t_float min, t_float max);
+        virtual void addVerticalBargraph(const char* label, t_float* zone, t_float min, t_float max);
 
         virtual void openTabBox(const char* label);
         virtual void openHorizontalBox(const char* label);
@@ -265,7 +265,7 @@ namespace faust {
         void setProperty(t_symbol* s, int argc, t_atom* argv);
 
         std::vector<FAUSTFLOAT> uiValues() const;
-        void setUIValues(const std::vector<FAUSTFLOAT>& v);
+        void setUIValues(const std::vector<t_float>& v);
         std::string fullName() const;
         std::string oscPath(const std::string& label) const;
     };
@@ -380,7 +380,7 @@ namespace faust {
     }
 
     template <typename T>
-    void PdUI<T>::add_elem(UIElementType type, const std::string& label, float* zone)
+    void PdUI<T>::add_elem(UIElementType type, const std::string& label, t_float* zone)
     {
         UIElement* elems = new UIElement(type, oscPath(label), label);
         elems->setValuePtr(zone);
@@ -388,8 +388,8 @@ namespace faust {
     }
 
     template <typename T>
-    void PdUI<T>::add_elem(UIElementType type, const std::string& label, float* zone,
-        float init, float min, float max, float step)
+    void PdUI<T>::add_elem(UIElementType type, const std::string& label, t_float* zone,
+        t_float init, t_float min, t_float max, t_float step)
     {
         UIElement* elems = new UIElement(type, oscPath(label), label);
         elems->setContraints(init, min, max, step);
@@ -398,8 +398,8 @@ namespace faust {
     }
 
     template <typename T>
-    void PdUI<T>::add_elem(UIElementType type, const std::string& label, float* zone,
-        float min, float max)
+    void PdUI<T>::add_elem(UIElementType type, const std::string& label, t_float* zone,
+        t_float min, t_float max)
     {
         UIElement* elems = new UIElement(type, oscPath(label), label);
         elems->setContraints(0.0, min, max, 0.0);
@@ -408,7 +408,7 @@ namespace faust {
     }
 
     template <typename T>
-    void PdUI<T>::addButton(const char* label, float* zone)
+    void PdUI<T>::addButton(const char* label, t_float* zone)
     {
         UIElement* elems = new UIElement(UI_BUTTON, oscPath(label), label);
         elems->setContraints(0, 0, 1, 1);
@@ -417,7 +417,7 @@ namespace faust {
     }
 
     template <typename T>
-    void PdUI<T>::addCheckButton(const char* label, float* zone)
+    void PdUI<T>::addCheckButton(const char* label, t_float* zone)
     {
         UIElement* elems = new UIElement(UI_CHECK_BUTTON, oscPath(label), label);
         elems->setContraints(0, 0, 1, 1);
@@ -426,31 +426,31 @@ namespace faust {
     }
 
     template <typename T>
-    void PdUI<T>::addVerticalSlider(const char* label, float* zone, float init, float min, float max, float step)
+    void PdUI<T>::addVerticalSlider(const char* label, t_float* zone, t_float init, t_float min, t_float max, t_float step)
     {
         add_elem(UI_V_SLIDER, label, zone, init, min, max, step);
     }
 
     template <typename T>
-    void PdUI<T>::addHorizontalSlider(const char* label, float* zone, float init, float min, float max, float step)
+    void PdUI<T>::addHorizontalSlider(const char* label, t_float* zone, t_float init, t_float min, t_float max, t_float step)
     {
         add_elem(UI_H_SLIDER, label, zone, init, min, max, step);
     }
 
     template <typename T>
-    void PdUI<T>::addNumEntry(const char* label, float* zone, float init, float min, float max, float step)
+    void PdUI<T>::addNumEntry(const char* label, t_float* zone, t_float init, t_float min, t_float max, t_float step)
     {
         add_elem(UI_NUM_ENTRY, label, zone, init, min, max, step);
     }
 
     template <typename T>
-    void PdUI<T>::addHorizontalBargraph(const char* label, float* zone, float min, float max)
+    void PdUI<T>::addHorizontalBargraph(const char* label, t_float* zone, t_float min, t_float max)
     {
         add_elem(UI_H_BARGRAPH, label, zone, min, max);
     }
 
     template <typename T>
-    void PdUI<T>::addVerticalBargraph(const char* label, float* zone, float min, float max)
+    void PdUI<T>::addVerticalBargraph(const char* label, t_float* zone, t_float min, t_float max)
     {
         add_elem(UI_V_BARGRAPH, label, zone, min, max);
     }
@@ -585,7 +585,7 @@ namespace faust {
     }
 
     template <typename T>
-    void PdUI<T>::setUIValues(const std::vector<float>& v)
+    void PdUI<T>::setUIValues(const std::vector<t_float>& v)
     {
         size_t max = std::min(v.size(), uiCount());
         for (size_t i = 0; i < max; i++)

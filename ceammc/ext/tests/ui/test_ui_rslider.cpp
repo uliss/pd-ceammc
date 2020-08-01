@@ -159,24 +159,24 @@ TEST_CASE("ui.rslider", "[ui.rslider]")
         REQUIRE(t->presetId() == gensym("ui.rslider.0"));
 
         t <<= LA("store", 0.f);
-        t << LF(0.1, 0.2) <<= LA("store", 1);
-        t << LF(0.8, 0.9) <<= LA("store", 2);
+        t << LF(0.125, 0.25) <<= LA("store", 1);
+        t << LF(0.75, 0.875) <<= LA("store", 2);
 
         t->loadPreset(0);
-        REQUIRE_OUTPUT_LIST(t, 0, LF(0.4, 0.6));
+        REQUIRE_OUTPUT_LIST(t, 0, LX(0.4, 0.6));
         REQUIRE_UI_LIST_PROPERTY(t, "value", LX(0.4, 0.6));
 
         t->loadPreset(1);
-        REQUIRE_OUTPUT_LIST(t, 0, LF(0.1, 0.2));
-        REQUIRE_UI_LIST_PROPERTY(t, "value", LX(0.1, 0.2));
+        REQUIRE_OUTPUT_LIST(t, 0, LX(0.125, 0.25));
+        REQUIRE_UI_LIST_PROPERTY(t, "value", LX(0.125, 0.25));
 
         t->loadPreset(2);
-        REQUIRE_OUTPUT_LIST(t, 0, LF(0.8, 0.9));
-        REQUIRE_UI_LIST_PROPERTY(t, "value", LX(0.8, 0.9));
+        REQUIRE_OUTPUT_LIST(t, 0, LX(0.75, 0.875));
+        REQUIRE_UI_LIST_PROPERTY(t, "value", LX(0.75, 0.875));
 
         t->loadPreset(4);
         REQUIRE_NO_OUTPUT(t);
-        REQUIRE_UI_LIST_PROPERTY(t, "value", LX(0.8, 0.9));
+        REQUIRE_UI_LIST_PROPERTY(t, "value", LX(0.75, 0.875));
     }
 
     PresetStorage::instance().clearAll();

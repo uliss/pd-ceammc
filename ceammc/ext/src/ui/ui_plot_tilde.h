@@ -56,8 +56,8 @@ class UIPlotTilde : public UIDspObject {
     t_inlet* in2_;
     size_t phase_;
     size_t total_;
-    float ymin_, ymax_;
-    float xmin_, xmax_;
+    t_float ymin_, ymax_;
+    t_float xmin_, xmax_;
     t_sample sig_min_, sig_max_;
     int yauto_;
     int xmaj_ticks_, xmin_ticks_;
@@ -105,8 +105,8 @@ public:
     void onInlet(const AtomList& args);
     void onMouseDown(t_object*, const t_pt& pt, const t_pt& abs_pt, long modifiers);
 
-    float propNumInputs() const;
-    void propSetNumInputs(float n);
+    t_float propNumInputs() const;
+    void propSetNumInputs(t_float n);
 
 public:
     static void setup();

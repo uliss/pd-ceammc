@@ -21,7 +21,7 @@ using namespace ceammc;
 
 class MessageAfter : public BaseObject {
     ClockMemberFunction<MessageAfter> clock_;
-    float delay_;
+    t_float delay_;
     AtomList msg_;
 
 public:

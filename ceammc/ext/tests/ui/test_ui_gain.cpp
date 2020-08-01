@@ -64,14 +64,14 @@ TEST_CASE("ui.gain~", "[ui.gain~]")
         REQUIRE_UI_FLOAT_PROPERTY(t, "max", 6);
         REQUIRE_UI_FLOAT_PROPERTY(t, "min", -70);
         t->setDbValue(-6.0206f);
-        REQUIRE(t->ampValue() == Approx(0.5f));
+        REQUIRE(t->ampValue() == Approx(0.5));
         t->setDbValue(-12.041);
         REQUIRE(t->ampValue() == Approx(0.25001f).epsilon(0.01));
         t->setAmpValue(1);
-        REQUIRE(t->dbValue() == Approx(0));
-        t->setAmpValue(0.5f);
+        REQUIRE(t->dbValue() == Approx(0.0).margin(0.00001));
+        t->setAmpValue(0.5);
         REQUIRE(t->dbValue() == Approx(-6.0206));
-        t->setAmpValue(0.f);
+        t->setAmpValue(0);
         REQUIRE(t->dbValue() == Approx(-70));
     }
 

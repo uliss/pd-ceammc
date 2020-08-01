@@ -338,7 +338,6 @@ t_canvas *canvas_new(void *dummy, t_symbol *sel, int argc, t_atom *argv)
     int vis = 0, width = GLIST_DEFCANVASWIDTH, height = GLIST_DEFCANVASHEIGHT;
     int xloc = 0, yloc = GLIST_DEFCANVASYLOC;
     int font = (owner ? owner->gl_font : sys_defaultfont);
-    t_canvas_private*private = 0;
     glist_init(x);
     x->gl_obj.te_type = T_OBJECT;
     if (!owner)

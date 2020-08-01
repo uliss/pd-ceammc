@@ -103,8 +103,10 @@ void DataStorage::clearAll()
 
 DataStorage::DataStorage()
 {
-    registerNewType("pi", [](const AtomList&) -> Atom { return Atom(3.14159265358979); });
-    registerNewType("e", [](const AtomList&) -> Atom { return Atom(2.71828182846); });
+    static const t_float m_pi = std::acos(t_float(-1));
+    static const t_float m_exp = std::exp(t_float(1));
+    registerNewType("pi", [](const AtomList&) -> Atom { return Atom(m_pi); });
+    registerNewType("e", [](const AtomList&) -> Atom { return Atom(m_exp); });
     registerNewType("sr", [](const AtomList&) -> Atom { return Atom(sys_getsr()); });
     registerNewType("bs", [](const AtomList&) -> Atom { return Atom(sys_getblksize()); });
     registerNewType("expr", [](const AtomList& expr) -> Atom {
@@ -113,8 +115,8 @@ DataStorage::DataStorage()
             mu::Parser p;
             p.DefineConst("sr", sys_getsr());
             p.DefineConst("bs", sys_getblksize());
-            p.DefineConst("e", std::exp(1));
-            p.DefineConst("pi", std::acos(-1));
+            p.DefineConst("e", m_exp);
+            p.DefineConst("pi", m_pi);
             p.DefineFun("floor", (DD)std::floor);
             p.DefineFun("ceil", (DD)std::ceil);
             p.SetExpr(to_string(expr));

@@ -67,7 +67,7 @@ TEST_CASE("plot.geomspace~", "[externals]")
         TExt t("plot.geomspace~");
 
         WHEN_SEND_BANG_TO(0, t);
-        REQUIRE(listAt(t, 1_out) == LA(100, 0.1, 100, 10));
+        REQUIRE(listAt(t, 1_out) == LX(100, 0.1, 100, 10));
     }
 
     SECTION("dsp")
@@ -124,7 +124,7 @@ TEST_CASE("plot.geomspace~", "[externals]")
             t.setProperty("@base", LA("e"));
 
             WHEN_SEND_BANG_TO(0, t);
-            REQUIRE(listAt(t, 1_out) == LA(5, 0.1, 1000, "e"));
+            REQUIRE(listAt(t, 1_out) == LAX(5, 0.1, 1000, "e"));
 
             dsp.processBlock(1);
 

@@ -13,7 +13,8 @@
  *****************************************************************************/
 
 #include <algorithm>
-#include <stdio.h>
+#include <cmath>
+#include <cstdio>
 
 #include "ceammc_atomlist.h"
 #include "ceammc_convert.h"
@@ -24,10 +25,10 @@
 #include "ceammc_ui.h"
 #include "ui_polar.h"
 
-static const float KNOB_MIN_SIZE = 5.f;
-static const float KNOB_MAX_SIZE = 20.f;
+static const float KNOB_MIN_SIZE = 5;
+static const float KNOB_MAX_SIZE = 20;
 static const float KNOB_RATIO = 0.1f;
-static const float KNOB_BORDER_WIDTH = 1.f;
+static const float KNOB_BORDER_WIDTH = 1;
 static t_rgba KNOB_FILL = hex_to_rgba("#C0C0C0");
 static t_rgba KNOB_BORDER = hex_to_rgba("#707070");
 static t_rgba KNOB_FILL_ACTIVE = hex_to_rgba("#003070");
@@ -91,9 +92,9 @@ UIPolar::UIPolar()
             { _("bottom center"), [this](const t_pt&) { onList({ 1, side2Angle(BOTTOM) }); } } });
 }
 
-float UIPolar::side2Angle(SideT side)
+t_float UIPolar::side2Angle(SideT side)
 {
-    float angle = 0;
+    t_float angle = 0;
 
     if (prop_radians_)
         angle = side * M_PI_2;
@@ -346,7 +347,7 @@ void UIPolar::m_rotate(t_float angle)
 
 void UIPolar::loadPreset(size_t idx)
 {
-    setRealValue(PresetStorage::instance().listValueAt(presetId(), idx, AtomList(0.f, 0.f)));
+    setRealValue(PresetStorage::instance().listValueAt(presetId(), idx, AtomList(0., 0.)));
     redrawKnob();
     output();
 }
@@ -361,7 +362,7 @@ bool UIPolar::setRealValue(const AtomList& lst)
     if (lst.size() != 2)
         return false;
 
-    float r, a;
+    t_float r, a;
     if (!lst[0].getFloat(&r) || !lst[1].getFloat(&a)) {
         UI_ERR << "invalid value: " << lst;
         return false;
@@ -382,15 +383,16 @@ AtomList UIPolar::realValue() const
 
 t_float UIPolar::realAngle() const
 {
+    static const t_float m_pi = std::acos(t_float(-1));
     constexpr t_float EPSILON_K = 8;
 
     t_float res = 0;
 
     if (prop_radians_) {
         if (prop_positive_)
-            res = wrapFloatMax<t_float>(angle_, 2 * M_PI);
+            res = wrapFloatMax<t_float>(angle_, 2 * m_pi);
         else
-            res = wrapFloatMinMax<t_float>(angle_, -M_PI, M_PI);
+            res = wrapFloatMinMax<t_float>(angle_, -m_pi, m_pi);
     } else {
         if (prop_positive_)
             res = wrapFloatMax<t_float>(angle_, 360);
@@ -428,7 +430,7 @@ AtomList UIPolar::propAngle() const
 
 void UIPolar::propSetRadius(const AtomList& lst)
 {
-    float r;
+    t_float r;
 
     if (lst.empty() || !lst[0].getFloat(&r)) {
         UI_ERR << "radius float value expected: " << lst;
@@ -441,7 +443,7 @@ void UIPolar::propSetRadius(const AtomList& lst)
 
 void UIPolar::propSetAngle(const AtomList& lst)
 {
-    float a;
+    t_float a;
 
     if (lst.empty() || !lst[0].getFloat(&a)) {
         UI_ERR << "angle float value expected: " << lst;
@@ -507,6 +509,7 @@ void UIPolar::setup()
     UIObjectFactory<UIPolar> obj("ui.polar", EBOX_GROWLINK);
 
     obj.setDefaultSize(100, 100);
+    obj.useAnnotations();
 
     obj.addProperty("radius", &UIPolar::propRadius, &UIPolar::propSetRadius);
     obj.setPropertyRange("radius", 0, 1);

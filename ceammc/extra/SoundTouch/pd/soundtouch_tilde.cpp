@@ -54,8 +54,24 @@ void SoundTouchExt::processBlock(const t_sample** in, t_sample** out)
         return;
     }
 
-    stouch_.putSamples(in[0], blockSize());
-    stouch_.receiveSamples(out[0], blockSize());
+    const size_t bs = blockSize();
+
+#if PD_FLOATSIZE == 32
+    stouch_.putSamples(in[0], bs);
+    stouch_.receiveSamples(out[0], bs);
+#elif PD_FLOATSIZE == 64
+    float fin[bs];
+    float fout[bs];
+
+    for(size_t i = 0; i < bs; i++)
+        fin[i] = in[0][i];
+
+    stouch_.putSamples(fin, bs);
+    stouch_.receiveSamples(fout, bs);
+
+    for(size_t i = 0; i < bs; i++)
+        out[0][i] = fout[i];
+#endif
 }
 
 void SoundTouchExt::onInlet(size_t, const AtomList& lst)

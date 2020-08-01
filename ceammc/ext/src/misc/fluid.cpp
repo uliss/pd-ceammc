@@ -49,7 +49,7 @@ Fluid::Fluid(const PdArgs& args)
         [this](t_symbol* s) -> bool { return propSetSoundFont(s); });
 
     createCbSymbolProperty("@version",
-        [this]() -> t_symbol* { return gensym(FLUIDSYNTH_VERSION); });
+        []() -> t_symbol* { return gensym(FLUIDSYNTH_VERSION); });
 
     createCbProperty("@soundfonts", &Fluid::propSoundFonts);
 }
@@ -333,9 +333,24 @@ void Fluid::processBlock(const t_sample** in, t_sample** out)
     if (synth_ == nullptr)
         return;
 
+    const auto bs = blockSize();
+
+#if PD_FLOATSIZE == 32
     float* left = out[0];
     float* right = out[1];
-    fluid_synth_write_float(synth_, blockSize(), left, 0, 1, right, 0, 1);
+    fluid_synth_write_float(synth_, bs, left, 0, 1, right, 0, 1);
+#elif PD_FLOATSIZE == 64
+    float left[bs];
+    float right[bs];
+
+    fluid_synth_write_float(synth_, bs, left, 0, 1, right, 0, 1);
+
+    for (size_t i = 0; i < bs; i++)
+        out[0][i] = left[i];
+
+    for (size_t i = 0; i < bs; i++)
+        out[1][i] = right[i];
+#endif
 }
 
 void setup_misc_fluid()

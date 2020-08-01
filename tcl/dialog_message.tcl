@@ -23,6 +23,7 @@ proc ::dialog_message::get_history {direction} {
     if {$history_position > [llength $message_history]} {
         set history_position [llength $message_history]
     }
+    # ceammc: pad
     .message.f.pad.entry delete 0 end
     .message.f.pad.entry insert 0 \
         [lindex $message_history end-[expr $history_position - 1]]
@@ -31,17 +32,19 @@ proc ::dialog_message::get_history {direction} {
 # mytoplevel isn't used here, but is kept for compatibility with other dialog ok procs
 proc ::dialog_message::ok {mytoplevel} {
     variable message_history
+    # ceammc: pad
     set message [.message.f.pad.entry get]
     if {$message ne ""} {
         pdsend $message
         lappend message_history $message
+        # ceammc: pad
         .message.f.pad.entry delete 0 end
     }
 }
 
 # mytoplevel isn't used here, but is kept for compatibility with other dialog cancel procs
 proc ::dialog_message::cancel {mytoplevel} {
-    destroy .message
+    wm withdraw .message
 }
 
 # the message panel is opened from the menu and key bindings
@@ -49,7 +52,8 @@ proc ::dialog_message::open_message_dialog {mytoplevel} {
     if {[winfo exists .message]} {
         wm deiconify .message
         raise .message
-        focus .message
+        # ceammc: pad
+        focus .message.f.pad.entry
     } else {
         create_dialog $mytoplevel
     }
@@ -60,19 +64,23 @@ proc ::dialog_message::create_dialog {mytoplevel} {
     wm group .message .
     wm transient .message
     wm title .message [_ "Send a Pd message"]
-    wm resizable .message 0 0
+    wm geometry .message =400x80+150+150
+    wm resizable .message 1 0
+    wm minsize .message 250 80
     .message configure -menu $::dialog_menubar
     .message configure -padx 0 -pady 0
     ::pd_bindings::dialog_bindings .message "message"
     # not all Tcl/Tk versions or platforms support -topmost, so catch the error
     catch {wm attributes $id -topmost 1}
 
+    # ceammc: ttk
     ttk::frame .message.f
     ttk::frame .message.f.pad
     ttk::label .message.f.pad.semicolon -text ";"
-    ttk::entry .message.f.pad.entry -width 50
+    # ceammc: width
+    ttk::entry .message.f.pad.entry -width 35
     focus .message.f.pad.entry
-    ttk::label .message.f.pad.label -text [_ "(use arrow keys ↑↓ for history)"]
+    ttk::label .message.f.pad.label -text [_ "(use arrow keys for history)"]
 
     grid .message.f -row 0 -column 0
     grid .message.f.pad -row 0 -column 0 -padx 10 -pady 10

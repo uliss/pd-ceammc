@@ -35,11 +35,11 @@ class UIRSlider : public UIObject {
 
 private:
     t_rgba prop_color_knob;
-    float prop_min, prop_max;
+    t_float prop_min, prop_max;
 
 private:
     UILayer knob_layer_;
-    float vlow_, vhigh_;
+    t_float vlow_, vhigh_;
     bool is_horizontal_;
     DragMode drag_mode_;
     EditMode edit_mode_;

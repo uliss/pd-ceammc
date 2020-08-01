@@ -17,7 +17,7 @@
 #include "array_base.h"
 #include "ceammc_property_enum.h"
 
-typedef float (*WindowFuncPtr)(size_t, size_t);
+typedef t_float (*WindowFuncPtr)(size_t, size_t);
 
 class ArrayWindow : public ArrayMod {
     SymbolEnumProperty* type_;

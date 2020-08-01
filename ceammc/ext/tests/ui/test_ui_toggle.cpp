@@ -12,6 +12,7 @@
  * this file belongs to.
  *****************************************************************************/
 #include "ui_toggle.h"
+
 #include "test_ui.h"
 
 UI_COMPLETE_TEST_SETUP(Toggle)
@@ -28,8 +29,10 @@ TEST_CASE("ui.toggle", "[ui.toggle]")
         REQUIRE(t->height() == 15);
         REQUIRE(t->value() == 0);
         HAS_PROPERTY(t, "value");
+        REQUIRE_UI_FLOAT_PROPERTY(t, "on_value", 1);
+        REQUIRE_UI_FLOAT_PROPERTY(t, "off_value", 0);
 
-        float f;
+        t_float f;
         t->getProperty(gensym("value"), f);
         REQUIRE(f == 0);
 
@@ -165,5 +168,28 @@ TEST_CASE("ui.toggle", "[ui.toggle]")
 
         t.mouseDown(5, 5);
         REQUIRE_FLOAT_WAS_SEND(t, "r1", 0);
+    }
+
+    SECTION("on/off values")
+    {
+        TestExtToggle t("ui.toggle", LA("@on_value", 0.5, "@off_value", -1));
+        REQUIRE(t->value() == 0);
+
+        t->onBang();
+        REQUIRE(t->value() == 1);
+        REQUIRE_OUTPUT_FLOAT(t, 0, 0.5);
+        t->onBang();
+        REQUIRE(t->value() == 0);
+        REQUIRE_OUTPUT_FLOAT(t, 0, -1);
+
+        t->onFloat(2);
+        REQUIRE(t->value() == 1);
+        REQUIRE_OUTPUT_FLOAT(t, 0, 0.5);
+        t->onFloat(0);
+        REQUIRE(t->value() == 0);
+        REQUIRE_OUTPUT_FLOAT(t, 0, -1);
+        t->onFloat(-1);
+        REQUIRE(t->value() == 1);
+        REQUIRE_OUTPUT_FLOAT(t, 0, 0.5);
     }
 }

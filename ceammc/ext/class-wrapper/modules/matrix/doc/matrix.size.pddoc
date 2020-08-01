@@ -25,7 +25,7 @@
             </inlet>
         </inlets>
         <outlets>
-            <outlet>output list (rows, columns) (std::vector&lt;int&gt;)</outlet>
+            <outlet>output list (rows, columns) (list)</outlet>
         </outlets>
         <example>
             <pdascii>

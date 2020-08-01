@@ -107,3 +107,10 @@ if(NOT WITH_ALSA_MIDI AND
 endif()
 
 option(WITH_LIBSNDFILE "Build with libsndfile" ON)
+option(WITH_DOUBLE_PRECISION "Build with double precision" OFF)
+
+if(WITH_DOUBLE_PRECISION)
+    add_definitions(-DPD_FLOATSIZE=64)
+else()
+    add_definitions(-DPD_FLOATSIZE=32)
+endif()

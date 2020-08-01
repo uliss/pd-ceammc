@@ -87,6 +87,7 @@ void eclass_dspinit(t_eclass* c);
  * \param type  The type of the method.
  * \param dummy The dummy type that should be 0.
  */
+void eclass_addmethod(t_eclass* c, t_typ_method m, t_symbol* name, t_atomtype type, long dummy);
 void eclass_addmethod(t_eclass* c, t_typ_method m, const char* name, t_atomtype type, long dummy);
 
 /*!
@@ -202,7 +203,7 @@ void eclass_attr_default(t_eclass* c, const char* attrname, const char* value);
  * \param attrname  The attribute name
  * \param value     The minimum value of the attribute
  */
-void eclass_attr_filter_min(t_eclass* c, const char* attrname, float value);
+void eclass_attr_filter_min(t_eclass* c, const char* attrname, t_float value);
 
 /*!
  * \fn          void eclass_attr_filter_max(t_eclass* c, const char* attrname, float value)
@@ -212,7 +213,7 @@ void eclass_attr_filter_min(t_eclass* c, const char* attrname, float value);
  * \param attrname  The attribute name
  * \param value     The maximum value of the attribute
  */
-void eclass_attr_filter_max(t_eclass* c, const char* attrname, float value);
+void eclass_attr_filter_max(t_eclass* c, const char* attrname, t_float value);
 
 /*!
  * \fn          void eclass_attr_step(t_eclass* c, const char* attrname, float value)
@@ -222,7 +223,7 @@ void eclass_attr_filter_max(t_eclass* c, const char* attrname, float value);
  * \param attrname  The attribute name
  * \param value     The maximum value of the attribute
  */
-void eclass_attr_step(t_eclass* c, const char* attrname, float value);
+void eclass_attr_step(t_eclass* c, const char* attrname, t_float value);
 
 /*!
  * \fn          void eclass_attr_save(t_eclass* c, const char* attrname, long flags)

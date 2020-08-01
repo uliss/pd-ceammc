@@ -1,38 +1,38 @@
-#N canvas 0 0 760 555 12;
+#N canvas 0 0 785 555 12;
 #X declare -lib ceammc;
 #X declare -lib matrix;
-#X obj 537 50 cnv 1 203 21 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 537 50 returns maximum in Matrix;
-#X obj 1 1 cnv 5 740 40 empty empty matrix.max 20 20 0 20 -104026
+#X obj 569 50 cnv 1 196 23 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 569 50 returns maximum in Matrix;
+#X obj 1 1 cnv 5 765 40 empty empty matrix.max 20 20 0 20 -104026
 -4096 0;
-#X obj 642 11 matrix.max;
+#X obj 667 11 matrix.max;
 #X obj 50 118 declare -lib matrix;
 #X msg 50 162 2 3;
 #X obj 50 190 matrix.randu;
 #X obj 50 219 matrix.max;
 #X floatatom 50 248 8 0 0 0 - - -;
-#X obj 20 287 cnv 1 720 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 287 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 292 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
-#X text 120 297 1\.;
-#X text 150 297 *list*;
-#X text 280 297 Matrix data constructor: NROWS NCOLS ....;
-#X text 150 315 *data*;
-#X text 280 315 Matrix data.;
-#X obj 20 343 cnv 1 720 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 110 293 1\.;
+#X text 150 293 *list*;
+#X text 245 293 Matrix data constructor: NROWS NCOLS ...;
+#X text 150 313 *data*;
+#X text 245 313 Matrix data.;
+#X obj 20 343 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 348 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 120 353 1\.;
-#X text 280 353 output maximum element (float);
+#X text 110 349 1\.;
+#X text 245 349 output maximum element (float).;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 67 48 ui.link @title matrix @url matrix-help.pd;
 #X text 116 45 ::;
 #X obj 132 48 ui.link @title matrix @url matrix.matrix-help.pd;
-#X obj 1 505 cnv 5 740 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 1 505 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 10 508 library: matrix v0.1;
-#X text 571 520 see also:;
-#X obj 647 520 matrix.min;
+#X text 593 520 see also:;
+#X obj 667 520 matrix.min;
 #N canvas 10 527 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;

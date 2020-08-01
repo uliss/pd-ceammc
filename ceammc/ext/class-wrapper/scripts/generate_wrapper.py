@@ -167,6 +167,8 @@ def cxx_clean_type(t):
     res = "".join(res).replace("&", "")\
                 .replace("*", "")\
                 .replace("double", "float")\
+                .replace("t_float", "float")\
+                .replace("t_sample", "float")\
                 .replace("char", "int")\
                 .replace("short", "int")\
                 .replace("size_t", "int")\
@@ -339,7 +341,7 @@ def generate_method(ns, c_name, c_args, m_list, out_fp, cls_info):
     m_info["doc_outlets"] = list()
     pd_return = pd_return_type(m_return)
     for idx in range(len(pd_return)):
-        out = pd_return[idx]
+        out = cxx_clean_type(pd_return[idx])
         m_info["doc_outlets"].append({
             "type": out,
             "info": m_info["return"][idx] if "return" in m_info and idx < len(m_info["return"]) else ""

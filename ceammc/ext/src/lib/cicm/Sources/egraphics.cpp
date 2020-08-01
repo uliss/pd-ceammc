@@ -893,7 +893,7 @@ void efont_destroy(t_efont* font)
     free(font);
 }
 
-float pd_clip_minmax(float aValue, float aMinimum, float aMaximum)
+t_float pd_clip_minmax(t_float aValue, t_float aMinimum, t_float aMaximum)
 {
     if (aValue < aMinimum)
         return aMinimum;
@@ -903,7 +903,7 @@ float pd_clip_minmax(float aValue, float aMinimum, float aMaximum)
         return aValue;
 }
 
-float pd_clip_min(float aValue, float aMinimum)
+t_float pd_clip_min(t_float aValue, t_float aMinimum)
 {
     if (aValue < aMinimum)
         return aMinimum;
@@ -911,7 +911,7 @@ float pd_clip_min(float aValue, float aMinimum)
         return aValue;
 }
 
-float pd_clip_max(float aValue, float aMaximum)
+t_float pd_clip_max(t_float aValue, t_float aMaximum)
 {
     if (aValue > aMaximum)
         return aMaximum;
@@ -919,24 +919,24 @@ float pd_clip_max(float aValue, float aMaximum)
         return aValue;
 }
 
-float pd_ordinate(float radius, float angle)
+t_float pd_ordinate(t_float radius, t_float angle)
 {
-    return radius * sinf(angle);
+    return radius * std::sin(angle);
 }
 
-float pd_abscissa(float radius, float angle)
+t_float pd_abscissa(t_float radius, t_float angle)
 {
-    return radius * cosf(angle);
+    return radius * std::cos(angle);
 }
 
-float pd_radius(float x, float y)
+t_float pd_radius(t_float x, t_float y)
 {
-    return sqrtf(x * x + y * y);
+    return std::sqrt(x * x + y * y);
 }
 
-float pd_angle(float x, float y)
+t_float pd_angle(t_float x, t_float y)
 {
-    return atan2f(y, x);
+    return std::atan2(y, x);
 }
 
 void egraphics_set_line_dashstyle(t_elayer* g, t_dashstyle style)

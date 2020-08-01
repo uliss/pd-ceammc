@@ -2,7 +2,7 @@
 ##### Prelude #####
 
 AC_PREREQ(2.59)
-AC_INIT([pd], [0.50.1])
+AC_INIT([pd], [0.51.0])
 AC_CONFIG_SRCDIR(src/m_pd.c)
 AC_CONFIG_AUX_DIR([m4/config])
 AC_CONFIG_MACRO_DIR([m4/generated])
@@ -562,6 +562,7 @@ AC_MSG_NOTICE([
     Installation prefix:  $prefix
 
     Compiler:             $CC
+    CPPFLAGS:             $CPPFLAGS
     CFLAGS:               $CFLAGS
     LDFLAGS:              $LDFLAGS
     INCLUDES:             $AM_CPPFLAGS
@@ -577,12 +578,6 @@ AC_MSG_NOTICE([
     midi APIs:            $midi_backends
 ])
 
-    Platform:             $platform
-    Debug build:          $debug
-    Universal build:      $universal
-    Localizations:        $locales
-    Source directory:     $srcdir
-    Installation prefix:  $prefix
 
 AS_IF([test x$enable_locales = xyes -a x$locales = xno ],
  AC_MSG_WARN([localization requested but no GNU gettext with msgfmt found... disabled]))

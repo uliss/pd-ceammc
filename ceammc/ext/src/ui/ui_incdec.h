@@ -20,7 +20,7 @@ using namespace ceammc;
 
 class UIIncDec : public UIObject {
     t_rgba prop_color_arrow;
-    float prop_step;
+    t_float prop_step;
 
 private:
     t_float value_;

@@ -70,6 +70,7 @@ set(S_SRC
     s_main.c
     s_midi.c
 #    s_midi_dummy.c
+    s_net.c
     s_path.c
     s_print.c
     s_utf8.c)
@@ -206,9 +207,9 @@ if(UNIX AND NOT APPLE)
     target_link_libraries(pd-watchdog ${PLATFORM_LINK_LIBRARIES})
 endif()
 
-add_executable(pdsend u_pdsend.c)
+add_executable(pdsend u_pdsend.c s_net.c)
 target_link_libraries(pdsend ${PLATFORM_LINK_LIBRARIES})
-add_executable(pdreceive u_pdreceive.c)
+add_executable(pdreceive u_pdreceive.c s_net.c)
 target_link_libraries(pdreceive ${PLATFORM_LINK_LIBRARIES})
 
 # exe install

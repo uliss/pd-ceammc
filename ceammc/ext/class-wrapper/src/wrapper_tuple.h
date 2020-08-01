@@ -524,6 +524,18 @@ struct Converter {
         return l.size() - idx;
     }
 
+    static size_t fromAtomList(std::vector<double>& out, const AtomList& l, size_t idx)
+    {
+        if (l.size() <= idx)
+            return 0;
+
+        out.clear();
+        for (int i = idx; i < l.size(); i++)
+            out.push_back(l[idx + i].asFloat());
+
+        return l.size() - idx;
+    }
+
     static size_t fromAtomList(std::vector<int>& out, const AtomList& l, size_t idx)
     {
         if (l.size() <= idx)
@@ -693,7 +705,7 @@ public:
             }
         }
 
-        float f = lst[0].asFloat();
+        t_float f = lst[0].asFloat();
         if (f == 0)
             b = false;
         else if (f == 1)
@@ -726,6 +738,16 @@ public:
     }
 
     static ErrorMsg inletArgFromAtomList(std::vector<float>& v, const AtomList& lst)
+    {
+        v.clear();
+
+        for (auto& e : lst)
+            v.push_back(e.asFloat());
+
+        return ErrorMsg::ok();
+    }
+
+    static ErrorMsg inletArgFromAtomList(std::vector<double>& v, const AtomList& lst)
     {
         v.clear();
 

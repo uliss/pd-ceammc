@@ -232,14 +232,17 @@ void UINumber::onMouseDown(t_object* view, const t_pt& pt, const t_pt& abs_pt, l
 
 void UINumber::onMouseDrag(t_object* view, const t_pt& pt, long modifiers)
 {
+    constexpr t_float SMALL_INCR = 0.01;
+    constexpr t_float BIG_INCR = 10;
+
     edit_mode_ = MODE_DISPLAY;
 
     float inc = (drag_start_ypos_ - pt.y) * drag_increment_;
 
     if (modifiers & EMOD_SHIFT)
-        inc *= 0.01f;
+        inc *= SMALL_INCR;
     if (modifiers & EMOD_CTRL)
-        inc *= 10.f;
+        inc *= BIG_INCR;
 
     onFloat(drag_start_value_ + inc);
 }
@@ -308,12 +311,12 @@ void UINumber::setup()
 
     obj.setDefaultSize(53, 15);
 
-    obj.addProperty("min", _("Minimum Value"), -std::numeric_limits<float>::max(), &UINumber::prop_min, "Bounds");
-    obj.addProperty("max", _("Maximum Value"), std::numeric_limits<float>::max(), &UINumber::prop_max, "Bounds");
+    obj.addFloatProperty("min", _("Minimum Value"), -std::numeric_limits<float>::max(), &UINumber::prop_min, "Bounds");
+    obj.addFloatProperty("max", _("Maximum Value"), std::numeric_limits<float>::max(), &UINumber::prop_max, "Bounds");
 
     obj.addProperty("digits", _("Digits"), -1, &UINumber::prop_digits);
     obj.setPropertyMin("digits", -1);
-    obj.setPropertyMax("digits", 8);
+    obj.setPropertyMax("digits", 9);
     obj.setPropertyCategory("digits", _("Main"));
 
     obj.addProperty(PROP_ACTIVE_COLOR, _("Active Color"), DEFAULT_ACTIVE_COLOR, &UINumber::prop_color_active);
@@ -345,12 +348,12 @@ void UINumber::redrawValue()
 void UINumber::updateTextValue()
 {
     if (prop_digits < 0)
-        snprintf(text_value_, sizeof(text_value_), "%.8g", value_);
+        snprintf(text_value_, sizeof(text_value_), sizeof(t_float) == 8 ? "%.17g" : "%.9g", value_);
     else if (prop_digits == 0)
         snprintf(text_value_, sizeof(text_value_), "%ld", long(value_));
     else {
         char fmt[] = "%.?f";
-        fmt[2] = char((prop_digits % 8) + int('0'));
+        fmt[2] = char((prop_digits % 9) + int('0'));
         snprintf(text_value_, sizeof(text_value_), fmt, value_);
     }
 

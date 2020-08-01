@@ -52,6 +52,7 @@ public:
     using InletArgSetter = InletArgFromAtomList<MethodTraits::nargs, MethodArgs>;
 
     static constexpr bool has_varargs = tuple_utils::has_type<std::vector<float>, MethodArgs>::value
+        || tuple_utils::has_type<std::vector<double>, MethodArgs>::value
         || tuple_utils::has_type<std::vector<int>, MethodArgs>::value
         || tuple_utils::has_type<std::vector<std::string>, MethodArgs>::value
         || tuple_utils::has_type<AtomList, MethodArgs>::value;

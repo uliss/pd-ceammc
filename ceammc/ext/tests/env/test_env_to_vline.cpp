@@ -139,7 +139,7 @@ TEST_CASE("env->vline", "[externals]")
 
         // set ADSR
         EnvAtom env;
-        env->setADSR(LF(10, 20, 17, 80));
+        env->setADSR(LF(10, 20, 25, 80));
         t.onDataT(env);
         t.cleanAllMessages();
 
@@ -152,7 +152,7 @@ TEST_CASE("env->vline", "[externals]")
         REQUIRE(t.messageCount() == 3);
         REQUIRE_OUTPUT(t, 0, LF(0.f, 0.f, 0.f));
         REQUIRE_OUTPUT(t, 1, LF(1, 10, 0.f));
-        REQUIRE_OUTPUT(t, 2, LA(0.17, 20, 10.f));
+        REQUIRE_OUTPUT(t, 2, LA(0.25, 20, 10.f));
         t.cleanAllMessages();
 
         // attack again
@@ -160,7 +160,7 @@ TEST_CASE("env->vline", "[externals]")
         REQUIRE(t.messageCount() == 3);
         REQUIRE_OUTPUT(t, 0, LF(0.f, 0.f, 0.f));
         REQUIRE_OUTPUT(t, 1, LF(1, 10, 0.f));
-        REQUIRE_OUTPUT(t, 2, LA(0.17, 20, 10.f));
+        REQUIRE_OUTPUT(t, 2, LA(0.25, 20, 10.f));
         t.cleanAllMessages();
 
         // release
@@ -186,36 +186,36 @@ TEST_CASE("env->vline", "[externals]")
         REQUIRE_OUTPUT(t, 1, LF(1, 10, 0.f));
         REQUIRE_OUTPUT(t, 2, LA(0.1, 20, 10));
 
-        env->setLine(LF(0.1, 10, 0.2, 20, 0.3, 30, 0.4, 40, 0.5, 50, 0.6, 60, 0.1));
+        env->setLine(LF(0.125, 10, 0.25, 20, 0.375, 30, 0.5, 40, 0.625, 50, 0.75, 60, 0.125));
         env->pointAt(2).stop = true;
         t.onDataT(env);
         t.cleanAllMessages();
 
         WHEN_SEND_BANG_TO(0, t);
 
-        REQUIRE_OUTPUT(t, 0, LA(0.1, 0.f, 0.f));
-        REQUIRE_OUTPUT(t, 1, LA(0.2, 10, 0.f));
-        REQUIRE_OUTPUT(t, 2, LA(0.3, 20, 10));
-        REQUIRE_OUTPUT(t, 3, LA(0.4, 30, 30));
-        REQUIRE_OUTPUT(t, 4, LA(0.5, 40, 60));
-        REQUIRE_OUTPUT(t, 5, LA(0.6, 50, 100));
-        REQUIRE_OUTPUT(t, 6, LA(0.1, 60, 150));
+        REQUIRE_OUTPUT(t, 0, LA(0.125, 0.f, 0.f));
+        REQUIRE_OUTPUT(t, 1, LA(0.25, 10, 0.f));
+        REQUIRE_OUTPUT(t, 2, LA(0.375, 20, 10));
+        REQUIRE_OUTPUT(t, 3, LA(0.5, 30, 30));
+        REQUIRE_OUTPUT(t, 4, LA(0.625, 40, 60));
+        REQUIRE_OUTPUT(t, 5, LA(0.75, 50, 100));
+        REQUIRE_OUTPUT(t, 6, LA(0.125, 60, 150));
 
         t.cleanAllMessages();
 
         WHEN_SEND_FLOAT_TO(0, t, 1);
         REQUIRE(t.messageCount() == 3);
-        REQUIRE_OUTPUT(t, 0, LA(0.1, 0.f, 0.f));
-        REQUIRE_OUTPUT(t, 1, LA(0.2, 10, 0.f));
-        REQUIRE_OUTPUT(t, 2, LA(0.3, 20, 10));
+        REQUIRE_OUTPUT(t, 0, LA(0.125, 0.f, 0.f));
+        REQUIRE_OUTPUT(t, 1, LA(0.25, 10, 0.f));
+        REQUIRE_OUTPUT(t, 2, LA(0.375, 20, 10));
 
         t.cleanAllMessages();
         WHEN_SEND_FLOAT_TO(0, t, 0);
         REQUIRE(t.messageCount() == 4);
-        REQUIRE_OUTPUT(t, 0, LA(0.4, 30, 0.f));
-        REQUIRE_OUTPUT(t, 1, LA(0.5, 40, 30));
-        REQUIRE_OUTPUT(t, 2, LA(0.6, 50, 70));
-        REQUIRE_OUTPUT(t, 3, LA(0.1, 60, 120));
+        REQUIRE_OUTPUT(t, 0, LA(0.5, 30, 0.f));
+        REQUIRE_OUTPUT(t, 1, LA(0.625, 40, 30));
+        REQUIRE_OUTPUT(t, 2, LA(0.75, 50, 70));
+        REQUIRE_OUTPUT(t, 3, LA(0.125, 60, 120));
 
         t.cleanAllMessages();
         env->pointAt(2).stop = true;
@@ -228,26 +228,26 @@ TEST_CASE("env->vline", "[externals]")
         WHEN_CALL(t, reset);
         REQUIRE_NO_MSG(t);
         WHEN_CALL(t, next);
-        REQUIRE_OUTPUT(t, 0, LA(0.1, 0.f, 0.f));
-        REQUIRE_OUTPUT(t, 1, LA(0.2, 10, 0.f));
-        REQUIRE_OUTPUT(t, 2, LA(0.3, 20, 10));
+        REQUIRE_OUTPUT(t, 0, LA(0.125, 0.f, 0.f));
+        REQUIRE_OUTPUT(t, 1, LA(0.25, 10, 0.f));
+        REQUIRE_OUTPUT(t, 2, LA(0.375, 20, 10));
         REQUIRE(t.messageCount() == 3);
 
         t.cleanAllMessages();
         WHEN_CALL(t, next);
         REQUIRE(t.messageCount() == 1);
-        REQUIRE_OUTPUT(t, 0, LA(0.4, 30, 0.f));
+        REQUIRE_OUTPUT(t, 0, LA(0.5, 30, 0.f));
 
         t.cleanAllMessages();
         WHEN_CALL(t, next);
         REQUIRE(t.messageCount() == 2);
-        REQUIRE_OUTPUT(t, 0, LA(0.5, 40, 0.f));
-        REQUIRE_OUTPUT(t, 1, LA(0.6, 50, 40));
+        REQUIRE_OUTPUT(t, 0, LA(0.625, 40, 0.f));
+        REQUIRE_OUTPUT(t, 1, LA(0.75, 50, 40));
 
         t.cleanAllMessages();
         WHEN_CALL(t, next);
         REQUIRE(t.messageCount() == 1);
-        REQUIRE_OUTPUT(t, 0, LA(0.1, 60, 0.f));
+        REQUIRE_OUTPUT(t, 0, LA(0.125, 60, 0.f));
 
         t.cleanAllMessages();
         WHEN_CALL(t, next);
@@ -267,7 +267,7 @@ TEST_CASE("env->vline", "[externals]")
         REQUIRE_OUTPUT(t, 1, LF(1, 0.f, 10));
         REQUIRE_OUTPUT(t, 2, LA(0.1, 0.f, 30));
 
-        env->setStep(LF(0.1, 10, 0.2, 20, 0.3, 30, 0.4, 40, 0.5, 50, 0.6, 60, 0.1));
+        env->setStep(LF(0.125, 10, 0.25, 20, 0.375, 30, 0.5, 40, 0.625, 50, 0.75, 60, 0.125));
         env->pointAt(2).stop = true;
         t.onDataT(env);
         t.cleanAllMessages();
@@ -275,30 +275,30 @@ TEST_CASE("env->vline", "[externals]")
         // fixed
         WHEN_SEND_BANG_TO(0, t);
 
-        REQUIRE_OUTPUT(t, 0, LA(0.1, 0.f, 0.f));
-        REQUIRE_OUTPUT(t, 1, LA(0.2, 0.f, 10));
-        REQUIRE_OUTPUT(t, 2, LA(0.3, 0.f, 30));
-        REQUIRE_OUTPUT(t, 3, LA(0.4, 0.f, 60));
-        REQUIRE_OUTPUT(t, 4, LA(0.5, 0.f, 100));
-        REQUIRE_OUTPUT(t, 5, LA(0.6, 0.f, 150));
-        REQUIRE_OUTPUT(t, 6, LA(0.1, 0.f, 210));
+        REQUIRE_OUTPUT(t, 0, LA(0.125, 0.f, 0.f));
+        REQUIRE_OUTPUT(t, 1, LA(0.25, 0.f, 10));
+        REQUIRE_OUTPUT(t, 2, LA(0.375, 0.f, 30));
+        REQUIRE_OUTPUT(t, 3, LA(0.5, 0.f, 60));
+        REQUIRE_OUTPUT(t, 4, LA(0.625, 0.f, 100));
+        REQUIRE_OUTPUT(t, 5, LA(0.75, 0.f, 150));
+        REQUIRE_OUTPUT(t, 6, LA(0.125, 0.f, 210));
 
         t.cleanAllMessages();
 
         // attack/release
         WHEN_SEND_FLOAT_TO(0, t, 1);
         REQUIRE(t.messageCount() == 3);
-        REQUIRE_OUTPUT(t, 0, LA(0.1, 0.f, 0.f));
-        REQUIRE_OUTPUT(t, 1, LA(0.2, 0.f, 10));
-        REQUIRE_OUTPUT(t, 2, LA(0.3, 0.f, 30));
+        REQUIRE_OUTPUT(t, 0, LA(0.125, 0.f, 0.f));
+        REQUIRE_OUTPUT(t, 1, LA(0.25, 0.f, 10));
+        REQUIRE_OUTPUT(t, 2, LA(0.375, 0.f, 30));
 
         t.cleanAllMessages();
         WHEN_SEND_FLOAT_TO(0, t, 0);
         REQUIRE(t.messageCount() == 4);
-        REQUIRE_OUTPUT(t, 0, LA(0.4, 0.f, 30));
-        REQUIRE_OUTPUT(t, 1, LA(0.5, 0.f, 70));
-        REQUIRE_OUTPUT(t, 2, LA(0.6, 0.f, 120));
-        REQUIRE_OUTPUT(t, 3, LA(0.1, 0.f, 180));
+        REQUIRE_OUTPUT(t, 0, LA(0.5, 0.f, 30));
+        REQUIRE_OUTPUT(t, 1, LA(0.625, 0.f, 70));
+        REQUIRE_OUTPUT(t, 2, LA(0.75, 0.f, 120));
+        REQUIRE_OUTPUT(t, 3, LA(0.125, 0.f, 180));
 
         env->pointAt(2).stop = true;
         t.onDataT(env);
@@ -315,21 +315,21 @@ TEST_CASE("env->vline", "[externals]")
         WHEN_CALL(t, reset);
         WHEN_CALL(t, next);
         REQUIRE(t.messageCount() == 3);
-        REQUIRE_OUTPUT(t, 0, LA(0.1, 0.f, 0.f));
-        REQUIRE_OUTPUT(t, 1, LA(0.2, 0.f, 10));
-        REQUIRE_OUTPUT(t, 2, LA(0.3, 0.f, 30));
+        REQUIRE_OUTPUT(t, 0, LA(0.125, 0.f, 0.f));
+        REQUIRE_OUTPUT(t, 1, LA(0.25, 0.f, 10));
+        REQUIRE_OUTPUT(t, 2, LA(0.375, 0.f, 30));
 
         t.cleanAllMessages();
         WHEN_CALL(t, next);
         REQUIRE(t.messageCount() == 1);
-        REQUIRE_OUTPUT(t, 0, LA(0.4, 0.f, 30));
+        REQUIRE_OUTPUT(t, 0, LA(0.5, 0.f, 30));
 
         t.cleanAllMessages();
         WHEN_CALL(t, next);
         REQUIRE(t.messageCount() == 3);
-        REQUIRE_OUTPUT(t, 0, LA(0.5, 0.f, 40));
-        REQUIRE_OUTPUT(t, 1, LA(0.6, 0.f, 90));
-        REQUIRE_OUTPUT(t, 2, LA(0.1, 0.f, 150));
+        REQUIRE_OUTPUT(t, 0, LA(0.625, 0.f, 40));
+        REQUIRE_OUTPUT(t, 1, LA(0.75, 0.f, 90));
+        REQUIRE_OUTPUT(t, 2, LA(0.125, 0.f, 150));
 
         t.cleanAllMessages();
         WHEN_CALL(t, next);

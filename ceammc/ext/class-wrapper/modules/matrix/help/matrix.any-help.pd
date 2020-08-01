@@ -1,11 +1,11 @@
-#N canvas 0 0 760 555 12;
+#N canvas 0 0 785 555 12;
 #X declare -lib ceammc;
 #X declare -lib matrix;
-#X obj 353 50 cnv 1 387 21 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 353 50 check if any elements of the matrix are non-zero;
-#X obj 1 1 cnv 5 740 40 empty empty matrix.any 20 20 0 20 -104026
+#X obj 392 50 cnv 1 373 23 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 392 50 check if any elements of the matrix are non-zero;
+#X obj 1 1 cnv 5 765 40 empty empty matrix.any 20 20 0 20 -104026
 -4096 0;
-#X obj 642 11 matrix.any;
+#X obj 667 11 matrix.any;
 #X obj 50 118 declare -lib matrix;
 #X msg 50 162 2 2;
 #X msg 184 162 3 3;
@@ -15,28 +15,28 @@
 #X obj 328 190 matrix.id;
 #X obj 50 248 matrix.any;
 #X floatatom 50 277 5 0 0 0 - - -;
-#X obj 20 316 cnv 1 720 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 316 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 321 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
-#X text 120 326 1\.;
-#X text 150 326 *list*;
-#X text 280 326 Matrix data constructor: NROWS NCOLS ....;
-#X text 150 344 *data*;
-#X text 280 344 Matrix data.;
-#X obj 20 372 cnv 1 720 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 110 322 1\.;
+#X text 150 322 *list*;
+#X text 245 322 Matrix data constructor: NROWS NCOLS ...;
+#X text 150 342 *data*;
+#X text 245 342 Matrix data.;
+#X obj 20 372 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 377 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 120 382 1\.;
-#X text 280 382 output 1 or 0 (bool);
+#X text 110 378 1\.;
+#X text 245 378 output 1 or 0 (int).;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 67 48 ui.link @title matrix @url matrix-help.pd;
 #X text 116 45 ::;
 #X obj 132 48 ui.link @title matrix @url matrix.matrix-help.pd;
-#X obj 1 505 cnv 5 740 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 1 505 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 10 508 library: matrix v0.1;
-#X text 571 520 see also:;
-#X obj 647 520 matrix.all;
+#X text 593 520 see also:;
+#X obj 667 520 matrix.all;
 #N canvas 10 527 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;

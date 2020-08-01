@@ -34,6 +34,7 @@ static t_symbol* toUpper(t_symbol* s)
     return gensym(str.c_str());
 }
 
+/** *= 100 or upper case */
 static Atom testMap1(const Atom& a)
 {
     Atom res(a);
@@ -600,13 +601,13 @@ TEST_CASE("AtomList2", "[ceammc::AtomList]")
         SECTION("atom")
         {
             REQUIRE(LF(1, 2, 3).map(&testMap1) == LF(100, 200, 300));
-            REQUIRE(LA("a", 0.01f, "@c").map(&testMap1) == LA("A", 1, "@C"));
+            REQUIRE(LA("a", 0.5, "@c").map(&testMap1) == LAX("A", 50, "@C"));
         }
 
         SECTION("map atom")
         {
             auto fn = [](const Atom& a) { return Atom(a.isFloat()); };
-            REQUIRE(LA(1, "a", 3).map(fn) == LF(1, 0.f, 1));
+            REQUIRE(LA(1, "a", 3).map(fn) == LX(1, 0, 1));
         }
 
         SECTION("map float")
@@ -622,13 +623,13 @@ TEST_CASE("AtomList2", "[ceammc::AtomList]")
         REQUIRE(lst + 10 == LA(20, -2, "a"));
         REQUIRE(lst - 9 == LA(1, -21, "a"));
         REQUIRE(lst * 10 == LA(100, -120, "a"));
-        REQUIRE(lst / 10 == LA(1, -1.2f, "a"));
+        REQUIRE(lst / 2 == LA(5, -6, "a"));
     }
 
     SECTION("listFrom")
     {
-        REQUIRE(listFrom(true) == LF(1.0f));
-        REQUIRE(listFrom(false) == LF(0.0f));
+        REQUIRE(listFrom(true) == LF(1));
+        REQUIRE(listFrom(false) == LF(0));
         REQUIRE(listFrom(std::string("string")) == LA("string"));
         REQUIRE(listFrom(23) == LF(23));
         REQUIRE(listFrom(LA("a", "b", 3)) == LA("a", "b", 3));

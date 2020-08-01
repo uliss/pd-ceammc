@@ -5,8 +5,8 @@
 
 class UISlider : public UISingleValue {
     bool is_horizontal_;
-    float knob_phase_prev_;
-    float click_phase_;
+    t_float knob_phase_prev_;
+    t_float click_phase_;
     UIFont font_;
     UITextLayout txt_value_;
 

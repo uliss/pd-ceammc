@@ -816,7 +816,7 @@ void UIEnv::setup()
 
     obj.addProperty(PROP_ACTIVE_COLOR, _("Active Color"), DEFAULT_ACTIVE_COLOR, &UIEnv::prop_active_color);
     obj.addProperty("line_color", _("Line Color"), DEFAULT_LINE_COLOR, &UIEnv::prop_line_color);
-    obj.addProperty(PROP_LENGTH, _("Length (ms)"), 400, &UIEnv::prop_length, _("Main"));
+    obj.addFloatProperty(PROP_LENGTH, _("Length (ms)"), 400, &UIEnv::prop_length, _("Main"));
     obj.setPropertyMin(PROP_LENGTH, 10);
     obj.setPropertyUnits(gensym(PROP_LENGTH), gensym("msec"));
 

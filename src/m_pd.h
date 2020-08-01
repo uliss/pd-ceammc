@@ -9,9 +9,9 @@ extern "C" {
 #endif
 
 #define PD_MAJOR_VERSION 0
-#define PD_MINOR_VERSION 50
-#define PD_BUGFIX_VERSION 1
-#define PD_TEST_VERSION ""
+#define PD_MINOR_VERSION 51
+#define PD_BUGFIX_VERSION 0
+#define PD_TEST_VERSION "ceammc"
 extern int pd_compatibilitylevel;   /* e.g., 43 for pd 0.43 compatibility */
 
 /* old name for "MSW" flag -- we have to take it for the sake of many old
@@ -83,7 +83,7 @@ typedef unsigned __int64  uint64_t;
 
 /* signed and unsigned integer types the size of a pointer:  */
 #if !defined(PD_LONGINTTYPE)
-#if defined(_WIN32) && defined(__x86_64__)
+#if defined(_WIN32) && defined(_WIN64)
 #define PD_LONGINTTYPE long long
 #else
 #define PD_LONGINTTYPE long
@@ -98,11 +98,11 @@ typedef unsigned __int64  uint64_t;
 #if PD_FLOATSIZE == 32
 # define PD_FLOATTYPE float
 /* an unsigned int of the same size as FLOATTYPE: */
-# define PD_FLOATUINTTYPE unsigned int
+# define PD_FLOATUINTTYPE uint32_t
 
 #elif PD_FLOATSIZE == 64
 # define PD_FLOATTYPE double
-# define PD_FLOATUINTTYPE unsigned long
+# define PD_FLOATUINTTYPE uint64_t
 #else
 # error invalid FLOATSIZE: must be 32 or 64
 #endif
@@ -473,7 +473,7 @@ EXTERN t_class *class_new64(t_symbol *name, t_newmethod newmethod,
 
 EXTERN void class_free(t_class *c);
 
-#if PDINSTANCE
+#ifdef PDINSTANCE
 EXTERN t_class *class_getfirst(void);
 #endif
 
@@ -540,10 +540,6 @@ EXTERN void bug(const char *fmt, ...) ATTRIBUTE_FORMAT_PRINTF(1, 2);
 EXTERN void pd_error(const void *object, const char *fmt, ...) ATTRIBUTE_FORMAT_PRINTF(2, 3);
 EXTERN void logpost(const void *object, const int level, const char *fmt, ...)
     ATTRIBUTE_FORMAT_PRINTF(3, 4);
-EXTERN void sys_logerror(const char *object, const char *s);
-EXTERN void sys_unixerror(const char *object);
-EXTERN void sys_ouch(void);
-
 
 /* ------------  system interface routines ------------------- */
 EXTERN int sys_isabsolutepath(const char *dir);
@@ -901,8 +897,9 @@ EXTERN t_symbol s_pointer, s_float, s_symbol, s_bang, s_list, s_anything,
 EXTERN t_canvas *pd_getcanvaslist(void);
 EXTERN int pd_getdspstate(void);
 
-/* CEAMMC */
-EXTERN void canvas_saveto(t_canvas *x, t_binbuf *b);
+/* x_text.c */
+EXTERN t_binbuf *text_getbufbyname(t_symbol *s); /* get binbuf from text obj */
+EXTERN void text_notifybyname(t_symbol *s);      /* notify it was modified */
 
 #if defined(_LANGUAGE_C_PLUS_PLUS) || defined(__cplusplus)
 }

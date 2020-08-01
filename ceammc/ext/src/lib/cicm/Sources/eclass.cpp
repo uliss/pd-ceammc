@@ -329,7 +329,7 @@ void eclass_guiinit(t_eclass* c, long /*flags*/)
     class_addmethod(cc, reinterpret_cast<t_method>(ebox_setzoom), gensym(SYM_ZOOM), A_CANT, 0);
 
     class_setwidget(cc, (t_widgetbehavior*)&c->c_widget);
-    class_setsavefn(cc, eobj_save);
+    class_setsavefn(cc, (t_savefn)eobj_save);
 }
 
 void eclass_dspinit(t_eclass* c)
@@ -373,12 +373,16 @@ t_pd_err eclass_register(t_symbol* /*name*/, t_eclass* c)
 
 void eclass_addmethod(t_eclass* c, t_typ_method m, const char* name, t_atomtype type, long /*dummy*/)
 {
+    eclass_addmethod(c, m, gensym(name), type, 0);
+}
+
+void eclass_addmethod(t_eclass* c, t_typ_method m, t_symbol* sname, t_atomtype type, long /*dummy*/)
+{
     GSYM(SYM_MOUSE_ENTER);
     GSYM(SYM_MOUSE_LEAVE);
     GSYM(SYM_MOUSE_MOVE);
     GSYM(SYM_MOUSE_DOWN);
 
-    t_symbol* sname = gensym(name);
     t_class* cx = &c->c_class;
     if (sname == G_SYM_MOUSE_ENTER) {
         c->c_widget.w_mouseenter = reinterpret_cast<t_mouseenter_method>(m);
@@ -691,7 +695,7 @@ void eclass_attr_itemlist(t_eclass* c, const char* attrname, const char* list)
     }
 }
 
-void eclass_attr_filter_min(t_eclass* c, const char* attrname, float value)
+void eclass_attr_filter_min(t_eclass* c, const char* attrname, t_float value)
 {
     t_symbol* sel = gensym(attrname);
     for (size_t i = 0; i < c->c_nattr; i++) {
@@ -703,7 +707,7 @@ void eclass_attr_filter_min(t_eclass* c, const char* attrname, float value)
     }
 }
 
-void eclass_attr_filter_max(t_eclass* c, const char* attrname, float value)
+void eclass_attr_filter_max(t_eclass* c, const char* attrname, t_float value)
 {
     t_symbol* sel = gensym(attrname);
     for (size_t i = 0; i < c->c_nattr; i++) {
@@ -715,7 +719,7 @@ void eclass_attr_filter_max(t_eclass* c, const char* attrname, float value)
     }
 }
 
-void eclass_attr_step(t_eclass* c, const char* attrname, float value)
+void eclass_attr_step(t_eclass* c, const char* attrname, t_float value)
 {
     t_symbol* s_attrname = gensym(attrname);
     for (size_t i = 0; i < c->c_nattr; i++) {
@@ -1042,8 +1046,8 @@ void eclass_attr_setter(t_object* x, t_symbol* s, size_t argc, t_atom* argv)
 
                 ebox_redraw(z);
             }
-            if (c->c_attr[i]->save && eobj_isbox(x) && ebox_isdrawable(z)) {
-                canvas_dirty(eobj_getcanvas(x), 1);
+            if (c->c_attr[i]->save && eobj_isbox(&z->b_obj) && ebox_isdrawable(z)) {
+                canvas_dirty(eobj_getcanvas(&z->b_obj), 1);
             }
         }
     }

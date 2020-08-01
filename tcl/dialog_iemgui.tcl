@@ -571,7 +571,7 @@ proc ::dialog_iemgui::pdtk_iemgui_dialog {mytoplevel mainheader dim_header \
     wm resizable $mytoplevel 0 0
     wm transient $mytoplevel $::focused_window
     $mytoplevel configure -menu $::dialog_menubar
-    $mytoplevel configure -padx 8 -pady 8
+    $mytoplevel configure -padx 0 -pady 0
     ::pd_bindings::dialog_bindings $mytoplevel "iemgui"
 
     # dimensions
@@ -732,10 +732,10 @@ proc ::dialog_iemgui::pdtk_iemgui_dialog {mytoplevel mainheader dim_header \
 
     frame $mytoplevel.colors.sections
     pack $mytoplevel.colors.sections -side top
-    button $mytoplevel.colors.sections.but -text [_ "Compose color"]\
+    button $mytoplevel.colors.sections.but -text [_ "Compose color"] \
         -command "::dialog_iemgui::choose_col_bkfrlb $mytoplevel"
-    pack $mytoplevel.colors.sections.but -side left -anchor w -pady 5 -padx 10\
-        -expand yes -fill x -ipadx 10
+    pack $mytoplevel.colors.sections.but -side left -anchor w -pady 5 \
+        -expand yes -fill x
     frame $mytoplevel.colors.sections.exp
     pack $mytoplevel.colors.sections.exp -side right -padx 5
     if { [eval concat $$var_iemgui_fcol] ne "none" } {
