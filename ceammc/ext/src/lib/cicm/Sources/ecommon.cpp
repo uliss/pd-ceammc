@@ -103,18 +103,19 @@ t_binbuf* binbuf_via_atoms(int ac, t_atom* av)
 
 static t_symbol* format_symbol(t_symbol* s)
 {
-    int i, j, lenght = (int)strlen(s->s_name);
-    char buffer[MAXPDSTRING];
-    buffer[0] = '\"';
-    for (i = 0, j = 1; i < lenght && j < MAXPDSTRING - 2; i++, j++) {
-        if (s->s_name[i] == '"' || s->s_name[i] == '\\') {
-            buffer[j++] = '\\';
-        }
-        buffer[j] = s->s_name[i];
+    int j = 1;
+    const int len = strlen(s->s_name);
+    char buf[MAXPDSTRING];
+    buf[0] = '\"';
+    for (int i = 0, j = 1; i < len && j < sizeof(buf) - 2; i++, j++) {
+        if (s->s_name[i] == '"' || s->s_name[i] == '\\') // escape quotes
+            buf[j++] = '\\';
+
+        buf[j] = s->s_name[i];
     }
-    buffer[j++] = '\"';
-    buffer[j] = '\0';
-    return gensym(buffer);
+    buf[j++] = '\"';
+    buf[j] = '\0';
+    return gensym(buf);
 }
 
 static t_atom* format_atoms(int ac, t_atom* av)
@@ -131,10 +132,11 @@ static bool unformat_symbol(const char* text, char* buffer, long size)
 {
     int j = 0, length = (int)strlen(text);
     const int end = (text[length - 1] == '"' || text[length - 1] == '\'');
+
+    // unescape quotes
     for (int i = 0; i < length - end && j < size - 1; i++) {
-        if (text[i] != '\\') {
+        if (text[i] != '\\')
             buffer[j++] = text[i];
-        }
     }
     buffer[j] = '\0';
     return !end;
