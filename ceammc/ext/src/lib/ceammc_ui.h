@@ -1,13 +1,13 @@
 #ifndef CEAMMC_NEW_GUI_H
 #define CEAMMC_NEW_GUI_H
 
+#include "ceammc.h"
 #include "ceammc_atomlist.h"
 #include "ceammc_cicm.h"
 #include "ceammc_externals.h"
 #include "ceammc_format.h"
 #include "ceammc_log.h"
 #include "ceammc_platform.h"
-#include "m_pd.h"
 
 #include <stdexcept>
 #include <string>
@@ -376,6 +376,11 @@ public:
         eclass_addmethod(pd_class, UI_METHOD_PTR(erase), ".erase", A_CANT, 0);
     }
 
+    void useAnnotations()
+    {
+        eclass_addmethod(pd_class, UI_METHOD_PTR(annotate), ceammc::SymbolTable::instance().s_annotate_fn, A_CANT, 0);
+    }
+
     void addMethod(const char* name, listMethodPtr m)
     {
         addMethod(gensym(name), m);
@@ -384,7 +389,7 @@ public:
     void addMethod(t_symbol* name, listMethodPtr m)
     {
         list_map[name] = m;
-        eclass_addmethod(pd_class, reinterpret_cast<t_typ_method>(customMethodList), name->s_name, A_GIMME, 0);
+        eclass_addmethod(pd_class, reinterpret_cast<t_typ_method>(customMethodList), name, A_GIMME, 0);
     }
 
     void addMethod(const char* name, floatMethodPtr m)
@@ -395,7 +400,7 @@ public:
     void addMethod(t_symbol* name, floatMethodPtr m)
     {
         float_map[name] = m;
-        eclass_addmethod(pd_class, reinterpret_cast<t_typ_method>(customMethodFloat), name->s_name, A_GIMME, 0);
+        eclass_addmethod(pd_class, reinterpret_cast<t_typ_method>(customMethodFloat), name, A_GIMME, 0);
     }
 
     void addMethod(const char* name, bangMethodPtr m)
@@ -406,7 +411,7 @@ public:
     void addMethod(t_symbol* name, bangMethodPtr m)
     {
         bang_map[name] = m;
-        eclass_addmethod(pd_class, reinterpret_cast<t_typ_method>(customMethodBang), name->s_name, A_GIMME, 0);
+        eclass_addmethod(pd_class, reinterpret_cast<t_typ_method>(customMethodBang), name, A_GIMME, 0);
     }
 
     /**
@@ -784,6 +789,18 @@ public:
     static void erase(UI* z)
     {
         z->erase();
+    }
+
+    static const char* annotate(UI* z, int type, int idx)
+    {
+        switch (type) {
+        case 0:
+            return z->annotateOutlet(idx);
+        case 1:
+            return z->annotateInlet(idx);
+        default:
+            return nullptr;
+        }
     }
 
     template <class T>

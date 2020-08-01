@@ -228,7 +228,8 @@ typedef enum {
     E_SHAPE_OVAL = 0, /*!< This shape is oval. */
     E_SHAPE_ARC = 1, /*!< This shape is arc. */
     E_SHAPE_IMAGE = 2, /*!< This shape is image. */
-    E_SHAPE_RECT = 3 /*!< This shape is rectangle. */
+    E_SHAPE_RECT = 3, /*!< This shape is rectangle. */
+    E_SHAPE_XLETS = 4 /*!< This shape is xlets. */
 } eshape_types;
 
 enum eclip_flags {
@@ -491,7 +492,7 @@ typedef struct t_elayer {
     t_capstyle e_line_capstyle; /*!< The layer line capstyle. */
     t_dashstyle e_line_dashstyle; /*!< The layer line dashstyle. */
     t_smooth e_line_smooth; /*!< The layer line dashstyle. */
-    bool e_optimize;
+    bool e_optimize; /*!< optimize line drawing */
 } t_elayer;
 
 /** @} */

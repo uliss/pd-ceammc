@@ -17,12 +17,26 @@
 #ifndef CEAMMC_H
 #define CEAMMC_H
 
+#ifdef __WIN32__
+#define CEAMMC_EXTERN __declspec(dllexport)
+#else
+#define CEAMMC_EXTERN
+#endif
+
 #include "m_pd.h"
 
 #include <stdexcept>
 #include <string>
 
 namespace ceammc {
+
+enum XletType : int {
+    XLET_IN = 1,
+    XLET_OUT = 0
+};
+
+using XletGetAnnotationFn = const char* (*)(t_object* object, XletType type, int xlet_idx);
+using XletGetTclIdFn = void (*)(t_glist* glist, void* object, char* buf, size_t bufsize, XletType type, int xlet_idx);
 
 struct OutletIdx {
     unsigned long long n;
@@ -34,6 +48,17 @@ struct InletIdx {
     unsigned long long n;
 
     operator unsigned long long() const { return n; }
+};
+
+class SymbolTable {
+    SymbolTable();
+    SymbolTable(const SymbolTable&) = delete;
+    SymbolTable& operator=(const SymbolTable&) = delete;
+
+public:
+    static const SymbolTable& instance();
+
+    t_symbol* s_annotate_fn;
 };
 
 namespace literals {
@@ -61,6 +86,16 @@ public:
     InvalidOutlet(OutletIdx n) noexcept;
     const char* what() const noexcept;
 };
+
+void ceammc_tcl_init_tooltips();
+void ceammc_xlet_bind_tooltip(t_object* x, t_glist* glist, XletType type, const char* xlet_id, const char* txt);
+void ceammc_xlet_bind_tooltip(t_object* x, t_glist* glist, XletGetTclIdFn id_fn, XletGetAnnotationFn ann_fn, XletType type, int xlet_idx);
+
+/**
+ * Returns pointer to annotation function or nullptr if not found
+ * @param x - point to object
+ */
+XletGetAnnotationFn ceammc_get_annotation_fn(t_pd* x);
 
 }
 

@@ -13,6 +13,8 @@
 #include "eobj.h"
 #include "g_style.h"
 
+#include "ceammc.h"
+
 #include <algorithm>
 #include <array>
 #include <boost/algorithm/string.hpp>
@@ -93,7 +95,7 @@ static void layers_erase(t_ebox* x);
 static void ebox_erase(t_ebox* x);
 static void ebox_select(t_ebox* x);
 static void ebox_move(t_ebox* x);
-static void ebox_attrprocess_default(t_ebox *x);
+static void ebox_attrprocess_default(t_ebox* x);
 static void ebox_newzoom(t_ebox* x);
 static void elayer_free_content(t_elayer& l);
 
@@ -565,7 +567,7 @@ void ebox_set_cursor(t_ebox* x, t_cursor cursor)
     }
 }
 
-void ebox_attrprocess_viatoms(t_ebox *x, int argc, t_atom* argv)
+void ebox_attrprocess_viatoms(t_ebox* x, int argc, t_atom* argv)
 {
     char buffer[MAXPDSTRING] = "@";
     int defc = 0;
@@ -584,7 +586,7 @@ void ebox_attrprocess_viatoms(t_ebox *x, int argc, t_atom* argv)
     }
 }
 
-void ebox_attrprocess_viabinbuf(t_ebox *x, t_binbuf* d)
+void ebox_attrprocess_viabinbuf(t_ebox* x, t_binbuf* d)
 {
     char attr_name[MAXPDSTRING] = "@";
 
@@ -1984,7 +1986,7 @@ t_elayer* ebox_start_layer(t_ebox* x, t_symbol* name, float width, float height)
                 graphic->e_objects.clear();
                 graphic->e_new_objects.e_points.clear();
 
-                sprintf(text, "%s%" PRIdPTR, name->s_name, (intptr_t)x);
+                sprintf(text, "%s%" PRIxPTR, name->s_name, (intptr_t)x);
                 graphic->e_id = gensym(text);
 
                 graphic->e_new_objects.e_image = NULL;
@@ -2120,6 +2122,37 @@ static void ebox_do_paint_arc(t_elayer* g, t_ebox* x, t_egobj const* gobj, float
     }
 }
 
+static void ebox_do_paint_xlets(t_elayer* g, t_ebox* x, t_egobj const* gobj, float x_p, float y_p)
+{
+    auto ann_fn = ceammc::ceammc_get_annotation_fn(&x->b_obj.o_obj.te_g.g_pd);
+
+    for (size_t i = 0; i < gobj->e_points.size(); i += 4) {
+        auto pt = &gobj->e_points[i];
+        int x0 = (int)(pt[1].x + x_p);
+        int y0 = (int)(pt[1].y + y_p);
+        int x1 = x0 + pt[2].x;
+        int y1 = y0 + pt[2].y;
+        int idx = (int)pt[3].x;
+        int c = (int)pt[3].y;
+        bool is_inlet = pt[0].y;
+
+        sys_vgui("%s create rectangle %d %d %d %d -fill #%6.6x -outline #%6.6x -width 1 -tags { %s %s %s_%c%d }\n",
+            x->b_drawing_id->s_name, x0, y0, x1, y1, c, c, g->e_id->s_name,
+            x->b_all_id->s_name,
+            g->e_id->s_name, is_inlet ? 'i' : 'o', idx);
+
+        if (ann_fn) {
+            const char* str = ann_fn(&x->b_obj.o_obj, is_inlet ? ceammc::XLET_IN : ceammc::XLET_OUT, i);
+            if (str != nullptr && str[0] != '\0')
+                sys_vgui("::ceammc::ui::xlet_tooltip::create %s %s %s %s_%c%d %d \"%s\"\n",
+                    x->b_drawing_id->s_name,
+                    x->b_window_id->s_name,
+                    x->b_canvas_id->s_name,
+                    g->e_id->s_name, is_inlet ? 'i' : 'o', idx, is_inlet, str);
+        }
+    }
+}
+
 static void ebox_do_paint_image(t_elayer* g, t_ebox* x, t_egobj const* gobj, float x_p, float y_p)
 {
     t_pt const* pt = &gobj->e_points[0];
@@ -2232,6 +2265,12 @@ t_pd_err ebox_paint_layer(t_ebox* x, t_symbol* name, float x_p, float y_p)
                 case E_SHAPE_IMAGE:
                     ebox_do_paint_image(g, x, &gobj, x_p, y_p);
                     break;
+                case E_SHAPE_XLETS:
+                    ebox_do_paint_xlets(g, x, &gobj, x_p, y_p);
+                    break;
+                default:
+                    pd_error(x, "unknown shape: %d", type);
+                    break;
                 }
             } else {
                 return -1;
@@ -2286,42 +2325,44 @@ static void ebox_draw_iolets(t_ebox* x)
             const float XCTRLH = XLET_H;
             const float XSIGH = XCTRLH * x->b_zoom + 1;
             const t_object* obj = reinterpret_cast<t_object*>(x);
+            auto& p = g->e_new_objects.e_points;
+            p.clear();
+            g->e_new_objects.e_type = E_GOBJ_SHAPE;
 
             const int N_IN = obj_ninlets(obj);
+            const int N_OUT = obj_noutlets(obj);
+            p.reserve((N_IN + N_OUT) * 4);
+
             for (int i = 0; i < N_IN; i++) {
-                int pos_x_inlet = 0;
+                float pos_x_inlet = 0;
                 if (N_IN != 1)
-                    pos_x_inlet = (int)(i / (float)(N_IN - 1) * (BOX_W - (XW + 1)));
+                    pos_x_inlet = (i * (BOX_W - (XW + 1))) / (N_IN - 1);
 
                 const int is_sig = obj_issignalinlet(obj, i);
-                if (is_sig)
-                    egraphics_set_color_hex(g, STYLE_AUDIO_XLET_COLOR);
-                else
-                    egraphics_set_color_hex(g, STYLE_IEM_BORDER_COLOR);
-
-                egraphics_rectangle(g, pos_x_inlet, 0, XW, (is_sig) ? XSIGH : XCTRLH);
-                egraphics_fill(g);
+                const float c = (is_sig) ? STYLE_AUDIO_XLET_COLOR : STYLE_IEM_BORDER_COLOR;
+                const float XH = (is_sig) ? XSIGH : XCTRLH;
+                p.push_back({ E_SHAPE_XLETS, 1 });
+                p.push_back({ pos_x_inlet, 0 });
+                p.push_back({ XW, XH });
+                p.push_back({ (float)i, c });
             }
 
-            const int N_OUT = obj_noutlets(obj);
             for (int i = 0; i < N_OUT; i++) {
-                int pos_x_outlet = 0;
+                float pos_x_outlet = 0;
                 if (N_OUT != 1)
-                    pos_x_outlet = (int)(i / (float)(N_OUT - 1) * (BOX_W - (XW + 1)));
+                    pos_x_outlet = (i * (BOX_W - (XW + 1))) / (N_OUT - 1);
 
                 const int is_sig = obj_issignaloutlet(obj, i);
-                float outlet_h;
-                if (is_sig) {
-                    outlet_h = XSIGH;
-                    egraphics_set_color_hex(g, STYLE_AUDIO_XLET_COLOR);
-                } else {
-                    outlet_h = XCTRLH;
-                    egraphics_set_color_hex(g, STYLE_IEM_BORDER_COLOR);
-                }
+                const float c = (is_sig) ? STYLE_AUDIO_XLET_COLOR : STYLE_IEM_BORDER_COLOR;
+                const float XH = (is_sig) ? XSIGH : XCTRLH;
 
-                egraphics_rectangle(g, pos_x_outlet, BOX_H - (outlet_h + 1) + bdsize * 2, XW, outlet_h);
-                egraphics_fill(g);
+                p.push_back({ E_SHAPE_XLETS, 0 });
+                p.push_back({ pos_x_outlet, BOX_H - (XH + 1) + bdsize * 2 });
+                p.push_back({ XW, XH });
+                p.push_back({ (float)i, c });
             }
+
+            egraphics_fill(g);
         }
 
         ebox_end_layer(x, s_eboxio);
