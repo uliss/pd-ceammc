@@ -126,10 +126,11 @@ void ceammc_init()
 {
     using namespace std;
 
-    if (text_widgetbehavior.w_visfn != ceammc_vis_fn) {
+    if (text_widgetbehavior.w_visfn && text_widgetbehavior.w_visfn != ceammc_vis_fn) {
         ceammc_pd_vanilla_visfn = text_widgetbehavior.w_visfn;
         // ceammc const cast hack :(
-        ((t_widgetbehavior&)text_widgetbehavior).w_visfn = ceammc_vis_fn;
+        auto wb = const_cast<t_widgetbehavior*>(&text_widgetbehavior);
+        wb->w_visfn = ceammc_vis_fn;
     }
 
     ceammc::pd::addPdPrintDataSupport();
