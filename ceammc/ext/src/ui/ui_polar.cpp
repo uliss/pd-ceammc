@@ -25,10 +25,10 @@
 #include "ceammc_ui.h"
 #include "ui_polar.h"
 
-static const float KNOB_MIN_SIZE = 5.f;
-static const float KNOB_MAX_SIZE = 20.f;
+static const float KNOB_MIN_SIZE = 5;
+static const float KNOB_MAX_SIZE = 20;
 static const float KNOB_RATIO = 0.1f;
-static const float KNOB_BORDER_WIDTH = 1.f;
+static const float KNOB_BORDER_WIDTH = 1;
 static t_rgba KNOB_FILL = hex_to_rgba("#C0C0C0");
 static t_rgba KNOB_BORDER = hex_to_rgba("#707070");
 static t_rgba KNOB_FILL_ACTIVE = hex_to_rgba("#003070");
@@ -92,9 +92,9 @@ UIPolar::UIPolar()
             { _("bottom center"), [this](const t_pt&) { onList({ 1, side2Angle(BOTTOM) }); } } });
 }
 
-float UIPolar::side2Angle(SideT side)
+t_float UIPolar::side2Angle(SideT side)
 {
-    float angle = 0;
+    t_float angle = 0;
 
     if (prop_radians_)
         angle = side * M_PI_2;
@@ -347,7 +347,7 @@ void UIPolar::m_rotate(t_float angle)
 
 void UIPolar::loadPreset(size_t idx)
 {
-    setRealValue(PresetStorage::instance().listValueAt(presetId(), idx, AtomList(0.f, 0.f)));
+    setRealValue(PresetStorage::instance().listValueAt(presetId(), idx, AtomList(0., 0.)));
     redrawKnob();
     output();
 }
@@ -509,6 +509,7 @@ void UIPolar::setup()
     UIObjectFactory<UIPolar> obj("ui.polar", EBOX_GROWLINK);
 
     obj.setDefaultSize(100, 100);
+    obj.useAnnotations();
 
     obj.addProperty("radius", &UIPolar::propRadius, &UIPolar::propSetRadius);
     obj.setPropertyRange("radius", 0, 1);
