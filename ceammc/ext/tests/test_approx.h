@@ -24,6 +24,7 @@ using namespace ceammc;
 
 class ListApprox {
     AtomList lst_;
+    t_float margin_ = 0;
 
 public:
     ListApprox();
@@ -31,6 +32,8 @@ public:
     std::string toString() const;
     friend ListApprox operator+(const ListApprox& l0, const ListApprox& l1);
     friend bool operator==(const ListApprox& la, const AtomList& al);
+
+    ListApprox& margin(t_float m);
 
     operator AtomList() const { return lst_; }
 };
