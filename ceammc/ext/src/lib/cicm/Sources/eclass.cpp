@@ -373,12 +373,16 @@ t_pd_err eclass_register(t_symbol* /*name*/, t_eclass* c)
 
 void eclass_addmethod(t_eclass* c, t_typ_method m, const char* name, t_atomtype type, long /*dummy*/)
 {
+    eclass_addmethod(c, m, gensym(name), type, 0);
+}
+
+void eclass_addmethod(t_eclass* c, t_typ_method m, t_symbol* sname, t_atomtype type, long /*dummy*/)
+{
     GSYM(SYM_MOUSE_ENTER);
     GSYM(SYM_MOUSE_LEAVE);
     GSYM(SYM_MOUSE_MOVE);
     GSYM(SYM_MOUSE_DOWN);
 
-    t_symbol* sname = gensym(name);
     t_class* cx = &c->c_class;
     if (sname == G_SYM_MOUSE_ENTER) {
         c->c_widget.w_mouseenter = reinterpret_cast<t_mouseenter_method>(m);

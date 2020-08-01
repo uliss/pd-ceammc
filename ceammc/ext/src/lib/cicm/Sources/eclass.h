@@ -87,6 +87,7 @@ void eclass_dspinit(t_eclass* c);
  * \param type  The type of the method.
  * \param dummy The dummy type that should be 0.
  */
+void eclass_addmethod(t_eclass* c, t_typ_method m, t_symbol* name, t_atomtype type, long dummy);
 void eclass_addmethod(t_eclass* c, t_typ_method m, const char* name, t_atomtype type, long dummy);
 
 /*!
