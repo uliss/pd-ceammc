@@ -121,6 +121,9 @@ bool CallbackProperty::setList(const AtomListView& lst)
         else
             PROP_ERR << "single atom value expected, got: " << lst;
         break;
+    default:
+        PROP_ERR << "unknown property type: " << (int)setter_.type;
+        return false;
     }
 
     return false;
@@ -300,6 +303,9 @@ AtomList CallbackProperty::get() const
         } else {
             return getter_.fn_list();
         }
+    default:
+        PROP_ERR << "unknown property type: " << (int)getter_.type;
+        return {};
     }
 
 #undef CHECKED_GETTER_CALL
