@@ -46,7 +46,7 @@ public:
     size_t samples() const { return length_; }
     void next() { phase_ += (phase_ < length_); }
     virtual t_float amp() const = 0;
-    bool set(const AtomList& lst) override;
+    bool set(const AtomListView& lst) override;
 };
 
 class LinFadeoutProperty : public XFadeProperty {

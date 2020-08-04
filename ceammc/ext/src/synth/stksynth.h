@@ -63,7 +63,7 @@ public:
         return Atom(value_);
     }
 
-    bool setList(const AtomList& lst) override
+    bool setList(const AtomListView& lst) override
     {
         if (lst.empty())
             return false;

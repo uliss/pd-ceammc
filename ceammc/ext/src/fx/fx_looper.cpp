@@ -908,7 +908,7 @@ void XFadeProperty::reset()
     phase_ = 0;
 }
 
-bool XFadeProperty::set(const AtomList& lst)
+bool XFadeProperty::set(const AtomListView& lst)
 {
     auto rc = FloatProperty::set(lst);
     if (rc)

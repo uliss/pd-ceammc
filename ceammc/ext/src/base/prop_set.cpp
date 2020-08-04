@@ -1,65 +1,62 @@
-#include "ceammc_atomlist.h"
-#include <m_pd.h>
-#include <map>
-#include <string>
-#include <vector>
+#include "ceammc.h"
+#include "ceammc_factory.h"
+#include "ceammc_object.h"
 
-#define MSG_PREFIX "[prop<-] "
+extern "C" {
+#include "m_imp.h"
+}
 
 using namespace ceammc;
-typedef std::map<t_symbol*, t_inlet*> InletIndexMap;
 
-static t_class* prop_set_class;
-struct t_prop {
-    t_object x_obj;
-    InletIndexMap* prop_map;
+using SetPropertyFn = int (*)(t_object*, t_symbol*, int, t_atom*);
+
+class PropSet : public BaseObject {
+    std::vector<t_symbol*> props_;
+
+public:
+    PropSet(const PdArgs& args)
+        : BaseObject(args)
+    {
+        for (auto& a : args.args) {
+            if (a.isProperty()) {
+                props_.push_back(a.asSymbol());
+                createInlet();
+            } else
+                OBJ_ERR << "property name expected (starting from '@'), got: " << a << ", skipping argument";
+        }
+
+        createOutlet();
+    }
+
+    void parseProperties() override {}
+
+    void onInlet(size_t n, const AtomList& lst) override
+    {
+        if (n-- == 0)
+            return;
+
+        OBJ_DBG << n << lst;
+
+        t_outlet* outlet = nullptr;
+        auto conn = obj_starttraverseoutlet(owner(), &outlet, 0);
+        while (conn) {
+            t_object* dest;
+            t_inlet* inletp;
+            int whichp;
+            conn = obj_nexttraverseoutlet(conn, &dest, &inletp, &whichp);
+            SetPropertyFn fn = reinterpret_cast<SetPropertyFn>(
+                zgetfn(&dest->te_g.g_pd, SymbolTable::instance().s_propset_fn));
+
+            if (!fn) {
+                OBJ_ERR << "can't find properties: " << props_[n];
+                continue;
+            } else
+                fn(dest, props_[n], lst.size(), lst.toPdData());
+        }
+    }
 };
-
-static void prop_set_dump(t_prop* x)
-{
-    InletIndexMap::iterator it;
-    for (it = x->prop_map->begin(); it != x->prop_map->end(); ++it)
-        post(MSG_PREFIX "dump: property %s", it->first->s_name);
-}
-
-static inline void add_prop_map(t_prop* x, t_symbol* s)
-{
-    t_inlet* in = inlet_new(&x->x_obj, &x->x_obj.ob_pd, &s_list, s);
-    (*x->prop_map)[s] = in;
-}
-
-static void pass_any(t_prop* x, t_symbol* s, int argc, t_atom* argv)
-{
-    outlet_anything(x->x_obj.te_outlet, s, argc, argv);
-}
-
-static void* prop_set_new(t_symbol*, int argc, t_atom* argv)
-{
-    t_prop* x = reinterpret_cast<t_prop*>(pd_new(prop_set_class));
-    outlet_new(&x->x_obj, &s_anything);
-    x->prop_map = new InletIndexMap;
-
-    // use only symbol started from '@'
-    AtomList args = AtomList(argc, argv).filtered(isProperty);
-    for (size_t i = 0; i < args.size(); i++)
-        add_prop_map(x, args.at(i).asSymbol());
-
-    return static_cast<void*>(x);
-}
-
-static void prop_set_free(t_prop* x)
-{
-    delete x->prop_map;
-}
 
 void setup_prop_set()
 {
-    prop_set_class = class_new(gensym("prop.set"),
-        reinterpret_cast<t_newmethod>(prop_set_new),
-        reinterpret_cast<t_method>(prop_set_free),
-        sizeof(t_prop), 0, A_GIMME, A_NULL);
-    class_addcreator(reinterpret_cast<t_newmethod>(prop_set_new), gensym("prop<-"), A_GIMME, A_NULL);
-    class_addanything(prop_set_class, reinterpret_cast<t_method>(pass_any));
-    class_addmethod(prop_set_class, reinterpret_cast<t_method>(prop_set_dump), gensym("dump"), A_NULL);
-    class_sethelpsymbol(prop_set_class, gensym("prop.set"));
+    ObjectFactory<PropSet> obj("prop.set", OBJECT_FACTORY_DEFAULT | OBJECT_FACTORY_NO_DEFAULT_INLET);
 }

@@ -20,10 +20,10 @@
 #include <algorithm>
 #include <cassert>
 #include <cstdlib>
+#include <cstring>
 #include <iostream>
 #include <iterator>
 #include <string>
-#include <cstring>
 
 #include "lex/quoted_atomlist_lexer.h"
 #include "lex/quoted_string.parser.hpp"
@@ -833,6 +833,11 @@ AtomList AtomList::operator/(t_float v) const
     AtomList res(*this);
     res /= v;
     return res;
+}
+
+bool AtomList::operator==(const Atom& x) const noexcept
+{
+    return atoms_.size() == 1 && atoms_.front() == x;
 }
 
 bool AtomList::operator==(const AtomList& x) const noexcept

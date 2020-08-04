@@ -25,18 +25,24 @@
 
 namespace ceammc {
 
-AtomListView::AtomListView()
+AtomListView::AtomListView() noexcept
     : AtomListView(nullptr, 0)
 {
 }
 
-AtomListView::AtomListView(const t_atom* a, size_t n)
+AtomListView::AtomListView(const t_atom* a, size_t n) noexcept
     : data_(reinterpret_cast<const Atom*>(a))
     , n_(n)
 {
 }
 
-AtomListView::AtomListView(const AtomList& l)
+AtomListView::AtomListView(const Atom& a) noexcept
+    : data_(&a)
+    , n_(1)
+{
+}
+
+AtomListView::AtomListView(const AtomList& l) noexcept
     : AtomListView(l.toPdData(), l.size())
 {
 }
@@ -45,6 +51,12 @@ void AtomListView::set(t_atom* a, size_t n)
 {
     data_ = reinterpret_cast<Atom*>(a);
     n_ = n;
+}
+
+void AtomListView::set(const Atom& a)
+{
+    data_ = &a;
+    n_ = 1;
 }
 
 void AtomListView::set(const AtomList& l)

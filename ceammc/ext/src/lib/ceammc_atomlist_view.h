@@ -28,11 +28,13 @@ class AtomListView {
     size_t n_;
 
 public:
-    AtomListView();
-    AtomListView(const t_atom* a, size_t n);
-    AtomListView(const AtomList& l);
+    AtomListView() noexcept;
+    AtomListView(const t_atom* a, size_t n) noexcept;
+    AtomListView(const Atom& a) noexcept;
+    AtomListView(const AtomList& l) noexcept;
 
     void set(t_atom* a, size_t n);
+    void set(const Atom& a);
     void set(const AtomList& l);
     bool get(t_atom*& a, int& n);
 
@@ -43,10 +45,15 @@ public:
     bool operator!=(const AtomList& l) const { return !operator==(l); }
 
     bool operator==(bool v) const { return isBool() && v == asBool(); }
+    bool operator!=(bool v) const { return !operator==(v); }
     bool operator==(t_float v) const;
+    bool operator!=(t_float v) const { return !operator==(v); }
     bool operator==(int v) const { return isInteger() && asInt() == v; }
+    bool operator!=(int v) const { return !operator==(v); }
     bool operator==(t_symbol* s) const { return isSymbol() && asSymbol() == s; }
+    bool operator!=(t_symbol* s) const { return !operator==(s); }
     bool operator==(const Atom& a) const { return isAtom() && asAtom() == a; }
+    bool operator!=(const Atom& a) const { return !operator==(a); }
 
     // containter checks
     inline bool empty() const { return n_ == 0; }

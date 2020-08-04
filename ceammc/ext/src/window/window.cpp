@@ -101,7 +101,7 @@ void Window::onList(const AtomList& l)
     if (!checkArgs(l, ARG_INT, ARG_INT))
         return;
 
-    size_->set(l[1]);
+    size_->set(l.view(1, 1));
     onFloat(l[0].asFloat());
 }
 

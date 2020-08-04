@@ -35,7 +35,7 @@ public:
         static_assert(std::is_base_of<Property, Prop>::value, "not a Property subclass");
     }
 
-    bool set(const AtomList& l) override
+    bool set(const AtomListView& l) override
     {
         bool ok = Prop::set(l);
 

@@ -574,6 +574,12 @@ public:
     /**
      * Check for equality, if list contains data atoms - they are check for equality also
      */
+    bool operator==(const Atom& x) const noexcept;
+    bool operator!=(const Atom& x) const noexcept { return !operator==(x); }
+
+    /**
+     * Check for equality, if list contains data atoms - they are check for equality also
+     */
     bool operator==(const AtomList& x) const noexcept;
     bool operator!=(const AtomList& x) const noexcept { return !operator==(x); }
 

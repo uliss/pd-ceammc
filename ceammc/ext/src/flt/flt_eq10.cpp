@@ -50,7 +50,7 @@ public:
             if (!l[i].isFloat())
                 continue;
 
-            setProperty(freq_pack[i], l[i]);
+            setProperty(freq_pack[i], l.view(i, 1));
         }
     }
 
