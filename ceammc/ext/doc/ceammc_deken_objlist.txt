@@ -614,8 +614,8 @@ prop->	Property extractor
 prop.get~	Property extractor from sound stream
 prop~>	Property extractor from sound stream
 @~>	Property extractor from sound stream
-prop.set	Property injector
-prop<-	Property injector
+prop.join	join property to main data flow
+prop<-	join property to main data flow
 proto.firmata	Firmata Arduino protocol support
 proto.sp.alpaca	protocol parser for Arduino-based CEAMMC footswitch
 random.discrete	random weighted integers on interval [0, n)

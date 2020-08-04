@@ -17,8 +17,10 @@
 
 ### Changed:
 - ext_info output format changed.
-    "inlets": ["audio", "control"...] instead of inlet number.
+    "inlets": ["audio", "control"...] instead of inlet number
     "outlets": ["audio", "control"...] instead of outlet number
+- props:
+    - prop.set renamed to prop.join (with prop<- alias)
 
 ## [0.9]
 ### Added:

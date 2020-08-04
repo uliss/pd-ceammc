@@ -451,13 +451,13 @@ set(DOC_FILES
     preset.list
     preset.storage
     preset.symbol
-    proto.firmata
-    proto.sp.alpaca
     prop
     prop.declare
     prop.get
     prop.get~
-    prop.set
+    prop.join
+    proto.firmata
+    proto.sp.alpaca
     radio
     random.float
     random.gauss

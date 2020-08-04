@@ -1409,8 +1409,8 @@
     <entry name="prop.get~" descr="Property extractor from sound stream" ref_view="object">
       <xi:include href="prop.get~.pddoc" parse="xml"/>
     </entry>
-    <entry name="prop.set" descr="Property injector" ref_view="object">
-      <xi:include href="prop.set.pddoc" parse="xml"/>
+    <entry name="prop.join" descr="join property to main data flow" ref_view="object">
+      <xi:include href="prop.join.pddoc" parse="xml"/>
     </entry>
   </category>
   <category name="proto">

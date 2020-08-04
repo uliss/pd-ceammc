@@ -23,10 +23,10 @@ set(BASE_SOURCES
     patch_props.cpp
     patch_tree.cpp
     prop.cpp
+    prop_declare.cpp
     prop_get.cpp
     prop_get_tilde.cpp
-    prop_declare.cpp
-    prop_set.cpp
+    prop_join.cpp
     radio.cpp
     replace.cpp)
 

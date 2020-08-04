@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <pddoc version="1.0">
-    <object name="prop.set">
+    <object name="prop.join">
         <title>prop.set</title>
         <meta>
             <authors>
                 <author>Serge Poltavsky</author>
             </authors>
-            <description>Property injector</description>
+            <description>join property to main data flow</description>
             <license>GPL3 or later</license>
             <library>ceammc</library>
             <category>property</category>

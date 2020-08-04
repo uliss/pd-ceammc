@@ -1018,8 +1018,8 @@ value;
 #X text 200 13958 Property extractor;
 #X obj 30 13985 prop.get~;
 #X text 200 13985 Property extractor from sound stream;
-#X obj 30 14012 prop.set;
-#X text 200 14012 Property injector;
+#X obj 30 14012 prop.join;
+#X text 200 14012 join property to main data flow;
 #X obj 20 14039 cnv 5 58 31 empty empty proto 4 13 0 17 -262144 -49933
 0;
 #X obj 20 14080 cnv 1 720 1 empty empty empty 17 7 0 10 -203890 -1 0;

@@ -50,7 +50,7 @@ void setup_load_msg();
 void setup_nsig_tilde();
 void setup_prop_get();
 void setup_prop_get_tilde();
-void setup_prop_set();
+void setup_prop_join();
 void setup_snd_file();
 
 void ceammc_base_setup()
@@ -101,7 +101,7 @@ void ceammc_base_setup()
     setup_prop_declare();
     setup_prop_get();
     setup_prop_get_tilde();
-    setup_prop_set();
+    setup_prop_join();
     setup_snd_file();
 
     setup_test0x2edata();
