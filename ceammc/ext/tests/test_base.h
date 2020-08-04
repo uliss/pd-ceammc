@@ -117,7 +117,10 @@ public:
     void floatTo(size_t n, t_float f) override;
     void atomTo(size_t n, const Atom& a) override;
     void anyTo(size_t n, const AtomList& lst) override;
+    void anyTo(size_t n, const AtomListView& lst) override;
+    void anyTo(size_t n, t_symbol* sel, const Atom& a) override;
     void anyTo(size_t n, t_symbol* sel, const AtomList& lst) override;
+    void anyTo(size_t n, t_symbol* sel, const AtomListView& lst) override;
     void messageTo(size_t n, const Message& m) override;
 
     /** messages methods */
@@ -513,7 +516,25 @@ void TestExternal<T>::anyTo(size_t n, const AtomList& lst)
 }
 
 template <class T>
+void TestExternal<T>::anyTo(size_t n, const AtomListView& lst)
+{
+    msg_[n].push_back(Message(lst.at(0).asSymbol(), lst.subView(1)));
+}
+
+template <class T>
+void TestExternal<T>::anyTo(size_t n, t_symbol* sel, const Atom& a)
+{
+    msg_[n].push_back(Message(sel, a));
+}
+
+template <class T>
 void TestExternal<T>::anyTo(size_t n, t_symbol* sel, const AtomList& lst)
+{
+    msg_[n].push_back(Message(sel, lst));
+}
+
+template <class T>
+void TestExternal<T>::anyTo(size_t n, t_symbol* sel, const AtomListView& lst)
 {
     msg_[n].push_back(Message(sel, lst));
 }

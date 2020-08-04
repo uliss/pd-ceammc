@@ -239,6 +239,17 @@ void BaseObject::anyTo(size_t n, const AtomList& l)
         OBJ_ERR << "invalid message: " << l;
 }
 
+void BaseObject::anyTo(size_t n, const AtomListView& l)
+{
+    if (n >= outlets_.size()) {
+        OBJ_ERR << "invalid outlet index: " << n;
+        return;
+    }
+
+    if (!outletAny(outlets_[n], l))
+        OBJ_ERR << "invalid message: " << l;
+}
+
 void BaseObject::anyTo(size_t n, t_symbol* s, const Atom& a)
 {
     if (n >= outlets_.size()) {
@@ -250,6 +261,16 @@ void BaseObject::anyTo(size_t n, t_symbol* s, const Atom& a)
 }
 
 void BaseObject::anyTo(size_t n, t_symbol* s, const AtomList& l)
+{
+    if (n >= outlets_.size()) {
+        OBJ_ERR << "invalid outlet index: " << n;
+        return;
+    }
+
+    outletAny(outlets_[n], s, l);
+}
+
+void BaseObject::anyTo(size_t n, t_symbol* s, const AtomListView& l)
 {
     if (n >= outlets_.size()) {
         OBJ_ERR << "invalid outlet index: " << n;

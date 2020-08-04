@@ -30,6 +30,7 @@ bool outletAny(t_outlet* o, t_symbol* s, const Atom& a);
 bool outletAny(t_outlet* o, t_symbol* s, const AtomList& l);
 bool outletAny(t_outlet* o, t_symbol* s, const AtomListView& v);
 CEAMMC_WARN_UNUSED bool outletAny(t_outlet* o, const AtomList& l);
+CEAMMC_WARN_UNUSED bool outletAny(t_outlet* o, const AtomListView& l);
 
 }
 
