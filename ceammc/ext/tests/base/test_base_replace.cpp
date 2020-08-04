@@ -90,7 +90,7 @@ TEST_CASE("replace", "[PureData]")
         REQUIRE_PROPERTY_NONE(t, @to);
 
         WHEN_SEND_FLOAT_TO(1, t, 123456789);
-        REQUIRE_PROPERTY(t, @from, LF(123456789.));
+        REQUIRE_PROPERTY_LIST(t, @from, LX(123456789.));
         REQUIRE_PROPERTY_NONE(t, @to);
 
         WHEN_SEND_SYMBOL_TO(1, t, "a");
