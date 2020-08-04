@@ -23,6 +23,7 @@
 #include <unordered_map>
 #include <vector>
 
+#include "ceammc.h"
 #include "ceammc_data.h"
 #include "ceammc_message.h"
 #include "ceammc_object.h"
@@ -97,9 +98,13 @@ public:
         flags_ = flags;
 
         // add [dump( method to dump to Pd console
-        class_addmethod(c, reinterpret_cast<t_method>(dumpMethodList), SYM_DUMP(), A_NULL);
+        class_addmethod(c, reinterpret_cast<t_method>(dumpMethodList), SymbolTable::instance().s_dump_fn, A_NULL);
         // add [@*?( method to output all properties
         class_addmethod(c, reinterpret_cast<t_method>(queryPropNames), SYM_PROPS_ALL_Q(), A_NULL);
+        // direct property set
+        class_addmethod(c, reinterpret_cast<t_method>(setProperty), SymbolTable::instance().s_propset_fn, A_CANT, A_NULL);
+        // is base test
+        class_addmethod(c, reinterpret_cast<t_method>(isBaseObject), SymbolTable::instance().s_is_base_obj_fn, A_CANT, A_NULL);
 
         class_name_ = s_name;
         // add to database
@@ -455,6 +460,14 @@ public:
     {
         x->impl->queryPropNames();
     }
+
+    static int setProperty(ObjectProxy* x, t_symbol* sel, int argc, t_atom* argv)
+    {
+        return x->impl->setProperty(sel, AtomListView(argv, argc));
+    }
+
+    /* for runtime testing */
+    static int isBaseObject(ObjectProxy*) { return 1; }
 
     static void defaultListMethod(ObjectProxy* x, t_symbol* sel, int argc, t_atom* argv)
     {

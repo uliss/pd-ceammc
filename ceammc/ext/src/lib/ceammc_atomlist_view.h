@@ -44,7 +44,7 @@ public:
 
     bool operator==(bool v) const { return isBool() && v == asBool(); }
     bool operator==(t_float v) const;
-    bool operator==(int v) const { return isInt() && asInt() == v; }
+    bool operator==(int v) const { return isInteger() && asInt() == v; }
     bool operator==(t_symbol* s) const { return isSymbol() && asSymbol() == s; }
     bool operator==(const Atom& a) const { return isAtom() && asAtom() == a; }
 
@@ -56,7 +56,7 @@ public:
     // type checks
     bool isBool() const;
     bool isFloat() const { return data_ && n_ == 1 && atom().a_type == A_FLOAT; }
-    bool isInt() const;
+    bool isInteger() const;
     bool isSymbol() const { return data_ && n_ == 1 && atom().a_type == A_SYMBOL; }
     bool isAtom() const { return data_ && n_ == 1; }
     bool isData() const { return data_ && n_ == 1 && data_->isData(); }
@@ -113,7 +113,7 @@ inline bool AtomListView::isA<bool>() const { return isBool(); }
 template <>
 inline bool AtomListView::isA<t_float>() const { return isFloat(); }
 template <>
-inline bool AtomListView::isA<int>() const { return isInt(); }
+inline bool AtomListView::isA<int>() const { return isInteger(); }
 template <>
 inline bool AtomListView::isA<t_symbol*>() const { return isSymbol(); }
 template <>

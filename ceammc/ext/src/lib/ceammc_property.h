@@ -75,9 +75,9 @@ public:
 
     /// pure virtual
     virtual AtomList get() const = 0;
-    virtual bool setList(const AtomList& lst) = 0;
+    virtual bool setList(const AtomListView& lst) = 0;
     /// virtual
-    virtual bool set(const AtomList& lst);
+    virtual bool set(const AtomListView& lst);
     virtual bool setInit(const AtomListView& lst);
 
     inline t_symbol* name() const { return info_.name(); }
@@ -196,9 +196,9 @@ protected:
     bool checkAtom(const Atom& a) const;
     bool checkFloat(t_float v) const;
     bool checkInt(int v) const;
-    bool checkList(const AtomList& l) const;
+    bool checkList(const AtomListView& l) const;
     bool checkSymbol(t_symbol* s) const;
-    bool emptyCheck(const AtomList& v) const;
+    bool emptyCheck(const AtomListView& v) const;
     bool initCheck() const;
     bool writeCheck() const;
     std::string errorPrefix() const;
@@ -254,7 +254,7 @@ class AtomProperty : public Property {
 public:
     AtomProperty(const std::string& name, const Atom& def, PropValueAccess access = PropValueAccess::READWRITE);
 
-    bool setList(const AtomList& lst) override;
+    bool setList(const AtomListView& lst) override;
     AtomList get() const override;
     bool getAtom(Atom& a) const override;
 
@@ -283,7 +283,7 @@ public:
     FloatProperty(const std::string& name, t_float init = 0, PropValueAccess access = PropValueAccess::READWRITE);
 
     AtomList get() const override;
-    bool setList(const AtomList& lst) override;
+    bool setList(const AtomListView& lst) override;
     bool setFloat(t_float v) override;
     bool setInt(int v) override;
     bool getFloat(t_float& v) const override;
@@ -319,7 +319,7 @@ public:
     IntProperty(const std::string& name, int init = 0, PropValueAccess access = PropValueAccess::READWRITE);
 
     AtomList get() const override;
-    bool setList(const AtomList& lst) override;
+    bool setList(const AtomListView& lst) override;
     bool setInt(int v) override;
     bool getInt(int& v) const override;
 
@@ -355,7 +355,7 @@ public:
     SizeTProperty(const std::string& name, size_t init = 0, PropValueAccess access = PropValueAccess::READWRITE);
 
     AtomList get() const override;
-    bool setList(const AtomList& lst) override;
+    bool setList(const AtomListView& lst) override;
     bool getInt(int&) const override;
 
     inline size_t value() const { return v_; }
@@ -381,7 +381,7 @@ public:
     SymbolProperty(const std::string& name, t_symbol* init, PropValueAccess access = PropValueAccess::READWRITE);
 
     AtomList get() const override;
-    bool setList(const AtomList& lst) override;
+    bool setList(const AtomListView& lst) override;
     bool setSymbol(t_symbol* s) override;
     bool getSymbol(t_symbol*& s) const override;
 
@@ -408,7 +408,7 @@ public:
     ListProperty(const std::string& name, const AtomList& init = AtomList(), PropValueAccess access = PropValueAccess::READWRITE);
 
     AtomList get() const override;
-    bool setList(const AtomList& l) override;
+    bool setList(const AtomListView& l) override;
     bool getList(AtomList& l) const override;
 
     inline const AtomList& value() const { return lst_; }
@@ -462,7 +462,7 @@ public:
     /**
      * always return true
      */
-    bool setList(const AtomList&) override;
+    bool setList(const AtomListView&) override;
 
     /**
      * @return concatenated list of combined properties
@@ -485,7 +485,7 @@ public:
     AtomList get() const override;
     bool getBool(bool& b) const override;
     bool getInt(int& v) const override;
-    bool setList(const AtomList&) override;
+    bool setList(const AtomListView&) override;
 
     inline bool value() const { return v_; }
 
@@ -521,7 +521,7 @@ public:
 
     value_type value() const { return val_; }
 
-    bool setList(const AtomList& lst) override
+    bool setList(const AtomListView& lst) override
     {
         if (!lst.empty())
             LIB_ERR << "no arguments required for alias property: " << name();
@@ -543,7 +543,7 @@ public:
     BoolProperty(const std::string& name, bool init, PropValueAccess access = PropValueAccess::READWRITE);
 
     AtomList get() const override;
-    bool setList(const AtomList& lst) override;
+    bool setList(const AtomListView& lst) override;
     bool setBool(bool b) override;
     bool getBool(bool& b) const override;
 
@@ -582,7 +582,7 @@ public:
         return true;
     }
 
-    bool setList(const AtomList& lst) override
+    bool setList(const AtomListView& lst) override
     {
         if (!emptyCheck(lst))
             return false;

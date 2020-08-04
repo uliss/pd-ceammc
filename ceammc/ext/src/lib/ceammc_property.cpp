@@ -63,7 +63,7 @@ Property::Property(const PropertyInfo& info, PropValueAccess access)
     info_.setAccess(access);
 }
 
-bool Property::set(const AtomList& lst)
+bool Property::set(const AtomListView& lst)
 {
     if (!writeCheck())
         return false;
@@ -601,7 +601,7 @@ bool Property::initCheck() const
     return true;
 }
 
-bool Property::emptyCheck(const AtomList& v) const
+bool Property::emptyCheck(const AtomListView& v) const
 {
     if (v.empty()) {
         PROP_ERR() << "empty value given";
@@ -663,7 +663,7 @@ bool Property::checkAtom(const Atom& a) const
     return true;
 }
 
-bool Property::checkList(const AtomList& l) const
+bool Property::checkList(const AtomListView& l) const
 {
     if (!check_fn_ptr_)
         return true;
@@ -751,7 +751,7 @@ AtomProperty::AtomProperty(const std::string& name, const Atom& def, PropValueAc
     info().setDefault(def);
 }
 
-bool AtomProperty::setList(const AtomList& lst)
+bool AtomProperty::setList(const AtomListView& lst)
 {
     if (!emptyCheck(lst))
         return false;
@@ -821,7 +821,7 @@ ListProperty::ListProperty(const std::string& name, const AtomList& init, PropVa
     info().setDefault(init);
 }
 
-bool ListProperty::setList(const AtomList& l)
+bool ListProperty::setList(const AtomListView& l)
 {
     return setValue(l);
 }
@@ -1003,7 +1003,7 @@ AtomList FloatProperty::get() const
     return { v_ };
 }
 
-bool FloatProperty::setList(const AtomList& lst)
+bool FloatProperty::setList(const AtomListView& lst)
 {
     if (!emptyCheck(lst))
         return false;
@@ -1068,7 +1068,7 @@ AtomList BoolProperty::get() const
     return AtomList({ v_ ? 1.f : 0.f });
 }
 
-bool BoolProperty::setList(const AtomList& lst)
+bool BoolProperty::setList(const AtomListView& lst)
 {
     if (!emptyCheck(lst))
         return false;
@@ -1145,7 +1145,7 @@ IntProperty::IntProperty(const std::string& name, int init, PropValueAccess acce
     info().setDefault(init);
 }
 
-bool IntProperty::setList(const AtomList& lst)
+bool IntProperty::setList(const AtomListView& lst)
 {
     if (!emptyCheck(lst))
         return false;
@@ -1227,7 +1227,7 @@ SizeTProperty::SizeTProperty(const std::string& n, size_t init, PropValueAccess 
     info().setDefault(int(init));
 }
 
-bool SizeTProperty::setList(const AtomList& lst)
+bool SizeTProperty::setList(const AtomListView& lst)
 {
     if (!emptyCheck(lst))
         return false;
@@ -1325,7 +1325,7 @@ bool FlagProperty::getInt(int& v) const
     return true;
 }
 
-bool FlagProperty::setList(const AtomList&)
+bool FlagProperty::setList(const AtomListView &)
 {
     v_ = true;
     return true;
@@ -1343,7 +1343,7 @@ AtomList SymbolProperty::get() const
     return Atom(value_);
 }
 
-bool SymbolProperty::setList(const AtomList& lst)
+bool SymbolProperty::setList(const AtomListView& lst)
 {
     if (!emptyCheck(lst))
         return false;
@@ -1398,7 +1398,7 @@ CombinedProperty::CombinedProperty(const std::string& name, std::initializer_lis
     setHidden();
 }
 
-bool CombinedProperty::setList(const AtomList&)
+bool CombinedProperty::setList(const AtomListView &)
 {
     return true;
 }

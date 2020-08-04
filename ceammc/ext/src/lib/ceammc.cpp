@@ -35,6 +35,11 @@ const char* InvalidOutlet::what() const noexcept
 
 SymbolTable::SymbolTable()
     : s_annotate_fn(gensym(".annotate"))
+    , s_propset_fn(gensym(".propset"))
+    , s_is_base_obj_fn(gensym(".is_base?"))
+    , s_is_cicm_obj_fn(gensym(".is_cicm?"))
+    , s_is_flext_obj_fn(gensym(".is_flext?"))
+    , s_dump_fn(gensym("dump"))
 {
 }
 

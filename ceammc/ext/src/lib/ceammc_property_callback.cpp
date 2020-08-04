@@ -66,7 +66,7 @@ CallbackProperty::CallbackProperty(const std::string& name, PropertyListGetter g
 {
 }
 
-bool CallbackProperty::setList(const AtomList& lst)
+bool CallbackProperty::setList(const AtomListView& lst)
 {
     switch (setter_.type) {
     case Type::LIST:

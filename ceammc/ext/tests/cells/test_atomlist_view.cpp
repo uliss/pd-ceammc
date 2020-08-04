@@ -48,7 +48,7 @@ TEST_CASE("AtomListView", "core")
             REQUIRE(lv.isBool());
             REQUIRE(lv.isAtom());
             REQUIRE(lv.isSymbol());
-            REQUIRE_FALSE(lv.isInt());
+            REQUIRE_FALSE(lv.isInteger());
             REQUIRE_FALSE(lv.isNull());
 
             REQUIRE(lv == true);
@@ -62,7 +62,7 @@ TEST_CASE("AtomListView", "core")
 
             REQUIRE(lv.isFloat());
             REQUIRE(lv.isAtom());
-            REQUIRE_FALSE(lv.isInt());
+            REQUIRE_FALSE(lv.isInteger());
             REQUIRE_FALSE(lv.isBool());
             REQUIRE_FALSE(lv.isNull());
             REQUIRE_FALSE(lv.isSymbol());
@@ -77,7 +77,7 @@ TEST_CASE("AtomListView", "core")
 
             REQUIRE(lv.isFloat());
             REQUIRE(lv.isAtom());
-            REQUIRE(lv.isInt());
+            REQUIRE(lv.isInteger());
             REQUIRE_FALSE(lv.isBool());
             REQUIRE_FALSE(lv.isNull());
             REQUIRE_FALSE(lv.isSymbol());
@@ -92,7 +92,7 @@ TEST_CASE("AtomListView", "core")
 
             REQUIRE_FALSE(lv.isFloat());
             REQUIRE(lv.isAtom());
-            REQUIRE_FALSE(lv.isInt());
+            REQUIRE_FALSE(lv.isInteger());
             REQUIRE_FALSE(lv.isBool());
             REQUIRE_FALSE(lv.isNull());
             REQUIRE(lv.isSymbol());

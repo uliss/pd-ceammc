@@ -82,7 +82,7 @@ public:
         return listFrom(value());
     }
 
-    bool setList(const AtomList& lst) override
+    bool setList(const AtomListView& lst) override
     {
         if (!emptyCheck(lst))
             return false;

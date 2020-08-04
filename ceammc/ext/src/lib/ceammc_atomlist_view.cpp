@@ -121,7 +121,7 @@ bool AtomListView::isBool() const
         || ((isSymbol() && (asSymbol() == SYM_TRUE || asSymbol() == SYM_FALSE)));
 }
 
-bool AtomListView::isInt() const
+bool AtomListView::isInteger() const
 {
     return isFloat() && math::is_integer(asFloat());
 }

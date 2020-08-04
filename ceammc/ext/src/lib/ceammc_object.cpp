@@ -142,7 +142,7 @@ const Property* BaseObject::property(t_symbol* key) const
     return (it == end) ? nullptr : *it;
 }
 
-bool BaseObject::setProperty(t_symbol* key, const AtomList& v)
+bool BaseObject::setProperty(t_symbol* key, const AtomListView& v)
 {
     Property* p = property(key);
     if (!p || !p->isReadWrite())
@@ -151,7 +151,7 @@ bool BaseObject::setProperty(t_symbol* key, const AtomList& v)
     return p->set(v);
 }
 
-bool BaseObject::setProperty(const char* key, const AtomList& v)
+bool BaseObject::setProperty(const char* key, const AtomListView& v)
 {
     return setProperty(gensym(key), v);
 }

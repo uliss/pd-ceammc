@@ -422,7 +422,7 @@ namespace faust {
     {
     }
 
-    bool UIProperty::setList(const AtomList& lst)
+    bool UIProperty::setList(const AtomListView& lst)
     {
         if (!emptyCheck(lst))
             return false;

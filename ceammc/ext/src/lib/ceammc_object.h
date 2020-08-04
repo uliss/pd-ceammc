@@ -409,8 +409,8 @@ public:
      * @param v - property value
      * @return false on error
      */
-    bool setProperty(t_symbol* key, const AtomList& v);
-    bool setProperty(const char* key, const AtomList& v);
+    bool setProperty(t_symbol* key, const AtomListView& v);
+    bool setProperty(const char* key, const AtomListView& v);
 
     /**
      * Get list of object properties
