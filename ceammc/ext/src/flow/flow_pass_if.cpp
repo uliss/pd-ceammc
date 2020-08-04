@@ -59,7 +59,7 @@ void FlowPassIf::onList(const AtomList& l)
         listTo(0, l);
 }
 
-void FlowPassIf::onAny(t_symbol* s, const AtomList& l)
+void FlowPassIf::onAny(t_symbol* s, const AtomListView& l)
 {
     pass_ = 0;
     anyTo(1, s, l);

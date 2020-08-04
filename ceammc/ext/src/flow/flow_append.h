@@ -31,10 +31,10 @@ public:
     void onFloat(t_float f) override;
     void onSymbol(t_symbol* s) override;
     void onList(const AtomList& lst) override;
-    void onAny(t_symbol* s, const AtomList& lst) override;
+    void onAny(t_symbol* s, const AtomListView& lst) override;
     void onInlet(size_t n, const AtomList& lst) override;
 
-    bool processAnyProps(t_symbol* s, const AtomList& lst) override;
+    bool processAnyProps(t_symbol* s, const AtomListView& lst) override;
 
 private:
     void process();

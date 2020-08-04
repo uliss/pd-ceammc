@@ -28,7 +28,7 @@ public:
     NetHost(const PdArgs& args);
 
     void onSymbol(t_symbol* s) override;
-    void onAny(t_symbol* s, const AtomList&) override;
+    void onAny(t_symbol* s, const AtomListView&) override;
     void onThreadDone(int rc) override;
 
 private:

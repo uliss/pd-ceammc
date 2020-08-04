@@ -18,6 +18,7 @@
 #include <cmath>
 
 #include "ceammc_atomlist.h"
+#include "ceammc_log.h"
 
 namespace ceammc {
 namespace units {
@@ -119,6 +120,9 @@ namespace units {
                 return 1000 * 60 * 60 * value;
             case TimeUnits::DAY:
                 return 1000 * 60 * 60 * 24 * value;
+            default:
+                LIB_ERR << "unknown unit type: " << (int)unit;
+                return 0;
             }
         }
 
@@ -135,6 +139,9 @@ namespace units {
                 return std::round(value * t_float(60 * 60 * sr));
             case TimeUnits::DAY:
                 return std::round(value * t_float(24 * 60 * 60 * sr));
+            default:
+                LIB_ERR << "unknown unit type: " << (int)unit;
+                return 0;
             }
         }
 

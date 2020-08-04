@@ -20,7 +20,7 @@ DictBase::DictBase(const PdArgs& args)
 {
 }
 
-void DictBase::onAny(t_symbol* s, const AtomList& lst)
+void DictBase::onAny(t_symbol* s, const AtomListView& lst)
 {
     if (s->s_name[0] != '[')
         return BaseObject::onAny(s, lst);

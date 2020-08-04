@@ -20,9 +20,9 @@ using namespace ceammc;
 class PatchProps : public BaseObject {
 public:
     PatchProps(const PdArgs& args);
-    bool processAnyProps(t_symbol* sel, const AtomList& lst) override;
+    bool processAnyProps(t_symbol* sel, const AtomListView& lst) override;
     void onBang() override;
-    void onAny(t_symbol* s, const AtomList& l) override;
+    void onAny(t_symbol* s, const AtomListView& l) override;
 
     void m_all_props(t_symbol* s, const AtomList& args);
     void m_default(t_symbol*, const AtomList&);

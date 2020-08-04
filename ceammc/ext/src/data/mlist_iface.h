@@ -33,7 +33,7 @@ public:
         onBang();
     }
 
-    void onAny(t_symbol* s, const AtomList& lst) override
+    void onAny(t_symbol* s, const AtomListView& lst) override
     {
         Message msg(s, lst);
         if (s->s_name[0] != '\(') {

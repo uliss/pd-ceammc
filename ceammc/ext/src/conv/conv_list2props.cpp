@@ -38,14 +38,14 @@ void ConvList2Props::onList(const AtomList& lst)
         anyTo(0, l);
 }
 
-void ConvList2Props::onAny(t_symbol* s, const AtomList& lst)
+void ConvList2Props::onAny(t_symbol* s, const AtomListView& lst)
 {
     AtomList lprop(s);
     lprop.append(lst);
     onList(lprop);
 }
 
-bool ConvList2Props::processAnyProps(t_symbol* sel, const AtomList& lst)
+bool ConvList2Props::processAnyProps(t_symbol* sel, const AtomListView& lst)
 {
     return false;
 }

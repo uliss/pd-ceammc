@@ -91,7 +91,7 @@ void FlowPack::onList(const AtomList& l)
     output(0);
 }
 
-void FlowPack::onAny(t_symbol* s, const AtomList& l)
+void FlowPack::onAny(t_symbol* s, const AtomListView& l)
 {
     if ((l.size() + 1) > msg_.size())
         OBJ_ERR << "too many atoms in message: " << (l.size() + 1);
@@ -105,7 +105,7 @@ void FlowPack::onAny(t_symbol* s, const AtomList& l)
     anyTo(0, msg_);
 }
 
-bool FlowPack::processAnyProps(t_symbol* s, const AtomList& l)
+bool FlowPack::processAnyProps(t_symbol* s, const AtomListView& l)
 {
     return false;
 }

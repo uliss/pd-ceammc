@@ -28,13 +28,13 @@ public:
     void onFloat(t_float f) override;
     void onSymbol(t_symbol* s) override;
     void onList(const AtomList& l) override;
-    void onAny(t_symbol* s, const AtomList& l) override;
+    void onAny(t_symbol* s, const AtomListView& l) override;
     void onData(const Atom&) override;
 
     void m_reset(t_symbol*, const AtomList&);
 
-    bool processAnyInlets(t_symbol*, const AtomList&) override;
-    bool processAnyProps(t_symbol* s, const AtomList&) override;
+    bool processAnyInlets(t_symbol*, const AtomListView&) override;
+    bool processAnyProps(t_symbol* s, const AtomListView&) override;
 
 private:
     void tick();

@@ -63,7 +63,7 @@ void FlowAppend::onList(const AtomList& lst)
     process();
 }
 
-void FlowAppend::onAny(t_symbol* s, const AtomList& lst)
+void FlowAppend::onAny(t_symbol* s, const AtomListView& lst)
 {
     anyTo(0, s, lst);
     process();
@@ -79,7 +79,7 @@ void FlowAppend::onInlet(size_t n, const AtomList& lst)
         OBJ_ERR << "invalid inlet: " << n;
 }
 
-bool FlowAppend::processAnyProps(t_symbol* s, const AtomList& lst)
+bool FlowAppend::processAnyProps(t_symbol* s, const AtomListView& lst)
 {
     return false;
 }

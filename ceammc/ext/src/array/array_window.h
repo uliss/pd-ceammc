@@ -27,7 +27,7 @@ public:
     ArrayWindow(const PdArgs& args);
 
     void onBang() override;
-    void onAny(t_symbol* s, const AtomList& lst) override;
+    void onAny(t_symbol* s, const AtomListView& lst) override;
 
     void updateGenFn();
 

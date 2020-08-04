@@ -24,7 +24,7 @@ void Replace::onInlet(size_t n, const AtomList& l)
         to_ = l.empty() ? Atom() : l[0];
 }
 
-void Replace::onAny(t_symbol* sel, const AtomList& l)
+void Replace::onAny(t_symbol* sel, const AtomListView& l)
 {
     if (validateArgs()) {
         AtomList res(sel);

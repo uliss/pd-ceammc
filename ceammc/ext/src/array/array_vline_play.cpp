@@ -103,7 +103,7 @@ ArrayVlinePlay::ArrayVlinePlay(const PdArgs& args)
     addProperty(reversed_);
 }
 
-bool ArrayVlinePlay::processAnyProps(t_symbol* s, const AtomList& args)
+bool ArrayVlinePlay::processAnyProps(t_symbol* s, const AtomListView& args)
 {
     if (s == SYM_CURSOR_SAMPLE
         || s == SYM_CURSOR_PHASE

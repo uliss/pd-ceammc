@@ -90,7 +90,7 @@ void FlowDup::onList(const AtomList& l)
     delay();
 }
 
-void FlowDup::onAny(t_symbol* s, const AtomList& l)
+void FlowDup::onAny(t_symbol* s, const AtomListView& l)
 {
     anyTo(0, s, l);
     msg_.setAny(s, l);

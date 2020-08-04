@@ -72,7 +72,7 @@ void FlowMatch::onSymbol(t_symbol* s)
     symbolTo(N, s);
 }
 
-void FlowMatch::onAny(t_symbol* s, const AtomList& l)
+void FlowMatch::onAny(t_symbol* s, const AtomListView& l)
 {
     const size_t N = re_.size();
     assert(N == numOutlets());

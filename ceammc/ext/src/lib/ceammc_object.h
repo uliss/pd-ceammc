@@ -223,7 +223,7 @@ public:
     virtual void onSymbol(t_symbol*);
     virtual void onList(const AtomList&);
     virtual void onData(const Atom&);
-    virtual void onAny(t_symbol* s, const AtomList&);
+    virtual void onAny(t_symbol* s, const AtomListView&);
 
     /**
      * This function called when value come in inlet, except the first one
@@ -476,7 +476,7 @@ public:
     virtual void anyTo(size_t n, t_symbol* s, const Atom& a);
     virtual void anyTo(size_t n, t_symbol* s, const AtomList& l);
 
-    virtual bool processAnyInlets(t_symbol* sel, const AtomList& lst);
+    virtual bool processAnyInlets(t_symbol* sel, const AtomListView& lst);
 
     /**
      * Used internally to get/set properties:
@@ -489,12 +489,12 @@ public:
      *
      * @note override this method for custom property processing
      */
-    virtual bool processAnyProps(t_symbol* sel, const AtomList& lst);
+    virtual bool processAnyProps(t_symbol* sel, const AtomListView& lst);
 
     /**
      * Main dispatcher of *any* messages. (Not bang, symbol, pointer, list or registered method)
      */
-    virtual void anyDispatch(t_symbol* s, const AtomList& lst);
+    virtual void anyDispatch(t_symbol* s, const AtomListView& lst);
 
     /**
      * Various load(close)bang dispatcher

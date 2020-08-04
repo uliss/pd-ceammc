@@ -65,7 +65,7 @@ void FlowChange::onList(const AtomList& l)
     listTo(0, l);
 }
 
-void FlowChange::onAny(t_symbol* s, const AtomList& l)
+void FlowChange::onAny(t_symbol* s, const AtomListView& l)
 {
     if (msg_.isEqual(Message(s, l))) {
         onRepeat();

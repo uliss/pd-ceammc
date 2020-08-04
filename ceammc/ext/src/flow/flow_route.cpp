@@ -30,7 +30,7 @@ void FlowRoute::parseProperties()
     // do not parse properties in args
 }
 
-bool FlowRoute::processAnyProps(t_symbol* sel, const AtomList& lst)
+bool FlowRoute::processAnyProps(t_symbol* sel, const AtomListView& lst)
 {
     return false;
 }
@@ -58,7 +58,7 @@ void FlowRoute::onList(const AtomList& lst)
     listTo(n_, lst);
 }
 
-void FlowRoute::onAny(t_symbol* s, const AtomList& lst)
+void FlowRoute::onAny(t_symbol* s, const AtomListView& lst)
 {
     auto& slots = args();
 

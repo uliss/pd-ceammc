@@ -38,7 +38,7 @@ class ArrayVlinePlay : public ArrayBase {
 public:
     ArrayVlinePlay(const PdArgs& args);
 
-    bool processAnyProps(t_symbol* s, const AtomList& args) override;
+    bool processAnyProps(t_symbol* s, const AtomListView& args) override;
 
     void onBang() override;
     void onFloat(t_float f) override;

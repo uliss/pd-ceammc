@@ -49,8 +49,9 @@ void ExpandEnv::onList(const AtomList& l)
     listTo(0, l.mapSymbol(&expandEnv));
 }
 
-void ExpandEnv::onAny(t_symbol* sel, const AtomList& l)
+void ExpandEnv::onAny(t_symbol* sel, const AtomListView& v)
 {
+    AtomList l = v;
     anyTo(0, expand_any_->value() ? expandEnv(sel) : sel, l.mapSymbol(&expandEnv));
 }
 

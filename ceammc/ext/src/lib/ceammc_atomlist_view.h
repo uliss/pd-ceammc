@@ -69,7 +69,47 @@ public:
     bool isData() const { return data_ && n_ == 1 && data_->isData(); }
     bool isDataType(int t) const { return data_ && n_ == 1 && data_->isDataType(t); }
     template <typename T>
-    bool isA() const;
+    bool isA() const { return n_ == 1 && data_ && data_->isA<T>(); }
+
+    /**
+     * Convert atomlist to parametrised type
+     * @throw std::logic_error on error
+     * @see Atom::asT
+     */
+    template <typename T>
+    T asT() const
+    {
+        if (n_ == 1 && data_)
+            return data_->asT<T>();
+        else
+            throw std::logic_error("not a single atom list view");
+    }
+
+    /**
+     * Returns pointer to data
+     * @warning no type checks are done
+     */
+    template <typename T>
+    const T* asD() const
+    {
+        if (n_ == 1 && data_)
+            return data_->asD<T>();
+        else
+            return nullptr;
+    }
+
+    /**
+     * Get list value
+     * @return def value if list contains other type then specified
+     */
+    template <typename T>
+    T toT(T def) const
+    {
+        if (isA<T>())
+            return asT<T>();
+        else
+            return def;
+    }
 
     // iterators
     const Atom* begin() const { return data_; }
@@ -110,6 +150,8 @@ public:
     AtomList parseQuoted(bool quoted_props = false) const;
 
     friend class AtomList;
+
+    t_atom* toPdData() const { return reinterpret_cast<t_atom*>(const_cast<Atom*>(data_)); }
 
 private:
     inline const t_atom& atom() const { return data_->atom(); }

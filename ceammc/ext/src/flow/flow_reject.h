@@ -27,10 +27,10 @@ public:
     void onFloat(t_float v) override;
     void onSymbol(t_symbol* s) override;
     void onList(const AtomList& l) override;
-    void onAny(t_symbol* sel, const AtomList& l) override;
+    void onAny(t_symbol* sel, const AtomListView& l) override;
 
     void parseProperties() override;
-    bool processAnyProps(t_symbol* sel, const AtomList& lst) override;
+    bool processAnyProps(t_symbol* sel, const AtomListView& lst) override;
 };
 
 void setup_flow_reject();

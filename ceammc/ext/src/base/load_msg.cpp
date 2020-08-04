@@ -41,7 +41,7 @@ void LoadMsg::parseProperties()
 {
 }
 
-bool LoadMsg::processAnyProps(t_symbol* /*sel*/, const AtomList& /*lst*/)
+bool LoadMsg::processAnyProps(t_symbol* /*sel*/, const AtomListView& /*lst*/)
 {
     return true;
 }

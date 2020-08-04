@@ -56,15 +56,16 @@ void ArrayWindow::onBang()
         fill();
 }
 
-void ArrayWindow::onAny(t_symbol* s, const AtomList& lst)
+void ArrayWindow::onAny(t_symbol* s, const AtomListView& lst)
 {
-    auto it = fn_map.find(s);
-    if (it == fn_map.end()) {
+    if (fn_map.find(s) == fn_map.end()) {
         OBJ_ERR << "unsupported window type: " << s;
         return;
     }
 
-    setProperty(PROP_TYPE, AtomList(s));
+
+    const Atom a(s);
+    setProperty(PROP_TYPE, a);
 }
 
 void ArrayWindow::updateGenFn()

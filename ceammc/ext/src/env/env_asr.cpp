@@ -32,10 +32,10 @@ public:
         createOutlet();
     }
 
-    bool processAnyProps(t_symbol* sel, const AtomList& lst) override
+    bool processAnyProps(t_symbol* sel, const AtomListView& lst) override
     {
         if (sel == gensym("@gate")) {
-            if (atomlistToValue<bool>(lst, false)) {
+            if (lst.boolAt(0, false)) {
                 clockReset();
                 attack_done_.delay(prop_attack_->value());
             } else {

@@ -121,15 +121,16 @@ namespace tl {
         double currentTime() const
         {
             switch (state_) {
-            case STATE_INIT:
-            case STATE_STOP:
-                return 0;
             case STATE_PAUSE:
                 return pause_time_ms_;
             case STATE_GOTO:
                 return goto_time_ms_;
             case STATE_RUN:
                 return clock_gettimesince(start_time_sys_);
+            case STATE_INIT:
+            case STATE_STOP:
+            default:
+                return 0;
             }
         }
 

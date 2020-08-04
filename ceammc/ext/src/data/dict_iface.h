@@ -53,7 +53,7 @@ public:
         *dict() = DataTypeDict::fromList(args, 2);
     }
 
-    void onAny(t_symbol* s, const AtomList& args) override
+    void onAny(t_symbol* s, const AtomListView& args) override
     {
         std::string str(s->s_name);
         str += ' ';

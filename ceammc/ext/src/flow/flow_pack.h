@@ -33,8 +33,8 @@ public:
     void onSymbol(t_symbol* s) final;
     void onInlet(size_t idx, const AtomList& l) final;
     void onList(const AtomList& l) final;
-    void onAny(t_symbol* s, const AtomList& l) final;
-    bool processAnyProps(t_symbol* s, const AtomList& l) final;
+    void onAny(t_symbol* s, const AtomListView& l) final;
+    bool processAnyProps(t_symbol* s, const AtomListView& l) final;
 
     virtual void output(size_t inlet_idx);
 };

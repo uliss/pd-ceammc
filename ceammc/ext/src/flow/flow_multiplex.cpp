@@ -49,7 +49,7 @@ void FlowMultiplex::onList(const AtomList& l)
     onInlet(0, l);
 }
 
-void FlowMultiplex::onAny(t_symbol* sel, const AtomList& args)
+void FlowMultiplex::onAny(t_symbol* sel, const AtomListView& args)
 {
     if (0 != index_->value())
         return;

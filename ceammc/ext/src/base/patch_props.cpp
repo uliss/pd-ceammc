@@ -30,7 +30,7 @@ PatchProps::PatchProps(const PdArgs& args)
     createOutlet();
 }
 
-bool PatchProps::processAnyProps(t_symbol* sel, const AtomList& lst)
+bool PatchProps::processAnyProps(t_symbol* sel, const AtomListView& lst)
 {
     return false;
 }
@@ -52,7 +52,7 @@ void PatchProps::onBang()
     }
 }
 
-void PatchProps::onAny(t_symbol* s, const AtomList& l)
+void PatchProps::onAny(t_symbol* s, const AtomListView& l)
 {
     if (s->s_name[0] != '@')
         return;

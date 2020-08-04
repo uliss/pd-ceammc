@@ -46,7 +46,7 @@ void FlowPass::onList(const AtomList& l)
     listTo(0, l);
 }
 
-void FlowPass::onAny(t_symbol* s, const AtomList& lst)
+void FlowPass::onAny(t_symbol* s, const AtomListView& lst)
 {
     if (values_->value().contains(s))
         anyTo(0, s, lst);
@@ -56,7 +56,7 @@ void FlowPass::parseProperties()
 {
 }
 
-bool FlowPass::processAnyProps(t_symbol* sel, const AtomList& lst)
+bool FlowPass::processAnyProps(t_symbol* sel, const AtomListView& lst)
 {
     static t_symbol* s_prop_values = gensym("@values");
     static t_symbol* s_get_values = gensym("@values?");

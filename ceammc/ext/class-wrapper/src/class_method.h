@@ -164,7 +164,7 @@ public:
     }
 
     void onInlet(size_t n, const AtomList& lst) override
-    {   
+    {
         // find overloaded method first
         int idx = tuple_utils::find_first(overload_args_, ArgumentMatchAndSet(lst));
 
@@ -242,7 +242,7 @@ public:
         }
     }
 
-    void onAny(t_symbol* s, const AtomList& lst) override
+    void onAny(t_symbol* s, const AtomListView& lst) override
     {
         Result res = data_.setFromAny(s, lst);
 

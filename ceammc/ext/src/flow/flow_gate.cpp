@@ -44,7 +44,7 @@ void FlowGate::onList(const AtomList& l)
     listTo(0, l);
 }
 
-void FlowGate::onAny(t_symbol* s, const AtomList& l)
+void FlowGate::onAny(t_symbol* s, const AtomListView& l)
 {
     if (!state_->value())
         return;
@@ -68,7 +68,7 @@ void FlowGate::onInlet(size_t n, const AtomList& l)
     state_->set(l);
 }
 
-bool FlowGate::processAnyProps(t_symbol* s, const AtomList& l)
+bool FlowGate::processAnyProps(t_symbol* s, const AtomListView& l)
 {
     static t_symbol* PROP_STATE = gensym("@state");
     static t_symbol* PROP_GET_STATE = gensym("@state?");

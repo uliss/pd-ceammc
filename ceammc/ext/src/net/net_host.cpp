@@ -109,7 +109,7 @@ void NetHost::onSymbol(t_symbol* s)
     start();
 }
 
-void NetHost::onAny(t_symbol* s, const AtomList&)
+void NetHost::onAny(t_symbol* s, const AtomListView&)
 {
     onSymbol(s);
 }

@@ -59,7 +59,7 @@ void FlowRejectIf::onList(const AtomList& l)
         listTo(0, l);
 }
 
-void FlowRejectIf::onAny(t_symbol* s, const AtomList& l)
+void FlowRejectIf::onAny(t_symbol* s, const AtomListView& l)
 {
     reject_ = 1;
     anyTo(1, s, l);

@@ -12,7 +12,7 @@ XMidiEvent::XMidiEvent(const AtomList& l)
     parse(l);
 }
 
-bool XMidiEvent::parse(const AtomList& l)
+bool XMidiEvent::parse(const AtomListView& l)
 {
     valid_ = (l.size() >= 5);
 
@@ -81,7 +81,7 @@ BaseMidiEventExternal::BaseMidiEventExternal(const PdArgs& a)
     createOutlet();
 }
 
-void BaseMidiEventExternal::onAny(t_symbol* s, const AtomList& args)
+void BaseMidiEventExternal::onAny(t_symbol* s, const AtomListView& args)
 {
     static t_symbol* SYM_MIDI_EVENT = gensym("MidiEvent");
 

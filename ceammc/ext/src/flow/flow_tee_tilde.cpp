@@ -28,7 +28,7 @@ void FlowTeeTilde::onList(const AtomList& l)
     listTo(1, l);
 }
 
-void FlowTeeTilde::onAny(t_symbol* s, const AtomList& l)
+void FlowTeeTilde::onAny(t_symbol* s, const AtomListView& l)
 {
     anyTo(1, s, l);
 }
@@ -56,7 +56,7 @@ void FlowTeeTilde::processBlock(const t_sample** in, t_sample** out)
     }
 }
 
-bool FlowTeeTilde::processAnyProps(t_symbol*, const AtomList&)
+bool FlowTeeTilde::processAnyProps(t_symbol*, const AtomListView&)
 {
     return false;
 }

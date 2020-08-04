@@ -22,9 +22,9 @@ public:
         createOutlet();
     }
 
-    bool processAnyProps(t_symbol* sel, const AtomList& lst) override
+    bool processAnyProps(t_symbol* sel, const AtomListView& lst) override
     {
-        if (sel == gensym("@gate") && !atomlistToValue<bool>(lst, false)) {
+        if (sel == gensym("@gate") && !lst.boolAt(0, false)) {
             done_.delay(prop_duration_->value());
         }
 

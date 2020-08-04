@@ -30,7 +30,7 @@ ListApplyTo::ListApplyTo(const ceammc::PdArgs& args)
         ->setArgIndex(0);
 }
 
-bool ListApplyTo::processAnyProps(t_symbol* sel, const AtomList& lst)
+bool ListApplyTo::processAnyProps(t_symbol* sel, const AtomListView& lst)
 {
     // no props processing
     return true;

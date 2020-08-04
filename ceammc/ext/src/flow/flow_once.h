@@ -24,13 +24,13 @@ class FlowOnce : public BaseObject {
 public:
     FlowOnce(const PdArgs& args);
 
-    bool processAnyProps(t_symbol* sel, const AtomList& lst) override;
+    bool processAnyProps(t_symbol* sel, const AtomListView& lst) override;
 
     void onBang() override;
     void onFloat(t_float f) override;
     void onSymbol(t_symbol* s) override;
     void onList(const AtomList& lst) override;
-    void onAny(t_symbol* s, const AtomList& lst) override;
+    void onAny(t_symbol* s, const AtomListView& lst) override;
 
     void m_reset(t_symbol* s, const AtomList& lst);
 };

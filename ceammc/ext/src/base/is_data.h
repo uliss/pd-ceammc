@@ -27,10 +27,10 @@ public:
     void onFloat(t_float f) override;
     void onSymbol(t_symbol* s) override;
     void onList(const AtomList& lst) override;
-    void onAny(t_symbol* s, const AtomList& lst) override;
+    void onAny(t_symbol* s, const AtomListView& lst) override;
     void onData(const Atom& d) override;
 
-    bool processAnyProps(t_symbol* sel, const AtomList& lst) final;
+    bool processAnyProps(t_symbol* sel, const AtomListView& lst) final;
 };
 
 void setup_is_data();

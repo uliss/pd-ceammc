@@ -36,7 +36,7 @@ void Msg::onList(const AtomList& l)
     output();
 }
 
-void Msg::onAny(t_symbol* sel, const AtomList& l)
+void Msg::onAny(t_symbol* sel, const AtomListView& l)
 {
     data_ = prefix_;
     data_.append(sel);
@@ -52,7 +52,7 @@ void Msg::onInlet(size_t n, const AtomList& l)
     setMethod(l);
 }
 
-bool Msg::processAnyProps(t_symbol* s, const AtomList&)
+bool Msg::processAnyProps(t_symbol* s, const AtomListView&)
 {
     return false;
 }

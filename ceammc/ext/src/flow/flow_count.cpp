@@ -46,7 +46,7 @@ void FlowCount::onList(const AtomList& l)
     tick();
 }
 
-void FlowCount::onAny(t_symbol* s, const AtomList& l)
+void FlowCount::onAny(t_symbol* s, const AtomListView& l)
 {
     tick();
 }
@@ -61,12 +61,12 @@ void FlowCount::m_reset(t_symbol*, const AtomList&)
     counter_->setValue(0);
 }
 
-bool FlowCount::processAnyInlets(t_symbol*, const AtomList&)
+bool FlowCount::processAnyInlets(t_symbol*, const AtomListView&)
 {
     return false;
 }
 
-bool FlowCount::processAnyProps(t_symbol* s, const AtomList& l)
+bool FlowCount::processAnyProps(t_symbol* s, const AtomListView& l)
 {
     static t_symbol* PROP_VALUE = gensym("@value");
     static t_symbol* PROP_GET_VALUE = gensym("@value?");

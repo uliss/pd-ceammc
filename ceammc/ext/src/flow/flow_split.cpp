@@ -52,7 +52,7 @@ void FlowSplit::onList(const AtomList& l)
     listTo(split_, l);
 }
 
-void FlowSplit::onAny(t_symbol* s, const AtomList& l)
+void FlowSplit::onAny(t_symbol* s, const AtomListView& l)
 {
     split_ = 1;
     anyTo(2, s, l);

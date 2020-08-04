@@ -31,7 +31,7 @@ void IsData::onList(const AtomList& lst)
         boolTo(0, false);
 }
 
-void IsData::onAny(t_symbol* s, const AtomList& lst)
+void IsData::onAny(t_symbol* s, const AtomListView& lst)
 {
     boolTo(0, false);
 }
@@ -42,7 +42,7 @@ void IsData::onData(const Atom& d)
     boolTo(0, true);
 }
 
-bool IsData::processAnyProps(t_symbol* sel, const AtomList& lst)
+bool IsData::processAnyProps(t_symbol* sel, const AtomListView& lst)
 {
     return false;
 }

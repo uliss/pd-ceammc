@@ -21,7 +21,7 @@ FlowOnce::FlowOnce(const PdArgs& args)
     createOutlet();
 }
 
-bool FlowOnce::processAnyProps(t_symbol* sel, const AtomList& lst)
+bool FlowOnce::processAnyProps(t_symbol* sel, const AtomListView& lst)
 {
     return false;
 }
@@ -58,7 +58,7 @@ void FlowOnce::onList(const AtomList& lst)
     }
 }
 
-void FlowOnce::onAny(t_symbol* s, const AtomList& lst)
+void FlowOnce::onAny(t_symbol* s, const AtomListView& lst)
 {
     if (pass_) {
         anyTo(0, s, lst);

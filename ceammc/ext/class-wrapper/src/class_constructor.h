@@ -118,7 +118,7 @@ public:
         }
     }
 
-    void onAny(t_symbol* s, const AtomList& l) override
+    void onAny(t_symbol* s, const AtomListView& l) override
     {
         T data;
         auto st = data.setFromAny(s, l);

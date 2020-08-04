@@ -55,7 +55,7 @@ void FlowDemultiplex::onList(const AtomList& l)
     listTo(index_->value(), l);
 }
 
-void FlowDemultiplex::onAny(t_symbol* s, const AtomList& l)
+void FlowDemultiplex::onAny(t_symbol* s, const AtomListView& l)
 {
     if (!checkIndex())
         return;
@@ -76,7 +76,7 @@ void FlowDemultiplex::onInlet(size_t /*n*/, const AtomList& l)
     index_->set(l);
 }
 
-bool FlowDemultiplex::processAnyProps(t_symbol* sel, const AtomList& lst)
+bool FlowDemultiplex::processAnyProps(t_symbol* sel, const AtomListView& lst)
 {
     static t_symbol* SYM_INDEX_GET = gensym("@index?");
     static t_symbol* SYM_INDEX_SET = gensym("@index");

@@ -25,7 +25,7 @@ class StrToSec : public BaseObject {
 public:
     StrToSec(const PdArgs& a);
     void onSymbol(t_symbol* s) override;
-    void onAny(t_symbol* s, const AtomList& v) override;
+    void onAny(t_symbol* s, const AtomListView& v) override;
     void onDataT(const StringAtom& str);
 };
 

@@ -53,7 +53,7 @@ void FlowSpeedLimit::onList(const AtomList& l)
     listTo(0, l);
 }
 
-void FlowSpeedLimit::onAny(t_symbol* s, const AtomList& l)
+void FlowSpeedLimit::onAny(t_symbol* s, const AtomListView& l)
 {
     if (is_closed_)
         return;

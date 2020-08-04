@@ -32,7 +32,7 @@ void StrToSec::onSymbol(t_symbol* s)
     floatTo(0, convert::time::str2sec(s->s_name, on_err_->value()));
 }
 
-void StrToSec::onAny(t_symbol* s, const AtomList& /*v*/)
+void StrToSec::onAny(t_symbol* s, const AtomListView& /*v*/)
 {
     floatTo(0, convert::time::str2sec(s->s_name, on_err_->value()));
 }

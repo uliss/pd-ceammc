@@ -259,12 +259,12 @@ void BaseObject::anyTo(size_t n, t_symbol* s, const AtomList& l)
     outletAny(outlets_[n], s, l);
 }
 
-bool BaseObject::processAnyInlets(t_symbol* sel, const AtomList& lst)
+bool BaseObject::processAnyInlets(t_symbol* sel, const AtomListView& lst)
 {
     if (sel->s_name[0] != '_')
         return false;
 
-    SymbolList::iterator it = std::find(inlets_s_.begin(), inlets_s_.end(), sel);
+    auto it = std::find(inlets_s_.begin(), inlets_s_.end(), sel);
     if (it == inlets_s_.end()) {
         OBJ_ERR << "invalid inlet: " << sel->s_name;
         return false;
@@ -275,7 +275,7 @@ bool BaseObject::processAnyInlets(t_symbol* sel, const AtomList& lst)
     return true;
 }
 
-bool BaseObject::processAnyProps(t_symbol* sel, const AtomList& lst)
+bool BaseObject::processAnyProps(t_symbol* sel, const AtomListView& lst)
 {
     if (sel->s_name[0] != '@')
         return false;
@@ -328,8 +328,8 @@ bool BaseObject::processAnyProps(t_symbol* sel, const AtomList& lst)
         // support for string for property
         if (p->isSymbol() && lst.isA<DataTypeString>()) {
             auto str = lst.asD<DataTypeString>();
-            auto sym = gensym(str->str().c_str());
-            rc = p->set(AtomList(sym));
+            const Atom sym(gensym(str->str().c_str()));
+            rc = p->set(AtomListView(sym));
         } else
             rc = p->set(lst);
 
@@ -948,7 +948,7 @@ void BaseObject::onData(const Atom& d)
     OBJ_ERR << "data is not expected: " << d.asData()->typeName();
 }
 
-void BaseObject::onAny(t_symbol* s, const AtomList&)
+void BaseObject::onAny(t_symbol* s, const AtomListView&)
 {
     OBJ_ERR << "unexpected message: " << s;
 }
@@ -959,7 +959,7 @@ void BaseObject::onClick(t_floatarg /*xpos*/, t_floatarg /*ypos*/,
     OBJ_ERR << "not implemeneted";
 }
 
-void BaseObject::anyDispatch(t_symbol* s, const AtomList& lst)
+void BaseObject::anyDispatch(t_symbol* s, const AtomListView& lst)
 {
     if (processAnyInlets(s, lst))
         return;

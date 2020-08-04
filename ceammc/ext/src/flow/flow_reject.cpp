@@ -50,7 +50,7 @@ void FlowReject::onList(const AtomList& l)
     listTo(0, l);
 }
 
-void FlowReject::onAny(t_symbol* sel, const AtomList& l)
+void FlowReject::onAny(t_symbol* sel, const AtomListView& l)
 {
     if (values_->value().contains(sel))
         return;
@@ -62,7 +62,7 @@ void FlowReject::parseProperties()
 {
 }
 
-bool FlowReject::processAnyProps(t_symbol* sel, const AtomList& lst)
+bool FlowReject::processAnyProps(t_symbol* sel, const AtomListView& lst)
 {
     static t_symbol* s_prop_values = gensym("@values");
     static t_symbol* s_get_values = gensym("@values?");

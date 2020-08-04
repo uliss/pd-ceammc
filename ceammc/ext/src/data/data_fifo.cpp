@@ -32,7 +32,7 @@ void DataFifo::onSymbol(t_symbol* s) { add(Atom(s)); }
 
 void DataFifo::onList(const AtomList& lst) { add(lst); }
 
-void DataFifo::onAny(t_symbol* s, const AtomList& lst) { add(Message(s, lst)); }
+void DataFifo::onAny(t_symbol* s, const AtomListView& lst) { add(Message(s, lst)); }
 
 void DataFifo::m_flush(t_symbol*, const AtomList&) { flush(); }
 

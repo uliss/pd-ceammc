@@ -38,7 +38,7 @@ public:
     void onInlet(size_t idx, const AtomList& l) override;
 
     void onSymbol(t_symbol* s) override;
-    void onAny(t_symbol* s, const AtomList& l) override;
+    void onAny(t_symbol* s, const AtomListView& l) override;
     void onDataT(const StringAtom& data);
 };
 
