@@ -82,7 +82,7 @@ AtomList parseDataList(const AtomListView& view) noexcept
         DataStringLexer lex(str);
         DataStringParser p(lex, res);
 
-        return (p.parse() == 0) ? res : view.operator AtomList();
+        return (p.parse() == 0) ? res : AtomList(view);
 
     } catch (std::exception& e) {
         return view;

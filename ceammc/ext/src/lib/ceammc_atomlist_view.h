@@ -38,7 +38,6 @@ public:
     void set(const AtomList& l);
     bool get(t_atom*& a, int& n);
 
-    operator AtomList() const;
     bool operator==(const AtomListView& v) const;
     bool operator!=(const AtomListView& v) const { return !operator==(v); }
     bool operator==(const AtomList& l) const;
@@ -156,6 +155,8 @@ public:
 private:
     inline const t_atom& atom() const { return data_->atom(); }
 };
+
+std::ostream& operator<<(std::ostream& os, const AtomListView& l);
 
 template <>
 inline bool AtomListView::isA<bool>() const { return isBool(); }

@@ -57,6 +57,12 @@ AtomList::AtomList(size_t n, t_atom* lst)
     fromPdData(n, lst);
 }
 
+AtomList::AtomList(const AtomListView& v)
+{
+    for(auto& a: v)
+        atoms_.push_back(a);
+}
+
 AtomList::AtomList(int n, t_atom* lst)
 {
     fromPdData(n, lst);
@@ -72,10 +78,24 @@ AtomList::AtomList(std::initializer_list<Atom> l)
 {
 }
 
+void AtomList::operator=(const Atom& a)
+{
+    atoms_.resize(1);
+    atoms_.front() = a;
+}
+
 void AtomList::operator=(const AtomList& l)
 {
     if (this != &l)
         atoms_ = l.atoms_;
+}
+
+void AtomList::operator=(const AtomListView& l)
+{
+    atoms_.clear();
+    atoms_.reserve(l.size());
+    for(auto& a: l)
+        atoms_.push_back(a);
 }
 
 void AtomList::operator=(AtomList&& l) noexcept

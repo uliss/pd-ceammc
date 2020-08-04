@@ -55,6 +55,7 @@ public:
     AtomList(AtomList&& l) noexcept;
     AtomList(const Atom& a);
     AtomList(size_t n, t_atom* lst);
+    AtomList(const AtomListView& v);
     explicit AtomList(int n, t_atom* lst);
     AtomList(std::initializer_list<t_float> l);
     AtomList(std::initializer_list<Atom> l);
@@ -65,7 +66,9 @@ public:
     {
     }
 
+    void operator=(const Atom& a);
     void operator=(const AtomList& l);
+    void operator=(const AtomListView& v);
     void operator=(AtomList&& l) noexcept;
 
     /**

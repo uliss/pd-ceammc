@@ -44,9 +44,11 @@ public:
     Message(const Atom& a);
     // create list
     Message(const AtomList& l);
+    Message(const AtomListView& v);
     Message(int argc, t_atom* argv);
     // create any
     Message(t_symbol* s, const AtomList& l);
+    Message(t_symbol* s, const AtomListView& v);
     Message(t_symbol* s, int argc, t_atom* argv);
 
     template <typename... Args>

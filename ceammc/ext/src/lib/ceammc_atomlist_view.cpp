@@ -114,16 +114,6 @@ bool AtomListView::operator==(const AtomListView& v) const
     return true;
 }
 
-AtomListView::operator AtomList() const
-{
-    AtomList res;
-    res.reserve(n_);
-    for (auto& a : *this)
-        res.append(a);
-
-    return res;
-}
-
 bool AtomListView::isBool() const
 {
     static t_symbol* SYM_TRUE = gensym("true");
@@ -211,10 +201,24 @@ AtomList AtomListView::parseQuoted(bool quoted_props) const
 
     if (parser.parse() != 0) {
         LIB_ERR << "parse error";
-        return *this;
+        return AtomList(*this);
     }
 
     return lex.result();
+}
+
+std::ostream& operator<<(std::ostream& os, const AtomListView& l)
+{
+    os << "( ";
+    for (size_t i = 0; i < l.size(); i++) {
+        if (i != 0)
+            os << " ";
+
+        os << l.at(i);
+    }
+
+    os << " )";
+    return os;
 }
 
 }

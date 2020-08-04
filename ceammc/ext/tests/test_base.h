@@ -524,7 +524,7 @@ void TestExternal<T>::anyTo(size_t n, const AtomListView& lst)
 template <class T>
 void TestExternal<T>::anyTo(size_t n, t_symbol* sel, const Atom& a)
 {
-    msg_[n].push_back(Message(sel, a));
+    msg_[n].push_back(Message(sel, AtomList(a)));
 }
 
 template <class T>

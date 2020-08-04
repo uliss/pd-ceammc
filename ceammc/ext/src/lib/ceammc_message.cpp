@@ -53,16 +53,25 @@ Message::Message(const Atom& a)
 
 Message::Message(const AtomList& l)
     : type_(LIST)
-    , value_(Atom(0.f))
+    , value_(Atom(0.))
     , v_list_(l)
 {
     if (l.size() == 1)
         setAtom(l[0]);
 }
 
+Message::Message(const AtomListView& view)
+    : type_(LIST),
+      value_(Atom(0.)),
+      v_list_(view)
+{
+    if (view.size() == 1)
+        setAtom(view[0]);
+}
+
 Message::Message(int argc, t_atom* argv)
     : type_(LIST)
-    , value_(Atom(0.f))
+    , value_(Atom(0.))
     , v_list_(argc, argv)
 {
     if (argc == 1)
@@ -73,6 +82,13 @@ Message::Message(t_symbol* s, const AtomList& l)
     : type_(ANY)
     , value_(s)
     , v_list_(l)
+{
+}
+
+Message::Message(t_symbol *s, const AtomListView& v)
+    : type_(ANY)
+    , value_(s)
+    , v_list_(v)
 {
 }
 
