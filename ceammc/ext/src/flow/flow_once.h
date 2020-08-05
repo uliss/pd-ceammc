@@ -32,7 +32,7 @@ public:
     void onList(const AtomList& lst) override;
     void onAny(t_symbol* s, const AtomListView& lst) override;
 
-    void m_reset(t_symbol* s, const AtomList& lst);
+    void onInlet(size_t, const AtomList&) override;
 };
 
 void setup_flow_once();

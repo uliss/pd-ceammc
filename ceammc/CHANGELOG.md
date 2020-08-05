@@ -31,7 +31,10 @@
 - flow.count:
     - second inlet add to reset counter by bang
     - init arg added to set start value
-    - method reset removed
+    - method reset removed: use bang
+- flow.once:
+    - second inlet add to reset opened state
+    - method reset removed: use bang
 
 ## [0.9]
 ### Added:
