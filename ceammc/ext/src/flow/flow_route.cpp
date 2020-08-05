@@ -14,6 +14,7 @@
 #include "flow_route.h"
 #include "ceammc_datatypes.h"
 #include "ceammc_factory.h"
+#include "ceammc_format.h"
 #include "datatype_dict.h"
 #include "datatype_mlist.h"
 
@@ -21,8 +22,12 @@ FlowRoute::FlowRoute(const PdArgs& args)
     : BaseObject(args)
     , n_(args.args.size())
 {
-    for (size_t i = 0; i < n_ + 1; i++)
+    for (auto& a : args.args) {
+        routes_.push_back(to_string(a));
         createOutlet();
+    }
+
+    createOutlet();
 }
 
 void FlowRoute::parseProperties()
@@ -137,8 +142,17 @@ void FlowRoute::onData(const Atom& data)
     }
 }
 
+const char* FlowRoute::annotateOutlet(size_t n) const
+{
+    if (n < routes_.size())
+        return routes_[n].c_str();
+    else
+        return "not-matched";
+}
+
 void setup_flow_route()
 {
     ObjectFactory<FlowRoute> obj("flow.route");
     obj.processData();
+    obj.addInletInfo("input messages");
 }
