@@ -16,7 +16,7 @@
 
 FlowOnce::FlowOnce(const PdArgs& args)
     : BaseObject(args)
-    , pass_(true)
+    , pass_(args.args.boolAt(0, true))
 {
     createInlet();
     createOutlet();

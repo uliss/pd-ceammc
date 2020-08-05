@@ -98,4 +98,18 @@ TEST_CASE("flow.once", "[externals]")
         t << IntA(200);
         REQUIRE(dataAt(t) == IntA(200));
     }
+
+    SECTION("run opened")
+    {
+        TestExtFlowOnce t("flow.once", LF(1));
+        t << BANG;
+        REQUIRE(t.hasOutput());
+    }
+
+    SECTION("run closed")
+    {
+        TestExtFlowOnce t("flow.once", LF(0));
+        t << BANG;
+        REQUIRE_FALSE(t.hasOutput());
+    }
 }

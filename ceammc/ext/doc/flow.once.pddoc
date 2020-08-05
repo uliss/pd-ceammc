@@ -19,6 +19,9 @@
                 <alias>once</alias>
             </aliases>
         </meta>
+        <arguments>
+            <argument name="OPENED" type="int" enum="0 1">set init state</argument>
+        </arguments>
         <inlets>
             <inlet>
                 <xinfo on="any">input flow</xinfo>

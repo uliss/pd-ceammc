@@ -35,6 +35,7 @@
 - flow.once:
     - second inlet add to reset opened state
     - method reset removed: use bang
+    - init arg added to set init state
 
 ## [0.9]
 ### Added:
