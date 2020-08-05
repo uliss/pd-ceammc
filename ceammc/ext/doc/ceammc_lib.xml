@@ -1412,6 +1412,9 @@
     <entry name="prop.join" descr="join property to main data flow" ref_view="object">
       <xi:include href="prop.join.pddoc" parse="xml"/>
     </entry>
+    <entry name="prop.set" descr="set object property" ref_view="object">
+      <xi:include href="prop.set.pddoc" parse="xml"/>
+    </entry>
   </category>
   <category name="proto">
     <entry name="proto.firmata" descr="Firmata Arduino protocol support" ref_view="object">

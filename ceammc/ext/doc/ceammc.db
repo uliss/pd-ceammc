@@ -455,6 +455,7 @@ prop.declare		-		-
 prop.get,prop->,@->		.		?
 prop.get~,prop~>,@~>		~		?
 prop.join,prop<-		?		.
+prop.set		?		.
 proto.firmata		.		.
 proto.sp.alpaca		.		.
 radio		.		?

@@ -456,6 +456,7 @@ set(DOC_FILES
     prop.get
     prop.get~
     prop.join
+    prop.set
     proto.firmata
     proto.sp.alpaca
     radio
