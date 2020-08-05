@@ -827,7 +827,7 @@ void eclass_attr_getter(t_object* x, t_symbol* s, int* argc, t_atom** argv)
             }
         } else if (type == s_double) {
             for (int j = 0; j < *argc; j++) {
-                atom_setfloat(argv[0] + j, (float)(((double*)point)[j]));
+                atom_setfloat(argv[0] + j, (t_float)(((double*)point)[j]));
             }
         } else if (type == &s_symbol) {
             t_symbol** syms = (t_symbol**)point;
