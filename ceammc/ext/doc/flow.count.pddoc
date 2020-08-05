@@ -13,18 +13,21 @@
             <keywords>counter</keywords>
             <since>0.4</since>
         </meta>
-        <inlets>
-            <inlet>
-                <xinfo on="any">control inlet</xinfo>
-            </inlet>
-        </inlets>
+        <arguments>
+            <argument name="N" type="int" minvalue="0">counter init value</argument>
+        </arguments>
         <properties>
             <property name="@value" type="int" minvalue="0" default="0">current counter
             state</property>
         </properties>
-        <methods>
-            <method name="reset">reset counter</method>
-        </methods>
+        <inlets>
+            <inlet>
+                <xinfo on="any">input messages</xinfo>
+            </inlet>
+            <inlet>
+                <xinfo on="bang">reset counter to init value</xinfo>
+            </inlet>
+        </inlets>
         <outlets>
             <outlet>outputs event number</outlet>
         </outlets>
@@ -35,8 +38,8 @@
 |
 [metro 300]
 |
-|  [reset(
-|  |
+|      [bang(
+|      |.
 [flow.count]
 |
 [F]

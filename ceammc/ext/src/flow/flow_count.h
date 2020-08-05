@@ -20,6 +20,7 @@ using namespace ceammc;
 
 class FlowCount : public BaseObject {
     IntProperty* counter_;
+    int default_value_;
 
 public:
     FlowCount(const PdArgs& a);
@@ -30,11 +31,10 @@ public:
     void onList(const AtomList& l) override;
     void onAny(t_symbol* s, const AtomListView& l) override;
     void onData(const Atom&) override;
+    void onInlet(size_t, const AtomList&) override;
 
-    void m_reset(t_symbol*, const AtomList&);
-
-    bool processAnyInlets(t_symbol*, const AtomListView&) override;
     bool processAnyProps(t_symbol* s, const AtomListView&) override;
+    void initDone() override;
 
 private:
     void tick();

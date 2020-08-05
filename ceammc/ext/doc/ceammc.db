@@ -105,7 +105,7 @@ envelope,env		.		.
 expand_env		.		.
 flow.append		...		.
 flow.change		.		.
-flow.count		.		.
+flow.count		..		.
 flow.delay,flow.del		..		.
 flow.demultiplex,flow.demux		..		?
 flow.demultiplex2~,flow.demux2~,demux2~		~~.		?

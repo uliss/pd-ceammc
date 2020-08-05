@@ -28,6 +28,10 @@
     - @dist property renamed to @radius
     - positional args order reversed, now is: radius, angle
     - list support added for easy connection with ui.polar
+- flow.count:
+    - second inlet add to reset counter by bang
+    - init arg added to set start value
+    - method reset removed
 
 ## [0.9]
 ### Added:
