@@ -43,7 +43,7 @@ LogExternalOutput::LogExternalOutput()
 Message LogExternalOutput::msg()
 {
 #if LOG_MULTI
-    t_log_output_multi* obj = (t_log_output_multi*)object();
+    auto* obj = (t_log_output_multi*)object();
     if (!obj || !obj->msg_list || obj->msg_list->empty())
         return Message();
 
@@ -96,7 +96,7 @@ static void log_output_single_free(t_log_output_single* x)
 
 static void log_output_single_bang(t_log_output_single* x)
 {
-    x->msg->setSymbol(&s_bang);
+    x->msg->setBang();
 }
 
 static void log_output_single_float(t_log_output_single* x, t_float f)
@@ -158,7 +158,7 @@ static void log_output_multi_free(t_log_output_multi* x)
 
 static void log_output_multi_bang(t_log_output_multi* x)
 {
-    x->msg_list->push_back(Message(&s_bang));
+    x->msg_list->push_back(Message::makeBang());
 }
 
 static void log_output_multi_float(t_log_output_multi* x, t_float f)

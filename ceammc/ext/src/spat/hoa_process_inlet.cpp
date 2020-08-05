@@ -212,7 +212,7 @@ struct MsgCallbacks {
     std::function<void(size_t, size_t, t_float)> fn_float;
     std::function<void(size_t, size_t, t_symbol*)> fn_symbol;
     std::function<void(size_t, size_t, const AtomList&)> fn_list;
-    std::function<void(size_t, size_t, t_symbol*, const AtomList&)> fn_any;
+    std::function<void(size_t, size_t, t_symbol*, const AtomListView&)> fn_any;
 };
 
 static void message_handler(size_t idx, size_t inlet, int argc, t_atom* argv, const MsgCallbacks& cb)
@@ -249,7 +249,7 @@ static void hoa_process_inlet_anything(ProcessInlet* x, t_symbol* s, int argc, t
     auto maybe_target = parseTarget(s);
 
     if (!maybe_target) {
-        obj->sendAnyToAll(x->x_index, s, AtomList(argc, argv));
+        obj->sendAnyToAll(x->x_index, s, AtomListView(argv, argc));
     } else {
         assert(argc >= 0);
 
@@ -261,7 +261,7 @@ static void hoa_process_inlet_anything(ProcessInlet* x, t_symbol* s, int argc, t
                 [obj](size_t idx, size_t inlet, t_float f) { obj->sendFloatToInstance(idx, inlet, f); },
                 [obj](size_t idx, size_t inlet, t_symbol* s) { obj->sendSymbolToInstance(idx, inlet, s); },
                 [obj](size_t idx, size_t inlet, const AtomList& l) { obj->sendListToInstance(idx, inlet, l); },
-                [obj](size_t idx, size_t inlet, t_symbol* s, const AtomList& l) { obj->sendAnyToInstance(idx, inlet, s, l); }
+                [obj](size_t idx, size_t inlet, t_symbol* s, const AtomListView& l) { obj->sendAnyToInstance(idx, inlet, s, l); }
             };
 
             message_handler(maybe_target.value().from, x->x_index, argc, argv, cb);
@@ -273,7 +273,7 @@ static void hoa_process_inlet_anything(ProcessInlet* x, t_symbol* s, int argc, t
                 [obj](size_t idx, size_t inlet, t_float f) { obj->sendFloatToGreaterEq(idx + 1, inlet, f); },
                 [obj](size_t idx, size_t inlet, t_symbol* s) { obj->sendSymbolToGreaterEq(idx + 1, inlet, s); },
                 [obj](size_t idx, size_t inlet, const AtomList& l) { obj->sendListToGreaterEq(idx + 1, inlet, l); },
-                [obj](size_t idx, size_t inlet, t_symbol* s, const AtomList& l) { obj->sendAnyToGreaterEq(idx + 1, inlet, s, l); }
+                [obj](size_t idx, size_t inlet, t_symbol* s, const AtomListView& l) { obj->sendAnyToGreaterEq(idx + 1, inlet, s, l); }
             };
 
             message_handler(maybe_target.value().from, x->x_index, argc, argv, cb);
@@ -286,7 +286,7 @@ static void hoa_process_inlet_anything(ProcessInlet* x, t_symbol* s, int argc, t
                 [obj](size_t idx, size_t inlet, t_float f) { obj->sendFloatToLessThen(idx, inlet, f); },
                 [obj](size_t idx, size_t inlet, t_symbol* s) { obj->sendSymbolToLessThen(idx, inlet, s); },
                 [obj](size_t idx, size_t inlet, const AtomList& l) { obj->sendListToLessThen(idx, inlet, l); },
-                [obj](size_t idx, size_t inlet, t_symbol* s, const AtomList& l) { obj->sendAnyToLessThen(idx, inlet, s, l); }
+                [obj](size_t idx, size_t inlet, t_symbol* s, const AtomListView& l) { obj->sendAnyToLessThen(idx, inlet, s, l); }
             };
 
             message_handler(maybe_target.value().from, x->x_index, argc, argv, cb);
@@ -301,7 +301,7 @@ static void hoa_process_inlet_anything(ProcessInlet* x, t_symbol* s, int argc, t
                 [obj, to](size_t from, size_t inlet, t_float f) { obj->sendFloatToRange(from, to, inlet, f); },
                 [obj, to](size_t from, size_t inlet, t_symbol* s) { obj->sendSymbolToRange(from, to, inlet, s); },
                 [obj, to](size_t from, size_t inlet, const AtomList& l) { obj->sendListToRange(from, to, inlet, l); },
-                [obj, to](size_t from, size_t inlet, t_symbol* s, const AtomList& l) { obj->sendAnyToRange(from, to, inlet, s, l); }
+                [obj, to](size_t from, size_t inlet, t_symbol* s, const AtomListView& l) { obj->sendAnyToRange(from, to, inlet, s, l); }
             };
 
             message_handler(maybe_target.value().from, x->x_index, argc, argv, cb);
@@ -314,7 +314,7 @@ static void hoa_process_inlet_anything(ProcessInlet* x, t_symbol* s, int argc, t
                 [obj](size_t idx, size_t inlet, t_float f) { obj->sendFloatToGreaterEq(idx, inlet, f); },
                 [obj](size_t idx, size_t inlet, t_symbol* s) { obj->sendSymbolToGreaterEq(idx, inlet, s); },
                 [obj](size_t idx, size_t inlet, const AtomList& l) { obj->sendListToGreaterEq(idx, inlet, l); },
-                [obj](size_t idx, size_t inlet, t_symbol* s, const AtomList& l) { obj->sendAnyToGreaterEq(idx, inlet, s, l); }
+                [obj](size_t idx, size_t inlet, t_symbol* s, const AtomListView& l) { obj->sendAnyToGreaterEq(idx, inlet, s, l); }
             };
 
             message_handler(maybe_target.value().from, x->x_index, argc, argv, cb);
@@ -327,14 +327,14 @@ static void hoa_process_inlet_anything(ProcessInlet* x, t_symbol* s, int argc, t
                 [obj](size_t idx, size_t inlet, t_float f) { obj->sendFloatToGreaterEq(idx, inlet, f); },
                 [obj](size_t idx, size_t inlet, t_symbol* s) { obj->sendSymbolToGreaterEq(idx, inlet, s); },
                 [obj](size_t idx, size_t inlet, const AtomList& l) { obj->sendListToSpread(idx, inlet, l); },
-                [obj](size_t idx, size_t inlet, t_symbol* s, const AtomList& l) { obj->sendAnyToSpread(idx, inlet, s, l); }
+                [obj](size_t idx, size_t inlet, t_symbol* s, const AtomListView& l) { obj->sendAnyToSpread(idx, inlet, s, l); }
             };
 
             message_handler(maybe_target.value().from, x->x_index, argc, argv, cb);
 
         } break;
         case TargetType::NONE: {
-            obj->sendAnyToAll(x->x_index, s, AtomList(argc, argv));
+            obj->sendAnyToAll(x->x_index, s, AtomListView(argv, argc));
         } break;
 
         default:

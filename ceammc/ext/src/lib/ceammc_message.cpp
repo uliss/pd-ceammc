@@ -23,7 +23,7 @@ namespace ceammc {
 
 Message::Message()
     : type_(NONE)
-    , value_(Atom(0.f))
+    , value_(Atom(0.))
 {
 }
 
@@ -137,6 +137,13 @@ Message& Message::operator=(Message&& m)
     return *this;
 }
 
+void Message::setBang()
+{
+    type_ = BANG;
+    value_ = Atom();
+    v_list_.clear();
+}
+
 void Message::setAtom(const Atom& a)
 {
     if (a.isFloat()) {
@@ -199,6 +206,8 @@ bool Message::isEqual(const Message& v) const
         return false;
 
     switch (type_) {
+    case BANG:
+        return true;
     case FLOAT:
     case SYMBOL:
         return value_ == v.value_;
@@ -221,9 +230,14 @@ Message::Type Message::type() const
 void Message::output(t_outlet* x) const
 {
     switch (type_) {
+    case BANG:
+        outlet_bang(x);
+        break;
     case FLOAT:
+        outlet_float(x, value_.asT<t_float>());
+        break;
     case SYMBOL:
-        outletAtom(x, value_);
+        outlet_symbol(x, value_.asT<t_symbol*>());
         break;
     case LIST:
         outletAtomList(x, v_list_);
@@ -238,14 +252,16 @@ void Message::output(t_outlet* x) const
         outletAtom(x, value_);
         break;
     case NONE:
+    default:
         break;
     }
 }
 
-bool Message::isBang() const
+Message Message::makeBang()
 {
-    // NB: this is only for testing purposes now
-    return (type_ == SYMBOL && value_.asSymbol() == &s_bang);
+    Message m;
+    m.type_ = BANG;
+    return m;
 }
 
 bool operator==(const Message& c1, const Message& c2)

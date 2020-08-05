@@ -99,7 +99,8 @@ TEST_CASE("hoa.process~", "[externals]")
         t.sendBangTo(1);
         REQUIRE(t.hasOutputAt(0));
         REQUIRE(t.isOutputBangAt(0));
-        REQUIRE(t.messagesAt(0) == messageList(&s_bang, &s_bang, &s_bang, &s_bang, &s_bang));
+        Message b = Message::makeBang();
+        REQUIRE(t.messagesAt(0) == MessageList({b, b, b, b, b}));
 
         // float
         t.sendFloatTo(10, 1);
@@ -571,14 +572,17 @@ TEST_CASE("hoa.process~", "[externals]")
         tr.sendMessage("#5");
         REQUIRE(t.messagesAt(0).empty());
 
+
         // bang
         t.clearAll();
         tr.sendMessage("#1");
-        REQUIRE(t.messagesAt(0) == messageList(&s_bang));
+        REQUIRE(t.messagesAt(0).size() == 1);
+        Message bng = Message::makeBang();
+        REQUIRE(t.messagesAt(0)[0] == bng);
 
         t.clearAll();
         tr.sendMessage("#1", "bang");
-        REQUIRE(t.messagesAt(0) == messageList(&s_bang));
+        REQUIRE(t.messagesAt(0) == MessageList({bng}));
 
         // float
         t.clearAll();
@@ -692,19 +696,19 @@ TEST_CASE("hoa.process~", "[externals]")
         /// BANG
         t.clearAll();
         tr.sendMessage("#*");
-        REQUIRE(t.messagesAt(0) == messageList(&s_bang, &s_bang, &s_bang, &s_bang, &s_bang));
+        REQUIRE(t.messagesAt(0) == MessageList({bng, bng, bng, bng, bng}));
 
         t.clearAll();
         tr.sendMessage("#*1");
-        REQUIRE(t.messagesAt(0) == messageList(&s_bang, &s_bang, &s_bang, &s_bang));
+        REQUIRE(t.messagesAt(0) == MessageList({bng, bng, bng, bng}));
 
         t.clearAll();
         tr.sendMessage("#*3");
-        REQUIRE(t.messagesAt(0) == messageList(&s_bang, &s_bang));
+        REQUIRE(t.messagesAt(0) == MessageList({bng, bng}));
 
         t.clearAll();
         tr.sendMessage("#*4");
-        REQUIRE(t.messagesAt(0) == messageList(&s_bang));
+        REQUIRE(t.messagesAt(0) == MessageList({bng}));
 
         t.clearAll();
         tr.sendMessage("#*5");
@@ -717,11 +721,11 @@ TEST_CASE("hoa.process~", "[externals]")
         /// BANG s_bang
         t.clearAll();
         tr.sendMessage("#*", &s_bang);
-        REQUIRE(t.messagesAt(0) == messageList(&s_bang, &s_bang, &s_bang, &s_bang, &s_bang));
+        REQUIRE(t.messagesAt(0) == MessageList({bng, bng, bng, bng, bng}));
 
         t.clearAll();
         tr.sendMessage("#*2", &s_bang);
-        REQUIRE(t.messagesAt(0) == messageList(&s_bang, &s_bang, &s_bang));
+        REQUIRE(t.messagesAt(0) == MessageList({bng, bng, bng}));
 
         /// FLOAT
         t.clearAll();
@@ -776,7 +780,7 @@ TEST_CASE("hoa.process~", "[externals]")
 
         t.clearAll();
         tr.sendMessage("#>0");
-        REQUIRE(t.messagesAt(0) == messageList(&s_bang, &s_bang, &s_bang, &s_bang));
+        REQUIRE(t.messagesAt(0) == MessageList({bng, bng, bng, bng}));
 
         /// FLOAT
         t.clearAll();
@@ -838,7 +842,7 @@ TEST_CASE("hoa.process~", "[externals]")
 
         t.clearAll();
         tr.sendMessage("#<2");
-        REQUIRE(t.messagesAt(0) == messageList(&s_bang, &s_bang));
+        REQUIRE(t.messagesAt(0) == MessageList({bng, bng}));
 
         /// FLOAT
         t.clearAll();
@@ -904,15 +908,15 @@ TEST_CASE("hoa.process~", "[externals]")
 
         t.clearAll();
         tr.sendMessage("#2-2");
-        REQUIRE(t.messagesAt(0) == messageList(&s_bang));
+        REQUIRE(t.messagesAt(0) == MessageList({bng}));
 
         t.clearAll();
         tr.sendMessage("#2-3");
-        REQUIRE(t.messagesAt(0) == messageList(&s_bang, &s_bang));
+        REQUIRE(t.messagesAt(0) == MessageList({bng, bng}));
 
         t.clearAll();
         tr.sendMessage("#2-10");
-        REQUIRE(t.messagesAt(0) == messageList(&s_bang, &s_bang, &s_bang));
+        REQUIRE(t.messagesAt(0) == MessageList({bng, bng, bng}));
 
         /// FLOAT
         t.clearAll();
@@ -970,11 +974,11 @@ TEST_CASE("hoa.process~", "[externals]")
 
         t.clearAll();
         tr.sendMessage("#:");
-        REQUIRE(t.messagesAt(0) == messageList(&s_bang, &s_bang, &s_bang, &s_bang, &s_bang));
+        REQUIRE(t.messagesAt(0) == MessageList({bng, bng, bng, bng, bng}));
 
         t.clearAll();
         tr.sendMessage("#:2");
-        REQUIRE(t.messagesAt(0) == messageList(&s_bang, &s_bang, &s_bang));
+        REQUIRE(t.messagesAt(0) == MessageList({bng, bng, bng}));
 
         /// FLOAT
         t.clearAll();

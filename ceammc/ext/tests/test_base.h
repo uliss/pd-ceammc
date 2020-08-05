@@ -131,7 +131,6 @@ public:
     size_t messageCount(size_t outlet = 0) const;
     const Message& lastMessage(size_t outlet = 0) const;
     const Message& messageAt(size_t idx, size_t outlet) const;
-    bool lastMessageIsBang(size_t outlet = 0) const;
     void cleanMessages(size_t outlet = 0);
     void cleanAllMessages();
 
@@ -473,7 +472,7 @@ void TestExternal<T>::sendTData(const DataT* d, int inlet)
 template <class T>
 void TestExternal<T>::bangTo(size_t n)
 {
-    msg_[n].push_back(Message(&s_bang));
+    msg_[n].push_back(Message::makeBang());
 }
 
 template <class T>
@@ -581,15 +580,6 @@ template <class T>
 const Message& TestExternal<T>::messageAt(size_t idx, size_t outlet) const
 {
     return msg_[outlet].at(idx);
-}
-
-template <class T>
-bool TestExternal<T>::lastMessageIsBang(size_t outlet) const
-{
-    if (msg_[outlet].empty())
-        return false;
-
-    return msg_[outlet].back().isList();
 }
 
 template <class T>

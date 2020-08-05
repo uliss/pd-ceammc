@@ -401,32 +401,32 @@ void HoaProcess::sendListToSpread(size_t from, size_t inlet_idx, const AtomList&
     }
 }
 
-void HoaProcess::sendAnyToInstance(size_t inst_idx, size_t inlet_idx, t_symbol* s, const AtomList& l)
+void HoaProcess::sendAnyToInstance(size_t inst_idx, size_t inlet_idx, t_symbol* s, const AtomListView& l)
 {
     sendToN([&l, &inlet_idx, s](ProcessInstance* p) { p->anyTo(inlet_idx, s, l); }, inst_idx);
 }
 
-void HoaProcess::sendAnyToAll(size_t inlet_idx, t_symbol* s, const AtomList& l)
+void HoaProcess::sendAnyToAll(size_t inlet_idx, t_symbol* s, const AtomListView& l)
 {
     sendToAll([&l, &inlet_idx, s](ProcessInstance* p) { p->anyTo(inlet_idx, s, l); });
 }
 
-void HoaProcess::sendAnyToLessThen(size_t inst_idx, size_t inlet_idx, t_symbol* s, const AtomList& l)
+void HoaProcess::sendAnyToLessThen(size_t inst_idx, size_t inlet_idx, t_symbol* s, const AtomListView& l)
 {
     sendToLessThen([&l, &inlet_idx, s](ProcessInstance* p) { p->anyTo(inlet_idx, s, l); }, inst_idx);
 }
 
-void HoaProcess::sendAnyToGreaterEq(size_t inst_idx, size_t inlet_idx, t_symbol* s, const AtomList& l)
+void HoaProcess::sendAnyToGreaterEq(size_t inst_idx, size_t inlet_idx, t_symbol* s, const AtomListView& l)
 {
     sendToGreaterEq([&l, &inlet_idx, s](ProcessInstance* p) { p->anyTo(inlet_idx, s, l); }, inst_idx);
 }
 
-void HoaProcess::sendAnyToRange(size_t from, size_t to, size_t inlet_idx, t_symbol* s, const AtomList& l)
+void HoaProcess::sendAnyToRange(size_t from, size_t to, size_t inlet_idx, t_symbol* s, const AtomListView& l)
 {
     sendToRange([=](ProcessInstance* p) { p->anyTo(inlet_idx, s, l); }, from, to);
 }
 
-void HoaProcess::sendAnyToSpread(size_t from, size_t inlet_idx, t_symbol* s, const AtomList& l)
+void HoaProcess::sendAnyToSpread(size_t from, size_t inlet_idx, t_symbol* s, const AtomListView& l)
 {
     const auto N = std::min(l.size() + from, instances_.size());
 
