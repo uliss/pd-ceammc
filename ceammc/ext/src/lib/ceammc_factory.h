@@ -404,7 +404,7 @@ public:
     /** default factory any handler handler */
     static void processAny(ObjectProxy* x, t_symbol* s, int argc, t_atom* argv)
     {
-        x->impl->anyDispatch(s, AtomList(argc, argv));
+        x->impl->anyDispatch(s, AtomListView(argv, argc));
     }
 
     /** default factory click handler handler */
