@@ -11,7 +11,7 @@
             <library>ceammc</library>
             <category>property</category>
             <keywords>property</keywords>
-            <since>0.1</since>
+            <since>0.9</since>
             <aliases>
                 <alias>prop&lt;-</alias>
             </aliases>
