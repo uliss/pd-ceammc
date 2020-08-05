@@ -48,7 +48,16 @@ void PropSet::onInlet(size_t n, const AtomList& lst)
     }
 }
 
+const char* PropSet::annotateInlet(size_t n) const
+{
+    if (n < props_.size())
+        return props_[n]->s_name;
+    else
+        return nullptr;
+}
+
 void setup_prop_set()
 {
     ObjectFactory<PropSet> obj("prop.set", OBJECT_FACTORY_DEFAULT | OBJECT_FACTORY_NO_DEFAULT_INLET);
+    obj.addOutletInfo("connect to target objects");
 }

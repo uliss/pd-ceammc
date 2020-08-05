@@ -20,7 +20,11 @@
             <par>The object adds ability to change properties of flow objects that should accept
             any incoming messages. The object should be connected to destination, but it not sends
             pd messages to change props, but using internal pd method calls</par>
+            <par>Note: you can connect to *any* destination inlet</par>
         </info>
+        <arguments>
+            <argument name="PROPS" type="list">property names</argument>
+        </arguments>
         <inlets dynamic="true">
             <inlet number="1">
                 <xinfo>first property value</xinfo>
@@ -41,8 +45,8 @@
 [@delay 400(/*passed thru*/  [400( [0(/*change delay time*/
 |                            |     |
 |                            [prop.set @delay]
-|                            |
-[flow.delay 1000             ]
+|                            |.
+[flow.delay 1000              ]
 |
 [ui.display @display_type=1]
 

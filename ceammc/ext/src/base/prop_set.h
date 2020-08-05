@@ -25,6 +25,7 @@ public:
 
     void parseProperties() override;
     void onInlet(size_t n, const AtomList& lst) override;
+    const char* annotateInlet(size_t n) const override;
 };
 
 void setup_prop_set();
