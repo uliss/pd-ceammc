@@ -329,7 +329,7 @@ void eclass_guiinit(t_eclass* c, long /*flags*/)
     class_addmethod(cc, reinterpret_cast<t_method>(ebox_setzoom), gensym(SYM_ZOOM), A_CANT, 0);
 
     class_setwidget(cc, (t_widgetbehavior*)&c->c_widget);
-    class_setsavefn(cc, (t_savefn)eobj_save);
+    class_setsavefn(cc, reinterpret_cast<t_savefn>(eobj_save));
 }
 
 void eclass_dspinit(t_eclass* c)
