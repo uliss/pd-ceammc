@@ -39,8 +39,8 @@
 				},
 				{
 					"type": "vslider",
-					"label": "dist",
-					"address": "/spat.pan4/dist",
+					"label": "radius",
+					"address": "/spat.pan4/radius",
 					"init": 1,
 					"min": 0,
 					"max": 1,
