@@ -31,6 +31,7 @@
 #include "flow_tee_tilde.h"
 
 void setup_flow_match();
+void setup_flow_delay();
 
 void ceammc_flow_setup()
 {
@@ -39,6 +40,7 @@ void ceammc_flow_setup()
     setup_flow_append();
     setup_flow_change();
     setup_flow_count();
+    setup_flow_delay();
     setup_flow_demultiplex();
     setup_flow_demultiplex2_tilde();
     setup_flow_demultiplex_tilde();

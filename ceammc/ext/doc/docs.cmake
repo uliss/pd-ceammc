@@ -112,6 +112,7 @@ set(DOC_FILES
     flow.group
     flow.less
     flow.less_eq
+    flow.delay
     flow.demultiplex
     flow.demultiplex~
     flow.demultiplex2~

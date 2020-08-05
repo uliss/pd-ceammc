@@ -16,6 +16,11 @@
                 <see>prop.get</see>
             </also>
         </meta>
+        <info>
+            <par>The object adds ability to change properties of flow objects that should accept
+            any incoming messages. The object should be connected to destination, but it not sends pd messages to change props, but using internal pd method
+            calls</par>
+        </info>
         <inlets dynamic="true">
             <inlet number="1">
                 <xinfo>first property value</xinfo>
@@ -33,13 +38,21 @@
         <example>
             <pdascii>
 <![CDATA[
-[F]
+[@delay 400(/*passed thru*/  [400( [0(/*change delay time*/
+|                            |     |
+|                            [prop.set @delay]
+|                            |
+[flow.delay 1000             ]
 |
-[list.repeat 2]
+[ui.display @display_type=1]
+
+[F] /*the only way to resize*/
+|
+[$1 20(
 |
 [prop.set @size]
 |
-[ui.knob @size 40 40]
+[ui.d]
 ]]>
             </pdascii>
         </example>

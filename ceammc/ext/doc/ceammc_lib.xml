@@ -407,6 +407,9 @@
     <entry name="flow.count" descr="control flow event counter" ref_view="object">
       <xi:include href="flow.count.pddoc" parse="xml"/>
     </entry>
+    <entry name="flow.delay" descr="enhanced version on vanilla delay object" ref_view="object">
+      <xi:include href="flow.delay.pddoc" parse="xml"/>
+    </entry>
     <entry name="flow.demultiplex" descr="control flow demultiplexer" ref_view="object">
       <xi:include href="flow.demultiplex.pddoc" parse="xml"/>
     </entry>

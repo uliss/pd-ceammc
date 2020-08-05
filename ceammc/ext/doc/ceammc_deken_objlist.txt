@@ -187,6 +187,8 @@ expand_env	Substitute environment variables in data stream
 flow.append	inject message into flow
 flow.change	rejects redundant input values
 flow.count	control flow event counter
+flow.delay	enhanced version on vanilla delay object
+flow.del	enhanced version on vanilla delay object
 flow.demultiplex	control flow demultiplexer
 flow.demux	control flow demultiplexer
 flow.demultiplex2~	audio stream stereo demultiplexer
