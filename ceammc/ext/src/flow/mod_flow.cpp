@@ -35,8 +35,6 @@ void setup_flow_delay();
 
 void ceammc_flow_setup()
 {
-    setup_flow0x2etee_tilde();
-
     setup_flow_append();
     setup_flow_change();
     setup_flow_count();
@@ -67,4 +65,5 @@ void ceammc_flow_setup()
     setup_flow_split();
     setup_flow_sync();
     setup_flow_sync_pack();
+    setup_flow_tee_tilde();
 }
