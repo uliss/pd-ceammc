@@ -20,16 +20,20 @@
             </also>
         </meta>
         <info>
-            <par>Delay any incoming message by specified time. Like with [delay] if new message has arrived while delay time is not
-            expired, old message is discarded and new delay time is set from current moment.</par>
-            <par>Zero delay time means output message on next Pd runloop iteration (as soon as possible)</par>
+            <par>Delay any incoming message by specified time. Like with [delay] if new message has
+            arrived while delay time is not expired, old message is discarded and new delay time is
+            set from current moment.</par>
+            <par>Zero delay time means output message on next Pd runloop iteration (as soon as
+            possible)</par>
             <par>Note: @delay property can be set only via right inlet or [prop.set] object</par>
         </info>
         <arguments>
-            <argument name="MS" type="float" minvalue="0" units="millisecond">init @delay property</argument>
+            <argument name="MS" type="float" minvalue="0" units="millisecond">init @delay
+            property</argument>
         </arguments>
         <properties>
-            <property name="@delay" type="float" minvalue="0" default="0" units="millisecond">delay time</property>
+            <property name="@delay" type="float" minvalue="0" default="0" units="millisecond">delay
+            time</property>
         </properties>
         <inlets>
             <inlet>

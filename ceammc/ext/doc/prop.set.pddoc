@@ -18,8 +18,8 @@
         </meta>
         <info>
             <par>The object adds ability to change properties of flow objects that should accept
-            any incoming messages. The object should be connected to destination, but it not sends pd messages to change props, but using internal pd method
-            calls</par>
+            any incoming messages. The object should be connected to destination, but it not sends
+            pd messages to change props, but using internal pd method calls</par>
         </info>
         <inlets dynamic="true">
             <inlet number="1">
