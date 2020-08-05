@@ -125,7 +125,7 @@ public:
     void onFloat(t_float f);
     void onSymbol(t_symbol* s);
     void onList(const AtomList& lst);
-    void onAny(t_symbol* s, const AtomList& lst);
+    void onAny(t_symbol* s, const AtomListView& lst);
     void onKey(int k, long modifiers);
     void onKeyFilter(int k, long modifiers);
     void onData(const AbstractData* ptr);
