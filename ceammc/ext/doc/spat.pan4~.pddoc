@@ -21,7 +21,7 @@
         </meta>
         <arguments>
             <argument name="RADIUS" type="float" minvalue="0">panning radius</argument>
-            <argument name="ANGLE" type="float" minvalue="0" units="radian">circle panning position in
+            <argument name="ANGLE" type="float" minvalue="0" units="radian" maxvalue="2π">circle panning position in
             radians</argument>
         </arguments>
         <properties>
@@ -56,7 +56,7 @@
 |           |             |
 |           |             |
 |           |             |
-[spat.pan4~ 3.141592  0.8  ]
+[spat.pan4~ 0.8 pi()       ]
 |       ^|      ^^|     ^^^|
 [ui.m~] [ui.m~] [ui.m~] [ui.m~]
 

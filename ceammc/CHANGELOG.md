@@ -22,7 +22,7 @@
     "outlets": ["audio", "control"...] instead of outlet number
 - props:
     - prop.set renamed to prop.join (with prop<- alias)
-- spat.pan4~:
+- spat.pan4~ and spat.pan8~:
     - @dist property renamed to @radius
     - positional args order reversed, now is: radius, angle
     - list support added for easy connection with ui.polar

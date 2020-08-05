@@ -670,7 +670,7 @@ class spat_pan8 : public spat_pan8_dsp {
 		ui_interface->openVerticalBox("spat.pan8");
 		ui_interface->declare(&fVslider1, "unit", "rad");
 		ui_interface->addVerticalSlider("angle", &fVslider1, 0.0f, 0.0f, 6.28318548f, 9.99999975e-05f);
-		ui_interface->addVerticalSlider("dist", &fVslider0, 1.0f, 0.0f, 1.0f, 9.99999975e-05f);
+		ui_interface->addVerticalSlider("radius", &fVslider0, 1.0f, 0.0f, 1.0f, 9.99999975e-05f);
 		ui_interface->closeBox();
 	}
 	
