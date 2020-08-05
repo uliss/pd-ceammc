@@ -52,7 +52,7 @@
 |           |             |
 |           [math.pi 2]   |
 |           |             |
-|           [@angle $1(   [@dist $1(
+|           [@angle $1(   [@radius $1(
 |           |             |
 |           |             |
 |           |             |
