@@ -88,6 +88,7 @@ conv.bpm2sec
 conv.car2pol
 conv.cc2amp
 conv.dbfs2amp
+conv.hex2int
 conv.lin2curve
 conv.lin2exp
 conv.lin2lin
@@ -162,18 +163,22 @@ flow.>
 flow.append
 flow.change
 flow.count
+flow.del
+flow.delay
 flow.demultiplex
 flow.demultiplex2~
 flow.demultiplex~
 flow.demux
 flow.demux2~
 flow.demux~
+flow.dup
 flow.gate
 flow.greater
 flow.group
 flow.interval
 flow.less
 flow.less_eq
+flow.loop
 flow.match
 flow.multiplex
 flow.multiplex2~
@@ -257,6 +262,7 @@ global.mlist
 global.set
 group
 helmholtz~
+hex->int
 hist~
 hoa.2d.decoder~
 hoa.2d.encoder~
@@ -630,6 +636,7 @@ prop->
 prop.declare
 prop.get
 prop.get~
+prop.join
 prop.set
 prop<-
 prop~>
