@@ -69,7 +69,7 @@
 
 // simple wrappers
 #define S(v) Atom(gensym(v))
-#define F(v) Atom(float(v))
+#define F(v) Atom(t_float(v))
 #define A(v) test_atom_wrap(v)
 #define SYM(txt) gensym(txt)
 
