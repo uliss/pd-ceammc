@@ -36,9 +36,10 @@ public:
 
     bool processAnyProps(t_symbol* sel, const AtomListView& lst) override;
 
+    void reset();
+
 private:
     void delay();
-    static void reset(t_inlet_ceammc* x, t_symbol* s, int argc, t_atom* argv);
 };
 
 void setup_flow_dup();

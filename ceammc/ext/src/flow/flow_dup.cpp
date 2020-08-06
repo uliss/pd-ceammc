@@ -14,39 +14,35 @@
 #include "flow_dup.h"
 #include "ceammc_factory.h"
 
-extern "C" {
-#include "m_imp.h"
+static t_class* inlet_proxy;
+struct t_proxy {
+    t_pd x_obj;
+    FlowDup* dest;
+};
+
+void inlet_proxy_float(t_proxy* x, t_float f)
+{
+    t_atom a;
+    SETFLOAT(&a, f);
+    x->dest->setProperty("@delay", AtomListView(&a, 1));
 }
 
-// note: should be synced with t_inlet
-struct t_inlet_ceammc {
-    t_pd i_pd;
-    t_inlet_ceammc* i_next;
-    t_object* i_owner;
-    t_pd* i_dest;
-    t_symbol* i_symfrom;
-};
+void inlet_proxy_any(t_proxy* x, t_symbol* s, int argc, t_atom* argv)
+{
+    if (s == gensym("reset"))
+        x->dest->reset();
+    else
+        LogPdObject(x, LOG_ERROR).stream() << "invalid message: " << s << " " << AtomListView(argv, argc);
+}
 
 FlowDup::FlowDup(const PdArgs& a)
     : BaseObject(a)
     , delay_(nullptr)
     , clock_([this]() { messageTo(0, msg_); })
 {
-    // add reset message to inlet class
-    static bool init_done = false;
-    static _class inl_class = { 0 };
-
-    t_inlet_ceammc* in0 = reinterpret_cast<t_inlet_ceammc*>(createInlet());
-
-    if (!init_done) {
-        // copy inlet class
-        inl_class = *in0->i_pd;
-        // add reset method
-        inl_class.c_anymethod = reinterpret_cast<t_anymethod>(FlowDup::reset);
-    }
-
-    // change new inlet class
-    in0->i_pd = &inl_class;
+    t_proxy* p = (t_proxy*)pd_new(inlet_proxy);
+    p->dest = this;
+    inlet_new(owner(), &p->x_obj, nullptr, &s_);
 
     createOutlet();
 
@@ -108,13 +104,9 @@ bool FlowDup::processAnyProps(t_symbol* sel, const AtomListView& lst)
     return false;
 }
 
-void FlowDup::reset(t_inlet_ceammc* x, t_symbol* s, int argc, t_atom* argv)
+void FlowDup::reset()
 {
-    PdObject<FlowDup>* p = (PdObject<FlowDup>*)x->i_owner;
-    if (s == gensym("reset"))
-        p->impl->clock_.unset();
-    else
-        Error(p->impl).stream() << "unsupported message: " << s;
+    clock_.unset();
 }
 
 void setup_flow_dup()
@@ -125,4 +117,8 @@ void setup_flow_dup()
     obj.setXletsInfo({ "any: input flow", "float: set delay time\n"
                                           "reset: cancel scheduled delay" },
         { "output flow" });
+
+    inlet_proxy = class_new(gensym("inlet_proxy"), 0, 0, sizeof(t_proxy), CLASS_PD, A_NULL);
+    class_doaddfloat(inlet_proxy, (t_method)inlet_proxy_float);
+    class_addanything(inlet_proxy, (t_method)inlet_proxy_any);
 }
