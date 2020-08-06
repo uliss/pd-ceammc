@@ -18,42 +18,42 @@ extern "C" {
 #include "m_imp.h"
 }
 
-struct _inlet {
+// note: should be synced with t_inlet
+struct t_inlet_ceammc {
     t_pd i_pd;
-    struct _inlet* i_next;
+    t_inlet_ceammc* i_next;
     t_object* i_owner;
     t_pd* i_dest;
     t_symbol* i_symfrom;
-    //    union inletunion i_un;
 };
 
 FlowDup::FlowDup(const PdArgs& a)
     : BaseObject(a)
     , delay_(nullptr)
-    , clock_([this]() {
-        if (msg_.isBang())
-            bangTo(0);
-        else
-            messageTo(0, msg_);
-    })
+    , clock_([this]() { messageTo(0, msg_); })
 {
+    // add reset message to inlet class
     static bool init_done = false;
-    static _class inl_class;
+    static _class inl_class = { 0 };
 
-    _inlet* in0 = createInlet();
+    t_inlet_ceammc* in0 = reinterpret_cast<t_inlet_ceammc*>(createInlet());
 
     if (!init_done) {
+        // copy inlet class
         inl_class = *in0->i_pd;
-        inl_class.c_anymethod = (t_anymethod)FlowDup::inletProxy;
+        // add reset method
+        inl_class.c_anymethod = reinterpret_cast<t_anymethod>(FlowDup::reset);
     }
 
+    // change new inlet class
     in0->i_pd = &inl_class;
 
     createOutlet();
 
     delay_ = new FloatProperty("@delay", 0);
-    delay_->checkMinEq(0);
+    delay_->checkMinEq(-1);
     delay_->setArgIndex(0);
+    delay_->setUnits(PropValueUnits::MSEC);
     addProperty(delay_);
 }
 
@@ -65,7 +65,7 @@ void FlowDup::onInlet(size_t n, const AtomList& l)
 void FlowDup::onBang()
 {
     bangTo(0);
-    msg_.setSymbol(&s_bang);
+    msg_.setBang();
     delay();
 }
 
@@ -99,28 +99,22 @@ void FlowDup::onAny(t_symbol* s, const AtomListView& l)
 
 void FlowDup::delay()
 {
-    if (delay_->value() > 0)
+    if (delay_->value() >= 0)
         clock_.delay(delay_->value());
 }
 
-void FlowDup::reset()
+bool FlowDup::processAnyProps(t_symbol* sel, const AtomListView& lst)
 {
-    clock_.unset();
+    return false;
 }
 
-void FlowDup::inletProxy(t_inlet* x, t_symbol* s, int argc, t_atom* argv)
+void FlowDup::reset(t_inlet_ceammc* x, t_symbol* s, int argc, t_atom* argv)
 {
     PdObject<FlowDup>* p = (PdObject<FlowDup>*)x->i_owner;
     if (s == gensym("reset"))
-        p->impl->reset();
+        p->impl->clock_.unset();
     else
-        Error(p->impl).stream() << "unknown message: " << s->s_name << " " << AtomList(argc, argv);
-}
-
-void FlowDup::anyFn(void* x, t_symbol* s, int argc, t_atom* argv)
-{
-    PdObject<FlowDup>* p = (PdObject<FlowDup>*)x;
-    p->impl->onAny(s, AtomList(argc, argv));
+        Error(p->impl).stream() << "unsupported message: " << s;
 }
 
 void setup_flow_dup()
