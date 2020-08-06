@@ -16,6 +16,7 @@
 - @float_width property added to ui.display
 - @positive property added to car->pol for output in [0..2π) range
 - flow.delay added: enhanced version of vanilla delay
+- flow.dup added: data flow duplication
 
 ### Changed:
 - ext_info output format changed.

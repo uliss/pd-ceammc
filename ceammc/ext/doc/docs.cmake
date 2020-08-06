@@ -107,6 +107,7 @@ set(DOC_FILES
     flow.append
     flow.change
     flow.count
+    flow.dup
     flow.gate
     flow.greater
     flow.group
