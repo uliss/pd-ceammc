@@ -19,6 +19,8 @@ PD_COMPLETE_TEST_SETUP(FlowDup, flow, dup)
 TEST_CASE("flow.dup", "[externals]")
 {
     pd_test_init();
+    setTestSampleRate(44100);
+
     SECTION("init")
     {
         SECTION("default")
@@ -42,9 +44,17 @@ TEST_CASE("flow.dup", "[externals]")
         }
     }
 
+    SECTION("delay time")
+    {
+        TExt t("flow.dup", 5_ticks);
+        REQUIRE_PROPERTY_FLOAT(t, @delay, 5_ticks);
+
+        t.sendFloatTo(10_ticks, 1);
+        REQUIRE_PROPERTY_FLOAT(t, @delay, 10_ticks);
+    }
+
     SECTION("do")
     {
-        setTestSampleRate(44100);
         TExt t("flow.dup", 5_ticks);
 
         const Message bang = Message::makeBang();
@@ -96,5 +106,16 @@ TEST_CASE("flow.dup", "[externals]")
         t.schedTicks(6);
         REQUIRE(t.messagesAt(0) == MessageList { m1, m1 });
         t.clearAll();
+
+        // reset
+        t.sendMessage(m1);
+        REQUIRE(t.messagesAt(0) == MessageList { m1 });
+        t.schedTicks(3);
+        REQUIRE(t.messagesAt(0) == MessageList { m1 });
+        t.sendMessageTo(Message(SYM("reset"), L()), 1);
+        t.schedTicks(10);
+        REQUIRE(t.messagesAt(0) == MessageList { m1 });
+
+        t.sendMessageTo(Message("error message to console:", 1, 2, 3), 1);
     }
 }
