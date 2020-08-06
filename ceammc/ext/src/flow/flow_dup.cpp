@@ -89,6 +89,13 @@ void FlowDup::onSymbol(t_symbol* s)
     delay();
 }
 
+void FlowDup::onData(const Atom& a)
+{
+    atomTo(0, a);
+    msg_.setList(a);
+    delay();
+}
+
 void FlowDup::onList(const AtomList& l)
 {
     listTo(0, l);
@@ -122,7 +129,7 @@ void FlowDup::reset()
 void setup_flow_dup()
 {
     ObjectFactory<FlowDup> obj("flow.dup");
-    obj.setAnyFn(nullptr);
+    obj.processData();
 
     obj.setXletsInfo({ "any: input flow", "float: set delay time\n"
                                           "reset: cancel scheduled delay" },

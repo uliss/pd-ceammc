@@ -11,6 +11,7 @@
  * contact the author of this file, or the owner of the project in which
  * this file belongs to.
  *****************************************************************************/
+#include "datatype_mlist.h"
 #include "flow_dup.h"
 #include "test_flow_base.h"
 
@@ -80,6 +81,13 @@ TEST_CASE("flow.dup", "[externals]")
         REQUIRE(t.messagesAt(0) == MessageList({ s0 }));
         t.schedTicks(6);
         REQUIRE(t.messagesAt(0) == MessageList({ s0, s0 }));
+        t.clearAll();
+
+        const IntA i0(1000);
+        t << i0;
+        REQUIRE(t.messagesAt(0) == MessageList({ i0 }));
+        t.schedTicks(6);
+        REQUIRE(t.messagesAt(0) == MessageList({ i0, i0 }));
         t.clearAll();
 
         // list
