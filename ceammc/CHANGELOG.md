@@ -40,6 +40,10 @@
     - init arg added to set init state
 - flow.gate: changing property values only via prop.set object
 
+### Removed:
+- flow.demultiplex: @noprops property removed, object now process any input data flow.
+  You should get/set properties via new prop.get/prop.set objects
+
 ## [0.9]
 ### Added:
 - an.onset - onset analyzer for array (using aubio library)

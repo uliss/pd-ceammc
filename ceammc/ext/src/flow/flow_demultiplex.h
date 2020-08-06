@@ -7,7 +7,6 @@ using namespace ceammc;
 
 class FlowDemultiplex : public BaseObject {
     SizeTProperty* index_;
-    FlagProperty* no_props_;
 
 public:
     FlowDemultiplex(const PdArgs& a);

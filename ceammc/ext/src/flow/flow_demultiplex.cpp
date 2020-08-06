@@ -8,13 +8,9 @@ static const size_t MAX_OUTLETS = 24;
 FlowDemultiplex::FlowDemultiplex(const PdArgs& a)
     : BaseObject(a)
     , index_(nullptr)
-    , no_props_(nullptr)
 {
     index_ = new SizeTProperty("@index", 0);
     addProperty(index_);
-
-    no_props_ = new FlagProperty("@noprops");
-    addProperty(no_props_);
 
     createInlet();
 
@@ -78,12 +74,6 @@ void FlowDemultiplex::onInlet(size_t /*n*/, const AtomList& l)
 
 bool FlowDemultiplex::processAnyProps(t_symbol* sel, const AtomListView& lst)
 {
-    static t_symbol* SYM_INDEX_GET = gensym("@index?");
-    static t_symbol* SYM_INDEX_SET = gensym("@index");
-
-    if (!no_props_->value() && (sel == SYM_INDEX_GET || sel == SYM_INDEX_SET))
-        return BaseObject::processAnyProps(sel, lst);
-
     return false;
 }
 
@@ -101,4 +91,6 @@ void setup_flow_demultiplex()
 {
     ObjectFactory<FlowDemultiplex> obj("flow.demultiplex");
     obj.addAlias("flow.demux");
+    obj.addInletInfo("any: input data flow");
+    obj.addInletInfo("int: set output number");
 }
