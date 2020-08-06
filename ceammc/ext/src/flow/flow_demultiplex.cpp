@@ -92,5 +92,5 @@ void setup_flow_demultiplex()
     ObjectFactory<FlowDemultiplex> obj("flow.demultiplex");
     obj.addAlias("flow.demux");
     obj.addInletInfo("any: input data flow");
-    obj.addInletInfo("int: set output number");
+    obj.addInletInfo("int: select output number");
 }
