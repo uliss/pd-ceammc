@@ -160,6 +160,7 @@ flow.'
 flow.<
 flow.<=
 flow.>
+flow.after
 flow.append
 flow.change
 flow.count
@@ -199,6 +200,7 @@ flow.split
 flow.sync
 flow.sync_pack
 flow.tee~
+flow<-
 flt.biquad~
 flt.bpf12~
 flt.bpf24~
@@ -592,6 +594,7 @@ osc.sinfb~
 osc.sin~
 osc.square~
 osc.tri~
+p.set
 pan.cos~
 pan.linsig~
 pan.lin~
