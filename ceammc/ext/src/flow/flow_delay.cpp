@@ -28,6 +28,7 @@ FlowDelay::FlowDelay(const PdArgs& args)
     delay_ = new FloatProperty("@delay");
     delay_->setArgIndex(0);
     delay_->checkMinEq(0);
+    delay_->setUnits(PropValueUnits::MSEC);
     addProperty(delay_);
 
     createInlet();
