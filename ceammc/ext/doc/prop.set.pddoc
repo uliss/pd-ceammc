@@ -12,6 +12,9 @@
             <category>property</category>
             <keywords>property</keywords>
             <since>0.9</since>
+            <aliases>
+                <alias>p.set</alias>
+            </aliases>
             <also>
                 <see>prop.get</see>
             </also>

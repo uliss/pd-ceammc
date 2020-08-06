@@ -620,6 +620,7 @@ prop~>	Property extractor from sound stream
 prop.join	join property to main data flow
 prop<-	join property to main data flow
 prop.set	set object property
+p.set	set object property
 proto.firmata	Firmata Arduino protocol support
 proto.sp.alpaca	protocol parser for Arduino-based CEAMMC footswitch
 random.discrete	random weighted integers on interval [0, n)
