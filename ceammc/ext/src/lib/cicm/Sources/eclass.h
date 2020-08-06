@@ -112,7 +112,7 @@ void eclass_new_attr_typed(t_eclass* c, const char* attrname, const char* type, 
  * \param argc      The size of the array of atoms
  * \param argv      The array of atoms that contains the attributes values
  */
-void eclass_attr_setter(t_object* x, t_symbol* s, size_t argc, t_atom* argv);
+void eclass_attr_setter(t_object* x, t_symbol* s, int argc, t_atom* argv);
 
 /*!
  * \fn       void eclass_attr_getter(t_object* x, t_symbol *s, int* argc, t_atom** argv)

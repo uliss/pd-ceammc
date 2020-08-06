@@ -358,6 +358,31 @@ void pd::External::sendMessage(const Message& m)
         sendMessage(m.atomValue().asSymbol(), m.listValue());
 }
 
+void pd::External::sendMessageTo(const Message& m, size_t inlet)
+{
+    if (!obj_)
+        return;
+
+    if (inlet == 0)
+        return sendMessage(m);
+
+    if (m.isBang())
+        sendBangTo(inlet);
+    else if (m.isFloat())
+        sendFloatTo(m.atomValue().asFloat(), inlet);
+    else if (m.isSymbol())
+        sendSymbolTo(m.atomValue().asSymbol(), inlet);
+    else if (m.isList())
+        sendListTo(m.listValue(), inlet);
+    else {
+        External pd_a("t", AtomList(gensym("a")));
+        if (pd_a.connectTo(0, *this, inlet)) {
+            const auto& l = m.listValue();
+            pd_anything(pd_a.pd(), m.atomValue().asSymbol(), int(l.size()), l.toPdData());
+        }
+    }
+}
+
 int pd::External::numOutlets() const
 {
     if (!obj_)

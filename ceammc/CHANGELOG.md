@@ -15,6 +15,8 @@
 - ui.toggle @on_value/@off_value properties added
 - @float_width property added to ui.display
 - @positive property added to car->pol for output in [0..2π) range
+- flow.delay added: enhanced version of vanilla delay
+- flow.dup added: data flow duplication
 
 ### Changed:
 - ext_info output format changed.
@@ -22,10 +24,21 @@
     "outlets": ["audio", "control"...] instead of outlet number
 - props:
     - prop.set renamed to prop.join (with prop<- alias)
-- spat.pan4~:
+    - prop.set now is a new object with different behavior, it changes properties via internal pd calls
+    - prop.set alias added: p.set
+- spat.pan4~ and spat.pan8~:
     - @dist property renamed to @radius
     - positional args order reversed, now is: radius, angle
     - list support added for easy connection with ui.polar
+- flow.count:
+    - second inlet add to reset counter by bang
+    - init arg added to set start value
+    - method reset removed: use bang
+- flow.once:
+    - second inlet add to reset opened state
+    - method reset removed: use bang
+    - init arg added to set init state
+- flow.gate: changing property values only via prop.set object
 
 ## [0.9]
 ### Added:

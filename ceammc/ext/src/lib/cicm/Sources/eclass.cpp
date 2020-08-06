@@ -9,6 +9,7 @@
  */
 
 #include "eclass.h"
+#include "ceammc.h"
 #include "ebox.h"
 #include "ecommon.h"
 #include "egraphics.h"
@@ -329,7 +330,7 @@ void eclass_guiinit(t_eclass* c, long /*flags*/)
     class_addmethod(cc, reinterpret_cast<t_method>(ebox_setzoom), gensym(SYM_ZOOM), A_CANT, 0);
 
     class_setwidget(cc, (t_widgetbehavior*)&c->c_widget);
-    class_setsavefn(cc, (t_savefn)eobj_save);
+    class_setsavefn(cc, reinterpret_cast<t_savefn>(eobj_save));
 }
 
 void eclass_dspinit(t_eclass* c)
@@ -366,7 +367,8 @@ t_pd_err eclass_register(t_symbol* /*name*/, t_eclass* c)
         class_setpropertiesfn(cc, reinterpret_cast<t_propertiesfn>(ebox_properties));
     }
 
-    class_addmethod(cc, reinterpret_cast<t_method>(is_cicm), s_iscicm, A_NULL, 0);
+    class_addmethod(cc, reinterpret_cast<t_method>(is_cicm), s_iscicm, A_CANT, 0);
+    class_addmethod(cc, reinterpret_cast<t_method>(eclass_attr_ceammc_setter), ceammc::SymbolTable::instance().s_propset_fn, A_CANT, 0);
 
     return 0;
 }
@@ -827,7 +829,7 @@ void eclass_attr_getter(t_object* x, t_symbol* s, int* argc, t_atom** argv)
             }
         } else if (type == s_double) {
             for (int j = 0; j < *argc; j++) {
-                atom_setfloat(argv[0] + j, (float)(((double*)point)[j]));
+                atom_setfloat(argv[0] + j, (t_float)(((double*)point)[j]));
             }
         } else if (type == &s_symbol) {
             t_symbol** syms = (t_symbol**)point;
@@ -938,7 +940,7 @@ static void eclass_attr_ceammc_setter(t_object* x, t_symbol* s, size_t argc, t_a
     eclass_attr_setter(x, prop_name, argc, argv);
 }
 
-void eclass_attr_setter(t_object* x, t_symbol* s, size_t argc, t_atom* argv)
+void eclass_attr_setter(t_object* x, t_symbol* s, int argc, t_atom* argv)
 {
     char* point;
     long* point_size;
@@ -1049,8 +1051,12 @@ void eclass_attr_setter(t_object* x, t_symbol* s, size_t argc, t_atom* argv)
             if (c->c_attr[i]->save && eobj_isbox(&z->b_obj) && ebox_isdrawable(z)) {
                 canvas_dirty(eobj_getcanvas(&z->b_obj), 1);
             }
+
+            return;
         }
     }
+
+    pd_error(x, "[%s] property not found: %s", eobj_getclassname(&z->b_obj)->s_name, s->s_name);
 }
 
 static void ewidget_init(t_eclass* c)

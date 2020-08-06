@@ -187,6 +187,8 @@ expand_env	Substitute environment variables in data stream
 flow.append	inject message into flow
 flow.change	rejects redundant input values
 flow.count	control flow event counter
+flow.delay	enhanced version on vanilla delay object
+flow.del	enhanced version on vanilla delay object
 flow.demultiplex	control flow demultiplexer
 flow.demux	control flow demultiplexer
 flow.demultiplex2~	audio stream stereo demultiplexer
@@ -195,6 +197,7 @@ demux2~	audio stream stereo demultiplexer
 flow.demultiplex~	audio stream demultiplexer
 flow.demux~	audio stream demultiplexer
 demux~	audio stream demultiplexer
+flow.dup	duplicates message with possible delay
 flow.gate	control flow gate. [spigot] analog
 gate	control flow gate. [spigot] analog
 flow.greater	numeric stream router
@@ -616,6 +619,8 @@ prop~>	Property extractor from sound stream
 @~>	Property extractor from sound stream
 prop.join	join property to main data flow
 prop<-	join property to main data flow
+prop.set	set object property
+p.set	set object property
 proto.firmata	Firmata Arduino protocol support
 proto.sp.alpaca	protocol parser for Arduino-based CEAMMC footswitch
 random.discrete	random weighted integers on interval [0, n)

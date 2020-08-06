@@ -107,11 +107,13 @@ set(DOC_FILES
     flow.append
     flow.change
     flow.count
+    flow.dup
     flow.gate
     flow.greater
     flow.group
     flow.less
     flow.less_eq
+    flow.delay
     flow.demultiplex
     flow.demultiplex~
     flow.demultiplex2~
@@ -456,6 +458,7 @@ set(DOC_FILES
     prop.get
     prop.get~
     prop.join
+    prop.set
     proto.firmata
     proto.sp.alpaca
     radio

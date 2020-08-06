@@ -105,10 +105,12 @@ envelope,env		.		.
 expand_env		.		.
 flow.append		...		.
 flow.change		.		.
-flow.count		.		.
+flow.count		..		.
+flow.delay,flow.del		..		.
 flow.demultiplex,flow.demux		..		?
 flow.demultiplex2~,flow.demux2~,demux2~		~~.		?
 flow.demultiplex~,flow.demux~,demux~		~.		?
+flow.dup		..		.
 flow.gate,gate		..		.
 flow.greater,flow.>		.		?
 flow.group,group		.		.
@@ -119,7 +121,7 @@ flow.match		?		?
 flow.multiplex,flow.mux		?		.
 flow.multiplex2~,flow.mux2~,mux2~		?		~~
 flow.multiplex~,flow.mux~,mux~		?		~
-flow.once,once		.		.
+flow.once,once		..		.
 flow.pack		?		.
 flow.pass,pass		.		.
 flow.pass_if,pass_if		..		..
@@ -455,6 +457,7 @@ prop.declare		-		-
 prop.get,prop->,@->		.		?
 prop.get~,prop~>,@~>		~		?
 prop.join,prop<-		?		.
+prop.set,p.set		?		.
 proto.firmata		.		.
 proto.sp.alpaca		.		.
 radio		.		?

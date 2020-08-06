@@ -103,14 +103,13 @@ t_binbuf* binbuf_via_atoms(int ac, t_atom* av)
 
 static t_symbol* format_symbol(t_symbol* s)
 {
-    int j = 1;
-    const int len = strlen(s->s_name);
+    int i, j, len = (int)strlen(s->s_name);
     char buf[MAXPDSTRING];
     buf[0] = '\"';
-    for (int i = 0, j = 1; i < len && j < sizeof(buf) - 2; i++, j++) {
-        if (s->s_name[i] == '"' || s->s_name[i] == '\\') // escape quotes
+    for (i = 0, j = 1; i < len && j < MAXPDSTRING - 2; i++, j++) {
+        if (s->s_name[i] == '"' || s->s_name[i] == '\\') {
             buf[j++] = '\\';
-
+        }
         buf[j] = s->s_name[i];
     }
     buf[j++] = '\"';
@@ -128,60 +127,57 @@ static t_atom* format_atoms(int ac, t_atom* av)
     return av;
 }
 
-static bool unformat_symbol(const char* text, char* buffer, long size)
+static long unformat_symbol(const char* text, char* buffer, long size)
 {
-    int j = 0, length = (int)strlen(text);
-    const int end = (text[length - 1] == '"' || text[length - 1] == '\'');
-
-    // unescape quotes
-    for (int i = 0; i < length - end && j < size - 1; i++) {
-        if (text[i] != '\\')
+    int i = 0, j = 0, len = (int)strlen(text);
+    int end = text[len - 1] == '"' || text[len - 1] == '\'';
+    for (; i < len - end && j < size - 1; i++) {
+        if (text[i] != '\\') {
             buffer[j++] = text[i];
+        }
     }
     buffer[j] = '\0';
     return !end;
 }
 
-static size_t unformat_atoms(int ac, t_atom* av)
+static long unformat_atoms(int ac, t_atom* av)
 {
-    size_t newize = 0;
-    bool is_str = false;
+    int len, newize = 0;
+    char str = 0;
+    char temp[256];
     char buf[MAXPDSTRING];
-
+    t_symbol* s;
     for (int i = 0; i < ac; i++) {
         if (atom_gettype(av + i) == A_SYMBOL) {
-            t_symbol* s = atom_getsymbol(av + i);
+            s = atom_getsymbol(av + i);
             if (strcmp(s->s_name, "[") && strcmp(s->s_name, "]")) {
-                if (!is_str) {
+                if (!str) {
                     if (s->s_name[0] == '"' || s->s_name[0] == '\'') {
-                        is_str = unformat_symbol(s->s_name + 1, buf, sizeof(buf));
+                        str = (char)unformat_symbol(s->s_name + 1, buf, MAXPDSTRING);
                     } else {
-                        unformat_symbol(s->s_name, buf, sizeof(buf));
+                        unformat_symbol(s->s_name, buf, MAXPDSTRING);
                     }
                 } else {
-                    auto len = strlen(buf);
+                    len = (int)strlen(buf);
                     strncat(buf, " ", 1);
-                    len += 1;
-                    is_str = unformat_symbol(s->s_name, buf + len, sizeof(buf) - len);
+                    str = (char)unformat_symbol(s->s_name, buf + len + 1, MAXPDSTRING - len - 1);
                 }
-                if (!is_str) {
+                if (!str) {
                     atom_setsym(av + newize, gensym(buf));
                     //sprintf(buffer, "");
                     //buffer[0] = '\0'; //-> is equal to sprintf(buffer, "") but only change the first caractere
-                    memset(buf, '\0', sizeof(buf)); //-> clean all the buffer
+                    memset(buf, '\0', MAXPDSTRING * sizeof(char)); //-> clean all the buffer
                     newize++;
                 }
             }
-        } else if (is_str) {
-            char temp[256];
-
+        } else if (str) {
             sprintf(temp, " %f", atom_getfloat(av + i));
-            int len = strlen(temp);
-            while (temp[len - 1] == '0') { // remove trailing zeroes
+            len = (int)strlen(temp);
+            while (temp[len - 1] == '0') {
                 temp[len - 1] = '\0';
                 len--;
             }
-            if (temp[len - 1] == '.') { // remove trailing point
+            if (temp[len - 1] == '.') {
                 temp[len - 1] = '\0';
                 len--;
             }
@@ -239,12 +235,11 @@ int binbuf_get_nattributes(t_binbuf* d)
 
 int atoms_get_keys(int ac, t_atom* av, t_symbol*** keys)
 {
-    int i, j;
     int size = atoms_get_nattributes(ac, av);
     if (size) {
         keys[0] = (t_symbol**)malloc((size_t)size * sizeof(t_symbol*));
         if (keys[0]) {
-            for (i = 0, j = 0; i < ac; i++) {
+            for (int i = 0, j = 0; i < ac; i++) {
                 if (atom_gettype(av + i) == A_SYMBOL && atom_getsymbol(av + i)->s_name[0] == '@') {
                     keys[0][j] = atom_getsymbol(av + i);
                     j++;
@@ -263,9 +258,8 @@ int binbuf_get_keys(t_binbuf* d, t_symbol*** keys)
 
 t_pd_err atoms_has_attribute(int argc, t_atom* argv, t_symbol* key)
 {
-    int i;
     if (argc && argv) {
-        for (i = 0; i < argc; i++) {
+        for (int i = 0; i < argc; i++) {
             if (atom_gettype(argv + i) == A_SYMBOL && atom_getsymbol(argv + i) == key) {
                 return 1;
             }
@@ -284,9 +278,8 @@ t_pd_err binbuf_has_attribute(t_binbuf* d, t_symbol* key)
 
 int atoms_get_attribute_index(int argc, t_atom* argv, t_symbol* key)
 {
-    int i;
     if (argc && argv) {
-        for (i = 0; i < argc; i++) {
+        for (int i = 0; i < argc; i++) {
             if (atom_gettype(argv + i) == A_SYMBOL && atom_getsymbol(argv + i) == key) {
                 return i;
                 break;
@@ -304,7 +297,7 @@ int binbuf_get_attribute_index(t_binbuf* d, t_symbol* key)
 t_pd_err atoms_get_attribute(int ac, t_atom* av, t_symbol* key, int* argc, t_atom** argv)
 {
     t_atom* temp;
-    long i = 0, index = 0;
+    long i = 0, index = 0, newsize = 0;
     argc[0] = 0;
     argv[0] = NULL;
 
@@ -325,9 +318,9 @@ t_pd_err atoms_get_attribute(int ac, t_atom* av, t_symbol* key, int* argc, t_ato
         argv[0] = (t_atom*)malloc((size_t)argc[0] * sizeof(t_atom));
         if (argv[0]) {
             memcpy(argv[0], av + index, (size_t)argc[0] * sizeof(t_atom));
-            size_t newsize = unformat_atoms(argc[0], argv[0]);
+            newsize = unformat_atoms(argc[0], argv[0]);
             if (newsize) {
-                temp = (t_atom*)realloc(argv[0], newsize * sizeof(t_atom));
+                temp = (t_atom*)realloc(argv[0], (size_t)newsize * sizeof(t_atom));
                 if (temp) {
                     argv[0] = temp;
                     argc[0] = (int)newsize;

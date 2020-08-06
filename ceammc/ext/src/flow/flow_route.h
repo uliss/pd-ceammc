@@ -19,6 +19,7 @@ using namespace ceammc;
 
 class FlowRoute : public BaseObject {
     const size_t n_;
+    std::vector<std::string> routes_;
 
 public:
     FlowRoute(const PdArgs& args);
@@ -28,6 +29,8 @@ public:
     void onList(const AtomList& lst) override;
     void onAny(t_symbol* s, const AtomListView& lst) override;
     void onData(const Atom& data) override;
+
+    const char* annotateOutlet(size_t n) const override;
 };
 
 void setup_flow_route();

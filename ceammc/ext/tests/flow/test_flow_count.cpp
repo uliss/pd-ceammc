@@ -19,15 +19,29 @@ PD_COMPLETE_TEST_SETUP(FlowCount, flow, count)
 TEST_CASE("flow.count", "[externals]")
 {
     pd_test_init();
+    setup_flow_count();
 
     SECTION("init")
     {
-        setup_flow_count();
+        SECTION("default")
+        {
+            TObj t("flow.count");
+            REQUIRE(t.numInlets() == 2);
+            REQUIRE(t.numOutlets() == 1);
+            REQUIRE_PROPERTY(t, @value, 0.);
+        }
 
-        TObj t("flow.count");
-        REQUIRE(t.numInlets() == 1);
-        REQUIRE(t.numOutlets() == 1);
-        REQUIRE_PROPERTY(t, @value, 0.f);
+        SECTION("arg")
+        {
+            TObj t("flow.count", LF(2));
+            REQUIRE_PROPERTY(t, @value, 2);
+        }
+
+        SECTION("props")
+        {
+            TObj t("flow.count", LA("@value", 3));
+            REQUIRE_PROPERTY(t, @value, 3);
+        }
     }
 
     SECTION("process")
@@ -66,8 +80,26 @@ TEST_CASE("flow.count", "[externals]")
         REQUIRE_FLOAT_AT_OUTLET(0, t, 9);
         REQUIRE_PROPERTY(t, @value, 9);
 
-        WHEN_CALL(t, reset);
+        t.storeAllMessageCount();
+        t.sendBang(1);
         REQUIRE_NO_MSG(t);
-        REQUIRE_PROPERTY(t, @value, 0.f);
+        REQUIRE_PROPERTY(t, @value, 0.);
+    }
+
+    SECTION("reset init")
+    {
+        TObj t("flow.count", LF(2));
+        REQUIRE_PROPERTY(t, @value, 2);
+
+        WHEN_SEND_BANG_TO(0, t);
+        REQUIRE_FLOAT_AT_OUTLET(0, t, 3);
+        WHEN_SEND_BANG_TO(0, t);
+        REQUIRE_FLOAT_AT_OUTLET(0, t, 4);
+        WHEN_SEND_BANG_TO(0, t);
+        REQUIRE_FLOAT_AT_OUTLET(0, t, 5);
+
+        t.sendBang(1);
+        WHEN_SEND_BANG_TO(0, t);
+        REQUIRE_FLOAT_AT_OUTLET(0, t, 3);
     }
 }

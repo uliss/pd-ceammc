@@ -24,7 +24,8 @@
             <par>This is the ceammc counterpart of the vanilla toggle</par>
         </info>
         <properties>
-            <property name="@value" type="float" default="0" enum="0 1">widget logical value</property>
+            <property name="@value" type="float" default="0" enum="0 1">widget logical
+            value</property>
             <property name="@on_value" type="float" default="1">output on value</property>
             <property name="@off_value" type="float" default="0">output off value</property>
             <!-- common -->
@@ -68,8 +69,8 @@
         <inlets>
             <inlet>
                 <xinfo on="bang">change toggle state</xinfo>
-                <xinfo on="float">if *0* given, sets state to unchecked and outputs @off_value. On any other
-                number sets to checked state and outputs @on_value</xinfo>
+                <xinfo on="float">if *0* given, sets state to unchecked and outputs @off_value. On
+                any other number sets to checked state and outputs @on_value</xinfo>
             </inlet>
         </inlets>
         <outlets>

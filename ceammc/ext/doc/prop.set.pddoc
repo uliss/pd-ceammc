@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="prop.set">
+        <title>prop.set</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>set object property</description>
+            <license>GPL3 or later</license>
+            <library>ceammc</library>
+            <category>property</category>
+            <keywords>property</keywords>
+            <since>0.9</since>
+            <aliases>
+                <alias>p.set</alias>
+            </aliases>
+            <also>
+                <see>prop.get</see>
+            </also>
+        </meta>
+        <info>
+            <par>The object adds ability to change properties of flow objects that should accept
+            any incoming messages. The object should be connected to destination, but it not sends
+            pd messages to change props, but using internal pd method calls</par>
+            <par>Note: you can connect to *any* destination inlet</par>
+        </info>
+        <arguments>
+            <argument name="PROPS" type="list">property names</argument>
+        </arguments>
+        <inlets dynamic="true">
+            <inlet number="1">
+                <xinfo>first property value</xinfo>
+            </inlet>
+            <inlet number="...">
+                <xinfo>... property value</xinfo>
+            </inlet>
+            <inlet number="n">
+                <xinfo>n-th property value</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet>outputs nothing. connect to destination object(s)</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[@delay 400(/*passed thru*/  [400( [0(/*change delay time*/
+|                            |     |
+|                            [prop.set @delay]
+|                            |.
+[flow.delay 1000              ]
+|
+[ui.display @display_type=1]
+
+[F] /*the only way to resize*/
+|
+[$1 20(
+|
+[prop.set @size]
+|
+[ui.d]
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

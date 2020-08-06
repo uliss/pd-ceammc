@@ -9,6 +9,7 @@
  */
 
 #include "eobj.h"
+#include "eclass.h"
 #include "ceammc_platform.h"
 #include "ecommon.h"
 #include "egraphics.h"
@@ -18,8 +19,6 @@
 
 static t_eproxy* eproxy_new(t_eobj* owner, t_symbol* sym_from, t_symbol* sym_to);
 static void eproxy_free(t_eobj* owner, t_eproxy* proxy);
-void eclass_attr_setter(t_object* x, t_symbol* s, size_t argc, t_atom* argv);
-void eclass_attr_getter(t_object* x, t_symbol* s, int* argc, t_atom** argv);
 
 void* eobj_new(t_eclass* c)
 {

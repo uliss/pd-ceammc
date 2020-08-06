@@ -354,7 +354,7 @@ void UIObjectImpl::onList(const AtomList& lst)
 {
 }
 
-void UIObjectImpl::onAny(t_symbol* s, const AtomList& lst)
+void UIObjectImpl::onAny(t_symbol* s, const AtomListView& lst)
 {
     LIB_ERR << "unknown message: " << s->s_name;
 }

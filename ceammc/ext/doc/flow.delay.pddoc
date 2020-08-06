@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="flow.delay">
+        <title>flow.delay</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>enhanced version on vanilla delay object</description>
+            <license>GPL3 or later</license>
+            <library>ceammc</library>
+            <category>flow</category>
+            <keywords>flow delay</keywords>
+            <since>0.9.1</since>
+            <aliases>
+                <alias>flow.del</alias>
+            </aliases>
+            <also>
+                <see>delay</see>
+            </also>
+        </meta>
+        <info>
+            <par>Delay any incoming message by specified time. Like with [delay] if new message has
+            arrived while delay time is not expired, old message is discarded and new delay time is
+            set from current moment.</par>
+            <par>Zero delay time means output message on next Pd runloop iteration (as soon as
+            possible)</par>
+            <par>Note: @delay property can be set only via right inlet or [prop.set] object</par>
+        </info>
+        <arguments>
+            <argument name="MS" type="float" minvalue="0" units="millisecond">init @delay
+            property</argument>
+        </arguments>
+        <properties>
+            <property name="@delay" type="float" minvalue="0" default="0" units="millisecond">delay
+            time</property>
+        </properties>
+        <inlets>
+            <inlet>
+                <xinfo>incoming message</xinfo>
+            </inlet>
+            <inlet>
+                <xinfo on="float" minvalue="0">set delay time</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet>outputs nothing. connect to destination object(s)</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[@msg 400( [300(  [0(/*change delay time*/
+|          |      |
+|          [prop.set @delay] [F] /* the same*/
+|          |                 |.
+[flow.delay 1000              ]
+|
+[ui.display @display_type=1]
+
+[1 2(/*zero time*/
+|
+[unpack f f]
+|   ^|  ^|
+|    |  [flow.del 0]
+|    |  |
+[print Z]
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

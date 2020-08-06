@@ -16,8 +16,9 @@
 
 FlowOnce::FlowOnce(const PdArgs& args)
     : BaseObject(args)
-    , pass_(true)
+    , pass_(args.args.boolAt(0, true))
 {
+    createInlet();
     createOutlet();
 }
 
@@ -66,7 +67,7 @@ void FlowOnce::onAny(t_symbol* s, const AtomListView& lst)
     }
 }
 
-void FlowOnce::m_reset(t_symbol* s, const AtomList& lst)
+void FlowOnce::onInlet(size_t, const AtomList&)
 {
     pass_ = true;
 }
@@ -75,5 +76,5 @@ void setup_flow_once()
 {
     ObjectFactory<FlowOnce> obj("flow.once");
     obj.addAlias("once");
-    obj.addMethod("reset", &FlowOnce::m_reset);
+    obj.setXletsInfo({ "any: input flow", "bang: reset" }, { "any: output flow" });
 }

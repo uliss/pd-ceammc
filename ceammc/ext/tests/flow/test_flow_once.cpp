@@ -22,19 +22,22 @@ TEST_CASE("flow.once", "[externals]")
 
     SECTION("init")
     {
-        TestFlowOnce t("flow.once");
-        REQUIRE(t.numInlets() == 1);
-        REQUIRE(t.numOutlets() == 1);
+        SECTION("default")
+        {
+            TestFlowOnce t("flow.once");
+            REQUIRE(t.numInlets() == 2);
+            REQUIRE(t.numOutlets() == 1);
+        }
     }
 
     SECTION("ext")
     {
         TestExtFlowOnce t("flow.once");
-        REQUIRE(t.numInlets() == 1);
+        REQUIRE(t.numInlets() == 2);
         REQUIRE(t.numOutlets() == 1);
 
         TestExtFlowOnce t0("once");
-        REQUIRE(t0.numInlets() == 1);
+        REQUIRE(t0.numInlets() == 2);
         REQUIRE(t0.numOutlets() == 1);
     }
 
@@ -56,43 +59,57 @@ TEST_CASE("flow.once", "[externals]")
         t << 100;
         REQUIRE_FALSE(t.hasOutput());
 
-        t.call("reset");
+        t.sendBangTo(1);
         t << 200.f;
         REQUIRE(t.outputFloatAt(0) == Approx(200));
 
         t << "text";
         REQUIRE_FALSE(t.hasOutput());
 
-        t.call("reset");
-        t << "text2";
-        REQUIRE(t.outputSymbolAt(0) == gensym("text2"));
+        t.sendBangTo(1);
+        t << "reset";
+        REQUIRE(t.outputSymbolAt(0) == gensym("reset"));
 
         t << LA("a", "b", 3);
         REQUIRE_FALSE(t.hasOutput());
 
-        t.call("reset");
+        t.sendBangTo(1);
         t << LA("a", "b", 4);
         REQUIRE(t.outputListAt(0) == LA("a", "b", 4));
 
         t <<= LA("message", "ABC");
         REQUIRE_FALSE(t.hasOutput());
 
-        t.call("reset");
+        t.sendBangTo(1);
         t <<= LA("message", "ABC");
         REQUIRE(t.outputAnyAt(0) == LA("message", "ABC"));
 
         t <<= LA("@prop", "ABC");
         REQUIRE_FALSE(t.hasOutput());
 
-        t.call("reset");
+        t.sendBangTo(1);
         t <<= LA("@prop", "ABC");
         REQUIRE(t.outputAnyAt(0) == LA("@prop", "ABC"));
 
         t << IntA(-100);
         REQUIRE_FALSE(t.hasOutput());
 
-        t.call("reset");
+        t.sendBangTo(1);
         t << IntA(200);
         REQUIRE(dataAt(t) == IntA(200));
+    }
+
+    SECTION("run opened")
+    {
+        TestExtFlowOnce t("flow.once", LF(1));
+        t << BANG;
+        REQUIRE(t.hasOutput());
+    }
+
+    SECTION("run closed")
+    {
+        TestExtFlowOnce t("flow.once", LF(0));
+        t << BANG;
+        REQUIRE_FALSE(t.hasOutput());
     }
 }

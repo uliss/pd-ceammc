@@ -18,13 +18,18 @@
 #include "ceammc_object.h"
 using namespace ceammc;
 
+struct t_proxy;
+
 class FlowDup : public BaseObject {
     FloatProperty* delay_;
     ClockLambdaFunction clock_;
     Message msg_;
+    t_proxy* inlet_proxy_;
 
 public:
     FlowDup(const PdArgs& a);
+    ~FlowDup();
+
     void onInlet(size_t n, const AtomList& l) override;
     void onBang() override;
     void onFloat(t_float f) override;
@@ -32,11 +37,12 @@ public:
     void onList(const AtomList& l) override;
     void onAny(t_symbol* s, const AtomListView& l) override;
 
+    bool processAnyProps(t_symbol* sel, const AtomListView& lst) override;
+
+    void reset();
+
 private:
     void delay();
-    void reset();
-    static void inletProxy(t_inlet* x, t_symbol* s, int argc, t_atom* argv);
-    static void anyFn(void* x, t_symbol* s, int argc, t_atom* argv);
 };
 
 void setup_flow_dup();

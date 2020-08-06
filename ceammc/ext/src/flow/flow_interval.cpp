@@ -60,4 +60,5 @@ void FlowInterval::onAny(t_symbol* s, const AtomListView& lst)
 void setup_flow_interval()
 {
     ObjectFactory<FlowInterval> obj("flow.interval");
+    obj.setXletsInfo({ "input messages" }, { "float: time(ms) between current and previous message" });
 }

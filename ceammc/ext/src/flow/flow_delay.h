@@ -1,5 +1,5 @@
 /*****************************************************************************
- * Copyright 2017 Serge Poltavsky. All rights reserved.
+ * Copyright 2020 Serge Poltavsky. All rights reserved.
  *
  * This file may be distributed under the terms of GNU Public License version
  * 3 (GPL v3) as defined by the Free Software Foundation (FSF). A copy of the
@@ -11,35 +11,32 @@
  * contact the author of this file, or the owner of the project in which
  * this file belongs to.
  *****************************************************************************/
-#ifndef FLOW_COUNT_H
-#define FLOW_COUNT_H
+#ifndef FLOW_DELAY_H
+#define FLOW_DELAY_H
 
+#include "ceammc_clock.h"
+#include "ceammc_factory.h"
 #include "ceammc_object.h"
-
 using namespace ceammc;
 
-class FlowCount : public BaseObject {
-    IntProperty* counter_;
-    int default_value_;
+class FlowDelay : public BaseObject {
+    Message last_msg_;
+    FloatProperty* delay_;
+    ClockLambdaFunction clock_;
 
 public:
-    FlowCount(const PdArgs& a);
+    FlowDelay(const PdArgs& args);
 
     void onBang() override;
     void onFloat(t_float f) override;
     void onSymbol(t_symbol* s) override;
     void onList(const AtomList& l) override;
     void onAny(t_symbol* s, const AtomListView& l) override;
-    void onData(const Atom&) override;
-    void onInlet(size_t, const AtomList&) override;
+    void onInlet(size_t n, const AtomList& l) override;
 
-    bool processAnyProps(t_symbol* s, const AtomListView&) override;
-    void initDone() override;
-
-private:
-    void tick();
+    bool processAnyProps(t_symbol* sel, const AtomListView& lst) override;
 };
 
-void setup_flow_count();
+void setup_flow_delay();
 
-#endif // FLOW_COUNT_H
+#endif // FLOW_DELAY_H

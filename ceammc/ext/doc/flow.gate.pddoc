@@ -19,6 +19,10 @@
                 <alias>gate</alias>
             </aliases>
         </meta>
+        <info>
+            <par>Note: property setting can be done only via [prop.set] object, since object
+            accepts all incoming messages</par>
+        </info>
         <arguments>
             <argument name="PASS" type="int">init gate state. 1 means open, 0 - closed. By default
             gate is closed</argument>
@@ -41,9 +45,11 @@
         <example>
             <pdascii>
 <![CDATA[
-[F]       [T]
-|         |.
-[flow.gate 1]
+[F]       [T] [T]
+|         |   |
+|         |   [prop.set @state]
+|         |.  |.
+[flow.gate 1   ]
 |
 [F]
 ]]>

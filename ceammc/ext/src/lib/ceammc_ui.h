@@ -19,19 +19,19 @@ namespace ceammc {
 class UIObject;
 class UIDspObject;
 
-static const char* DEFAULT_ACTIVE_COLOR = "0. 0.75 1. 1.";
-static const char* DEFAULT_BORDER_COLOR = "0.6 0.6 0.6 1.";
-static const char* DEFAULT_BACKGROUND_COLOR = "0.93 0.93 0.93 1.";
-static const char* DEFAULT_TEXT_COLOR = "0. 0. 0. 1.";
-static const char* DEFAULT_LABEL_COLOR = "0. 0. 0. 1.";
+constexpr const char* DEFAULT_ACTIVE_COLOR = "0. 0.75 1. 1.";
+constexpr const char* DEFAULT_BORDER_COLOR = "0.6 0.6 0.6 1.";
+constexpr const char* DEFAULT_BACKGROUND_COLOR = "0.93 0.93 0.93 1.";
+constexpr const char* DEFAULT_TEXT_COLOR = "0. 0. 0. 1.";
+constexpr const char* DEFAULT_LABEL_COLOR = "0. 0. 0. 1.";
 
-static const char* PROP_ACTIVE_COLOR = "active_color";
-static const char* PROP_BACKGROUND_COLOR = "background_color";
-static const char* PROP_BORDER_COLOR = "border_color";
-static const char* PROP_TEXT_COLOR = "text_color";
-static const char* PROP_LABEL_COLOR = "label_color";
+constexpr const char* PROP_ACTIVE_COLOR = "active_color";
+constexpr const char* PROP_BACKGROUND_COLOR = "background_color";
+constexpr const char* PROP_BORDER_COLOR = "border_color";
+constexpr const char* PROP_TEXT_COLOR = "text_color";
+constexpr const char* PROP_LABEL_COLOR = "label_color";
 
-static const char* PROP_PRESET_NAME = "presetname";
+constexpr const char* PROP_PRESET_NAME = "presetname";
 
 //! Gettext extract message helper
 #ifndef _
@@ -977,7 +977,7 @@ public:
 
     static void onAny(UI* z, t_symbol* s, int argc, t_atom* argv)
     {
-        z->onAny(s, AtomList(argc, argv));
+        z->onAny(s, AtomListView(argv, argc));
     }
 
     static int checkPresetIndex(UI* z, int argc, t_atom* argv)

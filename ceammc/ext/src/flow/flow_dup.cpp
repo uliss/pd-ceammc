@@ -14,47 +14,53 @@
 #include "flow_dup.h"
 #include "ceammc_factory.h"
 
-extern "C" {
-#include "m_imp.h"
+static t_class* inlet_proxy_class;
+struct t_proxy {
+    t_pd x_obj;
+    FlowDup* dest;
+
+    t_proxy(FlowDup* d)
+        : dest(d)
+    {
+        x_obj = inlet_proxy_class;
+    }
+};
+
+void inlet_proxy_float(t_proxy* x, t_float f)
+{
+    t_atom a;
+    SETFLOAT(&a, f);
+    x->dest->setProperty("@delay", AtomListView(&a, 1));
 }
 
-struct _inlet {
-    t_pd i_pd;
-    struct _inlet* i_next;
-    t_object* i_owner;
-    t_pd* i_dest;
-    t_symbol* i_symfrom;
-    //    union inletunion i_un;
-};
+void inlet_proxy_any(t_proxy* x, t_symbol* s, int argc, t_atom* argv)
+{
+    if (s == gensym("reset"))
+        x->dest->reset();
+    else
+        LogPdObject(x, LOG_ERROR).stream() << "invalid message: " << s << " " << AtomListView(argv, argc);
+}
 
 FlowDup::FlowDup(const PdArgs& a)
     : BaseObject(a)
     , delay_(nullptr)
-    , clock_([this]() {
-        if (msg_.isBang())
-            bangTo(0);
-        else
-            messageTo(0, msg_);
-    })
+    , clock_([this]() { messageTo(0, msg_); })
+    , inlet_proxy_(new t_proxy(this))
 {
-    static bool init_done = false;
-    static _class inl_class;
-
-    _inlet* in0 = createInlet();
-
-    if (!init_done) {
-        inl_class = *in0->i_pd;
-        inl_class.c_anymethod = (t_anymethod)FlowDup::inletProxy;
-    }
-
-    in0->i_pd = &inl_class;
+    inlet_new(owner(), &inlet_proxy_->x_obj, nullptr, &s_);
 
     createOutlet();
 
     delay_ = new FloatProperty("@delay", 0);
-    delay_->checkMinEq(0);
+    delay_->checkMinEq(-1);
     delay_->setArgIndex(0);
+    delay_->setUnits(PropValueUnits::MSEC);
     addProperty(delay_);
+}
+
+FlowDup::~FlowDup()
+{
+    delete inlet_proxy_;
 }
 
 void FlowDup::onInlet(size_t n, const AtomList& l)
@@ -65,7 +71,7 @@ void FlowDup::onInlet(size_t n, const AtomList& l)
 void FlowDup::onBang()
 {
     bangTo(0);
-    msg_.setSymbol(&s_bang);
+    msg_.setBang();
     delay();
 }
 
@@ -99,28 +105,18 @@ void FlowDup::onAny(t_symbol* s, const AtomListView& l)
 
 void FlowDup::delay()
 {
-    if (delay_->value() > 0)
+    if (delay_->value() >= 0)
         clock_.delay(delay_->value());
+}
+
+bool FlowDup::processAnyProps(t_symbol* sel, const AtomListView& lst)
+{
+    return false;
 }
 
 void FlowDup::reset()
 {
     clock_.unset();
-}
-
-void FlowDup::inletProxy(t_inlet* x, t_symbol* s, int argc, t_atom* argv)
-{
-    PdObject<FlowDup>* p = (PdObject<FlowDup>*)x->i_owner;
-    if (s == gensym("reset"))
-        p->impl->reset();
-    else
-        Error(p->impl).stream() << "unknown message: " << s->s_name << " " << AtomList(argc, argv);
-}
-
-void FlowDup::anyFn(void* x, t_symbol* s, int argc, t_atom* argv)
-{
-    PdObject<FlowDup>* p = (PdObject<FlowDup>*)x;
-    p->impl->onAny(s, AtomList(argc, argv));
 }
 
 void setup_flow_dup()
@@ -131,4 +127,8 @@ void setup_flow_dup()
     obj.setXletsInfo({ "any: input flow", "float: set delay time\n"
                                           "reset: cancel scheduled delay" },
         { "output flow" });
+
+    inlet_proxy_class = class_new(gensym("inlet_proxy"), 0, 0, sizeof(t_proxy), CLASS_PD, A_NULL);
+    class_doaddfloat(inlet_proxy_class, (t_method)inlet_proxy_float);
+    class_addanything(inlet_proxy_class, (t_method)inlet_proxy_any);
 }

@@ -19,12 +19,15 @@
                 <alias>once</alias>
             </aliases>
         </meta>
-        <methods>
-            <method name="reset">reset to open state</method>
-        </methods>
+        <arguments>
+            <argument name="OPENED" type="int" enum="0 1">set init state</argument>
+        </arguments>
         <inlets>
             <inlet>
                 <xinfo on="any">input flow</xinfo>
+            </inlet>
+            <inlet>
+                <xinfo on="bang">reset to opened state</xinfo>
             </inlet>
         </inlets>
         <outlets>
@@ -33,9 +36,9 @@
         <example>
             <pdascii>
 <![CDATA[
-[F]       [reset(
-|         |
-[flow.once]
+[F]       [bang(
+|         |.
+[flow.once ]
 |
 [F]
 ]]>

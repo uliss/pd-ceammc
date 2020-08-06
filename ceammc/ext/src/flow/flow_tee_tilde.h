@@ -18,6 +18,6 @@ public:
     bool processAnyProps(t_symbol*, const AtomListView&) override;
 };
 
-extern "C" void setup_flow0x2etee_tilde();
+void setup_flow_tee_tilde();
 
 #endif // FLOW_TEE_TILDE_H
