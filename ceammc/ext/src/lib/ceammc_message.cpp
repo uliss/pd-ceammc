@@ -14,6 +14,7 @@
 #include "ceammc_message.h"
 #include "ceammc_abstractdata.h"
 #include "ceammc_format.h"
+#include "ceammc_log.h"
 #include "ceammc_output.h"
 
 #include <cassert>
@@ -49,6 +50,10 @@ Message::Message(const Atom& a)
         type_ = SYMBOL;
     else if (value_.isData())
         type_ = DATA;
+    else if (value_.isNone())
+        type_ = NONE;
+    else
+        LogPdObject(nullptr, LOG_DEBUG).stream() << "unknown atom type: " << a.type();
 }
 
 Message::Message(const AtomList& l)
@@ -61,9 +66,9 @@ Message::Message(const AtomList& l)
 }
 
 Message::Message(const AtomListView& view)
-    : type_(LIST),
-      value_(Atom(0.)),
-      v_list_(view)
+    : type_(LIST)
+    , value_(Atom(0.))
+    , v_list_(view)
 {
     if (view.size() == 1)
         setAtom(view[0]);
@@ -85,7 +90,7 @@ Message::Message(t_symbol* s, const AtomList& l)
 {
 }
 
-Message::Message(t_symbol *s, const AtomListView& v)
+Message::Message(t_symbol* s, const AtomListView& v)
     : type_(ANY)
     , value_(s)
     , v_list_(v)
@@ -286,6 +291,8 @@ std::ostream& operator<<(std::ostream& os, const Message& m)
         os << "symbol ";
     else if (m.isList())
         os << "list ";
+    else if (m.isData())
+        os << "data ";
 
     os << to_string(m, " ") << '(';
     return os;
