@@ -14,10 +14,16 @@
 #include "flow_dup.h"
 #include "ceammc_factory.h"
 
-static t_class* inlet_proxy;
+static t_class* inlet_proxy_class;
 struct t_proxy {
     t_pd x_obj;
     FlowDup* dest;
+
+    t_proxy(FlowDup* d)
+        : dest(d)
+    {
+        x_obj = inlet_proxy_class;
+    }
 };
 
 void inlet_proxy_float(t_proxy* x, t_float f)
@@ -39,10 +45,9 @@ FlowDup::FlowDup(const PdArgs& a)
     : BaseObject(a)
     , delay_(nullptr)
     , clock_([this]() { messageTo(0, msg_); })
+    , inlet_proxy_(new t_proxy(this))
 {
-    t_proxy* p = (t_proxy*)pd_new(inlet_proxy);
-    p->dest = this;
-    inlet_new(owner(), &p->x_obj, nullptr, &s_);
+    inlet_new(owner(), &inlet_proxy_->x_obj, nullptr, &s_);
 
     createOutlet();
 
@@ -51,6 +56,11 @@ FlowDup::FlowDup(const PdArgs& a)
     delay_->setArgIndex(0);
     delay_->setUnits(PropValueUnits::MSEC);
     addProperty(delay_);
+}
+
+FlowDup::~FlowDup()
+{
+    delete inlet_proxy_;
 }
 
 void FlowDup::onInlet(size_t n, const AtomList& l)
@@ -118,7 +128,7 @@ void setup_flow_dup()
                                           "reset: cancel scheduled delay" },
         { "output flow" });
 
-    inlet_proxy = class_new(gensym("inlet_proxy"), 0, 0, sizeof(t_proxy), CLASS_PD, A_NULL);
-    class_doaddfloat(inlet_proxy, (t_method)inlet_proxy_float);
-    class_addanything(inlet_proxy, (t_method)inlet_proxy_any);
+    inlet_proxy_class = class_new(gensym("inlet_proxy"), 0, 0, sizeof(t_proxy), CLASS_PD, A_NULL);
+    class_doaddfloat(inlet_proxy_class, (t_method)inlet_proxy_float);
+    class_addanything(inlet_proxy_class, (t_method)inlet_proxy_any);
 }
