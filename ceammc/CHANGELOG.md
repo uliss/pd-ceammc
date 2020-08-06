@@ -36,6 +36,7 @@
     - second inlet add to reset opened state
     - method reset removed: use bang
     - init arg added to set init state
+- flow.gate: changing property values only via prop.set object
 
 ## [0.9]
 ### Added:
