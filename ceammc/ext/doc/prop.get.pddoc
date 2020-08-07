@@ -37,7 +37,7 @@
             <outlet number="1">connected to destination object</outlet>
             <outlet number="2">output of first requested property</outlet>
             <outlet number="...">output of ... requested property</outlet>
-            <outlet number="n">output of n+1 requested property</outlet>
+            <outlet number="n+1">output of n-th requested property</outlet>
         </outlets>
         <example>
             <pdascii>

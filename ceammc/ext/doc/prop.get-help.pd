@@ -40,8 +40,8 @@
 #X text 245 472 output of first requested property.;
 #X text 110 492 ....;
 #X text 245 492 output of ... requested property.;
-#X text 110 512 n.;
-#X text 245 512 output of n+1 requested property.;
+#X text 110 512 n+1\.;
+#X text 245 512 output of n-th requested property.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;
