@@ -28,6 +28,7 @@ set(BASE_SOURCES
     prop_get_tilde.cpp
     prop_join.cpp
     prop_set.cpp
+    prop_split.cpp
     radio.cpp
     replace.cpp)
 

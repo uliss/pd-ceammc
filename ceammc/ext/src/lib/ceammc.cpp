@@ -99,8 +99,6 @@ XletGetAnnotationFn ceammc_get_annotation_fn(t_pd* x)
     return reinterpret_cast<XletGetAnnotationFn>(zgetfn(x, ceammc::SymbolTable::instance().s_annotate_fn));
 }
 
-void a(void* obj, char* buf, size_t bufsize, XletType type, int xlet_idx);
-
 void ceammc_xlet_bind_tooltip(t_object* x, t_glist* glist, XletType type, const char* xlet_id, const char* txt)
 {
     sys_vgui("::ceammc_tt::txt .x%lx.c %s %d \"%s\"\n", glist, xlet_id, type, txt);
@@ -112,7 +110,7 @@ void ceammc_xlet_bind_tooltip(t_object* x, t_glist* glist, XletGetTclIdFn id_fn,
     if (!str || str[0] == '\0')
         return;
 
-    char xlet_tcl_id[128] = "xxx";
+    char xlet_tcl_id[128] = "";
     id_fn(glist, x, xlet_tcl_id, sizeof(xlet_tcl_id), type, xlet_idx);
     ceammc_xlet_bind_tooltip(x, glist, type, xlet_tcl_id, str);
 }
