@@ -70,8 +70,8 @@ void PropSet::processObjectProps(t_object* dest, t_symbol* s, const AtomList& ls
     auto fn = ceammc_get_propset_fn(dest);
     if (!fn)
         OBJ_ERR << "can't find property: " << s->s_name;
-    else
-        fn(dest, s, lst.size(), lst.toPdData());
+    else if (!fn(dest, s, lst.size(), lst.toPdData()))
+        OBJ_ERR << "can't set property: " << s->s_name;
 }
 
 void setup_prop_set()
