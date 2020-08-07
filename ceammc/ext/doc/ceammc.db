@@ -454,10 +454,10 @@ preset.storage		.		.
 preset.symbol,preset.s		.		.
 prop		.		.
 prop.declare		-		-
-prop.get,prop->,@->		.		?
 prop.get~,prop~>,@~>		~		?
 prop.join,prop<-		?		.
 prop.set,p.set		?		.
+prop.split,prop->,@->		.		?
 proto.firmata		.		.
 proto.sp.alpaca		.		.
 radio		.		?

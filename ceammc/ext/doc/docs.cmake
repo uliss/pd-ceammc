@@ -455,10 +455,10 @@ set(DOC_FILES
     preset.symbol
     prop
     prop.declare
-    prop.get
     prop.get~
     prop.join
     prop.set
+    prop.split
     proto.firmata
     proto.sp.alpaca
     radio

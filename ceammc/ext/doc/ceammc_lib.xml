@@ -1409,9 +1409,6 @@
     <entry name="prop.declare" descr="declare named property for subpatch or abstraction" ref_view="object">
       <xi:include href="prop.declare.pddoc" parse="xml"/>
     </entry>
-    <entry name="prop.get" descr="Property extractor" ref_view="object">
-      <xi:include href="prop.get.pddoc" parse="xml"/>
-    </entry>
     <entry name="prop.get~" descr="Property extractor from sound stream" ref_view="object">
       <xi:include href="prop.get~.pddoc" parse="xml"/>
     </entry>
@@ -1420,6 +1417,9 @@
     </entry>
     <entry name="prop.set" descr="set object property" ref_view="object">
       <xi:include href="prop.set.pddoc" parse="xml"/>
+    </entry>
+    <entry name="prop.split" descr="separate properties from dataflow" ref_view="object">
+      <xi:include href="prop.split.pddoc" parse="xml"/>
     </entry>
   </category>
   <category name="proto">

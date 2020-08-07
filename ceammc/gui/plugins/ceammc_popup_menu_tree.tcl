@@ -182,7 +182,7 @@
         preset.float preset.list preset.storage preset.symbol
     }}
     {property {
-        patch.props prop prop.declare prop.get prop.get~ prop.join prop.set
+        patch.props prop prop.declare prop.get~ prop.join prop.set prop.split
     }}
     {proto {
         proto.firmata proto.sp.alpaca

@@ -101,7 +101,6 @@ void ceammc_base_setup()
     setup_patch_props();
     setup_patch_tree();
     setup_prop_declare();
-    setup_prop_get();
     setup_prop_get_tilde();
     setup_prop_join();
     setup_prop_set();

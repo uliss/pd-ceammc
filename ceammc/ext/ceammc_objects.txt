@@ -637,10 +637,10 @@ preset.symbol
 prop
 prop->
 prop.declare
-prop.get
 prop.get~
 prop.join
 prop.set
+prop.split
 prop<-
 prop~>
 proto.firmata
