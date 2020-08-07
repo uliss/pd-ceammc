@@ -1,8 +1,10 @@
 #include "prop_set.h"
 #include "ceammc.h"
 #include "ceammc_factory.h"
+#include "datatype_property.h"
 
 extern "C" {
+#include "g_canvas.h"
 #include "m_imp.h"
 }
 
@@ -36,12 +38,10 @@ void PropSet::onInlet(size_t n, const AtomList& lst)
         int whichp;
         conn = obj_nexttraverseoutlet(conn, &dest, &inletp, &whichp);
 
-        auto fn = ceammc_get_propset_fn(dest);
-        if (!fn) {
-            OBJ_ERR << "can't find properties: " << props_[n];
-            continue;
-        } else
-            fn(dest, props_[n], lst.size(), lst.toPdData());
+        if (dest->te_g.g_pd == canvas_class)
+            processCanvasProps(reinterpret_cast<t_glist*>(dest), props_[n], lst);
+        else
+            processObjectProps(dest, props_[n], lst);
     }
 }
 
@@ -51,6 +51,27 @@ const char* PropSet::annotateInlet(size_t n) const
         return props_[n]->s_name;
     else
         return nullptr;
+}
+
+void PropSet::processCanvasProps(t_glist* dest, t_symbol* s, const AtomList& lst)
+{
+    for (size_t i = 0; i < props_.size(); i++) {
+        auto* full = PropertyStorage::makeFullName(props_[i], dest);
+        PropertyPtr pp(full);
+        if (pp)
+            pp->setFromPdArgs(lst);
+        else
+            OBJ_ERR << "can't find property: " << s->s_name;
+    }
+}
+
+void PropSet::processObjectProps(t_object* dest, t_symbol* s, const AtomList& lst)
+{
+    auto fn = ceammc_get_propset_fn(dest);
+    if (!fn)
+        OBJ_ERR << "can't find property: " << s->s_name;
+    else
+        fn(dest, s, lst.size(), lst.toPdData());
 }
 
 void setup_prop_set()
