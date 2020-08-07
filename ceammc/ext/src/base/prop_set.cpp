@@ -6,8 +6,6 @@ extern "C" {
 #include "m_imp.h"
 }
 
-using SetPropertyFn = int (*)(t_object*, t_symbol*, int, t_atom*);
-
 PropSet::PropSet(const PdArgs& args)
     : BaseObject(args)
 {
@@ -37,9 +35,8 @@ void PropSet::onInlet(size_t n, const AtomList& lst)
         t_inlet* inletp;
         int whichp;
         conn = obj_nexttraverseoutlet(conn, &dest, &inletp, &whichp);
-        SetPropertyFn fn = reinterpret_cast<SetPropertyFn>(
-            zgetfn(&dest->te_g.g_pd, SymbolTable::instance().s_propset_fn));
 
+        auto fn = ceammc_get_propset_fn(dest);
         if (!fn) {
             OBJ_ERR << "can't find properties: " << props_[n];
             continue;

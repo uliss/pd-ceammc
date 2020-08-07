@@ -112,17 +112,18 @@ void eclass_new_attr_typed(t_eclass* c, const char* attrname, const char* type, 
  * \param argc      The size of the array of atoms
  * \param argv      The array of atoms that contains the attributes values
  */
-void eclass_attr_setter(t_object* x, t_symbol* s, int argc, t_atom* argv);
+int eclass_attr_setter(t_object* x, t_symbol* s, int argc, t_atom* argv);
 
 /*!
- * \fn       void eclass_attr_getter(t_object* x, t_symbol *s, int* argc, t_atom** argv)
+ * \fn       int eclass_attr_getter(t_object* x, t_symbol *s, int* argc, t_atom** argv)
  * \brief           The getter method of the attributes.
  * \param x         The object pointer
  * \param s         The attribute name
  * \param argc      The size of the array of atoms
  * \param argv      The array of atoms that contains the attributes values
+ * \return 1 on success, 0 on error
  */
-void eclass_attr_getter(t_object* x, t_symbol* s, int* argc, t_atom** argv);
+int eclass_attr_getter(t_object* x, t_symbol* s, int* argc, t_atom** argv);
 
 /*!
  * \fn       void eclass_attr_ceammc_getter(t_object* x, t_symbol *s, int* argc, t_atom** argv)

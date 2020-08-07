@@ -35,6 +35,7 @@ const char* InvalidOutlet::what() const noexcept
 
 SymbolTable::SymbolTable()
     : s_annotate_fn(gensym(".annotate"))
+    , s_propget_fn(gensym(".propget"))
     , s_propset_fn(gensym(".propset"))
     , s_is_base_obj_fn(gensym(".is_base?"))
     , s_is_cicm_obj_fn(gensym(".is_cicm?"))
@@ -113,6 +114,32 @@ void ceammc_xlet_bind_tooltip(t_object* x, t_glist* glist, XletGetTclIdFn id_fn,
     char xlet_tcl_id[128] = "";
     id_fn(glist, x, xlet_tcl_id, sizeof(xlet_tcl_id), type, xlet_idx);
     ceammc_xlet_bind_tooltip(x, glist, type, xlet_tcl_id, str);
+}
+
+void ceammc_class_add_propget_fn(t_class* c, PropertyGetFn fn)
+{
+    class_addmethod(c, reinterpret_cast<t_method>(fn), SymbolTable::instance().s_propget_fn, A_CANT, A_NULL);
+}
+
+void ceammc_class_add_propset_fn(t_class* c, PropertySetFn fn)
+{
+    class_addmethod(c, reinterpret_cast<t_method>(fn), SymbolTable::instance().s_propset_fn, A_CANT, A_NULL);
+}
+
+PropertyGetFn ceammc_get_propget_fn(t_object* x)
+{
+    if (!x)
+        return nullptr;
+    else
+        return reinterpret_cast<PropertyGetFn>(zgetfn(&x->te_g.g_pd, SymbolTable::instance().s_propget_fn));
+}
+
+PropertySetFn ceammc_get_propset_fn(t_object* x)
+{
+    if (!x)
+        return nullptr;
+    else
+        return reinterpret_cast<PropertySetFn>(zgetfn(&x->te_g.g_pd, SymbolTable::instance().s_propset_fn));
 }
 
 }

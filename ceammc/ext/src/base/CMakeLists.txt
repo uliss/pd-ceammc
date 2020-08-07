@@ -24,6 +24,7 @@ set(BASE_SOURCES
     patch_tree.cpp
     prop.cpp
     prop_declare.cpp
+    prop_get.cpp
     prop_get_tilde.cpp
     prop_join.cpp
     prop_set.cpp

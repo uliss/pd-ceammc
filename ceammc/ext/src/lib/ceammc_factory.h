@@ -101,8 +101,10 @@ public:
         class_addmethod(c, reinterpret_cast<t_method>(dumpMethodList), SymbolTable::instance().s_dump_fn, A_NULL);
         // add [@*?( method to output all properties
         class_addmethod(c, reinterpret_cast<t_method>(queryPropNames), SYM_PROPS_ALL_Q(), A_NULL);
+        // direct property get
+        ceammc_class_add_propget_fn(c, getProperty);
         // direct property set
-        class_addmethod(c, reinterpret_cast<t_method>(setProperty), SymbolTable::instance().s_propset_fn, A_CANT, A_NULL);
+        ceammc_class_add_propset_fn(c, setProperty);
         // is base test
         class_addmethod(c, reinterpret_cast<t_method>(isBaseObject), SymbolTable::instance().s_is_base_obj_fn, A_CANT, A_NULL);
 
@@ -134,7 +136,7 @@ public:
 
         // xlet tooltips()
         if (!(flags_ & OBJECT_FACTORY_NO_TOOLTIPS))
-            class_addmethod(class_, (t_method)annotateFn, gensym(".annotate"), A_CANT, 0);
+            class_addmethod(class_, (t_method)annotateFn, SymbolTable::instance().s_annotate_fn, A_CANT, 0);
     }
 
     /** use default pd bang handler */
@@ -461,9 +463,38 @@ public:
         x->impl->queryPropNames();
     }
 
-    static int setProperty(ObjectProxy* x, t_symbol* sel, int argc, t_atom* argv)
+    static int getProperty(t_object* x, t_symbol* sel, int* argc, t_atom** argv)
     {
-        return x->impl->setProperty(sel, AtomListView(argv, argc));
+        ObjectProxy* z = reinterpret_cast<ObjectProxy*>(x);
+
+        if (!argc) {
+            pd_error("[%s] null argc pointer: %s", class_name_->s_name, __FUNCTION__);
+            return 0;
+        }
+
+        if (!argv) {
+            pd_error("[%s] null argv pointer: %s", class_name_->s_name, __FUNCTION__);
+            return 0;
+        }
+
+        Property* pp = z->impl->property(sel);
+        if (!pp)
+            return 0;
+        else {
+            AtomList pvalue = pp->get();
+            *argc = pvalue.size();
+            *argv = reinterpret_cast<t_atom*>(getbytes(*argc * sizeof(t_atom)));
+            for (size_t i = 0; i < pvalue.size(); i++)
+                *argv[i] = pvalue.at(i).atom();
+
+            return 1;
+        }
+    }
+
+    static int setProperty(t_object* x, t_symbol* sel, int argc, t_atom* argv)
+    {
+        ObjectProxy* z = reinterpret_cast<ObjectProxy*>(x);
+        return z->impl->setProperty(sel, AtomListView(argv, argc));
     }
 
     /* for runtime testing */

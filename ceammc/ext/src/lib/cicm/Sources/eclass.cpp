@@ -347,6 +347,22 @@ static t_pd_err is_cicm(t_eobj* /*x*/)
     return 1;
 }
 
+static int eclass_attr_iface_getter(t_object* x, t_symbol* prop_name, int* argc, t_atom** argv)
+{
+    char buf[128];
+    strncpy(buf, &prop_name->s_name[1], sizeof(buf) - 1); // skip first @
+    buf[sizeof(buf) - 1] = '\0';
+    return eclass_attr_getter(x, gensym(buf), argc, argv);
+}
+
+static int eclass_attr_iface_setter(t_object* x, t_symbol* prop_name, int argc, t_atom* argv)
+{
+    char buf[128];
+    strncpy(buf, &prop_name->s_name[1], sizeof(buf) - 1); // skip first @
+    buf[sizeof(buf) - 1] = '\0';
+    return eclass_attr_setter(x, gensym(buf), argc, argv);
+}
+
 t_pd_err eclass_register(t_symbol* /*name*/, t_eclass* c)
 {
     t_class* cc = &c->c_class;
@@ -368,7 +384,10 @@ t_pd_err eclass_register(t_symbol* /*name*/, t_eclass* c)
     }
 
     class_addmethod(cc, reinterpret_cast<t_method>(is_cicm), s_iscicm, A_CANT, 0);
-    class_addmethod(cc, reinterpret_cast<t_method>(eclass_attr_ceammc_setter), ceammc::SymbolTable::instance().s_propset_fn, A_CANT, 0);
+
+    // props
+    ceammc::ceammc_class_add_propget_fn(cc, eclass_attr_iface_getter);
+    ceammc::ceammc_class_add_propset_fn(cc, eclass_attr_iface_setter);
 
     return 0;
 }
@@ -777,19 +796,19 @@ void eclass_attr_accessor(t_eclass* c, const char* attrname, t_err_method getter
     }
 }
 
-void eclass_attr_getter(t_object* x, t_symbol* s, int* argc, t_atom** argv)
+int eclass_attr_getter(t_object* x, t_symbol* s, int* argc, t_atom** argv)
 {
     t_ebox* z = (t_ebox*)x;
     t_eclass* c = (t_eclass*)z->b_obj.o_obj.te_g.g_pd;
 
     if (argc == nullptr) {
         pd_error(x, "[%s] null argc pointer given", class_getname(x->te_pd));
-        return;
+        return 0;
     }
 
     if (*argv) {
         pd_error(x, "[%s] invalid argv pointer given", class_getname(x->te_pd));
-        return;
+        return 0;
     }
 
     *argc = 0;
@@ -844,10 +863,13 @@ void eclass_attr_getter(t_object* x, t_symbol* s, int* argc, t_atom** argv)
             }
         } else {
             printf("Unknown property get method: %s\n", type->s_name);
+            return 0;
         }
 
-        break;
+        return 1;
     }
+
+    return 0;
 }
 
 static bool request_property(t_object* x, t_symbol* s, std::vector<t_atom>& res)
@@ -940,7 +962,7 @@ static void eclass_attr_ceammc_setter(t_object* x, t_symbol* s, size_t argc, t_a
     eclass_attr_setter(x, prop_name, argc, argv);
 }
 
-void eclass_attr_setter(t_object* x, t_symbol* s, int argc, t_atom* argv)
+int eclass_attr_setter(t_object* x, t_symbol* s, int argc, t_atom* argv)
 {
     char* point;
     long* point_size;
@@ -1052,11 +1074,12 @@ void eclass_attr_setter(t_object* x, t_symbol* s, int argc, t_atom* argv)
                 canvas_dirty(eobj_getcanvas(&z->b_obj), 1);
             }
 
-            return;
+            return 1;
         }
     }
 
     pd_error(x, "[%s] property not found: %s", eobj_getclassname(&z->b_obj)->s_name, s->s_name);
+    return 0;
 }
 
 static void ewidget_init(t_eclass* c)

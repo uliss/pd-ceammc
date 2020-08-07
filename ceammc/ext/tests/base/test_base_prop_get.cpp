@@ -11,9 +11,12 @@
  * contact the author of this file, or the owner of the project in which
  * this file belongs to.
  *****************************************************************************/
+#include "metro_seq.h"
 #include "test_external.h"
+#include "test_external_log_output.h"
 
 void setup_prop_get();
+void setup_metro_seq();
 
 struct Dummy {
 };
@@ -21,59 +24,36 @@ struct Dummy {
 TEST_CASE("prop.get", "[externals]")
 {
     setup_prop_get();
+    setup_metro_seq();
+    test::pdPrintToStdError();
 
     SECTION("init")
     {
-        TestPdExternal<Dummy> t("prop.get", LA("@msg"));
+        pd::External t("prop.get", LA("@interval"));
         REQUIRE(t.object());
         REQUIRE(t.numInlets() == 1);
-        REQUIRE(t.numOutlets() == 3);
+        REQUIRE(t.numOutlets() == 2);
 
-        t << BANG;
-        REQUIRE(t.isOutputBangAt(0));
-        t << 123;
-        REQUIRE(t.outputFloatAt(0) == 123);
-        t << "message";
-        REQUIRE(t.outputSymbolAt(0) == gensym("message"));
-        t << LF(1, 2, 3);
-        REQUIRE(t.outputListAt(0) == LX(1, 2, 3));
+        LogExternalOutput l0;
+        t.connectTo(1, l0, 0);
 
-        t.call("A");
-        REQUIRE(t.outputAnyAt(0) == LA("A"));
-        t.call("A", LA("B"));
-        REQUIRE(t.outputAnyAt(0) == LA("A", "B"));
-        t.call("A", LA("B", "C"));
-        REQUIRE(t.outputAnyAt(0) == LA("A", "B", "C"));
+        TestPdExternal<MetroSeq> mseq("metro.seq", LA(1, 1, 1, "@interval", 90));
+        REQUIRE(mseq.object());
 
-        // dump message processed by itself
-        t.call("dump");
-        REQUIRE_FALSE(t.hasOutput());
+        t.sendBang();
+        REQUIRE(l0.msg().isNone());
 
-        // props
-        t.call("@prop?");
-        REQUIRE(t.outputAnyAt(2) == LA("@prop?"));
-        t.call("@unknown", LF(1, 2, 3));
-        REQUIRE(t.outputAnyAt(2) == LA("@unknown", 1, 2, 3));
+        t.connectTo(0, mseq, 0);
 
-        t.call("@msg", LF(1, 2, 3));
-        REQUIRE(t.outputListAt(1) == LF(1, 2, 3));
-        t.call("@msg", LF(1, 2));
-        REQUIRE(t.outputListAt(1) == LF(1, 2));
-        t.call("@msg", LF(1));
-        REQUIRE(t.outputFloatAt(1) == 1);
-        t.call("@msg", 1);
-        REQUIRE(t.outputFloatAt(1) == 1);
-        t.call("@msg", LA("test"));
-        REQUIRE(t.outputSymbolAt(1) == gensym("test"));
-        t.call("@msg");
-        REQUIRE(t.isOutputBangAt(1));
-    }
+        // get property
+        t.sendBang();
+        REQUIRE(l0.msg().isFloat());
+        REQUIRE(l0.msg().atomValue().asFloat() == 90);
 
-    SECTION("aliases")
-    {
-        TestPdExternal<Dummy> t1("prop->");
-        REQUIRE(t1.object());
-        TestPdExternal<Dummy> t2("@->");
-        REQUIRE(t2.object());
+        mseq->setProperty("@interval", LF(25.5));
+
+        t.sendBang();
+        REQUIRE(l0.msg().isFloat());
+        REQUIRE(l0.msg().atomValue().asFloat() == 25.5);
     }
 }
