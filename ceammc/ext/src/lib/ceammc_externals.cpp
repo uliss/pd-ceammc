@@ -40,16 +40,6 @@ void register_ui_external(t_class* c)
     ObjectInfoStorage::instance().addUI(c);
 }
 
-void register_base_external(t_class* c)
-{
-    ObjectInfoStorage::instance().addBase(c);
-}
-
-void register_faust_external(t_class* c)
-{
-    ObjectInfoStorage::instance().addFaust(c);
-}
-
 void register_flext_external(t_class* c)
 {
     ObjectInfoStorage::instance().addFlext(c);
