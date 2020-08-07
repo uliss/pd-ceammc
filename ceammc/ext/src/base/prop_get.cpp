@@ -86,7 +86,7 @@ void PropGet::processObjectProps(t_object* dest)
 
         const size_t IDX = props_.size() - std::distance(props_.rbegin(), it);
         listTo(IDX, AtomListView(argv, argc));
-        free(argv);
+        freebytes(argv, argc);
     }
 }
 
