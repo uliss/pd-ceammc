@@ -17,17 +17,24 @@
 #include "ceammc_object.h"
 using namespace ceammc;
 
-typedef bool (*FlowCompareFn)(t_float, t_float);
+using FlowCompareFn = bool (*)(t_float, t_float);
+using CompreFnDesc = std::pair<const char*, const char*>;
 
 class FlowCompareBase : public BaseObject {
     FlowCompareFn cmp_;
     std::vector<t_float> args_;
+    std::vector<std::string> out_info_;
+    ListProperty* prop_args_;
+    CompreFnDesc cmp_desc_;
     const bool ascending_order_;
 
 public:
-    FlowCompareBase(const PdArgs& args, FlowCompareFn fn);
+    FlowCompareBase(const PdArgs& args, FlowCompareFn fn, CompreFnDesc desc);
+    void initDone() override;
 
     void onFloat(t_float f) final;
+    const char* annotateOutlet(size_t n) const override;
+    const char* annotateInlet(size_t n) const override;
 
 private:
     void usage(bool err = false);

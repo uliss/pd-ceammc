@@ -15,7 +15,7 @@
 #include "ceammc_factory.h"
 
 FlowGreater::FlowGreater(const PdArgs& args)
-    : FlowCompareBase(args, &FlowGreater::cmp)
+    : FlowCompareBase(args, &FlowGreater::cmp, { ">", "<=" })
 {
 }
 

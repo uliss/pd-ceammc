@@ -15,7 +15,7 @@
 #include "ceammc_factory.h"
 
 FlowLessEq::FlowLessEq(const PdArgs& a)
-    : FlowCompareBase(a, &FlowLessEq::cmp)
+    : FlowCompareBase(a, &FlowLessEq::cmp, { "<=", ">" })
 {
 }
 
