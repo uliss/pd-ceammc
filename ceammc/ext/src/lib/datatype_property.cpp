@@ -383,22 +383,16 @@ PropertyStorage::Dict& PropertyStorage::storage()
 
 t_symbol* PropertyStorage::makeFullName(const std::string& name, t_glist* cnv)
 {
-    std::string res;
-    char buf[30];
-    snprintf(buf, sizeof(buf), "%p:", (void*)cnv);
-    res += buf;
-    res += name;
-    return gensym(res.c_str());
+    char buf[MAXPDSTRING];
+    snprintf(buf, sizeof(buf), "%p:%s", reinterpret_cast<void*>(cnv), name.c_str());
+    return gensym(buf);
 }
 
 t_symbol* PropertyStorage::makeFullName(t_symbol* name, t_glist* cnv)
 {
-    std::string res;
-    char buf[30];
-    snprintf(buf, sizeof(buf), "%p:", (void*)cnv);
-    res += buf;
-    res += name->s_name;
-    return gensym(res.c_str());
+    char buf[MAXPDSTRING];
+    snprintf(buf, sizeof(buf), "%p:%s", reinterpret_cast<void*>(cnv), name->s_name);
+    return gensym(buf);
 }
 
 PropertyPtr::PropertyPtr(t_symbol* name)
