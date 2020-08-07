@@ -168,7 +168,7 @@ void tclscript()
             "flext_cancel $id\n"
         "}\n")
     );
-    sys_vgui(const_cast<char *>(
+    sys_vgui(
         "proc flext_help {id} {\n"
             "toplevel $id.hw\n"
             "wm title $id.hw \"Flext attribute editor help\"\n"
