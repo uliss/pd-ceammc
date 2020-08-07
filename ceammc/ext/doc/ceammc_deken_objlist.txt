@@ -611,6 +611,8 @@ preset.s	load/store symbol preset
 patch.props	patch properties manager
 prop	get/set named property value for subpatch or abstraction
 prop.declare	declare named property for subpatch or abstraction
+prop.get	get property from connected object/subpatch/abstraction
+p.get	get property from connected object/subpatch/abstraction
 prop.get~	Property extractor from sound stream
 prop~>	Property extractor from sound stream
 @~>	Property extractor from sound stream

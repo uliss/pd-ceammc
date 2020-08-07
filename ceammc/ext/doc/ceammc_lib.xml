@@ -1409,6 +1409,9 @@
     <entry name="prop.declare" descr="declare named property for subpatch or abstraction" ref_view="object">
       <xi:include href="prop.declare.pddoc" parse="xml"/>
     </entry>
+    <entry name="prop.get" descr="get property from connected object/subpatch/abstraction" ref_view="object">
+      <xi:include href="prop.get.pddoc" parse="xml"/>
+    </entry>
     <entry name="prop.get~" descr="Property extractor from sound stream" ref_view="object">
       <xi:include href="prop.get~.pddoc" parse="xml"/>
     </entry>

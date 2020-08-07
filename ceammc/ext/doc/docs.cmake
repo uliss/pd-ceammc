@@ -455,6 +455,7 @@ set(DOC_FILES
     preset.symbol
     prop
     prop.declare
+    prop.get
     prop.get~
     prop.join
     prop.set

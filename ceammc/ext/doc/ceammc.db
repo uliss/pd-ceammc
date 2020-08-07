@@ -454,6 +454,7 @@ preset.storage		.		.
 preset.symbol,preset.s		.		.
 prop		.		.
 prop.declare		-		-
+prop.get,p.get		.		?
 prop.get~,prop~>,@~>		~		?
 prop.join,prop<-		?		.
 prop.set,p.set		?		.

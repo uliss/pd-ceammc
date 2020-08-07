@@ -58,7 +58,7 @@ Non property values are passed untouched;
 #X text 10 76 category:;
 #X text 120 76 property;
 #X text 10 98 since:;
-#X text 120 98 0.1;
+#X text 120 98 0.9;
 #X text 10 120 authors:;
 #X text 120 120 Serge Poltavsky;
 #X text 10 142 license:;
