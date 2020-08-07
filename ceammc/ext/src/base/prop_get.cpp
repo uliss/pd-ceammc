@@ -67,6 +67,16 @@ void PropGet::onClick(t_floatarg xpos, t_floatarg ypos, t_floatarg shift, t_floa
     onBang();
 }
 
+const char* PropGet::annotateOutlet(size_t n) const
+{
+    if (n == 0)
+        return "connect to destination object";
+    else if (n <= props_.size())
+        return props_[n - 1]->s_name;
+    else
+        return nullptr;
+}
+
 void PropGet::processObjectProps(t_object* dest)
 {
     auto fn = ceammc_get_propget_fn(dest);
@@ -130,6 +140,7 @@ void setup_prop_get()
 {
     ObjectFactory<PropGet> obj("prop.get");
     obj.addAlias("p.get");
-    obj.addInletInfo("bang: get specified properties");
+    obj.addInletInfo("bang:  get specified properties\n"
+                     "click: same as bang");
     obj.useClick();
 }

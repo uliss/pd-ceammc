@@ -27,6 +27,8 @@ public:
     void onBang() override;
     void onClick(t_floatarg xpos, t_floatarg ypos, t_floatarg shift, t_floatarg ctrl, t_floatarg alt) override;
 
+    const char* annotateOutlet(size_t n) const override;
+
 private:
     void processObjectProps(t_object* dest);
     void processAbstractionProps(t_glist* dest);
