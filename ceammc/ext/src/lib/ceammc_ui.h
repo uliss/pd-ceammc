@@ -342,22 +342,22 @@ public:
 
     void useBang()
     {
-        eclass_addmethod(pd_class, UI_METHOD_PTR(onBang), "bang", A_GIMME, 0);
+        eclass_addmethod(pd_class, UI_METHOD_PTR(onBang), &s_bang, A_GIMME, 0);
     }
 
     void useFloat()
     {
-        eclass_addmethod(pd_class, UI_METHOD_PTR(onFloat), "float", A_FLOAT, 0);
+        eclass_addmethod(pd_class, UI_METHOD_PTR(onFloat), &s_float, A_FLOAT, 0);
     }
 
     void useSymbol()
     {
-        eclass_addmethod(pd_class, UI_METHOD_PTR(onSymbol), "symbol", A_SYMBOL, 0);
+        eclass_addmethod(pd_class, UI_METHOD_PTR(onSymbol), &s_symbol, A_SYMBOL, 0);
     }
 
     void useList()
     {
-        eclass_addmethod(pd_class, UI_METHOD_PTR(onList), "list", A_GIMME, 0);
+        eclass_addmethod(pd_class, UI_METHOD_PTR(onList), &s_list, A_GIMME, 0);
     }
 
     void useAny()
@@ -367,7 +367,7 @@ public:
 
     void useData()
     {
-        eclass_addmethod(pd_class, UI_METHOD_PTR(onData), "list", A_GIMME, 0);
+        eclass_addmethod(pd_class, UI_METHOD_PTR(onData), &s_list, A_GIMME, 0);
     }
 
     void useDrawCallbacks()
