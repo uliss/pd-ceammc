@@ -594,6 +594,7 @@ osc.sinfb~
 osc.sin~
 osc.square~
 osc.tri~
+p.get
 p.set
 pan.cos~
 pan.linsig~
@@ -637,6 +638,7 @@ preset.symbol
 prop
 prop->
 prop.declare
+prop.get
 prop.get~
 prop.join
 prop.set

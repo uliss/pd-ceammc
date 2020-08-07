@@ -27,6 +27,7 @@
     - prop.set now is a new object with different behavior, it changes properties via internal pd calls
     - prop.set alias added: p.set
     - prop.get renamed to prop.split (with prop<- and @<- aliases)
+    - prop.get biw is a new object with different bihavior, it get properties from connected object/subpatch/abstraction
 - spat.pan4~ and spat.pan8~:
     - @dist property renamed to @radius
     - positional args order reversed, now is: radius, angle
