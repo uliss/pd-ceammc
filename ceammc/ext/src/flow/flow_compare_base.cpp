@@ -58,7 +58,7 @@ void FlowCompareBase::initDone()
     createOutlet();
 
     char buf[128];
-    snprintf(buf, sizeof(buf), "%s %f", cmp_desc_.second, (ascending_order_ ? args_.back() : args_.front()));
+    snprintf(buf, sizeof(buf), "%s %f", cmp_desc_.second, args_.back());
     out_info_.push_back(buf);
 }
 

@@ -9,6 +9,7 @@
 #include "flow_dup.h"
 #include "flow_gate.h"
 #include "flow_greater.h"
+#include "flow_greater_eq.h"
 #include "flow_group.h"
 #include "flow_interval.h"
 #include "flow_less.h"
@@ -45,6 +46,7 @@ void ceammc_flow_setup()
     setup_flow_dup();
     setup_flow_gate();
     setup_flow_greater();
+    setup_flow_greater_eq();
     setup_flow_group();
     setup_flow_interval();
     setup_flow_less();
