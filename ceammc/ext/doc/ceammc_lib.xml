@@ -428,6 +428,9 @@
     <entry name="flow.greater" descr="numeric stream router" ref_view="object">
       <xi:include href="flow.greater.pddoc" parse="xml"/>
     </entry>
+    <entry name="flow.greater_eq" descr="numeric stream router" ref_view="object">
+      <xi:include href="flow.greater_eq.pddoc" parse="xml"/>
+    </entry>
     <entry name="flow.group" descr="group data atoms in list of specified size" ref_view="object">
       <xi:include href="flow.group.pddoc" parse="xml"/>
     </entry>

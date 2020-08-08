@@ -202,6 +202,8 @@ flow.gate	control flow gate. [spigot] analog
 gate	control flow gate. [spigot] analog
 flow.greater	numeric stream router
 flow.>	numeric stream router
+flow.greater_eq	numeric stream router
+flow.>=	numeric stream router
 flow.group	group data atoms in list of specified size
 group	group data atoms in list of specified size
 flow.interval	measure time between flow events

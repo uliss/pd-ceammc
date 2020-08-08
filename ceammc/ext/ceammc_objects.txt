@@ -160,6 +160,7 @@ flow.'
 flow.<
 flow.<=
 flow.>
+flow.>=
 flow.after
 flow.append
 flow.change
@@ -175,6 +176,7 @@ flow.demux~
 flow.dup
 flow.gate
 flow.greater
+flow.greater_eq
 flow.group
 flow.interval
 flow.less

@@ -113,6 +113,7 @@ flow.demultiplex~,flow.demux~,demux~		~.		?
 flow.dup		..		.
 flow.gate,gate		..		.
 flow.greater,flow.>		.		?
+flow.greater_eq,flow.>=		.		?
 flow.group,group		.		.
 flow.interval		.		.
 flow.less,flow.<		.		?

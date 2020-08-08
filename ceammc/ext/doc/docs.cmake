@@ -110,6 +110,7 @@ set(DOC_FILES
     flow.dup
     flow.gate
     flow.greater
+    flow.greater_eq
     flow.group
     flow.less
     flow.less_eq

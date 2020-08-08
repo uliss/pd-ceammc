@@ -78,10 +78,11 @@
     {flow {
         expand_env flow.append flow.change flow.count flow.delay
         flow.demultiplex flow.demultiplex2~ flow.demultiplex~ flow.dup
-        flow.gate flow.greater flow.group flow.interval flow.less flow.less_eq
-        flow.match flow.multiplex flow.multiplex2~ flow.multiplex~ flow.once
-        flow.pack flow.pass flow.pass_if flow.reject flow.reject_if flow.route
-        flow.speedlim flow.split flow.sync flow.sync_pack flow.tee~ replace
+        flow.gate flow.greater flow.greater_eq flow.group flow.interval
+        flow.less flow.less_eq flow.match flow.multiplex flow.multiplex2~
+        flow.multiplex~ flow.once flow.pack flow.pass flow.pass_if flow.reject
+        flow.reject_if flow.route flow.speedlim flow.split flow.sync
+        flow.sync_pack flow.tee~ replace
     }}
     {flt {
         flt.biquad~ flt.bpf12~ flt.bpf24~ flt.c_bpf~ flt.c_highshelf~
