@@ -128,14 +128,6 @@ void HoaDecoder::initDone()
 
     initDecoder();
 
-    //    propSetOffset(cache_offset_);
-
-    //    if (!cache_angles_.empty())
-    //        propSetAngles(cache_angles_);
-
-    //    if (cache_crop_size_ >= 0)
-    //        propSetCropSize(cache_crop_size_);
-
     createSignalInlets(decoder_->getNumberOfHarmonics());
     createSignalOutlets(decoder_->getNumberOfPlanewaves());
 
