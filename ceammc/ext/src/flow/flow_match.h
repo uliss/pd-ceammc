@@ -26,14 +26,15 @@ class RE2;
 using namespace ceammc;
 
 class FlowMatch : public BaseObject {
-    using RE2ptr = std::unique_ptr<re2::RE2>;
-    using RE2list = std::vector<RE2ptr>;
+    using RE2list = std::vector<re2::RE2*>;
     ListProperty* patterns_;
     RE2list re_;
     BoolProperty* cut_;
 
 public:
     FlowMatch(const PdArgs& args);
+    ~FlowMatch();
+
     void initDone() override;
     void onInlet(size_t idx, const AtomList& l) override;
 

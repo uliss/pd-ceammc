@@ -39,6 +39,12 @@ FlowMatch::FlowMatch(const PdArgs& args)
     addProperty(patterns_);
 }
 
+FlowMatch::~FlowMatch()
+{
+    for (auto* p : re_)
+        delete p;
+}
+
 void FlowMatch::initDone()
 {
     for (size_t i = 0; i < re_.size(); i++) {
@@ -51,8 +57,10 @@ void FlowMatch::initDone()
 
 void FlowMatch::onInlet(size_t idx, const AtomList& l)
 {
-    if (idx < re_.size())
-        re_[idx].reset(new re2::RE2(regexp::escape(to_string(l))));
+    if (idx < re_.size()) {
+        delete re_[idx];
+        re_[idx] = new re2::RE2(regexp::escape(to_string(l)));
+    }
 }
 
 void FlowMatch::onSymbol(t_symbol* s)
