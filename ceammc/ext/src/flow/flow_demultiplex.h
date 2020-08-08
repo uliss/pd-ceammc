@@ -20,6 +20,7 @@ public:
     void onInlet(size_t n, const AtomList& l) override;
 
     bool processAnyProps(t_symbol* sel, const AtomListView& lst) override;
+    const char* annotateOutlet(size_t n) const override;
 
     bool checkIndex() const;
 };

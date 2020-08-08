@@ -5,6 +5,9 @@
 static const size_t MIN_OUTLETS = 2;
 static const size_t MAX_OUTLETS = 24;
 
+using TxtBuf = char[32];
+static TxtBuf ANNOT[MAX_OUTLETS] = {};
+
 FlowDemultiplex::FlowDemultiplex(const PdArgs& a)
     : BaseObject(a)
     , index_(nullptr)
@@ -77,6 +80,14 @@ bool FlowDemultiplex::processAnyProps(t_symbol* sel, const AtomListView& lst)
     return false;
 }
 
+const char* FlowDemultiplex::annotateOutlet(size_t n) const
+{
+    if (n < MAX_OUTLETS)
+        return ANNOT[n];
+    else
+        return nullptr;
+}
+
 bool FlowDemultiplex::checkIndex() const
 {
     if (index_->value() >= numOutlets()) {
@@ -89,6 +100,9 @@ bool FlowDemultiplex::checkIndex() const
 
 void setup_flow_demultiplex()
 {
+    for (size_t i = 0; i < MAX_OUTLETS; i++)
+        snprintf((char*)ANNOT[i], sizeof(ANNOT[0]), "output\\[%ld\\]", i);
+
     ObjectFactory<FlowDemultiplex> obj("flow.demultiplex");
     obj.addAlias("flow.demux");
     obj.addInletInfo("any: input data flow");
