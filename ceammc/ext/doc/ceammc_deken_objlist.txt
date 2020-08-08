@@ -204,8 +204,8 @@ flow.greater	numeric stream router
 flow.>	numeric stream router
 flow.greater_eq	numeric stream router
 flow.>=	numeric stream router
-flow.group	group data atoms in list of specified size
-group	group data atoms in list of specified size
+flow.group	group input atoms in list of specified size
+group	group input atoms in list of specified size
 flow.interval	measure time between flow events
 flow.less	numeric stream router, like many [moses]
 flow.<	numeric stream router, like many [moses]
