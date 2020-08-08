@@ -130,7 +130,7 @@ void setup_list_seq()
     obj.setSinceVersion(0, 1);
 
     ListSeq::setInletsInfo(obj.classPointer(), { "bang:         generate sequence with specified parameters\n"
-                                                 "float:        sequance FROM=0 TO=float STEP=1\n"
+                                                 "float:        sequence FROM=0 TO=float STEP=1\n"
                                                  "list (len=1): same as float\n"
                                                  "list (len=2): sequence FROM=l0 TO=l1 STEP=1\n"
                                                  "list (len=3): sequence FROM=l0 TO=l1 STEP=l2" });
