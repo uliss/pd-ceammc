@@ -34,7 +34,7 @@ FlowPack::FlowPack(const PdArgs& args)
     // fill all with zeroes
     msg_.fill(Atom(0.f), n_);
 
-    // fill default values from positiona arguments (starting from index 1)
+    // fill default values from positional arguments (starting from index 1)
     if (!args.args.empty()) {
         const size_t N = std::min<size_t>(msg_.size(), args.args.size() - 1);
         for (size_t i = 0; i < N; i++)
