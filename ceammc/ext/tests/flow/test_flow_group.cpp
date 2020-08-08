@@ -34,7 +34,7 @@ TEST_CASE("flow.group", "[externals]")
         SECTION("empty")
         {
             TObj t("flow.group");
-            REQUIRE(t.numInlets() == 1);
+            REQUIRE(t.numInlets() == 2);
             REQUIRE(t.numOutlets() == 1);
 
             REQUIRE_PROPERTY(t, @by, 1);
@@ -51,6 +51,12 @@ TEST_CASE("flow.group", "[externals]")
         {
             TObj t("flow.group", LA("@by", 5));
             REQUIRE_PROPERTY(t, @by, 5);
+        }
+
+        SECTION("alias")
+        {
+            TExt t("group");
+            REQUIRE_PROPERTY(t, @by, 1);
         }
     }
 
@@ -119,5 +125,14 @@ TEST_CASE("flow.group", "[externals]")
 
         t << IntA(3);
         REQUIRE(listAt(t) == LA(IntA(1), IntA(2)));
+    }
+
+    SECTION("on inlet")
+    {
+        TExt t("flow.group", 6);
+        REQUIRE_PROPERTY(t, @by, 6);
+
+        t.sendFloatTo(3, 1);
+        REQUIRE_PROPERTY(t, @by, 3);
     }
 }

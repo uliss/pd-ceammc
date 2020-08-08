@@ -18,6 +18,7 @@
 - flow.delay added: enhanced version of vanilla delay
 - flow.dup added: data flow duplication
 - flow.greater_eq added (with flow.>= alias)
+- flow.group second inlet added to change @by property
 
 ### Changed:
 - ext_info output format changed.

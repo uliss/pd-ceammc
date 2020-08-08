@@ -313,7 +313,7 @@ equal number of segments;
 #X obj 30 4374 flow.greater_eq;
 #X text 200 4374 numeric stream router;
 #X obj 30 4401 flow.group;
-#X text 200 4401 group data atoms in list of specified size;
+#X text 200 4401 group input atoms in list of specified size;
 #X obj 30 4428 flow.interval;
 #X text 200 4428 measure time between flow events;
 #X obj 30 4455 flow.less;

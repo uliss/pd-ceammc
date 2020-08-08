@@ -27,7 +27,7 @@
 #X obj 30 413 flow.greater_eq;
 #X text 200 413 numeric stream router;
 #X obj 30 440 flow.group;
-#X text 200 440 group data atoms in list of specified size;
+#X text 200 440 group input atoms in list of specified size;
 #X obj 30 467 flow.interval;
 #X text 200 467 measure time between flow events;
 #X obj 30 494 flow.less;

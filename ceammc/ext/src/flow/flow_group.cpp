@@ -18,6 +18,7 @@ FlowGroup::FlowGroup(const PdArgs& a)
     : BaseObject(a)
     , group_size_(nullptr)
 {
+    createInlet();
     createOutlet();
 
     group_size_ = new IntProperty("@by", 1);
@@ -55,6 +56,11 @@ void FlowGroup::onData(const Atom& d)
     atoms_.append(d);
 }
 
+void FlowGroup::onInlet(size_t, const AtomList& l)
+{
+    group_size_->set(l);
+}
+
 void FlowGroup::m_flush(t_symbol*, const AtomList& l)
 {
     flush();
@@ -89,4 +95,12 @@ void setup_flow_group()
     obj.addAlias("group");
     obj.addMethod("flush", &FlowGroup::m_flush);
     obj.addMethod("clear", &FlowGroup::m_clear);
+
+    obj.setXletsInfo({ "float:  input flow\n"
+                       "symbol: input flow\n"
+                       "list:   treat as separate elements\n"
+                       "flush:  output all and clear\n"
+                       "clear:  clear without output",
+                         "int: set output group size" },
+        { "list: groupped input flow" });
 }
