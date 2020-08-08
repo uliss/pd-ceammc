@@ -1151,7 +1151,7 @@ bool IntProperty::setList(const AtomListView& lst)
         return false;
 
     if (lst.size() != 1) {
-        PROP_ERR() << "integer value expectd ,  got " << lst;
+        PROP_ERR() << "integer value expected, got " << lst;
         return false;
     }
 
