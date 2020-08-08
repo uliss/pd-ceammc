@@ -19,6 +19,7 @@
 - flow.dup added: data flow duplication
 - flow.greater_eq added (with flow.>= alias)
 - flow.group second inlet added to change @by property
+- flow.match property match added, unmatched outlet added
 
 ### Changed:
 - ext_info output format changed.

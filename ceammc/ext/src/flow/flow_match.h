@@ -40,6 +40,11 @@ public:
     void onSymbol(t_symbol* s) override;
     void onAny(t_symbol* s, const AtomListView& l) override;
     void onDataT(const StringAtom& data);
+
+    const char* annotateInlet(size_t n) const override;
+    const char* annotateOutlet(size_t n) const override;
+
+    bool processAnyProps(t_symbol* sel, const AtomListView& lst) override { return false; }
 };
 
 void setup_flow_match();
