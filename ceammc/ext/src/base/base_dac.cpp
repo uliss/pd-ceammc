@@ -56,7 +56,7 @@ static std::vector<t_int> parseRange(const std::string& str)
 BaseDac::BaseDac(const PdArgs& args)
     : SoundExternal(args)
 {
-    auto& pos_args = positionalArguments();
+    auto& pos_args = parsedPosArgs();
     if (pos_args.empty()) {
         vec_.assign({ 1, 2 });
     } else {

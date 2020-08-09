@@ -17,7 +17,7 @@
 MessageAfter::MessageAfter(const PdArgs& args)
     : BaseObject(args)
     , clock_(this, &MessageAfter::tick)
-    , delay_(positionalArguments().empty() ? 0 : positionalArguments()[0].asFloat(0))
+    , delay_(parsedPosArgs().floatAt(0, 0))
     , msg_(args.args.slice(1))
 {
     if (delay_ < 0) {
@@ -102,7 +102,7 @@ void setup_msg_after()
 
     obj.setDescription("send specified message after incoming message");
     obj.addAuthor("Serge Poltavsky");
-    obj.setKeywords({"message", "after", "onload"});
+    obj.setKeywords({ "message", "after", "onload" });
     obj.setCategory("msg");
     obj.setSinceVersion(0, 7);
 }

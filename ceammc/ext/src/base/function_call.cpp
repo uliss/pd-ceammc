@@ -18,7 +18,7 @@
 
 FunctionCall::FunctionCall(const PdArgs& a)
     : BaseObject(a)
-    , name_(positionalSymbolConstant(0, &s_))
+    , name_(parsedPosArgs().symbolAt(0, &s_))
 {
     createInlet(&name_);
     createOutlet();
@@ -89,7 +89,7 @@ extern "C" void function_call_setup()
 
     f.setDescription("call named function");
     f.addAuthor("Serge Poltavsky");
-    f.setKeywords({"function", "call"});
+    f.setKeywords({ "function", "call" });
     f.setCategory("base");
     f.setSinceVersion(0, 3);
 }

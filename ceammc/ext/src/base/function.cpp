@@ -59,7 +59,7 @@ public:
 
 Function::Function(const PdArgs& a)
     : BaseObject(a)
-    , name_(positionalSymbolConstant(0, nullptr))
+    , name_(parsedPosArgs().symbolAt(0, nullptr))
 {
     if (!name_)
         throw std::runtime_error("function name required!");
@@ -140,7 +140,7 @@ void function_setup()
 
     f.setDescription("named function");
     f.addAuthor("Serge Poltavsky");
-    f.setKeywords({"function"});
+    f.setKeywords({ "function" });
     f.setCategory("base");
     f.setSinceVersion(0, 3);
 }

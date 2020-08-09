@@ -60,7 +60,7 @@ TEST_CASE("metro.pattern", "[externals]")
         SECTION("wrong init")
         {
             TObj t("metro.pattern", LA("A", "B", 200, 0.f, -100));
-            REQUIRE_PROPERTY_LIST(t, @pattern, LF(200));
+            REQUIRE_PROPERTY_LIST(t, @pattern, L());
             REQUIRE_PROPERTY(t, @current, 0.f);
         }
 
