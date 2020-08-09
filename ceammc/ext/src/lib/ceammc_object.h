@@ -281,6 +281,11 @@ public:
     size_t numInlets() const;
 
     /**
+     * Reserves space for inlets to reduce memory reallocations
+     */
+    void reserveInlets(size_t n) { inlets_.reserve(n); }
+
+    /**
      * Inlet description
      * @param n - inlet index
      * @return inlet description constant string pointer, 0 if not exists
@@ -303,6 +308,11 @@ public:
      * Returns number of outlets.
      */
     size_t numOutlets() const { return outlets_.size(); }
+
+    /**
+     * Reserves space for outlets to reduce memory reallocations
+     */
+    void reserveOutlets(size_t n) { outlets_.reserve(n); }
 
     /**
      * Outlet description
