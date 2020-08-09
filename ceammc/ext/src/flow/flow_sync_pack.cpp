@@ -21,7 +21,7 @@ FlowSyncPack::FlowSyncPack(const PdArgs& args)
 
 void FlowSyncPack::output(size_t inlet_idx)
 {
-    listTo(0, msg_);
+    listTo(0, msg_->value());
 }
 
 void setup_flow_sync_pack()

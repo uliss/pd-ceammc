@@ -19,14 +19,15 @@
 using namespace ceammc;
 
 class FlowPack : public BaseObject {
-    const size_t n_;
 
 protected:
-    AtomList msg_;
+    IntProperty* num_;
+    ListProperty* msg_;
 
 public:
     FlowPack(const PdArgs& args);
-    void parseProperties() final;
+
+    void initDone() override;
 
     void onBang() final;
     void onFloat(t_float f) final;
@@ -37,6 +38,19 @@ public:
     bool processAnyProps(t_symbol* s, const AtomListView& l) final;
 
     virtual void output(size_t inlet_idx);
+
+    const char* annotateInlet(size_t n) const override;
+
+public:
+    static void initAnnotations();
+
+    const static size_t MIN_INLETS = 1;
+    const static size_t MAX_INLETS = 255;
+    const static size_t DEF_INLETS = 1;
+    const static size_t DESC_LEN = 48;
+
+private:
+    static char descr_buf_[MAX_INLETS][DESC_LEN];
 };
 
 void setup_flow_pack();
