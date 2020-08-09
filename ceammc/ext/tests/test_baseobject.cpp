@@ -478,7 +478,7 @@ TEST_CASE("BaseObject", "[ceammc::BaseObject]")
             {
                 REQUIRE(!t->processAnyInlets(gensym("ABC"), L()));
                 REQUIRE(!t->processAnyInlets(gensym("_"), L()));
-                REQUIRE(t->processAnyInlets(gensym("_0inlet"), LF(123)));
+                REQUIRE(t->processAnyInlets(gensym("_:01"), LF(123)));
                 REQUIRE(t->last_inlet == 1);
                 REQUIRE(t->last_inlet_data == LF(123));
             }
