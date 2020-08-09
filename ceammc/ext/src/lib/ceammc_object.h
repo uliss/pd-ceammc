@@ -69,12 +69,10 @@ class BaseObject {
     const PdArgs pd_;
     using InletList = std::vector<t_inlet*>;
     using OutletList = std::vector<t_outlet*>;
-    using SymbolList = std::vector<t_symbol*>;
     using Properties = std::vector<Property*>;
 
     InletList inlets_;
     OutletList outlets_;
-    SymbolList inlets_s_;
     Properties props_;
     AtomList positional_args_;
     t_symbol* receive_from_;

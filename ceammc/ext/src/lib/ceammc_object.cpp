@@ -38,6 +38,33 @@ extern "C" {
 
 namespace ceammc {
 
+static inline char int2hex_char(uint8_t v)
+{
+    if (v < 0xA)
+        return '0' + v;
+    else
+        return 'A' + (v - 0xA);
+}
+
+static inline uint8_t hex_char2int(char c)
+{
+    if (c < 'A')
+        return 0x0F & (c - '0');
+    else
+        return 0x0F & ((c - 'A') + 0x0A);
+}
+
+static inline void int2hex(uint8_t v, char* buf)
+{
+    buf[0] = int2hex_char(v >> 4);
+    buf[1] = int2hex_char(v & 0x0F);
+}
+
+static inline uint8_t hex2int(const char buf[2])
+{
+    return (hex_char2int(buf[0]) << 4) | (hex_char2int(buf[1]));
+}
+
 // static init
 BaseObject::XletMap BaseObject::inlet_info_map;
 BaseObject::XletMap BaseObject::outlet_info_map;
@@ -282,17 +309,24 @@ void BaseObject::anyTo(size_t n, t_symbol* s, const AtomListView& l)
 
 bool BaseObject::processAnyInlets(t_symbol* sel, const AtomListView& lst)
 {
-    if (sel->s_name[0] != '_')
+    // format '_:%02x'
+    const bool ok = sel->s_name[0] == '_'
+        && sel->s_name[1] == ':'
+        && sel->s_name[2] != '\0'
+        && sel->s_name[3] != '\0';
+
+    if (!ok)
         return false;
 
-    auto it = std::find(inlets_s_.begin(), inlets_s_.end(), sel);
-    if (it == inlets_s_.end()) {
-        OBJ_ERR << "invalid inlet: " << sel->s_name;
+    const uint8_t N = hex2int(&sel->s_name[2]);
+
+    // N+1 correction
+    if (N > inlets_.size()) {
+        OBJ_ERR << "invalid inlet index: " << sel->s_name;
         return false;
     }
 
-    size_t pos = std::distance(inlets_s_.begin(), it) + 1;
-    onInlet(pos, lst);
+    onInlet(N, lst);
     return true;
 }
 
@@ -455,11 +489,16 @@ const char* BaseObject::annotateInlet(size_t n) const
 
 t_inlet* BaseObject::createInlet()
 {
-    char buf[MAXPDSTRING];
-    sprintf(buf, "_%dinlet", static_cast<int>(inlets_.size()));
+    char buf[5];
+    const uint8_t N = inlets_.size();
+
+    buf[0] = '_';
+    buf[1] = ':';
+    int2hex(N + 1, &buf[2]);
+    buf[4] = '\0';
+
     t_symbol* id = gensym(buf);
     t_inlet* in = inlet_new(pd_.owner, &pd_.owner->ob_pd, &s_list, id);
-    inlets_s_.push_back(id);
     inlets_.push_back(in);
     return in;
 }
