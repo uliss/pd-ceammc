@@ -483,9 +483,9 @@ public:
         else {
             AtomList pvalue = pp->get();
             *argc = pvalue.size();
-            *argv = reinterpret_cast<t_atom*>(getbytes(*argc * sizeof(t_atom)));
+            *argv = reinterpret_cast<t_atom*>(getbytes(pvalue.size() * sizeof(t_atom)));
             for (size_t i = 0; i < pvalue.size(); i++)
-                *argv[i] = pvalue.at(i).atom();
+                (*argv)[i] = pvalue.at(i).atom();
 
             return 1;
         }
