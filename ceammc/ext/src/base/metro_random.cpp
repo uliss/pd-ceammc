@@ -84,7 +84,11 @@ void setup_metro_random()
 
     obj.setDescription("metro random bang with specified range");
     obj.addAuthor("Serge Poltavsky");
-    obj.setKeywords({"metro", "random"});
+    obj.setKeywords({ "metro", "random" });
     obj.setCategory("base");
     obj.setSinceVersion(0, 9);
+
+    obj.setXletsInfo({ "float: 1 - start metronome, 0 - stop", "float: f - set @min range\n"
+                                                               "list:  min max - set \\[@min @max\\] range" },
+        { "bang" });
 }
