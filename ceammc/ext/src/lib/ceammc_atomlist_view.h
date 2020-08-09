@@ -115,9 +115,13 @@ public:
     const Atom* end() const { return &data_[n_]; }
 
     // no range checks!!!
+    /** returns first atom in view, no range check */
     const Atom& front() const { return *data_; }
+    /** returns last atom in view, no range check */
     const Atom& back() const { return data_[n_]; }
+    /** returns atom at specified position in view, no range check */
     const Atom& at(size_t pos) const { return data_[pos]; }
+    /** returns atom at specified position in view, no range check */
     const Atom& operator[](size_t pos) const { return data_[pos]; }
     const Atom& relativeAt(long pos) const;
 
@@ -129,9 +133,36 @@ public:
     inline const Atom& asAtom() const { return front(); }
 
     // with range checks
+    /**
+     * Returns boolean value at specified position or default if not found
+     * @param pos - position
+     * @param def - default value if not found
+     * @return true or false
+     */
     bool boolAt(size_t pos, bool def) const;
+
+    /**
+     * Returns float value at specified position or default if not found
+     * @param pos - position
+     * @param def - default value if not found
+     * @return float value
+     */
     t_float floatAt(size_t pos, t_float def) const;
+
+    /**
+     * Returns int value at specified position or default if not found
+     * @param pos - position
+     * @param def - default value if not found
+     * @return int value
+     */
     int intAt(size_t pos, int def) const;
+
+    /**
+     * Returns symbol value at specified position or default if not found
+     * @param pos - position
+     * @param def - default value if not found
+     * @return symbol value
+     */
     t_symbol* symbolAt(size_t pos, t_symbol* def) const;
 
     /**
@@ -144,12 +175,43 @@ public:
      */
     AtomListView subView(size_t from, size_t len) const;
 
+    /**
+     * Returns true if contains specified atom, otherwise false
+     * @param a - atom value
+     */
     bool contains(const Atom& a) const;
 
+    /**
+     * Returns list with unquoted atoms
+     * @param quoted_props - if true leaves quoted properties quoted if false - unquoed all atoms
+     * @return unquoted list
+     */
     AtomList parseQuoted(bool quoted_props = false) const;
+
+    /**
+     * Check if all atoms satisfies to predicate
+     * @param pred - predicate function
+     * @return true if for all atoms predicate returns true
+     */
+    bool allOf(std::function<bool(const Atom&)> pred) const;
+
+    /**
+     * Check if at least one atom satisfies to predicate
+     * @param pred - predicate function
+     * @return true if for at least one atom predicate returns true
+     */
+    bool anyOf(std::function<bool(const Atom&)> pred) const;
+
+    /**
+     * Check if no one atom satisfies to predicate
+     * @param pred - predicate function
+     * @return true if for all atoms predicate returns false
+     */
+    bool noneOf(std::function<bool(const Atom&)> pred) const;
 
     friend class AtomList;
 
+    /** pointer to pd raw t_atoms */
     t_atom* toPdData() const { return reinterpret_cast<t_atom*>(const_cast<Atom*>(data_)); }
 
 private:

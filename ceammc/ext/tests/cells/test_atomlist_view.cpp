@@ -189,4 +189,123 @@ TEST_CASE("AtomListView", "core")
         REQUIRE(l.view().contains(A(1)));
         REQUIRE_FALSE(AtomListView().contains(A(100)));
     }
+
+    SECTION("parse quoted")
+    {
+
+#define REQUIRE_ALV_EQ(l0, l1, p)               \
+    {                                           \
+        AtomList l = l0;                        \
+        REQUIRE(l.view().parseQuoted(p) == l1); \
+    }
+
+        // empty
+        REQUIRE_ALV_EQ(L(), L(), false);
+        REQUIRE_ALV_EQ(L(), L(), true);
+
+        // normal atoms
+        REQUIRE_ALV_EQ(LA(1, 2, 3, "A"), LA(1, 2, 3, "A"), false);
+        REQUIRE_ALV_EQ(LA(1, 2, 3, "A"), LA(1, 2, 3, "A"), true);
+
+        // normal atoms
+        REQUIRE_ALV_EQ(LA(1, "'A"), LA(1, "'A"), false);
+        REQUIRE_ALV_EQ(LA(1, "'A"), LA(1, "'A"), true);
+
+        // normal atoms
+        REQUIRE_ALV_EQ(LA(1, "'A'"), LA(1, "'A'"), false);
+        REQUIRE_ALV_EQ(LA(1, "'A'"), LA(1, "'A'"), true);
+
+        // normal atoms
+        REQUIRE_ALV_EQ(LA(1, "A'"), LA(1, "A'"), false);
+        REQUIRE_ALV_EQ(LA(1, "A'"), LA(1, "A'"), true);
+
+        // unbalanced quotes
+        REQUIRE_ALV_EQ(LA(1, "A\""), LA(1, "A\""), false);
+        REQUIRE_ALV_EQ(LA(1, "A\""), LA(1, "A\""), true);
+
+        // unbalanced quotes
+        REQUIRE_ALV_EQ(LA(1, "\"A"), LA(1, "\"A"), false);
+        REQUIRE_ALV_EQ(LA(1, "\"A"), LA(1, "\"A"), true);
+
+        // simple quotes
+        REQUIRE_ALV_EQ(LA(1, "\"A\"", 2), LA(1, "A", 2), false);
+        REQUIRE_ALV_EQ(LA(1, "\"A\"", 2), LA(1, "A", 2), true);
+
+        // simple quotes
+        REQUIRE_ALV_EQ(LA(1, "\"A", "B\"", 2), LA(1, "A B", 2), false);
+        REQUIRE_ALV_EQ(LA(1, "\"A", "B\"", 2), LA(1, "A B", 2), true);
+
+        // inner quotes
+        REQUIRE_ALV_EQ(LA(1, "\"A`\"", "B\"", 2), LA(1, "A\" B", 2), false);
+        REQUIRE_ALV_EQ(LA(1, "\"A`\"", "B\"", 2), LA(1, "A\" B", 2), true);
+
+        // props
+        REQUIRE_ALV_EQ(LA(1, "@abc", 2), LA(1, "@abc", 2), false);
+        REQUIRE_ALV_EQ(LA(1, "@abc", 2).view(), LA(1, "@abc", 2), true);
+
+        // props
+        REQUIRE_ALV_EQ(LA(1, "@abc", "\"@def\""), LA(1, "@abc", "@def"), false);
+        REQUIRE_ALV_EQ(LA(1, "@abc", "\"@def\"").view(), LA(1, "@abc", "\"@def\""), true);
+
+        // props
+        REQUIRE_ALV_EQ(LA(1, "@abc", "\"@d", "e\""), LA(1, "@abc", "@d e"), false);
+        REQUIRE_ALV_EQ(LA(1, "@abc", "\"@d", "e\"").view(), LA(1, "@abc", "@d e"), true);
+    }
+
+    SECTION("allOf")
+    {
+
+#define REQUIRE_ALL_OF(l0, p)       \
+    {                               \
+        AtomList l = l0;            \
+        REQUIRE(l.view().allOf(p)); \
+    }
+
+#define REQUIRE_NOT_ALL_OF(l0, p)         \
+    {                                     \
+        AtomList l = l0;                  \
+        REQUIRE_FALSE(l.view().allOf(p)); \
+    }
+
+        REQUIRE_ALL_OF(L(), isFloat);
+        REQUIRE_ALL_OF(LF(1, 2, 3), isFloat);
+        REQUIRE_ALL_OF(LF(1), isFloat);
+        REQUIRE_NOT_ALL_OF(LA("a"), isFloat);
+        REQUIRE_NOT_ALL_OF(LA(1, 2, 3, "a"), isFloat);
+    }
+
+    SECTION("allOf")
+    {
+
+#define REQUIRE_ANY_OF(l0, p)       \
+    {                               \
+        AtomList l = l0;            \
+        REQUIRE(l.view().anyOf(p)); \
+    }
+
+#define REQUIRE_NOT_ANY_OF(l0, p)         \
+    {                                     \
+        AtomList l = l0;                  \
+        REQUIRE_FALSE(l.view().anyOf(p)); \
+    }
+
+        REQUIRE_NOT_ANY_OF(L(), isFloat);
+        REQUIRE_NOT_ANY_OF(LA("a"), isFloat);
+        REQUIRE_ANY_OF(LA(1, "a"), isFloat);
+        REQUIRE_ANY_OF(LF(1, 2), isFloat);
+    }
+
+    SECTION("noneOf")
+    {
+
+#define REQUIRE_NONE_OF(l0, p)       \
+    {                                \
+        AtomList l = l0;             \
+        REQUIRE(l.view().noneOf(p)); \
+    }
+
+        REQUIRE_NONE_OF(L(), isFloat);
+        REQUIRE_NONE_OF(LA("a"), isFloat);
+        REQUIRE_NONE_OF(LA(1, 2), isSymbol);
+    }
 }

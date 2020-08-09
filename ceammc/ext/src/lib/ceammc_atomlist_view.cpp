@@ -207,6 +207,21 @@ AtomList AtomListView::parseQuoted(bool quoted_props) const
     return lex.result();
 }
 
+bool AtomListView::allOf(std::function<bool(const Atom&)> pred) const
+{
+    return std::all_of(begin(), end(), pred);
+}
+
+bool AtomListView::anyOf(std::function<bool(const Atom&)> pred) const
+{
+    return std::any_of(begin(), end(), pred);
+}
+
+bool AtomListView::noneOf(std::function<bool(const Atom&)> pred) const
+{
+    return std::none_of(begin(), end(), pred);
+}
+
 std::ostream& operator<<(std::ostream& os, const AtomListView& l)
 {
     os << "( ";

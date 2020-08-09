@@ -19,6 +19,8 @@
 #include "lex/data_string.lexer.h"
 #include "lex/data_string.parser.hpp"
 
+#include <algorithm>
+
 namespace ceammc {
 
 AtomList parseDataList(const AtomList& lst) noexcept
@@ -70,7 +72,16 @@ AtomList parseDataString(const std::string& str)
 
 AtomList parseDataList(const AtomListView& view) noexcept
 {
-    if (view.empty())
+    if (view.isNull() || view.empty())
+        return view;
+
+    // do not parse floats or booleans
+    if (view.isFloat() || view.isBool() || view.isData())
+        return view;
+
+    // do not parse list of floats
+    // check for this should be faster then converting to string and then parsing
+    if (std::all_of(view.begin(), view.end(), [](const Atom& a) { return a.isFloat(); }))
         return view;
 
     auto str = to_string(view, " ");

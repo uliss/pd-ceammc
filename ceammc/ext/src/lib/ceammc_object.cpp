@@ -68,6 +68,7 @@ static inline uint8_t hex2int(const char buf[2])
 // static init
 BaseObject::XletMap BaseObject::inlet_info_map;
 BaseObject::XletMap BaseObject::outlet_info_map;
+std::array<t_symbol*, BaseObject::MAX_XLETS_NUM> BaseObject::inlet_dispatch_names = { 0 };
 
 t_outlet* BaseObject::outletAt(size_t n)
 {
@@ -307,13 +308,27 @@ void BaseObject::anyTo(size_t n, t_symbol* s, const AtomListView& l)
     outletAny(outlets_[n], s, l);
 }
 
+t_inlet* BaseObject::createInlet()
+{
+    if (inlet_dispatch_names[0] == nullptr)
+        initInletDispatchNames();
+
+    const uint8_t N = inlets_.size();
+    assert(N < MAX_XLETS_NUM);
+
+    t_inlet* in = inlet_new(pd_.owner, &pd_.owner->ob_pd, &s_list, inlet_dispatch_names[N]);
+    inlets_.push_back(in);
+    return in;
+}
+
 bool BaseObject::processAnyInlets(t_symbol* sel, const AtomListView& lst)
 {
     // format '_:%02x'
     const bool ok = sel->s_name[0] == '_'
         && sel->s_name[1] == ':'
-        && sel->s_name[2] != '\0'
-        && sel->s_name[3] != '\0';
+        && sel->s_name[2] != '\0' // inlet index in ascii-hex
+        && sel->s_name[3] != '\0' // ...
+        && sel->s_name[4] == '\0';
 
     if (!ok)
         return false;
@@ -425,15 +440,27 @@ bool BaseObject::queryProperty(t_symbol* key, AtomList& res) const
     return true;
 }
 
+void BaseObject::initInletDispatchNames()
+{
+    char buf[5];
+    buf[0] = '_';
+    buf[1] = ':';
+    buf[4] = '\0';
+
+    for (size_t i = 0; i < inlet_dispatch_names.size(); i++) {
+        int2hex(i + 1, &buf[2]); // inlet index in ascii-hex
+        inlet_dispatch_names[i] = gensym(buf);
+    }
+}
+
 void BaseObject::extractPositionalArguments()
 {
-    auto idx = pd_.args.findPos(isProperty);
-    if (idx == 0)
+    auto PROP_START = pd_.args.findPos(isProperty);
+    if (PROP_START == 0)
         return;
-    else if (idx > 0)
-        idx--;
 
-    positional_args_ = pd_.args.slice(0, idx);
+    pos_args_unparsed_ = pd_.args.view(0, PROP_START);
+    pos_args_parsed_ = parseDataList(pos_args_unparsed_);
 }
 
 t_outlet* BaseObject::createOutlet()
@@ -487,22 +514,6 @@ const char* BaseObject::annotateInlet(size_t n) const
     return it->second[n].c_str();
 }
 
-t_inlet* BaseObject::createInlet()
-{
-    char buf[5];
-    const uint8_t N = inlets_.size();
-
-    buf[0] = '_';
-    buf[1] = ':';
-    int2hex(N + 1, &buf[2]);
-    buf[4] = '\0';
-
-    t_symbol* id = gensym(buf);
-    t_inlet* in = inlet_new(pd_.owner, &pd_.owner->ob_pd, &s_list, id);
-    inlets_.push_back(in);
-    return in;
-}
-
 BaseObject::BaseObject(const PdArgs& args)
     : pd_(args)
     , receive_from_(nullptr)
@@ -519,23 +530,12 @@ BaseObject::~BaseObject()
     freeProps();
 }
 
-t_symbol* BaseObject::positionalSymbolConstant(size_t pos, t_symbol* def) const
-{
-    if (pos >= positional_args_.size())
-        return def;
-
-    if (positional_args_[pos].isSymbol())
-        return positional_args_[pos].asSymbol();
-    else
-        return def;
-}
-
 size_t BaseObject::positionalConstantP(size_t pos, size_t def, size_t min, size_t max) const
 {
-    if (pos >= positional_args_.size())
+    if (pos >= pos_args_unparsed_.size())
         return def;
 
-    auto& arg = positional_args_[pos];
+    auto& arg = pos_args_unparsed_[pos];
     if (!arg.isFloat()) {
         OBJ_ERR << "integer value >=0 expected at position: " << pos << ", using default value: " << def;
         return def;
@@ -556,145 +556,19 @@ size_t BaseObject::positionalConstantP(size_t pos, size_t def, size_t min, size_
     }
 }
 
-const Atom& BaseObject::positionalArgument(size_t pos, const Atom& def) const
+AtomListView BaseObject::binbufArgs() const
 {
-    return pos < positional_args_.size() ? positional_args_[pos] : def;
-}
+    if (!owner() || !owner()->te_binbuf)
+        return {};
 
-t_float BaseObject::positionalFloatArgument(size_t pos, t_float def) const
-{
-    return pos < positional_args_.size() ? positional_args_[pos].asFloat(def) : def;
-}
-
-t_float BaseObject::nonNegativeFloatArgAt(size_t pos, t_float def) const
-{
-    // assure def >= 0
-    def = std::max<t_float>(0, def);
-
-    if (pos >= positional_args_.size())
-        return def;
-
-    auto& arg = positional_args_[pos];
-    if (!arg.isFloat() || arg < 0) {
-        OBJ_ERR << fmt::format(
-            "non-negative float argument expected at [{}], got: {}, using default value: {}",
-            pos, to_string(arg), def);
-
-        return def;
-    }
-
-    return arg.asFloat(def);
-}
-
-size_t BaseObject::nonNegativeIntArgAt(size_t pos, size_t def) const
-{
-    if (pos >= positional_args_.size())
-        return def;
-
-    auto& arg = positional_args_[pos];
-
-    if (!arg.isFloat() || arg < 0) {
-        OBJ_ERR << fmt::format(
-            "non-negative integer argument expected at [{}], got: {}, using default value: {}",
-            pos, to_string(arg), def);
-
-        return def;
-    }
-
-    auto f = arg.asFloat(def);
-    auto i = static_cast<size_t>(std::round(f));
-
-    if (!arg.isInteger()) {
-        OBJ_ERR << fmt::format(
-            "positional argument at [{}] is not integer: {}, rounding to: {}",
-            pos, f, i);
-    }
-
-    return i;
-}
-
-t_float BaseObject::positiveFloatArgAt(size_t pos, t_float def) const
-{
-    constexpr t_float DEFAULT_POSITIVE = 0.0001;
-
-    if (def <= 0)
-        def = DEFAULT_POSITIVE;
-
-    if (pos >= positional_args_.size())
-        return def;
-
-    auto& arg = positional_args_[pos];
-
-    if (!arg.isFloat() || arg <= 0) {
-        OBJ_ERR << fmt::format(
-            "positive float argument expected at [{}], got: {}, using default value: {}",
-            pos, to_string(arg), def);
-
-        return def;
-    }
-
-    return arg.asFloat(def);
-}
-
-size_t BaseObject::positiveIntArgAt(size_t pos, size_t def) const
-{
-    if (pos >= positional_args_.size())
-        return def;
-
-    auto& arg = positional_args_[pos];
-
-    if (!arg.isFloat() || arg <= 0) {
-        OBJ_ERR << fmt::format(
-            "positive integer argument expected at [{}], got: {}, using default value: {}",
-            pos, to_string(arg), def);
-
-        return def;
-    }
-
-    auto f = arg.asFloat(def);
-    auto i = static_cast<size_t>(std::round(f));
-
-    if (!arg.isInteger()) {
-        OBJ_ERR << fmt::format(
-            "positional argument at [{}] is not integer: {}, rounding to: {}",
-            pos, f, i);
-    }
-
-    return i;
-}
-
-int BaseObject::positionalIntArgument(size_t pos, int def) const
-{
-    if (pos >= positional_args_.size())
-        return def;
-
-    auto& arg = positional_args_[pos];
-
-    if (!arg.isFloat())
-        return def;
-
-    if (!arg.isInteger())
-        OBJ_ERR << "positional argument at [" << pos << "] is not integer: " << arg;
-
-    return arg.asInt(def);
-}
-
-t_symbol* BaseObject::positionalSymbolArgument(size_t pos, t_symbol* def) const
-{
-    if (pos >= positional_args_.size())
-        return def;
-
-    return positional_args_[pos].isSymbol() ? positional_args_[pos].asSymbol() : def;
+    return AtomListView(binbuf_getvec(owner()->te_binbuf), binbuf_getnatom(owner()->te_binbuf));
 }
 
 void BaseObject::parseProperties()
 {
     const size_t PROP_START = pd_.args.findPos([](const Atom& a) { return a.isProperty(); });
-
-    AtomList parsed_positional_args = parseDataList(pd_.args.view(0, PROP_START));
-    AtomList parsed_props = pd_.args.view(PROP_START).parseQuoted(true);
-
-    const size_t NPOS_ARGS = parsed_positional_args.size();
+    const AtomListView props = pd_.args.view(PROP_START);
+    const size_t NPOS_ARGS = pos_args_parsed_.size();
 
     for (Property* p : props_) {
         if (p->isReadOnly() || p->isInternal())
@@ -704,45 +578,56 @@ void BaseObject::parseProperties()
         auto name = p->name();
 
         // process positional args
-        const auto ARG_IDX = p->argIndex();
+        const size_t ARG_IDX = p->argIndex();
         if (p->hasArgIndex() && ARG_IDX < NPOS_ARGS) {
-            if (p->isList()) {
-                bool ok = p->setInit(parsed_positional_args.view(ARG_IDX));
+            bool ok = false;
 
-                if (!ok)
-                    OBJ_ERR << "can't set property: " << name->s_name;
-            } else { //  single atom
-                bool ok = p->setInit(parsed_positional_args.view(ARG_IDX, 1));
+            if (p->isList())
+                ok = p->setInit(pos_args_parsed_.view(ARG_IDX));
+            else //  single atom
+                ok = p->setInit(pos_args_parsed_.view(ARG_IDX, 1));
 
-                if (!ok)
-                    OBJ_ERR << "can't set property: " << name->s_name;
-            }
+            if (!ok)
+                OBJ_ERR << "can't set property: " << name->s_name;
+            else
+                positional_arg_was_used = true;
         }
 
-        const auto N = parsed_props.size();
+        const auto NPROPS = props.size();
 
-        for (size_t i = 0; i < N; i++) {
-            const Atom& a = parsed_props[i];
+        // set property from arguments
+        for (size_t i = 0; i < NPROPS; i++) {
+            const Atom& a = props[i];
             if (a.isProperty() && a.asSymbol() == name) {
-                size_t prop_len = 0;
+                size_t nargs = 0; // number of property arguments
 
                 // lookup till next property
-                for (size_t j = i + 1; j < N; j++, prop_len++) {
+                for (size_t j = i + 1; j < NPROPS; j++, nargs++) {
                     // next property found
-                    if (parsed_props[j].isProperty())
+                    if (props[j].isProperty())
                         break;
                 }
 
-                for (int k = 0; k < prop_len; k++) {
-                    auto idx = i + 1 + k;
-                    auto& aa = parsed_props[idx];
-                    if (aa.isQuoted() && aa.asSymbol()->s_name[1] == '@')
-                        aa.removeQuotes();
+                if (nargs > 0) {
+                    auto v = props.subView(i + 1, nargs);
+                    // optimization: do not parse float, boolean or float list
+                    if (v.isFloat() || v.isBool() || v.allOf(isFloat)) {
+                        if (!p->setInit(v))
+                            OBJ_ERR << "can't set property: " << name->s_name;
+                    } else { // have to parse
+                        AtomList prop_parsed = parseDataList(v);
+                        // init property
+                        if (!p->setInit(prop_parsed.view()))
+                            OBJ_ERR << "can't set property: " << name->s_name;
+                    }
+
+                } else { // empty args, flags or lists, for example
+                    // init property
+                    if (!p->setInit({}))
+                        OBJ_ERR << "can't set property: " << name->s_name;
                 }
 
-                if (!p->setInit(parsed_props.view(i + 1, prop_len)))
-                    OBJ_ERR << "can't set property: " << name->s_name;
-
+                // warning if set twice
                 if (positional_arg_was_used) {
                     OBJ_ERR << "both positional arg [" << int(ARG_IDX) << "] and named property "
                             << name->s_name << " are defined, using named property value: "
@@ -756,7 +641,7 @@ void BaseObject::parseProperties()
     }
 
     // check for unknown properties
-    for (const Atom& a : pd_.args) {
+    for (const Atom& a : props) {
         if (a.isProperty() && !hasProperty(a.asSymbol())) {
             OBJ_ERR << "unknown property in argument list: " << a;
             continue;
@@ -766,21 +651,26 @@ void BaseObject::parseProperties()
 
 void BaseObject::parsePositionalProperties()
 {
-    const size_t PROP_START = pd_.args.findPos([](const Atom& a) { return a.isProperty(); });
-    AtomList parsed_args = pd_.args.view(0, PROP_START).parseQuoted(false);
-    const size_t NPOS_ARGS = parsed_args.size();
+    const size_t NPOS_ARGS = pos_args_parsed_.size();
 
     for (Property* p : props_) {
         if (p->isReadOnly() || p->isInternal())
             continue;
 
+        auto name = p->name();
+
         // process positional args
-        const auto ARG_IDX = p->argIndex();
+        const size_t ARG_IDX = p->argIndex();
         if (p->hasArgIndex() && ARG_IDX < NPOS_ARGS) {
+            bool ok = false;
+
             if (p->isList())
-                p->setInit(parsed_args.view(ARG_IDX));
+                ok = p->setInit(pos_args_parsed_.view(ARG_IDX));
             else //  single atom
-                p->setInit(parsed_args.view(ARG_IDX, 1));
+                ok = p->setInit(pos_args_parsed_.view(ARG_IDX, 1));
+
+            if (!ok)
+                OBJ_ERR << "can't set property: " << name->s_name;
         }
     }
 }

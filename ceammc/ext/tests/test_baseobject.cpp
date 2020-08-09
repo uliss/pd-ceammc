@@ -220,7 +220,10 @@ TEST_CASE("BaseObject", "[ceammc::BaseObject]")
         SECTION("only props")
         {
             BaseObject b(PdArgs(LA("@p1", 1, "@p2", 2, 3), gensym("testname"), 0, gensym("testname")));
-            REQUIRE(b.positionalArguments() == L());
+            REQUIRE(b.parsedPosArgs() == L());
+            REQUIRE(b.unparsedPosArgs().isNull());
+            // synthehic test
+            REQUIRE(b.binbufArgs() == L());
 
             b.addProperty(new FloatProperty("@p1", -1));
             b.addProperty(new ListProperty("@p2"));
@@ -231,13 +234,16 @@ TEST_CASE("BaseObject", "[ceammc::BaseObject]")
             REQUIRE_PROPERTY_LIST(b, @p2, LF(2, 3));
             REQUIRE_PROPERTY(b, @p3, -1);
 
-            REQUIRE(b.positionalArguments().empty());
+            REQUIRE(b.parsedPosArgs() == L());
         }
 
         SECTION("only raw args")
         {
             BaseObject b(PdArgs(LA(1, 2, "a", "b", "c"), gensym("testname"), 0, gensym("testname")));
-            REQUIRE(b.positionalArguments() == LA(1, 2, "a", "b", "c"));
+            REQUIRE(b.parsedPosArgs() == LA(1, 2, "a", "b", "c"));
+            REQUIRE(b.unparsedPosArgs() == LA(1, 2, "a", "b", "c"));
+            // synthehic test
+            REQUIRE(b.binbufArgs() == L());
 
             b.addProperty(new FloatProperty("@p1", -1));
             b.addProperty(new ListProperty("@p2"));
@@ -249,12 +255,18 @@ TEST_CASE("BaseObject", "[ceammc::BaseObject]")
             REQUIRE(b.property(gensym("@p2"))->get() == L());
             REQUIRE_PROPERTY(b, @p3, -1);
 
-            REQUIRE(b.positionalArguments() == LA(1, 2, "a", "b", "c"));
+            REQUIRE(b.parsedPosArgs() == LA(1, 2, "a", "b", "c"));
+            REQUIRE(b.unparsedPosArgs() == LA(1, 2, "a", "b", "c"));
         }
 
         SECTION("props and raw args")
         {
             BaseObject b(PdArgs(LA(1, 2, "@p1", "@p2", "c"), gensym("testname"), 0, gensym("testname")));
+            REQUIRE(b.parsedPosArgs() == LF(1, 2));
+            REQUIRE(b.unparsedPosArgs() == LF(1, 2));
+            // synthehic test
+            REQUIRE(b.binbufArgs() == L());
+
             b.addProperty(new FloatProperty("@p1", -1));
             b.addProperty(new ListProperty("@p2"));
             b.parseProperties();
@@ -263,10 +275,22 @@ TEST_CASE("BaseObject", "[ceammc::BaseObject]")
             REQUIRE(b.hasProperty(gensym("@p2")));
             REQUIRE(b.property(gensym("@p2"))->get() == LA("c"));
 
-            REQUIRE(b.positionalArguments() == LF(1, 2));
+            REQUIRE(b.parsedPosArgs() == LF(1, 2));
+            REQUIRE(b.unparsedPosArgs() == LF(1, 2));
+        }
 
-            b.parseProperties();
-            REQUIRE(b.positionalArguments() == LF(1, 2));
+        SECTION("args, functions and quotes")
+        {
+            BaseObject b(PdArgs(LA(1, 2, "bs()", "\"a", "string\""), gensym("testname"), 0, gensym("testname")));
+            REQUIRE(b.parsedPosArgs() == LA(1, 2, 64, "a string"));
+            REQUIRE(b.unparsedPosArgs() == LA(1, 2, "bs()", "\"a", "string\""));
+        }
+
+        SECTION("args, functions and quotes")
+        {
+            BaseObject b(PdArgs(LA(1, 2, "expr(20*20)", "\"@a\""), gensym("testname"), 0, gensym("testname")));
+            REQUIRE(b.parsedPosArgs() == LA(1, 2, 400, "@a"));
+            REQUIRE(b.unparsedPosArgs() == LA(1, 2, "expr(20*20)", "\"@a\""));
         }
     }
 
@@ -616,6 +640,46 @@ TEST_CASE("BaseObject", "[ceammc::BaseObject]")
                     REQUIRE_PROPERTY(t, @s, "@esc_prop?");
                     REQUIRE_PROPERTY(t, @l, "@a");
                     REQUIRE_PROPERTY(t, @cb, 1, 2, 3);
+                }
+
+                SECTION("4: quote property")
+                {
+                    TestExtEXT_C t("ext.c", 0xBEEF, 10, "@s", "\"@s\"");
+                    REQUIRE_PROPERTY(t, @c, 0xBEEF);
+                    REQUIRE_PROPERTY(t, @d, 10);
+                    REQUIRE_PROPERTY(t, @s, "@s");
+                    REQUIRE_PROPERTY(t, @l, -1);
+                    REQUIRE_PROPERTY(t, @cb, 1, 2, 3);
+                }
+
+                SECTION("4: quote property")
+                {
+                    TestExtEXT_C t("ext.c", 10, "@s", "\"a", "space\"");
+                    REQUIRE_PROPERTY(t, @s, "a space");
+                }
+
+                SECTION("4: quote property")
+                {
+                    TestExtEXT_C t("ext.c", 10, "@s", "\"@a", "space\"");
+                    REQUIRE_PROPERTY(t, @s, "@a space");
+                }
+
+                SECTION("parse pos args")
+                {
+                    TestExtEXT_C t("ext.c", "bs()");
+                    REQUIRE_PROPERTY(t, @c, 64);
+                }
+
+                SECTION("parse pos args")
+                {
+                    TestExtEXT_C t("ext.c", "@c", "bs()");
+                    REQUIRE_PROPERTY(t, @c, 64);
+                }
+
+                SECTION("parse pos args")
+                {
+                    TestExtEXT_C t("ext.c", "@c", "expr(3*9)");
+                    REQUIRE_PROPERTY(t, @c, 27);
                 }
             }
         }

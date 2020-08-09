@@ -59,7 +59,10 @@ AtomList::AtomList(size_t n, t_atom* lst)
 
 AtomList::AtomList(const AtomListView& v)
 {
-    for(auto& a: v)
+    if (v.isNull() || v.empty())
+        return;
+
+    for (auto& a : v)
         atoms_.push_back(a);
 }
 
@@ -94,7 +97,11 @@ void AtomList::operator=(const AtomListView& l)
 {
     atoms_.clear();
     atoms_.reserve(l.size());
-    for(auto& a: l)
+
+    if(l.isNull() || l.empty())
+        return;
+
+    for (auto& a : l)
         atoms_.push_back(a);
 }
 

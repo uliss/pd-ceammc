@@ -19,6 +19,7 @@
 #include "ceammc_object_info.h"
 #include "ceammc_property.h"
 
+#include <array>
 #include <initializer_list>
 #include <iostream>
 #include <map>
@@ -74,14 +75,17 @@ class BaseObject {
     InletList inlets_;
     OutletList outlets_;
     Properties props_;
-    AtomList positional_args_;
+    AtomListView pos_args_unparsed_;
+    AtomList pos_args_parsed_;
     t_symbol* receive_from_;
     t_canvas* cnv_;
 
-public:
-    typedef AtomList (BaseObject::*GetterFn)() const;
-    typedef void (BaseObject::*SetterFn)(const AtomList&);
+    // no copy
+    BaseObject(const BaseObject&) = delete;
+    // no assign
+    BaseObject& operator=(const BaseObject&) = delete;
 
+public:
     /**
      * @note if adding new type: see static to_string in ceammc_object.cpp
      */
@@ -97,13 +101,16 @@ public:
     };
 
 public:
+    /**
+     * Base class for ceammc objects
+     * @param args
+     */
     BaseObject(const PdArgs& args);
-    virtual ~BaseObject();
 
-    CEAMMC_DEPRECATED t_float positionalFloatArgumentT(size_t pos, t_float def = 0) const
-    {
-        return positionalFloatArgument(pos, def);
-    }
+    /**
+     * Destructor
+     */
+    virtual ~BaseObject();
 
     template <size_t def, size_t min, size_t max>
     size_t positionalConstant(size_t pos) const
@@ -115,47 +122,27 @@ public:
         return positionalConstantP(pos, def, min, max);
     }
 
-    t_symbol* positionalSymbolConstant(size_t pos, t_symbol* def) const;
-
 private:
     size_t positionalConstantP(size_t pos, size_t def, size_t min, size_t max) const;
 
-    /**
-     * Returns specified position argument (before property list)
-     * @param pos - argument position
-     * @param def - default value, if searched argument not exists
-     */
-    const Atom& positionalArgument(size_t pos, const Atom& def = Atom()) const;
-
-    /**
-     * Same as positionalArgument, but for t_float type
-     */
-    t_float positionalFloatArgument(size_t pos, t_float def = 0) const;
-
-    /**
-     * Same as positionalFloatArgument, but for t_float type and >= 0
-     */
-    t_float nonNegativeFloatArgAt(size_t pos, t_float def = 0) const;
-    size_t nonNegativeIntArgAt(size_t pos, size_t def = 0) const;
-
-    /**
-     * Same as positionalFloatArgument, but for t_float type and > 0
-     */
-    t_float positiveFloatArgAt(size_t pos, t_float def = 0) const;
-    size_t positiveIntArgAt(size_t pos, size_t def = 0) const;
-
-    /**
-     * Same as positionalArgument, but for int type
-     */
-    int positionalIntArgument(size_t pos, int def = 0) const;
-
-    /**
-     * Same as positionalArgument, but for t_symbol* type
-     */
-    t_symbol* positionalSymbolArgument(size_t pos, t_symbol* def = nullptr) const;
-
 public:
-    CEAMMC_DEPRECATED inline const AtomList& positionalArguments() const { return positional_args_; }
+    /**
+     * Return raw object creation arguments unparsed (no $* substitution)
+     * @note: all args returned, you are really seldom need this
+     * @see parsedPosArgs() or unparsedPosArgs()
+     */
+    AtomListView binbufArgs() const;
+
+    /**
+     * Unparsed positional arguments
+     * @
+     */
+    const AtomListView& unparsedPosArgs() const { return pos_args_unparsed_; }
+
+    /**
+     * Unparsed positional arguments
+     */
+    const AtomList& parsedPosArgs() const { return pos_args_parsed_; }
 
     /**
      * Parse initial constructor arguments and extract properties
@@ -486,6 +473,13 @@ public:
     virtual void anyTo(size_t n, t_symbol* s, const AtomList& l);
     virtual void anyTo(size_t n, t_symbol* s, const AtomListView& l);
 
+    /**
+     * main secondary inlets dispatcher
+     * @param sel - inlet selector
+     * @param lst - inlet input data
+     * @return true -  if message was dispatched to inlet and should not be processed anymore
+     *         false - if not valid inlet message and should be processed further
+     */
     virtual bool processAnyInlets(t_symbol* sel, const AtomListView& lst);
 
     /**
@@ -495,7 +489,8 @@ public:
      *
      * @param sel property name
      * @param lt property value
-     * @return true if property request was successully finished
+     * @return true  - if message was successully dispatched to property,
+     *         false - if message message should be proceeded further
      *
      * @note override this method for custom property processing
      */
@@ -503,6 +498,7 @@ public:
 
     /**
      * Main dispatcher of *any* messages. (Not bang, symbol, pointer, list or registered method)
+     * First try dispatch inlet messages, then properties, if not succeded pass message to onAny()
      */
     virtual void anyDispatch(t_symbol* s, const AtomListView& lst);
 
@@ -572,6 +568,8 @@ public:
     static void setInletsInfo(t_class* c, const XletInfo& l);
     static void setOutletsInfo(t_class* c, const XletInfo& l);
 
+    static void initInletDispatchNames();
+
 protected:
     void freeInlets();
     void freeOutlets();
@@ -581,11 +579,14 @@ protected:
     void appendOutlet(t_outlet* out);
     bool queryProperty(t_symbol* key, AtomList& res) const;
 
+    static const size_t MAX_XLETS_NUM = 255;
+
 private:
     void extractPositionalArguments();
 
     static XletMap inlet_info_map;
     static XletMap outlet_info_map;
+    static std::array<t_symbol*, MAX_XLETS_NUM> inlet_dispatch_names;
 };
 }
 

@@ -12,6 +12,7 @@
  * this file belongs to.
  *****************************************************************************/
 #include "mod_init.h"
+#include "ceammc_object.h"
 #include "ceammc_pd.h"
 #include "ceammc_platform.h"
 #include "lib/ceammc.h"
@@ -146,6 +147,8 @@ void ceammc_init()
     vector<string> l = ceammc::pd::currentListOfExternals();
     set<string> vanilla_set(l.begin(), l.end());
 #endif
+
+    BaseObject::initInletDispatchNames();
 
     ceammc_analyze_setup();
     ceammc_array_setup();
