@@ -83,7 +83,7 @@
 *|*
 [hoa.recomposer~ 5 11 {w=35,i=11,o=11}]
 *|*
-[hoa.decoder~ 5 binaural {w=35,i=11,o=11}]
+[hoa.decoder~ 5 binaural @crop 32 {w=35,i=11,o=11}]
 *|*
 [dac~ {w=35}]
 
@@ -91,7 +91,7 @@
 
 [60 90 2.1( [50 120 4.1(
 |           |
-[list.seq 60 90 2.01]
+[list.seq   ]
 |
 [list.each] X [mtof]
 |
