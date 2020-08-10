@@ -1,0 +1,14 @@
+#N canvas 826 455 575 229 12;
+#X msg 224 54 bang;
+#X obj 45 117 print TEST_01;
+#X obj 45 91 hoa.process~ 2 hoa_test_01;
+#X msg 266 54 10;
+#X msg 306 54 symbol ABC;
+#X msg 236 16 list 1 2 A B;
+#X msg 346 16 @msg 1 2 3;
+#X connect 0 0 2 1;
+#X connect 2 0 1 0;
+#X connect 3 0 2 1;
+#X connect 4 0 2 1;
+#X connect 5 0 2 1;
+#X connect 6 0 2 1;
