@@ -28,7 +28,7 @@ class HoaRecomposer : public HoaBase {
 
 public:
     HoaRecomposer(const PdArgs& args);
-    void parseProperties() override;
+    void initDone() override;
     void blockSizeChanged(size_t bs) override;
     void processBlock(const t_sample** in, t_sample** out) override;
     void setupDSP(t_signal** sp) override;
