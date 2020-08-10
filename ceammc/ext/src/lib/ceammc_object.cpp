@@ -532,10 +532,10 @@ BaseObject::~BaseObject()
 
 size_t BaseObject::positionalConstantP(size_t pos, size_t def, size_t min, size_t max) const
 {
-    if (pos >= pos_args_unparsed_.size())
+    if (pos >= pos_args_parsed_.size())
         return def;
 
-    auto& arg = pos_args_unparsed_[pos];
+    auto& arg = pos_args_parsed_[pos];
     if (!arg.isFloat()) {
         OBJ_ERR << "integer value >=0 expected at position: " << pos << ", using default value: " << def;
         return def;
