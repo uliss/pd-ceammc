@@ -100,7 +100,7 @@ TEST_CASE("hoa.process~", "[externals]")
         REQUIRE(t.hasOutputAt(0));
         REQUIRE(t.isOutputBangAt(0));
         Message b = Message::makeBang();
-        REQUIRE(t.messagesAt(0) == MessageList({b, b, b, b, b}));
+        REQUIRE(t.messagesAt(0) == MessageList({ b, b, b, b, b }));
 
         // float
         t.sendFloatTo(10, 1);
@@ -138,6 +138,13 @@ TEST_CASE("hoa.process~", "[externals]")
         TExt t("hoa.process~", LA(2, TEST_DATA_DIR "/hoa_test_03"));
         REQUIRE(t.numInlets() == 2);
         REQUIRE(t.numOutlets() == 1);
+
+        // float
+        t.sendFloatTo(10, 1);
+        REQUIRE(t.hasOutputAt(0));
+        REQUIRE(t.isOutputFloatAt(0));
+        REQUIRE(t.outputFloatAt(0) == Approx(30));
+        REQUIRE(t.messagesAt(0) == messageList(10, 20, 40, 30, 10, 20, 40, 30, 10, 20, 40, 30, 10, 20, 40, 30, 10, 20, 40, 30));
     }
 
     SECTION("control 04")
@@ -473,9 +480,12 @@ TEST_CASE("hoa.process~", "[externals]")
         REQUIRE(t->numInputChannels() == 4);
         REQUIRE(t->numOutputChannels() == 2);
         REQUIRE_PROPERTY(t, @domain, S("planewaves"));
+        REQUIRE_PROPERTY(t, @n, 2);
+        REQUIRE_PROPERTY(t, @patch, S(TEST_DATA_DIR "/hoa_test_13b"));
 
         pd::External sig1("sig~", LF(0.5));
         REQUIRE(sig1.connectTo(0, t, 0));
+
         pd::External sig2("sig~", LF(1));
         REQUIRE(sig2.connectTo(0, t, 1));
         pd::External sig3("sig~", LF(1000));
@@ -572,7 +582,6 @@ TEST_CASE("hoa.process~", "[externals]")
         tr.sendMessage("#5");
         REQUIRE(t.messagesAt(0).empty());
 
-
         // bang
         t.clearAll();
         tr.sendMessage("#1");
@@ -582,7 +591,7 @@ TEST_CASE("hoa.process~", "[externals]")
 
         t.clearAll();
         tr.sendMessage("#1", "bang");
-        REQUIRE(t.messagesAt(0) == MessageList({bng}));
+        REQUIRE(t.messagesAt(0) == MessageList({ bng }));
 
         // float
         t.clearAll();
@@ -696,19 +705,19 @@ TEST_CASE("hoa.process~", "[externals]")
         /// BANG
         t.clearAll();
         tr.sendMessage("#*");
-        REQUIRE(t.messagesAt(0) == MessageList({bng, bng, bng, bng, bng}));
+        REQUIRE(t.messagesAt(0) == MessageList({ bng, bng, bng, bng, bng }));
 
         t.clearAll();
         tr.sendMessage("#*1");
-        REQUIRE(t.messagesAt(0) == MessageList({bng, bng, bng, bng}));
+        REQUIRE(t.messagesAt(0) == MessageList({ bng, bng, bng, bng }));
 
         t.clearAll();
         tr.sendMessage("#*3");
-        REQUIRE(t.messagesAt(0) == MessageList({bng, bng}));
+        REQUIRE(t.messagesAt(0) == MessageList({ bng, bng }));
 
         t.clearAll();
         tr.sendMessage("#*4");
-        REQUIRE(t.messagesAt(0) == MessageList({bng}));
+        REQUIRE(t.messagesAt(0) == MessageList({ bng }));
 
         t.clearAll();
         tr.sendMessage("#*5");
@@ -721,11 +730,11 @@ TEST_CASE("hoa.process~", "[externals]")
         /// BANG s_bang
         t.clearAll();
         tr.sendMessage("#*", &s_bang);
-        REQUIRE(t.messagesAt(0) == MessageList({bng, bng, bng, bng, bng}));
+        REQUIRE(t.messagesAt(0) == MessageList({ bng, bng, bng, bng, bng }));
 
         t.clearAll();
         tr.sendMessage("#*2", &s_bang);
-        REQUIRE(t.messagesAt(0) == MessageList({bng, bng, bng}));
+        REQUIRE(t.messagesAt(0) == MessageList({ bng, bng, bng }));
 
         /// FLOAT
         t.clearAll();
@@ -780,7 +789,7 @@ TEST_CASE("hoa.process~", "[externals]")
 
         t.clearAll();
         tr.sendMessage("#>0");
-        REQUIRE(t.messagesAt(0) == MessageList({bng, bng, bng, bng}));
+        REQUIRE(t.messagesAt(0) == MessageList({ bng, bng, bng, bng }));
 
         /// FLOAT
         t.clearAll();
@@ -842,7 +851,7 @@ TEST_CASE("hoa.process~", "[externals]")
 
         t.clearAll();
         tr.sendMessage("#<2");
-        REQUIRE(t.messagesAt(0) == MessageList({bng, bng}));
+        REQUIRE(t.messagesAt(0) == MessageList({ bng, bng }));
 
         /// FLOAT
         t.clearAll();
@@ -908,15 +917,15 @@ TEST_CASE("hoa.process~", "[externals]")
 
         t.clearAll();
         tr.sendMessage("#2-2");
-        REQUIRE(t.messagesAt(0) == MessageList({bng}));
+        REQUIRE(t.messagesAt(0) == MessageList({ bng }));
 
         t.clearAll();
         tr.sendMessage("#2-3");
-        REQUIRE(t.messagesAt(0) == MessageList({bng, bng}));
+        REQUIRE(t.messagesAt(0) == MessageList({ bng, bng }));
 
         t.clearAll();
         tr.sendMessage("#2-10");
-        REQUIRE(t.messagesAt(0) == MessageList({bng, bng, bng}));
+        REQUIRE(t.messagesAt(0) == MessageList({ bng, bng, bng }));
 
         /// FLOAT
         t.clearAll();
@@ -974,11 +983,11 @@ TEST_CASE("hoa.process~", "[externals]")
 
         t.clearAll();
         tr.sendMessage("#:");
-        REQUIRE(t.messagesAt(0) == MessageList({bng, bng, bng, bng, bng}));
+        REQUIRE(t.messagesAt(0) == MessageList({ bng, bng, bng, bng, bng }));
 
         t.clearAll();
         tr.sendMessage("#:2");
-        REQUIRE(t.messagesAt(0) == MessageList({bng, bng, bng}));
+        REQUIRE(t.messagesAt(0) == MessageList({ bng, bng, bng }));
 
         /// FLOAT
         t.clearAll();
