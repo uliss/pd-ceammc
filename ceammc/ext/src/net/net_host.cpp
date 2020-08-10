@@ -91,7 +91,7 @@ NetHost::NetHost(const PdArgs& args)
     : ThreadExternal(args, new HostTask(this))
     , addr_type_(nullptr)
 {
-    task()->setName(positionalSymbolConstant(0, &s_));
+    task()->setName(parsedPosArgs().symbolAt(0, &s_));
     createOutlet();
 
     addr_type_ = new SymbolEnumProperty("@type", { SYM_IPV4, SYM_IPV6 });
