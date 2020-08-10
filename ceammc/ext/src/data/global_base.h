@@ -31,7 +31,7 @@ class GlobalBase : public BaseObject {
 public:
     GlobalBase(const PdArgs& a)
         : BaseObject(a)
-        , data_(positionalSymbolConstant(0, gensym(DEFAULT_ID)), a.className->s_name)
+        , data_(parsedPosArgs().symbolAt(0, gensym(DEFAULT_ID)), a.className->s_name)
     {
         if (data_.name() == gensym(DEFAULT_ID))
             OBJ_DBG << "global object ID required! Using default id: " << data_.name();
