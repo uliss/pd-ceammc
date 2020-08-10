@@ -10,8 +10,8 @@
 #X text 215 80 Weights the circular harmonics signals depending on
 the ambisonic optimization. It can be "basic" for no optimization \,
 "maxre" or "inphase".;
-#X text 215 135 If no optimization-mode is specified \, the optimization
-will be inphase.;
+#X text 215 135 If no optimization mode is specified \, the default
+mode will be inphase.;
 #X text 215 175 Maxre optimization is used when audience is confined
 to the center of the circle.;
 #X text 215 215 Inphase optimization is used when the audience covers
@@ -47,7 +47,7 @@ your ears.;
 #X obj 20 836 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
 -49933 0;
 #X msg 110 871 @basic;
-#X text 245 871 alias for @mode basic.;
+#X text 245 871 alias for @mode basic (no optimization).;
 #X msg 110 900 @inphase;
 #X text 245 900 alias for @mode inphase.;
 #X msg 110 929 @maxre;
