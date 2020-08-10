@@ -9,7 +9,7 @@ public:
         : faust_lfo_tri_pos_tilde(args)
     {
         createInlet();
-        setInitSignalValue(positionalFloatArgumentT(0, 0));
+        setInitSignalValue(parsedPosArgs().floatAt(0, 0));
     }
 
     void onInlet(size_t n, const AtomList&) override

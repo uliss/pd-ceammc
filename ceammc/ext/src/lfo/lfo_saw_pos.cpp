@@ -10,7 +10,7 @@ public:
         static t_symbol* SYM_PROP_INVERT = gensym("@invert");
 
         createInlet();
-        setInitSignalValue(positionalFloatArgumentT(0, 0));
+        setInitSignalValue(parsedPosArgs().floatAt(0, 0));
         bindPositionalArgToProperty(1, SYM_PROP_INVERT);
     }
 
