@@ -35,7 +35,7 @@ void MathPi::onBang()
 
 MathPiTilde::MathPiTilde(const PdArgs& args)
     : SoundExternal(args)
-    , mpi_(positionalFloatArgumentT(0, 1) * PI)
+    , mpi_(parsedPosArgs().floatAt(0, 1) * PI)
 {
     createSignalOutlet();
 }

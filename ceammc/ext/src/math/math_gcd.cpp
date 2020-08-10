@@ -18,7 +18,7 @@
 
 MathGCD::MathGCD(const PdArgs& a)
     : BaseObject(a)
-    , b_(positionalFloatArgumentT(0, 0))
+    , b_(parsedPosArgs().intAt(0, 0))
 {
     createInlet(&b_);
     createOutlet();
@@ -31,10 +31,10 @@ void MathGCD::onFloat(t_float f)
 
 void MathGCD::onList(const AtomList& l)
 {
-    if(l.size() < 1)
+    if (l.size() < 1)
         return;
 
-    if(l.size() == 1)
+    if (l.size() == 1)
         return onFloat(l[0].asFloat());
 
     b_ = l[1].asFloat();
