@@ -49,9 +49,9 @@ static inline void standard_next(double k, double& xn, double& yn)
 
 ChaosStandard::ChaosStandard(const PdArgs& args)
     : BaseObject(args)
-    , k_(positionalFloatArgumentT(0, DEF_K))
-    , xn_(positionalFloatArgumentT(1, DEF_X))
-    , yn_(positionalFloatArgumentT(2, DEF_Y))
+    , k_(parsedPosArgs().floatAt(0, DEF_K))
+    , xn_(parsedPosArgs().floatAt(1, DEF_X))
+    , yn_(parsedPosArgs().floatAt(2, DEF_Y))
 {
     createInlet(&k_);
     createOutlet();
@@ -67,8 +67,8 @@ void ChaosStandard::onBang()
 
 ChaosStandardTilde::ChaosStandardTilde(const PdArgs& args)
     : SoundExternal(args)
-    , xn_(positionalFloatArgumentT(0, DEF_X))
-    , yn_(positionalFloatArgumentT(1, DEF_Y))
+    , xn_(parsedPosArgs().floatAt(0, DEF_X))
+    , yn_(parsedPosArgs().floatAt(1, DEF_Y))
     , counter_(0)
 {
     createSignalInlet();

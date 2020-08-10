@@ -32,8 +32,8 @@ static inline void gbman_next(double& xn, double& yn)
 
 ChaosGbman::ChaosGbman(const PdArgs& args)
     : BaseObject(args)
-    , xn_(positionalFloatArgumentT(0, DEF_X))
-    , yn_(positionalFloatArgumentT(1, DEF_Y))
+    , xn_(parsedPosArgs().floatAt(0, DEF_X))
+    , yn_(parsedPosArgs().floatAt(1, DEF_Y))
 {
     createOutlet();
     createOutlet();
@@ -55,8 +55,8 @@ void ChaosGbman::dump() const
 
 ChaosGbmanTilde::ChaosGbmanTilde(const PdArgs& args)
     : SoundExternal(args)
-    , xn_(positionalFloatArgumentT(0, DEF_X))
-    , yn_(positionalFloatArgumentT(1, DEF_Y))
+    , xn_(parsedPosArgs().floatAt(0, DEF_X))
+    , yn_(parsedPosArgs().floatAt(1, DEF_Y))
     , counter_(0)
 {
     createSignalOutlet();
