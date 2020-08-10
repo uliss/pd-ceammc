@@ -231,6 +231,14 @@ t_int AtomListView::intLessEqualAt(size_t pos, t_int max, t_int def) const
         return at(pos).asIntLessEqual(max, def);
 }
 
+t_int AtomListView::intInClosedIntervalAt(size_t pos, t_int min, t_int max, t_int def) const
+{
+    if (pos >= n_)
+        return def;
+    else
+        return at(pos).asIntInClosedInterval(min, max, def);
+}
+
 AtomListView AtomListView::subView(size_t from) const
 {
     return subView(from, n_);

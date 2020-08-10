@@ -221,29 +221,40 @@ public:
      * @param pos - position
      * @param min - lower bound
      * @param def - default value if not found or not satisfied
-     * @return float value
+     * @return int value
      */
     t_int intGreaterEqualAt(size_t pos, t_int min, t_int def) const;
 
     /**
-     * Returns t_int at specified position that is less
+     * Returns int at specified position that is less
      *   then specified value or default if index out of range or value not satisfied
      * @param pos - position
      * @param max - upper bound
      * @param def - default value if not found or not satisfied
-     * @return t_int value
+     * @return int value
      */
     t_int intLessThenAt(size_t pos, t_int max, t_int def) const;
 
     /**
-     * Returns float at specified position that is less
+     * Returns int at specified position that is less
      *   or equal to specified value or default if index out of range or value not satisfied
      * @param pos - position
      * @param max - upper bound
      * @param def - default value if not found or not satisfied
-     * @return float value
+     * @return int value
      */
     t_int intLessEqualAt(size_t pos, t_int max, t_int def) const;
+
+    /**
+     * Returns int at specified position that is lin specified closed range
+     * or default if index out of range or value not satisfied
+     * @param pos - position
+     * @param min - lower bound
+     * @param max - upper bound
+     * @param def - default value if not found or not satisfied
+     * @return int value
+     */
+    t_int intInClosedIntervalAt(size_t pos, t_int min, t_int max, t_int def) const;
 
     /**
      * Returns subview from specified position
