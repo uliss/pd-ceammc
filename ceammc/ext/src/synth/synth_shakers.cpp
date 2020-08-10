@@ -180,7 +180,7 @@ SynthShakers::SynthShakers(const PdArgs& args)
         })
         ->setFloatCheck(PropValueConstraints::CLOSED_RANGE, 0, 1);
 
-    type_ = new TypeProperty(typeFromArgs(positionalSymbolConstant(0, gensym("maraca"))));
+    type_ = new TypeProperty(typeFromArgs(parsedPosArgs().symbolAt(0, gensym("maraca"))));
     addProperty(type_);
 
     createCbProperty("@types", &SynthShakers::propTypes);

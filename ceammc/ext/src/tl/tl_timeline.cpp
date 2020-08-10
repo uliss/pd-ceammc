@@ -25,7 +25,7 @@ static const char* SYM_FIXED = "fixed";
 
 TlTimeLine::TlTimeLine(const PdArgs& args)
     : BaseObject(args)
-    , tl_(this, positionalFloatArgumentT(0, 60) * 1000)
+    , tl_(this, parsedPosArgs().floatAt(0, 60) * 1000)
     , cmd_parser_(this)
 {
     createOutlet();

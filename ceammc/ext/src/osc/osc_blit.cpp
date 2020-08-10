@@ -22,7 +22,7 @@ constexpr size_t DEFAULT_NHARM = 0;
 
 OscBlit::OscBlit(const PdArgs& args)
     : SoundExternal(args)
-    , osc_(new stk::Blit(positionalFloatArgumentT(0, DEFAULT_FREQ)))
+    , osc_(new stk::Blit(parsedPosArgs().floatAt(0, DEFAULT_FREQ)))
     , nharm_(nullptr)
 {
     nharm_ = new SizeTProperty("@harmonics", DEFAULT_NHARM);
