@@ -166,6 +166,86 @@ public:
     t_symbol* symbolAt(size_t pos, t_symbol* def) const;
 
     /**
+     * Returns float at specified position that is greater
+     *   then specified value or default if index out of range or value not satisfied
+     * @param pos - position
+     * @param min - lower bound
+     * @param def - default value if not found or not satisfied
+     * @return float value
+     */
+    t_float floatGreaterThenAt(size_t pos, t_float min, t_float def) const;
+
+    /**
+     * Returns float at specified position that is greater
+     *   or equal to specified value or default if index out of range or value not satisfied
+     * @param pos - position
+     * @param min - lower bound
+     * @param def - default value if not found or not satisfied
+     * @return float value
+     */
+    t_float floatGreaterEqualAt(size_t pos, t_float min, t_float def) const;
+
+    /**
+     * Returns float at specified position that is less
+     *   then specified value or default if index out of range or value not satisfied
+     * @param pos - position
+     * @param max - upper bound
+     * @param def - default value if not found or not satisfied
+     * @return float value
+     */
+    t_float floatLessThenAt(size_t pos, t_float max, t_float def) const;
+
+    /**
+     * Returns float at specified position that is less
+     *   or equal to specified value or default if index out of range or value not satisfied
+     * @param pos - position
+     * @param max - upper bound
+     * @param def - default value if not found or not satisfied
+     * @return int value
+     */
+    t_float floatLessEqualAt(size_t pos, t_float max, t_float def) const;
+
+    /**
+     * Returns int at specified position that is greater
+     *   then specified value or default if index out of range or value not satisfied
+     * @param pos - position
+     * @param min - lower bound
+     * @param def - default value if not found or not satisfied
+     * @return int value
+     */
+    t_int intGreaterThenAt(size_t pos, t_int min, t_int def) const;
+
+    /**
+     * Returns int at specified position that is greater
+     *   or equal to specified value or default if index out of range or value not satisfied
+     * @param pos - position
+     * @param min - lower bound
+     * @param def - default value if not found or not satisfied
+     * @return float value
+     */
+    t_int intGreaterEqualAt(size_t pos, t_int min, t_int def) const;
+
+    /**
+     * Returns t_int at specified position that is less
+     *   then specified value or default if index out of range or value not satisfied
+     * @param pos - position
+     * @param max - upper bound
+     * @param def - default value if not found or not satisfied
+     * @return t_int value
+     */
+    t_int intLessThenAt(size_t pos, t_int max, t_int def) const;
+
+    /**
+     * Returns float at specified position that is less
+     *   or equal to specified value or default if index out of range or value not satisfied
+     * @param pos - position
+     * @param max - upper bound
+     * @param def - default value if not found or not satisfied
+     * @return float value
+     */
+    t_int intLessEqualAt(size_t pos, t_int max, t_int def) const;
+
+    /**
      * Returns subview from specified position
      */
     AtomListView subView(size_t from) const;

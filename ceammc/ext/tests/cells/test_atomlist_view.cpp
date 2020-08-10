@@ -308,4 +308,66 @@ TEST_CASE("AtomListView", "core")
         REQUIRE_NONE_OF(LA("a"), isFloat);
         REQUIRE_NONE_OF(LA(1, 2), isSymbol);
     }
+
+    SECTION("ranges")
+    {
+        AtomList l = LA("a", -100, 0., 100);
+        AtomListView v(l);
+
+        REQUIRE(v.floatLessThenAt(0, 0, -1024) == -1024);
+        REQUIRE(v.floatLessThenAt(1, 0, -1024) == -100);
+        REQUIRE(v.floatLessThenAt(2, 0, -1024) == -1024);
+        REQUIRE(v.floatLessThenAt(3, 0, -1024) == -1024);
+        REQUIRE(v.floatLessThenAt(4, 0, -1024) == -1024);
+        REQUIRE(v.floatLessThenAt(5, 0, -1024) == -1024);
+
+        REQUIRE(v.floatLessEqualAt(0, 0, -1024) == -1024);
+        REQUIRE(v.floatLessEqualAt(1, 0, -1024) == -100);
+        REQUIRE(v.floatLessEqualAt(2, 0, -1024) == 0);
+        REQUIRE(v.floatLessEqualAt(3, 0, -1024) == -1024);
+        REQUIRE(v.floatLessEqualAt(4, 0, -1024) == -1024);
+        REQUIRE(v.floatLessEqualAt(5, 0, -1024) == -1024);
+
+        REQUIRE(v.floatGreaterThenAt(0, 0, 1024) == 1024);
+        REQUIRE(v.floatGreaterThenAt(1, 0, 1024) == 1024);
+        REQUIRE(v.floatGreaterThenAt(2, 0, 1024) == 1024);
+        REQUIRE(v.floatGreaterThenAt(3, 0, 1024) == 100);
+        REQUIRE(v.floatGreaterThenAt(4, 0, 1024) == 1024);
+        REQUIRE(v.floatGreaterThenAt(5, 0, 1024) == 1024);
+
+        REQUIRE(v.floatGreaterEqualAt(0, 0, 1024) == 1024);
+        REQUIRE(v.floatGreaterEqualAt(1, 0, 1024) == 1024);
+        REQUIRE(v.floatGreaterEqualAt(2, 0, 1024) == 0);
+        REQUIRE(v.floatGreaterEqualAt(3, 0, 1024) == 100);
+        REQUIRE(v.floatGreaterEqualAt(4, 0, 1024) == 1024);
+        REQUIRE(v.floatGreaterEqualAt(5, 0, 1024) == 1024);
+
+        REQUIRE(v.intLessThenAt(0, 0, -1024) == -1024);
+        REQUIRE(v.intLessThenAt(1, 0, -1024) == -100);
+        REQUIRE(v.intLessThenAt(2, 0, -1024) == -1024);
+        REQUIRE(v.intLessThenAt(3, 0, -1024) == -1024);
+        REQUIRE(v.intLessThenAt(4, 0, -1024) == -1024);
+        REQUIRE(v.intLessThenAt(5, 0, -1024) == -1024);
+
+        REQUIRE(v.intLessEqualAt(0, 0, -1024) == -1024);
+        REQUIRE(v.intLessEqualAt(1, 0, -1024) == -100);
+        REQUIRE(v.intLessEqualAt(2, 0, -1024) == 0);
+        REQUIRE(v.intLessEqualAt(3, 0, -1024) == -1024);
+        REQUIRE(v.intLessEqualAt(4, 0, -1024) == -1024);
+        REQUIRE(v.intLessEqualAt(5, 0, -1024) == -1024);
+
+        REQUIRE(v.intGreaterThenAt(0, 0, 1024) == 1024);
+        REQUIRE(v.intGreaterThenAt(1, 0, 1024) == 1024);
+        REQUIRE(v.intGreaterThenAt(2, 0, 1024) == 1024);
+        REQUIRE(v.intGreaterThenAt(3, 0, 1024) == 100);
+        REQUIRE(v.intGreaterThenAt(4, 0, 1024) == 1024);
+        REQUIRE(v.intGreaterThenAt(5, 0, 1024) == 1024);
+
+        REQUIRE(v.intGreaterEqualAt(0, 0, 1024) == 1024);
+        REQUIRE(v.intGreaterEqualAt(1, 0, 1024) == 1024);
+        REQUIRE(v.intGreaterEqualAt(2, 0, 1024) == 0);
+        REQUIRE(v.intGreaterEqualAt(3, 0, 1024) == 100);
+        REQUIRE(v.intGreaterEqualAt(4, 0, 1024) == 1024);
+        REQUIRE(v.intGreaterEqualAt(5, 0, 1024) == 1024);
+    }
 }

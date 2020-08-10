@@ -167,6 +167,70 @@ t_symbol* AtomListView::symbolAt(size_t pos, t_symbol* def) const
         return def;
 }
 
+t_float AtomListView::floatGreaterThenAt(size_t pos, t_float min, t_float def) const
+{
+    if (pos >= n_)
+        return def;
+    else
+        return at(pos).asFloatGreaterThen(min, def);
+}
+
+t_float AtomListView::floatGreaterEqualAt(size_t pos, t_float min, t_float def) const
+{
+    if (pos >= n_)
+        return def;
+    else
+        return at(pos).asFloatGreaterEqual(min, def);
+}
+
+t_float AtomListView::floatLessThenAt(size_t pos, t_float max, t_float def) const
+{
+    if (pos >= n_)
+        return def;
+    else
+        return at(pos).asFloatLessThen(max, def);
+}
+
+t_float AtomListView::floatLessEqualAt(size_t pos, t_float max, t_float def) const
+{
+    if (pos >= n_)
+        return def;
+    else
+        return at(pos).asFloatLessEqual(max, def);
+}
+
+t_int AtomListView::intGreaterThenAt(size_t pos, t_int min, t_int def) const
+{
+    if (pos >= n_)
+        return def;
+    else
+        return at(pos).asIntGreaterThen(min, def);
+}
+
+t_int AtomListView::intGreaterEqualAt(size_t pos, t_int min, t_int def) const
+{
+    if (pos >= n_)
+        return def;
+    else
+        return at(pos).asIntGreaterEqual(min, def);
+}
+
+t_int AtomListView::intLessThenAt(size_t pos, t_int max, t_int def) const
+{
+    if (pos >= n_)
+        return def;
+    else
+        return at(pos).asIntLessThen(max, def);
+}
+
+t_int AtomListView::intLessEqualAt(size_t pos, t_int max, t_int def) const
+{
+    if (pos >= n_)
+        return def;
+    else
+        return at(pos).asIntLessEqual(max, def);
+}
+
 AtomListView AtomListView::subView(size_t from) const
 {
     return subView(from, n_);
