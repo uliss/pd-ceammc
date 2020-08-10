@@ -39,8 +39,7 @@ ListXAt::ListXAt(const PdArgs& args)
     def_ = new AtomProperty("@default", Atom());
     addProperty(def_);
 
-    at_method_ = new SymbolEnumProperty("@method",
-        { SYM_REL, SYM_CLIP, SYM_WRAP, SYM_FOLD });
+    at_method_ = new SymbolEnumProperty("@method", { SYM_REL, SYM_CLIP, SYM_WRAP, SYM_FOLD });
     addProperty(at_method_);
 
     addProperty(new SymbolEnumAlias("@rel", at_method_, SYM_REL));

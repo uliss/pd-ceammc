@@ -30,7 +30,7 @@ ListSeq::ListSeq(const PdArgs& a)
     closed_range_ = new FlagProperty("@closed");
     addProperty(closed_range_);
 
-    switch (positionalArguments().size()) {
+    switch (parsedPosArgs().size()) {
     case 0:
         break;
     case 1:
@@ -46,7 +46,7 @@ ListSeq::ListSeq(const PdArgs& a)
         step_->setArgIndex(2);
         break;
     default:
-        OBJ_ERR << "too many positional args: " << positionalArguments();
+        OBJ_ERR << "too many positional args: " << parsedPosArgs();
         break;
     }
 }
