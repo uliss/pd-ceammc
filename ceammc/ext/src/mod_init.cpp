@@ -148,7 +148,7 @@ void ceammc_init()
     set<string> vanilla_set(l.begin(), l.end());
 #endif
 
-    BaseObject::initInletDispatchNames();
+    ceammc::BaseObject::initInletDispatchNames();
 
     ceammc_analyze_setup();
     ceammc_array_setup();
