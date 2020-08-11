@@ -71,4 +71,9 @@ void setup_flow_split()
 {
     ObjectFactory<FlowSplit> obj("flow.split");
     obj.addAlias("split");
+    obj.setXletsInfo(
+        { "input message", "bool: 0 or 1 from side-chain" },
+        { "output message for which side-chain returned true (1)",
+            "output message for which side-chain returned false (0)",
+            "message to side-chain predicate" });
 }
