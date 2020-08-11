@@ -19,7 +19,7 @@
 using namespace ceammc;
 
 class FlowPass : public BaseObject {
-    ListProperty* values_;
+    ListProperty* pass_list_;
 
 public:
     FlowPass(const PdArgs& a);
@@ -28,6 +28,7 @@ public:
     void onSymbol(t_symbol* s) override;
     void onList(const AtomList& l) override;
     void onAny(t_symbol* s, const AtomListView& lst) override;
+    void onInlet(size_t, const AtomList& l) override;
 
     bool processAnyProps(t_symbol* sel, const AtomListView& lst) override { return false; }
 };

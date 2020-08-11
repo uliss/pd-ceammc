@@ -16,13 +16,13 @@
 
 FlowPass::FlowPass(const PdArgs& a)
     : BaseObject(a)
-    , values_(nullptr)
+    , pass_list_(nullptr)
 {
     createOutlet();
 
-    values_ = new ListProperty("@values", a.args);
-    values_->setArgIndex(0);
-    addProperty(values_);
+    pass_list_ = new ListProperty("@values", a.args);
+    pass_list_->setArgIndex(0);
+    addProperty(pass_list_);
 }
 
 void FlowPass::onBang()
@@ -32,13 +32,13 @@ void FlowPass::onBang()
 
 void FlowPass::onFloat(t_float v)
 {
-    if (values_->value().contains(v))
+    if (pass_list_->value().contains(v))
         floatTo(0, v);
 }
 
 void FlowPass::onSymbol(t_symbol* s)
 {
-    if (values_->value().contains(s))
+    if (pass_list_->value().contains(s))
         symbolTo(0, s);
 }
 
@@ -47,18 +47,31 @@ void FlowPass::onList(const AtomList& l)
     if (l.empty())
         return bangTo(0);
 
-    if (values_->value().contains(l[0]))
+    if (pass_list_->value().contains(l[0]))
         listTo(0, l);
 }
 
 void FlowPass::onAny(t_symbol* s, const AtomListView& lst)
 {
-    if (values_->value().contains(s))
+    if (pass_list_->value().contains(s))
         anyTo(0, s, lst);
+}
+
+void FlowPass::onInlet(size_t, const AtomList& l)
+{
+    pass_list_->set(l);
 }
 
 void setup_flow_pass()
 {
     ObjectFactory<FlowPass> obj("flow.pass");
     obj.addAlias("pass");
+
+    obj.setXletsInfo({ "bang:   always pass\n"
+                       "float:  pass if in pass list\n"
+                       "symbol: pass if in pass list\n"
+                       "list:   pass if first element in pass list\n"
+                       "any:    pass if selector in pass list",
+                         "list: set pass list" },
+        { "passed messages" });
 }
