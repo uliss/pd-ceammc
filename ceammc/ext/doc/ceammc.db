@@ -124,7 +124,7 @@ flow.multiplex2~,flow.mux2~,mux2~		?		~~
 flow.multiplex~,flow.mux~,mux~		?		~
 flow.once,once		..		.
 flow.pack		?		.
-flow.pass,pass		.		.
+flow.pass,pass		..		.
 flow.pass_if,pass_if		..		..
 flow.reject,reject		.		.
 flow.reject_if,reject_if		..		..

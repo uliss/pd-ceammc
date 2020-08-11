@@ -18,6 +18,7 @@ FlowPass::FlowPass(const PdArgs& a)
     : BaseObject(a)
     , pass_list_(nullptr)
 {
+    createInlet();
     createOutlet();
 
     pass_list_ = new ListProperty("@values", a.args);

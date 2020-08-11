@@ -31,6 +31,9 @@
                 <xinfo on="list">pass if first atom found in pass list</xinfo>
                 <xinfo on="any">pass if message selector found in pass list</xinfo>
             </inlet>
+            <inlet>
+                <xinfo on="list">set pass list</xinfo>
+            </inlet>
         </inlets>
         <outlets>
             <outlet>passed values</outlet>
@@ -40,15 +43,12 @@
 <![CDATA[
 [F]    [S]    [list 1 2 9 10(
 |      |      |
-|  [B] |      |
-|  |   |      |
-|  |   |      |
+|  [B] |      | [a b c d(
+|  |   |      | |
+|  |   |      | |
 [flow.pass 1 10 100 a z]
 |
-[msg set]
-|
-[ (
-
+[ui.display @display_type=1]
 ]]>
             </pdascii>
         </example>
