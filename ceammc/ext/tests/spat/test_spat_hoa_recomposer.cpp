@@ -118,6 +118,9 @@ TEST_CASE("hoa.recomposer~", "[externals]")
             REQUIRE(t->numOutlets() == 3);
             REQUIRE(t->numInputChannels() == 3);
             REQUIRE(t->numOutputChannels() == 3);
+
+            REQUIRE(t->propSetRamp(1000));
+            REQUIRE_PROPERTY_FLOAT(t, @ramp, 1000);
         }
 
         SECTION("@fisheye") // auto-calc
@@ -132,6 +135,8 @@ TEST_CASE("hoa.recomposer~", "[externals]")
             REQUIRE(t->numOutlets() == 3);
             REQUIRE(t->numInputChannels() == 4);
             REQUIRE(t->numOutputChannels() == 3);
+
+            REQUIRE_FALSE(t->propSetRamp(1000));
         }
     }
 }
