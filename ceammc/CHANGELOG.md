@@ -47,6 +47,9 @@
 - flow.pass:
     - second inlet added to set pass list
     - pass if first list atom contains in pass list (old behavoir: pass all lists)
+- flow.reject:
+   - second inlet added to set reject list
+   - reject if first list atom contains in reject list (old behavoir: pass all lists)
 
 
 ### Removed:
