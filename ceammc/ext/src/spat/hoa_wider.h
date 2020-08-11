@@ -16,6 +16,7 @@
 
 #include "hoa_common.h"
 
+#include <array>
 #include <memory>
 
 class HoaWider : public HoaBase {
@@ -26,8 +27,18 @@ class HoaWider : public HoaBase {
 public:
     HoaWider(const PdArgs& args);
 
-    void parseProperties() override;
+    void initDone() override;
     void processBlock(const t_sample** in, t_sample** out) override;
+
+    const char* annotateInlet(size_t n) const override;
+    const char* annotateOutlet(size_t n) const override;
+
+public:
+    static void initAnnotations();
+
+private:
+    static constexpr size_t ANNOT_LEN = 32;
+    static std::array<char[ANNOT_LEN], HOA_MAX_ORDER> xlet_annotations_;
 };
 
 void setup_spat_hoa_wider();

@@ -37,7 +37,7 @@ public:
     const char* annotateOutlet(size_t n) const override;
 
 public:
-    static void initAnnotions();
+    static void initAnnotations();
 
 private:
     constexpr static size_t ANNOT_LEN = 32;

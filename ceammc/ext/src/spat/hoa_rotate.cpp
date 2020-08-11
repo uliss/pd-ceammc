@@ -82,7 +82,7 @@ const char* HoaRotate::annotateOutlet(size_t n) const
         return nullptr;
 }
 
-void HoaRotate::initAnnotions()
+void HoaRotate::initAnnotations()
 {
     for (size_t i = 0; i < xlet_annotations_.size(); i++)
         snprintf(xlet_annotations_[i], ANNOT_LEN, "signal: harmonic\\[%d\\]", (int)i);
@@ -90,7 +90,7 @@ void HoaRotate::initAnnotions()
 
 void setup_spat_hoa_rotate()
 {
-    HoaRotate::initAnnotions();
+    HoaRotate::initAnnotations();
     SoundExternalFactory<HoaRotate> obj("hoa.2d.rotate~");
     obj.addAlias("hoa.rotate~");
 }
