@@ -30,7 +30,7 @@ TEST_CASE("string.length", "[external]")
 
     SECTION("process")
     {
-        TestStringLength t("str.length");
+        TObj t("str.length");
         REQUIRE(t.numInlets() == 1);
         REQUIRE(t.numOutlets() == 1);
 
@@ -58,7 +58,7 @@ TEST_CASE("string.length", "[external]")
 
     SECTION("unicode")
     {
-        TestStringLength t("str.length");
+        TObj t("str.length");
 
         WHEN_SEND_TDATA_TO(0, t, DataTypeString("June 2017"));
         REQUIRE_FLOAT_AT_OUTLET(0, t, 9);
