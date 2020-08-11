@@ -44,6 +44,7 @@
     - method reset removed: use bang
     - init arg added to set init state
 - flow.gate: changing property values only via prop.set object
+- flow.pass: pass if first list atom contains in pass list (old behavoir: pass all lists)
 
 ### Removed:
 - flow.demultiplex: @noprops property removed, object now process any input data flow.

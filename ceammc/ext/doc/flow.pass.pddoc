@@ -26,11 +26,10 @@
         <inlets>
             <inlet>
                 <xinfo on="bang">pass</xinfo>
-                <xinfo on="float">pass if float is found in pass list</xinfo>
-                <xinfo on="symbol">pass if symbol is found in pass list</xinfo>
-                <xinfo on="list">pass. If you want to do conditional list pass, use
-                [flow.pass_if]</xinfo>
-                <xinfo on="any">pass if message selector is found in pass list</xinfo>
+                <xinfo on="float">pass if float found in pass list</xinfo>
+                <xinfo on="symbol">pass if symbol found in pass list</xinfo>
+                <xinfo on="list">pass if first atom found in pass list</xinfo>
+                <xinfo on="any">pass if message selector found in pass list</xinfo>
             </inlet>
         </inlets>
         <outlets>

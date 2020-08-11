@@ -16,11 +16,12 @@
 
 FlowPass::FlowPass(const PdArgs& a)
     : BaseObject(a)
-    , values_(0)
+    , values_(nullptr)
 {
     createOutlet();
 
     values_ = new ListProperty("@values", a.args);
+    values_->setArgIndex(0);
     addProperty(values_);
 }
 
@@ -43,35 +44,17 @@ void FlowPass::onSymbol(t_symbol* s)
 
 void FlowPass::onList(const AtomList& l)
 {
-    listTo(0, l);
+    if (l.empty())
+        return bangTo(0);
+
+    if (values_->value().contains(l[0]))
+        listTo(0, l);
 }
 
 void FlowPass::onAny(t_symbol* s, const AtomListView& lst)
 {
     if (values_->value().contains(s))
         anyTo(0, s, lst);
-}
-
-void FlowPass::parseProperties()
-{
-}
-
-bool FlowPass::processAnyProps(t_symbol* sel, const AtomListView& lst)
-{
-    static t_symbol* s_prop_values = gensym("@values");
-    static t_symbol* s_get_values = gensym("@values?");
-
-    if (sel == s_get_values) {
-        anyTo(0, s_prop_values, values_->value());
-        return true;
-    }
-
-    if (sel == s_prop_values) {
-        values_->set(lst);
-        return true;
-    }
-
-    return false;
 }
 
 void setup_flow_pass()

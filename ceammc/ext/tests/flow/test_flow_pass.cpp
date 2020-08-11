@@ -33,20 +33,20 @@ TEST_CASE("flow.pass", "[externals]")
 
         SECTION("args")
         {
-            TObj t("flow.pass", LA(1, 2, "b", "@c"));
+            TObj t("flow.pass", LA(1, 2, "b", "\"@c\""));
             REQUIRE_PROPERTY_LIST(t, @values, LA(1, 2, "b", "@c"));
         }
 
         SECTION("properties")
         {
-            TObj t("flow.pass", LA(1, 2, "@values", "@c"));
-            REQUIRE_PROPERTY_LIST(t, @values, LA(1, 2, "@values", "@c"));
+            TObj t("flow.pass", LA(1, 2, "@values", "\"@c\""));
+            REQUIRE_PROPERTY_LIST(t, @values, LA("@c"));
         }
     }
 
     SECTION("float")
     {
-        TObj t("flow.pass", LA(1, "a", "@c"));
+        TObj t("flow.pass", LA(1, "a", "\"@c\""));
         WHEN_SEND_BANG_TO(0, t);
         REQUIRE_BANG_AT_OUTLET(0, t);
     }
@@ -93,19 +93,25 @@ TEST_CASE("flow.pass", "[externals]")
 
     SECTION("list")
     {
-        // all lists are passed
         TObj t("flow.pass", LA("a", "b"));
+
+        WHEN_SEND_LIST_TO(0, t, LA("a", "a", "a"));
+        REQUIRE_LIST_AT_OUTLET(0, t, LA("a", "a", "a"));
+
+        WHEN_SEND_LIST_TO(0, t, LA("b", "b", "b"));
+        REQUIRE_LIST_AT_OUTLET(0, t, LA("b", "b", "b"));
 
         WHEN_SEND_LIST_TO(0, t, LA("a", "b"));
         REQUIRE_LIST_AT_OUTLET(0, t, LA("a", "b"));
 
-        WHEN_SEND_LIST_TO(0, t, LA("c", "d"));
-        REQUIRE_LIST_AT_OUTLET(0, t, LA("c", "d"));
+        WHEN_SEND_LIST_TO(0, t, LA("c", "a", "b"));
+        REQUIRE_NO_MESSAGES_AT_OUTLET(0, t);
     }
 
     SECTION("any")
     {
-        TObj t("flow.pass", LA("c", "@d"));
+        TObj t("flow.pass", LA(1, 2, "c", "\"@d\""));
+        REQUIRE_PROPERTY_LIST(t, @values, LA(1, 2, "c", "@d"));
 
         WHEN_SEND_ANY_TO(t, "a", LF(1, 2));
         REQUIRE_NO_MESSAGES_AT_OUTLET(0, t);
@@ -131,7 +137,12 @@ TEST_CASE("flow.pass", "[externals]")
 
     SECTION("real")
     {
-        pd::External flow_pass("flow.pass", LA(1, "c", "@prop"));
-        REQUIRE_FALSE(flow_pass.isNull());
+        TExt t("flow.pass", LA(1, "\"@prop\""));
+        REQUIRE_PROPERTY_LIST(t, @values, LA(1, "@prop"));
+    }
+
+    SECTION("alias")
+    {
+        TExt t("pass");
     }
 }
