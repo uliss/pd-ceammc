@@ -25,7 +25,7 @@ TEST_CASE("flow.pass", "[externals]")
         SECTION("empty")
         {
             TObj t("flow.pass");
-            REQUIRE(t.numInlets() == 1);
+            REQUIRE(t.numInlets() == 2);
             REQUIRE(t.numOutlets() == 1);
 
             REQUIRE_PROPERTY_LIST(t, @values, L());
@@ -139,6 +139,9 @@ TEST_CASE("flow.pass", "[externals]")
     {
         TExt t("flow.pass", LA(1, "\"@prop\""));
         REQUIRE_PROPERTY_LIST(t, @values, LA(1, "@prop"));
+
+        t.sendListTo(LF(1, 2, 3), 1);
+        REQUIRE_PROPERTY_LIST(t, @values, LA(1, 2, 3));
     }
 
     SECTION("alias")
