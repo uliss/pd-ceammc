@@ -105,9 +105,11 @@ TEST_CASE("string.equal", "[external]")
         t.sendListTo(StringAtom("abc"), 1);
         REQUIRE_PROPERTY_LIST(t, @subj, StringAtom("abc"));
 
+        // space
         t.sendListTo(LA("\"", "\""), 1);
         REQUIRE_PROPERTY_LIST(t, @subj, StringAtom(" "));
 
+        // empty string
         t.sendListTo(LA("\"\""), 1);
         REQUIRE_PROPERTY_LIST(t, @subj, StringAtom(""));
     }
