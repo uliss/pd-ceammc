@@ -1,5 +1,5 @@
 /*****************************************************************************
- * Copyright 2017 Serge Poltavsky. All rights reserved.
+ * Copyright 2020 Serge Poltavsky. All rights reserved.
  *
  * This file may be distributed under the terms of GNU Public License version
  * 3 (GPL v3) as defined by the Free Software Foundation (FSF). A copy of the
@@ -11,25 +11,33 @@
  * contact the author of this file, or the owner of the project in which
  * this file belongs to.
  *****************************************************************************/
-#ifndef STRING_EQUAL_H
-#define STRING_EQUAL_H
+#ifndef STRING_PROPERTY_H
+#define STRING_PROPERTY_H
 
 #include "ceammc_data.h"
-#include "ceammc_object.h"
-#include "string_property.h"
+#include "ceammc_property.h"
+#include "datatype_string.h"
 
-using namespace ceammc;
+namespace ceammc {
 
-class StringEqual : public BaseObject {
-    StringProperty* pattern_;
+class StringProperty : public Property {
+    StringAtom str_;
 
 public:
-    StringEqual(const PdArgs& a);
-    void onSymbol(t_symbol* s) override;
-    void onDataT(const StringAtom& str);
-    void onInlet(size_t, const AtomList& l) override;
+    StringProperty(const std::string& name, const std::string& def = "");
+
+    const DataTypeString& value() const { return *str_; }
+    bool setValue(const std::string& str);
+    bool setValue(const DataTypeString& str);
+
+    AtomList get() const override;
+
+    bool setSymbol(t_symbol*) override;
+    bool setList(const AtomListView& lst) override;
+
+    const std::string& str() const { return str_->str(); }
 };
 
-void setup_string_equal();
+}
 
-#endif // STRING_EQUAL_H
+#endif // STRING_PROPERTY_H
