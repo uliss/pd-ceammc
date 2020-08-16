@@ -227,17 +227,17 @@ bool DataTypeDict::fromString(const std::string& str)
         return false;
     }
 
-    try {
-        AtomList atoms = parseDataString(str.substr(ob_pos));
-        if (atoms.isA<DataTypeDict>()) {
-            *this = *atoms.asD<DataTypeDict>();
-            return true;
-        } else {
-            LIB_ERR << "dict is expected, got: " << str;
-            return false;
-        }
-    } catch (std::exception& e) {
-        LIB_ERR << "parse error: " << e.what();
+    auto parse_result = parseDataString(str.substr(ob_pos));
+    if (!parse_result) {
+        LIB_ERR << "parse error: " << parse_result.err();
+        return false;
+    }
+
+    if (parse_result.result().isA<DataTypeDict>()) {
+        *this = *(parse_result.result().asD<DataTypeDict>());
+        return true;
+    } else {
+        LIB_ERR << "dict is expected, got: " << str;
         return false;
     }
 }
@@ -298,7 +298,7 @@ MaybeString DataTypeDict::toJSON(int indent) const
     json j(*this);
 
     if (j.empty())
-        return boost::none;
+        return {};
 
     return j.dump(indent);
 }
