@@ -33,7 +33,7 @@ public:
     void onSymbol(t_symbol* s) override;
     void onClick(t_floatarg xpos, t_floatarg ypos, t_floatarg shift, t_floatarg ctrl, t_floatarg alt) override;
 
-    void m_callback(t_symbol* s, const AtomList& args);
+    void m_callback(t_symbol* s, const AtomListView& args);
 
 private:
     bool setHex(t_symbol* s);

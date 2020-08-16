@@ -36,8 +36,8 @@ public:
     void tick();
 
 public:
-    void m_connect(t_symbol*, const AtomList& args);
-    void m_disconnect(t_symbol*, const AtomList& args);
+    void m_connect(t_symbol*, const AtomListView& args);
+    void m_disconnect(t_symbol*, const AtomListView&);
 
 private:
     void onConnect();

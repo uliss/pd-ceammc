@@ -24,8 +24,8 @@ public:
     void onBang() override;
     void onAny(t_symbol* s, const AtomListView& l) override;
 
-    void m_all_props(t_symbol* s, const AtomList& args);
-    void m_default(t_symbol*, const AtomList&);
+    void m_all_props(t_symbol* s, const AtomListView& args);
+    void m_default(t_symbol*, const AtomListView&);
     void dump() const override;
 
 private:

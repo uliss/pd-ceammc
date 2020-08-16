@@ -155,7 +155,7 @@ void ArduinoExternal::tick()
     }
 }
 
-void ArduinoExternal::m_connect(t_symbol*, const AtomList& args)
+void ArduinoExternal::m_connect(t_symbol*, const AtomListView& args)
 {
     if (args.toT<bool>(true))
         arduino_->start();
@@ -163,7 +163,7 @@ void ArduinoExternal::m_connect(t_symbol*, const AtomList& args)
         arduino_->stop();
 }
 
-void ArduinoExternal::m_disconnect(t_symbol*, const AtomList& args)
+void ArduinoExternal::m_disconnect(t_symbol*, const AtomListView&)
 {
     arduino_->stop();
 }

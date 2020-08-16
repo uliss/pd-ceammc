@@ -100,7 +100,7 @@ bool StkSynth::propSetGate(t_float f)
     return true;
 }
 
-void StkBase::m_cc(t_symbol* s, const AtomList& lst)
+void StkBase::m_cc(t_symbol* s, const AtomListView& lst)
 {
     if (!checkArgs(lst, ARG_INT, ARG_FLOAT, s))
         return;

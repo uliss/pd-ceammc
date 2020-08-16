@@ -763,7 +763,7 @@ static const char* to_string(BaseObject::ArgumentType a)
     return names[a];
 }
 
-bool BaseObject::checkArgs(const AtomList& lst, ArgumentType a1, t_symbol* method) const
+bool BaseObject::checkArgs(const AtomListView& lst, ArgumentType a1, t_symbol* method) const
 {
     if (lst.size() < 1
         || !checkArg(lst[0], a1, 0)) {
@@ -777,7 +777,7 @@ bool BaseObject::checkArgs(const AtomList& lst, ArgumentType a1, t_symbol* metho
     return true;
 }
 
-bool BaseObject::checkArgs(const AtomList& lst, BaseObject::ArgumentType a1,
+bool BaseObject::checkArgs(const AtomListView& lst, BaseObject::ArgumentType a1,
     BaseObject::ArgumentType a2, t_symbol* method) const
 {
     if (lst.size() < 2
@@ -795,7 +795,7 @@ bool BaseObject::checkArgs(const AtomList& lst, BaseObject::ArgumentType a1,
     return true;
 }
 
-bool BaseObject::checkArgs(const AtomList& lst, BaseObject::ArgumentType a1,
+bool BaseObject::checkArgs(const AtomListView& lst, BaseObject::ArgumentType a1,
     BaseObject::ArgumentType a2, BaseObject::ArgumentType a3, t_symbol* method) const
 {
     if (lst.size() < 3
@@ -815,7 +815,7 @@ bool BaseObject::checkArgs(const AtomList& lst, BaseObject::ArgumentType a1,
     return true;
 }
 
-bool BaseObject::checkArgs(const AtomList& lst, BaseObject::ArgumentType a1,
+bool BaseObject::checkArgs(const AtomListView& lst, BaseObject::ArgumentType a1,
     BaseObject::ArgumentType a2, BaseObject::ArgumentType a3,
     BaseObject::ArgumentType a4, t_symbol* method) const
 {

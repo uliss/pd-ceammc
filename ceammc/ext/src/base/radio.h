@@ -24,7 +24,7 @@ public:
     Radio(const PdArgs& args);
 
     void onFloat(t_float f) override;
-    void m_reset(t_symbol* s, const AtomList& lst);
+    void m_reset(t_symbol* s, const AtomListView&);
 };
 
 void setup_base_radio();

@@ -37,7 +37,7 @@ public:
         }
     }
 
-    void screenSize(t_symbol*, const AtomList& data)
+    void screenSize(t_symbol*, const AtomListView& data)
     {
         listTo(0, data);
     }

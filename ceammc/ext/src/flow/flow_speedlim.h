@@ -20,7 +20,7 @@ public:
     void onAny(t_symbol* s, const AtomListView& l) override;
     void onData(const Atom& data) override;
 
-    void m_reset(t_symbol*, const AtomList&);
+    void m_reset(t_symbol*, const AtomListView&);
 
     void accept();
     void clock_handler();

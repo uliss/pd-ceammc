@@ -70,7 +70,7 @@ void SystemColorpanel::onClick(t_floatarg xpos, t_floatarg ypos, t_floatarg shif
         onBang();
 }
 
-void SystemColorpanel::m_callback(t_symbol* s, const AtomList& args)
+void SystemColorpanel::m_callback(t_symbol* s, const AtomListView& args)
 {
     if (!args.isSymbol())
         return;

@@ -30,7 +30,7 @@ public:
     {
     }
 
-    void m_play(t_symbol* sel, const AtomList& dur)
+    void m_play(t_symbol* sel, const AtomListView& dur)
     {
         bool ok = !dur.empty() && dur[0].isFloat() && dur[0].asFloat() > 0;
         if (!ok) {

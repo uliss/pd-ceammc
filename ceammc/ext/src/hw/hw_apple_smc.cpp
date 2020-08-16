@@ -35,7 +35,7 @@ AtomList HwAppleSMC::propKeys() const
 #endif
 }
 
-void HwAppleSMC::m_read(t_symbol* s, const AtomList& l)
+void HwAppleSMC::m_read(t_symbol* s, const AtomListView& l)
 {
 #ifdef WITH_SMC
     if (!checkArgs(l, ARG_SYMBOL, s))

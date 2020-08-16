@@ -109,7 +109,7 @@ void PatchProps::onAny(t_symbol* s, const AtomListView& l)
     }
 }
 
-void PatchProps::m_all_props(t_symbol* s, const AtomList& args)
+void PatchProps::m_all_props(t_symbol* s, const AtomListView& args)
 {
     t_canvas* x = canvas();
     if (!x)
@@ -128,7 +128,7 @@ void PatchProps::m_all_props(t_symbol* s, const AtomList& args)
     anyTo(0, SYM_PROPS_ALL(), res);
 }
 
-void PatchProps::m_default(t_symbol*, const AtomList&)
+void PatchProps::m_default(t_symbol*, const AtomListView&)
 {
     t_canvas* cnv = canvas();
     if (!cnv)

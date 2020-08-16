@@ -52,7 +52,7 @@ public:
         onBang();
     }
 
-    void proto_set(const AtomList& lst) override
+    void proto_set(const AtomListView& lst) override
     {
         mlist()->setRaw(lst);
     }
@@ -62,17 +62,17 @@ public:
         mlist()->clear();
     }
 
-    void proto_append(const AtomList& lst) override
+    void proto_append(const AtomListView& lst) override
     {
         mlist()->append(lst);
     }
 
-    void proto_prepend(const AtomList& lst) override
+    void proto_prepend(const AtomListView& lst) override
     {
         mlist()->prepend(lst);
     }
 
-    bool proto_insert(size_t idx, const AtomList& lst) override
+    bool proto_insert(size_t idx, const AtomListView& lst) override
     {
         return mlist()->insert(idx, lst);
     }

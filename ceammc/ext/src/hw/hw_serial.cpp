@@ -242,7 +242,7 @@ bool SerialPort::onThreadCommand(int code)
     return ThreadExternal::onThreadCommand(code);
 }
 
-void SerialPort::m_open(t_symbol* s, const AtomList& l)
+void SerialPort::m_open(t_symbol* s, const AtomListView& l)
 {
     if (isRunning()) {
         OBJ_ERR << "already connected";
@@ -251,7 +251,7 @@ void SerialPort::m_open(t_symbol* s, const AtomList& l)
 
     // using numeric index
     if (l.isFloat()) {
-        int idx = atomlistToValue<int>(l, 0);
+        int idx = l.toT<int>(0);
         auto ports = serial::list_ports();
         if (idx >= 0 || idx < ports.size()) {
             port_->setValue(gensym(ports[idx].port.c_str()));
@@ -263,7 +263,7 @@ void SerialPort::m_open(t_symbol* s, const AtomList& l)
     start();
 }
 
-void SerialPort::m_close(t_symbol* s, const AtomList&)
+void SerialPort::m_close(t_symbol* s, const AtomListView&)
 {
     if (!isRunning()) {
         OBJ_ERR << "not connected";

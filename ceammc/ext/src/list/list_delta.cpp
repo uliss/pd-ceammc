@@ -60,7 +60,7 @@ public:
         listTo(0, delta_list_);
     }
 
-    void m_clear(t_symbol*, const AtomList&)
+    void m_clear(t_symbol*, const AtomListView&)
     {
         prev_list_.clear();
         delta_list_.clear();

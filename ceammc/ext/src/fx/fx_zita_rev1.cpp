@@ -13,11 +13,6 @@ public:
 
         bindPositionalArgsToProps({ SYM_PROP_DECAY_LOW, SYM_PROP_DECAY_MID });
     }
-
-    void m_reset(t_symbol*, const AtomList&)
-    {
-        dsp_->instanceClear();
-    }
 };
 
 void setup_fx_zita_rev1_tilde()

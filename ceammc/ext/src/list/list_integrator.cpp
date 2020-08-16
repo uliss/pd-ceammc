@@ -57,7 +57,7 @@ public:
         listTo(0, integral_list_);
     }
 
-    void m_clear(t_symbol*, const AtomList&)
+    void m_clear(t_symbol*, const AtomListView&)
     {
         integral_list_.clear();
     }

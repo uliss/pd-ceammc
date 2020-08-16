@@ -76,12 +76,12 @@ void FlowChange::onAny(t_symbol* s, const AtomListView& l)
     anyTo(0, s, l);
 }
 
-void FlowChange::m_reset(t_symbol*, const AtomList&)
+void FlowChange::m_reset(t_symbol*, const AtomListView&)
 {
     msg_ = Message();
 }
 
-void FlowChange::m_set(t_symbol*, const AtomList& l)
+void FlowChange::m_set(t_symbol*, const AtomListView& l)
 {
     if (l.size() == 1)
         msg_ = Message(l[0]);

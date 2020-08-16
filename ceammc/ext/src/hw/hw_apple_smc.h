@@ -31,7 +31,7 @@ public:
     HwAppleSMC(const PdArgs& args);
 
     AtomList propKeys() const;
-    void m_read(t_symbol* s, const AtomList& l);
+    void m_read(t_symbol* s, const AtomListView& l);
 };
 
 void setup_hw_apple_smc();

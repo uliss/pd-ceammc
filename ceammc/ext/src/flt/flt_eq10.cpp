@@ -53,11 +53,6 @@ public:
             setProperty(freq_pack[i], l.view(i, 1));
         }
     }
-
-    void m_reset(t_symbol*, const AtomList&)
-    {
-        dsp_->instanceClear();
-    }
 };
 
 void setup_flt_eq10_tilde()

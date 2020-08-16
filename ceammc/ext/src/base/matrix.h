@@ -37,7 +37,7 @@ public:
     void processBlock(const t_sample** in, t_sample** out) override;
     void setupDSP(t_signal** in) override;
 
-    void m_cell(t_symbol* s, const AtomList& lst);
+    void m_cell(t_symbol* s, const AtomListView& lst);
 };
 
 void setup_base_matrix();

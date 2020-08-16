@@ -94,7 +94,7 @@ AtomList MidiTrack::p_state() const
     return Atom(play_state_);
 }
 
-void MidiTrack::m_next(t_symbol*, const AtomList&)
+void MidiTrack::m_next(t_symbol*, const AtomListView&)
 {
     if (current_event_idx_ >= size()) {
         OBJ_DBG << "end of track reached";
@@ -111,12 +111,12 @@ void MidiTrack::m_next(t_symbol*, const AtomList&)
     current_event_idx_ = next_idx;
 }
 
-void MidiTrack::m_reset(t_symbol*, const AtomList&)
+void MidiTrack::m_reset(t_symbol*, const AtomListView&)
 {
     current_event_idx_ = 0;
 }
 
-void MidiTrack::m_seek(t_symbol*, const AtomList& l)
+void MidiTrack::m_seek(t_symbol*, const AtomListView& l)
 {
     if (l.empty()) {
         OBJ_ERR << "usage: seek tick_index [BEGIN|REL]";
@@ -142,7 +142,7 @@ void MidiTrack::m_seek(t_symbol*, const AtomList& l)
     }
 }
 
-void MidiTrack::m_play(t_symbol*, const AtomList&)
+void MidiTrack::m_play(t_symbol*, const AtomListView&)
 {
     if (play_state_ == PLAY_STATE_PLAYING) {
         OBJ_ERR << "already playing...";
@@ -153,7 +153,7 @@ void MidiTrack::m_play(t_symbol*, const AtomList&)
     clockTick();
 }
 
-void MidiTrack::m_stop(t_symbol*, const AtomList&)
+void MidiTrack::m_stop(t_symbol*, const AtomListView&)
 {
     if (play_state_ == PLAY_STATE_STOPPED) {
         OBJ_ERR << "already stopped...";
@@ -165,7 +165,7 @@ void MidiTrack::m_stop(t_symbol*, const AtomList&)
     clock_unset(clock_);
 }
 
-void MidiTrack::m_pause(t_symbol*, const AtomList&)
+void MidiTrack::m_pause(t_symbol*, const AtomListView&)
 {
     if (play_state_ == PLAY_STATE_PAUSED) {
         OBJ_ERR << "already paused...";

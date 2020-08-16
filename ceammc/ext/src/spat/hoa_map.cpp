@@ -131,7 +131,7 @@ void HoaMap::processIn1In2()
         Signal::copy(BS, &out_buf_[i], NOUTS, &out[i][0], 1);
 }
 
-void HoaMap::m_polar(t_symbol* s, const AtomList& l)
+void HoaMap::m_polar(t_symbol* s, const AtomListView& l)
 {
     if (!checkArgs(l, ARG_INT, ARG_FLOAT, ARG_FLOAT)) {
         METHOD_ERR(s) << "IDX RADIUS ANGLE expected: " << l;
@@ -148,7 +148,7 @@ void HoaMap::m_polar(t_symbol* s, const AtomList& l)
     lines_->setAzimuth(idx, l[2].asFloat() - M_PI_2);
 }
 
-void HoaMap::m_mute(t_symbol* s, const AtomList& l)
+void HoaMap::m_mute(t_symbol* s, const AtomListView& l)
 {
     if (!checkArgs(l, ARG_NATURAL, ARG_BOOL)) {
         METHOD_ERR(s) << "SRC_IDX STATE expected: " << l;

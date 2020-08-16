@@ -54,7 +54,7 @@ done:
     listTo(0, res);
 }
 
-void CeammcSearch::m_keywords(t_symbol* s, const AtomList& l)
+void CeammcSearch::m_keywords(t_symbol* s, const AtomListView& l)
 {
     if (!checkArgs(l, ARG_SYMBOL, s))
         return;
@@ -81,7 +81,7 @@ done:
     listTo(0, res);
 }
 
-void CeammcSearch::m_objects(t_symbol* s, const AtomList& l)
+void CeammcSearch::m_objects(t_symbol* s, const AtomListView& l)
 {
     if (!checkArgs(l, ARG_SYMBOL, s))
         return;

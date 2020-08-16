@@ -145,12 +145,12 @@ bool SynthFGrain::propSetFile(t_symbol* fname)
     return true;
 }
 
-void SynthFGrain::m_open(t_symbol* s, const AtomList& lst)
+void SynthFGrain::m_open(t_symbol* s, const AtomListView& lst)
 {
-    propSetFile(atomlistToValue<t_symbol*>(lst, &s_));
+    propSetFile(lst.toT<t_symbol*>(&s_));
 }
 
-void SynthFGrain::m_reset(t_symbol* s, const AtomList& lst)
+void SynthFGrain::m_reset(t_symbol* s, const AtomListView&)
 {
     synth_->reset();
 }

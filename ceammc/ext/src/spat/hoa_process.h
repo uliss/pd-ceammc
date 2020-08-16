@@ -45,8 +45,8 @@ public:
     void setupDSP(t_signal** sp) final;
 
     void onClick(t_floatarg xpos, t_floatarg ypos, t_floatarg shift, t_floatarg ctrl, t_floatarg alt) override;
-    void m_open(t_symbol* m, const AtomList& lst);
-    void m_dsp_on(t_symbol* m, const AtomList& lst);
+    void m_open(t_symbol* m, const AtomListView& lst);
+    void m_dsp_on(t_symbol* m, const AtomListView& lst);
 
     void initDone() override;
 

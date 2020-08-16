@@ -147,7 +147,7 @@ void BaseProp::onList(const AtomList& l)
         OBJ_ERR << "can't set property to " << l;
 }
 
-void BaseProp::m_default(t_symbol*, const AtomList&)
+void BaseProp::m_default(t_symbol*, const AtomListView&)
 {
     DataTypeProperty* prop = PropertyStorage::storage().acquire(full_name_);
 
@@ -197,7 +197,7 @@ void setup_base_prop()
 
     obj.setDescription("get/set named property value for subpatch or abstraction");
     obj.addAuthor("Serge Poltavsky");
-    obj.setKeywords({"property"});
+    obj.setKeywords({ "property" });
     obj.setCategory("property");
     obj.setSinceVersion(0, 7);
 }

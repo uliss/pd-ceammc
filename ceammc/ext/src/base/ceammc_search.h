@@ -24,8 +24,8 @@ class CeammcSearch : public BaseObject {
 public:
     CeammcSearch(const PdArgs& args);
     void onSymbol(t_symbol* s) override;
-    void m_keywords(t_symbol* s, const AtomList& l);
-    void m_objects(t_symbol* s, const AtomList& l);
+    void m_keywords(t_symbol* s, const AtomListView& l);
+    void m_objects(t_symbol* s, const AtomListView& l);
 };
 
 void setup_ceammc_search();

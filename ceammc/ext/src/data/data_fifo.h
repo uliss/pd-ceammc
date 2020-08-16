@@ -38,10 +38,10 @@ public:
     void onList(const AtomList& lst) override;
     void onAny(t_symbol* s, const AtomListView& lst) override;
 
-    void m_flush(t_symbol*, const AtomList&);
-    void m_clear(t_symbol*, const AtomList&);
-    void m_pop(t_symbol*, const AtomList&);
-    void m_resize(t_symbol*, const AtomList& l);
+    void m_flush(t_symbol*, const AtomListView&);
+    void m_clear(t_symbol*, const AtomListView&);
+    void m_pop(t_symbol*, const AtomListView&);
+    void m_resize(t_symbol*, const AtomListView& l);
 
     void add(const Message& msg);
 

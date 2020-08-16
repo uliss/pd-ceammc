@@ -9,11 +9,6 @@ public:
         : faust_flt_biquad_tilde(args)
     {
     }
-
-    void m_reset(t_symbol*, const AtomList&)
-    {
-        dsp_->instanceClear();
-    }
 };
 
 void setup_flt_biquad_tilde()

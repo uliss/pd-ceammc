@@ -56,25 +56,13 @@ void ArrayWindow::onBang()
         fill();
 }
 
-void ArrayWindow::onAny(t_symbol* s, const AtomListView& lst)
-{
-    if (fn_map.find(s) == fn_map.end()) {
-        OBJ_ERR << "unsupported window type: " << s;
-        return;
-    }
-
-
-    const Atom a(s);
-    setProperty(PROP_TYPE, a);
-}
-
 void ArrayWindow::updateGenFn()
 {
     gen_fn_ = fn_map[type_->value()];
     fill();
 }
 
-void ArrayWindow::m_resize(t_symbol* s, const AtomList& l)
+void ArrayWindow::m_resize(t_symbol* s, const AtomListView& l)
 {
     if (!checkArgs(l, ARG_NATURAL, s))
         return;
@@ -94,7 +82,7 @@ void ArrayWindow::m_resize(t_symbol* s, const AtomList& l)
         OBJ_ERR << "can't resize array: " << array_.name();
 }
 
-void ArrayWindow::m_fit(t_symbol* s, const AtomList& l)
+void ArrayWindow::m_fit(t_symbol* s, const AtomListView& /*l*/)
 {
     if (!array_.isValid()) {
         OBJ_ERR << "invalid array: " << array_.name();
@@ -108,6 +96,72 @@ void ArrayWindow::m_fit(t_symbol* s, const AtomList& l)
     SETFLOAT(&args[2], t_float(array_.size()));
     SETFLOAT(&args[3], 0);
     pd_typedmess(name->s_thing, gensym("bounds"), 4, args);
+}
+
+void ArrayWindow::m_triangle(t_symbol* s, const AtomListView& args)
+{
+    type_->setValue(s);
+    updateGenFn();
+}
+
+void ArrayWindow::m_gauss(t_symbol* s, const AtomListView& args)
+{
+    type_->setValue(s);
+    updateGenFn();
+}
+
+void ArrayWindow::m_hann(t_symbol* s, const AtomListView& args)
+{
+    type_->setValue(s);
+    updateGenFn();
+}
+
+void ArrayWindow::m_rect(t_symbol* s, const AtomListView& args)
+{
+    type_->setValue(s);
+    updateGenFn();
+}
+
+void ArrayWindow::m_sine(t_symbol* s, const AtomListView& args)
+{
+    type_->setValue(s);
+    updateGenFn();
+}
+
+void ArrayWindow::m_hamming(t_symbol* s, const AtomListView& args)
+{
+    type_->setValue(s);
+    updateGenFn();
+}
+
+void ArrayWindow::m_blackman(t_symbol* s, const AtomListView& args)
+{
+    type_->setValue(s);
+    updateGenFn();
+}
+
+void ArrayWindow::m_blackman_harris(t_symbol* s, const AtomListView& args)
+{
+    type_->setValue(s);
+    updateGenFn();
+}
+
+void ArrayWindow::m_flattop(t_symbol* s, const AtomListView& args)
+{
+    type_->setValue(s);
+    updateGenFn();
+}
+
+void ArrayWindow::m_welch(t_symbol* s, const AtomListView& args)
+{
+    type_->setValue(s);
+    updateGenFn();
+}
+
+void ArrayWindow::m_nuttall(t_symbol* s, const AtomListView& args)
+{
+    type_->setValue(s);
+    updateGenFn();
 }
 
 void ArrayWindow::fill()
@@ -159,4 +213,16 @@ void setup_array_window()
     ObjectFactory<ArrayWindow> obj("array.window");
     obj.addMethod("resize", &ArrayWindow::m_resize);
     obj.addMethod("fit", &ArrayWindow::m_fit);
+
+    obj.addMethod("tri", &ArrayWindow::m_triangle);
+    obj.addMethod("welch", &ArrayWindow::m_welch);
+    obj.addMethod("hann", &ArrayWindow::m_hann);
+    obj.addMethod("rect", &ArrayWindow::m_rect);
+    obj.addMethod("sine", &ArrayWindow::m_sine);
+    obj.addMethod("hamming", &ArrayWindow::m_hamming);
+    obj.addMethod("blackman", &ArrayWindow::m_blackman);
+    obj.addMethod("nuttall", &ArrayWindow::m_nuttall);
+    obj.addMethod("blackman-harris", &ArrayWindow::m_blackman_harris);
+    obj.addMethod("flattop", &ArrayWindow::m_flattop);
+    obj.addMethod("gauss", &ArrayWindow::m_gauss);
 }

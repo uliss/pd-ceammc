@@ -31,7 +31,7 @@ void ObjectInfo::onBang()
     m_props(gensym("props"), AtomList());
 }
 
-void ObjectInfo::m_props(t_symbol* s, const AtomList& l)
+void ObjectInfo::m_props(t_symbol* s, const AtomListView& l)
 {
     AtomList res;
     for (t_object* o : connected()) {

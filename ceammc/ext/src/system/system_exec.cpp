@@ -92,17 +92,17 @@ void SystemExec::onList(const AtomList& l)
     checkProcess();
 }
 
-void SystemExec::m_stop(t_symbol* s, const AtomList& l)
+void SystemExec::m_stop(t_symbol* s, const AtomListView& l)
 {
     if (!process_->sendSignal(sys::Process::INTERRUPT))
         OBJ_ERR << process_->error();
 }
 
-void SystemExec::m_terminate(t_symbol* s, const AtomList& l)
+void SystemExec::m_terminate(t_symbol* s, const AtomListView& l)
 {
     static ArgChecker chk("b?");
 
-    if (!chk.check(l.view())) {
+    if (!chk.check(l)) {
         OBJ_ERR << fmt::format("usage: {} [<FORCE>]", s->s_name);
         return;
     }
@@ -113,7 +113,7 @@ void SystemExec::m_terminate(t_symbol* s, const AtomList& l)
         process_->sendSignal(sys::Process::TERMINATE);
 }
 
-void SystemExec::m_write(t_symbol* s, const AtomList& l)
+void SystemExec::m_write(t_symbol* s, const AtomListView& l)
 {
     if (!isRunning()) {
         OBJ_ERR << "process is not running...";
@@ -123,7 +123,7 @@ void SystemExec::m_write(t_symbol* s, const AtomList& l)
     process_->addLineToInBuffer(to_string(l, " "));
 }
 
-void SystemExec::m_eof(t_symbol* s, const AtomList&)
+void SystemExec::m_eof(t_symbol* s, const AtomListView&)
 {
     should_close_stdin_ = true;
 }

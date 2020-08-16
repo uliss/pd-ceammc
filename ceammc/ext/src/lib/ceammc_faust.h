@@ -347,6 +347,11 @@ namespace faust {
         {
             pd_float(reinterpret_cast<t_pd*>(owner()), f);
         }
+
+        void m_reset(t_symbol* s, const AtomListView&)
+        {
+            dsp_->instanceClear();
+        }
     };
 
     template <typename T>

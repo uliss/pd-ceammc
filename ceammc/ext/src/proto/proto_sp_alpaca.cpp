@@ -257,7 +257,7 @@ bool ProtoSpAlpaca::fsm_output_response()
     return true;
 }
 
-void ProtoSpAlpaca::m_clear(t_symbol* s, const AtomList& l)
+void ProtoSpAlpaca::m_clear(t_symbol* s, const AtomListView& l)
 {
     floatTo(0, CMD_START);
     floatTo(0, CMD_TARGET | CMD_TARGET_MATRIX);
@@ -265,7 +265,7 @@ void ProtoSpAlpaca::m_clear(t_symbol* s, const AtomList& l)
     floatTo(0, CMD_END);
 }
 
-void ProtoSpAlpaca::m_col(t_symbol* s, const AtomList& l)
+void ProtoSpAlpaca::m_col(t_symbol* s, const AtomListView& l)
 {
     // args example: 2 0 1 1 0 1 1
     // 3rd col with values 0 1 1 0 1 1
@@ -310,7 +310,7 @@ void ProtoSpAlpaca::m_col(t_symbol* s, const AtomList& l)
     floatTo(0, CMD_END);
 }
 
-void ProtoSpAlpaca::m_row(t_symbol* s, const AtomList& l)
+void ProtoSpAlpaca::m_row(t_symbol* s, const AtomListView& l)
 {
     // args example: 2 0 1 1 0 1 1
     // 3rd row with values 0 1 1 0 1 1
@@ -355,7 +355,7 @@ void ProtoSpAlpaca::m_row(t_symbol* s, const AtomList& l)
     floatTo(0, CMD_END);
 }
 
-void ProtoSpAlpaca::m_fill(t_symbol* s, const AtomList& l)
+void ProtoSpAlpaca::m_fill(t_symbol* s, const AtomListView& l)
 {
     floatTo(0, CMD_START);
     floatTo(0, CMD_TARGET | CMD_TARGET_MATRIX);
@@ -363,7 +363,7 @@ void ProtoSpAlpaca::m_fill(t_symbol* s, const AtomList& l)
     floatTo(0, CMD_END);
 }
 
-void ProtoSpAlpaca::m_get_version(t_symbol* s, const AtomList& l)
+void ProtoSpAlpaca::m_get_version(t_symbol* s, const AtomListView& l)
 {
     floatTo(0, CMD_START);
     floatTo(0, CMD_TARGET | CMD_TARGET_DEVICE);
@@ -371,7 +371,7 @@ void ProtoSpAlpaca::m_get_version(t_symbol* s, const AtomList& l)
     floatTo(0, CMD_END);
 }
 
-void ProtoSpAlpaca::m_invert(t_symbol* s, const AtomList& l)
+void ProtoSpAlpaca::m_invert(t_symbol* s, const AtomListView& l)
 {
     floatTo(0, CMD_START);
     floatTo(0, CMD_TARGET | CMD_TARGET_MATRIX);
@@ -379,7 +379,7 @@ void ProtoSpAlpaca::m_invert(t_symbol* s, const AtomList& l)
     floatTo(0, CMD_END);
 }
 
-void ProtoSpAlpaca::m_str(t_symbol* s, const AtomList& l)
+void ProtoSpAlpaca::m_str(t_symbol* s, const AtomListView& l)
 {
     auto str = to_string(l);
     if (str.empty()) {
@@ -399,7 +399,7 @@ void ProtoSpAlpaca::m_str(t_symbol* s, const AtomList& l)
         drawChar(toupper(str[1]), 4);
 }
 
-void ProtoSpAlpaca::m_sync(t_symbol* s, const AtomList& l)
+void ProtoSpAlpaca::m_sync(t_symbol* s, const AtomListView& l)
 {
     floatTo(0, CMD_START);
     floatTo(0, CMD_TARGET | CMD_TARGET_DEVICE);
@@ -407,7 +407,7 @@ void ProtoSpAlpaca::m_sync(t_symbol* s, const AtomList& l)
     floatTo(0, CMD_END);
 }
 
-void ProtoSpAlpaca::m_mode(t_symbol* s, const AtomList& l)
+void ProtoSpAlpaca::m_mode(t_symbol* s, const AtomListView& l)
 {
     if (!checkArgs(l, ARG_INT, ARG_SYMBOL, s))
         return;
@@ -454,7 +454,7 @@ void ProtoSpAlpaca::m_mode(t_symbol* s, const AtomList& l)
     }
 }
 
-void ProtoSpAlpaca::m_brightness(t_symbol* s, const AtomList& l)
+void ProtoSpAlpaca::m_brightness(t_symbol* s, const AtomListView& l)
 {
     if (!checkArgs(l, ARG_FLOAT, s))
         return;
@@ -472,7 +472,7 @@ void ProtoSpAlpaca::m_brightness(t_symbol* s, const AtomList& l)
     floatTo(0, CMD_END);
 }
 
-void ProtoSpAlpaca::m_pixel(t_symbol* s, const AtomList& l)
+void ProtoSpAlpaca::m_pixel(t_symbol* s, const AtomListView& l)
 {
     if (!checkArgs(l, ARG_INT, ARG_INT, ARG_INT)) {
         METHOD_ERR(s) << " X Y 1|0 args expected: " << l;
@@ -505,7 +505,7 @@ void ProtoSpAlpaca::m_pixel(t_symbol* s, const AtomList& l)
     floatTo(0, CMD_END);
 }
 
-void ProtoSpAlpaca::m_char(t_symbol* s, const AtomList& l)
+void ProtoSpAlpaca::m_char(t_symbol* s, const AtomListView& l)
 {
     if (l.empty() || l.size() > 2) {
         METHOD_ERR(s) << "CHAR [OFFSET] expected";

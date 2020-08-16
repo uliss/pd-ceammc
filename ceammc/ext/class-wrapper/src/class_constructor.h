@@ -137,7 +137,7 @@ public:
         atomTo(0, data_);
     }
 
-    void m_set(t_symbol* s, const AtomList& l)
+    void m_set(t_symbol* s, const AtomListView& l)
     {
         if (l.isData()) {
             if (l.isA<TypeWrapped>()) {

@@ -56,7 +56,7 @@ public:
         onList(ml->data());
     }
 
-    void proto_set(const AtomList& lst) override
+    void proto_set(const AtomListView& lst) override
     {
         list() = lst;
     }
@@ -66,17 +66,17 @@ public:
         list().clear();
     }
 
-    void proto_append(const AtomList& lst) override
+    void proto_append(const AtomListView& lst) override
     {
         list().append(lst);
     }
 
-    void proto_prepend(const AtomList& lst) override
+    void proto_prepend(const AtomListView& lst) override
     {
         list().insert(0, lst);
     }
 
-    bool proto_insert(size_t idx, const AtomList& lst) override
+    bool proto_insert(size_t idx, const AtomListView& lst) override
     {
         return list().insert(idx, lst);
     }

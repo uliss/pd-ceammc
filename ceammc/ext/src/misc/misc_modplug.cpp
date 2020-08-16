@@ -114,7 +114,7 @@ void ModPlug::processBlock(const t_sample** /*in*/, t_sample** out)
     }
 }
 
-void ModPlug::m_play(t_symbol*, const AtomList&)
+void ModPlug::m_play(t_symbol*, const AtomListView&)
 {
     if (!file_) {
         OBJ_ERR << "file is not loaded";
@@ -125,7 +125,7 @@ void ModPlug::m_play(t_symbol*, const AtomList&)
     OBJ_DBG << "play";
 }
 
-void ModPlug::m_stop(t_symbol*, const AtomList&)
+void ModPlug::m_stop(t_symbol*, const AtomListView&)
 {
     if (!file_) {
         OBJ_ERR << "file is not loaded";
@@ -143,7 +143,7 @@ void ModPlug::m_stop(t_symbol*, const AtomList&)
     OBJ_DBG << "stop";
 }
 
-void ModPlug::m_pause(t_symbol*, const AtomList&)
+void ModPlug::m_pause(t_symbol*, const AtomListView&)
 {
     play_ = false;
     OBJ_DBG << "pause";

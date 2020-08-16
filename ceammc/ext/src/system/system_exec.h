@@ -41,10 +41,10 @@ public:
     void onSymbol(t_symbol* s) override;
     void onList(const AtomList& l) override;
 
-    void m_stop(t_symbol* s, const AtomList& l);
-    void m_terminate(t_symbol* s, const AtomList& l);
-    void m_write(t_symbol* s, const AtomList& l);
-    void m_eof(t_symbol* s, const AtomList&);
+    void m_stop(t_symbol* s, const AtomListView& l);
+    void m_terminate(t_symbol* s, const AtomListView& l);
+    void m_write(t_symbol* s, const AtomListView& l);
+    void m_eof(t_symbol* s, const AtomListView&);
 
 private:
     void checkProcess();

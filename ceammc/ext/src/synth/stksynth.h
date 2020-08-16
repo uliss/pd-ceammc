@@ -20,7 +20,7 @@ public:
     void setupDSP(t_signal** sp) override;
     void processBlock(const t_sample**, t_sample** out) override;
 
-    void m_cc(t_symbol* s, const AtomList& lst);
+    void m_cc(t_symbol* s, const AtomListView& lst);
     void controlChange(int n, t_float val);
 
     template <class T>

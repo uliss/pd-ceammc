@@ -46,12 +46,12 @@ public:
     // play state
     AtomList p_state() const;
 
-    void m_next(t_symbol*, const AtomList&);
-    void m_reset(t_symbol*, const AtomList&);
-    void m_seek(t_symbol*, const AtomList& l);
-    void m_play(t_symbol*, const AtomList&);
-    void m_stop(t_symbol*, const AtomList&);
-    void m_pause(t_symbol*, const AtomList&);
+    void m_next(t_symbol*, const AtomListView&);
+    void m_reset(t_symbol*, const AtomListView&);
+    void m_seek(t_symbol*, const AtomListView& l);
+    void m_play(t_symbol*, const AtomListView&);
+    void m_stop(t_symbol*, const AtomListView&);
+    void m_pause(t_symbol*, const AtomListView&);
 
     void outputEvent(MidiEvent* ev);
 

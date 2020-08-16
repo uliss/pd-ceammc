@@ -135,7 +135,7 @@ public:
 
         pd_args_ = new ListProperty("@args");
         pd_args_->setArgIndex(0);
-        pd_args_->setSuccessFn([this](Property* p) { pd_args_->setValue(parseDataList(p->get())); });
+        pd_args_->setSuccessFn([this](Property* p) { pd_args_->setValue(parseDataList(p->get()).result()); });
         addProperty(pd_args_);
     }
 

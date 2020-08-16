@@ -435,32 +435,32 @@ void FxLooper::stateRecordToDub(const t_sample** in, t_sample** out)
     state_ = STATE_DUB;
 }
 
-void FxLooper::m_record(t_symbol*, const AtomList&)
+void FxLooper::m_record(t_symbol*, const AtomListView&)
 {
     toState(STATE_REC);
 }
 
-void FxLooper::m_stop(t_symbol*, const AtomList&)
+void FxLooper::m_stop(t_symbol*, const AtomListView&)
 {
     toState(STATE_STOP);
 }
 
-void FxLooper::m_pause(t_symbol* s, const AtomList&)
+void FxLooper::m_pause(t_symbol* s, const AtomListView&)
 {
     toState(STATE_PAUSE);
 }
 
-void FxLooper::m_play(t_symbol*, const AtomList&)
+void FxLooper::m_play(t_symbol*, const AtomListView&)
 {
     toState(STATE_PLAY);
 }
 
-void FxLooper::m_overdub(t_symbol*, const AtomList&)
+void FxLooper::m_overdub(t_symbol*, const AtomListView&)
 {
     toState(STATE_DUB);
 }
 
-void FxLooper::m_clear(t_symbol*, const AtomList&)
+void FxLooper::m_clear(t_symbol*, const AtomListView&)
 {
     if (arraySpecified()) {
         if (!array_.isValid()) {
@@ -481,7 +481,7 @@ void FxLooper::m_clear(t_symbol*, const AtomList&)
     state_ = STATE_STOP;
 }
 
-void FxLooper::m_adjust(t_symbol* s, const AtomList& lst)
+void FxLooper::m_adjust(t_symbol* s, const AtomListView& lst)
 {
     if (!checkArgs(lst, ARG_FLOAT))
         return;
@@ -496,7 +496,7 @@ void FxLooper::m_adjust(t_symbol* s, const AtomList& lst)
     loop_len_ = long(loop_len_) + samples;
 }
 
-void FxLooper::m_smooth(t_symbol* s, const AtomList& lst)
+void FxLooper::m_smooth(t_symbol* s, const AtomListView& lst)
 {
     using namespace ceammc::units;
     auto res = TimeValue::parse(lst);

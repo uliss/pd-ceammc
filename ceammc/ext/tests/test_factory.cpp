@@ -94,7 +94,7 @@ public:
     t_symbol* methodSel() { return sel_; }
     const AtomList& methodArgs() const { return args_; }
 
-    void m_method(t_symbol* sel, const AtomList& args)
+    void m_method(t_symbol* sel, const AtomListView& args)
     {
         method_called_++;
         args_ = args;

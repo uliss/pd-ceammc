@@ -71,11 +71,11 @@ void ListWalk::onList(const AtomList& l)
     single_done_ = false;
 }
 
-void ListWalk::m_current(t_symbol*, const AtomList&) { current(); }
-void ListWalk::m_next(t_symbol*, const AtomList& l) { next(atomlistToValue<int>(l, 1)); }
-void ListWalk::m_prev(t_symbol*, const AtomList& l) { prev(atomlistToValue<int>(l, 1)); }
+void ListWalk::m_current(t_symbol*, const AtomListView&) { current(); }
+void ListWalk::m_next(t_symbol*, const AtomListView& l) { next(l.toT<int>(1)); }
+void ListWalk::m_prev(t_symbol*, const AtomListView& l) { prev(l.toT<int>(1)); }
 
-void ListWalk::m_reset(t_symbol*, const AtomList&)
+void ListWalk::m_reset(t_symbol*, const AtomListView&)
 {
     current_pos_ = 0;
     single_done_ = false;

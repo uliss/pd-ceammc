@@ -78,7 +78,7 @@ public:
             OBJ_ERR << "can't set envelope: " << *env;
     }
 
-    void m_reset(t_symbol*, const AtomList&)
+    void m_reset(t_symbol*, const AtomListView&)
     {
         prop_gate_->setValue(0);
         dsp_->instanceClear();

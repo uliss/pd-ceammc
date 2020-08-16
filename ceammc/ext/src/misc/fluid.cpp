@@ -127,7 +127,7 @@ AtomList Fluid::propSoundFonts() const
     return res;
 }
 
-void Fluid::m_note(t_symbol* s, const AtomList& lst)
+void Fluid::m_note(t_symbol* s, const AtomListView& lst)
 {
     if (synth_ == nullptr)
         return;
@@ -147,7 +147,7 @@ void Fluid::m_note(t_symbol* s, const AtomList& lst)
     }
 }
 
-void Fluid::m_cc(t_symbol* s, const AtomList& lst)
+void Fluid::m_cc(t_symbol* s, const AtomListView& lst)
 {
     if (synth_ == nullptr)
         return;
@@ -167,7 +167,7 @@ void Fluid::m_cc(t_symbol* s, const AtomList& lst)
     }
 }
 
-void Fluid::m_prog(t_symbol* s, const AtomList& lst)
+void Fluid::m_prog(t_symbol* s, const AtomListView& lst)
 {
     if (synth_ == nullptr)
         return;
@@ -181,7 +181,7 @@ void Fluid::m_prog(t_symbol* s, const AtomList& lst)
     }
 }
 
-void Fluid::m_bank(t_symbol* s, const AtomList& lst)
+void Fluid::m_bank(t_symbol* s, const AtomListView& lst)
 {
     if (synth_ == nullptr)
         return;
@@ -202,7 +202,7 @@ void Fluid::m_bank(t_symbol* s, const AtomList& lst)
     }
 }
 
-void Fluid::m_bend(t_symbol* s, const AtomList& lst)
+void Fluid::m_bend(t_symbol* s, const AtomListView& lst)
 {
     if (synth_ == nullptr)
         return;
@@ -216,7 +216,7 @@ void Fluid::m_bend(t_symbol* s, const AtomList& lst)
     }
 }
 
-void Fluid::m_gen(t_symbol* s, const AtomList& lst)
+void Fluid::m_gen(t_symbol* s, const AtomListView& lst)
 {
     if (synth_ == nullptr)
         return;
@@ -236,7 +236,7 @@ void Fluid::m_gen(t_symbol* s, const AtomList& lst)
     }
 }
 
-void Fluid::m_panic(t_symbol* s, const AtomList& lst)
+void Fluid::m_panic(t_symbol* s, const AtomListView& lst)
 {
     if (synth_ == nullptr)
         return;
@@ -244,7 +244,7 @@ void Fluid::m_panic(t_symbol* s, const AtomList& lst)
     fluid_synth_system_reset(synth_);
 }
 
-void Fluid::m_reset(t_symbol* s, const AtomList& lst)
+void Fluid::m_reset(t_symbol* s, const AtomListView& lst)
 {
     if (synth_ == nullptr)
         return;
@@ -255,7 +255,7 @@ void Fluid::m_reset(t_symbol* s, const AtomList& lst)
         fluid_synth_reset_basic_channel(synth_, i);
 }
 
-void Fluid::m_notesOff(t_symbol* s, const AtomList& lst)
+void Fluid::m_notesOff(t_symbol* s, const AtomListView& lst)
 {
     if (synth_ == nullptr)
         return;
@@ -264,7 +264,7 @@ void Fluid::m_notesOff(t_symbol* s, const AtomList& lst)
     fluid_synth_all_notes_off(synth_, chan - 1);
 }
 
-void Fluid::m_soundsOff(t_symbol* s, const AtomList& lst)
+void Fluid::m_soundsOff(t_symbol* s, const AtomListView& lst)
 {
     if (synth_ == nullptr)
         return;

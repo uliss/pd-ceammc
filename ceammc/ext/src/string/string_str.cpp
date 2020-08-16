@@ -58,17 +58,17 @@ void StringStr::onData(const Atom& d)
     onBang();
 }
 
-void StringStr::m_append(t_symbol*, const AtomList& lst)
+void StringStr::m_append(t_symbol*, const AtomListView& lst)
 {
     str_ += to_string(lst);
 }
 
-void StringStr::m_set(t_symbol*, const AtomList& lst)
+void StringStr::m_set(t_symbol*, const AtomListView& lst)
 {
     str_ = to_string(lst);
 }
 
-void StringStr::m_clear(t_symbol*, const AtomList&)
+void StringStr::m_clear(t_symbol*, const AtomListView&)
 {
     str_.clear();
 }

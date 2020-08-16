@@ -30,8 +30,8 @@ public:
     void onData(const Atom& d) override;
     void onInlet(size_t, const AtomList& l) override;
 
-    void m_flush(t_symbol*, const AtomList& l);
-    void m_clear(t_symbol*, const AtomList& l);
+    void m_flush(t_symbol*, const AtomListView&);
+    void m_clear(t_symbol*, const AtomListView &);
 
 private:
     size_t size() const;

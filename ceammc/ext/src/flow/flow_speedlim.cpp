@@ -85,7 +85,7 @@ void FlowSpeedLimit::clock_handler()
     is_closed_ = false;
 }
 
-void FlowSpeedLimit::m_reset(t_symbol*, const AtomList&)
+void FlowSpeedLimit::m_reset(t_symbol*, const AtomListView&)
 {
     is_closed_ = false;
 }

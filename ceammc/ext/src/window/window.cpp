@@ -124,57 +124,57 @@ WindowFuncPtr Window::windowFunc()
     return fn_;
 }
 
-void Window::m_hann(t_symbol*, const AtomList&)
+void Window::m_hann(t_symbol*, const AtomListView&)
 {
     setWindowFunc(WIN_HANN);
 }
 
-void Window::m_tri(t_symbol*, const AtomList&)
+void Window::m_tri(t_symbol*, const AtomListView&)
 {
     setWindowFunc(WIN_TRIANGLE);
 }
 
-void Window::m_welch(t_symbol*, const AtomList&)
+void Window::m_welch(t_symbol*, const AtomListView&)
 {
     setWindowFunc(WIN_WELCH);
 }
 
-void Window::m_rect(t_symbol*, const AtomList&)
+void Window::m_rect(t_symbol*, const AtomListView&)
 {
     setWindowFunc(WIN_RECT);
 }
 
-void Window::m_sine(t_symbol*, const AtomList&)
+void Window::m_sine(t_symbol*, const AtomListView&)
 {
     setWindowFunc(WIN_SINE);
 }
 
-void Window::m_hamming(t_symbol*, const AtomList&)
+void Window::m_hamming(t_symbol*, const AtomListView&)
 {
     setWindowFunc(WIN_HAMMING);
 }
 
-void Window::m_blackman(t_symbol*, const AtomList&)
+void Window::m_blackman(t_symbol*, const AtomListView&)
 {
     setWindowFunc(WIN_BLACKMAN);
 }
 
-void Window::m_nuttall(t_symbol*, const AtomList&)
+void Window::m_nuttall(t_symbol*, const AtomListView&)
 {
     setWindowFunc(WIN_NUTTALL);
 }
 
-void Window::m_blackman_harris(t_symbol*, const AtomList&)
+void Window::m_blackman_harris(t_symbol*, const AtomListView&)
 {
     setWindowFunc(WIN_BLACKMAN_HARRIS);
 }
 
-void Window::m_flattop(t_symbol*, const AtomList&)
+void Window::m_flattop(t_symbol*, const AtomListView&)
 {
     setWindowFunc(WIN_FLATTOP);
 }
 
-void Window::m_gauss(t_symbol*, const AtomList&)
+void Window::m_gauss(t_symbol*, const AtomListView&)
 {
     setWindowFunc(WIN_GAUSS);
 }

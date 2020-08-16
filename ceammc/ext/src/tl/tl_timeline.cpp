@@ -102,7 +102,7 @@ void TlTimeLine::event(size_t n, t_float at)
 
 void TlTimeLine::eventStart()
 {
-    listTo(0, AtomList(gensym(SYM_START), Atom(0.f)));
+    listTo(0, { gensym(SYM_START), 0.f });
 }
 
 void TlTimeLine::eventEnd()
@@ -110,50 +110,50 @@ void TlTimeLine::eventEnd()
     listTo(0, AtomList(gensym(SYM_END), tl_.length()));
 }
 
-void TlTimeLine::m_add(t_symbol* s, const AtomList& lst)
+void TlTimeLine::m_add(t_symbol* s, const AtomListView& lst)
 {
     if (!cmd_parser_.parse(to_string(Message(s, lst))))
         METHOD_ERR(s) << "can't add event: " << lst;
 }
 
-void TlTimeLine::m_remove(t_symbol* s, const AtomList& lst)
+void TlTimeLine::m_remove(t_symbol* s, const AtomListView& lst)
 {
     if (!cmd_parser_.parse(to_string(Message(s, lst))))
         METHOD_ERR(s) << "can't remove event: " << lst;
 }
 
-void TlTimeLine::m_clear(t_symbol* s, const AtomList& lst)
+void TlTimeLine::m_clear(t_symbol* s, const AtomListView& lst)
 {
     tl_.clear();
 }
 
-void TlTimeLine::m_start(t_symbol* s, const AtomList& lst)
+void TlTimeLine::m_start(t_symbol* s, const AtomListView& lst)
 {
     tl_.start();
 }
 
-void TlTimeLine::m_stop(t_symbol* s, const AtomList& lst)
+void TlTimeLine::m_stop(t_symbol* s, const AtomListView& lst)
 {
     tl_.stop();
 }
 
-void TlTimeLine::m_pause(t_symbol* s, const AtomList& lst)
+void TlTimeLine::m_pause(t_symbol* s, const AtomListView& lst)
 {
     tl_.pause();
 }
 
-void TlTimeLine::m_reset(t_symbol* s, const AtomList& lst)
+void TlTimeLine::m_reset(t_symbol* s, const AtomListView& lst)
 {
     tl_.reset();
 }
 
-void TlTimeLine::m_to_event(t_symbol* s, const AtomList& lst)
+void TlTimeLine::m_to_event(t_symbol* s, const AtomListView& lst)
 {
     if (!cmd_parser_.parse(to_string(Message(s, lst))))
         METHOD_ERR(s) << "can't move to event: " << lst;
 }
 
-void TlTimeLine::m_to_time(t_symbol* s, const AtomList& lst)
+void TlTimeLine::m_to_time(t_symbol* s, const AtomListView& lst)
 {
     if (!cmd_parser_.parse(to_string(Message(s, lst))))
         METHOD_ERR(s) << "can't move to time: " << lst;

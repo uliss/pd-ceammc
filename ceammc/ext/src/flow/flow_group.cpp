@@ -61,12 +61,12 @@ void FlowGroup::onInlet(size_t, const AtomList& l)
     group_size_->set(l);
 }
 
-void FlowGroup::m_flush(t_symbol*, const AtomList& l)
+void FlowGroup::m_flush(t_symbol*, const AtomListView&)
 {
     flush();
 }
 
-void FlowGroup::m_clear(t_symbol*, const AtomList& l)
+void FlowGroup::m_clear(t_symbol*, const AtomListView&)
 {
     atoms_.clear();
 }

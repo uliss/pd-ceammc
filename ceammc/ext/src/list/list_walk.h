@@ -36,10 +36,10 @@ public:
     void onFloat(t_float v) override;
     void onList(const AtomList& l) override;
 
-    void m_current(t_symbol*, const AtomList&);
-    void m_next(t_symbol*, const AtomList& l);
-    void m_prev(t_symbol*, const AtomList& l);
-    void m_reset(t_symbol*, const AtomList&);
+    void m_current(t_symbol*, const AtomListView&);
+    void m_next(t_symbol*, const AtomListView& l);
+    void m_prev(t_symbol*, const AtomListView& l);
+    void m_reset(t_symbol*, const AtomListView&);
 
     AtomList p_index() const;
     void p_set_index(const AtomList& l);

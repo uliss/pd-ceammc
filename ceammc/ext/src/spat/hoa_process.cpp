@@ -562,7 +562,7 @@ void HoaProcess::onClick(t_floatarg xpos, t_floatarg ypos, t_floatarg shift, t_f
         instances_.front().show();
 }
 
-void HoaProcess::m_open(t_symbol* m, const AtomList& lst)
+void HoaProcess::m_open(t_symbol* m, const AtomListView &lst)
 {
     if (!checkArgs(lst, ARG_FLOAT, m))
         return;
@@ -584,7 +584,7 @@ void HoaProcess::m_open(t_symbol* m, const AtomList& lst)
     }
 }
 
-void HoaProcess::m_dsp_on(t_symbol* m, const AtomList& lst)
+void HoaProcess::m_dsp_on(t_symbol* m, const AtomListView& lst)
 {
     static t_symbol* SYM_ALL = gensym("all");
     auto usage = [this, m]() {

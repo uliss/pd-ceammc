@@ -99,7 +99,7 @@ void HoaRecomposer::setupDSP(t_signal** sp)
         OBJ_ERR << "unknown mode: " << mode_->value();
 }
 
-void HoaRecomposer::m_angles(t_symbol* s, const AtomList& lst)
+void HoaRecomposer::m_angles(t_symbol* s, const AtomListView& lst)
 {
     if (!free_mode_lines_) {
         OBJ_ERR << "not in @free mode, can't set angles";
@@ -111,7 +111,7 @@ void HoaRecomposer::m_angles(t_symbol* s, const AtomList& lst)
         free_mode_lines_->setAzimuth(i, lst[i].asFloat());
 }
 
-void HoaRecomposer::m_wide(t_symbol* s, const AtomList& lst)
+void HoaRecomposer::m_wide(t_symbol* s, const AtomListView& lst)
 {
     if (!free_mode_lines_) {
         OBJ_ERR << "not in @free mode, can't set wide";
