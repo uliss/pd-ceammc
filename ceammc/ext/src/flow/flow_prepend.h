@@ -1,5 +1,5 @@
 /*****************************************************************************
- * Copyright 2018 Serge Poltavsky. All rights reserved.
+ * Copyright 2020 Serge Poltavsky. All rights reserved.
  *
  * This file may be distributed under the terms of GNU Public License version
  * 3 (GPL v3) as defined by the Free Software Foundation (FSF). A copy of the
@@ -11,22 +11,23 @@
  * contact the author of this file, or the owner of the project in which
  * this file belongs to.
  *****************************************************************************/
-#ifndef FLOW_APPEND_H
-#define FLOW_APPEND_H
+#ifndef FLOW_PREPEND_H
+#define FLOW_PREPEND_H
 
 #include "ceammc_clock.h"
 #include "ceammc_object.h"
-
 using namespace ceammc;
 
-class FlowAppend : public BaseObject {
-    ListProperty* msg_;
+class FlowPrepend : public BaseObject {
+    ListProperty* prepend_msg_;
     FloatProperty* delay_time_;
     FlagProperty* as_msg_;
-    ClockMemberFunction<FlowAppend> clock_;
+    ClockMemberFunction<FlowPrepend> clock_;
+    Message src_msg_;
 
 public:
-    FlowAppend(const PdArgs& args);
+    FlowPrepend(const PdArgs& args);
+
     void onBang() override;
     void onFloat(t_float f) override;
     void onSymbol(t_symbol* s) override;
@@ -37,9 +38,9 @@ public:
 private:
     void process();
     void tick();
-    void outputAppend();
+    void outputPrepend();
 };
 
-void setup_flow_append();
+void setup_flow_prepend();
 
-#endif // FLOW_APPEND_H
+#endif // FLOW_PREPEND_H

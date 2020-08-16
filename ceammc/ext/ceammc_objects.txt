@@ -163,6 +163,7 @@ flow.>
 flow.>=
 flow.after
 flow.append
+flow.before
 flow.change
 flow.count
 flow.del
@@ -194,6 +195,7 @@ flow.pack
 flow.pack'
 flow.pass
 flow.pass_if
+flow.prepend
 flow.reject
 flow.reject_if
 flow.route

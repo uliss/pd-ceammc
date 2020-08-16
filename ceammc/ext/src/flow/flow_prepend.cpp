@@ -1,5 +1,5 @@
 /*****************************************************************************
- * Copyright 2018 Serge Poltavsky. All rights reserved.
+ * Copyright 2020 Serge Poltavsky. All rights reserved.
  *
  * This file may be distributed under the terms of GNU Public License version
  * 3 (GPL v3) as defined by the Free Software Foundation (FSF). A copy of the
@@ -11,15 +11,15 @@
  * contact the author of this file, or the owner of the project in which
  * this file belongs to.
  *****************************************************************************/
-#include "flow_append.h"
+#include "flow_prepend.h"
 #include "ceammc_factory.h"
 
-FlowAppend::FlowAppend(const PdArgs& args)
+FlowPrepend::FlowPrepend(const PdArgs& args)
     : BaseObject(args)
-    , msg_(nullptr)
+    , prepend_msg_(nullptr)
     , delay_time_(0)
     , as_msg_(0)
-    , clock_(this, &FlowAppend::tick)
+    , clock_(this, &FlowPrepend::tick)
 {
     delay_time_ = new FloatProperty("@delay", 0);
     delay_time_->setFloatCheck(PropValueConstraints::GREATER_EQUAL, -1);
@@ -29,9 +29,9 @@ FlowAppend::FlowAppend(const PdArgs& args)
     as_msg_ = new FlagProperty("@msg");
     addProperty(as_msg_);
 
-    msg_ = new ListProperty("@value");
-    msg_->setArgIndex(0);
-    addProperty(msg_);
+    prepend_msg_ = new ListProperty("@value");
+    prepend_msg_->setArgIndex(0);
+    addProperty(prepend_msg_);
 
     createInlet();
     createInlet();
@@ -39,78 +39,81 @@ FlowAppend::FlowAppend(const PdArgs& args)
     createOutlet();
 }
 
-void FlowAppend::onBang()
+void FlowPrepend::onBang()
 {
-    bangTo(0);
+    outputPrepend();
+    src_msg_.setBang();
     process();
 }
 
-void FlowAppend::onFloat(t_float f)
+void FlowPrepend::onFloat(t_float f)
 {
-    floatTo(0, f);
+    outputPrepend();
+    src_msg_.setFloat(f);
     process();
 }
 
-void FlowAppend::onSymbol(t_symbol* s)
+void FlowPrepend::onSymbol(t_symbol* s)
 {
-    symbolTo(0, s);
+    outputPrepend();
+    src_msg_.setSymbol(s);
     process();
 }
 
-void FlowAppend::onList(const AtomList& lst)
+void FlowPrepend::onList(const AtomList& lst)
 {
-    listTo(0, lst);
+    outputPrepend();
+    src_msg_.setList(lst);
     process();
 }
 
-void FlowAppend::onAny(t_symbol* s, const AtomListView& lst)
+void FlowPrepend::onAny(t_symbol* s, const AtomListView& lst)
 {
-    anyTo(0, s, lst);
+    outputPrepend();
+    src_msg_.setAny(s, lst);
     process();
 }
 
-void FlowAppend::onInlet(size_t n, const AtomList& lst)
+void FlowPrepend::onInlet(size_t n, const AtomList& lst)
 {
     if (n == 1)
-        msg_->set(lst);
+        prepend_msg_->set(lst);
     else if (n == 2)
         delay_time_->set(lst);
     else
         OBJ_ERR << "invalid inlet: " << n;
 }
 
-void FlowAppend::process()
+void FlowPrepend::process()
 {
-    if (delay_time_->value() >= 0) {
+    if (delay_time_->value() >= 0)
         clock_.delay(delay_time_->value());
-    } else {
-        outputAppend();
-    }
+    else
+        messageTo(0, src_msg_);
 }
 
-void FlowAppend::tick()
+void FlowPrepend::tick()
 {
-    outputAppend();
+    messageTo(0, src_msg_);
 }
 
-void FlowAppend::outputAppend()
+void FlowPrepend::outputPrepend()
 {
     if (as_msg_->value()) {
-        anyTo(0, msg_->get());
+        anyTo(0, prepend_msg_->get());
     } else {
-        listTo(0, msg_->get());
+        listTo(0, prepend_msg_->get());
     }
 }
 
-void setup_flow_append()
+void setup_flow_prepend()
 {
-    ObjectFactory<FlowAppend> obj("flow.append");
-    obj.addAlias("flow<-");
-    obj.addAlias("flow.after");
+    ObjectFactory<FlowPrepend> obj("flow.prepend");
+    obj.addAlias("flow.before");
 
     obj.noPropsDispatch();
 
     obj.setXletsInfo(
-        { "any: target message", "list: message after ", "float: delay (ms)" },
-        { "output target message then appended message" });
+        { "any: target message", "list: message before", "float: delay (ms)" },
+        { "prepended message then after delay original message" });
 }

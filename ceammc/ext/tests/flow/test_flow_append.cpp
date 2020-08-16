@@ -71,14 +71,35 @@ TEST_CASE("flow.append", "[externals]")
     SECTION("do")
     {
         TExt t("flow.append", 1, 2, 3, "@delay", -1);
+        REQUIRE_PROPERTY(t, @value, LF(1, 2, 3));
 
         t.sendFloat(100);
         REQUIRE(t.messagesAt(0).size() == 2);
         REQUIRE(t.messagesAt(0)[0].atomValue() == A(100));
         REQUIRE(t.messagesAt(0)[1].listValue() == LF(1, 2, 3));
+
+        t.clearAll();
+        t << "ABC";
+        REQUIRE(t.messagesAt(0)[0].atomValue() == S("ABC"));
+        REQUIRE(t.messagesAt(0)[1].listValue() == LF(1, 2, 3));
+
+        t.clearAll();
+        t << LF(3, 2, 1);
+        REQUIRE(t.messagesAt(0)[0].listValue() == LF(3, 2, 1));
+        REQUIRE(t.messagesAt(0)[1].listValue() == LF(1, 2, 3));
+
+        t.clearAll();
+        t.sendMessage("reset");
+        REQUIRE(t.messagesAt(0)[0].anyValue() == LA("reset"));
+        REQUIRE(t.messagesAt(0)[1].listValue() == LF(1, 2, 3));
+
+        t.clearAll();
+        t.sendMessage("@value");
+        REQUIRE(t.messagesAt(0)[0].anyValue() == LA("@value"));
+        REQUIRE(t.messagesAt(0)[1].listValue() == LF(1, 2, 3));
     }
 
-    SECTION("do")
+    SECTION("do") // invalid message
     {
         TExt t("flow.append", 1, 2, 3, "@delay", -1, "@msg");
 
@@ -113,5 +134,11 @@ TEST_CASE("flow.append", "[externals]")
         REQUIRE_PROPERTY(t, @value, 200);
         t.sendFloatTo(20, 2);
         REQUIRE_PROPERTY(t, @delay, 20);
+    }
+
+    SECTION("flow<-")
+    {
+        TExt t0("flow<-");
+        TExt t1("flow.after");
     }
 }
