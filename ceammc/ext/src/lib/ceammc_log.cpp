@@ -202,6 +202,17 @@ LogBaseObject::LogBaseObject(const BaseObject* obj, LogLevel level)
 {
 }
 
+LogNone::LogNone()
+    : LogPdObject(nullptr, LOG_NONE)
+{
+    this->set_rdbuf(&buf_);
+}
+
+int LogNone::NoneBuffer::overflow(int c)
+{
+    return c;
+}
+
 }
 
 std::ostream& operator<<(std::ostream& os, t_symbol* s)
