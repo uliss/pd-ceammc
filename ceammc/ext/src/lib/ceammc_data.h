@@ -15,6 +15,7 @@
 #define CEAMMC_DATA_H
 
 #include "ceammc_atomlist.h"
+#include "ceammc_log.h"
 
 #include <string>
 
@@ -70,6 +71,43 @@ using StringAtom = DataAtom<DataTypeString>;
 
 static_assert(sizeof(MListAtom) == sizeof(Atom), "DataAtom size mismatch");
 
+class DataParseResult {
+    AtomList res_;
+    std::string err_;
+    bool ok_ = { true };
+
+    DataParseResult() = delete;
+
+public:
+    DataParseResult(const DataParseResult& r) noexcept;
+    DataParseResult(DataParseResult&& r) noexcept;
+    DataParseResult& operator=(const DataParseResult& r) noexcept;
+    DataParseResult& operator=(DataParseResult&& r) noexcept;
+
+    explicit DataParseResult(const std::string& err)
+        : err_(err)
+        , ok_(false)
+    {
+    }
+
+    explicit DataParseResult(const AtomList& l)
+        : res_(l)
+        , ok_(true)
+    {
+    }
+
+    explicit DataParseResult(AtomList&& l)
+        : res_(std::move(l))
+        , ok_(true)
+    {
+    }
+
+    operator bool() const { return ok_; }
+
+    const std::string& err() const { return err_; }
+    const AtomList& result() const { return res_; }
+};
+
 /**
  * Parse raw list with data constructor syntax:
  *  - **null**  -> Atom()
@@ -81,16 +119,19 @@ static_assert(sizeof(MListAtom) == sizeof(Atom), "DataAtom size mismatch");
  *  -
  * @example (1 2 3) -> MListAtom(1, 2, 3)
  * @example 1 2 3 -> AtomList(1, 2, 3)
+ * @example [key: 1 2 3] -> DictAtom
  * @param lst - raw input list
- * @return parsed list on success or unmodified list if parsing failed
+ * @param log - error logger, use LogNone to disable logging
+ * @return parse result
  */
-AtomList parseDataList(const AtomList& lst) noexcept;
-AtomList parseDataList(const AtomListView& view) noexcept;
+DataParseResult parseDataList(const AtomList& lst) noexcept;
+DataParseResult parseDataList(const AtomListView& view) noexcept;
 
 /**
- * @throw std::runtime_error on error
+ * Parse string
+ * @return parse result
  */
-AtomList parseDataString(const std::string& str);
+DataParseResult parseDataString(const std::string& str) noexcept;
 
 }
 

@@ -278,7 +278,7 @@ TEST_CASE("wrapper_method", "[class-wrapper]")
             REQUIRE(t.isOutputFloatAt(0));
             REQUIRE(t.outputFloatAt(0) == 3000);
 
-            t.sendListTo(parseDataString("DataInt(20)"), 1);
+            t.sendListTo(parseDataString("DataInt(20)").result(), 1);
 
             t << 100;
             REQUIRE(t.hasOutputAt(0));

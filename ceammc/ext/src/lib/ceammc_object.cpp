@@ -460,7 +460,21 @@ void BaseObject::extractPositionalArguments()
         return;
 
     pos_args_unparsed_ = pd_.args.view(0, PROP_START);
-    pos_args_parsed_ = parseDataList(pos_args_unparsed_);
+
+    // if not args parsing - just copy raw args
+    if (pd_.noArgsDataParsing) {
+        pos_args_parsed_ = pos_args_unparsed_;
+    } else {
+        auto parse_result = parseDataList(pos_args_unparsed_);
+        if (parse_result) { // parse ok
+            pos_args_parsed_ = parse_result.result();
+        } else {
+            if (!pd_.ignoreDataParseErrors)
+                OBJ_ERR << parse_result.err();
+
+            pos_args_parsed_ = pos_args_unparsed_;
+        }
+    }
 }
 
 t_outlet* BaseObject::createOutlet()
@@ -593,6 +607,10 @@ void BaseObject::parseProperties()
                 positional_arg_was_used = true;
         }
 
+        // only positional properties
+        if (pd_.parsePosPropsOnly)
+            continue;
+
         const auto NPROPS = props.size();
 
         // set property from arguments
@@ -615,10 +633,17 @@ void BaseObject::parseProperties()
                         if (!p->setInit(v))
                             OBJ_ERR << "can't set property: " << name->s_name;
                     } else { // have to parse
-                        AtomList prop_parsed = parseDataList(v);
-                        // init property
-                        if (!p->setInit(prop_parsed.view()))
-                            OBJ_ERR << "can't set property: " << name->s_name;
+                        auto parse_result = parseDataList(v);
+                        if (parse_result) { // parse ok -> init property
+                            if (!p->setInit(parse_result.result().view()))
+                                OBJ_ERR << "can't set property: " << name->s_name;
+                        } else { // parse error -> try unparsed argument
+                            if (!pd_.ignoreDataParseErrors)
+                                OBJ_ERR << parse_result.err();
+
+                            if (!p->setInit(v))
+                                OBJ_ERR << "can't set property: " << name->s_name;
+                        }
                     }
 
                 } else { // empty args, flags or lists, for example
@@ -640,37 +665,13 @@ void BaseObject::parseProperties()
         }
     }
 
-    // check for unknown properties
-    for (const Atom& a : props) {
-        if (a.isProperty() && !hasProperty(a.asSymbol())) {
-            OBJ_ERR << "unknown property in argument list: " << a;
-            continue;
-        }
-    }
-}
-
-void BaseObject::parsePositionalProperties()
-{
-    const size_t NPOS_ARGS = pos_args_parsed_.size();
-
-    for (Property* p : props_) {
-        if (p->isReadOnly() || p->isInternal())
-            continue;
-
-        auto name = p->name();
-
-        // process positional args
-        const size_t ARG_IDX = p->argIndex();
-        if (p->hasArgIndex() && ARG_IDX < NPOS_ARGS) {
-            bool ok = false;
-
-            if (p->isList())
-                ok = p->setInit(pos_args_parsed_.view(ARG_IDX));
-            else //  single atom
-                ok = p->setInit(pos_args_parsed_.view(ARG_IDX, 1));
-
-            if (!ok)
-                OBJ_ERR << "can't set property: " << name->s_name;
+    // check for unknown properties in args
+    if (!pd_.parsePosPropsOnly) {
+        for (const Atom& a : props) {
+            if (a.isProperty() && !hasProperty(a.asSymbol())) {
+                OBJ_ERR << "unknown property in argument list: " << a;
+                continue;
+            }
         }
     }
 }
@@ -907,17 +908,6 @@ void BaseObject::onClick(t_floatarg /*xpos*/, t_floatarg /*ypos*/,
     t_floatarg /*shift*/, t_floatarg /*ctrl*/, t_floatarg /*alt*/)
 {
     OBJ_ERR << "not implemeneted";
-}
-
-void BaseObject::anyDispatch(t_symbol* s, const AtomListView& lst)
-{
-    if (processAnyInlets(s, lst))
-        return;
-
-    if (processAnyProps(s, lst))
-        return;
-
-    onAny(s, lst);
 }
 
 void BaseObject::dispatchLoadBang(int action)

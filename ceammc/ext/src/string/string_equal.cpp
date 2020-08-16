@@ -53,5 +53,5 @@ void setup_string_equal()
     obj.setCategory("string");
     obj.setKeywords({ "compare", "equal" });
 
-    obj.setXletsInfo({ "symbol or String", "symbol, quoted string or String" }, { "bool: 1 if strings are equals, 0 otherwise" });
+    obj.setXletsInfo({ "symbol or String to check", "symbol, quoted string or String" }, { "bool: 1 if strings are equals, 0 otherwise" });
 }

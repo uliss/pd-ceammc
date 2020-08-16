@@ -27,7 +27,7 @@ TEST_CASE("string.split", "[external]")
 
     SECTION("process")
     {
-        TestStringSplit t("str.split");
+        TObj t("str.split");
         REQUIRE(t.numInlets() == 1);
         REQUIRE(t.numOutlets() == 1);
 
@@ -56,15 +56,15 @@ TEST_CASE("string.split", "[external]")
 
     SECTION("data")
     {
-        TestStringSplit t("str.split", LA(":"));
+        TExt t("str.split", LA(":"));
         REQUIRE_PROPERTY(t, @sep, ":");
 
-        WHEN_SEND_TDATA_TO(0, t, DataTypeString("ab:cde:"));
+        t << StringAtom("ab:cde:");
         REQUIRE(t.hasNewMessages(0));
         REQUIRE(t.lastMessage(0).isList());
         REQUIRE(to_string(t.lastMessage(0).listValue()) == "ab cde");
 
-        WHEN_SEND_TDATA_TO(0, t, DataTypeString("ab:cde:"));
+        t << StringAtom("ab:cde:");
         REQUIRE(t.hasNewMessages(0));
         REQUIRE(t.lastMessage(0).isList());
         REQUIRE(to_string(t.lastMessage(0).listValue()) == "ab cde");
@@ -72,8 +72,8 @@ TEST_CASE("string.split", "[external]")
 
     SECTION("symbol")
     {
-        TestStringSplit t("str.split", LA(":"));
-        WHEN_SEND_SYMBOL_TO(0, t, "A:B:C");
+        TExt t("str.split", LA(":"));
+        t << "A:B:C";
 
         REQUIRE(t.hasNewMessages(0));
         REQUIRE(t.lastMessage(0).isList());
@@ -84,26 +84,26 @@ TEST_CASE("string.split", "[external]")
     {
         SECTION("empty")
         {
-            TestStringSplit t("str.split", L());
+            TObj t("str.split", L());
             REQUIRE_PROPERTY(t, @sep, "");
         }
 
         SECTION("list")
         {
-            TestStringSplit t("str.split", LA("A", "B"));
+            TObj t("str.split", LA("A", "B"));
             REQUIRE_PROPERTY(t, @sep, "A");
         }
 
         SECTION("space")
         {
-            TestStringSplit t("str.split", LA("\"", "\""));
+            TObj t("str.split", LA("\"", "\""));
             REQUIRE_PROPERTY(t, @sep, " ");
         }
     }
 
     SECTION("@sep")
     {
-        TestStringSplit t("str.split", L());
+        TObj t("str.split", L());
         REQUIRE_PROPERTY(t, @sep, "");
 
         t.setProperty("@sep", LA("A"));

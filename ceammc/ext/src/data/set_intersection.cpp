@@ -16,7 +16,7 @@
 
 SetIntersection::SetIntersection(const PdArgs& a)
     : BaseObject(a)
-    , set1_(parseDataList(a.args))
+    , set1_(parsedPosArgs())
 {
     createInlet();
     createOutlet();

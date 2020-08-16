@@ -208,6 +208,7 @@ TEST_CASE("string.format", "[external]")
             SECTION("int mode ")
             {
                 TObj t("string.format", LA("0x%X", "@int"));
+                REQUIRE_PROPERTY(t, @format, S("0x%X"));
 
                 WHEN_SEND_FLOAT_TO(0, t, 15);
                 REQUIRE_STRING_OUTPUT(t, "0xF");

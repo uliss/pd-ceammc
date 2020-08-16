@@ -139,7 +139,7 @@ TEST_CASE("DataTypeMList", "[core]")
     {
         ML ml;
 
-#define REQUIRE_PARSE(a, b) REQUIRE(ML::parse(AtomList::parseString(a))->toString() == b);
+#define REQUIRE_PARSE(a, b) REQUIRE(ML::parse(AtomList::parseString(a)).value().toString() == b);
 
         REQUIRE_PARSE(" (   )", "()");
         REQUIRE_PARSE(" (1 2()   abc)", "(1 2 () abc)");
@@ -148,11 +148,11 @@ TEST_CASE("DataTypeMList", "[core]")
 
     SECTION("flatten")
     {
-#define REQUIRE_FLATTEN(src, result)                  \
-    {                                                 \
-        auto lst = DataTypeMList::parse(LA(src));     \
-        REQUIRE(lst);                                 \
-        REQUIRE(lst->flatten().toString() == result); \
+#define REQUIRE_FLATTEN(src, result)                         \
+    {                                                        \
+        auto lst = DataTypeMList::parse(LA(src));            \
+        REQUIRE(lst);                                        \
+        REQUIRE(lst.value().flatten().toString() == result); \
     }
 
         REQUIRE_FLATTEN("()", "()");

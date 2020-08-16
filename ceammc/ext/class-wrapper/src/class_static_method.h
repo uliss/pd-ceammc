@@ -68,17 +68,13 @@ public:
         , method_(m)
         , pd_args_(nullptr)
     {
-        initXlets();
-        initArguments();
-    }
-
-    void initXlets()
-    {
         for (size_t i = 1; i < MethodTraits::nargs; i++)
             createInlet();
 
         for (size_t i = 0; i < MethodTraits::nouts; i++)
             createOutlet();
+
+        initArguments();
     }
 
     void initArguments()

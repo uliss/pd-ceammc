@@ -20,6 +20,7 @@
 #include "ceammc_property.h"
 
 #include <array>
+#include <cstdint>
 #include <initializer_list>
 #include <iostream>
 #include <map>
@@ -45,9 +46,12 @@ public:
     t_symbol* className;
     t_object* owner;
     t_symbol* creationName;
-    int flags;
-    bool noDefaultInlet;
-    bool mainSignalInlet;
+    int flags = { 0 };
+    bool noDefaultInlet : 1;
+    bool mainSignalInlet : 1;
+    bool noArgsDataParsing : 1;
+    bool ignoreDataParseErrors : 1;
+    bool parsePosPropsOnly : 1;
 
     PdArgs(const AtomList& lst, t_symbol* c, t_object* own, t_symbol* alias)
         : args(lst)
@@ -57,6 +61,9 @@ public:
         , flags(0)
         , noDefaultInlet(false)
         , mainSignalInlet(false)
+        , noArgsDataParsing(false)
+        , ignoreDataParseErrors(false)
+        , parsePosPropsOnly(false)
     {
     }
 
@@ -148,12 +155,6 @@ public:
      * Parse initial constructor arguments and extract properties
      */
     virtual void parseProperties();
-
-    /**
-     * Parse positional arguments and set corresponding properties
-     * this allows to have properties that contains all arguments, not only positional
-     */
-    virtual void parsePositionalProperties();
 
     /**
      * Updates PropertyInfo defaults value, that can be available after parse step
@@ -495,12 +496,6 @@ public:
      * @note override this method for custom property processing
      */
     virtual bool processAnyProps(t_symbol* sel, const AtomListView& lst);
-
-    /**
-     * Main dispatcher of *any* messages. (Not bang, symbol, pointer, list or registered method)
-     * First try dispatch inlet messages, then properties, if not succeded pass message to onAny()
-     */
-    virtual void anyDispatch(t_symbol* s, const AtomListView& lst);
 
     /**
      * Various load(close)bang dispatcher

@@ -185,7 +185,7 @@ TEST_CASE("DataTypeDict", "[core]")
         using IntA = DataAtom<IntData>;
 
         DataTypeDict src;
-        REQUIRE(src.toJSON() == boost::none);
+        REQUIRE(!src.toJSON());
 
         src.insert("a", A("a b c"));
         REQUIRE(src.toJSON());
