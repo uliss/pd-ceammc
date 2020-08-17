@@ -28,6 +28,7 @@
 #include "flow_route.h"
 #include "flow_speedlim.h"
 #include "flow_split.h"
+#include "flow_stack.h"
 #include "flow_sync.h"
 #include "flow_sync_pack.h"
 #include "flow_tee_tilde.h"
@@ -67,6 +68,7 @@ void ceammc_flow_setup()
     setup_flow_route();
     setup_flow_speedlim();
     setup_flow_split();
+    setup_flow_stack();
     setup_flow_sync();
     setup_flow_sync_pack();
     setup_flow_tee_tilde();

@@ -22,6 +22,7 @@
 - flow.group second inlet added to change @by property
 - flow.match property match added, unmatched outlet added
 - flow.prepend (with alias flow.before) added
+- flow.stack added
 
 ### Changed:
 - ext_info output format changed.
