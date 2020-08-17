@@ -13,6 +13,6 @@ public:
     void processBlock(const t_sample** in, t_sample** out) override;
 };
 
-extern "C" void click_tilde_setup();
+void click_tilde_setup();
 
 #endif // BASE_CLICK_H
