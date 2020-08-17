@@ -54,7 +54,7 @@ void setup_string_contains()
     obj.setDescription("checks if string contains specified substring");
 
     obj.setXletsInfo({ "symbol or String to check", "symbol: search subject\n"
-                                                    "\"quoted string\": search subject\n"
+                                                    "\\\"quoted string\\\": search subject\n"
                                                     "String: search subject" },
         { "bool: 1 if string contains @subj, 0 otherwise" });
 }
