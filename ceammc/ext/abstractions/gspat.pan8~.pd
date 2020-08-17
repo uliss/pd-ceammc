@@ -3,9 +3,9 @@
 #X obj 25 25 inlet~;
 #X obj 425 25 inlet;
 #X obj 425 200 route spat.pan8;
-#X obj 425 250 route @angle @dist;
+#X obj 425 250 route @angle @radius;
 #X obj 675 350 print unknown property;
-#X msg 325 75 @angle 0 \, @dist 1 \,;
+#X msg 325 75 @angle 0 \, @radius 1 \,;
 #X obj 325 25 msg.onload;
 #X obj 500 550 outlet~;
 #X obj 600 550 outlet~;
@@ -24,12 +24,12 @@
 #X obj 140 237 ui.number @size 40 12 @digits 3 @min 0 @max 6.28319;
 #X obj 190 237 msg set;
 #X msg 260 237 @angle \$1;
-#X text 10 251 dist:;
+#X text 10 251 radius:;
 #X obj 12 270 ui.slider @size 120 12 @active_scale 1 @presetname
 /gui/$1/spat.pan8~/slider1 @min 0 @max 1;
 #X obj 140 270 ui.number @size 40 12 @digits 3 @min 0 @max 1;
 #X obj 190 270 msg set;
-#X msg 260 270 @dist \$1;
+#X msg 260 270 @radius \$1;
 #X connect 1 0 0 0;
 #X connect 2 0 3 0;
 #X connect 3 0 4 0;

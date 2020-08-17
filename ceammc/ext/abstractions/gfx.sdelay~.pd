@@ -15,7 +15,7 @@
 /gui/$1/fx.sdelay~/checkbox0;
 #X text 26 221 bypass;
 #X msg 260 218 @bypass \$1;
-#X text 10 238 delay:;
+#X text 10 238 delay(ms):;
 #X obj 12 257 ui.slider @size 120 12 @active_scale 1 @presetname
 /gui/$1/fx.sdelay~/slider1 @min 0 @max 6000;
 #X obj 140 257 ui.number @size 40 12 @digits 3 @min 0 @max 6000;
@@ -33,7 +33,7 @@
 #X obj 140 323 ui.number @size 40 12 @digits 3 @min 0 @max 1;
 #X obj 190 323 msg set;
 #X msg 260 323 @feedback \$1;
-#X text 10 337 interpolation:;
+#X text 10 337 interpolation(ms):;
 #X obj 12 356 ui.slider @size 120 12 @active_scale 1 @presetname
 /gui/$1/fx.sdelay~/slider4 @min 1 @max 200;
 #X obj 140 356 ui.number @size 40 12 @digits 3 @min 1 @max 200;
