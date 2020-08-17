@@ -17,9 +17,10 @@
             </also>
         </meta>
         <info>
-            <par>Output any incoming message "as is" and if @delay&gt;=0 repeats it
-             after specified delay. If @delay &lt;0 no duplication performed.</par>
-            <par>Note: @delay property can be changed only via right inlet or [prop.set] object</par>
+            <par>Output any incoming message "as is" and if @delay&gt;=0 repeats it after specified
+            delay. If @delay &lt;0 no duplication performed.</par>
+            <par>Note: @delay property can be changed only via right inlet or [prop.set]
+            object</par>
         </info>
         <arguments>
             <argument name="MS" type="float" minvalue="-1" units="millisecond">init @delay
@@ -32,6 +33,9 @@
         <properties>
             <property name="@delay" type="float" minvalue="-1" default="0" units="millisecond">
             delay time</property>
+            <property name="@block" type="int" enum="0 1" default="0">blocking mode. If true:
+            discards all incoming messages until scheduled delay will output. If false: new
+            incoming message resets previous scheduled delay and sets new one</property>
         </properties>
         <inlets>
             <inlet>
