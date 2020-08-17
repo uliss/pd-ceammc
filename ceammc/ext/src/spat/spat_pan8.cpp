@@ -8,7 +8,7 @@ public:
     SpatPan8(const PdArgs& args)
         : faust_spat_pan8_tilde(args)
     {
-        bindPositionalArgsToProps({ gensym("@dist"), gensym("@angle") });
+        bindPositionalArgsToProps({ gensym("@radius"), gensym("@angle") });
     }
 };
 
