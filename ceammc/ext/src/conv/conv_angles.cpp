@@ -96,7 +96,7 @@ void setup_conv_angles()
     ObjectFactory<Car2Pol> car2pol("conv.car2pol");
     car2pol.addAlias("car->pol");
     car2pol.setXletsInfo({ "list: x y" }, { "list: radius angle\n"
-                                            "    - angle in radians in [-π..+π] or [0..2π) range" });
+                                            "    - angle in radians in \\[-π..+π\\] or \\[0..2π) range" });
 
     SoundExternalFactory<Phase2RadTilde> p2rt("conv.phase2rad~");
     p2rt.addAlias("phase->rad~");
