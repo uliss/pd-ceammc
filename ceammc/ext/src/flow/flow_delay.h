@@ -15,14 +15,17 @@
 #define FLOW_DELAY_H
 
 #include "ceammc_clock.h"
-#include "ceammc_factory.h"
 #include "ceammc_object.h"
+#include "ceammc_proxy.h"
 using namespace ceammc;
 
 class FlowDelay : public BaseObject {
     Message last_msg_;
     FloatProperty* delay_;
+    BoolProperty* block_;
     ClockLambdaFunction clock_;
+    InletProxy<FlowDelay> inlet_proxy_;
+    bool in_process_;
 
 public:
     FlowDelay(const PdArgs& args);
@@ -32,9 +35,11 @@ public:
     void onSymbol(t_symbol* s) override;
     void onList(const AtomList& l) override;
     void onAny(t_symbol* s, const AtomListView& l) override;
-    void onInlet(size_t n, const AtomList& l) override;
 
-    bool processAnyProps(t_symbol* sel, const AtomListView& lst) override;
+public:
+    void proxy_delay(t_float f);
+    void proxy_reset();
+    void proxy_reset(const AtomListView&);
 };
 
 void setup_flow_delay();

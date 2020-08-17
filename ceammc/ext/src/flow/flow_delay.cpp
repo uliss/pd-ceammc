@@ -18,10 +18,15 @@
 FlowDelay::FlowDelay(const PdArgs& args)
     : BaseObject(args)
     , delay_(nullptr)
+    , block_(nullptr)
     , clock_([this]() {
         if (!last_msg_.isNone())
             messageTo(0, last_msg_);
+
+        in_process_ = false;
     })
+    , inlet_proxy_(this)
+    , in_process_(false)
 {
     createOutlet();
 
@@ -31,53 +36,89 @@ FlowDelay::FlowDelay(const PdArgs& args)
     delay_->setUnits(PropValueUnits::MSEC);
     addProperty(delay_);
 
-    createInlet();
+    block_ = new BoolProperty("@block", false);
+    addProperty(block_);
+
+    inlet_new(owner(), &inlet_proxy_.x_obj, nullptr, nullptr);
 }
 
 void FlowDelay::onBang()
 {
+    if (block_->value() && in_process_)
+        return;
+
+    in_process_ = block_->value();
     last_msg_.setBang();
     clock_.delay(delay_->value());
 }
 
 void FlowDelay::onFloat(t_float f)
 {
+    if (block_->value() && in_process_)
+        return;
+
+    in_process_ = block_->value();
     last_msg_.setFloat(f);
     clock_.delay(delay_->value());
 }
 
 void FlowDelay::onSymbol(t_symbol* s)
 {
+    if (block_->value() && in_process_)
+        return;
+
+    in_process_ = block_->value();
     last_msg_.setSymbol(s);
     clock_.delay(delay_->value());
 }
 
 void FlowDelay::onList(const AtomList& l)
 {
+    if (block_->value() && in_process_)
+        return;
+
+    in_process_ = block_->value();
     last_msg_.setList(l);
     clock_.delay(delay_->value());
 }
 
 void FlowDelay::onAny(t_symbol* s, const AtomListView& l)
 {
+    if (block_->value() && in_process_)
+        return;
+
+    in_process_ = block_->value();
     last_msg_.setAny(s, l);
     clock_.delay(delay_->value());
 }
 
-void FlowDelay::onInlet(size_t n, const AtomList& l)
+void FlowDelay::proxy_delay(t_float f)
 {
-    delay_->set(l);
+    delay_->setValue(f);
 }
 
-bool FlowDelay::processAnyProps(t_symbol* sel, const AtomListView& lst)
+void FlowDelay::proxy_reset()
 {
-    return false;
+    clock_.unset();
+    in_process_ = false;
+}
+
+void FlowDelay::proxy_reset(const AtomListView&)
+{
+    proxy_reset();
 }
 
 void setup_flow_delay()
 {
     ObjectFactory<FlowDelay> obj("flow.delay");
     obj.addAlias("flow.del");
+    obj.noPropsDispatch();
+    obj.noInletsDispatch();
 
     obj.setXletsInfo({ "any: input message", "float: set delay time" }, { "delayed message" });
+
+    InletProxy<FlowDelay>::init();
+    InletProxy<FlowDelay>::set_bang_callback(&FlowDelay::proxy_reset);
+    InletProxy<FlowDelay>::set_float_callback(&FlowDelay::proxy_delay);
+    InletProxy<FlowDelay>::set_method_callback(gensym("reset"), &FlowDelay::proxy_reset);
 }
