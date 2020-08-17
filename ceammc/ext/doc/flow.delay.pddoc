@@ -20,9 +20,9 @@
             </also>
         </meta>
         <info>
-            <par>Delay any incoming message by specified time. Like with [delay] if new message has
-            arrived while delay time is not expired, old message is discarded and new delay time is
-            set from current moment.</par>
+            <par>Delay any incoming message by specified time. If @block=0 acts like vanilla
+            [delay] if new message has arrived while delay time is not expired, old message is
+            discarded and new delay time is set from current moment.</par>
             <par>Zero delay time means output message on next Pd runloop iteration (as soon as
             possible)</par>
             <par>Note: @delay property can be set only via right inlet or [prop.set] object</par>
@@ -34,12 +34,16 @@
         <properties>
             <property name="@delay" type="float" minvalue="0" default="0" units="millisecond">delay
             time</property>
+            <property name="@block" type="int" enum="0 1" default="0">blocking mode. If true,
+            discards incoming messages until scheduled message will output, after that is ready to
+            accept the new one. Otherwise acts like vanilla [del] object.</property>
         </properties>
         <inlets>
             <inlet>
                 <xinfo>incoming message</xinfo>
             </inlet>
             <inlet>
+                <xinfo on="bang">reset current delay</xinfo>
                 <xinfo on="float" minvalue="0">set delay time</xinfo>
             </inlet>
         </inlets>
@@ -49,6 +53,23 @@
         <example>
             <pdascii>
 <![CDATA[
+[ui.keyboard]
+|          |
+|          |
+|          |
+|          |
+[$1(       [@gate 1(
+|          |  |
+[mtof]     |  [flow.delay @delay 100]
+|          |  |
+[@freq $1( [flow.after "@gate" 0 @delay 50]
+|          |
+[synth.bee3~]  [ui.dsp~]
+|
+[ui.hgain~]
+|\
+[dac~]
+
 [@msg 400( [300(  [0(/*change delay time*/
 |          |      |
 |          [prop.set @delay] [F] /* the same*/
