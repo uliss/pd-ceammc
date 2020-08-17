@@ -22,9 +22,11 @@ struct t_proxy;
 
 class FlowDup : public BaseObject {
     FloatProperty* delay_;
+    BoolProperty* block_;
     ClockLambdaFunction clock_;
     Message msg_;
     t_proxy* inlet_proxy_;
+    bool in_process_;
 
 public:
     FlowDup(const PdArgs& a);
@@ -37,8 +39,6 @@ public:
     void onData(const Atom& a) override;
     void onList(const AtomList& l) override;
     void onAny(t_symbol* s, const AtomListView& l) override;
-
-    bool processAnyProps(t_symbol* sel, const AtomListView& lst) override;
 
     void reset();
 

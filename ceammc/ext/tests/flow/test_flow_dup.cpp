@@ -30,6 +30,7 @@ TEST_CASE("flow.dup", "[externals]")
             REQUIRE(t.numInlets() == 2);
             REQUIRE(t.numOutlets() == 1);
             REQUIRE_PROPERTY(t, @delay, 0);
+            REQUIRE_PROPERTY(t, @block, 0);
         }
 
         SECTION("args")
@@ -125,5 +126,78 @@ TEST_CASE("flow.dup", "[externals]")
         REQUIRE(t.messagesAt(0) == MessageList { m1 });
 
         t.sendMessageTo(Message("error message to console:", 1, 2, 3), 1);
+    }
+
+    SECTION("@block")
+    {
+        TExt t("flow.dup", 5_ticks, "@block", 1);
+
+        const Message bang = Message::makeBang();
+
+        // bang
+        t.bang();
+        REQUIRE(t.messagesAt(0) == MessageList({ bang }));
+        t.schedTicks(2);
+        REQUIRE(t.messagesAt(0) == MessageList({ bang }));
+        t.sendFloat(1000);
+        t.schedTicks(4);
+        REQUIRE(t.messagesAt(0) == MessageList({ bang, bang }));
+        t.clearAll();
+
+        // float
+        const Atom f0(100.5);
+        t << f0;
+        REQUIRE(t.messagesAt(0) == MessageList({ f0 }));
+        t.schedTicks(2);
+        REQUIRE(t.messagesAt(0) == MessageList({ f0 }));
+        t.sendBang();
+        t.schedTicks(4);
+        REQUIRE(t.messagesAt(0) == MessageList({ f0, f0 }));
+        t.clearAll();
+
+        // symbol
+        const Atom s0(gensym("ABC"));
+        t << s0;
+        REQUIRE(t.messagesAt(0) == MessageList({ s0 }));
+        t.schedTicks(2);
+        REQUIRE(t.messagesAt(0) == MessageList({ s0 }));
+        t.sendBang();
+        t.schedTicks(4);
+        REQUIRE(t.messagesAt(0) == MessageList({ s0, s0 }));
+        t.clearAll();
+
+        // list
+        const AtomList l0 = LF(1, 2, 3);
+        t << l0;
+        REQUIRE(t.messagesAt(0) == MessageList({ l0 }));
+        t.schedTicks(2);
+        REQUIRE(t.messagesAt(0) == MessageList({ l0 }));
+        t.sendSymbol("DEF");
+        t.schedTicks(4);
+        REQUIRE(t.messagesAt(0) == MessageList({ l0, l0 }));
+        t.clearAll();
+
+        // any
+        const Message m0(gensym("any"), LF(1, 2, 3));
+        t.sendMessage(m0);
+        REQUIRE(t.messagesAt(0) == MessageList { m0 });
+        t.schedTicks(4);
+        REQUIRE(t.messagesAt(0) == MessageList { m0 });
+        t.sendFloat(200);
+        t.schedTicks(4);
+        REQUIRE(t.messagesAt(0) == MessageList { m0, m0 });
+        t.clearAll();
+
+        // reset
+        t.sendMessage(m0);
+        REQUIRE(t.messagesAt(0) == MessageList { m0 });
+        t.schedTicks(4);
+        REQUIRE(t.messagesAt(0) == MessageList { m0 });
+        t.sendMessageTo(Message(SYM("reset"), L()), 1);
+        t.sendMessage(m0);
+        REQUIRE(t.messagesAt(0) == MessageList { m0, m0 });
+        t.schedTicks(6);
+        REQUIRE(t.messagesAt(0) == MessageList { m0, m0, m0 });
+        t.clearAll();
     }
 }

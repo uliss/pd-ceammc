@@ -44,8 +44,10 @@ void inlet_proxy_any(t_proxy* x, t_symbol* s, int argc, t_atom* argv)
 FlowDup::FlowDup(const PdArgs& a)
     : BaseObject(a)
     , delay_(nullptr)
-    , clock_([this]() { messageTo(0, msg_); })
+    , block_(nullptr)
+    , clock_([this]() { messageTo(0, msg_); in_process_ = false; })
     , inlet_proxy_(new t_proxy(this))
+    , in_process_(false)
 {
     inlet_new(owner(), &inlet_proxy_->x_obj, nullptr, &s_);
 
@@ -56,6 +58,9 @@ FlowDup::FlowDup(const PdArgs& a)
     delay_->setArgIndex(0);
     delay_->setUnits(PropValueUnits::MSEC);
     addProperty(delay_);
+
+    block_ = new BoolProperty("@block", false);
+    addProperty(block_);
 }
 
 FlowDup::~FlowDup()
@@ -70,6 +75,11 @@ void FlowDup::onInlet(size_t n, const AtomList& l)
 
 void FlowDup::onBang()
 {
+    if (block_->value() && in_process_)
+        return;
+
+    in_process_ = block_->value();
+
     bangTo(0);
     msg_.setBang();
     delay();
@@ -77,6 +87,11 @@ void FlowDup::onBang()
 
 void FlowDup::onFloat(t_float f)
 {
+    if (block_->value() && in_process_)
+        return;
+
+    in_process_ = block_->value();
+
     floatTo(0, f);
     msg_.setFloat(f);
     delay();
@@ -84,6 +99,11 @@ void FlowDup::onFloat(t_float f)
 
 void FlowDup::onSymbol(t_symbol* s)
 {
+    if (block_->value() && in_process_)
+        return;
+
+    in_process_ = block_->value();
+
     symbolTo(0, s);
     msg_.setSymbol(s);
     delay();
@@ -91,6 +111,11 @@ void FlowDup::onSymbol(t_symbol* s)
 
 void FlowDup::onData(const Atom& a)
 {
+    if (block_->value() && in_process_)
+        return;
+
+    in_process_ = block_->value();
+
     atomTo(0, a);
     msg_.setList(a);
     delay();
@@ -98,6 +123,11 @@ void FlowDup::onData(const Atom& a)
 
 void FlowDup::onList(const AtomList& l)
 {
+    if (block_->value() && in_process_)
+        return;
+
+    in_process_ = block_->value();
+
     listTo(0, l);
     msg_.setList(l);
     delay();
@@ -105,6 +135,11 @@ void FlowDup::onList(const AtomList& l)
 
 void FlowDup::onAny(t_symbol* s, const AtomListView& l)
 {
+    if (block_->value() && in_process_)
+        return;
+
+    in_process_ = block_->value();
+
     anyTo(0, s, l);
     msg_.setAny(s, l);
     delay();
@@ -116,20 +151,17 @@ void FlowDup::delay()
         clock_.delay(delay_->value());
 }
 
-bool FlowDup::processAnyProps(t_symbol* sel, const AtomListView& lst)
-{
-    return false;
-}
-
 void FlowDup::reset()
 {
     clock_.unset();
+    in_process_ = false;
 }
 
 void setup_flow_dup()
 {
     ObjectFactory<FlowDup> obj("flow.dup");
     obj.processData();
+    obj.noPropsDispatch();
 
     obj.setXletsInfo({ "any: input flow", "float: set delay time\n"
                                           "reset: cancel scheduled delay" },
