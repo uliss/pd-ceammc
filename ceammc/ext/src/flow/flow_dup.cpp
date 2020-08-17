@@ -14,42 +14,15 @@
 #include "flow_dup.h"
 #include "ceammc_factory.h"
 
-static t_class* inlet_proxy_class;
-struct t_proxy {
-    t_pd x_obj;
-    FlowDup* dest;
-
-    t_proxy(FlowDup* d)
-        : dest(d)
-    {
-        x_obj = inlet_proxy_class;
-    }
-};
-
-void inlet_proxy_float(t_proxy* x, t_float f)
-{
-    t_atom a;
-    SETFLOAT(&a, f);
-    x->dest->setProperty("@delay", AtomListView(&a, 1));
-}
-
-void inlet_proxy_any(t_proxy* x, t_symbol* s, int argc, t_atom* argv)
-{
-    if (s == gensym("reset"))
-        x->dest->reset();
-    else
-        LogPdObject(x, LOG_ERROR).stream() << "invalid message: " << s << " " << AtomListView(argv, argc);
-}
-
 FlowDup::FlowDup(const PdArgs& a)
     : BaseObject(a)
     , delay_(nullptr)
     , block_(nullptr)
     , clock_([this]() { messageTo(0, msg_); in_process_ = false; })
-    , inlet_proxy_(new t_proxy(this))
+    , inlet_proxy_(this)
     , in_process_(false)
 {
-    inlet_new(owner(), &inlet_proxy_->x_obj, nullptr, &s_);
+    inlet_new(owner(), &inlet_proxy_.x_obj, nullptr, nullptr);
 
     createOutlet();
 
@@ -61,16 +34,6 @@ FlowDup::FlowDup(const PdArgs& a)
 
     block_ = new BoolProperty("@block", false);
     addProperty(block_);
-}
-
-FlowDup::~FlowDup()
-{
-    delete inlet_proxy_;
-}
-
-void FlowDup::onInlet(size_t n, const AtomList& l)
-{
-    delay_->set(l);
 }
 
 void FlowDup::onBang()
@@ -162,12 +125,14 @@ void setup_flow_dup()
     ObjectFactory<FlowDup> obj("flow.dup");
     obj.processData();
     obj.noPropsDispatch();
+    obj.noInletsDispatch();
 
     obj.setXletsInfo({ "any: input flow", "float: set delay time\n"
                                           "reset: cancel scheduled delay" },
         { "output flow" });
 
-    inlet_proxy_class = class_new(gensym("inlet_proxy"), 0, 0, sizeof(t_proxy), CLASS_PD, A_NULL);
-    class_doaddfloat(inlet_proxy_class, (t_method)inlet_proxy_float);
-    class_addanything(inlet_proxy_class, (t_method)inlet_proxy_any);
+    InletProxy<FlowDup>::init();
+    InletProxy<FlowDup>::set_bang_callback(&FlowDup::reset);
+    InletProxy<FlowDup>::set_float_callback(&FlowDup::proxy_set_delay);
+    InletProxy<FlowDup>::set_method_callback(gensym("reset"), &FlowDup::proxy_reset);
 }

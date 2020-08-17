@@ -16,6 +16,7 @@
 
 #include "ceammc_clock.h"
 #include "ceammc_object.h"
+#include "ceammc_proxy.h"
 using namespace ceammc;
 
 struct t_proxy;
@@ -25,14 +26,12 @@ class FlowDup : public BaseObject {
     BoolProperty* block_;
     ClockLambdaFunction clock_;
     Message msg_;
-    t_proxy* inlet_proxy_;
+    InletProxy<FlowDup> inlet_proxy_;
     bool in_process_;
 
 public:
     FlowDup(const PdArgs& a);
-    ~FlowDup();
 
-    void onInlet(size_t n, const AtomList& l) override;
     void onBang() override;
     void onFloat(t_float f) override;
     void onSymbol(t_symbol* s) override;
@@ -41,6 +40,8 @@ public:
     void onAny(t_symbol* s, const AtomListView& l) override;
 
     void reset();
+    void proxy_set_delay(t_float f) { delay_->setValue(f); }
+    void proxy_reset(const AtomListView&) { reset(); }
 
 private:
     void delay();
