@@ -42,6 +42,7 @@
                 <xinfo>input dataflow</xinfo>
             </inlet>
             <inlet>
+                <xinfo on="bang">reset (stop) current delay</xinfo>
                 <xinfo on="float" minvalue="-1">set delay time</xinfo>
             </inlet>
         </inlets>

@@ -71,7 +71,7 @@ second inlet.;
 #X text 245 1084 incoming message.;
 #X text 110 1104 2\.;
 #X text 150 1104 *bang*;
-#X text 245 1104 reset current delay.;
+#X text 245 1104 reset (stop) current delay.;
 #X text 150 1124 *float*;
 #X text 245 1124 set delay time. Min value: 0\.;
 #X obj 20 1154 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;

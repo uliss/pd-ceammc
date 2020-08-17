@@ -47,7 +47,7 @@
                 <xinfo>incoming message</xinfo>
             </inlet>
             <inlet>
-                <xinfo on="bang">reset current delay</xinfo>
+                <xinfo on="bang">reset (stop) current delay</xinfo>
                 <xinfo on="float" minvalue="0">set delay time</xinfo>
             </inlet>
         </inlets>
