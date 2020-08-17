@@ -17,9 +17,9 @@
             </also>
         </meta>
         <info>
-            <par>Output any incoming message as is and if @delay property &gt;= 0 outputs last
-            message after specified delay. If @delay &lt;0 no duplication performed.</par>
-            <par>Note: @delay property can be set only via right inlet or [prop.set] object</par>
+            <par>Output any incoming message "as is" and if @delay&gt;=0 repeats it
+             after specified delay. If @delay &lt;0 no duplication performed.</par>
+            <par>Note: @delay property can be changed only via right inlet or [prop.set] object</par>
         </info>
         <arguments>
             <argument name="MS" type="float" minvalue="-1" units="millisecond">init @delay
@@ -47,19 +47,25 @@
         <example>
             <pdascii>
 <![CDATA[
-[A B C #a( [1 2 3 #b( [F #c] [B #d]
+[a( [b( [c( [F]  /*- change delay*/
+|   |   |   |.
+[flow.dup 100]
 |
+[flow.route a b c {w=25}]
+|       ^|      ^^|
+|        |        [click~]
+|        |        |
+|        [click~] [flt.resonbp~ 800 60 #c]
+|        |
+[click~] [flt.resonbp~ 600 50 #b]
 |
+[flt.resonbp~ 400 50 #a]
 |
-|        [F]  [reset(
-|        |.   |.
-[flow.dup 1000 #z]
-|
-[print]
-[X a->z]
+[ui.hgain~ #z]    [ui.dsp~]
+|\
+[dac~]
 [X b->z]
 [X c->z]
-[X d->z]
 ]]>
             </pdascii>
         </example>
