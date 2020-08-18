@@ -24,6 +24,8 @@ class FlowStack : public BaseObject {
     InletProxy<FlowStack> inlet_;
     std::vector<Message> stack_;
     IntProperty* max_size_;
+    ListProperty* on_full_;
+    ListProperty* on_empty_;
 
 public:
     FlowStack(const PdArgs& a);
@@ -41,6 +43,10 @@ public:
     void m_top(const AtomListView&);
     void m_flush(const AtomListView&);
     void m_poptop();
+
+private:
+    void check_empty();
+    void check_full();
 };
 
 void setup_flow_stack();

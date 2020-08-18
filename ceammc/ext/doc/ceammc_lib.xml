@@ -467,6 +467,9 @@
     <entry name="flow.pass_if" descr="pass values that accepted by predicate object" ref_view="object">
       <xi:include href="flow.pass_if.pddoc" parse="xml"/>
     </entry>
+    <entry name="flow.prepend" descr="prepend message before arrived" ref_view="object">
+      <xi:include href="flow.prepend.pddoc" parse="xml"/>
+    </entry>
     <entry name="flow.reject" descr="reject specified values" ref_view="object">
       <xi:include href="flow.reject.pddoc" parse="xml"/>
     </entry>
@@ -481,6 +484,9 @@
     </entry>
     <entry name="flow.split" descr="split data flow by external side-chain predicate" ref_view="object">
       <xi:include href="flow.split.pddoc" parse="xml"/>
+    </entry>
+    <entry name="flow.stack" descr="any message stack" ref_view="object">
+      <xi:include href="flow.stack.pddoc" parse="xml"/>
     </entry>
     <entry name="flow.sync" descr="bus with only hot inlets" ref_view="object">
       <xi:include href="flow.sync.pddoc" parse="xml"/>

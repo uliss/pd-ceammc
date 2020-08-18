@@ -127,11 +127,13 @@ set(DOC_FILES
     flow.pack
     flow.pass
     flow.pass_if
+    flow.prepend
     flow.reject
     flow.reject_if
     flow.route
     flow.speedlim
     flow.split
+    flow.stack
     flow.sync
     flow.sync_pack
     flow.tee~

@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="flow.stack">
+        <title>flow.stack</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>any message stack</description>
+            <license>GPL3 or later</license>
+            <library>ceammc</library>
+            <category>flow</category>
+            <keywords>stack</keywords>
+            <since>0.9.1</since>
+        </meta>
+        <arguments>
+            <argument type="int" name="N">max stack size</argument>
+        </arguments>
+        <properties>
+            <property name="@max_size" type="int" default="100" minvalue="1">maximum stack grow size</property>
+            <property name="@size" type="int" default="0" readonly="true">current number of elements in stack</property>
+            <property name="@empty" type="int" default="1" enum="0 1" readonly="true">if stack is empty</property>
+        </properties>
+        <inlets>
+            <inlet>
+                <xinfo>input</xinfo>
+            </inlet>
+            <inlet>
+                <xinfo on="bang">output and remove top element</xinfo>
+                <xinfo>top: output top element</xinfo>
+                <xinfo>pop: remove top element (no output)</xinfo>
+                <xinfo>clear: remove all elements (no output)</xinfo>
+                <xinfo>flush: output and remove all elements</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet>output</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[ui.keyboard]
+|
+|
+|
+|
+[list.at 0]   [T #a]  [r \$0-fs #b]
+|             |
+[flow.change] [metro 110]
+| |           |.
+| [flow.stack 6 @on_empty \$0-fs 0 @on_full \$0-fs 1]
+| |
+[@pitch $1, @gate 1(
+|
+[msg synth.dubdub]
+|
+[gsynth.dubdub~ d1 {i=1,o=1}] [ui.dsp~]
+|
+|
+|
+|
+|
+|
+|
+|
+|
+|
+[ui.hgain~]
+|\
+[dac~]
+[X b->a]
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

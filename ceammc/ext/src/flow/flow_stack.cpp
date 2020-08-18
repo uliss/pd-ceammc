@@ -18,6 +18,8 @@ FlowStack::FlowStack(const PdArgs& a)
     : BaseObject(a)
     , inlet_(this)
     , max_size_(nullptr)
+    , on_full_(nullptr)
+    , on_empty_(nullptr)
 {
     inlet_new(owner(), &inlet_.x_obj, nullptr, nullptr);
     createOutlet();
@@ -30,6 +32,26 @@ FlowStack::FlowStack(const PdArgs& a)
 
     createCbIntProperty("@size", [this]() { return stack_.size(); });
     createCbBoolProperty("@empty", [this]() { return stack_.empty(); });
+
+    on_full_ = new ListProperty("@on_full");
+    on_full_->setListCheckFn([this](const AtomList& l) -> bool {
+        if (l.empty() || l[0].isSymbol())
+            return true;
+
+        OBJ_ERR << "[@on_full] symbol expected as first argument, got: " << l[0];
+        return false;
+    });
+    addProperty(on_full_);
+
+    on_empty_ = new ListProperty("@on_empty");
+    on_empty_->setListCheckFn([this](const AtomList& l) -> bool {
+        if (l.empty() || l[0].isSymbol())
+            return true;
+
+        OBJ_ERR << "[@on_empty] symbol expected as first argument, got: " << l[0];
+        return false;
+    });
+    addProperty(on_empty_);
 }
 
 void FlowStack::onBang()
@@ -39,6 +61,7 @@ void FlowStack::onBang()
     }
 
     stack_.push_back(Message::makeBang());
+    check_full();
 }
 
 void FlowStack::onFloat(t_float f)
@@ -48,6 +71,7 @@ void FlowStack::onFloat(t_float f)
     }
 
     stack_.push_back(Message(f));
+    check_full();
 }
 
 void FlowStack::onSymbol(t_symbol* s)
@@ -57,6 +81,7 @@ void FlowStack::onSymbol(t_symbol* s)
     }
 
     stack_.push_back(Message(s));
+    check_full();
 }
 
 void FlowStack::onList(const AtomList& l)
@@ -66,6 +91,7 @@ void FlowStack::onList(const AtomList& l)
     }
 
     stack_.push_back(Message(l));
+    check_full();
 }
 
 void FlowStack::onAny(t_symbol* s, const AtomListView& lv)
@@ -75,6 +101,7 @@ void FlowStack::onAny(t_symbol* s, const AtomListView& lv)
     }
 
     stack_.push_back(Message(s, lv));
+    check_full();
 }
 
 void FlowStack::initDone()
@@ -99,11 +126,13 @@ void FlowStack::m_pop(const AtomListView&)
     }
 
     stack_.pop_back();
+    check_empty();
 }
 
 void FlowStack::m_clear(const AtomListView&)
 {
     stack_.clear();
+    check_empty();
 }
 
 void FlowStack::m_top(const AtomListView&)
@@ -127,6 +156,7 @@ void FlowStack::m_flush(const AtomListView&)
         messageTo(0, *it);
 
     stack_.clear();
+    check_empty();
 }
 
 void FlowStack::m_poptop()
@@ -138,6 +168,47 @@ void FlowStack::m_poptop()
 
     messageTo(0, stack_.back());
     stack_.pop_back();
+    check_empty();
+}
+
+void FlowStack::check_empty()
+{
+    if (stack_.empty()) {
+        t_symbol* s = on_empty_->value().symbolAt(0, nullptr);
+        if (s && s->s_thing) {
+            AtomListView v = on_empty_->value().view(1);
+            if (v.empty())
+                pd_bang(s->s_thing);
+            else if (v.isFloat())
+                pd_float(s->s_thing, v.asT<t_float>());
+            else if (v.isSymbol())
+                pd_symbol(s->s_thing, v.asT<t_symbol*>());
+            else if (v.symbolAt(0, nullptr))
+                pd_typedmess(s->s_thing, v.symbolAt(0, &s_), v.size() - 1, v.toPdData() + 1);
+            else
+                pd_list(s->s_thing, &s_list, v.size(), v.toPdData());
+        }
+    }
+}
+
+void FlowStack::check_full()
+{
+    if (stack_.size() == max_size_->value()) {
+        t_symbol* s = on_full_->value().symbolAt(0, nullptr);
+        if (s && s->s_thing) {
+            AtomListView v = on_full_->value().view(1);
+            if (v.empty())
+                pd_bang(s->s_thing);
+            else if (v.isFloat())
+                pd_float(s->s_thing, v.asT<t_float>());
+            else if (v.isSymbol())
+                pd_symbol(s->s_thing, v.asT<t_symbol*>());
+            else if (v.symbolAt(0, nullptr))
+                pd_typedmess(s->s_thing, v.symbolAt(0, &s_), v.size() - 1, v.toPdData() + 1);
+            else
+                pd_list(s->s_thing, &s_list, v.size(), v.toPdData());
+        }
+    }
 }
 
 void setup_flow_stack()
