@@ -197,6 +197,8 @@ TEST_CASE("flow.stack", "[externals]")
         t.bang();
         REQUIRE(on_full.msg().isBang());
         on_full.reset();
+        t.bang();
+        REQUIRE(on_full.msg().isNone());
         t->m_pop({});
 
         t << 10.5;
