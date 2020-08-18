@@ -184,6 +184,12 @@ TEST_CASE("flow.stack", "[externals]")
         t << "ABC";
         t.sendBangTo(1);
         REQUIRE(on_empty.msg().isBang());
+        on_empty.reset();
+
+        t->setProperty("@on_empty", LA("????"));
+        t << "ABC";
+        t.sendBangTo(1);
+        REQUIRE(on_empty.msg().isNone());
     }
 
     SECTION("@on_full")
@@ -220,5 +226,9 @@ TEST_CASE("flow.stack", "[externals]")
         REQUIRE(on_full.msg().isBang());
         on_full.reset();
         t->m_pop({});
+
+        t->setProperty("@on_full", LA("????"));
+        t << "ABC";
+        REQUIRE(on_full.msg().isNone());
     }
 }
