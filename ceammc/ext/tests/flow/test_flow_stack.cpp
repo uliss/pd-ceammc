@@ -150,4 +150,73 @@ TEST_CASE("flow.stack", "[externals]")
         REQUIRE(t.messagesAt(0).at(2).atomValue().asFloat() == 10);
         REQUIRE_PROPERTY(t, @size, 0);
     }
+
+    SECTION("@on_empty")
+    {
+        TExt t("flow.stack", 2, "@on_empty", "e");
+        ListenerExternal on_empty("e");
+
+        t.bang();
+        REQUIRE(on_empty.msg().isNone());
+        t.bang();
+        REQUIRE(on_empty.msg().isNone());
+
+        t->m_pop({});
+        REQUIRE(on_empty.msg().isNone());
+        t->m_pop({});
+        REQUIRE(on_empty.msg().isBang());
+        on_empty.reset();
+
+        t << 10.5;
+        t->m_clear({});
+        REQUIRE(on_empty.msg().isBang());
+        on_empty.reset();
+
+        t << 100;
+        t->m_flush({});
+        REQUIRE(on_empty.msg().isBang());
+        on_empty.reset();
+
+        t->m_flush({});
+        REQUIRE(on_empty.msg().isNone());
+        on_empty.reset();
+
+        t << "ABC";
+        t.sendBangTo(1);
+        REQUIRE(on_empty.msg().isBang());
+    }
+
+    SECTION("@on_full")
+    {
+        TExt t("flow.stack", 2, "@on_full", "f");
+        ListenerExternal on_full("f");
+
+        t.bang();
+        REQUIRE(on_full.msg().isNone());
+
+        t.bang();
+        REQUIRE(on_full.msg().isBang());
+        on_full.reset();
+        t->m_pop({});
+
+        t << 10.5;
+        REQUIRE(on_full.msg().isBang());
+        on_full.reset();
+        t->m_pop({});
+
+        t << "ABC";
+        REQUIRE(on_full.msg().isBang());
+        on_full.reset();
+        t->m_pop({});
+
+        t << LF(1, 2, 3);
+        REQUIRE(on_full.msg().isBang());
+        on_full.reset();
+        t->m_pop({});
+
+        t <<= LA("msg", 3);
+        REQUIRE(on_full.msg().isBang());
+        on_full.reset();
+        t->m_pop({});
+    }
 }
