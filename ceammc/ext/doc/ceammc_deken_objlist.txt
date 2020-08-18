@@ -235,6 +235,8 @@ flow.reject	reject specified values
 reject	reject specified values
 flow.reject_if	reject values by predicate
 reject_if	reject values by predicate
+flow.ring	dataflow ring buffer
+flow.>>	dataflow ring buffer
 flow.route	advanced message router
 flow.speedlim	control stream speed limiter
 speedlim	control stream speed limiter

@@ -130,6 +130,7 @@ set(DOC_FILES
     flow.prepend
     flow.reject
     flow.reject_if
+    flow.ring
     flow.route
     flow.speedlim
     flow.split

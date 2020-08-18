@@ -476,6 +476,9 @@
     <entry name="flow.reject_if" descr="reject values by predicate" ref_view="object">
       <xi:include href="flow.reject_if.pddoc" parse="xml"/>
     </entry>
+    <entry name="flow.ring" descr="dataflow ring buffer" ref_view="object">
+      <xi:include href="flow.ring.pddoc" parse="xml"/>
+    </entry>
     <entry name="flow.route" descr="advanced message router" ref_view="object">
       <xi:include href="flow.route.pddoc" parse="xml"/>
     </entry>

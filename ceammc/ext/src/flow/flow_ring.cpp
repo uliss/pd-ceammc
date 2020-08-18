@@ -57,16 +57,24 @@ void FlowRing::onFloat(t_float f)
 void FlowRing::onSymbol(t_symbol* s)
 {
     addMessage(Message(s));
+    output();
 }
 
 void FlowRing::onList(const AtomList& l)
 {
     addMessage(Message(l));
+    output();
 }
 
 void FlowRing::onAny(t_symbol* s, const AtomListView& lv)
 {
     addMessage(Message(s, lv));
+    output();
+}
+
+void FlowRing::proxy_bang()
+{
+    output();
 }
 
 void FlowRing::proxy_get(const AtomListView& lv)
@@ -86,6 +94,12 @@ void FlowRing::proxy_get(const AtomListView& lv)
 
     if (!line_[el_idx].isNone())
         messageTo(idx, line_[el_idx]);
+}
+
+void FlowRing::proxy_fill(const AtomListView& lv)
+{
+    for (auto& m : line_)
+        m = Message(lv);
 }
 
 void FlowRing::addMessage(const Message& m)
@@ -120,5 +134,7 @@ void setup_flow_ring()
     obj.noPropsDispatch();
 
     InletProxy<FlowRing>::init();
+    InletProxy<FlowRing>::set_bang_callback(&FlowRing::proxy_bang);
     InletProxy<FlowRing>::set_method_callback(gensym("get"), &FlowRing::proxy_get);
+    InletProxy<FlowRing>::set_method_callback(gensym("fill"), &FlowRing::proxy_fill);
 }
