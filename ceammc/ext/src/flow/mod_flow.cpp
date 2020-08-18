@@ -14,6 +14,7 @@
 #include "flow_interval.h"
 #include "flow_less.h"
 #include "flow_less_eq.h"
+#include "flow_ring.h"
 #include "flow_loop.h"
 #include "flow_multiplex.h"
 #include "flow_multiplex2_tilde.h"
@@ -53,6 +54,7 @@ void ceammc_flow_setup()
     setup_flow_interval();
     setup_flow_less();
     setup_flow_less_eq();
+    setup_flow_ring();
     setup_flow_loop();
     setup_flow_match();
     setup_flow_multiplex();
