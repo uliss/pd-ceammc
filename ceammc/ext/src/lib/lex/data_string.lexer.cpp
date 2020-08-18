@@ -269,7 +269,7 @@ ceammc::DataStringParser::symbol_type ceammc::DataStringLexer::lex()
                           else
                             err = fmt::format("unmatched lexer input: '{}'", text());
 
-                          LIB_ERR << fmt::format("error while parsing '{}': {}", line, err);
+                          out() << fmt::format("error while parsing '{}': {}", line, err);
 
                           return DataStringParser::make_LEXER_ERROR(location()); /* error */
                         }

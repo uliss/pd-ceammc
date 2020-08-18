@@ -126,7 +126,7 @@ S/{string}              { return DataStringParser::make_DATA_TYPE_STRING(locatio
                           else
                             err = fmt::format("unmatched lexer input: '{}'", text());
 
-                          LIB_ERR << fmt::format("error while parsing '{}': {}", line, err);
+                          out() << fmt::format("error while parsing '{}': {}", line, err);
 
                           return DataStringParser::make_LEXER_ERROR(location()); /* error */
                         }
