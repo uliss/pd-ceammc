@@ -63,6 +63,15 @@ TEST_CASE("random.float", "[externals]")
             REQUIRE_PROPERTY(t, @max, 3);
         }
 
+        SECTION("properties")
+        {
+            TObj t("random.float", LA(-2, 4, "@seed", 5));
+
+            REQUIRE_PROPERTY(t, @min, -2);
+            REQUIRE_PROPERTY(t, @max, 4);
+            REQUIRE_PROPERTY(t, @seed, 5);
+        }
+
         SECTION("args invalid min/max")
         {
             TObj t("random.float", LF(1, -1));

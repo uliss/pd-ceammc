@@ -63,6 +63,24 @@ TEST_CASE("random.int", "[externals]")
             REQUIRE_PROPERTY(t, @max, 3);
         }
 
+        SECTION("properties")
+        {
+            TObj t("random.int", LA(-2, 4, "@seed", 5));
+
+            REQUIRE_PROPERTY(t, @min, -2);
+            REQUIRE_PROPERTY(t, @max, 4);
+            REQUIRE_PROPERTY(t, @seed, 5);
+        }
+
+        SECTION("properties")
+        {
+            TObj t("random.int", LA(-2, 4, 18, "@seed", 5));
+
+            REQUIRE_PROPERTY(t, @min, 0);
+            REQUIRE_PROPERTY(t, @max, 255);
+            REQUIRE_PROPERTY(t, @seed, 5);
+        }
+
         SECTION("args invalid min/max")
         {
             TObj t("random.int", LF(1, -1));

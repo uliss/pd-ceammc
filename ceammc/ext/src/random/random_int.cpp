@@ -16,7 +16,7 @@ RandomInt::RandomInt(const PdArgs& a)
     addProperty(min_);
     addProperty(max_);
 
-    switch (a.args.size()) {
+    switch (parsedPosArgs().size()) {
     case 2:
         min_->setArgIndex(0);
         max_->setArgIndex(1);
@@ -24,7 +24,10 @@ RandomInt::RandomInt(const PdArgs& a)
     case 1:
         max_->setArgIndex(0);
         break;
+    case 0:
+        break;
     default:
+        OBJ_ERR << "expecting MIN MAX or MAX args";
         break;
     }
 
