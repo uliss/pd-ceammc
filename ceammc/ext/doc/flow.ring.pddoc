@@ -42,8 +42,8 @@
 <![CDATA[
 [B]                             [flow.ring.sound]
 |
-[f 1] X [+ 1]
-|
+[f 1] X [+ 1]        [fill -1, bang(
+|                    |.
 [flow.ring 4        {w=29}]
 |      ^|     ^^|    ^^^|
 [F]    [F]    [F]    [F ]
