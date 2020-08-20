@@ -29,8 +29,6 @@ public:
     void onList(const AtomList& l) override;
     void onAny(t_symbol* sel, const AtomListView& l) override;
     void onInlet(size_t, const AtomList&) override;
-
-    bool processAnyProps(t_symbol* sel, const AtomListView& lst) override { return false; }
 };
 
 void setup_flow_reject();

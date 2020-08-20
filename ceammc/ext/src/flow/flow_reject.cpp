@@ -21,7 +21,7 @@ FlowReject::FlowReject(const PdArgs& a)
     createInlet();
     createOutlet();
 
-    reject_list_ = new ListProperty("@values", a.args);
+    reject_list_ = new ListProperty("@values");
     reject_list_->setArgIndex(0);
     addProperty(reject_list_);
 }
@@ -75,6 +75,7 @@ void setup_flow_reject()
 {
     ObjectFactory<FlowReject> obj("flow.reject");
     obj.addAlias("reject");
+    obj.noPropsDispatch();
 
     obj.setXletsInfo({ "bang:   always pass\n"
                        "float:  reject if in list\n"
