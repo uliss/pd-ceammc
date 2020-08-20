@@ -67,6 +67,7 @@ void setup_flow_pass()
 {
     ObjectFactory<FlowPass> obj("flow.pass");
     obj.addAlias("pass");
+    obj.noPropsDispatch();
 
     obj.setXletsInfo({ "bang:   always pass\n"
                        "float:  pass if in pass list\n"
