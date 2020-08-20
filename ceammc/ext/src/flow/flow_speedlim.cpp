@@ -104,4 +104,5 @@ void setup_flow_speedlim()
     InletProxy<FlowSpeedLimit>::set_float_callback(&FlowSpeedLimit::proxy_float);
     InletProxy<FlowSpeedLimit>::set_method_callback(gensym("reset"), &FlowSpeedLimit::proxy_reset);
 
+    obj.setXletsInfo({ "any: input flow", "float: change speed" }, { "any: output flow" });
 }

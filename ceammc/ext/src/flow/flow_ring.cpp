@@ -137,4 +137,9 @@ void setup_flow_ring()
     InletProxy<FlowRing>::set_bang_callback(&FlowRing::proxy_bang);
     InletProxy<FlowRing>::set_method_callback(gensym("get"), &FlowRing::proxy_get);
     InletProxy<FlowRing>::set_method_callback(gensym("fill"), &FlowRing::proxy_fill);
+
+    obj.setXletsInfo({ "any: input flow", "bang: output all outlets\n"
+                                          "get IDX: output specified outlet\n"
+                                          "fill VALUE: fill buffer with sepcified value (no output)\n" },
+        { "" });
 }
