@@ -22,11 +22,6 @@ FlowOnce::FlowOnce(const PdArgs& args)
     createOutlet();
 }
 
-bool FlowOnce::processAnyProps(t_symbol* sel, const AtomListView& lst)
-{
-    return false;
-}
-
 void FlowOnce::onBang()
 {
     if (pass_) {
@@ -76,5 +71,6 @@ void setup_flow_once()
 {
     ObjectFactory<FlowOnce> obj("flow.once");
     obj.addAlias("once");
+    obj.noPropsDispatch();
     obj.setXletsInfo({ "any: input flow", "bang: reset" }, { "any: output flow" });
 }
