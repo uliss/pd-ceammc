@@ -80,4 +80,5 @@ void setup_flow_reject_if()
 {
     ObjectFactory<FlowRejectIf> obj("flow.reject_if");
     obj.addAlias("reject_if");
+    obj.noPropsDispatch();
 }

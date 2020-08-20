@@ -20,6 +20,7 @@ using namespace ceammc;
 
 class FlowRejectIf : public BaseObject {
     size_t reject_;
+
 public:
     FlowRejectIf(const PdArgs& a);
     void onBang() override;
