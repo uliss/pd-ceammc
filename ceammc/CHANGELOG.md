@@ -53,6 +53,9 @@
 - flow.reject:
    - second inlet added to set reject list
    - reject if first list atom contains in reject list (old behavoir: pass all lists)
+- flow.speedlim:
+   - second inlet added to set time
+   - reset message should be send to second inlet
 
 
 ### Removed:

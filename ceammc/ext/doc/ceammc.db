@@ -131,7 +131,7 @@ flow.reject,reject		..		.
 flow.reject_if,reject_if		..		..
 flow.ring,flow.>>		..		?
 flow.route		.		?
-flow.speedlim,speedlim		.		.
+flow.speedlim,speedlim		..		.
 flow.split,split		..		...
 flow.stack		..		.
 flow.sync,flow.'		?		?

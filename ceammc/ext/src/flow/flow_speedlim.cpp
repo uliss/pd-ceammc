@@ -8,7 +8,9 @@ FlowSpeedLimit::FlowSpeedLimit(const PdArgs& a)
     , period_(nullptr)
     , is_closed_(false)
     , clock_(this, &FlowSpeedLimit::clock_handler)
+    , inlet_(this)
 {
+    inlet_new(owner(), &inlet_.x_obj, nullptr, nullptr);
     createOutlet();
 
     period_ = new IntProperty("@limit", 0);
@@ -85,14 +87,21 @@ void FlowSpeedLimit::clock_handler()
     is_closed_ = false;
 }
 
-void FlowSpeedLimit::m_reset(t_symbol*, const AtomListView&)
+void FlowSpeedLimit::proxy_reset(const AtomListView&)
 {
     is_closed_ = false;
+    clock_.unset();
 }
 
 void setup_flow_speedlim()
 {
     ObjectFactory<FlowSpeedLimit> obj("flow.speedlim");
     obj.addAlias("speedlim");
-    obj.addMethod("reset", &FlowSpeedLimit::m_reset);
+    obj.noPropsDispatch();
+
+    InletProxy<FlowSpeedLimit>::init();
+    InletProxy<FlowSpeedLimit>::set_bang_callback(&FlowSpeedLimit::proxy_reset);
+    InletProxy<FlowSpeedLimit>::set_float_callback(&FlowSpeedLimit::proxy_float);
+    InletProxy<FlowSpeedLimit>::set_method_callback(gensym("reset"), &FlowSpeedLimit::proxy_reset);
+
 }
