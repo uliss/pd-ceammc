@@ -40,11 +40,22 @@
         <example>
             <pdascii>
 <![CDATA[
+[B]                             [flow.ring.sound]
+|
+[f 1] X [+ 1]
+|
+[flow.ring 4        {w=29}]
+|      ^|     ^^|    ^^^|
+[F]    [F]    [F]    [F ]
+]]>
+            </pdascii>
+            <pdascii id="sound">
+<![CDATA[
 [T]    [F]
 |      |.
 [metro 150]
 |
-[random.i 43 80]
+[random.i 43 80 @seed 1]
 |
 [mtof]               [fill 0, bang(
 |                    |.
