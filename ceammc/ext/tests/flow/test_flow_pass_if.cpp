@@ -19,6 +19,7 @@ PD_COMPLETE_TEST_SETUP(FlowPassIf, flow, pass_if)
 TEST_CASE("flow.pass_if", "[externals]")
 {
     pd_test_init();
+    test::pdPrintToStdError();
 
     SECTION("init")
     {
@@ -94,6 +95,10 @@ TEST_CASE("flow.pass_if", "[externals]")
         REQUIRE(x2.msg().isNone());
 
         flow_pass_if.sendFloat(11);
+        REQUIRE(x2.msg().isFloat());
+        REQUIRE(x2.msg().atomValue() == A(11));
+
+        flow_pass_if.sendMessage("@f");
         REQUIRE(x2.msg().isFloat());
         REQUIRE(x2.msg().atomValue() == A(11));
     }

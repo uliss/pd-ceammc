@@ -80,4 +80,5 @@ void setup_flow_pass_if()
 {
     ObjectFactory<FlowPassIf> obj("flow.pass_if");
     obj.addAlias("pass_if");
+    obj.noPropsDispatch();
 }
