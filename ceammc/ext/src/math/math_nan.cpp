@@ -1,7 +1,7 @@
 #include "math_nan.h"
 #include "ceammc_factory.h"
 
-#include <numeric>
+#include <limits>
 
 MathNan::MathNan(const PdArgs& a)
     : BaseObject(a)
