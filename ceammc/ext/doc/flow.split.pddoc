@@ -41,17 +41,32 @@
         <example>
             <pdascii>
 <![CDATA[
-[F]                    [1 2( [2 1(
+[F]                    [1 2( [2 1(        [flow.split.more]
 |                      |     |
 [flow.split]X[> 0]     [flow.split]X[<]
-|   ^|                 |         ^|
-[F] [F]                [msg set] [msg set]
-                       |         |
-[B]                    [ (       [ (
+|    ^|                |     ^|
+[F]  [F]               |     [ui.d @display_type 1]
+                       |
+                       [ui.d @display_type 1]
+]]>
+            </pdascii>
+            <pdascii id="more">
+<![CDATA[
+[B]
 |
 [flow.split]X[T]
 |   ^|
 [B] [B]
+
+[F]
+|
+[@abc $1( [F]
+|         |
+[flow.split]X[is_any]
+|   ^|
+|    [ui.d @display_type 1]
+|
+[ui.d @display_type 1]
 ]]>
             </pdascii>
         </example>

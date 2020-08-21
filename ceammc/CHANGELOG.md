@@ -24,6 +24,7 @@
 - flow.prepend (with alias flow.before) added
 - flow.stack added
 - flow.ring added
+- flow.split any message support added
 
 ### Changed:
 - ext_info output format changed.
