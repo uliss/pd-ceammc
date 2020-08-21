@@ -23,7 +23,7 @@
         </properties>
         <inlets>
             <inlet>
-                <xinfo>input</xinfo>
+                <xinfo>input: push to stack</xinfo>
             </inlet>
             <inlet>
                 <xinfo on="bang">output and remove top element</xinfo>
@@ -39,15 +39,30 @@
         <example>
             <pdascii>
 <![CDATA[
+[bang( [1024( [symbol ABC( [1 2 3( [@any message(
+|      |      |            |       |
+|      |      |            |       |   [bang( [clear(
+|      |      |            |       |   |.     |.
+[flow.stack                              {w=53}]
+|
+[print STACK]
+
+[flow.stack.1]
+]]>
+            </pdascii>
+            <pdascii id="1">
+<![CDATA[
 [ui.keyboard]
 |
 |
 |
 |
-[list.at 0]   [T #a]  [r \$0-fs #b]
-|             |
-[flow.change] [metro 110]
-| |           |.
+|                                     [r \$0-fs]
+|                                     |
+[list.at 0]                           [T]
+|                                     |
+[flow.change]                         [metro 110]
+| |                                   |.
 | [flow.stack 6 @on_empty \$0-fs 0 @on_full \$0-fs 1]
 | |
 [@pitch $1, @gate 1(
@@ -68,7 +83,6 @@
 [ui.hgain~]
 |\
 [dac~]
-[X b->a]
 ]]>
             </pdascii>
         </example>

@@ -225,10 +225,10 @@ void setup_flow_stack()
     IProxy::set_method_callback(gensym("top"), &FlowStack::m_top);
     IProxy::set_bang_callback(&FlowStack::m_poptop);
 
-    obj.setXletsInfo({ "any: data flow", "bang:  output top and remove it\n"
-                                         "top:   output top\n"
-                                         "pop:   remove top element\n"
-                                         "clear: remove all\n"
-                                         "flush: output and remove all" },
+    obj.setXletsInfo({ "any: push to stack", "bang:  output top and remove it\n"
+                                             "top:   output top\n"
+                                             "pop:   remove top element\n"
+                                             "clear: remove all\n"
+                                             "flush: output and remove all" },
         { "any: output" });
 }
