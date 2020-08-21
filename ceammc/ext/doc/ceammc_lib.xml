@@ -446,6 +446,9 @@
     <entry name="flow.match" descr="route data flow by regexp match" ref_view="object">
       <xi:include href="flow.match.pddoc" parse="xml"/>
     </entry>
+    <entry name="flow.mem" descr="store data flow in memory" ref_view="object">
+      <xi:include href="flow.mem.pddoc" parse="xml"/>
+    </entry>
     <entry name="flow.multiplex" descr="control flow multiplexer" ref_view="object">
       <xi:include href="flow.multiplex.pddoc" parse="xml"/>
     </entry>

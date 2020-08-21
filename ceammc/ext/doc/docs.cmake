@@ -120,6 +120,7 @@ set(DOC_FILES
     flow.demultiplex2~
     flow.interval
     flow.match
+    flow.mem
     flow.multiplex
     flow.multiplex~
     flow.multiplex2~

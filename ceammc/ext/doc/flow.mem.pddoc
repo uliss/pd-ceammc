@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="flow.mem">
+        <title>flow.mem</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>store data flow in memory</description>
+            <license>GPL3 or later</license>
+            <library>ceammc</library>
+            <category>flow</category>
+            <keywords>memory store</keywords>
+            <since>0.9.1</since>
+        </meta>
+        <arguments>
+            <argument type="int" name="N">number of memory cells</argument>
+        </arguments>
+        <properties>
+            <property name="@max_size" type="int" default="100" minvalue="1">maximum stack grow
+            size</property>
+            <property name="@size" type="int" default="0" readonly="true">current number of
+            elements in stack</property>
+            <property name="@empty" type="int" default="1" enum="0 1" readonly="true">if stack is
+            empty</property>
+        </properties>
+        <inlets dynamic="true">
+            <inlet number="1">
+                <xinfo>input: store in 1st memory cell</xinfo>
+            </inlet>
+            <inlet number="...">
+                <xinfo>input: store in ... memory cell</xinfo>
+            </inlet>
+            <inlet number="n">
+                <xinfo>input: store in n-th memory cell</xinfo>
+            </inlet>
+            <inlet number="n+1">
+                <xinfo on="bang">output all cells</xinfo>
+                <xinfo on="int">output specified cell</xinfo>
+            </inlet>
+        </inlets>
+        <outlets dynamic="true">
+            <outlet number="1">output 1st cell</outlet>
+            <outlet number="...">output ... cell</outlet>
+            <outlet number="n">output n-th cell</outlet>
+        </outlets>
+        <example>
+            <pdascii id="osc~">
+<![CDATA[
+[inlet]
+|
+[t b f]
+|   ^|
+|   [mtof]
+|   |
+|   [osc~]
+|   |
+[env.ar~ 5 60]
+|
+[outlet~]
+]]>
+            </pdascii>
+            <pdascii id="main">
+<![CDATA[
+[ui.keyboard]
+|
+|
+|
+|
+|            [T]        [F]
+|            |          |
+[stripnote]  [metro 65] [prop.set @ttl]
+|            |.         |.
+[flow.mem          @ttl 4]
+|
+[flow.mem.osc~]
+|
+[pan~ {i=1,o=2}]
+*|*
+[ui.hgain2~]        [ui.dsp~]
+*|*
+[dac~]
+
+[flow.mem.more]
+]]>
+            </pdascii>
+            <pdascii id="more">
+<![CDATA[
+[msg.onload 43.5 78 43 85]
+|
+[ui.sliders 4 @min 30 @max 90]
+|
+|                                               [T]    [F]
+|                                               |      |.
+|                                               [metro 100]
+|                                               |  |
+|                              [F]              |  [random.i 0 3] [ui.hrd 2]
+|                              |                |  |.             |..
+[unpack f f f f {i=1,o=4}]     [prop.set @ttl]  [flow.mux 2 1       ]
+*|*                            |....            |....
+[flow.mem 4                          {i=5,o=4,w=66} ]
+|               ^|              ^^|             ^^^|
+[flow.mem.osc~] [flow.mem.osc~] [flow.mem.osc~] [flow.mem.osc~]
+|               |.              |..             |...
+[pan.spread~ 4                       {i=4,o=2,w=66}]
+*|*
+[ui.hgain2~ {i=2,o=2}] [ui.dsp~]
+*|*
+[dac~]
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

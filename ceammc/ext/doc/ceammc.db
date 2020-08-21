@@ -119,6 +119,7 @@ flow.interval		.		.
 flow.less,flow.<		.		?
 flow.less_eq,flow.<=		.		?
 flow.match		?		?
+flow.mem		?		?
 flow.multiplex,flow.mux		?		.
 flow.multiplex2~,flow.mux2~,mux2~		?		~~
 flow.multiplex~,flow.mux~,mux~		?		~

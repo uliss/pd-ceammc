@@ -214,6 +214,7 @@ flow.<	numeric stream router, like many [moses]
 flow.less_eq	numeric stream router, like many [moses]
 flow.<=	numeric stream router, like many [moses]
 flow.match	route data flow by regexp match
+flow.mem	store data flow in memory
 flow.multiplex	control flow multiplexer
 flow.mux	control flow multiplexer
 flow.multiplex2~	audio stream stereo multiplexer
