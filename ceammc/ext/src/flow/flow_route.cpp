@@ -35,11 +35,6 @@ void FlowRoute::parseProperties()
     // do not parse properties in args
 }
 
-bool FlowRoute::processAnyProps(t_symbol* sel, const AtomListView& lst)
-{
-    return false;
-}
-
 void FlowRoute::onList(const AtomList& lst)
 {
     if (lst.empty())
@@ -155,4 +150,5 @@ void setup_flow_route()
     ObjectFactory<FlowRoute> obj("flow.route");
     obj.processData();
     obj.addInletInfo("input messages");
+    obj.noPropsDispatch();
 }

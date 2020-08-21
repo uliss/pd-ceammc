@@ -114,11 +114,6 @@ void FlowPack::onAny(t_symbol* s, const AtomListView& l)
     anyTo(0, msg_->value());
 }
 
-bool FlowPack::processAnyProps(t_symbol* s, const AtomListView& l)
-{
-    return false;
-}
-
 void FlowPack::output(size_t inlet_idx)
 {
     if (inlet_idx == 0)
@@ -152,6 +147,7 @@ void setup_flow_pack()
     FlowPack::initAnnotations();
 
     ObjectFactory<FlowPack> obj("flow.pack");
+    obj.noPropsDispatch();
     obj.addOutletInfo("list: packed list\n"
                       "any:  packed message");
 }

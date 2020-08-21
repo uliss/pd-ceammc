@@ -35,7 +35,6 @@ public:
     void onInlet(size_t idx, const AtomList& l) final;
     void onList(const AtomList& l) final;
     void onAny(t_symbol* s, const AtomListView& l) final;
-    bool processAnyProps(t_symbol* s, const AtomListView& l) final;
 
     virtual void output(size_t inlet_idx);
 
