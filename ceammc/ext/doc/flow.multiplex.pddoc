@@ -24,7 +24,8 @@
             <par>Set @index property only via [prop.set]</par>
         </info>
         <arguments>
-            <argument name="N" type="int" minvalue="2" maxvalue="24">number of multiplexed inputs</argument>
+            <argument name="N" type="int" minvalue="2" maxvalue="24">number of multiplexed
+            inputs</argument>
             <argument name="N" type="int" minvalue="0" maxvalue="24">default input index</argument>
         </arguments>
         <properties>
