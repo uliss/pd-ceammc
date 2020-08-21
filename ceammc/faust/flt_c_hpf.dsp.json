@@ -1,7 +1,7 @@
 {
 	"name": "flt_c_hpf",
 	"filename": "flt_c_hpf.dsp",
-	"version": "2.25.3",
+	"version": "2.28.1",
 	"compile_options": "-lang cpp -scal -ftz 0",
 	"library_list": ["/usr/local/share/faust/maxmsp.lib","/Users/serj/work/music/pure-data/ceammc/faust/ceammc_ui.lib","/usr/local/share/faust/signals.lib","/usr/local/share/faust/maths.lib","/usr/local/share/faust/platform.lib"],
 	"include_pathnames": ["/usr/local/share/faust","/usr/local/share/faust","/usr/share/faust","/Users/serj/work/music/pure-data/ceammc/faust","/Users/serj/work/music/pure-data/ceammc/faust"],
