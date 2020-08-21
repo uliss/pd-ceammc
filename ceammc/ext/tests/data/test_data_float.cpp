@@ -23,15 +23,26 @@ TEST_CASE("data.float", "[externals]")
 
     SECTION("construct")
     {
-        TestDataFloat t("data.float");
-        REQUIRE(t.numInlets() == 2);
-        REQUIRE(t.numOutlets() == 1);
-        REQUIRE_PROPERTY_FLOAT(t, @value, 0);
+        SECTION("default")
+        {
+            TObj t("data.float");
+            REQUIRE(t.numInlets() == 2);
+            REQUIRE(t.numOutlets() == 1);
+            REQUIRE_PROPERTY_FLOAT(t, @value, 0);
+        }
+
+        SECTION("arg")
+        {
+            TObj t("data.float", LF(11));
+            REQUIRE(t.numInlets() == 2);
+            REQUIRE(t.numOutlets() == 1);
+            REQUIRE_PROPERTY_FLOAT(t, @value, 11);
+        }
     }
 
     SECTION("do")
     {
-        TestDataFloat t("data.float");
+        TObj t("data.float");
 
         WHEN_SEND_BANG_TO(0, t);
         REQUIRE_FLOAT_AT_OUTLET(0, t, 0);
@@ -90,7 +101,7 @@ TEST_CASE("data.float", "[externals]")
 
     SECTION("iface")
     {
-        TestExtDataFloat t("data.float");
+        TExt t("data.float");
 
         t << 1;
         t.call("+");
@@ -128,13 +139,13 @@ TEST_CASE("data.float", "[externals]")
 
     SECTION("aliases")
     {
-        TestExtDataFloat t1("data.float");
+        TExt t1("data.float");
         REQUIRE(t1.object());
 
-        TestExtDataFloat t2(".float");
+        TExt t2(".float");
         REQUIRE(t2.object());
 
-        TestExtDataFloat t3(".f");
+        TExt t3(".f");
         REQUIRE(t3.object());
     }
 }

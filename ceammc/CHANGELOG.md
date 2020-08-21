@@ -64,6 +64,9 @@
    - additional inlet added to choose input
    - setting property only via prop.set object
 
+### Fixed:
+- data.float creation arg fix
+
 
 ### Removed:
 - flow.demultiplex: @noprops property removed, object now process any input data flow.
