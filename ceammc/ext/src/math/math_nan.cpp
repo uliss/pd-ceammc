@@ -1,33 +1,59 @@
-#include "ceammc.h"
-#include "m_pd.h"
-#include <math.h>
+#include "math_nan.h"
+#include "ceammc_factory.h"
 
-#define OBJ_NAME "math.nan"
+#include <numeric>
 
-static t_class* math_nan_class;
-struct t_math_nan {
-    t_object x_obj;
-};
-
-static void math_nan_bang(t_math_nan* x)
+MathNan::MathNan(const PdArgs& a)
+    : BaseObject(a)
+    , mode_(nullptr)
 {
-    outlet_float(x->x_obj.te_outlet, NAN);
+    mode_ = new SymbolEnumProperty("@type", { "quiet", "signal" });
+    addProperty(mode_);
+
+    addProperty(new SymbolEnumAlias("@quiet", mode_, gensym("quiet")));
+    addProperty(new SymbolEnumAlias("@signal", mode_, gensym("signal")));
+
+    createOutlet();
 }
 
-static void* math_nan_new()
+void MathNan::onBang()
 {
-    t_math_nan* x = reinterpret_cast<t_math_nan*>(pd_new(math_nan_class));
-    outlet_new(&x->x_obj, &s_float);
-    
-    return static_cast<void*>(x);
+    if (mode_->value() == gensym("quiet"))
+        floatTo(0, std::numeric_limits<t_float>::quiet_NaN());
+    else if (mode_->value() == gensym("signal"))
+        floatTo(0, std::numeric_limits<t_float>::signaling_NaN());
 }
 
-extern void setup_math_nan()
+MathNanTilde::MathNanTilde(const PdArgs& a)
+    : SoundExternal(a)
+    , mode_(nullptr)
 {
-    math_nan_class = class_new(gensym(OBJ_NAME),
-        reinterpret_cast<t_newmethod>(math_nan_new),
-        reinterpret_cast<t_method>(0),
-        sizeof(t_math_nan), 0, A_NULL);
-    class_addbang(math_nan_class, reinterpret_cast<t_method>(math_nan_bang));
+    createSignalOutlet();
+
+    mode_ = new SymbolEnumProperty("@type", { "quiet", "signal" });
+    addProperty(mode_);
+
+    addProperty(new SymbolEnumAlias("@quiet", mode_, gensym("quiet")));
+    addProperty(new SymbolEnumAlias("@signal", mode_, gensym("signal")));
 }
 
+void MathNanTilde::processBlock(const t_sample**, t_sample** out)
+{
+    const auto bs = blockSize();
+
+    if (mode_->value() == gensym("quiet")) {
+        for (size_t i = 0; i < bs; i++) {
+            out[0][i] = std::numeric_limits<t_float>::quiet_NaN();
+        }
+    } else if (mode_->value() == gensym("signal")) {
+        for (size_t i = 0; i < bs; i++) {
+            out[0][i] = std::numeric_limits<t_float>::signaling_NaN();
+        }
+    }
+}
+
+void setup_math_nan()
+{
+    ObjectFactory<MathNan> obj0("math.nan");
+    SoundExternalFactory<MathNanTilde> obj1("math.nan~", OBJECT_FACTORY_DEFAULT);
+}

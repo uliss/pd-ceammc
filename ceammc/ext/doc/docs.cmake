@@ -361,6 +361,7 @@ set(DOC_FILES
     math.log2~
     math.mul
     math.nan
+    math.nan~
     math.neg
     math.or
     math.pi

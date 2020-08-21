@@ -1,21 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <pddoc version="1.0">
-    <object name="math.nan">
-        <title>math.nan</title>
+    <object name="math.nan~">
+        <title>math.nan~</title>
         <meta>
             <authors>
                 <author>Serge Poltavsky</author>
             </authors>
-            <description>Not a Number, unrepresentable value</description>
+            <description>signal NaN</description>
             <license>GPL3 or later</license>
             <library>ceammc</library>
             <category>math</category>
             <keywords>math nan</keywords>
             <also>
-                <see>math.nan~</see>
-                <see>math.inf</see>
+                <see>math.nan</see>
+                <see>math.inf~</see>
             </also>
-            <since>0.1</since>
+            <since>0.9.1</since>
         </meta>
         <info>
             <par>In computing, NaN, standing for not a number, is a numeric data type value
@@ -36,20 +36,22 @@
         </properties>
         <inlets>
             <inlet>
-                <xinfo on="bang">outputs value</xinfo>
+                <xinfo/>
             </inlet>
         </inlets>
         <outlets>
-            <outlet>output value</outlet>
+            <outlet type="audio">output</outlet>
         </outlets>
         <example>
             <pdascii>
 <![CDATA[
-[B]
+[math.nan~ @quiet]   [ui.dsp~]
 |
-[math.nan]
+[ui.n~]
+
+[math.nan~ @signal]
 |
-[floatatom]
+[ui.n~]
 ]]>
             </pdascii>
         </example>

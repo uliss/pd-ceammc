@@ -1101,6 +1101,9 @@
     <entry name="math.nan" descr="Not a Number, unrepresentable value" ref_view="object">
       <xi:include href="math.nan.pddoc" parse="xml"/>
     </entry>
+    <entry name="math.nan~" descr="signal NaN" ref_view="object">
+      <xi:include href="math.nan~.pddoc" parse="xml"/>
+    </entry>
     <entry name="math.neg" descr="negate function" ref_view="object">
       <xi:include href="math.neg.pddoc" parse="xml"/>
     </entry>

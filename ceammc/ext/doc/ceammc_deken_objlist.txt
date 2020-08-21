@@ -468,6 +468,7 @@ math.log~	natural logarithm
 math.mul	multiplication (on lists too)
 math.*	multiplication (on lists too)
 math.nan	Not a Number, unrepresentable value
+math.nan~	signal NaN
 math.neg	negate function
 -x	negate function
 math.or	operation OR for multiple arguments

@@ -360,6 +360,7 @@ math.log2~		~		~
 math.log~		~		~
 math.mul,math.*		..		.
 math.nan		.		.
+math.nan~		.		~
 math.neg,-x		.		.
 math.or,or		?		.
 math.pi,pi		.		.

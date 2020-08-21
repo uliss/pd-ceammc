@@ -25,6 +25,7 @@
 - flow.stack added
 - flow.ring added
 - flow.split any message support added
+- math.nan~ added (mainly for testing purposes)
 
 ### Changed:
 - ext_info output format changed.
