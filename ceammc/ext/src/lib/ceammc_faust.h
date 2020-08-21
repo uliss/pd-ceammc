@@ -84,11 +84,7 @@ namespace faust {
 #endif
     }
 
-    static inline void copy_samples(size_t n_ch, size_t bs, const t_sample** in, t_sample** out)
-    {
-        for (size_t i = 0; i < n_ch; i++)
-            memcpy(out[i], in[i], bs * sizeof(t_sample));
-    }
+    void copy_samples(size_t n_ch, size_t bs, const t_sample** in, t_sample** out, bool zero_abnormals = true);
 
     class FaustExternalBase : public SoundExternal {
     protected:

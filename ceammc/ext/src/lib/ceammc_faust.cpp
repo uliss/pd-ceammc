@@ -13,6 +13,7 @@
  *****************************************************************************/
 
 #include <array>
+#include <cassert>
 
 #include "ceammc_faust.h"
 #include "ceammc_output.h"
@@ -486,6 +487,29 @@ namespace faust {
         }
 
         return PropValueUnits::NONE;
+    }
+
+    void copy_samples(size_t n_ch, size_t bs, const t_sample** in, t_sample** out, bool zero_abnormals)
+    {
+        if (!zero_abnormals) {
+            for (size_t i = 0; i < n_ch; i++)
+                memcpy(out[i], in[i], bs * sizeof(t_sample));
+        } else {
+            assert(bs % 8 == 0);
+
+            for (size_t i = 0; i < n_ch; i++) {
+                for (size_t j = 0; j < bs; j += 8) {
+                    out[i][j + 0] = std::isnormal(in[i][j + 0]) ? in[i][j + 0] : 0;
+                    out[i][j + 1] = std::isnormal(in[i][j + 1]) ? in[i][j + 1] : 0;
+                    out[i][j + 2] = std::isnormal(in[i][j + 2]) ? in[i][j + 2] : 0;
+                    out[i][j + 3] = std::isnormal(in[i][j + 3]) ? in[i][j + 3] : 0;
+                    out[i][j + 4] = std::isnormal(in[i][j + 4]) ? in[i][j + 4] : 0;
+                    out[i][j + 5] = std::isnormal(in[i][j + 5]) ? in[i][j + 5] : 0;
+                    out[i][j + 6] = std::isnormal(in[i][j + 6]) ? in[i][j + 6] : 0;
+                    out[i][j + 7] = std::isnormal(in[i][j + 7]) ? in[i][j + 7] : 0;
+                }
+            }
+        }
     }
 
 }
