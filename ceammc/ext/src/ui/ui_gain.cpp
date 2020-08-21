@@ -166,10 +166,26 @@ void UIGain::dspProcess(t_sample** ins, long n_ins, t_sample** outs, long n_outs
     t_sample* in = ins[0];
     t_sample* out = outs[0];
 
-    const float v = ampValue();
+    const t_float v = ampValue();
 
-    for (long i = 0; i < sampleframes; i++)
-        out[i] = in[i] * smooth_.get(v);
+#define COPY_SAMPLE(offset)                              \
+    {                                                    \
+        const auto v0 = in[i + offset] * smooth_.get(v); \
+        out[i + offset] = std::isnormal(v0) ? v0 : 0;    \
+    }
+
+    for (long i = 0; i < sampleframes; i += 8) {
+        COPY_SAMPLE(0);
+        COPY_SAMPLE(1);
+        COPY_SAMPLE(2);
+        COPY_SAMPLE(3);
+        COPY_SAMPLE(4);
+        COPY_SAMPLE(5);
+        COPY_SAMPLE(6);
+        COPY_SAMPLE(7);
+    }
+
+#undef COPY_SAMPLE
 }
 
 void UIGain::onPropChange(t_symbol* prop_name)
