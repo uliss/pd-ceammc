@@ -14,8 +14,8 @@
 #include "flow_interval.h"
 #include "flow_less.h"
 #include "flow_less_eq.h"
-#include "flow_ring.h"
 #include "flow_loop.h"
+#include "flow_mem.h"
 #include "flow_multiplex.h"
 #include "flow_multiplex2_tilde.h"
 #include "flow_multiplex_tilde.h"
@@ -26,6 +26,7 @@
 #include "flow_prepend.h"
 #include "flow_reject.h"
 #include "flow_reject_if.h"
+#include "flow_ring.h"
 #include "flow_route.h"
 #include "flow_speedlim.h"
 #include "flow_split.h"
@@ -57,6 +58,7 @@ void ceammc_flow_setup()
     setup_flow_ring();
     setup_flow_loop();
     setup_flow_match();
+    setup_flow_mem();
     setup_flow_multiplex();
     setup_flow_multiplex2_tilde();
     setup_flow_multiplex_tilde();
