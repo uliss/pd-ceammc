@@ -34,9 +34,7 @@ UNARY_EXT = [
 ]
 
 CONST_EXT = [
-    ('e',   'M_E'),
-    ('nan', 'NAN'),
-    ('inf', 'INFINITY')
+    ('e',   'M_E')
 ]
 
 SCRIPT = os.path.join(os.path.dirname(__file__), 'extension_generator.py')
