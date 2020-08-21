@@ -12,6 +12,8 @@
  * this file belongs to.
  *****************************************************************************/
 #include "ceammc_datastorage.h"
+#include "ceammc_atomlist.h"
+#include "ceammc_convert.h"
 #include "ceammc_datatypes.h"
 #include "ceammc_format.h"
 #include "ceammc_log.h"
@@ -109,6 +111,8 @@ DataStorage::DataStorage()
     registerNewType("e", [](const AtomList&) -> Atom { return Atom(m_exp); });
     registerNewType("sr", [](const AtomList&) -> Atom { return Atom(sys_getsr()); });
     registerNewType("bs", [](const AtomList&) -> Atom { return Atom(sys_getblksize()); });
+    registerNewType("mtof", [](const AtomList& a) -> Atom { return Atom(convert::midi2freq(a.floatAt(0, 0))); });
+    registerNewType("ftom", [](const AtomList& a) -> Atom { return Atom(convert::freq2midi(a.floatAt(0, 0))); });
     registerNewType("expr", [](const AtomList& expr) -> Atom {
         try {
             using DD = double (*)(double);
