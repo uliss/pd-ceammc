@@ -11,51 +11,51 @@
 #X obj 600 550 outlet ctl;
 #X obj 3 202 cnv 8 198 18 empty empty [synth.ks~] 3 9 0 12 -104026
 -262144 0;
-#X text 10 218 cutoff:;
-#X obj 12 237 ui.slider @size 120 12 @active_scale 1 @presetname
-/gui/$1/synth.ks~/slider0 @min 0.1 @max 1;
-#X obj 140 237 ui.number @size 40 12 @digits 3 @min 0.1 @max 1;
-#X obj 190 237 msg set;
-#X msg 260 237 @cutoff \$1;
-#X text 10 251 gain:;
-#X obj 12 270 ui.slider @size 120 12 @active_scale 1 @presetname
-/gui/$1/synth.ks~/slider1 @min 0 @max 1;
-#X obj 140 270 ui.number @size 40 12 @digits 3 @min 0 @max 1;
-#X obj 190 270 msg set;
+#X obj 12 238 ui.slider @size 125 12 @active_scale 1 @label cutoff:
+@label_side top @label_align left @fontsize 10 @presetname
+/gui/\$1/synth.ks~/slider0 @min 0.1 @max 1;
+#X obj 145 238 ui.number @size 50 12 @min 0.1 @max 1 @digits 4;
+#X obj 200 238 msg set;
+#X msg 260 238 @cutoff \$1;
+#X obj 12 270 ui.slider @size 125 12 @active_scale 1 @label gain:
+@label_side top @label_align left @fontsize 10 @presetname
+/gui/\$1/synth.ks~/slider1 @min 0 @max 1;
+#X obj 145 270 ui.number @size 50 12 @min 0 @max 1 @digits 4;
+#X obj 200 270 msg set;
 #X msg 260 270 @gain \$1;
-#X obj 12 292 ui.toggle @size 12 12;
-#X text 26 287 gate;
-#X msg 260 284 @gate \$1;
-#X text 10 304 mode:;
-#X obj 12 323 ui.slider @size 120 12 @active_scale 1 @presetname
-/gui/$1/synth.ks~/slider3 @min 0 @max 1;
-#X obj 140 323 ui.number @size 40 12 @digits 3 @min 0 @max 1;
-#X obj 190 323 msg set;
-#X msg 260 323 @mode \$1;
-#X text 10 337 mute:;
-#X obj 12 356 ui.slider @size 120 12 @active_scale 1 @presetname
-/gui/$1/synth.ks~/slider4 @min 0 @max 1;
-#X obj 140 356 ui.number @size 40 12 @digits 3 @min 0 @max 1;
-#X obj 190 356 msg set;
-#X msg 260 356 @mute \$1;
-#X text 10 370 pitch:;
-#X obj 12 389 ui.slider @size 120 12 @active_scale 1 @presetname
-/gui/$1/synth.ks~/slider5 @min 36 @max 84;
-#X obj 140 389 ui.number @size 40 12 @digits 3 @min 36 @max 84;
-#X obj 190 389 msg set;
-#X msg 260 389 @pitch \$1;
-#X text 10 403 pos:;
-#X obj 12 422 ui.slider @size 120 12 @active_scale 1 @presetname
-/gui/$1/synth.ks~/slider6 @min 0 @max 1;
-#X obj 140 422 ui.number @size 40 12 @digits 3 @min 0 @max 1;
-#X obj 190 422 msg set;
-#X msg 260 422 @pos \$1;
-#X text 10 436 sharp:;
-#X obj 12 455 ui.slider @size 120 12 @active_scale 1 @presetname
-/gui/$1/synth.ks~/slider7 @min 0.01 @max 1;
-#X obj 140 455 ui.number @size 40 12 @digits 3 @min 0.01 @max 1;
-#X obj 190 455 msg set;
-#X msg 260 455 @sharp \$1;
+#X obj 12 290 ui.toggle @size 12 12 @label gate @label_side right
+@label_align left @fontsize 10;
+#X msg 260 282 @gate \$1;
+#X obj 12 320 ui.slider @size 125 12 @active_scale 1 @label mode:
+@label_side top @label_align left @fontsize 10 @presetname
+/gui/\$1/synth.ks~/slider3 @min 0 @max 1;
+#X obj 145 320 ui.number @size 50 12 @min 0 @max 1 @digits 4;
+#X obj 200 320 msg set;
+#X msg 260 320 @mode \$1;
+#X obj 12 352 ui.slider @size 125 12 @active_scale 1 @label mute:
+@label_side top @label_align left @fontsize 10 @presetname
+/gui/\$1/synth.ks~/slider4 @min 0 @max 1;
+#X obj 145 352 ui.number @size 50 12 @min 0 @max 1 @digits 4;
+#X obj 200 352 msg set;
+#X msg 260 352 @mute \$1;
+#X obj 12 384 ui.slider @size 125 12 @active_scale 1 @label pitch:
+@label_side top @label_align left @fontsize 10 @presetname
+/gui/\$1/synth.ks~/slider5 @min 36 @max 84;
+#X obj 145 384 ui.number @size 50 12 @min 36 @max 84 @digits 2;
+#X obj 200 384 msg set;
+#X msg 260 384 @pitch \$1;
+#X obj 12 416 ui.slider @size 125 12 @active_scale 1 @label pos:
+@label_side top @label_align left @fontsize 10 @presetname
+/gui/\$1/synth.ks~/slider6 @min 0 @max 1;
+#X obj 145 416 ui.number @size 50 12 @min 0 @max 1 @digits 4;
+#X obj 200 416 msg set;
+#X msg 260 416 @pos \$1;
+#X obj 12 448 ui.slider @size 125 12 @active_scale 1 @label sharp:
+@label_side top @label_align left @fontsize 10 @presetname
+/gui/\$1/synth.ks~/slider7 @min 0.01 @max 1;
+#X obj 145 448 ui.number @size 50 12 @min 0.01 @max 1 @digits 4;
+#X obj 200 448 msg set;
+#X msg 260 448 @sharp \$1;
 #X connect 1 0 2 0;
 #X connect 2 0 3 0;
 #X connect 3 8 4 0;
@@ -63,49 +63,49 @@
 #X connect 6 0 5 0;
 #X connect 0 0 7 0;
 #X connect 2 1 8 0;
+#X connect 10 0 11 0;
 #X connect 11 0 12 0;
-#X connect 12 0 13 0;
-#X connect 13 0 11 0;
-#X connect 11 0 14 0;
-#X connect 14 0 0 0;
-#X connect 3 0 11 0;
-#X connect 16 0 17 0;
-#X connect 17 0 18 0;
-#X connect 18 0 16 0;
-#X connect 16 0 19 0;
+#X connect 12 0 10 0;
+#X connect 10 0 13 0;
+#X connect 13 0 0 0;
+#X connect 3 0 10 0;
+#X connect 14 0 15 0;
+#X connect 15 0 16 0;
+#X connect 16 0 14 0;
+#X connect 14 0 17 0;
+#X connect 17 0 0 0;
+#X connect 3 1 14 0;
+#X connect 18 0 19 0;
 #X connect 19 0 0 0;
-#X connect 3 1 16 0;
-#X connect 20 0 22 0;
-#X connect 22 0 0 0;
-#X connect 3 2 20 0;
+#X connect 3 2 18 0;
+#X connect 20 0 21 0;
+#X connect 21 0 22 0;
+#X connect 22 0 20 0;
+#X connect 20 0 23 0;
+#X connect 23 0 0 0;
+#X connect 3 3 20 0;
 #X connect 24 0 25 0;
 #X connect 25 0 26 0;
 #X connect 26 0 24 0;
 #X connect 24 0 27 0;
 #X connect 27 0 0 0;
-#X connect 3 3 24 0;
+#X connect 3 4 24 0;
+#X connect 28 0 29 0;
 #X connect 29 0 30 0;
-#X connect 30 0 31 0;
-#X connect 31 0 29 0;
-#X connect 29 0 32 0;
-#X connect 32 0 0 0;
-#X connect 3 4 29 0;
-#X connect 34 0 35 0;
-#X connect 35 0 36 0;
-#X connect 36 0 34 0;
-#X connect 34 0 37 0;
-#X connect 37 0 0 0;
-#X connect 3 5 34 0;
-#X connect 39 0 40 0;
-#X connect 40 0 41 0;
-#X connect 41 0 39 0;
-#X connect 39 0 42 0;
-#X connect 42 0 0 0;
-#X connect 3 6 39 0;
-#X connect 44 0 45 0;
-#X connect 45 0 46 0;
-#X connect 46 0 44 0;
-#X connect 44 0 47 0;
-#X connect 47 0 0 0;
-#X connect 3 7 44 0;
-#X coords 0 -1 1 1 200 277 2 2 200;
+#X connect 30 0 28 0;
+#X connect 28 0 31 0;
+#X connect 31 0 0 0;
+#X connect 3 5 28 0;
+#X connect 32 0 33 0;
+#X connect 33 0 34 0;
+#X connect 34 0 32 0;
+#X connect 32 0 35 0;
+#X connect 35 0 0 0;
+#X connect 3 6 32 0;
+#X connect 36 0 37 0;
+#X connect 37 0 38 0;
+#X connect 38 0 36 0;
+#X connect 36 0 39 0;
+#X connect 39 0 0 0;
+#X connect 3 7 36 0;
+#X coords 0 -1 1 1 200 268 2 2 200;

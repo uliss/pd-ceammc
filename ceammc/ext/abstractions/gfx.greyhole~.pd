@@ -14,58 +14,58 @@
 #X obj 700 550 outlet ctl;
 #X obj 3 202 cnv 8 198 18 empty empty [fx.greyhole~] 3 9 0 12 -104026
 -262144 0;
-#X obj 12 226 ui.toggle @size 12 12 @presetname
-/gui/$1/fx.greyhole~/checkbox0;
-#X text 26 221 bypass;
+#X obj 12 226 ui.toggle @size 12 12 @label bypass @label_side right
+@label_align left @fontsize 10 @presetname
+/gui/\$1/fx.greyhole~/checkbox0;
 #X msg 260 218 @bypass \$1;
-#X text 10 238 damping:;
-#X obj 12 257 ui.slider @size 120 12 @active_scale 1 @presetname
-/gui/$1/fx.greyhole~/slider1 @min 0 @max 0.99;
-#X obj 140 257 ui.number @size 40 12 @digits 3 @min 0 @max 0.99;
-#X obj 190 257 msg set;
-#X msg 260 257 @damping \$1;
-#X text 10 271 delaytime:;
-#X obj 12 290 ui.slider @size 120 12 @active_scale 1 @presetname
-/gui/$1/fx.greyhole~/slider2 @min 0.001 @max 1.45;
-#X obj 140 290 ui.number @size 40 12 @digits 3 @min 0.001 @max 1.45;
-#X obj 190 290 msg set;
-#X msg 260 290 @delaytime \$1;
-#X text 10 304 diffusion:;
-#X obj 12 323 ui.slider @size 120 12 @active_scale 1 @presetname
-/gui/$1/fx.greyhole~/slider3 @min 0 @max 0.99;
-#X obj 140 323 ui.number @size 40 12 @digits 3 @min 0 @max 0.99;
-#X obj 190 323 msg set;
-#X msg 260 323 @diffusion \$1;
-#X text 10 337 drywet:;
-#X obj 12 356 ui.slider @size 120 12 @active_scale 1 @presetname
-/gui/$1/fx.greyhole~/slider4 @min 0 @max 1;
-#X obj 140 356 ui.number @size 40 12 @digits 3 @min 0 @max 1;
-#X obj 190 356 msg set;
-#X msg 260 356 @drywet \$1;
-#X text 10 370 feedback:;
-#X obj 12 389 ui.slider @size 120 12 @active_scale 1 @presetname
-/gui/$1/fx.greyhole~/slider5 @min 0 @max 1;
-#X obj 140 389 ui.number @size 40 12 @digits 3 @min 0 @max 1;
-#X obj 190 389 msg set;
-#X msg 260 389 @feedback \$1;
-#X text 10 403 moddepth:;
-#X obj 12 422 ui.slider @size 120 12 @active_scale 1 @presetname
-/gui/$1/fx.greyhole~/slider6 @min 0 @max 1;
-#X obj 140 422 ui.number @size 40 12 @digits 3 @min 0 @max 1;
-#X obj 190 422 msg set;
-#X msg 260 422 @moddepth \$1;
-#X text 10 436 modfreq:;
-#X obj 12 455 ui.slider @size 120 12 @active_scale 1 @presetname
-/gui/$1/fx.greyhole~/slider7 @min 0 @max 10;
-#X obj 140 455 ui.number @size 40 12 @digits 3 @min 0 @max 10;
-#X obj 190 455 msg set;
-#X msg 260 455 @modfreq \$1;
-#X text 10 469 size:;
-#X obj 12 488 ui.slider @size 120 12 @active_scale 1 @presetname
-/gui/$1/fx.greyhole~/slider8 @min 0.5 @max 3;
-#X obj 140 488 ui.number @size 40 12 @digits 3 @min 0.5 @max 3;
-#X obj 190 488 msg set;
-#X msg 260 488 @size \$1;
+#X obj 12 256 ui.slider @size 125 12 @active_scale 1 @label damping:
+@label_side top @label_align left @fontsize 10 @presetname
+/gui/\$1/fx.greyhole~/slider1 @min 0 @max 0.99;
+#X obj 145 256 ui.number @size 50 12 @min 0 @max 0.99 @digits 4;
+#X obj 200 256 msg set;
+#X msg 260 256 @damping \$1;
+#X obj 12 288 ui.slider @size 125 12 @active_scale 1 @label delaytime:
+@label_side top @label_align left @fontsize 10 @presetname
+/gui/\$1/fx.greyhole~/slider2 @min 0.001 @max 1.45;
+#X obj 145 288 ui.number @size 50 12 @min 0.001 @max 1.45 @digits 3;
+#X obj 200 288 msg set;
+#X msg 260 288 @delaytime \$1;
+#X obj 12 320 ui.slider @size 125 12 @active_scale 1 @label diffusion:
+@label_side top @label_align left @fontsize 10 @presetname
+/gui/\$1/fx.greyhole~/slider3 @min 0 @max 0.99;
+#X obj 145 320 ui.number @size 50 12 @min 0 @max 0.99 @digits 4;
+#X obj 200 320 msg set;
+#X msg 260 320 @diffusion \$1;
+#X obj 12 352 ui.slider @size 125 12 @active_scale 1 @label drywet:
+@label_side top @label_align left @fontsize 10 @presetname
+/gui/\$1/fx.greyhole~/slider4 @min 0 @max 1;
+#X obj 145 352 ui.number @size 50 12 @min 0 @max 1 @digits 4;
+#X obj 200 352 msg set;
+#X msg 260 352 @drywet \$1;
+#X obj 12 384 ui.slider @size 125 12 @active_scale 1 @label feedback:
+@label_side top @label_align left @fontsize 10 @presetname
+/gui/\$1/fx.greyhole~/slider5 @min 0 @max 1;
+#X obj 145 384 ui.number @size 50 12 @min 0 @max 1 @digits 4;
+#X obj 200 384 msg set;
+#X msg 260 384 @feedback \$1;
+#X obj 12 416 ui.slider @size 125 12 @active_scale 1 @label moddepth:
+@label_side top @label_align left @fontsize 10 @presetname
+/gui/\$1/fx.greyhole~/slider6 @min 0 @max 1;
+#X obj 145 416 ui.number @size 50 12 @min 0 @max 1 @digits 4;
+#X obj 200 416 msg set;
+#X msg 260 416 @moddepth \$1;
+#X obj 12 448 ui.slider @size 125 12 @active_scale 1 @label modfreq:
+@label_side top @label_align left @fontsize 10 @presetname
+/gui/\$1/fx.greyhole~/slider7 @min 0 @max 10;
+#X obj 145 448 ui.number @size 50 12 @min 0 @max 10 @digits 3;
+#X obj 200 448 msg set;
+#X msg 260 448 @modfreq \$1;
+#X obj 12 480 ui.slider @size 125 12 @active_scale 1 @label size:
+@label_side top @label_align left @fontsize 10 @presetname
+/gui/\$1/fx.greyhole~/slider8 @min 0.5 @max 3;
+#X obj 145 480 ui.number @size 50 12 @min 0.5 @max 3 @digits 3;
+#X obj 200 480 msg set;
+#X msg 260 480 @size \$1;
 #X connect 1 0 0 0;
 #X connect 2 0 0 1;
 #X connect 3 0 4 0;
@@ -76,55 +76,55 @@
 #X connect 0 0 9 0;
 #X connect 0 1 10 0;
 #X connect 4 1 11 0;
-#X connect 13 0 15 0;
-#X connect 15 0 0 0;
+#X connect 13 0 14 0;
+#X connect 14 0 0 0;
 #X connect 5 0 13 0;
-#X connect 17 0 18 0;
-#X connect 18 0 19 0;
-#X connect 19 0 17 0;
-#X connect 17 0 20 0;
-#X connect 20 0 0 0;
-#X connect 5 1 17 0;
-#X connect 22 0 23 0;
+#X connect 15 0 16 0;
+#X connect 16 0 17 0;
+#X connect 17 0 15 0;
+#X connect 15 0 18 0;
+#X connect 18 0 0 0;
+#X connect 5 1 15 0;
+#X connect 19 0 20 0;
+#X connect 20 0 21 0;
+#X connect 21 0 19 0;
+#X connect 19 0 22 0;
+#X connect 22 0 0 0;
+#X connect 5 2 19 0;
 #X connect 23 0 24 0;
-#X connect 24 0 22 0;
-#X connect 22 0 25 0;
-#X connect 25 0 0 0;
-#X connect 5 2 22 0;
+#X connect 24 0 25 0;
+#X connect 25 0 23 0;
+#X connect 23 0 26 0;
+#X connect 26 0 0 0;
+#X connect 5 3 23 0;
 #X connect 27 0 28 0;
 #X connect 28 0 29 0;
 #X connect 29 0 27 0;
 #X connect 27 0 30 0;
 #X connect 30 0 0 0;
-#X connect 5 3 27 0;
+#X connect 5 4 27 0;
+#X connect 31 0 32 0;
 #X connect 32 0 33 0;
-#X connect 33 0 34 0;
-#X connect 34 0 32 0;
-#X connect 32 0 35 0;
-#X connect 35 0 0 0;
-#X connect 5 4 32 0;
-#X connect 37 0 38 0;
-#X connect 38 0 39 0;
-#X connect 39 0 37 0;
-#X connect 37 0 40 0;
-#X connect 40 0 0 0;
-#X connect 5 5 37 0;
-#X connect 42 0 43 0;
+#X connect 33 0 31 0;
+#X connect 31 0 34 0;
+#X connect 34 0 0 0;
+#X connect 5 5 31 0;
+#X connect 35 0 36 0;
+#X connect 36 0 37 0;
+#X connect 37 0 35 0;
+#X connect 35 0 38 0;
+#X connect 38 0 0 0;
+#X connect 5 6 35 0;
+#X connect 39 0 40 0;
+#X connect 40 0 41 0;
+#X connect 41 0 39 0;
+#X connect 39 0 42 0;
+#X connect 42 0 0 0;
+#X connect 5 7 39 0;
 #X connect 43 0 44 0;
-#X connect 44 0 42 0;
-#X connect 42 0 45 0;
-#X connect 45 0 0 0;
-#X connect 5 6 42 0;
-#X connect 47 0 48 0;
-#X connect 48 0 49 0;
-#X connect 49 0 47 0;
-#X connect 47 0 50 0;
-#X connect 50 0 0 0;
-#X connect 5 7 47 0;
-#X connect 52 0 53 0;
-#X connect 53 0 54 0;
-#X connect 54 0 52 0;
-#X connect 52 0 55 0;
-#X connect 55 0 0 0;
-#X connect 5 8 52 0;
-#X coords 0 -1 1 1 200 310 2 2 200;
+#X connect 44 0 45 0;
+#X connect 45 0 43 0;
+#X connect 43 0 46 0;
+#X connect 46 0 0 0;
+#X connect 5 8 43 0;
+#X coords 0 -1 1 1 200 300 2 2 200;
