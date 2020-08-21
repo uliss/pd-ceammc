@@ -23,6 +23,7 @@ ceammc_flt_obj(dcblock2)
 
 ceammc_flt_obj_json_double(bpf12)
 ceammc_flt_obj_json_double(bpf24)
+ceammc_flt_obj_json_double(moog_vcf)
 
 ceammc_flt_obj_json(c_bpf)
 ceammc_flt_obj_json(c_highshelf)
@@ -40,7 +41,6 @@ ceammc_flt_obj_json(hpf24)
 ceammc_flt_obj_json(lowshelf)
 ceammc_flt_obj_json(lpf12)
 ceammc_flt_obj_json(lpf24)
-ceammc_flt_obj_json(moog_vcf)
 ceammc_flt_obj_json(notch)
 ceammc_flt_obj_json(resonbp)
 
