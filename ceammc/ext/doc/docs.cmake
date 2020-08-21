@@ -350,6 +350,7 @@ set(DOC_FILES
     math.gamma~
     math.gcd
     math.inf
+    math.inf~
     math.lcm
     math.lgamma
     math.lgamma~

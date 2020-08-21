@@ -456,6 +456,7 @@ math.gamma	gamma function
 math.gamma~	gamma function for floating point signals
 math.gcd	calculate greatest common divisor
 math.inf	infinity value that cannot be represented accurately
+math.inf~	inifinity signal generator
 math.lcm	calculate least common multiple
 math.lgamma	natural logarithm of the absolute value of the gamma function
 math.lgamma~	natural logarithm of the absolute value of the gamma function for signals
