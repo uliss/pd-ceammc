@@ -39,6 +39,8 @@ public:
 
     AtomList propValue() const;
     void propSetValue(const AtomList& lst);
+
+    const char* annotateInlet(size_t) const override;
 };
 
 void setup_flow_multiplex_tilde();
