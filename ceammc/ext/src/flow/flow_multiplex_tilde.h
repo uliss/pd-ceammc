@@ -16,7 +16,7 @@
 
 #include "ceammc_signal.h"
 #include "ceammc_sound_external.h"
-
+constexpr size_t MAX_NCHAN = 16;
 using namespace ceammc;
 
 enum FlowMultiplexFlags {

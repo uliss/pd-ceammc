@@ -21,7 +21,6 @@
 
 constexpr size_t DEF_INLETS = 2;
 constexpr size_t MIN_NCHAN = 2;
-constexpr size_t MAX_NCHAN = 16;
 
 static std::array<std::string, MAX_NCHAN> inlet_info = {};
 

@@ -22,6 +22,8 @@ public:
     Multiplex2Tilde(const PdArgs& args);
 
     void processBlock(const t_sample** in, t_sample** out) override;
+
+    const char* annotateInlet(size_t n) const override;
 };
 
 void setup_flow_multiplex2_tilde();
