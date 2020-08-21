@@ -15,22 +15,22 @@
 #X obj 50 226 list.search A;
 #X obj 50 255 msg set;
 #X msg 50 284 ;
-#X obj 20 323 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 328 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
+#X obj 20 333 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 338 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
-#X text 110 329 1\.;
-#X text 150 329 *list*;
-#X text 245 329 input list.;
-#X text 150 349 *data:mlist*;
-#X text 245 349 input mlist.;
-#X text 110 369 2\.;
-#X text 150 369 *list*;
-#X text 245 369 set searched items.;
-#X obj 20 399 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 404 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
+#X text 110 339 1\.;
+#X text 150 339 *list*;
+#X text 245 339 input list.;
+#X text 150 359 *data:mlist*;
+#X text 245 359 input mlist.;
+#X text 110 379 2\.;
+#X text 150 379 *list*;
+#X text 245 379 set searched items.;
+#X obj 20 409 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 414 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 405 1\.;
-#X text 245 405 position of search item or list of such positions.;
+#X text 110 415 1\.;
+#X text 245 415 position of search item or list of such positions.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;

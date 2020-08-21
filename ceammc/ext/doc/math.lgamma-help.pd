@@ -28,19 +28,19 @@ function;
 #X msg 280 277 ylabel -2 -5 0 10 15 \, yticks 0 1 5;
 #X obj 50 305 tabwrite LGAMMA;
 #X obj 280 305 s LGAMMA;
-#X obj 20 344 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 349 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
+#X obj 20 354 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 359 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
-#X text 110 350 1\.;
-#X text 150 350 *float*;
-#X text 245 350 input value.;
-#X text 150 370 *list*;
-#X text 245 370 apply to all numeric values.;
-#X obj 20 400 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 405 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
+#X text 110 360 1\.;
+#X text 150 360 *float*;
+#X text 245 360 input value.;
+#X text 150 380 *list*;
+#X text 245 380 apply to all numeric values.;
+#X obj 20 410 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 415 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 406 1\.;
-#X text 245 406 result value or list.;
+#X text 110 416 1\.;
+#X text 245 416 result value or list.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;

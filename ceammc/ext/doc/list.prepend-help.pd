@@ -18,31 +18,31 @@
 #X obj 136 172 str test1;
 #X obj 318 172 str ANOTHER STRING;
 #X obj 50 215 list.prepend @prop ABC;
-#X obj 50 244 ui.display @display_type 1 @size 150 18;
-#X obj 20 284 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 289 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
+#X obj 50 244 ui.display @display_type=1;
+#X obj 20 293 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 298 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
-#X text 110 290 1\.;
-#X text 150 290 *bang*;
-#X text 245 290 treated as empty input list.;
-#X text 150 310 *float*;
-#X text 245 310 input float.;
-#X text 150 330 *symbol*;
-#X text 245 330 input symbol.;
-#X text 150 350 *list*;
-#X text 245 350 input list.;
-#X text 150 370 *data:mlist*;
-#X text 245 370 input mlist.;
-#X text 150 390 *data*;
-#X text 245 390 input data.;
-#X text 110 410 2\.;
-#X text 150 410 *list*;
-#X text 245 410 set prepended atom or list.;
-#X obj 20 440 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 445 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
+#X text 110 299 1\.;
+#X text 150 299 *bang*;
+#X text 245 299 treated as empty input list.;
+#X text 150 319 *float*;
+#X text 245 319 input float.;
+#X text 150 339 *symbol*;
+#X text 245 339 input symbol.;
+#X text 150 359 *list*;
+#X text 245 359 input list.;
+#X text 150 379 *data:mlist*;
+#X text 245 379 input mlist.;
+#X text 150 399 *data*;
+#X text 245 399 input data.;
+#X text 110 419 2\.;
+#X text 150 419 *list*;
+#X text 245 419 set prepended atom or list.;
+#X obj 20 449 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 454 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 446 1\.;
-#X text 245 446 output concatenated list.;
+#X text 110 455 1\.;
+#X text 245 455 output concatenated list.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;

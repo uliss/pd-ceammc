@@ -14,26 +14,26 @@
 #X obj 50 201 list.any_of;
 #X obj 242 201 > 3;
 #X floatatom 50 230 5 0 0 0 - - -;
-#X obj 20 269 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 274 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
+#X obj 20 279 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 284 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
-#X text 110 275 1\.;
-#X text 150 275 *list*;
-#X text 245 275 Input list.;
-#X text 150 295 *data*;
-#X text 245 295 Input mlist.;
-#X text 110 315 2\.;
-#X text 150 315 *float*;
-#X text 245 315 input value from predicate. "1" means accepted. "0"
+#X text 110 285 1\.;
+#X text 150 285 *list*;
+#X text 245 285 Input list.;
+#X text 150 305 *data*;
+#X text 245 305 Input mlist.;
+#X text 110 325 2\.;
+#X text 150 325 *float*;
+#X text 245 325 input value from predicate. "1" means accepted. "0"
 means reject. Range: 0\...1\.;
-#X obj 20 360 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 365 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
+#X obj 20 370 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 375 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 366 1\.;
-#X text 245 366 1 - if predicate object returns true for all the elements
+#X text 110 376 1\.;
+#X text 245 376 1 - if predicate object returns true for all the elements
 or list is empty or 0 otherwise.;
-#X text 110 401 2\.;
-#X text 245 401 atom to predicate.;
+#X text 110 411 2\.;
+#X text 245 411 atom to predicate.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;

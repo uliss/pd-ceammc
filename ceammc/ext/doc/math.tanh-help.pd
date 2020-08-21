@@ -22,19 +22,19 @@ of x.;
 #X obj 50 247 list.seq -5 5 0.1;
 #X obj 50 276 math.tanh;
 #X obj 50 305 list->array TANH;
-#X obj 20 380 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 385 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
+#X obj 20 390 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 395 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
-#X text 110 386 1\.;
-#X text 150 386 *float*;
-#X text 245 386 input value.;
-#X text 150 406 *list*;
-#X text 245 406 apply to all numeric values.;
-#X obj 20 436 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 441 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
+#X text 110 396 1\.;
+#X text 150 396 *float*;
+#X text 245 396 input value.;
+#X text 150 416 *list*;
+#X text 245 416 apply to all numeric values.;
+#X obj 20 446 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 451 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 442 1\.;
-#X text 245 442 result value.;
+#X text 110 452 1\.;
+#X text 245 452 result value.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;

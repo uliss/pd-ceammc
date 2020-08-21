@@ -13,19 +13,19 @@ at least one symbol \, product will be always equal to zero;
 #X msg 78 187 1 2 3;
 #X obj 50 230 list.product;
 #X floatatom 50 259 5 0 0 0 - - -;
-#X obj 20 298 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 303 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
+#X obj 20 308 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 313 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
-#X text 110 304 1\.;
-#X text 150 304 *list*;
-#X text 245 304 input list.;
-#X text 150 324 *data:mlist*;
-#X text 245 324 input mlist.;
-#X obj 20 354 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 359 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
+#X text 110 314 1\.;
+#X text 150 314 *list*;
+#X text 245 314 input list.;
+#X text 150 334 *data:mlist*;
+#X text 245 334 input mlist.;
+#X obj 20 364 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 369 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 360 1\.;
-#X text 245 360 float list product.;
+#X text 110 370 1\.;
+#X text 245 370 float list product.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;

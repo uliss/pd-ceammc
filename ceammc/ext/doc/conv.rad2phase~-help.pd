@@ -11,16 +11,16 @@
 #X obj 50 147 phase->rad~;
 #X obj 50 176 rad->phase~;
 #X obj 50 205 ui.scope~ @size 150 100;
-#X obj 20 327 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 332 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
+#X obj 20 337 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 342 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
-#X text 110 333 1\.;
-#X text 245 333 input value.;
-#X obj 20 363 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 368 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
+#X text 110 343 1\.;
+#X text 245 343 input value.;
+#X obj 20 373 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 378 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 369 1\.;
-#X text 245 369 converted value.;
+#X text 110 379 1\.;
+#X text 245 379 converted value.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;

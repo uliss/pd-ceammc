@@ -17,30 +17,30 @@
 #X obj 290 176 <;
 #X obj 50 205 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1;
 #X obj 290 205 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1;
-#X obj 20 242 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 247 cnv 5 90 26 empty empty arguments: 4 10 0 14 -262144
+#X obj 20 252 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 257 cnv 5 90 26 empty empty arguments: 4 10 0 14 -262144
 -49933 0;
-#X text 110 282 1\.;
-#X text 150 282 float;
-#X obj 246 283 cnv 1 15 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 282 F: second number.;
-#X obj 20 312 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 317 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
+#X text 110 292 1\.;
+#X text 150 292 float;
+#X obj 246 293 cnv 1 15 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 245 292 F: second number.;
+#X obj 20 322 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 327 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
-#X text 110 318 1\.;
-#X text 150 318 *float*;
-#X text 245 318 set first number \, calculate and output result.;
-#X text 150 338 *list*;
-#X text 245 338 pair: set first and second numbers \, calculate and
+#X text 110 328 1\.;
+#X text 150 328 *float*;
+#X text 245 328 set first number \, calculate and output result.;
+#X text 150 348 *list*;
+#X text 245 348 pair: set first and second numbers \, calculate and
 output result.;
-#X text 110 373 2\.;
-#X text 150 373 *float*;
-#X text 245 373 change second number \, calculate and output result.;
-#X obj 20 403 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 408 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
+#X text 110 383 2\.;
+#X text 150 383 *float*;
+#X text 245 383 change second number \, calculate and output result.;
+#X obj 20 413 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 418 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 409 1\.;
-#X text 245 409 result output: 1 if first number is less then second
+#X text 110 419 1\.;
+#X text 245 419 result output: 1 if first number is less then second
 \, otherwise 0\.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;

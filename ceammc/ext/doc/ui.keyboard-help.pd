@@ -9,7 +9,7 @@
 #X obj 210 80 cnv 1 555 35 empty empty empty 17 7 0 10 -257983 -1 0;
 #X text 215 80 Piano keyboard widget;
 #X msg 50 143 dump;
-#X obj 50 172 ui.keyboard @size 433 60;
+#X obj 50 172 ui.keyboard;
 #X obj 50 244 unpack f f;
 #X obj 50 273 mtof;
 #X obj 194 273 clip 0 100;
@@ -19,107 +19,107 @@
 #X obj 50 359 ui.gain~ @size 120 16;
 #X obj 290 359 ui.dsp~;
 #X obj 50 388 dac~;
-#X obj 20 427 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 432 cnv 5 115 26 empty empty mouse_events: 4 10 0 14 -262144
+#X obj 20 437 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 442 cnv 5 115 26 empty empty mouse_events: 4 10 0 14 -262144
 -49933 0;
-#X text 110 467 Left-click;
-#X text 285 467 play selected note: output [NOTE VELOCITY( on mouse
+#X text 110 477 Left-click;
+#X text 285 477 play selected note: output [NOTE VELOCITY( on mouse
 press and [NOTE 0( on mouse release. Velocity depends on click position:
 lower position produces higher velocity.;
-#X text 110 517 Left-click + ⇧;
-#X text 285 517 play/stop sustained note.;
-#X text 110 537 Left-click + ⌥;
-#X text 285 537 release all note (send [NOTE 0( message for each sustained
+#X text 110 527 Left-click + ⇧;
+#X text 285 527 play/stop sustained note.;
+#X text 110 547 Left-click + ⌥;
+#X text 285 547 release all note (send [NOTE 0( message for each sustained
 note).;
-#X text 110 572 Mouse-drag;
-#X text 285 572 play notes under cursor and release others.;
-#X text 110 592 Right-click;
-#X text 285 592 open popup menu with various chords.;
-#X text 110 612 Right-click + ⇧;
-#X text 285 612 open object help.;
-#X text 110 632 Right-click + ⌥;
-#X text 285 632 open properties dialog.;
-#X text 110 652 Right-click + ⇧;
-#X text 285 652 open object help.;
-#X text 61 652 [Edit];
-#X text 110 672 Right-click + ⌥;
-#X text 285 672 open properties dialog.;
-#X text 61 672 [Edit];
-#X obj 20 702 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 707 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
+#X text 110 582 Mouse-drag;
+#X text 285 582 play notes under cursor and release others.;
+#X text 110 602 Right-click;
+#X text 285 602 open popup menu with various chords.;
+#X text 110 622 Right-click + ⇧;
+#X text 285 622 open object help.;
+#X text 110 642 Right-click + ⌥;
+#X text 285 642 open properties dialog.;
+#X text 110 662 Right-click + ⇧;
+#X text 285 662 open object help.;
+#X text 61 662 [Edit];
+#X text 110 682 Right-click + ⌥;
+#X text 285 682 open properties dialog.;
+#X text 61 682 [Edit];
+#X obj 20 712 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 717 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
 -49933 0;
-#X msg 110 742 @keys;
-#X text 245 742 Get/Set number of keys. Type: int. Default value: 61\.
+#X msg 110 752 @keys;
+#X text 245 752 Get/Set number of keys. Type: int. Default value: 61\.
 Range: 5\...88\.;
-#X msg 110 784 @receive;
-#X text 245 784 Get/Set receive source. Type: symbol. Default value:
+#X msg 110 794 @receive;
+#X text 245 794 Get/Set receive source. Type: symbol. Default value:
 (null).;
-#X msg 110 813 @send;
-#X text 245 813 Get/Set send destination. Type: symbol. Default value:
+#X msg 110 823 @send;
+#X text 245 823 Get/Set send destination. Type: symbol. Default value:
 (null).;
-#X msg 110 855 @shift;
-#X text 245 855 Get/Set MIDI pitch of lefmost key. Type: int. Default
+#X msg 110 865 @shift;
+#X text 245 865 Get/Set MIDI pitch of lefmost key. Type: int. Default
 value: 36\. Range: 6\...88\.;
-#X msg 110 897 @active_color;
-#X text 245 897 Get/Set active color (list of red \, green \, blue
+#X msg 110 907 @active_color;
+#X text 245 907 Get/Set active color (list of red \, green \, blue
 values in 0-1 range). Type: list. Default value: 0 0.75 1 1\.;
-#X msg 110 939 @background_color;
-#X text 245 939 Get/Set element background color (list of red \, green
+#X msg 110 949 @background_color;
+#X text 245 949 Get/Set element background color (list of red \, green
 \, blue values in 0-1 range). Type: list. Default value: 0.93 0.93
 0.93 1\.;
-#X msg 110 996 @border_color;
-#X text 245 996 Get/Set border color (list of red \, green \, blue
+#X msg 110 1006 @border_color;
+#X text 245 1006 Get/Set border color (list of red \, green \, blue
 values in 0-1 range). Type: list. Default value: 0.6 0.6 0.6 1\.;
-#X msg 110 1038 @fontname;
-#X text 245 1038 Get/Set fontname. Type: symbol. Default value: Helvetica.;
-#X msg 110 1067 @fontsize;
-#X text 245 1067 Get/Set fontsize. Type: int. Default value: 11\. Range:
+#X msg 110 1048 @fontname;
+#X text 245 1048 Get/Set fontname. Type: symbol. Default value: Helvetica.;
+#X msg 110 1077 @fontsize;
+#X text 245 1077 Get/Set fontsize. Type: int. Default value: 11\. Range:
 4\...11\.;
-#X msg 110 1109 @fontslant;
-#X text 245 1109 Get/Set font slant. Type: symbol. Default value: roman.
+#X msg 110 1119 @fontslant;
+#X text 245 1119 Get/Set font slant. Type: symbol. Default value: roman.
 Allowed values: roman \, italic.;
-#X msg 110 1151 @fontweight;
-#X text 245 1151 Get/Set font weight. Type: symbol. Default value:
+#X msg 110 1161 @fontweight;
+#X text 245 1161 Get/Set font weight. Type: symbol. Default value:
 normal. Allowed values: normal \, bold.;
-#X msg 110 1193 @pinned;
-#X text 245 1193 Get/Set pin mode. if 1 - put element to the lowest
+#X msg 110 1203 @pinned;
+#X text 245 1203 Get/Set pin mode. if 1 - put element to the lowest
 level. Type: int. Default value: 0\. Allowed values: 0 \, 1\.;
-#X msg 110 1235 @size;
-#X text 245 1235 Get/Set element size (width \, height pair). Type:
+#X msg 110 1245 @size;
+#X text 245 1245 Get/Set element size (width \, height pair). Type:
 list. Default value: 433 60\.;
-#X obj 20 1287 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1292 cnv 5 73 26 empty empty methods: 4 10 0 14 -262144
+#X obj 20 1297 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1302 cnv 5 73 26 empty empty methods: 4 10 0 14 -262144
 -49933 0;
-#X msg 110 1327 pos;
-#X text 245 1327 set UI element position. Arguments are:;
-#X obj 255 1350 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1350 X: top left x-coord. Type: float.;
-#X obj 255 1373 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1373 Y: top right y-coord. Type: float.;
-#X msg 110 1398 dump;
-#X text 245 1398 dumps all object info to Pd console window.;
-#X obj 20 1435 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1440 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144
+#X msg 110 1337 pos;
+#X text 245 1337 set UI element position. Arguments are:;
+#X obj 255 1360 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1360 X: top left x-coord. Type: float.;
+#X obj 255 1383 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1383 Y: top right y-coord. Type: float.;
+#X msg 110 1408 dump;
+#X text 245 1408 dumps all object info to Pd console window.;
+#X obj 20 1445 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1450 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 1441 1\.;
-#X text 245 1441 control inlet.;
-#X obj 20 1471 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1476 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
+#X text 110 1451 1\.;
+#X text 245 1451 control inlet.;
+#X obj 20 1481 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1486 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 1477 1\.;
-#X text 245 1477 list from two elements: MIDI pitch \, MIDI velocity.
+#X text 110 1487 1\.;
+#X text 245 1487 list from two elements: MIDI pitch \, MIDI velocity.
 Velocity depends from key press position.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 115 45 ::;
 #X obj 131 48 ui.link @title ui @url ceammc.ui-help.pd;
-#X obj 1 1542 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 1545 library: ceammc v0.9.0;
-#X text 598 1557 see also:;
-#X obj 672 1560 ui.link @background_color 0.78431 0.78431 0.78431
+#X obj 1 1552 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1555 library: ceammc v0.9.0;
+#X text 598 1567 see also:;
+#X obj 672 1570 ui.link @background_color 0.78431 0.78431 0.78431
 @title [ui.preset] @url ui.preset-help.pd;
-#N canvas 10 1564 400 290 info 0;
+#N canvas 10 1574 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
@@ -143,7 +143,7 @@ https://github.com/uliss/pure-data;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 generated by pddoc;
-#X restore 10 1564 pd info;
+#X restore 10 1574 pd info;
 #X connect 6 0 7 0;
 #X connect 7 0 8 0;
 #X connect 8 0 9 0;

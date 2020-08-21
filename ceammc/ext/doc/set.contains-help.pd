@@ -11,28 +11,28 @@
 #X floatatom 165 176 5 0 0 0 - - -;
 #X obj 50 205 set.contains 2;
 #X obj 50 234 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1;
-#X obj 20 271 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 276 cnv 5 90 26 empty empty arguments: 4 10 0 14 -262144
+#X obj 20 281 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 286 cnv 5 90 26 empty empty arguments: 4 10 0 14 -262144
 -49933 0;
-#X text 110 311 1\.;
-#X text 150 311 list;
-#X obj 246 312 cnv 1 17 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 311 X: searched elements.;
-#X obj 20 341 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 346 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
+#X text 110 321 1\.;
+#X text 150 321 list;
+#X obj 246 322 cnv 1 17 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 245 321 X: searched elements.;
+#X obj 20 351 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 356 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
-#X text 110 347 1\.;
-#X text 245 347 input set. Other values are ignored.;
-#X text 110 367 2\.;
-#X text 150 367 *atom*;
-#X text 245 367 single searched element.;
-#X text 150 387 *list*;
-#X text 245 387 check if at least one of elements is in set.;
-#X obj 20 417 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 422 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
+#X text 110 357 1\.;
+#X text 245 357 input set. Other values are ignored.;
+#X text 110 377 2\.;
+#X text 150 377 *atom*;
+#X text 245 377 single searched element.;
+#X text 150 397 *list*;
+#X text 245 397 check if at least one of elements is in set.;
+#X obj 20 427 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 432 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 423 1\.;
-#X text 245 423 1 if element exists in set \, otherwise 0\.;
+#X text 110 433 1\.;
+#X text 245 433 1 if element exists in set \, otherwise 0\.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;

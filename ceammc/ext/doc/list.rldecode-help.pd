@@ -11,27 +11,27 @@
 #X obj 50 147 list.unwrap;
 #X obj 50 176 msg set;
 #X msg 50 205 ;
-#X obj 20 244 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 249 cnv 5 90 26 empty empty arguments: 4 10 0 14 -262144
+#X obj 20 254 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 259 cnv 5 90 26 empty empty arguments: 4 10 0 14 -262144
 -49933 0;
-#X text 110 284 1\.;
-#X text 150 284 list;
-#X obj 246 285 cnv 1 31 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 284 LST: initial element repeat list.;
-#X obj 20 314 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 319 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
+#X text 110 294 1\.;
+#X text 150 294 list;
+#X obj 246 295 cnv 1 31 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 245 294 LST: initial element repeat list.;
+#X obj 20 324 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 329 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
-#X text 110 320 1\.;
-#X text 150 320 *list*;
-#X text 245 320 First list - single elements.;
-#X text 110 340 2\.;
-#X text 150 340 *list*;
-#X text 245 340 Second list - count of each element.;
-#X obj 20 370 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 375 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
+#X text 110 330 1\.;
+#X text 150 330 *list*;
+#X text 245 330 First list - single elements.;
+#X text 110 350 2\.;
+#X text 150 350 *list*;
+#X text 245 350 Second list - count of each element.;
+#X obj 20 380 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 385 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 376 1\.;
-#X text 245 376 result - elements repeated n times specified by corresponding
+#X text 110 386 1\.;
+#X text 245 386 result - elements repeated n times specified by corresponding
 values in second list.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;

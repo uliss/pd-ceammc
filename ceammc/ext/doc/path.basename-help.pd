@@ -19,17 +19,17 @@
 #X obj 50 277 path.basename;
 #X obj 50 305 msg set;
 #X msg 50 334 ;
-#X obj 20 373 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 378 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
+#X obj 20 383 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 388 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
-#X text 110 379 1\.;
-#X text 150 379 *symbol*;
-#X text 245 379 outputs filename portion of pathname.;
-#X obj 20 409 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 414 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
+#X text 110 389 1\.;
+#X text 150 389 *symbol*;
+#X text 245 389 outputs filename portion of pathname.;
+#X obj 20 419 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 424 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 415 1\.;
-#X text 245 415 filename.;
+#X text 110 425 1\.;
+#X text 245 425 filename.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;

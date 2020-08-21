@@ -10,27 +10,27 @@
 #X msg 146 118 bang;
 #X obj 50 147 flow.once;
 #X floatatom 50 176 5 0 0 0 - - -;
-#X obj 20 215 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 220 cnv 5 90 26 empty empty arguments: 4 10 0 14 -262144
+#X obj 20 225 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 230 cnv 5 90 26 empty empty arguments: 4 10 0 14 -262144
 -49933 0;
-#X text 110 255 1\.;
-#X text 150 255 int;
-#X obj 246 256 cnv 1 54 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 255 OPENED: set init state.;
-#X obj 20 285 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 290 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
+#X text 110 265 1\.;
+#X text 150 265 int;
+#X obj 246 266 cnv 1 54 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 245 265 OPENED: set init state.;
+#X obj 20 295 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 300 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
-#X text 110 291 1\.;
-#X text 150 291 *any*;
-#X text 245 291 input flow.;
-#X text 110 311 2\.;
-#X text 150 311 *bang*;
-#X text 245 311 reset to opened state.;
-#X obj 20 341 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 346 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
+#X text 110 301 1\.;
+#X text 150 301 *any*;
+#X text 245 301 input flow.;
+#X text 110 321 2\.;
+#X text 150 321 *bang*;
+#X text 245 321 reset to opened state.;
+#X obj 20 351 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 356 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 347 1\.;
-#X text 245 347 output flow.;
+#X text 110 357 1\.;
+#X text 245 357 output flow.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;

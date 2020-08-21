@@ -15,26 +15,26 @@
 #X msg 222 176 symbol f2;
 #X obj 50 205 func.call f1;
 #X floatatom 50 234 5 0 0 0 - - -;
-#X obj 20 273 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 278 cnv 5 90 26 empty empty arguments: 4 10 0 14 -262144
+#X obj 20 283 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 288 cnv 5 90 26 empty empty arguments: 4 10 0 14 -262144
 -49933 0;
-#X text 110 313 1\.;
-#X text 150 313 symbol;
-#X obj 246 314 cnv 1 40 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 313 NAME: function name.;
-#X obj 20 343 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 348 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
+#X text 110 323 1\.;
+#X text 150 323 symbol;
+#X obj 246 324 cnv 1 40 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 245 323 NAME: function name.;
+#X obj 20 353 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 358 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
-#X text 110 349 1\.;
-#X text 245 349 input value.;
-#X text 110 369 2\.;
-#X text 150 369 *symbol*;
-#X text 245 369 change function name.;
-#X obj 20 399 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 404 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
+#X text 110 359 1\.;
+#X text 245 359 input value.;
+#X text 110 379 2\.;
+#X text 150 379 *symbol*;
+#X text 245 379 change function name.;
+#X obj 20 409 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 414 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 405 1\.;
-#X text 245 405 function result.;
+#X text 110 415 1\.;
+#X text 245 415 function result.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;

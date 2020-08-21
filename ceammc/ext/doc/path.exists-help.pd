@@ -12,19 +12,19 @@
 #X obj 280 147 string test;
 #X obj 50 176 path.exists;
 #X obj 50 205 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1;
-#X obj 20 242 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 247 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
+#X obj 20 252 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 257 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
-#X text 110 248 1\.;
-#X text 150 248 *symbol*;
-#X text 245 248 checks if given path exists.;
-#X text 150 268 *data*;
-#X text 245 268 If string given - checks if path exists.;
-#X obj 20 298 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 303 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
+#X text 110 258 1\.;
+#X text 150 258 *symbol*;
+#X text 245 258 checks if given path exists.;
+#X text 150 278 *data*;
+#X text 245 278 If string given - checks if path exists.;
+#X obj 20 308 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 313 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 304 1\.;
-#X text 245 304 1 - on success \, 0 - if not exists.;
+#X text 110 314 1\.;
+#X text 245 314 1 - on success \, 0 - if not exists.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;

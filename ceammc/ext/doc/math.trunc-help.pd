@@ -19,16 +19,16 @@ in magnitude than x;
 #X obj 50 187 list.seq -4 4 0.025;
 #X obj 50 216 math.trunc;
 #X obj 50 245 list->array TRUNC;
-#X obj 20 320 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 325 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
+#X obj 20 330 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 335 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
-#X text 110 326 1\.;
-#X text 245 326 input signal.;
-#X obj 20 356 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 361 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
+#X text 110 336 1\.;
+#X text 245 336 input signal.;
+#X obj 20 366 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 371 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 362 1\.;
-#X text 245 362 result signal.;
+#X text 110 372 1\.;
+#X text 245 372 result signal.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;

@@ -11,31 +11,31 @@
 #X obj 232 147 ml;
 #X floatatom 194 176 5 0 0 0 - - -;
 #X obj 50 205 list.remove 0 -1;
-#X obj 50 234 ui.display @display_type 1 @size 150 18;
-#X obj 20 274 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 279 cnv 5 90 26 empty empty arguments: 4 10 0 14 -262144
+#X obj 50 234 ui.display @display_type=1;
+#X obj 20 283 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 288 cnv 5 90 26 empty empty arguments: 4 10 0 14 -262144
 -49933 0;
-#X text 110 314 1\.;
-#X text 150 314 list;
-#X obj 246 315 cnv 1 61 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 314 INDEXES: list of indexes to remove. Negative indexes
+#X text 110 323 1\.;
+#X text 150 323 list;
+#X obj 246 324 cnv 1 61 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 245 323 INDEXES: list of indexes to remove. Negative indexes
 are also supported.;
-#X obj 20 359 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 364 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
+#X obj 20 368 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 373 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
-#X text 110 365 1\.;
-#X text 150 365 *list*;
-#X text 245 365 input list.;
-#X text 150 385 *data:mlist*;
-#X text 245 385 input mlist.;
-#X text 110 405 2\.;
-#X text 150 405 *list*;
-#X text 245 405 set remove indexes.;
-#X obj 20 435 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 440 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
+#X text 110 374 1\.;
+#X text 150 374 *list*;
+#X text 245 374 input list.;
+#X text 150 394 *data:mlist*;
+#X text 245 394 input mlist.;
+#X text 110 414 2\.;
+#X text 150 414 *list*;
+#X text 245 414 set remove indexes.;
+#X obj 20 444 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 449 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 441 1\.;
-#X text 245 441 output list.;
+#X text 110 450 1\.;
+#X text 245 450 output list.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;

@@ -12,19 +12,19 @@
 #X msg 290 147 0 \, 1 300 \, 0 500 500;
 #X obj 50 205 vline2env;
 #X obj 50 234 ui.env;
-#X obj 20 273 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 278 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
+#X obj 20 283 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 288 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
-#X text 110 279 1\.;
-#X text 150 279 *bang*;
-#X text 245 279 output current envelope.;
-#X text 150 299 *list*;
-#X text 245 299 vline message.;
-#X obj 20 329 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 334 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
+#X text 110 289 1\.;
+#X text 150 289 *bang*;
+#X text 245 289 output current envelope.;
+#X text 150 309 *list*;
+#X text 245 309 vline message.;
+#X obj 20 339 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 344 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 335 1\.;
-#X text 245 335 envelope output.;
+#X text 110 345 1\.;
+#X text 245 345 envelope output.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;

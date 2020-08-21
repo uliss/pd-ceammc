@@ -17,20 +17,20 @@
 #X obj 50 205 tl.transport;
 #X obj 453 205 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
 -1;
-#X obj 20 244 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 249 cnv 5 73 26 empty empty methods: 4 10 0 14 -262144
+#X obj 20 254 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 259 cnv 5 73 26 empty empty methods: 4 10 0 14 -262144
 -49933 0;
-#X msg 110 284 cue;
-#X text 245 284 sets cue index. Arguments are:;
-#X obj 255 307 cnv 1 24 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 307 [N]: cue index. Type: int. Min value: 0\.;
-#X obj 20 342 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 347 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
+#X msg 110 294 cue;
+#X text 245 294 sets cue index. Arguments are:;
+#X obj 255 317 cnv 1 24 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 317 [N]: cue index. Type: int. Min value: 0\.;
+#X obj 20 352 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 357 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
-#X text 110 348 1\.;
-#X text 245 348 control input.;
-#X obj 20 378 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 383 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
+#X text 110 358 1\.;
+#X text 245 358 control input.;
+#X obj 20 388 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 393 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;

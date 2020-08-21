@@ -18,17 +18,17 @@ It is simple as /60 \, but more readable.;
 #X obj 69 302 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1;
 #X obj 50 331 *~;
 #X obj 50 360 dac~;
-#X obj 20 399 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 404 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
+#X obj 20 409 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 414 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
-#X text 110 405 1\.;
-#X text 150 405 *float*;
-#X text 245 405 frequency in BPM.;
-#X obj 20 435 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 440 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
+#X text 110 415 1\.;
+#X text 150 415 *float*;
+#X text 245 415 frequency in BPM.;
+#X obj 20 445 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 450 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 441 1\.;
-#X text 245 441 period in milliseconds.;
+#X text 110 451 1\.;
+#X text 245 451 period in milliseconds.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;

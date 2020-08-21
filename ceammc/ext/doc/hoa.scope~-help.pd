@@ -16,101 +16,101 @@ field;
 #X obj 50 201 hoa.encoder~ 5, f 17;
 #X obj 50 230 hoa.scope~ 5;
 #X obj 50 359 ui.dsp~;
-#X obj 20 398 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 403 cnv 5 90 26 empty empty arguments: 4 10 0 14 -262144
+#X obj 20 408 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 413 cnv 5 90 26 empty empty arguments: 4 10 0 14 -262144
 -49933 0;
-#X text 110 438 1\.;
-#X text 150 438 int;
-#X obj 246 439 cnv 1 47 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 438 ORDER: the order of decomposition. Min value: 1;
-#X obj 20 468 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 473 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
+#X text 110 448 1\.;
+#X text 150 448 int;
+#X obj 246 449 cnv 1 47 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 245 448 ORDER: the order of decomposition. Min value: 1;
+#X obj 20 478 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 483 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
 -49933 0;
-#X msg 110 508 @gain;
-#X text 245 508 Get/Set gain. Type: float. Default value: 1\. Min value:
+#X msg 110 518 @gain;
+#X text 245 518 Get/Set gain. Type: float. Default value: 1\. Min value:
 0\.;
-#X msg 110 537 @order;
-#X text 245 537 (readonly) Get the order of decomposition. Type: int.
+#X msg 110 547 @order;
+#X text 245 547 (readonly) Get the order of decomposition. Type: int.
 Default value: 1\. Range: 1\...63\.;
-#X msg 110 579 @receive;
-#X text 245 579 Get/Set receive source. Type: symbol. Default value:
+#X msg 110 589 @receive;
+#X text 245 589 Get/Set receive source. Type: symbol. Default value:
 (null).;
-#X msg 110 608 @refresh;
-#X text 245 608 Get/Set redraw time. Type: int. Units: ms. Default
+#X msg 110 618 @refresh;
+#X text 245 618 Get/Set redraw time. Type: int. Units: ms. Default
 value: 100\. Range: 20\...1000\.;
-#X msg 110 650 @send;
-#X text 245 650 Get/Set send destination. Type: symbol. Default value:
+#X msg 110 660 @send;
+#X text 245 660 Get/Set send destination. Type: symbol. Default value:
 (null).;
-#X msg 110 692 @view;
-#X text 245 692 Get/Set view rotation. Type: float. Default value:
+#X msg 110 702 @view;
+#X text 245 702 Get/Set view rotation. Type: float. Default value:
 0\.;
-#X msg 110 721 @background_color;
-#X text 245 721 Get/Set element background color (list of red \, green
+#X msg 110 731 @background_color;
+#X text 245 731 Get/Set element background color (list of red \, green
 \, blue values in 0-1 range). Type: list. Default value: 0.93 0.93
 0.93 1\.;
-#X msg 110 778 @border_color;
-#X text 245 778 Get/Set border color (list of red \, green \, blue
+#X msg 110 788 @border_color;
+#X text 245 788 Get/Set border color (list of red \, green \, blue
 values in 0-1 range). Type: list. Default value: 0.6 0.6 0.6 1\.;
-#X msg 110 820 @label_color;
-#X text 245 820 Get/Set label color in RGB format within 0-1 range
+#X msg 110 830 @label_color;
+#X text 245 830 Get/Set label color in RGB format within 0-1 range
 \, for example: 0.2 0.4 0.1\. Type: list. Default value: 0 0 0 1\.;
-#X msg 110 862 @nh_color;
-#X text 245 862 Get/Set negative harmonics color. Type: list. Default
+#X msg 110 872 @nh_color;
+#X text 245 872 Get/Set negative harmonics color. Type: list. Default
 value: 0 0 1 1\.;
-#X msg 110 904 @ph_color;
-#X text 245 904 Get/Set positive harmonics color. Type: list. Default
+#X msg 110 914 @ph_color;
+#X text 245 914 Get/Set positive harmonics color. Type: list. Default
 value: 1 0 0 1\.;
-#X msg 110 946 @label;
-#X text 245 946 Get/Set label text. Type: symbol. Default value: (null).;
-#X msg 110 975 @label_align;
-#X text 245 975 Get/Set label horizontal align. Type: symbol. Default
+#X msg 110 956 @label;
+#X text 245 956 Get/Set label text. Type: symbol. Default value: (null).;
+#X msg 110 985 @label_align;
+#X text 245 985 Get/Set label horizontal align. Type: symbol. Default
 value: left. Allowed values: left \, center \, right.;
-#X msg 110 1017 @label_inner;
-#X text 245 1017 Get/Set label position (1 - inner \, 0 - outer). Type:
+#X msg 110 1027 @label_inner;
+#X text 245 1027 Get/Set label position (1 - inner \, 0 - outer). Type:
 int. Default value: 0\. Allowed values: 0 \, 1\.;
-#X msg 110 1059 @label_margins;
-#X text 245 1059 Get/Set label offset in pixels. Type: list. Default
+#X msg 110 1069 @label_margins;
+#X text 245 1069 Get/Set label offset in pixels. Type: list. Default
 value: 0 0\.;
-#X msg 110 1101 @label_side;
-#X text 245 1101 Get/Set label snap side. Type: symbol. Default value:
+#X msg 110 1111 @label_side;
+#X text 245 1111 Get/Set label snap side. Type: symbol. Default value:
 top. Allowed values: left \, top \, right \, bottom.;
-#X msg 110 1143 @label_valign;
-#X text 245 1143 Get/Set label vertical align. Type: symbol. Default
+#X msg 110 1153 @label_valign;
+#X text 245 1153 Get/Set label vertical align. Type: symbol. Default
 value: top. Allowed values: top \, center \, bottom.;
-#X msg 110 1185 @fontname;
-#X text 245 1185 Get/Set fontname. Type: symbol. Default value: Helvetica.;
-#X msg 110 1214 @fontsize;
-#X text 245 1214 Get/Set fontsize. Type: int. Default value: 11\. Range:
+#X msg 110 1195 @fontname;
+#X text 245 1195 Get/Set fontname. Type: symbol. Default value: Helvetica.;
+#X msg 110 1224 @fontsize;
+#X text 245 1224 Get/Set fontsize. Type: int. Default value: 11\. Range:
 4\...11\.;
-#X msg 110 1256 @fontslant;
-#X text 245 1256 Get/Set font slant. Type: symbol. Default value: roman.
+#X msg 110 1266 @fontslant;
+#X text 245 1266 Get/Set font slant. Type: symbol. Default value: roman.
 Allowed values: roman \, italic.;
-#X msg 110 1298 @fontweight;
-#X text 245 1298 Get/Set font weight. Type: symbol. Default value:
+#X msg 110 1308 @fontweight;
+#X text 245 1308 Get/Set font weight. Type: symbol. Default value:
 normal. Allowed values: normal \, bold.;
-#X msg 110 1340 @pinned;
-#X text 245 1340 Get/Set pin mode. if 1 - put element to the lowest
+#X msg 110 1350 @pinned;
+#X text 245 1350 Get/Set pin mode. if 1 - put element to the lowest
 level. Type: int. Default value: 0\. Allowed values: 0 \, 1\.;
-#X msg 110 1382 @size;
-#X text 245 1382 Get/Set element size (width \, height pair). Type:
+#X msg 110 1392 @size;
+#X text 245 1392 Get/Set element size (width \, height pair). Type:
 list. Default value: 120 120\.;
-#X obj 20 1434 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1439 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144
+#X obj 20 1444 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1449 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 1440 1\.;
-#X text 245 1440 first input harmonic.;
-#X text 110 1460 ....;
-#X text 245 1460 ... input harmonic.;
-#X text 110 1480 n.;
-#X text 245 1480 n-th input harmonic.;
+#X text 110 1450 1\.;
+#X text 245 1450 first input harmonic.;
+#X text 110 1470 ....;
+#X text 245 1470 ... input harmonic.;
+#X text 110 1490 n.;
+#X text 245 1490 n-th input harmonic.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 115 45 ::;
 #X obj 131 48 ui.link @title spat @url ceammc.spat-help.pd;
-#X obj 1 1530 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 1533 library: ceammc v0.9.0;
-#N canvas 10 1552 400 290 info 0;
+#X obj 1 1540 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1543 library: ceammc v0.9.0;
+#N canvas 10 1562 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
@@ -135,7 +135,7 @@ https://github.com/uliss/pure-data;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 generated by pddoc;
-#X restore 10 1552 pd info;
+#X restore 10 1562 pd info;
 #X connect 6 0 8 0;
 #X connect 7 0 9 0;
 #X connect 8 0 10 0;

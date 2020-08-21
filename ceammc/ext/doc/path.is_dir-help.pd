@@ -9,22 +9,22 @@
 #X msg 155 118 symbol abc;
 #X obj 50 147 path.is_dir;
 #X obj 50 176 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1;
-#X obj 20 213 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 218 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
+#X obj 20 223 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 228 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
-#X text 110 219 1\.;
-#X text 150 219 *symbol*;
-#X text 245 219 output 1 if given path is found and is directory \,
+#X text 110 229 1\.;
+#X text 150 229 *symbol*;
+#X text 245 229 output 1 if given path is found and is directory \,
 otherwise false.;
-#X text 150 254 *data:string*;
-#X text 245 254 same as for symbol.;
-#X obj 20 284 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 289 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
+#X text 150 264 *data:string*;
+#X text 245 264 same as for symbol.;
+#X obj 20 294 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 299 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 290 1\.;
-#X text 245 290 1 or 0\.;
-#X text 110 310 2\.;
-#X text 245 310 output path if it's directory.;
+#X text 110 300 1\.;
+#X text 245 300 1 or 0\.;
+#X text 110 320 2\.;
+#X text 245 320 output path if it's directory.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;
