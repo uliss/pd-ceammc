@@ -23,10 +23,19 @@ TEST_CASE("data.int", "[externals]")
 
     SECTION("construct")
     {
-        TestDataInt t("data.int");
-        REQUIRE(t.numInlets() == 2);
-        REQUIRE(t.numOutlets() == 1);
-        REQUIRE_PROPERTY_FLOAT(t, @value, 0);
+        SECTION("default")
+        {
+            TestDataInt t("data.int");
+            REQUIRE(t.numInlets() == 2);
+            REQUIRE(t.numOutlets() == 1);
+            REQUIRE_PROPERTY_FLOAT(t, @value, 0);
+        }
+
+        SECTION("arg")
+        {
+            TestDataInt t("data.int", LF(2.5));
+            REQUIRE_PROPERTY_FLOAT(t, @value, 2);
+        }
     }
 
     SECTION("do")

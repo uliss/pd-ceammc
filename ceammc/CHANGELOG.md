@@ -66,6 +66,7 @@
 
 ### Fixed:
 - data.float creation arg fix
+- data.int creation arg fix
 
 
 ### Removed:

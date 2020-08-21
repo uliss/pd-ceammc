@@ -11,19 +11,29 @@
  * contact the author of this file, or the owner of the project in which
  * this file belongs to.
  *****************************************************************************/
-#include "data_int.h"
+#include "local_int.h"
+#include "test_base.h"
+#include "test_data_base.h"
 
-DataInt::DataInt(const PdArgs& a)
-    : DataIntBase(a)
-    , value_(parsedPosArgs().intAt(0, 0))
-{
-    createInlet();
-    createOutlet();
-}
+PD_COMPLETE_TEST_SETUP(LocalInt, local, int)
 
-void setup_data_int()
+TEST_CASE("local.int", "[externals]")
 {
-    NumericIFaceFactory<DataInt> obj("data.int");
-    obj.addAlias(".int");
-    obj.addAlias(".i");
+    pd_test_init();
+
+    SECTION("construct")
+    {
+        SECTION("default")
+        {
+            TObj t("local.int");
+            REQUIRE(t.numInlets() == 1);
+            REQUIRE(t.numInlets() == 1);
+            REQUIRE_PROPERTY_FLOAT(t, @value, 0);
+        }
+    }
+
+    SECTION("ext")
+    {
+        TExt t0("local.int");
+    }
 }
