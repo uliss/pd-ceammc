@@ -23,6 +23,7 @@
 - flow.match property match added, unmatched outlet added
 - flow.prepend (with alias flow.before) added
 - flow.stack added
+- flow.ring added
 
 ### Changed:
 - ext_info output format changed.
@@ -56,6 +57,9 @@
 - flow.speedlim:
    - second inlet added to set time
    - reset message should be send to second inlet
+- flow.multiplex:
+   - additional inlet added to choose input
+   - setting property only via prop.set object
 
 
 ### Removed:

@@ -19,12 +19,16 @@
                 <see>flow.demultiplex</see>
             </also>
         </meta>
+        <info>
+            <par>Warning: in v0.9 extra inlet added to select input</par>
+            <par>Set @index property only via [prop.set]</par>
+        </info>
         <arguments>
-            <argument name="N" type="int" minvalue="2" maxvalue="24">number of inlets</argument>
+            <argument name="N" type="int" minvalue="2" maxvalue="24">number of multiplexed inputs</argument>
+            <argument name="N" type="int" minvalue="0" maxvalue="24">default input index</argument>
         </arguments>
         <properties>
-            <property name="@index" type="int" minvalue="0" default="0">current multiplexer
-            index</property>
+            <property name="@index" type="int" minvalue="0" default="0">input index</property>
         </properties>
         <inlets dynamic="true">
             <inlet>
@@ -33,6 +37,9 @@
             <inlet number="n">
                 <xinfo>multiplexer N-th inlet</xinfo>
             </inlet>
+            <inlet number="n+1">
+                <xinfo on="int">set input index</xinfo>
+            </inlet>
         </inlets>
         <outlets>
             <outlet>output</outlet>
@@ -40,16 +47,46 @@
         <example>
             <pdascii>
 <![CDATA[
-[hradio]
+[hradio]             [flow.multiplex.bang]
 |
-[@index $1(
+[prop.set @index]    [flow.multiplex.list]
 |
+|                    [flow.multiplex.any]
 |
-| [F]  [F]  [F]
-| |    |.   |..
-[flow.multiplex 3]
+| [F]  [F]  [F]  [F]  /*select*/
+| |    |.   |..  |...
+[flow.multiplex 3   ]
 |
 [F]
+]]>
+            </pdascii>
+            <pdascii id="bang">
+<![CDATA[
+[B]     [B]     [B]     [ui.hrd 3]
+|       |.      |..     |...
+[flow.multiplex 3     {w=30}]
+|
+[B]
+]]>
+            </pdascii>
+            <pdascii id="list">
+<![CDATA[
+[1 2(   [3 4(   [5 6(   [ui.hrd 3]
+|       |.      |..     |...
+[flow.multiplex 3     {w=30}]
+|
+[ui.d @display_type 1]
+]]>
+            </pdascii>
+            <pdascii id="any">
+<![CDATA[
+[F]     [F]     [F]
+|       |       |
+[@a $1( [@b $1( [@c $1( [ui.hrd 3]
+|       |.      |..     |...
+[flow.multiplex 3     {w=30}]
+|
+[ui.d @display_type 1]
 ]]>
             </pdascii>
         </example>

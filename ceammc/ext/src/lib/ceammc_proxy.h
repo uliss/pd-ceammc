@@ -164,7 +164,7 @@ struct InletProxy {
 public:
     using BangMethodPtr = void (T::*)();
     using FloatMethodPtr = void (T::*)(t_float);
-    using AnyMethodPtr = void (T::*)(t_symbol* s, const AtomListView& args);
+    using AnyMethodPtr = void (T::*)(InletProxy* this_, t_symbol* s, const AtomListView& args);
     using MethodPtr = void (T::*)(const AtomListView& args);
     using MethodEntry = std::pair<t_symbol*, MethodPtr>;
     using MethodList = std::vector<MethodEntry>;
@@ -199,7 +199,7 @@ public:
     static void on_any(InletProxy* x, t_symbol* s, int argc, t_atom* argv)
     {
         auto obj = x->dest_;
-        (obj->*any_)(s, AtomListView(argv, argc));
+        (obj->*any_)(x, s, AtomListView(argv, argc));
     }
 
     static void on_method(InletProxy* x, t_symbol* s, int argc, t_atom* argv)
