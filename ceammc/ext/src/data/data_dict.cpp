@@ -18,12 +18,16 @@ DataDict::DataDict(const PdArgs& args)
 {
     createOutlet();
 
-    if (args.args.size() > 0)
-        dict_->fromString(to_string(args.args, " "));
+    if (parsedPosArgs().isA<DataTypeDict>()) {
+        dict_ = DictAtom(parsedPosArgs()[0]);
+    } else if (parsedPosArgs().size() > 0) {
+        OBJ_ERR << "Dict expected, got: " << args.args;
+    }
 }
 
 void setup_data_dict()
 {
     DictIFaceFactory<DataDict> obj("data.dict");
     obj.addAlias("dict");
+    obj.parseOnlyPositionalProps(true);
 }
