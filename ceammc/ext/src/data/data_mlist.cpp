@@ -30,4 +30,5 @@ void setup_data_mlist()
     obj.addAlias("mlist");
     obj.addAlias("ml");
     obj.processData<DataTypeMList>();
+    obj.noArgsDataParsing();
 }
