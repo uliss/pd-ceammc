@@ -333,4 +333,25 @@ TEST_CASE("DataTypeDict", "[core]")
         d.removeIf([](const Atom& k) { return k == A("a"); });
         REQUIRE(d == Dict("[c: 3 b: 2]"));
     }
+
+    SECTION("fromString")
+    {
+        Dict d;
+        REQUIRE(d.fromString("[]"));
+        REQUIRE(d.size() == 0);
+        REQUIRE(d.fromString("[a: 12]"));
+        REQUIRE(d.size() == 1);
+        REQUIRE(d.keys() == LA("a"));
+        REQUIRE(d.at("a") == LF(12));
+
+        REQUIRE(d.fromString("[@a: 12]"));
+        REQUIRE(d.size() == 1);
+        REQUIRE(d.keys() == LA("@a"));
+        REQUIRE(d.at("@a") == LF(12));
+
+        REQUIRE(d.fromString("[@a: 12 @b: 15]"));
+        REQUIRE(d.size() == 2);
+        REQUIRE(d.at("@a") == LF(12));
+        REQUIRE(d.at("@b") == LF(15));
+    }
 }

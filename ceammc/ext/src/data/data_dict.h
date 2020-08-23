@@ -25,8 +25,6 @@ public:
     DataDict(const PdArgs& args);
     const DictAtom& dict() const override { return dict_; }
     DictAtom& dict() override { return dict_; }
-
-    void parseProperties() override {}
 };
 
 void setup_data_dict();

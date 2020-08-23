@@ -580,6 +580,9 @@ AtomListView BaseObject::binbufArgs() const
 
 void BaseObject::parseProperties()
 {
+    if (pd_.noArgsDataParsing)
+        return;
+
     const size_t PROP_START = pd_.args.findPos([](const Atom& a) { return a.isProperty(); });
     const AtomListView props = pd_.args.view(PROP_START);
     const size_t NPOS_ARGS = pos_args_parsed_.size();
