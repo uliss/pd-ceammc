@@ -5,6 +5,7 @@
 #include "flow_demultiplex.h"
 #include "flow_demultiplex2_tilde.h"
 #include "flow_demultiplex_tilde.h"
+#include "flow_dup.h"
 #include "flow_gate.h"
 #include "flow_greater.h"
 #include "flow_greater_eq.h"
@@ -44,6 +45,7 @@ void ceammc_flow_setup()
     setup_flow_demultiplex();
     setup_flow_demultiplex2_tilde();
     setup_flow_demultiplex_tilde();
+    setup_flow_dup();
     setup_flow_gate();
     setup_flow_greater();
     setup_flow_greater_eq();

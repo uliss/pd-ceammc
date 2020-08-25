@@ -16,6 +16,7 @@
 - @float_width property added to ui.display
 - @positive property added to car->pol for output in [0..2π) range
 - flow.delay added: enhanced version of vanilla delay
+- flow.dup added: message repeater
 - flow.greater_eq added (with flow.>= alias)
 - flow.group second inlet added to change @by property
 - flow.match property match added, unmatched outlet added
