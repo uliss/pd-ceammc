@@ -9,7 +9,7 @@
 #X obj 653 164 ui.hrd 2;
 #X obj 20 192 unpack f f f f;
 #X obj 317 192 prop.set @ttl;
-#X obj 480 192 flow.mux 2 0;
+#X obj 480 192 flow.mux 2 1;
 #X obj 20 221 flow.mem 4, f 66;
 #X obj 20 250 flow.mem.osc~;
 #X obj 173 250 flow.mem.osc~;
