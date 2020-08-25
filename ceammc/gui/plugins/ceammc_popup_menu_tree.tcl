@@ -76,12 +76,12 @@
         vline2env
     }}
     {flow {
-        expand_env flow.append flow.change flow.count flow.delay
-        flow.demultiplex flow.demultiplex2~ flow.demultiplex~ flow.dup
-        flow.gate flow.greater flow.greater_eq flow.group flow.interval
-        flow.less flow.less_eq flow.match flow.multiplex flow.multiplex2~
-        flow.multiplex~ flow.once flow.pack flow.pass flow.pass_if flow.reject
-        flow.reject_if flow.route flow.speedlim flow.split flow.sync
+        expand_env flow.change flow.count flow.delay flow.demultiplex
+        flow.demultiplex2~ flow.demultiplex~ flow.gate flow.greater
+        flow.greater_eq flow.group flow.interval flow.less flow.less_eq
+        flow.match flow.mem flow.multiplex flow.multiplex2~ flow.multiplex~
+        flow.once flow.pack flow.pass flow.pass_if flow.reject flow.reject_if
+        flow.ring flow.route flow.speedlim flow.split flow.stack flow.sync
         flow.sync_pack flow.tee~ replace
     }}
     {flt {
@@ -138,11 +138,11 @@
         math.cmul~ math.cos math.cosh math.cosh~ math.cos~ math.div math.e
         math.erf math.erf~ math.exp math.exp2 math.exp2~ math.expr math.exp~
         math.floor math.floor~ math.gamma math.gamma~ math.gcd math.inf
-        math.lcm math.lgamma math.lgamma~ math.log math.log10 math.log10~
-        math.log2 math.log2~ math.log~ math.mul math.nan math.neg math.or
-        math.pi math.pi~ math.polyeval math.reciprocal math.reciprocal~
-        math.round math.round~ math.sign math.sin math.sinh math.sinh~
-        math.sin~ math.sqrt math.sqrt~ math.squared math.squared~
+        math.inf~ math.lcm math.lgamma math.lgamma~ math.log math.log10
+        math.log10~ math.log2 math.log2~ math.log~ math.mul math.nan math.nan~
+        math.neg math.or math.pi math.pi~ math.polyeval math.reciprocal
+        math.reciprocal~ math.round math.round~ math.sign math.sin math.sinh
+        math.sinh~ math.sin~ math.sqrt math.sqrt~ math.squared math.squared~
         math.sync_add math.sync_and math.sync_div math.sync_eq math.sync_ge
         math.sync_gt math.sync_le math.sync_lt math.sync_mod math.sync_mul
         math.sync_ne math.sync_or math.sync_sub math.sync_xor math.tan
