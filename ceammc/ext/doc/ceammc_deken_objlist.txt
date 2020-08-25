@@ -184,9 +184,6 @@ env	Envelope data type
 vline2env	Converts vline messages to env
 vline->env	Converts vline messages to env
 expand_env	Substitute environment variables in data stream
-flow.append	inject message into flow
-flow.after	inject message into flow
-flow<-	inject message into flow
 flow.change	rejects redundant input values
 flow.count	control flow event counter
 flow.delay	enhanced version on vanilla delay object
@@ -199,7 +196,6 @@ demux2~	audio stream stereo demultiplexer
 flow.demultiplex~	audio stream demultiplexer
 flow.demux~	audio stream demultiplexer
 demux~	audio stream demultiplexer
-flow.dup	duplicates message with possible delay
 flow.gate	control flow gate. [spigot] analog
 gate	control flow gate. [spigot] analog
 flow.greater	numeric stream router
@@ -230,8 +226,6 @@ flow.pass	pass specified values
 pass	pass specified values
 flow.pass_if	pass values that accepted by predicate object
 pass_if	pass values that accepted by predicate object
-flow.prepend	prepend message before arrived
-msg.before	prepend message before arrived
 flow.reject	reject specified values
 reject	reject specified values
 flow.reject_if	reject values by predicate

@@ -110,7 +110,6 @@ flow.delay,flow.del		..		.
 flow.demultiplex,flow.demux		..		?
 flow.demultiplex2~,flow.demux2~,demux2~		~~.		?
 flow.demultiplex~,flow.demux~,demux~		~.		?
-flow.dup		..		.
 flow.gate,gate		..		.
 flow.greater,flow.>		.		?
 flow.greater_eq,flow.>=		.		?

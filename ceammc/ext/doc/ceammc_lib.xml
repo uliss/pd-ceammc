@@ -398,9 +398,6 @@
     <entry name="expand_env" descr="Substitute environment variables in data stream" ref_view="object">
       <xi:include href="expand_env.pddoc" parse="xml"/>
     </entry>
-    <entry name="flow.append" descr="inject message into flow" ref_view="object">
-      <xi:include href="flow.append.pddoc" parse="xml"/>
-    </entry>
     <entry name="flow.change" descr="rejects redundant input values" ref_view="object">
       <xi:include href="flow.change.pddoc" parse="xml"/>
     </entry>
@@ -418,9 +415,6 @@
     </entry>
     <entry name="flow.demultiplex~" descr="audio stream demultiplexer" ref_view="object">
       <xi:include href="flow.demultiplex~.pddoc" parse="xml"/>
-    </entry>
-    <entry name="flow.dup" descr="duplicates message with possible delay" ref_view="object">
-      <xi:include href="flow.dup.pddoc" parse="xml"/>
     </entry>
     <entry name="flow.gate" descr="control flow gate. [spigot] analog" ref_view="object">
       <xi:include href="flow.gate.pddoc" parse="xml"/>
@@ -469,9 +463,6 @@
     </entry>
     <entry name="flow.pass_if" descr="pass values that accepted by predicate object" ref_view="object">
       <xi:include href="flow.pass_if.pddoc" parse="xml"/>
-    </entry>
-    <entry name="flow.prepend" descr="prepend message before arrived" ref_view="object">
-      <xi:include href="flow.prepend.pddoc" parse="xml"/>
     </entry>
     <entry name="flow.reject" descr="reject specified values" ref_view="object">
       <xi:include href="flow.reject.pddoc" parse="xml"/>

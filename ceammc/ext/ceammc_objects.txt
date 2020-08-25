@@ -161,9 +161,7 @@ flow.<
 flow.<=
 flow.>
 flow.>=
-flow.after
-flow.append
-flow.before
+flow.>>
 flow.change
 flow.count
 flow.del
@@ -174,7 +172,6 @@ flow.demultiplex~
 flow.demux
 flow.demux2~
 flow.demux~
-flow.dup
 flow.gate
 flow.greater
 flow.greater_eq
@@ -184,6 +181,7 @@ flow.less
 flow.less_eq
 flow.loop
 flow.match
+flow.mem
 flow.multiplex
 flow.multiplex2~
 flow.multiplex~
@@ -195,16 +193,17 @@ flow.pack
 flow.pack'
 flow.pass
 flow.pass_if
-flow.prepend
+flow.queue
 flow.reject
 flow.reject_if
+flow.ring
 flow.route
 flow.speedlim
 flow.split
+flow.stack
 flow.sync
 flow.sync_pack
 flow.tee~
-flow<-
 flt.biquad~
 flt.bpf12~
 flt.bpf24~
@@ -477,6 +476,7 @@ math.gamma
 math.gamma~
 math.gcd
 math.inf
+math.inf~
 math.lcm
 math.lgamma
 math.lgamma~
@@ -488,6 +488,7 @@ math.log2~
 math.log~
 math.mul
 math.nan
+math.nan~
 math.neg
 math.or
 math.pi

@@ -1,12 +1,10 @@
 #include "mod_flow.h"
 
-#include "flow_append.h"
 #include "flow_change.h"
 #include "flow_count.h"
 #include "flow_demultiplex.h"
 #include "flow_demultiplex2_tilde.h"
 #include "flow_demultiplex_tilde.h"
-#include "flow_dup.h"
 #include "flow_gate.h"
 #include "flow_greater.h"
 #include "flow_greater_eq.h"
@@ -23,7 +21,7 @@
 #include "flow_pack.h"
 #include "flow_pass.h"
 #include "flow_pass_if.h"
-#include "flow_prepend.h"
+#include "flow_queue.h"
 #include "flow_reject.h"
 #include "flow_reject_if.h"
 #include "flow_ring.h"
@@ -40,14 +38,12 @@ void setup_flow_delay();
 
 void ceammc_flow_setup()
 {
-    setup_flow_append();
     setup_flow_change();
     setup_flow_count();
     setup_flow_delay();
     setup_flow_demultiplex();
     setup_flow_demultiplex2_tilde();
     setup_flow_demultiplex_tilde();
-    setup_flow_dup();
     setup_flow_gate();
     setup_flow_greater();
     setup_flow_greater_eq();
@@ -66,7 +62,7 @@ void ceammc_flow_setup()
     setup_flow_pack();
     setup_flow_pass();
     setup_flow_pass_if();
-    setup_flow_prepend();
+    setup_flow_queue();
     setup_flow_reject();
     setup_flow_reject_if();
     setup_flow_route();
