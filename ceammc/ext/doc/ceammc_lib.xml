@@ -416,6 +416,9 @@
     <entry name="flow.demultiplex~" descr="audio stream demultiplexer" ref_view="object">
       <xi:include href="flow.demultiplex~.pddoc" parse="xml"/>
     </entry>
+    <entry name="flow.dup" descr="message duplicator" ref_view="object">
+      <xi:include href="flow.dup.pddoc" parse="xml"/>
+    </entry>
     <entry name="flow.gate" descr="control flow gate. [spigot] analog" ref_view="object">
       <xi:include href="flow.gate.pddoc" parse="xml"/>
     </entry>

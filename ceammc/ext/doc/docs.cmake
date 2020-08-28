@@ -110,6 +110,7 @@ set(DOC_FILES
     flow.demultiplex
     flow.demultiplex2~
     flow.demultiplex~
+    flow.dup
     flow.gate
     flow.greater
     flow.greater_eq

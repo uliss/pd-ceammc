@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="flow.dup">
+        <title>flow.dup</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>message duplicator</description>
+            <license>GPL3 or later</license>
+            <library>ceammc</library>
+            <category>flow</category>
+            <keywords>flow duplicate repeat</keywords>
+            <since>0.9.1</since>
+            <also>
+                <see>flow.mem</see>
+            </also>
+        </meta>
+        <info>
+            <par>Output incoming message specified number of times</par>
+        </info>
+        <arguments>
+            <argument name="N" type="int" minvalue="0">number of repeats</argument>
+        </arguments>
+        <properties>
+            <property name="@n" type="int" minvalue="0" default="2">number of repeats</property>
+        </properties>
+        <inlets>
+            <inlet>
+                <xinfo>incoming message</xinfo>
+            </inlet>
+            <inlet>
+                <xinfo on="int" minvalue="0">set number of repeats</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet>output</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[B] [F #a] [symbol ABC #b( [1 2 3 #c( [@prop 4 5 6 #d(
+|
+|
+|
+|      [F]
+|      |.
+[flow.dup 2 #z]
+|
+[print DUP]
+[X a->z]
+[X b->z]
+[X c->z]
+[X d->z]
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

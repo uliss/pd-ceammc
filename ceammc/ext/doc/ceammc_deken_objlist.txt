@@ -196,6 +196,7 @@ demux2~	audio stream stereo demultiplexer
 flow.demultiplex~	audio stream demultiplexer
 flow.demux~	audio stream demultiplexer
 demux~	audio stream demultiplexer
+flow.dup	message duplicator
 flow.gate	control flow gate. [spigot] analog
 gate	control flow gate. [spigot] analog
 flow.greater	numeric stream router
