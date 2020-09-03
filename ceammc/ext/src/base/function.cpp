@@ -60,6 +60,7 @@ public:
 Function::Function(const PdArgs& a)
     : BaseObject(a)
     , name_(parsedPosArgs().symbolAt(0, nullptr))
+    , inlet_(this)
 {
     if (!name_)
         throw std::runtime_error("function name required!");
@@ -69,7 +70,8 @@ Function::Function(const PdArgs& a)
 
     FunctionMap::instance().add(name_, this);
 
-    createInlet();
+    inlet_new(owner(), &inlet_.x_obj, nullptr, nullptr);
+
     createOutlet();
     createOutlet();
 
@@ -84,43 +86,58 @@ Function::~Function()
 
 void Function::onBang()
 {
+    result_.clear();
     bangTo(1);
 }
 
 void Function::onFloat(t_float f)
 {
-    result_ = Message();
+    result_.clear();
     floatTo(1, f);
 }
 
 void Function::onList(const AtomList& l)
 {
+    result_.clear();
     listTo(1, l);
 }
 
 void Function::onSymbol(t_symbol* s)
 {
+    result_.clear();
     symbolTo(1, s);
 }
 
-void Function::onInlet(size_t n, const AtomList& l)
-{
-    if (n != 1)
-        return;
-
-    result_ = l;
-    // output simplified type
-    outletAtomList(outletAt(0), l, true);
-}
-
-Message& Function::result()
+std::vector<Message>& Function::result()
 {
     return result_;
 }
 
-const Message& Function::result() const
+const std::vector<Message>& Function::result() const
 {
     return result_;
+}
+
+void Function::proxy_any(InletProxy<Function>* x, t_symbol* s, const AtomListView& v)
+{
+    if (s == &s_bang) {
+        result_.push_back(Message::makeBang());
+        bangTo(0);
+    } else if (s == &s_float) {
+        auto f = v.asFloat();
+        result_.emplace_back(f);
+        floatTo(0, f);
+    } else if (s == &s_symbol) {
+        auto s = v.asSymbol();
+        result_.emplace_back(s);
+        symbolTo(0, s);
+    } else if (s == &s_list) {
+        result_.emplace_back(v);
+        listTo(0, v);
+    } else {
+        result_.emplace_back(s, v);
+        anyTo(0, s, v);
+    }
 }
 
 bool Function::exists(t_symbol* name)
@@ -133,14 +150,20 @@ Function* Function::function(t_symbol* name)
     return FunctionMap::instance().get(name);
 }
 
-void function_setup()
+void setup_base_function()
 {
     ObjectFactory<Function> f("function");
     f.addAlias("func");
+    f.noPropsDispatch();
 
     f.setDescription("named function");
     f.addAuthor("Serge Poltavsky");
     f.setKeywords({ "function" });
     f.setCategory("base");
     f.setSinceVersion(0, 3);
+
+    f.setXletsInfo({ "function input", "input from side-chain" }, { "function output", "output to side chain" });
+
+    InletProxy<Function>::init();
+    InletProxy<Function>::set_any_callback(&Function::proxy_any);
 }

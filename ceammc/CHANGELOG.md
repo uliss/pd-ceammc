@@ -66,6 +66,7 @@
 - data.float creation arg fix
 - data.int creation arg fix
 - string.remove doc example fix
+- function right inlet accepts any message, closes #59
 
 
 ### Removed:

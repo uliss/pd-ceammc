@@ -11,64 +11,65 @@
  * contact the author of this file, or the owner of the project in which
  * this file belongs to.
  *****************************************************************************/
-#include "function.h"
-#include "test_base.h"
 #include "catch.hpp"
 #include "ceammc_pd.h"
+#include "function.h"
+#include "function_call.h"
+#include "test_base.h"
 #include "test_external.h"
 
-#include <stdio.h>
-
-typedef TestExternal<Function> FunctionTest;
-
-void f1() { FunctionTest t("func"); }
-void f2() { FunctionTest t("sqrt"); }
+PD_COMPLETE_TEST_SETUP(Function, base, function)
 
 TEST_CASE("function", "[externals]")
 {
+    pd_test_init();
+    setup_function_call();
+
     SECTION("init")
     {
-        REQUIRE_THROWS(f1());
+        pd::External f0("function");
+        REQUIRE(f0.isNull());
 
-        FunctionTest t("func", LA("sqrt"));
+        TExt t("func", LA("sqrt"));
         // already exists
-        REQUIRE_THROWS(f2());
+        pd::External t1("function", LA("sqrt"));
+        REQUIRE(t1.isNull());
         // new name is ok
-        FunctionTest t2("func", LA("sqrt2"));
+        TExt t2("func", LA("sqrt2"));
 
         REQUIRE(t.numInlets() == 2);
         REQUIRE(t.numOutlets() == 2);
 
-        WHEN_SEND_FLOAT_TO(0, t, 1);
+        t << 1;
         REQUIRE_NO_MESSAGES_AT_OUTLET(0, t);
         REQUIRE_FLOAT_AT_OUTLET(1, t, 1);
 
-        WHEN_SEND_BANG_TO(0, t);
+        t.bang();
         REQUIRE_NO_MESSAGES_AT_OUTLET(0, t);
         REQUIRE_BANG_AT_OUTLET(1, t);
 
-        WHEN_SEND_LIST_TO(0, t, LA("A", "B", "C"));
+        t << LA("A", "B", "C");
         REQUIRE_NO_MESSAGES_AT_OUTLET(0, t);
         REQUIRE_LIST_AT_OUTLET(1, t, LA("A", "B", "C"));
 
-        WHEN_SEND_SYMBOL_TO(0, t, "TEST");
+        t << "TEST";
         REQUIRE_NO_MESSAGES_AT_OUTLET(0, t);
         REQUIRE_SYMBOL_AT_OUTLET(1, t, "TEST");
     }
 
     SECTION("test")
     {
-        FunctionTest t("func", LA("sqrt"));
-        WHEN_SEND_FLOAT_TO(0, t, 2);
-        REQUIRE_FLOAT_AT_OUTLET(1, t, 2);
+        TExt t("func", LA("sqrt4"));
+
+        t << 4;
+        REQUIRE(t.messagesAt(1)[0].atomValue() == A(4.));
     }
 
-    SECTION("process")
+    SECTION("process float")
     {
-        function_setup();
         LogExternalOutput::setup();
 
-        pd::External func("function", LA("sqrt"));
+        pd::External func("function", LA("sqrt5"));
         REQUIRE(!func.isNull());
         pd::External sqrt("sqrt");
         REQUIRE(!sqrt.isNull());
@@ -80,5 +81,105 @@ TEST_CASE("function", "[externals]")
 
         func.sendFloat(4);
         REQUIRE(out.msg().atomValue().asFloat() == Approx(2));
+
+        func.sendFloat(9);
+        REQUIRE(out.msg().atomValue().asFloat() == Approx(3));
+
+        pd::External fx("function.call", "sqrt5");
+        REQUIRE(!fx.isNull());
+        LogExternalOutput fx_out;
+
+        fx.connectTo(0, fx_out, 0);
+        fx.sendFloat(9);
+        REQUIRE(fx_out.msg().atomValue().asFloat() == Approx(3));
+        fx.sendFloat(16);
+        REQUIRE(fx_out.msg().atomValue().asFloat() == Approx(4));
+    }
+
+    SECTION("process bang")
+    {
+        pd::External func("function", LA("bang"));
+        REQUIRE(!func.isNull());
+        pd::External f0("f", -100);
+        REQUIRE(!f0.isNull());
+        LogExternalOutput out;
+
+        REQUIRE(func.connectTo(1, f0, 0));
+        REQUIRE(f0.connectTo(0, func, 1));
+        REQUIRE(func.connectTo(0, out, 0));
+
+        func.sendBang();
+        REQUIRE(out.msg().atomValue().asFloat() == Approx(-100));
+
+        // call
+        pd::External fx("function.call", "bang");
+        REQUIRE(!fx.isNull());
+        LogExternalOutput fx_out;
+
+        fx.connectTo(0, fx_out, 0);
+        fx.sendBang();
+
+        REQUIRE(fx_out.msg().atomValue().asFloat() == Approx(-100));
+    }
+
+    SECTION("process symbol")
+    {
+        pd::External func("function", LA("symbol"));
+        REQUIRE(!func.isNull());
+        pd::External s0("symbol", "ABC");
+        REQUIRE(!s0.isNull());
+        LogExternalOutput out;
+
+        REQUIRE(func.connectTo(1, s0, 0));
+        REQUIRE(s0.connectTo(0, func, 1));
+        REQUIRE(func.connectTo(0, out, 0));
+
+        func.sendBang();
+        REQUIRE(out.msg().atomValue().asSymbol() == SYM("ABC"));
+
+        func.sendSymbol("DEF");
+        REQUIRE(out.msg().atomValue().asSymbol() == SYM("DEF"));
+
+        // call
+        pd::External fx("function.call", "symbol");
+        REQUIRE(!fx.isNull());
+        LogExternalOutput fx_out;
+
+        fx.connectTo(0, fx_out, 0);
+
+        fx.sendBang();
+        REQUIRE(fx_out.msg().atomValue().asSymbol() == SYM("DEF"));
+        fx.sendSymbol("IJK");
+        REQUIRE(fx_out.msg().atomValue().asSymbol() == SYM("IJK"));
+    }
+
+    SECTION("process list")
+    {
+        pd::External func("function", LA("list"));
+        REQUIRE(!func.isNull());
+        pd::External l0("list");
+        REQUIRE(!l0.isNull());
+        LogExternalOutput out;
+
+        REQUIRE(func.connectTo(1, l0, 0));
+        REQUIRE(l0.connectTo(0, func, 1));
+        REQUIRE(func.connectTo(0, out, 0));
+
+        func.sendList(LF(1, 2, 3));
+        REQUIRE(out.msg().listValue() == LF(1, 2, 3));
+        func.sendList(LF(3, 2, 1));
+        REQUIRE(out.msg().listValue() == LF(3, 2, 1));
+
+        // call
+        pd::External fx("function.call", "list");
+        REQUIRE(!fx.isNull());
+        LogExternalOutput fx_out;
+
+        fx.connectTo(0, fx_out, 0);
+
+        fx.sendList(LF(3, 2, 1));
+        REQUIRE(fx_out.msg().listValue() == LF(3, 2, 1));
+        fx.sendList(LA("A", "B", "C"));
+        REQUIRE(fx_out.msg().listValue() == LA("A", "B", "C"));
     }
 }

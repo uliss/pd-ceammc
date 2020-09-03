@@ -76,13 +76,11 @@ Function* FunctionCall::getFunc()
 
 void FunctionCall::outputResult(Function* fn)
 {
-    Message msg(fn->result());
-
-    if (!msg.isNone())
-        messageTo(0, msg);
+    for (auto& m : fn->result())
+        messageTo(0, m);
 }
 
-extern "C" void function_call_setup()
+void setup_function_call()
 {
     ObjectFactory<FunctionCall> f("function.call");
     f.addAlias("func.call");
@@ -92,4 +90,6 @@ extern "C" void function_call_setup()
     f.setKeywords({ "function", "call" });
     f.setCategory("base");
     f.setSinceVersion(0, 3);
+
+    f.setXletsInfo({ "function input", "set function name" }, { "function output" });
 }
