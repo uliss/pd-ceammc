@@ -20,7 +20,7 @@ using namespace ceammc;
 using namespace ceammc::music;
 using namespace ceammc::music::keyboard;
 
-TEST_CASE("MusicTheory", "[ceammc::music]")
+TEST_CASE("MusicTheory::Keyboard", "[ceammc::music]")
 {
     SECTION("is_white_key")
     {
