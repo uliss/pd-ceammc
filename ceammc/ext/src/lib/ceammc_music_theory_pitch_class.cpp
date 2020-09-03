@@ -63,7 +63,7 @@ const PitchClass PitchClass::B(PitchName::B, Alteration::NATURAL);
 const PitchClass PitchClass::Bs(PitchName::B, Alteration::SHARP);
 const PitchClass PitchClass::Bss(PitchName::B, Alteration::DOUBLE_SHARP);
 
-const boost::array<PitchClass, 35> PitchClass::all = {
+const std::array<PitchClass, 35> PitchClass::all = {
     Cff, Cf, C, Cs, Css,
     Dff, Df, D, Ds, Dss,
     Eff, Ef, E, Es, Ess,

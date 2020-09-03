@@ -3,7 +3,7 @@
 #include "ceammc_music_theory_pitch_class.h"
 #include "ceammc_music_theory_pitch_name.h"
 
-#include <boost/algorithm/minmax.hpp>
+#include <algorithm>
 #include <cstdlib>
 
 using namespace ceammc;

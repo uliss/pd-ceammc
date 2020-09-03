@@ -1,7 +1,7 @@
 #ifndef CEAMMC_MUSIC_THEORY_PITCH_CLASS_H
 #define CEAMMC_MUSIC_THEORY_PITCH_CLASS_H
 
-#include <boost/array.hpp>
+#include <array>
 #include <cstddef>
 #include <iostream>
 #include <vector>
@@ -205,7 +205,7 @@ namespace music {
         static const PitchClass B;
         static const PitchClass Bs;
         static const PitchClass Bss;
-        static const boost::array<PitchClass, 35> all;
+        static const std::array<PitchClass, 35> all;
     };
 
     std::ostream& operator<<(std::ostream& os, const Alteration& a);
