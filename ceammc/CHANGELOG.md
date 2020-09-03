@@ -65,6 +65,7 @@
 ### Fixed:
 - data.float creation arg fix
 - data.int creation arg fix
+- string.remove doc example fix
 
 
 ### Removed:

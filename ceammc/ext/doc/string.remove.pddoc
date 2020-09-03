@@ -28,13 +28,14 @@
             input string</property>
             <property name="@last" type="alias">alias to @mode last - remove last occurence in
             input string</property>
+            <property name="@str" type="symbol">removed string</property>
         </properties>
         <inlets>
             <inlet>
-                <xinfo>Input string or symbol</xinfo>
+                <xinfo>input string or symbol</xinfo>
             </inlet>
             <inlet>
-                <xinfo>Removed string or symbol</xinfo>
+                <xinfo>set removed string or symbol</xinfo>
             </inlet>
         </inlets>
         <outlets>
@@ -43,19 +44,17 @@
         <example>
             <pdascii>
 <![CDATA[
-[B]                   [B]                     [B]
-|                     |                       |
-[string 12321 12321]  [string 12321 12321]    [string 12321 12321]
-|                     |                       |
-[str.remove 123 @all] [str.remove 123 @first] [str.remove 123 @last]
-                    | |                       |
-                    | |                       |
-                    | |                       |
-                    [str->sym                 ]
-                    |
-                    [msg set]
-                    |
-                    [ (
+[B]                     [B]                       [B]
+|                       |                         |
+[string 12321 12321]    [string 12321 12321]      [string 12321 12321]
+|                       |                         |
+[str.remove "123" @all] [str.remove "123" @first] [str.remove "123" @last]
+                      | |                         |
+                      | |                         |
+                      | |                         |
+                      [str->sym                   ]
+                      |
+                      [ui.d @display_type 1]
 ]]>
             </pdascii>
         </example>
