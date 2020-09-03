@@ -127,6 +127,8 @@ namespace music {
         bool operator!=(const PitchClass& c) const;
 
         bool enharmonicEqual(const PitchClass& c) const { return absolutePitch() == c.absolutePitch(); }
+
+        /** return pitch value in [0..11] range */
         size_t absolutePitch() const;
 
         operator bool() const;

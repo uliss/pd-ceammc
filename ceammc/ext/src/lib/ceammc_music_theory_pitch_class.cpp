@@ -266,7 +266,7 @@ bool PitchClass::operator!=(const PitchClass& c) const
 size_t PitchClass::absolutePitch() const
 {
     int res = int(pitch_name_.absolutePitch()) + alt_.semitones();
-    return res < 0 ? (12 + res) % 12 : (res % 12);
+    return (res < 0 ? (12 + res) : res) % 12;
 }
 
 PitchClass::operator bool() const
