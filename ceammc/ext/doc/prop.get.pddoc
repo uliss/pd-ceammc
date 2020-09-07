@@ -30,7 +30,8 @@
         </arguments>
         <inlets>
             <inlet>
-                <xinfo on="bang">get properties</xinfo>
+                <xinfo on="bang">output specified properites to corresponding outlets</xinfo>
+                <xinfo on="any">output specified property to second outlet</xinfo>
             </inlet>
         </inlets>
         <outlets dynamic="true">
