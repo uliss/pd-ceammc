@@ -61,6 +61,7 @@ set(CEAMMC_LIB_SOURCES
     ceammc_json.cpp
     ceammc_log.cpp
     ceammc_message.cpp
+    ceammc_music_scale.cpp
     ceammc_music_temperament.cpp
     ceammc_music_theory.cpp
     ceammc_music_theory_names.cpp
