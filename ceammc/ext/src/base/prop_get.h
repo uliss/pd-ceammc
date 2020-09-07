@@ -22,16 +22,19 @@ class PropGet : public BaseObject {
 
 public:
     PropGet(const PdArgs& args);
-    void parseProperties() override {}
 
     void onBang() override;
     void onClick(t_floatarg xpos, t_floatarg ypos, t_floatarg shift, t_floatarg ctrl, t_floatarg alt) override;
+    void onAny(t_symbol* s, const AtomListView&) override;
 
     const char* annotateOutlet(size_t n) const override;
 
 private:
-    void processObjectProps(t_object* dest);
-    void processAbstractionProps(t_glist* dest);
+    void processObjectProps(t_object* dest, const std::vector<t_symbol*>& props);
+    void processAbstractionProps(t_glist* dest, const std::vector<t_symbol*>& props);
+
+    t_object* findDestination();
+    void outputProperties(t_object* dest, const std::vector<t_symbol*>& props);
 };
 
 void setup_prop_get();

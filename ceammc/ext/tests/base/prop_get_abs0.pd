@@ -1,0 +1,7 @@
+#N canvas 650 377 700 500 12;
+#X obj 373 44 inlet;
+#X obj 373 126 outlet;
+#X obj 38 37 prop.declare pget0 @default -100;
+#X obj 38 67 prop.declare pget1 @s @default ABC;
+#X obj 38 97 prop.declare pget2 @l @default 1 2 3;
+#X connect 0 0 1 0;

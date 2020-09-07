@@ -15,6 +15,7 @@
 #include "ceammc_factory.h"
 #include "ceammc_output.h"
 #include "datatype_property.h"
+#include "fmt/format.h"
 
 extern "C" {
 #include "g_canvas.h"
@@ -33,15 +34,18 @@ PropGet::PropGet(const PdArgs& args)
         } else
             OBJ_ERR << "property name expected (starting from '@'), got: " << a << ", skipping argument";
     }
+
+    if (numOutlets() < 2)
+        createOutlet();
 }
 
-void PropGet::onBang()
+t_object* PropGet::findDestination()
 {
     t_outlet* outlet = nullptr;
     auto conn = obj_starttraverseoutlet(owner(), &outlet, 0);
     if (!conn) {
-        OBJ_ERR << "no connection";
-        return;
+        OBJ_ERR << "not connected to object";
+        return nullptr;
     }
 
     t_object* dest;
@@ -53,13 +57,25 @@ void PropGet::onBang()
 
     if (!dest) {
         OBJ_ERR << "invalid connection";
+        return nullptr;
+    } else
+        return dest;
+}
+
+void PropGet::outputProperties(t_object* dest, const std::vector<t_symbol*>& props)
+{
+    if (!dest)
         return;
-    }
 
     if (dest->te_g.g_pd == canvas_class)
-        processAbstractionProps(reinterpret_cast<t_canvas*>(dest));
+        processAbstractionProps(reinterpret_cast<t_canvas*>(dest), props);
     else
-        processObjectProps(dest);
+        processObjectProps(dest, props);
+}
+
+void PropGet::onBang()
+{
+    outputProperties(findDestination(), props_);
 }
 
 void PropGet::onClick(t_floatarg xpos, t_floatarg ypos, t_floatarg shift, t_floatarg ctrl, t_floatarg alt)
@@ -77,34 +93,34 @@ const char* PropGet::annotateOutlet(size_t n) const
         return nullptr;
 }
 
-void PropGet::processObjectProps(t_object* dest)
+void PropGet::processObjectProps(t_object* dest, const std::vector<t_symbol*>& props)
 {
     auto fn = ceammc_get_propget_fn(dest);
     if (!fn) {
-        OBJ_ERR << "object has no properties: [" << class_getname(dest->te_g.g_pd) << "]";
+        OBJ_ERR << fmt::format("object has no properties: [{}]", class_getname(dest->te_g.g_pd));
         return;
     }
 
-    for (auto it = props_.rbegin(); it != props_.rend(); ++it) {
+    for (auto it = props.rbegin(); it != props.rend(); ++it) {
         int argc = 0;
         t_atom* argv = nullptr;
         int rc = fn(dest, *it, &argc, &argv);
         if (!rc) {
-            OBJ_ERR << "property not found: " << (*it)->s_name;
+            OBJ_ERR << fmt::format("property '{}' not found in object [{}]", (*it)->s_name, class_getname(dest->te_g.g_pd));
             continue;
         }
 
-        const size_t IDX = props_.size() - std::distance(props_.rbegin(), it);
+        const size_t IDX = props.size() - std::distance(props.rbegin(), it);
         outletAtomListView(outletAt(IDX), AtomListView(argv, argc), true);
 
         freebytes(argv, argc);
     }
 }
 
-void PropGet::processAbstractionProps(t_glist* dest)
+void PropGet::processAbstractionProps(t_glist* dest, const std::vector<t_symbol*>& props)
 {
-    for (size_t i = 0; i < props_.size(); i++) {
-        auto* full = PropertyStorage::makeFullName(props_[i], dest);
+    for (size_t i = 0; i < props.size(); i++) {
+        auto* full = PropertyStorage::makeFullName(props[i], dest);
         PropertyPtr pp(full);
         const size_t IDX = i + 1;
         if (pp) {
@@ -132,9 +148,27 @@ void PropGet::processAbstractionProps(t_glist* dest)
                 OBJ_ERR << "unknown property type: " << (int)pp->propertyType();
             }
         } else {
-            OBJ_ERR << "property not found: " << props_[i]->s_name;
+            OBJ_ERR << "property not found: " << props[i]->s_name;
         }
     }
+}
+
+void PropGet::onAny(t_symbol* s, const AtomListView& /*lv*/)
+{
+    if (!Atom(s).isProperty()) {
+        OBJ_ERR << "property name expected, got: " << s;
+        return;
+    }
+
+    const auto len = strlen(s->s_name);
+    if (s->s_name[len - 1] == '?') {
+        // remove trailing '?'
+        char buf[len];
+        memcpy(buf, s->s_name, len);
+        buf[len - 1] = '\0';
+        outputProperties(findDestination(), { gensym(buf) });
+    } else
+        outputProperties(findDestination(), { s });
 }
 
 void setup_prop_get()
@@ -144,4 +178,6 @@ void setup_prop_get()
     obj.addInletInfo("bang:  get specified properties\n"
                      "click: same as bang");
     obj.useClick();
+    obj.noPropsDispatch();
+    obj.noArgsDataParsing();
 }
