@@ -22,6 +22,7 @@
 - flow.match property match added, unmatched outlet added
 - flow.stack added
 - flow.ring added
+- flow.route can output with selector using *
 - flow.split any message support added
 - math.nan~ added (mainly for testing purposes)
 - math.inf~ added (mainly for testing purposes)

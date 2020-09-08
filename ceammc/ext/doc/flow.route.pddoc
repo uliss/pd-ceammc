@@ -15,19 +15,21 @@
         </meta>
         <info>
             <par>if no match occured - output original message to last outlet</par>
+            <par>if route starts with '*' - output with message selector</par>
         </info>
         <arguments>
             <argument type="list" name="MATCHES">list of route matches</argument>
         </arguments>
         <inlets>
             <inlet>
-                <xinfo on="list">match to first list element. On match outputs list without first
-                element to corresponding outlet</xinfo>
-                <xinfo on="any">match to message selector. On success outputs message arguments to
+                <xinfo on="list">match to first list element, output to corresponding outlet.
+                If route starts with * output list 'as is', otherwise output without first element</xinfo>
+                <xinfo on="any">match to message selector, output to corresponding outlet.
+                On success outputs message arguments to
                 corresponding outlet</xinfo>
                 <xinfo on="data:mlist">same as list</xinfo>
                 <xinfo on="data:dict">match dict keys. On success outputs dict values to
-                corresponding outlets</xinfo>
+                corresponding outlets, if starts with * output with matched key</xinfo>
             </inlet>
         </inlets>
         <outlets dynamic="true">
@@ -39,26 +41,57 @@
         <example>
             <pdascii>
 <![CDATA[
-[a b c( [unmatched(
-|       |
-|       | [1 2 3( [2 3 4(
-|       | |       |
-|       | |       | [B]                        [B]
-|       | |       | |                          |
-|       | |       | [data.mlist (1 2 3) #l0]   [data.mlist (3 4 5) #l1]
-|       | |       |
-|       | |       | [[a: 1 2 3] [b:c] [1: test], bang(
-|       | |       | |
-|       | |       | [data.dict #d0]
-|       | |       |
-|       | |       |
-[flow.route 1 a #a]
+[list a b c #k(
+
+[a b c #l(
+
+[list d e f #m(
+
+[d e f #n(
+
+[100 200 300 #o(
+
+[400 500 600 #p(  [unmatched(
+                  |
+[flow.route a *d 100 *400 #a {w=40}]
 |
-[ui.display @display_type=1]
+[ui.d @display_type 1] [ui.d @display_type 1 #d]
 
-      [ui.display @display_type=1 #b]
+       [ui.d @display_type 1 #b]  [ui.d @display_type 1 #e]
 
-          [ui.display @display_type=1 #c]
+              [ui.d @display_type 1 #c]
+
+[flow.route.data]
+[X a:1->b]
+[X a:2->c]
+[X a:3->d]
+[X a:4->e]
+[X k->a]
+[X l->a]
+[X m->a]
+[X n->a]
+[X o->a]
+[X p->a]
+]]>
+            </pdascii>
+            <pdascii id="data">
+<![CDATA[
+[B]                        [B]
+|                          |
+[data.mlist (1 2 3) #l0]   [data.mlist (3 4 5) #l1]
+
+[[a: 1 2 3 b: c 1: test], bang(
+|
+[data.dict #d0]
+
+
+[flow.route 1 *a #a]
+|
+[ui.d @display_type 1]
+
+       [ui.d @display_type 1 #b]
+
+           [ui.d @display_type 1 #c]
 
 [X a:1->b]
 [X a:2->c]
