@@ -18,21 +18,41 @@
 #include "datatype_dict.h"
 #include "datatype_mlist.h"
 
+constexpr char KEEP_SELECTOR_CHAR = '*';
+
 FlowRoute::FlowRoute(const PdArgs& args)
     : BaseObject(args)
     , n_(args.args.size())
 {
+    routes_s_.reserve(args.args.size());
+    routes_.reserve(args.args.size());
+
     for (auto& a : args.args) {
-        routes_.push_back(to_string(a));
+        if (a.isSymbol()) {
+            const char* str = a.asT<t_symbol*>()->s_name;
+            if (str[0] == KEEP_SELECTOR_CHAR && str[1] != '\0') { // check for *XXX
+                auto lst = AtomList::parseString(str + 1);
+                if (lst.size() == 1) {
+                    routes_s_.emplace_back(str + 1);
+                    routes_.push_back({ lst[0], true });
+                } else {
+                    OBJ_ERR << "parse error: " << str;
+                    routes_s_.emplace_back(str);
+                    routes_.push_back({ a, true });
+                }
+            } else {
+                routes_s_.emplace_back(str);
+                routes_.push_back({ a, false });
+            }
+        } else {
+            routes_s_.emplace_back(to_string(a));
+            routes_.push_back({ a, false });
+        }
+
         createOutlet();
     }
 
     createOutlet();
-}
-
-void FlowRoute::parseProperties()
-{
-    // do not parse properties in args
 }
 
 void FlowRoute::onList(const AtomList& lst)
@@ -40,16 +60,19 @@ void FlowRoute::onList(const AtomList& lst)
     if (lst.empty())
         return;
 
-    auto& slots = args();
     auto& atom = lst[0];
 
     // iterate from end
     for (size_t i = n_; i > 0; i--) {
         const size_t IDX = i - 1;
-        auto& key = slots[IDX];
+        auto& r = routes_[IDX];
 
-        if (atom == key) {
-            listTo(IDX, lst.slice(1));
+        if (atom == r.sel) {
+            if (r.keep)
+                listTo(IDX, lst);
+            else
+                listTo(IDX, lst.view(1));
+
             return;
         }
     }
@@ -60,15 +83,17 @@ void FlowRoute::onList(const AtomList& lst)
 
 void FlowRoute::onAny(t_symbol* s, const AtomListView& lst)
 {
-    auto& slots = args();
-
     // iterate from end
     for (size_t i = n_; i > 0; i--) {
         const size_t IDX = i - 1;
-        auto& key = slots[IDX];
+        auto& r = routes_[IDX];
 
-        if (s == key) {
-            listTo(IDX, lst);
+        if (s == r.sel) {
+            if (r.keep)
+                anyTo(IDX, s, lst);
+            else
+                listTo(IDX, lst);
+
             return;
         }
     }
@@ -85,17 +110,20 @@ void FlowRoute::onData(const Atom& data)
             OBJ_ERR << "invalid data pointer to dict";
             return;
         }
-
-        auto& slots = args();
         bool matched = false;
 
         // iterate from end
         for (size_t i = n_; i > 0; i--) {
             const size_t OUT = i - 1;
-            auto key = slots[OUT].asSymbol();
+            auto& r = routes_[OUT];
+            auto key = r.sel.asSymbol();
 
             if (dict->contains(key)) {
-                listTo(OUT, dict->at(key));
+                if (r.keep)
+                    anyTo(OUT, key, dict->at(key));
+                else
+                    listTo(OUT, dict->at(key));
+
                 matched = true;
             }
         }
@@ -117,14 +145,17 @@ void FlowRoute::onData(const Atom& data)
             return;
 
         auto& first = mlist->at(0);
-        auto& slots = args();
 
         // iterate from end
         for (size_t i = n_; i > 0; i--) {
             const size_t OUT = i - 1;
-            auto& pattern = slots[OUT];
-            if (first == pattern) {
-                atomTo(OUT, MListAtom(mlist->slice(1)));
+            auto& r = routes_[OUT];
+            if (first == r.sel) {
+                if (r.keep)
+                    atomTo(OUT, data);
+                else
+                    atomTo(OUT, MListAtom(mlist->slice(1)));
+
                 return;
             }
         }
@@ -139,8 +170,8 @@ void FlowRoute::onData(const Atom& data)
 
 const char* FlowRoute::annotateOutlet(size_t n) const
 {
-    if (n < routes_.size())
-        return routes_[n].c_str();
+    if (n < routes_s_.size())
+        return routes_s_[n].c_str();
     else
         return "not-matched";
 }
@@ -151,4 +182,5 @@ void setup_flow_route()
     obj.processData();
     obj.addInletInfo("input messages");
     obj.noPropsDispatch();
+    obj.noArgsDataParsing();
 }

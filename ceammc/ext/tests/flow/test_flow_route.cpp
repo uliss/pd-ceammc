@@ -306,7 +306,7 @@ TEST_CASE("flow.route", "[externals]")
 
     SECTION("props")
     {
-        TestExtFlowRoute t("flow.route", LA("@a", "@b"));
+        TExt t("flow.route", LA("@a", "@b"));
 
         REQUIRE(t.numInlets() == 1);
         REQUIRE(t.numOutlets() == 3);
@@ -315,5 +315,64 @@ TEST_CASE("flow.route", "[externals]")
 
         REQUIRE(t.hasOutput());
         REQUIRE(t.outputListAt(0) == LF(1, 2));
+    }
+
+    SECTION("*")
+    {
+        TExt t("flow.route", LA("a", "*b", "@c", "*@d", 100, "*200", "*"));
+
+        REQUIRE(t.numInlets() == 1);
+        REQUIRE(t.numOutlets() == 8);
+
+        t << LA("a");
+        REQUIRE(t.messagesAt(0).back() == Message(L()));
+        t << LA("a", "b");
+        REQUIRE(t.messagesAt(0).back() == Message(LA("b")));
+        t.sendMessage("a");
+        REQUIRE(t.messagesAt(0).back() == Message(L()));
+        t.sendMessage("a", LA("b"));
+        REQUIRE(t.messagesAt(0).back() == Message(LA("b")));
+
+        t << LA("b");
+        REQUIRE(t.messagesAt(1).back() == Message(LA("b")));
+        t << LA("b", "c");
+        REQUIRE(t.messagesAt(1).back() == Message(LA("b", "c")));
+        t.sendMessage("b");
+        REQUIRE(t.messagesAt(1).back() == Message(SYM("b"), L()));
+        t.sendMessage("b", LA("c"));
+        REQUIRE(t.messagesAt(1).back() == Message(SYM("b"), LA("c")));
+
+        t << LA("@c");
+        REQUIRE(t.messagesAt(2).back() == Message(L()));
+        t << LA("@c", "d");
+        REQUIRE(t.messagesAt(2).back() == Message(LA("d")));
+        t.sendMessage("@c");
+        REQUIRE(t.messagesAt(2).back() == Message(L()));
+        t.sendMessage("@c", LA("d"));
+        REQUIRE(t.messagesAt(2).back() == Message(LA("d")));
+
+        t << LA("@d");
+        REQUIRE(t.messagesAt(3).back() == Message(LA("@d")));
+        t << LA("@d", "e");
+        REQUIRE(t.messagesAt(3).back() == Message(LA("@d", "e")));
+        t.sendMessage("@d");
+        REQUIRE(t.messagesAt(3).back() == Message(SYM("@d"), L()));
+        t.sendMessage("@d", LA("e"));
+        REQUIRE(t.messagesAt(3).back() == Message(SYM("@d"), LA("e")));
+
+        t << LF(100);
+        REQUIRE(t.messagesAt(4).back() == Message(L()));
+        t << LF(100, 200);
+        REQUIRE(t.messagesAt(4).back() == Message(LF(200)));
+
+        t << LF(200);
+        REQUIRE(t.messagesAt(5).back() == Message(LF(200)));
+        t << LF(200, 300);
+        REQUIRE(t.messagesAt(5).back() == Message(LF(200, 300)));
+
+        t << LA("*");
+        REQUIRE(t.messagesAt(6).back() == Message(L()));
+        t.sendMessage("*");
+        REQUIRE(t.messagesAt(6).back() == Message(L()));
     }
 }
