@@ -46,7 +46,7 @@ namespace music {
             const int oct = (deg / N) * pitches_per_octave_;
             return degrees_i_[deg % N] + oct;
         } else {
-            const int oct = ((deg / N) - 1) * pitches_per_octave_;
+            const int oct = -1 * (((-deg) / N) + 1) * pitches_per_octave_;
             return degrees_i_[N - ((-deg) % N)] + oct;
         }
     }
@@ -94,15 +94,119 @@ namespace music {
 
         // 7 note scales
         insert(gensym("major"), { 0, 2, 4, 5, 7, 9, 11 }, 12, "Major");
+        insert(gensym("ionian"), { 0, 2, 4, 5, 7, 9, 11 }, 12, "Ionian");
+        insert(gensym("dorian"), { 0, 2, 3, 5, 7, 9, 10 }, 12, "Dorian");
+        insert(gensym("phrygian"), { 0, 1, 3, 5, 7, 8, 10 }, 12, "Phrygian");
+        insert(gensym("lydian"), { 0, 2, 4, 6, 7, 9, 11 }, 12, "Lydian");
+        insert(gensym("mixolydian"), { 0, 2, 4, 6, 7, 9, 11 }, 12, "Mixolydian");
+        insert(gensym("aeolian"), { 0, 2, 3, 5, 7, 8, 10 }, 12, "Aeolian");
+        insert(gensym("minor"), { 0, 2, 3, 5, 7, 8, 10 }, 12, "Natural Minor");
+        insert(gensym("locrian"), { 0, 1, 3, 5, 6, 8, 10 }, 12, "Locrian");
 
+        insert(gensym("minor_harmonic"), { 0, 2, 3, 5, 7, 8, 11 }, 12, "Harmonic Minor");
+        insert(gensym("major_harmonic"), { 0, 2, 4, 5, 7, 8, 11 }, 12, "Harmonic Major");
+
+        insert(gensym("minor_melodic"), { 0, 2, 3, 5, 7, 9, 11 }, 12, "Melodic Minor");
+        insert(gensym("minor_melodic_desc"), { 0, 2, 3, 5, 7, 8, 10 }, 12, "Melodic Minor Descending");
+        insert(gensym("major_melodic"), { 0, 2, 4, 5, 7, 8, 10 }, 12, "Melodic Major");
+
+        insert(gensym("bartok"), { 0, 2, 4, 5, 7, 8, 10 }, 12, "Bartok");
+        insert(gensym("hindu"), { 0, 2, 4, 5, 7, 8, 10 }, 12, "Hindu");
+
+        // raga modes
+        insert(gensym("todi"), { 0, 1, 3, 6, 7, 8, 11 }, 12, "Todi");
+        insert(gensym("purvi"), { 0, 1, 4, 6, 7, 8, 11 }, 12, "Purvi");
+        insert(gensym("marva"), { 0, 1, 4, 6, 7, 9, 11 }, 12, "Marva");
+        insert(gensym("bhairav"), { 0, 1, 4, 5, 7, 8, 11 }, 12, "Bhairav");
+        insert(gensym("ahirbhairav"), { 0, 1, 4, 5, 7, 9, 10 }, 12, "Ahirbhairav");
+
+        insert(gensym("super_locrian"), { 0, 1, 3, 4, 6, 8, 10 }, 12, "Super Locrian");
+        insert(gensym("minor_romanian"), { 0, 2, 3, 6, 7, 9, 10 }, 12, "Romanian Minor");
+        insert(gensym("minor_hungarian"), { 0, 2, 3, 6, 7, 8, 11 }, 12, "Hungarian Minor");
+        insert(gensym("minor_neapolitan"), { 0, 1, 3, 5, 7, 8, 11 }, 12, "Neapolitan Minor");
+        insert(gensym("enigmatic"), { 0, 1, 4, 6, 8, 10, 11 }, 12, "Enigmatic");
+        insert(gensym("spanish"), { 0, 1, 4, 5, 7, 8, 10 }, 12, "Spanish");
+
+        // modes of whole tones with added note
+        insert(gensym("whole_leading"), { 0, 2, 4, 6, 8, 10, 11 }, 12, "Leading Whole Tone");
+        insert(gensym("minor_lydian"), { 0, 2, 4, 6, 7, 8, 10 }, 12, "Lydian Minor");
+        insert(gensym("major_neapolitan"), { 0, 1, 3, 5, 7, 9, 11 }, 12, "Neapolitan Major");
+        insert(gensym("major_locrian"), { 0, 2, 4, 5, 6, 8, 10 }, 12, "Locrian Major");
+
+        // 8 note scales
+        insert(gensym("diminished"), { 0, 1, 3, 4, 6, 7, 9, 10 }, 12, "Diminished");
+        insert(gensym("diminished2"), { 0, 2, 3, 5, 6, 8, 9, 11 }, 12, "Diminished 2");
+
+        // 12 note scales
+        insert(gensym("chromatic"), { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11 }, 12, "Chromatic");
+
+        // TWENTY-FOUR TONES PER OCTAVE
+        insert(gensym("chromatic24"), { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23 }, 24, "Chromatic 24");
+
+        // maqam ajam
+        insert(gensym("ajam"), { 0, 4, 8, 10, 14, 18, 22 }, 24, "Ajam");
+        insert(gensym("jiharkah"), { 0, 4, 8, 10, 14, 18, 21 }, 24, "Jiharkah");
+        insert(gensym("shawq_afza"), { 0, 4, 8, 10, 14, 16, 22 }, 24, "Shawq Afza");
+
+        // maqam sikah
+        insert(gensym("sikah"), { 0, 3, 7, 11, 14, 17, 21 }, 24, "Sikah");
+        insert(gensym("sikah_desc"), { 0, 3, 7, 11, 13, 17, 21 }, 24, "Sikah Descending");
+        insert(gensym("huzam"), { 0, 3, 7, 9, 15, 17, 21 }, 24, "Huzam");
+        insert(gensym("iraq"), { 0, 3, 7, 10, 13, 17, 21 }, 24, "Iraq");
+        insert(gensym("bastanikar"), { 0, 3, 7, 10, 13, 15, 21 }, 24, "Bastanikar");
+        insert(gensym("mustar"), { 0, 5, 7, 11, 13, 17, 21 }, 24, "Mustar");
+
+        // maqam bayati
+        insert(gensym("bayati"), { 0, 3, 6, 10, 14, 16, 20 }, 24, "Bayati");
+        insert(gensym("karjighar"), { 0, 3, 6, 10, 12, 18, 20 }, 24, "Karjighar");
+        insert(gensym("husseini"), { 0, 3, 6, 10, 14, 17, 21 }, 24, "Husseini");
+
+        // maqam nahawand
+        insert(gensym("nahawand"), { 0, 4, 6, 10, 14, 16, 22 }, 24, "Nahawand");
+        insert(gensym("nahawand_desc"), { 0, 4, 6, 10, 14, 16, 20 }, 24, "Nahawand Descending");
+        insert(gensym("farahfaza"), { 0, 4, 6, 10, 14, 16, 20 }, 24, "Farahfaza");
+        insert(gensym("murassah"), { 0, 4, 6, 10, 12, 18, 20 }, 24, "Murassah");
+        insert(gensym("ushaq_mashri"), { 0, 4, 6, 10, 14, 17, 21 }, 24, "Ushaq Mashri");
+
+        // maqam rast
+        insert(gensym("rast"), { 0, 4, 7, 10, 14, 18, 21 }, 24, "Rast");
+        insert(gensym("rast_desc"), { 0, 4, 7, 10, 14, 18, 20 }, 24, "Rast Descending");
+        insert(gensym("suznak"), { 0, 4, 7, 10, 14, 16, 22 }, 24, "Suznak");
+        insert(gensym("nairuz"), { 0, 4, 7, 10, 14, 17, 20 }, 24, "Nairuz");
+        insert(gensym("yakah"), { 0, 4, 7, 10, 14, 18, 21 }, 24, "Yakah");
+        insert(gensym("yakah_desc"), { 0, 4, 7, 10, 14, 18, 20 }, 24, "Yakah Descending");
+        insert(gensym("mahur"), { 0, 4, 7, 10, 14, 18, 22 }, 24, "Mahur");
+
+        // maqam hijaz
+        insert(gensym("hijaz"), { 0, 4, 7, 10, 14, 18, 22 }, 24, "Hijaz");
+        insert(gensym("hijaz_desc"), { 0, 4, 7, 10, 14, 18, 22 }, 24, "Hijaz Descending");
+        insert(gensym("zanjaran"), { 0, 4, 7, 10, 14, 18, 22 }, 24, "Zanjaran");
+
+        // maqam hijazKar
+        insert(gensym("hijaz_kar"), { 0, 2, 8, 10, 14, 16, 22 }, 24, "hijazKar");
+
+        // maqam saba
+        insert(gensym("saba"), { 0, 3, 6, 8, 12, 16, 20 }, 24, "Saba");
+        insert(gensym("zamzam"), { 0, 2, 6, 8, 14, 16, 20 }, 24, "Zamzam");
+
+        // maqam kurd
+        insert(gensym("kurd"), { 0, 2, 6, 10, 14, 16, 20 }, 24, "Kurd");
+        insert(gensym("kijaz_kar_kurd"), { 0, 2, 8, 10, 14, 16, 22 }, 24, "Kijaz Kar Kurd");
+
+        // maqam nawa Athar
+        insert(gensym("nawa_athar"), { 0, 4, 6, 12, 14, 16, 22 }, 24, "Nawa Athar");
+        insert(gensym("nikriz"), { 0, 4, 6, 12, 14, 18, 20 }, 24, "Nikriz");
+        insert(gensym("atharKurd"), { 0, 2, 6, 12, 14, 16, 22 }, 24, "Athar Kurd");
+
+        // sort
         all_sorted_.reserve(scales_.size());
         for (auto& kv : scales_) {
-            auto it = std::lower_bound(all_sorted_.begin(), all_sorted_.end(), kv.first,
-                [](t_symbol* k0, t_symbol* k1) {
-                    return std::strcmp(k0->s_name, k1->s_name);
+            auto it = std::lower_bound(all_sorted_.begin(), all_sorted_.end(), &kv.second,
+                [](Scale* s0, Scale* s1) {
+                    return std::strcmp(s0->name()->s_name, s1->name()->s_name) < 0;
                 });
 
-            all_sorted_.insert(it, kv.first);
+            all_sorted_.insert(it, &kv.second);
         }
     }
 
@@ -131,6 +235,28 @@ namespace music {
             return nullptr;
         else
             return &(it->second);
+    }
+
+    std::vector<Scale*> ScaleLibrary::findByNumPitches(size_t n) const
+    {
+        std::vector<Scale*> res;
+
+        std::copy_if(all_sorted_.cbegin(), all_sorted_.cend(),
+            std::back_inserter(res),
+            [n](Scale* sc) { return sc->pitchesPerOctave() == n; });
+
+        return res;
+    }
+
+    std::vector<Scale*> ScaleLibrary::findBySize(size_t n) const
+    {
+        std::vector<Scale*> res;
+
+        std::copy_if(all_sorted_.cbegin(), all_sorted_.cend(),
+            std::back_inserter(res),
+            [n](Scale* sc) { return sc->size() == n; });
+
+        return res;
     }
 
 }
