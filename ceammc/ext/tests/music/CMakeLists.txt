@@ -24,6 +24,7 @@ function(add_music_test src)
     target_sources(test_ext_music PRIVATE "test_music_${src}.cpp")
 endfunction()
 
+add_music_test(scale)
 add_music_test(theory)
 add_music_test(theory_alteration)
 add_music_test(theory_keyboard)
