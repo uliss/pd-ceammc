@@ -51,10 +51,6 @@ namespace music {
             const auto rel_idx = pos_deg % N; // [0..N)
             const auto p = degrees_i_[LAST - rel_idx]; // (N-1) - [0..N) => [0..N)
             const int oct = ((pos_deg / N) + 1) * -pitches_per_octave_;
-            // -1 -2 -3 -4 -5 -6 -7 -8
-            // 0  1   2  3  4  5  0  1
-            // 5  4   3  2  1  0  5  4
-            // 5  4   3  2  1  0 -1 -2
 
             return p + oct;
         }
