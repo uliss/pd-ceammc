@@ -36,6 +36,7 @@
 
 void setup_flow_match();
 void setup_flow_delay();
+void setup_flow_pipe();
 
 void ceammc_flow_setup()
 {
@@ -64,6 +65,7 @@ void ceammc_flow_setup()
     setup_flow_pack();
     setup_flow_pass();
     setup_flow_pass_if();
+    setup_flow_pipe();
     setup_flow_queue();
     setup_flow_reject();
     setup_flow_reject_if();
