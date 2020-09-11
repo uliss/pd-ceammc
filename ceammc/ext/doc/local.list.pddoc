@@ -56,6 +56,7 @@
                 <xinfo on="bang">output list content</xinfo>
                 <xinfo on="float">outputs list element at specified position. Negative indexes are
                 supported</xinfo>
+                <xinfo on="symbol">set new list with single symbol element and output</xinfo>
                 <xinfo on="list">set new list content and output</xinfo>
                 <xinfo on="data:mlist">same as list</xinfo>
             </inlet>

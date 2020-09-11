@@ -217,6 +217,7 @@ public:
     virtual void proto_reverse() = 0;
     virtual void proto_shuffle() = 0;
     virtual size_t proto_size() const = 0;
+    virtual void proto_choose() = 0;
 
     void m_append(t_symbol* /*s*/, const AtomListView& lst)
     {
@@ -308,6 +309,11 @@ public:
     void m_shuffle(t_symbol* /*s*/, const AtomListView& /*lst*/)
     {
         proto_shuffle();
+    }
+
+    void m_choose(t_symbol* /*s*/, const AtomListView& /*lst*/)
+    {
+        proto_choose();
     }
 };
 
@@ -462,6 +468,9 @@ namespace protocol {
 
             // void proto_shuffle()
             obj.addMethod("shuffle", &T::m_shuffle);
+
+            // void proto_choose()
+            obj.addMethod("choose", &T::m_choose);
         }
     };
 

@@ -7,6 +7,9 @@
 #include "data_protocol.h"
 #include "datatype_mlist.h"
 
+#include <ctime>
+#include <random>
+
 using namespace ceammc;
 
 template <class T>
@@ -35,6 +38,11 @@ public:
         }
 
         this->atomTo(0, list()[idx]);
+    }
+
+    void onSymbol(t_symbol* s) override
+    {
+        onList(AtomList(s));
     }
 
     void onList(const AtomList& l) override
@@ -118,6 +126,19 @@ public:
     void proto_fill(const Atom& v) override
     {
         list().fill(v);
+    }
+
+    void proto_choose() override
+    {
+        using RandomGenT = std::mt19937;
+        static RandomGenT gen(time(0));
+
+        auto N = list().size();
+        if (N < 1)
+            return;
+
+        auto idx = std::uniform_int_distribution<size_t>(0, N - 1)(gen);
+        this->atomTo(0, list().at(idx));
     }
 
     void dump() const override

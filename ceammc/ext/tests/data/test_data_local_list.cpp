@@ -54,7 +54,7 @@ TEST_CASE("local.list", "[externals]")
         REQUIRE(t1.outputListAt(0) == LX(1, 2, 3, 4, 5));
 
         t1 << "SYMBOL";
-        REQUIRE_FALSE(t1.hasOutput());
+        REQUIRE(t1.outputListAt(0) == LA("SYMBOL"));
 
         t1 << 1000.f;
         REQUIRE_FALSE(t1.hasOutput());
