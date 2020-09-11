@@ -1,4 +1,5 @@
 #include "mod_random.h"
+#include "random_atom.h"
 #include "random_discrete.h"
 #include "random_float.h"
 #include "random_gauss.h"
@@ -9,6 +10,7 @@
 
 void ceammc_random_setup()
 {
+    setup_random_atom();
     setup_random_discrete();
     setup_random_float();
     setup_random_gauss();
