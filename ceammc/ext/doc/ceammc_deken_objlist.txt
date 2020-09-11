@@ -227,6 +227,7 @@ flow.pass	pass specified values
 pass	pass specified values
 flow.pass_if	pass values that accepted by predicate object
 pass_if	pass values that accepted by predicate object
+flow.pipe	enhanced version on vanilla pipe object
 flow.reject	reject specified values
 reject	reject specified values
 flow.reject_if	reject values by predicate

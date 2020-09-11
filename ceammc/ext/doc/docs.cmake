@@ -127,6 +127,7 @@ set(DOC_FILES
     flow.pack
     flow.pass
     flow.pass_if
+    flow.pipe
     flow.reject
     flow.reject_if
     flow.ring

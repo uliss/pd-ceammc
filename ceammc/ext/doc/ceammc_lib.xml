@@ -467,6 +467,9 @@
     <entry name="flow.pass_if" descr="pass values that accepted by predicate object" ref_view="object">
       <xi:include href="flow.pass_if.pddoc" parse="xml"/>
     </entry>
+    <entry name="flow.pipe" descr="enhanced version on vanilla pipe object" ref_view="object">
+      <xi:include href="flow.pipe.pddoc" parse="xml"/>
+    </entry>
     <entry name="flow.reject" descr="reject specified values" ref_view="object">
       <xi:include href="flow.reject.pddoc" parse="xml"/>
     </entry>

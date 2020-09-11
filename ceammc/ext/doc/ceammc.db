@@ -127,6 +127,7 @@ flow.once,once		..		.
 flow.pack		?		.
 flow.pass,pass		..		.
 flow.pass_if,pass_if		..		..
+flow.pipe		..		.
 flow.prepend,msg.before		...		.
 flow.reject,reject		..		.
 flow.reject_if,reject_if		..		..

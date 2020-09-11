@@ -21,8 +21,9 @@
 - flow.group second inlet added to change @by property
 - flow.match property match added, unmatched outlet added
 - flow.stack added
+- flow.pipe added
 - flow.ring added
-- flow.route can output with selector using *
+- flow.route can output message with matched selector using * prefix
 - flow.split any message support added
 - math.nan~ added (mainly for testing purposes)
 - math.inf~ added (mainly for testing purposes)
