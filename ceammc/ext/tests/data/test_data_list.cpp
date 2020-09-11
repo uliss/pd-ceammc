@@ -11,12 +11,11 @@
  * contact the author of this file, or the owner of the project in which
  * this file belongs to.
  *****************************************************************************/
-#include "catch.hpp"
 #include "data_list.h"
-#include "datatype_string.h"
 #include "test_base.h"
+#include "test_data_base.h"
 
-#include <stdio.h>
+PD_COMPLETE_TEST_SETUP(DataList, data, list)
 
 #define REQUIRE_SIZE(obj, n) REQUIRE_PROPERTY(t, @size, float(n));
 
@@ -33,14 +32,13 @@
         REQUIRE_FLOAT_AT_OUTLET(0, obj, f); \
     }
 
-typedef TestExternal<DataList> DataListTest;
-
 TEST_CASE("data.list", "[externals]")
 {
+    pd_test_init();
+
     SECTION("main")
     {
-
-        DataListTest t("data.list", L());
+        TObj t("data.list", L());
         REQUIRE(t.numInlets() == 2);
         REQUIRE(t.numOutlets() == 1);
 
@@ -134,7 +132,7 @@ TEST_CASE("data.list", "[externals]")
 
     SECTION("construct args")
     {
-        DataListTest t("data.list", LF(1, 2, 3, 4, 5));
+        TObj t("data.list", LF(1, 2, 3, 4, 5));
         REQUIRE_LIST(t, LF(1, 2, 3, 4, 5));
 
         REQUIRE_PROPERTY(t, @size, 5);
@@ -144,10 +142,24 @@ TEST_CASE("data.list", "[externals]")
 
     SECTION("construct args")
     {
-        DataListTest t("data.list", AtomList::parseString("\"a b c\" S\"a b c\""));
+        TObj t("data.list", AtomList::parseString("\"a b c\" S\"a b c\""));
 
         REQUIRE_PROPERTY(t, @size, 2);
         REQUIRE_PROPERTY(t, @empty, 0);
         REQUIRE_PROPERTY(t, @value, "a b c", StringAtom("a b c"));
+    }
+
+    SECTION("input")
+    {
+        TExt t("data.list", LF(1, 2, 3));
+
+        t << BANG;
+        REQUIRE(t.outputListAt(0) == LF(1, 2, 3));
+
+        t << "ABC";
+        REQUIRE(t.outputListAt(0) == LA("ABC"));
+
+        t << LA("A", "B", "C");
+        REQUIRE(t.outputListAt(0) == LA("A", "B", "C"));
     }
 }
