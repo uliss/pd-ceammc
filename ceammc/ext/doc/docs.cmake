@@ -469,6 +469,7 @@ set(DOC_FILES
     proto.firmata
     proto.sp.alpaca
     radio
+    random.atom
     random.float
     random.gauss
     random.int

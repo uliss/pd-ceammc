@@ -27,6 +27,7 @@
 - flow.split any message support added
 - math.nan~ added (mainly for testing purposes)
 - math.inf~ added (mainly for testing purposes)
+- random.atom (with random.a alias) added for weighted random atom generation
 
 ### Changed:
 - ext_info output format changed.

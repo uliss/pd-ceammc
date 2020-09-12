@@ -633,6 +633,8 @@ prop->	separate properties from dataflow
 @->	separate properties from dataflow
 proto.firmata	Firmata Arduino protocol support
 proto.sp.alpaca	protocol parser for Arduino-based CEAMMC footswitch
+random.atom	weighted atom generation from specified list
+random.a	weighted atom generation from specified list
 random.discrete	random weighted integers on interval [0, n)
 random.float	uniform random float generator in specified range
 random.f	uniform random float generator in specified range

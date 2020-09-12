@@ -1452,6 +1452,9 @@
     </entry>
   </category>
   <category name="random">
+    <entry name="random.atom" descr="weighted atom generation from specified list" ref_view="object">
+      <xi:include href="random.atom.pddoc" parse="xml"/>
+    </entry>
     <entry name="random.discrete" descr="random weighted integers on interval [0, n)" ref_view="object">
       <xi:include href="random.discrete.pddoc" parse="xml"/>
     </entry>

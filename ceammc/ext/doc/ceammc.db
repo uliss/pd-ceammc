@@ -470,6 +470,7 @@ prop.split,prop->,@->		.		?
 proto.firmata		.		.
 proto.sp.alpaca		.		.
 radio		.		?
+random.atom,random.a		.		.
 random.discrete		.		.
 random.float,random.f		.		.
 random.gauss		.		.
