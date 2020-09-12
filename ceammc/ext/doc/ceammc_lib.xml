@@ -482,6 +482,9 @@
     <entry name="flow.route" descr="advanced message router" ref_view="object">
       <xi:include href="flow.route.pddoc" parse="xml"/>
     </entry>
+    <entry name="flow.space" descr="space in time messages received in the same logical time" ref_view="object">
+      <xi:include href="flow.space.pddoc" parse="xml"/>
+    </entry>
     <entry name="flow.speedlim" descr="control stream speed limiter" ref_view="object">
       <xi:include href="flow.speedlim.pddoc" parse="xml"/>
     </entry>

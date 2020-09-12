@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="flow.space">
+        <title>flow.space</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>space in time messages received in the same logical time</description>
+            <license>GPL3 or later</license>
+            <library>ceammc</library>
+            <category>flow</category>
+            <keywords>space</keywords>
+            <since>0.9.1</since>
+        </meta>
+        <arguments>
+            <argument type="float" name="MS" units="msec">time space between messages</argument>
+            <argument type="int" name="N" minvalue="0">time space = N*space after last outputted message</argument>
+        </arguments>
+        <properties>
+            <property name="@delay" type="float" default="1" minvalue="1" units="msec">time-space between messages</property>
+        </properties>
+        <inlets>
+            <inlet>
+                <xinfo>messages</xinfo>
+            </inlet>
+            <inlet>
+                <xinfo>reset: cancel all scheduled outputs</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet>output</outlet>
+            <outlet>bang on finish (after @delay*@done ms after last outputted message)</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[7, 2, 1, 2, 0, 2, 1, 2 #a( [reset(
+|                           |.
+[flow.space 110            #b]
+|
+[degree->key minor {i=1,o=1}]
+|
+[+ 60]
+|
+[mtof  ]
+|      |
+[osc~] [b]
+|      |
+[env.ar~ 10 90]
+|
+[ui.hgain~]    [ui.dsp~]
+|\
+[dac~]
+
+[X b:1->a]
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>
