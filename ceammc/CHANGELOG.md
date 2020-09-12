@@ -20,6 +20,7 @@
 - flow.greater_eq added (with flow.>= alias)
 - flow.group second inlet added to change @by property
 - flow.match property match added, unmatched outlet added
+- flow.space added to space in time messages received in the same logical time
 - flow.stack added
 - flow.pipe added
 - flow.ring added
