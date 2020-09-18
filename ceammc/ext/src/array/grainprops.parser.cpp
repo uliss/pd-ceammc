@@ -688,245 +688,257 @@ namespace ceammc {
 #line 689 "grainprops.parser.cpp"
     break;
 
-  case 13:
-#line 107 "grain_properties.yy"
-                                            { lexer.grain()->setSpeed(yystack_[0].value.as < float > ()); }
+  case 12:
+#line 103 "grain_properties.yy"
+                                            { lexer.grain()->setAmplitude(frand(yystack_[1].value.as < float > (), yystack_[0].value.as < float > ())); }
 #line 695 "grainprops.parser.cpp"
     break;
 
   case 14:
-#line 108 "grain_properties.yy"
-                                            { lexer.grain()->setSpeed(frand(yystack_[1].value.as < float > (), yystack_[0].value.as < float > ())); }
+#line 105 "grain_properties.yy"
+                                            { lexer.grain()->setAmplitudeRange(yystack_[1].value.as < float > (), yystack_[0].value.as < float > ()); }
 #line 701 "grainprops.parser.cpp"
     break;
 
   case 15:
 #line 109 "grain_properties.yy"
-                                            { lexer.grain()->setSpeedExpr(yystack_[0].value.as < std::string > ()); }
+                                            { lexer.grain()->setSpeed(yystack_[0].value.as < float > ()); }
 #line 707 "grainprops.parser.cpp"
     break;
 
   case 16:
 #line 110 "grain_properties.yy"
-                                            { lexer.grain()->setSpeed(yystack_[0].value.as < float > ()); }
+                                            { lexer.grain()->setSpeed(frand(yystack_[1].value.as < float > (), yystack_[0].value.as < float > ())); }
 #line 713 "grainprops.parser.cpp"
     break;
 
   case 17:
 #line 111 "grain_properties.yy"
-                                            { lexer.grain()->setSpeed(frand(yystack_[1].value.as < float > (), yystack_[0].value.as < float > ())); }
+                                            { lexer.grain()->setSpeedExpr(yystack_[0].value.as < std::string > ()); }
 #line 719 "grainprops.parser.cpp"
     break;
 
   case 18:
 #line 112 "grain_properties.yy"
-                                            { lexer.grain()->setSpeedExpr(yystack_[0].value.as < std::string > ()); }
+                                            { lexer.grain()->setSpeed(yystack_[0].value.as < float > ()); }
 #line 725 "grainprops.parser.cpp"
     break;
 
   case 19:
 #line 113 "grain_properties.yy"
-                                            { lexer.grain()->addSpeed(yystack_[0].value.as < float > ()); }
+                                            { lexer.grain()->setSpeed(frand(yystack_[1].value.as < float > (), yystack_[0].value.as < float > ())); }
 #line 731 "grainprops.parser.cpp"
     break;
 
   case 20:
 #line 114 "grain_properties.yy"
-                                            { lexer.grain()->addSpeed(frand(yystack_[1].value.as < float > (), yystack_[0].value.as < float > ())); }
+                                            { lexer.grain()->setSpeedExpr(yystack_[0].value.as < std::string > ()); }
 #line 737 "grainprops.parser.cpp"
     break;
 
-  case 28:
-#line 122 "grain_properties.yy"
+  case 21:
+#line 115 "grain_properties.yy"
+                                            { lexer.grain()->addSpeed(yystack_[0].value.as < float > ()); }
+#line 743 "grainprops.parser.cpp"
+    break;
+
+  case 22:
+#line 116 "grain_properties.yy"
+                                            { lexer.grain()->addSpeed(frand(yystack_[1].value.as < float > (), yystack_[0].value.as < float > ())); }
+#line 749 "grainprops.parser.cpp"
+    break;
+
+  case 30:
+#line 124 "grain_properties.yy"
                                         {
                                           auto d = yystack_[0].value.as < float > ();
                                           lexer.grain()->setSpeedDone([d](Grain* g){ return g->speed() + d; });
                                         }
-#line 746 "grainprops.parser.cpp"
+#line 758 "grainprops.parser.cpp"
     break;
 
-  case 29:
-#line 127 "grain_properties.yy"
+  case 31:
+#line 129 "grain_properties.yy"
                                         {
                                           auto a = yystack_[1].value.as < float > ();
                                           auto b = yystack_[0].value.as < float > ();
                                           lexer.grain()->setSpeedDone([a,b](Grain* g){ return g->speed() + frand(a, b); });
                                         }
-#line 756 "grainprops.parser.cpp"
+#line 768 "grainprops.parser.cpp"
     break;
 
-  case 31:
-#line 134 "grain_properties.yy"
+  case 33:
+#line 136 "grain_properties.yy"
                                         {
                                           auto v = yystack_[0].value.as < float > ();
                                           lexer.grain()->setSpeedDone([v](Grain*){ return v; });
                                         }
-#line 765 "grainprops.parser.cpp"
+#line 777 "grainprops.parser.cpp"
     break;
 
-  case 32:
-#line 139 "grain_properties.yy"
+  case 34:
+#line 141 "grain_properties.yy"
                                         {
                                           auto a = yystack_[1].value.as < float > ();
                                           auto b = yystack_[0].value.as < float > ();
                                           lexer.grain()->setSpeedDone([a,b](Grain*){ return frand(a, b); });
                                         }
-#line 775 "grainprops.parser.cpp"
-    break;
-
-  case 34:
-#line 145 "grain_properties.yy"
-                                        { lexer.grain()->setSpeedRange(yystack_[1].value.as < float > (), yystack_[0].value.as < float > ()); }
-#line 781 "grainprops.parser.cpp"
-    break;
-
-  case 35:
-#line 149 "grain_properties.yy"
-                                          { lexer.grain()->setPan(yystack_[0].value.as < float > ()); }
 #line 787 "grainprops.parser.cpp"
     break;
 
   case 36:
-#line 150 "grain_properties.yy"
-                                          { lexer.grain()->setPan(frand_closed(yystack_[1].value.as < float > (), yystack_[0].value.as < float > ())); }
+#line 147 "grain_properties.yy"
+                                        { lexer.grain()->setSpeedRange(yystack_[1].value.as < float > (), yystack_[0].value.as < float > ()); }
 #line 793 "grainprops.parser.cpp"
     break;
 
-  case 38:
-#line 152 "grain_properties.yy"
+  case 37:
+#line 151 "grain_properties.yy"
                                           { lexer.grain()->setPan(yystack_[0].value.as < float > ()); }
 #line 799 "grainprops.parser.cpp"
     break;
 
-  case 39:
-#line 153 "grain_properties.yy"
+  case 38:
+#line 152 "grain_properties.yy"
                                           { lexer.grain()->setPan(frand_closed(yystack_[1].value.as < float > (), yystack_[0].value.as < float > ())); }
 #line 805 "grainprops.parser.cpp"
     break;
 
-  case 41:
-#line 155 "grain_properties.yy"
-                                          { lexer.grain()->addPan(yystack_[0].value.as < float > ()); }
+  case 40:
+#line 154 "grain_properties.yy"
+                                          { lexer.grain()->setPan(yystack_[0].value.as < float > ()); }
 #line 811 "grainprops.parser.cpp"
     break;
 
-  case 42:
-#line 156 "grain_properties.yy"
-                                          { lexer.grain()->addPan(frand_closed(yystack_[1].value.as < float > (), yystack_[0].value.as < float > ())); }
+  case 41:
+#line 155 "grain_properties.yy"
+                                          { lexer.grain()->setPan(frand_closed(yystack_[1].value.as < float > (), yystack_[0].value.as < float > ())); }
 #line 817 "grainprops.parser.cpp"
     break;
 
-  case 50:
-#line 164 "grain_properties.yy"
+  case 43:
+#line 157 "grain_properties.yy"
+                                          { lexer.grain()->addPan(yystack_[0].value.as < float > ()); }
+#line 823 "grainprops.parser.cpp"
+    break;
+
+  case 44:
+#line 158 "grain_properties.yy"
+                                          { lexer.grain()->addPan(frand_closed(yystack_[1].value.as < float > (), yystack_[0].value.as < float > ())); }
+#line 829 "grainprops.parser.cpp"
+    break;
+
+  case 52:
+#line 166 "grain_properties.yy"
                                             {
                                               auto v = yystack_[0].value.as < float > ();
                                               auto g = lexer.grain();
                                               lexer.grain()->setPanDone([v,g](){ return g->pan() + v; });
                                             }
-#line 827 "grainprops.parser.cpp"
+#line 839 "grainprops.parser.cpp"
     break;
 
-  case 51:
-#line 170 "grain_properties.yy"
+  case 53:
+#line 172 "grain_properties.yy"
                                             {
                                               auto a = yystack_[1].value.as < float > ();
                                               auto b = yystack_[0].value.as < float > ();
                                               auto g = lexer.grain();
                                               lexer.grain()->setPanDone([a,b,g](){ return g->pan() + frand_closed(a, b); });
                                             }
-#line 838 "grainprops.parser.cpp"
+#line 850 "grainprops.parser.cpp"
     break;
 
-  case 53:
-#line 177 "grain_properties.yy"
-                                            { auto v = yystack_[0].value.as < float > (); lexer.grain()->setPanDone([v](){ return v; }); }
-#line 844 "grainprops.parser.cpp"
-    break;
-
-  case 54:
+  case 55:
 #line 179 "grain_properties.yy"
+                                            { auto v = yystack_[0].value.as < float > (); lexer.grain()->setPanDone([v](){ return v; }); }
+#line 856 "grainprops.parser.cpp"
+    break;
+
+  case 56:
+#line 181 "grain_properties.yy"
                                             {
                                               auto a = yystack_[1].value.as < float > ();
                                               auto b = yystack_[0].value.as < float > ();
                                               lexer.grain()->setPanDone([a,b](){ return frand_closed(a, b); });
                                             }
-#line 854 "grainprops.parser.cpp"
-    break;
-
-  case 56:
-#line 185 "grain_properties.yy"
-                                             { lexer.grain()->setPanOverflow(yystack_[0].value.as < Grain::PanOverflow > ()); }
-#line 860 "grainprops.parser.cpp"
-    break;
-
-  case 57:
-#line 186 "grain_properties.yy"
-                                             { lexer.grain()->setPanMode(yystack_[0].value.as < Grain::PanMode > ()); }
 #line 866 "grainprops.parser.cpp"
     break;
 
   case 58:
-#line 191 "grain_properties.yy"
-                               { lexer.grain()->array_pos_samp = yystack_[0].value.as < double > (); }
+#line 187 "grain_properties.yy"
+                                             { lexer.grain()->setPanOverflow(yystack_[0].value.as < Grain::PanOverflow > ()); }
 #line 872 "grainprops.parser.cpp"
     break;
 
   case 59:
-#line 192 "grain_properties.yy"
-                                 { lexer.grain()->array_pos_samp = frand_closed(yystack_[1].value.as < double > (), yystack_[0].value.as < double > ()); }
+#line 188 "grain_properties.yy"
+                                             { lexer.grain()->setPanMode(yystack_[0].value.as < Grain::PanMode > ()); }
 #line 878 "grainprops.parser.cpp"
     break;
 
   case 60:
-#line 196 "grain_properties.yy"
-                                   { lexer.grain()->length_samp = yystack_[0].value.as < double > (); }
+#line 193 "grain_properties.yy"
+                               { lexer.grain()->array_pos_samp = yystack_[0].value.as < double > (); }
 #line 884 "grainprops.parser.cpp"
     break;
 
   case 61:
-#line 197 "grain_properties.yy"
-                                     { lexer.grain()->length_samp = frand_closed(yystack_[1].value.as < double > (), yystack_[0].value.as < double > ()); }
+#line 194 "grain_properties.yy"
+                                 { lexer.grain()->array_pos_samp = frand_closed(yystack_[1].value.as < double > (), yystack_[0].value.as < double > ()); }
 #line 890 "grainprops.parser.cpp"
     break;
 
   case 62:
-#line 201 "grain_properties.yy"
-                                   { lexer.grain()->play_pos = yystack_[0].value.as < double > (); }
+#line 198 "grain_properties.yy"
+                                   { lexer.grain()->length_samp = yystack_[0].value.as < double > (); }
 #line 896 "grainprops.parser.cpp"
     break;
 
   case 63:
-#line 202 "grain_properties.yy"
-                                     { lexer.grain()->play_pos = frand_closed(yystack_[1].value.as < double > (), yystack_[0].value.as < double > ()); }
+#line 199 "grain_properties.yy"
+                                     { lexer.grain()->length_samp = frand_closed(yystack_[1].value.as < double > (), yystack_[0].value.as < double > ()); }
 #line 902 "grainprops.parser.cpp"
     break;
 
-  case 70:
-#line 212 "grain_properties.yy"
-                                        { lexer.grain()->setPlayInterpolation(yystack_[0].value.as < Grain::PlayInterp > ()); }
+  case 64:
+#line 203 "grain_properties.yy"
+                                   { lexer.grain()->play_pos = yystack_[0].value.as < double > (); }
 #line 908 "grainprops.parser.cpp"
     break;
 
-  case 73:
-#line 221 "grain_properties.yy"
-            { yylhs.value.as < double > () = yystack_[0].value.as < float > (); }
+  case 65:
+#line 204 "grain_properties.yy"
+                                     { lexer.grain()->play_pos = frand_closed(yystack_[1].value.as < double > (), yystack_[0].value.as < double > ()); }
 #line 914 "grainprops.parser.cpp"
     break;
 
-  case 74:
-#line 222 "grain_properties.yy"
-                   { yylhs.value.as < double > () = sys_getsr() * 0.001 * yystack_[1].value.as < float > (); }
+  case 72:
+#line 214 "grain_properties.yy"
+                                        { lexer.grain()->setPlayInterpolation(yystack_[0].value.as < Grain::PlayInterp > ()); }
 #line 920 "grainprops.parser.cpp"
     break;
 
   case 75:
 #line 223 "grain_properties.yy"
-                   { yylhs.value.as < double > () = sys_getsr() * yystack_[1].value.as < float > (); }
+            { yylhs.value.as < double > () = yystack_[0].value.as < float > (); }
 #line 926 "grainprops.parser.cpp"
     break;
 
+  case 76:
+#line 224 "grain_properties.yy"
+                   { yylhs.value.as < double > () = sys_getsr() * 0.001 * yystack_[1].value.as < float > (); }
+#line 932 "grainprops.parser.cpp"
+    break;
 
-#line 930 "grainprops.parser.cpp"
+  case 77:
+#line 225 "grain_properties.yy"
+                   { yylhs.value.as < double > () = sys_getsr() * yystack_[1].value.as < float > (); }
+#line 938 "grainprops.parser.cpp"
+    break;
+
+
+#line 942 "grainprops.parser.cpp"
 
             default:
               break;
@@ -1271,153 +1283,155 @@ namespace ceammc {
   }
 
 
-  const signed char GrainPropertiesParser::yypact_ninf_ = -25;
+  const signed char GrainPropertiesParser::yypact_ninf_ = -23;
 
   const signed char GrainPropertiesParser::yytable_ninf_ = -1;
 
-  const signed char
+  const short
   GrainPropertiesParser::yypact_[] =
   {
-      94,    50,    81,   -10,    82,    -9,     6,    83,   -25,   -25,
-     -25,   -25,   -25,   -25,   -25,    94,    11,   -24,   -25,     2,
-      14,   -25,   -25,   -25,   -25,   -25,     2,   -25,     5,    21,
-      69,    -1,    55,    10,    45,    13,   -25,    24,    47,    61,
-      62,    49,    56,    27,   -25,     2,   -25,   -25,   -25,   -25,
-       2,   -25,   -25,     2,    60,    63,   -25,   -25,   -25,   -25,
-     -25,   -25,    31,    32,    35,    39,   -25,   -25,   -25,   -25,
-      64,    65,    78,   -25,    79,    84,   -25,   -25,    44,    46,
-      53,    57,    85,    86,    87,    89,   -25,     2,   -25,   -25,
-     -25,    90,    91,    93,   -25,    95,    97,   -25,    98,   100,
-     -25,   101,   103,   -25,   -25,   -25,   104,   -25,   105,   106,
-     108,   -25,   109,   111,   -25,   112,   114,   -25,   115,   117,
-     -25,   -25,   -25,   -25,   118,   -25,   -25,   -25,   119,   -25,
-     120,   -25,   121,   -25,   122,   -25,   -25,   -25,   123,   -25,
-     124,   -25,   125,   -25,   126,   -25,   -25,   -25,   -25,   -25,
-     -25,   -25,   -25,   -25
+      99,    13,   -22,    51,   -17,    -8,     6,    63,   -23,   -23,
+     -23,   -23,   -23,   -23,   -23,    99,    10,   -19,     4,     5,
+     -23,    22,    90,   -23,   -23,   -23,   -23,   -23,    22,   -23,
+      15,    24,    74,    -6,    65,    11,    23,    18,   -23,    32,
+      68,    71,    73,    45,    48,    33,   -23,    22,   -23,   -23,
+     -23,   -23,    64,    66,    22,   -23,   -23,    22,    70,    81,
+     -23,   -23,   -23,   -23,   -23,   -23,    35,    36,    44,    47,
+     -23,   -23,   -23,   -23,    82,    83,    85,   -23,    86,    88,
+     -23,   -23,    55,    56,    59,    67,    89,    91,    92,    94,
+     -23,    22,   -23,   -23,   -23,   -23,   -23,    95,    96,    98,
+     -23,   100,   102,   -23,   103,   105,   -23,   106,   108,   -23,
+     -23,   -23,   109,   -23,   110,   111,   113,   -23,   114,   116,
+     -23,   117,   119,   -23,   120,   122,   -23,   -23,   -23,   -23,
+     123,   -23,   -23,   -23,   124,   -23,   125,   -23,   126,   -23,
+     127,   -23,   -23,   -23,   128,   -23,   129,   -23,   130,   -23,
+     131,   -23,   -23,   -23,   -23,   -23,   -23,   -23,   -23,   -23
   };
 
   const signed char
   GrainPropertiesParser::yydefact_[] =
   {
-       0,     0,     0,     0,     0,     0,     0,     0,    66,    65,
-      64,    67,    68,    69,    71,    76,     0,     0,    11,     0,
-      73,    58,    10,     9,     8,    70,     0,    60,     0,     0,
-       0,     0,     0,     0,     0,     0,    35,     0,     0,     0,
-       0,     0,     0,     0,    13,     0,    62,    72,     1,    12,
-       0,    74,    75,     0,     0,     0,    41,    37,     6,     5,
-       7,    57,     0,     0,     0,     0,     2,     4,     3,    56,
-       0,     0,     0,    38,     0,     0,    19,    15,     0,     0,
-       0,     0,     0,     0,     0,     0,    16,     0,    59,    61,
-      43,     0,     0,     0,    44,     0,     0,    47,     0,     0,
-      50,     0,     0,    53,    36,    40,     0,    21,     0,     0,
-       0,    22,     0,     0,    25,     0,     0,    28,     0,     0,
-      31,    14,    34,    18,     0,    63,    42,    46,     0,    49,
-       0,    52,     0,    55,     0,    39,    20,    24,     0,    27,
-       0,    30,     0,    33,     0,    17,    45,    48,    51,    54,
-      23,    26,    29,    32
+       0,     0,     0,     0,     0,     0,     0,     0,    68,    67,
+      66,    69,    70,    71,    73,    78,     0,     0,     0,     0,
+      11,     0,    75,    60,    10,     9,     8,    72,     0,    62,
+       0,     0,     0,     0,     0,     0,     0,     0,    37,     0,
+       0,     0,     0,     0,     0,     0,    15,     0,    64,    74,
+       1,    13,     0,     0,     0,    76,    77,     0,     0,     0,
+      43,    39,     6,     5,     7,    59,     0,     0,     0,     0,
+       2,     4,     3,    58,     0,     0,     0,    40,     0,     0,
+      21,    17,     0,     0,     0,     0,     0,     0,     0,     0,
+      18,     0,    12,    14,    61,    63,    45,     0,     0,     0,
+      46,     0,     0,    49,     0,     0,    52,     0,     0,    55,
+      38,    42,     0,    23,     0,     0,     0,    24,     0,     0,
+      27,     0,     0,    30,     0,     0,    33,    16,    36,    20,
+       0,    65,    44,    48,     0,    51,     0,    54,     0,    57,
+       0,    41,    22,    26,     0,    29,     0,    32,     0,    35,
+       0,    19,    47,    50,    53,    56,    25,    28,    31,    34
   };
 
   const signed char
   GrainPropertiesParser::yypgoto_[] =
   {
-     -25,   -25,   -25,   -25,   -25,   -25,   -25,   -25,   -25,   -25,
-      28,   -25,    -4,   -25
+     -23,   -23,   -23,   -23,   -23,   -23,   -23,   -23,   -23,   -23,
+      25,   -23,    -4,   -23
   };
 
   const signed char
   GrainPropertiesParser::yydefgoto_[] =
   {
-      -1,    69,    61,    25,     8,     9,    10,    11,    12,    13,
-      14,    15,    21,    16
+      -1,    73,    65,    27,     8,     9,    10,    11,    12,    13,
+      14,    15,    23,    16
   };
 
   const unsigned char
   GrainPropertiesParser::yytable_[] =
   {
-      27,    28,    22,    46,    29,    23,    49,    30,    31,    62,
-      24,    48,    32,    33,    34,    50,    37,    35,    54,    38,
-      36,    66,    53,    39,    67,    63,    71,    40,    55,    41,
-      42,    20,    43,    51,    56,    44,    72,    74,    68,    52,
-      84,    87,    73,    47,    92,    95,    88,    75,    98,    89,
-      85,    57,   101,    76,    93,    96,    86,   109,    99,   112,
-      94,    97,   102,    17,   100,    64,   115,   110,   103,   113,
-     118,    78,    80,   111,    70,   114,   116,    77,    82,    18,
-     119,    65,   117,   125,    58,    83,   120,    79,    81,    59,
-      90,     0,    91,   104,     0,   105,    60,     1,     2,     3,
-       4,     5,     6,     7,    19,    26,    45,   106,     0,   107,
-      20,    20,    20,   108,   121,   122,     0,   123,   124,   126,
-       0,   127,   128,     0,     0,   129,   130,     0,   131,   132,
-       0,   133,   134,   135,   136,     0,   137,   138,     0,   139,
-     140,     0,   141,   142,     0,   143,   144,   145,   146,   147,
-     148,   149,   150,   151,   152,   153
+      29,    21,    30,    48,    66,    31,    28,    22,    32,    33,
+      50,    51,    22,    34,    35,    36,    39,    54,    37,    40,
+      67,    38,    70,    41,    57,    71,    17,    42,    58,    43,
+      44,    75,    45,    52,    53,    46,    18,    19,    59,    72,
+      49,    76,    20,    91,    60,    78,    88,    77,    98,   101,
+      94,    22,    74,    95,    61,    79,    89,   104,    99,   102,
+     107,    80,    90,    24,   100,   103,    25,   105,   115,   118,
+     108,    26,   121,   106,    86,    68,   109,    87,   116,   119,
+     124,    82,   122,    84,   117,   120,    47,   131,   123,    62,
+     125,    69,    22,    92,    63,    93,   126,    83,    81,    85,
+      96,    64,     1,     2,     3,     4,     5,     6,     7,    55,
+      97,   110,     0,   111,   112,    56,   113,   114,   127,     0,
+     128,     0,   129,   130,   132,     0,   133,   134,     0,     0,
+     135,   136,     0,   137,   138,     0,   139,   140,   141,   142,
+       0,   143,   144,     0,   145,   146,     0,   147,   148,     0,
+     149,   150,   151,   152,   153,   154,   155,   156,   157,   158,
+     159
   };
 
   const signed char
   GrainPropertiesParser::yycheck_[] =
   {
-       4,    10,    12,     7,    13,    15,    30,    16,    17,    10,
-      20,     0,    21,    22,    23,    19,    10,    26,    13,    13,
-      29,    11,    26,    17,    14,    26,    13,    21,    23,    23,
-      24,    29,    26,    19,    29,    29,    23,    13,    28,    25,
-      13,    45,    29,    15,    13,    13,    50,    23,    13,    53,
-      23,    30,    13,    29,    23,    23,    29,    13,    23,    13,
-      29,    29,    23,    13,    29,    10,    13,    23,    29,    23,
-      13,    10,    10,    29,    29,    29,    23,    30,    29,    29,
-      23,    26,    29,    87,    15,    29,    29,    26,    26,    20,
-      30,    -1,    29,    29,    -1,    30,    27,     3,     4,     5,
-       6,     7,     8,     9,    23,    23,    23,    29,    -1,    30,
-      29,    29,    29,    29,    29,    29,    -1,    30,    29,    29,
-      -1,    30,    29,    -1,    -1,    30,    29,    -1,    30,    29,
-      -1,    30,    29,    29,    29,    -1,    30,    29,    -1,    30,
-      29,    -1,    30,    29,    -1,    30,    29,    29,    29,    29,
-      29,    29,    29,    29,    29,    29
+       4,    23,    10,     7,    10,    13,    23,    29,    16,    17,
+       0,    30,    29,    21,    22,    23,    10,    21,    26,    13,
+      26,    29,    11,    17,    28,    14,    13,    21,    13,    23,
+      24,    13,    26,    29,    29,    29,    23,    24,    23,    28,
+      15,    23,    29,    47,    29,    13,    13,    29,    13,    13,
+      54,    29,    29,    57,    30,    23,    23,    13,    23,    23,
+      13,    29,    29,    12,    29,    29,    15,    23,    13,    13,
+      23,    20,    13,    29,    29,    10,    29,    29,    23,    23,
+      13,    10,    23,    10,    29,    29,    23,    91,    29,    15,
+      23,    26,    29,    29,    20,    29,    29,    26,    30,    26,
+      30,    27,     3,     4,     5,     6,     7,     8,     9,    19,
+      29,    29,    -1,    30,    29,    25,    30,    29,    29,    -1,
+      29,    -1,    30,    29,    29,    -1,    30,    29,    -1,    -1,
+      30,    29,    -1,    30,    29,    -1,    30,    29,    29,    29,
+      -1,    30,    29,    -1,    30,    29,    -1,    30,    29,    -1,
+      30,    29,    29,    29,    29,    29,    29,    29,    29,    29,
+      29
   };
 
   const signed char
   GrainPropertiesParser::yystos_[] =
   {
        0,     3,     4,     5,     6,     7,     8,     9,    35,    36,
-      37,    38,    39,    40,    41,    42,    44,    13,    29,    23,
-      29,    43,    12,    15,    20,    34,    23,    43,    10,    13,
-      16,    17,    21,    22,    23,    26,    29,    10,    13,    17,
-      21,    23,    24,    26,    29,    23,    43,    41,     0,    30,
-      43,    19,    25,    43,    13,    23,    29,    30,    15,    20,
-      27,    33,    10,    26,    10,    26,    11,    14,    28,    32,
-      29,    13,    23,    29,    13,    23,    29,    30,    10,    26,
-      10,    26,    29,    29,    13,    23,    29,    43,    43,    43,
-      30,    29,    13,    23,    29,    13,    23,    29,    13,    23,
-      29,    13,    23,    29,    29,    30,    29,    30,    29,    13,
-      23,    29,    13,    23,    29,    13,    23,    29,    13,    23,
-      29,    29,    29,    30,    29,    43,    29,    30,    29,    30,
-      29,    30,    29,    30,    29,    29,    29,    30,    29,    30,
-      29,    30,    29,    30,    29,    29,    29,    29,    29,    29,
-      29,    29,    29,    29
+      37,    38,    39,    40,    41,    42,    44,    13,    23,    24,
+      29,    23,    29,    43,    12,    15,    20,    34,    23,    43,
+      10,    13,    16,    17,    21,    22,    23,    26,    29,    10,
+      13,    17,    21,    23,    24,    26,    29,    23,    43,    41,
+       0,    30,    29,    29,    43,    19,    25,    43,    13,    23,
+      29,    30,    15,    20,    27,    33,    10,    26,    10,    26,
+      11,    14,    28,    32,    29,    13,    23,    29,    13,    23,
+      29,    30,    10,    26,    10,    26,    29,    29,    13,    23,
+      29,    43,    29,    29,    43,    43,    30,    29,    13,    23,
+      29,    13,    23,    29,    13,    23,    29,    13,    23,    29,
+      29,    30,    29,    30,    29,    13,    23,    29,    13,    23,
+      29,    13,    23,    29,    13,    23,    29,    29,    29,    30,
+      29,    43,    29,    30,    29,    30,    29,    30,    29,    30,
+      29,    29,    29,    30,    29,    30,    29,    30,    29,    30,
+      29,    29,    29,    29,    29,    29,    29,    29,    29,    29
   };
 
   const signed char
   GrainPropertiesParser::yyr1_[] =
   {
        0,    31,    32,    32,    32,    33,    33,    33,    34,    34,
-      34,    35,    35,    36,    36,    36,    36,    36,    36,    36,
+      34,    35,    35,    35,    35,    36,    36,    36,    36,    36,
       36,    36,    36,    36,    36,    36,    36,    36,    36,    36,
-      36,    36,    36,    36,    36,    37,    37,    37,    37,    37,
+      36,    36,    36,    36,    36,    36,    36,    37,    37,    37,
       37,    37,    37,    37,    37,    37,    37,    37,    37,    37,
-      37,    37,    37,    37,    37,    37,    37,    37,    38,    38,
-      39,    39,    40,    40,    41,    41,    41,    41,    41,    41,
-      41,    42,    42,    43,    43,    43,    44
+      37,    37,    37,    37,    37,    37,    37,    37,    37,    37,
+      38,    38,    39,    39,    40,    40,    41,    41,    41,    41,
+      41,    41,    41,    42,    42,    43,    43,    43,    44
   };
 
   const signed char
   GrainPropertiesParser::yyr2_[] =
   {
        0,     2,     1,     1,     1,     1,     1,     1,     1,     1,
-       1,     2,     3,     2,     4,     3,     3,     5,     4,     3,
-       5,     4,     4,     6,     5,     4,     6,     5,     4,     6,
-       5,     4,     6,     5,     4,     2,     4,     3,     3,     5,
+       1,     2,     4,     3,     4,     2,     4,     3,     3,     5,
        4,     3,     5,     4,     4,     6,     5,     4,     6,     5,
-       4,     6,     5,     4,     6,     5,     3,     3,     2,     4,
-       2,     4,     2,     4,     1,     1,     1,     1,     1,     1,
-       2,     1,     2,     1,     2,     2,     1
+       4,     6,     5,     4,     6,     5,     4,     2,     4,     3,
+       3,     5,     4,     3,     5,     4,     4,     6,     5,     4,
+       6,     5,     4,     6,     5,     4,     6,     5,     3,     3,
+       2,     4,     2,     4,     2,     4,     1,     1,     1,     1,
+       1,     1,     2,     1,     2,     1,     2,     2,     1
   };
 
 
@@ -1444,13 +1458,13 @@ namespace ceammc {
   GrainPropertiesParser::yyrline_[] =
   {
        0,    84,    84,    85,    86,    90,    91,    92,    96,    97,
-      98,   102,   103,   107,   108,   109,   110,   111,   112,   113,
-     114,   115,   116,   117,   118,   119,   120,   121,   122,   126,
-     132,   133,   138,   144,   145,   149,   150,   151,   152,   153,
+      98,   102,   103,   104,   105,   109,   110,   111,   112,   113,
+     114,   115,   116,   117,   118,   119,   120,   121,   122,   123,
+     124,   128,   134,   135,   140,   146,   147,   151,   152,   153,
      154,   155,   156,   157,   158,   159,   160,   161,   162,   163,
-     164,   169,   176,   177,   178,   184,   185,   186,   191,   192,
-     196,   197,   201,   202,   206,   207,   208,   209,   210,   211,
-     212,   216,   217,   221,   222,   223,   227
+     164,   165,   166,   171,   178,   179,   180,   186,   187,   188,
+     193,   194,   198,   199,   203,   204,   208,   209,   210,   211,
+     212,   213,   214,   218,   219,   223,   224,   225,   229
   };
 
   void
@@ -1483,9 +1497,9 @@ namespace ceammc {
 
 #line 7 "grain_properties.yy"
 } // ceammc
-#line 1487 "grainprops.parser.cpp"
+#line 1501 "grainprops.parser.cpp"
 
-#line 229 "grain_properties.yy"
+#line 231 "grain_properties.yy"
 
 
 void ceammc::GrainPropertiesParser::error(const std::string& err_message)

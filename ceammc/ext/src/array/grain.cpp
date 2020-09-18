@@ -23,7 +23,7 @@
 
 namespace ceammc {
 
-static_assert(sizeof(Grain) == 158, "");
+static_assert(sizeof(Grain) == 166, "");
 
 static float foldFloat(float x, float max)
 {
@@ -135,6 +135,18 @@ void Grain::setPan(float pan)
 void Grain::setPanMode(Grain::PanMode m)
 {
     pan_mode_ = m;
+}
+
+void Grain::setAmplitude(float amp)
+{
+    amp_ = clip(amp, amp_min_, amp_max_);
+}
+
+void Grain::setAmplitudeRange(float min, float max)
+{
+    auto mm = std::minmax(min, max);
+    amp_min_ = mm.first;
+    amp_max_ = mm.second;
 }
 
 void Grain::start(size_t playPosSamp)

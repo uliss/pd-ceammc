@@ -349,4 +349,14 @@ TEST_CASE("array.grainer", "[externals]")
         MSG_GRAIN(t, "@amp 0.5");
         REQUIRE(t.cloud().grains().back().grain->amplitude() == 0.5);
     }
+
+    SECTION("Grain @amp random")
+    {
+        GrainRandom::seed(0);
+
+        TExt t("array.grainer~", LA("array_g1"));
+        MSG_GRAIN(t, "@amp range 1 20 @amp random 10 20");
+        REQUIRE(t.cloud().grains().back().grain->amplitude() == Approx(15.48814));
+        REQUIRE(t.cloud().grains().back().grain->amplitudeRange() == std::pair<float, float>(1, 20));
+    }
 }

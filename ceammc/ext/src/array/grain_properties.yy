@@ -100,7 +100,9 @@ ENUM_INTERP_MODE
 
 AMP
     : PROP_AMP FLOAT                        { lexer.grain()->setAmplitude($2); }
+    | PROP_AMP S_RANDOM FLOAT FLOAT         { lexer.grain()->setAmplitude(frand($3, $4)); }
     | PROP_AMP S_EXPR STRING
+    | PROP_AMP S_RANGE FLOAT FLOAT          { lexer.grain()->setAmplitudeRange($3, $4); }
     ;
 
 SPEED

@@ -1430,7 +1430,7 @@ switch (yykind)
     // Tables.
     // YYPACT[STATE-NUM] -- Index in YYTABLE of the portion describing
     // STATE-NUM.
-    static const signed char yypact_[];
+    static const short yypact_[];
 
     // YYDEFACT[STATE-NUM] -- Default reduction number in state STATE-NUM.
     // Performed when YYTABLE does not specify something else to do.  Zero
@@ -1690,9 +1690,9 @@ switch (yykind)
     /// Constants.
     enum
     {
-      yylast_ = 155,     ///< Last index in yytable_.
+      yylast_ = 160,     ///< Last index in yytable_.
       yynnts_ = 14,  ///< Number of nonterminal symbols.
-      yyfinal_ = 48 ///< Termination state number.
+      yyfinal_ = 50 ///< Termination state number.
     };
 
 
