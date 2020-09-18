@@ -27,6 +27,13 @@ class GrainPropertiesLexer {
     size_t array_size_ = { 0 };
     Grain* grain_;
 
+    enum LexerMode {
+        NORMAL,
+        EXPR
+    };
+
+    LexerMode mode_ = { NORMAL };
+
 public:
     GrainPropertiesLexer(const AtomList& src, Grain* grain);
 
@@ -37,6 +44,9 @@ public:
 
     size_t arraySize() const { return array_size_; }
     void setArraySize(size_t sz) { array_size_ = sz; }
+
+private:
+    GrainPropertiesParser::symbol_type lexExpr();
 
 private:
     static t_symbol* PROP_AMP; // 1

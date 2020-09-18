@@ -24,7 +24,7 @@
 using namespace ceammc;
 using namespace ceammc::units;
 
-Either<TimeValue> TimeValue::parse(const AtomListView& lst)
+Either<TimeValue> TimeValue::parse(const AtomListView& lv)
 {
     static t_symbol* SYM_MS = gensym("ms");
     static t_symbol* SYM_SEC = gensym("sec");
@@ -33,23 +33,23 @@ Either<TimeValue> TimeValue::parse(const AtomListView& lst)
     static t_symbol* SYM_HOUR = gensym("hour");
     static t_symbol* SYM_DAY = gensym("day");
 
-    if (lst.empty())
+    if (lv.empty())
         return UnitParseError("empty list");
 
-    if (lst.size() == 2) {
-        const bool ok = lst[0].isFloat() && lst[1].isSymbol();
+    if (lv.size() == 2) {
+        const bool ok = lv[0].isFloat() && lv[1].isSymbol();
         if (!ok)
             return UnitParseError("VALUE UNIT expected");
 
-        auto v = lst[0].asFloat();
+        auto v = lv[0].asFloat();
 
         if (HUGE_VALF == v) {
             std::ostringstream ss;
-            ss << "too big value for float: " << lst;
+            ss << "too big value for float: " << lv;
             return UnitParseError(ss.str());
         }
 
-        auto s = lst[1].asSymbol();
+        auto s = lv[1].asSymbol();
         if (s == SYM_MS)
             return TimeValue(v, TimeUnits::MS);
         else if (s == SYM_SEC)
@@ -67,14 +67,14 @@ Either<TimeValue> TimeValue::parse(const AtomListView& lst)
             ss << "unknown unit: " << s << ",  supported values are: ms, sec(s), min, hour, day";
             return UnitParseError(ss.str());
         }
-    } else if (lst.isSymbol()) {
-        auto s = lst[0].asSymbol();
+    } else if (lv.isSymbol()) {
+        auto s = lv[0].asSymbol();
         char* last = nullptr;
         float v = strtof(s->s_name, &last);
 
         if (HUGE_VALF == v) {
             std::ostringstream ss;
-            ss << "too big value for float: " << lst;
+            ss << "too big value for float: " << lv;
             return UnitParseError(ss.str());
         }
 
@@ -101,11 +101,11 @@ Either<TimeValue> TimeValue::parse(const AtomListView& lst)
             ss << "unknown unit: " << suffix << ",  supported values are: ms, sec(s), min, hour, day";
             return UnitParseError(ss.str());
         }
-    } else if (lst.isFloat()) {
-        return TimeValue(lst[0].asFloat(), TimeUnits::MS);
+    } else if (lv.isFloat()) {
+        return TimeValue(lv[0].asFloat(), TimeUnits::MS);
     } else {
         std::ostringstream ss;
-        ss << "unexpected time format: " << lst;
+        ss << "unexpected time format: " << lv;
         return UnitParseError(ss.str());
     }
 }
@@ -120,10 +120,10 @@ UnitParseError::UnitParseError(const std::string& s)
 {
 }
 
-Either<FractionValue> FractionValue::parse(const AtomListView& lst)
+Either<FractionValue> FractionValue::parse(const AtomListView& lv)
 {
-    if (lst.isSymbol()) {
-        auto cstr = lst.asT<t_symbol*>()->s_name;
+    if (lv.isSymbol()) {
+        auto cstr = lv.asT<t_symbol*>()->s_name;
         fraction::FractionLexer lexer(cstr);
         if (lexer.lex() != 1)
             return UnitParseError("invalid fraction");
@@ -132,6 +132,14 @@ Either<FractionValue> FractionValue::parse(const AtomListView& lst)
     } else {
         return UnitParseError("invalid fraction");
     }
+}
+
+Either<FractionValue> FractionValue::match(const AtomListView& lv)
+{
+    if (lv.size() > 0)
+        return parse(lv.subView(0, 1));
+    else
+        return UnitParseError("not a fraction");
 }
 
 FractionValue FractionValue::ratio(long num, long den)

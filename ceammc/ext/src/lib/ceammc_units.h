@@ -152,7 +152,8 @@ namespace units {
         bool operator!=(const FractionValue& v) const { return !this->operator==(v); }
 
     public:
-        static Either<FractionValue> parse(const AtomListView& lst);
+        static Either<FractionValue> parse(const AtomListView& lv);
+        static Either<FractionValue> match(const AtomListView& lv);
         static FractionValue ratio(long num, long den);
     };
 
@@ -235,7 +236,7 @@ namespace units {
         }
 
     public:
-        static Either<TimeValue> parse(const AtomListView& lst);
+        static Either<TimeValue> parse(const AtomListView& lv);
     };
 }
 }
