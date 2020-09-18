@@ -99,7 +99,7 @@ ENUM_INTERP_MODE
     ;
 
 AMP
-    : PROP_AMP FLOAT
+    : PROP_AMP FLOAT                        { lexer.grain()->setAmplitude($2); }
     | PROP_AMP S_EXPR STRING
     ;
 

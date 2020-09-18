@@ -23,7 +23,7 @@
 
 namespace ceammc {
 
-static_assert(sizeof(Grain) == 154, "");
+static_assert(sizeof(Grain) == 158, "");
 
 static float foldFloat(float x, float max)
 {
@@ -236,8 +236,10 @@ Grain::PlayStatus Grain::process(ArrayIterator in, size_t in_size, t_sample** bu
                 break;
             }
 
-            buf[0][i] += pan_coeffs.first * value;
-            buf[1][i] += pan_coeffs.second * value;
+            const auto vamp = value * amp_;
+
+            buf[0][i] += pan_coeffs.first * vamp;
+            buf[1][i] += pan_coeffs.second * vamp;
         }
 
         if (play_pos >= endInSamples())

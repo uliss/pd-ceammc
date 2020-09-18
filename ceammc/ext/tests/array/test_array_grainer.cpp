@@ -342,4 +342,11 @@ TEST_CASE("array.grainer", "[externals]")
             REQUIRE(s0.out[0][i] == 0);
         }
     }
+
+    SECTION("Grain @amp")
+    {
+        TExt t("array.grainer~", LA("array_g1"));
+        MSG_GRAIN(t, "@amp 0.5");
+        REQUIRE(t.cloud().grains().back().grain->amplitude() == 0.5);
+    }
 }

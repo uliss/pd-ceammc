@@ -65,6 +65,9 @@ public:
     PlayStatus play_status = { FINISHED };
 
 private:
+    // amplitude
+    float amp_ = { 1 };
+
     // play speed
     float play_speed_ = { 1 };
     float speed_min_ = { -10 };
@@ -114,6 +117,10 @@ public:
 
     PanMode panMode() const { return pan_mode_; }
     void setPanMode(PanMode m);
+
+    // amplitude
+    float amplitude() const { return amp_; }
+    void setAmplitude(float amp) { amp_ = amp; }
 
     std::pair<t_sample, t_sample> panSample(t_sample in) const
     {
