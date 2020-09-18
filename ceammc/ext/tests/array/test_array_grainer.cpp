@@ -345,9 +345,11 @@ TEST_CASE("array.grainer", "[externals]")
 
     SECTION("Grain @amp")
     {
+#define GET_AMP(t) t.cloud().grains().back().grain->amplitude()
+
         TExt t("array.grainer~", LA("array_g1"));
         MSG_GRAIN(t, "@amp 0.5");
-        REQUIRE(t.cloud().grains().back().grain->amplitude() == 0.5);
+        REQUIRE(GET_AMP(t) == 0.5);
     }
 
     SECTION("Grain @amp random")
@@ -356,7 +358,55 @@ TEST_CASE("array.grainer", "[externals]")
 
         TExt t("array.grainer~", LA("array_g1"));
         MSG_GRAIN(t, "@amp range 1 20 @amp random 10 20");
-        REQUIRE(t.cloud().grains().back().grain->amplitude() == Approx(15.48814));
+        REQUIRE(GET_AMP(t) == Approx(15.48814));
         REQUIRE(t.cloud().grains().back().grain->amplitudeRange() == std::pair<float, float>(1, 20));
+    }
+
+    SECTION("Grain @amp ondone set")
+    {
+        GrainRandom::seed(0);
+
+        TExt t("array.grainer~", LA("array_g1"));
+        MSG_GRAIN(t, "@amp ondone set 0.5");
+        REQUIRE(GET_AMP(t) == 1);
+        t.cloud().grains().back().grain->done();
+        REQUIRE(GET_AMP(t) == 0.5);
+    }
+
+    SECTION("Grain @amp ondone random")
+    {
+        GrainRandom::seed(0);
+
+        TExt t("array.grainer~", LA("array_g1"));
+        MSG_GRAIN(t, "@amp ondone set random 0.5 0.75");
+        REQUIRE(GET_AMP(t) == 1);
+        t.cloud().grains().back().grain->done();
+        REQUIRE(GET_AMP(t) == Approx(0.6372));
+        t.cloud().grains().back().grain->done();
+        REQUIRE(GET_AMP(t) == Approx(0.64821));
+    }
+
+    SECTION("Grain @amp ondone add expr")
+    {
+        TExt t("array.grainer~", LA("array_g1"));
+        MSG_GRAIN(t, "@amp ondone add expr 1/4");
+        REQUIRE(GET_AMP(t) == 1);
+        t.cloud().grains().back().grain->done();
+        REQUIRE(GET_AMP(t) == Approx(1.25));
+        t.cloud().grains().back().grain->done();
+        REQUIRE(GET_AMP(t) == Approx(1.5));
+    }
+
+    SECTION("Grain @amp ondone set expr")
+    {
+        TExt t("array.grainer~", LA("array_g1"));
+        MSG_GRAIN(t, "@amp ondone set expr $n/4");
+        REQUIRE(GET_AMP(t) == 1);
+        t.cloud().grains().back().grain->done();
+        REQUIRE(GET_AMP(t) == Approx(0.25));
+        t.cloud().grains().back().grain->done();
+        REQUIRE(GET_AMP(t) == Approx(0.5));
+        t.cloud().grains().back().grain->done();
+        REQUIRE(GET_AMP(t) == Approx(0.75));
     }
 }

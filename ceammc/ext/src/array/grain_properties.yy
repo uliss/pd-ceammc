@@ -32,6 +32,7 @@
     # include "grainprops.lexer.h"
     # include "grain_random.h"
     # include "ceammc_log.h"
+    # include "muParser.h"
 
     # undef yylex
     # define yylex lexer.lex  // Within bison's parse() we should invoke lexer.lex(), not the global yylex()
@@ -102,6 +103,63 @@ AMP
     : PROP_AMP FLOAT                        { lexer.grain()->setAmplitude($2); }
     | PROP_AMP S_RANDOM FLOAT FLOAT         { lexer.grain()->setAmplitude(frand($3, $4)); }
     | PROP_AMP S_EXPR STRING
+    | PROP_AMP S_SET FLOAT                  { lexer.grain()->setAmplitude($3); }
+    | PROP_AMP S_SET S_RANDOM FLOAT FLOAT   { lexer.grain()->setAmplitude(frand($4, $5)); }
+    | PROP_AMP S_SET S_EXPR STRING
+    | PROP_AMP S_ONDONE S_ADD FLOAT
+                                            {
+                                              auto d = $4;
+                                              lexer.grain()->setAmplitudeDone([d](Grain* g){ return g->amplitude() + d; });
+                                            }
+    | PROP_AMP S_ONDONE S_ADD S_EXPR STRING
+                                            {
+                                              try {
+                                                mu::Parser p;
+                                                p.SetExpr($5);
+                                                lexer.grain()->setAmplitudeDone([p](Grain* g) mutable -> float {
+                                                    float delta = 0;
+                                                    try {
+                                                        g->initParserVars(p);
+                                                        delta = p.Eval();
+                                                    } catch(mu::ParserError& err) {
+                                                        LIB_ERR << "invalid expression: " << err.GetMsg();
+                                                    }
+
+                                                    return g->amplitude() + delta;
+                                                });
+                                              } catch(mu::ParserError& err) {
+                                                LIB_ERR << "invalid expression: " << $5;
+                                              }
+                                            }
+    | PROP_AMP S_ONDONE S_SET FLOAT
+                                            {
+                                              auto d = $4;
+                                              lexer.grain()->setAmplitudeDone([d](Grain* g){ return d; });
+                                            }
+    | PROP_AMP S_ONDONE S_SET S_EXPR STRING
+                                            {
+                                              try {
+                                                mu::Parser p;
+                                                p.SetExpr($5);
+                                                lexer.grain()->setAmplitudeDone([p](Grain* g) mutable -> float {
+                                                    try {
+                                                        g->initParserVars(p);
+                                                        return p.Eval();
+                                                    } catch(mu::ParserError& err) {
+                                                        LIB_ERR << "invalid expression: " << err.GetMsg();
+                                                        return 0.;
+                                                    }
+                                                });
+                                              } catch(mu::ParserError& err) {
+                                                LIB_ERR << "invalid expression: " << $5;
+                                              }
+                                            }
+    | PROP_AMP S_ONDONE S_SET S_RANDOM FLOAT FLOAT
+                                            {
+                                              auto a = $5;
+                                              auto b = $6;
+                                              lexer.grain()->setAmplitudeDone([a,b](Grain* g){ return frand_closed(a, b); });
+                                            }
     | PROP_AMP S_RANGE FLOAT FLOAT          { lexer.grain()->setAmplitudeRange($3, $4); }
     ;
 

@@ -55,6 +55,7 @@ public:
         INTERP_CUBIC
     };
 
+    using AmpDoneFunc = std::function<float(Grain*)>;
     using PanDoneFunc = std::function<float()>;
     using SpeedDoneFunc = std::function<float(Grain*)>;
 
@@ -69,6 +70,7 @@ private:
     float amp_ = { 1 };
     float amp_min_ = { 0 };
     float amp_max_ = { 2 };
+    AmpDoneFunc amp_done_;
 
     // play speed
     float play_speed_ = { 1 };
@@ -125,6 +127,7 @@ public:
     void setAmplitude(float amp);
     std::pair<float, float> amplitudeRange() const { return { amp_min_, amp_max_ }; }
     void setAmplitudeRange(float min, float max);
+    void setAmplitudeDone(AmpDoneFunc fn) { amp_done_ = fn; }
 
     std::pair<t_sample, t_sample> panSample(t_sample in) const
     {

@@ -23,7 +23,7 @@
 
 namespace ceammc {
 
-static_assert(sizeof(Grain) == 166, "");
+static_assert(sizeof(Grain) == 214, "");
 
 static float foldFloat(float x, float max)
 {
@@ -76,10 +76,11 @@ Grain::Grain(size_t array_pos, size_t length, size_t play_pos)
 void Grain::initParserVars(mu::Parser& p)
 {
     p.DefineNameChars("$0123456789_abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ");
-    p.DefineConst("$speed", speed());
-    p.DefineConst("$pan", pan());
-    p.DefineConst("$sr", sys_getsr());
+    p.DefineConst("$amp", amplitude());
     p.DefineConst("$n", play_counter_);
+    p.DefineConst("$pan", pan());
+    p.DefineConst("$speed", speed());
+    p.DefineConst("$sr", sys_getsr());
 }
 
 void Grain::setSpeed(float s)
@@ -139,7 +140,7 @@ void Grain::setPanMode(Grain::PanMode m)
 
 void Grain::setAmplitude(float amp)
 {
-    amp_ = clip(amp, amp_min_, amp_max_);
+    amp_ = clip<float>(amp, amp_min_, amp_max_);
 }
 
 void Grain::setAmplitudeRange(float min, float max)
@@ -168,13 +169,14 @@ Grain::PlayStatus Grain::done()
     play_status = FINISHED;
     play_counter_++;
 
+    if (amp_done_)
+        setAmplitude(amp_done_(this));
+
     if (pan_done_)
         setPan(pan_done_());
 
-    if (speed_done_) {
+    if (speed_done_)
         setSpeed(speed_done_(this));
-        LIB_DBG << "new speed: " << speed();
-    }
 
     return play_status;
 }
@@ -187,6 +189,7 @@ std::ostream& operator<<(std::ostream& os, const Grain& g)
        << ",speed=" << g.speed()
        << ",pan=" << g.panNorm()
        << ",panmode=" << g.panMode()
+       << ",amp=" << g.amplitude()
        << ")";
     return os;
 }
@@ -199,11 +202,9 @@ Grain::PlayStatus Grain::process(ArrayIterator in, size_t in_size, t_sample** bu
         return playStatus();
     }
 
-    // zero speed
-    if (std::fabs(play_speed_) < 0.001) {
-        play_status = FINISHED;
-        return playStatus();
-    }
+    // zero speed or zero amp
+    if (std::fabs(play_speed_) < 0.001 || amp_ < 0.00001)
+        return done();
 
     const auto pan_coeffs = panSample(1);
     const double step_incr = play_speed_;
@@ -219,6 +220,7 @@ Grain::PlayStatus Grain::process(ArrayIterator in, size_t in_size, t_sample** bu
 
             assert(play_pos >= startInSamples());
 
+            // time position
             const double play_idx = arrayPosInSamples() + play_pos - startInSamples();
             if (play_idx >= in_size)
                 return done();
@@ -231,16 +233,16 @@ Grain::PlayStatus Grain::process(ArrayIterator in, size_t in_size, t_sample** bu
             case INTERP_LINEAR: {
                 const auto x0 = in[idx];
                 const auto x1 = (idx + 1 >= in_size) ? x0 : in[idx + 1];
-                const double t = play_idx - double(idx);
-                value = interpLinear(x0, x1, t);
+                const double t1 = play_idx - double(idx); // fractional part
+                value = interpLinear(x0, x1, t1);
             } break;
             case INTERP_CUBIC: {
                 const auto x0 = (idx < 1) ? in[idx] : in[idx - 1];
                 const auto x1 = in[idx];
                 const auto x2 = (idx + 1 >= in_size) ? x1 : in[idx + 1];
                 const auto x3 = (idx + 2 >= in_size) ? x2 : in[idx + 2];
-                const double t = play_idx - double(idx);
-                value = interpCubicHermite(x0, x1, x2, x3, t);
+                const double t1 = play_idx - double(idx); // fractional part
+                value = interpCubicHermite(x0, x1, x2, x3, t1);
             } break;
             case INTERP_NO:
             default:
@@ -266,14 +268,40 @@ Grain::PlayStatus Grain::process(ArrayIterator in, size_t in_size, t_sample** bu
 
             assert(play_pos >= startInSamples());
 
-            const size_t idx = arrayPosInSamples() + play_pos - startInSamples();
-            if (idx >= in_size) // skip range error
-                continue;
+            // time position
+            const double t = arrayPosInSamples() + play_pos - startInSamples();
+            if (t >= in_size)
+                return done();
 
-            const t_sample value = in[idx];
+            assert(t >= 0);
 
-            buf[0][i] += pan_coeffs.first * value;
-            buf[1][i] += pan_coeffs.second * value;
+            t_sample value = 0;
+            const auto idx = static_cast<size_t>(t);
+            switch (play_interp_) {
+            case INTERP_LINEAR: {
+                const auto x0 = in[idx];
+                const auto x1 = (idx + 1 >= in_size) ? x0 : in[idx + 1];
+                const double t1 = t - double(idx); // fractional part
+                value = interpLinear(x0, x1, t1);
+            } break;
+            case INTERP_CUBIC: {
+                const auto x0 = (idx < 1) ? in[idx] : in[idx - 1];
+                const auto x1 = in[idx];
+                const auto x2 = (idx + 1 >= in_size) ? x1 : in[idx + 1];
+                const auto x3 = (idx + 2 >= in_size) ? x2 : in[idx + 2];
+                const double t1 = t - double(idx); // fractional part
+                value = interpCubicHermite(x0, x1, x2, x3, t1);
+            } break;
+            case INTERP_NO:
+            default:
+                value = in[idx];
+                break;
+            }
+
+            const auto vamp = value * amp_;
+
+            buf[0][i] += pan_coeffs.first * vamp;
+            buf[1][i] += pan_coeffs.second * vamp;
         }
 
         if (play_pos < startInSamples())
