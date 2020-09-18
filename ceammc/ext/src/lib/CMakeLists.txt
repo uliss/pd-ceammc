@@ -142,6 +142,11 @@ if(BISON_FOUND AND FLEX_FOUND)
         SOURCES lex/array_loader.l
                 lex/array_loader.y
         WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/lex)
+
+    add_custom_target(ceammc_lexer_fraction
+        COMMAND $<TARGET_FILE:reflex-bin> fraction.l
+        SOURCES lex/fraction.l
+        WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/lex)
 endif()
 
 if(WIN32)
@@ -179,7 +184,7 @@ if(WIN32)
             "${CMAKE_CURRENT_BINARY_DIR}/../tests")
 endif()
 
-#
+
 # sound library
 #
 set(CEAMMC_LOAD_SRC
@@ -188,6 +193,7 @@ set(CEAMMC_LOAD_SRC
     lex/array_loader.lexer.cpp
     lex/array_loader.parser.cpp
     lex/array_loader.cpp
+    lex/fraction.lexer.cpp
     array_load_pattern.h
     array_load_pattern.cpp)
 

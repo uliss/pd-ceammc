@@ -24,6 +24,7 @@ namespace ceammc {
 class GrainPropertiesLexer {
     AtomList src_;
     size_t idx_;
+    size_t array_size_ = { 0 };
     Grain* grain_;
 
 public:
@@ -33,6 +34,9 @@ public:
     GrainPropertiesParser::symbol_type lex();
 
     Grain* grain() { return grain_; }
+
+    size_t arraySize() const { return array_size_; }
+    void setArraySize(size_t sz) { array_size_ = sz; }
 
 private:
     static t_symbol* PROP_AMP; // 1

@@ -13,6 +13,7 @@
  *****************************************************************************/
 #include "grainprops.lexer.h"
 #include "ceammc_format.h"
+#include "ceammc_units.h"
 #include "grain.h"
 
 namespace ceammc {
@@ -47,6 +48,12 @@ t_symbol* GrainPropertiesLexer::SYM_SET = nullptr;
 t_symbol* GrainPropertiesLexer::SYM_SQRT = nullptr;
 t_symbol* GrainPropertiesLexer::SYM_WRAP = nullptr;
 
+static inline bool looksLikeTimeValue(t_symbol* s)
+{
+    auto str = s->s_name;
+    return isdigit(str[0]) || (str[0] == '-' && isdigit(str[1]));
+}
+
 GrainPropertiesLexer::GrainPropertiesLexer(const AtomList& src, Grain* grain)
     : src_(src)
     , idx_(0)
@@ -76,6 +83,8 @@ GrainPropertiesParser::symbol_type GrainPropertiesLexer::lex()
         return GrainPropertiesParser::make_FLOAT(atom.asFloat());
     else if (atom.isSymbol()) {
         auto* s = atom.asT<t_symbol*>();
+        units::TimeValue time(0);
+
         if (s == PROP_PAN)
             return GrainPropertiesParser::make_PROP_PAN();
         else if (s == PROP_AMP)
@@ -110,6 +119,10 @@ GrainPropertiesParser::symbol_type GrainPropertiesLexer::lex()
         CHECK_SYM(SEC)
         CHECK_SYM(SQRT)
         CHECK_SYM(WRAP)
+        else if (looksLikeTimeValue(s) && units::TimeValue::parse(atom).matchValue(time))
+        {
+            return GrainPropertiesParser::make_FLOAT(time.toSamples(sys_getsr()));
+        }
         else
         {
             auto str = to_string(src_.view(idx_ - 1));

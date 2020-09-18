@@ -73,7 +73,8 @@ namespace units {
     enum class UnitType {
         TIME,
         DISTANCE,
-        FREQ
+        FREQ,
+        FRACTION
     };
 
     enum class TimeUnits {
@@ -84,10 +85,16 @@ namespace units {
         DAY
     };
 
+    enum class FracUnits {
+        PERCENT,
+        FRACTION,
+        RATIO
+    };
+
     template <typename V, typename U, UnitType T>
     class UnitValue {
     public:
-        typedef V value_type;
+        using value_type = V;
         value_type value;
         U unit;
 
@@ -98,6 +105,55 @@ namespace units {
         }
 
         UnitType type() const { return T; }
+    };
+
+    class FractionValue : public UnitValue<double, FracUnits, UnitType::FRACTION> {
+        value_type denom_;
+
+    public:
+        FractionValue(double v = 0, FracUnits u = FracUnits::FRACTION)
+            : UnitValue<double, FracUnits, UnitType::FRACTION>(v, u)
+            , denom_(1)
+        {
+        }
+
+        value_type toValue(value_type total)
+        {
+            switch (unit) {
+            case FracUnits::PERCENT:
+                return value * total * 0.01;
+            case FracUnits::RATIO:
+                return value / denom_;
+            default:
+                return value * total;
+            }
+        }
+
+        value_type toFraction() const
+        {
+            switch (unit) {
+            case FracUnits::PERCENT:
+                return value * 0.01;
+            case FracUnits::RATIO:
+                return value / denom_;
+            default:
+                return value;
+            }
+        }
+
+        bool operator==(const FractionValue& v) const
+        {
+            if (unit == v.unit)
+                return value == v.value && denom_ == v.denom_;
+            else
+                return toFraction() == v.toFraction();
+        }
+
+        bool operator!=(const FractionValue& v) const { return !this->operator==(v); }
+
+    public:
+        static Either<FractionValue> parse(const AtomListView& lst);
+        static FractionValue ratio(long num, long den);
     };
 
     class TimeValue : public UnitValue<t_float, TimeUnits, UnitType::TIME> {
@@ -179,7 +235,7 @@ namespace units {
         }
 
     public:
-        static Either<TimeValue> parse(const AtomList& lst);
+        static Either<TimeValue> parse(const AtomListView& lst);
     };
 }
 }

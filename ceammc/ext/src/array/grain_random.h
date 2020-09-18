@@ -14,6 +14,7 @@
 #ifndef GRAIN_RANDOM_H
 #define GRAIN_RANDOM_H
 
+#include <cassert>
 #include <limits>
 #include <random>
 
@@ -56,6 +57,13 @@ public:
     static double urandd(double a, double b)
     {
         std::uniform_real_distribution<double> dist(a, b);
+        return dist(instance().gen_);
+    }
+
+    static size_t urandul(size_t a, size_t b)
+    {
+        assert(a <= b);
+        std::uniform_int_distribution<size_t> dist(a, b);
         return dist(instance().gen_);
     }
 };

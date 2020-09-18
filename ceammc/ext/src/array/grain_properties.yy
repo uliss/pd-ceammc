@@ -39,6 +39,7 @@
 
     static inline float frand(float a, float b) { return ceammc::GrainRandom::urandf(a, b); }
     static inline float frand_closed(float a, float b) { return ceammc::GrainRandom::urandf_closed(a, b); }
+    static inline size_t ulrand(size_t a, size_t b) { return ceammc::GrainRandom::urandul(a, b); }
 }
 
 %token                   PROP_AMP
@@ -248,12 +249,26 @@ PAN
 
 
 AT
-    : PROP_AT TIME             { lexer.grain()->array_pos_samp = $2; }
+    : PROP_AT TIME               { lexer.grain()->array_pos_samp = $2; }
+    | PROP_AT S_RANDOM           {
+                                    const auto asize = lexer.arraySize();
+                                    if (asize < 1) {
+                                        LIB_ERR << "empty array";
+                                        return;
+                                    }
+
+                                    lexer.grain()->setArrayPosInSamples(ulrand(0, asize - 1);
+                                 }
     | PROP_AT S_RANDOM TIME TIME { lexer.grain()->array_pos_samp = frand_closed($3, $4); }
     ;
 
 LENGTH
-    : PROP_LENGTH TIME             { lexer.grain()->length_samp = $2; }
+    : PROP_LENGTH TIME               { lexer.grain()->length_samp = $2; }
+    | PROP_LENGTH S_RANDOM           {
+                                        auto asize = lexer.arraySize();
+                                        if (asize < 1) {
+                                            ;}
+                lexer.grain()->length_samp = frand_closed($3, $4); }
     | PROP_LENGTH S_RANDOM TIME TIME { lexer.grain()->length_samp = frand_closed($3, $4); }
     ;
 

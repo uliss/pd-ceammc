@@ -13,6 +13,7 @@
  *****************************************************************************/
 #include "ceammc_units.h"
 #include "ceammc_format.h"
+#include "lex/fraction.lexer.h"
 
 #include <cerrno>
 #include <climits>
@@ -23,7 +24,7 @@
 using namespace ceammc;
 using namespace ceammc::units;
 
-Either<TimeValue> TimeValue::parse(const AtomList& lst)
+Either<TimeValue> TimeValue::parse(const AtomListView& lst)
 {
     static t_symbol* SYM_MS = gensym("ms");
     static t_symbol* SYM_SEC = gensym("sec");
@@ -66,7 +67,7 @@ Either<TimeValue> TimeValue::parse(const AtomList& lst)
             ss << "unknown unit: " << s << ",  supported values are: ms, sec(s), min, hour, day";
             return UnitParseError(ss.str());
         }
-    } else if (lst.size() == 1 && lst[0].isSymbol()) {
+    } else if (lst.isSymbol()) {
         auto s = lst[0].asSymbol();
         char* last = nullptr;
         float v = strtof(s->s_name, &last);
@@ -117,4 +118,25 @@ UnitParseError::UnitParseError(const char* s)
 UnitParseError::UnitParseError(const std::string& s)
     : msg(s)
 {
+}
+
+Either<FractionValue> FractionValue::parse(const AtomListView& lst)
+{
+    if (lst.isSymbol()) {
+        auto cstr = lst.asT<t_symbol*>()->s_name;
+        fraction::FractionLexer lexer(cstr);
+        if (lexer.lex() != 1)
+            return UnitParseError("invalid fraction");
+        else
+            return lexer.value;
+    } else {
+        return UnitParseError("invalid fraction");
+    }
+}
+
+FractionValue FractionValue::ratio(long num, long den)
+{
+    FractionValue res(num, FracUnits::RATIO);
+    res.denom_ = den;
+    return res;
 }

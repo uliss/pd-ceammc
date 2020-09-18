@@ -94,6 +94,10 @@ public:
     // init parser vars
     void initParserVars(mu::Parser& p);
 
+    // array pos sample
+    size_t arrayPosInSamples() const { return array_pos_samp; }
+    void setArrayPosInSamples(size_t p) { array_pos_samp = p; }
+
     // play
     PlayInterp playInterpolation() const { return play_interp_; }
     void setPlayInterpolation(PlayInterp i) { play_interp_ = i; }
@@ -150,11 +154,6 @@ public:
             return length_samp / (-play_speed_);
         else
             return 0;
-    }
-
-    size_t arrayPosInSamples() const
-    {
-        return array_pos_samp;
     }
 
     size_t endInSamples() const

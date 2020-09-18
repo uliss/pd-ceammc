@@ -98,4 +98,26 @@ TEST_CASE("units", "[ceammc::ceammc_units]")
         REQUIRE(TimeValue(1) >= TimeValue(0));
         REQUIRE(TimeValue(1) >= TimeValue(1));
     }
+
+    SECTION("fraction")
+    {
+        UnitParseError err;
+        FractionValue v(0);
+        REQUIRE(v.toFraction() == 0);
+        REQUIRE(v.unit == FracUnits::FRACTION);
+        REQUIRE(v.value == 0);
+
+        REQUIRE(FractionValue::parse(LA("-10.5%")).matchValue(v));
+        REQUIRE(v.value == -10.5);
+        REQUIRE(v.unit == FracUnits::PERCENT);
+
+        REQUIRE(FractionValue::parse(LA("-0.25*")).matchValue(v));
+        REQUIRE(v.value == -0.25);
+        REQUIRE(v.unit == FracUnits::FRACTION);
+
+        REQUIRE(FractionValue::parse(LA("3/4")).matchValue(v));
+        REQUIRE(v.value == 3);
+        REQUIRE(v.toFraction() == 0.75);
+        REQUIRE(v.unit == FracUnits::RATIO);
+    }
 }
