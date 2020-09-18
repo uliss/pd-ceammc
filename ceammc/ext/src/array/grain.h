@@ -18,9 +18,14 @@
 
 #include <cassert>
 #include <cmath>
+#include <cstdint>
 #include <functional>
 #include <iostream>
 #include <utility>
+
+namespace mu {
+class Parser;
+}
 
 namespace ceammc {
 
@@ -64,6 +69,7 @@ private:
     float play_speed_ = { 1 };
     float speed_min_ = { -10 };
     float speed_max_ = { 10 };
+    uint32_t play_counter_ = { 0 };
     SpeedDoneFunc speed_done_;
 
     // pan
@@ -76,6 +82,9 @@ private:
 public:
     Grain();
     Grain(size_t array_pos, size_t length, size_t play_pos = 0);
+
+    // init parser vars
+    void initParserVars(mu::Parser& p);
 
     // speed
     float speed() const { return play_speed_; }
@@ -99,7 +108,7 @@ public:
     void setPanOverflow(PanOverflow po) { pan_overflow_ = po; }
 
     PanMode panMode() const { return pan_mode_; }
-    void setPanMode(PanMode m) { pan_mode_ = m; }
+    void setPanMode(PanMode m);
 
     std::pair<t_sample, t_sample> panSample(t_sample in) const
     {
@@ -139,11 +148,7 @@ public:
         return play_pos_samp;
     }
 
-    void start(size_t playPosSamp)
-    {
-        play_status = PLAYING;
-        play_pos = playPosSamp;
-    }
+    void start(size_t playPosSamp);
 
     PlayStatus done();
 

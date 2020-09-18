@@ -322,4 +322,24 @@ TEST_CASE("array.grainer", "[externals]")
         MSG_GRAIN(t, "@speed expr $sr/10000");
         REQUIRE(GET_SPEED(t) == Approx(4.8));
     }
+
+    SECTION("Grain @speed -1")
+    {
+        TExt t("array.grainer~", LA("array_g1"));
+        MSG_GRAIN(t, "@at 0 @l 20 @speed -1 @pan mode none");
+        REQUIRE(GET_SPEED(t) == -1);
+
+        TestSignal<0, 2> s0;
+
+        DSP<TestSignal<0, 2>, TExt> dsp(s0, t);
+        dsp.processBlock();
+
+        for (size_t i = 0; i < 20; i++) {
+            REQUIRE(s0.out[0][i] == (19 - i));
+        }
+
+        for (size_t i = 20; i < 64; i++) {
+            REQUIRE(s0.out[0][i] == 0);
+        }
+    }
 }

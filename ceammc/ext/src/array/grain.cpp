@@ -23,7 +23,7 @@
 
 namespace ceammc {
 
-static_assert(sizeof(Grain) == 150, "");
+static_assert(sizeof(Grain) == 154, "");
 
 static float foldFloat(float x, float max)
 {
@@ -56,6 +56,15 @@ Grain::Grain(size_t array_pos, size_t length, size_t play_pos)
     play_pos_samp = play_pos;
 }
 
+void Grain::initParserVars(mu::Parser& p)
+{
+    p.DefineNameChars("$0123456789_abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ");
+    p.DefineConst("$speed", speed());
+    p.DefineConst("$pan", pan());
+    p.DefineConst("$sr", sys_getsr());
+    p.DefineConst("$n", play_counter_);
+}
+
 void Grain::setSpeed(float s)
 {
     play_speed_ = clip<float>(s, speed_min_, speed_max_);
@@ -72,10 +81,7 @@ void Grain::setSpeedExpr(const std::string& expr)
 {
     try {
         mu::Parser p;
-        p.DefineNameChars("$0123456789_abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ");
-        p.DefineConst("$speed", speed());
-        p.DefineConst("$pan", pan());
-        p.DefineConst("$sr", sys_getsr());
+        initParserVars(p);
         p.SetExpr(expr);
         setSpeed(p.Eval());
     } catch (mu::ParserError& e) {
@@ -109,9 +115,29 @@ void Grain::setPan(float pan)
     }
 }
 
+void Grain::setPanMode(Grain::PanMode m)
+{
+    pan_mode_ = m;
+}
+
+void Grain::start(size_t playPosSamp)
+{
+    play_status = PLAYING;
+
+    if (play_speed_ < 0) {
+        const auto l = lengthInSamples();
+        if (l < 1)
+            play_pos = playPosSamp;
+        else
+            play_pos = playPosSamp + (l - 1);
+    } else
+        play_pos = playPosSamp;
+}
+
 Grain::PlayStatus Grain::done()
 {
     play_status = FINISHED;
+    play_counter_++;
 
     if (pan_done_)
         setPan(pan_done_());
@@ -150,33 +176,57 @@ Grain::PlayStatus Grain::process(ceammc::ArrayIterator in, size_t in_size, t_sam
         return playStatus();
     }
 
-    const double step_incr = play_speed_;
     const auto pan_coeffs = panSample(1);
+    const double step_incr = play_speed_;
 
-    for (size_t i = 0; i < bs; i++, play_pos += step_incr) {
-        if (play_pos < startInSamples()) {
-            continue;
-        } else if (play_pos >= endInSamples()) {
+    if (play_speed_ > 0) {
+        for (size_t i = 0; i < bs; i++, play_pos += step_incr) {
+            if (play_pos < startInSamples()) {
+                continue;
+            } else if (play_pos >= endInSamples()) {
+                return done();
+            } else
+                play_status = PLAYING;
+
+            assert(play_pos >= startInSamples());
+
+            const size_t idx = arrayPosInSamples() + play_pos - startInSamples();
+            if (idx >= in_size)
+                return done();
+
+            const t_sample value = in[idx];
+
+            buf[0][i] += pan_coeffs.first * value;
+            buf[1][i] += pan_coeffs.second * value;
+        }
+
+        if (play_pos >= endInSamples())
             return done();
-        } else
-            play_status = PLAYING;
+    } else {
 
-        assert(play_pos >= startInSamples());
+        for (size_t i = 0; i < bs; i++, play_pos += step_incr) {
+            if (play_pos < startInSamples())
+                return done();
+            else
+                play_status = PLAYING;
 
-        const size_t idx = arrayPosInSamples() + play_pos - startInSamples();
-        if (idx >= in_size)
+            assert(play_pos >= startInSamples());
+
+            const size_t idx = arrayPosInSamples() + play_pos - startInSamples();
+            if (idx >= in_size) // skip range error
+                continue;
+
+            const t_sample value = in[idx];
+
+            buf[0][i] += pan_coeffs.first * value;
+            buf[1][i] += pan_coeffs.second * value;
+        }
+
+        if (play_pos < startInSamples())
             return done();
-
-        const t_sample value = in[idx];
-
-        buf[0][i] += pan_coeffs.first * value;
-        buf[1][i] += pan_coeffs.second * value;
     }
 
-    if (play_pos >= endInSamples()) {
-        return done();
-    } else
-        return PLAYING;
+    return PLAYING;
 }
 
 }

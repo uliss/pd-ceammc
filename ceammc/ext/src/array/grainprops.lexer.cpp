@@ -150,9 +150,9 @@ void GrainPropertiesLexer::initSymTab()
     SYM_FOLD = gensym("fold");
 
     SYM_MODE = gensym("mode");
-    SYM_LINEAR = gensym("none");
-    SYM_SQRT = gensym("linear");
-    SYM_NONE = gensym("sqrt");
+    SYM_LINEAR = gensym("linear");
+    SYM_SQRT = gensym("sqrt");
+    SYM_NONE = gensym("none");
 }
 
 }

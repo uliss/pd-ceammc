@@ -84,7 +84,7 @@ SPEED
     | PROP_SPEED EXPR STRING            { lexer.grain()->setSpeedExpr($3); }
     | PROP_SPEED SET FLOAT              { lexer.grain()->setSpeed($3); }
     | PROP_SPEED SET RANDOM FLOAT FLOAT { lexer.grain()->setSpeed(frand($4, $5)); }
-    | PROP_SPEED SET EXPR STRING
+    | PROP_SPEED SET EXPR STRING        { lexer.grain()->setSpeedExpr($4); }
     | PROP_SPEED ADD FLOAT              { lexer.grain()->addSpeed($3); }
     | PROP_SPEED ADD RANDOM FLOAT FLOAT { lexer.grain()->addSpeed(frand($4, $5)); }
     | PROP_SPEED ADD EXPR STRING
