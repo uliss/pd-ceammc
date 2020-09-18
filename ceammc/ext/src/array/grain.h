@@ -86,6 +86,7 @@ public:
     float speedMax() const { return speed_max_; }
     std::pair<float, float> speedRange() const { return { speed_min_, speed_max_ }; }
     void setSpeedRange(float a, float b);
+    void setSpeedExpr(const std::string& expr);
 
     // pan
     float pan() const { return pan_; }

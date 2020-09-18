@@ -97,12 +97,12 @@ GrainPropertiesParser::symbol_type GrainPropertiesLexer::lex()
             return GrainPropertiesParser::make_SET();
         else if (s == SYM_MOTION)
             return GrainPropertiesParser::make_MOTION();
-        else if (s == SYM_EXPR)
-            return GrainPropertiesParser::make_ADD();
         else if (s == SYM_RANGE)
             return GrainPropertiesParser::make_RANGE();
         else if (s == SYM_MODE)
             return GrainPropertiesParser::make_MODE();
+        else if (s == SYM_EXPR)
+            return GrainPropertiesParser::make_EXPR();
         else if (s == SYM_CLIP)
             return GrainPropertiesParser::make_OVERFLOW_CLIP(Grain::PAN_OVERFLOW_CLIP);
         else if (s == SYM_WRAP)

@@ -231,8 +231,8 @@ TEST_CASE("array.grainer", "[externals]")
         float speed = 0;
 
 #define MSG_GRAIN(t, str) t.m_grain(gensym("grain"), AtomList::parseString(str));
-#define GET_SPEED(t) t.cloud().grains()[0].grain->speed()
-#define GRAIN_DONE(t) t.cloud().grains()[0].grain->done()
+#define GET_SPEED(t) t.cloud().grains().back().grain->speed()
+#define GRAIN_DONE(t) t.cloud().grains().back().grain->done()
 #define CLEAR(t) t.m_clear(&s_, {})
 
         t.m_grain(&s_, AtomList::parseString("@speed 2.5"));
@@ -311,5 +311,15 @@ TEST_CASE("array.grainer", "[externals]")
 
         MSG_GRAIN(t, "@speed range 3 1");
         REQUIRE(t.cloud().grains().back().grain->speedRange() == std::pair<float, float>(1, 3));
+    }
+
+    SECTION("Grain @speed set expr")
+    {
+        TExt t("array.grainer~", LA("array_g1"));
+        MSG_GRAIN(t, "@speed expr 2^3");
+        REQUIRE(GET_SPEED(t) == 8);
+
+        MSG_GRAIN(t, "@speed expr $sr/10000");
+        REQUIRE(GET_SPEED(t) == Approx(4.8));
     }
 }

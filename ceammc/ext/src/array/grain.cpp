@@ -15,8 +15,11 @@
 #include "ceammc_convert.h"
 #include "ceammc_log.h"
 
+#include "muParser.h"
+
 #include <algorithm>
 #include <limits>
+#include <stdexcept>
 
 namespace ceammc {
 
@@ -63,6 +66,21 @@ void Grain::setSpeedRange(float a, float b)
     auto mm = std::minmax(a, b);
     speed_min_ = mm.first;
     speed_max_ = mm.second;
+}
+
+void Grain::setSpeedExpr(const std::string& expr)
+{
+    try {
+        mu::Parser p;
+        p.DefineNameChars("$0123456789_abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ");
+        p.DefineConst("$speed", speed());
+        p.DefineConst("$pan", pan());
+        p.DefineConst("$sr", sys_getsr());
+        p.SetExpr(expr);
+        setSpeed(p.Eval());
+    } catch (mu::ParserError& e) {
+        LIB_ERR << "error while evaluting \"" << expr << "\": " << e.GetMsg();
+    }
 }
 
 void Grain::addPan(float pan)
