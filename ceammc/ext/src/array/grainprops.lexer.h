@@ -35,31 +35,35 @@ public:
     Grain* grain() { return grain_; }
 
 private:
-    static t_symbol* PROP_PAN;
-    static t_symbol* PROP_AMP;
-    static t_symbol* PROP_SPEED;
+    static t_symbol* PROP_AMP; // 1
     static t_symbol* PROP_AT;
-    static t_symbol* PROP_LENGTH;
+    static t_symbol* PROP_INTERP2;
+    static t_symbol* PROP_INTERP;
     static t_symbol* PROP_LENGTH2;
-    static t_symbol* PROP_WHEN;
-    static t_symbol* SYM_RANDOM;
-    static t_symbol* SYM_OVERFLOW;
-    static t_symbol* SYM_ONDONE;
-    static t_symbol* SYM_ADD;
-    static t_symbol* SYM_SET;
-    static t_symbol* SYM_MOTION;
-    static t_symbol* SYM_EXPR;
-    static t_symbol* SYM_RANGE;
-    static t_symbol* SYM_MSEC;
-    static t_symbol* SYM_MSEC2;
-    static t_symbol* SYM_SEC;
+    static t_symbol* PROP_LENGTH;
+    static t_symbol* PROP_PAN;
+    static t_symbol* PROP_SPEED;
+    static t_symbol* PROP_WHEN; // 9
+
+    static t_symbol* SYM_ADD; // 1
     static t_symbol* SYM_CLIP;
+    static t_symbol* SYM_CUBIC;
+    static t_symbol* SYM_EXPR;
     static t_symbol* SYM_FOLD;
-    static t_symbol* SYM_WRAP;
-    static t_symbol* SYM_MODE;
     static t_symbol* SYM_LINEAR;
-    static t_symbol* SYM_SQRT;
+    static t_symbol* SYM_MODE;
+    static t_symbol* SYM_MOTION;
+    static t_symbol* SYM_MSEC2;
+    static t_symbol* SYM_MSEC;
     static t_symbol* SYM_NONE;
+    static t_symbol* SYM_ONDONE;
+    static t_symbol* SYM_OVERFLOW;
+    static t_symbol* SYM_RANDOM;
+    static t_symbol* SYM_RANGE;
+    static t_symbol* SYM_SEC;
+    static t_symbol* SYM_SET;
+    static t_symbol* SYM_SQRT;
+    static t_symbol* SYM_WRAP; // 19
 
     static void initSymTab();
 };

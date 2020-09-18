@@ -49,10 +49,10 @@ public:
         PAN_MODE_SQRT
     };
 
-    enum ReadInterpoltion : uint8_t {
+    enum PlayInterp {
         INTERP_NO,
         INTERP_LINEAR,
-        INTERP_SPLINE
+        INTERP_CUBIC
     };
 
     using PanDoneFunc = std::function<float()>;
@@ -78,6 +78,7 @@ private:
     PanDoneFunc pan_done_;
     PanOverflow pan_overflow_ : 2;
     PanMode pan_mode_ : 2;
+    PlayInterp play_interp_ : 2;
 
 public:
     Grain();
@@ -85,6 +86,10 @@ public:
 
     // init parser vars
     void initParserVars(mu::Parser& p);
+
+    // play
+    PlayInterp playInterpolation() const { return play_interp_; }
+    void setPlayInterpolation(PlayInterp i) { play_interp_ = i; }
 
     // speed
     float speed() const { return play_speed_; }

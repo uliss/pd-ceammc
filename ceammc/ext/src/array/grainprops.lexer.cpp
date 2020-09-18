@@ -18,30 +18,34 @@
 namespace ceammc {
 
 t_symbol* GrainPropertiesLexer::PROP_AMP = nullptr;
-t_symbol* GrainPropertiesLexer::PROP_PAN = nullptr;
-t_symbol* GrainPropertiesLexer::PROP_SPEED = nullptr;
 t_symbol* GrainPropertiesLexer::PROP_AT = nullptr;
+t_symbol* GrainPropertiesLexer::PROP_INTERP = nullptr;
+t_symbol* GrainPropertiesLexer::PROP_INTERP2 = nullptr;
 t_symbol* GrainPropertiesLexer::PROP_LENGTH = nullptr;
 t_symbol* GrainPropertiesLexer::PROP_LENGTH2 = nullptr;
+t_symbol* GrainPropertiesLexer::PROP_PAN = nullptr;
+t_symbol* GrainPropertiesLexer::PROP_SPEED = nullptr;
 t_symbol* GrainPropertiesLexer::PROP_WHEN = nullptr;
-t_symbol* GrainPropertiesLexer::SYM_RANDOM = nullptr;
-t_symbol* GrainPropertiesLexer::SYM_OVERFLOW = nullptr;
-t_symbol* GrainPropertiesLexer::SYM_ONDONE = nullptr;
+
 t_symbol* GrainPropertiesLexer::SYM_ADD = nullptr;
-t_symbol* GrainPropertiesLexer::SYM_SET = nullptr;
-t_symbol* GrainPropertiesLexer::SYM_MOTION = nullptr;
+t_symbol* GrainPropertiesLexer::SYM_CLIP = nullptr;
+t_symbol* GrainPropertiesLexer::SYM_CUBIC = nullptr;
 t_symbol* GrainPropertiesLexer::SYM_EXPR = nullptr;
-t_symbol* GrainPropertiesLexer::SYM_RANGE = nullptr;
+t_symbol* GrainPropertiesLexer::SYM_FOLD = nullptr;
+t_symbol* GrainPropertiesLexer::SYM_LINEAR = nullptr;
+t_symbol* GrainPropertiesLexer::SYM_MODE = nullptr;
+t_symbol* GrainPropertiesLexer::SYM_MOTION = nullptr;
 t_symbol* GrainPropertiesLexer::SYM_MSEC = nullptr;
 t_symbol* GrainPropertiesLexer::SYM_MSEC2 = nullptr;
-t_symbol* GrainPropertiesLexer::SYM_SEC = nullptr;
-t_symbol* GrainPropertiesLexer::SYM_CLIP = nullptr;
-t_symbol* GrainPropertiesLexer::SYM_WRAP = nullptr;
-t_symbol* GrainPropertiesLexer::SYM_FOLD = nullptr;
-t_symbol* GrainPropertiesLexer::SYM_MODE = nullptr;
-t_symbol* GrainPropertiesLexer::SYM_LINEAR = nullptr;
-t_symbol* GrainPropertiesLexer::SYM_SQRT = nullptr;
 t_symbol* GrainPropertiesLexer::SYM_NONE = nullptr;
+t_symbol* GrainPropertiesLexer::SYM_ONDONE = nullptr;
+t_symbol* GrainPropertiesLexer::SYM_OVERFLOW = nullptr;
+t_symbol* GrainPropertiesLexer::SYM_RANDOM = nullptr;
+t_symbol* GrainPropertiesLexer::SYM_RANGE = nullptr;
+t_symbol* GrainPropertiesLexer::SYM_SEC = nullptr;
+t_symbol* GrainPropertiesLexer::SYM_SET = nullptr;
+t_symbol* GrainPropertiesLexer::SYM_SQRT = nullptr;
+t_symbol* GrainPropertiesLexer::SYM_WRAP = nullptr;
 
 GrainPropertiesLexer::GrainPropertiesLexer(const AtomList& src, Grain* grain)
     : src_(src)
@@ -63,7 +67,10 @@ GrainPropertiesParser::symbol_type GrainPropertiesLexer::lex()
     if (idx_ >= src_.size())
         return GrainPropertiesParser::make_YYEOF();
 
-    auto& atom = src_[idx_++];
+#define CHECK_SYM(sym) else if (s == SYM_##sym) return GrainPropertiesParser::make_S_##sym();
+#define CHECK_SYM2(sym0, sym1) else if (s == SYM_##sym0 || s == SYM_##sym1) return GrainPropertiesParser::make_S_##sym0();
+
+    const auto& atom = src_[idx_++];
 
     if (atom.isFloat())
         return GrainPropertiesParser::make_FLOAT(atom.asFloat());
@@ -75,84 +82,77 @@ GrainPropertiesParser::symbol_type GrainPropertiesLexer::lex()
             return GrainPropertiesParser::make_PROP_AMP();
         else if (s == PROP_SPEED)
             return GrainPropertiesParser::make_PROP_SPEED();
-        if (s == PROP_AT)
+        else if (s == PROP_AT)
             return GrainPropertiesParser::make_PROP_AT();
         else if (s == PROP_LENGTH || s == PROP_LENGTH2)
             return GrainPropertiesParser::make_PROP_LENGTH();
         else if (s == PROP_WHEN)
             return GrainPropertiesParser::make_PROP_WHEN();
-        else if (s == SYM_MSEC || s == SYM_MSEC2)
-            return GrainPropertiesParser::make_MSEC();
-        else if (s == SYM_SEC)
-            return GrainPropertiesParser::make_SEC();
-        else if (s == SYM_RANDOM)
-            return GrainPropertiesParser::make_RANDOM();
-        else if (s == SYM_OVERFLOW)
-            return GrainPropertiesParser::make_TOVERFLOW();
-        else if (s == SYM_ONDONE)
-            return GrainPropertiesParser::make_ONDONE();
-        else if (s == SYM_ADD)
-            return GrainPropertiesParser::make_ADD();
-        else if (s == SYM_SET)
-            return GrainPropertiesParser::make_SET();
-        else if (s == SYM_MOTION)
-            return GrainPropertiesParser::make_MOTION();
-        else if (s == SYM_RANGE)
-            return GrainPropertiesParser::make_RANGE();
-        else if (s == SYM_MODE)
-            return GrainPropertiesParser::make_MODE();
-        else if (s == SYM_EXPR)
-            return GrainPropertiesParser::make_EXPR();
-        else if (s == SYM_CLIP)
-            return GrainPropertiesParser::make_OVERFLOW_CLIP(Grain::PAN_OVERFLOW_CLIP);
-        else if (s == SYM_WRAP)
-            return GrainPropertiesParser::make_OVERFLOW_WRAP(Grain::PAN_OVERFLOW_WRAP);
-        else if (s == SYM_FOLD)
-            return GrainPropertiesParser::make_OVERFLOW_FOLD(Grain::PAN_OVERFLOW_FOLD);
-        else if (s == SYM_NONE)
-            return GrainPropertiesParser::make_PAN_MODE(Grain::PAN_MODE_NONE);
-        else if (s == SYM_LINEAR)
-            return GrainPropertiesParser::make_PAN_MODE(Grain::PAN_MODE_LINEAR);
-        else if (s == SYM_SQRT)
-            return GrainPropertiesParser::make_PAN_MODE(Grain::PAN_MODE_SQRT);
-        else {
+        else if (s == PROP_INTERP || s == PROP_INTERP2)
+            return GrainPropertiesParser::make_PROP_INTERP();
+        // check first
+        CHECK_SYM(SET)
+        CHECK_SYM(ADD)
+        CHECK_SYM(ONDONE)
+        CHECK_SYM(RANDOM)
+        // check alphabet
+        CHECK_SYM(CLIP)
+        CHECK_SYM(CUBIC)
+        CHECK_SYM(EXPR)
+        CHECK_SYM(FOLD)
+        CHECK_SYM(LINEAR)
+        CHECK_SYM(MODE)
+        CHECK_SYM(MOTION)
+        CHECK_SYM2(MSEC, MSEC2)
+        CHECK_SYM(NONE)
+        CHECK_SYM(OVERFLOW)
+        CHECK_SYM(RANGE)
+        CHECK_SYM(SEC)
+        CHECK_SYM(SQRT)
+        CHECK_SYM(WRAP)
+        else
+        {
             auto str = to_string(src_.view(idx_ - 1));
             return GrainPropertiesParser::make_STRING(str);
         }
     } else
         return GrainPropertiesParser::make_YYerror();
+
+#undef CHECK_SYM
+#undef CHECK_SYM2
 }
 
 void GrainPropertiesLexer::initSymTab()
 {
     PROP_AMP = gensym("@amp");
-    PROP_PAN = gensym("@pan");
-    PROP_SPEED = gensym("@speed");
     PROP_AT = gensym("@at");
+    PROP_INTERP = gensym("@i");
+    PROP_INTERP2 = gensym("@interp");
     PROP_LENGTH = gensym("@l");
     PROP_LENGTH2 = gensym("@length");
+    PROP_PAN = gensym("@pan");
+    PROP_SPEED = gensym("@speed");
     PROP_WHEN = gensym("@when");
 
-    SYM_RANDOM = gensym("random");
-    SYM_OVERFLOW = gensym("overflow");
-    SYM_ONDONE = gensym("ondone");
     SYM_ADD = gensym("add");
-    SYM_SET = gensym("set");
-    SYM_MOTION = gensym("motion");
+    SYM_CLIP = gensym("clip");
+    SYM_CUBIC = gensym("cubic");
     SYM_EXPR = gensym("expr");
-    SYM_RANGE = gensym("range");
-
+    SYM_FOLD = gensym("fold");
+    SYM_LINEAR = gensym("linear");
+    SYM_MODE = gensym("mode");
+    SYM_MOTION = gensym("motion");
     SYM_MSEC = gensym("ms");
     SYM_MSEC2 = gensym("msec");
-    SYM_SEC = gensym("sec");
-    SYM_CLIP = gensym("clip");
-    SYM_WRAP = gensym("wrap");
-    SYM_FOLD = gensym("fold");
-
-    SYM_MODE = gensym("mode");
-    SYM_LINEAR = gensym("linear");
-    SYM_SQRT = gensym("sqrt");
     SYM_NONE = gensym("none");
+    SYM_ONDONE = gensym("ondone");
+    SYM_OVERFLOW = gensym("overflow");
+    SYM_RANDOM = gensym("random");
+    SYM_RANGE = gensym("range");
+    SYM_SEC = gensym("sec");
+    SYM_SET = gensym("set");
+    SYM_SQRT = gensym("sqrt");
+    SYM_WRAP = gensym("wrap");
 }
 
 }

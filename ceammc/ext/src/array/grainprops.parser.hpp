@@ -49,6 +49,7 @@
 
     # include <random>
     # include <limits>
+    # include "grain.h"
 
     namespace ceammc {
         class GrainPropertiesLexer;
@@ -59,7 +60,7 @@
 #   define YY_NULLPTR nullptr
 # endif
 
-#line 63 "grainprops.parser.hpp"
+#line 64 "grainprops.parser.hpp"
 
 
 # include <cstdlib> // std::abort
@@ -194,7 +195,7 @@
 
 #line 7 "grain_properties.yy"
 namespace ceammc {
-#line 198 "grainprops.parser.hpp"
+#line 199 "grainprops.parser.hpp"
 
 
 
@@ -386,22 +387,23 @@ namespace ceammc {
     /// An auxiliary type to compute the largest semantic type.
     union union_type
     {
+      // ENUM_PAN_MODE
+      char dummy1[sizeof (Grain::PanMode)];
+
+      // ENUM_OVERFLOW_MODE
+      char dummy2[sizeof (Grain::PanOverflow)];
+
+      // ENUM_INTERP_MODE
+      char dummy3[sizeof (Grain::PlayInterp)];
+
       // TIME
-      char dummy1[sizeof (double)];
+      char dummy4[sizeof (double)];
 
       // FLOAT
-      char dummy2[sizeof (float)];
-
-      // OVERFLOW_CLIP
-      // OVERFLOW_WRAP
-      // OVERFLOW_FOLD
-      // PAN_MODE
-      // INTEGER
-      // OVERFLOW_MODE
-      char dummy3[sizeof (int)];
+      char dummy5[sizeof (float)];
 
       // STRING
-      char dummy4[sizeof (std::string)];
+      char dummy6[sizeof (std::string)];
     };
 
     /// The size of the largest semantic type.
@@ -444,30 +446,34 @@ namespace ceammc {
     YYEOF = 0,                     // "end of file"
     YYerror = 256,                 // error
     YYUNDEF = 257,                 // "invalid token"
-    PROP_PAN = 258,                // PROP_PAN
-    PROP_AMP = 259,                // PROP_AMP
-    PROP_SPEED = 260,              // PROP_SPEED
-    PROP_AT = 261,                 // PROP_AT
-    PROP_LENGTH = 262,             // PROP_LENGTH
-    PROP_WHEN = 263,               // PROP_WHEN
-    RANDOM = 264,                  // RANDOM
-    TOVERFLOW = 265,               // TOVERFLOW
-    ONDONE = 266,                  // ONDONE
-    ADD = 267,                     // ADD
-    SET = 268,                     // SET
-    MOTION = 269,                  // MOTION
-    EXPR = 270,                    // EXPR
-    RANGE = 271,                   // RANGE
-    MSEC = 272,                    // MSEC
-    SEC = 273,                     // SEC
-    MODE = 274,                    // MODE
-    OVERFLOW_CLIP = 275,           // OVERFLOW_CLIP
-    OVERFLOW_WRAP = 276,           // OVERFLOW_WRAP
-    OVERFLOW_FOLD = 277,           // OVERFLOW_FOLD
-    PAN_MODE = 278,                // PAN_MODE
-    FLOAT = 279,                   // FLOAT
-    INTEGER = 280,                 // INTEGER
-    STRING = 281                   // STRING
+    PROP_AMP = 258,                // PROP_AMP
+    PROP_AT = 259,                 // PROP_AT
+    PROP_INTERP = 260,             // PROP_INTERP
+    PROP_LENGTH = 261,             // PROP_LENGTH
+    PROP_PAN = 262,                // PROP_PAN
+    PROP_SPEED = 263,              // PROP_SPEED
+    PROP_WHEN = 264,               // PROP_WHEN
+    S_ADD = 265,                   // S_ADD
+    S_CLIP = 266,                  // S_CLIP
+    S_CUBIC = 267,                 // S_CUBIC
+    S_EXPR = 268,                  // S_EXPR
+    S_FOLD = 269,                  // S_FOLD
+    S_LINEAR = 270,                // S_LINEAR
+    S_MODE = 271,                  // S_MODE
+    S_MOTION = 272,                // S_MOTION
+    S_MSEC2 = 273,                 // S_MSEC2
+    S_MSEC = 274,                  // S_MSEC
+    S_NONE = 275,                  // S_NONE
+    S_ONDONE = 276,                // S_ONDONE
+    S_OVERFLOW = 277,              // S_OVERFLOW
+    S_RANDOM = 278,                // S_RANDOM
+    S_RANGE = 279,                 // S_RANGE
+    S_SEC = 280,                   // S_SEC
+    S_SET = 281,                   // S_SET
+    S_SQRT = 282,                  // S_SQRT
+    S_WRAP = 283,                  // S_WRAP
+    FLOAT = 284,                   // FLOAT
+    STRING = 285                   // STRING
       };
       /// Backward compatibility alias (Bison 3.6).
       typedef token_kind_type yytokentype;
@@ -484,47 +490,53 @@ namespace ceammc {
     {
       enum symbol_kind_type
       {
-        YYNTOKENS = 27, ///< Number of tokens.
+        YYNTOKENS = 31, ///< Number of tokens.
         S_YYEMPTY = -2,
         S_YYEOF = 0,                             // "end of file"
         S_YYerror = 1,                           // error
         S_YYUNDEF = 2,                           // "invalid token"
-        S_PROP_PAN = 3,                          // PROP_PAN
-        S_PROP_AMP = 4,                          // PROP_AMP
-        S_PROP_SPEED = 5,                        // PROP_SPEED
-        S_PROP_AT = 6,                           // PROP_AT
-        S_PROP_LENGTH = 7,                       // PROP_LENGTH
-        S_PROP_WHEN = 8,                         // PROP_WHEN
-        S_RANDOM = 9,                            // RANDOM
-        S_TOVERFLOW = 10,                        // TOVERFLOW
-        S_ONDONE = 11,                           // ONDONE
-        S_ADD = 12,                              // ADD
-        S_SET = 13,                              // SET
-        S_MOTION = 14,                           // MOTION
-        S_EXPR = 15,                             // EXPR
-        S_RANGE = 16,                            // RANGE
-        S_MSEC = 17,                             // MSEC
-        S_SEC = 18,                              // SEC
-        S_MODE = 19,                             // MODE
-        S_OVERFLOW_CLIP = 20,                    // OVERFLOW_CLIP
-        S_OVERFLOW_WRAP = 21,                    // OVERFLOW_WRAP
-        S_OVERFLOW_FOLD = 22,                    // OVERFLOW_FOLD
-        S_PAN_MODE = 23,                         // PAN_MODE
-        S_FLOAT = 24,                            // FLOAT
-        S_INTEGER = 25,                          // INTEGER
-        S_STRING = 26,                           // STRING
-        S_YYACCEPT = 27,                         // $accept
-        S_AMP = 28,                              // AMP
-        S_SPEED = 29,                            // SPEED
-        S_OVERFLOW_MODE = 30,                    // OVERFLOW_MODE
-        S_PAN = 31,                              // PAN
-        S_AT = 32,                               // AT
-        S_LENGTH = 33,                           // LENGTH
-        S_WHEN = 34,                             // WHEN
-        S_PROP = 35,                             // PROP
-        S_PROPS = 36,                            // PROPS
-        S_TIME = 37,                             // TIME
-        S_GRAIN = 38                             // GRAIN
+        S_PROP_AMP = 3,                          // PROP_AMP
+        S_PROP_AT = 4,                           // PROP_AT
+        S_PROP_INTERP = 5,                       // PROP_INTERP
+        S_PROP_LENGTH = 6,                       // PROP_LENGTH
+        S_PROP_PAN = 7,                          // PROP_PAN
+        S_PROP_SPEED = 8,                        // PROP_SPEED
+        S_PROP_WHEN = 9,                         // PROP_WHEN
+        S_S_ADD = 10,                            // S_ADD
+        S_S_CLIP = 11,                           // S_CLIP
+        S_S_CUBIC = 12,                          // S_CUBIC
+        S_S_EXPR = 13,                           // S_EXPR
+        S_S_FOLD = 14,                           // S_FOLD
+        S_S_LINEAR = 15,                         // S_LINEAR
+        S_S_MODE = 16,                           // S_MODE
+        S_S_MOTION = 17,                         // S_MOTION
+        S_S_MSEC2 = 18,                          // S_MSEC2
+        S_S_MSEC = 19,                           // S_MSEC
+        S_S_NONE = 20,                           // S_NONE
+        S_S_ONDONE = 21,                         // S_ONDONE
+        S_S_OVERFLOW = 22,                       // S_OVERFLOW
+        S_S_RANDOM = 23,                         // S_RANDOM
+        S_S_RANGE = 24,                          // S_RANGE
+        S_S_SEC = 25,                            // S_SEC
+        S_S_SET = 26,                            // S_SET
+        S_S_SQRT = 27,                           // S_SQRT
+        S_S_WRAP = 28,                           // S_WRAP
+        S_FLOAT = 29,                            // FLOAT
+        S_STRING = 30,                           // STRING
+        S_YYACCEPT = 31,                         // $accept
+        S_ENUM_OVERFLOW_MODE = 32,               // ENUM_OVERFLOW_MODE
+        S_ENUM_PAN_MODE = 33,                    // ENUM_PAN_MODE
+        S_ENUM_INTERP_MODE = 34,                 // ENUM_INTERP_MODE
+        S_AMP = 35,                              // AMP
+        S_SPEED = 36,                            // SPEED
+        S_PAN = 37,                              // PAN
+        S_AT = 38,                               // AT
+        S_LENGTH = 39,                           // LENGTH
+        S_WHEN = 40,                             // WHEN
+        S_PROP = 41,                             // PROP
+        S_PROPS = 42,                            // PROPS
+        S_TIME = 43,                             // TIME
+        S_GRAIN = 44                             // GRAIN
       };
     };
 
@@ -559,24 +571,27 @@ namespace ceammc {
       {
         switch (this->kind ())
     {
-      case 37: // TIME
+      case 33: // ENUM_PAN_MODE
+        value.move< Grain::PanMode > (std::move (that.value));
+        break;
+
+      case 32: // ENUM_OVERFLOW_MODE
+        value.move< Grain::PanOverflow > (std::move (that.value));
+        break;
+
+      case 34: // ENUM_INTERP_MODE
+        value.move< Grain::PlayInterp > (std::move (that.value));
+        break;
+
+      case 43: // TIME
         value.move< double > (std::move (that.value));
         break;
 
-      case 24: // FLOAT
+      case 29: // FLOAT
         value.move< float > (std::move (that.value));
         break;
 
-      case 20: // OVERFLOW_CLIP
-      case 21: // OVERFLOW_WRAP
-      case 22: // OVERFLOW_FOLD
-      case 23: // PAN_MODE
-      case 25: // INTEGER
-      case 30: // OVERFLOW_MODE
-        value.move< int > (std::move (that.value));
-        break;
-
-      case 26: // STRING
+      case 30: // STRING
         value.move< std::string > (std::move (that.value));
         break;
 
@@ -601,6 +616,39 @@ namespace ceammc {
       {}
 #endif
 #if 201103L <= YY_CPLUSPLUS
+      basic_symbol (typename Base::kind_type t, Grain::PanMode&& v)
+        : Base (t)
+        , value (std::move (v))
+      {}
+#else
+      basic_symbol (typename Base::kind_type t, const Grain::PanMode& v)
+        : Base (t)
+        , value (v)
+      {}
+#endif
+#if 201103L <= YY_CPLUSPLUS
+      basic_symbol (typename Base::kind_type t, Grain::PanOverflow&& v)
+        : Base (t)
+        , value (std::move (v))
+      {}
+#else
+      basic_symbol (typename Base::kind_type t, const Grain::PanOverflow& v)
+        : Base (t)
+        , value (v)
+      {}
+#endif
+#if 201103L <= YY_CPLUSPLUS
+      basic_symbol (typename Base::kind_type t, Grain::PlayInterp&& v)
+        : Base (t)
+        , value (std::move (v))
+      {}
+#else
+      basic_symbol (typename Base::kind_type t, const Grain::PlayInterp& v)
+        : Base (t)
+        , value (v)
+      {}
+#endif
+#if 201103L <= YY_CPLUSPLUS
       basic_symbol (typename Base::kind_type t, double&& v)
         : Base (t)
         , value (std::move (v))
@@ -618,17 +666,6 @@ namespace ceammc {
       {}
 #else
       basic_symbol (typename Base::kind_type t, const float& v)
-        : Base (t)
-        , value (v)
-      {}
-#endif
-#if 201103L <= YY_CPLUSPLUS
-      basic_symbol (typename Base::kind_type t, int&& v)
-        : Base (t)
-        , value (std::move (v))
-      {}
-#else
-      basic_symbol (typename Base::kind_type t, const int& v)
         : Base (t)
         , value (v)
       {}
@@ -667,24 +704,27 @@ namespace ceammc {
         // Value type destructor.
 switch (yykind)
     {
-      case 37: // TIME
+      case 33: // ENUM_PAN_MODE
+        value.template destroy< Grain::PanMode > ();
+        break;
+
+      case 32: // ENUM_OVERFLOW_MODE
+        value.template destroy< Grain::PanOverflow > ();
+        break;
+
+      case 34: // ENUM_INTERP_MODE
+        value.template destroy< Grain::PlayInterp > ();
+        break;
+
+      case 43: // TIME
         value.template destroy< double > ();
         break;
 
-      case 24: // FLOAT
+      case 29: // FLOAT
         value.template destroy< float > ();
         break;
 
-      case 20: // OVERFLOW_CLIP
-      case 21: // OVERFLOW_WRAP
-      case 22: // OVERFLOW_FOLD
-      case 23: // PAN_MODE
-      case 25: // INTEGER
-      case 30: // OVERFLOW_MODE
-        value.template destroy< int > ();
-        break;
-
-      case 26: // STRING
+      case 30: // STRING
         value.template destroy< std::string > ();
         break;
 
@@ -775,13 +815,13 @@ switch (yykind)
       symbol_type (int tok)
         : super_type(token_type (tok))
       {
-        YY_ASSERT (tok == token::YYEOF || tok == token::YYerror || tok == token::YYUNDEF || tok == token::PROP_PAN || tok == token::PROP_AMP || tok == token::PROP_SPEED || tok == token::PROP_AT || tok == token::PROP_LENGTH || tok == token::PROP_WHEN || tok == token::RANDOM || tok == token::TOVERFLOW || tok == token::ONDONE || tok == token::ADD || tok == token::SET || tok == token::MOTION || tok == token::EXPR || tok == token::RANGE || tok == token::MSEC || tok == token::SEC || tok == token::MODE);
+        YY_ASSERT (tok == token::YYEOF || tok == token::YYerror || tok == token::YYUNDEF || tok == token::PROP_AMP || tok == token::PROP_AT || tok == token::PROP_INTERP || tok == token::PROP_LENGTH || tok == token::PROP_PAN || tok == token::PROP_SPEED || tok == token::PROP_WHEN || tok == token::S_ADD || tok == token::S_CLIP || tok == token::S_CUBIC || tok == token::S_EXPR || tok == token::S_FOLD || tok == token::S_LINEAR || tok == token::S_MODE || tok == token::S_MOTION || tok == token::S_MSEC2 || tok == token::S_MSEC || tok == token::S_NONE || tok == token::S_ONDONE || tok == token::S_OVERFLOW || tok == token::S_RANDOM || tok == token::S_RANGE || tok == token::S_SEC || tok == token::S_SET || tok == token::S_SQRT || tok == token::S_WRAP);
       }
 #else
       symbol_type (int tok)
         : super_type(token_type (tok))
       {
-        YY_ASSERT (tok == token::YYEOF || tok == token::YYerror || tok == token::YYUNDEF || tok == token::PROP_PAN || tok == token::PROP_AMP || tok == token::PROP_SPEED || tok == token::PROP_AT || tok == token::PROP_LENGTH || tok == token::PROP_WHEN || tok == token::RANDOM || tok == token::TOVERFLOW || tok == token::ONDONE || tok == token::ADD || tok == token::SET || tok == token::MOTION || tok == token::EXPR || tok == token::RANGE || tok == token::MSEC || tok == token::SEC || tok == token::MODE);
+        YY_ASSERT (tok == token::YYEOF || tok == token::YYerror || tok == token::YYUNDEF || tok == token::PROP_AMP || tok == token::PROP_AT || tok == token::PROP_INTERP || tok == token::PROP_LENGTH || tok == token::PROP_PAN || tok == token::PROP_SPEED || tok == token::PROP_WHEN || tok == token::S_ADD || tok == token::S_CLIP || tok == token::S_CUBIC || tok == token::S_EXPR || tok == token::S_FOLD || tok == token::S_LINEAR || tok == token::S_MODE || tok == token::S_MOTION || tok == token::S_MSEC2 || tok == token::S_MSEC || tok == token::S_NONE || tok == token::S_ONDONE || tok == token::S_OVERFLOW || tok == token::S_RANDOM || tok == token::S_RANGE || tok == token::S_SEC || tok == token::S_SET || tok == token::S_SQRT || tok == token::S_WRAP);
       }
 #endif
 #if 201103L <= YY_CPLUSPLUS
@@ -795,19 +835,6 @@ switch (yykind)
         : super_type(token_type (tok), v)
       {
         YY_ASSERT (tok == token::FLOAT);
-      }
-#endif
-#if 201103L <= YY_CPLUSPLUS
-      symbol_type (int tok, int v)
-        : super_type(token_type (tok), std::move (v))
-      {
-        YY_ASSERT (tok == token::OVERFLOW_CLIP || tok == token::OVERFLOW_WRAP || tok == token::OVERFLOW_FOLD || tok == token::PAN_MODE || tok == token::INTEGER);
-      }
-#else
-      symbol_type (int tok, const int& v)
-        : super_type(token_type (tok), v)
-      {
-        YY_ASSERT (tok == token::OVERFLOW_CLIP || tok == token::OVERFLOW_WRAP || tok == token::OVERFLOW_FOLD || tok == token::PAN_MODE || tok == token::INTEGER);
       }
 #endif
 #if 201103L <= YY_CPLUSPLUS
@@ -918,21 +945,6 @@ switch (yykind)
 #if 201103L <= YY_CPLUSPLUS
       static
       symbol_type
-      make_PROP_PAN ()
-      {
-        return symbol_type (token::PROP_PAN);
-      }
-#else
-      static
-      symbol_type
-      make_PROP_PAN ()
-      {
-        return symbol_type (token::PROP_PAN);
-      }
-#endif
-#if 201103L <= YY_CPLUSPLUS
-      static
-      symbol_type
       make_PROP_AMP ()
       {
         return symbol_type (token::PROP_AMP);
@@ -943,21 +955,6 @@ switch (yykind)
       make_PROP_AMP ()
       {
         return symbol_type (token::PROP_AMP);
-      }
-#endif
-#if 201103L <= YY_CPLUSPLUS
-      static
-      symbol_type
-      make_PROP_SPEED ()
-      {
-        return symbol_type (token::PROP_SPEED);
-      }
-#else
-      static
-      symbol_type
-      make_PROP_SPEED ()
-      {
-        return symbol_type (token::PROP_SPEED);
       }
 #endif
 #if 201103L <= YY_CPLUSPLUS
@@ -978,6 +975,21 @@ switch (yykind)
 #if 201103L <= YY_CPLUSPLUS
       static
       symbol_type
+      make_PROP_INTERP ()
+      {
+        return symbol_type (token::PROP_INTERP);
+      }
+#else
+      static
+      symbol_type
+      make_PROP_INTERP ()
+      {
+        return symbol_type (token::PROP_INTERP);
+      }
+#endif
+#if 201103L <= YY_CPLUSPLUS
+      static
+      symbol_type
       make_PROP_LENGTH ()
       {
         return symbol_type (token::PROP_LENGTH);
@@ -988,6 +1000,36 @@ switch (yykind)
       make_PROP_LENGTH ()
       {
         return symbol_type (token::PROP_LENGTH);
+      }
+#endif
+#if 201103L <= YY_CPLUSPLUS
+      static
+      symbol_type
+      make_PROP_PAN ()
+      {
+        return symbol_type (token::PROP_PAN);
+      }
+#else
+      static
+      symbol_type
+      make_PROP_PAN ()
+      {
+        return symbol_type (token::PROP_PAN);
+      }
+#endif
+#if 201103L <= YY_CPLUSPLUS
+      static
+      symbol_type
+      make_PROP_SPEED ()
+      {
+        return symbol_type (token::PROP_SPEED);
+      }
+#else
+      static
+      symbol_type
+      make_PROP_SPEED ()
+      {
+        return symbol_type (token::PROP_SPEED);
       }
 #endif
 #if 201103L <= YY_CPLUSPLUS
@@ -1008,226 +1050,286 @@ switch (yykind)
 #if 201103L <= YY_CPLUSPLUS
       static
       symbol_type
-      make_RANDOM ()
+      make_S_ADD ()
       {
-        return symbol_type (token::RANDOM);
+        return symbol_type (token::S_ADD);
       }
 #else
       static
       symbol_type
-      make_RANDOM ()
+      make_S_ADD ()
       {
-        return symbol_type (token::RANDOM);
+        return symbol_type (token::S_ADD);
       }
 #endif
 #if 201103L <= YY_CPLUSPLUS
       static
       symbol_type
-      make_TOVERFLOW ()
+      make_S_CLIP ()
       {
-        return symbol_type (token::TOVERFLOW);
+        return symbol_type (token::S_CLIP);
       }
 #else
       static
       symbol_type
-      make_TOVERFLOW ()
+      make_S_CLIP ()
       {
-        return symbol_type (token::TOVERFLOW);
+        return symbol_type (token::S_CLIP);
       }
 #endif
 #if 201103L <= YY_CPLUSPLUS
       static
       symbol_type
-      make_ONDONE ()
+      make_S_CUBIC ()
       {
-        return symbol_type (token::ONDONE);
+        return symbol_type (token::S_CUBIC);
       }
 #else
       static
       symbol_type
-      make_ONDONE ()
+      make_S_CUBIC ()
       {
-        return symbol_type (token::ONDONE);
+        return symbol_type (token::S_CUBIC);
       }
 #endif
 #if 201103L <= YY_CPLUSPLUS
       static
       symbol_type
-      make_ADD ()
+      make_S_EXPR ()
       {
-        return symbol_type (token::ADD);
+        return symbol_type (token::S_EXPR);
       }
 #else
       static
       symbol_type
-      make_ADD ()
+      make_S_EXPR ()
       {
-        return symbol_type (token::ADD);
+        return symbol_type (token::S_EXPR);
       }
 #endif
 #if 201103L <= YY_CPLUSPLUS
       static
       symbol_type
-      make_SET ()
+      make_S_FOLD ()
       {
-        return symbol_type (token::SET);
+        return symbol_type (token::S_FOLD);
       }
 #else
       static
       symbol_type
-      make_SET ()
+      make_S_FOLD ()
       {
-        return symbol_type (token::SET);
+        return symbol_type (token::S_FOLD);
       }
 #endif
 #if 201103L <= YY_CPLUSPLUS
       static
       symbol_type
-      make_MOTION ()
+      make_S_LINEAR ()
       {
-        return symbol_type (token::MOTION);
+        return symbol_type (token::S_LINEAR);
       }
 #else
       static
       symbol_type
-      make_MOTION ()
+      make_S_LINEAR ()
       {
-        return symbol_type (token::MOTION);
+        return symbol_type (token::S_LINEAR);
       }
 #endif
 #if 201103L <= YY_CPLUSPLUS
       static
       symbol_type
-      make_EXPR ()
+      make_S_MODE ()
       {
-        return symbol_type (token::EXPR);
+        return symbol_type (token::S_MODE);
       }
 #else
       static
       symbol_type
-      make_EXPR ()
+      make_S_MODE ()
       {
-        return symbol_type (token::EXPR);
+        return symbol_type (token::S_MODE);
       }
 #endif
 #if 201103L <= YY_CPLUSPLUS
       static
       symbol_type
-      make_RANGE ()
+      make_S_MOTION ()
       {
-        return symbol_type (token::RANGE);
+        return symbol_type (token::S_MOTION);
       }
 #else
       static
       symbol_type
-      make_RANGE ()
+      make_S_MOTION ()
       {
-        return symbol_type (token::RANGE);
+        return symbol_type (token::S_MOTION);
       }
 #endif
 #if 201103L <= YY_CPLUSPLUS
       static
       symbol_type
-      make_MSEC ()
+      make_S_MSEC2 ()
       {
-        return symbol_type (token::MSEC);
+        return symbol_type (token::S_MSEC2);
       }
 #else
       static
       symbol_type
-      make_MSEC ()
+      make_S_MSEC2 ()
       {
-        return symbol_type (token::MSEC);
+        return symbol_type (token::S_MSEC2);
       }
 #endif
 #if 201103L <= YY_CPLUSPLUS
       static
       symbol_type
-      make_SEC ()
+      make_S_MSEC ()
       {
-        return symbol_type (token::SEC);
+        return symbol_type (token::S_MSEC);
       }
 #else
       static
       symbol_type
-      make_SEC ()
+      make_S_MSEC ()
       {
-        return symbol_type (token::SEC);
+        return symbol_type (token::S_MSEC);
       }
 #endif
 #if 201103L <= YY_CPLUSPLUS
       static
       symbol_type
-      make_MODE ()
+      make_S_NONE ()
       {
-        return symbol_type (token::MODE);
+        return symbol_type (token::S_NONE);
       }
 #else
       static
       symbol_type
-      make_MODE ()
+      make_S_NONE ()
       {
-        return symbol_type (token::MODE);
+        return symbol_type (token::S_NONE);
       }
 #endif
 #if 201103L <= YY_CPLUSPLUS
       static
       symbol_type
-      make_OVERFLOW_CLIP (int v)
+      make_S_ONDONE ()
       {
-        return symbol_type (token::OVERFLOW_CLIP, std::move (v));
+        return symbol_type (token::S_ONDONE);
       }
 #else
       static
       symbol_type
-      make_OVERFLOW_CLIP (const int& v)
+      make_S_ONDONE ()
       {
-        return symbol_type (token::OVERFLOW_CLIP, v);
+        return symbol_type (token::S_ONDONE);
       }
 #endif
 #if 201103L <= YY_CPLUSPLUS
       static
       symbol_type
-      make_OVERFLOW_WRAP (int v)
+      make_S_OVERFLOW ()
       {
-        return symbol_type (token::OVERFLOW_WRAP, std::move (v));
+        return symbol_type (token::S_OVERFLOW);
       }
 #else
       static
       symbol_type
-      make_OVERFLOW_WRAP (const int& v)
+      make_S_OVERFLOW ()
       {
-        return symbol_type (token::OVERFLOW_WRAP, v);
+        return symbol_type (token::S_OVERFLOW);
       }
 #endif
 #if 201103L <= YY_CPLUSPLUS
       static
       symbol_type
-      make_OVERFLOW_FOLD (int v)
+      make_S_RANDOM ()
       {
-        return symbol_type (token::OVERFLOW_FOLD, std::move (v));
+        return symbol_type (token::S_RANDOM);
       }
 #else
       static
       symbol_type
-      make_OVERFLOW_FOLD (const int& v)
+      make_S_RANDOM ()
       {
-        return symbol_type (token::OVERFLOW_FOLD, v);
+        return symbol_type (token::S_RANDOM);
       }
 #endif
 #if 201103L <= YY_CPLUSPLUS
       static
       symbol_type
-      make_PAN_MODE (int v)
+      make_S_RANGE ()
       {
-        return symbol_type (token::PAN_MODE, std::move (v));
+        return symbol_type (token::S_RANGE);
       }
 #else
       static
       symbol_type
-      make_PAN_MODE (const int& v)
+      make_S_RANGE ()
       {
-        return symbol_type (token::PAN_MODE, v);
+        return symbol_type (token::S_RANGE);
+      }
+#endif
+#if 201103L <= YY_CPLUSPLUS
+      static
+      symbol_type
+      make_S_SEC ()
+      {
+        return symbol_type (token::S_SEC);
+      }
+#else
+      static
+      symbol_type
+      make_S_SEC ()
+      {
+        return symbol_type (token::S_SEC);
+      }
+#endif
+#if 201103L <= YY_CPLUSPLUS
+      static
+      symbol_type
+      make_S_SET ()
+      {
+        return symbol_type (token::S_SET);
+      }
+#else
+      static
+      symbol_type
+      make_S_SET ()
+      {
+        return symbol_type (token::S_SET);
+      }
+#endif
+#if 201103L <= YY_CPLUSPLUS
+      static
+      symbol_type
+      make_S_SQRT ()
+      {
+        return symbol_type (token::S_SQRT);
+      }
+#else
+      static
+      symbol_type
+      make_S_SQRT ()
+      {
+        return symbol_type (token::S_SQRT);
+      }
+#endif
+#if 201103L <= YY_CPLUSPLUS
+      static
+      symbol_type
+      make_S_WRAP ()
+      {
+        return symbol_type (token::S_WRAP);
+      }
+#else
+      static
+      symbol_type
+      make_S_WRAP ()
+      {
+        return symbol_type (token::S_WRAP);
       }
 #endif
 #if 201103L <= YY_CPLUSPLUS
@@ -1243,21 +1345,6 @@ switch (yykind)
       make_FLOAT (const float& v)
       {
         return symbol_type (token::FLOAT, v);
-      }
-#endif
-#if 201103L <= YY_CPLUSPLUS
-      static
-      symbol_type
-      make_INTEGER (int v)
-      {
-        return symbol_type (token::INTEGER, std::move (v));
-      }
-#else
-      static
-      symbol_type
-      make_INTEGER (const int& v)
-      {
-        return symbol_type (token::INTEGER, v);
       }
 #endif
 #if 201103L <= YY_CPLUSPLUS
@@ -1603,9 +1690,9 @@ switch (yykind)
     /// Constants.
     enum
     {
-      yylast_ = 144,     ///< Last index in yytable_.
-      yynnts_ = 12,  ///< Number of nonterminal symbols.
-      yyfinal_ = 43 ///< Termination state number.
+      yylast_ = 155,     ///< Last index in yytable_.
+      yynnts_ = 14,  ///< Number of nonterminal symbols.
+      yyfinal_ = 48 ///< Termination state number.
     };
 
 
@@ -1652,9 +1739,9 @@ switch (yykind)
        2,     2,     2,     2,     2,     2,     1,     2,     3,     4,
        5,     6,     7,     8,     9,    10,    11,    12,    13,    14,
       15,    16,    17,    18,    19,    20,    21,    22,    23,    24,
-      25,    26
+      25,    26,    27,    28,    29,    30
     };
-    const int user_token_number_max_ = 281;
+    const int user_token_number_max_ = 285;
 
     if (t <= 0)
       return symbol_kind::S_YYEOF;
@@ -1672,24 +1759,27 @@ switch (yykind)
   {
     switch (this->kind ())
     {
-      case 37: // TIME
+      case 33: // ENUM_PAN_MODE
+        value.copy< Grain::PanMode > (YY_MOVE (that.value));
+        break;
+
+      case 32: // ENUM_OVERFLOW_MODE
+        value.copy< Grain::PanOverflow > (YY_MOVE (that.value));
+        break;
+
+      case 34: // ENUM_INTERP_MODE
+        value.copy< Grain::PlayInterp > (YY_MOVE (that.value));
+        break;
+
+      case 43: // TIME
         value.copy< double > (YY_MOVE (that.value));
         break;
 
-      case 24: // FLOAT
+      case 29: // FLOAT
         value.copy< float > (YY_MOVE (that.value));
         break;
 
-      case 20: // OVERFLOW_CLIP
-      case 21: // OVERFLOW_WRAP
-      case 22: // OVERFLOW_FOLD
-      case 23: // PAN_MODE
-      case 25: // INTEGER
-      case 30: // OVERFLOW_MODE
-        value.copy< int > (YY_MOVE (that.value));
-        break;
-
-      case 26: // STRING
+      case 30: // STRING
         value.copy< std::string > (YY_MOVE (that.value));
         break;
 
@@ -1722,24 +1812,27 @@ switch (yykind)
     super_type::move (s);
     switch (this->kind ())
     {
-      case 37: // TIME
+      case 33: // ENUM_PAN_MODE
+        value.move< Grain::PanMode > (YY_MOVE (s.value));
+        break;
+
+      case 32: // ENUM_OVERFLOW_MODE
+        value.move< Grain::PanOverflow > (YY_MOVE (s.value));
+        break;
+
+      case 34: // ENUM_INTERP_MODE
+        value.move< Grain::PlayInterp > (YY_MOVE (s.value));
+        break;
+
+      case 43: // TIME
         value.move< double > (YY_MOVE (s.value));
         break;
 
-      case 24: // FLOAT
+      case 29: // FLOAT
         value.move< float > (YY_MOVE (s.value));
         break;
 
-      case 20: // OVERFLOW_CLIP
-      case 21: // OVERFLOW_WRAP
-      case 22: // OVERFLOW_FOLD
-      case 23: // PAN_MODE
-      case 25: // INTEGER
-      case 30: // OVERFLOW_MODE
-        value.move< int > (YY_MOVE (s.value));
-        break;
-
-      case 26: // STRING
+      case 30: // STRING
         value.move< std::string > (YY_MOVE (s.value));
         break;
 
@@ -1805,7 +1898,7 @@ switch (yykind)
 
 #line 7 "grain_properties.yy"
 } // ceammc
-#line 1809 "grainprops.parser.hpp"
+#line 1902 "grainprops.parser.hpp"
 
 
 

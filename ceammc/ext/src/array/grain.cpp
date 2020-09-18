@@ -32,9 +32,24 @@ static float foldFloat(float x, float max)
     return std::min<float>(max2 - w, w);
 }
 
-float foldFloat(float x, float min, float max)
+static float foldFloat(float x, float min, float max)
 {
     return min + foldFloat(x - min, max - min);
+}
+
+static inline t_sample interpLinear(t_sample x0, t_sample x1, t_sample t)
+{
+    return x0 + t * (x1 - x0);
+}
+
+static t_sample interpCubicHermite(t_sample x0, t_sample x1, t_sample x2, t_sample x3, t_sample t)
+{
+    const t_sample a = -x0 / 2 + (3 * x1) / 2 - (3 * x2) / 2 + x3 / 2;
+    const t_sample b = x0 - (5 * x1) / 2 + 2 * x2 - x3 / 2;
+    const t_sample c = -x0 / 2 + x2 / 2;
+    const t_sample d = x1;
+
+    return a * t * t * t + b * t * t + c * t + d;
 }
 
 Grain::Grain()
@@ -42,6 +57,7 @@ Grain::Grain()
     , pan_norm_(0.5)
     , pan_overflow_(PAN_OVERFLOW_CLIP)
     , pan_mode_(PAN_MODE_LINEAR)
+    , play_interp_(INTERP_NO)
 {
 }
 
@@ -50,6 +66,7 @@ Grain::Grain(size_t array_pos, size_t length, size_t play_pos)
     , pan_norm_(0.5)
     , pan_overflow_(PAN_OVERFLOW_CLIP)
     , pan_mode_(PAN_MODE_LINEAR)
+    , play_interp_(INTERP_NO)
 {
     array_pos_samp = array_pos;
     length_samp = length;
@@ -162,7 +179,7 @@ std::ostream& operator<<(std::ostream& os, const Grain& g)
     return os;
 }
 
-Grain::PlayStatus Grain::process(ceammc::ArrayIterator in, size_t in_size, t_sample** buf, size_t bs)
+Grain::PlayStatus Grain::process(ArrayIterator in, size_t in_size, t_sample** buf, size_t bs)
 {
     // invalid
     if (play_status == FINISHED) {
@@ -190,11 +207,34 @@ Grain::PlayStatus Grain::process(ceammc::ArrayIterator in, size_t in_size, t_sam
 
             assert(play_pos >= startInSamples());
 
-            const size_t idx = arrayPosInSamples() + play_pos - startInSamples();
-            if (idx >= in_size)
+            const double play_idx = arrayPosInSamples() + play_pos - startInSamples();
+            if (play_idx >= in_size)
                 return done();
 
-            const t_sample value = in[idx];
+            assert(play_idx >= 0);
+
+            t_sample value = 0;
+            const auto idx = static_cast<size_t>(play_idx);
+            switch (play_interp_) {
+            case INTERP_LINEAR: {
+                const auto x0 = in[idx];
+                const auto x1 = (idx + 1 >= in_size) ? x0 : in[idx + 1];
+                const double t = play_idx - double(idx);
+                value = interpLinear(x0, x1, t);
+            } break;
+            case INTERP_CUBIC: {
+                const auto x0 = (idx < 1) ? in[idx] : in[idx - 1];
+                const auto x1 = in[idx];
+                const auto x2 = (idx + 1 >= in_size) ? x1 : in[idx + 1];
+                const auto x3 = (idx + 2 >= in_size) ? x2 : in[idx + 2];
+                const double t = play_idx - double(idx);
+                value = interpCubicHermite(x0, x1, x2, x3, t);
+            } break;
+            case INTERP_NO:
+            default:
+                value = in[idx];
+                break;
+            }
 
             buf[0][i] += pan_coeffs.first * value;
             buf[1][i] += pan_coeffs.second * value;
@@ -228,5 +268,4 @@ Grain::PlayStatus Grain::process(ceammc::ArrayIterator in, size_t in_size, t_sam
 
     return PLAYING;
 }
-
 }

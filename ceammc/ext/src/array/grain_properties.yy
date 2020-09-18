@@ -13,6 +13,7 @@
 %code requires{
     # include <random>
     # include <limits>
+    # include "grain.h"
 
     namespace ceammc {
         class GrainPropertiesLexer;
@@ -29,7 +30,6 @@
 %code {
     # include <string>
     # include "grainprops.lexer.h"
-    # include "grain.h"
     # include "grain_random.h"
     # include "ceammc_log.h"
 
@@ -40,146 +40,166 @@
     static inline float frand_closed(float a, float b) { return ceammc::GrainRandom::urandf_closed(a, b); }
 }
 
-%token			         PROP_PAN
 %token                   PROP_AMP
-%token                   PROP_SPEED
 %token                   PROP_AT
+%token                   PROP_INTERP
 %token                   PROP_LENGTH
+%token                   PROP_PAN
+%token                   PROP_SPEED
 %token                   PROP_WHEN
-%token 			         RANDOM
-%token 			         TOVERFLOW
-%token 			         ONDONE
-%token         	         ADD
-%token         	         SET
-%token         	         MOTION
-%token         	         EXPR
-%token                   RANGE
-%token                   MSEC
-%token                   SEC
-%token                   MODE
-%token <int>             OVERFLOW_CLIP
-%token <int>             OVERFLOW_WRAP
-%token <int>             OVERFLOW_FOLD
-%token <int>             PAN_MODE
+
+%token                   S_ADD
+%token                   S_CLIP
+%token                   S_CUBIC
+%token                   S_EXPR
+%token                   S_FOLD
+%token                   S_LINEAR
+%token                   S_MODE
+%token                   S_MOTION
+%token                   S_MSEC2
+%token                   S_MSEC
+%token                   S_NONE
+%token                   S_ONDONE
+%token                   S_OVERFLOW
+%token                   S_RANDOM
+%token                   S_RANGE
+%token                   S_SEC
+%token                   S_SET
+%token                   S_SQRT
+%token                   S_WRAP
 
 %token <float>           FLOAT
-%token <int>             INTEGER
 %token <std::string>     STRING
 
-%type <double>           TIME
-%type <int>              OVERFLOW_MODE
+%type <double>              TIME
+%type <Grain::PanOverflow>  ENUM_OVERFLOW_MODE
+%type <Grain::PanMode>      ENUM_PAN_MODE
+%type <Grain::PlayInterp>   ENUM_INTERP_MODE
 
 %start GRAIN
 
 %%
 
+ENUM_OVERFLOW_MODE
+    : S_CLIP { $$ = Grain::PAN_OVERFLOW_CLIP; }
+    | S_WRAP { $$ = Grain::PAN_OVERFLOW_WRAP; }
+    | S_FOLD { $$ = Grain::PAN_OVERFLOW_FOLD; }
+    ;
+
+ENUM_PAN_MODE
+    : S_NONE   { $$ = Grain::PAN_MODE_NONE; }
+    | S_LINEAR { $$ = Grain::PAN_MODE_LINEAR; }
+    | S_SQRT   { $$ = Grain::PAN_MODE_SQRT; }
+    ;
+
+ENUM_INTERP_MODE
+    : S_NONE   { $$ = Grain::INTERP_NO; }
+    | S_LINEAR { $$ = Grain::INTERP_LINEAR; }
+    | S_CUBIC  { $$ = Grain::INTERP_CUBIC; }
+    ;
+
 AMP
     : PROP_AMP FLOAT
-    | PROP_AMP EXPR STRING
+    | PROP_AMP S_EXPR STRING
     ;
 
 SPEED
-    : PROP_SPEED FLOAT                  { lexer.grain()->setSpeed($2); }
-    | PROP_SPEED RANDOM FLOAT FLOAT     { lexer.grain()->setSpeed(frand($3, $4)); }
-    | PROP_SPEED EXPR STRING            { lexer.grain()->setSpeedExpr($3); }
-    | PROP_SPEED SET FLOAT              { lexer.grain()->setSpeed($3); }
-    | PROP_SPEED SET RANDOM FLOAT FLOAT { lexer.grain()->setSpeed(frand($4, $5)); }
-    | PROP_SPEED SET EXPR STRING        { lexer.grain()->setSpeedExpr($4); }
-    | PROP_SPEED ADD FLOAT              { lexer.grain()->addSpeed($3); }
-    | PROP_SPEED ADD RANDOM FLOAT FLOAT { lexer.grain()->addSpeed(frand($4, $5)); }
-    | PROP_SPEED ADD EXPR STRING
-    | PROP_SPEED MOTION ADD FLOAT
-    | PROP_SPEED MOTION ADD RANDOM FLOAT FLOAT
-    | PROP_SPEED MOTION ADD EXPR STRING
-    | PROP_SPEED MOTION SET FLOAT
-    | PROP_SPEED MOTION SET RANDOM FLOAT FLOAT
-    | PROP_SPEED MOTION SET EXPR STRING
-    | PROP_SPEED ONDONE ADD FLOAT       {
+    : PROP_SPEED FLOAT                      { lexer.grain()->setSpeed($2); }
+    | PROP_SPEED S_RANDOM FLOAT FLOAT       { lexer.grain()->setSpeed(frand($3, $4)); }
+    | PROP_SPEED S_EXPR STRING              { lexer.grain()->setSpeedExpr($3); }
+    | PROP_SPEED S_SET FLOAT                { lexer.grain()->setSpeed($3); }
+    | PROP_SPEED S_SET S_RANDOM FLOAT FLOAT { lexer.grain()->setSpeed(frand($4, $5)); }
+    | PROP_SPEED S_SET S_EXPR STRING        { lexer.grain()->setSpeedExpr($4); }
+    | PROP_SPEED S_ADD FLOAT                { lexer.grain()->addSpeed($3); }
+    | PROP_SPEED S_ADD S_RANDOM FLOAT FLOAT { lexer.grain()->addSpeed(frand($4, $5)); }
+    | PROP_SPEED S_ADD S_EXPR STRING
+    | PROP_SPEED S_MOTION S_ADD FLOAT
+    | PROP_SPEED S_MOTION S_ADD S_RANDOM FLOAT FLOAT
+    | PROP_SPEED S_MOTION S_ADD S_EXPR STRING
+    | PROP_SPEED S_MOTION S_SET FLOAT
+    | PROP_SPEED S_MOTION S_SET S_RANDOM FLOAT FLOAT
+    | PROP_SPEED S_MOTION S_SET S_EXPR STRING
+    | PROP_SPEED S_ONDONE S_ADD FLOAT   {
                                           auto d = $4;
                                           lexer.grain()->setSpeedDone([d](Grain* g){ return g->speed() + d; });
                                         }
-    | PROP_SPEED ONDONE ADD RANDOM FLOAT FLOAT
+    | PROP_SPEED S_ONDONE S_ADD S_RANDOM FLOAT FLOAT
                                         {
                                           auto a = $5;
                                           auto b = $6;
                                           lexer.grain()->setSpeedDone([a,b](Grain* g){ return g->speed() + frand(a, b); });
                                         }
-    | PROP_SPEED ONDONE ADD EXPR STRING
-    | PROP_SPEED ONDONE SET FLOAT
+    | PROP_SPEED S_ONDONE S_ADD S_EXPR STRING
+    | PROP_SPEED S_ONDONE S_SET FLOAT
                                         {
                                           auto v = $4;
                                           lexer.grain()->setSpeedDone([v](Grain*){ return v; });
                                         }
-    | PROP_SPEED ONDONE SET RANDOM FLOAT FLOAT
+    | PROP_SPEED S_ONDONE S_SET S_RANDOM FLOAT FLOAT
                                         {
                                           auto a = $5;
                                           auto b = $6;
                                           lexer.grain()->setSpeedDone([a,b](Grain*){ return frand(a, b); });
                                         }
-    | PROP_SPEED ONDONE SET EXPR STRING
-    | PROP_SPEED RANGE FLOAT FLOAT      { lexer.grain()->setSpeedRange($3, $4); }
-    ;
-
-OVERFLOW_MODE
-    : OVERFLOW_CLIP
-    | OVERFLOW_WRAP
-    | OVERFLOW_FOLD
+    | PROP_SPEED S_ONDONE S_SET S_EXPR STRING
+    | PROP_SPEED S_RANGE FLOAT FLOAT    { lexer.grain()->setSpeedRange($3, $4); }
     ;
 
 PAN
-    : PROP_PAN FLOAT                  { lexer.grain()->setPan($2); }
-//    | PROP_PAN RANDOM                { lexer.grain()->setPan(frand_closed(-1, 1)); }
-    | PROP_PAN RANDOM FLOAT FLOAT     { lexer.grain()->setPan(frand_closed($3, $4)); }
-    | PROP_PAN EXPR STRING
-    | PROP_PAN SET FLOAT              { lexer.grain()->setPan($3); }
-    | PROP_PAN SET RANDOM FLOAT FLOAT { lexer.grain()->setPan(frand_closed($4, $5)); }
-    | PROP_PAN SET EXPR STRING
-    | PROP_PAN ADD FLOAT              { lexer.grain()->addPan($3); }
-    | PROP_PAN ADD RANDOM FLOAT FLOAT { lexer.grain()->addPan(frand_closed($4, $5)); }
-    | PROP_PAN ADD EXPR STRING
-    | PROP_PAN MOTION ADD FLOAT
-    | PROP_PAN MOTION ADD RANDOM FLOAT FLOAT
-    | PROP_PAN MOTION ADD EXPR STRING
-    | PROP_PAN MOTION SET FLOAT
-    | PROP_PAN MOTION SET RANDOM FLOAT FLOAT
-    | PROP_PAN MOTION SET EXPR STRING
-    | PROP_PAN ONDONE ADD FLOAT              {
+    : PROP_PAN FLOAT                      { lexer.grain()->setPan($2); }
+    | PROP_PAN S_RANDOM FLOAT FLOAT       { lexer.grain()->setPan(frand_closed($3, $4)); }
+    | PROP_PAN S_EXPR STRING
+    | PROP_PAN S_SET FLOAT                { lexer.grain()->setPan($3); }
+    | PROP_PAN S_SET S_RANDOM FLOAT FLOAT { lexer.grain()->setPan(frand_closed($4, $5)); }
+    | PROP_PAN S_SET S_EXPR STRING
+    | PROP_PAN S_ADD FLOAT                { lexer.grain()->addPan($3); }
+    | PROP_PAN S_ADD S_RANDOM FLOAT FLOAT { lexer.grain()->addPan(frand_closed($4, $5)); }
+    | PROP_PAN S_ADD S_EXPR STRING
+    | PROP_PAN S_MOTION S_ADD FLOAT
+    | PROP_PAN S_MOTION S_ADD S_RANDOM FLOAT FLOAT
+    | PROP_PAN S_MOTION S_ADD S_EXPR STRING
+    | PROP_PAN S_MOTION S_SET FLOAT
+    | PROP_PAN S_MOTION S_SET S_RANDOM FLOAT FLOAT
+    | PROP_PAN S_MOTION S_SET S_EXPR STRING
+    | PROP_PAN S_ONDONE S_ADD FLOAT         {
                                               auto v = $4;
                                               auto g = lexer.grain();
                                               lexer.grain()->setPanDone([v,g](){ return g->pan() + v; });
-                                             }
-    | PROP_PAN ONDONE ADD RANDOM FLOAT FLOAT {
+                                            }
+    | PROP_PAN S_ONDONE S_ADD S_RANDOM FLOAT FLOAT
+                                            {
                                               auto a = $5;
                                               auto b = $6;
                                               auto g = lexer.grain();
                                               lexer.grain()->setPanDone([a,b,g](){ return g->pan() + frand_closed(a, b); });
-                                             }
-    | PROP_PAN ONDONE ADD EXPR STRING
-    | PROP_PAN ONDONE SET FLOAT              { auto v = $4; lexer.grain()->setPanDone([v](){ return v; }); }
-    | PROP_PAN ONDONE SET RANDOM FLOAT FLOAT {
-                                               auto a = $5;
-                                               auto b = $6;
-                                               lexer.grain()->setPanDone([a,b](){ return frand_closed(a, b); });
-                                             }
-    | PROP_PAN ONDONE SET EXPR STRING
-    | PROP_PAN TOVERFLOW OVERFLOW_MODE       { lexer.grain()->setPanOverflow(static_cast<Grain::PanOverflow>($3)); }
-    | PROP_PAN MODE PAN_MODE                 { lexer.grain()->setPanMode(static_cast<Grain::PanMode>($3)); }
+                                            }
+    | PROP_PAN S_ONDONE S_ADD S_EXPR STRING
+    | PROP_PAN S_ONDONE S_SET FLOAT         { auto v = $4; lexer.grain()->setPanDone([v](){ return v; }); }
+    | PROP_PAN S_ONDONE S_SET S_RANDOM FLOAT FLOAT
+                                            {
+                                              auto a = $5;
+                                              auto b = $6;
+                                              lexer.grain()->setPanDone([a,b](){ return frand_closed(a, b); });
+                                            }
+    | PROP_PAN S_ONDONE S_SET S_EXPR STRING
+    | PROP_PAN S_OVERFLOW ENUM_OVERFLOW_MODE { lexer.grain()->setPanOverflow($3); }
+    | PROP_PAN S_MODE ENUM_PAN_MODE          { lexer.grain()->setPanMode($3); }
     ;
 
 
 AT
     : PROP_AT TIME             { lexer.grain()->array_pos_samp = $2; }
-    | PROP_AT RANDOM TIME TIME { lexer.grain()->array_pos_samp = frand_closed($3, $4); }
+    | PROP_AT S_RANDOM TIME TIME { lexer.grain()->array_pos_samp = frand_closed($3, $4); }
     ;
 
 LENGTH
     : PROP_LENGTH TIME             { lexer.grain()->length_samp = $2; }
-    | PROP_LENGTH RANDOM TIME TIME { lexer.grain()->length_samp = frand_closed($3, $4); }
+    | PROP_LENGTH S_RANDOM TIME TIME { lexer.grain()->length_samp = frand_closed($3, $4); }
     ;
 
 WHEN
     : PROP_WHEN TIME               { lexer.grain()->play_pos = $2; }
-    | PROP_WHEN RANDOM TIME TIME   { lexer.grain()->play_pos = frand_closed($3, $4); }
+    | PROP_WHEN S_RANDOM TIME TIME   { lexer.grain()->play_pos = frand_closed($3, $4); }
     ;
 
 PROP
@@ -189,6 +209,7 @@ PROP
     | AT
     | LENGTH
     | WHEN
+    | PROP_INTERP ENUM_INTERP_MODE      { lexer.grain()->setPlayInterpolation($2); }
     ;
 
 PROPS
@@ -198,8 +219,8 @@ PROPS
 
 TIME
     : FLOAT { $$ = $1; }
-    | FLOAT MSEC { $$ = sys_getsr() * 0.001 * $1; }
-    | FLOAT SEC  { $$ = sys_getsr() * $1; }
+    | FLOAT S_MSEC { $$ = sys_getsr() * 0.001 * $1; }
+    | FLOAT S_SEC  { $$ = sys_getsr() * $1; }
     ;
 
 GRAIN
