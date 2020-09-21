@@ -59,6 +59,7 @@ public:
     using PanDoneFunc = std::function<float()>;
     using SpeedDoneFunc = std::function<float(Grain*)>;
 
+private:
     size_t length_samp = { 0 };
     size_t array_pos_samp = { 0 };
     size_t play_pos_samp = { 0 };
@@ -97,8 +98,20 @@ public:
     // array pos sample
     size_t arrayPosInSamples() const { return array_pos_samp; }
     void setArrayPosInSamples(size_t p) { array_pos_samp = p; }
+    size_t lengthInSamples() const
+    {
+        if (play_speed_ > 0)
+            return length_samp / play_speed_;
+        else if (play_speed_ < 0)
+            return length_samp / (-play_speed_);
+        else
+            return 0;
+    }
+    void setLengthInSamples(size_t l) { length_samp = l; }
 
     // play
+    size_t startInSamples() const { return play_pos_samp; }
+    void setStartInSamples(size_t t) { play_pos_samp = t; }
     PlayInterp playInterpolation() const { return play_interp_; }
     void setPlayInterpolation(PlayInterp i) { play_interp_ = i; }
 
@@ -146,24 +159,9 @@ public:
         }
     }
 
-    size_t lengthInSamples() const
-    {
-        if (play_speed_ > 0)
-            return length_samp / play_speed_;
-        else if (play_speed_ < 0)
-            return length_samp / (-play_speed_);
-        else
-            return 0;
-    }
-
     size_t endInSamples() const
     {
         return startInSamples() + lengthInSamples();
-    }
-
-    size_t startInSamples() const
-    {
-        return play_pos_samp;
     }
 
     void start(size_t playPosSamp);

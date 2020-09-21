@@ -409,4 +409,14 @@ TEST_CASE("array.grainer", "[externals]")
         t.cloud().grains().back().grain->done();
         REQUIRE(GET_AMP(t) == Approx(0.75));
     }
+
+    SECTION("Grain @amp ondone set expr")
+    {
+        TExt t("array.grainer~", LA("array_g1"));
+        t.m_fill(&s_, AtomList::parseString("2 @at 3 @speed 2 @l 14 @when 20"));
+        REQUIRE(t.cloud().grains().size() == 2);
+        REQUIRE(t.cloud().grains().back().grain->arrayPosInSamples() == 3);
+        REQUIRE(t.cloud().grains().back().grain->lengthInSamples() == 7);
+        REQUIRE(t.cloud().grains().back().grain->startInSamples() == 20);
+    }
 }

@@ -249,32 +249,25 @@ PAN
 
 
 AT
-    : PROP_AT TIME               { lexer.grain()->array_pos_samp = $2; }
+    : PROP_AT TIME               { lexer.grain()->setArrayPosInSamples($2); }
     | PROP_AT S_RANDOM           {
                                     const auto asize = lexer.arraySize();
-                                    if (asize < 1) {
+                                    if (asize < 1)
                                         LIB_ERR << "empty array";
-                                        return;
-                                    }
-
-                                    lexer.grain()->setArrayPosInSamples(ulrand(0, asize - 1);
+                                    else
+                                        lexer.grain()->setArrayPosInSamples(ulrand(0, asize - 1));
                                  }
-    | PROP_AT S_RANDOM TIME TIME { lexer.grain()->array_pos_samp = frand_closed($3, $4); }
+    | PROP_AT S_RANDOM TIME TIME { lexer.grain()->setArrayPosInSamples(ulrand($3, $4)); }
     ;
 
 LENGTH
-    : PROP_LENGTH TIME               { lexer.grain()->length_samp = $2; }
-    | PROP_LENGTH S_RANDOM           {
-                                        auto asize = lexer.arraySize();
-                                        if (asize < 1) {
-                                            ;}
-                lexer.grain()->length_samp = frand_closed($3, $4); }
-    | PROP_LENGTH S_RANDOM TIME TIME { lexer.grain()->length_samp = frand_closed($3, $4); }
+    : PROP_LENGTH TIME               { lexer.grain()->setLengthInSamples($2); }
+    | PROP_LENGTH S_RANDOM TIME TIME { lexer.grain()->setLengthInSamples(ulrand($3, $4)); }
     ;
 
 WHEN
-    : PROP_WHEN TIME               { lexer.grain()->play_pos = $2; }
-    | PROP_WHEN S_RANDOM TIME TIME   { lexer.grain()->play_pos = frand_closed($3, $4); }
+    : PROP_WHEN TIME                 { lexer.grain()->setStartInSamples($2); }
+    | PROP_WHEN S_RANDOM TIME TIME   { lexer.grain()->setStartInSamples(ulrand($3, $4)); }
     ;
 
 PROP
@@ -284,7 +277,7 @@ PROP
     | AT
     | LENGTH
     | WHEN
-    | PROP_INTERP ENUM_INTERP_MODE      { lexer.grain()->setPlayInterpolation($2); }
+    | PROP_INTERP ENUM_INTERP_MODE   { lexer.grain()->setPlayInterpolation($2); }
     ;
 
 PROPS

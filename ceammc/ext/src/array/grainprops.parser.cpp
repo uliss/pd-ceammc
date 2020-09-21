@@ -55,8 +55,9 @@
 
     static inline float frand(float a, float b) { return ceammc::GrainRandom::urandf(a, b); }
     static inline float frand_closed(float a, float b) { return ceammc::GrainRandom::urandf_closed(a, b); }
+    static inline size_t ulrand(size_t a, size_t b) { return ceammc::GrainRandom::urandul(a, b); }
 
-#line 60 "grainprops.parser.cpp"
+#line 61 "grainprops.parser.cpp"
 
 
 #ifndef YY_
@@ -130,7 +131,7 @@
 
 #line 7 "grain_properties.yy"
 namespace ceammc {
-#line 134 "grainprops.parser.cpp"
+#line 135 "grainprops.parser.cpp"
 
   /// Build a parser object.
   GrainPropertiesParser::GrainPropertiesParser (ceammc::GrainPropertiesLexer& lexer_yyarg)
@@ -630,94 +631,94 @@ namespace ceammc {
           switch (yyn)
             {
   case 2:
-#line 85 "grain_properties.yy"
+#line 86 "grain_properties.yy"
              { yylhs.value.as < Grain::PanOverflow > () = Grain::PAN_OVERFLOW_CLIP; }
-#line 636 "grainprops.parser.cpp"
+#line 637 "grainprops.parser.cpp"
     break;
 
   case 3:
-#line 86 "grain_properties.yy"
+#line 87 "grain_properties.yy"
              { yylhs.value.as < Grain::PanOverflow > () = Grain::PAN_OVERFLOW_WRAP; }
-#line 642 "grainprops.parser.cpp"
+#line 643 "grainprops.parser.cpp"
     break;
 
   case 4:
-#line 87 "grain_properties.yy"
+#line 88 "grain_properties.yy"
              { yylhs.value.as < Grain::PanOverflow > () = Grain::PAN_OVERFLOW_FOLD; }
-#line 648 "grainprops.parser.cpp"
+#line 649 "grainprops.parser.cpp"
     break;
 
   case 5:
-#line 91 "grain_properties.yy"
+#line 92 "grain_properties.yy"
                { yylhs.value.as < Grain::PanMode > () = Grain::PAN_MODE_NONE; }
-#line 654 "grainprops.parser.cpp"
+#line 655 "grainprops.parser.cpp"
     break;
 
   case 6:
-#line 92 "grain_properties.yy"
+#line 93 "grain_properties.yy"
                { yylhs.value.as < Grain::PanMode > () = Grain::PAN_MODE_LINEAR; }
-#line 660 "grainprops.parser.cpp"
+#line 661 "grainprops.parser.cpp"
     break;
 
   case 7:
-#line 93 "grain_properties.yy"
+#line 94 "grain_properties.yy"
                { yylhs.value.as < Grain::PanMode > () = Grain::PAN_MODE_SQRT; }
-#line 666 "grainprops.parser.cpp"
+#line 667 "grainprops.parser.cpp"
     break;
 
   case 8:
-#line 97 "grain_properties.yy"
+#line 98 "grain_properties.yy"
                { yylhs.value.as < Grain::PlayInterp > () = Grain::INTERP_NO; }
-#line 672 "grainprops.parser.cpp"
+#line 673 "grainprops.parser.cpp"
     break;
 
   case 9:
-#line 98 "grain_properties.yy"
+#line 99 "grain_properties.yy"
                { yylhs.value.as < Grain::PlayInterp > () = Grain::INTERP_LINEAR; }
-#line 678 "grainprops.parser.cpp"
+#line 679 "grainprops.parser.cpp"
     break;
 
   case 10:
-#line 99 "grain_properties.yy"
+#line 100 "grain_properties.yy"
                { yylhs.value.as < Grain::PlayInterp > () = Grain::INTERP_CUBIC; }
-#line 684 "grainprops.parser.cpp"
+#line 685 "grainprops.parser.cpp"
     break;
 
   case 11:
-#line 103 "grain_properties.yy"
+#line 104 "grain_properties.yy"
                                             { lexer.grain()->setAmplitude(yystack_[0].value.as < float > ()); }
-#line 690 "grainprops.parser.cpp"
+#line 691 "grainprops.parser.cpp"
     break;
 
   case 12:
-#line 104 "grain_properties.yy"
+#line 105 "grain_properties.yy"
                                             { lexer.grain()->setAmplitude(frand(yystack_[1].value.as < float > (), yystack_[0].value.as < float > ())); }
-#line 696 "grainprops.parser.cpp"
+#line 697 "grainprops.parser.cpp"
     break;
 
   case 14:
-#line 106 "grain_properties.yy"
+#line 107 "grain_properties.yy"
                                             { lexer.grain()->setAmplitude(yystack_[0].value.as < float > ()); }
-#line 702 "grainprops.parser.cpp"
+#line 703 "grainprops.parser.cpp"
     break;
 
   case 15:
-#line 107 "grain_properties.yy"
+#line 108 "grain_properties.yy"
                                             { lexer.grain()->setAmplitude(frand(yystack_[1].value.as < float > (), yystack_[0].value.as < float > ())); }
-#line 708 "grainprops.parser.cpp"
+#line 709 "grainprops.parser.cpp"
     break;
 
   case 17:
-#line 110 "grain_properties.yy"
+#line 111 "grain_properties.yy"
                                             {
                                               auto d = yystack_[0].value.as < float > ();
                                               lexer.grain()->setAmplitudeDone([d](Grain* g){ return g->amplitude() + d; });
                                             }
-#line 717 "grainprops.parser.cpp"
+#line 718 "grainprops.parser.cpp"
     break;
 
   case 18:
-#line 115 "grain_properties.yy"
+#line 116 "grain_properties.yy"
                                             {
                                               try {
                                                 mu::Parser p;
@@ -737,20 +738,20 @@ namespace ceammc {
                                                 LIB_ERR << "invalid expression: " << yystack_[0].value.as < std::string > ();
                                               }
                                             }
-#line 741 "grainprops.parser.cpp"
+#line 742 "grainprops.parser.cpp"
     break;
 
   case 19:
-#line 135 "grain_properties.yy"
+#line 136 "grain_properties.yy"
                                             {
                                               auto d = yystack_[0].value.as < float > ();
                                               lexer.grain()->setAmplitudeDone([d](Grain* g){ return d; });
                                             }
-#line 750 "grainprops.parser.cpp"
+#line 751 "grainprops.parser.cpp"
     break;
 
   case 20:
-#line 140 "grain_properties.yy"
+#line 141 "grain_properties.yy"
                                             {
                                               try {
                                                 mu::Parser p;
@@ -768,264 +769,276 @@ namespace ceammc {
                                                 LIB_ERR << "invalid expression: " << yystack_[0].value.as < std::string > ();
                                               }
                                             }
-#line 772 "grainprops.parser.cpp"
+#line 773 "grainprops.parser.cpp"
     break;
 
   case 21:
-#line 158 "grain_properties.yy"
+#line 159 "grain_properties.yy"
                                             {
                                               auto a = yystack_[1].value.as < float > ();
                                               auto b = yystack_[0].value.as < float > ();
                                               lexer.grain()->setAmplitudeDone([a,b](Grain* g){ return frand_closed(a, b); });
                                             }
-#line 782 "grainprops.parser.cpp"
+#line 783 "grainprops.parser.cpp"
     break;
 
   case 22:
-#line 163 "grain_properties.yy"
+#line 164 "grain_properties.yy"
                                             { lexer.grain()->setAmplitudeRange(yystack_[1].value.as < float > (), yystack_[0].value.as < float > ()); }
-#line 788 "grainprops.parser.cpp"
+#line 789 "grainprops.parser.cpp"
     break;
 
   case 23:
-#line 167 "grain_properties.yy"
+#line 168 "grain_properties.yy"
                                             { lexer.grain()->setSpeed(yystack_[0].value.as < float > ()); }
-#line 794 "grainprops.parser.cpp"
+#line 795 "grainprops.parser.cpp"
     break;
 
   case 24:
-#line 168 "grain_properties.yy"
+#line 169 "grain_properties.yy"
                                             { lexer.grain()->setSpeed(frand(yystack_[1].value.as < float > (), yystack_[0].value.as < float > ())); }
-#line 800 "grainprops.parser.cpp"
+#line 801 "grainprops.parser.cpp"
     break;
 
   case 25:
-#line 169 "grain_properties.yy"
+#line 170 "grain_properties.yy"
                                             { lexer.grain()->setSpeedExpr(yystack_[0].value.as < std::string > ()); }
-#line 806 "grainprops.parser.cpp"
+#line 807 "grainprops.parser.cpp"
     break;
 
   case 26:
-#line 170 "grain_properties.yy"
+#line 171 "grain_properties.yy"
                                             { lexer.grain()->setSpeed(yystack_[0].value.as < float > ()); }
-#line 812 "grainprops.parser.cpp"
+#line 813 "grainprops.parser.cpp"
     break;
 
   case 27:
-#line 171 "grain_properties.yy"
+#line 172 "grain_properties.yy"
                                             { lexer.grain()->setSpeed(frand(yystack_[1].value.as < float > (), yystack_[0].value.as < float > ())); }
-#line 818 "grainprops.parser.cpp"
+#line 819 "grainprops.parser.cpp"
     break;
 
   case 28:
-#line 172 "grain_properties.yy"
+#line 173 "grain_properties.yy"
                                             { lexer.grain()->setSpeedExpr(yystack_[0].value.as < std::string > ()); }
-#line 824 "grainprops.parser.cpp"
+#line 825 "grainprops.parser.cpp"
     break;
 
   case 29:
-#line 173 "grain_properties.yy"
+#line 174 "grain_properties.yy"
                                             { lexer.grain()->addSpeed(yystack_[0].value.as < float > ()); }
-#line 830 "grainprops.parser.cpp"
+#line 831 "grainprops.parser.cpp"
     break;
 
   case 30:
-#line 174 "grain_properties.yy"
+#line 175 "grain_properties.yy"
                                             { lexer.grain()->addSpeed(frand(yystack_[1].value.as < float > (), yystack_[0].value.as < float > ())); }
-#line 836 "grainprops.parser.cpp"
+#line 837 "grainprops.parser.cpp"
     break;
 
   case 38:
-#line 182 "grain_properties.yy"
+#line 183 "grain_properties.yy"
                                         {
                                           auto d = yystack_[0].value.as < float > ();
                                           lexer.grain()->setSpeedDone([d](Grain* g){ return g->speed() + d; });
                                         }
-#line 845 "grainprops.parser.cpp"
+#line 846 "grainprops.parser.cpp"
     break;
 
   case 39:
-#line 187 "grain_properties.yy"
+#line 188 "grain_properties.yy"
                                         {
                                           auto a = yystack_[1].value.as < float > ();
                                           auto b = yystack_[0].value.as < float > ();
                                           lexer.grain()->setSpeedDone([a,b](Grain* g){ return g->speed() + frand(a, b); });
                                         }
-#line 855 "grainprops.parser.cpp"
+#line 856 "grainprops.parser.cpp"
     break;
 
   case 41:
-#line 194 "grain_properties.yy"
+#line 195 "grain_properties.yy"
                                         {
                                           auto v = yystack_[0].value.as < float > ();
                                           lexer.grain()->setSpeedDone([v](Grain*){ return v; });
                                         }
-#line 864 "grainprops.parser.cpp"
+#line 865 "grainprops.parser.cpp"
     break;
 
   case 42:
-#line 199 "grain_properties.yy"
+#line 200 "grain_properties.yy"
                                         {
                                           auto a = yystack_[1].value.as < float > ();
                                           auto b = yystack_[0].value.as < float > ();
                                           lexer.grain()->setSpeedDone([a,b](Grain*){ return frand(a, b); });
                                         }
-#line 874 "grainprops.parser.cpp"
+#line 875 "grainprops.parser.cpp"
     break;
 
   case 44:
-#line 205 "grain_properties.yy"
+#line 206 "grain_properties.yy"
                                         { lexer.grain()->setSpeedRange(yystack_[1].value.as < float > (), yystack_[0].value.as < float > ()); }
-#line 880 "grainprops.parser.cpp"
+#line 881 "grainprops.parser.cpp"
     break;
 
   case 45:
-#line 209 "grain_properties.yy"
+#line 210 "grain_properties.yy"
                                           { lexer.grain()->setPan(yystack_[0].value.as < float > ()); }
-#line 886 "grainprops.parser.cpp"
+#line 887 "grainprops.parser.cpp"
     break;
 
   case 46:
-#line 210 "grain_properties.yy"
+#line 211 "grain_properties.yy"
                                           { lexer.grain()->setPan(frand_closed(yystack_[1].value.as < float > (), yystack_[0].value.as < float > ())); }
-#line 892 "grainprops.parser.cpp"
+#line 893 "grainprops.parser.cpp"
     break;
 
   case 48:
-#line 212 "grain_properties.yy"
+#line 213 "grain_properties.yy"
                                           { lexer.grain()->setPan(yystack_[0].value.as < float > ()); }
-#line 898 "grainprops.parser.cpp"
+#line 899 "grainprops.parser.cpp"
     break;
 
   case 49:
-#line 213 "grain_properties.yy"
+#line 214 "grain_properties.yy"
                                           { lexer.grain()->setPan(frand_closed(yystack_[1].value.as < float > (), yystack_[0].value.as < float > ())); }
-#line 904 "grainprops.parser.cpp"
+#line 905 "grainprops.parser.cpp"
     break;
 
   case 51:
-#line 215 "grain_properties.yy"
+#line 216 "grain_properties.yy"
                                           { lexer.grain()->addPan(yystack_[0].value.as < float > ()); }
-#line 910 "grainprops.parser.cpp"
+#line 911 "grainprops.parser.cpp"
     break;
 
   case 52:
-#line 216 "grain_properties.yy"
+#line 217 "grain_properties.yy"
                                           { lexer.grain()->addPan(frand_closed(yystack_[1].value.as < float > (), yystack_[0].value.as < float > ())); }
-#line 916 "grainprops.parser.cpp"
+#line 917 "grainprops.parser.cpp"
     break;
 
   case 60:
-#line 224 "grain_properties.yy"
+#line 225 "grain_properties.yy"
                                             {
                                               auto v = yystack_[0].value.as < float > ();
                                               auto g = lexer.grain();
                                               lexer.grain()->setPanDone([v,g](){ return g->pan() + v; });
                                             }
-#line 926 "grainprops.parser.cpp"
+#line 927 "grainprops.parser.cpp"
     break;
 
   case 61:
-#line 230 "grain_properties.yy"
+#line 231 "grain_properties.yy"
                                             {
                                               auto a = yystack_[1].value.as < float > ();
                                               auto b = yystack_[0].value.as < float > ();
                                               auto g = lexer.grain();
                                               lexer.grain()->setPanDone([a,b,g](){ return g->pan() + frand_closed(a, b); });
                                             }
-#line 937 "grainprops.parser.cpp"
+#line 938 "grainprops.parser.cpp"
     break;
 
   case 63:
-#line 237 "grain_properties.yy"
+#line 238 "grain_properties.yy"
                                             { auto v = yystack_[0].value.as < float > (); lexer.grain()->setPanDone([v](){ return v; }); }
-#line 943 "grainprops.parser.cpp"
+#line 944 "grainprops.parser.cpp"
     break;
 
   case 64:
-#line 239 "grain_properties.yy"
+#line 240 "grain_properties.yy"
                                             {
                                               auto a = yystack_[1].value.as < float > ();
                                               auto b = yystack_[0].value.as < float > ();
                                               lexer.grain()->setPanDone([a,b](){ return frand_closed(a, b); });
                                             }
-#line 953 "grainprops.parser.cpp"
+#line 954 "grainprops.parser.cpp"
     break;
 
   case 66:
-#line 245 "grain_properties.yy"
+#line 246 "grain_properties.yy"
                                              { lexer.grain()->setPanOverflow(yystack_[0].value.as < Grain::PanOverflow > ()); }
-#line 959 "grainprops.parser.cpp"
+#line 960 "grainprops.parser.cpp"
     break;
 
   case 67:
-#line 246 "grain_properties.yy"
+#line 247 "grain_properties.yy"
                                              { lexer.grain()->setPanMode(yystack_[0].value.as < Grain::PanMode > ()); }
-#line 965 "grainprops.parser.cpp"
+#line 966 "grainprops.parser.cpp"
     break;
 
   case 68:
-#line 251 "grain_properties.yy"
-                               { lexer.grain()->array_pos_samp = yystack_[0].value.as < double > (); }
-#line 971 "grainprops.parser.cpp"
+#line 252 "grain_properties.yy"
+                                 { lexer.grain()->setArrayPosInSamples(yystack_[0].value.as < double > ()); }
+#line 972 "grainprops.parser.cpp"
     break;
 
   case 69:
-#line 252 "grain_properties.yy"
-                                 { lexer.grain()->array_pos_samp = frand_closed(yystack_[1].value.as < double > (), yystack_[0].value.as < double > ()); }
-#line 977 "grainprops.parser.cpp"
+#line 253 "grain_properties.yy"
+                                 {
+                                    const auto asize = lexer.arraySize();
+                                    if (asize < 1)
+                                        LIB_ERR << "empty array";
+                                    else
+                                        lexer.grain()->setArrayPosInSamples(ulrand(0, asize - 1));
+                                 }
+#line 984 "grainprops.parser.cpp"
     break;
 
   case 70:
-#line 256 "grain_properties.yy"
-                                   { lexer.grain()->length_samp = yystack_[0].value.as < double > (); }
-#line 983 "grainprops.parser.cpp"
+#line 260 "grain_properties.yy"
+                                 { lexer.grain()->setArrayPosInSamples(ulrand(yystack_[1].value.as < double > (), yystack_[0].value.as < double > ())); }
+#line 990 "grainprops.parser.cpp"
     break;
 
   case 71:
-#line 257 "grain_properties.yy"
-                                     { lexer.grain()->length_samp = frand_closed(yystack_[1].value.as < double > (), yystack_[0].value.as < double > ()); }
-#line 989 "grainprops.parser.cpp"
+#line 264 "grain_properties.yy"
+                                     { lexer.grain()->setLengthInSamples(yystack_[0].value.as < double > ()); }
+#line 996 "grainprops.parser.cpp"
     break;
 
   case 72:
-#line 261 "grain_properties.yy"
-                                   { lexer.grain()->play_pos = yystack_[0].value.as < double > (); }
-#line 995 "grainprops.parser.cpp"
+#line 265 "grain_properties.yy"
+                                     { lexer.grain()->setLengthInSamples(ulrand(yystack_[1].value.as < double > (), yystack_[0].value.as < double > ())); }
+#line 1002 "grainprops.parser.cpp"
     break;
 
   case 73:
-#line 262 "grain_properties.yy"
-                                     { lexer.grain()->play_pos = frand_closed(yystack_[1].value.as < double > (), yystack_[0].value.as < double > ()); }
-#line 1001 "grainprops.parser.cpp"
+#line 269 "grain_properties.yy"
+                                     { lexer.grain()->setStartInSamples(yystack_[0].value.as < double > ()); }
+#line 1008 "grainprops.parser.cpp"
     break;
 
-  case 80:
-#line 272 "grain_properties.yy"
-                                        { lexer.grain()->setPlayInterpolation(yystack_[0].value.as < Grain::PlayInterp > ()); }
-#line 1007 "grainprops.parser.cpp"
+  case 74:
+#line 270 "grain_properties.yy"
+                                     { lexer.grain()->setStartInSamples(ulrand(yystack_[1].value.as < double > (), yystack_[0].value.as < double > ())); }
+#line 1014 "grainprops.parser.cpp"
     break;
 
-  case 83:
-#line 281 "grain_properties.yy"
-            { yylhs.value.as < double > () = yystack_[0].value.as < float > (); }
-#line 1013 "grainprops.parser.cpp"
+  case 81:
+#line 280 "grain_properties.yy"
+                                     { lexer.grain()->setPlayInterpolation(yystack_[0].value.as < Grain::PlayInterp > ()); }
+#line 1020 "grainprops.parser.cpp"
     break;
 
   case 84:
-#line 282 "grain_properties.yy"
-                   { yylhs.value.as < double > () = sys_getsr() * 0.001 * yystack_[1].value.as < float > (); }
-#line 1019 "grainprops.parser.cpp"
+#line 289 "grain_properties.yy"
+            { yylhs.value.as < double > () = yystack_[0].value.as < float > (); }
+#line 1026 "grainprops.parser.cpp"
     break;
 
   case 85:
-#line 283 "grain_properties.yy"
+#line 290 "grain_properties.yy"
+                   { yylhs.value.as < double > () = sys_getsr() * 0.001 * yystack_[1].value.as < float > (); }
+#line 1032 "grainprops.parser.cpp"
+    break;
+
+  case 86:
+#line 291 "grain_properties.yy"
                    { yylhs.value.as < double > () = sys_getsr() * yystack_[1].value.as < float > (); }
-#line 1025 "grainprops.parser.cpp"
+#line 1038 "grainprops.parser.cpp"
     break;
 
 
-#line 1029 "grainprops.parser.cpp"
+#line 1042 "grainprops.parser.cpp"
 
             default:
               break;
@@ -1400,21 +1413,21 @@ namespace ceammc {
   const signed char
   GrainPropertiesParser::yydefact_[] =
   {
-       0,     0,     0,     0,     0,     0,     0,     0,    76,    75,
-      74,    77,    78,    79,    81,    86,     0,     0,     0,     0,
-       0,     0,    11,     0,    83,    68,    10,     9,     8,    80,
-       0,    70,     0,     0,     0,     0,     0,     0,     0,     0,
+       0,     0,     0,     0,     0,     0,     0,     0,    77,    76,
+      75,    78,    79,    80,    82,    87,     0,     0,     0,     0,
+       0,     0,    11,    69,    84,    68,    10,     9,     8,    81,
+       0,    71,     0,     0,     0,     0,     0,     0,     0,     0,
       45,     0,     0,     0,     0,     0,     0,     0,    23,     0,
-      72,    82,     1,    13,     0,     0,     0,     0,     0,     0,
-      14,     0,    84,    85,     0,     0,     0,    51,    47,     6,
+      73,    83,     1,    13,     0,     0,     0,     0,     0,     0,
+      14,     0,    85,    86,     0,     0,     0,    51,    47,     6,
        5,     7,    67,     0,     0,     0,     0,     2,     4,     3,
       66,     0,     0,     0,    48,     0,     0,    29,    25,     0,
        0,     0,     0,     0,     0,     0,     0,    26,     0,     0,
-      17,     0,     0,    19,    12,    22,    16,     0,    69,    71,
+      17,     0,     0,    19,    12,    22,    16,     0,    70,    72,
       53,     0,     0,     0,    54,     0,     0,    57,     0,     0,
       60,     0,     0,    63,    46,    50,     0,    31,     0,     0,
        0,    32,     0,     0,    35,     0,     0,    38,     0,     0,
-      41,    24,    44,    28,     0,    73,    18,    20,     0,    15,
+      41,    24,    44,    28,     0,    74,    18,    20,     0,    15,
       52,    56,     0,    59,     0,    62,     0,    65,     0,    49,
       30,    34,     0,    37,     0,    40,     0,    43,     0,    27,
       21,    55,    58,    61,    64,    33,    36,    39,    42
@@ -1515,8 +1528,8 @@ namespace ceammc {
       36,    36,    36,    36,    36,    37,    37,    37,    37,    37,
       37,    37,    37,    37,    37,    37,    37,    37,    37,    37,
       37,    37,    37,    37,    37,    37,    37,    37,    38,    38,
-      39,    39,    40,    40,    41,    41,    41,    41,    41,    41,
-      41,    42,    42,    43,    43,    43,    44
+      38,    39,    39,    40,    40,    41,    41,    41,    41,    41,
+      41,    41,    42,    42,    43,    43,    43,    44
   };
 
   const signed char
@@ -1528,9 +1541,9 @@ namespace ceammc {
        5,     4,     4,     6,     5,     4,     6,     5,     4,     6,
        5,     4,     6,     5,     4,     2,     4,     3,     3,     5,
        4,     3,     5,     4,     4,     6,     5,     4,     6,     5,
-       4,     6,     5,     4,     6,     5,     3,     3,     2,     4,
-       2,     4,     2,     4,     1,     1,     1,     1,     1,     1,
-       2,     1,     2,     1,     2,     2,     1
+       4,     6,     5,     4,     6,     5,     3,     3,     2,     2,
+       4,     2,     4,     2,     4,     1,     1,     1,     1,     1,
+       1,     2,     1,     2,     1,     2,     2,     1
   };
 
 
@@ -1556,15 +1569,15 @@ namespace ceammc {
   const short
   GrainPropertiesParser::yyrline_[] =
   {
-       0,    85,    85,    86,    87,    91,    92,    93,    97,    98,
-      99,   103,   104,   105,   106,   107,   108,   109,   114,   134,
-     139,   157,   163,   167,   168,   169,   170,   171,   172,   173,
-     174,   175,   176,   177,   178,   179,   180,   181,   182,   186,
-     192,   193,   198,   204,   205,   209,   210,   211,   212,   213,
-     214,   215,   216,   217,   218,   219,   220,   221,   222,   223,
-     224,   229,   236,   237,   238,   244,   245,   246,   251,   252,
-     256,   257,   261,   262,   266,   267,   268,   269,   270,   271,
-     272,   276,   277,   281,   282,   283,   287
+       0,    86,    86,    87,    88,    92,    93,    94,    98,    99,
+     100,   104,   105,   106,   107,   108,   109,   110,   115,   135,
+     140,   158,   164,   168,   169,   170,   171,   172,   173,   174,
+     175,   176,   177,   178,   179,   180,   181,   182,   183,   187,
+     193,   194,   199,   205,   206,   210,   211,   212,   213,   214,
+     215,   216,   217,   218,   219,   220,   221,   222,   223,   224,
+     225,   230,   237,   238,   239,   245,   246,   247,   252,   253,
+     260,   264,   265,   269,   270,   274,   275,   276,   277,   278,
+     279,   280,   284,   285,   289,   290,   291,   295
   };
 
   void
@@ -1597,9 +1610,9 @@ namespace ceammc {
 
 #line 7 "grain_properties.yy"
 } // ceammc
-#line 1601 "grainprops.parser.cpp"
+#line 1614 "grainprops.parser.cpp"
 
-#line 289 "grain_properties.yy"
+#line 297 "grain_properties.yy"
 
 
 void ceammc::GrainPropertiesParser::error(const std::string& err_message)

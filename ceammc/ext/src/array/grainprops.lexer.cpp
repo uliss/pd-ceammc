@@ -48,7 +48,7 @@ t_symbol* GrainPropertiesLexer::SYM_SET = nullptr;
 t_symbol* GrainPropertiesLexer::SYM_SQRT = nullptr;
 t_symbol* GrainPropertiesLexer::SYM_WRAP = nullptr;
 
-static inline bool looksLikeTimeValue(t_symbol* s)
+static inline bool looksLikeUnitValue(t_symbol* s)
 {
     auto str = s->s_name;
     return isdigit(str[0]) || (str[0] == '-' && isdigit(str[1]));
@@ -63,10 +63,16 @@ GrainPropertiesLexer::GrainPropertiesLexer(const AtomList& src, Grain* grain)
         initSymTab();
 }
 
+void GrainPropertiesLexer::reset()
+{
+    idx_ = 0;
+    mode_ = NORMAL;
+}
+
 void GrainPropertiesLexer::set(const AtomList& src)
 {
+    reset();
     src_ = src;
-    idx_ = 0;
 }
 
 GrainPropertiesParser::symbol_type GrainPropertiesLexer::lex()
@@ -77,6 +83,9 @@ GrainPropertiesParser::symbol_type GrainPropertiesLexer::lex()
 #define CHECK_SYM(sym) else if (s == SYM_##sym) return GrainPropertiesParser::make_S_##sym();
 #define CHECK_SYM2(sym0, sym1) else if (s == SYM_##sym0 || s == SYM_##sym1) return GrainPropertiesParser::make_S_##sym0();
 
+    if (mode_ == EXPR)
+        return lexExpr();
+
     const auto& atom = src_[idx_++];
 
     if (atom.isFloat())
@@ -84,6 +93,7 @@ GrainPropertiesParser::symbol_type GrainPropertiesLexer::lex()
     else if (atom.isSymbol()) {
         auto* s = atom.asT<t_symbol*>();
         units::TimeValue time(0);
+        units::FractionValue frac;
 
         if (s == PROP_PAN)
             return GrainPropertiesParser::make_PROP_PAN();
@@ -107,7 +117,6 @@ GrainPropertiesParser::symbol_type GrainPropertiesLexer::lex()
         // check alphabet
         CHECK_SYM(CLIP)
         CHECK_SYM(CUBIC)
-        CHECK_SYM(EXPR)
         CHECK_SYM(FOLD)
         CHECK_SYM(LINEAR)
         CHECK_SYM(MODE)
@@ -119,20 +128,58 @@ GrainPropertiesParser::symbol_type GrainPropertiesLexer::lex()
         CHECK_SYM(SEC)
         CHECK_SYM(SQRT)
         CHECK_SYM(WRAP)
-        else if (looksLikeTimeValue(s) && units::TimeValue::parse(atom).matchValue(time))
+        else if (s == SYM_EXPR)
+        {
+            mode_ = EXPR;
+            return GrainPropertiesParser::make_S_EXPR();
+        }
+        else if (looksLikeUnitValue(s) && units::TimeValue::parse(atom).matchValue(time))
         {
             return GrainPropertiesParser::make_FLOAT(time.toSamples(sys_getsr()));
         }
+        else if (looksLikeUnitValue(s) && units::FractionValue::match(atom).matchValue(frac))
+        {
+            return GrainPropertiesParser::make_FLOAT(frac.toValue(arraySize()));
+        }
         else
         {
-            auto str = to_string(src_.view(idx_ - 1));
-            return GrainPropertiesParser::make_STRING(str);
+            return GrainPropertiesParser::make_YYerror();
         }
     } else
         return GrainPropertiesParser::make_YYerror();
 
 #undef CHECK_SYM
 #undef CHECK_SYM2
+}
+
+GrainPropertiesParser::symbol_type GrainPropertiesLexer::lexExpr()
+{
+    std::string str;
+
+    for (; idx_ < src_.size(); idx_++) {
+        const auto& atom = src_[idx_++];
+        if (atom.isProperty()) {
+            if (str.empty())
+                return GrainPropertiesParser::make_YYerror();
+
+            mode_ = NORMAL;
+            str.pop_back(); // remove trailing space
+            return GrainPropertiesParser::make_STRING(str);
+        } else if (atom.isSymbol()) {
+            str += atom.asT<t_symbol*>()->s_name;
+            str += ' ';
+        } else {
+            str += to_string(atom);
+            str += ' ';
+        }
+    }
+
+    if (str.empty())
+        return GrainPropertiesParser::make_YYerror();
+
+    mode_ = NORMAL;
+    str.pop_back(); // remove trailing space
+    return GrainPropertiesParser::make_STRING(str);
 }
 
 void GrainPropertiesLexer::initSymTab()

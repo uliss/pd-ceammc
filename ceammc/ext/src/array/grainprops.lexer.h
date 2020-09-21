@@ -38,9 +38,11 @@ public:
     GrainPropertiesLexer(const AtomList& src, Grain* grain);
 
     void set(const AtomList& src);
+    void reset();
     GrainPropertiesParser::symbol_type lex();
 
     Grain* grain() { return grain_; }
+    void setGrain(Grain* g) { grain_ = g; }
 
     size_t arraySize() const { return array_size_; }
     void setArraySize(size_t sz) { array_size_ = sz; }
