@@ -16,15 +16,16 @@
 void setup_array_copy();
 void setup_array_do();
 void setup_array_each();
+void setup_array_grainer();
 void setup_array_minmax();
 void setup_array_p2s();
 void setup_array_plot_tilde();
 void setup_array_resample();
 void setup_array_s2p();
-void setup_plot_linspace_tilde();
-void setup_plot_logspace_tilde();
 void setup_plot_geomspace_tilde();
 void setup_plot_hist_tilde();
+void setup_plot_linspace_tilde();
+void setup_plot_logspace_tilde();
 void setup_plot_response_tilde();
 
 void ceammc_array_setup()
@@ -35,6 +36,7 @@ void ceammc_array_setup()
     setup_array_do();
     setup_array_each();
     setup_array_fill();
+    setup_array_grainer();
     setup_array_hist();
     setup_array_mean();
     setup_array_minmax();
