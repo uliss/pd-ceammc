@@ -17,6 +17,7 @@ void setup_fx_freqshift_tilde();
 void setup_fx_granulator_tilde();
 void setup_fx_greyhole_tilde();
 void setup_fx_pitchshift_tilde();
+void setup_fx_pitchshift_fix_tilde();
 void setup_fx_sdelay_tilde();
 void setup_fx_vocoder_tilde();
 void setup_fx_wahwah_tilde();

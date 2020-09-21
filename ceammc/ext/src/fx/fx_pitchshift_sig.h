@@ -4,8 +4,8 @@ Code generated with Faust 2.28.1 (https://faust.grame.fr)
 Compilation options: -lang cpp -scal -ftz 0
 ------------------------------------------------------------ */
 
-#ifndef  __fx_pitchshift_H__
-#define  __fx_pitchshift_H__
+#ifndef  __fx_pitchshift_sig_H__
+#define  __fx_pitchshift_sig_H__
 
 // FAUST Architecture File for ceammc::SoundExternal class
 #include <cmath>
@@ -14,7 +14,7 @@ Compilation options: -lang cpp -scal -ftz 0
 #include <memory>
 #include <string>
 
-/************************** BEGIN fx_pitchshift_dsp.h **************************/
+/************************** BEGIN fx_pitchshift_sig_dsp.h **************************/
 /************************************************************************
  FAUST Architecture File
  Copyright (C) 2003-2017 GRAME, Centre National de Creation Musicale
@@ -68,12 +68,12 @@ struct dsp_memory_manager {
 * Signal processor definition.
 */
 
-class fx_pitchshift_dsp {
+class fx_pitchshift_sig_dsp {
 
     public:
 
-        fx_pitchshift_dsp() {}
-        virtual ~fx_pitchshift_dsp() {}
+        fx_pitchshift_sig_dsp() {}
+        virtual ~fx_pitchshift_sig_dsp() {}
 
         /* Return instance number of audio inputs */
         virtual int getNumInputs() = 0;
@@ -126,7 +126,7 @@ class fx_pitchshift_dsp {
          *
          * @return a copy of the instance on success, otherwise a null pointer.
          */
-        virtual fx_pitchshift_dsp* clone() = 0;
+        virtual fx_pitchshift_sig_dsp* clone() = 0;
     
         /**
          * Trigger the Meta* parameter with instance specific calls to 'declare' (key, value) metadata.
@@ -162,15 +162,15 @@ class fx_pitchshift_dsp {
  * Generic DSP decorator.
  */
 
-class decorator_dsp : public fx_pitchshift_dsp {
+class decorator_dsp : public fx_pitchshift_sig_dsp {
 
     protected:
 
-        fx_pitchshift_dsp* fDSP;
+        fx_pitchshift_sig_dsp* fDSP;
 
     public:
 
-        decorator_dsp(fx_pitchshift_dsp* fx_pitchshift_dsp = nullptr):fDSP(fx_pitchshift_dsp) {}
+        decorator_dsp(fx_pitchshift_sig_dsp* fx_pitchshift_sig_dsp = nullptr):fDSP(fx_pitchshift_sig_dsp) {}
         virtual ~decorator_dsp() { delete fDSP; }
 
         virtual int getNumInputs() { return fDSP->getNumInputs(); }
@@ -210,7 +210,7 @@ class dsp_factory {
         virtual std::vector<std::string> getLibraryList() = 0;
         virtual std::vector<std::string> getIncludePathnames() = 0;
     
-        virtual fx_pitchshift_dsp* createDSPInstance() = 0;
+        virtual fx_pitchshift_sig_dsp* createDSPInstance() = 0;
     
         virtual void setMemoryManager(dsp_memory_manager* manager) = 0;
         virtual dsp_memory_manager* getMemoryManager() = 0;
@@ -234,7 +234,7 @@ class dsp_factory {
 #endif
 
 #endif
-/**************************  END  fx_pitchshift_dsp.h **************************/
+/**************************  END  fx_pitchshift_sig_dsp.h **************************/
 /************************** BEGIN UI.h **************************/
 /************************************************************************
  FAUST Architecture File
@@ -482,7 +482,7 @@ using namespace ceammc::faust;
 
 // clang-format off
 #ifndef FAUST_MACRO
-struct fx_pitchshift : public fx_pitchshift_dsp {
+struct fx_pitchshift_sig : public fx_pitchshift_sig_dsp {
 };
 #endif
 // clang-format on
@@ -499,7 +499,7 @@ struct fx_pitchshift : public fx_pitchshift_dsp {
 
 
 #ifndef FAUSTCLASS 
-#define FAUSTCLASS fx_pitchshift
+#define FAUSTCLASS fx_pitchshift_sig
 #endif
 
 #ifdef __APPLE__ 
@@ -507,7 +507,7 @@ struct fx_pitchshift : public fx_pitchshift_dsp {
 #define exp10 __exp10
 #endif
 
-class fx_pitchshift : public fx_pitchshift_dsp {
+class fx_pitchshift_sig : public fx_pitchshift_sig_dsp {
 	
  private:
 	
@@ -520,11 +520,9 @@ class fx_pitchshift : public fx_pitchshift_dsp {
 	float fConst0;
 	float fConst1;
 	FAUSTFLOAT fVslider0;
-	FAUSTFLOAT fVslider1;
-	float fRec2[2];
 	float fRec1[2];
 	float fConst2;
-	FAUSTFLOAT fVslider2;
+	FAUSTFLOAT fVslider1;
 	
  public:
 	
@@ -537,7 +535,7 @@ class fx_pitchshift : public fx_pitchshift_dsp {
 		m->declare("ceammc_ui.lib/version", "0.1.1");
 		m->declare("delays.lib/name", "Faust Delay Library");
 		m->declare("delays.lib/version", "0.1");
-		m->declare("filename", "fx_pitchshift.dsp");
+		m->declare("filename", "fx_pitchshift_sig.dsp");
 		m->declare("maths.lib/author", "GRAME");
 		m->declare("maths.lib/copyright", "GRAME");
 		m->declare("maths.lib/license", "LGPL with exception");
@@ -553,7 +551,7 @@ class fx_pitchshift : public fx_pitchshift_dsp {
 	}
 
 	virtual int getNumInputs() {
-		return 1;
+		return 2;
 	}
 	virtual int getNumOutputs() {
 		return 1;
@@ -562,6 +560,10 @@ class fx_pitchshift : public fx_pitchshift_dsp {
 		int rate;
 		switch ((channel)) {
 			case 0: {
+				rate = 1;
+				break;
+			}
+			case 1: {
 				rate = 1;
 				break;
 			}
@@ -601,8 +603,7 @@ class fx_pitchshift : public fx_pitchshift_dsp {
 		fCheckbox0 = FAUSTFLOAT(0.0f);
 		fHslider0 = FAUSTFLOAT(1.0f);
 		fVslider0 = FAUSTFLOAT(200.0f);
-		fVslider1 = FAUSTFLOAT(0.0f);
-		fVslider2 = FAUSTFLOAT(100.0f);
+		fVslider1 = FAUSTFLOAT(100.0f);
 	}
 	
 	virtual void instanceClear() {
@@ -617,11 +618,7 @@ class fx_pitchshift : public fx_pitchshift_dsp {
 		}
 		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l2 = 0; (l2 < 2); l2 = (l2 + 1)) {
-			fRec2[l2] = 0.0f;
-		}
-		#pragma clang loop vectorize(enable) interleave(enable)
-		for (int l3 = 0; (l3 < 2); l3 = (l3 + 1)) {
-			fRec1[l3] = 0.0f;
+			fRec1[l2] = 0.0f;
 		}
 	}
 	
@@ -635,8 +632,8 @@ class fx_pitchshift : public fx_pitchshift_dsp {
 		instanceClear();
 	}
 	
-	virtual fx_pitchshift* clone() {
-		return new fx_pitchshift();
+	virtual fx_pitchshift_sig* clone() {
+		return new fx_pitchshift_sig();
 	}
 	
 	virtual int getSampleRate() {
@@ -648,9 +645,8 @@ class fx_pitchshift : public fx_pitchshift_dsp {
 		ui_interface->addCheckButton("bypass", &fCheckbox0);
 		ui_interface->declare(&fHslider0, "style", "knob");
 		ui_interface->addHorizontalSlider("drywet", &fHslider0, 1.0f, 0.0f, 1.0f, 0.00999999978f);
-		ui_interface->declare(&fVslider2, "unit", "ms");
-		ui_interface->addVerticalSlider("fade", &fVslider2, 100.0f, 0.0f, 1000.0f, 0.100000001f);
-		ui_interface->addVerticalSlider("pitch", &fVslider1, 0.0f, -38.0f, 60.0f, 0.00100000005f);
+		ui_interface->declare(&fVslider1, "unit", "ms");
+		ui_interface->addVerticalSlider("fade", &fVslider1, 100.0f, 0.0f, 1000.0f, 0.100000001f);
 		ui_interface->declare(&fVslider0, "unit", "ms");
 		ui_interface->addVerticalSlider("window", &fVslider0, 200.0f, 10.0f, 2000.0f, 0.100000001f);
 		ui_interface->closeBox();
@@ -658,31 +654,29 @@ class fx_pitchshift : public fx_pitchshift_dsp {
 	
 	virtual void compute(int count, FAUSTFLOAT** inputs, FAUSTFLOAT** outputs) {
 		FAUSTFLOAT* input0 = inputs[0];
+		FAUSTFLOAT* input1 = inputs[1];
 		FAUSTFLOAT* output0 = outputs[0];
 		int iSlow0 = int(float(fCheckbox0));
 		float fSlow1 = (0.00100000005f * float(fHslider0));
 		float fSlow2 = (fConst1 * float(fVslider0));
-		float fSlow3 = (0.00100000005f * float(fVslider1));
-		float fSlow4 = (fConst2 / float(fVslider2));
+		float fSlow3 = (fConst2 / float(fVslider1));
 		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int i = 0; (i < count); i = (i + 1)) {
 			float fTemp0 = float(input0[i]);
 			float fTemp1 = (iSlow0 ? 0.0f : fTemp0);
 			fVec0[(IOTA & 131071)] = fTemp1;
 			fRec0[0] = (fSlow1 + (0.999000013f * fRec0[1]));
-			fRec2[0] = (fSlow3 + (0.999000013f * fRec2[1]));
-			fRec1[0] = std::fmod((fSlow2 + (fRec1[1] + (1.0f - std::pow(2.0f, (0.0833333358f * fRec2[0]))))), fSlow2);
+			fRec1[0] = std::fmod((fSlow2 + (fRec1[1] + (1.0f - std::pow(2.0f, (0.0833333358f * float(input1[i])))))), fSlow2);
 			int iTemp2 = int(fRec1[0]);
 			float fTemp3 = std::floor(fRec1[0]);
 			float fTemp4 = (1.0f - fRec1[0]);
-			float fTemp5 = std::min<float>((fSlow4 * fRec1[0]), 1.0f);
+			float fTemp5 = std::min<float>((fSlow3 * fRec1[0]), 1.0f);
 			float fTemp6 = (fSlow2 + fRec1[0]);
 			int iTemp7 = int(fTemp6);
 			float fTemp8 = std::floor(fTemp6);
 			output0[i] = FAUSTFLOAT((iSlow0 ? fTemp0 : ((fTemp1 * (1.0f - fRec0[0])) + (fRec0[0] * ((((fVec0[((IOTA - std::min<int>(65537, std::max<int>(0, iTemp2))) & 131071)] * (fTemp3 + fTemp4)) + ((fRec1[0] - fTemp3) * fVec0[((IOTA - std::min<int>(65537, std::max<int>(0, (iTemp2 + 1)))) & 131071)])) * fTemp5) + (((fVec0[((IOTA - std::min<int>(65537, std::max<int>(0, iTemp7))) & 131071)] * ((fTemp8 + fTemp4) - fSlow2)) + ((fSlow2 + (fRec1[0] - fTemp8)) * fVec0[((IOTA - std::min<int>(65537, std::max<int>(0, (iTemp7 + 1)))) & 131071)])) * (1.0f - fTemp5)))))));
 			IOTA = (IOTA + 1);
 			fRec0[1] = fRec0[0];
-			fRec2[1] = fRec2[0];
 			fRec1[1] = fRec1[0];
 		}
 	}
@@ -692,18 +686,18 @@ class fx_pitchshift : public fx_pitchshift_dsp {
 #endif
 
     template <class T>
-    struct _fx_pitchshift_UI : public UI {
+    struct _fx_pitchshift_sig_UI : public UI {
     static std::string name;
 };
 
 template <class T>
-std::string _fx_pitchshift_UI<T>::name(sym(fx_pitchshift));
+std::string _fx_pitchshift_sig_UI<T>::name(sym(fx_pitchshift_sig));
 
-typedef _fx_pitchshift_UI<fx_pitchshift> fx_pitchshift_UI;
+typedef _fx_pitchshift_sig_UI<fx_pitchshift_sig> fx_pitchshift_sig_UI;
 
-class faust_fx_pitchshift_tilde : public FaustExternal<fx_pitchshift, fx_pitchshift_UI> {
+class faust_fx_pitchshift_sig_tilde : public FaustExternal<fx_pitchshift_sig, fx_pitchshift_sig_UI> {
 public:
-    faust_fx_pitchshift_tilde(const ceammc::PdArgs& args)
+    faust_fx_pitchshift_sig_tilde(const ceammc::PdArgs& args)
         : FaustExternal(args)
     {
     }
