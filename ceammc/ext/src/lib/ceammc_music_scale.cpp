@@ -15,6 +15,7 @@
 #include "ceammc_log.h"
 
 #include <algorithm>
+#include <cstring>
 
 namespace ceammc {
 namespace music {
