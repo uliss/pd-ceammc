@@ -1,4 +1,6 @@
 include(library_pddoc.cmake)
+include(CheckIncludeFileCXX)
+
 
 add_subdirectory(SoundTouch)
 add_subdirectory(aubio)
