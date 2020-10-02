@@ -29,7 +29,7 @@
 - math.nan~ added (mainly for testing purposes)
 - math.inf~ added (mainly for testing purposes)
 - random.atom (with random.a alias) added for weighted random atom generation
-- fx.pitchshift*~ added (signal version of fx.pitchshift~)
+- fx.pitchshift_s~ added (signal version of fx.pitchshift~)
 
 ### Changed:
 - ext_info output format changed.

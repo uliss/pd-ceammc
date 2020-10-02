@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <pddoc version="1.0">
-    <object name="fx.pitchshift*~">
-        <title>fx.pitchshift*~</title>
+    <object name="fx.pitchshift_s~">
+        <title>fx.pitchshift_s~</title>
         <meta>
             <authors>
                 <author>Alex Nadzharov</author>
                 <author>Serge Poltavsky</author>
             </authors>
-            <description>simple pitch shifter based on 2 delay lines</description>
+            <description>signal version of fx.pitchshift~</description>
             <license>GPL3 or later</license>
             <library>ceammc</library>
             <category>fx</category>
@@ -49,7 +49,7 @@
 |            |
 [readsf~]    [l->l~ 0 1 -12 12]
 |            |.
-[fx.pitchshift*~]
+[fx.pitchshift_s~]
 |
 [ui.gain~ @size 120 14] [ui.dsp~]
 |\
