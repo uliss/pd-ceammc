@@ -84,9 +84,10 @@ void RandomAtom::onBang()
 
     size_t idx = 0;
 
-    if (wsum_ == 0)
-        idx = std::uniform_int_distribution<size_t>(0, atoms_->value().size() - 1)(gen_.get());
-    else
+    if (wsum_ == 0) {
+        std::uniform_int_distribution<uint16_t> dist(0, atoms_->value().size() - 1);
+        idx = dist(gen_.get());
+    } else
         idx = dist_(gen_.get());
 
     assert(idx < atoms_->value().size());
