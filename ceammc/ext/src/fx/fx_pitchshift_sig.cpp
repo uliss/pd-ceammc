@@ -8,7 +8,6 @@ public:
     FxPitchShiftSig(const PdArgs& args)
         : faust_fx_pitchshift_sig_tilde(args)
     {
-        createInlet();
     }
 };
 
