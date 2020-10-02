@@ -78,6 +78,26 @@ static void setup_test_extc()
     obj.processData<IntData>();
 }
 
+class EXT_D : public BaseObject {
+public:
+    EXT_D(const PdArgs& a)
+        : BaseObject(a)
+    {
+        createOutlet();
+    }
+
+    void onSymbol(t_symbol* s) override
+    {
+        auto path = findInStdPaths(s->s_name);
+        symbolTo(0, gensym(path.c_str()));
+    }
+};
+
+static void setup_test_extd()
+{
+    ObjectFactory<EXT_D> obj1("ext.d");
+}
+
 PD_TEST_TYPEDEF(EXT_C);
 PD_TEST_MOD_INIT(test, extc);
 
@@ -376,6 +396,122 @@ TEST_CASE("BaseObject", "[ceammc::BaseObject]")
         REQUIRE(b3.canvas() == cnv2->pd_canvas());
         REQUIRE(b3.findInStdPaths("unknown") == "");
         REQUIRE(b3.findInStdPaths("snd_mono_48k.wav") == TEST_DATA_DIR "/snd_mono_48k.wav");
+
+    }
+
+    SECTION("findInStdPaths")
+    {
+        setup_test_extd();
+
+        SECTION("abstraction") {
+            External x0("test_std_path0");
+            REQUIRE(x0.object());
+            REQUIRE(x0.numInlets() == 1);
+            REQUIRE(x0.numOutlets() == 1);
+
+            External in0("symbol");
+            REQUIRE(in0.connectTo(0, x0, 0));
+
+            ListenerExternal o0("out0");
+            REQUIRE(x0.connectTo(0, o0, 0));
+
+            in0.sendSymbol("???");
+            REQUIRE(o0.msg() == Message(&s_));
+
+            in0.sendSymbol("test_std_path0.pd");
+            REQUIRE(o0.msg().atomValue().asSymbol() == gensym(TEST_DATA_DIR "/test_std_path0.pd"));
+
+            in0.sendSymbol("snd_mono_48k.wav");
+            REQUIRE(o0.msg().atomValue().asSymbol() == gensym(TEST_DATA_DIR "/snd_mono_48k.wav"));
+        }
+
+        SECTION("subpatch") {
+            External x0("test_std_path1");
+            REQUIRE(x0.object());
+            REQUIRE(x0.numInlets() == 1);
+            REQUIRE(x0.numOutlets() == 1);
+
+            External in0("symbol");
+            REQUIRE(in0.connectTo(0, x0, 0));
+
+            ListenerExternal o0("out0");
+            REQUIRE(x0.connectTo(0, o0, 0));
+
+            in0.sendSymbol("???");
+            REQUIRE(o0.msg() == Message(&s_));
+
+            in0.sendSymbol("test_std_path0.pd");
+            REQUIRE(o0.msg().atomValue().asSymbol() == gensym(TEST_DATA_DIR "/test_std_path0.pd"));
+
+            in0.sendSymbol("snd_mono_48k.wav");
+            REQUIRE(o0.msg().atomValue().asSymbol() == gensym(TEST_DATA_DIR "/snd_mono_48k.wav"));
+        }
+
+        SECTION("subpatch abstraction") {
+            External x0("test_std_path2");
+            REQUIRE(x0.object());
+            REQUIRE(x0.numInlets() == 1);
+            REQUIRE(x0.numOutlets() == 1);
+
+            External in0("symbol");
+            REQUIRE(in0.connectTo(0, x0, 0));
+
+            ListenerExternal o0("out0");
+            REQUIRE(x0.connectTo(0, o0, 0));
+
+            in0.sendSymbol("???");
+            REQUIRE(o0.msg() == Message(&s_));
+
+            in0.sendSymbol("test_std_path0.pd");
+            REQUIRE(o0.msg().atomValue().asSymbol() == gensym(TEST_DATA_DIR "/test_std_path0.pd"));
+
+            in0.sendSymbol("snd_mono_48k.wav");
+            REQUIRE(o0.msg().atomValue().asSymbol() == gensym(TEST_DATA_DIR "/snd_mono_48k.wav"));
+        }
+
+        SECTION("abstraction") {
+            External x0("base/test_std_path3");
+            REQUIRE(x0.object());
+            REQUIRE(x0.numInlets() == 1);
+            REQUIRE(x0.numOutlets() == 1);
+
+            External in0("symbol");
+            REQUIRE(in0.connectTo(0, x0, 0));
+
+            ListenerExternal o0("out0");
+            REQUIRE(x0.connectTo(0, o0, 0));
+
+            in0.sendSymbol("???");
+            REQUIRE(o0.msg() == Message(&s_));
+
+            // not found in parent directory
+            in0.sendSymbol("snd_mono_48k.wav");
+            REQUIRE(o0.msg().atomValue().asSymbol() == &s_);
+
+            // found in current directory
+            in0.sendSymbol("snd0_ch01_44.1k_441samp.wav");
+            REQUIRE(o0.msg().atomValue().asSymbol() == gensym(TEST_DATA_DIR "/base/snd0_ch01_44.1k_441samp.wav"));
+
+            // found in parent via relative path
+            in0.sendSymbol("../snd_mono_48k.wav");
+            REQUIRE(o0.msg().atomValue().asSymbol() == gensym(TEST_DATA_DIR "/base/../snd_mono_48k.wav"));
+        }
+
+        SECTION("abstraction") {
+            External x0("base/test_std_path4");
+            REQUIRE(x0.object());
+            REQUIRE(x0.numInlets() == 1);
+            REQUIRE(x0.numOutlets() == 1);
+
+            External in0("symbol");
+            REQUIRE(in0.connectTo(0, x0, 0));
+
+            ListenerExternal o0("out0");
+            REQUIRE(x0.connectTo(0, o0, 0));
+
+            in0.sendSymbol("snd_mono_48k.wav");
+            REQUIRE(o0.msg().atomValue().asSymbol()->s_name == std::string(TEST_DATA_DIR "/base/../snd_mono_48k.wav"));
+        }
     }
 
     SECTION("outletAt")
