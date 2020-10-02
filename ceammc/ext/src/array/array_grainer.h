@@ -19,6 +19,7 @@
 #include "grain.h"
 using namespace ceammc;
 
+#include <bitset>
 #include <cstdint>
 #include <iostream>
 #include <random>
