@@ -23,18 +23,11 @@
 
 namespace ceammc {
 
-static_assert(sizeof(Grain) == 214, "");
-
 static float foldFloat(float x, float max)
 {
     auto max2 = 2 * max;
     auto w = wrapFloatMax(x, max2);
     return std::min<float>(max2 - w, w);
-}
-
-static float foldFloat(float x, float min, float max)
-{
-    return min + foldFloat(x - min, max - min);
 }
 
 static inline t_sample interpLinear(t_sample x0, t_sample x1, t_sample t)
