@@ -13,6 +13,6 @@ public:
 
 void setup_fx_pitchshift_sig_tilde()
 {
-    SoundExternalFactory<FxPitchShiftSig> obj("fx.pitchshift2~");
+    SoundExternalFactory<FxPitchShiftSig> obj("fx.pitchshift*~");
     obj.addMethod("reset", &FxPitchShiftSig::m_reset);
 }
