@@ -976,7 +976,7 @@ t_canvas* BaseObject::rootCanvas() const
 
 std::string BaseObject::findInStdPaths(const char* fname) const
 {
-    return platform::find_in_std_path(rootCanvas(), fname);
+    return platform::find_in_std_path(cnv_, fname);
 }
 
 t_symbol* BaseObject::tryGetPropKey(t_symbol* sel)
