@@ -19,8 +19,6 @@
 #include "ceammc_signal.h"
 #include "ceammc_sound_external.h"
 
-#include <cassert>
-
 using namespace ceammc;
 
 template <class Base>
