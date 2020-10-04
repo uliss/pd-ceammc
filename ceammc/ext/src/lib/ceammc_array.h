@@ -275,21 +275,21 @@ public:
     /**
      * Non interpolated read
      * @arg fpos - fraction read position
-     * @return array sample value if 0 <= fpos && fpos < ARRAYSIZE+1, otherwise 0
+     * @return array sample value if 0 <= fpos && fpos < ARRAYSIZE, otherwise 0
      */
     t_sample readSafe0(double fpos) const;
 
     /**
      * Read value from array with linear interpolation
      * @param fpos - fraction read position
-     * @return array sample value if 0 <= fpos && fpos < ARRAYSIZE+1, otherwise 0
+     * @return array sample value if 0 <= fpos && fpos < ARRAYSIZE, otherwise 0
      */
     t_sample readSafe1(double fpos) const;
 
     /**
      * Read value from array with cubic hermite interpolation
      * @param fpos - fraction read position
-     * @return array sample value if 0 <= fpos && fpos < ARRAYSIZE+1, otherwise 0
+     * @return array sample value if 0 <= fpos && fpos < ARRAYSIZE, otherwise 0
      */
     t_sample readSafe3(double fpos) const;
 
@@ -341,7 +341,10 @@ inline t_sample Array::readSafe1(double fpos) const
         return 0;
 
     const auto x0 = data_[ipos].w_float;
-    const auto x1 = (ipos + 1 >= size_) ? x0 : data_[ipos + 1].w_float;
+    if ((ipos + 1) >= size_)
+        return x0;
+
+    const auto x1 = data_[ipos + 1].w_float;
     const auto t = fpos - double(ipos); // fractional part
 
     return interpolate::linear<double>(x0, x1, t);

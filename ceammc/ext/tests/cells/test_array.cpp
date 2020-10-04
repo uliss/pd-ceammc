@@ -292,4 +292,61 @@ TEST_CASE("Array", "[ceammc::Atom]")
         REQUIRE(a.readSafe3(5.1) == 0);
         REQUIRE(a.readSafe3(50000) == 0);
     }
+
+    SECTION("readUnsafe0")
+    {
+        Array a("array1", { 1, 2, 3, 2, 1 });
+        REQUIRE(a.isValid());
+
+        REQUIRE(a.readUnsafe0(-0.9) == 1);
+        REQUIRE(a.readUnsafe0(-0.001) == 1);
+        REQUIRE(a.readUnsafe0(0) == 1);
+        REQUIRE(a.readUnsafe0(0.1) == 1);
+        REQUIRE(a.readUnsafe0(0.99) == 1);
+        REQUIRE(a.readUnsafe0(1) == 2);
+        REQUIRE(a.readUnsafe0(1.1) == 2);
+        REQUIRE(a.readUnsafe0(1.99) == 2);
+        REQUIRE(a.readUnsafe0(2) == 3);
+        REQUIRE(a.readUnsafe0(2.1) == 3);
+        REQUIRE(a.readUnsafe0(2.99) == 3);
+        REQUIRE(a.readUnsafe0(3) == 2);
+        REQUIRE(a.readUnsafe0(3.1) == 2);
+        REQUIRE(a.readUnsafe0(3.99) == 2);
+        REQUIRE(a.readUnsafe0(4) == 1);
+        REQUIRE(a.readUnsafe0(4.01) == 1);
+        REQUIRE(a.readUnsafe0(4.99) == 1);
+    }
+
+    SECTION("readUnsafe1")
+    {
+        Array a("array1", { 1, 2, 3, 2, 1 });
+        REQUIRE(a.isValid());
+
+        REQUIRE(a.readUnsafe1(-0.25) == 0.75);
+        REQUIRE(a.readUnsafe1(0) == 1);
+        REQUIRE(a.readUnsafe1(0.25) == 1.25);
+        REQUIRE(a.readUnsafe1(1) == 2);
+        REQUIRE(a.readUnsafe1(1.75) == 2.75);
+        REQUIRE(a.readUnsafe1(2) == 3);
+        REQUIRE(a.readUnsafe1(2.75) == 2.25);
+        REQUIRE(a.readUnsafe1(3) == 2);
+        REQUIRE(a.readUnsafe1(3.25) == 1.75);
+        REQUIRE(a.readUnsafe1(3.5) == 1.5);
+        REQUIRE(a.readUnsafe1(3.75) == 1.25);
+    }
+
+    SECTION("readUnsafe3")
+    {
+        Array a("array1", { 1, 2, 3, 2, 1 });
+        REQUIRE(a.isValid());
+
+        REQUIRE(a.readSafe3(1) == 2);
+        REQUIRE(a.readSafe3(1.25) == Approx(2.29688));
+        REQUIRE(a.readSafe3(1.5) == Approx(2.625));
+        REQUIRE(a.readSafe3(1.75) == Approx(2.89062));
+        REQUIRE(a.readSafe3(2) == 3);
+        REQUIRE(a.readSafe3(2.25) == Approx(2.89062));
+        REQUIRE(a.readSafe3(2.5) == Approx(2.625));
+        REQUIRE(a.readSafe3(2.75) == Approx(2.29688));
+    }
 }
