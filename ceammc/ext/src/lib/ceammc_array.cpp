@@ -135,6 +135,7 @@ bool Array::open(t_symbol* name)
     size_ = static_cast<size_t>(vecsize);
     data_ = vec;
     name_ = name;
+    garray_usedindsp(array_);
     return true;
 }
 

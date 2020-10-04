@@ -1,5 +1,5 @@
-#include "test_base.h"
 #include "catch.hpp"
+#include "test_base.h"
 
 #include "ceammc_array.h"
 #include "ceammc_canvas.h"
@@ -181,7 +181,7 @@ TEST_CASE("Array", "[ceammc::Atom]")
         float data[5] = { 0 };
         Array b("array1");
         b.fillWith(generateLin);
-//        b.copyTo(data, 5);
+        //        b.copyTo(data, 5);
         // strange fail on GCC coverage
         std::copy(b.begin(), b.begin() + 5, data);
 
@@ -190,5 +190,106 @@ TEST_CASE("Array", "[ceammc::Atom]")
         REQUIRE(data[2] == 2.f);
         REQUIRE(data[3] == 3.f);
         REQUIRE(data[4] == 4.f);
+    }
+
+    SECTION("readSafe0")
+    {
+        Array a("array1", { 1, 2, 3, 2, 1 });
+        REQUIRE(a.isValid());
+
+        REQUIRE(a.readSafe0(0) == 1);
+        REQUIRE(a.readSafe0(1) == 2);
+        REQUIRE(a.readSafe0(2) == 3);
+        REQUIRE(a.readSafe0(3) == 2);
+        REQUIRE(a.readSafe0(4) == 1);
+
+        // fractional
+        REQUIRE(a.readSafe0(0.1) == 1);
+        REQUIRE(a.readSafe0(0.999) == 1);
+        REQUIRE(a.readSafe0(1) == 2);
+        REQUIRE(a.readSafe0(1.1) == 2);
+        REQUIRE(a.readSafe0(4) == 1);
+
+        // invalid index
+        REQUIRE(a.readSafe0(-0.001) == 0);
+        REQUIRE(a.readSafe0(-10.001) == 0);
+        REQUIRE(a.readSafe0(-10000.001) == 0);
+        REQUIRE(a.readSafe0(4) == 1);
+        REQUIRE(a.readSafe0(4.01) == 1);
+        REQUIRE(a.readSafe0(4.999) == 1);
+        REQUIRE(a.readSafe0(5) == 0);
+    }
+
+    SECTION("readSafe1")
+    {
+        Array a("array1", { 1, 2, 3, 2, 1 });
+        REQUIRE(a.isValid());
+
+        // fractional
+        REQUIRE(a.readSafe1(0) == 1);
+        REQUIRE(a.readSafe1(0.25) == 1.25);
+        REQUIRE(a.readSafe1(0.5) == 1.5);
+        REQUIRE(a.readSafe1(0.75) == 1.75);
+        REQUIRE(a.readSafe1(1) == 2);
+        REQUIRE(a.readSafe1(1.25) == 2.25);
+        REQUIRE(a.readSafe1(1.5) == 2.5);
+        REQUIRE(a.readSafe1(1.75) == 2.75);
+        REQUIRE(a.readSafe1(2) == 3);
+        REQUIRE(a.readSafe1(2.25) == 2.75);
+        REQUIRE(a.readSafe1(2.5) == 2.5);
+        REQUIRE(a.readSafe1(2.75) == 2.25);
+        REQUIRE(a.readSafe1(3) == 2);
+        REQUIRE(a.readSafe1(3.25) == 1.75);
+        REQUIRE(a.readSafe1(3.5) == 1.5);
+        REQUIRE(a.readSafe1(3.75) == 1.25);
+        REQUIRE(a.readSafe1(4) == 1);
+        REQUIRE(a.readSafe1(4.25) == 1);
+        REQUIRE(a.readSafe1(4.5) == 1);
+        REQUIRE(a.readSafe1(4.75) == 1);
+        REQUIRE(a.readSafe1(4.999) == 1);
+        REQUIRE(a.readSafe1(5) == 0);
+
+        // out of range
+        REQUIRE(a.readSafe1(-0.01) == 0);
+        REQUIRE(a.readSafe1(-100000.01) == 0);
+        REQUIRE(a.readSafe1(5) == 0);
+        REQUIRE(a.readSafe1(5.1) == 0);
+        REQUIRE(a.readSafe1(50000) == 0);
+    }
+
+    SECTION("readSafe3")
+    {
+        Array a("array1", { 1, 2, 3, 2, 1 });
+        REQUIRE(a.isValid());
+
+        // fractional
+        REQUIRE(a.readSafe3(0) == 1);
+        REQUIRE(a.readSafe3(0.25) == Approx(1.17969));
+        REQUIRE(a.readSafe3(0.5) == Approx(1.4375));
+        REQUIRE(a.readSafe3(0.75) == Approx(1.72656));
+        REQUIRE(a.readSafe3(1) == 2);
+        REQUIRE(a.readSafe3(1.25) == Approx(2.29688));
+        REQUIRE(a.readSafe3(1.5) == Approx(2.625));
+        REQUIRE(a.readSafe3(1.75) == Approx(2.89062));
+        REQUIRE(a.readSafe3(2) == 3);
+        REQUIRE(a.readSafe3(2.25) == Approx(2.89062));
+        REQUIRE(a.readSafe3(2.5) == Approx(2.625));
+        REQUIRE(a.readSafe3(2.75) == Approx(2.29688));
+        REQUIRE(a.readSafe3(3) == 2);
+        REQUIRE(a.readSafe3(3.25) == Approx(1.72656));
+        REQUIRE(a.readSafe3(3.5) == Approx(1.4375));
+        REQUIRE(a.readSafe3(3.75) == Approx(1.17969));
+        REQUIRE(a.readSafe3(4) == 1);
+        REQUIRE(a.readSafe3(4.25) == Approx(0.92969));
+        REQUIRE(a.readSafe3(4.5) == Approx(0.9375));
+        REQUIRE(a.readSafe3(4.75) == Approx(0.97656));
+        REQUIRE(a.readSafe3(5) == 0);
+
+        // out of range
+        REQUIRE(a.readSafe3(-0.01) == 0);
+        REQUIRE(a.readSafe3(-100000.01) == 0);
+        REQUIRE(a.readSafe3(5) == 0);
+        REQUIRE(a.readSafe3(5.1) == 0);
+        REQUIRE(a.readSafe3(50000) == 0);
     }
 }

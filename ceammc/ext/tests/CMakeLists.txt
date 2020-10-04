@@ -28,7 +28,6 @@ if(APPLE)
     set(CMAKE_INSTALL_RPATH "@loader_path/../src/lib")
 endif()
 
-ceammc_add_core_test("ceammc::Array" test_array)
 ceammc_add_core_test("ceammc::arrayname_parser" test_arrayname_parser)
 ceammc_add_core_test("ceammc::BaseObject" test_baseobject)
 ceammc_add_core_test("ceammc::Canvas" test_canvas)
