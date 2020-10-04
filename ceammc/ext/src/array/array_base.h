@@ -16,21 +16,40 @@
 
 #include "ceammc_array.h"
 #include "ceammc_object.h"
+#include "ceammc_signal.h"
+#include "ceammc_sound_external.h"
+
+#include <cassert>
 
 using namespace ceammc;
 
-class ArrayBase : public BaseObject {
+template <class Base>
+class ArrayReadIFace : public Base {
     t_symbol* array_name_;
 
 public:
-    ArrayBase(const PdArgs& a);
+    ArrayReadIFace(const PdArgs& a);
 
     bool setArray(t_symbol* s);
     bool checkArray(bool log = true);
 
+    // range check required
+    t_sample readUnsafe0(double fpos) const { return array_.readUnsafe0(fpos); }
+    t_sample readUnsafe1(double fpos) const { return array_.readUnsafe1(fpos); }
+    t_sample readUnsafe3(double fpos) const { return array_.readUnsafe3(fpos); }
+
+    // range check not required
+    // on invalid position returns 0
+    t_sample readSafe0(double fpos) const { return array_.readSafe0(fpos); }
+    t_sample readSafe1(double fpos) const { return array_.readSafe1(fpos); }
+    t_sample readSafe3(double fpos) const { return array_.readSafe3(fpos); }
+
 protected:
     Array array_;
 };
+
+using ArrayBase = ArrayReadIFace<BaseObject>;
+using ArraySoundBase = ArrayReadIFace<SoundExternal>;
 
 class ArrayMod : public ArrayBase {
     BoolProperty* redraw_;
@@ -39,5 +58,43 @@ public:
     ArrayMod(const PdArgs& a);
     bool shouldRedraw() const;
 };
+
+template <class Base>
+ArrayReadIFace<Base>::ArrayReadIFace(const PdArgs& a)
+    : Base(a)
+    , array_name_(nullptr)
+{
+    Base::createCbSymbolProperty(
+        "@array",
+        [this]() -> t_symbol* { return array_name_; },
+        [this](t_symbol* s) -> bool { setArray(s); return true; })
+        ->setArgIndex(0);
+}
+
+template <class Base>
+bool ArrayReadIFace<Base>::checkArray(bool log)
+{
+    if (array_name_ == nullptr || !array_.open(array_name_)) {
+        if (log) {
+            OBJ_ERR << "invalid array: " << array_.name();
+        }
+
+        return false;
+    }
+
+    return true;
+}
+
+template <class Base>
+bool ArrayReadIFace<Base>::setArray(t_symbol* s)
+{
+    array_name_ = s;
+    if (!array_.open(array_name_)) {
+        OBJ_ERR << "array not found: " << s->s_name;
+        return false;
+    }
+
+    return true;
+}
 
 #endif // ARRAY_BASE_H

@@ -13,41 +13,6 @@
  *****************************************************************************/
 #include "array_base.h"
 
-ArrayBase::ArrayBase(const PdArgs& a)
-    : BaseObject(a)
-    , array_name_(nullptr)
-{
-    createCbSymbolProperty(
-        "@array",
-        [this]() -> t_symbol* { return array_name_; },
-        [this](t_symbol* s) -> bool { setArray(s); return true; })
-        ->setArgIndex(0);
-}
-
-bool ArrayBase::setArray(t_symbol* s)
-{
-    array_name_ = s;
-    if (!array_.open(array_name_)) {
-        OBJ_ERR << "array not found: " << s->s_name;
-        return false;
-    }
-
-    return true;
-}
-
-bool ArrayBase::checkArray(bool log)
-{
-    if (array_name_ == nullptr || !array_.open(array_name_)) {
-        if (log) {
-            OBJ_ERR << "invalid array: " << array_.name();
-        }
-
-        return false;
-    }
-
-    return true;
-}
-
 ArrayMod::ArrayMod(const PdArgs& a)
     : ArrayBase(a)
     , redraw_(nullptr)
