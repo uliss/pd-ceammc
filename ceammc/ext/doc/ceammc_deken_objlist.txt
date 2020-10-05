@@ -10,6 +10,8 @@ array.fill	fill array with single value or pattern
 array.hist	calculates array histogram
 array.mean	calculates array arithmetic mean value
 array.minmax	find array min and max element value
+array.play~	array player with variable speed and amplitude
+array.p~	array player with variable speed and amplitude
 array.plot~	plot signal on specified array
 array.resample	array resampler
 array.r	array resampler

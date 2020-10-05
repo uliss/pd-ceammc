@@ -6,7 +6,7 @@
             <authors>
                 <author>Serge Poltavsky</author>
             </authors>
-            <description>Array player with variable speed and amplitude</description>
+            <description>array player with variable speed and amplitude</description>
             <license>GPL3 or later</license>
             <library>ceammc</library>
             <category>array</category>
@@ -30,6 +30,8 @@
         <inlets>
             <inlet>
                 <xinfo on="bang">starts playback from the beginning</xinfo>
+                <xinfo on="float">starts playback from the specified sample.
+                Negative offsets are also supported: -10 means play last 10 samples of array till the end</xinfo>
             </inlet>
         </inlets>
         <outlets>
@@ -39,11 +41,11 @@
         <example>
             <pdascii>
 <![CDATA[
-[B]                                 [array APLAY]
+[open %CEAMMC%/guitar1.wav(  [array APLAY]
 |
-[openpanel]
+[expand_env]
 |
-[load $1 @to A1 @resize(
+[load $1 @to APLAY @resize(
 |
 [snd.file]
 

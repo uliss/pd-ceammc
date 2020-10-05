@@ -55,6 +55,7 @@ class ArrayPlayTilde : public ArraySoundBase {
 public:
     ArrayPlayTilde(const PdArgs& args);
     void onBang() override;
+    void onFloat(t_float pos) override;
 
     void setupDSP(t_signal** sig) override;
     void processBlock(const t_sample**, t_sample** out) final;

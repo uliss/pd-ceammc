@@ -30,7 +30,7 @@ purposes in centre of electroacoustic music of Moscow Conservatory
 #X obj 30 479 array.minmax;
 #X text 200 479 find array min and max element value;
 #X obj 30 506 array.play~;
-#X text 200 506 Array player with variable speed and amplitude;
+#X text 200 506 array player with variable speed and amplitude;
 #X obj 30 533 array.plot~;
 #X text 200 533 plot signal on specified array;
 #X obj 30 560 array.resample;

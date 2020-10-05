@@ -11,8 +11,9 @@
  * contact the author of this file, or the owner of the project in which
  * this file belongs to.
  *****************************************************************************/
-#include "array_play.h"
+#include "array_play_tilde.h"
 #include "ceammc_factory.h"
+#include "fmt/format.h"
 
 FSM ArrayPlayTilde::fsm_ = {
     StateTransitions {
@@ -94,6 +95,32 @@ ArrayPlayTilde::ArrayPlayTilde(const PdArgs& args)
 void ArrayPlayTilde::onBang()
 {
     command(ACT_STOP);
+    command(ACT_PLAY);
+}
+
+void ArrayPlayTilde::onFloat(t_float pos)
+{
+    if (!checkArray())
+        return;
+
+    command(ACT_STOP);
+
+    if (pos < 0) {
+        pos = t_sample(array_.size()) + pos;
+        if (pos < 0) {
+            OBJ_ERR << fmt::format("invalid negative play position ({}), too big negative offset", pos);
+            return;
+        }
+        // break thru
+    }
+
+    // (!) not else if
+    if (pos >= array_.size()) {
+        OBJ_ERR << fmt::format("invalid play position: {}, expected >=0 and <{}", pos, array_.size());
+        return;
+    }
+
+    phase_ = pos;
     command(ACT_PLAY);
 }
 
@@ -245,7 +272,7 @@ void ArrayPlayTilde::command(PlayAction act)
     state_ = fsm_[state_][act](this);
 }
 
-void setup_array_play()
+void setup_array_play_tilde()
 {
     SoundExternalFactory<ArrayPlayTilde> obj("array.play~", OBJECT_FACTORY_DEFAULT);
     obj.addAlias("array.p~");

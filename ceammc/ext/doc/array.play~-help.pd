@@ -1,22 +1,21 @@
 #N canvas 0 0 785 555 12;
 #X declare -lib ceammc;
-#X obj 406 50 cnv 1 359 23 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 406 50 Array player with variable speed and amplitude;
+#X obj 407 50 cnv 1 358 23 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 407 50 array player with variable speed and amplitude;
 #X obj 1 1 cnv 5 765 40 empty empty array.play~ 20 20 0 20 -104026
 -4096 0;
 #X obj 575 11 array.p~;
 #X obj 659 11 array.play~;
-#X obj 50 118 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
--1;
+#X msg 50 118 open %CEAMMC%/guitar1.wav;
 #N canvas 0 22 450 300 (subpatch) 0;
 #X array APLAY 100 float 1;
 #A 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0;
 #X coords 0 1 100 -1 200 140 1;
-#X restore 395 118 graph;
-#X obj 50 147 openpanel;
-#X msg 50 176 load \$1 @to A1 @resize;
+#X restore 328 118 graph;
+#X obj 50 147 expand_env;
+#X msg 50 176 load \$1 @to APLAY @resize;
 #X obj 50 205 snd.file;
 #X obj 50 234 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
 -1;
