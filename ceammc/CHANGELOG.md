@@ -30,6 +30,7 @@
 - math.inf~ added (mainly for testing purposes)
 - random.atom (with random.a alias) added for weighted random atom generation
 - fx.pitchshift_s~ added (signal version of fx.pitchshift~)
+- array.play~ added (with array.p~ alias)
 
 ### Changed:
 - ext_info output format changed.

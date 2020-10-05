@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="array.play~">
+        <title>array.play~</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>Array player with variable speed and amplitude</description>
+            <license>GPL3 or later</license>
+            <library>ceammc</library>
+            <category>array</category>
+            <keywords>array play</keywords>
+            <since>0.9.1</since>
+            <aliases>
+                <alias>array.p~</alias>
+            </aliases>
+            <also>
+                <see>tabplay~</see>
+            <also>
+        </meta>
+        <arguments>
+            <argument name="ARRAY" type="symbol">array name</argument>
+            <argument name="SPEED" type="float">play speed</argument>
+        </arguments>
+        <properties>
+            <property name="@array" type="symbol" default="">array name</property>
+            <property name="@speed" type="float" default="1">playback speed. Negative value means reversed playback</property>
+        </properties>
+        <inlets>
+            <inlet>
+                <xinfo on="bang">starts playback from the beginning</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet type="audio">played signal</outlet>
+            <outlet>output bang when finished</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[B]                                 [array APLAY]
+|
+[openpanel]
+|
+[load $1 @to A1 @resize(
+|
+[snd.file]
+
+[bng]
+|
+[array.play~ APLAY] [ui.dsp~]
+|
+[ui.hgain~]
+|\
+[dac~]
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>
