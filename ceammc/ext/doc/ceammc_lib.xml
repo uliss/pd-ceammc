@@ -36,6 +36,9 @@
     <entry name="array.minmax" descr="find array min and max element value" ref_view="object">
       <xi:include href="array.minmax.pddoc" parse="xml"/>
     </entry>
+    <entry name="array.play~" descr="Array player with variable speed and amplitude" ref_view="object">
+      <xi:include href="array.play~.pddoc" parse="xml"/>
+    </entry>
     <entry name="array.plot~" descr="plot signal on specified array" ref_view="object">
       <xi:include href="array.plot~.pddoc" parse="xml"/>
     </entry>

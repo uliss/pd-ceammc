@@ -17,7 +17,7 @@
             </aliases>
             <also>
                 <see>tabplay~</see>
-            <also>
+            </also>
         </meta>
         <arguments>
             <argument name="ARRAY" type="symbol">array name</argument>

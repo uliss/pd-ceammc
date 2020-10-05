@@ -10,6 +10,7 @@ array.hist		.		.
 array.mean		.		.
 array.minmax		.		..
 array.p2s,array.p->s,array.phase->sample		.		.
+array.play~,array.p~		.		~.
 array.plot~		~.		-
 array.resample,array.r		.		.
 array.rms		.		.
@@ -71,7 +72,6 @@ data.list		..		.
 data.mlist,mlist,ml		.		.
 data.set		.		.
 data.set2list,set->list		.		.
-data.tree		.		.
 dict.contains		..		.
 dict.each		..		..
 dict.from_list,list->dict		.		.
@@ -103,7 +103,6 @@ env2array,env->array		.		.
 env2vline,env->vline		.		.
 envelope,env		.		.
 expand_env		.		.
-flow.append,flow.after,flow<-		...		.
 flow.change		.		.
 flow.count		..		.
 flow.delay,flow.del		..		.
@@ -128,7 +127,6 @@ flow.pack		?		.
 flow.pass,pass		..		.
 flow.pass_if,pass_if		..		..
 flow.pipe		..		.
-flow.prepend,msg.before		...		.
 flow.reject,reject		..		.
 flow.reject_if,reject_if		..		..
 flow.ring,flow.>>		..		?
@@ -529,14 +527,11 @@ system.hostname		.		.
 system.memsize		.		.
 system.memused		.		..
 system.screen_size		.		.
-system.shell		.		..
 tl.bang,tl.b		.		.
 tl.cue		-		-
 tl.timeline,timeline		.		.
 tl.toggle,tl.t		.		.
 tl.transport		.		-
-tree.float,tree.f		.		.
-tree.symbol,tree.s		.		.
 ui.aview		.		.
 ui.bang,ui.b		.		.
 ui.colorpanel		.		.
