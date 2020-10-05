@@ -184,7 +184,7 @@ TEST_CASE("Canvas", "[ceammc::Canvas]")
 
             auto a1 = cnv->createArray("array1", 20);
             REQUIRE(a1);
-            REQUIRE(a1->name() == "array1");
+            REQUIRE(a1->name() == SYM("array1"));
             REQUIRE(a1->size() == 20);
             REQUIRE(cnv->objectList().empty());
         }

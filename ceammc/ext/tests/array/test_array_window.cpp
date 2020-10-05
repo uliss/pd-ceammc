@@ -26,7 +26,7 @@ TEST_CASE("array.window", "[externals]")
         TObj t("array.window");
         REQUIRE(t.numInlets() == 1);
         REQUIRE(t.numOutlets() == 1);
-        REQUIRE_PROPERTY_NONE(t, @array);
+        REQUIRE_PROPERTY(t, @array, &s_);
         REQUIRE_PROPERTY_FLOAT(t, @redraw, 1);
         REQUIRE_PROPERTY_LIST(t, @type, LA("hann"));
 

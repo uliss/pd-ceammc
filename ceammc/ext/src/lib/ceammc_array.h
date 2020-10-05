@@ -116,6 +116,7 @@ public:
     Array(const char* name, std::initializer_list<t_sample> l);
 
     Array(const Array& array);
+    Array& operator=(const Array& array);
 
     /** iterators */
     iterator begin();
@@ -148,10 +149,21 @@ public:
     bool open(const char* name);
 
     /**
+     * Sets *use_in_dsp* array flag:
+     *  if array will be resized, setupDSP procedure will be called, otherwise not
+     * @return true on success. false on error
+     */
+    void useInDSP();
+
+    /**
      * @brief returns number of samples in array
      */
     size_t size() const { return size_; }
-    std::string name() const;
+
+    /**
+     * @brief array name as string
+     */
+    t_symbol* name() const { return name_; }
 
     /**
      * @brief at - get reference to sample with at position

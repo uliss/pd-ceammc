@@ -26,7 +26,7 @@ TEST_CASE("array.do", "[externals]")
         TObj t("array.do");
         REQUIRE(t.numInlets() == 2);
         REQUIRE(t.numOutlets() == 2);
-        REQUIRE_PROPERTY_NONE(t, @array);
+        REQUIRE_PROPERTY(t, @array, &s_);
         REQUIRE_PROPERTY(t, @redraw, 1);
     }
 

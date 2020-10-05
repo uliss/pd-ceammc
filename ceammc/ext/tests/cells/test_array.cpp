@@ -24,7 +24,7 @@ TEST_CASE("Array", "[ceammc::Atom]")
         ArrayPtr array1 = cnv->createArray("array1", 10);
         REQUIRE(array1->isValid());
         REQUIRE(array1->size() == 10);
-        REQUIRE(array1->name() == "array1");
+        REQUIRE(array1->name() == SYM("array1"));
         for (size_t i = 0; i < 10; i++) {
             REQUIRE(array1->at(i) == 0.f);
         }

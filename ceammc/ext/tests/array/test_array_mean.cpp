@@ -26,7 +26,7 @@ TEST_CASE("array.mean", "[externals]")
         TestArrayMean t("array.mean");
         REQUIRE(t.numInlets() == 1);
         REQUIRE(t.numOutlets() == 1);
-        REQUIRE_PROPERTY_NONE(t, @array);
+        REQUIRE_PROPERTY(t, @array, &s_);
 
         WHEN_SEND_BANG_TO(0, t);
         REQUIRE_NO_MESSAGES_AT_OUTLET(0, t);

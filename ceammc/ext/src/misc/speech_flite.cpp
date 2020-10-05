@@ -111,9 +111,8 @@ void SpeechFlite::clockTick()
         clock_.delay(25);
     } else {
         // array was delete while worker running
-        std::string name = array_.name();
         if (!array_.update()) {
-            OBJ_ERR << "array not found: " << name;
+            OBJ_ERR << "array not found: " << array_.name();
             return;
         }
 

@@ -28,7 +28,20 @@ class ArrayReadIFace : public Base {
 public:
     ArrayReadIFace(const PdArgs& a);
 
-    bool setArray(t_symbol* s);
+    /**
+     * @brief set new array and tries to open it
+     * @param s - array name
+     * @return true on success, false on error
+     */
+    virtual bool setArray(t_symbol* s);
+
+    /**
+     * @brief updates array information (if array exists, updates size info)
+     * @note should be called before any read/write operation
+     *       if array could be modified or deleted previously
+     * @param log - log on error to Pd Window
+     * @return true if array exists and valid, otherwise false
+     */
     bool checkArray(bool log = true);
 
     // range check required
@@ -47,7 +60,12 @@ protected:
 };
 
 using ArrayBase = ArrayReadIFace<BaseObject>;
-using ArraySoundBase = ArrayReadIFace<SoundExternal>;
+
+class ArraySoundBase : public ArrayReadIFace<SoundExternal> {
+public:
+    ArraySoundBase(const PdArgs& args);
+    bool setArray(t_symbol* aname) override;
+};
 
 class ArrayMod : public ArrayBase {
     BoolProperty* redraw_;
@@ -60,7 +78,7 @@ public:
 template <class Base>
 ArrayReadIFace<Base>::ArrayReadIFace(const PdArgs& a)
     : Base(a)
-    , array_name_(nullptr)
+    , array_name_(&s_)
 {
     Base::createCbSymbolProperty(
         "@array",
@@ -72,7 +90,7 @@ ArrayReadIFace<Base>::ArrayReadIFace(const PdArgs& a)
 template <class Base>
 bool ArrayReadIFace<Base>::checkArray(bool log)
 {
-    if (array_name_ == nullptr || !array_.open(array_name_)) {
+    if (array_name_ == &s_ || !array_.open(array_name_)) {
         if (log) {
             OBJ_ERR << "invalid array: " << array_.name();
         }

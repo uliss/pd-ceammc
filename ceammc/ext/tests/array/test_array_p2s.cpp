@@ -42,7 +42,7 @@ TEST_CASE("array.p2s", "[externals]")
             TObj t("array.p2s");
             REQUIRE(t.numInlets() == 1);
             REQUIRE(t.numOutlets() == 1);
-            REQUIRE_PROPERTY_NONE(t, @array);
+            REQUIRE_PROPERTY(t, @array, &s_);
 
             ON_FLOAT_REQUIRE(0, t, 0);
             ON_FLOAT_REQUIRE(0.5, t, 0);

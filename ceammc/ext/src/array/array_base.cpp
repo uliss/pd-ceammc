@@ -13,6 +13,21 @@
  *****************************************************************************/
 #include "array_base.h"
 
+ArraySoundBase::ArraySoundBase(const PdArgs& args)
+    : ArrayReadIFace<SoundExternal>(args)
+{
+}
+
+bool ArraySoundBase::setArray(t_symbol* aname)
+{
+    auto rc = ArrayReadIFace<SoundExternal>::setArray(aname);
+    if (!rc)
+        return rc;
+
+    array_.useInDSP();
+    return rc;
+}
+
 ArrayMod::ArrayMod(const PdArgs& a)
     : ArrayBase(a)
     , redraw_(nullptr)

@@ -28,7 +28,7 @@ TEST_CASE("array.fill", "[externals]")
         TObj t("array.fill");
         REQUIRE(t.numInlets() == 1);
         REQUIRE(t.numOutlets() == 1);
-        REQUIRE_PROPERTY_NONE(t, @array);
+        REQUIRE_PROPERTY(t, @array, &s_);
         REQUIRE_PROPERTY(t, @redraw, 1);
 
         WHEN_SEND_BANG_TO(0, t);

@@ -173,6 +173,8 @@ bool ArrayPlotTilde::setArray(t_symbol* s)
         return false;
     }
 
+    array_.useInDSP();
+
     return true;
 }
 
@@ -206,10 +208,10 @@ void ArrayPlotTilde::updateScale()
         if (!array_.setYLabels({ round_fixed(a, 2),
                 round_fixed((a + b) / 2, 2),
                 round_fixed(b, 2) }))
-            OBJ_ERR << fmt::format("can't set ylabels for array '{}'", array_.name());
+            OBJ_ERR << fmt::format("can't set ylabels for array '{}'", array_.name()->s_name);
 
         if (!array_.setYTicks((b - a) / 20, 5))
-            OBJ_ERR << fmt::format("can't set yticks for array '{}'", array_.name());
+            OBJ_ERR << fmt::format("can't set yticks for array '{}'", array_.name()->s_name);
     }
 
     array_.redraw();

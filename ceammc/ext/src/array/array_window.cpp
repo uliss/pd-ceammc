@@ -89,13 +89,7 @@ void ArrayWindow::m_fit(t_symbol* s, const AtomListView& /*l*/)
         return;
     }
 
-    t_symbol* name = gensym(array_.name().c_str());
-    t_atom args[4];
-    SETFLOAT(&args[0], 0);
-    SETFLOAT(&args[1], 1);
-    SETFLOAT(&args[2], t_float(array_.size()));
-    SETFLOAT(&args[3], 0);
-    pd_typedmess(name->s_thing, gensym("bounds"), 4, args);
+    array_.setYBounds(0, 1);
 }
 
 void ArrayWindow::m_triangle(t_symbol* s, const AtomListView& args)
