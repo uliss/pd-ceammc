@@ -621,6 +621,11 @@ bool Property::checkFloat(t_float v) const
         }
     }
 
+    if (!std::isnormal<t_float>(v) && v != 0) {
+        PROP_ERR() << "ignore denormal value: " << v;
+        return false;
+    }
+
     return true;
 }
 
