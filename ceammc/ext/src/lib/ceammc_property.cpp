@@ -1008,12 +1008,31 @@ bool FloatProperty::setList(const AtomListView& lst)
     if (!emptyCheck(lst))
         return false;
 
-    if (lst.size() != 1) {
+    if (lst.size() == 1)
+        return setValue(lst[0]);
+    else if (lst.size() == 2 && lst[0].isSymbol() && lst[1].isFloat()) {
+        const auto val = lst[1].asT<t_float>();
+        const auto op = lst[0].asT<t_symbol*>()->s_name;
+        if (op[0] == '+' && op[1] == '\0')
+            return setValue(value() + val);
+        else if (op[0] == '-' && op[1] == '\0')
+            return setValue(value() - val);
+        else if (op[0] == '*' && op[1] == '\0')
+            return setValue(value() * val);
+        else if (op[0] == '/' && op[1] == '\0') {
+            if (val == 0) {
+                PROP_ERR() << "division by zero";
+                return false;
+            } else
+                return setValue(value() / val);
+        } else {
+            PROP_ERR() << "expected +-*/, got: " << lst[0];
+            return false;
+        }
+    } else {
         PROP_ERR() << "float value expected, got: " << lst;
         return false;
     }
-
-    return setValue(lst[0]);
 }
 
 bool FloatProperty::setFloat(t_float v)
@@ -1325,7 +1344,7 @@ bool FlagProperty::getInt(int& v) const
     return true;
 }
 
-bool FlagProperty::setList(const AtomListView &)
+bool FlagProperty::setList(const AtomListView&)
 {
     v_ = true;
     return true;
@@ -1398,7 +1417,7 @@ CombinedProperty::CombinedProperty(const std::string& name, std::initializer_lis
     setHidden();
 }
 
-bool CombinedProperty::setList(const AtomListView &)
+bool CombinedProperty::setList(const AtomListView&)
 {
     return true;
 }

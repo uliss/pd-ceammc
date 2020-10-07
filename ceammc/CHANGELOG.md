@@ -2,6 +2,8 @@
 
 ## [Unreleased]
 ### Added:
+- float property simple arithmetic added: @prop + 0.5, adds 0.5 to @prop value.
+  supports +,-,* and / operators
 - mlist.flatten - simple list support added
 - patch.deps added - list current patch dependencies
 - ceammc.search added
@@ -32,10 +34,11 @@
 - fx.pitchshift_s~ added (signal version of fx.pitchshift~)
 - array.play~ added (with array.p~ alias)
 
+
 ### Changed:
 - ext_info output format changed.
-    "inlets": ["audio", "control"...] instead of inlet number
-    "outlets": ["audio", "control"...] instead of outlet number
+    "inlets": \["audio", "control"...] instead of inlet number
+    "outlets": \["audio", "control"...] instead of outlet number
 - props:
     - prop.set renamed to prop.join (with prop<- alias)
     - prop.set now is a new object with different behavior, it changes properties via internal pd calls

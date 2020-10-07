@@ -186,4 +186,68 @@ TEST_CASE("FloatProperty", "[core]")
 
         CHECK_SUCCESS(p, LF(2), LF(-2));
     }
+
+    SECTION("+")
+    {
+        REQUIRE(p.setList(AtomList::parseString("+ 2")));
+        REQUIRE(p.value() == 2.5);
+        REQUIRE(p.setList(AtomList::parseString("+ 2.5")));
+        REQUIRE(p.value() == 5);
+        REQUIRE(p.setList(AtomList::parseString("+ -1")));
+        REQUIRE(p.value() == 4);
+        REQUIRE(p.setList(AtomList::parseString("+ -2.5")));
+        REQUIRE(p.value() == 1.5);
+        REQUIRE(p.setList(AtomList::parseString("+ 0")));
+        REQUIRE(p.value() == 1.5);
+
+        p.checkClosedRange(1, 2);
+        REQUIRE(p.setList(AtomList::parseString("+ 0.5")));
+        REQUIRE(p.value() == 2);
+        REQUIRE_FALSE(p.setList(AtomList::parseString("+ 0.001")));
+        REQUIRE_FALSE(p.setList(AtomList::parseString("+ 1000")));
+    }
+
+    SECTION("-")
+    {
+        REQUIRE(p.setList(AtomList::parseString("- 2")));
+        REQUIRE(p.value() == -1.5);
+        REQUIRE(p.setList(AtomList::parseString("- 0.5")));
+        REQUIRE(p.value() == -2);
+        REQUIRE(p.setList(AtomList::parseString("- -1")));
+        REQUIRE(p.value() == -1);
+        REQUIRE(p.setList(AtomList::parseString("- -2.5")));
+        REQUIRE(p.value() == 1.5);
+        REQUIRE(p.setList(AtomList::parseString("- 0")));
+        REQUIRE(p.value() == 1.5);
+    }
+
+    SECTION("*")
+    {
+        REQUIRE(p.setList(AtomList::parseString("* 4")));
+        REQUIRE(p.value() == 2);
+        REQUIRE(p.setList(AtomList::parseString("* 2.5")));
+        REQUIRE(p.value() == 5);
+        REQUIRE(p.setList(AtomList::parseString("* -1")));
+        REQUIRE(p.value() == -5);
+        REQUIRE(p.setList(AtomList::parseString("* -0.5")));
+        REQUIRE(p.value() == 2.5);
+        REQUIRE(p.setList(AtomList::parseString("* 1")));
+        REQUIRE(p.value() == 2.5);
+        REQUIRE(p.setList(AtomList::parseString("* 0")));
+        REQUIRE(p.value() == 0);
+    }
+
+    SECTION("/")
+    {
+        REQUIRE(p.setList(AtomList::parseString("/ 2")));
+        REQUIRE(p.value() == 0.25);
+        REQUIRE(p.setList(AtomList::parseString("/ 0.125")));
+        REQUIRE(p.value() == 2);
+        REQUIRE(p.setList(AtomList::parseString("/ -2")));
+        REQUIRE(p.value() == -1);
+        REQUIRE(p.setList(AtomList::parseString("/ -1")));
+        REQUIRE(p.value() == 1);
+        REQUIRE_FALSE(p.setList(AtomList::parseString("/ 0")));
+        REQUIRE(p.value() == 1);
+    }
 }
