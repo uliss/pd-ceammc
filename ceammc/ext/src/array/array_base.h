@@ -37,7 +37,7 @@ public:
     bool getFloat(t_float& v) const override;
 
     t_sample value() { return v_; }
-    bool setValue(t_sample v);
+    void setValue(t_sample v) { v_ = v; }
 
     t_float samples() const;
     t_float seconds(t_float sr) const { return samples() / sr; }

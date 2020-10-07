@@ -68,15 +68,11 @@ public:
     void m_stop(t_symbol* s, const AtomListView& lv);
     void m_pos(t_symbol* s, const AtomListView& lv);
 
-    t_sample playPos() const
-    {
-        return cursor_->samples();
-    }
-
     void setBegin();
     void setEnd();
     void resetPlayPosition();
 
+    t_sample playPos() const { return cursor_->samples(); }
     double position() const { return pos_; }
 
 private:

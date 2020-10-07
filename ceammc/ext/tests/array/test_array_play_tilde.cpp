@@ -37,15 +37,15 @@ TEST_CASE("array.play~", "[externals]")
     {
         TExt t("array.play~");
         REQUIRE(t.numInlets() == 1);
-        REQUIRE(t.numOutlets() == 2);
+        REQUIRE(t.numOutlets() == 3);
         REQUIRE_PROPERTY(t, @array, &s_);
         REQUIRE_PROPERTY(t, @speed, 1);
         REQUIRE_PROPERTY(t, @begin, 0);
         REQUIRE_PROPERTY(t, @end, -1);
-        REQUIRE_PROPERTY(t, @pos_ms, 0);
-        REQUIRE_PROPERTY(t, @pos_samp, 0);
-        REQUIRE_PROPERTY(t, @pos_sec, 0);
-        REQUIRE_PROPERTY(t, @pos_phase, 0);
+        REQUIRE_PROPERTY(t, @cursor_ms, 0);
+        REQUIRE_PROPERTY(t, @cursor_samp, 0);
+        REQUIRE_PROPERTY(t, @cursor_sec, 0);
+        REQUIRE_PROPERTY(t, @cursor_phase, 0);
         REQUIRE_PROPERTY(t, @state, 0);
         REQUIRE_PROPERTY(t, @interp, 1);
     }
@@ -129,6 +129,7 @@ TEST_CASE("array.play~", "[externals]")
 
             REQUIRE(t.messageCount(0) == 0);
             REQUIRE(t.messageCount(1) == 0);
+            REQUIRE(t.messageCount(2) == 0);
             REQUIRE(std::all_of(s0.beginOut(0), s0.endOut(0), eq0));
 
             // playing
@@ -142,8 +143,8 @@ TEST_CASE("array.play~", "[externals]")
                 REQUIRE(s0.out[0][i] == 0);
 
             after_nticks(1);
-            REQUIRE(t.messageCount(1) == 1);
-            REQUIRE(t.lastMessage(1) == Message::makeBang());
+            REQUIRE(t.messageCount(2) == 1);
+            REQUIRE(t.lastMessage(2) == Message::makeBang());
             REQUIRE_PROPERTY(t, @state, STATE_STOPPED);
             REQUIRE(t.playPos() == 0);
             REQUIRE(t.position() == 0);
@@ -164,7 +165,7 @@ TEST_CASE("array.play~", "[externals]")
             REQUIRE(t.position() == 30);
 
             after_nticks(1);
-            REQUIRE(t.lastMessage(1) == Message::makeBang());
+            REQUIRE(t.lastMessage(2) == Message::makeBang());
             REQUIRE_PROPERTY(t, @state, STATE_STOPPED);
             REQUIRE(t.position() == 0);
 
@@ -183,7 +184,7 @@ TEST_CASE("array.play~", "[externals]")
                 REQUIRE(s0.out[0][i] == 0);
 
             after_nticks(1);
-            REQUIRE(t.lastMessage(1) == Message::makeBang());
+            REQUIRE(t.lastMessage(2) == Message::makeBang());
             REQUIRE_PROPERTY(t, @state, STATE_STOPPED);
 
             // speed 0.75
@@ -201,7 +202,7 @@ TEST_CASE("array.play~", "[externals]")
                 REQUIRE(s0.out[0][i] == 0);
 
             after_nticks(1);
-            REQUIRE(t.lastMessage(1) == Message::makeBang());
+            REQUIRE(t.lastMessage(2) == Message::makeBang());
             REQUIRE_PROPERTY(t, @state, STATE_STOPPED);
 
             // speed 0.25
@@ -217,12 +218,12 @@ TEST_CASE("array.play~", "[externals]")
             for (size_t i = 0; i < 64; i++)
                 REQUIRE(s0.out[0][i] == Approx(0.25 * i));
 
-            REQUIRE_PROPERTY_FLOAT(t, @pos_ms, 0.333333);
-            REQUIRE_PROPERTY_FLOAT(t, @pos_samp, 16);
-            REQUIRE_PROPERTY_FLOAT(t, @pos_sec, 0.000333333);
-            REQUIRE_PROPERTY_FLOAT(t, @pos_phase, 64 / 120.0);
+            REQUIRE_PROPERTY_FLOAT(t, @cursor_ms, 0.333333);
+            REQUIRE_PROPERTY_FLOAT(t, @cursor_samp, 16);
+            REQUIRE_PROPERTY_FLOAT(t, @cursor_sec, 0.000333333);
+            REQUIRE_PROPERTY_FLOAT(t, @cursor_phase, 64 / 120.0);
 
-            REQUIRE(t.messageCount(1) == 0);
+            REQUIRE(t.messageCount(2) == 0);
             REQUIRE(t.playPos() == Approx(16));
 
             dsp.processBlock();
@@ -235,8 +236,8 @@ TEST_CASE("array.play~", "[externals]")
                 REQUIRE(s0.out[0][i] == 0);
 
             after_nticks(1);
-            REQUIRE(t.messageCount(1) == 1);
-            REQUIRE(t.lastMessage(1) == Message::makeBang());
+            REQUIRE(t.messageCount(2) == 1);
+            REQUIRE(t.lastMessage(2) == Message::makeBang());
             REQUIRE_PROPERTY(t, @state, STATE_STOPPED);
         }
 
@@ -340,8 +341,8 @@ TEST_CASE("array.play~", "[externals]")
                     REQUIRE(s0.out[0][i] == 0);
 
                 after_nticks(1);
-                REQUIRE(t.messageCount(1) == 1);
-                REQUIRE(t.lastMessage(1) == Message::makeBang());
+                REQUIRE(t.messageCount(2) == 1);
+                REQUIRE(t.lastMessage(2) == Message::makeBang());
                 REQUIRE_PROPERTY(t, @state, STATE_STOPPED);
             }
 
@@ -361,8 +362,8 @@ TEST_CASE("array.play~", "[externals]")
                     REQUIRE(s0.out[0][i] == 0);
 
                 after_nticks(1);
-                REQUIRE(t.messageCount(1) == 1);
-                REQUIRE(t.lastMessage(1) == Message::makeBang());
+                REQUIRE(t.messageCount(2) == 1);
+                REQUIRE(t.lastMessage(2) == Message::makeBang());
                 REQUIRE_PROPERTY(t, @state, STATE_STOPPED);
                 REQUIRE(t.playPos() == 29);
             }
@@ -384,8 +385,8 @@ TEST_CASE("array.play~", "[externals]")
                     REQUIRE(s0.out[0][i] == 0);
 
                 after_nticks(1);
-                REQUIRE(t.messageCount(1) == 1);
-                REQUIRE(t.lastMessage(1) == Message::makeBang());
+                REQUIRE(t.messageCount(2) == 1);
+                REQUIRE(t.lastMessage(2) == Message::makeBang());
                 REQUIRE_PROPERTY(t, @state, STATE_STOPPED);
                 REQUIRE(t.playPos() == 29);
             }
@@ -405,8 +406,8 @@ TEST_CASE("array.play~", "[externals]")
 
             dsp.processBlock();
             after_nticks(1);
-            REQUIRE(t.messageCount(1) == 1);
-            REQUIRE(t.lastMessage(1) == Message::makeBang());
+            REQUIRE(t.messageCount(2) == 1);
+            REQUIRE(t.lastMessage(2) == Message::makeBang());
             REQUIRE_PROPERTY(t, @state, STATE_STOPPED);
             REQUIRE(t.playPos() == 0);
         }
@@ -422,7 +423,7 @@ TEST_CASE("array.play~", "[externals]")
 
             dsp.processBlock(2);
             after_nticks(100);
-            REQUIRE(t.messageCount(1) == 0);
+            REQUIRE(t.messageCount(2) == 0);
             REQUIRE(t.playPos() == 0);
         }
 
@@ -437,8 +438,8 @@ TEST_CASE("array.play~", "[externals]")
 
             dsp.processBlock(2);
             after_nticks(100);
-            REQUIRE(t.messageCount(1) == 1);
-            REQUIRE(t.lastMessage(1) == Message::makeBang());
+            REQUIRE(t.messageCount(2) == 1);
+            REQUIRE(t.lastMessage(2) == Message::makeBang());
             REQUIRE(t.playPos() == 29);
         }
     }
@@ -466,8 +467,8 @@ TEST_CASE("array.play~", "[externals]")
                 REQUIRE(s0.out[0][i] == 0);
 
             after_nticks(1);
-            REQUIRE(t.messageCount(1) == 1);
-            REQUIRE(t.lastMessage(1) == Message::makeBang());
+            REQUIRE(t.messageCount(2) == 1);
+            REQUIRE(t.lastMessage(2) == Message::makeBang());
             REQUIRE(t.playPos() == 10);
         }
 
@@ -492,8 +493,8 @@ TEST_CASE("array.play~", "[externals]")
                 REQUIRE(s0.out[0][i] == 0);
 
             after_nticks(1);
-            REQUIRE(t.messageCount(1) == 1);
-            REQUIRE(t.lastMessage(1) == Message::makeBang());
+            REQUIRE(t.messageCount(2) == 1);
+            REQUIRE(t.lastMessage(2) == Message::makeBang());
             REQUIRE(t.playPos() == 15);
         }
 
@@ -518,8 +519,8 @@ TEST_CASE("array.play~", "[externals]")
                 REQUIRE(s0.out[0][i] == 0);
 
             after_nticks(1);
-            REQUIRE(t.messageCount(1) == 1);
-            REQUIRE(t.lastMessage(1) == Message::makeBang());
+            REQUIRE(t.messageCount(2) == 1);
+            REQUIRE(t.lastMessage(2) == Message::makeBang());
             REQUIRE(t.playPos() == 5);
         }
 
@@ -544,8 +545,8 @@ TEST_CASE("array.play~", "[externals]")
                 REQUIRE(s0.out[0][i] == 0);
 
             after_nticks(1);
-            REQUIRE(t.messageCount(1) == 1);
-            REQUIRE(t.lastMessage(1) == Message::makeBang());
+            REQUIRE(t.messageCount(2) == 1);
+            REQUIRE(t.lastMessage(2) == Message::makeBang());
             REQUIRE(t.playPos() == 10);
         }
 
@@ -570,8 +571,8 @@ TEST_CASE("array.play~", "[externals]")
                 REQUIRE(s0.out[0][i] == 0);
 
             after_nticks(1);
-            REQUIRE(t.messageCount(1) == 1);
-            REQUIRE(t.lastMessage(1) == Message::makeBang());
+            REQUIRE(t.messageCount(2) == 1);
+            REQUIRE(t.lastMessage(2) == Message::makeBang());
             REQUIRE(t.playPos() == 29);
         }
 
@@ -596,8 +597,8 @@ TEST_CASE("array.play~", "[externals]")
                 REQUIRE(s0.out[0][i] == 0);
 
             after_nticks(1);
-            REQUIRE(t.messageCount(1) == 1);
-            REQUIRE(t.lastMessage(1) == Message::makeBang());
+            REQUIRE(t.messageCount(2) == 1);
+            REQUIRE(t.lastMessage(2) == Message::makeBang());
             REQUIRE(t.playPos() == 29);
         }
 
@@ -622,8 +623,8 @@ TEST_CASE("array.play~", "[externals]")
                 REQUIRE(s0.out[0][i] == 0);
 
             after_nticks(1);
-            REQUIRE(t.messageCount(1) == 1);
-            REQUIRE(t.lastMessage(1) == Message::makeBang());
+            REQUIRE(t.messageCount(2) == 1);
+            REQUIRE(t.lastMessage(2) == Message::makeBang());
             REQUIRE(t.playPos() == 25);
         }
     }

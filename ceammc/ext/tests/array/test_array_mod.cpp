@@ -32,7 +32,7 @@ TEST_CASE("array.mod", "[externals]")
         REQUIRE(p.ms(1000) == 0);
         REQUIRE(p.phase() == 0);
 
-        REQUIRE(p.setValue(-1));
+        p.setValue(-1);
         REQUIRE(p.value() == -1);
         REQUIRE(p.samples() == 999);
         REQUIRE(p.phase() == Approx(0.999));

@@ -107,12 +107,6 @@ bool ArrayPositionProperty::getFloat(t_float& v) const
     return true;
 }
 
-bool ArrayPositionProperty::setValue(t_sample v)
-{
-    v_ = v;
-    return true;
-}
-
 t_float ArrayPositionProperty::samples() const
 {
     const auto N = array_->size();

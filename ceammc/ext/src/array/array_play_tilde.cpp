@@ -78,7 +78,7 @@ ArrayPlayTilde::ArrayPlayTilde(const PdArgs& args)
     , state_(STATE_STOPPED)
     , done_([this]() {
         command(ACT_STOP);
-        bangTo(1);
+        bangTo(2);
     })
 {
     speed_ = new FloatProperty("@speed", 1);
@@ -98,18 +98,18 @@ ArrayPlayTilde::ArrayPlayTilde(const PdArgs& args)
     end_ = new ArrayPositionProperty(&array_, "@end", -1);
     addProperty(end_);
 
-    cursor_ = new ArrayPositionProperty(&array_, "@cursor", 0);
+    cursor_ = new ArrayPositionProperty(&array_, "@cursor_samp", 0);
     cursor_->setSuccessFn([this](Property*) { pos_ = cursor_->value(); });
     addProperty(cursor_);
 
-    createCbFloatProperty("@pos_samp", [this]() -> t_float { return cursor_->samples(); });
-    createCbFloatProperty("@pos_sec", [this]() -> t_float { return cursor_->seconds(sys_getsr()); });
-    createCbFloatProperty("@pos_ms", [this]() -> t_float { return cursor_->ms(sys_getsr()); });
-    createCbFloatProperty("@pos_phase", [this]() -> t_float { return cursor_->phase(); });
+    createCbFloatProperty("@cursor_sec", [this]() -> t_float { return cursor_->seconds(sys_getsr()); });
+    createCbFloatProperty("@cursor_ms", [this]() -> t_float { return cursor_->ms(sys_getsr()); });
+    createCbFloatProperty("@cursor_phase", [this]() -> t_float { return cursor_->phase(); });
 
     createCbIntProperty("@state", [this]() { return state_; });
 
     createSignalOutlet();
+    createOutlet();
     createOutlet();
 }
 
