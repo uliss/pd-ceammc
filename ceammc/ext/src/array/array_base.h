@@ -23,7 +23,7 @@
 using namespace ceammc;
 
 class ArrayPositionProperty : public Property {
-    double v_;
+    t_sample v_;
     Array* array_;
 
 public:
@@ -36,9 +36,8 @@ public:
     bool setInt(int v) override;
     bool getFloat(t_float& v) const override;
 
-    double& value() { return v_; }
-    const double& value() const { return v_; }
-    bool setValue(double v);
+    t_sample value() { return v_; }
+    bool setValue(t_sample v);
 
     t_float samples() const;
     t_float seconds(t_float sr) const { return samples() / sr; }

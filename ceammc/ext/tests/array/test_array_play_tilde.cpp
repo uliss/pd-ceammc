@@ -144,6 +144,9 @@ TEST_CASE("array.play~", "[externals]")
             after_nticks(1);
             REQUIRE(t.messageCount(1) == 1);
             REQUIRE(t.lastMessage(1) == Message::makeBang());
+            REQUIRE_PROPERTY(t, @state, STATE_STOPPED);
+            REQUIRE(t.playPos() == 0);
+            REQUIRE(t.position() == 0);
 
             // speed 2
             t.setProperty("@speed", LF(2));
@@ -158,9 +161,12 @@ TEST_CASE("array.play~", "[externals]")
             for (size_t i = 15; i < s0.blocksize(); i++)
                 REQUIRE(s0.out[0][i] == 0);
 
+            REQUIRE(t.position() == 30);
+
             after_nticks(1);
             REQUIRE(t.lastMessage(1) == Message::makeBang());
             REQUIRE_PROPERTY(t, @state, STATE_STOPPED);
+            REQUIRE(t.position() == 0);
 
             // speed 0.5
             t.setProperty("@speed", LF(0.5));
@@ -414,7 +420,7 @@ TEST_CASE("array.play~", "[externals]")
             t.sendBang();
             REQUIRE(t.playPos() == 0);
 
-            dsp.processBlock(100);
+            dsp.processBlock(2);
             after_nticks(100);
             REQUIRE(t.messageCount(1) == 0);
             REQUIRE(t.playPos() == 0);
@@ -429,11 +435,196 @@ TEST_CASE("array.play~", "[externals]")
             t.sendBang();
             REQUIRE(t.playPos() == 29);
 
-            dsp.processBlock(100);
+            dsp.processBlock(2);
             after_nticks(100);
             REQUIRE(t.messageCount(1) == 1);
             REQUIRE(t.lastMessage(1) == Message::makeBang());
             REQUIRE(t.playPos() == 29);
+        }
+    }
+
+    SECTION("range")
+    {
+        SECTION("begin 10")
+        {
+            TExt t("array.play~", LA("array_play~1", "@begin", 10, "@interp", 0.));
+            REQUIRE_PROPERTY(t, @begin, 10);
+            REQUIRE_PROPERTY(t, @end, -1);
+
+            TSig s0;
+            TDsp dsp(s0, t);
+
+            t.sendBang();
+            REQUIRE(t.playPos() == 10);
+
+            dsp.processBlock();
+
+            for (size_t i = 0; i < 20; i++)
+                REQUIRE(s0.out[0][i] == i + 10);
+
+            for (size_t i = 20; i < 64; i++)
+                REQUIRE(s0.out[0][i] == 0);
+
+            after_nticks(1);
+            REQUIRE(t.messageCount(1) == 1);
+            REQUIRE(t.lastMessage(1) == Message::makeBang());
+            REQUIRE(t.playPos() == 10);
+        }
+
+        SECTION("begin -15")
+        {
+            TExt t("array.play~", LA("array_play~1", "@begin", -15, "@interp", 0.));
+            REQUIRE_PROPERTY(t, @begin, -15);
+            REQUIRE_PROPERTY(t, @end, -1);
+
+            TSig s0;
+            TDsp dsp(s0, t);
+
+            t.sendBang();
+            REQUIRE(t.playPos() == 15);
+
+            dsp.processBlock();
+
+            for (size_t i = 0; i < 15; i++)
+                REQUIRE(s0.out[0][i] == i + 15);
+
+            for (size_t i = 15; i < 64; i++)
+                REQUIRE(s0.out[0][i] == 0);
+
+            after_nticks(1);
+            REQUIRE(t.messageCount(1) == 1);
+            REQUIRE(t.lastMessage(1) == Message::makeBang());
+            REQUIRE(t.playPos() == 15);
+        }
+
+        SECTION("begin 5 end 20")
+        {
+            TExt t("array.play~", LA("array_play~1", "@begin", 5, "@end", 20));
+            REQUIRE_PROPERTY(t, @begin, 5);
+            REQUIRE_PROPERTY(t, @end, 20);
+
+            TSig s0;
+            TDsp dsp(s0, t);
+
+            t.sendBang();
+            REQUIRE(t.playPos() == 5);
+
+            dsp.processBlock();
+
+            for (size_t i = 0; i <= 15; i++)
+                REQUIRE(s0.out[0][i] == i + 5);
+
+            for (size_t i = 16; i < 64; i++)
+                REQUIRE(s0.out[0][i] == 0);
+
+            after_nticks(1);
+            REQUIRE(t.messageCount(1) == 1);
+            REQUIRE(t.lastMessage(1) == Message::makeBang());
+            REQUIRE(t.playPos() == 5);
+        }
+
+        SECTION("begin -20 end -5")
+        {
+            TExt t("array.play~", LA("array_play~1", "@begin", -20, "@end", -5));
+            REQUIRE_PROPERTY(t, @begin, -20);
+            REQUIRE_PROPERTY(t, @end, -5);
+
+            TSig s0;
+            TDsp dsp(s0, t);
+
+            t.sendBang();
+            REQUIRE(t.playPos() == 10);
+
+            dsp.processBlock();
+
+            for (size_t i = 0; i <= 15; i++)
+                REQUIRE(s0.out[0][i] == i + 10);
+
+            for (size_t i = 16; i < 64; i++)
+                REQUIRE(s0.out[0][i] == 0);
+
+            after_nticks(1);
+            REQUIRE(t.messageCount(1) == 1);
+            REQUIRE(t.lastMessage(1) == Message::makeBang());
+            REQUIRE(t.playPos() == 10);
+        }
+
+        SECTION("back begin 10")
+        {
+            TExt t("array.play~", LA("array_play~1", "@begin", 10, "@speed", -1));
+            REQUIRE_PROPERTY(t, @begin, 10);
+            REQUIRE_PROPERTY(t, @end, -1);
+
+            TSig s0;
+            TDsp dsp(s0, t);
+
+            t.sendBang();
+            REQUIRE(t.playPos() == 29);
+
+            dsp.processBlock();
+
+            for (size_t i = 0; i < 20; i++)
+                REQUIRE(s0.out[0][i] == (29 - i));
+
+            for (size_t i = 20; i < 64; i++)
+                REQUIRE(s0.out[0][i] == 0);
+
+            after_nticks(1);
+            REQUIRE(t.messageCount(1) == 1);
+            REQUIRE(t.lastMessage(1) == Message::makeBang());
+            REQUIRE(t.playPos() == 29);
+        }
+
+        SECTION("back begin -10")
+        {
+            TExt t("array.play~", LA("array_play~1", "@begin", -10, "@speed", -1));
+            REQUIRE_PROPERTY(t, @begin, -10);
+            REQUIRE_PROPERTY(t, @end, -1);
+
+            TSig s0;
+            TDsp dsp(s0, t);
+
+            t.sendBang();
+            REQUIRE(t.playPos() == 29);
+
+            dsp.processBlock();
+
+            for (size_t i = 0; i < 10; i++)
+                REQUIRE(s0.out[0][i] == (29 - i));
+
+            for (size_t i = 10; i < 64; i++)
+                REQUIRE(s0.out[0][i] == 0);
+
+            after_nticks(1);
+            REQUIRE(t.messageCount(1) == 1);
+            REQUIRE(t.lastMessage(1) == Message::makeBang());
+            REQUIRE(t.playPos() == 29);
+        }
+
+        SECTION("back begin -10 end -5")
+        {
+            TExt t("array.play~", LA("array_play~1", "@begin", -10, "@end", -5, "@speed", -1));
+            REQUIRE_PROPERTY(t, @begin, -10);
+            REQUIRE_PROPERTY(t, @end, -5);
+
+            TSig s0;
+            TDsp dsp(s0, t);
+
+            t.sendBang();
+            REQUIRE(t.playPos() == 25);
+
+            dsp.processBlock();
+
+            for (size_t i = 0; i <= 5; i++)
+                REQUIRE(s0.out[0][i] == (25 - i));
+
+            for (size_t i = 6; i < 64; i++)
+                REQUIRE(s0.out[0][i] == 0);
+
+            after_nticks(1);
+            REQUIRE(t.messageCount(1) == 1);
+            REQUIRE(t.lastMessage(1) == Message::makeBang());
+            REQUIRE(t.playPos() == 25);
         }
     }
 }

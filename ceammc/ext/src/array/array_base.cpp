@@ -62,9 +62,21 @@ bool ArrayPositionProperty::setList(const AtomListView& lv)
     if (lv.isFloat())
         return setFloat(lv.asT<t_float>());
     else if (lv.size() >= 2 && lv[0].isSymbol()) {
-        auto s = lv[0].asT<t_symbol*>();
-        if (s == gensym("asdad")) {
+        units::TimeValue tval(0);
+        units::UnitParseError err;
+        auto res = units::TimeValue::parse(lv.subView(1));
+
+        if (res.matchError(err)) {
+            PROP_ERR() << err.msg;
+            return false;
         }
+
+        auto s = lv[0].asT<t_symbol*>();
+
+        if (s->s_name[0] == '+')
+            return setSamples(samples() + tval.toSamples(sys_getsr()));
+        else
+            return false;
     } else {
         units::TimeValue tval(0);
         units::UnitParseError err;
@@ -95,7 +107,7 @@ bool ArrayPositionProperty::getFloat(t_float& v) const
     return true;
 }
 
-bool ArrayPositionProperty::setValue(double v)
+bool ArrayPositionProperty::setValue(t_sample v)
 {
     v_ = v;
     return true;
@@ -110,7 +122,7 @@ t_float ArrayPositionProperty::samples() const
 
     if (v_ >= 0) {
         if (v_ >= N) {
-            PROP_ERR() << fmt::format("value is too big, clipping to max: {}", N - 1);
+            PROP_ERR() << fmt::format("value is too big ({}), clipping to max: {}", v_, N - 1);
             return array_->size();
         }
 
