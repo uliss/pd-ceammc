@@ -48,6 +48,8 @@ class ArrayPlayTilde : public ArraySoundBase {
     FloatProperty* speed_;
     IntEnumProperty* interp_;
     FloatProperty* amp_;
+    ArrayPositionProperty* begin_;
+    ArrayPositionProperty* end_;
     double phase_;
     PlayState state_;
     ClockLambdaFunction done_;
@@ -63,6 +65,12 @@ public:
     void m_play(t_symbol* s, const AtomListView& lv);
     void m_pause(t_symbol* s, const AtomListView& lv);
     void m_stop(t_symbol* s, const AtomListView& lv);
+    void m_pos(t_symbol* s, const AtomListView& lv);
+
+    t_sample playPos() const
+    {
+        return begin_->samples() + phase_;
+    }
 
 private:
     void command(PlayAction act);

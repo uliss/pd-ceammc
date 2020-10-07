@@ -70,6 +70,8 @@ ArrayPlayTilde::ArrayPlayTilde(const PdArgs& args)
     , speed_(nullptr)
     , interp_(nullptr)
     , amp_(nullptr)
+    , begin_(nullptr)
+    , end_(nullptr)
     , phase_(0)
     , state_(STATE_STOPPED)
     , done_([this]() {
@@ -88,12 +90,33 @@ ArrayPlayTilde::ArrayPlayTilde(const PdArgs& args)
     amp_->checkNonNegative();
     addProperty(amp_);
 
+    begin_ = new ArrayPositionProperty(&array_, "@begin", 0);
+    addProperty(begin_);
+
+    end_ = new ArrayPositionProperty(&array_, "@end", -1);
+    addProperty(end_);
+
+    createCbFloatProperty("@pos_samp", [this]() -> t_float { return playPos(); });
+    createCbFloatProperty("@pos_sec", [this]() -> t_float { return playPos() / sys_getsr(); });
+    createCbFloatProperty("@pos_ms", [this]() -> t_float { return (playPos() / sys_getsr()) * 1000; });
+    createCbFloatProperty("@pos_phase", [this]() -> t_float {
+        if (!array_.isValid() || array_.size() < 1)
+            return 0;
+        else
+            return playPos() / array_.size();
+    });
+
+    createCbIntProperty("@state", [this]() { return state_; });
+
     createSignalOutlet();
     createOutlet();
 }
 
 void ArrayPlayTilde::onBang()
 {
+    begin_->setBegin();
+    end_->setEnd();
+
     command(ACT_STOP);
     command(ACT_PLAY);
 }
@@ -120,7 +143,9 @@ void ArrayPlayTilde::onFloat(t_float pos)
         return;
     }
 
-    phase_ = pos;
+    begin_->setSamples(pos);
+    end_->setEnd();
+    phase_ = 0;
     command(ACT_PLAY);
 }
 
@@ -144,6 +169,14 @@ void ArrayPlayTilde::processBlock(const t_sample**, t_sample** out)
         const auto AMP = amp_->value();
         const double SPEED = speed_->value();
         const double ASIZE = array_.size();
+        const double FIRST = begin_->samples();
+        const double LAST = end_->samples();
+
+        // preconditions
+        assert(FIRST >= 0);
+        assert(LAST >= 0);
+        assert(FIRST <= LAST);
+        assert(ASIZE > 0);
 
         if (SPEED > 0) {
             bool done = false;
@@ -151,25 +184,36 @@ void ArrayPlayTilde::processBlock(const t_sample**, t_sample** out)
             switch (interp_->value()) {
             case INTERP_LIN: {
                 for (size_t i = 0; i < BS; i++) {
-                    if (phase_ >= 0 && phase_ < (ASIZE - 1)) {
-                        out[0][i] = AMP * readUnsafe1(phase_);
+                    const auto pos = FIRST + phase_;
+
+                    if (pos >= FIRST && pos <= LAST) { // need to read one sample after read position
+                        if (pos <= (LAST - 1))
+                            out[0][i] = AMP * readUnsafe1(pos);
+                        else
+                            out[0][i] = AMP * readSafe1(pos);
+
                         phase_ += SPEED;
                     } else {
-                        out[0][i] = AMP * readSafe1(phase_);
+                        // stop playing, but fill rest of block with zeroes
+                        out[0][i] = 0;
                         done = true;
                     }
                 }
             } break;
             case INTERP_CUBIC: {
                 for (size_t i = 0; i < BS; i++) {
-                    if (phase_ >= 0 && phase_ < (ASIZE - 2)) {
-                        if (phase_ < 1)
-                            out[0][i] = AMP * readSafe3(phase_);
+                    const auto pos = FIRST + phase_;
+
+                    // need to read one sample before and two samples after read position
+                    if (pos >= FIRST && pos <= (LAST - 2)) {
+                        if (pos < 1)
+                            out[0][i] = AMP * readSafe3(pos);
                         else
-                            out[0][i] = AMP * readUnsafe3(phase_);
+                            out[0][i] = AMP * readUnsafe3(pos);
 
                         phase_ += SPEED;
                     } else {
+                        // about to stop playing, but keep reading to fill block with padding zeroes
                         out[0][i] = AMP * readSafe3(phase_);
                         done = true;
                     }
@@ -178,8 +222,71 @@ void ArrayPlayTilde::processBlock(const t_sample**, t_sample** out)
             case NO_INTERP:
             default: {
                 for (size_t i = 0; i < BS; i++) {
-                    if (phase_ >= 0 && phase_ < ASIZE) {
-                        out[0][i] = AMP * readUnsafe0(phase_);
+                    const auto pos = FIRST + phase_;
+
+                    if (pos >= FIRST && pos <= LAST) {
+                        out[0][i] = AMP * readUnsafe0(pos);
+
+                        phase_ += SPEED;
+                    } else {
+                        // stop playing, but fill rest of block with zeroes
+                        out[0][i] = 0;
+                        done = true;
+                    }
+                }
+            } break;
+            }
+
+            if (done)
+                done_.delay(0);
+
+        } else if (SPEED < 0) {
+            bool done = false;
+
+            switch (interp_->value()) {
+            case INTERP_LIN: {
+
+                for (size_t i = 0; i < BS; i++) {
+                    const auto pos = FIRST + phase_;
+
+                    if (pos >= FIRST && pos <= LAST) {
+                        if (pos <= LAST - 1) // need to read one sample after read position
+                            out[0][i] = AMP * readUnsafe1(pos);
+                        else
+                            out[0][i] = AMP * readSafe1(pos);
+
+                        phase_ += SPEED;
+                    } else {
+                        out[0][i] = 0;
+                        done = true;
+                    }
+                }
+            } break;
+            case INTERP_CUBIC: {
+                for (size_t i = 0; i < BS; i++) {
+                    const auto pos = FIRST + phase_;
+
+                    // need to read one sample before and two samples after read position
+                    if (pos >= FIRST && pos <= LAST) {
+                        if (pos >= FIRST + 1 || pos <= (LAST - 2))
+                            out[0][i] = AMP * readUnsafe3(pos);
+                        else
+                            out[0][i] = 0;
+
+                        phase_ += SPEED;
+                    } else {
+                        out[0][i] = 0;
+                        done = true;
+                    }
+                }
+            } break;
+            case NO_INTERP:
+            default: {
+                for (size_t i = 0; i < BS; i++) {
+                    const auto pos = FIRST + phase_;
+
+                    if (pos >= FIRST && pos <= LAST) {
+                        out[0][i] = AMP * readUnsafe0(pos);
                         phase_ += SPEED;
                     } else {
                         out[0][i] = 0;
@@ -191,58 +298,8 @@ void ArrayPlayTilde::processBlock(const t_sample**, t_sample** out)
 
             if (done)
                 done_.delay(0);
-        } else if (SPEED < 0) {
-            bool done = false;
-            const double ABACK = ASIZE - 1;
 
-            switch (interp_->value()) {
-            case INTERP_LIN: {
-
-                for (size_t i = 0; i < BS; i++) {
-                    auto ph0 = ABACK - phase_ - 1;
-
-                    if (ph0 >= 0 && ph0 < (ASIZE - 1)) {
-                        out[0][i] = AMP * readUnsafe1(ph0);
-                        phase_ -= SPEED;
-                    } else {
-                        out[0][i] = AMP * readSafe1(ph0);
-                        done = true;
-                    }
-                }
-            } break;
-            case INTERP_CUBIC: {
-                for (size_t i = 0; i < BS; i++) {
-                    auto ph0 = ABACK - phase_ - 2;
-
-                    if (ph0 >= 1 && ph0 < (ASIZE - 2)) {
-                        out[0][i] = AMP * readUnsafe3(ph0);
-                        phase_ -= SPEED;
-                    } else {
-                        out[0][i] = AMP * readSafe3(ph0);
-                        done = true;
-                    }
-                }
-            } break;
-            case NO_INTERP:
-            default: {
-                for (size_t i = 0; i < BS; i++) {
-                    auto ph0 = ABACK - phase_;
-
-                    if (ph0 >= 0 && ph0 < ASIZE) {
-                        out[0][i] = AMP * readUnsafe0(ph0);
-                        phase_ -= SPEED;
-                    } else {
-                        out[0][i] = 0;
-                        done = true;
-                    }
-                }
-            } break;
-            }
-
-            if (done)
-                done_.delay(0);
-
-        } else {
+        } else { // ZERO speed
             for (size_t i = 0; i < BS; i++)
                 out[0][i] = 0;
         }
@@ -267,6 +324,26 @@ void ArrayPlayTilde::m_stop(t_symbol* s, const AtomListView& lv)
     command(ACT_STOP);
 }
 
+void ArrayPlayTilde::m_pos(t_symbol* s, const AtomListView& lv)
+{
+    if (lv.isFloat()) {
+        const long N = static_cast<long>(array_.size());
+        const long pos_samp = lv.asFloat();
+        if (pos_samp < 0) {
+            const auto abs_pos = end_->samples() + pos_samp;
+            if (abs_pos < 0) {
+                METHOD_ERR(s) << fmt::format("negative offset is too big: {}, clipping to 0", pos_samp);
+                phase_ = 0;
+                return;
+            }
+
+            phase_ = abs_pos;
+        } else if (pos_samp >= N) {
+            METHOD_ERR(s) << fmt::format("relative");
+        }
+    }
+}
+
 void ArrayPlayTilde::command(PlayAction act)
 {
     state_ = fsm_[state_][act](this);
@@ -280,4 +357,5 @@ void setup_array_play_tilde()
     obj.addMethod("play", &ArrayPlayTilde::m_play);
     obj.addMethod("pause", &ArrayPlayTilde::m_pause);
     obj.addMethod("stop", &ArrayPlayTilde::m_stop);
+    obj.addMethod("pos", &ArrayPlayTilde::m_pos);
 }

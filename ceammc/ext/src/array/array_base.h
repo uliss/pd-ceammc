@@ -18,8 +18,52 @@
 #include "ceammc_object.h"
 #include "ceammc_signal.h"
 #include "ceammc_sound_external.h"
+#include "ceammc_units.h"
 
 using namespace ceammc;
+
+class ArrayPositionProperty : public Property {
+    t_float v_;
+    Array* array_;
+
+public:
+    ArrayPositionProperty(Array* arr, const std::string& name, t_float value, PropValueAccess access = PropValueAccess::READWRITE);
+
+    AtomList get() const override { return { v_ }; }
+    bool setList(const AtomListView& lv) override;
+
+    bool setFloat(t_float v) override;
+    bool setInt(int v) override;
+    bool getFloat(t_float& v) const override;
+
+    t_float value() const { return v_; }
+    bool setValue(t_float v);
+
+    t_float samples() const;
+    t_float seconds(t_float sr) const { return samples() / sr; }
+    t_sample ms(t_float sr) const { return seconds(sr) * 1000; }
+    t_sample phase() const;
+
+    bool setSamples(t_float pos, bool check = true);
+    bool setSeconds(t_float pos, t_float sr, bool check = true);
+    bool setMs(t_float pos, t_float sr, bool check = true);
+    bool setPhase(t_float phase);
+
+    bool setBegin()
+    {
+        v_ = 0;
+        return true;
+    }
+
+    bool setEnd()
+    {
+        v_ = -1;
+        return true;
+    }
+
+public:
+    using value_type = t_float;
+};
 
 template <class Base>
 class ArrayReadIFace : public Base {

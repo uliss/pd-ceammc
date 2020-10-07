@@ -12,6 +12,11 @@
  * this file belongs to.
  *****************************************************************************/
 #include "array_base.h"
+#include "ceammc_convert.h"
+#include "ceammc_log.h"
+#include "fmt/format.h"
+
+#define PROP_ERR() LogPdObject(owner(), LOG_ERROR).stream() << errorPrefix()
 
 ArraySoundBase::ArraySoundBase(const PdArgs& args)
     : ArrayReadIFace<SoundExternal>(args)
@@ -39,4 +44,139 @@ ArrayMod::ArrayMod(const PdArgs& a)
 bool ArrayMod::shouldRedraw() const
 {
     return redraw_->value();
+}
+
+ArrayPositionProperty::ArrayPositionProperty(Array* arr, const std::string& name, t_float value, PropValueAccess access)
+    : Property(PropertyInfo(name, PropValueType::FLOAT), access)
+    , v_(value)
+    , array_(arr)
+{
+    info().setDefault(value);
+}
+
+bool ArrayPositionProperty::setList(const AtomListView& lv)
+{
+    if (!emptyCheck(lv))
+        return false;
+
+    if (lv.isFloat())
+        return setFloat(lv.asT<t_float>());
+    else if (lv.size() >= 2 && lv[0].isSymbol()) {
+        auto s = lv[0].asT<t_symbol*>();
+        if(s == gensym("asdad")) {
+
+        }
+    } else {
+        units::TimeValue tval(0);
+        units::UnitParseError err;
+        auto res = units::TimeValue::parse(lv);
+        if (res.matchValue(tval))
+            return setFloat(tval.toSamples(sys_getsr()));
+        else if (res.matchError(err)) {
+            PROP_ERR() << err.msg;
+            return false;
+        } else
+            return false;
+    }
+}
+
+bool ArrayPositionProperty::setFloat(t_float v)
+{
+    return setSamples(v, true);
+}
+
+bool ArrayPositionProperty::setInt(int v)
+{
+    return setSamples(v, true);
+}
+
+bool ArrayPositionProperty::getFloat(t_float& v) const
+{
+    v = v_;
+    return true;
+}
+
+bool ArrayPositionProperty::setValue(t_float v)
+{
+    v_ = v;
+    return true;
+}
+
+t_float ArrayPositionProperty::samples() const
+{
+    const auto N = array_->size();
+
+    if (!array_ || !array_->isValid() || N == 0)
+        return 0;
+
+    if (v_ >= 0) {
+        if (v_ >= N) {
+            PROP_ERR() << fmt::format("value is too big, clipping to max: {}", N - 1);
+            return array_->size();
+        }
+
+        return v_;
+    } else {
+        const auto abs_pos = static_cast<t_float>(N) + v_;
+        if (abs_pos < 0) {
+            PROP_ERR() << fmt::format("negative offset is too big, clipping to 0");
+            return 0;
+        } else
+            return abs_pos;
+    }
+}
+
+t_sample ArrayPositionProperty::phase() const
+{
+    if (array_ && array_->isValid())
+        return samples() / array_->size();
+    else
+        return 0;
+}
+
+bool ArrayPositionProperty::setSamples(t_float pos, bool check)
+{
+    if (check) {
+        if (!array_ || !array_->isValid())
+            return false;
+
+        const auto N = static_cast<double>(array_->size());
+
+        if (pos < 0) {
+            const t_float abs_pos = N + pos;
+            if (abs_pos < 0)
+                return false;
+            else {
+                v_ = pos;
+                return true;
+            }
+        } else {
+            if (pos >= N)
+                return false;
+
+            v_ = pos;
+            return true;
+        }
+    } else {
+        v_ = pos;
+        return true;
+    }
+}
+
+bool ArrayPositionProperty::setSeconds(t_float pos, t_float sr, bool check)
+{
+    return setSamples(pos * sr, check);
+}
+
+bool ArrayPositionProperty::setMs(t_float pos, t_float sr, bool check)
+{
+    return setSamples(pos * 0.001 * sr, check);
+}
+
+bool ArrayPositionProperty::setPhase(t_float phase)
+{
+    if (!array_ || !array_->isValid())
+        return false;
+
+    return setSamples(wrapFloatMax<t_float>(phase, 1) * array_->size());
 }
