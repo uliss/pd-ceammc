@@ -2,7 +2,7 @@
 
 ## [Unreleased]
 ### Added:
-- float property simple arithmetic added: @prop + 0.5, adds 0.5 to @prop value.
+- float and int property simple arithmetic added: @prop + 0.5, adds 0.5 to @prop value.
   supports +,-,* and / operators
 - mlist.flatten - simple list support added
 - patch.deps added - list current patch dependencies
