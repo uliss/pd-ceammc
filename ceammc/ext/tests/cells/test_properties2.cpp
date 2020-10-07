@@ -408,6 +408,66 @@ TEST_CASE("Properties2", "[ceammc::properties]")
             REQUIRE(p.getT(i_));
             REQUIRE(i_ == 1);
             REQUIRE(value == 1);
+
+            SECTION("math")
+            {
+                value = 120;
+
+                SECTION("+")
+                {
+                    REQUIRE(p.setList(AtomList::parseString("+ 2")));
+                    REQUIRE(value == 122);
+                    REQUIRE(p.setList(AtomList::parseString("+ 2.5")));
+                    REQUIRE(value == 124);
+                    REQUIRE(p.setList(AtomList::parseString("+ -1")));
+                    REQUIRE(value == 123);
+                    REQUIRE(p.setList(AtomList::parseString("+ 0")));
+                    REQUIRE(value == 123);
+                }
+
+                SECTION("-")
+                {
+                    REQUIRE(p.setList(AtomList::parseString("- 2")));
+                    REQUIRE(value == 118);
+                    REQUIRE(p.setList(AtomList::parseString("- 0.5")));
+                    REQUIRE(value == 118);
+                    REQUIRE(p.setList(AtomList::parseString("- -2")));
+                    REQUIRE(value == 120);
+                    REQUIRE(p.setList(AtomList::parseString("- -2.5")));
+                    REQUIRE(value == 122);
+                    REQUIRE(p.setList(AtomList::parseString("- 0")));
+                    REQUIRE(value == 122);
+                }
+
+                SECTION("*")
+                {
+                    REQUIRE(p.setList(AtomList::parseString("* 2")));
+                    REQUIRE(value == 240);
+                    REQUIRE(p.setList(AtomList::parseString("* 2.5")));
+                    REQUIRE(value == 480);
+                    REQUIRE(p.setList(AtomList::parseString("* -1")));
+                    REQUIRE(value == -480);
+                    REQUIRE(p.setList(AtomList::parseString("* 1")));
+                    REQUIRE(value == -480);
+                    REQUIRE_FALSE(p.setList(AtomList::parseString("* 0")));
+                }
+
+                SECTION("/")
+                {
+                    REQUIRE(p.setList(AtomList::parseString("/ 2")));
+                    REQUIRE(value == 60);
+                    REQUIRE(p.setList(AtomList::parseString("/ 5.5")));
+                    REQUIRE(value == 12);
+                    REQUIRE(p.setList(AtomList::parseString("/ -2")));
+                    REQUIRE(value == -6);
+                    REQUIRE(p.setList(AtomList::parseString("/ -1")));
+                    REQUIRE(value == 6);
+                    REQUIRE_FALSE(p.setList(AtomList::parseString("/ 0")));
+                    REQUIRE(value == 6);
+                    REQUIRE(p.setList(AtomList::parseString("/ 4")));
+                    REQUIRE(value == 1);
+                }
+            }
         }
 
         SECTION("symbol")

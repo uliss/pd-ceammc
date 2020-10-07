@@ -143,6 +143,29 @@ bool CallbackProperty::setList(const AtomListView& lst)
             }
 
             return setInt(static_cast<int>(v));
+        } else if (lst.size() == 2 && lst[0].isSymbol() && lst[1].isFloat()) {
+            int a = 0;
+            if (!getInt(a))
+                return false;
+
+            const auto b = lst[1].asT<int>();
+            const auto op = lst[0].asT<t_symbol*>();
+            if (is_plus(op))
+                return setInt(a + b);
+            else if (is_minus(op))
+                return setInt(a - b);
+            else if (is_mul(op))
+                return setInt(a * b);
+            else if (is_div(op)) {
+                if (b == 0) {
+                    PROP_ERR << "division by zero";
+                    return false;
+                } else
+                    return setInt(a / b);
+            } else {
+                PROP_ERR << "expected +-*/, got: " << lst[0];
+                return false;
+            }
         } else
             PROP_ERR << "int value expected, got: " << lst;
 
