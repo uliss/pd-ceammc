@@ -2,8 +2,10 @@
 
 ## [Unreleased]
 ### Added:
-- float and int property simple arithmetic added: @prop + 0.5, adds 0.5 to @prop value.
-  supports +,-,* and / operators
+- properties:
+  - float and int property simple arithmetic added: @prop + 0.5, adds 0.5 to @prop value.
+    supports +,-,* and / operators
+  - bool property toggel syntax added: @bool_prop ! or @bool_prop ~ inverts boolean value
 - mlist.flatten - simple list support added
 - patch.deps added - list current patch dependencies
 - ceammc.search added

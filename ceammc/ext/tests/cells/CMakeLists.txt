@@ -40,9 +40,11 @@ add_cell_test(parser_data_string)
 
 add_cell_test(properties)
 add_cell_test(properties2)
+add_cell_test(propertyinfo)
+
+add_cell_test(property_bool)
 add_cell_test(property_float)
 add_cell_test(property_int)
-add_cell_test(propertyinfo)
 add_cell_test(property_list)
 add_cell_test(property_symbol)
 
