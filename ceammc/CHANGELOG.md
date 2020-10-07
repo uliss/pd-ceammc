@@ -6,7 +6,7 @@
   - float and int property simple arithmetic added: @prop + 0.5, adds 0.5 to @prop value.
     supports +,-,* and / operators
   - bool property toggle syntax added: @bool_prop ! or @bool_prop ~ inverts boolean value
-  - sumbol enum properties index support added: @senum 1 - set second enum value
+  - symbol enum properties index support added: @senum 1 - set second enum value
 - mlist.flatten - simple list support added
 - patch.deps added - list current patch dependencies
 - ceammc.search added

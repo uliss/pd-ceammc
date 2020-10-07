@@ -228,6 +228,16 @@ TEST_CASE("Properties2", "[ceammc::properties]")
                 REQUIRE(value == true);
                 REQUIRE(p.setInit(LA("false")));
                 REQUIRE(value == false);
+
+                REQUIRE(p.setList(AtomList::parseString("!")));
+                REQUIRE(value == true);
+                REQUIRE(p.setList(AtomList::parseString("!")));
+                REQUIRE(value == false);
+
+                REQUIRE(p.setList(AtomList::parseString("~")));
+                REQUIRE(value == true);
+                REQUIRE(p.setList(AtomList::parseString("~")));
+                REQUIRE(value == false);
             }
         }
 

@@ -68,6 +68,10 @@ CallbackProperty::CallbackProperty(const std::string& name, PropertyListGetter g
 
 bool CallbackProperty::setList(const AtomListView& lst)
 {
+    static auto is_toggle = [](t_symbol* s) {
+        return (s->s_name[0] == '~' || s->s_name[0] == '!') && s->s_name[1] == '\0';
+    };
+
     switch (setter_.type) {
     case Type::LIST:
         if (!hasListCb(SETTER) || !checkList(lst))
@@ -83,7 +87,12 @@ bool CallbackProperty::setList(const AtomListView& lst)
     case Type::BOOL:
         if (lst.isBool())
             return setBool(lst[0].asBool());
-        else
+        else if (lst.isSymbol() && is_toggle(lst[0].asT<t_symbol*>())) {
+            bool v = false;
+
+            if (getBool(v))
+                return setBool(!v);
+        } else
             PROP_ERR << "bool value expected (0|1|true|false), got: " << lst;
 
         break;
