@@ -15,6 +15,11 @@
 #include "ceammc_factory.h"
 #include "fmt/format.h"
 
+static t_symbol* SYM_MS;
+static t_symbol* SYM_SEC;
+static t_symbol* SYM_SAMP;
+static t_symbol* SYM_PHASE;
+
 FSM ArrayPlayTilde::fsm_ = {
     StateTransitions {
         // STATE_STOPPED
@@ -23,7 +28,7 @@ FSM ArrayPlayTilde::fsm_ = {
             return STATE_STOPPED;
         },
         [](ArrayPlayTilde* ap) -> PlayState { // stop->play
-            if (ap->checkArray()) {
+            if (ap->isOk()) {
                 return STATE_PLAYING;
             } else
                 return STATE_STOPPED;
@@ -54,7 +59,7 @@ FSM ArrayPlayTilde::fsm_ = {
             return STATE_STOPPED;
         },
         [](ArrayPlayTilde* ap) -> PlayState { // pause->play
-            if (ap->checkArray()) {
+            if (ap->isOk()) {
                 return STATE_PLAYING;
             } else
                 return STATE_STOPPED;
@@ -74,11 +79,27 @@ ArrayPlayTilde::ArrayPlayTilde(const PdArgs& args)
     , begin_(nullptr)
     , end_(nullptr)
     , cursor_(nullptr)
+    , clock_interval_(nullptr)
+    , clock_format_(nullptr)
     , pos_(0)
+    , block_counter_(0)
     , state_(STATE_STOPPED)
     , done_([this]() {
         command(ACT_STOP);
         bangTo(2);
+    })
+    , cursor_tick_([this]() {
+        auto* s = clock_format_->value();
+        if (s == SYM_SEC)
+            floatTo(1, cursor_->seconds(sys_getsr()));
+        else if (s == SYM_MS)
+            floatTo(1, cursor_->seconds(sys_getsr()));
+        else if (s == SYM_SAMP)
+            floatTo(1, cursor_->samples());
+        else if (s == SYM_PHASE)
+            floatTo(1, cursor_->phase());
+        else
+            ; // none
     })
 {
     speed_ = new FloatProperty("@speed", 1);
@@ -97,6 +118,13 @@ ArrayPlayTilde::ArrayPlayTilde(const PdArgs& args)
 
     end_ = new ArrayPositionProperty(&array_, "@end", -1);
     addProperty(end_);
+
+    clock_interval_ = new IntProperty("@clock", 0);
+    clock_interval_->checkClosedRange(0, 1000);
+    addProperty(clock_interval_);
+
+    clock_format_ = new SymbolEnumProperty("@cfmt", { "sec", "ms", "samp", "phase" });
+    addProperty(clock_format_);
 
     cursor_ = new ArrayPositionProperty(&array_, "@cursor_samp", 0);
     cursor_->setSuccessFn([this](Property*) { pos_ = cursor_->value(); });
@@ -229,10 +257,7 @@ void ArrayPlayTilde::processBlock(const t_sample**, t_sample** out)
             } break;
             }
 
-            if (done)
-                done_.delay(0);
-            else
-                cursor_->setValue(pos_);
+            blockDone(done);
 
         } else if (SPEED < 0) {
             bool done = false;
@@ -283,10 +308,7 @@ void ArrayPlayTilde::processBlock(const t_sample**, t_sample** out)
             } break;
             }
 
-            if (done)
-                done_.delay(0);
-            else
-                cursor_->setValue(pos_);
+            blockDone(done);
 
         } else { // ZERO speed
             for (size_t i = 0; i < BS; i++)
@@ -353,13 +375,48 @@ void ArrayPlayTilde::resetPlayPosition()
     pos_ = cursor_->samples();
 }
 
+bool ArrayPlayTilde::isOk()
+{
+    if (!checkArray())
+        return false;
+
+    if (begin_->samples() > end_->samples()) {
+        OBJ_ERR << fmt::format("@begin <= @end expected, got: {} > {}", begin_->samples(), end_->samples());
+        return false;
+    }
+
+    return true;
+}
+
 void ArrayPlayTilde::command(PlayAction act)
 {
     state_ = fsm_[state_][act](this);
 }
 
+void ArrayPlayTilde::blockDone(bool value)
+{
+    if (value) {
+        done_.delay(0);
+        return;
+    }
+
+    // sync cursor position
+    cursor_->setValue(pos_);
+    const size_t T = clock_interval_->value();
+    if (T > 0) {
+        block_counter_++;
+        if (block_counter_ % T == 0)
+            cursor_tick_.delay(0);
+    }
+}
+
 void setup_array_play_tilde()
 {
+    SYM_MS = gensym("ms");
+    SYM_SEC = gensym("sec");
+    SYM_PHASE = gensym("phase");
+    SYM_SAMP = gensym("samp");
+
     SoundExternalFactory<ArrayPlayTilde> obj("array.play~", OBJECT_FACTORY_DEFAULT);
     obj.addAlias("array.p~");
 

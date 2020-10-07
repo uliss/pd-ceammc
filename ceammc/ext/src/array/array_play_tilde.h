@@ -51,9 +51,13 @@ class ArrayPlayTilde : public ArraySoundBase {
     ArrayPositionProperty* begin_;
     ArrayPositionProperty* end_;
     ArrayPositionProperty* cursor_;
+    IntProperty* clock_interval_; // time output interval in blocks
+    SymbolEnumProperty* clock_format_;
     double pos_;
+    size_t block_counter_;
     PlayState state_;
     ClockLambdaFunction done_;
+    ClockLambdaFunction cursor_tick_;
 
 public:
     ArrayPlayTilde(const PdArgs& args);
@@ -75,8 +79,11 @@ public:
     t_sample playPos() const { return cursor_->samples(); }
     double position() const { return pos_; }
 
+    bool isOk();
+
 private:
     void command(PlayAction act);
+    void blockDone(bool value);
 
     static FSM fsm_;
 };
