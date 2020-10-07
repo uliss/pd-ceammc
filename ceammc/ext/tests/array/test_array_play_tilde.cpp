@@ -302,5 +302,87 @@ TEST_CASE("array.play~", "[externals]")
                     REQUIRE(s0.out[0][i] == 0);
             }
         }
+
+        SECTION("zero speed")
+        {
+            TExt t("array.play~", LA("array_play~1", "@interp", 1, "@speed", 0.));
+
+            TDsp dsp(s0, t);
+
+            M_PLAY(t);
+            dsp.processBlock();
+
+            for (size_t i = 0; i < 64; i++)
+                REQUIRE(s0.out[0][i] == 0);
+        }
+
+        SECTION("negative speed")
+        {
+            SECTION("no interp")
+            {
+                TExt t("array.play~", LA("array_play~1", "@interp", 0., "@speed", -0.5));
+                TDsp dsp(s0, t);
+
+                t.sendBang();
+                REQUIRE(t.playPos() == 29);
+                dsp.processBlock();
+
+                for (size_t i = 0; i < 59; i++)
+                    REQUIRE(s0.out[0][i] == (29 - ((i + 1) / 2)));
+
+                for (size_t i = 59; i < 64; i++)
+                    REQUIRE(s0.out[0][i] == 0);
+
+                after_nticks(1);
+                REQUIRE(t.messageCount(1) == 1);
+                REQUIRE(t.lastMessage(1) == Message::makeBang());
+                REQUIRE_PROPERTY(t, @state, STATE_STOPPED);
+            }
+
+            SECTION("linear")
+            {
+                TExt t("array.play~", LA("array_play~1", "@interp", 1, "@speed", -0.5, "@amp", 4));
+                TDsp dsp(s0, t);
+
+                t.sendBang();
+                REQUIRE(t.playPos() == 29);
+                dsp.processBlock();
+
+                for (size_t i = 0; i < 59; i++)
+                    REQUIRE(s0.out[0][i] == (29 - i * 0.5) * 4);
+
+                for (size_t i = 59; i < 64; i++)
+                    REQUIRE(s0.out[0][i] == 0);
+
+                after_nticks(1);
+                REQUIRE(t.messageCount(1) == 1);
+                REQUIRE(t.lastMessage(1) == Message::makeBang());
+                REQUIRE_PROPERTY(t, @state, STATE_STOPPED);
+                REQUIRE(t.playPos() == 29);
+            }
+
+            SECTION("cubic")
+            {
+                TExt t("array.play~", LA("array_play~1", "@interp", 3, "@speed", -0.5));
+                TDsp dsp(s0, t);
+                s0.fillOutput(2);
+
+                t.sendBang();
+                REQUIRE(t.playPos() == 29);
+                dsp.processBlock();
+
+                for (size_t i = 0; i < 59; i++)
+                    REQUIRE(s0.out[0][i] == Approx(29 - i * 0.5).margin(0.5));
+
+                for (size_t i = 59; i < 64; i++)
+                    REQUIRE(s0.out[0][i] == 0);
+
+                after_nticks(1);
+                REQUIRE(t.messageCount(1) == 1);
+                REQUIRE(t.lastMessage(1) == Message::makeBang());
+                REQUIRE_PROPERTY(t, @state, STATE_STOPPED);
+                REQUIRE(t.playPos() == 29);
+            }
+        }
     }
 }

@@ -19,6 +19,11 @@ FSM ArrayPlayTilde::fsm_ = {
     StateTransitions {
         // STATE_STOPPED
         [](ArrayPlayTilde* ap) -> PlayState { // stop->stop
+            if (ap->speed_->value() >= 0)
+                ap->phase_ = 0;
+            else
+                ap->phase_ = ap->end_->samples();
+
             return STATE_STOPPED;
         },
         [](ArrayPlayTilde* ap) -> PlayState { // stop->play
@@ -35,7 +40,11 @@ FSM ArrayPlayTilde::fsm_ = {
     StateTransitions {
         // STATE PLAYING
         [](ArrayPlayTilde* ap) -> PlayState { // play->stop
-            ap->phase_ = 0;
+            if (ap->speed_->value() >= 0)
+                ap->phase_ = 0;
+            else
+                ap->phase_ = ap->end_->samples();
+
             return STATE_STOPPED;
         },
         [](ArrayPlayTilde* ap) -> PlayState { // play->play
@@ -266,12 +275,12 @@ void ArrayPlayTilde::processBlock(const t_sample**, t_sample** out)
                 for (size_t i = 0; i < BS; i++) {
                     const auto pos = FIRST + phase_;
 
-                    // need to read one sample before and two samples after read position
                     if (pos >= FIRST && pos <= LAST) {
-                        if (pos >= FIRST + 1 || pos <= (LAST - 2))
-                            out[0][i] = AMP * readUnsafe3(pos);
+                        // need to read one sample before and two samples after read position
+                        if (pos < 1 || pos > (LAST - 2))
+                            out[0][i] = AMP * readSafe3(pos);
                         else
-                            out[0][i] = 0;
+                            out[0][i] = AMP * readUnsafe3(pos);
 
                         phase_ += SPEED;
                     } else {
