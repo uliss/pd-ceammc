@@ -86,6 +86,19 @@ TEST_CASE("Properties2", "[ceammc::properties]")
                 REQUIRE_FALSE(p.setValue(SYM("?")));
                 REQUIRE(p.value() == SYM("a"));
             }
+
+            SECTION("index") {
+                REQUIRE(p.setList(AtomList::parseString("b")));
+                REQUIRE(p.value() == SYM("b"));
+                REQUIRE(p.setList(AtomList::parseString("2")));
+                REQUIRE(p.value() == SYM("c"));
+                REQUIRE(p.setList(AtomList::parseString("1")));
+                REQUIRE(p.value() == SYM("b"));
+                REQUIRE(p.setList(AtomList::parseString("0")));
+                REQUIRE(p.value() == SYM("a"));
+                REQUIRE_FALSE(p.setList(AtomList::parseString("3")));
+                REQUIRE_FALSE(p.setList(AtomList::parseString("-1")));
+            }
         }
 
         SECTION("int")

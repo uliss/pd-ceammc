@@ -113,7 +113,7 @@ public:
         long idx = enumIndex(v);
         if (idx < 0) {
             LogPdObject(owner(), LogLevel::LOG_ERROR).stream() << errorPrefix() << "invalid property value: " << v
-                                                           << ", valid values are: " << info().enumValues();
+                                                               << ", valid values are: " << info().enumValues();
             return false;
         }
 
@@ -161,6 +161,8 @@ public:
     SymbolEnumProperty(const std::string& name, t_symbol* def, PropValueAccess access = PropValueAccess::READWRITE);
     SymbolEnumProperty(const std::string& name, std::initializer_list<t_symbol*> values, PropValueAccess access = PropValueAccess::READWRITE);
     SymbolEnumProperty(const std::string& name, std::initializer_list<const char*> values, PropValueAccess access = PropValueAccess::READWRITE);
+
+    bool setList(const AtomListView& lv) override;
 };
 
 /**
