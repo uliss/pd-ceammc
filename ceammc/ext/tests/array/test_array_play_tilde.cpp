@@ -233,5 +233,74 @@ TEST_CASE("array.play~", "[externals]")
             REQUIRE(t.lastMessage(1) == Message::makeBang());
             REQUIRE_PROPERTY(t, @state, STATE_STOPPED);
         }
+
+        SECTION("amp")
+        {
+            TExt t("array.play~", LA("array_play~1", "@amp", 0.5));
+            TDsp dsp(s0, t);
+
+            M_PLAY(t);
+            dsp.processBlock();
+
+            for (size_t i = 0; i < 30; i++)
+                REQUIRE(s0.out[0][i] == i * 0.5);
+
+            for (size_t i = 30; i < s0.blocksize(); i++)
+                REQUIRE(s0.out[0][i] == 0);
+        }
+
+        SECTION("intrerpolation")
+        {
+            SECTION("none")
+            {
+                TExt t("array.play~", LA("array_play~1", "@interp", 0., "@speed", 0.5));
+                REQUIRE_PROPERTY(t, @interp, 0.);
+
+                TDsp dsp(s0, t);
+
+                M_PLAY(t);
+                dsp.processBlock();
+
+                for (size_t i = 0; i < 59; i++)
+                    REQUIRE(s0.out[0][i] == std::floor(i * 0.5));
+
+                for (size_t i = 59; i < s0.blocksize(); i++)
+                    REQUIRE(s0.out[0][i] == 0);
+            }
+
+            SECTION("linear")
+            {
+                TExt t("array.play~", LA("array_play~1", "@interp", 1, "@speed", 0.5));
+                REQUIRE_PROPERTY(t, @interp, 1);
+
+                TDsp dsp(s0, t);
+
+                M_PLAY(t);
+                dsp.processBlock();
+
+                for (size_t i = 0; i < 59; i++)
+                    REQUIRE(s0.out[0][i] == i * 0.5);
+
+                for (size_t i = 59; i < s0.blocksize(); i++)
+                    REQUIRE(s0.out[0][i] == 0);
+            }
+
+            SECTION("cubic")
+            {
+                TExt t("array.play~", LA("array_play~1", "@interp", 3, "@speed", 0.5));
+                REQUIRE_PROPERTY(t, @interp, 3);
+
+                TDsp dsp(s0, t);
+
+                M_PLAY(t);
+                dsp.processBlock();
+
+                for (size_t i = 0; i < 59; i++)
+                    REQUIRE(s0.out[0][i] == Approx(i * 0.5).margin(0.08));
+
+                for (size_t i = 59; i < s0.blocksize(); i++)
+                    REQUIRE(s0.out[0][i] == 0);
+            }
+        }
     }
 }

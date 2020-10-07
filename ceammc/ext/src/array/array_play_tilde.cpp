@@ -205,16 +205,16 @@ void ArrayPlayTilde::processBlock(const t_sample**, t_sample** out)
                     const auto pos = FIRST + phase_;
 
                     // need to read one sample before and two samples after read position
-                    if (pos >= FIRST && pos <= (LAST - 2)) {
-                        if (pos < 1)
+                    if (pos >= FIRST && pos <= LAST) {
+                        if (pos < 1 || pos >= (LAST - 2))
                             out[0][i] = AMP * readSafe3(pos);
                         else
                             out[0][i] = AMP * readUnsafe3(pos);
 
                         phase_ += SPEED;
                     } else {
-                        // about to stop playing, but keep reading to fill block with padding zeroes
-                        out[0][i] = AMP * readSafe3(phase_);
+                        // stop playing, but fill rest of block with zeroes
+                        out[0][i] = 0;
                         done = true;
                     }
                 }
