@@ -50,7 +50,7 @@ class ArrayPlayTilde : public ArraySoundBase {
     FloatProperty* amp_;
     ArrayPositionProperty* begin_;
     ArrayPositionProperty* end_;
-    double phase_;
+    ArrayPositionProperty* cursor_;
     PlayState state_;
     ClockLambdaFunction done_;
 
@@ -69,8 +69,12 @@ public:
 
     t_sample playPos() const
     {
-        return begin_->samples() + phase_;
+        return cursor_->samples();
     }
+
+    void setBegin();
+    void setEnd();
+    void resetPlayPosition();
 
 private:
     void command(PlayAction act);

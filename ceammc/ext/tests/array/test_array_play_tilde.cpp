@@ -385,4 +385,55 @@ TEST_CASE("array.play~", "[externals]")
             }
         }
     }
+
+    SECTION("bang")
+    {
+        SECTION("positive speed")
+        {
+            TExt t("array.play~", LA("array_play~1", "@speed", 1));
+            TSig s0;
+            TDsp dsp(s0, t);
+
+            t.sendBang();
+            REQUIRE(t.playPos() == 0);
+
+            dsp.processBlock();
+            after_nticks(1);
+            REQUIRE(t.messageCount(1) == 1);
+            REQUIRE(t.lastMessage(1) == Message::makeBang());
+            REQUIRE_PROPERTY(t, @state, STATE_STOPPED);
+            REQUIRE(t.playPos() == 0);
+        }
+
+        SECTION("zero speed")
+        {
+            TExt t("array.play~", LA("array_play~1", "@speed", 0.f));
+            TSig s0;
+            TDsp dsp(s0, t);
+
+            t.sendBang();
+            REQUIRE(t.playPos() == 0);
+
+            dsp.processBlock(100);
+            after_nticks(100);
+            REQUIRE(t.messageCount(1) == 0);
+            REQUIRE(t.playPos() == 0);
+        }
+
+        SECTION("negative speed")
+        {
+            TExt t("array.play~", LA("array_play~1", "@speed", -1));
+            TSig s0;
+            TDsp dsp(s0, t);
+
+            t.sendBang();
+            REQUIRE(t.playPos() == 29);
+
+            dsp.processBlock(100);
+            after_nticks(100);
+            REQUIRE(t.messageCount(1) == 1);
+            REQUIRE(t.lastMessage(1) == Message::makeBang());
+            REQUIRE(t.playPos() == 29);
+        }
+    }
 }

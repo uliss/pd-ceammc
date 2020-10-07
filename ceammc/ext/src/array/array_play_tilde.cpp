@@ -19,11 +19,7 @@ FSM ArrayPlayTilde::fsm_ = {
     StateTransitions {
         // STATE_STOPPED
         [](ArrayPlayTilde* ap) -> PlayState { // stop->stop
-            if (ap->speed_->value() >= 0)
-                ap->phase_ = 0;
-            else
-                ap->phase_ = ap->end_->samples();
-
+            ap->resetPlayPosition();
             return STATE_STOPPED;
         },
         [](ArrayPlayTilde* ap) -> PlayState { // stop->play
@@ -40,11 +36,7 @@ FSM ArrayPlayTilde::fsm_ = {
     StateTransitions {
         // STATE PLAYING
         [](ArrayPlayTilde* ap) -> PlayState { // play->stop
-            if (ap->speed_->value() >= 0)
-                ap->phase_ = 0;
-            else
-                ap->phase_ = ap->end_->samples();
-
+            ap->resetPlayPosition();
             return STATE_STOPPED;
         },
         [](ArrayPlayTilde* ap) -> PlayState { // play->play
@@ -58,7 +50,7 @@ FSM ArrayPlayTilde::fsm_ = {
     StateTransitions {
         // STATE PAUSE
         [](ArrayPlayTilde* ap) -> PlayState { // pause->stop
-            ap->phase_ = 0;
+            ap->cursor_ = 0;
             return STATE_STOPPED;
         },
         [](ArrayPlayTilde* ap) -> PlayState { // pause->play
@@ -81,7 +73,7 @@ ArrayPlayTilde::ArrayPlayTilde(const PdArgs& args)
     , amp_(nullptr)
     , begin_(nullptr)
     , end_(nullptr)
-    , phase_(0)
+    , cursor_(nullptr)
     , state_(STATE_STOPPED)
     , done_([this]() {
         command(ACT_STOP);
@@ -104,6 +96,9 @@ ArrayPlayTilde::ArrayPlayTilde(const PdArgs& args)
 
     end_ = new ArrayPositionProperty(&array_, "@end", -1);
     addProperty(end_);
+
+    cursor_ = new ArrayPositionProperty(&array_, "@cursor", 0);
+    addProperty(cursor_);
 
     createCbFloatProperty("@pos_samp", [this]() -> t_float { return playPos(); });
     createCbFloatProperty("@pos_sec", [this]() -> t_float { return playPos() / sys_getsr(); });
@@ -154,15 +149,15 @@ void ArrayPlayTilde::onFloat(t_float pos)
 
     begin_->setSamples(pos);
     end_->setEnd();
-    phase_ = 0;
+    cursor_ = 0;
     command(ACT_PLAY);
 }
 
 void ArrayPlayTilde::setupDSP(t_signal** sig)
 {
     ArraySoundBase::setupDSP(sig);
-    if (checkArray() && phase_ >= array_.size())
-        phase_ = 0;
+    if (checkArray())
+        resetPlayPosition();
 }
 
 void ArrayPlayTilde::processBlock(const t_sample**, t_sample** out)
@@ -173,7 +168,7 @@ void ArrayPlayTilde::processBlock(const t_sample**, t_sample** out)
         for (size_t i = 0; i < BS; i++)
             out[0][i] = 0;
     } else {
-        assert(phase_ >= 0);
+        assert(cursor_->samples() >= 0);
 
         const auto AMP = amp_->value();
         const double SPEED = speed_->value();
@@ -193,7 +188,7 @@ void ArrayPlayTilde::processBlock(const t_sample**, t_sample** out)
             switch (interp_->value()) {
             case INTERP_LIN: {
                 for (size_t i = 0; i < BS; i++) {
-                    const auto pos = FIRST + phase_;
+                    const auto pos = FIRST + cursor_->value();
 
                     if (pos >= FIRST && pos <= LAST) { // need to read one sample after read position
                         if (pos <= (LAST - 1))
@@ -201,7 +196,7 @@ void ArrayPlayTilde::processBlock(const t_sample**, t_sample** out)
                         else
                             out[0][i] = AMP * readSafe1(pos);
 
-                        phase_ += SPEED;
+                        cursor_->value() += SPEED;
                     } else {
                         // stop playing, but fill rest of block with zeroes
                         out[0][i] = 0;
@@ -211,7 +206,7 @@ void ArrayPlayTilde::processBlock(const t_sample**, t_sample** out)
             } break;
             case INTERP_CUBIC: {
                 for (size_t i = 0; i < BS; i++) {
-                    const auto pos = FIRST + phase_;
+                    const auto pos = FIRST + cursor_->value();
 
                     // need to read one sample before and two samples after read position
                     if (pos >= FIRST && pos <= LAST) {
@@ -220,7 +215,7 @@ void ArrayPlayTilde::processBlock(const t_sample**, t_sample** out)
                         else
                             out[0][i] = AMP * readUnsafe3(pos);
 
-                        phase_ += SPEED;
+                        cursor_->value() += SPEED;
                     } else {
                         // stop playing, but fill rest of block with zeroes
                         out[0][i] = 0;
@@ -231,12 +226,12 @@ void ArrayPlayTilde::processBlock(const t_sample**, t_sample** out)
             case NO_INTERP:
             default: {
                 for (size_t i = 0; i < BS; i++) {
-                    const auto pos = FIRST + phase_;
+                    const auto pos = FIRST + cursor_->value();
 
                     if (pos >= FIRST && pos <= LAST) {
                         out[0][i] = AMP * readUnsafe0(pos);
 
-                        phase_ += SPEED;
+                        cursor_->value() += SPEED;
                     } else {
                         // stop playing, but fill rest of block with zeroes
                         out[0][i] = 0;
@@ -256,7 +251,7 @@ void ArrayPlayTilde::processBlock(const t_sample**, t_sample** out)
             case INTERP_LIN: {
 
                 for (size_t i = 0; i < BS; i++) {
-                    const auto pos = FIRST + phase_;
+                    const auto pos = FIRST + cursor_->value();
 
                     if (pos >= FIRST && pos <= LAST) {
                         if (pos <= LAST - 1) // need to read one sample after read position
@@ -264,7 +259,7 @@ void ArrayPlayTilde::processBlock(const t_sample**, t_sample** out)
                         else
                             out[0][i] = AMP * readSafe1(pos);
 
-                        phase_ += SPEED;
+                        cursor_->value() += SPEED;
                     } else {
                         out[0][i] = 0;
                         done = true;
@@ -273,7 +268,7 @@ void ArrayPlayTilde::processBlock(const t_sample**, t_sample** out)
             } break;
             case INTERP_CUBIC: {
                 for (size_t i = 0; i < BS; i++) {
-                    const auto pos = FIRST + phase_;
+                    const auto pos = FIRST + cursor_->value();
 
                     if (pos >= FIRST && pos <= LAST) {
                         // need to read one sample before and two samples after read position
@@ -282,7 +277,7 @@ void ArrayPlayTilde::processBlock(const t_sample**, t_sample** out)
                         else
                             out[0][i] = AMP * readUnsafe3(pos);
 
-                        phase_ += SPEED;
+                        cursor_->value() += SPEED;
                     } else {
                         out[0][i] = 0;
                         done = true;
@@ -292,11 +287,11 @@ void ArrayPlayTilde::processBlock(const t_sample**, t_sample** out)
             case NO_INTERP:
             default: {
                 for (size_t i = 0; i < BS; i++) {
-                    const auto pos = FIRST + phase_;
+                    const auto pos = FIRST + cursor_->value();
 
                     if (pos >= FIRST && pos <= LAST) {
                         out[0][i] = AMP * readUnsafe0(pos);
-                        phase_ += SPEED;
+                        cursor_->value() += SPEED;
                     } else {
                         out[0][i] = 0;
                         done = true;
@@ -342,15 +337,33 @@ void ArrayPlayTilde::m_pos(t_symbol* s, const AtomListView& lv)
             const auto abs_pos = end_->samples() + pos_samp;
             if (abs_pos < 0) {
                 METHOD_ERR(s) << fmt::format("negative offset is too big: {}, clipping to 0", pos_samp);
-                phase_ = 0;
+                cursor_ = 0;
                 return;
             }
 
-            phase_ = abs_pos;
+            cursor_->value() = abs_pos;
         } else if (pos_samp >= N) {
             METHOD_ERR(s) << fmt::format("relative");
         }
     }
+}
+
+void ArrayPlayTilde::setBegin()
+{
+    cursor_->setSamples(begin_->samples());
+}
+
+void ArrayPlayTilde::setEnd()
+{
+    cursor_->setSamples(end_->samples());
+}
+
+void ArrayPlayTilde::resetPlayPosition()
+{
+    if (speed_->value() >= 0)
+        setBegin();
+    else
+        setEnd();
 }
 
 void ArrayPlayTilde::command(PlayAction act)

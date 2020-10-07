@@ -23,21 +23,22 @@
 using namespace ceammc;
 
 class ArrayPositionProperty : public Property {
-    t_float v_;
+    double v_;
     Array* array_;
 
 public:
     ArrayPositionProperty(Array* arr, const std::string& name, t_float value, PropValueAccess access = PropValueAccess::READWRITE);
 
-    AtomList get() const override { return { v_ }; }
+    AtomList get() const override { return { (t_float)v_ }; }
     bool setList(const AtomListView& lv) override;
 
     bool setFloat(t_float v) override;
     bool setInt(int v) override;
     bool getFloat(t_float& v) const override;
 
-    t_float value() const { return v_; }
-    bool setValue(t_float v);
+    double& value() { return v_; }
+    const double& value() const { return v_; }
+    bool setValue(double v);
 
     t_float samples() const;
     t_float seconds(t_float sr) const { return samples() / sr; }

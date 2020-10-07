@@ -63,8 +63,7 @@ bool ArrayPositionProperty::setList(const AtomListView& lv)
         return setFloat(lv.asT<t_float>());
     else if (lv.size() >= 2 && lv[0].isSymbol()) {
         auto s = lv[0].asT<t_symbol*>();
-        if(s == gensym("asdad")) {
-
+        if (s == gensym("asdad")) {
         }
     } else {
         units::TimeValue tval(0);
@@ -96,7 +95,7 @@ bool ArrayPositionProperty::getFloat(t_float& v) const
     return true;
 }
 
-bool ArrayPositionProperty::setValue(t_float v)
+bool ArrayPositionProperty::setValue(double v)
 {
     v_ = v;
     return true;
