@@ -1270,12 +1270,31 @@ bool SizeTProperty::setList(const AtomListView& lst)
     if (!emptyCheck(lst))
         return false;
 
-    if (lst.size() != 1) {
-        PROP_ERR() << "unsigned value expectd, got " << lst;
+    if (lst.size() == 1)
+        return setValue(lst[0]);
+    else if (lst.size() == 2 && lst[0].isSymbol() && lst[1].isFloat()) {
+        const auto val = lst[1].asT<int>();
+        const auto op = lst[0].asT<t_symbol*>()->s_name;
+        if (op[0] == '+' && op[1] == '\0')
+            return setValue(value() + val);
+        else if (op[0] == '-' && op[1] == '\0')
+            return setValue(value() - val);
+        else if (op[0] == '*' && op[1] == '\0')
+            return setValue(value() * val);
+        else if (op[0] == '/' && op[1] == '\0') {
+            if (val == 0) {
+                PROP_ERR() << "division by zero";
+                return false;
+            } else
+                return setValue(value() / val);
+        } else {
+            PROP_ERR() << "expected +-*/, got: " << lst[0];
+            return false;
+        }
+    } else {
+        PROP_ERR() << "unsigned value expected, got " << lst;
         return false;
     }
-
-    return setValue(lst[0]);
 }
 
 bool SizeTProperty::getInt(int& v) const
