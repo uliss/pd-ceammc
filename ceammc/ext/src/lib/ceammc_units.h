@@ -82,7 +82,8 @@ namespace units {
         SEC,
         MIN,
         HOUR,
-        DAY
+        DAY,
+        SAMPLE
     };
 
     enum class FracUnits {
@@ -164,7 +165,7 @@ namespace units {
         {
         }
 
-        t_float toMs() const
+        t_float toMs(size_t sr) const
         {
             switch (unit) {
             case TimeUnits::MS:
@@ -177,6 +178,8 @@ namespace units {
                 return 1000 * 60 * 60 * value;
             case TimeUnits::DAY:
                 return 1000 * 60 * 60 * 24 * value;
+            case TimeUnits::SAMPLE:
+                return value / (sr / 1000);
             default:
                 LIB_ERR << "unknown unit type: " << (int)unit;
                 return 0;
@@ -196,6 +199,8 @@ namespace units {
                 return std::round(value * t_float(60 * 60 * sr));
             case TimeUnits::DAY:
                 return std::round(value * t_float(24 * 60 * 60 * sr));
+            case TimeUnits::SAMPLE:
+                return value;
             default:
                 LIB_ERR << "unknown unit type: " << (int)unit;
                 return 0;
@@ -207,7 +212,7 @@ namespace units {
             if (unit == v.unit)
                 return value == v.value;
             else
-                return toMs() == v.toMs();
+                return toMs(1000) == v.toMs(1000);
         }
 
         bool operator!=(const TimeValue& v) const { return !this->operator==(v); }
@@ -217,7 +222,7 @@ namespace units {
             if (unit == v.unit)
                 return value < v.value;
             else
-                return toMs() < v.toMs();
+                return toMs(1000) < v.toMs(1000);
         }
 
         bool operator<=(const TimeValue& v) const

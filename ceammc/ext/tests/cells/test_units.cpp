@@ -24,13 +24,17 @@ TEST_CASE("units", "[ceammc::ceammc_units]")
     {
         UnitParseError err;
         TimeValue v(0);
-        REQUIRE(v.toMs() == 0);
+        REQUIRE(v.toMs(48000) == 0);
         REQUIRE(v.unit == TimeUnits::MS);
         REQUIRE(v.value == 0);
 
         REQUIRE(TimeValue::parse(AtomList()).matchError(err));
         REQUIRE(TimeValue::parse(LA(100, "ms")).matchValue(v));
         REQUIRE(v.value == 100);
+        REQUIRE(v.unit == TimeUnits::MS);
+
+        REQUIRE(TimeValue::parse(LA(200, "msec")).matchValue(v));
+        REQUIRE(v.value == 200);
         REQUIRE(v.unit == TimeUnits::MS);
 
         REQUIRE(TimeValue::parse(LA(15, "sec")).matchValue(v));
@@ -53,8 +57,16 @@ TEST_CASE("units", "[ceammc::ceammc_units]")
         REQUIRE(v.value == 100);
         REQUIRE(v.unit == TimeUnits::MS);
 
+        REQUIRE(TimeValue::parse(LA("100.5msec")).matchValue(v));
+        REQUIRE(v.value == 100.5);
+        REQUIRE(v.unit == TimeUnits::MS);
+
         REQUIRE(TimeValue::parse(LA("100.1s")).matchValue(v));
         REQUIRE(v.value == Approx(100.1f));
+        REQUIRE(v.unit == TimeUnits::SEC);
+
+        REQUIRE(TimeValue::parse(LA("-100.5s")).matchValue(v));
+        REQUIRE(v.value == Approx(-100.5));
         REQUIRE(v.unit == TimeUnits::SEC);
 
         REQUIRE(TimeValue::parse(LA("30min")).matchValue(v));
@@ -64,6 +76,24 @@ TEST_CASE("units", "[ceammc::ceammc_units]")
         REQUIRE(TimeValue::parse(LA("10")).matchValue(v));
         REQUIRE(v.value == Approx(10));
         REQUIRE(v.unit == TimeUnits::MS);
+
+        REQUIRE(TimeValue::parse(LA(4800, "samp")).matchValue(v));
+        REQUIRE(v.value == Approx(4800));
+        REQUIRE(v.unit == TimeUnits::SAMPLE);
+        REQUIRE(v.toMs(48000) == Approx(100));
+
+        REQUIRE(TimeValue::parse(LA(960, "sample")).matchValue(v));
+        REQUIRE(v.value == Approx(960));
+        REQUIRE(v.unit == TimeUnits::SAMPLE);
+        REQUIRE(v.toMs(48000) == Approx(20));
+
+        REQUIRE(TimeValue::parse(LA("240samp")).matchValue(v));
+        REQUIRE(v.value == Approx(240));
+        REQUIRE(v.unit == TimeUnits::SAMPLE);
+
+        REQUIRE(TimeValue::parse(LA("-240sample")).matchValue(v));
+        REQUIRE(v.value == Approx(-240));
+        REQUIRE(v.unit == TimeUnits::SAMPLE);
 
         // too big value
         REQUIRE(TimeValue::parse(LA("1000000000000000000000000000000000000000")).matchError(err));

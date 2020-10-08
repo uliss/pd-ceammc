@@ -72,5 +72,26 @@ TEST_CASE("array.mod", "[externals]")
         REQUIRE(p.samples() == 975);
         REQUIRE(p.setList(AtomList::parseString("0.01 min")));
         REQUIRE(p.samples() == 600);
+
+        REQUIRE(p.setList(AtomList::parseString("20samp")));
+        REQUIRE(p.samples() == 20);
+
+        REQUIRE(p.setList(AtomList::parseString("30.25 sample")));
+        REQUIRE(p.samples() == 30);
+
+        REQUIRE(p.setList(AtomList::parseString("0.0*")));
+        REQUIRE(p.samples() == 0);
+
+        REQUIRE(p.setList(AtomList::parseString("1.0*")));
+        REQUIRE(p.samples() == 999);
+
+        REQUIRE(p.setList(AtomList::parseString("0.5*")));
+        REQUIRE(p.samples() == 999.0 * 0.5);
+
+        REQUIRE(p.setList(AtomList::parseString("25%")));
+        REQUIRE(p.samples() == 999.0 * 0.25);
+
+        REQUIRE(p.setList(AtomList::parseString("999/4")));
+        REQUIRE(p.samples() == 999.0 * 0.25);
     }
 }

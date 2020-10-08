@@ -79,15 +79,17 @@ bool ArrayPositionProperty::setList(const AtomListView& lv)
             return false;
     } else {
         units::TimeValue tval(0);
-        units::UnitParseError err;
         auto res = units::TimeValue::parse(lv);
         if (res.matchValue(tval))
             return setFloat(tval.toSamples(sys_getsr()));
-        else if (res.matchError(err)) {
-            PROP_ERR() << err.msg;
-            return false;
-        } else
-            return false;
+
+        units::FractionValue fval(0);
+        auto fres = units::FractionValue::parse(lv);
+        if (fres.matchValue(fval))
+            return setFloat(fval.toValue(array_->size() - 1));
+
+        PROP_ERR() << "unexpected value: " << lv;
+        return false;
     }
 }
 

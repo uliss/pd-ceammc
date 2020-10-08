@@ -26,12 +26,15 @@ using namespace ceammc::units;
 
 Either<TimeValue> TimeValue::parse(const AtomListView& lv)
 {
-    static t_symbol* SYM_MS = gensym("ms");
+    static t_symbol* SYM_MSEC = gensym("ms");
+    static t_symbol* SYM_MSEC2 = gensym("msec");
     static t_symbol* SYM_SEC = gensym("sec");
     static t_symbol* SYM_SEC2 = gensym("s");
     static t_symbol* SYM_MIN = gensym("min");
     static t_symbol* SYM_HOUR = gensym("hour");
     static t_symbol* SYM_DAY = gensym("day");
+    static t_symbol* SYM_SAMPLE = gensym("samp");
+    static t_symbol* SYM_SAMPLE2 = gensym("sample");
 
     if (lv.empty())
         return UnitParseError("empty list");
@@ -50,12 +53,12 @@ Either<TimeValue> TimeValue::parse(const AtomListView& lv)
         }
 
         auto s = lv[1].asSymbol();
-        if (s == SYM_MS)
+        if (s == SYM_MSEC || s == SYM_MSEC2)
             return TimeValue(v, TimeUnits::MS);
-        else if (s == SYM_SEC)
+        else if (s == SYM_SEC || s == SYM_SEC2)
             return TimeValue(v, TimeUnits::SEC);
-        else if (s == SYM_SEC2)
-            return TimeValue(v, TimeUnits::SEC);
+        else if (s == SYM_SAMPLE || s == SYM_SAMPLE2)
+            return TimeValue(v, TimeUnits::SAMPLE);
         else if (s == SYM_MIN)
             return TimeValue(v, TimeUnits::MIN);
         else if (s == SYM_HOUR)
@@ -70,7 +73,7 @@ Either<TimeValue> TimeValue::parse(const AtomListView& lv)
     } else if (lv.isSymbol()) {
         auto s = lv[0].asSymbol();
         char* last = nullptr;
-        float v = strtof(s->s_name, &last);
+        const auto v = strtof(s->s_name, &last);
 
         if (HUGE_VALF == v) {
             std::ostringstream ss;
@@ -84,12 +87,12 @@ Either<TimeValue> TimeValue::parse(const AtomListView& lv)
 
         t_symbol* suffix = gensym(last);
 
-        if (suffix == SYM_MS)
+        if (suffix == SYM_MSEC || suffix == SYM_MSEC2)
             return TimeValue(v, TimeUnits::MS);
-        else if (suffix == SYM_SEC)
+        else if (suffix == SYM_SEC || suffix == SYM_SEC2)
             return TimeValue(v, TimeUnits::SEC);
-        else if (suffix == SYM_SEC2)
-            return TimeValue(v, TimeUnits::SEC);
+        else if (suffix == SYM_SAMPLE || suffix == SYM_SAMPLE2)
+            return TimeValue(v, TimeUnits::SAMPLE);
         else if (suffix == SYM_MIN)
             return TimeValue(v, TimeUnits::MIN);
         else if (suffix == SYM_HOUR)
@@ -98,7 +101,7 @@ Either<TimeValue> TimeValue::parse(const AtomListView& lv)
             return TimeValue(v, TimeUnits::DAY);
         else {
             std::ostringstream ss;
-            ss << "unknown unit: " << suffix << ",  supported values are: ms, sec(s), min, hour, day";
+            ss << "unknown unit: " << suffix << ",  supported values are: ms, sec(s), min, hour, day, samp(le)";
             return UnitParseError(ss.str());
         }
     } else if (lv.isFloat()) {
