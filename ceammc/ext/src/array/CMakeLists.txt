@@ -67,4 +67,5 @@ target_include_directories(ceammc_array PRIVATE
 
 target_link_libraries(ceammc_array PRIVATE
     soundtouch
+    reflex
 )

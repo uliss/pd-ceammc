@@ -16,6 +16,7 @@
 
 #include <boost/variant.hpp>
 #include <cmath>
+#include <cstdint>
 
 #include "ceammc_atomlist.h"
 #include "ceammc_log.h"
@@ -77,152 +78,191 @@ namespace units {
         FRACTION
     };
 
-    enum class TimeUnits {
-        MS = 0,
-        SEC,
-        MIN,
-        HOUR,
-        DAY,
-        SAMPLE
-    };
-
-    enum class FracUnits {
-        PERCENT,
-        FRACTION,
-        RATIO
-    };
-
-    template <typename V, typename U, UnitType T>
     class UnitValue {
-    public:
-        using value_type = V;
-        value_type value;
-        U unit;
+        double value_;
 
-        UnitValue(V v, U u)
-            : value(v)
-            , unit(u)
+    public:
+        UnitValue(double v = 0)
+            : value_(v)
         {
         }
 
-        UnitType type() const { return T; }
+        double value() const { return value_; }
+        void setValue(double value) { value_ = value; }
+
+        virtual UnitType type() const = 0;
+        virtual bool isTime() const = 0;
+        virtual bool isFraction() const = 0;
     };
 
-    class FractionValue : public UnitValue<double, FracUnits, UnitType::FRACTION> {
-        value_type denom_;
+    class FractionValue : public UnitValue {
+    public:
+        enum Units {
+            PERCENT, // percent value
+            PHASE, // normally float in [0..1] range
+            RATIO // NUM/DEN value
+        };
+
+        using ParseResult = Either<FractionValue>;
 
     public:
-        FractionValue(double v = 0, FracUnits u = FracUnits::FRACTION)
-            : UnitValue<double, FracUnits, UnitType::FRACTION>(v, u)
+        FractionValue(double v = 0, Units u = PHASE)
+            : UnitValue(v)
             , denom_(1)
+            , units_(u)
         {
         }
 
-        value_type toValue(value_type total)
+        Units units() const { return units_; }
+
+        double calcPartOfTotal(double total) const
         {
-            switch (unit) {
-            case FracUnits::PERCENT:
-                return value * total * 0.01;
-            case FracUnits::RATIO:
-                return value / denom_;
-            default:
-                return value * total;
-            }
+            return toFraction() * total;
         }
 
-        value_type toFraction() const
+        double toFraction() const
         {
-            switch (unit) {
-            case FracUnits::PERCENT:
-                return value * 0.01;
-            case FracUnits::RATIO:
-                return value / denom_;
+            switch (units_) {
+            case PERCENT:
+                return value() / 100;
+            case RATIO:
+                return value() / denom_;
+            case PHASE:
             default:
-                return value;
+                return value();
             }
         }
 
         bool operator==(const FractionValue& v) const
         {
-            if (unit == v.unit)
-                return value == v.value && denom_ == v.denom_;
+            if (units_ == v.units_)
+                return value() == v.value() && denom_ == v.denom_;
             else
                 return toFraction() == v.toFraction();
         }
-
         bool operator!=(const FractionValue& v) const { return !this->operator==(v); }
+        bool operator<(const FractionValue& v) const
+        {
+            if (units_ == v.units_)
+                return value() < v.value();
+            else
+                return toFraction() < v.toFraction();
+        }
+
+        UnitType type() const final { return UnitType::FRACTION; }
+        bool isTime() const final { return false; }
+        bool isFraction() const final { return true; }
 
     public:
-        static Either<FractionValue> parse(const AtomListView& lv);
-        static Either<FractionValue> match(const AtomListView& lv);
+        static ParseResult parse(const AtomListView& lv);
         static FractionValue ratio(long num, long den);
+
+    private:
+        double denom_ = { 1 };
+        Units units_;
     };
 
-    class TimeValue : public UnitValue<t_float, TimeUnits, UnitType::TIME> {
+    class TimeValue : public UnitValue {
     public:
-        TimeValue(t_float v, TimeUnits u = TimeUnits::MS)
-            : UnitValue<t_float, TimeUnits, UnitType::TIME>(v, u)
+        enum Units {
+            MS = 0,
+            SEC,
+            MIN,
+            HOUR,
+            DAY,
+            SAMPLE,
+            SMPTE
+        };
+
+        using ParseResult = Either<TimeValue>;
+
+    private:
+        Units units_;
+        double sr_;
+        float fr_ = { 24 };
+        bool end_offset_ = { false };
+
+    public:
+        TimeValue(double v, Units u = MS, double sr = 44100)
+            : UnitValue(v)
+            , units_(u)
+            , sr_(sr)
         {
         }
 
-        t_float toMs(size_t sr) const
+        Units units() const { return units_; }
+        double samplerate() const { return sr_; }
+        void setSamplerate(double sr) { sr_ = sr; }
+        float framerate() const { return fr_; }
+        void setFramerate(float fr) { fr_ = fr; }
+        bool endOffset() const { return end_offset_; }
+
+        t_float toMs() const
         {
-            switch (unit) {
-            case TimeUnits::MS:
-                return value;
-            case TimeUnits::SEC:
-                return 1000 * value;
-            case TimeUnits::MIN:
-                return 1000 * 60 * value;
-            case TimeUnits::HOUR:
-                return 1000 * 60 * 60 * value;
-            case TimeUnits::DAY:
-                return 1000 * 60 * 60 * 24 * value;
-            case TimeUnits::SAMPLE:
-                return value / (sr / 1000);
+            switch (units_) {
+            case MS:
+                return value();
+            case SEC:
+                return 1000 * value();
+            case MIN:
+                return 1000 * 60 * value();
+            case HOUR:
+                return 1000 * 60 * 60 * value();
+            case DAY:
+                return 1000 * 60 * 60 * 24 * value();
+            case SAMPLE:
+                return value() / (sr_ / 1000);
+            case SMPTE: {
+                const int ms = static_cast<int>(value());
+                const int sec = ms / 1000;
+                const int frames = ms % 1000;
+                return 1000 * (sec + frames / fr_);
+            }
             default:
-                LIB_ERR << "unknown unit type: " << (int)unit;
+                LIB_ERR << "unknown unit type: " << (int)units_;
                 return 0;
             }
         }
 
-        long toSamples(size_t sr) const
+        long toSamples() const
         {
-            switch (unit) {
-            case TimeUnits::MS:
-                return std::round(value * (t_float)sr * 0.001);
-            case TimeUnits::SEC:
-                return std::round(value * t_float(sr));
-            case TimeUnits::MIN:
-                return std::round(value * t_float(60 * sr));
-            case TimeUnits::HOUR:
-                return std::round(value * t_float(60 * 60 * sr));
-            case TimeUnits::DAY:
-                return std::round(value * t_float(24 * 60 * 60 * sr));
-            case TimeUnits::SAMPLE:
-                return value;
+            switch (units_) {
+            case MS:
+                return std::round(value() * sr_ * 0.001);
+            case SEC:
+                return std::round(value() * sr_);
+            case MIN:
+                return std::round(value() * 60 * sr_);
+            case HOUR:
+                return std::round(value() * 60 * 60 * sr_);
+            case DAY:
+                return std::round(value() * 24 * 60 * 60 * sr_);
+            case SAMPLE:
+                return value();
+            case SMPTE:
+                return std::round(toMs() * sr_ * 0.001);
             default:
-                LIB_ERR << "unknown unit type: " << (int)unit;
+                LIB_ERR << "unknown unit type: " << (int)units_;
                 return 0;
             }
         }
 
         bool operator==(const TimeValue& v) const
         {
-            if (unit == v.unit)
-                return value == v.value;
+            if (units_ == v.units_)
+                return value() == v.value();
             else
-                return toMs(1000) == v.toMs(1000);
+                return toMs() == v.toMs();
         }
 
         bool operator!=(const TimeValue& v) const { return !this->operator==(v); }
 
         bool operator<(const TimeValue& v) const
         {
-            if (unit == v.unit)
-                return value < v.value;
+            if (units_ == v.units_)
+                return value() < v.value();
             else
-                return toMs(1000) < v.toMs(1000);
+                return toMs() < v.toMs();
         }
 
         bool operator<=(const TimeValue& v) const
@@ -240,8 +280,12 @@ namespace units {
             return !this->operator<=(v);
         }
 
+        UnitType type() const final { return UnitType::TIME; }
+        bool isFraction() const final { return false; }
+        bool isTime() const final { return true; }
+
     public:
-        static Either<TimeValue> parse(const AtomListView& lv);
+        static ParseResult parse(const AtomListView& lv);
     };
 }
 }

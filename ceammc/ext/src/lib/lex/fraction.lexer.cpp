@@ -154,11 +154,11 @@ int ceammc::fraction::FractionLexer::lex()
             break;
           case 2: // rule at line 38: (?:(?:(?:[\x2b\x2d]?(?:0|[1-9][0-9]*))(?:\.\d+)?)%)
 #line 38 "fraction.l"
-{ auto v = strtod(text(), nullptr); value = units::FractionValue(v, units::FracUnits::PERCENT); return 1; }
+{ auto v = strtod(text(), nullptr); value = units::FractionValue(v, units::FractionValue::PERCENT); return 1; }
             break;
           case 3: // rule at line 39: (?:(?:(?:[\x2b\x2d]?(?:0|[1-9][0-9]*))(?:\.\d+)?)[\x2a])
 #line 39 "fraction.l"
-{ auto v = strtod(text(), nullptr); value = units::FractionValue(v, units::FracUnits::FRACTION); return 1; }
+{ auto v = strtod(text(), nullptr); value = units::FractionValue(v, units::FractionValue::PHASE); return 1; }
             break;
           case 4: // rule at line 40: (?:(?:(?:0|[1-9][0-9]*))[/](?:(?:0|[1-9][0-9]*)))
 #line 40 "fraction.l"

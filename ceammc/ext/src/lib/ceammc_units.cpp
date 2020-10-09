@@ -13,7 +13,9 @@
  *****************************************************************************/
 #include "ceammc_units.h"
 #include "ceammc_format.h"
-#include "lex/fraction.lexer.h"
+#include "fmt/format.h"
+//#include "lex/fraction.lexer.h"
+#include "lex/units.lexer.h"
 
 #include <cerrno>
 #include <climits>
@@ -23,95 +25,6 @@
 
 using namespace ceammc;
 using namespace ceammc::units;
-
-Either<TimeValue> TimeValue::parse(const AtomListView& lv)
-{
-    static t_symbol* SYM_MSEC = gensym("ms");
-    static t_symbol* SYM_MSEC2 = gensym("msec");
-    static t_symbol* SYM_SEC = gensym("sec");
-    static t_symbol* SYM_SEC2 = gensym("s");
-    static t_symbol* SYM_MIN = gensym("min");
-    static t_symbol* SYM_HOUR = gensym("hour");
-    static t_symbol* SYM_DAY = gensym("day");
-    static t_symbol* SYM_SAMPLE = gensym("samp");
-    static t_symbol* SYM_SAMPLE2 = gensym("sample");
-
-    if (lv.empty())
-        return UnitParseError("empty list");
-
-    if (lv.size() == 2) {
-        const bool ok = lv[0].isFloat() && lv[1].isSymbol();
-        if (!ok)
-            return UnitParseError("VALUE UNIT expected");
-
-        auto v = lv[0].asFloat();
-
-        if (HUGE_VALF == v) {
-            std::ostringstream ss;
-            ss << "too big value for float: " << lv;
-            return UnitParseError(ss.str());
-        }
-
-        auto s = lv[1].asSymbol();
-        if (s == SYM_MSEC || s == SYM_MSEC2)
-            return TimeValue(v, TimeUnits::MS);
-        else if (s == SYM_SEC || s == SYM_SEC2)
-            return TimeValue(v, TimeUnits::SEC);
-        else if (s == SYM_SAMPLE || s == SYM_SAMPLE2)
-            return TimeValue(v, TimeUnits::SAMPLE);
-        else if (s == SYM_MIN)
-            return TimeValue(v, TimeUnits::MIN);
-        else if (s == SYM_HOUR)
-            return TimeValue(v, TimeUnits::HOUR);
-        else if (s == SYM_DAY)
-            return TimeValue(v, TimeUnits::DAY);
-        else {
-            std::ostringstream ss;
-            ss << "unknown unit: " << s << ",  supported values are: ms, sec(s), min, hour, day";
-            return UnitParseError(ss.str());
-        }
-    } else if (lv.isSymbol()) {
-        auto s = lv[0].asSymbol();
-        char* last = nullptr;
-        const auto v = strtof(s->s_name, &last);
-
-        if (HUGE_VALF == v) {
-            std::ostringstream ss;
-            ss << "too big value for float: " << lv;
-            return UnitParseError(ss.str());
-        }
-
-        //no suffix
-        if (last[0] == '\0')
-            return TimeValue(v, TimeUnits::MS);
-
-        t_symbol* suffix = gensym(last);
-
-        if (suffix == SYM_MSEC || suffix == SYM_MSEC2)
-            return TimeValue(v, TimeUnits::MS);
-        else if (suffix == SYM_SEC || suffix == SYM_SEC2)
-            return TimeValue(v, TimeUnits::SEC);
-        else if (suffix == SYM_SAMPLE || suffix == SYM_SAMPLE2)
-            return TimeValue(v, TimeUnits::SAMPLE);
-        else if (suffix == SYM_MIN)
-            return TimeValue(v, TimeUnits::MIN);
-        else if (suffix == SYM_HOUR)
-            return TimeValue(v, TimeUnits::HOUR);
-        else if (suffix == SYM_DAY)
-            return TimeValue(v, TimeUnits::DAY);
-        else {
-            std::ostringstream ss;
-            ss << "unknown unit: " << suffix << ",  supported values are: ms, sec(s), min, hour, day, samp(le)";
-            return UnitParseError(ss.str());
-        }
-    } else if (lv.isFloat()) {
-        return TimeValue(lv[0].asFloat(), TimeUnits::MS);
-    } else {
-        std::ostringstream ss;
-        ss << "unexpected time format: " << lv;
-        return UnitParseError(ss.str());
-    }
-}
 
 UnitParseError::UnitParseError(const char* s)
     : msg(s)
@@ -123,31 +36,94 @@ UnitParseError::UnitParseError(const std::string& s)
 {
 }
 
-Either<FractionValue> FractionValue::parse(const AtomListView& lv)
+TimeValue::ParseResult TimeValue::parse(const AtomListView& lv)
 {
+    if (lv.empty())
+        return UnitParseError("empty list");
+
     if (lv.isSymbol()) {
-        auto cstr = lv.asT<t_symbol*>()->s_name;
-        fraction::FractionLexer lexer(cstr);
-        if (lexer.lex() != 1)
-            return UnitParseError("invalid fraction");
-        else
-            return lexer.value;
-    } else {
-        return UnitParseError("invalid fraction");
-    }
+        auto cstr = lv[0].asT<t_symbol*>()->s_name;
+        units::UnitsLexer lexer(cstr);
+        using UnitType = units::UnitsLexer::UnitType;
+
+        int rc = lexer.parseSingle();
+
+        if (rc < UnitsLexer::STATUS_EOF)
+            return UnitParseError("invalid timevalue");
+        else {
+            auto& v = lexer.values.back();
+            const bool is_int = (v.type == UnitsLexer::T_LONG);
+            TimeValue tval(0);
+
+            switch (v.unit) {
+            case UnitType::U_MSEC:
+                tval = TimeValue(is_int ? v.val.int_val : v.val.dbl_val, MS);
+                break;
+            case UnitType::U_SEC:
+                tval = TimeValue(is_int ? v.val.int_val : v.val.dbl_val, SEC);
+                break;
+            case UnitType::U_MINUTE:
+                tval = TimeValue(is_int ? v.val.int_val : v.val.dbl_val, MIN);
+                break;
+            case UnitType::U_HOUR:
+                tval = TimeValue(is_int ? v.val.int_val : v.val.dbl_val, HOUR);
+                break;
+            case UnitType::U_DAY:
+                tval = TimeValue(is_int ? v.val.int_val : v.val.dbl_val, DAY);
+                break;
+            case UnitType::U_SAMP:
+                tval = TimeValue(is_int ? v.val.int_val : v.val.dbl_val, SAMPLE);
+                break;
+            case UnitType::U_SMPTE: {
+                const auto& smpte = v.val.smpte_val;
+                const double sec = smpte.hour * 3600 + smpte.min * 60 + smpte.sec;
+                const double val = 1000 * sec + smpte.frame;
+                tval = TimeValue(val, SMPTE);
+                break;
+            }
+            default:
+                return UnitParseError("invalid time");
+            }
+
+            tval.end_offset_ = v.end_offset;
+            return tval;
+        }
+    } else if (lv.isFloat())
+        return TimeValue(lv.asT<t_float>(), MS);
+    else
+        return UnitParseError(fmt::format("unexpected time format: {}", to_string(lv)));
 }
 
-Either<FractionValue> FractionValue::match(const AtomListView& lv)
+FractionValue::ParseResult FractionValue::parse(const AtomListView& lv)
 {
-    if (lv.size() > 0)
-        return parse(lv.subView(0, 1));
-    else
-        return UnitParseError("not a fraction");
+    if (lv.isSymbol()) {
+        auto cstr = lv[0].asT<t_symbol*>()->s_name;
+        units::UnitsLexer lexer(cstr);
+        using UnitType = units::UnitsLexer::UnitType;
+
+        if (lexer.parseSingle() < 0)
+            return UnitParseError("invalid fraction");
+        else {
+            auto& v = lexer.values.back();
+
+            switch (v.unit) {
+            case UnitType::U_PERCENT:
+                return FractionValue { v.val.dbl_val, Units::PERCENT };
+            case UnitType::U_PHASE:
+                return FractionValue { v.val.dbl_val, Units::PHASE };
+            case UnitType::U_RATIO:
+                return FractionValue::ratio(v.val.ratio_val.num, v.val.ratio_val.den);
+            default:
+                return UnitParseError("invalid fraction");
+            }
+        }
+    } else
+        return UnitParseError("invalid fraction");
 }
 
 FractionValue FractionValue::ratio(long num, long den)
 {
-    FractionValue res(num, FracUnits::RATIO);
+    FractionValue res(num, RATIO);
     res.denom_ = den;
     return res;
 }

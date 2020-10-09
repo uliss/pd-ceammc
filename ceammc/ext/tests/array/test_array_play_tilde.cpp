@@ -628,4 +628,20 @@ TEST_CASE("array.play~", "[externals]")
             REQUIRE(t.playPos() == 25);
         }
     }
+
+    SECTION("range")
+    {
+        TExt t("array.play~", LA("array_play~1"));
+        t.m_range(&s_, AtomList::parseString("1_samp 75%"));
+        REQUIRE_PROPERTY(t, @begin, 1);
+        REQUIRE_PROPERTY_FLOAT(t, @end, Approx(21.75));
+
+        t.m_range(&s_, AtomList::parseString("25% 75%"));
+        REQUIRE_PROPERTY_FLOAT(t, @begin, 7.25);
+        REQUIRE_PROPERTY_FLOAT(t, @end, Approx(21.75));
+
+        t.m_range(&s_, AtomList::parseString("0.25* 1*"));
+        REQUIRE_PROPERTY_FLOAT(t, @begin, 7.25);
+        REQUIRE_PROPERTY_FLOAT(t, @end, Approx(29));
+    }
 }

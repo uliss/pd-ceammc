@@ -178,7 +178,7 @@ void ArrayPlayTilde::onFloat(t_float pos)
 void ArrayPlayTilde::setupDSP(t_signal** sig)
 {
     ArraySoundBase::setupDSP(sig);
-    if (checkArray())
+    if (checkArray() && cursor_->samples() >= array_.size())
         resetPlayPosition();
 }
 
@@ -317,12 +317,12 @@ void ArrayPlayTilde::processBlock(const t_sample**, t_sample** out)
     }
 }
 
-void ArrayPlayTilde::m_play(t_symbol* s, const AtomListView& lv)
+void ArrayPlayTilde::m_play(t_symbol*, const AtomListView&)
 {
     command(ACT_PLAY);
 }
 
-void ArrayPlayTilde::m_pause(t_symbol* s, const AtomListView& lv)
+void ArrayPlayTilde::m_pause(t_symbol*, const AtomListView& lv)
 {
     if (lv.boolAt(0, true))
         command(ACT_PAUSE);
@@ -330,29 +330,20 @@ void ArrayPlayTilde::m_pause(t_symbol* s, const AtomListView& lv)
         command(ACT_PLAY);
 }
 
-void ArrayPlayTilde::m_stop(t_symbol* s, const AtomListView& lv)
+void ArrayPlayTilde::m_stop(t_symbol*, const AtomListView&)
 {
     command(ACT_STOP);
 }
 
-void ArrayPlayTilde::m_pos(t_symbol* s, const AtomListView& lv)
+void ArrayPlayTilde::m_range(t_symbol* s, const AtomListView& lv)
 {
-    if (lv.isFloat()) {
-        const long N = static_cast<long>(array_.size());
-        const long pos_samp = lv.asFloat();
-        if (pos_samp < 0) {
-            const auto abs_pos = end_->samples() + pos_samp;
-            if (abs_pos < 0) {
-                METHOD_ERR(s) << fmt::format("negative offset is too big: {}, clipping to 0", pos_samp);
-                cursor_ = 0;
-                return;
-            }
-
-            pos_ = abs_pos;
-        } else if (pos_samp >= N) {
-            METHOD_ERR(s) << fmt::format("relative");
-        }
+    if (lv.empty()) {
+        METHOD_ERR(s) << "usage: BEGIN_unit END_unit. Valid units are: ms/msec/sec/s/min/samp/*/%";
+        return;
     }
+
+    if (begin_->set(lv.subView(0, 1)))
+        end_->set(lv.subView(1));
 }
 
 void ArrayPlayTilde::setBegin()
@@ -423,5 +414,5 @@ void setup_array_play_tilde()
     obj.addMethod("play", &ArrayPlayTilde::m_play);
     obj.addMethod("pause", &ArrayPlayTilde::m_pause);
     obj.addMethod("stop", &ArrayPlayTilde::m_stop);
-    obj.addMethod("pos", &ArrayPlayTilde::m_pos);
+    obj.addMethod("range", &ArrayPlayTilde::m_range);
 }

@@ -18,7 +18,6 @@
 #include "ceammc_object.h"
 #include "ceammc_signal.h"
 #include "ceammc_sound_external.h"
-#include "ceammc_units.h"
 
 using namespace ceammc;
 
@@ -47,7 +46,6 @@ public:
     bool setSamples(t_float pos, bool check = true);
     bool setSeconds(t_float pos, t_float sr, bool check = true);
     bool setMs(t_float pos, t_float sr, bool check = true);
-    bool setPhase(t_float phase);
 
     bool setBegin()
     {

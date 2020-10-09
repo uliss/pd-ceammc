@@ -67,10 +67,10 @@ public:
     void setupDSP(t_signal** sig) override;
     void processBlock(const t_sample**, t_sample** out) final;
 
-    void m_play(t_symbol* s, const AtomListView& lv);
-    void m_pause(t_symbol* s, const AtomListView& lv);
-    void m_stop(t_symbol* s, const AtomListView& lv);
-    void m_pos(t_symbol* s, const AtomListView& lv);
+    void m_play(t_symbol*, const AtomListView&);
+    void m_pause(t_symbol*, const AtomListView& lv);
+    void m_stop(t_symbol*, const AtomListView&);
+    void m_range(t_symbol* s, const AtomListView& lv);
 
     void setBegin();
     void setEnd();

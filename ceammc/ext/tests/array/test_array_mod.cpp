@@ -55,13 +55,13 @@ TEST_CASE("array.mod", "[externals]")
         REQUIRE(p.set(AtomList::parseString("-10")));
         REQUIRE(p.value() == -10);
         REQUIRE(p.samples() == 990);
-        REQUIRE(p.setList(AtomList::parseString("0.5 sec")));
+        REQUIRE(p.setList(AtomList::parseString("0.5sec")));
         REQUIRE(p.samples() == 500);
-        REQUIRE(p.setList(AtomList::parseString("-0.1 sec")));
+        REQUIRE(p.setList(AtomList::parseString("-0.1s")));
         REQUIRE(p.samples() == 900);
-        REQUIRE(p.setList(AtomList::parseString("0.1sec")));
+        REQUIRE(p.setList(AtomList::parseString("0.1_s")));
         REQUIRE(p.samples() == 100);
-        REQUIRE(p.setList(AtomList::parseString("-0.2sec")));
+        REQUIRE(p.setList(AtomList::parseString("-0.2_sec")));
         REQUIRE(p.value() == -200);
         REQUIRE(p.samples() == 800);
         REQUIRE(p.setList(AtomList::parseString("-0.3s")));
@@ -70,28 +70,63 @@ TEST_CASE("array.mod", "[externals]")
         REQUIRE(p.samples() == 50);
         REQUIRE(p.setList(AtomList::parseString("-25ms")));
         REQUIRE(p.samples() == 975);
-        REQUIRE(p.setList(AtomList::parseString("0.01 min")));
+        REQUIRE(p.setList(AtomList::parseString("0.01_min")));
         REQUIRE(p.samples() == 600);
 
         REQUIRE(p.setList(AtomList::parseString("20samp")));
         REQUIRE(p.samples() == 20);
 
-        REQUIRE(p.setList(AtomList::parseString("30.25 sample")));
+        REQUIRE(p.setList(AtomList::parseString("30_samp")));
         REQUIRE(p.samples() == 30);
 
+        // phase
         REQUIRE(p.setList(AtomList::parseString("0.0*")));
         REQUIRE(p.samples() == 0);
-
+        REQUIRE(p.setList(AtomList::parseString("0.5*")));
+        REQUIRE(p.samples() == 999.0 * 0.5);
         REQUIRE(p.setList(AtomList::parseString("1.0*")));
         REQUIRE(p.samples() == 999);
 
-        REQUIRE(p.setList(AtomList::parseString("0.5*")));
-        REQUIRE(p.samples() == 999.0 * 0.5);
+        // invalid
+        REQUIRE_FALSE(p.setList(AtomList::parseString("-0.1*")));
+        REQUIRE_FALSE(p.setList(AtomList::parseString("1.1*")));
 
+        // percent
+        REQUIRE(p.setList(AtomList::parseString("0%")));
+        REQUIRE(p.samples() == 0);
         REQUIRE(p.setList(AtomList::parseString("25%")));
         REQUIRE(p.samples() == 999.0 * 0.25);
+        REQUIRE(p.setList(AtomList::parseString("100%")));
+        REQUIRE(p.samples() == 999.0);
 
-        REQUIRE(p.setList(AtomList::parseString("999/4")));
+        // invalid
+        REQUIRE_FALSE(p.setList(AtomList::parseString("-1%")));
+        REQUIRE_FALSE(p.setList(AtomList::parseString("100.1%")));
+
+        // ratio
+        REQUIRE(p.setList(AtomList::parseString("1/4")));
         REQUIRE(p.samples() == 999.0 * 0.25);
+        REQUIRE(p.setList(AtomList::parseString("0/4")));
+        REQUIRE(p.samples() == 0);
+        REQUIRE(p.setList(AtomList::parseString("5/5")));
+        REQUIRE(p.samples() == 999);
+
+        // invalid
+        REQUIRE_FALSE(p.setList(AtomList::parseString("-1/2")));
+        REQUIRE_FALSE(p.setList(AtomList::parseString("2/1")));
+        REQUIRE_FALSE(p.setList(AtomList::parseString("1/0")));
+
+        // smpte
+        REQUIRE(p.setList(AtomList::parseString("00:00")));
+        REQUIRE(p.samples() == 0);
+        REQUIRE(p.setList(AtomList::parseString("00:00:00")));
+        REQUIRE(p.samples() == 0);
+        REQUIRE(p.setList(AtomList::parseString("00:00.10")));
+        REQUIRE(p.samples() == Approx(416.66666));
+        REQUIRE(p.setList(AtomList::parseString("00:00:00.10")));
+        REQUIRE(p.samples() == Approx(416.66666));
+
+        // invalid
+        REQUIRE_FALSE(p.setList(AtomList::parseString("01:00:00")));
     }
 }

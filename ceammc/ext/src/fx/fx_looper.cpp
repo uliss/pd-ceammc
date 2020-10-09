@@ -506,8 +506,9 @@ void FxLooper::m_smooth(t_symbol* s, const AtomListView& lst)
         return;
     }
 
-    const TimeValue& tm = res.value();
-    const size_t N = std::abs(tm.toSamples(samplerate()));
+    TimeValue& tm = res.value();
+    tm.setSamplerate(samplerate());
+    const size_t N = std::abs(tm.toSamples());
     doApplyFades(N);
 }
 

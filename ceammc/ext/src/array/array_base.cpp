@@ -15,6 +15,7 @@
 #include "ceammc_convert.h"
 #include "ceammc_log.h"
 #include "fmt/format.h"
+#include "lex/units.lexer.h"
 
 #define PROP_ERR() LogPdObject(owner(), LOG_ERROR).stream() << errorPrefix()
 
@@ -56,39 +57,165 @@ ArrayPositionProperty::ArrayPositionProperty(Array* arr, const std::string& name
 
 bool ArrayPositionProperty::setList(const AtomListView& lv)
 {
+    using namespace ceammc::units;
+    static UnitsLexer lexer;
+
+    auto parse_time = [](const UnitsLexer::UnitValue& uv, size_t N) {
+        const bool is_int = (uv.type == UnitsLexer::T_LONG);
+        const double rel_val = is_int ? uv.val.int_val : uv.val.dbl_val;
+        return rel_val + (uv.end_offset ? N : 0);
+    };
+
+    auto set_percent = [this](const UnitsLexer::UnitValue& uv, size_t N) -> bool {
+        const bool is_int = (uv.type == UnitsLexer::T_LONG);
+        const double frac = is_int ? uv.val.int_val : uv.val.dbl_val;
+
+        if (frac < 0 || frac > 100) {
+            PROP_ERR() << "percent value is out of [0...100] range: " << frac;
+            return false;
+        }
+
+        return setSamples((frac / 100) * (N - 1));
+    };
+
+    auto set_phase = [this](const UnitsLexer::UnitValue& uv, size_t N) -> bool {
+        const bool is_int = (uv.type == UnitsLexer::T_LONG);
+        const double frac = is_int ? uv.val.int_val : uv.val.dbl_val;
+        if (frac < 0 || frac > 1) {
+            PROP_ERR() << "phase value is out of [0...1] range: " << frac;
+            return false;
+        }
+
+        return setSamples(frac * (N - 1));
+    };
+
+    auto set_ratio = [this](const UnitsLexer::UnitValue& uv, size_t N) -> bool {
+        const auto n = uv.val.ratio_val.num;
+        const auto d = uv.val.ratio_val.den;
+        const auto vratio = double(n) / d;
+
+        if (vratio < 0 || vratio > 1) {
+            PROP_ERR() << "ratio value is out of [0...1] range: " << n << '/' << d;
+            return false;
+        }
+
+        return setSamples(vratio * (N - 1));
+    };
+
     if (!emptyCheck(lv))
         return false;
 
     if (lv.isFloat())
         return setFloat(lv.asT<t_float>());
-    else if (lv.size() >= 2 && lv[0].isSymbol()) {
-        units::TimeValue tval(0);
-        units::UnitParseError err;
-        auto res = units::TimeValue::parse(lv.subView(1));
+    else if (lv.isSymbol()) {
+        auto s = lv[0].asT<t_symbol*>();
+        lexer.in(s->s_name);
 
-        if (res.matchError(err)) {
-            PROP_ERR() << err.msg;
+        if (lexer.parseSingle() < UnitsLexer::STATUS_EOF) {
+            PROP_ERR() << "can't parse array position: " << lv;
             return false;
         }
 
-        auto s = lv[0].asT<t_symbol*>();
+        const auto& uv = lexer.values.back();
+        const auto& val = uv.val;
 
-        if (s->s_name[0] == '+')
-            return setSamples(samples() + tval.toSamples(sys_getsr()));
-        else
+        const bool need_valid_array = uv.end_offset
+            || (uv.unit == UnitsLexer::U_PHASE)
+            || (uv.unit == UnitsLexer::U_RATIO)
+            || (uv.unit == UnitsLexer::U_PERCENT);
+
+        if (need_valid_array && (!array_ || !array_->isValid())) {
+            PROP_ERR() << "empty array";
             return false;
+        }
+
+        switch (uv.unit) {
+        case UnitsLexer::U_SAMP:
+            return setSamples(parse_time(uv, array_->size()));
+        case UnitsLexer::U_MSEC:
+            return setMs(parse_time(uv, array_->size()), sys_getsr());
+        case UnitsLexer::U_SEC:
+            return setSeconds(parse_time(uv, array_->size()), sys_getsr());
+        case UnitsLexer::U_MINUTE:
+            return setSeconds(60 * parse_time(uv, array_->size()), sys_getsr());
+        case UnitsLexer::U_SMPTE:
+            return setSeconds(val.smpte_val.toSeconds(24), sys_getsr());
+        case UnitsLexer::U_PHASE:
+            return set_phase(uv, array_->size());
+        case UnitsLexer::U_PERCENT:
+            return set_percent(uv, array_->size());
+        case UnitsLexer::U_RATIO:
+            return set_ratio(uv, array_->size());
+        default:
+            PROP_ERR() << "unexpected value for array position: " << lv;
+            return false;
+        }
+
+        return false;
+    } else if (lv.size() == 2 && lv[0].isSymbol() && lv[1].isFloat()) {
+        const auto op = lv[0].asT<t_symbol*>();
+        const auto a = samples();
+        const auto b = lv[1].asFloat();
+
+        if (op == gensym("*"))
+            return setSamples(a * b);
+        else if (op == gensym("/")) {
+            if (b == 0) {
+                PROP_ERR() << "division by zero: " << lv;
+                return false;
+            } else
+                return setSamples(a / b);
+        } else if (op == gensym("+"))
+            return setSamples(a + b);
+        else if (op == gensym("-"))
+            return setSamples(a - b);
+        else {
+            PROP_ERR() << "invalid operand: " << lv << ", expected */+-";
+            return false;
+        }
+    } else if (lv.size() == 2 && lv[0].isSymbol() && lv[1].isSymbol()) {
+        const auto op = lv[0].asT<t_symbol*>();
+        const auto s = lv[1].asT<t_symbol*>();
+        const auto a = samples();
+        auto b = 0;
+
+        lexer.in(s->s_name);
+
+        if (lexer.parseSingle() < UnitsLexer::STATUS_EOF) {
+            PROP_ERR() << "can't parse array position: " << lv[1];
+            return false;
+        }
+
+        const auto& uv = lexer.values.back();
+
+        switch (uv.unit) {
+        case UnitsLexer::U_SAMP:
+            b = parse_time(uv, 0);
+            break;
+        case UnitsLexer::U_MSEC:
+            b = parse_time(uv, 0) * sys_getsr() / 1000;
+            break;
+        case UnitsLexer::U_SEC:
+            b = parse_time(uv, 0) * sys_getsr();
+            break;
+        case UnitsLexer::U_MINUTE:
+            b = parse_time(uv, 0) * sys_getsr() * 60;
+            break;
+        default:
+            PROP_ERR() << "unsupported unit: " << lv[1];
+            return false;
+        }
+
+        if (op == gensym("+"))
+            return setSamples(a + b);
+        else if (op == gensym("-"))
+            return setSamples(a - b);
+        else {
+            PROP_ERR() << "invalid operand: " << lv << ", expected +-";
+            return false;
+        }
     } else {
-        units::TimeValue tval(0);
-        auto res = units::TimeValue::parse(lv);
-        if (res.matchValue(tval))
-            return setFloat(tval.toSamples(sys_getsr()));
-
-        units::FractionValue fval(0);
-        auto fres = units::FractionValue::parse(lv);
-        if (fres.matchValue(fval))
-            return setFloat(fval.toValue(array_->size() - 1));
-
-        PROP_ERR() << "unexpected value: " << lv;
+        PROP_ERR() << "unexpected value for array position: " << lv;
         return false;
     }
 }
@@ -178,12 +305,4 @@ bool ArrayPositionProperty::setSeconds(t_float pos, t_float sr, bool check)
 bool ArrayPositionProperty::setMs(t_float pos, t_float sr, bool check)
 {
     return setSamples(pos * 0.001 * sr, check);
-}
-
-bool ArrayPositionProperty::setPhase(t_float phase)
-{
-    if (!array_ || !array_->isValid())
-        return false;
-
-    return setSamples(wrapFloatMax<t_float>(phase, 1) * array_->size());
 }
