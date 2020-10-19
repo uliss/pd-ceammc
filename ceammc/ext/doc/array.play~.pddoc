@@ -56,6 +56,30 @@
 [ui.hgain~]
 |\
 [dac~]
+
+[array.play~.speed]
+]]>
+            </pdascii>
+            <pdascii id="speed">
+<![CDATA[
+[@speed 1, bang #a( [@speed 0.5, bang #b( [@speed -1, bang #c(
+
+[@speed 1.5, bang #d( [@speed -0.5, bang #e( [@speed -1.5, bang #f(
+
+
+
+[array.play~ APLAY #x]
+|
+[ui.hgain~]
+|\
+[dac~]
+
+[X a->x]
+[X b->x]
+[X c->x]
+[X d->x]
+[X e->x]
+[X f->x]
 ]]>
             </pdascii>
         </example>
