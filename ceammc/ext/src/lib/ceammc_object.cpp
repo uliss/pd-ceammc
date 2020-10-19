@@ -685,7 +685,7 @@ void BaseObject::updatePropertyDefaults()
         p->updateDefault();
 }
 
-void BaseObject::initDone() {}
+void BaseObject::initDone() { }
 
 bool BaseObject::checkArg(const Atom& atom, BaseObject::ArgumentType type, int pos) const
 {
@@ -972,6 +972,12 @@ t_canvas* BaseObject::rootCanvas() const
         return nullptr;
 
     return canvas_getrootfor(const_cast<t_canvas*>(cnv_));
+}
+
+bool BaseObject::isPatchLoading() const
+{
+    auto* c = canvas();
+    return c ? c->gl_loading : false;
 }
 
 std::string BaseObject::findInStdPaths(const char* fname) const

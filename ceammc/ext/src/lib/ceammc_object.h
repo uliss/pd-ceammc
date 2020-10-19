@@ -534,6 +534,11 @@ public:
     t_canvas* rootCanvas() const;
 
     /**
+     * Check if patch is loading
+     */
+    bool isPatchLoading() const;
+
+    /**
      * Tries to find file by given filename
      * @param fname - filename (relative or absolute)
      * @return full path or empty string if not found
