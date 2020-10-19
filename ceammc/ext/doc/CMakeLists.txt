@@ -107,6 +107,15 @@ foreach(_doc_file ${DOC_FILES})
     install(FILES "${_doc_file}-help.pd"
         DESTINATION ${DOC_INSTALL_PATH}
         PERMISSIONS OWNER_READ GROUP_READ WORLD_READ)
+    file(GLOB _xfiles "${_doc_file}.*.pd")
+    # find extra files, for example: module.name.test1.pd
+    foreach(_xfile ${_xfiles})
+        if(NOT ${_xfile} MATCHES "-help\.pd$")
+            install(FILES ${_xfile}
+                DESTINATION ${DOC_INSTALL_PATH}
+                PERMISSIONS OWNER_READ GROUP_READ WORLD_READ)
+        endif()
+    endforeach()
 endforeach()
 
 # About Pd page
