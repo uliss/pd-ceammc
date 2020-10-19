@@ -134,7 +134,7 @@ template <class Base>
 bool ArrayReadIFace<Base>::checkArray(bool log)
 {
     if (array_name_ == &s_ || !array_.open(array_name_)) {
-        if (log && !Base::isPatchLoading()) {
+        if (log && array_name_ != &s_ && !Base::isPatchLoading()) {
             OBJ_ERR << "invalid array: " << array_.name();
         }
 
