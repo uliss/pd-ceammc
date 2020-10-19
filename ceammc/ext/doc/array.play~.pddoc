@@ -59,6 +59,8 @@
 [dac~]
 
 [array.play~.speed]
+
+[array.play~.speed2]
 ]]>
             </pdascii>
             <pdascii id="speed">
@@ -81,6 +83,19 @@
 [X d->x]
 [X e->x]
 [X f->x]
+]]>
+            </pdascii>
+            <pdascii id="speed2">
+<![CDATA[
+[@speed * 0.9, bang #a(
+|
+[array.play~ APLAY #x]
+|
+[ui.hgain~]
+|\
+[dac~]
+
+[X x:2->a]
 ]]>
             </pdascii>
         </example>
