@@ -25,13 +25,16 @@
         </arguments>
         <properties>
             <property name="@array" type="symbol" default="">array name</property>
-            <property name="@speed" type="float" default="1">playback speed. Negative value means reversed playback</property>
+            <property name="@speed" type="float" default="1">playback speed. Negative value means
+            reversed playback</property>
+            <property name="@amp" type="float" default="1" minvalue="0">playback
+            amplitude.</property>
         </properties>
         <inlets>
             <inlet>
                 <xinfo on="bang">starts playback from the beginning</xinfo>
-                <xinfo on="float">starts playback from the specified sample.
-                Negative offsets are also supported: -10 means play last 10 samples of array till the end</xinfo>
+                <xinfo on="float">starts playback from the specified sample. Negative offsets are
+                also supported: -10 means play last 10 samples of array till the end</xinfo>
             </inlet>
         </inlets>
         <outlets>
@@ -58,9 +61,11 @@
 |\
 [dac~]
 
-[array.play~.speed]
+[array.play~.speed]   [array.play~.range]
 
 [array.play~.speed2]
+
+[array.play~.amp]
 ]]>
             </pdascii>
             <pdascii id="speed">
@@ -101,6 +106,45 @@
 [X x:2->a]
 ]]>
             </pdascii>
+            <pdascii id="amp">
+<![CDATA[
+[stop #b(
+
+[@amp * 0.9, bang #a(
+|
+[array.play~ APLAY #x]
+|
+[ui.hgain~]
+|\
+[dac~]
+
+[X b->x]
+[X x:2->a]
+]]>
+            </pdascii>
+            <pdascii id="range">
+<![CDATA[
+[stop #b(
+
+/*phase range 0..1*/ /*percent range 0..100*/
+
+[ui.rslider]         [ui.rslider]
+|                    |
+[range $1* $2*(      [math.* 100]
+|                    |
+|          [bang #a( [range $1% $2%(
+|                    |
+[array.play~ APLAY #x]
+|
+[ui.hgain~]
+|\
+[dac~]
+
+[X a->x]
+[X b->x]
+[X x:2->a]
+]]>
+</pdascii>
         </example>
     </object>
 </pddoc>
