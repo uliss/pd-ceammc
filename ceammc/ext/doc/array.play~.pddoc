@@ -36,6 +36,7 @@
         </inlets>
         <outlets>
             <outlet type="audio">played signal</outlet>
+            <outlet>output current playing position</outlet>
             <outlet>output bang when finished</outlet>
         </outlets>
         <example>

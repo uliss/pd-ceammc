@@ -10,7 +10,7 @@ array.hist		.		.
 array.mean		.		.
 array.minmax		.		..
 array.p2s,array.p->s,array.phase->sample		.		.
-array.play~,array.p~		.		~.
+array.play~,array.p~		.		~..
 array.plot~		~.		-
 array.resample,array.r		.		.
 array.rms		.		.

@@ -5,13 +5,12 @@
 #X msg 20 77 @speed 1.5 \, bang;
 #X msg 231 77 @speed -0.5 \, bang;
 #X msg 452 77 @speed -1.5 \, bang;
-#X obj 20 106 array.play~ APLAY;
-#X obj 20 135 ui.hgain~;
-#X obj 183 135 ui.dsp~;
-#X obj 20 164 dac~;
+#X obj 20 135 array.play~ APLAY;
+#X obj 20 164 ui.hgain~;
+#X obj 20 192 dac~;
 #X connect 6 0 7 0;
-#X connect 7 0 9 0;
-#X connect 7 0 9 1;
+#X connect 7 0 8 0;
+#X connect 7 0 8 1;
 #X connect 0 0 6 0;
 #X connect 1 0 6 0;
 #X connect 2 0 6 0;
