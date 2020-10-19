@@ -46,6 +46,7 @@ public:
     bool setSamples(t_float pos, bool check = true);
     bool setSeconds(t_float pos, t_float sr, bool check = true);
     bool setMs(t_float pos, t_float sr, bool check = true);
+    bool setPhase(t_float v);
 
     bool setBegin()
     {
@@ -133,7 +134,7 @@ template <class Base>
 bool ArrayReadIFace<Base>::checkArray(bool log)
 {
     if (array_name_ == &s_ || !array_.open(array_name_)) {
-        if (log) {
+        if (log && !Base::isPatchLoading()) {
             OBJ_ERR << "invalid array: " << array_.name();
         }
 
@@ -148,6 +149,7 @@ bool ArrayReadIFace<Base>::setArray(t_symbol* s)
 {
     array_name_ = s;
     if (!array_.open(array_name_)) {
+
         OBJ_ERR << "array not found: " << s->s_name;
         return false;
     }

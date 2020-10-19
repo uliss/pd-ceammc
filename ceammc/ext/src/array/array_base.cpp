@@ -306,3 +306,16 @@ bool ArrayPositionProperty::setMs(t_float pos, t_float sr, bool check)
 {
     return setSamples(pos * 0.001 * sr, check);
 }
+
+bool ArrayPositionProperty::setPhase(t_float v)
+{
+    if (!array_ || !array_->isValid() || array_->size() == 0)
+        return false;
+
+    if (v < 0 || v > 1) {
+        PROP_ERR() << "expected phase value in [0...1] range, got: " << v;
+        return false;
+    }
+
+    return setSamples(v * (array_->size() - 1));
+}

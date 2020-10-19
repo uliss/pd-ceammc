@@ -132,7 +132,18 @@ ArrayPlayTilde::ArrayPlayTilde(const PdArgs& args)
 
     createCbFloatProperty("@cursor_sec", [this]() -> t_float { return cursor_->seconds(sys_getsr()); });
     createCbFloatProperty("@cursor_ms", [this]() -> t_float { return cursor_->ms(sys_getsr()); });
-    createCbFloatProperty("@cursor_phase", [this]() -> t_float { return cursor_->phase(); });
+    createCbFloatProperty(
+        "@cursor_phase",
+        [this]() -> t_float { return cursor_->phase(); },
+        [this](t_float v) -> bool {
+            const bool ok = cursor_->setPhase(v);
+            if (!ok)
+                return false;
+
+            // sync cursor
+            pos_ = cursor_->value();
+            return true;
+        });
 
     createCbIntProperty("@state", [this]() { return state_; });
 
@@ -342,6 +353,12 @@ void ArrayPlayTilde::m_range(t_symbol* s, const AtomListView& lv)
         return;
     }
 
+    if (lv.size() == 2 && lv[0].isFloat() && lv[1].isFloat()) {
+        begin_->setPhase(lv[0].asT<t_float>());
+        end_->setPhase(lv[1].asT<t_float>());
+        return;
+    }
+
     if (begin_->set(lv.subView(0, 1)))
         end_->set(lv.subView(1));
 }
@@ -415,4 +432,8 @@ void setup_array_play_tilde()
     obj.addMethod("pause", &ArrayPlayTilde::m_pause);
     obj.addMethod("stop", &ArrayPlayTilde::m_stop);
     obj.addMethod("range", &ArrayPlayTilde::m_range);
+
+    obj.setXletsInfo(
+        { "bang: start playback" },
+        { "audio", "current playing time", "bang on finish" });
 }
