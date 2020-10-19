@@ -87,6 +87,8 @@
             </pdascii>
             <pdascii id="speed2">
 <![CDATA[
+[stop #b(
+
 [@speed * 0.9, bang #a(
 |
 [array.play~ APLAY #x]
@@ -95,6 +97,7 @@
 |\
 [dac~]
 
+[X b->x]
 [X x:2->a]
 ]]>
             </pdascii>
