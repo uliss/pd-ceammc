@@ -12,6 +12,7 @@
  * this file belongs to.
  *****************************************************************************/
 #include "ui_knob.h"
+
 #include "test_ui.h"
 
 UI_COMPLETE_TEST_SETUP(Knob)
@@ -531,5 +532,46 @@ TEST_CASE("ui.knob", "[ui.knob]")
 
         t.call("@max?", LA("@min?", "@xxx?", "", "@non", "unknown", 100, "@receive?"));
         REQUIRE(t.outputAnyAt(0) == LA("@max", 1, "@min", 0.f, "@receive", "(null)"));
+    }
+
+    SECTION("prop +")
+    {
+        TestExtKnob t("ui.knob");
+        REQUIRE_UI_FLOAT_PROPERTY(t, "max", 1);
+
+        t.call("@max", LA("+", 10));
+        REQUIRE_UI_FLOAT_PROPERTY(t, "max", 1);
+
+        REQUIRE_UI_LIST_PROPERTY(t, "size", LA(40, 40));
+        t.call("@size", LA("+", 5));
+        REQUIRE_UI_LIST_PROPERTY(t, "size", LA(45, 45));
+        t.call("@size", LA("+", 0.0));
+        REQUIRE_UI_LIST_PROPERTY(t, "size", LA(45, 45));
+        t.call("@size", LA("-", 15));
+        REQUIRE_UI_LIST_PROPERTY(t, "size", LA(30, 30));
+        t.call("@size", LA("-", 0.0));
+        REQUIRE_UI_LIST_PROPERTY(t, "size", LA(30, 30));
+        t.call("@size", LA("*", 1));
+        REQUIRE_UI_LIST_PROPERTY(t, "size", LA(30, 30));
+        t.call("@size", LA("*", 2));
+        REQUIRE_UI_LIST_PROPERTY(t, "size", LA(60, 60));
+        t.call("@size", LA("*", 2.5));
+        REQUIRE_UI_LIST_PROPERTY(t, "size", LA(150, 150));
+        t.call("@size", LA("/", 5));
+        REQUIRE_UI_LIST_PROPERTY(t, "size", LA(30, 30));
+        t.call("@size", LA("/", 1));
+        REQUIRE_UI_LIST_PROPERTY(t, "size", LA(30, 30));
+
+        // invalid
+        t.call("@size", LA("/", 0.0));
+        REQUIRE_UI_LIST_PROPERTY(t, "size", LA(30, 30));
+        t.call("@size", LA("/", -1)); // set to minimal size
+        REQUIRE_UI_LIST_PROPERTY(t, "size", LA(20, 20));
+        t.call("@size", LA("*", -1)); // set to minimal size
+        REQUIRE_UI_LIST_PROPERTY(t, "size", LA(20, 20));
+        t.call("@size", LA("+", -100)); // set to minimal size
+        REQUIRE_UI_LIST_PROPERTY(t, "size", LA(20, 20));
+        t.call("@size", LA("-", 100)); // set to minimal size
+        REQUIRE_UI_LIST_PROPERTY(t, "size", LA(20, 20));
     }
 }

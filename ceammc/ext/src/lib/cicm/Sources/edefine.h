@@ -607,6 +607,14 @@ typedef struct t_eattr {
     bool invisible; /*!< If the attribute is invisible. */
 } t_eattr;
 
+enum t_eattr_op {
+    EATTR_OP_ASSIGN,
+    EATTR_OP_ADD,
+    EATTR_OP_SUB,
+    EATTR_OP_MUL,
+    EATTR_OP_DIV
+};
+
 /**
  * @struct t_eclass
  * @brief The class.
