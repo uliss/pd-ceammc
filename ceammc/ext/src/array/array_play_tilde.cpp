@@ -131,8 +131,11 @@ ArrayPlayTilde::ArrayPlayTilde(const PdArgs& args)
     cursor_->setSuccessFn([this](Property*) { pos_ = cursor_->value(); });
     addProperty(cursor_);
 
-    createCbFloatProperty("@cursor_sec", [this]() -> t_float { return cursor_->seconds(sys_getsr()); });
-    createCbFloatProperty("@cursor_ms", [this]() -> t_float { return cursor_->ms(sys_getsr()); });
+    createCbFloatProperty("@cursor_sec", [this]() -> t_float { return cursor_->seconds(sys_getsr()); })
+        ->setUnits(PropValueUnits::SEC);
+    createCbFloatProperty("@cursor_ms", [this]() -> t_float { return cursor_->ms(sys_getsr()); })
+        ->setUnits(PropValueUnits::MSEC);
+
     createCbFloatProperty(
         "@cursor_phase",
         [this]() -> t_float { return cursor_->phase(); },

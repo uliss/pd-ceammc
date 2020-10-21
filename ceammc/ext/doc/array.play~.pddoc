@@ -25,18 +25,31 @@
         </arguments>
         <properties>
             <property name="@array" type="symbol" default="">array name</property>
-            <property name="@begin" type="float" default="0" units="sample">playback start position.
-            Negative value means position relative to the end of the array</property>
+            <property name="@begin" type="float" default="0" units="sample">playback start
+            position. Negative value means position relative to the end of the array</property>
             <property name="@end" type="float" default="-1" units="sample">playback end position.
             Negative value means position relative to the end of the array</property>
             <property name="@speed" type="float" default="1">playback speed. Negative value means
             reversed playback</property>
             <property name="@amp" type="float" default="1" minvalue="0">playback
             amplitude</property>
-            <property name="@interp" type="int" enum="0 1 3" default="1">interpolation type. 0: no interpolationm
-            1: linear, 3: cubic.</property>
-            <property name="@clock" type="float" default="0" minvalue="0" maxvalue="20" units="second">
-            clock output period. Zero means: no clock output (by default).</property>
+            <property name="@interp" type="int" enum="0 1 3" default="1">interpolation type. 0: no
+            interpolationm 1: linear, 3: cubic.</property>
+            <property name="@clock" type="float" default="0" minvalue="0" maxvalue="20"
+            units="second">clock output period. Zero means: no clock output (by
+            default).</property>
+            <property name="@cfmt" type="symbol" default="sec" enum="sec ms samp phase">clock
+            output format</property>
+            <property name="@state" type="int" default="0" readonly="true">playing state. 0:
+            stopped, 1: playing, 2: paused.</property>
+            <property name="@cursor_ms" type="float" default="0" readonly="true"
+            units="millisecond">current play position</property>
+            <property name="@cursor_sec" type="float" default="0" readonly="true" units="second">
+            current play position</property>
+            <property name="@cursor_phase" type="float" default="0">current play
+            position</property>
+            <property name="@cursor_samp" type="float" default="0" units="sample">current play
+            position</property>
         </properties>
         <methods>
             <method name="play">start playback from current play position</method>
@@ -53,14 +66,15 @@
         </methods>
         <inlets>
             <inlet>
-                <xinfo on="bang">starts playback from the beginning</xinfo>
+                <xinfo on="bang">resets play position and starts playback</xinfo>
                 <xinfo on="float">starts playback from the specified sample. Negative offsets are
                 also supported: -10 means play last 10 samples of array till the end</xinfo>
             </inlet>
         </inlets>
         <outlets>
             <outlet type="audio">played signal</outlet>
-            <outlet>output current playing position</outlet>
+            <outlet>output current playing position according to @cfmt property. By default output
+            seconds</outlet>
             <outlet>output bang when finished</outlet>
         </outlets>
         <example>
