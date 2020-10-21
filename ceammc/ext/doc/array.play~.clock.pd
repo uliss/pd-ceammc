@@ -4,8 +4,8 @@
 #X msg 164 48 @speed 0.5 \, bang;
 #X msg 356 48 @speed -2 \, bang;
 #X obj 20 77 array.play~ APLAY @clock 0.1;
-#X obj 20 106 sec->str @symbol;
-#X symbolatom 20 135 5 0 0 0 - - -;
+#X obj 20 106 sec->str @symbol @ms;
+#X symbolatom 20 135 15 0 0 0 - - -;
 #X connect 0 0 4 0;
 #X connect 1 0 4 0;
 #X connect 2 0 4 0;

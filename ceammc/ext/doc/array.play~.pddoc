@@ -172,9 +172,9 @@
 |      |       |                   |
 [array.play~ APLAY @clock 0.1      ]
 ^|
-[sec->str @symbol]
+[sec->str @symbol @ms]
 |
-[S difits=15]
+[S digits=15]
 ]]>
             </pdascii>
         </example>
