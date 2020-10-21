@@ -403,6 +403,25 @@ void eclass_addmethod(t_eclass* c, t_typ_method m, t_symbol* sname, t_atomtype t
     GSYM(SYM_MOUSE_LEAVE);
     GSYM(SYM_MOUSE_MOVE);
     GSYM(SYM_MOUSE_DOWN);
+    GSYM(SYM_MOUSE_DRAG);
+    GSYM(SYM_MOUSE_UP);
+    GSYM(SYM_MOUSE_RIGHT_CLICK);
+    GSYM(SYM_MOUSE_WHEEL);
+    GSYM(SYM_MOUSE_DBL_CLICK);
+    GSYM(SYM_KEY);
+    GSYM(SYM_KEY_FILTER);
+    GSYM(SYM_PAINT);
+    GSYM(SYM_WIDGET_CREATE);
+    GSYM(SYM_WIDGET_ERASE);
+    GSYM(SYM_NOTIFY);
+    GSYM(SYM_GET_DRAW_PARAMS);
+    GSYM(SYM_OK_SIZE);
+    GSYM(SYM_ONZOOM);
+    GSYM(SYM_SAVE);
+    GSYM(SYM_POPUP);
+    GSYM(SYM_DSP);
+    GSYM(SYM_ANY);
+    GSYM(SYM_PRESET);
 
     t_class* cx = &c->c_class;
     if (sname == G_SYM_MOUSE_ENTER) {
@@ -413,46 +432,48 @@ void eclass_addmethod(t_eclass* c, t_typ_method m, t_symbol* sname, t_atomtype t
         c->c_widget.w_mousemove = reinterpret_cast<t_mousemove_method>(m);
     } else if (sname == G_SYM_MOUSE_DOWN) {
         c->c_widget.w_mousedown = reinterpret_cast<t_mousedown_method>(m);
-    } else if (sname == gensym(SYM_MOUSE_DRAG)) {
+    } else if (sname == G_SYM_MOUSE_DRAG) {
         c->c_widget.w_mousedrag = m;
-    } else if (sname == gensym(SYM_MOUSE_UP)) {
+    } else if (sname == G_SYM_MOUSE_UP) {
         c->c_widget.w_mouseup = reinterpret_cast<t_mouseup_method>(m);
-    } else if (sname == gensym(SYM_MOUSE_RIGHT_CLICK)) {
+    } else if (sname == G_SYM_MOUSE_RIGHT_CLICK) {
         c->c_widget.w_rightclick = reinterpret_cast<t_rightclick_method>(m);
-    } else if (sname == gensym(SYM_MOUSE_WHEEL)) {
-        class_addmethod(cx, reinterpret_cast<t_method>(ebox_mouse_wheel), gensym(SYM_MOUSE_WHEEL), A_DEFFLOAT, A_DEFFLOAT, A_DEFFLOAT, A_DEFFLOAT, 0);
+    } else if (sname == G_SYM_MOUSE_WHEEL) {
+        class_addmethod(cx, reinterpret_cast<t_method>(ebox_mouse_wheel),
+            G_SYM_MOUSE_WHEEL, A_DEFFLOAT, A_DEFFLOAT, A_DEFFLOAT, A_DEFFLOAT, 0);
         c->c_widget.w_mousewheel = reinterpret_cast<t_mousewheel_method>(m);
-    } else if (sname == gensym(SYM_MOUSE_DBL_CLICK)) {
-        class_addmethod(cx, reinterpret_cast<t_method>(ebox_mouse_dblclick), gensym(SYM_MOUSE_DBL_CLICK), A_GIMME, 0);
+    } else if (sname == G_SYM_MOUSE_DBL_CLICK) {
+        class_addmethod(cx, reinterpret_cast<t_method>(ebox_mouse_dblclick),
+            G_SYM_MOUSE_DBL_CLICK, A_GIMME, 0);
         c->c_widget.w_dblclick = reinterpret_cast<t_dblclick_method>(m);
-    } else if (sname == gensym(SYM_KEY) || sname == gensym(SYM_KEY_FILTER)) {
+    } else if (sname == G_SYM_KEY || sname == G_SYM_KEY_FILTER) {
         if (c->c_widget.w_key == nullptr && c->c_widget.w_keyfilter == nullptr)
-            class_addmethod(cx, reinterpret_cast<t_method>(ebox_key), gensym(SYM_KEY), A_GIMME, 0);
-        if (sname == gensym(SYM_KEY))
+            class_addmethod(cx, reinterpret_cast<t_method>(ebox_key), G_SYM_KEY, A_GIMME, 0);
+        if (sname == G_SYM_KEY)
             c->c_widget.w_key = m;
-        if (sname == gensym(SYM_KEY_FILTER))
+        if (sname == G_SYM_KEY_FILTER)
             c->c_widget.w_keyfilter = m;
-    } else if (sname == gensym(SYM_PAINT)) {
+    } else if (sname == G_SYM_PAINT) {
         c->c_widget.w_paint = m;
-    } else if (sname == gensym(SYM_WIDGET_CREATE)) {
+    } else if (sname == G_SYM_WIDGET_CREATE) {
         c->c_widget.w_create = m;
-    } else if (sname == gensym(SYM_WIDGET_ERASE)) {
+    } else if (sname == G_SYM_WIDGET_ERASE) {
         c->c_widget.w_erase = m;
-    } else if (sname == gensym(SYM_NOTIFY)) {
+    } else if (sname == G_SYM_NOTIFY) {
         c->c_widget.w_notify = reinterpret_cast<t_err_method>(m);
-    } else if (sname == gensym(SYM_GET_DRAW_PARAMS)) {
+    } else if (sname == G_SYM_GET_DRAW_PARAMS) {
         c->c_widget.w_getdrawparameters = m;
-    } else if (sname == gensym(SYM_OK_SIZE)) {
+    } else if (sname == G_SYM_OK_SIZE) {
         c->c_widget.w_oksize = m;
-    } else if (sname == gensym(SYM_ONZOOM)) {
+    } else if (sname == G_SYM_ONZOOM) {
         c->c_widget.w_onzoom = m;
-    } else if (sname == gensym(SYM_SAVE)) {
+    } else if (sname == G_SYM_SAVE) {
         c->c_widget.w_save = m;
-    } else if (sname == gensym(SYM_POPUP)) {
-        class_addmethod(cx, reinterpret_cast<t_method>(eobj_popup), gensym(SYM_POPUP), A_SYMBOL, A_DEFFLOAT, A_DEFFLOAT, A_DEFFLOAT, 0);
+    } else if (sname == G_SYM_POPUP) {
+        class_addmethod(cx, reinterpret_cast<t_method>(eobj_popup),
+            G_SYM_POPUP, A_SYMBOL, A_DEFFLOAT, A_DEFFLOAT, A_DEFFLOAT, 0);
         c->c_widget.w_popup = reinterpret_cast<t_popup_method>(m);
-        ;
-    } else if (sname == gensym(SYM_DSP)) {
+    } else if (sname == G_SYM_DSP) {
         c->c_widget.w_dsp = m;
     } else if (sname == &s_bang) {
         class_addbang(cx, reinterpret_cast<t_method>(m));
@@ -460,11 +481,11 @@ void eclass_addmethod(t_eclass* c, t_typ_method m, t_symbol* sname, t_atomtype t
         class_doaddfloat(cx, reinterpret_cast<t_method>(m));
     } else if (sname == &s_list) {
         class_addlist(cx, reinterpret_cast<t_method>(m));
-    } else if (sname == gensym(SYM_ANY)) {
+    } else if (sname == G_SYM_ANY) {
         class_addanything(cx, reinterpret_cast<t_method>(m));
     } else if (sname == &s_symbol) {
         class_addsymbol(cx, reinterpret_cast<t_method>(m));
-    } else if (sname == gensym(SYM_PRESET)) {
+    } else if (sname == G_SYM_PRESET) {
         CLASS_ATTR_SYMBOL(c, "presetname", t_ebox, b_objpreset_id);
         CLASS_ATTR_DEFAULT(c, "presetname", "(null)");
         CLASS_ATTR_SAVE(c, "presetname");
