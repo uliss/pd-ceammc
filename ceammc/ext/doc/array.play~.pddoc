@@ -30,6 +30,19 @@
             <property name="@amp" type="float" default="1" minvalue="0">playback
             amplitude.</property>
         </properties>
+        <methods>
+            <method name="play">start playback from current play position</method>
+            <method name="stop">stop playback and reset play position</method>
+            <method name="pause">pause/resume playback 
+            <param type="int" enum="0 1" default="1">if true: pause, else resume
+            playing</param></method>
+            <method name="range">set @begin and @end property 
+            <param type="atom" required="true" name="BEGIN">begin position. If float value given:
+            interpret as phase in [0..1] range. Otherwise unit value expected. Examples: 10ms, 5%,
+            4sec, 20samp etc.</param>
+            <param type="atom" required="true" name="END">end position. Value type same as for
+            first argument</param></method>
+        </methods>
         <inlets>
             <inlet>
                 <xinfo on="bang">starts playback from the beginning</xinfo>
@@ -130,7 +143,7 @@
 
 [ui.rslider]         [ui.rslider]
 |                    |
-[range $1* $2*(      [math.* 100]
+[range $1 $2 (       [math.* 100]
 |                    |
 |          [bang #a( [range $1% $2%(
 |                    |
@@ -144,7 +157,7 @@
 [X b->x]
 [X x:2->a]
 ]]>
-</pdascii>
+            </pdascii>
         </example>
     </object>
 </pddoc>

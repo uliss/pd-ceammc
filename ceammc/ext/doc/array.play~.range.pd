@@ -4,7 +4,7 @@
 #X text 221 77 percent range 0..100;
 #X obj 20 106 ui.rslider;
 #X obj 221 106 ui.rslider;
-#X msg 20 135 range \$1* \$2*;
+#X msg 20 135 range \$1 \$2;
 #X obj 221 135 math.* 100;
 #X msg 125 164 bang;
 #X msg 221 164 range \$1% \$2%;
