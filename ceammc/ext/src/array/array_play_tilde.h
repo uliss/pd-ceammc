@@ -51,7 +51,7 @@ class ArrayPlayTilde : public ArraySoundBase {
     ArrayPositionProperty* begin_;
     ArrayPositionProperty* end_;
     ArrayPositionProperty* cursor_;
-    IntProperty* clock_interval_; // time output interval in blocks
+    FloatProperty* clock_interval_; // time output interval in seconds
     SymbolEnumProperty* clock_format_;
     double pos_;
     size_t block_counter_;

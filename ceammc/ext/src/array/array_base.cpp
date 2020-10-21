@@ -53,6 +53,7 @@ ArrayPositionProperty::ArrayPositionProperty(Array* arr, const std::string& name
     , array_(arr)
 {
     info().setDefault(value);
+    info().setUnits(PropValueUnits::SAMP);
 }
 
 bool ArrayPositionProperty::setList(const AtomListView& lv)

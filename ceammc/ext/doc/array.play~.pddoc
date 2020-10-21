@@ -25,10 +25,18 @@
         </arguments>
         <properties>
             <property name="@array" type="symbol" default="">array name</property>
+            <property name="@begin" type="float" default="0" units="sample">playback start position.
+            Negative value means position relative to the end of the array</property>
+            <property name="@end" type="float" default="-1" units="sample">playback end position.
+            Negative value means position relative to the end of the array</property>
             <property name="@speed" type="float" default="1">playback speed. Negative value means
             reversed playback</property>
             <property name="@amp" type="float" default="1" minvalue="0">playback
-            amplitude.</property>
+            amplitude</property>
+            <property name="@interp" type="int" enum="0 1 3" default="1">interpolation type. 0: no interpolationm
+            1: linear, 3: cubic.</property>
+            <property name="@clock" type="float" default="0" minvalue="0" maxvalue="20" units="second">
+            clock output period. Zero means: no clock output (by default).</property>
         </properties>
         <methods>
             <method name="play">start playback from current play position</method>
@@ -76,7 +84,7 @@
 
 [array.play~.speed]   [array.play~.range]
 
-[array.play~.speed2]
+[array.play~.speed2]  [array.play~.clock]
 
 [array.play~.amp]
 ]]>
@@ -156,6 +164,17 @@
 [X a->x]
 [X b->x]
 [X x:2->a]
+]]>
+            </pdascii>
+            <pdascii id="clock">
+<![CDATA[
+[play( [stop(  [@speed 0.5, bang(  [@speed -2, bang(
+|      |       |                   |
+[array.play~ APLAY @clock 0.1      ]
+^|
+[sec->str @symbol]
+|
+[S difits=15]
 ]]>
             </pdascii>
         </example>

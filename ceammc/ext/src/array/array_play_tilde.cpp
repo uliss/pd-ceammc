@@ -119,8 +119,9 @@ ArrayPlayTilde::ArrayPlayTilde(const PdArgs& args)
     end_ = new ArrayPositionProperty(&array_, "@end", -1);
     addProperty(end_);
 
-    clock_interval_ = new IntProperty("@clock", 0);
-    clock_interval_->checkClosedRange(0, 1000);
+    clock_interval_ = new FloatProperty("@clock", 0);
+    clock_interval_->checkClosedRange(0, 20);
+    clock_interval_->setUnits(PropValueUnits::SEC);
     addProperty(clock_interval_);
 
     clock_format_ = new SymbolEnumProperty("@cfmt", { "sec", "ms", "samp", "phase" });
@@ -410,7 +411,8 @@ void ArrayPlayTilde::blockDone(bool value)
 
     // sync cursor position
     cursor_->setValue(pos_);
-    const size_t T = clock_interval_->value();
+    const auto BS = blockSize() ? blockSize() : 64;
+    const size_t T = (clock_interval_->value() * samplerate()) / BS;
     if (T > 0) {
         block_counter_++;
         if (block_counter_ % T == 0)

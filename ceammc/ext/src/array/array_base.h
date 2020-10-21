@@ -39,7 +39,7 @@ public:
     void setValue(t_sample v) { v_ = v; }
 
     t_float samples() const;
-    t_float seconds(t_float sr) const { return samples() / sr; }
+    t_float seconds(t_float sr) const { return samples() / ((sr == 0) ? 1 : sr); }
     t_sample ms(t_float sr) const { return seconds(sr) * 1000; }
     t_sample phase() const;
 
