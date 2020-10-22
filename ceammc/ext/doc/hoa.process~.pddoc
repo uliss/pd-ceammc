@@ -97,7 +97,7 @@
 *|*
 [dac~ {w=35}]
 
-/* multiple [osc~] */
+/* multiple [osc~] */                 [hoa.process~.dsp]
 
 [60 90 2.1( [50 120 4.1(
 |           |
@@ -118,6 +118,25 @@
 [ui.dsp~]
 [X b->z:11]
 #a @count 11 @min -60 @max 0 @size 200 55
+]]>
+            </pdascii>
+            <pdascii id="dsp">
+<![CDATA[
+[ui.hrd* 6]
+|
+[list.separate @enumerate 1]
+|
+[on $1 $2(
+|
+|             [msg.onload \#: 100 200 300 400 500 600]
+|             |.
+[hoa.process~ 6 hoa/hoa.syn.osc~ planewaves {w=45,i=12,o=11}]
+*|*
+[pan.spread~ 6 {w=45,i=12,o=2}]
+*|*
+[ui.hgain2~ @size 15 318]
+*|*
+[dac~ {w=45}]
 ]]>
             </pdascii>
         </example>
