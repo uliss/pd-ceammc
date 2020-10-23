@@ -65,11 +65,11 @@ TEST_CASE("msg.onload", "[extension]")
 
         SECTION("list2")
         {
-            TExt t("msg.onload", LA("list", "A", "B", "C"));
+            TExt t("msg.onload", LA("list", "A", "B", 100, "@C"));
 
             t->onLoadBang();
             REQUIRE(t.isOutputListAt(0));
-            REQUIRE(t.outputListAt(0) == LA("A", "B", "C"));
+            REQUIRE(t.outputListAt(0) == LA("A", "B", 100, "@C"));
         }
 
         SECTION("any")
@@ -86,8 +86,17 @@ TEST_CASE("msg.onload", "[extension]")
             TExt t("msg.onload", LA("String(ABC)"));
 
             t->onLoadBang();
-            REQUIRE(t.isOutputDataAt(0));
-            REQUIRE(t.outputAtomAt(0) == StringAtom("ABC"));
+            REQUIRE(t.isOutputAnyAt(0));
+            REQUIRE(t.outputAnyAt(0) == LA("String(ABC)"));
+        }
+
+        SECTION("@props")
+        {
+            TExt t("msg.onload", LA("@a", "@b", "@c"));
+
+            t->onLoadBang();
+            REQUIRE(t.isOutputAnyAt(0));
+            REQUIRE(t.outputAnyAt(0) == LA("@a", "@b", "@c"));
         }
     }
 }

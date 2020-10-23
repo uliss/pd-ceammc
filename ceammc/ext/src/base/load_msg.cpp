@@ -22,21 +22,25 @@ LoadMsg::LoadMsg(const PdArgs& args)
 
 void LoadMsg::initDone()
 {
-    auto& args = parsedPosArgs();
+    auto& args = unparsedPosArgs();
     if (args.size() > 0) {
         if (args.size() > 1 && args[0].isSymbol())
-            msg_.setAny(args[0].asT<t_symbol*>(), args.slice(1));
+            msg_.setAny(args[0].asT<t_symbol*>(), args.subView(1));
         else
-            msg_.setList(parsedPosArgs());
+            msg_.setList(unparsedPosArgs());
     }
 }
 
 void LoadMsg::output()
 {
-    if (msg_.isNone())
+    if (args().empty())
         bangTo(0);
+    else if (args().isFloat())
+        floatTo(0, args().asT<t_float>());
+    else if (args().size() > 0 && args()[0].isSymbol())
+        anyTo(0, args()[0].asT<t_symbol*>(), args().slice(1));
     else
-        msg_.output(outletAt(0));
+        listTo(0, args());
 }
 
 void LoadMsg::onClick(t_floatarg /*xpos*/, t_floatarg /*ypos*/, t_floatarg /*shift*/, t_floatarg /*ctrl*/, t_floatarg /*alt*/)
@@ -56,7 +60,7 @@ void setup_load_msg()
     obj.useClick();
     obj.useLoadBang();
     obj.noPropsDispatch();
-    obj.parseOnlyPositionalProps(true);
+    obj.noArgsDataParsing();
 
     obj.setDescription("send message when patch loads");
     obj.addAuthor("Serge Poltavsky");
