@@ -19,12 +19,10 @@
 using namespace ceammc;
 
 class LoadMsg : public BaseObject {
-    Message msg_;
 
 public:
     LoadMsg(const PdArgs& args);
     void output();
-    void initDone() override;
 
     void onClick(t_floatarg xpos, t_floatarg ypos, t_floatarg shift, t_floatarg ctrl, t_floatarg alt) override;
     void onLoadBang() override;

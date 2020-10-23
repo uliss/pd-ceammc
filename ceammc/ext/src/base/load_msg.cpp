@@ -20,17 +20,6 @@ LoadMsg::LoadMsg(const PdArgs& args)
     createOutlet();
 }
 
-void LoadMsg::initDone()
-{
-    auto& args = unparsedPosArgs();
-    if (args.size() > 0) {
-        if (args.size() > 1 && args[0].isSymbol())
-            msg_.setAny(args[0].asT<t_symbol*>(), args.subView(1));
-        else
-            msg_.setList(unparsedPosArgs());
-    }
-}
-
 void LoadMsg::output()
 {
     if (args().empty())
