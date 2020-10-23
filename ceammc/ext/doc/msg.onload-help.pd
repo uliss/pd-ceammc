@@ -14,22 +14,23 @@
 #X obj 50 240 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
 -1;
 #X obj 88 240 print;
-#X obj 165 240 ui.display @display_type=1;
-#X obj 20 289 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 294 cnv 5 90 26 empty empty arguments: 4 10 0 14 -262144
+#X obj 165 240 ui.d @display_type 1 @auto_size 0;
+#X obj 50 269 msg.onload.type;
+#X obj 20 318 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 323 cnv 5 90 26 empty empty arguments: 4 10 0 14 -262144
 -49933 0;
-#X text 110 329 1\.;
-#X text 150 329 list;
-#X obj 246 330 cnv 1 40 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 329 ARGS: message.;
-#X obj 20 359 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 364 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
+#X text 110 358 1\.;
+#X text 150 358 list;
+#X obj 246 359 cnv 1 40 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 245 358 ARGS: message.;
+#X obj 20 388 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 393 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
-#X obj 20 385 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 390 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
+#X obj 20 414 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 419 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 391 1\.;
-#X text 245 391 message output.;
+#X text 110 420 1\.;
+#X text 245 420 message output.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;

@@ -24,8 +24,8 @@ void LoadMsg::output()
 {
     if (args().empty())
         bangTo(0);
-    else if (args().isFloat())
-        floatTo(0, args().asT<t_float>());
+    else if (args().size() == 1 && args()[0].isFloat())
+        floatTo(0, args()[0].asT<t_float>());
     else if (args().size() > 0 && args()[0].isSymbol())
         anyTo(0, args()[0].asT<t_symbol*>(), args().slice(1));
     else
