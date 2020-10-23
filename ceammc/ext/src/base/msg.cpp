@@ -52,15 +52,6 @@ void Msg::onInlet(size_t n, const AtomList& l)
     setMethod(l);
 }
 
-bool Msg::processAnyProps(t_symbol* s, const AtomListView&)
-{
-    return false;
-}
-
-void Msg::parseProperties()
-{
-}
-
 void Msg::setMethod(const AtomList& l)
 {
     if (l.empty())
@@ -85,6 +76,8 @@ void setup_base_msg()
     ObjectFactory<Msg> obj("msg");
     obj.addAlias("m");
     obj.addAlias("prepend");
+    obj.noPropsDispatch();
+    obj.noArgsDataParsing();
 
     obj.setDescription("message constructor");
     obj.addAuthor("Serge Poltavsky");

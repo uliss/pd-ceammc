@@ -130,9 +130,9 @@
 |
 |             [msg.onload \#: 100 200 300 400 500 600]
 |             |.
-[hoa.process~ 6 hoa/hoa.syn.osc~ planewaves {w=45,i=12,o=11}]
+[hoa.process~ 6 hoa/hoa.syn.osc~ planewaves {w=45,i=2,o=6}]
 *|*
-[pan.spread~ 6 {w=45,i=12,o=2}]
+[pan.spread~ 6 {w=45,i=7,o=2}]
 *|*
 [ui.hgain2~ @size 15 318]
 *|*
