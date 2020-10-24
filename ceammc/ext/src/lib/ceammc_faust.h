@@ -501,6 +501,8 @@ namespace faust {
             auto it = unit_map_.find(const_cast<FAUSTFLOAT*>(el->valuePtr()));
             if (it == unit_map_.end())
                 continue;
+
+             el->setUnits(to_units(it->second));
         }
     }
 

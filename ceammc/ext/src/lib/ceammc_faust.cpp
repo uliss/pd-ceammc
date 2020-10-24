@@ -508,6 +508,7 @@ namespace faust {
         static std::pair<const char*, PropValueUnits> umap[] = {
             { "Hz", PropValueUnits::HZ },
             { "ms", PropValueUnits::MSEC },
+            { "sec", PropValueUnits::SEC },
             { "percent", PropValueUnits::PERCENT },
             { "db", PropValueUnits::DB },
             { "bpm", PropValueUnits::BPM }
