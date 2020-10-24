@@ -498,6 +498,8 @@ namespace faust {
                 pinfo_.setDefault(init_);
             else if (pinfo_.type() == PropValueType::INTEGER)
                 pinfo_.setDefault(static_cast<int>(init_));
+            else if (pinfo_.type() == PropValueType::BOOLEAN)
+                pinfo_.setDefault(static_cast<bool>(init_));
 
             pinfo_.setStep(step_);
         }

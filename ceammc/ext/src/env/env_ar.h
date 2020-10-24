@@ -1,6 +1,6 @@
 /* ------------------------------------------------------------
 name: "env_ar"
-Code generated with Faust 2.25.3 (https://faust.grame.fr)
+Code generated with Faust 2.28.6 (https://faust.grame.fr)
 Compilation options: -lang cpp -scal -ftz 0
 ------------------------------------------------------------ */
 
@@ -512,7 +512,7 @@ class env_ar : public env_ar_dsp {
  private:
 	
 	FAUSTFLOAT fCheckbox0;
-	float fVec0[2];
+	int iVec0[2];
 	int iRec0[2];
 	int fSampleRate;
 	float fConst0;
@@ -527,7 +527,7 @@ class env_ar : public env_ar_dsp {
 		m->declare("ceammc.lib/name", "Ceammc PureData misc utils");
 		m->declare("ceammc.lib/version", "0.1.1");
 		m->declare("ceammc_ui.lib/name", "CEAMMC faust default UI elements");
-		m->declare("ceammc_ui.lib/version", "0.1.1");
+		m->declare("ceammc_ui.lib/version", "0.1.2");
 		m->declare("envelopes.lib/ar:author", "Yann Orlarey, Stéphane Letz");
 		m->declare("envelopes.lib/author", "GRAME");
 		m->declare("envelopes.lib/copyright", "GRAME");
@@ -599,7 +599,7 @@ class env_ar : public env_ar_dsp {
 	virtual void instanceClear() {
 		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l0 = 0; (l0 < 2); l0 = (l0 + 1)) {
-			fVec0[l0] = 0.0f;
+			iVec0[l0] = 0;
 		}
 		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l1 = 0; (l1 < 2); l1 = (l1 + 1)) {
@@ -638,6 +638,7 @@ class env_ar : public env_ar_dsp {
 		ui_interface->declare(&fHslider0, "style", "knob");
 		ui_interface->declare(&fHslider0, "unit", "ms");
 		ui_interface->addHorizontalSlider("attack", &fHslider0, 10.0f, 0.0f, 100000.0f, 1.0f);
+		ui_interface->declare(&fCheckbox0, "type", "bool");
 		ui_interface->addCheckButton("gate", &fCheckbox0);
 		ui_interface->declare(&fHslider1, "style", "knob");
 		ui_interface->declare(&fHslider1, "unit", "ms");
@@ -648,19 +649,19 @@ class env_ar : public env_ar_dsp {
 	virtual void compute(int count, FAUSTFLOAT** inputs, FAUSTFLOAT** outputs) {
 		FAUSTFLOAT* input0 = inputs[0];
 		FAUSTFLOAT* output0 = outputs[0];
-		float fSlow0 = float(fCheckbox0);
+		int iSlow0 = int(float(fCheckbox0));
 		float fSlow1 = (9.99999997e-07f * float(fHslider0));
 		float fSlow2 = (9.99999997e-07f * float(fHslider1));
 		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int i = 0; (i < count); i = (i + 1)) {
-			fVec0[0] = fSlow0;
-			iRec0[0] = (((iRec0[1] + (iRec0[1] > 0)) * (fSlow0 <= fVec0[1])) + (fSlow0 > fVec0[1]));
+			iVec0[0] = iSlow0;
+			iRec0[0] = (((iRec0[1] + (iRec0[1] > 0)) * (iSlow0 <= iVec0[1])) + (iSlow0 > iVec0[1]));
 			float fTemp0 = float(iRec0[0]);
 			fRec1[0] = (fSlow1 + (0.999000013f * fRec1[1]));
 			float fTemp1 = std::max<float>(1.0f, (fConst0 * fRec1[0]));
 			fRec2[0] = (fSlow2 + (0.999000013f * fRec2[1]));
 			output0[i] = FAUSTFLOAT((float(input0[i]) * std::max<float>(0.0f, std::min<float>((fTemp0 / fTemp1), (((fTemp1 - fTemp0) / std::max<float>(1.0f, (fConst0 * fRec2[0]))) + 1.0f)))));
-			fVec0[1] = fVec0[0];
+			iVec0[1] = iVec0[0];
 			iRec0[1] = iRec0[0];
 			fRec1[1] = fRec1[0];
 			fRec2[1] = fRec2[0];
