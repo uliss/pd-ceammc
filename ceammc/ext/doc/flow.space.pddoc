@@ -19,11 +19,10 @@
             message</argument>
         </arguments>
         <properties>
-            <property name="@delay" type="float" default="1" minvalue="1" units="millisecond">time-space
-            between messages</property>
-            <property name="@done" type="int" default="1" minvalue="0">time space (=@done*@delay) after last outputted
-            message. After that delay output sbang to second outlet
-            </property>
+            <property name="@delay" type="float" default="1" minvalue="1" units="millisecond">
+            time-space between messages</property>
+            <property name="@done" type="int" default="1" minvalue="0">time space (=@done*@delay)
+            after last outputted message. After that delay output sbang to second outlet</property>
         </properties>
         <inlets>
             <inlet>
