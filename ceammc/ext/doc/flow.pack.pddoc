@@ -23,6 +23,10 @@
             <argument name="VALS" type="list">default values for all inlets. If not enough default
             values given it sets to 0.</argument>
         </arguments>
+        <properties>
+            <property name="@n" type="int" minvalue="1" default="1" maxvalue="255">number of inlets</property>
+            <property name="@init" type="list">default init values</property>
+        </properties>
         <inlets dynamic="true">
             <inlet number="1">
                 <xinfo on="bang">output current value</xinfo>
