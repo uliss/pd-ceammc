@@ -61,7 +61,7 @@
 #X obj 30 872 flow.route;
 #X text 200 872 advanced message router;
 #X obj 30 899 flow.space;
-#X text 200 899 space in time messages received in the same logical
+#X text 200 899 space in time messages received at the same logical
 time;
 #X obj 30 926 flow.speedlim;
 #X text 200 926 control stream speed limiter;

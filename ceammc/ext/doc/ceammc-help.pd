@@ -349,7 +349,7 @@ equal number of segments;
 #X obj 30 4860 flow.route;
 #X text 200 4860 advanced message router;
 #X obj 30 4887 flow.space;
-#X text 200 4887 space in time messages received in the same logical
+#X text 200 4887 space in time messages received at the same logical
 time;
 #X obj 30 4914 flow.speedlim;
 #X text 200 4914 control stream speed limiter;

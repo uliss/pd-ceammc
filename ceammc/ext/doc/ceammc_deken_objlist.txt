@@ -237,7 +237,7 @@ reject_if	reject values by predicate
 flow.ring	dataflow ring buffer
 flow.>>	dataflow ring buffer
 flow.route	advanced message router
-flow.space	space in time messages received in the same logical time
+flow.space	space in time messages received at the same logical time
 flow.speedlim	control stream speed limiter
 speedlim	control stream speed limiter
 flow.split	split data flow by external side-chain predicate
