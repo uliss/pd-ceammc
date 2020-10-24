@@ -31,11 +31,11 @@
 #X text 245 493 Get/Set amplitude values in decibels. Type: list. Units:
 db. Default value: -144 -144\. Min value: -144\.;
 #X msg 110 535 @mute;
-#X text 245 535 Get/Set mute channel list. Type: list. Default value:
-0 0\. Allowed values: 0 \, 1\.;
+#X text 245 535 Get/Set mute channel list \, allowed values: 0 \, 1\.
+Type: list. Default value: 0 0\.;
 #X msg 110 577 @solo;
-#X text 245 577 Get/Set solo channel list. Type: list. Default value:
-0 0\. Allowed values: 0 \, 1\.;
+#X text 245 577 Get/Set solo channel list \, allowed values: 0 \, 1\.
+Type: list. Default value: 0 0\.;
 #X msg 110 619 @value;
 #X text 245 619 Get/Set linear amplitude values. Type: list. Default
 value: 0 0\. Min value: 0\.;

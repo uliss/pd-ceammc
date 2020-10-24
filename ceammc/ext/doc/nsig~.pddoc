@@ -23,7 +23,7 @@
         <properties>
             <property name="@n" type="int" minvalue="1" default="1" maxvalue="12">number of
             inputs/outputs</property>
-            <property name="@values" type="list" default="0">current output values</property>
+            <property name="@values" type="list">current output values. Default: 0</property>
         </properties>
         <inlets dynamic="true">
             <inlet number="1">
