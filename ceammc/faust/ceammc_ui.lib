@@ -16,3 +16,4 @@ sustain(p) = hslider("sustain [unit:percent] [style:knob]", p, 0, 100, 0.001) * 
 release(t) = hslider("release [unit:ms] [style:knob]", t, 0, 100000, 1) : cm.time_pd2faust : si.smoo;
 gate = checkbox("gate");
 igate = checkbox("gate [type:bool]") : int;
+fgate = checkbox("gate [type:float]") : float;

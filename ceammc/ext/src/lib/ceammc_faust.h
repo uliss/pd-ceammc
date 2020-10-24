@@ -516,6 +516,8 @@ namespace faust {
                 type_map_[v] = PropValueType::INTEGER;
             else if (strcmp(value, "bool") == 0)
                 type_map_[v] = PropValueType::BOOLEAN;
+            else if (strcmp(value, "float") == 0)
+                type_map_[v] = PropValueType::FLOAT;
             else
                 LIB_ERR << "[dev][faust] unsupported type: " << value;
         }

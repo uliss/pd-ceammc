@@ -1,6 +1,6 @@
 /* ------------------------------------------------------------
 name: "env_asr"
-Code generated with Faust 2.25.3 (https://faust.grame.fr)
+Code generated with Faust 2.28.6 (https://faust.grame.fr)
 Compilation options: -lang cpp -scal -ftz 0
 ------------------------------------------------------------ */
 
@@ -530,7 +530,7 @@ class env_asr : public env_asr_dsp {
 		m->declare("ceammc.lib/name", "Ceammc PureData misc utils");
 		m->declare("ceammc.lib/version", "0.1.1");
 		m->declare("ceammc_ui.lib/name", "CEAMMC faust default UI elements");
-		m->declare("ceammc_ui.lib/version", "0.1.1");
+		m->declare("ceammc_ui.lib/version", "0.1.2");
 		m->declare("envelopes.lib/asr:author", "Yann Orlarey, Stéphane Letz");
 		m->declare("envelopes.lib/author", "GRAME");
 		m->declare("envelopes.lib/copyright", "GRAME");
@@ -650,6 +650,7 @@ class env_asr : public env_asr_dsp {
 		ui_interface->declare(&fHslider1, "style", "knob");
 		ui_interface->declare(&fHslider1, "unit", "ms");
 		ui_interface->addHorizontalSlider("attack", &fHslider1, 10.0f, 0.0f, 100000.0f, 1.0f);
+		ui_interface->declare(&fCheckbox0, "type", "float");
 		ui_interface->addCheckButton("gate", &fCheckbox0);
 		ui_interface->declare(&fHslider2, "style", "knob");
 		ui_interface->declare(&fHslider2, "unit", "ms");
