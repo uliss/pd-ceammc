@@ -27,10 +27,9 @@
         <properties>
             <property name="@delay" type="float" minvalue="0" default="0" units="millisecond">delay
             time</property>
-            <property name="@empty" type="int" enum="0 1" default="1" readonly="true">
-            1 if pipe is empty, otherwise 0.</property>
-            <property name="@size" type="int" default="0" readonly="true">
-            pipe size</property>
+            <property name="@empty" type="int" enum="0 1" default="1" readonly="true">1 if pipe is
+            empty, otherwise 0.</property>
+            <property name="@size" type="int" default="0" readonly="true">pipe size</property>
         </properties>
         <inlets>
             <inlet>

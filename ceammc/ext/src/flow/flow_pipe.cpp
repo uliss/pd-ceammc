@@ -24,6 +24,7 @@ FlowPipe::FlowPipe(const PdArgs& a)
     delay_ = new FloatProperty("@delay", 0);
     delay_->setArgIndex(0);
     delay_->checkMinEq(0);
+    delay_->setUnits(PropValueUnits::MSEC);
     addProperty(delay_);
 
     createCbIntProperty("@size", [this]() -> int { return pipe_.size(); });
