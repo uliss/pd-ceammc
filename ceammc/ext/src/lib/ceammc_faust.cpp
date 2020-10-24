@@ -503,7 +503,8 @@ namespace faust {
             { "Hz", PropValueUnits::HZ },
             { "ms", PropValueUnits::MSEC },
             { "percent", PropValueUnits::PERCENT },
-            { "db", PropValueUnits::DB }
+            { "db", PropValueUnits::DB },
+            { "bpm", PropValueUnits::BPM }
         };
 
         for (auto& p : umap) {
