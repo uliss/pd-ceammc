@@ -489,10 +489,16 @@ namespace faust {
             if (!pinfo_.setConstraints(PropValueConstraints::CLOSED_RANGE))
                 LIB_ERR << set_prop_symbol_ << " can't set constraints";
 
-            if (!pinfo_.setRangeFloat(min_, max_))
+            if (pinfo_.type() == PropValueType::FLOAT && !pinfo_.setRangeFloat(min_, max_))
+                LIB_ERR << set_prop_symbol_ << " can't set range: " << min_ << " - " << max_;
+            else if (pinfo_.type() == PropValueType::INTEGER && !pinfo_.setRangeInt(min_, max_))
                 LIB_ERR << set_prop_symbol_ << " can't set range: " << min_ << " - " << max_;
 
-            pinfo_.setDefault(init_);
+            if (pinfo_.type() == PropValueType::FLOAT)
+                pinfo_.setDefault(init_);
+            else if (pinfo_.type() == PropValueType::INTEGER)
+                pinfo_.setDefault(static_cast<int>(init_));
+
             pinfo_.setStep(step_);
         }
     }

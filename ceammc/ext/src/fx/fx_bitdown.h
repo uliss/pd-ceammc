@@ -3,7 +3,7 @@ author: "Viacheslav Lotsmanov (unclechu)"
 copyright: "(c) Viacheslav Lotsmanov, 2015"
 license: "BSD"
 name: "fx.bitdown"
-Code generated with Faust 2.25.3 (https://faust.grame.fr)
+Code generated with Faust 2.28.6 (https://faust.grame.fr)
 Compilation options: -lang cpp -scal -ftz 0
 ------------------------------------------------------------ */
 
@@ -614,8 +614,10 @@ class fx_bitdown : public fx_bitdown_dsp {
 	
 	virtual void buildUserInterface(UI* ui_interface) {
 		ui_interface->openVerticalBox("fx.bitdown");
+		ui_interface->declare(&fVslider1, "type", "int");
 		ui_interface->addVerticalSlider("bits", &fVslider1, 16.0f, 1.0f, 16.0f, 0.100000001f);
 		ui_interface->addCheckButton("bypass", &fCheckbox0);
+		ui_interface->declare(&fVslider0, "type", "int");
 		ui_interface->addVerticalSlider("downsamp", &fVslider0, 1.0f, 1.0f, 200.0f, 1.0f);
 		ui_interface->closeBox();
 	}
@@ -626,7 +628,7 @@ class fx_bitdown : public fx_bitdown_dsp {
 		int iSlow0 = int(float(fCheckbox0));
 		int iSlow1 = int(float(fVslider0));
 		int iSlow2 = (iSlow1 > 1);
-		float fSlow3 = std::pow(2.0f, (float(fVslider1) + -1.0f));
+		float fSlow3 = float(int(std::pow(2.0f, (float(fVslider1) + -1.0f))));
 		float fSlow4 = (1.0f / fSlow3);
 		int iSlow5 = (iSlow1 + -1);
 		#pragma clang loop vectorize(enable) interleave(enable)
