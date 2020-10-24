@@ -22,11 +22,11 @@
         </arguments>
         <inlets>
             <inlet>
-                <xinfo on="list">match to first list element, output to corresponding outlet.
-                If route starts with * output list 'as is', otherwise output without first element</xinfo>
-                <xinfo on="any">match to message selector, output to corresponding outlet.
-                On success outputs message arguments to
-                corresponding outlet</xinfo>
+                <xinfo on="list">match to first list element, output to corresponding outlet. If
+                route starts with * output list 'as is', otherwise output without first
+                element</xinfo>
+                <xinfo on="any">match to message selector, output to corresponding outlet. On
+                success outputs message arguments to corresponding outlet</xinfo>
                 <xinfo on="data:mlist">same as list</xinfo>
                 <xinfo on="data:dict">match dict keys. On success outputs dict values to
                 corresponding outlets, if starts with * output with matched key</xinfo>

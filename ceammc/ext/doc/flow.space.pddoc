@@ -15,10 +15,12 @@
         </meta>
         <arguments>
             <argument type="float" name="MS" units="msec">time space between messages</argument>
-            <argument type="int" name="N" minvalue="0">time space = N*space after last outputted message</argument>
+            <argument type="int" name="N" minvalue="0">time space = N*space after last outputted
+            message</argument>
         </arguments>
         <properties>
-            <property name="@delay" type="float" default="1" minvalue="1" units="msec">time-space between messages</property>
+            <property name="@delay" type="float" default="1" minvalue="1" units="msec">time-space
+            between messages</property>
         </properties>
         <inlets>
             <inlet>
