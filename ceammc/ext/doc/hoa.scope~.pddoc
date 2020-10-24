@@ -24,7 +24,7 @@
         </arguments>
         <methods>
             <method name="dump">dumps all object info to Pd console window.</method>
-            <method name="pos">set UI element position
+            <method name="pos">set UI element position 
             <param name="X" type="float" required="true">top left x-coord</param>
             <param name="Y" type="float" required="true">top right y-coord</param></method>
         </methods>

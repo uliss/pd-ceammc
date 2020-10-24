@@ -29,13 +29,10 @@
         </info>
         <methods>
             <method name="dump">dumps all object info to Pd console window.</method>
-            <method name="open">open Pd window for specified instance
-            <param name="IDX" type="int" required="true">instance index</param>
-            </method>
-            <method name="on">switch on/off DSP instance processing.
-            Usage: on all 0|1 - turn on/off all instances,
-            on IDX 0|1 - turn on/off specified instance.
-            </method>
+            <method name="open">open Pd window for specified instance 
+            <param name="IDX" type="int" required="true">instance index</param></method>
+            <method name="on">switch on/off DSP instance processing. Usage: on all 0|1 - turn
+            on/off all instances, on IDX 0|1 - turn on/off specified instance.</method>
         </methods>
         <arguments>
             <argument name="ORDER" type="int" minvalue="1" maxvalue="63">the order of

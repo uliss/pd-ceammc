@@ -29,7 +29,8 @@
             <argument name="N" type="int" minvalue="0" maxvalue="23">default input index</argument>
         </arguments>
         <properties>
-            <property name="@index" type="int" minvalue="0" default="0" maxvalue="23">input index</property>
+            <property name="@index" type="int" minvalue="0" default="0" maxvalue="23">input
+            index</property>
         </properties>
         <inlets dynamic="true">
             <inlet>
