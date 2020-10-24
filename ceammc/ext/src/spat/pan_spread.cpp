@@ -23,6 +23,7 @@ PanSpread::PanSpread(const PdArgs& args)
     channels_ = new IntProperty("@ch", DEF_NCHAN);
     channels_->checkClosedRange(MIN_NCHAN, MAX_NCHAN);
     channels_->setArgIndex(0);
+    channels_->setReadOnly();
     addProperty(channels_);
 
     createCbFloatProperty(

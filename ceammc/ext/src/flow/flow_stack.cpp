@@ -26,7 +26,7 @@ FlowStack::FlowStack(const PdArgs& a)
 
     max_size_ = new IntProperty("@max_size", 100);
     max_size_->setArgIndex(0);
-    max_size_->checkPositive();
+    max_size_->checkMinEq(1);
     max_size_->setSuccessFn([this](Property*) { stack_.reserve(max_size_->value()); });
     addProperty(max_size_);
 
