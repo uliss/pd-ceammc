@@ -4,7 +4,7 @@ copyright: "(c) Julian Parker 2013"
 license: "GPL2+"
 name: "fx.greyhole"
 version: "1.0"
-Code generated with Faust 2.25.3 (https://faust.grame.fr)
+Code generated with Faust 2.28.6 (https://faust.grame.fr)
 Compilation options: -lang cpp -scal -ftz 0
 ------------------------------------------------------------ */
 
@@ -680,7 +680,7 @@ class fx_greyhole : public fx_greyhole_dsp {
 		m->declare("ceammc.lib/name", "Ceammc PureData misc utils");
 		m->declare("ceammc.lib/version", "0.1.1");
 		m->declare("ceammc_ui.lib/name", "CEAMMC faust default UI elements");
-		m->declare("ceammc_ui.lib/version", "0.1.1");
+		m->declare("ceammc_ui.lib/version", "0.1.2");
 		m->declare("copyright", "(c) Julian Parker 2013");
 		m->declare("delays.lib/name", "Faust Delay Library");
 		m->declare("delays.lib/version", "0.1");
@@ -1499,7 +1499,7 @@ class fx_greyhole : public fx_greyhole_dsp {
 			float fTemp36 = fVec7[((IOTA - std::min<int>(8192, std::max<int>(0, int(fTemp35)))) & 16383)];
 			fVec8[0] = fTemp36;
 			float fTemp37 = std::floor(fTemp35);
-			fRec39[0] = (fVec8[1] + (((fTemp37 + (2.0f - fRec46[0])) * (fTemp36 - fRec39[1])) / (fRec46[0] - fTemp37)));
+			fRec39[0] = (fVec8[1] - (((fTemp37 + (2.0f - fRec46[0])) * (fRec39[1] - fTemp36)) / (fRec46[0] - fTemp37)));
 			fRec37[0] = fRec39[0];
 			float fTemp38 = (fConst1 * (fTemp13 * (fRec45[0] + 1.0f)));
 			float fTemp39 = (fTemp38 + 8.50000477f);

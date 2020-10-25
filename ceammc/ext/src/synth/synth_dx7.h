@@ -1,7 +1,7 @@
 //----------------------------------------------------------
 // name: "synth.dx7"
 //
-// Code generated with Faust 2.25.3 (https://faust.grame.fr)
+// Code generated with Faust 2.28.6 (https://faust.grame.fr)
 //----------------------------------------------------------
 
 /* link with  */
@@ -1077,8 +1077,8 @@ class synth_dx7 : public synth_dx7_dsp {
 		float 	fSlow95 = (fConst1 * (0 - (fSlow94 * (fSlow61 - fSlow74))));
 		float 	fSlow96 = (0 - (fSlow94 * (fSlow74 - fSlow81)));
 		float 	fSlow97 = (0 - (fConst0 * (fSlow80 - fSlow87)));
-		float 	fSlow98 = (fConst1 * (fSlow57 - fSlow81));
-		float 	fSlow99 = (fSlow90 - fSlow87);
+		float 	fSlow98 = (fSlow57 - fSlow81);
+		float 	fSlow99 = (0 - (fConst0 * (fSlow87 - fSlow90)));
 		float 	fTemp6 = fTempPerm6;
 		float 	fSlow100 = (fConst1 * fSlow65);
 		float 	fTemp7 = fTempPerm7;
@@ -1271,10 +1271,10 @@ class synth_dx7 : public synth_dx7_dsp {
 		float 	fSlow273 = (fConst0 * fSlow260);
 		int 	iTemp22 = iTempPerm22;
 		float 	fSlow274 = (fSlow236 * fSlow239);
-		float 	fSlow275 = (fConst1 * (0 - (fSlow274 * (fSlow241 - fSlow254))));
+		float 	fSlow275 = (fConst1 * (fSlow254 - fSlow241));
 		float 	fSlow276 = (0 - (fSlow274 * (fSlow254 - fSlow261)));
 		float 	fSlow277 = (0 - (fConst0 * (fSlow260 - fSlow267)));
-		float 	fSlow278 = (fSlow237 - fSlow261);
+		float 	fSlow278 = (0 - (fSlow274 * (fSlow261 - fSlow237)));
 		float 	fSlow279 = (0 - (fConst0 * (fSlow267 - fSlow270)));
 		float 	fTemp23 = fTempPerm23;
 		float 	fSlow280 = (fConst1 * fSlow245);
@@ -1334,7 +1334,7 @@ class synth_dx7 : public synth_dx7_dsp {
 				fRec24[0] = ((iSlow28)?0.0f:min(fSlow271, (fRec24[1] + 1.0f)));
 				iTemp21 = int((fRec24[0] < fSlow272));
 				iTemp22 = int((fRec24[0] < fSlow273));
-				fRec23[0] = ((iSlow26)?(fSlow27 * ((iTemp21)?((iTemp22)?((int((fRec24[0] < 0.0f)))?fSlow242:((iTemp22)?(fSlow242 + (fSlow275 * (fRec24[0] / fSlow260))):fSlow255)):((iTemp21)?(fSlow255 + (fSlow276 * ((fRec24[0] - fSlow273) / fSlow277))):fSlow262)):((int((fRec24[0] < fSlow271)))?(fSlow274 * (fSlow261 + (fSlow278 * ((fRec24[0] - fSlow272) / fSlow279)))):fSlow240))):fRec23[1]);
+				fRec23[0] = ((iSlow26)?(fSlow27 * ((iTemp21)?((iTemp22)?((int((fRec24[0] < 0.0f)))?fSlow242:((iTemp22)?(fSlow274 * (fSlow241 + (fSlow275 * (fRec24[0] / fSlow260)))):fSlow255)):((iTemp21)?(fSlow255 + (fSlow276 * ((fRec24[0] - fSlow273) / fSlow277))):fSlow262)):((int((fRec24[0] < fSlow271)))?(fSlow262 + (fSlow278 * ((fRec24[0] - fSlow272) / fSlow279))):fSlow240))):fRec23[1]);
 				fTemp23 = faustpower<8>((0.01020408163265306f * min((float)98, ((int((fRec22[0] < 0.0f)))?fRec23[0]:((int((fRec22[0] < fSlow253)))?(fRec23[0] + (fConst1 * ((fRec22[0] * (fSlow242 - fRec23[0])) / fSlow252))):fSlow242)))));
 				fTemp24 = (fRec25[1] + fSlow280);
 				fRec25[0] = (fTemp24 - floorf(fTemp24));
