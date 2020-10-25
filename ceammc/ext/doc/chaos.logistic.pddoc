@@ -53,6 +53,10 @@
             <method name="set">set init value and lambda value</method>
             <method name="lambda">set lambda value</method>
             <method name="seed">set init value</method>
+            <method name="om">turn on/off method output mode. If true (1) outputs new generated value after each a,b,d,e,x,y method call,
+            if 0 - change values without output. Default is 0.
+            <param name="BOOL" type="int" required="true">output mode</param>
+            </method>
         </methods>
         <inlets>
             <inlet>
