@@ -530,7 +530,7 @@ class env_adsr : public env_adsr_dsp {
 	
 	void metadata(Meta* m) { 
 		m->declare("ceammc.lib/name", "Ceammc PureData misc utils");
-		m->declare("ceammc.lib/version", "0.1.1");
+		m->declare("ceammc.lib/version", "0.1.2");
 		m->declare("ceammc_ui.lib/name", "CEAMMC faust default UI elements");
 		m->declare("ceammc_ui.lib/version", "0.1.2");
 		m->declare("envelopes.lib/adsr:author", "Yann Orlarey");

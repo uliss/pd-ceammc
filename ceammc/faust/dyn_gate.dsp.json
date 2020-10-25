@@ -13,7 +13,7 @@
 		{ "basics.lib/name": "Faust Basic Element Library" },
 		{ "basics.lib/version": "0.1" },
 		{ "ceammc.lib/name": "Ceammc PureData misc utils" },
-		{ "ceammc.lib/version": "0.1.1" },
+		{ "ceammc.lib/version": "0.1.2" },
 		{ "filename": "dyn_gate.dsp" },
 		{ "maths.lib/author": "GRAME" },
 		{ "maths.lib/copyright": "GRAME" },

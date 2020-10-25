@@ -678,14 +678,14 @@ class fx_greyhole : public fx_greyhole_dsp {
 		m->declare("basics.lib/name", "Faust Basic Element Library");
 		m->declare("basics.lib/version", "0.1");
 		m->declare("ceammc.lib/name", "Ceammc PureData misc utils");
-		m->declare("ceammc.lib/version", "0.1.1");
+		m->declare("ceammc.lib/version", "0.1.2");
 		m->declare("ceammc_ui.lib/name", "CEAMMC faust default UI elements");
 		m->declare("ceammc_ui.lib/version", "0.1.2");
 		m->declare("copyright", "(c) Julian Parker 2013");
 		m->declare("delays.lib/name", "Faust Delay Library");
 		m->declare("delays.lib/version", "0.1");
 		m->declare("filename", "fx_greyhole.dsp");
-		m->declare("filters.lib/lowpass0_highpass1", "MIT-style STK-4.3 license");
+		m->declare("filters.lib/lowpass0_highpass1", "Copyright (C) 2003-2019 by Julius O. Smith III <jos@ccrma.stanford.edu>");
 		m->declare("filters.lib/name", "Faust Filters Library");
 		m->declare("filters.lib/nlf2:author", "Julius O. Smith III");
 		m->declare("filters.lib/nlf2:copyright", "Copyright (C) 2003-2019 by Julius O. Smith III <jos@ccrma.stanford.edu>");
@@ -1499,7 +1499,7 @@ class fx_greyhole : public fx_greyhole_dsp {
 			float fTemp36 = fVec7[((IOTA - std::min<int>(8192, std::max<int>(0, int(fTemp35)))) & 16383)];
 			fVec8[0] = fTemp36;
 			float fTemp37 = std::floor(fTemp35);
-			fRec39[0] = (fVec8[1] - (((fTemp37 + (2.0f - fRec46[0])) * (fRec39[1] - fTemp36)) / (fRec46[0] - fTemp37)));
+			fRec39[0] = (fVec8[1] + (((fTemp37 + (2.0f - fRec46[0])) * (fTemp36 - fRec39[1])) / (fRec46[0] - fTemp37)));
 			fRec37[0] = fRec39[0];
 			float fTemp38 = (fConst1 * (fTemp13 * (fRec45[0] + 1.0f)));
 			float fTemp39 = (fTemp38 + 8.50000477f);
@@ -1530,7 +1530,7 @@ class fx_greyhole : public fx_greyhole_dsp {
 			float fTemp56 = fVec12[((IOTA - std::min<int>(8192, std::max<int>(0, int(fTemp55)))) & 16383)];
 			fVec13[0] = fTemp56;
 			float fTemp57 = std::floor(fTemp55);
-			fRec36[0] = (fVec13[1] - (((fTemp57 + (2.0f - fRec49[0])) * (fRec36[1] - fTemp56)) / (fRec49[0] - fTemp57)));
+			fRec36[0] = (fVec13[1] + (((fTemp57 + (2.0f - fRec49[0])) * (fTemp56 - fRec36[1])) / (fRec49[0] - fTemp57)));
 			fRec34[0] = fRec36[0];
 			fVec14[(IOTA & 16383)] = ((fRec37[1] * fTemp5) + (fTemp31 * fTemp51));
 			fRec51[0] = (fSlow18 + (0.999000013f * (fRec51[1] + float((iSlow17 * iTemp17)))));
@@ -1635,7 +1635,7 @@ class fx_greyhole : public fx_greyhole_dsp {
 			float fTemp101 = fVec36[((IOTA - std::min<int>(8192, std::max<int>(0, int(fTemp100)))) & 16383)];
 			fVec37[0] = fTemp101;
 			float fTemp102 = std::floor(fTemp100);
-			fRec18[0] = (fVec37[1] - (((fTemp102 + (2.0f - fRec67[0])) * (fRec18[1] - fTemp101)) / (fRec67[0] - fTemp102)));
+			fRec18[0] = (fVec37[1] + (((fTemp102 + (2.0f - fRec67[0])) * (fTemp101 - fRec18[1])) / (fRec67[0] - fTemp102)));
 			fRec16[0] = fRec18[0];
 			fVec38[(IOTA & 16383)] = ((fRec19[1] * fTemp7) + (fTemp74 * fTemp82));
 			fRec69[0] = (fSlow47 + (0.999000013f * (fRec69[1] + float((iSlow46 * iTemp17)))));
@@ -1655,7 +1655,7 @@ class fx_greyhole : public fx_greyhole_dsp {
 			float fTemp111 = fVec40[((IOTA - std::min<int>(8192, std::max<int>(0, int(fTemp110)))) & 16383)];
 			fVec41[0] = fTemp111;
 			float fTemp112 = std::floor(fTemp110);
-			fRec15[0] = (fVec41[1] - (((fTemp112 + (2.0f - fRec70[0])) * (fRec15[1] - fTemp111)) / (fRec70[0] - fTemp112)));
+			fRec15[0] = (fVec41[1] + (((fTemp112 + (2.0f - fRec70[0])) * (fTemp111 - fRec15[1])) / (fRec70[0] - fTemp112)));
 			fRec13[0] = fRec15[0];
 			float fTemp113 = ((fRec16[1] * fTemp7) + (fTemp74 * fTemp81));
 			float fTemp114 = ((fTemp5 * fTemp113) - (fTemp31 * fRec4[1]));
@@ -1675,7 +1675,7 @@ class fx_greyhole : public fx_greyhole_dsp {
 			float fTemp121 = fVec44[((IOTA - std::min<int>(8192, std::max<int>(0, int(fTemp120)))) & 16383)];
 			fVec45[0] = fTemp121;
 			float fTemp122 = std::floor(fTemp120);
-			fRec12[0] = (fVec45[1] - (((fTemp122 + (2.0f - fRec73[0])) * (fRec12[1] - fTemp121)) / (fRec73[0] - fTemp122)));
+			fRec12[0] = (fVec45[1] + (((fTemp122 + (2.0f - fRec73[0])) * (fTemp121 - fRec12[1])) / (fRec73[0] - fTemp122)));
 			fRec10[0] = fRec12[0];
 			fVec46[(IOTA & 16383)] = ((fRec13[1] * fTemp5) + (fTemp31 * fTemp116));
 			fRec75[0] = (fSlow57 + (0.999000013f * (fRec75[1] + float((iSlow56 * iTemp17)))));
@@ -1691,7 +1691,7 @@ class fx_greyhole : public fx_greyhole_dsp {
 			float fTemp127 = fVec48[((IOTA - std::min<int>(8192, std::max<int>(0, int(fTemp126)))) & 16383)];
 			fVec49[0] = fTemp127;
 			float fTemp128 = std::floor(fTemp126);
-			fRec9[0] = (fVec49[1] - (((fTemp128 + (2.0f - fRec76[0])) * (fRec9[1] - fTemp127)) / (fRec76[0] - fTemp128)));
+			fRec9[0] = (fVec49[1] + (((fTemp128 + (2.0f - fRec76[0])) * (fTemp127 - fRec9[1])) / (fRec76[0] - fTemp128)));
 			fRec7[0] = fRec9[0];
 			fVec50[(IOTA & 16383)] = ((fRec10[1] * fTemp5) + (fTemp31 * fTemp115));
 			fRec78[0] = (fSlow62 + (0.999000013f * (fRec78[1] + float((iSlow61 * iTemp17)))));

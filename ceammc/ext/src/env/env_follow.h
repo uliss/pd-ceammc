@@ -526,7 +526,7 @@ class env_follow : public env_follow_dsp {
 		m->declare("basics.lib/name", "Faust Basic Element Library");
 		m->declare("basics.lib/version", "0.1");
 		m->declare("ceammc.lib/name", "Ceammc PureData misc utils");
-		m->declare("ceammc.lib/version", "0.1.1");
+		m->declare("ceammc.lib/version", "0.1.2");
 		m->declare("filename", "env_follow.dsp");
 		m->declare("maths.lib/author", "GRAME");
 		m->declare("maths.lib/copyright", "GRAME");

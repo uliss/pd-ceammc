@@ -694,7 +694,7 @@ class synth_dubdub : public synth_dubdub_dsp {
 			fRec4[0] = (fSlow6 + (0.999000013f * fRec4[1]));
 			float fTemp3 = (1.0f / fRec4[0]);
 			float fTemp4 = ((fSlow5 * (fSlow5 + fTemp3)) + 1.0f);
-			fRec0[0] = ((0.5f * (fRec1[0] * ((2.0f * fRec3) + -1.0f))) - (((fRec0[2] * ((fSlow5 * (fSlow5 - fTemp3)) + 1.0f)) + (fSlow7 * fRec0[1])) / fTemp4));
+			fRec0[0] = ((0.5f * (fRec1[0] * ((2.0f * fRec3) + -1.0f))) - (((fRec0[2] * (1.0f - (fSlow5 * (fTemp3 - fSlow5)))) + (fSlow7 * fRec0[1])) / fTemp4));
 			output0[i] = FAUSTFLOAT(((fRec0[2] + (fRec0[0] + (2.0f * fRec0[1]))) / fTemp4));
 			fRec1[1] = fRec1[0];
 			fRec2[1] = fRec2[0];

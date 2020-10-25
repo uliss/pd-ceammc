@@ -13,7 +13,7 @@
 		{ "basics.lib/name": "Faust Basic Element Library" },
 		{ "basics.lib/version": "0.1" },
 		{ "ceammc.lib/name": "Ceammc PureData misc utils" },
-		{ "ceammc.lib/version": "0.1.1" },
+		{ "ceammc.lib/version": "0.1.2" },
 		{ "compressors.lib/compression_gain_mono:author": "Julius O. Smith III" },
 		{ "compressors.lib/compression_gain_mono:copyright": "Copyright (C) 2014-2020 by Julius O. Smith III <jos@ccrma.stanford.edu>" },
 		{ "compressors.lib/compression_gain_mono:license": "MIT-style STK-4.3 license" },

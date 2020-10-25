@@ -523,7 +523,7 @@ class env_smooth : public env_smooth_dsp {
 		m->declare("basics.lib/name", "Faust Basic Element Library");
 		m->declare("basics.lib/version", "0.1");
 		m->declare("ceammc.lib/name", "Ceammc PureData misc utils");
-		m->declare("ceammc.lib/version", "0.1.1");
+		m->declare("ceammc.lib/version", "0.1.2");
 		m->declare("ceammc_ui.lib/name", "CEAMMC faust default UI elements");
 		m->declare("ceammc_ui.lib/version", "0.1.2");
 		m->declare("envelopes.lib/author", "GRAME");
@@ -627,7 +627,7 @@ class env_smooth : public env_smooth_dsp {
 	virtual void compute(int count, FAUSTFLOAT** inputs, FAUSTFLOAT** outputs) {
 		FAUSTFLOAT* input0 = inputs[0];
 		FAUSTFLOAT* output0 = outputs[0];
-		float fSlow0 = (0.000144717807f * float(fHslider0));
+		float fSlow0 = (0.00100000005f * float(fHslider0));
 		int iSlow1 = (std::fabs(fSlow0) < 1.1920929e-07f);
 		float fSlow2 = (iSlow1 ? 0.0f : std::exp((0.0f - (fConst0 / (iSlow1 ? 1.0f : fSlow0)))));
 		float fSlow3 = (float(fCheckbox0) * (1.0f - fSlow2));

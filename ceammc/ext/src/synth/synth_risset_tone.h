@@ -662,7 +662,7 @@ class synth_risset_tone : public synth_risset_tone_dsp {
 		m->declare("basics.lib/name", "Faust Basic Element Library");
 		m->declare("basics.lib/version", "0.1");
 		m->declare("ceammc.lib/name", "Ceammc PureData misc utils");
-		m->declare("ceammc.lib/version", "0.1.1");
+		m->declare("ceammc.lib/version", "0.1.2");
 		m->declare("copyright", "Oliver Larkin");
 		m->declare("description", "Jean Claude Risset's endless glissando");
 		m->declare("filename", "synth_risset_tone.dsp");

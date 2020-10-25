@@ -13,7 +13,7 @@
 		{ "basics.lib/name": "Faust Basic Element Library" },
 		{ "basics.lib/version": "0.1" },
 		{ "ceammc.lib/name": "Ceammc PureData misc utils" },
-		{ "ceammc.lib/version": "0.1.1" },
+		{ "ceammc.lib/version": "0.1.2" },
 		{ "filename": "fx_vocoder.dsp" },
 		{ "filters.lib/fir:author": "Julius O. Smith III" },
 		{ "filters.lib/fir:copyright": "Copyright (C) 2003-2019 by Julius O. Smith III <jos@ccrma.stanford.edu>" },

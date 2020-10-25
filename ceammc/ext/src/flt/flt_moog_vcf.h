@@ -667,7 +667,7 @@ class flt_moog_vcf : public flt_moog_vcf_dsp {
 			double fTemp4 = (fTemp2 + 2.0);
 			double fTemp5 = std::tan((fConst0 * std::max<double>(double(input1[i]), 20.0)));
 			double fTemp6 = (1.0 / fTemp5);
-			double fTemp7 = ((fTemp3 + ((fTemp4 + fTemp6) / fTemp5)) + 1.0);
+			double fTemp7 = ((fTemp1 + (fTemp2 + ((fTemp4 + fTemp6) / fTemp5))) + 1.0);
 			double fTemp8 = ((fTemp3 + (1.0 - ((fTemp4 - fTemp6) / fTemp5))) / fTemp7);
 			double fTemp9 = std::max<double>(-0.99990000000000001, std::min<double>(0.99990000000000001, fTemp8));
 			double fTemp10 = (1.0 - flt_moog_vcf_faustpower2_f(fTemp9));
@@ -683,7 +683,7 @@ class flt_moog_vcf : public flt_moog_vcf_dsp {
 			double fRec2 = fRec3[0];
 			double fTemp18 = (1.0 - (fTemp14 / fTemp7));
 			double fTemp19 = std::sqrt(fTemp10);
-			double fTemp20 = ((((fTemp0 * fTemp9) + (fRec1[1] * fTemp11)) + (2.0 * ((fRec1[0] * fTemp18) / fTemp19))) + ((fRec2 * ((1.0 - fTemp8) - (2.0 * (fTemp15 * fTemp18)))) / (fTemp19 * std::sqrt(fTemp16))));
+			double fTemp20 = ((((fTemp0 * fTemp9) + (fRec1[1] * fTemp11)) + (2.0 * ((fRec1[0] * fTemp18) / fTemp19))) + ((fRec2 * (0.0 - ((fTemp8 + -1.0) + (2.0 * (fTemp15 * fTemp18))))) / (fTemp19 * std::sqrt(fTemp16))));
 			double fTemp21 = (2.0 - fTemp2);
 			double fTemp22 = (1.0 - fTemp2);
 			double fTemp23 = ((fTemp1 + ((fTemp6 + fTemp21) / fTemp5)) + fTemp22);

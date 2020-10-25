@@ -1079,7 +1079,7 @@ class synth_birds : public synth_birds_dsp {
 			float fTemp22 = (fConst35 * fTemp4);
 			int iTemp23 = (fTemp16 < fTemp22);
 			fRec21[0] = ((0.999000013f * fRec21[1]) + (0.00100000005f * (iTemp17 ? (iTemp19 ? (iTemp21 ? (iTemp23 ? ((iRec22[0] < 0) ? 0.0f : (iTemp23 ? (fConst37 * (fTemp16 / fTemp4)) : 0.49000001f)) : (iTemp21 ? ((fConst36 * ((0.0f - (0.49000001f * (fTemp16 - fTemp22))) / fTemp4)) + 0.49000001f) : 0.0f)) : (iTemp19 ? (fConst34 * ((fTemp16 - fTemp20) / fTemp4)) : 1.0f)) : (iTemp17 ? ((fConst32 * ((0.0f - (fTemp16 - fTemp18)) / fTemp4)) + 1.0f) : 0.0f)) : 0.0f)));
-			fRec20[0] = (fConst4 * ((fRec21[0] + fRec21[1]) - (fConst5 * fRec20[1])));
+			fRec20[0] = (0.0f - (fConst4 * ((fConst5 * fRec20[1]) - (fRec21[0] + fRec21[1]))));
 			float fTemp24 = (fRec20[0] + 1.0f);
 			float fTemp25 = std::max<float>((27.7199993f * (fTemp15 * fTemp24)), 23.4489498f);
 			float fTemp26 = std::max<float>(20.0f, std::fabs(fTemp25));

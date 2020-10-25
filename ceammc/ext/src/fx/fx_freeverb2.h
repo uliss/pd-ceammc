@@ -515,10 +515,10 @@ class fx_freeverb2 : public fx_freeverb2_dsp {
 	FAUSTFLOAT fHslider0;
 	float fRec0[2];
 	FAUSTFLOAT fHslider1;
-	float fRec11[2];
 	float fRec10[2];
 	FAUSTFLOAT fHslider2;
 	float fRec12[2];
+	float fRec11[2];
 	int IOTA;
 	float fVec0[8192];
 	int fSampleRate;
@@ -572,7 +572,7 @@ class fx_freeverb2 : public fx_freeverb2_dsp {
 		m->declare("basics.lib/name", "Faust Basic Element Library");
 		m->declare("basics.lib/version", "0.1");
 		m->declare("ceammc.lib/name", "Ceammc PureData misc utils");
-		m->declare("ceammc.lib/version", "0.1.1");
+		m->declare("ceammc.lib/version", "0.1.2");
 		m->declare("ceammc_ui.lib/name", "CEAMMC faust default UI elements");
 		m->declare("ceammc_ui.lib/version", "0.1.2");
 		m->declare("delays.lib/name", "Faust Delay Library");
@@ -581,7 +581,7 @@ class fx_freeverb2 : public fx_freeverb2_dsp {
 		m->declare("filters.lib/allpass_comb:author", "Julius O. Smith III");
 		m->declare("filters.lib/allpass_comb:copyright", "Copyright (C) 2003-2019 by Julius O. Smith III <jos@ccrma.stanford.edu>");
 		m->declare("filters.lib/allpass_comb:license", "MIT-style STK-4.3 license");
-		m->declare("filters.lib/lowpass0_highpass1", "Copyright (C) 2003-2019 by Julius O. Smith III <jos@ccrma.stanford.edu>");
+		m->declare("filters.lib/lowpass0_highpass1", "MIT-style STK-4.3 license");
 		m->declare("filters.lib/name", "Faust Filters Library");
 		m->declare("maths.lib/author", "GRAME");
 		m->declare("maths.lib/copyright", "GRAME");
@@ -648,14 +648,14 @@ class fx_freeverb2 : public fx_freeverb2_dsp {
 	virtual void instanceConstants(int sample_rate) {
 		fSampleRate = sample_rate;
 		fConst0 = std::min<float>(192000.0f, std::max<float>(1.0f, float(fSampleRate)));
-		iConst1 = int((0.0253061224f * fConst0));
-		iConst2 = int((0.0269387756f * fConst0));
-		iConst3 = int((0.0289569162f * fConst0));
-		iConst4 = int((0.0307482984f * fConst0));
-		iConst5 = int((0.0322448984f * fConst0));
-		iConst6 = int((0.033809524f * fConst0));
-		iConst7 = int((0.0353061222f * fConst0));
-		iConst8 = int((0.0366666652f * fConst0));
+		iConst1 = int((0.0366666652f * fConst0));
+		iConst2 = int((0.0353061222f * fConst0));
+		iConst3 = int((0.033809524f * fConst0));
+		iConst4 = int((0.0322448984f * fConst0));
+		iConst5 = int((0.0307482984f * fConst0));
+		iConst6 = int((0.0289569162f * fConst0));
+		iConst7 = int((0.0269387756f * fConst0));
+		iConst8 = int((0.0253061224f * fConst0));
 		iConst9 = std::min<int>(1024, std::max<int>(0, (int((0.0126077095f * fConst0)) + -1)));
 		iConst10 = std::min<int>(1024, std::max<int>(0, (int((0.00999999978f * fConst0)) + -1)));
 		iConst11 = std::min<int>(1024, std::max<int>(0, (int((0.00773242628f * fConst0)) + -1)));
@@ -676,15 +676,15 @@ class fx_freeverb2 : public fx_freeverb2_dsp {
 		}
 		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l1 = 0; (l1 < 2); l1 = (l1 + 1)) {
-			fRec11[l1] = 0.0f;
+			fRec10[l1] = 0.0f;
 		}
 		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l2 = 0; (l2 < 2); l2 = (l2 + 1)) {
-			fRec10[l2] = 0.0f;
+			fRec12[l2] = 0.0f;
 		}
 		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l3 = 0; (l3 < 2); l3 = (l3 + 1)) {
-			fRec12[l3] = 0.0f;
+			fRec11[l3] = 0.0f;
 		}
 		IOTA = 0;
 		#pragma clang loop vectorize(enable) interleave(enable)
@@ -834,10 +834,10 @@ class fx_freeverb2 : public fx_freeverb2_dsp {
 	virtual void buildUserInterface(UI* ui_interface) {
 		ui_interface->openVerticalBox("fx.freeverb2");
 		ui_interface->addCheckButton("bypass", &fCheckbox0);
-		ui_interface->addHorizontalSlider("damp", &fHslider1, 0.5f, 0.0f, 1.0f, 0.00100000005f);
+		ui_interface->addHorizontalSlider("damp", &fHslider2, 0.5f, 0.0f, 1.0f, 0.00100000005f);
 		ui_interface->declare(&fHslider0, "style", "knob");
 		ui_interface->addHorizontalSlider("drywet", &fHslider0, 0.330000013f, 0.0f, 1.0f, 0.00999999978f);
-		ui_interface->addHorizontalSlider("room", &fHslider2, 0.5f, 0.0f, 1.0f, 0.00100000005f);
+		ui_interface->addHorizontalSlider("room", &fHslider1, 0.5f, 0.0f, 1.0f, 0.00100000005f);
 		ui_interface->closeBox();
 	}
 	
@@ -858,43 +858,43 @@ class fx_freeverb2 : public fx_freeverb2_dsp {
 			float fTemp2 = (1.0f - fRec0[0]);
 			float fTemp3 = float(input1[i]);
 			float fTemp4 = (iSlow0 ? 0.0f : fTemp3);
-			fRec11[0] = (fSlow2 + (0.999000013f * fRec11[1]));
-			float fTemp5 = (1.0f - fRec11[0]);
-			fRec10[0] = ((fRec11[0] * fRec10[1]) + (fTemp5 * fRec9[1]));
+			float fTemp5 = (fTemp1 + fTemp4);
+			fRec10[0] = (fSlow2 + (0.999000013f * fRec10[1]));
 			fRec12[0] = (fSlow3 + (0.999000013f * fRec12[1]));
-			fVec0[(IOTA & 8191)] = (fTemp4 + ((fRec10[0] * fRec12[0]) + fTemp1));
+			float fTemp6 = (1.0f - fRec12[0]);
+			fRec11[0] = ((fRec12[0] * fRec11[1]) + (fTemp6 * fRec9[1]));
+			fVec0[(IOTA & 8191)] = (fTemp5 + (fRec10[0] * fRec11[0]));
 			fRec9[0] = fVec0[((IOTA - iConst1) & 8191)];
-			float fTemp6 = (fTemp1 + fTemp4);
-			fRec14[0] = ((fRec11[0] * fRec14[1]) + (fTemp5 * fRec13[1]));
-			fVec1[(IOTA & 8191)] = (fTemp6 + (fRec12[0] * fRec14[0]));
+			fRec14[0] = ((fRec12[0] * fRec14[1]) + (fTemp6 * fRec13[1]));
+			fVec1[(IOTA & 8191)] = (fTemp5 + (fRec10[0] * fRec14[0]));
 			fRec13[0] = fVec1[((IOTA - iConst2) & 8191)];
-			fRec16[0] = ((fRec11[0] * fRec16[1]) + (fTemp5 * fRec15[1]));
-			fVec2[(IOTA & 8191)] = (fTemp6 + (fRec12[0] * fRec16[0]));
+			fRec16[0] = ((fRec12[0] * fRec16[1]) + (fTemp6 * fRec15[1]));
+			fVec2[(IOTA & 8191)] = (fTemp5 + (fRec10[0] * fRec16[0]));
 			fRec15[0] = fVec2[((IOTA - iConst3) & 8191)];
-			fRec18[0] = ((fRec11[0] * fRec18[1]) + (fTemp5 * fRec17[1]));
-			fVec3[(IOTA & 8191)] = (fTemp6 + (fRec12[0] * fRec18[0]));
+			fRec18[0] = ((fRec12[0] * fRec18[1]) + (fTemp6 * fRec17[1]));
+			fVec3[(IOTA & 8191)] = (fTemp5 + (fRec10[0] * fRec18[0]));
 			fRec17[0] = fVec3[((IOTA - iConst4) & 8191)];
-			fRec20[0] = ((fRec11[0] * fRec20[1]) + (fTemp5 * fRec19[1]));
-			fVec4[(IOTA & 8191)] = (fTemp6 + (fRec12[0] * fRec20[0]));
+			fRec20[0] = ((fRec12[0] * fRec20[1]) + (fTemp6 * fRec19[1]));
+			fVec4[(IOTA & 8191)] = (fTemp5 + (fRec10[0] * fRec20[0]));
 			fRec19[0] = fVec4[((IOTA - iConst5) & 8191)];
-			fRec22[0] = ((fRec11[0] * fRec22[1]) + (fTemp5 * fRec21[1]));
-			fVec5[(IOTA & 8191)] = (fTemp6 + (fRec12[0] * fRec22[0]));
+			fRec22[0] = ((fRec12[0] * fRec22[1]) + (fTemp6 * fRec21[1]));
+			fVec5[(IOTA & 8191)] = (fTemp5 + (fRec10[0] * fRec22[0]));
 			fRec21[0] = fVec5[((IOTA - iConst6) & 8191)];
-			fRec24[0] = ((fRec11[0] * fRec24[1]) + (fTemp5 * fRec23[1]));
-			fVec6[(IOTA & 8191)] = (fTemp6 + (fRec12[0] * fRec24[0]));
+			fRec24[0] = ((fRec12[0] * fRec24[1]) + (fTemp6 * fRec23[1]));
+			fVec6[(IOTA & 8191)] = (fTemp5 + (fRec10[0] * fRec24[0]));
 			fRec23[0] = fVec6[((IOTA - iConst7) & 8191)];
-			fRec26[0] = ((fRec11[0] * fRec26[1]) + (fTemp5 * fRec25[1]));
-			fVec7[(IOTA & 8191)] = (fTemp6 + (fRec12[0] * fRec26[0]));
+			fRec26[0] = ((fRec12[0] * fRec26[1]) + (fTemp6 * fRec25[1]));
+			fVec7[(IOTA & 8191)] = ((fRec26[0] * fRec10[0]) + fTemp5);
 			fRec25[0] = fVec7[((IOTA - iConst8) & 8191)];
-			float fTemp7 = ((((((((fRec9[0] + fRec13[0]) + fRec15[0]) + fRec17[0]) + fRec19[0]) + fRec21[0]) + fRec23[0]) + fRec25[0]) + (0.5f * fRec7[1]));
+			float fTemp7 = (fRec9[0] + (fRec13[0] + (fRec15[0] + (fRec17[0] + (fRec19[0] + (fRec21[0] + (fRec23[0] + (fRec25[0] + (0.5f * fRec7[1])))))))));
 			fVec8[(IOTA & 2047)] = fTemp7;
 			fRec7[0] = fVec8[((IOTA - iConst9) & 2047)];
 			float fRec8 = (0.0f - (0.5f * fTemp7));
-			float fTemp8 = (fRec7[1] + (fRec8 + (0.5f * fRec5[1])));
+			float fTemp8 = (fRec8 + ((0.5f * fRec5[1]) + fRec7[1]));
 			fVec9[(IOTA & 2047)] = fTemp8;
 			fRec5[0] = fVec9[((IOTA - iConst10) & 2047)];
 			float fRec6 = (0.0f - (0.5f * fTemp8));
-			float fTemp9 = (fRec5[1] + (fRec6 + (0.5f * fRec3[1])));
+			float fTemp9 = ((0.5f * fRec3[1]) + (fRec6 + fRec5[1]));
 			fVec10[(IOTA & 2047)] = fTemp9;
 			fRec3[0] = fVec10[((IOTA - iConst11) & 2047)];
 			float fRec4 = (0.0f - (0.5f * fTemp9));
@@ -906,9 +906,9 @@ class fx_freeverb2 : public fx_freeverb2_dsp {
 			output0[i] = FAUSTFLOAT((iSlow0 ? fTemp0 : ((fTemp1 * fTemp2) + fTemp11)));
 			output1[i] = FAUSTFLOAT((iSlow0 ? fTemp3 : (fTemp11 + (fTemp2 * fTemp4))));
 			fRec0[1] = fRec0[0];
-			fRec11[1] = fRec11[0];
 			fRec10[1] = fRec10[0];
 			fRec12[1] = fRec12[0];
+			fRec11[1] = fRec11[0];
 			IOTA = (IOTA + 1);
 			fRec9[1] = fRec9[0];
 			fRec14[1] = fRec14[0];

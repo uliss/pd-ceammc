@@ -1025,10 +1025,10 @@ class synth_dx7 : public synth_dx7_dsp {
 		float 	fSlow48 = (fConst0 * fSlow35);
 		int 	iTemp1 = iTempPerm1;
 		float 	fSlow49 = (fSlow5 * fSlow9);
-		float 	fSlow50 = (fConst1 * (0 - (fSlow49 * (fSlow11 - fSlow29))));
+		float 	fSlow50 = (fConst1 * (fSlow29 - fSlow11));
 		float 	fSlow51 = (0 - (fSlow49 * (fSlow29 - fSlow36)));
 		float 	fSlow52 = (0 - (fConst0 * (fSlow35 - fSlow42)));
-		float 	fSlow53 = (fSlow6 - fSlow36);
+		float 	fSlow53 = (0 - (fSlow49 * (fSlow36 - fSlow6)));
 		float 	fSlow54 = (0 - (fConst0 * (fSlow42 - fSlow45)));
 		float 	fTemp2 = fTempPerm2;
 		float 	fSlow55 = (fConst1 * fSlow16);
@@ -1074,10 +1074,10 @@ class synth_dx7 : public synth_dx7_dsp {
 		float 	fSlow93 = (fConst0 * fSlow80);
 		int 	iTemp5 = iTempPerm5;
 		float 	fSlow94 = (fSlow56 * fSlow59);
-		float 	fSlow95 = (fConst1 * (0 - (fSlow94 * (fSlow61 - fSlow74))));
+		float 	fSlow95 = (fConst1 * (fSlow74 - fSlow61));
 		float 	fSlow96 = (0 - (fSlow94 * (fSlow74 - fSlow81)));
 		float 	fSlow97 = (0 - (fConst0 * (fSlow80 - fSlow87)));
-		float 	fSlow98 = (fSlow57 - fSlow81);
+		float 	fSlow98 = (0 - (fSlow94 * (fSlow81 - fSlow57)));
 		float 	fSlow99 = (0 - (fConst0 * (fSlow87 - fSlow90)));
 		float 	fTemp6 = fTempPerm6;
 		float 	fSlow100 = (fConst1 * fSlow65);
@@ -1242,11 +1242,11 @@ class synth_dx7 : public synth_dx7_dsp {
 		float 	fSlow245 = ((0.25f * float(fentry77)) + ((int(float(fentry78)))?fSlow244:(fSlow15 * fSlow244)));
 		float 	fSlow246 = ((0.057142857142857148f * float(fentry76)) * ((17.312340490667559f * logf((0.0022727272727272726f * fSlow245))) + 48.0f));
 		float 	fSlow247 = (0.007874015748031496f * (127.0f - min((float)99, (float(fentry75) + fSlow246))));
-		float 	fSlow248 = powf((0.014705882352941176f * (float((fSlow240 >= 30.0f)) * min((fSlow240 + -30.0f), (float)68))),1.8f);
-		float 	fSlow249 = powf((0.010101010101010102f * min((float)99, fSlow240)),0.69999999999999996f);
-		float 	fSlow250 = powf((0.014705882352941176f * (float((fSlow242 >= 30.0f)) * min((fSlow242 + -30.0f), (float)68))),1.8f);
-		float 	fSlow251 = powf((0.010101010101010102f * min((float)99, fSlow242)),0.69999999999999996f);
-		float 	fSlow252 = max(0.001f, fabsf((((iSlow243)?max(0.0030000000000000001f, (38.0f * faustpower<12>(fSlow247))):max(0.0080000000000000002f, (318.0f * powf(fSlow247,12.6f)))) * (((iSlow243)?fSlow248:fSlow249) - ((iSlow243)?fSlow250:fSlow251)))));
+		float 	fSlow248 = powf((0.014705882352941176f * (float((fSlow242 >= 30.0f)) * min((fSlow242 + -30.0f), (float)68))),1.8f);
+		float 	fSlow249 = powf((0.010101010101010102f * min((float)99, fSlow242)),0.69999999999999996f);
+		float 	fSlow250 = powf((0.014705882352941176f * (float((fSlow240 >= 30.0f)) * min((fSlow240 + -30.0f), (float)68))),1.8f);
+		float 	fSlow251 = powf((0.010101010101010102f * min((float)99, fSlow240)),0.69999999999999996f);
+		float 	fSlow252 = max(0.001f, fabsf((0 - (((iSlow243)?max(0.0030000000000000001f, (38.0f * faustpower<12>(fSlow247))):max(0.0080000000000000002f, (318.0f * powf(fSlow247,12.6f)))) * (((iSlow243)?fSlow248:fSlow249) - ((iSlow243)?fSlow250:fSlow251))))));
 		float 	fSlow253 = (fConst0 * fSlow252);
 		float 	fSlow254 = float(fentry80);
 		float 	fSlow255 = ((fSlow236 * fSlow254) * fSlow239);
@@ -1254,7 +1254,7 @@ class synth_dx7 : public synth_dx7_dsp {
 		float 	fSlow257 = (0.007874015748031496f * (127.0f - min((float)99, (float(fentry81) + fSlow246))));
 		float 	fSlow258 = powf((0.014705882352941176f * (float((fSlow255 >= 30.0f)) * min((fSlow255 + -30.0f), (float)68))),1.8f);
 		float 	fSlow259 = powf((0.010101010101010102f * min((float)99, fSlow255)),0.69999999999999996f);
-		float 	fSlow260 = max(0.001f, fabsf((((iSlow256)?max(0.0030000000000000001f, (38.0f * faustpower<12>(fSlow257))):max(0.0080000000000000002f, (318.0f * powf(fSlow257,12.6f)))) * (((iSlow256)?fSlow250:fSlow251) - ((iSlow256)?fSlow258:fSlow259)))));
+		float 	fSlow260 = max(0.001f, fabsf((((iSlow256)?max(0.0030000000000000001f, (38.0f * faustpower<12>(fSlow257))):max(0.0080000000000000002f, (318.0f * powf(fSlow257,12.6f)))) * (((iSlow256)?fSlow248:fSlow249) - ((iSlow256)?fSlow258:fSlow259)))));
 		float 	fSlow261 = float(fentry82);
 		float 	fSlow262 = ((fSlow236 * fSlow261) * fSlow239);
 		int 	iSlow263 = int((fSlow262 > fSlow255));
@@ -1264,15 +1264,15 @@ class synth_dx7 : public synth_dx7_dsp {
 		float 	fSlow267 = (fSlow260 + max(0.001f, fabsf((((iSlow263)?max(0.0030000000000000001f, (38.0f * faustpower<12>(fSlow264))):max(0.0080000000000000002f, (318.0f * powf(fSlow264,12.6f)))) * (((iSlow263)?fSlow265:fSlow266) - ((iSlow263)?fSlow258:fSlow259))))));
 		int 	iSlow268 = int((fSlow240 > fSlow262));
 		float 	fSlow269 = (0.007874015748031496f * (127.0f - min((float)99, (float(fentry84) + fSlow246))));
-		float 	fSlow270 = (fSlow267 + max(0.001f, fabsf((((iSlow268)?max(0.0030000000000000001f, (38.0f * faustpower<12>(fSlow269))):max(0.0080000000000000002f, (318.0f * powf(fSlow269,12.6f)))) * (((iSlow268)?fSlow265:fSlow266) - ((iSlow268)?fSlow248:fSlow249))))));
+		float 	fSlow270 = (fSlow267 + max(0.001f, fabsf((((iSlow268)?max(0.0030000000000000001f, (38.0f * faustpower<12>(fSlow269))):max(0.0080000000000000002f, (318.0f * powf(fSlow269,12.6f)))) * (((iSlow268)?fSlow265:fSlow266) - ((iSlow268)?fSlow250:fSlow251))))));
 		float 	fSlow271 = (fConst0 * fSlow270);
 		float 	fSlow272 = (fConst0 * fSlow267);
 		int 	iTemp21 = iTempPerm21;
 		float 	fSlow273 = (fConst0 * fSlow260);
 		int 	iTemp22 = iTempPerm22;
 		float 	fSlow274 = (fSlow236 * fSlow239);
-		float 	fSlow275 = (fConst1 * (fSlow254 - fSlow241));
-		float 	fSlow276 = (0 - (fSlow274 * (fSlow254 - fSlow261)));
+		float 	fSlow275 = (fConst1 * (0 - (fSlow274 * (fSlow241 - fSlow254))));
+		float 	fSlow276 = (fSlow261 - fSlow254);
 		float 	fSlow277 = (0 - (fConst0 * (fSlow260 - fSlow267)));
 		float 	fSlow278 = (0 - (fSlow274 * (fSlow261 - fSlow237)));
 		float 	fSlow279 = (0 - (fConst0 * (fSlow267 - fSlow270)));
@@ -1288,12 +1288,12 @@ class synth_dx7 : public synth_dx7_dsp {
 		FAUSTFLOAT* output0 = output[0];
 		//LoopGraphScalar
 		for (int i=0; i<count; i++) {
-			if ((iSlow1 || iSlow25)) {
+			if ((iSlow25 || iSlow1)) {
 				fRec0[0] = ((iSlow4)?0.0f:min(fSlow24, (fRec0[1] + 1.0f)));
 				fRec2[0] = ((iSlow28)?0.0f:min(fSlow46, (fRec2[1] + 1.0f)));
 				iTemp0 = int((fRec2[0] < fSlow47));
 				iTemp1 = int((fRec2[0] < fSlow48));
-				fRec1[0] = ((iSlow26)?(fSlow27 * ((iTemp0)?((iTemp1)?((int((fRec2[0] < 0.0f)))?fSlow12:((iTemp1)?(fSlow12 + (fSlow50 * (fRec2[0] / fSlow35))):fSlow30)):((iTemp0)?(fSlow30 + (fSlow51 * ((fRec2[0] - fSlow48) / fSlow52))):fSlow37)):((int((fRec2[0] < fSlow46)))?(fSlow49 * (fSlow36 + (fSlow53 * ((fRec2[0] - fSlow47) / fSlow54)))):fSlow10))):fRec1[1]);
+				fRec1[0] = ((iSlow26)?(fSlow27 * ((iTemp0)?((iTemp1)?((int((fRec2[0] < 0.0f)))?fSlow12:((iTemp1)?(fSlow49 * (fSlow11 + (fSlow50 * (fRec2[0] / fSlow35)))):fSlow30)):((iTemp0)?(fSlow30 + (fSlow51 * ((fRec2[0] - fSlow48) / fSlow52))):fSlow37)):((int((fRec2[0] < fSlow46)))?(fSlow37 + (fSlow53 * ((fRec2[0] - fSlow47) / fSlow54))):fSlow10))):fRec1[1]);
 				fTemp2 = faustpower<8>((0.01020408163265306f * min((float)98, ((int((fRec0[0] < 0.0f)))?fRec1[0]:((int((fRec0[0] < fSlow24)))?(fRec1[0] + (fConst1 * ((fRec0[0] * (fSlow12 - fRec1[0])) / fSlow23))):fSlow12)))));
 				fTemp3 = (fRec4[1] + fSlow55);
 				fRec4[0] = (fTemp3 - floorf(fTemp3));
@@ -1301,7 +1301,7 @@ class synth_dx7 : public synth_dx7_dsp {
 				fRec7[0] = ((iSlow28)?0.0f:min(fSlow91, (fRec7[1] + 1.0f)));
 				iTemp4 = int((fRec7[0] < fSlow92));
 				iTemp5 = int((fRec7[0] < fSlow93));
-				fRec6[0] = ((iSlow26)?(fSlow27 * ((iTemp4)?((iTemp5)?((int((fRec7[0] < 0.0f)))?fSlow62:((iTemp5)?(fSlow62 + (fSlow95 * (fRec7[0] / fSlow80))):fSlow75)):((iTemp4)?(fSlow75 + (fSlow96 * ((fRec7[0] - fSlow93) / fSlow97))):fSlow82)):((int((fRec7[0] < fSlow91)))?(fSlow94 * (fSlow81 + (fSlow98 * ((fRec7[0] - fSlow92) / fSlow99)))):fSlow60))):fRec6[1]);
+				fRec6[0] = ((iSlow26)?(fSlow27 * ((iTemp4)?((iTemp5)?((int((fRec7[0] < 0.0f)))?fSlow62:((iTemp5)?(fSlow94 * (fSlow61 + (fSlow95 * (fRec7[0] / fSlow80)))):fSlow75)):((iTemp4)?(fSlow75 + (fSlow96 * ((fRec7[0] - fSlow93) / fSlow97))):fSlow82)):((int((fRec7[0] < fSlow91)))?(fSlow82 + (fSlow98 * ((fRec7[0] - fSlow92) / fSlow99))):fSlow60))):fRec6[1]);
 				fTemp6 = faustpower<8>((0.01020408163265306f * min((float)98, ((int((fRec5[0] < 0.0f)))?fRec6[0]:((int((fRec5[0] < fSlow73)))?(fRec6[0] + (fConst1 * ((fRec5[0] * (fSlow62 - fRec6[0])) / fSlow72))):fSlow62)))));
 				fTemp7 = (fRec8[1] + fSlow100);
 				fRec8[0] = (fTemp7 - floorf(fTemp7));
@@ -1334,7 +1334,7 @@ class synth_dx7 : public synth_dx7_dsp {
 				fRec24[0] = ((iSlow28)?0.0f:min(fSlow271, (fRec24[1] + 1.0f)));
 				iTemp21 = int((fRec24[0] < fSlow272));
 				iTemp22 = int((fRec24[0] < fSlow273));
-				fRec23[0] = ((iSlow26)?(fSlow27 * ((iTemp21)?((iTemp22)?((int((fRec24[0] < 0.0f)))?fSlow242:((iTemp22)?(fSlow274 * (fSlow241 + (fSlow275 * (fRec24[0] / fSlow260)))):fSlow255)):((iTemp21)?(fSlow255 + (fSlow276 * ((fRec24[0] - fSlow273) / fSlow277))):fSlow262)):((int((fRec24[0] < fSlow271)))?(fSlow262 + (fSlow278 * ((fRec24[0] - fSlow272) / fSlow279))):fSlow240))):fRec23[1]);
+				fRec23[0] = ((iSlow26)?(fSlow27 * ((iTemp21)?((iTemp22)?((int((fRec24[0] < 0.0f)))?fSlow242:((iTemp22)?(fSlow242 + (fSlow275 * (fRec24[0] / fSlow260))):fSlow255)):((iTemp21)?(fSlow274 * (fSlow254 + (fSlow276 * ((fRec24[0] - fSlow273) / fSlow277)))):fSlow262)):((int((fRec24[0] < fSlow271)))?(fSlow262 + (fSlow278 * ((fRec24[0] - fSlow272) / fSlow279))):fSlow240))):fRec23[1]);
 				fTemp23 = faustpower<8>((0.01020408163265306f * min((float)98, ((int((fRec22[0] < 0.0f)))?fRec23[0]:((int((fRec22[0] < fSlow253)))?(fRec23[0] + (fConst1 * ((fRec22[0] * (fSlow242 - fRec23[0])) / fSlow252))):fSlow242)))));
 				fTemp24 = (fRec25[1] + fSlow280);
 				fRec25[0] = (fTemp24 - floorf(fTemp24));
@@ -1356,7 +1356,7 @@ class synth_dx7 : public synth_dx7_dsp {
 			if (iSlow1) {
 				fRec21[1] = fRec21[0];
 			}
-			if ((iSlow1 || iSlow25)) {
+			if ((iSlow25 || iSlow1)) {
 				fRec25[1] = fRec25[0];
 				fRec23[1] = fRec23[0];
 				fRec24[1] = fRec24[0];
