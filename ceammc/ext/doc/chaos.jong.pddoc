@@ -32,17 +32,21 @@
             <argument type="float" name="C">c-value (default 2.4)</argument>
             <argument type="float" name="D">d-value (default -2.1)</argument>
             <argument type="float" name="X">x init value (default 0)</argument>
-            <argument type="float" name="Y">x init value (default 0)</argument>
+            <argument type="float" name="Y">y init value (default 0)</argument>
         </arguments>
         <methods>
             <method name="reset">set to initial state</method>
-            <method name="set">set A B C D E X Y values</method>
-            <method name="a">set a-value</method>
-            <method name="b">set b-value</method>
-            <method name="c">set c-value</method>
-            <method name="d">set d-value</method>
-            <method name="x">set current x-value</method>
-            <method name="y">set current y-value</method>
+            <method name="set">set A B C D E X Y values. Also updates init state vars.</method>
+            <method name="a">set a-value, does not not change init state value</method>
+            <method name="b">set b-value, does not not change init state value</method>
+            <method name="c">set c-value, does not not change init state value</method>
+            <method name="d">set d-value, does not not change init state value</method>
+            <method name="x">set current x-value, does not not change init state value</method>
+            <method name="y">set current y-value, does not not change init state value</method>
+            <method name="om">turn on/off method output mode. If true (1) outputs new generated value after each a,b,d,e,x,y method call,
+            if 0 - change values without output. Default is 0.
+            <param name="BOOL" type="int" required="true">output mode</param>
+            </method>
         </methods>
         <inlets>
             <inlet>
