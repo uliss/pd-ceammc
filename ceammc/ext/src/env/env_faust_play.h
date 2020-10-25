@@ -21,12 +21,12 @@ namespace ceammc {
 
 template <class T>
 class EnvAutoplay : public T {
-    ClockMemberFunction<EnvAutoplay<T>> auto_play_clock_;
+    ClockLambdaFunction auto_play_clock_;
 
 public:
     EnvAutoplay(const PdArgs& args)
         : T(args)
-        , auto_play_clock_(this, &EnvAutoplay<T>::playDone)
+        , auto_play_clock_([this]() { sendGate(0); })
     {
     }
 
@@ -47,10 +47,6 @@ public:
     }
 
 private:
-    void playDone()
-    {
-        sendGate(0);
-    }
 
     void sendReset()
     {

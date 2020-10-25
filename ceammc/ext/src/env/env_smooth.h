@@ -619,6 +619,7 @@ class env_smooth : public env_smooth_dsp {
 	
 	virtual void buildUserInterface(UI* ui_interface) {
 		ui_interface->openVerticalBox("env_smooth");
+		ui_interface->declare(&fHslider0, "unit", "ms");
 		ui_interface->addHorizontalSlider("duration", &fHslider0, 100.0f, 0.0f, 100000.0f, 1.0f);
 		ui_interface->addCheckButton("gate", &fCheckbox0);
 		ui_interface->closeBox();
@@ -627,7 +628,7 @@ class env_smooth : public env_smooth_dsp {
 	virtual void compute(int count, FAUSTFLOAT** inputs, FAUSTFLOAT** outputs) {
 		FAUSTFLOAT* input0 = inputs[0];
 		FAUSTFLOAT* output0 = outputs[0];
-		float fSlow0 = (0.00100000005f * float(fHslider0));
+		float fSlow0 = (0.000144717807f * float(fHslider0));
 		int iSlow1 = (std::fabs(fSlow0) < 1.1920929e-07f);
 		float fSlow2 = (iSlow1 ? 0.0f : std::exp((0.0f - (fConst0 / (iSlow1 ? 1.0f : fSlow0)))));
 		float fSlow3 = (float(fCheckbox0) * (1.0f - fSlow2));
