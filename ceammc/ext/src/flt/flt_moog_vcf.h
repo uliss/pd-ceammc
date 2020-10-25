@@ -1,6 +1,6 @@
 /* ------------------------------------------------------------
 name: "flt.moog_vcf"
-Code generated with Faust 2.28.1 (https://faust.grame.fr)
+Code generated with Faust 2.28.6 (https://faust.grame.fr)
 Compilation options: -lang cpp -double -ftz 0
 ------------------------------------------------------------ */
 

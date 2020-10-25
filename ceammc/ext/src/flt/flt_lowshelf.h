@@ -1,6 +1,6 @@
 /* ------------------------------------------------------------
 name: "flt.lowshelf"
-Code generated with Faust 2.28.1 (https://faust.grame.fr)
+Code generated with Faust 2.28.6 (https://faust.grame.fr)
 Compilation options: -lang cpp -scal -ftz 0
 ------------------------------------------------------------ */
 
@@ -523,7 +523,7 @@ class flt_lowshelf : public flt_lowshelf_dsp {
 	
 	void metadata(Meta* m) { 
 		m->declare("ceammc_ui.lib/name", "CEAMMC faust default UI elements");
-		m->declare("ceammc_ui.lib/version", "0.1.1");
+		m->declare("ceammc_ui.lib/version", "0.1.2");
 		m->declare("filename", "flt_lowshelf.dsp");
 		m->declare("maths.lib/author", "GRAME");
 		m->declare("maths.lib/copyright", "GRAME");
@@ -646,11 +646,11 @@ class flt_lowshelf : public flt_lowshelf_dsp {
 			float fTemp2 = std::cos(fTemp1);
 			float fTemp3 = ((fTemp0 + 1.0f) * fTemp2);
 			float fTemp4 = ((fTemp0 + -1.0f) * fTemp2);
-			float fTemp5 = (fTemp0 + fTemp4);
-			float fTemp6 = (std::sqrt(fTemp0) * std::sin(fTemp1));
-			float fTemp7 = ((fTemp6 + fTemp5) + 1.0f);
-			fRec1[0] = (float(input0[i]) - ((((0.0f - (2.0f * ((fTemp0 + fTemp3) + -1.0f))) * fRec1[1]) + ((fTemp5 + (1.0f - fTemp6)) * fRec1[2])) / fTemp7));
-			output0[i] = FAUSTFLOAT(((fTemp0 * (((fRec1[0] * ((fTemp0 + fTemp6) + (1.0f - fTemp4))) + (2.0f * (fRec1[1] * (fTemp0 + (-1.0f - fTemp3))))) + (fRec1[2] * (fTemp0 + (1.0f - (fTemp4 + fTemp6)))))) / fTemp7));
+			float fTemp5 = (std::sqrt(fTemp0) * std::sin(fTemp1));
+			float fTemp6 = (fTemp0 + fTemp5);
+			float fTemp7 = ((fTemp4 + fTemp6) + 1.0f);
+			fRec1[0] = (float(input0[i]) - ((((0.0f - (2.0f * ((fTemp0 + fTemp3) + -1.0f))) * fRec1[1]) + (((fTemp0 + fTemp4) + (1.0f - fTemp5)) * fRec1[2])) / fTemp7));
+			output0[i] = FAUSTFLOAT(((fTemp0 * (((fRec1[0] * (fTemp6 + (1.0f - fTemp4))) + (2.0f * (fRec1[1] * (fTemp0 + (-1.0f - fTemp3))))) + (fRec1[2] * (fTemp0 + (1.0f - (fTemp4 + fTemp5)))))) / fTemp7));
 			fRec0[1] = fRec0[0];
 			fRec2[1] = fRec2[0];
 			fRec1[2] = fRec1[1];

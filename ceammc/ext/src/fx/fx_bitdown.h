@@ -528,7 +528,7 @@ class fx_bitdown : public fx_bitdown_dsp {
 		m->declare("basics.lib/version", "0.1");
 		m->declare("category", "Distortion");
 		m->declare("ceammc_ui.lib/name", "CEAMMC faust default UI elements");
-		m->declare("ceammc_ui.lib/version", "0.1.1");
+		m->declare("ceammc_ui.lib/version", "0.1.2");
 		m->declare("copyright", "(c) Viacheslav Lotsmanov, 2015");
 		m->declare("filename", "fx_bitdown.dsp");
 		m->declare("license", "BSD");

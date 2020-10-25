@@ -4,7 +4,7 @@ copyright: "(c)brummer 2008"
 license: "BSD"
 name: "fx.distortion1"
 version: "0.01"
-Code generated with Faust 2.25.3 (https://faust.grame.fr)
+Code generated with Faust 2.28.6 (https://faust.grame.fr)
 Compilation options: -lang cpp -scal -ftz 0
 ------------------------------------------------------------ */
 
@@ -1010,12 +1010,12 @@ class fx_distortion1 : public fx_distortion1_dsp {
 		float fSlow30 = (0.0f - (1.0f / (fSlow27 * fSlow29)));
 		float fSlow31 = (1.0f / std::tan((fConst1 * float(fEntry3))));
 		float fSlow32 = (1.0f / (fSlow31 + 1.0f));
-		int iSlow33 = int(float(fCheckbox2));
-		float fSlow34 = (1.0f - float(fVslider7));
-		float fSlow35 = float(fVslider8);
-		int iSlow36 = int(std::min<float>(4096.0f, std::max<float>(0.0f, (fSlow35 + -1.0f))));
-		int iSlow37 = int(std::min<float>(4096.0f, std::max<float>(0.0f, fSlow35)));
-		float fSlow38 = (1.0f - fSlow31);
+		float fSlow33 = (1.0f - fSlow31);
+		int iSlow34 = int(float(fCheckbox2));
+		float fSlow35 = (1.0f - float(fVslider7));
+		float fSlow36 = float(fVslider8);
+		int iSlow37 = int(std::min<float>(4096.0f, std::max<float>(0.0f, (fSlow36 + -1.0f))));
+		int iSlow38 = int(std::min<float>(4096.0f, std::max<float>(0.0f, fSlow36)));
 		float fSlow39 = (1.0f / fSlow29);
 		float fSlow40 = (1.0f - fSlow28);
 		float fSlow41 = (1.0f - fSlow5);
@@ -1064,14 +1064,14 @@ class fx_distortion1 : public fx_distortion1_dsp {
 			fRec6[0] = (fSlow7 + (0.999000013f * fRec6[1]));
 			fRec7[0] = (fSlow8 + (0.999000013f * fRec7[1]));
 			float fTemp0 = float(input0[i]);
-			float fTemp1 = (fTemp0 + (fSlow34 * fRec19[1]));
+			float fTemp1 = (fTemp0 + (fSlow35 * fRec19[1]));
 			fVec1[0] = fTemp1;
-			fRec19[0] = (0.5f * (fVec1[iSlow36] + fVec1[iSlow37]));
-			float fTemp2 = ((iSlow33 ? fRec19[0] : fTemp0) + fRec4[0]);
+			fRec19[0] = (0.5f * (fVec1[iSlow37] + fVec1[iSlow38]));
+			float fTemp2 = ((iSlow34 ? fRec19[0] : fTemp0) + fRec4[0]);
 			float fTemp3 = (fRec4[0] + (iSlow26 ? 0.0f : fTemp2));
 			fVec2[0] = fTemp3;
-			fRec18[0] = (fSlow32 * ((fTemp3 + fVec2[1]) - (fSlow38 * fRec18[1])));
-			fRec17[0] = ((fSlow30 * fRec18[1]) + (fSlow39 * ((fSlow28 * fRec18[0]) - (fSlow40 * fRec17[1]))));
+			fRec18[0] = (0.0f - (fSlow32 * ((fSlow33 * fRec18[1]) - (fTemp3 + fVec2[1]))));
+			fRec17[0] = ((fSlow30 * fRec18[1]) - (fSlow39 * ((fSlow40 * fRec17[1]) - (fSlow28 * fRec18[0]))));
 			float fTemp4 = (iSlow26 ? fTemp2 : fRec17[0]);
 			float fTemp5 = (fRec4[0] + (iSlow0 ? 0.0f : fTemp4));
 			fVec3[0] = (fSlow6 * fTemp5);
@@ -1108,7 +1108,7 @@ class fx_distortion1 : public fx_distortion1_dsp {
 			fRec30[0] = (0.0f - (fSlow71 * ((fSlow72 * fRec30[1]) - (fTemp12 + fVec7[1]))));
 			fRec29[0] = (fRec30[0] - (fSlow74 * ((fSlow75 * fRec29[2]) + (fSlow76 * fRec29[1]))));
 			float fTemp14 = std::max<float>(-1.0f, std::min<float>(1.0f, (fSlow9 + (fSlow79 * (fRec29[2] + (fRec29[0] + (2.0f * fRec29[1])))))));
-			fRec5[0] = ((fRec6[0] * (((fRec7[0] * fTemp9) * (1.0f - (0.333333343f * fx_distortion1_faustpower2_f(fTemp9)))) + (((fRec20[0] * fTemp10) * (1.0f - (0.333333343f * fx_distortion1_faustpower2_f(fTemp10)))) + (((fRec23[0] * fTemp13) * (1.0f - (0.333333343f * fx_distortion1_faustpower2_f(fTemp13)))) + ((fRec28[0] * fTemp14) * (1.0f - (0.333333343f * fx_distortion1_faustpower2_f(fTemp14)))))))) - (fConst7 * ((fConst10 * fRec5[2]) + (fConst11 * fRec5[1]))));
+			fRec5[0] = ((fRec6[0] * (((fRec7[0] * fTemp9) * (1.0f - (0.333333343f * fx_distortion1_faustpower2_f(fTemp9)))) + ((((fRec20[0] * fTemp10) * (1.0f - (0.333333343f * fx_distortion1_faustpower2_f(fTemp10)))) + ((fRec23[0] * fTemp13) * (1.0f - (0.333333343f * fx_distortion1_faustpower2_f(fTemp13))))) + ((fRec28[0] * fTemp14) * (1.0f - (0.333333343f * fx_distortion1_faustpower2_f(fTemp14))))))) - (fConst7 * ((fConst10 * fRec5[2]) + (fConst11 * fRec5[1]))));
 			float fTemp15 = (fConst7 * (((fConst9 * fRec5[1]) + (fConst12 * fRec5[0])) + (fConst13 * fRec5[2])));
 			float fTemp16 = (fRec4[0] + (iSlow0 ? 0.0f : fTemp15));
 			fVec8[0] = (fSlow6 * fTemp16);

@@ -1,6 +1,6 @@
 /* ------------------------------------------------------------
 name: "flt.notch"
-Code generated with Faust 2.28.1 (https://faust.grame.fr)
+Code generated with Faust 2.28.6 (https://faust.grame.fr)
 Compilation options: -lang cpp -scal -ftz 0
 ------------------------------------------------------------ */
 
@@ -528,7 +528,7 @@ class flt_notch : public flt_notch_dsp {
 	
 	void metadata(Meta* m) { 
 		m->declare("ceammc_ui.lib/name", "CEAMMC faust default UI elements");
-		m->declare("ceammc_ui.lib/version", "0.1.1");
+		m->declare("ceammc_ui.lib/version", "0.1.2");
 		m->declare("filename", "flt_notch.dsp");
 		m->declare("filters.lib/fir:author", "Julius O. Smith III");
 		m->declare("filters.lib/fir:copyright", "Copyright (C) 2003-2019 by Julius O. Smith III <jos@ccrma.stanford.edu>");

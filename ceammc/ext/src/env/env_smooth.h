@@ -1,6 +1,6 @@
 /* ------------------------------------------------------------
 name: "env_smooth"
-Code generated with Faust 2.25.3 (https://faust.grame.fr)
+Code generated with Faust 2.28.6 (https://faust.grame.fr)
 Compilation options: -lang cpp -scal -ftz 0
 ------------------------------------------------------------ */
 
@@ -525,7 +525,7 @@ class env_smooth : public env_smooth_dsp {
 		m->declare("ceammc.lib/name", "Ceammc PureData misc utils");
 		m->declare("ceammc.lib/version", "0.1.1");
 		m->declare("ceammc_ui.lib/name", "CEAMMC faust default UI elements");
-		m->declare("ceammc_ui.lib/version", "0.1.1");
+		m->declare("ceammc_ui.lib/version", "0.1.2");
 		m->declare("envelopes.lib/author", "GRAME");
 		m->declare("envelopes.lib/copyright", "GRAME");
 		m->declare("envelopes.lib/license", "LGPL with exception");

@@ -1,6 +1,6 @@
 /* ------------------------------------------------------------
 name: "flt_c_lpf"
-Code generated with Faust 2.28.1 (https://faust.grame.fr)
+Code generated with Faust 2.28.6 (https://faust.grame.fr)
 Compilation options: -lang cpp -scal -ftz 0
 ------------------------------------------------------------ */
 
@@ -522,7 +522,7 @@ class flt_c_lpf : public flt_c_lpf_dsp {
 	
 	void metadata(Meta* m) { 
 		m->declare("ceammc_ui.lib/name", "CEAMMC faust default UI elements");
-		m->declare("ceammc_ui.lib/version", "0.1.1");
+		m->declare("ceammc_ui.lib/version", "0.1.2");
 		m->declare("filename", "flt_c_lpf.dsp");
 		m->declare("maths.lib/author", "GRAME");
 		m->declare("maths.lib/copyright", "GRAME");
