@@ -32,7 +32,7 @@
 #X msg 110 537 @all_of;
 #X text 245 537 Get/Set all_of mode \, output 1 is input list contains
 all of this property values. Type: list.;
-#X msg 110 579 @all_of;
+#X msg 110 579 @any_of;
 #X text 245 579 Get/Set any_of mode \, output 1 is input list contains
 any (al least one) of this property values. Type: list.;
 #X msg 110 621 @none_of;
