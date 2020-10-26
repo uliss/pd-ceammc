@@ -28,24 +28,31 @@ TEST_CASE("list.^contains", "[externals]")
             TObj t("list.^contains");
             REQUIRE(t.numInlets() == 2);
             REQUIRE(t.numOutlets() == 1);
+            REQUIRE_PROPERTY_LIST(t, @value, L());
         }
 
         SECTION("args")
         {
             TObj t("list.^contains", LF(1, 2));
-            REQUIRE_PROPERTY(t, @subj, 1, 2);
+            REQUIRE_PROPERTY(t, @value, 1, 2);
         }
 
         SECTION("spaces and quotes")
         {
             TObj t("list.^contains", LA("\"a b c\""));
-            REQUIRE_PROPERTY(t, @subj, "a b c");
+            REQUIRE_PROPERTY(t, @value, "a b c");
         }
 
         SECTION("args mlist")
         {
             TObj t("list.^contains", AtomList::parseString("(1 2 3 (4 5 6))"));
-            REQUIRE_PROPERTY(t, @subj, MListAtom(*DataTypeMList::parse("( 1 2 3 ( 4 5 6 ) )")));
+            REQUIRE_PROPERTY(t, @value, MListAtom(*DataTypeMList::parse("( 1 2 3 ( 4 5 6 ) )")));
+        }
+
+        SECTION("args props")
+        {
+            TObj t("list.^contains", AtomList::parseString("\"@b\" \"@c\""));
+            REQUIRE_PROPERTY(t, @value, LA("@b", "@c"));
         }
     }
 
@@ -174,9 +181,9 @@ TEST_CASE("list.^contains", "[externals]")
     SECTION("inlet 2")
     {
         TExt t("list.^contains", 1, 2, 3);
-        REQUIRE_PROPERTY(t, @subj, 1, 2, 3);
+        REQUIRE_PROPERTY(t, @value, 1, 2, 3);
 
         t.sendSymbolTo("ABC", 1);
-        REQUIRE_PROPERTY(t, @subj, "ABC");
+        REQUIRE_PROPERTY(t, @value, "ABC");
     }
 }

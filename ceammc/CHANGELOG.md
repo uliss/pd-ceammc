@@ -74,6 +74,7 @@
 - flow.multiplex:
    - additional inlet added to choose input
    - setting property only via prop.set object
+- list.^contains @subj property renamed to @value
 
 ### Fixed:
 - data.float creation arg fix

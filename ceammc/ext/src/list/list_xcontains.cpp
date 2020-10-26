@@ -19,13 +19,13 @@
 
 ListXContains::ListXContains(const PdArgs& args)
     : BaseObject(args)
-    , lst_(parseDataList(args.args))
+//    , lst_(parseDataList(args.args))
 {
     createInlet();
     createOutlet();
 
     createCbListProperty(
-        "@subj",
+        "@value",
         [this]() -> AtomList { return lst_; },
         [this](const AtomList& l) -> bool { onInlet(1, l); return true; })
         ->setArgIndex(0);

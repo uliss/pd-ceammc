@@ -728,7 +728,7 @@
     <entry name="list.^at" descr="on input index(es) outputs list element(s)" ref_view="object">
       <xi:include href="list.%5Eat.pddoc" parse="xml"/>
     </entry>
-    <entry name="list.^contains" descr="on input atom or list checks if specified list contains it" ref_view="object">
+    <entry name="list.^contains" descr="checks if input atom is found in the list" ref_view="object">
       <xi:include href="list.%5Econtains.pddoc" parse="xml"/>
     </entry>
     <entry name="list.^search" descr="on input atom returns it index in list" ref_view="object">
