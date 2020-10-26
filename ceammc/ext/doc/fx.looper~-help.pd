@@ -41,7 +41,7 @@ to play. Type: float. Units: ms. Default value: 20\. Min value: 0\.;
 to stop. Type: float. Units: ms. Default value: 20\. Min value: 0\.;
 #X msg 110 604 @length;
 #X text 245 604 (readonly) Get recorded loop length. Type: float. Units:
-sec. Min value: 0\.;
+sec. Default value: 0\. Min value: 0\.;
 #X msg 110 646 @loop_bang;
 #X text 245 646 Get/Set output bang on each loop start. Type: int.
 Default value: 0\. Allowed values: 0 \, 1\.;
@@ -51,10 +51,10 @@ loop for smooth playing. Type: float. Units: ms. Default value: 10\.
 Min value: 0\.;
 #X msg 110 745 @play_phase;
 #X text 245 745 (readonly) Get current playing phase position. Type:
-float. Range: 0\...1\.;
+float. Default value: 0\. Range: 0\...1\.;
 #X msg 110 787 @play_pos;
 #X text 245 787 (readonly) Get current playing position. Type: float.
-Units: sec. Min value: 0\.;
+Units: sec. Default value: 0\. Min value: 0\.;
 #X msg 110 829 @play_to_dub_time;
 #X text 245 829 Get/Set fadein time of overdub input signal while transition
 from play mode. Type: float. Units: ms. Default value: 10\. Min value:
@@ -71,8 +71,8 @@ transition from record to play. Type: float. Units: ms. Default value:
 value. If *0* - no rounding is performed. Type: int. Units: samp. Default
 value: 0\. Min value: 0\.;
 #X msg 110 1042 @state;
-#X text 245 1042 (readonly) Get current state. Type: symbol. Allowed
-values: init \, stop \, record \, play \, overdub.;
+#X text 245 1042 (readonly) Get current state. Type: symbol. Default
+value: init. Allowed values: init \, stop \, record \, play \, overdub.;
 #X msg 110 1084 @stop_to_play_time;
 #X text 245 1084 Get/Set fadein time of play while transition from
 stop. Type: float. Units: ms. Default value: 10\. Min value: 0\.;

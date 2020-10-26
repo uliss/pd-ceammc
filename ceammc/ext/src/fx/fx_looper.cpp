@@ -101,6 +101,7 @@ FxLooper::FxLooper(const PdArgs& args)
 
     loop_smooth_ms_ = new FloatProperty("@loop_smooth", 10);
     loop_smooth_ms_->checkMinEq(0);
+    loop_smooth_ms_->setUnits(PropValueUnits::MSEC);
     addProperty(loop_smooth_ms_);
 
     x_play_to_stop_ = new LinFadeoutProperty("@play_to_stop_time", 10);
@@ -122,12 +123,16 @@ FxLooper::FxLooper(const PdArgs& args)
     addProperty(x_dub_to_stop_);
 
     round_ = new IntProperty("@round", 0);
+    round_->setUnits(PropValueUnits::SAMP);
     addProperty(round_);
 
     {
         Property* p = createCbFloatProperty(
             "@length",
-            [this]() -> t_float { return loop_len_ / sys_getsr(); });
+            [this]() -> t_float {
+                const auto sr = sys_getsr();
+                return sr > 0 ? (loop_len_ / sr) : 0;
+            });
         p->setUnitsSec();
         p->checkNonNegative();
     }
@@ -135,7 +140,10 @@ FxLooper::FxLooper(const PdArgs& args)
     {
         Property* p = createCbFloatProperty(
             "@play_pos",
-            [this]() -> t_float { return play_phase_ / sys_getsr(); });
+            [this]() -> t_float {
+                const auto sr = sys_getsr();
+                return sr > 0 ? (play_phase_ / sys_getsr()) : 0;
+            });
         p->setUnitsSec();
         p->checkNonNegative();
     }
@@ -147,29 +155,36 @@ FxLooper::FxLooper(const PdArgs& args)
         p->setFloatCheck(PropValueConstraints::CLOSED_RANGE, 0, 1);
     }
 
-    createCbSymbolProperty("@state",
-        [this]() -> t_symbol* {
-            static t_symbol* states[] = {
-                gensym("init"),
-                gensym("record"),
-                gensym("rec->play"),
-                gensym("rec->stop"),
-                gensym("rec->dub"),
-                gensym("overdub"),
-                gensym("dub->stop"),
-                gensym("dub->play"),
-                gensym("pause"),
-                gensym("play"),
-                gensym("play->stop"),
-                gensym("play->dub"),
-                gensym("stop"),
-                gensym("stop->play")
-            };
+    {
+        Property* p = createCbSymbolProperty("@state",
+            [this]() -> t_symbol* {
+                static t_symbol* states[] = {
+                    gensym("init"),
+                    gensym("record"),
+                    gensym("rec->play"),
+                    gensym("rec->stop"),
+                    gensym("rec->dub"),
+                    gensym("overdub"),
+                    gensym("dub->stop"),
+                    gensym("dub->play"),
+                    gensym("pause"),
+                    gensym("play"),
+                    gensym("play->stop"),
+                    gensym("play->dub"),
+                    gensym("stop"),
+                    gensym("stop->play")
+                };
 
-            static_assert((sizeof(states) / sizeof(states[0])) == (STATE_COUNT_), "invalid state count");
+                static_assert((sizeof(states) / sizeof(states[0])) == (STATE_COUNT_), "invalid state count");
 
-            return states[state_];
-        });
+                return states[state_];
+            });
+
+        p->infoT().setConstraints(PropValueConstraints::ENUM);
+        auto rc = p->infoT().addEnums({ "init", "stop", "record", "play", "overdub" });
+        if (rc)
+            OBJ_ERR << "can't set enum values";
+    }
 
     array_name_ = new SymbolProperty("@array", &s_);
     addProperty(array_name_);
