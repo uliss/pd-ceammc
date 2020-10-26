@@ -321,7 +321,7 @@ lfo.saw~	Full-range unit-amplitude low frequency saw
 lfo.square~	Zero-mean unit-amplitude low frequency square wave
 lfo.tri~	Zero-mean unit-amplitude low frequency triangle wave
 list.^at	on input index(es) outputs list element(s)
-list.^contains	on input atom or list checks if specified list contains it
+list.^contains	checks if input atom is found in the list
 list.^search	on input atom returns it index in list
 list.all_of	checks if all list atoms accepted by predicate
 list.any_of	checks if at least one list element is accepted by predicate
