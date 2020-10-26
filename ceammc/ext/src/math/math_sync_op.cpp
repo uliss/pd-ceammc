@@ -56,6 +56,8 @@ MathSyncEqual::MathSyncEqual(const PdArgs& args)
     epsilon_ = new FloatProperty("@epsilon", 0);
     epsilon_->checkMinEq(0);
     addProperty(epsilon_);
+
+    prop_int_->setInternal();
 }
 
 MathSyncNotEqual::MathSyncNotEqual(const PdArgs& args)
@@ -71,26 +73,32 @@ MathSyncNotEqual::MathSyncNotEqual(const PdArgs& args)
     epsilon_ = new FloatProperty("@epsilon");
     epsilon_->checkMinEq(0);
     addProperty(epsilon_);
+
+    prop_int_->setInternal();
 }
 
 MathSyncLessThen::MathSyncLessThen(const PdArgs& args)
     : MathSyncBase([](t_float v1, t_float v2) { return v1 < v2; }, args)
 {
+    prop_int_->setInternal();
 }
 
 MathSyncLessEqual::MathSyncLessEqual(const PdArgs& args)
     : MathSyncBase([](t_float v1, t_float v2) { return v1 <= v2; }, args)
 {
+    prop_int_->setInternal();
 }
 
 MathSyncGreaterThen::MathSyncGreaterThen(const PdArgs& args)
     : MathSyncBase([](t_float v1, t_float v2) { return v1 > v2; }, args)
 {
+    prop_int_->setInternal();
 }
 
 MathSyncGreaterEqual::MathSyncGreaterEqual(const PdArgs& args)
     : MathSyncBase([](t_float v1, t_float v2) { return v1 >= v2; }, args)
 {
+    prop_int_->setInternal();
 }
 
 MathSyncMod::MathSyncMod(const PdArgs& args)
