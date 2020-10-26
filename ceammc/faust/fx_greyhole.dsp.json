@@ -67,6 +67,9 @@
 					"type": "hslider",
 					"label": "delaytime",
 					"address": "/fx.greyhole/delaytime",
+					"meta": [
+						{ "unit": "sec" }
+					],
 					"init": 0.2,
 					"min": 0.001,
 					"max": 1.45,

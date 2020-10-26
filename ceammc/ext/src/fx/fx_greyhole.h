@@ -1358,6 +1358,7 @@ class fx_greyhole : public fx_greyhole_dsp {
 		ui_interface->openVerticalBox("fx.greyhole");
 		ui_interface->addCheckButton("bypass", &fCheckbox0);
 		ui_interface->addHorizontalSlider("damping", &fHslider1, 0.0f, 0.0f, 0.99000001f, 0.00100000005f);
+		ui_interface->declare(&fHslider4, "unit", "sec");
 		ui_interface->addHorizontalSlider("delaytime", &fHslider4, 0.200000003f, 0.00100000005f, 1.45000005f, 9.99999975e-05f);
 		ui_interface->addHorizontalSlider("diffusion", &fHslider2, 0.5f, 0.0f, 0.99000001f, 9.99999975e-05f);
 		ui_interface->declare(&fHslider0, "style", "knob");
@@ -1554,7 +1555,7 @@ class fx_greyhole : public fx_greyhole_dsp {
 			float fTemp65 = fVec18[((IOTA - std::min<int>(8192, std::max<int>(0, int(fTemp64)))) & 16383)];
 			fVec19[0] = fTemp65;
 			float fTemp66 = std::floor(fTemp64);
-			fRec53[0] = (fVec19[1] - (((fTemp66 + (2.0f - fRec54[0])) * (fRec53[1] - fTemp65)) / (fRec54[0] - fTemp66)));
+			fRec53[0] = (fVec19[1] + (((fTemp66 + (2.0f - fRec54[0])) * (fTemp65 - fRec53[1])) / (fRec54[0] - fTemp66)));
 			fRec32[0] = fRec53[0];
 			fVec20[(IOTA & 16383)] = (0.0f - ((fTemp5 * fRec32[1]) + (fTemp31 * fTemp32)));
 			fRec55[0] = (fSlow25 + (0.999000013f * (fRec55[1] + float((iSlow24 * iTemp17)))));
@@ -1583,7 +1584,7 @@ class fx_greyhole : public fx_greyhole_dsp {
 			float fTemp79 = fVec24[((IOTA - std::min<int>(8192, std::max<int>(0, int(fTemp78)))) & 16383)];
 			fVec25[0] = fTemp79;
 			float fTemp80 = std::floor(fTemp78);
-			fRec27[0] = (fVec25[1] - (((fTemp80 + (2.0f - fRec58[0])) * (fRec27[1] - fTemp79)) / (fRec58[0] - fTemp80)));
+			fRec27[0] = (fVec25[1] + (((fTemp80 + (2.0f - fRec58[0])) * (fTemp79 - fRec27[1])) / (fRec58[0] - fTemp80)));
 			fRec25[0] = fRec27[0];
 			float fTemp81 = ((fRec28[1] * fTemp5) + (fTemp31 * fTemp48));
 			float fTemp82 = ((fTemp81 * fTemp7) - (fTemp74 * fRec16[1]));
@@ -1619,7 +1620,7 @@ class fx_greyhole : public fx_greyhole_dsp {
 			float fTemp95 = fVec32[((IOTA - std::min<int>(8192, std::max<int>(0, int(fTemp94)))) & 16383)];
 			fVec33[0] = fTemp95;
 			float fTemp96 = std::floor(fTemp94);
-			fRec21[0] = (fVec33[1] - (((fTemp96 + (2.0f - fRec64[0])) * (fRec21[1] - fTemp95)) / (fRec64[0] - fTemp96)));
+			fRec21[0] = (fVec33[1] + (((fTemp96 + (2.0f - fRec64[0])) * (fTemp95 - fRec21[1])) / (fRec64[0] - fTemp96)));
 			fRec19[0] = fRec21[0];
 			fVec34[(IOTA & 16383)] = ((fRec22[1] * fTemp7) + (fTemp74 * fTemp83));
 			fRec66[0] = (fSlow42 + (0.999000013f * (fRec66[1] + float((iSlow41 * iTemp17)))));
@@ -1667,7 +1668,7 @@ class fx_greyhole : public fx_greyhole_dsp {
 			float fTemp118 = fVec42[((IOTA - std::min<int>(8192, std::max<int>(0, int(fTemp117)))) & 16383)];
 			fVec43[0] = fTemp118;
 			float fTemp119 = std::floor(fTemp117);
-			fRec71[0] = (fVec43[1] - (((fTemp119 + (2.0f - fRec72[0])) * (fRec71[1] - fTemp118)) / (fRec72[0] - fTemp119)));
+			fRec71[0] = (fVec43[1] + (((fTemp119 + (2.0f - fRec72[0])) * (fTemp118 - fRec71[1])) / (fRec72[0] - fTemp119)));
 			fRec14[0] = fRec71[0];
 			fVec44[(IOTA & 16383)] = (0.0f - ((fTemp5 * fRec14[1]) + (fTemp31 * fTemp109)));
 			fRec73[0] = (fSlow55 + (0.999000013f * (fRec73[1] + float((iSlow54 * iTemp17)))));
@@ -1707,7 +1708,7 @@ class fx_greyhole : public fx_greyhole_dsp {
 			float fTemp133 = fVec52[((IOTA - std::min<int>(8192, std::max<int>(0, int(fTemp132)))) & 16383)];
 			fVec53[0] = fTemp133;
 			float fTemp134 = std::floor(fTemp132);
-			fRec6[0] = (fVec53[1] - (((fTemp134 + (2.0f - fRec79[0])) * (fRec6[1] - fTemp133)) / (fRec79[0] - fTemp134)));
+			fRec6[0] = (fVec53[1] + (((fTemp134 + (2.0f - fRec79[0])) * (fTemp133 - fRec6[1])) / (fRec79[0] - fTemp134)));
 			fRec4[0] = fRec6[0];
 			fVec54[(IOTA & 16383)] = ((fRec7[1] * fTemp5) + (fTemp31 * fTemp114));
 			fRec81[0] = (fSlow67 + (0.999000013f * (fRec81[1] + float((iSlow66 * iTemp17)))));
