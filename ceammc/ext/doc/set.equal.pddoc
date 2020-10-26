@@ -20,7 +20,8 @@
             <argument name="ARGS" type="any">right set elements</argument>
         </arguments>
         <properties>
-            <property name="@subj" type="list" default="Set()">right set elements of data:Set</property>
+            <property name="@subj" type="list" default="Set()">right set elements of
+            data:Set</property>
         </properties>
         <inlets>
             <inlet>

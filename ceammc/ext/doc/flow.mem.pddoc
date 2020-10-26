@@ -17,13 +17,15 @@
             <argument type="int" name="N">number of memory cells</argument>
         </arguments>
         <properties>
-            <property name="@n" type="int" default="1" minvalue="1" maxvalue="32">number of memory cells</property>
-            <property name="@free" type="int" default="1" enum="0 1">clear cell mode. If on - clear cell counter after zero was reached.</property>
-            <property name="@ttl" type="int" default="0" minvalue="0" maxvalue="1024">time to live counter.
-            Each time you set new value its memory cell counter is set to this. Each time memory cell is outputted
-            individual memory cell ttl counter (not this property!) is decremented until zero reached.
-            After that if @free property is on memory cell is cleared.
-            If this property equals zero memory cell never expires.</property>
+            <property name="@n" type="int" default="1" minvalue="1" maxvalue="32">number of memory
+            cells</property>
+            <property name="@free" type="int" default="1" enum="0 1">clear cell mode. If on - clear
+            cell counter after zero was reached.</property>
+            <property name="@ttl" type="int" default="0" minvalue="0" maxvalue="1024">time to live
+            counter. Each time you set new value its memory cell counter is set to this. Each time
+            memory cell is outputted individual memory cell ttl counter (not this property!) is
+            decremented until zero reached. After that if @free property is on memory cell is
+            cleared. If this property equals zero memory cell never expires.</property>
         </properties>
         <inlets dynamic="true">
             <inlet number="1">

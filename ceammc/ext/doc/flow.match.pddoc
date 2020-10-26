@@ -24,8 +24,7 @@
             expressions</argument>
         </arguments>
         <properties>
-            <property name="@patterns" type="list">list of regular
-            expressions</property>
+            <property name="@patterns" type="list">list of regular expressions</property>
             <property name="@cut" type="int" default="0" enum="0 1">cut or pass message
             selector</property>
         </properties>
