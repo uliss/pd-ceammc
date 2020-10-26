@@ -64,7 +64,7 @@
 					"meta": [
 						{ "scale": "log" },
 						{ "style": "knob" },
-						{ "unit": "s" }
+						{ "unit": "sec" }
 					],
 					"init": 3,
 					"min": 1,
@@ -78,7 +78,7 @@
 					"meta": [
 						{ "scale": "log" },
 						{ "style": "knob" },
-						{ "unit": "s" }
+						{ "unit": "sec" }
 					],
 					"init": 2,
 					"min": 1,
