@@ -19,6 +19,12 @@
         <info>
             <par>Works with data atoms</par>
         </info>
+        <arguments>
+            <argument name="LIST" type="list">appended value</argument>
+        </arguments>
+        <properties>
+            <property name="@value" type="list">append value</property>
+        </properties>
         <inlets>
             <inlet>
                 <xinfo on="bang">treated as empty input list</xinfo>
