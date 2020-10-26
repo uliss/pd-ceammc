@@ -49,9 +49,9 @@
 |   |    [str test1]   |    [str ANOTHER STRING]
 |   |    |             |    |
 |   |    |             |    |.
-[list.append @prop ABC       ]
+[list.append "@prop" ABC     ]
 |
-[ui.display @display_type=1]
+[ui.display @display_type 1]
 ]]>
             </pdascii>
         </example>
