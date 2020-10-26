@@ -24,7 +24,7 @@ ListRemove::ListRemove(const PdArgs& args)
     createOutlet();
 
     createCbListProperty(
-        "@idxs",
+        "@indexes",
         [this]() -> AtomList {
             AtomList res;
             for (auto x : idx_)

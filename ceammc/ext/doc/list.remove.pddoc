@@ -20,6 +20,9 @@
             <argument name="INDEXES" type="list">list of indexes to remove. Negative indexes are
             also supported</argument>
         </arguments>
+        <properties>
+            <property name="@indexes" type="list">indexes to remove</property>
+        </properties>
         <inlets>
             <inlet>
                 <xinfo on="list">input list</xinfo>
