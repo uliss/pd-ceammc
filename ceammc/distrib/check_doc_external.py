@@ -2,17 +2,11 @@
 
 import sys
 import signal
-
-def signal_handler(sig, frame):
-    sys.exit(0)
-
-signal.signal(signal.SIGINT, signal_handler)
-
 import argparse
 import subprocess
 import os.path
 from lxml import etree
-from termcolor import colored, cprint
+from termcolor import cprint
 import json
 
 SRC_PATH = "@PROJECT_SOURCE_DIR@/"
@@ -26,8 +20,16 @@ EXT_PROPS = BIN_PATH + "ext_props"
 
 SPECIAL_OBJ = {"function": "f"}
 
+
+def signal_handler(sig, frame):
+    sys.exit(0)
+
+
+signal.signal(signal.SIGINT, signal_handler)
+
 def read_all_externals():
     return list(filter(lambda x: len(x), subprocess.check_output([EXT_LIST], stderr=subprocess.DEVNULL).decode().split('\n')))
+
 
 def read_methods(name):
     # methods starting with @ - properties in UI objects
@@ -42,10 +44,12 @@ def read_methods(name):
             args.append(SPECIAL_OBJ[name])
 
         return set(filter(valid_method,
-            subprocess.check_output(args, stderr=subprocess.DEVNULL, env={"RAWWAVES": STK_RAWWAVES_PATH}).decode().split('\n')))
+            subprocess.check_output(args, stderr=subprocess.DEVNULL,
+                                    env={"RAWWAVES": STK_RAWWAVES_PATH}).decode().split('\n')))
     except(subprocess.CalledProcessError):
         cprint(f"[{name}] can't get methods", "red")
         return set()
+
 
 def read_props(name):
     try:
@@ -53,7 +57,9 @@ def read_props(name):
         if name in SPECIAL_OBJ:
             args.append(SPECIAL_OBJ[name])
 
-        s = subprocess.check_output(args, stderr=subprocess.DEVNULL, env={"RAWWAVES": STK_RAWWAVES_PATH}, encoding="utf-8", errors="ignore")
+        s = subprocess.check_output(args, stderr=subprocess.DEVNULL,
+                                    env={"RAWWAVES": STK_RAWWAVES_PATH},
+                                    encoding="utf-8", errors="ignore")
         js = json.loads(s)
         return set(js.keys()), js
     except(subprocess.CalledProcessError) as e:
@@ -61,6 +67,7 @@ def read_props(name):
             cprint(f"[{name}] can't get properties", "red")
 
         return set(), dict()
+
 
 def check_spell(obj):
     if obj.text:
@@ -78,6 +85,7 @@ def check_spell(obj):
             continue
 
         check_spell(node)
+
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='CEAMMC Pd documentation checker')
@@ -158,9 +166,10 @@ if __name__ == '__main__':
         # print(doc_methods_set)
         # print(ext_methods)
         ignored_methods = {'dump', 'dsp', 'signal', 'mouseup', 'mouseenter', 'dialog', 'iscicm',
-        'zoom', 'mousewheel', 'mousemove', 'mousedown', 'mouseleave',
-        'symbol', 'float', 'bang', 'dblclick', 'list', 'dsp_add', 'loadbang',
-        'click', 'dsp_add_aliased', 'vis', 'popup', 'eobjreadfrom', 'eobjwriteto', 'rightclick', 'key' }
+                           'zoom', 'mousewheel', 'mousemove', 'mousedown', 'mouseleave',
+                           'symbol', 'float', 'bang', 'dblclick', 'list', 'dsp_add', 'loadbang',
+                           'click', 'dsp_add_aliased', 'vis', 'popup', 'eobjreadfrom', 'eobjwriteto',
+                           'rightclick', 'key' }
         undoc_methods_set = ext_methods - doc_methods_set - ignored_methods
         unknown_methods = doc_methods_set - ext_methods
         if len(undoc_methods_set):
@@ -339,7 +348,6 @@ if __name__ == '__main__':
                     cprint(f"DOC [{ext_name}] missing enum attribute\"{p}\"", 'magenta')
             elif attr == HAVE_PDDOC:
                     cprint(f"DOC [{ext_name}] no enum for attribute \"{p}\" (in external)", 'magenta')
-
 
     if args.spell:
         import jamspell
