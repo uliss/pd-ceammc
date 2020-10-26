@@ -19,7 +19,6 @@
 
 ListXContains::ListXContains(const PdArgs& args)
     : BaseObject(args)
-//    , lst_(parseDataList(args.args))
 {
     createInlet();
     createOutlet();
