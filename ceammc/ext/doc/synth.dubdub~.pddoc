@@ -58,7 +58,7 @@
 | |
 | [@pitch $1, @gate 0(
 | |
-| [flow.append @gate 1 @msg @delay 10]
+| [flow.append "@gate" 1 @delay 10]
 | |
 [synth.dubdub~ #a]
 |

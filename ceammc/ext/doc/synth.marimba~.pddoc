@@ -53,7 +53,7 @@
 |                    |                       |
 [@pitch $1, @gate 1( [@pos $1 #b(            [@sharp $1 #c(
 |
-[flow.append @gate 0 @msg @delay 10]
+[flow.append "@gate" 0 @delay 10]
 |
 |
 |

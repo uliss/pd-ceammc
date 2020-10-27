@@ -21,7 +21,7 @@ resonant lowpass;
 #X msg 434 334 @cutoff \$1;
 #X obj 69 363 pitch->midi;
 #X msg 69 392 @pitch \$1 \, @gate 0;
-#X obj 69 421 flow.append @gate 1 @msg @delay 10;
+#X obj 69 421 flow.append "@gate" 1 @delay 10;
 #X obj 50 449 synth.dubdub~;
 #X obj 50 478 ui.gain~ @size 120 16;
 #X obj 50 507 dac~;

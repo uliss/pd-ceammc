@@ -16,7 +16,7 @@ tone bar connected to tube;
 #X msg 50 262 @pitch \$1 \, @gate 1;
 #X msg 251 262 @pos \$1;
 #X msg 482 262 @sharp \$1;
-#X obj 50 291 flow.append @gate 0 @msg @delay 10;
+#X obj 50 291 flow.append "@gate" 0 @delay 10;
 #X obj 50 349 synth.marimba~;
 #X obj 50 378 fx.freeverb~ @room 0.95 @drywet 0.001;
 #X obj 50 406 ui.gain~ @size 120 16;

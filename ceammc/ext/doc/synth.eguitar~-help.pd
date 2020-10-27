@@ -15,7 +15,7 @@
 #X msg 50 262 @pitch \$1 \, @gate 1;
 #X msg 251 262 @pos \$1;
 #X msg 376 262 @gain \$1;
-#X obj 50 291 flow.append @gate 0 @msg @delay 10;
+#X obj 50 291 flow.append "@gate" 0 @delay 10;
 #X obj 50 349 synth.eguitar~;
 #X obj 50 378 ui.gain~ @size 120 16;
 #X obj 50 406 dac~;
