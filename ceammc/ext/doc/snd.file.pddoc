@@ -54,7 +54,8 @@
             array</property>
             <property name="@smpte_fr" type="float" minvalue="1" maxvalue="99" default="30">SMPTE
             framerate for SMPTE offset calculations</property>
-            <property name="@verbose" type="int" enum="0 1" default="0">verbose output to Pd window</property>
+            <property name="@verbose" type="int" enum="0 1" default="0">verbose output to Pd
+            window</property>
         </properties>
         <inlets>
             <inlet type="control">
