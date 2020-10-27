@@ -16,7 +16,7 @@ or [prop.set] object;
 #X obj 50 328 pack f f f;
 #X obj 50 357 clone -s 1 flow.pipe.osc~ 3;
 #X obj 50 385 ui.hgain~;
-#X obj 194 385 ui.dac~;
+#X obj 194 385 ui.dsp~;
 #X obj 50 414 dac~;
 #X obj 50 443 flow.pipe.superdirt;
 #X obj 20 492 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;

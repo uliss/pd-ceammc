@@ -61,7 +61,7 @@
 |
 [clone -s 1 flow.pipe.osc~ 3 {i=1,o=1}]
 |
-[ui.hgain~]    [ui.dac~]
+[ui.hgain~]    [ui.dsp~]
 |\
 [dac~]
 
