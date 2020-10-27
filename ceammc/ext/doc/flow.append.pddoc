@@ -14,8 +14,9 @@
             <since>0.9</since>
         </meta>
         <properties>
-            <property name="@delay" type="float" default="-1" minvalue="-1" units="millisecond">append delay. If &lt;0 append
-            immidiately at the same logical time, if equal zero - output after next DSP block.</property>
+            <property name="@delay" type="float" default="-1" minvalue="-1" units="millisecond">
+            append delay. If &lt;0 append immidiately at the same logical time, if equal zero -
+            output after next DSP block.</property>
         </properties>
         <inlets>
             <inlet>
