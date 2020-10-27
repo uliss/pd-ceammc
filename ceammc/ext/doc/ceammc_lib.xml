@@ -404,6 +404,9 @@
     <entry name="expand_env" descr="Substitute environment variables in data stream" ref_view="object">
       <xi:include href="expand_env.pddoc" parse="xml"/>
     </entry>
+    <entry name="flow.append" descr="append message to flow stream" ref_view="object">
+      <xi:include href="flow.append.pddoc" parse="xml"/>
+    </entry>
     <entry name="flow.change" descr="rejects redundant input values" ref_view="object">
       <xi:include href="flow.change.pddoc" parse="xml"/>
     </entry>

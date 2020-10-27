@@ -188,6 +188,7 @@ env	Envelope data type
 vline2env	Converts vline messages to env
 vline->env	Converts vline messages to env
 expand_env	Substitute environment variables in data stream
+flow.append	append message to flow stream
 flow.change	rejects redundant input values
 flow.count	control flow event counter
 flow.delay	enhanced version on vanilla delay object

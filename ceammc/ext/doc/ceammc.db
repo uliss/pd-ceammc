@@ -104,6 +104,7 @@ env2array,env->array		.		.
 env2vline,env->vline		.		.
 envelope,env		.		.
 expand_env		.		.
+flow.append		..		.
 flow.change		.		.
 flow.count		..		.
 flow.delay,flow.del		..		.

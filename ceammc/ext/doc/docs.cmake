@@ -106,6 +106,7 @@ set(DOC_FILES
     env2vline
     vline2env
     expand_env
+    flow.append
     flow.change
     flow.count
     flow.delay

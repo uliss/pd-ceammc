@@ -34,13 +34,15 @@
 #include "flow_sync_pack.h"
 #include "flow_tee_tilde.h"
 
-void setup_flow_match();
+void setup_flow_append();
 void setup_flow_delay();
-void setup_flow_space();
+void setup_flow_match();
 void setup_flow_pipe();
+void setup_flow_space();
 
 void ceammc_flow_setup()
 {
+    setup_flow_append();
     setup_flow_change();
     setup_flow_count();
     setup_flow_delay();
