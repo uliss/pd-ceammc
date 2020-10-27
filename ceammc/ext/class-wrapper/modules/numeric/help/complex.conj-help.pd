@@ -1,36 +1,36 @@
-#N canvas 0 0 760 555 12;
+#N canvas 0 0 785 555 12;
 #X declare -lib ceammc;
 #X declare -lib numeric;
-#X obj 567 50 cnv 1 173 21 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 567 50 the complex conjugate;
-#X obj 1 1 cnv 5 740 40 empty empty complex.conj 20 20 0 20 -104026
+#X obj 598 50 cnv 1 167 23 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 598 50 the complex conjugate;
+#X obj 1 1 cnv 5 765 40 empty empty complex.conj 20 20 0 20 -104026
 -4096 0;
-#X obj 630 11 complex.conj;
+#X obj 655 11 complex.conj;
 #X obj 50 118 declare -lib numeric;
 #X obj 50 162 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
 -1;
 #X obj 50 190 complex.new 10 20;
 #X obj 50 219 complex.conj;
-#X obj 50 248 ui.display @display_type 1 @size 150 18;
-#X obj 20 288 cnv 1 720 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 293 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
+#X obj 50 248 ui.display @display_type 1;
+#X obj 20 297 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 302 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
-#X text 120 298 1\.;
-#X text 150 298 *list*;
-#X text 280 298 Complex data constructor: REAL IMAG.;
-#X text 150 316 *data*;
-#X text 280 316 Complex data.;
-#X obj 20 344 cnv 1 720 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 349 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
+#X text 110 303 1\.;
+#X text 150 303 *list*;
+#X text 245 303 Complex data constructor: REAL IMAG.;
+#X text 150 323 *data*;
+#X text 245 323 Complex data.;
+#X obj 20 353 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 358 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 120 354 1\.;
-#X text 280 354 output result (Complex);
+#X text 110 359 1\.;
+#X text 245 359 output result (Complex).;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 67 48 ui.link @title numeric @url numeric-help.pd;
 #X text 122 45 ::;
 #X obj 138 48 ui.link @title complex @url numeric.complex-help.pd;
-#X obj 1 505 cnv 5 740 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 1 505 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 10 508 library: numeric v0.1;
 #N canvas 10 527 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;

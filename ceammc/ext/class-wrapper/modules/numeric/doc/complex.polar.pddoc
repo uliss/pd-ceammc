@@ -42,7 +42,7 @@
 |      |             |
 [complex.polar 1 1.5707963]
 |
-[ui.display display_type=1]
+[ui.display @display_type 1]
 ]]>
             </pdascii>
         </example>

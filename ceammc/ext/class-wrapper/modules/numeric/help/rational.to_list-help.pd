@@ -12,20 +12,20 @@
 #X msg 107 162 1 0;
 #X msg 165 162 2 2;
 #X obj 50 190 rational->list;
-#X obj 50 219 ui.display @display_type 1 @size 150 18;
-#X obj 20 259 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 264 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
+#X obj 50 219 ui.display @display_type 1;
+#X obj 20 268 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 273 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
-#X text 110 265 1\.;
-#X text 150 265 *list*;
-#X text 245 265 Rational data constructor: NUM DEN.;
-#X text 150 285 *data*;
-#X text 245 285 Rational data.;
-#X obj 20 315 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 320 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
+#X text 110 274 1\.;
+#X text 150 274 *list*;
+#X text 245 274 Rational data constructor: NUM DEN.;
+#X text 150 294 *data*;
+#X text 245 294 Rational data.;
+#X obj 20 324 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 329 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 321 1\.;
-#X text 245 321 output list of numerator and denominator parts (list).;
+#X text 110 330 1\.;
+#X text 245 330 output list of numerator and denominator parts (list).;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 67 48 ui.link @title numeric @url numeric-help.pd;
