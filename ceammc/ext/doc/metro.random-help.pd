@@ -12,7 +12,7 @@
 #X obj 50 172 metro.random 100 140;
 #X obj 50 201 click~;
 #X obj 50 230 flt.resonbp~ 1000 20;
-#X obj 270 230 dsp~;
+#X obj 270 230 ui.dsp~;
 #X obj 50 259 ui.hgain~;
 #X obj 50 287 dac~;
 #X obj 20 336 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;

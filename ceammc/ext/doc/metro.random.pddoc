@@ -52,7 +52,7 @@
 |
 [click~]
 |
-[flt.resonbp~ 1000 20] [dsp~]
+[flt.resonbp~ 1000 20] [ui.dsp~]
 |
 [ui.hgain~]
 |\

@@ -80,6 +80,8 @@ conv.cc2amp	convert from MIDI Control Change range
 cc->amp	convert from MIDI Control Change range
 conv.dbfs2amp	convert decibel full scale to amplitude
 dbfs->amp	convert decibel full scale to amplitude
+conv.dbfs2amp~	convert decibel full scale to amplitude
+dbfs->amp~	convert decibel full scale to amplitude
 conv.lin2curve	map linear to exponential range with 0 allowed.
 lin->curve	map linear to exponential range with 0 allowed.
 conv.lin2exp	maps linear range to exponential range

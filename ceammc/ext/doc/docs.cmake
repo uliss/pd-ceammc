@@ -45,6 +45,7 @@ set(DOC_FILES
     conv.car2pol
     conv.cc2amp
     conv.dbfs2amp
+    conv.dbfs2amp~
     conv.lin2curve
     conv.lin2exp
     conv.lin2lin

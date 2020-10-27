@@ -14,7 +14,7 @@
 #ifndef CONV_DBFS2AMP_H
 #define CONV_DBFS2AMP_H
 
-#include "ceammc_object.h"
+#include "ceammc_sound_external.h"
 using namespace ceammc;
 
 class Dbfs2amp : public BaseObject {
@@ -22,6 +22,12 @@ public:
     Dbfs2amp(const PdArgs& args);
     void onFloat(t_float v) override;
     void onList(const AtomList& args) override;
+};
+
+class Dbfs2ampTilde : public SoundExternal {
+public:
+    Dbfs2ampTilde(const PdArgs& args);
+    void processBlock(const t_sample** in, t_sample** out) override;
 };
 
 void setup_conv_dbfs2amp();

@@ -189,6 +189,9 @@
     <entry name="conv.dbfs2amp" descr="convert decibel full scale to amplitude" ref_view="object">
       <xi:include href="conv.dbfs2amp.pddoc" parse="xml"/>
     </entry>
+    <entry name="conv.dbfs2amp~" descr="convert decibel full scale to amplitude" ref_view="object">
+      <xi:include href="conv.dbfs2amp~.pddoc" parse="xml"/>
+    </entry>
     <entry name="conv.lin2curve" descr="map linear to exponential range with 0 allowed." ref_view="object">
       <xi:include href="conv.lin2curve.pddoc" parse="xml"/>
     </entry>

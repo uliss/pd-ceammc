@@ -37,6 +37,7 @@
 - fx.pitchshift_s~ added (signal version of fx.pitchshift~)
 - array.play~ added (with array.p~ alias)
 - env.smooth~ play method added
+- dbfs->amp~ converter added
 
 
 ### Changed:
