@@ -426,6 +426,7 @@ set(DOC_FILES
     msg.onload
     net.host2ip
     noise.crackle~
+    noise.ginger
     noise.pink~
     noise.white~
     noise.lfreq~

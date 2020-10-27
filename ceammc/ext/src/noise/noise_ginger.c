@@ -29,14 +29,14 @@ A-Chaos Lib
 #include "m_pd.h"
 
 #include <math.h>
-#include <stdbool.h>
+
+static t_class* ginger_class;
 
 typedef struct _ginger {
     t_object x_obj;
-    t_outlet *c_out, *c_out2; // 2 outlets
+    t_outlet *c_out_y, *c_out_x; // 2 outlets
     double seed, nx, ny;
     double seedinit, nxinit, nyinit;
-    bool om;
 } ginger;
 
 void* ginger_new(t_symbol* s, int ac, t_atom* av);
@@ -45,23 +45,19 @@ void ginger_bang(ginger* x);
 void ginger_set(ginger* x, t_symbol* s, int ac, t_atom* av);
 void ginger_reset(ginger* x);
 
-void ginger_seed(ginger* x, double max);
-void ginger_nx(ginger* x, double max);
-void ginger_ny(ginger* x, double max);
+void ginger_seed(ginger* x, t_float max);
+void ginger_nx(ginger* x, t_float max);
+void ginger_ny(ginger* x, t_float max);
 void ginger_om(ginger* x, long max);
-
-void ginger_assist(ginger* x, void* b, long m, long a, char* s);
-static t_class* ginger_class;
 
 void* ginger_new(t_symbol* s, int ac, t_atom* av) //input the args
 {
     ginger* x;
-    int i;
 
     x = (ginger*)pd_new(ginger_class);
 
-    x->c_out2 = outlet_new(&x->x_obj, &s_float);
-    x->c_out = outlet_new(&x->x_obj, &s_float);
+    x->c_out_x = outlet_new(&x->x_obj, &s_float);
+    x->c_out_y = outlet_new(&x->x_obj, &s_float);
 
     x->seed = 0.82f;
     x->nx = 0.7f;
@@ -72,13 +68,12 @@ void* ginger_new(t_symbol* s, int ac, t_atom* av) //input the args
 
     ginger_set(x, s, ac, av);
 
-    return (x);
+    return x;
 }
 
 void ginger_set(ginger* x, t_symbol* s, int argc, t_atom* argv)
 {
     if (argc) {
-
         if (argc > 2) {
             if (argv[2].a_type == A_FLOAT)
                 x->nyinit = (double)argv[2].a_w.w_float;
@@ -115,9 +110,8 @@ void ginger_reset(ginger* x)
 void ginger_calc(ginger* x)
 {
     double nx, ny, x1, y1;
-    double seed;
 
-    seed = x->seed;
+    const double seed = x->seed;
     nx = x->nx;
     ny = x->ny;
     // ginger formulae
@@ -134,37 +128,34 @@ void ginger_calc(ginger* x)
 
 void ginger_bang(ginger* x)
 {
-    outlet_float(x->c_out2, x->nx);
-    outlet_float(x->c_out, x->ny);
+    outlet_float(x->c_out_x, x->nx);
+    outlet_float(x->c_out_y, x->ny);
 
     ginger_calc(x);
 }
 
-void ginger_seed(ginger* x, double max)
+void ginger_seed(ginger* x, t_float max)
 {
     x->seed = max;
     x->seedinit = max;
 }
-void ginger_nx(ginger* x, double max)
+
+void ginger_nx(ginger* x, t_float max)
 {
     x->nx = max;
     x->nxinit = max;
 }
-void ginger_ny(ginger* x, double max)
+
+void ginger_ny(ginger* x, t_float max)
 {
     x->ny = max;
     x->nyinit = max;
 }
-void ginger_om(ginger* x, long max)
-{
-    x->om = (max > 0);
-}
 
-void ginger_free() {}
+void ginger_free() { }
 
 void setup_noise0x2eginger()
 {
-
     ginger_class = class_new(gensym("noise.ginger"),
         (t_newmethod)(ginger_new),
         (t_method)(ginger_free),
@@ -175,9 +166,5 @@ void setup_noise0x2eginger()
     class_addmethod(ginger_class, (t_method)ginger_reset, gensym("reset"), A_GIMME, 0);
     class_addmethod(ginger_class, (t_method)ginger_nx, gensym("x"), A_FLOAT, 0);
     class_addmethod(ginger_class, (t_method)ginger_ny, gensym("y"), A_FLOAT, 0);
-    class_addmethod(ginger_class, (t_method)ginger_seed, gensym("z"), A_FLOAT, 0);
     class_addmethod(ginger_class, (t_method)ginger_seed, gensym("seed"), A_FLOAT, 0);
-    class_addmethod(ginger_class, (t_method)ginger_om, gensym("om"), A_FLOAT, 0);
 }
-
-

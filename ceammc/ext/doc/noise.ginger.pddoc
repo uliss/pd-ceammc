@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="noise.ginger">
+        <title>noise.ginger</title>
+        <meta>
+            <authors>
+                <author>André Sier</author>
+            </authors>
+            <description>Gingerbreadman map chaotic generator</description>
+            <license>GPL3 or later</license>
+            <library>ceammc</library>
+            <category>chaos</category>
+            <keywords>chaos generator gingerbreadman</keywords>
+            <since>0.1</since>
+            <also>
+                <see>chaos.gbman0</see>
+            </also>
+        </meta>
+        <info>
+            <par>A non-interpolating generator based on the difference equations:</par>
+            <par>x(n+1) = 1 - y(n) + seed * |x(n)|</par>
+            <par>y(n+1) = x(n)</par>
+            <a href="https://en.wikipedia.org/wiki/Gingerbreadman_map">wiki: Gingerbreadman map</a>
+        </info>
+        <arguments>
+            <argument name="SEED" type="float">seed value, default 0.82</argument>
+            <argument name="X" type="float">initial x value, default 0.7</argument>
+            <argument name="Y" type="float">initial y value, default 1.2</argument>
+        </arguments>
+        <properties />
+        <methods>
+            <method name="set">set seed, x and y values, updates defaults</method>
+            <method name="x">set x value and update default</method>
+            <method name="y">set y value and update default</method>
+            <method name="seed">set seed value and update default</method>
+            <method name="reset">reset seed, x and y values to defaults</method>
+        </methods>
+        <inlets>
+            <inlet>
+                <xinfo on="bang">outputs current x/y values and generates new one</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet>outputs x-value</outlet>
+            <outlet>outputs y-value</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[bang(
+|
+[noise.ginger]
+|      ^|
+[F]    [F]
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

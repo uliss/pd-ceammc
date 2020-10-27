@@ -424,6 +424,7 @@ msg.after		..		.
 msg.onload,loadmsg		-		.
 net.host2ip,net.host->ip		.		.
 noise.crackle~		.		~
+noise.ginger		.		..
 noise.lfreq0~		.		~
 noise.lfreq~		.		~
 noise.pink~		-		~

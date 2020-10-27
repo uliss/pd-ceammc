@@ -157,6 +157,9 @@
     <entry name="chaos.std0~" descr="Standard map chaotic generator" ref_view="object">
       <xi:include href="chaos.std0~.pddoc" parse="xml"/>
     </entry>
+    <entry name="noise.ginger" descr="Gingerbreadman map chaotic generator" ref_view="object">
+      <xi:include href="noise.ginger.pddoc" parse="xml"/>
+    </entry>
   </category>
   <category name="conv">
     <entry name="array.p2s" descr="convert array phase [0..1] to sample position" ref_view="object">
