@@ -1,47 +1,47 @@
-#N canvas 0 0 760 555 12;
+#N canvas 0 0 785 555 12;
 #X declare -lib ceammc;
 #X declare -lib matrix;
-#X obj 298 50 cnv 1 442 35 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 298 50 Solve a system of linear equations \, A*X = B \, where
+#X obj 338 50 cnv 1 427 38 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 338 50 Solve a system of linear equations \, A*X = B \, where
 X is unknown;
-#X obj 1 1 cnv 5 740 40 empty empty matrix.solve 20 20 0 20 -104026
+#X obj 1 1 cnv 5 765 40 empty empty matrix.solve 20 20 0 20 -104026
 -4096 0;
-#X obj 628 11 matrix.solve;
+#X obj 653 11 matrix.solve;
 #X obj 50 118 declare -lib matrix;
 #X msg 50 162 2 2 1 2 3 4;
 #X obj 50 190 matrix.solve 2 2 1 2 3 4;
-#X obj 50 219 ui.display @display_type 1 @size 150 18;
-#X obj 20 259 cnv 1 720 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 264 cnv 5 90 26 empty empty arguments: 4 10 0 14 -262144
+#X obj 50 219 ui.display @display_type 1;
+#X obj 20 268 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 273 cnv 5 90 26 empty empty arguments: 4 10 0 14 -262144
 -49933 0;
-#X text 120 269 1\.;
-#X text 150 269 list;
-#X obj 281 270 cnv 1 16 18 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 269 B: can be a vector or matrix.;
-#X obj 20 297 cnv 1 720 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 302 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
+#X text 110 308 1\.;
+#X text 150 308 list;
+#X obj 246 309 cnv 1 16 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 245 308 B: can be a vector or matrix.;
+#X obj 20 338 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 343 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
-#X text 120 307 1\.;
-#X text 150 307 *list*;
-#X text 280 307 Matrix data constructor: NROWS NCOLS ....;
-#X text 150 325 *data*;
-#X text 280 325 Matrix data.;
-#X text 120 343 2\.;
-#X text 150 343 *list*;
-#X text 280 343 can be a vector or matrix: NROWS NCOLS ....;
-#X text 150 361 *data*;
-#X text 280 361 can be a vector or matrix.;
-#X obj 20 389 cnv 1 720 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 394 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
+#X text 110 344 1\.;
+#X text 150 344 *list*;
+#X text 245 344 Matrix data constructor: NROWS NCOLS ...;
+#X text 150 364 *data*;
+#X text 245 364 Matrix data.;
+#X text 110 384 2\.;
+#X text 150 384 *list*;
+#X text 245 384 can be a vector or matrix: NROWS NCOLS ...;
+#X text 150 404 *data*;
+#X text 245 404 can be a vector or matrix.;
+#X obj 20 434 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 439 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 120 399 1\.;
-#X text 280 399 output result X matrix (Matrix);
+#X text 110 440 1\.;
+#X text 245 440 output result X matrix (Matrix).;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 67 48 ui.link @title matrix @url matrix-help.pd;
 #X text 116 45 ::;
 #X obj 132 48 ui.link @title matrix @url matrix.matrix-help.pd;
-#X obj 1 505 cnv 5 740 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 1 505 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 10 508 library: matrix v0.1;
 #N canvas 10 527 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;

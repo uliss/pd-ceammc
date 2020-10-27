@@ -59,7 +59,7 @@ public:
      * |  |        |
      * |  [matrix.new]
      * |  |
-     * [ui.display @display_type=1]
+     * [ui.display @display_type 1]
      */
     Matrix(unsigned int m = 1, unsigned int n = 1);
     bool operator==(const Matrix& m) const;
@@ -77,7 +77,7 @@ public:
      * |
      * [matrix.size]
      * |
-     * [ui.display @display_type=1]
+     * [ui.display @display_type 1]
      */
     std::vector<int> size() const;
 
@@ -128,7 +128,7 @@ public:
      * |              |.
      * [matrix.diag   0]
      * |
-     * [ui.display @display_type=1]
+     * [ui.display @display_type 1]
      */
     Matrix diag(int n) const;
 
@@ -145,7 +145,7 @@ public:
      * |   |    |      |.
      * [matrix.zeros 2 3]
      * |
-     * [ui.display @display_type=1]
+     * [ui.display @display_type 1]
      */
     static Matrix zeros(unsigned int m, unsigned int n);
 
@@ -162,7 +162,7 @@ public:
      * |              |
      * [matrix.zeros_like]
      * |
-     * [ui.display @display_type=1]
+     * [ui.display @display_type 1]
      */
     Matrix zeros_like() const;
 
@@ -179,7 +179,7 @@ public:
      * |   |    |      |.
      * [matrix.ones  2 3]
      * |
-     * [ui.display @display_type=1]
+     * [ui.display @display_type 1]
      */
     static Matrix ones(unsigned int m, unsigned int n);
 
@@ -196,7 +196,7 @@ public:
      * |              |
      * [matrix.ones_like]
      * |
-     * [ui.display @display_type=1]
+     * [ui.display @display_type 1]
      */
     Matrix ones_like() const;
 
@@ -213,7 +213,7 @@ public:
      * |   |   |
      * [matrix.identity 2]
      * |
-     * [ui.display @display_type=1]
+     * [ui.display @display_type 1]
      */
     static Matrix identity(unsigned int n);
 
@@ -231,7 +231,7 @@ public:
      * |   |            |..
      * [matrix.full 2 3 -5]
      * |
-     * [ui.display @display_type=1]
+     * [ui.display @display_type 1]
      */
     static Matrix full(unsigned int m, unsigned int n, t_float v);
 
@@ -249,7 +249,7 @@ public:
      * |
      * [matrix.fill 0.1]
      * |
-     * [ui.display @display_type=1]
+     * [ui.display @display_type 1]
      */
     Matrix fill(t_float v) const;
 
@@ -266,7 +266,7 @@ public:
      * |   |     |    |.
      * [matrix.randu 2 2]
      * |
-     * [ui.display @display_type=1]
+     * [ui.display @display_type 1]
      */
     static Matrix randu(unsigned int m, unsigned int n);
 
@@ -283,7 +283,7 @@ public:
      * |   |     |    |.
      * [matrix.randn 2 2]
      * |
-     * [ui.display @display_type=1]
+     * [ui.display @display_type 1]
      */
     static Matrix randn(unsigned int m, unsigned int n);
 
@@ -301,7 +301,7 @@ public:
      * |                 |.    |..
      * [matrix.replace      0  0.1]
      * |
-     * [ui.display @display_type=1]
+     * [ui.display @display_type 1]
      */
     Matrix replace(t_float old_value, t_float new_value) const;
 
@@ -319,7 +319,7 @@ public:
      * |              |.    |..
      * [matrix.reshape     3 2]
      * |
-     * [ui.display @display_type=1]
+     * [ui.display @display_type 1]
      */
     Matrix reshape(int nrows, int ncols) const;
 
@@ -338,7 +338,7 @@ public:
      * |              |.   |..
      * [matrix.resize       3 3]
      * |
-     * [ui.display @display_type=1]
+     * [ui.display @display_type 1]
      */
     Matrix resize(int nrows, int ncols) const;
 
@@ -354,7 +354,7 @@ public:
      * |                  |.
      * [matrix.col_at 1    ]
      * |
-     * [ui.display @display_type=1]
+     * [ui.display @display_type 1]
      */
     Matrix col_at(unsigned int n) const;
 
@@ -370,7 +370,7 @@ public:
      * |                        |.
      * [matrix.row_at 1           ]
      * |
-     * [ui.display @display_type=1]
+     * [ui.display @display_type 1]
      */
     Matrix row_at(unsigned int n) const;
 
@@ -389,7 +389,7 @@ public:
      * |               |.     |..
      * [matrix.insert_row     1 1 3 1 2 3]
      * |
-     * [ui.display @display_type=1]
+     * [ui.display @display_type 1]
      */
     Matrix insert_row(unsigned int n, const Matrix& r) const;
 
@@ -408,7 +408,7 @@ public:
      * |              |.    |..
      * [matrix.insert_col    1 3 1 2 4 6]
      * |
-     * [ui.display @display_type=1]
+     * [ui.display @display_type 1]
      */
     Matrix insert_col(unsigned int n, const Matrix& r) const;
 
@@ -424,7 +424,7 @@ public:
      * |                        |.
      * [matrix.remove_row        0]
      * |
-     * [ui.display @display_type=1]
+     * [ui.display @display_type 1]
      */
     Matrix remove_row(unsigned int n) const;
 
@@ -440,7 +440,7 @@ public:
      * |                        |.
      * [matrix.remove_col        0]
      * |
-     * [ui.display @display_type=1]
+     * [ui.display @display_type 1]
      */
     Matrix remove_col(unsigned int n) const;
 
@@ -457,7 +457,7 @@ public:
      * |
      * [matrix.swap_cols 0 2]
      * |
-     * [ui.display @display_type=1]
+     * [ui.display @display_type 1]
      */
     Matrix swap_cols(unsigned int a, unsigned int b) const;
 
@@ -474,7 +474,7 @@ public:
      * |
      * [matrix.swap_rows 1 2]
      * |
-     * [ui.display @display_type=1]
+     * [ui.display @display_type 1]
      */
     Matrix swap_rows(unsigned int a, unsigned int b) const;
 
@@ -521,7 +521,7 @@ public:
      * |
      * [matrix.transpose]
      * |
-     * [ui.display @display_type=1]
+     * [ui.display @display_type 1]
      */
     Matrix transpose() const;
 
@@ -536,11 +536,11 @@ public:
      * |
      * [matrix.inverse]
      * |             |
-     * |             [ui.display @display_type=1]
+     * |             [ui.display @display_type 1]
      * |
      * [matrix.inverse]
      * |
-     * [ui.display @display_type=1]
+     * [ui.display @display_type 1]
      */
     Matrix inverse() const;
 
@@ -555,7 +555,7 @@ public:
      * |             |             |
      * [matrix.new                 ]
      * |             |
-     * [matrix.rank] [ui.display @display_type=1]
+     * [matrix.rank] [ui.display @display_type 1]
      * |
      * [F]
      */
@@ -575,7 +575,7 @@ public:
      * |             |.
      * [matrix.add  10]
      * |
-     * [ui.display @display_type=1]
+     * [ui.display @display_type 1]
      */
     Matrix add(t_float v) const;
     /**
@@ -597,7 +597,7 @@ public:
      * |             |.
      * [matrix.add   1]
      * |
-     * [ui.display @display_type=1]
+     * [ui.display @display_type 1]
      */
     Matrix sub(const Matrix& m) const;
     /**
@@ -616,7 +616,7 @@ public:
      * |               |.
      * [matrix.mul    10]
      * |
-     * [ui.display @display_type=1]
+     * [ui.display @display_type 1]
      */
     Matrix mul(const Matrix& b) const;
     /**
@@ -638,7 +638,7 @@ public:
      * |              |.
      * [matrix.div    4]
      * |
-     * [ui.display @display_type=1]
+     * [ui.display @display_type 1]
      */
     Matrix div(const Matrix& m) const;
     /**
@@ -660,7 +660,7 @@ public:
      * |                  |.             |.
      * [matrix.dot Matrix       2 2 1 0 0 1]
      * |
-     * [ui.display @display_type=1]
+     * [ui.display @display_type 1]
      */
     Matrix matmul(const Matrix& m) const;
 
@@ -678,7 +678,7 @@ public:
      * |              |.
      * [matrix.shift_col 1]
      * |
-     * [ui.display @display_type=1]
+     * [ui.display @display_type 1]
      */
     Matrix shift_col(int n) const;
 
@@ -697,7 +697,7 @@ public:
      * |              |.
      * [matrix.shift_row 1]
      * |
-     * [ui.display @display_type=1]
+     * [ui.display @display_type 1]
      */
     Matrix shift_row(int n) const;
 
@@ -730,7 +730,7 @@ public:
      * |
      * [matrix.solve 2 2 1 2 3 4]
      * |
-     * [ui.display @display_type=1]
+     * [ui.display @display_type 1]
      */
     Matrix solve(const Matrix& b) const;
 
@@ -795,7 +795,7 @@ public:
      * |                         |.
      * [matrix.> Matrix 2 2 4 3 2 1]
      * |
-     * [ui.display @display_type=1]
+     * [ui.display @display_type 1]
      */
     Matrix gt(const Matrix& b) const;
     /**
@@ -815,7 +815,7 @@ public:
      * |                         |.
      * [matrix.>= Matrix 2 2 4 3 2 1]
      * |
-     * [ui.display @display_type=1]
+     * [ui.display @display_type 1]
      */
     Matrix ge(const Matrix& b) const;
     /**
@@ -835,7 +835,7 @@ public:
      * |                          |.
      * [matrix.<= Matrix 2 2 4 3 2 1]
      * |
-     * [ui.display @display_type=1]
+     * [ui.display @display_type 1]
      */
     Matrix le(const Matrix& b) const;
     /**
@@ -855,7 +855,7 @@ public:
      * |                     |.
      * [matrix.< Matrix 2 2 4 3 2 1]
      * |
-     * [ui.display @display_type=1]
+     * [ui.display @display_type 1]
      */
     Matrix lt(const Matrix& b) const;
     /**
@@ -875,7 +875,7 @@ public:
      * |                    |.    |.
      * [matrix.== Matrix 2 2 1 2 3 4]
      * |
-     * [ui.display @display_type=1]
+     * [ui.display @display_type 1]
      */
     Matrix eq(t_float v) const;
     /**
@@ -895,7 +895,7 @@ public:
      * |                     |.    |.
      * [matrix.!= Matrix 2 2 1 2 3 4]
      * |
-     * [ui.display @display_type=1]
+     * [ui.display @display_type 1]
      */
     Matrix ne(t_float v) const;
     /**
@@ -916,7 +916,7 @@ public:
      * |                      |.
      * [matrix.save test_matrix.csv]
      * |
-     * [ui.display @display_type=1]
+     * [ui.display @display_type 1]
      *
      *
      *
@@ -928,7 +928,7 @@ public:
      * |
      * [matrix.load]
      * |
-     * [ui.display @display_type=1]
+     * [ui.display @display_type 1]
      */
     static Matrix load(const std::string& fname);
 
@@ -945,7 +945,7 @@ public:
      * |                      |.
      * [matrix.save test_matrix.csv]
      * |
-     * [ui.display @display_type=1]
+     * [ui.display @display_type 1]
      *
      *
      *
@@ -958,7 +958,7 @@ public:
      * |
      * [matrix.load]
      * |
-     * [ui.display @display_type=1]
+     * [ui.display @display_type 1]
      */
     Matrix save(const std::string& fname) const;
 
@@ -975,7 +975,7 @@ public:
      * |
      * [matrix.from_list]
      * |
-     * [ui.display @display_type=1]
+     * [ui.display @display_type 1]
      */
     static Matrix fromList(const std::vector<t_float>& v);
 
@@ -990,7 +990,7 @@ public:
      * |   |
      * [matrix.col 0.2345 1.2345 3.1415]
      * |       |
-     * [print] [ui.display @display_type=1]
+     * [print] [ui.display @display_type 1]
      */
     static Matrix col(const std::vector<t_float> &v);
 
@@ -1005,7 +1005,7 @@ public:
      * |   |
      * [matrix.row 2 2 2]
      * |       |
-     * [print] [ui.display @display_type=1]
+     * [print] [ui.display @display_type 1]
      */
     static Matrix row(const std::vector<t_float>& v);
 
@@ -1023,7 +1023,7 @@ public:
      * |   |
      * [matrix.linspace 1 2 3]
      * |
-     * [ui.display @display_type=1]
+     * [ui.display @display_type 1]
      */
     static Matrix linspace(t_float start, t_float end, unsigned int N);
 
@@ -1041,7 +1041,7 @@ public:
      * |   |       |
      * [matrix.logspace 1 2 10]
      * |
-     * [ui.display @display_type=1]
+     * [ui.display @display_type 1]
      */
     static Matrix logspace(t_float A, t_float B, unsigned int N);
 
@@ -1055,7 +1055,7 @@ public:
      * |
      * [matrix.abs]
      * |
-     * [ui.display @display_type=1]
+     * [ui.display @display_type 1]
      */
     Matrix abs() const;
 
@@ -1106,7 +1106,7 @@ public:
      * |             |             |
      * [matrix.all_col             ]
      * |
-     * [ui.display @display_type=1]
+     * [ui.display @display_type 1]
      */
     Matrix all_col() const;
 
@@ -1122,7 +1122,7 @@ public:
      * |             |             |
      * [matrix.all_row             ]
      * |
-     * [ui.display @display_type=1]
+     * [ui.display @display_type 1]
      */
     Matrix all_row() const;
 
@@ -1156,7 +1156,7 @@ public:
      * |             |             |
      * [matrix.any_col             ]
      * |
-     * [ui.display @display_type=1]
+     * [ui.display @display_type 1]
      */
     Matrix any_col() const;
 
@@ -1172,7 +1172,7 @@ public:
      * |             |             |
      * [matrix.any_row             ]
      * |
-     * [ui.display @display_type=1]
+     * [ui.display @display_type 1]
      */
     Matrix any_row() const;
 
@@ -1191,7 +1191,7 @@ public:
      * |
      * [matrix.clip 0 1]
      * |
-     * [ui.display @display_type=1]
+     * [ui.display @display_type 1]
      */
     Matrix clip(t_float min, t_float max) const;
 
@@ -1238,7 +1238,7 @@ public:
      * |
      * [matrix.mean_col]
      * |
-     * [ui.display @display_type=1]
+     * [ui.display @display_type 1]
      */
     Matrix mean_col() const;
 
@@ -1254,7 +1254,7 @@ public:
      * |
      * [matrix.mean_row]
      * |
-     * [ui.display @display_type=1]
+     * [ui.display @display_type 1]
      */
     Matrix mean_row() const;
 
@@ -1282,7 +1282,7 @@ public:
      * |
      * [matrix.median_col]
      * |
-     * [ui.display @display_type=1]
+     * [ui.display @display_type 1]
      */
     Matrix median_col() const;
 
@@ -1296,7 +1296,7 @@ public:
      * |
      * [matrix.median_row]
      * |
-     * [ui.display @display_type=1]
+     * [ui.display @display_type 1]
      */
     Matrix median_row() const;
 
@@ -1328,7 +1328,7 @@ public:
      * |
      * [matrix.stddev_col]
      * |
-     * [ui.display @display_type=1]
+     * [ui.display @display_type 1]
      */
     Matrix stddev_col(bool norm_type) const;
 
@@ -1343,7 +1343,7 @@ public:
      * |
      * [matrix.stddev_row]
      * |
-     * [ui.display @display_type=1]
+     * [ui.display @display_type 1]
      */
     Matrix stddev_row(bool norm_type) const;
 
@@ -1371,7 +1371,7 @@ public:
      * |
      * [matrix.range_col]
      * |
-     * [ui.display @display_type=1]
+     * [ui.display @display_type 1]
      */
     Matrix range_col() const;
 
@@ -1385,7 +1385,7 @@ public:
      * |
      * [matrix.range_row]
      * |
-     * [ui.display @display_type=1]
+     * [ui.display @display_type 1]
      */
     Matrix range_row() const;
 
@@ -1422,7 +1422,7 @@ public:
      * |
      * [matrix.exp]
      * |
-     * [ui.display @display_type=1]
+     * [ui.display @display_type 1]
      */
     Matrix exp() const;
 
@@ -1436,7 +1436,7 @@ public:
      * |
      * [matrix.exp2]
      * |
-     * [ui.display @display_type=1]
+     * [ui.display @display_type 1]
      */
     Matrix exp2() const;
 
@@ -1450,7 +1450,7 @@ public:
      * |
      * [matrix.exp10]
      * |
-     * [ui.display @display_type=1]
+     * [ui.display @display_type 1]
      */
     Matrix exp10() const;
 
@@ -1464,7 +1464,7 @@ public:
      * |                        |
      * [matrix.trunc_exp]       [matrix.exp]
      * |                        |
-     * [ui.display @display_type=1]
+     * [ui.display @display_type 1]
      */
     Matrix trunc_exp() const;
 
@@ -1480,7 +1480,7 @@ public:
      * |
      * [matrix.sign]
      * |
-     * [ui.display @display_type=1]
+     * [ui.display @display_type 1]
      */
     Matrix sign() const;
 
@@ -1722,7 +1722,7 @@ public:
      * |              |.
      * [matrix.vectorise 1]
      * |
-     * [ui.display @display_type=1]
+     * [ui.display @display_type 1]
      */
     Matrix vectorise(bool dim) const;
 
