@@ -25,52 +25,54 @@
 #X text 200 372 convert decibel full scale to amplitude;
 #X obj 30 399 conv.dbfs2amp~;
 #X text 200 399 convert decibel full scale to amplitude;
-#X obj 30 426 conv.lin2curve;
-#X text 200 426 map linear to exponential range with 0 allowed.;
-#X obj 30 453 conv.lin2exp;
-#X text 200 453 maps linear range to exponential range;
-#X obj 30 480 conv.lin2lin;
-#X text 200 480 convert from one linear range to another;
-#X obj 30 507 conv.lin2lin~;
-#X text 200 507 convert from one linear range to another for signals;
-#X obj 30 534 conv.list2props;
-#X text 200 534 converts list to series of property messages;
-#X obj 30 561 conv.midi2freq;
-#X text 200 561 convert from midi pitch to frequency in hz (with various
+#X obj 30 426 conv.hex2int;
+#X text 200 426 hex symbol to int value;
+#X obj 30 453 conv.lin2curve;
+#X text 200 453 map linear to exponential range with 0 allowed.;
+#X obj 30 480 conv.lin2exp;
+#X text 200 480 maps linear range to exponential range;
+#X obj 30 507 conv.lin2lin;
+#X text 200 507 convert from one linear range to another;
+#X obj 30 534 conv.lin2lin~;
+#X text 200 534 convert from one linear range to another for signals;
+#X obj 30 561 conv.list2props;
+#X text 200 561 converts list to series of property messages;
+#X obj 30 588 conv.midi2freq;
+#X text 200 588 convert from midi pitch to frequency in hz (with various
 base A and temperament);
-#X obj 30 601 conv.ms2samp;
-#X text 200 601 convert time in milliseconds to number of samples according
+#X obj 30 628 conv.ms2samp;
+#X text 200 628 convert time in milliseconds to number of samples according
 to current samplerate;
-#X obj 30 641 conv.ms2samp~;
-#X text 200 641 convert time in milliseconds to number of samples according
+#X obj 30 668 conv.ms2samp~;
+#X text 200 668 convert time in milliseconds to number of samples according
 to current samplerate;
-#X obj 30 681 conv.phase2rad;
-#X text 200 681 convert phase value [0-1] to radians [0-2π];
-#X obj 30 708 conv.phase2rad~;
+#X obj 30 708 conv.phase2rad;
 #X text 200 708 convert phase value [0-1] to radians [0-2π];
-#X obj 30 735 conv.pitch2midi;
-#X text 200 735 converts symbol pitch name to MIDI note number;
-#X obj 30 762 conv.pol2car;
-#X text 200 762 convert from polar coordinates to cartesian;
-#X obj 30 789 conv.rad2phase;
-#X text 200 789 convert radians value to phase;
-#X obj 30 816 conv.rad2phase~;
+#X obj 30 735 conv.phase2rad~;
+#X text 200 735 convert phase value [0-1] to radians [0-2π];
+#X obj 30 762 conv.pitch2midi;
+#X text 200 762 converts symbol pitch name to MIDI note number;
+#X obj 30 789 conv.pol2car;
+#X text 200 789 convert from polar coordinates to cartesian;
+#X obj 30 816 conv.rad2phase;
 #X text 200 816 convert radians value to phase;
-#X obj 30 843 conv.samp2ms;
-#X text 200 843 convert samples to time according to samplerate;
-#X obj 30 870 conv.samp2ms~;
-#X text 200 870 convert samples to milliseconds according to samplerate;
-#X obj 30 897 conv.samp2sec;
-#X text 200 897 convert samples to time according to samplerate;
-#X obj 30 924 conv.sec2samp;
-#X text 200 924 convert time in seconds to number of samples according
+#X obj 30 843 conv.rad2phase~;
+#X text 200 843 convert radians value to phase;
+#X obj 30 870 conv.samp2ms;
+#X text 200 870 convert samples to time according to samplerate;
+#X obj 30 897 conv.samp2ms~;
+#X text 200 897 convert samples to milliseconds according to samplerate;
+#X obj 30 924 conv.samp2sec;
+#X text 200 924 convert samples to time according to samplerate;
+#X obj 30 951 conv.sec2samp;
+#X text 200 951 convert time in seconds to number of samples according
 to current samplerate;
-#X obj 30 964 conv.sec2str;
-#X text 200 964 converts float time in seconds to formated symbol (or
+#X obj 30 991 conv.sec2str;
+#X text 200 991 converts float time in seconds to formated symbol (or
 string);
-#X obj 30 991 conv.str2sec;
-#X text 200 991 converts formatted time to float value in seconds;
+#X obj 30 1018 conv.str2sec;
+#X text 200 1018 converts formatted time to float value in seconds;
 #X obj 1 1 cnv 5 740 40 empty empty ceammc::conv 20 20 0 20 -104026
 -4096 0;
-#X obj 1 1018 cnv 5 740 40 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 20 1028 library: ceammc;
+#X obj 1 1045 cnv 5 740 40 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 20 1055 library: ceammc;

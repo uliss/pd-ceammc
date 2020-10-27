@@ -38,6 +38,7 @@
 - array.play~ added (with array.p~ alias)
 - env.smooth~ play method added
 - dbfs->amp~ converter added
+- hex->int~ converter added
 
 
 ### Changed:
