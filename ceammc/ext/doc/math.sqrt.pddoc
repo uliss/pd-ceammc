@@ -11,9 +11,6 @@
             <library>ceammc</library>
             <category>math</category>
             <keywords>math sqrt</keywords>
-            <also>
-                <see>math.math</see>
-            </also>
             <since>0.1</since>
         </meta>
         <info>
