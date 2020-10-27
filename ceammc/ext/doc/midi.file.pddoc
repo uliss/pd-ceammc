@@ -30,6 +30,8 @@
             <method name="read">read specified midi file. No output</method>
             <method name="write">write to specified midi file</method>
             <method name="clear">removes all midi file content</method>
+            <method name="seek">removes all midi file content</method>
+            <method name="reset">removes all midi file content</method>
         </methods>
         <inlets>
             <inlet>
