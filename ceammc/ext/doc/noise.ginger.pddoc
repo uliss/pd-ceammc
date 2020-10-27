@@ -9,7 +9,7 @@
             <description>Gingerbreadman map chaotic generator</description>
             <license>GPL3 or later</license>
             <library>ceammc</library>
-            <category>chaos</category>
+            <category>noise</category>
             <keywords>chaos generator gingerbreadman</keywords>
             <since>0.1</since>
             <also>

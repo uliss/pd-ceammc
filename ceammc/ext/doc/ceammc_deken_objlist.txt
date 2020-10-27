@@ -579,6 +579,7 @@ loadmsg	send message when patch loads
 net.host2ip	returns IP address by DNS name
 net.host->ip	returns IP address by DNS name
 noise.crackle~	sparse noise generator
+noise.ginger	Gingerbreadman map chaotic generator
 noise.lfreq0~	sampled/held noise (piecewise constant)
 noise.lfreq~	noise.lfreq0~ smoothed with no overshoot
 noise.pink~	Pink noise generator
