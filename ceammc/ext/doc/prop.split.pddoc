@@ -48,11 +48,11 @@
 |  |      |   | |              |
 [prop-> @prop1                  ]
 |     ^|   ^^|
-|     |      [ui.display @display_type=1]
+|     |      [ui.display @display_type 1]
 |     |
-|    [ui.display @display_type=1]
+|    [ui.display @display_type 1]
 |
-[ui.display @display_type=1]
+[ui.display @display_type 1]
 ]]>
             </pdascii>
         </example>

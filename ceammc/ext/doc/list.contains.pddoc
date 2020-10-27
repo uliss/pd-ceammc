@@ -64,7 +64,7 @@
 |           |
 [flow.pass_if] X [list.contains 0]
 |
-[ui.display @display_type=1]
+[ui.display @display_type 1]
 ]]>
             </pdascii>
         </example>

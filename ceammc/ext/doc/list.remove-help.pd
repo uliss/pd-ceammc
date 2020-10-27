@@ -11,7 +11,7 @@
 #X obj 232 147 ml;
 #X floatatom 194 176 5 0 0 0 - - -;
 #X obj 50 205 list.remove 0 -1;
-#X obj 50 234 ui.display @display_type=1;
+#X obj 50 234 ui.display @display_type 1;
 #X obj 20 283 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 288 cnv 5 90 26 empty empty arguments: 4 10 0 14 -262144
 -49933 0;

@@ -13,8 +13,8 @@ name and available only within its patch (canvas);
 #X msg 357 158 bang;
 #X obj 357 187 local.dict d1;
 #X obj 50 216 local.dict d1;
-#X obj 357 216 ui.display @display_type=1;
-#X obj 50 245 ui.display @display_type=1;
+#X obj 357 216 ui.display @display_type 1;
+#X obj 50 245 ui.display @display_type 1;
 #X obj 20 294 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 299 cnv 5 90 26 empty empty arguments: 4 10 0 14 -262144
 -49933 0;

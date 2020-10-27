@@ -20,7 +20,7 @@ doc directory \, %CEAMMC% - path to ceammc library directory;
 #X msg 194 256 %DOC%;
 #X msg 386 256 home: %HOME%;
 #X obj 50 285 expand_env;
-#X obj 50 314 ui.display @display_type=1;
+#X obj 50 314 ui.display @display_type 1;
 #X msg 50 385 %CEAMMC%;
 #X obj 50 414 expand_env @any;
 #X obj 50 443 symbol;

@@ -13,7 +13,7 @@
 #X msg 280 118 1 2 3;
 #X floatatom 357 118 5 0 0 0 - - -;
 #X obj 50 162 flow.pack 3 0 0 ABC, f 20;
-#X obj 50 190 ui.display @display_type=1;
+#X obj 50 190 ui.display @display_type 1;
 #X obj 20 239 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 244 cnv 5 90 26 empty empty arguments: 4 10 0 14 -262144
 -49933 0;

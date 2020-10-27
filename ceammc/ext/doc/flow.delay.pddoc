@@ -80,7 +80,7 @@
 |          |                 |.
 [flow.delay 1000              ]
 |
-[ui.display @display_type=1]
+[ui.display @display_type 1]
 
 [1 2(/*zero time*/
 |

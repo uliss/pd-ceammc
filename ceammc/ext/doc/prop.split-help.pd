@@ -18,9 +18,9 @@ Non property values are passed untouched;
 -1;
 #X msg 203 216 @prop1 2;
 #X obj 50 274 prop-> @prop1;
-#X obj 174 302 ui.display @display_type=1;
-#X obj 98 331 ui.display @display_type=1;
-#X obj 50 360 ui.display @display_type=1;
+#X obj 174 302 ui.display @display_type 1;
+#X obj 98 331 ui.display @display_type 1;
+#X obj 50 360 ui.display @display_type 1;
 #X obj 20 409 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 414 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
 0;

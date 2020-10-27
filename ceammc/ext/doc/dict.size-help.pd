@@ -12,7 +12,7 @@
 #X obj 50 147 data.dict;
 #X obj 165 147 data.dict \[a: b c: 200 12: 15151\];
 #X obj 50 176 dict.size;
-#X obj 50 205 ui.display @display_type=1;
+#X obj 50 205 ui.display @display_type 1;
 #X obj 20 254 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 259 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
 0;

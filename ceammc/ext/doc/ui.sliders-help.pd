@@ -21,7 +21,7 @@
 #X text 539 234 vertical slider;
 #X obj 50 262 ui.sliders @max 10 @presetname sl-help;
 #X obj 539 262 ui.sliders @size 100 150;
-#X obj 50 378 ui.display @display_type=1;
+#X obj 50 378 ui.display @display_type 1;
 #X obj 20 427 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 432 cnv 5 115 26 empty empty mouse_events: 4 10 0 14 -262144
 -49933 0;

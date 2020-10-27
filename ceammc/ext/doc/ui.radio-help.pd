@@ -27,7 +27,7 @@ for vertical radio \, [ui.hrd*] alias for horizontal radio checklist.;
 #X obj 50 217 ui.radio;
 #X obj 251 217 ui.radio @mode 1;
 #X floatatom 50 245 5 0 0 0 - - -;
-#X obj 251 245 ui.display @display_type=1;
+#X obj 251 245 ui.display @display_type 1;
 #X msg 50 274 + 3;
 #X msg 107 274 - 1;
 #X msg 165 274 prev;

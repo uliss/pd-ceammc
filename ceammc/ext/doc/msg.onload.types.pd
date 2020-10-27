@@ -6,7 +6,7 @@
 #X obj 20 164 msg.onload symbol TEXT;
 #X obj 20 192 ui.d @display_type 1 @auto_size 0;
 #X obj 20 221 msg.onload 1 2 3 4 5;
-#X text 260 221 implicit list;
+#X text 240 221 implicit list;
 #X obj 20 250 ui.d @display_type 1 @auto_size 0;
 #X obj 20 279 msg.onload list A B @C;
 #X text 260 279 explicit list;

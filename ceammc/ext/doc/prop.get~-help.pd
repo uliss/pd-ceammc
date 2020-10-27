@@ -17,8 +17,8 @@ Non property values are passed untouched.;
 #X obj 50 187 ui.gain~ @size 160 16;
 #X obj 347 187 ui.dsp~;
 #X obj 50 216 prop~> @db;
-#X obj 165 245 ui.display @display_type=1;
-#X obj 88 274 ui.display @display_type=1;
+#X obj 165 245 ui.display @display_type 1;
+#X obj 88 274 ui.display @display_type 1;
 #X obj 50 302 ui.scope~ @size 150 100;
 #X obj 20 434 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 439 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933

@@ -13,8 +13,8 @@ name;
 #X obj 50 172 ml;
 #X obj 318 172 global.mlist l1;
 #X obj 50 201 global.mlist l1;
-#X obj 318 201 ui.display @display_type=1;
-#X obj 50 230 ui.display @display_type=1;
+#X obj 318 201 ui.display @display_type 1;
+#X obj 50 230 ui.display @display_type 1;
 #X obj 20 279 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 284 cnv 5 90 26 empty empty arguments: 4 10 0 14 -262144
 -49933 0;

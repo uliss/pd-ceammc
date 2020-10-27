@@ -13,7 +13,7 @@
 #X msg 155 172 move 0.1 -0.1;
 #X msg 309 172 @show_grid \$1;
 #X obj 50 201 ui.slider2d @presetname s2d-help @size 100 100;
-#X obj 50 316 ui.display @display_type=1;
+#X obj 50 316 ui.display @display_type 1;
 #X text 50 345 [Shift+click] to save \, [Alt+click] to remove \, [click]
 to activate;
 #X obj 50 388 ui.preset @size 102 42;

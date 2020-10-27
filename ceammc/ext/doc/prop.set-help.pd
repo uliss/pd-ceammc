@@ -19,7 +19,7 @@ props \, but using internal pd method calls;
 #X text 414 213 change delay time;
 #X obj 328 242 prop.set @delay;
 #X obj 50 271 flow.delay 1000;
-#X obj 50 300 ui.display @display_type=1;
+#X obj 50 300 ui.display @display_type 1;
 #X floatatom 50 329 5 0 0 0 - - -;
 #X text 88 329 the only way to resize;
 #X msg 50 357 \$1 20;

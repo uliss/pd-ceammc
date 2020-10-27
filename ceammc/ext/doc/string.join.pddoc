@@ -50,7 +50,7 @@
 |
 [string.join ' ']
 |
-[ui.d @display_type=1]
+[ui.d @display_type 1]
 ]]>
             </pdascii>
         </example>

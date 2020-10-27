@@ -13,8 +13,8 @@ name and available only within its patch (canvas).;
 #X obj 50 187 ml;
 #X obj 318 187 local.mlist l1;
 #X obj 50 216 local.mlist l1;
-#X obj 318 216 ui.display @display_type=1;
-#X obj 50 245 ui.display @display_type=1;
+#X obj 318 216 ui.display @display_type 1;
+#X obj 50 245 ui.display @display_type 1;
 #X obj 20 294 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 299 cnv 5 90 26 empty empty arguments: 4 10 0 14 -262144
 -49933 0;

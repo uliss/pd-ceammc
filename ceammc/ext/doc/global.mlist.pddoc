@@ -71,9 +71,9 @@
 |                           |
 [ml]                        [global.mlist l1]
 |                           |
-[global.mlist l1]           [ui.display @display_type=1]
+[global.mlist l1]           [ui.display @display_type 1]
 |
-[ui.display @display_type=1]
+[ui.display @display_type 1]
 ]]>
             </pdascii>
         </example>

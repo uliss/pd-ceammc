@@ -18,7 +18,7 @@
 #X msg 165 320 0 1 2 3 4;
 #X obj 50 349 flow.pass_if;
 #X obj 213 349 list.contains 0;
-#X obj 50 378 ui.display @display_type=1;
+#X obj 50 378 ui.display @display_type 1;
 #X obj 20 427 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 432 cnv 5 90 26 empty empty arguments: 4 10 0 14 -262144
 -49933 0;

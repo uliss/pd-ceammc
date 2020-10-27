@@ -20,7 +20,7 @@
 #X msg 213 262 symbol X;
 #X msg 318 262 any msg;
 #X msg 414 262 bang;
-#X obj 50 320 ui.display @display_type=1;
+#X obj 50 320 ui.display @display_type 1;
 #X obj 20 354 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 359 cnv 5 115 26 empty empty mouse_events: 4 10 0 14 -262144
 -49933 0;

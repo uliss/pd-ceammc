@@ -47,9 +47,9 @@
 |
 [prop.get @size @value]
 |          ^|   ^^|
-|          |      [ui.display @display_type=1]
+|          |      [ui.display @display_type 1]
 |          |
-[ui.knob]  [ui.display @display_type=1]
+[ui.knob]  [ui.display @display_type 1]
 ]]>
             </pdascii>
         </example>

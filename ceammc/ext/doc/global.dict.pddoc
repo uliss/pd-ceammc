@@ -71,9 +71,9 @@
 |                               |
 |                               [global.dict d1]
 |                               |
-[global.dict d1]                [ui.display @display_type=1]
+[global.dict d1]                [ui.display @display_type 1]
 |
-[ui.display @display_type=1]
+[ui.display @display_type 1]
 ]]>
             </pdascii>
         </example>

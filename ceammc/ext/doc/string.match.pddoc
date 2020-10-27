@@ -49,7 +49,7 @@
 |                                                |.
 [str.match \[a-z\]+`.mp\[34\]                     ]
 |
-[ui.display @display_type=1]
+[ui.display @display_type 1]
 ]]>
             </pdascii>
         </example>

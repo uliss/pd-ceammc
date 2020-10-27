@@ -18,11 +18,11 @@ arg list: "@prop+";
 #X obj 50 216 symbol;
 #X obj 491 216 flow.match "@p.+";
 #X symbolatom 50 245 16 0 0 0 - - -;
-#X obj 491 245 ui.display @display_type=1;
+#X obj 491 245 ui.display @display_type 1;
 #X obj 50 274 flow.match freq`d amp`d;
 #X symbolatom 50 317 5 0 0 0 - - -;
 #X symbolatom 184 317 5 0 0 0 - - -;
-#X obj 280 317 ui.display @display_type=1;
+#X obj 280 317 ui.display @display_type 1;
 #X obj 20 366 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 371 cnv 5 90 26 empty empty arguments: 4 10 0 14 -262144
 -49933 0;

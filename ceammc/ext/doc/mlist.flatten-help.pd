@@ -8,7 +8,7 @@
 #X msg 50 118 (() 1 2 (3 (4 5)) ((((6)))) 7) \, bang;
 #X obj 50 147 mlist;
 #X obj 50 176 mlist.flatten;
-#X obj 50 205 ui.display @display_type=1;
+#X obj 50 205 ui.display @display_type 1;
 #X obj 20 254 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 259 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
 0;

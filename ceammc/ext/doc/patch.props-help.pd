@@ -14,7 +14,7 @@
 #X msg 222 201 @freq?;
 #X msg 309 201 default;
 #X obj 50 230 patch.props;
-#X obj 50 259 ui.display @display_type=1;
+#X obj 50 259 ui.display @display_type 1;
 #X floatatom 50 287 5 0 0 0 - - -;
 #X floatatom 174 287 5 0 0 0 - - -;
 #X obj 50 316 prop @freq;

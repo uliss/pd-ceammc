@@ -13,7 +13,7 @@
 #X msg 69 147 @value?;
 #X obj 50 176 flow.demultiplex~ 4;
 #X obj 50 205 ~->;
-#X obj 78 234 ui.display @display_type=1;
+#X obj 78 234 ui.display @display_type 1;
 #X obj 50 262 env~;
 #X obj 136 262 env~;
 #X obj 232 262 env~;
