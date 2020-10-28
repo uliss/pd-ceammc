@@ -20,7 +20,7 @@
 		{ "filters.lib/allpass_comb:author": "Julius O. Smith III" },
 		{ "filters.lib/allpass_comb:copyright": "Copyright (C) 2003-2019 by Julius O. Smith III <jos@ccrma.stanford.edu>" },
 		{ "filters.lib/allpass_comb:license": "MIT-style STK-4.3 license" },
-		{ "filters.lib/lowpass0_highpass1": "Copyright (C) 2003-2019 by Julius O. Smith III <jos@ccrma.stanford.edu>" },
+		{ "filters.lib/lowpass0_highpass1": "MIT-style STK-4.3 license" },
 		{ "filters.lib/name": "Faust Filters Library" },
 		{ "maths.lib/author": "GRAME" },
 		{ "maths.lib/copyright": "GRAME" },
