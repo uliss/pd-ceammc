@@ -3,7 +3,7 @@
 	"filename": "fx_freeverb2.dsp",
 	"version": "2.28.6",
 	"compile_options": "-lang cpp -scal -ftz 0",
-	"library_list": ["/Users/serge/work/music/pure-data/ceammc/faust/ceammc.lib","/usr/local/share/faust/reverbs.lib","/usr/local/share/faust/signals.lib","/usr/local/share/faust/maths.lib","/usr/local/share/faust/platform.lib","/usr/local/share/faust/filters.lib","/usr/local/share/faust/delays.lib","/Users/serge/work/music/pure-data/ceammc/faust/ceammc_ui.lib","/usr/local/share/faust/basics.lib","/usr/local/share/faust/routes.lib"],
+	"library_list": ["/Users/serge/work/music/pure-data/ceammc/faust/ceammc.lib","/usr/local/share/faust/signals.lib","/usr/local/share/faust/basics.lib","/usr/local/share/faust/maths.lib","/usr/local/share/faust/platform.lib","/usr/local/share/faust/reverbs.lib","/usr/local/share/faust/filters.lib","/usr/local/share/faust/delays.lib","/Users/serge/work/music/pure-data/ceammc/faust/ceammc_ui.lib","/usr/local/share/faust/routes.lib"],
 	"include_pathnames": ["/usr/local/share/faust","/usr/local/share/faust","/usr/share/faust","/Users/serge/work/music/pure-data/ceammc/faust","/Users/serge/work/music/pure-data/ceammc/faust"],
 	"inputs": 2,
 	"outputs": 2,
@@ -70,8 +70,62 @@
 				},
 				{
 					"type": "hslider",
+					"label": "fr_damp",
+					"address": "/fx.freeverb2/fr_damp",
+					"meta": [
+						{ "style": "knob" }
+					],
+					"init": 0.0001,
+					"min": 0,
+					"max": 1,
+					"step": 0.001
+				},
+				{
+					"type": "hslider",
+					"label": "fr_room",
+					"address": "/fx.freeverb2/fr_room",
+					"meta": [
+						{ "style": "knob" }
+					],
+					"init": 0.999,
+					"min": 0,
+					"max": 1,
+					"step": 0.001
+				},
+				{
+					"type": "hslider",
+					"label": "fr_time",
+					"address": "/fx.freeverb2/fr_time",
+					"meta": [
+						{ "style": "knob" },
+						{ "unit": "ms" }
+					],
+					"init": 100,
+					"min": 0,
+					"max": 1000,
+					"step": 0.001
+				},
+				{
+					"type": "checkbox",
+					"label": "freeze",
+					"address": "/fx.freeverb2/freeze",
+					"meta": [
+						{ "type": "bool" }
+					]
+				},
+				{
+					"type": "hslider",
 					"label": "room",
 					"address": "/fx.freeverb2/room",
+					"init": 0.5,
+					"min": 0,
+					"max": 1,
+					"step": 0.001
+				},
+				{
+					"type": "hslider",
+					"label": "spread",
+					"address": "/fx.freeverb2/spread",
 					"init": 0.5,
 					"min": 0,
 					"max": 1,
