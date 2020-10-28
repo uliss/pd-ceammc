@@ -21,8 +21,8 @@
         </info>
         <arguments>
             <argument name="ROOM" type="float" minvalue="0" maxvalue="1">room size</argument>
-            <argument name="DRYWET" type="float" minvalue="0" maxvalue="1">ratio between processed
-            signal (wet) and source signal</argument>
+            <argument name="DRYWET" type="float" minvalue="0" maxvalue="1">proportion of mix
+            between the original (dry) and 'effected' (wet) signals</argument>
         </arguments>
         <methods>
             <method name="reset">reset reverb</method>
@@ -35,10 +35,20 @@
             <property name="@drywet" type="float" minvalue="0" maxvalue="1" default="0.33">
             proportion of mix between the original (dry) and 'effected' (wet) signals. 0 - dry
             signal, 1 - wet</property>
+            <property name="@spread" type="float" minvalue="0" maxvalue="1" default="0.5">spatial
+            spread between 0 and 1 with 1 for maximum spread</property>
             <property name="@bypass" type="int" enum="0 1" default="0">if set to 1 - bypass
             'effected' signal</property>
             <property name="@active" type="int" enum="0 1" default="1">on/off dsp
             processing</property>
+            <property name="@freeze" type="int" enum="0 1" default="0">freeze reverberation
+            tail</property>
+            <property name="@fr_room" type="float" minvalue="0" maxvalue="1" default="0.999">freeze
+            room size</property>
+            <property name="@fr_damp" type="float" minvalue="0" maxvalue="1" default="0.0001">
+            freeze room damp</property>
+            <property name="@fr_time" type="float" minvalue="0" maxvalue="1000" default="100"
+            units="millisecond">length of freeze tail</property>
         </properties>
         <inlets>
             <inlet type="audio">
@@ -65,9 +75,11 @@
 |            |          |          |
 |            [@room $1( [@damp $1( [@drywet $1(
 |            |          |          |
-|            |          |          |
-|            |          |          |
-[fx.freeverb2~  0.95    0.125      ]
+|            |          |          | [T]
+|            |          |          | |
+|            |          |          | [@freeze $1(
+|            |          |          | |
+[fx.freeverb2~  0.95    0.125        ]
 |
 [ui.gain~ @size 120 16] [ui.dsp~]
 | \
