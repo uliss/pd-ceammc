@@ -28,7 +28,7 @@
             <property name="@decay_mid" type="float" minvalue="1" maxvalue="25" default="2"
             units="second">time (in seconds) to decay 60dB in mid-frequency band</property>
             <property name="@delay" type="float" minvalue="20" maxvalue="100" default="60"
-            units="millisecond">A delay of 20 to 100 ms operating on the 'wet' signal. Large values
+            units="millisecond">a delay of 20 to 100 ms operating on the 'wet' signal. Large values
             will provide the impression of a larger room</property>
             <property name="@freq_low" type="float" minvalue="50" maxvalue="1000" default="200"
             units="herz">Crossover frequency (Hz) separating low and middle frequencies</property>
@@ -41,6 +41,14 @@
             'effected' signal.</property>
             <property name="@active" type="int" enum="0 1" default="1">on/off dsp
             processing</property>
+            <property name="@freeze" type="int" enum="0 1" default="0">freeze reverberation
+            tail</property>
+            <property name="@fr_mdecay" type="float" minvalue="0" maxvalue="60" default="30" units="second">
+            time (in seconds) to decay 60dB in mid-frequency band</property>
+            <property name="@fr_ldecay" type="float" minvalue="0" maxvalue="60" default="30" units="second">
+            time (in seconds) to decay 60dB in low-frequency band</property>
+            <property name="@fr_time" type="float" minvalue="0" maxvalue="1000" default="100"
+            units="millisecond">length of freeze tail</property>
         </properties>
         <inlets>
             <inlet type="audio">
@@ -78,10 +86,11 @@
 | |            |           |               |
 | [@bypass $1( | [dump(    [@decay_mid $1( [@decay_low $1(
 | |            | |         |               |
-| |            | |         |               |
-| |            | |         |               |
-| |            | |         |               |
-[fx.zita_rev1~  3 4                        ]
+| |            | |         |               | [T]
+| |            | |         |               | |
+| |            | |         |               | [@freeze $1(
+| |            | |         |               | |
+[fx.zita_rev1~  3 4                          ]
 |  ^|.
 [dac~]
 

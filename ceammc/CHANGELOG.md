@@ -39,7 +39,7 @@
 - env.smooth~ play method added
 - dbfs->amp~ converter added
 - hex->int~ converter added
-- freeze added to fx.freeverb~ and fx.freeverb2~ (via @freeze property)
+- freeze added to fx.freeverb~, fx.freeverb2~ and fx.zita_rev1~ (via @freeze property)
 
 
 ### Changed:
