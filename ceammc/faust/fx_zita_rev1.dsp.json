@@ -20,7 +20,7 @@
 		{ "filters.lib/allpass_comb:author": "Julius O. Smith III" },
 		{ "filters.lib/allpass_comb:copyright": "Copyright (C) 2003-2019 by Julius O. Smith III <jos@ccrma.stanford.edu>" },
 		{ "filters.lib/allpass_comb:license": "MIT-style STK-4.3 license" },
-		{ "filters.lib/lowpass0_highpass1": "Copyright (C) 2003-2019 by Julius O. Smith III <jos@ccrma.stanford.edu>" },
+		{ "filters.lib/lowpass0_highpass1": "MIT-style STK-4.3 license" },
 		{ "filters.lib/lowpass0_highpass1:author": "Julius O. Smith III" },
 		{ "filters.lib/lowpass:author": "Julius O. Smith III" },
 		{ "filters.lib/lowpass:copyright": "Copyright (C) 2003-2019 by Julius O. Smith III <jos@ccrma.stanford.edu>" },
@@ -68,7 +68,7 @@
 					],
 					"init": 3,
 					"min": 1,
-					"max": 25,
+					"max": 60,
 					"step": 0.1
 				},
 				{
@@ -82,7 +82,7 @@
 					],
 					"init": 2,
 					"min": 1,
-					"max": 25,
+					"max": 60,
 					"step": 0.1
 				},
 				{

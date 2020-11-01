@@ -15,8 +15,8 @@ with {
     ui_freeze_t60dc = hslider("fr_ldecay [unit:sec] [style:knob]", 40, 0, 60, 0.001);
     ui_freeze_t60m = hslider("fr_mdecay [unit:sec] [style:knob]", 40, 0, 60, 0.001);
 
-    ui_t60dc = vslider("decay_low [unit:sec] [style:knob] [scale:log]", 3, 1, 25, 0.1);
-    ui_t60m = vslider("decay_mid [unit:sec] [style:knob] [scale:log]", 2, 1, 25, 0.1);
+    ui_t60dc = vslider("decay_low [unit:sec] [style:knob] [scale:log]", 3, 1, 60, 0.1);
+    ui_t60m = vslider("decay_mid [unit:sec] [style:knob] [scale:log]", 2, 1, 60, 0.1);
 
     smoo = _ : si.smooth(ba.tau2pole(ui_freeze_time / 1000.0)) : _;
     gate = (1 - ui_freeze) : smoo;
