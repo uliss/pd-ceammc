@@ -51,9 +51,9 @@
         <example>
             <pdascii>
 <![CDATA[
-[B #a]   [msg.onload]
-|        |
-[click~] [samplerate~]  [ui.knob~ -1 1]
+[B #a]   [msg.onload]   [ui.knob @min -1 @max 1 #c]
+|        |              |       |
+[click~] [samplerate~]  |       |
 |        |              |       |
 |        [/ 8]          [@a $1( [F]
 |        |.             |
@@ -78,6 +78,7 @@
 
 [ui.dsp~]
 [X a->b:1]
+[X c->a]
 ]]>
             </pdascii>
         </example>
