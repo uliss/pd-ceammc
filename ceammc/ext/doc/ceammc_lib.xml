@@ -565,6 +565,9 @@
     <entry name="flt.eq_peak~" descr="second order &quot;peaking equalizer&quot; section (gain boost or cut near some frequency). Also called a &quot;parametric equalizer&quot; section." ref_view="object">
       <xi:include href="flt.eq_peak~.pddoc" parse="xml"/>
     </entry>
+    <entry name="flt.ff_comb~" descr="feed forward comb filter" ref_view="object">
+      <xi:include href="flt.ff_comb~.pddoc" parse="xml"/>
+    </entry>
     <entry name="flt.freqz~" descr="compute the frequency response of a digital filter" ref_view="object">
       <xi:include href="flt.freqz~.pddoc" parse="xml"/>
     </entry>

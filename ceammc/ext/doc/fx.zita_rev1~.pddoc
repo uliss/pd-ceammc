@@ -43,10 +43,10 @@
             processing</property>
             <property name="@freeze" type="int" enum="0 1" default="0">freeze reverberation
             tail</property>
-            <property name="@fr_mdecay" type="float" minvalue="0" maxvalue="60" default="30" units="second">
-            time (in seconds) to decay 60dB in mid-frequency band</property>
-            <property name="@fr_ldecay" type="float" minvalue="0" maxvalue="60" default="30" units="second">
-            time (in seconds) to decay 60dB in low-frequency band</property>
+            <property name="@fr_mdecay" type="float" minvalue="0" maxvalue="60" default="30"
+            units="second">time (in seconds) to decay 60dB in mid-frequency band</property>
+            <property name="@fr_ldecay" type="float" minvalue="0" maxvalue="60" default="30"
+            units="second">time (in seconds) to decay 60dB in low-frequency band</property>
             <property name="@fr_time" type="float" minvalue="0" maxvalue="1000" default="100"
             units="millisecond">length of freeze tail</property>
         </properties>
