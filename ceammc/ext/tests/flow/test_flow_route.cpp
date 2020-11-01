@@ -375,4 +375,18 @@ TEST_CASE("flow.route", "[externals]")
         t.sendMessage("*");
         REQUIRE(t.messagesAt(6).back() == Message(L()));
     }
+
+    SECTION("float")
+    {
+        TExt t("flow.route", LA(1, 20, "*30"));
+
+        t << 1;
+        REQUIRE(t.messagesAt(0).back() == Message(L()));
+        t << 20;
+        REQUIRE(t.messagesAt(1).back() == Message(L()));
+        t << 30;
+        REQUIRE(t.messagesAt(2).back() == Message(30));
+        t << 40;
+        REQUIRE(t.messagesAt(3).back() == Message(40));
+    }
 }
