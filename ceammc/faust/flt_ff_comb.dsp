@@ -15,7 +15,7 @@ process(in, freq) = fcomb : _ with {
 
     del = ba.sec2samp(1 / dfreq);
     b0 = 1;
-    aN = hslider("a", 1, 0, 1, 0.0001) : si.smoo;
+    aN = hslider("a", 1, -1, 1, 0.0001) : si.smoo;
 
     fcomb = in : fi.ff_fcomb(maxdel, del, b0, aN);
 };

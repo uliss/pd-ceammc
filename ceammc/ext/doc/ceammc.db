@@ -156,6 +156,7 @@ flt.dcblock~		~		~
 flt.eq10~		~		~
 flt.eq_peak_cq~		.		~
 flt.eq_peak~		~		~
+flt.fb_comb~		~~		~
 flt.ff_comb~		~~		~
 flt.freqz~		~		~~
 flt.highshelf~		~		~
