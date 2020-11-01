@@ -41,6 +41,7 @@
 - hex->int~ converter added
 - freeze added to fx.freeverb~, fx.freeverb2~ and fx.zita_rev1~ (via @freeze property)
 - flt.ff_comb~ added (feed forward comb filter)
+- flt.fb_comb~ added (feedback comb filter)
 
 
 ### Changed:

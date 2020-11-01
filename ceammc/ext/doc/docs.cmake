@@ -158,6 +158,7 @@ set(DOC_FILES
     flt.eq10~
     flt.eq_peak~
     flt.eq_peak_cq~
+    flt.fb_comb~
     flt.ff_comb~
     flt.freqz~
     flt.highshelf~

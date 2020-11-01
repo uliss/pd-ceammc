@@ -15,6 +15,7 @@ void setup_flt_dcblock_tilde();
 void setup_flt_eq10_tilde();
 void setup_flt_eq_peak_cq_tilde();
 void setup_flt_eq_peak_tilde();
+void setup_flt_fb_comb_tilde();
 void setup_flt_ff_comb_tilde();
 void setup_flt_freqz();
 void setup_flt_highshelf_tilde();
@@ -45,6 +46,7 @@ void ceammc_flt_setup()
     setup_flt_eq10_tilde();
     setup_flt_eq_peak_cq_tilde();
     setup_flt_eq_peak_tilde();
+    setup_flt_fb_comb_tilde();
     setup_flt_ff_comb_tilde();
     setup_flt_freqz();
     setup_flt_highshelf_tilde();
