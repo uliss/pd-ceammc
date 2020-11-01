@@ -638,7 +638,7 @@ class flt_ff_comb : public flt_ff_comb_dsp {
 	
 	virtual void buildUserInterface(UI* ui_interface) {
 		ui_interface->openVerticalBox("flt_ff_comb");
-		ui_interface->addHorizontalSlider("a", &fHslider0, 1.0f, 0.0f, 1.0f, 9.99999975e-05f);
+		ui_interface->addHorizontalSlider("a", &fHslider0, 1.0f, -1.0f, 1.0f, 9.99999975e-05f);
 		ui_interface->closeBox();
 	}
 	

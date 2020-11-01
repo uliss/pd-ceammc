@@ -20,7 +20,7 @@
             <par>Frequency response of a comb filter consists of a series of regularly spaced
             notches, giving the appearance of a comb</par>
             <par>Structure of a feedforward comb filter may be described by the following
-            difference equation: y[n] = x[n] + α[n−K] K is the delay length (measured in samples),
+            difference equation: y[n] = x[n] + α[n−K] where K is the delay length (measured in samples),
             and α is a scaling factor applied to the delayed signal</par>
             <a href="https://en.wikipedia.org/wiki/Comb_filter">wiki: Comb filter</a>
         </info>
@@ -53,11 +53,11 @@
 <![CDATA[
 [B #a]   [msg.onload]
 |        |
-[click~] [samplerate~]
-|        |
-|        [/ 8]
-|        |.
-[flt.ff_comb~]
+[click~] [samplerate~]  [ui.knob~ -1 1]
+|        |              |       |
+|        [/ 8]          [@a $1( [F]
+|        |.             |
+[flt.ff_comb~           ]
 |
 [plot.response~             #b]
 |                          ^^|.

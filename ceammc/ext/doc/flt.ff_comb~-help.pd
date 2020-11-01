@@ -9,9 +9,9 @@
 #X text 215 80 Frequency response of a comb filter consists of a series
 of regularly spaced notches \, giving the appearance of a comb;
 #X text 215 120 Structure of a feedforward comb filter may be described
-by the following difference equation: y[n] = x[n] + α[n−K] K is the
-delay length (measured in samples) \, and α is a scaling factor applied
-to the delayed signal;
+by the following difference equation: y[n] = x[n] + α[n−K] where K
+is the delay length (measured in samples) \, and α is a scaling factor
+applied to the delayed signal;
 #X obj 215 190 ui.link @background_color 0.98039 0.98039 0.98039
 @title wiki: Comb filter @url
 https://en.wikipedia.org/wiki/Comb_filter;
@@ -20,7 +20,10 @@ https://en.wikipedia.org/wiki/Comb_filter;
 #X obj 136 251 msg.onload;
 #X obj 50 280 click~;
 #X obj 136 280 samplerate~;
+#X obj 280 280 ui.knob~ -1 1;
 #X obj 136 309 / 8;
+#X msg 280 309 @a \$1;
+#X floatatom 357 309 5 0 0 0 - - -;
 #X obj 50 338 flt.ff_comb~;
 #X obj 50 367 plot.response~;
 #X obj 50 395 ui.plot~ @xlabels 1 @ylabels 1 @ymin 0 @ymax 2
@@ -95,10 +98,11 @@ https://github.com/uliss/pure-data;
 #X restore 10 1075 pd info;
 #X connect 8 0 10 0;
 #X connect 9 0 11 0;
-#X connect 11 0 12 0;
-#X connect 10 0 13 0;
-#X connect 12 0 13 1;
-#X connect 13 0 14 0;
-#X connect 14 0 15 0;
-#X connect 14 2 15 1;
-#X connect 8 0 14 1;
+#X connect 11 0 13 0;
+#X connect 10 0 16 0;
+#X connect 13 0 16 1;
+#X connect 14 0 16 0;
+#X connect 16 0 17 0;
+#X connect 17 0 18 0;
+#X connect 17 2 18 1;
+#X connect 8 0 17 1;
