@@ -36,6 +36,8 @@ constexpr int XT_REC_FIRST = 8;
 constexpr int XT_REC_LAST = XT_REC_FIRST + Scene::NCHAN;
 constexpr int XT_BTN_KNOB_FIRST = 0;
 constexpr int XT_BTN_KNOB_LAST = XT_BTN_KNOB_FIRST + Scene::NCHAN;
+constexpr int XT_SOLO_FIRST = 16;
+constexpr int XT_SOLO_LAST = XT_SOLO_FIRST + Scene::NCHAN;
 
 static std::array<t_symbol*, MAX_CONTROLS> SYM_FADERS;
 static std::array<t_symbol*, MAX_CONTROLS> SYM_KNOBS;
@@ -177,6 +179,7 @@ void XTouchExtender::onFloat(t_float f)
         }
     } catch (std::exception& e) {
         OBJ_ERR << "exception: " << e.what();
+        throw e;
     }
 }
 
@@ -239,9 +242,18 @@ void XTouchExtender::initDone()
             sprintf(buf, "@solo%d", idx);
             auto p = new IntProperty(buf);
             p->checkClosedRange(-1, 1);
-            //            p->setSuccessFn([this, j](Property* p) { sendKnob(j, static_cast<FloatProperty*>(p)->value()); });
+            p->setSuccessFn([this, i, j](Property* p) { sendSolo(i, j, static_cast<IntProperty*>(p)->value()); });
             addProperty(p);
             scenes_[i].btn_solo_[j] = p;
+        }
+
+        // init btn solo toggle mode
+        for (int j = 0; j < NCH; j++) {
+            const int idx = i * NCH + j;
+            sprintf(buf, "@tsolo%d", idx);
+            auto p = new BoolProperty(buf, true);
+            addProperty(p);
+            scenes_[i].btn_solo_tgl_mode_[j] = p;
         }
 
         // init btn mute
@@ -250,7 +262,7 @@ void XTouchExtender::initDone()
             sprintf(buf, "@mute%d", idx);
             auto p = new IntProperty(buf);
             p->checkClosedRange(-1, 1);
-            //            p->setSuccessFn([this, j](Property* p) { sendKnob(j, static_cast<FloatProperty*>(p)->value()); });
+            //            p->setSuccessFn([this, j](Property* p) { sendKnob(j, static_cast<IntProperty*>(p)->value()); });
             addProperty(p);
             scenes_[i].btn_mute_[j] = p;
         }
@@ -304,7 +316,7 @@ void XTouchExtender::m_reset(t_symbol* s, const AtomListView& lv)
 
 static bool in_range(uint8_t v, uint8_t min, uint8_t max)
 {
-    return min <= v && v <= max;
+    return min <= v && v < max;
 }
 
 void XTouchExtender::parseXMidi()
@@ -353,6 +365,26 @@ void XTouchExtender::parseXMidi()
             const auto ch = note - XT_BTN_KNOB_FIRST;
             const int velocity = parser_.data[2];
             sendKnobButton(scene_->value(), ch, velocity);
+        } else if (in_range(note, XT_SOLO_FIRST, XT_SOLO_LAST)) {
+            const auto ch = note - XT_SOLO_FIRST;
+            const int velocity = parser_.data[2];
+
+            int val = 0;
+            if (currentScene().btn_solo_tgl_mode_.at(ch)->value()) {
+                if (velocity == 0)
+                    return;
+
+                const auto current_v = currentScene().btn_solo_.at(ch)->value();
+                if (current_v < 0)
+                    val = 1;
+                else
+                    val = (1 - current_v);
+            } else {
+                val = (velocity > 64);
+            }
+
+            currentScene().btn_solo_.at(ch)->setValue(val);
+            sendSolo(scene_->value(), ch, val);
         }
     }
 }
@@ -410,6 +442,7 @@ void XTouchExtender::syncScene()
     auto& faders = currentScene().faders_;
     auto& knobs = currentScene().knobs_;
     auto& recs = currentScene().btn_rec_;
+    auto& solo = currentScene().btn_solo_;
 
     OBJ_LOG << "sync scene: " << scene_idx;
 
@@ -417,6 +450,7 @@ void XTouchExtender::syncScene()
         sendFader(scene_idx, i, faders[i]->value());
         sendKnob(scene_idx, i, knobs[i]->value());
         sendRec(scene_idx, i, recs[i]->value());
+        sendSolo(scene_idx, i, solo[i]->value());
         syncDisplay(scene_idx, i);
     }
 }
@@ -490,6 +524,27 @@ void XTouchExtender::sendRec(uint8_t scene_idx, uint8_t ctl_idx, int v)
         // send MIDI only for current scene
         if (scene_->value() == scene_idx) {
             const uint8_t note = XT_REC_FIRST + (0x0F & ctl_idx);
+            const uint8_t val = (v < 0) ? 64 : (v > 0 ? 127 : 0);
+            sendNote(note, val);
+        }
+    } else {
+        OBJ_ERR << "not implemented yet: " << proto_->value() << " " << __FUNCTION__;
+    }
+}
+
+void XTouchExtender::sendSolo(uint8_t scene_idx, uint8_t ctl_idx, int v)
+{
+    OBJ_LOG << "sendSolo: " << (int)scene_idx << ' ' << (int)ctl_idx << ' ' << v;
+
+    if (proto_->value() == PROTO_XMIDI) {
+        const int logic_idx = (scene_idx * Scene::NCHAN + ctl_idx) % MAX_CONTROLS;
+
+        // output for all scenes
+        anyTo(1, SYM_BTN_SOLO.at(logic_idx), AtomListView(Atom(v)));
+
+        // send MIDI only for current scene
+        if (scene_->value() == scene_idx) {
+            const uint8_t note = XT_SOLO_FIRST + (0x0F & ctl_idx);
             const uint8_t val = (v < 0) ? 64 : (v > 0 ? 127 : 0);
             sendNote(note, val);
         }

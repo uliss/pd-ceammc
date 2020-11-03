@@ -87,6 +87,7 @@ struct Scene {
     std::array<IntProperty*, NCHAN> btn_rec_;
     std::array<BoolProperty*, NCHAN> btn_rec_tgl_mode_;
     std::array<IntProperty*, NCHAN> btn_solo_;
+    std::array<BoolProperty*, NCHAN> btn_solo_tgl_mode_;
     std::array<IntProperty*, NCHAN> btn_mute_;
     std::array<IntProperty*, NCHAN> btn_select_;
 
@@ -126,6 +127,7 @@ private:
     void sendKnob(uint8_t scene_idx, uint8_t ctl_idx, t_float v);
     void sendKnobButton(uint8_t scene_idx, uint8_t ctl_idx, uint8_t v);
     void sendRec(uint8_t scene_idx, uint8_t ctl_idx, int v);
+    void sendSolo(uint8_t scene_idx, uint8_t ctl_idx, int v);
 
     void sendCC(uint8_t cc, uint8_t value, uint8_t ch = 0);
     void sendNote(uint8_t note, uint8_t velocity, uint8_t ch = 0);
