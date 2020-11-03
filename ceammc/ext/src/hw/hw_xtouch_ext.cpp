@@ -38,6 +38,8 @@ constexpr int XT_BTN_KNOB_FIRST = 0;
 constexpr int XT_BTN_KNOB_LAST = XT_BTN_KNOB_FIRST + Scene::NCHAN;
 constexpr int XT_SOLO_FIRST = 16;
 constexpr int XT_SOLO_LAST = XT_SOLO_FIRST + Scene::NCHAN;
+constexpr int XT_MUTE_FIRST = 24;
+constexpr int XT_MUTE_LAST = XT_MUTE_FIRST + Scene::NCHAN;
 
 static std::array<t_symbol*, MAX_CONTROLS> SYM_FADERS;
 static std::array<t_symbol*, MAX_CONTROLS> SYM_KNOBS;
@@ -179,7 +181,6 @@ void XTouchExtender::onFloat(t_float f)
         }
     } catch (std::exception& e) {
         OBJ_ERR << "exception: " << e.what();
-        throw e;
     }
 }
 
@@ -262,9 +263,18 @@ void XTouchExtender::initDone()
             sprintf(buf, "@mute%d", idx);
             auto p = new IntProperty(buf);
             p->checkClosedRange(-1, 1);
-            //            p->setSuccessFn([this, j](Property* p) { sendKnob(j, static_cast<IntProperty*>(p)->value()); });
+            p->setSuccessFn([this, i, j](Property* p) { sendMute(i, j, static_cast<IntProperty*>(p)->value()); });
             addProperty(p);
             scenes_[i].btn_mute_[j] = p;
+        }
+
+        // init btn mute toggle mode
+        for (int j = 0; j < NCH; j++) {
+            const int idx = i * NCH + j;
+            sprintf(buf, "@tmute%d", idx);
+            auto p = new BoolProperty(buf, true);
+            addProperty(p);
+            scenes_[i].btn_mute_tgl_mode_[j] = p;
         }
 
         // init btn select
@@ -385,6 +395,26 @@ void XTouchExtender::parseXMidi()
 
             currentScene().btn_solo_.at(ch)->setValue(val);
             sendSolo(scene_->value(), ch, val);
+        } else if (in_range(note, XT_MUTE_FIRST, XT_MUTE_LAST)) {
+            const auto ch = note - XT_MUTE_FIRST;
+            const int velocity = parser_.data[2];
+
+            int val = 0;
+            if (currentScene().btn_mute_tgl_mode_.at(ch)->value()) {
+                if (velocity == 0)
+                    return;
+
+                const auto current_v = currentScene().btn_mute_.at(ch)->value();
+                if (current_v < 0)
+                    val = 1;
+                else
+                    val = (1 - current_v);
+            } else {
+                val = (velocity > 64);
+            }
+
+            currentScene().btn_mute_.at(ch)->setValue(val);
+            sendMute(scene_->value(), ch, val);
         }
     }
 }
@@ -443,6 +473,7 @@ void XTouchExtender::syncScene()
     auto& knobs = currentScene().knobs_;
     auto& recs = currentScene().btn_rec_;
     auto& solo = currentScene().btn_solo_;
+    auto& mute = currentScene().btn_mute_;
 
     OBJ_LOG << "sync scene: " << scene_idx;
 
@@ -451,6 +482,7 @@ void XTouchExtender::syncScene()
         sendKnob(scene_idx, i, knobs[i]->value());
         sendRec(scene_idx, i, recs[i]->value());
         sendSolo(scene_idx, i, solo[i]->value());
+        sendMute(scene_idx, i, mute[i]->value());
         syncDisplay(scene_idx, i);
     }
 }
@@ -545,6 +577,27 @@ void XTouchExtender::sendSolo(uint8_t scene_idx, uint8_t ctl_idx, int v)
         // send MIDI only for current scene
         if (scene_->value() == scene_idx) {
             const uint8_t note = XT_SOLO_FIRST + (0x0F & ctl_idx);
+            const uint8_t val = (v < 0) ? 64 : (v > 0 ? 127 : 0);
+            sendNote(note, val);
+        }
+    } else {
+        OBJ_ERR << "not implemented yet: " << proto_->value() << " " << __FUNCTION__;
+    }
+}
+
+void XTouchExtender::sendMute(uint8_t scene_idx, uint8_t ctl_idx, int v)
+{
+    OBJ_LOG << "sendMute: " << (int)scene_idx << ' ' << (int)ctl_idx << ' ' << v;
+
+    if (proto_->value() == PROTO_XMIDI) {
+        const int logic_idx = (scene_idx * Scene::NCHAN + ctl_idx) % MAX_CONTROLS;
+
+        // output for all scenes
+        anyTo(1, SYM_BTN_MUTE.at(logic_idx), AtomListView(Atom(v)));
+
+        // send MIDI only for current scene
+        if (scene_->value() == scene_idx) {
+            const uint8_t note = XT_MUTE_FIRST + (0x0F & ctl_idx);
             const uint8_t val = (v < 0) ? 64 : (v > 0 ? 127 : 0);
             sendNote(note, val);
         }
