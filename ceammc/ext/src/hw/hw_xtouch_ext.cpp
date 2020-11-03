@@ -318,8 +318,8 @@ void XTouchExtender::m_vu(t_symbol* s, const AtomListView& lv)
         return;
     }
 
-    if (idx >= Scene::NCHAN) {
-        METHOD_ERR(s) << "expected channel value in 0.." << (Scene::NCHAN - 1) << " range, got: " << idx;
+    if (idx >= MAX_CONTROLS) {
+        METHOD_ERR(s) << "expected channel value in 0.." << (MAX_CONTROLS - 1) << " range, got: " << idx;
         return;
     }
 
@@ -460,8 +460,12 @@ void XTouchExtender::parseMcu()
 
 void XTouchExtender::sendVu(uint8_t idx, int db)
 {
+    const uint8_t scene_idx = idx / Scene::NCHAN;
+    if (scene_->value() != scene_idx)
+        return;
+
     if (proto_->value() == PROTO_XMIDI) {
-        const uint8_t cc = XT_VU_FIRST + (0x0f & idx);
+        const uint8_t cc = XT_VU_FIRST + (0x0f & (idx % Scene::NCHAN));
         const uint8_t val = std::round(convert::lin2lin_clip<t_float>(db, MIN_VU_DB, MAX_VU_DB, 0, 127));
         sendCC(cc, val);
     } else {
