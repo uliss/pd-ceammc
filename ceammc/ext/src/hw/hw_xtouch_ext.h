@@ -152,7 +152,7 @@ private:
      * @param idx - hardware control index
      * @return
      */
-    int calcLogicIdx(uint8_t idx) const { return scene_->value() * Scene::NCHAN + (idx % scene_->value()); }
+    uint8_t calcLogicIdx(uint8_t idx) const { return scene_->value() * Scene::NCHAN + idx; }
 
     Scene& currentScene() { return scenes_[scene_->value()]; }
     Scene& sceneByIdx(uint8_t scene_idx) { return scenes_[scene_idx % scenes_.size()]; }
