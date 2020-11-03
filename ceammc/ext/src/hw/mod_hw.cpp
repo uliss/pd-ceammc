@@ -9,6 +9,7 @@ void setup_hw_apple_sms();
 void setup_hw_cpu_temp();
 void setup_hw_display();
 void setup_hw_keyboard_light();
+void setup_hw_xtouch_ext();
 
 void ceammc_hw_setup()
 {
@@ -19,6 +20,7 @@ void ceammc_hw_setup()
     setup_hw_cpu_temp();
     setup_hw_display();
     setup_hw_keyboard_light();
+    setup_hw_xtouch_ext();
 
 #ifdef WITH_LIBUSB_01
     setup_hw_udmx();

@@ -36,6 +36,7 @@ ceammc_hw_external(cpu_temp)
 ceammc_hw_external(display)
 ceammc_hw_external(kbd_light)
 ceammc_hw_external(serial)
+ceammc_hw_external(xtouch_ext)
 
 #if(LIBUSB_1_FOUND)
 #    ceammc_hw_external(usb)
