@@ -9,7 +9,7 @@
 #X obj 50 118 osc~ 1000;
 #X obj 165 118 ui.knob;
 #X obj 299 118 ui.knob;
-#X obj 165 162 math.pi 2;
+#X obj 165 162 phase->rad;
 #X msg 165 190 @angle \$1;
 #X msg 299 190 @radius \$1;
 #X obj 50 248 spat.pan4~ 0.8 pi();

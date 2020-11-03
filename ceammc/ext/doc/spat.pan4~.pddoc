@@ -50,7 +50,7 @@
 [osc~ 1000] [ui.knob]     [ui.knob]
 |           |             |
 |           |             |
-|           [math.pi 2]   |
+|           [phase->rad]  |
 |           |             |
 |           [@angle $1(   [@radius $1(
 |           |             |
