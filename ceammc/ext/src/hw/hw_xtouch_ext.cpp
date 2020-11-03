@@ -40,6 +40,8 @@ constexpr int XT_SOLO_FIRST = 16;
 constexpr int XT_SOLO_LAST = XT_SOLO_FIRST + Scene::NCHAN;
 constexpr int XT_MUTE_FIRST = 24;
 constexpr int XT_MUTE_LAST = XT_MUTE_FIRST + Scene::NCHAN;
+constexpr int XT_SELECT_FIRST = 32;
+constexpr int XT_SELECT_LAST = XT_SELECT_FIRST + Scene::NCHAN;
 
 static std::array<t_symbol*, MAX_CONTROLS> SYM_FADERS;
 static std::array<t_symbol*, MAX_CONTROLS> SYM_KNOBS;
@@ -283,9 +285,18 @@ void XTouchExtender::initDone()
             sprintf(buf, "@select%d", idx);
             auto p = new IntProperty(buf);
             p->checkClosedRange(-1, 1);
-            //            p->setSuccessFn([this, j](Property* p) { sendKnob(j, static_cast<FloatProperty*>(p)->value()); });
+            p->setSuccessFn([this, i, j](Property* p) { sendSelect(i, j, static_cast<IntProperty*>(p)->value()); });
             addProperty(p);
             scenes_[i].btn_select_[j] = p;
+        }
+
+        // init btn select toggle mode
+        for (int j = 0; j < NCH; j++) {
+            const int idx = i * NCH + j;
+            sprintf(buf, "@tselect%d", idx);
+            auto p = new BoolProperty(buf, false);
+            addProperty(p);
+            scenes_[i].btn_select_tgl_mode_[j] = p;
         }
 
         for (int j = 0; j < NCH; j++) {
@@ -415,6 +426,26 @@ void XTouchExtender::parseXMidi()
 
             currentScene().btn_mute_.at(ch)->setValue(val);
             sendMute(scene_->value(), ch, val);
+        } else if (in_range(note, XT_SELECT_FIRST, XT_SELECT_LAST)) {
+            const auto ch = note - XT_SELECT_FIRST;
+            const int velocity = parser_.data[2];
+
+            int val = 0;
+            if (currentScene().btn_select_tgl_mode_.at(ch)->value()) {
+                if (velocity == 0)
+                    return;
+
+                const auto current_v = currentScene().btn_select_.at(ch)->value();
+                if (current_v < 0)
+                    val = 1;
+                else
+                    val = (1 - current_v);
+            } else {
+                val = (velocity > 64);
+            }
+
+            currentScene().btn_select_.at(ch)->setValue(val);
+            sendSelect(scene_->value(), ch, val);
         }
     }
 }
@@ -474,6 +505,7 @@ void XTouchExtender::syncScene()
     auto& recs = currentScene().btn_rec_;
     auto& solo = currentScene().btn_solo_;
     auto& mute = currentScene().btn_mute_;
+    auto& select = currentScene().btn_select_;
 
     OBJ_LOG << "sync scene: " << scene_idx;
 
@@ -483,6 +515,7 @@ void XTouchExtender::syncScene()
         sendRec(scene_idx, i, recs[i]->value());
         sendSolo(scene_idx, i, solo[i]->value());
         sendMute(scene_idx, i, mute[i]->value());
+        sendSelect(scene_idx, i, select[i]->value());
         syncDisplay(scene_idx, i);
     }
 }
@@ -598,6 +631,27 @@ void XTouchExtender::sendMute(uint8_t scene_idx, uint8_t ctl_idx, int v)
         // send MIDI only for current scene
         if (scene_->value() == scene_idx) {
             const uint8_t note = XT_MUTE_FIRST + (0x0F & ctl_idx);
+            const uint8_t val = (v < 0) ? 64 : (v > 0 ? 127 : 0);
+            sendNote(note, val);
+        }
+    } else {
+        OBJ_ERR << "not implemented yet: " << proto_->value() << " " << __FUNCTION__;
+    }
+}
+
+void XTouchExtender::sendSelect(uint8_t scene_idx, uint8_t ctl_idx, int v)
+{
+    OBJ_LOG << "sendSelect: " << (int)scene_idx << ' ' << (int)ctl_idx << ' ' << v;
+
+    if (proto_->value() == PROTO_XMIDI) {
+        const int logic_idx = (scene_idx * Scene::NCHAN + ctl_idx) % MAX_CONTROLS;
+
+        // output for all scenes
+        anyTo(1, SYM_BTN_SELECT.at(logic_idx), AtomListView(Atom(v)));
+
+        // send MIDI only for current scene
+        if (scene_->value() == scene_idx) {
+            const uint8_t note = XT_SELECT_FIRST + (0x0F & ctl_idx);
             const uint8_t val = (v < 0) ? 64 : (v > 0 ? 127 : 0);
             sendNote(note, val);
         }
