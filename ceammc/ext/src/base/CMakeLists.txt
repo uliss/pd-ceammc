@@ -1,6 +1,8 @@
 include_directories(${CMAKE_BINARY_DIR}) # for config.h
 
 set(BASE_SOURCES
+    base_log.cpp
+    base_sync.cpp
     canvas_current.cpp
     canvas_dir.cpp
     canvas_name.cpp
