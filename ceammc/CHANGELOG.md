@@ -79,6 +79,8 @@
 - flow.multiplex:
    - additional inlet added to choose input
    - setting property only via prop.set object
+- flow.route:
+   - output routed data as message
 - list.^contains @subj property renamed to @value
 - midi.track @events property renamed to @nevents
 

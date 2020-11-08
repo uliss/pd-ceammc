@@ -332,6 +332,8 @@ TEST_CASE("flow.route", "[externals]")
         REQUIRE(t.messagesAt(0).back() == Message(L()));
         t.sendMessage("a", LA("b"));
         REQUIRE(t.messagesAt(0).back() == Message(SYM("b"), L()));
+        t.sendMessage("a", LF(1, 2, 3));
+        REQUIRE(t.messagesAt(0).back() == Message(LF(1, 2, 3)));
 
         t << LA("b");
         REQUIRE(t.messagesAt(1).back() == Message(LA("b")));
@@ -359,6 +361,8 @@ TEST_CASE("flow.route", "[externals]")
         REQUIRE(t.messagesAt(3).back() == Message(SYM("@d"), L()));
         t.sendMessage("@d", LA("e"));
         REQUIRE(t.messagesAt(3).back() == Message(SYM("@d"), LA("e")));
+        t.sendMessage("@d", LF(1, 2, 3));
+        REQUIRE(t.messagesAt(3).back() == Message(SYM("@d"), LF(1, 2, 3)));
 
         t << LF(100);
         REQUIRE(t.messagesAt(4).back() == Message(L()));
@@ -382,10 +386,16 @@ TEST_CASE("flow.route", "[externals]")
 
         t << 1;
         REQUIRE(t.messagesAt(0).back() == Message(L()));
+        t << LF(1, 2);
+        REQUIRE(t.messagesAt(0).back() == Message(LF(2)));
+        t << LF(1, 2, 3);
+        REQUIRE(t.messagesAt(0).back() == Message(LF(2, 3)));
         t << 20;
         REQUIRE(t.messagesAt(1).back() == Message(L()));
         t << 30;
         REQUIRE(t.messagesAt(2).back() == Message(30));
+        t << LF(30, 31);
+        REQUIRE(t.messagesAt(2).back() == Message(LF(30, 31)));
         t << 40;
         REQUIRE(t.messagesAt(3).back() == Message(40));
     }

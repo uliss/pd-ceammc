@@ -91,8 +91,12 @@ void FlowRoute::onAny(t_symbol* s, const AtomListView& lst)
         if (s == r.sel) {
             if (r.keep)
                 anyTo(IDX, s, lst);
-            else
-                listTo(IDX, lst);
+            else {
+                if (!lst.empty() && lst[0].isSymbol())
+                    anyTo(IDX, lst[0].asT<t_symbol*>(), lst.subView(1));
+                else
+                    listTo(IDX, lst);
+            }
 
             return;
         }
