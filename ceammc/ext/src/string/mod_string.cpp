@@ -17,6 +17,7 @@ void setup_string_match();
 void setup_symbol_equal();
 void setup_symbol_length();
 void setup_symbol_num_compare();
+void setup_symbol_to_int();
 
 void ceammc_string_setup()
 {
@@ -38,4 +39,5 @@ void ceammc_string_setup()
     setup_symbol_equal();
     setup_symbol_length();
     setup_symbol_num_compare();
+    setup_symbol_to_int();
 }

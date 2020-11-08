@@ -45,7 +45,7 @@ TEST_CASE("string.equal", "[external]")
 
         SECTION("args")
         {
-            TExt t("string.equal", LA("синица"));
+            TExt t("string.equal", LA("\"синица\""));
             REQUIRE_PROPERTY_LIST(t, @subj, StringAtom("синица"));
             REQUIRE(t.numInlets() == 2);
             REQUIRE(t.numOutlets() == 1);
