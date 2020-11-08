@@ -164,7 +164,7 @@ TEST_CASE("flow.route", "[externals]")
         REQUIRE_NO_MESSAGES_AT_OUTLET(2, t);
 
         WHEN_SEND_ANY_TO(t, LA("a", "b", "c"));
-        REQUIRE_LIST_AT_OUTLET(0, t, LA("b", "c"));
+        REQUIRE_ANY_AT_OUTLET(0, t, LA("b", "c"));
         REQUIRE_NO_MESSAGES_AT_OUTLET(1, t);
         REQUIRE_NO_MESSAGES_AT_OUTLET(2, t);
 
@@ -176,7 +176,7 @@ TEST_CASE("flow.route", "[externals]")
 
         WHEN_SEND_ANY_TO(t, LA("b", "c", "d"));
         REQUIRE_NO_MESSAGES_AT_OUTLET(0, t);
-        REQUIRE_LIST_AT_OUTLET(1, t, LA("c", "d"));
+        REQUIRE_ANY_AT_OUTLET(1, t, LA("c", "d"));
         REQUIRE_NO_MESSAGES_AT_OUTLET(2, t);
     }
 
@@ -331,7 +331,7 @@ TEST_CASE("flow.route", "[externals]")
         t.sendMessage("a");
         REQUIRE(t.messagesAt(0).back() == Message(L()));
         t.sendMessage("a", LA("b"));
-        REQUIRE(t.messagesAt(0).back() == Message(LA("b")));
+        REQUIRE(t.messagesAt(0).back() == Message(SYM("b"), L()));
 
         t << LA("b");
         REQUIRE(t.messagesAt(1).back() == Message(LA("b")));
@@ -349,7 +349,7 @@ TEST_CASE("flow.route", "[externals]")
         t.sendMessage("@c");
         REQUIRE(t.messagesAt(2).back() == Message(L()));
         t.sendMessage("@c", LA("d"));
-        REQUIRE(t.messagesAt(2).back() == Message(LA("d")));
+        REQUIRE(t.messagesAt(2).back() == Message(SYM("d"), L()));
 
         t << LA("@d");
         REQUIRE(t.messagesAt(3).back() == Message(LA("@d")));
