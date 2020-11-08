@@ -255,8 +255,12 @@ TEST_CASE("FloatProperty", "[core]")
     {
         REQUIRE_FALSE(p.setList(LF(std::numeric_limits<t_float>::infinity())));
         REQUIRE(p.value() == 0.5);
+
+#ifndef __linux__
         REQUIRE_FALSE(p.setList(LF(std::numeric_limits<t_float>::signaling_NaN())));
         REQUIRE(p.value() == 0.5);
+#endif
+
         REQUIRE_FALSE(p.setList(LF(std::numeric_limits<t_float>::quiet_NaN())));
         REQUIRE(p.value() == 0.5);
         REQUIRE_FALSE(p.setList(LF(std::numeric_limits<t_float>::min() / 2)));
