@@ -4,6 +4,9 @@ macro(ceammc_an_external name)
     list(APPEND ANALYZE_SOURCES "an_${name}.cpp")
 endmacro()
 
+ceammc_faust_gen_obj(an rms)
+list(APPEND ANALYZE_SOURCES "an_rms.cpp")
+
 ceammc_an_external(aubio_onset)
 ceammc_an_external(aubio_onset_tilde)
 ceammc_an_external(pitchtrack)
@@ -17,3 +20,4 @@ target_include_directories(ceammc_analyze
 )
 
 target_link_libraries(ceammc_analyze PUBLIC helmholtz_ptrack aubio)
+set_target_properties(ceammc_analyze PROPERTIES COMPILE_DEFINITIONS "FAUST_MACRO")
