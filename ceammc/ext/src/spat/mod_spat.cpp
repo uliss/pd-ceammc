@@ -20,6 +20,8 @@ extern void setup_spat_hoa_scope2d();
 extern void setup_spat_hoa_wider();
 extern void setup_spat_pan4_tilde();
 extern void setup_spat_pan8_tilde();
+extern void setup_spat_zita8_tilde();
+extern void setup_spat_zita6x8_tilde();
 
 void ceammc_spat_setup()
 {
@@ -43,4 +45,6 @@ void ceammc_spat_setup()
     setup_spat_hoa_wider();
     setup_spat_pan4_tilde();
     setup_spat_pan8_tilde();
+    setup_spat_zita8_tilde();
+    setup_spat_zita6x8_tilde();
 }
