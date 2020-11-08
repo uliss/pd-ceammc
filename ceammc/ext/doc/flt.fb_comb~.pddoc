@@ -20,8 +20,8 @@
             <par>Frequency response of a comb filter consists of a series of regularly spaced
             notches, giving the appearance of a comb</par>
             <par>Structure of a feedforward comb filter may be described by the following
-            difference equation: y[n]=x[n]+αy[n-K]} where K is the delay length (measured in samples),
-            and α is a scaling factor applied to the delayed sum</par>
+            difference equation: y[n]=x[n]+αy[n-K]} where K is the delay length (measured in
+            samples), and α is a scaling factor applied to the delayed sum</par>
             <a href="https://en.wikipedia.org/wiki/Comb_filter">wiki: Comb filter</a>
         </info>
         <arguments>
@@ -29,8 +29,8 @@
             sum</argument>
         </arguments>
         <properties>
-            <property name="@a" type="float" minvalue="-1" maxvalue="1" default="0.75">scaling factor
-            of delayed signal sum</property>
+            <property name="@a" type="float" minvalue="-1" maxvalue="1" default="0.75">scaling
+            factor of delayed signal sum</property>
             <property name="@active" type="int" enum="0 1" default="1">on/off dsp
             processing</property>
         </properties>

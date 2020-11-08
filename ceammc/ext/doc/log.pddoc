@@ -17,14 +17,20 @@
             <argument name="PREFIX" type="list">log message prefix</argument>
         </arguments>
         <properties>
-            <property name="@mode" type="symbol" enum="debug error post verbose stdout stderr null" default="debug">
-            debug mode</property>
-            <property name="@debug" type="alias">alias to @mode debug. Debug output to Pd window.</property>
-            <property name="@error" type="alias">alias to @mode error. Error output to Pd window.</property>
-            <property name="@post" type="alias">alias to @mode post. Post output to Pd window as [print] object do</property>
-            <property name="@verbose" type="alias">alias to @mode verbose. Debug output to Pd window at highest level.</property>
-            <property name="@stdout" type="alias">alias to @mode stdout. Output to stdout.</property>
-            <property name="@stderr" type="alias">alias to @mode stderr. Output to stderr.</property>
+            <property name="@mode" type="symbol" enum="debug error post verbose stdout stderr null"
+            default="debug">debug mode</property>
+            <property name="@debug" type="alias">alias to @mode debug. Debug output to Pd
+            window.</property>
+            <property name="@error" type="alias">alias to @mode error. Error output to Pd
+            window.</property>
+            <property name="@post" type="alias">alias to @mode post. Post output to Pd window as
+            [print] object do</property>
+            <property name="@verbose" type="alias">alias to @mode verbose. Debug output to Pd
+            window at highest level.</property>
+            <property name="@stdout" type="alias">alias to @mode stdout. Output to
+            stdout.</property>
+            <property name="@stderr" type="alias">alias to @mode stderr. Output to
+            stderr.</property>
             <property name="@null" type="alias">alias to @mode null. No output.</property>
         </properties>
         <inlets>
@@ -32,7 +38,7 @@
                 <xinfo on="bang">log input</xinfo>
             </inlet>
         </inlets>
-        <outlets/>
+        <outlets />
         <example>
             <pdascii>
 <![CDATA[
