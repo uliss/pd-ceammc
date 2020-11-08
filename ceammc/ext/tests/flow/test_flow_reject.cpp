@@ -44,9 +44,9 @@ TEST_CASE("flow.reject", "[externals]")
         }
     }
 
-    SECTION("float")
+    SECTION("bang")
     {
-        TObj t("flow.reject", LA(1, "a", "@c"));
+        TObj t("flow.reject", LA(1, "a", "\"@c\""));
         WHEN_SEND_BANG_TO(0, t);
         REQUIRE_BANG_AT_OUTLET(0, t);
     }
