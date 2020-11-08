@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="log">
+        <title>log</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>advanced data logger</description>
+            <license>GPL3 or later</license>
+            <library>ceammc</library>
+            <category>base</category>
+            <keywords>log</keywords>
+            <since>0.9.1</since>
+        </meta>
+        <arguments>
+            <argument name="PREFIX" type="list">log message prefix</argument>
+        </arguments>
+        <properties>
+            <property name="@mode" type="symbol" enum="debug error post verbose stdout stderr null" default="debug">
+            debug mode</property>
+            <property name="@debug" type="alias">alias to @mode debug. Debug output to Pd window.</property>
+            <property name="@error" type="alias">alias to @mode error. Error output to Pd window.</property>
+            <property name="@post" type="alias">alias to @mode post. Post output to Pd window as [print] object do</property>
+            <property name="@verbose" type="alias">alias to @mode verbose. Debug output to Pd window at highest level.</property>
+            <property name="@stdout" type="alias">alias to @mode stdout. Output to stdout.</property>
+            <property name="@stderr" type="alias">alias to @mode stderr. Output to stderr.</property>
+            <property name="@null" type="alias">alias to @mode null. No output.</property>
+        </properties>
+        <inlets>
+            <inlet>
+                <xinfo on="bang">log input</xinfo>
+            </inlet>
+        </inlets>
+        <outlets/>
+        <example>
+            <pdascii>
+<![CDATA[
+[F]   [1 2 3(
+|     |
+[log ERROR! @error]
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

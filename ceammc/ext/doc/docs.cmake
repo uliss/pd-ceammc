@@ -313,6 +313,7 @@ set(DOC_FILES
     local.list
     local.mlist
     local.set
+    log
     math.abs
     math.abs~
     math.acos

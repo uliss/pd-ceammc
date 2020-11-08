@@ -311,6 +311,7 @@ local.int		.		.
 local.list		.		.
 local.mlist		.		.
 local.set		.		.
+log		.		-
 math.abs		.		.
 math.abs~		~		~
 math.acos		.		.

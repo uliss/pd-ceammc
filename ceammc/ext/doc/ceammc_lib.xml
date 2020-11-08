@@ -101,6 +101,9 @@
     <entry name="gain~" descr="multislot signal gain" ref_view="object">
       <xi:include href="gain~.pddoc" parse="xml"/>
     </entry>
+    <entry name="log" descr="advanced data logger" ref_view="object">
+      <xi:include href="log.pddoc" parse="xml"/>
+    </entry>
     <entry name="matrix~" descr="signal routing matrix" ref_view="object">
       <xi:include href="matrix~.pddoc" parse="xml"/>
     </entry>
