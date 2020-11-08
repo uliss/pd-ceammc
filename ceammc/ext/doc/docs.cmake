@@ -514,6 +514,7 @@ set(DOC_FILES
     symbol.equal
     symbol.length
     symbol.num_compare
+    symbol2intlist
     synth.bee3~
     synth.birds~
     synth.church_bell~

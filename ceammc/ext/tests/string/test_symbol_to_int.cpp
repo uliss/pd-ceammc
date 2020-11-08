@@ -25,21 +25,21 @@ TEST_CASE("symbol.to_int", "[externals]")
     {
         SECTION("default")
         {
-            TObj t("symbol2int", L());
+            TObj t("symbol2intlist", L());
             REQUIRE(t.numInlets() == 1);
             REQUIRE(t.numOutlets() == 1);
         }
 
         SECTION("ext")
         {
-            TExt t("symbol2int", L());
+            TExt t("symbol2intlist", L());
             REQUIRE(t.numInlets() == 1);
             REQUIRE(t.numOutlets() == 1);
         }
 
         SECTION("alias")
         {
-            TExt t("sym->int", L());
+            TExt t("sym->ilist", L());
             REQUIRE(t.numInlets() == 1);
             REQUIRE(t.numOutlets() == 1);
         }
@@ -47,7 +47,7 @@ TEST_CASE("symbol.to_int", "[externals]")
 
     SECTION("onSymbol")
     {
-        TObj t("symbol2int");
+        TObj t("symbol2intlist");
 
         WHEN_SEND_SYMBOL_TO(0, t, "A");
         REQUIRE_FLOAT_AT_OUTLET(0, t, 'A')

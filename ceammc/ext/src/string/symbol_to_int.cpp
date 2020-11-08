@@ -80,6 +80,6 @@ end:;
 
 void setup_symbol_to_int()
 {
-    ObjectFactory<SymbolToInt> obj("symbol2int");
-    obj.addAlias("sym->int");
+    ObjectFactory<SymbolToInt> obj("symbol2intlist");
+    obj.addAlias("sym->ilist");
 }

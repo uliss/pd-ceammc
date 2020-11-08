@@ -1628,6 +1628,9 @@
     <entry name="symbol.num_compare" descr="numeric symbol compare" ref_view="object">
       <xi:include href="symbol.num_compare.pddoc" parse="xml"/>
     </entry>
+    <entry name="symbol2intlist" descr="converts symbol to list of character codes" ref_view="object">
+      <xi:include href="symbol2intlist.pddoc" parse="xml"/>
+    </entry>
   </category>
   <category name="synth">
     <entry name="synth.bee3~" descr="Hammond-oid organ FM synthesis instrument" ref_view="object">
