@@ -4,7 +4,7 @@
 #X text 438 50 converts symbol to list of character codes;
 #X obj 1 1 cnv 5 765 40 empty empty symbol2intlist 20 20 0 20 -104026
 -4096 0;
-#X obj 535 11 sym->>ilist;
+#X obj 542 11 sym->ilist;
 #X obj 639 11 symbol2intlist;
 #X msg 50 118 A;
 #X msg 88 118 ABC;

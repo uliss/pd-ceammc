@@ -512,7 +512,7 @@ string2symbol,str->sym		.		.
 symbol.equal		..		.
 symbol.length		.		.
 symbol.num_compare		..		.
-symbol2intlist,sym->>ilist		.		.
+symbol2intlist,sym->ilist		.		.
 synth.bee3~		.		~
 synth.birds~		.		~~
 synth.church_bell~		.		~

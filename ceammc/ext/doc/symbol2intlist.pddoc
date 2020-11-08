@@ -13,7 +13,7 @@
             <keywords>symbol compare</keywords>
             <since>0.9.1</since>
             <aliases>
-                <alias>sym->&gt;ilist</alias>
+                <alias>sym-&gt;ilist</alias>
             </aliases>
         </meta>
         <inlets>
