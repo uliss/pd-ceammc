@@ -46,7 +46,8 @@ Fluid::Fluid(const PdArgs& args)
 
     createCbSymbolProperty(
         "@sf", [this]() -> t_symbol* { return sound_font_; },
-        [this](t_symbol* s) -> bool { return propSetSoundFont(s); });
+        [this](t_symbol* s) -> bool { return propSetSoundFont(s); })
+        ->setArgIndex(0);
 
     createCbSymbolProperty("@version",
         []() -> t_symbol* { return gensym(FLUIDSYNTH_VERSION); });
