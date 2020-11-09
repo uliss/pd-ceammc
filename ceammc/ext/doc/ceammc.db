@@ -1,6 +1,7 @@
 an.onset		.		.
 an.onset~		~		..
 an.pitchtrack~,helmholtz~		~		~..
+an.rms~		~		~
 array.bpm		.		.
 array.copy		.		.
 array.do		..		..

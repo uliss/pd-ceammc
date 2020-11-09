@@ -44,6 +44,7 @@
 - flt.ff_comb~ added (feed forward comb filter)
 - flt.fb_comb~ added (feedback comb filter)
 - log object added
+- an.rms~, root mean square with moving-average algorithm
 
 
 ### Changed:

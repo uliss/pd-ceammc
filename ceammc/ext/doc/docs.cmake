@@ -2,6 +2,7 @@ set(DOC_FILES
     an.onset
     an.onset~
     an.pitchtrack~
+    an.rms~
     array.bpm
     array.copy
     array.do

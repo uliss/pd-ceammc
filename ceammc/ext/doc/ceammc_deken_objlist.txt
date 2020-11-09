@@ -2,6 +2,7 @@ an.onset	onset detector for arrays
 an.onset~	onset detector
 an.pitchtrack~	pitch tracker
 helmholtz~	pitch tracker
+an.rms~	root mean square with moving-average algorithm.
 array.bpm	BPM calculator
 array.copy	copy samples from one array to another
 array.do	iterate and modify array content via side-chain
