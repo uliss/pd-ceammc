@@ -46,6 +46,7 @@
 - log object added
 - an.rms~, root mean square with moving-average algorithm
 - midi.vramp added
+- midi.tuning added
 
 
 ### Changed:

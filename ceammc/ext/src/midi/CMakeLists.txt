@@ -16,6 +16,7 @@ ceammc_midi_external(ctl2str)
 ceammc_midi_external(key2str)
 ceammc_midi_external(prg2str)
 ceammc_midi_external(str2key)
+ceammc_midi_external(tuning)
 ceammc_midi_external(velocity_ramp)
 
 include_directories(${PROJECT_SOURCE_DIR}/ceammc/extra/midifile)

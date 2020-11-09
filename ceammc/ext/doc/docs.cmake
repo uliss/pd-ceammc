@@ -415,13 +415,14 @@ set(DOC_FILES
     metro.random
     metro.seq
     midi.ctl2str
-    midi.file
-    midi.track
     midi.event2ctl
     midi.event2note
     midi.event2prg
-    midi.prg2str
+    midi.file
     midi.key2str
+    midi.prg2str
+    midi.track
+    midi.tuning
     midi.vramp
     mix~
     mlist.flatten

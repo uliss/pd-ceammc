@@ -1275,6 +1275,9 @@
     <entry name="midi.track" descr="extract track from MidiFile" ref_view="object">
       <xi:include href="midi.track.pddoc" parse="xml"/>
     </entry>
+    <entry name="midi.tuning" descr="apply tuning to midi messages" ref_view="object">
+      <xi:include href="midi.tuning.pddoc" parse="xml"/>
+    </entry>
     <entry name="midi.vramp" descr="apply crescendo or diminuendo for midi message flow" ref_view="object">
       <xi:include href="midi.vramp.pddoc" parse="xml"/>
     </entry>

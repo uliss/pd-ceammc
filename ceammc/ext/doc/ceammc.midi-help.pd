@@ -19,8 +19,10 @@ pair;
 #X text 200 278 convert GM Instrument number to name (string or symbol);
 #X obj 30 305 midi.track;
 #X text 200 305 extract track from MidiFile;
-#X obj 30 332 midi.vramp;
-#X text 200 332 apply crescendo or diminuendo for midi message flow;
+#X obj 30 332 midi.tuning;
+#X text 200 332 apply tuning to midi messages;
+#X obj 30 359 midi.vramp;
+#X text 200 359 apply crescendo or diminuendo for midi message flow;
 #X obj 1 1 cnv 5 740 40 empty empty ceammc::midi 20 20 0 20 -104026
 -4096 0;
 #X obj 1 513 cnv 5 740 40 empty empty empty 17 7 0 10 -203890 -1 0;
