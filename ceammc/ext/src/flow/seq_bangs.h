@@ -31,6 +31,8 @@ public:
     void onBang() override;
     void onInlet(size_t n, const AtomList& l) override;
 
+    void m_reset(t_symbol* s, const AtomListView& lv);
+
 protected:
     virtual void schedNext();
     virtual void output();

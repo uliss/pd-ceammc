@@ -75,6 +75,11 @@ void SeqBangs::onInlet(size_t n, const AtomList& l)
     pattern_->set(l);
 }
 
+void SeqBangs::m_reset(t_symbol* s, const AtomListView& lv)
+{
+    clock_.unset();
+}
+
 void SeqBangs::schedNext()
 {
     if (current_ >= pattern_->value().size())
@@ -107,6 +112,7 @@ void setup_seq_bangs()
 {
     ObjectFactory<SeqBangs> obj("seq.bangs");
     obj.addAlias("seq.b");
+    obj.addMethod("reset", &SeqBang::m_reset);
 
     obj.setXletsInfo({ "bang: start playing sequence", "list: set new pattern" },
         { "bang: output pattern", "float: time until next bang (in ms)", "bang: after last pattern is played" });
