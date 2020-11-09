@@ -136,4 +136,33 @@ TEST_CASE("midi.vramp", "[externals]")
         WHEN_SEND_FLOAT_TO(0, t, 64);
         REQUIRE_LIST_AT_OUTLET(0, t, LF(64, 10));
     }
+
+    SECTION("float")
+    {
+        TObj t("midi.vramp", LA(30, 10, 2, "@auto", 1));
+
+        WHEN_SEND_LIST_TO(0, t, LF(60, 127));
+        REQUIRE_NO_MESSAGES_AT_OUTLET(1, t);
+        REQUIRE_LIST_AT_OUTLET(0, t, LF(60, 30));
+
+        WHEN_SEND_LIST_TO(0, t, LF(60, 127));
+        REQUIRE_NO_MESSAGES_AT_OUTLET(1, t);
+        REQUIRE_LIST_AT_OUTLET(0, t, LF(60, 20));
+
+        WHEN_SEND_LIST_TO(0, t, LF(60, 127));
+        REQUIRE_BANG_AT_OUTLET(1, t);
+        REQUIRE_LIST_AT_OUTLET(0, t, LF(60, 10));
+
+        WHEN_SEND_LIST_TO(0, t, LF(60, 127));
+        REQUIRE_NO_MESSAGES_AT_OUTLET(1, t);
+        REQUIRE_LIST_AT_OUTLET(0, t, LF(60, 30));
+
+        WHEN_SEND_LIST_TO(0, t, LF(60, 127));
+        REQUIRE_NO_MESSAGES_AT_OUTLET(1, t);
+        REQUIRE_LIST_AT_OUTLET(0, t, LF(60, 20));
+
+        WHEN_SEND_LIST_TO(0, t, LF(60, 127));
+        REQUIRE_BANG_AT_OUTLET(1, t);
+        REQUIRE_LIST_AT_OUTLET(0, t, LF(60, 10));
+    }
 }

@@ -68,13 +68,15 @@ void MidiVelocityRamp::onList(const AtomList& lst)
     if (note.intAt(1, 0) == 0)
         listTo(0, note);
     else if (n_->value() > 0) {
+        const auto fval = convert::lin2lin_clip<t_float>(counter_, 0, n_->value(), from_->value(), to_->value());
+        note[1] = std::round(fval);
+
         if (counter_ == n_->value())
             bangTo(1);
 
-        const auto fval = convert::lin2lin_clip<t_float>(counter_++, 0, n_->value(), from_->value(), to_->value());
-        note[1] = std::round(fval);
+        counter_++;
 
-        if (auto_->value())
+        if (auto_->value()) // wrap to [0..n] range
             counter_ = counter_ % (n_->value() + 1);
 
         listTo(0, note);
@@ -93,4 +95,8 @@ void setup_midi_vel_ramp()
 {
     ObjectFactory<MidiVelocityRamp> obj("midi.vramp");
     obj.addMethod("reset", &MidiVelocityRamp::m_reset);
+
+    obj.setXletsInfo({ "float: midi note\n"
+                       "list: note vel" },
+        { "list: note vel", "bang: when last value is reached" });
 }

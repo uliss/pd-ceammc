@@ -45,6 +45,7 @@
 - flt.fb_comb~ added (feedback comb filter)
 - log object added
 - an.rms~, root mean square with moving-average algorithm
+- midi.vramp added
 
 
 ### Changed:

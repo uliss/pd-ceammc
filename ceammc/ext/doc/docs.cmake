@@ -422,6 +422,7 @@ set(DOC_FILES
     midi.event2prg
     midi.prg2str
     midi.key2str
+    midi.vramp
     mix~
     mlist.flatten
     modplug~

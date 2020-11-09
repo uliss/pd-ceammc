@@ -13,8 +13,11 @@
             <keywords>mod player midi soundfont fluid</keywords>
             <since>0.6</since>
         </meta>
+        <arguments>
+            <argument name="SF" type="symbol">soundfont path</argument>
+        </arguments>
         <properties>
-            <property name="@sf" type="symbol">path to SoundFont</property>
+            <property name="@sf" type="symbol">soundfont path</property>
             <property name="@version" type="symbol" readonly="true" default="2.0.0">FluidSynth
             version</property>
             <property name="@soundfonts" type="list" readonly="true">list of found

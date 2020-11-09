@@ -570,6 +570,7 @@ midi.key->str	convert key number to SPN name according to tonality
 midi.prg2str	convert GM Instrument number to name (string or symbol)
 midi.prg->str	convert GM Instrument number to name (string or symbol)
 midi.track	extract track from MidiFile
+midi.vramp	apply crescendo or diminuendo for midi message flow
 click~	Output single impulse on bang
 fluid~	FluidSynth SoundFont 2 player
 modplug~	MOD file player (using libmodplug)
