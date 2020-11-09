@@ -403,7 +403,10 @@ bool BaseObject::processAnyProps(t_symbol* sel, const AtomListView& lst)
         } else
             rc = p->set(lst);
 
-        return rc;
+        if (!rc)
+            OBJ_ERR << "can't set property: " << sel;
+
+        return true;
     }
 
     return true;
