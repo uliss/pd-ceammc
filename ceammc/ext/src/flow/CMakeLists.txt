@@ -1,4 +1,7 @@
-set(FLOW_SOURCES mod_flow.h mod_flow.cpp)
+set(FLOW_SOURCES mod_flow.h mod_flow.cpp
+    seq_bangs.cpp
+#    seq_notes.cpp
+)
 
 macro(ceammc_flow_external name)
     list(APPEND FLOW_SOURCES "flow_${name}.cpp")

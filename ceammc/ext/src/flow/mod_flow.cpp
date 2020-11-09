@@ -39,6 +39,7 @@ void setup_flow_delay();
 void setup_flow_match();
 void setup_flow_pipe();
 void setup_flow_space();
+void setup_seq_bangs();
 
 void ceammc_flow_setup()
 {
@@ -80,4 +81,6 @@ void ceammc_flow_setup()
     setup_flow_sync();
     setup_flow_sync_pack();
     setup_flow_tee_tilde();
+
+    setup_seq_bangs();
 }
