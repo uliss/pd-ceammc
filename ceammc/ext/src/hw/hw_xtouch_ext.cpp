@@ -569,12 +569,12 @@ void XTouchExtender::sendKnob(uint8_t scene_idx, uint8_t ctl_idx, t_float v)
 
 void XTouchExtender::sendKnobButton(uint8_t scene_idx, uint8_t ctl_idx, uint8_t v)
 {
-    OBJ_LOG << "sendKnob: " << (int)scene_idx << ' ' << (int)ctl_idx << ' ' << v;
+    OBJ_LOG << "sendKnobButton: " << (int)scene_idx << ' ' << (int)ctl_idx << ' ' << v;
 
     if (proto_->value() == PROTO_XMIDI) {
         const int logic_idx = (scene_idx * Scene::NCHAN + ctl_idx) % MAX_CONTROLS;
         // output for all scenes
-        anyTo(1, SYM_BTN_KNOB.at(logic_idx), AtomListView(Atom(v)));
+        anyTo(1, SYM_BTN_KNOB.at(logic_idx), AtomListView(Atom(v > 0)));
     } else {
         OBJ_ERR << "not implemented yet: " << proto_->value() << " " << __FUNCTION__;
     }
