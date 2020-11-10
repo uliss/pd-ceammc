@@ -23,4 +23,6 @@ void setup_conv_ms2bpm()
 {
     ObjectFactory<MsToBpm> obj("conv.ms2bpm");
     obj.addAlias("ms->bpm");
+
+    obj.setXletsInfo({ "float: period in ms" }, { "float: bpm" });
 }

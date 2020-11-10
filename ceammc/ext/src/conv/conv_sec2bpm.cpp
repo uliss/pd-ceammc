@@ -23,4 +23,6 @@ void setup_conv_sec2bpm()
 {
     ObjectFactory<SecToBpm> obj("conv.sec2bpm");
     obj.addAlias("sec->bpm");
+
+    obj.setXletsInfo({ "float: period in seconds" }, { "float: bpm" });
 }
