@@ -13,6 +13,8 @@
  *****************************************************************************/
 #include "seq_bangs.h"
 #include "ceammc_factory.h"
+#include "ceammc_format.h"
+#include "fmt/format.h"
 
 SeqBangs::SeqBangs(const PdArgs& args)
     : BaseObject(args)
@@ -42,7 +44,7 @@ SeqBangs::SeqBangs(const PdArgs& args)
     pattern_->setArgIndex(0);
     pattern_->setFilterAtomFn([this](const Atom& a) -> bool {
         if (!a.isFloat() || a.asT<t_float>() < 0) {
-            OBJ_ERR << "invalid pattern value: " << a;
+            OBJ_ERR << fmt::format("invalid value in pattern: \"{}\", skipping", to_string(a));
             return false;
         }
 
@@ -112,8 +114,8 @@ void setup_seq_bangs()
 {
     ObjectFactory<SeqBangs> obj("seq.bangs");
     obj.addAlias("seq.b");
-    obj.addMethod("reset", &SeqBang::m_reset);
+    obj.addMethod("reset", &SeqBangs::m_reset);
 
     obj.setXletsInfo({ "bang: start playing sequence", "list: set new pattern" },
-        { "bang: output pattern", "float: time until next bang (in ms)", "bang: after last pattern is played" });
+        { "bang: output pattern", "float: time until next bang (in ms)", "bang: when done" });
 }
