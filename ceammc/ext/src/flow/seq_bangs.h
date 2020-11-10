@@ -36,8 +36,14 @@ public:
 
 protected:
     virtual void schedNext();
-    virtual void output();
+    virtual void outputEvent();
+    virtual void stop();
+    virtual void reset();
     t_float calcDurationMs(t_float dur) const;
+    t_float currentEventDurationMs() const;
+
+private:
+    void output();
 };
 
 void setup_seq_bangs();

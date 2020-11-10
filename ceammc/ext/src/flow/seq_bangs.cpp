@@ -80,10 +80,20 @@ void SeqBangs::onInlet(size_t n, const AtomList& l)
 
 void SeqBangs::m_stop(t_symbol* s, const AtomListView& lv)
 {
-    clock_.unset();
+    stop();
 }
 
 void SeqBangs::m_reset(t_symbol* s, const AtomListView& lv)
+{
+    reset();
+}
+
+void SeqBangs::stop()
+{
+    clock_.unset();
+}
+
+void SeqBangs::reset()
 {
     current_ = 0;
     if (clock_.isActive())
@@ -106,9 +116,12 @@ void SeqBangs::output()
     if (current_ >= pattern_->value().size())
         return;
 
-    const auto dur = pattern_->value()[current_].asFloat(0);
+    floatTo(1, currentEventDurationMs());
+    outputEvent();
+}
 
-    floatTo(1, calcDurationMs(dur));
+void SeqBangs::outputEvent()
+{
     bangTo(0);
 }
 
@@ -118,11 +131,20 @@ t_float SeqBangs::calcDurationMs(t_float dur) const
     return dur * beat_ms;
 }
 
+t_float SeqBangs::currentEventDurationMs() const
+{
+    if (current_ >= pattern_->value().size())
+        return -1;
+
+    return calcDurationMs(pattern_->value()[current_].asFloat(0));
+}
+
 void setup_seq_bangs()
 {
     ObjectFactory<SeqBangs> obj("seq.bangs");
     obj.addAlias("seq.b");
     obj.addMethod("stop", &SeqBangs::m_stop);
+    obj.addMethod("reset", &SeqBangs::m_reset);
 
     obj.setXletsInfo({ "bang:  start playing sequence\n"
                        "stop:  stop sequencer\n",

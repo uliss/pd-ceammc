@@ -1,6 +1,6 @@
 set(FLOW_SOURCES mod_flow.h mod_flow.cpp
     seq_bangs.cpp
-#    seq_notes.cpp
+    seq_toggles.cpp
 )
 
 macro(ceammc_flow_external name)
