@@ -57,18 +57,17 @@
         <example>
             <pdascii>
 <![CDATA[
-[ui.keyboard]
+[@freq 1000( [@freq 2000(
+|            |
+[t a         ]
+| |
+| [flow.del 100]
+| |
+[t b a     ]
+|         ^|
+[click~]   |
 |          |
-|          |
-|          |
-|          |
-[$1(       [@gate 1(
-|          |  |
-[mtof]     |  [flow.delay @delay 100]
-|          |  |
-[@freq $1( [flow.after "@gate" 0 @delay 50]
-|          |
-[synth.bee3~]  [ui.dsp~]
+[flt.resonbp~]
 |
 [ui.hgain~]
 |\
