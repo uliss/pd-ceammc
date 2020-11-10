@@ -54,6 +54,7 @@ set(DOC_FILES
     conv.lin2lin~
     conv.list2props
     conv.midi2freq
+    conv.ms2bpm
     conv.ms2samp
     conv.ms2samp~
     conv.phase2rad
@@ -65,6 +66,7 @@ set(DOC_FILES
     conv.samp2ms
     conv.samp2ms~
     conv.samp2sec
+    conv.sec2bpm
     conv.sec2samp
     conv.sec2str
     conv.str2sec

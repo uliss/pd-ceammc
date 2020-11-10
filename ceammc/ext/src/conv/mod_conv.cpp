@@ -11,13 +11,15 @@ void setup_conv_str2sec();
 
 void setup_conv_cc2amp();
 
-void setup_conv_samp2sec();
-void setup_conv_samp2ms();
-void setup_conv_ms2samp();
-void setup_conv_sec2samp();
+void setup_conv_bpm2hz();
 void setup_conv_bpm2ms();
 void setup_conv_bpm2sec();
-void setup_conv_bpm2hz();
+void setup_conv_ms2bpm();
+void setup_conv_ms2samp();
+void setup_conv_samp2ms();
+void setup_conv_samp2sec();
+void setup_conv_sec2bpm();
+void setup_conv_sec2samp();
 
 void setup_conv_angles();
 
@@ -39,20 +41,21 @@ void ceammc_conv_setup()
     setup_conv_lin2lin();
     setup_conv_lin2lin_tilde();
 
-    setup_conv_cc2amp();
-
-    setup_conv_samp2sec();
-    setup_conv_samp2ms();
-    setup_conv_ms2samp();
-    setup_conv_sec2samp();
+    setup_conv_bpm2hz();
     setup_conv_bpm2ms();
     setup_conv_bpm2sec();
-    setup_conv_bpm2hz();
+    setup_conv_ms2bpm();
+    setup_conv_ms2samp();
+    setup_conv_samp2ms();
+    setup_conv_samp2sec();
+    setup_conv_sec2bpm();
+    setup_conv_sec2samp();
 
-    setup_conv_pitch2midi();
     setup_conv_amp2dbfs();
     setup_conv_dbfs2amp();
 
+    setup_conv_cc2amp();
+    setup_conv_pitch2midi();
     setup_conv_midi2freq();
     setup_list_to_props();
 

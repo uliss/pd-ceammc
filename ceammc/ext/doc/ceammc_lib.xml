@@ -219,6 +219,9 @@
     <entry name="conv.midi2freq" descr="convert from midi pitch to frequency in hz (with various base A and temperament)" ref_view="object">
       <xi:include href="conv.midi2freq.pddoc" parse="xml"/>
     </entry>
+    <entry name="conv.ms2bpm" descr="convert period in milliseconds to frequency in BPM" ref_view="object">
+      <xi:include href="conv.ms2bpm.pddoc" parse="xml"/>
+    </entry>
     <entry name="conv.ms2samp" descr="convert time in milliseconds to number of samples according to current samplerate" ref_view="object">
       <xi:include href="conv.ms2samp.pddoc" parse="xml"/>
     </entry>
@@ -251,6 +254,9 @@
     </entry>
     <entry name="conv.samp2sec" descr="convert samples to time according to samplerate" ref_view="object">
       <xi:include href="conv.samp2sec.pddoc" parse="xml"/>
+    </entry>
+    <entry name="conv.sec2bpm" descr="convert period in seconds to frequency in BPM" ref_view="object">
+      <xi:include href="conv.sec2bpm.pddoc" parse="xml"/>
     </entry>
     <entry name="conv.sec2samp" descr="convert time in seconds to number of samples according to current samplerate" ref_view="object">
       <xi:include href="conv.sec2samp.pddoc" parse="xml"/>

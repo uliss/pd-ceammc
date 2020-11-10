@@ -38,6 +38,8 @@
 - array.play~ added (with array.p~ alias)
 - env.smooth~ play method added
 - dbfs->amp~ converter added
+- conv.sec2bpm (with alias sec->bpm) converter added
+- conv.ms2bpm (with alias ms->bpm) converter added
 - symbol2intlist (with sym->ilist alias) converter added
 - hex->int~ converter added
 - freeze added to fx.freeverb~, fx.freeverb2~ and fx.zita_rev1~ (via @freeze property)

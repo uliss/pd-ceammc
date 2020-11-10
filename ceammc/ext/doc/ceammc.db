@@ -53,6 +53,7 @@ conv.lin2lin,lin->lin,l->l		.		.
 conv.lin2lin~,lin->lin~,l->l~		~		~
 conv.list2props,list->props,any->props		.		..
 conv.midi2freq,midi->freq,m->f		.		.
+conv.ms2bpm,ms->bpm		.		.
 conv.ms2samp,ms->samp		.		.
 conv.ms2samp~,ms->samp~		~		~
 conv.phase2rad,phase->rad		.		.
@@ -64,6 +65,7 @@ conv.rad2phase~,rad->phase~		~		~
 conv.samp2ms,samp->ms		.		.
 conv.samp2ms~,samp->ms~		~		~
 conv.samp2sec,samp->sec		.		.
+conv.sec2bpm,sec->bpm		.		.
 conv.sec2samp,sec->samp		.		.
 conv.sec2str,sec->str		.		.
 conv.str2sec,str->sec		.		.

@@ -102,6 +102,8 @@ any->props	converts list to series of property messages
 conv.midi2freq	convert from midi pitch to frequency in hz (with various base A and temperament)
 midi->freq	convert from midi pitch to frequency in hz (with various base A and temperament)
 m->f	convert from midi pitch to frequency in hz (with various base A and temperament)
+conv.ms2bpm	convert period in milliseconds to frequency in BPM
+ms->bpm	convert period in milliseconds to frequency in BPM
 conv.ms2samp	convert time in milliseconds to number of samples according to current samplerate
 ms->samp	convert time in milliseconds to number of samples according to current samplerate
 conv.ms2samp~	convert time in milliseconds to number of samples according to current samplerate
@@ -124,6 +126,8 @@ conv.samp2ms~	convert samples to milliseconds according to samplerate
 samp->ms~	convert samples to milliseconds according to samplerate
 conv.samp2sec	convert samples to time according to samplerate
 samp->sec	convert samples to time according to samplerate
+conv.sec2bpm	convert period in seconds to frequency in BPM
+sec->bpm	convert period in seconds to frequency in BPM
 conv.sec2samp	convert time in seconds to number of samples according to current samplerate
 sec->samp	convert time in seconds to number of samples according to current samplerate
 conv.sec2str	converts float time in seconds to formated symbol (or string)
