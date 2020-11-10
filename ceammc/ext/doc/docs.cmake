@@ -497,6 +497,7 @@ set(DOC_FILES
     set.size
     set.symdiff
     set.union
+    seq.bangs
     snd.file
     spat.pan4~
     spat.pan8~

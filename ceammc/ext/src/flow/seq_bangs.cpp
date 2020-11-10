@@ -34,6 +34,7 @@ SeqBangs::SeqBangs(const PdArgs& args)
 {
     bpm_ = new FloatProperty("@bpm", 60);
     bpm_->checkClosedRange(1, 600);
+    bpm_->setUnits(PropValueUnits::BPM);
     addProperty(bpm_);
 
     division_ = new IntProperty("@div", 4);
@@ -77,9 +78,16 @@ void SeqBangs::onInlet(size_t n, const AtomList& l)
     pattern_->set(l);
 }
 
-void SeqBangs::m_reset(t_symbol* s, const AtomListView& lv)
+void SeqBangs::m_stop(t_symbol* s, const AtomListView& lv)
 {
     clock_.unset();
+}
+
+void SeqBangs::m_reset(t_symbol* s, const AtomListView& lv)
+{
+    current_ = 0;
+    if (clock_.isActive())
+        clock_.delay(0);
 }
 
 void SeqBangs::schedNext()
@@ -114,8 +122,10 @@ void setup_seq_bangs()
 {
     ObjectFactory<SeqBangs> obj("seq.bangs");
     obj.addAlias("seq.b");
-    obj.addMethod("reset", &SeqBangs::m_reset);
+    obj.addMethod("stop", &SeqBangs::m_stop);
 
-    obj.setXletsInfo({ "bang: start playing sequence", "list: set new pattern" },
+    obj.setXletsInfo({ "bang:  start playing sequence\n"
+                       "stop:  stop sequencer\n",
+                         "list: set new pattern" },
         { "bang: output pattern", "float: time until next bang (in ms)", "bang: when done" });
 }

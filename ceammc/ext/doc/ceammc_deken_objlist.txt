@@ -659,6 +659,8 @@ random.i	uniform random integer generator in specified range
 random.linear	random linear distribution
 random.pw_const	piecewise constant random distribution
 random.pw_lin	piecewise linear random distribution
+seq.bangs	bang sequencer
+seq.b	bang sequencer
 snd.file	Sound file loader on steroids
 hoa.2d.decoder~	hoa 2d decoder
 hoa.decoder~	hoa 2d decoder
