@@ -44,8 +44,7 @@ UIGain::UIGain()
 {
     auto fn = [this](float db) {
         setDbValue(dbValue() + db);
-        if (prop_output_value)
-            doOutput();
+        output();
     };
 
     initPopupMenu("gain",
@@ -137,6 +136,15 @@ void UIGain::initHorizontal()
     updateLabels();
 }
 
+void UIGain::output()
+{
+    // do output if config property is set
+    if (prop_output_value)
+        doOutput();
+
+    send(dbValue());
+}
+
 void UIGain::init(t_symbol* name, const AtomList& args, bool usePresets)
 {
     UIDspObject::init(name, args, usePresets);
@@ -204,6 +212,7 @@ void UIGain::onPropChange(t_symbol* prop_name)
 void UIGain::onBang()
 {
     doOutput();
+    send(dbValue());
 }
 
 void UIGain::onMouseDown(t_object* view, const t_pt& pt, const t_pt& abs_pt, long modifiers)
@@ -217,8 +226,7 @@ void UIGain::onMouseDown(t_object* view, const t_pt& pt, const t_pt& abs_pt, lon
 
         redrawBGLayer();
 
-        if (prop_output_value)
-            doOutput();
+        output();
     }
 }
 
@@ -239,8 +247,7 @@ void UIGain::onMouseDrag(t_object* view, const t_pt& pt, long modifiers)
 
     redrawBGLayer();
 
-    if (prop_output_value)
-        doOutput();
+    output();
 }
 
 void UIGain::onDblClick(t_object* view, const t_pt& pt, long modifiers)
@@ -278,8 +285,7 @@ void UIGain::onMouseWheel(const t_pt& pt, long modifiers, t_float delta)
     knob_phase_ = clip<t_float, 0, 1>(knob_phase_ + delta * k);
     redrawBGLayer();
 
-    if (prop_output_value)
-        doOutput();
+    output();
 }
 
 void UIGain::onMidiCtrl(const AtomList& l)
@@ -303,9 +309,7 @@ void UIGain::onMidiCtrl(const AtomList& l)
         knob_phase_ = w;
         redrawBGLayer();
 
-        // do output if config property is set
-        if (prop_output_value)
-            doOutput();
+        output();
     } break;
     case LEARN: {
         UI_DBG << "binded to CTL #" << CTL_NUM;
@@ -365,7 +369,6 @@ void UIGain::doOutput()
 
     AtomList v(dbValue());
     anyTo(0, SYM_DB, v);
-    send(SYM_DB, v);
 }
 
 void UIGain::updateIndicators()
@@ -453,6 +456,7 @@ void UIGain::setAmpValue(t_float amp)
 void UIGain::loadPreset(size_t idx)
 {
     setDbValue(PresetStorage::instance().floatValueAt(presetId(), idx, -60));
+    output();
 }
 
 void UIGain::storePreset(size_t idx)
