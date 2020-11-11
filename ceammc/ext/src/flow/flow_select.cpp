@@ -17,6 +17,8 @@
 #include "lex/select.lexer.h"
 #include "lex/select.parser.hpp"
 
+#include <algorithm>
+
 class SelectMatch {
 public:
     using Data = SelectLexer::MatchData;
@@ -61,7 +63,7 @@ FlowSelect::~FlowSelect() { }
 void FlowSelect::onFloat(t_float v)
 {
     if (patterns_->data.empty())
-        return;
+        return floatTo(0, v);
 
     auto it = patterns_->data.crbegin();
     auto end = patterns_->data.crend();
@@ -79,75 +81,76 @@ void FlowSelect::onFloat(t_float v)
     };
 
     for (size_t idx = LAST - 1; it != end; ++it, --idx) {
-        switch (it->type) {
+        switch (it->type()) {
         case l::MATCH_EQUAL:
-            if (it->atoms[0] == Atom(v))
+            if (it->at(0) == Atom(v))
                 output(v, idx);
 
             break;
         case l::MATCH_GREATER:
-            if (v > it->atoms[0].asT<t_float>())
+            if (v > it->at(0).asT<t_float>())
                 output(v, idx);
 
             break;
         case l::MATCH_GREATER_EQ:
-            if (v >= it->atoms[0].asT<t_float>())
+            if (v >= it->at(0).asT<t_float>())
                 output(v, idx);
 
             break;
         case l::MATCH_LESS:
-            if (v < it->atoms[0].asT<t_float>())
+            if (v < it->at(0).asT<t_float>())
                 output(v, idx);
 
             break;
         case l::MATCH_LESS_EQ:
-            if (v <= it->atoms[0].asT<t_float>())
+            if (v <= it->at(0).asT<t_float>())
                 output(v, idx);
 
             break;
         case l::MATCH_RANGE_CC: {
-            const auto a = it->atoms[0].asT<t_float>();
-            const auto b = it->atoms[1].asT<t_float>();
+            const auto a = it->at(0).asT<t_float>();
+            const auto b = it->at(1).asT<t_float>();
 
             if (a <= v && v <= b)
                 output(v, idx);
 
         } break;
         case l::MATCH_RANGE_CO: {
-            const auto a = it->atoms[0].asT<t_float>();
-            const auto b = it->atoms[1].asT<t_float>();
+            const auto a = it->at(0).asT<t_float>();
+            const auto b = it->at(1).asT<t_float>();
 
             if (a <= v && v < b)
                 output(v, idx);
 
         } break;
         case l::MATCH_RANGE_OO: {
-            const auto a = it->atoms[0].asT<t_float>();
-            const auto b = it->atoms[1].asT<t_float>();
+            const auto a = it->at(0).asT<t_float>();
+            const auto b = it->at(1).asT<t_float>();
 
             if (a < v && v < b)
                 output(v, idx);
 
         } break;
         case l::MATCH_RANGE_OC: {
-            const auto a = it->atoms[0].asT<t_float>();
-            const auto b = it->atoms[1].asT<t_float>();
+            const auto a = it->at(0).asT<t_float>();
+            const auto b = it->at(1).asT<t_float>();
 
             if (a < v && v <= b)
                 output(v, idx);
 
         } break;
         case l::MATCH_EPSILON: {
-            const auto x = it->atoms[0].asT<t_float>();
-            const auto e = it->atoms[1].asT<t_float>();
+            const auto x = it->at(0).asT<t_float>();
+            const auto e = it->at(1).asT<t_float>();
 
             if (std::fabs(x - v) < e)
                 output(v, idx);
 
         } break;
         case l::MATCH_SET: {
-            for (size_t i = 0; i < it->MAX; i++) {
-            }
+            auto mit = std::find_if(it->begin(), it->end(), [v](const Atom& a) { return a == Atom(v); });
+            if (mit != it->end())
+                output(v, idx);
 
         } break;
         default:
@@ -161,6 +164,43 @@ void FlowSelect::onFloat(t_float v)
 
 void FlowSelect::onSymbol(t_symbol* s)
 {
+    if (patterns_->data.empty())
+        return symbolTo(0, s);
+
+    auto it = patterns_->data.crbegin();
+    auto end = patterns_->data.crend();
+
+    using l = SelectLexer;
+    const size_t LAST = numOutlets() - 1;
+    bool matched = false;
+
+    auto output = [this, &matched](t_symbol* s, size_t idx) {
+        matched = true;
+        if (keep_value_->value())
+            symbolTo(idx, s);
+        else
+            bangTo(idx);
+    };
+
+    for (size_t idx = LAST - 1; it != end; ++it, --idx) {
+        switch (it->type()) {
+        case l::MATCH_EQUAL:
+            if (it->at(0) == Atom(s))
+                output(s, idx);
+            break;
+        case l::MATCH_SET: {
+            auto mit = std::find_if(it->begin(), it->end(), [s](const Atom& a) { return a == Atom(s); });
+            if (mit != it->end())
+                output(s, idx);
+
+        } break;
+        default:
+            break;
+        }
+    }
+
+    if (!matched)
+        symbolTo(LAST, s);
 }
 
 void setup_flow_select()

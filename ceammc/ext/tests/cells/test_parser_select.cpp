@@ -200,6 +200,24 @@ TEST_CASE("SelectParser", "[ceammc::SelectParser]")
             REQUIRE(l[0].type() == SelectLexer::MATCH_RANGE_CC);
         }
 
+        SECTION("xrange")
+        {
+            SelectLexer l("1..2 3..5");
+            SelectParser p(l);
+
+            int err = p.parse();
+            REQUIRE(!err);
+
+            REQUIRE(l.numMatches() == 2);
+            REQUIRE(l[0].at(0).asFloat() == 1);
+            REQUIRE(l[0].at(1).asFloat() == 2);
+            REQUIRE(l[0].type() == SelectLexer::MATCH_RANGE_CC);
+
+            REQUIRE(l[1].at(0).asFloat() == 3);
+            REQUIRE(l[1].at(1).asFloat() == 5);
+            REQUIRE(l[1].type() == SelectLexer::MATCH_RANGE_CC);
+        }
+
         SECTION("range")
         {
             SelectLexer l("[1..10)");

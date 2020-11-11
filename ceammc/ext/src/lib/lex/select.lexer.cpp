@@ -116,7 +116,7 @@ class SelectLexer : public reflex::AbstractLexer<reflex::Matcher> {
             size_t size() const { return n_; }
             MatchType type() const { return type_; }
             AList::const_iterator begin() const { return data_.cbegin(); }
-            AList::const_iterator end() const { return data_.cend(); }
+            AList::const_iterator end() const { return data_.cbegin() + n_; }
             const Atom& at(uint8_t idx) const {
                 static Atom null;
                 return (idx >= data_.size()) ? null : data_[idx];
