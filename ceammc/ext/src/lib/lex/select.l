@@ -120,10 +120,13 @@
             nmatches_ -= 1;
         }
 
+        void setErrorMsg(const std::string& str) { error_msg_ = str; }
+
     private:
         std::array<MatchData, 64> matches_;
         std::vector<LexerAtom> atoms_;
         size_t nmatches_ = {0};
+        std::string error_msg_;
 %}
 
 %option freespace unicode
@@ -132,7 +135,7 @@
 %option header-file=select.lexer.h
 %option outfile=select.lexer.cpp
 /*%option graphs-file*/
-%option debug
+/*%option debug*/
 /*%option perf-report*/
 %option bison-cc-namespace="ceammc"
 %option bison-cc-parser="SelectParser"

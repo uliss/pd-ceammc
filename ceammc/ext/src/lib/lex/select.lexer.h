@@ -16,7 +16,6 @@
 #define REFLEX_OPTION_bison_cc_namespace  ceammc
 #define REFLEX_OPTION_bison_cc_parser     SelectParser
 #define REFLEX_OPTION_bison_complete      true
-#define REFLEX_OPTION_debug               true
 #define REFLEX_OPTION_freespace           true
 #define REFLEX_OPTION_header_file         "select.lexer.h"
 #define REFLEX_OPTION_lex                 lex
@@ -29,9 +28,6 @@
 #define REFLEX_OPTION_token_eof           ceammc::SelectParser::symbol_type(0)
 #define REFLEX_OPTION_token_type          ceammc::SelectParser::symbol_type
 #define REFLEX_OPTION_unicode             true
-
-// --debug option enables ASSERT:
-#define ASSERT(c) assert(c)
 
 ////////////////////////////////////////////////////////////////////////////////
 //                                                                            //
@@ -189,10 +185,13 @@ class SelectLexer : public reflex::AbstractLexer<reflex::Matcher> {
             nmatches_ -= 1;
         }
 
+        void setErrorMsg(const std::string& str) { error_msg_ = str; }
+
     private:
         std::array<MatchData, 64> matches_;
         std::vector<LexerAtom> atoms_;
         size_t nmatches_ = {0};
+        std::string error_msg_;
 
  public:
   typedef reflex::AbstractLexer<reflex::Matcher> AbstractBaseLexer;
@@ -202,7 +201,6 @@ class SelectLexer : public reflex::AbstractLexer<reflex::Matcher> {
     :
       AbstractBaseLexer(input, os)
   {
-    set_debug(true);
   }
   static const int INITIAL = 0;
   static const int RANGE = 1;

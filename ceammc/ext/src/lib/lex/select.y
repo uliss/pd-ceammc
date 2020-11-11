@@ -139,6 +139,6 @@ EXPRLIST
 
 void ceammc::SelectParser::error(const std::string& err_message)
 {
-    std::cerr << err_message << std::endl;
+    lexer.setErrorMsg(err_message);
 }
 

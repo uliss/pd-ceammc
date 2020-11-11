@@ -12,7 +12,6 @@
 #define REFLEX_OPTION_bison_cc_namespace  ceammc
 #define REFLEX_OPTION_bison_cc_parser     SelectParser
 #define REFLEX_OPTION_bison_complete      true
-#define REFLEX_OPTION_debug               true
 #define REFLEX_OPTION_freespace           true
 #define REFLEX_OPTION_header_file         "select.lexer.h"
 #define REFLEX_OPTION_lex                 lex
@@ -25,9 +24,6 @@
 #define REFLEX_OPTION_token_eof           ceammc::SelectParser::symbol_type(0)
 #define REFLEX_OPTION_token_type          ceammc::SelectParser::symbol_type
 #define REFLEX_OPTION_unicode             true
-
-// --debug option enables ASSERT:
-#define ASSERT(c) assert(c)
 
 ////////////////////////////////////////////////////////////////////////////////
 //                                                                            //
@@ -185,10 +181,13 @@ class SelectLexer : public reflex::AbstractLexer<reflex::Matcher> {
             nmatches_ -= 1;
         }
 
+        void setErrorMsg(const std::string& str) { error_msg_ = str; }
+
     private:
         std::array<MatchData, 64> matches_;
         std::vector<LexerAtom> atoms_;
         size_t nmatches_ = {0};
+        std::string error_msg_;
 
  public:
   typedef reflex::AbstractLexer<reflex::Matcher> AbstractBaseLexer;
@@ -198,7 +197,6 @@ class SelectLexer : public reflex::AbstractLexer<reflex::Matcher> {
     :
       AbstractBaseLexer(input, os)
   {
-    set_debug(true);
   }
   static const int INITIAL = 0;
   static const int RANGE = 1;
@@ -214,11 +212,11 @@ class SelectLexer : public reflex::AbstractLexer<reflex::Matcher> {
 //                                                                            //
 ////////////////////////////////////////////////////////////////////////////////
 
-#line 134 "select.l"
+#line 137 "select.l"
 /*%option graphs-file*/
-#line 136 "select.l"
+/*%option debug*/
 /*%option perf-report*/
-#line 144 "select.l"
+#line 147 "select.l"
 /*%option fast*/
 
 
@@ -258,89 +256,72 @@ ceammc::SelectParser::symbol_type ceammc::SelectLexer::lex()
           case 0:
             if (matcher().at_end())
             {
-              if (debug()) std::cerr << "--\033[1;35mEOF\033[0m (start condition " << start() << ")\n";
               return ceammc::SelectParser::symbol_type(0);
             }
             else
             {
-              if (debug()) std::cerr << "--\033[1;31maccepting default rule\033[0m\n";
               out().put(matcher().input());
             }
             break;
-          case 1: // rule at line 175: (?:[\x09\x0a\x20]+)
-            if (debug()) std::cerr << "--\033[1;35maccepting rule at line 175\033[0m (\"\033[1m" << matcher().text() << "\033[0m\")\n";
-#line 175 "select.l"
+          case 1: // rule at line 178: (?:[\x09\x0a\x20]+)
+#line 178 "select.l"
 { return SelectParser::make_SPACE(); }
             break;
-          case 2: // rule at line 176: (?:~)(?=(?:(?:0|[1-9][0-9]*)(?:\.[0-9]+)?))
-            if (debug()) std::cerr << "--\033[1;35maccepting rule at line 176\033[0m (\"\033[1m" << matcher().text() << "\033[0m\")\n";
-#line 176 "select.l"
+          case 2: // rule at line 179: (?:~)(?=(?:(?:0|[1-9][0-9]*)(?:\.[0-9]+)?))
+#line 179 "select.l"
 { return SelectParser::make_EPSILON(); }
             break;
-          case 3: // rule at line 177: (?:\.\.)(?=(?:(?:[\x2b\x2d]?(?:0|[1-9][0-9]*))(?:\.[0-9]+)?))
-            if (debug()) std::cerr << "--\033[1;35maccepting rule at line 177\033[0m (\"\033[1m" << matcher().text() << "\033[0m\")\n";
-#line 177 "select.l"
+          case 3: // rule at line 180: (?:\.\.)(?=(?:(?:[\x2b\x2d]?(?:0|[1-9][0-9]*))(?:\.[0-9]+)?))
+#line 180 "select.l"
 { return SelectParser::make_RANGE(); }
             break;
-          case 4: // rule at line 178: (?:\[)(?=(?:(?:[\x2b\x2d]?(?:0|[1-9][0-9]*))(?:\.[0-9]+)?))
-            if (debug()) std::cerr << "--\033[1;35maccepting rule at line 178\033[0m (\"\033[1m" << matcher().text() << "\033[0m\")\n";
-#line 178 "select.l"
+          case 4: // rule at line 181: (?:\[)(?=(?:(?:[\x2b\x2d]?(?:0|[1-9][0-9]*))(?:\.[0-9]+)?))
+#line 181 "select.l"
 { return SelectParser::make_OPEN_BRACKET('['); }
             break;
-          case 5: // rule at line 179: (?:\])
-            if (debug()) std::cerr << "--\033[1;35maccepting rule at line 179\033[0m (\"\033[1m" << matcher().text() << "\033[0m\")\n";
-#line 179 "select.l"
+          case 5: // rule at line 182: (?:\])
+#line 182 "select.l"
 { return SelectParser::make_CLOSE_BRACKET(']'); }
             break;
-          case 6: // rule at line 180: (?:\()(?=(?:(?:[\x2b\x2d]?(?:0|[1-9][0-9]*))(?:\.[0-9]+)?))
-            if (debug()) std::cerr << "--\033[1;35maccepting rule at line 180\033[0m (\"\033[1m" << matcher().text() << "\033[0m\")\n";
-#line 180 "select.l"
+          case 6: // rule at line 183: (?:\()(?=(?:(?:[\x2b\x2d]?(?:0|[1-9][0-9]*))(?:\.[0-9]+)?))
+#line 183 "select.l"
 { return SelectParser::make_OPEN_PAR('('); }
             break;
-          case 7: // rule at line 181: (?:\))
-            if (debug()) std::cerr << "--\033[1;35maccepting rule at line 181\033[0m (\"\033[1m" << matcher().text() << "\033[0m\")\n";
-#line 181 "select.l"
+          case 7: // rule at line 184: (?:\))
+#line 184 "select.l"
 { return SelectParser::make_CLOSE_PAR(')'); }
             break;
-          case 8: // rule at line 182: (?:\|)
-            if (debug()) std::cerr << "--\033[1;35maccepting rule at line 182\033[0m (\"\033[1m" << matcher().text() << "\033[0m\")\n";
-#line 182 "select.l"
+          case 8: // rule at line 185: (?:\|)
+#line 185 "select.l"
 { return SelectParser::make_OR(); }
             break;
-          case 9: // rule at line 183: (?:>=)(?=(?:(?:[\x2b\x2d]?(?:0|[1-9][0-9]*))(?:\.[0-9]+)?))
-            if (debug()) std::cerr << "--\033[1;35maccepting rule at line 183\033[0m (\"\033[1m" << matcher().text() << "\033[0m\")\n";
-#line 183 "select.l"
+          case 9: // rule at line 186: (?:>=)(?=(?:(?:[\x2b\x2d]?(?:0|[1-9][0-9]*))(?:\.[0-9]+)?))
+#line 186 "select.l"
 { return SelectParser::make_OP_GREATER_EQ(); }
             break;
-          case 10: // rule at line 184: (?:>)(?=(?:(?:[\x2b\x2d]?(?:0|[1-9][0-9]*))(?:\.[0-9]+)?))
-            if (debug()) std::cerr << "--\033[1;35maccepting rule at line 184\033[0m (\"\033[1m" << matcher().text() << "\033[0m\")\n";
-#line 184 "select.l"
+          case 10: // rule at line 187: (?:>)(?=(?:(?:[\x2b\x2d]?(?:0|[1-9][0-9]*))(?:\.[0-9]+)?))
+#line 187 "select.l"
 { return SelectParser::make_OP_GREATER(); }
             break;
-          case 11: // rule at line 185: (?:<)(?=(?:(?:[\x2b\x2d]?(?:0|[1-9][0-9]*))(?:\.[0-9]+)?))
-            if (debug()) std::cerr << "--\033[1;35maccepting rule at line 185\033[0m (\"\033[1m" << matcher().text() << "\033[0m\")\n";
-#line 185 "select.l"
+          case 11: // rule at line 188: (?:<)(?=(?:(?:[\x2b\x2d]?(?:0|[1-9][0-9]*))(?:\.[0-9]+)?))
+#line 188 "select.l"
 { return SelectParser::make_OP_LESS(); }
             break;
-          case 12: // rule at line 186: (?:<=)(?=(?:(?:[\x2b\x2d]?(?:0|[1-9][0-9]*))(?:\.[0-9]+)?))
-            if (debug()) std::cerr << "--\033[1;35maccepting rule at line 186\033[0m (\"\033[1m" << matcher().text() << "\033[0m\")\n";
-#line 186 "select.l"
+          case 12: // rule at line 189: (?:<=)(?=(?:(?:[\x2b\x2d]?(?:0|[1-9][0-9]*))(?:\.[0-9]+)?))
+#line 189 "select.l"
 { return SelectParser::make_OP_LESS_EQ(); }
             break;
-          case 13: // rule at line 187: (?:(?:[\x2b\x2d]?(?:0|[1-9][0-9]*))(?:\.[0-9]+)?)
-            if (debug()) std::cerr << "--\033[1;35maccepting rule at line 187\033[0m (\"\033[1m" << matcher().text() << "\033[0m\")\n";
-#line 187 "select.l"
+          case 13: // rule at line 190: (?:(?:[\x2b\x2d]?(?:0|[1-9][0-9]*))(?:\.[0-9]+)?)
+#line 190 "select.l"
 { return SelectParser::make_FLOAT(text()); }
             break;
-          case 14: // rule at line 189: (?:(?:[\x00-\x08]|[\x0b-\x1f]|[!-/]|[:-{]|[}-\x7f]|[\xc2-\xdf][\x80-\xbf]|\xe0[\xa0-\xbf][\x80-\xbf]|[\xe1-\xec][\x80-\xbf][\x80-\xbf]|\xed[\x80-\x9f][\x80-\xbf]|[\xee\xef][\x80-\xbf][\x80-\xbf]|\xf0[\x90-\xbf][\x80-\xbf][\x80-\xbf]|[\xf1-\xf3][\x80-\xbf][\x80-\xbf][\x80-\xbf]|\xf4[\x80-\x8f][\x80-\xbf][\x80-\xbf])+)
-            if (debug()) std::cerr << "--\033[1;35maccepting rule at line 189\033[0m (\"\033[1m" << matcher().text() << "\033[0m\")\n";
-#line 189 "select.l"
+          case 14: // rule at line 192: (?:(?:[\x00-\x08]|[\x0b-\x1f]|[!-/]|[:-{]|[}-\x7f]|[\xc2-\xdf][\x80-\xbf]|\xe0[\xa0-\xbf][\x80-\xbf]|[\xe1-\xec][\x80-\xbf][\x80-\xbf]|\xed[\x80-\x9f][\x80-\xbf]|[\xee\xef][\x80-\xbf][\x80-\xbf]|\xf0[\x90-\xbf][\x80-\xbf][\x80-\xbf]|[\xf1-\xf3][\x80-\xbf][\x80-\xbf][\x80-\xbf]|\xf4[\x80-\x8f][\x80-\xbf][\x80-\xbf])+)
+#line 192 "select.l"
 { return SelectParser::make_SYMBOL(text()); }
 
             break;
-          case 15: // rule at line 191: .
-            if (debug()) std::cerr << "--\033[1;35maccepting rule at line 191\033[0m (\"\033[1m" << matcher().text() << "\033[0m\")\n";
-#line 191 "select.l"
+          case 15: // rule at line 194: .
+#line 194 "select.l"
 {   }
 
             break;
@@ -353,18 +334,15 @@ ceammc::SelectParser::symbol_type ceammc::SelectLexer::lex()
           case 0:
             if (matcher().at_end())
             {
-              if (debug()) std::cerr << "--\033[1;35mEOF\033[0m (start condition " << start() << ")\n";
               return ceammc::SelectParser::symbol_type(0);
             }
             else
             {
-              if (debug()) std::cerr << "--\033[1;31maccepting default rule\033[0m\n";
               out().put(matcher().input());
             }
             break;
-          case 1: // rule at line 191: .
-            if (debug()) std::cerr << "--\033[1;35maccepting rule at line 191\033[0m (\"\033[1m" << matcher().text() << "\033[0m\")\n";
-#line 191 "select.l"
+          case 1: // rule at line 194: .
+#line 194 "select.l"
 {   }
 
             break;
@@ -377,18 +355,15 @@ ceammc::SelectParser::symbol_type ceammc::SelectLexer::lex()
           case 0:
             if (matcher().at_end())
             {
-              if (debug()) std::cerr << "--\033[1;35mEOF\033[0m (start condition " << start() << ")\n";
               return ceammc::SelectParser::symbol_type(0);
             }
             else
             {
-              if (debug()) std::cerr << "--\033[1;31maccepting default rule\033[0m\n";
               out().put(matcher().input());
             }
             break;
-          case 1: // rule at line 191: .
-            if (debug()) std::cerr << "--\033[1;35maccepting rule at line 191\033[0m (\"\033[1m" << matcher().text() << "\033[0m\")\n";
-#line 191 "select.l"
+          case 1: // rule at line 194: .
+#line 194 "select.l"
 {   }
 
             break;
