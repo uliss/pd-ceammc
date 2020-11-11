@@ -276,5 +276,28 @@ TEST_CASE("flow.select", "[externals]")
             REQUIRE(!t.hasOutputAt(0));
             REQUIRE(t.isOutputBangAt(1));
         }
+
+        SECTION("set")
+        {
+            TExt t("flow.sel", LA("1|2|3", "A|B|C|-0.25"));
+
+            t << 0.25;
+            REQUIRE(t.outputFloatAt(2) == 0.25);
+            t << 1;
+            REQUIRE(t.isOutputBangAt(0));
+            t << 2;
+            REQUIRE(t.isOutputBangAt(0));
+            t << 3;
+            REQUIRE(t.isOutputBangAt(0));
+
+            t << -0.25;
+            REQUIRE(t.isOutputBangAt(1));
+            t << "A";
+            REQUIRE(t.isOutputBangAt(1));
+            t << "B";
+            REQUIRE(t.isOutputBangAt(1));
+            t << "C";
+            REQUIRE(t.isOutputBangAt(1));
+        }
     }
 }
