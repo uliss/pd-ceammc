@@ -718,6 +718,22 @@ void XTouchExtender::setLogicDisplayLowerText(uint8_t log_idx, const std::string
     d.text_lower.resize(LCD_MAX_CHARS, '\0');
 }
 
+void XTouchExtender::setLogicLcdMode(uint8_t log_idx, int mode)
+{
+    if (log_idx >= numLogicChannels()) {
+        OBJ_ERR << "channel is out of range: " << log_idx;
+        return;
+    }
+
+    if (mode < 0 || mode > 4) {
+    }
+
+    OBJ_LOG << "set lcd mode: " << (int)log_idx << ' ' << mode;
+
+    sceneByLogicIdx(log_idx).displayData(log_idx).mode = static_cast<DisplayData::DisplayMode>(mode);
+    syncLogicDisplay(log_idx);
+}
+
 void XTouchExtender::setLogicLcdColor(uint8_t log_idx, const Atom& color)
 {
     using Color = DisplayData::DisplayColor;
@@ -802,12 +818,30 @@ void XTouchExtender::m_lcd(t_symbol* s, const AtomListView& lv) { }
 
 void XTouchExtender::m_lcd_mode(t_symbol* s, const AtomListView& lv)
 {
+    if (lv.size() < 2) {
+        METHOD_ERR(s) << "usage: IDX MODES...(0, 1, 2 or 3)";
+        return;
+    }
+
+    const auto log_idx = lv.intAt(0, -1);
+
+    if (lv[0].isSymbol() && lv[0].asT<t_symbol*>() == SYM_ALL) {
+        for (int i = 0; i < Scene::NCHAN; i++)
+            setLogicLcdMode(calcLogicIdx(i), lv[1].asInt());
+    } else if (log_idx < 0 || log_idx >= numLogicChannels()) {
+        METHOD_ERR(s) << "invalid index:" << log_idx;
+        return;
+    } else {
+        int i = 0;
+        for (auto& c : lv.subView(1))
+            setLogicLcdMode(log_idx + (i++), c.asInt());
+    }
 }
 
 void XTouchExtender::m_lcd_color(t_symbol* s, const AtomListView& lv)
 {
     if (lv.size() < 2) {
-        METHOD_ERR(s) << "usage: IDX COLOR(index, color name or random)";
+        METHOD_ERR(s) << "usage: IDX COLORS(index, color name or random)...";
         return;
     }
 

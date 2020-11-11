@@ -29,7 +29,9 @@ struct DisplayData {
 
     enum DisplayMode {
         INVERTED = 0,
-        NORMAL = 1
+        INVERTED_UPPER = 1,
+        INVERTED_LOWER = 2,
+        NORMAL = 3
     };
 
     enum DisplayColor {
@@ -162,6 +164,7 @@ private:
     void setLogicDisplayLowerText(uint8_t log_idx, const std::string& txt);
 
     void setLogicLcdColor(uint8_t log_idx, const Atom& color);
+    void setLogicLcdMode(uint8_t log_idx, int mode);
 };
 
 void setup_hw_xtouch_ext();
