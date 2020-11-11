@@ -227,5 +227,54 @@ TEST_CASE("flow.select", "[externals]")
             REQUIRE(!t.hasOutputAt(2));
             REQUIRE(!t.hasOutputAt(3));
         }
+
+        SECTION("epsilon")
+        {
+            TExt t("flow.sel", LA("1~0.125", "-10~2"));
+
+            t << 0.;
+            REQUIRE(!t.hasOutputAt(0));
+            REQUIRE(!t.hasOutputAt(1));
+
+            t << 1.125;
+            REQUIRE(!t.hasOutputAt(0));
+            REQUIRE(!t.hasOutputAt(1));
+
+            t << 0.875;
+            REQUIRE(!t.hasOutputAt(0));
+            REQUIRE(!t.hasOutputAt(1));
+
+            t << 1.124;
+            REQUIRE(t.isOutputBangAt(0));
+            REQUIRE(!t.hasOutputAt(1));
+
+            t << 0.876;
+            REQUIRE(t.isOutputBangAt(0));
+            REQUIRE(!t.hasOutputAt(1));
+
+            t << 1;
+            REQUIRE(t.isOutputBangAt(0));
+            REQUIRE(!t.hasOutputAt(1));
+
+            t << -12;
+            REQUIRE(!t.hasOutputAt(0));
+            REQUIRE(!t.hasOutputAt(1));
+
+            t << -8;
+            REQUIRE(!t.hasOutputAt(0));
+            REQUIRE(!t.hasOutputAt(1));
+
+            t << -11.9999;
+            REQUIRE(!t.hasOutputAt(0));
+            REQUIRE(t.isOutputBangAt(1));
+
+            t << -8.00001;
+            REQUIRE(!t.hasOutputAt(0));
+            REQUIRE(t.isOutputBangAt(1));
+
+            t << -10;
+            REQUIRE(!t.hasOutputAt(0));
+            REQUIRE(t.isOutputBangAt(1));
+        }
     }
 }
