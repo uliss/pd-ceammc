@@ -31,31 +31,31 @@ TEST_CASE("SelectParser", "[ceammc::SelectParser]")
             REQUIRE(!err);
 
             REQUIRE(l.numMatches() == 1);
-            REQUIRE(l[0].atoms[0].asFloat() == 1000);
+            REQUIRE(l[0].at(0).asFloat() == 1000);
 
             l.clearMatches();
             l.in("-1000");
             REQUIRE(p.parse() == 0);
             REQUIRE(l.numMatches() == 1);
-            REQUIRE(l[0].atoms[0].asFloat() == -1000);
+            REQUIRE(l[0].at(0).asFloat() == -1000);
 
             l.clearMatches();
             l.in("10.5");
             REQUIRE(p.parse() == 0);
             REQUIRE(l.numMatches() == 1);
-            REQUIRE(l[0].atoms[0].asFloat() == 10.5);
+            REQUIRE(l[0].at(0).asFloat() == 10.5);
 
             l.clearMatches();
             l.in("-10.5");
             REQUIRE(p.parse() == 0);
             REQUIRE(l.numMatches() == 1);
-            REQUIRE(l[0].atoms[0].asFloat() == -10.5);
+            REQUIRE(l[0].at(0).asFloat() == -10.5);
 
             l.clearMatches();
             l.in("+10.5");
             REQUIRE(p.parse() == 0);
             REQUIRE(l.numMatches() == 1);
-            REQUIRE(l[0].atoms[0].asFloat() == 10.5);
+            REQUIRE(l[0].at(0).asFloat() == 10.5);
         }
 
         SECTION("single symbol")
@@ -67,19 +67,19 @@ TEST_CASE("SelectParser", "[ceammc::SelectParser]")
             REQUIRE(!err);
 
             REQUIRE(l.numMatches() == 1);
-            REQUIRE(l[0].atoms[0].asSymbol() == SYM("ABC"));
+            REQUIRE(l[0].at(0).asSymbol() == SYM("ABC"));
 
             l.clearMatches();
             l.in("A1024");
             REQUIRE(p.parse() == 0);
             REQUIRE(l.numMatches() == 1);
-            REQUIRE(l[0].atoms[0].asSymbol() == SYM("A1024"));
+            REQUIRE(l[0].at(0).asSymbol() == SYM("A1024"));
 
             l.clearMatches();
             l.in("1024ms");
             REQUIRE(p.parse() == 0);
             REQUIRE(l.numMatches() == 1);
-            REQUIRE(l[0].atoms[0].asSymbol() == SYM("1024ms"));
+            REQUIRE(l[0].at(0).asSymbol() == SYM("1024ms"));
         }
 
         SECTION("many single atoms")
@@ -91,13 +91,13 @@ TEST_CASE("SelectParser", "[ceammc::SelectParser]")
             REQUIRE(!err);
 
             REQUIRE(l.numMatches() == 7);
-            REQUIRE(l[0].atoms[0].asSymbol() == SYM("A"));
-            REQUIRE(l[1].atoms[0].asSymbol() == SYM("B"));
-            REQUIRE(l[2].atoms[0].asFloat() == 10.25);
-            REQUIRE(l[3].atoms[0] == A("+10ms"));
-            REQUIRE(l[4].atoms[0].asSymbol() == SYM("@prop"));
-            REQUIRE(l[5].atoms[0].asSymbol() == SYM("[x]"));
-            REQUIRE(l[6].atoms[0].asSymbol() == SYM("a~"));
+            REQUIRE(l[0].at(0).asSymbol() == SYM("A"));
+            REQUIRE(l[1].at(0).asSymbol() == SYM("B"));
+            REQUIRE(l[2].at(0).asFloat() == 10.25);
+            REQUIRE(l[3].at(0) == A("+10ms"));
+            REQUIRE(l[4].at(0).asSymbol() == SYM("@prop"));
+            REQUIRE(l[5].at(0).asSymbol() == SYM("[x]"));
+            REQUIRE(l[6].at(0).asSymbol() == SYM("a~"));
         }
 
         SECTION("epsilon")
@@ -109,25 +109,25 @@ TEST_CASE("SelectParser", "[ceammc::SelectParser]")
             REQUIRE(!err);
 
             REQUIRE(l.numMatches() == 1);
-            REQUIRE(l[0].atoms[0].asFloat() == -0.5);
-            REQUIRE(l[0].atoms[1].asFloat() == 0.125);
-            REQUIRE(l[0].type == SelectLexer::MATCH_EPSILON);
+            REQUIRE(l[0].at(0).asFloat() == -0.5);
+            REQUIRE(l[0].at(1).asFloat() == 0.125);
+            REQUIRE(l[0].type() == SelectLexer::MATCH_EPSILON);
 
             l.clearMatches();
             l.in("1~2");
             REQUIRE(!p.parse());
             REQUIRE(l.numMatches() == 1);
-            REQUIRE(l[0].atoms[0].asFloat() == 1);
-            REQUIRE(l[0].atoms[1].asFloat() == 2);
-            REQUIRE(l[0].type == SelectLexer::MATCH_EPSILON);
+            REQUIRE(l[0].at(0).asFloat() == 1);
+            REQUIRE(l[0].at(1).asFloat() == 2);
+            REQUIRE(l[0].type() == SelectLexer::MATCH_EPSILON);
 
             l.clearMatches();
             l.in("-1~0.125");
             REQUIRE(!p.parse());
             REQUIRE(l.numMatches() == 1);
-            REQUIRE(l[0].atoms[0].asFloat() == -1);
-            REQUIRE(l[0].atoms[1].asFloat() == 0.125);
-            REQUIRE(l[0].type == SelectLexer::MATCH_EPSILON);
+            REQUIRE(l[0].at(0).asFloat() == -1);
+            REQUIRE(l[0].at(1).asFloat() == 0.125);
+            REQUIRE(l[0].type() == SelectLexer::MATCH_EPSILON);
         }
 
         SECTION("range")
@@ -139,65 +139,65 @@ TEST_CASE("SelectParser", "[ceammc::SelectParser]")
             REQUIRE(!err);
 
             REQUIRE(l.numMatches() == 1);
-            REQUIRE(l[0].atoms[0].asFloat() == 1);
-            REQUIRE(l[0].atoms[1].asFloat() == 10);
-            REQUIRE(l[0].type == SelectLexer::MATCH_RANGE_CC);
+            REQUIRE(l[0].at(0).asFloat() == 1);
+            REQUIRE(l[0].at(1).asFloat() == 10);
+            REQUIRE(l[0].type() == SelectLexer::MATCH_RANGE_CC);
 
             l.clearMatches();
             l.in("-20..0");
             REQUIRE(!p.parse());
             REQUIRE(l.numMatches() == 1);
-            REQUIRE(l[0].atoms[0].asFloat() == -20);
-            REQUIRE(l[0].atoms[1].asFloat() == 0);
-            REQUIRE(l[0].type == SelectLexer::MATCH_RANGE_CC);
+            REQUIRE(l[0].at(0).asFloat() == -20);
+            REQUIRE(l[0].at(1).asFloat() == 0);
+            REQUIRE(l[0].type() == SelectLexer::MATCH_RANGE_CC);
 
             l.clearMatches();
             l.in("-20..-2");
             REQUIRE(!p.parse());
             REQUIRE(l.numMatches() == 1);
-            REQUIRE(l[0].atoms[0].asFloat() == -20);
-            REQUIRE(l[0].atoms[1].asFloat() == -2);
-            REQUIRE(l[0].type == SelectLexer::MATCH_RANGE_CC);
+            REQUIRE(l[0].at(0).asFloat() == -20);
+            REQUIRE(l[0].at(1).asFloat() == -2);
+            REQUIRE(l[0].type() == SelectLexer::MATCH_RANGE_CC);
 
             l.clearMatches();
             l.in("-20..-0.5");
             REQUIRE(!p.parse());
             REQUIRE(l.numMatches() == 1);
-            REQUIRE(l[0].atoms[0].asFloat() == -20);
-            REQUIRE(l[0].atoms[1].asFloat() == -0.5);
-            REQUIRE(l[0].type == SelectLexer::MATCH_RANGE_CC);
+            REQUIRE(l[0].at(0).asFloat() == -20);
+            REQUIRE(l[0].at(1).asFloat() == -0.5);
+            REQUIRE(l[0].type() == SelectLexer::MATCH_RANGE_CC);
 
             l.clearMatches();
             l.in("-20..0.5");
             REQUIRE(!p.parse());
             REQUIRE(l.numMatches() == 1);
-            REQUIRE(l[0].atoms[0].asFloat() == -20);
-            REQUIRE(l[0].atoms[1].asFloat() == 0.5);
-            REQUIRE(l[0].type == SelectLexer::MATCH_RANGE_CC);
+            REQUIRE(l[0].at(0).asFloat() == -20);
+            REQUIRE(l[0].at(1).asFloat() == 0.5);
+            REQUIRE(l[0].type() == SelectLexer::MATCH_RANGE_CC);
 
             l.clearMatches();
             l.in("0.5..0.5");
             REQUIRE(!p.parse());
             REQUIRE(l.numMatches() == 1);
-            REQUIRE(l[0].atoms[0].asFloat() == 0.5);
-            REQUIRE(l[0].atoms[1].asFloat() == 0.5);
-            REQUIRE(l[0].type == SelectLexer::MATCH_RANGE_CC);
+            REQUIRE(l[0].at(0).asFloat() == 0.5);
+            REQUIRE(l[0].at(1).asFloat() == 0.5);
+            REQUIRE(l[0].type() == SelectLexer::MATCH_RANGE_CC);
 
             l.clearMatches();
             l.in("0.5..+0.5");
             REQUIRE(!p.parse());
             REQUIRE(l.numMatches() == 1);
-            REQUIRE(l[0].atoms[0].asFloat() == 0.5);
-            REQUIRE(l[0].atoms[1].asFloat() == 0.5);
-            REQUIRE(l[0].type == SelectLexer::MATCH_RANGE_CC);
+            REQUIRE(l[0].at(0).asFloat() == 0.5);
+            REQUIRE(l[0].at(1).asFloat() == 0.5);
+            REQUIRE(l[0].type() == SelectLexer::MATCH_RANGE_CC);
 
             l.clearMatches();
             l.in("-0.5..+0.5");
             REQUIRE(!p.parse());
             REQUIRE(l.numMatches() == 1);
-            REQUIRE(l[0].atoms[0].asFloat() == -0.5);
-            REQUIRE(l[0].atoms[1].asFloat() == 0.5);
-            REQUIRE(l[0].type == SelectLexer::MATCH_RANGE_CC);
+            REQUIRE(l[0].at(0).asFloat() == -0.5);
+            REQUIRE(l[0].at(1).asFloat() == 0.5);
+            REQUIRE(l[0].type() == SelectLexer::MATCH_RANGE_CC);
         }
 
         SECTION("range")
@@ -209,33 +209,33 @@ TEST_CASE("SelectParser", "[ceammc::SelectParser]")
             REQUIRE(!err);
 
             REQUIRE(l.numMatches() == 1);
-            REQUIRE(l[0].atoms[0].asFloat() == 1);
-            REQUIRE(l[0].atoms[1].asFloat() == 10);
-            REQUIRE(l[0].type == SelectLexer::MATCH_RANGE_CO);
+            REQUIRE(l[0].at(0).asFloat() == 1);
+            REQUIRE(l[0].at(1).asFloat() == 10);
+            REQUIRE(l[0].type() == SelectLexer::MATCH_RANGE_CO);
 
             l.clearMatches();
             l.in("(-0.5..+0.5)");
             REQUIRE(!p.parse());
             REQUIRE(l.numMatches() == 1);
-            REQUIRE(l[0].atoms[0].asFloat() == -0.5);
-            REQUIRE(l[0].atoms[1].asFloat() == 0.5);
-            REQUIRE(l[0].type == SelectLexer::MATCH_RANGE_OO);
+            REQUIRE(l[0].at(0).asFloat() == -0.5);
+            REQUIRE(l[0].at(1).asFloat() == 0.5);
+            REQUIRE(l[0].type() == SelectLexer::MATCH_RANGE_OO);
 
             l.clearMatches();
             l.in("(-0.5..+0.5]");
             REQUIRE(!p.parse());
             REQUIRE(l.numMatches() == 1);
-            REQUIRE(l[0].atoms[0].asFloat() == -0.5);
-            REQUIRE(l[0].atoms[1].asFloat() == 0.5);
-            REQUIRE(l[0].type == SelectLexer::MATCH_RANGE_OC);
+            REQUIRE(l[0].at(0).asFloat() == -0.5);
+            REQUIRE(l[0].at(1).asFloat() == 0.5);
+            REQUIRE(l[0].type() == SelectLexer::MATCH_RANGE_OC);
 
             l.clearMatches();
             l.in("[-0.5..-0.5]");
             REQUIRE(!p.parse());
             REQUIRE(l.numMatches() == 1);
-            REQUIRE(l[0].atoms[0].asFloat() == -0.5);
-            REQUIRE(l[0].atoms[1].asFloat() == -0.5);
-            REQUIRE(l[0].type == SelectLexer::MATCH_RANGE_CC);
+            REQUIRE(l[0].at(0).asFloat() == -0.5);
+            REQUIRE(l[0].at(1).asFloat() == -0.5);
+            REQUIRE(l[0].type() == SelectLexer::MATCH_RANGE_CC);
         }
 
         SECTION("set")
@@ -247,51 +247,59 @@ TEST_CASE("SelectParser", "[ceammc::SelectParser]")
             REQUIRE(!err);
 
             REQUIRE(l.numMatches() == 1);
-            REQUIRE(l[0].atoms[0] == A("a"));
-            REQUIRE(l[0].atoms[1] == A("b"));
-            REQUIRE(l[0].type == SelectLexer::MATCH_SET);
+            REQUIRE(l[0].at(0) == A("a"));
+            REQUIRE(l[0].at(1) == A("b"));
+            REQUIRE(l[0].type() == SelectLexer::MATCH_SET);
 
             l.clearMatches();
             l.in("1|2|3|4");
             REQUIRE(!p.parse());
             REQUIRE(l.numMatches() == 1);
-            REQUIRE(l[0].atoms[0] == A(1));
-            REQUIRE(l[0].atoms[1] == A(2));
-            REQUIRE(l[0].atoms[2] == A(3));
-            REQUIRE(l[0].atoms[3] == A(4));
-            REQUIRE(l[0].type == SelectLexer::MATCH_SET);
+            REQUIRE(l[0].at(0) == A(1));
+            REQUIRE(l[0].at(1) == A(2));
+            REQUIRE(l[0].at(2) == A(3));
+            REQUIRE(l[0].at(3) == A(4));
+            REQUIRE(l[0].type() == SelectLexer::MATCH_SET);
 
             l.clearMatches();
             l.in("0.5|-2|3.5|-0.25");
             REQUIRE(!p.parse());
             REQUIRE(l.numMatches() == 1);
-            REQUIRE(l[0].atoms[0] == A(0.5));
-            REQUIRE(l[0].atoms[1] == A(-2));
-            REQUIRE(l[0].atoms[2] == A(3.5));
-            REQUIRE(l[0].atoms[3] == A(-0.25));
-            REQUIRE(l[0].type == SelectLexer::MATCH_SET);
+            REQUIRE(l[0].at(0) == A(0.5));
+            REQUIRE(l[0].at(1) == A(-2));
+            REQUIRE(l[0].at(2) == A(3.5));
+            REQUIRE(l[0].at(3) == A(-0.25));
+            REQUIRE(l[0].type() == SelectLexer::MATCH_SET);
 
             l.clearMatches();
             l.in("ABC|-2|3.5|-0.25|10ms");
             REQUIRE(!p.parse());
             REQUIRE(l.numMatches() == 1);
-            REQUIRE(l[0].atoms[0] == A("ABC"));
-            REQUIRE(l[0].atoms[1] == A(-2));
-            REQUIRE(l[0].atoms[2] == A(3.5));
-            REQUIRE(l[0].atoms[3] == A(-0.25));
-            REQUIRE(l[0].atoms[4] == A("10ms"));
-            REQUIRE(l[0].type == SelectLexer::MATCH_SET);
+            REQUIRE(l[0].at(0) == A("ABC"));
+            REQUIRE(l[0].at(1) == A(-2));
+            REQUIRE(l[0].at(2) == A(3.5));
+            REQUIRE(l[0].at(3) == A(-0.25));
+            REQUIRE(l[0].at(4) == A("10ms"));
+            REQUIRE(l[0].type() == SelectLexer::MATCH_SET);
 
             l.clearMatches();
             l.in("ABC|-2|3.5|-0.25|2~");
             REQUIRE(!p.parse());
             REQUIRE(l.numMatches() == 1);
-            REQUIRE(l[0].atoms[0] == A("ABC"));
-            REQUIRE(l[0].atoms[1] == A(-2));
-            REQUIRE(l[0].atoms[2] == A(3.5));
-            REQUIRE(l[0].atoms[3] == A(-0.25));
-            REQUIRE(l[0].atoms[4] == A("2~"));
-            REQUIRE(l[0].type == SelectLexer::MATCH_SET);
+            REQUIRE(l[0].at(0) == A("ABC"));
+            REQUIRE(l[0].at(1) == A(-2));
+            REQUIRE(l[0].at(2) == A(3.5));
+            REQUIRE(l[0].at(3) == A(-0.25));
+            REQUIRE(l[0].at(4) == A("2~"));
+            REQUIRE(l[0].type() == SelectLexer::MATCH_SET);
+
+            l.clearMatches();
+            l.in("1|2|3|4|5|6|7|8|9|10|11|12|13|14|15|16|17");
+            REQUIRE(!p.parse());
+            REQUIRE(l.numMatches() == 1);
+            REQUIRE(l[0].size() == 16);
+            REQUIRE(l[0].at(15) == A(16));
+            REQUIRE(l[0].type() == SelectLexer::MATCH_SET);
         }
 
         SECTION("compare")
@@ -303,36 +311,36 @@ TEST_CASE("SelectParser", "[ceammc::SelectParser]")
             REQUIRE(!err);
 
             REQUIRE(l.numMatches() == 1);
-            REQUIRE(l[0].atoms[0] == A(10));
-            REQUIRE(l[0].type == SelectLexer::MATCH_LESS);
+            REQUIRE(l[0].at(0) == A(10));
+            REQUIRE(l[0].type() == SelectLexer::MATCH_LESS);
 
             l.clearMatches();
             l.in("<-0.125");
             REQUIRE(!p.parse());
             REQUIRE(l.numMatches() == 1);
-            REQUIRE(l[0].atoms[0] == A(-0.125));
-            REQUIRE(l[0].type == SelectLexer::MATCH_LESS);
+            REQUIRE(l[0].at(0) == A(-0.125));
+            REQUIRE(l[0].type() == SelectLexer::MATCH_LESS);
 
             l.clearMatches();
             l.in("<=-0.125");
             REQUIRE(!p.parse());
             REQUIRE(l.numMatches() == 1);
-            REQUIRE(l[0].atoms[0] == A(-0.125));
-            REQUIRE(l[0].type == SelectLexer::MATCH_LESS_EQ);
+            REQUIRE(l[0].at(0) == A(-0.125));
+            REQUIRE(l[0].type() == SelectLexer::MATCH_LESS_EQ);
 
             l.clearMatches();
             l.in(">-0.125");
             REQUIRE(!p.parse());
             REQUIRE(l.numMatches() == 1);
-            REQUIRE(l[0].atoms[0] == A(-0.125));
-            REQUIRE(l[0].type == SelectLexer::MATCH_GREATER);
+            REQUIRE(l[0].at(0) == A(-0.125));
+            REQUIRE(l[0].type() == SelectLexer::MATCH_GREATER);
 
             l.clearMatches();
             l.in(">=-0.125");
             REQUIRE(!p.parse());
             REQUIRE(l.numMatches() == 1);
-            REQUIRE(l[0].atoms[0] == A(-0.125));
-            REQUIRE(l[0].type == SelectLexer::MATCH_GREATER_EQ);
+            REQUIRE(l[0].at(0) == A(-0.125));
+            REQUIRE(l[0].type() == SelectLexer::MATCH_GREATER_EQ);
         }
     }
 }

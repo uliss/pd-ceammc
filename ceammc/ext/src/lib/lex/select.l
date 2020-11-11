@@ -2,6 +2,8 @@
     # include <string>
     # include <array>
     # include <stdexcept>
+    # include <algorithm>
+    # include <cstdint>
 
     # include "lex/select.parser.hpp"
 
@@ -10,7 +12,7 @@
 
 %class {
     public:  
-        enum MatchType {
+        enum MatchType : uint8_t {
             MATCH_EQUAL,
             MATCH_EPSILON,
             MATCH_RANGE_OO,
@@ -29,44 +31,53 @@
             bool is_float;
         };
 
-        struct MatchData {
-            ceammc::Atom atoms[16];
-            size_t natoms = { 0 };
-            MatchType type = { MATCH_EQUAL };
+        class MatchData {
+            using AList = std::array<ceammc::Atom, 16>;
+            AList data_;
+            uint8_t n_ = { 0 };
+            MatchType type_ = { MATCH_EQUAL };
 
-            MatchData(){}
+        public:
+            MatchData() {}
+            MatchData(uint8_t n, MatchType t) : n_(std::min<uint8_t>(n, data_.size())), type_(t) {}
+            MatchData(double v) : MatchData(1, MATCH_EQUAL) { data_[0].setFloat(v, true); }
+            MatchData(const std::string& s) : MatchData(1, MATCH_EQUAL) { data_[0].setSymbol(gensym(s.c_str()), true); }
 
-            MatchData(double v) : natoms(1), type(MATCH_EQUAL) {
-                atoms[0].setFloat(v, true);
+            MatchData& operator+=(const MatchData& m) {
+                for (uint8_t i = 0; i < m.n_ && n_ < data_.size(); i++) {
+                    data_[n_] = m.data_[i];
+                    n_++;
+                }
+                type_ = MATCH_SET;
+                return *this;
             }
 
-            MatchData(const std::string& s) : natoms(1), type(MATCH_EQUAL) {
-                atoms[0].setSymbol(gensym(s.c_str()), true);
+            size_t size() const { return n_; }
+            MatchType type() const { return type_; }
+            AList::const_iterator begin() const { return data_.cbegin(); }
+            AList::const_iterator end() const { return data_.cend(); }
+            const Atom& at(uint8_t idx) const {
+                static Atom null;
+                return (idx >= data_.size()) ? null : data_[idx];
             }
 
             static MatchData epsilon(double a, double b) {
-                MatchData res;
-                res.natoms = 2;
-                res.type = MATCH_EPSILON;
-                res.atoms[0].setFloat(a, true);
-                res.atoms[1].setFloat(b, true);
+                MatchData res(2, MATCH_EPSILON);
+                res.data_[0].setFloat(a, true);
+                res.data_[1].setFloat(b, true);
                 return res;
             }
 
             static MatchData range(double a, double b, MatchType t) {
-                MatchData res;
-                res.natoms = 2;
-                res.type = t;
-                res.atoms[0].setFloat(a, true);
-                res.atoms[1].setFloat(b, true);
+                MatchData res(2, t);
+                res.data_[0].setFloat(a, true);
+                res.data_[1].setFloat(b, true);
                 return res;
             }
 
             static MatchData compare(double x, MatchType t) {
-                MatchData res;
-                res.natoms = 1;
-                res.type = t;
-                res.atoms[0].setFloat(x, true);
+                MatchData res(1, t);
+                res.data_[0].setFloat(x, true);
                 return res;
             }
         };
@@ -112,11 +123,7 @@
 
             auto& m0 = matches_[nmatches_-2];
             const auto& m1 = matches_[nmatches_-1];
-            for(size_t i = 0; i < m1.natoms; i++)
-                m0.atoms[m0.natoms++] = m1.atoms[i];
-
-
-            m0.type = MATCH_SET;
+            m0 += m1;
             nmatches_ -= 1;
         }
 

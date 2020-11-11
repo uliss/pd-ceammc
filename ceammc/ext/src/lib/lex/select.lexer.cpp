@@ -36,6 +36,8 @@
     # include <string>
     # include <array>
     # include <stdexcept>
+    # include <algorithm>
+    # include <cstdint>
 
     # include "lex/select.parser.hpp"
 
@@ -68,10 +70,10 @@
 namespace ceammc {
 
 class SelectLexer : public reflex::AbstractLexer<reflex::Matcher> {
-#line 11 "select.l"
+#line 13 "select.l"
 
     public:
-        enum MatchType {
+        enum MatchType : uint8_t {
             MATCH_EQUAL,
             MATCH_EPSILON,
             MATCH_RANGE_OO,
@@ -90,44 +92,53 @@ class SelectLexer : public reflex::AbstractLexer<reflex::Matcher> {
             bool is_float;
         };
 
-        struct MatchData {
-            ceammc::Atom atoms[16];
-            size_t natoms = { 0 };
-            MatchType type = { MATCH_EQUAL };
+        class MatchData {
+            using AList = std::array<ceammc::Atom, 16>;
+            AList data_;
+            uint8_t n_ = { 0 };
+            MatchType type_ = { MATCH_EQUAL };
 
-            MatchData(){}
+        public:
+            MatchData() {}
+            MatchData(uint8_t n, MatchType t) : n_(std::min<uint8_t>(n, data_.size())), type_(t) {}
+            MatchData(double v) : MatchData(1, MATCH_EQUAL) { data_[0].setFloat(v, true); }
+            MatchData(const std::string& s) : MatchData(1, MATCH_EQUAL) { data_[0].setSymbol(gensym(s.c_str()), true); }
 
-            MatchData(double v) : natoms(1), type(MATCH_EQUAL) {
-                atoms[0].setFloat(v, true);
+            MatchData& operator+=(const MatchData& m) {
+                for (uint8_t i = 0; i < m.n_ && n_ < data_.size(); i++) {
+                    data_[n_] = m.data_[i];
+                    n_++;
+                }
+                type_ = MATCH_SET;
+                return *this;
             }
 
-            MatchData(const std::string& s) : natoms(1), type(MATCH_EQUAL) {
-                atoms[0].setSymbol(gensym(s.c_str()), true);
+            size_t size() const { return n_; }
+            MatchType type() const { return type_; }
+            AList::const_iterator begin() const { return data_.cbegin(); }
+            AList::const_iterator end() const { return data_.cend(); }
+            const Atom& at(uint8_t idx) const {
+                static Atom null;
+                return (idx >= data_.size()) ? null : data_[idx];
             }
 
             static MatchData epsilon(double a, double b) {
-                MatchData res;
-                res.natoms = 2;
-                res.type = MATCH_EPSILON;
-                res.atoms[0].setFloat(a, true);
-                res.atoms[1].setFloat(b, true);
+                MatchData res(2, MATCH_EPSILON);
+                res.data_[0].setFloat(a, true);
+                res.data_[1].setFloat(b, true);
                 return res;
             }
 
             static MatchData range(double a, double b, MatchType t) {
-                MatchData res;
-                res.natoms = 2;
-                res.type = t;
-                res.atoms[0].setFloat(a, true);
-                res.atoms[1].setFloat(b, true);
+                MatchData res(2, t);
+                res.data_[0].setFloat(a, true);
+                res.data_[1].setFloat(b, true);
                 return res;
             }
 
             static MatchData compare(double x, MatchType t) {
-                MatchData res;
-                res.natoms = 1;
-                res.type = t;
-                res.atoms[0].setFloat(x, true);
+                MatchData res(1, t);
+                res.data_[0].setFloat(x, true);
                 return res;
             }
         };
@@ -173,11 +184,7 @@ class SelectLexer : public reflex::AbstractLexer<reflex::Matcher> {
 
             auto& m0 = matches_[nmatches_-2];
             const auto& m1 = matches_[nmatches_-1];
-            for(size_t i = 0; i < m1.natoms; i++)
-                m0.atoms[m0.natoms++] = m1.atoms[i];
-
-
-            m0.type = MATCH_SET;
+            m0 += m1;
             nmatches_ -= 1;
         }
 
@@ -212,11 +219,11 @@ class SelectLexer : public reflex::AbstractLexer<reflex::Matcher> {
 //                                                                            //
 ////////////////////////////////////////////////////////////////////////////////
 
-#line 137 "select.l"
+#line 144 "select.l"
 /*%option graphs-file*/
 /*%option debug*/
 /*%option perf-report*/
-#line 147 "select.l"
+#line 154 "select.l"
 /*%option fast*/
 
 
@@ -263,65 +270,65 @@ ceammc::SelectParser::symbol_type ceammc::SelectLexer::lex()
               out().put(matcher().input());
             }
             break;
-          case 1: // rule at line 178: (?:[\x09\x0a\x20]+)
-#line 178 "select.l"
+          case 1: // rule at line 185: (?:[\x09\x0a\x20]+)
+#line 185 "select.l"
 { return SelectParser::make_SPACE(); }
             break;
-          case 2: // rule at line 179: (?:~)(?=(?:(?:0|[1-9][0-9]*)(?:\.[0-9]+)?))
-#line 179 "select.l"
+          case 2: // rule at line 186: (?:~)(?=(?:(?:0|[1-9][0-9]*)(?:\.[0-9]+)?))
+#line 186 "select.l"
 { return SelectParser::make_EPSILON(); }
             break;
-          case 3: // rule at line 180: (?:\.\.)(?=(?:(?:[\x2b\x2d]?(?:0|[1-9][0-9]*))(?:\.[0-9]+)?))
-#line 180 "select.l"
+          case 3: // rule at line 187: (?:\.\.)(?=(?:(?:[\x2b\x2d]?(?:0|[1-9][0-9]*))(?:\.[0-9]+)?))
+#line 187 "select.l"
 { return SelectParser::make_RANGE(); }
             break;
-          case 4: // rule at line 181: (?:\[)(?=(?:(?:[\x2b\x2d]?(?:0|[1-9][0-9]*))(?:\.[0-9]+)?))
-#line 181 "select.l"
+          case 4: // rule at line 188: (?:\[)(?=(?:(?:[\x2b\x2d]?(?:0|[1-9][0-9]*))(?:\.[0-9]+)?))
+#line 188 "select.l"
 { return SelectParser::make_OPEN_BRACKET('['); }
             break;
-          case 5: // rule at line 182: (?:\])
-#line 182 "select.l"
+          case 5: // rule at line 189: (?:\])
+#line 189 "select.l"
 { return SelectParser::make_CLOSE_BRACKET(']'); }
             break;
-          case 6: // rule at line 183: (?:\()(?=(?:(?:[\x2b\x2d]?(?:0|[1-9][0-9]*))(?:\.[0-9]+)?))
-#line 183 "select.l"
+          case 6: // rule at line 190: (?:\()(?=(?:(?:[\x2b\x2d]?(?:0|[1-9][0-9]*))(?:\.[0-9]+)?))
+#line 190 "select.l"
 { return SelectParser::make_OPEN_PAR('('); }
             break;
-          case 7: // rule at line 184: (?:\))
-#line 184 "select.l"
+          case 7: // rule at line 191: (?:\))
+#line 191 "select.l"
 { return SelectParser::make_CLOSE_PAR(')'); }
             break;
-          case 8: // rule at line 185: (?:\|)
-#line 185 "select.l"
+          case 8: // rule at line 192: (?:\|)
+#line 192 "select.l"
 { return SelectParser::make_OR(); }
             break;
-          case 9: // rule at line 186: (?:>=)(?=(?:(?:[\x2b\x2d]?(?:0|[1-9][0-9]*))(?:\.[0-9]+)?))
-#line 186 "select.l"
+          case 9: // rule at line 193: (?:>=)(?=(?:(?:[\x2b\x2d]?(?:0|[1-9][0-9]*))(?:\.[0-9]+)?))
+#line 193 "select.l"
 { return SelectParser::make_OP_GREATER_EQ(); }
             break;
-          case 10: // rule at line 187: (?:>)(?=(?:(?:[\x2b\x2d]?(?:0|[1-9][0-9]*))(?:\.[0-9]+)?))
-#line 187 "select.l"
+          case 10: // rule at line 194: (?:>)(?=(?:(?:[\x2b\x2d]?(?:0|[1-9][0-9]*))(?:\.[0-9]+)?))
+#line 194 "select.l"
 { return SelectParser::make_OP_GREATER(); }
             break;
-          case 11: // rule at line 188: (?:<)(?=(?:(?:[\x2b\x2d]?(?:0|[1-9][0-9]*))(?:\.[0-9]+)?))
-#line 188 "select.l"
+          case 11: // rule at line 195: (?:<)(?=(?:(?:[\x2b\x2d]?(?:0|[1-9][0-9]*))(?:\.[0-9]+)?))
+#line 195 "select.l"
 { return SelectParser::make_OP_LESS(); }
             break;
-          case 12: // rule at line 189: (?:<=)(?=(?:(?:[\x2b\x2d]?(?:0|[1-9][0-9]*))(?:\.[0-9]+)?))
-#line 189 "select.l"
+          case 12: // rule at line 196: (?:<=)(?=(?:(?:[\x2b\x2d]?(?:0|[1-9][0-9]*))(?:\.[0-9]+)?))
+#line 196 "select.l"
 { return SelectParser::make_OP_LESS_EQ(); }
             break;
-          case 13: // rule at line 190: (?:(?:[\x2b\x2d]?(?:0|[1-9][0-9]*))(?:\.[0-9]+)?)
-#line 190 "select.l"
+          case 13: // rule at line 197: (?:(?:[\x2b\x2d]?(?:0|[1-9][0-9]*))(?:\.[0-9]+)?)
+#line 197 "select.l"
 { return SelectParser::make_FLOAT(text()); }
             break;
-          case 14: // rule at line 192: (?:(?:[\x00-\x08]|[\x0b-\x1f]|[!-/]|[:-{]|[}-\x7f]|[\xc2-\xdf][\x80-\xbf]|\xe0[\xa0-\xbf][\x80-\xbf]|[\xe1-\xec][\x80-\xbf][\x80-\xbf]|\xed[\x80-\x9f][\x80-\xbf]|[\xee\xef][\x80-\xbf][\x80-\xbf]|\xf0[\x90-\xbf][\x80-\xbf][\x80-\xbf]|[\xf1-\xf3][\x80-\xbf][\x80-\xbf][\x80-\xbf]|\xf4[\x80-\x8f][\x80-\xbf][\x80-\xbf])+)
-#line 192 "select.l"
+          case 14: // rule at line 199: (?:(?:[\x00-\x08]|[\x0b-\x1f]|[!-/]|[:-{]|[}-\x7f]|[\xc2-\xdf][\x80-\xbf]|\xe0[\xa0-\xbf][\x80-\xbf]|[\xe1-\xec][\x80-\xbf][\x80-\xbf]|\xed[\x80-\x9f][\x80-\xbf]|[\xee\xef][\x80-\xbf][\x80-\xbf]|\xf0[\x90-\xbf][\x80-\xbf][\x80-\xbf]|[\xf1-\xf3][\x80-\xbf][\x80-\xbf][\x80-\xbf]|\xf4[\x80-\x8f][\x80-\xbf][\x80-\xbf])+)
+#line 199 "select.l"
 { return SelectParser::make_SYMBOL(text()); }
 
             break;
-          case 15: // rule at line 194: .
-#line 194 "select.l"
+          case 15: // rule at line 201: .
+#line 201 "select.l"
 {   }
 
             break;
@@ -341,8 +348,8 @@ ceammc::SelectParser::symbol_type ceammc::SelectLexer::lex()
               out().put(matcher().input());
             }
             break;
-          case 1: // rule at line 194: .
-#line 194 "select.l"
+          case 1: // rule at line 201: .
+#line 201 "select.l"
 {   }
 
             break;
@@ -362,8 +369,8 @@ ceammc::SelectParser::symbol_type ceammc::SelectLexer::lex()
               out().put(matcher().input());
             }
             break;
-          case 1: // rule at line 194: .
-#line 194 "select.l"
+          case 1: // rule at line 201: .
+#line 201 "select.l"
 {   }
 
             break;
