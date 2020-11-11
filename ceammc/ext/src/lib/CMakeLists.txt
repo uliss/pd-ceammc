@@ -148,6 +148,12 @@ if(BISON_FOUND AND FLEX_FOUND)
         SOURCES lex/fraction.l
         WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/lex)
 
+    add_custom_target(ceammc_select_gen
+        COMMAND $<TARGET_FILE:reflex-bin> select.l
+        COMMAND ${BISON_EXECUTABLE} select.y
+        SOURCES lex/select.l lex/select.y
+        WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/lex)
+
     add_custom_target(ceammc_units_gen
         COMMAND $<TARGET_FILE:reflex-bin> units.l
         SOURCES lex/units.l
@@ -199,6 +205,8 @@ set(CEAMMC_LOAD_SRC
     lex/array_loader.parser.cpp
     lex/array_loader.cpp
     lex/fraction.lexer.cpp
+    lex/select.lexer.cpp
+    lex/select.parser.cpp
     lex/units.lexer.cpp
     array_load_pattern.h
     array_load_pattern.cpp)
