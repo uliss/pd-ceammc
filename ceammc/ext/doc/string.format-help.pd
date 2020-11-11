@@ -11,7 +11,7 @@
 \, %o \, %x \, %X \, %s \, %e \, %E.;
 #X floatatom 50 158 5 0 0 0 - - -;
 #X msg 98 158 @format %+02d;
-#X obj 50 202 string.format %08.2f;
+#X obj 50 202 string.format "%08.2f";
 #X obj 50 230 str->sym;
 #X obj 50 259 msg set;
 #X msg 50 288 ;
