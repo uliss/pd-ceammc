@@ -179,5 +179,53 @@ TEST_CASE("flow.select", "[externals]")
             REQUIRE_FALSE(t.hasOutputAt(2));
             REQUIRE(t.outputFloatAt(3) == 0);
         }
+
+        SECTION("cmp")
+        {
+            TExt t("flow.sel", LA(">1", ">=2", "<10", "<=18"));
+
+            t << 0.;
+            REQUIRE(t.isOutputBangAt(2));
+            REQUIRE(t.isOutputBangAt(3));
+
+            t << 1;
+            REQUIRE(t.isOutputBangAt(2));
+            REQUIRE(t.isOutputBangAt(3));
+
+            t << 1.0001;
+            REQUIRE(t.isOutputBangAt(0));
+            REQUIRE(t.isOutputBangAt(2));
+            REQUIRE(t.isOutputBangAt(3));
+
+            t << 2;
+            REQUIRE(t.isOutputBangAt(0));
+            REQUIRE(t.isOutputBangAt(1));
+            REQUIRE(t.isOutputBangAt(2));
+            REQUIRE(t.isOutputBangAt(3));
+
+            t << 4;
+            REQUIRE(t.isOutputBangAt(0));
+            REQUIRE(t.isOutputBangAt(1));
+            REQUIRE(t.isOutputBangAt(2));
+            REQUIRE(t.isOutputBangAt(3));
+
+            t << 10;
+            REQUIRE(t.isOutputBangAt(0));
+            REQUIRE(t.isOutputBangAt(1));
+            REQUIRE(!t.hasOutputAt(2));
+            REQUIRE(t.isOutputBangAt(3));
+
+            t << 18;
+            REQUIRE(t.isOutputBangAt(0));
+            REQUIRE(t.isOutputBangAt(1));
+            REQUIRE(!t.hasOutputAt(2));
+            REQUIRE(t.isOutputBangAt(3));
+
+            t << 18.0001;
+            REQUIRE(t.isOutputBangAt(0));
+            REQUIRE(t.isOutputBangAt(1));
+            REQUIRE(!t.hasOutputAt(2));
+            REQUIRE(!t.hasOutputAt(3));
+        }
     }
 }
