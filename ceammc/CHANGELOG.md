@@ -51,6 +51,7 @@
 - midi.tuning added
 - seq.bangs sequencer (with seq.b alias) added into new category: seq
 - seq.toggles sequencer (with seq.t alias) added
+- flow.reject alias added: flow.!
 
 
 ### Changed:

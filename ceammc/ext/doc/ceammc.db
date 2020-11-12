@@ -133,7 +133,7 @@ flow.pack		?		.
 flow.pass,pass		..		.
 flow.pass_if,pass_if		..		..
 flow.pipe		..		.
-flow.reject,reject		..		.
+flow.reject,reject,flow.!		..		.
 flow.reject_if,reject_if		..		..
 flow.ring,flow.>>		..		?
 flow.route		.		?

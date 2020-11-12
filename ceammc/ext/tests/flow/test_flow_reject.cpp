@@ -145,6 +145,7 @@ TEST_CASE("flow.reject", "[externals]")
 
     SECTION("alias")
     {
-        TExt t("reject");
+        TExt t0("reject");
+        TExt t1("flow.!");
     }
 }

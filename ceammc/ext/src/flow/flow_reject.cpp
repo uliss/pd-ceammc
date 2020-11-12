@@ -75,6 +75,7 @@ void setup_flow_reject()
 {
     ObjectFactory<FlowReject> obj("flow.reject");
     obj.addAlias("reject");
+    obj.addAlias("flow.!");
     obj.noPropsDispatch();
 
     obj.setXletsInfo({ "bang:   always pass\n"

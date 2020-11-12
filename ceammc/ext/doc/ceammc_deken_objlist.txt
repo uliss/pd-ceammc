@@ -243,6 +243,7 @@ pass_if	pass values that accepted by predicate object
 flow.pipe	enhanced version on vanilla pipe object
 flow.reject	reject specified values
 reject	reject specified values
+flow.!	reject specified values
 flow.reject_if	reject values by predicate
 reject_if	reject values by predicate
 flow.ring	dataflow ring buffer
