@@ -22,6 +22,7 @@ class SelectMatch;
 class FlowSelect : public BaseObject {
     std::unique_ptr<SelectMatch> patterns_;
     BoolProperty* keep_value_;
+    std::vector<std::string> outlet_toolips_;
 
 public:
     FlowSelect(const PdArgs& args);
@@ -29,6 +30,8 @@ public:
 
     void onFloat(t_float v) override;
     void onSymbol(t_symbol* s) override;
+
+    const char* annotateOutlet(size_t idx) const override;
 };
 
 void setup_flow_select();

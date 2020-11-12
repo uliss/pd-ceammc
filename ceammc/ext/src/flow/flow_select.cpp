@@ -43,9 +43,19 @@ FlowSelect::FlowSelect(const PdArgs& args)
         if (err) {
             OBJ_ERR << "parse error: ";
         } else {
+            reserveOutlets(l.numMatches());
+            outlet_toolips_.reserve(l.numMatches());
+
+            const auto& margs = unparsedPosArgs();
+            const Atom empty(&s_);
+
             for (size_t i = 0; i < l.numMatches(); i++) {
                 auto& m = l[i];
                 patterns_->data.push_back(m);
+
+                const auto& a = (i < margs.size()) ? margs.at(i) : empty;
+                outlet_toolips_.push_back(to_string(a));
+
                 createOutlet();
             }
 
@@ -203,9 +213,20 @@ void FlowSelect::onSymbol(t_symbol* s)
         symbolTo(LAST, s);
 }
 
+const char* FlowSelect::annotateOutlet(size_t idx) const
+{
+    if (idx >= numOutlets() || idx >= outlet_toolips_.size())
+        return "";
+
+    return outlet_toolips_[idx].c_str();
+}
+
 void setup_flow_select()
 {
     ObjectFactory<FlowSelect> obj("flow.select");
     obj.addAlias("flow.sel");
     obj.noArgsDataParsing();
+    obj.useDefaultPdListFn();
+
+    obj.addInletInfo("input flow");
 }
