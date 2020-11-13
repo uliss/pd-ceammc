@@ -16,11 +16,39 @@
 
 PD_COMPLETE_TEST_SETUP(SeqToggles, seq, toggles)
 
+#define REQUIRE_TGL(t, tgl, dur, idx)                       \
+    do {                                                    \
+        REQUIRE(t.messagesAt(0).back() == M(t_float(tgl))); \
+        REQUIRE(t.messagesAt(1).back() == M(t_float(dur))); \
+        REQUIRE(t.messagesAt(2).back() == M(idx));          \
+    } while (0)
+
+#define REQUIRE_ON(t, dur, idx) REQUIRE_TGL(t, 1, dur, idx)
+#define REQUIRE_OFF(t, dur, idx) REQUIRE_TGL(t, 0, dur, idx)
+
+#define REQUIRE_N(t, n0, n1, n2)               \
+    do {                                       \
+        REQUIRE(t.messagesAt(0).size() == n0); \
+        REQUIRE(t.messagesAt(1).size() == n1); \
+        REQUIRE(t.messagesAt(2).size() == n2); \
+    } while (0)
+
+constexpr unsigned long long operator"" _idx(unsigned long long idx)
+{
+    return idx;
+}
+
 TEST_CASE("seq.toggles", "[externals]")
 {
     pd_test_init();
+    setup_seq_bangs();
     test::pdPrintToStdError();
     setTestSampleRate(64000);
+
+    using M = Message;
+    const M done(SYM("done"), L());
+    const M m_on(1);
+    const M m_off(0.);
 
     SECTION("init")
     {
@@ -74,26 +102,17 @@ TEST_CASE("seq.toggles", "[externals]")
         {
             TExt t("seq.t", LA(1, "@bpm", 600, "@div", 4));
 
-            t.sendBang();
-            REQUIRE(t.messagesAt(0).size() == 1);
-            REQUIRE(t.messagesAt(1).size() == 1);
-            REQUIRE(t.messagesAt(2).size() == 0);
+            t.sendBang(); // on
+            REQUIRE_N(t, 1, 1, 1);
+            REQUIRE_ON(t, 100, 0_idx);
 
-            REQUIRE(t.messagesAt(0)[0].atomValue().asFloat() == 1);
-            REQUIRE(t.messagesAt(1)[0].atomValue().asFloat() == 100);
-            REQUIRE(t.messagesAt(2).empty());
+            t.schedTicks(75); // off
+            REQUIRE_N(t, 2, 1, 1);
+            REQUIRE_OFF(t, 100, 0_idx);
 
-            t.schedTicks(75);
-            REQUIRE(t.messagesAt(0).size() == 2);
-            REQUIRE(t.messagesAt(1).size() == 1);
-            REQUIRE(t.messagesAt(2).size() == 0);
-            REQUIRE(t.messagesAt(0)[1].atomValue().asFloat() == 0);
-
-            t.schedTicks(25);
-            REQUIRE(t.messagesAt(0).size() == 2);
-            REQUIRE(t.messagesAt(1).size() == 1);
-            REQUIRE(t.messagesAt(2).size() == 1);
-            REQUIRE(t.messagesAt(2)[0].isBang());
+            t.schedTicks(25); // next
+            REQUIRE_N(t, 2, 1, 2);
+            REQUIRE_OFF(t, 100, done);
         }
 
         SECTION("many")
@@ -101,51 +120,32 @@ TEST_CASE("seq.toggles", "[externals]")
             TExt t("seq.t", LA(1, 2, 0.5, "@bpm", 600, "@div", 40, "@dur", 0.25));
 
             t.sendBang(); // on
-            REQUIRE(t.messagesAt(0).size() == 1);
-            REQUIRE(t.messagesAt(1).size() == 1);
-            REQUIRE(t.messagesAt(2).size() == 0);
-
-            REQUIRE(t.messagesAt(0).back().atomValue().asFloat() == 1);
-            REQUIRE(t.messagesAt(1).back().atomValue().asFloat() == 10);
-            REQUIRE(t.messagesAt(2).empty());
+            REQUIRE_N(t, 1, 1, 1);
+            REQUIRE_ON(t, 10, 0_idx);
 
             t.schedTicks(3); // off
-            REQUIRE(t.messagesAt(0).size() == 2);
-            REQUIRE(t.messagesAt(1).size() == 1);
-            REQUIRE(t.messagesAt(2).size() == 0);
-            REQUIRE(t.messagesAt(0).back().atomValue().asFloat() == 0);
+            REQUIRE_N(t, 2, 1, 1);
+            REQUIRE_OFF(t, 10, 0_idx);
 
             t.schedTicks(7); // on
-            REQUIRE(t.messagesAt(0).size() == 3);
-            REQUIRE(t.messagesAt(1).size() == 2);
-            REQUIRE(t.messagesAt(2).size() == 0);
-            REQUIRE(t.messagesAt(0).back().atomValue().asFloat() == 1);
-            REQUIRE(t.messagesAt(1).back().atomValue().asFloat() == 20);
+            REQUIRE_N(t, 3, 2, 2);
+            REQUIRE_ON(t, 20, 1_idx);
 
             t.schedTicks(5); // off
-            REQUIRE(t.messagesAt(0).size() == 4);
-            REQUIRE(t.messagesAt(1).size() == 2);
-            REQUIRE(t.messagesAt(2).size() == 0);
-            REQUIRE(t.messagesAt(0).back().atomValue().asFloat() == 0);
+            REQUIRE_N(t, 4, 2, 2);
+            REQUIRE_OFF(t, 20, 1_idx);
 
             t.schedTicks(15); // on
-            REQUIRE(t.messagesAt(0).size() == 5);
-            REQUIRE(t.messagesAt(1).size() == 3);
-            REQUIRE(t.messagesAt(2).size() == 0);
-            REQUIRE(t.messagesAt(0).back().atomValue().asFloat() == 1);
-            REQUIRE(t.messagesAt(1).back().atomValue().asFloat() == 5);
+            REQUIRE_N(t, 5, 3, 3);
+            REQUIRE_ON(t, 5, 2_idx);
 
             t.schedTicks(2); // off
-            REQUIRE(t.messagesAt(0).size() == 6);
-            REQUIRE(t.messagesAt(1).size() == 3);
-            REQUIRE(t.messagesAt(2).size() == 0);
-            REQUIRE(t.messagesAt(0).back().atomValue().asFloat() == 0);
+            REQUIRE_N(t, 6, 3, 3);
+            REQUIRE_OFF(t, 5, 2_idx);
 
             t.schedTicks(3); // done
-            REQUIRE(t.messagesAt(0).size() == 6);
-            REQUIRE(t.messagesAt(1).size() == 3);
-            REQUIRE(t.messagesAt(2).size() == 1);
-            REQUIRE(t.messagesAt(2).back().isBang());
+            REQUIRE_N(t, 6, 3, 4);
+            REQUIRE_OFF(t, 5, done);
         }
 
         SECTION("@dur=0")
@@ -153,38 +153,24 @@ TEST_CASE("seq.toggles", "[externals]")
             TExt t("seq.t", LA(2, 1, "@bpm", 600, "@div", 40, "@dur", 0.f));
 
             t.sendBang(); // on
-            REQUIRE(t.messagesAt(0).size() == 1);
-            REQUIRE(t.messagesAt(1).size() == 1);
-            REQUIRE(t.messagesAt(2).size() == 0);
-
-            REQUIRE(t.messagesAt(0).back().atomValue().asFloat() == 1);
-            REQUIRE(t.messagesAt(1).back().atomValue().asFloat() == 20);
-            REQUIRE(t.messagesAt(2).empty());
+            REQUIRE_N(t, 1, 1, 1);
+            REQUIRE_ON(t, 20, 0_idx);
 
             t.schedTicks(1); // off
-            REQUIRE(t.messagesAt(0).size() == 2);
-            REQUIRE(t.messagesAt(1).size() == 1);
-            REQUIRE(t.messagesAt(2).size() == 0);
-            REQUIRE(t.messagesAt(0).back().atomValue().asFloat() == 0);
+            REQUIRE_N(t, 2, 1, 1);
+            REQUIRE_OFF(t, 20, 0_idx);
 
             t.schedTicks(19); // on
-            REQUIRE(t.messagesAt(0).size() == 3);
-            REQUIRE(t.messagesAt(1).size() == 2);
-            REQUIRE(t.messagesAt(2).size() == 0);
-            REQUIRE(t.messagesAt(0).back().atomValue().asFloat() == 1);
-            REQUIRE(t.messagesAt(1).back().atomValue().asFloat() == 10);
+            REQUIRE_N(t, 3, 2, 2);
+            REQUIRE_ON(t, 10, 1_idx);
 
             t.schedTicks(1); // off
-            REQUIRE(t.messagesAt(0).size() == 4);
-            REQUIRE(t.messagesAt(1).size() == 2);
-            REQUIRE(t.messagesAt(2).size() == 0);
-            REQUIRE(t.messagesAt(0).back().atomValue().asFloat() == 0);
+            REQUIRE_N(t, 4, 2, 2);
+            REQUIRE_OFF(t, 10, 1_idx);
 
             t.schedTicks(9); // done
-            REQUIRE(t.messagesAt(0).size() == 4);
-            REQUIRE(t.messagesAt(1).size() == 2);
-            REQUIRE(t.messagesAt(2).size() == 1);
-            REQUIRE(t.messagesAt(2).back().isBang());
+            REQUIRE_N(t, 4, 2, 3);
+            REQUIRE_OFF(t, 10, done);
         }
 
         SECTION("@dur=1")
@@ -192,43 +178,31 @@ TEST_CASE("seq.toggles", "[externals]")
             TExt t("seq.t", LA(2, 1, "@bpm", 600, "@div", 40, "@dur", 1));
 
             t.sendBang(); // on
-            REQUIRE(t.messagesAt(0).size() == 1);
-            REQUIRE(t.messagesAt(1).size() == 1);
-            REQUIRE(t.messagesAt(2).size() == 0);
-
-            REQUIRE(t.messagesAt(0).back().atomValue().asFloat() == 1);
-            REQUIRE(t.messagesAt(1).back().atomValue().asFloat() == 20);
-            REQUIRE(t.messagesAt(2).empty());
+            REQUIRE_N(t, 1, 1, 1);
+            REQUIRE_ON(t, 20, 0_idx);
 
             t.schedTicks(19); // none
-            REQUIRE(t.messagesAt(0).size() == 1);
-            REQUIRE(t.messagesAt(1).size() == 1);
-            REQUIRE(t.messagesAt(2).size() == 0);
+            REQUIRE_N(t, 1, 1, 1);
 
             t.schedTicks(1); // off-on
-            REQUIRE(t.messagesAt(0).size() == 3);
-            REQUIRE(t.messagesAt(1).size() == 2);
-            REQUIRE(t.messagesAt(2).size() == 0);
-            REQUIRE(t.messagesAt(0)[0].atomValue().asFloat() == 1);
-            REQUIRE(t.messagesAt(0)[1].atomValue().asFloat() == 0);
-            REQUIRE(t.messagesAt(0)[2].atomValue().asFloat() == 1);
-            REQUIRE(t.messagesAt(0).back().atomValue().asFloat() == 1);
-            REQUIRE(t.messagesAt(1).back().atomValue().asFloat() == 10);
+            REQUIRE_N(t, 3, 2, 2);
+
+            REQUIRE(t.messagesAt(0)[0] == M(1));
+            REQUIRE(t.messagesAt(0)[1] == M(0.));
+            REQUIRE(t.messagesAt(0)[2] == M(1));
+            REQUIRE_ON(t, 10, 1_idx);
 
             t.schedTicks(9); // none
-            REQUIRE(t.messagesAt(0).size() == 3);
-            REQUIRE(t.messagesAt(1).size() == 2);
-            REQUIRE(t.messagesAt(2).size() == 0);
+            REQUIRE_N(t, 3, 2, 2);
 
             t.schedTicks(1); // off
-            REQUIRE(t.messagesAt(0).size() == 4);
-            REQUIRE(t.messagesAt(1).size() == 2);
-            REQUIRE(t.messagesAt(2).size() == 1);
-            REQUIRE(t.messagesAt(0)[0].atomValue().asFloat() == 1);
-            REQUIRE(t.messagesAt(0)[1].atomValue().asFloat() == 0);
-            REQUIRE(t.messagesAt(0)[2].atomValue().asFloat() == 1);
-            REQUIRE(t.messagesAt(0)[3].atomValue().asFloat() == 0);
-            REQUIRE(t.messagesAt(2).back().isBang());
+            REQUIRE_N(t, 4, 2, 3);
+            REQUIRE(t.messagesAt(0)[0] == M(1));
+            REQUIRE(t.messagesAt(0)[1] == M(0.));
+            REQUIRE(t.messagesAt(0)[2] == M(1));
+            REQUIRE(t.messagesAt(0)[3] == M(0.));
+
+            REQUIRE_OFF(t, 10, done);
         }
     }
 
@@ -238,19 +212,13 @@ TEST_CASE("seq.toggles", "[externals]")
         {
             TExt t("seq.t", LA(2, 1, "@bpm", 600, "@div", 40));
 
-            REQUIRE(t.messagesAt(0).size() == 0);
-            REQUIRE(t.messagesAt(1).size() == 0);
-            REQUIRE(t.messagesAt(2).size() == 0);
+            REQUIRE_N(t, 0, 0, 0);
 
             t.sendMessage("stop");
-            REQUIRE(t.messagesAt(0).size() == 0);
-            REQUIRE(t.messagesAt(1).size() == 0);
-            REQUIRE(t.messagesAt(2).size() == 0);
+            REQUIRE_N(t, 0, 0, 0);
 
             t.schedTicks(40);
-            REQUIRE(t.messagesAt(0).size() == 0);
-            REQUIRE(t.messagesAt(1).size() == 0);
-            REQUIRE(t.messagesAt(2).size() == 0);
+            REQUIRE_N(t, 0, 0, 0);
         }
 
         SECTION("while on")
@@ -258,26 +226,17 @@ TEST_CASE("seq.toggles", "[externals]")
             TExt t("seq.t", LA(1, 2, "@bpm", 600, "@div", 40, "@dur", 0.75));
 
             t.sendBang();
-            REQUIRE(t.messagesAt(0).size() == 1);
-            REQUIRE(t.messagesAt(1).size() == 1);
-            REQUIRE(t.messagesAt(2).size() == 0);
-
-            REQUIRE(t.messagesAt(0).back().atomValue().asFloat() == 1);
-            REQUIRE(t.messagesAt(1).back().atomValue().asFloat() == 10);
+            REQUIRE_N(t, 1, 1, 1);
+            REQUIRE_ON(t, 10, 0_idx);
 
             t.schedTicks(5); // active
             t.sendMessage("stop");
-            REQUIRE(t.messagesAt(0).size() == 2);
-            REQUIRE(t.messagesAt(1).size() == 1);
-            REQUIRE(t.messagesAt(2).size() == 0);
-
-            REQUIRE(t.messagesAt(0).back().atomValue().asFloat() == 0);
+            REQUIRE_N(t, 2, 1, 1);
+            REQUIRE_OFF(t, 10, 0_idx);
 
             // check no changes
             t.schedTicks(10);
-            REQUIRE(t.messagesAt(0).size() == 2);
-            REQUIRE(t.messagesAt(1).size() == 1);
-            REQUIRE(t.messagesAt(2).size() == 0);
+            REQUIRE_N(t, 2, 1, 1);
         }
 
         SECTION("after off")
@@ -285,26 +244,17 @@ TEST_CASE("seq.toggles", "[externals]")
             TExt t("seq.t", LA(1, 2, "@bpm", 600, "@div", 40, "@dur", 0.75));
 
             t.sendBang();
-            REQUIRE(t.messagesAt(0).size() == 1);
-            REQUIRE(t.messagesAt(1).size() == 1);
-            REQUIRE(t.messagesAt(2).size() == 0);
-
-            REQUIRE(t.messagesAt(0).back().atomValue().asFloat() == 1);
-            REQUIRE(t.messagesAt(1).back().atomValue().asFloat() == 10);
+            REQUIRE_N(t, 1, 1, 1);
+            REQUIRE_ON(t, 10, 0_idx);
 
             t.schedTicks(9); // active
             t.sendMessage("stop");
-            REQUIRE(t.messagesAt(0).size() == 2);
-            REQUIRE(t.messagesAt(1).size() == 1);
-            REQUIRE(t.messagesAt(2).size() == 0);
-
-            REQUIRE(t.messagesAt(0).back().atomValue().asFloat() == 0);
+            REQUIRE_N(t, 2, 1, 1);
+            REQUIRE_OFF(t, 10, 0_idx);
 
             // check no changes
             t.schedTicks(10);
-            REQUIRE(t.messagesAt(0).size() == 2);
-            REQUIRE(t.messagesAt(1).size() == 1);
-            REQUIRE(t.messagesAt(2).size() == 0);
+            REQUIRE_N(t, 2, 1, 1);
         }
     }
 
@@ -315,9 +265,7 @@ TEST_CASE("seq.toggles", "[externals]")
             TExt t("seq.t", LA(1, 2, "@bpm", 600, "@div", 40, "@dur", 0.75));
 
             t.sendMessage("reset");
-            REQUIRE(t.messagesAt(0).size() == 0);
-            REQUIRE(t.messagesAt(1).size() == 0);
-            REQUIRE(t.messagesAt(2).size() == 0);
+            REQUIRE_N(t, 0, 0, 0);
         }
 
         SECTION("while on")
@@ -325,42 +273,26 @@ TEST_CASE("seq.toggles", "[externals]")
             TExt t("seq.t", LA(1, 2, "@bpm", 600, "@div", 40, "@dur", 0.75));
 
             t.sendBang();
-            REQUIRE(t.messagesAt(0).size() == 1);
-            REQUIRE(t.messagesAt(1).size() == 1);
-            REQUIRE(t.messagesAt(2).size() == 0);
-
-            REQUIRE(t.messagesAt(0).back().atomValue().asFloat() == 1);
-            REQUIRE(t.messagesAt(1).back().atomValue().asFloat() == 10);
+            REQUIRE_N(t, 1, 1, 1);
+            REQUIRE_ON(t, 10, 0_idx);
 
             t.schedTicks(5);
             t.sendMessage("reset");
-            REQUIRE(t.messagesAt(0).size() == 2);
-            REQUIRE(t.messagesAt(1).size() == 1);
-            REQUIRE(t.messagesAt(2).size() == 0);
-            REQUIRE(t.messagesAt(0).back().atomValue().asFloat() == 0);
+            REQUIRE_N(t, 2, 1, 1);
+            REQUIRE_OFF(t, 10, 0_idx);
 
-            t.schedTicks(1);
-            REQUIRE(t.messagesAt(0).size() == 3);
-            REQUIRE(t.messagesAt(1).size() == 2);
-            REQUIRE(t.messagesAt(2).size() == 0);
-
-            REQUIRE(t.messagesAt(0).back().atomValue().asFloat() == 1);
-            REQUIRE(t.messagesAt(1).back().atomValue().asFloat() == 10);
+            t.schedTicks(1); // again
+            REQUIRE_N(t, 3, 2, 2);
+            REQUIRE_ON(t, 10, 0_idx);
 
             t.schedTicks(8);
             t.sendMessage("reset");
-            REQUIRE(t.messagesAt(0).size() == 4);
-            REQUIRE(t.messagesAt(1).size() == 2);
-            REQUIRE(t.messagesAt(2).size() == 0);
-            REQUIRE(t.messagesAt(0).back().atomValue().asFloat() == 0);
+            REQUIRE_N(t, 4, 2, 2);
+            REQUIRE_OFF(t, 10, 0_idx);
 
             t.schedTicks(1);
-            REQUIRE(t.messagesAt(0).size() == 5);
-            REQUIRE(t.messagesAt(1).size() == 3);
-            REQUIRE(t.messagesAt(2).size() == 0);
-
-            REQUIRE(t.messagesAt(0).back().atomValue().asFloat() == 1);
-            REQUIRE(t.messagesAt(1).back().atomValue().asFloat() == 10);
+            REQUIRE_N(t, 5, 3, 3);
+            REQUIRE_ON(t, 10, 0_idx);
         }
     }
 }

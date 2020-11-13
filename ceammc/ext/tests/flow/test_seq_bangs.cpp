@@ -75,11 +75,11 @@ TEST_CASE("seq.bangs", "[externals]")
 
             t.sendBang();
             REQUIRE(t.messagesAt(0)[0].isBang());
-            REQUIRE(t.messagesAt(1)[0].atomValue().asFloat() == 25);
-            REQUIRE(t.messagesAt(2).empty());
+            REQUIRE(t.messagesAt(1)[0] == Message(25));
+            REQUIRE(t.messagesAt(2)[0] == Message(0.));
 
             t.schedTicks(25);
-            REQUIRE(t.messagesAt(2)[0].isBang());
+            REQUIRE(t.messagesAt(2)[1] == Message(SYM("done"), L()));
         }
 
         SECTION("many")
@@ -88,26 +88,26 @@ TEST_CASE("seq.bangs", "[externals]")
 
             t.sendBang();
             REQUIRE(t.messagesAt(0)[0].isBang());
-            REQUIRE(t.messagesAt(1)[0].atomValue().asFloat() == 10);
-            REQUIRE(t.messagesAt(2).empty());
+            REQUIRE(t.messagesAt(1)[0] == Message(10));
+            REQUIRE(t.messagesAt(2)[0] == Message(0.));
 
             t.schedTicks(10);
 
             REQUIRE(t.messagesAt(0)[1].isBang());
-            REQUIRE(t.messagesAt(1)[1].atomValue().asFloat() == 20);
-            REQUIRE(t.messagesAt(2).empty());
+            REQUIRE(t.messagesAt(1)[1] == Message(20));
+            REQUIRE(t.messagesAt(2)[1] == Message(1));
 
             t.schedTicks(20);
 
             REQUIRE(t.messagesAt(0)[2].isBang());
-            REQUIRE(t.messagesAt(1)[2].atomValue().asFloat() == 5);
-            REQUIRE(t.messagesAt(2).empty());
+            REQUIRE(t.messagesAt(1)[2] == Message(5));
+            REQUIRE(t.messagesAt(2)[2] == Message(2));
 
             t.schedTicks(5);
             REQUIRE(t.messagesAt(0).size() == 3);
             REQUIRE(t.messagesAt(1).size() == 3);
-            REQUIRE(t.messagesAt(2).size() == 1);
-            REQUIRE(t.messagesAt(2)[0].isBang());
+            REQUIRE(t.messagesAt(2).size() == 4);
+            REQUIRE(t.messagesAt(2)[3] == Message(SYM("done"), L()));
         }
     }
 }

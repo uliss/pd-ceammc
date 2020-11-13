@@ -16,6 +16,12 @@
 #include "ceammc_format.h"
 #include "fmt/format.h"
 
+static t_symbol* SYM_DONE;
+
+constexpr size_t OUT_BANG = 0;
+constexpr size_t OUT_TIME = 1;
+constexpr size_t OUT_IDXDONE = 2;
+
 SeqBangs::SeqBangs(const PdArgs& args)
     : BaseObject(args)
     , pattern_(nullptr)
@@ -28,7 +34,7 @@ SeqBangs::SeqBangs(const PdArgs& args)
             output();
             schedNext();
         } else if (current_ == N) {
-            bangTo(2);
+            anyTo(OUT_IDXDONE, SYM_DONE, AtomListView());
         }
     })
 {
@@ -116,13 +122,15 @@ void SeqBangs::output()
     if (current_ >= pattern_->value().size())
         return;
 
-    floatTo(1, currentEventDurationMs());
-    outputEvent();
+    floatTo(OUT_IDXDONE, current_);
+    floatTo(OUT_TIME, currentEventDurationMs());
+
+    outputEvent(); // virtual call: using in seq.toggles
 }
 
 void SeqBangs::outputEvent()
 {
-    bangTo(0);
+    bangTo(OUT_BANG);
 }
 
 t_float SeqBangs::calcDurationMs(t_float dur) const
@@ -141,6 +149,8 @@ t_float SeqBangs::currentEventDurationMs() const
 
 void setup_seq_bangs()
 {
+    SYM_DONE = gensym("done");
+
     ObjectFactory<SeqBangs> obj("seq.bangs");
     obj.addAlias("seq.b");
     obj.addMethod("stop", &SeqBangs::m_stop);
