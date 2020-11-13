@@ -1,4 +1,4 @@
-// A Bison parser, made by GNU Bison 3.6.4.
+// A Bison parser, made by GNU Bison 3.7.3.
 
 // Skeleton implementation for Bison LALR(1) parsers in C++
 
@@ -571,79 +571,79 @@ namespace ceammc {
         {
           switch (yyn)
             {
-  case 2:
+  case 2: // SIMPLE_ATOM_LIST: SIMPLE_ATOM
 #line 59 "quoted_string.y"
                                    { yylhs.value.start = lexer.idx(); yylhs.value.end = lexer.idx(); }
 #line 578 "quoted_string.parser.cpp"
     break;
 
-  case 3:
+  case 3: // SIMPLE_ATOM_LIST: SIMPLE_ATOM_LIST SIMPLE_ATOM
 #line 60 "quoted_string.y"
                                    { yylhs.value.start = yystack_[1].value.start; yylhs.value.end = lexer.idx(); }
 #line 584 "quoted_string.parser.cpp"
     break;
 
-  case 4:
+  case 4: // DQB: DOUBLE_QUOTE_BEGIN
 #line 64 "quoted_string.y"
                          { yylhs.value.start = lexer.idx(); }
 #line 590 "quoted_string.parser.cpp"
     break;
 
-  case 5:
+  case 5: // DQB: DOUBLE_QUOTE
 #line 65 "quoted_string.y"
                          { yylhs.value.start = lexer.idx(); yylhs.value.end = lexer.idx(); }
 #line 596 "quoted_string.parser.cpp"
     break;
 
-  case 6:
+  case 6: // DQE: DOUBLE_QUOTE_END
 #line 69 "quoted_string.y"
                          { yylhs.value.end = lexer.idx(); }
 #line 602 "quoted_string.parser.cpp"
     break;
 
-  case 7:
+  case 7: // DQE: DOUBLE_QUOTE
 #line 70 "quoted_string.y"
                          { yylhs.value.start = lexer.idx(); yylhs.value.end = lexer.idx(); }
 #line 608 "quoted_string.parser.cpp"
     break;
 
-  case 8:
+  case 8: // DOUBLE_QUOTED_STRING: DQB DQE
 #line 74 "quoted_string.y"
                                { yylhs.value.start = yystack_[1].value.start; yylhs.value.end = yystack_[0].value.end; }
 #line 614 "quoted_string.parser.cpp"
     break;
 
-  case 9:
+  case 9: // DOUBLE_QUOTED_STRING: DQB SIMPLE_ATOM_LIST DQE
 #line 75 "quoted_string.y"
                                { yylhs.value.start = yystack_[2].value.start; yylhs.value.end = yystack_[0].value.end; }
 #line 620 "quoted_string.parser.cpp"
     break;
 
-  case 10:
+  case 10: // ATOMLIST: QUOTED_ATOM
 #line 79 "quoted_string.y"
                            { yylhs.value.start = lexer.idx(); yylhs.value.end = lexer.idx(); yylhs.value.quoted = true; }
 #line 626 "quoted_string.parser.cpp"
     break;
 
-  case 11:
+  case 11: // ATOMLIST: QUOTED_PROPERTY
 #line 80 "quoted_string.y"
                            { yylhs.value.start = lexer.idx(); yylhs.value.end = lexer.idx(); yylhs.value.quoted = true; yylhs.value.quoted_property = true; }
 #line 632 "quoted_string.parser.cpp"
     break;
 
-  case 12:
+  case 12: // ATOMLIST: DOUBLE_QUOTED_STRING
 #line 81 "quoted_string.y"
                            { yylhs.value = yystack_[0].value; yylhs.value.quoted = 1; }
 #line 638 "quoted_string.parser.cpp"
     break;
 
-  case 13:
+  case 13: // ATOMLIST: SIMPLE_ATOM_LIST
 #line 82 "quoted_string.y"
                            { yylhs.value = yystack_[0].value; }
 #line 644 "quoted_string.parser.cpp"
     break;
 
-  case 15:
+  case 15: // EXPR: EXPR ATOMLIST
 #line 87 "quoted_string.y"
                     { lexer.pushRange(yystack_[0].value); }
 #line 650 "quoted_string.parser.cpp"
@@ -1147,11 +1147,12 @@ namespace ceammc {
        2,     2,     2,     2,     2,     2,     1,     2,     3,     4,
        5,     6,     7,     8
     };
-    const int user_token_number_max_ = 263;
+    // Last valid token kind.
+    const int code_max = 263;
 
     if (t <= 0)
       return symbol_kind::S_YYEOF;
-    else if (t <= user_token_number_max_)
+    else if (t <= code_max)
       return YY_CAST (symbol_kind_type, translate_table[t]);
     else
       return symbol_kind::S_YYUNDEF;
@@ -1159,7 +1160,7 @@ namespace ceammc {
 
 #line 7 "quoted_string.y"
 } // ceammc
-#line 1163 "quoted_string.parser.cpp"
+#line 1164 "quoted_string.parser.cpp"
 
 #line 90 "quoted_string.y"
 

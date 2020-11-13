@@ -37,7 +37,7 @@ TEST_CASE("string.match", "[external]")
 
         SECTION("invalid")
         {
-            TestStringMatch t("string.match", LA("*[asd"));
+            TestStringMatch t("string.match", LA("\"*[asd\""));
             REQUIRE_PROPERTY_LIST(t, @re, LA("*[asd"));
         }
 
@@ -127,7 +127,7 @@ TEST_CASE("string.match", "[external]")
 
     SECTION("unicode")
     {
-        TestStringMatch t("string.match", LA("[а-я]+"));
+        TestStringMatch t("string.match", LA("\"[а-я]+\""));
         REQUIRE_NO_MATCH(t, "abc");
         REQUIRE_MATCH(t, "абвгд");
         REQUIRE_NO_MATCH(t, "Абвгд");

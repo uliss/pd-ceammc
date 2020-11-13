@@ -1,4 +1,4 @@
-// A Bison parser, made by GNU Bison 3.6.4.
+// A Bison parser, made by GNU Bison 3.7.3.
 
 // Skeleton interface for Bison LALR(1) parsers in C++
 
@@ -592,7 +592,7 @@ namespace ceammc {
       void move (by_state& that);
 
       /// The symbol kind (corresponding to \a state).
-      /// \a S_YYEMPTY when empty.
+      /// \a symbol_kind::S_YYEMPTY when empty.
       symbol_kind_type kind () const YY_NOEXCEPT;
 
       /// The state number used to denote an empty symbol.
@@ -786,7 +786,6 @@ namespace ceammc {
 #line 7 "quoted_string.y"
 } // ceammc
 #line 789 "quoted_string.parser.hpp"
-
 
 
 

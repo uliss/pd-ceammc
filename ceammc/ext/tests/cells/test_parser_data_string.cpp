@@ -166,4 +166,27 @@ TEST_CASE("DataStringParser", "[core]")
         REQUIRE(parse("Dict[]") == LA(new DD()));
         //        REQUIRE(parse("Dict[a: IntData(100)]") == LA(new DD("([a: 100])")));
     }
+
+    SECTION("expr")
+    {
+        REQUIRE(parse("expr(100)") == LA(100));
+        REQUIRE(parse("expr(-100)") == LA(-100));
+        REQUIRE(parse("expr(0.5)") == LA(0.5));
+        REQUIRE(parse("expr(-0.5)") == LA(-0.5));
+        REQUIRE(parse("expr(1+3)") == LA(4));
+        REQUIRE(parse("expr(1-3)") == LA(-2));
+        REQUIRE(parse("expr(1.5-3)") == LA(-1.5));
+        REQUIRE(parse("expr(1.5+-3)") == LA(-1.5));
+        REQUIRE(parse("expr(\"-1.5+-3\")") == LA(-4.5));
+        REQUIRE(parse("expr(\"-1.5--3\")") == LA(1.5));
+        REQUIRE(parse("expr(2*3.5)") == LA(7));
+        REQUIRE(parse("expr(2*-3.5)") == LA(-7));
+        REQUIRE(parse("expr(\"-2*-3.5\")") == LA(7));
+
+        const t_float m_pi = std::acos(-1);
+        REQUIRE(parse("expr(2*pi)") == LX(2 * m_pi));
+        const t_float m_e = std::exp(1);
+        REQUIRE(parse("expr(2*e)") == LX(2 * m_e));
+        REQUIRE(parse("expr(XXXX)") == LF(0));
+    }
 }

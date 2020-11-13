@@ -117,6 +117,7 @@
 }
 
 %token                        NULL
+%token                        COMMA
 %token                        OPEN_DICT_BRACKET
 %token                        CLOSE_DICT_BRACKET
 %token                        OPEN_LIST_BRACKET
@@ -143,6 +144,7 @@
 
 atom
     : NULL                    { $$ = ceammc::Atom(); }
+    | COMMA                   { $$ = ceammc::Atom(gensym(",")); }
     | FLOAT                   { $$ = ceammc::Atom($1); }
     | SYMBOL                  { $$ = ceammc::Atom(gensym($1)); }
     | STRING                  { $$ = createSimpleString($1); }

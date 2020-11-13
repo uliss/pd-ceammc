@@ -146,7 +146,7 @@ TEST_CASE("string.join", "[external]")
 
     SECTION("mlist")
     {
-        TestExtStringJoin t("string.join", ":");
+        TestExtStringJoin t("string.join", "\":\"");
 
         t.sendList(MLA(1, 2, 3));
         REQUIRE_STRING(t, "1:2:3");

@@ -1,4 +1,4 @@
-// A Bison parser, made by GNU Bison 3.6.4.
+// A Bison parser, made by GNU Bison 3.7.3.
 
 // Skeleton interface for Bison LALR(1) parsers in C++
 
@@ -389,8 +389,8 @@ namespace ceammc {
     union union_type
     {
       // atom
-      // data
       // function_call
+      // data
       char dummy1[sizeof (ceammc::Atom)];
 
       // atom_list
@@ -463,18 +463,19 @@ namespace ceammc {
     TOK_YYerror = 256,             // error
     TOK_YYUNDEF = 257,             // "invalid token"
     TOK_NULL = 258,                // NULL
-    TOK_OPEN_DICT_BRACKET = 259,   // OPEN_DICT_BRACKET
-    TOK_CLOSE_DICT_BRACKET = 260,  // CLOSE_DICT_BRACKET
-    TOK_OPEN_LIST_BRACKET = 261,   // OPEN_LIST_BRACKET
-    TOK_CLOSE_LIST_BRACKET = 262,  // CLOSE_LIST_BRACKET
-    TOK_FLOAT = 263,               // FLOAT
-    TOK_LEXER_ERROR = 264,         // LEXER_ERROR
-    TOK_SYMBOL = 265,              // SYMBOL
-    TOK_KEY = 266,                 // KEY
-    TOK_DATA_TYPE = 267,           // DATA_TYPE
-    TOK_DATA_TYPE_STRING = 268,    // DATA_TYPE_STRING
-    TOK_FUNC_CALL = 269,           // FUNC_CALL
-    TOK_STRING = 270               // STRING
+    TOK_COMMA = 259,               // COMMA
+    TOK_OPEN_DICT_BRACKET = 260,   // OPEN_DICT_BRACKET
+    TOK_CLOSE_DICT_BRACKET = 261,  // CLOSE_DICT_BRACKET
+    TOK_OPEN_LIST_BRACKET = 262,   // OPEN_LIST_BRACKET
+    TOK_CLOSE_LIST_BRACKET = 263,  // CLOSE_LIST_BRACKET
+    TOK_FLOAT = 264,               // FLOAT
+    TOK_LEXER_ERROR = 265,         // LEXER_ERROR
+    TOK_SYMBOL = 266,              // SYMBOL
+    TOK_KEY = 267,                 // KEY
+    TOK_DATA_TYPE = 268,           // DATA_TYPE
+    TOK_DATA_TYPE_STRING = 269,    // DATA_TYPE_STRING
+    TOK_FUNC_CALL = 270,           // FUNC_CALL
+    TOK_STRING = 271               // STRING
       };
       /// Backward compatibility alias (Bison 3.6).
       typedef token_kind_type yytokentype;
@@ -491,32 +492,33 @@ namespace ceammc {
     {
       enum symbol_kind_type
       {
-        YYNTOKENS = 16, ///< Number of tokens.
+        YYNTOKENS = 17, ///< Number of tokens.
         S_YYEMPTY = -2,
         S_YYEOF = 0,                             // "end of string"
         S_YYerror = 1,                           // error
         S_YYUNDEF = 2,                           // "invalid token"
         S_NULL = 3,                              // NULL
-        S_OPEN_DICT_BRACKET = 4,                 // OPEN_DICT_BRACKET
-        S_CLOSE_DICT_BRACKET = 5,                // CLOSE_DICT_BRACKET
-        S_OPEN_LIST_BRACKET = 6,                 // OPEN_LIST_BRACKET
-        S_CLOSE_LIST_BRACKET = 7,                // CLOSE_LIST_BRACKET
-        S_FLOAT = 8,                             // FLOAT
-        S_LEXER_ERROR = 9,                       // LEXER_ERROR
-        S_SYMBOL = 10,                           // SYMBOL
-        S_KEY = 11,                              // KEY
-        S_DATA_TYPE = 12,                        // DATA_TYPE
-        S_DATA_TYPE_STRING = 13,                 // DATA_TYPE_STRING
-        S_FUNC_CALL = 14,                        // FUNC_CALL
-        S_STRING = 15,                           // STRING
-        S_YYACCEPT = 16,                         // $accept
-        S_atom = 17,                             // atom
-        S_data = 18,                             // data
-        S_function_call = 19,                    // function_call
-        S_atom_list = 20,                        // atom_list
-        S_expr = 21,                             // expr
-        S_pair = 22,                             // pair
-        S_pair_list = 23                         // pair_list
+        S_COMMA = 4,                             // COMMA
+        S_OPEN_DICT_BRACKET = 5,                 // OPEN_DICT_BRACKET
+        S_CLOSE_DICT_BRACKET = 6,                // CLOSE_DICT_BRACKET
+        S_OPEN_LIST_BRACKET = 7,                 // OPEN_LIST_BRACKET
+        S_CLOSE_LIST_BRACKET = 8,                // CLOSE_LIST_BRACKET
+        S_FLOAT = 9,                             // FLOAT
+        S_LEXER_ERROR = 10,                      // LEXER_ERROR
+        S_SYMBOL = 11,                           // SYMBOL
+        S_KEY = 12,                              // KEY
+        S_DATA_TYPE = 13,                        // DATA_TYPE
+        S_DATA_TYPE_STRING = 14,                 // DATA_TYPE_STRING
+        S_FUNC_CALL = 15,                        // FUNC_CALL
+        S_STRING = 16,                           // STRING
+        S_YYACCEPT = 17,                         // $accept
+        S_atom = 18,                             // atom
+        S_atom_list = 19,                        // atom_list
+        S_pair = 20,                             // pair
+        S_pair_list = 21,                        // pair_list
+        S_function_call = 22,                    // function_call
+        S_data = 23,                             // data
+        S_expr = 24                              // expr
       };
     };
 
@@ -553,37 +555,37 @@ namespace ceammc {
       {
         switch (this->kind ())
     {
-      case 17: // atom
-      case 18: // data
-      case 19: // function_call
+      case symbol_kind::S_atom: // atom
+      case symbol_kind::S_function_call: // function_call
+      case symbol_kind::S_data: // data
         value.move< ceammc::Atom > (std::move (that.value));
         break;
 
-      case 20: // atom_list
-      case 21: // expr
+      case symbol_kind::S_atom_list: // atom_list
+      case symbol_kind::S_expr: // expr
         value.move< ceammc::AtomList > (std::move (that.value));
         break;
 
-      case 23: // pair_list
+      case symbol_kind::S_pair_list: // pair_list
         value.move< ceammc::Dict > (std::move (that.value));
         break;
 
-      case 22: // pair
+      case symbol_kind::S_pair: // pair
         value.move< ceammc::DictEntry > (std::move (that.value));
         break;
 
-      case 10: // SYMBOL
+      case symbol_kind::S_SYMBOL: // SYMBOL
         value.move< const char* > (std::move (that.value));
         break;
 
-      case 8: // FLOAT
+      case symbol_kind::S_FLOAT: // FLOAT
         value.move< double > (std::move (that.value));
         break;
 
-      case 11: // KEY
-      case 12: // DATA_TYPE
-      case 14: // FUNC_CALL
-      case 15: // STRING
+      case symbol_kind::S_KEY: // KEY
+      case symbol_kind::S_DATA_TYPE: // DATA_TYPE
+      case symbol_kind::S_FUNC_CALL: // FUNC_CALL
+      case symbol_kind::S_STRING: // STRING
         value.move< std::string > (std::move (that.value));
         break;
 
@@ -723,37 +725,37 @@ namespace ceammc {
         // Value type destructor.
 switch (yykind)
     {
-      case 17: // atom
-      case 18: // data
-      case 19: // function_call
+      case symbol_kind::S_atom: // atom
+      case symbol_kind::S_function_call: // function_call
+      case symbol_kind::S_data: // data
         value.template destroy< ceammc::Atom > ();
         break;
 
-      case 20: // atom_list
-      case 21: // expr
+      case symbol_kind::S_atom_list: // atom_list
+      case symbol_kind::S_expr: // expr
         value.template destroy< ceammc::AtomList > ();
         break;
 
-      case 23: // pair_list
+      case symbol_kind::S_pair_list: // pair_list
         value.template destroy< ceammc::Dict > ();
         break;
 
-      case 22: // pair
+      case symbol_kind::S_pair: // pair
         value.template destroy< ceammc::DictEntry > ();
         break;
 
-      case 10: // SYMBOL
+      case symbol_kind::S_SYMBOL: // SYMBOL
         value.template destroy< const char* > ();
         break;
 
-      case 8: // FLOAT
+      case symbol_kind::S_FLOAT: // FLOAT
         value.template destroy< double > ();
         break;
 
-      case 11: // KEY
-      case 12: // DATA_TYPE
-      case 14: // FUNC_CALL
-      case 15: // STRING
+      case symbol_kind::S_KEY: // KEY
+      case symbol_kind::S_DATA_TYPE: // DATA_TYPE
+      case symbol_kind::S_FUNC_CALL: // FUNC_CALL
+      case symbol_kind::S_STRING: // STRING
         value.template destroy< std::string > ();
         break;
 
@@ -847,13 +849,13 @@ switch (yykind)
       symbol_type (int tok, location_type l)
         : super_type(token_type (tok), std::move (l))
       {
-        YY_ASSERT (tok == token::TOK_END || tok == token::TOK_YYerror || tok == token::TOK_YYUNDEF || tok == token::TOK_NULL || tok == token::TOK_OPEN_DICT_BRACKET || tok == token::TOK_CLOSE_DICT_BRACKET || tok == token::TOK_OPEN_LIST_BRACKET || tok == token::TOK_CLOSE_LIST_BRACKET || tok == token::TOK_LEXER_ERROR || tok == token::TOK_DATA_TYPE_STRING);
+        YY_ASSERT (tok == token::TOK_END || tok == token::TOK_YYerror || tok == token::TOK_YYUNDEF || tok == token::TOK_NULL || tok == token::TOK_COMMA || tok == token::TOK_OPEN_DICT_BRACKET || tok == token::TOK_CLOSE_DICT_BRACKET || tok == token::TOK_OPEN_LIST_BRACKET || tok == token::TOK_CLOSE_LIST_BRACKET || tok == token::TOK_LEXER_ERROR || tok == token::TOK_DATA_TYPE_STRING);
       }
 #else
       symbol_type (int tok, const location_type& l)
         : super_type(token_type (tok), l)
       {
-        YY_ASSERT (tok == token::TOK_END || tok == token::TOK_YYerror || tok == token::TOK_YYUNDEF || tok == token::TOK_NULL || tok == token::TOK_OPEN_DICT_BRACKET || tok == token::TOK_CLOSE_DICT_BRACKET || tok == token::TOK_OPEN_LIST_BRACKET || tok == token::TOK_CLOSE_LIST_BRACKET || tok == token::TOK_LEXER_ERROR || tok == token::TOK_DATA_TYPE_STRING);
+        YY_ASSERT (tok == token::TOK_END || tok == token::TOK_YYerror || tok == token::TOK_YYUNDEF || tok == token::TOK_NULL || tok == token::TOK_COMMA || tok == token::TOK_OPEN_DICT_BRACKET || tok == token::TOK_CLOSE_DICT_BRACKET || tok == token::TOK_OPEN_LIST_BRACKET || tok == token::TOK_CLOSE_LIST_BRACKET || tok == token::TOK_LEXER_ERROR || tok == token::TOK_DATA_TYPE_STRING);
       }
 #endif
 #if 201103L <= YY_CPLUSPLUS
@@ -1001,6 +1003,21 @@ switch (yykind)
       make_NULL (const location_type& l)
       {
         return symbol_type (token::TOK_NULL, l);
+      }
+#endif
+#if 201103L <= YY_CPLUSPLUS
+      static
+      symbol_type
+      make_COMMA (location_type l)
+      {
+        return symbol_type (token::TOK_COMMA, std::move (l));
+      }
+#else
+      static
+      symbol_type
+      make_COMMA (const location_type& l)
+      {
+        return symbol_type (token::TOK_COMMA, l);
       }
 #endif
 #if 201103L <= YY_CPLUSPLUS
@@ -1334,7 +1351,7 @@ switch (yykind)
       void move (by_state& that);
 
       /// The symbol kind (corresponding to \a state).
-      /// \a S_YYEMPTY when empty.
+      /// \a symbol_kind::S_YYEMPTY when empty.
       symbol_kind_type kind () const YY_NOEXCEPT;
 
       /// The state number used to denote an empty symbol.
@@ -1513,9 +1530,9 @@ switch (yykind)
     /// Constants.
     enum
     {
-      yylast_ = 59,     ///< Last index in yytable_.
+      yylast_ = 74,     ///< Last index in yytable_.
       yynnts_ = 8,  ///< Number of nonterminal symbols.
-      yyfinal_ = 15 ///< Termination state number.
+      yyfinal_ = 16 ///< Termination state number.
     };
 
 
@@ -1562,13 +1579,14 @@ switch (yykind)
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
        2,     2,     2,     2,     2,     2,     1,     2,     3,     4,
        5,     6,     7,     8,     9,    10,    11,    12,    13,    14,
-      15
+      15,    16
     };
-    const int user_token_number_max_ = 270;
+    // Last valid token kind.
+    const int code_max = 271;
 
     if (t <= 0)
       return symbol_kind::S_YYEOF;
-    else if (t <= user_token_number_max_)
+    else if (t <= code_max)
       return YY_CAST (symbol_kind_type, translate_table[t]);
     else
       return symbol_kind::S_YYUNDEF;
@@ -1583,37 +1601,37 @@ switch (yykind)
   {
     switch (this->kind ())
     {
-      case 17: // atom
-      case 18: // data
-      case 19: // function_call
+      case symbol_kind::S_atom: // atom
+      case symbol_kind::S_function_call: // function_call
+      case symbol_kind::S_data: // data
         value.copy< ceammc::Atom > (YY_MOVE (that.value));
         break;
 
-      case 20: // atom_list
-      case 21: // expr
+      case symbol_kind::S_atom_list: // atom_list
+      case symbol_kind::S_expr: // expr
         value.copy< ceammc::AtomList > (YY_MOVE (that.value));
         break;
 
-      case 23: // pair_list
+      case symbol_kind::S_pair_list: // pair_list
         value.copy< ceammc::Dict > (YY_MOVE (that.value));
         break;
 
-      case 22: // pair
+      case symbol_kind::S_pair: // pair
         value.copy< ceammc::DictEntry > (YY_MOVE (that.value));
         break;
 
-      case 10: // SYMBOL
+      case symbol_kind::S_SYMBOL: // SYMBOL
         value.copy< const char* > (YY_MOVE (that.value));
         break;
 
-      case 8: // FLOAT
+      case symbol_kind::S_FLOAT: // FLOAT
         value.copy< double > (YY_MOVE (that.value));
         break;
 
-      case 11: // KEY
-      case 12: // DATA_TYPE
-      case 14: // FUNC_CALL
-      case 15: // STRING
+      case symbol_kind::S_KEY: // KEY
+      case symbol_kind::S_DATA_TYPE: // DATA_TYPE
+      case symbol_kind::S_FUNC_CALL: // FUNC_CALL
+      case symbol_kind::S_STRING: // STRING
         value.copy< std::string > (YY_MOVE (that.value));
         break;
 
@@ -1646,37 +1664,37 @@ switch (yykind)
     super_type::move (s);
     switch (this->kind ())
     {
-      case 17: // atom
-      case 18: // data
-      case 19: // function_call
+      case symbol_kind::S_atom: // atom
+      case symbol_kind::S_function_call: // function_call
+      case symbol_kind::S_data: // data
         value.move< ceammc::Atom > (YY_MOVE (s.value));
         break;
 
-      case 20: // atom_list
-      case 21: // expr
+      case symbol_kind::S_atom_list: // atom_list
+      case symbol_kind::S_expr: // expr
         value.move< ceammc::AtomList > (YY_MOVE (s.value));
         break;
 
-      case 23: // pair_list
+      case symbol_kind::S_pair_list: // pair_list
         value.move< ceammc::Dict > (YY_MOVE (s.value));
         break;
 
-      case 22: // pair
+      case symbol_kind::S_pair: // pair
         value.move< ceammc::DictEntry > (YY_MOVE (s.value));
         break;
 
-      case 10: // SYMBOL
+      case symbol_kind::S_SYMBOL: // SYMBOL
         value.move< const char* > (YY_MOVE (s.value));
         break;
 
-      case 8: // FLOAT
+      case symbol_kind::S_FLOAT: // FLOAT
         value.move< double > (YY_MOVE (s.value));
         break;
 
-      case 11: // KEY
-      case 12: // DATA_TYPE
-      case 14: // FUNC_CALL
-      case 15: // STRING
+      case symbol_kind::S_KEY: // KEY
+      case symbol_kind::S_DATA_TYPE: // DATA_TYPE
+      case symbol_kind::S_FUNC_CALL: // FUNC_CALL
+      case symbol_kind::S_STRING: // STRING
         value.move< std::string > (YY_MOVE (s.value));
         break;
 
@@ -1743,8 +1761,7 @@ switch (yykind)
 
 #line 8 "data_string.y"
 } // ceammc
-#line 1747 "data_string.parser.hpp"
-
+#line 1765 "data_string.parser.hpp"
 
 
 
