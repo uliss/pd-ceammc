@@ -289,6 +289,8 @@ TEST_CASE("flow.select", "[externals]")
             REQUIRE(t.isOutputBangAt(0));
             t << 3;
             REQUIRE(t.isOutputBangAt(0));
+            t << 3.125;
+            REQUIRE(t.outputFloatAt(2) == 3.125);
 
             t << -0.25;
             REQUIRE(t.isOutputBangAt(1));
@@ -298,6 +300,81 @@ TEST_CASE("flow.select", "[externals]")
             REQUIRE(t.isOutputBangAt(1));
             t << "C";
             REQUIRE(t.isOutputBangAt(1));
+            t << "D";
+            REQUIRE(t.outputSymbolAt(2) == SYM("D"));
+        }
+
+        SECTION("multiple")
+        {
+            TExt t("flow.sel", LA("ABC", "ABC|DEF"));
+
+            t << "ABC";
+            REQUIRE(t.isOutputBangAt(0));
+            REQUIRE(t.isOutputBangAt(1));
+            REQUIRE(!t.hasOutputAt(2));
+
+            t << "DEF";
+            REQUIRE(!t.hasOutputAt(0));
+            REQUIRE(t.isOutputBangAt(1));
+            REQUIRE(!t.hasOutputAt(2));
+
+            t << "CDE";
+            REQUIRE(!t.hasOutputAt(0));
+            REQUIRE(!t.hasOutputAt(1));
+            REQUIRE(t.outputSymbolAt(2) == SYM("CDE"));
+
+            t.clearAll();
+            t.sendMessage("ABC");
+            REQUIRE(t.isOutputBangAt(0));
+            REQUIRE(t.isOutputBangAt(1));
+            REQUIRE(!t.hasOutputAt(2));
+
+            t.clearAll();
+            t.sendMessage("DEF");
+            REQUIRE(!t.hasOutputAt(0));
+            REQUIRE(t.isOutputBangAt(1));
+            REQUIRE(!t.hasOutputAt(2));
+
+            t.clearAll();
+            t.sendMessage("CDE", LF(1, 2, 3));
+            REQUIRE(!t.hasOutputAt(0));
+            REQUIRE(!t.hasOutputAt(1));
+            REQUIRE(t.outputAnyAt(2) == LA("CDE", 1, 2, 3));
+
+            t->setProperty("@keep_value", Atom(1));
+
+            t << "ABC";
+            REQUIRE(t.outputSymbolAt(0) == SYM("ABC"));
+            REQUIRE(t.outputSymbolAt(1) == SYM("ABC"));
+            REQUIRE(!t.hasOutputAt(2));
+
+            t << "DEF";
+            REQUIRE(!t.hasOutputAt(0));
+            REQUIRE(t.outputSymbolAt(1) == SYM("DEF"));
+            REQUIRE(!t.hasOutputAt(2));
+
+            t << "CDE";
+            REQUIRE(!t.hasOutputAt(0));
+            REQUIRE(!t.hasOutputAt(1));
+            REQUIRE(t.outputSymbolAt(2) == SYM("CDE"));
+
+            t.clearAll();
+            t.sendMessage("ABC", LF(1, 2));
+            REQUIRE(t.outputAnyAt(0) == LA("ABC", 1, 2));
+            REQUIRE(t.outputAnyAt(1) == LA("ABC", 1, 2));
+            REQUIRE(!t.hasOutputAt(2));
+
+            t.clearAll();
+            t.sendMessage("DEF", LF(1));
+            REQUIRE(!t.hasOutputAt(0));
+            REQUIRE(t.outputAnyAt(1) == LA("DEF", 1));
+            REQUIRE(!t.hasOutputAt(2));
+
+            t.clearAll();
+            t.sendMessage("CDE", LF(1, 2, 3));
+            REQUIRE(!t.hasOutputAt(0));
+            REQUIRE(!t.hasOutputAt(1));
+            REQUIRE(t.outputAnyAt(2) == LA("CDE", 1, 2, 3));
         }
     }
 }

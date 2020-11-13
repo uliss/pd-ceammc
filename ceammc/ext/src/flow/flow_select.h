@@ -30,8 +30,12 @@ public:
 
     void onFloat(t_float v) override;
     void onSymbol(t_symbol* s) override;
+    void onAny(t_symbol* s, const AtomListView& lv) override;
 
     const char* annotateOutlet(size_t idx) const override;
+
+private:
+    size_t match(t_symbol* s, bool* result) const;
 };
 
 void setup_flow_select();

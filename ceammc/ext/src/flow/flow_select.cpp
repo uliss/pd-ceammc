@@ -175,34 +175,78 @@ void FlowSelect::onFloat(t_float v)
 
 void FlowSelect::onSymbol(t_symbol* s)
 {
-    if (patterns_->data.empty())
-        return symbolTo(0, s);
+    const size_t N = patterns_->data.size();
 
-    auto it = patterns_->data.crbegin();
-    auto end = patterns_->data.crend();
+    bool res[N];
+    std::fill(res, res + N, false);
 
+    if (!match(s, &res[0]))
+        return symbolTo(N, s);
+
+    const bool kv = keep_value_->value();
+
+    for (size_t i = N; i > 0; i--) {
+        const auto idx = i - 1;
+
+        if (res[idx])
+            kv ? symbolTo(idx, s) : bangTo(idx);
+    }
+}
+
+void FlowSelect::onAny(t_symbol* s, const AtomListView& lv)
+{
+    const size_t N = patterns_->data.size();
+
+    bool res[N];
+    std::fill(res, res + N, false);
+
+    if (!match(s, &res[0]))
+        return anyTo(N, s, lv);
+
+    const bool kv = keep_value_->value();
+
+    for (size_t i = N; i > 0; i--) {
+        const auto idx = i - 1;
+
+        if (res[idx])
+            kv ? anyTo(idx, s, lv) : bangTo(idx);
+    }
+}
+
+const char* FlowSelect::annotateOutlet(size_t idx) const
+{
+    if (idx >= numOutlets() || idx >= outlet_toolips_.size())
+        return "unmatched";
+
+    return outlet_toolips_[idx].c_str();
+}
+
+size_t FlowSelect::match(t_symbol* s, bool* result) const
+{
     using l = SelectLexer;
-    const size_t LAST = numOutlets() - 1;
-    bool matched = false;
 
-    auto output = [this, &matched](t_symbol* s, size_t idx) {
-        matched = true;
-        if (keep_value_->value())
-            symbolTo(idx, s);
-        else
-            bangTo(idx);
-    };
+    if (patterns_->data.empty())
+        return 0;
 
-    for (size_t idx = LAST - 1; it != end; ++it, --idx) {
+    auto it = patterns_->data.cbegin();
+    auto end = patterns_->data.cend();
+    size_t nmatches = 0;
+
+    for (size_t pos = 0; it != end; ++it, ++pos) {
         switch (it->type()) {
         case l::MATCH_EQUAL:
-            if (it->at(0) == Atom(s))
-                output(s, idx);
+            if (it->at(0) == Atom(s)) {
+                result[pos] = true;
+                nmatches++;
+            }
+
             break;
         case l::MATCH_SET: {
             auto mit = std::find_if(it->begin(), it->end(), [s](const Atom& a) { return a == Atom(s); });
-            if (mit != it->end())
-                output(s, idx);
+            if (mit != it->end()) {
+                result[pos] = true;
+                nmatches++;
+            }
 
         } break;
         default:
@@ -210,16 +254,7 @@ void FlowSelect::onSymbol(t_symbol* s)
         }
     }
 
-    if (!matched)
-        symbolTo(LAST, s);
-}
-
-const char* FlowSelect::annotateOutlet(size_t idx) const
-{
-    if (idx >= numOutlets() || idx >= outlet_toolips_.size())
-        return "";
-
-    return outlet_toolips_[idx].c_str();
+    return nmatches;
 }
 
 void setup_flow_select()
@@ -228,6 +263,7 @@ void setup_flow_select()
     obj.addAlias("flow.sel");
     obj.noArgsDataParsing();
     obj.useDefaultPdListFn();
+    obj.noPropsDispatch();
 
     obj.addInletInfo("input flow");
 }
