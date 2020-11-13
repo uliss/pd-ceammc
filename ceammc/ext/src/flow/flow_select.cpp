@@ -18,6 +18,7 @@
 #include "lex/select.parser.hpp"
 
 #include <algorithm>
+#include <cmath>
 
 class SelectMatch {
 public:
