@@ -41,15 +41,17 @@
         <outlets>
             <outlet>bang</outlet>
             <outlet>float: duration until next bang (in ms)</outlet>
-            <outlet>bang when done</outlet>
+            <outlet>current index or bang when done</outlet>
         </outlets>
         <example>
             <pdascii>
 <![CDATA[
 [B #b]  [stop(  [reset(
 |       |       |
-[seq.bangs 3 1 2 1 1 @bpm 120 @div 16] [T]
-|                                  ^^| |.
+[seq.bangs 3 1 2 1 1 @bpm 120 @div 16]
+|                          ^^|
+|                          [sel done]  [T]
+|                          |           |.
 [click~]                   [flow.gate 1 {w=27} #g]
 |
 [flt.resonbp~ 1000 40]     [ui.dsp~]
