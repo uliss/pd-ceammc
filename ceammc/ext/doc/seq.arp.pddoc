@@ -52,16 +52,16 @@
         <example>
             <pdascii>
 <![CDATA[
-[on( [off(           [ui.dsp~]
+[on(  [on last 80 #a(      [ui.dsp~]
+|     |
+[flow.dup 6 #x]
 |
-[flow.dup 6]
+[flow.space 130] [on all(  [off all(
+|                |         |
+[seq.arp 60 64 67 79 54 80 #y]
 |
-[flow.space 130]
-|
-[seq.arp 60 64 67 79 54 80]
-|
-[msg note]
-|
+[msg note] [loadmsg prog 1 12]
+|          |
 [fluid~ sf2/VintageDreamsWaves-v2.sf2]
 *|*
 [ui.hgain2~]
