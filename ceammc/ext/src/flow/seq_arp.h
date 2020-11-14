@@ -20,6 +20,7 @@ using namespace ceammc;
 class SeqArp : public BaseObject {
     ListProperty* chord_;
     std::vector<uint8_t> on_offs_;
+    int nactive_;
 
 public:
     SeqArp(const PdArgs& args);

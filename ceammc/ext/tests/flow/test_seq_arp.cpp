@@ -53,6 +53,7 @@ TEST_CASE("seq.arp", "[externals]")
 
             t.call("on");
             REQUIRE(t.outputListAt(0) == LF(60, 127));
+            REQUIRE(t.outputFloatAt(1) == 1);
 
             t.call("on");
             REQUIRE(!t.hasOutput());
@@ -62,14 +63,21 @@ TEST_CASE("seq.arp", "[externals]")
 
             t.call("on", LA("f", 64.5));
             REQUIRE(t.outputListAt(0) == LF(60, 64.5));
+            REQUIRE(t.outputFloatAt(1) == 1);
 
             t.call("reset");
             t.call("on", LA("f", 34.5, 10));
             REQUIRE(t.outputListAt(0) == LF(60, 34.5));
+            REQUIRE(t.outputFloatAt(1) == 1);
 
             t.call("reset");
             t.call("on", LA("f", 34.5, -1));
             REQUIRE(!t.hasOutput());
+
+            t.call("on", LA("f", 12));
+            REQUIRE(t.outputFloatAt(1) == 1);
+            t.call("off", LA("first"));
+            REQUIRE(t.outputFloatAt(1) == 0);
         }
 
         SECTION("first")
@@ -96,6 +104,53 @@ TEST_CASE("seq.arp", "[externals]")
             REQUIRE(t.messagesAt(0)[1] == Message(LF(70, 64)));
         }
 
+        SECTION("last")
+        {
+            TExt t("seq.arp", LF(60, 70, 75));
+
+            t.call("on", LA("l"));
+            REQUIRE(t.outputListAt(0) == LF(75, 127));
+
+            t.call("on", LA("l"));
+            REQUIRE(t.outputListAt(0) == LF(70, 127));
+
+            t.call("on", LA("last"));
+            REQUIRE(t.outputListAt(0) == LF(60, 127));
+
+            t.call("on", LA("last"));
+            REQUIRE(!t.hasOutput());
+
+            t.call("reset");
+            REQUIRE(!t.hasOutput());
+
+            t.call("on", LA("last", 64, 2));
+            REQUIRE(t.messagesAt(0)[0] == Message(LF(75, 64)));
+            REQUIRE(t.messagesAt(0)[1] == Message(LF(70, 64)));
+
+            t.call("off", LA("last"));
+            REQUIRE(t.outputListAt(0) == LF(75, 0));
+            t.call("off", LA("last"));
+            REQUIRE(t.outputListAt(0) == LF(70, 0));
+
+            t.call("on", LA("all", 11));
+            REQUIRE(t.messagesAt(0).size() == 3);
+            REQUIRE(t.messagesAt(0)[0] == Message(LF(60, 11)));
+            REQUIRE(t.messagesAt(0)[1] == Message(LF(70, 11)));
+            REQUIRE(t.messagesAt(0)[2] == Message(LF(75, 11)));
+            REQUIRE(t.messagesAt(1)[0] == Message(1));
+            REQUIRE(t.messagesAt(1)[1] == Message(2));
+            REQUIRE(t.messagesAt(1)[2] == Message(3));
+
+            t.call("off", LA("last", 2));
+            REQUIRE(t.messagesAt(0).size() == 2);
+            REQUIRE(t.messagesAt(0)[0] == Message(LF(75, 0)));
+            REQUIRE(t.messagesAt(0)[1] == Message(LF(70, 0)));
+
+            t.call("off", LA("last", 2));
+            REQUIRE(t.messagesAt(0).size() == 1);
+            REQUIRE(t.messagesAt(0)[0] == Message(LF(60, 0)));
+        }
+
         SECTION("all")
         {
             TExt t("seq.arp", LF(60, 70, 75));
@@ -104,6 +159,17 @@ TEST_CASE("seq.arp", "[externals]")
             REQUIRE(t.messagesAt(0)[0] == Message(LF(60, 11)));
             REQUIRE(t.messagesAt(0)[1] == Message(LF(70, 11)));
             REQUIRE(t.messagesAt(0)[2] == Message(LF(75, 11)));
+            REQUIRE(t.messagesAt(1)[0] == Message(1));
+            REQUIRE(t.messagesAt(1)[1] == Message(2));
+            REQUIRE(t.messagesAt(1)[2] == Message(3));
+
+            t.call("off", LA("all"));
+            REQUIRE(t.messagesAt(0)[0] == Message(LF(60, 0)));
+            REQUIRE(t.messagesAt(0)[1] == Message(LF(70, 0)));
+            REQUIRE(t.messagesAt(0)[2] == Message(LF(75, 0)));
+            REQUIRE(t.messagesAt(1)[0] == Message(2));
+            REQUIRE(t.messagesAt(1)[1] == Message(1));
+            REQUIRE(t.messagesAt(1)[2] == Message(0.));
         }
     }
 }

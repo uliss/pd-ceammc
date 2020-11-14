@@ -25,14 +25,16 @@ static t_symbol* SYM_ALL;
 SeqArp::SeqArp(const PdArgs& args)
     : BaseObject(args)
     , chord_(nullptr)
+    , nactive_(0)
 {
     on_offs_.reserve(32);
 
     chord_ = new ListProperty("@chord");
     chord_->setArgIndex(0);
     chord_->setAtomCheckFn([](const Atom& a) -> bool { return a.isFloat(); });
-    chord_->setSuccessFn([this](Property* p) {
+    chord_->setSuccessFn([this](Property*) {
         on_offs_.assign(chord_->value().size(), 0);
+        nactive_ = 0;
     });
     addProperty(chord_);
 
@@ -57,10 +59,13 @@ void SeqArp::m_on(t_symbol* s, const AtomListView& lv)
     const auto velocity = clip<t_float, 1, 127>(lv.floatAt(1, 127));
     const int count = lv.intAt(2, 1);
 
+    auto usage = [this, s]() -> void {
+        METHOD_ERR(s) << "usage: on MODE(f[irst]|l[ast]|r[andom]|a[ll]) VELOCITY NUM";
+    };
+
     if (count < 1) {
-        METHOD_ERR(s) << "invalid number of notes, expected >= 1\n"
-                         "usage: on MODE(f[irst]|l[ast]|r[andom]|a[ll]) VELOCITY NUM";
-        return;
+        METHOD_ERR(s) << "invalid number of notes to turn on: " << count;
+        return usage();
     }
 
     Atom midi[2];
@@ -77,6 +82,8 @@ void SeqArp::m_on(t_symbol* s, const AtomListView& lv)
                 on_offs_[i] = true;
                 num -= 1;
                 midi[0] = chord[i];
+
+                floatTo(1, ++nactive_);
                 listTo(0, notev);
             }
         }
@@ -89,6 +96,8 @@ void SeqArp::m_on(t_symbol* s, const AtomListView& lv)
                 on_offs_[idx] = true;
                 num -= 1;
                 midi[0] = chord[idx];
+
+                floatTo(1, ++nactive_);
                 listTo(0, notev);
             }
         }
@@ -97,9 +106,14 @@ void SeqArp::m_on(t_symbol* s, const AtomListView& lv)
             if (!on_offs_[i]) {
                 on_offs_[i] = true;
                 midi[0] = chord[i];
+
+                floatTo(1, ++nactive_);
                 listTo(0, notev);
             }
         }
+    } else {
+        METHOD_ERR(s) << "unknown mode: " << s;
+        return usage();
     }
 }
 
@@ -109,10 +123,13 @@ void SeqArp::m_off(t_symbol* s, const AtomListView& lv)
     const auto cmode = mode->s_name[0];
     const int count = lv.intAt(1, 1);
 
+    auto usage = [this, s]() -> void {
+        METHOD_ERR(s) << "usage: off MODE(f[irst]|l[ast]|r[andom]|a[ll]) NUM";
+    };
+
     if (count < 1) {
-        METHOD_ERR(s) << "invalid number of notes to off, expected >= 1\n"
-                         "usage: off MODE(f[irst]|l[ast]|r[andom]|a[ll]) NUM";
-        return;
+        METHOD_ERR(s) << "invalid number of notes to off, expected >= 1";
+        return usage();
     }
 
     Atom midi[2];
@@ -129,6 +146,8 @@ void SeqArp::m_off(t_symbol* s, const AtomListView& lv)
                 on_offs_[i] = 0;
                 num -= 1;
                 midi[0].setFloat(chord_->value().at(i).asFloat(), true);
+
+                floatTo(1, --nactive_);
                 listTo(0, notev);
             }
         }
@@ -141,6 +160,8 @@ void SeqArp::m_off(t_symbol* s, const AtomListView& lv)
                 on_offs_[idx] = 0;
                 num -= 1;
                 midi[0].setFloat(chord_->value().at(idx).asFloat(), true);
+
+                floatTo(1, --nactive_);
                 listTo(0, notev);
             }
         }
@@ -149,15 +170,21 @@ void SeqArp::m_off(t_symbol* s, const AtomListView& lv)
             if (on_offs_[i]) {
                 on_offs_[i] = 0;
                 midi[0].setFloat(chord_->value().at(i).asFloat(), true);
+
+                floatTo(1, --nactive_);
                 listTo(0, notev);
             }
         }
+    } else {
+        METHOD_ERR(s) << "unknown mode: " << s;
+        return usage();
     }
 }
 
 void SeqArp::m_reset(t_symbol* s, const AtomListView& lv)
 {
     std::fill(on_offs_.begin(), on_offs_.end(), 0);
+    nactive_ = 0;
 }
 
 void setup_seq_arp()
