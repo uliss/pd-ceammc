@@ -26,6 +26,32 @@ SeqArp::SeqArp(const PdArgs& args)
     : BaseObject(args)
     , chord_(nullptr)
     , nactive_(0)
+    , asr_clock_([this]() {
+        switch (asr_data_.state) {
+        case AsrData::ATTACK:
+            m_on(&s_, Atom(asr_data_.on_mode));
+
+            if (allOn()) {
+                asr_data_.state = AsrData::RELEASE;
+                asr_clock_.delay(asr_data_.holdDurationMs());
+            } else {
+                asr_clock_.delay(asr_data_.step_duration_ms);
+            }
+
+            break;
+        case AsrData::RELEASE:
+            m_off(&s_, Atom(asr_data_.off_mode));
+
+            if (allOff()) {
+                asr_data_.state = AsrData::DONE;
+            } else
+                asr_clock_.delay(asr_data_.step_duration_ms);
+
+            break;
+        default:
+            break;
+        }
+    })
 {
     on_offs_.reserve(32);
 
@@ -35,6 +61,7 @@ SeqArp::SeqArp(const PdArgs& args)
     chord_->setSuccessFn([this](Property*) {
         on_offs_.assign(chord_->value().size(), 0);
         nactive_ = 0;
+        asr_clock_.unset();
     });
     addProperty(chord_);
 
@@ -185,6 +212,49 @@ void SeqArp::m_reset(t_symbol* s, const AtomListView& lv)
 {
     std::fill(on_offs_.begin(), on_offs_.end(), 0);
     nactive_ = 0;
+    asr_clock_.unset();
+}
+
+void SeqArp::m_asr(t_symbol* s, const AtomListView& lv)
+{
+    const auto dur_ms = lv.floatAt(0, 0);
+    if (dur_ms <= 0) {
+        METHOD_ERR(s) << "positive step duration value expected, got: " << dur_ms;
+        return;
+    }
+
+    auto usage = [this, s]() -> void {
+        METHOD_ERR(s) << "usage: asr STEP_DUR(ms) ATTACK_MODE(all|first|last) HOLD_STEPS RELEASE_MODE(all|first|last)";
+    };
+
+    auto is_valid_mode = [](const t_symbol* s) -> bool {
+        return s == SYM_ALL || s == SYM_FIRST || s == SYM_LAST;
+    };
+
+    const auto on_mode = lv.symbolAt(1, &s_);
+    if (!is_valid_mode(on_mode)) {
+        METHOD_ERR(s) << "invalid attack mode: " << lv[1];
+        return usage();
+    }
+
+    const auto hold_steps = lv.intAt(2, 0);
+    if (hold_steps <= 0) {
+        METHOD_ERR(s) << "positive hold steps value expected, got: " << lv[2];
+        return usage();
+    }
+
+    const auto off_mode = lv.symbolAt(3, &s_);
+    if (!is_valid_mode(off_mode)) {
+        METHOD_ERR(s) << "invalid release mode: " << lv[3];
+        return usage();
+    }
+
+    asr_data_.step_duration_ms = dur_ms;
+    asr_data_.hold_steps = hold_steps;
+    asr_data_.on_mode = on_mode;
+    asr_data_.off_mode = off_mode;
+    asr_data_.state = AsrData::ATTACK;
+    asr_clock_.exec();
 }
 
 void setup_seq_arp()
@@ -198,4 +268,6 @@ void setup_seq_arp()
     obj.addMethod("on", &SeqArp::m_on);
     obj.addMethod("off", &SeqArp::m_off);
     obj.addMethod("reset", &SeqArp::m_reset);
+
+    obj.addMethod("asr", &SeqArp::m_asr);
 }

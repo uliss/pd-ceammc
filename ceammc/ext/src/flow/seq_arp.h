@@ -14,13 +14,32 @@
 #ifndef SEQ_ARP_H
 #define SEQ_ARP_H
 
+#include "ceammc_clock.h"
 #include "ceammc_object.h"
 using namespace ceammc;
+
+struct AsrData {
+    enum State {
+        ATTACK,
+        RELEASE,
+        DONE
+    };
+
+    t_float step_duration_ms;
+    int hold_steps;
+    t_symbol* on_mode;
+    t_symbol* off_mode;
+    State state;
+
+    t_float holdDurationMs() const { return step_duration_ms * hold_steps; }
+};
 
 class SeqArp : public BaseObject {
     ListProperty* chord_;
     std::vector<uint8_t> on_offs_;
     int nactive_;
+    AsrData asr_data_;
+    ClockLambdaFunction asr_clock_;
 
 public:
     SeqArp(const PdArgs& args);
@@ -29,6 +48,12 @@ public:
     void m_on(t_symbol* mode, const AtomListView& lv);
     void m_off(t_symbol* s, const AtomListView& lv);
     void m_reset(t_symbol* s, const AtomListView& lv);
+
+    void m_asr(t_symbol* s, const AtomListView& lv);
+
+private:
+    bool allOn() const { return nactive_ == on_offs_.size(); }
+    bool allOff() const { return nactive_ == 0; }
 };
 
 void setup_seq_arp();
