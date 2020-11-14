@@ -1,4 +1,5 @@
 set(FLOW_SOURCES mod_flow.h mod_flow.cpp
+    seq_arp.cpp
     seq_bangs.cpp
     seq_toggles.cpp
 )
