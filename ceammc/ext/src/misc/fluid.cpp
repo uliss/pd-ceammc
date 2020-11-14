@@ -191,6 +191,28 @@ Fluid::Fluid(const PdArgs& args)
         (void)polyphony_->infoT().setRangeFloat(1, 1024);
 
     addProperty(polyphony_);
+
+    {
+        auto p = new FluidSynthProperty(
+            "@bufsize", synth_,
+            [](fluid_synth_t* synth) -> t_float {
+                return fluid_synth_get_internal_bufsize(synth);
+            },
+            nullptr);
+        p->setUnits(PropValueUnits::SAMP);
+        addProperty(p);
+    }
+
+    {
+        auto p = new FluidSynthProperty(
+            "@avoices", synth_,
+            [](fluid_synth_t* synth) -> t_float {
+                return fluid_synth_get_active_voice_count(synth);
+            },
+            nullptr);
+
+        addProperty(p);
+    }
 }
 
 Fluid::~Fluid()

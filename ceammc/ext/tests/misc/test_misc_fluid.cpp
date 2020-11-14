@@ -43,6 +43,9 @@ TEST_CASE("misc.fluid~", "[externals]")
 
         REQUIRE_PROPERTY(t, @gain, 0.6);
         REQUIRE_PROPERTY(t, @poly, 256);
+
+        REQUIRE_PROPERTY(t, @avoices, 0);
+        REQUIRE_PROPERTY(t, @bufsize, 64);
     }
 
     SECTION("load")
