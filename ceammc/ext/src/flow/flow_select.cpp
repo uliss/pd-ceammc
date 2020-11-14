@@ -37,20 +37,25 @@ FlowSelect::FlowSelect(const PdArgs& args)
 
         addProperty(new AliasProperty<BoolProperty>("@v", keep_value_, true));
 
-        SelectLexer l(to_string(unparsedPosArgs()));
+        const std::string str = to_string(unparsedPosArgs());
+        SelectLexer l(str);
         SelectParser p(l);
 
         auto err = p.parse();
         if (err) {
             OBJ_ERR << "parse error: ";
         } else {
-            reserveOutlets(l.numMatches());
-            outlet_toolips_.reserve(l.numMatches());
+            const size_t NM = l.numMatches();
+            OBJ_LOG << "num args: " << unparsedPosArgs().size();
+            OBJ_LOG << "num matches: " << NM;
+
+            reserveOutlets(NM);
+            outlet_toolips_.reserve(NM);
 
             const auto& margs = unparsedPosArgs();
             const Atom empty(&s_);
 
-            for (size_t i = 0; i < l.numMatches(); i++) {
+            for (size_t i = 0; i < NM; i++) {
                 auto& m = l[i];
                 patterns_->data.push_back(m);
 

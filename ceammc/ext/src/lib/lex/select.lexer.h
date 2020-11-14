@@ -38,10 +38,10 @@
 #line 1 "select.l"
 
     # include <string>
-    # include <array>
     # include <stdexcept>
     # include <algorithm>
     # include <cstdint>
+    # include <boost/container/static_vector.hpp>
 
     # include "lex/select.parser.hpp"
 
@@ -97,31 +97,35 @@ class SelectLexer : public reflex::AbstractLexer<reflex::Matcher> {
         };
 
         class MatchData {
-            using AList = std::array<ceammc::Atom, 16>;
-            AList data_;
-            uint8_t n_ = { 0 };
+            using AtomStaticList = boost::container::static_vector<ceammc::Atom, 32>;
+            AtomStaticList data_;
             MatchType type_ = { MATCH_EQUAL };
 
         public:
             MatchData() {}
-            MatchData(uint8_t n, MatchType t) : n_(std::min<uint8_t>(n, data_.size())), type_(t) {}
+            MatchData(size_t n, MatchType t) : data_(n, Atom()), type_(t) {}
             MatchData(double v) : MatchData(1, MATCH_EQUAL) { data_[0].setFloat(v, true); }
             MatchData(const std::string& s) : MatchData(1, MATCH_EQUAL) { data_[0].setSymbol(gensym(s.c_str()), true); }
 
             MatchData& operator+=(const MatchData& m) {
-                for (uint8_t i = 0; i < m.n_ && n_ < data_.size(); i++) {
-                    data_[n_] = m.data_[i];
-                    n_++;
+                for (auto& a: m.data_) {
+                    if(data_.size() < data_.capacity())
+                        data_.push_back(a);
+                    else {
+                        std::cerr << __FUNCTION__ << " [error] to many values: " << data_.size() << std::endl;
+                        break;
+                    }
                 }
+
                 type_ = MATCH_SET;
                 return *this;
             }
 
-            size_t size() const { return n_; }
+            size_t size() const { return data_.size(); }
             MatchType type() const { return type_; }
-            AList::const_iterator begin() const { return data_.cbegin(); }
-            AList::const_iterator end() const { return data_.cbegin() + n_; }
-            const Atom& at(uint8_t idx) const {
+            AtomStaticList::const_iterator begin() const { return data_.cbegin(); }
+            AtomStaticList::const_iterator end() const { return data_.cend(); }
+            const Atom& at(size_t idx) const {
                 static Atom null;
                 return (idx >= data_.size()) ? null : data_[idx];
             }
@@ -149,8 +153,10 @@ class SelectLexer : public reflex::AbstractLexer<reflex::Matcher> {
 
         void pushMatch(const MatchData& d)
         {
-            if(nmatches_ < matches_.size())
-                matches_[nmatches_++] = d;
+            if(matches_.size() < matches_.capacity())
+                matches_.push_back(d);
+            else
+                std::cerr << __FUNCTION__ << " [error] too many matches: " << matches_.size() << std::endl;
         }
 
         void pushLexerAtom(const LexerAtom& a)
@@ -174,30 +180,28 @@ class SelectLexer : public reflex::AbstractLexer<reflex::Matcher> {
         }
 
         const MatchData& operator[](size_t idx) const {
-            if(idx >= nmatches_)
-                throw std::out_of_range("invalid index");
-
-            return matches_[idx];
+            return matches_.at(idx);
         }
 
-        size_t numMatches() const { return nmatches_; }
-        void clearMatches() { nmatches_ = 0; }
+        size_t numMatches() const { return matches_.size(); }
+        void clearMatches() { matches_.clear(); }
         void mergeMatch() {
-            if(nmatches_ < 2)
+            const size_t N = matches_.size();
+            if (N < 2)
                 return;
 
-            auto& m0 = matches_[nmatches_-2];
-            const auto& m1 = matches_[nmatches_-1];
+            auto& m0 = matches_[N-2];
+            const auto& m1 = matches_[N-1];
             m0 += m1;
-            nmatches_ -= 1;
+            matches_.pop_back();
         }
 
         void setErrorMsg(const std::string& str) { error_msg_ = str; }
 
     private:
-        std::array<MatchData, 64> matches_;
+        using MatchList = boost::container::static_vector<MatchData, 128>;
+        MatchList matches_;
         std::vector<LexerAtom> atoms_;
-        size_t nmatches_ = {0};
         std::string error_msg_;
 
  public:

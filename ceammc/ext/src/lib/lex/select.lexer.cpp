@@ -34,10 +34,10 @@
 #line 1 "select.l"
 
     # include <string>
-    # include <array>
     # include <stdexcept>
     # include <algorithm>
     # include <cstdint>
+    # include <boost/container/static_vector.hpp>
 
     # include "lex/select.parser.hpp"
 
@@ -93,31 +93,35 @@ class SelectLexer : public reflex::AbstractLexer<reflex::Matcher> {
         };
 
         class MatchData {
-            using AList = std::array<ceammc::Atom, 16>;
-            AList data_;
-            uint8_t n_ = { 0 };
+            using AtomStaticList = boost::container::static_vector<ceammc::Atom, 32>;
+            AtomStaticList data_;
             MatchType type_ = { MATCH_EQUAL };
 
         public:
             MatchData() {}
-            MatchData(uint8_t n, MatchType t) : n_(std::min<uint8_t>(n, data_.size())), type_(t) {}
+            MatchData(size_t n, MatchType t) : data_(n, Atom()), type_(t) {}
             MatchData(double v) : MatchData(1, MATCH_EQUAL) { data_[0].setFloat(v, true); }
             MatchData(const std::string& s) : MatchData(1, MATCH_EQUAL) { data_[0].setSymbol(gensym(s.c_str()), true); }
 
             MatchData& operator+=(const MatchData& m) {
-                for (uint8_t i = 0; i < m.n_ && n_ < data_.size(); i++) {
-                    data_[n_] = m.data_[i];
-                    n_++;
+                for (auto& a: m.data_) {
+                    if(data_.size() < data_.capacity())
+                        data_.push_back(a);
+                    else {
+                        std::cerr << __FUNCTION__ << " [error] to many values: " << data_.size() << std::endl;
+                        break;
+                    }
                 }
+
                 type_ = MATCH_SET;
                 return *this;
             }
 
-            size_t size() const { return n_; }
+            size_t size() const { return data_.size(); }
             MatchType type() const { return type_; }
-            AList::const_iterator begin() const { return data_.cbegin(); }
-            AList::const_iterator end() const { return data_.cbegin() + n_; }
-            const Atom& at(uint8_t idx) const {
+            AtomStaticList::const_iterator begin() const { return data_.cbegin(); }
+            AtomStaticList::const_iterator end() const { return data_.cend(); }
+            const Atom& at(size_t idx) const {
                 static Atom null;
                 return (idx >= data_.size()) ? null : data_[idx];
             }
@@ -145,8 +149,10 @@ class SelectLexer : public reflex::AbstractLexer<reflex::Matcher> {
 
         void pushMatch(const MatchData& d)
         {
-            if(nmatches_ < matches_.size())
-                matches_[nmatches_++] = d;
+            if(matches_.size() < matches_.capacity())
+                matches_.push_back(d);
+            else
+                std::cerr << __FUNCTION__ << " [error] too many matches: " << matches_.size() << std::endl;
         }
 
         void pushLexerAtom(const LexerAtom& a)
@@ -170,30 +176,28 @@ class SelectLexer : public reflex::AbstractLexer<reflex::Matcher> {
         }
 
         const MatchData& operator[](size_t idx) const {
-            if(idx >= nmatches_)
-                throw std::out_of_range("invalid index");
-
-            return matches_[idx];
+            return matches_.at(idx);
         }
 
-        size_t numMatches() const { return nmatches_; }
-        void clearMatches() { nmatches_ = 0; }
+        size_t numMatches() const { return matches_.size(); }
+        void clearMatches() { matches_.clear(); }
         void mergeMatch() {
-            if(nmatches_ < 2)
+            const size_t N = matches_.size();
+            if (N < 2)
                 return;
 
-            auto& m0 = matches_[nmatches_-2];
-            const auto& m1 = matches_[nmatches_-1];
+            auto& m0 = matches_[N-2];
+            const auto& m1 = matches_[N-1];
             m0 += m1;
-            nmatches_ -= 1;
+            matches_.pop_back();
         }
 
         void setErrorMsg(const std::string& str) { error_msg_ = str; }
 
     private:
-        std::array<MatchData, 64> matches_;
+        using MatchList = boost::container::static_vector<MatchData, 128>;
+        MatchList matches_;
         std::vector<LexerAtom> atoms_;
-        size_t nmatches_ = {0};
         std::string error_msg_;
 
  public:
@@ -219,11 +223,11 @@ class SelectLexer : public reflex::AbstractLexer<reflex::Matcher> {
 //                                                                            //
 ////////////////////////////////////////////////////////////////////////////////
 
-#line 144 "select.l"
+#line 148 "select.l"
 /*%option graphs-file*/
 /*%option debug*/
 /*%option perf-report*/
-#line 154 "select.l"
+#line 158 "select.l"
 /*%option fast*/
 
 
@@ -270,65 +274,65 @@ ceammc::SelectParser::symbol_type ceammc::SelectLexer::lex()
               out().put(matcher().input());
             }
             break;
-          case 1: // rule at line 185: (?:[\x09\x0a\x20]+)
-#line 185 "select.l"
+          case 1: // rule at line 189: (?:[\x09\x0a\x20]+)
+#line 189 "select.l"
 { return SelectParser::make_SPACE(); }
             break;
-          case 2: // rule at line 186: (?:~)(?=(?:(?:0|[1-9][0-9]*)(?:\.[0-9]+)?))
-#line 186 "select.l"
+          case 2: // rule at line 190: (?:~)(?=(?:(?:0|[1-9][0-9]*)(?:\.[0-9]+)?))
+#line 190 "select.l"
 { return SelectParser::make_EPSILON(); }
             break;
-          case 3: // rule at line 187: (?:\.\.)(?=(?:(?:[\x2b\x2d]?(?:0|[1-9][0-9]*))(?:\.[0-9]+)?))
-#line 187 "select.l"
+          case 3: // rule at line 191: (?:\.\.)(?=(?:(?:[\x2b\x2d]?(?:0|[1-9][0-9]*))(?:\.[0-9]+)?))
+#line 191 "select.l"
 { return SelectParser::make_RANGE(); }
             break;
-          case 4: // rule at line 188: (?:\[)(?=(?:(?:[\x2b\x2d]?(?:0|[1-9][0-9]*))(?:\.[0-9]+)?))
-#line 188 "select.l"
+          case 4: // rule at line 192: (?:\[)(?=(?:(?:[\x2b\x2d]?(?:0|[1-9][0-9]*))(?:\.[0-9]+)?))
+#line 192 "select.l"
 { return SelectParser::make_OPEN_BRACKET('['); }
             break;
-          case 5: // rule at line 189: (?:\])
-#line 189 "select.l"
+          case 5: // rule at line 193: (?:\])
+#line 193 "select.l"
 { return SelectParser::make_CLOSE_BRACKET(']'); }
             break;
-          case 6: // rule at line 190: (?:\()(?=(?:(?:[\x2b\x2d]?(?:0|[1-9][0-9]*))(?:\.[0-9]+)?))
-#line 190 "select.l"
+          case 6: // rule at line 194: (?:\()(?=(?:(?:[\x2b\x2d]?(?:0|[1-9][0-9]*))(?:\.[0-9]+)?))
+#line 194 "select.l"
 { return SelectParser::make_OPEN_PAR('('); }
             break;
-          case 7: // rule at line 191: (?:\))
-#line 191 "select.l"
+          case 7: // rule at line 195: (?:\))
+#line 195 "select.l"
 { return SelectParser::make_CLOSE_PAR(')'); }
             break;
-          case 8: // rule at line 192: (?:\|)
-#line 192 "select.l"
+          case 8: // rule at line 196: (?:\|)
+#line 196 "select.l"
 { return SelectParser::make_OR(); }
             break;
-          case 9: // rule at line 193: (?:>=)(?=(?:(?:[\x2b\x2d]?(?:0|[1-9][0-9]*))(?:\.[0-9]+)?))
-#line 193 "select.l"
+          case 9: // rule at line 197: (?:>=)(?=(?:(?:[\x2b\x2d]?(?:0|[1-9][0-9]*))(?:\.[0-9]+)?))
+#line 197 "select.l"
 { return SelectParser::make_OP_GREATER_EQ(); }
             break;
-          case 10: // rule at line 194: (?:>)(?=(?:(?:[\x2b\x2d]?(?:0|[1-9][0-9]*))(?:\.[0-9]+)?))
-#line 194 "select.l"
+          case 10: // rule at line 198: (?:>)(?=(?:(?:[\x2b\x2d]?(?:0|[1-9][0-9]*))(?:\.[0-9]+)?))
+#line 198 "select.l"
 { return SelectParser::make_OP_GREATER(); }
             break;
-          case 11: // rule at line 195: (?:<)(?=(?:(?:[\x2b\x2d]?(?:0|[1-9][0-9]*))(?:\.[0-9]+)?))
-#line 195 "select.l"
+          case 11: // rule at line 199: (?:<)(?=(?:(?:[\x2b\x2d]?(?:0|[1-9][0-9]*))(?:\.[0-9]+)?))
+#line 199 "select.l"
 { return SelectParser::make_OP_LESS(); }
             break;
-          case 12: // rule at line 196: (?:<=)(?=(?:(?:[\x2b\x2d]?(?:0|[1-9][0-9]*))(?:\.[0-9]+)?))
-#line 196 "select.l"
+          case 12: // rule at line 200: (?:<=)(?=(?:(?:[\x2b\x2d]?(?:0|[1-9][0-9]*))(?:\.[0-9]+)?))
+#line 200 "select.l"
 { return SelectParser::make_OP_LESS_EQ(); }
             break;
-          case 13: // rule at line 197: (?:(?:[\x2b\x2d]?(?:0|[1-9][0-9]*))(?:\.[0-9]+)?)
-#line 197 "select.l"
+          case 13: // rule at line 201: (?:(?:[\x2b\x2d]?(?:0|[1-9][0-9]*))(?:\.[0-9]+)?)
+#line 201 "select.l"
 { return SelectParser::make_FLOAT(text()); }
             break;
-          case 14: // rule at line 199: (?:(?:[\x00-\x08]|[\x0b-\x1f]|[!-/]|[:-{]|[}-\x7f]|[\xc2-\xdf][\x80-\xbf]|\xe0[\xa0-\xbf][\x80-\xbf]|[\xe1-\xec][\x80-\xbf][\x80-\xbf]|\xed[\x80-\x9f][\x80-\xbf]|[\xee\xef][\x80-\xbf][\x80-\xbf]|\xf0[\x90-\xbf][\x80-\xbf][\x80-\xbf]|[\xf1-\xf3][\x80-\xbf][\x80-\xbf][\x80-\xbf]|\xf4[\x80-\x8f][\x80-\xbf][\x80-\xbf])+)
-#line 199 "select.l"
+          case 14: // rule at line 202: (?:(?:[\x00-\x08]|[\x0b-\x1f]|[!-/]|[:-{]|[}-\x7f]|[\xc2-\xdf][\x80-\xbf]|\xe0[\xa0-\xbf][\x80-\xbf]|[\xe1-\xec][\x80-\xbf][\x80-\xbf]|\xed[\x80-\x9f][\x80-\xbf]|[\xee\xef][\x80-\xbf][\x80-\xbf]|\xf0[\x90-\xbf][\x80-\xbf][\x80-\xbf]|[\xf1-\xf3][\x80-\xbf][\x80-\xbf][\x80-\xbf]|\xf4[\x80-\x8f][\x80-\xbf][\x80-\xbf])+)
+#line 202 "select.l"
 { return SelectParser::make_SYMBOL(text()); }
 
             break;
-          case 15: // rule at line 201: .
-#line 201 "select.l"
+          case 15: // rule at line 204: .
+#line 204 "select.l"
 {   }
 
             break;
@@ -348,8 +352,8 @@ ceammc::SelectParser::symbol_type ceammc::SelectLexer::lex()
               out().put(matcher().input());
             }
             break;
-          case 1: // rule at line 201: .
-#line 201 "select.l"
+          case 1: // rule at line 204: .
+#line 204 "select.l"
 {   }
 
             break;
@@ -369,8 +373,8 @@ ceammc::SelectParser::symbol_type ceammc::SelectLexer::lex()
               out().put(matcher().input());
             }
             break;
-          case 1: // rule at line 201: .
-#line 201 "select.l"
+          case 1: // rule at line 204: .
+#line 204 "select.l"
 {   }
 
             break;

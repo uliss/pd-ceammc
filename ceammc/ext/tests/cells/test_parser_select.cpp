@@ -315,7 +315,7 @@ TEST_CASE("SelectParser", "[ceammc::SelectParser]")
             l.in("1|2|3|4|5|6|7|8|9|10|11|12|13|14|15|16|17");
             REQUIRE(!p.parse());
             REQUIRE(l.numMatches() == 1);
-            REQUIRE(l[0].size() == 16);
+            REQUIRE(l[0].size() == 17);
             REQUIRE(l[0].at(15) == A(16));
             REQUIRE(l[0].type() == SelectLexer::MATCH_SET);
         }
