@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="seq.arp">
+        <title>seq.arp</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>sequence arpeggiator</description>
+            <license>GPL3 or later</license>
+            <library>ceammc</library>
+            <category>seq</category>
+            <keywords>seq arpeggio pattern</keywords>
+            <since>0.9.1</since>
+            <also>
+                <see>seq.b</see>
+                <see>seq.t</see>
+            </also>
+        </meta>
+        <arguments>
+            <argument name="CHORD" type="list">list of pitches to arpeggiate</argument>
+        </arguments>
+        <properties>
+            <property name="@chord" type="list">list of pitches to arpeggiate</property>
+        </properties>
+        <methods>
+            <method name="reset">reset all notes to off without output</method>
+            <method name="on">turn on incative notes 
+            <param name="MODE" type="symbol" enum="first last all random">if =first play first
+            inactive note in chord list, if =last play last inactive note in chord list, if =all
+            play all inactive notes</param>
+            <param name="VEL" type="float" minvalue="1" maxvalue="127" default="127">note
+            velocity</param>
+            <param name="NUM" type="int" minvalue="1" default="1">number of notes to turn
+            on</param></method>
+            <method name="off">turn off active notes. 
+            <param name="MODE" type="symbol" enum="first last all random">if =first turn off first
+            active note in chord list, if =last turn off last inactive note in chord list, if =all
+            turn off all active notes</param>
+            <param name="NUM" type="int" minvalue="1" default="1">number of notes to turn
+            on</param></method>
+        </methods>
+        <inlets>
+            <inlet>
+                <xinfo on="bang">starts sequencer</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet>list: pitch vel</outlet>
+            <outlet>float: number of active notes</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[on( [off(           [ui.dsp~]
+|
+[flow.dup 6]
+|
+[flow.space 130]
+|
+[seq.arp 60 64 67 79 54 80]
+|
+[msg note]
+|
+[fluid~ sf2/VintageDreamsWaves-v2.sf2]
+*|*
+[ui.hgain2~]
+|\
+[dac~]
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

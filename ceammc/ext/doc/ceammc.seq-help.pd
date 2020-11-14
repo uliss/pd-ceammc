@@ -2,8 +2,10 @@
 #X obj 20 53 ui.link @title index @url ../index-help.pd;
 #X text 62 50 ::;
 #X obj 79 53 ui.link @title ceammc @url ceammc-help.pd;
-#X obj 30 116 seq.bangs;
-#X text 200 116 bang sequencer;
+#X obj 30 116 seq.arp;
+#X text 200 116 sequence arpeggiator;
+#X obj 30 143 seq.bangs;
+#X text 200 143 bang sequencer;
 #X obj 1 1 cnv 5 740 40 empty empty ceammc::seq 20 20 0 20 -104026
 -4096 0;
 #X obj 1 513 cnv 5 740 40 empty empty empty 17 7 0 10 -203890 -1 0;

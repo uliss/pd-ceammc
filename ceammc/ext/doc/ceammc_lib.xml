@@ -1520,6 +1520,9 @@
     </entry>
   </category>
   <category name="seq">
+    <entry name="seq.arp" descr="sequence arpeggiator" ref_view="object">
+      <xi:include href="seq.arp.pddoc" parse="xml"/>
+    </entry>
     <entry name="seq.bangs" descr="bang sequencer" ref_view="object">
       <xi:include href="seq.bangs.pddoc" parse="xml"/>
     </entry>

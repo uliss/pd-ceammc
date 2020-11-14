@@ -500,6 +500,7 @@ set(DOC_FILES
     set.symdiff
     set.union
     seq.bangs
+    seq.arp
     snd.file
     spat.pan4~
     spat.pan8~

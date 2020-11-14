@@ -17,14 +17,16 @@
             </aliases>
         </meta>
         <arguments>
-            <argument name="PATTERN" type="list">sequencer pattern in beat duration units</argument>
+            <argument name="PATTERN" type="list">sequencer pattern in beat duration
+            units</argument>
         </arguments>
         <properties>
-            <property name="@bpm" type="float" default="60" minvalue="1" maxvalue="600" units="bpm">
-            frequency of sequencer division (by default @div=4)</property>
-            <property name="@div" type="int" default="4" minvalue="1" maxvalue="512">
-            sequencer beat division. The four means 1/4, eight - 1/8 etc.</property>
-            <property name="@pattern" type="list">sequencer pattern in beat duration units</property>
+            <property name="@bpm" type="float" default="60" minvalue="1" maxvalue="600"
+            units="bpm">frequency of sequencer division (by default @div=4)</property>
+            <property name="@div" type="int" default="4" minvalue="1" maxvalue="512">sequencer beat
+            division. The four means 1/4, eight - 1/8 etc.</property>
+            <property name="@pattern" type="list">sequencer pattern in beat duration
+            units</property>
         </properties>
         <methods>
             <method name="reset">reset to first element</method>
