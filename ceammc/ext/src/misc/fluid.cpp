@@ -18,10 +18,79 @@
 #include "../src/sfloader/fluid_sfont.h"
 #include "fluidsynth.h"
 
+#define PROP_ERR() LogPdObject(owner(), LOG_ERROR).stream() << errorPrefix()
+
+class FluidSynthProperty : public Property {
+public:
+    using FluidFnGetter = std::function<t_float(fluid_synth_t*)>;
+    using FluidFnSetter = std::function<bool(fluid_synth_t*, t_float)>;
+
+private:
+    fluid_synth_t* synth_;
+    FluidFnGetter getter_;
+    FluidFnSetter setter_;
+
+public:
+    FluidSynthProperty(const std::string& name, fluid_synth_t* synth, FluidFnGetter getter, FluidFnSetter setter)
+        : Property(PropertyInfo(name, PropValueType::FLOAT))
+        , synth_(synth)
+        , getter_(getter)
+        , setter_(setter)
+    {
+        if (!setter_)
+            setReadOnly();
+    }
+
+    AtomList get() const override
+    {
+        if (!synth_) {
+            PROP_ERR() << "null synth";
+            return {};
+        }
+
+        return { getter_(synth_) };
+    }
+
+    bool getFloat(t_float& v) const override
+    {
+        if (!synth_)
+            return false;
+
+        v = getter_(synth_);
+        return true;
+    }
+
+    bool setFloat(t_float v) override
+    {
+        if (!synth_) {
+            PROP_ERR() << "null synth";
+            return false;
+        }
+
+        return setter_(synth_, v);
+    }
+
+    bool setList(const AtomListView& lst) override
+    {
+        if (!lst.isFloat()) {
+            PROP_ERR() << "float value expected, got: " << lst;
+            return false;
+        }
+
+        return setFloat(lst.asT<t_float>());
+    }
+};
+
 Fluid::Fluid(const PdArgs& args)
     : SoundExternal(args)
     , synth_(nullptr)
     , sound_font_(&s_)
+    , reverb_room_(nullptr)
+    , reverb_damp_(nullptr)
+    , reverb_width_(nullptr)
+    , reverb_level_(nullptr)
+    , gain_(nullptr)
+    , polyphony_(nullptr)
 {
     createSignalOutlet();
     createSignalOutlet();
@@ -53,6 +122,75 @@ Fluid::Fluid(const PdArgs& args)
         []() -> t_symbol* { return gensym(FLUIDSYNTH_VERSION); });
 
     createCbProperty("@soundfonts", &Fluid::propSoundFonts);
+
+    reverb_room_ = new FluidSynthProperty(
+        "@reverb_room", synth_,
+        [](fluid_synth_t* synth) -> t_float {
+            return fluid_synth_get_reverb_roomsize(synth);
+        },
+        [](fluid_synth_t* synth, t_float v) -> bool {
+            return fluid_synth_set_reverb_roomsize(synth, v) == FLUID_OK;
+        });
+    addProperty(reverb_room_);
+
+    reverb_damp_ = new FluidSynthProperty(
+        "@reverb_damp", synth_,
+        [](fluid_synth_t* synth) -> t_float {
+            return fluid_synth_get_reverb_damp(synth);
+        },
+        [](fluid_synth_t* synth, t_float v) -> bool {
+            return fluid_synth_set_reverb_damp(synth, v) == FLUID_OK;
+        });
+    addProperty(reverb_damp_);
+
+    reverb_width_ = new FluidSynthProperty(
+        "@reverb_width", synth_,
+        [](fluid_synth_t* synth) -> t_float {
+            return fluid_synth_get_reverb_width(synth);
+        },
+        [](fluid_synth_t* synth, t_float v) -> bool {
+            return fluid_synth_set_reverb_width(synth, v) == FLUID_OK;
+        });
+    addProperty(reverb_width_);
+
+    reverb_level_ = new FluidSynthProperty(
+        "@reverb_level", synth_,
+        [](fluid_synth_t* synth) -> t_float {
+            return fluid_synth_get_reverb_level(synth);
+        },
+        [](fluid_synth_t* synth, t_float v) -> bool {
+            return fluid_synth_set_reverb_level(synth, v) == FLUID_OK;
+        });
+    addProperty(reverb_level_);
+
+    gain_ = new FluidSynthProperty(
+        "@gain", synth_,
+        [](fluid_synth_t* synth) -> t_float {
+            return fluid_synth_get_gain(synth);
+        },
+        [](fluid_synth_t* synth, t_float v) -> bool {
+            fluid_synth_set_gain(synth, v);
+            return true;
+        });
+
+    if (gain_->infoT().setConstraints(PropValueConstraints::CLOSED_RANGE))
+        (void)gain_->infoT().setRangeFloat(0, 10);
+
+    addProperty(gain_);
+
+    polyphony_ = new FluidSynthProperty(
+        "@poly", synth_,
+        [](fluid_synth_t* synth) -> t_float {
+            return fluid_synth_get_polyphony(synth);
+        },
+        [](fluid_synth_t* synth, t_float v) -> bool {
+            return fluid_synth_set_polyphony(synth, v) == FLUID_OK;
+        });
+
+    if (polyphony_->infoT().setConstraints(PropValueConstraints::CLOSED_RANGE))
+        (void)polyphony_->infoT().setRangeFloat(1, 1024);
+
+    addProperty(polyphony_);
 }
 
 Fluid::~Fluid()

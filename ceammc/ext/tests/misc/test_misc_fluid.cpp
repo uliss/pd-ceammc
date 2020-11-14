@@ -36,6 +36,13 @@ TEST_CASE("misc.fluid~", "[externals]")
         REQUIRE_PROPERTY(t, @version, "2.0.0");
         REQUIRE_PROPERTY(t, @sf, "");
         REQUIRE_PROPERTY_LIST(t, @soundfonts, L());
+        REQUIRE_PROPERTY(t, @reverb_room, 0.2);
+        REQUIRE_PROPERTY(t, @reverb_damp, 0.);
+        REQUIRE_PROPERTY(t, @reverb_width, 0.5);
+        REQUIRE_PROPERTY(t, @reverb_level, 0.9);
+
+        REQUIRE_PROPERTY(t, @gain, 0.6);
+        REQUIRE_PROPERTY(t, @poly, 256);
     }
 
     SECTION("load")

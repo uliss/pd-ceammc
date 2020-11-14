@@ -21,9 +21,18 @@ using namespace ceammc;
 struct _fluid_synth_t;
 typedef struct _fluid_synth_t fluid_synth_t;
 
+class FluidSynthProperty;
+
 class Fluid : public SoundExternal {
     fluid_synth_t* synth_;
     t_symbol* sound_font_;
+    FluidSynthProperty* reverb_room_;
+    FluidSynthProperty* reverb_damp_;
+    FluidSynthProperty* reverb_width_;
+    FluidSynthProperty* reverb_level_;
+
+    FluidSynthProperty* gain_;
+    FluidSynthProperty* polyphony_;
 
 public:
     Fluid(const PdArgs& args);
