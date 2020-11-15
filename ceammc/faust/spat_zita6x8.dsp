@@ -1,34 +1,36 @@
 declare name "spat.zita8";
 
 //sp = library("spats.lib");
+ba = library("basics.lib");
 si = library("signals.lib");
 ma = library("maths.lib");
 re = library("reverbs.lib");
 cm = library("ceammc.lib");
 
-fromN1 = _,0;
-toN1 = _,_ : _, !;
-
 process = si.bus(6) : par(i, nin,
-    cm.fx_drywet(_, fromN1 : re.zita_rev1_stereo(
-        vslider("delay%i [unit:ms] [style:knob]", 60, 20, 100, 1),
-        200, 6000,
-        vslider("decay_low%i [unit:sec] [style:knob] [scale:log]", 3, 1, 10, 0.1),
-        vslider("decay_mid%i [unit:sec] [style:knob] [scale:log]", 2, 1, 10, 0.1),
-        fsmax)
-    : toN1,
-        hslider("drywet%i [style:knob]", 0.5, 0, 1, 0.01) : si.smoo)
-    : spat(8,
+    zita_gain(
+        vslider("delay%i [unit:ms] [style:knob]", 60, 0, 100, 1),
+        vslider("decay%i [unit:sec] [style:knob] [scale:log]", 2, 0, 90, 0.1),
+        vslider("direct%i [unit:db] [style:knob] [scale:log]", -3, -60, 0, 0.1) : ba.db2linear,
+        vslider("reverb%i [unit:db] [style:knob] [scale:log]", -6, -60, 0, 0.1) : ba.db2linear)
+    :
+    spat(8,
         vslider("angle%i", 0, 0, 1, 0.0001),
         vslider("radius%i", 1, 0, 1, 0.0001))) :> si.bus(8)
 with {
     nin = 6;
     nout = 8;
-    fsmax = 96000;  // highest sampling rate that will be used
+    fsmax = 48000;  // highest sampling rate that will be used
 
     q8_sqrt = ffunction(float q8_sqrt (float), "m_pd.h", "");
 
-    spat(n,a,d) = _ <: par(i, n, *( scaler(i, n, a, d) : si.smooth(0.9999) ))
+    mix(fx, dry, wet) = _ <: fx *wet, _ *dry :> _;
+
+    zita(ui_delay, ui_decay) = _,0 : re.zita_rev1_stereo(ui_delay, 200, 6000, ui_decay, ui_decay, fsmax) : _, !;
+
+    zita_gain(ui_delay, ui_decay, ui_direct_gain, ui_reverb_gain) = mix(zita(ui_delay, ui_decay), ui_direct_gain, ui_reverb_gain);
+
+    spat(n,a,d) = _ <: par(i, n, *( scaler(i, n, a, d) : si.smooth(0.999) ))
     with {
         scaler(i,n,a,d) = (d/2.0+0.5)
             * q8_sqrt( max(0.0, 1.0 - abs(fmod(a+0.5+float(n-i)/n, 1.0) - 0.5) * n * d) );

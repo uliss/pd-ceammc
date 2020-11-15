@@ -504,6 +504,7 @@ set(DOC_FILES
     snd.file
     spat.pan4~
     spat.pan8~
+    spat.zita6x8~
     speech.flite
     string
     string.contains

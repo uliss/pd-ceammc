@@ -701,6 +701,7 @@ spat.pan4~	GMEM SPAT: 4-outputs spatializer
 pan4~	GMEM SPAT: 4-outputs spatializer
 spat.pan8~	GMEM SPAT: 8-outputs spatializer
 pan8~	GMEM SPAT: 8-outputs spatializer
+spat.zita6x8~	spat with 6 inputs sources to 8 channel output
 string	string constructor
 str	string constructor
 string.contains	checks if string contains specified substring

@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="spat.zita6x8~">
+        <title>spat.zita6x8~</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>spat with 6 inputs sources to 8 channel output</description>
+            <license>GPL3 or later</license>
+            <library>ceammc</library>
+            <category>spat</category>
+            <keywords>fx spat zita</keywords>
+            <since>0.9.1</since>
+        </meta>
+        <methods>
+            <method name="reset">reset reverb</method>
+        </methods>
+        <properties>
+            <property name="@angle0" type="float" minvalue="0" default="0" maxvalue="1">1st source panning
+            position</property>
+            <property name="@angle1" type="float" minvalue="0" default="0" maxvalue="1">2nd source panning
+            position</property>
+            <property name="@angle2" type="float" minvalue="0" default="0" maxvalue="1">3rd source panning
+            position</property>
+            <property name="@angle3" type="float" minvalue="0" default="0" maxvalue="1">4th source panning
+            position</property>
+            <property name="@angle4" type="float" minvalue="0" default="0" maxvalue="1">5th source panning
+            position</property>
+            <property name="@angle5" type="float" minvalue="0" default="0" maxvalue="1">6th source panning
+            position</property>
+            <property name="@radius0" type="float" minvalue="0" maxvalue="1" default="1">distance
+            from circle center</property>
+            <property name="@delay0" type="float" minvalue="0" maxvalue="100" default="60"
+            units="millisecond">1st source delay of 0 to 100 ms operating on the 'wet' signal. Large values
+            will provide the impression of a larger room</property>
+            <property name="@delay1" type="float" minvalue="0" maxvalue="100" default="60"
+            units="millisecond">2nd source delay</property>
+            <property name="@delay2" type="float" minvalue="0" maxvalue="100" default="60"
+            units="millisecond">3rd source delay</property>
+            <property name="@delay3" type="float" minvalue="0" maxvalue="100" default="60"
+            units="millisecond">4th source delay</property>
+            <property name="@delay4" type="float" minvalue="0" maxvalue="100" default="60"
+            units="millisecond">5th source delay</property>
+            <property name="@delay5" type="float" minvalue="0" maxvalue="100" default="60"
+            units="millisecond">6th source delay</property>
+            <property name="@decay0" type="float" minvalue="0" maxvalue="90" default="2"
+            units="second">time (in seconds) to decay 60dB in low and mid-frequency band</property>
+            <property name="@direct0" type="float" minvalue="-60" maxvalue="0" default="-3" units="decibel">
+            direct sound level</property>
+            <property name="@reverb0" type="float" minvalue="-60" maxvalue="0" default="-6" units="decibel">
+            reverb sound level</property>
+            <property name="@active" type="int" enum="0 1" default="1">on/off dsp
+            processing</property>
+        </properties>
+        <inlets>
+            <inlet type="audio">
+                <xinfo>1st source input</xinfo>
+            </inlet>
+            <inlet type="audio">
+                <xinfo>2nd source input</xinfo>
+            </inlet>
+            <inlet type="audio">
+                <xinfo>3rd source input</xinfo>
+            </inlet>
+            <inlet type="audio">
+                <xinfo>4th source input</xinfo>
+            </inlet>
+            <inlet type="audio">
+                <xinfo>5th source input</xinfo>
+            </inlet>
+            <inlet type="audio">
+                <xinfo>6th source input</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet type="audio">1st output</outlet>
+            <outlet type="audio">2dn output</outlet>
+            <outlet type="audio">3rd output</outlet>
+            <outlet type="audio">4th output</outlet>
+            <outlet type="audio">5th output</outlet>
+            <outlet type="audio">6th output</outlet>
+            <outlet type="audio">7th output</outlet>
+            <outlet type="audio">8th output</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[open %CEAMMC%/guitar1.wav, 1(    [ui.polar @positive 1 @clockwise 0]
+|                                     |
+[expand_env #a] [F]  [F #d]           |
+|               |                     |
+[readsf~ #b]    [@direct0 $1 #c(      |
+|                                     |
+|                    [@reverb0 $1 #e( |
+|                                     |
+| [osc~ 1000]        [F]          [list.apply_to 1]X[/ 360]
+| |                  |                |
+| [env.ar~ 20 100]   [@decay0 $1( [@radius0 $1, @angle0 $2(
+| |                  |                |
+| |                  |                |
+| |                  |                |
+[spat.zita6x8~                  {w=20} #z]
+*|*
+[dac~ 1 2 3 4 5 6 7 8 {w=20}]  [ui.dsp~]
+
+[X c->z]
+[X d->e]
+[X e->z]
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

@@ -502,6 +502,7 @@ set.union		..		.
 snd.file		.		.
 spat.pan4~,pan4~		~		~~~~
 spat.pan8~,pan8~		~		~~~~~~~~
+spat.zita6x8~		~~~~~~		~~~~~~~~
 speech.flite		..		.
 string,str		.		.
 string.contains,str.contains		..		.
