@@ -196,3 +196,5 @@ add_custom_target(pddoc_pd_files SOURCES ${_PDDOC_PD_FILES})
 
 # install HOA library docs and examples
 install(DIRECTORY hoa DESTINATION ${DOC_INSTALL_PATH})
+
+add_subdirectory(sound)
