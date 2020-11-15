@@ -6,126 +6,122 @@
 -4096 0;
 #X obj 645 11 spat.zita6x8~;
 #X msg 50 118 open %CEAMMC%/guitar1.wav \, 1;
-#X obj 376 118 ui.polar @positive 1 @clockwise 0;
+#X obj 347 118 ui.polar @positive 1 @clockwise 0;
 #X obj 50 147 expand_env;
 #X floatatom 203 147 5 0 0 0 - - -;
 #X floatatom 251 147 5 0 0 0 - - -;
 #X obj 50 176 readsf~;
-#X msg 203 176 @direct0 \$1;
-#X msg 251 205 @reverb0 \$1;
+#X msg 203 176 @dry0 \$1;
+#X msg 251 205 @wet0 \$1;
 #X obj 69 234 osc~ 1000;
 #X floatatom 251 234 5 0 0 0 - - -;
-#X obj 376 234 list.apply_to 1;
-#X obj 549 234 / 360;
+#X obj 347 234 list.apply_to 1;
+#X obj 520 234 / 360;
 #X obj 69 262 env.ar~ 20 100;
-#X msg 251 262 @decay0 \$1;
-#X msg 376 262 @radius0 \$1 \, @angle0 \$2;
+#X msg 251 262 @t0 \$1;
+#X msg 347 262 @r0 \$1 \, @a0 \$2;
 #X obj 50 320 spat.zita6x8~, f 20;
 #X obj 50 349 dac~ 1 2 3 4 5 6 7 8, f 20;
 #X obj 347 349 ui.dsp~;
 #X obj 20 398 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 403 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
 -49933 0;
-#X msg 110 438 @active;
-#X text 245 438 Get/Set on/off dsp processing. Type: int. Default value:
+#X msg 110 438 @a0;
+#X text 245 438 Get/Set 1st source panning position. Type: float. Default
+value: 0\. Range: 0\...1\.;
+#X msg 110 480 @a1;
+#X text 245 480 Get/Set 2nd source panning position. Type: float. Default
+value: 0\. Range: 0\...1\.;
+#X msg 110 522 @a2;
+#X text 245 522 Get/Set 3rd source panning position. Type: float. Default
+value: 0\. Range: 0\...1\.;
+#X msg 110 564 @a3;
+#X text 245 564 Get/Set 4th source panning position. Type: float. Default
+value: 0\. Range: 0\...1\.;
+#X msg 110 606 @a4;
+#X text 245 606 Get/Set 5th source panning position. Type: float. Default
+value: 0\. Range: 0\...1\.;
+#X msg 110 648 @a5;
+#X text 245 648 Get/Set 6th source panning position. Type: float. Default
+value: 0\. Range: 0\...1\.;
+#X msg 110 690 @active;
+#X text 245 690 Get/Set on/off dsp processing. Type: int. Default value:
 1\. Allowed values: 0 \, 1\.;
-#X msg 110 480 @angle0;
-#X text 245 480 Get/Set 1st source panning position. Type: float. Default
-value: 0\. Range: 0\...1\.;
-#X msg 110 522 @angle1;
-#X text 245 522 Get/Set 2nd source panning position. Type: float. Default
-value: 0\. Range: 0\...1\.;
-#X msg 110 564 @angle2;
-#X text 245 564 Get/Set 3rd source panning position. Type: float. Default
-value: 0\. Range: 0\...1\.;
-#X msg 110 606 @angle3;
-#X text 245 606 Get/Set 4th source panning position. Type: float. Default
-value: 0\. Range: 0\...1\.;
-#X msg 110 648 @angle4;
-#X text 245 648 Get/Set 5th source panning position. Type: float. Default
-value: 0\. Range: 0\...1\.;
-#X msg 110 690 @angle5;
-#X text 245 690 Get/Set 6th source panning position. Type: float. Default
-value: 0\. Range: 0\...1\.;
-#X msg 110 732 @decay0;
-#X text 245 732 Get/Set time (in seconds) to decay 60dB in low and
-mid-frequency band. Type: float. Units: sec. Default value: 2\. Range:
-0\...90\.;
-#X msg 110 789 @delay0;
-#X text 245 789 Get/Set 1st source delay of 0 to 100 ms operating on
-the 'wet' signal. Large values will provide the impression of a larger
-room. Type: float. Units: ms. Default value: 60\. Range: 0\...100\.;
-#X msg 110 861 @delay1;
-#X text 245 861 Get/Set 2nd source delay. Type: float. Units: ms. Default
-value: 60\. Range: 0\...100\.;
-#X msg 110 903 @delay2;
-#X text 245 903 Get/Set 3rd source delay. Type: float. Units: ms. Default
-value: 60\. Range: 0\...100\.;
-#X msg 110 945 @delay3;
-#X text 245 945 Get/Set 4th source delay. Type: float. Units: ms. Default
-value: 60\. Range: 0\...100\.;
-#X msg 110 987 @delay4;
-#X text 245 987 Get/Set 5th source delay. Type: float. Units: ms. Default
-value: 60\. Range: 0\...100\.;
-#X msg 110 1029 @delay5;
-#X text 245 1029 Get/Set 6th source delay. Type: float. Units: ms.
-Default value: 60\. Range: 0\...100\.;
-#X msg 110 1071 @direct0;
-#X text 245 1071 Get/Set direct sound level. Type: float. Units: db.
+#X msg 110 732 @dry0;
+#X text 245 732 Get/Set direct sound level. Type: float. Units: db.
 Default value: -3\. Range: -60\...0\.;
-#X msg 110 1113 @radius0;
-#X text 245 1113 Get/Set distance from circle center. Type: float.
-Default value: 1\. Range: 0\...1\.;
-#X msg 110 1155 @reverb0;
-#X text 245 1155 Get/Set reverb sound level. Type: float. Units: db.
-Default value: -6\. Range: -60\...0\.;
-#X obj 20 1207 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1212 cnv 5 73 26 empty empty methods: 4 10 0 14 -262144
+#X msg 110 774 @r0;
+#X text 245 774 Get/Set 1st source distance from circle center. Type:
+float. Default value: 1\. Range: 0\...1\.;
+#X msg 110 816 @r1;
+#X text 245 816 Get/Set 2nd source distance from circle center. Type:
+float. Default value: 1\. Range: 0\...1\.;
+#X msg 110 858 @r2;
+#X text 245 858 Get/Set 3rd source distance from circle center. Type:
+float. Default value: 1\. Range: 0\...1\.;
+#X msg 110 900 @r3;
+#X text 245 900 Get/Set 4th source distance from circle center. Type:
+float. Default value: 1\. Range: 0\...1\.;
+#X msg 110 942 @r4;
+#X text 245 942 Get/Set 5th source distance from circle center. Type:
+float. Default value: 1\. Range: 0\...1\.;
+#X msg 110 984 @r5;
+#X text 245 984 Get/Set 6th source distance from circle center. Type:
+float. Default value: 1\. Range: 0\...1\.;
+#X msg 110 1026 @t0;
+#X text 245 1026 Get/Set reverb time (in seconds) to decay 60dB in
+low and mid-frequency band. Type: float. Units: sec. Default value:
+2\. Range: 0\...90\.;
+#X msg 110 1083 @wet0;
+#X text 245 1083 Get/Set reverb sound level. Type: float. Units: db.
+Default value: -8\. Range: -60\...0\.;
+#X obj 20 1135 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1140 cnv 5 73 26 empty empty methods: 4 10 0 14 -262144
 -49933 0;
-#X msg 110 1247 reset;
-#X text 245 1247 reset reverb.;
-#X obj 20 1284 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1289 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144
+#X msg 110 1175 reset;
+#X text 245 1175 reset reverb.;
+#X obj 20 1212 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1217 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 1290 1\.;
-#X text 245 1290 1st source input.;
-#X text 110 1310 2\.;
-#X text 245 1310 2nd source input.;
-#X text 110 1330 3\.;
-#X text 245 1330 3rd source input.;
-#X text 110 1350 4\.;
-#X text 245 1350 4th source input.;
-#X text 110 1370 5\.;
-#X text 245 1370 5th source input.;
-#X text 110 1390 6\.;
-#X text 245 1390 6th source input.;
-#X obj 20 1420 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1425 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
+#X text 110 1218 1\.;
+#X text 245 1218 1st source input.;
+#X text 110 1238 2\.;
+#X text 245 1238 2nd source input.;
+#X text 110 1258 3\.;
+#X text 245 1258 3rd source input.;
+#X text 110 1278 4\.;
+#X text 245 1278 4th source input.;
+#X text 110 1298 5\.;
+#X text 245 1298 5th source input.;
+#X text 110 1318 6\.;
+#X text 245 1318 6th source input.;
+#X obj 20 1348 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1353 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 1426 1\.;
-#X text 245 1426 1st output.;
-#X text 110 1446 2\.;
-#X text 245 1446 2dn output.;
-#X text 110 1466 3\.;
-#X text 245 1466 3rd output.;
-#X text 110 1486 4\.;
-#X text 245 1486 4th output.;
-#X text 110 1506 5\.;
-#X text 245 1506 5th output.;
-#X text 110 1526 6\.;
-#X text 245 1526 6th output.;
-#X text 110 1546 7\.;
-#X text 245 1546 7th output.;
-#X text 110 1566 8\.;
-#X text 245 1566 8th output.;
+#X text 110 1354 1\.;
+#X text 245 1354 1st output.;
+#X text 110 1374 2\.;
+#X text 245 1374 2dn output.;
+#X text 110 1394 3\.;
+#X text 245 1394 3rd output.;
+#X text 110 1414 4\.;
+#X text 245 1414 4th output.;
+#X text 110 1434 5\.;
+#X text 245 1434 5th output.;
+#X text 110 1454 6\.;
+#X text 245 1454 6th output.;
+#X text 110 1474 7\.;
+#X text 245 1474 7th output.;
+#X text 110 1494 8\.;
+#X text 245 1494 8th output.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 115 45 ::;
 #X obj 131 48 ui.link @title spat @url ceammc.spat-help.pd;
-#X obj 1 1616 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 1619 library: ceammc v0.9.0;
-#N canvas 10 1638 400 290 info 0;
+#X obj 1 1544 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1547 library: ceammc v0.9.0;
+#N canvas 10 1566 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
@@ -149,7 +145,7 @@ https://github.com/uliss/pure-data;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 generated by pddoc;
-#X restore 10 1638 pd info;
+#X restore 10 1566 pd info;
 #X connect 4 0 6 0;
 #X connect 6 0 9 0;
 #X connect 7 0 10 0;

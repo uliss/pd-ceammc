@@ -17,38 +17,35 @@
             <method name="reset">reset reverb</method>
         </methods>
         <properties>
-            <property name="@angle0" type="float" minvalue="0" default="0" maxvalue="1">1st source panning
+            <property name="@a0" type="float" minvalue="0" default="0" maxvalue="1">1st source panning
             position</property>
-            <property name="@angle1" type="float" minvalue="0" default="0" maxvalue="1">2nd source panning
+            <property name="@a1" type="float" minvalue="0" default="0" maxvalue="1">2nd source panning
             position</property>
-            <property name="@angle2" type="float" minvalue="0" default="0" maxvalue="1">3rd source panning
+            <property name="@a2" type="float" minvalue="0" default="0" maxvalue="1">3rd source panning
             position</property>
-            <property name="@angle3" type="float" minvalue="0" default="0" maxvalue="1">4th source panning
+            <property name="@a3" type="float" minvalue="0" default="0" maxvalue="1">4th source panning
             position</property>
-            <property name="@angle4" type="float" minvalue="0" default="0" maxvalue="1">5th source panning
+            <property name="@a4" type="float" minvalue="0" default="0" maxvalue="1">5th source panning
             position</property>
-            <property name="@angle5" type="float" minvalue="0" default="0" maxvalue="1">6th source panning
+            <property name="@a5" type="float" minvalue="0" default="0" maxvalue="1">6th source panning
             position</property>
-            <property name="@radius0" type="float" minvalue="0" maxvalue="1" default="1">distance
+            <property name="@r0" type="float" minvalue="0" maxvalue="1" default="1">1st source distance
             from circle center</property>
-            <property name="@delay0" type="float" minvalue="0" maxvalue="100" default="60"
-            units="millisecond">1st source delay of 0 to 100 ms operating on the 'wet' signal. Large values
-            will provide the impression of a larger room</property>
-            <property name="@delay1" type="float" minvalue="0" maxvalue="100" default="60"
-            units="millisecond">2nd source delay</property>
-            <property name="@delay2" type="float" minvalue="0" maxvalue="100" default="60"
-            units="millisecond">3rd source delay</property>
-            <property name="@delay3" type="float" minvalue="0" maxvalue="100" default="60"
-            units="millisecond">4th source delay</property>
-            <property name="@delay4" type="float" minvalue="0" maxvalue="100" default="60"
-            units="millisecond">5th source delay</property>
-            <property name="@delay5" type="float" minvalue="0" maxvalue="100" default="60"
-            units="millisecond">6th source delay</property>
-            <property name="@decay0" type="float" minvalue="0" maxvalue="90" default="2"
-            units="second">time (in seconds) to decay 60dB in low and mid-frequency band</property>
-            <property name="@direct0" type="float" minvalue="-60" maxvalue="0" default="-3" units="decibel">
+            <property name="@r1" type="float" minvalue="0" maxvalue="1" default="1">2nd source distance
+            from circle center</property>
+            <property name="@r2" type="float" minvalue="0" maxvalue="1" default="1">3rd source distance
+            from circle center</property>
+            <property name="@r3" type="float" minvalue="0" maxvalue="1" default="1">4th source distance
+            from circle center</property>
+            <property name="@r4" type="float" minvalue="0" maxvalue="1" default="1">5th source distance
+            from circle center</property>
+            <property name="@r5" type="float" minvalue="0" maxvalue="1" default="1">6th source distance
+            from circle center</property>
+            <property name="@t0" type="float" minvalue="0" maxvalue="90" default="2"
+            units="second">reverb time (in seconds) to decay 60dB in low and mid-frequency band</property>
+            <property name="@dry0" type="float" minvalue="-60" maxvalue="0" default="-3" units="decibel">
             direct sound level</property>
-            <property name="@reverb0" type="float" minvalue="-60" maxvalue="0" default="-6" units="decibel">
+            <property name="@wet0" type="float" minvalue="-60" maxvalue="0" default="-8" units="decibel">
             reverb sound level</property>
             <property name="@active" type="int" enum="0 1" default="1">on/off dsp
             processing</property>
@@ -86,17 +83,17 @@
         <example>
             <pdascii>
 <![CDATA[
-[open %CEAMMC%/guitar1.wav, 1(    [ui.polar @positive 1 @clockwise 0]
+[open %CEAMMC%/guitar1.wav, 1( [ui.polar @positive 1 @clockwise 0]
 |                                     |
 [expand_env #a] [F]  [F #d]           |
 |               |                     |
-[readsf~ #b]    [@direct0 $1 #c(      |
+[readsf~ #b]    [@dry0 $1 #c(         |
 |                                     |
-|                    [@reverb0 $1 #e( |
+|                    [@wet0 $1 #e(    |
 |                                     |
-| [osc~ 1000]        [F]          [list.apply_to 1]X[/ 360]
+| [osc~ 1000]        [F]       [list.apply_to 1]X[/ 360]
 | |                  |                |
-| [env.ar~ 20 100]   [@decay0 $1( [@radius0 $1, @angle0 $2(
+| [env.ar~ 20 100]   [@t0 $1(  [@r0 $1, @a0 $2(
 | |                  |                |
 | |                  |                |
 | |                  |                |

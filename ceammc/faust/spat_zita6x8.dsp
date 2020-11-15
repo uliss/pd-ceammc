@@ -7,32 +7,32 @@ ma = library("maths.lib");
 re = library("reverbs.lib");
 cm = library("ceammc.lib");
 
-process = si.bus(6) : par(i, nin,
+process = si.bus(nin) : par(i, nin,
     zita_gain(
-        vslider("delay%i [unit:ms] [style:knob]", 60, 0, 100, 1),
-        vslider("decay%i [unit:sec] [style:knob] [scale:log]", 2, 0, 90, 0.1),
-        vslider("direct%i [unit:db] [style:knob] [scale:log]", -3, -60, 0, 0.1) : ba.db2linear,
-        vslider("reverb%i [unit:db] [style:knob] [scale:log]", -6, -60, 0, 0.1) : ba.db2linear)
+        vslider("t%i [unit:sec] [style:knob] [scale:log]", 2, 0, 90, 0.1),
+        vslider("dry%i [unit:db] [style:knob] [scale:log]", -3, -60, 0, 0.1) : ba.db2linear,
+        vslider("wet%i [unit:db] [style:knob] [scale:log]", -8, -60, 0, 0.1) : ba.db2linear)
     :
     spat(8,
-        vslider("angle%i", 0, 0, 1, 0.0001),
-        vslider("radius%i", 1, 0, 1, 0.0001))) :> si.bus(8)
+        vslider("a%i", 0, 0, 1, 0.0001), // angle
+        vslider("r%i", 1, 0, 1, 0.0001))) :> si.bus(nout) // radius
 with {
     nin = 6;
     nout = 8;
+    predelay = 40;
     fsmax = 48000;  // highest sampling rate that will be used
-
-    q8_sqrt = ffunction(float q8_sqrt (float), "m_pd.h", "");
 
     mix(fx, dry, wet) = _ <: fx *wet, _ *dry :> _;
 
-    zita(ui_delay, ui_decay) = _,0 : re.zita_rev1_stereo(ui_delay, 200, 6000, ui_decay, ui_decay, fsmax) : _, !;
+    zita(time) = _,0 : re.zita_rev1_stereo(predelay, 200, 6000, time, time, fsmax) : _, !;
 
-    zita_gain(ui_delay, ui_decay, ui_direct_gain, ui_reverb_gain) = mix(zita(ui_delay, ui_decay), ui_direct_gain, ui_reverb_gain);
+    zita_gain(time, dry, wet) = mix(zita(time), dry, wet);
 
-    spat(n,a,d) = _ <: par(i, n, *( scaler(i, n, a, d) : si.smooth(0.999) ))
+    spat(n, angle, dist) = _ <: par(i, n, *( scaler(i, n, angle, dist) : si.smooth(0.999) ))
     with {
-        scaler(i,n,a,d) = (d/2.0+0.5)
-            * q8_sqrt( max(0.0, 1.0 - abs(fmod(a+0.5+float(n-i)/n, 1.0) - 0.5) * n * d) );
+        q8_sqrt = ffunction(float q8_sqrt (float), "m_pd.h", "");
+
+        scaler(i, n, angle, dist) = (dist / 2.0 + 0.5)
+            * q8_sqrt( max(0.0, 1.0 - abs(fmod(angle + 0.5 + float(n-i)/n, 1.0) - 0.5) * n * dist) );
     };
 };

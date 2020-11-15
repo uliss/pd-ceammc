@@ -16,7 +16,7 @@
 		{ "filters.lib/allpass_comb:author": "Julius O. Smith III" },
 		{ "filters.lib/allpass_comb:copyright": "Copyright (C) 2003-2019 by Julius O. Smith III <jos@ccrma.stanford.edu>" },
 		{ "filters.lib/allpass_comb:license": "MIT-style STK-4.3 license" },
-		{ "filters.lib/lowpass0_highpass1": "Copyright (C) 2003-2019 by Julius O. Smith III <jos@ccrma.stanford.edu>" },
+		{ "filters.lib/lowpass0_highpass1": "MIT-style STK-4.3 license" },
 		{ "filters.lib/lowpass0_highpass1:author": "Julius O. Smith III" },
 		{ "filters.lib/lowpass:author": "Julius O. Smith III" },
 		{ "filters.lib/lowpass:copyright": "Copyright (C) 2003-2019 by Julius O. Smith III <jos@ccrma.stanford.edu>" },
@@ -50,8 +50,8 @@
 			"items": [ 
 				{
 					"type": "vslider",
-					"label": "angle0",
-					"address": "/spat.zita8/angle0",
+					"label": "a0",
+					"address": "/spat.zita8/a0",
 					"init": 0,
 					"min": 0,
 					"max": 1,
@@ -59,8 +59,8 @@
 				},
 				{
 					"type": "vslider",
-					"label": "angle1",
-					"address": "/spat.zita8/angle1",
+					"label": "a1",
+					"address": "/spat.zita8/a1",
 					"init": 0,
 					"min": 0,
 					"max": 1,
@@ -68,8 +68,8 @@
 				},
 				{
 					"type": "vslider",
-					"label": "angle2",
-					"address": "/spat.zita8/angle2",
+					"label": "a2",
+					"address": "/spat.zita8/a2",
 					"init": 0,
 					"min": 0,
 					"max": 1,
@@ -77,8 +77,8 @@
 				},
 				{
 					"type": "vslider",
-					"label": "angle3",
-					"address": "/spat.zita8/angle3",
+					"label": "a3",
+					"address": "/spat.zita8/a3",
 					"init": 0,
 					"min": 0,
 					"max": 1,
@@ -86,8 +86,8 @@
 				},
 				{
 					"type": "vslider",
-					"label": "angle4",
-					"address": "/spat.zita8/angle4",
+					"label": "a4",
+					"address": "/spat.zita8/a4",
 					"init": 0,
 					"min": 0,
 					"max": 1,
@@ -95,8 +95,8 @@
 				},
 				{
 					"type": "vslider",
-					"label": "angle5",
-					"address": "/spat.zita8/angle5",
+					"label": "a5",
+					"address": "/spat.zita8/a5",
 					"init": 0,
 					"min": 0,
 					"max": 1,
@@ -104,170 +104,8 @@
 				},
 				{
 					"type": "vslider",
-					"label": "decay0",
-					"address": "/spat.zita8/decay0",
-					"meta": [
-						{ "scale": "log" },
-						{ "style": "knob" },
-						{ "unit": "sec" }
-					],
-					"init": 2,
-					"min": 0,
-					"max": 90,
-					"step": 0.1
-				},
-				{
-					"type": "vslider",
-					"label": "decay1",
-					"address": "/spat.zita8/decay1",
-					"meta": [
-						{ "scale": "log" },
-						{ "style": "knob" },
-						{ "unit": "sec" }
-					],
-					"init": 2,
-					"min": 0,
-					"max": 90,
-					"step": 0.1
-				},
-				{
-					"type": "vslider",
-					"label": "decay2",
-					"address": "/spat.zita8/decay2",
-					"meta": [
-						{ "scale": "log" },
-						{ "style": "knob" },
-						{ "unit": "sec" }
-					],
-					"init": 2,
-					"min": 0,
-					"max": 90,
-					"step": 0.1
-				},
-				{
-					"type": "vslider",
-					"label": "decay3",
-					"address": "/spat.zita8/decay3",
-					"meta": [
-						{ "scale": "log" },
-						{ "style": "knob" },
-						{ "unit": "sec" }
-					],
-					"init": 2,
-					"min": 0,
-					"max": 90,
-					"step": 0.1
-				},
-				{
-					"type": "vslider",
-					"label": "decay4",
-					"address": "/spat.zita8/decay4",
-					"meta": [
-						{ "scale": "log" },
-						{ "style": "knob" },
-						{ "unit": "sec" }
-					],
-					"init": 2,
-					"min": 0,
-					"max": 90,
-					"step": 0.1
-				},
-				{
-					"type": "vslider",
-					"label": "decay5",
-					"address": "/spat.zita8/decay5",
-					"meta": [
-						{ "scale": "log" },
-						{ "style": "knob" },
-						{ "unit": "sec" }
-					],
-					"init": 2,
-					"min": 0,
-					"max": 90,
-					"step": 0.1
-				},
-				{
-					"type": "vslider",
-					"label": "delay0",
-					"address": "/spat.zita8/delay0",
-					"meta": [
-						{ "style": "knob" },
-						{ "unit": "ms" }
-					],
-					"init": 60,
-					"min": 0,
-					"max": 100,
-					"step": 1
-				},
-				{
-					"type": "vslider",
-					"label": "delay1",
-					"address": "/spat.zita8/delay1",
-					"meta": [
-						{ "style": "knob" },
-						{ "unit": "ms" }
-					],
-					"init": 60,
-					"min": 0,
-					"max": 100,
-					"step": 1
-				},
-				{
-					"type": "vslider",
-					"label": "delay2",
-					"address": "/spat.zita8/delay2",
-					"meta": [
-						{ "style": "knob" },
-						{ "unit": "ms" }
-					],
-					"init": 60,
-					"min": 0,
-					"max": 100,
-					"step": 1
-				},
-				{
-					"type": "vslider",
-					"label": "delay3",
-					"address": "/spat.zita8/delay3",
-					"meta": [
-						{ "style": "knob" },
-						{ "unit": "ms" }
-					],
-					"init": 60,
-					"min": 0,
-					"max": 100,
-					"step": 1
-				},
-				{
-					"type": "vslider",
-					"label": "delay4",
-					"address": "/spat.zita8/delay4",
-					"meta": [
-						{ "style": "knob" },
-						{ "unit": "ms" }
-					],
-					"init": 60,
-					"min": 0,
-					"max": 100,
-					"step": 1
-				},
-				{
-					"type": "vslider",
-					"label": "delay5",
-					"address": "/spat.zita8/delay5",
-					"meta": [
-						{ "style": "knob" },
-						{ "unit": "ms" }
-					],
-					"init": 60,
-					"min": 0,
-					"max": 100,
-					"step": 1
-				},
-				{
-					"type": "vslider",
-					"label": "direct0",
-					"address": "/spat.zita8/direct0",
+					"label": "dry0",
+					"address": "/spat.zita8/dry0",
 					"meta": [
 						{ "scale": "log" },
 						{ "style": "knob" },
@@ -280,8 +118,8 @@
 				},
 				{
 					"type": "vslider",
-					"label": "direct1",
-					"address": "/spat.zita8/direct1",
+					"label": "dry1",
+					"address": "/spat.zita8/dry1",
 					"meta": [
 						{ "scale": "log" },
 						{ "style": "knob" },
@@ -294,8 +132,8 @@
 				},
 				{
 					"type": "vslider",
-					"label": "direct2",
-					"address": "/spat.zita8/direct2",
+					"label": "dry2",
+					"address": "/spat.zita8/dry2",
 					"meta": [
 						{ "scale": "log" },
 						{ "style": "knob" },
@@ -308,8 +146,8 @@
 				},
 				{
 					"type": "vslider",
-					"label": "direct3",
-					"address": "/spat.zita8/direct3",
+					"label": "dry3",
+					"address": "/spat.zita8/dry3",
 					"meta": [
 						{ "scale": "log" },
 						{ "style": "knob" },
@@ -322,8 +160,8 @@
 				},
 				{
 					"type": "vslider",
-					"label": "direct4",
-					"address": "/spat.zita8/direct4",
+					"label": "dry4",
+					"address": "/spat.zita8/dry4",
 					"meta": [
 						{ "scale": "log" },
 						{ "style": "knob" },
@@ -336,8 +174,8 @@
 				},
 				{
 					"type": "vslider",
-					"label": "direct5",
-					"address": "/spat.zita8/direct5",
+					"label": "dry5",
+					"address": "/spat.zita8/dry5",
 					"meta": [
 						{ "scale": "log" },
 						{ "style": "knob" },
@@ -350,8 +188,8 @@
 				},
 				{
 					"type": "vslider",
-					"label": "radius0",
-					"address": "/spat.zita8/radius0",
+					"label": "r0",
+					"address": "/spat.zita8/r0",
 					"init": 1,
 					"min": 0,
 					"max": 1,
@@ -359,8 +197,8 @@
 				},
 				{
 					"type": "vslider",
-					"label": "radius1",
-					"address": "/spat.zita8/radius1",
+					"label": "r1",
+					"address": "/spat.zita8/r1",
 					"init": 1,
 					"min": 0,
 					"max": 1,
@@ -368,8 +206,8 @@
 				},
 				{
 					"type": "vslider",
-					"label": "radius2",
-					"address": "/spat.zita8/radius2",
+					"label": "r2",
+					"address": "/spat.zita8/r2",
 					"init": 1,
 					"min": 0,
 					"max": 1,
@@ -377,8 +215,8 @@
 				},
 				{
 					"type": "vslider",
-					"label": "radius3",
-					"address": "/spat.zita8/radius3",
+					"label": "r3",
+					"address": "/spat.zita8/r3",
 					"init": 1,
 					"min": 0,
 					"max": 1,
@@ -386,8 +224,8 @@
 				},
 				{
 					"type": "vslider",
-					"label": "radius4",
-					"address": "/spat.zita8/radius4",
+					"label": "r4",
+					"address": "/spat.zita8/r4",
 					"init": 1,
 					"min": 0,
 					"max": 1,
@@ -395,8 +233,8 @@
 				},
 				{
 					"type": "vslider",
-					"label": "radius5",
-					"address": "/spat.zita8/radius5",
+					"label": "r5",
+					"address": "/spat.zita8/r5",
 					"init": 1,
 					"min": 0,
 					"max": 1,
@@ -404,84 +242,168 @@
 				},
 				{
 					"type": "vslider",
-					"label": "reverb0",
-					"address": "/spat.zita8/reverb0",
+					"label": "t0",
+					"address": "/spat.zita8/t0",
+					"meta": [
+						{ "scale": "log" },
+						{ "style": "knob" },
+						{ "unit": "sec" }
+					],
+					"init": 2,
+					"min": 0,
+					"max": 90,
+					"step": 0.1
+				},
+				{
+					"type": "vslider",
+					"label": "t1",
+					"address": "/spat.zita8/t1",
+					"meta": [
+						{ "scale": "log" },
+						{ "style": "knob" },
+						{ "unit": "sec" }
+					],
+					"init": 2,
+					"min": 0,
+					"max": 90,
+					"step": 0.1
+				},
+				{
+					"type": "vslider",
+					"label": "t2",
+					"address": "/spat.zita8/t2",
+					"meta": [
+						{ "scale": "log" },
+						{ "style": "knob" },
+						{ "unit": "sec" }
+					],
+					"init": 2,
+					"min": 0,
+					"max": 90,
+					"step": 0.1
+				},
+				{
+					"type": "vslider",
+					"label": "t3",
+					"address": "/spat.zita8/t3",
+					"meta": [
+						{ "scale": "log" },
+						{ "style": "knob" },
+						{ "unit": "sec" }
+					],
+					"init": 2,
+					"min": 0,
+					"max": 90,
+					"step": 0.1
+				},
+				{
+					"type": "vslider",
+					"label": "t4",
+					"address": "/spat.zita8/t4",
+					"meta": [
+						{ "scale": "log" },
+						{ "style": "knob" },
+						{ "unit": "sec" }
+					],
+					"init": 2,
+					"min": 0,
+					"max": 90,
+					"step": 0.1
+				},
+				{
+					"type": "vslider",
+					"label": "t5",
+					"address": "/spat.zita8/t5",
+					"meta": [
+						{ "scale": "log" },
+						{ "style": "knob" },
+						{ "unit": "sec" }
+					],
+					"init": 2,
+					"min": 0,
+					"max": 90,
+					"step": 0.1
+				},
+				{
+					"type": "vslider",
+					"label": "wet0",
+					"address": "/spat.zita8/wet0",
 					"meta": [
 						{ "scale": "log" },
 						{ "style": "knob" },
 						{ "unit": "db" }
 					],
-					"init": -6,
+					"init": -8,
 					"min": -60,
 					"max": 0,
 					"step": 0.1
 				},
 				{
 					"type": "vslider",
-					"label": "reverb1",
-					"address": "/spat.zita8/reverb1",
+					"label": "wet1",
+					"address": "/spat.zita8/wet1",
 					"meta": [
 						{ "scale": "log" },
 						{ "style": "knob" },
 						{ "unit": "db" }
 					],
-					"init": -6,
+					"init": -8,
 					"min": -60,
 					"max": 0,
 					"step": 0.1
 				},
 				{
 					"type": "vslider",
-					"label": "reverb2",
-					"address": "/spat.zita8/reverb2",
+					"label": "wet2",
+					"address": "/spat.zita8/wet2",
 					"meta": [
 						{ "scale": "log" },
 						{ "style": "knob" },
 						{ "unit": "db" }
 					],
-					"init": -6,
+					"init": -8,
 					"min": -60,
 					"max": 0,
 					"step": 0.1
 				},
 				{
 					"type": "vslider",
-					"label": "reverb3",
-					"address": "/spat.zita8/reverb3",
+					"label": "wet3",
+					"address": "/spat.zita8/wet3",
 					"meta": [
 						{ "scale": "log" },
 						{ "style": "knob" },
 						{ "unit": "db" }
 					],
-					"init": -6,
+					"init": -8,
 					"min": -60,
 					"max": 0,
 					"step": 0.1
 				},
 				{
 					"type": "vslider",
-					"label": "reverb4",
-					"address": "/spat.zita8/reverb4",
+					"label": "wet4",
+					"address": "/spat.zita8/wet4",
 					"meta": [
 						{ "scale": "log" },
 						{ "style": "knob" },
 						{ "unit": "db" }
 					],
-					"init": -6,
+					"init": -8,
 					"min": -60,
 					"max": 0,
 					"step": 0.1
 				},
 				{
 					"type": "vslider",
-					"label": "reverb5",
-					"address": "/spat.zita8/reverb5",
+					"label": "wet5",
+					"address": "/spat.zita8/wet5",
 					"meta": [
 						{ "scale": "log" },
 						{ "style": "knob" },
 						{ "unit": "db" }
 					],
-					"init": -6,
+					"init": -8,
 					"min": -60,
 					"max": 0,
 					"step": 0.1
