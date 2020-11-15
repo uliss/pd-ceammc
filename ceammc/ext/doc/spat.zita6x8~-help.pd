@@ -5,7 +5,7 @@
 #X obj 1 1 cnv 5 765 40 empty empty spat.zita6x8~ 20 20 0 20 -104026
 -4096 0;
 #X obj 645 11 spat.zita6x8~;
-#X msg 50 118 open %CEAMMC%/guitar1.wav \, 1;
+#X msg 50 118 open %CEAMMC%/sound/vln-pizz-a4.aiff \, 1;
 #X obj 347 118 ui.polar @positive 1 @clockwise 0;
 #X obj 50 147 expand_env;
 #X floatatom 203 147 5 0 0 0 - - -;

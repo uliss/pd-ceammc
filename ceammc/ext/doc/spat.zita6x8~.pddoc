@@ -83,7 +83,7 @@
         <example>
             <pdascii>
 <![CDATA[
-[open %CEAMMC%/guitar1.wav, 1( [ui.polar @positive 1 @clockwise 0]
+[open #msg(                    [ui.polar @positive 1 @clockwise 0]
 |                                     |
 [expand_env #a] [F]  [F #d]           |
 |               |                     |
@@ -104,6 +104,7 @@
 [X c->z]
 [X d->e]
 [X e->z]
+#msg %CEAMMC%/sound/vln-pizz-a4.aiff, 1
 ]]>
             </pdascii>
         </example>
