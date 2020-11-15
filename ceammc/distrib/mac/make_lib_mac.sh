@@ -134,6 +134,9 @@ do
     echo "+ WAV: '$help'"
 done
 
+echo "Copying sound samples to ${OUTDIR}/sound ..."
+cp -R "${SRCDIR}/ext/doc/sound" ${OUTDIR}
+
 echo "Copying SF2 fonts to ${OUTDIR}/sf2 ..."
 cp -R "${SRCDIR}/extra/fluidsynth/fluidsynth/sf2" ${OUTDIR}
 
