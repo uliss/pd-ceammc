@@ -3,7 +3,7 @@ ma = library("maths.lib");
 ba = library("basics.lib");
 si = library("signals.lib");
 
-clip(x, low, high) = max(min(high, x), low);
+clip(x, low, high) = max(low, min(high, x));
 
 process(in, freq) = fcomb : _ with {
     minfreq = 20;

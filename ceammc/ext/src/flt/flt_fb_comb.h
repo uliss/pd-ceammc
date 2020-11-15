@@ -662,7 +662,7 @@ class flt_fb_comb : public flt_fb_comb_dsp {
 			fRec2[0] = (fSlow0 + (0.999000013f * fRec2[1]));
 			float fTemp0 = (float(input0[i]) - (fRec2[0] * fRec0[1]));
 			fVec0[(IOTA & 16383)] = fTemp0;
-			float fTemp1 = (fConst0 / std::max<float>(std::min<float>(20000.0f, float(input1[i])), 20.0f));
+			float fTemp1 = (fConst0 / std::max<float>(20.0f, std::min<float>(20000.0f, float(input1[i]))));
 			float fTemp2 = (fTemp1 + -1.0f);
 			int iTemp3 = int(fTemp2);
 			float fTemp4 = std::floor(fTemp2);
