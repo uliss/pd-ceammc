@@ -15,6 +15,7 @@
 #include "ceammc_convert.h"
 #include "ceammc_factory.h"
 #include "ceammc_format.h"
+#include "ceammc_output.h"
 
 #include <array>
 #include <cstdlib>
@@ -22,7 +23,7 @@
 constexpr int LCD_MAX_CHARS = 7;
 constexpr int MAX_VU_DB = 0;
 constexpr int MIN_VU_DB = -60;
-constexpr int MAX_SCENES = 8;
+constexpr int MAX_SCENES = 16;
 constexpr int MIN_SCENES = 1;
 
 constexpr int MAX_CONTROLS = Scene::NCHAN * MAX_SCENES;
@@ -680,6 +681,9 @@ void XTouchExtender::sendNote(uint8_t note, uint8_t velocity, uint8_t ch)
 
 void XTouchExtender::syncDisplay(uint8_t scene_idx, uint8_t ctl_idx)
 {
+    if (scene_->value() != scene_idx)
+        return;
+
     auto& dd = sceneByIdx(scene_idx).displayData(ctl_idx);
 
     // example from doc: F0 00 20 32 dd 4C nn cc c1 .. c14 F7
