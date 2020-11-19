@@ -75,6 +75,7 @@ TEST_CASE("array.grainer", "[externals]")
         REQUIRE(g->pan() == 0);
         REQUIRE(g->panNorm() == 0.5);
         REQUIRE(g->panOverflow() == Grain::PAN_OVERFLOW_CLIP);
+        REQUIRE(g->winType() == Grain::WIN_RECT);
         g->setPan(-1);
         REQUIRE(g->pan() == -1);
         REQUIRE(g->panNorm() == 0);
@@ -135,6 +136,45 @@ TEST_CASE("array.grainer", "[externals]")
         REQUIRE(buf0[2] == 0);
         REQUIRE(buf0[3] == 0);
         REQUIRE(g->playStatus() == Grain::FINISHED);
+    }
+
+    SECTION("Grain window")
+    {
+        ArrayPtr aptr = cnv->createArray("array_g01", 20);
+        aptr->fillWith(1);
+
+        Grain* g = GrainPool::instance().allocate(0, 9, 0);
+        REQUIRE(g);
+        REQUIRE(g->speed() == 1);
+        REQUIRE(g->lengthInSamples() == 9);
+        REQUIRE(g->endInSamples() == 9);
+        REQUIRE(g->pan() == 0);
+        REQUIRE(g->panNorm() == 0.5);
+        REQUIRE(g->panOverflow() == Grain::PAN_OVERFLOW_CLIP);
+        REQUIRE(g->winType() == Grain::WIN_RECT);
+        g->setPan(-1);
+        g->setWinType(Grain::WIN_TRIANGLE);
+        REQUIRE(g->pan() == -1);
+        REQUIRE(g->panNorm() == 0);
+        REQUIRE(g->winType() == Grain::WIN_TRIANGLE);
+
+        constexpr size_t BS = 20;
+        t_sample buf0[BS] = { 0 };
+        t_sample buf1[BS] = { 0 };
+        t_sample* buf[] = { buf0, buf1 };
+
+        g->start(0);
+        g->process(aptr->begin(), aptr->size(), buf, BS);
+
+        REQUIRE(buf0[0] == 0);
+        REQUIRE(buf0[1] == 0.25);
+        REQUIRE(buf0[2] == 0.5);
+        REQUIRE(buf0[3] == 0.75);
+        REQUIRE(buf0[4] == 1);
+        REQUIRE(buf0[5] == 0.75);
+        REQUIRE(buf0[6] == 0.5);
+        REQUIRE(buf0[7] == 0.25);
+        REQUIRE(buf0[8] == 0);
     }
 
     SECTION("GrainCloud")

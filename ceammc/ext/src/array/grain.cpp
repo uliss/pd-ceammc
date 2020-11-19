@@ -14,14 +14,24 @@
 #include "grain.h"
 #include "ceammc_convert.h"
 #include "ceammc_log.h"
+#include "ceammc_window.h"
 
 #include "muParser.h"
 
 #include <algorithm>
+#include <array>
 #include <limits>
 #include <stdexcept>
 
 namespace ceammc {
+
+constexpr size_t WIN_SIZE = 257;
+
+static std::array<t_sample, WIN_SIZE + 3> win_triangle = { 0 };
+static std::array<t_sample, WIN_SIZE + 3> win_hann = { 0 };
+static std::array<t_sample, WIN_SIZE + 3> win_gauss = { 0 };
+
+static const auto win_init = Grain::initWinTables();
 
 static float foldFloat(float x, float max)
 {
@@ -51,6 +61,7 @@ Grain::Grain()
     , pan_overflow_(PAN_OVERFLOW_CLIP)
     , pan_mode_(PAN_MODE_LINEAR)
     , play_interp_(INTERP_NO)
+    , win_type_(WIN_RECT)
 {
 }
 
@@ -60,6 +71,7 @@ Grain::Grain(size_t array_pos, size_t length, size_t play_pos)
     , pan_overflow_(PAN_OVERFLOW_CLIP)
     , pan_mode_(PAN_MODE_LINEAR)
     , play_interp_(INTERP_NO)
+    , win_type_(WIN_RECT)
 {
     array_pos_samp = array_pos;
     length_samp = length;
@@ -202,31 +214,35 @@ Grain::PlayStatus Grain::process(ArrayIterator in, size_t in_size, t_sample** bu
     const auto pan_coeffs = panSample(1);
     const double step_incr = play_speed_;
 
+    // play forwards
     if (play_speed_ > 0) {
+        const size_t play_end = startInSamples() + length_samp;
+
         for (size_t i = 0; i < bs; i++, play_pos += step_incr) {
             if (play_pos < startInSamples()) {
                 continue;
-            } else if (play_pos >= endInSamples()) {
+            } else if (play_pos >= play_end) {
                 return done();
             } else
                 play_status = PLAYING;
 
-            assert(play_pos >= startInSamples());
+            assert(play_pos >= startInSamples() && play_pos < play_end);
 
             // time position
-            const double play_idx = arrayPosInSamples() + play_pos - startInSamples();
-            if (play_idx >= in_size)
+            const double rel_play_idx = play_pos - startInSamples();
+            const double abs_play_idx = arrayPosInSamples() + rel_play_idx;
+            if (abs_play_idx >= in_size)
                 return done();
 
-            assert(play_idx >= 0);
+            assert(abs_play_idx >= 0 && abs_play_idx < in_size);
 
             t_sample value = 0;
-            const auto idx = static_cast<size_t>(play_idx);
+            const auto idx = static_cast<size_t>(abs_play_idx);
             switch (play_interp_) {
             case INTERP_LINEAR: {
                 const auto x0 = in[idx];
                 const auto x1 = (idx + 1 >= in_size) ? x0 : in[idx + 1];
-                const double t1 = play_idx - double(idx); // fractional part
+                const double t1 = abs_play_idx - double(idx); // fractional part
                 value = interpLinear(x0, x1, t1);
             } break;
             case INTERP_CUBIC: {
@@ -234,7 +250,7 @@ Grain::PlayStatus Grain::process(ArrayIterator in, size_t in_size, t_sample** bu
                 const auto x1 = in[idx];
                 const auto x2 = (idx + 1 >= in_size) ? x1 : in[idx + 1];
                 const auto x3 = (idx + 2 >= in_size) ? x2 : in[idx + 2];
-                const double t1 = play_idx - double(idx); // fractional part
+                const double t1 = abs_play_idx - double(idx); // fractional part
                 value = interpCubicHermite(x0, x1, x2, x3, t1);
             } break;
             case INTERP_NO:
@@ -243,13 +259,41 @@ Grain::PlayStatus Grain::process(ArrayIterator in, size_t in_size, t_sample** bu
                 break;
             }
 
+            // apply window
+            if (win_type_ != WIN_RECT) {
+                assert(rel_play_idx >= 0 && rel_play_idx < length_samp);
+
+                const double win_fpos = convert::lin2lin_clip<double>(rel_play_idx, 0, length_samp - 1, 0, WIN_SIZE - 1);
+                const double win_ipos = static_cast<size_t>(win_fpos);
+                const double win_t = win_fpos - static_cast<size_t>(win_ipos); // fractional part
+
+                switch (win_type_) {
+                case WIN_TRIANGLE:
+                    value *= interpLinear(
+                        win_triangle[win_ipos + 0],
+                        win_triangle[win_ipos + 1],
+                        win_t);
+                    break;
+                case WIN_HANN:
+                    value *= interpCubicHermite(
+                        win_hann[win_ipos + 0],
+                        win_hann[win_ipos + 1],
+                        win_hann[win_ipos + 2],
+                        win_hann[win_ipos + 3],
+                        win_t);
+                    break;
+                default:
+                    break;
+                }
+            }
+
             const auto vamp = value * amp_;
 
             buf[0][i] += pan_coeffs.first * vamp;
             buf[1][i] += pan_coeffs.second * vamp;
         }
 
-        if (play_pos >= endInSamples())
+        if (play_pos >= play_end)
             return done();
     } else {
 
@@ -302,5 +346,14 @@ Grain::PlayStatus Grain::process(ArrayIterator in, size_t in_size, t_sample** bu
     }
 
     return PLAYING;
+}
+
+bool Grain::initWinTables()
+{
+    window::fill(win_triangle.begin(), win_triangle.begin() + WIN_SIZE, &window::triangle<t_sample>);
+    window::fill(win_hann.begin(), win_hann.begin() + WIN_SIZE, &window::hann<t_sample>);
+    window::fill(win_gauss.begin(), win_gauss.begin() + WIN_SIZE, &window::gauss<t_sample, 1>);
+
+    return true;
 }
 }
