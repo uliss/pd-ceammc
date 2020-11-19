@@ -7,6 +7,7 @@ macro(ceammc_proto_extension name)
 endmacro()
 
 ceammc_proto_extension(firmata)
+ceammc_proto_extension(hui)
 ceammc_proto_extension(sp_alpaca)
 
 add_library(ceammc_proto STATIC mod_proto.cpp ${PROTO_SOURCES})
