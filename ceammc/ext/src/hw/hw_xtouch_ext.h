@@ -121,6 +121,8 @@ public:
     void m_lcd_mode(t_symbol* s, const AtomListView& lv);
     void m_lcd_color(t_symbol* s, const AtomListView& lv);
 
+    void m_set(t_symbol* s, const AtomListView& lv);
+
 private:
     void parseXMidi();
     void parseHui();

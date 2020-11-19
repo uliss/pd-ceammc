@@ -864,6 +864,88 @@ void XTouchExtender::m_lcd_color(t_symbol* s, const AtomListView& lv)
     }
 }
 
+void XTouchExtender::m_set(t_symbol* s, const AtomListView& lv)
+{
+    auto usage = [this, s](const char* msg) -> void {
+        METHOD_ERR(s) << msg << ", usage: " << s->s_name
+                      << " all|scene|scene_idx ctl_name(rec|solo|mute|select|btn) value";
+    };
+
+    if (lv.size() != 3)
+        return usage("empty arguments");
+
+    const auto ctrl = lv.symbolAt(1, nullptr);
+    if (ctrl != gensym("rec")
+        && ctrl != gensym("solo")
+        && ctrl != gensym("mute")
+        && ctrl != gensym("select")
+        && ctrl != gensym("btn")) {
+        return usage("invalid control name");
+    }
+
+    if (!lv[2].isFloat())
+        return usage("float value expected");
+
+    const auto val = lv.floatAt(2, 0);
+    //    if (val <)
+    const auto NCH = currentScene().NCHAN;
+
+    if (lv[0].isSymbol()) {
+        const auto target = lv[0].asT<t_symbol*>();
+        if (target == gensym("scene")) {
+            const auto btn = gensym("btn");
+
+            if (ctrl == gensym("rec") || ctrl == btn) {
+                for (int i = 0; i < NCH; i++)
+                    sendRec(scene_->value(), i, val);
+            }
+
+            if (ctrl == gensym("solo") || ctrl == btn) {
+                for (int i = 0; i < NCH; i++)
+                    sendSolo(scene_->value(), i, val);
+            }
+
+            if (ctrl == gensym("mute") || ctrl == btn) {
+                for (int i = 0; i < NCH; i++)
+                    sendMute(scene_->value(), i, val);
+            }
+
+            if (ctrl == gensym("select") || ctrl == btn) {
+                for (int i = 0; i < NCH; i++)
+                    sendSelect(scene_->value(), i, val);
+            }
+        }
+    } else if (lv[0].isFloat()) {
+        const int scene_idx = lv[0].asInt();
+        if (scene_idx < 0 || scene_idx >= num_scenes_->value()) {
+            METHOD_ERR(s) << "invalid scene index: " << scene_idx;
+            return usage("");
+        }
+
+        const auto btn = gensym("btn");
+
+        if (ctrl == gensym("rec") || ctrl == btn) {
+            for (auto p : scenes_[scene_idx].btn_rec_)
+                p->setInt(val);
+        }
+
+        if (ctrl == gensym("solo") || ctrl == btn) {
+            for (auto p : scenes_[scene_idx].btn_solo_)
+                p->setInt(val);
+        }
+
+        if (ctrl == gensym("mute") || ctrl == btn) {
+            for (auto p : scenes_[scene_idx].btn_mute_)
+                p->setInt(val);
+        }
+
+        if (ctrl == gensym("select") || ctrl == btn) {
+            for (auto p : scenes_[scene_idx].btn_select_)
+                p->setInt(val);
+        }
+    }
+}
+
 static void init_symbols()
 {
     PROTO_XMIDI = gensym("xmidi");
@@ -913,4 +995,6 @@ void setup_hw_xtouch_ext()
     obj.addMethod("lcd1", &XTouchExtender::m_lcd_lower);
     obj.addMethod("lcd_color", &XTouchExtender::m_lcd_color);
     obj.addMethod("lcd_mode", &XTouchExtender::m_lcd_mode);
+
+    obj.addMethod("set", &XTouchExtender::m_set);
 }
