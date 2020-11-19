@@ -52,19 +52,20 @@ static std::array<t_symbol*, MAX_CONTROLS> SYM_BTN_MUTE;
 static std::array<t_symbol*, MAX_CONTROLS> SYM_BTN_SELECT;
 static std::array<t_symbol*, MAX_CONTROLS> SYM_BTN_KNOB;
 
-static t_symbol* PROTO_XMIDI;
 static t_symbol* PROTO_HUI;
 static t_symbol* PROTO_MCU;
-static t_symbol* SYM_BLACK;
-static t_symbol* SYM_RED;
-static t_symbol* SYM_GREEN;
-static t_symbol* SYM_YELLOW;
-static t_symbol* SYM_BLUE;
-static t_symbol* SYM_MAGENTA;
-static t_symbol* SYM_CYAN;
-static t_symbol* SYM_WHITE;
+static t_symbol* PROTO_XMIDI;
 static t_symbol* SYM_ALL;
+static t_symbol* SYM_BLACK;
+static t_symbol* SYM_BLUE;
+static t_symbol* SYM_CYAN;
+static t_symbol* SYM_GREEN;
+static t_symbol* SYM_MAGENTA;
 static t_symbol* SYM_RANDOM;
+static t_symbol* SYM_RED;
+static t_symbol* SYM_SCENE;
+static t_symbol* SYM_WHITE;
+static t_symbol* SYM_YELLOW;
 
 enum MidiMSG {
     /* channel voice messages */
@@ -851,9 +852,18 @@ void XTouchExtender::m_lcd_color(t_symbol* s, const AtomListView& lv)
 
     const auto log_idx = lv.intAt(0, -1);
 
-    if (lv[0].isSymbol() && lv[0].asT<t_symbol*>() == SYM_ALL) {
-        for (int i = 0; i < Scene::NCHAN; i++)
-            setLogicLcdColor(calcLogicIdx(i), lv[1]);
+    if (lv[0].isSymbol()) {
+        const auto sym = lv[0].asT<t_symbol*>();
+
+        if (sym == SYM_SCENE) {
+            for (int i = 0; i < Scene::NCHAN; i++)
+                setLogicLcdColor(calcLogicIdx(i), lv[1]);
+        } else if (sym == SYM_ALL) {
+            for (size_t i = 0; i < scenes_.size(); i++) {
+                for (int j = 0; j < Scene::NCHAN; j++)
+                    setLogicLcdColor(i * Scene::NCHAN + j, lv[1]);
+            }
+        }
     } else if (log_idx < 0 || log_idx >= numLogicChannels()) {
         METHOD_ERR(s) << "invalid index:" << log_idx;
         return;
@@ -970,16 +980,17 @@ static void init_symbols()
         SYM_BTN_KNOB[i] = gensym(buf);
     }
 
-    SYM_BLACK = gensym("black");
-    SYM_RED = gensym("red");
-    SYM_GREEN = gensym("green");
-    SYM_YELLOW = gensym("yellow");
-    SYM_BLUE = gensym("blue");
-    SYM_MAGENTA = gensym("magenta");
-    SYM_CYAN = gensym("cyan");
-    SYM_WHITE = gensym("white");
     SYM_ALL = gensym("all");
+    SYM_BLACK = gensym("black");
+    SYM_BLUE = gensym("blue");
+    SYM_CYAN = gensym("cyan");
+    SYM_GREEN = gensym("green");
+    SYM_MAGENTA = gensym("magenta");
     SYM_RANDOM = gensym("random");
+    SYM_RED = gensym("red");
+    SYM_SCENE = gensym("scene");
+    SYM_WHITE = gensym("white");
+    SYM_YELLOW = gensym("yellow");
 }
 
 void setup_hw_xtouch_ext()
