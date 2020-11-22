@@ -525,6 +525,7 @@ set(DOC_FILES
     symbol.length
     symbol.num_compare
     symbol2intlist
+    sync
     synth.bee3~
     synth.birds~
     synth.church_bell~

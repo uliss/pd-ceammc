@@ -47,6 +47,7 @@ mix~	multislot signal mixer
 nsig~	Mulitchannel converter from control to audio rate
 obj.props	property extractor
 radio	float index to outlet values as radio switch
+sync	value synchronization
 window	returns window value by given window position
 win	returns window value by given window position
 xdac~	dac~ with channel ranges
