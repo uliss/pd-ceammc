@@ -52,6 +52,7 @@
 - seq.bangs sequencer (with seq.b alias) added into new category: seq
 - seq.toggles sequencer (with seq.t alias) added
 - flow.reject alias added: flow.!
+- ui.display alias added: ui.dt for ui.display @display_type=1
 
 
 ### Changed:

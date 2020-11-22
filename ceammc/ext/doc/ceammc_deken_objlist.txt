@@ -770,6 +770,7 @@ ui.b	A bang... that's all
 ui.colorpanel	colorchooser widget
 ui.display	Display GUI object
 ui.d	Display GUI object
+ui.dt	Display GUI object
 ui.dsp~	GUI for turning DSP on/off
 ui.env	envelope editor widget
 ui.gain2~	UI stereo gain control
