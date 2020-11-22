@@ -24,7 +24,7 @@
             <par>common: symbols or floats</par>
             <par>compare: &gt;NUM, &gt;=NUM, &lt;NUM, &lt;=NUM</par>
             <par>intervals: FROM..TO, or [FROM..TO] - closed interval, [FROM..TO) or (FROM..TO] semi-open interval,
-            (FROM..TO) open interval, NUM~EPSILON</par>
+            (FROM..TO) open interval, NUM~EPSILON - value in NUM+-EPSILON range</par>
             <par>set: A|B|C - match to A or B or C</par>
         </info>
         <arguments>
@@ -38,7 +38,10 @@
         </properties>
         <inlets>
             <inlet>
-                <xinfo>input messages</xinfo>
+                <xinfo on="float">check float for matches</xinfo>
+                <xinfo on="symbol">check symbol for matches</xinfo>
+                <xinfo on="list">check first list element for matches</xinfo>
+                <xinfo on="any">check message selector for matches</xinfo>
             </inlet>
         </inlets>
         <outlets dynamic="true">
