@@ -1,18 +1,18 @@
 {ceammc
     {an {
-        an.onset an.onset~ an.pitchtrack~
+        an.onset an.onset~ an.pitchtrack~ an.rms~
     }}
     {array {
         array.bpm array.copy array.do array.each array.fill array.hist
-        array.mean array.minmax array.plot~ array.resample array.rms array.set
-        array.stddev array.stretch array.sum array.sum2 array.variance
-        array.vplay array.window plot.geomspace~ plot.hist~ plot.linspace~
-        plot.logspace~ plot.response~
+        array.mean array.minmax array.play~ array.plot~ array.resample
+        array.rms array.set array.stddev array.stretch array.sum array.sum2
+        array.variance array.vplay array.window plot.geomspace~ plot.hist~
+        plot.linspace~ plot.logspace~ plot.response~
     }}
     {base {
-        ceammc.search function function.call gain~ matrix~ metro.pattern
-        metro.random metro.seq mix~ nsig~ obj.props radio window xdac~ xfade2~
-        xfade~
+        ceammc.search function function.call gain~ log matrix~ metro.pattern
+        metro.random metro.seq mix~ nsig~ obj.props radio sync window xdac~
+        xfade2~ xfade~
     }}
     {chaos {
         chaos.gbman0 chaos.gbman0~ chaos.jong chaos.logistic chaos.std0
@@ -21,11 +21,11 @@
     {conv {
         array.p2s array.s2p conv.amp2dbfs conv.amp2dbfs~ conv.bpm2hz
         conv.bpm2ms conv.bpm2sec conv.car2pol conv.cc2amp conv.dbfs2amp
-        conv.lin2curve conv.lin2exp conv.lin2lin conv.lin2lin~ conv.list2props
-        conv.midi2freq conv.ms2samp conv.ms2samp~ conv.phase2rad
-        conv.phase2rad~ conv.pitch2midi conv.pol2car conv.rad2phase
-        conv.rad2phase~ conv.samp2ms conv.samp2ms~ conv.samp2sec conv.sec2samp
-        conv.sec2str conv.str2sec
+        conv.dbfs2amp~ conv.hex2int conv.lin2curve conv.lin2exp conv.lin2lin
+        conv.lin2lin~ conv.list2props conv.midi2freq conv.ms2bpm conv.ms2samp
+        conv.ms2samp~ conv.phase2rad conv.phase2rad~ conv.pitch2midi
+        conv.pol2car conv.rad2phase conv.rad2phase~ conv.samp2ms conv.samp2ms~
+        conv.samp2sec conv.sec2bpm conv.sec2samp conv.sec2str conv.str2sec
     }}
     {data {
         data.dict data.fifo data.float data.int data.list data.mlist data.set
@@ -44,20 +44,22 @@
         vline2env
     }}
     {flow {
-        expand_env flow.change flow.count flow.delay flow.demultiplex
-        flow.demultiplex2~ flow.demultiplex~ flow.dup flow.gate flow.greater
-        flow.greater_eq flow.group flow.interval flow.less flow.less_eq
-        flow.match flow.mem flow.multiplex flow.multiplex2~ flow.multiplex~
-        flow.once flow.pack flow.pass flow.pass_if flow.reject flow.reject_if
-        flow.ring flow.route flow.speedlim flow.split flow.stack flow.sync
+        expand_env flow.append flow.change flow.count flow.delay
+        flow.demultiplex flow.demultiplex2~ flow.demultiplex~ flow.dup
+        flow.gate flow.greater flow.greater_eq flow.group flow.interval
+        flow.less flow.less_eq flow.match flow.mem flow.multiplex
+        flow.multiplex2~ flow.multiplex~ flow.once flow.pack flow.pass
+        flow.pass_if flow.pipe flow.reject flow.reject_if flow.ring flow.route
+        flow.select flow.space flow.speedlim flow.split flow.stack flow.sync
         flow.sync_pack flow.tee~ replace
     }}
     {flt {
         flt.biquad~ flt.bpf12~ flt.bpf24~ flt.c_bpf~ flt.c_highshelf~
         flt.c_hpf~ flt.c_lowshelf~ flt.c_lpf~ flt.c_notch~ flt.c_peak~
         flt.dcblock2~ flt.dcblock~ flt.eq10~ flt.eq_peak_cq~ flt.eq_peak~
-        flt.freqz~ flt.highshelf~ flt.hpf12~ flt.hpf24~ flt.lowshelf~
-        flt.lpf12~ flt.lpf24~ flt.median flt.moog_vcf~ flt.notch~ flt.resonbp~
+        flt.fb_comb~ flt.ff_comb~ flt.freqz~ flt.highshelf~ flt.hpf12~
+        flt.hpf24~ flt.lowshelf~ flt.lpf12~ flt.lpf24~ flt.median
+        flt.moog_vcf~ flt.notch~ flt.resonbp~
     }}
     {fx {
         fx.bitdown~ fx.chorus~ fx.distortion1~ fx.distortion2~ fx.distortion3~
@@ -118,7 +120,7 @@
     }}
     {midi {
         midi.ctl2str midi.event2ctl midi.event2note midi.event2prg midi.file
-        midi.key2str midi.prg2str midi.track
+        midi.key2str midi.prg2str midi.track midi.tuning midi.vramp
     }}
     {misc {
         click~ fluid~ modplug~ speech.flite
@@ -130,7 +132,8 @@
         net.host2ip
     }}
     {noise {
-        noise.crackle~ noise.lfreq0~ noise.lfreq~ noise.pink~ noise.white~
+        noise.crackle~ noise.ginger noise.lfreq0~ noise.lfreq~ noise.pink~
+        noise.white~
     }}
     {osc {
         osc.blit~ osc.impulse~ osc.pulse~ osc.saw4~ osc.saw~ osc.sinfb~
@@ -158,8 +161,11 @@
         proto.firmata proto.sp.alpaca
     }}
     {random {
-        random.discrete random.float random.gauss random.int random.linear
-        random.pw_const random.pw_lin
+        random.atom random.discrete random.float random.gauss random.int
+        random.linear random.pw_const random.pw_lin
+    }}
+    {seq {
+        seq.arp seq.bangs
     }}
     {snd {
         snd.file
@@ -169,7 +175,7 @@
         hoa.2d.projector~ hoa.2d.recomposer~ hoa.2d.rotate~ hoa.2d.wider~
         hoa.@process hoa.in hoa.in~ hoa.out hoa.out~ hoa.process~ hoa.scope~
         pan.cos~ pan.linsig~ pan.lin~ pan.spread~ pan.sqrt~ spat.pan4~
-        spat.pan8~
+        spat.pan8~ spat.zita6x8~
     }}
     {string {
         string string.contains string.ends_with string.equal string.format
@@ -177,7 +183,7 @@
         string.split string.starts_with string.substr string2symbol
     }}
     {symbol {
-        symbol.equal symbol.length symbol.num_compare
+        symbol.equal symbol.length symbol.num_compare symbol2intlist
     }}
     {synth {
         synth.bee3~ synth.birds~ synth.church_bell~ synth.dubdub~
