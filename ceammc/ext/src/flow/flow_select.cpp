@@ -68,6 +68,14 @@ FlowSelect::FlowSelect(const PdArgs& args)
             createOutlet();
         }
 
+        const auto prop_idx = args.args.findPos(isProperty);
+        if (prop_idx >= 0) {
+            for (auto& plist : args.args.properties()) {
+                if (plist.size() > 0 && plist[0].isSymbol())
+                    setProperty(plist[0].asT<t_symbol*>(), plist.view(1));
+            }
+        }
+
     } catch (std::exception& e) {
         OBJ_ERR << "parser error: " << e.what();
     }

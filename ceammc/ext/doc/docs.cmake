@@ -139,6 +139,7 @@ set(DOC_FILES
     flow.reject_if
     flow.ring
     flow.route
+    flow.select
     flow.space
     flow.speedlim
     flow.split

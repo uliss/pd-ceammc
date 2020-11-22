@@ -137,6 +137,7 @@ flow.reject,reject,flow.!		..		.
 flow.reject_if,reject_if		..		..
 flow.ring,flow.>>		..		?
 flow.route		.		?
+flow.select,flow.sel		.		?
 flow.space		..		..
 flow.speedlim,speedlim		..		.
 flow.split,split		..		...
@@ -551,7 +552,7 @@ tl.transport		.		-
 ui.aview		.		.
 ui.bang,ui.b		.		.
 ui.colorpanel		.		.
-ui.display,ui.d		.		-
+ui.display,ui.d,ui.dt		.		-
 ui.dsp~		.		-
 ui.env		.		.
 ui.gain2~,ui.hgain2~,ui.vgain2~		~~		~~

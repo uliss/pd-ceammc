@@ -62,24 +62,26 @@
 #X text 200 872 dataflow ring buffer;
 #X obj 30 899 flow.route;
 #X text 200 899 advanced message router;
-#X obj 30 926 flow.space;
-#X text 200 926 space in time messages received at the same logical
+#X obj 30 926 flow.select;
+#X text 200 926 vanilla flow on steroids;
+#X obj 30 953 flow.space;
+#X text 200 953 space in time messages received at the same logical
 time;
-#X obj 30 953 flow.speedlim;
-#X text 200 953 control stream speed limiter;
-#X obj 30 980 flow.split;
-#X text 200 980 split data flow by external side-chain predicate;
-#X obj 30 1007 flow.stack;
-#X text 200 1007 any message stack;
-#X obj 30 1034 flow.sync;
-#X text 200 1034 bus with only hot inlets;
-#X obj 30 1061 flow.sync_pack;
-#X text 200 1061 flow pack with all hot inlets;
-#X obj 30 1088 flow.tee~;
-#X text 200 1088 separate audio and control streams;
-#X obj 30 1115 replace;
-#X text 200 1115 Replace atoms in data stream;
+#X obj 30 980 flow.speedlim;
+#X text 200 980 control stream speed limiter;
+#X obj 30 1007 flow.split;
+#X text 200 1007 split data flow by external side-chain predicate;
+#X obj 30 1034 flow.stack;
+#X text 200 1034 any message stack;
+#X obj 30 1061 flow.sync;
+#X text 200 1061 bus with only hot inlets;
+#X obj 30 1088 flow.sync_pack;
+#X text 200 1088 flow pack with all hot inlets;
+#X obj 30 1115 flow.tee~;
+#X text 200 1115 separate audio and control streams;
+#X obj 30 1142 replace;
+#X text 200 1142 Replace atoms in data stream;
 #X obj 1 1 cnv 5 740 40 empty empty ceammc::flow 20 20 0 20 -104026
 -4096 0;
-#X obj 1 1142 cnv 5 740 40 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 20 1152 library: ceammc;
+#X obj 1 1169 cnv 5 740 40 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 20 1179 library: ceammc;

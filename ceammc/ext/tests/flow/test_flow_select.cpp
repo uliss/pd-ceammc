@@ -48,6 +48,51 @@ TEST_CASE("flow.select", "[externals]")
             TExt t("flow.sel", LF(2));
             REQUIRE(t.numOutlets() == 2);
         }
+
+        SECTION("props")
+        {
+            SECTION("keep 1")
+            {
+                TExt t("flow.sel", LA(1, 2, "@keep_value", 1));
+                REQUIRE_PROPERTY(t, @keep_value, 1);
+                REQUIRE(t.numOutlets() == 3);
+            }
+
+            SECTION("keep 2")
+            {
+                TExt t("flow.sel", LA(1, 2, "@keep_value", 0.));
+                REQUIRE_PROPERTY(t, @keep_value, 0.);
+                REQUIRE(t.numOutlets() == 3);
+            }
+
+            SECTION("keep 3")
+            {
+                TExt t("flow.sel", LA(1, 2, "@keep_value", "true"));
+                REQUIRE_PROPERTY(t, @keep_value, 1);
+                REQUIRE(t.numOutlets() == 3);
+            }
+
+            SECTION("keep 4")
+            {
+                TExt t("flow.sel", LA(1, 2, 3, 4, "@v"));
+                REQUIRE_PROPERTY(t, @keep_value, 1);
+                REQUIRE(t.numOutlets() == 5);
+            }
+
+            SECTION("keep 5")
+            {
+                TExt t("flow.sel", LA(1, 2, 3, 4, "@a", "@v"));
+                REQUIRE_PROPERTY(t, @keep_value, 1);
+                REQUIRE(t.numOutlets() == 5);
+            }
+
+            SECTION("keep 6")
+            {
+                TExt t("flow.sel", LA(1, 2, 3, 4, "\"@a\"", "@v"));
+                REQUIRE_PROPERTY(t, @keep_value, 1);
+                REQUIRE(t.numOutlets() == 6);
+            }
+        }
     }
 
     SECTION("process")
