@@ -86,104 +86,22 @@ FlowSelect::~FlowSelect() { }
 
 void FlowSelect::onFloat(t_float v)
 {
-    if (patterns_->data.empty())
-        return floatTo(0, v);
+    const size_t N = patterns_->data.size();
 
-    auto it = patterns_->data.crbegin();
-    auto end = patterns_->data.crend();
+    bool res[N];
+    std::fill(res, res + N, false);
 
-    using l = SelectLexer;
-    const size_t LAST = numOutlets() - 1;
-    bool matched = false;
+    if (!match(v, &res[0]))
+        return floatTo(N, v);
 
-    auto output = [this, &matched](t_float v, size_t idx) {
-        matched = true;
-        if (keep_value_->value())
-            floatTo(idx, v);
-        else
-            bangTo(idx);
-    };
+    const bool kv = keep_value_->value();
 
-    for (size_t idx = LAST - 1; it != end; ++it, --idx) {
-        switch (it->type()) {
-        case l::MATCH_EQUAL:
-            if (it->at(0) == Atom(v))
-                output(v, idx);
+    for (size_t i = N; i > 0; i--) {
+        const auto idx = i - 1;
 
-            break;
-        case l::MATCH_GREATER:
-            if (v > it->at(0).asT<t_float>())
-                output(v, idx);
-
-            break;
-        case l::MATCH_GREATER_EQ:
-            if (v >= it->at(0).asT<t_float>())
-                output(v, idx);
-
-            break;
-        case l::MATCH_LESS:
-            if (v < it->at(0).asT<t_float>())
-                output(v, idx);
-
-            break;
-        case l::MATCH_LESS_EQ:
-            if (v <= it->at(0).asT<t_float>())
-                output(v, idx);
-
-            break;
-        case l::MATCH_RANGE_CC: {
-            const auto a = it->at(0).asT<t_float>();
-            const auto b = it->at(1).asT<t_float>();
-
-            if (a <= v && v <= b)
-                output(v, idx);
-
-        } break;
-        case l::MATCH_RANGE_CO: {
-            const auto a = it->at(0).asT<t_float>();
-            const auto b = it->at(1).asT<t_float>();
-
-            if (a <= v && v < b)
-                output(v, idx);
-
-        } break;
-        case l::MATCH_RANGE_OO: {
-            const auto a = it->at(0).asT<t_float>();
-            const auto b = it->at(1).asT<t_float>();
-
-            if (a < v && v < b)
-                output(v, idx);
-
-        } break;
-        case l::MATCH_RANGE_OC: {
-            const auto a = it->at(0).asT<t_float>();
-            const auto b = it->at(1).asT<t_float>();
-
-            if (a < v && v <= b)
-                output(v, idx);
-
-        } break;
-        case l::MATCH_EPSILON: {
-            const auto x = it->at(0).asT<t_float>();
-            const auto e = it->at(1).asT<t_float>();
-
-            if (std::fabs(x - v) < e)
-                output(v, idx);
-
-        } break;
-        case l::MATCH_SET: {
-            auto mit = std::find_if(it->begin(), it->end(), [v](const Atom& a) { return a == Atom(v); });
-            if (mit != it->end())
-                output(v, idx);
-
-        } break;
-        default:
-            break;
-        }
+        if (res[idx])
+            kv ? floatTo(idx, v) : bangTo(idx);
     }
-
-    if (!matched)
-        floatTo(LAST, v);
 }
 
 void FlowSelect::onSymbol(t_symbol* s)
@@ -203,6 +121,35 @@ void FlowSelect::onSymbol(t_symbol* s)
 
         if (res[idx])
             kv ? symbolTo(idx, s) : bangTo(idx);
+    }
+}
+
+void FlowSelect::onList(const AtomList& l)
+{
+    const size_t N = patterns_->data.size();
+    bool res[N];
+    std::fill(res, res + N, false);
+
+    if (l.empty())
+        return;
+    else if (l.isFloat())
+        return onFloat(l[0].asT<t_float>());
+    else if (l.isSymbol())
+        return onSymbol(l[0].asT<t_symbol*>());
+    else {
+        if (!match(l[0], &res[0])) {
+            OBJ_ERR << "no match: " << N << " L" << l;
+            return listTo(N, l);
+        }
+
+        const bool kv = keep_value_->value();
+
+        for (size_t i = N; i > 0; i--) {
+            const auto idx = i - 1;
+
+            if (res[idx])
+                kv ? listTo(idx, l) : bangTo(idx);
+        }
     }
 }
 
@@ -270,12 +217,145 @@ size_t FlowSelect::match(t_symbol* s, bool* result) const
     return nmatches;
 }
 
+size_t FlowSelect::match(const Atom& a, bool* result) const
+{
+    if (patterns_->data.empty())
+        return 0;
+
+    auto it = patterns_->data.cbegin();
+    auto end = patterns_->data.cend();
+
+    using l = SelectLexer;
+    size_t nmatches = 0;
+
+    for (size_t pos = 0; it != end; ++it, ++pos) {
+        switch (it->type()) {
+        case l::MATCH_EQUAL:
+            if (it->at(0) == Atom(a)) {
+                result[pos] = true;
+                nmatches++;
+            }
+
+            break;
+        case l::MATCH_GREATER:
+            if (a.isFloat() && a.asT<t_float>() > it->at(0).asT<t_float>()) {
+                result[pos] = true;
+                nmatches++;
+            }
+
+            break;
+        case l::MATCH_GREATER_EQ:
+            if (a.isFloat() && a.asT<t_float>() >= it->at(0).asT<t_float>()) {
+                result[pos] = true;
+                nmatches++;
+            }
+
+            break;
+        case l::MATCH_LESS:
+            if (a.isFloat() && a.asT<t_float>() < it->at(0).asT<t_float>()) {
+                result[pos] = true;
+                nmatches++;
+            }
+
+            break;
+        case l::MATCH_LESS_EQ:
+            if (a.isFloat() && a.asT<t_float>() <= it->at(0).asT<t_float>()) {
+                result[pos] = true;
+                nmatches++;
+            }
+
+            break;
+        case l::MATCH_RANGE_CC: {
+            if (!a.isFloat())
+                break;
+
+            const auto v = a.asT<t_float>();
+            const auto m0 = it->at(0).asT<t_float>();
+            const auto m1 = it->at(1).asT<t_float>();
+
+            if (m0 <= v && v <= m1) {
+                result[pos] = true;
+                nmatches++;
+            }
+
+        } break;
+        case l::MATCH_RANGE_CO: {
+            if (!a.isFloat())
+                break;
+
+            const auto v = a.asT<t_float>();
+            const auto m0 = it->at(0).asT<t_float>();
+            const auto m1 = it->at(1).asT<t_float>();
+
+            if (m0 <= v && v < m1) {
+                result[pos] = true;
+                nmatches++;
+            }
+
+        } break;
+        case l::MATCH_RANGE_OO: {
+            if (!a.isFloat())
+                break;
+
+            const auto v = a.asT<t_float>();
+            const auto m0 = it->at(0).asT<t_float>();
+            const auto m1 = it->at(1).asT<t_float>();
+
+            if (m0 < v && v < m1) {
+                result[pos] = true;
+                nmatches++;
+            }
+
+        } break;
+        case l::MATCH_RANGE_OC: {
+            if (!a.isFloat())
+                break;
+
+            const auto v = a.asT<t_float>();
+            const auto m0 = it->at(0).asT<t_float>();
+            const auto m1 = it->at(1).asT<t_float>();
+
+            if (m0 < v && v <= m1) {
+                result[pos] = true;
+                nmatches++;
+            }
+
+        } break;
+        case l::MATCH_EPSILON: {
+            if (!a.isFloat())
+                break;
+
+            const auto v = a.asT<t_float>();
+            const auto x = it->at(0).asT<t_float>();
+            const auto e = it->at(1).asT<t_float>();
+
+            if (std::fabs(x - v) < e) {
+                result[pos] = true;
+                nmatches++;
+            }
+
+        } break;
+        case l::MATCH_SET: {
+            auto mit = std::find_if(it->begin(), it->end(), [a](const Atom& a0) { return a0 == Atom(a); });
+            if (mit != it->end()) {
+                result[pos] = true;
+                nmatches++;
+            }
+
+        } break;
+        default:
+            break;
+        }
+    }
+
+    return nmatches;
+}
+
 void setup_flow_select()
 {
     ObjectFactory<FlowSelect> obj("flow.select");
     obj.addAlias("flow.sel");
     obj.noArgsDataParsing();
-    obj.useDefaultPdListFn();
     obj.noPropsDispatch();
 
     obj.addInletInfo("input flow");

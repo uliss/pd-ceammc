@@ -108,6 +108,10 @@ TEST_CASE("flow.select", "[externals]")
             t << "ABC";
             REQUIRE(t.isOutputSymbolAt(0));
             REQUIRE(t.outputSymbolAt(0) == SYM("ABC"));
+
+            t << LF(1, 2, 3);
+            REQUIRE(t.isOutputListAt(0));
+            REQUIRE(t.outputListAt(0) == LF(1, 2, 3));
         }
 
         SECTION("simple args")
@@ -130,6 +134,16 @@ TEST_CASE("flow.select", "[externals]")
             t << 100.0001;
             REQUIRE(t.isOutputFloatAt(5));
             REQUIRE(t.outputFloatAt(5) == Approx(100.0001));
+
+            t << LA("A", "B", "C");
+            REQUIRE(t.isOutputBangAt(0));
+
+            t << LF(100, 200, 300);
+            REQUIRE(t.isOutputBangAt(2));
+
+            t << LF(1, 100, 200, 300);
+            REQUIRE(t.isOutputListAt(5));
+            REQUIRE(t.outputListAt(5) == LF(1, 100, 200, 300));
         }
 
         SECTION(".. range")
@@ -228,6 +242,10 @@ TEST_CASE("flow.select", "[externals]")
         SECTION("cmp")
         {
             TExt t("flow.sel", LA(">1", ">=2", "<10", "<=18"));
+
+            t << 0.;
+            REQUIRE(t.isOutputBangAt(2));
+            REQUIRE(t.isOutputBangAt(3));
 
             t << 0.;
             REQUIRE(t.isOutputBangAt(2));
@@ -347,6 +365,9 @@ TEST_CASE("flow.select", "[externals]")
             REQUIRE(t.isOutputBangAt(1));
             t << "D";
             REQUIRE(t.outputSymbolAt(2) == SYM("D"));
+
+            t << LF(1, 2, 3);
+            REQUIRE(t.isOutputBangAt(0));
         }
 
         SECTION("multiple")
