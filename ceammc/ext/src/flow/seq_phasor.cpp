@@ -23,17 +23,20 @@ SeqPhasor::SeqPhasor(const PdArgs& a)
     , invert_(nullptr)
     , clock_([this]() {
         const size_t nsteps = 1 / precision_->value();
+        // index_ in [0..nsteps] range
         const t_float value = (invert_->value()) ? 1 - t_float(index_) / nsteps
                                                  : t_float(index_) / nsteps;
 
         if (freq_hz_->value() == 0) { // const output
             floatTo(0, value);
+            const auto delay_ms = 1000.0 / nsteps;
+            clock_.delay(delay_ms);
         } else {
-            const auto delay_ms = 1000 / (freq_hz_->value() * nsteps);
+            const auto delay_ms = 1000 / (freq_hz_->value() * (nsteps + 1));
             clock_.delay(delay_ms);
             floatTo(0, value);
 
-            if (++index_ >= nsteps) {
+            if (++index_ > nsteps) { // next cycle
                 index_ = 0;
                 bangTo(1);
             }
@@ -84,7 +87,7 @@ void SeqPhasor::onFloat(t_float f)
 
 void SeqPhasor::onInlet(size_t n, const AtomList& l)
 {
-    index_ = 0;
+    m_reset(&s_, {});
 }
 
 void SeqPhasor::m_set(t_symbol* s, const AtomListView& lv)
@@ -94,17 +97,22 @@ void SeqPhasor::m_set(t_symbol* s, const AtomListView& lv)
         return;
     }
 
-    // v in [0, 1) range
-    const auto v = wrapFloatMax<t_float>(lv[0].asT<t_float>(), 1);
-    // n >= 2
+    // v in [0, 1] range
+    const auto v = clip01<t_float>(lv[0].asT<t_float>());
     const size_t nsteps = 1 / precision_->value();
     index_ = size_t(v * nsteps);
+}
+
+void SeqPhasor::m_reset(t_symbol* /*s*/, const AtomListView& /*lv*/)
+{
+    index_ = 0;
 }
 
 void setup_seq_phasor()
 {
     ObjectFactory<SeqPhasor> obj("seq.phasor");
     obj.addMethod("set", &SeqPhasor::m_set);
+    obj.addMethod("reset", &SeqPhasor::m_reset);
     obj.setXletsInfo(
         { "float: 1|0 - start/stop phasor",
             "bang: reset to start" },

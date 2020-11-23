@@ -59,4 +59,5 @@ add_flow_test(sync_pack)
 target_sources(test_ext_flow PRIVATE
     test_seq_arp.cpp
     test_seq_bangs.cpp
+    test_seq_phasor.cpp
     test_seq_toggles.cpp)

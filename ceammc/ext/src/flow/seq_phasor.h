@@ -33,6 +33,7 @@ public:
     void onFloat(t_float f) override;
     void onInlet(size_t n, const AtomList& l) override;
     void m_set(t_symbol* s, const AtomListView& lv);
+    void m_reset(t_symbol* s, const AtomListView& lv);
 };
 
 void setup_seq_phasor();

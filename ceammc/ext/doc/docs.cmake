@@ -503,6 +503,7 @@ set(DOC_FILES
     seq.bangs
     seq.arp
     seq.nbangs
+    seq.phasor
     snd.file
     spat.pan4~
     spat.pan8~

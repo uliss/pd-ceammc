@@ -1535,6 +1535,9 @@
     <entry name="seq.nbangs" descr="output specified number of bang with time intervals" ref_view="object">
       <xi:include href="seq.nbangs.pddoc" parse="xml"/>
     </entry>
+    <entry name="seq.phasor" descr="control rate phasor (saw) generator" ref_view="object">
+      <xi:include href="seq.phasor.pddoc" parse="xml"/>
+    </entry>
   </category>
   <category name="snd">
     <entry name="snd.file" descr="Sound file loader on steroids" ref_view="object">

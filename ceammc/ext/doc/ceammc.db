@@ -494,6 +494,7 @@ replace		...		.
 seq.arp		.		..
 seq.bangs,seq.b		..		...
 seq.nbangs,seq.nb		..		..
+seq.phasor		..		..
 set.contains		..		.
 set.diff		..		.
 set.equal		..		.
