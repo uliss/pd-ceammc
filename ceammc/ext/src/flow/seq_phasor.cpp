@@ -21,22 +21,26 @@ SeqPhasor::SeqPhasor(const PdArgs& a)
     , precision_(nullptr)
     , on_(nullptr)
     , invert_(nullptr)
+    , open_range_(nullptr)
     , clock_([this]() {
         const size_t nsteps = 1 / precision_->value();
+        const size_t closed = !open_range_->value(); // 0 or 1
+        const size_t max = nsteps + closed - 1;
         // index_ in [0..nsteps] range
-        const t_float value = (invert_->value()) ? 1 - t_float(index_) / nsteps
-                                                 : t_float(index_) / nsteps;
+        const t_float value = (invert_->value()) ? t_float(max - index_) / nsteps
+                                                 : t_float(index_) / (nsteps);
 
         if (freq_hz_->value() == 0) { // const output
             floatTo(0, value);
             const auto delay_ms = 1000.0 / nsteps;
             clock_.delay(delay_ms);
         } else {
-            const auto delay_ms = 1000 / (freq_hz_->value() * (nsteps + 1));
+
+            const auto delay_ms = 1000 / (freq_hz_->value() * (nsteps + closed));
             clock_.delay(delay_ms);
             floatTo(0, value);
 
-            if (++index_ > nsteps) { // next cycle
+            if (++index_ >= (nsteps + closed)) { // next cycle
                 index_ = 0;
                 bangTo(1);
             }
@@ -71,6 +75,9 @@ SeqPhasor::SeqPhasor(const PdArgs& a)
 
     invert_ = new BoolProperty("@invert", false);
     addProperty(invert_);
+
+    open_range_ = new BoolProperty("@open", false);
+    addProperty(open_range_);
 }
 
 void SeqPhasor::initDone()

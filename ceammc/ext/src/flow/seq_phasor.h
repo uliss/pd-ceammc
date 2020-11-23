@@ -23,6 +23,7 @@ class SeqPhasor : public BaseObject {
     FloatProperty* precision_;
     BoolProperty* on_;
     BoolProperty* invert_;
+    BoolProperty* open_range_;
     ClockLambdaFunction clock_;
     size_t index_;
 
