@@ -197,7 +197,7 @@
         random.linear random.pw_const random.pw_lin
     }}
     {seq {
-        seq.arp seq.bangs
+        seq.arp seq.bangs seq.nbangs seq.phasor
     }}
     {snd {
         snd.file
