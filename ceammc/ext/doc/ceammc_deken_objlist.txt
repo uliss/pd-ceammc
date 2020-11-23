@@ -673,6 +673,8 @@ seq.b	bang sequencer
 seq.nbangs	output specified number of bang with time intervals
 seq.nb	output specified number of bang with time intervals
 seq.phasor	control rate phasor (saw) generator
+seq.toggles	toggle sequencer
+seq.t	toggle sequencer
 snd.file	Sound file loader on steroids
 hoa.2d.decoder~	hoa 2d decoder
 hoa.decoder~	hoa 2d decoder

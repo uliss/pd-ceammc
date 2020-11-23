@@ -14,9 +14,9 @@
             <since>0.9.1</since>
         </meta>
         <info>
-            <par>Outputs saw signal in [0..1] range.</par>
+            <par>Outputs saw signal in [0..1] or [0..1) range.</par>
             <par>Note: control rate in PureData depends on block size and samplerate. Do not
-            rely on strict timing for this object!</par>
+            rely on strict timing for this object, especially at high frequencies!</par>
         </info>
         <arguments>
             <argument name="FREQ" type="float" minvalue="0" maxvalue="100" units="herz">frequency</argument>
@@ -29,6 +29,8 @@
             If true, outputs descreasing waveform</property>
             <property name="@precision" type="float" default="0.0078125" maxvalue="0.5" minvalue="0.000976562">
             minimal phasor value step. (From 1/1024 to 1/2, default 1/128)</property>
+            <property name="@open" type="int" default="0" enum="0 1">output in closed [0..1] range, otherwise
+            output range is [0..1)</property>
         </properties>
         <methods>
             <method name="set">set current value
@@ -52,11 +54,11 @@
         <example>
             <pdascii>
 <![CDATA[
-[T]          [T]
-|            |
-|            [seq.phasor 0.3]
-|            |      |
-[metro 200]  [* 80] [ui.knob]
+[T]          [T]               [T]  [@invert ! #a(
+|            |                 |    |
+|            [seq.phasor 0.3]  [seq.phasor 0.5 #b]
+|            |      |          |
+[metro 200]  [* 80] [ui.knob]  [ui.knob]
 |            |
 [click~]     [@q $1(
 |            |
@@ -65,6 +67,7 @@
 [ui.hgain~]
 |\
 [dac~]
+[X b:1->a]
 ]]>
             </pdascii>
         </example>
