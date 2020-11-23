@@ -434,7 +434,13 @@ local.json
 local.list
 local.mlist
 local.set
-log_aliased
+log.debug
+log.error
+log.post
+log.stderr
+log.stdout
+log.verbose
+logger
 m
 m->f
 math.!='
@@ -800,6 +806,7 @@ ui.colorpanel
 ui.d
 ui.display
 ui.dsp~
+ui.dt
 ui.env
 ui.gain2~
 ui.gain~
