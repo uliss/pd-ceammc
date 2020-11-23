@@ -19,14 +19,19 @@
 using namespace ceammc;
 
 class BaseLog : public BaseObject {
-    SymbolEnumProperty* mode_;
-    SymbolEnumAlias* error_;
-    SymbolEnumAlias* post_;
-    SymbolEnumAlias* debug_;
-    SymbolEnumAlias* verbose_;
-    SymbolEnumAlias* stdout_;
-    SymbolEnumAlias* stderr_;
-    SymbolEnumAlias* null_;
+public:
+    enum Mode { // keep order in sync with source file
+        LOG_ERROR,
+        LOG_POST,
+        LOG_DEBUG,
+        LOG_VERBOSE,
+        LOG_STDOUT,
+        LOG_STDERR
+    };
+
+private:
+    Mode mode_ = { LOG_ERROR };
+    BoolProperty* active_;
     ListProperty* prefix_;
 
 public:
@@ -37,6 +42,8 @@ public:
     void onSymbol(t_symbol* s) override;
     void onList(const AtomList& l) override;
     void onAny(t_symbol* s, const AtomListView& lv) override;
+
+    void onInlet(size_t n, const AtomList& l) override;
 };
 
 void setup_base_log();

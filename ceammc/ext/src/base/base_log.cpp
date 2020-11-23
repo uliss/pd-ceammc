@@ -15,191 +15,158 @@
 #include "ceammc_factory.h"
 #include "ceammc_format.h"
 
+#include <algorithm>
+#include <array>
+
 static t_symbol* SYM_ERROR;
 static t_symbol* SYM_POST;
 static t_symbol* SYM_DEBUG;
 static t_symbol* SYM_VERBOSE;
 static t_symbol* SYM_STDOUT;
 static t_symbol* SYM_STDERR;
-static t_symbol* SYM_NULL;
-
-BaseLog::BaseLog(const PdArgs& args)
-    : BaseObject(args)
-    , mode_(nullptr)
-    , error_(nullptr)
-    , post_(nullptr)
-    , debug_(nullptr)
-    , verbose_(nullptr)
-    , stdout_(nullptr)
-    , stderr_(nullptr)
-    , null_(nullptr)
-    , prefix_(nullptr)
-{
-    mode_ = new SymbolEnumProperty("@mode", { SYM_DEBUG, SYM_ERROR, SYM_POST, SYM_VERBOSE, SYM_STDOUT, SYM_STDERR, SYM_NULL });
-    addProperty(mode_);
-
-    error_ = new SymbolEnumAlias("@error", mode_, SYM_ERROR);
-    addProperty(error_);
-
-    post_ = new SymbolEnumAlias("@post", mode_, SYM_POST);
-    addProperty(post_);
-
-    debug_ = new SymbolEnumAlias("@debug", mode_, SYM_DEBUG);
-    addProperty(debug_);
-
-    verbose_ = new SymbolEnumAlias("@verbose", mode_, SYM_VERBOSE);
-    addProperty(verbose_);
-
-    stdout_ = new SymbolEnumAlias("@stdout", mode_, SYM_STDOUT);
-    addProperty(stdout_);
-
-    stderr_ = new SymbolEnumAlias("@stderr", mode_, SYM_STDERR);
-    addProperty(stderr_);
-
-    null_ = new SymbolEnumAlias("@null", mode_, SYM_NULL);
-    addProperty(null_);
-
-    prefix_ = new ListProperty("@prefix");
-    prefix_->setArgIndex(0);
-    addProperty(prefix_);
-}
-
-void BaseLog::onBang()
-{
-    const auto m = mode_->value();
-    const auto v = s_bang.s_name;
+static std::array<t_symbol*, 6> sym_modes;
 
 #define OUT(os, v)                                    \
-    {                                                 \
+    do {                                              \
         if (!prefix_->value().empty())                \
             os << to_string(prefix_->value()) << ' '; \
                                                       \
         os << v;                                      \
-    }
+    } while (0)
 
-    if (m == SYM_ERROR) {
-        Error log(this);
-        OUT(log.stream(), v);
-    } else if (m == SYM_POST) {
-        Post log(this);
-        OUT(log.stream(), v);
-    } else if (m == SYM_DEBUG) {
-        Debug log(this);
-        OUT(log.stream(), v);
-    } else if (m == SYM_VERBOSE) {
-        Log log(this);
-        OUT(log.stream(), v);
-    } else if (m == SYM_STDERR)
-        OUT(std::cerr, v << std::endl)
-    else if (m == SYM_STDOUT)
-        OUT(std::cout, v << std::endl);
+#define OUT_DO(obj, v)        \
+    do {                      \
+        obj log(this);        \
+        OUT(log.stream(), v); \
+    } while (0)
+
+#define OUT_ERROR(v) OUT_DO(Error, v)
+#define OUT_POST(v) OUT_DO(Post, v)
+#define OUT_DEBUG(v) OUT_DO(Debug, v)
+#define OUT_VERBOSE(v) OUT_DO(Log, v)
+
+#define LOG_VALUE(v)                        \
+    do {                                    \
+        switch (mode_) {                    \
+        case LOG_ERROR:                     \
+            OUT_ERROR(v);                   \
+            break;                          \
+        case LOG_POST:                      \
+            OUT_POST(v);                    \
+            break;                          \
+        case LOG_DEBUG: {                   \
+            Debug log(this);                \
+            OUT(log.stream(), v);           \
+        } break;                            \
+        case LOG_VERBOSE:                   \
+            OUT_VERBOSE(v);                 \
+            break;                          \
+        case LOG_STDERR: {                  \
+            OUT(std::cerr, v << std::endl); \
+        } break;                            \
+        case LOG_STDOUT: {                  \
+            OUT(std::cout, v << std::endl); \
+        } break;                            \
+        default:                            \
+            break;                          \
+        }                                   \
+    } while (0)
+
+BaseLog::BaseLog(const PdArgs& args)
+    : BaseObject(args)
+    , active_(nullptr)
+{
+    createInlet();
+
+    active_ = new BoolProperty("@active", true);
+    addProperty(active_);
+
+    prefix_ = new ListProperty("@prefix");
+    prefix_->setArgIndex(0);
+    addProperty(prefix_);
+
+    for (size_t i = 0; i < sym_modes.size(); i++) {
+        if (sym_modes[i] == args.creationName) {
+            mode_ = static_cast<Mode>(i);
+            break;
+        }
+    }
+}
+
+void BaseLog::onBang()
+{
+    if (!active_->value())
+        return;
+
+    const auto v = s_bang.s_name;
+
+    LOG_VALUE(v);
 }
 
 void BaseLog::onFloat(t_float f)
 {
-    const auto m = mode_->value();
+    if (!active_->value())
+        return;
 
-    if (m == SYM_ERROR) {
-        Error log(this);
-        OUT(log.stream(), f);
-    } else if (m == SYM_POST) {
-        Post log(this);
-        OUT(log.stream(), f);
-    } else if (m == SYM_DEBUG) {
-        Debug log(this);
-        OUT(log.stream(), f);
-    } else if (m == SYM_VERBOSE) {
-        Log log(this);
-        OUT(log.stream(), f);
-    } else if (m == SYM_STDERR)
-        OUT(std::cerr, f << std::endl)
-    else if (m == SYM_STDOUT)
-        OUT(std::cout, f << std::endl);
+    LOG_VALUE(f);
 }
 
 void BaseLog::onSymbol(t_symbol* s)
 {
-    const auto m = mode_->value();
+    if (!active_->value())
+        return;
+
     const auto v = s->s_name;
 
-#define OUTS(os, s) OUT(os, "symbol " << s)
-
-    if (m == SYM_ERROR) {
-        Error log(this);
-        OUTS(log.stream(), v);
-    } else if (m == SYM_POST) {
-        Post log(this);
-        OUTS(log.stream(), v);
-    } else if (m == SYM_DEBUG) {
-        Debug log(this);
-        OUTS(log.stream(), v);
-    } else if (m == SYM_VERBOSE) {
-        Log log(this);
-        OUTS(log.stream(), v);
-    } else if (m == SYM_STDERR)
-        OUTS(std::cerr, v << std::endl)
-    else if (m == SYM_STDOUT)
-        OUTS(std::cout, v << std::endl);
+    LOG_VALUE("symbol " << v);
 }
 
 void BaseLog::onList(const AtomList& l)
 {
-    const auto m = mode_->value();
+    if (!active_->value())
+        return;
 
-#define OUTL(os, l) OUT(os, "list " << l)
-
-    if (m == SYM_ERROR) {
-        Error log(this);
-        OUT(log.stream(), l);
-    } else if (m == SYM_POST) {
-        Post log(this);
-        OUT(log.stream(), l);
-    } else if (m == SYM_DEBUG) {
-        Debug log(this);
-        OUT(log.stream(), l);
-    } else if (m == SYM_VERBOSE) {
-        Log log(this);
-        OUT(log.stream(), l);
-    } else if (m == SYM_STDERR)
-        OUT(std::cerr, l << std::endl)
-    else if (m == SYM_STDOUT)
-        OUT(std::cout, l << std::endl);
+    LOG_VALUE("list " << to_string(l));
 }
 
 void BaseLog::onAny(t_symbol* s, const AtomListView& lv)
 {
-    const auto m = mode_->value();
+    if (!active_->value())
+        return;
 
-#define OUTA(os, s, lv) OUT(os, s << ' ' << lv)
+    LOG_VALUE(s->s_name << ' ' << to_string(lv));
+}
 
-    if (m == SYM_ERROR) {
-        Error log(this);
-        OUTA(log.stream(), s, lv);
-    } else if (m == SYM_POST) {
-        Post log(this);
-        OUTA(log.stream(), s, lv);
-    } else if (m == SYM_DEBUG) {
-        Debug log(this);
-        OUTA(log.stream(), s, lv);
-    } else if (m == SYM_VERBOSE) {
-        Log log(this);
-        OUTA(log.stream(), s, lv);
-    } else if (m == SYM_STDERR)
-        OUTA(std::cerr, s, lv << std::endl)
-    else if (m == SYM_STDOUT)
-        OUTA(std::cout, s, lv << std::endl);
+void BaseLog::onInlet(size_t n, const AtomList& l)
+{
+    active_->set(l);
 }
 
 void setup_base_log()
 {
-    SYM_ERROR = gensym("error");
-    SYM_POST = gensym("post");
-    SYM_DEBUG = gensym("debug");
-    SYM_VERBOSE = gensym("verbose");
-    SYM_STDOUT = gensym("stdout");
-    SYM_STDERR = gensym("stderr");
-    SYM_NULL = gensym("null");
+    SYM_ERROR = gensym("log.error");
+    SYM_POST = gensym("log.post");
+    SYM_DEBUG = gensym("log.debug");
+    SYM_VERBOSE = gensym("log.verbose");
+    SYM_STDOUT = gensym("log.stdout");
+    SYM_STDERR = gensym("log.stderr");
 
-    ObjectFactory<BaseLog> obj("log");
+    sym_modes = {
+        SYM_ERROR,
+        SYM_POST,
+        SYM_DEBUG,
+        SYM_VERBOSE,
+        SYM_STDOUT,
+        SYM_STDERR
+    };
+
+    ObjectFactory<BaseLog> obj("logger");
+    obj.addAlias("log.error");
+    obj.addAlias("log.post");
+    obj.addAlias("log.debug");
+    obj.addAlias("log.verbose");
+    obj.addAlias("log.stdout");
+    obj.addAlias("log.stderr");
     obj.noPropsDispatch();
+    obj.setXletsInfo({ "input", "1: to enable logging, 0 to disable" }, {});
 }
