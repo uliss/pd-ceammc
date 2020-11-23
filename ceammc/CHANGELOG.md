@@ -57,6 +57,8 @@
 - flow.reject alias added: flow.!
 - ui.display alias added: ui.dt for ui.display @display_type=1
 - sync added for multiple value synchronization without stack overflow
+- synth:
+    - synth.dubdub~ @freq property added and 'note' method
 
 
 ### Changed:

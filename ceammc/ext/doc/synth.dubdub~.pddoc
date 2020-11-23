@@ -14,13 +14,20 @@
             <keywords>dubdub saw</keywords>
             <since>0.6</since>
         </meta>
+        <methods>
+            <method name="note">note on/off message
+            <param name="NOTE" type="float" required="true">midi note</param>
+            <param name="VEL" type="float" minvalue="0" maxvalue="127" required="true">velocity</param>
+            </method>
+        </methods>
         <properties>
             <property name="@pitch" type="float" minvalue="24" maxvalue="84" default="48">
-            pitch</property>
+            midi pitch</property>
+            <property name="@freq" type="float" units="herz" default="130.813">frequency</property>
             <property name="@cutoff" type="float" minvalue="20" maxvalue="20000" default="3000">
             cutoff frequency</property>
             <property name="@gate" type="float" minvalue="0" maxvalue="1" default="0">play trigger
-            - 1: on, 0: off</property>
+            >0: on, 0: off. Values greater then zero set output amplitude.</property>
             <property name="@q" type="float" minvalue="0.01" maxvalue="100" default="0.1">quality
             factor</property>
             <property name="@active" type="int" enum="0 1" default="1">on/off dsp
@@ -42,9 +49,7 @@
 |
 |
 |
-[list.apply_to 1] X [> 0]
-|
-[@pitch $1, @gate $2(
+[msg note]
 |
 | [T]                        [ui.knob]  [ui.knob]
 | |                          |          |
@@ -58,7 +63,7 @@
 | |
 | [@pitch $1, @gate 0(
 | |
-| [flow.append "@gate" 1 @delay 10]
+| [msg.after 10 @gate 1]
 | |
 [synth.dubdub~ #a]
 |
