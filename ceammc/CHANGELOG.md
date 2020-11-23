@@ -59,6 +59,8 @@
 - sync added for multiple value synchronization without stack overflow
 - synth:
     - synth.dubdub~ @freq property added and 'note' method
+    - synth.eguitar~ ...
+    - synth.ks~ ...
 
 
 ### Changed:

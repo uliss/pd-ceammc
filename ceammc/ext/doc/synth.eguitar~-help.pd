@@ -40,8 +40,8 @@ Default value: 0\. Range: 0\...1\.;
 #X text 245 663 Get/Set mute coefficient (0 for no mute and 1 for instant
 mute). Type: float. Default value: 0\. Range: 0\...1\.;
 #X msg 110 705 @pitch;
-#X text 245 705 Get/Set pitch. Type: float. Default value: 48\. Range:
-36\...84\.;
+#X text 245 705 Get/Set midi pitch. Type: float. Default value: 48\.
+Range: 36\...84\.;
 #X msg 110 747 @pos;
 #X text 245 747 Get/Set pluck position (1 is on the bridge). Type:
 float. Default value: 0.5\. Range: 0\...1\.;

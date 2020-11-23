@@ -13,9 +13,16 @@
             <keywords>karplus strong</keywords>
             <since>0.6</since>
         </meta>
+        <methods>
+            <method name="note">note on/off message
+            <param name="NOTE" type="float" required="true">midi note</param>
+            <param name="VEL" type="float" minvalue="0" maxvalue="127" required="true">velocity</param>
+            </method>
+        </methods>
         <properties>
             <property name="@pitch" type="float" minvalue="36" maxvalue="84" default="48">
-            pitch</property>
+            midi pitch</property>
+            <property name="@freq" type="float" units="herz" default="130.813">frequency</property>
             <property name="@pos" type="float" minvalue="0" maxvalue="1" default="0.7">pluck
             position (1 is on the bridge)</property>
             <property name="@mute" type="float" minvalue="0" maxvalue="1" default="0">mute
@@ -26,7 +33,7 @@
             sharpness</property>
             <property name="@cutoff" type="float" minvalue="0.1" maxvalue="1" default="1">cutoff
             coefficent (for low pass filter)</property>
-            <property name="@mode" type="int" enum="0 1" minvalue="0" maxvalue="1" default="0">
+            <property name="@mode" type="int" minvalue="0" maxvalue="1" default="0">
             excitation mode: 0 - pluck, 1 - strike</property>
             <property name="@gate" type="float" minvalue="0" maxvalue="1" default="0">play trigger
             - 1: on, 0: off</property>
@@ -39,35 +46,33 @@
             </inlet>
         </inlets>
         <outlets>
-            <outlet type="audio" />
+            <outlet type="audio">synth output</outlet>
         </outlets>
         <example>
             <pdascii>
 <![CDATA[
-[T]
+[T]                  [ui.dsp~]
 |
 [metro 130]
 |
 [0 12 0 36 7 12(
 |
-[list.choice]        [ui.knob]    [ui.knob]
-|                    |            |
-[+ 36]               |            |
-|                    |            |
-[@pitch $1, @gate 1( [@pos $1 #b( [@gain $1 #c(
-|
-[flow.append "@gate" 0 @delay 10]
-|
-|
+[list.choice]        [ui.knob]    [ui.knob]     [ui.knob]
+|                    |            |             |
+[+ 36]               |            |             |
+|                    |            |             |
+[makenote 127 100]   [@pos $1 #b( [@mute $1 #c( [@sharp $1 #e(
+*|*
+[pack f f]           [T]          [F]
+|                    |             |
+[msg note]           [@mode $1 #d([@freq $1 #f(
 |
 [synth.ks~ #a]
 |
 [ui.gain~ @size 120 16]
 |\
 [dac~]
-
-[ui.dsp~]
-[X b->a] [X c->a]
+[X b->a] [X c->a] [X d->a] [X e->a] [X f->a]
 ]]>
             </pdascii>
         </example>
