@@ -43,7 +43,7 @@
         <outlets>
             <outlet>bang</outlet>
             <outlet>float: duration until next bang (in ms)</outlet>
-            <outlet>current index or bang when done</outlet>
+            <outlet>current index or 'done' when done</outlet>
         </outlets>
         <example>
             <pdascii>
@@ -52,7 +52,7 @@
 |       |       |
 [seq.bangs 3 1 2 1 1 @bpm 120 @div 16]
 |                          ^^|
-|                          [sel done]  [T]
+|                          [route done]  [T]
 |                          |           |.
 [click~]                   [flow.gate 1 {w=27} #g]
 |
