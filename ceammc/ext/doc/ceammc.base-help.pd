@@ -10,7 +10,7 @@
 #X text 200 168 call named function;
 #X obj 30 195 gain~;
 #X text 200 195 multislot signal gain;
-#X obj 30 222 log;
+#X obj 30 222 logger;
 #X text 200 222 advanced data logger;
 #X obj 30 249 matrix~;
 #X text 200 249 signal routing matrix;

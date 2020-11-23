@@ -38,7 +38,13 @@ func	named function
 function.call	call named function
 func.call	call named function
 gain~	multislot signal gain
-log	advanced data logger
+logger	advanced data logger
+log.error	advanced data logger
+log.post	advanced data logger
+log.debug	advanced data logger
+log.verbose	advanced data logger
+log.stderr	advanced data logger
+log.stdout	advanced data logger
 matrix~	signal routing matrix
 metro.pattern	metro with rhythmic patterns
 metro.random	metro random bang with specified range

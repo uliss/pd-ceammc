@@ -78,7 +78,7 @@ interval;
 #X text 200 1122 call named function;
 #X obj 30 1149 gain~;
 #X text 200 1149 multislot signal gain;
-#X obj 30 1176 log;
+#X obj 30 1176 logger;
 #X text 200 1176 advanced data logger;
 #X obj 30 1203 matrix~;
 #X text 200 1203 signal routing matrix;
