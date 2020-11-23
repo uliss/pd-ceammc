@@ -193,4 +193,18 @@ TEST_CASE("log", "[externals]")
         t.sendMessage("a", LA("message"));
         REQUIRE(log_output.empty());
     }
+
+    SECTION("stderr")
+    {
+        TExt t("log.stderr");
+        REQUIRE(t.numInlets() == 2);
+        REQUIRE(t.numOutlets() == 0);
+    }
+
+    SECTION("stdout")
+    {
+        TExt t("log.stdout");
+        REQUIRE(t.numInlets() == 2);
+        REQUIRE(t.numOutlets() == 0);
+    }
 }

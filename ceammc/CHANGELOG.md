@@ -46,7 +46,7 @@
 - freeze added to fx.freeverb~, fx.freeverb2~ and fx.zita_rev1~ (via @freeze property)
 - flt.ff_comb~ added (feed forward comb filter)
 - flt.fb_comb~ added (feedback comb filter)
-- log object added
+- log.error, log.post, log.debug, log.verbose, log.stdout, log.stderr objects added
 - an.rms~, root mean square with moving-average algorithm
 - midi.vramp added
 - midi.tuning added
