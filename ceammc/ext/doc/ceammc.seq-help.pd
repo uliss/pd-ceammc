@@ -10,6 +10,8 @@
 #X text 200 170 output specified number of bang with time intervals;
 #X obj 30 197 seq.phasor;
 #X text 200 197 control rate phasor (saw) generator;
+#X obj 30 224 seq.toggles;
+#X text 200 224 toggle sequencer;
 #X obj 1 1 cnv 5 740 40 empty empty ceammc::seq 20 20 0 20 -104026
 -4096 0;
 #X obj 1 513 cnv 5 740 40 empty empty empty 17 7 0 10 -203890 -1 0;

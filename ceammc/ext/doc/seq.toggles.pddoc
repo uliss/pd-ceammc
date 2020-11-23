@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="seq.toggles">
+        <title>seq.toggles</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>toggle sequencer</description>
+            <license>GPL3 or later</license>
+            <library>ceammc</library>
+            <category>seq</category>
+            <keywords>seq sequencer toggle pattern rythm</keywords>
+            <since>0.9.1</since>
+            <aliases>
+                <alias>seq.t</alias>
+            </aliases>
+        </meta>
+        <arguments>
+            <argument name="PATTERN" type="list">sequencer pattern in beat duration
+            units</argument>
+        </arguments>
+        <properties>
+            <property name="@bpm" type="float" default="60" minvalue="1" maxvalue="600"
+            units="bpm">frequency of sequencer division (by default @div=4)</property>
+            <property name="@div" type="int" default="4" minvalue="1" maxvalue="512">sequencer beat
+            division. The four means 1/4, eight - 1/8 etc.</property>
+            <property name="@pattern" type="list">sequencer pattern in beat duration
+            units</property>
+            <property name="@dur" type="float" minvalue="0" maxvalue="1" default="0.75">
+            sequencer pattern in beat duration units</property>
+        </properties>
+        <methods>
+            <method name="reset">reset to first element</method>
+            <method name="stop">stop sequencer</method>
+        </methods>
+        <inlets>
+            <inlet>
+                <xinfo on="bang">starts sequencer</xinfo>
+            </inlet>
+            <inlet>
+                <xinfo on="list">set new pattern value</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet>bang</outlet>
+            <outlet>float: duration until next bang (in ms)</outlet>
+            <outlet>current index or bang when done</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[B #b]  [stop(  [reset(
+|       |       |
+[seq.toggles 3 1 2 1 1 @bpm 120 @div 16]
+|                          ^^|
+|                          [sel done]  [T]
+|                          |           |.
+[msg @gate]                [flow.gate 1 {w=27} #g]
+|
+[synth.eguitar~ @pitch 48] [ui.dsp~]
+|
+[ui.hgain~]
+|\
+[dac~]
+[X g->b]
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>
