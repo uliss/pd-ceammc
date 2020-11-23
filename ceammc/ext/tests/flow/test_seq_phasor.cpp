@@ -32,6 +32,7 @@ TEST_CASE("seq.phasor", "[externals]")
             REQUIRE_PROPERTY(t, @freq, 0.);
             REQUIRE_PROPERTY(t, @on, 0.);
             REQUIRE_PROPERTY(t, @invert, 0.);
+            REQUIRE_PROPERTY(t, @open, 0.);
             REQUIRE_PROPERTY(t, @precision, 1 / 128.0);
         }
 
@@ -156,5 +157,19 @@ TEST_CASE("seq.phasor", "[externals]")
         REQUIRE(t.outputFloatAt(0) == Approx(1));
         t.schedTicks(dt);
         REQUIRE(t.outputFloatAt(0) == Approx(0.5));
+
+        dt = std::round(1000 / 2.0);
+        t->setProperty("@open", LF(1));
+        t << 0.;
+        t.call("reset");
+        t << 1;
+        REQUIRE(t.isOutputFloatAt(0));
+        REQUIRE(t.outputFloatAt(0) == 0.5);
+        t.schedTicks(dt);
+        REQUIRE(t.outputFloatAt(0) == Approx(0.));
+        t.schedTicks(dt);
+        REQUIRE(t.outputFloatAt(0) == Approx(0.5));
+        t.schedTicks(dt);
+        REQUIRE(t.outputFloatAt(0) == Approx(0));
     }
 }
