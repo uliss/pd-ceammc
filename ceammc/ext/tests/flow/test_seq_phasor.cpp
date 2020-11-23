@@ -31,6 +31,7 @@ TEST_CASE("seq.phasor", "[externals]")
             REQUIRE(t.numOutlets() == 2);
             REQUIRE_PROPERTY(t, @freq, 0.);
             REQUIRE_PROPERTY(t, @on, 0.);
+            REQUIRE_PROPERTY(t, @invert, 0.);
             REQUIRE_PROPERTY(t, @precision, 1 / 128.0);
         }
 
@@ -140,5 +141,20 @@ TEST_CASE("seq.phasor", "[externals]")
         t.call("set", 1.1);
         t.schedTicks(dt);
         REQUIRE(t.outputFloatAt(0) == Approx(1));
+
+        t->setProperty("@invert", LF(1));
+        t << 0.;
+        t.call("reset");
+        t << 1;
+        REQUIRE(t.isOutputFloatAt(0));
+        REQUIRE(t.outputFloatAt(0) == 1);
+        t.schedTicks(dt);
+        REQUIRE(t.outputFloatAt(0) == Approx(0.5));
+        t.schedTicks(dt);
+        REQUIRE(t.outputFloatAt(0) == Approx(0));
+        t.schedTicks(dt);
+        REQUIRE(t.outputFloatAt(0) == Approx(1));
+        t.schedTicks(dt);
+        REQUIRE(t.outputFloatAt(0) == Approx(0.5));
     }
 }
