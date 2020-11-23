@@ -6,7 +6,7 @@ spn = library("spn.lib");
 pm = library("physmodels.lib");
 ba = library("basics.lib");
 
-process = pm.ks(len, mute, excitation) * amp : _ with {
+process = pm.ks(len, mute, excitation) : _ with {
     len = pm.f2l(freq);
     freq = hslider("pitch", spn.C3, spn.C2, spn.C6, 0.001) : ba.midikey2hz;
     mute = hslider("mute", 0, 0, 1, 0.001); // mute coefficient (0 for no mute and 1 for instant mute)

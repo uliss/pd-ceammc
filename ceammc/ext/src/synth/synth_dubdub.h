@@ -514,11 +514,11 @@ class synth_dubdub : public synth_dubdub_dsp {
 	
  private:
 	
-	FAUSTFLOAT fButton0;
 	int fSampleRate;
 	float fConst0;
 	float fConst1;
 	float fConst2;
+	FAUSTFLOAT fButton0;
 	float fRec1[2];
 	float fConst3;
 	FAUSTFLOAT fHslider0;
@@ -534,8 +534,6 @@ class synth_dubdub : public synth_dubdub_dsp {
 	void metadata(Meta* m) { 
 		m->declare("basics.lib/name", "Faust Basic Element Library");
 		m->declare("basics.lib/version", "0.1");
-		m->declare("ceammc.lib/name", "Ceammc PureData misc utils");
-		m->declare("ceammc.lib/version", "0.1.2");
 		m->declare("ceammc_ui.lib/name", "CEAMMC faust default UI elements");
 		m->declare("ceammc_ui.lib/version", "0.1.2");
 		m->declare("envelopes.lib/author", "GRAME");
@@ -677,28 +675,27 @@ class synth_dubdub : public synth_dubdub_dsp {
 	
 	virtual void compute(int count, FAUSTFLOAT** inputs, FAUSTFLOAT** outputs) {
 		FAUSTFLOAT* output0 = outputs[0];
-		float fSlow0 = std::min<float>(1.0f, std::max<float>(0.0f, float(fButton0)));
-		float fSlow1 = (fConst2 * fSlow0);
-		float fSlow2 = std::max<float>(1.00000001e-07f, std::fabs((440.0f * std::pow(2.0f, (0.0833333358f * (float(fHslider0) + -69.0f))))));
-		float fSlow3 = (fConst3 * fSlow2);
-		float fSlow4 = (1.0f - (fConst0 / fSlow2));
-		float fSlow5 = std::tan((fConst4 * float(fHslider1)));
-		float fSlow6 = (1.0f / fSlow5);
-		float fSlow7 = (0.00100000005f * float(fVslider0));
-		float fSlow8 = (2.0f * (1.0f - (1.0f / synth_dubdub_faustpower2_f(fSlow5))));
+		float fSlow0 = (fConst2 * float(fButton0));
+		float fSlow1 = std::max<float>(1.00000001e-07f, std::fabs((440.0f * std::pow(2.0f, (0.0833333358f * (float(fHslider0) + -69.0f))))));
+		float fSlow2 = (fConst3 * fSlow1);
+		float fSlow3 = (1.0f - (fConst0 / fSlow1));
+		float fSlow4 = std::tan((fConst4 * float(fHslider1)));
+		float fSlow5 = (1.0f / fSlow4);
+		float fSlow6 = (0.00100000005f * float(fVslider0));
+		float fSlow7 = (2.0f * (1.0f - (1.0f / synth_dubdub_faustpower2_f(fSlow4))));
 		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int i = 0; (i < count); i = (i + 1)) {
-			fRec1[0] = (fSlow1 + (fConst1 * fRec1[1]));
-			float fTemp0 = (fSlow3 + (fRec2[1] + -1.0f));
+			fRec1[0] = (fSlow0 + (fConst1 * fRec1[1]));
+			float fTemp0 = (fSlow2 + (fRec2[1] + -1.0f));
 			int iTemp1 = (fTemp0 < 0.0f);
-			float fTemp2 = (fSlow3 + fRec2[1]);
+			float fTemp2 = (fSlow2 + fRec2[1]);
 			fRec2[0] = (iTemp1 ? fTemp2 : fTemp0);
-			float fRec3 = (iTemp1 ? fTemp2 : (fSlow3 + (fRec2[1] + (fSlow4 * fTemp0))));
-			fRec4[0] = (fSlow7 + (0.999000013f * fRec4[1]));
+			float fRec3 = (iTemp1 ? fTemp2 : (fSlow2 + (fRec2[1] + (fSlow3 * fTemp0))));
+			fRec4[0] = (fSlow6 + (0.999000013f * fRec4[1]));
 			float fTemp3 = (1.0f / fRec4[0]);
-			float fTemp4 = ((fSlow6 * (fSlow6 + fTemp3)) + 1.0f);
-			fRec0[0] = ((0.5f * (fRec1[0] * ((2.0f * fRec3) + -1.0f))) - (((fRec0[2] * ((fSlow6 * (fSlow6 - fTemp3)) + 1.0f)) + (fSlow8 * fRec0[1])) / fTemp4));
-			output0[i] = FAUSTFLOAT((fSlow0 * ((fRec0[2] + (fRec0[0] + (2.0f * fRec0[1]))) / fTemp4)));
+			float fTemp4 = ((fSlow5 * (fSlow5 + fTemp3)) + 1.0f);
+			fRec0[0] = ((0.5f * (fRec1[0] * ((2.0f * fRec3) + -1.0f))) - (((fRec0[2] * ((fSlow5 * (fSlow5 - fTemp3)) + 1.0f)) + (fSlow7 * fRec0[1])) / fTemp4));
+			output0[i] = FAUSTFLOAT(((fRec0[2] + (fRec0[0] + (2.0f * fRec0[1]))) / fTemp4));
 			fRec1[1] = fRec1[0];
 			fRec2[1] = fRec2[0];
 			fRec4[1] = fRec4[0];
