@@ -41,7 +41,7 @@
         <example>
             <pdascii>
 <![CDATA[
-[T]
+[T]                  [ui.dsp~]
 |
 [metro 130]
 |
@@ -51,21 +51,19 @@
 |                    |                       |
 [+ 36]               |                       |
 |                    |                       |
-[@pitch $1, @gate 1( [@pos $1 #b(            [@sharp $1 #c(
+[makenote 127 100]   [@pos $1 #b(            [@sharp $1 #c(
+*|*
+[pack f f]
 |
-[flow.append "@gate" 0 @delay 10]
-|
-|
+[msg note]
 |
 [synth.marimba~ #a]
 |
-[fx.freeverb~ @room 0.95 @drywet 0.001]
+[fx.freeverb~ @room 0.95 @drywet 0.015]
 |
 [ui.gain~ @size 120 16]
 |\
 [dac~]
-
-[ui.dsp~]
 [X b->a] [X c->a]
 ]]>
             </pdascii>
