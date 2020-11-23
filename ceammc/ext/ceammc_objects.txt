@@ -704,6 +704,9 @@ sec->str
 seq.arp
 seq.b
 seq.bangs
+seq.nb
+seq.nbangs
+seq.phasor
 seq.t
 seq.toggles
 set->list

@@ -670,6 +670,8 @@ random.pw_lin	piecewise linear random distribution
 seq.arp	sequence arpeggiator
 seq.bangs	bang sequencer
 seq.b	bang sequencer
+seq.nbangs	output specified number of bang with time intervals
+seq.nb	output specified number of bang with time intervals
 snd.file	Sound file loader on steroids
 hoa.2d.decoder~	hoa 2d decoder
 hoa.decoder~	hoa 2d decoder

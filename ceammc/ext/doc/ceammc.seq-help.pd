@@ -6,6 +6,8 @@
 #X text 200 116 sequence arpeggiator;
 #X obj 30 143 seq.bangs;
 #X text 200 143 bang sequencer;
+#X obj 30 170 seq.nbangs;
+#X text 200 170 output specified number of bang with time intervals;
 #X obj 1 1 cnv 5 740 40 empty empty ceammc::seq 20 20 0 20 -104026
 -4096 0;
 #X obj 1 513 cnv 5 740 40 empty empty empty 17 7 0 10 -203890 -1 0;

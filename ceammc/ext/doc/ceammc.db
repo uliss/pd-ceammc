@@ -493,6 +493,7 @@ random.pw_lin		.		.
 replace		...		.
 seq.arp		.		..
 seq.bangs,seq.b		..		...
+seq.nbangs,seq.nb		..		..
 set.contains		..		.
 set.diff		..		.
 set.equal		..		.

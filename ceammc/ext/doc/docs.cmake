@@ -502,6 +502,7 @@ set(DOC_FILES
     set.union
     seq.bangs
     seq.arp
+    seq.nbangs
     snd.file
     spat.pan4~
     spat.pan8~

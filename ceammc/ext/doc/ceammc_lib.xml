@@ -1532,6 +1532,9 @@
     <entry name="seq.bangs" descr="bang sequencer" ref_view="object">
       <xi:include href="seq.bangs.pddoc" parse="xml"/>
     </entry>
+    <entry name="seq.nbangs" descr="output specified number of bang with time intervals" ref_view="object">
+      <xi:include href="seq.nbangs.pddoc" parse="xml"/>
+    </entry>
   </category>
   <category name="snd">
     <entry name="snd.file" descr="Sound file loader on steroids" ref_view="object">

@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="seq.nbangs">
+        <title>seq.nbangs</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>output specified number of bang with time intervals</description>
+            <license>GPL3 or later</license>
+            <library>ceammc</library>
+            <category>seq</category>
+            <keywords>seq bang until</keywords>
+            <since>0.9.1</since>
+            <also>
+                <see>seq.bangs</see>
+                <see>seq.toggles</see>
+            </also>
+            <aliases>
+                <alias>seq.nb</alias>
+            </aliases>
+        </meta>
+        <inlets>
+            <inlet>
+                <xinfo on="bang">starts output</xinfo>
+            </inlet>
+            <inlet>
+                <xinfo on="any">stops output and reset</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet>bang output</outlet>
+            <outlet>bang wheh finished</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[10( [15( [2(         [ui.dsp~]
+|    |    |
+[seq.nbangs @t 110]
+|        |
+|        [random.i 300 3000]
+|        |
+[click~] [@freq $1(
+|        |
+[flt.resonbp~ 1000 40]
+|
+[ui.hgain~]
+|\
+[dac~]
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>
