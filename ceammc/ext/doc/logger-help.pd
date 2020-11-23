@@ -23,18 +23,21 @@
 #X obj 20 266 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 271 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
 -49933 0;
-#X msg 110 306 @prefix;
-#X text 245 306 Get/Set log message prefix. Type: list.;
-#X obj 20 345 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 350 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
+#X msg 110 306 @active;
+#X text 245 306 Get/Set enabled/disabled logging state. Type: int.
+Default value: 1\. Allowed values: 0 \, 1\.;
+#X msg 110 348 @prefix;
+#X text 245 348 Get/Set log message prefix. Type: list.;
+#X obj 20 387 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 392 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
-#X text 110 351 1\.;
-#X text 245 351 log input.;
-#X text 110 371 2\.;
-#X text 150 371 *float*;
-#X text 245 371 1: enable logging \, 0: disable logging.;
-#X obj 20 401 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 406 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
+#X text 110 393 1\.;
+#X text 245 393 log input.;
+#X text 110 413 2\.;
+#X text 150 413 *float*;
+#X text 245 413 1: enable logging \, 0: disable logging.;
+#X obj 20 443 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 448 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
