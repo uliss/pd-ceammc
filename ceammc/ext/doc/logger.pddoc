@@ -43,6 +43,10 @@
 [F]   [1 2 3(
 |     |
 [log.error ERROR!]
+
+[F]   [message(
+|     |
+[log.debug]
 ]]>
             </pdascii>
         </example>
