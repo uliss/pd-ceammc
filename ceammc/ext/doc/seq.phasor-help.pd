@@ -6,8 +6,7 @@
 -4096 0;
 #X obj 667 11 seq.phasor;
 #X obj 210 80 cnv 1 555 90 empty empty empty 17 7 0 10 -257983 -1 0;
-#X text 215 80 Outputs saw signal in [0\..1] \, [0\..1) or (0\..1]
-range.;
+#X text 215 80 Outputs saw signal in [0\..1] or [0\..1) range.;
 #X text 215 105 Note: control rate in PureData depends on block size
 and samplerate. Do not rely on strict timing for this object \, especially
 at high frequencies!;
@@ -40,19 +39,19 @@ at high frequencies!;
 #X obj 20 510 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 515 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
 -49933 0;
-#X msg 110 550 @closed;
-#X text 245 550 Get/Set output in closed [0\..1] range \, otherwise
-output range is [0\..1) or (0\..1] depending @invert property. Type:
-int. Default value: 1\. Allowed values: 0 \, 1\.;
-#X msg 110 607 @freq;
-#X text 245 607 Get/Set frequency. Type: float. Units: Hz. Default
+#X msg 110 550 @freq;
+#X text 245 550 Get/Set frequency. Type: float. Units: Hz. Default
 value: 0\. Range: 0\...100\.;
-#X msg 110 649 @invert;
-#X text 245 649 Get/Set saw inversion mode. If true \, outputs descreasing
+#X msg 110 592 @invert;
+#X text 245 592 Get/Set saw inversion mode. If true \, outputs descreasing
 waveform. Type: int. Default value: 0\. Allowed values: 0 \, 1\.;
-#X msg 110 706 @on;
-#X text 245 706 Get/Set on/off state. Type: int. Default value: 0\.
+#X msg 110 649 @on;
+#X text 245 649 Get/Set on/off state. Type: int. Default value: 0\.
 Allowed values: 0 \, 1\.;
+#X msg 110 691 @open;
+#X text 245 691 Get/Set output in closed [0\..1] range \, otherwise
+output range is [0\..1). Type: int. Default value: 0\. Allowed values:
+0 \, 1\.;
 #X msg 110 748 @precision;
 #X text 245 748 Get/Set minimal phasor value step. (From 1/1024 to
 1/2 \, default 1/128). Type: float. Default value: 0.0078125\. Range:
