@@ -19,20 +19,20 @@
 #X obj 12 256 ui.slider @size 125 12 @active_scale 1 @label drywet:
 @label_side top @label_align left @fontsize 10 @presetname
 /gui/\$1/fx.pitchshift~/slider1 @min 0 @max 1;
+#X obj 190 256 sync;
 #X obj 145 256 ui.number @size 50 12 @min 0 @max 1 @digits 4;
-#X obj 200 256 msg set;
 #X msg 260 256 @drywet \$1;
 #X obj 12 288 ui.slider @size 125 12 @active_scale 1 @label fade(ms):
 @label_side top @label_align left @fontsize 10 @presetname
 /gui/\$1/fx.pitchshift~/slider2 @min 0 @max 1000;
+#X obj 190 288 sync;
 #X obj 145 288 ui.number @size 50 12 @min 0 @max 1000 @digits 1;
-#X obj 200 288 msg set;
 #X msg 260 288 @fade \$1;
 #X obj 12 320 ui.slider @size 125 12 @active_scale 1 @label
 window(ms): @label_side top @label_align left @fontsize 10 @presetname
 /gui/\$1/fx.pitchshift~/slider3 @min 10 @max 2000;
+#X obj 190 320 sync;
 #X obj 145 320 ui.number @size 50 12 @min 10 @max 2000 @digits 0;
-#X obj 200 320 msg set;
 #X msg 260 320 @window \$1;
 #X connect 1 0 0 0;
 #X connect 2 0 0 1;
@@ -47,20 +47,23 @@ window(ms): @label_side top @label_align left @fontsize 10 @presetname
 #X connect 13 0 0 0;
 #X connect 5 0 12 0;
 #X connect 14 0 15 0;
-#X connect 15 0 16 0;
-#X connect 16 0 14 0;
+#X connect 15 0 14 0;
+#X connect 16 0 15 1;
+#X connect 15 1 16 0;
 #X connect 14 0 17 0;
 #X connect 17 0 0 0;
 #X connect 5 1 14 0;
 #X connect 18 0 19 0;
-#X connect 19 0 20 0;
-#X connect 20 0 18 0;
+#X connect 19 0 18 0;
+#X connect 20 0 19 1;
+#X connect 19 1 20 0;
 #X connect 18 0 21 0;
 #X connect 21 0 0 0;
 #X connect 5 2 18 0;
 #X connect 22 0 23 0;
-#X connect 23 0 24 0;
-#X connect 24 0 22 0;
+#X connect 23 0 22 0;
+#X connect 24 0 23 1;
+#X connect 23 1 24 0;
 #X connect 22 0 25 0;
 #X connect 25 0 0 0;
 #X connect 5 3 22 0;

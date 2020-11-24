@@ -13,8 +13,8 @@
 #X obj 12 238 ui.slider @size 125 12 @active_scale 1 @label gain:
 @label_side top @label_align left @fontsize 10 @presetname
 /gui/\$1/synth.eguitar~/slider0 @min 0 @max 1;
+#X obj 190 238 sync;
 #X obj 145 238 ui.number @size 50 12 @min 0 @max 1 @digits 4;
-#X obj 200 238 msg set;
 #X msg 260 238 @gain \$1;
 #X obj 12 258 ui.toggle @size 12 12 @label gate @label_side right
 @label_align left @fontsize 10;
@@ -22,20 +22,20 @@
 #X obj 12 288 ui.slider @size 125 12 @active_scale 1 @label mute:
 @label_side top @label_align left @fontsize 10 @presetname
 /gui/\$1/synth.eguitar~/slider2 @min 0 @max 1;
+#X obj 190 288 sync;
 #X obj 145 288 ui.number @size 50 12 @min 0 @max 1 @digits 4;
-#X obj 200 288 msg set;
 #X msg 260 288 @mute \$1;
 #X obj 12 320 ui.slider @size 125 12 @active_scale 1 @label pitch:
 @label_side top @label_align left @fontsize 10 @presetname
 /gui/\$1/synth.eguitar~/slider3 @min 36 @max 84;
+#X obj 190 320 sync;
 #X obj 145 320 ui.number @size 50 12 @min 36 @max 84 @digits 2;
-#X obj 200 320 msg set;
 #X msg 260 320 @pitch \$1;
 #X obj 12 352 ui.slider @size 125 12 @active_scale 1 @label pos:
 @label_side top @label_align left @fontsize 10 @presetname
 /gui/\$1/synth.eguitar~/slider4 @min 0 @max 1;
+#X obj 190 352 sync;
 #X obj 145 352 ui.number @size 50 12 @min 0 @max 1 @digits 4;
-#X obj 200 352 msg set;
 #X msg 260 352 @pos \$1;
 #X connect 1 0 2 0;
 #X connect 2 0 3 0;
@@ -45,8 +45,9 @@
 #X connect 0 0 7 0;
 #X connect 2 1 8 0;
 #X connect 10 0 11 0;
-#X connect 11 0 12 0;
-#X connect 12 0 10 0;
+#X connect 11 0 10 0;
+#X connect 12 0 11 1;
+#X connect 11 1 12 0;
 #X connect 10 0 13 0;
 #X connect 13 0 0 0;
 #X connect 3 0 10 0;
@@ -54,20 +55,23 @@
 #X connect 15 0 0 0;
 #X connect 3 1 14 0;
 #X connect 16 0 17 0;
-#X connect 17 0 18 0;
-#X connect 18 0 16 0;
+#X connect 17 0 16 0;
+#X connect 18 0 17 1;
+#X connect 17 1 18 0;
 #X connect 16 0 19 0;
 #X connect 19 0 0 0;
 #X connect 3 2 16 0;
 #X connect 20 0 21 0;
-#X connect 21 0 22 0;
-#X connect 22 0 20 0;
+#X connect 21 0 20 0;
+#X connect 22 0 21 1;
+#X connect 21 1 22 0;
 #X connect 20 0 23 0;
 #X connect 23 0 0 0;
 #X connect 3 3 20 0;
 #X connect 24 0 25 0;
-#X connect 25 0 26 0;
-#X connect 26 0 24 0;
+#X connect 25 0 24 0;
+#X connect 26 0 25 1;
+#X connect 25 1 26 0;
 #X connect 24 0 27 0;
 #X connect 27 0 0 0;
 #X connect 3 4 24 0;

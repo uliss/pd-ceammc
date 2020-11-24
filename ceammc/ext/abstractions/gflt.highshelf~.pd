@@ -14,14 +14,14 @@
 #X obj 12 238 ui.slider @size 125 12 @active_scale 1 @label freq(Hz):
 @label_side top @label_align left @fontsize 10 @presetname
 /gui/\$1/flt.highshelf~/slider0 @min 20 @max 20000;
+#X obj 190 238 sync;
 #X obj 145 238 ui.number @size 50 12 @min 20 @max 20000 @digits 1;
-#X obj 200 238 msg set;
 #X msg 260 238 @freq \$1;
 #X obj 12 270 ui.slider @size 125 12 @active_scale 1 @label gain(db):
 @label_side top @label_align left @fontsize 10 @presetname
 /gui/\$1/flt.highshelf~/slider1 @min -15 @max 15;
+#X obj 190 270 sync;
 #X obj 145 270 ui.number @size 50 12 @min -15 @max 15 @digits 2;
-#X obj 200 270 msg set;
 #X msg 260 270 @gain \$1;
 #X connect 1 0 0 0;
 #X connect 2 0 3 0;
@@ -32,14 +32,16 @@
 #X connect 0 0 8 0;
 #X connect 3 1 9 0;
 #X connect 11 0 12 0;
-#X connect 12 0 13 0;
-#X connect 13 0 11 0;
+#X connect 12 0 11 0;
+#X connect 13 0 12 1;
+#X connect 12 1 13 0;
 #X connect 11 0 14 0;
 #X connect 14 0 0 0;
 #X connect 4 0 11 0;
 #X connect 15 0 16 0;
-#X connect 16 0 17 0;
-#X connect 17 0 15 0;
+#X connect 16 0 15 0;
+#X connect 17 0 16 1;
+#X connect 16 1 17 0;
 #X connect 15 0 18 0;
 #X connect 18 0 0 0;
 #X connect 4 1 15 0;

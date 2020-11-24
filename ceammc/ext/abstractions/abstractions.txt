@@ -16,6 +16,8 @@ gflt.lpf24~
 gflt.moog_vcf~
 gflt.notch~
 gflt.resonbp~
+gflt_fb_comb~
+gflt_ff_comb~
 gfx.bitdown~
 gfx.chorus~
 gfx.distortion1~
@@ -40,6 +42,7 @@ gnoise.lfreq0~
 gnoise.lfreq~
 gspat.pan4~
 gspat.pan8~
+gspat.zita8~
 gsynth.birds~
 gsynth.church_bell~
 gsynth.dubdub~

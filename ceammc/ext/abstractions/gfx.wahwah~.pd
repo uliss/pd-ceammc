@@ -14,8 +14,8 @@
 #X obj 12 238 ui.slider @size 125 12 @active_scale 1 @label angle:
 @label_side top @label_align left @fontsize 10 @presetname
 /gui/\$1/fx.wahwah~/slider0 @min 0 @max 1;
+#X obj 190 238 sync;
 #X obj 145 238 ui.number @size 50 12 @min 0 @max 1 @digits 4;
-#X obj 200 238 msg set;
 #X msg 260 238 @angle \$1;
 #X obj 12 258 ui.toggle @size 12 12 @label bypass @label_side right
 @label_align left @fontsize 10 @presetname
@@ -24,14 +24,14 @@
 #X obj 12 288 ui.slider @size 125 12 @active_scale 1 @label drywet:
 @label_side top @label_align left @fontsize 10 @presetname
 /gui/\$1/fx.wahwah~/slider2 @min 0 @max 1;
+#X obj 190 288 sync;
 #X obj 145 288 ui.number @size 50 12 @min 0 @max 1 @digits 4;
-#X obj 200 288 msg set;
 #X msg 260 288 @drywet \$1;
 #X obj 12 320 ui.slider @size 125 12 @active_scale 1 @label
 speed(bpm): @label_side top @label_align left @fontsize 10 @presetname
 /gui/\$1/fx.wahwah~/slider3 @min 360 @max 780;
+#X obj 190 320 sync;
 #X obj 145 320 ui.number @size 50 12 @min 360 @max 780 @digits 1;
-#X obj 200 320 msg set;
 #X msg 260 320 @speed \$1;
 #X connect 1 0 0 0;
 #X connect 2 0 3 0;
@@ -42,8 +42,9 @@ speed(bpm): @label_side top @label_align left @fontsize 10 @presetname
 #X connect 0 0 8 0;
 #X connect 3 1 9 0;
 #X connect 11 0 12 0;
-#X connect 12 0 13 0;
-#X connect 13 0 11 0;
+#X connect 12 0 11 0;
+#X connect 13 0 12 1;
+#X connect 12 1 13 0;
 #X connect 11 0 14 0;
 #X connect 14 0 0 0;
 #X connect 4 0 11 0;
@@ -51,14 +52,16 @@ speed(bpm): @label_side top @label_align left @fontsize 10 @presetname
 #X connect 16 0 0 0;
 #X connect 4 1 15 0;
 #X connect 17 0 18 0;
-#X connect 18 0 19 0;
-#X connect 19 0 17 0;
+#X connect 18 0 17 0;
+#X connect 19 0 18 1;
+#X connect 18 1 19 0;
 #X connect 17 0 20 0;
 #X connect 20 0 0 0;
 #X connect 4 2 17 0;
 #X connect 21 0 22 0;
-#X connect 22 0 23 0;
-#X connect 23 0 21 0;
+#X connect 22 0 21 0;
+#X connect 23 0 22 1;
+#X connect 22 1 23 0;
 #X connect 21 0 24 0;
 #X connect 24 0 0 0;
 #X connect 4 3 21 0;

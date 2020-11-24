@@ -15,20 +15,20 @@
 #X obj 12 238 ui.slider @size 125 12 @active_scale 1 @label
 delay(sec): @label_side top @label_align left @fontsize 10 @presetname
 /gui/\$1/fx.granulator~/slider0 @min 0.5 @max 10;
+#X obj 190 238 sync;
 #X obj 145 238 ui.number @size 50 12 @min 0.5 @max 10 @digits 3;
-#X obj 200 238 msg set;
 #X msg 260 238 @delay \$1;
 #X obj 12 270 ui.slider @size 125 12 @active_scale 1 @label density:
 @label_side top @label_align left @fontsize 10 @presetname
 /gui/\$1/fx.granulator~/slider1 @min 1 @max 64;
+#X obj 190 270 sync;
 #X obj 145 270 ui.number @size 50 12 @min 1 @max 64 @digits 2;
-#X obj 200 270 msg set;
 #X msg 260 270 @density \$1;
 #X obj 12 302 ui.slider @size 125 12 @active_scale 1 @label
 length(ms): @label_side top @label_align left @fontsize 10 @presetname
 /gui/\$1/fx.granulator~/slider2 @min 10 @max 500;
+#X obj 190 302 sync;
 #X obj 145 302 ui.number @size 50 12 @min 10 @max 500 @digits 1;
-#X obj 200 302 msg set;
 #X msg 260 302 @length \$1;
 #X connect 1 0 0 0;
 #X connect 2 0 3 0;
@@ -40,20 +40,23 @@ length(ms): @label_side top @label_align left @fontsize 10 @presetname
 #X connect 0 1 9 0;
 #X connect 3 1 10 0;
 #X connect 12 0 13 0;
-#X connect 13 0 14 0;
-#X connect 14 0 12 0;
+#X connect 13 0 12 0;
+#X connect 14 0 13 1;
+#X connect 13 1 14 0;
 #X connect 12 0 15 0;
 #X connect 15 0 0 0;
 #X connect 4 0 12 0;
 #X connect 16 0 17 0;
-#X connect 17 0 18 0;
-#X connect 18 0 16 0;
+#X connect 17 0 16 0;
+#X connect 18 0 17 1;
+#X connect 17 1 18 0;
 #X connect 16 0 19 0;
 #X connect 19 0 0 0;
 #X connect 4 1 16 0;
 #X connect 20 0 21 0;
-#X connect 21 0 22 0;
-#X connect 22 0 20 0;
+#X connect 21 0 20 0;
+#X connect 22 0 21 1;
+#X connect 21 1 22 0;
 #X connect 20 0 23 0;
 #X connect 23 0 0 0;
 #X connect 4 2 20 0;
