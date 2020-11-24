@@ -31,8 +31,8 @@ class SynthWithFreq : public T {
 public:
     SynthWithFreq(const PdArgs& args)
         : T(args)
-        , pitch_(reinterpret_cast<faust::UIProperty*>(T::property(PROP_PITCH)))
-        , gate_(reinterpret_cast<faust::UIProperty*>(T::property(PROP_GATE)))
+        , pitch_(static_cast<faust::UIProperty*>(T::property(PROP_PITCH)))
+        , gate_(static_cast<faust::UIProperty*>(T::property(PROP_GATE)))
     {
         if (!pitch_ || !gate_)
             OBJ_ERR << "dev error: @pitch and @gate property not found";
