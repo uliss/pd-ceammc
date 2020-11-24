@@ -20,6 +20,9 @@
             <par>This model contains 7 excitation positions going linearly from the bottom to the
             top of the bell</par>
         </info>
+        <methods>
+            <method name="reset">reset synth</method>
+        </methods>
         <properties>
             <property name="@pos" type="int" minvalue="0" maxvalue="6" default="0">strike position
             (0 is on the bottom)</property>
@@ -27,8 +30,14 @@
             gain</property>
             <property name="@sharp" type="float" minvalue="0.01" maxvalue="5" default="0.5">strike
             sharpness</property>
-            <property name="@cutoff" type="float" minvalue="20" maxvalue="20000" default="6500">
+            <property name="@cutoff" type="float" minvalue="20" maxvalue="20000" default="6500" units="herz">
             cutoff coefficent</property>
+            <property name="@t60" type="float" minvalue="0.1" maxvalue="30" default="20" units="second">
+            time to decay to -60db level</property>
+            <property name="@decay_ratio" type="float" minvalue="0" maxvalue="1" default="1">
+            decay ratio</property>
+            <property name="@decay_slope" type="float" minvalue="0" maxvalue="10" default="2.5">
+            decay slope</property>
             <property name="@gate" type="float" minvalue="0" maxvalue="1" default="0">play trigger
             - 1: on, 0: off</property>
             <property name="@active" type="int" enum="0 1" default="1">on/off dsp
@@ -36,35 +45,47 @@
         </properties>
         <inlets>
             <inlet>
-                <xinfo>input signal</xinfo>
+                <xinfo on="bang">play</xinfo>
             </inlet>
         </inlets>
         <outlets>
-            <outlet type="audio" />
+            <outlet type="audio">synth output</outlet>
         </outlets>
         <example>
             <pdascii>
 <![CDATA[
-[T]
+[T]            [ui.dsp~]
 |
 [metro 200]
 |
-[t b                       b]
-|                          ^|
-[1(                        [random.int 0 7]
-|                          |
-[flow.append 0 @delay 10]  [ui.radio]
-|                          |
-[@gate $1(                 [@pos $1 #b(
-|                          |
-[synth.church_bell~ #a     ]
+[@gate 1(
+|
+[msg.after 300 @gate 0]
+|
+[msg synth.church_bell]
+|
+[gsynth.church_bell~ {i=1,o=1}]
+|
+|
+|
+|
+|
+|
+|
+|
+|
+|
+|
+|
+|
+|
+|
+|
+|
 |
 [ui.gain~ @size 120 16]
 |\
 [dac~]
-
-[ui.dsp~]
-[X b->a]
 ]]>
             </pdascii>
         </example>
