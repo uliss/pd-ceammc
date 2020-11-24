@@ -16,7 +16,7 @@ dx7 = par(i, NUM_ALGO, dx.dx7_algo(i, egR1, egR2, egR3, egR4,
             lfoDelay, lfoDepth, lfoSpeed,
             freq, gain, gate) : control(algorithm == i)) :> _
 with{
-    NUM_ALGO = 8;
+    NUM_ALGO = 16;
     algorithm = nentry("algorithm [type:int]", 0, 0, NUM_ALGO-1, 1) : int;
     feedback  = nentry("feedback", 0, 0, 99, 1) : dx.dx7_fdbkscalef/(2 * ma.PI);
     lfoDelay  = nentry("lfoDelay", 0, 0, 99, 1);
