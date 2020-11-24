@@ -26,7 +26,7 @@
 -262144 0;
 #X obj 12 236 ui.number @size 60 12 @label algorithm: @label_side top
 @label_align left @fontsize 10 @presetname /gui/\$1/synth.dx7~/numbox0
-@min 0 @max 7 @step 1;
+@min 0 @max 15 @step 1;
 #X msg 260 236 @algorithm \$1;
 #X obj 12 266 ui.number @size 60 12 @label feedback: @label_side top
 @label_align left @fontsize 10 @presetname /gui/\$1/synth.dx7~/numbox1
