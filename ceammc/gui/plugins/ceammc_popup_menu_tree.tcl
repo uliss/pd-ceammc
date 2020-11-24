@@ -218,10 +218,10 @@
         symbol.equal symbol.length symbol.num_compare symbol2intlist
     }}
     {synth {
-        synth.bee3~ synth.birds~ synth.church_bell~ synth.dubdub~
+        synth.bee3~ synth.birds~ synth.church_bell~ synth.dubdub~ synth.dx7~
         synth.eguitar~ synth.fgrain~ synth.ks~ synth.marimba~ synth.rhodey~
-        synth.risset_arp~ synth.risset_tone~ synth.shakers~ synth.sitar~
-        synth.wurley~
+        synth.risset_arp~ synth.risset_tone~ synth.russian_bell~
+        synth.shakers~ synth.sitar~ synth.wurley~
     }}
     {system {
         system.colorpanel system.cursor system.exec system.getenv

@@ -5,7 +5,7 @@
 #X obj 325 250 route @cutoff @decay_ratio @decay_slope @gain @gate
 @pos @sharp @t60;
 #X obj 575 350 print unknown property;
-#X msg 225 75 @cutoff 7000 \, @decay_ratio 1 \, @decay_slope 3 \, @gain 1 \, @pos 0 \, @sharp 0.25 \, @t60 5 \,;
+#X msg 225 75 @cutoff 4000 \, @decay_ratio 1 \, @decay_slope 3 \, @gain 1 \, @pos 0 \, @sharp 0.25 \, @t60 20 \,;
 #X obj 225 25 msg.onload;
 #X obj 500 550 outlet~;
 #X obj 600 550 outlet ctl;
