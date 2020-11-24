@@ -66,6 +66,7 @@
     - synth.bee3~ ...
     - synth.wurley~ ...
     - synth.sitar~ added
+    - synth.russian_bell~ added
     
 
 ### Changed:

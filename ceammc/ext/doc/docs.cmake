@@ -541,6 +541,7 @@ set(DOC_FILES
     synth.rhodey~
     synth.risset_arp~
     synth.risset_tone~
+    synth.russian_bell~
     synth.shakers~
     synth.sitar~
     synth.wurley~

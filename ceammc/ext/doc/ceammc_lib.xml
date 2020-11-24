@@ -1713,6 +1713,9 @@
     <entry name="synth.risset_tone~" descr="Jean Claude Risset's endless glissando" ref_view="object">
       <xi:include href="synth.risset_tone~.pddoc" parse="xml"/>
     </entry>
+    <entry name="synth.russian_bell~" descr="russian church bell modal model" ref_view="object">
+      <xi:include href="synth.russian_bell~.pddoc" parse="xml"/>
+    </entry>
     <entry name="synth.shakers~" descr="various percussion sounds from STK library" ref_view="object">
       <xi:include href="synth.shakers~.pddoc" parse="xml"/>
     </entry>

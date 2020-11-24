@@ -22,6 +22,7 @@ ceammc_synth_obj(ks)
 ceammc_synth_obj(marimba)
 ceammc_synth_obj(risset_arp)
 ceammc_synth_obj(risset_tone)
+ceammc_synth_obj(russian_bell)
 
 list(APPEND SYNTH_SOURCES "synth_dx7.cpp")
 ceammc_faust_gen_obj(synth dx7 JSON OCPP)

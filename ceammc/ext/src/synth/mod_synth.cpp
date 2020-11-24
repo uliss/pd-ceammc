@@ -16,6 +16,7 @@ extern void setup_synth_ks_tilde();
 extern void setup_synth_marimba_tilde();
 extern void setup_synth_risset_arp_tilde();
 extern void setup_synth_risset_tone_tilde();
+extern void setup_synth_russian_bell_tilde();
 
 void ceammc_synth_setup()
 {
@@ -35,4 +36,5 @@ void ceammc_synth_setup()
     setup_synth_marimba_tilde();
     setup_synth_risset_arp_tilde();
     setup_synth_risset_tone_tilde();
+    setup_synth_russian_bell_tilde();
 }

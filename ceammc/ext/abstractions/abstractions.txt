@@ -52,3 +52,4 @@ gsynth.ks~
 gsynth.marimba~
 gsynth.risset_arp~
 gsynth.risset_tone~
+gsynth.russian_bell~

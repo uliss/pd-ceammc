@@ -761,6 +761,7 @@ synth.marimba~	simple marimba physical model implementing a single tone bar conn
 synth.rhodey~	STK Fender Rhodes electric piano FM synthesis instrument
 synth.risset_arp~	Jean Claude Risset's harmonic arpeggio effect
 synth.risset_tone~	Jean Claude Risset's endless glissando
+synth.russian_bell~	russian church bell modal model
 synth.shakers~	various percussion sounds from STK library
 synth.sitar~	STK sitar
 synth.wurley~	Wurlitzer electric piano FM synthesis instrument
