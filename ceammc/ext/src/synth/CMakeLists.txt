@@ -1,11 +1,13 @@
 set(SYNTH_SOURCES)
 set(SYNTH_STK_SOURCES
     stksynth.cpp
-    synth_fgrain.cpp
-    synth_shakers.cpp
-    synth_wurley.cpp
     synth_bthree.cpp
-    synth_rhodey.cpp)
+    synth_fgrain.cpp
+    synth_rhodey.cpp
+    synth_shakers.cpp
+    synth_sitar.cpp
+    synth_wurley.cpp
+)
 
 macro(ceammc_synth_obj name)
     list(APPEND SYNTH_SOURCES "synth_${name}.cpp")

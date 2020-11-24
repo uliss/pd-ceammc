@@ -10,9 +10,9 @@
         plot.linspace~ plot.logspace~ plot.response~
     }}
     {base {
-        ceammc.search function function.call gain~ log matrix~ metro.pattern
-        metro.random metro.seq mix~ nsig~ obj.props radio sync window xdac~
-        xfade2~ xfade~
+        ceammc.search function function.call gain~ logger matrix~
+        metro.pattern metro.random metro.seq mix~ nsig~ obj.props radio sync
+        window xdac~ xfade2~ xfade~
     }}
     {chaos {
         chaos.gbman0 chaos.gbman0~ chaos.jong chaos.logistic chaos.std0
@@ -188,7 +188,8 @@
     {synth {
         synth.bee3~ synth.birds~ synth.church_bell~ synth.dubdub~
         synth.eguitar~ synth.fgrain~ synth.ks~ synth.marimba~ synth.rhodey~
-        synth.risset_arp~ synth.risset_tone~ synth.shakers~ synth.wurley~
+        synth.risset_arp~ synth.risset_tone~ synth.shakers~ synth.sitar~
+        synth.wurley~
     }}
     {system {
         system.colorpanel system.cursor system.exec system.getenv

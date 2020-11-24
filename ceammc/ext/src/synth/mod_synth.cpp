@@ -4,6 +4,7 @@
 #include "synth_fgrain.h"
 #include "synth_rhodey.h"
 #include "synth_shakers.h"
+#include "synth_sitar.h"
 #include "synth_wurley.h"
 
 extern void setup_synth_birds_tilde();
@@ -22,6 +23,7 @@ void ceammc_synth_setup()
     setup_synth_fgrain();
     setup_synth_rhodey();
     setup_synth_shakers();
+    setup_synth_sitar();
     setup_synth_wurley();
 
     setup_synth_birds_tilde();

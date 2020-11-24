@@ -65,7 +65,8 @@
     - synth.rhodey~ @pitch property added and 'note' method
     - synth.bee3~ ...
     - synth.wurley~ ...
-
+    - synth.sitar~ added
+    
 
 ### Changed:
 - ext_info output format changed.

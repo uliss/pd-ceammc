@@ -541,6 +541,7 @@ set(DOC_FILES
     synth.risset_arp~
     synth.risset_tone~
     synth.shakers~
+    synth.sitar~
     synth.wurley~
     system.colorpanel
     system.cursor
