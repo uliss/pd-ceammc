@@ -2,7 +2,7 @@
 #X obj 25 125 synth.birds~;
 #X obj 325 25 inlet;
 #X obj 325 200 route synth.birds;
-#X obj 325 250 route @probability @speed;
+#X obj 325 250 route @auto @gate @probability @speed;
 #X obj 575 350 print unknown property;
 #X msg 225 75 @probability 50 \, @speed 240 \,;
 #X obj 225 25 msg.onload;
@@ -11,38 +11,51 @@
 #X obj 700 550 outlet ctl;
 #X obj 3 202 cnv 8 198 18 empty empty [synth.birds~] 3 9 0 12 -104026
 -262144 0;
-#X obj 12 238 ui.slider @size 125 12 @active_scale 1 @label
+#X obj 12 226 ui.toggle @size 12 12 @label auto @label_side right
+@label_align left @fontsize 10 @presetname
+/gui/\$1/synth.birds~/checkbox0;
+#X msg 260 218 @auto \$1;
+#X obj 12 244 ui.toggle @size 12 12 @label gate @label_side right
+@label_align left @fontsize 10;
+#X msg 260 236 @gate \$1;
+#X obj 12 274 ui.slider @size 125 12 @active_scale 1 @label
 probability(%): @label_side top @label_align left @fontsize 10
-@presetname /gui/\$1/synth.birds~/slider0 @min 25 @max 100;
-#X obj 190 238 sync;
-#X obj 145 238 ui.number @size 50 12 @min 25 @max 100 @digits 2;
-#X msg 260 238 @probability \$1;
-#X obj 12 270 ui.slider @size 125 12 @active_scale 1 @label speed:
+@presetname /gui/\$1/synth.birds~/slider2 @min 25 @max 100;
+#X obj 190 274 sync;
+#X obj 145 274 ui.number @size 50 12 @min 25 @max 100 @digits 2;
+#X msg 260 274 @probability \$1;
+#X obj 12 306 ui.slider @size 125 12 @active_scale 1 @label speed:
 @label_side top @label_align left @fontsize 10 @presetname
-/gui/\$1/synth.birds~/slider1 @min 120 @max 480;
-#X obj 190 270 sync;
-#X obj 145 270 ui.number @size 50 12 @min 120 @max 480 @digits 1;
-#X msg 260 270 @speed \$1;
+/gui/\$1/synth.birds~/slider3 @min 120 @max 480;
+#X obj 190 306 sync;
+#X obj 145 306 ui.number @size 50 12 @min 120 @max 480 @digits 1;
+#X msg 260 306 @speed \$1;
 #X connect 1 0 2 0;
 #X connect 2 0 3 0;
-#X connect 3 2 4 0;
+#X connect 3 4 4 0;
 #X connect 5 0 3 0;
 #X connect 6 0 5 0;
 #X connect 0 0 7 0;
 #X connect 0 1 8 0;
 #X connect 2 1 9 0;
 #X connect 11 0 12 0;
-#X connect 12 0 11 0;
-#X connect 13 0 12 1;
-#X connect 12 1 13 0;
-#X connect 11 0 14 0;
-#X connect 14 0 0 0;
+#X connect 12 0 0 0;
 #X connect 3 0 11 0;
+#X connect 13 0 14 0;
+#X connect 14 0 0 0;
+#X connect 3 1 13 0;
 #X connect 15 0 16 0;
 #X connect 16 0 15 0;
 #X connect 17 0 16 1;
 #X connect 16 1 17 0;
 #X connect 15 0 18 0;
 #X connect 18 0 0 0;
-#X connect 3 1 15 0;
-#X coords 0 -1 1 1 200 90 2 2 200;
+#X connect 3 2 15 0;
+#X connect 19 0 20 0;
+#X connect 20 0 19 0;
+#X connect 21 0 20 1;
+#X connect 20 1 21 0;
+#X connect 19 0 22 0;
+#X connect 22 0 0 0;
+#X connect 3 3 19 0;
+#X coords 0 -1 1 1 200 126 2 2 200;
