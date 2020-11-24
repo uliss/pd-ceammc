@@ -14,6 +14,7 @@ macro(ceammc_synth_obj name)
     ceammc_faust_gen_obj(synth ${name} JSON)
 endmacro()
 
+ceammc_synth_obj(8bit)
 ceammc_synth_obj(birds)
 ceammc_synth_obj(church_bell)
 ceammc_synth_obj(dubdub)
@@ -27,8 +28,12 @@ ceammc_synth_obj(russian_bell)
 list(APPEND SYNTH_SOURCES "synth_dx7.cpp")
 ceammc_faust_gen_obj(synth dx7 JSON OCPP)
 
-include_directories(${CMAKE_SOURCE_DIR}/ceammc/extra/stk/stk/include)
-
 add_library(ceammc_synth STATIC mod_synth.cpp ${SYNTH_SOURCES} ${SYNTH_STK_SOURCES})
-target_link_libraries(ceammc_synth stk)
+
+target_link_libraries(ceammc_synth PRIVATE stk)
+target_include_directories(ceammc_synth PRIVATE
+    ${PROJECT_SOURCE_DIR}/ceammc/extra/stk/stk/include
+    "$<TARGET_PROPERTY:muparser,INCLUDE_DIRECTORIES>"
+)
+
 set_target_properties(ceammc_synth PROPERTIES COMPILE_DEFINITIONS "FAUST_MACRO")
