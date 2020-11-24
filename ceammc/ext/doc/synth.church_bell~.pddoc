@@ -56,11 +56,11 @@
 <![CDATA[
 [T]            [ui.dsp~]
 |
-[metro 200]
+[metro 250]
 |
 [@gate 1(
 |
-[msg.after 300 @gate 0]
+[msg.after 200 @gate 0]
 |
 [msg synth.church_bell]
 |
