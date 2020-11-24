@@ -1689,6 +1689,9 @@
     <entry name="synth.dubdub~" descr="simple synth based on a sawtooth wave filtered by a resonant lowpass" ref_view="object">
       <xi:include href="synth.dubdub~.pddoc" parse="xml"/>
     </entry>
+    <entry name="synth.dx7~" descr="FAUST dx7 implementation" ref_view="object">
+      <xi:include href="synth.dx7~.pddoc" parse="xml"/>
+    </entry>
     <entry name="synth.eguitar~" descr="simple electric guitar model with steel strings" ref_view="object">
       <xi:include href="synth.eguitar~.pddoc" parse="xml"/>
     </entry>

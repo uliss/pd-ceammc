@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="synth.dx7~">
+        <title>synth.dx7~</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>FAUST dx7 implementation</description>
+            <license>GPL3 or later</license>
+            <library>ceammc</library>
+            <category>synth</category>
+            <keywords>dx7 synth fm</keywords>
+            <since>0.6</since>
+        </meta>
+        <properties>
+            <property name="@freq" type="float" minvalue="0" maxvalue="480" default="220"
+            units="herz">maximum speed of whistles</property>
+            <property name="@pitch" type="float" minvalue="36" maxvalue="84" default="57">
+            midi pitch</property>
+            <property name="@gate" type="float" minvalue="0" maxvalue="1" default="0">synth gate
+            (&gt;0 - play)</property>
+        </properties>
+        <methods>
+            <method name="note">note on/off message
+            <param name="NOTE" type="float" required="true">midi note</param>
+            <param name="VEL" type="float" minvalue="0" maxvalue="127" required="true">velocity</param>
+            </method>
+        </methods>
+        <inlets>
+            <inlet>
+                <xinfo>control inlet</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet type="audio" />
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[ui.keyboard]
+|
+|
+|
+|
+[note $1 $2( [dump(
+|            |
+[synth.dx7~ ]
+|
+[ui.gain~ @size 120 16]  [ui.dsp~]
+| \
+[dac~]
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

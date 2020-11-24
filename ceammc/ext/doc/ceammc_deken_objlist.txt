@@ -753,6 +753,7 @@ synth.bee3~	Hammond-oid organ FM synthesis instrument
 synth.birds~	bird singing generator
 synth.church_bell~	generic church bell modal model
 synth.dubdub~	simple synth based on a sawtooth wave filtered by a resonant lowpass
+synth.dx7~	FAUST dx7 implementation
 synth.eguitar~	simple electric guitar model with steel strings
 synth.fgrain~	file granulator from STK
 synth.ks~	Karplus-Strong string

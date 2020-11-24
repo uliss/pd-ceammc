@@ -21,7 +21,9 @@
 		{ "oscillators.lib/name": "Faust Oscillator Library" },
 		{ "oscillators.lib/version": "0.1" },
 		{ "platform.lib/name": "Generic Platform Library" },
-		{ "platform.lib/version": "0.1" }
+		{ "platform.lib/version": "0.1" },
+		{ "spn.lib/name": "Standart Pitch Notation constants" },
+		{ "spn.lib/version": "0.1" }
 	],
 	"ui": [ 
 		{
@@ -32,9 +34,12 @@
 					"type": "nentry",
 					"label": "algorithm",
 					"address": "/synth.dx7/algorithm",
+					"meta": [
+						{ "type": "int" }
+					],
 					"init": 0,
 					"min": 0,
-					"max": 31,
+					"max": 7,
 					"step": 1
 				},
 				{
@@ -45,15 +50,6 @@
 					"min": 0,
 					"max": 99,
 					"step": 1
-				},
-				{
-					"type": "hslider",
-					"label": "freq",
-					"address": "/synth.dx7/freq",
-					"init": 400,
-					"min": 50,
-					"max": 1000,
-					"step": 0.01
 				},
 				{
 					"type": "hslider",
@@ -68,6 +64,15 @@
 					"type": "button",
 					"label": "gate",
 					"address": "/synth.dx7/gate"
+				},
+				{
+					"type": "nentry",
+					"label": "op0:detune",
+					"address": "/synth.dx7/op0:detune",
+					"init": 1,
+					"min": -10,
+					"max": 10,
+					"step": 1
 				},
 				{
 					"type": "nentry",
@@ -143,8 +148,20 @@
 				},
 				{
 					"type": "nentry",
-					"label": "op0:keyVelSens",
-					"address": "/synth.dx7/op0:keyVelSens",
+					"label": "op0:freq",
+					"address": "/synth.dx7/op0:freq",
+					"meta": [
+						{ "unit": "Hz" }
+					],
+					"init": 1,
+					"min": 0,
+					"max": 2,
+					"step": 0.01
+				},
+				{
+					"type": "nentry",
+					"label": "op0:key_vel_sens",
+					"address": "/synth.dx7/op0:key_vel_sens",
 					"init": 1,
 					"min": 0,
 					"max": 8,
@@ -161,26 +178,8 @@
 				},
 				{
 					"type": "nentry",
-					"label": "op0:opDetune",
-					"address": "/synth.dx7/op0:opDetune",
-					"init": 1,
-					"min": -10,
-					"max": 10,
-					"step": 1
-				},
-				{
-					"type": "nentry",
-					"label": "op0:opFreq",
-					"address": "/synth.dx7/op0:opFreq",
-					"init": 1,
-					"min": 0,
-					"max": 2,
-					"step": 0.01
-				},
-				{
-					"type": "nentry",
-					"label": "op0:opMode",
-					"address": "/synth.dx7/op0:opMode",
+					"label": "op0:mode",
+					"address": "/synth.dx7/op0:mode",
 					"init": 0,
 					"min": 0,
 					"max": 1,
@@ -188,10 +187,19 @@
 				},
 				{
 					"type": "nentry",
-					"label": "op0:opRateScale",
-					"address": "/synth.dx7/op0:opRateScale",
+					"label": "op0:rate_scale",
+					"address": "/synth.dx7/op0:rate_scale",
 					"init": 0,
 					"min": 0,
+					"max": 10,
+					"step": 1
+				},
+				{
+					"type": "nentry",
+					"label": "op1:detune",
+					"address": "/synth.dx7/op1:detune",
+					"init": 1,
+					"min": -10,
 					"max": 10,
 					"step": 1
 				},
@@ -269,8 +277,20 @@
 				},
 				{
 					"type": "nentry",
-					"label": "op1:keyVelSens",
-					"address": "/synth.dx7/op1:keyVelSens",
+					"label": "op1:freq",
+					"address": "/synth.dx7/op1:freq",
+					"meta": [
+						{ "unit": "Hz" }
+					],
+					"init": 1,
+					"min": 0,
+					"max": 2,
+					"step": 0.01
+				},
+				{
+					"type": "nentry",
+					"label": "op1:key_vel_sens",
+					"address": "/synth.dx7/op1:key_vel_sens",
 					"init": 1,
 					"min": 0,
 					"max": 8,
@@ -287,26 +307,8 @@
 				},
 				{
 					"type": "nentry",
-					"label": "op1:opDetune",
-					"address": "/synth.dx7/op1:opDetune",
-					"init": 1,
-					"min": -10,
-					"max": 10,
-					"step": 1
-				},
-				{
-					"type": "nentry",
-					"label": "op1:opFreq",
-					"address": "/synth.dx7/op1:opFreq",
-					"init": 1,
-					"min": 0,
-					"max": 2,
-					"step": 0.01
-				},
-				{
-					"type": "nentry",
-					"label": "op1:opMode",
-					"address": "/synth.dx7/op1:opMode",
+					"label": "op1:mode",
+					"address": "/synth.dx7/op1:mode",
 					"init": 0,
 					"min": 0,
 					"max": 1,
@@ -314,10 +316,19 @@
 				},
 				{
 					"type": "nentry",
-					"label": "op1:opRateScale",
-					"address": "/synth.dx7/op1:opRateScale",
+					"label": "op1:rate_scale",
+					"address": "/synth.dx7/op1:rate_scale",
 					"init": 0,
 					"min": 0,
+					"max": 10,
+					"step": 1
+				},
+				{
+					"type": "nentry",
+					"label": "op2:detune",
+					"address": "/synth.dx7/op2:detune",
+					"init": 1,
+					"min": -10,
 					"max": 10,
 					"step": 1
 				},
@@ -395,8 +406,20 @@
 				},
 				{
 					"type": "nentry",
-					"label": "op2:keyVelSens",
-					"address": "/synth.dx7/op2:keyVelSens",
+					"label": "op2:freq",
+					"address": "/synth.dx7/op2:freq",
+					"meta": [
+						{ "unit": "Hz" }
+					],
+					"init": 1,
+					"min": 0,
+					"max": 2,
+					"step": 0.01
+				},
+				{
+					"type": "nentry",
+					"label": "op2:key_vel_sens",
+					"address": "/synth.dx7/op2:key_vel_sens",
 					"init": 1,
 					"min": 0,
 					"max": 8,
@@ -413,26 +436,8 @@
 				},
 				{
 					"type": "nentry",
-					"label": "op2:opDetune",
-					"address": "/synth.dx7/op2:opDetune",
-					"init": 1,
-					"min": -10,
-					"max": 10,
-					"step": 1
-				},
-				{
-					"type": "nentry",
-					"label": "op2:opFreq",
-					"address": "/synth.dx7/op2:opFreq",
-					"init": 1,
-					"min": 0,
-					"max": 2,
-					"step": 0.01
-				},
-				{
-					"type": "nentry",
-					"label": "op2:opMode",
-					"address": "/synth.dx7/op2:opMode",
+					"label": "op2:mode",
+					"address": "/synth.dx7/op2:mode",
 					"init": 0,
 					"min": 0,
 					"max": 1,
@@ -440,10 +445,19 @@
 				},
 				{
 					"type": "nentry",
-					"label": "op2:opRateScale",
-					"address": "/synth.dx7/op2:opRateScale",
+					"label": "op2:rate_scale",
+					"address": "/synth.dx7/op2:rate_scale",
 					"init": 0,
 					"min": 0,
+					"max": 10,
+					"step": 1
+				},
+				{
+					"type": "nentry",
+					"label": "op3:detune",
+					"address": "/synth.dx7/op3:detune",
+					"init": 1,
+					"min": -10,
 					"max": 10,
 					"step": 1
 				},
@@ -521,8 +535,20 @@
 				},
 				{
 					"type": "nentry",
-					"label": "op3:keyVelSens",
-					"address": "/synth.dx7/op3:keyVelSens",
+					"label": "op3:freq",
+					"address": "/synth.dx7/op3:freq",
+					"meta": [
+						{ "unit": "Hz" }
+					],
+					"init": 1,
+					"min": 0,
+					"max": 2,
+					"step": 0.01
+				},
+				{
+					"type": "nentry",
+					"label": "op3:key_vel_sens",
+					"address": "/synth.dx7/op3:key_vel_sens",
 					"init": 1,
 					"min": 0,
 					"max": 8,
@@ -539,26 +565,8 @@
 				},
 				{
 					"type": "nentry",
-					"label": "op3:opDetune",
-					"address": "/synth.dx7/op3:opDetune",
-					"init": 1,
-					"min": -10,
-					"max": 10,
-					"step": 1
-				},
-				{
-					"type": "nentry",
-					"label": "op3:opFreq",
-					"address": "/synth.dx7/op3:opFreq",
-					"init": 1,
-					"min": 0,
-					"max": 2,
-					"step": 0.01
-				},
-				{
-					"type": "nentry",
-					"label": "op3:opMode",
-					"address": "/synth.dx7/op3:opMode",
+					"label": "op3:mode",
+					"address": "/synth.dx7/op3:mode",
 					"init": 0,
 					"min": 0,
 					"max": 1,
@@ -566,10 +574,19 @@
 				},
 				{
 					"type": "nentry",
-					"label": "op3:opRateScale",
-					"address": "/synth.dx7/op3:opRateScale",
+					"label": "op3:rate_scale",
+					"address": "/synth.dx7/op3:rate_scale",
 					"init": 0,
 					"min": 0,
+					"max": 10,
+					"step": 1
+				},
+				{
+					"type": "nentry",
+					"label": "op4:detune",
+					"address": "/synth.dx7/op4:detune",
+					"init": 1,
+					"min": -10,
 					"max": 10,
 					"step": 1
 				},
@@ -647,8 +664,20 @@
 				},
 				{
 					"type": "nentry",
-					"label": "op4:keyVelSens",
-					"address": "/synth.dx7/op4:keyVelSens",
+					"label": "op4:freq",
+					"address": "/synth.dx7/op4:freq",
+					"meta": [
+						{ "unit": "Hz" }
+					],
+					"init": 1,
+					"min": 0,
+					"max": 2,
+					"step": 0.01
+				},
+				{
+					"type": "nentry",
+					"label": "op4:key_vel_sens",
+					"address": "/synth.dx7/op4:key_vel_sens",
 					"init": 1,
 					"min": 0,
 					"max": 8,
@@ -665,26 +694,8 @@
 				},
 				{
 					"type": "nentry",
-					"label": "op4:opDetune",
-					"address": "/synth.dx7/op4:opDetune",
-					"init": 1,
-					"min": -10,
-					"max": 10,
-					"step": 1
-				},
-				{
-					"type": "nentry",
-					"label": "op4:opFreq",
-					"address": "/synth.dx7/op4:opFreq",
-					"init": 1,
-					"min": 0,
-					"max": 2,
-					"step": 0.01
-				},
-				{
-					"type": "nentry",
-					"label": "op4:opMode",
-					"address": "/synth.dx7/op4:opMode",
+					"label": "op4:mode",
+					"address": "/synth.dx7/op4:mode",
 					"init": 0,
 					"min": 0,
 					"max": 1,
@@ -692,10 +703,19 @@
 				},
 				{
 					"type": "nentry",
-					"label": "op4:opRateScale",
-					"address": "/synth.dx7/op4:opRateScale",
+					"label": "op4:rate_scale",
+					"address": "/synth.dx7/op4:rate_scale",
 					"init": 0,
 					"min": 0,
+					"max": 10,
+					"step": 1
+				},
+				{
+					"type": "nentry",
+					"label": "op5:detune",
+					"address": "/synth.dx7/op5:detune",
+					"init": 1,
+					"min": -10,
 					"max": 10,
 					"step": 1
 				},
@@ -773,8 +793,20 @@
 				},
 				{
 					"type": "nentry",
-					"label": "op5:keyVelSens",
-					"address": "/synth.dx7/op5:keyVelSens",
+					"label": "op5:freq",
+					"address": "/synth.dx7/op5:freq",
+					"meta": [
+						{ "unit": "Hz" }
+					],
+					"init": 1,
+					"min": 0,
+					"max": 2,
+					"step": 0.01
+				},
+				{
+					"type": "nentry",
+					"label": "op5:key_vel_sens",
+					"address": "/synth.dx7/op5:key_vel_sens",
 					"init": 1,
 					"min": 0,
 					"max": 8,
@@ -791,26 +823,8 @@
 				},
 				{
 					"type": "nentry",
-					"label": "op5:opDetune",
-					"address": "/synth.dx7/op5:opDetune",
-					"init": 1,
-					"min": -10,
-					"max": 10,
-					"step": 1
-				},
-				{
-					"type": "nentry",
-					"label": "op5:opFreq",
-					"address": "/synth.dx7/op5:opFreq",
-					"init": 1,
-					"min": 0,
-					"max": 2,
-					"step": 0.01
-				},
-				{
-					"type": "nentry",
-					"label": "op5:opMode",
-					"address": "/synth.dx7/op5:opMode",
+					"label": "op5:mode",
+					"address": "/synth.dx7/op5:mode",
 					"init": 0,
 					"min": 0,
 					"max": 1,
@@ -818,12 +832,21 @@
 				},
 				{
 					"type": "nentry",
-					"label": "op5:opRateScale",
-					"address": "/synth.dx7/op5:opRateScale",
+					"label": "op5:rate_scale",
+					"address": "/synth.dx7/op5:rate_scale",
 					"init": 0,
 					"min": 0,
 					"max": 10,
 					"step": 1
+				},
+				{
+					"type": "hslider",
+					"label": "pitch",
+					"address": "/synth.dx7/pitch",
+					"init": 48,
+					"min": 24,
+					"max": 84,
+					"step": 0.001
 				}
 			]
 		}

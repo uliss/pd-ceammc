@@ -533,6 +533,7 @@ set(DOC_FILES
     synth.birds~
     synth.church_bell~
     synth.dubdub~
+    synth.dx7~
     synth.eguitar~
     synth.fgrain~
     synth.ks~

@@ -11,28 +11,30 @@
 #X obj 30 197 synth.dubdub~;
 #X text 200 197 simple synth based on a sawtooth wave filtered by a
 resonant lowpass;
-#X obj 30 237 synth.eguitar~;
-#X text 200 237 simple electric guitar model with steel strings;
-#X obj 30 264 synth.fgrain~;
-#X text 200 264 file granulator from STK;
-#X obj 30 291 synth.ks~;
-#X text 200 291 Karplus-Strong string;
-#X obj 30 318 synth.marimba~;
-#X text 200 318 simple marimba physical model implementing a single
+#X obj 30 237 synth.dx7~;
+#X text 200 237 FAUST dx7 implementation;
+#X obj 30 264 synth.eguitar~;
+#X text 200 264 simple electric guitar model with steel strings;
+#X obj 30 291 synth.fgrain~;
+#X text 200 291 file granulator from STK;
+#X obj 30 318 synth.ks~;
+#X text 200 318 Karplus-Strong string;
+#X obj 30 345 synth.marimba~;
+#X text 200 345 simple marimba physical model implementing a single
 tone bar connected to tube;
-#X obj 30 358 synth.rhodey~;
-#X text 200 358 STK Fender Rhodes electric piano FM synthesis instrument;
-#X obj 30 385 synth.risset_arp~;
-#X text 200 385 Jean Claude Risset's harmonic arpeggio effect;
-#X obj 30 412 synth.risset_tone~;
-#X text 200 412 Jean Claude Risset's endless glissando;
-#X obj 30 439 synth.shakers~;
-#X text 200 439 various percussion sounds from STK library;
-#X obj 30 466 synth.sitar~;
-#X text 200 466 STK sitar;
-#X obj 30 493 synth.wurley~;
-#X text 200 493 Wurlitzer electric piano FM synthesis instrument;
+#X obj 30 385 synth.rhodey~;
+#X text 200 385 STK Fender Rhodes electric piano FM synthesis instrument;
+#X obj 30 412 synth.risset_arp~;
+#X text 200 412 Jean Claude Risset's harmonic arpeggio effect;
+#X obj 30 439 synth.risset_tone~;
+#X text 200 439 Jean Claude Risset's endless glissando;
+#X obj 30 466 synth.shakers~;
+#X text 200 466 various percussion sounds from STK library;
+#X obj 30 493 synth.sitar~;
+#X text 200 493 STK sitar;
+#X obj 30 520 synth.wurley~;
+#X text 200 520 Wurlitzer electric piano FM synthesis instrument;
 #X obj 1 1 cnv 5 740 40 empty empty ceammc::synth 20 20 0 20 -104026
 -4096 0;
-#X obj 1 520 cnv 5 740 40 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 20 530 library: ceammc;
+#X obj 1 547 cnv 5 740 40 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 20 557 library: ceammc;
