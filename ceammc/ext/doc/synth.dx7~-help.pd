@@ -42,7 +42,7 @@ Range: 36\...84\.;
 #X obj 20 664 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
 #X text 110 665 1\.;
-#X text 245 665;
+#X text 245 665 synth output.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;

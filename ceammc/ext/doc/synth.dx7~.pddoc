@@ -33,7 +33,7 @@
             </inlet>
         </inlets>
         <outlets>
-            <outlet type="audio" />
+            <outlet type="audio">synth output</outlet>
         </outlets>
         <example>
             <pdascii>
