@@ -47,9 +47,11 @@ target_sources(ceammc_array PRIVATE
     grainprops.lexer.cpp
 )
 
-
 if(UNIX)
-    target_link_libraries(ceammc_array PRIVATE soxr)
+    target_link_libraries(ceammc_array PRIVATE
+        soxr
+        reflex
+    )
 endif()
 
 if(BISON_FOUND)
@@ -65,9 +67,9 @@ target_include_directories(ceammc_array PRIVATE
     "$<TARGET_PROPERTY:soxr,INCLUDE_DIRECTORIES>"
     "$<TARGET_PROPERTY:fmt,INCLUDE_DIRECTORIES>"
     "$<TARGET_PROPERTY:muparser,INCLUDE_DIRECTORIES>"
+    "$<TARGET_PROPERTY:reflex,INCLUDE_DIRECTORIES>"
 )
 
 target_link_libraries(ceammc_array PRIVATE
     soundtouch
-    reflex
 )
