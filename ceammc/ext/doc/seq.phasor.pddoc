@@ -29,8 +29,8 @@
             If true, outputs descreasing waveform</property>
             <property name="@precision" type="float" default="0.0078125" maxvalue="0.5" minvalue="0.000976562">
             minimal phasor value step. (From 1/1024 to 1/2, default 1/128)</property>
-            <property name="@open" type="int" default="0" enum="0 1">output in closed [0..1] range, otherwise
-            output range is [0..1)</property>
+            <property name="@open" type="int" default="0" enum="0 1">output in open [0..1) range, otherwise
+            output range is [0..1]</property>
         </properties>
         <methods>
             <method name="set">set current value
