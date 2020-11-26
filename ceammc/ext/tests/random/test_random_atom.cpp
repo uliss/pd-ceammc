@@ -102,12 +102,12 @@ TEST_CASE("random.atom", "[externals]")
         TExt t("random.a", "A", "B", 200, "@seed", 1);
         t->dump();
         t << BANG;
-#ifndef __linux
+#ifdef __WIN32
         REQUIRE(t.outputAtomAt(0) == A("B"));
         t << BANG;
-        REQUIRE(t.outputAtomAt(0) == A("A"));
+        REQUIRE(t.outputAtomAt(0) == A(200));
         t << BANG;
-        REQUIRE(t.outputAtomAt(0) == A("A"));
+        REQUIRE(t.outputAtomAt(0) == A(200));
 #endif
     }
 
