@@ -303,7 +303,9 @@ TEST_CASE("units", "[ceammc::ceammc_units]")
         REQUIRE(v.toFraction() == 0.75);
         REQUIRE(v.units() == FractionValue::RATIO);
 
+#ifndef __WIN32
         REQUIRE_FALSE(FractionValue::parse(LA("300000000000000000000/4")).matchValue(v));
+#endif
         REQUIRE_FALSE(FractionValue::parse(LA("300000000000000000000/4000000000000000000000000")).matchValue(v));
         REQUIRE_FALSE(FractionValue::parse(LA("3/4000000000000000000000000")).matchValue(v));
         REQUIRE_FALSE(FractionValue::parse(LA("1/0")).matchValue(v));
