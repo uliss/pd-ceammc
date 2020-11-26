@@ -53,7 +53,7 @@
 [seq.bangs 3 1 2 1 1 @bpm 120 @div 16]
 |                          ^^|
 |                          [route done]  [T]
-|                          |           |.
+|                          |             |.
 [click~]                   [flow.gate 1 {w=27} #g]
 |
 [flt.resonbp~ 1000 40]     [ui.dsp~]
