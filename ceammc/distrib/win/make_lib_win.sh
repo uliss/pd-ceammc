@@ -139,6 +139,8 @@ echo "+ MISC: stargazing.mod"
 cp "${SRCDIR}/ext/doc/stargazing.mod" "${OUTDIR}"
 echo "+ MISC: prs.txt"
 cp "${SRCDIR}/ext/doc/prs.txt" "${OUTDIR}"
+echo "    sur_la_planche.glitch"
+cp "${SRCDIR}/ext/doc/sur_la_planche.glitch" "${OUTDIR}"
 echo "+ MISC: system.serial-help.pd"
 cp "${SRCDIR}/extra/comport/system.serial-help.pd" "${OUTDIR}"
 

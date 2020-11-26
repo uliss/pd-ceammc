@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="synth.glitch~">
+        <title>synth.glitch~</title>
+        <meta>
+            <authors>
+                <author>naivesound</author>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>Glitch synthesizer by naivesound</description>
+            <license>GPL3 or later</license>
+            <library>ceammc</library>
+            <category>synth</category>
+            <keywords>glitch</keywords>
+            <since>0.9.1</since>
+        </meta>
+        <info>
+            <par>A minimal, modern and easy-to-use synthesizer for Bytebeat music and not only</par>
+            <a href="https://medium.com/@naive_sound/glitch-a-noisy-fusion-of-math-and-music-6a9b24e7f5b5">Glitch</a>
+        </info>
+        <arguments>
+            <argument name="EXPR" type="list">Glitch expression</argument>
+        </arguments>
+        <properties>
+            <property name="@expr" type="list">expression</property>
+            <property name="@clip" type="int" enum="0 1" default="1">clip output to -1..+1 range. Use false value only when you are know
+            what are you doing and at your own risk!</property>
+        </properties>
+        <methods>
+            <method name="byte">set expression wrapper to byte() glitch function</method>
+            <method name="read">read glitch synth file
+            <param name="PATH" type="atom" required="true">path to file</param>
+            </method>
+            <method name="reset">reset synth</method>
+        </methods>
+        <inlets>
+            <inlet>
+                <xinfo>...</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet type="audio">synth output</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[@expr sin\(440) #a(                             [r~ \$0-gl]
+                                                 |
+[byte \(t>>6|t|t>>\(t>>16))*10+\(\(t>>11)&7) #c( [ui.scope~ @refresh 60]
+
+[read sur_la_planche.glitch #g(
+
+[byte \(\(t>>3|t^5|t<<4)<<3) #e(
+
+[@expr byte\(\(t*5&t>>7)|\(t*3&t>>10)) #b(
+
+[@expr w=\(t>>10)&7\,\(tri\(w*220)+sin\(w*220))/2 #f(
+
+[reset, byte \(t*t/256)&\(t>>\(\(t/1024)%16))^t%64*\(828188282217>>\(t>>9&30)&t%32)*t>>18 #d(
+
+
+
+[byte \(t*\(\(t>>12|t>>8)&63&t>>2))(  [reset(
+|                                     |
+[synth.glitch~ byte(t*(42&t>>10))   #x]
+|             |
+[ui.hgain~]   [s~ \$0-gl] [ui.dsp~]
+|\
+[dac~]
+[X a->x] [X b->x] [X c->x] [X d->x] [X e->x] [X f->x] [X g->x]
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

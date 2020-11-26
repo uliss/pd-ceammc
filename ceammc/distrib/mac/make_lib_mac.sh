@@ -152,6 +152,8 @@ echo "    stargazing.mod"
 cp "${SRCDIR}/ext/doc/stargazing.mod" "${OUTDIR}"
 echo "    prs.txt"
 cp "${SRCDIR}/ext/doc/prs.txt" "${OUTDIR}"
+echo "    sur_la_planche.glitch"
+cp "${SRCDIR}/ext/doc/sur_la_planche.glitch" "${OUTDIR}"
 echo "    soundtouch~"
 soundtouch_ext=$(find_ext "${BINDIR}/ceammc/extra/SoundTouch/pd" "soundtouch~")
 cp "$soundtouch_ext" "${OUTDIR}"

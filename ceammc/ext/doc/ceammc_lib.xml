@@ -1698,6 +1698,9 @@
     <entry name="synth.fgrain~" descr="file granulator from STK" ref_view="object">
       <xi:include href="synth.fgrain~.pddoc" parse="xml"/>
     </entry>
+    <entry name="synth.glitch~" descr="Glitch synthesizer by naivesound" ref_view="object">
+      <xi:include href="synth.glitch~.pddoc" parse="xml"/>
+    </entry>
     <entry name="synth.ks~" descr="Karplus-Strong string" ref_view="object">
       <xi:include href="synth.ks~.pddoc" parse="xml"/>
     </entry>
@@ -1892,6 +1895,7 @@
       <author>Till Bovermann</author>
       <author>Viacheslav Lotsmanov</author>
       <author>Yann Orlarey</author>
+      <author>naivesound</author>
     </authors>
     <xi:include href="ceammc_meta.xml" parse="xml"/>
   </meta>

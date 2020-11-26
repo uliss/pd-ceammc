@@ -756,6 +756,7 @@ synth.dubdub~	simple synth based on a sawtooth wave filtered by a resonant lowpa
 synth.dx7~	FAUST dx7 implementation
 synth.eguitar~	simple electric guitar model with steel strings
 synth.fgrain~	file granulator from STK
+synth.glitch~	Glitch synthesizer by naivesound
 synth.ks~	Karplus-Strong string
 synth.marimba~	simple marimba physical model implementing a single tone bar connected to tube
 synth.rhodey~	STK Fender Rhodes electric piano FM synthesis instrument

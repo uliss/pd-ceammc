@@ -55,3 +55,6 @@
 [submodule "ceammc/extra/muparser/muparser"]
 	path = ceammc/extra/muparser/muparser
 	url = https://github.com/beltoforion/muparser
+[submodule "ceammc/extra/glitch/glitch"]
+	path = ceammc/extra/glitch/glitch
+	url = https://github.com/naivesound/glitch.git

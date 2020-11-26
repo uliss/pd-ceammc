@@ -332,7 +332,7 @@ do
 done
 
 section "Copying CEAMMC help additional files"
-for f in ${SRC_CEAMMC}/ext/doc/*.@(mod|txt|wav)
+for f in ${SRC_CEAMMC}/ext/doc/*.@(mod|txt|wav|glitch)
 do
     copy ${f} "${BUNDLE_CEAMMC}"
     chmod 0444 "${BUNDLE_CEAMMC}/$(basename $f)"

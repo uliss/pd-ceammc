@@ -31,6 +31,7 @@ add_subdirectory(soxr)
 add_subdirectory(stk)
 add_subdirectory(subprocess)
 add_subdirectory(reflex)
+add_subdirectory(glitch)
 
 set(BUILD_SHARED_LIBS OFF CACHE BOOL "" FORCE)
 set(CMAKE_BUILD_TYPE Release)
@@ -47,9 +48,6 @@ add_subdirectory(HoaLibrary-Light)
 
 if(UNIX)
     set_target_properties(re2 PROPERTIES COMPILE_FLAGS "-fPIC")
-endif()
-
-if(UNIX)
     set_target_properties(fmt PROPERTIES COMPILE_FLAGS "-fPIC")
 endif()
 

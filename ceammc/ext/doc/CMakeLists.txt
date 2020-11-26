@@ -144,9 +144,13 @@ install(FILES "index-help.pd" DESTINATION "${DOC_INSTALL_PATH}/.."
 set(EXTRA_DOC_FILES prs.txt stargazing.mod)
 file(GLOB _PDDOC_WAV "*.wav")
 file(GLOB _PDDOC_EXAMPLES "snd.file.*.pd")
+file(GLOB _PDDOC_GLITCH "*.glitch")
 
 # install extra files
-install(FILES ${EXTRA_DOC_FILES} ${_PDDOC_WAV} ${_PDDOC_EXAMPLES}
+install(FILES ${EXTRA_DOC_FILES}
+        ${_PDDOC_WAV}
+        ${_PDDOC_EXAMPLES}
+        ${_PDDOC_GLITCH}
         ui.plot~.lin1-help.pd
         ui.plot~.lin2-help.pd
         ui.plot~.lin3-help.pd
