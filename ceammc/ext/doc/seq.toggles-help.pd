@@ -10,71 +10,71 @@
 -1;
 #X msg 126 118 stop;
 #X msg 203 118 reset;
-#X obj 50 162 seq.toggles 3 1 2 1 1 @bpm 120 @div 16;
-#X obj 50 190 msg @gate;
-#X obj 309 190 route done;
-#X obj 443 190 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1;
-#X obj 50 219 synth.dubdub~ @pitch 32;
-#X obj 309 219 flow.gate 1, f 16;
-#X obj 50 248 fx.drive~;
-#X obj 309 248 ui.dsp~;
-#X obj 50 277 ui.hgain~;
-#X obj 50 305 dac~;
-#X obj 20 354 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 359 cnv 5 90 26 empty empty arguments: 4 10 0 14 -262144
+#X obj 290 118 ui.hsl;
+#X msg 290 147 @dur \$1;
+#X obj 50 176 seq.toggles 3 1 2 1 1 @bpm 120 @div 16;
+#X obj 50 205 msg @gate;
+#X obj 309 205 route done;
+#X obj 50 234 synth.dubdub~ @pitch 32;
+#X obj 50 262 fx.drive~;
+#X obj 309 262 ui.dsp~;
+#X obj 50 291 ui.hgain~;
+#X obj 50 320 dac~;
+#X obj 20 369 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 374 cnv 5 90 26 empty empty arguments: 4 10 0 14 -262144
 -49933 0;
-#X text 110 394 1\.;
-#X text 150 394 list;
-#X obj 246 395 cnv 1 61 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 394 PATTERN: sequencer pattern in beat duration units.;
-#X obj 20 424 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 429 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
+#X text 110 409 1\.;
+#X text 150 409 list;
+#X obj 246 410 cnv 1 61 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 245 409 PATTERN: sequencer pattern in beat duration units.;
+#X obj 20 439 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 444 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
 -49933 0;
-#X msg 110 464 @bpm;
-#X text 245 464 Get/Set frequency of sequencer division (by default
+#X msg 110 479 @bpm;
+#X text 245 479 Get/Set frequency of sequencer division (by default
 @div=4). Type: float. Units: bpm. Default value: 60\. Range: 1\...600\.;
-#X msg 110 521 @div;
-#X text 245 521 Get/Set sequencer beat division. The four means 1/4
+#X msg 110 536 @div;
+#X text 245 536 Get/Set sequencer beat division. The four means 1/4
 \, eight - 1/8 etc. Type: int. Default value: 4\. Range: 1\...512\.;
-#X msg 110 563 @dur;
-#X text 245 563 Get/Set sequencer pattern in beat duration units. Type:
+#X msg 110 578 @dur;
+#X text 245 578 Get/Set sequencer pattern in beat duration units. Type:
 float. Default value: 0.75\. Range: 0\...1\.;
-#X msg 110 605 @pattern;
-#X text 245 605 Get/Set sequencer pattern in beat duration units. Type:
+#X msg 110 620 @pattern;
+#X text 245 620 Get/Set sequencer pattern in beat duration units. Type:
 list.;
-#X obj 20 644 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 649 cnv 5 73 26 empty empty methods: 4 10 0 14 -262144
+#X obj 20 659 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 664 cnv 5 73 26 empty empty methods: 4 10 0 14 -262144
 -49933 0;
-#X msg 110 684 reset;
-#X text 245 684 reset to first element.;
-#X msg 110 711 stop;
-#X text 245 711 stop sequencer.;
-#X obj 20 748 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 753 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
+#X msg 110 699 reset;
+#X text 245 699 reset to first element.;
+#X msg 110 726 stop;
+#X text 245 726 stop sequencer.;
+#X obj 20 763 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 768 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
-#X text 110 754 1\.;
-#X text 150 754 *bang*;
-#X text 245 754 starts sequencer.;
-#X text 110 774 2\.;
-#X text 150 774 *list*;
-#X text 245 774 set new pattern value.;
-#X obj 20 804 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 809 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
+#X text 110 769 1\.;
+#X text 150 769 *bang*;
+#X text 245 769 starts sequencer.;
+#X text 110 789 2\.;
+#X text 150 789 *list*;
+#X text 245 789 set new pattern value.;
+#X obj 20 819 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 824 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 810 1\.;
-#X text 245 810 bang.;
-#X text 110 830 2\.;
-#X text 245 830 float: duration until next bang (in ms).;
-#X text 110 850 3\.;
-#X text 245 850 current index or 'done' when done.;
+#X text 110 825 1\.;
+#X text 245 825 bang.;
+#X text 110 845 2\.;
+#X text 245 845 float: duration until next bang (in ms).;
+#X text 110 865 3\.;
+#X text 245 865 current index or 'done' when done.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 115 45 ::;
 #X obj 131 48 ui.link @title seq @url ceammc.seq-help.pd;
-#X obj 1 900 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 903 library: ceammc v0.9.0;
-#N canvas 10 922 400 290 info 0;
+#X obj 1 915 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 918 library: ceammc v0.9.0;
+#N canvas 10 937 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
@@ -98,17 +98,17 @@ https://github.com/uliss/pure-data;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 generated by pddoc;
-#X restore 10 922 pd info;
-#X connect 5 0 8 0;
-#X connect 6 0 8 0;
-#X connect 7 0 8 0;
+#X restore 10 937 pd info;
 #X connect 8 0 9 0;
-#X connect 8 2 10 0;
-#X connect 9 0 12 0;
-#X connect 10 0 13 0;
-#X connect 11 0 13 1;
-#X connect 12 0 14 0;
+#X connect 5 0 10 0;
+#X connect 6 0 10 0;
+#X connect 7 0 10 0;
+#X connect 9 0 10 0;
+#X connect 10 0 11 0;
+#X connect 10 2 12 0;
+#X connect 11 0 13 0;
+#X connect 13 0 14 0;
 #X connect 14 0 16 0;
 #X connect 16 0 17 0;
 #X connect 16 0 17 1;
-#X connect 13 0 5 0;
+#X connect 12 0 5 0;

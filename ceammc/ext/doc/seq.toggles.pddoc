@@ -50,14 +50,15 @@
         <example>
             <pdascii>
 <![CDATA[
-[B #b]  [stop(  [reset(
-|       |       |
-|       |       |
+[B #b]  [stop(  [reset(  [ui.hsl]
+|       |       |        |
+|       |       |        [@dur $1(
+|       |       |        |
 [seq.toggles 3 1 2 1 1 @bpm 120 @div 16]
 |                          ^^|
-[msg @gate]                [route done]  [T]
-|                          |             |.
-[synth.dubdub~ @pitch 32]  [flow.gate 1 {w=16} #g]
+[msg @gate]                [route done #g]
+|
+[synth.dubdub~ @pitch 32]
 |
 [fx.drive~]                [ui.dsp~]
 |

@@ -180,10 +180,10 @@ FxLooper::FxLooper(const PdArgs& args)
                 return states[state_];
             });
 
-        p->infoT().setConstraints(PropValueConstraints::ENUM);
-        auto rc = p->infoT().addEnums({ "init", "stop", "record", "play", "overdub" });
-        if (rc)
-            OBJ_ERR << "can't set enum values";
+        if (!p->infoT().setConstraints(PropValueConstraints::ENUM))
+            OBJ_ERR << "can't set @state contraints";
+        else if (!p->infoT().addEnums({ "init", "stop", "record", "play", "overdub" }))
+            OBJ_ERR << "can't set @state enum values";
     }
 
     array_name_ = new SymbolProperty("@array", &s_);

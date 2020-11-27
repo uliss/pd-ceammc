@@ -49,9 +49,9 @@ waveform. Type: int. Default value: 0\. Allowed values: 0 \, 1\.;
 #X text 245 649 Get/Set on/off state. Type: int. Default value: 0\.
 Allowed values: 0 \, 1\.;
 #X msg 110 691 @open;
-#X text 245 691 Get/Set output in closed [0\..1] range \, otherwise
-output range is [0\..1). Type: int. Default value: 0\. Allowed values:
-0 \, 1\.;
+#X text 245 691 Get/Set output in open [0\..1) range \, otherwise output
+range is [0\..1]. Type: int. Default value: 0\. Allowed values: 0 \,
+1\.;
 #X msg 110 748 @precision;
 #X text 245 748 Get/Set minimal phasor value step. (From 1/1024 to
 1/2 \, default 1/128). Type: float. Default value: 0.0078125\. Range:

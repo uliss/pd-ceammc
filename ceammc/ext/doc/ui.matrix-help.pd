@@ -20,12 +20,12 @@ VALUE(;
 #X msg 165 241 bang;
 #X msg 290 241 flip;
 #X msg 357 241 get list;
-#X obj 50 284 ui.matrix @cols 8 @rows 4 @size 105 53;
+#X obj 50 284 ui.matrix;
 #X obj 50 356 route cell row col;
-#X obj 222 385 ui.display @size=60x18;
-#X obj 155 414 ui.display @size=60x18;
-#X obj 107 443 ui.display @size=60x18;
-#X obj 50 471 ui.display @size=60x18;
+#X obj 222 385 ui.d;
+#X obj 155 414 ui.d;
+#X obj 107 443 ui.d;
+#X obj 50 471 ui.d;
 #X obj 20 520 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 525 cnv 5 90 26 empty empty arguments: 4 10 0 14 -262144
 -49933 0;

@@ -40,13 +40,13 @@
         <example>
             <pdascii>
 <![CDATA[
-[F]   [1 2 3(
-|     |
+[F]   [1 2 3(   [T]
+|     |         |.
 [log.error ERROR!]
 
-[F]   [message(
-|     |
-[log.debug]
+[F]   [message( [T]
+|     |         |.
+[log.debug        ]
 ]]>
             </pdascii>
         </example>
