@@ -181,7 +181,7 @@ bool ArrayPlotTilde::setArray(t_symbol* s)
 bool ArrayPlotTilde::checkArray(bool log)
 {
     if (array_name_ == nullptr || !array_.open(array_name_)) {
-        if (log) {
+        if (log && array_name_ != &s_) {
             OBJ_ERR << "invalid array: " << array_.name();
         }
 
