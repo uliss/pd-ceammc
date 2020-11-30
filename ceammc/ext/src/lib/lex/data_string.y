@@ -42,6 +42,7 @@
 
     # include "ceammc_atomlist.h"
     # include "ceammc_datastorage.h"
+    # include "ceammc_function.h"
     # include "ceammc_datatypes.h"
     # include "ceammc_log.h"
     # include "ceammc_format.h"
@@ -88,12 +89,16 @@
         return new ceammc::DataTypeMList(l);
     }
 
+    static inline ceammc::AtomList callFunction(const std::string& name, const ceammc::AtomList& args) {
+        return ceammc::BuiltinFunctionMap::instance().call(gensym(name.c_str()), args);
+    }
+
     static inline ceammc::Atom createFromList(const std::string& name, const ceammc::AtomList& args) {
         using namespace ceammc;
 
         auto fn = DataStorage::instance().fromListFunction(name);
         if(!fn) {
-            LIB_ERR << fmt::format("function {}() not found", name);
+            LIB_ERR << fmt::format("datatype {} not found", name);
             return Atom();
         }
 
@@ -132,8 +137,8 @@
 %token <std::string>          STRING
 %token                        END 0 "end of string"
 
-%nterm <ceammc::Atom>         atom data function_call
-%nterm <ceammc::AtomList>     atom_list expr
+%nterm <ceammc::Atom>         atom data
+%nterm <ceammc::AtomList>     atom_list function_call expr
 %nterm <ceammc::DictEntry>    pair
 %nterm <ceammc::Dict>         pair_list
 
@@ -150,12 +155,12 @@ atom
     | STRING                  { $$ = createSimpleString($1); }
     | DATA_TYPE_STRING STRING { $$ = createDataString($2); }
     | data
-    | function_call
     ;
 
 atom_list
     : %empty           { $$ = ceammc::AtomList(); }
     | atom_list atom   { $$.append($1); $$.append($2); }
+    | atom_list function_call { $$.append($1); $$.append($2); }
     ;
 
 pair
@@ -168,7 +173,7 @@ pair_list
     ;
 
 function_call
-    : FUNC_CALL OPEN_LIST_BRACKET atom_list CLOSE_LIST_BRACKET   { $$ = createFromList($1, $3); }
+    : FUNC_CALL OPEN_LIST_BRACKET atom_list CLOSE_LIST_BRACKET   { $$ = callFunction($1, $3); }
     ;
 
 data
