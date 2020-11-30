@@ -127,3 +127,40 @@ FractionValue FractionValue::ratio(long num, long den)
     res.denom_ = den;
     return res;
 }
+
+FreqValue::ParseResult FreqValue::parse(const AtomListView& lv)
+{
+    if (lv.empty())
+        return UnitParseError("empty list");
+
+    if (lv.isSymbol()) {
+        auto cstr = lv[0].asT<t_symbol*>()->s_name;
+        units::UnitsLexer lexer(cstr);
+        using UnitType = units::UnitsLexer::UnitType;
+
+        int rc = lexer.parseSingle();
+        if (rc < 0)
+            return UnitParseError("invalid frequency");
+        else {
+            auto& v = lexer.values.back();
+
+            switch (v.unit) {
+            case UnitType::U_BPM:
+                return FreqValue(v.val.dbl_val, Units::BPM);
+            case UnitType::U_HZ:
+                return FreqValue(v.val.dbl_val, Units::HZ);
+            case UnitType::U_MSEC: {
+                if (v.val.dbl_val == 0)
+                    return UnitParseError("zero period");
+                else
+                    return FreqValue(v.val.dbl_val, Units::MS);
+            }
+            default:
+                return UnitParseError("invalid frequency");
+            }
+        }
+    } else if (lv.isFloat())
+        return FreqValue(lv.asT<t_float>(), HZ);
+    else
+        return UnitParseError(fmt::format("unexpected frequency format: {}", to_string(lv)));
+}

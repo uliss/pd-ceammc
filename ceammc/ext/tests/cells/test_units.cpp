@@ -21,6 +21,8 @@ using namespace ceammc::units;
 
 TEST_CASE("units", "[ceammc::ceammc_units]")
 {
+    test::pdPrintToStdError();
+
     SECTION("lexer")
     {
         using namespace ceammc::units;
@@ -307,5 +309,38 @@ TEST_CASE("units", "[ceammc::ceammc_units]")
         REQUIRE_FALSE(FractionValue::parse(LA("300000000000000000000/4000000000000000000000000")).matchValue(v));
         REQUIRE_FALSE(FractionValue::parse(LA("3/4000000000000000000000000")).matchValue(v));
         REQUIRE_FALSE(FractionValue::parse(LA("1/0")).matchValue(v));
+    }
+
+    SECTION("freq")
+    {
+        UnitParseError err;
+        FreqValue v;
+        REQUIRE_FALSE(v.isFraction());
+        REQUIRE_FALSE(v.isTime());
+        REQUIRE(v.isFrequency());
+        REQUIRE(v.type() == UnitType::FREQ);
+        REQUIRE(v.value() == 0);
+        REQUIRE(v.units() == FreqValue::HZ);
+        REQUIRE(v.toHerz() == 0);
+
+        REQUIRE_FALSE(FreqValue::parse(L()).matchValue(v));
+        REQUIRE(FreqValue::parse(LF(200)).matchValue(v));
+        REQUIRE(v.value() == 200);
+        REQUIRE(v.units() == FreqValue::HZ);
+
+        REQUIRE_FALSE(FreqValue::parse(LF(1, 2)).matchValue(v));
+        REQUIRE_FALSE(FreqValue::parse(LA("")).matchValue(v));
+        REQUIRE(FreqValue::parse(LA("100.5hz")).matchValue(v));
+        REQUIRE(v.value() == 100.5);
+        REQUIRE(v.units() == FreqValue::HZ);
+        REQUIRE(FreqValue::parse(LA("120bpm")).matchValue(v));
+        REQUIRE(v.value() == 120);
+        REQUIRE(v.toHerz() == 2);
+        REQUIRE(v.units() == FreqValue::BPM);
+        REQUIRE(FreqValue::parse(LA("250ms")).matchValue(v));
+        REQUIRE(v.value() == 250);
+        REQUIRE(v.toHerz() == 4);
+        REQUIRE(v.units() == FreqValue::MS);
+        REQUIRE_FALSE(FreqValue::parse(LA("0ms")).matchValue(v));
     }
 }
