@@ -15,7 +15,6 @@
 #include "ceammc_factory.h"
 #include "ceammc_format.h"
 #include "ceammc_rtree.h"
-//#include "ceammc_da
 
 RythmTreeToList::RythmTreeToList(const PdArgs& args)
     : BaseObject(args)
@@ -24,13 +23,14 @@ RythmTreeToList::RythmTreeToList(const PdArgs& args)
 {
     dur_ = new FloatProperty("@dur", 1);
     dur_->setArgIndex(0);
+    dur_->setSuccessFn([this](Property*) { changed_ = true; });
     addProperty(dur_);
 
     rtree_ = new AtomProperty("@rtree", MListAtom());
     rtree_->setAtomCheckFn([](const Atom& a) -> bool {
         return a.isDataType(DataTypeMList::dataType);
     });
-    rtree_->setSuccessFn([](Property* p) { LIB_LOG << p->get(); });
+    rtree_->setSuccessFn([this](Property*) { changed_ = true; });
     rtree_->setArgIndex(1);
     addProperty(rtree_);
 
@@ -39,7 +39,13 @@ RythmTreeToList::RythmTreeToList(const PdArgs& args)
 
 void RythmTreeToList::onBang()
 {
-    listTo(0, rtree::rythm_tree(dur_->value(), rtree_->value().asDataT<DataTypeMList>()));
+    if (changed_) {
+        cached_ = rtree::rythm_tree(dur_->value(), rtree_->value().asDataT<DataTypeMList>());
+        LIB_LOG << "update cached value: " << cached_;
+        changed_ = false;
+    }
+
+    listTo(0, cached_);
 }
 
 void RythmTreeToList::onFloat(t_float f)
@@ -61,11 +67,13 @@ void RythmTreeToList::onAny(t_symbol* s, const AtomListView& args)
 
     auto ma = MListAtom(ml.value());
     rtree_->setValue(ma);
+    changed_ = true;
 }
 
 void RythmTreeToList::onDataT(const MListAtom& ml)
 {
     rtree_->value() = ml;
+    changed_ = true;
 }
 
 void setup_rtree_to_list()
