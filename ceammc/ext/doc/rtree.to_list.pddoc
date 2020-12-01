@@ -16,6 +16,10 @@
                 <alias>rtree-&gt;list</alias>
             </aliases>
         </meta>
+        <info>
+            <par>Rythm tree is structure to define complex rythmic patterns</par>
+            <par>Examples: (1 1 1) - triplet, (2 1) - swing</par>
+        </info>
         <arguments>
             <argument name="DUR" type="float">total pattern duration</argument>
             <argument name="RTREE" type="atom">rythm tree</argument>
@@ -38,24 +42,30 @@
         <example>
             <pdascii>
 <![CDATA[
-[bang( [F]  [\(1 2 2 1\), bang(
-|      |    |
-[rtree->list 1 (1 1 1 1(2 1 1))]
+[bang( [F]  [\(1 2 2 1\), bang( [\(2 1 1\), bang( [\(3 1\), bang(
+|      |    |                   |                 |
+|      |    |                   |                 |
+[rtree->list 1 (1 1 1 1(2 1 1))                   ]
 |
 [ui.dt]
 
-/*built-in funciton rtree()*/
-[bang(
-|
+
+/*built-in funciton rtree(), that can be used in any ceammc object instead of list arguments*/
+
+                         [F]
+                         |
+[bang #a( [stop(         [@bpm $1(
+|         |              |
 [seq.bangs rtree(1 \(1 1 1\(1 1\) 1\(1 1 1\) 1\(1 1 1 1 1\)\)\)]
+|                                      ^^|
+[click~]                               [route done #b]
 |
-[click~]
-|
-[flt.resonbp~ 1000 40] [ui.dsp~]
+[flt.resonbp~ 1000 60] [ui.dsp~]
 |
 [ui.hgain~]
 |\
 [dac~]
+[X b->a]
 ]]>
             </pdascii>
         </example>
