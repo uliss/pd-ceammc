@@ -17,6 +17,7 @@
 #include "ceammc_format.h"
 #include "ceammc_log.h"
 #include "ceammc_platform.h"
+#include "ceammc_rtree.h"
 #include "fmt/format.h"
 #include "muparser/muparser/include/muParser.h"
 
@@ -151,6 +152,21 @@ AtomList fn_reverse(const AtomList& args)
     return res;
 }
 
+#define RTREE_FN_NAME "rtree"
+
+AtomList fn_rythm_tree(const AtomList& args)
+{
+    const bool ok = args.size() == 2 && args[0].isFloat() && args[1].isDataType(DataTypeMList::dataType);
+    if (!ok) {
+        LIB_ERR << fmt::format(RTREE_FN_NAME "(): invalid arguments, usage: " RTREE_FN_NAME "(DUR MList), got: {}", to_string(args));
+        return {};
+    }
+
+    const auto len = args[0].asT<t_float>();
+    auto ml = args[1].asD<DataTypeMList>();
+    return rtree::rythm_tree(len, ml, RTREE_FN_NAME "(): ", LIB_ERR);
+}
+
 }
 
 namespace ceammc {
@@ -209,6 +225,7 @@ BuiltinFunctionMap::BuiltinFunctionMap()
     registerFn(gensym("amp2db"), fn_amp2db);
     registerFn(gensym("repeat"), fn_repeat);
     registerFn(gensym("reverse"), fn_reverse);
+    registerFn(gensym(RTREE_FN_NAME), fn_rythm_tree);
 }
 
 BuiltinFunctionMap::~BuiltinFunctionMap()

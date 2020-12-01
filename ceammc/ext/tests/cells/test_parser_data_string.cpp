@@ -270,4 +270,18 @@ TEST_CASE("DataStringParser", "[core]")
         REQUIRE(parse("reverse(A)") == LA("A"));
         REQUIRE(parse("reverse(A B)") == LA("B", "A"));
     }
+
+    SECTION("rtree()")
+    {
+        REQUIRE(parse("rtree()").empty());
+        REQUIRE(parse("rtree(1)").empty());
+        REQUIRE(parse("rtree(1 2)").empty());
+        REQUIRE(parse("rtree(x ())").empty());
+        REQUIRE(parse("rtree(1 (1))") == LF(1));
+        REQUIRE(parse("rtree(1 (1 1))") == LF(0.5, 0.5));
+        REQUIRE(parse("rtree(2 (1 1))") == LF(1, 1));
+        REQUIRE(parse("rtree(2 (1 1(1 1)))") == LF(1, 0.5, 0.5));
+        REQUIRE(parse("rtree(1 (1 1 2))") == LF(0.25, 0.25, 0.5));
+        REQUIRE(parse("rtree(1 (1 1 2( 2 1 1)))") == LF(0.25, 0.25, 0.25, 0.125, 0.125));
+    }
 }
