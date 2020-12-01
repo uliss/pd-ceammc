@@ -50,8 +50,10 @@ void RythmTreeToList::onBang()
 
 void RythmTreeToList::onFloat(t_float f)
 {
-    if (dur_->setValue(f))
+    if (dur_->setValue(f)) {
+        changed_ = true;
         onBang();
+    }
 }
 
 void RythmTreeToList::onAny(t_symbol* s, const AtomListView& args)
