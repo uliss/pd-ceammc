@@ -68,6 +68,7 @@
     - synth.sitar~ added
     - synth.russian_bell~ added
     - synth.glitch~ added
+- RythmTree support added: rtree->list and built-in function rtree()
     
 
 ### Changed:

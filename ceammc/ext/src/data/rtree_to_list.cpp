@@ -78,7 +78,8 @@ void RythmTreeToList::onDataT(const MListAtom& ml)
 
 void setup_rtree_to_list()
 {
-    ObjectFactory<RythmTreeToList> obj("rtree->list");
+    ObjectFactory<RythmTreeToList> obj("rtree.to_list");
+    obj.addAlias("rtree->list");
     obj.processData<DataTypeMList>();
 
     obj.setXletsInfo(

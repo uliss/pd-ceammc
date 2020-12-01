@@ -139,6 +139,7 @@ set(DOC_FILES
     flow.reject_if
     flow.ring
     flow.route
+    flow.queue
     flow.select
     flow.space
     flow.speedlim
@@ -493,6 +494,7 @@ set(DOC_FILES
     random.pw_const
     random.discrete
     replace
+    rtree.to_list
     set.contains
     set.diff
     set.equal

@@ -133,6 +133,7 @@ flow.pack		?		.
 flow.pass,pass		..		.
 flow.pass_if,pass_if		..		..
 flow.pipe		..		.
+flow.queue		?		?
 flow.reject,reject,flow.!		..		.
 flow.reject_if,reject_if		..		..
 flow.ring,flow.>>		..		?
@@ -492,6 +493,7 @@ random.linear		.		.
 random.pw_const		.		.
 random.pw_lin		.		.
 replace		...		.
+rtree.to_list,rtree->list		.		.
 seq.arp		.		..
 seq.bangs,seq.b		..		...
 seq.nbangs,seq.nb		..		..

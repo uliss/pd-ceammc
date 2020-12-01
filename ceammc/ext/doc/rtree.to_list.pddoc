@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="rtree.to_list">
+        <title>rtree.to_list</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>convert OpenMusic-like rythm tree to list of fractions</description>
+            <license>GPL3 or later</license>
+            <library>ceammc</library>
+            <category>data</category>
+            <keywords>rythm rtree openmusic pattern</keywords>
+            <since>0.9.1</since>
+            <aliases>
+                <alias>rtree-&gt;list</alias>
+            </aliases>
+        </meta>
+        <arguments>
+            <argument name="DUR" type="float">total pattern duration</argument>
+            <argument name="RTREE" type="atom">rythm tree</argument>
+        </arguments>
+        <properties>
+            <property name="@dur" type="float">total pattern duration</property>
+            <property name="@tree" type="atom">rythm tree. (MList)</property>
+        </properties>
+        <inlets>
+            <inlet>
+                <xinfo on="bang">output</xinfo>
+                <xinfo on="float">set @dur and output</xinfo>
+                <xinfo on="data:mlist">set @rtree, no output</xinfo>
+                <xinfo on="any">parse message and set @rtree, no output</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet>list output</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[bang( [F]  [\(1 2 2 1\), bang(
+|      |    |
+[rtree->list 1 (1 1 1 1(2 1 1))]
+|
+[ui.dt]
+
+/*built-in funciton rtree()*/
+[bang(
+|
+[seq.bangs rtree(1 \(1 1 1\(1 1\) 1\(1 1 1\) 1\(1 1 1 1 1\)\)\)]
+|
+[click~]
+|
+[flt.resonbp~ 1000 40] [ui.dsp~]
+|
+[ui.hgain~]
+|\
+[dac~]
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>
