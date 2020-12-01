@@ -39,6 +39,8 @@
 #include "set_to_list.h"
 #include "set_union.h"
 
+void setup_rtree_to_list();
+
 void ceammc_data_setup()
 {
 
@@ -86,4 +88,5 @@ void ceammc_data_setup()
     setup_global_set();
 
     setup_mlist_flatten();
+    setup_rtree_to_list();
 }
