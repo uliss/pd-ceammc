@@ -58,5 +58,6 @@ add_cell_test(parser_select)
 add_cell_test(platform)
 add_cell_test(regexp)
 add_cell_test(string)
+add_cell_test(transport)
 add_cell_test(units)
 

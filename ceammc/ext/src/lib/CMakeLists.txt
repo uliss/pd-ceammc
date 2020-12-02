@@ -85,6 +85,7 @@ set(CEAMMC_LIB_SOURCES
     ceammc_string.cpp
     ceammc_thread.cpp
     ceammc_timeline.cpp
+    ceammc_transport.cpp
     ceammc_units.cpp
     ceammc_window.cpp
     datatype_dict.cpp
@@ -154,6 +155,12 @@ if(BISON_FOUND AND FLEX_FOUND)
         COMMAND $<TARGET_FILE:reflex-bin> select.l
         COMMAND ${BISON_EXECUTABLE} select.y
         SOURCES lex/select.l lex/select.y
+        WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/lex)
+
+    add_custom_target(ceammc_score_gen
+        COMMAND $<TARGET_FILE:reflex-bin> score.l
+        COMMAND ${BISON_EXECUTABLE} score.y
+        SOURCES lex/score.l lex/score.y
         WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/lex)
 
     add_custom_target(ceammc_units_gen
