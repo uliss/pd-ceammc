@@ -81,6 +81,7 @@ set(CEAMMC_LIB_SOURCES
     ceammc_property_info.cpp
     ceammc_regexp.cpp
     ceammc_rtree.cpp
+    ceammc_score.cpp
     ceammc_sound_external.cpp
     ceammc_string.cpp
     ceammc_thread.cpp
