@@ -37,6 +37,7 @@ add_cell_test(datatype_dict)
 add_cell_test(datatype_mlist)
 add_cell_test(datatype_string)
 add_cell_test(parser_data_string)
+add_cell_test(parser_score)
 
 add_cell_test(properties)
 add_cell_test(properties2)

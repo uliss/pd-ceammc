@@ -217,6 +217,8 @@ set(CEAMMC_LOAD_SRC
     lex/select.lexer.cpp
     lex/select.parser.cpp
     lex/units.lexer.cpp
+    lex/score.lexer.cpp
+    lex/score.parser.cpp
     array_load_pattern.h
     array_load_pattern.cpp)
 
