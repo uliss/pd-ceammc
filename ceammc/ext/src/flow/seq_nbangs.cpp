@@ -14,21 +14,17 @@
 #include "seq_nbangs.h"
 #include "ceammc_factory.h"
 
+static t_symbol* SYM_DONE;
+
 SeqNBangs::SeqNBangs(const PdArgs& args)
     : BaseObject(args)
     , n_(nullptr)
-    , interval_ms_(nullptr)
-    , clock_([this]() {
-        if (counter_ < n_->value()) {
-            counter_++;
-            clock_.delay(interval_ms_->value());
-            bangTo(0);
-
-            if (counter_ == n_->value())
-                bangTo(1);
-        }
-    })
+    , interval_(nullptr)
     , counter_(0)
+    , clock_([this]() {
+        if (tick())
+            clock_.delay(interval_->value());
+    })
 {
     createInlet();
     createOutlet();
@@ -39,67 +35,89 @@ SeqNBangs::SeqNBangs(const PdArgs& args)
     n_->setArgIndex(0);
     addProperty(n_);
 
-    interval_ms_ = new FloatProperty("@t", 0);
-    interval_ms_->checkNonNegative();
-    interval_ms_->setUnits(PropValueUnits::MSEC);
-    interval_ms_->setArgIndex(1);
-    addProperty(interval_ms_);
+    interval_ = new FloatProperty("@t", 0);
+    interval_->checkNonNegative();
+    interval_->setUnits(PropValueUnits::MSEC);
+    interval_->setArgIndex(1);
+    addProperty(interval_);
 }
 
 void SeqNBangs::onBang()
 {
-    counter_ = 0;
+    reset();
     clock_.exec();
 }
 
 void SeqNBangs::onFloat(t_float f)
 {
-    counter_ = 0;
+    reset();
+
     if (n_->setValue(f))
         clock_.exec();
 }
 
+void SeqNBangs::onList(const AtomList& l)
+{
+    if (l.empty())
+        return onBang();
+    else if (l.size() == 1)
+        return onFloat(l[0].asFloat());
+    else if (l.size() == 2) {
+        reset();
+        if (n_->set(l.view(0, 1)) && interval_->set(l.view(1, 1)))
+            clock_.exec();
+    } else
+        OBJ_ERR << "usage: NUM INTERVAL";
+}
+
 void SeqNBangs::onInlet(size_t n, const AtomList& lv)
 {
-    m_reset(&s_, lv);
+    reset();
 }
 
-void SeqNBangs::m_reset(t_symbol* s, const AtomListView&)
+void SeqNBangs::start()
 {
-    clock_.unset();
+    reset();
+    clock_.exec();
+}
+
+void SeqNBangs::stop()
+{
+    reset();
+}
+
+void SeqNBangs::reset()
+{
     counter_ = 0;
-}
-
-void SeqNBangs::m_start(t_symbol* s, const AtomListView& lv)
-{
-    const auto on = lv.boolAt(0, true);
-
-    if (on)
-        clock_.exec();
-    else
-        clock_.unset();
-}
-
-void SeqNBangs::m_stop(t_symbol* s, const AtomListView&)
-{
     clock_.unset();
+}
+
+bool SeqNBangs::tick()
+{
+    if ((int)counter_ >= n_->value()) {
+        anyTo(1, SYM_DONE, AtomListView());
+        return false;
+    } else {
+        floatTo(1, counter_);
+        bangTo(0);
+
+        counter_++;
+        return true;
+    }
 }
 
 void setup_seq_nbangs()
 {
-    ObjectFactory<SeqNBangs> obj("seq.nbangs");
-    obj.addAlias("seq.nb");
-    obj.addMethod("reset", &SeqNBangs::m_reset);
-    obj.addMethod("start", &SeqNBangs::m_start);
-    obj.addMethod("stop", &SeqNBangs::m_stop);
+    SYM_DONE = gensym("done");
 
-    obj.useDefaultPdListFn();
+    SequencerIFaceFactory<ObjectFactory, SeqNBangsT> obj("seq.nbangs");
+    obj.addAlias("seq.nb");
 
     obj.setXletsInfo({ "bang: start\n"
                        "float: set number of bangs then start\n"
                        "list: NUM INTERVAL set number and interval then start\n"
-                       "start 1|0:  start/stop sequence\n"
-                       "stop: sequence output",
+                       "start 1|0: start/stop sequence\n"
+                       "stop 1|0:  stop strt sequence",
                          "bang: stop sequence output and reset" },
         { "bang", "bang after last sequence output" });
 }
