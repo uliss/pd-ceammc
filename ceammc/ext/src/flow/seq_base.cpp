@@ -115,6 +115,7 @@ void SeqBase::resetCycle()
 SeqTimeGrain::SeqTimeGrain(const std::string& name, t_float f)
     : FloatProperty(name, f)
 {
+    setUnits(PropValueUnits::MSEC);
     checkClosedRange(MIN_INTERVAL, MAX_INTERVAL);
 }
 

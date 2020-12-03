@@ -26,9 +26,12 @@
             bangs</argument>
         </arguments>
         <properties>
+            <property name="@dur" type="float" minvalue="0" default="0">sequence duration. Changing
+            this property also changes @t interval between bangs.</property>
             <property name="@n" type="int" minvalue="0" default="0">number of bangs</property>
-            <property name="@t" type="float" default="0" minvalue="0" units="millisecond">time
-            interval between bangs</property>
+            <property name="@t" type="float" default="0" minvalue="1" maxvalue="20000"
+            units="millisecond">time interval between bangs. You could also use units values like
+            100ms or 120bpm.</property>
         </properties>
         <methods>
             <method name="start">start/stop 
@@ -36,6 +39,7 @@
             bang sequence, otherwise stops</param></method>
             <method name="stop">stop bang output and reset bang counter</method>
             <method name="reset">stop bang output and reset bang counter</method>
+            <method name="tick">manually output current sequence element and move to next</method>
         </methods>
         <inlets>
             <inlet>
