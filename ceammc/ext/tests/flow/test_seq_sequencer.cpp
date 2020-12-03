@@ -30,7 +30,6 @@ TEST_CASE("seq.sequencer", "[externals]")
             REQUIRE(t.numInlets() == 2);
             REQUIRE(t.numOutlets() == 2);
             REQUIRE_PROPERTY(t, @r, 1);
-            REQUIRE_PROPERTY(t, @i, 0);
             REQUIRE_PROPERTY(t, @v, L());
         }
 
@@ -166,6 +165,33 @@ TEST_CASE("seq.sequencer", "[externals]")
             t.schedTicks(2);
             REQUIRE(t.messagesAt(1) == ML { iota(0), M(0.), done });
             REQUIRE(t.messagesAt(0) == ML { LF(100, 127) });
+        }
+    }
+
+    SECTION("time")
+    {
+        SECTION("float")
+        {
+            TExt t("seq", LF(100, 100, 200, 300));
+            REQUIRE_PROPERTY(t, @t, 100);
+        }
+
+        SECTION("ms")
+        {
+            TExt t("seq", LA("50ms", 100, 200, 300));
+            REQUIRE_PROPERTY(t, @t, 50);
+        }
+
+        SECTION("bpm")
+        {
+            TExt t("seq", LA("120bpm", 100, 200, 300));
+            REQUIRE_PROPERTY(t, @t, 500);
+        }
+
+        SECTION("hz")
+        {
+            TExt t("seq", LA("1hz", 100, 200, 300, 400));
+            REQUIRE_PROPERTY(t, @t, 250);
         }
     }
 }

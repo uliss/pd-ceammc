@@ -62,8 +62,6 @@ SeqBase::SeqBase(const PdArgs& args)
 
     addProperty(new AliasProperty<RepeatProperty>("@inf", repeat_, -1));
     addProperty(new AliasProperty<RepeatProperty>("@once", repeat_, 1));
-
-    createCbIntProperty("@i", [this]() { return cycle_counter_; });
 }
 
 bool SeqBase::tick()
@@ -158,11 +156,6 @@ bool SeqTimeGrain::setList(const AtomListView& lv)
 
 bool SeqTimeGrain::setBpm(t_float bpm)
 {
-    if (sequence_.empty()) {
-        PROP_ERR() << "can't set bpm with empty sequence";
-        return false;
-    }
-
     if (bpm <= 0) {
         PROP_ERR() << "invalid bpm: " << bpm;
         return false;
