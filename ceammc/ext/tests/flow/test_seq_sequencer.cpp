@@ -35,28 +35,35 @@ TEST_CASE("seq.sequencer", "[externals]")
 
         SECTION("args")
         {
-            TObj t("seq", LA("10ms", 1, 2, 3));
+            TObj t("seq", LA(1, 2, 3, "@t", "10ms"));
             REQUIRE_PROPERTY(t, @v, LF(1, 2, 3));
             REQUIRE_PROPERTY(t, @t, 10);
         }
 
         SECTION("args bpm")
         {
-            TObj t("seq", LA("120bpm", 1, 2, 3));
+            TObj t("seq", LA(1, 2, 3, "@t", "120bpm"));
             REQUIRE_PROPERTY(t, @v, LF(1, 2, 3));
             REQUIRE_PROPERTY(t, @t, 500);
         }
 
         SECTION("args @once")
         {
-            TObj t("seq", LA("120bpm", 1, "@once"));
+            TObj t("seq", LA(1, "@once", "@t", "120bpm"));
             REQUIRE_PROPERTY(t, @r, 1);
+            REQUIRE_PROPERTY(t, @t, 500);
         }
 
         SECTION("args @inf")
         {
-            TObj t("seq", LA("120bpm", 2, "@inf"));
+            TObj t("seq", LA(2, "@inf", "@t", "120bpm"));
             REQUIRE_PROPERTY(t, @r, "inf");
+        }
+
+        SECTION("args @dur")
+        {
+            TObj t("seq", LA(1, 2, 3, 4, "@dur", 500));
+            REQUIRE_PROPERTY(t, @dur, 500);
         }
 
         SECTION("ext")
@@ -72,7 +79,7 @@ TEST_CASE("seq.sequencer", "[externals]")
             using M = Message;
             using ML = std::vector<M>;
 
-            TExt t("seq", LA("2ms", 100, 200, "@r", 0.));
+            TExt t("seq", LA(100, 200, "@r", 0., "@t", "2ms"));
             REQUIRE_PROPERTY(t, @r, 0);
 
             t.bang();
@@ -88,7 +95,7 @@ TEST_CASE("seq.sequencer", "[externals]")
             auto iota = [](int i) { return M(SYM("i"), LF(t_float(i))); };
             auto done = M(SYM("done"), AtomList {});
 
-            TExt t("seq", LA("2ms", 100, 200, "@r", 1));
+            TExt t("seq", LA(100, 200, "@r", 1, "@t", "2ms"));
             REQUIRE_PROPERTY(t, @r, 1);
 
             t.bang();
@@ -110,7 +117,7 @@ TEST_CASE("seq.sequencer", "[externals]")
             auto iota = [](int i) { return M(SYM("i"), LF(t_float(i))); };
             auto done = M(SYM("done"), AtomList {});
 
-            TExt t("seq", LA("2ms", 100, 200, 300, "@r", 2));
+            TExt t("seq", LA(100, 200, 300, "@r", 2, "@t", "2ms"));
             REQUIRE_PROPERTY(t, @r, 2);
 
             t.bang();
@@ -144,7 +151,7 @@ TEST_CASE("seq.sequencer", "[externals]")
             using M = Message;
             using ML = std::vector<M>;
 
-            TExt t("seq", LA("2ms", "@r", 2));
+            TExt t("seq", LA("@r", 2, "@t", "2ms"));
 
             t.bang();
             t.schedTicks(2);
@@ -159,7 +166,7 @@ TEST_CASE("seq.sequencer", "[externals]")
             auto iota = [](int i) { return M(SYM("i"), LF(t_float(i))); };
             auto done = M(SYM("done"), AtomList {});
 
-            TExt t("seq", LA("2ms", "(100", "127)", "@r", 1));
+            TExt t("seq", LA("(100", "127)", "@r", 1, "@t", "2ms"));
             REQUIRE_PROPERTY(t, @r, 1);
 
             t.bang();
@@ -175,25 +182,25 @@ TEST_CASE("seq.sequencer", "[externals]")
     {
         SECTION("float")
         {
-            TExt t("seq", LF(100, 100, 200, 300));
-            REQUIRE_PROPERTY(t, @t, 100);
+            TExt t("seq", LA(100, 200, 300, "@t", 11));
+            REQUIRE_PROPERTY(t, @t, 11);
         }
 
         SECTION("ms")
         {
-            TExt t("seq", LA("50ms", 100, 200, 300));
+            TExt t("seq", LA(100, 200, 300, "@t", "50ms"));
             REQUIRE_PROPERTY(t, @t, 50);
         }
 
         SECTION("bpm")
         {
-            TExt t("seq", LA("120bpm", 100, 200, 300));
+            TExt t("seq", LA(100, 200, 300, "@t", "120bpm"));
             REQUIRE_PROPERTY(t, @t, 500);
         }
 
         SECTION("dur")
         {
-            TExt t("seq", LA(1, 100, 200, 300, 400, "@dur", 1000));
+            TExt t("seq", LA(100, 200, 300, 400, "@dur", 1000));
             REQUIRE_PROPERTY(t, @t, 250);
         }
     }
@@ -206,7 +213,7 @@ TEST_CASE("seq.sequencer", "[externals]")
         auto iota = [](int i) { return M(SYM("i"), LF(t_float(i))); };
         auto done = M(SYM("done"), AtomList {});
 
-        TExt t("seq", LA("2ms", 100, 200, "@r", 2));
+        TExt t("seq", LA(100, 200, "@r", 2, "@t", "2ms"));
 
         t->m_tick(&s_, {});
         REQUIRE(t.messagesAt(1) == ML { iota(0), M(0.) });

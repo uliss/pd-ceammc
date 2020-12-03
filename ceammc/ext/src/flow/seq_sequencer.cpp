@@ -25,12 +25,11 @@ SeqSequencerBase::SeqSequencerBase(const PdArgs& args)
     , counter_(0)
 {
     values_ = new ListProperty("@v");
-    values_->setArgIndex(1);
+    values_->setArgIndex(0);
     values_->setSuccessFn([this](Property*) { resetSequence(); });
     addProperty(values_);
 
     interval_ = new SeqTimeGrain("@t", 20);
-    interval_->setArgIndex(0);
     addProperty(interval_);
 
     createCbFloatProperty(
