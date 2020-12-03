@@ -134,6 +134,9 @@ TEST_CASE("seq.sequencer", "[externals]")
             t.schedTicks(2);
             REQUIRE(t.messagesAt(1) == ML { iota(0), M(0.), M(1), M(2), iota(1), M(0.), M(1), M(2), done });
             REQUIRE(t.messagesAt(0) == ML { 100, 200, 300, 100, 200, 300 });
+            t.schedTicks(20);
+            REQUIRE(t.messagesAt(1) == ML { iota(0), M(0.), M(1), M(2), iota(1), M(0.), M(1), M(2), done });
+            REQUIRE(t.messagesAt(0) == ML { 100, 200, 300, 100, 200, 300 });
         }
 
         SECTION("simple empty sequence")
@@ -188,10 +191,40 @@ TEST_CASE("seq.sequencer", "[externals]")
             REQUIRE_PROPERTY(t, @t, 500);
         }
 
-        SECTION("hz")
+        SECTION("dur")
         {
-            TExt t("seq", LA("1hz", 100, 200, 300, 400));
+            TExt t("seq", LA(1, 100, 200, 300, 400, "@dur", 1000));
             REQUIRE_PROPERTY(t, @t, 250);
         }
+    }
+
+    SECTION("manual")
+    {
+        using M = Message;
+        using ML = std::vector<M>;
+
+        auto iota = [](int i) { return M(SYM("i"), LF(t_float(i))); };
+        auto done = M(SYM("done"), AtomList {});
+
+        TExt t("seq", LA("2ms", 100, 200, "@r", 2));
+
+        t->m_tick(&s_, {});
+        REQUIRE(t.messagesAt(1) == ML { iota(0), M(0.) });
+        REQUIRE(t.messagesAt(0) == ML { 100 });
+        t->m_tick(&s_, {});
+        REQUIRE(t.messagesAt(1) == ML { iota(0), M(0.), M(1) });
+        REQUIRE(t.messagesAt(0) == ML { 100, 200 });
+        t->m_tick(&s_, {});
+        REQUIRE(t.messagesAt(1) == ML { iota(0), M(0.), M(1), iota(1), M(0.) });
+        REQUIRE(t.messagesAt(0) == ML { 100, 200, 100 });
+        t->m_tick(&s_, {});
+        REQUIRE(t.messagesAt(1) == ML { iota(0), M(0.), M(1), iota(1), M(0.), M(1) });
+        REQUIRE(t.messagesAt(0) == ML { 100, 200, 100, 200 });
+        t->m_tick(&s_, {});
+        REQUIRE(t.messagesAt(1) == ML { iota(0), M(0.), M(1), iota(1), M(0.), M(1), done });
+        REQUIRE(t.messagesAt(0) == ML { 100, 200, 100, 200 });
+        t->m_tick(&s_, {});
+        REQUIRE(t.messagesAt(1) == ML { iota(0), M(0.), M(1), iota(1), M(0.), M(1), done, done });
+        REQUIRE(t.messagesAt(0) == ML { 100, 200, 100, 200 });
     }
 }

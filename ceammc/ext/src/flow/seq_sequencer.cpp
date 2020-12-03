@@ -33,6 +33,20 @@ SeqSequencerBase::SeqSequencerBase(const PdArgs& args)
     interval_->setArgIndex(0);
     addProperty(interval_);
 
+    createCbFloatProperty(
+        "@dur",
+        [this]() -> t_float { return sequenceSize() * interval_->value(); },
+        [this](t_float f) -> bool {
+            const auto N = values_->value().size();
+            if (N == 0) {
+                OBJ_ERR << "empty sequence";
+                return false;
+            }
+
+            return interval_->setValue(f / N);
+        })
+        ->checkNonNegative();
+
     createInlet();
     createOutlet();
     createOutlet();
@@ -114,4 +128,11 @@ void setup_seq_sequencer()
     SYM_DONE = gensym("done");
 
     SequencerIFaceFactory<ObjectFactory, SeqSequencer> obj("seq");
+    obj.setXletsInfo(
+        { "bang: start sequence\n"
+          "float: 1|0 - start/stop sequence",
+            "list: set sequence" },
+        { "atom or list output", "float: sequence index\n"
+                                 "i: cycle index\n"
+                                 "done: when sequence done" });
 }

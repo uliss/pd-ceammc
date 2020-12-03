@@ -39,7 +39,6 @@ public:
     SeqTimeGrain(const std::string& name, AtomList& seq, t_float f = 10);
     bool setList(const AtomListView& lv) override;
     bool setBpm(t_float bpm);
-    bool setFreq(t_float hz);
 };
 
 class SeqBase : public BaseObject {

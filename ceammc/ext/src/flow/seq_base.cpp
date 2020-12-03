@@ -136,9 +136,8 @@ bool SeqTimeGrain::setList(const AtomListView& lv)
                     return setValue(v.value());
                 case units::FreqValue::BPM:
                     return setBpm(v.value());
-                case units::FreqValue::HZ:
                 default:
-                    return setFreq(v.value());
+                    return false;
                 }
 
             } else if (res.matchError(err)) {
@@ -168,30 +167,6 @@ bool SeqTimeGrain::setBpm(t_float bpm)
         return false;
     } else if (interval_ms > MAX_INTERVAL) {
         PROP_ERR() << "too slow bmp value: " << bpm;
-        return false;
-    } else
-        return setValue(interval_ms);
-}
-
-bool SeqTimeGrain::setFreq(t_float hz)
-{
-    if (sequence_.empty()) {
-        PROP_ERR() << "can't set frequency with empty sequence";
-        return false;
-    }
-
-    if (hz <= 0) {
-        PROP_ERR() << "invalid frequency: " << hz;
-        return false;
-    }
-
-    const t_float interval_ms = (1000 / (hz * sequence_.size()));
-
-    if (interval_ms < MIN_INTERVAL) {
-        PROP_ERR() << "too high frequency value: " << hz;
-        return false;
-    } else if (interval_ms > MAX_INTERVAL) {
-        PROP_ERR() << "too low frequency value: " << hz;
         return false;
     } else
         return setValue(interval_ms);
