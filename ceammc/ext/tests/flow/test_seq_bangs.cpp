@@ -148,5 +148,29 @@ TEST_CASE("seq.bangs", "[externals]")
             REQUIRE(t.messagesAt(0) == ML { B, B, B, B });
             REQUIRE(t.messagesAt(1) == ML { iota(0), 0., dur(20), 1, dur(10), iota(1), 0., dur(20), 1, dur(10), done });
         }
+
+        SECTION("manual")
+        {
+            TExt t("seq.b", LA(2, 1, "@t", "10ms", "@r", 2));
+            t.call("tick");
+            REQUIRE(t.messagesAt(0) == ML { B });
+            REQUIRE(t.messagesAt(1) == ML { iota(0), 0., dur(20) });
+
+            t.call("tick");
+            REQUIRE(t.messagesAt(0) == ML { B });
+            REQUIRE(t.messagesAt(1) == ML { 1, dur(10) });
+
+            t.call("tick");
+            REQUIRE(t.messagesAt(0) == ML { B });
+            REQUIRE(t.messagesAt(1) == ML { iota(1), 0., dur(20) });
+
+            t.call("tick");
+            REQUIRE(t.messagesAt(0) == ML { B });
+            REQUIRE(t.messagesAt(1) == ML { 1, dur(10) });
+
+            t.call("tick");
+            REQUIRE(t.messagesAt(0) == ML {});
+            REQUIRE(t.messagesAt(1) == ML { done });
+        }
     }
 }

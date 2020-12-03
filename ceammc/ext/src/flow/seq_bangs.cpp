@@ -133,13 +133,11 @@ void setup_seq_bangs()
     SYM_IOTA = gensym("i");
     SYM_DUR = gensym("dur");
 
-    ObjectFactory<SeqBangs> obj("seq.bangs");
+    SequencerIFaceFactory<ObjectFactory, SeqBangs> obj("seq.bangs");
     obj.addAlias("seq.b");
-    obj.addMethod("stop", &SeqBangs::m_stop);
-    obj.addMethod("reset", &SeqBangs::m_reset);
 
     obj.setXletsInfo({ "bang:  start playing sequence\n"
                        "stop:  stop sequencer\n",
                          "list: set new pattern" },
-        { "bang: output pattern", "float: time until next bang (in ms)", "done: when done" });
+        { "bang: output pattern", "done: when done" });
 }
