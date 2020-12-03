@@ -119,5 +119,5 @@ void setup_seq_nbangs()
                        "start 1|0: start/stop sequence\n"
                        "stop 1|0:  stop strt sequence",
                          "bang: stop sequence output and reset" },
-        { "bang", "bang after last sequence output" });
+        { "bang", "float: bang index or 'done' after last bang" });
 }

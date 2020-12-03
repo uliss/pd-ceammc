@@ -11,10 +11,11 @@
 #X msg 146 118 2;
 #X obj 261 118 ui.dsp~;
 #X obj 50 147 seq.nbangs @t 110;
-#X obj 165 176 route done;
+#X obj 174 176 route done;
 #X obj 50 205 click~;
-#X obj 165 205 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
+#X obj 174 205 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
 -1;
+#X floatatom 261 205 5 0 0 0 - - -;
 #X obj 50 234 flt.resonbp~ 1000 40;
 #X obj 50 262 ui.hgain~;
 #X obj 50 291 dac~;
@@ -109,7 +110,8 @@ https://github.com/uliss/pure-data;
 #X connect 9 1 10 0;
 #X connect 9 0 11 0;
 #X connect 10 0 12 0;
-#X connect 11 0 13 0;
-#X connect 13 0 14 0;
+#X connect 10 1 13 0;
+#X connect 11 0 14 0;
 #X connect 14 0 15 0;
-#X connect 14 0 15 1;
+#X connect 15 0 16 0;
+#X connect 15 0 16 1;

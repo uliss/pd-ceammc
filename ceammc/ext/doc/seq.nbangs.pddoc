@@ -56,10 +56,10 @@
 [10( [15( [2(         [ui.dsp~]
 |    |    |
 [seq.nbangs @t 110]
-|           ^|
-|           [route done]
-|           |
-[click~]    [B]
+|            ^|
+|            [route done]
+|            |        ^|
+[click~]     [B]      [F]
 |
 [flt.resonbp~ 1000 40]
 |
