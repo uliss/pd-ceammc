@@ -130,18 +130,18 @@ public:
     void m_start(t_symbol* s, const AtomListView& lv)
     {
         const auto t = lv.boolAt(0, true);
-        t ? T::start() : T::stop();
+        t ? this->start() : this->stop();
     }
 
     void m_stop(t_symbol* s, const AtomListView& lv)
     {
         const auto t = lv.boolAt(0, true);
-        t ? T::stop() : T::start();
+        t ? this->stop() : this->start();
     }
 
-    void m_reset(t_symbol* s, const AtomListView& lv) { T::reset(); }
+    void m_reset(t_symbol* s, const AtomListView& lv) { this->reset(); }
 
-    void m_tick(t_symbol* s, const AtomListView& lv) { T::tick(); }
+    void m_tick(t_symbol* s, const AtomListView& lv) { this->tick(); }
 };
 
 template <template <typename> class Factory, class T>

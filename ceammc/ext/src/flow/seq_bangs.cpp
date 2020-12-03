@@ -40,6 +40,23 @@ SeqBangsBase::SeqBangsBase(const PdArgs& args)
     });
     addProperty(pattern_);
 
+    createCbFloatProperty(
+        "@dur",
+        [this]() -> t_float {
+            const auto total = pattern_->value().sum().get_value_or(0);
+            return total * interval_->value();
+        },
+        [this](t_float f) -> bool {
+            const auto total = pattern_->value().sum().get_value_or(0);
+            if (total <= 0) {
+                OBJ_ERR << "empty sequence";
+                return false;
+            }
+
+            return interval_->setValue(f / total);
+        })
+        ->checkNonNegative();
+
     createInlet();
     createOutlet();
     createOutlet();
@@ -69,7 +86,7 @@ double SeqBangsBase::calcNextTick() const
 void SeqBangsBase::outputTick()
 {
     floatTo(1, current_);
-    anyTo(1, SYM_DUR, Atom(currentEventDurationMs()));
+    anyTo(1, SYM_DUR, Atom(calcNextTick()));
 
     bangTo(0);
 }
@@ -107,19 +124,7 @@ void SeqBangsBase::reset()
 {
     current_ = 0;
     clock_.unset();
-}
-
-t_float SeqBangsBase::calcDurationMs(t_float dur) const
-{
-    return dur * interval_->value();
-}
-
-t_float SeqBangsBase::currentEventDurationMs() const
-{
-    if (current_ >= pattern_->value().size())
-        return -1;
-
-    return calcDurationMs(pattern_->value()[current_].asFloat(0));
+    resetCycle();
 }
 
 void setup_seq_bangs()

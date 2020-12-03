@@ -17,19 +17,19 @@
 #include "seq_bangs.h"
 
 class SeqToggles : public SeqBangs {
-    FloatProperty* duration_;
+    FloatProperty* length_;
     ClockLambdaFunction clock_off_;
 
 public:
     SeqToggles(const PdArgs& args);
 
-//    void output
+    void outputTick() final;
 
-protected:
-//    void schedNext() override;
-//    void outputEvent() override;
-//    void stop() override;
-//    void reset() override;
+    void stop() override;
+    void reset() override;
+
+private:
+    void outputOff();
 };
 
 void setup_seq_toggles();

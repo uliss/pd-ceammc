@@ -30,7 +30,7 @@ TEST_CASE("seq.bangs", "[externals]")
             REQUIRE(t.numInlets() == 2);
             REQUIRE(t.numOutlets() == 2);
             REQUIRE_PROPERTY(t, @t, 100);
-            //            REQUIRE_PROPERTY(t, @div, 4);
+            REQUIRE_PROPERTY(t, @dur, 0);
             REQUIRE_PROPERTY(t, @p, L());
         }
 
@@ -38,6 +38,8 @@ TEST_CASE("seq.bangs", "[externals]")
         {
             TObj t("seq.bangs", LF(1, 2, 3));
             REQUIRE_PROPERTY(t, @p, LF(1, 2, 3));
+            REQUIRE_PROPERTY(t, @t, 100);
+            REQUIRE_PROPERTY(t, @dur, 600);
         }
 
         SECTION("args invalid")
@@ -99,6 +101,7 @@ TEST_CASE("seq.bangs", "[externals]")
         SECTION("many")
         {
             TExt t("seq.b", LA(1, 2, 0.5, "@t", 10));
+            REQUIRE_PROPERTY(t, @dur, 35);
 
             t.sendBang();
             REQUIRE(t.messagesAt(0) == ML { B });

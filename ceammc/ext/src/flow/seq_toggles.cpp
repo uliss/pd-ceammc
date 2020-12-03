@@ -16,54 +16,58 @@
 
 #include <algorithm>
 
+static t_symbol* SYM_DUR;
+
 SeqToggles::SeqToggles(const PdArgs& args)
     : SeqBangs(args)
-    , duration_(nullptr)
-    , clock_off_([this]() { floatTo(0, 0); })
+    , length_(nullptr)
+    , clock_off_([this]() { outputOff(); })
 {
-    duration_ = new FloatProperty("@dur", 0.75);
-    duration_->checkClosedRange(0, 1);
-    addProperty(duration_);
+    length_ = new FloatProperty("@length", 0.75);
+    length_->checkClosedRange(0, 1);
+    addProperty(length_);
 }
 
-//void SeqToggles::schedNext()
-//{
-//    const auto ms = currentEventDurationMs();
-//    if (ms < 0)
-//        return;
+void SeqToggles::outputTick()
+{
+    const auto ms = calcNextTick();
+    floatTo(1, current_);
+    anyTo(1, SYM_DUR, Atom(ms));
+    floatTo(0, 1);
 
-//    const t_float toff_ms = std::max<t_float>(1, ms * duration_->value());
-//    clock_off_.delay(toff_ms);
+    const t_float toff_ms = std::max<t_float>(1, ms * length_->value());
+    clock_off_.delay(toff_ms);
+}
 
-////    SeqBangs::schedNext();
-//}
+void SeqToggles::stop()
+{
+    SeqBangs::stop();
 
-//void SeqToggles::outputEvent()
-//{
-//    floatTo(0, 1);
-//}
+    if (clock_off_.isActive()) {
+        clock_off_.unset();
+        outputOff();
+    }
+}
 
-//void SeqToggles::stop()
-//{
-//    SeqBangs::stop();
-//    if (clock_off_.isActive()) {
-//        clock_off_.exec();
-//        clock_off_.unset();
-//    }
-//}
+void SeqToggles::reset()
+{
+    SeqBangs::reset();
 
-//void SeqToggles::reset()
-//{
-//    if (clock_off_.isActive()) {
-//        clock_off_.exec();
-//        clock_off_.unset();
-//    }
+    if (clock_off_.isActive()) {
+        clock_off_.unset();
+        outputOff();
+    }
+}
 
-//    SeqBangs::reset();
-//}
+void SeqToggles::outputOff()
+{
+    floatTo(0, 0);
+}
 
 void setup_seq_toggles()
 {
+    SYM_DUR = gensym("dur");
+
     ObjectFactory<SeqToggles> obj("seq.toggles");
     obj.addAlias("seq.t");
 

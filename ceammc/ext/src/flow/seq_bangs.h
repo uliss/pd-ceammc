@@ -35,18 +35,15 @@ public:
     bool isSequenceBegin() const final { return current_ == 0; }
     bool isSequenceEnd() const final { return current_ >= pattern_->value().size(); }
     double calcNextTick() const final;
-    void outputTick() final;
+    void outputTick() override;
     void outputSequenceBegin() final;
     void outputSequenceEnd() final;
     void outputCycleBegin() final;
     void outputCycleEnd() final;
 
     void start();
-    void stop();
-    void reset();
-
-    t_float calcDurationMs(t_float dur) const;
-    t_float currentEventDurationMs() const;
+    virtual void stop();
+    virtual void reset();
 };
 
 using SeqBangs = SequencerIFace<SeqBangsBase>;
