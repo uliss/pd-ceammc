@@ -1,6 +1,6 @@
 #N canvas 0 0 489 299 12;
 #X msg 20 48 bang;
-#X obj 20 77 sequencer 100ms \(60 127\) \(70 80\) \(80 127\) @r 3;
+#X obj 20 77 sequencer \(60 127\) \(70 80\) \(80 127\) @t 100ms @r 3;
 #X obj 20 106 makenote 100 80;
 #X obj 20 135 pack f f;
 #X obj 20 164 msg note;

@@ -21,20 +21,19 @@
             units</argument>
         </arguments>
         <properties>
-            <property name="@bpm" type="float" default="60" minvalue="1" maxvalue="600"
-            units="bpm">frequency of sequencer division (by default @div=4)</property>
-            <property name="@div" type="int" default="4" minvalue="1" maxvalue="512">sequencer beat
-            division. The four means 1/4, eight - 1/8 etc.</property>
+            <property name="@t" type="float" default="100" minvalue="1" maxvalue="600"
+            units="millisecond">time between beats. Unit values like 100ms or 240bpm also can be used</property>
             <property name="@pattern" type="list">sequencer pattern in beat duration
             units</property>
         </properties>
         <methods>
             <method name="reset">reset to first element</method>
+            <method name="start">start sequencer</method>
             <method name="stop">stop sequencer</method>
         </methods>
         <inlets>
             <inlet>
-                <xinfo on="bang">starts sequencer</xinfo>
+                <xinfo on="bang">start sequencer</xinfo>
             </inlet>
             <inlet>
                 <xinfo on="list">set new pattern value</xinfo>
@@ -42,19 +41,19 @@
         </inlets>
         <outlets>
             <outlet>bang</outlet>
-            <outlet>float: duration until next bang (in ms)</outlet>
-            <outlet>current index or 'done' when done</outlet>
+            <outlet>current index, 'i' - iteration cycle, 'dur' - beat duration or 'done' when done</outlet>
         </outlets>
         <example>
             <pdascii>
 <![CDATA[
 [B #b]  [stop(  [reset(
 |       |       |
-[seq.bangs 3 1 2 1 1 @bpm 120 @div 16]
-|                          ^^|
-|                          [route done]  [T]
-|                          |             |.
-[click~]                   [flow.gate 1 {w=27} #g]
+|       |       |
+[seq.bangs 3 1 2 1 1 @t 480bpm @r 4]
+|                          ^|
+|                          [route done i dur {w=21}]
+|                          |    ^|  ^^|  ^^^|
+[click~]                   [B]  [F]  [F]  [F]
 |
 [flt.resonbp~ 1000 40]     [ui.dsp~]
 |
