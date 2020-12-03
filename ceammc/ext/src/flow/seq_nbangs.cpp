@@ -35,11 +35,23 @@ SeqNBangs::SeqNBangs(const PdArgs& args)
     n_->setArgIndex(0);
     addProperty(n_);
 
-    interval_ = new FloatProperty("@t", 0);
-    interval_->checkNonNegative();
-    interval_->setUnits(PropValueUnits::MSEC);
+    interval_ = new SeqTimeGrain("@t", 0);
     interval_->setArgIndex(1);
     addProperty(interval_);
+
+    createCbFloatProperty(
+        "@dur",
+        [this]() -> t_float { return n_->value() * interval_->value(); },
+        [this](t_float f) -> bool {
+            const auto N = n_->value();
+            if (N == 0) {
+                OBJ_ERR << "empty sequence";
+                return false;
+            }
+
+            return interval_->setValue(f / N);
+        })
+        ->checkNonNegative();
 }
 
 void SeqNBangs::onBang()

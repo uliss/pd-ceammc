@@ -112,9 +112,8 @@ void SeqBase::resetCycle()
     cycle_counter_ = 0;
 }
 
-SeqTimeGrain::SeqTimeGrain(const std::string& name, AtomList& seq, t_float f)
+SeqTimeGrain::SeqTimeGrain(const std::string& name, t_float f)
     : FloatProperty(name, f)
-    , sequence_(seq)
 {
     checkClosedRange(MIN_INTERVAL, MAX_INTERVAL);
 }

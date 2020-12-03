@@ -38,6 +38,7 @@ TEST_CASE("seq.nbangs", "[externals]")
             TObj t("seq.nbangs", LF(10, 20));
             REQUIRE_PROPERTY(t, @t, 20);
             REQUIRE_PROPERTY(t, @n, 10);
+            REQUIRE_PROPERTY(t, @dur, 200);
         }
 
         SECTION("props")
@@ -233,6 +234,30 @@ TEST_CASE("seq.nbangs", "[externals]")
             t.call("tick");
             REQUIRE(t.outputAnyAt(1) == LA("done"));
             REQUIRE_FALSE(t.hasOutputAt(0));
+        }
+    }
+
+    SECTION("time")
+    {
+        SECTION("ms")
+        {
+            TObj t("seq.nbangs", LA(10, "20ms"));
+            REQUIRE_PROPERTY(t, @t, 20);
+            REQUIRE_PROPERTY(t, @n, 10);
+        }
+
+        SECTION("bpm")
+        {
+            TObj t("seq.nbangs", LA(10, "120bpm"));
+            REQUIRE_PROPERTY(t, @t, 500);
+            REQUIRE_PROPERTY(t, @n, 10);
+        }
+
+        SECTION("dur")
+        {
+            TObj t("seq.nbangs", LA(10, "@dur", 150));
+            REQUIRE_PROPERTY(t, @t, 15);
+            REQUIRE_PROPERTY(t, @n, 10);
         }
     }
 }

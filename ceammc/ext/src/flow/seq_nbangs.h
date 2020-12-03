@@ -21,7 +21,7 @@ using namespace ceammc;
 
 class SeqNBangs : public BaseObject {
     IntProperty* n_;
-    FloatProperty* interval_;
+    SeqTimeGrain* interval_;
     size_t counter_;
     ClockLambdaFunction clock_;
 

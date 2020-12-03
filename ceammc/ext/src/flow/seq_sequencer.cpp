@@ -29,7 +29,7 @@ SeqSequencerBase::SeqSequencerBase(const PdArgs& args)
     values_->setSuccessFn([this](Property*) { resetSequence(); });
     addProperty(values_);
 
-    interval_ = new SeqTimeGrain("@t", values_->value(), 20);
+    interval_ = new SeqTimeGrain("@t", 20);
     interval_->setArgIndex(0);
     addProperty(interval_);
 

@@ -33,10 +33,9 @@ public:
 class SeqTimeGrain : public FloatProperty {
     static const size_t MIN_INTERVAL = 1;
     static const size_t MAX_INTERVAL = 20000;
-    AtomList& sequence_;
 
 public:
-    SeqTimeGrain(const std::string& name, AtomList& seq, t_float f = 10);
+    SeqTimeGrain(const std::string& name, t_float f = 10);
     bool setList(const AtomListView& lv) override;
     bool setBpm(t_float bpm);
 };
