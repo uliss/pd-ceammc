@@ -45,19 +45,9 @@ void SeqToggles::outputTick()
     clock_off_.delay(note_len_ms);
 }
 
-void SeqToggles::stop()
+void SeqToggles::clockStop()
 {
-    SeqBangs::stop();
-
-    if (clock_off_.isActive()) {
-        clock_off_.unset();
-        outputOff();
-    }
-}
-
-void SeqToggles::reset()
-{
-    SeqBangs::reset();
+    SeqBangs::clockStop();
 
     if (clock_off_.isActive()) {
         clock_off_.unset();

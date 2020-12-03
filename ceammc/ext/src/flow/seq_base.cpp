@@ -65,6 +65,16 @@ SeqBase::SeqBase(const PdArgs& args)
     addProperty(new AliasProperty<RepeatProperty>("@once", repeat_, 1));
 }
 
+void SeqBase::clockStart()
+{
+    clock_.exec();
+}
+
+void SeqBase::clockStop()
+{
+    clock_.unset();
+}
+
 bool SeqBase::tick()
 {
     if (repeat_->value() == 0)
@@ -79,7 +89,7 @@ bool SeqBase::tick()
         cycle_counter_++;
 
         if (shouldRepeat()) {
-            resetSequence();
+            resetSequenceCounter();
             tick();
             return true;
         } else {
@@ -108,9 +118,26 @@ bool SeqBase::shouldRepeat() const
     return fin_continue || inf_continue;
 }
 
-void SeqBase::resetCycle()
+void SeqBase::resetCycleCounter()
 {
     cycle_counter_ = 0;
+}
+
+void SeqBase::reset()
+{
+    resetSequenceCounter();
+    resetCycleCounter();
+    clockStop();
+}
+
+void SeqBase::start()
+{
+    clockStart();
+}
+
+void SeqBase::stop()
+{
+    clockStop();
 }
 
 SeqTimeGrain::SeqTimeGrain(const std::string& name, t_float f)

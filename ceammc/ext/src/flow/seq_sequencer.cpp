@@ -26,7 +26,7 @@ SeqSequencerBase::SeqSequencerBase(const PdArgs& args)
 {
     values_ = new ListProperty("@v");
     values_->setArgIndex(0);
-    values_->setSuccessFn([this](Property*) { resetSequence(); });
+    values_->setSuccessFn([this](Property*) { resetSequenceCounter(); });
     addProperty(values_);
 
     interval_ = new SeqTimeGrain("@t", 20);
@@ -101,24 +101,6 @@ void SeqSequencerBase::outputCycleBegin()
 void SeqSequencerBase::outputCycleEnd()
 {
     anyTo(1, SYM_DONE, AtomListView());
-}
-
-void SeqSequencerBase::start()
-{
-    reset();
-    clock_.exec();
-}
-
-void SeqSequencerBase::stop()
-{
-    reset();
-}
-
-void SeqSequencerBase::reset()
-{
-    counter_ = 0;
-    clock_.unset();
-    resetCycle();
 }
 
 void setup_seq_sequencer()

@@ -109,24 +109,6 @@ void SeqBangsBase::outputCycleEnd()
     anyTo(1, SYM_DONE, AtomListView());
 }
 
-void SeqBangsBase::start()
-{
-    reset();
-    clock_.exec();
-}
-
-void SeqBangsBase::stop()
-{
-    reset();
-}
-
-void SeqBangsBase::reset()
-{
-    current_ = 0;
-    clock_.unset();
-    resetCycle();
-}
-
 void setup_seq_bangs()
 {
     SYM_DONE = gensym("done");

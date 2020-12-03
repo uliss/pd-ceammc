@@ -30,7 +30,7 @@ public:
     void onInlet(size_t n, const AtomList& l) override;
 
     size_t sequenceSize() const final { return pattern_->value().size(); }
-    void resetSequence() final { current_ = 0; }
+    void resetSequenceCounter() final { current_ = 0; }
     void sequenceNext() final { current_++; }
     bool isSequenceBegin() const final { return current_ == 0; }
     bool isSequenceEnd() const final { return current_ >= pattern_->value().size(); }
@@ -40,10 +40,6 @@ public:
     void outputSequenceEnd() final;
     void outputCycleBegin() final;
     void outputCycleEnd() final;
-
-    void start();
-    virtual void stop();
-    virtual void reset();
 };
 
 using SeqBangs = SequencerIFace<SeqBangsBase>;

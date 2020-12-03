@@ -31,7 +31,7 @@ public:
 
     double calcNextTick() const final { return interval_->value(); }
     void sequenceNext() final { counter_++; }
-    void resetSequence() final { counter_ = 0; }
+    void resetSequenceCounter() final { counter_ = 0; }
     bool isSequenceBegin() const final { return counter_ == 0; }
     bool isSequenceEnd() const final { return counter_ >= values_->value().size(); }
     size_t sequenceSize() const final { return values_->value().size(); }
@@ -41,10 +41,6 @@ public:
     void outputSequenceEnd() final;
     void outputCycleBegin() final;
     void outputCycleEnd() final;
-
-    void start();
-    void stop();
-    void reset();
 };
 
 using SeqSequencer = SequencerIFace<SeqSequencerBase>;

@@ -24,9 +24,7 @@ public:
     SeqToggles(const PdArgs& args);
 
     void outputTick() final;
-
-    void stop() override;
-    void reset() override;
+    void clockStop() final;
 
 private:
     void outputOff();

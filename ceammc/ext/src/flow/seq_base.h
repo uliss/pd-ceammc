@@ -46,6 +46,7 @@ protected:
     ClockLambdaFunction clock_;
     size_t cycle_counter_ = { 0 };
 
+public: // pure virtual
     /**
      * calculates time until next tick in milliseconds
      */
@@ -92,12 +93,23 @@ protected:
     virtual void outputSequenceEnd() = 0;
 
     /**
-     * reset sequence cycle
+     * reset sequence counter
      */
-    virtual void resetSequence() = 0;
+    virtual void resetSequenceCounter() = 0;
 
     virtual void sequenceNext() = 0;
 
+    /**
+     * start sequence clock
+     */
+    virtual void clockStart();
+
+    /**
+     * stop sequence clock
+     */
+    virtual void clockStop();
+
+public:
     /**
      * output current sequence element
      * @return true if next tick should be scheduled
@@ -113,7 +125,22 @@ protected:
     /**
      * Reet cycle counter
      */
-    void resetCycle();
+    void resetCycleCounter();
+
+    /**
+     * complete sequence reset: reset counters then stop
+     */
+    void reset();
+
+    /**
+     * Starts sequence
+     */
+    void start();
+
+    /**
+     * Stops sequence clock
+     */
+    void stop();
 
 public:
     SeqBase(const PdArgs& args);
