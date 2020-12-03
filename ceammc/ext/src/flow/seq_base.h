@@ -54,6 +54,11 @@ protected:
     virtual double calcNextTick() const = 0;
 
     /**
+     * returns sequence size
+     */
+    virtual size_t sequenceSize() const = 0;
+
+    /**
      * Check if current sequence element is first
      */
     virtual bool isSequenceBegin() const = 0;
@@ -117,10 +122,6 @@ protected:
 
 public:
     SeqBase(const PdArgs& args);
-
-    void m_start(t_symbol* s, const AtomListView& lv);
-    void m_stop(t_symbol* s, const AtomListView& lv);
-    void m_reset(t_symbol* s, const AtomListView& lv);
 };
 
 template <class T>

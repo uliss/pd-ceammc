@@ -61,4 +61,5 @@ target_sources(test_ext_flow PRIVATE
     test_seq_bangs.cpp
     test_seq_nbangs.cpp
     test_seq_phasor.cpp
+    test_seq_sequencer.cpp
     test_seq_toggles.cpp)

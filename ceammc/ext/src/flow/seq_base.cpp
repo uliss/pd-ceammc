@@ -66,25 +66,14 @@ SeqBase::SeqBase(const PdArgs& args)
     createCbIntProperty("@i", [this]() { return cycle_counter_; });
 }
 
-void SeqBase::m_start(t_symbol* s, const AtomListView& lv)
-{
-    const auto t = lv.boolAt(0, true);
-    //    t ? start() : stop();
-}
-
-void SeqBase::m_stop(t_symbol* s, const AtomListView& lv)
-{
-    const auto t = lv.boolAt(0, true);
-    //    t ? stop() : start();
-}
-
-void SeqBase::m_reset(t_symbol* s, const AtomListView& lv)
-{
-    //    reset();
-}
-
 bool SeqBase::tick()
 {
+    if (repeat_->value() == 0)
+        return false;
+
+    if (sequenceSize() == 0)
+        return false;
+
     if (isSequenceEnd()) {
         outputSequenceEnd();
 
@@ -92,6 +81,7 @@ bool SeqBase::tick()
 
         if (shouldRepeat()) {
             resetSequence();
+            tick();
             return true;
         } else {
             outputCycleEnd();
