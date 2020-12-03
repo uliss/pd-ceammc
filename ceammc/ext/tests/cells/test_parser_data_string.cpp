@@ -284,4 +284,26 @@ TEST_CASE("DataStringParser", "[core]")
         REQUIRE(parse("rtree(1 (1 1 2))") == LF(0.25, 0.25, 0.5));
         REQUIRE(parse("rtree(1 (1 1 2( 2 1 1)))") == LF(0.25, 0.25, 0.25, 0.125, 0.125));
     }
+
+    SECTION("euclid()")
+    {
+        REQUIRE(parse("euclid()").empty());
+        REQUIRE(parse("euclid(1)").empty());
+        REQUIRE(parse("euclid(A B)").empty());
+        REQUIRE(parse("euclid(10 1)").empty());
+        REQUIRE(parse("euclid(-1 10)").empty());
+        REQUIRE(parse("euclid(1 -2)").empty());
+        REQUIRE(parse("euclid(0 4)") == LF(0, 0, 0, 0));
+        REQUIRE(parse("euclid(1 1)") == LF(1));
+        REQUIRE(parse("euclid(2 2)") == LF(1, 1));
+        REQUIRE(parse("euclid(3 3)") == LF(1, 1, 1));
+        REQUIRE(parse("euclid(2 3)") == LF(1, 0, 1));
+        REQUIRE(parse("euclid(2 5)") == LF(1, 0, 0, 1, 0));
+        REQUIRE(parse("euclid(7 16)") == LF(1, 0, 0, 1, 0, 1, 0, 1, 0, 0, 1, 0, 1, 0, 1, 0));
+        REQUIRE(parse("euclid(3 7)") == LF(1, 0, 0, 1, 0, 1, 0));
+        REQUIRE(parse("euclid(3 4)") == LF(1, 0, 1, 1));
+        REQUIRE(parse("euclid(3 5)") == LF(1, 0, 1, 0, 1));
+        REQUIRE(parse("euclid(3 8)") == LF(1, 0, 0, 1, 0, 0, 1, 0));
+        //        REQUIRE(parse("euclid(3 7)") == LF(1, 0, 1, 0, 0, 1, 0));
+    }
 }

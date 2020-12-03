@@ -167,6 +167,35 @@ AtomList fn_rythm_tree(const AtomList& args)
     return rtree::rythm_tree(len, ml, RTREE_FN_NAME "(): ", LIB_ERR);
 }
 
+AtomList fn_euclid(const AtomList& args)
+{
+    const bool ok = args.size() == 2 && args[0].isInteger() && args[1].isInteger();
+    if (!ok) {
+        LIB_ERR << fmt::format("euclid(): usage euclid(ONSETS N)");
+        return {};
+    }
+
+    const auto onsets = args[0].asT<int>();
+    const auto pulses = args[1].asT<int>();
+
+    if (onsets < 0) {
+        LIB_ERR << fmt::format("euclid(): number of onsets should be >0, got {}", onsets);
+        return {};
+    }
+
+    if (pulses < 1) {
+        LIB_ERR << fmt::format("euclid(): pattern length should be >1, got {}", pulses);
+        return {};
+    }
+
+    if (onsets > pulses) {
+        LIB_ERR << fmt::format("euclid(): number of pulses should be <={}, got {}", pulses, onsets);
+        return {};
+    }
+
+    return list::bresenham(onsets, pulses);
+}
+
 }
 
 namespace ceammc {
@@ -217,7 +246,10 @@ BuiltinFunctionMap::BuiltinFunctionMap()
     registerFn(gensym("e"), [](const AtomList&) -> AtomList { return { m_exp }; });
     registerFn(gensym("sr"), [](const AtomList&) -> AtomList { return { sys_getsr() }; });
     registerFn(gensym("bs"), [](const AtomList&) -> AtomList { return { (t_float)sys_getblksize() }; });
-    registerFn(gensym("mtof"), [](const AtomList& a) -> AtomList { return { convert::midi2freq(a.floatAt(0, 0)) }; });
+    registerFn(gensym("mtof"),
+        [](const AtomList& a) -> AtomList {
+            return a.mapFloat([](t_float f) { return convert::midi2freq(f); });
+        });
     registerFn(gensym("ftom"), [](const AtomList& a) -> AtomList { return { convert::freq2midi(a.floatAt(0, 0)) }; });
     registerFn(gensym("ms2bpm"), [](const AtomList& a) -> AtomList { return { t_float(60000 / a.floatAt(0, 1)) }; });
     registerFn(gensym("bpm2ms"), [](const AtomList& a) -> AtomList { return { t_float(60000 / a.floatAt(0, 1)) }; });
@@ -226,6 +258,7 @@ BuiltinFunctionMap::BuiltinFunctionMap()
     registerFn(gensym("repeat"), fn_repeat);
     registerFn(gensym("reverse"), fn_reverse);
     registerFn(gensym(RTREE_FN_NAME), fn_rythm_tree);
+    registerFn(gensym("euclid"), fn_euclid);
 }
 
 BuiltinFunctionMap::~BuiltinFunctionMap()
