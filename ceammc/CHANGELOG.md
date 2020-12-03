@@ -54,6 +54,7 @@
 - seq.toggles sequencer (with seq.t alias) added
 - seq.nbangs added (with seq.nb alias)
 - seq.phasor added (control rate saw generator)
+- sequencer object added (with seq alias)
 - flow.reject alias added: flow.!
 - ui.display alias added: ui.dt for ui.display @display_type=1
 - sync added for multiple value synchronization without stack overflow

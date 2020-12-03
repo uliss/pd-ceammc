@@ -165,7 +165,7 @@
         random.linear random.pw_const random.pw_lin
     }}
     {seq {
-        seq.arp seq.bangs seq.nbangs seq.phasor seq.toggles
+        seq.arp seq.bangs seq.nbangs seq.phasor seq.toggles sequencer
     }}
     {snd {
         snd.file

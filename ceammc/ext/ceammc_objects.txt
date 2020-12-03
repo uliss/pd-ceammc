@@ -715,11 +715,11 @@ seq.b
 seq.bangs
 seq.nb
 seq.nbangs
-seq.num
 seq.phasor
 seq.t
 seq.toggles
 seq.transport
+sequencer
 set->list
 set.contains
 set.diff
