@@ -35,12 +35,13 @@
             <param name="on" type="int" enum="0 1" default="1" required="false">
             if true - starts bang sequence, otherwise stops
             </param></method>
-            <method name="stop">stop bang output without resetting bang counter</method>
+            <method name="stop">stop bang output and reset bang counter</method>
             <method name="reset">stop bang output and reset bang counter</method>
         </methods>
         <inlets>
             <inlet>
                 <xinfo on="bang">starts output</xinfo>
+                <xinfo on="float">sets number of bangs and starts output</xinfo>
             </inlet>
             <inlet>
                 <xinfo on="any">stops output and reset</xinfo>
@@ -48,7 +49,7 @@
         </inlets>
         <outlets>
             <outlet>bang output</outlet>
-            <outlet>bang wheh finished</outlet>
+            <outlet>float: output bang index, done: when done</outlet>
         </outlets>
         <example>
             <pdascii>
@@ -56,11 +57,11 @@
 [10( [15( [2(         [ui.dsp~]
 |    |    |
 [seq.nbangs @t 110]
-|        |
-|        [random.i 300 3000]
-|        |
-[click~] [@freq $1(
-|        |
+|           ^|
+|           [route done]
+|           |
+[click~]    [B]
+|
 [flt.resonbp~ 1000 40]
 |
 [ui.hgain~]
