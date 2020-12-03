@@ -1,9 +1,11 @@
 set(FLOW_SOURCES mod_flow.h mod_flow.cpp
     seq_arp.cpp
     seq_bangs.cpp
+    seq_base.cpp
     seq_toggles.cpp
     seq_nbangs.cpp
     seq_phasor.cpp
+    seq_sequencer.cpp
 )
 
 macro(ceammc_flow_external name)
