@@ -17,36 +17,37 @@
             <method name="reset">reset reverb</method>
         </methods>
         <properties>
-            <property name="@a0" type="float" minvalue="0" default="0" maxvalue="1">1st source panning
-            position</property>
-            <property name="@a1" type="float" minvalue="0" default="0" maxvalue="1">2nd source panning
-            position</property>
-            <property name="@a2" type="float" minvalue="0" default="0" maxvalue="1">3rd source panning
-            position</property>
-            <property name="@a3" type="float" minvalue="0" default="0" maxvalue="1">4th source panning
-            position</property>
-            <property name="@a4" type="float" minvalue="0" default="0" maxvalue="1">5th source panning
-            position</property>
-            <property name="@a5" type="float" minvalue="0" default="0" maxvalue="1">6th source panning
-            position</property>
-            <property name="@r0" type="float" minvalue="0" maxvalue="1" default="1">1st source distance
-            from circle center</property>
-            <property name="@r1" type="float" minvalue="0" maxvalue="1" default="1">2nd source distance
-            from circle center</property>
-            <property name="@r2" type="float" minvalue="0" maxvalue="1" default="1">3rd source distance
-            from circle center</property>
-            <property name="@r3" type="float" minvalue="0" maxvalue="1" default="1">4th source distance
-            from circle center</property>
-            <property name="@r4" type="float" minvalue="0" maxvalue="1" default="1">5th source distance
-            from circle center</property>
-            <property name="@r5" type="float" minvalue="0" maxvalue="1" default="1">6th source distance
-            from circle center</property>
+            <property name="@a0" type="float" minvalue="0" default="0" maxvalue="1">1st source
+            panning position</property>
+            <property name="@a1" type="float" minvalue="0" default="0" maxvalue="1">2nd source
+            panning position</property>
+            <property name="@a2" type="float" minvalue="0" default="0" maxvalue="1">3rd source
+            panning position</property>
+            <property name="@a3" type="float" minvalue="0" default="0" maxvalue="1">4th source
+            panning position</property>
+            <property name="@a4" type="float" minvalue="0" default="0" maxvalue="1">5th source
+            panning position</property>
+            <property name="@a5" type="float" minvalue="0" default="0" maxvalue="1">6th source
+            panning position</property>
+            <property name="@r0" type="float" minvalue="0" maxvalue="1" default="1">1st source
+            distance from circle center</property>
+            <property name="@r1" type="float" minvalue="0" maxvalue="1" default="1">2nd source
+            distance from circle center</property>
+            <property name="@r2" type="float" minvalue="0" maxvalue="1" default="1">3rd source
+            distance from circle center</property>
+            <property name="@r3" type="float" minvalue="0" maxvalue="1" default="1">4th source
+            distance from circle center</property>
+            <property name="@r4" type="float" minvalue="0" maxvalue="1" default="1">5th source
+            distance from circle center</property>
+            <property name="@r5" type="float" minvalue="0" maxvalue="1" default="1">6th source
+            distance from circle center</property>
             <property name="@t0" type="float" minvalue="0" maxvalue="90" default="2"
-            units="second">reverb time (in seconds) to decay 60dB in low and mid-frequency band</property>
-            <property name="@dry0" type="float" minvalue="-60" maxvalue="0" default="-3" units="decibel">
-            direct sound level</property>
-            <property name="@wet0" type="float" minvalue="-60" maxvalue="0" default="-8" units="decibel">
-            reverb sound level</property>
+            units="second">reverb time (in seconds) to decay 60dB in low and mid-frequency
+            band</property>
+            <property name="@dry0" type="float" minvalue="-60" maxvalue="0" default="-3"
+            units="decibel">direct sound level</property>
+            <property name="@wet0" type="float" minvalue="-60" maxvalue="0" default="-8"
+            units="decibel">reverb sound level</property>
             <property name="@active" type="int" enum="0 1" default="1">on/off dsp
             processing</property>
         </properties>

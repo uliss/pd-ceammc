@@ -22,19 +22,18 @@
         </meta>
         <arguments>
             <argument name="N" type="int" minvalue="0">number of bangs</argument>
-            <argument name="T" type="float" minvalue="1" units="millisecond">
-            time interval between bangs</argument>
+            <argument name="T" type="float" minvalue="1" units="millisecond">time interval between
+            bangs</argument>
         </arguments>
         <properties>
             <property name="@n" type="int" minvalue="0" default="0">number of bangs</property>
-            <property name="@t" type="float" default="0" minvalue="0" units="millisecond">
-            time interval between bangs</property>
+            <property name="@t" type="float" default="0" minvalue="0" units="millisecond">time
+            interval between bangs</property>
         </properties>
         <methods>
-            <method name="start">start/stop
-            <param name="on" type="int" enum="0 1" default="1" required="false">
-            if true - starts bang sequence, otherwise stops
-            </param></method>
+            <method name="start">start/stop 
+            <param name="on" type="int" enum="0 1" default="1" required="false">if true - starts
+            bang sequence, otherwise stops</param></method>
             <method name="stop">stop bang output and reset bang counter</method>
             <method name="reset">stop bang output and reset bang counter</method>
         </methods>

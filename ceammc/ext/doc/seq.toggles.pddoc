@@ -27,8 +27,8 @@
             division. The four means 1/4, eight - 1/8 etc.</property>
             <property name="@pattern" type="list">sequencer pattern in beat duration
             units</property>
-            <property name="@dur" type="float" minvalue="0" maxvalue="1" default="0.75">
-            sequencer pattern in beat duration units</property>
+            <property name="@dur" type="float" minvalue="0" maxvalue="1" default="0.75">sequencer
+            pattern in beat duration units</property>
         </properties>
         <methods>
             <method name="reset">reset to first element</method>

@@ -18,10 +18,10 @@
             <argument name="N" type="int" minvalue="1" maxvalue="32">number of lines</argument>
         </arguments>
         <properties>
-            <property name="@max_size" type="int" minvalue="1" default="32" maxvalue="1024">
-            max queue size</property>
-            <property name="@auto_pop" type="int" enum="0 1" default="0">
-            auto pop mode. If true automatically pops oldest elements when queue is full</property>
+            <property name="@max_size" type="int" minvalue="1" default="32" maxvalue="1024">max
+            queue size</property>
+            <property name="@auto_pop" type="int" enum="0 1" default="0">auto pop mode. If true
+            automatically pops oldest elements when queue is full</property>
         </properties>
         <inlets dynamic="true">
             <inlet number="1">
@@ -34,10 +34,9 @@
                 <xinfo on="any">n-th queue input messages</xinfo>
             </inlet>
             <inlet number="n+1">
-                <xinfo on="any">clear: remove all elements from all queues,
-                output: output all element from all queues,
-                flush: output and clear all element from all queues,
-                bang or pop: output and remove first message in all queues</xinfo>
+                <xinfo on="any">clear: remove all elements from all queues, output: output all
+                element from all queues, flush: output and clear all element from all queues, bang
+                or pop: output and remove first message in all queues</xinfo>
             </inlet>
         </inlets>
         <outlets dynamic="true">

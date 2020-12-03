@@ -15,28 +15,30 @@
         </meta>
         <info>
             <par>Outputs saw signal in [0..1] or [0..1) range.</par>
-            <par>Note: control rate in PureData depends on block size and samplerate. Do not
-            rely on strict timing for this object, especially at high frequencies!</par>
+            <par>Note: control rate in PureData depends on block size and samplerate. Do not rely
+            on strict timing for this object, especially at high frequencies!</par>
         </info>
         <arguments>
-            <argument name="FREQ" type="float" minvalue="0" maxvalue="100" units="herz">frequency</argument>
+            <argument name="FREQ" type="float" minvalue="0" maxvalue="100" units="herz">
+            frequency</argument>
             <argument name="ON" type="int" enum="0 1">on/off initial state</argument>
         </arguments>
         <properties>
-            <property name="@freq" type="float" minvalue="0" default="0" maxvalue="100" units="herz">frequency</property>
+            <property name="@freq" type="float" minvalue="0" default="0" maxvalue="100"
+            units="herz">frequency</property>
             <property name="@on" type="int" default="0" enum="0 1">on/off state</property>
-            <property name="@invert" type="int" default="0" enum="0 1">saw inversion mode.
-            If true, outputs descreasing waveform</property>
-            <property name="@precision" type="float" default="0.0078125" maxvalue="0.5" minvalue="0.000976562">
-            minimal phasor value step. (From 1/1024 to 1/2, default 1/128)</property>
-            <property name="@open" type="int" default="0" enum="0 1">output in open [0..1) range, otherwise
-            output range is [0..1]</property>
+            <property name="@invert" type="int" default="0" enum="0 1">saw inversion mode. If true,
+            outputs descreasing waveform</property>
+            <property name="@precision" type="float" default="0.0078125" maxvalue="0.5"
+            minvalue="0.000976562">minimal phasor value step. (From 1/1024 to 1/2, default
+            1/128)</property>
+            <property name="@open" type="int" default="0" enum="0 1">output in open [0..1) range,
+            otherwise output range is [0..1]</property>
         </properties>
         <methods>
-            <method name="set">set current value
-            <param name="V" type="float" minvalue="0" maxvalue="1" required="true">
-            new value
-            </param></method>
+            <method name="set">set current value 
+            <param name="V" type="float" minvalue="0" maxvalue="1" required="true">new
+            value</param></method>
             <method name="reset">reset phase to 0</method>
         </methods>
         <inlets>
