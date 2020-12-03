@@ -12,11 +12,14 @@
  * this file belongs to.
  *****************************************************************************/
 #include "seq_toggles.h"
+#include "ceammc_convert.h"
 #include "ceammc_factory.h"
 
 #include <algorithm>
 
 static t_symbol* SYM_DUR;
+static t_symbol* SYM_NOTE_LEN;
+constexpr int MIN_NOTE_LEN = 1;
 
 SeqToggles::SeqToggles(const PdArgs& args)
     : SeqBangs(args)
@@ -30,13 +33,16 @@ SeqToggles::SeqToggles(const PdArgs& args)
 
 void SeqToggles::outputTick()
 {
-    const auto ms = calcNextTick();
+    const auto note_dur_ms = calcNextTick();
+    // setting minimal note length = 1ms
+    const t_float note_len_ms = clip_min<t_float, MIN_NOTE_LEN>(note_dur_ms * length_->value());
+
     floatTo(1, current_);
-    anyTo(1, SYM_DUR, Atom(ms));
+    anyTo(1, SYM_DUR, Atom(note_dur_ms));
+    anyTo(1, SYM_NOTE_LEN, Atom(note_len_ms));
     floatTo(0, 1);
 
-    const t_float toff_ms = std::max<t_float>(1, ms * length_->value());
-    clock_off_.delay(toff_ms);
+    clock_off_.delay(note_len_ms);
 }
 
 void SeqToggles::stop()
@@ -67,6 +73,7 @@ void SeqToggles::outputOff()
 void setup_seq_toggles()
 {
     SYM_DUR = gensym("dur");
+    SYM_NOTE_LEN = gensym("len");
 
     ObjectFactory<SeqToggles> obj("seq.toggles");
     obj.addAlias("seq.t");
