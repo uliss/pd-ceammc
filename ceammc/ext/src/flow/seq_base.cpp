@@ -99,17 +99,17 @@ bool SeqBase::tick()
     }
 }
 
-//void SeqBase::reset()
-//{
-//    cycle_counter_ = 0;
-//}
-
 bool SeqBase::shouldRepeat() const
 {
     const bool fin_continue = repeat_->isFinite() && (cycle_counter_ < size_t(repeat_->value()));
     const bool inf_continue = !repeat_->isFinite();
 
     return fin_continue || inf_continue;
+}
+
+void SeqBase::resetCycle()
+{
+    cycle_counter_ = 0;
 }
 
 SeqTimeGrain::SeqTimeGrain(const std::string& name, AtomList& seq, t_float f)

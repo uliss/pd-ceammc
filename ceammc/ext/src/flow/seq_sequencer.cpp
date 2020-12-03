@@ -113,13 +113,13 @@ void SeqSequencerBase::start()
 void SeqSequencerBase::stop()
 {
     reset();
-    clock_.unset();
 }
 
 void SeqSequencerBase::reset()
 {
     counter_ = 0;
-    //    SeqBase::reset
+    clock_.unset();
+    resetCycle();
 }
 
 void setup_seq_sequencer()

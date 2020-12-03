@@ -105,19 +105,16 @@ protected:
      */
     bool tick();
 
-    // start/stop/continue at any cycle point
-    //    virtual void start() = 0;
-    //    virtual void stop() = 0;
-
-    //    // call when last cycle finished
-    //    virtual void done() = 0;
-    //    virtual void reset();
-
     /**
      * check if sequence should be repeated again
      * @return
      */
     bool shouldRepeat() const;
+
+    /**
+     * Reet cycle counter
+     */
+    void resetCycle();
 
 public:
     SeqBase(const PdArgs& args);
