@@ -69,6 +69,27 @@
 [ui.hgain~]      [ui.dsp~]
 |\
 [dac~]
+
+[sequencer.mlist]
+]]>
+            </pdascii>
+            <pdascii id="mlist">
+<![CDATA[
+[bang(
+|
+[sequencer 100ms \(60 127\) \(70 80\) \(80 127\) @r 3]
+|
+[makenote 100 80]
+*|*
+[pack f f]
+|
+[msg note]
+|
+[fluid~ sf2/VintageDreamsWaves-v2.sf2]
+*|*
+[ui.hgain2~]      [ui.dsp~]
+*|*
+[dac~]
 ]]>
             </pdascii>
         </example>
