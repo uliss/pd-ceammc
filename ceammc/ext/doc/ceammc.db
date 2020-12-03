@@ -499,6 +499,7 @@ seq.bangs,seq.b		..		...
 seq.nbangs,seq.nb		..		..
 seq.phasor		..		..
 seq.toggles,seq.t		..		...
+sequencer,seq		..		..
 set.contains		..		.
 set.diff		..		.
 set.equal		..		.

@@ -1547,6 +1547,9 @@
     <entry name="seq.toggles" descr="toggle sequencer" ref_view="object">
       <xi:include href="seq.toggles.pddoc" parse="xml"/>
     </entry>
+    <entry name="sequencer" descr="basic sequence player" ref_view="object">
+      <xi:include href="sequencer.pddoc" parse="xml"/>
+    </entry>
   </category>
   <category name="snd">
     <entry name="snd.file" descr="Sound file loader on steroids" ref_view="object">

@@ -502,6 +502,7 @@ set(DOC_FILES
     set.size
     set.symdiff
     set.union
+    sequencer
     seq.bangs
     seq.arp
     seq.nbangs

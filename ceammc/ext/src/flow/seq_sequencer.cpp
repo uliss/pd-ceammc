@@ -127,7 +127,8 @@ void setup_seq_sequencer()
     SYM_IOTA = gensym("i");
     SYM_DONE = gensym("done");
 
-    SequencerIFaceFactory<ObjectFactory, SeqSequencer> obj("seq");
+    SequencerIFaceFactory<ObjectFactory, SeqSequencer> obj("sequencer");
+    obj.addAlias("seq");
     obj.setXletsInfo(
         { "bang: start sequence\n"
           "float: 1|0 - start/stop sequence",
