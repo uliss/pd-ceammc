@@ -15,36 +15,41 @@
 #define SEQ_BANGS_H
 
 #include "ceammc_clock.h"
-#include "ceammc_object.h"
-using namespace ceammc;
+#include "seq_base.h"
 
-class SeqBangs : public BaseObject {
+class SeqBangsBase : public SeqBase {
+protected:
     ListProperty* pattern_;
-    FloatProperty* bpm_;
-    IntProperty* division_;
+    SeqTimeGrain* interval_;
     size_t current_ = { 0 };
-    ClockLambdaFunction clock_;
 
 public:
-    SeqBangs(const PdArgs& args);
+    SeqBangsBase(const PdArgs& args);
 
     void onBang() override;
     void onInlet(size_t n, const AtomList& l) override;
 
-    void m_stop(t_symbol* s, const AtomListView& lv);
-    void m_reset(t_symbol* s, const AtomListView& lv);
+    size_t sequenceSize() const final { return pattern_->value().size(); }
+    void resetSequence() final { current_ = 0; }
+    void sequenceNext() final { current_++; }
+    bool isSequenceBegin() const final { return current_ == 0; }
+    bool isSequenceEnd() const final { return current_ >= pattern_->value().size(); }
+    double calcNextTick() const final;
+    void outputTick() final;
+    void outputSequenceBegin() final;
+    void outputSequenceEnd() final;
+    void outputCycleBegin() final;
+    void outputCycleEnd() final;
 
-protected:
-    virtual void schedNext();
-    virtual void outputEvent();
-    virtual void stop();
-    virtual void reset();
+    void start();
+    void stop();
+    void reset();
+
     t_float calcDurationMs(t_float dur) const;
     t_float currentEventDurationMs() const;
-
-private:
-    void output();
 };
+
+using SeqBangs = SequencerIFace<SeqBangsBase>;
 
 void setup_seq_bangs();
 

@@ -23,11 +23,13 @@ class SeqToggles : public SeqBangs {
 public:
     SeqToggles(const PdArgs& args);
 
+//    void output
+
 protected:
-    void schedNext() override;
-    void outputEvent() override;
-    void stop() override;
-    void reset() override;
+//    void schedNext() override;
+//    void outputEvent() override;
+//    void stop() override;
+//    void reset() override;
 };
 
 void setup_seq_toggles();

@@ -53,8 +53,9 @@ SeqBase::SeqBase(const PdArgs& args)
     : BaseObject(args)
     , repeat_(nullptr)
     , clock_([this]() {
+        const auto ms = calcNextTick();
         if (tick())
-            clock_.delay(calcNextTick());
+            clock_.delay(ms);
     })
 {
     repeat_ = new RepeatProperty("@r", 1);

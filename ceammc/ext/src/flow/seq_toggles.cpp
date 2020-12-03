@@ -26,41 +26,41 @@ SeqToggles::SeqToggles(const PdArgs& args)
     addProperty(duration_);
 }
 
-void SeqToggles::schedNext()
-{
-    const auto ms = currentEventDurationMs();
-    if (ms < 0)
-        return;
+//void SeqToggles::schedNext()
+//{
+//    const auto ms = currentEventDurationMs();
+//    if (ms < 0)
+//        return;
 
-    const t_float toff_ms = std::max<t_float>(1, ms * duration_->value());
-    clock_off_.delay(toff_ms);
+//    const t_float toff_ms = std::max<t_float>(1, ms * duration_->value());
+//    clock_off_.delay(toff_ms);
 
-    SeqBangs::schedNext();
-}
+////    SeqBangs::schedNext();
+//}
 
-void SeqToggles::outputEvent()
-{
-    floatTo(0, 1);
-}
+//void SeqToggles::outputEvent()
+//{
+//    floatTo(0, 1);
+//}
 
-void SeqToggles::stop()
-{
-    SeqBangs::stop();
-    if (clock_off_.isActive()) {
-        clock_off_.exec();
-        clock_off_.unset();
-    }
-}
+//void SeqToggles::stop()
+//{
+//    SeqBangs::stop();
+//    if (clock_off_.isActive()) {
+//        clock_off_.exec();
+//        clock_off_.unset();
+//    }
+//}
 
-void SeqToggles::reset()
-{
-    if (clock_off_.isActive()) {
-        clock_off_.exec();
-        clock_off_.unset();
-    }
+//void SeqToggles::reset()
+//{
+//    if (clock_off_.isActive()) {
+//        clock_off_.exec();
+//        clock_off_.unset();
+//    }
 
-    SeqBangs::reset();
-}
+//    SeqBangs::reset();
+//}
 
 void setup_seq_toggles()
 {
