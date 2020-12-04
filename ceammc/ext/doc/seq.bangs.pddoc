@@ -28,12 +28,12 @@
         </properties>
         <methods>
             <method name="reset">reset to first element</method>
-            <method name="start">start sequencer</method>
-            <method name="stop">stop sequencer</method>
+            <method name="start">start sequencer from current position</method>
+            <method name="stop">stop sequencer (</method>
         </methods>
         <inlets>
             <inlet>
-                <xinfo on="bang">reset all counters and start sequencer</xinfo>
+                <xinfo on="bang">reset sequence and repeat counters and start sequencer</xinfo>
             </inlet>
             <inlet>
                 <xinfo on="list">set new pattern value</xinfo>
@@ -41,17 +41,22 @@
         </inlets>
         <outlets>
             <outlet>bang</outlet>
-            <outlet>current index, 'i' - iteration cycle, 'dur' - beat duration or 'done' when done</outlet>
+            <outlet>
+                [i IDX( - current sequence index,
+                [ri IDX( - repeat iteration,
+                [dur MS( - beat duration or
+                [done( when done
+            </outlet>
         </outlets>
         <example>
             <pdascii>
 <![CDATA[
-[B #b]  [stop(  [reset(
+[B]     [stop(  [reset(
 |       |       |
 |       |       |
 [seq.bangs 3 1 2 1 1 @t 480bpm @r 4]
 |                          ^|
-|                          [route done i dur {w=21}]
+|                          [route done i dur ri {w=21}]
 |                          |    ^|  ^^|  ^^^|
 [click~]                   [B]  [F]  [F]  [F]
 |
@@ -60,7 +65,6 @@
 [ui.hgain~]
 |\
 [dac~]
-[X g->b]
 ]]>
             </pdascii>
         </example>

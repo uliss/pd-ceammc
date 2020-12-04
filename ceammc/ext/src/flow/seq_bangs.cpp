@@ -17,8 +17,9 @@
 #include "fmt/format.h"
 
 static t_symbol* SYM_DONE;
-static t_symbol* SYM_IOTA;
 static t_symbol* SYM_DUR;
+static t_symbol* SYM_REPEAT_IDX;
+static t_symbol* SYM_IDX;
 
 SeqBangsBase::SeqBangsBase(const PdArgs& args)
     : SeqBase(args)
@@ -86,7 +87,7 @@ double SeqBangsBase::calcNextTick() const
 
 void SeqBangsBase::outputTick()
 {
-    floatTo(1, current_);
+    anyTo(1, SYM_IDX, Atom(current_));
     anyTo(1, SYM_DUR, Atom(calcNextTick()));
 
     bangTo(0);
@@ -94,7 +95,7 @@ void SeqBangsBase::outputTick()
 
 void SeqBangsBase::outputSequenceBegin()
 {
-    anyTo(1, SYM_IOTA, Atom(cycle_counter_));
+    anyTo(1, SYM_REPEAT_IDX, Atom(cycle_counter_));
 }
 
 void SeqBangsBase::outputSequenceEnd()
@@ -113,8 +114,9 @@ void SeqBangsBase::outputCycleEnd()
 void setup_seq_bangs()
 {
     SYM_DONE = gensym("done");
-    SYM_IOTA = gensym("i");
     SYM_DUR = gensym("dur");
+    SYM_REPEAT_IDX = gensym("ri");
+    SYM_IDX = gensym("i");
 
     SequencerIFaceFactory<ObjectFactory, SeqBangs> obj("seq.bangs");
     obj.addAlias("seq.b");

@@ -11,7 +11,7 @@
 #X msg 126 118 stop;
 #X msg 203 118 reset;
 #X obj 50 162 seq.bangs 3 1 2 1 1 @t 480bpm @r 4;
-#X obj 309 190 route done i dur, f 21;
+#X obj 309 190 route done i dur ri, f 21;
 #X obj 50 219 click~;
 #X obj 309 219 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
 -1;
@@ -45,15 +45,15 @@ or 240bpm also can be used. Type: float. Units: ms. Default value:
 #X msg 110 600 reset;
 #X text 245 600 reset to first element.;
 #X msg 110 627 start;
-#X text 245 627 start sequencer.;
+#X text 245 627 start sequencer from current position.;
 #X msg 110 654 stop;
-#X text 245 654 stop sequencer.;
+#X text 245 654 stop sequencer (.;
 #X obj 20 691 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 696 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
 #X text 110 697 1\.;
 #X text 150 697 *bang*;
-#X text 245 697 reset all counters and start sequencer.;
+#X text 245 697 reset sequence and repeat counters and start sequencer.;
 #X text 110 717 2\.;
 #X text 150 717 *list*;
 #X text 245 717 set new pattern value.;
@@ -63,8 +63,8 @@ or 240bpm also can be used. Type: float. Units: ms. Default value:
 #X text 110 753 1\.;
 #X text 245 753 bang.;
 #X text 110 773 2\.;
-#X text 245 773 current index \, 'i' - iteration cycle \, 'dur' - beat
-duration or 'done' when done.;
+#X text 245 773 [i IDX( - current sequence index \, [ri IDX( - repeat
+iteration \, [dur MS( - beat duration or [done( when done.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;
