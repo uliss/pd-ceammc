@@ -54,7 +54,7 @@ or 240bpm also can be used. Type: float. Units: ms. Default value:
 #X obj 20 722 cnv 5 73 26 empty empty methods: 4 10 0 14 -262144
 -49933 0;
 #X msg 110 757 reset;
-#X text 245 757 reset to first element.;
+#X text 245 757 reset all counters and stop.;
 #X msg 110 784 start;
 #X text 245 784 start sequencer from current position.;
 #X msg 110 811 stop;

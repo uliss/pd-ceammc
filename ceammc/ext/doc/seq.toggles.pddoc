@@ -31,12 +31,14 @@
             pattern in beat duration units</property>
         </properties>
         <methods>
-            <method name="reset">reset to first element</method>
+            <method name="start">start sequencer from current position</method>
+            <method name="reset">reset all counters and stop</method>
             <method name="stop">stop sequencer</method>
+            <method name="tick">output current sequence element and move to next</method>
         </methods>
         <inlets>
             <inlet>
-                <xinfo on="bang">starts sequencer</xinfo>
+                <xinfo on="bang">reset sequence and repeat counters and start sequencer</xinfo>
             </inlet>
             <inlet>
                 <xinfo on="list">set new pattern value</xinfo>
