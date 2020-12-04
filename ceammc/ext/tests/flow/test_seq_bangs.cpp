@@ -172,5 +172,37 @@ TEST_CASE("seq.bangs", "[externals]")
             REQUIRE(t.messagesAt(0) == ML {});
             REQUIRE(t.messagesAt(1) == ML { done });
         }
+
+        SECTION("control")
+        {
+            SECTION("bang")
+            {
+                TExt t("seq.b", LA(1, 2, 3, "@t", 1, "@r", 2));
+                t.sendBang();
+                t.schedTicks(2);
+                REQUIRE(t.messagesAt(0) == ML { B, B });
+                REQUIRE(t.messagesAt(1) == ML { iota(0), 0., dur(1), 1, dur(2) });
+
+                // should reset
+                t.sendBang();
+                t.schedTicks(2);
+                REQUIRE(t.messagesAt(0) == ML { B, B, B, B });
+                REQUIRE(t.messagesAt(1) == ML { iota(0), 0., dur(1), 1, dur(2), iota(0), 0., dur(1), 1, dur(2) });
+
+                t.bang();
+                t.schedTicks(8);
+                REQUIRE(t.messagesAt(0) == ML { B, B, B, B, B });
+                REQUIRE(t.messagesAt(1) == ML { //
+                            iota(0), 0., dur(1), 1, dur(2), 2, dur(3), //
+                            iota(1), 0., dur(1), 1, dur(2) });
+
+                t.sendBang();
+                REQUIRE(t.messagesAt(0) == ML { B, B, B, B, B, B });
+                REQUIRE(t.messagesAt(1) == ML { //
+                            iota(0), 0., dur(1), 1, dur(2), 2, dur(3), //
+                            iota(1), 0., dur(1), 1, dur(2), //
+                            iota(0), 0., dur(1) });
+            }
+        }
     }
 }

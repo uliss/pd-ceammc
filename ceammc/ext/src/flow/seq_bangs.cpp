@@ -64,6 +64,7 @@ SeqBangsBase::SeqBangsBase(const PdArgs& args)
 
 void SeqBangsBase::onBang()
 {
+    reset();
     start();
 }
 

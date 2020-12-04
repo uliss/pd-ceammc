@@ -33,7 +33,7 @@
         </methods>
         <inlets>
             <inlet>
-                <xinfo on="bang">start sequencer</xinfo>
+                <xinfo on="bang">reset all counters and start sequencer</xinfo>
             </inlet>
             <inlet>
                 <xinfo on="list">set new pattern value</xinfo>

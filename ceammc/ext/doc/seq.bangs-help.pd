@@ -53,7 +53,7 @@ or 240bpm also can be used. Type: float. Units: ms. Default value:
 0;
 #X text 110 697 1\.;
 #X text 150 697 *bang*;
-#X text 245 697 start sequencer.;
+#X text 245 697 reset all counters and start sequencer.;
 #X text 110 717 2\.;
 #X text 150 717 *list*;
 #X text 245 717 set new pattern value.;
