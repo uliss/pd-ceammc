@@ -21,18 +21,18 @@
         </arguments>
         <properties>
             <property name="@v" type="list">sequence elements</property>
-            <property name="@dur" type="float" minvalue="0" default="0">whole sequence duration. Changing
-            this property also changes @t interval between bangs.</property>
+            <property name="@dur" type="float" minvalue="0" default="0">whole sequence duration.
+            Changing this property also changes @t interval between bangs.</property>
             <property name="@t" type="float" default="20" minvalue="1" maxvalue="20000"
             units="millisecond">time interval between bangs. You could also use units values like
             100ms or 120bpm.</property>
-            <property name="@r" type="int" minvalue="-1" default="1">number of whole sequence repeats. If -1: output infinitly.
-            </property>
+            <property name="@r" type="int" minvalue="-1" default="1">number of whole sequence
+            repeats. If -1: output infinitly.</property>
             <property name="@once" type="alias">alias to @r 1</property>
             <property name="@inf" type="alias">alias to @r -1</property>
         </properties>
         <methods>
-            <method name="start">start/stop
+            <method name="start">start/stop 
             <param name="on" type="int" enum="0 1" default="1" required="false">if true - starts
             sequencer, otherwise stops</param></method>
             <method name="stop">stop output and reset counters</method>
