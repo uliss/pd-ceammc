@@ -11,7 +11,7 @@
 #X msg 126 118 stop;
 #X msg 203 118 reset;
 #X obj 50 162 seq.bangs 3 1 2 1 1 @t 480bpm @r 4;
-#X obj 309 190 route done i dur ri, f 21;
+#X obj 309 190 route done i bd ri, f 21;
 #X obj 50 219 click~;
 #X obj 309 219 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
 -1;
@@ -77,7 +77,7 @@ or 240bpm also can be used. Type: float. Units: ms. Default value:
 #X text 245 937 bang.;
 #X text 110 957 2\.;
 #X text 245 957 [i IDX( - current sequence index \, [ri IDX( - repeat
-iteration \, [dur MS( - beat duration or [done( when done.;
+iteration \, [bd MS( - beat duration or [done( when done.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;
