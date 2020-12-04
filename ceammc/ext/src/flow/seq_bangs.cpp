@@ -41,22 +41,26 @@ SeqBangsBase::SeqBangsBase(const PdArgs& args)
     });
     addProperty(pattern_);
 
-    createCbFloatProperty(
-        "@dur",
-        [this]() -> t_float {
-            const auto total = pattern_->value().sum().get_value_or(0);
-            return total * interval_->value();
-        },
-        [this](t_float f) -> bool {
-            const auto total = pattern_->value().sum().get_value_or(0);
-            if (total <= 0) {
-                OBJ_ERR << "empty sequence";
-                return false;
-            }
+    {
+        auto p = createCbFloatProperty(
+            "@dur",
+            [this]() -> t_float {
+                const auto total = pattern_->value().sum().get_value_or(0);
+                return total * interval_->value();
+            },
+            [this](t_float f) -> bool {
+                const auto total = pattern_->value().sum().get_value_or(0);
+                if (total <= 0) {
+                    OBJ_ERR << "empty sequence";
+                    return false;
+                }
 
-            return interval_->setValue(f / total);
-        })
-        ->checkNonNegative();
+                return interval_->setValue(f / total);
+            });
+
+        p->setUnits(PropValueUnits::MSEC);
+        p->checkNonNegative();
+    }
 
     createInlet();
     createOutlet();
