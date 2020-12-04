@@ -17,8 +17,10 @@
 
 #include <algorithm>
 
-static t_symbol* SYM_DUR;
-static t_symbol* SYM_NOTE_LEN;
+static t_symbol* SYM_BEAT_DUR;
+static t_symbol* SYM_BEAT_LEN;
+static t_symbol* SYM_IDX;
+
 constexpr int MIN_NOTE_LEN = 1;
 
 SeqToggles::SeqToggles(const PdArgs& args)
@@ -33,16 +35,17 @@ SeqToggles::SeqToggles(const PdArgs& args)
 
 void SeqToggles::outputTick()
 {
-    const auto note_dur_ms = calcNextTick();
+    const auto beat_dur_ms = calcNextTick();
     // setting minimal note length = 1ms
-    const t_float note_len_ms = clip_min<t_float, MIN_NOTE_LEN>(note_dur_ms * length_->value());
+    const t_float beat_len_ms = clip_min<t_float, MIN_NOTE_LEN>(beat_dur_ms * length_->value());
 
-    floatTo(1, current_);
-    anyTo(1, SYM_DUR, Atom(note_dur_ms));
-    anyTo(1, SYM_NOTE_LEN, Atom(note_len_ms));
+    anyTo(1, SYM_IDX, Atom(current_));
+    anyTo(1, SYM_BEAT_DUR, Atom(beat_dur_ms));
+    anyTo(1, SYM_BEAT_LEN, Atom(beat_len_ms));
     floatTo(0, 1);
 
-    clock_off_.delay(note_len_ms);
+    // schedule off event
+    clock_off_.delay(beat_len_ms);
 }
 
 void SeqToggles::clockStop()
@@ -62,8 +65,9 @@ void SeqToggles::outputOff()
 
 void setup_seq_toggles()
 {
-    SYM_DUR = gensym("dur");
-    SYM_NOTE_LEN = gensym("len");
+    SYM_BEAT_DUR = gensym("bd");
+    SYM_BEAT_LEN = gensym("bl");
+    SYM_IDX = gensym("i");
 
     ObjectFactory<SeqToggles> obj("seq.toggles");
     obj.addAlias("seq.t");
