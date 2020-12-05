@@ -118,7 +118,7 @@ public:
      * output current sequence element
      * @return true if next tick should be scheduled
      */
-    bool tick();
+    bool tick(bool output = true);
 
     /**
      * check if sequence should be repeated again

@@ -95,7 +95,7 @@ void SeqBase::sequenceNext()
     sequence_counter_++;
 }
 
-bool SeqBase::tick()
+bool SeqBase::tick(bool output)
 {
     if (repeat_->value() == 0)
         return false;
@@ -104,7 +104,8 @@ bool SeqBase::tick()
         return false;
 
     if (isSequenceEnd()) {
-        outputSequenceEnd();
+        if (output)
+            outputSequenceEnd();
 
         cycle_counter_++;
 
@@ -113,18 +114,22 @@ bool SeqBase::tick()
             tick();
             return true;
         } else {
-            outputCycleEnd();
+            if (output)
+                outputCycleEnd();
+
             return false;
         }
     } else {
-        if (isSequenceBegin()) {
+        if (output && isSequenceBegin()) {
             if (cycle_counter_ == 0)
                 outputCycleBegin();
 
             outputSequenceBegin();
         }
 
-        outputTick();
+        if (output)
+            outputTick();
+
         sequenceNext();
         return true;
     }
