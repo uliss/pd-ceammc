@@ -37,6 +37,9 @@ public:
     void stop();
     void reset();
     bool tick();
+
+    void resetCycleCounter() { }
+    void resetSequenceCounter() { counter_ = 0; }
 };
 
 using SeqNBangsT = SequencerIFace<SeqNBangs>;

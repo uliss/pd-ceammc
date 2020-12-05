@@ -201,6 +201,27 @@ TEST_CASE("seq.nbangs", "[externals]")
             REQUIRE(t.messagesAt(0) == ML {});
             REQUIRE(t.messagesAt(1) == ML { done });
         }
+
+        SECTION("rewind")
+        {
+            TExt t("seq.nb", LF(3, 2));
+            t.bang();
+            REQUIRE(t.messagesAt(0) == ML { B });
+            REQUIRE(t.messagesAt(1) == ML { i(0) });
+
+            t.schedTicks(2);
+            REQUIRE(t.messagesAt(0) == ML { B, B });
+            REQUIRE(t.messagesAt(1) == ML { i(0), i(1) });
+
+            t.schedTicks(1);
+            t.sendMessage("rewind");
+            REQUIRE(t.messagesAt(0) == ML { B, B });
+            REQUIRE(t.messagesAt(1) == ML { i(0), i(1) });
+
+            t.schedTicks(1);
+            REQUIRE(t.messagesAt(0) == ML { B, B, B });
+            REQUIRE(t.messagesAt(1) == ML { i(0), i(1), i(0) });
+        }
     }
 
     SECTION("time")

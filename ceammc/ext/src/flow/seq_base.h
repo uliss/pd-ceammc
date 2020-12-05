@@ -132,21 +132,25 @@ public:
     void reset();
 
     /**
-     * Starts sequence
+     * start sequence
      */
     void start();
 
     /**
-     * Stops sequence clock
+     * stop sequence clock
      */
     void stop();
+
+    /**
+     * reset repeat counter
+     */
+    void resetCycleCounter();
 
 public:
     SeqBase(const PdArgs& args);
 
 private:
     void sequenceNext();
-    void resetCycleCounter();
 };
 
 template <class T>
@@ -172,6 +176,12 @@ public:
     void m_reset(t_symbol* s, const AtomListView& lv) { this->reset(); }
 
     void m_tick(t_symbol* s, const AtomListView& lv) { this->tick(); }
+
+    void m_rewind(t_symbol* s, const AtomListView& lv)
+    {
+        this->resetSequenceCounter();
+        this->resetCycleCounter();
+    }
 };
 
 template <template <typename> class Factory, class T>
@@ -184,6 +194,7 @@ public:
         this->addMethod("stop", &T::m_stop);
         this->addMethod("reset", &T::m_reset);
         this->addMethod("tick", &T::m_tick);
+        this->addMethod("rewind", &T::m_rewind);
     }
 };
 
