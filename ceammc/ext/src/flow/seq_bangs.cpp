@@ -128,5 +128,5 @@ void setup_seq_bangs()
     obj.setXletsInfo({ "bang:  start playing sequence\n"
                        "stop:  stop sequencer\n",
                          "list: set new pattern" },
-        { "bang: output pattern", "done: when done" });
+        { "bang: output pattern", "'done', 'i', 'ri' or 'ed'" });
 }

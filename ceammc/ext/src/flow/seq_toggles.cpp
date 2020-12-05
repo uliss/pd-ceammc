@@ -153,4 +153,9 @@ void setup_seq_toggles()
 
     SequencerIFaceFactory<ObjectFactory, SeqToggles> obj("seq.toggles");
     obj.addAlias("seq.t");
+
+    obj.setXletsInfo({ "bang:  start playing sequence\n"
+                       "stop:  stop sequencer\n",
+                         "list: set new pattern" },
+        { "1 and 0", "'done', 'i', 'ri', 'el' or 'ed'" });
 }

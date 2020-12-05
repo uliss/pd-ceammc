@@ -37,22 +37,22 @@
             <method name="start">start/stop 
             <param name="on" type="int" enum="0 1" default="1" required="false">if true - starts
             bang sequence, otherwise stops</param></method>
-            <method name="stop">stop bang output and reset bang counter</method>
+            <method name="stop">stop bang output</method>
             <method name="reset">stop bang output and reset bang counter</method>
             <method name="tick">manually output current sequence element and move to next</method>
         </methods>
         <inlets>
             <inlet>
-                <xinfo on="bang">starts output</xinfo>
+                <xinfo on="bang">reset counter and starts output</xinfo>
                 <xinfo on="float">sets number of bangs and starts output</xinfo>
             </inlet>
             <inlet>
-                <xinfo on="any">stops output and reset</xinfo>
+                <xinfo on="float">set number of bangs</xinfo>
             </inlet>
         </inlets>
         <outlets>
             <outlet>bang output</outlet>
-            <outlet>float: output bang index, done: when done</outlet>
+            <outlet>[i IDX( - bang index or [done( when done</outlet>
         </outlets>
         <example>
             <pdascii>
@@ -61,7 +61,7 @@
 |    |    |
 [seq.nbangs @t 110]
 |            ^|
-|            [route done]
+|            [route done i]
 |            |        ^|
 [click~]     [B]      [F]
 |

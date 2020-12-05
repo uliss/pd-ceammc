@@ -15,6 +15,7 @@
 #include "ceammc_factory.h"
 
 static t_symbol* SYM_DONE;
+static t_symbol* SYM_IDX;
 
 SeqNBangs::SeqNBangs(const PdArgs& args)
     : BaseObject(args)
@@ -57,7 +58,7 @@ SeqNBangs::SeqNBangs(const PdArgs& args)
 void SeqNBangs::onBang()
 {
     reset();
-    clock_.exec();
+    start();
 }
 
 void SeqNBangs::onFloat(t_float f)
@@ -84,18 +85,17 @@ void SeqNBangs::onList(const AtomList& l)
 
 void SeqNBangs::onInlet(size_t n, const AtomList& lv)
 {
-    reset();
+    n_->set(lv);
 }
 
 void SeqNBangs::start()
 {
-    reset();
     clock_.exec();
 }
 
 void SeqNBangs::stop()
 {
-    reset();
+    clock_.unset();
 }
 
 void SeqNBangs::reset()
@@ -110,7 +110,7 @@ bool SeqNBangs::tick()
         anyTo(1, SYM_DONE, AtomListView());
         return false;
     } else {
-        floatTo(1, counter_);
+        anyTo(1, SYM_IDX, Atom(counter_));
         bangTo(0);
 
         counter_++;
@@ -121,6 +121,7 @@ bool SeqNBangs::tick()
 void setup_seq_nbangs()
 {
     SYM_DONE = gensym("done");
+    SYM_IDX = gensym("i");
 
     SequencerIFaceFactory<ObjectFactory, SeqNBangsT> obj("seq.nbangs");
     obj.addAlias("seq.nb");
@@ -129,7 +130,7 @@ void setup_seq_nbangs()
                        "float: set number of bangs then start\n"
                        "list: NUM INTERVAL set number and interval then start\n"
                        "start 1|0: start/stop sequence\n"
-                       "stop 1|0:  stop strt sequence",
-                         "bang: stop sequence output and reset" },
-        { "bang", "float: bang index or 'done' after last bang" });
+                       "stop 1|0:  stop/start sequence",
+                         "float: set number of bangs" },
+        { "bang", "'i' bang index or 'done' after last bang" });
 }
