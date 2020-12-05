@@ -42,7 +42,7 @@ t_float LengthProperty::calcValue(t_float v) const
     else if (mode_ == SUBTRACT)
         return clip_min<t_float, 0>(value() + v);
     else
-        return value();
+        return clip_max<t_float>(value(), v);
 }
 
 bool LengthProperty::setList(const AtomListView& lv)

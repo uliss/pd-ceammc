@@ -6,99 +6,105 @@
 -4096 0;
 #X obj 600 11 seq.t;
 #X obj 661 11 seq.toggles;
-#X obj 210 80 cnv 1 555 215 empty empty empty 17 7 0 10 -257983 -1 0;
-#X text 215 80 Output 1 when event starts \, 0 when event stops;
-#X text 215 105 The event length is controlled via @length property
-\, value 0.75 means event length is 75% of whole event duration. Values
-in 0\..1 range mean 0\..100% of duration. Values <0 are calculated
-as EVENT_DUR-LEN.;
-#X text 215 175 example 1: @length 0.6 and @t 100ms - for event value
-'2' \, event duration is 200ms \, event length is 120ms.;
-#X text 215 215 example 2: @length -40 and @t 100ms - for event value
-'2' \, event duration is 200ms \, event length is 160 (200-60). For
-event value '1' \, event duration is 100ms \, event length is 60 (100-60);
-#X obj 50 323 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
+#X obj 210 80 cnv 1 555 270 empty empty empty 17 7 0 10 -257983 -1 0;
+#X text 215 80 Output 1 on event start and 0 on event stop;
+#X text 215 105 The event length is controlled via @length property.
+It can be fixed \, percent or subtractive. Percent values are calculated
+from whole event duration. Positive values >=0 treated as fixed event
+length. Values <0 are calculated as EVENT_DUR-value;
+#X text 215 190 • 'percent': @length 60% and @t 100ms - for event value
+'2' \, event duration is 200ms \, event length is 120ms;
+#X text 215 230 • 'fixed': @length 10 or @length 10ms and @t 100ms
+- event any duration \, event length is fixed: 10ms;
+#X text 215 270 • 'subtract': @length -40 and @t 100ms - for event
+value '2' \, event duration is 200ms \, event length is 160 (200-40).
+For event value '1' \, event duration is 100ms \, event length is 60
+(100-40);
+#X obj 50 378 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
 -1;
-#X msg 126 323 stop;
-#X msg 203 323 reset;
-#X obj 290 323 ui.hsl;
-#X msg 290 352 @length *\$1;
-#X obj 50 381 seq.toggles 3 1 2 1 1 @t 120ms @inf;
-#X obj 50 410 lop~ 50;
-#X obj 146 410 osc~ 1000;
-#X obj 309 410 route done i ri ed el;
-#X obj 50 439 *~;
-#X obj 309 439 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
+#X msg 88 378 start;
+#X msg 155 378 stop;
+#X msg 222 378 reset;
+#X floatatom 299 378 5 0 0 0 - - -;
+#X floatatom 434 378 5 0 0 0 - - -;
+#X msg 299 407 @length \$1%;
+#X msg 434 407 @length \$1ms;
+#X obj 50 436 seq.toggles 3 1 2 1 1 @t 120ms @inf;
+#X obj 50 465 lop~ 50;
+#X obj 146 465 osc~ 1000;
+#X obj 309 465 route done i ri ed el;
+#X obj 50 494 *~;
+#X obj 309 494 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
 -1;
-#X floatatom 357 439 5 0 0 0 - - -;
-#X floatatom 405 439 5 0 0 0 - - -;
-#X floatatom 453 439 5 0 0 0 - - -;
-#X floatatom 510 439 5 0 0 0 - - -;
-#X obj 50 467 ui.hgain~;
-#X obj 309 467 ui.dsp~;
-#X obj 50 496 dac~;
-#X obj 20 545 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 550 cnv 5 90 26 empty empty arguments: 4 10 0 14 -262144
+#X floatatom 357 494 5 0 0 0 - - -;
+#X floatatom 405 494 5 0 0 0 - - -;
+#X floatatom 453 494 5 0 0 0 - - -;
+#X floatatom 510 494 5 0 0 0 - - -;
+#X obj 50 522 ui.hgain~;
+#X obj 309 522 ui.dsp~;
+#X obj 50 551 dac~;
+#X obj 20 600 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 605 cnv 5 90 26 empty empty arguments: 4 10 0 14 -262144
 -49933 0;
-#X text 110 585 1\.;
-#X text 150 585 list;
-#X obj 246 586 cnv 1 61 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 585 PATTERN: sequencer pattern in beat duration units.;
-#X obj 20 615 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 620 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
+#X text 110 640 1\.;
+#X text 150 640 list;
+#X obj 246 641 cnv 1 61 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 245 640 PATTERN: sequencer pattern in beat duration units.;
+#X obj 20 670 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 675 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
 -49933 0;
-#X msg 110 655 @dur;
-#X text 245 655 Get/Set whole sequence duration. (Recalculates @t property
+#X msg 110 710 @dur;
+#X text 245 710 Get/Set whole sequence duration. (Recalculates @t property
 accordingly). Type: float. Units: ms. Default value: 0\. Min value:
 0\.;
-#X msg 110 712 @inf;
-#X text 245 712 alias to @r -1 \, repeats infinitely.;
-#X msg 110 741 @length;
-#X text 245 741 Get/Set event length. In case of float - fixed event
-length for every event duration \, but no longer than that duration.
-In case of *FLOAT - @length expected to be in 0\..1 range and event
-duration is calculated as duration*@length. In case of -FLOAT event
-duration is calculated as duration-@length. Type: atom. Default value:
-*0.75\.;
-#X msg 110 843 @once;
-#X text 245 843 alias to @r 1 \, play once.;
-#X msg 110 872 @p;
-#X text 245 872 Get/Set sequencer pattern in beat duration units. Type:
+#X msg 110 767 @inf;
+#X text 245 767 alias to @r -1 \, repeats infinitely.;
+#X msg 110 796 @length;
+#X text 245 796 Get/Set event length. In case of float or float wuth
+'ms' suffix - event length is fixed for any event duration. In case
+of V% - @length expected to be in 0\..100 range and event length is
+percent of duration. In case of negative @length event duration is
+calculated as duration+@length \, but not less then 1\. Type: atom.
+Default value: 75%.;
+#X msg 110 898 @once;
+#X text 245 898 alias to @r 1 \, play once.;
+#X msg 110 927 @p;
+#X text 245 927 Get/Set sequencer pattern in beat duration units. Type:
 list.;
-#X msg 110 901 @r;
-#X text 245 901 Get/Set number of whole sequence repeats. If -1: repeat
+#X msg 110 956 @r;
+#X text 245 956 Get/Set number of whole sequence repeats. If -1: repeat
 infinitely. Type: int. Default value: 1\. Min value: -1\.;
-#X msg 110 943 @t;
-#X text 245 943 Get/Set time between beats. Unit values like 100ms
+#X msg 110 998 @t;
+#X text 245 998 Get/Set time between beats. Unit values like 100ms
 or 240bpm also can be used. Type: float. Units: ms. Default value:
 100\. Range: 1\...20000\.;
-#X obj 20 1010 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1015 cnv 5 73 26 empty empty methods: 4 10 0 14 -262144
+#X obj 20 1065 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1070 cnv 5 73 26 empty empty methods: 4 10 0 14 -262144
 -49933 0;
-#X msg 110 1050 reset;
-#X text 245 1050 reset all counters and stop.;
-#X msg 110 1077 start;
-#X text 245 1077 start sequencer from current position.;
-#X msg 110 1104 stop;
-#X text 245 1104 stop sequencer.;
-#X msg 110 1131 tick;
-#X text 245 1131 output current sequence element and move to next.;
-#X obj 20 1168 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1173 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144
+#X msg 110 1105 reset;
+#X text 245 1105 reset all counters and stop.;
+#X msg 110 1132 start;
+#X text 245 1132 start sequencer from current position.;
+#X msg 110 1159 stop;
+#X text 245 1159 stop sequencer.;
+#X msg 110 1186 tick;
+#X text 245 1186 output current sequence element and move to next.;
+#X obj 20 1223 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1228 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 1174 1\.;
-#X text 150 1174 *bang*;
-#X text 245 1174 reset sequence and repeat counters and start sequencer.;
-#X text 110 1194 2\.;
-#X text 150 1194 *list*;
-#X text 245 1194 set new pattern value.;
-#X obj 20 1224 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1229 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
+#X text 110 1229 1\.;
+#X text 150 1229 *bang*;
+#X text 245 1229 reset sequence and repeat counters and start sequencer.;
+#X text 110 1249 2\.;
+#X text 150 1249 *list*;
+#X text 245 1249 set new pattern value.;
+#X obj 20 1279 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1284 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 1230 1\.;
-#X text 245 1230 1 and 0\.;
-#X text 110 1250 2\.;
-#X text 245 1250 [i IDX( - current sequence index \, [ri IDX( - repeat
+#X text 110 1285 1\.;
+#X text 245 1285 1 and 0\.;
+#X text 110 1305 2\.;
+#X text 245 1305 [i IDX( - current sequence index \, [ri IDX( - repeat
 iteration \, [ed MS( - event duration \, [el MS( event length or [done(
 when done.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
@@ -106,9 +112,9 @@ when done.;
 #X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 115 45 ::;
 #X obj 131 48 ui.link @title seq @url ceammc.seq-help.pd;
-#X obj 1 1330 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 1333 library: ceammc v0.9.0;
-#N canvas 10 1352 400 290 info 0;
+#X obj 1 1385 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1388 library: ceammc v0.9.0;
+#N canvas 10 1407 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
@@ -132,21 +138,24 @@ https://github.com/uliss/pure-data;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 generated by pddoc;
-#X restore 10 1352 pd info;
-#X connect 13 0 14 0;
-#X connect 10 0 15 0;
-#X connect 11 0 15 0;
-#X connect 12 0 15 0;
-#X connect 14 0 15 0;
-#X connect 15 0 16 0;
-#X connect 15 1 18 0;
-#X connect 16 0 19 0;
-#X connect 17 0 19 1;
-#X connect 18 0 20 0;
-#X connect 18 1 21 0;
-#X connect 18 2 22 0;
-#X connect 18 3 23 0;
-#X connect 18 4 24 0;
-#X connect 19 0 25 0;
-#X connect 25 0 27 0;
-#X connect 25 0 27 1;
+#X restore 10 1407 pd info;
+#X connect 15 0 17 0;
+#X connect 16 0 18 0;
+#X connect 11 0 19 0;
+#X connect 12 0 19 0;
+#X connect 13 0 19 0;
+#X connect 14 0 19 0;
+#X connect 17 0 19 0;
+#X connect 18 0 19 0;
+#X connect 19 0 20 0;
+#X connect 19 1 22 0;
+#X connect 20 0 23 0;
+#X connect 21 0 23 1;
+#X connect 22 0 24 0;
+#X connect 22 1 25 0;
+#X connect 22 2 26 0;
+#X connect 22 3 27 0;
+#X connect 22 4 28 0;
+#X connect 23 0 29 0;
+#X connect 29 0 31 0;
+#X connect 29 0 31 1;
