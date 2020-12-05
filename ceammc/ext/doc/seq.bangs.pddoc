@@ -40,7 +40,7 @@
         </methods>
         <inlets>
             <inlet>
-                <xinfo on="bang">reset sequence and repeat counters and start sequencer</xinfo>
+                <xinfo on="bang">reset all counters and start sequencer</xinfo>
             </inlet>
             <inlet>
                 <xinfo on="list">set new pattern value</xinfo>
@@ -48,7 +48,7 @@
         </inlets>
         <outlets>
             <outlet>bang</outlet>
-            <outlet>[i IDX( - current sequence index, [ri IDX( - repeat iteration, [bd MS( - beat
+            <outlet>[i IDX( - current sequence index, [ri IDX( - repeat iteration, [ed MS( - event
             duration or [done( when done</outlet>
         </outlets>
         <example>
@@ -59,7 +59,7 @@
 |       |       |
 [seq.bangs 3 1 2 1 1 @t 480bpm @r 4]
 |                          ^|
-|                          [route done i bd ri {w=21}]
+|                          [route done i ed ri {w=21}]
 |                          |    ^|  ^^|  ^^^|
 [click~]                   [B]  [F]  [F]  [F]
 |

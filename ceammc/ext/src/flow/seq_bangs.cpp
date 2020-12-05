@@ -17,7 +17,7 @@
 #include "fmt/format.h"
 
 static t_symbol* SYM_DONE;
-static t_symbol* SYM_BEAT_DUR;
+static t_symbol* SYM_EVENT_DUR;
 static t_symbol* SYM_REPEAT_IDX;
 static t_symbol* SYM_IDX;
 
@@ -92,7 +92,7 @@ double SeqBangsBase::calcNextTick() const
 void SeqBangsBase::outputTick()
 {
     anyTo(1, SYM_IDX, Atom(current_));
-    anyTo(1, SYM_BEAT_DUR, Atom(calcNextTick()));
+    anyTo(1, SYM_EVENT_DUR, Atom(calcNextTick()));
 
     bangTo(0);
 }
@@ -118,7 +118,7 @@ void SeqBangsBase::outputCycleEnd()
 void setup_seq_bangs()
 {
     SYM_DONE = gensym("done");
-    SYM_BEAT_DUR = gensym("bd");
+    SYM_EVENT_DUR = gensym("ed");
     SYM_REPEAT_IDX = gensym("ri");
     SYM_IDX = gensym("i");
 
