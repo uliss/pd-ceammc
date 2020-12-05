@@ -211,4 +211,37 @@ TEST_CASE("seq.sequencer", "[externals]")
         REQUIRE(t.messagesAt(1) == ML { ri(0), i(0), i(1), ri(1), i(0), i(1), done, done });
         REQUIRE(t.messagesAt(0) == ML { 100, 200, 100, 200 });
     }
+
+    SECTION("back")
+    {
+        TExt t("seq", LA(1, 2, 3, "@r", 2, "@t", 2, "@back", 1));
+
+        t.sendBang();
+        REQUIRE(t.messagesAt(1) == ML { ri(0), i(2) });
+        REQUIRE(t.messagesAt(0) == ML { 3 });
+
+        t.schedTicks(2);
+        REQUIRE(t.messagesAt(1) == ML { ri(0), i(2), i(1) });
+        REQUIRE(t.messagesAt(0) == ML { 3, 2 });
+
+        t.schedTicks(2);
+        REQUIRE(t.messagesAt(1) == ML { ri(0), i(2), i(1), i(0) });
+        REQUIRE(t.messagesAt(0) == ML { 3, 2, 1 });
+
+        t.schedTicks(2);
+        REQUIRE(t.messagesAt(1) == ML { ri(0), i(2), i(1), i(0), ri(1), i(2) });
+        REQUIRE(t.messagesAt(0) == ML { 3, 2, 1, 3 });
+
+        t.schedTicks(2);
+        REQUIRE(t.messagesAt(1) == ML { ri(0), i(2), i(1), i(0), ri(1), i(2), i(1) });
+        REQUIRE(t.messagesAt(0) == ML { 3, 2, 1, 3, 2 });
+
+        t.schedTicks(2);
+        REQUIRE(t.messagesAt(1) == ML { ri(0), i(2), i(1), i(0), ri(1), i(2), i(1), i(0) });
+        REQUIRE(t.messagesAt(0) == ML { 3, 2, 1, 3, 2, 1 });
+
+        t.schedTicks(2);
+        REQUIRE(t.messagesAt(1) == ML { ri(0), i(2), i(1), i(0), ri(1), i(2), i(1), i(0), done });
+        REQUIRE(t.messagesAt(0) == ML { 3, 2, 1, 3, 2, 1 });
+    }
 }

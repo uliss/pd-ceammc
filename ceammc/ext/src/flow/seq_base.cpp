@@ -52,6 +52,7 @@ bool RepeatProperty::setList(const AtomListView& lv)
 SeqBase::SeqBase(const PdArgs& args)
     : BaseObject(args)
     , repeat_(nullptr)
+    , backwards_(nullptr)
     , clock_([this]() {
         const auto ms = calcNextTick();
         if (tick())
@@ -60,6 +61,9 @@ SeqBase::SeqBase(const PdArgs& args)
 {
     repeat_ = new RepeatProperty("@r", 1);
     addProperty(repeat_);
+
+    backwards_ = new BoolProperty("@back", false);
+    addProperty(backwards_);
 
     addProperty(new AliasProperty<RepeatProperty>("@inf", repeat_, -1));
     addProperty(new AliasProperty<RepeatProperty>("@once", repeat_, 1));
@@ -88,6 +92,19 @@ bool SeqBase::isSequenceEnd() const
 void SeqBase::resetSequenceCounter()
 {
     sequence_counter_ = 0;
+}
+
+size_t SeqBase::sequenceCounter() const
+{
+    if (backwards_->value()) {
+        const auto n = sequenceSize();
+        const auto m = sequence_counter_ + 1;
+        if (m >= n)
+            return 0;
+        else
+            return n - m;
+    } else
+        return sequence_counter_;
 }
 
 void SeqBase::sequenceNext()

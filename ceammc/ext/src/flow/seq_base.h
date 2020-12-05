@@ -43,6 +43,7 @@ public:
 class SeqBase : public BaseObject {
 protected:
     RepeatProperty* repeat_;
+    BoolProperty* backwards_;
     ClockLambdaFunction clock_;
     size_t cycle_counter_ = { 0 };
     size_t sequence_counter_ = { 0 };
@@ -112,7 +113,7 @@ public:
     /**
      * returns sequence counter
      */
-    size_t sequenceCounter() const { return sequence_counter_; }
+    size_t sequenceCounter() const;
 
     /**
      * output current sequence element
