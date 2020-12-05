@@ -16,19 +16,38 @@
                 <alias>seq.t</alias>
             </aliases>
         </meta>
+        <info>
+            <par>Output 1 when event starts, 0 when event stops</par>
+            <par>The event length is controlled via @length property, value 75% means
+            event length is 75% of whole event duration. Positive values in >=0 treated as fixed event length.
+            Values &lt;0 are calculated as EVENT_DUR-LEN.</par>
+            <par>example 1: @length 60% and @t 100ms -
+            for event value '2', event duration is 200ms, event length is 120ms</par>
+            <par>example 2: @length 10 and @t 100ms -
+            for event value '2', event duration is 200ms, event length is 10ms</par>
+            <par>example 3: @length -40 and @t 100ms
+            - for event value '2', event duration is 200ms, event length is 160 (200-60).
+            For event value '1', event duration is 100ms, event length is 60 (100-60)</par>
+        </info>
         <arguments>
             <argument name="PATTERN" type="list">sequencer pattern in beat duration
             units</argument>
         </arguments>
         <properties>
-            <property name="@bpm" type="float" default="60" minvalue="1" maxvalue="600"
-            units="bpm">frequency of sequencer division (by default @div=4)</property>
-            <property name="@div" type="int" default="4" minvalue="1" maxvalue="512">sequencer beat
-            division. The four means 1/4, eight - 1/8 etc.</property>
-            <property name="@pattern" type="list">sequencer pattern in beat duration
-            units</property>
-            <property name="@dur" type="float" minvalue="0" maxvalue="1" default="0.75">sequencer
-            pattern in beat duration units</property>
+            <property name="@t" type="float" default="100" minvalue="1" maxvalue="20000"
+            units="millisecond">time between beats. Unit values like 100ms or 240bpm also can be
+            used</property>
+            <property name="@p" type="list">sequencer pattern in beat duration units</property>
+            <property name="@r" type="int" minvalue="-1" default="1">number of whole sequence
+            repeats. If -1: repeat infinitely</property>
+            <property name="@inf" type="alias">alias to @r -1, repeats infinitely</property>
+            <property name="@once" type="alias">alias to @r 1, play once</property>
+            <property name="@dur" type="float" default="0" minvalue="0" units="millisecond">whole
+            sequence duration. (Recalculates @t property accordingly)</property>
+            <property name="@length" type="atom" default="*0.75">event length.
+            In case of float - fixed event length for every event duration, but no longer than that duration.
+            In case of *FLOAT - @length expected to be in 0..1 range and event duration is calculated as
+            duration*@length. In case of -FLOAT event duration is calculated as duration-@length</property>
         </properties>
         <methods>
             <method name="start">start sequencer from current position</method>
@@ -45,29 +64,26 @@
             </inlet>
         </inlets>
         <outlets>
-            <outlet>bang</outlet>
-            <outlet>float: duration until next bang (in ms)</outlet>
-            <outlet>current index or 'done' when done</outlet>
+            <outlet>1 and 0</outlet>
+            <outlet>[i IDX( - current sequence index, [ri IDX( - repeat iteration, [ed MS( - event
+            duration, [el MS( event length or [done( when done</outlet>
         </outlets>
         <example>
             <pdascii>
 <![CDATA[
-[B #b]  [stop(  [reset(  [ui.hsl]
+[B]     [stop(  [reset(  [ui.hsl]
 |       |       |        |
-|       |       |        [@dur $1(
+|       |       |        [@length *$1(
 |       |       |        |
-[seq.toggles 3 1 2 1 1 @bpm 120 @div 16]
-|                          ^^|
-[msg @gate]                [route done #g]
+[seq.toggles 3 1 2 1 1 @t 120ms @inf]
+|                          ^|
+[lop~ 50] [osc~ 1000]      [route done i ri ed el ]
+|         |.               |   ^|   ^^|  ^^^| ^^^^|
+[*~        ]               [B]  [F]  [F]  [F]   [F]
 |
-[synth.dubdub~ @pitch 32]
-|
-[fx.drive~]                [ui.dsp~]
-|
-[ui.hgain~]
+[ui.hgain~]                [ui.dsp~]
 |\
 [dac~]
-[X g->b]
 ]]>
             </pdascii>
         </example>
