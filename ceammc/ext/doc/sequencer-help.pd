@@ -11,7 +11,7 @@
 #X msg 194 118 @dur 1000;
 #X obj 50 147 sequencer mtof(seq(56 90 3)) @t 360bpm @inf;
 #X obj 50 176 t b f;
-#X obj 328 176 route done i;
+#X obj 328 176 route done i ri;
 #X obj 50 205 click~;
 #X msg 146 205 @freq \$1;
 #X obj 328 205 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
@@ -61,7 +61,7 @@ value: 20\. Range: 1\...20000\.;
 #X text 255 822 [on=1]: if true - starts sequencer \, otherwise stops.
 Type: int. Allowed values: 0 \, 1\.;
 #X msg 110 862 stop;
-#X text 245 862 stop output and reset counters.;
+#X text 245 862 stop output.;
 #X msg 110 889 tick;
 #X text 245 889 manually output current element and move to next.;
 #X obj 20 926 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;

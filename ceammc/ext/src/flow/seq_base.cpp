@@ -75,6 +75,26 @@ void SeqBase::clockStop()
     clock_.unset();
 }
 
+bool SeqBase::isSequenceBegin() const
+{
+    return sequence_counter_ == 0;
+}
+
+bool SeqBase::isSequenceEnd() const
+{
+    return sequence_counter_ >= sequenceSize();
+}
+
+void SeqBase::resetSequenceCounter()
+{
+    sequence_counter_ = 0;
+}
+
+void SeqBase::sequenceNext()
+{
+    sequence_counter_++;
+}
+
 bool SeqBase::tick()
 {
     if (repeat_->value() == 0)

@@ -35,7 +35,7 @@
             <method name="start">start/stop 
             <param name="on" type="int" enum="0 1" default="1" required="false">if true - starts
             sequencer, otherwise stops</param></method>
-            <method name="stop">stop output and reset counters</method>
+            <method name="stop">stop output</method>
             <method name="reset">stop output and reset counters</method>
             <method name="tick">manually output current element and move to next</method>
         </methods>
@@ -58,7 +58,7 @@
 |   |          |
 [sequencer mtof(seq(56 90 3)) @t 360bpm @inf]
 |                            ^|
-[t b f     ]                 [route done i]
+[t b f     ]                 [route done i ri]
 |         ^|                 |    ^|   ^^|
 [click~]  [@freq $1(         [B]  [F]  [F]
 |         |

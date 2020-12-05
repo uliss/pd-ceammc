@@ -21,7 +21,6 @@ class SeqBangsBase : public SeqBase {
 protected:
     ListProperty* pattern_;
     SeqTimeGrain* interval_;
-    size_t current_ = { 0 };
 
 public:
     SeqBangsBase(const PdArgs& args);
@@ -30,10 +29,6 @@ public:
     void onInlet(size_t n, const AtomList& l) override;
 
     size_t sequenceSize() const final { return pattern_->value().size(); }
-    void resetSequenceCounter() final { current_ = 0; }
-    void sequenceNext() final { current_++; }
-    bool isSequenceBegin() const final { return current_ == 0; }
-    bool isSequenceEnd() const final { return current_ >= pattern_->value().size(); }
     double calcNextTick() const final;
     void outputTick() override;
     void outputSequenceBegin() final;

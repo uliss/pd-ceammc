@@ -45,6 +45,7 @@ protected:
     RepeatProperty* repeat_;
     ClockLambdaFunction clock_;
     size_t cycle_counter_ = { 0 };
+    size_t sequence_counter_ = { 0 };
 
 public: // pure virtual
     /**
@@ -56,16 +57,6 @@ public: // pure virtual
      * returns sequence size
      */
     virtual size_t sequenceSize() const = 0;
-
-    /**
-     * Check if current sequence element is first
-     */
-    virtual bool isSequenceBegin() const = 0;
-
-    /**
-     * checks if current sequence cycle is finished
-     */
-    virtual bool isSequenceEnd() const = 0;
 
     /**
      * output current sequence element
@@ -93,13 +84,6 @@ public: // pure virtual
     virtual void outputSequenceEnd() = 0;
 
     /**
-     * reset sequence counter
-     */
-    virtual void resetSequenceCounter() = 0;
-
-    virtual void sequenceNext() = 0;
-
-    /**
      * start sequence clock
      */
     virtual void clockStart();
@@ -110,6 +94,28 @@ public: // pure virtual
     virtual void clockStop();
 
 public:
+    /**
+     * Check if current sequence element is first
+     */
+    bool isSequenceBegin() const;
+
+    /**
+     * checks if current sequence cycle is finished
+     */
+    bool isSequenceEnd() const;
+
+    /**
+     * reset sequence counter
+     */
+    void resetSequenceCounter();
+
+    void sequenceNext();
+
+    /**
+     * returns sequence counter
+     */
+    size_t sequenceCounter() const { return sequence_counter_; }
+
     /**
      * output current sequence element
      * @return true if next tick should be scheduled

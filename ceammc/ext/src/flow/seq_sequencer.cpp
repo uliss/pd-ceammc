@@ -15,14 +15,14 @@
 #include "ceammc_factory.h"
 #include "datatype_mlist.h"
 
-static t_symbol* SYM_IOTA;
+static t_symbol* SYM_REPEAT_IDX;
+static t_symbol* SYM_IDX;
 static t_symbol* SYM_DONE;
 
 SeqSequencerBase::SeqSequencerBase(const PdArgs& args)
     : SeqBase(args)
     , values_(nullptr)
     , interval_(nullptr)
-    , counter_(0)
 {
     values_ = new ListProperty("@v");
     values_->setArgIndex(0);
@@ -73,12 +73,13 @@ void SeqSequencerBase::onInlet(size_t n, const AtomList& l)
 void SeqSequencerBase::outputTick()
 {
     const auto& v = values_->value();
-    if (counter_ >= v.size())
+    const auto i = sequenceCounter();
+    if (i >= v.size())
         return;
 
-    floatTo(1, counter_);
+    anyTo(1, SYM_IDX, Atom(i));
 
-    const auto& a = v[counter_];
+    const auto& a = v[i];
     if (a.isDataType(DataTypeMList::dataType))
         listTo(0, a.asD<DataTypeMList>()->data());
     else
@@ -87,7 +88,7 @@ void SeqSequencerBase::outputTick()
 
 void SeqSequencerBase::outputSequenceBegin()
 {
-    anyTo(1, SYM_IOTA, Atom(cycle_counter_));
+    anyTo(1, SYM_REPEAT_IDX, Atom(cycle_counter_));
 }
 
 void SeqSequencerBase::outputSequenceEnd()
@@ -105,7 +106,8 @@ void SeqSequencerBase::outputCycleEnd()
 
 void setup_seq_sequencer()
 {
-    SYM_IOTA = gensym("i");
+    SYM_REPEAT_IDX = gensym("ri");
+    SYM_IDX = gensym("i");
     SYM_DONE = gensym("done");
 
     SequencerIFaceFactory<ObjectFactory, SeqSequencer> obj("sequencer");

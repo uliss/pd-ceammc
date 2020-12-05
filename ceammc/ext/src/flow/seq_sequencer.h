@@ -20,7 +20,6 @@
 class SeqSequencerBase : public SeqBase {
     ListProperty* values_;
     SeqTimeGrain* interval_;
-    size_t counter_;
 
 public:
     SeqSequencerBase(const PdArgs& args);
@@ -30,10 +29,6 @@ public:
     void onInlet(size_t n, const AtomList& l) override;
 
     double calcNextTick() const final { return interval_->value(); }
-    void sequenceNext() final { counter_++; }
-    void resetSequenceCounter() final { counter_ = 0; }
-    bool isSequenceBegin() const final { return counter_ == 0; }
-    bool isSequenceEnd() const final { return counter_ >= values_->value().size(); }
     size_t sequenceSize() const final { return values_->value().size(); }
 
     void outputTick() final;

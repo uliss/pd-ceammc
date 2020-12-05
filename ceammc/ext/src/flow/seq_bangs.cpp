@@ -85,13 +85,13 @@ double SeqBangsBase::calcNextTick() const
     if (N == 0)
         return i;
 
-    const auto idx = current_ % N;
+    const auto idx = sequenceCounter() % N;
     return i * pattern_->value()[idx].asFloat(0);
 }
 
 void SeqBangsBase::outputTick()
 {
-    anyTo(1, SYM_IDX, Atom(current_));
+    anyTo(1, SYM_IDX, Atom(sequenceCounter()));
     anyTo(1, SYM_EVENT_DUR, Atom(calcNextTick()));
 
     bangTo(0);
