@@ -39,6 +39,7 @@
             bang sequence, otherwise stops</param></method>
             <method name="stop">stop bang output</method>
             <method name="reset">stop bang output and reset bang counter</method>
+            <method name="rewind">reset all counters without stopping</method>
             <method name="tick">manually output current sequence element and move to next</method>
         </methods>
         <inlets>

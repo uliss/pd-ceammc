@@ -45,7 +45,7 @@
             <property name="@once" type="alias">alias to @r 1, play once</property>
             <property name="@dur" type="float" default="0" minvalue="0" units="millisecond">whole
             sequence duration. (Recalculates @t property accordingly)</property>
-            <property name="@length" type="atom" default="75%">event length. In case of float or
+            <property name="@length" type="float" default="75">event length. In case of float or
             float wuth 'ms' suffix - event length is fixed for any event duration. In case of V% -
             @length expected to be in 0..100 range and event length is percent of duration. In case
             of negative @length event duration is calculated as duration+@length, but not less then
@@ -54,6 +54,7 @@
         <methods>
             <method name="start">start sequencer from current position</method>
             <method name="reset">reset all counters and stop</method>
+            <method name="rewind">reset all counters without stopping</method>
             <method name="stop">stop sequencer</method>
             <method name="tick">output current sequence element and move to next</method>
         </methods>

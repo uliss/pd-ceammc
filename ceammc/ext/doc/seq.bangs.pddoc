@@ -35,6 +35,7 @@
         <methods>
             <method name="start">start sequencer from current position</method>
             <method name="reset">reset all counters and stop</method>
+            <method name="rewind">reset all counters without stopping</method>
             <method name="stop">stop sequencer</method>
             <method name="tick">output current sequence element and move to next</method>
         </methods>
