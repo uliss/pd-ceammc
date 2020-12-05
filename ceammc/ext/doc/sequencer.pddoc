@@ -36,7 +36,8 @@
             <param name="on" type="int" enum="0 1" default="1" required="false">if true - starts
             sequencer, otherwise stops</param></method>
             <method name="stop">stop output</method>
-            <method name="reset">reset counters and stops=</method>
+            <method name="reset">reset counters and stop</method>
+            <method name="rewind">reset all counters without stopping</method>
             <method name="tick">manually output current element and move to next</method>
         </methods>
         <inlets>
