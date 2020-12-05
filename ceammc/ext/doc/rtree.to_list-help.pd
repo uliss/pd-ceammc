@@ -20,12 +20,11 @@
 ceammc object instead of list arguments;
 #X floatatom 290 312 5 0 0 0 - - -;
 #X msg 50 341 bang;
-#X msg 146 341 stop;
-#X msg 290 341 @bpm \$1;
-#X obj 50 370 seq.bangs rtree(1 \(1 1 1\(1 1\) 1\(1 1 1\) 1\(1 1 1 1
-1\)\)\);
+#X msg 126 341 stop;
+#X msg 290 341 @t \$1;
+#X obj 50 370 seq.bangs rtree(2 \(1 1 1\(1 1\) 1\(1 1 1\) 1\(1 1 1 1
+1\)\)\) @inf @t 90bpm, f 70;
 #X obj 50 399 click~;
-#X obj 424 399 route done;
 #X obj 50 428 flt.resonbp~ 1000 60;
 #X obj 270 428 ui.dsp~;
 #X obj 50 456 ui.hgain~;
@@ -108,9 +107,7 @@ https://github.com/uliss/pure-data;
 #X connect 18 0 20 0;
 #X connect 19 0 20 0;
 #X connect 20 0 21 0;
-#X connect 20 2 22 0;
-#X connect 21 0 23 0;
-#X connect 23 0 25 0;
-#X connect 25 0 26 0;
-#X connect 25 0 26 1;
-#X connect 22 0 17 0;
+#X connect 21 0 22 0;
+#X connect 22 0 24 0;
+#X connect 24 0 25 0;
+#X connect 24 0 25 1;

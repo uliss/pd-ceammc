@@ -54,18 +54,17 @@
 
                          [F]
                          |
-[bang #a( [stop(         [@bpm $1(
-|         |              |
-[seq.bangs rtree(1 \(1 1 1\(1 1\) 1\(1 1 1\) 1\(1 1 1 1 1\)\)\)]
-|                                      ^^|
-[click~]                               [route done #b]
+[bang(  [stop(           [@t $1(
+|       |                |
+[seq.bangs rtree(2 \(1 1 1\(1 1\) 1\(1 1 1\) 1\(1 1 1 1 1\)\)\) @inf @t 90bpm {w=70}]
+|
+[click~]
 |
 [flt.resonbp~ 1000 60] [ui.dsp~]
 |
 [ui.hgain~]
 |\
 [dac~]
-[X b->a]
 ]]>
             </pdascii>
         </example>
