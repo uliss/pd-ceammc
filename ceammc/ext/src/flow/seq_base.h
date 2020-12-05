@@ -109,8 +109,6 @@ public:
      */
     void resetSequenceCounter();
 
-    void sequenceNext();
-
     /**
      * returns sequence counter
      */
@@ -129,11 +127,6 @@ public:
     bool shouldRepeat() const;
 
     /**
-     * Reet cycle counter
-     */
-    void resetCycleCounter();
-
-    /**
      * complete sequence reset: reset counters then stop
      */
     void reset();
@@ -150,6 +143,10 @@ public:
 
 public:
     SeqBase(const PdArgs& args);
+
+private:
+    void sequenceNext();
+    void resetCycleCounter();
 };
 
 template <class T>
