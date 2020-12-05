@@ -53,11 +53,14 @@ SeqSequencerBase::SeqSequencerBase(const PdArgs& args)
 
 void SeqSequencerBase::onBang()
 {
+    reset();
     start();
 }
 
 void SeqSequencerBase::onFloat(t_float f)
 {
+    reset();
+
     if (f == 0)
         stop();
     else
@@ -116,7 +119,7 @@ void setup_seq_sequencer()
         { "bang: start sequence\n"
           "float: 1|0 - start/stop sequence",
             "list: set sequence" },
-        { "atom or list output", "float: sequence index\n"
-                                 "i: cycle index\n"
-                                 "done: when sequence done" });
+        { "atom or list output", "'i': sequence index\n"
+                                 "'ri': cycle index\n"
+                                 "'done': when sequence done" });
 }

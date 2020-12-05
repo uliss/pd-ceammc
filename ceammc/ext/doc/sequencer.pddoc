@@ -36,12 +36,13 @@
             <param name="on" type="int" enum="0 1" default="1" required="false">if true - starts
             sequencer, otherwise stops</param></method>
             <method name="stop">stop output</method>
-            <method name="reset">stop output and reset counters</method>
+            <method name="reset">reset counters and stops=</method>
             <method name="tick">manually output current element and move to next</method>
         </methods>
         <inlets>
             <inlet>
-                <xinfo on="float">1: starts output, 0: stop</xinfo>
+                <xinfo on="bang">reset all counters and start</xinfo>
+                <xinfo on="float">reset al counter and start (on 1) or stop(on 0)</xinfo>
             </inlet>
             <inlet>
                 <xinfo on="list">set sequence</xinfo>
@@ -49,7 +50,8 @@
         </inlets>
         <outlets>
             <outlet>sequence element output, in case of Mlist args - outputs play lists</outlet>
-            <outlet>float: element index, 'i' - iteration number and 'done' on done</outlet>
+            <outlet>[i IDX( - current sequence index, [ri IDX( - repeat iteration or [done( when
+            done</outlet>
         </outlets>
         <example>
             <pdascii>
