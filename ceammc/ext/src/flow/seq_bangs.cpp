@@ -91,7 +91,8 @@ double SeqBangsBase::calcNextTick() const
 
 void SeqBangsBase::outputTick()
 {
-    anyTo(1, SYM_IDX, Atom(sequenceCounter()));
+    Atom l[2] = { sequenceCounter(), sequenceSize() };
+    anyTo(1, SYM_IDX, AtomListView(&l->atom(), 2));
     anyTo(1, SYM_EVENT_DUR, Atom(calcNextTick()));
 
     bangTo(0);
@@ -99,7 +100,8 @@ void SeqBangsBase::outputTick()
 
 void SeqBangsBase::outputRepeat(size_t ridx)
 {
-    anyTo(1, SYM_REPEAT_IDX, Atom(ridx));
+    Atom l[2] = { ridx, numRepeats() };
+    anyTo(1, SYM_REPEAT_IDX, AtomListView(&l->atom(), 2));
 }
 
 void SeqBangsBase::outputRepeatDone()

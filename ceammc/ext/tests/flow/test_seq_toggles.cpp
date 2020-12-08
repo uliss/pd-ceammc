@@ -30,8 +30,8 @@ TEST_CASE("seq.toggles", "[externals]")
 
     using ML = std::vector<M>;
     const M B = M::makeBang();
-    auto ri = [](int i) { return M(SYM("ri"), LF(t_float(i))); };
-    auto i = [](int i) { return M(SYM("i"), LF(t_float(i))); };
+    auto ri = [](int i, int n) { return M(SYM("ri"), LF(t_float(i), t_float(n))); };
+    auto i = [](int i, int n) { return M(SYM("i"), LF(t_float(i), t_float(n))); };
     auto ed = [](t_float f) { return M(SYM("ed"), LF(f)); };
     auto el = [](t_float f) { return M(SYM("el"), LF(f)); };
 
@@ -129,19 +129,19 @@ TEST_CASE("seq.toggles", "[externals]")
 
             t.sendBang(); // on
             REQUIRE(t.messagesAt(0) == ML { m1 });
-            REQUIRE(t.messagesAt(1) == ML { ri(0), i(0), ed(100), el(75) });
+            REQUIRE(t.messagesAt(1) == ML { ri(0, 1), i(0, 1), ed(100), el(75) });
 
             t.schedTicks(75); // off
             REQUIRE(t.messagesAt(0) == ML { m1, m0 });
-            REQUIRE(t.messagesAt(1) == ML { ri(0), i(0), ed(100), el(75) });
+            REQUIRE(t.messagesAt(1) == ML { ri(0, 1), i(0, 1), ed(100), el(75) });
 
             t.schedTicks(25); // next
             REQUIRE(t.messagesAt(0) == ML { m1, m0 });
-            REQUIRE(t.messagesAt(1) == ML { ri(0), i(0), ed(100), el(75), done });
+            REQUIRE(t.messagesAt(1) == ML { ri(0, 1), i(0, 1), ed(100), el(75), done });
 
             t.schedTicks(25); // none
             REQUIRE(t.messagesAt(0) == ML { m1, m0 });
-            REQUIRE(t.messagesAt(1) == ML { ri(0), i(0), ed(100), el(75), done });
+            REQUIRE(t.messagesAt(1) == ML { ri(0, 1), i(0, 1), ed(100), el(75), done });
         }
 
         SECTION("many")
@@ -150,31 +150,31 @@ TEST_CASE("seq.toggles", "[externals]")
 
             t.sendBang(); // on
             REQUIRE(t.messagesAt(0) == ML { m1 });
-            REQUIRE(t.messagesAt(1) == ML { ri(0), i(0), ed(8), el(2) });
+            REQUIRE(t.messagesAt(1) == ML { ri(0, 1), i(0, 3), ed(8), el(2) });
 
             t.schedTicks(2); // off
             REQUIRE(t.messagesAt(0) == ML { m1, m0 });
-            REQUIRE(t.messagesAt(1) == ML { ri(0), i(0), ed(8), el(2) });
+            REQUIRE(t.messagesAt(1) == ML { ri(0, 1), i(0, 3), ed(8), el(2) });
 
             t.schedTicks(6); // on
             REQUIRE(t.messagesAt(0) == ML { m1, m0, m1 });
-            REQUIRE(t.messagesAt(1) == ML { ri(0), i(0), ed(8), el(2), i(1), ed(16), el(4) });
+            REQUIRE(t.messagesAt(1) == ML { ri(0, 1), i(0, 3), ed(8), el(2), i(1, 3), ed(16), el(4) });
 
             t.schedTicks(4); // off
             REQUIRE(t.messagesAt(0) == ML { m1, m0, m1, m0 });
-            REQUIRE(t.messagesAt(1) == ML { ri(0), i(0), ed(8), el(2), i(1), ed(16), el(4) });
+            REQUIRE(t.messagesAt(1) == ML { ri(0, 1), i(0, 3), ed(8), el(2), i(1, 3), ed(16), el(4) });
 
             t.schedTicks(12); // on
             REQUIRE(t.messagesAt(0) == ML { m1, m0, m1, m0, m1 });
-            REQUIRE(t.messagesAt(1) == ML { ri(0), i(0), ed(8), el(2), i(1), ed(16), el(4), i(2), ed(4), el(1) });
+            REQUIRE(t.messagesAt(1) == ML { ri(0, 1), i(0, 3), ed(8), el(2), i(1, 3), ed(16), el(4), i(2, 3), ed(4), el(1) });
 
             t.schedTicks(1); // off
             REQUIRE(t.messagesAt(0) == ML { m1, m0, m1, m0, m1, m0 });
-            REQUIRE(t.messagesAt(1) == ML { ri(0), i(0), ed(8), el(2), i(1), ed(16), el(4), i(2), ed(4), el(1) });
+            REQUIRE(t.messagesAt(1) == ML { ri(0, 1), i(0, 3), ed(8), el(2), i(1, 3), ed(16), el(4), i(2, 3), ed(4), el(1) });
 
             t.schedTicks(3); // done
             REQUIRE(t.messagesAt(0) == ML { m1, m0, m1, m0, m1, m0 });
-            REQUIRE(t.messagesAt(1) == ML { ri(0), i(0), ed(8), el(2), i(1), ed(16), el(4), i(2), ed(4), el(1), done });
+            REQUIRE(t.messagesAt(1) == ML { ri(0, 1), i(0, 3), ed(8), el(2), i(1, 3), ed(16), el(4), i(2, 3), ed(4), el(1), done });
         }
 
         SECTION("@length=0")
@@ -183,23 +183,23 @@ TEST_CASE("seq.toggles", "[externals]")
 
             t.sendBang(); // on
             REQUIRE(t.messagesAt(0) == ML { m1 });
-            REQUIRE(t.messagesAt(1) == ML { ri(0), i(0), ed(20), el(1) });
+            REQUIRE(t.messagesAt(1) == ML { ri(0, 1), i(0, 2), ed(20), el(1) });
 
             t.schedTicks(1); // off
             REQUIRE(t.messagesAt(0) == ML { m1, m0 });
-            REQUIRE(t.messagesAt(1) == ML { ri(0), i(0), ed(20), el(1) });
+            REQUIRE(t.messagesAt(1) == ML { ri(0, 1), i(0, 2), ed(20), el(1) });
 
             t.schedTicks(19); // on
             REQUIRE(t.messagesAt(0) == ML { m1, m0, m1 });
-            REQUIRE(t.messagesAt(1) == ML { ri(0), i(0), ed(20), el(1), i(1), ed(10), el(1) });
+            REQUIRE(t.messagesAt(1) == ML { ri(0, 1), i(0, 2), ed(20), el(1), i(1, 2), ed(10), el(1) });
 
             t.schedTicks(1); // off
             REQUIRE(t.messagesAt(0) == ML { m1, m0, m1, m0 });
-            REQUIRE(t.messagesAt(1) == ML { ri(0), i(0), ed(20), el(1), i(1), ed(10), el(1) });
+            REQUIRE(t.messagesAt(1) == ML { ri(0, 1), i(0, 2), ed(20), el(1), i(1, 2), ed(10), el(1) });
 
             t.schedTicks(9); // done
             REQUIRE(t.messagesAt(0) == ML { m1, m0, m1, m0 });
-            REQUIRE(t.messagesAt(1) == ML { ri(0), i(0), ed(20), el(1), i(1), ed(10), el(1), done });
+            REQUIRE(t.messagesAt(1) == ML { ri(0, 1), i(0, 2), ed(20), el(1), i(1, 2), ed(10), el(1), done });
         }
 
         SECTION("@length=1")
@@ -208,23 +208,23 @@ TEST_CASE("seq.toggles", "[externals]")
 
             t.sendBang(); // on
             REQUIRE(t.messagesAt(0) == ML { m1 });
-            REQUIRE(t.messagesAt(1) == ML { ri(0), i(0), ed(20), el(20) });
+            REQUIRE(t.messagesAt(1) == ML { ri(0, 1), i(0, 2), ed(20), el(20) });
 
             t.schedTicks(19); // none
             REQUIRE(t.messagesAt(0) == ML { m1 });
-            REQUIRE(t.messagesAt(1) == ML { ri(0), i(0), ed(20), el(20) });
+            REQUIRE(t.messagesAt(1) == ML { ri(0, 1), i(0, 2), ed(20), el(20) });
 
             t.schedTicks(1); // off-on
             REQUIRE(t.messagesAt(0) == ML { m1, m0, m1 });
-            REQUIRE(t.messagesAt(1) == ML { ri(0), i(0), ed(20), el(20), i(1), ed(10), el(10) });
+            REQUIRE(t.messagesAt(1) == ML { ri(0, 1), i(0, 2), ed(20), el(20), i(1, 2), ed(10), el(10) });
 
             t.schedTicks(9); // none
             REQUIRE(t.messagesAt(0) == ML { m1, m0, m1 });
-            REQUIRE(t.messagesAt(1) == ML { ri(0), i(0), ed(20), el(20), i(1), ed(10), el(10) });
+            REQUIRE(t.messagesAt(1) == ML { ri(0, 1), i(0, 2), ed(20), el(20), i(1, 2), ed(10), el(10) });
 
             t.schedTicks(1); // off
             REQUIRE(t.messagesAt(0) == ML { m1, m0, m1, m0 });
-            REQUIRE(t.messagesAt(1) == ML { ri(0), i(0), ed(20), el(20), i(1), ed(10), el(10), done });
+            REQUIRE(t.messagesAt(1) == ML { ri(0, 1), i(0, 2), ed(20), el(20), i(1, 2), ed(10), el(10), done });
         }
     }
 
@@ -249,20 +249,20 @@ TEST_CASE("seq.toggles", "[externals]")
 
             t.sendBang();
             REQUIRE(t.messagesAt(0) == ML { m1 });
-            REQUIRE(t.messagesAt(1) == ML { ri(0), i(0), ed(100), el(75) });
+            REQUIRE(t.messagesAt(1) == ML { ri(0, 1), i(0, 2), ed(100), el(75) });
 
             t.schedTicks(50); // still on
             REQUIRE(t.messagesAt(0) == ML { m1 });
-            REQUIRE(t.messagesAt(1) == ML { ri(0), i(0), ed(100), el(75) });
+            REQUIRE(t.messagesAt(1) == ML { ri(0, 1), i(0, 2), ed(100), el(75) });
 
             t.sendMessage("stop");
             REQUIRE(t.messagesAt(0) == ML { m1, m0 });
-            REQUIRE(t.messagesAt(1) == ML { ri(0), i(0), ed(100), el(75) });
+            REQUIRE(t.messagesAt(1) == ML { ri(0, 1), i(0, 2), ed(100), el(75) });
 
             // check no changes
             t.schedTicks(100);
             REQUIRE(t.messagesAt(0) == ML { m1, m0 });
-            REQUIRE(t.messagesAt(1) == ML { ri(0), i(0), ed(100), el(75) });
+            REQUIRE(t.messagesAt(1) == ML { ri(0, 1), i(0, 2), ed(100), el(75) });
         }
 
         SECTION("after off")
@@ -271,20 +271,20 @@ TEST_CASE("seq.toggles", "[externals]")
 
             t.sendBang();
             REQUIRE(t.messagesAt(0) == ML { m1 });
-            REQUIRE(t.messagesAt(1) == ML { ri(0), i(0), ed(100), el(50) });
+            REQUIRE(t.messagesAt(1) == ML { ri(0, 1), i(0, 2), ed(100), el(50) });
 
             t.schedTicks(75); // off
             REQUIRE(t.messagesAt(0) == ML { m1, m0 });
-            REQUIRE(t.messagesAt(1) == ML { ri(0), i(0), ed(100), el(50) });
+            REQUIRE(t.messagesAt(1) == ML { ri(0, 1), i(0, 2), ed(100), el(50) });
 
             t.sendMessage("stop");
             REQUIRE(t.messagesAt(0) == ML { m1, m0 });
-            REQUIRE(t.messagesAt(1) == ML { ri(0), i(0), ed(100), el(50) });
+            REQUIRE(t.messagesAt(1) == ML { ri(0, 1), i(0, 2), ed(100), el(50) });
 
             // check no changes
             t.schedTicks(100);
             REQUIRE(t.messagesAt(0) == ML { m1, m0 });
-            REQUIRE(t.messagesAt(1) == ML { ri(0), i(0), ed(100), el(50) });
+            REQUIRE(t.messagesAt(1) == ML { ri(0, 1), i(0, 2), ed(100), el(50) });
         }
     }
 
@@ -304,19 +304,19 @@ TEST_CASE("seq.toggles", "[externals]")
 
             t.sendBang();
             REQUIRE(t.messagesAt(0) == ML { m1 });
-            REQUIRE(t.messagesAt(1) == ML { ri(0), i(0), ed(100), el(75) });
+            REQUIRE(t.messagesAt(1) == ML { ri(0, 1), i(0, 2), ed(100), el(75) });
 
             t.schedTicks(50); // still on
             REQUIRE(t.messagesAt(0) == ML { m1 });
-            REQUIRE(t.messagesAt(1) == ML { ri(0), i(0), ed(100), el(75) });
+            REQUIRE(t.messagesAt(1) == ML { ri(0, 1), i(0, 2), ed(100), el(75) });
 
             t.sendMessage("reset");
             REQUIRE(t.messagesAt(0) == ML { m1, m0 });
-            REQUIRE(t.messagesAt(1) == ML { ri(0), i(0), ed(100), el(75) });
+            REQUIRE(t.messagesAt(1) == ML { ri(0, 1), i(0, 2), ed(100), el(75) });
 
             t.schedTicks(100); // no change
             REQUIRE(t.messagesAt(0) == ML { m1, m0 });
-            REQUIRE(t.messagesAt(1) == ML { ri(0), i(0), ed(100), el(75) });
+            REQUIRE(t.messagesAt(1) == ML { ri(0, 1), i(0, 2), ed(100), el(75) });
         }
     }
 
@@ -328,7 +328,7 @@ TEST_CASE("seq.toggles", "[externals]")
             t.sendBang();
             t.schedTicks(20);
             REQUIRE(t.messagesAt(0) == ML { m1, m0, m1, m0 });
-            REQUIRE(t.messagesAt(1) == ML { ri(0), i(0), ed(10), el(6), i(1), ed(20), el(6) });
+            REQUIRE(t.messagesAt(1) == ML { ri(0, 1), i(0, 2), ed(10), el(6), i(1, 2), ed(20), el(6) });
         }
 
         SECTION("fixed ms")
@@ -337,7 +337,7 @@ TEST_CASE("seq.toggles", "[externals]")
             t.sendBang();
             t.schedTicks(20);
             REQUIRE(t.messagesAt(0) == ML { m1, m0, m1, m0 });
-            REQUIRE(t.messagesAt(1) == ML { ri(0), i(0), ed(10), el(6), i(1), ed(20), el(6) });
+            REQUIRE(t.messagesAt(1) == ML { ri(0, 1), i(0, 2), ed(10), el(6), i(1, 2), ed(20), el(6) });
         }
 
         SECTION("fixed ms")
@@ -346,7 +346,7 @@ TEST_CASE("seq.toggles", "[externals]")
             t.sendBang();
             t.schedTicks(20);
             REQUIRE(t.messagesAt(0) == ML { m1, m0, m1, m0 });
-            REQUIRE(t.messagesAt(1) == ML { ri(0), i(0), ed(10), el(1), i(1), ed(20), el(1) });
+            REQUIRE(t.messagesAt(1) == ML { ri(0, 1), i(0, 2), ed(10), el(1), i(1, 2), ed(20), el(1) });
         }
 
         SECTION("percent")
@@ -355,7 +355,7 @@ TEST_CASE("seq.toggles", "[externals]")
             t.sendBang();
             t.schedTicks(29);
             REQUIRE(t.messagesAt(0) == ML { m1, m0, m1, m0 });
-            REQUIRE(t.messagesAt(1) == ML { ri(0), i(0), ed(10), el(7), i(1), ed(20), el(14) });
+            REQUIRE(t.messagesAt(1) == ML { ri(0, 1), i(0, 2), ed(10), el(7), i(1, 2), ed(20), el(14) });
         }
 
         SECTION("percent")
@@ -364,7 +364,7 @@ TEST_CASE("seq.toggles", "[externals]")
             t.sendBang();
             t.schedTicks(29);
             REQUIRE(t.messagesAt(0) == ML { m1, m0, m1, m0 });
-            REQUIRE(t.messagesAt(1) == ML { ri(0), i(0), ed(10), el(1), i(1), ed(20), el(1) });
+            REQUIRE(t.messagesAt(1) == ML { ri(0, 1), i(0, 2), ed(10), el(1), i(1, 2), ed(20), el(1) });
         }
 
         SECTION("subtract")
@@ -373,7 +373,7 @@ TEST_CASE("seq.toggles", "[externals]")
             t.sendBang();
             t.schedTicks(29);
             REQUIRE(t.messagesAt(0) == ML { m1, m0, m1, m0 });
-            REQUIRE(t.messagesAt(1) == ML { ri(0), i(0), ed(10), el(1), i(1), ed(20), el(10) });
+            REQUIRE(t.messagesAt(1) == ML { ri(0, 1), i(0, 2), ed(10), el(1), i(1, 2), ed(20), el(10) });
         }
     }
 }

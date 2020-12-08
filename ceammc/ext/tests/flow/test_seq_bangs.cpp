@@ -64,8 +64,8 @@ TEST_CASE("seq.bangs", "[externals]")
         using M = Message;
         using ML = std::vector<M>;
         const M B = M::makeBang();
-        auto ri = [](int i) { return M(SYM("ri"), LF(t_float(i))); };
-        auto i = [](int i) { return M(SYM("i"), LF(t_float(i))); };
+        auto ri = [](int i, int n) { return M(SYM("ri"), LF(t_float(i), t_float(n))); };
+        auto i = [](int i, int n) { return M(SYM("i"), LF(t_float(i), t_float(n))); };
         auto ed = [](t_float f) { return M(SYM("ed"), LF(f)); };
         const M done(SYM("done"), AtomListView());
 
@@ -92,11 +92,11 @@ TEST_CASE("seq.bangs", "[externals]")
 
             t.sendBang();
             REQUIRE(t.messagesAt(0) == ML { B });
-            REQUIRE(t.messagesAt(1) == ML { ri(0), i(0), ed(10) });
+            REQUIRE(t.messagesAt(1) == ML { ri(0, 1), i(0, 1), ed(10) });
 
             t.schedTicks(10);
             REQUIRE(t.messagesAt(0) == ML { B });
-            REQUIRE(t.messagesAt(1) == ML { ri(0), i(0), ed(10), done });
+            REQUIRE(t.messagesAt(1) == ML { ri(0, 1), i(0, 1), ed(10), done });
         }
 
         SECTION("many")
@@ -106,23 +106,23 @@ TEST_CASE("seq.bangs", "[externals]")
 
             t.sendBang();
             REQUIRE(t.messagesAt(0) == ML { B });
-            REQUIRE(t.messagesAt(1) == ML { ri(0), i(0), ed(10) });
+            REQUIRE(t.messagesAt(1) == ML { ri(0, 1), i(0, 3), ed(10) });
 
             t.schedTicks(10);
             REQUIRE(t.messagesAt(0) == ML { B, B });
-            REQUIRE(t.messagesAt(1) == ML { ri(0), i(0), ed(10), i(1), ed(20) });
+            REQUIRE(t.messagesAt(1) == ML { ri(0, 1), i(0, 3), ed(10), i(1, 3), ed(20) });
 
             t.schedTicks(20);
             REQUIRE(t.messagesAt(0) == ML { B, B, B });
-            REQUIRE(t.messagesAt(1) == ML { ri(0), i(0), ed(10), i(1), ed(20), i(2), ed(5) });
+            REQUIRE(t.messagesAt(1) == ML { ri(0, 1), i(0, 3), ed(10), i(1, 3), ed(20), i(2, 3), ed(5) });
 
             t.schedTicks(5);
             REQUIRE(t.messagesAt(0) == ML { B, B, B });
-            REQUIRE(t.messagesAt(1) == ML { ri(0), i(0), ed(10), i(1), ed(20), i(2), ed(5), done });
+            REQUIRE(t.messagesAt(1) == ML { ri(0, 1), i(0, 3), ed(10), i(1, 3), ed(20), i(2, 3), ed(5), done });
 
             t.schedTicks(5);
             REQUIRE(t.messagesAt(0) == ML { B, B, B });
-            REQUIRE(t.messagesAt(1) == ML { ri(0), i(0), ed(10), i(1), ed(20), i(2), ed(5), done });
+            REQUIRE(t.messagesAt(1) == ML { ri(0, 1), i(0, 3), ed(10), i(1, 3), ed(20), i(2, 3), ed(5), done });
         }
 
         SECTION("repeats")
@@ -131,23 +131,23 @@ TEST_CASE("seq.bangs", "[externals]")
 
             t.sendBang();
             REQUIRE(t.messagesAt(0) == ML { B });
-            REQUIRE(t.messagesAt(1) == ML { ri(0), i(0), ed(20) });
+            REQUIRE(t.messagesAt(1) == ML { ri(0, 2), i(0, 2), ed(20) });
 
             t.schedTicks(20);
             REQUIRE(t.messagesAt(0) == ML { B, B });
-            REQUIRE(t.messagesAt(1) == ML { ri(0), i(0), ed(20), i(1), ed(10) });
+            REQUIRE(t.messagesAt(1) == ML { ri(0, 2), i(0, 2), ed(20), i(1, 2), ed(10) });
 
             t.schedTicks(10);
             REQUIRE(t.messagesAt(0) == ML { B, B, B });
-            REQUIRE(t.messagesAt(1) == ML { ri(0), i(0), ed(20), i(1), ed(10), ri(1), i(0), ed(20) });
+            REQUIRE(t.messagesAt(1) == ML { ri(0, 2), i(0, 2), ed(20), i(1, 2), ed(10), ri(1, 2), i(0, 2), ed(20) });
 
             t.schedTicks(20);
             REQUIRE(t.messagesAt(0) == ML { B, B, B, B });
-            REQUIRE(t.messagesAt(1) == ML { ri(0), i(0), ed(20), i(1), ed(10), ri(1), i(0), ed(20), i(1), ed(10) });
+            REQUIRE(t.messagesAt(1) == ML { ri(0, 2), i(0, 2), ed(20), i(1, 2), ed(10), ri(1, 2), i(0, 2), ed(20), i(1, 2), ed(10) });
 
             t.schedTicks(10);
             REQUIRE(t.messagesAt(0) == ML { B, B, B, B });
-            REQUIRE(t.messagesAt(1) == ML { ri(0), i(0), ed(20), i(1), ed(10), ri(1), i(0), ed(20), i(1), ed(10), done });
+            REQUIRE(t.messagesAt(1) == ML { ri(0, 2), i(0, 2), ed(20), i(1, 2), ed(10), ri(1, 2), i(0, 2), ed(20), i(1, 2), ed(10), done });
         }
 
         SECTION("manual")
@@ -155,19 +155,19 @@ TEST_CASE("seq.bangs", "[externals]")
             TExt t("seq.b", LA(2, 1, "@t", "10ms", "@r", 2));
             t.call("tick");
             REQUIRE(t.messagesAt(0) == ML { B });
-            REQUIRE(t.messagesAt(1) == ML { ri(0), i(0), ed(20) });
+            REQUIRE(t.messagesAt(1) == ML { ri(0, 2), i(0, 2), ed(20) });
 
             t.call("tick");
             REQUIRE(t.messagesAt(0) == ML { B });
-            REQUIRE(t.messagesAt(1) == ML { i(1), ed(10) });
+            REQUIRE(t.messagesAt(1) == ML { i(1, 2), ed(10) });
 
             t.call("tick");
             REQUIRE(t.messagesAt(0) == ML { B });
-            REQUIRE(t.messagesAt(1) == ML { ri(1), i(0), ed(20) });
+            REQUIRE(t.messagesAt(1) == ML { ri(1, 2), i(0, 2), ed(20) });
 
             t.call("tick");
             REQUIRE(t.messagesAt(0) == ML { B });
-            REQUIRE(t.messagesAt(1) == ML { i(1), ed(10) });
+            REQUIRE(t.messagesAt(1) == ML { i(1, 2), ed(10) });
 
             t.call("tick");
             REQUIRE(t.messagesAt(0) == ML {});
@@ -182,27 +182,27 @@ TEST_CASE("seq.bangs", "[externals]")
                 t.sendBang();
                 t.schedTicks(2);
                 REQUIRE(t.messagesAt(0) == ML { B, B });
-                REQUIRE(t.messagesAt(1) == ML { ri(0), i(0), ed(1), i(1), ed(2) });
+                REQUIRE(t.messagesAt(1) == ML { ri(0, 2), i(0, 3), ed(1), i(1, 3), ed(2) });
 
                 // should reset
                 t.sendBang();
                 t.schedTicks(2);
                 REQUIRE(t.messagesAt(0) == ML { B, B, B, B });
-                REQUIRE(t.messagesAt(1) == ML { ri(0), i(0), ed(1), i(1), ed(2), ri(0), i(0), ed(1), i(1), ed(2) });
+                REQUIRE(t.messagesAt(1) == ML { ri(0, 2), i(0, 3), ed(1), i(1, 3), ed(2), ri(0, 2), i(0, 3), ed(1), i(1, 3), ed(2) });
 
                 t.bang();
                 t.schedTicks(8);
                 REQUIRE(t.messagesAt(0) == ML { B, B, B, B, B });
                 REQUIRE(t.messagesAt(1) == ML { //
-                            ri(0), i(0), ed(1), i(1), ed(2), i(2), ed(3), //
-                            ri(1), i(0), ed(1), i(1), ed(2) });
+                            ri(0, 2), i(0, 3), ed(1), i(1, 3), ed(2), i(2, 3), ed(3), //
+                            ri(1, 2), i(0, 3), ed(1), i(1, 3), ed(2) });
 
                 t.sendBang();
                 REQUIRE(t.messagesAt(0) == ML { B, B, B, B, B, B });
                 REQUIRE(t.messagesAt(1) == ML { //
-                            ri(0), i(0), ed(1), i(1), ed(2), i(2), ed(3), //
-                            ri(1), i(0), ed(1), i(1), ed(2), //
-                            ri(0), i(0), ed(1) });
+                            ri(0, 2), i(0, 3), ed(1), i(1, 3), ed(2), i(2, 3), ed(3), //
+                            ri(1, 2), i(0, 3), ed(1), i(1, 3), ed(2), //
+                            ri(0, 2), i(0, 3), ed(1) });
             }
 
             SECTION("start")
@@ -211,32 +211,32 @@ TEST_CASE("seq.bangs", "[externals]")
                 t.call("start");
                 t.schedTicks(2);
                 REQUIRE(t.messagesAt(0) == ML { B, B });
-                REQUIRE(t.messagesAt(1) == ML { ri(0), i(0), ed(1), i(1), ed(2) });
+                REQUIRE(t.messagesAt(1) == ML { ri(0, 2), i(0, 3), ed(1), i(1, 3), ed(2) });
 
                 t->stop();
                 t.schedTicks(10); // no change after stop
                 REQUIRE(t.messagesAt(0) == ML { B, B });
-                REQUIRE(t.messagesAt(1) == ML { ri(0), i(0), ed(1), i(1), ed(2) });
+                REQUIRE(t.messagesAt(1) == ML { ri(0, 2), i(0, 3), ed(1), i(1, 3), ed(2) });
 
                 t.sendMessage("start");
                 REQUIRE(t.messagesAt(0) == ML { B, B, B });
-                REQUIRE(t.messagesAt(1) == ML { ri(0), i(0), ed(1), i(1), ed(2), i(2), ed(3) });
+                REQUIRE(t.messagesAt(1) == ML { ri(0, 2), i(0, 3), ed(1), i(1, 3), ed(2), i(2, 3), ed(3) });
 
                 t->stop();
                 t.schedTicks(10); // no change after stop
                 t.sendMessage("start");
                 REQUIRE(t.messagesAt(0) == ML { B, B, B, B });
                 REQUIRE(t.messagesAt(1) == ML { //
-                            ri(0), i(0), ed(1), i(1), ed(2), i(2), ed(3), //
-                            ri(1), i(0), ed(1) });
+                            ri(0, 2), i(0, 3), ed(1), i(1, 3), ed(2), i(2, 3), ed(3), //
+                            ri(1, 2), i(0, 3), ed(1) });
 
                 t->stop();
                 t.schedTicks(10); // no change after stop
                 t.sendMessage("start");
                 REQUIRE(t.messagesAt(0) == ML { B, B, B, B, B });
                 REQUIRE(t.messagesAt(1) == ML { //
-                            ri(0), i(0), ed(1), i(1), ed(2), i(2), ed(3), //
-                            ri(1), i(0), ed(1), i(1), ed(2) });
+                            ri(0, 2), i(0, 3), ed(1), i(1, 3), ed(2), i(2, 3), ed(3), //
+                            ri(1, 2), i(0, 3), ed(1), i(1, 3), ed(2) });
             }
         }
     }

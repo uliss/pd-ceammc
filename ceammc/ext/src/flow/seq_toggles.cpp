@@ -121,7 +121,8 @@ void SeqToggles::outputTick()
     // setting minimal note length = 1ms
     const t_float event_len_ms = clip_min<t_float, MIN_NOTE_LEN>(length_->calcValue(event_dur_ms));
 
-    anyTo(1, SYM_IDX, Atom(sequenceCounter()));
+    Atom l[2] = { sequenceCounter(), sequenceSize() };
+    anyTo(1, SYM_IDX, AtomListView(&l->atom(), 2));
     anyTo(1, SYM_EVENT_DUR, Atom(event_dur_ms));
     anyTo(1, SYM_EVENT_LEN, Atom(event_len_ms));
     floatTo(0, 1);
