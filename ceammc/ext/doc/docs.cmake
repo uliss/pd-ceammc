@@ -197,6 +197,7 @@ set(DOC_FILES
     fx.greyhole~
     fx.looper~
     fx.pitchshift~
+    fx.pitchshift_s~
     fx.sdelay~
     fx.vocoder~
     fx.wahwah~

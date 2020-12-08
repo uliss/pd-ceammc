@@ -194,6 +194,7 @@ fx.freqshift~		~~		~~
 fx.granulator~		~		~~
 fx.greyhole~		~~		~~
 fx.looper~		~		~.
+fx.pitchshift_s~		~~		~
 fx.pitchshift~		~.		~
 fx.sdelay~		~		~
 fx.vocoder~		~~		~

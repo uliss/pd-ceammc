@@ -321,6 +321,7 @@ fx.freqshift~	frequency shifter or single-sideband ring modulation
 fx.granulator~	simple input stream granulator
 fx.greyhole~	A complex echo-like effect
 fx.looper~	One track looper
+fx.pitchshift_s~	signal version of fx.pitchshift~
 fx.pitchshift~	simple pitch shifter based on 2 delay lines
 fx.sdelay~	smooth delay with a feedback control
 fx.vocoder~	very simple vocoder where the spectrum of the modulation signal is analyzed using a 32-band filter bank

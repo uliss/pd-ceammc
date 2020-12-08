@@ -681,6 +681,9 @@
     <entry name="fx.looper~" descr="One track looper" ref_view="object">
       <xi:include href="fx.looper~.pddoc" parse="xml"/>
     </entry>
+    <entry name="fx.pitchshift_s~" descr="signal version of fx.pitchshift~" ref_view="object">
+      <xi:include href="fx.pitchshift_s~.pddoc" parse="xml"/>
+    </entry>
     <entry name="fx.pitchshift~" descr="simple pitch shifter based on 2 delay lines" ref_view="object">
       <xi:include href="fx.pitchshift~.pddoc" parse="xml"/>
     </entry>
