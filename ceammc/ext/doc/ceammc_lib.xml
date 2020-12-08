@@ -1538,6 +1538,9 @@
     <entry name="seq.bangs" descr="bang sequencer" ref_view="object">
       <xi:include href="seq.bangs.pddoc" parse="xml"/>
     </entry>
+    <entry name="seq.matrix" descr="sequencer control for ui.matrix" ref_view="object">
+      <xi:include href="seq.matrix.pddoc" parse="xml"/>
+    </entry>
     <entry name="seq.nbangs" descr="output specified number of bang with time intervals" ref_view="object">
       <xi:include href="seq.nbangs.pddoc" parse="xml"/>
     </entry>

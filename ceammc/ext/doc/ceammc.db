@@ -496,6 +496,7 @@ replace		...		.
 rtree.to_list,rtree->list		.		.
 seq.arp		.		..
 seq.bangs,seq.b		..		..
+seq.matrix		..		..
 seq.nbangs,seq.nb		..		..
 seq.phasor		..		..
 seq.toggles,seq.t		..		..

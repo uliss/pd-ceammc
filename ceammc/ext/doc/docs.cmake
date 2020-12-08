@@ -505,6 +505,7 @@ set(DOC_FILES
     sequencer
     seq.bangs
     seq.arp
+    seq.matrix
     seq.nbangs
     seq.phasor
     seq.toggles
