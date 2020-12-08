@@ -106,20 +106,23 @@ void SynthGlitch::processBlock(const t_sample** /*in*/, t_sample** out)
     const auto bs = blockSize();
     const auto do_clip = clip_->value();
 
-    if (sizeof(float) == sizeof(t_sample)) {
-        glitch_.fill(out[0], bs, 1);
 
-        if (do_clip) {
-            for (size_t i = 0; i < bs; i++)
-                out[0][i] = clip<t_float, -1, 1>(out[0][i]);
-        }
-    } else { // double
-        float buf[bs];
-        glitch_.fill(buf, bs, 1);
+#if PD_FLOATSIZE == 32
+    glitch_.fill(out[0], bs, 1);
 
+    if (do_clip) {
         for (size_t i = 0; i < bs; i++)
-            out[0][i] = clip<t_float, -1, 1>(buf[i]);
+            out[0][i] = clip<t_float, -1, 1>(out[0][i]);
     }
+#elif PD_FLOATSIZE == 64
+    float buf[bs];
+    glitch_.fill(buf, bs, 1);
+
+    for (size_t i = 0; i < bs; i++)
+        out[0][i] = clip<t_float, -1, 1>(buf[i]);
+#else
+#error "unknown float size"
+#endif
 }
 
 void SynthGlitch::samplerateChanged(size_t sr)
