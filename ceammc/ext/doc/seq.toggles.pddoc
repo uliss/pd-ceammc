@@ -50,6 +50,13 @@
             @length expected to be in 0..100 range and event length is percent of duration. In case
             of negative @length event duration is calculated as duration+@length, but not less then
             1</property>
+            <property name="@i" type="int" minvalue="0" readonly="true" default="0">current
+            sequence iteration</property>
+            <property name="@ri" type="int" minvalue="0" readonly="true" default="0">current repeat
+            iteration</property>
+            <property name="@mode" type="symbol" enum="inc dec tri" default="inc">sequencer mode.
+            'inc': from first to last, 'dec': from last to first, 'tri': from first to last, then
+            back</property>
         </properties>
         <methods>
             <method name="start">start sequencer from current position</method>
