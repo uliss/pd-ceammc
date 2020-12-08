@@ -30,12 +30,12 @@ SeqMatrixBase::SeqMatrixBase(const PdArgs& args)
     createOutlet();
     createOutlet();
 
-    n_ = new IntProperty("@n", 0);
+    n_ = new IntProperty("@n", 16);
     n_->checkNonNegative();
     n_->setArgIndex(0);
     addProperty(n_);
 
-    interval_ = new SeqTimeGrain("@t", 0);
+    interval_ = new SeqTimeGrain("@t", 250);
     interval_->setArgIndex(1);
     addProperty(interval_);
 
