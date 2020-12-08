@@ -68,7 +68,7 @@
         </inlets>
         <outlets>
             <outlet>1 and 0</outlet>
-            <outlet>[i IDX( - current sequence index, [ri IDX( - repeat iteration, [ed MS( - event
+            <outlet>[i IDX N( - sequence iteration, [ri IDX N( - repeat iteration, [ed MS( - event
             duration, [el MS( event length or [done( when done</outlet>
         </outlets>
         <example>

@@ -53,7 +53,7 @@
         </inlets>
         <outlets>
             <outlet>bang output</outlet>
-            <outlet>[i IDX( - bang index or [done( when done</outlet>
+            <outlet>[i IDX N( - bang index or [done( when done</outlet>
         </outlets>
         <example>
             <pdascii>

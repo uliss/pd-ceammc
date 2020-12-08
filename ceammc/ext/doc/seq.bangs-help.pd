@@ -78,7 +78,7 @@ or 240bpm also can be used. Type: float. Units: ms. Default value:
 #X text 110 964 1\.;
 #X text 245 964 bang.;
 #X text 110 984 2\.;
-#X text 245 984 [i IDX( - current sequence index \, [ri IDX( - repeat
+#X text 245 984 [i IDX N( - sequence iteration \, [ri IDX N( - repeat
 iteration \, [ed MS( - event duration or [done( when done.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
