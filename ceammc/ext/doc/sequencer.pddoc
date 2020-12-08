@@ -51,7 +51,7 @@
         </inlets>
         <outlets>
             <outlet>sequence element output, in case of Mlist args - outputs play lists</outlet>
-            <outlet>[i IDX( - current sequence index, [ri IDX( - repeat iteration or [done( when
+            <outlet>[i IDX N( - sequence iteration, [ri IDX N( - repeat iteration or [done( when
             done</outlet>
         </outlets>
         <example>

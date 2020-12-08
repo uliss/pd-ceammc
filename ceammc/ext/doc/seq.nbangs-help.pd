@@ -78,7 +78,7 @@ next.;
 #X text 110 939 1\.;
 #X text 245 939 bang output.;
 #X text 110 959 2\.;
-#X text 245 959 [i IDX( - bang index or [done( when done.;
+#X text 245 959 [i IDX N( - bang index or [done( when done.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;

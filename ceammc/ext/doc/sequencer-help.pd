@@ -84,7 +84,7 @@ Type: int. Allowed values: 0 \, 1\.;
 #X text 245 1035 sequence element output \, in case of Mlist args -
 outputs play lists.;
 #X text 110 1070 2\.;
-#X text 245 1070 [i IDX( - current sequence index \, [ri IDX( - repeat
+#X text 245 1070 [i IDX N( - sequence iteration \, [ri IDX N( - repeat
 iteration or [done( when done.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
