@@ -35,7 +35,11 @@
             otherwise output range is [0..1]</property>
         </properties>
         <methods>
-            <method name="reset">reset phase to 0</method>
+            <method name="start">start from current position</method>
+            <method name="reset">reset phase and stop</method>
+            <method name="rewind">reset phase without stopping</method>
+            <method name="stop">stop</method>
+            <method name="tick">output current value and move to next</method>
         </methods>
         <inlets>
             <inlet>
