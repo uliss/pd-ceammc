@@ -718,7 +718,6 @@ seq.nbangs
 seq.phasor
 seq.t
 seq.toggles
-seq.transport
 sequencer
 set->list
 set.contains
