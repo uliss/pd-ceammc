@@ -118,4 +118,13 @@ void setup_seq_matrix()
     PROP_CURRENT_COL = gensym("@current_col");
 
     SequencerIFaceFactory<ObjectFactory, SeqMatrix> obj("seq.matrix");
+
+    obj.setXletsInfo({ "bang:  reset and start sequencer\n"
+                       "start: start sequencer\n"
+                       "stop:  stop sequencer\n"
+                       "float (1|0):  reset and start/stop sequencer\n",
+                         "float: set number of steps" },
+        { "any: output for ui.matrix", "\\[i IDX N( - sequence iteration\n"
+                                       "\\[ri IDX N( - repeat iteration\n"
+                                       "\\[done( - when done" });
 }
