@@ -110,7 +110,8 @@ bool SeqNBangs::tick()
         anyTo(1, SYM_DONE, AtomListView());
         return false;
     } else {
-        anyTo(1, SYM_IDX, Atom(counter_));
+        Atom l[2] = { counter_, n_->value() };
+        anyTo(1, SYM_IDX, AtomListView(&l->atom(), 2));
         bangTo(0);
 
         counter_++;
