@@ -713,6 +713,7 @@ seq
 seq.arp
 seq.b
 seq.bangs
+seq.matrix
 seq.nb
 seq.nbangs
 seq.phasor
