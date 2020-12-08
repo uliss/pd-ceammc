@@ -25,8 +25,8 @@ TEST_CASE("seq.sequencer", "[externals]")
     using M = Message;
     using ML = std::vector<M>;
 
-    auto ri = [](int i) { return M(SYM("ri"), LF(t_float(i))); };
-    auto i = [](int i) { return M(SYM("i"), LF(t_float(i))); };
+    auto ri = [](int i, int n) { return M(SYM("ri"), LF(t_float(i), t_float(n))); };
+    auto i = [](int i, int n) { return M(SYM("i"), LF(t_float(i), t_float(n))); };
     auto done = M(SYM("done"), AtomList {});
 
     SECTION("init")
@@ -97,13 +97,13 @@ TEST_CASE("seq.sequencer", "[externals]")
             REQUIRE_PROPERTY(t, @r, 1);
 
             t.bang();
-            REQUIRE(t.messagesAt(1) == ML { ri(0), i(0) });
+            REQUIRE(t.messagesAt(1) == ML { ri(0, 1), i(0, 2) });
             REQUIRE(t.messagesAt(0) == ML { 100 });
             t.schedTicks(2);
-            REQUIRE(t.messagesAt(1) == ML { ri(0), i(0), i(1) });
+            REQUIRE(t.messagesAt(1) == ML { ri(0, 1), i(0, 2), i(1, 2) });
             REQUIRE(t.messagesAt(0) == ML { 100, 200 });
             t.schedTicks(2);
-            REQUIRE(t.messagesAt(1) == ML { ri(0), i(0), i(1), done });
+            REQUIRE(t.messagesAt(1) == ML { ri(0, 1), i(0, 2), i(1, 2), done });
             REQUIRE(t.messagesAt(0) == ML { 100, 200 });
         }
 
@@ -113,28 +113,28 @@ TEST_CASE("seq.sequencer", "[externals]")
             REQUIRE_PROPERTY(t, @r, 2);
 
             t.bang();
-            REQUIRE(t.messagesAt(1) == ML { ri(0), i(0) });
+            REQUIRE(t.messagesAt(1) == ML { ri(0, 2), i(0, 3) });
             REQUIRE(t.messagesAt(0) == ML { 100 });
             t.schedTicks(2);
-            REQUIRE(t.messagesAt(1) == ML { ri(0), i(0), i(1) });
+            REQUIRE(t.messagesAt(1) == ML { ri(0, 2), i(0, 3), i(1, 3) });
             REQUIRE(t.messagesAt(0) == ML { 100, 200 });
             t.schedTicks(2);
-            REQUIRE(t.messagesAt(1) == ML { ri(0), i(0), i(1), i(2) });
+            REQUIRE(t.messagesAt(1) == ML { ri(0, 2), i(0, 3), i(1, 3), i(2, 3) });
             REQUIRE(t.messagesAt(0) == ML { 100, 200, 300 });
             t.schedTicks(2);
-            REQUIRE(t.messagesAt(1) == ML { ri(0), i(0), i(1), i(2), ri(1), i(0) });
+            REQUIRE(t.messagesAt(1) == ML { ri(0, 2), i(0, 3), i(1, 3), i(2, 3), ri(1, 2), i(0, 3) });
             REQUIRE(t.messagesAt(0) == ML { 100, 200, 300, 100 });
             t.schedTicks(2);
-            REQUIRE(t.messagesAt(1) == ML { ri(0), i(0), i(1), i(2), ri(1), i(0), i(1) });
+            REQUIRE(t.messagesAt(1) == ML { ri(0, 2), i(0, 3), i(1, 3), i(2, 3), ri(1, 2), i(0, 3), i(1, 3) });
             REQUIRE(t.messagesAt(0) == ML { 100, 200, 300, 100, 200 });
             t.schedTicks(2);
-            REQUIRE(t.messagesAt(1) == ML { ri(0), i(0), i(1), i(2), ri(1), i(0), i(1), i(2) });
+            REQUIRE(t.messagesAt(1) == ML { ri(0, 2), i(0, 3), i(1, 3), i(2, 3), ri(1, 2), i(0, 3), i(1, 3), i(2, 3) });
             REQUIRE(t.messagesAt(0) == ML { 100, 200, 300, 100, 200, 300 });
             t.schedTicks(2);
-            REQUIRE(t.messagesAt(1) == ML { ri(0), i(0), i(1), i(2), ri(1), i(0), i(1), i(2), done });
+            REQUIRE(t.messagesAt(1) == ML { ri(0, 2), i(0, 3), i(1, 3), i(2, 3), ri(1, 2), i(0, 3), i(1, 3), i(2, 3), done });
             REQUIRE(t.messagesAt(0) == ML { 100, 200, 300, 100, 200, 300 });
             t.schedTicks(20);
-            REQUIRE(t.messagesAt(1) == ML { ri(0), i(0), i(1), i(2), ri(1), i(0), i(1), i(2), done });
+            REQUIRE(t.messagesAt(1) == ML { ri(0, 2), i(0, 3), i(1, 3), i(2, 3), ri(1, 2), i(0, 3), i(1, 3), i(2, 3), done });
             REQUIRE(t.messagesAt(0) == ML { 100, 200, 300, 100, 200, 300 });
         }
 
@@ -153,10 +153,10 @@ TEST_CASE("seq.sequencer", "[externals]")
             REQUIRE_PROPERTY(t, @r, 1);
 
             t.bang();
-            REQUIRE(t.messagesAt(1) == ML { ri(0), i(0) });
+            REQUIRE(t.messagesAt(1) == ML { ri(0, 1), i(0, 1) });
             REQUIRE(t.messagesAt(0) == ML { LF(100, 127) });
             t.schedTicks(2);
-            REQUIRE(t.messagesAt(1) == ML { ri(0), i(0), done });
+            REQUIRE(t.messagesAt(1) == ML { ri(0, 1), i(0, 1), done });
             REQUIRE(t.messagesAt(0) == ML { LF(100, 127) });
         }
     }
@@ -193,55 +193,88 @@ TEST_CASE("seq.sequencer", "[externals]")
         TExt t("seq", LA(100, 200, "@r", 2, "@t", "2ms"));
 
         t->m_tick(&s_, {});
-        REQUIRE(t.messagesAt(1) == ML { ri(0), i(0) });
+        REQUIRE(t.messagesAt(1) == ML { ri(0, 2), i(0, 2) });
         REQUIRE(t.messagesAt(0) == ML { 100 });
         t->m_tick(&s_, {});
-        REQUIRE(t.messagesAt(1) == ML { ri(0), i(0), i(1) });
+        REQUIRE(t.messagesAt(1) == ML { ri(0, 2), i(0, 2), i(1, 2) });
         REQUIRE(t.messagesAt(0) == ML { 100, 200 });
         t->m_tick(&s_, {});
-        REQUIRE(t.messagesAt(1) == ML { ri(0), i(0), i(1), ri(1), i(0) });
+        REQUIRE(t.messagesAt(1) == ML { ri(0, 2), i(0, 2), i(1, 2), ri(1, 2), i(0, 2) });
         REQUIRE(t.messagesAt(0) == ML { 100, 200, 100 });
         t->m_tick(&s_, {});
-        REQUIRE(t.messagesAt(1) == ML { ri(0), i(0), i(1), ri(1), i(0), i(1) });
+        REQUIRE(t.messagesAt(1) == ML { ri(0, 2), i(0, 2), i(1, 2), ri(1, 2), i(0, 2), i(1, 2) });
         REQUIRE(t.messagesAt(0) == ML { 100, 200, 100, 200 });
         t->m_tick(&s_, {});
-        REQUIRE(t.messagesAt(1) == ML { ri(0), i(0), i(1), ri(1), i(0), i(1), done });
+        REQUIRE(t.messagesAt(1) == ML { ri(0, 2), i(0, 2), i(1, 2), ri(1, 2), i(0, 2), i(1, 2), done });
         REQUIRE(t.messagesAt(0) == ML { 100, 200, 100, 200 });
         t->m_tick(&s_, {});
-        REQUIRE(t.messagesAt(1) == ML { ri(0), i(0), i(1), ri(1), i(0), i(1), done, done });
+        REQUIRE(t.messagesAt(1) == ML { ri(0, 2), i(0, 2), i(1, 2), ri(1, 2), i(0, 2), i(1, 2), done, done });
         REQUIRE(t.messagesAt(0) == ML { 100, 200, 100, 200 });
     }
 
-    SECTION("back")
+    SECTION("dec")
     {
-        TExt t("seq", LA(1, 2, 3, "@r", 2, "@t", 2, "@back", 1));
+        TExt t("seq", LA(1, 2, 3, "@r", 2, "@t", 2, "@mode", "dec"));
 
-        t.sendBang();
-        REQUIRE(t.messagesAt(1) == ML { ri(0), i(2) });
+        t.call("start");
+        REQUIRE(t.messagesAt(1) == ML { ri(0, 2), i(2, 3) });
         REQUIRE(t.messagesAt(0) == ML { 3 });
 
         t.schedTicks(2);
-        REQUIRE(t.messagesAt(1) == ML { ri(0), i(2), i(1) });
+        REQUIRE(t.messagesAt(1) == ML { ri(0, 2), i(2, 3), i(1, 3) });
         REQUIRE(t.messagesAt(0) == ML { 3, 2 });
 
         t.schedTicks(2);
-        REQUIRE(t.messagesAt(1) == ML { ri(0), i(2), i(1), i(0) });
+        REQUIRE(t.messagesAt(1) == ML { ri(0, 2), i(2, 3), i(1, 3), i(0, 3) });
         REQUIRE(t.messagesAt(0) == ML { 3, 2, 1 });
 
         t.schedTicks(2);
-        REQUIRE(t.messagesAt(1) == ML { ri(0), i(2), i(1), i(0), ri(1), i(2) });
+        REQUIRE(t.messagesAt(1) == ML { ri(0, 2), i(2, 3), i(1, 3), i(0, 3), ri(1, 2), i(2, 3) });
         REQUIRE(t.messagesAt(0) == ML { 3, 2, 1, 3 });
 
         t.schedTicks(2);
-        REQUIRE(t.messagesAt(1) == ML { ri(0), i(2), i(1), i(0), ri(1), i(2), i(1) });
+        REQUIRE(t.messagesAt(1) == ML { ri(0, 2), i(2, 3), i(1, 3), i(0, 3), ri(1, 2), i(2, 3), i(1, 3) });
         REQUIRE(t.messagesAt(0) == ML { 3, 2, 1, 3, 2 });
 
         t.schedTicks(2);
-        REQUIRE(t.messagesAt(1) == ML { ri(0), i(2), i(1), i(0), ri(1), i(2), i(1), i(0) });
+        REQUIRE(t.messagesAt(1) == ML { ri(0, 2), i(2, 3), i(1, 3), i(0, 3), ri(1, 2), i(2, 3), i(1, 3), i(0, 3) });
         REQUIRE(t.messagesAt(0) == ML { 3, 2, 1, 3, 2, 1 });
 
         t.schedTicks(2);
-        REQUIRE(t.messagesAt(1) == ML { ri(0), i(2), i(1), i(0), ri(1), i(2), i(1), i(0), done });
+        REQUIRE(t.messagesAt(1) == ML { ri(0, 2), i(2, 3), i(1, 3), i(0, 3), ri(1, 2), i(2, 3), i(1, 3), i(0, 3), done });
         REQUIRE(t.messagesAt(0) == ML { 3, 2, 1, 3, 2, 1 });
+    }
+
+    SECTION("tri")
+    {
+        TExt t("seq", LA(1, 2, 3, "@r", 2, "@t", "2ms", "@mode", "tri"));
+
+        t.call("start");
+        REQUIRE(t.messagesAt(1) == ML { ri(0, 2), i(0, 3) });
+        REQUIRE(t.messagesAt(0) == ML { 1 });
+
+        t.schedTicks(2);
+        REQUIRE(t.messagesAt(1) == ML { ri(0, 2), i(0, 3), i(1, 3) });
+        REQUIRE(t.messagesAt(0) == ML { 1, 2 });
+
+        t.schedTicks(2);
+        REQUIRE(t.messagesAt(1) == ML { ri(0, 2), i(0, 3), i(1, 3), i(2, 3) });
+        REQUIRE(t.messagesAt(0) == ML { 1, 2, 3 });
+
+        t.schedTicks(2);
+        REQUIRE(t.messagesAt(1) == ML { ri(0, 2), i(0, 3), i(1, 3), i(2, 3), i(1, 3) });
+        REQUIRE(t.messagesAt(0) == ML { 1, 2, 3, 2 });
+
+        t.schedTicks(2);
+        REQUIRE(t.messagesAt(1) == ML { ri(0, 2), i(0, 3), i(1, 3), i(2, 3), i(1, 3), ri(1, 2), i(0, 3) });
+        REQUIRE(t.messagesAt(0) == ML { 1, 2, 3, 2, 1 });
+
+        t.schedTicks(2);
+        REQUIRE(t.messagesAt(1) == ML { ri(0, 2), i(0, 3), i(1, 3), i(2, 3), i(1, 3), ri(1, 2), i(0, 3), i(1, 3) });
+        REQUIRE(t.messagesAt(0) == ML { 1, 2, 3, 2, 1, 2 });
+
+        t.schedTicks(2);
+        REQUIRE(t.messagesAt(1) == ML { ri(0, 2), i(0, 3), i(1, 3), i(2, 3), i(1, 3), ri(1, 2), i(0, 3), i(1, 3), i(2, 3) });
+        REQUIRE(t.messagesAt(0) == ML { 1, 2, 3, 2, 1, 2, 3 });
     }
 }

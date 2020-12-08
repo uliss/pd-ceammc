@@ -32,10 +32,8 @@ public:
     size_t sequenceSize() const final { return values_->value().size(); }
 
     void outputTick() final;
-    void outputSequenceBegin() final;
-    void outputSequenceEnd() final;
-    void outputCycleBegin() final;
-    void outputCycleEnd() final;
+    void outputRepeat(size_t ridx) final;
+    void outputRepeatDone() final;
 };
 
 using SeqSequencer = SequencerIFace<SeqSequencerBase>;

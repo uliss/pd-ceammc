@@ -18,6 +18,8 @@
 #include "ceammc_object.h"
 #include "ceammc_property_enum.h"
 
+#include <cstdint>
+
 using namespace ceammc;
 
 class RepeatProperty : public IntProperty {
@@ -43,10 +45,12 @@ public:
 class SeqBase : public BaseObject {
 protected:
     RepeatProperty* repeat_;
-    BoolProperty* backwards_;
+    SymbolEnumProperty* mode_;
     ClockLambdaFunction clock_;
-    size_t cycle_counter_ = { 0 };
+    size_t num_repeats_ = { 0 };
     size_t sequence_counter_ = { 0 };
+    uint8_t inc_ : 1;
+    bool r0_ouput_ : 1;
 
 public: // pure virtual
     /**
@@ -65,24 +69,26 @@ public: // pure virtual
     virtual void outputTick() = 0;
 
     /**
-     * outputs when sequence is on first element
+     * outputs on every repeat
      */
-    virtual void outputCycleBegin() = 0;
+    virtual void outputRepeat(size_t ridx) = 0;
 
     /**
-     * outputs when cycle is finished
+     * output when all repeats done
      */
-    virtual void outputCycleEnd() = 0;
+    virtual void outputRepeatDone() = 0;
 
     /**
-     * Outputs when sequence begins
+     * output when first sequence element is reached
+     * @param idx
      */
-    virtual void outputSequenceBegin() = 0;
+    virtual void outputSequenceFirst();
 
     /**
-     * output when whoel sequence is finished
+     * output when last sequence element is reached
+     * @param idx
      */
-    virtual void outputSequenceEnd() = 0;
+    virtual void outputSequenceLast();
 
     /**
      * start sequence clock
@@ -95,16 +101,9 @@ public: // pure virtual
     virtual void clockStop();
 
 public:
-    /**
-     * Check if current sequence element is first
-     */
-    bool isSequenceBegin() const;
+    void initDone() override;
 
-    /**
-     * checks if current sequence cycle is finished
-     */
-    bool isSequenceEnd() const;
-
+public:
     /**
      * reset sequence counter
      */
@@ -147,11 +146,24 @@ public:
      */
     void resetCycleCounter();
 
+    void setSequenceCounter(size_t);
+
+    void moveSequenceCounter(long n);
+
+    /**
+     * number of repeats
+     */
+    size_t numRepeats() const { return repeat_->value(); }
+
 public:
     SeqBase(const PdArgs& args);
 
 private:
-    void sequenceNext();
+    bool tickForward(bool output);
+    bool isSeqBegin() const;
+
+private:
+    static void initSymTab();
 };
 
 template <class T>

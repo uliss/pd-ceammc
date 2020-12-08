@@ -17,6 +17,13 @@
 
 #define PROP_ERR() LogPdObject(owner(), LOG_ERROR).stream() << errorPrefix()
 
+static t_symbol* SYM_INC;
+static t_symbol* SYM_DEC;
+static t_symbol* SYM_TRI;
+
+static constexpr const int DIR_UP = 1;
+static constexpr const int DIR_DOWN = 0;
+
 RepeatProperty::RepeatProperty(const std::string& name, int defValue)
     : IntProperty(name, defValue)
 {
@@ -52,22 +59,35 @@ bool RepeatProperty::setList(const AtomListView& lv)
 SeqBase::SeqBase(const PdArgs& args)
     : BaseObject(args)
     , repeat_(nullptr)
-    , backwards_(nullptr)
+    , mode_(nullptr)
     , clock_([this]() {
         const auto ms = calcNextTick();
         if (tick())
             clock_.delay(ms);
     })
+    , inc_(DIR_UP)
+    , r0_ouput_(false)
 {
     repeat_ = new RepeatProperty("@r", 1);
     addProperty(repeat_);
 
-    backwards_ = new BoolProperty("@back", false);
-    addProperty(backwards_);
+    if (!SYM_INC)
+        initSymTab();
+
+    mode_ = new SymbolEnumProperty("@mode", { SYM_INC, SYM_DEC, SYM_TRI });
+    addProperty(mode_);
+    //    addProperty(new SymbolEnumAlias("@tri-"))
 
     addProperty(new AliasProperty<RepeatProperty>("@inf", repeat_, -1));
     addProperty(new AliasProperty<RepeatProperty>("@once", repeat_, 1));
+
+    createCbIntProperty("@i", [this]() -> int { return sequence_counter_; });
+    createCbIntProperty("@ri", [this]() -> int { return num_repeats_; });
 }
+
+void SeqBase::outputSequenceFirst() { }
+
+void SeqBase::outputSequenceLast() { }
 
 void SeqBase::clockStart()
 {
@@ -79,37 +99,101 @@ void SeqBase::clockStop()
     clock_.unset();
 }
 
-bool SeqBase::isSequenceBegin() const
+void SeqBase::initDone()
 {
-    return sequence_counter_ == 0;
-}
-
-bool SeqBase::isSequenceEnd() const
-{
-    return sequence_counter_ >= sequenceSize();
+    const auto N = sequenceSize();
+    if (N < 1)
+        return;
+    else if (mode_->value() == SYM_DEC)
+        sequence_counter_ = N - 1;
 }
 
 void SeqBase::resetSequenceCounter()
 {
-    sequence_counter_ = 0;
+    const auto N = sequenceSize();
+    if (mode_->value() == SYM_DEC && N > 1)
+        sequence_counter_ = N - 1;
+    else
+        sequence_counter_ = 0;
 }
 
 size_t SeqBase::sequenceCounter() const
 {
-    if (backwards_->value()) {
-        const auto n = sequenceSize();
-        const auto m = sequence_counter_ + 1;
-        if (m >= n)
-            return 0;
-        else
-            return n - m;
-    } else
-        return sequence_counter_;
+    return sequence_counter_;
 }
 
-void SeqBase::sequenceNext()
+bool SeqBase::tickForward(bool output)
 {
-    sequence_counter_++;
+    const auto N = sequenceSize();
+    const auto LAST = N - 1;
+
+    if (shouldRepeat()) {
+        if (output && isSeqBegin()) {
+            r0_ouput_ = true;
+            outputRepeat(num_repeats_);
+        }
+
+        if (output)
+            outputTick();
+
+        const auto m = mode_->value();
+        if (m == SYM_INC) {
+            if (++sequence_counter_ >= N) {
+                sequence_counter_ = 0;
+                num_repeats_++;
+            }
+        } else if (m == SYM_DEC) {
+            if (sequence_counter_ == 0) {
+                sequence_counter_ = LAST;
+                num_repeats_++;
+            } else
+                sequence_counter_--;
+        } else if (m == SYM_TRI) {
+            if (sequence_counter_ == 0) {
+                sequence_counter_++;
+                inc_ = DIR_UP;
+            } else if (sequence_counter_ == LAST) {
+                sequence_counter_--;
+                num_repeats_++;
+                inc_ = DIR_DOWN;
+            } else if (inc_ == DIR_UP)
+                sequence_counter_++;
+            else
+                sequence_counter_--;
+        }
+
+        return true;
+    } else {
+        outputRepeatDone();
+        return false;
+    }
+}
+
+bool SeqBase::isSeqBegin() const
+{
+    const auto N = sequenceSize();
+
+    if (N == 0)
+        return false;
+    else if (N == 1)
+        return true;
+    else if (!r0_ouput_ && num_repeats_ == 0)
+        return true;
+    else if (mode_->value() == SYM_INC && sequence_counter_ == 0)
+        return true;
+    else if (mode_->value() == SYM_DEC && sequence_counter_ == N - 1)
+        return true;
+    else if (mode_->value() == SYM_TRI && sequence_counter_ == 0)
+        return true;
+    else
+        return false;
+}
+
+void SeqBase::initSymTab()
+{
+    SYM_INC = gensym("inc");
+    SYM_DEC = gensym("dec");
+    SYM_TRI = gensym("tri");
 }
 
 bool SeqBase::tick(bool output)
@@ -120,41 +204,12 @@ bool SeqBase::tick(bool output)
     if (sequenceSize() == 0)
         return false;
 
-    if (isSequenceEnd()) {
-        if (output)
-            outputSequenceEnd();
-
-        cycle_counter_++;
-
-        if (shouldRepeat()) {
-            resetSequenceCounter();
-            tick();
-            return true;
-        } else {
-            if (output)
-                outputCycleEnd();
-
-            return false;
-        }
-    } else {
-        if (output && isSequenceBegin()) {
-            if (cycle_counter_ == 0)
-                outputCycleBegin();
-
-            outputSequenceBegin();
-        }
-
-        if (output)
-            outputTick();
-
-        sequenceNext();
-        return true;
-    }
+    return tickForward(output);
 }
 
 bool SeqBase::shouldRepeat() const
 {
-    const bool fin_continue = repeat_->isFinite() && (cycle_counter_ < size_t(repeat_->value()));
+    const bool fin_continue = repeat_->isFinite() && (num_repeats_ < size_t(repeat_->value()));
     const bool inf_continue = !repeat_->isFinite();
 
     return fin_continue || inf_continue;
@@ -162,11 +217,32 @@ bool SeqBase::shouldRepeat() const
 
 void SeqBase::resetCycleCounter()
 {
-    cycle_counter_ = 0;
+    num_repeats_ = 0;
+}
+
+void SeqBase::setSequenceCounter(size_t i)
+{
+    sequence_counter_ = (i % sequenceSize());
+}
+
+void SeqBase::moveSequenceCounter(long n)
+{
+    const auto N = sequenceSize();
+    if (N < 1)
+        return;
+
+    const auto LAST = N - 1;
+    const long nn = static_cast<long>(sequence_counter_) + n;
+
+    if (nn < 0)
+        sequence_counter_ = LAST - (static_cast<size_t>(-nn - 1) % N);
+    else
+        sequence_counter_ = static_cast<size_t>(nn) % N;
 }
 
 void SeqBase::reset()
 {
+    r0_ouput_ = 0;
     resetSequenceCounter();
     resetCycleCounter();
     clockStop();

@@ -80,7 +80,8 @@ void SeqSequencerBase::outputTick()
     if (i >= v.size())
         return;
 
-    anyTo(1, SYM_IDX, Atom(i));
+    Atom l[2] = { i, sequenceSize() };
+    anyTo(1, SYM_IDX, AtomListView(&l->atom(), 2));
 
     const auto& a = v[i];
     if (a.isDataType(DataTypeMList::dataType))
@@ -89,20 +90,13 @@ void SeqSequencerBase::outputTick()
         atomTo(0, a);
 }
 
-void SeqSequencerBase::outputSequenceBegin()
+void SeqSequencerBase::outputRepeat(size_t ridx)
 {
-    anyTo(1, SYM_REPEAT_IDX, Atom(cycle_counter_));
+    Atom l[2] = { ridx, numRepeats() };
+    anyTo(1, SYM_REPEAT_IDX, AtomListView(&l->atom(), 2));
 }
 
-void SeqSequencerBase::outputSequenceEnd()
-{
-}
-
-void SeqSequencerBase::outputCycleBegin()
-{
-}
-
-void SeqSequencerBase::outputCycleEnd()
+void SeqSequencerBase::outputRepeatDone()
 {
     anyTo(1, SYM_DONE, AtomListView());
 }

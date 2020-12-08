@@ -97,20 +97,12 @@ void SeqBangsBase::outputTick()
     bangTo(0);
 }
 
-void SeqBangsBase::outputSequenceBegin()
+void SeqBangsBase::outputRepeat(size_t ridx)
 {
-    anyTo(1, SYM_REPEAT_IDX, Atom(cycle_counter_));
+    anyTo(1, SYM_REPEAT_IDX, Atom(ridx));
 }
 
-void SeqBangsBase::outputSequenceEnd()
-{
-}
-
-void SeqBangsBase::outputCycleBegin()
-{
-}
-
-void SeqBangsBase::outputCycleEnd()
+void SeqBangsBase::outputRepeatDone()
 {
     anyTo(1, SYM_DONE, AtomListView());
 }

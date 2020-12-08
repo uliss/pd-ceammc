@@ -31,10 +31,8 @@ public:
     size_t sequenceSize() const final { return pattern_->value().size(); }
     double calcNextTick() const final;
     void outputTick() override;
-    void outputSequenceBegin() final;
-    void outputSequenceEnd() final;
-    void outputCycleBegin() final;
-    void outputCycleEnd() final;
+    void outputRepeat(size_t ridx) final;
+    void outputRepeatDone() final;
 };
 
 using SeqBangs = SequencerIFace<SeqBangsBase>;
