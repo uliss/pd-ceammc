@@ -33,22 +33,22 @@ TEST_CASE("seq.phasor", "[externals]")
             REQUIRE_PROPERTY(t, @on, 0.);
             REQUIRE_PROPERTY(t, @invert, 0.);
             REQUIRE_PROPERTY(t, @open, 0.);
-            REQUIRE_PROPERTY(t, @precision, 1 / 128.0);
+            REQUIRE_PROPERTY(t, @steps, 128);
         }
 
         SECTION("args")
         {
-            TObj t("seq.phasor", LA(2.5, 1));
+            TObj t("seq.phasor", LA(2.5));
             REQUIRE_PROPERTY(t, @freq, 2.5);
-            REQUIRE_PROPERTY(t, @on, 1);
-            REQUIRE_PROPERTY(t, @precision, 1 / 128.0);
+            REQUIRE_PROPERTY(t, @on, 0);
+            REQUIRE_PROPERTY(t, @steps, 128);
         }
 
         SECTION("props")
         {
-            TObj t("seq.phasor", LA(2.5, "@precision", "expr(1/64)"));
+            TObj t("seq.phasor", LA(2.5, "@steps", "expr(2^7)"));
             REQUIRE_PROPERTY(t, @freq, 2.5);
-            REQUIRE_PROPERTY(t, @precision, 1 / 64.0);
+            REQUIRE_PROPERTY(t, @steps, 128);
         }
 
         SECTION("ext")
@@ -59,117 +59,80 @@ TEST_CASE("seq.phasor", "[externals]")
 
     SECTION("process")
     {
-        TExt t("seq.phasor", LA(1, "@precision", 0.1)); // 640
+        SECTION("clock")
+        {
+        }
 
-        t << 1;
+        SECTION("manual")
+        {
+            TExt t("seq.phasor", LA(1, "@steps", 4)); // 640
+            REQUIRE_PROPERTY(t, @steps, 4);
 
-        auto dt = std::round(1000 / 11.0);
+            REQUIRE(t->value() == 0);
+            t->tick();
+            REQUIRE(t->value() == Approx(1 / 3.0));
+            t->tick();
+            REQUIRE(t->value() == Approx(2 / 3.0));
+            t->tick();
+            REQUIRE(t->value() == Approx(3 / 3.0));
+            t->tick();
+            REQUIRE(t->value() == Approx(0 / 3.0));
+        }
 
-        REQUIRE(t.isOutputFloatAt(0));
-        REQUIRE(t.outputFloatAt(0) == 0);
-        t.schedTicks(dt);
-        REQUIRE(t.outputFloatAt(0) == Approx(0.1));
-        t.schedTicks(dt);
-        REQUIRE(t.outputFloatAt(0) == Approx(0.2));
-        t.schedTicks(dt);
-        REQUIRE(t.outputFloatAt(0) == Approx(0.3));
-        t.schedTicks(dt);
-        REQUIRE(t.outputFloatAt(0) == Approx(0.4));
-        t.schedTicks(dt);
-        REQUIRE(t.outputFloatAt(0) == Approx(0.5));
-        t.schedTicks(dt);
-        REQUIRE(t.outputFloatAt(0) == Approx(0.6));
-        t.schedTicks(dt);
-        REQUIRE(t.outputFloatAt(0) == Approx(0.7));
-        t.schedTicks(dt);
-        REQUIRE(t.outputFloatAt(0) == Approx(0.8));
-        t << 0.0;
-        t.schedTicks(10 * dt);
-        REQUIRE(!t.hasOutputAt(0));
-        t << 1; // right after
-        REQUIRE(t.outputFloatAt(0) == Approx(0.9));
-        t.schedTicks(dt);
-        REQUIRE(t.outputFloatAt(0) == Approx(1));
-        t.schedTicks(dt);
-        REQUIRE(t.outputFloatAt(0) == Approx(0.));
-        REQUIRE(t.isOutputBangAt(1));
-        t.schedTicks(dt);
-        REQUIRE(t.outputFloatAt(0) == Approx(0.1));
-        t.schedTicks(dt * 2);
-        REQUIRE(t.outputFloatAt(0) == Approx(0.3));
-        t.sendBangTo(1);
-        t.schedTicks(dt);
-        REQUIRE(t.outputFloatAt(0) == Approx(0));
+        SECTION("manual @open")
+        {
+            TExt t("seq.phasor", LA(1, "@steps", 4, "@open", 1));
+            REQUIRE_PROPERTY(t, @steps, 4);
 
-        t->setProperty("@precision", LF(0.5));
-        dt = std::round(1000 / 3.0) + 2;
+            REQUIRE(t->value() == 0);
+            t->tick();
+            REQUIRE(t->value() == Approx(1 / 4.0));
+            t->tick();
+            REQUIRE(t->value() == Approx(2 / 4.0));
+            t->tick();
+            REQUIRE(t->value() == Approx(3 / 4.0));
+            t->tick();
+            REQUIRE(t->value() == Approx(0 / 4.0));
+            t->tick();
+            REQUIRE(t->value() == Approx(1 / 4.0));
+        }
 
-        t.clearAll();
-        t << 0.;
-        t.sendBangTo(1);
-        t << 1;
-        REQUIRE(t.isOutputFloatAt(0));
-        REQUIRE(t.outputFloatAt(0) == 0);
-        t.schedTicks(dt);
-        REQUIRE(t.outputFloatAt(0) == Approx(0.5));
-        t.schedTicks(dt);
-        REQUIRE(t.outputFloatAt(0) == Approx(1));
-        t.schedTicks(dt);
-        REQUIRE(t.outputFloatAt(0) == Approx(0));
-        t.schedTicks(dt);
-        REQUIRE(t.outputFloatAt(0) == Approx(0.5));
+        SECTION("manual @invert")
+        {
+            TExt t("seq.phasor", LA(1, "@steps", 4, "@invert", 1)); // 640
+            REQUIRE_PROPERTY(t, @steps, 4);
 
-        t.call("set", 0.);
-        t.schedTicks(dt);
-        REQUIRE(t.outputFloatAt(0) == Approx(0));
+            t->reset();
 
-        t.call("set", 0.49);
-        t.schedTicks(dt);
-        REQUIRE(t.outputFloatAt(0) == Approx(0));
+            REQUIRE(t->value() == Approx(3 / 3.0));
+            t->tick();
+            REQUIRE(t->value() == Approx(2 / 3.0));
+            t->tick();
+            REQUIRE(t->value() == Approx(1 / 3.0));
+            t->tick();
+            REQUIRE(t->value() == Approx(0 / 3.0));
+            t->tick();
+            REQUIRE(t->value() == Approx(3 / 3.0));
+        }
 
-        t.call("set", 0.5);
-        t.schedTicks(dt);
-        REQUIRE(t.outputFloatAt(0) == Approx(0.5));
+        SECTION("manual @invert @open")
+        {
+            TExt t("seq.phasor", LA(1, "@steps", 4, "@invert", 1, "@open", 1)); // 640
+            REQUIRE_PROPERTY(t, @steps, 4);
 
-        t.call("set", 0.99);
-        t.schedTicks(dt);
-        REQUIRE(t.outputFloatAt(0) == Approx(0.5));
+            t->reset();
 
-        t.call("set", 1);
-        t.schedTicks(dt);
-        REQUIRE(t.outputFloatAt(0) == Approx(1));
-
-        t.call("set", 1.1);
-        t.schedTicks(dt);
-        REQUIRE(t.outputFloatAt(0) == Approx(1));
-
-        t->setProperty("@invert", LF(1));
-        t << 0.;
-        t.call("reset");
-        t << 1;
-        REQUIRE(t.isOutputFloatAt(0));
-        REQUIRE(t.outputFloatAt(0) == 1);
-        t.schedTicks(dt);
-        REQUIRE(t.outputFloatAt(0) == Approx(0.5));
-        t.schedTicks(dt);
-        REQUIRE(t.outputFloatAt(0) == Approx(0));
-        t.schedTicks(dt);
-        REQUIRE(t.outputFloatAt(0) == Approx(1));
-        t.schedTicks(dt);
-        REQUIRE(t.outputFloatAt(0) == Approx(0.5));
-
-        dt = std::round(1000 / 2.0);
-        t->setProperty("@open", LF(1));
-        t << 0.;
-        t.call("reset");
-        t << 1;
-        REQUIRE(t.isOutputFloatAt(0));
-        REQUIRE(t.outputFloatAt(0) == 0.5);
-        t.schedTicks(dt);
-        REQUIRE(t.outputFloatAt(0) == Approx(0.));
-        t.schedTicks(dt);
-        REQUIRE(t.outputFloatAt(0) == Approx(0.5));
-        t.schedTicks(dt);
-        REQUIRE(t.outputFloatAt(0) == Approx(0));
+            REQUIRE(t->value() == Approx(3 / 4.0));
+            t->tick();
+            REQUIRE(t->value() == Approx(2 / 4.0));
+            t->tick();
+            REQUIRE(t->value() == Approx(1 / 4.0));
+            t->tick();
+            REQUIRE(t->value() == Approx(0 / 4.0));
+            t->tick();
+            REQUIRE(t->value() == Approx(3 / 4.0));
+            t->tick();
+            REQUIRE(t->value() == Approx(2 / 4.0));
+        }
     }
 }

@@ -14,28 +14,39 @@
 #ifndef SEQ_PHASOR_H
 #define SEQ_PHASOR_H
 
-#include "ceammc_clock.h"
-#include "ceammc_object.h"
-using namespace ceammc;
+#include "seq_base.h"
 
-class SeqPhasor : public BaseObject {
+class SeqPhasorBase : public BaseObject {
     FloatProperty* freq_hz_;
-    FloatProperty* precision_;
+    IntProperty* steps_;
     BoolProperty* on_;
     BoolProperty* invert_;
     BoolProperty* open_range_;
     ClockLambdaFunction clock_;
-    size_t index_;
+    int phase_;
 
 public:
-    SeqPhasor(const PdArgs& args);
+    SeqPhasorBase(const PdArgs& args);
 
     void initDone() override;
     void onFloat(t_float f) override;
     void onInlet(size_t n, const AtomList& l) override;
-    void m_set(t_symbol* s, const AtomListView& lv);
-    void m_reset(t_symbol* s, const AtomListView& lv);
+
+    void resetCycleCounter() { }
+    void resetSequenceCounter();
+    void tick();
+    void reset();
+    void stop();
+    void start();
+
+    t_float calcNextTick() const;
+    t_float value() const;
+
+private:
+    void next();
 };
+
+using SeqPhasor = SequencerIFace<SeqPhasorBase>;
 
 void setup_seq_phasor();
 

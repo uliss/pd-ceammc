@@ -15,38 +15,22 @@
 #include "ceammc_convert.h"
 #include "ceammc_factory.h"
 
-SeqPhasor::SeqPhasor(const PdArgs& a)
+SeqPhasorBase::SeqPhasorBase(const PdArgs& a)
     : BaseObject(a)
     , freq_hz_(nullptr)
-    , precision_(nullptr)
+    , steps_(nullptr)
     , on_(nullptr)
     , invert_(nullptr)
     , open_range_(nullptr)
     , clock_([this]() {
-        const size_t nsteps = 1 / precision_->value();
-        const size_t closed = !open_range_->value(); // 0 or 1
-        const size_t max = nsteps + closed - 1;
-        // index_ in [0..nsteps] range
-        const t_float value = (invert_->value()) ? t_float(max - index_) / nsteps
-                                                 : t_float(index_) / (nsteps);
-
-        if (freq_hz_->value() == 0) { // const output
-            floatTo(0, value);
-            const auto delay_ms = 1000.0 / nsteps;
-            clock_.delay(delay_ms);
-        } else {
-
-            const auto delay_ms = 1000 / (freq_hz_->value() * (nsteps + closed));
-            clock_.delay(delay_ms);
-            floatTo(0, value);
-
-            if (++index_ >= (nsteps + closed)) { // next cycle
-                index_ = 0;
-                bangTo(1);
-            }
+        tick();
+        if (on_->value()) {
+            const auto ms = calcNextTick();
+            if (ms > 0)
+                clock_.delay(ms);
         }
     })
-    , index_(0)
+    , phase_(0)
 {
     createInlet();
     createOutlet();
@@ -58,19 +42,17 @@ SeqPhasor::SeqPhasor(const PdArgs& a)
     freq_hz_->setArgIndex(0);
     addProperty(freq_hz_);
 
-    precision_ = new FloatProperty("@precision", 1. / 128);
-    precision_->checkClosedRange(1. / 1024, 1. / 2);
-    addProperty(precision_);
+    steps_ = new IntProperty("@steps", 128);
+    steps_->checkMinEq(3);
+    addProperty(steps_);
 
     on_ = new BoolProperty("@on", false);
     on_->setSuccessFn([this](Property*) {
-        if (on_->value()) {
-            if (!clock_.isActive())
-                clock_.exec();
-        } else
-            clock_.unset();
+        if (on_->value() == 0)
+            stop();
+        else
+            start();
     });
-    on_->setArgIndex(1);
     addProperty(on_);
 
     invert_ = new BoolProperty("@invert", false);
@@ -80,46 +62,102 @@ SeqPhasor::SeqPhasor(const PdArgs& a)
     addProperty(open_range_);
 }
 
-void SeqPhasor::initDone()
+void SeqPhasorBase::initDone()
 {
     if (on_->value())
-        clock_.exec();
+        start();
 }
 
-void SeqPhasor::onFloat(t_float f)
+void SeqPhasorBase::onFloat(t_float f)
 {
-    Atom a(f);
-    on_->set(AtomListView(a));
+    on_->set(Atom(f));
 }
 
-void SeqPhasor::onInlet(size_t n, const AtomList& l)
+void SeqPhasorBase::onInlet(size_t n, const AtomList& l)
 {
-    m_reset(&s_, {});
+    resetSequenceCounter();
 }
 
-void SeqPhasor::m_set(t_symbol* s, const AtomListView& lv)
+void SeqPhasorBase::tick()
 {
-    if (!lv.isFloat()) {
-        METHOD_ERR(s) << "float is expected, got: " << lv;
-        return;
+    floatTo(0, value());
+    next();
+}
+
+void SeqPhasorBase::reset()
+{
+    resetCycleCounter();
+    resetSequenceCounter();
+    stop();
+}
+
+void SeqPhasorBase::stop()
+{
+    clock_.unset();
+}
+
+void SeqPhasorBase::start()
+{
+    clock_.exec();
+}
+
+void SeqPhasorBase::resetSequenceCounter()
+{
+    const auto N = steps_->value();
+
+    if (invert_->value() && N > 0)
+        phase_ = N - 1;
+    else
+        phase_ = 0;
+}
+
+t_float SeqPhasorBase::value() const
+{
+    if (steps_->value() == 0)
+        return 0;
+
+    const int is_closed = !open_range_->value();
+    const auto n = steps_->value() - is_closed;
+
+    return t_float(phase_) / n;
+}
+
+void SeqPhasorBase::next()
+{
+    if (invert_->value()) {
+        if (--phase_ < 0) {
+            phase_ = steps_->value() - 1;
+            bangTo(1);
+        }
+    } else {
+        if (phase_ + 1 < steps_->value()) {
+            phase_++;
+        } else {
+            phase_ = 0;
+            bangTo(1);
+        }
     }
-
-    // v in [0, 1] range
-    const auto v = clip01<t_float>(lv[0].asT<t_float>());
-    const size_t nsteps = 1 / precision_->value();
-    index_ = size_t(v * nsteps);
 }
 
-void SeqPhasor::m_reset(t_symbol* /*s*/, const AtomListView& /*lv*/)
+t_float SeqPhasorBase::calcNextTick() const
 {
-    index_ = 0;
+    const auto freq = freq_hz_->value();
+
+    if (freq == 0)
+        return 0;
+
+    const auto ms = 1000 / (freq * steps_->value());
+    if (ms < 1) {
+        OBJ_ERR << "clock resolution is to high, try to decrease frequency or number of steps";
+        return 0;
+    } else
+        return ms;
 }
 
 void setup_seq_phasor()
 {
-    ObjectFactory<SeqPhasor> obj("seq.phasor");
-    obj.addMethod("set", &SeqPhasor::m_set);
-    obj.addMethod("reset", &SeqPhasor::m_reset);
+    SequencerIFaceFactory<ObjectFactory, SeqPhasor> obj("seq.phasor");
+
     obj.setXletsInfo(
         { "float: 1|0 - start/stop phasor",
             "bang: reset to start" },
