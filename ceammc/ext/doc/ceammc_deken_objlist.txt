@@ -91,6 +91,8 @@ conv.dbfs2amp	convert decibel full scale to amplitude
 dbfs->amp	convert decibel full scale to amplitude
 conv.dbfs2amp~	convert decibel full scale to amplitude
 dbfs->amp~	convert decibel full scale to amplitude
+conv.degree2key	convert scale degree to key
+degree->key	convert scale degree to key
 conv.hex2int	hex symbol to int value
 hex->int	hex symbol to int value
 conv.lin2curve	map linear to exponential range with 0 allowed.

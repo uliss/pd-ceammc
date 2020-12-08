@@ -46,6 +46,7 @@ conv.car2pol,car->pol		.		.
 conv.cc2amp,cc->amp		.		.
 conv.dbfs2amp,dbfs->amp		.		.
 conv.dbfs2amp~,dbfs->amp~		~		~
+conv.degree2key,degree->key		.		.
 conv.hex2int,hex->int		.		.
 conv.lin2curve,lin->curve		.		.
 conv.lin2exp,lin->exp		.		.

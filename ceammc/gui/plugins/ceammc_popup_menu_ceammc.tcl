@@ -21,11 +21,12 @@
     {conv {
         array.p2s array.s2p conv.amp2dbfs conv.amp2dbfs~ conv.bpm2hz
         conv.bpm2ms conv.bpm2sec conv.car2pol conv.cc2amp conv.dbfs2amp
-        conv.dbfs2amp~ conv.hex2int conv.lin2curve conv.lin2exp conv.lin2lin
-        conv.lin2lin~ conv.list2props conv.midi2freq conv.ms2bpm conv.ms2samp
-        conv.ms2samp~ conv.phase2rad conv.phase2rad~ conv.pitch2midi
-        conv.pol2car conv.rad2phase conv.rad2phase~ conv.samp2ms conv.samp2ms~
-        conv.samp2sec conv.sec2bpm conv.sec2samp conv.sec2str conv.str2sec
+        conv.dbfs2amp~ conv.degree2key conv.hex2int conv.lin2curve
+        conv.lin2exp conv.lin2lin conv.lin2lin~ conv.list2props conv.midi2freq
+        conv.ms2bpm conv.ms2samp conv.ms2samp~ conv.phase2rad conv.phase2rad~
+        conv.pitch2midi conv.pol2car conv.rad2phase conv.rad2phase~
+        conv.samp2ms conv.samp2ms~ conv.samp2sec conv.sec2bpm conv.sec2samp
+        conv.sec2str conv.str2sec
     }}
     {data {
         data.dict data.fifo data.float data.int data.list data.mlist data.set

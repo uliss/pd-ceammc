@@ -201,6 +201,9 @@
     <entry name="conv.dbfs2amp~" descr="convert decibel full scale to amplitude" ref_view="object">
       <xi:include href="conv.dbfs2amp~.pddoc" parse="xml"/>
     </entry>
+    <entry name="conv.degree2key" descr="convert scale degree to key" ref_view="object">
+      <xi:include href="conv.degree2key.pddoc" parse="xml"/>
+    </entry>
     <entry name="conv.hex2int" descr="hex symbol to int value" ref_view="object">
       <xi:include href="conv.hex2int.pddoc" parse="xml"/>
     </entry>
