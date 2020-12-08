@@ -133,5 +133,6 @@ void setup_seq_nbangs()
                        "start 1|0: start/stop sequence\n"
                        "stop 1|0:  stop/start sequence",
                          "float: set number of bangs" },
-        { "bang", "'i' bang index or 'done' after last bang" });
+        { "bang", "\\[i IDX N( - sequence iteration\n"
+                  "\\[done( - when done" });
 }

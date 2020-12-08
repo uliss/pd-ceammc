@@ -15,7 +15,7 @@
 #X obj 50 205 click~;
 #X obj 174 205 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
 -1;
-#X floatatom 261 205 5 0 0 0 - - -;
+#X floatatom 232 205 5 0 0 0 - - -;
 #X obj 50 234 flt.resonbp~ 1000 40;
 #X obj 50 262 ui.hgain~;
 #X obj 50 291 dac~;

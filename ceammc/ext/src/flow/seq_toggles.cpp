@@ -158,5 +158,9 @@ void setup_seq_toggles()
     obj.setXletsInfo({ "bang:  start playing sequence\n"
                        "stop:  stop sequencer\n",
                          "list: set new pattern" },
-        { "1 and 0", "'done', 'i', 'ri', 'el' or 'ed'" });
+        { "1 or 0", "\\[i IDX N( - sequence iteration\n"
+                    "\\[ri IDX N( - repeat iteration\n"
+                    "\\[ed MS( - event duration\n"
+                    "\\[el MS( - event length\n"
+                    "\\[done( - when done" });
 }

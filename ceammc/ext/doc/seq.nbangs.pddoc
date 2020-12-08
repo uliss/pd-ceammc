@@ -63,8 +63,8 @@
 [seq.nbangs @t 110]
 |            ^|
 |            [route done i]
-|            |        ^|
-[click~]     [B]      [F]
+|            |     ^|
+[click~]     [B]   [F]
 |
 [flt.resonbp~ 1000 40]
 |

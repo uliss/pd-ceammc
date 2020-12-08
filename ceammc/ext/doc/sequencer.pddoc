@@ -57,8 +57,10 @@
         <example>
             <pdascii>
 <![CDATA[
-[T] [@dur 500( [@dur 1000(
-|   |          |
+[T] [@dur 500( [@dur 1000(  [ui.tab inc dec tri]
+|   |          |            |
+|   |          |            [@mode $1(
+|   |          |            |
 [sequencer mtof(seq(56 90 3)) @t 360bpm @inf]
 |                            ^|
 [t b f     ]                 [route done i ri]

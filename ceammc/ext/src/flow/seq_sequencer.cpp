@@ -113,7 +113,7 @@ void setup_seq_sequencer()
         { "bang: start sequence\n"
           "float: 1|0 - start/stop sequence",
             "list: set sequence" },
-        { "atom or list output", "'i': sequence index\n"
-                                 "'ri': cycle index\n"
-                                 "'done': when sequence done" });
+        { "atom or list output", "\\[i IDX N( - sequence iteration\n"
+                                 "\\[ri IDX N( - repeat iteration\n"
+                                 "\\[done( - when done" });
 }

@@ -122,5 +122,8 @@ void setup_seq_bangs()
     obj.setXletsInfo({ "bang:  start playing sequence\n"
                        "stop:  stop sequencer\n",
                          "list: set new pattern" },
-        { "bang: output pattern", "'done', 'i', 'ri' or 'ed'" });
+        { "bang: output pattern", "\\[i IDX N( - sequence iteration\n"
+                                  "\\[ri IDX N( - repeat iteration\n"
+                                  "\\[ed MS( - event duration\n"
+                                  "\\[done( - when done" });
 }
