@@ -23,7 +23,7 @@ namespace ceammc {
 
 class TimeSignature {
 public:
-    TimeSignature(u_int16_t n, uint16_t d)
+    TimeSignature(uint16_t n, uint16_t d)
         : num(n)
         , den(d)
     {
