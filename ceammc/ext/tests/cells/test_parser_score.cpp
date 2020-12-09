@@ -83,6 +83,5 @@ TEST_CASE("ScoreParser", "[core]")
         REQUIRE(lexer.bars[0].opts.bar_check == 12);
         REQUIRE(lexer.bars[0].opts.beat_division == 16);
         REQUIRE(lexer.bars[1].sig == Signature(1, 16));
-        REQUIRE(lexer.bars[2].sig == Signature(1, 16));
     }
 }
