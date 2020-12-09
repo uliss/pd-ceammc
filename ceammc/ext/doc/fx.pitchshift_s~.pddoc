@@ -45,11 +45,11 @@
 |
 [expand_env #a]
 |
-|            [phasor~ 10]
-|            |
-[readsf~]    [l->l~ 0 1 -12 12]
-|            |.
-[fx.pitchshift_s~]
+|         [T]          [phasor~ 3]
+|         |            |
+[readsf~] [@bypass $1( [l->l~ 0 1 -12 12]
+|         |            |.
+[fx.pitchshift_s~ @drywet 0.5]
 |
 [ui.gain~ @size 120 14] [ui.dsp~]
 |\

@@ -444,9 +444,9 @@ TEST_CASE("tl.timeline", "[externals]")
 
     SECTION("@loop empty")
     {
-        setTestSampleRate(44100);
+        setTestSampleRate(64000);
 
-        t_float tm = 10_ticks / 1000.0;
+        t_float tm = 10 / 1000.0;
         TExt t("tl.timeline", LA(tm, "@loop", 1));
 
         t.call("start");
@@ -454,21 +454,21 @@ TEST_CASE("tl.timeline", "[externals]")
         NO_OUTPUT_NTICKS(t, 1);
 
         for (int i = 0; i < 10; i++) {
-            REQUIRE_PROPERTY_FLOAT(t, @current, 1_ticks);
+            REQUIRE_PROPERTY_FLOAT(t, @current, 1);
             NO_OUTPUT_NTICKS(t, 8);
             t.schedTicks(2);
-            REQUIRE(t.outputListAt(0) == LAX("end", 10_ticks));
+            REQUIRE(t.outputListAt(0) == LAX("end", 10));
         }
     }
 
     SECTION("@loop events")
     {
-        setTestSampleRate(44100);
+        setTestSampleRate(64000);
 
-        t_float tm = 20_ticks / 1000.0;
+        t_float tm = 20 / 1000.0;
         TExt t("tl.timeline", LA(tm, "@loop", 1));
 
-        t.call("add", LA(10_ticks, "ms"));
+        t.call("add", LA(10, "ms"));
         t.call("start");
         REQUIRE(t.outputListAt(0) == LAX("begin", 0.f));
         NO_OUTPUT_NTICKS(t, 1);
@@ -476,18 +476,18 @@ TEST_CASE("tl.timeline", "[externals]")
         for (int i = 0; i < 10; i++) {
             NO_OUTPUT_NTICKS(t, 8);
             t.schedTicks(2);
-            REQUIRE_PROPERTY_FLOAT(t, @current, 11_ticks);
+            REQUIRE_PROPERTY_FLOAT(t, @current, 11);
 
-            REQUIRE(t.outputListAt(0) == LX(0, 10_ticks));
+            REQUIRE(t.outputListAt(0) == LX(0, 10));
             NO_OUTPUT_NTICKS(t, 8);
             t.schedTicks(2);
-            REQUIRE(t.outputListAt(0) == LAX("end", 20_ticks));
+            REQUIRE(t.outputListAt(0) == LAX("end", 20));
         }
     }
 
     SECTION("infinite")
     {
-        setTestSampleRate(44100);
+        setTestSampleRate(64000);
 
         TExt t("tl.timeline", LA("@mode", "inf"));
         REQUIRE(t.object());
@@ -497,22 +497,22 @@ TEST_CASE("tl.timeline", "[externals]")
         REQUIRE(t.outputListAt(0) == LA("begin", 0.f));
 
         NO_OUTPUT_NTICKS(t, 100);
-        REQUIRE_PROPERTY_FLOAT(t, @current, 100_ticks);
+        REQUIRE_PROPERTY_FLOAT(t, @current, 100);
 
-        t.call("add", LA(200_ticks, "ms"));
+        t.call("add", LA(200, "ms"));
         NO_OUTPUT_NTICKS(t, 99);
-        REQUIRE_PROPERTY_FLOAT(t, @current, 199_ticks);
+        REQUIRE_PROPERTY_FLOAT(t, @current, 199);
         t.schedTicks(1);
-        REQUIRE(t.outputListAt(0) == LX(0, 200_ticks));
+        REQUIRE(t.outputListAt(0) == LX(0, 200));
 
         NO_OUTPUT_NTICKS(t, 100);
-        REQUIRE_PROPERTY_FLOAT(t, @current, 300_ticks);
+        REQUIRE_PROPERTY_FLOAT(t, @current, 300);
         NO_OUTPUT_NTICKS(t, 10);
 
         t.call("add", LA(350_ticks, "ms"));
         NO_OUTPUT_NTICKS(t, 39);
         t.schedTicks(1);
-        REQUIRE(t.outputListAt(0) == LX(1, 350_ticks));
+        REQUIRE(t.outputListAt(0) == LX(1, 350));
         NO_OUTPUT_NTICKS(t, 10);
 
         t.call("add", LA(400_ticks, "ms"));
@@ -520,18 +520,17 @@ TEST_CASE("tl.timeline", "[externals]")
         t.call("add", LA(250_ticks, "ms"));
         NO_OUTPUT_NTICKS(t, 29);
         t.call("add", LA(150_ticks, "ms"));
-        REQUIRE_PROPERTY_FLOAT(t, @current, 399_ticks);
+        REQUIRE_PROPERTY_FLOAT(t, @current, 399);
         t.schedTicks(2);
-        REQUIRE(t.outputListAt(0) == LX(4, 400_ticks));
+        REQUIRE(t.outputListAt(0) == LX(4, 400));
     }
 
     SECTION("clear")
     {
-        setTestSampleRate(44100);
-        t_float tm = 100_ticks / 1000.0;
-        TExt t("tl.timeline", LA(tm, "@loop", 1));
+        setTestSampleRate(64000);
+        TExt t("tl.timeline", LA(0.1, "@loop", 1));
 
-        t.call("add", LA(30_ticks, "ms"));
+        t.call("add", LA(30, "ms"));
         REQUIRE_PROPERTY_FLOAT(t, @size, 2);
 
         t.call("start");
@@ -542,64 +541,62 @@ TEST_CASE("tl.timeline", "[externals]")
         REQUIRE_PROPERTY_FLOAT(t, @size, 1);
 
         NO_OUTPUT_NTICKS(t, 79);
-        REQUIRE_PROPERTY_FLOAT(t, @current, 99_ticks);
+        REQUIRE_PROPERTY_FLOAT(t, @current, 99);
         t.schedTicks(2);
-        REQUIRE(t.outputListAt(0) == LAX("end", 100_ticks));
+        REQUIRE(t.outputListAt(0) == LAX("end", 100));
 
         // next loop iteration
         NO_OUTPUT_NTICKS(t, 49);
-        t.call("add", LA(80_ticks, "ms"));
+        t.call("add", LA(80, "ms"));
         NO_OUTPUT_NTICKS(t, 29);
         t.schedTicks(2);
-        REQUIRE(t.outputListAt(0) == LX(0, 80_ticks));
+        REQUIRE(t.outputListAt(0) == LX(0, 80));
         NO_OUTPUT_NTICKS(t, 9);
 
         // clear after event
         t.call("clear");
         NO_OUTPUT_NTICKS(t, 9);
         t.schedTicks(2);
-        REQUIRE(t.outputListAt(0) == LAX("end", 100_ticks));
+        REQUIRE(t.outputListAt(0) == LAX("end", 100));
 
         // empty loop
         NO_OUTPUT_NTICKS(t, 98);
         t.schedTicks(2);
-        REQUIRE(t.outputListAt(0) == LAX("end", 100_ticks));
+        REQUIRE(t.outputListAt(0) == LAX("end", 100));
     }
 
     SECTION("add named")
     {
-        setTestSampleRate(44100);
-        t_float tm = 100_ticks / 1000.0;
-        TExt t("tl.timeline", LA(tm, "@loop", 1));
+        setTestSampleRate(64000);
+        TExt t("tl.timeline", LA(0.1, "@loop", 1));
 
-        t.call("add", LA("ev0", 90_ticks, "ms before end"));
-        REQUIRE_PROPERTY_LIST(t, @events, LAX("ev0", "end"));
+        t.call("add", LA("ev0", 90, "ms before end"));
+        REQUIRE_PROPERTY_LIST(t, @events, LA("ev0", "end"));
 
         t.call("add", LA("my_event", 40, "ms"));
-        REQUIRE_PROPERTY_LIST(t, @events, LAX("ev0", "my_event", "end"));
+        REQUIRE_PROPERTY_LIST(t, @events, LA("ev0", "my_event", "end"));
 
         // INVALID
         t.call("add", LA("ev1", 1, "ms after end"));
-        REQUIRE_PROPERTY_LIST(t, @events, LAX("ev0", "my_event", "end"));
+        REQUIRE_PROPERTY_LIST(t, @events, LA("ev0", "my_event", "end"));
 
         t.call("add", LA("ev1", 20, "ms before end"));
-        REQUIRE_PROPERTY_LIST(t, @events, LAX("ev0", "my_event", "ev1", "end"));
+        REQUIRE_PROPERTY_LIST(t, @events, LA("ev0", "my_event", "ev1", "end"));
     }
 
     SECTION("remove")
     {
-        setTestSampleRate(44100);
-        t_float tm = 100_ticks / 1000.0;
-        TExt t("timeline", LA(tm, "@loop", 1));
+        setTestSampleRate(64000);
+        TExt t("timeline", LA(0.1, "@loop", 1));
 
-        t.call("add", LA(30_ticks, "ms"));
+        t.call("add", LA(30, "ms"));
         REQUIRE_PROPERTY_FLOAT(t, @size, 2);
-        REQUIRE_PROPERTY_LIST(t, @events, LAX("event1", "end"));
+        REQUIRE_PROPERTY_LIST(t, @events, LA("event1", "end"));
 
         t.call("start");
         NO_OUTPUT_NTICKS(t, 29);
         t.schedTicks(1);
-        REQUIRE(t.outputListAt(0) == LX(0, 30_ticks));
+        REQUIRE(t.outputListAt(0) == LX(0, 30));
 
         t.call("remove");
         t.call("remove", 100);
@@ -610,26 +607,26 @@ TEST_CASE("tl.timeline", "[externals]")
         REQUIRE_PROPERTY_FLOAT(t, @size, 1);
         NO_OUTPUT_NTICKS(t, 69);
         t.schedTicks(2);
-        REQUIRE(t.outputListAt(0) == LAX("end", 100_ticks));
+        REQUIRE(t.outputListAt(0) == LAX("end", 100));
 
-        t.call("add", LA(30_ticks, "ms"));
-        t.call("add", LA(90_ticks, "ms"));
+        t.call("add", LA(30, "ms"));
+        t.call("add", LA(90, "ms"));
 
         t.schedTicks(59);
         // remove before passing event
         t.call("remove", 1);
         NO_OUTPUT_NTICKS(t, 39);
-        REQUIRE_PROPERTY_FLOAT(t, @current, 99_ticks);
+        REQUIRE_PROPERTY_FLOAT(t, @current, 99);
         t.schedTicks(2);
-        REQUIRE(t.outputListAt(0) == LAX("end", 100_ticks));
+        REQUIRE(t.outputListAt(0) == LAX("end", 100));
 
-        REQUIRE_PROPERTY_LIST(t, @events, LAX("event1", "end"));
+        REQUIRE_PROPERTY_LIST(t, @events, LA("event1", "end"));
         t.call("remove", LA("end"));
-        REQUIRE_PROPERTY_LIST(t, @events, LAX("event1", "end"));
+        REQUIRE_PROPERTY_LIST(t, @events, LA("event1", "end"));
         t.call("remove", 0);
-        REQUIRE_PROPERTY_LIST(t, @events, LAX("end"));
+        REQUIRE_PROPERTY_LIST(t, @events, LA("end"));
         t.call("remove", 0);
-        REQUIRE_PROPERTY_LIST(t, @events, LAX("end"));
+        REQUIRE_PROPERTY_LIST(t, @events, LA("end"));
 
         t.call("add", LA("abs1 50ms"));
         t.call("add", LA("event1 10ms after abs1"));
@@ -646,8 +643,8 @@ TEST_CASE("tl.timeline", "[externals]")
         t.call("add", LA("abs0 45ms"));
         t.call("add", LA("abs1 50ms"));
         t.call("add", LA("event1 10ms before abs1"));
-        REQUIRE_PROPERTY_LIST(t, @events, LAX("event1", "abs0", "abs1", "end"));
+        REQUIRE_PROPERTY_LIST(t, @events, LA("event1", "abs0", "abs1", "end"));
         t.call("remove", LA("abs1"));
-        REQUIRE_PROPERTY_LIST(t, @events, LAX("abs0", "end"));
+        REQUIRE_PROPERTY_LIST(t, @events, LA("abs0", "end"));
     }
 }

@@ -46,6 +46,7 @@ conv.car2pol,car->pol		.		.
 conv.cc2amp,cc->amp		.		.
 conv.dbfs2amp,dbfs->amp		.		.
 conv.dbfs2amp~,dbfs->amp~		~		~
+conv.degree2key,degree->key		.		.
 conv.hex2int,hex->int		.		.
 conv.lin2curve,lin->curve		.		.
 conv.lin2exp,lin->exp		.		.
@@ -133,6 +134,7 @@ flow.pack		?		.
 flow.pass,pass		..		.
 flow.pass_if,pass_if		..		..
 flow.pipe		..		.
+flow.queue		?		?
 flow.reject,reject,flow.!		..		.
 flow.reject_if,reject_if		..		..
 flow.ring,flow.>>		..		?
@@ -192,6 +194,7 @@ fx.freqshift~		~~		~~
 fx.granulator~		~		~~
 fx.greyhole~		~~		~~
 fx.looper~		~		~.
+fx.pitchshift_s~		~~		~
 fx.pitchshift~		~.		~
 fx.sdelay~		~		~
 fx.vocoder~		~~		~
@@ -492,11 +495,14 @@ random.linear		.		.
 random.pw_const		.		.
 random.pw_lin		.		.
 replace		...		.
+rtree.to_list,rtree->list		.		.
 seq.arp		.		..
-seq.bangs,seq.b		..		...
+seq.bangs,seq.b		..		..
+seq.matrix		..		..
 seq.nbangs,seq.nb		..		..
 seq.phasor		..		..
-seq.toggles,seq.t		..		...
+seq.toggles,seq.t		..		..
+sequencer,seq		..		..
 set.contains		..		.
 set.diff		..		.
 set.equal		..		.

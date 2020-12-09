@@ -13,15 +13,12 @@
  *****************************************************************************/
 #include "ceammc_datastorage.h"
 #include "ceammc_atomlist.h"
-#include "ceammc_convert.h"
 #include "ceammc_datatypes.h"
 #include "ceammc_format.h"
 #include "ceammc_log.h"
 #include "fmt/format.h"
-#include "muparser/muparser/include/muParser.h"
 
 #include <algorithm>
-#include <cmath>
 
 namespace ceammc {
 
@@ -103,49 +100,8 @@ void DataStorage::clearAll()
     type_list_.clear();
 }
 
-double muParse(const std::string& expr)
-{
-    using DD = double (*)(double);
-    mu::Parser p;
-    static const t_float m_pi = std::acos(t_float(-1));
-    static const t_float m_exp = std::exp(t_float(1));
-
-    p.DefineNameChars("$0123456789_abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ");
-    p.DefineConst("sr", sys_getsr());
-    p.DefineConst("bs", sys_getblksize());
-    p.DefineConst("e", m_exp);
-    p.DefineConst("pi", m_pi);
-    p.DefineFun("floor", (DD)std::floor);
-    p.DefineFun("ceil", (DD)std::ceil);
-    p.SetExpr(expr);
-    return p.Eval();
-}
-
 DataStorage::DataStorage()
 {
-    static const t_float m_pi = std::acos(t_float(-1));
-    static const t_float m_exp = std::exp(t_float(1));
-    registerNewType("pi", [](const AtomList&) -> Atom { return Atom(m_pi); });
-    registerNewType("e", [](const AtomList&) -> Atom { return Atom(m_exp); });
-    registerNewType("sr", [](const AtomList&) -> Atom { return Atom(sys_getsr()); });
-    registerNewType("bs", [](const AtomList&) -> Atom { return Atom(sys_getblksize()); });
-    registerNewType("mtof", [](const AtomList& a) -> Atom { return Atom(convert::midi2freq(a.floatAt(0, 0))); });
-    registerNewType("ftom", [](const AtomList& a) -> Atom { return Atom(convert::freq2midi(a.floatAt(0, 0))); });
-    registerNewType("ms2bpm", [](const AtomList& a) -> Atom { return Atom(60000 / a.floatAt(0, 1)); });
-    registerNewType("bpm2ms", [](const AtomList& a) -> Atom { return Atom(60000 / a.floatAt(0, 1)); });
-
-    registerNewType("expr", [](const AtomList& expr) -> Atom {
-        std::string str = to_string(expr);
-        try {
-            return Atom(muParse(str));
-        } catch (mu::Parser::exception_type& e) {
-            pd_error(nullptr, "[muparser] exception: %s", e.GetMsg().c_str());
-        } catch (std::exception& e) {
-            pd_error(nullptr, "[muparser] exception: %s", e.what());
-        }
-
-        return Atom(0.f);
-    });
 }
 
 DataStorage::type_iterator DataStorage::findByName(const std::string& name) const

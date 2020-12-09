@@ -22,33 +22,38 @@
         </meta>
         <arguments>
             <argument name="N" type="int" minvalue="0">number of bangs</argument>
-            <argument name="T" type="float" minvalue="1" units="millisecond">
-            time interval between bangs</argument>
+            <argument name="T" type="float" minvalue="1" units="millisecond">time interval between
+            bangs</argument>
         </arguments>
         <properties>
+            <property name="@dur" type="float" minvalue="0" default="0">sequence duration. Changing
+            this property also changes @t interval between bangs.</property>
             <property name="@n" type="int" minvalue="0" default="0">number of bangs</property>
-            <property name="@t" type="float" default="0" minvalue="0" units="millisecond">
-            time interval between bangs</property>
+            <property name="@t" type="float" default="0" minvalue="1" maxvalue="20000"
+            units="millisecond">time interval between bangs. You could also use units values like
+            100ms or 120bpm.</property>
         </properties>
         <methods>
-            <method name="start">start/stop
-            <param name="on" type="int" enum="0 1" default="1" required="false">
-            if true - starts bang sequence, otherwise stops
-            </param></method>
-            <method name="stop">stop bang output without resetting bang counter</method>
+            <method name="start">start/stop 
+            <param name="on" type="int" enum="0 1" default="1" required="false">if true - starts
+            bang sequence, otherwise stops</param></method>
+            <method name="stop">stop bang output</method>
             <method name="reset">stop bang output and reset bang counter</method>
+            <method name="rewind">reset all counters without stopping</method>
+            <method name="tick">manually output current sequence element and move to next</method>
         </methods>
         <inlets>
             <inlet>
-                <xinfo on="bang">starts output</xinfo>
+                <xinfo on="bang">reset counter and starts output</xinfo>
+                <xinfo on="float">sets number of bangs and starts output</xinfo>
             </inlet>
             <inlet>
-                <xinfo on="any">stops output and reset</xinfo>
+                <xinfo on="float">set number of bangs</xinfo>
             </inlet>
         </inlets>
         <outlets>
             <outlet>bang output</outlet>
-            <outlet>bang wheh finished</outlet>
+            <outlet>[i IDX N( - bang index or [done( when done</outlet>
         </outlets>
         <example>
             <pdascii>
@@ -56,11 +61,11 @@
 [10( [15( [2(         [ui.dsp~]
 |    |    |
 [seq.nbangs @t 110]
-|        |
-|        [random.i 300 3000]
-|        |
-[click~] [@freq $1(
-|        |
+|            ^|
+|            [route done i]
+|            |     ^|
+[click~]     [B]   [F]
+|
 [flt.resonbp~ 1000 40]
 |
 [ui.hgain~]

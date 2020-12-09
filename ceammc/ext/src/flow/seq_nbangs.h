@@ -15,26 +15,34 @@
 #define SEQ_NBANGS_H
 
 #include "ceammc_clock.h"
-#include "ceammc_object.h"
+#include "seq_base.h"
+
 using namespace ceammc;
 
 class SeqNBangs : public BaseObject {
     IntProperty* n_;
-    FloatProperty* interval_ms_;
+    SeqTimeGrain* interval_;
+    size_t counter_;
     ClockLambdaFunction clock_;
-    int counter_;
 
 public:
     SeqNBangs(const PdArgs& args);
 
     void onBang() override;
     void onFloat(t_float f) override;
+    void onList(const AtomList& l) override;
     void onInlet(size_t n, const AtomList& lv) override;
 
-    void m_reset(t_symbol* s, const AtomListView&);
-    void m_start(t_symbol* s, const AtomListView& lv);
-    void m_stop(t_symbol* s, const AtomListView&);
+    void start();
+    void stop();
+    void reset();
+    bool tick();
+
+    void resetCycleCounter() { }
+    void resetSequenceCounter() { counter_ = 0; }
 };
+
+using SeqNBangsT = SequencerIFace<SeqNBangs>;
 
 void setup_seq_nbangs();
 

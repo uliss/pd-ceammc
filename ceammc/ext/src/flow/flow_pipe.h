@@ -30,6 +30,7 @@ private:
     Pipe pipe_;
     FloatProperty* delay_;
     InletProxy<FlowPipe> inlet_proxy_;
+    ClockLambdaFunction cleanup_;
 
 public:
     FlowPipe(const PdArgs& a);
@@ -44,6 +45,9 @@ public:
     void proxy_float(t_float f);
     void proxy_flush(const AtomListView& v);
     void proxy_reset(const AtomListView& v);
+
+private:
+    void pop();
 };
 
 void setup_flow_pipe();

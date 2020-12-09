@@ -53,18 +53,19 @@
     {conv {
         array.p2s array.s2p conv.amp2dbfs conv.amp2dbfs~ conv.bpm2hz
         conv.bpm2ms conv.bpm2sec conv.car2pol conv.cc2amp conv.dbfs2amp
-        conv.dbfs2amp~ conv.hex2int conv.lin2curve conv.lin2exp conv.lin2lin
-        conv.lin2lin~ conv.list2props conv.midi2freq conv.ms2bpm conv.ms2samp
-        conv.ms2samp~ conv.phase2rad conv.phase2rad~ conv.pitch2midi
-        conv.pol2car conv.rad2phase conv.rad2phase~ conv.samp2ms conv.samp2ms~
-        conv.samp2sec conv.sec2bpm conv.sec2samp conv.sec2str conv.str2sec
+        conv.dbfs2amp~ conv.degree2key conv.hex2int conv.lin2curve
+        conv.lin2exp conv.lin2lin conv.lin2lin~ conv.list2props conv.midi2freq
+        conv.ms2bpm conv.ms2samp conv.ms2samp~ conv.phase2rad conv.phase2rad~
+        conv.pitch2midi conv.pol2car conv.rad2phase conv.rad2phase~
+        conv.samp2ms conv.samp2ms~ conv.samp2sec conv.sec2bpm conv.sec2samp
+        conv.sec2str conv.str2sec
     }}
     {data {
         data.dict data.fifo data.float data.int data.list data.mlist data.set
         data.set2list dict.contains dict.each dict.from_list dict.get
         dict.keys dict.pass dict.reject dict.size dict.to_list dict.values
-        mlist.flatten set.contains set.diff set.equal set.intersect set.size
-        set.symdiff set.union
+        mlist.flatten rtree.to_list set.contains set.diff set.equal
+        set.intersect set.size set.symdiff set.union
     }}
     {dyn {
         dyn.comp2~ dyn.comp~ dyn.gate2~ dyn.gate~ dyn.limit2~ dyn.limit~
@@ -81,9 +82,9 @@
         flow.gate flow.greater flow.greater_eq flow.group flow.interval
         flow.less flow.less_eq flow.match flow.mem flow.multiplex
         flow.multiplex2~ flow.multiplex~ flow.once flow.pack flow.pass
-        flow.pass_if flow.pipe flow.reject flow.reject_if flow.ring flow.route
-        flow.select flow.space flow.speedlim flow.split flow.stack flow.sync
-        flow.sync_pack flow.tee~ replace
+        flow.pass_if flow.pipe flow.queue flow.reject flow.reject_if flow.ring
+        flow.route flow.select flow.space flow.speedlim flow.split flow.stack
+        flow.sync flow.sync_pack flow.tee~ replace
     }}
     {flt {
         flt.biquad~ flt.bpf12~ flt.bpf24~ flt.c_bpf~ flt.c_highshelf~
@@ -97,8 +98,8 @@
         fx.bitdown~ fx.chorus~ fx.distortion1~ fx.distortion2~ fx.distortion3~
         fx.distortion~ fx.drive~ fx.drone_box~ fx.echo~ fx.flanger~
         fx.freeverb2~ fx.freeverb~ fx.freqshift~ fx.granulator~ fx.greyhole~
-        fx.looper~ fx.pitchshift~ fx.sdelay~ fx.vocoder~ fx.wahwah~
-        fx.zita_rev1~
+        fx.looper~ fx.pitchshift_s~ fx.pitchshift~ fx.sdelay~ fx.vocoder~
+        fx.wahwah~ fx.zita_rev1~
     }}
     {global {
         global.dict global.float global.int global.list global.mlist
@@ -197,7 +198,8 @@
         random.linear random.pw_const random.pw_lin
     }}
     {seq {
-        seq.arp seq.bangs seq.nbangs seq.phasor seq.toggles
+        seq.arp seq.bangs seq.matrix seq.nbangs seq.phasor seq.toggles
+        sequencer
     }}
     {snd {
         snd.file

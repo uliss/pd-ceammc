@@ -389,11 +389,11 @@ namespace ceammc {
     union union_type
     {
       // atom
-      // function_call
       // data
       char dummy1[sizeof (ceammc::Atom)];
 
       // atom_list
+      // function_call
       // expr
       char dummy2[sizeof (ceammc::AtomList)];
 
@@ -556,12 +556,12 @@ namespace ceammc {
         switch (this->kind ())
     {
       case symbol_kind::S_atom: // atom
-      case symbol_kind::S_function_call: // function_call
       case symbol_kind::S_data: // data
         value.move< ceammc::Atom > (std::move (that.value));
         break;
 
       case symbol_kind::S_atom_list: // atom_list
+      case symbol_kind::S_function_call: // function_call
       case symbol_kind::S_expr: // expr
         value.move< ceammc::AtomList > (std::move (that.value));
         break;
@@ -726,12 +726,12 @@ namespace ceammc {
 switch (yykind)
     {
       case symbol_kind::S_atom: // atom
-      case symbol_kind::S_function_call: // function_call
       case symbol_kind::S_data: // data
         value.template destroy< ceammc::Atom > ();
         break;
 
       case symbol_kind::S_atom_list: // atom_list
+      case symbol_kind::S_function_call: // function_call
       case symbol_kind::S_expr: // expr
         value.template destroy< ceammc::AtomList > ();
         break;
@@ -1602,12 +1602,12 @@ switch (yykind)
     switch (this->kind ())
     {
       case symbol_kind::S_atom: // atom
-      case symbol_kind::S_function_call: // function_call
       case symbol_kind::S_data: // data
         value.copy< ceammc::Atom > (YY_MOVE (that.value));
         break;
 
       case symbol_kind::S_atom_list: // atom_list
+      case symbol_kind::S_function_call: // function_call
       case symbol_kind::S_expr: // expr
         value.copy< ceammc::AtomList > (YY_MOVE (that.value));
         break;
@@ -1665,12 +1665,12 @@ switch (yykind)
     switch (this->kind ())
     {
       case symbol_kind::S_atom: // atom
-      case symbol_kind::S_function_call: // function_call
       case symbol_kind::S_data: // data
         value.move< ceammc::Atom > (YY_MOVE (s.value));
         break;
 
       case symbol_kind::S_atom_list: // atom_list
+      case symbol_kind::S_function_call: // function_call
       case symbol_kind::S_expr: // expr
         value.move< ceammc::AtomList > (YY_MOVE (s.value));
         break;

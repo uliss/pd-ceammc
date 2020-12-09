@@ -41,6 +41,7 @@
 - dbfs->amp~ converter added
 - conv.sec2bpm (with alias sec->bpm) converter added
 - conv.ms2bpm (with alias ms->bpm) converter added
+- conv.degree2key (with degree->key alias) added
 - symbol2intlist (with sym->ilist alias) converter added
 - hex->int~ converter added
 - freeze added to fx.freeverb~, fx.freeverb2~ and fx.zita_rev1~ (via @freeze property)
@@ -50,10 +51,13 @@
 - an.rms~, root mean square with moving-average algorithm
 - midi.vramp added
 - midi.tuning added
-- seq.bangs sequencer (with seq.b alias) added into new category: seq
-- seq.toggles sequencer (with seq.t alias) added
-- seq.nbangs added (with seq.nb alias)
-- seq.phasor added (control rate saw generator)
+- new category for sequences: seq.*
+    - seq.bangs sequencer (with seq.b alias) added into new category: seq
+    - seq.toggles sequencer (with seq.t alias) added
+    - seq.nbangs added (with seq.nb alias)
+    - seq.phasor added (control rate saw generator)
+    - sequencer object added (with seq alias)
+    - seq.matrix added
 - flow.reject alias added: flow.!
 - ui.display alias added: ui.dt for ui.display @display_type=1
 - sync added for multiple value synchronization without stack overflow
@@ -68,6 +72,7 @@
     - synth.sitar~ added
     - synth.russian_bell~ added
     - synth.glitch~ added
+- RythmTree support added: rtree->list and built-in function rtree()
     
 
 ### Changed:

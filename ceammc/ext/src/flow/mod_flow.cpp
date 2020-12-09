@@ -43,9 +43,11 @@ void setup_flow_space();
 
 void setup_seq_arp();
 void setup_seq_bangs();
-void setup_seq_toggles();
+void setup_seq_matrix();
 void setup_seq_nbangs();
 void setup_seq_phasor();
+void setup_seq_sequencer();
+void setup_seq_toggles();
 
 void ceammc_flow_setup()
 {
@@ -92,6 +94,8 @@ void ceammc_flow_setup()
     setup_seq_arp();
     setup_seq_bangs();
     setup_seq_toggles();
+    setup_seq_matrix();
     setup_seq_nbangs();
     setup_seq_phasor();
+    setup_seq_sequencer();
 }

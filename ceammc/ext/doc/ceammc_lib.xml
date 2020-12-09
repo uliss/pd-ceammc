@@ -201,6 +201,9 @@
     <entry name="conv.dbfs2amp~" descr="convert decibel full scale to amplitude" ref_view="object">
       <xi:include href="conv.dbfs2amp~.pddoc" parse="xml"/>
     </entry>
+    <entry name="conv.degree2key" descr="convert scale degree to key" ref_view="object">
+      <xi:include href="conv.degree2key.pddoc" parse="xml"/>
+    </entry>
     <entry name="conv.hex2int" descr="hex symbol to int value" ref_view="object">
       <xi:include href="conv.hex2int.pddoc" parse="xml"/>
     </entry>
@@ -328,6 +331,9 @@
     </entry>
     <entry name="mlist.flatten" descr="flatten nested mlist" ref_view="object">
       <xi:include href="mlist.flatten.pddoc" parse="xml"/>
+    </entry>
+    <entry name="rtree.to_list" descr="convert OpenMusic-like rythm tree to list of fractions" ref_view="object">
+      <xi:include href="rtree.to_list.pddoc" parse="xml"/>
     </entry>
     <entry name="set.contains" descr="check if specified element is in set" ref_view="object">
       <xi:include href="set.contains.pddoc" parse="xml"/>
@@ -496,6 +502,9 @@
     </entry>
     <entry name="flow.pipe" descr="enhanced version on vanilla pipe object" ref_view="object">
       <xi:include href="flow.pipe.pddoc" parse="xml"/>
+    </entry>
+    <entry name="flow.queue" descr="multi-channel control flow sync queue (or FIFO)" ref_view="object">
+      <xi:include href="flow.queue.pddoc" parse="xml"/>
     </entry>
     <entry name="flow.reject" descr="reject specified values" ref_view="object">
       <xi:include href="flow.reject.pddoc" parse="xml"/>
@@ -671,6 +680,9 @@
     </entry>
     <entry name="fx.looper~" descr="One track looper" ref_view="object">
       <xi:include href="fx.looper~.pddoc" parse="xml"/>
+    </entry>
+    <entry name="fx.pitchshift_s~" descr="signal version of fx.pitchshift~" ref_view="object">
+      <xi:include href="fx.pitchshift_s~.pddoc" parse="xml"/>
     </entry>
     <entry name="fx.pitchshift~" descr="simple pitch shifter based on 2 delay lines" ref_view="object">
       <xi:include href="fx.pitchshift~.pddoc" parse="xml"/>
@@ -1532,6 +1544,9 @@
     <entry name="seq.bangs" descr="bang sequencer" ref_view="object">
       <xi:include href="seq.bangs.pddoc" parse="xml"/>
     </entry>
+    <entry name="seq.matrix" descr="sequencer control for ui.matrix" ref_view="object">
+      <xi:include href="seq.matrix.pddoc" parse="xml"/>
+    </entry>
     <entry name="seq.nbangs" descr="output specified number of bang with time intervals" ref_view="object">
       <xi:include href="seq.nbangs.pddoc" parse="xml"/>
     </entry>
@@ -1540,6 +1555,9 @@
     </entry>
     <entry name="seq.toggles" descr="toggle sequencer" ref_view="object">
       <xi:include href="seq.toggles.pddoc" parse="xml"/>
+    </entry>
+    <entry name="sequencer" descr="basic sequence player" ref_view="object">
+      <xi:include href="sequencer.pddoc" parse="xml"/>
     </entry>
   </category>
   <category name="snd">

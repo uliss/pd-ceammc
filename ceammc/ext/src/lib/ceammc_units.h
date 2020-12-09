@@ -17,6 +17,7 @@
 #include <boost/variant.hpp>
 #include <cmath>
 #include <cstdint>
+#include <stdexcept>
 
 #include "ceammc_atomlist.h"
 #include "ceammc_log.h"
@@ -93,6 +94,7 @@ namespace units {
         virtual UnitType type() const = 0;
         virtual bool isTime() const = 0;
         virtual bool isFraction() const = 0;
+        virtual bool isFrequency() const { return false; };
     };
 
     class FractionValue : public UnitValue {
@@ -286,6 +288,105 @@ namespace units {
 
     public:
         static ParseResult parse(const AtomListView& lv);
+    };
+
+    class FreqValue : public UnitValue {
+    public:
+        enum Units {
+            HZ = 0,
+            BPM,
+            MS
+        };
+
+        using ParseResult = Either<FreqValue>;
+
+    public:
+        FreqValue(double v = 0, Units u = HZ)
+            : UnitValue(v)
+            , units_(u)
+        {
+        }
+
+        double toHerz() const
+        {
+            switch (units_) {
+            case BPM:
+                return value() / 60;
+            case MS: {
+                if (value() == 0)
+                    throw std::runtime_error("zero interval");
+                else
+                    return 1000 / value();
+            }
+            default:
+                return value();
+            }
+        }
+
+        double toMs() const
+        {
+            const auto hz = toHerz();
+
+            if (hz == 0)
+                throw std::runtime_error("zero frequency");
+            else
+                return 1000 / toHerz();
+        }
+
+        double toSamples(double sr) const
+        {
+            const auto hz = toHerz();
+
+            if (hz == 0)
+                throw std::runtime_error("zero frequency");
+            else
+                return sr / toHerz();
+        }
+
+        bool operator==(const FreqValue& v) const
+        {
+            if (units_ == v.units_)
+                return value() == v.value();
+            else
+                return toHerz() == v.toHerz();
+        }
+
+        bool operator!=(const FreqValue& v) const { return !this->operator==(v); }
+
+        bool operator<(const FreqValue& v) const
+        {
+            if (units_ == v.units_)
+                return value() < v.value();
+            else
+                return toHerz() < v.toHerz();
+        }
+
+        bool operator<=(const FreqValue& v) const
+        {
+            return this->operator<(v) || this->operator==(v);
+        }
+
+        bool operator>=(const FreqValue& v) const
+        {
+            return !this->operator<(v);
+        }
+
+        bool operator>(const FreqValue& v) const
+        {
+            return !this->operator<=(v);
+        }
+
+        Units units() const { return units_; }
+        UnitType type() const final { return UnitType::FREQ; }
+        bool isFraction() const final { return false; }
+        bool isTime() const final { return false; }
+        bool isFrequency() const final { return true; }
+
+    public:
+        static ParseResult parse(const AtomListView& lv);
+
+    private:
+        Units units_;
     };
 }
 }

@@ -21,20 +21,34 @@
             units</argument>
         </arguments>
         <properties>
-            <property name="@bpm" type="float" default="60" minvalue="1" maxvalue="600"
-            units="bpm">frequency of sequencer division (by default @div=4)</property>
-            <property name="@div" type="int" default="4" minvalue="1" maxvalue="512">sequencer beat
-            division. The four means 1/4, eight - 1/8 etc.</property>
-            <property name="@pattern" type="list">sequencer pattern in beat duration
-            units</property>
+            <property name="@t" type="float" default="100" minvalue="1" maxvalue="20000"
+            units="millisecond">time between beats. Unit values like 100ms or 240bpm also can be
+            used</property>
+            <property name="@p" type="list">sequencer pattern in beat duration units</property>
+            <property name="@r" type="int" minvalue="-1" default="1">number of whole sequence
+            repeats. If -1: repeat infinitely</property>
+            <property name="@inf" type="alias">alias to @r -1, repeats infinitely</property>
+            <property name="@once" type="alias">alias to @r 1, play once</property>
+            <property name="@dur" type="float" default="0" minvalue="0" units="millisecond">whole
+            sequence duration. (Recalculates @t property accordingly)</property>
+            <property name="@i" type="int" minvalue="0" readonly="true" default="0">current
+            sequence iteration</property>
+            <property name="@ri" type="int" minvalue="0" readonly="true" default="0">current repeat
+            iteration</property>
+            <property name="@mode" type="symbol" enum="inc dec tri" default="inc">sequencer mode.
+            'inc': from first to last, 'dec': from last to first, 'tri': from first to last, then
+            back</property>
         </properties>
         <methods>
-            <method name="reset">reset to first element</method>
+            <method name="start">start sequencer from current position</method>
+            <method name="reset">reset all counters and stop</method>
+            <method name="rewind">reset all counters without stopping</method>
             <method name="stop">stop sequencer</method>
+            <method name="tick">output current sequence element and move to next</method>
         </methods>
         <inlets>
             <inlet>
-                <xinfo on="bang">starts sequencer</xinfo>
+                <xinfo on="bang">reset all counters and start sequencer</xinfo>
             </inlet>
             <inlet>
                 <xinfo on="list">set new pattern value</xinfo>
@@ -42,26 +56,26 @@
         </inlets>
         <outlets>
             <outlet>bang</outlet>
-            <outlet>float: duration until next bang (in ms)</outlet>
-            <outlet>current index or 'done' when done</outlet>
+            <outlet>[i IDX N( - sequence iteration, [ri IDX N( - repeat iteration, [ed MS( - event
+            duration or [done( when done</outlet>
         </outlets>
         <example>
             <pdascii>
 <![CDATA[
-[B #b]  [stop(  [reset(
+[B]     [stop(  [reset(
 |       |       |
-[seq.bangs 3 1 2 1 1 @bpm 120 @div 16]
-|                          ^^|
-|                          [route done]  [T]
-|                          |             |.
-[click~]                   [flow.gate 1 {w=27} #g]
+|       |       |
+[seq.bangs 3 1 2 1 1 @t 480bpm @r 4]
+|                          ^|
+|                          [route done i ed ri {w=21}]
+|                          |    ^|  ^^|  ^^^|
+[click~]                   [B]  [F]  [F]  [F]
 |
 [flt.resonbp~ 1000 40]     [ui.dsp~]
 |
 [ui.hgain~]
 |\
 [dac~]
-[X g->b]
 ]]>
             </pdascii>
         </example>

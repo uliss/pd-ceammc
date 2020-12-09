@@ -14,7 +14,8 @@
             <since>0.9.1</since>
         </meta>
         <arguments>
-            <argument name="N" type="int" minvalue="2" maxvalue="8">number of synchronized values</argument>
+            <argument name="N" type="int" minvalue="2" maxvalue="8">number of synchronized
+            values</argument>
         </arguments>
         <inlets dynamic="true">
             <inlet number="1">

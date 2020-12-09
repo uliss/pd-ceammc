@@ -14,21 +14,18 @@
 #include "seq_nbangs.h"
 #include "ceammc_factory.h"
 
+static t_symbol* SYM_DONE;
+static t_symbol* SYM_IDX;
+
 SeqNBangs::SeqNBangs(const PdArgs& args)
     : BaseObject(args)
     , n_(nullptr)
-    , interval_ms_(nullptr)
-    , clock_([this]() {
-        if (counter_ < n_->value()) {
-            counter_++;
-            clock_.delay(interval_ms_->value());
-            bangTo(0);
-
-            if (counter_ == n_->value())
-                bangTo(1);
-        }
-    })
+    , interval_(nullptr)
     , counter_(0)
+    , clock_([this]() {
+        if (tick())
+            clock_.delay(interval_->value());
+    })
 {
     createInlet();
     createOutlet();
@@ -39,67 +36,103 @@ SeqNBangs::SeqNBangs(const PdArgs& args)
     n_->setArgIndex(0);
     addProperty(n_);
 
-    interval_ms_ = new FloatProperty("@t", 0);
-    interval_ms_->checkNonNegative();
-    interval_ms_->setUnits(PropValueUnits::MSEC);
-    interval_ms_->setArgIndex(1);
-    addProperty(interval_ms_);
+    interval_ = new SeqTimeGrain("@t", 0);
+    interval_->setArgIndex(1);
+    addProperty(interval_);
+
+    createCbFloatProperty(
+        "@dur",
+        [this]() -> t_float { return n_->value() * interval_->value(); },
+        [this](t_float f) -> bool {
+            const auto N = n_->value();
+            if (N == 0) {
+                OBJ_ERR << "empty sequence";
+                return false;
+            }
+
+            return interval_->setValue(f / N);
+        })
+        ->checkNonNegative();
 }
 
 void SeqNBangs::onBang()
 {
-    counter_ = 0;
-    clock_.exec();
+    reset();
+    start();
 }
 
 void SeqNBangs::onFloat(t_float f)
 {
-    counter_ = 0;
+    reset();
+
     if (n_->setValue(f))
         clock_.exec();
 }
 
+void SeqNBangs::onList(const AtomList& l)
+{
+    if (l.empty())
+        return onBang();
+    else if (l.size() == 1)
+        return onFloat(l[0].asFloat());
+    else if (l.size() == 2) {
+        reset();
+        if (n_->set(l.view(0, 1)) && interval_->set(l.view(1, 1)))
+            clock_.exec();
+    } else
+        OBJ_ERR << "usage: NUM INTERVAL";
+}
+
 void SeqNBangs::onInlet(size_t n, const AtomList& lv)
 {
-    m_reset(&s_, lv);
+    n_->set(lv);
 }
 
-void SeqNBangs::m_reset(t_symbol* s, const AtomListView&)
+void SeqNBangs::start()
+{
+    clock_.exec();
+}
+
+void SeqNBangs::stop()
 {
     clock_.unset();
+}
+
+void SeqNBangs::reset()
+{
     counter_ = 0;
-}
-
-void SeqNBangs::m_start(t_symbol* s, const AtomListView& lv)
-{
-    const auto on = lv.boolAt(0, true);
-
-    if (on)
-        clock_.exec();
-    else
-        clock_.unset();
-}
-
-void SeqNBangs::m_stop(t_symbol* s, const AtomListView&)
-{
     clock_.unset();
+}
+
+bool SeqNBangs::tick()
+{
+    if ((int)counter_ >= n_->value()) {
+        anyTo(1, SYM_DONE, AtomListView());
+        return false;
+    } else {
+        Atom l[2] = { counter_, n_->value() };
+        anyTo(1, SYM_IDX, AtomListView(&l->atom(), 2));
+        bangTo(0);
+
+        counter_++;
+        return true;
+    }
 }
 
 void setup_seq_nbangs()
 {
-    ObjectFactory<SeqNBangs> obj("seq.nbangs");
-    obj.addAlias("seq.nb");
-    obj.addMethod("reset", &SeqNBangs::m_reset);
-    obj.addMethod("start", &SeqNBangs::m_start);
-    obj.addMethod("stop", &SeqNBangs::m_stop);
+    SYM_DONE = gensym("done");
+    SYM_IDX = gensym("i");
 
-    obj.useDefaultPdListFn();
+    SequencerIFaceFactory<ObjectFactory, SeqNBangsT> obj("seq.nbangs");
+    obj.addAlias("seq.nb");
 
     obj.setXletsInfo({ "bang: start\n"
                        "float: set number of bangs then start\n"
                        "list: NUM INTERVAL set number and interval then start\n"
-                       "start 1|0:  start/stop sequence\n"
-                       "stop: sequence output",
-                         "bang: stop sequence output and reset" },
-        { "bang", "bang after last sequence output" });
+                       "start 1|0: start/stop sequence\n"
+                       "stop 1|0:  stop/start sequence",
+                         "float: set number of bangs" },
+        { "bang", "\\[i IDX N( - sequence iteration\n"
+                  "\\[done( - when done" });
 }

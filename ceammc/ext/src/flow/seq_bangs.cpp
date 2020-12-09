@@ -17,37 +17,19 @@
 #include "fmt/format.h"
 
 static t_symbol* SYM_DONE;
+static t_symbol* SYM_EVENT_DUR;
+static t_symbol* SYM_REPEAT_IDX;
+static t_symbol* SYM_IDX;
 
-constexpr size_t OUT_BANG = 0;
-constexpr size_t OUT_TIME = 1;
-constexpr size_t OUT_IDXDONE = 2;
-
-SeqBangs::SeqBangs(const PdArgs& args)
-    : BaseObject(args)
+SeqBangsBase::SeqBangsBase(const PdArgs& args)
+    : SeqBase(args)
     , pattern_(nullptr)
-    , bpm_(nullptr)
-    , division_(nullptr)
-    , clock_([this]() {
-        const auto N = pattern_->value().size();
-
-        if (current_ < N) {
-            output();
-            schedNext();
-        } else if (current_ == N) {
-            anyTo(OUT_IDXDONE, SYM_DONE, AtomListView());
-        }
-    })
+    , interval_(nullptr)
 {
-    bpm_ = new FloatProperty("@bpm", 60);
-    bpm_->checkClosedRange(1, 600);
-    bpm_->setUnits(PropValueUnits::BPM);
-    addProperty(bpm_);
+    interval_ = new SeqTimeGrain("@t", 100);
+    addProperty(interval_);
 
-    division_ = new IntProperty("@div", 4);
-    division_->checkClosedRange(1, 512);
-    addProperty(division_);
-
-    pattern_ = new ListProperty("@pattern");
+    pattern_ = new ListProperty("@p");
     pattern_->setArgIndex(0);
     pattern_->setFilterAtomFn([this](const Atom& a) -> bool {
         if (!a.isFloat() || a.asT<t_float>() < 0) {
@@ -59,105 +41,89 @@ SeqBangs::SeqBangs(const PdArgs& args)
     });
     addProperty(pattern_);
 
+    {
+        auto p = createCbFloatProperty(
+            "@dur",
+            [this]() -> t_float {
+                const auto total = pattern_->value().sum().get_value_or(0);
+                return total * interval_->value();
+            },
+            [this](t_float f) -> bool {
+                const auto total = pattern_->value().sum().get_value_or(0);
+                if (total <= 0) {
+                    OBJ_ERR << "empty sequence";
+                    return false;
+                }
+
+                return interval_->setValue(f / total);
+            });
+
+        p->setUnits(PropValueUnits::MSEC);
+        p->checkNonNegative();
+    }
+
     createInlet();
     createOutlet();
     createOutlet();
-    createOutlet();
 }
 
-void SeqBangs::onBang()
+void SeqBangsBase::onBang()
 {
-    current_ = 0;
-    clock_.unset();
-
-    if (current_ >= pattern_->value().size()) {
-        OBJ_ERR << "empty pattern";
-        return;
-    }
-
-    output();
-    schedNext();
+    reset();
+    start();
 }
 
-void SeqBangs::onInlet(size_t n, const AtomList& l)
+void SeqBangsBase::onInlet(size_t n, const AtomList& l)
 {
     pattern_->set(l);
 }
 
-void SeqBangs::m_stop(t_symbol* s, const AtomListView& lv)
+double SeqBangsBase::calcNextTick() const
 {
-    stop();
+    const auto i = interval_->value();
+    const auto N = pattern_->value().size();
+    if (N == 0)
+        return i;
+
+    const auto idx = sequenceCounter() % N;
+    return i * pattern_->value()[idx].asFloat(0);
 }
 
-void SeqBangs::m_reset(t_symbol* s, const AtomListView& lv)
+void SeqBangsBase::outputTick()
 {
-    reset();
+    Atom l[2] = { sequenceCounter(), sequenceSize() };
+    anyTo(1, SYM_IDX, AtomListView(&l->atom(), 2));
+    anyTo(1, SYM_EVENT_DUR, Atom(calcNextTick()));
+
+    bangTo(0);
 }
 
-void SeqBangs::stop()
+void SeqBangsBase::outputRepeat(size_t ridx)
 {
-    clock_.unset();
+    Atom l[2] = { ridx, numRepeats() };
+    anyTo(1, SYM_REPEAT_IDX, AtomListView(&l->atom(), 2));
 }
 
-void SeqBangs::reset()
+void SeqBangsBase::outputRepeatDone()
 {
-    current_ = 0;
-    if (clock_.isActive())
-        clock_.delay(0);
-}
-
-void SeqBangs::schedNext()
-{
-    if (current_ >= pattern_->value().size())
-        return;
-
-    const auto dur = pattern_->value()[current_].asFloat(0);
-    clock_.delay(calcDurationMs(dur));
-
-    current_++;
-}
-
-void SeqBangs::output()
-{
-    if (current_ >= pattern_->value().size())
-        return;
-
-    floatTo(OUT_IDXDONE, current_);
-    floatTo(OUT_TIME, currentEventDurationMs());
-
-    outputEvent(); // virtual call: using in seq.toggles
-}
-
-void SeqBangs::outputEvent()
-{
-    bangTo(OUT_BANG);
-}
-
-t_float SeqBangs::calcDurationMs(t_float dur) const
-{
-    const auto beat_ms = 1000 * (4 * 60.0 / bpm_->value()) / (division_->value());
-    return dur * beat_ms;
-}
-
-t_float SeqBangs::currentEventDurationMs() const
-{
-    if (current_ >= pattern_->value().size())
-        return -1;
-
-    return calcDurationMs(pattern_->value()[current_].asFloat(0));
+    anyTo(1, SYM_DONE, AtomListView());
 }
 
 void setup_seq_bangs()
 {
     SYM_DONE = gensym("done");
+    SYM_EVENT_DUR = gensym("ed");
+    SYM_REPEAT_IDX = gensym("ri");
+    SYM_IDX = gensym("i");
 
-    ObjectFactory<SeqBangs> obj("seq.bangs");
+    SequencerIFaceFactory<ObjectFactory, SeqBangs> obj("seq.bangs");
     obj.addAlias("seq.b");
-    obj.addMethod("stop", &SeqBangs::m_stop);
-    obj.addMethod("reset", &SeqBangs::m_reset);
 
     obj.setXletsInfo({ "bang:  start playing sequence\n"
                        "stop:  stop sequencer\n",
                          "list: set new pattern" },
-        { "bang: output pattern", "float: time until next bang (in ms)", "bang: when done" });
+        { "bang: output pattern", "\\[i IDX N( - sequence iteration\n"
+                                  "\\[ri IDX N( - repeat iteration\n"
+                                  "\\[ed MS( - event duration\n"
+                                  "\\[done( - when done" });
 }

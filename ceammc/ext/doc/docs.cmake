@@ -47,6 +47,7 @@ set(DOC_FILES
     conv.cc2amp
     conv.dbfs2amp
     conv.dbfs2amp~
+    conv.degree2key
     conv.hex2int
     conv.lin2curve
     conv.lin2exp
@@ -139,6 +140,7 @@ set(DOC_FILES
     flow.reject_if
     flow.ring
     flow.route
+    flow.queue
     flow.select
     flow.space
     flow.speedlim
@@ -195,6 +197,7 @@ set(DOC_FILES
     fx.greyhole~
     fx.looper~
     fx.pitchshift~
+    fx.pitchshift_s~
     fx.sdelay~
     fx.vocoder~
     fx.wahwah~
@@ -493,6 +496,7 @@ set(DOC_FILES
     random.pw_const
     random.discrete
     replace
+    rtree.to_list
     set.contains
     set.diff
     set.equal
@@ -500,8 +504,10 @@ set(DOC_FILES
     set.size
     set.symdiff
     set.union
+    sequencer
     seq.bangs
     seq.arp
+    seq.matrix
     seq.nbangs
     seq.phasor
     seq.toggles

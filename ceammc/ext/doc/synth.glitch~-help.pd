@@ -9,7 +9,7 @@
 #X text 215 80 A minimal \, modern and easy-to-use synthesizer for
 Bytebeat music and not only;
 #X obj 215 120 ui.link @background_color 0.98039 0.98039 0.98039
-@title Glitch @url
+@title              Glitch @url
 https://medium.com/@naive_sound/glitch-a-noisy-fusion-of-math-and-music-6a9b24e7f5b5;
 #X msg 50 181 @expr sin(440);
 #X obj 520 181 r~ \$0-gl;

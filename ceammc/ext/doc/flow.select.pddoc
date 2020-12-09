@@ -23,8 +23,9 @@
             <par>Match syntax:</par>
             <par>common: symbols or floats</par>
             <par>compare: &gt;NUM, &gt;=NUM, &lt;NUM, &lt;=NUM</par>
-            <par>intervals: FROM..TO, or [FROM..TO] - closed interval, [FROM..TO) or (FROM..TO] semi-open interval,
-            (FROM..TO) open interval, NUM~EPSILON - value in NUM+-EPSILON range</par>
+            <par>intervals: FROM..TO, or [FROM..TO] - closed interval, [FROM..TO) or (FROM..TO]
+            semi-open interval, (FROM..TO) open interval, NUM~EPSILON - value in NUM+-EPSILON
+            range</par>
             <par>set: A|B|C - match to A or B or C</par>
         </info>
         <arguments>
@@ -32,9 +33,10 @@
         </arguments>
         <properties>
             <property name="@v" type="alias">alias to @keep_value 1</property>
-            <property name="@keep_value" type="int" default="0" enum="0 1 on off">vakue output mode.
-            If false (by default) acts like vanilla select: output bang on match or full unmatched message to last outlet.
-            If true always outputs full matched message to corresponding outlet.</property>
+            <property name="@keep_value" type="int" default="0" enum="0 1 on off">vakue output
+            mode. If false (by default) acts like vanilla select: output bang on match or full
+            unmatched message to last outlet. If true always outputs full matched message to
+            corresponding outlet.</property>
         </properties>
         <inlets>
             <inlet>

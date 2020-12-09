@@ -155,7 +155,8 @@ samp        {int}_?(sa|samp)
 usamp       {uint}_?(sa|samp)
 sec         {float}_?(s|sec)
 usec        {ufloat}_?(s|sec)
-bpm         {float}_?bpm
+bpm_frac    #(1|2|4|8|16|32|64|128|256)
+bpm         {float}{bpm_frac}?_?bpm
 rad         {float}_?rad
 deg         {float}_?deg
 db          {float}_?db
@@ -252,11 +253,16 @@ smpte       [0-9]{2}:[0-9]{2}(:[0-9]{2})?(.[0-9]{2})?
                     return STATUS_OK;
                 }
 {bpm}           {
-                    auto v = strtod(text(), nullptr);
+                    char* end = 0;
+                    auto v = strtod(text(), &end);
                     if(!std::isnormal(v) && v != 0)
                         return STATUS_PARSE_ERROR;
 
-                    values.set(v, U_BPM);
+                    int subdiv = 1;
+                    if(end && end[0] == '#')
+                        subdiv = strtol(end+1, nullptr, 10);
+
+                    values.set(v * subdiv, U_BPM);
                     return STATUS_OK;
                 }
 {smpte}         {

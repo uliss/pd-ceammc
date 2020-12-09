@@ -91,6 +91,8 @@ conv.dbfs2amp	convert decibel full scale to amplitude
 dbfs->amp	convert decibel full scale to amplitude
 conv.dbfs2amp~	convert decibel full scale to amplitude
 dbfs->amp~	convert decibel full scale to amplitude
+conv.degree2key	convert scale degree to key
+degree->key	convert scale degree to key
 conv.hex2int	hex symbol to int value
 hex->int	hex symbol to int value
 conv.lin2curve	map linear to exponential range with 0 allowed.
@@ -170,6 +172,8 @@ dict.to_list	converts dictionary to plain list
 dict->list	converts dictionary to plain list
 dict.values	dictionary values as mlist
 mlist.flatten	flatten nested mlist
+rtree.to_list	convert OpenMusic-like rythm tree to list of fractions
+rtree->list	convert OpenMusic-like rythm tree to list of fractions
 set.contains	check if specified element is in set
 set.diff	difference between two sets
 set.equal	checks if two sets are equal (contains same elements)
@@ -248,6 +252,7 @@ pass	pass specified values
 flow.pass_if	pass values that accepted by predicate object
 pass_if	pass values that accepted by predicate object
 flow.pipe	enhanced version on vanilla pipe object
+flow.queue	multi-channel control flow sync queue (or FIFO)
 flow.reject	reject specified values
 reject	reject specified values
 flow.!	reject specified values
@@ -316,6 +321,7 @@ fx.freqshift~	frequency shifter or single-sideband ring modulation
 fx.granulator~	simple input stream granulator
 fx.greyhole~	A complex echo-like effect
 fx.looper~	One track looper
+fx.pitchshift_s~	signal version of fx.pitchshift~
 fx.pitchshift~	simple pitch shifter based on 2 delay lines
 fx.sdelay~	smooth delay with a feedback control
 fx.vocoder~	very simple vocoder where the spectrum of the modulation signal is analyzed using a 32-band filter bank
@@ -676,11 +682,14 @@ random.pw_lin	piecewise linear random distribution
 seq.arp	sequence arpeggiator
 seq.bangs	bang sequencer
 seq.b	bang sequencer
+seq.matrix	sequencer control for ui.matrix
 seq.nbangs	output specified number of bang with time intervals
 seq.nb	output specified number of bang with time intervals
 seq.phasor	control rate phasor (saw) generator
 seq.toggles	toggle sequencer
 seq.t	toggle sequencer
+sequencer	basic sequence player
+seq	basic sequence player
 snd.file	Sound file loader on steroids
 hoa.2d.decoder~	hoa 2d decoder
 hoa.decoder~	hoa 2d decoder

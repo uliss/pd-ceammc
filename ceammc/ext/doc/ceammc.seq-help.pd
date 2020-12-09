@@ -6,12 +6,16 @@
 #X text 200 116 sequence arpeggiator;
 #X obj 30 143 seq.bangs;
 #X text 200 143 bang sequencer;
-#X obj 30 170 seq.nbangs;
-#X text 200 170 output specified number of bang with time intervals;
-#X obj 30 197 seq.phasor;
-#X text 200 197 control rate phasor (saw) generator;
-#X obj 30 224 seq.toggles;
-#X text 200 224 toggle sequencer;
+#X obj 30 170 seq.matrix;
+#X text 200 170 sequencer control for ui.matrix;
+#X obj 30 197 seq.nbangs;
+#X text 200 197 output specified number of bang with time intervals;
+#X obj 30 224 seq.phasor;
+#X text 200 224 control rate phasor (saw) generator;
+#X obj 30 251 seq.toggles;
+#X text 200 251 toggle sequencer;
+#X obj 30 278 sequencer;
+#X text 200 278 basic sequence player;
 #X obj 1 1 cnv 5 740 40 empty empty ceammc::seq 20 20 0 20 -104026
 -4096 0;
 #X obj 1 513 cnv 5 740 40 empty empty empty 17 7 0 10 -203890 -1 0;

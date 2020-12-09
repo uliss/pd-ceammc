@@ -16,18 +16,37 @@
 
 #include "seq_bangs.h"
 
+class LengthProperty : public FloatProperty {
+    enum Mode {
+        FIXED,
+        PERCENT,
+        SUBTRACT
+    };
+
+    Mode mode_ = { PERCENT };
+    t_symbol* percent_value_;
+
+public:
+    LengthProperty(const std::string& name, t_float def);
+    t_float calcValue(t_float v) const;
+    bool setList(const AtomListView& lv) override;
+    AtomList get() const override;
+
+    void setPercent() { mode_ = PERCENT; }
+};
+
 class SeqToggles : public SeqBangs {
-    FloatProperty* duration_;
+    LengthProperty* length_;
     ClockLambdaFunction clock_off_;
 
 public:
     SeqToggles(const PdArgs& args);
 
-protected:
-    void schedNext() override;
-    void outputEvent() override;
-    void stop() override;
-    void reset() override;
+    void outputTick() final;
+    void clockStop() final;
+
+private:
+    void outputOff();
 };
 
 void setup_seq_toggles();

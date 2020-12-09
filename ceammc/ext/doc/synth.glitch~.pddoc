@@ -15,22 +15,24 @@
             <since>0.9.1</since>
         </meta>
         <info>
-            <par>A minimal, modern and easy-to-use synthesizer for Bytebeat music and not only</par>
-            <a href="https://medium.com/@naive_sound/glitch-a-noisy-fusion-of-math-and-music-6a9b24e7f5b5">Glitch</a>
+            <par>A minimal, modern and easy-to-use synthesizer for Bytebeat music and not
+            only</par>
+            <a href="https://medium.com/@naive_sound/glitch-a-noisy-fusion-of-math-and-music-6a9b24e7f5b5">
+            Glitch</a>
         </info>
         <arguments>
             <argument name="EXPR" type="list">Glitch expression</argument>
         </arguments>
         <properties>
             <property name="@expr" type="list">expression</property>
-            <property name="@clip" type="int" enum="0 1" default="1">clip output to -1..+1 range. Use false value only when you are know
-            what are you doing and at your own risk!</property>
+            <property name="@clip" type="int" enum="0 1" default="1">clip output to -1..+1 range.
+            Use false value only when you are know what are you doing and at your own
+            risk!</property>
         </properties>
         <methods>
             <method name="byte">set expression wrapper to byte() glitch function</method>
-            <method name="read">read glitch synth file
-            <param name="PATH" type="atom" required="true">path to file</param>
-            </method>
+            <method name="read">read glitch synth file 
+            <param name="PATH" type="atom" required="true">path to file</param></method>
             <method name="reset">reset synth</method>
         </methods>
         <inlets>

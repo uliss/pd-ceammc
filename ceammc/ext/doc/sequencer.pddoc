@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="sequencer">
+        <title>sequencer</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>basic sequence player</description>
+            <license>GPL3 or later</license>
+            <library>ceammc</library>
+            <category>seq</category>
+            <keywords>sequencer</keywords>
+            <since>0.9.1</since>
+            <aliases>
+                <alias>seq</alias>
+            </aliases>
+        </meta>
+        <arguments>
+            <argument name="VALUES" type="list">sequence elements</argument>
+        </arguments>
+        <properties>
+            <property name="@v" type="list">sequence elements</property>
+            <property name="@dur" type="float" minvalue="0" default="0">whole sequence duration.
+            Changing this property also changes @t interval between bangs.</property>
+            <property name="@t" type="float" default="20" minvalue="1" maxvalue="20000"
+            units="millisecond">time interval between bangs. You could also use units values like
+            100ms or 120bpm.</property>
+            <property name="@r" type="int" minvalue="-1" default="1">number of whole sequence
+            repeats. If -1: output infinitly.</property>
+            <property name="@once" type="alias">alias to @r 1</property>
+            <property name="@inf" type="alias">alias to @r -1</property>
+            <property name="@i" type="int" minvalue="0" readonly="true" default="0">current
+            sequence iteration</property>
+            <property name="@ri" type="int" minvalue="0" readonly="true" default="0">current repeat
+            iteration</property>
+            <property name="@mode" type="symbol" enum="inc dec tri" default="inc">sequencer mode.
+            'inc': from first to last, 'dec': from last to first, 'tri': from first to last, then
+            back</property>
+        </properties>
+        <methods>
+            <method name="start">start/stop 
+            <param name="on" type="int" enum="0 1" default="1" required="false">if true - starts
+            sequencer, otherwise stops</param></method>
+            <method name="stop">stop output</method>
+            <method name="reset">reset counters and stop</method>
+            <method name="rewind">reset all counters without stopping</method>
+            <method name="tick">manually output current element and move to next</method>
+        </methods>
+        <inlets>
+            <inlet>
+                <xinfo on="bang">reset all counters and start</xinfo>
+                <xinfo on="float">reset al counter and start (on 1) or stop(on 0)</xinfo>
+            </inlet>
+            <inlet>
+                <xinfo on="list">set sequence</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet>sequence element output, in case of Mlist args - outputs play lists</outlet>
+            <outlet>[i IDX N( - sequence iteration, [ri IDX N( - repeat iteration or [done( when
+            done</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[T] [@dur 500( [@dur 1000(  [ui.tab inc dec tri]
+|   |          |            |
+|   |          |            [@mode $1(
+|   |          |            |
+[sequencer mtof(seq(56 90 3)) @t 360bpm @inf]
+|                            ^|
+[t b f     ]                 [route done i ri]
+|         ^|                 |    ^|   ^^|
+[click~]  [@freq $1(         [B]  [F]  [F]
+|         |
+[flt.resonbp~ 1000 60]
+|
+[ui.hgain~]      [ui.dsp~]
+|\
+[dac~]
+
+[sequencer.mlist]
+]]>
+            </pdascii>
+            <pdascii id="mlist">
+<![CDATA[
+[bang(
+|
+[sequencer \(60 127\) \(70 80\) \(80 127\) @t 100ms @r 3]
+|
+[makenote 100 80]
+*|*
+[pack f f]
+|
+[msg note]
+|
+[fluid~ sf2/VintageDreamsWaves-v2.sf2]
+*|*
+[ui.hgain2~]      [ui.dsp~]
+*|*
+[dac~]
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>
