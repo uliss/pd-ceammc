@@ -130,12 +130,9 @@ void ceammc_init()
     auto is_ceammc = zgetfn(&pd_objectmaker, gensym("is_ceammc"));
 
     if (is_ceammc) {
-        post("running under ceammc PureData distribution\n");
-
         if (text_widgetbehavior.w_visfn && text_widgetbehavior.w_visfn != ceammc_vis_fn) {
             ceammc_pd_vanilla_visfn = text_widgetbehavior.w_visfn;
-            // ceammc const cast hack :(
-            auto wb = const_cast<t_widgetbehavior*>(&text_widgetbehavior);
+            auto wb = &text_widgetbehavior;
             wb->w_visfn = ceammc_vis_fn;
         }
 
@@ -143,6 +140,7 @@ void ceammc_init()
             pd_error(nullptr, "can't add datatype printing support to vanilla [print] object");
 
         ceammc::ceammc_tcl_init_tooltips();
+        post("[ceammc] inlet/outlet tooltips support is turned on");
     }
 
     // setup env variables
