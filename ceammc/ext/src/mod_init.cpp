@@ -127,16 +127,23 @@ void ceammc_init()
 {
     using namespace std;
 
-    if (text_widgetbehavior.w_visfn && text_widgetbehavior.w_visfn != ceammc_vis_fn) {
-        ceammc_pd_vanilla_visfn = text_widgetbehavior.w_visfn;
-        // ceammc const cast hack :(
-        auto wb = const_cast<t_widgetbehavior*>(&text_widgetbehavior);
-        wb->w_visfn = ceammc_vis_fn;
+    auto is_ceammc = zgetfn(&pd_objectmaker, gensym("is_ceammc"));
+
+    if (is_ceammc) {
+        post("running under ceammc PureData distribution\n");
+
+        if (text_widgetbehavior.w_visfn && text_widgetbehavior.w_visfn != ceammc_vis_fn) {
+            ceammc_pd_vanilla_visfn = text_widgetbehavior.w_visfn;
+            // ceammc const cast hack :(
+            auto wb = const_cast<t_widgetbehavior*>(&text_widgetbehavior);
+            wb->w_visfn = ceammc_vis_fn;
+        }
+
+        if (!ceammc::pd::addPdPrintDataSupport())
+            pd_error(nullptr, "can't add datatype printing support to vanilla [print] object");
+
+        ceammc::ceammc_tcl_init_tooltips();
     }
-
-    ceammc::pd::addPdPrintDataSupport();
-
-    ceammc::ceammc_tcl_init_tooltips();
 
     // setup env variables
     setup_env_doc_path();
