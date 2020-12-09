@@ -19,7 +19,7 @@ PD_COMPLETE_TEST_SETUP(FlowPipe, flow, pipe)
 TEST_CASE("flow.pipe", "[externals]")
 {
     pd_test_init();
-    setTestSampleRate(44100);
+    setTestSampleRate(64000);
 
     SECTION("init")
     {
@@ -42,16 +42,16 @@ TEST_CASE("flow.pipe", "[externals]")
 
     SECTION("run")
     {
-        TExt t("flow.pipe", "@delay", 5_ticks);
+        TExt t("flow.pipe", "@delay", 5);
 
         const Message bang = Message::makeBang();
 
         t.bang();
         REQUIRE_PROPERTY(t, @size, 1);
         REQUIRE(t.messagesAt(0).empty());
-        t.schedTicks(6);
+        t.schedTicks(5);
         REQUIRE(t.messagesAt(0) == MessageList({ bang }));
-        REQUIRE_PROPERTY(t, @size, 0.);
+        REQUIRE_PROPERTY(t, @size, 0);
         t.clearAll();
 
         // consecutive bangs
@@ -59,9 +59,9 @@ TEST_CASE("flow.pipe", "[externals]")
         t.bang();
         REQUIRE_PROPERTY(t, @size, 2);
         REQUIRE(t.messagesAt(0).empty());
-        t.schedTicks(6);
+        t.schedTicks(5);
         REQUIRE(t.messagesAt(0) == MessageList({ bang, bang }));
-        REQUIRE_PROPERTY(t, @size, 0.);
+        REQUIRE_PROPERTY(t, @size, 0);
         t.clearAll();
 
         // delayed bangs
@@ -75,7 +75,7 @@ TEST_CASE("flow.pipe", "[externals]")
         REQUIRE_PROPERTY(t, @size, 1);
         t.schedTicks(4);
         REQUIRE(t.messagesAt(0) == MessageList({ bang, bang }));
-        REQUIRE_PROPERTY(t, @size, 0.);
+        REQUIRE_PROPERTY(t, @size, 0);
         t.clearAll();
 
         const Atom f0(100.5);
@@ -111,7 +111,7 @@ TEST_CASE("flow.pipe", "[externals]")
         REQUIRE_PROPERTY(t, @size, 1);
         REQUIRE(t.messagesAt(0) == MessageList({ f0, s0, i0, l0 }));
         t.schedTicks(1);
-        REQUIRE_PROPERTY(t, @size, 0.);
+        REQUIRE_PROPERTY(t, @size, 0);
         REQUIRE(t.messagesAt(0) == MessageList({ f0, s0, i0, l0, m0 }));
     }
 
@@ -160,10 +160,13 @@ TEST_CASE("flow.pipe", "[externals]")
             TExt t("flow.pipe", "@delay", 10);
             t << 100;
             t << 200;
-            REQUIRE_PROPERTY(t, @size, 2);
+            t << 300;
+            REQUIRE_PROPERTY(t, @size, 3);
             t.sendMessageTo(Message(SYM("flush"), L()), 1);
+            REQUIRE_PROPERTY(t, @size, 3);
+            REQUIRE(t.messagesAt(0) == MessageList({ Message(100), Message(200), Message(300) }));
+            t.schedTicks(1);
             REQUIRE_PROPERTY(t, @size, 0.);
-            REQUIRE(t.messagesAt(0) == MessageList({ Message(100), Message(200) }));
         }
     }
 }

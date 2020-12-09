@@ -18,6 +18,9 @@ FlowPipe::FlowPipe(const PdArgs& a)
     : BaseObject(a)
     , delay_(nullptr)
     , inlet_proxy_(this)
+    , cleanup_([this]() {
+        pipe_.remove_if([](ClockLambdaFunction& c) { return !c.isActive(); });
+    })
 {
     createOutlet();
 
@@ -35,25 +38,25 @@ FlowPipe::FlowPipe(const PdArgs& a)
 
 void FlowPipe::onBang()
 {
-    pipe_.emplace_front([this]() { bangTo(0); pipe_.pop_back(); });
+    pipe_.emplace_front([this]() { bangTo(0); pop(); });
     pipe_.front().delay(delay_->value());
 }
 
 void FlowPipe::onFloat(t_float f)
 {
-    pipe_.emplace_front([this, f]() { floatTo(0, f); pipe_.pop_back(); });
+    pipe_.emplace_front([this, f]() { floatTo(0, f); pop(); });
     pipe_.front().delay(delay_->value());
 }
 
 void FlowPipe::onSymbol(t_symbol* s)
 {
-    pipe_.emplace_front([this, s]() { symbolTo(0, s); pipe_.pop_back(); });
+    pipe_.emplace_front([this, s]() { symbolTo(0, s); pop(); });
     pipe_.front().delay(delay_->value());
 }
 
 void FlowPipe::onList(const AtomList& l)
 {
-    pipe_.emplace_front([this, l]() { listTo(0, l); pipe_.pop_back(); });
+    pipe_.emplace_front([this, l]() { listTo(0, l); pop(); });
     pipe_.front().delay(delay_->value());
 }
 
@@ -61,8 +64,13 @@ void FlowPipe::onAny(t_symbol* s, const AtomListView& v)
 {
     AtomList l(v); // for lambda capture
 
-    pipe_.emplace_front([this, s, l]() { anyTo(0, s, l); pipe_.pop_back(); });
+    pipe_.emplace_front([this, s, l]() { anyTo(0, s, l); pop(); });
     pipe_.front().delay(delay_->value());
+}
+
+void FlowPipe::pop()
+{
+    cleanup_.delay(0);
 }
 
 void FlowPipe::proxy_bang()
@@ -82,8 +90,10 @@ void FlowPipe::proxy_reset(const AtomListView& v)
 
 void FlowPipe::proxy_flush(const AtomListView& v)
 {
-    while (!pipe_.empty())
-        pipe_.back().exec();
+    for (auto it = pipe_.rbegin(); it != pipe_.rend(); ++it) {
+        if (it->isActive())
+            it->exec();
+    }
 }
 
 void setup_flow_pipe()
