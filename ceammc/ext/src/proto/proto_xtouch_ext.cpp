@@ -22,7 +22,7 @@
 
 constexpr int MAX_VU_DB = 0;
 constexpr int MIN_VU_DB = -60;
-constexpr int MAX_SCENES = 16;
+constexpr int MAX_SCENES = 32;
 constexpr int MIN_SCENES = 1;
 
 constexpr int MAX_CONTROLS = Scene::NCHAN * MAX_SCENES;
@@ -857,6 +857,48 @@ void XTouchExtender::m_select(t_symbol* s, const AtomListView& lv)
         [this](int idx, const Atom& a) { sceneByLogicIdx(idx).select(idx).setState(a); });
 }
 
+void XTouchExtender::m_knob(t_symbol* s, const AtomListView& lv)
+{
+    m_apply_fn(s, lv,
+        [this](int idx, const Atom& a) { sceneByLogicIdx(idx).knob(idx).setValue(a); });
+}
+
+void XTouchExtender::m_fader(t_symbol* s, const AtomListView& lv)
+{
+    m_apply_fn(s, lv,
+        [this](int idx, const Atom& a) { sceneByLogicIdx(idx).fader(idx).setValue(a); });
+}
+
+void XTouchExtender::m_rec_get(t_symbol* s, const AtomListView& lv)
+{
+    m_get_button_fn(s, lv, &Scene::rec);
+}
+
+void XTouchExtender::m_solo_get(t_symbol* s, const AtomListView& lv)
+{
+    m_get_button_fn(s, lv, &Scene::solo);
+}
+
+void XTouchExtender::m_mute_get(t_symbol* s, const AtomListView& lv)
+{
+    m_get_button_fn(s, lv, &Scene::mute);
+}
+
+void XTouchExtender::m_select_get(t_symbol* s, const AtomListView& lv)
+{
+    m_get_button_fn(s, lv, &Scene::select);
+}
+
+void XTouchExtender::m_knob_get(t_symbol* s, const AtomListView& lv)
+{
+    m_get_fader_fn(s, lv, &Scene::knob);
+}
+
+void XTouchExtender::m_fader_get(t_symbol* s, const AtomListView& lv)
+{
+    m_get_fader_fn(s, lv, &Scene::fader);
+}
+
 void XTouchExtender::m_rec_mode(t_symbol* s, const AtomListView& lv)
 {
     m_apply_fn(s, lv,
@@ -963,6 +1005,36 @@ void XTouchExtender::m_apply_fn(t_symbol* s, const AtomListView& lv, std::functi
             fn(calcLogicIdx(idx), lv[i]);
         }
     }
+}
+
+void XTouchExtender::m_get_button_fn(t_symbol* s, const AtomListView& lv, Button& (Scene::*fn)(uint8_t))
+{
+    int idx = lv.intAt(0, -1);
+    if (idx < 0 || idx >= numLogicChannels()) {
+        METHOD_ERR(s) << "expected value in [0.." << numLogicChannels() << ") range, got: " << lv;
+        return;
+    }
+
+    auto& sc = sceneByLogicIdx(idx);
+    Atom lout[2];
+    lout[0] = lv[0];
+    lout[1] = (sc.*fn)(idx).state();
+    anyTo(1, s, AtomListView(&lout->atom(), 2));
+}
+
+void XTouchExtender::m_get_fader_fn(t_symbol* s, const AtomListView& lv, Fader& (Scene::*fn)(uint8_t))
+{
+    int idx = lv.intAt(0, -1);
+    if (idx < 0 || idx >= numLogicChannels()) {
+        METHOD_ERR(s) << "expected value in [0.." << numLogicChannels() << ") range, got: " << lv;
+        return;
+    }
+
+    auto& sc = sceneByLogicIdx(idx);
+    Atom lout[2];
+    lout[0] = lv[0];
+    lout[1] = (sc.*fn)(idx).value();
+    anyTo(1, s, AtomListView(&lout->atom(), 2));
 }
 
 static void init_symbols()
@@ -1431,6 +1503,15 @@ void setup_proto_xtouch_ext()
     obj.addMethod("mute", &XTouchExtender::m_mute);
     obj.addMethod("solo", &XTouchExtender::m_solo);
     obj.addMethod("select", &XTouchExtender::m_select);
+    obj.addMethod("knob", &XTouchExtender::m_knob);
+    obj.addMethod("fader", &XTouchExtender::m_fader);
+
+    obj.addMethod("rec?", &XTouchExtender::m_rec_get);
+    obj.addMethod("mute?", &XTouchExtender::m_mute_get);
+    obj.addMethod("solo?", &XTouchExtender::m_solo_get);
+    obj.addMethod("select?", &XTouchExtender::m_select_get);
+    obj.addMethod("knob?", &XTouchExtender::m_knob_get);
+    obj.addMethod("fader?", &XTouchExtender::m_fader_get);
 
     obj.addMethod("rec_mode", &XTouchExtender::m_rec_mode);
     obj.addMethod("mute_mode", &XTouchExtender::m_mute_mode);

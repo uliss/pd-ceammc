@@ -275,6 +275,15 @@ public:
     void m_solo(t_symbol* s, const AtomListView& lv);
     void m_mute(t_symbol* s, const AtomListView& lv);
     void m_select(t_symbol* s, const AtomListView& lv);
+    void m_knob(t_symbol* s, const AtomListView& lv);
+    void m_fader(t_symbol* s, const AtomListView& lv);
+
+    void m_rec_get(t_symbol* s, const AtomListView& lv);
+    void m_solo_get(t_symbol* s, const AtomListView& lv);
+    void m_mute_get(t_symbol* s, const AtomListView& lv);
+    void m_select_get(t_symbol* s, const AtomListView& lv);
+    void m_knob_get(t_symbol* s, const AtomListView& lv);
+    void m_fader_get(t_symbol* s, const AtomListView& lv);
 
     void m_rec_mode(t_symbol* s, const AtomListView& lv);
     void m_solo_mode(t_symbol* s, const AtomListView& lv);
@@ -289,6 +298,8 @@ public:
 
 private:
     void m_apply_fn(t_symbol* s, const AtomListView& lv, std::function<void(int, const Atom&)> fn);
+    void m_get_button_fn(t_symbol* s, const AtomListView& lv, Button& (Scene::*fn)(uint8_t));
+    void m_get_fader_fn(t_symbol* s, const AtomListView& lv, Fader& (Scene::*fn)(uint8_t));
 
     void parseXMidi();
     void parseHui();

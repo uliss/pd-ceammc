@@ -375,4 +375,53 @@ TEST_CASE("proto.xtouch_ext", "[externals]")
         t.sendMessage("knob1", LF(0.75));
         REQUIRE(t->sceneByIdx(0).knob(1).value() == 0.75);
     }
+
+    SECTION("get")
+    {
+        TExt t("proto.xtouch_ext");
+
+        t.call("rec?");
+        REQUIRE(!t.hasOutput());
+
+        t.call("rec?", "invalid");
+        REQUIRE(!t.hasOutput());
+
+        t.call("rec?", -1);
+        REQUIRE(!t.hasOutput());
+
+        t.call("rec?", 255);
+        REQUIRE(!t.hasOutput());
+
+        t.call("rec", LA(1, 1));
+        t.call("rec", LA(11, 1));
+
+        t.call("rec?", 1);
+        REQUIRE(t.outputAnyAt(1) == LA("rec?", 1, 1));
+        t.call("rec?", 11);
+        REQUIRE(t.outputAnyAt(1) == LA("rec?", 11, 1));
+        t.call("rec?", 10);
+        REQUIRE(t.outputAnyAt(1) == LA("rec?", 10, 0.));
+        t.call("rec?", 15);
+        REQUIRE(t.outputAnyAt(1) == LA("rec?", 15, 0.));
+        t.call("rec?", 16);
+        REQUIRE(!t.hasOutput());
+
+        t.call("mute", LA("scene", -1));
+        t.call("mute?", 1);
+        REQUIRE(t.outputAnyAt(1) == LA("mute?", 1, -1));
+        t.call("mute?", 8);
+        REQUIRE(t.outputAnyAt(1) == LA("mute?", 8, 0.));
+
+        t.call("fader", LA("scene", 0.5));
+        t.call("fader?", 3);
+        REQUIRE(t.outputAnyAt(1) == LA("fader?", 3, 0.5));
+        t.call("fader?", 10);
+        REQUIRE(t.outputAnyAt(1) == LA("fader?", 10, 0.));
+
+        t.call("knob", LA("scene", 0.75));
+        t.call("knob?", 3);
+        REQUIRE(t.outputAnyAt(1) == LA("knob?", 3, 0.75));
+        t.call("knob?", 10);
+        REQUIRE(t.outputAnyAt(1) == LA("knob?", 10, 0.));
+    }
 }
