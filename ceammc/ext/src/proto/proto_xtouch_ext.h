@@ -27,14 +27,14 @@ class DisplayData {
 public:
     static const uint8_t MAX_CHARS = 7;
 
-    enum DisplayMode : uint8_t {
-        INVERTED = 0,
-        INVERTED_UPPER = 1,
-        INVERTED_LOWER = 2,
-        NORMAL = 3
+    enum Mode : uint8_t {
+        MODE_INVERTED = 0,
+        MODE_INVERTED_UPPER = 1,
+        MODE_INVERTED_LOWER = 2,
+        MODE_NORMAL = 3
     };
 
-    enum DisplayColor : uint8_t {
+    enum Color : uint8_t {
         BLACK = 0,
         RED = 1,
         GREEN,
@@ -47,7 +47,7 @@ public:
         UNKNOWN = NUM_COLORS
     };
 
-    enum TextAlign : uint8_t {
+    enum Align : uint8_t {
         ALIGN_CENTER,
         ALIGN_LEFT,
         ALIGN_RIGHT,
@@ -55,8 +55,8 @@ public:
     };
 
     enum {
-        MODE_MIN = INVERTED,
-        MODE_MAX = NORMAL,
+        MODE_MIN = MODE_INVERTED,
+        MODE_MAX = MODE_NORMAL,
         COLOR_MIN = BLACK,
         COLOR_MAX = WHITE,
         ALIGN_MIN = ALIGN_CENTER,
@@ -65,7 +65,7 @@ public:
 
     DisplayData()
         : color_(CYAN)
-        , mode_(INVERTED)
+        , mode_(MODE_INVERTED)
         , align_(ALIGN_JUSTIFY)
     {
     }
@@ -73,8 +73,8 @@ public:
     char upperCharAt(uint8_t pos) const { return (pos < MAX_CHARS) ? txt_[pos] : 0; }
     char lowerCharAt(uint8_t pos) const { return (pos < MAX_CHARS) ? txt_[pos + MAX_CHARS] : 0; }
 
-    void setUpperText(const char* str, TextAlign align);
-    void setLowerText(const char* str, TextAlign align);
+    void setUpperText(const char* str, Align align);
+    void setLowerText(const char* str, Align align);
 
     void clearUpper();
     void clearLower();
@@ -83,19 +83,19 @@ public:
 
     uint8_t packedColorMode() const { return color_ | (mode_ << 4); }
 
-    void setAlign(TextAlign a) { align_ = a; }
-    void setColor(DisplayColor c) { color_ = c; }
-    void setMode(DisplayMode m) { mode_ = m; }
+    void setAlign(Align a) { align_ = a; }
+    void setColor(Color c) { color_ = c; }
+    void setMode(Mode m) { mode_ = m; }
 
 public:
-    static DisplayColor randomColor();
-    static DisplayColor namedColor(const t_symbol* c);
+    static Color randomColor();
+    static Color namedColor(const t_symbol* c);
 
 private:
     char txt_[2 * MAX_CHARS] = { 0 };
-    DisplayColor color_;
-    DisplayMode mode_;
-    TextAlign align_;
+    Color color_;
+    Mode mode_;
+    Align align_;
 
 private:
     static void setCentered(char* dest, const char* txt);

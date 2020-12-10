@@ -719,7 +719,7 @@ void XTouchExtender::setLogicDisplayLowerText(uint8_t log_idx, const std::string
 
 void XTouchExtender::setLogicLcdMode(uint8_t log_idx, int mode)
 {
-    using Mode = DisplayData::DisplayMode;
+    using Mode = DisplayData::Mode;
 
     if (log_idx >= numLogicChannels()) {
         OBJ_ERR << "channel is out of range: " << log_idx;
@@ -735,13 +735,13 @@ void XTouchExtender::setLogicLcdMode(uint8_t log_idx, int mode)
 
     OBJ_LOG << "set lcd mode: " << (int)log_idx << ' ' << mode;
 
-    sceneByLogicIdx(log_idx).displayData(log_idx).setMode(static_cast<DisplayData::DisplayMode>(mode));
+    sceneByLogicIdx(log_idx).displayData(log_idx).setMode(static_cast<DisplayData::Mode>(mode));
     syncLogicDisplay(log_idx);
 }
 
 void XTouchExtender::setLogicLcdColor(uint8_t log_idx, const Atom& color)
 {
-    using Color = DisplayData::DisplayColor;
+    using Color = DisplayData::Color;
 
     if (log_idx >= numLogicChannels()) {
         OBJ_ERR << "channel is out of range: " << log_idx;
@@ -990,7 +990,7 @@ static void init_symbols()
     SYM_YELLOW = gensym("yellow");
 }
 
-void DisplayData::setUpperText(const char* str, TextAlign align)
+void DisplayData::setUpperText(const char* str, Align align)
 {
     switch (align) {
     case ALIGN_LEFT:
@@ -1005,7 +1005,7 @@ void DisplayData::setUpperText(const char* str, TextAlign align)
     }
 }
 
-void DisplayData::setLowerText(const char* str, TextAlign align)
+void DisplayData::setLowerText(const char* str, Align align)
 {
     switch (align) {
     case ALIGN_LEFT:
@@ -1041,16 +1041,16 @@ void DisplayData::clearBoth()
 void DisplayData::setDefault()
 {
     color_ = CYAN;
-    mode_ = INVERTED;
+    mode_ = MODE_INVERTED;
     clearBoth();
 }
 
-DisplayData::DisplayColor DisplayData::randomColor()
+DisplayData::Color DisplayData::randomColor()
 {
-    return static_cast<DisplayColor>((std::rand() % WHITE) + 1);
+    return static_cast<Color>((std::rand() % WHITE) + 1);
 }
 
-DisplayData::DisplayColor DisplayData::namedColor(const t_symbol* c)
+DisplayData::Color DisplayData::namedColor(const t_symbol* c)
 {
     const std::array<const t_symbol*, NUM_COLORS> all = {
         SYM_BLACK,
@@ -1065,7 +1065,7 @@ DisplayData::DisplayColor DisplayData::namedColor(const t_symbol* c)
 
     for (size_t i = 0; i < all.size(); i++) {
         if (all[i] == c)
-            return static_cast<DisplayColor>(i);
+            return static_cast<Color>(i);
     }
 
     return UNKNOWN;
