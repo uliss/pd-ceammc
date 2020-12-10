@@ -17,7 +17,7 @@
 #X obj 462 201 ui.knob;
 #X obj 50 230 proto.xtouch_ext;
 #X obj 174 259 ui.dt;
-#X msg 366 259 @fader0 \$1;
+#X msg 366 259 fader0 \$1;
 #X obj 50 287 midiout;
 #X obj 155 287 s oxt;
 #X obj 366 287 s ixt;

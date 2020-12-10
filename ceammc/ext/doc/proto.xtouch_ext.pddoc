@@ -122,7 +122,7 @@
 | |        |                     |
 [proto.xtouch_ext #z]            |
 |         ^| ^|                  |
-|          | [ui.dt]             [@fader0 $1(
+|          | [ui.dt]             [fader0 $1(
 |          |                     |
 [midiout]  [s oxt]               [s ixt]
 [X a:1->b]
