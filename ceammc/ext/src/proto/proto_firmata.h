@@ -22,6 +22,6 @@ public:
     static int symToPinMode(t_symbol* s);
 };
 
-void proto_firmata_setup();
+void setup_proto_firmata();
 
 #endif // HW_FIRMATA_H

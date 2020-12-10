@@ -244,7 +244,7 @@ int Firmata::symToPinMode(t_symbol* s)
     return std::distance(begin, pos);
 }
 
-void proto_firmata_setup()
+void setup_proto_firmata()
 {
     F_QUERY_FIRMWARE = gensym("firmware?");
     F_QUERY_VERSION = gensym("version?");
