@@ -77,7 +77,7 @@
             <param name="CHAN" type="atom" required="true">'all', 'scene' or channel index, max value is NUM_SCENES * 8</param>
             <param name="X" type="list" required="true">button value(s)</param>
             </method>
-            <method name="solo?">get mute button, output to second outlet in format [mute? IDX VALUE(
+            <method name="mute?">get mute button, output to second outlet in format [mute? IDX VALUE(
             <param name="CHAN" type="atom" required="true">channel index, max value is NUM_SCENES * 8</param>
             </method>
             <method name="select">set select buttons
