@@ -683,6 +683,7 @@ prop~>
 proto.firmata
 proto.hui
 proto.sp.alpaca
+proto.xtouch_ext
 rad->phase
 rad->phase~
 radio

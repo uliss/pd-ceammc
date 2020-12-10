@@ -42,6 +42,8 @@ constexpr int XT_MUTE_FIRST = 24;
 constexpr int XT_MUTE_LAST = XT_MUTE_FIRST + Scene::NCHAN;
 constexpr int XT_SELECT_FIRST = 32;
 constexpr int XT_SELECT_LAST = XT_SELECT_FIRST + Scene::NCHAN;
+constexpr int XT_FADER_MOVE_FIRST = 110;
+constexpr int XT_FADER_MOVE_LAST = XT_FADER_MOVE_FIRST + Scene::NCHAN;
 
 static std::array<t_symbol*, MAX_CONTROLS> SYM_FADERS;
 static std::array<t_symbol*, MAX_CONTROLS> SYM_KNOBS;
@@ -340,6 +342,7 @@ void XTouchExtender::m_reset(t_symbol* s, const AtomListView& lv)
     resetVu();
     resetFaders();
     resetKnobs();
+    resetButtons();
 
     parser_.reset();
 }
@@ -455,6 +458,10 @@ void XTouchExtender::parseXMidi()
 
             currentScene().btn_select_.at(ch)->setValue(val);
             sendSelect(scene_->value(), ch, val);
+        } else if (in_range(note, XT_FADER_MOVE_FIRST, XT_FADER_MOVE_LAST)) {
+            const auto ch = note - XT_FADER_MOVE_FIRST;
+            const int velocity = parser_.data[2];
+            currentScene().fader_is_moving_[ch] = (velocity > 0);
         }
     }
 }
@@ -484,8 +491,9 @@ void XTouchExtender::sendVu(uint8_t idx, int db)
 
 void XTouchExtender::resetVu()
 {
+    int off = scene_->value() * Scene::NCHAN;
     for (int i = 0; i < Scene::NCHAN; i++)
-        sendVu(i, MIN_VU_DB);
+        sendVu(off + i, MIN_VU_DB);
 }
 
 void XTouchExtender::resetFaders()
@@ -506,6 +514,31 @@ void XTouchExtender::resetKnobs()
         for (size_t knob_idx = 0; knob_idx < k.size(); knob_idx++) {
             k[knob_idx]->setValue(0);
             sendKnob(scene_idx, knob_idx, 0);
+        }
+    }
+}
+
+void XTouchExtender::resetButtons()
+{
+    for (size_t scene_idx = 0; scene_idx < scenes_.size(); scene_idx++) {
+        const auto& sc = scenes_[scene_idx];
+        const auto& r = sc.btn_rec_;
+        const auto& s = sc.btn_solo_;
+        const auto& m = sc.btn_mute_;
+        const auto& sel = sc.btn_select_;
+
+        for (size_t i = 0; i < r.size(); i++) {
+            r[i]->setValue(0);
+            sendRec(scene_idx, i, 0);
+
+            s[i]->setValue(0);
+            sendSolo(scene_idx, i, 0);
+
+            m[i]->setValue(0);
+            sendMute(scene_idx, i, 0);
+
+            sel[i]->setValue(0);
+            sendSelect(scene_idx, i, 0);
         }
     }
 }
@@ -540,11 +573,12 @@ void XTouchExtender::sendFader(uint8_t scene_idx, uint8_t ctl_idx, t_float v)
     if (proto_->value() == PROTO_XMIDI) {
         const int logic_idx = (scene_idx * Scene::NCHAN + ctl_idx) % MAX_CONTROLS;
 
-        // output for all scenes
+        // output for any scenes
         anyTo(1, SYM_FADERS[logic_idx], AtomListView(Atom(v)));
 
+        const bool is_moving = sceneByIdx(scene_idx).fader_is_moving_[ctl_idx];
         // send MIDI only for current scene
-        if (scene_->value() == scene_idx) {
+        if (scene_->value() == scene_idx && !is_moving) {
             const uint8_t cc = XT_FADER_FIRST + (0x0F & ctl_idx);
             const uint8_t val = std::round(convert::lin2lin_clip<t_float, 0, 1>(v, 0, 127));
             sendCC(cc, val);

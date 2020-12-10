@@ -171,6 +171,7 @@ struct Scene {
     std::array<BoolProperty*, NCHAN> btn_mute_tgl_mode_;
     std::array<IntProperty*, NCHAN> btn_select_;
     std::array<BoolProperty*, NCHAN> btn_select_tgl_mode_;
+    std::array<bool, NCHAN> fader_is_moving_;
 
     Display& display(uint8_t n) { return display_data_[n % NCHAN]; }
 
@@ -236,6 +237,7 @@ private:
     void resetVu();
     void resetFaders();
     void resetKnobs();
+    void resetButtons();
 
     void syncScene();
     void syncDisplay(uint8_t scene_idx, uint8_t ctl_idx);
