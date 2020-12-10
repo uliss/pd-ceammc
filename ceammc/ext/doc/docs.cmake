@@ -485,6 +485,7 @@ set(DOC_FILES
     prop.set
     prop.split
     proto.firmata
+    proto.xtouch_ext
     proto.sp.alpaca
     radio
     random.atom

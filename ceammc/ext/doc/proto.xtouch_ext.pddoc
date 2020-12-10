@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="proto.xtouch_ext">
+        <title>proto.xtouch_ext</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>Behringer XTouch Extender XMidi protocol</description>
+            <license>GPL3 or later</license>
+            <library>ceammc</library>
+            <category>proto</category>
+            <keywords>xtouch behringer</keywords>
+            <since>0.9.1</since>
+        </meta>
+        <info>
+            <par>Behringer XTouch Extender XMidi</par>
+        </info>
+        <methods>
+            <method name="firmware?">query firmata protocol version. Returns message like:
+            [firmware ARDUINO_FIRMWARE_NAME.ino MAJOR MINOR(</method>
+            <method name="version?">query firmata protocol version. Returns message like: [version
+            MAJOR MINOR(</method>
+        </methods>
+        <inlets>
+            <inlet>
+                <xinfo on="float">raw midi input</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet>raw midi output to behringer device</outlet>
+            <outlet>control messages from device</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[midiin] [S digits=40]
+|        |
+|        [sym->any {i=1,o=1}]
+|        |
+[proto.xtouch_ext]
+|         ^|
+[midiout]  |
+           |
+[route a c v v v]
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

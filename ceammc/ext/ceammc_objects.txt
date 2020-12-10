@@ -764,10 +764,12 @@ string.split
 string.starts_with
 string.substr
 string2symbol
+sym->any
 sym->ilist
 symbol.equal
 symbol.length
 symbol.num_compare
+symbol2any
 symbol2intlist
 sync
 synth.bee3~

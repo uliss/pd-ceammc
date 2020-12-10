@@ -485,6 +485,7 @@ prop.set,p.set		?		.
 prop.split,prop->,@->		.		?
 proto.firmata		.		.
 proto.sp.alpaca		.		.
+proto.xtouch_ext		.		..
 radio		.		?
 random.atom,random.a		.		.
 random.discrete		.		.

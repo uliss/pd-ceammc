@@ -668,6 +668,7 @@ prop->	separate properties from dataflow
 @->	separate properties from dataflow
 proto.firmata	Firmata Arduino protocol support
 proto.sp.alpaca	protocol parser for Arduino-based CEAMMC footswitch
+proto.xtouch_ext	Behringer XTouch Extender XMidi protocol
 random.atom	weighted atom generation from specified list
 random.a	weighted atom generation from specified list
 random.discrete	random weighted integers on interval [0, n)
