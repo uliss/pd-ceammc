@@ -896,25 +896,49 @@ void XTouchExtender::m_lcd_lower_enum(t_symbol* s, const AtomListView& lv)
 void XTouchExtender::m_rec(t_symbol* s, const AtomListView& lv)
 {
     m_apply_fn(s, lv,
-        [this, s](int idx, const Atom& a) { sceneByLogicIdx(idx).rec(idx)->set(a); });
+        [this](int idx, const Atom& a) { sceneByLogicIdx(idx).rec(idx)->set(a); });
 }
 
 void XTouchExtender::m_solo(t_symbol* s, const AtomListView& lv)
 {
     m_apply_fn(s, lv,
-        [this, s](int idx, const Atom& a) { sceneByLogicIdx(idx).solo(idx)->set(a); });
+        [this](int idx, const Atom& a) { sceneByLogicIdx(idx).solo(idx)->set(a); });
 }
 
 void XTouchExtender::m_mute(t_symbol* s, const AtomListView& lv)
 {
     m_apply_fn(s, lv,
-        [this, s](int idx, const Atom& a) { sceneByLogicIdx(idx).mute(idx)->set(a); });
+        [this](int idx, const Atom& a) { sceneByLogicIdx(idx).mute(idx)->set(a); });
 }
 
 void XTouchExtender::m_select(t_symbol* s, const AtomListView& lv)
 {
     m_apply_fn(s, lv,
-        [this, s](int idx, const Atom& a) { sceneByLogicIdx(idx).select(idx)->set(a); });
+        [this](int idx, const Atom& a) { sceneByLogicIdx(idx).select(idx)->set(a); });
+}
+
+void XTouchExtender::m_rec_mode(t_symbol* s, const AtomListView& lv)
+{
+    m_apply_fn(s, lv,
+        [this](int idx, const Atom& a) { sceneByLogicIdx(idx).recMode(idx)->set(a); });
+}
+
+void XTouchExtender::m_solo_mode(t_symbol* s, const AtomListView& lv)
+{
+    m_apply_fn(s, lv,
+        [this](int idx, const Atom& a) { sceneByLogicIdx(idx).soloMode(idx)->set(a); });
+}
+
+void XTouchExtender::m_mute_mode(t_symbol* s, const AtomListView& lv)
+{
+    m_apply_fn(s, lv,
+        [this](int idx, const Atom& a) { sceneByLogicIdx(idx).muteMode(idx)->set(a); });
+}
+
+void XTouchExtender::m_select_mode(t_symbol* s, const AtomListView& lv)
+{
+    m_apply_fn(s, lv,
+        [this](int idx, const Atom& a) { sceneByLogicIdx(idx).selectMode(idx)->set(a); });
 }
 
 void XTouchExtender::m_lcd_lower_align(t_symbol* s, const AtomListView& lv)
@@ -1475,6 +1499,11 @@ void setup_proto_xtouch_ext()
     obj.addMethod("mute", &XTouchExtender::m_mute);
     obj.addMethod("solo", &XTouchExtender::m_solo);
     obj.addMethod("select", &XTouchExtender::m_select);
+
+    obj.addMethod("rec_mode", &XTouchExtender::m_rec_mode);
+    obj.addMethod("mute_mode", &XTouchExtender::m_mute_mode);
+    obj.addMethod("solo_mode", &XTouchExtender::m_solo_mode);
+    obj.addMethod("select_mode", &XTouchExtender::m_select_mode);
 
     obj.addMethod("set", &XTouchExtender::m_set);
 }

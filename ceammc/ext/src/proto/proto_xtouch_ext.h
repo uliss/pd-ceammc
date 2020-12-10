@@ -179,6 +179,11 @@ struct Scene {
     IntProperty* mute(uint8_t n) { return btn_mute_[n % NCHAN]; }
     IntProperty* select(uint8_t n) { return btn_select_[n % NCHAN]; }
 
+    BoolProperty* recMode(uint8_t n) { return btn_rec_tgl_mode_[n % NCHAN]; }
+    BoolProperty* soloMode(uint8_t n) { return btn_solo_tgl_mode_[n % NCHAN]; }
+    BoolProperty* muteMode(uint8_t n) { return btn_mute_tgl_mode_[n % NCHAN]; }
+    BoolProperty* selectMode(uint8_t n) { return btn_select_tgl_mode_[n % NCHAN]; }
+
 private:
     Display display_data_[NCHAN];
 };
@@ -215,6 +220,11 @@ public:
     void m_solo(t_symbol* s, const AtomListView& lv);
     void m_mute(t_symbol* s, const AtomListView& lv);
     void m_select(t_symbol* s, const AtomListView& lv);
+
+    void m_rec_mode(t_symbol* s, const AtomListView& lv);
+    void m_solo_mode(t_symbol* s, const AtomListView& lv);
+    void m_mute_mode(t_symbol* s, const AtomListView& lv);
+    void m_select_mode(t_symbol* s, const AtomListView& lv);
 
     void m_set(t_symbol* s, const AtomListView& lv);
 
