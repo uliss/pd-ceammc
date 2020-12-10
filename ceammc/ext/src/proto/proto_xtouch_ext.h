@@ -23,18 +23,18 @@
 
 using namespace ceammc;
 
-struct DisplayData {
-    std::string text_upper;
-    std::string text_lower;
+class DisplayData {
+public:
+    static const uint8_t MAX_CHARS = 7;
 
-    enum DisplayMode {
+    enum DisplayMode : uint8_t {
         INVERTED = 0,
         INVERTED_UPPER = 1,
         INVERTED_LOWER = 2,
         NORMAL = 3
     };
 
-    enum DisplayColor {
+    enum DisplayColor : uint8_t {
         BLACK = 0,
         RED = 1,
         GREEN,
@@ -42,11 +42,61 @@ struct DisplayData {
         BLUE,
         MAGENTA,
         CYAN,
-        WHITE
+        WHITE,
+        NUM_COLORS,
+        UNKNOWN = NUM_COLORS
     };
 
-    DisplayColor color = { BLUE };
-    DisplayMode mode = { INVERTED };
+    enum {
+        MODE_MIN = INVERTED,
+        MODE_MAX = NORMAL,
+        COLOR_MIN = BLACK,
+        COLOR_MAX = WHITE,
+    };
+
+    enum TextAlign {
+        CENTER,
+        LEFT,
+        RIGHT,
+        JUSTIFY
+    };
+
+    DisplayData()
+        : color_(CYAN)
+        , mode_(INVERTED)
+    {
+    }
+
+    char upperCharAt(uint8_t pos) const { return (pos < MAX_CHARS) ? txt_[pos] : 0; }
+    char lowerCharAt(uint8_t pos) const { return (pos < MAX_CHARS) ? txt_[pos + MAX_CHARS] : 0; }
+
+    void setUpperText(const char* str, TextAlign align);
+    void setLowerText(const char* str, TextAlign align);
+
+    void clearUpper();
+    void clearLower();
+    void clearBoth();
+    void setDefault();
+
+    uint8_t packedColorMode() const { return color_ | (mode_ << 4); }
+
+    void setColor(DisplayColor c) { color_ = c; }
+    void setMode(DisplayMode m) { mode_ = m; }
+
+public:
+    static DisplayColor randomColor();
+    static DisplayColor namedColor(const t_symbol* c);
+
+private:
+    char txt_[2 * MAX_CHARS] = { 0 };
+    DisplayColor color_;
+    DisplayMode mode_;
+
+private:
+    static void setCentered(char* dest, const char* txt);
+    static void setAlignedLeft(char* dest, const char* txt);
+    static void setAlignedRight(char* dest, const char* txt);
+    static void setJustified(char* dest, const char* txt);
 };
 
 enum MidiFSMState {

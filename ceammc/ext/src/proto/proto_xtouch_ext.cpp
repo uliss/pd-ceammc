@@ -301,10 +301,8 @@ void XTouchExtender::initDone()
             scenes_[i].btn_select_tgl_mode_[j] = p;
         }
 
-        for (int j = 0; j < NCH; j++) {
-            scenes_[i].displayData(j).mode = DisplayData::INVERTED;
-            scenes_[i].displayData(j).color = DisplayData::CYAN;
-        }
+        for (int j = 0; j < NCH; j++)
+            scenes_[i].displayData(j).setDefault();
     }
 
     resetVu();
@@ -697,13 +695,11 @@ void XTouchExtender::syncDisplay(uint8_t scene_idx, uint8_t ctl_idx)
     m[4].setFloat(0x15, true);
     m[5].setFloat(0x4C, true);
     m[6].setFloat(ctl_idx, true);
-    m[7].setFloat(dd.color | (dd.mode << 4), true);
+    m[7].setFloat(dd.packedColorMode(), true);
 
-    dd.text_upper.resize(LCD_MAX_CHARS, '\0');
-    dd.text_lower.resize(LCD_MAX_CHARS, '\0');
-    for (size_t i = 0; i < LCD_MAX_CHARS; i++) {
-        m[i + 8].setFloat(dd.text_upper[i], true);
-        m[i + 15].setFloat(dd.text_lower[i], true);
+    for (size_t i = 0; i < dd.MAX_CHARS; i++) {
+        m[i + 8].setFloat(dd.upperCharAt(i), true);
+        m[i + 15].setFloat(dd.lowerCharAt(i), true);
     }
     m[N - 1].setFloat(0xf7, true);
 
@@ -713,29 +709,33 @@ void XTouchExtender::syncDisplay(uint8_t scene_idx, uint8_t ctl_idx)
 void XTouchExtender::setLogicDisplayUpperText(uint8_t log_idx, const std::string& txt)
 {
     auto& d = sceneByLogicIdx(log_idx).displayData(log_idx);
-    d.text_upper = txt;
-    d.text_upper.resize(LCD_MAX_CHARS, '\0');
+    d.setUpperText(txt.c_str(), DisplayData::LEFT);
 }
 void XTouchExtender::setLogicDisplayLowerText(uint8_t log_idx, const std::string& txt)
 {
     auto& d = sceneByLogicIdx(log_idx).displayData(log_idx);
-    d.text_lower = txt;
-    d.text_lower.resize(LCD_MAX_CHARS, '\0');
+    d.setLowerText(txt.c_str(), DisplayData::LEFT);
 }
 
 void XTouchExtender::setLogicLcdMode(uint8_t log_idx, int mode)
 {
+    using Mode = DisplayData::DisplayMode;
+
     if (log_idx >= numLogicChannels()) {
         OBJ_ERR << "channel is out of range: " << log_idx;
         return;
     }
 
-    if (mode < 0 || mode > 4) {
+    if (mode < DisplayData::MODE_MIN || mode > DisplayData::MODE_MAX) {
+        OBJ_ERR << "mode in "
+                << (int)DisplayData::MODE_MIN << ".." << (int)DisplayData::MODE_MAX
+                << "range is expected, got: " << mode;
+        return;
     }
 
     OBJ_LOG << "set lcd mode: " << (int)log_idx << ' ' << mode;
 
-    sceneByLogicIdx(log_idx).displayData(log_idx).mode = static_cast<DisplayData::DisplayMode>(mode);
+    sceneByLogicIdx(log_idx).displayData(log_idx).setMode(static_cast<DisplayData::DisplayMode>(mode));
     syncLogicDisplay(log_idx);
 }
 
@@ -763,16 +763,13 @@ void XTouchExtender::setLogicLcdColor(uint8_t log_idx, const Atom& color)
         const auto scolor = color.asT<t_symbol*>();
 
         if (scolor == SYM_RANDOM) { // set random color
-            new_color = static_cast<Color>((std::rand() % DisplayData::WHITE) + 1);
+            new_color = DisplayData::randomColor();
         } else { // color names
-            const std::array<t_symbol*, 8> all = { SYM_BLACK, SYM_RED, SYM_GREEN, SYM_YELLOW, SYM_BLUE, SYM_MAGENTA, SYM_CYAN, SYM_WHITE };
-            auto it = std::find_if(all.cbegin(), all.cend(), [scolor](t_symbol* c) { return c == scolor; });
-            if (it == all.cend()) { // not found
+            new_color = DisplayData::namedColor(scolor);
+            if (new_color == Color::UNKNOWN) { // not found
                 OBJ_ERR << "unknown color: " << scolor;
                 return;
             }
-
-            new_color = static_cast<Color>(std::distance(all.cbegin(), it));
         }
     } else {
         OBJ_ERR << "unknown type: " << color;
@@ -781,7 +778,7 @@ void XTouchExtender::setLogicLcdColor(uint8_t log_idx, const Atom& color)
 
     OBJ_LOG << "set lcd color: " << (int)log_idx << ' ' << color;
 
-    sceneByLogicIdx(log_idx).displayData(log_idx).color = new_color;
+    sceneByLogicIdx(log_idx).displayData(log_idx).setColor(new_color);
     syncLogicDisplay(log_idx);
 }
 
@@ -846,7 +843,7 @@ void XTouchExtender::m_lcd_mode(t_symbol* s, const AtomListView& lv)
 void XTouchExtender::m_lcd_color(t_symbol* s, const AtomListView& lv)
 {
     if (lv.size() < 2) {
-        METHOD_ERR(s) << "usage: IDX COLORS(index, color name or random)...";
+        METHOD_ERR(s) << "usage: IDX COLOR_LIST(index, color name or random)...";
         return;
     }
 
@@ -1008,4 +1005,185 @@ void setup_proto_xtouch_ext()
     obj.addMethod("lcd_mode", &XTouchExtender::m_lcd_mode);
 
     obj.addMethod("set", &XTouchExtender::m_set);
+
+    static_assert(sizeof(DisplayData) == 16, "");
+}
+
+void DisplayData::setUpperText(const char* str, TextAlign align)
+{
+    switch (align) {
+    case LEFT:
+        return setAlignedLeft(txt_, str);
+    case RIGHT:
+        return setAlignedRight(txt_, str);
+    case JUSTIFY:
+        return setJustified(txt_, str);
+    case CENTER:
+    default:
+        return setCentered(txt_, str);
+    }
+}
+
+void DisplayData::setLowerText(const char* str, TextAlign align)
+{
+    switch (align) {
+    case LEFT:
+        return setAlignedLeft(txt_ + MAX_CHARS, str);
+    case RIGHT:
+        return setAlignedRight(txt_ + MAX_CHARS, str);
+    case JUSTIFY:
+        return setJustified(txt_ + MAX_CHARS, str);
+    case CENTER:
+    default:
+        return setCentered(txt_ + MAX_CHARS, str);
+    }
+}
+
+void DisplayData::clearUpper()
+{
+    for (uint8_t i = 0; i < MAX_CHARS; i++)
+        txt_[i] = 0;
+}
+
+void DisplayData::clearLower()
+{
+    for (uint8_t i = 0; i < MAX_CHARS; i++)
+        txt_[i + MAX_CHARS] = 0;
+}
+
+void DisplayData::clearBoth()
+{
+    for (uint8_t i = 0; i < sizeof(txt_); i++)
+        txt_[i] = 0;
+}
+
+void DisplayData::setDefault()
+{
+    color_ = CYAN;
+    mode_ = INVERTED;
+    clearBoth();
+}
+
+DisplayData::DisplayColor DisplayData::randomColor()
+{
+    return static_cast<DisplayColor>((std::rand() % WHITE) + 1);
+}
+
+DisplayData::DisplayColor DisplayData::namedColor(const t_symbol* c)
+{
+    const std::array<const t_symbol*, NUM_COLORS> all = {
+        SYM_BLACK,
+        SYM_RED,
+        SYM_GREEN,
+        SYM_YELLOW,
+        SYM_BLUE,
+        SYM_MAGENTA,
+        SYM_CYAN,
+        SYM_WHITE,
+    };
+
+    for (size_t i = 0; i < all.size(); i++) {
+        if (all[i] == c)
+            return static_cast<DisplayColor>(i);
+    }
+
+    return UNKNOWN;
+}
+
+void DisplayData::setCentered(char* dest, const char* txt)
+{
+    const char* pch = txt;
+
+    uint8_t i = 0;
+    for (; i < MAX_CHARS; i++, pch++) {
+        if (*pch != 0)
+            dest[i] = *pch;
+        else
+            break;
+    }
+
+    // pad with zeroes
+    for (; i < MAX_CHARS; i++)
+        dest[i] = 0;
+}
+
+void DisplayData::setAlignedLeft(char* dest, const char* txt)
+{
+    const char* pch = txt;
+
+    uint8_t i = 0;
+    for (; i < MAX_CHARS; i++, pch++) {
+        if (*pch != 0)
+            dest[i] = *pch;
+        else
+            break;
+    }
+
+    // pad with spaces
+    for (; i < MAX_CHARS; i++)
+        dest[i] = ' ';
+}
+
+void DisplayData::setAlignedRight(char* dest, const char* txt)
+{
+    const char* pch = txt;
+    const auto len = strlen(txt);
+
+    uint8_t i = 0;
+
+    if (len < MAX_CHARS) {
+        // pad with spaces
+        for (; i < (MAX_CHARS - len); i++)
+            dest[i] = ' ';
+    }
+
+    for (; i < MAX_CHARS; i++, pch++) {
+        if (*pch != 0)
+            dest[i] = *pch;
+        else
+            break;
+    }
+}
+
+void DisplayData::setJustified(char* dest, const char* txt)
+{
+    const char* pch = txt;
+    const auto len = strlen(txt);
+
+    uint8_t i = 0;
+
+    for (; i < MAX_CHARS; i++) {
+        switch (*pch) {
+        case '\0':
+            dest[i] = '\0';
+            break;
+        case ' ':
+            pch++;
+            goto on_space;
+            break;
+        default:
+            dest[i] = *pch;
+            pch++;
+            break;
+        }
+    }
+
+    return;
+
+on_space:
+    // i < len
+    const auto nleft = len - (i + 1);
+    // nleft >= 0
+    if (nleft < MAX_CHARS) {
+        // pad with spaces
+        for (; i < (MAX_CHARS - nleft); i++)
+            dest[i] = ' ';
+    }
+
+    for (; i < MAX_CHARS; i++, pch++) {
+        if (*pch != 0)
+            dest[i] = *pch;
+        else
+            break;
+    }
 }
