@@ -20,7 +20,6 @@
 #include <array>
 #include <cstdlib>
 
-constexpr int LCD_MAX_CHARS = 7;
 constexpr int MAX_VU_DB = 0;
 constexpr int MIN_VU_DB = -60;
 constexpr int MAX_SCENES = 16;
