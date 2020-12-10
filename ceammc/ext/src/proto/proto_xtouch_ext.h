@@ -80,6 +80,8 @@ public:
     void setUpperText(const AtomListView& atoms);
     void setLowerText(const char* str);
     void setLowerText(const AtomListView& atoms);
+    std::string upperText() const;
+    std::string lowerText() const;
 
     void setUpperAlign(Align a) { upper_align_ = a; }
     bool setUpperAlign(const Atom& a);
@@ -201,6 +203,8 @@ public:
     void m_lcd_mode(t_symbol* s, const AtomListView& lv);
     void m_lcd_upper(t_symbol* s, const AtomListView& lv);
     void m_lcd_upper_align(t_symbol* s, const AtomListView& lv);
+    void m_lcd_upper_enum(t_symbol* s, const AtomListView& lv);
+    void m_lcd_lower_enum(t_symbol* s, const AtomListView& lv);
 
     void m_set(t_symbol* s, const AtomListView& lv);
 

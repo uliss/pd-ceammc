@@ -252,7 +252,7 @@ TEST_CASE("proto.xtouch_ext", "[externals]")
         REQUIRE(t->display(0).lowerAlign() == Display::ALIGN_AUTO);
     }
 
-    SECTION("align")
+    SECTION("colors")
     {
         TExt t("proto.xtouch_ext");
 
@@ -279,5 +279,20 @@ TEST_CASE("proto.xtouch_ext", "[externals]")
         REQUIRE(t->display(8).color() == Display::GREEN);
         REQUIRE(t->display(9).color() == Display::BLUE);
         REQUIRE(t->display(10).color() == Display::GREEN);
+    }
+
+    SECTION("enum")
+    {
+        TExt t("proto.xtouch_ext");
+
+        t.call("lcd_enum0");
+        REQUIRE(t->display(0).upperText() == "0");
+        REQUIRE(t->display(1).upperText() == "1");
+
+        t.call("lcd_enum1", "ch:");
+        REQUIRE(t->display(0).upperText() == "0");
+        REQUIRE(t->display(1).upperText() == "1");
+        REQUIRE(t->display(0).lowerText() == "ch:0");
+        REQUIRE(t->display(1).lowerText() == "ch:1");
     }
 }

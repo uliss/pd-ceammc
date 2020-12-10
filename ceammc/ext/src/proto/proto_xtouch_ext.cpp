@@ -824,6 +824,30 @@ void XTouchExtender::m_lcd_upper_align(t_symbol* s, const AtomListView& lv)
         });
 }
 
+void XTouchExtender::m_lcd_upper_enum(t_symbol* s, const AtomListView& lv)
+{
+    t_symbol* prefix = lv.symbolAt(0, &s_);
+    char buf[8];
+
+    for (int i = 0; i < numLogicChannels(); i++) {
+        snprintf(buf, sizeof(buf), "%s%d", prefix->s_name, i);
+        display(i).setUpperText(buf);
+        syncLogicDisplay(i);
+    }
+}
+
+void XTouchExtender::m_lcd_lower_enum(t_symbol* s, const AtomListView& lv)
+{
+    t_symbol* prefix = lv.symbolAt(0, &s_);
+    char buf[8];
+
+    for (int i = 0; i < numLogicChannels(); i++) {
+        snprintf(buf, sizeof(buf), "%s%d", prefix->s_name, i);
+        display(i).setLowerText(buf);
+        syncLogicDisplay(i);
+    }
+}
+
 void XTouchExtender::m_lcd_lower_align(t_symbol* s, const AtomListView& lv)
 {
     m_apply_fn(s, lv,
@@ -1069,6 +1093,38 @@ void Display::setLowerText(const AtomListView& atoms)
         upper_align_ = ALIGN_AUTO;
     } else
         setLowerText(to_string(atoms).c_str());
+}
+
+std::string Display::upperText() const
+{
+    int zi = -1;
+    for (uint8_t i = 0; i < MAX_CHARS; i++) {
+        if (txt_[i] == '\0') {
+            zi = i;
+            break;
+        }
+    }
+
+    if (zi >= 0)
+        return std::string(txt_, zi);
+    else
+        return std::string(txt_, MAX_CHARS);
+}
+
+std::string Display::lowerText() const
+{
+    int zi = -1;
+    for (uint8_t i = 0; i < MAX_CHARS; i++) {
+        if (txt_[MAX_CHARS + i] == '\0') {
+            zi = i;
+            break;
+        }
+    }
+
+    if (zi >= 0)
+        return std::string(txt_ + MAX_CHARS, zi);
+    else
+        return std::string(txt_ + MAX_CHARS, MAX_CHARS);
 }
 
 bool Display::setUpperAlign(const Atom& a)
@@ -1336,6 +1392,8 @@ void setup_proto_xtouch_ext()
     obj.addMethod("lcd_align", &XTouchExtender::m_lcd_align);
     obj.addMethod("lcd_align0", &XTouchExtender::m_lcd_upper_align);
     obj.addMethod("lcd_align1", &XTouchExtender::m_lcd_lower_align);
+    obj.addMethod("lcd_enum0", &XTouchExtender::m_lcd_upper_enum);
+    obj.addMethod("lcd_enum1", &XTouchExtender::m_lcd_lower_enum);
 
     obj.addMethod("set", &XTouchExtender::m_set);
 }
