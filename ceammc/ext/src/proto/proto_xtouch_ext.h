@@ -169,6 +169,6 @@ private:
     void setLogicLcdMode(uint8_t log_idx, int mode);
 };
 
-void setup_hw_xtouch_ext();
+void setup_proto_xtouch_ext();
 
 #endif // HW_XTOUCH_EXT_H

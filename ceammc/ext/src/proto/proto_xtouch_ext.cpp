@@ -11,7 +11,7 @@
  * contact the author of this file, or the owner of the project in which
  * this file belongs to.
  *****************************************************************************/
-#include "hw_xtouch_ext.h"
+#include "proto_xtouch_ext.h"
 #include "ceammc_convert.h"
 #include "ceammc_factory.h"
 #include "ceammc_format.h"
@@ -993,11 +993,11 @@ static void init_symbols()
     SYM_YELLOW = gensym("yellow");
 }
 
-void setup_hw_xtouch_ext()
+void setup_proto_xtouch_ext()
 {
     init_symbols();
 
-    ObjectFactory<XTouchExtender> obj("hw.xtouch_ext");
+    ObjectFactory<XTouchExtender> obj("proto.xtouch_ext");
     obj.addMethod("vu", &XTouchExtender::m_vu);
     obj.addMethod("reset", &XTouchExtender::m_reset);
 

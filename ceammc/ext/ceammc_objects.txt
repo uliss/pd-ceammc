@@ -319,7 +319,6 @@ hw.cpu_temp
 hw.display
 hw.kbd_light
 hw.serial
-hw.xtouch_ext
 is_any
 is_bang
 is_data
