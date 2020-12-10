@@ -104,6 +104,8 @@
                 muteIDX VAL: set mute button,
                 soloIDX VAL: set solo button,
                 selectIDX VAL: set select button,
+                knobIDX VAL: set knob value,
+                faderIDX VAL: set fader value
                 </xinfo>
             </inlet>
         </inlets>
