@@ -66,6 +66,11 @@ static t_symbol* SYM_RED;
 static t_symbol* SYM_SCENE;
 static t_symbol* SYM_WHITE;
 static t_symbol* SYM_YELLOW;
+static t_symbol* SYM_CENTER;
+static t_symbol* SYM_LEFT;
+static t_symbol* SYM_RIGHT;
+static t_symbol* SYM_JUSTIFY;
+static t_symbol* SYM_AUTO;
 
 enum MidiMSG {
     /* channel voice messages */
@@ -302,7 +307,7 @@ void XTouchExtender::initDone()
         }
 
         for (int j = 0; j < NCH; j++)
-            scenes_[i].displayData(j).setDefault();
+            scenes_[i].display(j).setDefault();
     }
 
     resetVu();
@@ -678,14 +683,12 @@ void XTouchExtender::sendNote(uint8_t note, uint8_t velocity, uint8_t ch)
     listTo(0, AtomListView(&m[0].atom(), 3));
 }
 
-int XTouchExtender::getLogicChannel(const AtomListView& lv, std::ostream& err) const
+int XTouchExtender::getLogicChannel(const AtomListView& lv) const
 {
     const auto idx = lv.intAt(0, -1);
 
-    if (idx < 0 || idx >= numLogicChannels()) {
-        err << "invalid index:" << idx;
+    if (idx < 0 || idx >= numLogicChannels())
         return -1;
-    }
 
     return idx;
 }
@@ -695,7 +698,7 @@ void XTouchExtender::syncDisplay(uint8_t scene_idx, uint8_t ctl_idx)
     if (scene_->value() != scene_idx)
         return;
 
-    auto& dd = sceneByIdx(scene_idx).displayData(ctl_idx);
+    auto& dd = sceneByIdx(scene_idx).display(ctl_idx);
 
     // example from doc: F0 00 20 32 dd 4C nn cc c1 .. c14 F7
     constexpr int N = 23;
@@ -720,40 +723,41 @@ void XTouchExtender::syncDisplay(uint8_t scene_idx, uint8_t ctl_idx)
 
 void XTouchExtender::setLogicDisplayUpperText(uint8_t log_idx, const AtomListView& txt)
 {
-    auto& d = sceneByLogicIdx(log_idx).displayData(log_idx);
+    auto& d = sceneByLogicIdx(log_idx).display(log_idx);
     d.setUpperText(txt);
 }
+
 void XTouchExtender::setLogicDisplayLowerText(uint8_t log_idx, const AtomListView& txt)
 {
-    auto& d = sceneByLogicIdx(log_idx).displayData(log_idx);
+    auto& d = sceneByLogicIdx(log_idx).display(log_idx);
     d.setLowerText(txt);
 }
 
 void XTouchExtender::setLogicLcdMode(uint8_t log_idx, int mode)
 {
-    using Mode = DisplayData::Mode;
+    using Mode = Display::Mode;
 
     if (log_idx >= numLogicChannels()) {
         OBJ_ERR << "channel is out of range: " << log_idx;
         return;
     }
 
-    if (mode < DisplayData::MODE_MIN || mode > DisplayData::MODE_MAX) {
+    if (mode < Display::MODE_MIN || mode > Display::MODE_MAX) {
         OBJ_ERR << "mode in "
-                << (int)DisplayData::MODE_MIN << ".." << (int)DisplayData::MODE_MAX
+                << (int)Display::MODE_MIN << ".." << (int)Display::MODE_MAX
                 << "range is expected, got: " << mode;
         return;
     }
 
     OBJ_LOG << "set lcd mode: " << (int)log_idx << ' ' << mode;
 
-    sceneByLogicIdx(log_idx).displayData(log_idx).setMode(static_cast<DisplayData::Mode>(mode));
+    sceneByLogicIdx(log_idx).display(log_idx).setMode(static_cast<Display::Mode>(mode));
     syncLogicDisplay(log_idx);
 }
 
 void XTouchExtender::setLogicLcdColor(uint8_t log_idx, const Atom& color)
 {
-    using Color = DisplayData::Color;
+    using Color = Display::Color;
 
     if (log_idx >= numLogicChannels()) {
         OBJ_ERR << "channel is out of range: " << log_idx;
@@ -764,9 +768,9 @@ void XTouchExtender::setLogicLcdColor(uint8_t log_idx, const Atom& color)
 
     if (color.isFloat()) { // set by color index
         const auto color_idx = color.asInt(-1);
-        if (color_idx < DisplayData::BLACK || color_idx > DisplayData::WHITE) {
+        if (color_idx < Display::BLACK || color_idx > Display::WHITE) {
             OBJ_ERR << "expected color index in "
-                    << DisplayData::BLACK << ".." << DisplayData::WHITE << " range, got: " << color_idx;
+                    << Display::BLACK << ".." << Display::WHITE << " range, got: " << color_idx;
             return;
         }
 
@@ -775,9 +779,9 @@ void XTouchExtender::setLogicLcdColor(uint8_t log_idx, const Atom& color)
         const auto scolor = color.asT<t_symbol*>();
 
         if (scolor == SYM_RANDOM) { // set random color
-            new_color = DisplayData::randomColor();
+            new_color = Display::randomColor();
         } else { // color names
-            new_color = DisplayData::namedColor(scolor);
+            new_color = Display::namedColor(scolor);
             if (new_color == Color::UNKNOWN) { // not found
                 OBJ_ERR << "unknown color: " << scolor;
                 return;
@@ -790,7 +794,7 @@ void XTouchExtender::setLogicLcdColor(uint8_t log_idx, const Atom& color)
 
     OBJ_LOG << "set lcd color: " << (int)log_idx << ' ' << color;
 
-    sceneByLogicIdx(log_idx).displayData(log_idx).setColor(new_color);
+    sceneByLogicIdx(log_idx).display(log_idx).setColor(new_color);
     syncLogicDisplay(log_idx);
 }
 
@@ -801,9 +805,11 @@ void XTouchExtender::m_lcd_upper(t_symbol* s, const AtomListView& lv)
         return;
     }
 
-    const auto ch = getLogicChannel(lv, METHOD_ERR(s));
-    if (ch < 0)
+    const auto ch = getLogicChannel(lv);
+    if (ch < 0) {
+        METHOD_ERR(s) << "invalid channel: " << lv[0];
         return;
+    }
 
     setLogicDisplayUpperText(ch, lv.subView(1));
     syncLogicDisplay(ch);
@@ -816,9 +822,11 @@ void XTouchExtender::m_lcd_lower(t_symbol* s, const AtomListView& lv)
         return;
     }
 
-    const auto ch = getLogicChannel(lv, METHOD_ERR(s));
-    if (ch < 0)
+    const auto ch = getLogicChannel(lv);
+    if (ch < 0) {
+        METHOD_ERR(s) << "invalid channel: " << lv[0];
         return;
+    }
 
     setLogicDisplayLowerText(ch, lv.subView(1));
     syncLogicDisplay(ch);
@@ -831,14 +839,80 @@ void XTouchExtender::m_lcd(t_symbol* s, const AtomListView& lv)
         return;
     }
 
-    const auto ch = getLogicChannel(lv, METHOD_ERR(s));
-    if (ch < 0)
+    const auto ch = getLogicChannel(lv);
+    if (ch < 0) {
+        METHOD_ERR(s) << "invalid channel: " << lv[0];
         return;
+    }
 
     setLogicDisplayUpperText(ch, lv.subView(1, 1));
     setLogicDisplayLowerText(ch, lv.subView(2, 1));
 
     syncLogicDisplay(ch);
+}
+
+void XTouchExtender::m_lcd_align(t_symbol* s, const AtomListView& lv)
+{
+    m_apply_fn(s, lv,
+        [this](int idx, const Atom& a) {
+            auto& d = sceneByLogicIdx(idx).display(idx);
+            d.setUpperAlign(a);
+            d.setLowerAlign(a);
+        });
+}
+
+void XTouchExtender::m_lcd_upper_align(t_symbol* s, const AtomListView& lv)
+{
+    m_apply_fn(s, lv,
+        [this](int idx, const Atom& a) { display(idx).setUpperAlign(a); });
+}
+
+void XTouchExtender::m_lcd_lower_align(t_symbol* s, const AtomListView& lv)
+{
+    m_apply_fn(s, lv,
+        [this](int idx, const Atom& a) { display(idx).setLowerAlign(a); });
+}
+
+void XTouchExtender::m_apply_fn(t_symbol* s, const AtomListView& lv, std::function<void(int, const Atom&)> fn)
+{
+    auto usage = [this, s]() -> void { METHOD_ERR(s) << "usage: IDX|all|scene ARGS..."; };
+
+    if (lv.size() < 2)
+        return usage();
+
+    t_symbol* INVALID = nullptr;
+    const auto sym_ch = lv[0].toT<t_symbol*>(INVALID);
+
+    // set all channels on all scenes
+    if (sym_ch == SYM_ALL) {
+        for (int i = 0; i < numLogicChannels(); i++)
+            fn(i, lv[1]);
+
+        return;
+    } else if (sym_ch == SYM_SCENE) { // set all channels on current scene
+        for (int i = 0; i < Scene::NCHAN; i++)
+            fn(calcLogicIdx(i), lv[1]);
+    } else if (sym_ch != INVALID) {
+        return usage();
+    } else {
+        const auto ch = getLogicChannel(lv);
+        if (ch < 0) {
+            METHOD_ERR(s) << "invalid channel: " << lv[0];
+            return;
+        }
+
+        const int nmax = (Scene::NCHAN - ch % Scene::NCHAN);
+        for (size_t i = 1; i < lv.size(); i++) {
+            const int idx = ch + i - 1;
+            // idx >= 0
+            if (i >= nmax) {
+                METHOD_ERR(s) << "ignoring extra values: " << lv.subView(i);
+                break;
+            }
+
+            fn(calcLogicIdx(ch + i - 1), lv[i]);
+        }
+    }
 }
 
 void XTouchExtender::m_lcd_mode(t_symbol* s, const AtomListView& lv)
@@ -1011,11 +1085,16 @@ static void init_symbols()
     SYM_SCENE = gensym("scene");
     SYM_WHITE = gensym("white");
     SYM_YELLOW = gensym("yellow");
+    SYM_CENTER = gensym("center");
+    SYM_LEFT = gensym("left");
+    SYM_RIGHT = gensym("right");
+    SYM_JUSTIFY = gensym("justify");
+    SYM_AUTO = gensym("auto");
 }
 
-void DisplayData::setUpperText(const char* str)
+void Display::setUpperText(const char* str)
 {
-    switch (align_) {
+    switch (upper_align_) {
     case ALIGN_LEFT:
         return setAlignedLeft(txt_, str);
     case ALIGN_RIGHT:
@@ -1028,37 +1107,78 @@ void DisplayData::setUpperText(const char* str)
     }
 }
 
-void DisplayData::setUpperText(const AtomListView& atoms)
+void Display::setUpperText(const AtomListView& atoms)
 {
     if (atoms.empty())
         clearUpper();
     else if (atoms.isSymbol())
         setUpperText(atoms[0].asT<t_symbol*>()->s_name);
-    else if (align_ == ALIGN_AUTO && atoms.size() == 2) {
-        align_ = ALIGN_JUSTIFY;
+    else if (upper_align_ == ALIGN_AUTO && atoms.size() == 2) {
+        upper_align_ = ALIGN_JUSTIFY;
         setUpperText(to_string(atoms).c_str());
-        align_ = ALIGN_AUTO;
+        upper_align_ = ALIGN_AUTO;
     } else
         setUpperText(to_string(atoms).c_str());
 }
 
-void DisplayData::setLowerText(const AtomListView& atoms)
+void Display::setLowerText(const AtomListView& atoms)
 {
     if (atoms.empty())
         clearLower();
     else if (atoms.isSymbol())
         setLowerText(atoms[0].asT<t_symbol*>()->s_name);
-    else if (align_ == ALIGN_AUTO && atoms.size() == 2) {
-        align_ = ALIGN_JUSTIFY;
+    else if (upper_align_ == ALIGN_AUTO && atoms.size() == 2) {
+        upper_align_ = ALIGN_JUSTIFY;
         setLowerText(to_string(atoms).c_str());
-        align_ = ALIGN_AUTO;
+        upper_align_ = ALIGN_AUTO;
     } else
         setLowerText(to_string(atoms).c_str());
 }
 
-void DisplayData::setLowerText(const char* str)
+bool Display::setUpperAlign(const Atom& a)
 {
-    switch (align_) {
+    Align al = ALIGN_INVALID;
+    if (a.isSymbol())
+        al = namedAlign(a.asT<t_symbol*>());
+    else if (a.isFloat()) {
+        auto i = a.asInt(ALIGN_INVALID);
+        if (i < ALIGN_MIN || i > ALIGN_MAX)
+            return false;
+
+        al = static_cast<Align>(i);
+    }
+
+    if (al == ALIGN_INVALID)
+        return false;
+
+    setUpperAlign(al);
+    return true;
+}
+
+bool Display::setLowerAlign(const Atom& a)
+{
+    Align al = ALIGN_INVALID;
+
+    if (a.isSymbol())
+        al = namedAlign(a.asT<t_symbol*>());
+    else if (a.isFloat()) {
+        auto i = a.asInt(ALIGN_INVALID);
+        if (i < ALIGN_MIN || i > ALIGN_MAX)
+            return false;
+
+        al = static_cast<Align>(i);
+    }
+
+    if (al == ALIGN_INVALID)
+        return false;
+
+    setLowerAlign(al);
+    return true;
+}
+
+void Display::setLowerText(const char* str)
+{
+    switch (upper_align_) {
     case ALIGN_LEFT:
         return setAlignedLeft(txt_ + MAX_CHARS, str);
     case ALIGN_RIGHT:
@@ -1071,37 +1191,39 @@ void DisplayData::setLowerText(const char* str)
     }
 }
 
-void DisplayData::clearUpper()
+void Display::clearUpper()
 {
     for (uint8_t i = 0; i < MAX_CHARS; i++)
         txt_[i] = 0;
 }
 
-void DisplayData::clearLower()
+void Display::clearLower()
 {
     for (uint8_t i = 0; i < MAX_CHARS; i++)
         txt_[i + MAX_CHARS] = 0;
 }
 
-void DisplayData::clearBoth()
+void Display::clearBoth()
 {
     for (uint8_t i = 0; i < sizeof(txt_); i++)
         txt_[i] = 0;
 }
 
-void DisplayData::setDefault()
+void Display::setDefault()
 {
     color_ = CYAN;
     mode_ = MODE_INVERTED;
+    upper_align_ = ALIGN_AUTO;
+    lower_align_ = ALIGN_AUTO;
     clearBoth();
 }
 
-DisplayData::Color DisplayData::randomColor()
+Display::Color Display::randomColor()
 {
     return static_cast<Color>((std::rand() % WHITE) + 1);
 }
 
-DisplayData::Color DisplayData::namedColor(const t_symbol* c)
+Display::Color Display::namedColor(const t_symbol* c)
 {
     const std::array<const t_symbol*, NUM_COLORS> all = {
         SYM_BLACK,
@@ -1122,7 +1244,25 @@ DisplayData::Color DisplayData::namedColor(const t_symbol* c)
     return UNKNOWN;
 }
 
-void DisplayData::setCentered(char* dest, const char* txt)
+Display::Align Display::namedAlign(const t_symbol* a)
+{
+    const std::array<const t_symbol*, ALIGN_MAX + 1> all = {
+        SYM_CENTER,
+        SYM_LEFT,
+        SYM_RIGHT,
+        SYM_JUSTIFY,
+        SYM_AUTO
+    };
+
+    for (size_t i = 0; i < all.size(); i++) {
+        if (all[i] == a)
+            return static_cast<Align>(i);
+    }
+
+    return ALIGN_INVALID;
+}
+
+void Display::setCentered(char* dest, const char* txt)
 {
     const char* pch = txt;
 
@@ -1139,7 +1279,7 @@ void DisplayData::setCentered(char* dest, const char* txt)
         dest[i] = 0;
 }
 
-void DisplayData::setAlignedLeft(char* dest, const char* txt)
+void Display::setAlignedLeft(char* dest, const char* txt)
 {
     const char* pch = txt;
 
@@ -1156,7 +1296,7 @@ void DisplayData::setAlignedLeft(char* dest, const char* txt)
         dest[i] = ' ';
 }
 
-void DisplayData::setAlignedRight(char* dest, const char* txt)
+void Display::setAlignedRight(char* dest, const char* txt)
 {
     const char* pch = txt;
     const auto len = strlen(txt);
@@ -1177,7 +1317,7 @@ void DisplayData::setAlignedRight(char* dest, const char* txt)
     }
 }
 
-void DisplayData::setJustified(char* dest, const char* txt)
+void Display::setJustified(char* dest, const char* txt)
 {
     const char* pch = txt;
     const auto len = strlen(txt);
@@ -1233,6 +1373,9 @@ void setup_proto_xtouch_ext()
     obj.addMethod("lcd1", &XTouchExtender::m_lcd_lower);
     obj.addMethod("lcd_color", &XTouchExtender::m_lcd_color);
     obj.addMethod("lcd_mode", &XTouchExtender::m_lcd_mode);
+    obj.addMethod("lcd_align", &XTouchExtender::m_lcd_align);
+    obj.addMethod("lcd_align0", &XTouchExtender::m_lcd_upper_align);
+    obj.addMethod("lcd_align1", &XTouchExtender::m_lcd_lower_align);
 
     obj.addMethod("set", &XTouchExtender::m_set);
 }

@@ -23,7 +23,7 @@
 
 using namespace ceammc;
 
-class DisplayData {
+class Display {
 public:
     static const uint8_t MAX_CHARS = 7;
 
@@ -52,7 +52,8 @@ public:
         ALIGN_LEFT,
         ALIGN_RIGHT,
         ALIGN_JUSTIFY,
-        ALIGN_AUTO
+        ALIGN_AUTO,
+        ALIGN_INVALID
     };
 
     enum {
@@ -64,10 +65,11 @@ public:
         ALIGN_MAX = ALIGN_AUTO
     };
 
-    DisplayData()
+    Display()
         : color_(CYAN)
         , mode_(MODE_INVERTED)
-        , align_(ALIGN_AUTO)
+        , upper_align_(ALIGN_AUTO)
+        , lower_align_(ALIGN_AUTO)
     {
     }
 
@@ -79,6 +81,13 @@ public:
     void setLowerText(const char* str);
     void setLowerText(const AtomListView& atoms);
 
+    void setUpperAlign(Align a) { upper_align_ = a; }
+    bool setUpperAlign(const Atom& a);
+    void setLowerAlign(Align a) { lower_align_ = a; }
+    bool setLowerAlign(const Atom& a);
+    Align upperAlign() const { return upper_align_; }
+    Align lowerAlign() const { return lower_align_; }
+
     void clearUpper();
     void clearLower();
     void clearBoth();
@@ -86,7 +95,6 @@ public:
 
     uint8_t packedColorMode() const { return color_ | (mode_ << 4); }
 
-    void setAlign(Align a) { align_ = a; }
     void setColor(Color c) { color_ = c; }
     void setMode(Mode m) { mode_ = m; }
 
@@ -94,11 +102,17 @@ public:
     static Color randomColor();
     static Color namedColor(const t_symbol* c);
 
+    /**
+     * converts align name to enum value
+     * @return ALIGN_INVALID if not found
+     */
+    static Align namedAlign(const t_symbol* a);
+
 private:
     char txt_[2 * MAX_CHARS] = { 0 };
     Color color_;
     Mode mode_;
-    Align align_;
+    Align upper_align_, lower_align_;
 
 private:
     static void setCentered(char* dest, const char* txt);
@@ -153,10 +167,10 @@ struct Scene {
     std::array<IntProperty*, NCHAN> btn_select_;
     std::array<BoolProperty*, NCHAN> btn_select_tgl_mode_;
 
-    DisplayData& displayData(uint8_t n) { return display_data_[n % NCHAN]; }
+    Display& display(uint8_t n) { return display_data_[n % NCHAN]; }
 
 private:
-    DisplayData display_data_[NCHAN];
+    Display display_data_[NCHAN];
 };
 
 class XTouchExtender : public BaseObject {
@@ -173,15 +187,27 @@ public:
 
     void m_vu(t_symbol* s, const AtomListView& lv);
     void m_reset(t_symbol* s, const AtomListView& lv);
-    void m_lcd_upper(t_symbol* s, const AtomListView& lv);
-    void m_lcd_lower(t_symbol* s, const AtomListView& lv);
+
     void m_lcd(t_symbol* s, const AtomListView& lv);
-    void m_lcd_mode(t_symbol* s, const AtomListView& lv);
+    void m_lcd_align(t_symbol* s, const AtomListView& lv);
     void m_lcd_color(t_symbol* s, const AtomListView& lv);
+    void m_lcd_lower(t_symbol* s, const AtomListView& lv);
+    void m_lcd_lower_align(t_symbol* s, const AtomListView& lv);
+    void m_lcd_mode(t_symbol* s, const AtomListView& lv);
+    void m_lcd_upper(t_symbol* s, const AtomListView& lv);
+    void m_lcd_upper_align(t_symbol* s, const AtomListView& lv);
 
     void m_set(t_symbol* s, const AtomListView& lv);
 
+public:
+    Scene& currentScene() { return scenes_[scene_->value()]; }
+    Scene& sceneByIdx(uint8_t scene_idx) { return scenes_[scene_idx % scenes_.size()]; }
+    Scene& sceneByLogicIdx(uint8_t log_ctl_idx) { return sceneByIdx(log_ctl_idx / Scene::NCHAN); }
+    Display& display(int8_t chan) { return sceneByLogicIdx(chan).display(chan % Scene::NCHAN); }
+
 private:
+    void m_apply_fn(t_symbol* s, const AtomListView& lv, std::function<void(int, const Atom&)> fn);
+
     void parseXMidi();
     void parseHui();
     void parseMcu();
@@ -209,7 +235,7 @@ private:
     int numLogicChannels() const { return scenes_.size() * Scene::NCHAN; }
     int numHWChannels() const { return Scene::NCHAN; }
 
-    int getLogicChannel(const AtomListView& lv, std::ostream& err) const;
+    int getLogicChannel(const AtomListView& lv) const;
 
     /**
      * @brief calcLogicIdx - calculates logic index for current scene
@@ -217,10 +243,6 @@ private:
      * @return
      */
     uint8_t calcLogicIdx(uint8_t idx) const { return scene_->value() * Scene::NCHAN + idx; }
-
-    Scene& currentScene() { return scenes_[scene_->value()]; }
-    Scene& sceneByIdx(uint8_t scene_idx) { return scenes_[scene_idx % scenes_.size()]; }
-    Scene& sceneByLogicIdx(uint8_t log_ctl_idx) { return sceneByIdx(log_ctl_idx / Scene::NCHAN); }
 
     void setLogicDisplayUpperText(uint8_t log_idx, const AtomListView& txt);
     void setLogicDisplayLowerText(uint8_t log_idx, const AtomListView& txt);

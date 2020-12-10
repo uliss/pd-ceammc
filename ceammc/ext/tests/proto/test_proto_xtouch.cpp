@@ -19,6 +19,7 @@ PD_COMPLETE_TEST_SETUP(XTouchExtender, proto, xtouch_ext)
 TEST_CASE("proto.xtouch_ext", "[externals]")
 {
     pd_test_init();
+    test::pdPrintToStdError();
 
     SECTION("create")
     {
@@ -32,9 +33,9 @@ TEST_CASE("proto.xtouch_ext", "[externals]")
 
     SECTION("display")
     {
-        DisplayData d;
+        Display d;
 
-        d.setAlign(d.ALIGN_CENTER);
+        d.setUpperAlign(d.ALIGN_CENTER);
         d.setUpperText("ABC");
         REQUIRE(d.upperCharAt(0) == 'A');
         REQUIRE(d.upperCharAt(1) == 'B');
@@ -55,7 +56,7 @@ TEST_CASE("proto.xtouch_ext", "[externals]")
         REQUIRE(d.upperCharAt(6) == 'G');
         REQUIRE(d.upperCharAt(7) == '\0');
 
-        d.setAlign(d.ALIGN_LEFT);
+        d.setUpperAlign(d.ALIGN_LEFT);
         d.setUpperText("ABC");
         REQUIRE(d.upperCharAt(0) == 'A');
         REQUIRE(d.upperCharAt(1) == 'B');
@@ -76,7 +77,7 @@ TEST_CASE("proto.xtouch_ext", "[externals]")
         REQUIRE(d.upperCharAt(6) == 'G');
         REQUIRE(d.upperCharAt(7) == '\0');
 
-        d.setAlign(d.ALIGN_RIGHT);
+        d.setUpperAlign(d.ALIGN_RIGHT);
         d.setUpperText("ABC");
         REQUIRE(d.upperCharAt(0) == ' ');
         REQUIRE(d.upperCharAt(1) == ' ');
@@ -97,7 +98,7 @@ TEST_CASE("proto.xtouch_ext", "[externals]")
         REQUIRE(d.upperCharAt(6) == 'G');
         REQUIRE(d.upperCharAt(7) == '\0');
 
-        d.setAlign(d.ALIGN_JUSTIFY);
+        d.setUpperAlign(d.ALIGN_JUSTIFY);
         d.setUpperText("n: 1%");
         REQUIRE(d.upperCharAt(0) == 'n');
         REQUIRE(d.upperCharAt(1) == ':');
@@ -161,7 +162,7 @@ TEST_CASE("proto.xtouch_ext", "[externals]")
 
     SECTION("setUpperText")
     {
-        DisplayData d;
+        Display d;
 
         d.setUpperText(LA("A", "B"));
         REQUIRE(d.upperCharAt(0) == 'A');
@@ -182,5 +183,72 @@ TEST_CASE("proto.xtouch_ext", "[externals]")
         REQUIRE(d.upperCharAt(5) == '\0');
         REQUIRE(d.upperCharAt(6) == '\0');
         REQUIRE(d.upperCharAt(7) == '\0');
+    }
+
+    SECTION("align")
+    {
+        TExt t("proto.xtouch_ext");
+
+        REQUIRE(t->display(0).upperAlign() == Display::ALIGN_AUTO);
+        REQUIRE(t->display(0).lowerAlign() == Display::ALIGN_AUTO);
+
+        REQUIRE(t->display(0).upperAlign() == Display::ALIGN_AUTO);
+        REQUIRE(t->display(0).lowerAlign() == Display::ALIGN_AUTO);
+
+        t.call("lcd_align");
+        REQUIRE(t->display(0).upperAlign() == Display::ALIGN_AUTO);
+        REQUIRE(t->display(0).lowerAlign() == Display::ALIGN_AUTO);
+
+        t.call("lcd_align", LA("all"));
+        REQUIRE(t->display(0).upperAlign() == Display::ALIGN_AUTO);
+        REQUIRE(t->display(0).lowerAlign() == Display::ALIGN_AUTO);
+
+        t.call("lcd_align", LA("all", "left"));
+        REQUIRE(t->display(0).upperAlign() == Display::ALIGN_LEFT);
+        REQUIRE(t->display(0).lowerAlign() == Display::ALIGN_LEFT);
+
+        t.call("lcd_align", LA("scene", "right"));
+        REQUIRE(t->display(0).upperAlign() == Display::ALIGN_RIGHT);
+        REQUIRE(t->display(0).lowerAlign() == Display::ALIGN_RIGHT);
+        REQUIRE(t->display(8).upperAlign() == Display::ALIGN_LEFT);
+        REQUIRE(t->display(8).lowerAlign() == Display::ALIGN_LEFT);
+
+        t.call("lcd_align", LA(2, "auto"));
+        REQUIRE(t->display(1).upperAlign() == Display::ALIGN_RIGHT);
+        REQUIRE(t->display(1).lowerAlign() == Display::ALIGN_RIGHT);
+        REQUIRE(t->display(2).upperAlign() == Display::ALIGN_AUTO);
+        REQUIRE(t->display(2).lowerAlign() == Display::ALIGN_AUTO);
+        REQUIRE(t->display(3).upperAlign() == Display::ALIGN_RIGHT);
+        REQUIRE(t->display(3).lowerAlign() == Display::ALIGN_RIGHT);
+
+        t.call("lcd_align", LA(0., "left", "right", "center", "left", "right", "center", "left", "right", "auto"));
+        REQUIRE(t->display(0).upperAlign() == Display::ALIGN_LEFT);
+        REQUIRE(t->display(1).upperAlign() == Display::ALIGN_RIGHT);
+        REQUIRE(t->display(2).upperAlign() == Display::ALIGN_CENTER);
+        REQUIRE(t->display(3).upperAlign() == Display::ALIGN_LEFT);
+        REQUIRE(t->display(4).upperAlign() == Display::ALIGN_RIGHT);
+        REQUIRE(t->display(5).upperAlign() == Display::ALIGN_CENTER);
+        REQUIRE(t->display(6).upperAlign() == Display::ALIGN_LEFT);
+
+        t.call("lcd_align", LA(4, "auto", "auto", "auto", "auto"));
+        REQUIRE(t->display(0).upperAlign() == Display::ALIGN_LEFT);
+        REQUIRE(t->display(1).upperAlign() == Display::ALIGN_RIGHT);
+        REQUIRE(t->display(2).upperAlign() == Display::ALIGN_CENTER);
+        REQUIRE(t->display(3).upperAlign() == Display::ALIGN_LEFT);
+        REQUIRE(t->display(4).upperAlign() == Display::ALIGN_AUTO);
+        REQUIRE(t->display(5).upperAlign() == Display::ALIGN_AUTO);
+        REQUIRE(t->display(6).upperAlign() == Display::ALIGN_AUTO);
+
+        t.call("lcd_align", LA("all", "left"));
+        REQUIRE(t->display(0).upperAlign() == Display::ALIGN_LEFT);
+        REQUIRE(t->display(0).lowerAlign() == Display::ALIGN_LEFT);
+
+        t.call("lcd_align0", LA("all", "right"));
+        REQUIRE(t->display(0).upperAlign() == Display::ALIGN_RIGHT);
+        REQUIRE(t->display(0).lowerAlign() == Display::ALIGN_LEFT);
+
+        t.call("lcd_align1", LA("all", "auto"));
+        REQUIRE(t->display(0).upperAlign() == Display::ALIGN_RIGHT);
+        REQUIRE(t->display(0).lowerAlign() == Display::ALIGN_AUTO);
     }
 }
