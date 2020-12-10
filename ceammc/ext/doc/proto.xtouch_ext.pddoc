@@ -59,6 +59,22 @@
             <method name="lcd_enum1">set all lower display text with incremental enumeration
             <param name="PREFIX" type="atom">name prefix</param>
             </method>
+            <method name="rec">set rec buttons
+            <param name="CHAN" type="atom" required="true">'all', 'scene' or channel index, max value is NUM_SCENES * 8</param>
+            <param name="X" type="list" required="true">button value(s)</param>
+            </method>
+            <method name="solo">set solo buttons
+            <param name="CHAN" type="atom" required="true">'all', 'scene' or channel index, max value is NUM_SCENES * 8</param>
+            <param name="X" type="list" required="true">button value(s)</param>
+            </method>
+            <method name="mute">set mute buttons
+            <param name="CHAN" type="atom" required="true">'all', 'scene' or channel index, max value is NUM_SCENES * 8</param>
+            <param name="X" type="list" required="true">button value(s)</param>
+            </method>
+            <method name="select">set select buttons
+            <param name="CHAN" type="atom" required="true">'all', 'scene' or channel index, max value is NUM_SCENES * 8</param>
+            <param name="X" type="list" required="true">button value(s)</param>
+            </method>
             <method name="vu">set VU meter indicator
             <param name="CHAN" type="int" required="true" minvalue="0">channel index, max value is NUM_SCENES * 8</param>
             <param name="DB" type="float" required="true">level in decibels, in -144..0 range</param></method>
