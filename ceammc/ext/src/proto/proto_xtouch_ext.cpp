@@ -709,12 +709,12 @@ void XTouchExtender::syncDisplay(uint8_t scene_idx, uint8_t ctl_idx)
 void XTouchExtender::setLogicDisplayUpperText(uint8_t log_idx, const std::string& txt)
 {
     auto& d = sceneByLogicIdx(log_idx).displayData(log_idx);
-    d.setUpperText(txt.c_str(), DisplayData::LEFT);
+    d.setUpperText(txt.c_str(), DisplayData::ALIGN_LEFT);
 }
 void XTouchExtender::setLogicDisplayLowerText(uint8_t log_idx, const std::string& txt)
 {
     auto& d = sceneByLogicIdx(log_idx).displayData(log_idx);
-    d.setLowerText(txt.c_str(), DisplayData::LEFT);
+    d.setLowerText(txt.c_str(), DisplayData::ALIGN_LEFT);
 }
 
 void XTouchExtender::setLogicLcdMode(uint8_t log_idx, int mode)
@@ -1012,13 +1012,13 @@ void setup_proto_xtouch_ext()
 void DisplayData::setUpperText(const char* str, TextAlign align)
 {
     switch (align) {
-    case LEFT:
+    case ALIGN_LEFT:
         return setAlignedLeft(txt_, str);
-    case RIGHT:
+    case ALIGN_RIGHT:
         return setAlignedRight(txt_, str);
-    case JUSTIFY:
+    case ALIGN_JUSTIFY:
         return setJustified(txt_, str);
-    case CENTER:
+    case ALIGN_CENTER:
     default:
         return setCentered(txt_, str);
     }
@@ -1027,13 +1027,13 @@ void DisplayData::setUpperText(const char* str, TextAlign align)
 void DisplayData::setLowerText(const char* str, TextAlign align)
 {
     switch (align) {
-    case LEFT:
+    case ALIGN_LEFT:
         return setAlignedLeft(txt_ + MAX_CHARS, str);
-    case RIGHT:
+    case ALIGN_RIGHT:
         return setAlignedRight(txt_ + MAX_CHARS, str);
-    case JUSTIFY:
+    case ALIGN_JUSTIFY:
         return setJustified(txt_ + MAX_CHARS, str);
-    case CENTER:
+    case ALIGN_CENTER:
     default:
         return setCentered(txt_ + MAX_CHARS, str);
     }

@@ -34,7 +34,7 @@ TEST_CASE("proto.xtouch_ext", "[externals]")
     {
         DisplayData d;
 
-        d.setUpperText("ABC", d.CENTER);
+        d.setUpperText("ABC", d.ALIGN_CENTER);
         REQUIRE(d.upperCharAt(0) == 'A');
         REQUIRE(d.upperCharAt(1) == 'B');
         REQUIRE(d.upperCharAt(2) == 'C');
@@ -44,7 +44,7 @@ TEST_CASE("proto.xtouch_ext", "[externals]")
         REQUIRE(d.upperCharAt(6) == '\0');
         REQUIRE(d.upperCharAt(7) == '\0');
 
-        d.setUpperText("ABCDEFGHIJ", d.CENTER);
+        d.setUpperText("ABCDEFGHIJ", d.ALIGN_CENTER);
         REQUIRE(d.upperCharAt(0) == 'A');
         REQUIRE(d.upperCharAt(1) == 'B');
         REQUIRE(d.upperCharAt(2) == 'C');
@@ -54,7 +54,7 @@ TEST_CASE("proto.xtouch_ext", "[externals]")
         REQUIRE(d.upperCharAt(6) == 'G');
         REQUIRE(d.upperCharAt(7) == '\0');
 
-        d.setUpperText("ABC", d.LEFT);
+        d.setUpperText("ABC", d.ALIGN_LEFT);
         REQUIRE(d.upperCharAt(0) == 'A');
         REQUIRE(d.upperCharAt(1) == 'B');
         REQUIRE(d.upperCharAt(2) == 'C');
@@ -64,7 +64,7 @@ TEST_CASE("proto.xtouch_ext", "[externals]")
         REQUIRE(d.upperCharAt(6) == ' ');
         REQUIRE(d.upperCharAt(7) == '\0');
 
-        d.setUpperText("ABCDEFGHIJ", d.LEFT);
+        d.setUpperText("ABCDEFGHIJ", d.ALIGN_LEFT);
         REQUIRE(d.upperCharAt(0) == 'A');
         REQUIRE(d.upperCharAt(1) == 'B');
         REQUIRE(d.upperCharAt(2) == 'C');
@@ -74,7 +74,7 @@ TEST_CASE("proto.xtouch_ext", "[externals]")
         REQUIRE(d.upperCharAt(6) == 'G');
         REQUIRE(d.upperCharAt(7) == '\0');
 
-        d.setUpperText("ABC", d.RIGHT);
+        d.setUpperText("ABC", d.ALIGN_RIGHT);
         REQUIRE(d.upperCharAt(0) == ' ');
         REQUIRE(d.upperCharAt(1) == ' ');
         REQUIRE(d.upperCharAt(2) == ' ');
@@ -84,7 +84,7 @@ TEST_CASE("proto.xtouch_ext", "[externals]")
         REQUIRE(d.upperCharAt(6) == 'C');
         REQUIRE(d.upperCharAt(7) == '\0');
 
-        d.setUpperText("ABCDEFGHIJ", d.RIGHT);
+        d.setUpperText("ABCDEFGHIJ", d.ALIGN_RIGHT);
         REQUIRE(d.upperCharAt(0) == 'A');
         REQUIRE(d.upperCharAt(1) == 'B');
         REQUIRE(d.upperCharAt(2) == 'C');
@@ -94,7 +94,7 @@ TEST_CASE("proto.xtouch_ext", "[externals]")
         REQUIRE(d.upperCharAt(6) == 'G');
         REQUIRE(d.upperCharAt(7) == '\0');
 
-        d.setUpperText("n: 1%", d.JUSTIFY);
+        d.setUpperText("n: 1%", d.ALIGN_JUSTIFY);
         REQUIRE(d.upperCharAt(0) == 'n');
         REQUIRE(d.upperCharAt(1) == ':');
         REQUIRE(d.upperCharAt(2) == ' ');
@@ -104,7 +104,7 @@ TEST_CASE("proto.xtouch_ext", "[externals]")
         REQUIRE(d.upperCharAt(6) == '%');
         REQUIRE(d.upperCharAt(7) == '\0');
 
-        d.setUpperText("n: 12%", d.JUSTIFY);
+        d.setUpperText("n: 12%", d.ALIGN_JUSTIFY);
         REQUIRE(d.upperCharAt(0) == 'n');
         REQUIRE(d.upperCharAt(1) == ':');
         REQUIRE(d.upperCharAt(2) == ' ');
@@ -114,7 +114,7 @@ TEST_CASE("proto.xtouch_ext", "[externals]")
         REQUIRE(d.upperCharAt(6) == '%');
         REQUIRE(d.upperCharAt(7) == '\0');
 
-        d.setUpperText("n: 123%", d.JUSTIFY);
+        d.setUpperText("n: 123%", d.ALIGN_JUSTIFY);
         REQUIRE(d.upperCharAt(0) == 'n');
         REQUIRE(d.upperCharAt(1) == ':');
         REQUIRE(d.upperCharAt(2) == ' ');
@@ -124,7 +124,7 @@ TEST_CASE("proto.xtouch_ext", "[externals]")
         REQUIRE(d.upperCharAt(6) == '%');
         REQUIRE(d.upperCharAt(7) == '\0');
 
-        d.setUpperText("n: 123%", d.JUSTIFY);
+        d.setUpperText("n: 123%", d.ALIGN_JUSTIFY);
         REQUIRE(d.upperCharAt(0) == 'n');
         REQUIRE(d.upperCharAt(1) == ':');
         REQUIRE(d.upperCharAt(2) == ' ');
@@ -134,7 +134,7 @@ TEST_CASE("proto.xtouch_ext", "[externals]")
         REQUIRE(d.upperCharAt(6) == '%');
         REQUIRE(d.upperCharAt(7) == '\0');
 
-        d.setUpperText("n: 1234%", d.JUSTIFY);
+        d.setUpperText("n: 1234%", d.ALIGN_JUSTIFY);
         REQUIRE(d.upperCharAt(0) == 'n');
         REQUIRE(d.upperCharAt(1) == ':');
         REQUIRE(d.upperCharAt(2) == '1');
@@ -144,7 +144,7 @@ TEST_CASE("proto.xtouch_ext", "[externals]")
         REQUIRE(d.upperCharAt(6) == '%');
         REQUIRE(d.upperCharAt(7) == '\0');
 
-        d.setUpperText("n: 12345%", d.JUSTIFY);
+        d.setUpperText("n: 12345%", d.ALIGN_JUSTIFY);
         REQUIRE(d.upperCharAt(0) == 'n');
         REQUIRE(d.upperCharAt(1) == ':');
         REQUIRE(d.upperCharAt(2) == '1');

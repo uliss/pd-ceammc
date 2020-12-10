@@ -55,10 +55,10 @@ public:
     };
 
     enum TextAlign {
-        CENTER,
-        LEFT,
-        RIGHT,
-        JUSTIFY
+        ALIGN_CENTER,
+        ALIGN_LEFT,
+        ALIGN_RIGHT,
+        ALIGN_JUSTIFY
     };
 
     DisplayData()
