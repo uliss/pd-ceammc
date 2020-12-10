@@ -706,15 +706,15 @@ void XTouchExtender::syncDisplay(uint8_t scene_idx, uint8_t ctl_idx)
     listTo(0, AtomListView(&m[0].atom(), N));
 }
 
-void XTouchExtender::setLogicDisplayUpperText(uint8_t log_idx, const std::string& txt)
+void XTouchExtender::setLogicDisplayUpperText(uint8_t log_idx, const AtomListView& txt)
 {
     auto& d = sceneByLogicIdx(log_idx).displayData(log_idx);
-    d.setUpperText(txt.c_str());
+    d.setUpperText(txt);
 }
-void XTouchExtender::setLogicDisplayLowerText(uint8_t log_idx, const std::string& txt)
+void XTouchExtender::setLogicDisplayLowerText(uint8_t log_idx, const AtomListView& txt)
 {
     auto& d = sceneByLogicIdx(log_idx).displayData(log_idx);
-    d.setLowerText(txt.c_str());
+    d.setLowerText(txt);
 }
 
 void XTouchExtender::setLogicLcdMode(uint8_t log_idx, int mode)
@@ -784,8 +784,8 @@ void XTouchExtender::setLogicLcdColor(uint8_t log_idx, const Atom& color)
 
 void XTouchExtender::m_lcd_upper(t_symbol* s, const AtomListView& lv)
 {
-    if (lv.size() < 2) {
-        METHOD_ERR(s) << "usage: IDX TXT...";
+    if (lv.size() < 1) {
+        METHOD_ERR(s) << "usage: IDX [TXT]...";
         return;
     }
 
@@ -795,14 +795,14 @@ void XTouchExtender::m_lcd_upper(t_symbol* s, const AtomListView& lv)
         return;
     }
 
-    setLogicDisplayUpperText(log_idx, to_string(lv.subView(1)));
+    setLogicDisplayUpperText(log_idx, lv.subView(1));
     syncLogicDisplay(log_idx);
 }
 
 void XTouchExtender::m_lcd_lower(t_symbol* s, const AtomListView& lv)
 {
-    if (lv.size() < 2) {
-        METHOD_ERR(s) << "usage: IDX TXT...";
+    if (lv.size() < 1) {
+        METHOD_ERR(s) << "usage: IDX [TXT]...";
         return;
     }
 
@@ -812,7 +812,7 @@ void XTouchExtender::m_lcd_lower(t_symbol* s, const AtomListView& lv)
         return;
     }
 
-    setLogicDisplayLowerText(log_idx, to_string(lv.subView(1)));
+    setLogicDisplayLowerText(log_idx, lv.subView(1));
     syncLogicDisplay(log_idx);
 }
 
@@ -1003,6 +1003,26 @@ void DisplayData::setUpperText(const char* str)
     default:
         return setCentered(txt_, str);
     }
+}
+
+void DisplayData::setUpperText(const AtomListView& atoms)
+{
+    if (atoms.empty())
+        clearUpper();
+    else if (atoms.isSymbol())
+        setUpperText(atoms[0].asT<t_symbol*>()->s_name);
+    else
+        setUpperText(to_string(atoms).c_str());
+}
+
+void DisplayData::setLowerText(const AtomListView& atoms)
+{
+    if (atoms.empty())
+        clearLower();
+    else if (atoms.isSymbol())
+        setLowerText(atoms[0].asT<t_symbol*>()->s_name);
+    else
+        setLowerText(to_string(atoms).c_str());
 }
 
 void DisplayData::setLowerText(const char* str)

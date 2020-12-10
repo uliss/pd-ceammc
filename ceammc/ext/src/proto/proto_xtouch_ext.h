@@ -74,7 +74,9 @@ public:
     char lowerCharAt(uint8_t pos) const { return (pos < MAX_CHARS) ? txt_[pos + MAX_CHARS] : 0; }
 
     void setUpperText(const char* str);
+    void setUpperText(const AtomListView& atoms);
     void setLowerText(const char* str);
+    void setLowerText(const AtomListView& atoms);
 
     void clearUpper();
     void clearLower();
@@ -217,8 +219,8 @@ private:
     Scene& sceneByIdx(uint8_t scene_idx) { return scenes_[scene_idx % scenes_.size()]; }
     Scene& sceneByLogicIdx(uint8_t log_ctl_idx) { return sceneByIdx(log_ctl_idx / Scene::NCHAN); }
 
-    void setLogicDisplayUpperText(uint8_t log_idx, const std::string& txt);
-    void setLogicDisplayLowerText(uint8_t log_idx, const std::string& txt);
+    void setLogicDisplayUpperText(uint8_t log_idx, const AtomListView& txt);
+    void setLogicDisplayLowerText(uint8_t log_idx, const AtomListView& txt);
 
     void setLogicLcdColor(uint8_t log_idx, const Atom& color);
     void setLogicLcdMode(uint8_t log_idx, int mode);
