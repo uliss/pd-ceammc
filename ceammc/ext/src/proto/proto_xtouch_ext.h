@@ -200,10 +200,30 @@ private:
     Mode mode_;
 };
 
+class Fader {
+public:
+    using FaderFn = std::function<void(t_float)>;
+
+    Fader(t_float v = 0)
+        : v_(v)
+    {
+    }
+
+    t_float value() const { return v_; }
+    void setValue(t_float v);
+    bool setValue(const Atom& a);
+
+    void setFn(FaderFn fn) { fn_ = fn; }
+
+private:
+    FaderFn fn_;
+    t_float v_;
+};
+
 struct Scene {
     static constexpr int NCHAN = 8;
-    std::array<FloatProperty*, NCHAN> faders_;
-    std::array<FloatProperty*, NCHAN> knobs_;
+    std::array<Fader, NCHAN> faders_;
+    std::array<Fader, NCHAN> knobs_;
     std::array<Button, NCHAN> btn_rec_;
     std::array<Button, NCHAN> btn_solo_;
     std::array<Button, NCHAN> btn_mute_;
@@ -215,6 +235,8 @@ struct Scene {
     Button& solo(uint8_t n) { return btn_solo_[n % NCHAN]; }
     Button& mute(uint8_t n) { return btn_mute_[n % NCHAN]; }
     Button& select(uint8_t n) { return btn_select_[n % NCHAN]; }
+    Fader& knob(uint8_t n) { return knobs_[n % NCHAN]; }
+    Fader& fader(uint8_t n) { return faders_[n % NCHAN]; }
 
 private:
     Display display_data_[NCHAN];

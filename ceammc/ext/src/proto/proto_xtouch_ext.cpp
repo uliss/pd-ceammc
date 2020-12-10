@@ -218,6 +218,7 @@ int XTouchExtender::msgToIndex(const char* msg)
 void XTouchExtender::onAny(t_symbol* s, const AtomListView& l)
 {
     typedef Button& (Scene::*ButtonGetFn)(uint8_t);
+    typedef Fader& (Scene::*FaderGetFn)(uint8_t);
 
     auto set_btn = [this](const char* msg, const AtomListView& l, ButtonGetFn fn) {
         auto idx = msgToIndex(msg);
@@ -236,16 +237,41 @@ void XTouchExtender::onAny(t_symbol* s, const AtomListView& l)
         btn.setState(l[0]);
     };
 
+    auto set_fader = [this](const char* msg, const AtomListView& l, FaderGetFn fn) {
+        auto idx = msgToIndex(msg);
+        if (idx < 0) {
+            LIB_ERR << "invalid channel: " << idx;
+            return;
+        }
+
+        if (l.size() != 1) {
+            LIB_ERR << "single value expected, got: " << l;
+            return;
+        }
+
+        auto& sc = sceneByLogicIdx(idx);
+        auto& f = (sc.*fn)(idx);
+        f.setValue(l[0]);
+    };
+
+    auto equal = [](const char* msg, const char* pat) {
+        return strncmp(msg, pat, strlen(pat)) == 0;
+    };
+
     const char* msg = s->s_name;
 
-    if (strncmp(msg, "rec", 3) == 0)
+    if (equal(msg, "rec"))
         set_btn(msg + 3, l, &Scene::rec);
-    else if (strncmp(msg, "solo", 4) == 0)
+    else if (equal(msg, "solo"))
         set_btn(msg + 4, l, &Scene::solo);
-    else if (strncmp(msg, "mute", 4) == 0)
+    else if (equal(msg, "mute"))
         set_btn(msg + 4, l, &Scene::mute);
-    else if (strncmp(msg, "select", 6) == 0)
+    else if (equal(msg, "select"))
         set_btn(msg + 6, l, &Scene::select);
+    else if (equal(msg, "fader"))
+        set_fader(msg + 5, l, &Scene::fader);
+    else if (equal(msg, "knob"))
+        set_fader(msg + 4, l, &Scene::knob);
     else
         LIB_ERR << "unknown message: " << s;
 }
@@ -259,28 +285,16 @@ void XTouchExtender::initDone()
     for (int i = 0; i < N; i++) {
         const auto NCH = scenes_[i].NCHAN;
 
-        char buf[64];
-
         // init faders
         for (int j = 0; j < NCH; j++) {
-            const int idx = i * NCH + j;
-            sprintf(buf, "@fader%d", idx);
-            auto p = new FloatProperty(buf);
-            p->checkClosedRange(0, 1);
-            p->setSuccessFn([this, i, j](Property* p) { sendFader(i, j, static_cast<FloatProperty*>(p)->value()); });
-            addProperty(p);
-            scenes_[i].faders_[j] = p;
+            auto& f = scenes_[i].fader(j);
+            f.setFn([this, i, j](t_float v) { sendFader(i, j, v); });
         }
 
         // init knobs
         for (int j = 0; j < NCH; j++) {
-            const int idx = i * NCH + j;
-            sprintf(buf, "@knob%d", idx);
-            auto p = new FloatProperty(buf);
-            p->checkClosedRange(0, 1);
-            p->setSuccessFn([this, i, j](Property* p) { sendKnob(i, j, static_cast<FloatProperty*>(p)->value()); });
-            addProperty(p);
-            scenes_[i].knobs_[j] = p;
+            auto& k = scenes_[i].knob(j);
+            k.setFn([this, i, j](t_float v) { sendKnob(i, j, v); });
         }
 
         // init btn rec
@@ -361,13 +375,11 @@ void XTouchExtender::parseXMidi()
         if (in_range(cc, XT_FADER_FIRST, XT_FADER_LAST)) {
             const t_float val = convert::lin2lin_clip<t_float, 0, 127>(parser_.data[2], 0, 1);
             const auto ch = cc - XT_FADER_FIRST;
-            currentScene().faders_.at(ch)->setValue(val);
-            sendFader(scene_->value(), ch, val);
+            currentScene().fader(ch).setValue(val);
         } else if (in_range(cc, XT_KNOB_FIRST, XT_KNOB_LAST)) {
             const t_float val = convert::lin2lin_clip<t_float, 0, 127>(parser_.data[2], 0, 1);
             const auto ch = cc - XT_KNOB_FIRST;
-            currentScene().knobs_.at(ch)->setValue(val);
-            sendKnob(scene_->value(), ch, val);
+            currentScene().knob(ch).setValue(val);
         } else {
             OBJ_ERR << "unknown CC: " << (int)cc;
         }
@@ -433,22 +445,22 @@ void XTouchExtender::resetVu()
 
 void XTouchExtender::resetFaders()
 {
-    for (size_t scene_idx = 0; scene_idx < scenes_.size(); scene_idx++) {
-        const auto& f = scenes_[scene_idx].faders_;
-        for (size_t fader_idx = 0; fader_idx < f.size(); fader_idx++) {
-            f[fader_idx]->setValue(0);
-            sendFader(scene_idx, fader_idx, 0);
+    for (size_t si = 0; si < scenes_.size(); si++) {
+        auto& f = scenes_[si].faders_;
+        for (size_t fi = 0; fi < f.size(); fi++) {
+            f[fi].setValue(0);
+            sendFader(si, fi, 0);
         }
     }
 }
 
 void XTouchExtender::resetKnobs()
 {
-    for (size_t scene_idx = 0; scene_idx < scenes_.size(); scene_idx++) {
-        const auto& k = scenes_[scene_idx].knobs_;
-        for (size_t knob_idx = 0; knob_idx < k.size(); knob_idx++) {
-            k[knob_idx]->setValue(0);
-            sendKnob(scene_idx, knob_idx, 0);
+    for (size_t si = 0; si < scenes_.size(); si++) {
+        auto& k = scenes_[si].knobs_;
+        for (size_t ki = 0; ki < k.size(); ki++) {
+            k[ki].setValue(0);
+            sendKnob(si, ki, 0);
         }
     }
 }
@@ -484,8 +496,8 @@ void XTouchExtender::syncScene()
     OBJ_LOG << "sync scene: " << scene_idx;
 
     for (size_t i = 0; i < faders.size(); i++) {
-        sendFader(scene_idx, i, faders[i]->value());
-        sendKnob(scene_idx, i, knobs[i]->value());
+        sendFader(scene_idx, i, faders[i].value());
+        sendKnob(scene_idx, i, knobs[i].value());
         sendRec(scene_idx, i, recs[i].state());
         sendSolo(scene_idx, i, solo[i].state());
         sendMute(scene_idx, i, mute[i].state());
@@ -1339,7 +1351,9 @@ bool Button::setMode(const Atom& a)
 void Button::setState(State st)
 {
     state_ = st;
-    fn_(st);
+
+    if (fn_)
+        fn_(st);
 }
 
 bool Button::setState(const Atom& a)
@@ -1372,6 +1386,24 @@ void Button::toggle()
         state_ = OFF;
 
     setState((state_ == ON) ? OFF : ON);
+}
+
+void Fader::setValue(t_float v)
+{
+    v_ = clip01<t_float>(v);
+
+    if (fn_)
+        fn_(v);
+}
+
+bool Fader::setValue(const Atom& a)
+{
+    if (a.isFloat()) {
+        setValue(a.asT<t_float>());
+        return true;
+    }
+
+    return false;
 }
 
 void setup_proto_xtouch_ext()

@@ -360,5 +360,19 @@ TEST_CASE("proto.xtouch_ext", "[externals]")
         REQUIRE(t->sceneByIdx(0).rec(0).state() == 0);
         t.sendMessage("rec0", LF(-1));
         REQUIRE(t->sceneByIdx(0).rec(0).state() == -1);
+
+        t.sendMessage("solo11", LF(-1));
+        REQUIRE(t->sceneByIdx(1).solo(3).state() == -1);
+
+        t.sendMessage("mute8", LF(-1));
+        REQUIRE(t->sceneByIdx(1).mute(0).state() == -1);
+
+        t.sendMessage("select5", LF(-1));
+        REQUIRE(t->sceneByIdx(0).select(5).state() == -1);
+
+        t.sendMessage("fader0", LF(0.5));
+        REQUIRE(t->sceneByIdx(0).fader(0).value() == 0.5);
+        t.sendMessage("knob1", LF(0.75));
+        REQUIRE(t->sceneByIdx(0).knob(1).value() == 0.75);
     }
 }
