@@ -678,6 +678,18 @@ void XTouchExtender::sendNote(uint8_t note, uint8_t velocity, uint8_t ch)
     listTo(0, AtomListView(&m[0].atom(), 3));
 }
 
+int XTouchExtender::getLogicChannel(const AtomListView& lv, std::ostream& err) const
+{
+    const auto idx = lv.intAt(0, -1);
+
+    if (idx < 0 || idx >= numLogicChannels()) {
+        err << "invalid index:" << idx;
+        return -1;
+    }
+
+    return idx;
+}
+
 void XTouchExtender::syncDisplay(uint8_t scene_idx, uint8_t ctl_idx)
 {
     if (scene_->value() != scene_idx)
@@ -789,14 +801,12 @@ void XTouchExtender::m_lcd_upper(t_symbol* s, const AtomListView& lv)
         return;
     }
 
-    const auto log_idx = lv.intAt(0, -1);
-    if (log_idx < 0 || log_idx >= numLogicChannels()) {
-        METHOD_ERR(s) << "invalid index:" << log_idx;
+    const auto ch = getLogicChannel(lv, METHOD_ERR(s));
+    if (ch < 0)
         return;
-    }
 
-    setLogicDisplayUpperText(log_idx, lv.subView(1));
-    syncLogicDisplay(log_idx);
+    setLogicDisplayUpperText(ch, lv.subView(1));
+    syncLogicDisplay(ch);
 }
 
 void XTouchExtender::m_lcd_lower(t_symbol* s, const AtomListView& lv)
@@ -806,17 +816,30 @@ void XTouchExtender::m_lcd_lower(t_symbol* s, const AtomListView& lv)
         return;
     }
 
-    const auto log_idx = lv.intAt(0, -1);
-    if (log_idx < 0 || log_idx >= numLogicChannels()) {
-        METHOD_ERR(s) << "invalid index:" << log_idx;
+    const auto ch = getLogicChannel(lv, METHOD_ERR(s));
+    if (ch < 0)
+        return;
+
+    setLogicDisplayLowerText(ch, lv.subView(1));
+    syncLogicDisplay(ch);
+}
+
+void XTouchExtender::m_lcd(t_symbol* s, const AtomListView& lv)
+{
+    if (lv.size() != 3) {
+        METHOD_ERR(s) << "usage: IDX UPPER_TEXT LOWER_TEXT";
         return;
     }
 
-    setLogicDisplayLowerText(log_idx, lv.subView(1));
-    syncLogicDisplay(log_idx);
-}
+    const auto ch = getLogicChannel(lv, METHOD_ERR(s));
+    if (ch < 0)
+        return;
 
-void XTouchExtender::m_lcd(t_symbol* s, const AtomListView& lv) { }
+    setLogicDisplayUpperText(ch, lv.subView(1, 1));
+    setLogicDisplayLowerText(ch, lv.subView(2, 1));
+
+    syncLogicDisplay(ch);
+}
 
 void XTouchExtender::m_lcd_mode(t_symbol* s, const AtomListView& lv)
 {

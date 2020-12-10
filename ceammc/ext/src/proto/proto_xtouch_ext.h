@@ -66,7 +66,7 @@ public:
     DisplayData()
         : color_(CYAN)
         , mode_(MODE_INVERTED)
-        , align_(ALIGN_JUSTIFY)
+        , align_(ALIGN_CENTER)
     {
     }
 
@@ -207,6 +207,8 @@ private:
 
     int numLogicChannels() const { return scenes_.size() * Scene::NCHAN; }
     int numHWChannels() const { return Scene::NCHAN; }
+
+    int getLogicChannel(const AtomListView& lv, std::ostream& err) const;
 
     /**
      * @brief calcLogicIdx - calculates logic index for current scene
