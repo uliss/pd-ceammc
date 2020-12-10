@@ -73,8 +73,8 @@ public:
     char upperCharAt(uint8_t pos) const { return (pos < MAX_CHARS) ? txt_[pos] : 0; }
     char lowerCharAt(uint8_t pos) const { return (pos < MAX_CHARS) ? txt_[pos + MAX_CHARS] : 0; }
 
-    void setUpperText(const char* str, Align align);
-    void setLowerText(const char* str, Align align);
+    void setUpperText(const char* str);
+    void setLowerText(const char* str);
 
     void clearUpper();
     void clearLower();
