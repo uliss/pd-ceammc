@@ -70,6 +70,11 @@ static t_symbol* SYM_LEFT;
 static t_symbol* SYM_RIGHT;
 static t_symbol* SYM_JUSTIFY;
 static t_symbol* SYM_AUTO;
+static t_symbol* SYM_SELECT;
+static t_symbol* SYM_MUTE;
+static t_symbol* SYM_SOLO;
+static t_symbol* SYM_REC;
+static t_symbol* SYM_BTN;
 
 enum MidiMSG {
     /* channel voice messages */
@@ -938,11 +943,11 @@ void XTouchExtender::m_set(t_symbol* s, const AtomListView& lv)
         return usage("empty arguments");
 
     const auto ctrl = lv.symbolAt(1, nullptr);
-    if (ctrl != gensym("rec")
-        && ctrl != gensym("solo")
-        && ctrl != gensym("mute")
-        && ctrl != gensym("select")
-        && ctrl != gensym("btn")) {
+    if (ctrl != SYM_REC
+        && ctrl != SYM_SOLO
+        && ctrl != SYM_MUTE
+        && ctrl != SYM_SELECT
+        && ctrl != SYM_BTN) {
         return usage("invalid control name");
     }
 
@@ -950,30 +955,28 @@ void XTouchExtender::m_set(t_symbol* s, const AtomListView& lv)
         return usage("float value expected");
 
     const auto val = lv.floatAt(2, 0);
-    //    if (val <)
     const auto NCH = currentScene().NCHAN;
 
     if (lv[0].isSymbol()) {
         const auto target = lv[0].asT<t_symbol*>();
-        if (target == gensym("scene")) {
-            const auto btn = gensym("btn");
+        if (target == SYM_SCENE) {
 
-            if (ctrl == gensym("rec") || ctrl == btn) {
+            if (ctrl == SYM_REC || ctrl == SYM_BTN) {
                 for (int i = 0; i < NCH; i++)
                     sendRec(scene_->value(), i, val);
             }
 
-            if (ctrl == gensym("solo") || ctrl == btn) {
+            if (ctrl == SYM_SOLO || ctrl == SYM_BTN) {
                 for (int i = 0; i < NCH; i++)
                     sendSolo(scene_->value(), i, val);
             }
 
-            if (ctrl == gensym("mute") || ctrl == btn) {
+            if (ctrl == SYM_MUTE || ctrl == SYM_BTN) {
                 for (int i = 0; i < NCH; i++)
                     sendMute(scene_->value(), i, val);
             }
 
-            if (ctrl == gensym("select") || ctrl == btn) {
+            if (ctrl == SYM_SELECT || ctrl == SYM_BTN) {
                 for (int i = 0; i < NCH; i++)
                     sendSelect(scene_->value(), i, val);
             }
@@ -985,24 +988,22 @@ void XTouchExtender::m_set(t_symbol* s, const AtomListView& lv)
             return usage("");
         }
 
-        const auto btn = gensym("btn");
-
-        if (ctrl == gensym("rec") || ctrl == btn) {
+        if (ctrl == SYM_REC || ctrl == SYM_BTN) {
             for (auto p : scenes_[scene_idx].btn_rec_)
                 p->setInt(val);
         }
 
-        if (ctrl == gensym("solo") || ctrl == btn) {
+        if (ctrl == SYM_SOLO || ctrl == SYM_BTN) {
             for (auto p : scenes_[scene_idx].btn_solo_)
                 p->setInt(val);
         }
 
-        if (ctrl == gensym("mute") || ctrl == btn) {
+        if (ctrl == SYM_MUTE || ctrl == SYM_BTN) {
             for (auto p : scenes_[scene_idx].btn_mute_)
                 p->setInt(val);
         }
 
-        if (ctrl == gensym("select") || ctrl == btn) {
+        if (ctrl == SYM_SELECT || ctrl == SYM_BTN) {
             for (auto p : scenes_[scene_idx].btn_select_)
                 p->setInt(val);
         }
@@ -1049,6 +1050,11 @@ static void init_symbols()
     SYM_RIGHT = gensym("right");
     SYM_JUSTIFY = gensym("justify");
     SYM_AUTO = gensym("auto");
+    SYM_SELECT = gensym("select");
+    SYM_MUTE = gensym("mute");
+    SYM_SOLO = gensym("solo");
+    SYM_REC = gensym("rec");
+    SYM_BTN = gensym("btn");
 }
 
 void Display::setUpperText(const char* str)
