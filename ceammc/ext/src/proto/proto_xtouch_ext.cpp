@@ -845,10 +845,13 @@ void XTouchExtender::m_llcd(t_symbol* s, const AtomListView& lv)
 void XTouchExtender::m_lcd_align(t_symbol* s, const AtomListView& lv)
 {
     m_apply_fn(s, lv,
-        [this](int idx, const Atom& a) {
+        [this, s](int idx, const Atom& a) {
             auto& d = sceneByLogicIdx(idx).display(idx);
-            d.setUpperAlign(a);
-            d.setLowerAlign(a);
+            if (!d.setUpperAlign(a) || !d.setLowerAlign(a)) {
+                METHOD_ERR(s) << "invalid align value: " << a;
+                return;
+            }
+
             syncLogicDisplay(idx);
         });
 }
@@ -856,8 +859,12 @@ void XTouchExtender::m_lcd_align(t_symbol* s, const AtomListView& lv)
 void XTouchExtender::m_lcd_upper_align(t_symbol* s, const AtomListView& lv)
 {
     m_apply_fn(s, lv,
-        [this](int idx, const Atom& a) {
-            display(idx).setUpperAlign(a);
+        [this, s](int idx, const Atom& a) {
+            if (!display(idx).setUpperAlign(a)) {
+                METHOD_ERR(s) << "invalid align value: " << a;
+                return;
+            }
+
             syncLogicDisplay(idx);
         });
 }
@@ -889,8 +896,12 @@ void XTouchExtender::m_lcd_lower_enum(t_symbol* s, const AtomListView& lv)
 void XTouchExtender::m_lcd_lower_align(t_symbol* s, const AtomListView& lv)
 {
     m_apply_fn(s, lv,
-        [this](int idx, const Atom& a) {
-            display(idx).setLowerAlign(a);
+        [this, s](int idx, const Atom& a) {
+            if (!display(idx).setLowerAlign(a)) {
+                METHOD_ERR(s) << "invalid align value: " << a;
+                return;
+            }
+
             syncLogicDisplay(idx);
         });
 }
