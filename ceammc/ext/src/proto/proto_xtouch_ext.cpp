@@ -893,6 +893,30 @@ void XTouchExtender::m_lcd_lower_enum(t_symbol* s, const AtomListView& lv)
     }
 }
 
+void XTouchExtender::m_rec(t_symbol* s, const AtomListView& lv)
+{
+    m_apply_fn(s, lv,
+        [this, s](int idx, const Atom& a) { sceneByLogicIdx(idx).rec(idx)->set(a); });
+}
+
+void XTouchExtender::m_solo(t_symbol* s, const AtomListView& lv)
+{
+    m_apply_fn(s, lv,
+        [this, s](int idx, const Atom& a) { sceneByLogicIdx(idx).solo(idx)->set(a); });
+}
+
+void XTouchExtender::m_mute(t_symbol* s, const AtomListView& lv)
+{
+    m_apply_fn(s, lv,
+        [this, s](int idx, const Atom& a) { sceneByLogicIdx(idx).mute(idx)->set(a); });
+}
+
+void XTouchExtender::m_select(t_symbol* s, const AtomListView& lv)
+{
+    m_apply_fn(s, lv,
+        [this, s](int idx, const Atom& a) { sceneByLogicIdx(idx).select(idx)->set(a); });
+}
+
 void XTouchExtender::m_lcd_lower_align(t_symbol* s, const AtomListView& lv)
 {
     m_apply_fn(s, lv,
@@ -965,7 +989,7 @@ void XTouchExtender::m_apply_fn(t_symbol* s, const AtomListView& lv, std::functi
         const size_t nmax = (Scene::NCHAN - (ch % Scene::NCHAN));
         for (size_t i = 1; i < lv.size(); i++) {
 
-            if (i >= nmax) {
+            if (i > nmax) {
                 METHOD_ERR(s) << "ignoring extra values: " << lv.subView(i);
                 break;
             }
@@ -981,7 +1005,7 @@ void XTouchExtender::m_set(t_symbol* s, const AtomListView& lv)
 {
     auto usage = [this, s](const char* msg) -> void {
         METHOD_ERR(s) << msg << ", usage: " << s->s_name
-                      << " all|scene|scene_idx ctl_name(rec|solo|mute|select|btn) value";
+                      << " scene|scene_idx ctl_name(rec|solo|mute|select|btn) value";
     };
 
     if (lv.size() != 3)
@@ -1025,6 +1049,8 @@ void XTouchExtender::m_set(t_symbol* s, const AtomListView& lv)
                 for (int i = 0; i < NCH; i++)
                     sendSelect(scene_->value(), i, val);
             }
+        } else {
+            METHOD_ERR(s) << "unknown target: " << lv[0];
         }
     } else if (lv[0].isFloat()) {
         const int scene_idx = lv[0].asInt();
@@ -1444,6 +1470,11 @@ void setup_proto_xtouch_ext()
     obj.addMethod("lcd_align1", &XTouchExtender::m_lcd_lower_align);
     obj.addMethod("lcd_enum0", &XTouchExtender::m_lcd_upper_enum);
     obj.addMethod("lcd_enum1", &XTouchExtender::m_lcd_lower_enum);
+
+    obj.addMethod("rec", &XTouchExtender::m_rec);
+    obj.addMethod("mute", &XTouchExtender::m_mute);
+    obj.addMethod("solo", &XTouchExtender::m_solo);
+    obj.addMethod("select", &XTouchExtender::m_select);
 
     obj.addMethod("set", &XTouchExtender::m_set);
 }

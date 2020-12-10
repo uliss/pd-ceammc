@@ -174,6 +174,10 @@ struct Scene {
     std::array<bool, NCHAN> fader_is_moving_;
 
     Display& display(uint8_t n) { return display_data_[n % NCHAN]; }
+    IntProperty* rec(uint8_t n) { return btn_rec_[n % NCHAN]; }
+    IntProperty* solo(uint8_t n) { return btn_solo_[n % NCHAN]; }
+    IntProperty* mute(uint8_t n) { return btn_mute_[n % NCHAN]; }
+    IntProperty* select(uint8_t n) { return btn_select_[n % NCHAN]; }
 
 private:
     Display display_data_[NCHAN];
@@ -206,6 +210,11 @@ public:
     void m_lcd_upper_align(t_symbol* s, const AtomListView& lv);
     void m_lcd_upper_enum(t_symbol* s, const AtomListView& lv);
     void m_lcd_lower_enum(t_symbol* s, const AtomListView& lv);
+
+    void m_rec(t_symbol* s, const AtomListView& lv);
+    void m_solo(t_symbol* s, const AtomListView& lv);
+    void m_mute(t_symbol* s, const AtomListView& lv);
+    void m_select(t_symbol* s, const AtomListView& lv);
 
     void m_set(t_symbol* s, const AtomListView& lv);
 
