@@ -99,8 +99,8 @@
 | [r ixt]  [sym->any {i=1,o=1}]  [sync #a] [ui.knob #b]
 | |        |                     |
 [proto.xtouch_ext #z]            |
-|         ^|                     |
-|          |                     [@fader0 $1(
+|         ^| ^|                  |
+|          | [ui.dt]             [@fader0 $1(
 |          |                     |
 [midiout]  [s oxt]               [s ixt]
 [X a:1->b]
