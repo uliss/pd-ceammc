@@ -77,6 +77,8 @@ static t_symbol* SYM_MUTE;
 static t_symbol* SYM_SOLO;
 static t_symbol* SYM_REC;
 static t_symbol* SYM_BTN;
+static t_symbol* SYM_TILDE;
+static t_symbol* SYM_EXCLAM;
 
 enum MidiMSG {
     /* channel voice messages */
@@ -243,15 +245,6 @@ void XTouchExtender::initDone()
             scenes_[i].btn_rec_[j] = p;
         }
 
-        // init btn rec toggle mode
-        for (int j = 0; j < NCH; j++) {
-            const int idx = i * NCH + j;
-            sprintf(buf, "@trec%d", idx);
-            auto p = new BoolProperty(buf, true);
-            addProperty(p);
-            scenes_[i].btn_rec_tgl_mode_[j] = p;
-        }
-
         // init btn solo
         for (int j = 0; j < NCH; j++) {
             const int idx = i * NCH + j;
@@ -261,15 +254,6 @@ void XTouchExtender::initDone()
             p->setSuccessFn([this, i, j](Property* p) { sendSolo(i, j, static_cast<IntProperty*>(p)->value()); });
             addProperty(p);
             scenes_[i].btn_solo_[j] = p;
-        }
-
-        // init btn solo toggle mode
-        for (int j = 0; j < NCH; j++) {
-            const int idx = i * NCH + j;
-            sprintf(buf, "@tsolo%d", idx);
-            auto p = new BoolProperty(buf, true);
-            addProperty(p);
-            scenes_[i].btn_solo_tgl_mode_[j] = p;
         }
 
         // init btn mute
@@ -283,15 +267,6 @@ void XTouchExtender::initDone()
             scenes_[i].btn_mute_[j] = p;
         }
 
-        // init btn mute toggle mode
-        for (int j = 0; j < NCH; j++) {
-            const int idx = i * NCH + j;
-            sprintf(buf, "@tmute%d", idx);
-            auto p = new BoolProperty(buf, true);
-            addProperty(p);
-            scenes_[i].btn_mute_tgl_mode_[j] = p;
-        }
-
         // init btn select
         for (int j = 0; j < NCH; j++) {
             const int idx = i * NCH + j;
@@ -303,13 +278,12 @@ void XTouchExtender::initDone()
             scenes_[i].btn_select_[j] = p;
         }
 
-        // init btn select toggle mode
         for (int j = 0; j < NCH; j++) {
-            const int idx = i * NCH + j;
-            sprintf(buf, "@tselect%d", idx);
-            auto p = new BoolProperty(buf, false);
-            addProperty(p);
-            scenes_[i].btn_select_tgl_mode_[j] = p;
+            auto& sc = scenes_[i];
+            sc.recMode(j) = true;
+            sc.soloMode(j) = true;
+            sc.muteMode(j) = true;
+            sc.selectMode(j) = false;
         }
 
         for (int j = 0; j < NCH; j++)
@@ -379,7 +353,7 @@ void XTouchExtender::parseXMidi()
             const int velocity = parser_.data[2];
 
             int val = 0;
-            if (currentScene().btn_rec_tgl_mode_.at(ch)->value()) {
+            if (currentScene().recMode(ch)) {
                 if (velocity == 0)
                     return;
 
@@ -403,7 +377,7 @@ void XTouchExtender::parseXMidi()
             const int velocity = parser_.data[2];
 
             int val = 0;
-            if (currentScene().btn_solo_tgl_mode_.at(ch)->value()) {
+            if (currentScene().soloMode(ch)) {
                 if (velocity == 0)
                     return;
 
@@ -423,7 +397,7 @@ void XTouchExtender::parseXMidi()
             const int velocity = parser_.data[2];
 
             int val = 0;
-            if (currentScene().btn_mute_tgl_mode_.at(ch)->value()) {
+            if (currentScene().muteMode(ch)) {
                 if (velocity == 0)
                     return;
 
@@ -443,7 +417,7 @@ void XTouchExtender::parseXMidi()
             const int velocity = parser_.data[2];
 
             int val = 0;
-            if (currentScene().btn_select_tgl_mode_.at(ch)->value()) {
+            if (currentScene().selectMode(ch)) {
                 if (velocity == 0)
                     return;
 
@@ -920,25 +894,25 @@ void XTouchExtender::m_select(t_symbol* s, const AtomListView& lv)
 void XTouchExtender::m_rec_mode(t_symbol* s, const AtomListView& lv)
 {
     m_apply_fn(s, lv,
-        [this](int idx, const Atom& a) { sceneByLogicIdx(idx).recMode(idx)->set(a); });
+        [this](int idx, const Atom& a) { sceneByLogicIdx(idx).recMode(idx).setMode(a); });
 }
 
 void XTouchExtender::m_solo_mode(t_symbol* s, const AtomListView& lv)
 {
     m_apply_fn(s, lv,
-        [this](int idx, const Atom& a) { sceneByLogicIdx(idx).soloMode(idx)->set(a); });
+        [this](int idx, const Atom& a) { sceneByLogicIdx(idx).soloMode(idx).setMode(a); });
 }
 
 void XTouchExtender::m_mute_mode(t_symbol* s, const AtomListView& lv)
 {
     m_apply_fn(s, lv,
-        [this](int idx, const Atom& a) { sceneByLogicIdx(idx).muteMode(idx)->set(a); });
+        [this](int idx, const Atom& a) { sceneByLogicIdx(idx).muteMode(idx).setMode(a); });
 }
 
 void XTouchExtender::m_select_mode(t_symbol* s, const AtomListView& lv)
 {
     m_apply_fn(s, lv,
-        [this](int idx, const Atom& a) { sceneByLogicIdx(idx).selectMode(idx)->set(a); });
+        [this](int idx, const Atom& a) { sceneByLogicIdx(idx).selectMode(idx).setMode(a); });
 }
 
 void XTouchExtender::m_lcd_lower_align(t_symbol* s, const AtomListView& lv)
@@ -1150,6 +1124,8 @@ static void init_symbols()
     SYM_SOLO = gensym("solo");
     SYM_REC = gensym("rec");
     SYM_BTN = gensym("btn");
+    SYM_TILDE = gensym("~");
+    SYM_EXCLAM = gensym("!");
 }
 
 void Display::setUpperText(const char* str)
@@ -1472,6 +1448,18 @@ on_space:
         else
             break;
     }
+}
+
+bool ButtonMode::setMode(const Atom& a)
+{
+    if (a.isBool()) {
+        toggle_ = a.asBool(false);
+        return true;
+    } else if (a == SYM_TILDE || a == SYM_EXCLAM) {
+        toggle_ = !toggle_;
+        return true;
+    } else
+        return false;
 }
 
 void setup_proto_xtouch_ext()

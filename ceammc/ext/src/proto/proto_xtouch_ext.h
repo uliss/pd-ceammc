@@ -159,18 +159,34 @@ struct MidiFSMParser {
     uint8_t channel() const { return data[0] & 0x0f; }
 };
 
+class ButtonMode {
+public:
+    ButtonMode(bool v = true)
+        : toggle_(v)
+    {
+    }
+
+    void operator=(bool v) { toggle_ = v; }
+    operator bool() const { return toggle_; }
+
+    bool setMode(const Atom& a);
+
+private:
+    bool toggle_ = { true };
+};
+
 struct Scene {
     static constexpr int NCHAN = 8;
     std::array<FloatProperty*, NCHAN> faders_;
     std::array<FloatProperty*, NCHAN> knobs_;
     std::array<IntProperty*, NCHAN> btn_rec_;
-    std::array<BoolProperty*, NCHAN> btn_rec_tgl_mode_;
     std::array<IntProperty*, NCHAN> btn_solo_;
-    std::array<BoolProperty*, NCHAN> btn_solo_tgl_mode_;
     std::array<IntProperty*, NCHAN> btn_mute_;
-    std::array<BoolProperty*, NCHAN> btn_mute_tgl_mode_;
     std::array<IntProperty*, NCHAN> btn_select_;
-    std::array<BoolProperty*, NCHAN> btn_select_tgl_mode_;
+    std::array<ButtonMode, NCHAN> btn_rec_tgl_mode_;
+    std::array<ButtonMode, NCHAN> btn_solo_tgl_mode_;
+    std::array<ButtonMode, NCHAN> btn_mute_tgl_mode_;
+    std::array<ButtonMode, NCHAN> btn_select_tgl_mode_;
     std::array<bool, NCHAN> fader_is_moving_;
 
     Display& display(uint8_t n) { return display_data_[n % NCHAN]; }
@@ -179,10 +195,10 @@ struct Scene {
     IntProperty* mute(uint8_t n) { return btn_mute_[n % NCHAN]; }
     IntProperty* select(uint8_t n) { return btn_select_[n % NCHAN]; }
 
-    BoolProperty* recMode(uint8_t n) { return btn_rec_tgl_mode_[n % NCHAN]; }
-    BoolProperty* soloMode(uint8_t n) { return btn_solo_tgl_mode_[n % NCHAN]; }
-    BoolProperty* muteMode(uint8_t n) { return btn_mute_tgl_mode_[n % NCHAN]; }
-    BoolProperty* selectMode(uint8_t n) { return btn_select_tgl_mode_[n % NCHAN]; }
+    ButtonMode& recMode(uint8_t n) { return btn_rec_tgl_mode_[n % NCHAN]; }
+    ButtonMode& soloMode(uint8_t n) { return btn_solo_tgl_mode_[n % NCHAN]; }
+    ButtonMode& muteMode(uint8_t n) { return btn_mute_tgl_mode_[n % NCHAN]; }
+    ButtonMode& selectMode(uint8_t n) { return btn_select_tgl_mode_[n % NCHAN]; }
 
 private:
     Display display_data_[NCHAN];
