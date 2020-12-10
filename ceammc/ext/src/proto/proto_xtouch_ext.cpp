@@ -901,40 +901,33 @@ void XTouchExtender::m_apply_fn(t_symbol* s, const AtomListView& lv, std::functi
             return;
         }
 
-        const int nmax = (Scene::NCHAN - ch % Scene::NCHAN);
+        const size_t nmax = (Scene::NCHAN - (ch % Scene::NCHAN));
         for (size_t i = 1; i < lv.size(); i++) {
-            const int idx = ch + i - 1;
-            // idx >= 0
+
             if (i >= nmax) {
                 METHOD_ERR(s) << "ignoring extra values: " << lv.subView(i);
                 break;
             }
 
-            fn(calcLogicIdx(ch + i - 1), lv[i]);
+            // idx >= 0
+            const auto idx = ch + i - 1;
+            fn(calcLogicIdx(idx), lv[i]);
         }
     }
 }
 
 void XTouchExtender::m_lcd_mode(t_symbol* s, const AtomListView& lv)
 {
-    if (lv.size() < 2) {
-        METHOD_ERR(s) << "usage: IDX MODES...(0, 1, 2 or 3)";
-        return;
-    }
+    m_apply_fn(s, lv,
+        [this, s](int idx, const Atom& a) {
+            int m = a.asInt(-1);
+            if (m < Display::MODE_MIN || m > Display::MODE_MAX) {
+                METHOD_ERR(s) << "mode 0|1|2|3 expected, got: " << a;
+                return;
+            }
 
-    const auto log_idx = lv.intAt(0, -1);
-
-    if (lv[0].isSymbol() && lv[0].asT<t_symbol*>() == SYM_ALL) {
-        for (int i = 0; i < Scene::NCHAN; i++)
-            setLogicLcdMode(calcLogicIdx(i), lv[1].asInt());
-    } else if (log_idx < 0 || log_idx >= numLogicChannels()) {
-        METHOD_ERR(s) << "invalid index:" << log_idx;
-        return;
-    } else {
-        int i = 0;
-        for (auto& c : lv.subView(1))
-            setLogicLcdMode(log_idx + (i++), c.asInt());
-    }
+            display(idx).setMode(static_cast<Display::Mode>(m));
+        });
 }
 
 void XTouchExtender::m_lcd_color(t_symbol* s, const AtomListView& lv)
