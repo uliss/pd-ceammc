@@ -733,71 +733,6 @@ void XTouchExtender::setLogicDisplayLowerText(uint8_t log_idx, const AtomListVie
     d.setLowerText(txt);
 }
 
-void XTouchExtender::setLogicLcdMode(uint8_t log_idx, int mode)
-{
-    using Mode = Display::Mode;
-
-    if (log_idx >= numLogicChannels()) {
-        OBJ_ERR << "channel is out of range: " << log_idx;
-        return;
-    }
-
-    if (mode < Display::MODE_MIN || mode > Display::MODE_MAX) {
-        OBJ_ERR << "mode in "
-                << (int)Display::MODE_MIN << ".." << (int)Display::MODE_MAX
-                << "range is expected, got: " << mode;
-        return;
-    }
-
-    OBJ_LOG << "set lcd mode: " << (int)log_idx << ' ' << mode;
-
-    sceneByLogicIdx(log_idx).display(log_idx).setMode(static_cast<Display::Mode>(mode));
-    syncLogicDisplay(log_idx);
-}
-
-void XTouchExtender::setLogicLcdColor(uint8_t log_idx, const Atom& color)
-{
-    using Color = Display::Color;
-
-    if (log_idx >= numLogicChannels()) {
-        OBJ_ERR << "channel is out of range: " << log_idx;
-        return;
-    }
-
-    Color new_color;
-
-    if (color.isFloat()) { // set by color index
-        const auto color_idx = color.asInt(-1);
-        if (color_idx < Display::BLACK || color_idx > Display::WHITE) {
-            OBJ_ERR << "expected color index in "
-                    << Display::BLACK << ".." << Display::WHITE << " range, got: " << color_idx;
-            return;
-        }
-
-        new_color = static_cast<Color>(color_idx);
-    } else if (color.isSymbol()) { // set by color name
-        const auto scolor = color.asT<t_symbol*>();
-
-        if (scolor == SYM_RANDOM) { // set random color
-            new_color = Display::randomColor();
-        } else { // color names
-            new_color = Display::namedColor(scolor);
-            if (new_color == Color::UNKNOWN) { // not found
-                OBJ_ERR << "unknown color: " << scolor;
-                return;
-            }
-        }
-    } else {
-        OBJ_ERR << "unknown type: " << color;
-        return;
-    }
-
-    OBJ_LOG << "set lcd color: " << (int)log_idx << ' ' << color;
-
-    sceneByLogicIdx(log_idx).display(log_idx).setColor(new_color);
-    syncLogicDisplay(log_idx);
-}
-
 void XTouchExtender::m_lcd_upper(t_symbol* s, const AtomListView& lv)
 {
     if (lv.size() < 1) {
@@ -858,19 +793,54 @@ void XTouchExtender::m_lcd_align(t_symbol* s, const AtomListView& lv)
             auto& d = sceneByLogicIdx(idx).display(idx);
             d.setUpperAlign(a);
             d.setLowerAlign(a);
+            syncLogicDisplay(idx);
         });
 }
 
 void XTouchExtender::m_lcd_upper_align(t_symbol* s, const AtomListView& lv)
 {
     m_apply_fn(s, lv,
-        [this](int idx, const Atom& a) { display(idx).setUpperAlign(a); });
+        [this](int idx, const Atom& a) {
+            display(idx).setUpperAlign(a);
+            syncLogicDisplay(idx);
+        });
 }
 
 void XTouchExtender::m_lcd_lower_align(t_symbol* s, const AtomListView& lv)
 {
     m_apply_fn(s, lv,
-        [this](int idx, const Atom& a) { display(idx).setLowerAlign(a); });
+        [this](int idx, const Atom& a) {
+            display(idx).setLowerAlign(a);
+            syncLogicDisplay(idx);
+        });
+}
+
+void XTouchExtender::m_lcd_mode(t_symbol* s, const AtomListView& lv)
+{
+    m_apply_fn(s, lv,
+        [this, s](int idx, const Atom& a) {
+            int m = a.asInt(-1);
+            if (m < Display::MODE_MIN || m > Display::MODE_MAX) {
+                METHOD_ERR(s) << "mode 0|1|2|3 expected, got: " << a;
+                return;
+            }
+
+            display(idx).setMode(static_cast<Display::Mode>(m));
+            syncLogicDisplay(idx);
+        });
+}
+
+void XTouchExtender::m_lcd_color(t_symbol* s, const AtomListView& lv)
+{
+    m_apply_fn(s, lv,
+        [this, s](int idx, const Atom& a) {
+            if (!display(idx).setColor(a)) {
+                METHOD_ERR(s) << "invalid color: " << a;
+                return;
+            }
+
+            syncLogicDisplay(idx);
+        });
 }
 
 void XTouchExtender::m_apply_fn(t_symbol* s, const AtomListView& lv, std::function<void(int, const Atom&)> fn)
@@ -913,51 +883,6 @@ void XTouchExtender::m_apply_fn(t_symbol* s, const AtomListView& lv, std::functi
             const auto idx = ch + i - 1;
             fn(calcLogicIdx(idx), lv[i]);
         }
-    }
-}
-
-void XTouchExtender::m_lcd_mode(t_symbol* s, const AtomListView& lv)
-{
-    m_apply_fn(s, lv,
-        [this, s](int idx, const Atom& a) {
-            int m = a.asInt(-1);
-            if (m < Display::MODE_MIN || m > Display::MODE_MAX) {
-                METHOD_ERR(s) << "mode 0|1|2|3 expected, got: " << a;
-                return;
-            }
-
-            display(idx).setMode(static_cast<Display::Mode>(m));
-        });
-}
-
-void XTouchExtender::m_lcd_color(t_symbol* s, const AtomListView& lv)
-{
-    if (lv.size() < 2) {
-        METHOD_ERR(s) << "usage: IDX COLOR_LIST(index, color name or random)...";
-        return;
-    }
-
-    const auto log_idx = lv.intAt(0, -1);
-
-    if (lv[0].isSymbol()) {
-        const auto sym = lv[0].asT<t_symbol*>();
-
-        if (sym == SYM_SCENE) {
-            for (int i = 0; i < Scene::NCHAN; i++)
-                setLogicLcdColor(calcLogicIdx(i), lv[1]);
-        } else if (sym == SYM_ALL) {
-            for (size_t i = 0; i < scenes_.size(); i++) {
-                for (int j = 0; j < Scene::NCHAN; j++)
-                    setLogicLcdColor(i * Scene::NCHAN + j, lv[1]);
-            }
-        }
-    } else if (log_idx < 0 || log_idx >= numLogicChannels()) {
-        METHOD_ERR(s) << "invalid index:" << log_idx;
-        return;
-    } else {
-        int i = 0;
-        for (auto& c : lv.subView(1))
-            setLogicLcdColor(log_idx + (i++), c);
     }
 }
 
@@ -1209,6 +1134,28 @@ void Display::setDefault()
     upper_align_ = ALIGN_AUTO;
     lower_align_ = ALIGN_AUTO;
     clearBoth();
+}
+
+bool Display::setColor(const Atom& a)
+{
+    if (a == SYM_RANDOM) {
+        setColor(randomColor());
+        return true;
+    } else if (a.isSymbol()) {
+        auto c = namedColor(a.asT<t_symbol*>());
+        if (c == UNKNOWN)
+            return false;
+
+        setColor(c);
+        return true;
+    } else {
+        int c = a.asInt(-1);
+        if (c < COLOR_MIN || c > COLOR_MAX)
+            return false;
+
+        setColor(static_cast<Color>(c));
+        return true;
+    }
 }
 
 Display::Color Display::randomColor()

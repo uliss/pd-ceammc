@@ -251,4 +251,33 @@ TEST_CASE("proto.xtouch_ext", "[externals]")
         REQUIRE(t->display(0).upperAlign() == Display::ALIGN_RIGHT);
         REQUIRE(t->display(0).lowerAlign() == Display::ALIGN_AUTO);
     }
+
+    SECTION("align")
+    {
+        TExt t("proto.xtouch_ext");
+
+        REQUIRE(t->display(0).color() == Display::CYAN);
+        REQUIRE(t->display(1).color() == Display::CYAN);
+        REQUIRE(t->display(3).color() == Display::CYAN);
+
+        t.call("lcd_color", "all", "red");
+        REQUIRE(t->display(0).color() == Display::RED);
+        REQUIRE(t->display(1).color() == Display::RED);
+        REQUIRE(t->display(3).color() == Display::RED);
+
+        t.call("lcd_color", "all", 2);
+        REQUIRE(t->display(0).color() == Display::GREEN);
+        REQUIRE(t->display(1).color() == Display::GREEN);
+        REQUIRE(t->display(3).color() == Display::GREEN);
+
+        t.call("lcd_color", 1, "black");
+        REQUIRE(t->display(0).color() == Display::GREEN);
+        REQUIRE(t->display(1).color() == Display::BLACK);
+        REQUIRE(t->display(3).color() == Display::GREEN);
+
+        t.call("lcd_color", 9, "blue");
+        REQUIRE(t->display(8).color() == Display::GREEN);
+        REQUIRE(t->display(9).color() == Display::BLUE);
+        REQUIRE(t->display(10).color() == Display::GREEN);
+    }
 }

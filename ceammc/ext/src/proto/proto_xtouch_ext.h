@@ -95,7 +95,10 @@ public:
 
     uint8_t packedColorMode() const { return color_ | (mode_ << 4); }
 
+    Color color() const { return color_; }
     void setColor(Color c) { color_ = c; }
+    bool setColor(const Atom& a);
+
     void setMode(Mode m) { mode_ = m; }
 
 public:
@@ -246,9 +249,6 @@ private:
 
     void setLogicDisplayUpperText(uint8_t log_idx, const AtomListView& txt);
     void setLogicDisplayLowerText(uint8_t log_idx, const AtomListView& txt);
-
-    void setLogicLcdColor(uint8_t log_idx, const Atom& color);
-    void setLogicLcdMode(uint8_t log_idx, int mode);
 };
 
 void setup_proto_xtouch_ext();
