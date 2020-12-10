@@ -19,9 +19,7 @@ function(add_proto_test name)
     target_sources(test_ext_proto PRIVATE "test_proto_${name}.cpp")
 endfunction()
 
-#ceammc_add_test_linked(TITLE "FirmataParser[bison]" NAME test_firmata_parser LINK proto_firmata)
-#ceammc_add_test_linked(TITLE "firmata::Pin" NAME test_firmata_pin LINK proto_firmata ceammc_core puredata-core)
-
-
 add_proto_test(firmata)
+add_proto_test(firmata_parser)
+add_proto_test(firmata_pin)
 add_proto_test(xtouch)

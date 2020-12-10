@@ -1,7 +1,6 @@
-#include "../proto/firmata/firmata_pin.h"
+#include "firmata/firmata_pin.h"
 
-#include "catch.hpp"
-#include "test_base.h"
+#include "test_proto_base.h"
 
 #include <iostream>
 #include <sstream>
