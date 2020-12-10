@@ -159,46 +159,62 @@ struct MidiFSMParser {
     uint8_t channel() const { return data[0] & 0x0f; }
 };
 
-class ButtonMode {
+class Button {
 public:
-    ButtonMode(bool v = true)
-        : toggle_(v)
+    enum State {
+        ACTIVE = -1,
+        OFF = 0,
+        ON = 1
+    };
+
+    enum Mode {
+        BUTTON,
+        TOGGLE
+    };
+
+    using ButtonFn = std::function<void(int)>;
+
+    Button(State st = OFF)
+        : state_(st)
+        , mode_(TOGGLE)
     {
     }
 
-    void operator=(bool v) { toggle_ = v; }
-    operator bool() const { return toggle_; }
-
+    State state() const { return state_; }
+    void setState(State st);
+    bool setState(const Atom& a);
     bool setMode(const Atom& a);
+    void setMidi(int vel);
+
+    void toggle();
+
+    bool isActive() const { return state_ == ACTIVE; }
+    bool isOff() const { return state_ == OFF; }
+    bool isOn() const { return state_ == ON; }
+
+    void setFn(ButtonFn fn) { fn_ = fn; }
 
 private:
-    bool toggle_ = { true };
+    ButtonFn fn_;
+    State state_;
+    Mode mode_;
 };
 
 struct Scene {
     static constexpr int NCHAN = 8;
     std::array<FloatProperty*, NCHAN> faders_;
     std::array<FloatProperty*, NCHAN> knobs_;
-    std::array<IntProperty*, NCHAN> btn_rec_;
-    std::array<IntProperty*, NCHAN> btn_solo_;
-    std::array<IntProperty*, NCHAN> btn_mute_;
-    std::array<IntProperty*, NCHAN> btn_select_;
-    std::array<ButtonMode, NCHAN> btn_rec_tgl_mode_;
-    std::array<ButtonMode, NCHAN> btn_solo_tgl_mode_;
-    std::array<ButtonMode, NCHAN> btn_mute_tgl_mode_;
-    std::array<ButtonMode, NCHAN> btn_select_tgl_mode_;
+    std::array<Button, NCHAN> btn_rec_;
+    std::array<Button, NCHAN> btn_solo_;
+    std::array<Button, NCHAN> btn_mute_;
+    std::array<Button, NCHAN> btn_select_;
     std::array<bool, NCHAN> fader_is_moving_;
 
     Display& display(uint8_t n) { return display_data_[n % NCHAN]; }
-    IntProperty* rec(uint8_t n) { return btn_rec_[n % NCHAN]; }
-    IntProperty* solo(uint8_t n) { return btn_solo_[n % NCHAN]; }
-    IntProperty* mute(uint8_t n) { return btn_mute_[n % NCHAN]; }
-    IntProperty* select(uint8_t n) { return btn_select_[n % NCHAN]; }
-
-    ButtonMode& recMode(uint8_t n) { return btn_rec_tgl_mode_[n % NCHAN]; }
-    ButtonMode& soloMode(uint8_t n) { return btn_solo_tgl_mode_[n % NCHAN]; }
-    ButtonMode& muteMode(uint8_t n) { return btn_mute_tgl_mode_[n % NCHAN]; }
-    ButtonMode& selectMode(uint8_t n) { return btn_select_tgl_mode_[n % NCHAN]; }
+    Button& rec(uint8_t n) { return btn_rec_[n % NCHAN]; }
+    Button& solo(uint8_t n) { return btn_solo_[n % NCHAN]; }
+    Button& mute(uint8_t n) { return btn_mute_[n % NCHAN]; }
+    Button& select(uint8_t n) { return btn_select_[n % NCHAN]; }
 
 private:
     Display display_data_[NCHAN];
@@ -214,6 +230,7 @@ class XTouchExtender : public BaseObject {
 public:
     XTouchExtender(const PdArgs& args);
     void onFloat(t_float f) override;
+    void onAny(t_symbol* s, const AtomListView& l) override;
     void initDone() override;
 
     void m_vu(t_symbol* s, const AtomListView& lv);
@@ -242,8 +259,6 @@ public:
     void m_mute_mode(t_symbol* s, const AtomListView& lv);
     void m_select_mode(t_symbol* s, const AtomListView& lv);
 
-    void m_set(t_symbol* s, const AtomListView& lv);
-
 public:
     Scene& currentScene() { return scenes_[scene_->value()]; }
     Scene& sceneByIdx(uint8_t scene_idx) { return scenes_[scene_idx % scenes_.size()]; }
@@ -256,6 +271,8 @@ private:
     void parseXMidi();
     void parseHui();
     void parseMcu();
+
+    int msgToIndex(const char* msg);
 
     void sendVu(uint8_t idx, int db);
     void sendFader(uint8_t scene_idx, uint8_t ctl_idx, t_float v);

@@ -295,4 +295,70 @@ TEST_CASE("proto.xtouch_ext", "[externals]")
         REQUIRE(t->display(0).lowerText() == "ch:0");
         REQUIRE(t->display(1).lowerText() == "ch:1");
     }
+
+    SECTION("rec")
+    {
+        SECTION("toggle")
+        {
+            TExt t("proto.xtouch_ext");
+
+            t.call("rec", LF(0, 1, 1, 0, 0));
+            REQUIRE(t->sceneByIdx(0).rec(0).state() == 1);
+            REQUIRE(t->sceneByIdx(0).rec(1).state() == 1);
+            REQUIRE(t->sceneByIdx(0).rec(2).state() == 0);
+            REQUIRE(t->sceneByIdx(0).rec(2).state() == 0);
+
+            t.call("rec", LA(0., "!", -1, "~", "~"));
+            REQUIRE(t->sceneByIdx(0).rec(0).state() == 0);
+            REQUIRE(t->sceneByIdx(0).rec(1).state() == -1);
+            REQUIRE(t->sceneByIdx(0).rec(2).state() == 1);
+            REQUIRE(t->sceneByIdx(0).rec(2).state() == 1);
+
+            t.call("rec", LA(1, "!"));
+            REQUIRE(t->sceneByIdx(0).rec(1).state() == 1);
+        }
+
+        SECTION("midi")
+        {
+            TExt t("proto.xtouch_ext");
+            t->sceneByIdx(0).rec(0).setMidi(127);
+            REQUIRE(t->sceneByIdx(0).rec(0).state() == 1);
+            t->sceneByIdx(0).rec(0).setMidi(0);
+            REQUIRE(t->sceneByIdx(0).rec(0).state() == 1);
+            t->sceneByIdx(0).rec(0).setMidi(127);
+            REQUIRE(t->sceneByIdx(0).rec(0).state() == 0);
+            t->sceneByIdx(0).rec(0).setMidi(0);
+            REQUIRE(t->sceneByIdx(0).rec(0).state() == 0);
+            t->sceneByIdx(0).rec(0).setMidi(127);
+            REQUIRE(t->sceneByIdx(0).rec(0).state() == 1);
+
+            t->sceneByIdx(0).rec(0).setMode(Button::BUTTON);
+            t->sceneByIdx(0).rec(0).setMidi(127);
+            REQUIRE(t->sceneByIdx(0).rec(0).state() == 1);
+            t->sceneByIdx(0).rec(0).setMidi(0);
+            REQUIRE(t->sceneByIdx(0).rec(0).state() == 0);
+            t->sceneByIdx(0).rec(0).setMidi(127);
+            REQUIRE(t->sceneByIdx(0).rec(0).state() == 1);
+        }
+    }
+
+    SECTION("any")
+    {
+        TExt t("proto.xtouch_ext");
+
+        t.sendMessage("rec");
+        REQUIRE(t->sceneByIdx(0).rec(0).state() == 0);
+        t.sendMessage("rec0");
+        REQUIRE(t->sceneByIdx(0).rec(0).state() == 0);
+        t.sendMessage("rec0", LA(1, 2, 3));
+        REQUIRE(t->sceneByIdx(0).rec(0).state() == 0);
+        t.sendMessage("rec0", LF(1));
+        REQUIRE(t->sceneByIdx(0).rec(0).state() == 1);
+        t.sendMessage("rec0", LF(1));
+        REQUIRE(t->sceneByIdx(0).rec(0).state() == 1);
+        t.sendMessage("rec0", LF(0));
+        REQUIRE(t->sceneByIdx(0).rec(0).state() == 0);
+        t.sendMessage("rec0", LF(-1));
+        REQUIRE(t->sceneByIdx(0).rec(0).state() == -1);
+    }
 }

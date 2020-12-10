@@ -201,6 +201,55 @@ void XTouchExtender::onFloat(t_float f)
     }
 }
 
+int XTouchExtender::msgToIndex(const char* msg)
+{
+    char* end = 0;
+    const auto idx = std::strtol(msg, &end, 10);
+
+    if (msg == end)
+        return -1;
+
+    if (idx < 0 || idx >= numLogicChannels())
+        return -1;
+
+    return idx;
+}
+
+void XTouchExtender::onAny(t_symbol* s, const AtomListView& l)
+{
+    typedef Button& (Scene::*ButtonGetFn)(uint8_t);
+
+    auto set_btn = [this](const char* msg, const AtomListView& l, ButtonGetFn fn) {
+        auto idx = msgToIndex(msg);
+        if (idx < 0) {
+            LIB_ERR << "invalid channel: " << idx;
+            return;
+        }
+
+        if (l.size() != 1) {
+            LIB_ERR << "single value expected, got: " << l;
+            return;
+        }
+
+        auto& sc = sceneByLogicIdx(idx);
+        auto& btn = (sc.*fn)(idx);
+        btn.setState(l[0]);
+    };
+
+    const char* msg = s->s_name;
+
+    if (strncmp(msg, "rec", 3) == 0)
+        set_btn(msg + 3, l, &Scene::rec);
+    else if (strncmp(msg, "solo", 4) == 0)
+        set_btn(msg + 4, l, &Scene::solo);
+    else if (strncmp(msg, "mute", 4) == 0)
+        set_btn(msg + 4, l, &Scene::mute);
+    else if (strncmp(msg, "select", 6) == 0)
+        set_btn(msg + 6, l, &Scene::select);
+    else
+        LIB_ERR << "unknown message: " << s;
+}
+
 void XTouchExtender::initDone()
 {
     const auto N = num_scenes_->value();
@@ -236,54 +285,30 @@ void XTouchExtender::initDone()
 
         // init btn rec
         for (int j = 0; j < NCH; j++) {
-            const int idx = i * NCH + j;
-            sprintf(buf, "@rec%d", idx);
-            auto p = new IntProperty(buf);
-            p->checkClosedRange(-1, 1);
-            p->setSuccessFn([this, i, j](Property* p) { sendRec(i, j, static_cast<IntProperty*>(p)->value()); });
-            addProperty(p);
-            scenes_[i].btn_rec_[j] = p;
+            auto& btn = scenes_[i].rec(j);
+            btn.setMode(Button::TOGGLE);
+            btn.setFn([this, i, j](int v) { sendRec(i, j, v); });
         }
 
         // init btn solo
         for (int j = 0; j < NCH; j++) {
-            const int idx = i * NCH + j;
-            sprintf(buf, "@solo%d", idx);
-            auto p = new IntProperty(buf);
-            p->checkClosedRange(-1, 1);
-            p->setSuccessFn([this, i, j](Property* p) { sendSolo(i, j, static_cast<IntProperty*>(p)->value()); });
-            addProperty(p);
-            scenes_[i].btn_solo_[j] = p;
+            auto& btn = scenes_[i].solo(j);
+            btn.setMode(Button::TOGGLE);
+            btn.setFn([this, i, j](int v) { sendSolo(i, j, v); });
         }
 
         // init btn mute
         for (int j = 0; j < NCH; j++) {
-            const int idx = i * NCH + j;
-            sprintf(buf, "@mute%d", idx);
-            auto p = new IntProperty(buf);
-            p->checkClosedRange(-1, 1);
-            p->setSuccessFn([this, i, j](Property* p) { sendMute(i, j, static_cast<IntProperty*>(p)->value()); });
-            addProperty(p);
-            scenes_[i].btn_mute_[j] = p;
+            auto& btn = scenes_[i].mute(j);
+            btn.setMode(Button::TOGGLE);
+            btn.setFn([this, i, j](int v) { sendMute(i, j, v); });
         }
 
         // init btn select
         for (int j = 0; j < NCH; j++) {
-            const int idx = i * NCH + j;
-            sprintf(buf, "@select%d", idx);
-            auto p = new IntProperty(buf);
-            p->checkClosedRange(-1, 1);
-            p->setSuccessFn([this, i, j](Property* p) { sendSelect(i, j, static_cast<IntProperty*>(p)->value()); });
-            addProperty(p);
-            scenes_[i].btn_select_[j] = p;
-        }
-
-        for (int j = 0; j < NCH; j++) {
-            auto& sc = scenes_[i];
-            sc.recMode(j) = true;
-            sc.soloMode(j) = true;
-            sc.muteMode(j) = true;
-            sc.selectMode(j) = false;
+            auto& btn = scenes_[i].select(j);
+            btn.setMode(Button::BUTTON);
+            btn.setFn([this, i, j](int v) { sendSelect(i, j, v); });
         }
 
         for (int j = 0; j < NCH; j++)
@@ -348,90 +373,26 @@ void XTouchExtender::parseXMidi()
         }
     } else if (parser_.isNoteOn()) {
         const auto note = parser_.data[1];
-        if (in_range(note, XT_REC_FIRST, XT_REC_LAST)) {
-            const auto ch = note - XT_REC_FIRST;
-            const int velocity = parser_.data[2];
-
-            int val = 0;
-            if (currentScene().recMode(ch)) {
-                if (velocity == 0)
-                    return;
-
-                const auto current_v = currentScene().btn_rec_.at(ch)->value();
-                if (current_v < 0)
-                    val = 1;
-                else
-                    val = (1 - current_v);
-            } else {
-                val = (velocity > 64);
-            }
-
-            currentScene().btn_rec_.at(ch)->setValue(val);
-            sendRec(scene_->value(), ch, val);
-        } else if (in_range(note, XT_BTN_KNOB_FIRST, XT_BTN_KNOB_LAST)) {
+        if (in_range(note, XT_BTN_KNOB_FIRST, XT_BTN_KNOB_LAST)) {
             const auto ch = note - XT_BTN_KNOB_FIRST;
-            const int velocity = parser_.data[2];
-            sendKnobButton(scene_->value(), ch, velocity);
+            const int vel = parser_.data[2];
+            sendKnobButton(scene_->value(), ch, vel);
+        } else if (in_range(note, XT_REC_FIRST, XT_REC_LAST)) {
+            const auto ch = note - XT_REC_FIRST;
+            const int vel = parser_.data[2];
+            currentScene().rec(ch).setMidi(vel);
         } else if (in_range(note, XT_SOLO_FIRST, XT_SOLO_LAST)) {
             const auto ch = note - XT_SOLO_FIRST;
-            const int velocity = parser_.data[2];
-
-            int val = 0;
-            if (currentScene().soloMode(ch)) {
-                if (velocity == 0)
-                    return;
-
-                const auto current_v = currentScene().btn_solo_.at(ch)->value();
-                if (current_v < 0)
-                    val = 1;
-                else
-                    val = (1 - current_v);
-            } else {
-                val = (velocity > 64);
-            }
-
-            currentScene().btn_solo_.at(ch)->setValue(val);
-            sendSolo(scene_->value(), ch, val);
+            const int vel = parser_.data[2];
+            currentScene().solo(ch).setMidi(vel);
         } else if (in_range(note, XT_MUTE_FIRST, XT_MUTE_LAST)) {
             const auto ch = note - XT_MUTE_FIRST;
-            const int velocity = parser_.data[2];
-
-            int val = 0;
-            if (currentScene().muteMode(ch)) {
-                if (velocity == 0)
-                    return;
-
-                const auto current_v = currentScene().btn_mute_.at(ch)->value();
-                if (current_v < 0)
-                    val = 1;
-                else
-                    val = (1 - current_v);
-            } else {
-                val = (velocity > 64);
-            }
-
-            currentScene().btn_mute_.at(ch)->setValue(val);
-            sendMute(scene_->value(), ch, val);
+            const int vel = parser_.data[2];
+            currentScene().mute(ch).setMidi(vel);
         } else if (in_range(note, XT_SELECT_FIRST, XT_SELECT_LAST)) {
             const auto ch = note - XT_SELECT_FIRST;
-            const int velocity = parser_.data[2];
-
-            int val = 0;
-            if (currentScene().selectMode(ch)) {
-                if (velocity == 0)
-                    return;
-
-                const auto current_v = currentScene().btn_select_.at(ch)->value();
-                if (current_v < 0)
-                    val = 1;
-                else
-                    val = (1 - current_v);
-            } else {
-                val = (velocity > 64);
-            }
-
-            currentScene().btn_select_.at(ch)->setValue(val);
-            sendSelect(scene_->value(), ch, val);
+            const int vel = parser_.data[2];
+            currentScene().select(ch).setMidi(vel);
         } else if (in_range(note, XT_FADER_MOVE_FIRST, XT_FADER_MOVE_LAST)) {
             const auto ch = note - XT_FADER_MOVE_FIRST;
             const int velocity = parser_.data[2];
@@ -495,24 +456,17 @@ void XTouchExtender::resetKnobs()
 void XTouchExtender::resetButtons()
 {
     for (size_t scene_idx = 0; scene_idx < scenes_.size(); scene_idx++) {
-        const auto& sc = scenes_[scene_idx];
-        const auto& r = sc.btn_rec_;
-        const auto& s = sc.btn_solo_;
-        const auto& m = sc.btn_mute_;
-        const auto& sel = sc.btn_select_;
+        auto& sc = scenes_[scene_idx];
+        auto& r = sc.btn_rec_;
+        auto& s = sc.btn_solo_;
+        auto& m = sc.btn_mute_;
+        auto& sel = sc.btn_select_;
 
         for (size_t i = 0; i < r.size(); i++) {
-            r[i]->setValue(0);
-            sendRec(scene_idx, i, 0);
-
-            s[i]->setValue(0);
-            sendSolo(scene_idx, i, 0);
-
-            m[i]->setValue(0);
-            sendMute(scene_idx, i, 0);
-
-            sel[i]->setValue(0);
-            sendSelect(scene_idx, i, 0);
+            r[i].setState(Button::OFF);
+            s[i].setState(Button::OFF);
+            m[i].setState(Button::OFF);
+            sel[i].setState(Button::OFF);
         }
     }
 }
@@ -532,10 +486,10 @@ void XTouchExtender::syncScene()
     for (size_t i = 0; i < faders.size(); i++) {
         sendFader(scene_idx, i, faders[i]->value());
         sendKnob(scene_idx, i, knobs[i]->value());
-        sendRec(scene_idx, i, recs[i]->value());
-        sendSolo(scene_idx, i, solo[i]->value());
-        sendMute(scene_idx, i, mute[i]->value());
-        sendSelect(scene_idx, i, select[i]->value());
+        sendRec(scene_idx, i, recs[i].state());
+        sendSolo(scene_idx, i, solo[i].state());
+        sendMute(scene_idx, i, mute[i].state());
+        sendSelect(scene_idx, i, select[i].state());
         syncDisplay(scene_idx, i);
     }
 }
@@ -870,49 +824,49 @@ void XTouchExtender::m_lcd_lower_enum(t_symbol* s, const AtomListView& lv)
 void XTouchExtender::m_rec(t_symbol* s, const AtomListView& lv)
 {
     m_apply_fn(s, lv,
-        [this](int idx, const Atom& a) { sceneByLogicIdx(idx).rec(idx)->set(a); });
+        [this](int idx, const Atom& a) { sceneByLogicIdx(idx).rec(idx).setState(a); });
 }
 
 void XTouchExtender::m_solo(t_symbol* s, const AtomListView& lv)
 {
     m_apply_fn(s, lv,
-        [this](int idx, const Atom& a) { sceneByLogicIdx(idx).solo(idx)->set(a); });
+        [this](int idx, const Atom& a) { sceneByLogicIdx(idx).solo(idx).setState(a); });
 }
 
 void XTouchExtender::m_mute(t_symbol* s, const AtomListView& lv)
 {
     m_apply_fn(s, lv,
-        [this](int idx, const Atom& a) { sceneByLogicIdx(idx).mute(idx)->set(a); });
+        [this](int idx, const Atom& a) { sceneByLogicIdx(idx).mute(idx).setState(a); });
 }
 
 void XTouchExtender::m_select(t_symbol* s, const AtomListView& lv)
 {
     m_apply_fn(s, lv,
-        [this](int idx, const Atom& a) { sceneByLogicIdx(idx).select(idx)->set(a); });
+        [this](int idx, const Atom& a) { sceneByLogicIdx(idx).select(idx).setState(a); });
 }
 
 void XTouchExtender::m_rec_mode(t_symbol* s, const AtomListView& lv)
 {
     m_apply_fn(s, lv,
-        [this](int idx, const Atom& a) { sceneByLogicIdx(idx).recMode(idx).setMode(a); });
+        [this](int idx, const Atom& a) { sceneByLogicIdx(idx).rec(idx).setMode(a); });
 }
 
 void XTouchExtender::m_solo_mode(t_symbol* s, const AtomListView& lv)
 {
     m_apply_fn(s, lv,
-        [this](int idx, const Atom& a) { sceneByLogicIdx(idx).soloMode(idx).setMode(a); });
+        [this](int idx, const Atom& a) { sceneByLogicIdx(idx).solo(idx).setMode(a); });
 }
 
 void XTouchExtender::m_mute_mode(t_symbol* s, const AtomListView& lv)
 {
     m_apply_fn(s, lv,
-        [this](int idx, const Atom& a) { sceneByLogicIdx(idx).muteMode(idx).setMode(a); });
+        [this](int idx, const Atom& a) { sceneByLogicIdx(idx).mute(idx).setMode(a); });
 }
 
 void XTouchExtender::m_select_mode(t_symbol* s, const AtomListView& lv)
 {
     m_apply_fn(s, lv,
-        [this](int idx, const Atom& a) { sceneByLogicIdx(idx).selectMode(idx).setMode(a); });
+        [this](int idx, const Atom& a) { sceneByLogicIdx(idx).select(idx).setMode(a); });
 }
 
 void XTouchExtender::m_lcd_lower_align(t_symbol* s, const AtomListView& lv)
@@ -995,86 +949,6 @@ void XTouchExtender::m_apply_fn(t_symbol* s, const AtomListView& lv, std::functi
             // idx >= 0
             const auto idx = ch + i - 1;
             fn(calcLogicIdx(idx), lv[i]);
-        }
-    }
-}
-
-void XTouchExtender::m_set(t_symbol* s, const AtomListView& lv)
-{
-    auto usage = [this, s](const char* msg) -> void {
-        METHOD_ERR(s) << msg << ", usage: " << s->s_name
-                      << " scene|scene_idx ctl_name(rec|solo|mute|select|btn) value";
-    };
-
-    if (lv.size() != 3)
-        return usage("empty arguments");
-
-    const auto ctrl = lv.symbolAt(1, nullptr);
-    if (ctrl != SYM_REC
-        && ctrl != SYM_SOLO
-        && ctrl != SYM_MUTE
-        && ctrl != SYM_SELECT
-        && ctrl != SYM_BTN) {
-        return usage("invalid control name");
-    }
-
-    if (!lv[2].isFloat())
-        return usage("float value expected");
-
-    const auto val = lv.floatAt(2, 0);
-    const auto NCH = currentScene().NCHAN;
-
-    if (lv[0].isSymbol()) {
-        const auto target = lv[0].asT<t_symbol*>();
-        if (target == SYM_SCENE) {
-
-            if (ctrl == SYM_REC || ctrl == SYM_BTN) {
-                for (int i = 0; i < NCH; i++)
-                    sendRec(scene_->value(), i, val);
-            }
-
-            if (ctrl == SYM_SOLO || ctrl == SYM_BTN) {
-                for (int i = 0; i < NCH; i++)
-                    sendSolo(scene_->value(), i, val);
-            }
-
-            if (ctrl == SYM_MUTE || ctrl == SYM_BTN) {
-                for (int i = 0; i < NCH; i++)
-                    sendMute(scene_->value(), i, val);
-            }
-
-            if (ctrl == SYM_SELECT || ctrl == SYM_BTN) {
-                for (int i = 0; i < NCH; i++)
-                    sendSelect(scene_->value(), i, val);
-            }
-        } else {
-            METHOD_ERR(s) << "unknown target: " << lv[0];
-        }
-    } else if (lv[0].isFloat()) {
-        const int scene_idx = lv[0].asInt();
-        if (scene_idx < 0 || scene_idx >= num_scenes_->value()) {
-            METHOD_ERR(s) << "invalid scene index: " << scene_idx;
-            return usage("");
-        }
-
-        if (ctrl == SYM_REC || ctrl == SYM_BTN) {
-            for (auto p : scenes_[scene_idx].btn_rec_)
-                p->setInt(val);
-        }
-
-        if (ctrl == SYM_SOLO || ctrl == SYM_BTN) {
-            for (auto p : scenes_[scene_idx].btn_solo_)
-                p->setInt(val);
-        }
-
-        if (ctrl == SYM_MUTE || ctrl == SYM_BTN) {
-            for (auto p : scenes_[scene_idx].btn_mute_)
-                p->setInt(val);
-        }
-
-        if (ctrl == SYM_SELECT || ctrl == SYM_BTN) {
-            for (auto p : scenes_[scene_idx].btn_select_)
-                p->setInt(val);
         }
     }
 }
@@ -1450,16 +1324,54 @@ on_space:
     }
 }
 
-bool ButtonMode::setMode(const Atom& a)
+bool Button::setMode(const Atom& a)
 {
     if (a.isBool()) {
-        toggle_ = a.asBool(false);
+        mode_ = a.asBool(false) ? TOGGLE : BUTTON;
         return true;
     } else if (a == SYM_TILDE || a == SYM_EXCLAM) {
-        toggle_ = !toggle_;
+        mode_ = (mode_ == TOGGLE) ? BUTTON : TOGGLE;
         return true;
     } else
         return false;
+}
+
+void Button::setState(State st)
+{
+    state_ = st;
+    fn_(st);
+}
+
+bool Button::setState(const Atom& a)
+{
+    if (a.isBool()) {
+        setState(a.asBool(false) ? ON : OFF);
+        return true;
+    } else if (a == SYM_TILDE || a == SYM_EXCLAM) {
+        toggle();
+        return true;
+    } else if (a == -1) {
+        setState(ACTIVE);
+        return true;
+    } else
+        return false;
+}
+
+void Button::setMidi(int vel)
+{
+    const bool on = vel > 63;
+    if (mode_ == TOGGLE && on)
+        toggle();
+    else if (mode_ == BUTTON)
+        setState(on ? ON : OFF);
+}
+
+void Button::toggle()
+{
+    if (state_ == ACTIVE)
+        state_ = OFF;
+
+    setState((state_ == ON) ? OFF : ON);
 }
 
 void setup_proto_xtouch_ext()
@@ -1492,6 +1404,4 @@ void setup_proto_xtouch_ext()
     obj.addMethod("mute_mode", &XTouchExtender::m_mute_mode);
     obj.addMethod("solo_mode", &XTouchExtender::m_solo_mode);
     obj.addMethod("select_mode", &XTouchExtender::m_select_mode);
-
-    obj.addMethod("set", &XTouchExtender::m_set);
 }

@@ -99,6 +99,12 @@
         <inlets>
             <inlet>
                 <xinfo on="float">raw midi input</xinfo>
+                <xinfo on="any">
+                recIDX VAL: set rec button,
+                muteIDX VAL: set mute button,
+                soloIDX VAL: set solo button,
+                selectIDX VAL: set select button,
+                </xinfo>
             </inlet>
         </inlets>
         <outlets>
