@@ -192,6 +192,8 @@ public:
     void m_reset(t_symbol* s, const AtomListView& lv);
 
     void m_lcd(t_symbol* s, const AtomListView& lv);
+    void m_ulcd(t_symbol* s, const AtomListView& lv);
+    void m_llcd(t_symbol* s, const AtomListView& lv);
     void m_lcd_align(t_symbol* s, const AtomListView& lv);
     void m_lcd_color(t_symbol* s, const AtomListView& lv);
     void m_lcd_lower(t_symbol* s, const AtomListView& lv);

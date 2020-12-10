@@ -786,6 +786,24 @@ void XTouchExtender::m_lcd(t_symbol* s, const AtomListView& lv)
     syncLogicDisplay(ch);
 }
 
+void XTouchExtender::m_ulcd(t_symbol* s, const AtomListView& lv)
+{
+    m_apply_fn(s, lv,
+        [this](int idx, const Atom& a) {
+            display(idx).setUpperText(a);
+            syncLogicDisplay(idx);
+        });
+}
+
+void XTouchExtender::m_llcd(t_symbol* s, const AtomListView& lv)
+{
+    m_apply_fn(s, lv,
+        [this](int idx, const Atom& a) {
+            display(idx).setLowerText(a);
+            syncLogicDisplay(idx);
+        });
+}
+
 void XTouchExtender::m_lcd_align(t_symbol* s, const AtomListView& lv)
 {
     m_apply_fn(s, lv,
@@ -1311,6 +1329,8 @@ void setup_proto_xtouch_ext()
     obj.addMethod("lcd", &XTouchExtender::m_lcd);
     obj.addMethod("lcd0", &XTouchExtender::m_lcd_upper);
     obj.addMethod("lcd1", &XTouchExtender::m_lcd_lower);
+    obj.addMethod("ulcd", &XTouchExtender::m_ulcd);
+    obj.addMethod("llcd", &XTouchExtender::m_llcd);
     obj.addMethod("lcd_color", &XTouchExtender::m_lcd_color);
     obj.addMethod("lcd_mode", &XTouchExtender::m_lcd_mode);
     obj.addMethod("lcd_align", &XTouchExtender::m_lcd_align);
