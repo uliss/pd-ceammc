@@ -51,7 +51,8 @@ public:
         ALIGN_CENTER,
         ALIGN_LEFT,
         ALIGN_RIGHT,
-        ALIGN_JUSTIFY
+        ALIGN_JUSTIFY,
+        ALIGN_AUTO
     };
 
     enum {
@@ -60,13 +61,13 @@ public:
         COLOR_MIN = BLACK,
         COLOR_MAX = WHITE,
         ALIGN_MIN = ALIGN_CENTER,
-        ALIGN_MAX = ALIGN_JUSTIFY
+        ALIGN_MAX = ALIGN_AUTO
     };
 
     DisplayData()
         : color_(CYAN)
         , mode_(MODE_INVERTED)
-        , align_(ALIGN_CENTER)
+        , align_(ALIGN_AUTO)
     {
     }
 

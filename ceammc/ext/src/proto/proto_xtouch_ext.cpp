@@ -1034,7 +1034,11 @@ void DisplayData::setUpperText(const AtomListView& atoms)
         clearUpper();
     else if (atoms.isSymbol())
         setUpperText(atoms[0].asT<t_symbol*>()->s_name);
-    else
+    else if (align_ == ALIGN_AUTO && atoms.size() == 2) {
+        align_ = ALIGN_JUSTIFY;
+        setUpperText(to_string(atoms).c_str());
+        align_ = ALIGN_AUTO;
+    } else
         setUpperText(to_string(atoms).c_str());
 }
 
@@ -1044,7 +1048,11 @@ void DisplayData::setLowerText(const AtomListView& atoms)
         clearLower();
     else if (atoms.isSymbol())
         setLowerText(atoms[0].asT<t_symbol*>()->s_name);
-    else
+    else if (align_ == ALIGN_AUTO && atoms.size() == 2) {
+        align_ = ALIGN_JUSTIFY;
+        setLowerText(to_string(atoms).c_str());
+        align_ = ALIGN_AUTO;
+    } else
         setLowerText(to_string(atoms).c_str());
 }
 

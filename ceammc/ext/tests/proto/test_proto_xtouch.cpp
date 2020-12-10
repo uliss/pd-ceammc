@@ -158,4 +158,29 @@ TEST_CASE("proto.xtouch_ext", "[externals]")
         REQUIRE(d.upperCharAt(6) == '5');
         REQUIRE(d.upperCharAt(7) == '\0');
     }
+
+    SECTION("setUpperText")
+    {
+        DisplayData d;
+
+        d.setUpperText(LA("A", "B"));
+        REQUIRE(d.upperCharAt(0) == 'A');
+        REQUIRE(d.upperCharAt(1) == ' ');
+        REQUIRE(d.upperCharAt(2) == ' ');
+        REQUIRE(d.upperCharAt(3) == ' ');
+        REQUIRE(d.upperCharAt(4) == ' ');
+        REQUIRE(d.upperCharAt(5) == ' ');
+        REQUIRE(d.upperCharAt(6) == 'B');
+        REQUIRE(d.upperCharAt(7) == '\0');
+
+        d.setUpperText(LA("A B"));
+        REQUIRE(d.upperCharAt(0) == 'A');
+        REQUIRE(d.upperCharAt(1) == ' ');
+        REQUIRE(d.upperCharAt(2) == 'B');
+        REQUIRE(d.upperCharAt(3) == '\0');
+        REQUIRE(d.upperCharAt(4) == '\0');
+        REQUIRE(d.upperCharAt(5) == '\0');
+        REQUIRE(d.upperCharAt(6) == '\0');
+        REQUIRE(d.upperCharAt(7) == '\0');
+    }
 }
