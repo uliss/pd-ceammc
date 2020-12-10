@@ -990,25 +990,6 @@ static void init_symbols()
     SYM_YELLOW = gensym("yellow");
 }
 
-void setup_proto_xtouch_ext()
-{
-    init_symbols();
-
-    ObjectFactory<XTouchExtender> obj("proto.xtouch_ext");
-    obj.addMethod("vu", &XTouchExtender::m_vu);
-    obj.addMethod("reset", &XTouchExtender::m_reset);
-
-    obj.addMethod("lcd", &XTouchExtender::m_lcd);
-    obj.addMethod("lcd0", &XTouchExtender::m_lcd_upper);
-    obj.addMethod("lcd1", &XTouchExtender::m_lcd_lower);
-    obj.addMethod("lcd_color", &XTouchExtender::m_lcd_color);
-    obj.addMethod("lcd_mode", &XTouchExtender::m_lcd_mode);
-
-    obj.addMethod("set", &XTouchExtender::m_set);
-
-    static_assert(sizeof(DisplayData) == 16, "");
-}
-
 void DisplayData::setUpperText(const char* str, TextAlign align)
 {
     switch (align) {
@@ -1186,4 +1167,21 @@ on_space:
         else
             break;
     }
+}
+
+void setup_proto_xtouch_ext()
+{
+    init_symbols();
+
+    ObjectFactory<XTouchExtender> obj("proto.xtouch_ext");
+    obj.addMethod("vu", &XTouchExtender::m_vu);
+    obj.addMethod("reset", &XTouchExtender::m_reset);
+
+    obj.addMethod("lcd", &XTouchExtender::m_lcd);
+    obj.addMethod("lcd0", &XTouchExtender::m_lcd_upper);
+    obj.addMethod("lcd1", &XTouchExtender::m_lcd_lower);
+    obj.addMethod("lcd_color", &XTouchExtender::m_lcd_color);
+    obj.addMethod("lcd_mode", &XTouchExtender::m_lcd_mode);
+
+    obj.addMethod("set", &XTouchExtender::m_set);
 }

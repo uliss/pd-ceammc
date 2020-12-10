@@ -47,23 +47,26 @@ public:
         UNKNOWN = NUM_COLORS
     };
 
-    enum {
-        MODE_MIN = INVERTED,
-        MODE_MAX = NORMAL,
-        COLOR_MIN = BLACK,
-        COLOR_MAX = WHITE,
-    };
-
-    enum TextAlign {
+    enum TextAlign : uint8_t {
         ALIGN_CENTER,
         ALIGN_LEFT,
         ALIGN_RIGHT,
         ALIGN_JUSTIFY
     };
 
+    enum {
+        MODE_MIN = INVERTED,
+        MODE_MAX = NORMAL,
+        COLOR_MIN = BLACK,
+        COLOR_MAX = WHITE,
+        ALIGN_MIN = ALIGN_CENTER,
+        ALIGN_MAX = ALIGN_JUSTIFY
+    };
+
     DisplayData()
         : color_(CYAN)
         , mode_(INVERTED)
+        , align_(ALIGN_JUSTIFY)
     {
     }
 
@@ -80,6 +83,7 @@ public:
 
     uint8_t packedColorMode() const { return color_ | (mode_ << 4); }
 
+    void setAlign(TextAlign a) { align_ = a; }
     void setColor(DisplayColor c) { color_ = c; }
     void setMode(DisplayMode m) { mode_ = m; }
 
@@ -91,6 +95,7 @@ private:
     char txt_[2 * MAX_CHARS] = { 0 };
     DisplayColor color_;
     DisplayMode mode_;
+    TextAlign align_;
 
 private:
     static void setCentered(char* dest, const char* txt);
