@@ -5,6 +5,7 @@ extern "C" void setup_noise0x2ebaker();
 extern "C" void setup_noise0x2eclifford();
 extern "C" void setup_noise0x2ecollatz();
 extern "C" void setup_noise0x2eduffing();
+extern "C" void setup_noise0x2efibonacci();
 extern "C" void setup_noise0x2eginger();
 extern "C" void setup_noise0x2ehenon();
 extern "C" void setup_noise0x2ehenon_heilles();
@@ -35,6 +36,7 @@ void ceammc_noise_setup()
     setup_noise0x2eclifford();
     setup_noise0x2ecollatz();
     setup_noise0x2eduffing();
+    setup_noise0x2efibonacci();
     setup_noise0x2eginger();
     setup_noise0x2ehenon();
     setup_noise0x2ehenon_heilles();
