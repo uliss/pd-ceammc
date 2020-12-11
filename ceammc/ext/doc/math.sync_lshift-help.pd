@@ -1,7 +1,7 @@
 #N canvas 0 0 785 555 12;
 #X declare -lib ceammc;
-#X obj 599 50 cnv 1 166 23 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 599 50 sync signed bit shift;
+#X obj 561 50 cnv 1 204 23 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 561 50 sync signed bit left shift;
 #X obj 1 1 cnv 5 765 40 empty empty math.sync_lshift 20 20 0 20
 -104026 -4096 0;
 #X obj 498 11 math.<<';

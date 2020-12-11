@@ -175,7 +175,7 @@ direction;
 #X obj 30 2316 math.sync_le;
 #X text 200 2316 sync less equal numbers compare;
 #X obj 30 2343 math.sync_lshift;
-#X text 200 2343 sync signed bit shift;
+#X text 200 2343 sync signed bit left shift;
 #X obj 30 2370 math.sync_lt;
 #X text 200 2370 sync less then numbers compare;
 #X obj 30 2397 math.sync_mod;

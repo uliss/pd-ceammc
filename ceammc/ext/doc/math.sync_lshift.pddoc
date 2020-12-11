@@ -6,7 +6,7 @@
             <authors>
                 <author>Serge Poltavsky</author>
             </authors>
-            <description>sync signed bit shift</description>
+            <description>sync signed bit left shift</description>
             <license>GPL3 or later</license>
             <library>ceammc</library>
             <category>math</category>
