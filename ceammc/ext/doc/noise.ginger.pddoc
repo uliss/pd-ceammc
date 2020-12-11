@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="noise.ginger">
+        <title>noise.ginger</title>
+        <meta>
+            <authors>
+                <author>André Sier</author>
+            </authors>
+            <description>Part of a-chaos library</description>
+            <license> % </license>
+            <library>ceammc</library>
+            <category>noise</category>
+            <keywords>noise</keywords>
+            <since>.5</since>
+        </meta>
+        <info>
+			<par>chaos-ginger.a</par>
+		<par>inputs</par>
+			<par>1 == z/seed defaults (0.82) // x, y default to (0.7,1.2)</par>
+		<par>outputs:</par>
+			<par>(2d)</par>
+
+		<par>formulae:</par>
+			<par>dx/dt = 1. -y - z*abs(x)</par>
+			<par>dy/dt = x</par>
+            <par>---</par>
+            <par>try these arguments:</par>
+            <par>0.82 0.7 1.2</par>
+            <par>0.92 0.7 1.3</par>
+            <par>0.82 0.7 1.7</par>
+        </info>
+        <arguments>
+            <argument name="ARG0" type="float">x value (optional)</argument>
+            <argument name="ARG1" type="float">y value (optional)</argument>
+            <argument name="ARG2" type="float">z value (optional)</argument>
+        </arguments>
+        <methods>
+            <method name="set">
+            <param type="float" name="SET" required="true">set to value</param></method>
+
+            <method name="reset">reset state</method>
+
+            <method name="om">
+            <param type="int" name="OM" required="true">enables output when cut or fold value is changed</param></method>
+
+            <method name="seed">
+            <param type="float" name="SEED" required="true">seed value</param></method>
+
+            <method name="x">
+            <param type="float" name="NX" required="true">x value</param></method>
+            <method name="y">
+            <param type="float" name="NY" required="true">y value</param></method>
+            <method name="z">
+            <param type="float" name="NZ" required="true">z value</param></method>
+
+            <method name="dt">
+            <param type="float" name="DT" required="true">dt value</param></method>
+        </methods>
+        <inlets>
+            <inlet>
+                <xinfo on="bang">output value</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet>x outlet</outlet>
+            <outlet>y outlet</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+
+[T]
+|
+[metro 50 #metro]
+
+
+  [T]         [F]
+  |           |
+  [om $1 #om( [set $1 #set( [reset #reset(
+
+ [F]           
+ |             
+ [seed $1 #seed(      
+
+        [F]       [F]       [F]       
+        |         |         |         
+        [x $1 #x( [y $1 #y( [z $1 #z(   
+
+[noise.ginger 0.82 0.7 1.2 #noise-obj]
+|                      |
+[ui.display {i=1,o=0}] [ui.display {i=1,o=0}]
+
+[X seed:0->noise-obj:0]
+
+[X x:0->noise-obj:0] 
+[X y:0->noise-obj:0] 
+[X z:0->noise-obj:0] 
+
+[X om:0->noise-obj:0]
+[X set:0->noise-obj:0]
+[X reset:0->noise-obj:0]
+
+[X metro->noise-obj]
+
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>
