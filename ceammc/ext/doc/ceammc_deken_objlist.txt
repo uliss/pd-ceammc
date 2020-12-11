@@ -612,11 +612,30 @@ msg.onload	send message when patch loads
 loadmsg	send message when patch loads
 net.host2ip	returns IP address by DNS name
 net.host->ip	returns IP address by DNS name
+noise.baker	Part of a-chaos library
+noise.clifford	Part of a-chaos library
+noise.collatz	Part of a-chaos library
 noise.crackle~	sparse noise generator
+noise.duffing	Part of a-chaos library
+noise.fibonacci	Part of a-chaos library
 noise.ginger	Gingerbreadman map chaotic generator
+noise.henon	Part of a-chaos library
+noise.henon_heilles	Part of a-chaos library
+noise.henon_phase	Part of a-chaos library
+noise.henonf	Part of a-chaos library
+noise.ikeda	Part of a-chaos library
+noise.jong	Part of a-chaos library
 noise.lfreq0~	sampled/held noise (piecewise constant)
 noise.lfreq~	noise.lfreq0~ smoothed with no overshoot
+noise.logistic	Part of a-chaos library
+noise.lorenz	Part of a-chaos library
+noise.lyapunov	Part of a-chaos library
+noise.navier_stokes	Part of a-chaos library
 noise.pink~	Pink noise generator
+noise.rossler	Part of a-chaos library
+noise.stein	Part of a-chaos library
+noise.torus	Part of a-chaos library
+noise.verhulst	Part of a-chaos library
 noise.white~	White noise generator
 osc.blit~	Bandlimited impulse train oscillator
 osc.impulse~	Bandlimited impulse train generator

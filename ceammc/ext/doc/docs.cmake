@@ -440,12 +440,31 @@ set(DOC_FILES
     msg.after
     msg.onload
     net.host2ip
+    noise.baker
+    noise.clifford
+    noise.collatz
     noise.crackle~
+    noise.duffing
+    noise.fibonacci
     noise.ginger
-    noise.pink~
-    noise.white~
-    noise.lfreq~
+    noise.henon
+    noise.henon_heilles
+    noise.henon_phase
+    noise.henonf
+    noise.ikeda
+    noise.jong
     noise.lfreq0~
+    noise.lfreq~
+    noise.logistic
+    noise.lorenz
+    noise.lyapunov
+    noise.navier_stokes
+    noise.pink~
+    noise.rossler
+    noise.stein
+    noise.torus
+    noise.verhulst
+    noise.white~
     nsig~
     obj.props
     osc.blit~

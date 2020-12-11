@@ -1346,11 +1346,44 @@
     </entry>
   </category>
   <category name="noise">
+    <entry name="noise.baker" descr="Part of a-chaos library" ref_view="object">
+      <xi:include href="noise.baker.pddoc" parse="xml"/>
+    </entry>
+    <entry name="noise.clifford" descr="Part of a-chaos library" ref_view="object">
+      <xi:include href="noise.clifford.pddoc" parse="xml"/>
+    </entry>
+    <entry name="noise.collatz" descr="Part of a-chaos library" ref_view="object">
+      <xi:include href="noise.collatz.pddoc" parse="xml"/>
+    </entry>
     <entry name="noise.crackle~" descr="sparse noise generator" ref_view="object">
       <xi:include href="noise.crackle~.pddoc" parse="xml"/>
     </entry>
+    <entry name="noise.duffing" descr="Part of a-chaos library" ref_view="object">
+      <xi:include href="noise.duffing.pddoc" parse="xml"/>
+    </entry>
+    <entry name="noise.fibonacci" descr="Part of a-chaos library" ref_view="object">
+      <xi:include href="noise.fibonacci.pddoc" parse="xml"/>
+    </entry>
     <entry name="noise.ginger" descr="Gingerbreadman map chaotic generator" ref_view="object">
       <xi:include href="noise.ginger.pddoc" parse="xml"/>
+    </entry>
+    <entry name="noise.henon" descr="Part of a-chaos library" ref_view="object">
+      <xi:include href="noise.henon.pddoc" parse="xml"/>
+    </entry>
+    <entry name="noise.henon_heilles" descr="Part of a-chaos library" ref_view="object">
+      <xi:include href="noise.henon_heilles.pddoc" parse="xml"/>
+    </entry>
+    <entry name="noise.henon_phase" descr="Part of a-chaos library" ref_view="object">
+      <xi:include href="noise.henon_phase.pddoc" parse="xml"/>
+    </entry>
+    <entry name="noise.henonf" descr="Part of a-chaos library" ref_view="object">
+      <xi:include href="noise.henonf.pddoc" parse="xml"/>
+    </entry>
+    <entry name="noise.ikeda" descr="Part of a-chaos library" ref_view="object">
+      <xi:include href="noise.ikeda.pddoc" parse="xml"/>
+    </entry>
+    <entry name="noise.jong" descr="Part of a-chaos library" ref_view="object">
+      <xi:include href="noise.jong.pddoc" parse="xml"/>
     </entry>
     <entry name="noise.lfreq0~" descr="sampled/held noise (piecewise constant)" ref_view="object">
       <xi:include href="noise.lfreq0~.pddoc" parse="xml"/>
@@ -1358,8 +1391,32 @@
     <entry name="noise.lfreq~" descr="noise.lfreq0~ smoothed with no overshoot" ref_view="object">
       <xi:include href="noise.lfreq~.pddoc" parse="xml"/>
     </entry>
+    <entry name="noise.logistic" descr="Part of a-chaos library" ref_view="object">
+      <xi:include href="noise.logistic.pddoc" parse="xml"/>
+    </entry>
+    <entry name="noise.lorenz" descr="Part of a-chaos library" ref_view="object">
+      <xi:include href="noise.lorenz.pddoc" parse="xml"/>
+    </entry>
+    <entry name="noise.lyapunov" descr="Part of a-chaos library" ref_view="object">
+      <xi:include href="noise.lyapunov.pddoc" parse="xml"/>
+    </entry>
+    <entry name="noise.navier_stokes" descr="Part of a-chaos library" ref_view="object">
+      <xi:include href="noise.navier_stokes.pddoc" parse="xml"/>
+    </entry>
     <entry name="noise.pink~" descr="Pink noise generator" ref_view="object">
       <xi:include href="noise.pink~.pddoc" parse="xml"/>
+    </entry>
+    <entry name="noise.rossler" descr="Part of a-chaos library" ref_view="object">
+      <xi:include href="noise.rossler.pddoc" parse="xml"/>
+    </entry>
+    <entry name="noise.stein" descr="Part of a-chaos library" ref_view="object">
+      <xi:include href="noise.stein.pddoc" parse="xml"/>
+    </entry>
+    <entry name="noise.torus" descr="Part of a-chaos library" ref_view="object">
+      <xi:include href="noise.torus.pddoc" parse="xml"/>
+    </entry>
+    <entry name="noise.verhulst" descr="Part of a-chaos library" ref_view="object">
+      <xi:include href="noise.verhulst.pddoc" parse="xml"/>
     </entry>
     <entry name="noise.white~" descr="White noise generator" ref_view="object">
       <xi:include href="noise.white~.pddoc" parse="xml"/>
@@ -1917,10 +1974,13 @@
       <author>Julian Parker</author>
       <author>Katja Vetter</author>
       <author>Mayank Sanganeria</author>
+      <author>Mikhail Malt</author>
       <author>Oliver Larkin</author>
       <author>Olli Parviainen</author>
+      <author>Paul Bourke</author>
       <author>Pierre Cochard</author>
       <author>Pierre Guillot</author>
+      <author>Richard Dudas</author>
       <author>Serge Poltavski</author>
       <author>Serge Poltavsky</author>
       <author>Serge Potlavsky</author>
