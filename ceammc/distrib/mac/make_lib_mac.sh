@@ -84,8 +84,9 @@ ceammc_lib=$(find_ext "${BINDIR}/ceammc/ext" ceammc)
 cp $ceammc_lib "${OUTDIR}"
 ${DYLIBBUNDLER} -x ${OUTDIR}/$(basename $ceammc_lib) -b -d ${OUTDIR} -p @loader_path/ -of
 
+# copy all pd files from doc folder
 echo "Copying help files to ${OUTDIR} ..."
-find "@PROJECT_SOURCE_DIR@/ceammc/ext/doc" -name *-help\\.pd -maxdepth 1 | while read file
+find "@PROJECT_SOURCE_DIR@/ceammc/ext/doc" -name *\\.pd -maxdepth 1 | while read file
 do
     help=$(basename $file)
     cat "$file" | sed -e 's/ceammc\/ceammc-help\.pd/ceammc-help.pd/' \
