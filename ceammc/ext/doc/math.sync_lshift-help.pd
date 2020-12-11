@@ -77,4 +77,8 @@ https://github.com/uliss/pure-data;
 #X connect 10 0 11 0;
 #X connect 6 0 12 0;
 #X connect 7 0 12 1;
+#X connect 9 0 13 0;
+#X connect 11 0 13 0;
+#X connect 11 1 13 1;
 #X connect 12 0 14 0;
+#X connect 13 0 15 0;

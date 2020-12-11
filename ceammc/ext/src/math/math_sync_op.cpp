@@ -176,6 +176,6 @@ void setup_math_sync_op()
     FACTORY_INIT(MathSyncOr, "or", "||")
     FACTORY_INIT(MathSyncXor, "xor", "^")
 
-    FACTORY_INIT(MathSyncOr, "lshift", "<<")
-    FACTORY_INIT(MathSyncXor, "rshift", ">>")
+    FACTORY_INIT(MathSyncLeftShift, "lshift", "<<")
+    FACTORY_INIT(MathSyncRightShift, "rshift", ">>")
 }
