@@ -95,6 +95,8 @@ conv.degree2key	convert scale degree to key
 degree->key	convert scale degree to key
 conv.hex2int	hex symbol to int value
 hex->int	hex symbol to int value
+conv.int2bits	convert integer to list of bits
+int->bits	convert integer to list of bits
 conv.lin2curve	map linear to exponential range with 0 allowed.
 lin->curve	map linear to exponential range with 0 allowed.
 conv.lin2exp	maps linear range to exponential range

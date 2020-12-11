@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="conv.int2bits">
+        <title>conv.int2bits</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>convert integer to list of bits</description>
+            <license>GPL3 or later</license>
+            <library>ceammc</library>
+            <category>conv</category>
+            <keywords>conv bits int</keywords>
+            <since>0.9.1</since>
+            <aliases>
+                <alias>int-&gt;bits</alias>
+            </aliases>
+        </meta>
+        <info>
+            <par>Note: negative numbers converted using machine architecture, commonly two's complement</par>
+            <wiki name="Two%27s_complement">Two's complement</wiki>
+        </info>
+        <inlets>
+            <inlet>
+                <xinfo on="float">input value</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet>list of bits</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[F]
+|
+[int->bits 16]
+|
+[ui.hrd* 16]
+
+[F]
+|
+[expr (1<<$f1)]
+|
+[int->bits 32 @rev 1]
+|
+[ui.hrd* 32]
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

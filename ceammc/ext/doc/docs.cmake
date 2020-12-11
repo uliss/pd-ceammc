@@ -48,6 +48,7 @@ set(DOC_FILES
     conv.dbfs2amp
     conv.dbfs2amp~
     conv.degree2key
+    conv.int2bits
     conv.hex2int
     conv.lin2curve
     conv.lin2exp
