@@ -15,11 +15,15 @@
             <since>0.1</since>
             <aliases>
                 <alias view="link">ui.d</alias>
+                <alias view="link">ui.dt</alias>
             </aliases>
             <also>
                 <see>msg</see>
             </also>
         </meta>
+        <info>
+            <par>[ui.dt] is alias for [ui.display @display_type=1]</par>
+        </info>
         <mouse>
             <event editmode="false" type="double-click">show/hide message type</event>
             <event editmode="false" type="right-click" keys="Shift">open object help</event>
@@ -29,7 +33,7 @@
         </mouse>
         <inlets>
             <inlet>
-                <xinfo on="list">accepts any messages and displays it.</xinfo>
+                <xinfo>accepts any messages and displays it</xinfo>
             </inlet>
         </inlets>
         <methods>
@@ -44,6 +48,9 @@
             incoming message type</property>
             <property name="@display_events" type="int" default="1" enum="0 1">flag for blinking on
             incoming messages</property>
+            <property name="@float_width" type="int" default="-1" minvalue="-1" maxvalue="17">
+            number of digits after floating point. If -1: skip trailing zeroes, if 0 - output as
+            integers</property>
             <property name="@send" type="symbol" default="(null)">send destination</property>
             <property name="@receive" type="symbol" default="(null)">receive source</property>
             <property name="@size" type="list" default="150 18">element size (width, height
@@ -83,7 +90,7 @@
 |            |   |          |         |
 |            |   |          |         |
 |            |   |          |         |
-[ui.display            @display_type=1]
+[ui.display            @display_type 1]
 
 
 ]]>

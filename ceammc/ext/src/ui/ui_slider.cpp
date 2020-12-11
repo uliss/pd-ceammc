@@ -211,8 +211,8 @@ void UISlider::setup()
     obj.addProperty("mode", _("Relative Mode"), false, &UISlider::prop_rel_mode, "Main");
     obj.addProperty("scale", _("Scale Mode"), "linear", &UISingleValue::prop_scale, "linear log", "Main");
 
-    obj.addProperty("min", _("Minimum Value"), 0, &UISingleValue::prop_min, "Bounds");
-    obj.addProperty("max", _("Maximum Value"), 1, &UISingleValue::prop_max, "Bounds");
+    obj.addFloatProperty("min", _("Minimum Value"), 0, &UISingleValue::prop_min, "Bounds");
+    obj.addFloatProperty("max", _("Maximum Value"), 1, &UISingleValue::prop_max, "Bounds");
 
     obj.addProperty("midi_channel", _("MIDI channel"), 0, &UISingleValue::prop_midi_chn, "MIDI");
     obj.setPropertyRange("midi_channel", 0, 16);

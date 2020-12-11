@@ -260,11 +260,14 @@ proc ::pdtk_canvas::done_popup {mytoplevel action} {
     pdsend "$mytoplevel done-popup $action $::popup_xcanvas $::popup_ycanvas"
 }
 
+# ceammc addiontal args added: xabs, yabs
 proc ::pdtk_canvas::pdtk_canvas_popup {mytoplevel xcanvas ycanvas hasproperties hasopen xabs yabs} {
     set ::popup_xcanvas $xcanvas
     set ::popup_ycanvas $ycanvas
+    # ceammc: save global position
     set ::popup_xabs $xabs
     set ::popup_yabs $yabs
+    # ceammc end
     if {$hasproperties} {
         .popup entryconfigure [_ "Properties"] -state normal
     } else {

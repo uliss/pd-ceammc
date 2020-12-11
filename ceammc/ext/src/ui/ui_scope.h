@@ -38,8 +38,8 @@ private:
 
 private:
     t_rgba prop_color_active;
-    float prop_min;
-    float prop_max;
+    t_float prop_min;
+    t_float prop_max;
     int prop_window;
     int prop_refresh;
 

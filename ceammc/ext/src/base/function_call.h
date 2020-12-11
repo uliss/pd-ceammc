@@ -35,6 +35,6 @@ private:
     void outputResult(Function* fn);
 };
 
-extern "C" void function_call_setup();
+void setup_function_call();
 
 #endif // FUNCTION_CALL_H

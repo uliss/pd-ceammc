@@ -19,6 +19,10 @@
                 <alias>car-&gt;pol</alias>
             </aliases>
         </meta>
+        <properties>
+            <property name="@positive" type="int" default="0" enum="0 1">output in positive range.
+            If true output is in [0..2π) range, otherwise output range is [-π..+π]</property>
+        </properties>
         <inlets>
             <inlet>
                 <xinfo on="list">x, y coord pair</xinfo>
@@ -34,13 +38,13 @@
 |
 |
 |
+|               [T]
+|               |
+|               [@positive $1(
+|               |
+[car->pol       ]
 |
-|
-|
-|
-[car->pol]
-|
-[ui.display @display_type=1]
+[ui.display @display_type 1]
 ]]>
             </pdascii>
         </example>

@@ -1,0 +1,167 @@
+#N canvas 0 0 785 555 12;
+#X declare -lib ceammc;
+#X obj 407 50 cnv 1 358 23 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 407 50 array player with variable speed and amplitude;
+#X obj 1 1 cnv 5 765 40 empty empty array.play~ 20 20 0 20 -104026
+-4096 0;
+#X obj 575 11 array.p~;
+#X obj 659 11 array.play~;
+#X msg 50 118 open %CEAMMC%/guitar1.wav;
+#N canvas 0 22 450 300 (subpatch) 0;
+#X array APLAY 100 float 1;
+#A 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0;
+#X coords 0 1 100 -1 200 140 1;
+#X restore 328 118 graph;
+#X obj 50 147 expand_env;
+#X msg 50 176 load \$1 @to APLAY @resize;
+#X obj 50 205 snd.file;
+#X obj 50 234 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
+-1;
+#X obj 50 262 array.play~ APLAY;
+#X obj 242 262 ui.dsp~;
+#X obj 50 291 ui.hgain~;
+#X obj 50 320 dac~;
+#X obj 50 349 array.play~.speed;
+#X obj 261 349 array.play~.range;
+#X obj 50 378 array.play~.speed2;
+#X obj 261 378 array.play~.clock;
+#X obj 50 406 array.play~.amp;
+#X obj 20 455 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 460 cnv 5 90 26 empty empty arguments: 4 10 0 14 -262144
+-49933 0;
+#X text 110 495 1\.;
+#X text 150 495 symbol;
+#X obj 246 496 cnv 1 47 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 245 495 ARRAY: array name.;
+#X text 110 515 2\.;
+#X text 150 515 float;
+#X obj 246 516 cnv 1 47 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 245 515 SPEED: play speed.;
+#X obj 20 545 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 550 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
+-49933 0;
+#X msg 110 585 @amp;
+#X text 245 585 Get/Set playback amplitude. Type: float. Default value:
+1\. Min value: 0\.;
+#X msg 110 627 @array;
+#X text 245 627 Get/Set array name. Type: symbol.;
+#X msg 110 656 @begin;
+#X text 245 656 Get/Set playback start position. Negative value means
+position relative to the end of the array. Type: float. Units: samp.
+Default value: 0\.;
+#X msg 110 713 @cfmt;
+#X text 245 713 Get/Set clock output format. Type: symbol. Default
+value: sec. Allowed values: sec \, ms \, samp \, phase.;
+#X msg 110 755 @clock;
+#X text 245 755 Get/Set clock output period. Zero means: no clock output
+(by default). Type: float. Units: sec. Default value: 0\. Range: 0\...20\.;
+#X msg 110 812 @cursor_ms;
+#X text 245 812 (readonly) Get current play position. Type: float.
+Units: ms. Default value: 0\.;
+#X msg 110 854 @cursor_phase;
+#X text 245 854 Get/Set current play position. Type: float. Default
+value: 0\.;
+#X msg 110 896 @cursor_samp;
+#X text 245 896 Get/Set current play position. Type: float. Units:
+samp. Default value: 0\.;
+#X msg 110 938 @cursor_sec;
+#X text 245 938 (readonly) Get current play position. Type: float.
+Units: sec. Default value: 0\.;
+#X msg 110 980 @end;
+#X text 245 980 Get/Set playback end position. Negative value means
+position relative to the end of the array. Type: float. Units: samp.
+Default value: -1\.;
+#X msg 110 1037 @interp;
+#X text 245 1037 Get/Set interpolation type. 0: no interpolationm 1:
+linear \, 3: cubic. Type: int. Default value: 1\. Allowed values: 0
+\, 1 \, 3\.;
+#X msg 110 1094 @speed;
+#X text 245 1094 Get/Set playback speed. Negative value means reversed
+playback. Type: float. Default value: 1\.;
+#X msg 110 1136 @state;
+#X text 245 1136 (readonly) Get playing state. 0: stopped \, 1: playing
+\, 2: paused. Type: int. Default value: 0\.;
+#X obj 20 1188 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1193 cnv 5 73 26 empty empty methods: 4 10 0 14 -262144
+-49933 0;
+#X msg 110 1228 pause;
+#X text 245 1228 pause/resume playback. Arguments are:;
+#X obj 255 1251 cnv 1 77 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1251 [anonym=1]: if true: pause \, else resume playing.
+Type: int. Allowed values: 0 \, 1\.;
+#X msg 110 1291 play;
+#X text 245 1291 start playback from current play position.;
+#X msg 110 1318 range;
+#X text 245 1318 set @begin and @end property. Arguments are:;
+#X obj 255 1341 cnv 1 44 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1341 BEGIN: begin position. If float value given: interpret
+as phase in [0\..1] range. Otherwise unit value expected. Examples:
+10ms \, 5% \, 4sec \, 20samp etc. Type: atom.;
+#X obj 255 1394 cnv 1 28 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1394 END: end position. Value type same as for first argument.
+Type: atom.;
+#X msg 110 1434 stop;
+#X text 245 1434 stop playback and reset play position.;
+#X obj 20 1471 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1476 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144
+-49933 0;
+#X text 110 1477 1\.;
+#X text 150 1477 *bang*;
+#X text 245 1477 resets play position and starts playback.;
+#X text 150 1497 *float*;
+#X text 245 1497 starts playback from the specified sample. Negative
+offsets are also supported: -10 means play last 10 samples of array
+till the end.;
+#X obj 20 1557 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1562 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
+-49933 0;
+#X text 110 1563 1\.;
+#X text 245 1563 played signal.;
+#X text 110 1583 2\.;
+#X text 245 1583 output current playing position according to @cfmt
+property. By default output seconds.;
+#X text 110 1618 3\.;
+#X text 245 1618 output bang when finished.;
+#X obj 10 48 ui.link @title index @url ../index-help.pd;
+#X text 51 45 ::;
+#X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;
+#X text 115 45 ::;
+#X obj 131 48 ui.link @title array @url ceammc.array-help.pd;
+#X obj 1 1668 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1671 library: ceammc v0.9.0;
+#X text 607 1683 see also:;
+#X obj 681 1683 tabplay~;
+#N canvas 10 1690 400 290 info 0;
+#X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
+#X text 10 10 library:;
+#X text 120 10 ceammc;
+#X text 10 32 version:;
+#X text 120 32 0.9.0;
+#X text 10 54 object:;
+#X text 120 54 array.play~;
+#X text 10 76 category:;
+#X text 120 76 array;
+#X text 10 98 since:;
+#X text 120 98 0.9.1;
+#X text 10 120 authors:;
+#X text 120 120 Serge Poltavsky;
+#X text 10 142 license:;
+#X text 120 142 GPL3 or later;
+#X text 10 164 keywords:;
+#X text 120 164 array \, play;
+#X text 10 186 website:;
+#X obj 120 189 ui.link @title https://github.com/uliss/pure-data @url
+https://github.com/uliss/pure-data;
+#X obj 120 208 declare -lib ceammc;
+#X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 120 268 generated by pddoc;
+#X restore 10 1690 pd info;
+#X connect 5 0 7 0;
+#X connect 7 0 8 0;
+#X connect 8 0 9 0;
+#X connect 10 0 11 0;
+#X connect 11 0 13 0;
+#X connect 13 0 14 0;
+#X connect 13 0 14 1;

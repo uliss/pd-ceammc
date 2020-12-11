@@ -10,8 +10,8 @@
             <license>GPL3 or later</license>
             <library>ceammc</library>
             <category>flow</category>
-            <keywords>gate</keywords>
-            <since>0.9</since>
+            <keywords>gate greater</keywords>
+            <since>0.9.1</since>
             <aliases>
                 <alias>flow.&gt;</alias>
             </aliases>
@@ -20,22 +20,27 @@
             </also>
         </meta>
         <info>
-            <par>Numbers thar are *less* or *equal* then first argument are passed to N-th
+            <par>Numbers thar are *less* or *equal* then last argument are passed to N-th
             inlet</par>
         </info>
         <arguments>
             <argument name="LIST" type="list">compare values: list of floats in descending
             order</argument>
         </arguments>
+        <properties>
+            <property name="@values" type="list">compare values: list of floats in descending
+            order</property>
+        </properties>
         <inlets>
             <inlet>
                 <xinfo on="float">input flow</xinfo>
             </inlet>
         </inlets>
         <outlets dynamic="true">
-            <outlet>numbers that are greater then 1st argument</outlet>
-            <outlet number="...">numbers that are greater than N-th argument</outlet>
-            <outlet number="n">numbers that are less or equal than first argument</outlet>
+            <outlet number="1">numbers that are greater then 1st argument</outlet>
+            <outlet number="...">numbers that are greater than ... argument</outlet>
+            <outlet number="n">numbers that are greater than last argument</outlet>
+            <outlet number="n+1">numbers that are less or equal than last argument</outlet>
         </outlets>
         <example>
             <pdascii>
@@ -44,9 +49,9 @@
 |
 |
 |
-[flow.greater 100 10 1     ]
-|     ^|   ^^|   ^^^|  ^^^^|
-[F]   [F]   [F]   [F]    [F]
+[flow.greater 100 10 1]
+|     ^|   ^^|   ^^^|
+[F]   [F]   [F]   [F]
 ]]>
             </pdascii>
         </example>

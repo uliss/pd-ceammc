@@ -14,19 +14,19 @@
 #X floatatom 50 230 8 0 0 0 - - -;
 #X obj 50 259 amp->dbfs;
 #X floatatom 50 287 8 0 0 0 - - -;
-#X obj 20 326 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 331 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
+#X obj 20 336 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 341 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
-#X text 110 332 1\.;
-#X text 150 332 *float*;
-#X text 245 332 input value.;
-#X text 150 352 *list*;
-#X text 245 352 input values.;
-#X obj 20 382 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 387 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
+#X text 110 342 1\.;
+#X text 150 342 *float*;
+#X text 245 342 input value.;
+#X text 150 362 *list*;
+#X text 245 362 input values.;
+#X obj 20 392 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 397 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 388 1\.;
-#X text 245 388 converted value.;
+#X text 110 398 1\.;
+#X text 245 398 converted value.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;

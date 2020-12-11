@@ -52,7 +52,14 @@ struct TestSignal {
                 buf_in[c][s] = v;
     }
 
-    void fillOutput(float v)
+    void fillInput(double v)
+    {
+        for (size_t c = 0; c < IN; c++)
+            for (size_t s = 0; s < 64; s++)
+                buf_in[c][s] = v;
+    }
+
+    void fillOutput(t_sample v)
     {
         for (size_t c = 0; c < OUT; c++)
             for (size_t s = 0; s < 64; s++)
@@ -61,10 +68,10 @@ struct TestSignal {
 
     void fillInput(int v)
     {
-        fillInput(float(v));
+        fillInput(t_sample(v));
     }
 
-    void setInput(size_t idx, float v)
+    void setInput(size_t idx, t_sample v)
     {
         if (idx >= 64)
             return;
@@ -109,7 +116,7 @@ struct TestSignal {
 
     void fillInputN(size_t n, int v)
     {
-        fillInputN(n, float(v));
+        fillInputN(n, t_float(v));
     }
 
     void fillInputN(size_t n, float v)
@@ -129,6 +136,11 @@ struct TestSignal {
         for (size_t s = 0; s < 64; s++)
             buf_in[n][s] = v;
     }
+
+    t_sample* beginOut(size_t i) { return &buf_out[i][0]; }
+    t_sample* endOut(size_t i) { return &buf_out[i][64]; }
+
+    size_t blocksize() const { return 64; }
 };
 
 template <class T, class E>

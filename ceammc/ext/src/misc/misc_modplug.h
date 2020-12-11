@@ -35,9 +35,9 @@ public:
     void onSymbol(t_symbol* s) override;
     void processBlock(const t_sample**, t_sample** out) override;
 
-    void m_play(t_symbol*, const AtomList&);
-    void m_stop(t_symbol*, const AtomList&);
-    void m_pause(t_symbol*, const AtomList&);
+    void m_play(t_symbol*, const AtomListView&);
+    void m_stop(t_symbol*, const AtomListView&);
+    void m_pause(t_symbol*, const AtomListView&);
 
     t_float p_pos() const;
     bool p_set_pos(t_float pos);

@@ -11,9 +11,13 @@
  * contact the author of this file, or the owner of the project in which
  * this file belongs to.
  *****************************************************************************/
+#include "metro_seq.h"
+#include "prop_declare.h"
 #include "test_external.h"
+#include "test_external_log_output.h"
 
 void setup_prop_get();
+void setup_metro_seq();
 
 struct Dummy {
 };
@@ -21,59 +25,156 @@ struct Dummy {
 TEST_CASE("prop.get", "[externals]")
 {
     setup_prop_get();
+    setup_metro_seq();
+    setup_prop_declare();
+    test::pdPrintToStdError();
 
-    SECTION("init")
+    SECTION("single")
     {
-        TestPdExternal<Dummy> t("prop.get", LA("@msg"));
+        pd::External t("prop.get", LA("@interval"));
         REQUIRE(t.object());
+        REQUIRE(t.numInlets() == 1);
+        REQUIRE(t.numOutlets() == 2);
+
+        LogExternalOutput l0;
+        REQUIRE(t.connectTo(1, l0, 0));
+
+        TestPdExternal<MetroSeq> mseq("metro.seq", LA(90, 1, 1, 1));
+        REQUIRE(mseq.object());
+
+        t.sendBang();
+        REQUIRE(l0.msg().isNone());
+
+        REQUIRE(t.connectTo(0, mseq, 0));
+
+        // get property
+        t.sendBang();
+        REQUIRE(l0.msg().isFloat());
+        REQUIRE(l0.msg().atomValue().asFloat() == 90);
+
+        mseq->setProperty("@interval", LF(25.5));
+
+        t.sendBang();
+        REQUIRE(l0.msg().isFloat());
+        REQUIRE(l0.msg().atomValue().asFloat() == 25.5);
+    }
+
+    SECTION("multiple")
+    {
+        pd::External t("prop.get", LA("@interval", "@current"));
         REQUIRE(t.numInlets() == 1);
         REQUIRE(t.numOutlets() == 3);
 
-        t << BANG;
-        REQUIRE(t.isOutputBangAt(0));
-        t << 123;
-        REQUIRE(t.outputFloatAt(0) == 123);
-        t << "message";
-        REQUIRE(t.outputSymbolAt(0) == gensym("message"));
-        t << LF(1, 2, 3);
-        REQUIRE(t.outputListAt(0) == LX(1, 2, 3));
+        LogExternalOutput l0;
+        LogExternalOutput l1;
 
-        t.call("A");
-        REQUIRE(t.outputAnyAt(0) == LA("A"));
-        t.call("A", LA("B"));
-        REQUIRE(t.outputAnyAt(0) == LA("A", "B"));
-        t.call("A", LA("B", "C"));
-        REQUIRE(t.outputAnyAt(0) == LA("A", "B", "C"));
+        TestPdExternal<MetroSeq> mseq("metro.seq", LA(90, 1, 1, 1));
+        REQUIRE(mseq.object());
 
-        // dump message processed by itself
-        t.call("dump");
-        REQUIRE_FALSE(t.hasOutput());
+        REQUIRE(t.connectTo(1, l0, 0));
+        REQUIRE(t.connectTo(2, l1, 0));
+        REQUIRE(t.connectTo(0, mseq, 0));
 
-        // props
-        t.call("@prop?");
-        REQUIRE(t.outputAnyAt(2) == LA("@prop?"));
-        t.call("@unknown", LF(1, 2, 3));
-        REQUIRE(t.outputAnyAt(2) == LA("@unknown", 1, 2, 3));
+        // get properties
+        t.sendBang();
+        REQUIRE(l0.msg() == Message(90));
+        REQUIRE(l1.msg() == Message(0.));
 
-        t.call("@msg", LF(1, 2, 3));
-        REQUIRE(t.outputListAt(1) == LF(1, 2, 3));
-        t.call("@msg", LF(1, 2));
-        REQUIRE(t.outputListAt(1) == LF(1, 2));
-        t.call("@msg", LF(1));
-        REQUIRE(t.outputFloatAt(1) == 1);
-        t.call("@msg", 1);
-        REQUIRE(t.outputFloatAt(1) == 1);
-        t.call("@msg", LA("test"));
-        REQUIRE(t.outputSymbolAt(1) == gensym("test"));
-        t.call("@msg");
-        REQUIRE(t.isOutputBangAt(1));
+        mseq->setProperty("@interval", LF(25.5));
+        mseq->setProperty("@current", LF(2));
+
+        t.sendBang();
+        REQUIRE(l0.msg() == Message(25.5));
+        REQUIRE(l1.msg() == Message(2));
     }
 
-    SECTION("aliases")
+    SECTION("dynamic")
     {
-        TestPdExternal<Dummy> t1("prop->");
-        REQUIRE(t1.object());
-        TestPdExternal<Dummy> t2("@->");
-        REQUIRE(t2.object());
+        pd::External t("prop.get", L());
+        REQUIRE(t.numInlets() == 1);
+        REQUIRE(t.numOutlets() == 2);
+
+        LogExternalOutput log;
+
+        TestPdExternal<MetroSeq> mseq("metro.seq", LA(90, 1, 1, 1));
+        REQUIRE(mseq.object());
+
+        REQUIRE(t.connectTo(1, log, 0));
+        REQUIRE(t.connectTo(0, mseq, 0));
+
+        t.sendMessage("@interval");
+        REQUIRE(log.msg() == Message(90));
+
+        t.sendMessage("@pattern");
+        REQUIRE(log.msg() == Message(LF(1, 1, 1)));
+
+        t.sendMessage("@interval?");
+        REQUIRE(log.msg() == Message(90));
+
+        t.sendMessage("@pattern?");
+        REQUIRE(log.msg() == Message(LF(1, 1, 1)));
+
+        log.reset();
+        t.sendMessage("@????");
+        REQUIRE(log.msgList().empty());
+
+        t.sendMessage("not a property");
+        REQUIRE(log.msgList().empty());
+
+        t.sendBang();
+        REQUIRE(log.msgList().empty());
+    }
+
+    SECTION("no props")
+    {
+        pd::External t("prop.get", L());
+        REQUIRE(t.numInlets() == 1);
+        REQUIRE(t.numOutlets() == 2);
+
+        LogExternalOutput log;
+
+        pd::External f("float", L());
+        REQUIRE(f.object());
+
+        REQUIRE(t.connectTo(1, log, 0));
+        REQUIRE(t.connectTo(0, f, 0));
+
+        t.sendMessage("@interval");
+        t.sendBang();
+        REQUIRE(log.msgList().empty());
+    }
+
+    SECTION("abstractions")
+    {
+        pd::External t("prop.get", L());
+        REQUIRE(t.numInlets() == 1);
+        REQUIRE(t.numOutlets() == 2);
+
+        LogExternalOutput log;
+
+        pd::External abs0(TEST_DATA_DIR "/base/prop_get_abs0", L());
+        REQUIRE(abs0.object());
+
+        REQUIRE(t.connectTo(1, log, 0));
+        REQUIRE(t.connectTo(0, abs0, 0));
+
+        t.sendMessage("@unknown");
+        t.sendBang();
+        REQUIRE(log.msgList().empty());
+
+        t.sendMessage("@pget0");
+        REQUIRE(log.msg() == Message(-100));
+
+        t.sendMessage("@pget1");
+        REQUIRE(log.msg() == Message(S("ABC")));
+
+        t.sendMessage("@pget2");
+        REQUIRE(log.msg() == Message({ 1, 2, 3 }));
+    }
+
+    SECTION("alias")
+    {
+        pd::External t("p.get");
+        REQUIRE(t.object());
     }
 }

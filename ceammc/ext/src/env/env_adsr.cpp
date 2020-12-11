@@ -35,11 +35,11 @@ public:
         createOutlet();
     }
 
-    bool processAnyProps(t_symbol* sel, const AtomList& lst) override
+    bool processAnyProps(t_symbol* sel, const AtomListView& lst) override
     {
         // intercept @gate call
         if (sel == gensym("@gate")) {
-            if (atomlistToValue<bool>(lst, false)) {
+            if (lst.boolAt(0, false)) {
                 clockReset();
                 ad_done_.delay(prop_attack_->value() + prop_decay_->value());
             } else {
@@ -78,7 +78,7 @@ public:
             OBJ_ERR << "can't set envelope: " << *env;
     }
 
-    void m_reset(t_symbol*, const AtomList&)
+    void m_reset(t_symbol*, const AtomListView&)
     {
         prop_gate_->setValue(0);
         dsp_->instanceClear();

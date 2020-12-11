@@ -27,7 +27,7 @@ TEST_CASE("hoa.process~", "[externals]")
     {
         SECTION("empty args")
         {
-            TestExtHoaProcess t("hoa.process~");
+            TExt t("hoa.process~");
             REQUIRE(t.numInlets() == 1);
             REQUIRE(t.numOutlets() == 0);
             REQUIRE_PROPERTY(t, @domain, S("harmonics"));
@@ -36,16 +36,16 @@ TEST_CASE("hoa.process~", "[externals]")
 
         SECTION("no patch")
         {
-            TestExtHoaProcess t("hoa.process~", LA(5));
+            TExt t("hoa.process~", LA(5));
             REQUIRE(t.numInlets() == 1);
             REQUIRE(t.numOutlets() == 0);
             REQUIRE_PROPERTY(t, @domain, S("harmonics"));
-            REQUIRE_PROPERTY_FLOAT(t, @n, 0);
+            REQUIRE_PROPERTY_FLOAT(t, @n, 5);
         }
 
         SECTION("invalid patch name")
         {
-            TestExtHoaProcess t("hoa.process~", LA(5, "not-exists"));
+            TExt t("hoa.process~", LA(5, "not-exists"));
             REQUIRE(t.numInlets() == 1);
             REQUIRE(t.numOutlets() == 0);
             REQUIRE_PROPERTY(t, @domain, S("harmonics"));
@@ -54,7 +54,7 @@ TEST_CASE("hoa.process~", "[externals]")
 
         SECTION("patch name 01")
         {
-            TestExtHoaProcess t("hoa.process~", LA(5, TEST_DATA_DIR "/hoa_test_01"));
+            TExt t("hoa.process~", LA(5, TEST_DATA_DIR "/hoa_test_01"));
             REQUIRE(t.numInlets() == 2);
             REQUIRE(t.numOutlets() == 1);
             REQUIRE_PROPERTY(t, @domain, S("harmonics"));
@@ -63,7 +63,7 @@ TEST_CASE("hoa.process~", "[externals]")
 
         SECTION("patch name 02")
         {
-            TestExtHoaProcess t("hoa.process~", LA(5, TEST_DATA_DIR "/hoa_test_02"));
+            TExt t("hoa.process~", LA(5, TEST_DATA_DIR "/hoa_test_02"));
             REQUIRE(t.numInlets() == 3);
             REQUIRE(t.numOutlets() == 4);
             REQUIRE_PROPERTY(t, @domain, S("harmonics"));
@@ -72,7 +72,7 @@ TEST_CASE("hoa.process~", "[externals]")
 
         SECTION("invalid patch name planewaves")
         {
-            TestExtHoaProcess t("hoa.process~", LA(11, "not-exists", "planewaves"));
+            TExt t("hoa.process~", LA(11, "not-exists", "planewaves"));
             REQUIRE(t.numInlets() == 1);
             REQUIRE(t.numOutlets() == 0);
             REQUIRE_PROPERTY(t, @domain, S("planewaves"));
@@ -81,7 +81,7 @@ TEST_CASE("hoa.process~", "[externals]")
 
         SECTION("patch name planewaves")
         {
-            TestExtHoaProcess t("hoa.process~", LA(15, TEST_DATA_DIR "/hoa_test_10", "planewaves"));
+            TExt t("hoa.process~", LA(15, TEST_DATA_DIR "/hoa_test_10", "planewaves"));
             REQUIRE_PROPERTY_FLOAT(t, @n, 15);
             REQUIRE_PROPERTY(t, @domain, S("planewaves"));
             REQUIRE(t.numInlets() == 15);
@@ -91,7 +91,7 @@ TEST_CASE("hoa.process~", "[externals]")
 
     SECTION("control 01")
     {
-        TestExtHoaProcess t("hoa.process~", LA(2, TEST_DATA_DIR "/hoa_test_01"));
+        TExt t("hoa.process~", LA(2, TEST_DATA_DIR "/hoa_test_01"));
         REQUIRE(t.numInlets() == 2);
         REQUIRE(t.numOutlets() == 1);
 
@@ -99,7 +99,8 @@ TEST_CASE("hoa.process~", "[externals]")
         t.sendBangTo(1);
         REQUIRE(t.hasOutputAt(0));
         REQUIRE(t.isOutputBangAt(0));
-        REQUIRE(t.messagesAt(0) == messageList(&s_bang, &s_bang, &s_bang, &s_bang, &s_bang));
+        Message b = Message::makeBang();
+        REQUIRE(t.messagesAt(0) == MessageList({ b, b, b, b, b }));
 
         // float
         t.sendFloatTo(10, 1);
@@ -134,14 +135,21 @@ TEST_CASE("hoa.process~", "[externals]")
 
     SECTION("control 03")
     {
-        TestExtHoaProcess t("hoa.process~", LA(2, TEST_DATA_DIR "/hoa_test_03"));
+        TExt t("hoa.process~", LA(2, TEST_DATA_DIR "/hoa_test_03"));
         REQUIRE(t.numInlets() == 2);
         REQUIRE(t.numOutlets() == 1);
+
+        // float
+        t.sendFloatTo(10, 1);
+        REQUIRE(t.hasOutputAt(0));
+        REQUIRE(t.isOutputFloatAt(0));
+        REQUIRE(t.outputFloatAt(0) == Approx(30));
+        REQUIRE(t.messagesAt(0) == messageList(10, 20, 40, 30, 10, 20, 40, 30, 10, 20, 40, 30, 10, 20, 40, 30, 10, 20, 40, 30));
     }
 
     SECTION("control 04")
     {
-        TestExtHoaProcess t("hoa.process~", LA(1, TEST_DATA_DIR "/hoa_test_04"));
+        TExt t("hoa.process~", LA(1, TEST_DATA_DIR "/hoa_test_04"));
         REQUIRE(t.numInlets() == 2);
         REQUIRE(t.numOutlets() == 4);
 
@@ -157,7 +165,7 @@ TEST_CASE("hoa.process~", "[externals]")
 
     SECTION("control 05")
     {
-        TestExtHoaProcess t("hoa.process~", LA(1, TEST_DATA_DIR "/hoa_test_05"));
+        TExt t("hoa.process~", LA(1, TEST_DATA_DIR "/hoa_test_05"));
         REQUIRE(t.numInlets() == 2);
         REQUIRE(t.numOutlets() == 4);
 
@@ -180,49 +188,49 @@ TEST_CASE("hoa.process~", "[externals]")
 
     SECTION("audio 10")
     {
-        TestExtHoaProcess t("hoa.process~", LA(3, TEST_DATA_DIR "/hoa_test_10"));
+        TExt t("hoa.process~", LA(3, TEST_DATA_DIR "/hoa_test_10"));
         REQUIRE(t.numInlets() == 7);
         REQUIRE(t.numOutlets() == 7);
     }
 
     SECTION("audio 10 plain")
     {
-        TestExtHoaProcess t("hoa.process~", LA(3, TEST_DATA_DIR "/hoa_test_10", "planewaves"));
+        TExt t("hoa.process~", LA(3, TEST_DATA_DIR "/hoa_test_10", "planewaves"));
         REQUIRE(t.numInlets() == 3);
         REQUIRE(t.numOutlets() == 3);
     }
 
     SECTION("audio 11")
     {
-        TestExtHoaProcess t("hoa.process~", LA(4, TEST_DATA_DIR "/hoa_test_11"));
+        TExt t("hoa.process~", LA(4, TEST_DATA_DIR "/hoa_test_11"));
         REQUIRE(t.numInlets() == 9);
         REQUIRE(t.numOutlets() == 9);
     }
 
     SECTION("audio 11 plane")
     {
-        TestExtHoaProcess t("hoa.process~", LA(4, TEST_DATA_DIR "/hoa_test_11", "planewaves"));
+        TExt t("hoa.process~", LA(4, TEST_DATA_DIR "/hoa_test_11", "planewaves"));
         REQUIRE(t.numInlets() == 4);
         REQUIRE(t.numOutlets() == 4);
     }
 
     SECTION("audio 12")
     {
-        TestExtHoaProcess t("hoa.process~", LA(5, TEST_DATA_DIR "/hoa_test_12"));
+        TExt t("hoa.process~", LA(5, TEST_DATA_DIR "/hoa_test_12"));
         REQUIRE(t.numInlets() == 11);
         REQUIRE(t.numOutlets() == 12);
     }
 
     SECTION("audio 12 plane")
     {
-        TestExtHoaProcess t("hoa.process~", LA(5, TEST_DATA_DIR "/hoa_test_12", "planewaves"));
+        TExt t("hoa.process~", LA(5, TEST_DATA_DIR "/hoa_test_12", "planewaves"));
         REQUIRE(t.numInlets() == 5);
         REQUIRE(t.numOutlets() == 6);
     }
 
     SECTION("audio 13")
     {
-        TestExtHoaProcess t("hoa.process~", LA(1, TEST_DATA_DIR "/hoa_test_10"));
+        TExt t("hoa.process~", LA(1, TEST_DATA_DIR "/hoa_test_10"));
         REQUIRE(t.numInlets() == 3);
         REQUIRE(t.numOutlets() == 3);
         REQUIRE(t->numInputChannels() == 3);
@@ -264,7 +272,7 @@ TEST_CASE("hoa.process~", "[externals]")
 
     SECTION("audio 13 plane")
     {
-        TestExtHoaProcess t("hoa.process~", LA(3, TEST_DATA_DIR "/hoa_test_10", "planewaves"));
+        TExt t("hoa.process~", LA(3, TEST_DATA_DIR "/hoa_test_10", "planewaves"));
         REQUIRE(t.numInlets() == 3);
         REQUIRE(t.numOutlets() == 3);
         REQUIRE(t->numInputChannels() == 3);
@@ -306,7 +314,7 @@ TEST_CASE("hoa.process~", "[externals]")
 
     SECTION("audio 14 plane")
     {
-        TestExtHoaProcess t("hoa.process~", LA(3, TEST_DATA_DIR "/hoa_test_11", "planewaves"));
+        TExt t("hoa.process~", LA(3, TEST_DATA_DIR "/hoa_test_11", "planewaves"));
         REQUIRE(t.numInlets() == 3);
         REQUIRE(t.numOutlets() == 3);
         REQUIRE(t->numInputChannels() == 3);
@@ -316,7 +324,7 @@ TEST_CASE("hoa.process~", "[externals]")
 
     SECTION("audio 15 plane")
     {
-        TestExtHoaProcess t("hoa.process~", LA(3, TEST_DATA_DIR "/hoa_test_12", "planewaves"));
+        TExt t("hoa.process~", LA(3, TEST_DATA_DIR "/hoa_test_12", "planewaves"));
         REQUIRE(t.numInlets() == 3);
         REQUIRE(t.numOutlets() == 4);
         REQUIRE(t->numInputChannels() == 3);
@@ -360,7 +368,7 @@ TEST_CASE("hoa.process~", "[externals]")
 
     SECTION("audio 16 plane")
     {
-        TestExtHoaProcess t("hoa.process~", LA(3, TEST_DATA_DIR "/hoa_test_13", "planewaves"));
+        TExt t("hoa.process~", LA(3, TEST_DATA_DIR "/hoa_test_13", "planewaves"));
         REQUIRE(t.numInlets() == 4);
         REQUIRE(t.numOutlets() == 3);
         REQUIRE(t->numInputChannels() == 4);
@@ -421,7 +429,7 @@ TEST_CASE("hoa.process~", "[externals]")
 
     SECTION("audio 17 plane")
     {
-        TestExtHoaProcess t("hoa.process~", LA(3, TEST_DATA_DIR "/hoa_test_13a", "planewaves"));
+        TExt t("hoa.process~", LA(3, TEST_DATA_DIR "/hoa_test_13a", "planewaves"));
         REQUIRE(t.numInlets() == 5);
         REQUIRE(t.numOutlets() == 3);
         REQUIRE(t->numInputChannels() == 5);
@@ -466,15 +474,18 @@ TEST_CASE("hoa.process~", "[externals]")
 
     SECTION("audio 18 plane")
     {
-        TestExtHoaProcess t("hoa.process~", LA(2, TEST_DATA_DIR "/hoa_test_13b", "planewaves"));
+        TExt t("hoa.process~", LA(2, TEST_DATA_DIR "/hoa_test_13b", "planewaves"));
         REQUIRE(t.numInlets() == 5);
         REQUIRE(t.numOutlets() == 2);
         REQUIRE(t->numInputChannels() == 4);
         REQUIRE(t->numOutputChannels() == 2);
         REQUIRE_PROPERTY(t, @domain, S("planewaves"));
+        REQUIRE_PROPERTY(t, @n, 2);
+        REQUIRE_PROPERTY(t, @patch, S(TEST_DATA_DIR "/hoa_test_13b"));
 
         pd::External sig1("sig~", LF(0.5));
         REQUIRE(sig1.connectTo(0, t, 0));
+
         pd::External sig2("sig~", LF(1));
         REQUIRE(sig2.connectTo(0, t, 1));
         pd::External sig3("sig~", LF(1000));
@@ -556,7 +567,7 @@ TEST_CASE("hoa.process~", "[externals]")
 
     SECTION("@target")
     {
-        TestExtHoaProcess t("hoa.process~", LA(2, TEST_DATA_DIR "/hoa_test_01"));
+        TExt t("hoa.process~", LA(2, TEST_DATA_DIR "/hoa_test_01"));
         REQUIRE(t.numInlets() == 2);
         REQUIRE(t.numOutlets() == 1);
 
@@ -574,11 +585,13 @@ TEST_CASE("hoa.process~", "[externals]")
         // bang
         t.clearAll();
         tr.sendMessage("#1");
-        REQUIRE(t.messagesAt(0) == messageList(&s_bang));
+        REQUIRE(t.messagesAt(0).size() == 1);
+        Message bng = Message::makeBang();
+        REQUIRE(t.messagesAt(0)[0] == bng);
 
         t.clearAll();
         tr.sendMessage("#1", "bang");
-        REQUIRE(t.messagesAt(0) == messageList(&s_bang));
+        REQUIRE(t.messagesAt(0) == MessageList({ bng }));
 
         // float
         t.clearAll();
@@ -692,19 +705,19 @@ TEST_CASE("hoa.process~", "[externals]")
         /// BANG
         t.clearAll();
         tr.sendMessage("#*");
-        REQUIRE(t.messagesAt(0) == messageList(&s_bang, &s_bang, &s_bang, &s_bang, &s_bang));
+        REQUIRE(t.messagesAt(0) == MessageList({ bng, bng, bng, bng, bng }));
 
         t.clearAll();
         tr.sendMessage("#*1");
-        REQUIRE(t.messagesAt(0) == messageList(&s_bang, &s_bang, &s_bang, &s_bang));
+        REQUIRE(t.messagesAt(0) == MessageList({ bng, bng, bng, bng }));
 
         t.clearAll();
         tr.sendMessage("#*3");
-        REQUIRE(t.messagesAt(0) == messageList(&s_bang, &s_bang));
+        REQUIRE(t.messagesAt(0) == MessageList({ bng, bng }));
 
         t.clearAll();
         tr.sendMessage("#*4");
-        REQUIRE(t.messagesAt(0) == messageList(&s_bang));
+        REQUIRE(t.messagesAt(0) == MessageList({ bng }));
 
         t.clearAll();
         tr.sendMessage("#*5");
@@ -717,11 +730,11 @@ TEST_CASE("hoa.process~", "[externals]")
         /// BANG s_bang
         t.clearAll();
         tr.sendMessage("#*", &s_bang);
-        REQUIRE(t.messagesAt(0) == messageList(&s_bang, &s_bang, &s_bang, &s_bang, &s_bang));
+        REQUIRE(t.messagesAt(0) == MessageList({ bng, bng, bng, bng, bng }));
 
         t.clearAll();
         tr.sendMessage("#*2", &s_bang);
-        REQUIRE(t.messagesAt(0) == messageList(&s_bang, &s_bang, &s_bang));
+        REQUIRE(t.messagesAt(0) == MessageList({ bng, bng, bng }));
 
         /// FLOAT
         t.clearAll();
@@ -776,7 +789,7 @@ TEST_CASE("hoa.process~", "[externals]")
 
         t.clearAll();
         tr.sendMessage("#>0");
-        REQUIRE(t.messagesAt(0) == messageList(&s_bang, &s_bang, &s_bang, &s_bang));
+        REQUIRE(t.messagesAt(0) == MessageList({ bng, bng, bng, bng }));
 
         /// FLOAT
         t.clearAll();
@@ -838,7 +851,7 @@ TEST_CASE("hoa.process~", "[externals]")
 
         t.clearAll();
         tr.sendMessage("#<2");
-        REQUIRE(t.messagesAt(0) == messageList(&s_bang, &s_bang));
+        REQUIRE(t.messagesAt(0) == MessageList({ bng, bng }));
 
         /// FLOAT
         t.clearAll();
@@ -904,15 +917,15 @@ TEST_CASE("hoa.process~", "[externals]")
 
         t.clearAll();
         tr.sendMessage("#2-2");
-        REQUIRE(t.messagesAt(0) == messageList(&s_bang));
+        REQUIRE(t.messagesAt(0) == MessageList({ bng }));
 
         t.clearAll();
         tr.sendMessage("#2-3");
-        REQUIRE(t.messagesAt(0) == messageList(&s_bang, &s_bang));
+        REQUIRE(t.messagesAt(0) == MessageList({ bng, bng }));
 
         t.clearAll();
         tr.sendMessage("#2-10");
-        REQUIRE(t.messagesAt(0) == messageList(&s_bang, &s_bang, &s_bang));
+        REQUIRE(t.messagesAt(0) == MessageList({ bng, bng, bng }));
 
         /// FLOAT
         t.clearAll();
@@ -970,11 +983,11 @@ TEST_CASE("hoa.process~", "[externals]")
 
         t.clearAll();
         tr.sendMessage("#:");
-        REQUIRE(t.messagesAt(0) == messageList(&s_bang, &s_bang, &s_bang, &s_bang, &s_bang));
+        REQUIRE(t.messagesAt(0) == MessageList({ bng, bng, bng, bng, bng }));
 
         t.clearAll();
         tr.sendMessage("#:2");
-        REQUIRE(t.messagesAt(0) == messageList(&s_bang, &s_bang, &s_bang));
+        REQUIRE(t.messagesAt(0) == MessageList({ bng, bng, bng }));
 
         /// FLOAT
         t.clearAll();

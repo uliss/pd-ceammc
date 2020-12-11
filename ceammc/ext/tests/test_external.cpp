@@ -61,17 +61,17 @@ static void test_listener_free(t_test_listener* x)
 
 static void test_listener_any(t_test_listener* x, t_symbol* s, int argc, t_atom* argv)
 {
-    if (s == &s_bang) {
-        x->msg->setSymbol(&s_bang);
-    } else if (s == &s_float && argc == 1) {
+    if (s == &s_float && argc == 1)
         x->msg->setFloat(atom_getfloat(argv));
-    } else if (s == &s_symbol && argc == 1) {
+    else if (s == &s_symbol && argc == 1)
         x->msg->setSymbol(atom_getsymbol(argv));
-    } else if (s == &s_list) {
+    else if (s == &s_list)
         x->msg->setList(AtomList(argc, argv));
-    } else {
+    else if(s == &s_bang && argc == 0)
+        x->msg->setBang();
+    else
         x->msg->setAny(s, argc, argv);
-    }
+
 }
 
 static void setup_test_listener()

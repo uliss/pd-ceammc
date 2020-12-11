@@ -78,6 +78,26 @@ static void setup_test_extc()
     obj.processData<IntData>();
 }
 
+class EXT_D : public BaseObject {
+public:
+    EXT_D(const PdArgs& a)
+        : BaseObject(a)
+    {
+        createOutlet();
+    }
+
+    void onSymbol(t_symbol* s) override
+    {
+        auto path = findInStdPaths(s->s_name);
+        symbolTo(0, gensym(path.c_str()));
+    }
+};
+
+static void setup_test_extd()
+{
+    ObjectFactory<EXT_D> obj1("ext.d");
+}
+
 PD_TEST_TYPEDEF(EXT_C);
 PD_TEST_MOD_INIT(test, extc);
 
@@ -220,7 +240,10 @@ TEST_CASE("BaseObject", "[ceammc::BaseObject]")
         SECTION("only props")
         {
             BaseObject b(PdArgs(LA("@p1", 1, "@p2", 2, 3), gensym("testname"), 0, gensym("testname")));
-            REQUIRE(b.positionalArguments() == L());
+            REQUIRE(b.parsedPosArgs() == L());
+            REQUIRE(b.unparsedPosArgs().isNull());
+            // synthehic test
+            REQUIRE(b.binbufArgs() == L());
 
             b.addProperty(new FloatProperty("@p1", -1));
             b.addProperty(new ListProperty("@p2"));
@@ -231,13 +254,16 @@ TEST_CASE("BaseObject", "[ceammc::BaseObject]")
             REQUIRE_PROPERTY_LIST(b, @p2, LF(2, 3));
             REQUIRE_PROPERTY(b, @p3, -1);
 
-            REQUIRE(b.positionalArguments().empty());
+            REQUIRE(b.parsedPosArgs() == L());
         }
 
         SECTION("only raw args")
         {
             BaseObject b(PdArgs(LA(1, 2, "a", "b", "c"), gensym("testname"), 0, gensym("testname")));
-            REQUIRE(b.positionalArguments() == LA(1, 2, "a", "b", "c"));
+            REQUIRE(b.parsedPosArgs() == LA(1, 2, "a", "b", "c"));
+            REQUIRE(b.unparsedPosArgs() == LA(1, 2, "a", "b", "c"));
+            // synthehic test
+            REQUIRE(b.binbufArgs() == L());
 
             b.addProperty(new FloatProperty("@p1", -1));
             b.addProperty(new ListProperty("@p2"));
@@ -249,12 +275,18 @@ TEST_CASE("BaseObject", "[ceammc::BaseObject]")
             REQUIRE(b.property(gensym("@p2"))->get() == L());
             REQUIRE_PROPERTY(b, @p3, -1);
 
-            REQUIRE(b.positionalArguments() == LA(1, 2, "a", "b", "c"));
+            REQUIRE(b.parsedPosArgs() == LA(1, 2, "a", "b", "c"));
+            REQUIRE(b.unparsedPosArgs() == LA(1, 2, "a", "b", "c"));
         }
 
         SECTION("props and raw args")
         {
             BaseObject b(PdArgs(LA(1, 2, "@p1", "@p2", "c"), gensym("testname"), 0, gensym("testname")));
+            REQUIRE(b.parsedPosArgs() == LF(1, 2));
+            REQUIRE(b.unparsedPosArgs() == LF(1, 2));
+            // synthehic test
+            REQUIRE(b.binbufArgs() == L());
+
             b.addProperty(new FloatProperty("@p1", -1));
             b.addProperty(new ListProperty("@p2"));
             b.parseProperties();
@@ -263,10 +295,22 @@ TEST_CASE("BaseObject", "[ceammc::BaseObject]")
             REQUIRE(b.hasProperty(gensym("@p2")));
             REQUIRE(b.property(gensym("@p2"))->get() == LA("c"));
 
-            REQUIRE(b.positionalArguments() == LF(1, 2));
+            REQUIRE(b.parsedPosArgs() == LF(1, 2));
+            REQUIRE(b.unparsedPosArgs() == LF(1, 2));
+        }
 
-            b.parseProperties();
-            REQUIRE(b.positionalArguments() == LF(1, 2));
+        SECTION("args, functions and quotes")
+        {
+            BaseObject b(PdArgs(LA(1, 2, "bs()", "\"a", "string\""), gensym("testname"), 0, gensym("testname")));
+            REQUIRE(b.parsedPosArgs() == LA(1, 2, 64, "a string"));
+            REQUIRE(b.unparsedPosArgs() == LA(1, 2, "bs()", "\"a", "string\""));
+        }
+
+        SECTION("args, functions and quotes")
+        {
+            BaseObject b(PdArgs(LA(1, 2, "expr(20*20)", "\"@a\""), gensym("testname"), 0, gensym("testname")));
+            REQUIRE(b.parsedPosArgs() == LA(1, 2, 400, "@a"));
+            REQUIRE(b.unparsedPosArgs() == LA(1, 2, "expr(20*20)", "\"@a\""));
         }
     }
 
@@ -352,6 +396,122 @@ TEST_CASE("BaseObject", "[ceammc::BaseObject]")
         REQUIRE(b3.canvas() == cnv2->pd_canvas());
         REQUIRE(b3.findInStdPaths("unknown") == "");
         REQUIRE(b3.findInStdPaths("snd_mono_48k.wav") == TEST_DATA_DIR "/snd_mono_48k.wav");
+
+    }
+
+    SECTION("findInStdPaths")
+    {
+        setup_test_extd();
+
+        SECTION("abstraction") {
+            External x0("test_std_path0");
+            REQUIRE(x0.object());
+            REQUIRE(x0.numInlets() == 1);
+            REQUIRE(x0.numOutlets() == 1);
+
+            External in0("symbol");
+            REQUIRE(in0.connectTo(0, x0, 0));
+
+            ListenerExternal o0("out0");
+            REQUIRE(x0.connectTo(0, o0, 0));
+
+            in0.sendSymbol("???");
+            REQUIRE(o0.msg() == Message(&s_));
+
+            in0.sendSymbol("test_std_path0.pd");
+            REQUIRE(o0.msg().atomValue().asSymbol() == gensym(TEST_DATA_DIR "/test_std_path0.pd"));
+
+            in0.sendSymbol("snd_mono_48k.wav");
+            REQUIRE(o0.msg().atomValue().asSymbol() == gensym(TEST_DATA_DIR "/snd_mono_48k.wav"));
+        }
+
+        SECTION("subpatch") {
+            External x0("test_std_path1");
+            REQUIRE(x0.object());
+            REQUIRE(x0.numInlets() == 1);
+            REQUIRE(x0.numOutlets() == 1);
+
+            External in0("symbol");
+            REQUIRE(in0.connectTo(0, x0, 0));
+
+            ListenerExternal o0("out0");
+            REQUIRE(x0.connectTo(0, o0, 0));
+
+            in0.sendSymbol("???");
+            REQUIRE(o0.msg() == Message(&s_));
+
+            in0.sendSymbol("test_std_path0.pd");
+            REQUIRE(o0.msg().atomValue().asSymbol() == gensym(TEST_DATA_DIR "/test_std_path0.pd"));
+
+            in0.sendSymbol("snd_mono_48k.wav");
+            REQUIRE(o0.msg().atomValue().asSymbol() == gensym(TEST_DATA_DIR "/snd_mono_48k.wav"));
+        }
+
+        SECTION("subpatch abstraction") {
+            External x0("test_std_path2");
+            REQUIRE(x0.object());
+            REQUIRE(x0.numInlets() == 1);
+            REQUIRE(x0.numOutlets() == 1);
+
+            External in0("symbol");
+            REQUIRE(in0.connectTo(0, x0, 0));
+
+            ListenerExternal o0("out0");
+            REQUIRE(x0.connectTo(0, o0, 0));
+
+            in0.sendSymbol("???");
+            REQUIRE(o0.msg() == Message(&s_));
+
+            in0.sendSymbol("test_std_path0.pd");
+            REQUIRE(o0.msg().atomValue().asSymbol() == gensym(TEST_DATA_DIR "/test_std_path0.pd"));
+
+            in0.sendSymbol("snd_mono_48k.wav");
+            REQUIRE(o0.msg().atomValue().asSymbol() == gensym(TEST_DATA_DIR "/snd_mono_48k.wav"));
+        }
+
+        SECTION("abstraction") {
+            External x0("base/test_std_path3");
+            REQUIRE(x0.object());
+            REQUIRE(x0.numInlets() == 1);
+            REQUIRE(x0.numOutlets() == 1);
+
+            External in0("symbol");
+            REQUIRE(in0.connectTo(0, x0, 0));
+
+            ListenerExternal o0("out0");
+            REQUIRE(x0.connectTo(0, o0, 0));
+
+            in0.sendSymbol("???");
+            REQUIRE(o0.msg() == Message(&s_));
+
+            // not found in parent directory
+            in0.sendSymbol("snd_mono_48k.wav");
+            REQUIRE(o0.msg().atomValue().asSymbol() == &s_);
+
+            // found in current directory
+            in0.sendSymbol("snd0_ch01_44.1k_441samp.wav");
+            REQUIRE(o0.msg().atomValue().asSymbol() == gensym(TEST_DATA_DIR "/base/snd0_ch01_44.1k_441samp.wav"));
+
+            // found in parent via relative path
+            in0.sendSymbol("../snd_mono_48k.wav");
+            REQUIRE(o0.msg().atomValue().asSymbol() == gensym(TEST_DATA_DIR "/base/../snd_mono_48k.wav"));
+        }
+
+        SECTION("abstraction") {
+            External x0("base/test_std_path4");
+            REQUIRE(x0.object());
+            REQUIRE(x0.numInlets() == 1);
+            REQUIRE(x0.numOutlets() == 1);
+
+            External in0("symbol");
+            REQUIRE(in0.connectTo(0, x0, 0));
+
+            ListenerExternal o0("out0");
+            REQUIRE(x0.connectTo(0, o0, 0));
+
+            in0.sendSymbol("snd_mono_48k.wav");
+            REQUIRE(o0.msg().atomValue().asSymbol()->s_name == std::string(TEST_DATA_DIR "/base/../snd_mono_48k.wav"));
+        }
     }
 
     SECTION("outletAt")
@@ -478,7 +638,7 @@ TEST_CASE("BaseObject", "[ceammc::BaseObject]")
             {
                 REQUIRE(!t->processAnyInlets(gensym("ABC"), L()));
                 REQUIRE(!t->processAnyInlets(gensym("_"), L()));
-                REQUIRE(t->processAnyInlets(gensym("_0inlet"), LF(123)));
+                REQUIRE(t->processAnyInlets(gensym("_:01"), LF(123)));
                 REQUIRE(t->last_inlet == 1);
                 REQUIRE(t->last_inlet_data == LF(123));
             }
@@ -616,6 +776,46 @@ TEST_CASE("BaseObject", "[ceammc::BaseObject]")
                     REQUIRE_PROPERTY(t, @s, "@esc_prop?");
                     REQUIRE_PROPERTY(t, @l, "@a");
                     REQUIRE_PROPERTY(t, @cb, 1, 2, 3);
+                }
+
+                SECTION("4: quote property")
+                {
+                    TestExtEXT_C t("ext.c", 0xBEEF, 10, "@s", "\"@s\"");
+                    REQUIRE_PROPERTY(t, @c, 0xBEEF);
+                    REQUIRE_PROPERTY(t, @d, 10);
+                    REQUIRE_PROPERTY(t, @s, "@s");
+                    REQUIRE_PROPERTY(t, @l, -1);
+                    REQUIRE_PROPERTY(t, @cb, 1, 2, 3);
+                }
+
+                SECTION("4: quote property")
+                {
+                    TestExtEXT_C t("ext.c", 10, "@s", "\"a", "space\"");
+                    REQUIRE_PROPERTY(t, @s, "a space");
+                }
+
+                SECTION("4: quote property")
+                {
+                    TestExtEXT_C t("ext.c", 10, "@s", "\"@a", "space\"");
+                    REQUIRE_PROPERTY(t, @s, "@a space");
+                }
+
+                SECTION("parse pos args")
+                {
+                    TestExtEXT_C t("ext.c", "bs()");
+                    REQUIRE_PROPERTY(t, @c, 64);
+                }
+
+                SECTION("parse pos args")
+                {
+                    TestExtEXT_C t("ext.c", "@c", "bs()");
+                    REQUIRE_PROPERTY(t, @c, 64);
+                }
+
+                SECTION("parse pos args")
+                {
+                    TestExtEXT_C t("ext.c", "@c", "expr(3*9)");
+                    REQUIRE_PROPERTY(t, @c, 27);
                 }
             }
         }

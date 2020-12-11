@@ -30,10 +30,8 @@ public:
     void onFloat(t_float v) final;
     void onSymbol(t_symbol* s) final;
     void onList(const AtomList& l) final;
-    void onAny(t_symbol* sel, const AtomList& l) final;
+    void onAny(t_symbol* sel, const AtomListView& l) final;
     void onInlet(size_t n, const AtomList& l) final;
-    bool processAnyProps(t_symbol*, const AtomList&) final;
-    void parseProperties() final;
 
 private:
     void setMethod(const AtomList& l);

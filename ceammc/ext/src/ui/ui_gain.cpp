@@ -33,7 +33,6 @@ UIGain::UIGain()
     , font_(gensym(FONT_FAMILY), FONT_SIZE_SMALL)
     , txt_max_(font_.font(), ColorRGBA::black(), ETEXT_UP_LEFT, ETEXT_JLEFT)
     , txt_min_(font_.font(), ColorRGBA::black(), ETEXT_DOWN_LEFT, ETEXT_JLEFT)
-    , click_pos_ { 0, 0 }
     , knob_phase_(0)
     , is_horizontal_(false)
     , prop_relative_mode(0)
@@ -45,8 +44,7 @@ UIGain::UIGain()
 {
     auto fn = [this](float db) {
         setDbValue(dbValue() + db);
-        if (prop_output_value)
-            doOutput();
+        output();
     };
 
     initPopupMenu("gain",
@@ -138,6 +136,15 @@ void UIGain::initHorizontal()
     updateLabels();
 }
 
+void UIGain::output()
+{
+    // do output if config property is set
+    if (prop_output_value)
+        doOutput();
+
+    send(dbValue());
+}
+
 void UIGain::init(t_symbol* name, const AtomList& args, bool usePresets)
 {
     UIDspObject::init(name, args, usePresets);
@@ -167,10 +174,26 @@ void UIGain::dspProcess(t_sample** ins, long n_ins, t_sample** outs, long n_outs
     t_sample* in = ins[0];
     t_sample* out = outs[0];
 
-    const float v = ampValue();
+    const t_float v = ampValue();
 
-    for (long i = 0; i < sampleframes; i++)
-        out[i] = in[i] * smooth_.get(v);
+#define COPY_SAMPLE(offset)                              \
+    {                                                    \
+        const auto v0 = in[i + offset] * smooth_.get(v); \
+        out[i + offset] = std::isnormal(v0) ? v0 : 0;    \
+    }
+
+    for (long i = 0; i < sampleframes; i += 8) {
+        COPY_SAMPLE(0);
+        COPY_SAMPLE(1);
+        COPY_SAMPLE(2);
+        COPY_SAMPLE(3);
+        COPY_SAMPLE(4);
+        COPY_SAMPLE(5);
+        COPY_SAMPLE(6);
+        COPY_SAMPLE(7);
+    }
+
+#undef COPY_SAMPLE
 }
 
 void UIGain::onPropChange(t_symbol* prop_name)
@@ -189,6 +212,7 @@ void UIGain::onPropChange(t_symbol* prop_name)
 void UIGain::onBang()
 {
     doOutput();
+    send(dbValue());
 }
 
 void UIGain::onMouseDown(t_object* view, const t_pt& pt, const t_pt& abs_pt, long modifiers)
@@ -202,8 +226,7 @@ void UIGain::onMouseDown(t_object* view, const t_pt& pt, const t_pt& abs_pt, lon
 
         redrawBGLayer();
 
-        if (prop_output_value)
-            doOutput();
+        output();
     }
 }
 
@@ -224,8 +247,7 @@ void UIGain::onMouseDrag(t_object* view, const t_pt& pt, long modifiers)
 
     redrawBGLayer();
 
-    if (prop_output_value)
-        doOutput();
+    output();
 }
 
 void UIGain::onDblClick(t_object* view, const t_pt& pt, long modifiers)
@@ -254,17 +276,16 @@ void UIGain::onDblClick(t_object* view, const t_pt& pt, long modifiers)
         onMouseDown(view, pt, {}, modifiers);
 }
 
-void UIGain::onMouseWheel(const t_pt& pt, long modifiers, float delta)
+void UIGain::onMouseWheel(const t_pt& pt, long modifiers, t_float delta)
 {
-    float k = 0.01;
+    t_float k = 0.01;
     if (modifiers & EMOD_SHIFT)
         k *= 0.1;
 
-    knob_phase_ = clip<float, 0, 1>(knob_phase_ + delta * k);
+    knob_phase_ = clip<t_float, 0, 1>(knob_phase_ + delta * k);
     redrawBGLayer();
 
-    if (prop_output_value)
-        doOutput();
+    output();
 }
 
 void UIGain::onMidiCtrl(const AtomList& l)
@@ -288,9 +309,7 @@ void UIGain::onMidiCtrl(const AtomList& l)
         knob_phase_ = w;
         redrawBGLayer();
 
-        // do output if config property is set
-        if (prop_output_value)
-            doOutput();
+        output();
     } break;
     case LEARN: {
         UI_DBG << "binded to CTL #" << CTL_NUM;
@@ -350,7 +369,6 @@ void UIGain::doOutput()
 
     AtomList v(dbValue());
     anyTo(0, SYM_DB, v);
-    send(SYM_DB, v);
 }
 
 void UIGain::updateIndicators()
@@ -438,6 +456,7 @@ void UIGain::setAmpValue(t_float amp)
 void UIGain::loadPreset(size_t idx)
 {
     setDbValue(PresetStorage::instance().floatValueAt(presetId(), idx, -60));
+    output();
 }
 
 void UIGain::storePreset(size_t idx)

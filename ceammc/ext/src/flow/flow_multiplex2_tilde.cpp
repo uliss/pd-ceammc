@@ -14,6 +14,11 @@
 #include "flow_multiplex2_tilde.h"
 #include "ceammc_convert.h"
 #include "ceammc_factory.h"
+#include "fmt/format.h"
+
+#include <array>
+
+static std::array<std::string, MAX_NCHAN> inlet_info;
 
 static PdArgs stereoArgs(const PdArgs& args)
 {
@@ -47,9 +52,28 @@ void Multiplex2Tilde::processBlock(const t_sample** in, t_sample** out)
     }
 }
 
+const char* Multiplex2Tilde::annotateInlet(size_t n) const
+{
+    if (n < 2 * gain_.size())
+        return inlet_info[n].c_str();
+    else if (n == 2 * gain_.size())
+        return "int: select input";
+    else
+        return nullptr;
+}
+
 void setup_flow_multiplex2_tilde()
 {
+    for (size_t i = 0; i < inlet_info.size(); i++) {
+        if (i % 2)
+            inlet_info[i] = fmt::format("right\\[{}\\]", (i >> 1));
+        else
+            inlet_info[i] = fmt::format("left\\[{}\\]", (i >> 1));
+    }
+
     SoundExternalFactory<Multiplex2Tilde> obj("flow.multiplex2~");
     obj.addAlias("flow.mux2~");
     obj.addAlias("mux2~");
+    obj.addOutletInfo("signal: left");
+    obj.addOutletInfo("signal: right");
 }

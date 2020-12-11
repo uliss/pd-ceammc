@@ -143,7 +143,7 @@ TEST_CASE("plot.logspace~", "[externals]")
         SECTION("bang")
         {
             WHEN_SEND_BANG_TO(0, t);
-            REQUIRE(listAt(t, 1_out) == LA(5, std::exp(1), std::exp(2), "e"));
+            REQUIRE(listAt(t, 1_out) == LAX(5, std::exp(1), std::exp(2), "e"));
 
             dsp.processBlock(1);
             REQUIRE(s0.out[0][0] == Approx(std::exp(1)));

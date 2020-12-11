@@ -42,13 +42,13 @@
             <inlet type="audio" number="...">
                 <xinfo>... right input signal</xinfo>
             </inlet>
-            <inlet type="audio" number="n-1">
+            <inlet type="audio" number="n">
                 <xinfo>last left input signal</xinfo>
             </inlet>
-            <inlet type="audio" number="n-1">
+            <inlet type="audio" number="n">
                 <xinfo>last right input signal</xinfo>
             </inlet>
-            <inlet type="control" number="n-1">
+            <inlet type="control" number="n+1">
                 <xinfo>multiplexer control</xinfo>
             </inlet>
         </inlets>

@@ -125,7 +125,7 @@ public:
     void onFloat(t_float f);
     void onSymbol(t_symbol* s);
     void onList(const AtomList& lst);
-    void onAny(t_symbol* s, const AtomList& lst);
+    void onAny(t_symbol* s, const AtomListView& lst);
     void onKey(int k, long modifiers);
     void onKeyFilter(int k, long modifiers);
     void onData(const AbstractData* ptr);
@@ -170,6 +170,8 @@ public:
     size_t numOutlets() const;
     const std::vector<t_outlet*>& outlets() const { return outlets_; }
     t_outlet* createOutlet();
+    const char* annotateInlet(int n) const;
+    const char* annotateOutlet(int n) const;;
 
     bool hasProperty(t_symbol* name) const;
     bool getProperty(t_symbol* name, t_float& f) const;

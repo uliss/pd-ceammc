@@ -28,19 +28,19 @@ AtomList PresetExternal::p_keys() const
     return PresetStorage::instance().keys();
 }
 
-void PresetExternal::m_load(t_symbol*, const AtomList& l)
+void PresetExternal::m_load(t_symbol*, const AtomListView& l)
 {
     size_t idx = l.toT<size_t>(0);
     PresetStorage::instance().loadAll(idx);
 }
 
-void PresetExternal::m_store(t_symbol*, const AtomList& l)
+void PresetExternal::m_store(t_symbol*, const AtomListView& l)
 {
     size_t idx = l.toT<size_t>(0);
     PresetStorage::instance().storeAll(idx);
 }
 
-void PresetExternal::m_clear(t_symbol*, const AtomList& l)
+void PresetExternal::m_clear(t_symbol*, const AtomListView& l)
 {
     t_symbol* SYM_PRESET_ALL = gensym(Preset::SYM_PRESET_ALL);
 
@@ -54,22 +54,22 @@ void PresetExternal::m_clear(t_symbol*, const AtomList& l)
     pd_typedmess(SYM_PRESET_ALL->s_thing, gensym("clear"), 1, &a);
 }
 
-void PresetExternal::m_write(t_symbol*, const AtomList& l)
+void PresetExternal::m_write(t_symbol*, const AtomListView& l)
 {
     PresetStorage::instance().write(canvas(), to_string(l));
 }
 
-void PresetExternal::m_read(t_symbol*, const AtomList& l)
+void PresetExternal::m_read(t_symbol*, const AtomListView& l)
 {
     PresetStorage::instance().read(canvas(), to_string(l));
 }
 
-void PresetExternal::m_update(t_symbol*, const AtomList&)
+void PresetExternal::m_update(t_symbol*, const AtomListView&)
 {
     PresetStorage::instance().updateAll();
 }
 
-void PresetExternal::m_duplicate(t_symbol*, const AtomList& l)
+void PresetExternal::m_duplicate(t_symbol*, const AtomListView& l)
 {
     if (l.empty())
         PresetStorage::instance().duplicateAll();

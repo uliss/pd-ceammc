@@ -56,6 +56,20 @@ else()
                 "${fname_pddoc}" ${fname}
             COMMAND ${CMAKE_COMMAND} -E copy_if_different ${fname} ${CMAKE_CURRENT_SOURCE_DIR}
             VERBATIM)
+
+        # extra doc files
+        file(GLOB _xfiles "${CMAKE_CURRENT_BINARY_DIR}/${f}.*.pd")
+        # check each extrafile
+        foreach(_xfile ${_xfiles})
+            if(NOT ${_xfile} MATCHES "-help\.pd$")
+                list(APPEND DOC_PD_FILES ${_xfile})
+                add_custom_command(
+                    OUTPUT "${_xfile}"
+                    DEPENDS "${fname_pddoc}"
+                    COMMAND ${CMAKE_COMMAND} -E copy_if_different ${_xfile} ${CMAKE_CURRENT_SOURCE_DIR}
+                    VERBATIM)
+            endif()
+        endforeach()
     endforeach()
 
     add_custom_command(
@@ -107,6 +121,15 @@ foreach(_doc_file ${DOC_FILES})
     install(FILES "${_doc_file}-help.pd"
         DESTINATION ${DOC_INSTALL_PATH}
         PERMISSIONS OWNER_READ GROUP_READ WORLD_READ)
+    file(GLOB _xfiles "${_doc_file}.*.pd")
+    # find extra files, for example: module.name.test1.pd
+    foreach(_xfile ${_xfiles})
+        if(NOT ${_xfile} MATCHES "-help\.pd$")
+            install(FILES ${_xfile}
+                DESTINATION ${DOC_INSTALL_PATH}
+                PERMISSIONS OWNER_READ GROUP_READ WORLD_READ)
+        endif()
+    endforeach()
 endforeach()
 
 # About Pd page
@@ -121,9 +144,13 @@ install(FILES "index-help.pd" DESTINATION "${DOC_INSTALL_PATH}/.."
 set(EXTRA_DOC_FILES prs.txt stargazing.mod)
 file(GLOB _PDDOC_WAV "*.wav")
 file(GLOB _PDDOC_EXAMPLES "snd.file.*.pd")
+file(GLOB _PDDOC_GLITCH "*.glitch")
 
 # install extra files
-install(FILES ${EXTRA_DOC_FILES} ${_PDDOC_WAV} ${_PDDOC_EXAMPLES}
+install(FILES ${EXTRA_DOC_FILES}
+        ${_PDDOC_WAV}
+        ${_PDDOC_EXAMPLES}
+        ${_PDDOC_GLITCH}
         ui.plot~.lin1-help.pd
         ui.plot~.lin2-help.pd
         ui.plot~.lin3-help.pd
@@ -173,3 +200,5 @@ add_custom_target(pddoc_pd_files SOURCES ${_PDDOC_PD_FILES})
 
 # install HOA library docs and examples
 install(DIRECTORY hoa DESTINATION ${DOC_INSTALL_PATH})
+
+add_subdirectory(sound)

@@ -11,30 +11,30 @@
 #X msg 184 147 3 5;
 #X obj 50 176 math.lcm 12;
 #X floatatom 50 205 5 0 0 0 - - -;
-#X obj 20 244 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 249 cnv 5 90 26 empty empty arguments: 4 10 0 14 -262144
+#X obj 20 254 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 259 cnv 5 90 26 empty empty arguments: 4 10 0 14 -262144
 -49933 0;
-#X text 110 284 1\.;
-#X text 150 284 int;
-#X obj 246 285 cnv 1 40 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 284 ARG2: second argument.;
-#X obj 20 314 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 319 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
+#X text 110 294 1\.;
+#X text 150 294 int;
+#X obj 246 295 cnv 1 40 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 245 294 ARG2: second argument.;
+#X obj 20 324 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 329 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
-#X text 110 320 1\.;
-#X text 150 320 *int*;
-#X text 245 320 sets first argument and outputs calculated LCM value.;
-#X text 150 340 *list*;
-#X text 245 340 sets first argument and second arguments \, then output
+#X text 110 330 1\.;
+#X text 150 330 *int*;
+#X text 245 330 sets first argument and outputs calculated LCM value.;
+#X text 150 350 *list*;
+#X text 245 350 sets first argument and second arguments \, then output
 calculated LCM value.;
-#X text 110 375 2\.;
-#X text 150 375 *int*;
-#X text 245 375 sets second value.;
-#X obj 20 405 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 410 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
+#X text 110 385 2\.;
+#X text 150 385 *int*;
+#X text 245 385 sets second value.;
+#X obj 20 415 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 420 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 411 1\.;
-#X text 245 411 LCM value.;
+#X text 110 421 1\.;
+#X text 245 421 LCM value.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;

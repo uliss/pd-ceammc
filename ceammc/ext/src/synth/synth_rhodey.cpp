@@ -17,7 +17,7 @@
 #include "Rhodey.h"
 #include "stksynth_p.h"
 
-typedef StkFMSynth<stk::Rhodey> Synth;
+using Synth = StkFMSynth<stk::Rhodey>;
 
 SynthRhodey::SynthRhodey(const PdArgs& args)
     : StkSynth(args, new Synth())
@@ -32,4 +32,5 @@ SynthRhodey::SynthRhodey(const PdArgs& args)
 void setup_synth_rhodey()
 {
     StkSynthFactory<SynthRhodey> obj("synth.rhodey~");
+    obj.addMethod("note", &SynthRhodey::m_note);
 }

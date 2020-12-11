@@ -16,12 +16,14 @@
 
 FlowReject::FlowReject(const PdArgs& a)
     : BaseObject(a)
-    , values_(0)
+    , reject_list_(nullptr)
 {
+    createInlet();
     createOutlet();
 
-    values_ = new ListProperty("@values", a.args);
-    addProperty(values_);
+    reject_list_ = new ListProperty("@values");
+    reject_list_->setArgIndex(0);
+    addProperty(reject_list_);
 }
 
 void FlowReject::onBang()
@@ -31,7 +33,7 @@ void FlowReject::onBang()
 
 void FlowReject::onFloat(t_float v)
 {
-    if (values_->value().contains(v))
+    if (reject_list_->value().contains(v))
         return;
 
     floatTo(0, v);
@@ -39,7 +41,7 @@ void FlowReject::onFloat(t_float v)
 
 void FlowReject::onSymbol(t_symbol* s)
 {
-    if (values_->value().contains(s))
+    if (reject_list_->value().contains(s))
         return;
 
     symbolTo(0, s);
@@ -47,41 +49,40 @@ void FlowReject::onSymbol(t_symbol* s)
 
 void FlowReject::onList(const AtomList& l)
 {
+    if (l.empty())
+        return onBang();
+
+    if (reject_list_->value().contains(l[0]))
+        return;
+
     listTo(0, l);
 }
 
-void FlowReject::onAny(t_symbol* sel, const AtomList& l)
+void FlowReject::onAny(t_symbol* sel, const AtomListView& l)
 {
-    if (values_->value().contains(sel))
+    if (reject_list_->value().contains(sel))
         return;
 
     anyTo(0, sel, l);
 }
 
-void FlowReject::parseProperties()
+void FlowReject::onInlet(size_t, const AtomList& l)
 {
-}
-
-bool FlowReject::processAnyProps(t_symbol* sel, const AtomList& lst)
-{
-    static t_symbol* s_prop_values = gensym("@values");
-    static t_symbol* s_get_values = gensym("@values?");
-
-    if (sel == s_get_values) {
-        anyTo(0, s_prop_values, values_->value());
-        return true;
-    }
-
-    if (sel == s_prop_values) {
-        values_->set(lst);
-        return true;
-    }
-
-    return false;
+    reject_list_->set(l);
 }
 
 void setup_flow_reject()
 {
     ObjectFactory<FlowReject> obj("flow.reject");
     obj.addAlias("reject");
+    obj.addAlias("flow.!");
+    obj.noPropsDispatch();
+
+    obj.setXletsInfo({ "bang:   always pass\n"
+                       "float:  reject if in list\n"
+                       "symbol: reject if in list\n"
+                       "list:   reject if first element in list\n"
+                       "any:    reject if selector in list",
+                         "list: set reject list" },
+        { "output" });
 }

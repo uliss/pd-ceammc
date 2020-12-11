@@ -38,16 +38,16 @@ class ArrayVlinePlay : public ArrayBase {
 public:
     ArrayVlinePlay(const PdArgs& args);
 
-    bool processAnyProps(t_symbol* s, const AtomList& args) override;
+    bool processAnyProps(t_symbol* s, const AtomListView& args) override;
 
     void onBang() override;
     void onFloat(t_float f) override;
     void initDone() override;
 
 public:
-    void m_play(t_symbol* s, const AtomList& lst);
-    void m_stop(t_symbol* s, const AtomList& lst);
-    void m_range(t_symbol* s, const AtomList& lst);
+    void m_play(t_symbol* s, const AtomListView& lst);
+    void m_stop(t_symbol* s, const AtomListView& lst);
+    void m_range(t_symbol* s, const AtomListView& lst);
 
 private:
     size_t secToAbsPosition(t_float t);

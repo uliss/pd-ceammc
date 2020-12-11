@@ -38,7 +38,7 @@ void IsDict::onList(const AtomList&)
     boolTo(0, false);
 }
 
-void IsDict::onAny(t_symbol*, const AtomList&)
+void IsDict::onAny(t_symbol*, const AtomListView&)
 {
     boolTo(0, false);
 }

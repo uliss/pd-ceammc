@@ -30,12 +30,6 @@ ListApplyTo::ListApplyTo(const ceammc::PdArgs& args)
         ->setArgIndex(0);
 }
 
-bool ListApplyTo::processAnyProps(t_symbol* sel, const AtomList& lst)
-{
-    // no props processing
-    return true;
-}
-
 void ListApplyTo::onList(const AtomList& lst)
 {
     const int N = lst.size();
@@ -143,4 +137,14 @@ void setup_list_apply_to()
     obj.processData<DataTypeMList>();
     obj.useDefaultPdFloatFn();
     obj.useDefaultPdSymbolFn();
+    obj.noPropsDispatch();
+
+    obj.setDescription("modifies list value at specified position, filtering it via external object");
+    obj.addAuthor("Serge Poltavsky");
+    obj.setKeywords({ "list", "functional", "apply" });
+    obj.setCategory("list");
+    obj.setSinceVersion(0, 1);
+
+    ListApplyTo::setInletsInfo(obj.classPointer(), { "list or Mlist", "list: set list indexes", "atom: processed value from side-chain" });
+    ListApplyTo::setOutletsInfo(obj.classPointer(), { "list or Mlist", "atom: to side-chain" });
 }

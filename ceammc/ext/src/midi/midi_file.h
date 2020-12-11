@@ -17,10 +17,10 @@ public:
 
     void onBang() override;
 
-    void m_clear(t_symbol*, const AtomList&);
-    void m_info(t_symbol*, const AtomList&);
-    void m_read(t_symbol*, const AtomList& l);
-    void m_write(t_symbol*, const AtomList& l);
+    void m_clear(t_symbol*, const AtomListView&);
+    void m_info(t_symbol*, const AtomListView&);
+    void m_read(t_symbol*, const AtomListView& l);
+    void m_write(t_symbol*, const AtomListView& l);
 
     void onDataT(const MidiStreamAtom& data);
 

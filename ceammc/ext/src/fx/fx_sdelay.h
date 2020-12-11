@@ -4,7 +4,7 @@ copyright: "Grame"
 license: "STK-4.3"
 name: "fx.sdelay"
 version: "1.0"
-Code generated with Faust 2.25.3 (https://faust.grame.fr)
+Code generated with Faust 2.28.6 (https://faust.grame.fr)
 Compilation options: -lang cpp -scal -ftz 0
 ------------------------------------------------------------ */
 
@@ -542,9 +542,9 @@ class fx_sdelay : public fx_sdelay_dsp {
 		m->declare("basics.lib/name", "Faust Basic Element Library");
 		m->declare("basics.lib/version", "0.1");
 		m->declare("ceammc.lib/name", "Ceammc PureData misc utils");
-		m->declare("ceammc.lib/version", "0.1.1");
+		m->declare("ceammc.lib/version", "0.1.2");
 		m->declare("ceammc_ui.lib/name", "CEAMMC faust default UI elements");
-		m->declare("ceammc_ui.lib/version", "0.1.1");
+		m->declare("ceammc_ui.lib/version", "0.1.2");
 		m->declare("copyright", "Grame");
 		m->declare("delays.lib/name", "Faust Delay Library");
 		m->declare("delays.lib/version", "0.1");
@@ -674,10 +674,12 @@ class fx_sdelay : public fx_sdelay_dsp {
 	virtual void buildUserInterface(UI* ui_interface) {
 		ui_interface->openVerticalBox("fx.sdelay");
 		ui_interface->addCheckButton("bypass", &fCheckbox0);
+		ui_interface->declare(&fHslider1, "unit", "ms");
 		ui_interface->addHorizontalSlider("delay", &fHslider1, 1.0f, 0.0f, 6000.0f, 0.100000001f);
 		ui_interface->declare(&fHslider0, "style", "knob");
 		ui_interface->addHorizontalSlider("drywet", &fHslider0, 1.0f, 0.0f, 1.0f, 0.00999999978f);
 		ui_interface->addHorizontalSlider("feedback", &fHslider3, 0.0f, 0.0f, 1.0f, 0.00100000005f);
+		ui_interface->declare(&fHslider2, "unit", "ms");
 		ui_interface->addHorizontalSlider("interpolation", &fHslider2, 20.0f, 1.0f, 200.0f, 0.100000001f);
 		ui_interface->closeBox();
 	}

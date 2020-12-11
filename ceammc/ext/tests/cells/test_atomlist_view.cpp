@@ -48,7 +48,7 @@ TEST_CASE("AtomListView", "core")
             REQUIRE(lv.isBool());
             REQUIRE(lv.isAtom());
             REQUIRE(lv.isSymbol());
-            REQUIRE_FALSE(lv.isInt());
+            REQUIRE_FALSE(lv.isInteger());
             REQUIRE_FALSE(lv.isNull());
 
             REQUIRE(lv == true);
@@ -62,7 +62,7 @@ TEST_CASE("AtomListView", "core")
 
             REQUIRE(lv.isFloat());
             REQUIRE(lv.isAtom());
-            REQUIRE_FALSE(lv.isInt());
+            REQUIRE_FALSE(lv.isInteger());
             REQUIRE_FALSE(lv.isBool());
             REQUIRE_FALSE(lv.isNull());
             REQUIRE_FALSE(lv.isSymbol());
@@ -77,7 +77,7 @@ TEST_CASE("AtomListView", "core")
 
             REQUIRE(lv.isFloat());
             REQUIRE(lv.isAtom());
-            REQUIRE(lv.isInt());
+            REQUIRE(lv.isInteger());
             REQUIRE_FALSE(lv.isBool());
             REQUIRE_FALSE(lv.isNull());
             REQUIRE_FALSE(lv.isSymbol());
@@ -92,7 +92,7 @@ TEST_CASE("AtomListView", "core")
 
             REQUIRE_FALSE(lv.isFloat());
             REQUIRE(lv.isAtom());
-            REQUIRE_FALSE(lv.isInt());
+            REQUIRE_FALSE(lv.isInteger());
             REQUIRE_FALSE(lv.isBool());
             REQUIRE_FALSE(lv.isNull());
             REQUIRE(lv.isSymbol());
@@ -188,5 +188,186 @@ TEST_CASE("AtomListView", "core")
         AtomList l({ 1, 2, 3, 4 });
         REQUIRE(l.view().contains(A(1)));
         REQUIRE_FALSE(AtomListView().contains(A(100)));
+    }
+
+    SECTION("parse quoted")
+    {
+
+#define REQUIRE_ALV_EQ(l0, l1, p)               \
+    {                                           \
+        AtomList l = l0;                        \
+        REQUIRE(l.view().parseQuoted(p) == l1); \
+    }
+
+        // empty
+        REQUIRE_ALV_EQ(L(), L(), false);
+        REQUIRE_ALV_EQ(L(), L(), true);
+
+        // normal atoms
+        REQUIRE_ALV_EQ(LA(1, 2, 3, "A"), LA(1, 2, 3, "A"), false);
+        REQUIRE_ALV_EQ(LA(1, 2, 3, "A"), LA(1, 2, 3, "A"), true);
+
+        // normal atoms
+        REQUIRE_ALV_EQ(LA(1, "'A"), LA(1, "'A"), false);
+        REQUIRE_ALV_EQ(LA(1, "'A"), LA(1, "'A"), true);
+
+        // normal atoms
+        REQUIRE_ALV_EQ(LA(1, "'A'"), LA(1, "'A'"), false);
+        REQUIRE_ALV_EQ(LA(1, "'A'"), LA(1, "'A'"), true);
+
+        // normal atoms
+        REQUIRE_ALV_EQ(LA(1, "A'"), LA(1, "A'"), false);
+        REQUIRE_ALV_EQ(LA(1, "A'"), LA(1, "A'"), true);
+
+        // unbalanced quotes
+        REQUIRE_ALV_EQ(LA(1, "A\""), LA(1, "A\""), false);
+        REQUIRE_ALV_EQ(LA(1, "A\""), LA(1, "A\""), true);
+
+        // unbalanced quotes
+        REQUIRE_ALV_EQ(LA(1, "\"A"), LA(1, "\"A"), false);
+        REQUIRE_ALV_EQ(LA(1, "\"A"), LA(1, "\"A"), true);
+
+        // simple quotes
+        REQUIRE_ALV_EQ(LA(1, "\"A\"", 2), LA(1, "A", 2), false);
+        REQUIRE_ALV_EQ(LA(1, "\"A\"", 2), LA(1, "A", 2), true);
+
+        // simple quotes
+        REQUIRE_ALV_EQ(LA(1, "\"A", "B\"", 2), LA(1, "A B", 2), false);
+        REQUIRE_ALV_EQ(LA(1, "\"A", "B\"", 2), LA(1, "A B", 2), true);
+
+        // inner quotes
+        REQUIRE_ALV_EQ(LA(1, "\"A`\"", "B\"", 2), LA(1, "A\" B", 2), false);
+        REQUIRE_ALV_EQ(LA(1, "\"A`\"", "B\"", 2), LA(1, "A\" B", 2), true);
+
+        // props
+        REQUIRE_ALV_EQ(LA(1, "@abc", 2), LA(1, "@abc", 2), false);
+        REQUIRE_ALV_EQ(LA(1, "@abc", 2).view(), LA(1, "@abc", 2), true);
+
+        // props
+        REQUIRE_ALV_EQ(LA(1, "@abc", "\"@def\""), LA(1, "@abc", "@def"), false);
+        REQUIRE_ALV_EQ(LA(1, "@abc", "\"@def\"").view(), LA(1, "@abc", "\"@def\""), true);
+
+        // props
+        REQUIRE_ALV_EQ(LA(1, "@abc", "\"@d", "e\""), LA(1, "@abc", "@d e"), false);
+        REQUIRE_ALV_EQ(LA(1, "@abc", "\"@d", "e\"").view(), LA(1, "@abc", "@d e"), true);
+    }
+
+    SECTION("allOf")
+    {
+
+#define REQUIRE_ALL_OF(l0, p)       \
+    {                               \
+        AtomList l = l0;            \
+        REQUIRE(l.view().allOf(p)); \
+    }
+
+#define REQUIRE_NOT_ALL_OF(l0, p)         \
+    {                                     \
+        AtomList l = l0;                  \
+        REQUIRE_FALSE(l.view().allOf(p)); \
+    }
+
+        REQUIRE_ALL_OF(L(), isFloat);
+        REQUIRE_ALL_OF(LF(1, 2, 3), isFloat);
+        REQUIRE_ALL_OF(LF(1), isFloat);
+        REQUIRE_NOT_ALL_OF(LA("a"), isFloat);
+        REQUIRE_NOT_ALL_OF(LA(1, 2, 3, "a"), isFloat);
+    }
+
+    SECTION("allOf")
+    {
+
+#define REQUIRE_ANY_OF(l0, p)       \
+    {                               \
+        AtomList l = l0;            \
+        REQUIRE(l.view().anyOf(p)); \
+    }
+
+#define REQUIRE_NOT_ANY_OF(l0, p)         \
+    {                                     \
+        AtomList l = l0;                  \
+        REQUIRE_FALSE(l.view().anyOf(p)); \
+    }
+
+        REQUIRE_NOT_ANY_OF(L(), isFloat);
+        REQUIRE_NOT_ANY_OF(LA("a"), isFloat);
+        REQUIRE_ANY_OF(LA(1, "a"), isFloat);
+        REQUIRE_ANY_OF(LF(1, 2), isFloat);
+    }
+
+    SECTION("noneOf")
+    {
+
+#define REQUIRE_NONE_OF(l0, p)       \
+    {                                \
+        AtomList l = l0;             \
+        REQUIRE(l.view().noneOf(p)); \
+    }
+
+        REQUIRE_NONE_OF(L(), isFloat);
+        REQUIRE_NONE_OF(LA("a"), isFloat);
+        REQUIRE_NONE_OF(LA(1, 2), isSymbol);
+    }
+
+    SECTION("ranges")
+    {
+        AtomList l = LA("a", -100, 0., 100);
+        AtomListView v(l);
+
+        REQUIRE(v.floatLessThenAt(0, 0, -1024) == -1024);
+        REQUIRE(v.floatLessThenAt(1, 0, -1024) == -100);
+        REQUIRE(v.floatLessThenAt(2, 0, -1024) == -1024);
+        REQUIRE(v.floatLessThenAt(3, 0, -1024) == -1024);
+        REQUIRE(v.floatLessThenAt(4, 0, -1024) == -1024);
+        REQUIRE(v.floatLessThenAt(5, 0, -1024) == -1024);
+
+        REQUIRE(v.floatLessEqualAt(0, 0, -1024) == -1024);
+        REQUIRE(v.floatLessEqualAt(1, 0, -1024) == -100);
+        REQUIRE(v.floatLessEqualAt(2, 0, -1024) == 0);
+        REQUIRE(v.floatLessEqualAt(3, 0, -1024) == -1024);
+        REQUIRE(v.floatLessEqualAt(4, 0, -1024) == -1024);
+        REQUIRE(v.floatLessEqualAt(5, 0, -1024) == -1024);
+
+        REQUIRE(v.floatGreaterThenAt(0, 0, 1024) == 1024);
+        REQUIRE(v.floatGreaterThenAt(1, 0, 1024) == 1024);
+        REQUIRE(v.floatGreaterThenAt(2, 0, 1024) == 1024);
+        REQUIRE(v.floatGreaterThenAt(3, 0, 1024) == 100);
+        REQUIRE(v.floatGreaterThenAt(4, 0, 1024) == 1024);
+        REQUIRE(v.floatGreaterThenAt(5, 0, 1024) == 1024);
+
+        REQUIRE(v.floatGreaterEqualAt(0, 0, 1024) == 1024);
+        REQUIRE(v.floatGreaterEqualAt(1, 0, 1024) == 1024);
+        REQUIRE(v.floatGreaterEqualAt(2, 0, 1024) == 0);
+        REQUIRE(v.floatGreaterEqualAt(3, 0, 1024) == 100);
+        REQUIRE(v.floatGreaterEqualAt(4, 0, 1024) == 1024);
+        REQUIRE(v.floatGreaterEqualAt(5, 0, 1024) == 1024);
+
+        REQUIRE(v.intLessThenAt(0, 0, -1024) == -1024);
+        REQUIRE(v.intLessThenAt(1, 0, -1024) == -100);
+        REQUIRE(v.intLessThenAt(2, 0, -1024) == -1024);
+        REQUIRE(v.intLessThenAt(3, 0, -1024) == -1024);
+        REQUIRE(v.intLessThenAt(4, 0, -1024) == -1024);
+        REQUIRE(v.intLessThenAt(5, 0, -1024) == -1024);
+
+        REQUIRE(v.intLessEqualAt(0, 0, -1024) == -1024);
+        REQUIRE(v.intLessEqualAt(1, 0, -1024) == -100);
+        REQUIRE(v.intLessEqualAt(2, 0, -1024) == 0);
+        REQUIRE(v.intLessEqualAt(3, 0, -1024) == -1024);
+        REQUIRE(v.intLessEqualAt(4, 0, -1024) == -1024);
+        REQUIRE(v.intLessEqualAt(5, 0, -1024) == -1024);
+
+        REQUIRE(v.intGreaterThenAt(0, 0, 1024) == 1024);
+        REQUIRE(v.intGreaterThenAt(1, 0, 1024) == 1024);
+        REQUIRE(v.intGreaterThenAt(2, 0, 1024) == 1024);
+        REQUIRE(v.intGreaterThenAt(3, 0, 1024) == 100);
+        REQUIRE(v.intGreaterThenAt(4, 0, 1024) == 1024);
+        REQUIRE(v.intGreaterThenAt(5, 0, 1024) == 1024);
+
+        REQUIRE(v.intGreaterEqualAt(0, 0, 1024) == 1024);
+        REQUIRE(v.intGreaterEqualAt(1, 0, 1024) == 1024);
+        REQUIRE(v.intGreaterEqualAt(2, 0, 1024) == 0);
+        REQUIRE(v.intGreaterEqualAt(3, 0, 1024) == 100);
+        REQUIRE(v.intGreaterEqualAt(4, 0, 1024) == 1024);
+        REQUIRE(v.intGreaterEqualAt(5, 0, 1024) == 1024);
     }
 }

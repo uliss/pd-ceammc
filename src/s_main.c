@@ -302,6 +302,7 @@ static int defaultfontshit[] = {
 #define NDEFAULTFONT (sizeof(defaultfontshit)/sizeof(*defaultfontshit))
 
 static t_clock *sys_fakefromguiclk;
+int socket_init(void);
 static void sys_fakefromgui(void)
 {
         /* fake the GUI's message giving cwd and font sizes in case
@@ -365,6 +366,8 @@ int sys_main(int argc, char **argv)
         setuid(getuid());
     }
 #endif  /* _WIN32 */
+    if (socket_init())
+        sys_sockerror("socket_init()");
     pd_init();                                  /* start the message system */
     sys_findprogdir(argv[0]);                   /* set sys_progname, guipath */
     for (i = noprefs = 0; i < argc; i++)    /* prescan ... */
@@ -390,6 +393,8 @@ int sys_main(int argc, char **argv)
     sys_afterargparse();                    /* post-argparse settings */
     if (sys_verbose || sys_version) fprintf(stderr, "%s compiled %s %s\n",
         pd_version, pd_compiletime, pd_compiledate);
+    if (sys_verbose)
+        fprintf(stderr, "float precision = %lu bits\n", sizeof(t_float)*8);
     if (sys_version)    /* if we were just asked our version, exit here. */
         return (0);
     sys_setsignalhandlers();
@@ -510,7 +515,7 @@ static char *(usagemessage[]) = {
 "-verbose         -- extra printout on startup and when searching for files\n",
 "-noverbose       -- no extra printout\n",
 "-version         -- don't run Pd; just print out which version it is \n",
-"-d <n>           -- specify debug level\n",
+"-d <n>           -- specify debug level for inspecting the GUI communication\n",
 "-loadbang        -- do not suppress all loadbangs (true by default)\n",
 "-noloadbang      -- suppress all loadbangs\n",
 "-stderr          -- send printout to standard error instead of GUI\n",

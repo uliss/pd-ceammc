@@ -17,9 +17,12 @@
 #include "ceammc_format.h"
 #include "fmt/format.h"
 
+#include <array>
+
 constexpr size_t DEF_INLETS = 2;
 constexpr size_t MIN_NCHAN = 2;
-constexpr size_t MAX_NCHAN = 16;
+
+static std::array<std::string, MAX_NCHAN> inlet_info = {};
 
 static size_t chanMuliplier(const PdArgs& args)
 {
@@ -122,9 +125,24 @@ void MultiplexTilde::propSetValue(const AtomList& lst)
     onList(lst);
 }
 
+const char* MultiplexTilde::annotateInlet(size_t n) const
+{
+    if (n < gain_.size() && n < inlet_info.size())
+        return inlet_info[n].c_str();
+    else if (n == gain_.size())
+        return "int: select input";
+    else
+        return nullptr;
+}
+
 void setup_flow_multiplex_tilde()
 {
+    for (size_t i = 0; i < inlet_info.size(); i++)
+        inlet_info[i] = fmt::format("input\\[{}\\]", i);
+
     SoundExternalFactory<MultiplexTilde> obj("flow.multiplex~");
     obj.addAlias("flow.mux~");
     obj.addAlias("mux~");
+
+    obj.addOutletInfo("signal: output");
 }

@@ -23,6 +23,7 @@
 #include <unordered_map>
 #include <vector>
 
+#include "ceammc.h"
 #include "ceammc_data.h"
 #include "ceammc_message.h"
 #include "ceammc_object.h"
@@ -49,22 +50,30 @@ enum ObjectFactoryFlags : uint32_t {
     OBJECT_FACTORY_NO_SYMBOL = 0x10,
     OBJECT_FACTORY_NO_LIST = 0x20,
     OBJECT_FACTORY_NO_ANY = 0x40,
-    OBJECT_FACTORY_PARSE_POSITIONAL_PROPS_ONLY = 0x80
+    OBJECT_FACTORY_PARSE_POSITIONAL_PROPS_ONLY = 0x80,
+    OBJECT_FACTORY_NO_TOOLTIPS = 0x100,
+    OBJECT_FACTORY_NO_ARGS_DATA_PARSE = 0x200,
+    OBJECT_FACTORY_IGNORE_DATA_PARSE_ERRORS = 0x400,
+    OBJECT_FACTORY_NO_INLET_DISPATCH = 0x800,
+    OBJECT_FACTORY_NO_PROP_DISPATCH = 0x1000
 };
 
 template <typename T>
 class ObjectFactory {
+    ObjectFactory(ObjectFactory&) = delete;
+    ObjectFactory& operator=(ObjectFactory) = delete;
+
 public:
-    typedef PdObject<T> ObjectProxy;
+    using ObjectProxy = PdObject<T>;
 
-    typedef void (*PdBangFunction)(ObjectProxy*);
-    typedef void (*PdFloatFunction)(ObjectProxy*, t_float);
-    typedef void (*PdSymbolFunction)(ObjectProxy*, t_symbol*);
-    typedef void (*PdListFunction)(ObjectProxy*, t_symbol*, int argc, t_atom* argv);
-    typedef void (*PdAnyFunction)(ObjectProxy*, t_symbol*, int argc, t_atom* argv);
+    using PdBangFunction = void (*)(ObjectProxy*);
+    using PdFloatFunction = void (*)(ObjectProxy*, t_float);
+    using PdSymbolFunction = void (*)(ObjectProxy*, t_symbol*);
+    using PdListFunction = void (*)(ObjectProxy*, t_symbol*, int argc, t_atom* argv);
+    using PdAnyFunction = void (*)(ObjectProxy*, t_symbol*, int argc, t_atom* argv);
 
-    typedef void (T::*MethodPtrList)(t_symbol*, const AtomList&);
-    typedef std::unordered_map<t_symbol*, MethodPtrList> MethodListMap;
+    using MethodPtrList = void (T::*)(t_symbol*, const AtomListView&);
+    using MethodListMap = std::unordered_map<t_symbol*, MethodPtrList>;
 
 public:
     ObjectFactory(const char* name, uint32_t flags = OBJECT_FACTORY_DEFAULT)
@@ -93,9 +102,15 @@ public:
         flags_ = flags;
 
         // add [dump( method to dump to Pd console
-        class_addmethod(c, reinterpret_cast<t_method>(dumpMethodList), SYM_DUMP(), A_NULL);
+        class_addmethod(c, reinterpret_cast<t_method>(dumpMethodList), SymbolTable::instance().s_dump_fn, A_NULL);
         // add [@*?( method to output all properties
         class_addmethod(c, reinterpret_cast<t_method>(queryPropNames), SYM_PROPS_ALL_Q(), A_NULL);
+        // direct property get
+        ceammc_class_add_propget_fn(c, getProperty);
+        // direct property set
+        ceammc_class_add_propset_fn(c, setProperty);
+        // is base test
+        class_addmethod(c, reinterpret_cast<t_method>(isBaseObject), SymbolTable::instance().s_is_base_obj_fn, A_CANT, A_NULL);
 
         class_name_ = s_name;
         // add to database
@@ -122,6 +137,10 @@ public:
 
         if (!(flags_ & OBJECT_FACTORY_NO_ANY))
             setAnyFn(processAny);
+
+        // xlet tooltips()
+        if (!(flags_ & OBJECT_FACTORY_NO_TOOLTIPS))
+            class_addmethod(class_, (t_method)annotateFn, SymbolTable::instance().s_annotate_fn, A_CANT, 0);
     }
 
     /** use default pd bang handler */
@@ -134,6 +153,16 @@ public:
     void useDefaultPdListFn() { flags_ |= OBJECT_FACTORY_NO_LIST; }
     /** use default pd any handler */
     void useDefaultPdAnyFn() { flags_ |= OBJECT_FACTORY_NO_ANY; }
+    /** do not show xlet tooltips */
+    void noTooltips() { flags_ |= OBJECT_FACTORY_NO_TOOLTIPS; }
+    /** ignore data parse error - use args 'as is' if parsing failed */
+    void ignoreDataParseErrors() { flags_ |= OBJECT_FACTORY_IGNORE_DATA_PARSE_ERRORS; }
+    /** do not parse creation args for data */
+    void noArgsDataParsing() { flags_ |= OBJECT_FACTORY_NO_ARGS_DATA_PARSE; }
+    /** do not dispatch inlets */
+    void noInletsDispatch() { flags_ |= OBJECT_FACTORY_NO_INLET_DISPATCH; }
+    /** do not dispatch properties */
+    void noPropsDispatch() { flags_ |= OBJECT_FACTORY_NO_PROP_DISPATCH; }
 
     /** set help name */
     void setHelp(const char* name)
@@ -256,6 +285,37 @@ public:
         ObjectInfoStorage::instance().info(class_).api = v;
     }
 
+    void addInletInfo(const std::string& txt)
+    {
+        T::addInletInfo(class_, txt);
+    }
+
+    void addOutletInfo(const std::string& txt)
+    {
+        T::addOutletInfo(class_, txt);
+    }
+
+    void setInletsInfo(const std::vector<std::string>& l)
+    {
+        T::setInletsInfo(class_, l);
+    }
+
+    void setOutletsInfo(const std::vector<std::string>& l)
+    {
+        T::setOutletsInfo(class_, l);
+    }
+
+    void setXletsInfo(const std::vector<std::string>& ins, const std::vector<std::string>& outs)
+    {
+        setInletsInfo(ins);
+        setOutletsInfo(outs);
+    }
+
+    ObjectInfoStorage::Info& info()
+    {
+        return ObjectInfoStorage::instance().info(class_);
+    }
+
     void setFlag(uint32_t f, bool on)
     {
         if (on)
@@ -293,8 +353,12 @@ public:
 
             // prepare PdArgs
             PdArgs args(AtomList(argc, argv), class_name_, &x->pd_obj, name);
+
             args.noDefaultInlet = flags_ & OBJECT_FACTORY_NO_DEFAULT_INLET;
             args.mainSignalInlet = flags_ & OBJECT_FACTORY_MAIN_SIGNAL_INLET;
+            args.ignoreDataParseErrors = flags_ & OBJECT_FACTORY_IGNORE_DATA_PARSE_ERRORS;
+            args.noArgsDataParsing = flags_ & OBJECT_FACTORY_NO_ARGS_DATA_PARSE;
+            args.parsePosPropsOnly = flags_ & OBJECT_FACTORY_PARSE_POSITIONAL_PROPS_ONLY;
 
             // construct ceammc object
             x->impl = new T(args);
@@ -313,15 +377,14 @@ public:
             return nullptr;
         }
 
-        if (flags_ & OBJECT_FACTORY_PARSE_POSITIONAL_PROPS_ONLY)
-            x->impl->parsePositionalProperties();
-        else
-            x->impl->parseProperties();
+        // property parsing
+        x->impl->parseProperties();
 
         // some properties (callback) knows their current value only after object creation
         // update this information
         x->impl->updatePropertyDefaults();
 
+        // call overloaded init
         x->impl->initDone();
 
         return x;
@@ -360,7 +423,17 @@ public:
     /** default factory any handler handler */
     static void processAny(ObjectProxy* x, t_symbol* s, int argc, t_atom* argv)
     {
-        x->impl->anyDispatch(s, AtomList(argc, argv));
+        const bool do_inlets_dispatch = !(flags_ & OBJECT_FACTORY_NO_INLET_DISPATCH);
+        const bool do_props_dispatch = !(flags_ & OBJECT_FACTORY_NO_PROP_DISPATCH);
+        const AtomListView args(argv, argc);
+
+        if (do_inlets_dispatch && x->impl->processAnyInlets(s, args))
+            return;
+
+        if (do_props_dispatch && x->impl->processAnyProps(s, args))
+            return;
+
+        x->impl->onAny(s, args);
     }
 
     /** default factory click handler handler */
@@ -417,6 +490,43 @@ public:
         x->impl->queryPropNames();
     }
 
+    static int getProperty(t_object* x, t_symbol* sel, int* argc, t_atom** argv)
+    {
+        ObjectProxy* z = reinterpret_cast<ObjectProxy*>(x);
+
+        if (!argc) {
+            pd_error("[%s] null argc pointer: %s", class_name_->s_name, __FUNCTION__);
+            return 0;
+        }
+
+        if (!argv) {
+            pd_error("[%s] null argv pointer: %s", class_name_->s_name, __FUNCTION__);
+            return 0;
+        }
+
+        Property* pp = z->impl->property(sel);
+        if (!pp)
+            return 0;
+        else {
+            AtomList pvalue = pp->get();
+            *argc = pvalue.size();
+            *argv = reinterpret_cast<t_atom*>(getbytes(pvalue.size() * sizeof(t_atom)));
+            for (size_t i = 0; i < pvalue.size(); i++)
+                (*argv)[i] = pvalue.at(i).atom();
+
+            return 1;
+        }
+    }
+
+    static int setProperty(t_object* x, t_symbol* sel, int argc, t_atom* argv)
+    {
+        ObjectProxy* z = reinterpret_cast<ObjectProxy*>(x);
+        return z->impl->setProperty(sel, AtomListView(argv, argc));
+    }
+
+    /* for runtime testing */
+    static int isBaseObject(ObjectProxy*) { return 1; }
+
     static void defaultListMethod(ObjectProxy* x, t_symbol* sel, int argc, t_atom* argv)
     {
         auto it = list_methods_.find(sel);
@@ -425,7 +535,7 @@ public:
             return;
         }
 
-        (x->impl->*(it->second))(sel, AtomList(argc, argv));
+        (x->impl->*(it->second))(sel, AtomListView(argv, argc));
     }
 
     /**
@@ -487,9 +597,29 @@ private:
         };
     };
 
+    /**
+     * @brief annotateFn
+     * @param x - pd object
+     * @param type - 1 (inlet), 0 (outlet)
+     * @param idx - inlet index
+     * @return
+     */
+    static const char* annotateFn(ObjectProxy* x, XletType type, int idx)
+    {
+        switch (type) {
+        case XLET_OUT:
+            return x->impl->annotateOutlet(idx);
+        case XLET_IN:
+            return x->impl->annotateInlet(idx);
+        default:
+            return nullptr;
+        }
+    }
+
 private:
     static t_class* class_;
     static t_symbol* class_name_;
+
     static MethodListMap list_methods_;
     static uint32_t flags_;
 
@@ -528,7 +658,7 @@ public:
 };
 
 template <typename T>
-t_class* ObjectFactory<T>::class_;
+t_class* ObjectFactory<T>::class_ = nullptr;
 
 template <typename T>
 t_symbol* ObjectFactory<T>::class_name_ = 0;

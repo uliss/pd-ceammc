@@ -77,7 +77,7 @@ void Firmata::onFloat(t_float f)
     }
 }
 
-void Firmata::onAny(t_symbol* s, const AtomList& lst)
+void Firmata::onAny(t_symbol* s, const AtomListView& lst)
 {
     if (s == F_QUERY_VERSION) { // query firmata protocol version (answer is list like: [2 5])
         return floatTo(0, PROTO_PROTOCOL_VERSION);
@@ -244,7 +244,7 @@ int Firmata::symToPinMode(t_symbol* s)
     return std::distance(begin, pos);
 }
 
-void proto_firmata_setup()
+void setup_proto_firmata()
 {
     F_QUERY_FIRMWARE = gensym("firmware?");
     F_QUERY_VERSION = gensym("version?");

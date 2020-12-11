@@ -16,12 +16,14 @@
 
 FlowPass::FlowPass(const PdArgs& a)
     : BaseObject(a)
-    , values_(0)
+    , pass_list_(nullptr)
 {
+    createInlet();
     createOutlet();
 
-    values_ = new ListProperty("@values", a.args);
-    addProperty(values_);
+    pass_list_ = new ListProperty("@values", a.args);
+    pass_list_->setArgIndex(0);
+    addProperty(pass_list_);
 }
 
 void FlowPass::onBang()
@@ -31,51 +33,47 @@ void FlowPass::onBang()
 
 void FlowPass::onFloat(t_float v)
 {
-    if (values_->value().contains(v))
+    if (pass_list_->value().contains(v))
         floatTo(0, v);
 }
 
 void FlowPass::onSymbol(t_symbol* s)
 {
-    if (values_->value().contains(s))
+    if (pass_list_->value().contains(s))
         symbolTo(0, s);
 }
 
 void FlowPass::onList(const AtomList& l)
 {
-    listTo(0, l);
+    if (l.empty())
+        return bangTo(0);
+
+    if (pass_list_->value().contains(l[0]))
+        listTo(0, l);
 }
 
-void FlowPass::onAny(t_symbol* s, const AtomList& lst)
+void FlowPass::onAny(t_symbol* s, const AtomListView& lst)
 {
-    if (values_->value().contains(s))
+    if (pass_list_->value().contains(s))
         anyTo(0, s, lst);
 }
 
-void FlowPass::parseProperties()
+void FlowPass::onInlet(size_t, const AtomList& l)
 {
-}
-
-bool FlowPass::processAnyProps(t_symbol* sel, const AtomList& lst)
-{
-    static t_symbol* s_prop_values = gensym("@values");
-    static t_symbol* s_get_values = gensym("@values?");
-
-    if (sel == s_get_values) {
-        anyTo(0, s_prop_values, values_->value());
-        return true;
-    }
-
-    if (sel == s_prop_values) {
-        values_->set(lst);
-        return true;
-    }
-
-    return false;
+    pass_list_->set(l);
 }
 
 void setup_flow_pass()
 {
     ObjectFactory<FlowPass> obj("flow.pass");
     obj.addAlias("pass");
+    obj.noPropsDispatch();
+
+    obj.setXletsInfo({ "bang:   always pass\n"
+                       "float:  pass if in pass list\n"
+                       "symbol: pass if in pass list\n"
+                       "list:   pass if first element in pass list\n"
+                       "any:    pass if selector in pass list",
+                         "list: set pass list" },
+        { "passed messages" });
 }

@@ -20,10 +20,10 @@
 #include <algorithm>
 #include <cassert>
 #include <cstdlib>
+#include <cstring>
 #include <iostream>
 #include <iterator>
 #include <string>
-#include <cstring>
 
 #include "lex/quoted_atomlist_lexer.h"
 #include "lex/quoted_string.parser.hpp"
@@ -57,6 +57,15 @@ AtomList::AtomList(size_t n, t_atom* lst)
     fromPdData(n, lst);
 }
 
+AtomList::AtomList(const AtomListView& v)
+{
+    if (v.isNull() || v.empty())
+        return;
+
+    for (auto& a : v)
+        atoms_.push_back(a);
+}
+
 AtomList::AtomList(int n, t_atom* lst)
 {
     fromPdData(n, lst);
@@ -72,10 +81,28 @@ AtomList::AtomList(std::initializer_list<Atom> l)
 {
 }
 
+void AtomList::operator=(const Atom& a)
+{
+    atoms_.resize(1);
+    atoms_.front() = a;
+}
+
 void AtomList::operator=(const AtomList& l)
 {
     if (this != &l)
         atoms_ = l.atoms_;
+}
+
+void AtomList::operator=(const AtomListView& l)
+{
+    atoms_.clear();
+    atoms_.reserve(l.size());
+
+    if(l.isNull() || l.empty())
+        return;
+
+    for (auto& a : l)
+        atoms_.push_back(a);
 }
 
 void AtomList::operator=(AtomList&& l) noexcept
@@ -833,6 +860,11 @@ AtomList AtomList::operator/(t_float v) const
     AtomList res(*this);
     res /= v;
     return res;
+}
+
+bool AtomList::operator==(const Atom& x) const noexcept
+{
+    return atoms_.size() == 1 && atoms_.front() == x;
 }
 
 bool AtomList::operator==(const AtomList& x) const noexcept

@@ -1,7 +1,7 @@
 #N canvas 0 0 785 555 12;
 #X declare -lib ceammc;
-#X obj 369 50 cnv 1 396 23 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 369 50 checks if given string contains specified substring;
+#X obj 415 50 cnv 1 350 23 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 415 50 checks if string contains specified substring;
 #X obj 1 1 cnv 5 765 40 empty empty string.contains 20 20 0 20 -104026
 -4096 0;
 #X obj 521 11 str.contains;
@@ -13,25 +13,25 @@
 #X msg 357 147 symbol simple;
 #X obj 50 205 str.contains es;
 #X obj 50 234 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1;
-#X obj 20 271 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 276 cnv 5 90 26 empty empty arguments: 4 10 0 14 -262144
+#X obj 20 281 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 286 cnv 5 90 26 empty empty arguments: 4 10 0 14 -262144
 -49933 0;
-#X text 110 311 1\.;
-#X text 150 311 symbol;
-#X obj 246 312 cnv 1 54 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 311 SUBSTR: searched substring.;
-#X obj 20 341 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 346 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
+#X text 110 321 1\.;
+#X text 150 321 symbol;
+#X obj 246 322 cnv 1 54 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 245 321 SUBSTR: searched substring.;
+#X obj 20 351 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 356 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
-#X text 110 347 1\.;
-#X text 245 347 Input string or symbol.;
-#X text 110 367 2\.;
-#X text 245 367 search substring (string or symbol).;
-#X obj 20 397 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 402 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
+#X text 110 357 1\.;
+#X text 245 357 Input string or symbol.;
+#X text 110 377 2\.;
+#X text 245 377 search substring (string or symbol).;
+#X obj 20 407 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 412 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 403 1\.;
-#X text 245 403 output 1 if input string contains specified substring
+#X text 110 413 1\.;
+#X text 245 413 output 1 if input string contains specified substring
 \, otherwise 0\.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
@@ -59,7 +59,7 @@
 #X text 10 142 license:;
 #X text 120 142 GPL3 or later;
 #X text 10 164 keywords:;
-#X text 120 164 contains;
+#X text 120 164 contains \, search;
 #X text 10 186 website:;
 #X obj 120 189 ui.link @title https://github.com/uliss/pure-data @url
 https://github.com/uliss/pure-data;

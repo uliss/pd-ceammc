@@ -40,7 +40,7 @@ class HoaProcessProps : public BaseObject {
 public:
     HoaProcessProps(const PdArgs& args);
 
-    bool processAnyProps(t_symbol* sel, const AtomList& lst) override;
+    bool processAnyProps(t_symbol* sel, const AtomListView& lst) override;
     void onBang() override;
     void onFloat(t_float f) override;
     void onSymbol(t_symbol* s) override;

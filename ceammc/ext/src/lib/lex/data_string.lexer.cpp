@@ -131,7 +131,7 @@ class DataStringLexer : public reflex::AbstractLexer<reflex::Matcher> {
 
 ceammc::DataStringParser::symbol_type ceammc::DataStringLexer::lex()
 {
-  static const char *REGEX_INITIAL = "(?mx)((?:[\\x09\\x0a\\x20]+))|(null)|(true)|(false)|(S(?=(?:\"(?:(?:[\\x00-!]|[\\x23-_]|[a-\\x7f]|[\\xc2-\\xdf][\\x80-\\xbf]|\\xe0[\\xa0-\\xbf][\\x80-\\xbf]|[\\xe1-\\xec][\\x80-\\xbf][\\x80-\\xbf]|\\xed[\\x80-\\x9f][\\x80-\\xbf]|[\\xee\\xef][\\x80-\\xbf][\\x80-\\xbf]|\\xf0[\\x90-\\xbf][\\x80-\\xbf][\\x80-\\xbf]|[\\xf1-\\xf3][\\x80-\\xbf][\\x80-\\xbf][\\x80-\\xbf]|\\xf4[\\x80-\\x8f][\\x80-\\xbf][\\x80-\\xbf])|`\"|``|`\\.|`:|`\\(|`\\))*\")))|((?:[A-Z][A-Za-z]*)(?=(?:\\()))|((?:[A-Z][A-Za-z]*)(?=(?:\\[)))|((?:[a-z][0-9a-z]*)(?=(?:\\()))|((?:\\[))|((?:\\]))|((?:\\())|((?:\\)))|((?:(?:[\\x2b\\x2d]?(?:0|[1-9][0-9]*))(?:\\.[0-9]+)?))|((?:[\\x2b\\x2d]?0[Xx][0-9A-Fa-f]+))|((?:0b[01]+))|((?:(?:[\\x23\\x2e0-9@-Z_a-z])+:))|((?:(?:[\\x23\\x2e0-9@-Z_a-z])(?:[\\x23'*+\\x2d-:<-Z_a-z\\x7c\\x7e])*))|((?:\"(?:(?:[\\x00-!]|[\\x23-_]|[a-\\x7f]|[\\xc2-\\xdf][\\x80-\\xbf]|\\xe0[\\xa0-\\xbf][\\x80-\\xbf]|[\\xe1-\\xec][\\x80-\\xbf][\\x80-\\xbf]|\\xed[\\x80-\\x9f][\\x80-\\xbf]|[\\xee\\xef][\\x80-\\xbf][\\x80-\\xbf]|\\xf0[\\x90-\\xbf][\\x80-\\xbf][\\x80-\\xbf]|[\\xf1-\\xf3][\\x80-\\xbf][\\x80-\\xbf][\\x80-\\xbf]|\\xf4[\\x80-\\x8f][\\x80-\\xbf][\\x80-\\xbf])|`\"|``|`\\.|`:|`\\(|`\\))*\"))|(.)";
+  static const char *REGEX_INITIAL = "(?mx)((?:[\\x09\\x0a\\x20]+))|(,)|(null)|(true)|(false)|(S(?=(?:\"(?:(?:[\\x00-!]|[\\x23-_]|[a-\\x7f]|[\\xc2-\\xdf][\\x80-\\xbf]|\\xe0[\\xa0-\\xbf][\\x80-\\xbf]|[\\xe1-\\xec][\\x80-\\xbf][\\x80-\\xbf]|\\xed[\\x80-\\x9f][\\x80-\\xbf]|[\\xee\\xef][\\x80-\\xbf][\\x80-\\xbf]|\\xf0[\\x90-\\xbf][\\x80-\\xbf][\\x80-\\xbf]|[\\xf1-\\xf3][\\x80-\\xbf][\\x80-\\xbf][\\x80-\\xbf]|\\xf4[\\x80-\\x8f][\\x80-\\xbf][\\x80-\\xbf])|`\"|``|`\\.|`:|`\\(|`\\))*\")))|((?:[A-Z][A-Za-z]*)(?=(?:\\()))|((?:[A-Z][A-Za-z]*)(?=(?:\\[)))|((?:[a-z][0-9a-z]*)(?=(?:\\()))|((?:\\[))|((?:\\]))|((?:\\())|((?:\\)))|((?:(?:[\\x2b\\x2d]?(?:0|[1-9][0-9]*))(?:\\.[0-9]+)?))|((?:[\\x2b\\x2d]?0[Xx][0-9A-Fa-f]+))|((?:0b[01]+))|((?:[\\x23\\x2e0-9@-Z_a-z]+:))|((?:(?:[\\x23%.-9@-Z_a-z])(?:(?:[\\x00-\\x1f]|!|[\\x23-']|[*-9]|[;-Z]|[\\x5e_]|[a-\\x7f]|[\\xc2-\\xdf][\\x80-\\xbf]|\\xe0[\\xa0-\\xbf][\\x80-\\xbf]|[\\xe1-\\xec][\\x80-\\xbf][\\x80-\\xbf]|\\xed[\\x80-\\x9f][\\x80-\\xbf]|[\\xee\\xef][\\x80-\\xbf][\\x80-\\xbf]|\\xf0[\\x90-\\xbf][\\x80-\\xbf][\\x80-\\xbf]|[\\xf1-\\xf3][\\x80-\\xbf][\\x80-\\xbf][\\x80-\\xbf]|\\xf4[\\x80-\\x8f][\\x80-\\xbf][\\x80-\\xbf]))*))|((?:\"(?:(?:[\\x00-!]|[\\x23-_]|[a-\\x7f]|[\\xc2-\\xdf][\\x80-\\xbf]|\\xe0[\\xa0-\\xbf][\\x80-\\xbf]|[\\xe1-\\xec][\\x80-\\xbf][\\x80-\\xbf]|\\xed[\\x80-\\x9f][\\x80-\\xbf]|[\\xee\\xef][\\x80-\\xbf][\\x80-\\xbf]|\\xf0[\\x90-\\xbf][\\x80-\\xbf][\\x80-\\xbf]|[\\xf1-\\xf3][\\x80-\\xbf][\\x80-\\xbf][\\x80-\\xbf]|\\xf4[\\x80-\\x8f][\\x80-\\xbf][\\x80-\\xbf])|`\"|``|`\\.|`:|`\\(|`\\))*\"))|(.)";
   static const reflex::Pattern PATTERN_INITIAL(REGEX_INITIAL);
   if (!has_matcher())
   {
@@ -154,69 +154,73 @@ ceammc::DataStringParser::symbol_type ceammc::DataStringLexer::lex()
           case 1: // rule at line 66: (?:[\x09\x0a\x20]+)
 #line 66 "data_string.l"
             break;
-          case 2: // rule at line 67: null
+          case 2: // rule at line 67: ,
 #line 67 "data_string.l"
+{ return DataStringParser::make_COMMA(location()); }
+            break;
+          case 3: // rule at line 68: null
+#line 68 "data_string.l"
 { return DataStringParser::make_NULL(location()); }
             break;
-          case 3: // rule at line 68: true
-#line 68 "data_string.l"
+          case 4: // rule at line 69: true
+#line 69 "data_string.l"
 { return DataStringParser::make_FLOAT(1, location()); }
             break;
-          case 4: // rule at line 69: false
-#line 69 "data_string.l"
+          case 5: // rule at line 70: false
+#line 70 "data_string.l"
 { return DataStringParser::make_FLOAT(0, location()); }
             break;
-          case 5: // rule at line 70: S(?=(?:"(?:(?:[\x00-!]|[\x23-_]|[a-\x7f]|[\xc2-\xdf][\x80-\xbf]|\xe0[\xa0-\xbf][\x80-\xbf]|[\xe1-\xec][\x80-\xbf][\x80-\xbf]|\xed[\x80-\x9f][\x80-\xbf]|[\xee\xef][\x80-\xbf][\x80-\xbf]|\xf0[\x90-\xbf][\x80-\xbf][\x80-\xbf]|[\xf1-\xf3][\x80-\xbf][\x80-\xbf][\x80-\xbf]|\xf4[\x80-\x8f][\x80-\xbf][\x80-\xbf])|`"|``|`\.|`:|`\(|`\))*"))
-#line 70 "data_string.l"
+          case 6: // rule at line 71: S(?=(?:"(?:(?:[\x00-!]|[\x23-_]|[a-\x7f]|[\xc2-\xdf][\x80-\xbf]|\xe0[\xa0-\xbf][\x80-\xbf]|[\xe1-\xec][\x80-\xbf][\x80-\xbf]|\xed[\x80-\x9f][\x80-\xbf]|[\xee\xef][\x80-\xbf][\x80-\xbf]|\xf0[\x90-\xbf][\x80-\xbf][\x80-\xbf]|[\xf1-\xf3][\x80-\xbf][\x80-\xbf][\x80-\xbf]|\xf4[\x80-\x8f][\x80-\xbf][\x80-\xbf])|`"|``|`\.|`:|`\(|`\))*"))
+#line 71 "data_string.l"
 { return DataStringParser::make_DATA_TYPE_STRING(location()); }
             break;
-          case 6: // rule at line 71: (?:[A-Z][A-Za-z]*)(?=(?:\())
-#line 71 "data_string.l"
-{ return DataStringParser::make_DATA_TYPE(text(), location()); }
-            break;
-          case 7: // rule at line 72: (?:[A-Z][A-Za-z]*)(?=(?:\[))
+          case 7: // rule at line 72: (?:[A-Z][A-Za-z]*)(?=(?:\())
 #line 72 "data_string.l"
 { return DataStringParser::make_DATA_TYPE(text(), location()); }
             break;
-          case 8: // rule at line 73: (?:[a-z][0-9a-z]*)(?=(?:\())
+          case 8: // rule at line 73: (?:[A-Z][A-Za-z]*)(?=(?:\[))
 #line 73 "data_string.l"
+{ return DataStringParser::make_DATA_TYPE(text(), location()); }
+            break;
+          case 9: // rule at line 74: (?:[a-z][0-9a-z]*)(?=(?:\())
+#line 74 "data_string.l"
 { return DataStringParser::make_FUNC_CALL(text(), location()); }
             break;
-          case 9: // rule at line 74: (?:\[)
-#line 74 "data_string.l"
+          case 10: // rule at line 75: (?:\[)
+#line 75 "data_string.l"
 { return DataStringParser::make_OPEN_DICT_BRACKET(location()); }
             break;
-          case 10: // rule at line 75: (?:\])
-#line 75 "data_string.l"
+          case 11: // rule at line 76: (?:\])
+#line 76 "data_string.l"
 { return DataStringParser::make_CLOSE_DICT_BRACKET(location()); }
             break;
-          case 11: // rule at line 76: (?:\()
-#line 76 "data_string.l"
+          case 12: // rule at line 77: (?:\()
+#line 77 "data_string.l"
 { return DataStringParser::make_OPEN_LIST_BRACKET(location()); }
             break;
-          case 12: // rule at line 77: (?:\))
-#line 77 "data_string.l"
+          case 13: // rule at line 78: (?:\))
+#line 78 "data_string.l"
 { return DataStringParser::make_CLOSE_LIST_BRACKET(location()); }
             break;
-          case 13: // rule at line 78: (?:(?:[\x2b\x2d]?(?:0|[1-9][0-9]*))(?:\.[0-9]+)?)
-#line 78 "data_string.l"
+          case 14: // rule at line 79: (?:(?:[\x2b\x2d]?(?:0|[1-9][0-9]*))(?:\.[0-9]+)?)
+#line 79 "data_string.l"
 { return DataStringParser::make_FLOAT(std::strtod(text(), 0), location()); }
             break;
-          case 14: // rule at line 79: (?:[\x2b\x2d]?0[Xx][0-9A-Fa-f]+)
-#line 79 "data_string.l"
+          case 15: // rule at line 80: (?:[\x2b\x2d]?0[Xx][0-9A-Fa-f]+)
+#line 80 "data_string.l"
 {
                           try {
                            long hex = std::stoi(text(), 0, 16);
                            return DataStringParser::make_FLOAT(hex, location());
                           }
                           catch(std::exception& e) {
-                             LIB_ERR << "invalid hex: " << e.what() << " - " << text();
+                             out() << "invalid hex: " << e.what() << " - " << text();
                              return DataStringParser::make_LEXER_ERROR(location());
                           }
                         }
             break;
-          case 15: // rule at line 89: (?:0b[01]+)
-#line 89 "data_string.l"
+          case 16: // rule at line 90: (?:0b[01]+)
+#line 90 "data_string.l"
 {
                           std::string str(text() + 2);
                           try {
@@ -224,25 +228,25 @@ ceammc::DataStringParser::symbol_type ceammc::DataStringLexer::lex()
                            return DataStringParser::make_FLOAT(bin, location());
                           }
                           catch(std::exception& e) {
-                             LIB_ERR << "invalid bin: " << e.what() << " - " << text();
+                             out() << "invalid bin: " << e.what() << " - " << text();
                              return DataStringParser::make_LEXER_ERROR(location());
                           }
                         }
             break;
-          case 16: // rule at line 100: (?:(?:[\x23\x2e0-9@-Z_a-z])+:)
-#line 100 "data_string.l"
+          case 17: // rule at line 101: (?:[\x23\x2e0-9@-Z_a-z]+:)
+#line 101 "data_string.l"
 {
                           std::string key(str());
                           key.pop_back(); // remove trailing ':'
                           return DataStringParser::make_KEY(key, location());
                         }
             break;
-          case 17: // rule at line 105: (?:(?:[\x23\x2e0-9@-Z_a-z])(?:[\x23'*+\x2d-:<-Z_a-z\x7c\x7e])*)
-#line 105 "data_string.l"
+          case 18: // rule at line 106: (?:(?:[\x23%.-9@-Z_a-z])(?:(?:[\x00-\x1f]|!|[\x23-']|[*-9]|[;-Z]|[\x5e_]|[a-\x7f]|[\xc2-\xdf][\x80-\xbf]|\xe0[\xa0-\xbf][\x80-\xbf]|[\xe1-\xec][\x80-\xbf][\x80-\xbf]|\xed[\x80-\x9f][\x80-\xbf]|[\xee\xef][\x80-\xbf][\x80-\xbf]|\xf0[\x90-\xbf][\x80-\xbf][\x80-\xbf]|[\xf1-\xf3][\x80-\xbf][\x80-\xbf][\x80-\xbf]|\xf4[\x80-\x8f][\x80-\xbf][\x80-\xbf]))*)
+#line 106 "data_string.l"
 { return DataStringParser::make_SYMBOL(text(), location()); }
             break;
-          case 18: // rule at line 106: (?:"(?:(?:[\x00-!]|[\x23-_]|[a-\x7f]|[\xc2-\xdf][\x80-\xbf]|\xe0[\xa0-\xbf][\x80-\xbf]|[\xe1-\xec][\x80-\xbf][\x80-\xbf]|\xed[\x80-\x9f][\x80-\xbf]|[\xee\xef][\x80-\xbf][\x80-\xbf]|\xf0[\x90-\xbf][\x80-\xbf][\x80-\xbf]|[\xf1-\xf3][\x80-\xbf][\x80-\xbf][\x80-\xbf]|\xf4[\x80-\x8f][\x80-\xbf][\x80-\xbf])|`"|``|`\.|`:|`\(|`\))*")
-#line 106 "data_string.l"
+          case 19: // rule at line 107: (?:"(?:(?:[\x00-!]|[\x23-_]|[a-\x7f]|[\xc2-\xdf][\x80-\xbf]|\xe0[\xa0-\xbf][\x80-\xbf]|[\xe1-\xec][\x80-\xbf][\x80-\xbf]|\xed[\x80-\x9f][\x80-\xbf]|[\xee\xef][\x80-\xbf][\x80-\xbf]|\xf0[\x90-\xbf][\x80-\xbf][\x80-\xbf]|[\xf1-\xf3][\x80-\xbf][\x80-\xbf][\x80-\xbf]|\xf4[\x80-\x8f][\x80-\xbf][\x80-\xbf])|`"|``|`\.|`:|`\(|`\))*")
+#line 107 "data_string.l"
 {
                           std::string str(text() + 1);
                           str.pop_back();
@@ -250,8 +254,8 @@ ceammc::DataStringParser::symbol_type ceammc::DataStringLexer::lex()
                         }
 
             break;
-          case 19: // rule at line 112: .
-#line 112 "data_string.l"
+          case 20: // rule at line 113: .
+#line 113 "data_string.l"
 {
                           std::string line = matcher().line();
                           std::string err;
@@ -269,7 +273,7 @@ ceammc::DataStringParser::symbol_type ceammc::DataStringLexer::lex()
                           else
                             err = fmt::format("unmatched lexer input: '{}'", text());
 
-                          LIB_ERR << fmt::format("error while parsing '{}': {}", line, err);
+                          out() << fmt::format("error while parsing '{}': {}", line, err);
 
                           return DataStringParser::make_LEXER_ERROR(location()); /* error */
                         }
@@ -285,6 +289,6 @@ ceammc::DataStringParser::symbol_type ceammc::DataStringLexer::lex()
 //                                                                            //
 ////////////////////////////////////////////////////////////////////////////////
 
-#line 135 "data_string.l"
+#line 136 "data_string.l"
 
 # include "fmt/format.h"

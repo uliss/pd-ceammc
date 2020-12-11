@@ -53,7 +53,16 @@ static void print_list_replace(t_pd* pd, t_symbol* s, int argc, t_atom* argv)
     }
 
     if (contains_data) {
-        post("[data] %s", to_string(AtomList(argc, argv)).c_str());
+        constexpr size_t T = MAXPDSTRING - 25;
+        auto str = to_string(AtomList(argc, argv));
+        const size_t N = (str.size() / T) + 1;
+        startpost("[data]");
+
+        for (size_t i = 0; i < N; i++) {
+            poststring(str.substr(i * T, T).c_str());
+        }
+
+        endpost();
     } else
         old_print_mlist(pd, s, argc, argv);
 }
@@ -349,6 +358,31 @@ void pd::External::sendMessage(const Message& m)
         sendMessage(m.atomValue().asSymbol(), m.listValue());
 }
 
+void pd::External::sendMessageTo(const Message& m, size_t inlet)
+{
+    if (!obj_)
+        return;
+
+    if (inlet == 0)
+        return sendMessage(m);
+
+    if (m.isBang())
+        sendBangTo(inlet);
+    else if (m.isFloat())
+        sendFloatTo(m.atomValue().asFloat(), inlet);
+    else if (m.isSymbol())
+        sendSymbolTo(m.atomValue().asSymbol(), inlet);
+    else if (m.isList())
+        sendListTo(m.listValue(), inlet);
+    else {
+        External pd_a("t", AtomList(gensym("a")));
+        if (pd_a.connectTo(0, *this, inlet)) {
+            const auto& l = m.listValue();
+            pd_anything(pd_a.pd(), m.atomValue().asSymbol(), int(l.size()), l.toPdData());
+        }
+    }
+}
+
 int pd::External::numOutlets() const
 {
     if (!obj_)
@@ -363,6 +397,22 @@ int pd::External::numInlets() const
         return 0;
 
     return obj_ninlets(obj_);
+}
+
+pd::XletInfo pd::External::inletInfo(int i) const
+{
+    if (i < 0 || i >= obj_ninlets(obj_))
+        return { XletInfo::NONE };
+
+    return { obj_issignalinlet(obj_, i) ? XletInfo::SIGNAL : XletInfo::CONTROL };
+}
+
+pd::XletInfo pd::External::outletInfo(int i) const
+{
+    if (i < 0 || i >= obj_noutlets(obj_))
+        return { XletInfo::NONE };
+
+    return { obj_issignaloutlet(obj_, i) ? XletInfo::SIGNAL : XletInfo::CONTROL };
 }
 
 int pd::External::xPos() const

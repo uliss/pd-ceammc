@@ -35,11 +35,11 @@
             timeline is running</property>
             <property name="@length" readonly="true" type="float" default="60" units="second">
             timeline length</property>
-            <property name="@size" readonly="true" type="int" default="60" units="second">number of
+            <property name="@size" readonly="true" type="int" default="1" minvalue="0">number of
             events in timeline</property>
             <property name="@current" readonly="true" type="float" units="millisecond" default="0">
             current time</property>
-            <property name="@phase" readonly="true" type="float" minvalue="0" maxvalue="0"
+            <property name="@phase" readonly="true" type="float" minvalue="0" maxvalue="1"
             default="0">current phase in [0-1) range</property>
             <property name="@events" readonly="true" type="list" default="end">list of event names
             in chronological order</property>
@@ -53,6 +53,7 @@
             <method name="start">start timeline from current position</method>
             <method name="pause">stops timeline at current position</method>
             <method name="stop">stops timeline and reset current position to the beginning</method>
+            <method name="reset">reset timeline (call only when stopped)</method>
             <!--add-->
             <method name="add">add event to timeline. You can use simple syntax like [add 10.1 sec(
             to create event with default name, or use advanced: [add myEvent 510ms before end( 

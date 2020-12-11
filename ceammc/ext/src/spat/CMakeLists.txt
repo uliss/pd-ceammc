@@ -37,6 +37,8 @@ endmacro()
 
 ceammc_spat_obj_ext(pan4)
 ceammc_spat_obj_ext(pan8)
+ceammc_spat_obj_ext(zita8)
+ceammc_spat_obj_ext(zita6x8)
 
 add_library(ceammc_spat STATIC mod_spat.cpp ${SPAT_SOURCES} ${HOA_SOURCES})
 set_target_properties(ceammc_spat PROPERTIES COMPILE_DEFINITIONS "FAUST_MACRO")

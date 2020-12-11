@@ -37,7 +37,7 @@ void ArrayCopy::onList(const AtomList& l)
     copy(l[0].asSymbol(), l[1].asSymbol());
 }
 
-void ArrayCopy::m_copy(t_symbol*, const AtomList& lst)
+void ArrayCopy::m_copy(t_symbol*, const AtomListView& lst)
 {
     /// copy array1 array2
     if (lst.size() == 2 && lst.allOf(isSymbol))

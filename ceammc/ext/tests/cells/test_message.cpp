@@ -56,7 +56,7 @@ TEST_CASE("Message", "[core]")
     Message v11(AtomList(new IntData(124)));
     REQUIRE(v11.isData());
 
-    Message v12(&s_bang);
+    Message v12 = Message::makeBang();
     REQUIRE(v12.isBang());
 
     SECTION("template")

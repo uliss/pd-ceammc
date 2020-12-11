@@ -67,4 +67,13 @@ void setup_list_repeat()
 {
     ObjectFactory<ListRepeat> obj("list.repeat");
     obj.processData();
+
+    obj.setDescription("output new list by repeating input list specified times");
+    obj.addAuthor("Serge Poltavsky");
+    obj.setKeywords({ "list", "repeat" });
+    obj.setCategory("list");
+    obj.setSinceVersion(0, 1);
+
+    ListRepeat::setInletsInfo(obj.classPointer(), { "list or Mlist", "int: set number of repeats" });
+    ListRepeat::setOutletsInfo(obj.classPointer(), { "list or Mlist" });
 }

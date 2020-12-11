@@ -30,42 +30,36 @@ t_symbol* HoaProcess::SYM_DSP;
 HoaProcess::HoaProcess(const PdArgs& args)
     : SoundExternal(args)
     , domain_(nullptr)
+    , patch_(nullptr)
     , num_(nullptr)
     , clock_(this, &HoaProcess::clockTick)
 {
-    domain_ = new SymbolEnumProperty("@domain", SYM_HARMONICS);
-    domain_->appendEnum(SYM_PLANEWAVES);
+    domain_ = new SymbolEnumProperty("@domain", { SYM_HARMONICS, SYM_PLANEWAVES });
     domain_->setInitOnly();
+    domain_->setArgIndex(2);
     addProperty(domain_);
+
+    patch_ = new SymbolProperty("@patch", &s_);
+    patch_->setInitOnly();
+    patch_->setArgIndex(1);
+    addProperty(patch_);
 
     num_ = new IntProperty("@n", 0);
     num_->setInitOnly();
     num_->checkMinEq(0);
+    num_->setArgIndex(0);
     addProperty(num_);
 }
 
-void HoaProcess::parseProperties()
+void HoaProcess::initDone()
 {
     try {
-        // handle position patch name
-        t_symbol* patch = positionalSymbolConstant(1, nullptr);
-        if (!patch)
-            throw std::invalid_argument("bad argument, second argument must be a patch name");
+        if (patch_->value() == &s_)
+            throw std::invalid_argument("@patch property required");
 
-        // hangle positional mode arg
-        if (positionalSymbolConstant(2, nullptr))
-            domain_->setValue(positionalSymbolConstant(2, &s_));
-
-        const auto ARG0 = positionalFloatArgumentT(0, -1);
-
-        if (domain_->value() == SYM_HARMONICS) {
-            if (ARG0 > 0)
-                num_->setValue(ARG0);
-            else
+        if (num_->value() < 1) {
+            if (domain_->value() == SYM_HARMONICS)
                 throw std::invalid_argument("order required");
-        } else if (domain_->value() == SYM_PLANEWAVES) {
-            if (ARG0 > 0)
-                num_->setValue(ARG0);
             else
                 throw std::invalid_argument("number of planewaves required");
         }
@@ -73,15 +67,15 @@ void HoaProcess::parseProperties()
         if (!init())
             throw std::runtime_error("can't init canvas");
 
-        AtomList patch_args = args().slice(3);
+        auto patch_args = args().view(3);
 
         if (domain_->value() == SYM_HARMONICS) {
-            if (!loadHarmonics(patch, patch_args)) {
-                throw std::runtime_error(fmt::format("can't load the patch {0}.pd", patch->s_name));
+            if (!loadHarmonics(patch_->value(), patch_args)) {
+                throw std::runtime_error(fmt::format("can't load the patch {0}.pd", patch_->value()->s_name));
             }
         } else {
-            if (!loadPlaneWaves(patch, patch_args)) {
-                throw std::runtime_error(fmt::format("can't load the patch {0}.pd", patch->s_name));
+            if (!loadPlaneWaves(patch_->value(), patch_args)) {
+                throw std::runtime_error(fmt::format("can't load the patch {0}.pd", patch_->value()->s_name));
             }
         }
 
@@ -401,32 +395,32 @@ void HoaProcess::sendListToSpread(size_t from, size_t inlet_idx, const AtomList&
     }
 }
 
-void HoaProcess::sendAnyToInstance(size_t inst_idx, size_t inlet_idx, t_symbol* s, const AtomList& l)
+void HoaProcess::sendAnyToInstance(size_t inst_idx, size_t inlet_idx, t_symbol* s, const AtomListView& l)
 {
     sendToN([&l, &inlet_idx, s](ProcessInstance* p) { p->anyTo(inlet_idx, s, l); }, inst_idx);
 }
 
-void HoaProcess::sendAnyToAll(size_t inlet_idx, t_symbol* s, const AtomList& l)
+void HoaProcess::sendAnyToAll(size_t inlet_idx, t_symbol* s, const AtomListView& l)
 {
     sendToAll([&l, &inlet_idx, s](ProcessInstance* p) { p->anyTo(inlet_idx, s, l); });
 }
 
-void HoaProcess::sendAnyToLessThen(size_t inst_idx, size_t inlet_idx, t_symbol* s, const AtomList& l)
+void HoaProcess::sendAnyToLessThen(size_t inst_idx, size_t inlet_idx, t_symbol* s, const AtomListView& l)
 {
     sendToLessThen([&l, &inlet_idx, s](ProcessInstance* p) { p->anyTo(inlet_idx, s, l); }, inst_idx);
 }
 
-void HoaProcess::sendAnyToGreaterEq(size_t inst_idx, size_t inlet_idx, t_symbol* s, const AtomList& l)
+void HoaProcess::sendAnyToGreaterEq(size_t inst_idx, size_t inlet_idx, t_symbol* s, const AtomListView& l)
 {
     sendToGreaterEq([&l, &inlet_idx, s](ProcessInstance* p) { p->anyTo(inlet_idx, s, l); }, inst_idx);
 }
 
-void HoaProcess::sendAnyToRange(size_t from, size_t to, size_t inlet_idx, t_symbol* s, const AtomList& l)
+void HoaProcess::sendAnyToRange(size_t from, size_t to, size_t inlet_idx, t_symbol* s, const AtomListView& l)
 {
     sendToRange([=](ProcessInstance* p) { p->anyTo(inlet_idx, s, l); }, from, to);
 }
 
-void HoaProcess::sendAnyToSpread(size_t from, size_t inlet_idx, t_symbol* s, const AtomList& l)
+void HoaProcess::sendAnyToSpread(size_t from, size_t inlet_idx, t_symbol* s, const AtomListView& l)
 {
     const auto N = std::min(l.size() + from, instances_.size());
 
@@ -434,7 +428,7 @@ void HoaProcess::sendAnyToSpread(size_t from, size_t inlet_idx, t_symbol* s, con
         instances_[i].anyTo(inlet_idx, s, l[i - from]);
 }
 
-bool HoaProcess::loadHarmonics(t_symbol* name, const AtomList& patch_args)
+bool HoaProcess::loadHarmonics(t_symbol* name, const AtomListView& patch_args)
 {
     const size_t NINSTANCE = calcNumHarm2d(num_->value());
 
@@ -461,7 +455,7 @@ bool HoaProcess::loadHarmonics(t_symbol* name, const AtomList& patch_args)
     return true;
 }
 
-bool HoaProcess::loadPlaneWaves(t_symbol* name, const AtomList& patch_args)
+bool HoaProcess::loadPlaneWaves(t_symbol* name, const AtomListView& patch_args)
 {
     const size_t NINSTANCE = num_->value();
     instances_.assign(NINSTANCE, ProcessInstance());
@@ -568,7 +562,7 @@ void HoaProcess::onClick(t_floatarg xpos, t_floatarg ypos, t_floatarg shift, t_f
         instances_.front().show();
 }
 
-void HoaProcess::m_open(t_symbol* m, const AtomList& lst)
+void HoaProcess::m_open(t_symbol* m, const AtomListView &lst)
 {
     if (!checkArgs(lst, ARG_FLOAT, m))
         return;
@@ -590,7 +584,7 @@ void HoaProcess::m_open(t_symbol* m, const AtomList& lst)
     }
 }
 
-void HoaProcess::m_dsp_on(t_symbol* m, const AtomList& lst)
+void HoaProcess::m_dsp_on(t_symbol* m, const AtomListView& lst)
 {
     static t_symbol* SYM_ALL = gensym("all");
     auto usage = [this, m]() {

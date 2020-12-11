@@ -24,13 +24,16 @@ using namespace ceammc;
 
 class ListApprox {
     AtomList lst_;
+    t_float margin_ = 0;
 
 public:
     ListApprox();
-    ListApprox(std::initializer_list<float> l);
+    ListApprox(std::initializer_list<t_float> l);
     std::string toString() const;
     friend ListApprox operator+(const ListApprox& l0, const ListApprox& l1);
     friend bool operator==(const ListApprox& la, const AtomList& al);
+
+    ListApprox& margin(t_float m);
 
     operator AtomList() const { return lst_; }
 };

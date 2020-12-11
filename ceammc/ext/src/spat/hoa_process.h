@@ -32,6 +32,7 @@ class HoaProcess : public SoundExternal {
     Buffer out_buf_;
 
     SymbolEnumProperty* domain_;
+    SymbolProperty* patch_;
     IntProperty* num_;
 
     // used to send loadbang to instances
@@ -40,20 +41,21 @@ class HoaProcess : public SoundExternal {
 public:
     HoaProcess(const PdArgs& args);
 
-    void parseProperties() override;
     void processBlock(const t_sample** in, t_sample** out) override;
     void setupDSP(t_signal** sp) final;
 
     void onClick(t_floatarg xpos, t_floatarg ypos, t_floatarg shift, t_floatarg ctrl, t_floatarg alt) override;
-    void m_open(t_symbol* m, const AtomList& lst);
-    void m_dsp_on(t_symbol* m, const AtomList& lst);
+    void m_open(t_symbol* m, const AtomListView& lst);
+    void m_dsp_on(t_symbol* m, const AtomListView& lst);
+
+    void initDone() override;
 
 private:
     bool init();
     void clockTick();
 
-    bool loadHarmonics(t_symbol* name, const AtomList& patch_args);
-    bool loadPlaneWaves(t_symbol* name, const AtomList& patch_args);
+    bool loadHarmonics(t_symbol* name, const AtomListView& patch_args);
+    bool loadPlaneWaves(t_symbol* name, const AtomListView& patch_args);
 
     void allocSignals();
     void allocInlets();
@@ -105,12 +107,12 @@ public:
     void sendListToRange(size_t from, size_t to, size_t inlet_idx, const AtomList& l);
     void sendListToSpread(size_t from, size_t inlet_idx, const AtomList& l);
 
-    void sendAnyToInstance(size_t inst_idx, size_t inlet_idx, t_symbol* s, const AtomList& l);
-    void sendAnyToAll(size_t inlet_idx, t_symbol* s, const AtomList& l);
-    void sendAnyToLessThen(size_t inst_idx, size_t inlet_idx, t_symbol* s, const AtomList& l);
-    void sendAnyToGreaterEq(size_t inst_idx, size_t inlet_idx, t_symbol* s, const AtomList& l);
-    void sendAnyToRange(size_t from, size_t to, size_t inlet_idx, t_symbol* s, const AtomList& l);
-    void sendAnyToSpread(size_t inst_idx, size_t inlet_idx, t_symbol* s, const AtomList& l);
+    void sendAnyToInstance(size_t inst_idx, size_t inlet_idx, t_symbol* s, const AtomListView& l);
+    void sendAnyToAll(size_t inlet_idx, t_symbol* s, const AtomListView& l);
+    void sendAnyToLessThen(size_t inst_idx, size_t inlet_idx, t_symbol* s, const AtomListView& l);
+    void sendAnyToGreaterEq(size_t inst_idx, size_t inlet_idx, t_symbol* s, const AtomListView& l);
+    void sendAnyToRange(size_t from, size_t to, size_t inlet_idx, t_symbol* s, const AtomListView& l);
+    void sendAnyToSpread(size_t inst_idx, size_t inlet_idx, t_symbol* s, const AtomListView& l);
 
 public:
     static t_symbol* SYM_SWITCH;

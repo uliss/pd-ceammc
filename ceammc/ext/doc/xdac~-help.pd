@@ -7,31 +7,31 @@
 #X obj 50 118 xdac~;
 #X obj 126 118 xdac~ 1:6;
 #X obj 242 118 xdac~ 1:3 5 7:12;
-#X obj 20 157 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 162 cnv 5 115 26 empty empty mouse_events: 4 10 0 14 -262144
+#X obj 20 167 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 172 cnv 5 115 26 empty empty mouse_events: 4 10 0 14 -262144
 -49933 0;
-#X text 110 197 Left-click;
-#X text 285 197 opens audio properties dialog.;
-#X obj 20 227 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 232 cnv 5 90 26 empty empty arguments: 4 10 0 14 -262144
+#X text 110 207 Left-click;
+#X text 285 207 opens audio properties dialog.;
+#X obj 20 237 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 242 cnv 5 90 26 empty empty arguments: 4 10 0 14 -262144
 -49933 0;
-#X text 110 267 1\.;
-#X text 150 267 list;
-#X obj 246 268 cnv 1 39 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 267 OUTS: list of output channels: single channel number
+#X text 110 277 1\.;
+#X text 150 277 list;
+#X obj 246 278 cnv 1 39 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 245 277 OUTS: list of output channels: single channel number
 or X:Y range \, that means from X channel to Y (including last one).
 If not specified - using 1 and 2 out channels.;
-#X obj 20 327 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 332 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
+#X obj 20 337 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 342 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
-#X text 110 333 1\.;
-#X text 245 333 first specified channel.;
-#X text 110 353 ....;
-#X text 245 353 ... specified channel.;
-#X text 110 373 n.;
-#X text 245 373 n-th specified channel.;
-#X obj 20 403 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 408 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
+#X text 110 343 1\.;
+#X text 245 343 first specified channel.;
+#X text 110 363 ....;
+#X text 245 363 ... specified channel.;
+#X text 110 383 n.;
+#X text 245 383 n-th specified channel.;
+#X obj 20 413 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 418 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;

@@ -86,4 +86,13 @@ void setup_list_set()
     obj.processData<DataTypeMList>();
     obj.useDefaultPdFloatFn();
     obj.useDefaultPdSymbolFn();
+
+    obj.setDescription("set list value at specified position");
+    obj.addAuthor("Serge Poltavsky");
+    obj.setKeywords({ "list", "set" });
+    obj.setCategory("list");
+    obj.setSinceVersion(0, 6);
+
+    ListSet::setInletsInfo(obj.classPointer(), { "list or Mlist", "int: set index", "atom: set value" });
+    ListSet::setOutletsInfo(obj.classPointer(), { "list or Mlist" });
 }

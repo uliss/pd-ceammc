@@ -30,7 +30,7 @@
             </inlet>
         </inlets>
         <outlets>
-            <outlet>frequency in herz</outlet>
+            <outlet>period in milliseconds</outlet>
         </outlets>
         <example>
             <pdascii>

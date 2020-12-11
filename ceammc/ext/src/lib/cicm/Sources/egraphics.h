@@ -533,13 +533,13 @@ void eimage_copy(t_eimage* dest, const t_eimage* img1);
 void eimage_set_base64_data(t_eimage* img, const char* base64);
 
 //! @cond
-float pd_clip_min(float aValue, float aMinimum);
-float pd_clip_max(float aValue, float aMaximum);
-float pd_clip_minmax(float aValue, float aMinimum, float aMaximum);
-float pd_ordinate(float radius, float angle);
-float pd_abscissa(float radius, float angle);
-float pd_radius(float x, float y);
-float pd_angle(float x, float y);
+t_float pd_clip_min(t_float aValue, t_float aMinimum);
+t_float pd_clip_max(t_float aValue, t_float aMaximum);
+t_float pd_clip_minmax(t_float aValue, t_float aMinimum, t_float aMaximum);
+t_float pd_ordinate(t_float radius, t_float angle);
+t_float pd_abscissa(t_float radius, t_float angle);
+t_float pd_radius(t_float x, t_float y);
+t_float pd_angle(t_float x, t_float y);
 //! @endcond
 
 /** @} */

@@ -21,9 +21,18 @@ using namespace ceammc;
 struct _fluid_synth_t;
 typedef struct _fluid_synth_t fluid_synth_t;
 
+class FluidSynthProperty;
+
 class Fluid : public SoundExternal {
     fluid_synth_t* synth_;
     t_symbol* sound_font_;
+    FluidSynthProperty* reverb_room_;
+    FluidSynthProperty* reverb_damp_;
+    FluidSynthProperty* reverb_width_;
+    FluidSynthProperty* reverb_level_;
+
+    FluidSynthProperty* gain_;
+    FluidSynthProperty* polyphony_;
 
 public:
     Fluid(const PdArgs& args);
@@ -38,16 +47,16 @@ public:
     AtomList propVersion() const;
     AtomList propSoundFonts() const;
 
-    void m_note(t_symbol* s, const AtomList& lst);
-    void m_cc(t_symbol* s, const AtomList& lst);
-    void m_prog(t_symbol* s, const AtomList& lst);
-    void m_bank(t_symbol* s, const AtomList& lst);
-    void m_bend(t_symbol* s, const AtomList& lst);
-    void m_gen(t_symbol* s, const AtomList& lst);
-    void m_panic(t_symbol* s, const AtomList& lst);
-    void m_reset(t_symbol* s, const AtomList& lst);
-    void m_notesOff(t_symbol* s, const AtomList& lst);
-    void m_soundsOff(t_symbol* s, const AtomList& lst);
+    void m_note(t_symbol* s, const AtomListView& lst);
+    void m_cc(t_symbol* s, const AtomListView& lst);
+    void m_prog(t_symbol* s, const AtomListView& lst);
+    void m_bank(t_symbol* s, const AtomListView& lst);
+    void m_bend(t_symbol* s, const AtomListView& lst);
+    void m_gen(t_symbol* s, const AtomListView& lst);
+    void m_panic(t_symbol* s, const AtomListView& lst);
+    void m_reset(t_symbol* s, const AtomListView& lst);
+    void m_notesOff(t_symbol* s, const AtomListView& lst);
+    void m_soundsOff(t_symbol* s, const AtomListView& lst);
 
     void dump() const override;
 };

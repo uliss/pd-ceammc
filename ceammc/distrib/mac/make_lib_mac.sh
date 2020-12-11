@@ -134,6 +134,9 @@ do
     echo "+ WAV: '$help'"
 done
 
+echo "Copying sound samples to ${OUTDIR}/sound ..."
+cp -R "${SRCDIR}/ext/doc/sound" ${OUTDIR}
+
 echo "Copying SF2 fonts to ${OUTDIR}/sf2 ..."
 cp -R "${SRCDIR}/extra/fluidsynth/fluidsynth/sf2" ${OUTDIR}
 
@@ -149,6 +152,8 @@ echo "    stargazing.mod"
 cp "${SRCDIR}/ext/doc/stargazing.mod" "${OUTDIR}"
 echo "    prs.txt"
 cp "${SRCDIR}/ext/doc/prs.txt" "${OUTDIR}"
+echo "    sur_la_planche.glitch"
+cp "${SRCDIR}/ext/doc/sur_la_planche.glitch" "${OUTDIR}"
 echo "    soundtouch~"
 soundtouch_ext=$(find_ext "${BINDIR}/ceammc/extra/SoundTouch/pd" "soundtouch~")
 cp "$soundtouch_ext" "${OUTDIR}"

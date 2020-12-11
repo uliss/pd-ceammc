@@ -16,11 +16,12 @@
 
 #include "ceammc_data.h"
 #include "ceammc_object.h"
+#include "string_property.h"
 
 using namespace ceammc;
 
 class StringEqual : public BaseObject {
-    std::string str1_;
+    StringProperty* pattern_;
 
 public:
     StringEqual(const PdArgs& a);

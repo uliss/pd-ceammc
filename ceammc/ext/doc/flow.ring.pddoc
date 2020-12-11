@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="flow.ring">
+        <title>flow.ring</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>dataflow ring buffer</description>
+            <license>GPL3 or later</license>
+            <library>ceammc</library>
+            <category>flow</category>
+            <keywords>ring buffer dataflow</keywords>
+            <since>0.9.1</since>
+            <aliases>
+                <alias>flow.&gt;&gt;</alias>
+            </aliases>
+        </meta>
+        <arguments>
+            <argument type="int" name="N" minvalue="1">buffer length</argument>
+        </arguments>
+        <properties>
+            <property name="@length" type="int" default="2" minvalue="1" maxvalue="24">buffer
+            length</property>
+        </properties>
+        <inlets>
+            <inlet>
+                <xinfo>input</xinfo>
+            </inlet>
+            <inlet>
+                <xinfo on="bang">output all buffer values</xinfo>
+                <xinfo>get IDX: output buffer value at specified index</xinfo>
+                <xinfo>fill ARGS...: fill buffer with specified values (no output)</xinfo>
+            </inlet>
+        </inlets>
+        <outlets dynamic="true">
+            <outlet number="1">first output</outlet>
+            <outlet number="...">... output</outlet>
+            <outlet number="n">n-th output</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[B]                             [flow.ring.sound]
+|
+[f 1] X [+ 1]        [fill -1, bang(
+|                    |.
+[flow.ring 4        {w=29}]
+|      ^|     ^^|    ^^^|
+[F]    [F]    [F]    [F ]
+]]>
+            </pdascii>
+            <pdascii id="sound">
+<![CDATA[
+[T]    [F]
+|      |.
+[metro 150]
+|
+[random.i 43 80 @seed 1]
+|
+[mtof]               [fill 0, bang(
+|                    |.
+[flow.ring 4        {w=29}]
+|      ^|     ^^|    ^^^|
+[osc~] [osc~] [osc~] [osc~]
+|      |.     |..    |...
+[pan.spread~ 4      {w=29}] [ui.dsp~]
+*|*
+[ui.hgain2~ @size 15 206]
+*|*
+[fx.zita_rev1~ @drywet 0.4 {w=29}]
+*|*
+[dac~ {w=29}]
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

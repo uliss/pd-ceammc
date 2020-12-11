@@ -22,7 +22,7 @@ TEST_CASE("flow.demultiplex", "[externals]")
 
     SECTION("init")
     {
-        TestFlowDemultiplex t("flow.demultiplex");
+        TObj t("flow.demultiplex");
         REQUIRE(t.numInlets() == 2);
         REQUIRE(t.numOutlets() == 2);
         REQUIRE_PROPERTY(t, @index, 0.f);
@@ -30,7 +30,7 @@ TEST_CASE("flow.demultiplex", "[externals]")
         // invalid
         SECTION("number")
         {
-            TestFlowDemultiplex t("flow.demultiplex", LF(0.f));
+            TObj t("flow.demultiplex", LF(0.f));
             REQUIRE(t.numInlets() == 2);
             REQUIRE(t.numOutlets() == 2);
             REQUIRE_PROPERTY(t, @index, 0.f);
@@ -39,7 +39,7 @@ TEST_CASE("flow.demultiplex", "[externals]")
         // invalid
         SECTION("number")
         {
-            TestFlowDemultiplex t("flow.demultiplex", LF(-1));
+            TObj t("flow.demultiplex", LF(-1));
             REQUIRE(t.numInlets() == 2);
             REQUIRE(t.numOutlets() == 2);
             REQUIRE_PROPERTY(t, @index, 0.f);
@@ -48,7 +48,7 @@ TEST_CASE("flow.demultiplex", "[externals]")
         // invalid
         SECTION("number")
         {
-            TestFlowDemultiplex t("flow.demultiplex", LF(1000));
+            TObj t("flow.demultiplex", LF(1000));
             REQUIRE(t.numInlets() == 2);
             REQUIRE(t.numOutlets() == 24);
             REQUIRE_PROPERTY(t, @index, 0.f);
@@ -57,7 +57,7 @@ TEST_CASE("flow.demultiplex", "[externals]")
         // invalid
         SECTION("number")
         {
-            TestFlowDemultiplex t("flow.demultiplex", LF(1));
+            TObj t("flow.demultiplex", LF(1));
             REQUIRE(t.numInlets() == 2);
             REQUIRE(t.numOutlets() == 2);
             REQUIRE_PROPERTY(t, @index, 0.f);
@@ -66,7 +66,7 @@ TEST_CASE("flow.demultiplex", "[externals]")
         // valid
         SECTION("number")
         {
-            TestFlowDemultiplex t("flow.demultiplex", LF(8));
+            TObj t("flow.demultiplex", LF(8));
             REQUIRE(t.numInlets() == 2);
             REQUIRE(t.numOutlets() == 8);
             REQUIRE_PROPERTY(t, @index, 0.f);
@@ -75,7 +75,7 @@ TEST_CASE("flow.demultiplex", "[externals]")
 
     SECTION("process")
     {
-        TestFlowDemultiplex t("flow.demultiplex", LF(3));
+        TObj t("flow.demultiplex", LF(3));
 
         WHEN_SEND_BANG_TO(0, t);
         REQUIRE_BANG_AT_OUTLET(0, t);
@@ -131,10 +131,10 @@ TEST_CASE("flow.demultiplex", "[externals]")
     {
         test::pdPrintToStdError();
 
-        TestExtFlowDemultiplex t("flow.demultiplex");
+        TExt t("flow.demultiplex");
         REQUIRE(t.object());
 
-        TestExtFlowDemultiplex t2("flow.demux");
+        TExt t2("flow.demux");
         REQUIRE(t2.object());
 
         pd::External f("f");
@@ -173,29 +173,12 @@ TEST_CASE("flow.demultiplex", "[externals]")
         t.call("@index?");
         REQUIRE(t.hasOutputAt(0));
         REQUIRE(!t.hasOutputAt(1));
-        REQUIRE(t.outputAnyAt(0) == LA("@index", 0.f));
+        REQUIRE(t.outputAnyAt(0) == LA("@index?"));
 
         t.call("@index", LF(1));
-        REQUIRE_FALSE(t.hasOutputAt(0));
-        REQUIRE(t->property("@index")->get() == LF(1));
-
-        //
-        // @noprops
-        //
-        TestExtFlowDemultiplex t3("flow.demultiplex", LA("@noprops"));
-        t3.call("@index?");
-        REQUIRE(t3.hasOutputAt(0));
-        REQUIRE(!t3.hasOutputAt(1));
-        REQUIRE(t3.outputAnyAt(0) == LA("@index?"));
-
-        t3.call("@size?");
-        REQUIRE(t3.hasOutputAt(0));
-        REQUIRE(!t3.hasOutputAt(1));
-        REQUIRE(t3.outputAnyAt(0) == LA("@size?"));
-
-        t3.call("@index", LF(1));
-        REQUIRE(t3.hasOutputAt(0));
-        REQUIRE(t3.outputAnyAt(0) == LA("@index", 1));
-        REQUIRE(t3->property("@index")->get() == LF(0));
+        REQUIRE(t.hasOutputAt(0));
+        REQUIRE(!t.hasOutputAt(1));
+        REQUIRE(t.outputAnyAt(0) == LA("@index", 1));
+        REQUIRE(t->property("@index")->get() == LF(0));
     }
 }

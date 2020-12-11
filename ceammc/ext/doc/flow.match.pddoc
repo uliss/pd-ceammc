@@ -16,11 +16,15 @@
                 <see>string.match</see>
             </also>
         </meta>
+        <info>
+            <par>if you want to match property - use double quotes in arg list: "@prop+"</par>
+        </info>
         <arguments>
             <argument name="RE_LST" type="list" required="true">list of regular
             expressions</argument>
         </arguments>
         <properties>
+            <property name="@patterns" type="list">list of regular expressions</property>
             <property name="@cut" type="int" default="0" enum="0 1">cut or pass message
             selector</property>
         </properties>
@@ -49,18 +53,18 @@
         <example>
             <pdascii>
 <![CDATA[
-[amp2( [amp3( [freq0( [freq1( [unmatched(
-|      |      |       |       |
-|      |      |       |       |
-|      |      |       |       |
-[symbol                       ]
-|
-[S digits=16]
+[amp2( [amp3( [freq0( [freq1( [unmatched(     [F]
+|      |      |       |       |               |
+|      |      |       |       |               [@prop $1(
+|      |      |       |       |               |
+[symbol                       ]               [flow.match "@p.+"]
+|                                             |
+[S digits=16]                                 [ui.display @display_type 1]
 |
 [flow.match freq`d amp`d]
 |              ^|     ^^|
 |               |       |
-[S]           [S]       [ui.display @display_type=1]
+[S]           [S]       [ui.display @display_type 1]
 ]]>
             </pdascii>
         </example>

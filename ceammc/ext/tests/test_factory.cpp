@@ -94,7 +94,7 @@ public:
     t_symbol* methodSel() { return sel_; }
     const AtomList& methodArgs() const { return args_; }
 
-    void m_method(t_symbol* sel, const AtomList& args)
+    void m_method(t_symbol* sel, const AtomListView& args)
     {
         method_called_++;
         args_ = args;
@@ -126,7 +126,6 @@ public:
     TestProperties(const PdArgs& a)
         : TestClass(a)
     {
-
     }
 
 public:
@@ -167,7 +166,8 @@ TEST_CASE("ceammc_factory", "[core]")
         REQUIRE(ext->impl->owner() == &ext->pd_obj);
         REQUIRE(ext->impl->className() == gensym("test.new"));
         REQUIRE(ext->impl->classPointer() == ext->pd_obj.te_g.g_pd);
-        REQUIRE(ext->impl->positionalArguments() == LA(2, "a"));
+        REQUIRE(ext->impl->parsedPosArgs() == LA(2, "a"));
+        REQUIRE(ext->impl->unparsedPosArgs() == LA(2, "a"));
         REQUIRE_PROPERTY((*ext->impl), @test_prop, -1);
 
         pd_free(&ext->pd_obj.te_g.g_pd);
@@ -210,7 +210,8 @@ TEST_CASE("ceammc_factory", "[core]")
         REQUIRE(ext->impl != 0);
         REQUIRE(ext->impl->owner() == &ext->pd_obj);
         REQUIRE(ext->impl->className() == gensym("test.new"));
-        REQUIRE(ext->impl->positionalArguments() == LA(2, "a"));
+        REQUIRE(ext->impl->parsedPosArgs() == LA(2, "a"));
+        REQUIRE(ext->impl->unparsedPosArgs() == LA(2, "a"));
         REQUIRE_PROPERTY((*ext->impl), @test_prop, 33);
 
         pd_free(&ext->pd_obj.te_g.g_pd);

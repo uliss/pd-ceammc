@@ -23,8 +23,6 @@ namespace ceammc {
 class BaseObject;
 class UIObject;
 
-void register_base_external(t_class* c);
-void register_faust_external(t_class* c);
 void register_flext_external(t_class* c);
 void register_ui_external(t_class* c);
 

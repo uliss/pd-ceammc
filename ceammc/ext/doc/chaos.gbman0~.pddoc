@@ -1,4 +1,4 @@
-<?xml version='1.0' encoding='utf-8'?>
+<?xml version="1.0" encoding="utf-8"?>
 <pddoc version="1.0">
     <object name="chaos.gbman0~">
         <title>chaos.gbman0~</title>
@@ -26,7 +26,7 @@
             <argument name="X" type="float">initial x value, default 1.2</argument>
             <argument name="Y" type="float">initial y value, default 2.1</argument>
         </arguments>
-        <properties></properties>
+        <properties />
         <methods />
         <inlets>
             <inlet type="audio">

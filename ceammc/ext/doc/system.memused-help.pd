@@ -13,20 +13,20 @@ peak;
 #X obj 50 190 / 1024;
 #X floatatom 50 219 12 0 0 0 - - -;
 #X floatatom 261 219 12 0 0 0 - - -;
-#X obj 20 258 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 263 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
+#X obj 20 268 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 273 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
-#X text 110 264 1\.;
-#X text 150 264 *bang*;
-#X text 245 264 outputs memory use.;
-#X obj 20 294 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 299 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
+#X text 110 274 1\.;
+#X text 150 274 *bang*;
+#X text 245 274 outputs memory use.;
+#X obj 20 304 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 309 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 300 1\.;
-#X text 245 300 current physical memory use measured in bytes \, or
+#X text 110 310 1\.;
+#X text 245 310 current physical memory use measured in bytes \, or
 zero if the value cannot be determined on this OS.;
-#X text 110 335 2\.;
-#X text 245 335 peak (maximum so far) physical memory use measured
+#X text 110 345 2\.;
+#X text 245 345 peak (maximum so far) physical memory use measured
 in bytes \, or zero if the value cannot be determined on this OS.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;

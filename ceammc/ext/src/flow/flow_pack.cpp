@@ -17,33 +17,35 @@
 
 #include <algorithm>
 
-constexpr size_t MIN_INLETS = 1;
-constexpr size_t MAX_INLETS = 256;
-constexpr size_t DEF_INLETS = 1;
+char FlowPack::descr_buf_[MAX_INLETS][DESC_LEN] = { { 0 } };
 
 FlowPack::FlowPack(const PdArgs& args)
     : BaseObject(args)
-    , n_(positionalConstant<DEF_INLETS, MIN_INLETS, MAX_INLETS>(0))
+    , num_(nullptr)
+    , msg_(nullptr)
 {
+    num_ = new IntProperty("@n", DEF_INLETS);
+    num_->setInitOnly();
+    num_->checkClosedRange(MIN_INLETS, MAX_INLETS);
+    num_->setArgIndex(0);
+    addProperty(num_);
+
+    msg_ = new ListProperty("@init");
+    msg_->setInitOnly();
+    msg_->setArgIndex(1);
+    msg_->checkRangeElementCount(MIN_INLETS, MAX_INLETS);
+    addProperty(msg_);
+}
+
+void FlowPack::initDone()
+{
+    msg_->value().resizePad(num_->value(), Atom(0.));
+
     // (in/out)lets
-    for (size_t i = 1; i < n_; i++)
+    for (int i = 1; i < num_->value(); i++)
         createInlet();
 
     createOutlet();
-
-    // fill all with zeroes
-    msg_.fill(Atom(0.f), n_);
-
-    // fill default values from positiona arguments (starting from index 1)
-    if (!args.args.empty()) {
-        const size_t N = std::min<size_t>(msg_.size(), args.args.size() - 1);
-        for (size_t i = 0; i < N; i++)
-            msg_[i] = args.args[i + 1];
-    }
-}
-
-void FlowPack::parseProperties()
-{
 }
 
 void FlowPack::onBang()
@@ -53,27 +55,30 @@ void FlowPack::onBang()
 
 void FlowPack::onFloat(t_float f)
 {
-    msg_[0] = Atom(f);
+    msg_->value()[0] = Atom(f);
     output(0);
 }
 
 void FlowPack::onSymbol(t_symbol* s)
 {
-    msg_[0] = Atom(s);
+    msg_->value()[0] = Atom(s);
     output(0);
 }
 
 void FlowPack::onInlet(size_t idx, const AtomList& l)
 {
+    const size_t N = msg_->value().size();
+
     if (!l.empty()) {
-        if (idx >= msg_.size()) {
+        if (idx >= N) {
             OBJ_ERR << "invalid inlet index: " << idx;
             return;
         }
 
-        const size_t N = std::min<size_t>(idx + l.size(), msg_.size());
-        for (size_t i = idx; i < N; i++)
-            msg_[i] = l[i - idx];
+        // spread list values to other inelts
+        const size_t NMIN = std::min<size_t>(idx + l.size(), N);
+        for (size_t i = idx; i < NMIN; i++)
+            msg_->value()[i] = l[i - idx];
     }
 
     output(idx);
@@ -81,42 +86,68 @@ void FlowPack::onInlet(size_t idx, const AtomList& l)
 
 void FlowPack::onList(const AtomList& l)
 {
-    if (l.size() > msg_.size())
-        OBJ_ERR << "too many values in list: " << l.size() << ". Using only first " << msg_.size();
+    const size_t N = msg_->value().size();
 
-    const size_t N = std::min<size_t>(l.size(), msg_.size());
-    for (size_t i = 0; i < N; i++)
-        msg_[i] = l[i];
+    if (l.size() > N)
+        OBJ_ERR << "too many values in list: " << l.size() << ". Using only first " << N;
+
+    const size_t NMIN = std::min<size_t>(l.size(), N);
+    for (size_t i = 0; i < NMIN; i++)
+        msg_->value()[i] = l[i];
 
     output(0);
 }
 
-void FlowPack::onAny(t_symbol* s, const AtomList& l)
+void FlowPack::onAny(t_symbol* s, const AtomListView& l)
 {
-    if ((l.size() + 1) > msg_.size())
+    const size_t N = msg_->value().size();
+
+    if ((l.size() + 1) > N)
         OBJ_ERR << "too many atoms in message: " << (l.size() + 1);
 
-    const size_t N = std::min<size_t>(l.size() + 1, msg_.size());
+    const size_t NMIN = std::min<size_t>(l.size() + 1, N);
 
-    msg_[0] = s;
-    for (size_t i = 1; i < N; i++)
-        msg_[i] = l[i - 1];
+    msg_->value()[0] = s;
+    for (size_t i = 1; i < NMIN; i++)
+        msg_->value()[i] = l[i - 1];
 
-    anyTo(0, msg_);
-}
-
-bool FlowPack::processAnyProps(t_symbol* s, const AtomList& l)
-{
-    return false;
+    anyTo(0, msg_->value());
 }
 
 void FlowPack::output(size_t inlet_idx)
 {
     if (inlet_idx == 0)
-        listTo(0, msg_);
+        listTo(0, msg_->value());
+}
+
+const char* FlowPack::annotateInlet(size_t n) const
+{
+    if (n == 0)
+        return "bang:   output current value as list\n"
+               "float:  set first element and output as list\n"
+               "symbol: set first element and output as list\n"
+               "list:   spread among inlets and output as list\n"
+               "any:    spread among inlets and output as message";
+    else if (n < MAX_INLETS)
+        return descr_buf_[n];
+    else
+        return nullptr;
+}
+
+void FlowPack::initAnnotations()
+{
+    for (size_t i = 0; i < MAX_INLETS; i++)
+        snprintf(descr_buf_[i], DESC_LEN, "atom: set \\[%d\\]\n"
+                                          "list: set \\[%d..\\]",
+            (int)i, (int)i);
 }
 
 void setup_flow_pack()
 {
+    FlowPack::initAnnotations();
+
     ObjectFactory<FlowPack> obj("flow.pack");
+    obj.noPropsDispatch();
+    obj.addOutletInfo("list: packed list\n"
+                      "any:  packed message");
 }

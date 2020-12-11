@@ -32,6 +32,8 @@ public:
 
     int findPressedKey(const t_pt& pt) const;
 
+    const char* annotateOutlet(int n) const;
+
 public:
     static void setup();
 

@@ -40,4 +40,13 @@ public:
 void setup_list_repack()
 {
     ObjectFactory<ListRepack> obj("list.repack");
+
+    obj.setDescription("repack list to specified size");
+    obj.addAuthor("Serge Poltavsky");
+    obj.setKeywords({ "list", "repack" });
+    obj.setCategory("list");
+    obj.setSinceVersion(0, 1);
+
+    ListRepack::setInletsInfo(obj.classPointer(), { "list" });
+    ListRepack::setOutletsInfo(obj.classPointer(), { "flow: repacked lists", "bang: when finished" });
 }

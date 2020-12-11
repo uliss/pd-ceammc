@@ -72,10 +72,10 @@ public:
     void read(const std::string& fname);
     void write(const std::string& fname);
 
-    float p_rows() const;
-    float p_cols() const;
-    void p_setRows(float n);
-    void p_setCols(float n);
+    t_float p_rows() const;
+    t_float p_cols() const;
+    void p_setRows(t_float n);
+    void p_setCols(t_float n);
 
     void m_flip(const AtomList& lst);
     void m_reset();

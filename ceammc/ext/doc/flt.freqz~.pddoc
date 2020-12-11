@@ -24,10 +24,12 @@
             <property name="@b" type="list" default="1">numerator (zeros) coefficients</property>
             <property name="@sr" type="int" enum="0 1" default="0">normalize using current
             samplerate</property>
+            <property name="@db" type="int" enum="0 1" default="0">output amp response in db
+            scale</property>
         </properties>
         <inlets>
             <inlet type="audio">
-                <xinfo>input frequency in radians [0, pi] or in hertz [0 sr/2] if @sr property is
+                <xinfo>input frequency in radians [0, π] or in hertz [0 sr/2] if @sr property is
                 true</xinfo>
             </inlet>
         </inlets>

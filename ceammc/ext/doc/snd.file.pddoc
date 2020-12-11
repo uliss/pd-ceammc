@@ -4,7 +4,7 @@
         <title>snd.file</title>
         <meta>
             <authors>
-                <author>Pierre Guillot</author>
+                <author>Serge Poltavsky</author>
             </authors>
             <description>Sound file loader on steroids</description>
             <license>GPL3 or later</license>
@@ -45,14 +45,17 @@
             integer fraction - 44100/48000</param></method>
         </methods>
         <properties>
-            <property name="@formats" readonly="true" type="list">list of supported
-            formats</property>
+            <property name="@formats" readonly="true" type="list"
+            default="AAC AIFF ALAC AU AVR CAF FLAC HTK IFF MACE3:1 MACE6:1 MAT4 MAT5 MP3 MP4 MPC OGG PAF PVF RAW RF64 SD2 SDS SF VOC W64 WAV WAVEX WVE XI">
+            list of supported formats</property>
             <property name="@sr" readonly="true" type="list">source file samplerate</property>
             <property name="@filename" readonly="true" type="list">filename</property>
             <property name="@samples" readonly="true" type="list">list of loaded samples to each
             array</property>
             <property name="@smpte_fr" type="float" minvalue="1" maxvalue="99" default="30">SMPTE
             framerate for SMPTE offset calculations</property>
+            <property name="@verbose" type="int" enum="0 1" default="0">verbose output to Pd
+            window</property>
         </properties>
         <inlets>
             <inlet type="control">

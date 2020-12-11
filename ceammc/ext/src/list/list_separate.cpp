@@ -63,4 +63,13 @@ void setup_list_separate()
     ObjectFactory<ListSeparate> obj("list.separate");
     obj.addAlias("list.sep");
     obj.processData<DataTypeMList>();
+
+    obj.setDescription("sends list elements one by one separately");
+    obj.addAuthor("Serge Poltavsky");
+    obj.setKeywords({ "list", "separate" });
+    obj.setCategory("list");
+    obj.setSinceVersion(0, 3);
+
+    ListSeparate::setInletsInfo(obj.classPointer(), { "list or Mlist" });
+    ListSeparate::setOutletsInfo(obj.classPointer(), { "flow: atoms or lists", "bang: when finished" });
 }

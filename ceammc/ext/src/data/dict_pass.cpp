@@ -45,4 +45,13 @@ void setup_dict_pass()
 {
     ObjectFactory<DictPass> obj("dict.pass");
     obj.processData<DataTypeDict>();
+
+    obj.setDescription("passes specified keys in dict");
+    obj.addAuthor("Serge Poltavsky");
+    obj.setKeywords({ "pass", "dictionary" });
+    obj.setCategory("data");
+    obj.setSinceVersion(0, 7);
+
+    DictPass::setInletsInfo(obj.classPointer(), { "Dict", "list: set passed keys" });
+    DictPass::setOutletsInfo(obj.classPointer(), { "Dict" });
 }

@@ -57,10 +57,10 @@ TEST_CASE("DataAtom", "[core]")
 
     SECTION("parse")
     {
-        REQUIRE(parseDataString("S\"a b c d\"") == StringAtom("a b c d"));
-        REQUIRE(parseDataString("(a b c: d)").empty());
+        REQUIRE(parseDataString("S\"a b c d\"").result() == StringAtom("a b c d"));
+        REQUIRE(!parseDataString("(a b c: d)"));
 
-        REQUIRE(parseDataString("pi()") == LF(3.1415926));
-        REQUIRE(parseDataString("e()") == LF(2.7182818));
+        REQUIRE(parseDataString("pi()").result() == LF(std::acos(t_float(-1))));
+        REQUIRE(parseDataString("e()").result() == LF(std::exp(t_float(1))));
     }
 }

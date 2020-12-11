@@ -1,0 +1,172 @@
+#N canvas 0 0 785 555 12;
+#X declare -lib ceammc;
+#X obj 408 50 cnv 1 357 23 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 408 50 spat with 6 inputs sources to 8 channel output;
+#X obj 1 1 cnv 5 765 40 empty empty spat.zita6x8~ 20 20 0 20 -104026
+-4096 0;
+#X obj 645 11 spat.zita6x8~;
+#X msg 50 118 open %CEAMMC%/sound/vln-pizz-a4.aiff \, 1;
+#X obj 347 118 ui.polar @positive 1 @clockwise 0;
+#X obj 50 147 expand_env;
+#X floatatom 203 147 5 0 0 0 - - -;
+#X floatatom 251 147 5 0 0 0 - - -;
+#X obj 50 176 readsf~;
+#X msg 203 176 @dry0 \$1;
+#X msg 251 205 @wet0 \$1;
+#X obj 69 234 osc~ 1000;
+#X floatatom 251 234 5 0 0 0 - - -;
+#X obj 347 234 list.apply_to 1;
+#X obj 520 234 / 360;
+#X obj 69 262 env.ar~ 20 100;
+#X msg 251 262 @t0 \$1;
+#X msg 347 262 @r0 \$1 \, @a0 \$2;
+#X obj 50 320 spat.zita6x8~, f 20;
+#X obj 50 349 dac~ 1 2 3 4 5 6 7 8, f 20;
+#X obj 347 349 ui.dsp~;
+#X obj 20 398 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 403 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
+-49933 0;
+#X msg 110 438 @a0;
+#X text 245 438 Get/Set 1st source panning position. Type: float. Default
+value: 0\. Range: 0\...1\.;
+#X msg 110 480 @a1;
+#X text 245 480 Get/Set 2nd source panning position. Type: float. Default
+value: 0\. Range: 0\...1\.;
+#X msg 110 522 @a2;
+#X text 245 522 Get/Set 3rd source panning position. Type: float. Default
+value: 0\. Range: 0\...1\.;
+#X msg 110 564 @a3;
+#X text 245 564 Get/Set 4th source panning position. Type: float. Default
+value: 0\. Range: 0\...1\.;
+#X msg 110 606 @a4;
+#X text 245 606 Get/Set 5th source panning position. Type: float. Default
+value: 0\. Range: 0\...1\.;
+#X msg 110 648 @a5;
+#X text 245 648 Get/Set 6th source panning position. Type: float. Default
+value: 0\. Range: 0\...1\.;
+#X msg 110 690 @active;
+#X text 245 690 Get/Set on/off dsp processing. Type: int. Default value:
+1\. Allowed values: 0 \, 1\.;
+#X msg 110 732 @dry0;
+#X text 245 732 Get/Set direct sound level. Type: float. Units: db.
+Default value: -3\. Range: -60\...0\.;
+#X msg 110 774 @r0;
+#X text 245 774 Get/Set 1st source distance from circle center. Type:
+float. Default value: 1\. Range: 0\...1\.;
+#X msg 110 816 @r1;
+#X text 245 816 Get/Set 2nd source distance from circle center. Type:
+float. Default value: 1\. Range: 0\...1\.;
+#X msg 110 858 @r2;
+#X text 245 858 Get/Set 3rd source distance from circle center. Type:
+float. Default value: 1\. Range: 0\...1\.;
+#X msg 110 900 @r3;
+#X text 245 900 Get/Set 4th source distance from circle center. Type:
+float. Default value: 1\. Range: 0\...1\.;
+#X msg 110 942 @r4;
+#X text 245 942 Get/Set 5th source distance from circle center. Type:
+float. Default value: 1\. Range: 0\...1\.;
+#X msg 110 984 @r5;
+#X text 245 984 Get/Set 6th source distance from circle center. Type:
+float. Default value: 1\. Range: 0\...1\.;
+#X msg 110 1026 @t0;
+#X text 245 1026 Get/Set reverb time (in seconds) to decay 60dB in
+low and mid-frequency band. Type: float. Units: sec. Default value:
+2\. Range: 0\...90\.;
+#X msg 110 1083 @wet0;
+#X text 245 1083 Get/Set reverb sound level. Type: float. Units: db.
+Default value: -8\. Range: -60\...0\.;
+#X obj 20 1135 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1140 cnv 5 73 26 empty empty methods: 4 10 0 14 -262144
+-49933 0;
+#X msg 110 1175 reset;
+#X text 245 1175 reset reverb.;
+#X obj 20 1212 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1217 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144
+-49933 0;
+#X text 110 1218 1\.;
+#X text 245 1218 1st source input.;
+#X text 110 1238 2\.;
+#X text 245 1238 2nd source input.;
+#X text 110 1258 3\.;
+#X text 245 1258 3rd source input.;
+#X text 110 1278 4\.;
+#X text 245 1278 4th source input.;
+#X text 110 1298 5\.;
+#X text 245 1298 5th source input.;
+#X text 110 1318 6\.;
+#X text 245 1318 6th source input.;
+#X obj 20 1348 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1353 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
+-49933 0;
+#X text 110 1354 1\.;
+#X text 245 1354 1st output.;
+#X text 110 1374 2\.;
+#X text 245 1374 2dn output.;
+#X text 110 1394 3\.;
+#X text 245 1394 3rd output.;
+#X text 110 1414 4\.;
+#X text 245 1414 4th output.;
+#X text 110 1434 5\.;
+#X text 245 1434 5th output.;
+#X text 110 1454 6\.;
+#X text 245 1454 6th output.;
+#X text 110 1474 7\.;
+#X text 245 1474 7th output.;
+#X text 110 1494 8\.;
+#X text 245 1494 8th output.;
+#X obj 10 48 ui.link @title index @url ../index-help.pd;
+#X text 51 45 ::;
+#X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;
+#X text 115 45 ::;
+#X obj 131 48 ui.link @title spat @url ceammc.spat-help.pd;
+#X obj 1 1544 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1547 library: ceammc v0.9.0;
+#N canvas 10 1566 400 290 info 0;
+#X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
+#X text 10 10 library:;
+#X text 120 10 ceammc;
+#X text 10 32 version:;
+#X text 120 32 0.9.0;
+#X text 10 54 object:;
+#X text 120 54 spat.zita6x8~;
+#X text 10 76 category:;
+#X text 120 76 spat;
+#X text 10 98 since:;
+#X text 120 98 0.9.1;
+#X text 10 120 authors:;
+#X text 120 120 Serge Poltavsky;
+#X text 10 142 license:;
+#X text 120 142 GPL3 or later;
+#X text 10 164 keywords:;
+#X text 120 164 fx \, spat \, zita;
+#X text 10 186 website:;
+#X obj 120 189 ui.link @title https://github.com/uliss/pure-data @url
+https://github.com/uliss/pure-data;
+#X obj 120 208 declare -lib ceammc;
+#X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 120 268 generated by pddoc;
+#X restore 10 1566 pd info;
+#X connect 4 0 6 0;
+#X connect 6 0 9 0;
+#X connect 7 0 10 0;
+#X connect 5 0 14 0;
+#X connect 12 0 16 0;
+#X connect 13 0 17 0;
+#X connect 14 0 18 0;
+#X connect 9 0 19 0;
+#X connect 16 0 19 0;
+#X connect 17 0 19 0;
+#X connect 18 0 19 0;
+#X connect 19 0 20 0;
+#X connect 19 1 20 1;
+#X connect 19 2 20 2;
+#X connect 19 3 20 3;
+#X connect 19 4 20 4;
+#X connect 19 5 20 5;
+#X connect 19 6 20 6;
+#X connect 19 7 20 7;
+#X connect 10 0 19 0;
+#X connect 8 0 11 0;
+#X connect 11 0 19 0;
+#X connect 14 1 15 0;
+#X connect 15 0 14 2;

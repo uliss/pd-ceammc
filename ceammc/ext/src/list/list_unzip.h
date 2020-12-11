@@ -31,6 +31,8 @@ public:
     void onBang() override;
     void onList(const AtomList& l) override;
 
+    const char* annotateOutlet(size_t n) const final;
+
 private:
     void clearOutputList();
 };

@@ -1,0 +1,256 @@
+#N canvas 0 0 785 555 12;
+#X declare -lib ceammc;
+#X obj 453 50 cnv 1 312 23 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 453 50 Behringer XTouch Extender XMidi protocol;
+#X obj 1 1 cnv 5 765 40 empty empty proto.xtouch_ext 20 20 0 20
+-104026 -4096 0;
+#X obj 625 11 proto.xtouch_ext;
+#X obj 210 80 cnv 1 555 35 empty empty empty 17 7 0 10 -257983 -1 0;
+#X text 215 80 Behringer XTouch Extender XMidi;
+#X obj 50 143 midiin;
+#X symbolatom 155 143 25 0 0 0 - - -;
+#X obj 366 143 r oxt;
+#X obj 366 172 route fader0;
+#X obj 69 201 r ixt;
+#X obj 155 201 sym->any;
+#X obj 366 201 sync;
+#X obj 462 201 ui.knob;
+#X obj 50 230 proto.xtouch_ext;
+#X obj 174 259 ui.dt;
+#X msg 366 259 fader0 \$1;
+#X obj 50 287 midiout;
+#X obj 155 287 s oxt;
+#X obj 366 287 s ixt;
+#X obj 20 336 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 341 cnv 5 73 26 empty empty methods: 4 10 0 14 -262144
+-49933 0;
+#X msg 110 376 lcd;
+#X text 245 376 set LCD text. Arguments are:;
+#X obj 255 399 cnv 1 36 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 399 CHAN: channel index \, max value is NUM_SCENES * 8\.
+Type: int. Min value: 0\.;
+#X obj 255 437 cnv 1 45 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 437 UPPER: upper display text. Type: atom.;
+#X obj 255 460 cnv 1 44 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 460 LOWER: lower display text. Type: atom.;
+#X msg 110 485 lcd0;
+#X text 245 485 set upper LCD text. Arguments are:;
+#X obj 255 508 cnv 1 36 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 508 CHAN: channel index \, max value is NUM_SCENES * 8\.
+Type: int. Min value: 0\.;
+#X obj 255 546 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 546 STR: upper display text. Type: list.;
+#X msg 110 571 lcd1;
+#X text 245 571 set lower LCD text. Arguments are:;
+#X obj 255 594 cnv 1 36 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 594 CHAN: channel index \, max value is NUM_SCENES * 8\.
+Type: int. Min value: 0\.;
+#X obj 255 632 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 632 STR: lower display text. Type: list.;
+#X msg 110 657 lcd_align0;
+#X text 245 657 set upper text alignmenet. Note: you should set this
+before setting upper display text. Arguments are:;
+#X obj 255 695 cnv 1 36 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 695 CHAN: 'all' \, 'scene' or channel index \, max value
+is NUM_SCENES * 8\. Type: atom.;
+#X obj 255 733 cnv 1 45 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 733 ALIGN: align name. Valid names are: left \, right \,
+center \, justify and auto. Type: list.;
+#X msg 110 773 lcd_align1;
+#X text 245 773 set lower text alignmenet. Note: you should set this
+before setting lower display text. Arguments are:;
+#X obj 255 811 cnv 1 36 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 811 CHAN: 'all' \, 'scene' or channel index \, max value
+is NUM_SCENES * 8\. Type: atom.;
+#X obj 255 849 cnv 1 45 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 849 ALIGN: align name. Valid names are: left \, right \,
+center \, justify and auto. Type: list.;
+#X msg 110 889 lcd_color;
+#X text 245 889 set display color. Arguments are:;
+#X obj 255 912 cnv 1 36 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 912 CHAN: 'all' \, 'scene' or channel index \, max value
+is NUM_SCENES * 8\. Type: atom.;
+#X obj 255 950 cnv 1 45 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 950 COLOR: list of color name or color indexes. Valid color
+names are: black \, red \, green \, blue \, yellow \, magenta \, cyan
+\, white and random. Valid color indexes are in 0\..7 range. Type:
+list.;
+#X msg 110 1020 lcd_enum0;
+#X text 245 1020 set all upper display text with incremental enumeration.
+Arguments are:;
+#X obj 255 1058 cnv 1 62 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1058 [PREFIX]: name prefix. Type: atom.;
+#X msg 110 1083 lcd_enum1;
+#X text 245 1083 set all lower display text with incremental enumeration.
+Arguments are:;
+#X obj 255 1121 cnv 1 62 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1121 [PREFIX]: name prefix. Type: atom.;
+#X msg 110 1146 llcd;
+#X text 245 1146 set several lower LCD text. Arguments are:;
+#X obj 255 1169 cnv 1 36 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1169 CHAN: channel index \, max value is NUM_SCENES * 8\.
+Type: int. Min value: 0\.;
+#X obj 255 1207 cnv 1 45 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1207 ATOMS: lower display texts \, each atom per display.
+Type: list.;
+#X msg 110 1247 mute;
+#X text 245 1247 set mute buttons. Arguments are:;
+#X obj 255 1270 cnv 1 36 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1270 CHAN: 'all' \, 'scene' or channel index \, max value
+is NUM_SCENES * 8\. Type: atom.;
+#X obj 255 1308 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1308 X: button value(s). Type: list.;
+#X msg 110 1333 mute?;
+#X text 245 1333 get mute button \, output to second outlet in format
+[mute? IDX VALUE(. Arguments are:;
+#X obj 255 1371 cnv 1 36 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1371 CHAN: channel index \, max value is NUM_SCENES * 8\.
+Type: atom.;
+#X msg 110 1411 mute_mode;
+#X text 245 1411 set mute buttons toggle mode. Arguments are:;
+#X obj 255 1434 cnv 1 36 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1434 CHAN: 'all' \, 'scene' or channel index \, max value
+is NUM_SCENES * 8\. Type: atom.;
+#X obj 255 1472 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1472 X: values list: -1 \, 0 or 1\. Type: list.;
+#X msg 110 1497 rec;
+#X text 245 1497 set rec buttons. Arguments are:;
+#X obj 255 1520 cnv 1 36 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1520 CHAN: 'all' \, 'scene' or channel index \, max value
+is NUM_SCENES * 8\. Type: atom.;
+#X obj 255 1558 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1558 X: button value(s). Type: list.;
+#X msg 110 1583 rec?;
+#X text 245 1583 get rec button \, output to second outlet in format
+[rec? IDX VALUE(. Arguments are:;
+#X obj 255 1621 cnv 1 36 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1621 CHAN: channel index \, max value is NUM_SCENES * 8\.
+Type: atom.;
+#X msg 110 1661 rec_mode;
+#X text 245 1661 set rec buttons toggle mode. Arguments are:;
+#X obj 255 1684 cnv 1 36 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1684 CHAN: 'all' \, 'scene' or channel index \, max value
+is NUM_SCENES * 8\. Type: atom.;
+#X obj 255 1722 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1722 X: values list: -1 \, 0 or 1\. Type: list.;
+#X msg 110 1747 reset;
+#X text 245 1747 reset all knobs \, faders and buttons to 0 \, vu to
+lowest values. Do not change display texts.;
+#X msg 110 1787 select;
+#X text 245 1787 set select buttons. Arguments are:;
+#X obj 255 1810 cnv 1 36 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1810 CHAN: 'all' \, 'scene' or channel index \, max value
+is NUM_SCENES * 8\. Type: atom.;
+#X obj 255 1848 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1848 X: button value(s). Type: list.;
+#X msg 110 1873 select?;
+#X text 245 1873 get select button \, output to second outlet in format
+[select? IDX VALUE(. Arguments are:;
+#X obj 255 1911 cnv 1 36 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1911 CHAN: channel index \, max value is NUM_SCENES * 8\.
+Type: atom.;
+#X msg 110 1951 select_mode;
+#X text 245 1951 set select buttons toggle mode. Arguments are:;
+#X obj 255 1974 cnv 1 36 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1974 CHAN: 'all' \, 'scene' or channel index \, max value
+is NUM_SCENES * 8\. Type: atom.;
+#X obj 255 2012 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 2012 X: values list: -1 \, 0 or 1\. Type: list.;
+#X msg 110 2037 solo;
+#X text 245 2037 set solo buttons. Arguments are:;
+#X obj 255 2060 cnv 1 36 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 2060 CHAN: 'all' \, 'scene' or channel index \, max value
+is NUM_SCENES * 8\. Type: atom.;
+#X obj 255 2098 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 2098 X: button value(s). Type: list.;
+#X msg 110 2123 solo?;
+#X text 245 2123 get solo button \, output to second outlet in format
+[solo? IDX VALUE(. Arguments are:;
+#X obj 255 2161 cnv 1 36 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 2161 CHAN: channel index \, max value is NUM_SCENES * 8\.
+Type: atom.;
+#X msg 110 2201 solo_mode;
+#X text 245 2201 set solo buttons toggle mode. Arguments are:;
+#X obj 255 2224 cnv 1 36 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 2224 CHAN: 'all' \, 'scene' or channel index \, max value
+is NUM_SCENES * 8\. Type: atom.;
+#X obj 255 2262 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 2262 X: values list: -1 \, 0 or 1\. Type: list.;
+#X msg 110 2287 ulcd;
+#X text 245 2287 set several upper LCD text. Arguments are:;
+#X obj 255 2310 cnv 1 36 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 2310 CHAN: channel index \, max value is NUM_SCENES * 8\.
+Type: int. Min value: 0\.;
+#X obj 255 2348 cnv 1 45 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 2348 ATOMS: upper display texts \, each atom per display.
+Type: list.;
+#X msg 110 2388 vu;
+#X text 245 2388 set VU meter indicator. Arguments are:;
+#X obj 255 2411 cnv 1 36 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 2411 CHAN: channel index \, max value is NUM_SCENES * 8\.
+Type: int. Min value: 0\.;
+#X obj 255 2449 cnv 1 21 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 2449 DB: level in decibels \, in -144\..0 range. Type:
+float.;
+#X obj 20 2484 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 2489 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144
+-49933 0;
+#X text 110 2490 1\.;
+#X text 150 2490 *float*;
+#X text 245 2490 raw midi input.;
+#X text 150 2510 *any*;
+#X text 245 2510 recIDX VAL: set rec button \, muteIDX VAL: set mute
+button \, soloIDX VAL: set solo button \, selectIDX VAL: set select
+button \, knobIDX VAL: set knob value \, faderIDX VAL: set fader value.;
+#X obj 20 2585 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 2590 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
+-49933 0;
+#X text 110 2591 1\.;
+#X text 245 2591 raw midi output to behringer device.;
+#X text 110 2611 2\.;
+#X text 245 2611 control messages from device.;
+#X obj 10 48 ui.link @title index @url ../index-help.pd;
+#X text 51 45 ::;
+#X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;
+#X text 115 45 ::;
+#X obj 131 48 ui.link @title proto @url ceammc.proto-help.pd;
+#X obj 1 2661 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 2664 library: ceammc v0.9.0;
+#N canvas 10 2683 400 290 info 0;
+#X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
+#X text 10 10 library:;
+#X text 120 10 ceammc;
+#X text 10 32 version:;
+#X text 120 32 0.9.0;
+#X text 10 54 object:;
+#X text 120 54 proto.xtouch_ext;
+#X text 10 76 category:;
+#X text 120 76 proto;
+#X text 10 98 since:;
+#X text 120 98 0.9.1;
+#X text 10 120 authors:;
+#X text 120 120 Serge Poltavsky;
+#X text 10 142 license:;
+#X text 120 142 GPL3 or later;
+#X text 10 164 keywords:;
+#X text 120 164 xtouch \, behringer;
+#X text 10 186 website:;
+#X obj 120 189 ui.link @title https://github.com/uliss/pure-data @url
+https://github.com/uliss/pure-data;
+#X obj 120 208 declare -lib ceammc;
+#X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 120 268 generated by pddoc;
+#X restore 10 2683 pd info;
+#X connect 8 0 9 0;
+#X connect 7 0 11 0;
+#X connect 9 0 12 0;
+#X connect 6 0 14 0;
+#X connect 10 0 14 0;
+#X connect 11 0 14 0;
+#X connect 14 1 15 0;
+#X connect 12 0 16 0;
+#X connect 14 0 17 0;
+#X connect 14 1 18 0;
+#X connect 16 0 19 0;
+#X connect 12 1 13 0;
+#X connect 13 0 12 1;

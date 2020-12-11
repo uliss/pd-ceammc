@@ -74,7 +74,7 @@ void SystemCursor::onFloat(t_float f)
     }
 }
 
-void SystemCursor::m_button(t_symbol* s, const AtomList& args)
+void SystemCursor::m_button(t_symbol* s, const AtomListView& args)
 {
     static t_symbol* SYM = gensym("button");
 
@@ -82,7 +82,7 @@ void SystemCursor::m_button(t_symbol* s, const AtomList& args)
         anyTo(0, SYM, args);
 }
 
-void SystemCursor::m_motion(t_symbol* s, const AtomList& args)
+void SystemCursor::m_motion(t_symbol* s, const AtomListView& args)
 {
     static t_symbol* SYM = gensym("motion");
 
@@ -97,7 +97,7 @@ void SystemCursor::m_motion(t_symbol* s, const AtomList& args)
     }
 }
 
-void SystemCursor::m_wheel(t_symbol* s, const AtomList& args)
+void SystemCursor::m_wheel(t_symbol* s, const AtomListView& args)
 {
     static t_symbol* SYM = gensym("mousewheel");
 

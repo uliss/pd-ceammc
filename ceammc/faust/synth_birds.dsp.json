@@ -1,16 +1,18 @@
 {
 	"name": "synth.birds",
 	"filename": "synth_birds.dsp",
-	"version": "2.25.3",
+	"version": "2.28.6",
 	"compile_options": "-lang cpp -scal -ftz 0",
-	"library_list": ["/usr/local/share/faust/stdfaust.lib","/usr/local/share/faust/basics.lib","/usr/local/share/faust/signals.lib","/usr/local/share/faust/maths.lib","/usr/local/share/faust/platform.lib","/usr/local/share/faust/noises.lib","/usr/local/share/faust/filters.lib","/usr/local/share/faust/oscillators.lib"],
-	"include_pathnames": ["/usr/local/share/faust","/usr/local/share/faust","/usr/share/faust","/Users/serj/work/music/pure-data/ceammc/faust","/Users/serj/work/music/pure-data/ceammc/faust"],
+	"library_list": ["/usr/local/share/faust/stdfaust.lib","/usr/local/share/faust/basics.lib","/Users/serge/work/music/pure-data/ceammc/faust/ceammc_ui.lib","/usr/local/share/faust/signals.lib","/usr/local/share/faust/maths.lib","/usr/local/share/faust/platform.lib","/usr/local/share/faust/noises.lib","/usr/local/share/faust/filters.lib","/usr/local/share/faust/oscillators.lib"],
+	"include_pathnames": ["/usr/local/share/faust","/usr/local/share/faust","/usr/share/faust","/Users/serge/work/music/pure-data/ceammc/faust","/Users/serge/work/music/pure-data/ceammc/faust"],
 	"inputs": 0,
 	"outputs": 2,
 	"meta": [ 
 		{ "author": "Pierre Cochard" },
 		{ "basics.lib/name": "Faust Basic Element Library" },
 		{ "basics.lib/version": "0.1" },
+		{ "ceammc_ui.lib/name": "CEAMMC faust default UI elements" },
+		{ "ceammc_ui.lib/version": "0.1.2" },
 		{ "filename": "synth_birds.dsp" },
 		{ "filters.lib/lowpass0_highpass1": "MIT-style STK-4.3 license" },
 		{ "filters.lib/lowpass0_highpass1:author": "Julius O. Smith III" },
@@ -44,15 +46,30 @@
 	],
 	"ui": [ 
 		{
-			"type": "hgroup",
-			"label": "Bird",
+			"type": "vgroup",
+			"label": "synth.birds",
 			"items": [ 
+				{
+					"type": "checkbox",
+					"label": "auto",
+					"address": "/synth.birds/auto",
+					"meta": [
+						{ "type": "int" }
+					]
+				},
+				{
+					"type": "checkbox",
+					"label": "gate",
+					"address": "/synth.birds/gate",
+					"meta": [
+						{ "type": "bool" }
+					]
+				},
 				{
 					"type": "hslider",
 					"label": "probability",
-					"address": "/Bird/probability",
+					"address": "/synth.birds/probability",
 					"meta": [
-						{ "acc": "0 1 -10 0 10" },
 						{ "style": "knob" },
 						{ "unit": "%" }
 					],
@@ -64,9 +81,8 @@
 				{
 					"type": "hslider",
 					"label": "speed",
-					"address": "/Bird/speed",
+					"address": "/synth.birds/speed",
 					"meta": [
-						{ "acc": "0 1 -10 0 10" },
 						{ "style": "knob" }
 					],
 					"init": 240,

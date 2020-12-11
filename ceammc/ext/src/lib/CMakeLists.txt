@@ -1,5 +1,5 @@
 # main shared library
-add_library(ceammc_core SHARED)
+add_library(ceammc_core SHARED ceammc.cpp)
 target_include_directories(ceammc_core PRIVATE ${CMAKE_BINARY_DIR}) # for config.h
 target_include_directories(ceammc_core PRIVATE
     ${PROJECT_SOURCE_DIR}/src # m_pd.h
@@ -23,7 +23,6 @@ target_sources(ceammc_core PRIVATE ${UTF8REWIND_SOURCES})
 
 set(CEAMMC_LIB_SOURCES
     ceammc.h
-    ceammc.cpp
     ceammc_abstractdata.cpp
     ceammc_args.cpp
     args/argcheck.lexer.cpp
@@ -57,11 +56,13 @@ set(CEAMMC_LIB_SOURCES
     ceammc_faust.cpp
     ceammc_fn_list.cpp
     ceammc_format.cpp
+    ceammc_function.cpp
     ceammc_impl.cpp
     ceammc_json.h
     ceammc_json.cpp
     ceammc_log.cpp
     ceammc_message.cpp
+    ceammc_music_scale.cpp
     ceammc_music_temperament.cpp
     ceammc_music_theory.cpp
     ceammc_music_theory_names.cpp
@@ -79,10 +80,13 @@ set(CEAMMC_LIB_SOURCES
     ceammc_property_enum.cpp
     ceammc_property_info.cpp
     ceammc_regexp.cpp
+    ceammc_rtree.cpp
+    ceammc_score.cpp
     ceammc_sound_external.cpp
     ceammc_string.cpp
     ceammc_thread.cpp
     ceammc_timeline.cpp
+    ceammc_transport.cpp
     ceammc_units.cpp
     ceammc_window.cpp
     datatype_dict.cpp
@@ -142,6 +146,28 @@ if(BISON_FOUND AND FLEX_FOUND)
         SOURCES lex/array_loader.l
                 lex/array_loader.y
         WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/lex)
+
+    add_custom_target(ceammc_lexer_fraction
+        COMMAND $<TARGET_FILE:reflex-bin> fraction.l
+        SOURCES lex/fraction.l
+        WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/lex)
+
+    add_custom_target(ceammc_select_gen
+        COMMAND $<TARGET_FILE:reflex-bin> select.l
+        COMMAND ${BISON_EXECUTABLE} select.y
+        SOURCES lex/select.l lex/select.y
+        WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/lex)
+
+    add_custom_target(ceammc_score_gen
+        COMMAND $<TARGET_FILE:reflex-bin> score.l
+        COMMAND ${BISON_EXECUTABLE} score.y
+        SOURCES lex/score.l lex/score.y
+        WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/lex)
+
+    add_custom_target(ceammc_units_gen
+        COMMAND $<TARGET_FILE:reflex-bin> units.l
+        SOURCES lex/units.l
+        WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/lex)
 endif()
 
 if(WIN32)
@@ -155,6 +181,7 @@ endif()
 target_link_libraries(ceammc_core PRIVATE re2)
 target_link_libraries(ceammc_core PRIVATE reflex)
 target_link_libraries(ceammc_core PRIVATE muparser)
+#target_link_libraries(ceammc_core PRIVATE ${Boost_FILESYSTEM_LIBRARY} ${Boost_SYSTEM_LIBRARY})
 #target_link_libraries(ceammc_core PRIVATE puredata-core)
 
 target_include_directories(ceammc_core PRIVATE $<TARGET_PROPERTY:re2,INCLUDE_DIRECTORIES>)
@@ -178,7 +205,7 @@ if(WIN32)
             "${CMAKE_CURRENT_BINARY_DIR}/../tests")
 endif()
 
-#
+
 # sound library
 #
 set(CEAMMC_LOAD_SRC
@@ -187,6 +214,12 @@ set(CEAMMC_LOAD_SRC
     lex/array_loader.lexer.cpp
     lex/array_loader.parser.cpp
     lex/array_loader.cpp
+    lex/fraction.lexer.cpp
+    lex/select.lexer.cpp
+    lex/select.parser.cpp
+    lex/units.lexer.cpp
+    lex/score.lexer.cpp
+    lex/score.parser.cpp
     array_load_pattern.h
     array_load_pattern.cpp)
 
@@ -253,7 +286,7 @@ if(ENABLE_TESTS)
 endif()
 
 add_custom_target(ceammc_cicm_tcl_gen
-    COMMAND ${PROJECT_BINARY_DIR}/ceammc/scripts/filecontent_to_cxx_header.sh cicm/Sources/cicm_common.tcl
+    COMMAND ${PROJECT_SOURCE_DIR}/ceammc/scripts/filecontent_to_cxx_header.sh cicm/Sources/cicm_common.tcl
     COMMAND ${PROJECT_SOURCE_DIR}/ceammc/scripts/filecontent_to_cxx_header.sh cicm/Sources/cicm_common_bind.tcl
     SOURCES cicm/Sources/cicm_common.tcl cicm/Sources/cicm_common_bind.tcl
     WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR})

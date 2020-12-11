@@ -36,7 +36,6 @@ HoaDecoder::HoaDecoder(const PdArgs& args)
     : HoaBase(args)
     , mode_(nullptr)
     , plane_waves_(nullptr)
-    , crop_size_(0)
 {
     mode_ = new SymbolEnumProperty("@mode", { SYM_REGULAR, SYM_IRREGULAR, SYM_BINAURAL });
     mode_->setArgIndex(1);
@@ -129,11 +128,6 @@ void HoaDecoder::initDone()
 
     initDecoder();
 
-    propSetOffset(init_offset_);
-
-    if (!init_angles_.empty())
-        propSetAngles(init_angles_);
-
     createSignalInlets(decoder_->getNumberOfHarmonics());
     createSignalOutlets(decoder_->getNumberOfPlanewaves());
 
@@ -207,9 +201,9 @@ void HoaDecoder::initDecoder()
         decoder_.reset(new DecoderIrregular2d(order(), plane_waves_->value()));
     } else if (mode == SYM_BINAURAL) {
         DecoderBinaural2d* x = new DecoderBinaural2d(order());
-        x->setCropSize(crop_size_);
+        x->setCropSize(cache_crop_size_);
         // to assure limits
-        crop_size_ = x->getCropSize();
+        cache_crop_size_ = x->getCropSize();
         decoder_.reset(x);
     } else {
         OBJ_ERR << "unknown mode: " << mode;
@@ -218,23 +212,30 @@ void HoaDecoder::initDecoder()
 
 int HoaDecoder::propCropSize() const
 {
-    if (mode_->value() == SYM_BINAURAL) {
-        DecoderBinaural2d* p = static_cast<DecoderBinaural2d*>(decoder_.get());
-        return p->getCropSize();
-    } else
-        return crop_size_;
+    if (!decoder_ || mode_->value() != SYM_BINAURAL)
+        return cache_crop_size_;
+
+    // only in binaural mode
+    DecoderBinaural2d* p = static_cast<DecoderBinaural2d*>(decoder_.get());
+    return p->getCropSize();
 }
 
-bool HoaDecoder::propSetCropSize(int lst)
+bool HoaDecoder::propSetCropSize(int n)
 {
-    crop_size_ = lst;
+    cache_crop_size_ = n;
+
+    if (!decoder_)
+        return true;
 
     if (mode_->value() == SYM_BINAURAL) {
-        DecoderBinaural2d* p = static_cast<DecoderBinaural2d*>(decoder_.get());
-        p->setCropSize(crop_size_);
-        // to assure limits
-        crop_size_ = p->getCropSize();
+        OBJ_ERR << "not in binaural mode: can not set cropsize";
+        return false;
     }
+
+    DecoderBinaural2d* p = static_cast<DecoderBinaural2d*>(decoder_.get());
+    p->setCropSize(cache_crop_size_);
+    // to assure limits
+    cache_crop_size_ = p->getCropSize();
 
     return true;
 }
@@ -284,7 +285,7 @@ AtomList HoaDecoder::propPlaneWavesZ() const
 AtomList HoaDecoder::propAngles() const
 {
     if (!decoder_)
-        return {};
+        return cache_angles_;
 
     auto N = decoder_->getNumberOfPlanewaves();
     AtomList res;
@@ -302,37 +303,36 @@ bool HoaDecoder::propSetAngles(const AtomList& lst)
         return false;
     }
 
-    if (decoder_) {
-        if (mode_->value() != SYM_IRREGULAR) {
-            OBJ_ERR << "not in irregular mode: can not set angles";
-            return false;
-        }
+    if (!decoder_)
+        return true;
 
-        auto N = std::min<size_t>(decoder_->getNumberOfPlanewaves(), lst.size());
-        for (size_t i = 0; i < N; i++)
-            decoder_->setPlanewaveAzimuth(i, convert::degree2rad(lst[i].asFloat()));
-    } else {
-        // on init stage
-        init_angles_ = lst;
+    cache_angles_ = lst;
+
+    if (mode_->value() != SYM_IRREGULAR) {
+        OBJ_ERR << "not in irregular mode: can not set angles";
+        return false;
     }
+
+    auto N = std::min<size_t>(decoder_->getNumberOfPlanewaves(), lst.size());
+    for (size_t i = 0; i < N; i++)
+        decoder_->setPlanewaveAzimuth(i, convert::degree2rad(lst[i].asFloat()));
 
     return true;
 }
 
 bool HoaDecoder::propSetOffset(t_float f)
 {
-    if (decoder_) {
-        if (mode_->value() == SYM_BINAURAL) {
-            OBJ_ERR << "can not set offset in binaural mode";
-            return false;
-        }
+    cache_offset_ = f;
 
-        decoder_->setPlanewavesRotation(0, 0, convert::degree2rad(f));
-    } else {
-        // on init stage
-        init_offset_ = f;
+    if (!decoder_)
+        return true;
+
+    if (mode_->value() == SYM_BINAURAL) {
+        OBJ_ERR << "can not set offset in binaural mode";
+        return false;
     }
 
+    decoder_->setPlanewavesRotation(0, 0, convert::degree2rad(f));
     return true;
 }
 

@@ -1,16 +1,12 @@
-#include <ctime>
-#include <random>
-
+#include "random_float.h"
 #include "ceammc_factory.h"
 #include "fmt/format.h"
-#include "random_float.h"
-
-static std::mt19937 random_gen(std::time(0));
 
 RandomFloat::RandomFloat(const PdArgs& a)
     : BaseObject(a)
     , min_(nullptr)
     , max_(nullptr)
+    , seed_(nullptr)
 {
     createOutlet();
 
@@ -20,7 +16,7 @@ RandomFloat::RandomFloat(const PdArgs& a)
     addProperty(min_);
     addProperty(max_);
 
-    switch (a.args.size()) {
+    switch (parsedPosArgs().size()) {
     case 2:
         min_->setArgIndex(0);
         max_->setArgIndex(1);
@@ -28,9 +24,16 @@ RandomFloat::RandomFloat(const PdArgs& a)
     case 1:
         max_->setArgIndex(0);
         break;
+    case 0:
+        break;
     default:
+        OBJ_ERR << "expecting MIN MAX or MAX args";
         break;
     }
+
+    seed_ = new SizeTProperty("@seed", 0);
+    seed_->setSuccessFn([this](Property* p) { gen_.setSeed(seed_->value()); });
+    addProperty(seed_);
 }
 
 void RandomFloat::onBang()
@@ -45,11 +48,20 @@ void RandomFloat::onBang()
         return floatTo(0, min_->value());
 
     std::uniform_real_distribution<t_float> dist(min_->value(), max_->value());
-    floatTo(0, dist(random_gen));
+    floatTo(0, dist(gen_.get()));
 }
 
 void setup_random_float()
 {
     ObjectFactory<RandomFloat> obj("random.float");
     obj.addAlias("random.f");
+
+    obj.setDescription("uniform random float generator in specified range");
+    obj.addAuthor("Serge Poltavsky");
+    obj.setKeywords({ "random", "float" });
+    obj.setCategory("random");
+    obj.setSinceVersion(0, 1);
+
+    RandomFloat::setInletsInfo(obj.classPointer(), { "bang" });
+    RandomFloat::setOutletsInfo(obj.classPointer(), { "float: random within \\[@min..@max) range" });
 }

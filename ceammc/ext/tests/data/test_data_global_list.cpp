@@ -52,6 +52,11 @@ TEST_CASE("global.list", "[externals]")
         t2 << BANG;
         REQUIRE(t1.outputListAt(0) == L());
 
+        t1 << "SYMBOL";
+        REQUIRE(t1.outputListAt(0) == LA("SYMBOL"));
+        t2 << BANG;
+        REQUIRE(t2.outputListAt(0) == LA("SYMBOL"));
+
         t1 << LF(1, 2, 3);
         REQUIRE(t1.outputListAt(0) == LF(1, 2, 3));
         t2 << BANG;

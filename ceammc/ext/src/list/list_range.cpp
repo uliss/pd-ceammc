@@ -30,4 +30,13 @@ void setup_list_range()
     ObjectFactory<ListRange> obj("list.range");
     obj.addAlias("list.minmax");
     obj.processData<DataTypeMList>();
+
+    obj.setDescription("output list smallest and largest value");
+    obj.addAuthor("Serge Poltavsky");
+    obj.setKeywords({ "list", "range", "compare" });
+    obj.setCategory("list");
+    obj.setSinceVersion(0, 1);
+
+    ListRange::setInletsInfo(obj.classPointer(), { "list or Mlist" });
+    ListRange::setOutletsInfo(obj.classPointer(), { "list: min max" });
 }

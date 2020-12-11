@@ -19,14 +19,17 @@
         </meta>
         <info>
             <par>Produces random integers on the interval [0, N), where the probability of each
-            individual integer *i* defined as W_i/S, that is the weight of the i-th integer divided
+            individual integer *i* defined as Wⁱ/S, that is the weight of the i-th integer divided
             by the sum of all N weights.</par>
+            <par>Use @seed property to get reproducible sequences. If @seed property was not
+            explicitly set or specified, uses generator initialized with current time.</par>
         </info>
         <arguments>
             <argument type="list" name="W">weights (list of non-negative floats)</argument>
         </arguments>
         <properties>
             <property name="@weights" type="list">list of weights (non-negative floats)</property>
+            <property name="@seed" type="int" minvalue="0" default="0">generator seed</property>
         </properties>
         <inlets>
             <inlet>

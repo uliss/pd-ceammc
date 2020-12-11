@@ -24,12 +24,12 @@ process =  ba.bypass1(ui.bypass, bd: ds) with {
         ba.if(downsampling > 1 , dsWet(s, counter(downsampling)) , s);
 
     downbit =
-        vslider("bits", bitLimit, 1, bitLimit, 0.1)
-        : (2 ^ (_-1));
+        vslider("bits [type:int]", bitLimit, 1, bitLimit, 0.1)
+        : (2 ^ (_-1)) : int;
 
     downsampling =
         vslider(
-            "downsamp",
+            "downsamp [type:int]",
             1, 1, 200, 1)
         : int;
 };

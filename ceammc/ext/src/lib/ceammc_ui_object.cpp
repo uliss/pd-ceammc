@@ -150,6 +150,16 @@ t_outlet* UIObjectImpl::createOutlet()
     return out;
 }
 
+const char* UIObjectImpl::annotateInlet(int n) const
+{
+    return nullptr;
+}
+
+const char* UIObjectImpl::annotateOutlet(int n) const
+{
+    return nullptr;
+}
+
 t_canvas* UIObjectImpl::canvas() const
 {
     return asEObj()->o_canvas;
@@ -344,7 +354,7 @@ void UIObjectImpl::onList(const AtomList& lst)
 {
 }
 
-void UIObjectImpl::onAny(t_symbol* s, const AtomList& lst)
+void UIObjectImpl::onAny(t_symbol* s, const AtomListView& lst)
 {
     LIB_ERR << "unknown message: " << s->s_name;
 }
@@ -732,7 +742,7 @@ static PropertyInfo attr_to_prop(t_eattr* a)
             set_constraints(res, a);
 
             if (a->defvals)
-                res.setDefault((t_float)strtof(a->defvals->s_name, NULL));
+                res.setDefault((t_float)strtod(a->defvals->s_name, NULL));
         } else if (a->size > 1) {
             res.setType(PropValueType::LIST);
 
@@ -956,7 +966,7 @@ void UIDspObject::dspSetup(size_t n_in, size_t n_out)
 {
     std::vector<t_outlet*> outs(n_out, 0);
 
-    eobj_dspsetup(asEBox(), n_in, n_out, nullptr, outs.data());
+    eobj_dspsetup(asEObj(), n_in, n_out, nullptr, outs.data());
     std::copy(outs.begin(), outs.end(), std::back_inserter(outlets_));
 }
 

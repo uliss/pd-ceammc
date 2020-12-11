@@ -33,97 +33,97 @@
 #X obj 50 421 array.fill @array afill;
 #X obj 50 449 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
 -1;
-#X obj 20 486 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 491 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
+#X obj 20 496 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 501 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
 -49933 0;
-#X msg 110 526 @array;
-#X text 245 526 Get/Set array name. Type: symbol.;
-#X msg 110 555 @redraw;
-#X text 245 555 Get/Set redraw after array change. Type: int. Default
+#X msg 110 536 @array;
+#X text 245 536 Get/Set array name. Type: symbol.;
+#X msg 110 565 @redraw;
+#X text 245 565 Get/Set redraw after array change. Type: int. Default
 value: 1\. Allowed values: 1 \, 0\.;
-#X obj 20 607 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 612 cnv 5 73 26 empty empty methods: 4 10 0 14 -262144
+#X obj 20 617 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 622 cnv 5 73 26 empty empty methods: 4 10 0 14 -262144
 -49933 0;
-#X msg 110 647 fill;
-#X text 245 647 fill all array with specified value or pattern. Arguments
+#X msg 110 657 fill;
+#X text 245 657 fill all array with specified value or pattern. Arguments
 are:;
-#X obj 255 685 cnv 1 54 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 685 [@from]: fill range begin index. If not specified set
+#X obj 255 695 cnv 1 54 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 695 [@from]: fill range begin index. If not specified set
 to 0\. Type: int.;
-#X obj 255 723 cnv 1 39 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 723 [@to]: fill range end index. Can be negative - to address
+#X obj 255 733 cnv 1 39 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 733 [@to]: fill range end index. Can be negative - to address
 from array end. For example: -1 means till last element (not including).
 If not specified set to array length. Type: int.;
-#X obj 255 776 cnv 1 37 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 776 VAL1: value 1\. Type: float.;
-#X obj 255 799 cnv 1 62 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 799 [VAL...]: other values.. Type: float.;
-#X msg 110 824 gauss;
-#X text 245 824 fill all array with random value with normal (gauss)
+#X obj 255 786 cnv 1 37 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 786 VAL1: value 1\. Type: float.;
+#X obj 255 809 cnv 1 62 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 809 [VAL...]: other values.. Type: float.;
+#X msg 110 834 gauss;
+#X text 245 834 fill all array with random value with normal (gauss)
 distribution. Arguments are:;
-#X obj 255 862 cnv 1 62 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 862 [MEAN=0]: mean value. Type: float.;
-#X obj 255 885 cnv 1 70 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 885 [SIGMA=1]: standard deviation. Type: float. Min value:
+#X obj 255 872 cnv 1 62 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 872 [MEAN=0]: mean value. Type: float.;
+#X obj 255 895 cnv 1 70 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 895 [SIGMA=1]: standard deviation. Type: float. Min value:
 0\.;
-#X msg 110 910 pulse;
-#X text 245 910 fill all array with pulse wave. Arguments are:;
-#X obj 255 933 cnv 1 37 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 933 SAMP: wave period. Type: float. Min value: 1\.;
-#X obj 255 956 cnv 1 39 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 956 [A=1]: wave amplitude. Type: float.;
-#X obj 255 979 cnv 1 54 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 979 [D=0.5]: duty cycle. Type: float. Range: 0.001\...0.999\.;
-#X msg 110 1004 saw;
-#X text 245 1004 fill all array with saw wave. Arguments are:;
-#X obj 255 1027 cnv 1 37 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1027 SAMP: wave period. Type: float. Min value: 1\.;
-#X obj 255 1050 cnv 1 39 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1050 [A=1]: wave amplitude. Type: float.;
-#X msg 110 1075 sin;
-#X text 245 1075 fill all array with sine wave. Arguments are:;
-#X obj 255 1098 cnv 1 37 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1098 SAMP: wave period. Should be >0\. Type: float. Min
+#X msg 110 920 pulse;
+#X text 245 920 fill all array with pulse wave. Arguments are:;
+#X obj 255 943 cnv 1 37 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 943 SAMP: wave period. Type: float. Min value: 1\.;
+#X obj 255 966 cnv 1 39 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 966 [A=1]: wave amplitude. Type: float.;
+#X obj 255 989 cnv 1 54 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 989 [D=0.5]: duty cycle. Type: float. Range: 0.001\...0.999\.;
+#X msg 110 1014 saw;
+#X text 245 1014 fill all array with saw wave. Arguments are:;
+#X obj 255 1037 cnv 1 37 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1037 SAMP: wave period. Type: float. Min value: 1\.;
+#X obj 255 1060 cnv 1 39 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1060 [A=1]: wave amplitude. Type: float.;
+#X msg 110 1085 sin;
+#X text 245 1085 fill all array with sine wave. Arguments are:;
+#X obj 255 1108 cnv 1 37 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1108 SAMP: wave period. Should be >0\. Type: float. Min
 value: 0\.;
-#X obj 255 1121 cnv 1 39 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1121 [A=1]: amplitude. Type: float.;
-#X obj 255 1144 cnv 1 70 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1144 [PHASE=0]: phase in 0\...1 range. Type: float. Range:
+#X obj 255 1131 cnv 1 39 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1131 [A=1]: amplitude. Type: float.;
+#X obj 255 1154 cnv 1 70 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1154 [PHASE=0]: phase in 0\...1 range. Type: float. Range:
 0\...1\.;
-#X msg 110 1184 tri;
-#X text 245 1184 fill all array with triangle wave. Arguments are:;
-#X obj 255 1207 cnv 1 37 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1207 SAMP: wave period. Type: float. Min value: 1\.;
-#X obj 255 1230 cnv 1 54 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1230 [AMP=1]: wave amplitude. Type: float.;
-#X msg 110 1255 uniform;
-#X text 245 1255 fill all array with random value with uniform distribution.
+#X msg 110 1194 tri;
+#X text 245 1194 fill all array with triangle wave. Arguments are:;
+#X obj 255 1217 cnv 1 37 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1217 SAMP: wave period. Type: float. Min value: 1\.;
+#X obj 255 1240 cnv 1 54 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1240 [AMP=1]: wave amplitude. Type: float.;
+#X msg 110 1265 uniform;
+#X text 245 1265 fill all array with random value with uniform distribution.
 Arguments are:;
-#X obj 255 1293 cnv 1 39 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1293 [A=0]: min value. Type: float.;
-#X obj 255 1316 cnv 1 39 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1316 [B=1]: max value. Type: float.;
-#X obj 20 1351 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1356 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144
+#X obj 255 1303 cnv 1 39 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1303 [A=0]: min value. Type: float.;
+#X obj 255 1326 cnv 1 39 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1326 [B=1]: max value. Type: float.;
+#X obj 20 1361 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1366 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 1357 1\.;
-#X text 150 1357 *symbol*;
-#X text 245 1357 change array name.;
-#X obj 20 1387 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1392 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
+#X text 110 1367 1\.;
+#X text 150 1367 *symbol*;
+#X text 245 1367 change array name.;
+#X obj 20 1397 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1402 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 1393 1\.;
-#X text 245 1393 bang on finish.;
+#X text 110 1403 1\.;
+#X text 245 1403 bang on finish.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 115 45 ::;
 #X obj 131 48 ui.link @title array @url ceammc.array-help.pd;
-#X obj 1 1443 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 1446 library: ceammc v0.9.0;
-#X text 594 1458 see also:;
-#X obj 668 1458 array.each;
-#N canvas 10 1465 400 290 info 0;
+#X obj 1 1453 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1456 library: ceammc v0.9.0;
+#X text 594 1468 see also:;
+#X obj 668 1468 array.each;
+#N canvas 10 1475 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
@@ -147,7 +147,7 @@ https://github.com/uliss/pure-data;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 generated by pddoc;
-#X restore 10 1465 pd info;
+#X restore 10 1475 pd info;
 #X connect 15 0 16 0;
 #X connect 16 0 17 0;
 #X connect 17 0 18 0;

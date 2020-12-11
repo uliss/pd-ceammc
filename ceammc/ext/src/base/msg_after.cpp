@@ -17,7 +17,7 @@
 MessageAfter::MessageAfter(const PdArgs& args)
     : BaseObject(args)
     , clock_(this, &MessageAfter::tick)
-    , delay_(positionalArguments().empty() ? 0 : positionalArguments()[0].asFloat(0))
+    , delay_(parsedPosArgs().floatAt(0, 0))
     , msg_(args.args.slice(1))
 {
     if (delay_ < 0) {
@@ -53,7 +53,7 @@ void MessageAfter::onList(const AtomList& lst)
     run();
 }
 
-void MessageAfter::onAny(t_symbol* s, const AtomList& lst)
+void MessageAfter::onAny(t_symbol* s, const AtomListView& lst)
 {
     anyTo(0, s, lst);
     run();
@@ -69,7 +69,7 @@ void MessageAfter::parseProperties()
 {
 }
 
-bool MessageAfter::processAnyProps(t_symbol* sel, const AtomList& lst)
+bool MessageAfter::processAnyProps(t_symbol* sel, const AtomListView& lst)
 {
     return false;
 }
@@ -99,4 +99,10 @@ void MessageAfter::tick()
 void setup_msg_after()
 {
     ObjectFactory<MessageAfter> obj("msg.after");
+
+    obj.setDescription("send specified message after incoming message");
+    obj.addAuthor("Serge Poltavsky");
+    obj.setKeywords({ "message", "after", "onload" });
+    obj.setCategory("msg");
+    obj.setSinceVersion(0, 7);
 }

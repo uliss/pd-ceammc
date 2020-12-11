@@ -103,7 +103,7 @@ embedded Wish.apps you need with tcltk-wish.sh can save you some time as they
 can be reused when (re)making the Pd .app bundle.
 
 Usually, it's best to use stable releases of Tcl/Tk. However, there are times
-when building from the current development version is useful. For instance,
+when building from the current development version is useful. For instance, 
 if there is a bug in the Tcl/Tk sources and the generated Wish.app crashes on
 your system, you can then see if there is a fix for this in the Tcl/Tk
 development version on GitHub. If so, then you can test by using the
@@ -178,3 +178,12 @@ Some important per-application settings required by the GUI include:
                                    enables key repeat for all keys
 
 These are set in `tcl/pd_guiprefs.tcl`.
+
+## Code Signing
+
+As of Pd 0.51, the mac/osx-app.sh script performs "ad-hoc code signing" in order
+to set entitlements to open un-validated dynamic libraries on macOS 10.15+. This
+is required due to the new security settings. Note: ad-hoc signing doesn't
+actually sign the .app bundle with an account certificate, so the unidentified
+developer warning is still shown when the downloaded .app is run for the first
+time.

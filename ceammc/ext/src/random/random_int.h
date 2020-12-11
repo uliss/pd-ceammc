@@ -15,12 +15,15 @@
 #define RANDOM_INT_H
 
 #include "ceammc_object.h"
+#include "rnd_gen.h"
 
 using namespace ceammc;
 
 class RandomInt : public BaseObject {
+    RandomGen gen_;
     IntProperty* min_;
     IntProperty* max_;
+    SizeTProperty* seed_;
 
 public:
     RandomInt(const PdArgs& a);

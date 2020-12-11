@@ -47,24 +47,6 @@ static const int TYPE_WIDTH = 50;
 static const int TEXT_XPAD = 3;
 static const int TEXT_YPAD = 2;
 
-static inline UIMessageType symbol2type(t_symbol* s_type)
-{
-    if (s_type == &s_list)
-        return MSG_TYPE_LIST;
-    else if (s_type == &s_float)
-        return MSG_TYPE_FLOAT;
-    else if (s_type == &s_bang)
-        return MSG_TYPE_BANG;
-    else if (s_type == &s_symbol)
-        return MSG_TYPE_SYMBOL;
-    else if (s_type == SYM_DATA_TYPE)
-        return MSG_TYPE_DATA;
-    else if (s_type->s_name[0] == '@')
-        return MSG_TYPE_PROPERTY;
-    else
-        return MSG_TYPE_ANY;
-}
-
 static inline const t_rgba& msg_color(UIMessageType type)
 {
     switch (type) {
@@ -90,7 +72,6 @@ UIDisplay::UIDisplay()
     : prop_display_events(1)
     , prop_display_type(0)
     , prop_auto_size(1)
-    , type_width_(-1)
     , prop_text_color(rgba_black)
     , prop_active_color(rgba_white)
     , font_(gensym(FONT_FAMILY), FONT_SIZE)
@@ -99,9 +80,18 @@ UIDisplay::UIDisplay()
     , msg_type_txt_(gensym("..."))
     , timer_(this, &UIDisplay::onClock)
     , last_update_(clock_getlogicaltime())
+    , type_width_(-1)
     , on_bang_(false)
     , msg_type_(MSG_TYPE_ANY)
 {
+}
+
+void UIDisplay::init(t_symbol* name, const AtomList& args, bool usePresets)
+{
+    UIObject::init(name, args, usePresets);
+
+    if (name == gensym("ui.dt"))
+        prop_display_type = 1;
 }
 
 void UIDisplay::paint()
@@ -161,12 +151,29 @@ void UIDisplay::onBang()
     update();
 }
 
+void UIDisplay::appendFloatToText(t_float f)
+{
+    char buf[48];
+
+    if (prop_float_width_ < 0) {
+        if (sizeof(t_float) == sizeof(float))
+            snprintf(buf, sizeof(buf), "%.9g", f);
+        else
+            snprintf(buf, sizeof(buf), "%.17g", f);
+
+        msg_txt_ += buf;
+    } else if (prop_float_width_ == 0) {
+        msg_txt_ += std::to_string((t_int)f);
+    } else {
+        snprintf(buf, sizeof(buf), "%.*f", prop_float_width_, f);
+        msg_txt_ += buf;
+    }
+}
+
 void UIDisplay::onFloat(t_float f)
 {
-    char buf[64];
-    snprintf(buf, 63, "%g", f);
-
-    msg_txt_ = buf;
+    msg_txt_.clear();
+    appendFloatToText(f);
     msg_type_txt_ = &s_float;
     msg_type_ = MSG_TYPE_FLOAT;
 
@@ -184,17 +191,35 @@ void UIDisplay::onSymbol(t_symbol* s)
     update();
 }
 
+void UIDisplay::setMessage(UIMessageType t, t_symbol* s, const AtomList& lst)
+{
+    msg_type_ = t;
+    msg_type_txt_ = s;
+
+    msg_txt_.clear();
+
+    for (auto& a : lst) {
+        // space separator
+        if (!msg_txt_.empty())
+            msg_txt_ += ' ';
+
+        if (a.isFloat())
+            appendFloatToText(a.asT<t_float>());
+        else if (a.isSymbol())
+            msg_txt_ += a.asT<t_symbol*>()->s_name;
+        else if (a.isData())
+            msg_txt_ += a.asData()->toString();
+        else
+            msg_txt_ += to_string(a);
+    }
+}
+
 void UIDisplay::onList(const AtomList& lst)
 {
-    if (lst.isData()) {
-        msg_type_txt_ = gensym(lst[0].asData()->typeName().c_str());
-        msg_type_ = MSG_TYPE_DATA;
-        msg_txt_ = lst[0].asData()->toString();
-    } else {
-        msg_type_txt_ = &s_list;
-        msg_type_ = MSG_TYPE_LIST;
-        msg_txt_ = to_string(lst);
-    }
+    if (lst.isData())
+        setMessage(MSG_TYPE_DATA, gensym(lst[0].asData()->typeName().c_str()), lst);
+    else
+        setMessage(MSG_TYPE_LIST, &s_list, lst);
 
     flash();
     update();
@@ -202,9 +227,7 @@ void UIDisplay::onList(const AtomList& lst)
 
 void UIDisplay::onAny(t_symbol* s, const AtomList& lst)
 {
-    msg_txt_ = to_string(lst);
-    msg_type_txt_ = s;
-
+    setMessage(MSG_TYPE_ANY, s, lst);
     flash();
     update();
 }
@@ -216,7 +239,9 @@ void UIDisplay::onProperty(t_symbol* s, const AtomList& lst)
         return;
     }
 
-    onAny(s, lst);
+    setMessage(MSG_TYPE_PROPERTY, s, lst);
+    flash();
+    update();
 }
 
 void UIDisplay::onDblClick(t_object* view, const t_pt& pt, long modifiers)
@@ -235,11 +260,18 @@ const std::string UIDisplay::type() const
     return msg_type_txt_->s_name;
 }
 
+const char* UIDisplay::annotateInlet(int /*n*/) const
+{
+    return "any message";
+}
+
 void UIDisplay::setup()
 {
     UIObjectFactory<UIDisplay> obj("ui.display");
     obj.addAlias("ui.d");
+    obj.addAlias("ui.dt");
     obj.hideLabel();
+    obj.useAnnotations();
 
     obj.setDefaultSize(150, 18);
 
@@ -249,6 +281,8 @@ void UIDisplay::setup()
     obj.addProperty("auto_size", _("Auto size"), true, &UIDisplay::prop_auto_size, _("Main"));
     obj.addProperty(PROP_TEXT_COLOR, _("Text Color"), DEFAULT_TEXT_COLOR, &UIDisplay::prop_text_color);
     obj.addProperty(PROP_ACTIVE_COLOR, _("Active Color"), DEFAULT_ACTIVE_COLOR, &UIDisplay::prop_active_color);
+    obj.addIntProperty("float_width", _("Float formatting width"), -1, &UIDisplay::prop_float_width_, _("Main"));
+    obj.setPropertyRange("float_width", -1, 17);
 
     obj.setPropertyRedirect("send");
     obj.setPropertyRedirect("size");
@@ -266,6 +300,7 @@ void UIDisplay::setup()
     obj.setPropertyRedirect("display_events");
     obj.setPropertyRedirect("display_type");
     obj.setPropertyRedirect("auto_size");
+    obj.setPropertyRedirect("float_width");
 
     obj.useBang();
     obj.useSymbol();

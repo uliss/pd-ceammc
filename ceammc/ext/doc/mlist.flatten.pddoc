@@ -18,6 +18,7 @@
         </meta>
         <inlets>
             <inlet>
+                <xinfo on="list">list of mlists</xinfo>
                 <xinfo on="data:mlist">mlist input</xinfo>
             </inlet>
         </inlets>
@@ -33,7 +34,7 @@
 |
 [mlist.flatten]
 |
-[ui.display @display_type=1]
+[ui.display @display_type 1]
 ]]>
             </pdascii>
         </example>

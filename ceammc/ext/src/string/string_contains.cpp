@@ -19,10 +19,11 @@
 
 StringContains::StringContains(const PdArgs& a)
     : BaseObject(a)
+    , subj_(nullptr)
 {
-    auto p = addProperty(new SymbolProperty("@subj", &s_));
-    p->setArgIndex(0);
-    p->setSuccessFn([this](Property* p) { subj_ = static_cast<SymbolProperty*>(p)->value()->s_name; });
+    subj_ = new StringProperty("@subj");
+    subj_->setArgIndex(0);
+    addProperty(subj_);
 
     createInlet();
     createOutlet();
@@ -30,17 +31,17 @@ StringContains::StringContains(const PdArgs& a)
 
 void StringContains::onSymbol(t_symbol* s)
 {
-    boolTo(0, string::contains(s->s_name, subj_.c_str()));
+    boolTo(0, string::contains(s->s_name, subj_->str()));
 }
 
 void StringContains::onDataT(const StringAtom& str)
 {
-    boolTo(0, string::contains(str->str(), subj_));
+    boolTo(0, string::contains(str->str(), subj_->str()));
 }
 
 void StringContains::onInlet(size_t, const AtomList& l)
 {
-    subj_ = parse_quoted(l);
+    subj_->set(l);
 }
 
 void setup_string_contains()
@@ -51,4 +52,9 @@ void setup_string_contains()
     obj.setCategory("string");
     obj.setKeywords({ "contains", "search" });
     obj.setDescription("checks if string contains specified substring");
+
+    obj.setXletsInfo({ "symbol or String to check", "symbol: search subject\n"
+                                                    "\\\"quoted string\\\": search subject\n"
+                                                    "String: search subject" },
+        { "bool: 1 if string contains @subj, 0 otherwise" });
 }

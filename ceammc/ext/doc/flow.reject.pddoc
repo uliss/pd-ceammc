@@ -14,6 +14,7 @@
             <since>0.3</since>
             <aliases>
                 <alias>reject</alias>
+                <alias>flow.!</alias>
             </aliases>
             <also>
                 <see>flow.reject_if</see>
@@ -29,11 +30,13 @@
         <inlets>
             <inlet>
                 <xinfo on="bang">pass</xinfo>
-                <xinfo on="float">reject if this float is found in reject list</xinfo>
-                <xinfo on="symbol">reject if this float is found in reject list</xinfo>
-                <xinfo on="list">pass any list. If you want to do conditional list reject use
-                [flow.reject_if]</xinfo>
-                <xinfo on="any">reject if message selector is found in reject list</xinfo>
+                <xinfo on="float">reject if float is in reject list</xinfo>
+                <xinfo on="symbol">reject if float is in reject list</xinfo>
+                <xinfo on="list">reject if first atom is in reject list</xinfo>
+                <xinfo on="any">reject if message selector is in reject list</xinfo>
+            </inlet>
+            <inlet>
+                <xinfo on="list">set reject list</xinfo>
             </inlet>
         </inlets>
         <outlets>
@@ -46,12 +49,9 @@
 |
 [flow.reject 0]
 |
-[swap 1]
-|   ^|.
-[/    ]
+[1/x]
 |
 [F digits=12]
-
 ]]>
             </pdascii>
         </example>

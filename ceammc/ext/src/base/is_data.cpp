@@ -31,7 +31,7 @@ void IsData::onList(const AtomList& lst)
         boolTo(0, false);
 }
 
-void IsData::onAny(t_symbol* s, const AtomList& lst)
+void IsData::onAny(t_symbol* s, const AtomListView& lst)
 {
     boolTo(0, false);
 }
@@ -42,7 +42,7 @@ void IsData::onData(const Atom& d)
     boolTo(0, true);
 }
 
-bool IsData::processAnyProps(t_symbol* sel, const AtomList& lst)
+bool IsData::processAnyProps(t_symbol* sel, const AtomListView& lst)
 {
     return false;
 }
@@ -56,4 +56,10 @@ void setup_is_data()
 {
     ObjectFactory<IsData> obj("is_data");
     obj.processData();
+
+    obj.setDescription("checks if input data has *data* type");
+    obj.addAuthor("Serge Poltavsky");
+    obj.setKeywords({"predicate", "data"});
+    obj.setCategory("predicates");
+    obj.setSinceVersion(0, 6);
 }

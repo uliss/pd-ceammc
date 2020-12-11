@@ -19,35 +19,11 @@
 #include "ceammc_ui_object.h"
 #include "datatype_property.h"
 
-struct mockUI {
-};
-
-struct MockFaustExternal {
-    t_object x_obj;
-#ifdef __MINGW32__
-    /* This seems to be necessary as some as yet undetermined Pd routine seems
-     to write past the end of x_obj on Windows. */
-    int fence; /* dummy field (not used) */
-#endif
-    void* dsp;
-    ceammc::faust::PdUI<mockUI>* ui;
-};
-
 namespace ceammc {
 
 void register_ui_external(t_class* c)
 {
     ObjectInfoStorage::instance().addUI(c);
-}
-
-void register_base_external(t_class* c)
-{
-    ObjectInfoStorage::instance().addBase(c);
-}
-
-void register_faust_external(t_class* c)
-{
-    ObjectInfoStorage::instance().addFaust(c);
 }
 
 void register_flext_external(t_class* c)
@@ -176,14 +152,19 @@ std::vector<PropertyInfo> ceammc_faust_properties(t_object* x)
     if (!is_ceammc_faust(x))
         return {};
 
-    MockFaustExternal* ext = reinterpret_cast<MockFaustExternal*>(x);
-    size_t n = ext->ui->uiCount();
+    using FaustObj = PdObject<faust::FaustExternalBase>;
 
+    auto* obj = reinterpret_cast<FaustObj*>(x)->impl;
     std::vector<PropertyInfo> res;
-    res.reserve(n);
+    res.reserve(obj->properties().size());
 
-    for (size_t i = 0; i < n; i++)
-        res.push_back(ext->ui->uiAt(i)->propInfo());
+    for (auto p : obj->properties()) {
+        if (!p)
+            continue;
+
+        p->get();
+        res.push_back(p->infoT());
+    }
 
     return res;
 }

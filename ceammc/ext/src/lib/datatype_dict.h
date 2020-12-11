@@ -16,14 +16,14 @@
 
 #include "ceammc_abstractdata.h"
 #include "ceammc_atomlist.h"
+#include "ceammc_maybe.h"
 
-#include <boost/optional.hpp>
 #include <map>
 #include <type_traits>
 
 namespace ceammc {
 
-using MaybeString = boost::optional<std::string>;
+using MaybeString = Maybe<std::string>;
 
 class DataTypeDict : public AbstractData {
 public:

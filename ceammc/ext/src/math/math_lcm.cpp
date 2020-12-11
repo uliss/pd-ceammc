@@ -18,7 +18,7 @@
 
 MathLCM::MathLCM(const PdArgs& a)
     : BaseObject(a)
-    , b_(positionalFloatArgumentT(0, 0))
+    , b_(parsedPosArgs().intAt(0, 0))
 {
     createInlet(&b_);
     createOutlet();

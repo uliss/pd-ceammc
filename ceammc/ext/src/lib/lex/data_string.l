@@ -55,15 +55,16 @@ close_list \)
 open_dict  \[
 close_dict \]
 
-symbol0    [a-zA-Z_.@#0-9]
-symbol_    [a-zA-Z_.@#0-9\-+:\?'|/<>=*~]
+symbol0    [a-zA-Z_.@#0-9/%]
+symbol_    [^:\(\)\[\]\"\\\` ]
 symbol     {symbol0} {symbol_}*
 
-key        {symbol0}+:
+key        [a-zA-Z_.@#0-9]+:
 
 %%
 
 {space}
+,                       { return DataStringParser::make_COMMA(location()); }
 null                    { return DataStringParser::make_NULL(location()); }
 true                    { return DataStringParser::make_FLOAT(1, location()); }
 false                   { return DataStringParser::make_FLOAT(0, location()); }
@@ -82,7 +83,7 @@ S/{string}              { return DataStringParser::make_DATA_TYPE_STRING(locatio
                            return DataStringParser::make_FLOAT(hex, location());
                           }
                           catch(std::exception& e) {
-                             LIB_ERR << "invalid hex: " << e.what() << " - " << text();
+                             out() << "invalid hex: " << e.what() << " - " << text();
                              return DataStringParser::make_LEXER_ERROR(location());
                           }
                         }
@@ -93,7 +94,7 @@ S/{string}              { return DataStringParser::make_DATA_TYPE_STRING(locatio
                            return DataStringParser::make_FLOAT(bin, location());
                           }
                           catch(std::exception& e) {
-                             LIB_ERR << "invalid bin: " << e.what() << " - " << text();
+                             out() << "invalid bin: " << e.what() << " - " << text();
                              return DataStringParser::make_LEXER_ERROR(location());
                           }
                         }
@@ -126,7 +127,7 @@ S/{string}              { return DataStringParser::make_DATA_TYPE_STRING(locatio
                           else
                             err = fmt::format("unmatched lexer input: '{}'", text());
 
-                          LIB_ERR << fmt::format("error while parsing '{}': {}", line, err);
+                          out() << fmt::format("error while parsing '{}': {}", line, err);
 
                           return DataStringParser::make_LEXER_ERROR(location()); /* error */
                         }

@@ -22,8 +22,10 @@ class Message {
 public:
     enum Type {
         NONE,
+        BANG,
         FLOAT,
         SYMBOL,
+        POINTER,
         LIST,
         ANY,
         DATA
@@ -44,9 +46,11 @@ public:
     Message(const Atom& a);
     // create list
     Message(const AtomList& l);
+    Message(const AtomListView& v);
     Message(int argc, t_atom* argv);
     // create any
     Message(t_symbol* s, const AtomList& l);
+    Message(t_symbol* s, const AtomListView& v);
     Message(t_symbol* s, int argc, t_atom* argv);
 
     template <typename... Args>
@@ -63,6 +67,7 @@ public:
     Message& operator=(const Message& m);
     Message& operator=(Message&& m);
 
+    void setBang();
     void setAtom(const Atom& a);
     void setFloat(t_float v);
     void setSymbol(t_symbol* s);
@@ -82,7 +87,7 @@ public:
     inline bool isList() const { return type_ == LIST; }
     inline bool isAny() const { return type_ == ANY; }
     inline bool isNone() const { return type_ == NONE; }
-    bool isBang() const;
+    inline bool isBang() const { return type_ == BANG; }
 
     inline const Atom& atomValue() const { return value_; }
     inline const AtomList& listValue() const { return v_list_; }
@@ -92,6 +97,9 @@ public:
         res.insert(0, value_);
         return res;
     }
+
+public:
+    static Message makeBang();
 
 private:
     static Atom wrap_atom(const char* str) { return Atom(gensym(str)); }

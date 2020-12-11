@@ -19,13 +19,12 @@
 
 ListXContains::ListXContains(const PdArgs& args)
     : BaseObject(args)
-    , lst_(parseDataList(args.args))
 {
     createInlet();
     createOutlet();
 
     createCbListProperty(
-        "@subj",
+        "@value",
         [this]() -> AtomList { return lst_; },
         [this](const AtomList& l) -> bool { onInlet(1, l); return true; })
         ->setArgIndex(0);
@@ -95,4 +94,16 @@ void setup_list_xcontains()
 {
     ObjectFactory<ListXContains> obj("list.^contains");
     obj.processData();
+
+    obj.setDescription("on input atom or list checks if specified list contains it");
+    obj.addAuthor("Serge Poltavsky");
+    obj.setKeywords({ "list", "predicate", "any" });
+    obj.setCategory("list");
+    obj.setSinceVersion(0, 6);
+
+    ListXContains::setInletsInfo(obj.classPointer(), { "float:  check if float in list\n"
+                                                       "symbol: check if symbol in list\n"
+                                                       "list:   check if sublist in list",
+                                                         "list: set list value" });
+    ListXContains::setOutletsInfo(obj.classPointer(), { "int: 1 or 0" });
 }

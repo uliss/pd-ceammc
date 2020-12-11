@@ -23,13 +23,16 @@ TEST_CASE("local.float", "[externals]")
 
     SECTION("construct")
     {
-        TestLocalFloat t("local.float");
-        REQUIRE(t.numInlets() == 1);
-        REQUIRE(t.numInlets() == 1);
-        REQUIRE_PROPERTY_FLOAT(t, @value, 0);
+        SECTION("default")
+        {
+            TestLocalFloat t("local.float");
+            REQUIRE(t.numInlets() == 1);
+            REQUIRE(t.numInlets() == 1);
+            REQUIRE_PROPERTY_FLOAT(t, @value, 0);
 
-        WHEN_SEND_FLOAT_TO(0, t, 100);
-        REQUIRE_PROPERTY_FLOAT(t, @value, 100);
+            WHEN_SEND_FLOAT_TO(0, t, 100);
+            REQUIRE_PROPERTY_FLOAT(t, @value, 100);
+        }
     }
 
     SECTION("do")

@@ -59,7 +59,7 @@
 |     |       |   |          |
 [local.set      s1]          [local.set s1]
 |                            |
-[ui.display @display_type=1] [ui.display @display_type=1]
+[ui.display @display_type 1] [ui.display @display_type 1]
 ]]>
             </pdascii>
         </example>

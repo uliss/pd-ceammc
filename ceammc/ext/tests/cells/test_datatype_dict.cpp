@@ -185,7 +185,7 @@ TEST_CASE("DataTypeDict", "[core]")
         using IntA = DataAtom<IntData>;
 
         DataTypeDict src;
-        REQUIRE(src.toJSON() == boost::none);
+        REQUIRE(!src.toJSON());
 
         src.insert("a", A("a b c"));
         REQUIRE(src.toJSON());
@@ -332,5 +332,26 @@ TEST_CASE("DataTypeDict", "[core]")
         Dict d("[a: 1 b: 2 c: 3]");
         d.removeIf([](const Atom& k) { return k == A("a"); });
         REQUIRE(d == Dict("[c: 3 b: 2]"));
+    }
+
+    SECTION("fromString")
+    {
+        Dict d;
+        REQUIRE(d.fromString("[]"));
+        REQUIRE(d.size() == 0);
+        REQUIRE(d.fromString("[a: 12]"));
+        REQUIRE(d.size() == 1);
+        REQUIRE(d.keys() == LA("a"));
+        REQUIRE(d.at("a") == LF(12));
+
+        REQUIRE(d.fromString("[@a: 12]"));
+        REQUIRE(d.size() == 1);
+        REQUIRE(d.keys() == LA("@a"));
+        REQUIRE(d.at("@a") == LF(12));
+
+        REQUIRE(d.fromString("[@a: 12 @b: 15]"));
+        REQUIRE(d.size() == 2);
+        REQUIRE(d.at("@a") == LF(12));
+        REQUIRE(d.at("@b") == LF(15));
     }
 }

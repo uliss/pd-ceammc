@@ -79,7 +79,7 @@ void Matrix::setupDSP(t_signal** in)
         b.resize(BS, 0);
 }
 
-void Matrix::m_cell(t_symbol* s, const AtomList& lst)
+void Matrix::m_cell(t_symbol* s, const AtomListView& lst)
 {
     if (!checkArgs(lst, ARG_NATURAL, ARG_NATURAL, ARG_NATURAL, s))
         return;
@@ -110,4 +110,10 @@ void setup_base_matrix()
 {
     SoundExternalFactory<Matrix> obj("matrix~");
     obj.addMethod("cell", &Matrix::m_cell);
+
+    obj.setDescription("signal routing matrix");
+    obj.addAuthor("Serge Poltavsky");
+    obj.setKeywords({ "matrix" });
+    obj.setCategory("base");
+    obj.setSinceVersion(0, 6);
 }

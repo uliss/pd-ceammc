@@ -9,25 +9,25 @@
 #X obj 50 162 list.unique;
 #X obj 50 190 msg set;
 #X msg 50 219 ;
-#X obj 20 258 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 263 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
+#X obj 20 268 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 273 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
 -49933 0;
-#X msg 110 298 @stable;
-#X text 245 298 Get/Set if true - preserves element appearing order.
+#X msg 110 308 @stable;
+#X text 245 308 Get/Set if true - preserves element appearing order.
 Type: int. Default value: 1\. Allowed values: 0 \, 1\.;
-#X obj 20 350 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 355 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
+#X obj 20 360 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 365 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
-#X text 110 356 1\.;
-#X text 150 356 *list*;
-#X text 245 356 input list.;
-#X text 150 376 *data:mlist*;
-#X text 245 376 input mlist.;
-#X obj 20 406 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 411 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
+#X text 110 366 1\.;
+#X text 150 366 *list*;
+#X text 245 366 input list.;
+#X text 150 386 *data:mlist*;
+#X text 245 386 input mlist.;
+#X obj 20 416 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 421 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 412 1\.;
-#X text 245 412 output list.;
+#X text 110 422 1\.;
+#X text 245 422 output list.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;

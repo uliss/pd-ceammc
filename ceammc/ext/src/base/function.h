@@ -15,12 +15,14 @@
 #define FUNCTION_H
 
 #include "ceammc_object.h"
+#include "ceammc_proxy.h"
 
 using namespace ceammc;
 
 class Function : public BaseObject {
     t_symbol* name_;
-    Message result_;
+    std::vector<Message> result_;
+    InletProxy<Function> inlet_;
 
 public:
     Function(const PdArgs& a);
@@ -30,15 +32,16 @@ public:
     void onSymbol(t_symbol* s) override;
     void onList(const AtomList& l) override;
 
-    void onInlet(size_t n, const AtomList& l) override;
-    Message& result();
-    const Message& result() const;
+    std::vector<Message>& result();
+    const std::vector<Message>& result() const;
+
+    void proxy_any(InletProxy<Function>* x, t_symbol* s, const AtomListView& v);
 
 public:
     static bool exists(t_symbol* name);
     static Function* function(t_symbol* name);
 };
 
-void function_setup();
+void setup_base_function();
 
 #endif // FUNCTION_H

@@ -203,5 +203,10 @@ infinity;
 #X text 200 2718 create Matrix filled with zeros with the same shape
 as input;
 #X obj 1 1 cnv 5 740 40 empty empty matrix 20 20 0 20 -104026 -4096 0;
-#X obj 1 2745 cnv 5 740 40 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 1 2745 cnv 5 740 80 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 20 2745 version: v0.1 \, license:;
+#X obj 20 2773 ui.link @title Generated with pddoc @url
+http://github.com/uliss/pddoc;
+#X obj 670 2760 msg 0;
+#X obj 670 2795 switch~;
+#X connect 196 0 197 0;

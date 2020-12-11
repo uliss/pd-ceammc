@@ -214,13 +214,8 @@ namespace platform {
         if (!is_path_relative(path))
             return path;
 
-        const char* patch_dir = "";
-        if (cnv && (cnv->gl_owner || cnv->gl_env)) {
-            patch_dir = canvas_getdir(cnv)->s_name;
-        }
-
         char dirname[MAXPDSTRING], *filename;
-        int fd = open_via_path(patch_dir, path, "", dirname, &filename, MAXPDSTRING, 1);
+        int fd = canvas_open(cnv, path, "", dirname, &filename, MAXPDSTRING, 1);
         if (fd < 0)
             return std::string();
 

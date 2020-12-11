@@ -46,4 +46,13 @@ void setup_list_max()
     obj.useDefaultPdSymbolFn();
 
     obj.processData<DataTypeMList>();
+
+    obj.setDescription("output largest element in the list");
+    obj.addAuthor("Serge Poltavsky");
+    obj.setKeywords({ "list", "max", "compare" });
+    obj.setCategory("list");
+    obj.setSinceVersion(0, 1);
+
+    ListMax::setInletsInfo(obj.classPointer(), { "list or Mlist" });
+    ListMax::setOutletsInfo(obj.classPointer(), { "atom" });
 }

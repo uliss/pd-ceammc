@@ -12,11 +12,16 @@
  * this file belongs to.
  *****************************************************************************/
 #include "mod_init.h"
+#include "ceammc_object.h"
 #include "ceammc_pd.h"
 #include "ceammc_platform.h"
 #include "lib/ceammc.h"
+
+extern "C" {
+#include "g_canvas.h"
 #include "m_imp.h"
 #include "s_stuff.h"
+}
 
 #include "an/mod_analyze.h"
 #include "array/mod_array.h"
@@ -83,11 +88,60 @@ static void setup_env_ceammc_doc_path()
     ceammc::platform::set_env("CEAMMC", path.c_str());
 }
 
-using namespace std;
+namespace {
+
+t_visfn ceammc_pd_vanilla_visfn = nullptr;
+
+void t_object_get_xlet_id(t_glist* glist, void* x, char* buf, size_t bufsize, ceammc::XletType type, int xlet_idx)
+{
+    if (type == ceammc::XLET_IN)
+        snprintf(buf, bufsize, "%si%d", rtext_gettag(glist_findrtext(glist, (t_object*)x)), xlet_idx);
+    else
+        snprintf(buf, bufsize, "%so%d", rtext_gettag(glist_findrtext(glist, (t_object*)x)), xlet_idx);
+}
+
+void ceammc_vis_fn(t_gobj* z, t_glist* glist, int vis)
+{
+    ceammc_pd_vanilla_visfn(z, glist, vis);
+
+    if (vis) {
+        auto ann_fn = ceammc::ceammc_get_annotation_fn(&z->g_pd);
+        if (ann_fn) {
+            t_object* o = (t_object*)z;
+            const int NINS = obj_ninlets(o);
+            const int NOUTS = obj_noutlets(o);
+
+            // annotate inlets
+            for (int i = 0; i < NINS; i++)
+                ceammc::ceammc_xlet_bind_tooltip(o, glist, t_object_get_xlet_id, ann_fn, ceammc::XLET_IN, i);
+
+            // annotate outlets
+            for (int i = 0; i < NOUTS; i++)
+                ceammc::ceammc_xlet_bind_tooltip(o, glist, t_object_get_xlet_id, ann_fn, ceammc::XLET_OUT, i);
+        }
+    }
+}
+}
 
 void ceammc_init()
 {
-    ceammc::pd::addPdPrintDataSupport();
+    using namespace std;
+
+    auto is_ceammc = zgetfn(&pd_objectmaker, gensym("is_ceammc"));
+
+    if (is_ceammc) {
+        if (text_widgetbehavior.w_visfn && text_widgetbehavior.w_visfn != ceammc_vis_fn) {
+            ceammc_pd_vanilla_visfn = text_widgetbehavior.w_visfn;
+            auto wb = &text_widgetbehavior;
+            wb->w_visfn = ceammc_vis_fn;
+        }
+
+        if (!ceammc::pd::addPdPrintDataSupport())
+            pd_error(nullptr, "can't add datatype printing support to vanilla [print] object");
+
+        ceammc::ceammc_tcl_init_tooltips();
+        post("[ceammc] inlet/outlet tooltips support is turned on");
+    }
 
     // setup env variables
     setup_env_doc_path();
@@ -98,6 +152,8 @@ void ceammc_init()
     vector<string> l = ceammc::pd::currentListOfExternals();
     set<string> vanilla_set(l.begin(), l.end());
 #endif
+
+    ceammc::BaseObject::initInletDispatchNames();
 
     ceammc_analyze_setup();
     ceammc_array_setup();

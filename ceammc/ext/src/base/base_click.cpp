@@ -34,8 +34,17 @@ void Click::processBlock(const t_sample** in, t_sample** out)
     }
 }
 
-extern "C" void click_tilde_setup()
+void click_tilde_setup()
 {
     SoundExternalFactory<Click> obj("click~", OBJECT_FACTORY_DEFAULT);
     obj.useDefaultPdFloatFn();
+    obj.useDefaultPdListFn();
+
+    obj.setDescription("Output single impulse on bang");
+    obj.addAuthor("Serge Poltavsky");
+    obj.setKeywords({ "click" });
+    obj.setCategory("misc");
+    obj.setSinceVersion(0, 4);
+
+    obj.setXletsInfo({ "bang: trigger output" }, { "signal: single impulse" });
 }

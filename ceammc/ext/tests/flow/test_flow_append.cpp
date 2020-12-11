@@ -1,5 +1,5 @@
 /*****************************************************************************
- * Copyright 2020 Serge Poltavsky. All rights reserved.
+ * Copyright 2017 Serge Poltavsky. All rights reserved.
  *
  * This file may be distributed under the terms of GNU Public License version
  * 3 (GPL v3) as defined by the Free Software Foundation (FSF). A copy of the
@@ -19,99 +19,199 @@ PD_COMPLETE_TEST_SETUP(FlowAppend, flow, append)
 TEST_CASE("flow.append", "[externals]")
 {
     pd_test_init();
+    test::pdPrintToStdError();
 
     SECTION("init")
     {
         SECTION("default")
         {
             TObj t("flow.append");
-            REQUIRE(t.numInlets() == 3);
+            REQUIRE(t.numInlets() == 2);
             REQUIRE(t.numOutlets() == 1);
-            REQUIRE_PROPERTY(t, @delay, 0);
-            REQUIRE_PROPERTY(t, @msg, 0);
-            REQUIRE_PROPERTY(t, @value);
+            REQUIRE_PROPERTY(t, @delay, -1);
         }
+    }
 
-        SECTION("args")
+    SECTION("process")
+    {
+        SECTION("default")
         {
-            TObj t("flow.append", LA(100));
-            REQUIRE_PROPERTY(t, @delay, 0);
-            REQUIRE_PROPERTY(t, @msg, 0);
-            REQUIRE_PROPERTY(t, @value, 100);
+            TExt t("flow.append");
+            t.sendFloat(100);
+
+            REQUIRE(t.messagesAt(0).size() == 2);
+            REQUIRE(t.messagesAt(0)[0].atomValue() == A(100));
+            REQUIRE(t.messagesAt(0)[1].isBang());
         }
 
-        SECTION("args")
+        SECTION("float")
         {
-            TObj t("flow.append", LA("\"@delay\""));
-            REQUIRE_PROPERTY(t, @delay, 0);
-            REQUIRE_PROPERTY(t, @msg, 0);
-            REQUIRE_PROPERTY(t, @value, "@delay");
+            TExt t("flow.append", 200);
+            t.sendFloat(100);
+
+            REQUIRE(t.messagesAt(0).size() == 2);
+            REQUIRE(t.messagesAt(0)[0].atomValue() == A(100));
+            REQUIRE(t.messagesAt(0)[1].atomValue() == A(200));
         }
 
-        SECTION("args")
+        SECTION("float explicit")
         {
-            TObj t("flow.append", LA("\"@delay\"", "@delay", 10, "@msg"));
-            REQUIRE_PROPERTY(t, @delay, 10);
-            REQUIRE_PROPERTY(t, @msg, 1);
-            REQUIRE_PROPERTY(t, @value, "@delay");
+            TExt t("flow.append", LA("float", 200));
+            t.sendFloat(100);
+
+            REQUIRE(t.messagesAt(0).size() == 2);
+            REQUIRE(t.messagesAt(0)[0].atomValue() == A(100));
+            REQUIRE(t.messagesAt(0)[1].atomValue() == A(200));
         }
-    }
 
-    SECTION("do")
-    {
-        TExt t("flow.append", "\"@delay\"");
+        SECTION("symbol")
+        {
+            TExt t("flow.append", LA("symbol", "A"));
+            t.sendFloat(100);
 
-        t.sendFloat(100);
-        REQUIRE(floatAt(t) == 100);
+            REQUIRE(t.messagesAt(0).size() == 2);
+            REQUIRE(t.messagesAt(0)[0].atomValue() == A(100));
+            REQUIRE(t.messagesAt(0)[1].atomValue() == A("A"));
+        }
 
-        test::pdRunMainLoopMs(5);
-        REQUIRE(symbolAt(t) == "@delay");
-    }
+        SECTION("symbol prop")
+        {
+            TExt t("flow.append", LA("symbol", "\"@A\""));
+            t.sendFloat(100);
 
-    SECTION("do")
-    {
-        TExt t("flow.append", 1, 2, 3, "@delay", -1);
+            REQUIRE(t.messagesAt(0).size() == 2);
+            REQUIRE(t.messagesAt(0)[0].atomValue() == A(100));
+            REQUIRE(t.messagesAt(0)[1].atomValue() == A("@A"));
+        }
 
-        t.sendFloat(100);
-        REQUIRE(t.messagesAt(0).size() == 2);
-        REQUIRE(t.messagesAt(0)[0].atomValue() == A(100));
-        REQUIRE(t.messagesAt(0)[1].listValue() == LF(1, 2, 3));
-    }
+        SECTION("list implicit")
+        {
+            TExt t("flow.append", LF(1, 2, 3));
+            t.sendFloat(100);
 
-    SECTION("do")
-    {
-        TExt t("flow.append", 1, 2, 3, "@delay", -1, "@msg");
+            REQUIRE(t.messagesAt(0).size() == 2);
+            REQUIRE(t.messagesAt(0)[0].atomValue() == A(100));
+            REQUIRE(t.messagesAt(0)[1].listValue() == LF(1, 2, 3));
+        }
 
-        t.sendFloat(100);
-        REQUIRE(t.messagesAt(0).size() == 1);
-        REQUIRE(t.messagesAt(0)[0].atomValue() == A(100));
-    }
+        SECTION("list explicit")
+        {
+            TExt t("flow.append", LA("list", 1, 2, 3));
+            t.sendFloat(100);
 
-    SECTION("do")
-    {
-        TExt t("flow.append", "@delay", -1, "@msg");
+            REQUIRE(t.messagesAt(0).size() == 2);
+            REQUIRE(t.messagesAt(0)[0].atomValue() == A(100));
+            REQUIRE(t.messagesAt(0)[1].listValue() == LF(1, 2, 3));
+        }
 
-        t.sendFloat(100);
-        REQUIRE(t.messagesAt(0).size() == 1);
-        REQUIRE(t.messagesAt(0)[0].atomValue() == A(100));
-    }
+        SECTION("any")
+        {
+            TExt t("flow.append", LA("any"));
+            t.sendFloat(100);
 
-    SECTION("do")
-    {
-        TExt t("flow.append", "@delay", -1);
+            REQUIRE(t.messagesAt(0).size() == 2);
+            REQUIRE(t.messagesAt(0)[0].atomValue() == A(100));
+            REQUIRE(t.messagesAt(0)[1].isAny());
+            REQUIRE(t.messagesAt(0)[1].anyValue() == LA("any"));
+        }
 
-        t.sendFloat(100);
-        REQUIRE(t.messagesAt(0).size() == 2);
-        REQUIRE(t.messagesAt(0)[1].listValue() == L());
-    }
+        SECTION("any2")
+        {
+            TExt t("flow.append", LA("any", 1, 2, 3));
+            t.sendFloat(100);
 
-    SECTION("inlet")
-    {
-        TExt t("flow.append");
+            REQUIRE(t.messagesAt(0).size() == 2);
+            REQUIRE(t.messagesAt(0)[0].atomValue() == A(100));
+            REQUIRE(t.messagesAt(0)[1].isAny());
+            REQUIRE(t.messagesAt(0)[1].anyValue() == LA("any", 1, 2, 3));
+        }
 
-        t.sendFloatTo(200, 1);
-        REQUIRE_PROPERTY(t, @value, 200);
-        t.sendFloatTo(20, 2);
-        REQUIRE_PROPERTY(t, @delay, 20);
+        SECTION("any prop")
+        {
+            TExt t("flow.append", LA("\"@any\"", 1, 2, 3));
+            t.sendFloat(100);
+
+            REQUIRE(t.messagesAt(0).size() == 2);
+            REQUIRE(t.messagesAt(0)[0].atomValue() == A(100));
+            REQUIRE(t.messagesAt(0)[1].isAny());
+            REQUIRE(t.messagesAt(0)[1].anyValue() == LA("@any", 1, 2, 3));
+            t.clearAll();
+
+            t.sendMessageTo(Message(SYM("@any2"), LF(3, 4, 5)), 1);
+            t.sendFloat(200);
+
+            REQUIRE(t.messagesAt(0).size() == 2);
+            REQUIRE(t.messagesAt(0)[0].atomValue() == A(200));
+            REQUIRE(t.messagesAt(0)[1].anyValue() == LA("@any2", 3, 4, 5));
+        }
+
+        SECTION("all")
+        {
+            TExt t("flow.append", LF(1, 2, 3));
+
+            t.clearAll();
+            t.sendMessageTo(Message::makeBang(), 1);
+            t.sendFloat(100);
+
+            REQUIRE(t.messagesAt(0).size() == 2);
+            REQUIRE(t.messagesAt(0)[0].atomValue() == A(100));
+            REQUIRE(t.messagesAt(0)[1].isBang());
+
+            t.clearAll();
+            t.sendMessageTo(Message(-50), 1);
+            t.sendBang();
+
+            REQUIRE(t.messagesAt(0).size() == 2);
+            REQUIRE(t.messagesAt(0)[0].isBang());
+            REQUIRE(t.messagesAt(0)[1].atomValue() == A(-50));
+
+            t.clearAll();
+            t.sendMessageTo(Message(SYM("ABC")), 1);
+            t.sendList(LF(1, 2, 3));
+
+            REQUIRE(t.messagesAt(0).size() == 2);
+            REQUIRE(t.messagesAt(0)[0].listValue() == LF(1, 2, 3));
+            REQUIRE(t.messagesAt(0)[1].atomValue() == A("ABC"));
+
+            t.clearAll();
+            t.sendMessageTo(Message(LF(20, 30)), 1);
+            t.sendSymbol("DEF");
+
+            REQUIRE(t.messagesAt(0).size() == 2);
+            REQUIRE(t.messagesAt(0)[0].atomValue() == A("DEF"));
+            REQUIRE(t.messagesAt(0)[1].listValue() == LF(20, 30));
+
+            t.clearAll();
+            t.sendMessageTo(Message(SYM("any"), LF(20, 30)), 1);
+            t.sendSymbol("DEF");
+
+            REQUIRE(t.messagesAt(0).size() == 2);
+            REQUIRE(t.messagesAt(0)[0].atomValue() == A("DEF"));
+            REQUIRE(t.messagesAt(0)[1].anyValue() == LA("any", 20, 30));
+
+            t.clearAll();
+            t.sendMessageTo(Message(SYM("@prop"), LF(20, 30)), 1);
+            t.sendSymbol("DEF");
+
+            REQUIRE(t.messagesAt(0).size() == 2);
+            REQUIRE(t.messagesAt(0)[0].atomValue() == A("DEF"));
+            REQUIRE(t.messagesAt(0)[1].anyValue() == LA("@prop", 20, 30));
+
+            t.clearAll();
+            t.sendMessageTo(Message(SYM("@gate"), LF(0)), 1);
+            t.sendMessage(Message(SYM("@gate"), LF(1)));
+
+            REQUIRE(t.messagesAt(0).size() == 2);
+            REQUIRE(t.messagesAt(0)[0].anyValue() == LA("@gate", 1));
+            REQUIRE(t.messagesAt(0)[1].anyValue() == LA("@gate", 0.));
+
+            t.clearAll();
+            t.sendMessageTo(Message(SYM("@gate"), LF(0)), 1);
+            t.sendMessage(Message(SYM("@delay"), LF(1000)));
+
+            REQUIRE(t.messagesAt(0).size() == 2);
+            REQUIRE(t.messagesAt(0)[0].anyValue() == LA("@delay", 1000));
+            REQUIRE(t.messagesAt(0)[1].anyValue() == LA("@gate", 0.));
+        }
     }
 }

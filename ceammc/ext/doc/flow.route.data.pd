@@ -1,0 +1,22 @@
+#N canvas 0 0 556 385 12;
+#X obj 20 48 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
+-1;
+#X obj 279 48 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
+-1;
+#X obj 20 77 data.mlist (1 2 3);
+#X obj 279 77 data.mlist (3 4 5);
+#X msg 20 106 [a: 1 2 3 b: c 1: test] \, bang;
+#X obj 20 135 data.dict;
+#X obj 20 178 flow.route 1 *a;
+#X obj 20 207 ui.d @display_type 1;
+#X obj 87 235 ui.d @display_type 1;
+#X obj 125 264 ui.d @display_type 1;
+#X connect 0 0 2 0;
+#X connect 1 0 3 0;
+#X connect 4 0 5 0;
+#X connect 6 0 7 0;
+#X connect 6 1 8 0;
+#X connect 6 2 9 0;
+#X connect 2 0 6 0;
+#X connect 3 0 6 0;
+#X connect 5 0 6 0;

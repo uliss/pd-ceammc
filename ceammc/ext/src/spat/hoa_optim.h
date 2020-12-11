@@ -26,8 +26,8 @@ class HoaOptim : public HoaBase {
 
 public:
     HoaOptim(const PdArgs& args);
+    void initDone() override;
 
-    void parseProperties() override;
     void processBlock(const t_sample** in, t_sample** out) override;
 
     void adjustMode();

@@ -157,4 +157,10 @@ void ObjProps::onBang()
 void setup_obj_props()
 {
     ObjectFactory<ObjProps> obj("obj.props");
+
+    obj.setDescription("property extractor");
+    obj.addAuthor("Serge Poltavsky");
+    obj.setKeywords({"property"});
+    obj.setCategory("base");
+    obj.setSinceVersion(0, 7);
 }

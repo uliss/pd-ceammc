@@ -12,20 +12,22 @@
  * this file belongs to.
  *****************************************************************************/
 
+#include "ceammc.h"
 #include "ceammc_config.h"
 #include "mod_init.h"
 
 #include "m_pd.h"
 
-#ifdef __WIN32__
-#define CEAMMC_EXTERN __declspec(dllexport)
-#else
-#define CEAMMC_EXTERN
-#endif
-
 t_class* ceammc_class = 0;
 
-static void ceammc_info_message()
+namespace {
+
+inline int int_version(int maj, int min, int fix)
+{
+    return (maj << 20) | (min << 10) | fix;
+}
+
+void ceammc_info_message()
 {
     post("\nCEAMMC library\n"
          "       Centre for Electroacoustic Music Moscow Conservatory, © 2016-2020\n"
@@ -38,9 +40,9 @@ static void ceammc_info_message()
 
     int major, minor, fix;
     sys_getversion(&major, &minor, &fix);
-    int runtime_version = 10000 * major + 100 * minor + fix;
 
-    int compiled_version = 10000 * PD_MAJOR_VERSION + 100 * PD_MINOR_VERSION + PD_BUGFIX_VERSION;
+    const auto runtime_version = int_version(major, minor, fix);
+    const int compiled_version = int_version(PD_MAJOR_VERSION, PD_MINOR_VERSION, PD_BUGFIX_VERSION);
 
     if (runtime_version < compiled_version) {
         pd_error(0, "[ceammc] WARNING: running on Pd version (%d.%d.%d) "
@@ -50,7 +52,7 @@ static void ceammc_info_message()
     }
 }
 
-static void* ceammc_new()
+void* ceammc_new()
 {
     t_object* x = reinterpret_cast<t_object*>(pd_new(ceammc_class));
     if (!x) {
@@ -61,7 +63,7 @@ static void* ceammc_new()
     return x;
 }
 
-static void ceammc_bang(t_object* x)
+void ceammc_bang(t_object* x)
 {
     auto obj_list = ceammc_ext_list();
     startpost("[ceammc] objects: ");
@@ -75,6 +77,7 @@ static void ceammc_bang(t_object* x)
     }
 
     endpost();
+}
 }
 
 extern "C" CEAMMC_EXTERN void ceammc_setup()
@@ -99,4 +102,3 @@ extern "C" CEAMMC_EXTERN void ceammc_setup()
     ceammc_new();
     ceammc_init();
 }
-

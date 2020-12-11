@@ -1,4 +1,4 @@
-<?xml version='1.0' encoding='utf-8'?>
+<?xml version="1.0" encoding="utf-8"?>
 <pddoc version="1.0">
     <object name="chaos.gbman0">
         <title>chaos.gbman0</title>
@@ -10,7 +10,7 @@
             <license>GPL3 or later</license>
             <library>ceammc</library>
             <category>chaos</category>
-            <keywords>chaos gingerbreadman</keywords>
+            <keywords>chaos generator gingerbreadman</keywords>
             <since>0.9</since>
             <also>
                 <see>chaos.gbman0</see>

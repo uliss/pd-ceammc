@@ -44,7 +44,6 @@ UIArrayView::UIArrayView()
     , render_clock_(this, &UIArrayView::renderTick)
     , render_index_(0)
     , selection_mode_(SELECTION_NONE)
-    , prev_mouse_pt_ { 0, 0 }
     , prop_array(&s_)
     , prop_color_wave(rgba_blue)
     , prop_color_cursor(rgba_blue)
@@ -126,7 +125,7 @@ void UIArrayView::drawLabels()
 
     // top left
     label_top_left_.setColor(prop_color_border);
-    label_top_left_.set(array_.name().c_str(), 5, 3, 0, 0);
+    label_top_left_.set(array_.name()->s_name, 5, 3, 0, 0);
     p.drawText(label_top_left_);
 
     // top right

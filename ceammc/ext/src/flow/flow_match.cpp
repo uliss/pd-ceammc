@@ -31,12 +31,18 @@ FlowMatch::FlowMatch(const PdArgs& args)
     patterns_->setArgIndex(0);
     patterns_->setSuccessFn([this](Property* p) {
         for (auto x : p->get()) {
-            std::string re = regexp::escape(to_string(x));
+            const std::string re = regexp::escape(to_string(x));
             re_.emplace_back(new re2::RE2(re));
         }
     });
 
     addProperty(patterns_);
+}
+
+FlowMatch::~FlowMatch()
+{
+    for (auto* p : re_)
+        delete p;
 }
 
 void FlowMatch::initDone()
@@ -45,18 +51,22 @@ void FlowMatch::initDone()
         createInlet();
         createOutlet();
     }
+
+    createOutlet();
 }
 
 void FlowMatch::onInlet(size_t idx, const AtomList& l)
 {
-    if (idx < re_.size())
-        re_[idx].reset(new re2::RE2(regexp::escape(to_string(l))));
+    if (idx < re_.size()) {
+        delete re_[idx];
+        re_[idx] = new re2::RE2(regexp::escape(to_string(l)));
+    }
 }
 
 void FlowMatch::onSymbol(t_symbol* s)
 {
     const size_t N = re_.size();
-    assert(N == numOutlets());
+    assert(N + 1 == numOutlets());
 
     for (size_t i = 0; i < N; i++) {
         if (RE2::FullMatch(s->s_name, *re_[i])) {
@@ -72,10 +82,10 @@ void FlowMatch::onSymbol(t_symbol* s)
     symbolTo(N, s);
 }
 
-void FlowMatch::onAny(t_symbol* s, const AtomList& l)
+void FlowMatch::onAny(t_symbol* s, const AtomListView& l)
 {
     const size_t N = re_.size();
-    assert(N == numOutlets());
+    assert(N + 1 == numOutlets());
 
     for (size_t i = 0; i < N; i++) {
         if (RE2::FullMatch(s->s_name, *re_[i])) {
@@ -94,7 +104,7 @@ void FlowMatch::onAny(t_symbol* s, const AtomList& l)
 void FlowMatch::onDataT(const StringAtom& s)
 {
     const size_t N = re_.size();
-    assert(N == numOutlets());
+    assert(N + 1 == numOutlets());
 
     for (size_t i = 0; i < N; i++) {
         if (RE2::FullMatch(s->str(), *re_[i])) {
@@ -104,6 +114,27 @@ void FlowMatch::onDataT(const StringAtom& s)
     }
 
     atomTo(N, s);
+}
+
+const char* FlowMatch::annotateInlet(size_t n) const
+{
+    if (n == 0)
+        return "symbol: input flow\n"
+               "any:    messages";
+    else if (n <= re_.size())
+        return re_[n - 1]->pattern().c_str();
+    else
+        return nullptr;
+}
+
+const char* FlowMatch::annotateOutlet(size_t n) const
+{
+    if (n < re_.size())
+        return re_[n]->pattern().c_str();
+    else if (n == re_.size())
+        return "unmatched";
+    else
+        return nullptr;
 }
 
 void setup_flow_match()

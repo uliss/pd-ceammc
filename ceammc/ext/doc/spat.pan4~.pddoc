@@ -20,20 +20,22 @@
             </also>
         </meta>
         <arguments>
-            <argument name="ANGLE" type="float" minvalue="0">circle panning position in
-            radians</argument>
+            <argument name="RADIUS" type="float" minvalue="0">panning radius</argument>
+            <argument name="ANGLE" type="float" minvalue="0" units="radian" maxvalue="2π">circle
+            panning position in radians</argument>
         </arguments>
         <properties>
-            <property name="@angle" type="float" minvalue="0" default="0" maxvalue="6.28319">
-            panning position in radians</property>
-            <property name="@dist" type="float" minvalue="0" maxvalue="1" default="1">distance from
-            circle center</property>
+            <property name="@angle" type="float" minvalue="0" default="0" maxvalue="2π">panning
+            position in radians</property>
+            <property name="@radius" type="float" minvalue="0" maxvalue="1" default="1">distance
+            from circle center</property>
             <property name="@active" type="int" enum="0 1" default="1">on/off dsp
             processing</property>
         </properties>
         <inlets>
             <inlet type="audio">
                 <xinfo>input signal</xinfo>
+                <xinfo on="list">set radius and angle</xinfo>
             </inlet>
         </inlets>
         <outlets>
@@ -48,13 +50,13 @@
 [osc~ 1000] [ui.knob]     [ui.knob]
 |           |             |
 |           |             |
-|           [* 6.2831852] |
+|           [phase->rad]  |
 |           |             |
-|           [@angle $1(   [@dist $1(
+|           [@angle $1(   [@radius $1(
 |           |             |
 |           |             |
 |           |             |
-[spat.pan4~ 3.141592  0.8  ]
+[spat.pan4~ 0.8 pi()       ]
 |       ^|      ^^|     ^^^|
 [ui.m~] [ui.m~] [ui.m~] [ui.m~]
 

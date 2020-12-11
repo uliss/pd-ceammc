@@ -35,26 +35,21 @@ public:
     void eventStart();
     void eventEnd();
 
-    void m_add(t_symbol* s, const AtomList& lst);
-    void m_remove(t_symbol* s, const AtomList& lst);
-    void m_clear(t_symbol* s, const AtomList& lst);
+    void m_add(t_symbol* s, const AtomListView& lst);
+    void m_remove(t_symbol* s, const AtomListView& lst);
+    void m_clear(t_symbol* s, const AtomListView& lst);
 
-    void m_start(t_symbol* s, const AtomList& lst);
-    void m_stop(t_symbol* s, const AtomList& lst);
-    void m_pause(t_symbol* s, const AtomList& lst);
-    void m_reset(t_symbol* s, const AtomList& lst);
-    void m_to_event(t_symbol* s, const AtomList& lst);
-    void m_to_time(t_symbol* s, const AtomList& lst);
+    void m_start(t_symbol* s, const AtomListView& lst);
+    void m_stop(t_symbol* s, const AtomListView& lst);
+    void m_pause(t_symbol* s, const AtomListView& lst);
+    void m_reset(t_symbol* s, const AtomListView& lst);
+    void m_to_event(t_symbol* s, const AtomListView& lst);
+    void m_to_time(t_symbol* s, const AtomListView& lst);
 
     AtomList propNumEvents() const;
     AtomList propCurrentTime() const;
-    AtomList propLoop() const;
     AtomList propPhase() const;
     AtomList propEvents() const;
-    void propSetLoop(const AtomList& l);
-
-    AtomList propMode() const;
-    void propSetMode(const AtomList& lst);
 
     tl::RunState state() const;
 

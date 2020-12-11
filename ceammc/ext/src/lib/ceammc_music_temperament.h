@@ -152,6 +152,8 @@ namespace music {
 
     std::string to_string(const TemperamentType& t);
     double to_freq(size_t p, const TemperamentType& t, double a_base = 440);
+    double to_freq_base(size_t p, const TemperamentType& t, const PitchClass& base_pitch, double base_freq);
+    double to_deviation(size_t p, const TemperamentType& t, const PitchClass& base_pitch);
 }
 }
 

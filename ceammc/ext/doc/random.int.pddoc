@@ -6,11 +6,11 @@
             <authors>
                 <author>Serge Poltavsky</author>
             </authors>
-            <description>Random integer generator in specified range</description>
+            <description>uniform random integer generator in specified range</description>
             <license>GPL3 or later</license>
             <library>ceammc</library>
             <category>random</category>
-            <keywords>random</keywords>
+            <keywords>random int</keywords>
             <also>
                 <see>random.float</see>
                 <see>random.gauss</see>
@@ -22,7 +22,20 @@
         </meta>
         <info>
             <par>Generates pseudo-random number in specified closed interval.</par>
+            <par>Use @seed property to get reproducible sequences. If @seed property was not
+            explicitly set or specified, uses generator initialized with current time.</par>
+            <par>Algorithm: 32-bit Mersenne Twister by Matsumoto and Nishimura, 1998</par>
+            <a href="https://en.wikipedia.org/wiki/Mersenne_Twister">wiki: Mersenne Twister</a>
         </info>
+        <arguments>
+            <argument name="ARG" type="list">@min=ARG[0], @max=ARG[1], in case of signle arg:
+            @min=0, @max=ARG[0]</argument>
+        </arguments>
+        <properties>
+            <property name="@min" type="int" default="0">random range lower bound</property>
+            <property name="@max" type="int" default="255">random range upper bound</property>
+            <property name="@seed" type="int" minvalue="0" default="0">generator seed</property>
+        </properties>
         <inlets>
             <inlet>
                 <xinfo on="bang">generates random number</xinfo>
@@ -34,8 +47,8 @@
         <example>
             <pdascii>
 <![CDATA[
-[B]
-|
+[B] [@seed 0(
+|   |
 [random.int -10 10]
 |
 [F]

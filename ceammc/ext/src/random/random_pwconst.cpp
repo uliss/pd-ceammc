@@ -1,11 +1,7 @@
 #include <boost/algorithm/cxx11/is_sorted.hpp>
-#include <ctime>
-#include <random>
 
 #include "ceammc_factory.h"
 #include "random_pwconst.h"
-
-static std::mt19937 random_gen(std::time(0));
 
 static AtomList vector2list(const std::vector<t_float>& v)
 {
@@ -19,6 +15,7 @@ static AtomList vector2list(const std::vector<t_float>& v)
 
 RandomPWConst::RandomPWConst(const PdArgs& a)
     : BaseObject(a)
+    , seed_(nullptr)
 {
     createOutlet();
 
@@ -30,6 +27,10 @@ RandomPWConst::RandomPWConst(const PdArgs& a)
 
     createCbListProperty("@bounds", [this]() { return vector2list(bounds_); });
     createCbListProperty("@weights", [this]() { return vector2list(weights_); });
+
+    seed_ = new SizeTProperty("@seed", 0);
+    seed_->setSuccessFn([this](Property* p) { gen_.setSeed(seed_->value()); });
+    addProperty(seed_);
 }
 
 void RandomPWConst::onBang()
@@ -42,7 +43,7 @@ void RandomPWConst::onBang()
     std::piecewise_constant_distribution<t_float> dist(
         bounds_.begin(), bounds_.end(), weights_.begin());
 
-    floatTo(0, dist(random_gen));
+    floatTo(0, dist(gen_.get()));
 }
 
 void RandomPWConst::onList(const AtomList& v)
@@ -91,4 +92,15 @@ bool RandomPWConst::set(const AtomList& data)
 void setup_random_pw_const()
 {
     ObjectFactory<RandomPWConst> obj("random.pw_const");
+
+    obj.setDescription("piecewise constant random distribution");
+    obj.addAuthor("Serge Poltavsky");
+    obj.setKeywords({ "linear", "random", "piecewise", "const" });
+    obj.setCategory("random");
+    obj.setSinceVersion(0, 4);
+
+    RandomPWConst::setInletsInfo(obj.classPointer(), { "bang: output new random\n"
+                                                       "list: set new distribution values and output\n"
+                                                       "args: b0 w0 b1 w1 b2..." });
+    RandomPWConst::setOutletsInfo(obj.classPointer(), { "float: piecewise constant distributed random" });
 }

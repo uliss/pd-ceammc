@@ -30,7 +30,7 @@ ListSeq::ListSeq(const PdArgs& a)
     closed_range_ = new FlagProperty("@closed");
     addProperty(closed_range_);
 
-    switch (positionalArguments().size()) {
+    switch (parsedPosArgs().size()) {
     case 0:
         break;
     case 1:
@@ -46,7 +46,7 @@ ListSeq::ListSeq(const PdArgs& a)
         step_->setArgIndex(2);
         break;
     default:
-        OBJ_ERR << "too many positional args: " << positionalArguments();
+        OBJ_ERR << "too many positional args: " << parsedPosArgs();
         break;
     }
 }
@@ -121,4 +121,18 @@ void ListSeq::onList(const AtomList& lst)
 void setup_list_seq()
 {
     ObjectFactory<ListSeq> obj("list.seq");
+
+    obj.setDescription("numeric sequence list generator");
+    obj.addAuthor("Alex Nadzharov");
+    obj.addAuthor("Serge Poltavsky");
+    obj.setKeywords({ "list", "sequence", "generate" });
+    obj.setCategory("list");
+    obj.setSinceVersion(0, 1);
+
+    ListSeq::setInletsInfo(obj.classPointer(), { "bang:         generate sequence with specified parameters\n"
+                                                 "float:        sequence FROM=0 TO=float STEP=1\n"
+                                                 "list (len=1): same as float\n"
+                                                 "list (len=2): sequence FROM=l0 TO=l1 STEP=1\n"
+                                                 "list (len=3): sequence FROM=l0 TO=l1 STEP=l2" });
+    ListSeq::setOutletsInfo(obj.classPointer(), { "list" });
 }

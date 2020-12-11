@@ -44,11 +44,11 @@ TEST_CASE("env.env", "[externals]")
 
         SECTION("adsr")
         {
-            TObj t("env", LA("adsr", 10, 20, 90, 10));
+            TObj t("env", LA("adsr", 10, 20, 75, 10));
             REQUIRE_PROPERTY_FLOAT(t, @npoints, 4);
             REQUIRE_PROPERTY_FLOAT(t, @length, 40);
-            REQUIRE_PROPERTY_LIST(t, @values, LA(0.f, 1, 0.9, 0.f));
-            REQUIRE_PROPERTY_LIST(t, @points, LA(0.f, 10, 30, 40));
+            REQUIRE_PROPERTY_LIST(t, @values, LX(0, 1, 0.75, 0));
+            REQUIRE_PROPERTY_LIST(t, @points, LX(0, 10, 30, 40));
         }
 
         SECTION("asr")

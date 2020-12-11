@@ -49,4 +49,6 @@ ceammc_data_external(local list)
 ceammc_data_external(local mlist)
 ceammc_data_external(local set)
 
+ceammc_data_external(rtree to_list)
+
 add_library(ceammc_data STATIC mod_data.h mod_data.cpp ${DATA_SOURCES})

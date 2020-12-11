@@ -1,5 +1,5 @@
 /*****************************************************************************
- * Copyright 2018 Serge Poltavsky. All rights reserved.
+ * Copyright 2020 Serge Poltavsky. All rights reserved.
  *
  * This file may be distributed under the terms of GNU Public License version
  * 3 (GPL v3) as defined by the Free Software Foundation (FSF). A copy of the
@@ -16,99 +16,85 @@
 
 FlowAppend::FlowAppend(const PdArgs& args)
     : BaseObject(args)
-    , msg_(nullptr)
-    , delay_time_(0)
-    , as_msg_(0)
-    , clock_(this, &FlowAppend::tick)
+    , delay_(nullptr)
+    , delay_fn_([this]() { output(); })
+    , inlet2_(this)
 {
-    delay_time_ = new FloatProperty("@delay", 0);
-    delay_time_->setFloatCheck(PropValueConstraints::GREATER_EQUAL, -1);
-    delay_time_->setUnits(PropValueUnits::MSEC);
-    addProperty(delay_time_);
+    delay_ = new FloatProperty("@delay", -1);
+    delay_->checkMinEq(-1);
+    delay_->setUnits(PropValueUnits::MSEC);
+    addProperty(delay_);
 
-    as_msg_ = new FlagProperty("@msg");
-    addProperty(as_msg_);
-
-    msg_ = new ListProperty("@value");
-    msg_->setArgIndex(0);
-    addProperty(msg_);
-
-    createInlet();
-    createInlet();
-
+    inlet_new(owner(), &inlet2_.x_obj, nullptr, nullptr);
     createOutlet();
+
+    auto& pargs = parsedPosArgs();
+    if (pargs.size() >= 1 && pargs[0].isSymbol())
+        msg_.setAny(pargs[0].asT<t_symbol*>(), pargs.view(1));
+    else if (pargs.empty())
+        msg_.setBang();
+    else
+        msg_.setList(pargs);
 }
 
 void FlowAppend::onBang()
 {
     bangTo(0);
-    process();
+    append();
 }
 
-void FlowAppend::onFloat(t_float f)
+void FlowAppend::onFloat(t_float v)
 {
-    floatTo(0, f);
-    process();
+    floatTo(0, v);
+    append();
 }
 
 void FlowAppend::onSymbol(t_symbol* s)
 {
     symbolTo(0, s);
-    process();
+    append();
 }
 
-void FlowAppend::onList(const AtomList& lst)
+void FlowAppend::onList(const AtomList& l)
 {
-    listTo(0, lst);
-    process();
+    listTo(0, l);
+    append();
 }
 
-void FlowAppend::onAny(t_symbol* s, const AtomList& lst)
+void FlowAppend::onAny(t_symbol* s, const AtomListView& lv)
 {
-    anyTo(0, s, lst);
-    process();
+    anyTo(0, s, lv);
+    append();
 }
 
-void FlowAppend::onInlet(size_t n, const AtomList& lst)
+void FlowAppend::proxy_any(InletProxy<FlowAppend>* /*x*/, t_symbol* s, const AtomListView& v)
 {
-    if (n == 1)
-        msg_->set(lst);
-    else if (n == 2)
-        delay_time_->set(lst);
+    msg_.setAny(s, v);
+}
+
+void FlowAppend::append()
+{
+    const auto dt = delay_->value();
+    if (dt < 0)
+        output();
     else
-        OBJ_ERR << "invalid inlet: " << n;
+        delay_fn_.delay(dt);
 }
 
-bool FlowAppend::processAnyProps(t_symbol* s, const AtomList& lst)
+void FlowAppend::output()
 {
-    return false;
-}
-
-void FlowAppend::process()
-{
-    if (delay_time_->value() >= 0) {
-        clock_.delay(delay_time_->value());
-    } else {
-
-        outputAppend();
-    }
-}
-
-void FlowAppend::tick()
-{
-    outputAppend();
-}
-
-void FlowAppend::outputAppend()
-{
-    if (as_msg_->value()) {
-        anyTo(0, msg_->get());
-    } else {
-        listTo(0, msg_->get());
-    }
+    if (msg_.isNone())
+        bangTo(0);
+    else
+        messageTo(0, msg_);
 }
 
 void setup_flow_append()
 {
     ObjectFactory<FlowAppend> obj("flow.append");
+    obj.noPropsDispatch();
+    obj.setXletsInfo({ "any: input flow", "any: set append message" }, { "any: output" });
+
+    InletProxy<FlowAppend>::init();
+    InletProxy<FlowAppend>::set_any_callback(&FlowAppend::proxy_any);
 }

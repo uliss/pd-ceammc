@@ -10,8 +10,8 @@
 #X text 215 80 Weights the circular harmonics signals depending on
 the ambisonic optimization. It can be "basic" for no optimization \,
 "maxre" or "inphase".;
-#X text 215 135 If no optimization-mode is specified \, the optimization
-will be inphase.;
+#X text 215 135 If no optimization mode is specified \, the default
+mode will be inphase.;
 #X text 215 175 Maxre optimization is used when audience is confined
 to the center of the circle.;
 #X text 215 215 Inphase optimization is used when the audience covers
@@ -32,60 +32,60 @@ your ears.;
 #X obj 50 644 hoa.decoder~ 5 regular 11, f 25;
 #X obj 50 673 xdac~ 1:11, f 25;
 #X obj 50 702 ui.dsp~;
-#X obj 20 741 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 746 cnv 5 90 26 empty empty arguments: 4 10 0 14 -262144
+#X obj 20 751 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 756 cnv 5 90 26 empty empty arguments: 4 10 0 14 -262144
 -49933 0;
-#X text 110 781 1\.;
-#X text 150 781 int;
-#X obj 246 782 cnv 1 47 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 781 ORDER: the order of decomposition. Min value: 1;
-#X text 110 801 2\.;
-#X text 150 801 symbol;
-#X obj 246 802 cnv 1 40 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 801 MODE: optimization mode.;
-#X obj 20 831 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 836 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
+#X text 110 791 1\.;
+#X text 150 791 int;
+#X obj 246 792 cnv 1 47 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 245 791 ORDER: the order of decomposition. Min value: 1;
+#X text 110 811 2\.;
+#X text 150 811 symbol;
+#X obj 246 812 cnv 1 40 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 245 811 MODE: optimization mode.;
+#X obj 20 841 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 846 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
 -49933 0;
-#X msg 110 871 @basic;
-#X text 245 871 alias for @mode basic.;
-#X msg 110 900 @inphase;
-#X text 245 900 alias for @mode inphase.;
-#X msg 110 929 @maxre;
-#X text 245 929 alias for @mode maxre.;
-#X msg 110 958 @mode;
-#X text 245 958 Get/Set optimization mode. Type: symbol. Default value:
+#X msg 110 881 @basic;
+#X text 245 881 alias for @mode basic (no optimization).;
+#X msg 110 910 @inphase;
+#X text 245 910 alias for @mode inphase.;
+#X msg 110 939 @maxre;
+#X text 245 939 alias for @mode maxre.;
+#X msg 110 968 @mode;
+#X text 245 968 Get/Set optimization mode. Type: symbol. Default value:
 basic. Allowed values: basic \, maxre \, inphase.;
-#X msg 110 1000 @order;
-#X text 245 1000 (readonly) Get the order of decomposition. Type: int.
+#X msg 110 1010 @order;
+#X text 245 1010 (readonly) Get the order of decomposition. Type: int.
 Default value: 1\. Range: 1\...63\.;
-#X obj 20 1052 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1057 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144
+#X obj 20 1062 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1067 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 1058 1\.;
-#X text 245 1058 first input harmonic.;
-#X text 110 1078 ....;
-#X text 245 1078 ... input harmonic.;
-#X text 110 1098 n.;
-#X text 245 1098 n-th input harmonic.;
-#X obj 20 1128 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1133 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
+#X text 110 1068 1\.;
+#X text 245 1068 first input harmonic.;
+#X text 110 1088 ....;
+#X text 245 1088 ... input harmonic.;
+#X text 110 1108 n.;
+#X text 245 1108 n-th input harmonic.;
+#X obj 20 1138 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1143 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 1134 1\.;
-#X text 245 1134 first harmonic output.;
-#X text 110 1154 ....;
-#X text 245 1154 ... harmonic output.;
-#X text 110 1174 n.;
-#X text 245 1174 n-th harmonic output.;
+#X text 110 1144 1\.;
+#X text 245 1144 first harmonic output.;
+#X text 110 1164 ....;
+#X text 245 1164 ... harmonic output.;
+#X text 110 1184 n.;
+#X text 245 1184 n-th harmonic output.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 115 45 ::;
 #X obj 131 48 ui.link @title spat @url ceammc.spat-help.pd;
-#X obj 1 1224 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 1227 library: ceammc v0.9.0;
-#X text 557 1239 see also:;
-#X obj 631 1239 hoa.2d.decoder~;
-#N canvas 10 1246 400 290 info 0;
+#X obj 1 1234 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1237 library: ceammc v0.9.0;
+#X text 557 1249 see also:;
+#X obj 631 1249 hoa.2d.decoder~;
+#N canvas 10 1256 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
@@ -110,7 +110,7 @@ https://github.com/uliss/pure-data;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 generated by pddoc;
-#X restore 10 1246 pd info;
+#X restore 10 1256 pd info;
 #X connect 12 0 14 0;
 #X connect 13 0 15 0;
 #X connect 14 0 17 0;

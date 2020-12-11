@@ -32,7 +32,7 @@ TEST_CASE("midi.track", "[externals]")
         REQUIRE_PROPERTY(t, @join, 0.f);
         REQUIRE_PROPERTY(t, @track, 0.f);
         REQUIRE_PROPERTY(t, @tempo, 120);
-        REQUIRE_PROPERTY(t, @events, 0.f);
+        REQUIRE_PROPERTY(t, @nevents, 0.f);
         REQUIRE_PROPERTY(t, @current, 0.f);
         REQUIRE_PROPERTY(t, @state, 0.f);
         REQUIRE_PROPERTY(t, @speed, 1);
@@ -59,7 +59,7 @@ TEST_CASE("midi.track", "[externals]")
         REQUIRE_PROPERTY(t, @join, 0.);
         REQUIRE_PROPERTY(t, @track, 0.);
         REQUIRE_PROPERTY(t, @tempo, 480);
-        REQUIRE_PROPERTY(t, @events, 19);
+        REQUIRE_PROPERTY(t, @nevents, 19);
         REQUIRE(t.begin() != t.end());
         REQUIRE(t.size() == 19);
 
@@ -217,7 +217,7 @@ TEST_CASE("midi.track", "[externals]")
         REQUIRE_PROPERTY(t, @join, 0.);
         REQUIRE_PROPERTY(t, @track, 2);
         REQUIRE_PROPERTY(t, @tempo, 120);
-        REQUIRE_PROPERTY(t, @events, 0.);
+        REQUIRE_PROPERTY(t, @nevents, 0.);
         REQUIRE(t.begin() == t.end());
         REQUIRE(t.size() == 0);
     }

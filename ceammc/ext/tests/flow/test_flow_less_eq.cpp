@@ -28,10 +28,9 @@ TEST_CASE("flow.less_eq", "[externals]")
         {
             TObj t("flow.less_eq");
             REQUIRE(t.numInlets() == 1);
-            REQUIRE(t.numOutlets() == 1);
+            REQUIRE(t.numOutlets() == 0);
 
             WHEN_SEND_FLOAT_TO(0, t, 123);
-            REQUIRE_NO_MSG(t);
         }
 
         SECTION("single")

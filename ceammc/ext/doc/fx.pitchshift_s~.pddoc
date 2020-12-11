@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="fx.pitchshift_s~">
+        <title>fx.pitchshift_s~</title>
+        <meta>
+            <authors>
+                <author>Alex Nadzharov</author>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>signal version of fx.pitchshift~</description>
+            <license>GPL3 or later</license>
+            <library>ceammc</library>
+            <category>fx</category>
+            <keywords>fx pitchshift</keywords>
+            <since>0.9</since>
+        </meta>
+        <properties>
+            <property name="@window" type="float" units="millisecond" minvalue="10" maxvalue="2000"
+            default="200">the window size</property>
+            <property name="@fade" type="float" units="millisecond" minvalue="0" maxvalue="1000"
+            default="100">crossfade duration</property>
+            <property name="@drywet" type="float" minvalue="0" maxvalue="1" default="1">proportion
+            of mix between the original (dry) and 'effected' (wet) signals. 0 - dry signal, 1 -
+            wet.</property>
+            <property name="@bypass" type="int" enum="0 1" default="0">if set to 1 - bypass
+            'effected' signal.</property>
+            <property name="@active" type="int" enum="0 1" default="1">on/off dsp
+            processing</property>
+        </properties>
+        <inlets>
+            <inlet type="audio">
+                <xinfo>input signal</xinfo>
+            </inlet>
+            <inlet type="audio">
+                <xinfo>pitch shift in semitones</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet type="audio">output signal</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[open %CEAMMC%/guitar1.wav, 1(
+|
+[expand_env #a]
+|
+|         [T]          [phasor~ 3]
+|         |            |
+[readsf~] [@bypass $1( [l->l~ 0 1 -12 12]
+|         |            |.
+[fx.pitchshift_s~ @drywet 0.5]
+|
+[ui.gain~ @size 120 14] [ui.dsp~]
+|\
+[dac~]
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

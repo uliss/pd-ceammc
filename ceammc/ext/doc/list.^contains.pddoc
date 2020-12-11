@@ -6,7 +6,7 @@
             <authors>
                 <author>Serge Poltavsky</author>
             </authors>
-            <description>on input atom or list checks if specified list contains it</description>
+            <description>checks if input atom is found in the list</description>
             <license>GPL3 or later</license>
             <library>ceammc</library>
             <category>list</category>
@@ -22,13 +22,19 @@
             <par>Outputs 1 if contains, otherwise 0</par>
             <par>Different arguments order then in [list.^contains]</par>
         </info>
+        <arguments>
+            <argument name="LIST" type="list">list contents</argument>
+        </arguments>
+        <properties>
+            <property name="@value" type="list">list contents</property>
+        </properties>
         <inlets>
             <inlet>
-                <xinfo on="float">checks if given float contains in list</xinfo>
-                <xinfo on="symbol">checks if given symbol contains in list</xinfo>
+                <xinfo on="float">checks if given float is found the list</xinfo>
+                <xinfo on="symbol">checks if given symbol is found the list</xinfo>
                 <xinfo on="list">check is given list is subseqence of list</xinfo>
                 <xinfo on="data:mlist">as list</xinfo>
-                <xinfo on="data">checks if given data contains in list</xinfo>
+                <xinfo on="data">checks if given data is found the list</xinfo>
             </inlet>
             <inlet>
                 <xinfo on="list">set haystack list</xinfo>

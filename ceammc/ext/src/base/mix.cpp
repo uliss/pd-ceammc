@@ -191,7 +191,7 @@ void Mix::setPropSolo(const AtomList& lst)
     }
 }
 
-void Mix::m_mute(t_symbol* s, const AtomList& lst)
+void Mix::m_mute(t_symbol* s, const AtomListView& lst)
 {
     if (!checkArgs(lst, ARG_NATURAL, ARG_BOOL, s))
         return;
@@ -212,7 +212,7 @@ void Mix::m_mute(t_symbol* s, const AtomList& lst)
         OBJ_ERR << "invalid mute value: " << lst[1];
 }
 
-void Mix::m_solo(t_symbol* s, const AtomList& lst)
+void Mix::m_solo(t_symbol* s, const AtomListView& lst)
 {
     if (!checkArgs(lst, ARG_NATURAL, ARG_BOOL, s))
         return;
@@ -244,4 +244,10 @@ void setup_base_mix()
     SoundExternalFactory<Mix> obj("mix~");
     obj.addMethod("mute", &Mix::m_mute);
     obj.addMethod("solo", &Mix::m_solo);
+
+    obj.setDescription("multislot signal mixer");
+    obj.addAuthor("Serge Poltavsky");
+    obj.setKeywords({ "mix", "amplitude", "decibel" });
+    obj.setCategory("base");
+    obj.setSinceVersion(0, 6);
 }

@@ -17,17 +17,24 @@
 #include "ceammc_object.h"
 using namespace ceammc;
 
+struct Route {
+    Atom sel;
+    bool keep;
+};
+
 class FlowRoute : public BaseObject {
     const size_t n_;
+    std::vector<Route> routes_;
+    std::vector<std::string> routes_s_;
 
 public:
     FlowRoute(const PdArgs& args);
-    void parseProperties() override;
-    bool processAnyProps(t_symbol* sel, const AtomList& lst) override;
 
     void onList(const AtomList& lst) override;
-    void onAny(t_symbol* s, const AtomList& lst) override;
+    void onAny(t_symbol* s, const AtomListView& lst) override;
     void onData(const Atom& data) override;
+
+    const char* annotateOutlet(size_t n) const override;
 };
 
 void setup_flow_route();

@@ -15,12 +15,12 @@ public:
     void onFloat(t_float f) override;
     void onSymbol(t_symbol* s) override;
     void onList(const AtomList& l) override;
-    void onAny(t_symbol* s, const AtomList& l) override;
+    void onAny(t_symbol* s, const AtomListView& l) override;
     void onData(const Atom& data) override;
 
     void onInlet(size_t n, const AtomList& l) override;
 
-    bool processAnyProps(t_symbol* s, const AtomList& l) override;
+    bool processAnyProps(t_symbol* s, const AtomListView& l) override;
 };
 
 void setup_flow_gate();

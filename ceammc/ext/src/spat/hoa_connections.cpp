@@ -52,7 +52,7 @@ void HoaIn::onList(const AtomList& l)
     listTo(0, l);
 }
 
-void HoaIn::onAny(t_symbol* s, const AtomList& l)
+void HoaIn::onAny(t_symbol* s, const AtomListView& l)
 {
     anyTo(0, s, l);
 }
@@ -101,13 +101,13 @@ void HoaOut::onList(const AtomList& l)
         outlet_list(outlet_, &s_list, l.size(), l.toPdData());
 }
 
-void HoaOut::onAny(t_symbol* s, const AtomList& l)
+void HoaOut::onAny(t_symbol* s, const AtomListView& l)
 {
     if (outlet_)
         outlet_anything(outlet_, s, l.size(), l.toPdData());
 }
 
-bool HoaOut::processAnyProps(t_symbol* sel, const AtomList& lst)
+bool HoaOut::processAnyProps(t_symbol* sel, const AtomListView& lst)
 {
     return false;
 }

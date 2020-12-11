@@ -18,9 +18,9 @@
 #include "ceammc_json.h"
 #include "ceammc_log.h"
 
+#include <algorithm>
 #include <cmath>
 #include <cstring>
-#include <algorithm>
 
 namespace ceammc {
 
@@ -169,7 +169,7 @@ void DataTypeMList::setParsed(const AtomList& lst)
 {
     auto ml = parse(lst);
     if (ml)
-        data_ = ml->data_;
+        std::swap(data_, ml.value().data_);
 }
 
 DataTypeMList DataTypeMList::rotateLeft(int steps) const
@@ -258,15 +258,20 @@ DataTypeMList::MaybeList DataTypeMList::parse(const std::string& str)
     auto pos = str.find('(');
 
     if (str.empty() || pos == std::string::npos)
-        return boost::none;
+        return {};
 
-    AtomList out = parseDataString(str);
-    if (!out.isA<DataTypeMList>()) {
-        LIB_ERR << "MList parse fail";
-        return boost::none;
+    auto parse_result = parseDataString(str);
+    if (!parse_result) {
+        LIB_ERR << "parse error: " << parse_result.err();
+        return {};
     }
 
-    return *out.asD<DataTypeMList>();
+    if (!parse_result.result().isA<DataTypeMList>()) {
+        LIB_ERR << "not a MList: " << str;
+        return {};
+    }
+
+    return *parse_result.result().asD<DataTypeMList>();
 }
 
 std::ostream& operator<<(std::ostream& os, const DataTypeMList& d)

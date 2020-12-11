@@ -48,46 +48,27 @@ public:
 
 private:
     TypedDataAtom data_;
-    ListProperty* args_;
 
 public:
     explicit ClassConstructorCustom(PdArgs& a)
         : BaseObject(a)
-        , args_(nullptr)
     {
-        args_ = new ListProperty("@args");
-        args_->setInitOnly();
-        args_->setArgIndex(0);
-        // self parse trick
-        args_->setSuccessFn([this](Property* p) {
-            args_->setValue(parseDataList(p->get()));
-        });
-        addProperty(args_);
-
-        createOutlet();
-    }
-
-    void initDone() override
-    {
-        auto& args = args_->value();
-        if (args.empty())
-            return;
-
-        // data initializer
-        if (args.isData()) {
-            if (!args.isA<TypeWrapped>())
-                OBJ_ERR << "unsupported init data type: " << args[0].asData()->typeName();
+        if (parsedPosArgs().isData()) {
+            if (!parsedPosArgs().template isA<TypeWrapped>())
+                OBJ_ERR << "unsupported init data type: " << parsedPosArgs()[0].asData()->typeName();
             else
-                data_ = TypedDataAtom(args[0]);
+                data_ = TypedDataAtom(parsedPosArgs()[0]);
         } else {
             T data;
-            auto res = data.setFromPd(args);
+            auto res = data.setFromPd(parsedPosArgs());
             std::string err;
             if (res.error(&err))
                 OBJ_ERR << err;
             else
                 data_ = TypedDataAtom(data);
         }
+
+        createOutlet();
     }
 
     void onBang() override
@@ -118,7 +99,7 @@ public:
         }
     }
 
-    void onAny(t_symbol* s, const AtomList& l) override
+    void onAny(t_symbol* s, const AtomListView& l) override
     {
         T data;
         auto st = data.setFromAny(s, l);
@@ -137,7 +118,7 @@ public:
         atomTo(0, data_);
     }
 
-    void m_set(t_symbol* s, const AtomList& l)
+    void m_set(t_symbol* s, const AtomListView& l)
     {
         if (l.isData()) {
             if (l.isA<TypeWrapped>()) {

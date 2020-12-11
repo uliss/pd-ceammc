@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="prop.split">
+        <title>prop.split</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>separate properties from dataflow</description>
+            <license>GPL3 or later</license>
+            <library>ceammc</library>
+            <category>property</category>
+            <keywords>property</keywords>
+            <since>0.9</since>
+            <aliases>
+                <alias>prop-&gt;</alias>
+                <alias>@-&gt;</alias>
+            </aliases>
+            <also>
+                <see>prop&lt;-</see>
+            </also>
+        </meta>
+        <info>
+            <par>Extracts properties from data stream with matching. Non property values are passed
+            untouched</par>
+        </info>
+        <inlets>
+            <inlet>
+                <xinfo on="any">input values</xinfo>
+            </inlet>
+        </inlets>
+        <outlets dynamic="true">
+            <outlet>passed values</outlet>
+            <outlet>first matched property value (without property selector)</outlet>
+            <outlet number="...">others matched property value</outlet>
+            <outlet number="n">unmatched property output (with selector)</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+          [any value(
+          |
+[F]       |   [@prop1 a b c(   [@oth 1 2 3 4(
+|         |   |                |
+|  [B]    |   | [@prop1 2(     |
+|  |      |   | |              |
+|  |      |   | |              |
+|  |      |   | |              |
+[prop-> @prop1                  ]
+|     ^|   ^^|
+|     |      [ui.display @display_type 1]
+|     |
+|    [ui.display @display_type 1]
+|
+[ui.display @display_type 1]
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

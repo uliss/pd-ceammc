@@ -39,4 +39,13 @@ void setup_list_do()
 {
     ObjectFactory<ListDo> obj("list.do");
     obj.processData<DataTypeMList>();
+
+    obj.setDescription("iterate and modify list contents via side-chain");
+    obj.addAuthor("Alex Nadzharov");
+    obj.setKeywords({ "list", "iterate" });
+    obj.setCategory("list");
+    obj.setSinceVersion(0, 5);
+
+    ListDo::setInletsInfo(obj.classPointer(), { "list or Mlist", "value(s) from side-chain" });
+    ListDo::setOutletsInfo(obj.classPointer(), { "list", "list to side-chain: ATOM INDEX TOTAL" });
 }

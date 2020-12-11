@@ -16,14 +16,18 @@
 DataDict::DataDict(const PdArgs& args)
     : DictIFace<BaseObject>(args)
 {
-    createOutlet();
-
     if (args.args.size() > 0)
-        dict_->fromString(to_string(args.args, " "));
+        dict_->fromString(to_string(args.args));
+
+    createOutlet();
 }
 
 void setup_data_dict()
 {
     DictIFaceFactory<DataDict> obj("data.dict");
     obj.addAlias("dict");
+    obj.noArgsDataParsing();
+    obj.setXletsInfo({ "bang: output\n"
+                       "methods: add, clear, get_key, set_key, remove, set, read, write" },
+        { "data: dict" });
 }

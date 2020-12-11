@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="conv.hex2int">
+        <title>conv.hex2int</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>hex symbol to int value</description>
+            <license>GPL3 or later</license>
+            <library>ceammc</library>
+            <category>conv</category>
+            <keywords>conv int hex</keywords>
+            <since>0.9.1</since>
+            <aliases>
+                <alias>hex-&gt;int</alias>
+            </aliases>
+        </meta>
+        <properties>
+            <property name="@string" type="flag">ignore parsing error</property>
+        </properties>
+        <inlets>
+            <inlet>
+                <xinfo on="symbol">input value</xinfo>
+                <xinfo on="list">input values</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet>converted value: int</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[symbol 0xFF(
+|
+[hex->int]
+|
+[F]
+
+[list 0xFF 0xFFFF DEADBEEF(
+|
+[hex->int]
+|
+[ui.d @display_type 1]
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

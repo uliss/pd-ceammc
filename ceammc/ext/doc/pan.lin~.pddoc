@@ -16,6 +16,9 @@
                 <see>pan.sqrt~</see>
                 <see>pan.cos~</see>
             </also>
+            <aliases>
+                <alias>pan~</alias>
+            </aliases>
         </meta>
         <info>
             <par>The signal is lowered as it pans from left (or right) to center using a straight

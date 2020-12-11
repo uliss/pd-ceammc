@@ -33,7 +33,7 @@
 |                        |
 [matrix.trunc_exp]       [matrix.exp]
 |                        |
-[ui.display @display_type=1]
+[ui.display @display_type 1]
 ]]>
             </pdascii>
         </example>

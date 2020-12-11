@@ -39,7 +39,7 @@
 |
 [matrix.solve 2 2 1 2 3 4]
 |
-[ui.display @display_type=1]
+[ui.display @display_type 1]
 ]]>
             </pdascii>
         </example>

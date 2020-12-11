@@ -80,10 +80,9 @@ def create_object(root, name):
             "license": "GPL3 or later",
             "library": "ceammc",
             "category": name.split('.')[0],
-            "keywords": " ",
+            "keywords": "",
             "since": VERSION,
-            "also": {"see": " "},
-            "aliases": {"alias": " "}
+            "also": {"see": " "}
         })
     )
 
@@ -114,9 +113,13 @@ def create_xml():
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(
-        description='CEAMMC Pd documentation checker')
+        description='CEAMMC Pd pddoc template generator')
     parser.add_argument('-v', '--verbose',
                         help='verbose output', action='store_true')
+    parser.add_argument('-p', '--stdout',
+                        help='ouput to stdout', action='store_true')
+    parser.add_argument('-f', '--force',
+                        help='force overrite of existing file', action='store_true')
     parser.add_argument('external', metavar='EXT_NAME',
                         type=str, help='external name')
 
@@ -137,19 +140,40 @@ if __name__ == '__main__':
         cprint(
             f" - generating template for [{ext_name}] external ...", "green")
 
-    pddoc_path = f"{DOC_PATH}{ext_name}.pddoc"
-    if os.path.exists(pddoc_path):
-        cprint(f"Error: {pddoc_path} already exists ...", "red")
-        sys.exit(2)
+    if not args.stdout:
+        pddoc_path = f"{DOC_PATH}{ext_name}.pddoc"
+        if not args.force and os.path.exists(pddoc_path):
+            cprint(f"Error: {pddoc_path} already exists ...", "red")
+            sys.exit(2)
 
-    if args.verbose:
-        cprint(f" - pddoc file: \"{pddoc_path}\"", "blue")
+        if args.verbose:
+            cprint(f" - pddoc file: \"{pddoc_path}\"", "blue")
 
     xml = create_xml()
 
-    create_object(xml, ext_name)
+    create_object(xml, info["object"]["name"])
 
     obj = xml["object"]
+
+    # description
+    obj.meta.description = " "
+    if "info" in info["object"] and "description" in info["object"]["info"]:
+        obj.meta.description = info["object"]["info"]["description"]
+
+    # category
+    obj.meta.category = " "
+    if "info" in info["object"] and "category" in info["object"]["info"]:
+        obj.meta.category = info["object"]["info"]["category"]
+
+    # aliases
+    if "info" in info["object"] and "aliases" in info["object"]["info"]:
+        obj.meta.aliases = ""
+        for a in info["object"]["info"]["aliases"]:
+            obj.meta.aliases.alias = f"{a}"
+
+    # keywords
+    if "info" in info["object"] and "keywords" in info["object"]["info"]:
+        obj.meta.keywords = " ".join(info["object"]["info"]["keywords"])
 
     # create properties
     obj.properties = ""
@@ -186,19 +210,21 @@ if __name__ == '__main__':
                 m._setText("...")
 
     # create inlets
-    ninl = info["object"]["inlets"]
+    ninl = len(info["object"]["inlets"])
     obj.inlets = ""
     if ninl > 0:
         for i in range(ninl):
             obj.inlets.inlet = ""
+            obj.inlets.inlet.set("type", info["object"]["inlets"][i])
             obj.inlets.inlet.xinfo = f"inlet {i}"
 
     # create outlets
-    nout = info["object"]["outlets"]
+    nout = len(info["object"]["outlets"])
     obj.outlets = ""
     if nout > 0:
         for i in range(nout):
             obj.outlets.outlet = f"outlet {i}"
+            obj.outlets.outlet.set("type", info["object"]["inlets"][i])
 
     # create example
     obj.example = ""
@@ -215,13 +241,21 @@ if __name__ == '__main__':
         if args.verbose:
             print(xml_str)
 
-        with open(pddoc_path, "wb") as xml_writer:
-            xml_writer.write(
+        if args.stdout:
+            sys.stdout.write(
                 etree.tostring(
                     xml,
                     pretty_print=True,
                     xml_declaration=True,
-                    encoding='utf-8'))
+                    encoding='utf-8').decode('utf-8'))
+        else:
+            with open(pddoc_path, "wb") as xml_writer:
+                xml_writer.write(
+                    etree.tostring(
+                        xml,
+                        pretty_print=True,
+                        xml_declaration=True,
+                        encoding='utf-8'))
 
     except IOError:
         pass

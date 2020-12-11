@@ -33,7 +33,7 @@ class UIDisplay : public UIObject {
     int prop_display_events;
     int prop_display_type;
     int prop_auto_size;
-    int type_width_;
+    int prop_float_width_;
     t_rgba prop_text_color;
     t_rgba prop_active_color;
 
@@ -45,6 +45,7 @@ private:
     t_symbol* msg_type_txt_;
     ClockMemberFunction<UIDisplay> timer_;
     double last_update_;
+    int type_width_;
     bool on_bang_;
     UIMessageType msg_type_;
 
@@ -53,6 +54,7 @@ public:
 
     void paint();
     void okSize(::t_rect* newrect);
+    void init(t_symbol* name, const AtomList& args, bool usePresets);
 
     void onBang();
     void onFloat(t_float f);
@@ -66,6 +68,8 @@ public:
     const std::string& text() const;
     const std::string type() const;
 
+    const char* annotateInlet(int n) const;
+
 public:
     static void setup();
 
@@ -75,6 +79,8 @@ public:
 
 private:
     void redrawAll();
+    void appendFloatToText(t_float f);
+    void setMessage(UIMessageType t, t_symbol* s, const AtomList& lst);
 };
 
 void setup_ui_display();

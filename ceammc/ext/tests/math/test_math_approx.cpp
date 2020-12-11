@@ -40,19 +40,19 @@ TEST_CASE("approx", "[externals]")
             REQUIRE(t.numInlets() == 3);
             REQUIRE(t.numOutlets() == 1);
 
-            REQUIRE_PROPERTY(t, @value, 0.f);
-            REQUIRE_PROPERTY(t, @epsilon, 0.01f);
+            REQUIRE_PROPERTY(t, @value, 0.);
+            REQUIRE_PROPERTY(t, @epsilon, 0.01);
         }
 
         SECTION("properties")
         {
             TObj t("approx", LA("@value", 10));
             REQUIRE_PROPERTY(t, @value, 10);
-            REQUIRE_PROPERTY(t, @epsilon, 0.01f);
+            REQUIRE_PROPERTY(t, @epsilon, 0.01);
 
             {
                 TObj t("approx", LA("@epsilon", 10));
-                REQUIRE_PROPERTY(t, @value, 0.f);
+                REQUIRE_PROPERTY(t, @value, 0.);
                 REQUIRE_PROPERTY(t, @epsilon, 10);
             }
 
@@ -74,7 +74,7 @@ TEST_CASE("approx", "[externals]")
             {
                 TObj t("approx", LA(20, "a"));
                 REQUIRE_PROPERTY(t, @value, 20);
-                REQUIRE_PROPERTY(t, @epsilon, 0.01f);
+                REQUIRE_PROPERTY(t, @epsilon, 0.01);
             }
         }
     }
@@ -83,47 +83,47 @@ TEST_CASE("approx", "[externals]")
     {
         TObj t("approx", LF(2));
         REQUIRE_APPROX(t, 2);
-        REQUIRE_APPROX(t, 2.01f);
-        REQUIRE_APPROX(t, 2.001f);
-        REQUIRE_APPROX(t, 1.99f);
-        REQUIRE_APPROX(t, 1.999f);
+        REQUIRE_APPROX(t, 2.01);
+        REQUIRE_APPROX(t, 2.001);
+        REQUIRE_APPROX(t, 1.99);
+        REQUIRE_APPROX(t, 1.999);
 
-        REQUIRE_NO_APPROX(t, 2.02f);
-        REQUIRE_NO_APPROX(t, 1.98f);
+        REQUIRE_NO_APPROX(t, 2.02);
+        REQUIRE_NO_APPROX(t, 1.98);
 
         // set negative pattern
         t.sendFloat(-2, 1);
-        REQUIRE_APPROX(t, -2.01f);
-        REQUIRE_APPROX(t, -1.99f);
-        REQUIRE_NO_APPROX(t, -2.02f);
-        REQUIRE_NO_APPROX(t, -1.98f);
+        REQUIRE_APPROX(t, -2.01);
+        REQUIRE_APPROX(t, -1.99);
+        REQUIRE_NO_APPROX(t, -2.02);
+        REQUIRE_NO_APPROX(t, -1.98);
 
         // set negative epsilon
         t.sendFloat(-0.5, 2);
         REQUIRE_APPROX(t, -2);
-        REQUIRE_APPROX(t, -2.5f);
-        REQUIRE_APPROX(t, -1.5f);
-        REQUIRE_NO_APPROX(t, -1.49f);
-        REQUIRE_NO_APPROX(t, -2.51f);
+        REQUIRE_APPROX(t, -2.5);
+        REQUIRE_APPROX(t, -1.5);
+        REQUIRE_NO_APPROX(t, -1.49);
+        REQUIRE_NO_APPROX(t, -2.51);
     }
 
     SECTION("list")
     {
         TObj t("approx");
 
-        WHEN_SEND_LIST_TO(0, t, LF(2, 2, 0.f));
+        WHEN_SEND_LIST_TO(0, t, LF(2, 2, 0.));
         REQUIRE_FLOAT_AT_OUTLET(0, t, 1);
 
-        WHEN_SEND_LIST_TO(0, t, LF(2.1f, 2, 0.1f));
+        WHEN_SEND_LIST_TO(0, t, LF(2.09, 2, t_float(0.1)));
         REQUIRE_FLOAT_AT_OUTLET(0, t, 1);
 
-        WHEN_SEND_LIST_TO(0, t, LF(2.11f, 2, 0.1f));
+        WHEN_SEND_LIST_TO(0, t, LF(2.11, 2, 0.1));
         REQUIRE_FLOAT_AT_OUTLET(0, t, 0);
 
-        WHEN_SEND_LIST_TO(0, t, LF(1.99f, 2, 0.1f));
+        WHEN_SEND_LIST_TO(0, t, LF(1.99, 2, 0.1));
         REQUIRE_FLOAT_AT_OUTLET(0, t, 1);
 
-        WHEN_SEND_LIST_TO(0, t, LF(1.89f, 2, 0.1f));
+        WHEN_SEND_LIST_TO(0, t, LF(1.89, 2, 0.1));
         REQUIRE_FLOAT_AT_OUTLET(0, t, 0);
     }
 }

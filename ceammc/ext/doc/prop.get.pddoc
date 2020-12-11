@@ -6,53 +6,50 @@
             <authors>
                 <author>Serge Poltavsky</author>
             </authors>
-            <description>Property extractor</description>
+            <description>get property from connected object/subpatch/abstraction</description>
             <license>GPL3 or later</license>
             <library>ceammc</library>
             <category>property</category>
             <keywords>property</keywords>
-            <since>0.1</since>
+            <since>0.9</since>
             <aliases>
-                <alias>prop-&gt;</alias>
-                <alias>@-&gt;</alias>
+                <alias>p.get</alias>
             </aliases>
             <also>
                 <see>prop&lt;-</see>
             </also>
         </meta>
         <info>
-            <par>Extracts properties from data stream with matching. Non property values are passed
-            untouched.</par>
+            <par>Get properties from connected object/subpatch/abstraction</par>
         </info>
+        <mouse>
+            <event editmode="false" type="left-click">get properties</event>
+        </mouse>
+        <arguments>
+            <argument name="PROPS" type="list">property names</argument>
+        </arguments>
         <inlets>
             <inlet>
-                <xinfo on="any">input values</xinfo>
+                <xinfo on="bang">output specified properites to corresponding outlets</xinfo>
+                <xinfo on="any">output specified property to second outlet</xinfo>
             </inlet>
         </inlets>
         <outlets dynamic="true">
-            <outlet>passed values</outlet>
-            <outlet>first matched property output</outlet>
-            <outlet number="...">others matched property output</outlet>
-            <outlet number="n">unmatched property output</outlet>
+            <outlet number="1">connected to destination object</outlet>
+            <outlet number="2">output of first requested property</outlet>
+            <outlet number="...">output of ... requested property</outlet>
+            <outlet number="n+1">output of n-th requested property</outlet>
         </outlets>
         <example>
             <pdascii>
 <![CDATA[
-          [any value(
-          |
-[F]       |   [@prop1 a b c(   [@oth 1 2 3 4(
-|         |   |                |
-|  [B]    |   | [@prop1 2(     |
-|  |      |   | |              |
-|  |      |   | |              |
-|  |      |   | |              |
-[prop-> @prop1                  ]
-|     ^|   ^^|
-|     |      [ui.display @display_type=1]
-|     |
-|    [ui.display @display_type=1]
+[bang(
 |
-[ui.display @display_type=1]
+[prop.get @size @value]
+|          ^|   ^^|
+|          |      [ui.display @display_type 1]
+|          |
+[ui.knob]  [ui.display @display_type 1]
 ]]>
             </pdascii>
         </example>

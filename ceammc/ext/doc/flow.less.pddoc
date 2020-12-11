@@ -27,15 +27,20 @@
             <argument name="LIST" type="list">compare values: list of floats in ascending
             order</argument>
         </arguments>
+        <properties>
+            <property name="@values" type="list">compare values: list of floats in ascending
+            order</property>
+        </properties>
         <inlets>
             <inlet>
                 <xinfo on="float">input flow</xinfo>
             </inlet>
         </inlets>
         <outlets dynamic="true">
-            <outlet>numbers that are less then 1st argument</outlet>
-            <outlet number="...">numbers that are less than N-th argument</outlet>
-            <outlet number="n">numbers that are greater or equal than last argument</outlet>
+            <outlet number="1">numbers that are less then 1st argument</outlet>
+            <outlet number="...">numbers that are less than ... argument</outlet>
+            <outlet number="n">numbers that are less than N-th argument</outlet>
+            <outlet number="n+1">numbers that are greater or equal than last argument</outlet>
         </outlets>
         <example>
             <pdascii>

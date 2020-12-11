@@ -6,7 +6,7 @@ import("stdfaust.lib");
 cm = library("ceammc.lib");
 
 // Controls
-N = hslider("density", 10, 1, maxN, 1);
+N = hslider("density [type:int]", 10, 1, maxN, 1) : int;
 gLength = hslider("length [unit:ms]", 100, 10, 500, 0.01) : cm.time_pd2faust : si.smoo;
 dLength = hslider("delay [unit:sec]", 10, 0.5, 10, 0.1) : si.smoo;
 

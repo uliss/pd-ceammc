@@ -5,66 +5,66 @@
 #X obj 1 1 cnv 5 765 40 empty empty flow.route 20 20 0 20 -104026
 -4096 0;
 #X obj 668 11 flow.route;
-#X obj 210 80 cnv 1 555 35 empty empty empty 17 7 0 10 -257983 -1 0;
+#X obj 210 80 cnv 1 555 60 empty empty empty 17 7 0 10 -257983 -1 0;
 #X text 215 80 if no match occured - output original message to last
 outlet;
-#X msg 50 143 a b c;
-#X msg 126 143 unmatched;
-#X msg 146 172 1 2 3;
-#X msg 222 172 2 3 4;
-#X obj 242 201 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
--1;
-#X obj 501 201 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
--1;
-#X obj 242 230 data.mlist (1 2 3);
-#X obj 501 230 data.mlist (3 4 5);
-#X msg 242 259 [a: 1 2 3] [b:c] [1: test] \, bang;
-#X obj 242 287 data.dict;
-#X obj 50 330 flow.route 1 a;
-#X obj 50 359 ui.display @display_type 1 @size 150 18;
-#X obj 107 388 ui.display @display_type 1 @size 150 18;
-#X obj 146 417 ui.display @display_type 1 @size 150 18;
-#X obj 20 457 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 462 cnv 5 90 26 empty empty arguments: 4 10 0 14 -262144
+#X text 215 105 if route starts with '*' - output with message selector;
+#X msg 50 168 list a b c;
+#X msg 50 197 a b c;
+#X msg 50 226 list d e f;
+#X msg 50 255 d e f;
+#X msg 50 284 100 200 300;
+#X msg 50 312 400 500 600;
+#X msg 222 312 unmatched;
+#X obj 50 341 flow.route a *d 100 *400, f 40;
+#X obj 50 370 ui.d @display_type 1;
+#X obj 270 370 ui.d @display_type 1;
+#X obj 117 399 ui.d @display_type 1;
+#X obj 376 399 ui.d @display_type 1;
+#X obj 184 428 ui.d @display_type 1;
+#X obj 50 456 flow.route.data;
+#X obj 20 505 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 510 cnv 5 90 26 empty empty arguments: 4 10 0 14 -262144
 -49933 0;
-#X text 110 497 1\.;
-#X text 150 497 list;
-#X obj 246 498 cnv 1 62 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 497 MATCHES: list of route matches.;
-#X obj 20 527 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 532 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
+#X text 110 545 1\.;
+#X text 150 545 list;
+#X obj 246 546 cnv 1 62 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 245 545 MATCHES: list of route matches.;
+#X obj 20 575 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 580 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
-#X text 110 533 1\.;
-#X text 150 533 *list*;
-#X text 245 533 match to first list element. On match outputs list
-without first element to corresponding outlet.;
-#X text 150 568 *any*;
-#X text 245 568 match to message selector. On success outputs message
-arguments to corresponding outlet.;
-#X text 150 603 *data:mlist*;
-#X text 245 603 same as list.;
-#X text 150 623 *data:dict*;
-#X text 245 623 match dict keys. On success outputs dict values to
-corresponding outlets.;
-#X obj 20 668 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 673 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
+#X text 110 581 1\.;
+#X text 150 581 *list*;
+#X text 245 581 match to first list element \, output to corresponding
+outlet. If route starts with * output list 'as is' \, otherwise output
+without first element.;
+#X text 150 631 *any*;
+#X text 245 631 match to message selector \, output to corresponding
+outlet. On success outputs message arguments to corresponding outlet.;
+#X text 150 666 *data:mlist*;
+#X text 245 666 same as list.;
+#X text 150 686 *data:dict*;
+#X text 245 686 match dict keys. On success outputs dict values to
+corresponding outlets \, if starts with * output with matched key.;
+#X obj 20 746 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 751 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 674 1\.;
-#X text 245 674 first pattern match output.;
-#X text 110 694 ....;
-#X text 245 694 ... pattern match output.;
-#X text 110 714 n.;
-#X text 245 714 n-th pattern match output.;
-#X text 110 734 n+1\.;
-#X text 245 734 unmatched output.;
+#X text 110 752 1\.;
+#X text 245 752 first pattern match output.;
+#X text 110 772 ....;
+#X text 245 772 ... pattern match output.;
+#X text 110 792 n.;
+#X text 245 792 n-th pattern match output.;
+#X text 110 812 n+1\.;
+#X text 245 812 unmatched output.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 115 45 ::;
 #X obj 131 48 ui.link @title flow @url ceammc.flow-help.pd;
-#X obj 1 784 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 787 library: ceammc v0.9.0;
-#N canvas 10 806 400 290 info 0;
+#X obj 1 862 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 865 library: ceammc v0.9.0;
+#N canvas 10 884 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
@@ -88,17 +88,16 @@ https://github.com/uliss/pure-data;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 generated by pddoc;
-#X restore 10 806 pd info;
-#X connect 10 0 12 0;
-#X connect 11 0 13 0;
+#X restore 10 884 pd info;
+#X connect 13 0 14 0;
 #X connect 14 0 15 0;
-#X connect 6 0 16 0;
-#X connect 7 0 16 0;
-#X connect 8 0 16 0;
-#X connect 9 0 16 0;
-#X connect 16 0 17 0;
-#X connect 16 1 18 0;
-#X connect 16 2 19 0;
-#X connect 12 0 16 0;
-#X connect 13 0 16 0;
-#X connect 15 0 16 0;
+#X connect 14 1 17 0;
+#X connect 14 2 19 0;
+#X connect 14 3 16 0;
+#X connect 14 4 18 0;
+#X connect 7 0 14 0;
+#X connect 8 0 14 0;
+#X connect 9 0 14 0;
+#X connect 10 0 14 0;
+#X connect 11 0 14 0;
+#X connect 12 0 14 0;

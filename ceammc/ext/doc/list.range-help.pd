@@ -1,7 +1,7 @@
 #N canvas 0 0 785 555 12;
 #X declare -lib ceammc;
-#X obj 462 50 cnv 1 303 23 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 462 50 returns list smallest and largest value;
+#X obj 468 50 cnv 1 297 23 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 468 50 output list smallest and largest value;
 #X obj 1 1 cnv 5 765 40 empty empty list.range 20 20 0 20 -104026
 -4096 0;
 #X obj 563 11 list.minmax;
@@ -19,19 +19,19 @@
 #X obj 347 230 !-;
 #X msg 50 259 ;
 #X floatatom 347 259 5 0 0 0 - - -;
-#X obj 20 298 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 303 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
+#X obj 20 308 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 313 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
-#X text 110 304 1\.;
-#X text 150 304 *list*;
-#X text 245 304 input list.;
-#X text 150 324 *data:mlist*;
-#X text 245 324 input mlist.;
-#X obj 20 354 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 359 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
+#X text 110 314 1\.;
+#X text 150 314 *list*;
+#X text 245 314 input list.;
+#X text 150 334 *data:mlist*;
+#X text 245 334 input mlist.;
+#X obj 20 364 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 369 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 360 1\.;
-#X text 245 360 list of two elements: first is a smallest values \,
+#X text 110 370 1\.;
+#X text 245 370 list of two elements: first is a smallest values \,
 second - largest.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;

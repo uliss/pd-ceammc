@@ -103,7 +103,7 @@ ArrayVlinePlay::ArrayVlinePlay(const PdArgs& args)
     addProperty(reversed_);
 }
 
-bool ArrayVlinePlay::processAnyProps(t_symbol* s, const AtomList& args)
+bool ArrayVlinePlay::processAnyProps(t_symbol* s, const AtomListView& args)
 {
     if (s == SYM_CURSOR_SAMPLE
         || s == SYM_CURSOR_PHASE
@@ -138,7 +138,7 @@ void ArrayVlinePlay::initDone()
     log_errors_ = true;
 }
 
-void ArrayVlinePlay::m_play(t_symbol* s, const AtomList& lst)
+void ArrayVlinePlay::m_play(t_symbol* s, const AtomListView& lst)
 {
     if (state_ == STATE_PLAY) {
         METHOD_ERR(s) << "already playing";
@@ -165,7 +165,7 @@ void ArrayVlinePlay::m_play(t_symbol* s, const AtomList& lst)
     output();
 }
 
-void ArrayVlinePlay::m_range(t_symbol* s, const AtomList& lst)
+void ArrayVlinePlay::m_range(t_symbol* s, const AtomListView& lst)
 {
     bool ok = (lst.size() == 2 && checkArgs(lst, ARG_FLOAT, ARG_SYMBOL, s))
         || (lst.size() == 4 && checkArgs(lst, ARG_FLOAT, ARG_SYMBOL, ARG_FLOAT, ARG_SYMBOL, s));
@@ -288,7 +288,7 @@ void ArrayVlinePlay::output()
     }
 }
 
-void ArrayVlinePlay::m_stop(t_symbol* s, const AtomList& lst)
+void ArrayVlinePlay::m_stop(t_symbol* s, const AtomListView& lst)
 {
     if (state_ == STATE_STOP) {
         METHOD_ERR(s) << "already stopped";

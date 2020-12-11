@@ -13,9 +13,17 @@
  *****************************************************************************/
 #include "ceammc_data.h"
 #include "ceammc_fn_list.h"
+#include "ceammc_log.h"
 #include "test_common.h"
 
 using namespace ceammc;
+
+template <class T0, class T1>
+static std::ostream& operator<<(std::ostream& os, const std::pair<T0, T1>& p)
+{
+    os << "<" << p.first << ", " << p.second << ">";
+    return os;
+}
 
 TEST_CASE("list functions2", "[core]")
 {

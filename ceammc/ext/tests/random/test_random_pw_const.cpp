@@ -40,18 +40,18 @@ TEST_CASE("random.pw_const", "[externals]")
         {
             TObj t("random.pw_const", LA("@v", 1, 0.1, 2, 0.2, 3));
 
-            REQUIRE_PROPERTY_LIST(t, @v, LA(1, 0.1, 2, 0.2, 3));
-            REQUIRE_PROPERTY_LIST(t, @bounds, LF(1, 2, 3));
-            REQUIRE_PROPERTY_LIST(t, @weights, LF(0.1, 0.2));
+            REQUIRE_PROPERTY_LIST(t, @v, LX(1, 0.1, 2, 0.2, 3));
+            REQUIRE_PROPERTY_LIST(t, @bounds, LX(1, 2, 3));
+            REQUIRE_PROPERTY_LIST(t, @weights, LX(0.1, 0.2));
         }
 
         SECTION("args")
         {
             TObj t("random.pw_const", LA(1, 0.1, 2, 0.2, 3));
 
-            REQUIRE_PROPERTY_LIST(t, @v, LA(1, 0.1, 2, 0.2, 3));
-            REQUIRE_PROPERTY_LIST(t, @bounds, LF(1, 2, 3));
-            REQUIRE_PROPERTY_LIST(t, @weights, LF(0.1, 0.2));
+            REQUIRE_PROPERTY_LIST(t, @v, LX(1, 0.1, 2, 0.2, 3));
+            REQUIRE_PROPERTY_LIST(t, @bounds, LX(1, 2, 3));
+            REQUIRE_PROPERTY_LIST(t, @weights, LX(0.1, 0.2));
         }
     }
 

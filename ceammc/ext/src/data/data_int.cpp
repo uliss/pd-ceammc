@@ -15,7 +15,7 @@
 
 DataInt::DataInt(const PdArgs& a)
     : DataIntBase(a)
-    , value_(0)
+    , value_(parsedPosArgs().intAt(0, 0))
 {
     createInlet();
     createOutlet();

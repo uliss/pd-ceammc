@@ -114,10 +114,13 @@ public:
     void listTo(size_t n, const AtomList& lst) override;
     void listTo(size_t n, const AtomListView& v) override;
     void symbolTo(size_t n, t_symbol* s) override;
-    void floatTo(size_t n, float f) override;
+    void floatTo(size_t n, t_float f) override;
     void atomTo(size_t n, const Atom& a) override;
     void anyTo(size_t n, const AtomList& lst) override;
+    void anyTo(size_t n, const AtomListView& lst) override;
+    void anyTo(size_t n, t_symbol* sel, const Atom& a) override;
     void anyTo(size_t n, t_symbol* sel, const AtomList& lst) override;
+    void anyTo(size_t n, t_symbol* sel, const AtomListView& lst) override;
     void messageTo(size_t n, const Message& m) override;
 
     /** messages methods */
@@ -128,7 +131,6 @@ public:
     size_t messageCount(size_t outlet = 0) const;
     const Message& lastMessage(size_t outlet = 0) const;
     const Message& messageAt(size_t idx, size_t outlet) const;
-    bool lastMessageIsBang(size_t outlet = 0) const;
     void cleanMessages(size_t outlet = 0);
     void cleanAllMessages();
 
@@ -470,7 +472,7 @@ void TestExternal<T>::sendTData(const DataT* d, int inlet)
 template <class T>
 void TestExternal<T>::bangTo(size_t n)
 {
-    msg_[n].push_back(Message(&s_bang));
+    msg_[n].push_back(Message::makeBang());
 }
 
 template <class T>
@@ -492,7 +494,7 @@ void TestExternal<T>::symbolTo(size_t n, t_symbol* s)
 }
 
 template <class T>
-void TestExternal<T>::floatTo(size_t n, float f)
+void TestExternal<T>::floatTo(size_t n, t_float f)
 {
     msg_[n].push_back(Message(f));
 }
@@ -513,7 +515,25 @@ void TestExternal<T>::anyTo(size_t n, const AtomList& lst)
 }
 
 template <class T>
+void TestExternal<T>::anyTo(size_t n, const AtomListView& lst)
+{
+    msg_[n].push_back(Message(lst.at(0).asSymbol(), lst.subView(1)));
+}
+
+template <class T>
+void TestExternal<T>::anyTo(size_t n, t_symbol* sel, const Atom& a)
+{
+    msg_[n].push_back(Message(sel, AtomList(a)));
+}
+
+template <class T>
 void TestExternal<T>::anyTo(size_t n, t_symbol* sel, const AtomList& lst)
+{
+    msg_[n].push_back(Message(sel, lst));
+}
+
+template <class T>
+void TestExternal<T>::anyTo(size_t n, t_symbol* sel, const AtomListView& lst)
 {
     msg_[n].push_back(Message(sel, lst));
 }
@@ -560,15 +580,6 @@ template <class T>
 const Message& TestExternal<T>::messageAt(size_t idx, size_t outlet) const
 {
     return msg_[outlet].at(idx);
-}
-
-template <class T>
-bool TestExternal<T>::lastMessageIsBang(size_t outlet) const
-{
-    if (msg_[outlet].empty())
-        return false;
-
-    return msg_[outlet].back().isList();
 }
 
 template <class T>

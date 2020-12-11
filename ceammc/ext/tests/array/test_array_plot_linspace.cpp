@@ -103,7 +103,7 @@ TEST_CASE("plot.linspace~", "[externals]")
             REQUIRE(s0.out[0][i] == 16);
         }
 
-        t.setProperty("@endpoint", { 0 });
+        t.setProperty("@endpoint", LF(0));
         WHEN_SEND_FLOAT_TO(0, t, 8);
         REQUIRE_PROPERTY(t, @n, 8);
         REQUIRE(listAt(t, 1_out) == LF(8, 0, 16, 0));

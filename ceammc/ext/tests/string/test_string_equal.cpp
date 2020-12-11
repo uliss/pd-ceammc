@@ -28,7 +28,7 @@ TEST_CASE("string.equal", "[external]")
     {
         SECTION("empty")
         {
-            TestExtStringEqual t("string.equal");
+            TExt t("string.equal");
             REQUIRE(t.numInlets() == 2);
             REQUIRE(t.numOutlets() == 1);
 
@@ -45,8 +45,8 @@ TEST_CASE("string.equal", "[external]")
 
         SECTION("args")
         {
-            TestExtStringEqual t("string.equal", LA("синица"));
-            t->dump();
+            TExt t("string.equal", LA("\"синица\""));
+            REQUIRE_PROPERTY_LIST(t, @subj, StringAtom("синица"));
             REQUIRE(t.numInlets() == 2);
             REQUIRE(t.numOutlets() == 1);
 
@@ -64,7 +64,8 @@ TEST_CASE("string.equal", "[external]")
 
     SECTION("change pattern")
     {
-        TestExtStringEqual t("string.equal", LA("sound"));
+        TExt t("string.equal", LA("sound"));
+        REQUIRE_PROPERTY_LIST(t, @subj, StringAtom("sound"));
 
         t.sendSymbol(SYM("noise"));
         REQUIRE(t.outputFloatAt(0) == 0);
@@ -85,5 +86,31 @@ TEST_CASE("string.equal", "[external]")
         REQUIRE(t.outputFloatAt(0) == 0);
         t.sendSymbol(SYM(" "));
         REQUIRE(t.outputFloatAt(0) == 1);
+
+        t.sendListTo(LA("abc"), 1);
+        REQUIRE_PROPERTY_LIST(t, @subj, StringAtom("abc"));
+
+        t.sendListTo(LA(0xBEEF), 1);
+        REQUIRE_PROPERTY_LIST(t, @subj, StringAtom(0xBEEF));
+
+        t.sendListTo(LA("\"a", "string\""), 1);
+        REQUIRE_PROPERTY_LIST(t, @subj, StringAtom("a string"));
+
+        t.sendListTo(LA("\"not", "string"), 1);
+        REQUIRE_PROPERTY_LIST(t, @subj, StringAtom("a string"));
+
+        t.sendListTo(StringAtom(""), 1);
+        REQUIRE_PROPERTY_LIST(t, @subj, StringAtom(""));
+
+        t.sendListTo(StringAtom("abc"), 1);
+        REQUIRE_PROPERTY_LIST(t, @subj, StringAtom("abc"));
+
+        // space
+        t.sendListTo(LA("\"", "\""), 1);
+        REQUIRE_PROPERTY_LIST(t, @subj, StringAtom(" "));
+
+        // empty string
+        t.sendListTo(LA("\"\""), 1);
+        REQUIRE_PROPERTY_LIST(t, @subj, StringAtom(""));
     }
 }

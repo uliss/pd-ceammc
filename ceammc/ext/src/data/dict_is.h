@@ -25,7 +25,7 @@ public:
     void onFloat(t_float) override;
     void onSymbol(t_symbol*) override;
     void onList(const AtomList&) override;
-    void onAny(t_symbol*, const AtomList&) override;
+    void onAny(t_symbol*, const AtomListView&) override;
     void onData(const Atom& ptr) override;
 };
 

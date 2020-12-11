@@ -16,44 +16,43 @@
         </meta>
         <properties>
             <property name="@speed" type="float" minvalue="120" maxvalue="480" default="240">
-            maximum speed of whistles</property>
+            maximum speed of whistles if @auto enabled</property>
             <property name="@probability" type="float" minvalue="25" maxvalue="100" default="50">
-            whistles probability</property>
+            whistles probability if @auto enabled</property>
+            <property name="@gate" type="int" enum="0 1" default="0">play trigger. Starts playing
+            on release</property>
+            <property name="@auto" type="int" minvalue="0" maxvalue="1" default="0">auto playing
+            mode</property>
             <property name="@active" type="int" enum="0 1" default="1">on/off dsp
             processing</property>
         </properties>
         <inlets>
             <inlet>
-                <xinfo>control inlet</xinfo>
+                <xinfo on="bang">play</xinfo>
             </inlet>
         </inlets>
         <outlets>
-            <outlet type="audio" />
-            <outlet type="audio" />
+            <outlet type="audio">synth left channel</outlet>
+            <outlet type="audio">synth right channel</outlet>
         </outlets>
         <example>
             <pdascii>
 <![CDATA[
-[ui.knob]              [ui.knob]
-|                      |
-|                      |
-|                      |
-[lin->lin 0 1 120 480] [lin->lin 0 1 25 100]
-|                      |
-[@speed $1(            [@probability $1(
-|                      |
-|                      |
-[synth.birds~          ]
-|           ^|.
-[fx.zita_rev1~]
-|  ^|
-|  [ui.gain~ @size 120 16 #a]    [ui.dsp~]
-|
-[ui.gain~ @size 120 16]
-|
-[dac~ #b]
-
-[X a->b:1]
+[gsynth.birds~   {i=2,o=2}]
+*|*
+*|*
+*|*
+*|*
+*|*
+*|*
+*|*
+*|*
+*|*
+[fx.zita_rev1~]   [ui.dsp~]
+*|*
+[ui.hgain2~]
+|\
+[dac~]
 ]]>
             </pdascii>
         </example>

@@ -19,8 +19,6 @@ PD_COMPLETE_TEST_SETUP(ListXAt, list, xat)
 using TExt = TestExtListXAt;
 using TObj = TestListXAt;
 
-typedef TestExternal<ListXAt> ListXAtTest;
-
 TEST_CASE("list.^at", "[externals]")
 {
     pd_test_init();
@@ -29,70 +27,70 @@ TEST_CASE("list.^at", "[externals]")
     {
         SECTION("empty arguments")
         {
-            ListXAtTest t("list.^at");
+            TObj t("list.^at");
             REQUIRE(t.numInlets() == 2);
             REQUIRE(t.numOutlets() == 1);
             REQUIRE(t.property("@default") != 0);
             REQUIRE(t.property("@default")->get()[0].isNone());
-            REQUIRE_THAT(t, hasProperty(&t, "@method", "rel")); 
+            REQUIRE_THAT(t, hasProperty(&t, "@method", "rel"));
         }
 
         SECTION("properties")
         {
-            ListXAtTest t("list.^at", LA("@default", 2, "@fold"));
+            TObj t("list.^at", LA("@default", 2, "@fold"));
             REQUIRE(t.property("@default") != 0);
             REQUIRE(t.property("@default")->get() == Atom(2));
-            REQUIRE_THAT(t, hasProperty(&t, "@method", "fold")); 
+            REQUIRE_THAT(t, hasProperty(&t, "@method", "fold"));
         }
 
         SECTION("method")
         {
             SECTION("rel")
             {
-                ListXAtTest t("list.^at", LA("@method", "rel"));
-                REQUIRE_THAT(t, hasProperty(&t, "@method", "rel")); 
+                TObj t("list.^at", LA("@method", "rel"));
+                REQUIRE_THAT(t, hasProperty(&t, "@method", "rel"));
             }
 
             SECTION("@rel")
             {
-                ListXAtTest t("list.^at", LA("@rel"));
-                REQUIRE_THAT(t, hasProperty(&t, "@method", "rel")); 
+                TObj t("list.^at", LA("@rel"));
+                REQUIRE_THAT(t, hasProperty(&t, "@method", "rel"));
             }
 
             SECTION("clip")
             {
-                ListXAtTest t("list.^at", LA("@method", "clip"));
-                REQUIRE_THAT(t, hasProperty(&t, "@method", "clip")); 
+                TObj t("list.^at", LA("@method", "clip"));
+                REQUIRE_THAT(t, hasProperty(&t, "@method", "clip"));
             }
 
             SECTION("@clip")
             {
-                ListXAtTest t("list.^at", LA("@clip"));
-                REQUIRE_THAT(t, hasProperty(&t, "@method", "clip")); 
+                TObj t("list.^at", LA("@clip"));
+                REQUIRE_THAT(t, hasProperty(&t, "@method", "clip"));
             }
 
             SECTION("fold")
             {
-                ListXAtTest t("list.^at", LA("@method", "fold"));
-                REQUIRE_THAT(t, hasProperty(&t, "@method", "fold")); 
+                TObj t("list.^at", LA("@method", "fold"));
+                REQUIRE_THAT(t, hasProperty(&t, "@method", "fold"));
             }
 
             SECTION("@fold")
             {
-                ListXAtTest t("list.^at", LA("@fold"));
-                REQUIRE_THAT(t, hasProperty(&t, "@method", "fold")); 
+                TObj t("list.^at", LA("@fold"));
+                REQUIRE_THAT(t, hasProperty(&t, "@method", "fold"));
             }
 
             SECTION("wrap")
             {
-                ListXAtTest t("list.^at", LA("@method", "wrap"));
-                REQUIRE_THAT(t, hasProperty(&t, "@method", "wrap")); 
+                TObj t("list.^at", LA("@method", "wrap"));
+                REQUIRE_THAT(t, hasProperty(&t, "@method", "wrap"));
             }
 
             SECTION("@wrap")
             {
-                ListXAtTest t("list.^at", LA("@wrap"));
-                REQUIRE_THAT(t, hasProperty(&t, "@method", "wrap")); 
+                TObj t("list.^at", LA("@wrap"));
+                REQUIRE_THAT(t, hasProperty(&t, "@method", "wrap"));
             }
         }
     }
@@ -101,7 +99,7 @@ TEST_CASE("list.^at", "[externals]")
     {
         SECTION("empty")
         {
-            ListXAtTest t("list.^at");
+            TObj t("list.^at");
 
             WHEN_SEND_FLOAT_TO(0, t, 0);
             REQUIRE_THAT(t, !hasOutput(&t));
@@ -113,7 +111,7 @@ TEST_CASE("list.^at", "[externals]")
 
         SECTION("rel")
         {
-            ListXAtTest t("list.^at", LA(1, 2, 3));
+            TObj t("list.^at", LA(1, 2, 3));
 
             WHEN_SEND_FLOAT_TO(0, t, 0);
             REQUIRE_THAT(t, outputFloat(&t, 1));
@@ -135,7 +133,10 @@ TEST_CASE("list.^at", "[externals]")
 
         SECTION("rel @default")
         {
-            ListXAtTest t("list.^at", LA(1, 2, 3, "@default", "null"));
+            TObj t("list.^at", LA(1, 2, 3, "@default", "???"));
+            REQUIRE_PROPERTY(t, @method, "rel");
+            REQUIRE(t.property("@default") != 0);
+            REQUIRE(t.property("@default")->get() == LA("???"));
 
             WHEN_SEND_FLOAT_TO(0, t, 0);
             REQUIRE_THAT(t, outputFloat(&t, 1));
@@ -144,7 +145,7 @@ TEST_CASE("list.^at", "[externals]")
             WHEN_SEND_FLOAT_TO(0, t, 2);
             REQUIRE_THAT(t, outputFloat(&t, 3));
             WHEN_SEND_FLOAT_TO(0, t, 3);
-            REQUIRE_SYMBOL_AT_OUTLET(0, t, "null");
+            REQUIRE_SYMBOL_AT_OUTLET(0, t, "???");
             WHEN_SEND_FLOAT_TO(0, t, -1);
             REQUIRE_THAT(t, outputFloat(&t, 3));
             WHEN_SEND_FLOAT_TO(0, t, -2);
@@ -152,12 +153,12 @@ TEST_CASE("list.^at", "[externals]")
             WHEN_SEND_FLOAT_TO(0, t, -3);
             REQUIRE_THAT(t, outputFloat(&t, 1));
             WHEN_SEND_FLOAT_TO(0, t, -4);
-            REQUIRE_SYMBOL_AT_OUTLET(0, t, "null");
+            REQUIRE_SYMBOL_AT_OUTLET(0, t, "???");
         }
 
         SECTION("clip")
         {
-            ListXAtTest t("list.^at", LA(1, 2, 3, "@clip"));
+            TObj t("list.^at", LA(1, 2, 3, "@clip"));
 
             WHEN_SEND_FLOAT_TO(0, t, 0);
             REQUIRE_THAT(t, outputFloat(&t, 1));
@@ -187,7 +188,7 @@ TEST_CASE("list.^at", "[externals]")
 
         SECTION("wrap")
         {
-            ListXAtTest t("list.^at", LA(1, 2, 3, "@wrap"));
+            TObj t("list.^at", LA(1, 2, 3, "@wrap"));
 
             WHEN_SEND_FLOAT_TO(0, t, 0);
             REQUIRE_THAT(t, outputFloat(&t, 1));
@@ -217,7 +218,7 @@ TEST_CASE("list.^at", "[externals]")
 
         SECTION("fold")
         {
-            ListXAtTest t("list.^at", LA(1, 2, 3, "@fold"));
+            TObj t("list.^at", LA(1, 2, 3, "@fold"));
 
             WHEN_SEND_FLOAT_TO(0, t, 0);
             REQUIRE_THAT(t, outputFloat(&t, 1));
@@ -250,7 +251,7 @@ TEST_CASE("list.^at", "[externals]")
     {
         SECTION("rel")
         {
-            ListXAtTest t("list.^at", LA(1, 2, 3, "@rel"));
+            TObj t("list.^at", LA(1, 2, 3, "@rel"));
 
             WHEN_SEND_LIST_TO(0, t, L());
             REQUIRE_LIST_AT_OUTLET(0, t, L());
@@ -264,7 +265,7 @@ TEST_CASE("list.^at", "[externals]")
 
         SECTION("rel + default")
         {
-            ListXAtTest t("list.^at", LA(1, 2, 3, "@default", "NONE"));
+            TObj t("list.^at", LA(1, 2, 3, "@default", "NONE"));
 
             WHEN_SEND_LIST_TO(0, t, LF(0, 100, -100));
             REQUIRE_LIST_AT_OUTLET(0, t, LA(1, "NONE", "NONE"));
@@ -273,7 +274,7 @@ TEST_CASE("list.^at", "[externals]")
 
     SECTION("mlist")
     {
-        ListXAtTest t("list.^at");
+        TObj t("list.^at");
 
         WHEN_SEND_DATA_TO(1, t, MLD(1, 2, 3));
         REQUIRE_THAT(t, !hasOutput(&t));

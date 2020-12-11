@@ -43,14 +43,19 @@ void MathApprox::onFloat(t_float f)
 
 void MathApprox::onList(const AtomList& l)
 {
+    static ArgChecker arg_cheker("f f f?");
+
+    if (!arg_cheker.check(l))
+        return;
+
     if (l.size() == 3) {
-        value_->set(l[1]);
-        epsilon_->set(l[2]);
+        value_->set(l.view(1, 1));
+        epsilon_->set(l.view(2, 1));
         onFloat(l[0].asFloat(0));
     }
 
     if (l.size() == 2) {
-        value_->set(l[1]);
+        value_->set(l.view(1, 1));
         onFloat(l[0].asFloat(0));
     }
 }

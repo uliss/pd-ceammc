@@ -187,7 +187,7 @@ void AubioOnsetTilde::samplerateChanged(size_t sr)
     restoreSteadyProperties();
 }
 
-void AubioOnsetTilde::m_reset(t_symbol* /*m*/, const AtomList&)
+void AubioOnsetTilde::m_reset(t_symbol* /*m*/, const AtomListView&)
 {
     if (onset_)
         aubio_onset_reset(onset_.get());

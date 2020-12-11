@@ -41,17 +41,64 @@
         <example>
             <pdascii>
 <![CDATA[
-[F]                    [1 2( [2 1(
+[F]                    [1 2( [2 1(        [flow.split.more]
 |                      |     |
-[flow.split]X[> 0]     [flow.split]X[<]
-|   ^|                 |         ^|
-[F] [F]                [msg set] [msg set]
-                       |         |
-[B]                    [ (       [ (
+[flow.split]X[> 0]     [flow.split]X[<]   [flow.split.sound]
+|    ^|                |     ^|
+[F]  [F]               |     [ui.d @display_type 1]
+                       |
+                       [ui.d @display_type 1]
+]]>
+            </pdascii>
+            <pdascii id="more">
+<![CDATA[
+[B]
 |
 [flow.split]X[T]
 |   ^|
 [B] [B]
+
+[F]
+|
+[@abc $1( [F]
+|         |
+[flow.split]X[is_any]
+|   ^|
+|    [ui.d @display_type 1]
+|
+[ui.d @display_type 1]
+]]>
+            </pdascii>
+            <pdascii id="sound">
+<![CDATA[
+[ui.keyboard]
+|
+|
+|
+|
+[flow.split #a {w=50}]                [list.at 0 #b]
+|                                     |
+|                                     [< 60 #c]
+|
+[unpack   f f ]      [unpack   f f #d]
+|           ^|       |           ^|
+[mtof]     [> 0]     [mtof]     [> 0]
+|          |.        |          |.
+[pack f f    ]       [pack     f f]
+|                    |
+[@freq $1, @gate $2( [@freq $1, @gate $2(
+|                    |
+[synth.bee3~]        [synth.rhodey~]
+|.                   |..
+[pan.spread~ 4     {i=4,o=2}]
+*|*
+[ui.hgain2~ {i=2,o=2}]
+*|*
+[dac~ {i=2}]
+
+[X a:1->d]
+[X a:2->b]
+[X c->a:1]
 ]]>
             </pdascii>
         </example>

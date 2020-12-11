@@ -1,0 +1,18 @@
+license information:
+
+vln-pizz-a4.aiff
+===================================
+author:   ldk1609 @ freesound.org
+details:  part of soundpack https://freesound.org/people/ldk1609/packs/3561/
+license:  Creative Commons 0: http://creativecommons.org/publicdomain/zero/1.0/
+
+a.wav, b.wav, c.wav
+===================================
+author:   Alex McLean and contributors
+details:  part of TidalCycles https://github.com/tidalcycles/Tidal
+license:  GNU Public license version 3 (or later)
+
+
+
+
+

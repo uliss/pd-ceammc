@@ -19,6 +19,9 @@
                 <see>flow.multiplex</see>
             </also>
         </meta>
+        <info>
+            <par>Note: you can get/set object properties only via prop.set/prop.get objects</par>
+        </info>
         <arguments>
             <argument name="N" type="int" minvalue="2" maxvalue="24">number of outlets</argument>
         </arguments>
@@ -33,9 +36,6 @@
         <properties>
             <property name="@index" type="int" minvalue="0" default="0">current demultiplexer
             output index</property>
-            <property name="@noprops" type="flag">pass all properties requests. When this flag is
-            specified you can't get or set @index property of current object: use right
-            inlet</property>
         </properties>
         <outlets dynamic="true">
             <outlet>demultiplexer first output</outlet>

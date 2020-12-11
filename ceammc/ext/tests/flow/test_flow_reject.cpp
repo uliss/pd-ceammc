@@ -25,7 +25,7 @@ TEST_CASE("flow.reject", "[externals]")
         SECTION("empty")
         {
             TObj t("flow.reject");
-            REQUIRE(t.numInlets() == 1);
+            REQUIRE(t.numInlets() == 2);
             REQUIRE(t.numOutlets() == 1);
 
             REQUIRE_PROPERTY_LIST(t, @values, L());
@@ -33,20 +33,20 @@ TEST_CASE("flow.reject", "[externals]")
 
         SECTION("args")
         {
-            TObj t("flow.reject", LA(1, 2, "b", "@c"));
+            TObj t("flow.reject", LA(1, 2, "b", "\"@c\""));
             REQUIRE_PROPERTY_LIST(t, @values, LA(1, 2, "b", "@c"));
         }
 
         SECTION("properties")
         {
-            TObj t("flow.reject", LA(1, 2, "@values", "@c"));
-            REQUIRE_PROPERTY_LIST(t, @values, LA(1, 2, "@values", "@c"));
+            TObj t("flow.reject", LA(1, 2, "@values", "\"@c\""));
+            REQUIRE_PROPERTY_LIST(t, @values, LA("@c"));
         }
     }
 
-    SECTION("float")
+    SECTION("bang")
     {
-        TObj t("flow.reject", LA(1, "a", "@c"));
+        TObj t("flow.reject", LA(1, "a", "\"@c\""));
         WHEN_SEND_BANG_TO(0, t);
         REQUIRE_BANG_AT_OUTLET(0, t);
     }
@@ -93,11 +93,16 @@ TEST_CASE("flow.reject", "[externals]")
 
     SECTION("list")
     {
-        // all lists are passed
         TObj t("flow.reject", LA("a", "b"));
 
         WHEN_SEND_LIST_TO(0, t, LA("a", "b"));
-        REQUIRE_LIST_AT_OUTLET(0, t, LA("a", "b"));
+        REQUIRE_NO_MESSAGES_AT_OUTLET(0, t);
+
+        WHEN_SEND_LIST_TO(0, t, LA("b", "b"));
+        REQUIRE_NO_MESSAGES_AT_OUTLET(0, t);
+
+        WHEN_SEND_LIST_TO(0, t, LA("a", "a"));
+        REQUIRE_NO_MESSAGES_AT_OUTLET(0, t);
 
         WHEN_SEND_LIST_TO(0, t, LA("c", "d"));
         REQUIRE_LIST_AT_OUTLET(0, t, LA("c", "d"));
@@ -131,6 +136,16 @@ TEST_CASE("flow.reject", "[externals]")
 
     SECTION("real")
     {
-        TExt t("flow.reject");
+        TExt t("flow.reject", LA(1, "\"@prop\""));
+        REQUIRE_PROPERTY_LIST(t, @values, LA(1, "@prop"));
+
+        t.sendListTo(LF(1, 2, 3), 1);
+        REQUIRE_PROPERTY_LIST(t, @values, LA(1, 2, 3));
+    }
+
+    SECTION("alias")
+    {
+        TExt t0("reject");
+        TExt t1("flow.!");
     }
 }

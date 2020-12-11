@@ -19,10 +19,11 @@
 
 StringEqual::StringEqual(const PdArgs& a)
     : BaseObject(a)
+    , pattern_(nullptr)
 {
-    auto p = addProperty(new SymbolProperty("@subj", &s_));
-    p->setArgIndex(0);
-    p->setSuccessFn([this](Property* p) { str1_ = static_cast<SymbolProperty*>(p)->value()->s_name; });
+    pattern_ = new StringProperty("@subj");
+    pattern_->setArgIndex(0);
+    addProperty(pattern_);
 
     createInlet();
     createOutlet();
@@ -30,17 +31,17 @@ StringEqual::StringEqual(const PdArgs& a)
 
 void StringEqual::onSymbol(t_symbol* s)
 {
-    boolTo(0, str1_ == s->s_name);
+    boolTo(0, pattern_->str() == s->s_name);
 }
 
 void StringEqual::onDataT(const StringAtom& str)
 {
-    boolTo(0, str->str() == str1_);
+    boolTo(0, str->str() == pattern_->str());
 }
 
 void StringEqual::onInlet(size_t, const AtomList& l)
 {
-    str1_ = parse_quoted(l);
+    pattern_->setList(l);
 }
 
 void setup_string_equal()
@@ -51,4 +52,6 @@ void setup_string_equal()
     obj.setDescription("check strings or symbols for equality");
     obj.setCategory("string");
     obj.setKeywords({ "compare", "equal" });
+
+    obj.setXletsInfo({ "symbol or String to check", "symbol, quoted string or String" }, { "bool: 1 if strings are equals, 0 otherwise" });
 }

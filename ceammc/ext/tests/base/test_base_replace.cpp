@@ -90,24 +90,24 @@ TEST_CASE("replace", "[PureData]")
         REQUIRE_PROPERTY_NONE(t, @to);
 
         WHEN_SEND_FLOAT_TO(1, t, 123456789);
-        REQUIRE_PROPERTY(t, @from, F(123456789));
+        REQUIRE_PROPERTY_LIST(t, @from, LX(123456789.));
         REQUIRE_PROPERTY_NONE(t, @to);
 
         WHEN_SEND_SYMBOL_TO(1, t, "a");
-        REQUIRE_PROPERTY(t, @from, S("a"));
+        REQUIRE_PROPERTY(t, @from, LA("a"));
         REQUIRE_PROPERTY_NONE(t, @to);
 
         WHEN_SEND_FLOAT_TO(2, t, 777);
-        REQUIRE_PROPERTY(t, @to, F(777));
-        REQUIRE_PROPERTY(t, @from, S("a"));
+        REQUIRE_PROPERTY(t, @to, LF(777));
+        REQUIRE_PROPERTY(t, @from, LA("a"));
 
         WHEN_SEND_SYMBOL_TO(2, t, "b");
-        REQUIRE_PROPERTY(t, @to, S("b"));
-        REQUIRE_PROPERTY(t, @from, S("a"));
+        REQUIRE_PROPERTY(t, @to, LA("b"));
+        REQUIRE_PROPERTY(t, @from, LA("a"));
 
         WHEN_SEND_LIST_TO(1, t, L());
         REQUIRE_PROPERTY_NONE(t, @from);
-        REQUIRE_PROPERTY(t, @to, S("b"));
+        REQUIRE_PROPERTY(t, @to, LA("b"));
 
         WHEN_SEND_LIST_TO(2, t, L());
         REQUIRE_PROPERTY_NONE(t, @from);
@@ -125,7 +125,7 @@ TEST_CASE("replace", "[PureData]")
             REQUIRE_FLOAT_AT_OUTLET(0, t, 1);
 
             // remove mode
-            t.setProperty("@from", F(2));
+            t.setProperty("@from", LF(2));
 
             WHEN_SEND_FLOAT_TO(0, t, 1);
             REQUIRE_FLOAT_AT_OUTLET(0, t, 1);
@@ -134,8 +134,8 @@ TEST_CASE("replace", "[PureData]")
             REQUIRE_NO_MESSAGES_AT_OUTLET(0, t);
 
             // replace mode
-            t.setProperty("@from", F(2));
-            t.setProperty("@to", F(2222));
+            t.setProperty("@from", LF(2));
+            t.setProperty("@to", LF(2222));
 
             WHEN_SEND_FLOAT_TO(0, t, 1);
             REQUIRE_FLOAT_AT_OUTLET(0, t, 1);
@@ -144,8 +144,8 @@ TEST_CASE("replace", "[PureData]")
             REQUIRE_FLOAT_AT_OUTLET(0, t, 2222);
 
             // self replace
-            t.setProperty("@from", F(10));
-            t.setProperty("@to", F(10));
+            t.setProperty("@from", LF(10));
+            t.setProperty("@to", LF(10));
 
             WHEN_SEND_FLOAT_TO(0, t, 1);
             REQUIRE_FLOAT_AT_OUTLET(0, t, 1);
@@ -154,8 +154,8 @@ TEST_CASE("replace", "[PureData]")
             REQUIRE_FLOAT_AT_OUTLET(0, t, 10);
 
             // replace to other type
-            t.setProperty("@from", F(2));
-            t.setProperty("@to", S("2"));
+            t.setProperty("@from", LF(2));
+            t.setProperty("@to", LA("2"));
 
             WHEN_SEND_FLOAT_TO(0, t, 1);
             REQUIRE_FLOAT_AT_OUTLET(0, t, 1);
@@ -164,8 +164,8 @@ TEST_CASE("replace", "[PureData]")
             REQUIRE_SYMBOL_AT_OUTLET(0, t, "2");
 
             // replace other types
-            t.setProperty("@from", S("a"));
-            t.setProperty("@to", S("b"));
+            t.setProperty("@from", LA("a"));
+            t.setProperty("@to", LA("b"));
 
             for (size_t i = 0; i < 10; i++) {
                 WHEN_SEND_FLOAT_TO(0, t, i);
@@ -182,7 +182,7 @@ TEST_CASE("replace", "[PureData]")
             REQUIRE_SYMBOL_AT_OUTLET(0, t, "a");
 
             // remove mode
-            t.setProperty("@from", S("b"));
+            t.setProperty("@from", LA("b"));
 
             WHEN_SEND_SYMBOL_TO(0, t, "a");
             REQUIRE_SYMBOL_AT_OUTLET(0, t, "a");
@@ -191,8 +191,8 @@ TEST_CASE("replace", "[PureData]")
             REQUIRE_NO_MESSAGES_AT_OUTLET(0, t);
 
             // replace mode
-            t.setProperty("@from", S("b"));
-            t.setProperty("@to", S("c"));
+            t.setProperty("@from", LA("b"));
+            t.setProperty("@to", LA("c"));
 
             WHEN_SEND_SYMBOL_TO(0, t, "a");
             REQUIRE_SYMBOL_AT_OUTLET(0, t, "a");
@@ -201,8 +201,8 @@ TEST_CASE("replace", "[PureData]")
             REQUIRE_SYMBOL_AT_OUTLET(0, t, "c");
 
             // self-replace
-            t.setProperty("@from", S("b"));
-            t.setProperty("@to", S("b"));
+            t.setProperty("@from", LA("b"));
+            t.setProperty("@to", LA("b"));
 
             WHEN_SEND_SYMBOL_TO(0, t, "a");
             REQUIRE_SYMBOL_AT_OUTLET(0, t, "a");
@@ -211,8 +211,8 @@ TEST_CASE("replace", "[PureData]")
             REQUIRE_SYMBOL_AT_OUTLET(0, t, "b");
 
             // replace to other type
-            t.setProperty("@from", S("b"));
-            t.setProperty("@to", F(999));
+            t.setProperty("@from", LA("b"));
+            t.setProperty("@to", LF(999));
 
             WHEN_SEND_SYMBOL_TO(0, t, "a");
             REQUIRE_SYMBOL_AT_OUTLET(0, t, "a");
@@ -221,8 +221,8 @@ TEST_CASE("replace", "[PureData]")
             REQUIRE_FLOAT_AT_OUTLET(0, t, 999);
 
             // replace other types
-            t.setProperty("@from", F(9));
-            t.setProperty("@to", F(999));
+            t.setProperty("@from", LF(9));
+            t.setProperty("@to", LF(999));
 
             WHEN_SEND_SYMBOL_TO(0, t, "a");
             REQUIRE_SYMBOL_AT_OUTLET(0, t, "a");
@@ -237,7 +237,7 @@ TEST_CASE("replace", "[PureData]")
             REQUIRE_LIST_AT_OUTLET(0, t, LA(1, 2, 3, 4, 5));
 
             // remove mode
-            t.setProperty("@from", F(3));
+            t.setProperty("@from", LF(3));
             WHEN_SEND_LIST_TO(0, t, LA(1, 2, 3, 4, 5));
             REQUIRE_LIST_AT_OUTLET(0, t, LF(1, 2, 4, 5));
 
@@ -245,8 +245,8 @@ TEST_CASE("replace", "[PureData]")
             REQUIRE_FLOAT_AT_OUTLET(0, t, 4);
 
             // replace mode
-            t.setProperty("@from", F(3));
-            t.setProperty("@to", F(-3));
+            t.setProperty("@from", LF(3));
+            t.setProperty("@to", LF(-3));
 
             WHEN_SEND_LIST_TO(0, t, LA(1, 2, 3, 4, 5));
             REQUIRE_LIST_AT_OUTLET(0, t, LA(1, 2, -3, 4, 5));
@@ -254,8 +254,8 @@ TEST_CASE("replace", "[PureData]")
             REQUIRE_LIST_AT_OUTLET(0, t, LF(-3, -3, 4));
 
             // self-replace mode
-            t.setProperty("@from", F(3));
-            t.setProperty("@to", F(3));
+            t.setProperty("@from", LF(3));
+            t.setProperty("@to", LF(3));
 
             WHEN_SEND_LIST_TO(0, t, LA(1, 2, 3, 4, 5));
             REQUIRE_LIST_AT_OUTLET(0, t, LA(1, 2, 3, 4, 5));
@@ -263,8 +263,8 @@ TEST_CASE("replace", "[PureData]")
             REQUIRE_LIST_AT_OUTLET(0, t, LF(3, 3, 4));
 
             // replace to other type
-            t.setProperty("@from", F(3));
-            t.setProperty("@to", S("???"));
+            t.setProperty("@from", LF(3));
+            t.setProperty("@to", LA("???"));
 
             WHEN_SEND_LIST_TO(0, t, LA(1, 2, 3, 4, 5));
             REQUIRE_LIST_AT_OUTLET(0, t, LA(1, 2, "???", 4, 5));
@@ -281,7 +281,7 @@ TEST_CASE("replace", "[PureData]")
             REQUIRE_ANY_AT_OUTLET(0, t, LA("a", "b", "c"));
 
             // remove mode
-            t.setProperty("@from", S("b"));
+            t.setProperty("@from", LA("b"));
             WHEN_SEND_ANY_TO(t, LA("a", "b", "c"));
             REQUIRE_ANY_AT_OUTLET(0, t, LA("a", "c"));
 
@@ -289,22 +289,22 @@ TEST_CASE("replace", "[PureData]")
             REQUIRE_ANY_AT_OUTLET(0, t, LA(&s_list, 1, 2));
 
             // replace mode
-            t.setProperty("@from", S("a"));
-            t.setProperty("@to", S("A"));
+            t.setProperty("@from", LA("a"));
+            t.setProperty("@to", LA("A"));
 
             WHEN_SEND_ANY_TO(t, LA("a", "b", "c", "a"));
             REQUIRE_ANY_AT_OUTLET(0, t, LA("A", "b", "c", "A"));
 
             // self-replace mode
-            t.setProperty("@from", S("a"));
-            t.setProperty("@to", S("a"));
+            t.setProperty("@from", LA("a"));
+            t.setProperty("@to", LA("a"));
 
             WHEN_SEND_ANY_TO(t, LA("a", "b", "c"));
             REQUIRE_ANY_AT_OUTLET(0, t, LA("a", "b", "c"));
 
             // replace to other type
-            t.setProperty("@from", S("a"));
-            t.setProperty("@to", F(111));
+            t.setProperty("@from", LA("a"));
+            t.setProperty("@to", LF(111));
 
             WHEN_SEND_ANY_TO(t, LA("a", "b", "c", "a"));
             REQUIRE_ANY_AT_OUTLET(0, t, LA(&s_list, 111, "b", "c", 111));

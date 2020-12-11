@@ -9,11 +9,15 @@
 #X obj 30 170 prop.declare;
 #X text 200 170 declare named property for subpatch or abstraction;
 #X obj 30 197 prop.get;
-#X text 200 197 Property extractor;
+#X text 200 197 get property from connected object/subpatch/abstraction;
 #X obj 30 224 prop.get~;
 #X text 200 224 Property extractor from sound stream;
-#X obj 30 251 prop.set;
-#X text 200 251 Property injector;
+#X obj 30 251 prop.join;
+#X text 200 251 join property to main data flow;
+#X obj 30 278 prop.set;
+#X text 200 278 set object property;
+#X obj 30 305 prop.split;
+#X text 200 305 separate properties from dataflow;
 #X obj 1 1 cnv 5 740 40 empty empty ceammc::property 20 20 0 20
 -104026 -4096 0;
 #X obj 1 513 cnv 5 740 40 empty empty empty 17 7 0 10 -203890 -1 0;

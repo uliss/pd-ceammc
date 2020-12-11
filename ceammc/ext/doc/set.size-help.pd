@@ -12,16 +12,16 @@
 #X obj 50 176 data.set a b c;
 #X obj 50 205 set.size;
 #X floatatom 50 234 5 0 0 0 - - -;
-#X obj 20 273 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 278 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
+#X obj 20 283 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 288 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
-#X text 110 279 1\.;
-#X text 245 279 input set. Other values are ignored.;
-#X obj 20 309 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 314 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
+#X text 110 289 1\.;
+#X text 245 289 input set. Other values are ignored.;
+#X obj 20 319 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 324 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 315 1\.;
-#X text 245 315 number of element in set.;
+#X text 110 325 1\.;
+#X text 245 325 number of element in set.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;

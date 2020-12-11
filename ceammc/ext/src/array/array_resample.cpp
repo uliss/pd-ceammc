@@ -68,7 +68,7 @@ void ArrayResample::onBang()
     }
 
     if (src_array_.size() == 0) {
-        OBJ_ERR << fmt::format("empty input array: '{}'", src_array_.name());
+        OBJ_ERR << fmt::format("empty input array: '{}'", src_array_.name()->s_name);
         return;
     }
 
@@ -126,13 +126,15 @@ void ArrayResample::resampleCopy()
         return;
     }
 
-    soxr_quality_spec_t q_spec = soxr_quality_spec(symbol2quality(quality_->value()), 0);
+    constexpr soxr_datatype_t samptype = (sizeof(t_sample) == sizeof(float)) ? SOXR_FLOAT32_I : SOXR_FLOAT64_I;
+    const auto io_spec = soxr_io_spec(samptype, samptype);
+    const soxr_quality_spec_t q_spec = soxr_quality_spec(symbol2quality(quality_->value()), 0);
     soxr_error_t error;
 
     soxr_t soxr = soxr_create(
         IN_RATE, orate, 1, /* Input rate, output rate, # of channels. */
         &error, /* To report any error during creation. */
-        NULL, &q_spec, NULL); /* Use configuration defaults.*/
+        &io_spec, &q_spec, nullptr); /* Use configuration defaults.*/
 
     if (error) {
         OBJ_ERR << fmt::format("soxr_create: {}", error);
@@ -214,13 +216,15 @@ void ArrayResample::resampleSingle()
 
     std::vector<t_sample> tmp(DEST_LEN);
 
+    constexpr soxr_datatype_t samptype = (sizeof(t_sample) == sizeof(float)) ? SOXR_FLOAT32_I : SOXR_FLOAT64_I;
+    const auto io_spec = soxr_io_spec(samptype, samptype);
     soxr_quality_spec_t q_spec = soxr_quality_spec(symbol2quality(quality_->value()), 0);
     soxr_error_t error;
 
     soxr_t soxr = soxr_create(
         IN_RATE, OUT_RATE, 1, /* Input rate, output rate, # of channels. */
         &error, /* To report any error during creation. */
-        NULL, &q_spec, NULL); /* Use configuration defaults.*/
+        &io_spec, &q_spec, nullptr); /* Use configuration defaults.*/
 
     if (error) {
         OBJ_ERR << fmt::format("soxr_create: {}", error);
@@ -277,7 +281,7 @@ void ArrayResample::resampleSingle()
     soxr_delete(soxr);
 
     if (!src_array_.resize(DEST_LEN)) {
-        OBJ_ERR << fmt::format("can't resize array '{}' to {} samples", src_array_.name(), DEST_LEN);
+        OBJ_ERR << fmt::format("can't resize array '{}' to {} samples", src_array_.name()->s_name, DEST_LEN);
         return;
     }
 

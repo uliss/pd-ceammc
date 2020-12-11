@@ -1,6 +1,6 @@
 #include "metro_seq.h"
-#include "ceammc_property_callback.h"
 #include "ceammc_factory.h"
+#include "ceammc_property_callback.h"
 
 static Atom toDigit(const Atom& l)
 {
@@ -10,7 +10,6 @@ static Atom toDigit(const Atom& l)
 MetroSeq::MetroSeq(const PdArgs& a)
     : BaseObject(a)
     , clock_(this, &MetroSeq::clockTick)
-    , pattern_(positionalArguments().slice(1).map(toDigit))
     , interval_(0)
     , current_(0)
 {
@@ -44,7 +43,8 @@ MetroSeq::MetroSeq(const PdArgs& a)
                 pattern_ = l.map(toDigit);
                 return true;
             }
-        });
+        })
+        ->setArgIndex(1);
 }
 
 void MetroSeq::onFloat(t_float f)
@@ -79,4 +79,10 @@ void MetroSeq::clockTick()
 void setup_metro_seq()
 {
     ObjectFactory<MetroSeq> obj("metro.seq");
+
+    obj.setDescription("metro sequencer");
+    obj.addAuthor("Serge Poltavsky");
+    obj.setKeywords({ "metro", "sequencer" });
+    obj.setCategory("base");
+    obj.setSinceVersion(0, 5);
 }

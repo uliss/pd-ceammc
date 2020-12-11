@@ -52,7 +52,7 @@ void FlowSplit::onList(const AtomList& l)
     listTo(split_, l);
 }
 
-void FlowSplit::onAny(t_symbol* s, const AtomList& l)
+void FlowSplit::onAny(t_symbol* s, const AtomListView& l)
 {
     split_ = 1;
     anyTo(2, s, l);
@@ -71,4 +71,10 @@ void setup_flow_split()
 {
     ObjectFactory<FlowSplit> obj("flow.split");
     obj.addAlias("split");
+    obj.noPropsDispatch();
+    obj.setXletsInfo(
+        { "input message", "bool: 0 or 1 from side-chain" },
+        { "output message for which side-chain returned true (1)",
+            "output message for which side-chain returned false (0)",
+            "message to side-chain predicate" });
 }

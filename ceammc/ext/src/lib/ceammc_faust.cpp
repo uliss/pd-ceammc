@@ -13,6 +13,7 @@
  *****************************************************************************/
 
 #include <array>
+#include <cassert>
 
 #include "ceammc_faust.h"
 #include "ceammc_output.h"
@@ -422,17 +423,42 @@ namespace faust {
     {
     }
 
-    bool UIProperty::setList(const AtomList& lst)
+    bool UIProperty::setList(const AtomListView& lst)
     {
         if (!emptyCheck(lst))
             return false;
 
-        if (!lst[0].isFloat())
+        if (lst.isFloat()) {
+            setValue(lst[0].asT<t_float>(), true);
+            return true;
+        } else if (lst.size() == 2 && lst[0].isSymbol() && lst[1].isFloat()) {
+            const auto val = lst[1].asT<t_float>();
+            const auto op = lst[0].asT<t_symbol*>()->s_name;
+            if (op[0] == '+' && op[1] == '\0') {
+                setValue(value() + val, true);
+                return true;
+            } else if (op[0] == '-' && op[1] == '\0') {
+                setValue(value() - val, true);
+                return true;
+            } else if (op[0] == '*' && op[1] == '\0') {
+                setValue(value() * val, true);
+                return true;
+            } else if (op[0] == '/' && op[1] == '\0') {
+                if (val == 0) {
+                    LIB_ERR << "[@" << name()->s_name << "] division by zero";
+                    return false;
+                } else {
+                    setValue(value() / val, true);
+                    return true;
+                }
+            } else {
+                LIB_ERR << "[@" << name()->s_name << "] expected +-*/, got: " << lst[0];
+                return false;
+            }
+        } else {
+            LIB_ERR << "[@" << name()->s_name << "] float value expected, got: " << lst;
             return false;
-
-        t_float v = lst[0].asFloat();
-        el_->setValue(v, true);
-        return true;
+        }
     }
 
     AtomList UIProperty::get() const
@@ -463,10 +489,18 @@ namespace faust {
             if (!pinfo_.setConstraints(PropValueConstraints::CLOSED_RANGE))
                 LIB_ERR << set_prop_symbol_ << " can't set constraints";
 
-            if (!pinfo_.setRangeFloat(min_, max_))
+            if (pinfo_.type() == PropValueType::FLOAT && !pinfo_.setRangeFloat(min_, max_))
+                LIB_ERR << set_prop_symbol_ << " can't set range: " << min_ << " - " << max_;
+            else if (pinfo_.type() == PropValueType::INTEGER && !pinfo_.setRangeInt(min_, max_))
                 LIB_ERR << set_prop_symbol_ << " can't set range: " << min_ << " - " << max_;
 
-            pinfo_.setDefault(init_);
+            if (pinfo_.type() == PropValueType::FLOAT)
+                pinfo_.setDefault(init_);
+            else if (pinfo_.type() == PropValueType::INTEGER)
+                pinfo_.setDefault(static_cast<int>(init_));
+            else if (pinfo_.type() == PropValueType::BOOLEAN)
+                pinfo_.setDefault(static_cast<bool>(init_));
+
             pinfo_.setStep(step_);
         }
     }
@@ -476,8 +510,10 @@ namespace faust {
         static std::pair<const char*, PropValueUnits> umap[] = {
             { "Hz", PropValueUnits::HZ },
             { "ms", PropValueUnits::MSEC },
+            { "sec", PropValueUnits::SEC },
             { "percent", PropValueUnits::PERCENT },
-            { "db", PropValueUnits::DB }
+            { "db", PropValueUnits::DB },
+            { "bpm", PropValueUnits::BPM }
         };
 
         for (auto& p : umap) {
@@ -486,6 +522,29 @@ namespace faust {
         }
 
         return PropValueUnits::NONE;
+    }
+
+    void copy_samples(size_t n_ch, size_t bs, const t_sample** in, t_sample** out, bool zero_abnormals)
+    {
+        if (!zero_abnormals) {
+            for (size_t i = 0; i < n_ch; i++)
+                memcpy(out[i], in[i], bs * sizeof(t_sample));
+        } else {
+            assert(bs % 8 == 0);
+
+            for (size_t i = 0; i < n_ch; i++) {
+                for (size_t j = 0; j < bs; j += 8) {
+                    out[i][j + 0] = std::isnormal(in[i][j + 0]) ? in[i][j + 0] : 0;
+                    out[i][j + 1] = std::isnormal(in[i][j + 1]) ? in[i][j + 1] : 0;
+                    out[i][j + 2] = std::isnormal(in[i][j + 2]) ? in[i][j + 2] : 0;
+                    out[i][j + 3] = std::isnormal(in[i][j + 3]) ? in[i][j + 3] : 0;
+                    out[i][j + 4] = std::isnormal(in[i][j + 4]) ? in[i][j + 4] : 0;
+                    out[i][j + 5] = std::isnormal(in[i][j + 5]) ? in[i][j + 5] : 0;
+                    out[i][j + 6] = std::isnormal(in[i][j + 6]) ? in[i][j + 6] : 0;
+                    out[i][j + 7] = std::isnormal(in[i][j + 7]) ? in[i][j + 7] : 0;
+                }
+            }
+        }
     }
 
 }

@@ -49,12 +49,19 @@ void ExpandEnv::onList(const AtomList& l)
     listTo(0, l.mapSymbol(&expandEnv));
 }
 
-void ExpandEnv::onAny(t_symbol* sel, const AtomList& l)
+void ExpandEnv::onAny(t_symbol* sel, const AtomListView& v)
 {
+    AtomList l = v;
     anyTo(0, expand_any_->value() ? expandEnv(sel) : sel, l.mapSymbol(&expandEnv));
 }
 
 void setup_base_expand_env()
 {
     ObjectFactory<ExpandEnv> obj("expand_env");
+
+    obj.setDescription("Substitute environment variables in data stream");
+    obj.addAuthor("Serge Poltavsky");
+    obj.setKeywords({"expand_env", "test"});
+    obj.setCategory("flow");
+    obj.setSinceVersion(0, 1);
 }

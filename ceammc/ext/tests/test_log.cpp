@@ -69,6 +69,17 @@ TEST_CASE("ceammc_log", "[ceammc_log]")
         log_str.clear();
     }
 
+    SECTION("None")
+    {
+        {
+            LogNone l;
+            l << "test";
+            REQUIRE(l.str() == "");
+        }
+
+        REQUIRE(log_str.empty());
+    }
+
     SECTION("endl")
     {
         LogPdObject log(nullptr, LogLevel::LOG_POST);

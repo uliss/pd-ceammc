@@ -8,66 +8,73 @@
 #X obj 210 80 cnv 1 555 50 empty empty empty 17 7 0 10 -257983 -1 0;
 #X text 215 80 This class implements two simple FM Pairs summed together
 \, also referred to as algorithm 5 of the TX81Z;
-#X obj 50 158 ui.keyboard @size 433 60;
-#X obj 50 230 unpack f f;
-#X obj 50 259 mtof;
-#X obj 155 259 > 0;
-#X obj 155 288 pipe;
-#X msg 50 317 @freq \$1;
-#X msg 155 317 @gate \$1;
-#X msg 261 317 dump;
-#X obj 50 345 synth.rhodey~;
-#X obj 50 374 ui.gain~ @size 120 16;
-#X obj 290 374 ui.dsp~;
-#X obj 50 403 dac~;
-#X obj 20 442 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 447 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
+#X obj 50 158 ui.keyboard;
+#X msg 50 230 note \$1 \$2;
+#X msg 174 230 dump;
+#X obj 50 259 synth.rhodey~;
+#X obj 50 288 ui.gain~ @size 120 16;
+#X obj 290 288 ui.dsp~;
+#X obj 50 317 dac~;
+#X obj 20 366 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 371 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
 -49933 0;
-#X msg 110 482 @adsr;
-#X text 245 482 Get/Set ADSR 2 & 4 Target. Type: int. Range: 0\...127\.;
-#X msg 110 511 @freq;
-#X text 245 511 Get/Set maximum speed of whistles. Type: float. Units:
+#X msg 110 406 @adsr;
+#X text 245 406 Get/Set ADSR 2 & 4 Target. Type: int. Default value:
+0\. Range: 0\...127\.;
+#X msg 110 448 @freq;
+#X text 245 448 Get/Set maximum speed of whistles. Type: float. Units:
 Hz. Default value: 220\. Range: 0\...480\.;
-#X msg 110 553 @gate;
-#X text 245 553 Get/Set synth gate (>0 - play). Type: float. Default
+#X msg 110 490 @gate;
+#X text 245 490 Get/Set synth gate (>0 - play). Type: float. Default
 value: 0\. Range: 0\...1\.;
-#X msg 110 595 @lfo_depth;
-#X text 245 595 Get/Set LFO Speed (cc1). Type: int. Range: 0\...127\.;
-#X msg 110 624 @lfo_speed;
-#X text 245 624 Get/Set LFO Speed (cc11). Type: int. Range: 0\...127\.;
-#X msg 110 653 @mod;
-#X text 245 653 Get/Set modulator index one (cc2). Type: int. Range:
-0\...127\.;
-#X msg 110 695 @xfade;
-#X text 245 695 Get/Set crossfade of outputs (cc4). Type: int. Range:
-0\...127\.;
-#X obj 20 747 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 752 cnv 5 73 26 empty empty methods: 4 10 0 14 -262144
+#X msg 110 532 @lfo_depth;
+#X text 245 532 Get/Set LFO Speed (cc1). Type: int. Default value:
+0\. Range: 0\...127\.;
+#X msg 110 574 @lfo_speed;
+#X text 245 574 Get/Set LFO Speed (cc11). Type: int. Default value:
+0\. Range: 0\...127\.;
+#X msg 110 616 @mod;
+#X text 245 616 Get/Set modulator index one (cc2). Type: int. Default
+value: 0\. Range: 0\...127\.;
+#X msg 110 658 @pitch;
+#X text 245 658 Get/Set midi pitch. Type: float. Default value: 57\.
+Range: 36\...84\.;
+#X msg 110 700 @xfade;
+#X text 245 700 Get/Set crossfade of outputs (cc4). Type: int. Default
+value: 0\. Range: 0\...127\.;
+#X obj 20 752 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 757 cnv 5 73 26 empty empty methods: 4 10 0 14 -262144
 -49933 0;
-#X msg 110 787 cc;
-#X text 245 787 Control change. Arguments are:;
-#X obj 255 810 cnv 1 29 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 810 CTL: control number. Type: int.;
-#X obj 255 833 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 833 VAL: value. Type: float.;
-#X obj 20 868 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 873 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
+#X msg 110 792 cc;
+#X text 245 792 Control change. Arguments are:;
+#X obj 255 815 cnv 1 29 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 815 CTL: control number. Type: int.;
+#X obj 255 838 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 838 VAL: value. Type: float.;
+#X msg 110 863 note;
+#X text 245 863 note on/off message. Arguments are:;
+#X obj 255 886 cnv 1 37 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 886 NOTE: midi note. Type: float.;
+#X obj 255 909 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 909 VEL: velocity. Type: float. Range: 0\...127\.;
+#X obj 20 944 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 949 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
-#X text 110 874 1\.;
-#X text 245 874 control inlet.;
-#X obj 20 904 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 909 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
+#X text 110 950 1\.;
+#X text 245 950 control inlet.;
+#X obj 20 980 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 985 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 910 1\.;
-#X text 245 910;
+#X text 110 986 1\.;
+#X text 245 986;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 115 45 ::;
 #X obj 131 48 ui.link @title synth @url ceammc.synth-help.pd;
-#X obj 1 960 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 963 library: ceammc v0.9.0;
-#N canvas 10 982 400 290 info 0;
+#X obj 1 1036 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1039 library: ceammc v0.9.0;
+#N canvas 10 1058 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
@@ -91,16 +98,10 @@ https://github.com/uliss/pure-data;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 generated by pddoc;
-#X restore 10 982 pd info;
+#X restore 10 1058 pd info;
 #X connect 6 0 7 0;
-#X connect 7 0 8 0;
-#X connect 7 1 9 0;
+#X connect 7 0 9 0;
+#X connect 8 0 9 0;
 #X connect 9 0 10 0;
-#X connect 8 0 11 0;
 #X connect 10 0 12 0;
-#X connect 11 0 14 0;
-#X connect 12 0 14 0;
-#X connect 13 0 14 0;
-#X connect 14 0 15 0;
-#X connect 15 0 17 0;
-#X connect 15 0 17 1;
+#X connect 10 0 12 1;

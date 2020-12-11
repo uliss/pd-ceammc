@@ -1,33 +1,36 @@
-#include "ceammc.h"
-#include "m_pd.h"
-#include <math.h>
+#include "math_inf.h"
+#include "ceammc_factory.h"
 
-#define OBJ_NAME "math.inf"
+#include <limits>
 
-static t_class* math_inf_class;
-struct t_math_inf {
-    t_object x_obj;
-};
-
-static void math_inf_bang(t_math_inf* x)
+MathInf::MathInf(const PdArgs& a)
+    : BaseObject(a)
 {
-    outlet_float(x->x_obj.te_outlet, INFINITY);
+    createOutlet();
 }
 
-static void* math_inf_new()
+void MathInf::onBang()
 {
-    t_math_inf* x = reinterpret_cast<t_math_inf*>(pd_new(math_inf_class));
-    outlet_new(&x->x_obj, &s_float);
-    
-    return static_cast<void*>(x);
+    floatTo(0, std::numeric_limits<t_float>::infinity());
 }
 
-extern void setup_math_inf()
+MathInfTilde::MathInfTilde(const PdArgs& a)
+    : SoundExternal(a)
 {
-    math_inf_class = class_new(gensym(OBJ_NAME),
-        reinterpret_cast<t_newmethod>(math_inf_new),
-        reinterpret_cast<t_method>(0),
-        sizeof(t_math_inf), 0, A_NULL);
-    class_addbang(math_inf_class, reinterpret_cast<t_method>(math_inf_bang));
+    createSignalOutlet();
 }
 
+void MathInfTilde::processBlock(const t_sample**, t_sample** out)
+{
+    const auto bs = blockSize();
+
+    for (size_t i = 0; i < bs; i++) {
+        out[0][i] = std::numeric_limits<t_float>::infinity();
+    }
+}
+
+void setup_math_inf()
+{
+    ObjectFactory<MathInf> obj0("math.inf");
+    SoundExternalFactory<MathInfTilde> obj1("math.inf~", OBJECT_FACTORY_DEFAULT);
+}

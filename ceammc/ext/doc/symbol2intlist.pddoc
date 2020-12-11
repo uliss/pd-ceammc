@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="symbol2intlist">
+        <title>symbol2intlist</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>converts symbol to list of character codes</description>
+            <license>GPL3 or later</license>
+            <library>ceammc</library>
+            <category>symbol</category>
+            <keywords>symbol compare</keywords>
+            <since>0.9.1</since>
+            <aliases>
+                <alias>sym-&gt;ilist</alias>
+            </aliases>
+        </meta>
+        <inlets>
+            <inlet>
+                <xinfo on="symbol">first symbol</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet>list of codes</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[A( [ABC( [АБВ(
+|   |     |
+[symbol   ]
+|
+[symbol2intlist]
+|
+[ui.d @display_type 1]
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

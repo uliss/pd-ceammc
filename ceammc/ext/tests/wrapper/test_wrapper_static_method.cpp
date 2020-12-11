@@ -388,12 +388,16 @@ TEST_CASE("wrapper static method", "[class-wrapper]")
     {
         using DataInt = AbstractDataWrapper<WrapperInt>;
 
-        auto lst = parseDataString("DataInt(255)");
-        REQUIRE(lst.isData());
-        REQUIRE(lst.asD<DataInt>()->value().get() == 255);
+        {
+            auto lst = parseDataString("DataInt(255)");
+            REQUIRE(lst);
+            REQUIRE(lst.result().asD<DataInt>()->value().get() == 255);
+        }
 
-        lst = parseDataString("DataInt(1 2)");
-        REQUIRE_FALSE(lst.isData());
-        REQUIRE(lst == Atom());
+        {
+            auto lst = parseDataString("DataInt(1 2)");
+            REQUIRE_FALSE(lst);
+            REQUIRE(lst.result().empty());
+        }
     }
 }

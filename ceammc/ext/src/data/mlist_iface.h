@@ -6,6 +6,9 @@
 #include "data_protocol.h"
 #include "datatype_mlist.h"
 
+#include <ctime>
+#include <random>
+
 using namespace ceammc;
 
 template <class T>
@@ -27,13 +30,25 @@ public:
         this->atomTo(0, mlist());
     }
 
+    void onFloat(t_float f) override
+    {
+        mlist()->setRaw({ f });
+        onBang();
+    }
+
+    void onSymbol(t_symbol* s) override
+    {
+        mlist()->setRaw({ s });
+        onBang();
+    }
+
     void onList(const AtomList& lst) override
     {
         mlist()->setRaw(lst);
         onBang();
     }
 
-    void onAny(t_symbol* s, const AtomList& lst) override
+    void onAny(t_symbol* s, const AtomListView& lst) override
     {
         Message msg(s, lst);
         if (s->s_name[0] != '\(') {
@@ -52,7 +67,7 @@ public:
         onBang();
     }
 
-    void proto_set(const AtomList& lst) override
+    void proto_set(const AtomListView& lst) override
     {
         mlist()->setRaw(lst);
     }
@@ -62,17 +77,17 @@ public:
         mlist()->clear();
     }
 
-    void proto_append(const AtomList& lst) override
+    void proto_append(const AtomListView& lst) override
     {
         mlist()->append(lst);
     }
 
-    void proto_prepend(const AtomList& lst) override
+    void proto_prepend(const AtomListView& lst) override
     {
         mlist()->prepend(lst);
     }
 
-    bool proto_insert(size_t idx, const AtomList& lst) override
+    bool proto_insert(size_t idx, const AtomListView& lst) override
     {
         return mlist()->insert(idx, lst);
     }
@@ -109,6 +124,19 @@ public:
     void proto_shuffle() override
     {
         mlist()->shuffle();
+    }
+
+    void proto_choose() override
+    {
+        using RandomGenT = std::mt19937;
+        static RandomGenT gen(time(0));
+
+        auto N = mlist()->size();
+        if (N < 1)
+            return;
+
+        auto idx = std::uniform_int_distribution<size_t>(0, N - 1)(gen);
+        this->atomTo(0, mlist()->at(idx));
     }
 
     void proto_fill(const Atom& v) override

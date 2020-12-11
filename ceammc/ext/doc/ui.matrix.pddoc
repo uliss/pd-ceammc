@@ -144,13 +144,13 @@
 |
 [route cell row col]
 |    ^|  ^^|   ^^^|
-|     |    |      [ui.display @size=60x18]
+|     |    |      [ui.d]
 |     |    |
-|     |    [ui.display @size=60x18]
+|     |    [ui.d]
 |     |
-|     [ui.display @size=60x18]
+|     [ui.d]
 |
-[ui.display @size=60x18]
+[ui.d]
 ]]>
             </pdascii>
         </example>

@@ -24,11 +24,13 @@
             <argument name="@type" type="list">list of matched atoms</argument>
         </arguments>
         <properties>
-            <property name="@trim" type="flag">cut first element from list, transform float or
-            symbol to bang</property>
+            <property name="@args" type="list">matching atoms</property>
+            <property name="@trim" type="flag" default="0">cut first element from list, transform
+            float or symbol to bang</property>
             <property name="@simplify" type="int" enum="0 1" default="1">one element list
             simplification - transform them to floats or symbols</property>
-            <property name="@as_any" type="flag">trim list or symbol selector on output.</property>
+            <property name="@as_any" type="flag" default="0">trim list or symbol selector on
+            output</property>
         </properties>
         <inlets>
             <inlet>

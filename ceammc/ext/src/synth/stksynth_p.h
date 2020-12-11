@@ -29,7 +29,7 @@ class SinWaveFreq {
 
 public:
     SinWaveFreq(const stk::SineWave* ptr);
-    float getFrequency() const;
+    t_float getFrequency() const;
 };
 
 class ADSRProp {
@@ -37,7 +37,7 @@ class ADSRProp {
 
 public:
     ADSRProp(const stk::ADSR* ptr);
-    float getTarget() const;
+    t_float getTarget() const;
 };
 
 template <class T>

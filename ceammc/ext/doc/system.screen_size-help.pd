@@ -8,18 +8,18 @@
 #X obj 50 133 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
 -1;
 #X obj 50 162 system.screen_size;
-#X obj 50 205 ui.display @size 150 18;
-#X obj 20 230 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 235 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
+#X obj 50 205 ui.display;
+#X obj 20 239 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 244 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
-#X text 110 236 1\.;
-#X text 150 236 *bang*;
-#X text 245 236 outputs screen size in pixels.;
-#X obj 20 266 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 271 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
+#X text 110 245 1\.;
+#X text 150 245 *bang*;
+#X text 245 245 outputs screen size in pixels.;
+#X obj 20 275 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 280 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 272 1\.;
-#X text 245 272 list of two values: width and height.;
+#X text 110 281 1\.;
+#X text 245 281 list of two values: width and height.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;

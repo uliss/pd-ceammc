@@ -15,68 +15,68 @@ and Pd external directories;
 #X obj 50 232 ui.link @title VU-help @url vu-help.pd;
 #X text 50 260 [ui.link @url http://puredata.info @title puredata.info];
 #X obj 50 289 ui.link @title puredata.info @url http://puredata.info;
-#X obj 20 321 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 326 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
+#X obj 20 331 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 336 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
 -49933 0;
-#X msg 110 361 @receive;
-#X text 245 361 Get/Set receive source. Type: symbol. Default value:
+#X msg 110 371 @receive;
+#X text 245 371 Get/Set receive source. Type: symbol. Default value:
 (null).;
-#X msg 110 390 @send;
-#X text 245 390 Get/Set send destination. Type: symbol. Default value:
+#X msg 110 400 @send;
+#X text 245 400 Get/Set send destination. Type: symbol. Default value:
 (null).;
-#X msg 110 432 @title;
-#X text 245 432 Get/Set link title. Type: symbol. Default value: <no
+#X msg 110 442 @title;
+#X text 245 442 Get/Set link title. Type: symbol. Default value: <no
 title>.;
-#X msg 110 461 @url;
-#X text 245 461 Get/Set destination url. Type: symbol. Default value:
+#X msg 110 471 @url;
+#X text 245 471 Get/Set destination url. Type: symbol. Default value:
 <no url>.;
-#X msg 110 503 @background_color;
-#X text 245 503 Get/Set element background color (list of red \, green
+#X msg 110 513 @background_color;
+#X text 245 513 Get/Set element background color (list of red \, green
 \, blue values in 0-1 range). Type: list. Default value: 1 1 1 1\.;
-#X msg 110 545 @border_color;
-#X text 245 545 Get/Set border color (list of red \, green \, blue
+#X msg 110 555 @border_color;
+#X text 245 555 Get/Set border color (list of red \, green \, blue
 values in 0-1 range). Type: list. Default value: 0.6 0.6 0.6 1\.;
-#X msg 110 587 @hover_color;
-#X text 245 587 Get/Set color when mouse pointer is over element (list
+#X msg 110 597 @hover_color;
+#X text 245 597 Get/Set color when mouse pointer is over element (list
 of red \, green \, blue values in 0-1 range). Type: list. Default value:
 1 0 0.5 1\.;
-#X msg 110 644 @link_color;
-#X text 245 644 Get/Set link color (list of red \, green \, blue values
+#X msg 110 654 @link_color;
+#X text 245 654 Get/Set link color (list of red \, green \, blue values
 in 0-1 range). Type: list. Default value: 0 0.625 0.75 1\.;
-#X msg 110 686 @fontname;
-#X text 245 686 Get/Set fontname. Type: symbol. Default value: Helvetica.;
-#X msg 110 715 @fontsize;
-#X text 245 715 Get/Set fontsize. Type: int. Default value: 11\. Range:
+#X msg 110 696 @fontname;
+#X text 245 696 Get/Set fontname. Type: symbol. Default value: Helvetica.;
+#X msg 110 725 @fontsize;
+#X text 245 725 Get/Set fontsize. Type: int. Default value: 11\. Range:
 4\...11\.;
-#X msg 110 757 @fontslant;
-#X text 245 757 Get/Set font slant. Type: symbol. Default value: roman.
+#X msg 110 767 @fontslant;
+#X text 245 767 Get/Set font slant. Type: symbol. Default value: roman.
 Allowed values: roman \, italic.;
-#X msg 110 799 @fontweight;
-#X text 245 799 Get/Set font weight. Type: symbol. Default value: normal.
+#X msg 110 809 @fontweight;
+#X text 245 809 Get/Set font weight. Type: symbol. Default value: normal.
 Allowed values: normal \, bold.;
-#X msg 110 841 @pinned;
-#X text 245 841 Get/Set pin mode. if 1 - put element to the lowest
+#X msg 110 851 @pinned;
+#X text 245 851 Get/Set pin mode. if 1 - put element to the lowest
 level. Type: int. Default value: 0\. Allowed values: 0 \, 1\.;
-#X msg 110 883 @size;
-#X text 245 883 Get/Set element size (width \, height pair). Type:
+#X msg 110 893 @size;
+#X text 245 893 Get/Set element size (width \, height pair). Type:
 list. Default value: 120 15\.;
-#X obj 20 935 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 940 cnv 5 73 26 empty empty methods: 4 10 0 14 -262144
+#X obj 20 945 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 950 cnv 5 73 26 empty empty methods: 4 10 0 14 -262144
 -49933 0;
-#X msg 110 975 pos;
-#X text 245 975 set UI element position. Arguments are:;
-#X obj 255 998 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 998 X: top left x-coord. Type: float.;
-#X obj 255 1021 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1021 Y: top right y-coord. Type: float.;
+#X msg 110 985 pos;
+#X text 245 985 set UI element position. Arguments are:;
+#X obj 255 1008 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1008 X: top left x-coord. Type: float.;
+#X obj 255 1031 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1031 Y: top right y-coord. Type: float.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 115 45 ::;
 #X obj 131 48 ui.link @title ui @url ceammc.ui-help.pd;
-#X obj 1 1076 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 1079 library: ceammc v0.9.0;
-#N canvas 10 1098 400 290 info 0;
+#X obj 1 1086 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1089 library: ceammc v0.9.0;
+#N canvas 10 1108 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
@@ -100,4 +100,4 @@ https://github.com/uliss/pure-data;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 generated by pddoc;
-#X restore 10 1098 pd info;
+#X restore 10 1108 pd info;

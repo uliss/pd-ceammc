@@ -16,8 +16,10 @@
 
 #include "ceammc_atomlist.h"
 
+#include <algorithm>
 #include <cassert>
 #include <string.h>
+#include <vector>
 
 namespace ceammc {
 
@@ -66,7 +68,7 @@ public:
 template <class T>
 class PdFloatProxy : public PdBindObject {
 public:
-    typedef void (T::*ProxyFnPtr)(float);
+    typedef void (T::*ProxyFnPtr)(t_float);
 
     PdFloatProxy(T* o, ProxyFnPtr p)
         : owner_(o)
@@ -156,6 +158,105 @@ protected:
 
 template <class T>
 t_class* PdListProxy<T>::proxy_class_ = nullptr;
+
+template <typename T>
+struct InletProxy {
+public:
+    using BangMethodPtr = void (T::*)();
+    using FloatMethodPtr = void (T::*)(t_float);
+    using AnyMethodPtr = void (T::*)(InletProxy* this_, t_symbol* s, const AtomListView& args);
+    using MethodPtr = void (T::*)(const AtomListView& args);
+    using MethodEntry = std::pair<t_symbol*, MethodPtr>;
+    using MethodList = std::vector<MethodEntry>;
+
+    t_pd x_obj;
+    T* dest_;
+
+public:
+    InletProxy(T* dest)
+        : dest_(dest)
+    {
+        x_obj = inlet_proxy_class;
+    }
+
+    static void init()
+    {
+        inlet_proxy_class = class_new(gensym("inlet_proxy"), 0, 0, sizeof(InletProxy), CLASS_PD, A_NULL);
+    }
+
+    static void on_bang(InletProxy* x)
+    {
+        auto obj = x->dest_;
+        (obj->*bang_)();
+    }
+
+    static void on_float(InletProxy* x, t_float f)
+    {
+        auto obj = x->dest_;
+        (obj->*float_)(f);
+    }
+
+    static void on_any(InletProxy* x, t_symbol* s, int argc, t_atom* argv)
+    {
+        auto obj = x->dest_;
+        (obj->*any_)(x, s, AtomListView(argv, argc));
+    }
+
+    static void on_method(InletProxy* x, t_symbol* s, int argc, t_atom* argv)
+    {
+        auto it = std::find_if(methods_.begin(), methods_.end(), [s](const MethodEntry& me) { return me.first == s; });
+        if (it == methods_.end())
+            return;
+
+        auto obj = x->dest_;
+        auto mfn = it->second;
+
+        (obj->*mfn)(AtomListView(argv, argc));
+    }
+
+    static void set_bang_callback(BangMethodPtr bang_mem_fn)
+    {
+        bang_ = bang_mem_fn;
+        class_addbang(inlet_proxy_class, reinterpret_cast<t_method>(InletProxy::on_bang));
+    }
+
+    static void set_float_callback(FloatMethodPtr float_mem_fn)
+    {
+        float_ = float_mem_fn;
+        class_doaddfloat(inlet_proxy_class, reinterpret_cast<t_method>(InletProxy::on_float));
+    }
+
+    static void set_any_callback(AnyMethodPtr any_mem_fn)
+    {
+        any_ = any_mem_fn;
+        class_addanything(inlet_proxy_class, reinterpret_cast<t_method>(InletProxy::on_any));
+    }
+
+    static void set_method_callback(t_symbol* m, MethodPtr mem_fn)
+    {
+        methods_.emplace_back(m, mem_fn);
+        class_addmethod(inlet_proxy_class, reinterpret_cast<t_method>(InletProxy::on_method), m, A_GIMME, 0);
+    }
+
+private:
+    static t_class* inlet_proxy_class;
+    static BangMethodPtr bang_;
+    static FloatMethodPtr float_;
+    static AnyMethodPtr any_;
+    static MethodList methods_;
+};
+
+template <typename T>
+t_class* InletProxy<T>::inlet_proxy_class = nullptr;
+template <typename T>
+typename InletProxy<T>::BangMethodPtr InletProxy<T>::bang_;
+template <typename T>
+typename InletProxy<T>::FloatMethodPtr InletProxy<T>::float_;
+template <typename T>
+typename InletProxy<T>::AnyMethodPtr InletProxy<T>::any_;
+template <typename T>
+typename InletProxy<T>::MethodList InletProxy<T>::methods_;
+
 }
 
 #endif // CEAMMC_PROXY_H

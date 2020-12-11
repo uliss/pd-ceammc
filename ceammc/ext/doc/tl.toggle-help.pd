@@ -19,21 +19,21 @@ to other cue section;
 #X obj 213 216 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1;
 #X obj 453 216 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1;
 #X obj 50 245 tl.transport;
-#X obj 20 284 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 289 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
+#X obj 20 294 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 299 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
 -49933 0;
-#X msg 110 324 @cue;
-#X text 245 324 (readonly) Get related cue. Type: symbol.;
-#X obj 20 363 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 368 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
+#X msg 110 334 @cue;
+#X text 245 334 (readonly) Get related cue. Type: symbol.;
+#X obj 20 373 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 378 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
-#X text 110 369 1\.;
-#X text 245 369 control inlet.;
-#X obj 20 399 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 404 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
+#X text 110 379 1\.;
+#X text 245 379 control inlet.;
+#X obj 20 409 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 414 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 405 1\.;
-#X text 245 405 1 on cue enter \, 0 on cue out.;
+#X text 110 415 1\.;
+#X text 245 415 1 on cue enter \, 0 on cue out.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;

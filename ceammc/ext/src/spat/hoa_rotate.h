@@ -14,6 +14,7 @@
 #ifndef HOA_ROTATE_H
 #define HOA_ROTATE_H
 
+#include <array>
 #include <memory>
 
 #include "ceammc_sound_external.h"
@@ -27,10 +28,20 @@ class HoaRotate : public HoaBase {
 
 public:
     HoaRotate(const PdArgs& args);
-    void parseProperties() override;
+    void initDone() override;
 
     void processBlock(const t_sample** in, t_sample** out) override;
     void blockSizeChanged(size_t bs) override;
+
+    const char* annotateInlet(size_t n) const override;
+    const char* annotateOutlet(size_t n) const override;
+
+public:
+    static void initAnnotations();
+
+private:
+    constexpr static size_t ANNOT_LEN = 32;
+    static std::array<char[ANNOT_LEN], HOA_MAX_ORDER> xlet_annotations_;
 };
 
 void setup_spat_hoa_rotate();

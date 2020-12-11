@@ -30,6 +30,7 @@ TEST_CASE("random.int", "[externals]")
 
             REQUIRE_PROPERTY(t, @min, 0);
             REQUIRE_PROPERTY(t, @max, 255);
+            REQUIRE_PROPERTY(t, @seed, 0);
         }
 
         SECTION("args max")
@@ -62,6 +63,24 @@ TEST_CASE("random.int", "[externals]")
             REQUIRE_PROPERTY(t, @max, 3);
         }
 
+        SECTION("properties")
+        {
+            TObj t("random.int", LA(-2, 4, "@seed", 5));
+
+            REQUIRE_PROPERTY(t, @min, -2);
+            REQUIRE_PROPERTY(t, @max, 4);
+            REQUIRE_PROPERTY(t, @seed, 5);
+        }
+
+        SECTION("properties")
+        {
+            TObj t("random.int", LA(-2, 4, 18, "@seed", 5));
+
+            REQUIRE_PROPERTY(t, @min, 0);
+            REQUIRE_PROPERTY(t, @max, 255);
+            REQUIRE_PROPERTY(t, @seed, 5);
+        }
+
         SECTION("args invalid min/max")
         {
             TObj t("random.int", LF(1, -1));
@@ -80,5 +99,33 @@ TEST_CASE("random.int", "[externals]")
             REQUIRE(f >= -2);
             REQUIRE(f <= 2);
         }
+    }
+
+    SECTION("seed")
+    {
+        TExt t("random.int", "@seed", 1);
+        constexpr size_t N = 10;
+
+        std::vector<int> v0;
+        for (int i = 0; i < N; i++) {
+            t.bang();
+            v0.push_back(floatAt(t));
+        }
+
+        std::vector<int> v1;
+        for (int i = 0; i < N; i++) {
+            t.bang();
+            v1.push_back(floatAt(t));
+        }
+
+        REQUIRE(v0 != v1);
+
+        t->setProperty("@seed", LF(1));
+        for (int i = 0; i < N; i++) {
+            t.bang();
+            v1[i] = floatAt(t);
+        }
+
+        REQUIRE(v0 == v1);
     }
 }

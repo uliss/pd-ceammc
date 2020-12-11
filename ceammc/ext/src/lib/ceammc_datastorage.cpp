@@ -12,14 +12,13 @@
  * this file belongs to.
  *****************************************************************************/
 #include "ceammc_datastorage.h"
+#include "ceammc_atomlist.h"
 #include "ceammc_datatypes.h"
 #include "ceammc_format.h"
 #include "ceammc_log.h"
 #include "fmt/format.h"
-#include "muparser/muparser/include/muParser.h"
 
 #include <algorithm>
-#include <cmath>
 
 namespace ceammc {
 
@@ -103,29 +102,6 @@ void DataStorage::clearAll()
 
 DataStorage::DataStorage()
 {
-    registerNewType("pi", [](const AtomList&) -> Atom { return Atom(3.14159265358979); });
-    registerNewType("e", [](const AtomList&) -> Atom { return Atom(2.71828182846); });
-    registerNewType("sr", [](const AtomList&) -> Atom { return Atom(sys_getsr()); });
-    registerNewType("bs", [](const AtomList&) -> Atom { return Atom(sys_getblksize()); });
-    registerNewType("expr", [](const AtomList& expr) -> Atom {
-        try {
-            using DD = double (*)(double);
-            mu::Parser p;
-            p.DefineConst("sr", sys_getsr());
-            p.DefineConst("bs", sys_getblksize());
-            p.DefineConst("e", std::exp(1));
-            p.DefineConst("pi", std::acos(-1));
-            p.DefineFun("floor", (DD)std::floor);
-            p.DefineFun("ceil", (DD)std::ceil);
-            p.SetExpr(to_string(expr));
-
-            return Atom(p.Eval());
-        } catch (mu::Parser::exception_type& e) {
-            pd_error(nullptr, "[muparser] exception: %s", e.GetMsg().c_str());
-        }
-
-        return Atom(0.f);
-    });
 }
 
 DataStorage::type_iterator DataStorage::findByName(const std::string& name) const

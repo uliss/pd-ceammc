@@ -5,7 +5,7 @@
 #X obj 1 1 cnv 5 765 40 empty empty random.gauss 20 20 0 20 -104026
 -4096 0;
 #X obj 655 11 random.gauss;
-#X obj 210 80 cnv 1 555 205 empty empty empty 17 7 0 10 -257983 -1 0;
+#X obj 210 80 cnv 1 555 260 empty empty empty 17 7 0 10 -257983 -1 0;
 #X text 215 80 Generates random value that has gaussian distribution.
 It has the shape of a bell curve and characterized by two parameters
 \, mu and sigma.;
@@ -16,67 +16,73 @@ of all results will occur in the interval with width +-SIGMA \, centered
 by the mean; the random variable is unbounded \, both as above and
 below the mean.;
 #X text 215 250 99.74% of all results fall within +-3 SIGMA.;
-#X obj 50 313 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
+#X text 215 275 Use @seed property to get reproducible sequences. If
+@seed property was not explicitly set or specified \, uses generator
+initialized with current time.;
+#X obj 50 368 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
 -1;
-#X obj 50 342 list.gen 100;
+#X obj 50 397 list.gen 100;
 #N canvas 0 22 450 300 (subpatch) 0;
 #X array array1 100 float 1;
 #A 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0;
 #X coords 0 1 100 0 200 140 1;
-#X restore 280 342 graph;
-#X obj 50 371 random.gauss 50 10;
-#X obj 50 400 math.round;
-#X obj 50 429 t f f;
-#X obj 98 457 tabread array1;
-#X obj 98 486 + 0.01;
-#X obj 50 515 swap;
-#X msg 280 515 const 0;
-#X msg 376 515 normalize;
-#X obj 50 544 tabwrite array1;
-#X obj 280 544 s array1;
-#X obj 20 583 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 588 cnv 5 90 26 empty empty arguments: 4 10 0 14 -262144
+#X restore 280 397 graph;
+#X obj 50 426 random.gauss 50 10;
+#X obj 50 455 math.round;
+#X obj 50 484 t f f;
+#X obj 98 512 tabread array1;
+#X obj 98 541 + 0.01;
+#X obj 50 570 swap;
+#X msg 280 570 const 0;
+#X msg 376 570 normalize;
+#X obj 50 599 tabwrite array1;
+#X obj 280 599 s array1;
+#X obj 20 648 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 653 cnv 5 90 26 empty empty arguments: 4 10 0 14 -262144
 -49933 0;
-#X text 110 623 1\.;
-#X text 150 623 float;
-#X obj 246 624 cnv 1 24 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 623 MU: the mean.;
-#X text 110 643 2\.;
-#X text 150 643 float;
-#X obj 246 644 cnv 1 47 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 643 SIGMA: the standard deviation. Min value: 0;
-#X obj 20 673 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 678 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
+#X text 110 688 1\.;
+#X text 150 688 float;
+#X obj 246 689 cnv 1 24 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 245 688 MU: the mean.;
+#X text 110 708 2\.;
+#X text 150 708 float;
+#X obj 246 709 cnv 1 47 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 245 708 SIGMA: the standard deviation. Min value: 0;
+#X obj 20 738 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 743 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
 -49933 0;
-#X msg 110 713 @mu;
-#X text 245 713 Get/Set the mean. Type: float. Default value: 0\.;
-#X msg 110 742 @sigma;
-#X text 245 742 Get/Set the standard deviation. Type: float. Default
+#X msg 110 778 @mu;
+#X text 245 778 Get/Set the mean. Type: float. Default value: 0\.;
+#X msg 110 807 @seed;
+#X text 245 807 Get/Set generator seed. Type: int. Default value: 0\.
+Min value: 0\.;
+#X msg 110 849 @sigma;
+#X text 245 849 Get/Set the standard deviation. Type: float. Default
 value: 0\. Min value: 0\.;
-#X obj 20 794 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 799 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
+#X obj 20 901 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 906 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
-#X text 110 800 1\.;
-#X text 150 800 *bang*;
-#X text 245 800 generates random number.;
-#X obj 20 830 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 835 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
+#X text 110 907 1\.;
+#X text 150 907 *bang*;
+#X text 245 907 generates random number.;
+#X obj 20 937 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 942 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 836 1\.;
-#X text 245 836 result value.;
+#X text 110 943 1\.;
+#X text 245 943 result value.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 115 45 ::;
 #X obj 131 48 ui.link @title random @url ceammc.random-help.pd;
-#X obj 1 886 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 889 library: ceammc v0.9.0;
-#X text 495 901 see also:;
-#X obj 569 901 random.float;
-#X obj 669 901 random.int;
-#N canvas 10 908 400 290 info 0;
+#X obj 1 993 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 996 library: ceammc v0.9.0;
+#X text 495 1008 see also:;
+#X obj 569 1008 random.float;
+#X obj 669 1008 random.int;
+#N canvas 10 1015 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
@@ -100,16 +106,16 @@ https://github.com/uliss/pure-data;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 generated by pddoc;
-#X restore 10 908 pd info;
-#X connect 8 0 9 0;
-#X connect 9 1 11 0;
-#X connect 11 0 12 0;
+#X restore 10 1015 pd info;
+#X connect 9 0 10 0;
+#X connect 10 1 12 0;
 #X connect 12 0 13 0;
-#X connect 13 1 14 0;
-#X connect 14 0 15 0;
-#X connect 13 0 16 0;
-#X connect 15 0 16 1;
-#X connect 16 0 19 0;
-#X connect 16 1 19 1;
+#X connect 13 0 14 0;
+#X connect 14 1 15 0;
+#X connect 15 0 16 0;
+#X connect 14 0 17 0;
+#X connect 16 0 17 1;
 #X connect 17 0 20 0;
-#X connect 18 0 20 0;
+#X connect 17 1 20 1;
+#X connect 18 0 21 0;
+#X connect 19 0 21 0;

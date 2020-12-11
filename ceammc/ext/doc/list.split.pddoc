@@ -8,11 +8,11 @@
                 <author>Serge Poltavsky</author>
             </authors>
             <description>splits list into two parts, the length of first list is specified by the
-            argument.</description>
+            argument</description>
             <license>GPL3 or later</license>
             <library>ceammc</library>
             <category>list</category>
-            <keywords>list</keywords>
+            <keywords>list split moses</keywords>
             <since>0.1</since>
             <also>
                 <see>list.at</see>

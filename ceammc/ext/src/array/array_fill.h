@@ -26,14 +26,14 @@ public:
     void onFloat(t_float f) override;
     void onList(const AtomList& l) override;
 
-    void m_gauss(t_symbol* m, const AtomList& l);
-    void m_uniform(t_symbol* m, const AtomList& l);
-    void m_fill(t_symbol* m, const AtomList& l);
-    void m_sin(t_symbol* m, const AtomList& l);
-    void m_pulse(t_symbol* m, const AtomList& l);
-    void m_saw(t_symbol* m, const AtomList& l);
-    void m_tri(t_symbol* m, const AtomList& l);
-    AtomList parseRange(const AtomList& args, size_t* from, size_t* to) const;
+    void m_gauss(t_symbol* m, const AtomListView& l);
+    void m_uniform(t_symbol* m, const AtomListView& l);
+    void m_fill(t_symbol* m, const AtomListView& l);
+    void m_sin(t_symbol* m, const AtomListView& l);
+    void m_pulse(t_symbol* m, const AtomListView& l);
+    void m_saw(t_symbol* m, const AtomListView& l);
+    void m_tri(t_symbol* m, const AtomListView& l);
+    AtomListView parseRange(const AtomListView& args, size_t* from, size_t* to) const;
 
 private:
     void fillRange(size_t from, size_t to, const AtomList& l);

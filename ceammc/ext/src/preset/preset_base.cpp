@@ -50,7 +50,7 @@ void PresetBase::initDone()
     bind();
 }
 
-void PresetBase::m_update(t_symbol*, const AtomList&)
+void PresetBase::m_update(t_symbol*, const AtomListView&)
 {
     path_ = makePath();
     t_symbol* new_preset_path = makePresetPath();
@@ -62,7 +62,7 @@ void PresetBase::m_update(t_symbol*, const AtomList&)
     }
 }
 
-void PresetBase::m_clear(t_symbol*, const AtomList& index)
+void PresetBase::m_clear(t_symbol*, const AtomListView& index)
 {
     size_t idx = index.toT<size_t>(0);
 
@@ -117,7 +117,7 @@ t_symbol* PresetBase::makePath() const
     return gensym(res.c_str());
 }
 
-void PresetBase::m_store(t_symbol*, const AtomList& index)
+void PresetBase::m_store(t_symbol*, const AtomListView& index)
 {
     size_t idx = index.toT<size_t>(0);
 
@@ -197,7 +197,7 @@ t_symbol* PresetBase::name()
     return name_;
 }
 
-void PresetBase::m_load(t_symbol*, const AtomList& index)
+void PresetBase::m_load(t_symbol*, const AtomListView& index)
 {
     size_t idx = index.toT<size_t>(0);
 

@@ -42,15 +42,15 @@ public:
     void propSetDb(const AtomList& lst);
     void propSetGain(const AtomList& lst);
 
-    void m_plus(t_symbol* s, const AtomList& lst);
-    void m_minus(t_symbol* s, const AtomList& lst);
-    void m_plusDb(t_symbol* s, const AtomList& lst);
-    void m_minusDb(t_symbol* s, const AtomList& lst);
-    void m_plusAll(t_symbol* s, const AtomList& lst);
-    void m_minusAll(t_symbol* s, const AtomList& lst);
+    void m_plus(t_symbol* s, const AtomListView& lst);
+    void m_minus(t_symbol* s, const AtomListView& lst);
+    void m_plusDb(t_symbol* s, const AtomListView& lst);
+    void m_minusDb(t_symbol* s, const AtomListView& lst);
+    void m_plusAll(t_symbol* s, const AtomListView& lst);
+    void m_minusAll(t_symbol* s, const AtomListView& lst);
 
-    void m_set(t_symbol* s, const AtomList& lst);
-    void m_setDb(t_symbol* s, const AtomList& lst);
+    void m_set(t_symbol* s, const AtomListView& lst);
+    void m_setDb(t_symbol* s, const AtomListView& lst);
 
 private:
     void allocateOutBlocks();

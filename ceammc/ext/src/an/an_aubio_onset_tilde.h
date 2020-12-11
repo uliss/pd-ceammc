@@ -47,7 +47,7 @@ public:
     void processBlock(const t_sample** in, t_sample** out) final;
     void samplerateChanged(size_t sr) final;
 
-    void m_reset(t_symbol* m, const AtomList&);
+    void m_reset(t_symbol* m, const AtomListView&);
 
 private:
     void clock_tick();

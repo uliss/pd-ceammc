@@ -13,27 +13,27 @@
 #X obj 78 162 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
 -1;
 #X obj 50 190 system.getenv USER;
-#X obj 50 219 ui.display @size 150 18;
-#X obj 20 259 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 264 cnv 5 90 26 empty empty arguments: 4 10 0 14 -262144
+#X obj 50 219 ui.display;
+#X obj 20 268 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 273 cnv 5 90 26 empty empty arguments: 4 10 0 14 -262144
 -49933 0;
-#X text 110 299 1\.;
-#X text 150 299 symbol;
-#X obj 246 300 cnv 1 32 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 299 VAR: environment variable name.;
-#X obj 20 329 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 334 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
+#X text 110 308 1\.;
+#X text 150 308 symbol;
+#X obj 246 309 cnv 1 32 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 245 308 VAR: environment variable name.;
+#X obj 20 338 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 343 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
-#X text 110 335 1\.;
-#X text 150 335 *bang*;
-#X text 245 335 outputs variable value.;
-#X text 150 355 *symbol*;
-#X text 245 355 sets name of environment variable and outputs it value.;
-#X obj 20 385 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 390 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
+#X text 110 344 1\.;
+#X text 150 344 *bang*;
+#X text 245 344 outputs variable value.;
+#X text 150 364 *symbol*;
+#X text 245 364 sets name of environment variable and outputs it value.;
+#X obj 20 394 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 399 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 391 1\.;
-#X text 245 391 symbol: env-variable value.;
+#X text 110 400 1\.;
+#X text 245 400 symbol: env-variable value.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;

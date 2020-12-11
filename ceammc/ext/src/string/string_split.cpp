@@ -58,4 +58,5 @@ void setup_string_split()
     ObjectFactory<StringSplit> obj("string.split");
     obj.processData<DataTypeString>();
     obj.addAlias("str.split");
+    obj.ignoreDataParseErrors();
 }

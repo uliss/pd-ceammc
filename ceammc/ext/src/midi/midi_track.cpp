@@ -15,10 +15,11 @@ MidiTrack::MidiTrack(const PdArgs& args)
 {
     // properties
     join_ = new FlagProperty("@join");
-    track_idx_ = new SizeTProperty("@track", 0);
+    track_idx_ = new IntProperty("@track", 0);
+    track_idx_->checkNonNegative();
     track_idx_->setArgIndex(0);
     tempo_ = new IntProperty("@tempo", 120);
-    tempo_->setInitOnly();
+    tempo_->setReadOnly();
     //    tempo_->setUnits(PropValueUnits::BPM);
 
     constexpr t_float DEFAULT_SPEED = 1;
@@ -31,10 +32,14 @@ MidiTrack::MidiTrack(const PdArgs& args)
     addProperty(tempo_);
     addProperty(speed_);
 
-    createCbProperty("@events", &MidiTrack::p_events);
-    createCbProperty("@current", &MidiTrack::p_current);
+    createCbIntProperty("@nevents", [this]() -> int { return size(); });
+    createCbIntProperty("@current", [this]() -> int { return current_event_idx_; });
     // play state property
-    createCbProperty("@state", &MidiTrack::p_state);
+    {
+        auto p = createCbIntProperty("@state", [this]() -> int { return play_state_; });
+        p->infoT().setConstraints(PropValueConstraints::ENUM);
+        const auto ok = p->infoT().addEnums({ PLAY_STATE_STOPPED, PLAY_STATE_PLAYING, PLAY_STATE_PAUSED });
+    }
 
     createOutlet();
     createOutlet();
@@ -65,7 +70,7 @@ void MidiTrack::onDataT(const MidiStreamAtom& stream)
         tempo_->setValue(mf.getTicksPerQuarterNote());
 
     } else {
-        const size_t trackN = track_idx_->value();
+        const int trackN = track_idx_->value();
         const MidiFile* mf = stream->midifile();
         if (mf->getTrackCount() <= trackN) {
             OBJ_ERR << "invalid track index: " << trackN;
@@ -79,22 +84,7 @@ void MidiTrack::onDataT(const MidiStreamAtom& stream)
     current_event_idx_ = 0;
 }
 
-AtomList MidiTrack::p_events() const
-{
-    return Atom(size());
-}
-
-AtomList MidiTrack::p_current() const
-{
-    return Atom(current_event_idx_);
-}
-
-AtomList MidiTrack::p_state() const
-{
-    return Atom(play_state_);
-}
-
-void MidiTrack::m_next(t_symbol*, const AtomList&)
+void MidiTrack::m_next(t_symbol*, const AtomListView&)
 {
     if (current_event_idx_ >= size()) {
         OBJ_DBG << "end of track reached";
@@ -111,15 +101,15 @@ void MidiTrack::m_next(t_symbol*, const AtomList&)
     current_event_idx_ = next_idx;
 }
 
-void MidiTrack::m_reset(t_symbol*, const AtomList&)
+void MidiTrack::m_reset(t_symbol*, const AtomListView&)
 {
     current_event_idx_ = 0;
 }
 
-void MidiTrack::m_seek(t_symbol*, const AtomList& l)
+void MidiTrack::m_seek(t_symbol*, const AtomListView& l)
 {
     if (l.empty()) {
-        OBJ_ERR << "usage: seek tick_index [BEGIN|REL]";
+        OBJ_ERR << "usage: seek tick_index";
         return;
     }
 
@@ -136,13 +126,13 @@ void MidiTrack::m_seek(t_symbol*, const AtomList& l)
         if (tick_idx >= 0)
             seekAbs(tick_idx);
         else {
-            OBJ_ERR << "negative tick are not supported yet: " << tick_idx;
+            OBJ_ERR << "negative tick is not supported: " << tick_idx;
             return;
         }
     }
 }
 
-void MidiTrack::m_play(t_symbol*, const AtomList&)
+void MidiTrack::m_play(t_symbol*, const AtomListView&)
 {
     if (play_state_ == PLAY_STATE_PLAYING) {
         OBJ_ERR << "already playing...";
@@ -153,7 +143,7 @@ void MidiTrack::m_play(t_symbol*, const AtomList&)
     clockTick();
 }
 
-void MidiTrack::m_stop(t_symbol*, const AtomList&)
+void MidiTrack::m_stop(t_symbol*, const AtomListView&)
 {
     if (play_state_ == PLAY_STATE_STOPPED) {
         OBJ_ERR << "already stopped...";
@@ -165,7 +155,7 @@ void MidiTrack::m_stop(t_symbol*, const AtomList&)
     clock_unset(clock_);
 }
 
-void MidiTrack::m_pause(t_symbol*, const AtomList&)
+void MidiTrack::m_pause(t_symbol*, const AtomListView&)
 {
     if (play_state_ == PLAY_STATE_PAUSED) {
         OBJ_ERR << "already paused...";

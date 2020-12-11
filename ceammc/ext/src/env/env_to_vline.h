@@ -41,8 +41,8 @@ public:
     void interpSigmoid(size_t step_idx, double step_ms, const EnvelopePoint& pt0, const EnvelopePoint& pt1, AtomList& lst);
     void interpExp(size_t step_idx, double step_ms, const EnvelopePoint& pt0, const EnvelopePoint& pt1, AtomList& lst);
 
-    void m_next(t_symbol*, const AtomList&);
-    void m_reset(t_symbol*, const AtomList&);
+    void m_next(t_symbol*, const AtomListView&);
+    void m_reset(t_symbol*, const AtomListView&);
 };
 
 void setup_env_to_vline();

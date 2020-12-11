@@ -114,7 +114,7 @@
 |
 |
 |
-[ui.display @display_type=1]
+[ui.display @display_type 1]
 
 /*[Shift+click] to save, [Alt+click] to remove, [click] to activate*/
 

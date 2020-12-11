@@ -19,12 +19,17 @@
         <arguments>
             <argument name="ARGS" type="any">right set elements</argument>
         </arguments>
+        <properties>
+            <property name="@subj" type="list" default="Set()">right set elements of
+            data:Set</property>
+        </properties>
         <inlets>
             <inlet>
-                <xinfo>Set or list, other values are ignored.</xinfo>
+                <xinfo>set or list, other values are ignored.</xinfo>
             </inlet>
             <inlet>
-                <xinfo>second set</xinfo>
+                <xinfo on="list">set right set elements</xinfo>
+                <xinfo on="data:set">set right set</xinfo>
             </inlet>
         </inlets>
         <outlets>
@@ -40,6 +45,21 @@
 |                |              |       |
 |                |              |       |
 [set.equal 1 3 5                        ]
+|
+[T]
+
+[set.equal.data]
+]]>
+            </pdascii>
+            <pdascii id="data">
+<![CDATA[
+[B]              [B]              [B]
+|                |                |
+[data.set 1 3 5] [data.set 2 4 6] [data.set 2 4 6]
+|                |                |
+|                |                |
+|                |                |.
+[set.equal Set(1 3 5)              ]
 |
 [T]
 ]]>

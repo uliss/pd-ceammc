@@ -2,6 +2,7 @@ set(DOC_FILES
     an.onset
     an.onset~
     an.pitchtrack~
+    an.rms~
     array.bpm
     array.copy
     array.do
@@ -11,6 +12,7 @@ set(DOC_FILES
     array.mean
     array.minmax
     array.p2s
+    array.play~
     array.plot~
     array.resample
     array.rms
@@ -28,6 +30,7 @@ set(DOC_FILES
     canvas.name
     canvas.path
     canvas.top
+    ceammc.search
     chaos.gbman0
     chaos.gbman0~
     chaos.jong
@@ -43,12 +46,17 @@ set(DOC_FILES
     conv.car2pol
     conv.cc2amp
     conv.dbfs2amp
+    conv.dbfs2amp~
+    conv.degree2key
+    conv.int2bits
+    conv.hex2int
     conv.lin2curve
     conv.lin2exp
     conv.lin2lin
     conv.lin2lin~
     conv.list2props
     conv.midi2freq
+    conv.ms2bpm
     conv.ms2samp
     conv.ms2samp~
     conv.phase2rad
@@ -60,6 +68,7 @@ set(DOC_FILES
     conv.samp2ms
     conv.samp2ms~
     conv.samp2sec
+    conv.sec2bpm
     conv.sec2samp
     conv.sec2str
     conv.str2sec
@@ -106,28 +115,38 @@ set(DOC_FILES
     flow.append
     flow.change
     flow.count
+    flow.delay
+    flow.demultiplex
+    flow.demultiplex2~
+    flow.demultiplex~
+    flow.dup
     flow.gate
     flow.greater
+    flow.greater_eq
     flow.group
+    flow.interval
     flow.less
     flow.less_eq
-    flow.demultiplex
-    flow.demultiplex~
-    flow.demultiplex2~
-    flow.interval
     flow.match
+    flow.mem
     flow.multiplex
-    flow.multiplex~
     flow.multiplex2~
+    flow.multiplex~
     flow.once
     flow.pack
     flow.pass
     flow.pass_if
+    flow.pipe
     flow.reject
     flow.reject_if
+    flow.ring
     flow.route
+    flow.queue
+    flow.select
+    flow.space
     flow.speedlim
     flow.split
+    flow.stack
     flow.sync
     flow.sync_pack
     flow.tee~
@@ -146,6 +165,8 @@ set(DOC_FILES
     flt.eq10~
     flt.eq_peak~
     flt.eq_peak_cq~
+    flt.fb_comb~
+    flt.ff_comb~
     flt.freqz~
     flt.highshelf~
     flt.hpf12~
@@ -177,6 +198,7 @@ set(DOC_FILES
     fx.greyhole~
     fx.looper~
     fx.pitchshift~
+    fx.pitchshift_s~
     fx.sdelay~
     fx.vocoder~
     fx.wahwah~
@@ -299,6 +321,7 @@ set(DOC_FILES
     local.list
     local.mlist
     local.set
+    logger
     math.abs
     math.abs~
     math.acos
@@ -343,6 +366,7 @@ set(DOC_FILES
     math.gamma~
     math.gcd
     math.inf
+    math.inf~
     math.lcm
     math.lgamma
     math.lgamma~
@@ -354,6 +378,7 @@ set(DOC_FILES
     math.log2~
     math.mul
     math.nan
+    math.nan~
     math.neg
     math.or
     math.pi
@@ -386,6 +411,8 @@ set(DOC_FILES
     math.sync_or
     math.sync_sub
     math.sync_xor
+    math.sync_lshift
+    math.sync_rshift
     math.tan
     math.tan~
     math.tanh
@@ -397,13 +424,15 @@ set(DOC_FILES
     metro.random
     metro.seq
     midi.ctl2str
-    midi.file
-    midi.track
     midi.event2ctl
     midi.event2note
     midi.event2prg
-    midi.prg2str
+    midi.file
     midi.key2str
+    midi.prg2str
+    midi.track
+    midi.tuning
+    midi.vramp
     mix~
     mlist.flatten
     modplug~
@@ -412,6 +441,7 @@ set(DOC_FILES
     msg.onload
     net.host2ip
     noise.crackle~
+    noise.ginger
     noise.pink~
     noise.white~
     noise.lfreq~
@@ -433,7 +463,9 @@ set(DOC_FILES
     pan.spread~
     pan.sqrt~
     patch.args
+    patch.deps
     patch.props
+    patch.tree
     path.basename
     path.dirname
     path.exists
@@ -448,14 +480,18 @@ set(DOC_FILES
     preset.list
     preset.storage
     preset.symbol
-    proto.firmata
-    proto.sp.alpaca
     prop
     prop.declare
     prop.get
     prop.get~
+    prop.join
     prop.set
+    prop.split
+    proto.firmata
+    proto.xtouch_ext
+    proto.sp.alpaca
     radio
+    random.atom
     random.float
     random.gauss
     random.int
@@ -464,6 +500,7 @@ set(DOC_FILES
     random.pw_const
     random.discrete
     replace
+    rtree.to_list
     set.contains
     set.diff
     set.equal
@@ -471,9 +508,17 @@ set(DOC_FILES
     set.size
     set.symdiff
     set.union
+    sequencer
+    seq.bangs
+    seq.arp
+    seq.matrix
+    seq.nbangs
+    seq.phasor
+    seq.toggles
     snd.file
     spat.pan4~
     spat.pan8~
+    spat.zita6x8~
     speech.flite
     string
     string.contains
@@ -492,18 +537,25 @@ set(DOC_FILES
     symbol.equal
     symbol.length
     symbol.num_compare
+    symbol2intlist
+    symbol2any
+    sync
     synth.bee3~
     synth.birds~
     synth.church_bell~
     synth.dubdub~
+    synth.dx7~
     synth.eguitar~
     synth.fgrain~
+    synth.glitch~
     synth.ks~
     synth.marimba~
     synth.rhodey~
     synth.risset_arp~
     synth.risset_tone~
+    synth.russian_bell~
     synth.shakers~
+    synth.sitar~
     synth.wurley~
     system.colorpanel
     system.cursor

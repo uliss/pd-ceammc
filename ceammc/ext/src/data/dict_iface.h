@@ -53,7 +53,7 @@ public:
         *dict() = DataTypeDict::fromList(args, 2);
     }
 
-    void onAny(t_symbol* s, const AtomList& args) override
+    void onAny(t_symbol* s, const AtomListView& args) override
     {
         std::string str(s->s_name);
         str += ' ';
@@ -73,7 +73,7 @@ public:
         onBang();
     }
 
-    void m_get_key(t_symbol* s, const AtomList& key)
+    void m_get_key(t_symbol* s, const AtomListView& key)
     {
         if (!key.isSymbol()) {
             METHOD_ERR(s) << "key expected";
@@ -87,7 +87,7 @@ public:
             this->listTo(0, dict()->at(k));
     }
 
-    void m_set_key(t_symbol* s, const AtomList& lst)
+    void m_set_key(t_symbol* s, const AtomListView& lst)
     {
         if (lst.empty() || !lst[0].isSymbol()) {
             METHOD_ERR(s) << "key expected";
@@ -103,10 +103,10 @@ public:
         }
 
         dict().detachData();
-        dict()->at(key) = lst.slice(1);
+        dict()->at(key) = lst.subView(1);
     }
 
-    void proto_add(const AtomList& lst) override
+    void proto_add(const AtomListView& lst) override
     {
         if (lst.empty() || !lst[0].isSymbol()) {
             OBJ_ERR << "Usage: add KEY [VALUES...]";
@@ -119,7 +119,7 @@ public:
         if (lst.size() == 2)
             dict()->insert(key, lst[1]);
         else
-            dict()->insert(key, lst.slice(1));
+            dict()->insert(key, lst.subView(1));
     }
 
     void proto_clear() override
@@ -128,13 +128,13 @@ public:
         dict()->clear();
     }
 
-    void proto_set(const AtomList& lst) override
+    void proto_set(const AtomListView& lst) override
     {
         dict().detachData();
         dict()->fromString(to_string(lst, " "));
     }
 
-    bool proto_remove(const AtomList& lst) override
+    bool proto_remove(const AtomListView& lst) override
     {
         if (lst.empty() || !lst.anyOf(isSymbol)) {
             OBJ_ERR << "key list expected, got: " << lst;

@@ -16,8 +16,8 @@
 
 #include "ceammc_abstractdata.h"
 #include "ceammc_atomlist.h"
+#include "ceammc_maybe.h"
 
-#include <boost/optional.hpp>
 #include <iostream>
 
 namespace ceammc {
@@ -209,7 +209,7 @@ public:
     bool operator!=(const DataTypeMList& ml) const { return !operator==(ml); }
 
 public:
-    using MaybeList = boost::optional<DataTypeMList>;
+    using MaybeList = Maybe<DataTypeMList>;
 
 public:
     static int dataType;

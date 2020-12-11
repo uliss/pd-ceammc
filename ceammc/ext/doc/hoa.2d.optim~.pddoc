@@ -25,7 +25,7 @@
         <info>
             <par>Weights the circular harmonics signals depending on the ambisonic optimization. It
             can be "basic" for no optimization, "maxre" or "inphase".</par>
-            <par>If no optimization-mode is specified, the optimization will be inphase.</par>
+            <par>If no optimization mode is specified, the default mode will be inphase.</par>
             <par>Maxre optimization is used when audience is confined to the center of the
             circle.</par>
             <par>Inphase optimization is used when the audience covers all the circle.</par>
@@ -42,7 +42,7 @@
             readonly="true">the order of decomposition</property>
             <property name="@mode" type="symbol" enum="basic maxre inphase" default="basic">
             optimization mode</property>
-            <property name="@basic" type="alias">alias for @mode basic.</property>
+            <property name="@basic" type="alias">alias for @mode basic (no optimization)</property>
             <property name="@maxre" type="alias">alias for @mode maxre.</property>
             <property name="@inphase" type="alias">alias for @mode inphase.</property>
         </properties>

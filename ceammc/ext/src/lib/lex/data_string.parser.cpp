@@ -1,8 +1,8 @@
-// A Bison parser, made by GNU Bison 3.5.
+// A Bison parser, made by GNU Bison 3.7.3.
 
 // Skeleton implementation for Bison LALR(1) parsers in C++
 
-// Copyright (C) 2002-2015, 2018-2019 Free Software Foundation, Inc.
+// Copyright (C) 2002-2015, 2018-2020 Free Software Foundation, Inc.
 
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -30,8 +30,9 @@
 // This special exception was added by the Free Software Foundation in
 // version 2.2 of Bison.
 
-// Undocumented macros, especially those whose name start with YY_,
-// are private implementation details.  Do not rely on them.
+// DO NOT RELY ON FEATURES THAT ARE NOT DOCUMENTED in the manual,
+// especially those whose name start with YY_ or yy_.  They are
+// private implementation details that can be changed or removed.
 
 
 
@@ -52,6 +53,7 @@
 
     # include "ceammc_atomlist.h"
     # include "ceammc_datastorage.h"
+    # include "ceammc_function.h"
     # include "ceammc_datatypes.h"
     # include "ceammc_log.h"
     # include "ceammc_format.h"
@@ -98,12 +100,16 @@
         return new ceammc::DataTypeMList(l);
     }
 
+    static inline ceammc::AtomList callFunction(const std::string& name, const ceammc::AtomList& args) {
+        return ceammc::BuiltinFunctionMap::instance().call(gensym(name.c_str()), args);
+    }
+
     static inline ceammc::Atom createFromList(const std::string& name, const ceammc::AtomList& args) {
         using namespace ceammc;
 
         auto fn = DataStorage::instance().fromListFunction(name);
         if(!fn) {
-            LIB_ERR << fmt::format("function {}() not found", name);
+            LIB_ERR << fmt::format("datatype {} not found", name);
             return Atom();
         }
 
@@ -125,7 +131,7 @@
     # undef yylex
     # define yylex lexer.lex  // Within bison's parse() we should invoke lexer.lex(), not the global yylex()
 
-#line 129 "data_string.parser.cpp"
+#line 135 "data_string.parser.cpp"
 
 
 #ifndef YY_
@@ -139,6 +145,7 @@
 #  define YY_(msgid) msgid
 # endif
 #endif
+
 
 // Whether we are compiled with exception support.
 #ifndef YY_EXCEPTIONS
@@ -195,7 +202,7 @@
 # define YY_STACK_PRINT()               \
   do {                                  \
     if (yydebug_)                       \
-      yystack_print_ ();                \
+      yy_stack_print_ ();                \
   } while (false)
 
 #else // !YYDEBUG
@@ -217,49 +224,7 @@
 
 #line 8 "data_string.y"
 namespace ceammc {
-#line 221 "data_string.parser.cpp"
-
-
-  /* Return YYSTR after stripping away unnecessary quotes and
-     backslashes, so that it's suitable for yyerror.  The heuristic is
-     that double-quoting is unnecessary unless the string contains an
-     apostrophe, a comma, or backslash (other than backslash-backslash).
-     YYSTR is taken from yytname.  */
-  std::string
-  DataStringParser::yytnamerr_ (const char *yystr)
-  {
-    if (*yystr == '"')
-      {
-        std::string yyr;
-        char const *yyp = yystr;
-
-        for (;;)
-          switch (*++yyp)
-            {
-            case '\'':
-            case ',':
-              goto do_not_strip_quotes;
-
-            case '\\':
-              if (*++yyp != '\\')
-                goto do_not_strip_quotes;
-              else
-                goto append;
-
-            append:
-            default:
-              yyr += *yyp;
-              break;
-
-            case '"':
-              return yyr;
-            }
-      do_not_strip_quotes: ;
-      }
-
-    return yystr;
-  }
-
+#line 228 "data_string.parser.cpp"
 
   /// Build a parser object.
   DataStringParser::DataStringParser (ceammc::DataStringLexer& lexer_yyarg, ceammc::AtomList& result_yyarg)
@@ -280,7 +245,7 @@ namespace ceammc {
   {}
 
   /*---------------.
-  | Symbol types.  |
+  | symbol kinds.  |
   `---------------*/
 
 
@@ -311,13 +276,13 @@ namespace ceammc {
     : state (s)
   {}
 
-  DataStringParser::symbol_number_type
-  DataStringParser::by_state::type_get () const YY_NOEXCEPT
+  DataStringParser::symbol_kind_type
+  DataStringParser::by_state::kind () const YY_NOEXCEPT
   {
     if (state == empty_state)
-      return empty_symbol;
+      return symbol_kind::S_YYEMPTY;
     else
-      return yystos_[state];
+      return YY_CAST (symbol_kind_type, yystos_[+state]);
   }
 
   DataStringParser::stack_symbol_type::stack_symbol_type ()
@@ -326,39 +291,39 @@ namespace ceammc {
   DataStringParser::stack_symbol_type::stack_symbol_type (YY_RVREF (stack_symbol_type) that)
     : super_type (YY_MOVE (that.state), YY_MOVE (that.location))
   {
-    switch (that.type_get ())
+    switch (that.kind ())
     {
-      case 17: // atom
-      case 18: // data
-      case 19: // function_call
+      case symbol_kind::S_atom: // atom
+      case symbol_kind::S_data: // data
         value.YY_MOVE_OR_COPY< ceammc::Atom > (YY_MOVE (that.value));
         break;
 
-      case 20: // atom_list
-      case 21: // expr
+      case symbol_kind::S_atom_list: // atom_list
+      case symbol_kind::S_function_call: // function_call
+      case symbol_kind::S_expr: // expr
         value.YY_MOVE_OR_COPY< ceammc::AtomList > (YY_MOVE (that.value));
         break;
 
-      case 23: // pair_list
+      case symbol_kind::S_pair_list: // pair_list
         value.YY_MOVE_OR_COPY< ceammc::Dict > (YY_MOVE (that.value));
         break;
 
-      case 22: // pair
+      case symbol_kind::S_pair: // pair
         value.YY_MOVE_OR_COPY< ceammc::DictEntry > (YY_MOVE (that.value));
         break;
 
-      case 10: // SYMBOL
+      case symbol_kind::S_SYMBOL: // SYMBOL
         value.YY_MOVE_OR_COPY< const char* > (YY_MOVE (that.value));
         break;
 
-      case 8: // FLOAT
+      case symbol_kind::S_FLOAT: // FLOAT
         value.YY_MOVE_OR_COPY< double > (YY_MOVE (that.value));
         break;
 
-      case 11: // KEY
-      case 12: // DATA_TYPE
-      case 14: // FUNC_CALL
-      case 15: // STRING
+      case symbol_kind::S_KEY: // KEY
+      case symbol_kind::S_DATA_TYPE: // DATA_TYPE
+      case symbol_kind::S_FUNC_CALL: // FUNC_CALL
+      case symbol_kind::S_STRING: // STRING
         value.YY_MOVE_OR_COPY< std::string > (YY_MOVE (that.value));
         break;
 
@@ -375,39 +340,39 @@ namespace ceammc {
   DataStringParser::stack_symbol_type::stack_symbol_type (state_type s, YY_MOVE_REF (symbol_type) that)
     : super_type (s, YY_MOVE (that.location))
   {
-    switch (that.type_get ())
+    switch (that.kind ())
     {
-      case 17: // atom
-      case 18: // data
-      case 19: // function_call
+      case symbol_kind::S_atom: // atom
+      case symbol_kind::S_data: // data
         value.move< ceammc::Atom > (YY_MOVE (that.value));
         break;
 
-      case 20: // atom_list
-      case 21: // expr
+      case symbol_kind::S_atom_list: // atom_list
+      case symbol_kind::S_function_call: // function_call
+      case symbol_kind::S_expr: // expr
         value.move< ceammc::AtomList > (YY_MOVE (that.value));
         break;
 
-      case 23: // pair_list
+      case symbol_kind::S_pair_list: // pair_list
         value.move< ceammc::Dict > (YY_MOVE (that.value));
         break;
 
-      case 22: // pair
+      case symbol_kind::S_pair: // pair
         value.move< ceammc::DictEntry > (YY_MOVE (that.value));
         break;
 
-      case 10: // SYMBOL
+      case symbol_kind::S_SYMBOL: // SYMBOL
         value.move< const char* > (YY_MOVE (that.value));
         break;
 
-      case 8: // FLOAT
+      case symbol_kind::S_FLOAT: // FLOAT
         value.move< double > (YY_MOVE (that.value));
         break;
 
-      case 11: // KEY
-      case 12: // DATA_TYPE
-      case 14: // FUNC_CALL
-      case 15: // STRING
+      case symbol_kind::S_KEY: // KEY
+      case symbol_kind::S_DATA_TYPE: // DATA_TYPE
+      case symbol_kind::S_FUNC_CALL: // FUNC_CALL
+      case symbol_kind::S_STRING: // STRING
         value.move< std::string > (YY_MOVE (that.value));
         break;
 
@@ -416,7 +381,7 @@ namespace ceammc {
     }
 
     // that is emptied.
-    that.type = empty_symbol;
+    that.kind_ = symbol_kind::S_YYEMPTY;
   }
 
 #if YY_CPLUSPLUS < 201103L
@@ -424,39 +389,39 @@ namespace ceammc {
   DataStringParser::stack_symbol_type::operator= (const stack_symbol_type& that)
   {
     state = that.state;
-    switch (that.type_get ())
+    switch (that.kind ())
     {
-      case 17: // atom
-      case 18: // data
-      case 19: // function_call
+      case symbol_kind::S_atom: // atom
+      case symbol_kind::S_data: // data
         value.copy< ceammc::Atom > (that.value);
         break;
 
-      case 20: // atom_list
-      case 21: // expr
+      case symbol_kind::S_atom_list: // atom_list
+      case symbol_kind::S_function_call: // function_call
+      case symbol_kind::S_expr: // expr
         value.copy< ceammc::AtomList > (that.value);
         break;
 
-      case 23: // pair_list
+      case symbol_kind::S_pair_list: // pair_list
         value.copy< ceammc::Dict > (that.value);
         break;
 
-      case 22: // pair
+      case symbol_kind::S_pair: // pair
         value.copy< ceammc::DictEntry > (that.value);
         break;
 
-      case 10: // SYMBOL
+      case symbol_kind::S_SYMBOL: // SYMBOL
         value.copy< const char* > (that.value);
         break;
 
-      case 8: // FLOAT
+      case symbol_kind::S_FLOAT: // FLOAT
         value.copy< double > (that.value);
         break;
 
-      case 11: // KEY
-      case 12: // DATA_TYPE
-      case 14: // FUNC_CALL
-      case 15: // STRING
+      case symbol_kind::S_KEY: // KEY
+      case symbol_kind::S_DATA_TYPE: // DATA_TYPE
+      case symbol_kind::S_FUNC_CALL: // FUNC_CALL
+      case symbol_kind::S_STRING: // STRING
         value.copy< std::string > (that.value);
         break;
 
@@ -472,39 +437,39 @@ namespace ceammc {
   DataStringParser::stack_symbol_type::operator= (stack_symbol_type& that)
   {
     state = that.state;
-    switch (that.type_get ())
+    switch (that.kind ())
     {
-      case 17: // atom
-      case 18: // data
-      case 19: // function_call
+      case symbol_kind::S_atom: // atom
+      case symbol_kind::S_data: // data
         value.move< ceammc::Atom > (that.value);
         break;
 
-      case 20: // atom_list
-      case 21: // expr
+      case symbol_kind::S_atom_list: // atom_list
+      case symbol_kind::S_function_call: // function_call
+      case symbol_kind::S_expr: // expr
         value.move< ceammc::AtomList > (that.value);
         break;
 
-      case 23: // pair_list
+      case symbol_kind::S_pair_list: // pair_list
         value.move< ceammc::Dict > (that.value);
         break;
 
-      case 22: // pair
+      case symbol_kind::S_pair: // pair
         value.move< ceammc::DictEntry > (that.value);
         break;
 
-      case 10: // SYMBOL
+      case symbol_kind::S_SYMBOL: // SYMBOL
         value.move< const char* > (that.value);
         break;
 
-      case 8: // FLOAT
+      case symbol_kind::S_FLOAT: // FLOAT
         value.move< double > (that.value);
         break;
 
-      case 11: // KEY
-      case 12: // DATA_TYPE
-      case 14: // FUNC_CALL
-      case 15: // STRING
+      case symbol_kind::S_KEY: // KEY
+      case symbol_kind::S_DATA_TYPE: // DATA_TYPE
+      case symbol_kind::S_FUNC_CALL: // FUNC_CALL
+      case symbol_kind::S_STRING: // STRING
         value.move< std::string > (that.value);
         break;
 
@@ -530,23 +495,21 @@ namespace ceammc {
 #if YYDEBUG
   template <typename Base>
   void
-  DataStringParser::yy_print_ (std::ostream& yyo,
-                                     const basic_symbol<Base>& yysym) const
+  DataStringParser::yy_print_ (std::ostream& yyo, const basic_symbol<Base>& yysym) const
   {
     std::ostream& yyoutput = yyo;
     YYUSE (yyoutput);
-    symbol_number_type yytype = yysym.type_get ();
-#if defined __GNUC__ && ! defined __clang__ && ! defined __ICC && __GNUC__ * 100 + __GNUC_MINOR__ <= 408
-    // Avoid a (spurious) G++ 4.8 warning about "array subscript is
-    // below array bounds".
     if (yysym.empty ())
-      std::abort ();
-#endif
-    yyo << (yytype < yyntokens_ ? "token" : "nterm")
-        << ' ' << yytname_[yytype] << " ("
-        << yysym.location << ": ";
-    YYUSE (yytype);
-    yyo << ')';
+      yyo << "empty symbol";
+    else
+      {
+        symbol_kind_type yykind = yysym.kind ();
+        yyo << (yykind < YYNTOKENS ? "token" : "nterm")
+            << ' ' << yysym.name () << " ("
+            << yysym.location << ": ";
+        YYUSE (yykind);
+        yyo << ')';
+      }
   }
 #endif
 
@@ -605,11 +568,11 @@ namespace ceammc {
   DataStringParser::state_type
   DataStringParser::yy_lr_goto_state_ (state_type yystate, int yysym)
   {
-    int yyr = yypgoto_[yysym - yyntokens_] + yystate;
+    int yyr = yypgoto_[yysym - YYNTOKENS] + yystate;
     if (0 <= yyr && yyr <= yylast_ && yycheck_[yyr] == yystate)
       return yytable_[yyr];
     else
-      return yydefgoto_[yysym - yyntokens_];
+      return yydefgoto_[yysym - YYNTOKENS];
   }
 
   bool
@@ -669,6 +632,7 @@ namespace ceammc {
   `-----------------------------------------------*/
   yynewstate:
     YYCDEBUG << "Entering state " << int (yystack_[0].state) << '\n';
+    YY_STACK_PRINT ();
 
     // Accept?
     if (yystack_[0].state == yyfinal_)
@@ -682,14 +646,14 @@ namespace ceammc {
   `-----------*/
   yybackup:
     // Try to take a decision without lookahead.
-    yyn = yypact_[yystack_[0].state];
+    yyn = yypact_[+yystack_[0].state];
     if (yy_pact_value_is_default_ (yyn))
       goto yydefault;
 
     // Read a lookahead token.
     if (yyla.empty ())
       {
-        YYCDEBUG << "Reading a token: ";
+        YYCDEBUG << "Reading a token\n";
 #if YY_EXCEPTIONS
         try
 #endif // YY_EXCEPTIONS
@@ -708,10 +672,20 @@ namespace ceammc {
       }
     YY_SYMBOL_PRINT ("Next token is", yyla);
 
+    if (yyla.kind () == symbol_kind::S_YYerror)
+    {
+      // The scanner already issued an error message, process directly
+      // to error recovery.  But do not keep the error token as
+      // lookahead, it is too special and may lead us to an endless
+      // loop in error recovery. */
+      yyla.kind_ = symbol_kind::S_YYUNDEF;
+      goto yyerrlab1;
+    }
+
     /* If the proper action on seeing token YYLA.TYPE is to reduce or
        to detect an error, take that action.  */
-    yyn += yyla.type_get ();
-    if (yyn < 0 || yylast_ < yyn || yycheck_[yyn] != yyla.type_get ())
+    yyn += yyla.kind ();
+    if (yyn < 0 || yylast_ < yyn || yycheck_[yyn] != yyla.kind ())
       {
         goto yydefault;
       }
@@ -731,7 +705,7 @@ namespace ceammc {
       --yyerrstatus_;
 
     // Shift the lookahead token.
-    yypush_ ("Shifting", static_cast<state_type> (yyn), YY_MOVE (yyla));
+    yypush_ ("Shifting", state_type (yyn), YY_MOVE (yyla));
     goto yynewstate;
 
 
@@ -739,7 +713,7 @@ namespace ceammc {
   | yydefault -- do the default action for the current state.  |
   `-----------------------------------------------------------*/
   yydefault:
-    yyn = yydefact_[yystack_[0].state];
+    yyn = yydefact_[+yystack_[0].state];
     if (yyn == 0)
       goto yyerrlab;
     goto yyreduce;
@@ -758,37 +732,37 @@ namespace ceammc {
          when using variants.  */
       switch (yyr1_[yyn])
     {
-      case 17: // atom
-      case 18: // data
-      case 19: // function_call
+      case symbol_kind::S_atom: // atom
+      case symbol_kind::S_data: // data
         yylhs.value.emplace< ceammc::Atom > ();
         break;
 
-      case 20: // atom_list
-      case 21: // expr
+      case symbol_kind::S_atom_list: // atom_list
+      case symbol_kind::S_function_call: // function_call
+      case symbol_kind::S_expr: // expr
         yylhs.value.emplace< ceammc::AtomList > ();
         break;
 
-      case 23: // pair_list
+      case symbol_kind::S_pair_list: // pair_list
         yylhs.value.emplace< ceammc::Dict > ();
         break;
 
-      case 22: // pair
+      case symbol_kind::S_pair: // pair
         yylhs.value.emplace< ceammc::DictEntry > ();
         break;
 
-      case 10: // SYMBOL
+      case symbol_kind::S_SYMBOL: // SYMBOL
         yylhs.value.emplace< const char* > ();
         break;
 
-      case 8: // FLOAT
+      case symbol_kind::S_FLOAT: // FLOAT
         yylhs.value.emplace< double > ();
         break;
 
-      case 11: // KEY
-      case 12: // DATA_TYPE
-      case 14: // FUNC_CALL
-      case 15: // STRING
+      case symbol_kind::S_KEY: // KEY
+      case symbol_kind::S_DATA_TYPE: // DATA_TYPE
+      case symbol_kind::S_FUNC_CALL: // FUNC_CALL
+      case symbol_kind::S_STRING: // STRING
         yylhs.value.emplace< std::string > ();
         break;
 
@@ -812,116 +786,122 @@ namespace ceammc {
         {
           switch (yyn)
             {
-  case 2:
-#line 145 "data_string.y"
-                              { yylhs.value.as < ceammc::Atom > () = ceammc::Atom(); }
-#line 819 "data_string.parser.cpp"
-    break;
-
-  case 3:
-#line 146 "data_string.y"
-                              { yylhs.value.as < ceammc::Atom > () = ceammc::Atom(yystack_[0].value.as < double > ()); }
-#line 825 "data_string.parser.cpp"
-    break;
-
-  case 4:
-#line 147 "data_string.y"
-                              { yylhs.value.as < ceammc::Atom > () = ceammc::Atom(gensym(yystack_[0].value.as < const char* > ())); }
-#line 831 "data_string.parser.cpp"
-    break;
-
-  case 5:
-#line 148 "data_string.y"
-                              { yylhs.value.as < ceammc::Atom > () = createSimpleString(yystack_[0].value.as < std::string > ()); }
-#line 837 "data_string.parser.cpp"
-    break;
-
-  case 6:
-#line 149 "data_string.y"
-                              { yylhs.value.as < ceammc::Atom > () = createDataString(yystack_[0].value.as < std::string > ()); }
-#line 843 "data_string.parser.cpp"
-    break;
-
-  case 7:
-#line 150 "data_string.y"
-      { yylhs.value.as < ceammc::Atom > () = yystack_[0].value.as < ceammc::Atom > (); }
-#line 849 "data_string.parser.cpp"
-    break;
-
-  case 8:
+  case 2: // atom: NULL
 #line 151 "data_string.y"
-      { yylhs.value.as < ceammc::Atom > () = yystack_[0].value.as < ceammc::Atom > (); }
-#line 855 "data_string.parser.cpp"
+                              { yylhs.value.as < ceammc::Atom > () = ceammc::Atom(); }
+#line 793 "data_string.parser.cpp"
     break;
 
-  case 9:
+  case 3: // atom: COMMA
+#line 152 "data_string.y"
+                              { yylhs.value.as < ceammc::Atom > () = ceammc::Atom(gensym(",")); }
+#line 799 "data_string.parser.cpp"
+    break;
+
+  case 4: // atom: FLOAT
+#line 153 "data_string.y"
+                              { yylhs.value.as < ceammc::Atom > () = ceammc::Atom(yystack_[0].value.as < double > ()); }
+#line 805 "data_string.parser.cpp"
+    break;
+
+  case 5: // atom: SYMBOL
+#line 154 "data_string.y"
+                              { yylhs.value.as < ceammc::Atom > () = ceammc::Atom(gensym(yystack_[0].value.as < const char* > ())); }
+#line 811 "data_string.parser.cpp"
+    break;
+
+  case 6: // atom: STRING
 #line 155 "data_string.y"
-                       { yylhs.value.as < ceammc::AtomList > () = ceammc::AtomList(); }
-#line 861 "data_string.parser.cpp"
+                              { yylhs.value.as < ceammc::Atom > () = createSimpleString(yystack_[0].value.as < std::string > ()); }
+#line 817 "data_string.parser.cpp"
     break;
 
-  case 10:
+  case 7: // atom: DATA_TYPE_STRING STRING
 #line 156 "data_string.y"
+                              { yylhs.value.as < ceammc::Atom > () = createDataString(yystack_[0].value.as < std::string > ()); }
+#line 823 "data_string.parser.cpp"
+    break;
+
+  case 8: // atom: data
+#line 157 "data_string.y"
+      { yylhs.value.as < ceammc::Atom > () = yystack_[0].value.as < ceammc::Atom > (); }
+#line 829 "data_string.parser.cpp"
+    break;
+
+  case 9: // atom_list: %empty
+#line 161 "data_string.y"
+                       { yylhs.value.as < ceammc::AtomList > () = ceammc::AtomList(); }
+#line 835 "data_string.parser.cpp"
+    break;
+
+  case 10: // atom_list: atom_list atom
+#line 162 "data_string.y"
                        { yylhs.value.as < ceammc::AtomList > ().append(yystack_[1].value.as < ceammc::AtomList > ()); yylhs.value.as < ceammc::AtomList > ().append(yystack_[0].value.as < ceammc::Atom > ()); }
-#line 867 "data_string.parser.cpp"
+#line 841 "data_string.parser.cpp"
     break;
 
-  case 11:
-#line 160 "data_string.y"
+  case 11: // atom_list: atom_list function_call
+#line 163 "data_string.y"
+                              { yylhs.value.as < ceammc::AtomList > ().append(yystack_[1].value.as < ceammc::AtomList > ()); yylhs.value.as < ceammc::AtomList > ().append(yystack_[0].value.as < ceammc::AtomList > ()); }
+#line 847 "data_string.parser.cpp"
+    break;
+
+  case 12: // pair: KEY atom_list
+#line 167 "data_string.y"
                       { yylhs.value.as < ceammc::DictEntry > () = { yystack_[1].value.as < std::string > (), yystack_[0].value.as < ceammc::AtomList > () }; }
-#line 873 "data_string.parser.cpp"
+#line 853 "data_string.parser.cpp"
     break;
 
-  case 12:
-#line 164 "data_string.y"
+  case 13: // pair_list: %empty
+#line 171 "data_string.y"
                      { yylhs.value.as < ceammc::Dict > () = Dict(); }
-#line 879 "data_string.parser.cpp"
+#line 859 "data_string.parser.cpp"
     break;
 
-  case 13:
-#line 165 "data_string.y"
+  case 14: // pair_list: pair_list pair
+#line 172 "data_string.y"
                      { yylhs.value.as < ceammc::Dict > ().insert(yylhs.value.as < ceammc::Dict > ().end(), yystack_[1].value.as < ceammc::Dict > ().begin(), yystack_[1].value.as < ceammc::Dict > ().end()); yylhs.value.as < ceammc::Dict > ().push_back(yystack_[0].value.as < ceammc::DictEntry > ()); }
-#line 885 "data_string.parser.cpp"
+#line 865 "data_string.parser.cpp"
     break;
 
-  case 14:
-#line 169 "data_string.y"
-                                                                 { yylhs.value.as < ceammc::Atom > () = createFromList(yystack_[3].value.as < std::string > (), yystack_[1].value.as < ceammc::AtomList > ()); }
-#line 891 "data_string.parser.cpp"
-    break;
-
-  case 15:
-#line 173 "data_string.y"
-                                                                 { yylhs.value.as < ceammc::Atom > () = createDataDict(yystack_[1].value.as < ceammc::Dict > ()); }
-#line 897 "data_string.parser.cpp"
-    break;
-
-  case 16:
-#line 174 "data_string.y"
-                                                                 { yylhs.value.as < ceammc::Atom > () = createFromDict(yystack_[3].value.as < std::string > (), yystack_[1].value.as < ceammc::Dict > ()); }
-#line 903 "data_string.parser.cpp"
-    break;
-
-  case 17:
-#line 175 "data_string.y"
-                                                                 { yylhs.value.as < ceammc::Atom > () = createDataList(yystack_[1].value.as < ceammc::AtomList > ()); }
-#line 909 "data_string.parser.cpp"
-    break;
-
-  case 18:
+  case 15: // function_call: FUNC_CALL OPEN_LIST_BRACKET atom_list CLOSE_LIST_BRACKET
 #line 176 "data_string.y"
-                                                                 { yylhs.value.as < ceammc::Atom > () = createFromList(yystack_[3].value.as < std::string > (), yystack_[1].value.as < ceammc::AtomList > ()); }
-#line 915 "data_string.parser.cpp"
+                                                                 { yylhs.value.as < ceammc::AtomList > () = callFunction(yystack_[3].value.as < std::string > (), yystack_[1].value.as < ceammc::AtomList > ()); }
+#line 871 "data_string.parser.cpp"
     break;
 
-  case 19:
+  case 16: // data: OPEN_DICT_BRACKET pair_list CLOSE_DICT_BRACKET
 #line 180 "data_string.y"
+                                                                 { yylhs.value.as < ceammc::Atom > () = createDataDict(yystack_[1].value.as < ceammc::Dict > ()); }
+#line 877 "data_string.parser.cpp"
+    break;
+
+  case 17: // data: DATA_TYPE OPEN_DICT_BRACKET pair_list CLOSE_DICT_BRACKET
+#line 181 "data_string.y"
+                                                                 { yylhs.value.as < ceammc::Atom > () = createFromDict(yystack_[3].value.as < std::string > (), yystack_[1].value.as < ceammc::Dict > ()); }
+#line 883 "data_string.parser.cpp"
+    break;
+
+  case 18: // data: OPEN_LIST_BRACKET atom_list CLOSE_LIST_BRACKET
+#line 182 "data_string.y"
+                                                                 { yylhs.value.as < ceammc::Atom > () = createDataList(yystack_[1].value.as < ceammc::AtomList > ()); }
+#line 889 "data_string.parser.cpp"
+    break;
+
+  case 19: // data: DATA_TYPE OPEN_LIST_BRACKET atom_list CLOSE_LIST_BRACKET
+#line 183 "data_string.y"
+                                                                 { yylhs.value.as < ceammc::Atom > () = createFromList(yystack_[3].value.as < std::string > (), yystack_[1].value.as < ceammc::AtomList > ()); }
+#line 895 "data_string.parser.cpp"
+    break;
+
+  case 20: // expr: atom_list
+#line 187 "data_string.y"
                 { result.append(yystack_[0].value.as < ceammc::AtomList > ()); }
-#line 921 "data_string.parser.cpp"
+#line 901 "data_string.parser.cpp"
     break;
 
 
-#line 925 "data_string.parser.cpp"
+#line 905 "data_string.parser.cpp"
 
             default:
               break;
@@ -938,7 +918,6 @@ namespace ceammc {
       YY_SYMBOL_PRINT ("-> $$ =", yylhs);
       yypop_ (yylen);
       yylen = 0;
-      YY_STACK_PRINT ();
 
       // Shift the result of the reduction.
       yypush_ (YY_NULLPTR, YY_MOVE (yylhs));
@@ -954,7 +933,9 @@ namespace ceammc {
     if (!yyerrstatus_)
       {
         ++yynerrs_;
-        error (yyla.location, yysyntax_error_ (yystack_[0].state, yyla));
+        context yyctx (*this, yyla);
+        std::string msg = yysyntax_error_ (yyctx);
+        error (yyla.location, YY_MOVE (msg));
       }
 
 
@@ -965,7 +946,7 @@ namespace ceammc {
            error, discard it.  */
 
         // Return failure if at end of input.
-        if (yyla.type_get () == yyeof_)
+        if (yyla.kind () == symbol_kind::S_YYEOF)
           YYABORT;
         else if (!yyla.empty ())
           {
@@ -991,6 +972,7 @@ namespace ceammc {
        this YYERROR.  */
     yypop_ (yylen);
     yylen = 0;
+    YY_STACK_PRINT ();
     goto yyerrlab1;
 
 
@@ -999,37 +981,39 @@ namespace ceammc {
   `-------------------------------------------------------------*/
   yyerrlab1:
     yyerrstatus_ = 3;   // Each real token shifted decrements this.
+    // Pop stack until we find a state that shifts the error token.
+    for (;;)
+      {
+        yyn = yypact_[+yystack_[0].state];
+        if (!yy_pact_value_is_default_ (yyn))
+          {
+            yyn += symbol_kind::S_YYerror;
+            if (0 <= yyn && yyn <= yylast_
+                && yycheck_[yyn] == symbol_kind::S_YYerror)
+              {
+                yyn = yytable_[yyn];
+                if (0 < yyn)
+                  break;
+              }
+          }
+
+        // Pop the current state because it cannot handle the error token.
+        if (yystack_.size () == 1)
+          YYABORT;
+
+        yyerror_range[1].location = yystack_[0].location;
+        yy_destroy_ ("Error: popping", yystack_[0]);
+        yypop_ ();
+        YY_STACK_PRINT ();
+      }
     {
       stack_symbol_type error_token;
-      for (;;)
-        {
-          yyn = yypact_[yystack_[0].state];
-          if (!yy_pact_value_is_default_ (yyn))
-            {
-              yyn += yy_error_token_;
-              if (0 <= yyn && yyn <= yylast_ && yycheck_[yyn] == yy_error_token_)
-                {
-                  yyn = yytable_[yyn];
-                  if (0 < yyn)
-                    break;
-                }
-            }
-
-          // Pop the current state because it cannot handle the error token.
-          if (yystack_.size () == 1)
-            YYABORT;
-
-          yyerror_range[1].location = yystack_[0].location;
-          yy_destroy_ ("Error: popping", yystack_[0]);
-          yypop_ ();
-          YY_STACK_PRINT ();
-        }
 
       yyerror_range[2].location = yyla.location;
       YYLLOC_DEFAULT (error_token.location, yyerror_range, 2);
 
       // Shift the error token.
-      error_token.state = static_cast<state_type> (yyn);
+      error_token.state = state_type (yyn);
       yypush_ ("Shifting", YY_MOVE (error_token));
     }
     goto yynewstate;
@@ -1061,6 +1045,7 @@ namespace ceammc {
     /* Do not reclaim the symbols of the rule whose action triggered
        this YYABORT or YYACCEPT.  */
     yypop_ (yylen);
+    YY_STACK_PRINT ();
     while (1 < yystack_.size ())
       {
         yy_destroy_ ("Cleanup: popping", yystack_[0]);
@@ -1094,18 +1079,100 @@ namespace ceammc {
     error (yyexc.location, yyexc.what ());
   }
 
-  // Generate an error message.
+  /* Return YYSTR after stripping away unnecessary quotes and
+     backslashes, so that it's suitable for yyerror.  The heuristic is
+     that double-quoting is unnecessary unless the string contains an
+     apostrophe, a comma, or backslash (other than backslash-backslash).
+     YYSTR is taken from yytname.  */
   std::string
-  DataStringParser::yysyntax_error_ (state_type yystate, const symbol_type& yyla) const
+  DataStringParser::yytnamerr_ (const char *yystr)
   {
-    // Number of reported tokens (one for the "unexpected", one per
-    // "expected").
-    std::ptrdiff_t yycount = 0;
-    // Its maximum.
-    enum { YYERROR_VERBOSE_ARGS_MAXIMUM = 5 };
-    // Arguments of yyformat.
-    char const *yyarg[YYERROR_VERBOSE_ARGS_MAXIMUM];
+    if (*yystr == '"')
+      {
+        std::string yyr;
+        char const *yyp = yystr;
 
+        for (;;)
+          switch (*++yyp)
+            {
+            case '\'':
+            case ',':
+              goto do_not_strip_quotes;
+
+            case '\\':
+              if (*++yyp != '\\')
+                goto do_not_strip_quotes;
+              else
+                goto append;
+
+            append:
+            default:
+              yyr += *yyp;
+              break;
+
+            case '"':
+              return yyr;
+            }
+      do_not_strip_quotes: ;
+      }
+
+    return yystr;
+  }
+
+  std::string
+  DataStringParser::symbol_name (symbol_kind_type yysymbol)
+  {
+    return yytnamerr_ (yytname_[yysymbol]);
+  }
+
+
+
+  // DataStringParser::context.
+  DataStringParser::context::context (const DataStringParser& yyparser, const symbol_type& yyla)
+    : yyparser_ (yyparser)
+    , yyla_ (yyla)
+  {}
+
+  int
+  DataStringParser::context::expected_tokens (symbol_kind_type yyarg[], int yyargn) const
+  {
+    // Actual number of expected tokens
+    int yycount = 0;
+
+    int yyn = yypact_[+yyparser_.yystack_[0].state];
+    if (!yy_pact_value_is_default_ (yyn))
+      {
+        /* Start YYX at -YYN if negative to avoid negative indexes in
+           YYCHECK.  In other words, skip the first -YYN actions for
+           this state because they are default actions.  */
+        int yyxbegin = yyn < 0 ? -yyn : 0;
+        // Stay within bounds of both yycheck and yytname.
+        int yychecklim = yylast_ - yyn + 1;
+        int yyxend = yychecklim < YYNTOKENS ? yychecklim : YYNTOKENS;
+        for (int yyx = yyxbegin; yyx < yyxend; ++yyx)
+          if (yycheck_[yyx + yyn] == yyx && yyx != symbol_kind::S_YYerror
+              && !yy_table_value_is_error_ (yytable_[yyx + yyn]))
+            {
+              if (!yyarg)
+                ++yycount;
+              else if (yycount == yyargn)
+                return 0;
+              else
+                yyarg[yycount++] = YY_CAST (symbol_kind_type, yyx);
+            }
+      }
+
+    if (yyarg && yycount == 0 && 0 < yyargn)
+      yyarg[0] = symbol_kind::S_YYEMPTY;
+    return yycount;
+  }
+
+
+
+  int
+  DataStringParser::yy_syntax_error_arguments_ (const context& yyctx,
+                                                 symbol_kind_type yyarg[], int yyargn) const
+  {
     /* There are many possibilities here to consider:
        - If this state is a consistent state with a default action, then
          the only way this function was invoked is if the default action
@@ -1130,35 +1197,26 @@ namespace ceammc {
          one exception: it will still contain any token that will not be
          accepted due to an error action in a later state.
     */
-    if (!yyla.empty ())
-      {
-        symbol_number_type yytoken = yyla.type_get ();
-        yyarg[yycount++] = yytname_[yytoken];
 
-        int yyn = yypact_[yystate];
-        if (!yy_pact_value_is_default_ (yyn))
-          {
-            /* Start YYX at -YYN if negative to avoid negative indexes in
-               YYCHECK.  In other words, skip the first -YYN actions for
-               this state because they are default actions.  */
-            int yyxbegin = yyn < 0 ? -yyn : 0;
-            // Stay within bounds of both yycheck and yytname.
-            int yychecklim = yylast_ - yyn + 1;
-            int yyxend = yychecklim < yyntokens_ ? yychecklim : yyntokens_;
-            for (int yyx = yyxbegin; yyx < yyxend; ++yyx)
-              if (yycheck_[yyx + yyn] == yyx && yyx != yy_error_token_
-                  && !yy_table_value_is_error_ (yytable_[yyx + yyn]))
-                {
-                  if (yycount == YYERROR_VERBOSE_ARGS_MAXIMUM)
-                    {
-                      yycount = 1;
-                      break;
-                    }
-                  else
-                    yyarg[yycount++] = yytname_[yyx];
-                }
-          }
+    if (!yyctx.lookahead ().empty ())
+      {
+        if (yyarg)
+          yyarg[0] = yyctx.token ();
+        int yyn = yyctx.expected_tokens (yyarg ? yyarg + 1 : yyarg, yyargn - 1);
+        return yyn + 1;
       }
+    return 0;
+  }
+
+  // Generate an error message.
+  std::string
+  DataStringParser::yysyntax_error_ (const context& yyctx) const
+  {
+    // Its maximum.
+    enum { YYARGS_MAX = 5 };
+    // Arguments of yyformat.
+    symbol_kind_type yyarg[YYARGS_MAX];
+    int yycount = yy_syntax_error_arguments_ (yyctx, yyarg, YYARGS_MAX);
 
     char const* yyformat = YY_NULLPTR;
     switch (yycount)
@@ -1183,7 +1241,7 @@ namespace ceammc {
     for (char const* yyp = yyformat; *yyp; ++yyp)
       if (yyp[0] == '%' && yyp[1] == 's' && yyi < yycount)
         {
-          yyres += yytnamerr_ (yyarg[yyi++]);
+          yyres += symbol_name (yyarg[yyi++]);
           ++yyp;
         }
       else
@@ -1192,110 +1250,119 @@ namespace ceammc {
   }
 
 
-  const signed char DataStringParser::yypact_ninf_ = -9;
+  const signed char DataStringParser::yypact_ninf_ = -11;
 
   const signed char DataStringParser::yytable_ninf_ = -1;
 
   const signed char
   DataStringParser::yypact_[] =
   {
-      -9,    42,     3,    -9,    -9,    -9,    -9,    -9,    21,    -8,
-      11,    -9,    -9,    -9,    -9,    -9,     4,    -2,    -9,    -9,
-      -9,    -9,    -9,    -9,    -9,    -9,    48,    16,    29,    42,
-      -9,    -9,    -9
+     -11,    58,     4,   -11,   -11,   -11,   -11,   -11,   -11,    -2,
+     -10,     2,   -11,   -11,   -11,   -11,   -11,    -5,    16,   -11,
+     -11,   -11,   -11,   -11,   -11,   -11,   -11,    -4,    30,    44,
+      58,   -11,   -11,   -11
   };
 
   const signed char
   DataStringParser::yydefact_[] =
   {
-       9,    19,     0,     2,    12,     9,     3,     4,     0,     0,
-       0,     5,    10,     7,     8,     1,     0,     0,    12,     9,
-       6,     9,    15,     9,    13,    17,     0,     0,     0,    11,
-      16,    18,    14
+       9,    20,     0,     2,     3,    13,     9,     4,     5,     0,
+       0,     0,     6,    10,    11,     8,     1,     0,     0,    13,
+       9,     7,     9,    16,     9,    14,    18,     0,     0,     0,
+      12,    17,    19,    15
   };
 
   const signed char
   DataStringParser::yypgoto_[] =
   {
-      -9,    -9,    -9,    -9,    -5,    -9,    -9,    20
+     -11,   -11,    -6,   -11,    -9,   -11,   -11,   -11
   };
 
   const signed char
   DataStringParser::yydefgoto_[] =
   {
-      -1,    12,    13,    14,     1,     2,    24,    16
+      -1,    13,     1,    25,    17,    14,    15,     2
   };
 
   const signed char
   DataStringParser::yytable_[] =
   {
-      17,     3,     4,    15,     5,    25,     6,    20,     7,    22,
-       8,     9,    10,    11,    27,    23,    28,    21,    29,     3,
-       4,     0,     5,    31,     6,    18,     7,    19,     8,     9,
-      10,    11,     3,     4,     0,     5,    32,     6,    26,     7,
-       0,     8,     9,    10,    11,     3,     4,     0,     5,     0,
-       6,     0,     7,    30,     8,     9,    10,    11,     0,    23
+      18,    23,    31,    19,    16,    20,    21,    24,    24,    22,
+      27,     0,     0,     0,    28,     0,    29,     0,    30,     3,
+       4,     5,     0,     6,    26,     7,     0,     8,     0,     9,
+      10,    11,    12,     3,     4,     5,     0,     6,    32,     7,
+       0,     8,     0,     9,    10,    11,    12,     3,     4,     5,
+       0,     6,    33,     7,     0,     8,     0,     9,    10,    11,
+      12,     3,     4,     5,     0,     6,     0,     7,     0,     8,
+       0,     9,    10,    11,    12
   };
 
   const signed char
   DataStringParser::yycheck_[] =
   {
-       5,     3,     4,     0,     6,     7,     8,    15,    10,     5,
-      12,    13,    14,    15,    19,    11,    21,     6,    23,     3,
-       4,    -1,     6,     7,     8,     4,    10,     6,    12,    13,
-      14,    15,     3,     4,    -1,     6,     7,     8,    18,    10,
-      -1,    12,    13,    14,    15,     3,     4,    -1,     6,    -1,
-       8,    -1,    10,     5,    12,    13,    14,    15,    -1,    11
+       6,     6,     6,     5,     0,     7,    16,    12,    12,     7,
+      19,    -1,    -1,    -1,    20,    -1,    22,    -1,    24,     3,
+       4,     5,    -1,     7,     8,     9,    -1,    11,    -1,    13,
+      14,    15,    16,     3,     4,     5,    -1,     7,     8,     9,
+      -1,    11,    -1,    13,    14,    15,    16,     3,     4,     5,
+      -1,     7,     8,     9,    -1,    11,    -1,    13,    14,    15,
+      16,     3,     4,     5,    -1,     7,    -1,     9,    -1,    11,
+      -1,    13,    14,    15,    16
   };
 
   const signed char
   DataStringParser::yystos_[] =
   {
-       0,    20,    21,     3,     4,     6,     8,    10,    12,    13,
-      14,    15,    17,    18,    19,     0,    23,    20,     4,     6,
-      15,     6,     5,    11,    22,     7,    23,    20,    20,    20,
-       5,     7,     7
+       0,    19,    24,     3,     4,     5,     7,     9,    11,    13,
+      14,    15,    16,    18,    22,    23,     0,    21,    19,     5,
+       7,    16,     7,     6,    12,    20,     8,    21,    19,    19,
+      19,     6,     8,     8
   };
 
   const signed char
   DataStringParser::yyr1_[] =
   {
-       0,    16,    17,    17,    17,    17,    17,    17,    17,    20,
-      20,    22,    23,    23,    19,    18,    18,    18,    18,    21
+       0,    17,    18,    18,    18,    18,    18,    18,    18,    19,
+      19,    19,    20,    21,    21,    22,    23,    23,    23,    23,
+      24
   };
 
   const signed char
   DataStringParser::yyr2_[] =
   {
-       0,     2,     1,     1,     1,     1,     2,     1,     1,     0,
-       2,     2,     0,     2,     4,     3,     4,     3,     4,     1
+       0,     2,     1,     1,     1,     1,     1,     2,     1,     0,
+       2,     2,     2,     0,     2,     4,     3,     4,     3,     4,
+       1
   };
 
 
-
+#if YYDEBUG || 1
   // YYTNAME[SYMBOL-NUM] -- String name of the symbol SYMBOL-NUM.
-  // First, the terminals, then, starting at \a yyntokens_, nonterminals.
+  // First, the terminals, then, starting at \a YYNTOKENS, nonterminals.
   const char*
   const DataStringParser::yytname_[] =
   {
-  "\"end of string\"", "error", "$undefined", "NULL", "OPEN_DICT_BRACKET",
-  "CLOSE_DICT_BRACKET", "OPEN_LIST_BRACKET", "CLOSE_LIST_BRACKET", "FLOAT",
-  "LEXER_ERROR", "SYMBOL", "KEY", "DATA_TYPE", "DATA_TYPE_STRING",
-  "FUNC_CALL", "STRING", "$accept", "atom", "data", "function_call",
-  "atom_list", "expr", "pair", "pair_list", YY_NULLPTR
+  "\"end of string\"", "error", "\"invalid token\"", "NULL", "COMMA",
+  "OPEN_DICT_BRACKET", "CLOSE_DICT_BRACKET", "OPEN_LIST_BRACKET",
+  "CLOSE_LIST_BRACKET", "FLOAT", "LEXER_ERROR", "SYMBOL", "KEY",
+  "DATA_TYPE", "DATA_TYPE_STRING", "FUNC_CALL", "STRING", "$accept",
+  "atom", "atom_list", "pair", "pair_list", "function_call", "data",
+  "expr", YY_NULLPTR
   };
+#endif
+
 
 #if YYDEBUG
   const unsigned char
   DataStringParser::yyrline_[] =
   {
-       0,   145,   145,   146,   147,   148,   149,   150,   151,   155,
-     156,   160,   164,   165,   169,   173,   174,   175,   176,   180
+       0,   151,   151,   152,   153,   154,   155,   156,   157,   161,
+     162,   163,   167,   171,   172,   176,   180,   181,   182,   183,
+     187
   };
 
-  // Print the state stack on the debug stream.
   void
-  DataStringParser::yystack_print_ ()
+  DataStringParser::yy_stack_print_ () const
   {
     *yycdebug_ << "Stack now";
     for (stack_type::const_iterator
@@ -1306,9 +1373,8 @@ namespace ceammc {
     *yycdebug_ << '\n';
   }
 
-  // Report on the debug stream that the rule \a yyrule is going to be reduced.
   void
-  DataStringParser::yy_reduce_print_ (int yyrule)
+  DataStringParser::yy_reduce_print_ (int yyrule) const
   {
     int yylno = yyrline_[yyrule];
     int yynrhs = yyr2_[yyrule];
@@ -1325,9 +1391,9 @@ namespace ceammc {
 
 #line 8 "data_string.y"
 } // ceammc
-#line 1329 "data_string.parser.cpp"
+#line 1395 "data_string.parser.cpp"
 
-#line 183 "data_string.y"
+#line 190 "data_string.y"
 
 
 void ceammc::DataStringParser::error(const location& loc, const std::string& err_message)

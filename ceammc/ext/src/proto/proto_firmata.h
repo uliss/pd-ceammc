@@ -12,7 +12,7 @@ class Firmata : public BaseObject {
 public:
     Firmata(const PdArgs& a);
     void onFloat(t_float f) override;
-    void onAny(t_symbol* s, const AtomList& lst) override;
+    void onAny(t_symbol* s, const AtomListView& lst) override;
 
     void processFirmataInput(int cmd);
     void toArduino(const std::string& cmd);
@@ -22,6 +22,6 @@ public:
     static int symToPinMode(t_symbol* s);
 };
 
-void proto_firmata_setup();
+void setup_proto_firmata();
 
 #endif // HW_FIRMATA_H

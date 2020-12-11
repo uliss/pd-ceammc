@@ -4,7 +4,7 @@
 #include "Wurley.h"
 #include "stksynth_p.h"
 
-typedef StkFMSynth<stk::Wurley> Synth;
+using Synth = StkFMSynth<stk::Wurley>;
 
 SynthWurley::SynthWurley(const PdArgs& args)
     : StkSynth(args, new Synth())
@@ -19,4 +19,5 @@ SynthWurley::SynthWurley(const PdArgs& args)
 void setup_synth_wurley()
 {
     StkSynthFactory<SynthWurley> obj("synth.wurley~");
+    obj.addMethod("note", &SynthWurley::m_note);
 }

@@ -29,4 +29,10 @@ void CanvasDir::onBang()
 void setup_base_canvas_dir()
 {
     ObjectFactory<CanvasDir> obj("canvas.dir");
+
+    obj.setDescription("current canvas directory");
+    obj.addAuthor("Serge Poltavsky");
+    obj.setKeywords({"canvas", "directory"});
+    obj.setCategory("patch");
+    obj.setSinceVersion(0, 8);
 }

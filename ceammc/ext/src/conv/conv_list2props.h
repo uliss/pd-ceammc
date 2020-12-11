@@ -21,8 +21,8 @@ class ConvList2Props : public BaseObject {
 public:
     ConvList2Props(const PdArgs& args);
     void onList(const AtomList& lst) override;
-    void onAny(t_symbol* s, const AtomList& lst) override;
-    bool processAnyProps(t_symbol* sel, const AtomList& lst) override;
+    void onAny(t_symbol* s, const AtomListView& lst) override;
+    bool processAnyProps(t_symbol* sel, const AtomListView& lst) override;
 };
 
 void setup_list_to_props();

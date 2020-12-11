@@ -16,11 +16,12 @@
 
 #include "ceammc_data.h"
 #include "ceammc_object.h"
+#include "string_property.h"
 
 using namespace ceammc;
 
 class StringContains : public BaseObject {
-    std::string subj_;
+    StringProperty* subj_;
 
 public:
     StringContains(const PdArgs& a);

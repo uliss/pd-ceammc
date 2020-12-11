@@ -27,7 +27,7 @@ TEST_CASE("array.vplay", "[externals]")
         TObj t("array.vplay");
         REQUIRE(t.numInlets() == 1);
         REQUIRE(t.numOutlets() == 2);
-        REQUIRE_PROPERTY_NONE(t, @array);
+        REQUIRE_PROPERTY(t, @array, &s_);
         REQUIRE_PROPERTY_FLOAT(t, @speed, 1);
         REQUIRE_PROPERTY(t, @state, "stop");
         REQUIRE_PROPERTY_FLOAT(t, @begin, 0);

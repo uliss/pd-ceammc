@@ -51,4 +51,10 @@ void XFade2Tilde::processBlock(const t_sample** in, t_sample** out)
 void setup_base_xfade2_tilde()
 {
     SoundExternalFactory<XFade2Tilde> obj("xfade2~");
+
+    obj.setDescription("multi stereo-signal crossfade");
+    obj.addAuthor("Serge Poltavsky");
+    obj.setKeywords({"crossfade", "xfade"});
+    obj.setCategory("base");
+    obj.setSinceVersion(0, 6);
 }

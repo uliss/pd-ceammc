@@ -1,8 +1,8 @@
-// A Bison parser, made by GNU Bison 3.5.
+// A Bison parser, made by GNU Bison 3.7.3.
 
 // Skeleton implementation for Bison LALR(1) parsers in C++
 
-// Copyright (C) 2002-2015, 2018-2019 Free Software Foundation, Inc.
+// Copyright (C) 2002-2015, 2018-2020 Free Software Foundation, Inc.
 
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -30,8 +30,9 @@
 // This special exception was added by the Free Software Foundation in
 // version 2.2 of Bison.
 
-// Undocumented macros, especially those whose name start with YY_,
-// are private implementation details.  Do not rely on them.
+// DO NOT RELY ON FEATURES THAT ARE NOT DOCUMENTED in the manual,
+// especially those whose name start with YY_ or yy_.  They are
+// private implementation details that can be changed or removed.
 
 
 
@@ -48,7 +49,7 @@
 
     # include "quoted_atomlist_lexer.h"
 
-#line 52 "quoted_string.parser.cpp"
+#line 53 "quoted_string.parser.cpp"
 
 
 #ifndef YY_
@@ -62,6 +63,7 @@
 #  define YY_(msgid) msgid
 # endif
 #endif
+
 
 // Whether we are compiled with exception support.
 #ifndef YY_EXCEPTIONS
@@ -99,7 +101,7 @@
 # define YY_STACK_PRINT()               \
   do {                                  \
     if (yydebug_)                       \
-      yystack_print_ ();                \
+      yy_stack_print_ ();                \
   } while (false)
 
 #else // !YYDEBUG
@@ -121,49 +123,7 @@
 
 #line 7 "quoted_string.y"
 namespace ceammc {
-#line 125 "quoted_string.parser.cpp"
-
-
-  /* Return YYSTR after stripping away unnecessary quotes and
-     backslashes, so that it's suitable for yyerror.  The heuristic is
-     that double-quoting is unnecessary unless the string contains an
-     apostrophe, a comma, or backslash (other than backslash-backslash).
-     YYSTR is taken from yytname.  */
-  std::string
-  QuotedAtomListParser::yytnamerr_ (const char *yystr)
-  {
-    if (*yystr == '"')
-      {
-        std::string yyr;
-        char const *yyp = yystr;
-
-        for (;;)
-          switch (*++yyp)
-            {
-            case '\'':
-            case ',':
-              goto do_not_strip_quotes;
-
-            case '\\':
-              if (*++yyp != '\\')
-                goto do_not_strip_quotes;
-              else
-                goto append;
-
-            append:
-            default:
-              yyr += *yyp;
-              break;
-
-            case '"':
-              return yyr;
-            }
-      do_not_strip_quotes: ;
-      }
-
-    return yystr;
-  }
-
+#line 127 "quoted_string.parser.cpp"
 
   /// Build a parser object.
   QuotedAtomListParser::QuotedAtomListParser (ceammc::QuotedAtomListLexer& lexer_yyarg)
@@ -183,18 +143,10 @@ namespace ceammc {
   {}
 
   /*---------------.
-  | Symbol types.  |
+  | symbol kinds.  |
   `---------------*/
 
   // basic_symbol.
-#if 201103L <= YY_CPLUSPLUS
-  template <typename Base>
-  QuotedAtomListParser::basic_symbol<Base>::basic_symbol (basic_symbol&& that)
-    : Base (std::move (that))
-    , value (std::move (that.value))
-  {}
-#endif
-
   template <typename Base>
   QuotedAtomListParser::basic_symbol<Base>::basic_symbol (const basic_symbol& that)
     : Base (that)
@@ -216,10 +168,17 @@ namespace ceammc {
   {}
 
   template <typename Base>
+  QuotedAtomListParser::symbol_kind_type
+  QuotedAtomListParser::basic_symbol<Base>::type_get () const YY_NOEXCEPT
+  {
+    return this->kind ();
+  }
+
+  template <typename Base>
   bool
   QuotedAtomListParser::basic_symbol<Base>::empty () const YY_NOEXCEPT
   {
-    return Base::type_get () == empty_symbol;
+    return this->kind () == symbol_kind::S_YYEMPTY;
   }
 
   template <typename Base>
@@ -230,44 +189,50 @@ namespace ceammc {
     value = YY_MOVE (s.value);
   }
 
-  // by_type.
-  QuotedAtomListParser::by_type::by_type ()
-    : type (empty_symbol)
+  // by_kind.
+  QuotedAtomListParser::by_kind::by_kind ()
+    : kind_ (symbol_kind::S_YYEMPTY)
   {}
 
 #if 201103L <= YY_CPLUSPLUS
-  QuotedAtomListParser::by_type::by_type (by_type&& that)
-    : type (that.type)
+  QuotedAtomListParser::by_kind::by_kind (by_kind&& that)
+    : kind_ (that.kind_)
   {
     that.clear ();
   }
 #endif
 
-  QuotedAtomListParser::by_type::by_type (const by_type& that)
-    : type (that.type)
+  QuotedAtomListParser::by_kind::by_kind (const by_kind& that)
+    : kind_ (that.kind_)
   {}
 
-  QuotedAtomListParser::by_type::by_type (token_type t)
-    : type (yytranslate_ (t))
+  QuotedAtomListParser::by_kind::by_kind (token_kind_type t)
+    : kind_ (yytranslate_ (t))
   {}
 
   void
-  QuotedAtomListParser::by_type::clear ()
+  QuotedAtomListParser::by_kind::clear ()
   {
-    type = empty_symbol;
+    kind_ = symbol_kind::S_YYEMPTY;
   }
 
   void
-  QuotedAtomListParser::by_type::move (by_type& that)
+  QuotedAtomListParser::by_kind::move (by_kind& that)
   {
-    type = that.type;
+    kind_ = that.kind_;
     that.clear ();
   }
 
-  int
-  QuotedAtomListParser::by_type::type_get () const YY_NOEXCEPT
+  QuotedAtomListParser::symbol_kind_type
+  QuotedAtomListParser::by_kind::kind () const YY_NOEXCEPT
   {
-    return type;
+    return kind_;
+  }
+
+  QuotedAtomListParser::symbol_kind_type
+  QuotedAtomListParser::by_kind::type_get () const YY_NOEXCEPT
+  {
+    return this->kind ();
   }
 
 
@@ -297,13 +262,13 @@ namespace ceammc {
     : state (s)
   {}
 
-  QuotedAtomListParser::symbol_number_type
-  QuotedAtomListParser::by_state::type_get () const YY_NOEXCEPT
+  QuotedAtomListParser::symbol_kind_type
+  QuotedAtomListParser::by_state::kind () const YY_NOEXCEPT
   {
     if (state == empty_state)
-      return empty_symbol;
+      return symbol_kind::S_YYEMPTY;
     else
-      return yystos_[state];
+      return YY_CAST (symbol_kind_type, yystos_[+state]);
   }
 
   QuotedAtomListParser::stack_symbol_type::stack_symbol_type ()
@@ -322,7 +287,7 @@ namespace ceammc {
     : super_type (s, YY_MOVE (that.value))
   {
     // that is emptied.
-    that.type = empty_symbol;
+    that.kind_ = symbol_kind::S_YYEMPTY;
   }
 
 #if YY_CPLUSPLUS < 201103L
@@ -353,28 +318,26 @@ namespace ceammc {
       YY_SYMBOL_PRINT (yymsg, yysym);
 
     // User destructor.
-    YYUSE (yysym.type_get ());
+    YYUSE (yysym.kind ());
   }
 
 #if YYDEBUG
   template <typename Base>
   void
-  QuotedAtomListParser::yy_print_ (std::ostream& yyo,
-                                     const basic_symbol<Base>& yysym) const
+  QuotedAtomListParser::yy_print_ (std::ostream& yyo, const basic_symbol<Base>& yysym) const
   {
     std::ostream& yyoutput = yyo;
     YYUSE (yyoutput);
-    symbol_number_type yytype = yysym.type_get ();
-#if defined __GNUC__ && ! defined __clang__ && ! defined __ICC && __GNUC__ * 100 + __GNUC_MINOR__ <= 408
-    // Avoid a (spurious) G++ 4.8 warning about "array subscript is
-    // below array bounds".
     if (yysym.empty ())
-      std::abort ();
-#endif
-    yyo << (yytype < yyntokens_ ? "token" : "nterm")
-        << ' ' << yytname_[yytype] << " (";
-    YYUSE (yytype);
-    yyo << ')';
+      yyo << "empty symbol";
+    else
+      {
+        symbol_kind_type yykind = yysym.kind ();
+        yyo << (yykind < YYNTOKENS ? "token" : "nterm")
+            << ' ' << yysym.name () << " (";
+        YYUSE (yykind);
+        yyo << ')';
+      }
   }
 #endif
 
@@ -433,11 +396,11 @@ namespace ceammc {
   QuotedAtomListParser::state_type
   QuotedAtomListParser::yy_lr_goto_state_ (state_type yystate, int yysym)
   {
-    int yyr = yypgoto_[yysym - yyntokens_] + yystate;
+    int yyr = yypgoto_[yysym - YYNTOKENS] + yystate;
     if (0 <= yyr && yyr <= yylast_ && yycheck_[yyr] == yystate)
       return yytable_[yyr];
     else
-      return yydefgoto_[yysym - yyntokens_];
+      return yydefgoto_[yysym - YYNTOKENS];
   }
 
   bool
@@ -494,6 +457,7 @@ namespace ceammc {
   `-----------------------------------------------*/
   yynewstate:
     YYCDEBUG << "Entering state " << int (yystack_[0].state) << '\n';
+    YY_STACK_PRINT ();
 
     // Accept?
     if (yystack_[0].state == yyfinal_)
@@ -507,19 +471,19 @@ namespace ceammc {
   `-----------*/
   yybackup:
     // Try to take a decision without lookahead.
-    yyn = yypact_[yystack_[0].state];
+    yyn = yypact_[+yystack_[0].state];
     if (yy_pact_value_is_default_ (yyn))
       goto yydefault;
 
     // Read a lookahead token.
     if (yyla.empty ())
       {
-        YYCDEBUG << "Reading a token: ";
+        YYCDEBUG << "Reading a token\n";
 #if YY_EXCEPTIONS
         try
 #endif // YY_EXCEPTIONS
           {
-            yyla.type = yytranslate_ (yylex (&yyla.value));
+            yyla.kind_ = yytranslate_ (yylex (&yyla.value));
           }
 #if YY_EXCEPTIONS
         catch (const syntax_error& yyexc)
@@ -532,10 +496,20 @@ namespace ceammc {
       }
     YY_SYMBOL_PRINT ("Next token is", yyla);
 
+    if (yyla.kind () == symbol_kind::S_YYerror)
+    {
+      // The scanner already issued an error message, process directly
+      // to error recovery.  But do not keep the error token as
+      // lookahead, it is too special and may lead us to an endless
+      // loop in error recovery. */
+      yyla.kind_ = symbol_kind::S_YYUNDEF;
+      goto yyerrlab1;
+    }
+
     /* If the proper action on seeing token YYLA.TYPE is to reduce or
        to detect an error, take that action.  */
-    yyn += yyla.type_get ();
-    if (yyn < 0 || yylast_ < yyn || yycheck_[yyn] != yyla.type_get ())
+    yyn += yyla.kind ();
+    if (yyn < 0 || yylast_ < yyn || yycheck_[yyn] != yyla.kind ())
       {
         goto yydefault;
       }
@@ -555,7 +529,7 @@ namespace ceammc {
       --yyerrstatus_;
 
     // Shift the lookahead token.
-    yypush_ ("Shifting", static_cast<state_type> (yyn), YY_MOVE (yyla));
+    yypush_ ("Shifting", state_type (yyn), YY_MOVE (yyla));
     goto yynewstate;
 
 
@@ -563,7 +537,7 @@ namespace ceammc {
   | yydefault -- do the default action for the current state.  |
   `-----------------------------------------------------------*/
   yydefault:
-    yyn = yydefact_[yystack_[0].state];
+    yyn = yydefact_[+yystack_[0].state];
     if (yyn == 0)
       goto yyerrlab;
     goto yyreduce;
@@ -597,86 +571,86 @@ namespace ceammc {
         {
           switch (yyn)
             {
-  case 2:
+  case 2: // SIMPLE_ATOM_LIST: SIMPLE_ATOM
 #line 59 "quoted_string.y"
                                    { yylhs.value.start = lexer.idx(); yylhs.value.end = lexer.idx(); }
-#line 604 "quoted_string.parser.cpp"
+#line 578 "quoted_string.parser.cpp"
     break;
 
-  case 3:
+  case 3: // SIMPLE_ATOM_LIST: SIMPLE_ATOM_LIST SIMPLE_ATOM
 #line 60 "quoted_string.y"
                                    { yylhs.value.start = yystack_[1].value.start; yylhs.value.end = lexer.idx(); }
-#line 610 "quoted_string.parser.cpp"
+#line 584 "quoted_string.parser.cpp"
     break;
 
-  case 4:
+  case 4: // DQB: DOUBLE_QUOTE_BEGIN
 #line 64 "quoted_string.y"
                          { yylhs.value.start = lexer.idx(); }
-#line 616 "quoted_string.parser.cpp"
+#line 590 "quoted_string.parser.cpp"
     break;
 
-  case 5:
+  case 5: // DQB: DOUBLE_QUOTE
 #line 65 "quoted_string.y"
                          { yylhs.value.start = lexer.idx(); yylhs.value.end = lexer.idx(); }
-#line 622 "quoted_string.parser.cpp"
+#line 596 "quoted_string.parser.cpp"
     break;
 
-  case 6:
+  case 6: // DQE: DOUBLE_QUOTE_END
 #line 69 "quoted_string.y"
                          { yylhs.value.end = lexer.idx(); }
-#line 628 "quoted_string.parser.cpp"
+#line 602 "quoted_string.parser.cpp"
     break;
 
-  case 7:
+  case 7: // DQE: DOUBLE_QUOTE
 #line 70 "quoted_string.y"
                          { yylhs.value.start = lexer.idx(); yylhs.value.end = lexer.idx(); }
-#line 634 "quoted_string.parser.cpp"
+#line 608 "quoted_string.parser.cpp"
     break;
 
-  case 8:
+  case 8: // DOUBLE_QUOTED_STRING: DQB DQE
 #line 74 "quoted_string.y"
                                { yylhs.value.start = yystack_[1].value.start; yylhs.value.end = yystack_[0].value.end; }
-#line 640 "quoted_string.parser.cpp"
+#line 614 "quoted_string.parser.cpp"
     break;
 
-  case 9:
+  case 9: // DOUBLE_QUOTED_STRING: DQB SIMPLE_ATOM_LIST DQE
 #line 75 "quoted_string.y"
                                { yylhs.value.start = yystack_[2].value.start; yylhs.value.end = yystack_[0].value.end; }
-#line 646 "quoted_string.parser.cpp"
+#line 620 "quoted_string.parser.cpp"
     break;
 
-  case 10:
+  case 10: // ATOMLIST: QUOTED_ATOM
 #line 79 "quoted_string.y"
                            { yylhs.value.start = lexer.idx(); yylhs.value.end = lexer.idx(); yylhs.value.quoted = true; }
-#line 652 "quoted_string.parser.cpp"
+#line 626 "quoted_string.parser.cpp"
     break;
 
-  case 11:
+  case 11: // ATOMLIST: QUOTED_PROPERTY
 #line 80 "quoted_string.y"
                            { yylhs.value.start = lexer.idx(); yylhs.value.end = lexer.idx(); yylhs.value.quoted = true; yylhs.value.quoted_property = true; }
-#line 658 "quoted_string.parser.cpp"
+#line 632 "quoted_string.parser.cpp"
     break;
 
-  case 12:
+  case 12: // ATOMLIST: DOUBLE_QUOTED_STRING
 #line 81 "quoted_string.y"
                            { yylhs.value = yystack_[0].value; yylhs.value.quoted = 1; }
-#line 664 "quoted_string.parser.cpp"
+#line 638 "quoted_string.parser.cpp"
     break;
 
-  case 13:
+  case 13: // ATOMLIST: SIMPLE_ATOM_LIST
 #line 82 "quoted_string.y"
                            { yylhs.value = yystack_[0].value; }
-#line 670 "quoted_string.parser.cpp"
+#line 644 "quoted_string.parser.cpp"
     break;
 
-  case 15:
+  case 15: // EXPR: EXPR ATOMLIST
 #line 87 "quoted_string.y"
                     { lexer.pushRange(yystack_[0].value); }
-#line 676 "quoted_string.parser.cpp"
+#line 650 "quoted_string.parser.cpp"
     break;
 
 
-#line 680 "quoted_string.parser.cpp"
+#line 654 "quoted_string.parser.cpp"
 
             default:
               break;
@@ -693,7 +667,6 @@ namespace ceammc {
       YY_SYMBOL_PRINT ("-> $$ =", yylhs);
       yypop_ (yylen);
       yylen = 0;
-      YY_STACK_PRINT ();
 
       // Shift the result of the reduction.
       yypush_ (YY_NULLPTR, YY_MOVE (yylhs));
@@ -709,7 +682,9 @@ namespace ceammc {
     if (!yyerrstatus_)
       {
         ++yynerrs_;
-        error (yysyntax_error_ (yystack_[0].state, yyla));
+        context yyctx (*this, yyla);
+        std::string msg = yysyntax_error_ (yyctx);
+        error (YY_MOVE (msg));
       }
 
 
@@ -719,7 +694,7 @@ namespace ceammc {
            error, discard it.  */
 
         // Return failure if at end of input.
-        if (yyla.type_get () == yyeof_)
+        if (yyla.kind () == symbol_kind::S_YYEOF)
           YYABORT;
         else if (!yyla.empty ())
           {
@@ -745,6 +720,7 @@ namespace ceammc {
        this YYERROR.  */
     yypop_ (yylen);
     yylen = 0;
+    YY_STACK_PRINT ();
     goto yyerrlab1;
 
 
@@ -753,34 +729,36 @@ namespace ceammc {
   `-------------------------------------------------------------*/
   yyerrlab1:
     yyerrstatus_ = 3;   // Each real token shifted decrements this.
+    // Pop stack until we find a state that shifts the error token.
+    for (;;)
+      {
+        yyn = yypact_[+yystack_[0].state];
+        if (!yy_pact_value_is_default_ (yyn))
+          {
+            yyn += symbol_kind::S_YYerror;
+            if (0 <= yyn && yyn <= yylast_
+                && yycheck_[yyn] == symbol_kind::S_YYerror)
+              {
+                yyn = yytable_[yyn];
+                if (0 < yyn)
+                  break;
+              }
+          }
+
+        // Pop the current state because it cannot handle the error token.
+        if (yystack_.size () == 1)
+          YYABORT;
+
+        yy_destroy_ ("Error: popping", yystack_[0]);
+        yypop_ ();
+        YY_STACK_PRINT ();
+      }
     {
       stack_symbol_type error_token;
-      for (;;)
-        {
-          yyn = yypact_[yystack_[0].state];
-          if (!yy_pact_value_is_default_ (yyn))
-            {
-              yyn += yy_error_token_;
-              if (0 <= yyn && yyn <= yylast_ && yycheck_[yyn] == yy_error_token_)
-                {
-                  yyn = yytable_[yyn];
-                  if (0 < yyn)
-                    break;
-                }
-            }
-
-          // Pop the current state because it cannot handle the error token.
-          if (yystack_.size () == 1)
-            YYABORT;
-
-          yy_destroy_ ("Error: popping", yystack_[0]);
-          yypop_ ();
-          YY_STACK_PRINT ();
-        }
 
 
       // Shift the error token.
-      error_token.state = static_cast<state_type> (yyn);
+      error_token.state = state_type (yyn);
       yypush_ ("Shifting", YY_MOVE (error_token));
     }
     goto yynewstate;
@@ -812,6 +790,7 @@ namespace ceammc {
     /* Do not reclaim the symbols of the rule whose action triggered
        this YYABORT or YYACCEPT.  */
     yypop_ (yylen);
+    YY_STACK_PRINT ();
     while (1 < yystack_.size ())
       {
         yy_destroy_ ("Cleanup: popping", yystack_[0]);
@@ -845,18 +824,100 @@ namespace ceammc {
     error (yyexc.what ());
   }
 
-  // Generate an error message.
+  /* Return YYSTR after stripping away unnecessary quotes and
+     backslashes, so that it's suitable for yyerror.  The heuristic is
+     that double-quoting is unnecessary unless the string contains an
+     apostrophe, a comma, or backslash (other than backslash-backslash).
+     YYSTR is taken from yytname.  */
   std::string
-  QuotedAtomListParser::yysyntax_error_ (state_type yystate, const symbol_type& yyla) const
+  QuotedAtomListParser::yytnamerr_ (const char *yystr)
   {
-    // Number of reported tokens (one for the "unexpected", one per
-    // "expected").
-    std::ptrdiff_t yycount = 0;
-    // Its maximum.
-    enum { YYERROR_VERBOSE_ARGS_MAXIMUM = 5 };
-    // Arguments of yyformat.
-    char const *yyarg[YYERROR_VERBOSE_ARGS_MAXIMUM];
+    if (*yystr == '"')
+      {
+        std::string yyr;
+        char const *yyp = yystr;
 
+        for (;;)
+          switch (*++yyp)
+            {
+            case '\'':
+            case ',':
+              goto do_not_strip_quotes;
+
+            case '\\':
+              if (*++yyp != '\\')
+                goto do_not_strip_quotes;
+              else
+                goto append;
+
+            append:
+            default:
+              yyr += *yyp;
+              break;
+
+            case '"':
+              return yyr;
+            }
+      do_not_strip_quotes: ;
+      }
+
+    return yystr;
+  }
+
+  std::string
+  QuotedAtomListParser::symbol_name (symbol_kind_type yysymbol)
+  {
+    return yytnamerr_ (yytname_[yysymbol]);
+  }
+
+
+
+  // QuotedAtomListParser::context.
+  QuotedAtomListParser::context::context (const QuotedAtomListParser& yyparser, const symbol_type& yyla)
+    : yyparser_ (yyparser)
+    , yyla_ (yyla)
+  {}
+
+  int
+  QuotedAtomListParser::context::expected_tokens (symbol_kind_type yyarg[], int yyargn) const
+  {
+    // Actual number of expected tokens
+    int yycount = 0;
+
+    int yyn = yypact_[+yyparser_.yystack_[0].state];
+    if (!yy_pact_value_is_default_ (yyn))
+      {
+        /* Start YYX at -YYN if negative to avoid negative indexes in
+           YYCHECK.  In other words, skip the first -YYN actions for
+           this state because they are default actions.  */
+        int yyxbegin = yyn < 0 ? -yyn : 0;
+        // Stay within bounds of both yycheck and yytname.
+        int yychecklim = yylast_ - yyn + 1;
+        int yyxend = yychecklim < YYNTOKENS ? yychecklim : YYNTOKENS;
+        for (int yyx = yyxbegin; yyx < yyxend; ++yyx)
+          if (yycheck_[yyx + yyn] == yyx && yyx != symbol_kind::S_YYerror
+              && !yy_table_value_is_error_ (yytable_[yyx + yyn]))
+            {
+              if (!yyarg)
+                ++yycount;
+              else if (yycount == yyargn)
+                return 0;
+              else
+                yyarg[yycount++] = YY_CAST (symbol_kind_type, yyx);
+            }
+      }
+
+    if (yyarg && yycount == 0 && 0 < yyargn)
+      yyarg[0] = symbol_kind::S_YYEMPTY;
+    return yycount;
+  }
+
+
+
+  int
+  QuotedAtomListParser::yy_syntax_error_arguments_ (const context& yyctx,
+                                                 symbol_kind_type yyarg[], int yyargn) const
+  {
     /* There are many possibilities here to consider:
        - If this state is a consistent state with a default action, then
          the only way this function was invoked is if the default action
@@ -881,35 +942,26 @@ namespace ceammc {
          one exception: it will still contain any token that will not be
          accepted due to an error action in a later state.
     */
-    if (!yyla.empty ())
-      {
-        symbol_number_type yytoken = yyla.type_get ();
-        yyarg[yycount++] = yytname_[yytoken];
 
-        int yyn = yypact_[yystate];
-        if (!yy_pact_value_is_default_ (yyn))
-          {
-            /* Start YYX at -YYN if negative to avoid negative indexes in
-               YYCHECK.  In other words, skip the first -YYN actions for
-               this state because they are default actions.  */
-            int yyxbegin = yyn < 0 ? -yyn : 0;
-            // Stay within bounds of both yycheck and yytname.
-            int yychecklim = yylast_ - yyn + 1;
-            int yyxend = yychecklim < yyntokens_ ? yychecklim : yyntokens_;
-            for (int yyx = yyxbegin; yyx < yyxend; ++yyx)
-              if (yycheck_[yyx + yyn] == yyx && yyx != yy_error_token_
-                  && !yy_table_value_is_error_ (yytable_[yyx + yyn]))
-                {
-                  if (yycount == YYERROR_VERBOSE_ARGS_MAXIMUM)
-                    {
-                      yycount = 1;
-                      break;
-                    }
-                  else
-                    yyarg[yycount++] = yytname_[yyx];
-                }
-          }
+    if (!yyctx.lookahead ().empty ())
+      {
+        if (yyarg)
+          yyarg[0] = yyctx.token ();
+        int yyn = yyctx.expected_tokens (yyarg ? yyarg + 1 : yyarg, yyargn - 1);
+        return yyn + 1;
       }
+    return 0;
+  }
+
+  // Generate an error message.
+  std::string
+  QuotedAtomListParser::yysyntax_error_ (const context& yyctx) const
+  {
+    // Its maximum.
+    enum { YYARGS_MAX = 5 };
+    // Arguments of yyformat.
+    symbol_kind_type yyarg[YYARGS_MAX];
+    int yycount = yy_syntax_error_arguments_ (yyctx, yyarg, YYARGS_MAX);
 
     char const* yyformat = YY_NULLPTR;
     switch (yycount)
@@ -934,7 +986,7 @@ namespace ceammc {
     for (char const* yyp = yyformat; *yyp; ++yyp)
       if (yyp[0] == '%' && yyp[1] == 's' && yyi < yycount)
         {
-          yyres += yytnamerr_ (yyarg[yyi++]);
+          yyres += symbol_name (yyarg[yyi++]);
           ++yyp;
         }
       else
@@ -1009,17 +1061,19 @@ namespace ceammc {
   };
 
 
-
+#if YYDEBUG || 1
   // YYTNAME[SYMBOL-NUM] -- String name of the symbol SYMBOL-NUM.
-  // First, the terminals, then, starting at \a yyntokens_, nonterminals.
+  // First, the terminals, then, starting at \a YYNTOKENS, nonterminals.
   const char*
   const QuotedAtomListParser::yytname_[] =
   {
-  "\"end of string\"", "error", "$undefined", "DOUBLE_QUOTE",
+  "\"end of string\"", "error", "\"invalid token\"", "DOUBLE_QUOTE",
   "DOUBLE_QUOTE_BEGIN", "DOUBLE_QUOTE_END", "QUOTED_ATOM",
   "QUOTED_PROPERTY", "SIMPLE_ATOM", "$accept", "SIMPLE_ATOM_LIST", "DQB",
   "DQE", "DOUBLE_QUOTED_STRING", "ATOMLIST", "EXPR", YY_NULLPTR
   };
+#endif
+
 
 #if YYDEBUG
   const signed char
@@ -1029,9 +1083,8 @@ namespace ceammc {
       79,    80,    81,    82,    86,    87
   };
 
-  // Print the state stack on the debug stream.
   void
-  QuotedAtomListParser::yystack_print_ ()
+  QuotedAtomListParser::yy_stack_print_ () const
   {
     *yycdebug_ << "Stack now";
     for (stack_type::const_iterator
@@ -1042,9 +1095,8 @@ namespace ceammc {
     *yycdebug_ << '\n';
   }
 
-  // Report on the debug stream that the rule \a yyrule is going to be reduced.
   void
-  QuotedAtomListParser::yy_reduce_print_ (int yyrule)
+  QuotedAtomListParser::yy_reduce_print_ (int yyrule) const
   {
     int yylno = yyrline_[yyrule];
     int yynrhs = yyr2_[yyrule];
@@ -1058,13 +1110,13 @@ namespace ceammc {
   }
 #endif // YYDEBUG
 
-  QuotedAtomListParser::token_number_type
+  QuotedAtomListParser::symbol_kind_type
   QuotedAtomListParser::yytranslate_ (int t)
   {
     // YYTRANSLATE[TOKEN-NUM] -- Symbol number corresponding to
     // TOKEN-NUM as returned by yylex.
     static
-    const token_number_type
+    const signed char
     translate_table[] =
     {
        0,     2,     2,     2,     2,     2,     2,     2,     2,     2,
@@ -1095,19 +1147,20 @@ namespace ceammc {
        2,     2,     2,     2,     2,     2,     1,     2,     3,     4,
        5,     6,     7,     8
     };
-    const int user_token_number_max_ = 263;
+    // Last valid token kind.
+    const int code_max = 263;
 
     if (t <= 0)
-      return yyeof_;
-    else if (t <= user_token_number_max_)
-      return translate_table[t];
+      return symbol_kind::S_YYEOF;
+    else if (t <= code_max)
+      return YY_CAST (symbol_kind_type, translate_table[t]);
     else
-      return yy_undef_token_;
+      return symbol_kind::S_YYUNDEF;
   }
 
 #line 7 "quoted_string.y"
 } // ceammc
-#line 1111 "quoted_string.parser.cpp"
+#line 1164 "quoted_string.parser.cpp"
 
 #line 90 "quoted_string.y"
 

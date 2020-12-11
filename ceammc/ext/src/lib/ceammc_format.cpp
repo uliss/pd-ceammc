@@ -76,14 +76,14 @@ std::string to_string(const Message& m, const std::string& separator)
 {
     if (m.isFloat() || m.isSymbol())
         return to_string(m.atomValue());
-
-    if (m.isList())
+    else if (m.isData())
+        return to_string(m.atomValue());
+    else if (m.isList())
         return to_string(m.listValue(), separator);
-
-    if (m.isAny())
+    else if (m.isAny())
         return to_string(m.atomValue()) + separator + to_string(m.listValue(), separator);
-
-    return "";
+    else
+        return {};
 }
 
 std::string to_string_quoted(const Atom& a)

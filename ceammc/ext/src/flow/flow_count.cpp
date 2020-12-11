@@ -17,12 +17,14 @@
 FlowCount::FlowCount(const PdArgs& a)
     : BaseObject(a)
     , counter_(nullptr)
+    , default_value_(0)
 {
-    counter_ = new IntProperty("@value", 0);
+    counter_ = new IntProperty("@value", default_value_);
     counter_->setIntCheck(PropValueConstraints::GREATER_EQUAL, 0);
+    counter_->setArgIndex(0);
     addProperty(counter_);
 
-    // counter flow
+    createInlet();
     createOutlet();
 }
 
@@ -46,44 +48,29 @@ void FlowCount::onList(const AtomList& l)
     tick();
 }
 
-void FlowCount::onAny(t_symbol* s, const AtomList& l)
+void FlowCount::onAny(t_symbol* s, const AtomListView& l)
 {
     tick();
 }
 
-void FlowCount::onData(const Atom &)
+void FlowCount::onData(const Atom&)
 {
     tick();
 }
 
-void FlowCount::m_reset(t_symbol*, const AtomList&)
+void FlowCount::onInlet(size_t, const AtomList&)
 {
-    counter_->setValue(0);
+    counter_->setValue(default_value_);
 }
 
-bool FlowCount::processAnyInlets(t_symbol*, const AtomList&)
+bool FlowCount::processAnyProps(t_symbol* s, const AtomListView& l)
 {
     return false;
 }
 
-bool FlowCount::processAnyProps(t_symbol* s, const AtomList& l)
+void FlowCount::initDone()
 {
-    static t_symbol* PROP_VALUE = gensym("@value");
-    static t_symbol* PROP_GET_VALUE = gensym("@value?");
-
-    // get
-    if (s == PROP_GET_VALUE) {
-        anyTo(0, PROP_VALUE, counter_->get());
-        return true;
-    }
-
-    // set
-    if (s == PROP_VALUE) {
-        counter_->set(l);
-        return true;
-    }
-
-    return false;
+    default_value_ = counter_->value();
 }
 
 void FlowCount::tick()
@@ -95,5 +82,5 @@ void FlowCount::tick()
 void setup_flow_count()
 {
     ObjectFactory<FlowCount> obj("flow.count");
-    obj.addMethod("reset", &FlowCount::m_reset);
+    obj.setXletsInfo({ "any: message", "bang: reset counter" }, { "int: number of received messages" });
 }

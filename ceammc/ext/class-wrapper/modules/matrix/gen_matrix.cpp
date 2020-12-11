@@ -53,12 +53,12 @@ void matrix_setup() {
     WRAP_METHOD_ALIAS(m_id_matrix_identity, "matrix.id");
 
     // static method
-    using mtype_matrix_full = Matrix(*)(unsigned int, unsigned int, float);
+    using mtype_matrix_full = Matrix(*)(unsigned int, unsigned int, t_float);
     WRAP_STATIC_METHOD(Matrix, "matrix.full", m_id_matrix_full, mtype_matrix_full, &Matrix::full);
 
     // method: &Matrix::fill
     WRAP_METHOD(Matrix, "matrix.fill", m_id_matrix_fill,
-        SINGLE_ARG(Matrix(Matrix::*)(float) const), SINGLE_ARG(&Matrix::fill));
+        SINGLE_ARG(Matrix(Matrix::*)(t_float) const), SINGLE_ARG(&Matrix::fill));
 
     // static method
     using mtype_matrix_randu = Matrix(*)(unsigned int, unsigned int);
@@ -70,7 +70,7 @@ void matrix_setup() {
 
     // method: &Matrix::replace
     WRAP_METHOD(Matrix, "matrix.replace", m_id_matrix_replace,
-        SINGLE_ARG(Matrix(Matrix::*)(float, float) const), SINGLE_ARG(&Matrix::replace));
+        SINGLE_ARG(Matrix(Matrix::*)(t_float, t_float) const), SINGLE_ARG(&Matrix::replace));
 
     // method: &Matrix::reshape
     WRAP_METHOD(Matrix, "matrix.reshape", m_id_matrix_reshape,
@@ -114,11 +114,11 @@ void matrix_setup() {
 
     // method: &Matrix::min
     WRAP_METHOD(Matrix, "matrix.min", m_id_matrix_min,
-        SINGLE_ARG(float(Matrix::*)() const), SINGLE_ARG(&Matrix::min));
+        SINGLE_ARG(t_float(Matrix::*)() const), SINGLE_ARG(&Matrix::min));
 
     // method: &Matrix::max
     WRAP_METHOD(Matrix, "matrix.max", m_id_matrix_max,
-        SINGLE_ARG(float(Matrix::*)() const), SINGLE_ARG(&Matrix::max));
+        SINGLE_ARG(t_float(Matrix::*)() const), SINGLE_ARG(&Matrix::max));
 
     // method: &Matrix::transpose
     WRAP_METHOD(Matrix, "matrix.transpose", m_id_matrix_transpose,
@@ -136,22 +136,22 @@ void matrix_setup() {
 
     // method: &Matrix::add
     WRAP_METHOD(Matrix, "matrix.add", m_id_matrix_add,
-        SINGLE_ARG(Matrix(Matrix::*)(float) const, Matrix(Matrix::*)(const Matrix &) const), SINGLE_ARG(&Matrix::add, &Matrix::add));
+        SINGLE_ARG(Matrix(Matrix::*)(t_float) const, Matrix(Matrix::*)(const Matrix &) const), SINGLE_ARG(&Matrix::add, &Matrix::add));
     WRAP_METHOD_ALIAS(m_id_matrix_add, "matrix.+");
 
     // method: &Matrix::sub
     WRAP_METHOD(Matrix, "matrix.sub", m_id_matrix_sub,
-        SINGLE_ARG(Matrix(Matrix::*)(const Matrix &) const, Matrix(Matrix::*)(float) const), SINGLE_ARG(&Matrix::sub, &Matrix::sub));
+        SINGLE_ARG(Matrix(Matrix::*)(const Matrix &) const, Matrix(Matrix::*)(t_float) const), SINGLE_ARG(&Matrix::sub, &Matrix::sub));
     WRAP_METHOD_ALIAS(m_id_matrix_sub, "matrix.-");
 
     // method: &Matrix::mul
     WRAP_METHOD(Matrix, "matrix.mul", m_id_matrix_mul,
-        SINGLE_ARG(Matrix(Matrix::*)(const Matrix &) const, Matrix(Matrix::*)(float) const), SINGLE_ARG(&Matrix::mul, &Matrix::mul));
+        SINGLE_ARG(Matrix(Matrix::*)(const Matrix &) const, Matrix(Matrix::*)(t_float) const), SINGLE_ARG(&Matrix::mul, &Matrix::mul));
     WRAP_METHOD_ALIAS(m_id_matrix_mul, "matrix.*");
 
     // method: &Matrix::div
     WRAP_METHOD(Matrix, "matrix.div", m_id_matrix_div,
-        SINGLE_ARG(Matrix(Matrix::*)(const Matrix &) const, Matrix(Matrix::*)(float) const), SINGLE_ARG(&Matrix::div, &Matrix::div));
+        SINGLE_ARG(Matrix(Matrix::*)(const Matrix &) const, Matrix(Matrix::*)(t_float) const), SINGLE_ARG(&Matrix::div, &Matrix::div));
     WRAP_METHOD_ALIAS(m_id_matrix_div, "matrix./");
 
     // method: &Matrix::matmul
@@ -170,7 +170,7 @@ void matrix_setup() {
 
     // method: &Matrix::toList
     WRAP_METHOD(Matrix, "matrix.to_list", m_id_matrix_tolist,
-        SINGLE_ARG(std::tuple<std::vector<float>, std::vector<float> >(Matrix::*)() const), SINGLE_ARG(&Matrix::toList));
+        SINGLE_ARG(std::tuple<std::vector<t_float>, std::vector<t_float> >(Matrix::*)() const), SINGLE_ARG(&Matrix::toList));
     WRAP_METHOD_ALIAS(m_id_matrix_tolist, "matrix->list");
 
     // method: &Matrix::solve
@@ -183,32 +183,32 @@ void matrix_setup() {
 
     // method: &Matrix::gt
     WRAP_METHOD(Matrix, "matrix.gt", m_id_matrix_gt,
-        SINGLE_ARG(Matrix(Matrix::*)(const Matrix &) const, Matrix(Matrix::*)(float) const), SINGLE_ARG(&Matrix::gt, &Matrix::gt));
+        SINGLE_ARG(Matrix(Matrix::*)(const Matrix &) const, Matrix(Matrix::*)(t_float) const), SINGLE_ARG(&Matrix::gt, &Matrix::gt));
     WRAP_METHOD_ALIAS(m_id_matrix_gt, "matrix.>");
 
     // method: &Matrix::ge
     WRAP_METHOD(Matrix, "matrix.ge", m_id_matrix_ge,
-        SINGLE_ARG(Matrix(Matrix::*)(const Matrix &) const, Matrix(Matrix::*)(float) const), SINGLE_ARG(&Matrix::ge, &Matrix::ge));
+        SINGLE_ARG(Matrix(Matrix::*)(const Matrix &) const, Matrix(Matrix::*)(t_float) const), SINGLE_ARG(&Matrix::ge, &Matrix::ge));
     WRAP_METHOD_ALIAS(m_id_matrix_ge, "matrix.>=");
 
     // method: &Matrix::le
     WRAP_METHOD(Matrix, "matrix.le", m_id_matrix_le,
-        SINGLE_ARG(Matrix(Matrix::*)(const Matrix &) const, Matrix(Matrix::*)(float) const), SINGLE_ARG(&Matrix::le, &Matrix::le));
+        SINGLE_ARG(Matrix(Matrix::*)(const Matrix &) const, Matrix(Matrix::*)(t_float) const), SINGLE_ARG(&Matrix::le, &Matrix::le));
     WRAP_METHOD_ALIAS(m_id_matrix_le, "matrix.<=");
 
     // method: &Matrix::lt
     WRAP_METHOD(Matrix, "matrix.lt", m_id_matrix_lt,
-        SINGLE_ARG(Matrix(Matrix::*)(const Matrix &) const, Matrix(Matrix::*)(float) const), SINGLE_ARG(&Matrix::lt, &Matrix::lt));
+        SINGLE_ARG(Matrix(Matrix::*)(const Matrix &) const, Matrix(Matrix::*)(t_float) const), SINGLE_ARG(&Matrix::lt, &Matrix::lt));
     WRAP_METHOD_ALIAS(m_id_matrix_lt, "matrix.<");
 
     // method: &Matrix::eq
     WRAP_METHOD(Matrix, "matrix.eq", m_id_matrix_eq,
-        SINGLE_ARG(Matrix(Matrix::*)(float) const, Matrix(Matrix::*)(const Matrix &) const), SINGLE_ARG(&Matrix::eq, &Matrix::eq));
+        SINGLE_ARG(Matrix(Matrix::*)(t_float) const, Matrix(Matrix::*)(const Matrix &) const), SINGLE_ARG(&Matrix::eq, &Matrix::eq));
     WRAP_METHOD_ALIAS(m_id_matrix_eq, "matrix.==");
 
     // method: &Matrix::ne
     WRAP_METHOD(Matrix, "matrix.ne", m_id_matrix_ne,
-        SINGLE_ARG(Matrix(Matrix::*)(float) const, Matrix(Matrix::*)(const Matrix &) const), SINGLE_ARG(&Matrix::ne, &Matrix::ne));
+        SINGLE_ARG(Matrix(Matrix::*)(t_float) const, Matrix(Matrix::*)(const Matrix &) const), SINGLE_ARG(&Matrix::ne, &Matrix::ne));
     WRAP_METHOD_ALIAS(m_id_matrix_ne, "matrix.!=");
 
     // static method
@@ -220,24 +220,24 @@ void matrix_setup() {
         SINGLE_ARG(Matrix(Matrix::*)(const std::string &) const), SINGLE_ARG(&Matrix::save));
 
     // static method
-    using mtype_matrix_fromlist = Matrix(*)(const std::vector<float> &);
+    using mtype_matrix_fromlist = Matrix(*)(const std::vector<t_float> &);
     WRAP_STATIC_METHOD(Matrix, "matrix.from_list", m_id_matrix_fromlist, mtype_matrix_fromlist, &Matrix::fromList);
     WRAP_METHOD_ALIAS(m_id_matrix_fromlist, "list->matrix");
 
     // static method
-    using mtype_matrix_col = Matrix(*)(const std::vector<float> &);
+    using mtype_matrix_col = Matrix(*)(const std::vector<t_float> &);
     WRAP_STATIC_METHOD(Matrix, "matrix.col", m_id_matrix_col, mtype_matrix_col, &Matrix::col);
 
     // static method
-    using mtype_matrix_row = Matrix(*)(const std::vector<float> &);
+    using mtype_matrix_row = Matrix(*)(const std::vector<t_float> &);
     WRAP_STATIC_METHOD(Matrix, "matrix.row", m_id_matrix_row, mtype_matrix_row, &Matrix::row);
 
     // static method
-    using mtype_matrix_linspace = Matrix(*)(float, float, unsigned int);
+    using mtype_matrix_linspace = Matrix(*)(t_float, t_float, unsigned int);
     WRAP_STATIC_METHOD(Matrix, "matrix.linspace", m_id_matrix_linspace, mtype_matrix_linspace, &Matrix::linspace);
 
     // static method
-    using mtype_matrix_logspace = Matrix(*)(float, float, unsigned int);
+    using mtype_matrix_logspace = Matrix(*)(t_float, t_float, unsigned int);
     WRAP_STATIC_METHOD(Matrix, "matrix.logspace", m_id_matrix_logspace, mtype_matrix_logspace, &Matrix::logspace);
 
     // method: &Matrix::abs
@@ -246,7 +246,7 @@ void matrix_setup() {
 
     // method: &Matrix::accu
     WRAP_METHOD(Matrix, "matrix.accu", m_id_matrix_accu,
-        SINGLE_ARG(float(Matrix::*)() const), SINGLE_ARG(&Matrix::accu));
+        SINGLE_ARG(t_float(Matrix::*)() const), SINGLE_ARG(&Matrix::accu));
 
     // method: &Matrix::all
     WRAP_METHOD(Matrix, "matrix.all", m_id_matrix_all,
@@ -274,15 +274,15 @@ void matrix_setup() {
 
     // method: &Matrix::clip
     WRAP_METHOD(Matrix, "matrix.clip", m_id_matrix_clip,
-        SINGLE_ARG(Matrix(Matrix::*)(float, float) const), SINGLE_ARG(&Matrix::clip));
+        SINGLE_ARG(Matrix(Matrix::*)(t_float, t_float) const), SINGLE_ARG(&Matrix::clip));
 
     // method: &Matrix::det
     WRAP_METHOD(Matrix, "matrix.det", m_id_matrix_det,
-        SINGLE_ARG(float(Matrix::*)() const), SINGLE_ARG(&Matrix::det));
+        SINGLE_ARG(t_float(Matrix::*)() const), SINGLE_ARG(&Matrix::det));
 
     // method: &Matrix::mean
     WRAP_METHOD(Matrix, "matrix.mean", m_id_matrix_mean,
-        SINGLE_ARG(float(Matrix::*)() const), SINGLE_ARG(&Matrix::mean));
+        SINGLE_ARG(t_float(Matrix::*)() const), SINGLE_ARG(&Matrix::mean));
 
     // method: &Matrix::mean_col
     WRAP_METHOD(Matrix, "matrix.mean_col", m_id_matrix_mean_col,
@@ -294,7 +294,7 @@ void matrix_setup() {
 
     // method: &Matrix::median
     WRAP_METHOD(Matrix, "matrix.median", m_id_matrix_median,
-        SINGLE_ARG(float(Matrix::*)() const), SINGLE_ARG(&Matrix::median));
+        SINGLE_ARG(t_float(Matrix::*)() const), SINGLE_ARG(&Matrix::median));
 
     // method: &Matrix::median_col
     WRAP_METHOD(Matrix, "matrix.median_col", m_id_matrix_median_col,
@@ -306,7 +306,7 @@ void matrix_setup() {
 
     // method: &Matrix::stddev
     WRAP_METHOD(Matrix, "matrix.stddev", m_id_matrix_stddev,
-        SINGLE_ARG(float(Matrix::*)(bool) const), SINGLE_ARG(&Matrix::stddev));
+        SINGLE_ARG(t_float(Matrix::*)(bool) const), SINGLE_ARG(&Matrix::stddev));
 
     // method: &Matrix::stddev_col
     WRAP_METHOD(Matrix, "matrix.stddev_col", m_id_matrix_stddev_col,
@@ -318,7 +318,7 @@ void matrix_setup() {
 
     // method: &Matrix::range
     WRAP_METHOD(Matrix, "matrix.range", m_id_matrix_range,
-        SINGLE_ARG(float(Matrix::*)() const), SINGLE_ARG(&Matrix::range));
+        SINGLE_ARG(t_float(Matrix::*)() const), SINGLE_ARG(&Matrix::range));
 
     // method: &Matrix::range_col
     WRAP_METHOD(Matrix, "matrix.range_col", m_id_matrix_range_col,
@@ -406,7 +406,7 @@ void matrix_setup() {
 
     // method: &Matrix::at
     WRAP_METHOD(Matrix, "matrix.at", m_id_matrix_at,
-        SINGLE_ARG(float(Matrix::*)(unsigned int, unsigned int) const), SINGLE_ARG(&Matrix::at));
+        SINGLE_ARG(t_float(Matrix::*)(unsigned int, unsigned int) const), SINGLE_ARG(&Matrix::at));
 
 }
 }

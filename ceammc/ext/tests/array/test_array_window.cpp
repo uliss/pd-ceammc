@@ -26,7 +26,7 @@ TEST_CASE("array.window", "[externals]")
         TObj t("array.window");
         REQUIRE(t.numInlets() == 1);
         REQUIRE(t.numOutlets() == 1);
-        REQUIRE_PROPERTY_NONE(t, @array);
+        REQUIRE_PROPERTY(t, @array, &s_);
         REQUIRE_PROPERTY_FLOAT(t, @redraw, 1);
         REQUIRE_PROPERTY_LIST(t, @type, LA("hann"));
 
@@ -134,11 +134,11 @@ TEST_CASE("array.window", "[externals]")
 
     SECTION("messages")
     {
-        TObj t("array.window");
+        TExt t("array.window");
 
 #define CHECK_MSG(m)                            \
     {                                           \
-        t.anyDispatch(SYM(m), L());             \
+        t.call(m);                              \
         REQUIRE_PROPERTY_LIST(t, @type, LA(m)); \
     }
 
@@ -154,7 +154,7 @@ TEST_CASE("array.window", "[externals]")
         CHECK_MSG("flattop")
         CHECK_MSG("gauss")
 
-        t.anyDispatch(SYM("unknown"), L());
+        t.call("unknown");
         REQUIRE_PROPERTY_LIST(t, @type, LA("gauss"));
     }
 
@@ -168,9 +168,9 @@ TEST_CASE("array.window", "[externals]")
         REQUIRE(aptr->at(3) == Approx(0));
         REQUIRE(aptr->at(4) == Approx(0));
 
-        TObj t("array.window", LA("array4"));
+        TExt t("array.window", LA("array4"));
 
-        t.anyDispatch(SYM("tri"), L());
+        t.call("tri");
         REQUIRE_BANG_AT_OUTLET(0, t);
         REQUIRE(aptr->at(0) == Approx(0));
         REQUIRE(aptr->at(1) == Approx(0.5));
@@ -178,7 +178,7 @@ TEST_CASE("array.window", "[externals]")
         REQUIRE(aptr->at(3) == Approx(0.5));
         REQUIRE(aptr->at(4) == Approx(0));
 
-        t.anyDispatch(SYM("rect"), L());
+        t.call("rect");
         REQUIRE(aptr->at(0) == Approx(1));
         REQUIRE(aptr->at(1) == Approx(1));
         REQUIRE(aptr->at(2) == Approx(1));

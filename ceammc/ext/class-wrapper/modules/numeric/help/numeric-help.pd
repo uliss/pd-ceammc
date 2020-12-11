@@ -95,5 +95,10 @@ the negative real axis;
 parts;
 #X obj 1 1 cnv 5 740 40 empty empty numeric 20 20 0 20 -104026 -4096
 0;
-#X obj 1 1314 cnv 5 740 40 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 1 1314 cnv 5 740 80 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 20 1314 version: v0.1 \, license:;
+#X obj 20 1342 ui.link @title Generated with pddoc @url
+http://github.com/uliss/pddoc;
+#X obj 670 1329 msg 0;
+#X obj 670 1364 switch~;
+#X connect 92 0 93 0;

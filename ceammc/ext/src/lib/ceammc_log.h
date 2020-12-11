@@ -92,6 +92,20 @@ public:
     Log(const BaseObject* obj = nullptr);
 };
 
+class LogNone : public LogPdObject {
+public:
+    LogNone();
+
+private:
+    class NoneBuffer : public std::stringbuf {
+    public:
+        int overflow(int c = EOF) override;
+    };
+
+private:
+    NoneBuffer buf_;
+};
+
 #define LIB_ERR LogPdObject(nullptr, LOG_ERROR).stream()
 #define LIB_DBG LogPdObject(nullptr, LOG_DEBUG).stream()
 #define LIB_POST LogPdObject(nullptr, LOG_POST).stream()

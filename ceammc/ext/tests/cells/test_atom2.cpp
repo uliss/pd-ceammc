@@ -469,4 +469,94 @@ TEST_CASE("Atom2", "[core]")
         REQUIRE(p1->toString() == "100");
         REQUIRE(i.refCount() == 1);
     }
+
+    SECTION("floatAt*")
+    {
+        REQUIRE(S("A").asFloatGreaterThen(0, 5000) == F(5000));
+        REQUIRE(F(0.99).asFloatGreaterThen(1, 5000) == F(5000));
+        REQUIRE(F(1).asFloatGreaterThen(1, 5000) == F(5000));
+        REQUIRE(F(1.125).asFloatGreaterThen(1, 5000) == F(1.125));
+
+        REQUIRE(S("A").asFloatGreaterEqual(0, 5000) == F(5000));
+        REQUIRE(F(0.99).asFloatGreaterEqual(1, 5000) == F(5000));
+        REQUIRE(F(1).asFloatGreaterEqual(1, 5000) == F(1));
+        REQUIRE(F(1.125).asFloatGreaterEqual(1, 5000) == F(1.125));
+
+        REQUIRE(S("A").asFloatLessEqual(0, -5000) == F(-5000));
+        REQUIRE(F(0.75).asFloatLessEqual(1, -5000) == F(0.75));
+        REQUIRE(F(1).asFloatLessEqual(1, -5000) == F(1));
+        REQUIRE(F(1.125).asFloatLessEqual(1, -5000) == F(-5000));
+
+        REQUIRE(S("A").asFloatLessThen(0, -5000) == F(-5000));
+        REQUIRE(F(0.75).asFloatLessThen(1, -5000) == F(0.75));
+        REQUIRE(F(1).asFloatLessThen(1, -5000) == F(-5000));
+        REQUIRE(F(1.125).asFloatLessThen(1, -5000) == F(-5000));
+
+        // range
+        REQUIRE(S("A").asFloatInClosedInterval(-1, 1, 0) == F(0));
+        REQUIRE(F(-1.1).asFloatInClosedInterval(-1, 1, 0) == F(-1));
+        REQUIRE(F(-1).asFloatInClosedInterval(-1, 1, 0) == F(-1));
+        REQUIRE(F(0).asFloatInClosedInterval(-1, 1, 0) == F(0));
+        REQUIRE(F(1).asFloatInClosedInterval(-1, 1, 0) == F(1));
+        REQUIRE(F(1.1).asFloatInClosedInterval(-1, 1, 0) == F(1));
+
+        // range
+        REQUIRE(S("A").asFloatInOpenInterval(-1, 1, 0) == F(0));
+        REQUIRE(F(-1.1).asFloatInOpenInterval(-1, 1, 0) == F(0));
+        REQUIRE(F(-1).asFloatInOpenInterval(-1, 1, 0) == F(0));
+        REQUIRE(F(-0.5).asFloatInOpenInterval(-1, 1, 0) == F(-0.5));
+        REQUIRE(F(0).asFloatInOpenInterval(-1, 1, 0) == F(0));
+        REQUIRE(F(0.5).asFloatInOpenInterval(-1, 1, 0) == F(0.5));
+        REQUIRE(F(1).asFloatInOpenInterval(-1, 1, 0) == F(0));
+        REQUIRE(F(1.1).asFloatInOpenInterval(-1, 1, 0) == F(0));
+
+        // range
+        REQUIRE(S("A").asFloatInLeftOpenInterval(-1, 1, 0) == F(0));
+        REQUIRE(F(-1.1).asFloatInLeftOpenInterval(-1, 1, 0) == F(0));
+        REQUIRE(F(-1).asFloatInLeftOpenInterval(-1, 1, 0) == F(0));
+        REQUIRE(F(-0.5).asFloatInLeftOpenInterval(-1, 1, 0) == F(-0.5));
+        REQUIRE(F(0).asFloatInLeftOpenInterval(-1, 1, 0) == F(0));
+        REQUIRE(F(0.5).asFloatInLeftOpenInterval(-1, 1, 0) == F(0.5));
+        REQUIRE(F(1).asFloatInLeftOpenInterval(-1, 1, 0) == F(1));
+        REQUIRE(F(1.1).asFloatInLeftOpenInterval(-1, 1, 0) == F(1));
+
+        // range
+        REQUIRE(S("A").asFloatInRightOpenInterval(-1, 1, 0) == F(0));
+        REQUIRE(F(-1.1).asFloatInRightOpenInterval(-1, 1, 0) == F(-1));
+        REQUIRE(F(-1).asFloatInRightOpenInterval(-1, 1, 0) == F(-1));
+        REQUIRE(F(-0.5).asFloatInRightOpenInterval(-1, 1, 0) == F(-0.5));
+        REQUIRE(F(0).asFloatInRightOpenInterval(-1, 1, 0) == F(0));
+        REQUIRE(F(0.5).asFloatInRightOpenInterval(-1, 1, 0) == F(0.5));
+        REQUIRE(F(1).asFloatInRightOpenInterval(-1, 1, 0) == F(0));
+        REQUIRE(F(1.1).asFloatInRightOpenInterval(-1, 1, 0) == F(0));
+
+        // int
+        REQUIRE(S("A").asIntGreaterThen(100, 5000) == F(5000));
+        REQUIRE(F(99).asIntGreaterThen(100, 5000) == F(5000));
+        REQUIRE(F(100).asIntGreaterThen(100, 5000) == F(5000));
+        REQUIRE(F(101).asIntGreaterThen(100, 5000) == F(101));
+
+        REQUIRE(S("A").asIntGreaterEqual(100, 5000) == F(5000));
+        REQUIRE(F(99).asIntGreaterEqual(100, 5000) == F(5000));
+        REQUIRE(F(100).asIntGreaterEqual(100, 5000) == F(100));
+        REQUIRE(F(101).asIntGreaterEqual(100, 5000) == F(101));
+
+        REQUIRE(S("A").asIntLessEqual(100, -5000) == F(-5000));
+        REQUIRE(F(99).asIntLessEqual(100, -5000) == F(99));
+        REQUIRE(F(100).asIntLessEqual(100, -5000) == F(100));
+        REQUIRE(F(101).asIntLessEqual(100, -5000) == F(-5000));
+
+        REQUIRE(S("A").asIntLessThen(100, -5000) == F(-5000));
+        REQUIRE(F(99).asIntLessThen(100, -5000) == F(99));
+        REQUIRE(F(100).asIntLessThen(100, -5000) == F(-5000));
+        REQUIRE(F(101).asIntLessThen(100, -5000) == F(-5000));
+
+        // range
+        REQUIRE(S("A").asIntInClosedInterval(-1, 1, 0) == F(0));
+        REQUIRE(F(-2).asIntInClosedInterval(-1, 1, 0) == F(-1));
+        REQUIRE(F(-1).asIntInClosedInterval(-1, 1, 0) == F(-1));
+        REQUIRE(F(0).asIntInClosedInterval(-1, 1, 0) == F(0));
+        REQUIRE(F(1).asIntInClosedInterval(-1, 1, 0) == F(1));
+        REQUIRE(F(2).asIntInClosedInterval(-1, 1, 0) == F(1));
+    }
 }

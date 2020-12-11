@@ -218,9 +218,9 @@ TEST_CASE("CoreAudio", "[ceammc::ceammc_loader_coreaudio]")
         REQUIRE(ceammc_coreaudio_player_seek(p, 100));
         REQUIRE(ceammc_coreaudio_player_tell(p) == 100);
 
-        float ch1[441] = { 0 };
-        float ch2[441] = { 0 };
-        float* buf[2] = { ch1, ch2 };
+        t_float ch1[441] = { 0 };
+        t_float ch2[441] = { 0 };
+        t_float* buf[2] = { ch1, ch2 };
 
         REQUIRE(ceammc_coreaudio_player_read(p, &buf[0], 20) == 20);
         REQUIRE(ceammc_coreaudio_player_tell(p) == 120);

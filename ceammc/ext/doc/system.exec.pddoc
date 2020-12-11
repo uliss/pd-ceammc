@@ -14,8 +14,8 @@
             <since>0.7</since>
         </meta>
         <properties>
-            <property name="@is_running" type="int" enum="0 1" readonly="true">is process is
-            running</property>
+            <property name="@is_running" type="int" enum="0 1" readonly="true" default="0">is
+            process is running</property>
         </properties>
         <methods>
             <method name="eof">send EOF to running processes</method>

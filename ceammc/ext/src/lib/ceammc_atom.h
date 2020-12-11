@@ -16,6 +16,7 @@
 
 #include "ceammc_macro.h"
 
+#include <cassert>
 #include <functional>
 #include <iostream>
 #include <string>
@@ -205,6 +206,74 @@ public:
     t_float asFloat(t_float def = 0.f) const noexcept { return isFloat() ? a_w.w_float : def; }
 
     /**
+     * Try to get atom value as float the is greater then specified minimal value
+     * @param @min - lower bound
+     * @param def - default value if atom is not a float or not satisfies
+     * @return atom float value on success, or default value on error
+     */
+    t_float asFloatGreaterThen(t_float min, t_float def) const noexcept;
+
+    /**
+     * Try to get atom value as float the is greater or equal to specified minimal value
+     * @param @min - lower bound
+     * @param def - default value if atom is not a float or not satisfies
+     * @return atom float value on success, or default value on error
+     */
+    t_float asFloatGreaterEqual(t_float min, t_float def) const noexcept;
+
+    /**
+     * Try to get atom value as float the is less then specified maximum value
+     * @param @max - upper bound
+     * @param def - default value if atom is not a float or not satisfies
+     * @return atom float value on success, or default value on error
+     */
+    t_float asFloatLessThen(t_float max, t_float def) const noexcept;
+
+    /**
+     * Try to get atom value as float the is less or equal to specified maximum value
+     * @param @max - upper bound
+     * @param def - default value if atom is not a float or not satisfies
+     * @return atom float value on success, or default value on error
+     */
+    t_float asFloatLessEqual(t_float max, t_float def) const noexcept;
+
+    /**
+     * Try to get atom value as float in the specified closed interval
+     * @param @min - upper bound
+     * @param @max - upper bound
+     * @param def - default value if atom is not a float
+     * @return atom float value clipped into [min, max] range on success or default value on error
+     */
+    t_float asFloatInClosedInterval(t_float min, t_float max, t_float def) const noexcept;
+
+    /**
+     * Try to get atom value as float in the specified open interval (min, max)
+     * @param @min - upper bound
+     * @param @max - upper bound
+     * @param def - default value if atom is not a float or not in range (min, max)
+     * @return atom float value on success or default value on error
+     */
+    t_float asFloatInOpenInterval(t_float min, t_float max, t_float def) const noexcept;
+
+    /**
+     * Try to get atom value as float in the specified left-open interval
+     * @param @min - upper bound
+     * @param @max - upper bound
+     * @param def - default value if atom is not a float or not in range (min, max]
+     * @return atom float value clipped into (min, max] range on success or default value on error
+     */
+    t_float asFloatInLeftOpenInterval(t_float min, t_float max, t_float def) const noexcept;
+
+    /**
+     * Try to get atom value as float in the specified right open interval
+     * @param @min - upper bound
+     * @param @max - upper bound
+     * @param def - default value if atom is not a float or not in range [min, max)
+     * @return atom float value clipped into [min, max) range on success or default value on error
+     */
+    t_float asFloatInRightOpenInterval(t_float min, t_float max, t_float def) const noexcept;
+
+    /**
      * Try to get atom value as integer
      * @param def - default value if atom is not float
      * @return atom float value rounded to int on success, or default value on error
@@ -212,9 +281,50 @@ public:
     int asInt(int def = 0) const noexcept { return isFloat() ? static_cast<int>(a_w.w_float) : def; }
 
     /**
+     * Try to get atom value as int the is greater then specified minimal value
+     * @param @min - lower bound
+     * @param def - default value if atom is not a float or not satisfies
+     * @return atom int value on success or min+1 on error
+     */
+    t_int asIntGreaterThen(t_int min, t_int def) const noexcept;
+
+    /**
+     * Try to get atom value as int the is greater or equal to specified minimal value
+     * @param @min - lower bound
+     * @param def - default value if atom is not a float or not satisfies
+     * @return atom int value on success or min value on error
+     */
+    t_int asIntGreaterEqual(t_int min, t_int def) const noexcept;
+
+    /**
+     * Try to get atom value as int the is less then specified maximum value
+     * @param @max - upper bound
+     * @param def - default value if atom is not a float or not satisfies
+     * @return atom int value on success or default value on error
+     */
+    t_int asIntLessThen(t_int max, t_int def) const noexcept;
+
+    /**
+     * Try to get atom value as int the is less or equal to specified maximum value
+     * @param @max - upper bound
+     * @param def - default value if atom is not a float or not satisfies
+     * @return atom int value on success or default value on error
+     */
+    t_int asIntLessEqual(t_int max, t_int def) const noexcept;
+
+    /**
+     * Try to get atom value as int in the specified range
+     * @param @min - upper bound
+     * @param @max - upper bound
+     * @param def - default value if atom is not a float
+     * @return atom int value clipped into [min, max] range on success or default value on error
+     */
+    t_int asIntInClosedInterval(t_int min, t_int max, t_int def) const noexcept;
+
+    /**
      * Try to get atom value as unsigned integer
      * @param def - default value if atom is not float or <0
-     * @return atom float value rounded to size_t on success, or default value on error
+     * @return atom float value rounded to size_t on success or default value on error
      */
     size_t asSizeT(size_t def = 0) const noexcept;
 
@@ -369,7 +479,190 @@ private:
     void setNull();
 };
 
-bool Atom::applyFloat(const FloatMapFunction& fn)
+inline t_float Atom::asFloatGreaterThen(t_float min, t_float def) const noexcept
+{
+    assert(def > min);
+
+    if (!isFloat())
+        return def;
+    else
+        return a_w.w_float > min ? a_w.w_float : def;
+}
+
+inline t_float Atom::asFloatGreaterEqual(t_float min, t_float def) const noexcept
+{
+    assert(def >= min);
+
+    if (!isFloat())
+        return def;
+    else
+        return a_w.w_float >= min ? a_w.w_float : def;
+}
+
+inline t_float Atom::asFloatLessThen(t_float max, t_float def) const noexcept
+{
+    assert(def < max);
+
+    if (!isFloat())
+        return def;
+    else
+        return a_w.w_float < max ? a_w.w_float : def;
+}
+
+inline t_float Atom::asFloatLessEqual(t_float max, t_float def) const noexcept
+{
+    assert(def <= max);
+
+    if (!isFloat())
+        return def;
+    else
+        return a_w.w_float <= max ? a_w.w_float : def;
+}
+
+inline t_float Atom::asFloatInClosedInterval(t_float min, t_float max, t_float def) const noexcept
+{
+    // [min, max]
+    assert(min < max);
+    assert(min <= def);
+    assert(def <= max);
+
+    if (!isFloat()) {
+        return def;
+    } else {
+        if (a_w.w_float < min)
+            return min; // clip to min
+        else if (a_w.w_float > max)
+            return max; // clip to max
+        else
+            return a_w.w_float;
+    }
+}
+
+inline t_float Atom::asFloatInOpenInterval(t_float min, t_float max, t_float def) const noexcept
+{
+    // (min, max)
+    assert(min < max);
+    assert(min < def);
+    assert(def < max);
+
+    if (!isFloat()) {
+        return def;
+    } else {
+        if (a_w.w_float <= min)
+            return def; // default
+        else if (a_w.w_float >= max)
+            return def; // default
+        else
+            return a_w.w_float;
+    }
+}
+
+inline t_float Atom::asFloatInLeftOpenInterval(t_float min, t_float max, t_float def) const noexcept
+{
+    // (min, max]
+    assert(min < max);
+    assert(min < def);
+    assert(def <= max);
+
+    if (!isFloat()) {
+        return def;
+    } else {
+        if (a_w.w_float <= min)
+            return def; // default
+        else if (a_w.w_float > max)
+            return max; // clip to max
+        else
+            return a_w.w_float;
+    }
+}
+
+inline t_float Atom::asFloatInRightOpenInterval(t_float min, t_float max, t_float def) const noexcept
+{
+    // [min, max)
+    assert(min < max);
+    assert(min <= def);
+    assert(def < max);
+
+    if (!isFloat()) {
+        return def;
+    } else {
+        if (a_w.w_float < min)
+            return min; // clip to min
+        else if (a_w.w_float >= max)
+            return def; // default
+        else
+            return a_w.w_float;
+    }
+}
+
+inline t_int Atom::asIntGreaterThen(t_int min, t_int def) const noexcept
+{
+    assert(def > min);
+
+    if (!isFloat()) {
+        return def;
+    } else {
+        auto i = static_cast<t_int>(a_w.w_float);
+        return i > min ? i : def;
+    }
+}
+
+inline t_int Atom::asIntGreaterEqual(t_int min, t_int def) const noexcept
+{
+    assert(def >= min);
+
+    if (!isFloat()) {
+        return def;
+    } else {
+        auto i = static_cast<t_int>(a_w.w_float);
+        return i >= min ? i : def;
+    }
+}
+
+inline t_int Atom::asIntLessThen(t_int max, t_int def) const noexcept
+{
+    assert(def < max);
+
+    if (!isFloat()) {
+        return def;
+    } else {
+        auto i = static_cast<t_int>(a_w.w_float);
+        return i < max ? i : def;
+    }
+}
+
+inline t_int Atom::asIntLessEqual(t_int max, t_int def) const noexcept
+{
+    assert(def <= max);
+
+    if (!isFloat()) {
+        return def;
+    } else {
+        auto i = static_cast<t_int>(a_w.w_float);
+        return i <= max ? i : def;
+    }
+}
+
+inline t_int Atom::asIntInClosedInterval(t_int min, t_int max, t_int def) const noexcept
+{
+    assert(min < max);
+    assert(min <= def);
+    assert(def <= max);
+
+    if (!isFloat()) {
+        return def;
+    } else {
+        auto i = static_cast<t_int>(a_w.w_float);
+        if (i < min)
+            return min;
+        else if (i > max)
+            return max;
+        else
+            return i;
+    }
+}
+
+inline bool Atom::applyFloat(const FloatMapFunction& fn)
 {
     if (a_type == A_FLOAT) {
         a_w.w_float = fn(a_w.w_float);
@@ -378,7 +671,7 @@ bool Atom::applyFloat(const FloatMapFunction& fn)
         return false;
 }
 
-bool Atom::applySymbol(const SymbolMapFunction& fn)
+inline bool Atom::applySymbol(const SymbolMapFunction& fn)
 {
     if (a_type == A_SYMBOL) {
         a_w.w_symbol = fn(a_w.w_symbol);

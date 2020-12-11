@@ -64,14 +64,14 @@ TEST_CASE("ui.gain~", "[ui.gain~]")
         REQUIRE_UI_FLOAT_PROPERTY(t, "max", 6);
         REQUIRE_UI_FLOAT_PROPERTY(t, "min", -70);
         t->setDbValue(-6.0206f);
-        REQUIRE(t->ampValue() == Approx(0.5f));
+        REQUIRE(t->ampValue() == Approx(0.5));
         t->setDbValue(-12.041);
         REQUIRE(t->ampValue() == Approx(0.25001f).epsilon(0.01));
         t->setAmpValue(1);
-        REQUIRE(t->dbValue() == Approx(0));
-        t->setAmpValue(0.5f);
+        REQUIRE(t->dbValue() == Approx(0.0).margin(0.00001));
+        t->setAmpValue(0.5);
         REQUIRE(t->dbValue() == Approx(-6.0206));
-        t->setAmpValue(0.f);
+        t->setAmpValue(0);
         REQUIRE(t->dbValue() == Approx(-70));
     }
 
@@ -148,13 +148,15 @@ TEST_CASE("ui.gain~", "[ui.gain~]")
         t.addListener("r1");
 
         t << BANG;
-        REQUIRE_ANY_WAS_SEND(t, "r1", LA("@db", -60));
+        REQUIRE_FLOAT_WAS_SEND(t, "r1", -60);
 
         t.mouseDown(5, 20);
         REQUIRE_NONE_WAS_SEND(t, "r1");
+        t.mouseDrag(4, 18);
+        REQUIRE_FLOAT_WAS_SEND(t, "r1", -59);
 
-        t->setProperty(gensym("output_value"), LF(1));
-        t.mouseDown(5, 20);
-        //        REQUIRE_ANY_WAS_SEND(t, "r1", LA("@db", -10));
+        t->setProperty(gensym("relative"), LF(0));
+        t.mouseDown(5, 10);
+        REQUIRE_FLOAT_WAS_SEND(t, "r1", -5);
     }
 }

@@ -26,6 +26,9 @@
             <argument name="HS" type="int" minvalue="0">hop size (by default
             buffer_size/2)</argument>
         </arguments>
+        <methods>
+            <method name="reset">reset onset last frame and total frames counters</method>
+        </methods>
         <properties>
             <property name="@bs" type="int" minvalue="64" default="1024" units="sample">buffer
             size</property>
@@ -79,15 +82,16 @@
         <example>
             <pdascii>
 <![CDATA[
-[adc~ 1]     [ui.dsp~]
+[adc~ 1]
+|
 |
 |   [T]   [ui.menu hfc energy complex phase wphase specdiff specflux kl mkl]
 |   |.    |
 [gain~]   [@method $1, dump(
 |         |
-[an.onset~ 2048]
-|      ^|
-[B]    [F digits=10]
+[an.onset~ 2048]             [ui.dsp~]
+|        ^|
+[B]      [F digits=10]
 ]]>
             </pdascii>
         </example>

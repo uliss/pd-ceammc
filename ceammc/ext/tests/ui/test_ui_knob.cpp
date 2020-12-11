@@ -12,6 +12,7 @@
  * this file belongs to.
  *****************************************************************************/
 #include "ui_knob.h"
+
 #include "test_ui.h"
 
 UI_COMPLETE_TEST_SETUP(Knob)
@@ -29,7 +30,7 @@ TEST_CASE("ui.knob", "[ui.knob]")
         REQUIRE(t->knobPhase() == 0);
         REQUIRE(t->value() == 0);
 
-        float prop_min, prop_max, f;
+        t_float prop_min, prop_max, f;
         AtomList l;
 
         HAS_PROPERTY(t, "min");
@@ -85,21 +86,21 @@ TEST_CASE("ui.knob", "[ui.knob]")
         REQUIRE(t->getProperty(gensym("receive"), l));
         REQUIRE(l == LA("(null)"));
 
-        REQUIRE(t->zoom() == 1.f);
+        REQUIRE(t->zoom() == 1.);
         REQUIRE(t->width() == 40);
         REQUIRE(t->height() == 40);
-        REQUIRE(t->x() == 0.f);
-        REQUIRE(t->y() == 0.f);
+        REQUIRE(t->x() == 0.);
+        REQUIRE(t->y() == 0.);
         ::t_rect r = t->rect();
         REQUIRE(r.height == 40);
         REQUIRE(r.width == 40);
-        REQUIRE(r.x == 0.f);
-        REQUIRE(r.y == 0.f);
+        REQUIRE(r.x == 0.);
+        REQUIRE(r.y == 0.);
 
-        pd_float(t->asPd(), 0.6);
+        pd_float(t->asPd(), 0.625);
         REQUIRE(t->getProperty(gensym("value"), f));
-        REQUIRE(f == 0.6f);
-        REQUIRE(t->knobPhase() == 0.6f);
+        REQUIRE(f == 0.625);
+        REQUIRE(t->knobPhase() == 0.625);
         REQUIRE(t->range() == 1);
         REQUIRE(t->minValue() == 0);
         REQUIRE(t->maxValue());
@@ -119,9 +120,9 @@ TEST_CASE("ui.knob", "[ui.knob]")
                 REQUIRE(t->minValue() == -10);
                 REQUIRE(t->maxValue() == 10);
                 REQUIRE(t->range() == 20);
-                t->setValue(-8);
-                REQUIRE(t->knobPhase() == 0.1f);
-                REQUIRE(t->value() == -8.f);
+                t->setValue(-7.5);
+                REQUIRE(t->knobPhase() == 0.125);
+                REQUIRE(t->value() == -7.5);
 
                 t->setValue(-11);
                 REQUIRE(t->value() == -10);
@@ -213,9 +214,9 @@ TEST_CASE("ui.knob", "[ui.knob]")
         SECTION("+")
         {
             TestKnob t("ui.knob");
-            REQUIRE(t->value() == 0.f);
-            t.call("+", LF(0.1));
-            REQUIRE(t->value() == 0.1f);
+            REQUIRE(t->value() == 0.);
+            t.call("+", LF(0.125));
+            REQUIRE(t->value() == 0.125);
             t.call("+", LF(10));
             REQUIRE(t->value() == 1);
         }
@@ -225,9 +226,9 @@ TEST_CASE("ui.knob", "[ui.knob]")
             TestKnob t("ui.knob");
             t->setValue(0.5);
             t.call("-", LF(0.5));
-            REQUIRE(t->value() == 0.f);
+            REQUIRE(t->value() == 0.);
             t.call("-", LF(0.1));
-            REQUIRE(t->value() == 0.f);
+            REQUIRE(t->value() == 0.);
         }
 
         SECTION("++")
@@ -428,30 +429,30 @@ TEST_CASE("ui.knob", "[ui.knob]")
 
         TestKnob t("ui.knob", LA("@send", "r1", "@receive", "s1"));
         t->onFloat(0.5);
-        REQUIRE(out.msg().atomValue().asFloat() == 0.5f);
+        REQUIRE(out.msg().atomValue().asFloat() == 0.5);
         out.reset();
 
         t->onBang();
-        REQUIRE(out.msg().atomValue().asFloat() == 0.5f);
+        REQUIRE(out.msg().atomValue().asFloat() == 0.5);
 
         // test receive
         pd::External s1("send", LA("s1"));
         pd::External s2("send", LA("s2"));
 
         out.reset();
-        s1.sendFloat(0.3);
-        REQUIRE(out.msg().atomValue().asFloat() == 0.3f);
+        s1.sendFloat(0.375);
+        REQUIRE(out.msg().atomValue().asFloat() == 0.375);
 
         // change receiver
         t->setProperty(gensym("receive"), LA("s2"));
 
         // do not react on old
         s1.sendFloat(0.9);
-        REQUIRE(out.msg().atomValue().asFloat() == 0.3f);
+        REQUIRE(out.msg().atomValue().asFloat() == 0.375);
 
         // check new one
-        s2.sendFloat(0.8);
-        REQUIRE(out.msg().atomValue().asFloat() == 0.8f);
+        s2.sendFloat(0.875);
+        REQUIRE(out.msg().atomValue().asFloat() == 0.875);
     }
 
     SECTION("output")
@@ -463,24 +464,24 @@ TEST_CASE("ui.knob", "[ui.knob]")
         knob.sendBang();
         REQUIRE(out.msg().atomValue().asFloat() == 0.f);
 
-        knob.sendFloat(0.4);
-        REQUIRE(out.msg().atomValue().asFloat() == 0.4f);
+        knob.sendFloat(0.25);
+        REQUIRE(out.msg().atomValue().asFloat() == 0.25);
 
         out.reset();
         knob.sendBang();
-        REQUIRE(out.msg().atomValue().asFloat() == 0.4f);
+        REQUIRE(out.msg().atomValue().asFloat() == 0.25);
 
         // list auto convert test
         out.reset();
-        knob.sendList(LF(0.1, 0.2));
-        REQUIRE(out.msg().atomValue().asFloat() == 0.1f);
+        knob.sendList(LF(0.125, 0.25));
+        REQUIRE(out.msg().atomValue().asFloat() == 0.125);
 
         out.reset();
         knob.sendMessage(gensym("@value"), LF(0.5));
         REQUIRE(out.msg().isNone());
 
         knob.sendBang();
-        REQUIRE(out.msg().atomValue().asFloat() == 0.5f);
+        REQUIRE(out.msg().atomValue().asFloat() == 0.5);
 
         knob.sendMessage(gensym("@value?"));
         REQUIRE(out.msg().listValue() == LF(0.5));
@@ -495,10 +496,10 @@ TEST_CASE("ui.knob", "[ui.knob]")
         REQUIRE(out.msg().listValue() == LF(40, 40));
 
         out.reset();
-        knob.sendMessage(gensym("set"), LF(0.1));
+        knob.sendMessage(gensym("set"), LF(0.125));
         REQUIRE(out.msg().isNone());
         knob.sendBang();
-        REQUIRE(out.msg().atomValue().asFloat() == 0.1f);
+        REQUIRE(out.msg().atomValue().asFloat() == 0.125);
     }
 
     SECTION("send")
@@ -531,5 +532,46 @@ TEST_CASE("ui.knob", "[ui.knob]")
 
         t.call("@max?", LA("@min?", "@xxx?", "", "@non", "unknown", 100, "@receive?"));
         REQUIRE(t.outputAnyAt(0) == LA("@max", 1, "@min", 0.f, "@receive", "(null)"));
+    }
+
+    SECTION("prop +")
+    {
+        TestExtKnob t("ui.knob");
+        REQUIRE_UI_FLOAT_PROPERTY(t, "max", 1);
+
+        t.call("@max", LA("+", 10));
+        REQUIRE_UI_FLOAT_PROPERTY(t, "max", 1);
+
+        REQUIRE_UI_LIST_PROPERTY(t, "size", LA(40, 40));
+        t.call("@size", LA("+", 5));
+        REQUIRE_UI_LIST_PROPERTY(t, "size", LA(45, 45));
+        t.call("@size", LA("+", 0.0));
+        REQUIRE_UI_LIST_PROPERTY(t, "size", LA(45, 45));
+        t.call("@size", LA("-", 15));
+        REQUIRE_UI_LIST_PROPERTY(t, "size", LA(30, 30));
+        t.call("@size", LA("-", 0.0));
+        REQUIRE_UI_LIST_PROPERTY(t, "size", LA(30, 30));
+        t.call("@size", LA("*", 1));
+        REQUIRE_UI_LIST_PROPERTY(t, "size", LA(30, 30));
+        t.call("@size", LA("*", 2));
+        REQUIRE_UI_LIST_PROPERTY(t, "size", LA(60, 60));
+        t.call("@size", LA("*", 2.5));
+        REQUIRE_UI_LIST_PROPERTY(t, "size", LA(150, 150));
+        t.call("@size", LA("/", 5));
+        REQUIRE_UI_LIST_PROPERTY(t, "size", LA(30, 30));
+        t.call("@size", LA("/", 1));
+        REQUIRE_UI_LIST_PROPERTY(t, "size", LA(30, 30));
+
+        // invalid
+        t.call("@size", LA("/", 0.0));
+        REQUIRE_UI_LIST_PROPERTY(t, "size", LA(30, 30));
+        t.call("@size", LA("/", -1)); // set to minimal size
+        REQUIRE_UI_LIST_PROPERTY(t, "size", LA(20, 20));
+        t.call("@size", LA("*", -1)); // set to minimal size
+        REQUIRE_UI_LIST_PROPERTY(t, "size", LA(20, 20));
+        t.call("@size", LA("+", -100)); // set to minimal size
+        REQUIRE_UI_LIST_PROPERTY(t, "size", LA(20, 20));
+        t.call("@size", LA("-", 100)); // set to minimal size
+        REQUIRE_UI_LIST_PROPERTY(t, "size", LA(20, 20));
     }
 }

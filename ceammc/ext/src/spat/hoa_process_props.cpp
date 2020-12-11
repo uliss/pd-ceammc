@@ -187,7 +187,7 @@ bool HoaProcessProps::eachProperty(const AtomList& lst,
     return cnt > 0;
 }
 
-bool HoaProcessProps::processAnyProps(t_symbol* sel, const AtomList& lst)
+bool HoaProcessProps::processAnyProps(t_symbol* sel, const AtomListView& lst)
 {
     if (sel->s_name[0] != '@')
         return false;

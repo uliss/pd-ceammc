@@ -34,6 +34,21 @@ class UIObject;
 
 namespace pd {
 
+    struct XletInfo {
+        enum Type {
+            NONE,
+            CONTROL,
+            SIGNAL
+        };
+
+        Type type = { NONE };
+        XletInfo(Type t)
+            : type(t)
+        {
+        }
+        bool isSignal() const { return type == SIGNAL; }
+    };
+
     std::vector<std::string> currentListOfExternals();
 
     bool addPdPrintDataSupport();
@@ -88,6 +103,7 @@ namespace pd {
         void sendListTo(const AtomList& l, size_t inlet);
         void sendMessage(t_symbol* msg, const AtomList& args = AtomList());
         void sendMessage(const Message& m);
+        void sendMessageTo(const Message& m, size_t inlet);
 
         template <typename... Args>
         void sendMessage(const char* msg, Args... args)
@@ -102,6 +118,9 @@ namespace pd {
 
         int numOutlets() const;
         int numInlets() const;
+
+        XletInfo inletInfo(int i) const;
+        XletInfo outletInfo(int i) const;
 
         int xPos() const;
         int yPos() const;

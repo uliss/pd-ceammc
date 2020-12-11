@@ -51,6 +51,10 @@ include_directories(${CMAKE_SOURCE_DIR}/src)
 remove_definitions(-DPD_INTERNAL)
 add_definitions(-DPD)
 
+if(WITH_DOUBLE_PRECISION)
+    add_definitions(-DFAUSTFLOAT=double)
+endif()
+
 add_subdirectory(an)
 add_subdirectory(array)
 add_subdirectory(base)

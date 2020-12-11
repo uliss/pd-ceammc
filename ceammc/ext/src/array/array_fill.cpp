@@ -47,7 +47,7 @@ void ArrayFill::onList(const AtomList& l)
     m_fill(gensym("fill"), l);
 }
 
-void ArrayFill::m_gauss(t_symbol* m, const AtomList& l)
+void ArrayFill::m_gauss(t_symbol* m, const AtomListView& l)
 {
     if (!checkArray())
         return;
@@ -71,7 +71,7 @@ void ArrayFill::m_gauss(t_symbol* m, const AtomList& l)
     finish();
 }
 
-void ArrayFill::m_uniform(t_symbol* m, const AtomList& l)
+void ArrayFill::m_uniform(t_symbol* m, const AtomListView& l)
 {
     if (!checkArray())
         return;
@@ -95,14 +95,14 @@ void ArrayFill::m_uniform(t_symbol* m, const AtomList& l)
     finish();
 }
 
-void ArrayFill::m_fill(t_symbol* m, const AtomList& l)
+void ArrayFill::m_fill(t_symbol* m, const AtomListView& l)
 {
     if (!checkArray())
         return;
 
     size_t from = 0;
     size_t to = 0;
-    AtomList values = parseRange(l, &from, &to);
+    const AtomListView values = parseRange(l, &from, &to);
 
     if (values.empty()) {
         METHOD_ERR(m) << "usage: [@from N] [@to N] VALUES...";
@@ -113,7 +113,7 @@ void ArrayFill::m_fill(t_symbol* m, const AtomList& l)
         fillRange(from, to, values);
 }
 
-void ArrayFill::m_sin(t_symbol* m, const AtomList& l)
+void ArrayFill::m_sin(t_symbol* m, const AtomListView& l)
 {
     if (!checkArray())
         return;
@@ -141,7 +141,7 @@ void ArrayFill::m_sin(t_symbol* m, const AtomList& l)
     finish();
 }
 
-void ArrayFill::m_pulse(t_symbol* m, const AtomList& l)
+void ArrayFill::m_pulse(t_symbol* m, const AtomListView& l)
 {
     if (!checkArray())
         return;
@@ -170,7 +170,7 @@ void ArrayFill::m_pulse(t_symbol* m, const AtomList& l)
     finish();
 }
 
-void ArrayFill::m_saw(t_symbol* m, const AtomList& l)
+void ArrayFill::m_saw(t_symbol* m, const AtomListView& l)
 {
     if (!checkArray())
         return;
@@ -198,7 +198,7 @@ void ArrayFill::m_saw(t_symbol* m, const AtomList& l)
     finish();
 }
 
-void ArrayFill::m_tri(t_symbol* m, const AtomList& l)
+void ArrayFill::m_tri(t_symbol* m, const AtomListView& l)
 {
     if (!checkArray())
         return;
@@ -251,32 +251,42 @@ void ArrayFill::finish()
     bangTo(0);
 }
 
-AtomList ArrayFill::parseRange(const AtomList& args, size_t* from, size_t* to) const
+AtomListView ArrayFill::parseRange(const AtomListView& args, size_t* from, size_t* to) const
 {
     static t_symbol* PROP_FROM = gensym("@from");
     static t_symbol* PROP_TO = gensym("@to");
 
-    AtomList res;
+    AtomListView res;
 
     Atom p_from;
     Atom p_to;
 
     size_t num_props = 0;
 
-    if (args.hasProperty(PROP_FROM)) {
+    auto it = std::find(args.begin(), args.end(), PROP_FROM);
+    auto end = args.end();
+
+    if (it != end) {
 
         num_props++;
+        ++it;
 
-        if (args.property(PROP_FROM, &p_from))
+        if (it != end) {
+            p_from = *it;
             num_props++;
+        }
     }
 
-    if (args.hasProperty(PROP_TO)) {
+    it = std::find(args.begin(), args.end(), PROP_TO);
+    if (it != end) {
 
         num_props++;
+        ++it;
 
-        if (args.property(PROP_TO, &p_to))
+        if (it != end) {
+            p_to = *it;
             num_props++;
+        }
     }
 
     int n_from = p_from.asInt(0);
@@ -310,7 +320,7 @@ AtomList ArrayFill::parseRange(const AtomList& args, size_t* from, size_t* to) c
         return res;
     }
 
-    res = args.slice(num_props);
+    res = args.subView(num_props);
 
     if (res.empty()) {
         OBJ_ERR << "fill values are required";

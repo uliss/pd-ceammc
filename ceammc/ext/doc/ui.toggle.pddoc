@@ -24,7 +24,10 @@
             <par>This is the ceammc counterpart of the vanilla toggle</par>
         </info>
         <properties>
-            <property name="@value" type="float" default="0" enum="0 1">widget value</property>
+            <property name="@value" type="float" default="0" enum="0 1">widget logical
+            value</property>
+            <property name="@on_value" type="float" default="1">output on value</property>
+            <property name="@off_value" type="float" default="0">output off value</property>
             <!-- common -->
             <property name="@presetname" type="symbol" default="(null)">preset name for using with
             [ui.preset]</property>
@@ -66,12 +69,12 @@
         <inlets>
             <inlet>
                 <xinfo on="bang">change toggle state</xinfo>
-                <xinfo on="float">if *0* given, sets state to unchecked and outputs 0. On any other
-                number sets to checked state and outputs 1.</xinfo>
+                <xinfo on="float">if *0* given, sets state to unchecked and outputs @off_value. On
+                any other number sets to checked state and outputs @on_value</xinfo>
             </inlet>
         </inlets>
         <outlets>
-            <outlet>outputs 0 or 1</outlet>
+            <outlet>outputs @on_value or @off_value (by default 0 or 1)</outlet>
         </outlets>
         <example>
             <pdascii>
@@ -81,12 +84,11 @@
 [B] [0( [1( [-1(  [set $1(
 |   |   |   |     |
 |   |   |   |     |
-[ui.toggle @size=40x40]
+[ui.toggle @size=40x40]  [ui.t @on_value 90 @off_value -90]
+|                        |
+|                        [F] /*other on/off values*/
 |
-|
-[m set]
-|
-[ (
+[ui.display]
 ]]>
             </pdascii>
         </example>

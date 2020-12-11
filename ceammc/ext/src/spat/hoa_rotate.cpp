@@ -14,15 +14,15 @@
 #include "hoa_rotate.h"
 #include "ceammc_factory.h"
 
+std::array<char[HoaRotate::ANNOT_LEN], HOA_MAX_ORDER> HoaRotate::xlet_annotations_;
+
 HoaRotate::HoaRotate(const PdArgs& args)
     : HoaBase(args)
 {
 }
 
-void HoaRotate::parseProperties()
+void HoaRotate::initDone()
 {
-    HoaBase::parseProperties();
-
     rotate_.reset(new Rotate2d(order()));
 
     const size_t NHARM = rotate_->getNumberOfHarmonics();
@@ -62,8 +62,35 @@ void HoaRotate::blockSizeChanged(size_t bs)
     out_buf_.resize(SZ);
 }
 
+const char* HoaRotate::annotateInlet(size_t n) const
+{
+    const size_t N = numInputChannels() - 1;
+    if (n < N && n < HOA_MAX_ORDER)
+        return xlet_annotations_[n];
+    else if (n == N)
+        return "signal: rotation angle\n"
+               "    in radians in \\[0..2π) range, anti-clockwise";
+    else
+        return nullptr;
+}
+
+const char* HoaRotate::annotateOutlet(size_t n) const
+{
+    if (n < in_buf_.size() && n < HOA_MAX_ORDER)
+        return xlet_annotations_[n];
+    else
+        return nullptr;
+}
+
+void HoaRotate::initAnnotations()
+{
+    for (size_t i = 0; i < xlet_annotations_.size(); i++)
+        snprintf(xlet_annotations_[i], ANNOT_LEN, "signal: harmonic\\[%d\\]", (int)i);
+}
+
 void setup_spat_hoa_rotate()
 {
+    HoaRotate::initAnnotations();
     SoundExternalFactory<HoaRotate> obj("hoa.2d.rotate~");
     obj.addAlias("hoa.rotate~");
 }

@@ -21,7 +21,7 @@ FlowInterval::FlowInterval(const PdArgs& args)
     createOutlet();
 }
 
-bool FlowInterval::processAnyProps(t_symbol* s, const AtomList&)
+bool FlowInterval::processAnyProps(t_symbol* s, const AtomListView&)
 {
     return false;
 }
@@ -52,7 +52,7 @@ void FlowInterval::onList(const AtomList& lst)
     onBang();
 }
 
-void FlowInterval::onAny(t_symbol* s, const AtomList& lst)
+void FlowInterval::onAny(t_symbol* s, const AtomListView& lst)
 {
     onBang();
 }
@@ -60,4 +60,5 @@ void FlowInterval::onAny(t_symbol* s, const AtomList& lst)
 void setup_flow_interval()
 {
     ObjectFactory<FlowInterval> obj("flow.interval");
+    obj.setXletsInfo({ "input messages" }, { "float: time(ms) between current and previous message" });
 }

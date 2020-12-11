@@ -103,6 +103,7 @@ proc ::dialog_canvas::pdtk_canvas_dialog {mytoplevel xscale yscale graphmeflags 
         raise $mytoplevel
         focus $mytoplevel
     } else {
+        # ceammc abs coords added
         create_dialog $mytoplevel $::popup_xabs $::popup_yabs
     }
     switch -- $graphmeflags {
@@ -137,13 +138,16 @@ proc ::dialog_canvas::pdtk_canvas_dialog {mytoplevel xscale yscale graphmeflags 
    ::dialog_canvas::checkcommand $mytoplevel
 }
 
+# ceammc additional args added: x, y
 proc ::dialog_canvas::create_dialog {mytoplevel x y} {
     toplevel $mytoplevel -class DialogWindow
     wm title $mytoplevel [_ "Canvas Properties"]
     wm group $mytoplevel .
     wm resizable $mytoplevel 0 0
     wm transient $mytoplevel $::focused_window
+    # ceammc
     wm geometry $mytoplevel +$x+$y
+    # ceammc end
     $mytoplevel configure -menu $::dialog_menubar
     $mytoplevel configure -padx 8 -pady 8
     ::pd_bindings::dialog_bindings $mytoplevel "canvas"

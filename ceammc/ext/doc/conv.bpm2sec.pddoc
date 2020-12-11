@@ -32,5 +32,16 @@
         <outlets>
             <outlet>period in seconds</outlet>
         </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[120(  [60(
+|      |
+[bpm->sec]
+|
+[F]
+]]>
+            </pdascii>
+        </example>
     </object>
 </pddoc>

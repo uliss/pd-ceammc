@@ -32,15 +32,15 @@ void DataFifo::onSymbol(t_symbol* s) { add(Atom(s)); }
 
 void DataFifo::onList(const AtomList& lst) { add(lst); }
 
-void DataFifo::onAny(t_symbol* s, const AtomList& lst) { add(Message(s, lst)); }
+void DataFifo::onAny(t_symbol* s, const AtomListView& lst) { add(Message(s, lst)); }
 
-void DataFifo::m_flush(t_symbol*, const AtomList&) { flush(); }
+void DataFifo::m_flush(t_symbol*, const AtomListView&) { flush(); }
 
-void DataFifo::m_clear(t_symbol*, const AtomList&) { clear(); }
+void DataFifo::m_clear(t_symbol*, const AtomListView&) { clear(); }
 
-void DataFifo::m_pop(t_symbol*, const AtomList&) { pop(); }
+void DataFifo::m_pop(t_symbol*, const AtomListView&) { pop(); }
 
-void DataFifo::m_resize(t_symbol*, const AtomList& l)
+void DataFifo::m_resize(t_symbol*, const AtomListView& l)
 {
     size_t sz = l.toT<size_t>(0);
     if (sz < 1) {

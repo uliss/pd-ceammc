@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="patch.deps">
+        <title>patch.deps</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavski</author>
+            </authors>
+            <description>patch dependencies: used objects and abstractions</description>
+            <license>GPL3 or later</license>
+            <library>ceammc</library>
+            <category>patch</category>
+            <keywords>patch canvas deps</keywords>
+            <since>0.9.0</since>
+            <also>
+                <see>patch.tree</see>
+            </also>
+        </meta>
+        <methods>
+            <method name="dump">output dependency tree to Pd window</method>
+        </methods>
+        <inlets>
+            <inlet type="control">
+                <xinfo on="bang">output patch dependencies as Dict. Keys are library external paths
+                or abstraction full paths, values are external or abstraction names. PureData core
+                objects listed under "_core" key.</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet type="control">patch dependency</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[bang(
+|
+[patch.deps]
+|
+[print DEPS]
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

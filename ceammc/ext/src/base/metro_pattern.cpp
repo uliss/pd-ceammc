@@ -1,6 +1,6 @@
 #include "metro_pattern.h"
-#include "ceammc_property_callback.h"
 #include "ceammc_factory.h"
+#include "ceammc_property_callback.h"
 
 static bool validTime(const Atom& a)
 {
@@ -10,7 +10,6 @@ static bool validTime(const Atom& a)
 MetroPattern::MetroPattern(const PdArgs& args)
     : BaseObject(args)
     , clock_(this, &MetroPattern::tick)
-    , pattern_(positionalArguments().filtered(validTime))
     , current_(nullptr)
     , sync_(nullptr)
     , sync_update_(false)
@@ -26,7 +25,8 @@ MetroPattern::MetroPattern(const PdArgs& args)
 
     createCbListProperty(
         "@pattern", [this]() -> AtomList { return pattern_; },
-        [this](const AtomList& lst) -> bool { return p_set_pattern(lst); });
+        [this](const AtomList& lst) -> bool { return p_set_pattern(lst); })
+        ->setArgIndex(0);
 }
 
 void MetroPattern::onFloat(t_float on)
@@ -136,4 +136,10 @@ void MetroPattern::output(bool on_start)
 void setup_metro_pattern()
 {
     ObjectFactory<MetroPattern> obj("metro.pattern");
+
+    obj.setDescription("metro with rhythmic patterns");
+    obj.addAuthor("Serge Poltavsky");
+    obj.setKeywords({ "metro", "pattern", "rhythm" });
+    obj.setCategory("base");
+    obj.setSinceVersion(0, 5);
 }

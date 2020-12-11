@@ -10,11 +10,6 @@ public:
     {
         bindPositionalArgsToProps({ gensym("@freq"), gensym("@q") });
     }
-
-    void m_reset(t_symbol*, const AtomList&)
-    {
-        dsp_->instanceClear();
-    }
 };
 
 void setup_flt_bpf24_tilde()

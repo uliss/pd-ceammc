@@ -420,15 +420,15 @@ void UIColorPanel::setup()
     obj.showProperty("matrix");
     obj.setPropertyLabel("matrix", _("Matrix Size"));
 
-    obj.addProperty("saturation", _("Saturation"), 1.f, &UIColorPanel::saturation_);
+    obj.addFloatProperty("saturation", _("Saturation"), 1., &UIColorPanel::saturation_);
     obj.setPropertyRange("saturation", 0, 1);
     obj.setPropertyStep("saturation", 0.1);
 
-    obj.addProperty("hue", _("First Hue"), 0.f, &UIColorPanel::hue_);
+    obj.addFloatProperty("hue", _("First Hue"), 0., &UIColorPanel::hue_);
     obj.setPropertyRange("hue", 0, 1);
     obj.setPropertyStep("hue", 0.1);
 
-    obj.addProperty("lightness", _("First Lightness"), 1.f, &UIColorPanel::lightness_);
+    obj.addFloatProperty("lightness", _("First Lightness"), 1., &UIColorPanel::lightness_);
     obj.setPropertyRange("lightness", 0, 1);
     obj.setPropertyStep("lightness", 0.1);
 

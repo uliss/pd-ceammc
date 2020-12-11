@@ -18,7 +18,7 @@
 
 using namespace ceammc;
 
-typedef float (*WindowFuncPtr)(size_t, size_t);
+typedef t_sample (*WindowFuncPtr)(size_t, size_t);
 
 class Window : public BaseObject {
     IntProperty* size_;
@@ -33,17 +33,17 @@ public:
     bool setWindowFunc(t_symbol* name);
     WindowFuncPtr windowFunc();
 
-    void m_hann(t_symbol*, const AtomList&);
-    void m_tri(t_symbol*, const AtomList&);
-    void m_welch(t_symbol*, const AtomList&);
-    void m_rect(t_symbol*, const AtomList&);
-    void m_sine(t_symbol*, const AtomList&);
-    void m_hamming(t_symbol*, const AtomList&);
-    void m_blackman(t_symbol*, const AtomList&);
-    void m_nuttall(t_symbol*, const AtomList&);
-    void m_blackman_harris(t_symbol*, const AtomList&);
-    void m_flattop(t_symbol*, const AtomList&);
-    void m_gauss(t_symbol*, const AtomList&);
+    void m_hann(t_symbol*, const AtomListView&);
+    void m_tri(t_symbol*, const AtomListView&);
+    void m_welch(t_symbol*, const AtomListView&);
+    void m_rect(t_symbol*, const AtomListView&);
+    void m_sine(t_symbol*, const AtomListView&);
+    void m_hamming(t_symbol*, const AtomListView&);
+    void m_blackman(t_symbol*, const AtomListView&);
+    void m_nuttall(t_symbol*, const AtomListView&);
+    void m_blackman_harris(t_symbol*, const AtomListView&);
+    void m_flattop(t_symbol*, const AtomListView&);
+    void m_gauss(t_symbol*, const AtomListView&);
 };
 
 extern "C" void window_setup();

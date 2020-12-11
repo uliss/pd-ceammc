@@ -1,0 +1,16 @@
+#N canvas 1038 594 575 229 12;
+#X floatatom 224 62 5 0 0 0 - - -;
+#X msg 224 33 10;
+#X obj 45 117 print TEST_01;
+#X obj 104 144 print TEST_02;
+#X obj 164 117 print TEST_03;
+#X obj 224 144 print TEST_04;
+#X msg 269 33 #1 10;
+#X obj 45 91 hoa.process~ 2 hoa_test_05;
+#X connect 0 0 7 1;
+#X connect 1 0 0 0;
+#X connect 6 0 7 1;
+#X connect 7 0 2 0;
+#X connect 7 1 3 0;
+#X connect 7 2 4 0;
+#X connect 7 3 5 0;

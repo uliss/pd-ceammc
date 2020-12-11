@@ -25,6 +25,13 @@
             <a href="https://en.wikipedia.org/wiki/Digital_biquad_filter">wiki: Digital biquad
             filter</a>
         </info>
+        <methods>
+            <method name="reset">reset filter state</method>
+        </methods>
+        <properties>
+            <property name="@active" type="int" enum="0 1" default="1">on/off dsp
+            processing</property>
+        </properties>
         <inlets>
             <inlet type="audio">
                 <xinfo>input signal</xinfo>

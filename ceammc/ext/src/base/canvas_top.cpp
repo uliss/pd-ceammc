@@ -44,4 +44,10 @@ void CanvasTop::onBang()
 void setup_canvas_top()
 {
     ObjectFactory<CanvasTop> obj("canvas.top");
+
+    obj.setDescription("verbose information about top-level canvas");
+    obj.addAuthor("Serge Poltavsky");
+    obj.setKeywords({"canvas"});
+    obj.setCategory("patch");
+    obj.setSinceVersion(0, 4);
 }

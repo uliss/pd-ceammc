@@ -29,7 +29,7 @@ TEST_CASE("string.contains", "[external]")
         SECTION("empty")
         {
             TestExtStringContains t("string.contains");
-            REQUIRE_PROPERTY(t, @subj, "");
+            REQUIRE_PROPERTY(t, @subj, StringAtom(""));
             REQUIRE(t.numInlets() == 2);
             REQUIRE(t.numOutlets() == 1);
 
@@ -47,7 +47,7 @@ TEST_CASE("string.contains", "[external]")
         SECTION("args")
         {
             TestExtStringContains t("string.contains", LA("abc"));
-            REQUIRE_PROPERTY(t, @subj, "abc");
+            REQUIRE_PROPERTY(t, @subj, StringAtom("abc"));
             REQUIRE(t.numInlets() == 2);
             REQUIRE(t.numOutlets() == 1);
 
@@ -71,7 +71,7 @@ TEST_CASE("string.contains", "[external]")
         SECTION("quoted list")
         {
             TestExtStringContains t("string.contains", LA("\"", "\""));
-            REQUIRE_PROPERTY(t, @subj, " ");
+            REQUIRE_PROPERTY(t, @subj, StringAtom(" "));
             t.sendSymbol(SYM("abc"));
             REQUIRE(t.outputFloatAt(0) == 0);
             t.sendSymbol(SYM(" "));
@@ -81,7 +81,7 @@ TEST_CASE("string.contains", "[external]")
         SECTION("quoted atom")
         {
             TestExtStringContains t("string.contains", LA("\" \""));
-            REQUIRE_PROPERTY(t, @subj, " ");
+            REQUIRE_PROPERTY(t, @subj, StringAtom(" "));
             t.sendSymbol(SYM("abc"));
             REQUIRE(t.outputFloatAt(0) == 0);
             t.sendSymbol(SYM(" "));
@@ -91,7 +91,7 @@ TEST_CASE("string.contains", "[external]")
         SECTION("empty string")
         {
             TestExtStringContains t("string.contains", LA("\"\""));
-            REQUIRE_PROPERTY(t, @subj, "");
+            REQUIRE_PROPERTY(t, @subj, StringAtom(""));
             t.sendSymbol(SYM(""));
             REQUIRE(t.outputFloatAt(0) == 1);
             t.sendSymbol(SYM(" "));

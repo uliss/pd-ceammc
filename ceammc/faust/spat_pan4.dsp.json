@@ -1,10 +1,10 @@
 {
 	"name": "spat.pan4",
 	"filename": "spat_pan4.dsp",
-	"version": "2.25.3",
+	"version": "2.28.6",
 	"compile_options": "-lang cpp -scal -ftz 0",
 	"library_list": ["/usr/local/share/faust/spats.lib","/usr/local/share/faust/maths.lib","/usr/local/share/faust/signals.lib"],
-	"include_pathnames": ["/usr/local/share/faust","/usr/local/share/faust","/usr/share/faust","/Users/serj/work/music/pure-data/ceammc/faust","/Users/serj/work/music/pure-data/ceammc/faust"],
+	"include_pathnames": ["/usr/local/share/faust","/usr/local/share/faust","/usr/share/faust","/Users/serge/work/music/pure-data/ceammc/faust","/Users/serge/work/music/pure-data/ceammc/faust"],
 	"inputs": 1,
 	"outputs": 4,
 	"meta": [ 
@@ -39,8 +39,8 @@
 				},
 				{
 					"type": "vslider",
-					"label": "dist",
-					"address": "/spat.pan4/dist",
+					"label": "radius",
+					"address": "/spat.pan4/radius",
 					"init": 1,
 					"min": 0,
 					"max": 1,

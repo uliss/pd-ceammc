@@ -24,7 +24,7 @@ void Replace::onInlet(size_t n, const AtomList& l)
         to_ = l.empty() ? Atom() : l[0];
 }
 
-void Replace::onAny(t_symbol* sel, const AtomList& l)
+void Replace::onAny(t_symbol* sel, const AtomListView& l)
 {
     if (validateArgs()) {
         AtomList res(sel);
@@ -85,4 +85,10 @@ bool Replace::validateArgs() const
 void setup_base_replace()
 {
     ObjectFactory<Replace> obj("replace");
+
+    obj.setDescription("Replace atoms in data stream");
+    obj.addAuthor("Serge Poltavsky");
+    obj.setKeywords({"replace", "test"});
+    obj.setCategory("flow");
+    obj.setSinceVersion(0, 1);
 }

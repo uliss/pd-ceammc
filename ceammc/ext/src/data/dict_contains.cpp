@@ -52,4 +52,13 @@ void setup_dict_contains()
     ObjectFactory<DictContains> obj("dict.contains");
     obj.parseOnlyPositionalProps(true);
     obj.processData<DataTypeDict>();
+
+    obj.setDescription("predicate to check if dict contains a keys");
+    obj.addAuthor("Serge Poltavsky");
+    obj.setKeywords({ "contains", "dictionary" });
+    obj.setCategory("data");
+    obj.setSinceVersion(0, 6);
+
+    DictContains::setInletsInfo(obj.classPointer(), { "Dict", "list: set checked keys" });
+    DictContains::setOutletsInfo(obj.classPointer(), { "list of 1 or 0" });
 }

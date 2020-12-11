@@ -228,7 +228,8 @@ typedef enum {
     E_SHAPE_OVAL = 0, /*!< This shape is oval. */
     E_SHAPE_ARC = 1, /*!< This shape is arc. */
     E_SHAPE_IMAGE = 2, /*!< This shape is image. */
-    E_SHAPE_RECT = 3 /*!< This shape is rectangle. */
+    E_SHAPE_RECT = 3, /*!< This shape is rectangle. */
+    E_SHAPE_XLETS = 4 /*!< This shape is xlets. */
 } eshape_types;
 
 enum eclip_flags {
@@ -246,6 +247,36 @@ enum eclip_flags {
 struct t_pt {
     float x; /*!< The abscissa coordiante. */
     float y; /*!< The ordiante coordiante. */
+
+    constexpr t_pt()
+        : x(0)
+        , y(0)
+    {
+    }
+
+    constexpr t_pt(epath_types path, float y_)
+        : x(path)
+        , y(y_)
+    {
+    }
+
+    constexpr t_pt(eshape_types shape, float y_)
+        : x(shape)
+        , y(y_)
+    {
+    }
+
+    constexpr t_pt(float x_, float y_)
+        : x(x_)
+        , y(y_)
+    {
+    }
+
+    constexpr t_pt(double x_, double y_)
+        : x(x_)
+        , y(y_)
+    {
+    }
 
     bool operator==(const t_pt& pt) const { return x == pt.x && y == pt.y; }
     bool operator!=(const t_pt& pt) const { return !this->operator==(pt); }
@@ -461,7 +492,7 @@ typedef struct t_elayer {
     t_capstyle e_line_capstyle; /*!< The layer line capstyle. */
     t_dashstyle e_line_dashstyle; /*!< The layer line dashstyle. */
     t_smooth e_line_smooth; /*!< The layer line dashstyle. */
-    bool e_optimize;
+    bool e_optimize; /*!< optimize line drawing */
 } t_elayer;
 
 /** @} */
@@ -566,15 +597,23 @@ typedef struct t_eattr {
     size_t offset; /*!< The offset of the attribute in the object structure. */
     size_t sizemax; /*!< The maximum size of the attribute if the attribute is an array. */
     size_t size; /*!< The size of the attribute if the attribute is an array. */
-    float minimum; /*!< The minimum value of the attribute. */
-    float maximum; /*!< The maximum value of the attribute. */
-    float step; /*!< The increment or decrement step calue of the attribute. */
+    t_float minimum; /*!< The minimum value of the attribute. */
+    t_float maximum; /*!< The maximum value of the attribute. */
+    t_float step; /*!< The increment or decrement step calue of the attribute. */
     int order; /*!< The dummy order of the attribute. */
     eclip_flags clipped; /*!< If the attribute is clipped if it's value or an array of numerical values. */
     bool save; /*!< If the attribute should be saved. */
     bool paint; /*!< If the attribute should repaint the t_ebox when it has changed. */
     bool invisible; /*!< If the attribute is invisible. */
 } t_eattr;
+
+enum t_eattr_op {
+    EATTR_OP_ASSIGN,
+    EATTR_OP_ADD,
+    EATTR_OP_SUB,
+    EATTR_OP_MUL,
+    EATTR_OP_DIV
+};
 
 /**
  * @struct t_eclass

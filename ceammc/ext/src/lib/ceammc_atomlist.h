@@ -55,6 +55,7 @@ public:
     AtomList(AtomList&& l) noexcept;
     AtomList(const Atom& a);
     AtomList(size_t n, t_atom* lst);
+    AtomList(const AtomListView& v);
     explicit AtomList(int n, t_atom* lst);
     AtomList(std::initializer_list<t_float> l);
     AtomList(std::initializer_list<Atom> l);
@@ -65,7 +66,9 @@ public:
     {
     }
 
+    void operator=(const Atom& a);
     void operator=(const AtomList& l);
+    void operator=(const AtomListView& v);
     void operator=(AtomList&& l) noexcept;
 
     /**
@@ -570,6 +573,12 @@ public:
     AtomList operator-(t_float v) const;
     AtomList operator*(t_float v) const;
     AtomList operator/(t_float v) const;
+
+    /**
+     * Check for equality, if list contains data atoms - they are check for equality also
+     */
+    bool operator==(const Atom& x) const noexcept;
+    bool operator!=(const Atom& x) const noexcept { return !operator==(x); }
 
     /**
      * Check for equality, if list contains data atoms - they are check for equality also

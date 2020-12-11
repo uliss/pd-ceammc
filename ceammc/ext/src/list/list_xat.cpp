@@ -39,8 +39,7 @@ ListXAt::ListXAt(const PdArgs& args)
     def_ = new AtomProperty("@default", Atom());
     addProperty(def_);
 
-    at_method_ = new SymbolEnumProperty("@method",
-        { SYM_REL, SYM_CLIP, SYM_WRAP, SYM_FOLD });
+    at_method_ = new SymbolEnumProperty("@method", { SYM_REL, SYM_CLIP, SYM_WRAP, SYM_FOLD });
     addProperty(at_method_);
 
     addProperty(new SymbolEnumAlias("@rel", at_method_, SYM_REL));
@@ -144,4 +143,15 @@ void setup_list_xat()
     SYM_FOLD = gensym("fold");
 
     ObjectFactory<ListXAt> obj("list.^at");
+
+    obj.setDescription("on input index(es) outputs list element(s)");
+    obj.addAuthor("Serge Poltavsky");
+    obj.setKeywords({ "list", "at" });
+    obj.setCategory("list");
+    obj.setSinceVersion(0, 6);
+
+    ListXAt::setInletsInfo(obj.classPointer(), { "int:  index\n"
+                                                 "list: list of indexes",
+                                                   "list: set value" });
+    ListXAt::setOutletsInfo(obj.classPointer(), { "list" });
 }

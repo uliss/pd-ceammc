@@ -30,8 +30,6 @@ class ListApplyTo : public BaseObject {
 public:
     ListApplyTo(const PdArgs& args);
 
-    bool processAnyProps(t_symbol* sel, const AtomList& lst) override;
-
     void onList(const AtomList&) override;
     void onInlet(size_t n, const AtomList&) override;
     void onDataT(const MListAtom& ml);

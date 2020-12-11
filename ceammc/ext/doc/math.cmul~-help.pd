@@ -21,24 +21,24 @@
 #X obj 309 245 ui.dsp~;
 #X obj 50 274 ui.n~;
 #X obj 165 274 ui.n~;
-#X obj 20 313 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 318 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
+#X obj 20 323 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 328 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
-#X text 110 319 1\.;
-#X text 245 319 real part of input signal1\.;
-#X text 110 339 2\.;
-#X text 245 339 imag part of input signal1\.;
-#X text 110 359 3\.;
-#X text 245 359 real part of input signal2\.;
-#X text 110 379 4\.;
-#X text 245 379 imag part of input signal2\.;
-#X obj 20 409 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 414 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
+#X text 110 329 1\.;
+#X text 245 329 real part of input signal1\.;
+#X text 110 349 2\.;
+#X text 245 349 imag part of input signal1\.;
+#X text 110 369 3\.;
+#X text 245 369 real part of input signal2\.;
+#X text 110 389 4\.;
+#X text 245 389 imag part of input signal2\.;
+#X obj 20 419 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 424 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 415 1\.;
-#X text 245 415 real part of result.;
-#X text 110 435 2\.;
-#X text 245 435 imag part of result.;
+#X text 110 425 1\.;
+#X text 245 425 real part of result.;
+#X text 110 445 2\.;
+#X text 245 445 imag part of result.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;

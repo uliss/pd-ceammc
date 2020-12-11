@@ -21,7 +21,7 @@ SymbolEqual::SymbolEqual(const PdArgs& a)
     createInlet(&pattern_);
     createOutlet();
 
-    pattern_ = positionalSymbolConstant(0, nullptr);
+    pattern_ = parsedPosArgs().symbolAt(0, nullptr);
 }
 
 void SymbolEqual::onSymbol(t_symbol* s)

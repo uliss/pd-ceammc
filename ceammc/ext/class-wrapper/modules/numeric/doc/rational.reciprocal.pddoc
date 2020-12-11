@@ -35,9 +35,9 @@
 |
 [rational.reciprocal  ]
 |                     |
-[rational.reciprocal] [ui.display @display_type=1]
+[rational.reciprocal] [ui.display @display_type 1]
 |
-[ui.display @display_type=1]
+[ui.display @display_type 1]
 ]]>
             </pdascii>
         </example>

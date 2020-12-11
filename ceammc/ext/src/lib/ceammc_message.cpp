@@ -14,6 +14,7 @@
 #include "ceammc_message.h"
 #include "ceammc_abstractdata.h"
 #include "ceammc_format.h"
+#include "ceammc_log.h"
 #include "ceammc_output.h"
 
 #include <cassert>
@@ -23,7 +24,7 @@ namespace ceammc {
 
 Message::Message()
     : type_(NONE)
-    , value_(Atom(0.f))
+    , value_(Atom(0.))
 {
 }
 
@@ -49,20 +50,33 @@ Message::Message(const Atom& a)
         type_ = SYMBOL;
     else if (value_.isData())
         type_ = DATA;
+    else if (value_.isNone())
+        type_ = NONE;
+    else
+        LogPdObject(nullptr, LOG_DEBUG).stream() << "unknown atom type: " << a.type();
 }
 
 Message::Message(const AtomList& l)
     : type_(LIST)
-    , value_(Atom(0.f))
+    , value_(Atom(0.))
     , v_list_(l)
 {
     if (l.size() == 1)
         setAtom(l[0]);
 }
 
+Message::Message(const AtomListView& view)
+    : type_(LIST)
+    , value_(Atom(0.))
+    , v_list_(view)
+{
+    if (view.size() == 1)
+        setAtom(view[0]);
+}
+
 Message::Message(int argc, t_atom* argv)
     : type_(LIST)
-    , value_(Atom(0.f))
+    , value_(Atom(0.))
     , v_list_(argc, argv)
 {
     if (argc == 1)
@@ -73,6 +87,13 @@ Message::Message(t_symbol* s, const AtomList& l)
     : type_(ANY)
     , value_(s)
     , v_list_(l)
+{
+}
+
+Message::Message(t_symbol* s, const AtomListView& v)
+    : type_(ANY)
+    , value_(s)
+    , v_list_(v)
 {
 }
 
@@ -119,6 +140,13 @@ Message& Message::operator=(Message&& m)
     v_list_ = std::move(m.v_list_);
 
     return *this;
+}
+
+void Message::setBang()
+{
+    type_ = BANG;
+    value_ = Atom();
+    v_list_.clear();
 }
 
 void Message::setAtom(const Atom& a)
@@ -183,6 +211,8 @@ bool Message::isEqual(const Message& v) const
         return false;
 
     switch (type_) {
+    case BANG:
+        return true;
     case FLOAT:
     case SYMBOL:
         return value_ == v.value_;
@@ -205,9 +235,14 @@ Message::Type Message::type() const
 void Message::output(t_outlet* x) const
 {
     switch (type_) {
+    case BANG:
+        outlet_bang(x);
+        break;
     case FLOAT:
+        outlet_float(x, value_.asT<t_float>());
+        break;
     case SYMBOL:
-        outletAtom(x, value_);
+        outlet_symbol(x, value_.asT<t_symbol*>());
         break;
     case LIST:
         outletAtomList(x, v_list_);
@@ -222,14 +257,16 @@ void Message::output(t_outlet* x) const
         outletAtom(x, value_);
         break;
     case NONE:
+    default:
         break;
     }
 }
 
-bool Message::isBang() const
+Message Message::makeBang()
 {
-    // NB: this is only for testing purposes now
-    return (type_ == SYMBOL && value_.asSymbol() == &s_bang);
+    Message m;
+    m.type_ = BANG;
+    return m;
 }
 
 bool operator==(const Message& c1, const Message& c2)
@@ -254,6 +291,8 @@ std::ostream& operator<<(std::ostream& os, const Message& m)
         os << "symbol ";
     else if (m.isList())
         os << "list ";
+    else if (m.isData())
+        os << "data ";
 
     os << to_string(m, " ") << '(';
     return os;

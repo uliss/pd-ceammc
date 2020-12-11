@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="random.atom">
+        <title>random.atom</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>weighted atom generation from specified list</description>
+            <license>GPL3 or later</license>
+            <library>ceammc</library>
+            <category>random</category>
+            <keywords>random atom</keywords>
+            <also>
+                <see>random.float</see>
+                <see>random.gauss</see>
+            </also>
+            <since>0.9.1</since>
+            <aliases>
+                <alias>random.a</alias>
+            </aliases>
+        </meta>
+        <info>
+            <par>Choose random atom from specified list (with weights) and output it</par>
+            <par>Use @seed property to get reproducible sequences. If @seed property was not
+            explicitly set or specified, uses generator initialized with current time.</par>
+        </info>
+        <arguments>
+            <argument name="ARG" type="list">list of atoms</argument>
+        </arguments>
+        <properties>
+            <property name="@a" type="list">list of atoms</property>
+            <property name="@w" type="list">list of atom weights</property>
+            <property name="@seed" type="int" minvalue="0" default="0">generator seed</property>
+        </properties>
+        <inlets>
+            <inlet>
+                <xinfo on="bang">output random atom</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet>random atom value</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[T]
+|
+[metro 110]
+|
+[random.atom C5 D5 C6 Eb4 @w 2 1 6 3]
+|
+[pitch->midi]
+|      |
+[mtof] |
+|      |
+[osc~] [b]
+|      |
+[env.ar~ 10 70]
+|
+[ui.hgain~]     [ui.dsp~]
+|\
+[dac~]
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

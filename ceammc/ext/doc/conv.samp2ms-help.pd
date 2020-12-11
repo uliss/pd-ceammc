@@ -10,19 +10,19 @@
 #X msg 136 118 20 1000 5000 20000;
 #X obj 50 147 samp->ms;
 #X floatatom 50 176 10 0 0 0 - - -;
-#X obj 20 215 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 220 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
+#X obj 20 225 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 230 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
-#X text 110 221 1\.;
-#X text 150 221 *int*;
-#X text 245 221 number of samples.;
-#X text 150 241 *list*;
-#X text 245 241 list of number of samples.;
-#X obj 20 271 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 276 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
+#X text 110 231 1\.;
+#X text 150 231 *int*;
+#X text 245 231 number of samples.;
+#X text 150 251 *list*;
+#X text 245 251 list of number of samples.;
+#X obj 20 281 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 286 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 277 1\.;
-#X text 245 277 converted value (float or list).;
+#X text 110 287 1\.;
+#X text 245 287 converted value (float or list).;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;

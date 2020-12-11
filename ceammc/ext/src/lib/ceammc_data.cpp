@@ -19,74 +19,90 @@
 #include "lex/data_string.lexer.h"
 #include "lex/data_string.parser.hpp"
 
+#include <algorithm>
+
 namespace ceammc {
 
-AtomList parseDataList(const AtomList& lst) noexcept
+DataParseResult parseDataList(const AtomList& lst) noexcept
 {
-    if (lst.empty())
-        return lst;
-
-    auto str = to_string(lst, " ");
-    if (str.empty())
-        return lst;
-
-    try {
-        AtomList res;
-        DataStringLexer lex(str);
-        DataStringParser p(lex, res);
-
-        return (p.parse() == 0) ? res : lst;
-
-    } catch (std::exception& e) {
-        return lst;
-    }
+    return parseDataList(lst.view());
 }
 
-AtomList parseDataString(const std::string& str)
+DataParseResult parseDataList(const AtomListView& view) noexcept
 {
-    if (str.empty())
-        return AtomList();
+    if (view.isNull() || view.empty())
+        return DataParseResult(AtomList());
 
-    try {
-        LogPdObject logger(nullptr, LOG_ERROR);
-        logger.setLogEmpty(false);
+    // do not parse floats or booleans
+    if (view.isFloat() || view.isBool() || view.isData())
+        return DataParseResult(view);
 
-        AtomList res;
-        DataStringLexer lex(str);
-        lex.output_indent = logger.prefix().length() + 1;
-        lex.out(logger);
-        DataStringParser p(lex, res);
-
-        if (p.parse() != 0)
-            return AtomList();
-
-        return res;
-
-    } catch (std::exception& e) {
-        LIB_ERR << "parse error: " << e.what();
-        return AtomList();
-    }
-}
-
-AtomList parseDataList(const AtomListView& view) noexcept
-{
-    if (view.empty())
-        return view;
+    // do not parse list of floats
+    // check: this should be faster then converting to string and then parsing
+    if (std::all_of(view.begin(), view.end(), &isFloat))
+        return DataParseResult(view);
 
     auto str = to_string(view, " ");
     if (str.empty())
-        return view;
+        return DataParseResult(AtomList());
+
+    return parseDataString(str);
+}
+
+DataParseResult parseDataString(const std::string& str) noexcept
+{
+    if (str.empty())
+        return DataParseResult(AtomList());
 
     try {
+        std::ostringstream ss;
+
         AtomList res;
         DataStringLexer lex(str);
+        lex.out(ss);
         DataStringParser p(lex, res);
 
-        return (p.parse() == 0) ? res : view.operator AtomList();
+        if (p.parse() != 0)
+            return DataParseResult(ss.str());
+
+        if (!res.empty() && res[0].isNone())
+            return DataParseResult("parse error");
+
+        return DataParseResult(std::move(res));
 
     } catch (std::exception& e) {
-        return view;
+        return DataParseResult(e.what());
     }
+}
+
+DataParseResult::DataParseResult(const DataParseResult& r) noexcept
+    : res_(r.res_)
+    , err_(r.err_)
+    , ok_(r.ok_)
+{
+}
+
+DataParseResult::DataParseResult(DataParseResult&& r) noexcept
+    : res_(std::move(r.res_))
+    , err_(std::move(r.err_))
+    , ok_(r.ok_)
+{
+}
+
+DataParseResult& DataParseResult::operator=(const DataParseResult& r) noexcept
+{
+    res_ = r.res_;
+    err_ = r.err_;
+    ok_ = r.ok_;
+    return *this;
+}
+
+DataParseResult& DataParseResult::operator=(DataParseResult&& r) noexcept
+{
+    res_ = std::move(r.res_);
+    err_ = std::move(r.err_);
+    ok_ = r.ok_;
+    return *this;
 }
 
 }

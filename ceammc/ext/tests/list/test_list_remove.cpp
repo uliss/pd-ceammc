@@ -23,11 +23,22 @@ TEST_CASE("list.remove", "[externals]")
 {
     pd_test_init();
 
-    SECTION("create")
+    SECTION("init")
     {
-        TObj t("list.remove");
-        REQUIRE(t.numInlets() == 2);
-        REQUIRE(t.numOutlets() == 1);
+        SECTION("default")
+        {
+            TObj t("list.remove");
+            REQUIRE(t.numInlets() == 2);
+            REQUIRE(t.numOutlets() == 1);
+
+            REQUIRE_PROPERTY_LIST(t, @indexes, L());
+        }
+
+        SECTION("multiple")
+        {
+            TExt t("list.remove", LF(1, 2, 2, 3, 4, 4, 1));
+            REQUIRE_PROPERTY_LIST(t, @indexes, LF(1, 2, 3, 4));
+        }
     }
 
     SECTION("do")
@@ -50,6 +61,8 @@ TEST_CASE("list.remove", "[externals]")
         {
             TExt t("list.remove", LF(1));
 
+            REQUIRE_PROPERTY_LIST(t, @indexes, LF(1));
+
             t << L();
             REQUIRE(t.outputListAt(0) == L());
 
@@ -66,6 +79,8 @@ TEST_CASE("list.remove", "[externals]")
         SECTION("negative index")
         {
             TExt t("list.remove", LF(-1));
+
+            REQUIRE_PROPERTY_LIST(t, @indexes, LF(-1));
 
             t << L();
             REQUIRE(t.outputListAt(0) == L());
@@ -100,6 +115,8 @@ TEST_CASE("list.remove", "[externals]")
         SECTION("list index")
         {
             TExt t("list.remove", LF(0, 2, -1));
+
+            REQUIRE_PROPERTY_LIST(t, @indexes, LF(-1, 0, 2));
 
             t << L();
             REQUIRE(t.outputListAt(0) == L());

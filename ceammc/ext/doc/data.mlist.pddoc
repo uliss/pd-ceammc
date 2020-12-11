@@ -46,6 +46,7 @@
             <method name="fill">fills with specified value 
             <param name="VAL" type="atom" required="true">fill value</param></method>
             <method name="reverse">reverses list</method>
+            <method name="choose">choose random element in list and output it</method>
             <method name="shuffle">put elements in random order</method>
             <method name="sort">sorts list</method>
             <method name="clear">removes all list elements</method>
@@ -60,6 +61,7 @@
         <inlets>
             <inlet>
                 <xinfo on="bang">output current list value</xinfo>
+                <xinfo on="symbol">set new list with single symbol element and output</xinfo>
                 <xinfo on="list">sets new list and output it</xinfo>
             </inlet>
         </inlets>
@@ -73,9 +75,11 @@
 |
 |  [\(A B C), bang(
 |  |
+|  |  [1 2 3, bang(
+|  |  |
 [data.mlist (1 2 3 (1 3 3))]
 |
-[ui.display @display_type=1]
+[ui.d @display_type 1]
 ]]>
             </pdascii>
         </example>

@@ -21,7 +21,8 @@
         </inlets>
         <properties>
             <property name="@from" type="int" default="0">start enumeration index</property>
-            <property name="@append" type="flag">put element index after element value</property>
+            <property name="@append" type="flag" default="0">put element index after element
+            value</property>
         </properties>
         <outlets>
             <outlet>output list</outlet>
@@ -37,7 +38,7 @@
 |    |            |
 [list.enumerate   ]
 |
-[ui.display @display_type=1]
+[ui.display @display_type 1]
 ]]>
             </pdascii>
         </example>

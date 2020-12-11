@@ -52,7 +52,7 @@ void MathBoolOp::onInlet(size_t n, const AtomList& l)
         floatTo(0, operate());
 }
 
-void MathBoolOp::m_reset(t_symbol* /*m*/, const AtomList&)
+void MathBoolOp::m_reset(t_symbol* /*m*/, const AtomListView&)
 {
     vars_.assign(arg_num_, false);
 }

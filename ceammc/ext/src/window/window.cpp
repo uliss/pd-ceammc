@@ -37,18 +37,18 @@ static WFuncMap win_func_map;
 
 static bool initFuncMap()
 {
-    win_func_map[WIN_DEFAULT] = window::hann<t_float>;
-    win_func_map[WIN_WELCH] = window::welch<t_float>;
-    win_func_map[WIN_TRIANGLE] = window::triangle<t_float>;
-    win_func_map[WIN_HANN] = window::hann<t_float>;
-    win_func_map[WIN_RECT] = window::rect<t_float>;
-    win_func_map[WIN_SINE] = window::sine<t_float>;
-    win_func_map[WIN_HAMMING] = window::hamming<t_float>;
-    win_func_map[WIN_BLACKMAN] = window::blackman<t_float>;
-    win_func_map[WIN_NUTTALL] = window::nuttall<t_float>;
-    win_func_map[WIN_BLACKMAN_HARRIS] = window::blackman_harris<t_float>;
-    win_func_map[WIN_FLATTOP] = window::flattop<t_float>;
-    win_func_map[WIN_GAUSS] = window::gauss<t_float, 20>;
+    win_func_map[WIN_DEFAULT] = window::hann<t_sample>;
+    win_func_map[WIN_WELCH] = window::welch<t_sample>;
+    win_func_map[WIN_TRIANGLE] = window::triangle<t_sample>;
+    win_func_map[WIN_HANN] = window::hann<t_sample>;
+    win_func_map[WIN_RECT] = window::rect<t_sample>;
+    win_func_map[WIN_SINE] = window::sine<t_sample>;
+    win_func_map[WIN_HAMMING] = window::hamming<t_sample>;
+    win_func_map[WIN_BLACKMAN] = window::blackman<t_sample>;
+    win_func_map[WIN_NUTTALL] = window::nuttall<t_sample>;
+    win_func_map[WIN_BLACKMAN_HARRIS] = window::blackman_harris<t_sample>;
+    win_func_map[WIN_FLATTOP] = window::flattop<t_sample>;
+    win_func_map[WIN_GAUSS] = window::gauss<t_sample, 20>;
     return true;
 }
 
@@ -56,7 +56,7 @@ Window::Window(const PdArgs& a)
     : BaseObject(a)
     , size_(nullptr)
     , type_(WIN_DEFAULT)
-    , fn_(window::hann<float>)
+    , fn_(window::hann<t_sample>)
 {
     createCbSymbolProperty(
         "@type",
@@ -101,7 +101,7 @@ void Window::onList(const AtomList& l)
     if (!checkArgs(l, ARG_INT, ARG_INT))
         return;
 
-    size_->set(l[1]);
+    size_->set(l.view(1, 1));
     onFloat(l[0].asFloat());
 }
 
@@ -124,57 +124,57 @@ WindowFuncPtr Window::windowFunc()
     return fn_;
 }
 
-void Window::m_hann(t_symbol*, const AtomList&)
+void Window::m_hann(t_symbol*, const AtomListView&)
 {
     setWindowFunc(WIN_HANN);
 }
 
-void Window::m_tri(t_symbol*, const AtomList&)
+void Window::m_tri(t_symbol*, const AtomListView&)
 {
     setWindowFunc(WIN_TRIANGLE);
 }
 
-void Window::m_welch(t_symbol*, const AtomList&)
+void Window::m_welch(t_symbol*, const AtomListView&)
 {
     setWindowFunc(WIN_WELCH);
 }
 
-void Window::m_rect(t_symbol*, const AtomList&)
+void Window::m_rect(t_symbol*, const AtomListView&)
 {
     setWindowFunc(WIN_RECT);
 }
 
-void Window::m_sine(t_symbol*, const AtomList&)
+void Window::m_sine(t_symbol*, const AtomListView&)
 {
     setWindowFunc(WIN_SINE);
 }
 
-void Window::m_hamming(t_symbol*, const AtomList&)
+void Window::m_hamming(t_symbol*, const AtomListView&)
 {
     setWindowFunc(WIN_HAMMING);
 }
 
-void Window::m_blackman(t_symbol*, const AtomList&)
+void Window::m_blackman(t_symbol*, const AtomListView&)
 {
     setWindowFunc(WIN_BLACKMAN);
 }
 
-void Window::m_nuttall(t_symbol*, const AtomList&)
+void Window::m_nuttall(t_symbol*, const AtomListView&)
 {
     setWindowFunc(WIN_NUTTALL);
 }
 
-void Window::m_blackman_harris(t_symbol*, const AtomList&)
+void Window::m_blackman_harris(t_symbol*, const AtomListView&)
 {
     setWindowFunc(WIN_BLACKMAN_HARRIS);
 }
 
-void Window::m_flattop(t_symbol*, const AtomList&)
+void Window::m_flattop(t_symbol*, const AtomListView&)
 {
     setWindowFunc(WIN_FLATTOP);
 }
 
-void Window::m_gauss(t_symbol*, const AtomList&)
+void Window::m_gauss(t_symbol*, const AtomListView&)
 {
     setWindowFunc(WIN_GAUSS);
 }

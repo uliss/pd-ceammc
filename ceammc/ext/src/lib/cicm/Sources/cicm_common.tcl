@@ -147,3 +147,65 @@ if { [catch {package require tooltip} ] } {
         tooltip::tooltip $id $msg
     }
 }
+
+namespace eval ::ceammc {
+namespace eval ui {
+
+# xlets tooltip for UI objects
+namespace eval xlet_tooltip {
+    variable msg {}
+    variable text_id {}
+    variable is_active 0
+
+    proc create {widget win cnv tag xlet text} {
+        $widget bind $tag <Enter> [list ::ceammc::ui::xlet_tooltip::on_enter $widget $win $cnv $tag $xlet $text]
+        $widget bind $tag <Leave> [list ::ceammc::ui::xlet_tooltip::on_leave $cnv]
+    }
+
+    proc on_enter {widget win cnv tag xlet text} {
+        variable msg
+        variable is_active
+
+        set msg $text
+        set is_active 1
+        after 500 ::ceammc::ui::xlet_tooltip::show $widget $win $cnv $tag $xlet
+    }
+
+    proc on_leave {cnv} {
+        variable is_active
+
+        set is_active 0
+        after 50 ::ceammc::ui::xlet_tooltip::hide $cnv
+    }
+
+    proc show {widget win cnv tag xlet} {
+        variable is_active
+        variable msg
+        variable text_id
+
+        if {$is_active == 0} return
+        $cnv delete "cicm_tt"
+        foreach {rx - - ry} [$widget bbox $tag] break
+        foreach {cx cy - -} [$cnv bbox $win] break
+        if [info exists ry] {
+            if {$xlet == 0} {
+               set text_id [$cnv create text [expr $cx+$rx] [expr $cy+$ry+7] -text $msg -font TkTooltipFont -anchor nw -tag "cicm_tt"]
+            } else {
+               set text_id [$cnv create text [expr $cx+$rx] [expr $cy+$ry-10] -text $msg -font TkTooltipFont -anchor sw -tag "cicm_tt"]
+            }
+            foreach {tx0 ty0 tx1 ty1} [$cnv bbox $text_id] break
+            $cnv create rect [expr $tx0-2] [expr $ty0-1] [expr $tx1+2] [expr $ty1+1] -fill lightblue -tag "cicm_tt"
+            $cnv raise $text_id
+            $cnv bind $text_id <Leave> [list ::ceammc::ui::xlet_tooltip::on_leave $cnv]
+        }
+    }
+
+    proc hide {cnv} {
+        variable is_active
+
+        if {$is_active == 1} return
+        $cnv delete "cicm_tt"
+    }
+}
+}
+}

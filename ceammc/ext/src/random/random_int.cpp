@@ -1,16 +1,12 @@
-#include <ctime>
-#include <random>
-
+#include "random_int.h"
 #include "ceammc_factory.h"
 #include "fmt/format.h"
-#include "random_int.h"
-
-static std::mt19937 random_gen(std::time(0));
 
 RandomInt::RandomInt(const PdArgs& a)
     : BaseObject(a)
     , min_(nullptr)
     , max_(nullptr)
+    , seed_(nullptr)
 {
     createOutlet();
 
@@ -20,7 +16,7 @@ RandomInt::RandomInt(const PdArgs& a)
     addProperty(min_);
     addProperty(max_);
 
-    switch (a.args.size()) {
+    switch (parsedPosArgs().size()) {
     case 2:
         min_->setArgIndex(0);
         max_->setArgIndex(1);
@@ -28,9 +24,16 @@ RandomInt::RandomInt(const PdArgs& a)
     case 1:
         max_->setArgIndex(0);
         break;
+    case 0:
+        break;
     default:
+        OBJ_ERR << "expecting MIN MAX or MAX args";
         break;
     }
+
+    seed_ = new SizeTProperty("@seed", 0);
+    seed_->setSuccessFn([this](Property* p) { gen_.setSeed(seed_->value()); });
+    addProperty(seed_);
 }
 
 void RandomInt::onBang()
@@ -45,11 +48,20 @@ void RandomInt::onBang()
         return floatTo(0, min_->value());
 
     std::uniform_int_distribution<int> dist(min_->value(), max_->value());
-    floatTo(0, dist(random_gen));
+    floatTo(0, dist(gen_.get()));
 }
 
 void setup_random_int()
 {
     ObjectFactory<RandomInt> obj("random.int");
     obj.addAlias("random.i");
+
+    obj.setDescription("uniform random integer generator in specified range");
+    obj.addAuthor("Serge Poltavsky");
+    obj.setKeywords({ "random", "int" });
+    obj.setCategory("random");
+    obj.setSinceVersion(0, 1);
+
+    RandomInt::setInletsInfo(obj.classPointer(), { "bang" });
+    RandomInt::setOutletsInfo(obj.classPointer(), { "int: random in \\[@min..@max\\] range" });
 }

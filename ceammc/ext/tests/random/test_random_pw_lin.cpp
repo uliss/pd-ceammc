@@ -37,18 +37,18 @@ TEST_CASE("random.pw_lin", "[PureData]")
         {
             TObj t("random.pw_lin", LA("@v", 1, 0.1, 2, 0.2));
 
-            REQUIRE_PROPERTY_LIST(t, @v, LA(1, 0.1, 2, 0.2));
-            REQUIRE_PROPERTY_LIST(t, @bounds, AtomList(1, 2));
-            REQUIRE_PROPERTY_LIST(t, @weights, AtomList(0.1, 0.2));
+            REQUIRE_PROPERTY_LIST(t, @v, LX(1, 0.1, 2, 0.2));
+            REQUIRE_PROPERTY_LIST(t, @bounds, LX(1, 2));
+            REQUIRE_PROPERTY_LIST(t, @weights, LX(0.1, 0.2));
         }
 
         SECTION("args")
         {
             TObj t("random.pw_lin", LA(1, 0.1, 2, 0.2));
 
-            REQUIRE_PROPERTY_LIST(t, @v, LA(1, 0.1, 2, 0.2));
-            REQUIRE_PROPERTY_LIST(t, @bounds, AtomList(1, 2));
-            REQUIRE_PROPERTY_LIST(t, @weights, AtomList(0.1, 0.2));
+            REQUIRE_PROPERTY_LIST(t, @v, LX(1, 0.1, 2, 0.2));
+            REQUIRE_PROPERTY_LIST(t, @bounds, LX(1, 2));
+            REQUIRE_PROPERTY_LIST(t, @weights, LX(0.1, 0.2));
         }
     }
 

@@ -825,17 +825,17 @@ void UIMatrix::onZoom(t_float z)
     bg_layer_.invalidate();
 }
 
-float UIMatrix::p_rows() const
+t_float UIMatrix::p_rows() const
 {
     return prop_rows_;
 }
 
-float UIMatrix::p_cols() const
+t_float UIMatrix::p_cols() const
 {
     return prop_cols_;
 }
 
-void UIMatrix::p_setRows(float n)
+void UIMatrix::p_setRows(t_float n)
 {
     int num = clip<int>(n, 1, UI_MAX_MATRIX_SIZE);
     if (num != prop_rows_) {
@@ -850,7 +850,7 @@ void UIMatrix::p_setRows(float n)
     }
 }
 
-void UIMatrix::p_setCols(float n)
+void UIMatrix::p_setCols(t_float n)
 {
     int num = clip<int>(n, 1, UI_MAX_MATRIX_SIZE);
     if (num != prop_cols_) {

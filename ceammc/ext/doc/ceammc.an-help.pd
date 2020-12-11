@@ -8,6 +8,8 @@
 #X text 200 143 onset detector;
 #X obj 30 170 an.pitchtrack~;
 #X text 200 170 pitch tracker;
+#X obj 30 197 an.rms~;
+#X text 200 197 root mean square with moving-average algorithm.;
 #X obj 1 1 cnv 5 740 40 empty empty ceammc::an 20 20 0 20 -104026
 -4096 0;
 #X obj 1 513 cnv 5 740 40 empty empty empty 17 7 0 10 -203890 -1 0;

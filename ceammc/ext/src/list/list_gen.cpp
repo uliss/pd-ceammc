@@ -83,4 +83,15 @@ bool ListGenerate::setCount(float v)
 void setup_list_gen()
 {
     ObjectFactory<ListGenerate> obj("list.gen");
+
+    obj.setDescription("generates list of specified length via external generator");
+    obj.addAuthor("Serge Poltavsky");
+    obj.setKeywords({ "list", "generate" });
+    obj.setCategory("list");
+    obj.setSinceVersion(0, 1);
+
+    ListGenerate::setInletsInfo(obj.classPointer(), { "bang: generate list with @count length\n"
+                                                      "int: update @count and generate list",
+                                                        "list: values from generator" });
+    ListGenerate::setOutletsInfo(obj.classPointer(), { "list", "bang to side-chain generator" });
 }

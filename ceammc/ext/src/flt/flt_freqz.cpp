@@ -81,4 +81,13 @@ void FltFreqZTilde::processBlock(const t_sample** in, t_sample** out)
 void setup_flt_freqz()
 {
     SoundExternalFactory<FltFreqZTilde> obj("flt.freqz~");
+
+    obj.setDescription("compute the frequency response of a digital filter");
+    obj.addAuthor("Serge Poltavsky");
+    obj.setKeywords({ "filter", "calc", "bode", "frequence", "response", "phase", "plot" });
+    obj.setCategory("flt");
+    obj.setSinceVersion(0, 9);
+
+    FltFreqZTilde::setInletsInfo(obj.classPointer(), { "input freq in \\[0..π\\] or \\[0..sr/2\\] range" });
+    FltFreqZTilde::setOutletsInfo(obj.classPointer(), { "amplitude response", "phase response" });
 }

@@ -26,6 +26,7 @@ function(add_random_test src)
     target_sources(test_ext_random PRIVATE "test_random_${src}.cpp")
 endfunction()
 
+add_random_test(atom)
 add_random_test(discrete)
 add_random_test(float)
 add_random_test(int)

@@ -1,5 +1,9 @@
 # CEAMMC Pd distribution changelog
 
+## [Unreleased]
+### Added:
+- xlet tooltips support added for ceammc objects
+
 ## [2020.02]
 ### Added:
 - migration to Pd version 0.51 done

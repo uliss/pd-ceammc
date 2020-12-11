@@ -23,7 +23,7 @@ TEST_CASE("flow.multiplex", "[externals]")
     SECTION("init")
     {
         TObj t("flow.multiplex");
-        REQUIRE(t.numInlets() == 2);
+        REQUIRE(t.numInlets() == 3);
         REQUIRE(t.numOutlets() == 1);
         REQUIRE_PROPERTY(t, @index, 0.f);
 
@@ -31,7 +31,7 @@ TEST_CASE("flow.multiplex", "[externals]")
         SECTION("number")
         {
             TObj t("flow.multiplex", LF(0.f));
-            REQUIRE(t.numInlets() == 2);
+            REQUIRE(t.numInlets() == 3);
             REQUIRE(t.numOutlets() == 1);
             REQUIRE_PROPERTY(t, @index, 0.f);
         }
@@ -40,7 +40,7 @@ TEST_CASE("flow.multiplex", "[externals]")
         SECTION("number")
         {
             TObj t("flow.multiplex", LF(-1));
-            REQUIRE(t.numInlets() == 2);
+            REQUIRE(t.numInlets() == 3);
             REQUIRE(t.numOutlets() == 1);
             REQUIRE_PROPERTY(t, @index, 0.f);
         }
@@ -49,7 +49,7 @@ TEST_CASE("flow.multiplex", "[externals]")
         SECTION("number")
         {
             TObj t("flow.demultiplex", LF(1000));
-            REQUIRE(t.numInlets() == 24);
+            REQUIRE(t.numInlets() == 25);
             REQUIRE(t.numOutlets() == 1);
             REQUIRE_PROPERTY(t, @index, 0.f);
         }
@@ -58,7 +58,7 @@ TEST_CASE("flow.multiplex", "[externals]")
         SECTION("number")
         {
             TObj t("flow.multiplex", LF(1));
-            REQUIRE(t.numInlets() == 2);
+            REQUIRE(t.numInlets() == 3);
             REQUIRE(t.numOutlets() == 1);
             REQUIRE_PROPERTY(t, @index, 0.f);
         }
@@ -67,7 +67,7 @@ TEST_CASE("flow.multiplex", "[externals]")
         SECTION("number")
         {
             TObj t("flow.multiplex", LF(8));
-            REQUIRE(t.numInlets() == 8);
+            REQUIRE(t.numInlets() == 9);
             REQUIRE(t.numOutlets() == 1);
             REQUIRE_PROPERTY(t, @index, 0.f);
         }
@@ -129,5 +129,81 @@ TEST_CASE("flow.multiplex", "[externals]")
         t.setProperty("@index", LF(-1));
         WHEN_SEND_BANG_TO(0, t);
         REQUIRE_NO_MSG(t);
+    }
+
+    SECTION("do")
+    {
+        const auto bang = Message::makeBang();
+        const auto f0 = Message(100.5);
+        const auto s0 = Message(SYM("ABC"));
+        const auto l0 = Message(LF(1, 2, 3));
+        const auto m0 = Message(SYM("@abc"), LF(3, 2, 1));
+
+        TExt t("flow.multiplex", 2, 1);
+        REQUIRE(t.numInlets() == 3);
+        REQUIRE_PROPERTY(t, @index, 1);
+
+        t.sendBangTo(0);
+        REQUIRE(t.messagesAt(0) == MessageList {});
+        t.sendBangTo(1);
+        REQUIRE(t.messagesAt(0) == MessageList { bang });
+
+        t.sendMessageTo(f0, 0);
+        REQUIRE(t.messagesAt(0) == MessageList { bang });
+        t.sendMessageTo(f0, 1);
+        REQUIRE(t.messagesAt(0) == MessageList { bang, f0 });
+
+        t.sendMessageTo(s0, 0);
+        REQUIRE(t.messagesAt(0) == MessageList { bang, f0 });
+        t.sendMessageTo(s0, 1);
+        REQUIRE(t.messagesAt(0) == MessageList { bang, f0, s0 });
+
+        t.sendMessageTo(l0, 0);
+        REQUIRE(t.messagesAt(0) == MessageList { bang, f0, s0 });
+        t.sendMessageTo(l0, 1);
+        REQUIRE(t.messagesAt(0) == MessageList { bang, f0, s0, l0 });
+
+        t.sendMessageTo(m0, 0);
+        REQUIRE(t.messagesAt(0) == MessageList { bang, f0, s0, l0 });
+        t.sendMessageTo(m0, 1);
+        REQUIRE(t.messagesAt(0) == MessageList { bang, f0, s0, l0, m0 });
+
+        t.sendFloatTo(0, 2);
+        REQUIRE_PROPERTY(t, @index, 0);
+        t.sendFloatTo(1, 2);
+        REQUIRE_PROPERTY(t, @index, 1);
+        t.sendFloatTo(0, 2);
+        REQUIRE_PROPERTY(t, @index, 0);
+
+        t.clearAll();
+        t.sendBangTo(1);
+        REQUIRE(t.messagesAt(0) == MessageList {});
+        t.sendBangTo(0);
+        REQUIRE(t.messagesAt(0) == MessageList { bang });
+
+        t.sendMessageTo(f0, 1);
+        REQUIRE(t.messagesAt(0) == MessageList { bang });
+        t.sendMessageTo(f0, 0);
+        REQUIRE(t.messagesAt(0) == MessageList { bang, f0 });
+
+        t.sendMessageTo(s0, 1);
+        REQUIRE(t.messagesAt(0) == MessageList { bang, f0 });
+        t.sendMessageTo(s0, 0);
+        REQUIRE(t.messagesAt(0) == MessageList { bang, f0, s0 });
+
+        t.sendMessageTo(l0, 1);
+        REQUIRE(t.messagesAt(0) == MessageList { bang, f0, s0 });
+        t.sendMessageTo(l0, 0);
+        REQUIRE(t.messagesAt(0) == MessageList { bang, f0, s0, l0 });
+
+        t.sendMessageTo(m0, 1);
+        REQUIRE(t.messagesAt(0) == MessageList { bang, f0, s0, l0 });
+        t.sendMessageTo(m0, 0);
+        REQUIRE(t.messagesAt(0) == MessageList { bang, f0, s0, l0, m0 });
+    }
+
+    SECTION("alias")
+    {
+        TExt t("flow.mux");
     }
 }

@@ -40,4 +40,15 @@ void setup_list_enumerate()
 {
     ObjectFactory<ListEnumerate> obj("list.enumerate");
     obj.processData<DataTypeMList>();
+
+    obj.setDescription("enumerates input list");
+    obj.addAuthor("Serge Poltavsky");
+    obj.setKeywords({ "list", "enumerate" });
+    obj.setCategory("list");
+    obj.setSinceVersion(0, 3);
+
+    ListEnumerate::setInletsInfo(obj.classPointer(), { "list or Mlist" });
+    ListEnumerate::setOutletsInfo(obj.classPointer(), { "list or Mlist\n"
+                                                        "    0 L₀ 1 L₁ etc. or\n"
+                                                        "    L₀ 0 L₁ 1 etc. if @append flag used" });
 }

@@ -22,11 +22,6 @@ public:
         : faust_fx_greyhole_tilde(args)
     {
     }
-
-    void m_reset(t_symbol*, const AtomList&)
-    {
-        dsp_->instanceClear();
-    }
 };
 
 void setup_fx_greyhole_tilde()

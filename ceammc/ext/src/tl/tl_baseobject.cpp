@@ -65,7 +65,14 @@ TlBaseObject::TlBaseObject(const PdArgs& args)
     UIStorage::add(tl_.get());
     update_.delay(0);
 
-    createCbProperty("@cue", &TlBaseObject::propCue);
+    createCbSymbolProperty("@cue",
+        [this]() -> t_symbol* {
+            auto data = tl_->findCue();
+            if (!data)
+                return &s_;
+
+            return gensym(data->name().c_str());
+        });
 }
 
 TlBaseObject::~TlBaseObject()
@@ -76,15 +83,6 @@ TlBaseObject::~TlBaseObject()
 void TlBaseObject::updatePos()
 {
     tl_->setXPos(owner()->te_xpix);
-}
-
-AtomList TlBaseObject::propCue() const
-{
-    auto data = tl_->findCue();
-    if (!data)
-        return AtomList();
-
-    return Atom(gensym(data->name().c_str()));
 }
 
 void TlBaseObject::setDisplaceFn(_class* c)

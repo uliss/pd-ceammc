@@ -34,12 +34,12 @@ void XMidiFile::onBang()
     atomTo(0, midi_stream_);
 }
 
-void XMidiFile::m_clear(t_symbol*, const AtomList&)
+void XMidiFile::m_clear(t_symbol*, const AtomListView&)
 {
     midi_stream_ = MidiStreamAtom();
 }
 
-void XMidiFile::m_info(t_symbol*, const AtomList&)
+void XMidiFile::m_info(t_symbol*, const AtomListView&)
 {
     DictAtom info;
     info->insert("filename", midi_stream_->filename());
@@ -47,7 +47,7 @@ void XMidiFile::m_info(t_symbol*, const AtomList&)
     atomTo(0, info);
 }
 
-void XMidiFile::m_read(t_symbol*, const AtomList& l)
+void XMidiFile::m_read(t_symbol*, const AtomListView& l)
 {
     if (!checkArgs(l, ARG_SYMBOL))
         return;
@@ -67,7 +67,7 @@ void XMidiFile::m_read(t_symbol*, const AtomList& l)
     OBJ_DBG << "file read from: \"" << path << "\"";
 }
 
-void XMidiFile::m_write(t_symbol*, const AtomList& l)
+void XMidiFile::m_write(t_symbol*, const AtomListView& l)
 {
     if (!checkArgs(l, ARG_SYMBOL))
         return;

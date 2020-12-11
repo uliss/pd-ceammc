@@ -23,7 +23,7 @@ public:
     ObjectInfo(const PdArgs& args);
     void onBang() override;
 
-    void m_props(t_symbol* s, const AtomList& l);
+    void m_props(t_symbol* s, const AtomListView& l);
 
 private:
     std::vector<t_object*> connected();

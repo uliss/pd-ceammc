@@ -11,17 +11,17 @@
 #X obj 600 550 outlet ctl;
 #X obj 3 202 cnv 8 198 18 empty empty [flt.bpf12~] 3 9 0 12 -104026
 -262144 0;
-#X text 10 218 freq(Hz):;
-#X obj 12 237 ui.slider @size 120 12 @active_scale 1 @presetname
-/gui/$1/flt.bpf12~/slider0 @min 20 @max 20000;
-#X obj 140 237 ui.number @size 40 12 @digits 3 @min 20 @max 20000;
-#X obj 190 237 msg set;
-#X msg 260 237 @freq \$1;
-#X text 10 251 q:;
-#X obj 12 270 ui.slider @size 120 12 @active_scale 1 @presetname
-/gui/$1/flt.bpf12~/slider1 @min 0.01 @max 100;
-#X obj 140 270 ui.number @size 40 12 @digits 3 @min 0.01 @max 100;
-#X obj 190 270 msg set;
+#X obj 12 238 ui.slider @size 125 12 @active_scale 1 @label freq(Hz):
+@label_side top @label_align left @fontsize 10 @presetname
+/gui/\$1/flt.bpf12~/slider0 @min 20 @max 20000;
+#X obj 190 238 sync;
+#X obj 145 238 ui.number @size 50 12 @min 20 @max 20000 @digits 1;
+#X msg 260 238 @freq \$1;
+#X obj 12 270 ui.slider @size 125 12 @active_scale 1 @label q:
+@label_side top @label_align left @fontsize 10 @presetname
+/gui/\$1/flt.bpf12~/slider1 @min 0.01 @max 100;
+#X obj 190 270 sync;
+#X obj 145 270 ui.number @size 50 12 @min 0.01 @max 100 @digits 2;
 #X msg 260 270 @q \$1;
 #X connect 1 0 0 0;
 #X connect 2 0 3 0;
@@ -31,16 +31,18 @@
 #X connect 7 0 6 0;
 #X connect 0 0 8 0;
 #X connect 3 1 9 0;
-#X connect 12 0 13 0;
-#X connect 13 0 14 0;
-#X connect 14 0 12 0;
-#X connect 12 0 15 0;
-#X connect 15 0 0 0;
-#X connect 4 0 12 0;
-#X connect 17 0 18 0;
-#X connect 18 0 19 0;
-#X connect 19 0 17 0;
-#X connect 17 0 20 0;
-#X connect 20 0 0 0;
-#X connect 4 1 17 0;
-#X coords 0 -1 1 1 200 92 2 2 200;
+#X connect 11 0 12 0;
+#X connect 12 0 11 0;
+#X connect 13 0 12 1;
+#X connect 12 1 13 0;
+#X connect 11 0 14 0;
+#X connect 14 0 0 0;
+#X connect 4 0 11 0;
+#X connect 15 0 16 0;
+#X connect 16 0 15 0;
+#X connect 17 0 16 1;
+#X connect 16 1 17 0;
+#X connect 15 0 18 0;
+#X connect 18 0 0 0;
+#X connect 4 1 15 0;
+#X coords 0 -1 1 1 200 90 2 2 200;

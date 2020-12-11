@@ -47,6 +47,8 @@
 	<string>????</string>
 	<key>CFBundleIconFile</key>
         <string>pd_ceammc.icns</string>
+	<key>CFBundleSpokenName</key>
+	<string>Pure Data</string>
 	<key>CFBundleVersion</key>
 	<string>????</string>
 	<key>NSHighResolutionCapable</key>

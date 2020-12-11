@@ -225,12 +225,13 @@ gotone:
         if (s && *s)
           *s = '\0';
         if (!SetDllDirectory(dirname))
-           error("Could not set '%s' as DllDirectory(), '%s' might not load.",
+           error("could not set '%s' as DllDirectory(), '%s' might not load.",
                  dirname, basename);
         /* now load the DLL for the external */
         ntdll = LoadLibrary(filename);
         if (!ntdll)
         {
+// ceammc
             DWORD rc = GetLastError();
             LPSTR messageBuffer = NULL;
             size_t size = FormatMessageA(FORMAT_MESSAGE_ALLOCATE_BUFFER | FORMAT_MESSAGE_FROM_SYSTEM | FORMAT_MESSAGE_IGNORE_INSERTS,
@@ -240,6 +241,7 @@ gotone:
             //Free the buffer.
             LocalFree(messageBuffer);
             class_set_extern_dir(&s_);
+// ceammc end
             return (0);
         }
         makeout = (t_xxx)GetProcAddress(ntdll, symname);

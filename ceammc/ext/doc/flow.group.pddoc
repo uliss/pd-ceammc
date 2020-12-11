@@ -6,7 +6,7 @@
             <authors>
                 <author>Serge Poltavsky</author>
             </authors>
-            <description>group data atoms in list of specified size</description>
+            <description>group input atoms in list of specified size</description>
             <license>GPL3 or later</license>
             <library>ceammc</library>
             <category>flow</category>
@@ -25,7 +25,8 @@
         </methods>
         <properties>
             <property name="@by" type="int" minvalue="1" default="1">group size</property>
-            <property name="@free" type="int" readonly="true">free space left in group</property>
+            <property name="@free" type="int" readonly="true" default="0" minvalue="0">free space
+            left in group</property>
         </properties>
         <inlets>
             <inlet>
@@ -33,6 +34,9 @@
                 <xinfo on="symbol">add symbol to group and flush if group is full packed</xinfo>
                 <xinfo on="list">add list atoms to group and flush if needed</xinfo>
                 <xinfo on="data">add data to group and flush if needed</xinfo>
+            </inlet>
+            <inlet>
+                <xinfo on="int">set group size</xinfo>
             </inlet>
         </inlets>
         <outlets>

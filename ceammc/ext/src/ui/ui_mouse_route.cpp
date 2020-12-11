@@ -75,7 +75,7 @@ UIMouseRoute::UIMouseRoute(const PdArgs& args)
     }
 }
 
-bool UIMouseRoute::processAnyProps(t_symbol* sel, const AtomList& lst)
+bool UIMouseRoute::processAnyProps(t_symbol* sel, const AtomListView& lst)
 {
     auto it = std::find(mouse_events_.begin(), mouse_events_.end(), sel);
     if (it != mouse_events_.end()) {
@@ -118,7 +118,7 @@ void UIMouseRoute::onList(const AtomList& l)
         listTo(index_, l);
 }
 
-void UIMouseRoute::onAny(t_symbol* s, const AtomList& l)
+void UIMouseRoute::onAny(t_symbol* s, const AtomListView& l)
 {
     if (index_ >= 0)
         anyTo(index_, s, l);

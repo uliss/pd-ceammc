@@ -6,11 +6,11 @@
             <authors>
                 <author>Serge Poltavsky</author>
             </authors>
-            <description>checks if given string contains specified substring</description>
+            <description>checks if string contains specified substring</description>
             <license>GPL3 or later</license>
             <library>ceammc</library>
             <category>string</category>
-            <keywords>contains</keywords>
+            <keywords>contains search</keywords>
             <since>0.3</since>
             <aliases>
                 <alias>str.contains</alias>

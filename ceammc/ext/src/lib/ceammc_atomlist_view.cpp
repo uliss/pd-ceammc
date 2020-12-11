@@ -25,18 +25,24 @@
 
 namespace ceammc {
 
-AtomListView::AtomListView()
+AtomListView::AtomListView() noexcept
     : AtomListView(nullptr, 0)
 {
 }
 
-AtomListView::AtomListView(const t_atom* a, size_t n)
+AtomListView::AtomListView(const t_atom* a, size_t n) noexcept
     : data_(reinterpret_cast<const Atom*>(a))
     , n_(n)
 {
 }
 
-AtomListView::AtomListView(const AtomList& l)
+AtomListView::AtomListView(const Atom& a) noexcept
+    : data_(&a)
+    , n_(1)
+{
+}
+
+AtomListView::AtomListView(const AtomList& l) noexcept
     : AtomListView(l.toPdData(), l.size())
 {
 }
@@ -45,6 +51,12 @@ void AtomListView::set(t_atom* a, size_t n)
 {
     data_ = reinterpret_cast<Atom*>(a);
     n_ = n;
+}
+
+void AtomListView::set(const Atom& a)
+{
+    data_ = &a;
+    n_ = 1;
 }
 
 void AtomListView::set(const AtomList& l)
@@ -102,16 +114,6 @@ bool AtomListView::operator==(const AtomListView& v) const
     return true;
 }
 
-AtomListView::operator AtomList() const
-{
-    AtomList res;
-    res.reserve(n_);
-    for (auto& a : *this)
-        res.append(a);
-
-    return res;
-}
-
 bool AtomListView::isBool() const
 {
     static t_symbol* SYM_TRUE = gensym("true");
@@ -121,7 +123,7 @@ bool AtomListView::isBool() const
         || ((isSymbol() && (asSymbol() == SYM_TRUE || asSymbol() == SYM_FALSE)));
 }
 
-bool AtomListView::isInt() const
+bool AtomListView::isInteger() const
 {
     return isFloat() && math::is_integer(asFloat());
 }
@@ -165,6 +167,78 @@ t_symbol* AtomListView::symbolAt(size_t pos, t_symbol* def) const
         return def;
 }
 
+t_float AtomListView::floatGreaterThenAt(size_t pos, t_float min, t_float def) const
+{
+    if (pos >= n_)
+        return def;
+    else
+        return at(pos).asFloatGreaterThen(min, def);
+}
+
+t_float AtomListView::floatGreaterEqualAt(size_t pos, t_float min, t_float def) const
+{
+    if (pos >= n_)
+        return def;
+    else
+        return at(pos).asFloatGreaterEqual(min, def);
+}
+
+t_float AtomListView::floatLessThenAt(size_t pos, t_float max, t_float def) const
+{
+    if (pos >= n_)
+        return def;
+    else
+        return at(pos).asFloatLessThen(max, def);
+}
+
+t_float AtomListView::floatLessEqualAt(size_t pos, t_float max, t_float def) const
+{
+    if (pos >= n_)
+        return def;
+    else
+        return at(pos).asFloatLessEqual(max, def);
+}
+
+t_int AtomListView::intGreaterThenAt(size_t pos, t_int min, t_int def) const
+{
+    if (pos >= n_)
+        return def;
+    else
+        return at(pos).asIntGreaterThen(min, def);
+}
+
+t_int AtomListView::intGreaterEqualAt(size_t pos, t_int min, t_int def) const
+{
+    if (pos >= n_)
+        return def;
+    else
+        return at(pos).asIntGreaterEqual(min, def);
+}
+
+t_int AtomListView::intLessThenAt(size_t pos, t_int max, t_int def) const
+{
+    if (pos >= n_)
+        return def;
+    else
+        return at(pos).asIntLessThen(max, def);
+}
+
+t_int AtomListView::intLessEqualAt(size_t pos, t_int max, t_int def) const
+{
+    if (pos >= n_)
+        return def;
+    else
+        return at(pos).asIntLessEqual(max, def);
+}
+
+t_int AtomListView::intInClosedIntervalAt(size_t pos, t_int min, t_int max, t_int def) const
+{
+    if (pos >= n_)
+        return def;
+    else
+        return at(pos).asIntInClosedInterval(min, max, def);
+}
+
 AtomListView AtomListView::subView(size_t from) const
 {
     return subView(from, n_);
@@ -199,10 +273,39 @@ AtomList AtomListView::parseQuoted(bool quoted_props) const
 
     if (parser.parse() != 0) {
         LIB_ERR << "parse error";
-        return *this;
+        return AtomList(*this);
     }
 
     return lex.result();
+}
+
+bool AtomListView::allOf(std::function<bool(const Atom&)> pred) const
+{
+    return std::all_of(begin(), end(), pred);
+}
+
+bool AtomListView::anyOf(std::function<bool(const Atom&)> pred) const
+{
+    return std::any_of(begin(), end(), pred);
+}
+
+bool AtomListView::noneOf(std::function<bool(const Atom&)> pred) const
+{
+    return std::none_of(begin(), end(), pred);
+}
+
+std::ostream& operator<<(std::ostream& os, const AtomListView& l)
+{
+    os << "( ";
+    for (size_t i = 0; i < l.size(); i++) {
+        if (i != 0)
+            os << " ";
+
+        os << l.at(i);
+    }
+
+    os << " )";
+    return os;
 }
 
 }

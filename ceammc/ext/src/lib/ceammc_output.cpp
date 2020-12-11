@@ -114,7 +114,26 @@ bool outletAny(t_outlet* o, const AtomList& l)
     if (!l.first()->isSymbol())
         return false;
 
-    outlet_anything(o, l.first()->asSymbol(), static_cast<int>(l.size() - 1), l.toPdData() + 1);
+    outlet_anything(o,
+                    l.first()->asSymbol(),
+                    static_cast<int>(l.size() - 1),
+                    l.size() == 1 ? nullptr : l.toPdData() + 1);
+    return true;
+}
+
+bool outletAny(t_outlet* o, const AtomListView& l)
+{
+    if (l.size() < 1)
+        return false;
+
+    // check for valid selector
+    if (!l.front().isSymbol())
+        return false;
+
+    outlet_anything(o,
+                    l.front().asSymbol(),
+                    static_cast<int>(l.size() - 1),
+                    l.size() == 1 ? nullptr : l.toPdData() + 1);
     return true;
 }
 

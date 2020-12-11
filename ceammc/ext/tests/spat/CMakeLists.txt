@@ -30,6 +30,7 @@ endfunction()
 
 add_spat_test(hoa_in)
 add_spat_test(hoa_process)
+add_spat_test(hoa_recomposer)
 add_spat_test(pan_cos)
 add_spat_test(pan_lin)
 add_spat_test(pan_spread)

@@ -17,6 +17,9 @@
             <argument name="res" type="float" minvalue="0" maxvalue="1">normalized amount of
             corner-resonance</argument>
         </arguments>
+        <methods>
+            <method name="reset">reset object state</method>
+        </methods>
         <properties>
             <property name="@res" type="float" minvalue="0" maxvalue="1" default="0.4">normalized
             amount of corner-resonance</property>

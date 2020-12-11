@@ -24,7 +24,7 @@ class DictBase : public BaseObject
 public:
     DictBase(const PdArgs& args);
 
-    void onAny(t_symbol *s, const AtomList &) override;
+    void onAny(t_symbol *s, const AtomListView&) override;
     virtual void onDataT(const DictAtom& dict) = 0;
 };
 

@@ -237,6 +237,7 @@ proc ::dialog_array::pdtk_array_dialog {mytoplevel name size flags newone} {
         raise $mytoplevel
         focus $mytoplevel
     } else {
+        # ceammc
         create_dialog $mytoplevel $newone [expr $::popup_xabs - 50] [expr $::popup_yabs - 50]
     }
 
@@ -252,13 +253,16 @@ proc ::dialog_array::pdtk_array_dialog {mytoplevel name size flags newone} {
 #    int style = ((flags & 6) >> 1);
 }
 
+# ceammc additional args: xabs, yabs
 proc ::dialog_array::create_dialog {mytoplevel newone xabs yabs} {
     toplevel $mytoplevel -class DialogWindow
     wm title $mytoplevel [_ "Array Properties"]
     wm group $mytoplevel .
     wm resizable $mytoplevel 0 0
     wm transient $mytoplevel $::focused_window
+    # ceammc
     wm geometry $mytoplevel +$xabs+$yabs
+    # ceammc end
     $mytoplevel configure -menu $::dialog_menubar
     $mytoplevel configure -padx 10 -pady 5
     ::pd_bindings::dialog_bindings $mytoplevel "array"

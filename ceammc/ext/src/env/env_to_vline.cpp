@@ -277,12 +277,12 @@ void Env2VLine::interpExp(size_t step_idx, double step_ms,
     listTo(0, lst);
 }
 
-void Env2VLine::m_next(t_symbol*, const AtomList&)
+void Env2VLine::m_next(t_symbol*, const AtomListView&)
 {
     outputNextStop();
 }
 
-void Env2VLine::m_reset(t_symbol*, const AtomList&)
+void Env2VLine::m_reset(t_symbol*, const AtomListView&)
 {
     stop_point_index_ = 0;
     stop_offset_us_ = 0;

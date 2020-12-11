@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="logger">
+        <title>logger</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>advanced data logger</description>
+            <license>GPL3 or later</license>
+            <library>ceammc</library>
+            <category>base</category>
+            <keywords>log</keywords>
+            <since>0.9.1</since>
+            <aliases>
+                <alias>log.error</alias>
+                <alias>log.post</alias>
+                <alias>log.debug</alias>
+                <alias>log.verbose</alias>
+                <alias>log.stderr</alias>
+                <alias>log.stdout</alias>
+            </aliases>
+        </meta>
+        <arguments>
+            <argument name="PREFIX" type="list">log message prefix</argument>
+        </arguments>
+        <properties>
+            <property name="@prefix" type="list">log message prefix</property>
+            <property name="@active" type="int" enum="0 1" default="1">enabled/disabled logging
+            state</property>
+        </properties>
+        <inlets>
+            <inlet>
+                <xinfo>log input</xinfo>
+            </inlet>
+            <inlet>
+                <xinfo on="float">1: enable logging, 0: disable logging</xinfo>
+            </inlet>
+        </inlets>
+        <outlets />
+        <example>
+            <pdascii>
+<![CDATA[
+[F]   [1 2 3(   [T]
+|     |         |.
+[log.error ERROR!]
+
+[F]   [message( [T]
+|     |         |.
+[log.debug        ]
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

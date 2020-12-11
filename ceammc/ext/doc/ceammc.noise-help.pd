@@ -4,14 +4,16 @@
 #X obj 79 53 ui.link @title ceammc @url ceammc-help.pd;
 #X obj 30 116 noise.crackle~;
 #X text 200 116 sparse noise generator;
-#X obj 30 143 noise.lfreq0~;
-#X text 200 143 sampled/held noise (piecewise constant);
-#X obj 30 170 noise.lfreq~;
-#X text 200 170 noise.lfreq0~ smoothed with no overshoot;
-#X obj 30 197 noise.pink~;
-#X text 200 197 Pink noise generator;
-#X obj 30 224 noise.white~;
-#X text 200 224 White noise generator;
+#X obj 30 143 noise.ginger;
+#X text 200 143 Gingerbreadman map chaotic generator;
+#X obj 30 170 noise.lfreq0~;
+#X text 200 170 sampled/held noise (piecewise constant);
+#X obj 30 197 noise.lfreq~;
+#X text 200 197 noise.lfreq0~ smoothed with no overshoot;
+#X obj 30 224 noise.pink~;
+#X text 200 224 Pink noise generator;
+#X obj 30 251 noise.white~;
+#X text 200 251 White noise generator;
 #X obj 1 1 cnv 5 740 40 empty empty ceammc::noise 20 20 0 20 -104026
 -4096 0;
 #X obj 1 513 cnv 5 740 40 empty empty empty 17 7 0 10 -203890 -1 0;

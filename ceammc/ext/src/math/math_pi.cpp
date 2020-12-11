@@ -14,7 +14,7 @@
 #include "math_pi.h"
 #include "ceammc_factory.h"
 
-constexpr t_float PI = 3.14159265359;
+const static t_float PI = std::acos(t_float(-1));
 
 MathPi::MathPi(const PdArgs& args)
     : BaseObject(args)
@@ -30,14 +30,12 @@ MathPi::MathPi(const PdArgs& args)
 
 void MathPi::onBang()
 {
-    static const t_float v = k_->value() * PI;
-
-    floatTo(0, v);
+    floatTo(0, PI * k_->value());
 }
 
 MathPiTilde::MathPiTilde(const PdArgs& args)
     : SoundExternal(args)
-    , mpi_(positionalFloatArgumentT(0, 1) * PI)
+    , mpi_(parsedPosArgs().floatAt(0, 1) * PI)
 {
     createSignalOutlet();
 }

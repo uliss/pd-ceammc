@@ -15,19 +15,19 @@ exception for |x| > 1\.;
 #X floatatom 50 263 5 0 0 0 - - -;
 #X obj 50 292 math.asin;
 #X floatatom 50 321 5 0 0 0 - - -;
-#X obj 20 360 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 365 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
+#X obj 20 370 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 375 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
-#X text 110 366 1\.;
-#X text 150 366 *float*;
-#X text 245 366 input value.;
-#X text 150 386 *list*;
-#X text 245 386 apply to all numeric values.;
-#X obj 20 416 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 421 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
+#X text 110 376 1\.;
+#X text 150 376 *float*;
+#X text 245 376 input value.;
+#X text 150 396 *list*;
+#X text 245 396 apply to all numeric values.;
+#X obj 20 426 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 431 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 422 1\.;
-#X text 245 422 result value.;
+#X text 110 432 1\.;
+#X text 245 432 result value.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;

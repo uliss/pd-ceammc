@@ -12,9 +12,9 @@
  * this file belongs to.
  *****************************************************************************/
 #include "gain.h"
-#include "ceammc_property_callback.h"
 #include "ceammc_convert.h"
 #include "ceammc_factory.h"
+#include "ceammc_property_callback.h"
 #include "ceammc_signal.h"
 
 static t_float toDb(t_float amp)
@@ -144,7 +144,7 @@ void Gain::propSetGain(const AtomList& lst)
     }
 }
 
-void Gain::m_plus(t_symbol* s, const AtomList& lst)
+void Gain::m_plus(t_symbol* s, const AtomListView& lst)
 {
     const size_t N = std::min<size_t>(gain_.size(), lst.size());
 
@@ -159,12 +159,13 @@ static Atom negate(const Atom& a)
     return a.isFloat() ? -a.asFloat() : a;
 }
 
-void Gain::m_minus(t_symbol* s, const AtomList& lst)
+void Gain::m_minus(t_symbol* s, const AtomListView& lst)
 {
-    m_plus(s, lst.map(negate));
+    auto neg = AtomList(lst).map(negate);
+    m_plus(s, neg.view());
 }
 
-void Gain::m_plusDb(t_symbol* s, const AtomList& lst)
+void Gain::m_plusDb(t_symbol* s, const AtomListView& lst)
 {
     const size_t N = std::min<size_t>(gain_.size(), lst.size());
 
@@ -174,12 +175,13 @@ void Gain::m_plusDb(t_symbol* s, const AtomList& lst)
     }
 }
 
-void Gain::m_minusDb(t_symbol* s, const AtomList& lst)
+void Gain::m_minusDb(t_symbol* s, const AtomListView& lst)
 {
-    m_plusDb(s, lst.map(negate));
+    auto neg = AtomList(lst).map(negate);
+    m_plusDb(s, neg.view());
 }
 
-void Gain::m_plusAll(t_symbol* s, const AtomList& lst)
+void Gain::m_plusAll(t_symbol* s, const AtomListView& lst)
 {
     t_float v = lst.floatAt(0, 0);
     for (size_t i = 0; i < gain_.size(); i++) {
@@ -188,19 +190,20 @@ void Gain::m_plusAll(t_symbol* s, const AtomList& lst)
     }
 }
 
-void Gain::m_minusAll(t_symbol* s, const AtomList& lst)
+void Gain::m_minusAll(t_symbol* s, const AtomListView& lst)
 {
-    m_plusAll(s, lst.map(negate));
+    auto neg = AtomList(lst).map(negate);
+    m_plusAll(s, neg.view());
 }
 
-void Gain::m_set(t_symbol* s, const AtomList& lst)
+void Gain::m_set(t_symbol* s, const AtomListView& lst)
 {
     t_float v = lst.floatAt(0, 0);
     for (size_t i = 0; i < gain_.size(); i++)
         gain_[i].setTargetValue(std::max<t_float>(0, v));
 }
 
-void Gain::m_setDb(t_symbol* s, const AtomList& lst)
+void Gain::m_setDb(t_symbol* s, const AtomListView& lst)
 {
     t_float v = lst.floatAt(0, 0);
     for (size_t i = 0; i < gain_.size(); i++)
@@ -224,4 +227,10 @@ void setup_gain_tilde()
     obj.addMethod("-all", &Gain::m_minusAll);
     obj.addMethod("set", &Gain::m_set);
     obj.addMethod("set_db", &Gain::m_setDb);
+
+    obj.setDescription("multislot signal gain");
+    obj.addAuthor("Serge Poltavsky");
+    obj.setKeywords({ "gain", "amplitude", "decibel" });
+    obj.setCategory("base");
+    obj.setSinceVersion(0, 6);
 }

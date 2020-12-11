@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="flow.pipe">
+        <title>flow.pipe</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>enhanced version on vanilla pipe object</description>
+            <license>GPL3 or later</license>
+            <library>ceammc</library>
+            <category>flow</category>
+            <keywords>flow pipe</keywords>
+            <since>0.9.1</since>
+            <also>
+                <see>flow.delay</see>
+            </also>
+        </meta>
+        <info>
+            <par>Acts like vanilla [pipe] but for any messages: bangs, floats, symbols etc.</par>
+            <par>Note: @delay property can be set only via right inlet or [prop.set] object</par>
+        </info>
+        <arguments>
+            <argument name="MS" type="float" minvalue="0" units="millisecond">init @delay
+            property</argument>
+        </arguments>
+        <properties>
+            <property name="@delay" type="float" minvalue="0" default="0" units="millisecond">delay
+            time</property>
+            <property name="@empty" type="int" enum="0 1" default="1" readonly="true">1 if pipe is
+            empty, otherwise 0.</property>
+            <property name="@size" type="int" default="0" readonly="true">pipe size</property>
+        </properties>
+        <inlets>
+            <inlet>
+                <xinfo>incoming message</xinfo>
+            </inlet>
+            <inlet>
+                <xinfo on="bang">clear pipe</xinfo>
+                <xinfo>reset: clear pipe</xinfo>
+                <xinfo>flush: output and clear</xinfo>
+                <xinfo on="float" minvalue="0">set delay time</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet>pipe output</outlet>
+        </outlets>
+        <example>
+            <pdascii id="main">
+<![CDATA[
+[ui.keyboard]
+| |
+| |
+| |
+| |
+| [flow.pipe 1000]
+| |
+[poly 3    ]
+| ^|. ^^|..
+[pack f f f]
+|
+[clone -s 1 flow.pipe.osc~ 3 {i=1,o=1}]
+|
+[ui.hgain~]    [ui.dsp~]
+|\
+[dac~]
+
+[flow.pipe.superdirt]
+]]>
+            </pdascii>
+            <pdascii id="osc~">
+<![CDATA[
+[inlet]
+|
+[unpack f f]
+|       ^|
+[mtof]  [> 0]
+|       |
+[osc~]  [$1 50(
+|       |
+|       [line~]
+|       |.
+[*~      ]
+|
+[outlet~]
+]]>
+            </pdascii>
+            <pdascii id="superdirt">
+<![CDATA[
+/* start SuperCollider SuperDirt synth first */
+
+[T]
+|
+[metro 300]
+|
+[choose(      [append moog( [append hh:4( [pop(
+|             |             |             |
+[mlist ((bd pan 0) (sn pan 0.5) (bd speed 5 pan 1))]
+|
+[data.list]
+|
+[list.prepend sound]   [F]
+|  |                   |.
+|  [flow.pipe @delay 180 {w=27}]
+|  |
+[oscformat play2 {i=1,o=1}]
+|
+[msg send]  [connect localhost 57120(
+|           |
+[netsend -u -b]
+|
+[T]
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

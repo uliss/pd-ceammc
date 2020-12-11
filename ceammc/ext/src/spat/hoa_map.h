@@ -39,8 +39,8 @@ public:
     void processMultiSource();
     void processIn1In2();
 
-    void m_polar(t_symbol* s, const AtomList& l);
-    void m_mute(t_symbol* s, const AtomList& l);
+    void m_polar(t_symbol* s, const AtomListView& l);
+    void m_mute(t_symbol* s, const AtomListView& l);
 
 private:
     static t_int* dspPerformMultiSource(t_int* w)

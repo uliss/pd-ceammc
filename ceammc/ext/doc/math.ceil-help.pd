@@ -16,19 +16,19 @@ greater than or equal to input value.;
 #X msg 117 233 2.3 3.8 5.5 -2.3 -3.8 -5.5;
 #X obj 50 262 math.ceil;
 #X floatatom 50 291 5 0 0 0 - - -;
-#X obj 20 330 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 335 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
+#X obj 20 340 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 345 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
-#X text 110 336 1\.;
-#X text 150 336 *float*;
-#X text 245 336 input value.;
-#X text 150 356 *list*;
-#X text 245 356 apply to all numeric values.;
-#X obj 20 386 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 391 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
+#X text 110 346 1\.;
+#X text 150 346 *float*;
+#X text 245 346 input value.;
+#X text 150 366 *list*;
+#X text 245 366 apply to all numeric values.;
+#X obj 20 396 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 401 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 392 1\.;
-#X text 245 392 result value.;
+#X text 110 402 1\.;
+#X text 245 402 result value.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;

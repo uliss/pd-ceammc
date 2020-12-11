@@ -6,7 +6,7 @@
             <authors>
                 <author>Serge Poltavsky</author>
             </authors>
-            <description>repack input list to specified size</description>
+            <description>repack list to specified size</description>
             <license>GPL3 or later</license>
             <library>ceammc</library>
             <category>list</category>

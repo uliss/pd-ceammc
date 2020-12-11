@@ -1,7 +1,7 @@
 #N canvas 0 0 785 555 12;
 #X declare -lib ceammc;
-#X obj 462 50 cnv 1 303 23 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 462 50 returns the number of atoms in the list;
+#X obj 469 50 cnv 1 296 23 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 469 50 output the number of atoms in the list;
 #X obj 1 1 cnv 5 765 40 empty empty list.length 20 20 0 20 -104026
 -4096 0;
 #X obj 571 11 list.size;
@@ -14,19 +14,19 @@
 #X obj 290 147 ml;
 #X obj 50 176 list.length;
 #X floatatom 50 205 5 0 0 0 - - -;
-#X obj 20 244 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 249 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
+#X obj 20 254 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 259 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
-#X text 110 250 1\.;
-#X text 150 250 *list*;
-#X text 245 250 Input list.;
-#X text 150 270 *data:mlist*;
-#X text 245 270 Input mlist.;
-#X obj 20 300 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 305 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
+#X text 110 260 1\.;
+#X text 150 260 *list*;
+#X text 245 260 Input list.;
+#X text 150 280 *data:mlist*;
+#X text 245 280 Input mlist.;
+#X obj 20 310 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 315 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 306 1\.;
-#X text 245 306 the number of elements in the list.;
+#X text 110 316 1\.;
+#X text 245 316 the number of elements in the list.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;

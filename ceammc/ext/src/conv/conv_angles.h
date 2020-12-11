@@ -27,6 +27,8 @@ public:
 };
 
 class Car2Pol : public BaseObject {
+    BoolProperty* positive_range_;
+
 public:
     Car2Pol(const PdArgs& args);
     void onList(const AtomList& lst) override;

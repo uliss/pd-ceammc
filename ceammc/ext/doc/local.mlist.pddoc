@@ -41,6 +41,7 @@
             <method name="fill">fills with specified value 
             <param name="VAL" type="atom" required="true">fill value</param></method>
             <method name="reverse">reverses list</method>
+            <method name="choose">choose random element in list and output it</method>
             <method name="shuffle">put elements in random order</method>
             <method name="sort">sorts list</method>
             <method name="clear">removes all list elements</method>
@@ -71,9 +72,9 @@
 |                           |
 [ml]                        [local.mlist l1]
 |                           |
-[local.mlist l1]            [ui.display @display_type=1]
+[local.mlist l1]            [ui.display @display_type 1]
 |
-[ui.display @display_type=1]
+[ui.display @display_type 1]
 ]]>
             </pdascii>
         </example>

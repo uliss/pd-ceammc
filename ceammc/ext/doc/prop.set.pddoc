@@ -6,53 +6,60 @@
             <authors>
                 <author>Serge Poltavsky</author>
             </authors>
-            <description>Property injector</description>
+            <description>set object property</description>
             <license>GPL3 or later</license>
             <library>ceammc</library>
             <category>property</category>
             <keywords>property</keywords>
-            <since>0.1</since>
+            <since>0.9</since>
             <aliases>
-                <alias>prop&lt;-</alias>
+                <alias>p.set</alias>
             </aliases>
             <also>
-                <see>prop-&gt;</see>
+                <see>prop.get</see>
             </also>
         </meta>
         <info>
-            <par>Injects properties into data stream. Values from first inlet are passed unchanged
-            and named property values added to stream. Note: all property inlets are *hot*, i.e. if
-            object receives new value on inlet it immediately outputs it.</par>
+            <par>The object adds ability to change properties of flow objects that should accept
+            any incoming messages. The object should be connected to destination, but it not sends
+            pd messages to change props, but using internal pd method calls</par>
+            <par>Note: you can connect to *any* destination inlet</par>
         </info>
+        <arguments>
+            <argument name="PROPS" type="list">property names</argument>
+        </arguments>
         <inlets dynamic="true">
-            <inlet>
-                <xinfo>data stream</xinfo>
-            </inlet>
-            <inlet>
-                <xinfo>property value</xinfo>
+            <inlet number="1">
+                <xinfo>first property value</xinfo>
             </inlet>
             <inlet number="...">
-                <xinfo>property value</xinfo>
+                <xinfo>... property value</xinfo>
+            </inlet>
+            <inlet number="n">
+                <xinfo>n-th property value</xinfo>
             </inlet>
         </inlets>
         <outlets>
-            <outlet>output values</outlet>
+            <outlet>outputs nothing. connect to destination object(s)</outlet>
         </outlets>
         <example>
             <pdascii>
 <![CDATA[
-[F]      [F]
-|        |
-|  [B]   [$1 $1(
-|  |     |
-|  |     |      [F]
-|  |     |.     |..
-[prop<-  @size  @a]
+[@delay 400(/*passed thru*/  [400( [0(/*change delay time*/
+|                            |     |
+|                            [prop.set @delay]
+|                            |.
+[flow.delay 1000              ]
 |
-[prop->     @size                    ]
-|      ^|                          ^^|
-[F]   [ui.display @display_type=1] [ui.display @display_type=1]
+[ui.display @display_type 1]
 
+[F] /*the only way to resize*/
+|
+[$1 20(
+|
+[prop.set @size]
+|
+[ui.d]
 ]]>
             </pdascii>
         </example>

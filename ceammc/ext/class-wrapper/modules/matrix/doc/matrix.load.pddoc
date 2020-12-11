@@ -39,7 +39,7 @@
 |                      |.
 [matrix.save test_matrix.csv]
 |
-[ui.display @display_type=1]
+[ui.display @display_type 1]
 
 
 
@@ -51,7 +51,7 @@
 |
 [matrix.load]
 |
-[ui.display @display_type=1]
+[ui.display @display_type 1]
 ]]>
             </pdascii>
         </example>

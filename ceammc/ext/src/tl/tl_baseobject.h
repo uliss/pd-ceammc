@@ -39,7 +39,6 @@ public:
     virtual void onCueLeave() = 0;
 
     void updatePos();
-    AtomList propCue() const;
 
 public:
     static void setDisplaceFn(t_class* c);

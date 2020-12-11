@@ -24,11 +24,11 @@ class HoaDecoder : public HoaBase {
     std::unique_ptr<Decoder2d> decoder_;
     Buffer in_buf_;
     Buffer out_buf_;
-    size_t crop_size_;
     // decoder_ is not available while parsing properties
     // this members store initial values
-    t_float init_offset_;
-    AtomList init_angles_;
+    t_float cache_offset_ = { 0 };
+    int cache_crop_size_ = { 16 };
+    AtomList cache_angles_;
 
 public:
     HoaDecoder(const PdArgs& args);
@@ -43,7 +43,7 @@ public:
     AtomList propPlaneWavesZ() const;
 
     int propCropSize() const;
-    bool propSetCropSize(int lst);
+    bool propSetCropSize(int n);
 
     AtomList propAngles() const;
     bool propSetAngles(const AtomList& lst);

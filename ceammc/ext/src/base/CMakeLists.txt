@@ -1,11 +1,14 @@
 include_directories(${CMAKE_BINARY_DIR}) # for config.h
 
 set(BASE_SOURCES
+    base_log.cpp
+    base_sync.cpp
     canvas_current.cpp
     canvas_dir.cpp
     canvas_name.cpp
     canvas_path.cpp
     canvas_top.cpp
+    ceammc_search.cpp
     expand_env.cpp
     function.cpp
     function_call.cpp
@@ -18,12 +21,16 @@ set(BASE_SOURCES
     obj_info.cpp
     obj_props.cpp
     patch_args.cpp
+    patch_deps.cpp
     patch_props.cpp
+    patch_tree.cpp
     prop.cpp
+    prop_declare.cpp
     prop_get.cpp
     prop_get_tilde.cpp
-    prop_declare.cpp
+    prop_join.cpp
     prop_set.cpp
+    prop_split.cpp
     radio.cpp
     replace.cpp)
 

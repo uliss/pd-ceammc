@@ -45,8 +45,8 @@ public:
     AtomList propSolo() const;
     void setPropSolo(const AtomList& lst);
 
-    void m_mute(t_symbol* s, const AtomList& lst);
-    void m_solo(t_symbol* s, const AtomList& lst);
+    void m_mute(t_symbol* s, const AtomListView& lst);
+    void m_solo(t_symbol* s, const AtomListView& lst);
 };
 
 void setup_base_mix();

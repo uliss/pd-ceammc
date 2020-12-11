@@ -25,9 +25,9 @@ TEST_CASE("flow.speedlim", "[externals]")
         SECTION("empty")
         {
             TObj t("flow.speedlim");
-            REQUIRE(t.numInlets() == 1);
+            REQUIRE(t.numInlets() == 2);
             REQUIRE(t.numOutlets() == 1);
-            REQUIRE_PROPERTY(t, @limit, 0.f);
+            REQUIRE_PROPERTY(t, @limit, 0.);
         }
 
         {
@@ -37,7 +37,7 @@ TEST_CASE("flow.speedlim", "[externals]")
 
         {
             TObj t("flow.speedlim", LA("ABC"));
-            REQUIRE_PROPERTY(t, @limit, 0.0f);
+            REQUIRE_PROPERTY(t, @limit, 0.);
         }
 
         {
@@ -78,14 +78,14 @@ TEST_CASE("flow.speedlim", "[externals]")
             WHEN_SEND_BANG_TO(0, t);
             REQUIRE_NO_MESSAGES_AT_OUTLET(0, t);
 
-            WHEN_CALL(t, reset);
+            t.proxy_reset();
             WHEN_SEND_BANG_TO(0, t);
             REQUIRE_BANG_AT_OUTLET(0, t);
 
             WHEN_SEND_FLOAT_TO(0, t, 200);
             REQUIRE_NO_MESSAGES_AT_OUTLET(0, t);
 
-            WHEN_CALL(t, reset);
+            t.proxy_reset();
             WHEN_SEND_FLOAT_TO(0, t, 200);
             REQUIRE_FLOAT_AT_OUTLET(0, t, 200);
 
@@ -117,5 +117,58 @@ TEST_CASE("flow.speedlim", "[externals]")
             WHEN_SEND_DATA_TO(0, t, IntData(300));
             REQUIRE_DATA_AT_OUTLET(0, t, IntA(300));
         }
+    }
+
+    SECTION("do")
+    {
+        setTestSampleRate(44100);
+
+        TExt t("flow.speedlim", 2_ticks);
+        REQUIRE_PROPERTY_FLOAT(t, @limit, 3);
+        const auto bang = Message::makeBang();
+        const auto f0 = Message(100);
+        const auto m0 = Message(SYM("@abc"), LF(1));
+        const auto reset = Message(SYM("reset"), L());
+
+        t.bang(); // pass
+        REQUIRE(t.messagesAt(0) == MessageList({ bang }));
+        t.sendMessage(f0); // rejected
+        REQUIRE(t.messagesAt(0) == MessageList({ bang }));
+
+        t.schedTicks(1);
+        t.sendMessage(f0); // still rejected
+        REQUIRE(t.messagesAt(0) == MessageList({ bang }));
+
+        t.schedTicks(2);
+        t.sendMessage(f0); // accepted
+        REQUIRE(t.messagesAt(0) == MessageList({ bang, f0 }));
+
+        t.schedTicks(3);
+        t.sendMessage(m0); // accepted
+        REQUIRE(t.messagesAt(0) == MessageList({ bang, f0, m0 }));
+
+        t.schedTicks(1);
+        t.sendMessageTo(reset, 1);
+        t.sendMessage(m0); // accepted
+        REQUIRE(t.messagesAt(0) == MessageList({ bang, f0, m0, m0 }));
+
+        t.sendFloatTo(10, 1);
+        REQUIRE_PROPERTY_FLOAT(t, @limit, 10);
+        t.schedTicks(1);
+
+        t.clearAll();
+        t.sendBangTo(1);
+        t.bang(); // pass
+        REQUIRE(t.messagesAt(0) == MessageList({ bang }));
+        t.sendBang(); // rejected
+        REQUIRE(t.messagesAt(0) == MessageList({ bang }));
+        t.schedTicks(15);
+        t.sendBang(); // pass
+        REQUIRE(t.messagesAt(0) == MessageList({ bang, bang }));
+    }
+
+    SECTION("alias")
+    {
+        TExt t("speedlim");
     }
 }

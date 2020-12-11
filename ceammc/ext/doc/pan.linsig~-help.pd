@@ -11,20 +11,20 @@
 #X obj 146 176 osc~ 1;
 #X obj 50 205 pan.linsig~;
 #X obj 50 234 dac~;
-#X obj 20 273 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 278 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
+#X obj 20 283 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 288 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
-#X text 110 279 1\.;
-#X text 245 279 input signal.;
-#X text 110 299 2\.;
-#X text 245 299 pan position. Range: -1\...1\.;
-#X obj 20 329 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 334 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
+#X text 110 289 1\.;
+#X text 245 289 input signal.;
+#X text 110 309 2\.;
+#X text 245 309 pan position. Range: -1\...1\.;
+#X obj 20 339 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 344 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 335 1\.;
-#X text 245 335 left output channel.;
-#X text 110 355 2\.;
-#X text 245 355 right output channel.;
+#X text 110 345 1\.;
+#X text 245 345 left output channel.;
+#X text 110 365 2\.;
+#X text 245 365 right output channel.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;
