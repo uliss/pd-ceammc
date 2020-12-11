@@ -765,6 +765,8 @@ str->sym	converts string to symbol
 symbol.equal	check symbols for equality
 symbol.length	number of characters in symbol (unicode supported)
 symbol.num_compare	numeric symbol compare
+symbol2any	converts symbol to message
+sym->any	converts symbol to message
 symbol2intlist	converts symbol to list of character codes
 sym->ilist	converts symbol to list of character codes
 synth.bee3~	Hammond-oid organ FM synthesis instrument

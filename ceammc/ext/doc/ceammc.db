@@ -536,6 +536,7 @@ string2symbol,str->sym		.		.
 symbol.equal		..		.
 symbol.length		.		.
 symbol.num_compare		..		.
+symbol2any,sym->any		.		.
 symbol2intlist,sym->ilist		.		.
 sync		?		?
 synth.bee3~		.		~

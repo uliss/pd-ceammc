@@ -538,6 +538,7 @@ set(DOC_FILES
     symbol.length
     symbol.num_compare
     symbol2intlist
+    symbol2any
     sync
     synth.bee3~
     synth.birds~
