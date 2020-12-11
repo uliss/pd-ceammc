@@ -121,9 +121,9 @@ void UIPreset::onMouseDown(t_object* view, const t_pt& pt, const t_pt& abs_pt, l
     if (index < 0 || index >= presets_.size())
         return;
 
-    if (modifiers == EMOD_ALT)
+    if (modifiers & EMOD_ALT)
         clearIndex(index);
-    else if (modifiers == EMOD_SHIFT)
+    else if (modifiers & EMOD_SHIFT)
         storeIndex(index);
     else
         loadIndex(index);
