@@ -17,7 +17,8 @@
             </aliases>
         </meta>
         <info>
-            <par>Note: negative numbers converted using machine architecture, commonly two's complement</par>
+            <par>Note: negative numbers converted using machine architecture, commonly two's
+            complement</par>
             <wiki name="Two%27s_complement">Two's complement</wiki>
         </info>
         <inlets>

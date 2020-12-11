@@ -26,8 +26,7 @@
         <inlets>
             <inlet>
                 <xinfo on="int">set value, calculate and output result</xinfo>
-                <xinfo on="list">pair: set value and shift, calculate and output
-                result</xinfo>
+                <xinfo on="list">pair: set value and shift, calculate and output result</xinfo>
             </inlet>
             <inlet>
                 <xinfo on="int">change shift, calculate and output result</xinfo>
