@@ -617,7 +617,6 @@ noise.clifford	Part of a-chaos library
 noise.collatz	Part of a-chaos library
 noise.crackle~	sparse noise generator
 noise.duffing	Part of a-chaos library
-noise.fibonacci	Part of a-chaos library
 noise.ginger	Gingerbreadman map chaotic generator
 noise.henon	Part of a-chaos library
 noise.henon_heilles	Part of a-chaos library
