@@ -409,6 +409,7 @@ math.sync_mod,math.%',%'		..		.
 math.sync_mul,math.*',*'		..		.
 math.sync_ne,math.!=',!='		..		.
 math.sync_or,math.||',||'		..		.
+math.sync_rshift,math.>>',>>'		..		.
 math.sync_sub,math.-',-'		..		.
 math.sync_xor,math.^',^'		..		.
 math.tan		.		.

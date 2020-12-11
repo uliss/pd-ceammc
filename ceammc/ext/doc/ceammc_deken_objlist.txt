@@ -569,6 +569,9 @@ math.!='	sync numbers for not equality
 math.sync_or	sync logical OR operation
 math.||'	sync logical OR operation
 ||'	sync logical OR operation
+math.sync_rshift	sync signed bit right shift
+math.>>'	sync signed bit right shift
+>>'	sync signed bit right shift
 math.sync_sub	sync subtraction
 math.-'	sync subtraction
 -'	sync subtraction

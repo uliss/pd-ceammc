@@ -148,8 +148,9 @@
         math.sinh~ math.sin~ math.sqrt math.sqrt~ math.squared math.squared~
         math.sync_add math.sync_and math.sync_div math.sync_eq math.sync_ge
         math.sync_gt math.sync_le math.sync_lshift math.sync_lt math.sync_mod
-        math.sync_mul math.sync_ne math.sync_or math.sync_sub math.sync_xor
-        math.tan math.tanh math.tanh~ math.tan~ math.trunc math.trunc~
+        math.sync_mul math.sync_ne math.sync_or math.sync_rshift math.sync_sub
+        math.sync_xor math.tan math.tanh math.tanh~ math.tan~ math.trunc
+        math.trunc~
     }}
     {midi {
         midi.ctl2str midi.event2ctl midi.event2note midi.event2prg midi.file

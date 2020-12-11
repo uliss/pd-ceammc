@@ -1254,6 +1254,9 @@
     <entry name="math.sync_or" descr="sync logical OR operation" ref_view="object">
       <xi:include href="math.sync_or.pddoc" parse="xml"/>
     </entry>
+    <entry name="math.sync_rshift" descr="sync signed bit right shift" ref_view="object">
+      <xi:include href="math.sync_rshift.pddoc" parse="xml"/>
+    </entry>
     <entry name="math.sync_sub" descr="sync subtraction" ref_view="object">
       <xi:include href="math.sync_sub.pddoc" parse="xml"/>
     </entry>
