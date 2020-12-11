@@ -49,6 +49,7 @@
     - conv.degree2key (with degree->key alias) added
     - conv.int2bits (with int->bits alias) added
     - symbol2intlist (with sym->ilist alias) converter added
+    - symbol2any (with sym->any alias) added
     - conv.hex2int (with hex->int alias) added
     - @positive property added to car->pol for output in [0..2π) range
 - fx.* updates:

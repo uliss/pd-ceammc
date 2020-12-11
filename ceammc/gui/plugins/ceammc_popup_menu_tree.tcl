@@ -218,7 +218,8 @@
         string.split string.starts_with string.substr string2symbol
     }}
     {symbol {
-        symbol.equal symbol.length symbol.num_compare symbol2intlist
+        symbol.equal symbol.length symbol.num_compare symbol2any
+        symbol2intlist
     }}
     {synth {
         synth.bee3~ synth.birds~ synth.church_bell~ synth.dubdub~ synth.dx7~
