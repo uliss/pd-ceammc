@@ -1361,9 +1361,6 @@
     <entry name="noise.duffing" descr="Part of a-chaos library" ref_view="object">
       <xi:include href="noise.duffing.pddoc" parse="xml"/>
     </entry>
-    <entry name="noise.fibonacci" descr="Part of a-chaos library" ref_view="object">
-      <xi:include href="noise.fibonacci.pddoc" parse="xml"/>
-    </entry>
     <entry name="noise.ginger" descr="Gingerbreadman map chaotic generator" ref_view="object">
       <xi:include href="noise.ginger.pddoc" parse="xml"/>
     </entry>

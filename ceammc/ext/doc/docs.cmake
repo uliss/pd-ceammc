@@ -445,7 +445,6 @@ set(DOC_FILES
     noise.collatz
     noise.crackle~
     noise.duffing
-    noise.fibonacci
     noise.ginger
     noise.henon
     noise.henon_heilles
