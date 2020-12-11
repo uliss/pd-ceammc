@@ -91,6 +91,8 @@
     - ceammc.search added
 - proto.* updates:
     - proto.xtouch_ext - Behringer XTouch externder support added 
+- noise.* updates:
+    - documentation for a-chaos files added
     
 
 ### Changed:
