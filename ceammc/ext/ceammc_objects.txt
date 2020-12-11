@@ -13,10 +13,12 @@
 1/x
 1/x~
 <'
+<<'
 <='
 =='
 >'
 >='
+>>'
 @->
 @~>
 ^'
@@ -95,6 +97,7 @@ conv.dbfs2amp
 conv.dbfs2amp~
 conv.degree2key
 conv.hex2int
+conv.int2bits
 conv.lin2curve
 conv.lin2exp
 conv.lin2lin
@@ -319,6 +322,7 @@ hw.cpu_temp
 hw.display
 hw.kbd_light
 hw.serial
+int->bits
 is_any
 is_bang
 is_data
@@ -452,10 +456,12 @@ math.-'
 math./
 math./'
 math.<'
+math.<<'
 math.<='
 math.=='
 math.>'
 math.>='
+math.>>'
 math.^'
 math.^2
 math.^2~
@@ -541,11 +547,13 @@ math.sync_eq
 math.sync_ge
 math.sync_gt
 math.sync_le
+math.sync_lshift
 math.sync_lt
 math.sync_mod
 math.sync_mul
 math.sync_ne
 math.sync_or
+math.sync_rshift
 math.sync_sub
 math.sync_xor
 math.tan
