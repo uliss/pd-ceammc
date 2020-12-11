@@ -403,6 +403,7 @@ math.sync_eq,math.==',=='		..		.
 math.sync_ge,math.>=',>='		..		.
 math.sync_gt,math.>',>'		..		.
 math.sync_le,math.<=',<='		..		.
+math.sync_lshift,math.<<',<<'		..		.
 math.sync_lt,math.<',<'		..		.
 math.sync_mod,math.%',%'		..		.
 math.sync_mul,math.*',*'		..		.

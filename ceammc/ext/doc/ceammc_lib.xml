@@ -1236,6 +1236,9 @@
     <entry name="math.sync_le" descr="sync less equal numbers compare" ref_view="object">
       <xi:include href="math.sync_le.pddoc" parse="xml"/>
     </entry>
+    <entry name="math.sync_lshift" descr="sync signed bit shift" ref_view="object">
+      <xi:include href="math.sync_lshift.pddoc" parse="xml"/>
+    </entry>
     <entry name="math.sync_lt" descr="sync less then numbers compare" ref_view="object">
       <xi:include href="math.sync_lt.pddoc" parse="xml"/>
     </entry>

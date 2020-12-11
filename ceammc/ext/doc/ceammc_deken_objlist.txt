@@ -551,6 +551,9 @@ math.>'	sync greater then numbers compare
 math.sync_le	sync less equal numbers compare
 math.<='	sync less equal numbers compare
 <='	sync less equal numbers compare
+math.sync_lshift	sync signed bit shift
+math.<<'	sync signed bit shift
+<<'	sync signed bit shift
 math.sync_lt	sync less then numbers compare
 math.<'	sync less then numbers compare
 <'	sync less then numbers compare

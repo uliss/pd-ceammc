@@ -1,6 +1,6 @@
 # CEAMMC external library changelog
 
-## [0.9]
+## [0.9.1]
 ### Added:
 - properties:
   - float and int property simple arithmetic added: @prop + 0.5, adds 0.5 to @prop value.
@@ -88,6 +88,8 @@
     - RythmTree support added: rtree->list and built-in function rtree()
     - patch.deps added - list current patch dependencies
     - ceammc.search added
+- proto.* updates:
+    - proto.xtouch_ext - Behringer XTouch externder support added 
     
 
 ### Changed:

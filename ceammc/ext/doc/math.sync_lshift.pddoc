@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="math.sync_lshift">
+        <title>math.sync_lshift</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>sync signed bit shift</description>
+            <license>GPL3 or later</license>
+            <library>ceammc</library>
+            <category>math</category>
+            <keywords>math shift sync</keywords>
+            <aliases>
+                <alias>math.&lt;&lt;'</alias>
+                <alias>&lt;&lt;'</alias>
+            </aliases>
+            <since>0.9.1</since>
+            <also>
+                <see>math.sync_rshift</see>
+            </also>
+        </meta>
+        <arguments>
+            <argument name="SHIFT" type="int">shift amount</argument>
+        </arguments>
+        <inlets>
+            <inlet>
+                <xinfo on="int">set value, calculate and output result</xinfo>
+                <xinfo on="list">pair: set value and shift, calculate and output
+                result</xinfo>
+            </inlet>
+            <inlet>
+                <xinfo on="int">change shift, calculate and output result</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet>result output</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[F]   [F]   /*same as:*/ [F]  [F]
+|     |                  |    |
+|     |                  |    [t b f]
+|     |.                 |    | ^|.
+[<<'   ]                 [<<      ]
+|                        |
+[F]                      [F]
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

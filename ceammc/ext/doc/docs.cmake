@@ -411,6 +411,7 @@ set(DOC_FILES
     math.sync_or
     math.sync_sub
     math.sync_xor
+    math.sync_lshift
     math.tan
     math.tan~
     math.tanh
