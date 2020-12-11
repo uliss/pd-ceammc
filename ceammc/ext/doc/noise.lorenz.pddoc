@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="noise.lorenz">
+        <title>noise.lorenz</title>
+        <meta>
+            <authors>
+                <author>Richard Dudas</author>
+                <author>Mikhail Malt</author>
+                <author>André Sier</author>
+
+            </authors>
+            <description>Part of a-chaos library</description>
+            <license> % </license>
+            <library>ceammc</library>
+            <category>noise</category>
+            <keywords>noise</keywords>
+            <since>.5</since>
+        </meta>
+        <info>
+            <par>Lorenz chaos by Heuns method - extra accuracy</par>
+            <par>sigma replaced with a</par>
+            <par>b replaced with c</par>
+        </info>
+        <arguments>
+            <argument name="ARG0" type="float">x value (optional)</argument>
+            <argument name="ARG1" type="float">y value (optional)</argument>
+            <argument name="ARG2" type="float">z value (optional)</argument>
+            <argument name="ARG3" type="float">a value (optional)</argument>
+            <argument name="ARG4" type="float">r value (optional)</argument>
+            <argument name="ARG5" type="float">c value (optional)</argument>
+            <argument name="ARG6" type="float">dt value (optional)</argument>
+        </arguments>
+        <methods>
+            <method name="set">
+            <param type="float" name="SET" required="true">set to value</param></method>
+
+            <method name="reset">reset state</method>
+
+            <method name="om">
+            <param type="int" name="OM" required="true">enables output when cut or fold value is changed</param></method>
+
+            <method name="a">
+            <param type="float" name="A" required="true">a value</param></method>
+            <method name="r">
+            <param type="float" name="R" required="true">r value</param></method>
+            <method name="c">
+            <param type="float" name="B" required="true">b value</param></method>
+
+            <method name="x">
+            <param type="float" name="NX" required="true">x value</param></method>
+            <method name="y">
+            <param type="float" name="NY" required="true">y value</param></method>
+            <method name="z">
+            <param type="float" name="NZ" required="true">z value</param></method>
+
+            <method name="dt">
+            <param type="float" name="DT" required="true">dt value</param></method>
+        </methods>
+        <inlets>
+            <inlet>
+                <xinfo on="bang">output value</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet>main outlet</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+
+[T]
+|
+[metro 50 #metro]
+
+
+  [T]         [F]
+  |           |
+  [om $1 #om( [set $1 #set( [reset #reset(
+
+ [F]           [F]
+ |             |
+ [r $1 #r(     [dt $1 #dt(  
+
+    [F]       [F]       
+    |         |                  
+    [a $1 #a( [c $1 #c(  
+
+        [F]       [F]       [F]       
+        |         |         |         
+        [x $1 #x( [y $1 #y( [z $1 #z(   
+
+[noise.lorenz #noise-obj]
+|
+[ui.display {i=1,o=0}]
+
+[X r:0->noise-obj:0]  
+[X dt:0->noise-obj:0] 
+
+[X a:0->noise-obj:0]
+[X c:0->noise-obj:0]
+
+[X x:0->noise-obj:0] 
+[X y:0->noise-obj:0] 
+[X z:0->noise-obj:0] 
+
+[X om:0->noise-obj:0]
+[X set:0->noise-obj:0]
+[X reset:0->noise-obj:0]
+
+[X metro->noise-obj]
+
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

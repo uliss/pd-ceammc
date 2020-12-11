@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="noise.henon_heilles">
+        <title>noise.henon_heilles</title>
+        <meta>
+            <authors>
+                <author>Richard Dudas</author>
+                <author>André Sier</author>
+            </authors>
+            <description>Part of a-chaos library</description>
+            <license> % </license>
+            <library>ceammc</library>
+            <category>noise</category>
+            <keywords>noise</keywords>
+            <since>.5</since>
+        </meta>
+        <info>
+            <par>a port of Richard's chaos-henon-heilles from chaos collection</par>
+        </info>
+        <arguments>
+            <argument name="ARG0" type="float">x value (optional)</argument>
+            <argument name="ARG1" type="float">y value (optional)</argument>
+            <argument name="ARG2" type="float">y' value (optional)</argument>
+            <argument name="ARG3" type="float">e value (optional)</argument>
+            <argument name="ARG4" type="float">dt value (optional)</argument>
+            
+        </arguments>
+        <methods>
+            <method name="set">
+            <param type="float" name="SET" required="true">set to value</param></method>
+
+            <method name="reset">reset state</method>
+            
+            <method name="x">
+            <param type="float" name="NX" required="true">x value</param></method>
+            <method name="y">
+            <param type="float" name="NY" required="true">y value</param></method>
+            <method name="y'">
+            <param type="float" name="NY" required="true">y' value</param></method>
+
+            <method name="e">
+            <param type="float" name="NY" required="true">e value</param></method>
+            <method name="dt">
+            <param type="float" name="NY" required="true">dt value</param></method>
+            
+        </methods>
+        <inlets>
+            <inlet>
+                <xinfo on="bang">output value</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet>x outlet</outlet>
+            <outlet>y outlet</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+
+[T]
+|
+[metro 50 #metro]
+
+
+  [T]         [F]
+  |           |
+  [om $1 #om( [set $1 #set( 
+
+ [F]           [F]
+ |             |
+ [e $1 #e(     [dt $1 #dt(  
+
+    [F]       [F]       [F]       
+    |         |         |         
+    [x $1 #x( [y $1 #y( [y' $1 #y_(   
+
+[noise.henon_heilles #noise-obj]
+|                      |
+[ui.display {i=1,o=0}] [ui.display {i=1,o=0}]
+
+[X e:0->noise-obj:0]  
+[X dt:0->noise-obj:0] 
+
+[X x:0->noise-obj:0]
+[X y:0->noise-obj:0]
+[X y_:0->noise-obj:0]
+
+[X om:0->noise-obj:0]
+[X set:0->noise-obj:0]
+
+[X metro->noise-obj]
+
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>
