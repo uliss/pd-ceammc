@@ -273,6 +273,7 @@ void glob_initfromgui(void *dummy, t_symbol *s, int argc, t_atom *argv)
 
         // ceammc
         // load main CEAMMC library
+        setenv("is_ceammc", "true", 1);
         if(!sys_load_lib(0, "ceammc"))
            post("ceammc: can't load library");
         // ceammc end
