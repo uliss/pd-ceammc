@@ -140,9 +140,9 @@ void ceammc_init()
             pd_error(nullptr, "can't add datatype printing support to vanilla [print] object");
 
         ceammc::ceammc_tcl_init_tooltips();
-        post("[ceammc] running ceammc distribution version");
+        post("[ceammc] distribution: internal ceammc");
     } else {
-        post("[ceammc] running deken version");
+        post("[ceammc] distribution: external deken");
     }
 
     // setup env variables

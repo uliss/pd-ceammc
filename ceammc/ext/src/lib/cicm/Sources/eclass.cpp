@@ -1492,6 +1492,17 @@ static void eclass_properties_dialog(t_eclass* c)
                                   "   pdsend $cmd\n"
                                   "}}\n";
 
+#ifdef __MACH__
+    static bool use_theme = false;
+    if (!use_theme) {
+        use_theme = true;
+        auto is_ceammc = getenv("is_ceammc");
+        if (!is_ceammc)
+            sys_gui("ttk::style theme use alt\n");
+
+    }
+#endif
+
     t_symbol* s_color = gensym(SYM_COLOR);
     t_symbol* s_number = gensym(SYM_NUMBER);
     t_symbol* s_menu = gensym(SYM_MENU);
