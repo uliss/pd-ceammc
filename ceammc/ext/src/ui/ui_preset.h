@@ -51,8 +51,11 @@ public:
     void m_load(const AtomList& lst);
     void m_store(const AtomList& lst);
     void m_clear(const AtomList& lst);
+    void m_clearall(const AtomList& lst);
     void m_duplicate(const AtomList& lst);
     AtomList propCurrent() const;
+
+    bool hasPresetAt(size_t n) const { return presets_.test(n); }
 
 public:
     static void setup();

@@ -121,9 +121,9 @@ void UIPreset::onMouseDown(t_object* view, const t_pt& pt, const t_pt& abs_pt, l
     if (index < 0 || index >= presets_.size())
         return;
 
-    if (modifiers == EMOD_ALT)
+    if (modifiers & EMOD_ALT)
         clearIndex(index);
-    else if (modifiers == EMOD_SHIFT)
+    else if (modifiers & EMOD_SHIFT)
         storeIndex(index);
     else
         loadIndex(index);
@@ -185,6 +185,21 @@ void UIPreset::m_clear(const AtomList& lst)
         clearIndex(x.asFloat());
 }
 
+void UIPreset::m_clearall(const AtomList& lst)
+{
+    for (size_t i = 0; i < presets_.size(); i++) {
+        if (!presets_.test(i))
+            continue;
+
+        PresetStorage::instance().clearAll(i);
+        redrawLayer(bg_layer_);
+    }
+
+    selected_index_ = -1;
+    presets_.reset();
+    redrawLayer(bg_layer_);
+}
+
 void UIPreset::m_duplicate(const AtomList& lst)
 {
     if (lst.empty())
@@ -194,35 +209,6 @@ void UIPreset::m_duplicate(const AtomList& lst)
 AtomList UIPreset::propCurrent() const
 {
     return Atom(selected_index_);
-}
-
-void UIPreset::setup()
-{
-    SYM_POPUP = gensym("main");
-
-    UIObjectFactory<UIPreset> obj("ui.preset");
-    obj.setDefaultSize(102, 42);
-
-    obj.hideProperty("send");
-    obj.hideLabelInner();
-
-    obj.addProperty("text_color", _("Text Color"), "0. 0. 0. 1.", &UIPreset::prop_color_text);
-    obj.addProperty("empty_color", _("Empty Button Color"), "0.86 0.86 0.86 1.", &UIPreset::prop_color_empty);
-    obj.addProperty("stored_color", _("Stored Button Color"), "0.5 0.5 0.5 1.", &UIPreset::prop_color_stored);
-    obj.addProperty(PROP_ACTIVE_COLOR, _("Active Color"), DEFAULT_ACTIVE_COLOR, &UIPreset::prop_color_active);
-    obj.addProperty("current", &UIPreset::propCurrent, 0);
-
-    obj.useMouseEvents(UI_MOUSE_DOWN | UI_MOUSE_MOVE | UI_MOUSE_LEAVE);
-    obj.usePopup();
-    obj.addMethod(PresetStorage::SYM_PRESET_INDEX_ADD, &UIPreset::indexAdd);
-    obj.addMethod(PresetStorage::SYM_PRESET_INDEX_REMOVE, &UIPreset::indexRemove);
-
-    obj.addMethod("read", &UIPreset::m_read);
-    obj.addMethod("write", &UIPreset::m_write);
-    obj.addMethod("clear", &UIPreset::m_clear);
-    obj.addMethod("load", &UIPreset::m_load);
-    obj.addMethod("store", &UIPreset::m_store);
-    obj.addMethod("duplicate", &UIPreset::m_duplicate);
 }
 
 void UIPreset::indexAdd(const AtomList& lst)
@@ -301,6 +287,36 @@ void UIPreset::clearIndex(int idx)
         presets_.set(idx, false);
         redrawLayer(bg_layer_);
     }
+}
+
+void UIPreset::setup()
+{
+    SYM_POPUP = gensym("main");
+
+    UIObjectFactory<UIPreset> obj("ui.preset");
+    obj.setDefaultSize(102, 42);
+
+    obj.hideProperty("send");
+    obj.hideLabelInner();
+
+    obj.addProperty("text_color", _("Text Color"), "0. 0. 0. 1.", &UIPreset::prop_color_text);
+    obj.addProperty("empty_color", _("Empty Button Color"), "0.86 0.86 0.86 1.", &UIPreset::prop_color_empty);
+    obj.addProperty("stored_color", _("Stored Button Color"), "0.5 0.5 0.5 1.", &UIPreset::prop_color_stored);
+    obj.addProperty(PROP_ACTIVE_COLOR, _("Active Color"), DEFAULT_ACTIVE_COLOR, &UIPreset::prop_color_active);
+    obj.addProperty("current", &UIPreset::propCurrent, 0);
+
+    obj.useMouseEvents(UI_MOUSE_DOWN | UI_MOUSE_MOVE | UI_MOUSE_LEAVE);
+    obj.usePopup();
+    obj.addMethod(PresetStorage::SYM_PRESET_INDEX_ADD, &UIPreset::indexAdd);
+    obj.addMethod(PresetStorage::SYM_PRESET_INDEX_REMOVE, &UIPreset::indexRemove);
+
+    obj.addMethod("clear", &UIPreset::m_clear);
+    obj.addMethod("clearall", &UIPreset::m_clearall);
+    obj.addMethod("duplicate", &UIPreset::m_duplicate);
+    obj.addMethod("load", &UIPreset::m_load);
+    obj.addMethod("read", &UIPreset::m_read);
+    obj.addMethod("store", &UIPreset::m_store);
+    obj.addMethod("write", &UIPreset::m_write);
 }
 
 void setup_ui_preset()

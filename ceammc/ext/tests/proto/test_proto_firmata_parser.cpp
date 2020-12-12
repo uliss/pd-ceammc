@@ -1,15 +1,14 @@
-#include "../proto/firmata/firmata_lexer.h"
-#include "../proto/firmata/firmata_parser.h"
-#include "../proto/firmata/firmata_proto.h"
-#include "../proto/firmata/firmata_proto_request.h"
+#include "firmata/firmata_lexer.h"
+#include "firmata/firmata_parser.h"
+#include "firmata/firmata_proto.h"
+#include "firmata/firmata_proto_request.h"
 
 extern "C" {
-#include "../proto/firmata/firmata_bison.h"
+#include "firmata/firmata_bison.h"
 }
 
-#include "catch.hpp"
+#include "test_proto_base.h"
 
-#include <boost/static_assert.hpp>
 #include <cstring>
 #include <iostream>
 
@@ -279,7 +278,7 @@ TEST_CASE("firmata_parser", "[firmata]")
 
     SECTION("pin_mode_str")
     {
-        BOOST_STATIC_ASSERT(PROTO_PIN_MODE_INPUT < PROTO_PIN_MODE_PULLUP);
+        static_assert(PROTO_PIN_MODE_INPUT < PROTO_PIN_MODE_PULLUP, "");
 
 #define REQUIRE_PIN_MODE(mode)                                                                      \
     {                                                                                               \

@@ -99,9 +99,9 @@
 |
 [load $1(
 |
-| [clear 1(   [clearall(         [loadbang]
-| |           |                  |
-| | [store 1( | [write prs.txt(  [read prs.txt(
+| [clear 1(   [clearall(
+| |           |
+| | [store 1( | [write prs.txt(  [loadmsg read prs.txt]
 | | |         | |                |
 | | |         | |                |
 [ui.preset                       ]

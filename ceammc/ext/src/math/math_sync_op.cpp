@@ -130,6 +130,26 @@ MathSyncXor::MathSyncXor(const PdArgs& args)
 {
 }
 
+MathSyncLeftShift::MathSyncLeftShift(const PdArgs& args)
+    : MathSyncBase([](t_float v1, t_float v2) {
+        const auto i1 = static_cast<IntType>(v1);
+        const auto i2 = static_cast<IntType>(v2);
+
+        return (i2 >= 0) ? (i1 << i2) : (i1 >> (-i2));
+    },
+        args)
+{
+}
+
+MathSyncRightShift::MathSyncRightShift(const PdArgs& args)
+    : MathSyncBase([](t_float v1, t_float v2) {
+        const auto i1 = static_cast<IntType>(v1);
+        const auto i2 = static_cast<IntType>(v2);
+
+        return (i2 >= 0) ? (i1 >> i2) : (i1 << (-i2)); }, args)
+{
+}
+
 void setup_math_sync_op()
 {
 #define FACTORY_INIT(class_name, full_name, short_name)        \
@@ -155,4 +175,7 @@ void setup_math_sync_op()
     FACTORY_INIT(MathSyncAnd, "and", "&&")
     FACTORY_INIT(MathSyncOr, "or", "||")
     FACTORY_INIT(MathSyncXor, "xor", "^")
+
+    FACTORY_INIT(MathSyncLeftShift, "lshift", "<<")
+    FACTORY_INIT(MathSyncRightShift, "rshift", ">>")
 }

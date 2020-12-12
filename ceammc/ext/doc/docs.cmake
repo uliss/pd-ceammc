@@ -48,6 +48,7 @@ set(DOC_FILES
     conv.dbfs2amp
     conv.dbfs2amp~
     conv.degree2key
+    conv.int2bits
     conv.hex2int
     conv.lin2curve
     conv.lin2exp
@@ -410,6 +411,8 @@ set(DOC_FILES
     math.sync_or
     math.sync_sub
     math.sync_xor
+    math.sync_lshift
+    math.sync_rshift
     math.tan
     math.tan~
     math.tanh
@@ -437,12 +440,30 @@ set(DOC_FILES
     msg.after
     msg.onload
     net.host2ip
+    noise.baker
+    noise.clifford
+    noise.collatz
     noise.crackle~
+    noise.duffing
     noise.ginger
-    noise.pink~
-    noise.white~
-    noise.lfreq~
+    noise.henon
+    noise.henon_heilles
+    noise.henon_phase
+    noise.henonf
+    noise.ikeda
+    noise.jong
     noise.lfreq0~
+    noise.lfreq~
+    noise.logistic
+    noise.lorenz
+    noise.lyapunov
+    noise.navier_stokes
+    noise.pink~
+    noise.rossler
+    noise.stein
+    noise.torus
+    noise.verhulst
+    noise.white~
     nsig~
     obj.props
     osc.blit~
@@ -485,6 +506,7 @@ set(DOC_FILES
     prop.set
     prop.split
     proto.firmata
+    proto.xtouch_ext
     proto.sp.alpaca
     radio
     random.atom
@@ -534,6 +556,7 @@ set(DOC_FILES
     symbol.length
     symbol.num_compare
     symbol2intlist
+    symbol2any
     sync
     synth.bee3~
     synth.birds~

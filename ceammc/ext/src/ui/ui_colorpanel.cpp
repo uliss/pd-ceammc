@@ -418,6 +418,7 @@ void UIColorPanel::setup()
 
     obj.addProperty("matrix", &UIColorPanel::propMatrixSize, &UIColorPanel::propSetMatrixSize);
     obj.showProperty("matrix");
+    obj.setPropertyCategory("matrix", "Basic");
     obj.setPropertyLabel("matrix", _("Matrix Size"));
 
     obj.addFloatProperty("saturation", _("Saturation"), 1., &UIColorPanel::saturation_);

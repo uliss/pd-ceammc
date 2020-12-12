@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="noise.jong">
+        <title>noise.jong</title>
+        <meta>
+            <authors>
+                <author>André Sier</author>
+            </authors>
+            <description>Part of a-chaos library</description>
+            <license> % </license>
+            <library>ceammc</library>
+            <category>noise</category>
+            <keywords>noise</keywords>
+            <since>.5</since>
+        </meta>
+        <info>
+            <par>Peter de Jong attractors</par>
+ <par>xn+1 = sin(a yn) + c cos(a xn)</par>
+ <par>yn+1 = sin(b xn) + d cos(b yn)</par>
+ <par>where a, b, c, d are variabies that define each attractor.</par>
+<par>---</par>
+ <par>a = -1.4, b = 1.6, c = 1.0, d = 0.7</par>
+ <par>a = 1.1, b = -1.0, c = 1.0, d = 1.5</par>
+ <par>a = 1.6, b = -0.6, c = -1.2, d = 1.6</par>
+ <par>a = 1.7, b = 1.7, c = 0.06, d = 1.2</par>
+ <par>a = 1.3, b = 1.7, c = 0.5, d = 1.4</par>
+        </info>
+        <arguments>
+            <argument name="ARG0" type="float">a value (optional)</argument>
+            <argument name="ARG1" type="float">b value (optional)</argument>
+            <argument name="ARG2" type="float">c value (optional)</argument>
+            <argument name="ARG3" type="float">d value (optional)</argument>
+            <argument name="ARG4" type="float">x value (optional)</argument>
+            <argument name="ARG5" type="float">y value (optional)</argument>
+        </arguments>
+        <methods>
+            <method name="set">
+            <param type="float" name="SET" required="true">set to value</param></method>
+
+            <method name="reset">reset state</method>
+
+            <method name="om">
+            <param type="int" name="OM" required="true">enables output when cut or fold value is changed</param></method>
+
+            <method name="a">
+            <param type="float" name="A" required="true">a value</param></method>
+            <method name="b">
+            <param type="float" name="B" required="true">b value</param></method>
+             <method name="c">
+            <param type="float" name="C" required="true">c value</param></method>
+            <method name="d">
+            <param type="float" name="D" required="true">d value</param></method>
+
+            <method name="x">
+            <param type="float" name="NX" required="true">x value</param></method>
+            <method name="y">
+            <param type="float" name="NY" required="true">y value</param></method>
+            
+        </methods>
+        <inlets>
+            <inlet>
+                <xinfo on="bang">output value</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet>main outlet</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+
+[T]
+|
+[metro 50 #metro]
+
+
+  [T]         [F]
+  |           |
+  [om $1 #om( [set $1 #set( [reset #reset(
+
+ [F]           [F]
+ |             |
+ [x $1 #x(     [y $1 #y(  
+
+    [F]       [F]       [F]       [F]
+    |         |         |         |
+    [a $1 #a( [b $1 #b( [c $1 #c( [d $1 #d(  
+
+[noise.jong #noise-obj]
+|
+[ui.display {i=1,o=0}]
+
+[X x:0->noise-obj:0]  
+[X y:0->noise-obj:0] 
+
+[X a:0->noise-obj:0]
+[X b:0->noise-obj:0]
+[X c:0->noise-obj:0]
+[X d:0->noise-obj:0] 
+
+[X om:0->noise-obj:0]
+[X set:0->noise-obj:0]
+[X reset:0->noise-obj:0]
+
+[X metro->noise-obj]
+
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

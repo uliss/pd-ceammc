@@ -53,12 +53,12 @@
     {conv {
         array.p2s array.s2p conv.amp2dbfs conv.amp2dbfs~ conv.bpm2hz
         conv.bpm2ms conv.bpm2sec conv.car2pol conv.cc2amp conv.dbfs2amp
-        conv.dbfs2amp~ conv.degree2key conv.hex2int conv.lin2curve
-        conv.lin2exp conv.lin2lin conv.lin2lin~ conv.list2props conv.midi2freq
-        conv.ms2bpm conv.ms2samp conv.ms2samp~ conv.phase2rad conv.phase2rad~
-        conv.pitch2midi conv.pol2car conv.rad2phase conv.rad2phase~
-        conv.samp2ms conv.samp2ms~ conv.samp2sec conv.sec2bpm conv.sec2samp
-        conv.sec2str conv.str2sec
+        conv.dbfs2amp~ conv.degree2key conv.hex2int conv.int2bits
+        conv.lin2curve conv.lin2exp conv.lin2lin conv.lin2lin~ conv.list2props
+        conv.midi2freq conv.ms2bpm conv.ms2samp conv.ms2samp~ conv.phase2rad
+        conv.phase2rad~ conv.pitch2midi conv.pol2car conv.rad2phase
+        conv.rad2phase~ conv.samp2ms conv.samp2ms~ conv.samp2sec conv.sec2bpm
+        conv.sec2samp conv.sec2str conv.str2sec
     }}
     {data {
         data.dict data.fifo data.float data.int data.list data.mlist data.set
@@ -147,9 +147,10 @@
         math.reciprocal~ math.round math.round~ math.sign math.sin math.sinh
         math.sinh~ math.sin~ math.sqrt math.sqrt~ math.squared math.squared~
         math.sync_add math.sync_and math.sync_div math.sync_eq math.sync_ge
-        math.sync_gt math.sync_le math.sync_lt math.sync_mod math.sync_mul
-        math.sync_ne math.sync_or math.sync_sub math.sync_xor math.tan
-        math.tanh math.tanh~ math.tan~ math.trunc math.trunc~
+        math.sync_gt math.sync_le math.sync_lshift math.sync_lt math.sync_mod
+        math.sync_mul math.sync_ne math.sync_or math.sync_rshift math.sync_sub
+        math.sync_xor math.tan math.tanh math.tanh~ math.tan~ math.trunc
+        math.trunc~
     }}
     {midi {
         midi.ctl2str midi.event2ctl midi.event2note midi.event2prg midi.file
@@ -165,7 +166,11 @@
         net.host2ip
     }}
     {noise {
-        noise.crackle~ noise.ginger noise.lfreq0~ noise.lfreq~ noise.pink~
+        noise.baker noise.clifford noise.collatz noise.crackle~ noise.duffing
+        noise.ginger noise.henon noise.henon_heilles noise.henon_phase
+        noise.henonf noise.ikeda noise.jong noise.lfreq0~ noise.lfreq~
+        noise.logistic noise.lorenz noise.lyapunov noise.navier_stokes
+        noise.pink~ noise.rossler noise.stein noise.torus noise.verhulst
         noise.white~
     }}
     {osc {
@@ -191,7 +196,7 @@
         prop.split
     }}
     {proto {
-        proto.firmata proto.sp.alpaca
+        proto.firmata proto.sp.alpaca proto.xtouch_ext
     }}
     {random {
         random.atom random.discrete random.float random.gauss random.int
@@ -217,7 +222,8 @@
         string.split string.starts_with string.substr string2symbol
     }}
     {symbol {
-        symbol.equal symbol.length symbol.num_compare symbol2intlist
+        symbol.equal symbol.length symbol.num_compare symbol2any
+        symbol2intlist
     }}
     {synth {
         synth.bee3~ synth.birds~ synth.church_bell~ synth.dubdub~ synth.dx7~

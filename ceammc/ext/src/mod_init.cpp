@@ -127,9 +127,9 @@ void ceammc_init()
 {
     using namespace std;
 
-    auto is_ceammc = zgetfn(&pd_objectmaker, gensym("is_ceammc"));
+    const auto is_ceammc = getenv("is_ceammc");
 
-    if (is_ceammc) {
+    if (is_ceammc && strcmp(is_ceammc, "true") == 0) {
         if (text_widgetbehavior.w_visfn && text_widgetbehavior.w_visfn != ceammc_vis_fn) {
             ceammc_pd_vanilla_visfn = text_widgetbehavior.w_visfn;
             auto wb = &text_widgetbehavior;
@@ -140,7 +140,9 @@ void ceammc_init()
             pd_error(nullptr, "can't add datatype printing support to vanilla [print] object");
 
         ceammc::ceammc_tcl_init_tooltips();
-        post("[ceammc] inlet/outlet tooltips support is turned on");
+        post("[ceammc] distribution: internal ceammc");
+    } else {
+        post("[ceammc] distribution: external deken");
     }
 
     // setup env variables

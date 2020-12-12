@@ -95,6 +95,8 @@ conv.degree2key	convert scale degree to key
 degree->key	convert scale degree to key
 conv.hex2int	hex symbol to int value
 hex->int	hex symbol to int value
+conv.int2bits	convert integer to list of bits
+int->bits	convert integer to list of bits
 conv.lin2curve	map linear to exponential range with 0 allowed.
 lin->curve	map linear to exponential range with 0 allowed.
 conv.lin2exp	maps linear range to exponential range
@@ -549,6 +551,9 @@ math.>'	sync greater then numbers compare
 math.sync_le	sync less equal numbers compare
 math.<='	sync less equal numbers compare
 <='	sync less equal numbers compare
+math.sync_lshift	sync signed bit left shift
+math.<<'	sync signed bit left shift
+<<'	sync signed bit left shift
 math.sync_lt	sync less then numbers compare
 math.<'	sync less then numbers compare
 <'	sync less then numbers compare
@@ -564,6 +569,9 @@ math.!='	sync numbers for not equality
 math.sync_or	sync logical OR operation
 math.||'	sync logical OR operation
 ||'	sync logical OR operation
+math.sync_rshift	sync signed bit right shift
+math.>>'	sync signed bit right shift
+>>'	sync signed bit right shift
 math.sync_sub	sync subtraction
 math.-'	sync subtraction
 -'	sync subtraction
@@ -604,11 +612,29 @@ msg.onload	send message when patch loads
 loadmsg	send message when patch loads
 net.host2ip	returns IP address by DNS name
 net.host->ip	returns IP address by DNS name
+noise.baker	Part of a-chaos library
+noise.clifford	Part of a-chaos library
+noise.collatz	Part of a-chaos library
 noise.crackle~	sparse noise generator
+noise.duffing	Part of a-chaos library
 noise.ginger	Gingerbreadman map chaotic generator
+noise.henon	Part of a-chaos library
+noise.henon_heilles	Part of a-chaos library
+noise.henon_phase	Part of a-chaos library
+noise.henonf	Part of a-chaos library
+noise.ikeda	Part of a-chaos library
+noise.jong	Part of a-chaos library
 noise.lfreq0~	sampled/held noise (piecewise constant)
 noise.lfreq~	noise.lfreq0~ smoothed with no overshoot
+noise.logistic	Part of a-chaos library
+noise.lorenz	Part of a-chaos library
+noise.lyapunov	Part of a-chaos library
+noise.navier_stokes	Part of a-chaos library
 noise.pink~	Pink noise generator
+noise.rossler	Part of a-chaos library
+noise.stein	Part of a-chaos library
+noise.torus	Part of a-chaos library
+noise.verhulst	Part of a-chaos library
 noise.white~	White noise generator
 osc.blit~	Bandlimited impulse train oscillator
 osc.impulse~	Bandlimited impulse train generator
@@ -668,6 +694,7 @@ prop->	separate properties from dataflow
 @->	separate properties from dataflow
 proto.firmata	Firmata Arduino protocol support
 proto.sp.alpaca	protocol parser for Arduino-based CEAMMC footswitch
+proto.xtouch_ext	Behringer XTouch Extender XMidi protocol
 random.atom	weighted atom generation from specified list
 random.a	weighted atom generation from specified list
 random.discrete	random weighted integers on interval [0, n)
@@ -756,6 +783,8 @@ str->sym	converts string to symbol
 symbol.equal	check symbols for equality
 symbol.length	number of characters in symbol (unicode supported)
 symbol.num_compare	numeric symbol compare
+symbol2any	converts symbol to message
+sym->any	converts symbol to message
 symbol2intlist	converts symbol to list of character codes
 sym->ilist	converts symbol to list of character codes
 synth.bee3~	Hammond-oid organ FM synthesis instrument

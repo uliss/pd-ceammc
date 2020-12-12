@@ -53,8 +53,6 @@ if(WITH_LIBSNDFILE)
     endif()
 endif()
 
-ceammc_external_test(proto firmata)
-
 ceammc_add_test_linked(TITLE "ceammc::pd" NAME test_pd SRC "../src/base/debug_gensym.cpp" LINK ceammc_core puredata-core)
 
 ceammc_add_test_linked(TITLE "ceammc::DataTypeMidiStream"
@@ -90,9 +88,6 @@ ceammc_add_test_linked(
     INCLUDE_DIRECTORIES ${CMAKE_SOURCE_DIR}/ceammc/extra/serial/serial/include
     LINK serial)
 
-ceammc_add_test_linked(TITLE "FirmataParser[bison]" NAME test_firmata_parser LINK proto_firmata)
-ceammc_add_test_linked(TITLE "firmata::Pin" NAME test_firmata_pin LINK proto_firmata ceammc_core puredata-core)
-
 ceammc_add_test_linked(TITLE "ArduinoThread"
     NAME test_arduino_thread
     INCLUDE_DIRECTORIES ${CMAKE_SOURCE_DIR}/ceammc/extra/serial/serial/include
@@ -123,6 +118,7 @@ add_subdirectory(music)
 add_subdirectory(net)
 add_subdirectory(path)
 add_subdirectory(preset)
+add_subdirectory(proto)
 add_subdirectory(spat)
 add_subdirectory(random)
 add_subdirectory(string)

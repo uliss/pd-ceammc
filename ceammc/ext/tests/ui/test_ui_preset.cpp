@@ -133,5 +133,35 @@ TEST_CASE("ui.preset", "[ui.preset]")
         t <<= LA("clear", 100000);
     }
 
+    SECTION("clearall")
+    {
+        PresetStorage::instance().clearAll();
+
+        TestExtPreset t("ui.preset");
+        REQUIRE(t->propCurrent() == LF(-1));
+
+        REQUIRE_FALSE(t->hasPresetAt(0));
+        REQUIRE_FALSE(t->hasPresetAt(1));
+
+        TestExtSlider s0("ui.slider");
+        TestExtSlider s1("ui.slider");
+
+        s0->setValue(0.2);
+        s1->setValue(0.8);
+        t.call("store");
+
+        s0->setValue(0.3);
+        s1->setValue(0.7);
+        t.call("store", 1);
+
+        REQUIRE(t->hasPresetAt(0));
+        REQUIRE(t->hasPresetAt(1));
+
+        t.call("clearall");
+
+        REQUIRE_FALSE(t->hasPresetAt(0));
+        REQUIRE_FALSE(t->hasPresetAt(1));
+    }
+
     PresetStorage::instance().clearAll();
 }

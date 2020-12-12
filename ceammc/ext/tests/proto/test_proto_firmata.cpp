@@ -12,16 +12,14 @@
  * this file belongs to.
  *****************************************************************************/
 #include "../base/function.h"
-#include "../proto/proto_firmata.h"
-#include "catch.hpp"
-#include "ceammc_pd.h"
-#include "test_base.h"
+#include "proto_firmata.h"
+#include "test_proto_base.h"
 
-#include <stdio.h>
+PD_COMPLETE_TEST_SETUP(Firmata, proto, firmata)
 
 TEST_CASE("proto.firmata", "[externals]")
 {
-    proto_firmata_setup();
+    pd_test_init();
 
     SECTION("static")
     {

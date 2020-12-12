@@ -207,6 +207,9 @@
     <entry name="conv.hex2int" descr="hex symbol to int value" ref_view="object">
       <xi:include href="conv.hex2int.pddoc" parse="xml"/>
     </entry>
+    <entry name="conv.int2bits" descr="convert integer to list of bits" ref_view="object">
+      <xi:include href="conv.int2bits.pddoc" parse="xml"/>
+    </entry>
     <entry name="conv.lin2curve" descr="map linear to exponential range with 0 allowed." ref_view="object">
       <xi:include href="conv.lin2curve.pddoc" parse="xml"/>
     </entry>
@@ -1233,6 +1236,9 @@
     <entry name="math.sync_le" descr="sync less equal numbers compare" ref_view="object">
       <xi:include href="math.sync_le.pddoc" parse="xml"/>
     </entry>
+    <entry name="math.sync_lshift" descr="sync signed bit left shift" ref_view="object">
+      <xi:include href="math.sync_lshift.pddoc" parse="xml"/>
+    </entry>
     <entry name="math.sync_lt" descr="sync less then numbers compare" ref_view="object">
       <xi:include href="math.sync_lt.pddoc" parse="xml"/>
     </entry>
@@ -1247,6 +1253,9 @@
     </entry>
     <entry name="math.sync_or" descr="sync logical OR operation" ref_view="object">
       <xi:include href="math.sync_or.pddoc" parse="xml"/>
+    </entry>
+    <entry name="math.sync_rshift" descr="sync signed bit right shift" ref_view="object">
+      <xi:include href="math.sync_rshift.pddoc" parse="xml"/>
     </entry>
     <entry name="math.sync_sub" descr="sync subtraction" ref_view="object">
       <xi:include href="math.sync_sub.pddoc" parse="xml"/>
@@ -1337,11 +1346,41 @@
     </entry>
   </category>
   <category name="noise">
+    <entry name="noise.baker" descr="Part of a-chaos library" ref_view="object">
+      <xi:include href="noise.baker.pddoc" parse="xml"/>
+    </entry>
+    <entry name="noise.clifford" descr="Part of a-chaos library" ref_view="object">
+      <xi:include href="noise.clifford.pddoc" parse="xml"/>
+    </entry>
+    <entry name="noise.collatz" descr="Part of a-chaos library" ref_view="object">
+      <xi:include href="noise.collatz.pddoc" parse="xml"/>
+    </entry>
     <entry name="noise.crackle~" descr="sparse noise generator" ref_view="object">
       <xi:include href="noise.crackle~.pddoc" parse="xml"/>
     </entry>
+    <entry name="noise.duffing" descr="Part of a-chaos library" ref_view="object">
+      <xi:include href="noise.duffing.pddoc" parse="xml"/>
+    </entry>
     <entry name="noise.ginger" descr="Gingerbreadman map chaotic generator" ref_view="object">
       <xi:include href="noise.ginger.pddoc" parse="xml"/>
+    </entry>
+    <entry name="noise.henon" descr="Part of a-chaos library" ref_view="object">
+      <xi:include href="noise.henon.pddoc" parse="xml"/>
+    </entry>
+    <entry name="noise.henon_heilles" descr="Part of a-chaos library" ref_view="object">
+      <xi:include href="noise.henon_heilles.pddoc" parse="xml"/>
+    </entry>
+    <entry name="noise.henon_phase" descr="Part of a-chaos library" ref_view="object">
+      <xi:include href="noise.henon_phase.pddoc" parse="xml"/>
+    </entry>
+    <entry name="noise.henonf" descr="Part of a-chaos library" ref_view="object">
+      <xi:include href="noise.henonf.pddoc" parse="xml"/>
+    </entry>
+    <entry name="noise.ikeda" descr="Part of a-chaos library" ref_view="object">
+      <xi:include href="noise.ikeda.pddoc" parse="xml"/>
+    </entry>
+    <entry name="noise.jong" descr="Part of a-chaos library" ref_view="object">
+      <xi:include href="noise.jong.pddoc" parse="xml"/>
     </entry>
     <entry name="noise.lfreq0~" descr="sampled/held noise (piecewise constant)" ref_view="object">
       <xi:include href="noise.lfreq0~.pddoc" parse="xml"/>
@@ -1349,8 +1388,32 @@
     <entry name="noise.lfreq~" descr="noise.lfreq0~ smoothed with no overshoot" ref_view="object">
       <xi:include href="noise.lfreq~.pddoc" parse="xml"/>
     </entry>
+    <entry name="noise.logistic" descr="Part of a-chaos library" ref_view="object">
+      <xi:include href="noise.logistic.pddoc" parse="xml"/>
+    </entry>
+    <entry name="noise.lorenz" descr="Part of a-chaos library" ref_view="object">
+      <xi:include href="noise.lorenz.pddoc" parse="xml"/>
+    </entry>
+    <entry name="noise.lyapunov" descr="Part of a-chaos library" ref_view="object">
+      <xi:include href="noise.lyapunov.pddoc" parse="xml"/>
+    </entry>
+    <entry name="noise.navier_stokes" descr="Part of a-chaos library" ref_view="object">
+      <xi:include href="noise.navier_stokes.pddoc" parse="xml"/>
+    </entry>
     <entry name="noise.pink~" descr="Pink noise generator" ref_view="object">
       <xi:include href="noise.pink~.pddoc" parse="xml"/>
+    </entry>
+    <entry name="noise.rossler" descr="Part of a-chaos library" ref_view="object">
+      <xi:include href="noise.rossler.pddoc" parse="xml"/>
+    </entry>
+    <entry name="noise.stein" descr="Part of a-chaos library" ref_view="object">
+      <xi:include href="noise.stein.pddoc" parse="xml"/>
+    </entry>
+    <entry name="noise.torus" descr="Part of a-chaos library" ref_view="object">
+      <xi:include href="noise.torus.pddoc" parse="xml"/>
+    </entry>
+    <entry name="noise.verhulst" descr="Part of a-chaos library" ref_view="object">
+      <xi:include href="noise.verhulst.pddoc" parse="xml"/>
     </entry>
     <entry name="noise.white~" descr="White noise generator" ref_view="object">
       <xi:include href="noise.white~.pddoc" parse="xml"/>
@@ -1509,6 +1572,9 @@
     </entry>
     <entry name="proto.sp.alpaca" descr="protocol parser for Arduino-based CEAMMC footswitch" ref_view="object">
       <xi:include href="proto.sp.alpaca.pddoc" parse="xml"/>
+    </entry>
+    <entry name="proto.xtouch_ext" descr="Behringer XTouch Extender XMidi protocol" ref_view="object">
+      <xi:include href="proto.xtouch_ext.pddoc" parse="xml"/>
     </entry>
   </category>
   <category name="random">
@@ -1689,6 +1755,9 @@
     </entry>
     <entry name="symbol.num_compare" descr="numeric symbol compare" ref_view="object">
       <xi:include href="symbol.num_compare.pddoc" parse="xml"/>
+    </entry>
+    <entry name="symbol2any" descr="converts symbol to message" ref_view="object">
+      <xi:include href="symbol2any.pddoc" parse="xml"/>
     </entry>
     <entry name="symbol2intlist" descr="converts symbol to list of character codes" ref_view="object">
       <xi:include href="symbol2intlist.pddoc" parse="xml"/>
@@ -1892,7 +1961,7 @@
     </entry>
   </category>
   <meta>
-    <version>0.9.0</version>
+    <version>0.9.1</version>
     <authors>
       <author>Albert Graef</author>
       <author>Alex Nadzharov</author>
@@ -1902,10 +1971,13 @@
       <author>Julian Parker</author>
       <author>Katja Vetter</author>
       <author>Mayank Sanganeria</author>
+      <author>Mikhail Malt</author>
       <author>Oliver Larkin</author>
       <author>Olli Parviainen</author>
+      <author>Paul Bourke</author>
       <author>Pierre Cochard</author>
       <author>Pierre Guillot</author>
+      <author>Richard Dudas</author>
       <author>Serge Poltavski</author>
       <author>Serge Poltavsky</author>
       <author>Serge Potlavsky</author>

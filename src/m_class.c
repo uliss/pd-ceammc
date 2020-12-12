@@ -265,10 +265,6 @@ EXTERN void pdinstance_free(t_pdinstance *x)
 
 #endif /* PDINSTANCE */
 
-// ceammc on
-void is_ceammc() {}
-// ceammc off
-
 /* this bootstraps the class management system (pd_objectmaker, pd_canvasmaker)
  * it has been moved from the bottom of the file up here, before the class_new() undefine
  */
@@ -289,9 +285,6 @@ void mess_init(void)
     pd_canvasmaker = class_new(gensym("canvasmaker"), 0, 0, sizeof(t_pd),
         CLASS_DEFAULT, A_NULL);
     class_addanything(pd_objectmaker, (t_method)new_anything);
-    // ceammc on
-    class_addmethod(pd_objectmaker, (t_method)is_ceammc, gensym("is_ceammc"), A_CANT, 0);
-    // ceammc off
     pd_globalunlock();
     sys_unlock();
 }
