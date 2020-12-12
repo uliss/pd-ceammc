@@ -140,9 +140,9 @@ void ceammc_init()
             pd_error(nullptr, "can't add datatype printing support to vanilla [print] object");
 
         ceammc::ceammc_tcl_init_tooltips();
-        post("[ceammc] inlet/outlet tooltips support is turned on");
+        post("[ceammc] running ceammc distribution version");
     } else {
-        post("[ceammc] running under vanilla distribution");
+        post("[ceammc] running deken version");
     }
 
     // setup env variables
