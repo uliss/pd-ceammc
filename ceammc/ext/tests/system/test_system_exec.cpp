@@ -142,7 +142,9 @@ TEST_CASE("system.exec", "[externals]")
         {
             t << LA(TEST_EXEC, 0.f);
             test::pdRunMainLoopMs(MS(10));
+#ifndef __WIN32__
             REQUIRE_PROPERTY(t, @is_running, 1);
+#endif
         }
 
         SECTION("inf loop")
