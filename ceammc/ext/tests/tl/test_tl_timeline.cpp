@@ -500,9 +500,9 @@ TEST_CASE("tl.timeline", "[externals]")
         REQUIRE_PROPERTY_FLOAT(t, @current, 101);
 
         t.call("add", LA(200, "ms"));
-        NO_OUTPUT_NTICKS(t, 99);
-        REQUIRE_PROPERTY_FLOAT(t, @current, 200);
-        t.schedTicks(1);
+        NO_OUTPUT_NTICKS(t, 98);
+        REQUIRE_PROPERTY_FLOAT(t, @current, 199);
+        t.schedTicks(2);
         REQUIRE(t.outputListAt(0) == LX(0, 200));
 
         NO_OUTPUT_NTICKS(t, 99);
@@ -605,8 +605,8 @@ TEST_CASE("tl.timeline", "[externals]")
         // remove after passing event
         t.call("remove", 0);
         REQUIRE_PROPERTY_FLOAT(t, @size, 1);
-        NO_OUTPUT_NTICKS(t, 69);
-        t.schedTicks(2);
+        NO_OUTPUT_NTICKS(t, 68);
+        t.schedTicks(3);
         REQUIRE(t.outputListAt(0) == LAX("end", 100));
 
         t.call("add", LA(30, "ms"));
