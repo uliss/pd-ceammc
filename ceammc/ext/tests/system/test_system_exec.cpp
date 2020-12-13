@@ -41,6 +41,8 @@ TEST_CASE("system.exec", "[externals]")
     {
         TExt t("system.exec");
 
+        REQUIRE_PROPERTY(t, @state, -1);
+
         t << LA(TEST_EXEC);
 
 #ifndef __WIN32__
@@ -57,6 +59,7 @@ TEST_CASE("system.exec", "[externals]")
         REQUIRE(floatAt(t, 0_out) == 255);
 #endif
         REQUIRE_PROPERTY(t, @is_running, 0);
+        REQUIRE_PROPERTY(t, @state, -1);
 
         /* normal exit */
         t << LA(TEST_EXEC, 0.);

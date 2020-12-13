@@ -38,6 +38,7 @@ SystemExec::SystemExec(const PdArgs& args)
     createOutlet();
 
     createCbBoolProperty("@is_running", [this]() { return isRunning(); });
+    createCbIntProperty("@state", [this]() { return state(); });
 
     priority_ = new SymbolEnumProperty("@priority", { "normal", "low" });
     addProperty(priority_);
@@ -94,6 +95,11 @@ void SystemExec::onList(const AtomList& l)
 
 void SystemExec::m_stop(t_symbol* s, const AtomListView& l)
 {
+    if (!process_) {
+        METHOD_ERR(s) << "no active process";
+        return;
+    }
+
     if (!process_->sendSignal(sys::Process::INTERRUPT))
         OBJ_ERR << process_->error();
 }
@@ -107,6 +113,11 @@ void SystemExec::m_terminate(t_symbol* s, const AtomListView& l)
         return;
     }
 
+    if (!process_) {
+        METHOD_ERR(s) << "no active process";
+        return;
+    }
+
     if (l.toT<bool>(false)) {
         process_->sendSignal(sys::Process::KILL);
     } else
@@ -115,6 +126,11 @@ void SystemExec::m_terminate(t_symbol* s, const AtomListView& l)
 
 void SystemExec::m_write(t_symbol* s, const AtomListView& l)
 {
+    if (!process_) {
+        METHOD_ERR(s) << "no active process";
+        return;
+    }
+
     if (!isRunning()) {
         OBJ_ERR << "process is not running...";
         return;
@@ -131,6 +147,9 @@ void SystemExec::m_eof(t_symbol* s, const AtomListView&)
 void SystemExec::checkProcess()
 {
     constexpr int DELAY_TIME = 15;
+
+    if (!process_)
+        return;
 
     log_.flush();
 
@@ -167,7 +186,7 @@ void SystemExec::checkProcess()
     // remove if finished
     if (process_->finished()) {
         floatTo(0, process_->exitStatus());
-        process_.reset(new sys::Process);
+        process_.reset(nullptr);
         log_.flush();
     } else if (should_close_stdin_) {
         if (!process_->closeStdIn()) {
@@ -180,6 +199,14 @@ void SystemExec::checkProcess()
 bool SystemExec::isRunning() const
 {
     return process_ && process_->running();
+}
+
+int SystemExec::state() const
+{
+    if (!process_)
+        return -1;
+    else
+        return process_->state();
 }
 
 void setup_system_exec()
