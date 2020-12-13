@@ -74,7 +74,10 @@ TEST_CASE("system.exec", "[externals]")
         t->setProperty(SYM("@priority"), LA("low"));
         REQUIRE_PROPERTY(t, @priority, "low");
         t << LA(TEST_EXEC, 1);
+
+#ifndef __WIN32__
         REQUIRE_FALSE(t.hasNewMessages(0));
+#endif
 
         test::pdRunMainLoopMs(MS(50));
         REQUIRE(floatAt(t, 0_out) == 100);
