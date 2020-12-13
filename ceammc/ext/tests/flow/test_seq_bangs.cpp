@@ -13,6 +13,7 @@
  *****************************************************************************/
 #include "seq_bangs.h"
 #include "test_flow_base.h"
+#include "test_seq_base.h"
 
 PD_COMPLETE_TEST_SETUP(SeqBangs, seq, bangs)
 
@@ -94,7 +95,7 @@ TEST_CASE("seq.bangs", "[externals]")
             REQUIRE(t.messagesAt(0) == ML { B });
             REQUIRE(t.messagesAt(1) == ML { ri(0, 1), i(0, 1), ed(10) });
 
-            t.schedTicks(10);
+            t.schedTicks(10_wd);
             REQUIRE(t.messagesAt(0) == ML { B });
             REQUIRE(t.messagesAt(1) == ML { ri(0, 1), i(0, 1), ed(10), done });
         }
@@ -108,7 +109,7 @@ TEST_CASE("seq.bangs", "[externals]")
             REQUIRE(t.messagesAt(0) == ML { B });
             REQUIRE(t.messagesAt(1) == ML { ri(0, 1), i(0, 3), ed(10) });
 
-            t.schedTicks(10);
+            t.schedTicks(10_wd);
             REQUIRE(t.messagesAt(0) == ML { B, B });
             REQUIRE(t.messagesAt(1) == ML { ri(0, 1), i(0, 3), ed(10), i(1, 3), ed(20) });
 
@@ -133,7 +134,7 @@ TEST_CASE("seq.bangs", "[externals]")
             REQUIRE(t.messagesAt(0) == ML { B });
             REQUIRE(t.messagesAt(1) == ML { ri(0, 2), i(0, 2), ed(20) });
 
-            t.schedTicks(20);
+            t.schedTicks(20_wd);
             REQUIRE(t.messagesAt(0) == ML { B, B });
             REQUIRE(t.messagesAt(1) == ML { ri(0, 2), i(0, 2), ed(20), i(1, 2), ed(10) });
 

@@ -13,6 +13,7 @@
  *****************************************************************************/
 #include "seq_phasor.h"
 #include "test_flow_base.h"
+#include "test_seq_base.h"
 
 PD_COMPLETE_TEST_SETUP(SeqPhasor, seq, phasor)
 
