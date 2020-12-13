@@ -48,7 +48,8 @@ static CmdMap cmd_list = {
     { NO_NEWLINE, "stdout no new line" },
     { BIG_OUTPUT, "stdout big output" },
     { HUGE_OUTPUT, "stdout huge output" },
-    { STDIN, "stdin waiting" }
+    { STDIN, "stdin waiting" },
+    { STDIN_INF, "stdin infinite" }
 };
 
 static void usage(const char* name)

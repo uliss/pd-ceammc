@@ -266,19 +266,21 @@ TEST_CASE("system.exec", "[externals]")
 
         SECTION("sort")
         {
+#ifndef __WIN32__
             t << LA("sort", "-n", "-r");
             REQUIRE_FALSE(t.hasNewMessages(0));
 
             for (int i = 30; i > 10; i--)
                 t <<= LA("write", i);
 
-            test::pdRunMainLoopMs(MS(500));
+            test::pdRunMainLoopMs(MS(50));
             REQUIRE_PROPERTY(t, @is_running, 1);
 
             t <<= LA("eof");
             test::pdRunMainLoopMs(MS(50));
             REQUIRE(atomAt(t, 1_out) == StringAtom("11"));
             REQUIRE_PROPERTY(t, @is_running, 0);
+#endif
         }
 
         SECTION("cat")
