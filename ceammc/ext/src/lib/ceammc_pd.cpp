@@ -553,6 +553,8 @@ CanvasPtr PureData::createTopCanvas(const char* name, const AtomList& args)
     if (!cnv)
         return ptr;
 
+    cnv->gl_loading = 0;
+
     LIB_DBG << "canvas_new(): " << cnv;
     LIB_DBG << "canvas_getcurrent(): " << canvas_getcurrent() << "\n";
 
