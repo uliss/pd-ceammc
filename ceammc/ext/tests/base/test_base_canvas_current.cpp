@@ -44,14 +44,14 @@ TEST_CASE("canvas.current", "[externals]")
 
     SECTION("external")
     {
-        CanvasPtr cnv = PureData::instance().createTopCanvas(TEST_DATA_DIR "/patch");
+        CanvasPtr cnv = PureData::instance().createTopCanvas(TEST_DATA_DIR "/patch_cnv_current");
 
-        { 
+        {
             TExt t("canvas.current");
             REQUIRE(t.numInlets() == 1);
             REQUIRE(t.numOutlets() == 1);
 
-            REQUIRE_PROPERTY(t, @name, "patch");
+            REQUIRE_PROPERTY(t, @name, "patch_cnv_current");
             REQUIRE_PROPERTY(t, @dir, TEST_DATA_DIR);
             REQUIRE_PROPERTY(t, @root, 1);
             REQUIRE_PROPERTY(t, @abstraction, Atom(1));
