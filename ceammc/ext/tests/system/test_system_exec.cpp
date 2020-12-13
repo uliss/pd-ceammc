@@ -42,8 +42,9 @@ TEST_CASE("system.exec", "[externals]")
         TExt t("system.exec");
 
         t << LA(TEST_EXEC);
-        REQUIRE_PROPERTY(t, @is_running, 1);
+
 #ifndef __WIN32__
+        REQUIRE_PROPERTY(t, @is_running, 1);
         REQUIRE_FALSE(t.hasNewMessages(0));
 #endif
 
@@ -51,7 +52,7 @@ TEST_CASE("system.exec", "[externals]")
         REQUIRE(t.hasNewMessages(0));
 
 #ifdef __WIN32__
-        REQUIRE(floatAt(t, 0_out) == 127);
+        REQUIRE(floatAt(t, 0_out) == -1);
 #else
         REQUIRE(floatAt(t, 0_out) == 255);
 #endif
@@ -140,7 +141,7 @@ TEST_CASE("system.exec", "[externals]")
         SECTION("normal exit")
         {
             t << LA(TEST_EXEC, 0.f);
-            test::pdRunMainLoopMs(10);
+            test::pdRunMainLoopMs(MS(10));
             REQUIRE_PROPERTY(t, @is_running, 1);
         }
 
@@ -263,7 +264,7 @@ TEST_CASE("system.exec", "[externals]")
             for (int i = 30; i > 10; i--)
                 t <<= LA("write", i);
 
-            test::pdRunMainLoopMs(MS(50));
+            test::pdRunMainLoopMs(MS(500));
             REQUIRE_PROPERTY(t, @is_running, 1);
 
             t <<= LA("eof");
