@@ -13,6 +13,7 @@
  *****************************************************************************/
 #include "flow_pipe.h"
 #include "test_flow_base.h"
+#include "test_seq_base.h"
 
 PD_COMPLETE_TEST_SETUP(FlowPipe, flow, pipe)
 
@@ -49,7 +50,7 @@ TEST_CASE("flow.pipe", "[externals]")
         t.bang();
         REQUIRE_PROPERTY(t, @size, 1);
         REQUIRE(t.messagesAt(0).empty());
-        t.schedTicks(5);
+        t.schedTicks(5_wd);
         REQUIRE(t.messagesAt(0) == MessageList({ bang }));
         REQUIRE_PROPERTY(t, @size, 0);
         t.clearAll();
@@ -59,7 +60,7 @@ TEST_CASE("flow.pipe", "[externals]")
         t.bang();
         REQUIRE_PROPERTY(t, @size, 2);
         REQUIRE(t.messagesAt(0).empty());
-        t.schedTicks(5);
+        t.schedTicks(5_wd);
         REQUIRE(t.messagesAt(0) == MessageList({ bang, bang }));
         REQUIRE_PROPERTY(t, @size, 0);
         t.clearAll();
@@ -98,7 +99,7 @@ TEST_CASE("flow.pipe", "[externals]")
         t.schedTicks(1);
         t.sendMessage(m0);
         REQUIRE_PROPERTY(t, @size, 5);
-        t.schedTicks(1);
+        t.schedTicks(1_wd);
         REQUIRE_PROPERTY(t, @size, 4);
         REQUIRE(t.messagesAt(0) == MessageList({ f0 }));
         t.schedTicks(1);
