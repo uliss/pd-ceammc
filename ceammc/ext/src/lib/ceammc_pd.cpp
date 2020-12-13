@@ -527,11 +527,13 @@ CanvasPtr PureData::createTopCanvas(const char* name, const AtomList& args)
     l.append(Atom(400)); // height
     l.append(Atom(10)); // font size
 
-    LIB_DBG << "canvas_getcurrent(): " << canvas_getcurrent();
+    auto ccnv = canvas_getcurrent();
 
-    if (canvas_getcurrent()) {
-        canvas_unsetcurrent(canvas_getcurrent());
-        LIB_DBG << "canvas_getcurrent(): " << canvas_getcurrent();
+    LIB_DBG << "canvas_getcurrent(): " << ccnv;
+
+    if (ccnv) {
+        canvas_unsetcurrent(ccnv);
+        LIB_DBG << "after canvas_unsetcurrent(): " << canvas_getcurrent();
     }
 
     if (platform::is_path_relative(name)) {
@@ -551,7 +553,8 @@ CanvasPtr PureData::createTopCanvas(const char* name, const AtomList& args)
     if (!cnv)
         return ptr;
 
-    cnv->gl_loading = 0;
+    LIB_DBG << "canvas_new(): " << cnv;
+    LIB_DBG << "canvas_getcurrent(): " << canvas_getcurrent() << "\n";
 
     ptr.reset(new Canvas(cnv));
     return ptr;
