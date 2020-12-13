@@ -43,7 +43,7 @@ TEST_CASE("string.match", "[external]")
 
         SECTION("prop")
         {
-            TestStringMatch t("string.match", LA("@re", "`sabc"));
+            TestStringMatch t("string.match", LA("@re", "\"``sabc\""));
             REQUIRE_PROPERTY_LIST(t, @re, LA("`sabc"));
         }
     }
