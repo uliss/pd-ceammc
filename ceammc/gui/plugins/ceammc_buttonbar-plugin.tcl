@@ -7,7 +7,15 @@
 
 # try enabling base64 if possible
 catch {package require base64}
-package require tooltip
+
+# show tooltips
+if { [catch {package require tooltip} ] } {
+    proc btnbar_tooltip {id msg} {}
+} {
+    proc btnbar_tooltip {id msg} {
+        btnbar_tooltip $id $msg
+    }
+}
 
 proc make_pd_button {mytoplevel name tooltip} {
     button $mytoplevel.buttonbar.$name -image buttonimage$name \
@@ -15,7 +23,7 @@ proc make_pd_button {mytoplevel name tooltip} {
         -highlightcolor grey -highlightbackground grey -padx 1 -pady 1 \
         -command "menu_send_float \$::focused_window $name 0"
     pack $mytoplevel.buttonbar.$name -side left -padx 0 -pady 0
-    tooltip::tooltip $mytoplevel.buttonbar.$name $tooltip
+    btnbar_tooltip $mytoplevel.buttonbar.$name $tooltip
 }
 
 proc make_iemgui_button {mytoplevel name tooltip} {
@@ -24,7 +32,7 @@ proc make_iemgui_button {mytoplevel name tooltip} {
         -highlightcolor grey -highlightbackground grey -padx 1 -pady 1 \
         -command "menu_send \$::focused_window $name"
     pack $mytoplevel.buttonbar.$name -side left -padx 0 -pady 0
-    tooltip::tooltip $mytoplevel.buttonbar.$name $tooltip
+    btnbar_tooltip $mytoplevel.buttonbar.$name $tooltip
 }
 
 proc make_ceammc_button {mytoplevel name tooltip} {
@@ -33,7 +41,7 @@ proc make_ceammc_button {mytoplevel name tooltip} {
         -highlightcolor grey -highlightbackground grey -padx 1 -pady 1 \
         -command "menu_send \$::focused_window ui.$name"
     pack $mytoplevel.buttonbar.$name -side left -padx 0 -pady 0
-    tooltip::tooltip $mytoplevel.buttonbar.$name $tooltip
+    btnbar_tooltip $mytoplevel.buttonbar.$name $tooltip
 }
 
 proc make_ceammc_button_tilde {mytoplevel name tooltip} {
@@ -42,7 +50,7 @@ proc make_ceammc_button_tilde {mytoplevel name tooltip} {
         -highlightcolor grey -highlightbackground grey -padx 1 -pady 1 \
         -command "menu_send \$::focused_window ui.$name~"
     pack $mytoplevel.buttonbar.$name -side left -padx 0 -pady 0
-    tooltip::tooltip $mytoplevel.buttonbar.$name $tooltip
+    btnbar_tooltip $mytoplevel.buttonbar.$name $tooltip
 }
 
 proc showhide_buttonbar {mytoplevel} {
