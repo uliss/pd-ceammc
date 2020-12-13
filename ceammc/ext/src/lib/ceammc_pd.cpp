@@ -522,17 +522,17 @@ CanvasPtr PureData::createTopCanvas(const char* name, const AtomList& args)
 {
     CanvasPtr ptr;
 
-    //    CanvasMap::iterator it = canvas_map_.find(name);
-    //    if (it != canvas_map_.end())
-    //        return it->second;
-
     AtomList l(0.f, 0.f); // x, y
     l.append(Atom(600)); // width
     l.append(Atom(400)); // height
     l.append(Atom(10)); // font size
 
-    if (canvas_getcurrent())
+    LIB_DBG << "canvas_getcurrent(): " << canvas_getcurrent();
+
+    if (canvas_getcurrent()) {
         canvas_unsetcurrent(canvas_getcurrent());
+        LIB_DBG << "canvas_getcurrent(): " << canvas_getcurrent();
+    }
 
     if (platform::is_path_relative(name)) {
         glob_setfilename(0, gensym(name), gensym("~"));

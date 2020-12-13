@@ -20,6 +20,7 @@ PD_COMPLETE_TEST_SETUP(CanvasCurrent, canvas, current)
 TEST_CASE("canvas.current", "[externals]")
 {
     pd_test_init();
+    test::pdPrintToStdError();
 
     SECTION("init")
     {
