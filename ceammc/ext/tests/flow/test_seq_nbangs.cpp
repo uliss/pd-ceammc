@@ -13,6 +13,7 @@
  *****************************************************************************/
 #include "seq_nbangs.h"
 #include "test_flow_base.h"
+#include "test_seq_base.h"
 
 PD_COMPLETE_TEST_SETUP(SeqNBangsT, seq, nbangs)
 
@@ -70,7 +71,7 @@ TEST_CASE("seq.nbangs", "[externals]")
             REQUIRE(t.messagesAt(0) == ML { B });
             REQUIRE(t.messagesAt(1) == ML { i(0, 4) });
 
-            t.schedTicks(1);
+            t.schedTicks(1_wd);
             REQUIRE(t.messagesAt(0) == ML { B, B });
             REQUIRE(t.messagesAt(1) == ML { i(0, 4), i(1, 4) });
 
@@ -100,7 +101,7 @@ TEST_CASE("seq.nbangs", "[externals]")
             REQUIRE(t.messagesAt(0) == ML { B });
             REQUIRE(t.messagesAt(1) == ML { i(0, 3) });
 
-            t.schedTicks(2);
+            t.schedTicks(2_wd);
             REQUIRE(t.messagesAt(0) == ML { B, B });
             REQUIRE(t.messagesAt(1) == ML { i(0, 3), i(1, 3) });
 
@@ -123,7 +124,7 @@ TEST_CASE("seq.nbangs", "[externals]")
             REQUIRE(t.messagesAt(0) == ML { B });
             REQUIRE(t.messagesAt(1) == ML { i(0, 2) });
 
-            t.schedTicks(3);
+            t.schedTicks(3_wd);
             REQUIRE(t.messagesAt(0) == ML { B, B });
             REQUIRE(t.messagesAt(1) == ML { i(0, 2), i(1, 2) });
 
@@ -140,7 +141,7 @@ TEST_CASE("seq.nbangs", "[externals]")
             REQUIRE(t.messagesAt(0) == ML { B });
             REQUIRE(t.messagesAt(1) == ML { i(0, 5) });
 
-            t.schedTicks(5);
+            t.schedTicks(5_wd);
             REQUIRE(t.messagesAt(0) == ML { B, B });
             REQUIRE(t.messagesAt(1) == ML { i(0, 5), i(1, 5) });
 
@@ -162,7 +163,7 @@ TEST_CASE("seq.nbangs", "[externals]")
             REQUIRE(t.messagesAt(0) == ML { B });
             REQUIRE(t.messagesAt(1) == ML { i(0, 5) });
 
-            t.schedTicks(1);
+            t.schedTicks(1_wd);
             REQUIRE(t.messagesAt(0) == ML { B, B });
             REQUIRE(t.messagesAt(1) == ML { i(0, 5), i(1, 5) });
 
@@ -174,7 +175,7 @@ TEST_CASE("seq.nbangs", "[externals]")
             REQUIRE(t.messagesAt(0) == ML { B });
             REQUIRE(t.messagesAt(1) == ML { i(0, 5) });
 
-            t.schedTicks(1);
+            t.schedTicks(1_wd);
             REQUIRE(t.messagesAt(0) == ML { B, B });
             REQUIRE(t.messagesAt(1) == ML { i(0, 5), i(1, 5) });
         }
@@ -186,7 +187,7 @@ TEST_CASE("seq.nbangs", "[externals]")
             REQUIRE(t.messagesAt(0) == ML { B });
             REQUIRE(t.messagesAt(1) == ML { i(0, 3) });
 
-            t.schedTicks(100);
+            t.schedTicks(100_wd);
             t.call("tick");
             REQUIRE(t.messagesAt(0) == ML { B });
             REQUIRE(t.messagesAt(1) == ML { i(1, 3) });
@@ -209,7 +210,7 @@ TEST_CASE("seq.nbangs", "[externals]")
             REQUIRE(t.messagesAt(0) == ML { B });
             REQUIRE(t.messagesAt(1) == ML { i(0, 3) });
 
-            t.schedTicks(2);
+            t.schedTicks(2_wd);
             REQUIRE(t.messagesAt(0) == ML { B, B });
             REQUIRE(t.messagesAt(1) == ML { i(0, 3), i(1, 3) });
 
