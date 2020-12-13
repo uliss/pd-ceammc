@@ -13,6 +13,7 @@
  *****************************************************************************/
 #include "seq_matrix.h"
 #include "test_flow_base.h"
+#include "test_seq_base.h"
 
 PD_COMPLETE_TEST_SETUP(SeqMatrix, seq, matrix)
 
@@ -76,7 +77,7 @@ TEST_CASE("seq.matrix", "[externals]")
             REQUIRE(t.messagesAt(0) == ML { cc(0), gc(0) });
             REQUIRE(t.messagesAt(1) == ML { ri(0, 2), i(0, 1) });
 
-            t.schedTicks(2);
+            t.schedTicks(2_wd);
             REQUIRE(t.messagesAt(0) == ML { cc(0), gc(0), cc(0), gc(0) });
             REQUIRE(t.messagesAt(1) == ML { ri(0, 2), i(0, 1), ri(1, 2), i(0, 1) });
 
@@ -93,7 +94,7 @@ TEST_CASE("seq.matrix", "[externals]")
             REQUIRE(t.messagesAt(0) == ML { cc(0), gc(0) });
             REQUIRE(t.messagesAt(1) == ML { ri(0, 1), i(0, 1) });
 
-            t.schedTicks(2);
+            t.schedTicks(2_wd);
             REQUIRE(t.messagesAt(0) == ML { cc(0), gc(0) });
             REQUIRE(t.messagesAt(1) == ML { ri(0, 1), i(0, 1), done });
         }
@@ -106,7 +107,7 @@ TEST_CASE("seq.matrix", "[externals]")
             REQUIRE(t.messagesAt(0) == ML { cc(2), gc(2) });
             REQUIRE(t.messagesAt(1) == ML { ri(0, size_t(-1)), i(2, 3) });
 
-            t.schedTicks(2);
+            t.schedTicks(2_wd);
             REQUIRE(t.messagesAt(0) == ML { cc(2), gc(2), cc(1), gc(1) });
             REQUIRE(t.messagesAt(1) == ML { ri(0, size_t(-1)), i(2, 3), i(1, 3) });
 
