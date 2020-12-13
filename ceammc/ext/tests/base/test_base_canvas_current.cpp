@@ -23,7 +23,7 @@ TEST_CASE("canvas.current", "[externals]")
 
     SECTION("init")
     {
-        TestCanvasCurrent t("canvas.current");
+        TObj t("canvas.current");
         REQUIRE(t.numInlets() == 1);
         REQUIRE(t.numOutlets() == 1);
 
@@ -40,11 +40,14 @@ TEST_CASE("canvas.current", "[externals]")
         REQUIRE_PROPERTY_LIST(t, @args, L());
         REQUIRE_PROPERTY_LIST(t, @paths, L());
         REQUIRE_PROPERTY_LIST(t, @size, AtomList(600, 400));
+    }
 
+    SECTION("external")
+    {
         CanvasPtr cnv = PureData::instance().createTopCanvas(TEST_DATA_DIR "/patch");
 
-        {
-            TestExtCanvasCurrent t("canvas.current");
+        { 
+            TExt t("canvas.current");
             REQUIRE(t.numInlets() == 1);
             REQUIRE(t.numOutlets() == 1);
 
