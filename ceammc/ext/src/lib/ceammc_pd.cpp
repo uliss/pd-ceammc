@@ -108,19 +108,19 @@ pd::External::External(const char* name, const AtomList& lst)
 
         t_pd* ptr = pd_newest();
         if (!ptr) {
-            printf("object creation failed\n");
+            printf("object creation failed: [%s]\n", name);
             return;
         }
 
         t_object* res = pd_checkobject(ptr);
         if (!res) {
-            printf("invalid object\n");
+            printf("invalid object: [%s]\n", name);
             return;
         }
 
         obj_ = res;
     } catch (std::exception& e) {
-        std::cerr << "error: " << e.what() << std::endl;
+        std::cerr << "error: " << e.what() << " while object creation [" << name << "]" << std::endl;
         obj_ = 0;
     }
 }
