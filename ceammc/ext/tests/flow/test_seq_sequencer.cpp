@@ -13,6 +13,7 @@
  *****************************************************************************/
 #include "seq_sequencer.h"
 #include "test_flow_base.h"
+#include "test_seq_base.h"
 
 PD_COMPLETE_TEST_SETUP(SeqSequencer, seq, sequencer)
 
@@ -99,7 +100,7 @@ TEST_CASE("seq.sequencer", "[externals]")
             t.bang();
             REQUIRE(t.messagesAt(1) == ML { ri(0, 1), i(0, 2) });
             REQUIRE(t.messagesAt(0) == ML { 100 });
-            t.schedTicks(2);
+            t.schedTicks(2_wd);
             REQUIRE(t.messagesAt(1) == ML { ri(0, 1), i(0, 2), i(1, 2) });
             REQUIRE(t.messagesAt(0) == ML { 100, 200 });
             t.schedTicks(2);
@@ -115,7 +116,7 @@ TEST_CASE("seq.sequencer", "[externals]")
             t.bang();
             REQUIRE(t.messagesAt(1) == ML { ri(0, 2), i(0, 3) });
             REQUIRE(t.messagesAt(0) == ML { 100 });
-            t.schedTicks(2);
+            t.schedTicks(2_wd);
             REQUIRE(t.messagesAt(1) == ML { ri(0, 2), i(0, 3), i(1, 3) });
             REQUIRE(t.messagesAt(0) == ML { 100, 200 });
             t.schedTicks(2);
@@ -155,7 +156,7 @@ TEST_CASE("seq.sequencer", "[externals]")
             t.bang();
             REQUIRE(t.messagesAt(1) == ML { ri(0, 1), i(0, 1) });
             REQUIRE(t.messagesAt(0) == ML { LF(100, 127) });
-            t.schedTicks(2);
+            t.schedTicks(2_wd);
             REQUIRE(t.messagesAt(1) == ML { ri(0, 1), i(0, 1), done });
             REQUIRE(t.messagesAt(0) == ML { LF(100, 127) });
         }
@@ -220,7 +221,7 @@ TEST_CASE("seq.sequencer", "[externals]")
         REQUIRE(t.messagesAt(1) == ML { ri(0, 2), i(2, 3) });
         REQUIRE(t.messagesAt(0) == ML { 3 });
 
-        t.schedTicks(2);
+        t.schedTicks(2_wd);
         REQUIRE(t.messagesAt(1) == ML { ri(0, 2), i(2, 3), i(1, 3) });
         REQUIRE(t.messagesAt(0) == ML { 3, 2 });
 
@@ -253,7 +254,7 @@ TEST_CASE("seq.sequencer", "[externals]")
         REQUIRE(t.messagesAt(1) == ML { ri(0, 2), i(0, 3) });
         REQUIRE(t.messagesAt(0) == ML { 1 });
 
-        t.schedTicks(2);
+        t.schedTicks(2_wd);
         REQUIRE(t.messagesAt(1) == ML { ri(0, 2), i(0, 3), i(1, 3) });
         REQUIRE(t.messagesAt(0) == ML { 1, 2 });
 
