@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Pure\\ Data 0.51.0_ceammc\n"
 "Report-Msgid-Bugs-To: serge.uliss at gmail.com\n"
-"POT-Creation-Date: 2020-12-14 11:38+0300\n"
+"POT-Creation-Date: 2020-12-14 11:55+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -789,15 +789,11 @@ msgid "Object"
 msgstr ""
 
 #: ../ceammc/gui/plugins/ceammc_buttonbar-plugin.tcl
-msgid "ButtonBar settings"
-msgstr ""
-
-#: ../ceammc/gui/plugins/ceammc_buttonbar-plugin.tcl
 msgid "ButtonBar Settings"
 msgstr ""
 
 #: ../ceammc/gui/plugins/ceammc_buttonbar-plugin.tcl
-msgid "Show"
+msgid "ButtonBar settings"
 msgstr ""
 
 #: ../ceammc/gui/plugins/ceammc_buttonbar-plugin.tcl
@@ -806,6 +802,18 @@ msgstr ""
 
 #: ../ceammc/gui/plugins/ceammc_buttonbar-plugin.tcl
 msgid "Save settings"
+msgstr ""
+
+#: ../ceammc/gui/plugins/ceammc_buttonbar-plugin.tcl
+msgid "Show"
+msgstr ""
+
+#: ../ceammc/gui/plugins/ceammc_buttonbar-plugin.tcl
+msgid "Button Bar"
+msgstr ""
+
+#: ../ceammc/gui/plugins/ceammc_buttonbar-plugin.tcl
+msgid "Button Bar Settings"
 msgstr ""
 
 #: ../ceammc/gui/plugins/patch2svg-plugin.tcl

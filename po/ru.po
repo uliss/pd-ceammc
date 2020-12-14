@@ -3,8 +3,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Pure Data 0.47.1_ceammc\n"
 "Report-Msgid-Bugs-To: serge.uliss at gmail.com\n"
-"POT-Creation-Date: 2020-12-14 11:38+0300\n"
-"PO-Revision-Date: 2020-12-14 11:50+0300\n"
+"POT-Creation-Date: 2020-12-14 11:55+0300\n"
+"PO-Revision-Date: 2020-12-14 11:56+0300\n"
 "Last-Translator: Serge Poltavski <serge.poltavski@gmail.com>\n"
 "Language-Team: Russian\n"
 "Language: ru\n"
@@ -325,6 +325,14 @@ msgstr "Обзор"
 #: ../tcl/pd_menus.tcl
 msgid "Browser..."
 msgstr "Обзор справки..."
+
+#: ../ceammc/gui/plugins/ceammc_buttonbar-plugin.tcl
+msgid "Button Bar"
+msgstr "Панель кнопок"
+
+#: ../ceammc/gui/plugins/ceammc_buttonbar-plugin.tcl
+msgid "Button Bar Settings"
+msgstr "Настройки панели кнопок"
 
 #: ../ceammc/gui/plugins/ceammc_buttonbar-plugin.tcl
 msgid "ButtonBar Settings"

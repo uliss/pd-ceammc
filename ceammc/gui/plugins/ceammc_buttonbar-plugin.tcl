@@ -52,10 +52,10 @@ proc ::btnbar::init_options_menu {} {
     }
 
     if { [catch {
-        $mymenu entryconfigure [_ "ButtonBar settings"] -command {::btnbar::show_options_gui}
+        $mymenu entryconfigure [_ "Button Bar"] -command {::btnbar::show_options_gui}
     } _ ] } {
         $mymenu add separator
-        $mymenu add command -label [_ "ButtonBar settings"] -command {::btnbar::show_options_gui}
+        $mymenu add command -label [_ "Button Bar"] -command {::btnbar::show_options_gui}
     }
 }
 
@@ -71,7 +71,7 @@ proc ::btnbar::show_options_gui {} {
     }
 
     toplevel .options
-    wm title .options [_ "ButtonBar Settings"]
+    wm title .options [_ "Button Bar Settings"]
 
     frame .options.f -padx 5 -pady 5 -background #ECECEC
 
