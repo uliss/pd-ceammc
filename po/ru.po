@@ -4,7 +4,7 @@ msgstr ""
 "Project-Id-Version: Pure Data 0.47.1_ceammc\n"
 "Report-Msgid-Bugs-To: serge.uliss at gmail.com\n"
 "POT-Creation-Date: 2020-12-14 11:38+0300\n"
-"PO-Revision-Date: 2020-07-30 05:21+0300\n"
+"PO-Revision-Date: 2020-12-14 11:50+0300\n"
 "Last-Translator: Serge Poltavski <serge.poltavski@gmail.com>\n"
 "Language-Team: Russian\n"
 "Language: ru\n"
@@ -17,7 +17,7 @@ msgstr ""
 "X-Language: ru_RU\n"
 "X-Source-Language: C\n"
 "X-Loco-Parser: loco_parse_po\n"
-"X-Generator: Poedit 2.3.1\n"
+"X-Generator: Poedit 2.4.2\n"
 
 #: ../tcl/dialog_font.tcl
 #, tcl-format
@@ -40,7 +40,7 @@ msgstr "(Раз)соединить"
 
 #: ../tcl/pd_connect.tcl ../tcl/pdwindow.tcl
 msgid "(Tcl) INVALID COMMAND NAME: "
-msgstr ""
+msgstr "(Tcl) НЕВЕРНОЕ ИМЯ КОМАНДЫ: "
 
 #: ../tcl/pd_connect.tcl ../tcl/pdwindow.tcl
 msgid "(Tcl) MISSING CLOSE-BRACE '}': "
@@ -52,7 +52,7 @@ msgstr ""
 
 #: ../tcl/pd_connect.tcl ../tcl/pdwindow.tcl
 msgid "(Tcl) UNHANDLED ERROR: "
-msgstr ""
+msgstr "(Tcl) НЕОБРАБОТАННАЯ ОШИБКА: "
 
 #: pd_dynamic_strings.tcl
 msgid "(re-save preferences to reinstate them)"
@@ -327,14 +327,12 @@ msgid "Browser..."
 msgstr "Обзор справки..."
 
 #: ../ceammc/gui/plugins/ceammc_buttonbar-plugin.tcl
-#, fuzzy
 msgid "ButtonBar Settings"
-msgstr "Настройки аудио"
+msgstr "Настройки панели кнопок"
 
 #: ../ceammc/gui/plugins/ceammc_buttonbar-plugin.tcl
-#, fuzzy
 msgid "ButtonBar settings"
-msgstr "Настройки платформы:"
+msgstr "Настройки панели кнопок"
 
 #: ../tcl/pd_menus.tcl
 msgid "CEAMMC objects"
@@ -661,9 +659,8 @@ msgid "Flash Time (msec)"
 msgstr "Время индикации нажатия (мкс)"
 
 #: ../ceammc/ext/src/ui/ui_display.cpp
-#, fuzzy
 msgid "Float formatting width"
-msgstr "Настройки платформы:"
+msgstr "Число разрядов форматирования"
 
 #: ../tcl/dialog_font.tcl ../tcl/pd_menus.tcl
 msgid "Font"
@@ -740,7 +737,7 @@ msgstr "Скрывать другие архитектуры?"
 
 #: ../ceammc/gui/plugins/ceammc_buttonbar-plugin.tcl
 msgid "Hide in runmode"
-msgstr ""
+msgstr "Скрывать в режиме исполнения"
 
 #: ../tcl/dialog_canvas.tcl
 msgid "Hide object name and arguments"
@@ -907,7 +904,7 @@ msgstr "Загрузить из..."
 #: ../tcl/pd-gui.tcl
 #, tcl-format
 msgid "Loading plugin: %s"
-msgstr ""
+msgstr "Загрузка плагина: %s"
 
 #: ../tcl/dialog_iemgui.tcl
 msgid "Log height:"
@@ -1185,14 +1182,12 @@ msgid "Object"
 msgstr "Объект"
 
 #: ../ceammc/ext/src/ui/ui_toggle.cpp
-#, fuzzy
 msgid "Off value"
-msgstr "Выводить значение"
+msgstr "Выкл. значение"
 
 #: ../ceammc/ext/src/ui/ui_toggle.cpp
-#, fuzzy
 msgid "On value"
-msgstr "значение:"
+msgstr "Вкл. значение"
 
 #: ../tcl/pd_deken.tcl
 msgid "Only install externals uploaded by people you trust."
@@ -1496,9 +1491,8 @@ msgid "Save contents"
 msgstr "Сохранять содержимое"
 
 #: ../ceammc/gui/plugins/ceammc_buttonbar-plugin.tcl
-#, fuzzy
 msgid "Save settings"
-msgstr "Сохранить все"
+msgstr "Сохранить настройки"
 
 #: ../tcl/pd_menus.tcl
 msgid "Save to..."
@@ -1566,9 +1560,8 @@ msgid "Should newly installed libraries be added to Pd's search path?"
 msgstr "Добавлять установленные библиотеки к путям поиска Pd?"
 
 #: ../ceammc/gui/plugins/ceammc_buttonbar-plugin.tcl
-#, fuzzy
 msgid "Show"
-msgstr "Показать RMS"
+msgstr "Показать"
 
 #: pd_dynamic_strings.tcl
 msgid "Show &Hidden Files and Directories"
@@ -1742,7 +1735,7 @@ msgstr "Попробуйте использовать полное имя, на�
 #: ../tcl/pd-gui.tcl
 #, tcl-format
 msgid "UNHANDLED ERROR: %s"
-msgstr ""
+msgstr "НЕОБРАБОТАННАЯ ОШИБКА: %s"
 
 #: ../ceammc/ext/src/ui/ui_link.cpp
 msgid "URL"
@@ -1885,7 +1878,8 @@ msgstr "Vertial Slider"
 #: ../tcl/pd-gui.tcl
 #, tcl-format
 msgid "WARNING: Font family '%s' not found, using default (%s)\n"
-msgstr "ВНИМАНИЕ: Шрифт «%s» не найден, используется шрифт по умолчанию (%s)\n"
+msgstr ""
+"ВНИМАНИЕ: Шрифт «%s» не найден, используется шрифт по умолчанию (%s)\n"
 
 #: ../tcl/pd-gui.tcl
 #, tcl-format
@@ -1896,7 +1890,8 @@ msgstr ""
 #: ../tcl/pd-gui.tcl
 #, tcl-format
 msgid "WARNING: font family '%s' not found, using default (%s)\n"
-msgstr "ВНИМАНИЕ: Шрифт ‘%s’ не найден, используется шрифт по умолчанию (%s)\n"
+msgstr ""
+"ВНИМАНИЕ: Шрифт ‘%s’ не найден, используется шрифт по умолчанию (%s)\n"
 
 #: ../tcl/pd-gui.tcl
 #, tcl-format
