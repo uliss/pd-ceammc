@@ -52,7 +52,7 @@ set ::pd_guiprefs::recentfiles_is_array false
 #    OSX  : ~/Library/Preferences/Pd/com.ceammc.pd/<key>.conf
 #       - env(PD_CONFIG_DIR)=~/Library/Preferences/Pd/
 #       - domain=com.ceammc.pd.pd-gui
-#    W32  : %AppData%\Pd\.config\ocom.ceammc.pd\<key>.conf
+#    W32  : %AppData%\Pd\.config\com.ceammc.pd\<key>.conf
 #       - env(PD_CONFIG_DIR)=%AppData%\Pd\.config
 #       - domain=com.ceammc.pd.pd-gui
 #
