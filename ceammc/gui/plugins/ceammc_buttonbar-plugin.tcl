@@ -13,7 +13,7 @@ if { [catch {package require tooltip} ] } {
     proc btnbar_tooltip {id msg} {}
 } {
     proc btnbar_tooltip {id msg} {
-        btnbar_tooltip $id $msg
+        tooltip::tooltip $id $msg
     }
 }
 
