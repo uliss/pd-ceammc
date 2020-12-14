@@ -220,8 +220,11 @@ void UIPreset::indexAdd(const AtomList& lst)
             return;
         }
 
-        presets_.set(idx, true);
-        redrawLayer(bg_layer_);
+        // update only if changed
+        if (!presets_.test(idx)) {
+            presets_.set(idx, true);
+            redrawLayer(bg_layer_);
+        }
     }
 }
 
@@ -234,7 +237,7 @@ void UIPreset::indexRemove(const AtomList& lst)
             return;
         }
 
-        // update only changed
+        // update only if changed
         if (presets_.test(idx)) {
             presets_.set(idx, false);
             redrawLayer(bg_layer_);
