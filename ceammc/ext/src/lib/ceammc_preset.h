@@ -108,9 +108,9 @@ public:
     void duplicateAll();
 
 public:
-    static const char* SYM_PRESET_UPDATE_INDEX_ADDR;
-    static const char* SYM_PRESET_INDEX_ADD;
-    static const char* SYM_PRESET_INDEX_REMOVE;
+    t_symbol* SYM_PRESET_UPDATE_INDEX_ADDR;
+    t_symbol* SYM_PRESET_INDEX_ADD;
+    t_symbol* SYM_PRESET_INDEX_REMOVE;
 
 private:
     PresetPtr getOrCreate(t_symbol* name);

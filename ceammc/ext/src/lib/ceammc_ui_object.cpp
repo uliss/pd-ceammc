@@ -898,7 +898,7 @@ t_symbol* UIObjectImpl::genPresetName(t_symbol* prefix)
 
 void UIObjectImpl::releasePresetName(t_symbol* s)
 {
-    PresetNameMap::iterator it = presets_.find(s);
+    auto it = presets_.find(s);
     if (it != presets_.end()) {
         if (it->second > 1) {
             it->second--;

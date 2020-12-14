@@ -36,7 +36,7 @@ UIPreset::UIPreset()
 void UIPreset::init(t_symbol* name, const AtomList& args, bool usePresets)
 {
     UIObject::init(name, args, usePresets);
-    bindTo(gensym(PresetStorage::SYM_PRESET_UPDATE_INDEX_ADDR));
+    bindTo(PresetStorage::instance().SYM_PRESET_UPDATE_INDEX_ADDR);
     updateIndexes();
 }
 
@@ -234,8 +234,11 @@ void UIPreset::indexRemove(const AtomList& lst)
             return;
         }
 
-        presets_.set(idx, false);
-        redrawLayer(bg_layer_);
+        // update only changed
+        if (presets_.test(idx)) {
+            presets_.set(idx, false);
+            redrawLayer(bg_layer_);
+        }
     }
 }
 
@@ -307,8 +310,8 @@ void UIPreset::setup()
 
     obj.useMouseEvents(UI_MOUSE_DOWN | UI_MOUSE_MOVE | UI_MOUSE_LEAVE);
     obj.usePopup();
-    obj.addMethod(PresetStorage::SYM_PRESET_INDEX_ADD, &UIPreset::indexAdd);
-    obj.addMethod(PresetStorage::SYM_PRESET_INDEX_REMOVE, &UIPreset::indexRemove);
+    obj.addMethod(PresetStorage::instance().SYM_PRESET_INDEX_ADD, &UIPreset::indexAdd);
+    obj.addMethod(PresetStorage::instance().SYM_PRESET_INDEX_REMOVE, &UIPreset::indexRemove);
 
     obj.addMethod("clear", &UIPreset::m_clear);
     obj.addMethod("clearall", &UIPreset::m_clearall);
