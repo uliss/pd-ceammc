@@ -41,17 +41,30 @@ if(XGETTEXT)
     file(GLOB _CEAMMC_LIB_FILES RELATIVE ${CMAKE_SOURCE_DIR}/po "${CMAKE_CURRENT_SOURCE_DIR}/ext/src/lib/*.cpp" "${CMAKE_CURRENT_SOURCE_DIR}/ext/src/lib/*.h")
     file(GLOB _UI_FILES RELATIVE ${CMAKE_SOURCE_DIR}/po "${CMAKE_CURRENT_SOURCE_DIR}/ext/src/ui/*.cpp" "${CMAKE_CURRENT_SOURCE_DIR}/ext/src/ui/*.h")
     file(GLOB _HOA_FILES RELATIVE ${CMAKE_SOURCE_DIR}/po "${CMAKE_CURRENT_SOURCE_DIR}/ext/src/spat/*.cpp" "${CMAKE_CURRENT_SOURCE_DIR}/ext/src/spat/*.h")
+    file(GLOB _TCL_PLUGIN_FILES RELATIVE ${CMAKE_SOURCE_DIR}/po "${CMAKE_CURRENT_SOURCE_DIR}/gui/plugins/ceammc_*-plugin.tcl")
 
+    set(XGETTEXT_EMAIL "serge.uliss at gmail.com")
+    set(XGETTEXT_COPYRIGHT "This file is put in the public domain")
     add_custom_target(ceammc_messages
         COMMAND ${XGETTEXT} --join-existing --from-code=UTF-8
             --language=C --keyword=_
             --sort-by-file --output=${POT_TEMPLATE}
             --add-location=file
             --package-name="Pure Data" --package-version=${PD_TEXT_VERSION_FULL}
-            --copyright-holder='This file is put in the public domain'
-            --foreign-user --msgid-bugs-address=pd-dev@iem.at
+            --copyright-holder="${XGETTEXT_COPYRIGHT}"
+            --foreign-user --msgid-bugs-address=${XGETTEXT_EMAIL}
             ${_CICM_FILES} ${_CEAMMC_FILES} ${_CEAMMC_LIB_FILES} ${_UI_FILES} ${_HOA_FILES}
-        WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR})
+        COMMAND ${XGETTEXT} --join-existing --from-code=UTF-8
+            --language=Tcl --keyword=_
+            --sort-by-file --output=${POT_TEMPLATE}
+            --add-location=file
+            --package-name="Pure Data" --package-version=${PD_TEXT_VERSION_FULL}
+            --copyright-holder=${XGETTEXT_COPYRIGHT}
+            --foreign-user --msgid-bugs-address=${XGETTEXT_EMAIL}
+            ${_TCL_PLUGIN_FILES}
+        WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
+
+    )
 endif()
 
 add_custom_target(ceammc_extra_files SOURCES CHANGELOG.md cppcheck_suppressions.txt)

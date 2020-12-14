@@ -2,8 +2,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Pure Data 0.47.1_ceammc\n"
-"Report-Msgid-Bugs-To: pd-dev@iem.at\n"
-"POT-Creation-Date: 2020-07-30 05:15+0300\n"
+"Report-Msgid-Bugs-To: serge.uliss at gmail.com\n"
+"POT-Creation-Date: 2020-12-14 11:38+0300\n"
 "PO-Revision-Date: 2020-07-30 05:21+0300\n"
 "Last-Translator: Serge Poltavski <serge.poltavski@gmail.com>\n"
 "Language-Team: Russian\n"
@@ -325,6 +325,16 @@ msgstr "Обзор"
 #: ../tcl/pd_menus.tcl
 msgid "Browser..."
 msgstr "Обзор справки..."
+
+#: ../ceammc/gui/plugins/ceammc_buttonbar-plugin.tcl
+#, fuzzy
+msgid "ButtonBar Settings"
+msgstr "Настройки аудио"
+
+#: ../ceammc/gui/plugins/ceammc_buttonbar-plugin.tcl
+#, fuzzy
+msgid "ButtonBar settings"
+msgstr "Настройки платформы:"
 
 #: ../tcl/pd_menus.tcl
 msgid "CEAMMC objects"
@@ -650,6 +660,11 @@ msgstr "Цвет первого графика"
 msgid "Flash Time (msec)"
 msgstr "Время индикации нажатия (мкс)"
 
+#: ../ceammc/ext/src/ui/ui_display.cpp
+#, fuzzy
+msgid "Float formatting width"
+msgstr "Настройки платформы:"
+
 #: ../tcl/dialog_font.tcl ../tcl/pd_menus.tcl
 msgid "Font"
 msgstr "Шрифт"
@@ -722,6 +737,10 @@ msgstr "Обзор справки"
 #: ../tcl/pd_deken.tcl
 msgid "Hide foreign architectures?"
 msgstr "Скрывать другие архитектуры?"
+
+#: ../ceammc/gui/plugins/ceammc_buttonbar-plugin.tcl
+msgid "Hide in runmode"
+msgstr ""
 
 #: ../tcl/dialog_canvas.tcl
 msgid "Hide object name and arguments"
@@ -947,7 +966,7 @@ msgstr "MIDI..."
 #: ../ceammc/ext/src/ui/ui_menu.cpp ../ceammc/ext/src/ui/ui_meter.cpp
 #: ../ceammc/ext/src/ui/ui_number.cpp ../ceammc/ext/src/ui/ui_number_tilde.cpp
 #: ../ceammc/ext/src/ui/ui_polar.cpp ../ceammc/ext/src/ui/ui_radio.cpp
-#: ../ceammc/ext/src/ui/ui_scope.cpp
+#: ../ceammc/ext/src/ui/ui_scope.cpp ../ceammc/ext/src/ui/ui_toggle.cpp
 msgid "Main"
 msgstr "Основные"
 
@@ -1164,6 +1183,16 @@ msgstr "OK"
 #: ../ceammc/gui/plugins/ceammc_buttonbar-plugin.tcl ../tcl/pd_menus.tcl
 msgid "Object"
 msgstr "Объект"
+
+#: ../ceammc/ext/src/ui/ui_toggle.cpp
+#, fuzzy
+msgid "Off value"
+msgstr "Выводить значение"
+
+#: ../ceammc/ext/src/ui/ui_toggle.cpp
+#, fuzzy
+msgid "On value"
+msgstr "значение:"
 
 #: ../tcl/pd_deken.tcl
 msgid "Only install externals uploaded by people you trust."
@@ -1466,6 +1495,11 @@ msgstr "Сохранить как..."
 msgid "Save contents"
 msgstr "Сохранять содержимое"
 
+#: ../ceammc/gui/plugins/ceammc_buttonbar-plugin.tcl
+#, fuzzy
+msgid "Save settings"
+msgstr "Сохранить все"
+
 #: ../tcl/pd_menus.tcl
 msgid "Save to..."
 msgstr "Сохранить в..."
@@ -1530,6 +1564,11 @@ msgstr "Настройки"
 #: ../tcl/pd_deken.tcl
 msgid "Should newly installed libraries be added to Pd's search path?"
 msgstr "Добавлять установленные библиотеки к путям поиска Pd?"
+
+#: ../ceammc/gui/plugins/ceammc_buttonbar-plugin.tcl
+#, fuzzy
+msgid "Show"
+msgstr "Показать RMS"
 
 #: pd_dynamic_strings.tcl
 msgid "Show &Hidden Files and Directories"
@@ -1846,8 +1885,7 @@ msgstr "Vertial Slider"
 #: ../tcl/pd-gui.tcl
 #, tcl-format
 msgid "WARNING: Font family '%s' not found, using default (%s)\n"
-msgstr ""
-"ВНИМАНИЕ: Шрифт «%s» не найден, используется шрифт по умолчанию (%s)\n"
+msgstr "ВНИМАНИЕ: Шрифт «%s» не найден, используется шрифт по умолчанию (%s)\n"
 
 #: ../tcl/pd-gui.tcl
 #, tcl-format
@@ -1858,8 +1896,7 @@ msgstr ""
 #: ../tcl/pd-gui.tcl
 #, tcl-format
 msgid "WARNING: font family '%s' not found, using default (%s)\n"
-msgstr ""
-"ВНИМАНИЕ: Шрифт ‘%s’ не найден, используется шрифт по умолчанию (%s)\n"
+msgstr "ВНИМАНИЕ: Шрифт ‘%s’ не найден, используется шрифт по умолчанию (%s)\n"
 
 #: ../tcl/pd-gui.tcl
 #, tcl-format
