@@ -8,7 +8,7 @@ namespace eval category_menu {
 }
 
 proc category_menu::load_menutree {} {
-    # load object -> tags mapping from file in Pd's path
+    # load object -> tags mapping from file in Pd path
     set testfile [file join $::ceammc_libdir ceammc_popup_menu_tree.tcl]
     set f [open $testfile]
     set menutree [read $f]
@@ -30,7 +30,7 @@ proc category_menu::create {mymenu} {
             menu $mymenu.$category.$subcategory
             $mymenu.$category add cascade -label $subcategory -menu $mymenu.$category.$subcategory
             foreach item [lindex $subcategorylist end] {
-                # replace the normal dash with a Unicode minus so that Tcl doesn't
+                # replace the normal dash with a Unicode minus so that Tcl does not
                 # interpret the dash in the -label to make it a separator
                 $mymenu.$category.$subcategory add command \
                     -label [regsub -all {^\-$} $item {−}] \
