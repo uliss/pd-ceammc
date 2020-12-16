@@ -120,6 +120,7 @@ conv.sec2bpm
 conv.sec2samp
 conv.sec2str
 conv.str2sec
+counter
 data.dict
 data.fifo
 data.float
