@@ -292,6 +292,9 @@ if(APPLE)
     add_custom_target(build_tcltk
         COMMAND
             ${PROJECT_SOURCE_DIR}/mac/tcltk-wish.sh --build --leave --arch x86_64 8.6.10
+        COMMAND
+            ${PROJECT_SOURCE_DIR}/mac/tcltk-libs.sh --build 1.20 0.7
+
         WORKING_DIRECTORY ${PROJECT_SOURCE_DIR}/mac
         DEPENDS)
 
