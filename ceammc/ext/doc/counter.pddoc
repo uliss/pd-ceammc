@@ -21,7 +21,8 @@
         <properties>
             <property name="@from" type="int" default="0">start value</property>
             <property name="@to" type="int" default="0">end value</property>
-            <property name="@r" type="int" default="-1" minvalue="-1">number of repeats. If -1 - repeat infinitely.</property>
+            <property name="@r" type="int" default="-1" minvalue="-1">number of repeats. If -1 -
+            repeat infinitely.</property>
         </properties>
         <methods>
             <method name="reset">reset counter to start value and repeat counter to 0</method>
@@ -43,7 +44,7 @@
 <![CDATA[
 [bng]             [bng]         [bng]
 |                 |             |.
-[counter 1 4]     [counter 1 4 @r 1]
+[counter 1 4]     [counter 1 4 @r 2]/*repeat two times*/
 |                 |             ^|
 [F]               [F]           [route done]
                                 |       ^|

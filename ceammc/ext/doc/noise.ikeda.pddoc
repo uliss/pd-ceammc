@@ -5,10 +5,9 @@
         <meta>
             <authors>
                 <author>André Sier</author>
-
             </authors>
             <description>Part of a-chaos library</description>
-            <license> % </license>
+            <license>%</license>
             <library>ceammc</library>
             <category>noise</category>
             <keywords>noise</keywords>
@@ -22,8 +21,9 @@
             <par>where z is a complex number</par>
             <par>real number formula by euler returns:</par>
             <par>===</par>
-            <par>xn+1 = a + k*( x0*cos(b-(p/(1+x0*x0+y0*y0))) - y0*sin(b-(p/(1*x0*x0+y0*y0))) )</par>
-            <par>yn+1 =     k*( x0*sin(b-(p/(1+x0*x0+y0*y0))) - y0*cos(b-(p/(1*x0*x0+y0*y0))) )</par>
+            <par>xn+1 = a + k*( x0*cos(b-(p/(1+x0*x0+y0*y0))) - y0*sin(b-(p/(1*x0*x0+y0*y0)))
+            )</par>
+            <par>yn+1 = k*( x0*sin(b-(p/(1+x0*x0+y0*y0))) - y0*cos(b-(p/(1*x0*x0+y0*y0))) )</par>
             <par>===</par>
             <par>a = 0.85, b = 0.9, k = 0.4, p = 7.7</par>
             <par>a = 1.0, b = 0.9, k = 0.4, p = 6.0</par>
@@ -33,46 +33,47 @@
             <argument name="ARG1" type="float">b value (optional)</argument>
             <argument name="ARG2" type="float">k value (optional)</argument>
             <argument name="ARG3" type="float">p value (optional)</argument>
-
             <argument name="ARG4" type="float">nx value (optional)</argument>
             <argument name="ARG5" type="float">ny value (optional)</argument>
         </arguments>
         <methods>
             <method name="set">
-            <param type="float" name="SET" required="true">set to value</param></method>
-
+                <param type="float" name="SET" required="true">set to value</param>
+            </method>
             <method name="reset">reset state</method>
-
             <method name="om">
-            <param type="int" name="OM" required="true">enables output when cut or fold value is changed</param></method>
-
+                <param type="int" name="OM" required="true">enables output when cut or fold value
+                is changed</param>
+            </method>
             <method name="a">
-            <param type="float" name="A" required="true">a value</param></method>
+                <param type="float" name="A" required="true">a value</param>
+            </method>
             <method name="b">
-            <param type="float" name="B" required="true">b value</param></method>
+                <param type="float" name="B" required="true">b value</param>
+            </method>
             <method name="c">
-            <param type="float" name="K" required="true">k value (note the "c" method in original a-chaos library)</param></method>
+                <param type="float" name="K" required="true">k value (note the "c" method in
+                original a-chaos library)</param>
+            </method>
             <method name="p">
-            <param type="float" name="P" required="true">p value</param></method>
-
+                <param type="float" name="P" required="true">p value</param>
+            </method>
             <method name="x">
-            <param type="float" name="NX" required="true">x value</param></method>
+                <param type="float" name="NX" required="true">x value</param>
+            </method>
             <method name="y">
-            <param type="float" name="NY" required="true">y value</param></method>
-            
+                <param type="float" name="NY" required="true">y value</param>
+            </method>
         </methods>
         <inlets>
             <inlet>
                 <xinfo on="bang">output value</xinfo>
-
                 <xinfo on="any">a: a value</xinfo>
                 <xinfo on="any">b: b value</xinfo>
                 <xinfo on="any">c: c value</xinfo>
                 <xinfo on="any">d: d value</xinfo>
-
                 <xinfo on="any">r: r value</xinfo>
                 <xinfo on="any">dt: dt value</xinfo>
-
                 <xinfo on="any">om: enables output when any value is changed</xinfo>
             </inlet>
         </inlets>

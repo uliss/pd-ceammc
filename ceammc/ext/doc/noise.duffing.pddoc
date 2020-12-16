@@ -8,7 +8,7 @@
                 <author>André Sier</author>
             </authors>
             <description>Part of a-chaos library</description>
-            <license> % </license>
+            <license>%</license>
             <library>ceammc</library>
             <category>noise</category>
             <keywords>noise</keywords>
@@ -19,7 +19,8 @@
             <par>Written by Paul Bourke</par>
             <par>March 1998</par>
             <par>---</par>
-            <par>The solution to the Duffing equations is often used as an example of a classic chaotic system.</par>
+            <par>The solution to the Duffing equations is often used as an example of a classic
+            chaotic system.</par>
             <par>The Duffing system of differential equations is:</par>
             <par>===========</par>
             <par>dx / dt = y</par>
@@ -36,24 +37,29 @@
         </arguments>
         <methods>
             <method name="set">
-            <param type="float" name="SET" required="true">set to value</param></method>
-
+                <param type="float" name="SET" required="true">set to value</param>
+            </method>
             <method name="reset">reset state</method>
-
             <method name="om">
-            <param type="int" name="OM" required="true">enables output when cut or fold value is changed</param></method>
-
+                <param type="int" name="OM" required="true">enables output when cut or fold value
+                is changed</param>
+            </method>
             <method name="a">
-            <param type="float" name="A" required="true">a value</param></method>
+                <param type="float" name="A" required="true">a value</param>
+            </method>
             <method name="b">
-            <param type="float" name="B" required="true">b value</param></method>
+                <param type="float" name="B" required="true">b value</param>
+            </method>
             <method name="w">
-            <param type="float" name="W" required="true">w value</param></method>
+                <param type="float" name="W" required="true">w value</param>
+            </method>
             <method name="dt">
-            <param type="float" name="DT" required="true">dt value</param></method>
-
+                <param type="float" name="DT" required="true">dt value</param>
+            </method>
             <method name="fold_cut">
-            <param type="int" name="FOLD_CUT" required="true">enable fold / cut value action</param></method>
+                <param type="int" name="FOLD_CUT" required="true">enable fold / cut value
+                action</param>
+            </method>
         </methods>
         <inlets>
             <inlet>

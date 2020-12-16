@@ -7,7 +7,7 @@
                 <author>André Sier</author>
             </authors>
             <description>Part of a-chaos library</description>
-            <license> % </license>
+            <license>%</license>
             <library>ceammc</library>
             <category>noise</category>
             <keywords>noise</keywords>
@@ -16,17 +16,19 @@
         <info>
             <par>Collatz conjecture output</par>
         </info>
-        <arguments>
-            
-        </arguments>
+        <arguments></arguments>
         <methods>
             <method name="offset">
-            <param type="float" name="OFFSET" required="true">offset value</param></method>
+                <param type="float" name="OFFSET" required="true">offset value</param>
+            </method>
             <method name="mode">
-            <param type="int" name="MODE" required="true">mode value. 0 for Collatz, 1 for Terras</param></method>
-            
+                <param type="int" name="MODE" required="true">mode value. 0 for Collatz, 1 for
+                Terras</param>
+            </method>
             <method name="om">
-            <param type="int" name="OM" required="true">enables output when cut or fold value is changed</param></method>
+                <param type="int" name="OM" required="true">enables output when cut or fold value
+                is changed</param>
+            </method>
         </methods>
         <inlets>
             <inlet>

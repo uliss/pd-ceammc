@@ -6,34 +6,27 @@
             <authors>
                 <author>Richard Dudas</author>
                 <author>André Sier</author>
-
             </authors>
             <description>Part of a-chaos library</description>
-            <license> % </license>
+            <license>%</license>
             <library>ceammc</library>
             <category>noise</category>
             <keywords>noise</keywords>
             <since>.5</since>
         </meta>
         <info>
-            <par>
-            A model obtained by a suitable five-mode truncation 
-of the Navier-Stokes equations for a two-dimensional 
-incompressible fluid on a torus:</par>
-<par>
-dx1= -2*x1 + 4*x2*x3 + 4*x4*x5</par><par>
-dx2= -9*x2 + 3*x1*x3</par><par>
-dx3= -5*x3 - 7*x1*x2 + reyn</par><par>
-dx4= -5*x4 - x1*x5</par><par>
-dx5= -x5 - 3*x1*x4</par>
-<par>
----
-</par><par>
-Where &lt;reyn&gt; is the Reynolds number,
-and exibits  an interesting variety of different behaviors for different 
-ranges of &lt;reyn&gt;. For the critical values of &lt;reyn&gt;, the most interesting
-feature is the stochastic behavior observed when  R1 &lt; &lt;reyn&gt; &lt; R2.
-With 28.73 &lt; R1 &gt; 29.0 and R2 ± = 33.43.</par>
+            <par>A model obtained by a suitable five-mode truncation of the Navier-Stokes equations
+            for a two-dimensional incompressible fluid on a torus:</par>
+            <par>dx1= -2*x1 + 4*x2*x3 + 4*x4*x5</par>
+            <par>dx2= -9*x2 + 3*x1*x3</par>
+            <par>dx3= -5*x3 - 7*x1*x2 + reyn</par>
+            <par>dx4= -5*x4 - x1*x5</par>
+            <par>dx5= -x5 - 3*x1*x4</par>
+            <par>---</par>
+            <par>Where &lt;reyn&gt; is the Reynolds number, and exibits an interesting variety of
+            different behaviors for different ranges of &lt;reyn&gt;. For the critical values of
+            &lt;reyn&gt;, the most interesting feature is the stochastic behavior observed when R1
+            &lt; &lt;reyn&gt; &lt; R2. With 28.73 &lt; R1 &gt; 29.0 and R2 ± = 33.43.</par>
         </info>
         <arguments>
             <argument name="ARG0" type="float">a value (optional)</argument>
@@ -46,15 +39,12 @@ With 28.73 &lt; R1 &gt; 29.0 and R2 ± = 33.43.</par>
         <inlets>
             <inlet>
                 <xinfo on="bang">output value</xinfo>
-
                 <xinfo on="any">a: a value</xinfo>
                 <xinfo on="any">b: b value</xinfo>
                 <xinfo on="any">c: c value</xinfo>
                 <xinfo on="any">d: d value</xinfo>
-
                 <xinfo on="any">r: r value</xinfo>
                 <xinfo on="any">dt: dt value</xinfo>
-
                 <xinfo on="any">om: enables output when any value is changed</xinfo>
             </inlet>
         </inlets>

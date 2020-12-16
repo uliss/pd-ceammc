@@ -7,10 +7,9 @@
                 <author>Richard Dudas</author>
                 <author>Mikhail Malt</author>
                 <author>André Sier</author>
-
             </authors>
             <description>Part of a-chaos library</description>
-            <license> % </license>
+            <license>%</license>
             <library>ceammc</library>
             <category>noise</category>
             <keywords>noise</keywords>
@@ -32,29 +31,34 @@
         </arguments>
         <methods>
             <method name="set">
-            <param type="float" name="SET" required="true">set to value</param></method>
-
+                <param type="float" name="SET" required="true">set to value</param>
+            </method>
             <method name="reset">reset state</method>
-
             <method name="om">
-            <param type="int" name="OM" required="true">enables output when cut or fold value is changed</param></method>
-
+                <param type="int" name="OM" required="true">enables output when cut or fold value
+                is changed</param>
+            </method>
             <method name="a">
-            <param type="float" name="A" required="true">a value</param></method>
+                <param type="float" name="A" required="true">a value</param>
+            </method>
             <method name="r">
-            <param type="float" name="R" required="true">r value</param></method>
+                <param type="float" name="R" required="true">r value</param>
+            </method>
             <method name="c">
-            <param type="float" name="B" required="true">b value</param></method>
-
+                <param type="float" name="B" required="true">b value</param>
+            </method>
             <method name="x">
-            <param type="float" name="NX" required="true">x value</param></method>
+                <param type="float" name="NX" required="true">x value</param>
+            </method>
             <method name="y">
-            <param type="float" name="NY" required="true">y value</param></method>
+                <param type="float" name="NY" required="true">y value</param>
+            </method>
             <method name="z">
-            <param type="float" name="NZ" required="true">z value</param></method>
-
+                <param type="float" name="NZ" required="true">z value</param>
+            </method>
             <method name="dt">
-            <param type="float" name="DT" required="true">dt value</param></method>
+                <param type="float" name="DT" required="true">dt value</param>
+            </method>
         </methods>
         <inlets>
             <inlet>

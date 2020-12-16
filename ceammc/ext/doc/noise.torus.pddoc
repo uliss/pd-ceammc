@@ -7,15 +7,14 @@
                 <author>André Sier</author>
             </authors>
             <description>Part of a-chaos library</description>
-            <license> % </license>
+            <license>%</license>
             <library>ceammc</library>
             <category>noise</category>
             <keywords>noise</keywords>
             <since>.5</since>
         </meta>
         <info>
-            <par>
-            a-torus</par>
+            <par>a-torus</par>
             <par>try these parameters:</par>
             <par>0.7 1.1 1.3</par>
             <par>0.9 1. 1.6</par>
@@ -27,21 +26,22 @@
         </arguments>
         <methods>
             <method name="set">
-            <param type="float" name="SET" required="true">set to value</param></method>
-
+                <param type="float" name="SET" required="true">set to value</param>
+            </method>
             <method name="reset">reset state</method>
-
             <method name="om">
-            <param type="int" name="OM" required="true">enables output when cut or fold value is changed</param></method>
-
+                <param type="int" name="OM" required="true">enables output when cut or fold value
+                is changed</param>
+            </method>
             <method name="cr">
-            <param type="float" name="SEED" required="true">cr value</param></method>
-
+                <param type="float" name="SEED" required="true">cr value</param>
+            </method>
             <method name="x">
-            <param type="float" name="NX" required="true">x value</param></method>
+                <param type="float" name="NX" required="true">x value</param>
+            </method>
             <method name="y">
-            <param type="float" name="NY" required="true">y value</param></method>
-            
+                <param type="float" name="NY" required="true">y value</param>
+            </method>
         </methods>
         <inlets>
             <inlet>

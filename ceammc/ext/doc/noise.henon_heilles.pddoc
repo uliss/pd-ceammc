@@ -8,7 +8,7 @@
                 <author>André Sier</author>
             </authors>
             <description>Part of a-chaos library</description>
-            <license> % </license>
+            <license>%</license>
             <library>ceammc</library>
             <category>noise</category>
             <keywords>noise</keywords>
@@ -23,26 +23,27 @@
             <argument name="ARG2" type="float">y' value (optional)</argument>
             <argument name="ARG3" type="float">e value (optional)</argument>
             <argument name="ARG4" type="float">dt value (optional)</argument>
-            
         </arguments>
         <methods>
             <method name="set">
-            <param type="float" name="SET" required="true">set to value</param></method>
-
+                <param type="float" name="SET" required="true">set to value</param>
+            </method>
             <method name="reset">reset state</method>
-            
             <method name="x">
-            <param type="float" name="NX" required="true">x value</param></method>
+                <param type="float" name="NX" required="true">x value</param>
+            </method>
             <method name="y">
-            <param type="float" name="NY" required="true">y value</param></method>
+                <param type="float" name="NY" required="true">y value</param>
+            </method>
             <method name="y'">
-            <param type="float" name="NY" required="true">y' value</param></method>
-
+                <param type="float" name="NY" required="true">y' value</param>
+            </method>
             <method name="e">
-            <param type="float" name="NY" required="true">e value</param></method>
+                <param type="float" name="NY" required="true">e value</param>
+            </method>
             <method name="dt">
-            <param type="float" name="NY" required="true">dt value</param></method>
-            
+                <param type="float" name="NY" required="true">dt value</param>
+            </method>
         </methods>
         <inlets>
             <inlet>

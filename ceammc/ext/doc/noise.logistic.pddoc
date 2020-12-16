@@ -5,10 +5,9 @@
         <meta>
             <authors>
                 <author>André Sier</author>
-
             </authors>
             <description>Part of a-chaos library</description>
-            <license> % </license>
+            <license>%</license>
             <library>ceammc</library>
             <category>noise</category>
             <keywords>noise</keywords>
@@ -16,7 +15,6 @@
         </meta>
         <info>
             <par>logistic distribution</par>
-
         </info>
         <arguments>
             <argument name="ARG0" type="float">a value (optional)</argument>
@@ -26,18 +24,19 @@
         </arguments>
         <methods>
             <method name="set">
-            <param type="float" name="SET" required="true">set to value</param></method>
-
+                <param type="float" name="SET" required="true">set to value</param>
+            </method>
             <method name="reset">reset state</method>
-
             <method name="om">
-            <param type="int" name="OM" required="true">enables output when cut or fold value is changed</param></method>
-
+                <param type="int" name="OM" required="true">enables output when cut or fold value
+                is changed</param>
+            </method>
             <method name="a">
-            <param type="float" name="LAMBDA" required="true">lambda value</param></method>
+                <param type="float" name="LAMBDA" required="true">lambda value</param>
+            </method>
             <method name="b">
-            <param type="float" name="SEED" required="true">seed value</param></method>
-            
+                <param type="float" name="SEED" required="true">seed value</param>
+            </method>
         </methods>
         <inlets>
             <inlet>

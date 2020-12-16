@@ -12,7 +12,8 @@
 #X obj 357 118 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
 -1;
 #X obj 50 147 counter 1 4;
-#X obj 222 147 counter 1 4 @r 1;
+#X obj 222 147 counter 1 4 @r 2;
+#X text 395 147 repeat two times;
 #X floatatom 50 176 5 0 0 0 - - -;
 #X floatatom 222 176 5 0 0 0 - - -;
 #X obj 357 176 route done;
@@ -101,8 +102,8 @@ https://github.com/uliss/pure-data;
 #X connect 4 0 7 0;
 #X connect 5 0 8 0;
 #X connect 6 0 8 1;
-#X connect 7 0 9 0;
-#X connect 8 0 10 0;
-#X connect 8 1 11 0;
-#X connect 11 0 12 0;
-#X connect 11 1 13 0;
+#X connect 7 0 10 0;
+#X connect 8 0 11 0;
+#X connect 8 1 12 0;
+#X connect 12 0 13 0;
+#X connect 12 1 14 0;
