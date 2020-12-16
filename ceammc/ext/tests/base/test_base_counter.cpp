@@ -143,11 +143,11 @@ TEST_CASE("counter", "[externals]")
 
             t.bang();
             REQUIRE(t.messagesAt(0) == ML { M(10) });
-            REQUIRE(t.messagesAt(1) == ML {});
+            REQUIRE(t.messagesAt(1) == ML { i(0) });
 
             t.sendBang();
             REQUIRE(t.messagesAt(0) == ML { M(10), M(11) });
-            REQUIRE(t.messagesAt(1) == ML {});
+            REQUIRE(t.messagesAt(1) == ML { i(0) });
 
             t.sendBang();
             REQUIRE(t.messagesAt(0) == ML { M(10), M(11), M(12) });
@@ -160,11 +160,11 @@ TEST_CASE("counter", "[externals]")
 
             t.bang();
             REQUIRE(t.messagesAt(0) == ML { M(10) });
-            REQUIRE(t.messagesAt(1) == ML {});
+            REQUIRE(t.messagesAt(1) == ML { i(0) });
 
             t.sendBang();
             REQUIRE(t.messagesAt(0) == ML { M(10), M(11) });
-            REQUIRE(t.messagesAt(1) == ML {});
+            REQUIRE(t.messagesAt(1) == ML { i(0) });
 
             t.sendBang();
             REQUIRE(t.messagesAt(0) == ML { M(10), M(11), M(12) });
@@ -172,11 +172,11 @@ TEST_CASE("counter", "[externals]")
 
             t.sendBang();
             REQUIRE(t.messagesAt(0) == ML { M(10), M(11), M(12), M(10) });
-            REQUIRE(t.messagesAt(1) == ML { i(0) });
+            REQUIRE(t.messagesAt(1) == ML { i(0), i(1) });
 
             t.sendBang();
             REQUIRE(t.messagesAt(0) == ML { M(10), M(11), M(12), M(10), M(11) });
-            REQUIRE(t.messagesAt(1) == ML { i(0) });
+            REQUIRE(t.messagesAt(1) == ML { i(0), i(1) });
 
             t.sendBang();
             REQUIRE(t.messagesAt(0) == ML { M(10), M(11), M(12), M(10), M(11), M(12) });
@@ -189,7 +189,7 @@ TEST_CASE("counter", "[externals]")
 
             t.bang();
             REQUIRE(t.messagesAt(0) == ML { M(10) });
-            REQUIRE(t.messagesAt(1) == ML {});
+            REQUIRE(t.messagesAt(1) == ML { i(0) });
 
             t.sendBang();
             REQUIRE(t.messagesAt(0) == ML { M(10), M(11) });
@@ -197,7 +197,7 @@ TEST_CASE("counter", "[externals]")
 
             t.sendBang();
             REQUIRE(t.messagesAt(0) == ML { M(10), M(11), M(10) });
-            REQUIRE(t.messagesAt(1) == ML { i(0) });
+            REQUIRE(t.messagesAt(1) == ML { i(0), i(1) });
 
             t.sendBang();
             REQUIRE(t.messagesAt(0) == ML { M(10), M(11), M(10), M(11) });
@@ -205,7 +205,7 @@ TEST_CASE("counter", "[externals]")
 
             t.sendBang();
             REQUIRE(t.messagesAt(0) == ML { M(10), M(11), M(10), M(11), M(10) });
-            REQUIRE(t.messagesAt(1) == ML { i(0), i(1) });
+            REQUIRE(t.messagesAt(1) == ML { i(0), i(1), i(2) });
 
             t.sendBang();
             REQUIRE(t.messagesAt(0) == ML { M(10), M(11), M(10), M(11), M(10), M(11) });
@@ -214,7 +214,7 @@ TEST_CASE("counter", "[externals]")
             t.sendBangTo(1);
             t.sendBang();
             REQUIRE(t.messagesAt(0) == ML { M(10) });
-            REQUIRE(t.messagesAt(1) == ML {});
+            REQUIRE(t.messagesAt(1) == ML { i(0) });
         }
 
         SECTION("negative @r 2")
@@ -223,11 +223,11 @@ TEST_CASE("counter", "[externals]")
 
             t.bang();
             REQUIRE(t.messagesAt(0) == ML { M(1) });
-            REQUIRE(t.messagesAt(1) == ML {});
+            REQUIRE(t.messagesAt(1) == ML { i(0) });
 
             t.sendBang();
             REQUIRE(t.messagesAt(0) == ML { M(1), M(0.) });
-            REQUIRE(t.messagesAt(1) == ML {});
+            REQUIRE(t.messagesAt(1) == ML { i(0) });
 
             t.sendBang();
             REQUIRE(t.messagesAt(0) == ML { M(1), M(0.), M(-1) });
@@ -235,11 +235,11 @@ TEST_CASE("counter", "[externals]")
 
             t.sendBang();
             REQUIRE(t.messagesAt(0) == ML { M(1), M(0.), M(-1), M(1) });
-            REQUIRE(t.messagesAt(1) == ML { i(0) });
+            REQUIRE(t.messagesAt(1) == ML { i(0), i(1) });
 
             t.sendBang();
             REQUIRE(t.messagesAt(0) == ML { M(1), M(0.), M(-1), M(1), M(0.) });
-            REQUIRE(t.messagesAt(1) == ML { i(0) });
+            REQUIRE(t.messagesAt(1) == ML { i(0), i(1) });
 
             t.sendBang();
             REQUIRE(t.messagesAt(0) == ML { M(1), M(0.), M(-1), M(1), M(0.), M(-1) });
@@ -258,11 +258,11 @@ TEST_CASE("counter", "[externals]")
 
             t.sendBang();
             REQUIRE(t.messagesAt(0) == ML { M(1) });
-            REQUIRE(t.messagesAt(1) == ML {});
+            REQUIRE(t.messagesAt(1) == ML { i(0) });
 
             t.sendBang();
             REQUIRE(t.messagesAt(0) == ML { M(1), M(0.) });
-            REQUIRE(t.messagesAt(1) == ML {});
+            REQUIRE(t.messagesAt(1) == ML { i(0) });
         }
     }
 }

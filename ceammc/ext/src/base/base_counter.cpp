@@ -56,10 +56,18 @@ void BaseCounter::onInlet(size_t n, const AtomList& l)
         reset();
 }
 
+void BaseCounter::m_reset(t_symbol*, const AtomListView& lv)
+{
+    reset();
+}
+
 void BaseCounter::next()
 {
     if (!shouldRepeat())
         return;
+
+    if (i_ == from_->value())
+        floatTo(1, ri_);
 
     floatTo(0, i_);
 
@@ -69,7 +77,6 @@ void BaseCounter::next()
         const auto nr = repeat_->value();
 
         if (nr == R_INFINITE || ri_ < nr) {
-            floatTo(1, ri_);
             ri_++;
 
             if (ri_ == nr) { // should stop
@@ -105,10 +112,12 @@ void setup_base_counter()
     SYM_DONE = gensym("done");
 
     ObjectFactory<BaseCounter> obj("counter");
+    obj.addMethod("reset", &BaseCounter::m_reset);
+
     obj.setXletsInfo({ "bang: increment and output\n"
                        "reset: reset counter to start value",
                          "bang: reset counter to start value" },
         { "int: counter value",
-            "int: repeat index when iteration finished\n"
-            "done: when all repeats done" });
+            "int: repeat index when iteration starts\n"
+            "done: bang when done" });
 }

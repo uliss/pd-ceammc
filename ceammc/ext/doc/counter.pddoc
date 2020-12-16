@@ -18,6 +18,14 @@
             <argument name="TO" type="int">end value</argument>
             <argument name="REPEATS" type="int">number of repeats</argument>
         </arguments>
+        <properties>
+            <property name="@from" type="int" default="0">start value</property>
+            <property name="@to" type="int" default="0">end value</property>
+            <property name="@r" type="int" default="-1" minvalue="-1">number of repeats. If -1 - repeat infinitely.</property>
+        </properties>
+        <methods>
+            <method name="reset">reset counter to start value and repeat counter to 0</method>
+        </methods>
         <inlets>
             <inlet>
                 <xinfo on="bang">output current value and increment counter</xinfo>
@@ -28,7 +36,7 @@
         </inlets>
         <outlets>
             <outlet>int: counter value</outlet>
-            <outlet></outlet>
+            <outlet>int: repeat counter, done: when done</outlet>
         </outlets>
         <example>
             <pdascii>
