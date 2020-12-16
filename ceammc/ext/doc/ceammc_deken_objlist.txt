@@ -33,6 +33,7 @@ plot.linspace~	outputs numbers spaced evenly spaced over a specified interval
 plot.logspace~	outputs numbers spaced evenly on a log scale
 plot.response~	output amp/phase freq response to impulse
 ceammc.search	ceammc library search object
+counter	modulo counter
 function	named function
 func	named function
 function.call	call named function

@@ -108,7 +108,7 @@ void setup_base_counter()
     obj.setXletsInfo({ "bang: increment and output\n"
                        "reset: reset counter to start value",
                          "bang: reset counter to start value" },
-        { "int: counter value", "bang: when @to value is reached\n"
-                                "int: repeat index\n"
-                                "done: when all repeats done" });
+        { "int: counter value",
+            "int: repeat index when iteration finished\n"
+            "done: when all repeats done" });
 }

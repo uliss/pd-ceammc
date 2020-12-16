@@ -95,6 +95,9 @@
     <entry name="ceammc.search" descr="ceammc library search object" ref_view="object">
       <xi:include href="ceammc.search.pddoc" parse="xml"/>
     </entry>
+    <entry name="counter" descr="modulo counter" ref_view="object">
+      <xi:include href="counter.pddoc" parse="xml"/>
+    </entry>
     <entry name="function" descr="named function" ref_view="link">
       <xi:include href="function.pddoc" parse="xml"/>
     </entry>

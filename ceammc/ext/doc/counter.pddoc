@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="counter">
+        <title>counter</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>modulo counter</description>
+            <license>GPL3 or later</license>
+            <library>ceammc</library>
+            <category>base</category>
+            <keywords>counter modulo</keywords>
+            <since>0.9.1</since>
+        </meta>
+        <arguments>
+            <argument name="FROM" type="int">start value</argument>
+            <argument name="TO" type="int">end value</argument>
+            <argument name="REPEATS" type="int">number of repeats</argument>
+        </arguments>
+        <inlets>
+            <inlet>
+                <xinfo on="bang">output current value and increment counter</xinfo>
+            </inlet>
+            <inlet>
+                <xinfo on="bang">reset counter to start value</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet>int: counter value</outlet>
+            <outlet></outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[bng]             [bng]         [bng]
+|                 |             |.
+[counter 1 4]     [counter 1 4 @r 1]
+|                 |             ^|
+[F]               [F]           [route done]
+                                |       ^|
+                                [bng]   [F]
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

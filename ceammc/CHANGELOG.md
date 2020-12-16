@@ -89,6 +89,7 @@
     - RythmTree support added: rtree->list and built-in function rtree()
     - patch.deps added - list current patch dependencies
     - ceammc.search added
+    - counter object added
 - proto.* updates:
     - proto.xtouch_ext - Behringer XTouch externder support added 
 - noise.* updates:
