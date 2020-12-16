@@ -200,6 +200,10 @@ if(APPLE)
     file(MAKE_DIRECTORY ${PROJECT_BINARY_DIR}/dist)
     configure_file(${PROJECT_SOURCE_DIR}/ceammc/gui/Info.plist ${PROJECT_BINARY_DIR}/dist/Info.plist)
 
+    set(EMBEDDED_TCL "${PROJECT_SOURCE_DIR}/mac/build/tcl/Tcl.framework")
+    set(EMBEDDED_TK  "${PROJECT_SOURCE_DIR}/mac/build/tk/Tk.framework")
+    set(EMBEDDED_WISH "${PROJECT_SOURCE_DIR}/mac/Wish-8.6.10.app")
+
     set(CUSTOM_TCL "/Library/Frameworks/Tcl.framework")
     set(CUSTOM_TK  "/Library/Frameworks/Tk.framework")
     set(CUSTOM_WISH "${CUSTOM_TK}/Versions/8.6/Resources/Wish.app")
@@ -212,7 +216,12 @@ if(APPLE)
     set(IS_SYSTEM_TK 0)
     set(TK_VERSION "")
 
-    if(EXISTS ${CUSTOM_TCL} AND EXISTS ${CUSTOM_TK} AND EXISTS ${CUSTOM_WISH})
+    if(EXISTS ${EMBEDDED_TCL} AND EXISTS ${EMBEDDED_TK} AND EXISTS ${EMBEDDED_WISH})
+        set(TCL_PATH "${EMBEDDED_TCL}")
+        set(TK_PATH  "${EMBEDDED_TK}")
+        set(WISH_APP "${EMBEDDED_WISH}")
+        set(TK_VERSION "8.6")
+    elseif(EXISTS ${CUSTOM_TCL} AND EXISTS ${CUSTOM_TK} AND EXISTS ${CUSTOM_WISH})
         set(TCL_PATH "${CUSTOM_TCL}")
         set(TK_PATH  "${CUSTOM_TK}")
         set(WISH_APP "${CUSTOM_WISH}")
@@ -279,6 +288,12 @@ if(APPLE)
             ${PROJECT_SOURCE_DIR}
         WORKING_DIRECTORY ${PROJECT_BINARY_DIR}
         DEPENDS app)
+
+    add_custom_target(build_tcltk
+        COMMAND
+            ${PROJECT_SOURCE_DIR}/mac/tcltk-wish.sh --build --leave --arch x86_64 8.6.10
+        WORKING_DIRECTORY ${PROJECT_SOURCE_DIR}/mac
+        DEPENDS)
 
     find_program(GPGENV_EXE NAMES gpgenv)
 
