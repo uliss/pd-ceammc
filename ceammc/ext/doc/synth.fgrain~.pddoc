@@ -63,7 +63,7 @@
 |
 [open %CEAMMC%/guitar1.wav(
 |
-[expand_env]                  [ui.knob]
+[expand_env]                  [ui.knob @max 0.95]
 |                             |
 | [F]          [F]            |
 | |            |              |

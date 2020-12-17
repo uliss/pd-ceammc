@@ -8,7 +8,7 @@
 #X obj 50 118 loadbang;
 #X msg 50 147 open %CEAMMC%/guitar1.wav;
 #X obj 50 176 expand_env;
-#X obj 338 176 ui.knob;
+#X obj 338 176 ui.knob @max 0.95;
 #X floatatom 69 205 5 0 0 0 - - -;
 #X floatatom 194 205 5 0 0 0 - - -;
 #X msg 69 234 @voices \$1;
