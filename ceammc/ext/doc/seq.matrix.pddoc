@@ -29,8 +29,8 @@
             repeats. If -1: repeat infinitely</property>
             <property name="@inf" type="alias">alias to @r -1, repeats infinitely</property>
             <property name="@once" type="alias">alias to @r 1, play once</property>
-            <property name="@dur" type="float" default="4000" minvalue="0" units="millisecond">whole
-            sequence duration. (Recalculates @t property accordingly)</property>
+            <property name="@dur" type="float" default="4000" minvalue="0" units="millisecond">
+            whole sequence duration. (Recalculates @t property accordingly)</property>
             <property name="@i" type="int" minvalue="0" readonly="true" default="0">current
             sequence iteration</property>
             <property name="@ri" type="int" minvalue="0" readonly="true" default="0">current repeat
@@ -38,7 +38,8 @@
             <property name="@mode" type="symbol" enum="inc dec tri" default="inc">sequencer mode.
             'inc': from first to last, 'dec': from last to first, 'tri': from first to last, then
             back</property>
-            <property name="@n" type="int" default="16" minvalue="0">number of cols in matrix</property>
+            <property name="@n" type="int" default="16" minvalue="0">number of cols in
+            matrix</property>
         </properties>
         <methods>
             <method name="start">start sequencer from current position</method>

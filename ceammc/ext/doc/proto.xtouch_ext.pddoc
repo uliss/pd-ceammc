@@ -42,7 +42,7 @@
             display</param></method>
             <!-- lcd align -->
             <method name="lcd_align">set all texts alignment. Note: you should set this before
-            setting upper display text
+            setting upper display text 
             <param name="CHAN" type="atom" required="true">'all', 'scene' or channel index, max
             value is NUM_SCENES * 8</param>
             <param name="ALIGN" type="list" required="true">align name. Valid names are: left,
@@ -60,11 +60,11 @@
             <param name="ALIGN" type="list" required="true">align name. Valid names are: left,
             right, center, justify and auto</param></method>
             <!-- lcd mode -->
-            <method name="lcd_mode">set lcd background/highlight mode.
+            <method name="lcd_mode">set lcd background/highlight mode. 
             <param name="CHAN" type="atom" required="true">'all', 'scene' or channel index, max
             value is NUM_SCENES * 8</param>
-            <param name="MODE" type="list" required="true">mod values. 0: display is inverted, 1: upper is inverted,
-            2: lower is inverted, 3: none in inverted</param></method>
+            <param name="MODE" type="list" required="true">mod values. 0: display is inverted, 1:
+            upper is inverted, 2: lower is inverted, 3: none in inverted</param></method>
             <!-- lcd color -->
             <method name="lcd_color">set display color 
             <param name="CHAN" type="atom" required="true">'all', 'scene' or channel index, max
@@ -112,21 +112,21 @@
             <param name="CHAN" type="atom" required="true">channel index, max value is NUM_SCENES *
             8</param></method>
             <!-- fader -->
-            <method name="fader">set fader value
+            <method name="fader">set fader value 
             <param name="CHAN" type="atom" required="true">'all', 'scene' or channel index, max
             value is NUM_SCENES * 8</param>
             <param name="X" type="list" required="true">fader value(s)</param></method>
-            <method name="fader?">get fader value, output to second outlet in format [fader?
-            IDX VALUE(
+            <method name="fader?">get fader value, output to second outlet in format [fader? IDX
+            VALUE( 
             <param name="CHAN" type="atom" required="true">channel index, max value is NUM_SCENES *
             8</param></method>
             <!-- knob -->
-            <method name="knob">set knob value
+            <method name="knob">set knob value 
             <param name="CHAN" type="atom" required="true">'all', 'scene' or channel index, max
             value is NUM_SCENES * 8</param>
             <param name="X" type="list" required="true">fader value(s)</param></method>
-            <method name="knob?">get knob value, output to second outlet in format [knob?
-            IDX VALUE(
+            <method name="knob?">get knob value, output to second outlet in format [knob? IDX
+            VALUE( 
             <param name="CHAN" type="atom" required="true">channel index, max value is NUM_SCENES *
             8</param></method>
             <!-- modes -->
@@ -156,10 +156,10 @@
             not change display texts</method>
         </methods>
         <properties>
-            <property name="@n" type="int" readonly="true" minvalue="1" maxvalue="32" default="2">number of
-            scenes</property>
-            <property name="@scene" type="int" readonly="true" minvalue="0" default="0">
-            current scene</property>
+            <property name="@n" type="int" readonly="true" minvalue="1" maxvalue="32" default="2">
+            number of scenes</property>
+            <property name="@scene" type="int" readonly="true" minvalue="0" default="0">current
+            scene</property>
         </properties>
         <inlets>
             <inlet>
