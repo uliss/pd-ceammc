@@ -52,9 +52,7 @@
                       | |                         |
                       | |                         |
                       | |                         |
-                      [str->sym                   ]
-                      |
-                      [ui.d @display_type 1]
+                      [ui.dt                      ]
 ]]>
             </pdascii>
         </example>
