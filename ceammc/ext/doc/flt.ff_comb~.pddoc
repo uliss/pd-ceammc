@@ -29,7 +29,7 @@
             signal</argument>
         </arguments>
         <properties>
-            <property name="@a" type="float" minvalue="0" maxvalue="1" default="1">scaling factor
+            <property name="@a" type="float" minvalue="-1" maxvalue="1" default="1">scaling factor
             of delayed signal</property>
             <property name="@active" type="int" enum="0 1" default="1">on/off dsp
             processing</property>
