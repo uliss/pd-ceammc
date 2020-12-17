@@ -56,10 +56,6 @@
             <method name="dt">
                 <param type="float" name="DT" required="true">dt value</param>
             </method>
-            <method name="fold_cut">
-                <param type="int" name="FOLD_CUT" required="true">enable fold / cut value
-                action</param>
-            </method>
         </methods>
         <inlets>
             <inlet>

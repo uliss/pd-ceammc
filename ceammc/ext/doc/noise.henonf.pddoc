@@ -44,6 +44,9 @@
             <method name="y">
                 <param type="float" name="Y" required="true">y value</param>
             </method>
+            <method name="dt">
+                <param type="float" name="DT" required="true">dt value</param>
+            </method>
         </methods>
         <inlets>
             <inlet>
