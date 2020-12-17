@@ -42,7 +42,6 @@ extern "C" void setup_test0x2eexpect();
 void setup_base_canvas_dir();
 void setup_base_canvas_name();
 void setup_base_canvas_path();
-void setup_base_counter();
 void setup_base_expand_env();
 void setup_base_msg();
 void setup_base_replace();
@@ -73,7 +72,6 @@ void ceammc_base_setup()
     setup_base_canvas_dir();
     setup_base_canvas_name();
     setup_base_canvas_path();
-    setup_base_counter();
     setup_base_dac();
     setup_base_expand_env();
     setup_base_function();

@@ -11,13 +11,13 @@
  * contact the author of this file, or the owner of the project in which
  * this file belongs to.
  *****************************************************************************/
-#ifndef BASE_COUNTER_H
-#define BASE_COUNTER_H
+#ifndef SEQ_COUNTER_H
+#define SEQ_COUNTER_H
 
 #include "ceammc_object.h"
 using namespace ceammc;
 
-class BaseCounter : public BaseObject {
+class SeqCounter : public BaseObject {
     IntProperty* from_;
     IntProperty* to_;
     IntProperty* repeat_;
@@ -25,7 +25,7 @@ class BaseCounter : public BaseObject {
     bool done_;
 
 public:
-    BaseCounter(const PdArgs& args);
+    SeqCounter(const PdArgs& args);
     void onBang() override;
     void onInlet(size_t n, const AtomList& l) override;
 
@@ -37,6 +37,6 @@ private:
     bool shouldRepeat() const;
 };
 
-void setup_base_counter();
+void setup_seq_counter();
 
-#endif // BASE_COUNTER_H
+#endif // SEQ_COUNTER_H

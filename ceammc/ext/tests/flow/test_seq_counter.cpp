@@ -11,12 +11,12 @@
  * contact the author of this file, or the owner of the project in which
  * this file belongs to.
  *****************************************************************************/
-#include "base_counter.h"
+#include "seq_counter.h"
 #include "test_external.h"
 
-PD_COMPLETE_TEST_SETUP(BaseCounter, base, counter)
+PD_COMPLETE_TEST_SETUP(SeqCounter, seq, counter)
 
-TEST_CASE("counter", "[externals]")
+TEST_CASE("seq.counter", "[externals]")
 {
     pd_test_init();
     test::pdPrintToStdError(true);
@@ -25,7 +25,7 @@ TEST_CASE("counter", "[externals]")
     {
         SECTION("default")
         {
-            TExt t("counter");
+            TExt t("seq.counter");
             REQUIRE(t.numInlets() == 2);
             REQUIRE(t.numOutlets() == 2);
             REQUIRE_PROPERTY(t, @from, 0);
@@ -35,7 +35,7 @@ TEST_CASE("counter", "[externals]")
 
         SECTION("arg0")
         {
-            TExt t("counter", LF(-10));
+            TExt t("seq.counter", LF(-10));
             REQUIRE_PROPERTY(t, @from, -10);
             REQUIRE_PROPERTY(t, @to, 0);
             REQUIRE_PROPERTY(t, @r, -1);

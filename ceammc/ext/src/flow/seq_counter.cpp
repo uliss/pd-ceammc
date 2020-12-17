@@ -11,13 +11,13 @@
  * contact the author of this file, or the owner of the project in which
  * this file belongs to.
  *****************************************************************************/
-#include "base_counter.h"
+#include "seq_counter.h"
 #include "ceammc_factory.h"
 
 static t_symbol* SYM_DONE;
 constexpr int R_INFINITE = -1;
 
-BaseCounter::BaseCounter(const PdArgs& args)
+SeqCounter::SeqCounter(const PdArgs& args)
     : BaseObject(args)
     , from_(nullptr)
     , to_(nullptr)
@@ -45,23 +45,23 @@ BaseCounter::BaseCounter(const PdArgs& args)
     createOutlet();
 }
 
-void BaseCounter::onBang()
+void SeqCounter::onBang()
 {
     next();
 }
 
-void BaseCounter::onInlet(size_t n, const AtomList& l)
+void SeqCounter::onInlet(size_t n, const AtomList& l)
 {
     if (l.empty())
         reset();
 }
 
-void BaseCounter::m_reset(t_symbol*, const AtomListView& lv)
+void SeqCounter::m_reset(t_symbol*, const AtomListView& lv)
 {
     reset();
 }
 
-void BaseCounter::next()
+void SeqCounter::next()
 {
     if (!shouldRepeat())
         return;
@@ -94,25 +94,27 @@ void BaseCounter::next()
     }
 }
 
-void BaseCounter::reset()
+void SeqCounter::reset()
 {
     done_ = false;
     ri_ = 0;
     i_ = from_->value();
 }
 
-bool BaseCounter::shouldRepeat() const
+bool SeqCounter::shouldRepeat() const
 {
     const auto n = repeat_->value();
     return !done_ && (n == R_INFINITE || ri_ < n);
 }
 
-void setup_base_counter()
+void setup_seq_counter()
 {
     SYM_DONE = gensym("done");
 
-    ObjectFactory<BaseCounter> obj("counter");
-    obj.addMethod("reset", &BaseCounter::m_reset);
+    ObjectFactory<SeqCounter> obj("seq.counter");
+    obj.addAlias("counter");
+
+    obj.addMethod("reset", &SeqCounter::m_reset);
 
     obj.setXletsInfo({ "bang: increment and output\n"
                        "reset: reset counter to start value",
