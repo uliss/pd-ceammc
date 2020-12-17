@@ -21,6 +21,10 @@
             complement</par>
             <wiki name="Two%27s_complement">Two's complement</wiki>
         </info>
+        <properties>
+            <property name="@size" type="int" minvalue="1" maxvalue="32" default="32">output bit-length</property>
+            <property name="@rev" type="int" enum="0 1" default="0">reversed bit order</property>
+        </properties>
         <inlets>
             <inlet>
                 <xinfo on="float">input value</xinfo>
