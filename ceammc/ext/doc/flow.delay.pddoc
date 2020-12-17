@@ -31,10 +31,6 @@
             <argument name="MS" type="float" minvalue="0" units="millisecond">init @delay
             property</argument>
         </arguments>
-        <methods>
-            <method name="reset">stops scheduled delay. Note: should be send to the second
-            inlet</method>
-        </methods>
         <properties>
             <property name="@delay" type="float" minvalue="0" default="0" units="millisecond">delay
             time</property>
@@ -49,6 +45,7 @@
             <inlet>
                 <xinfo on="bang">reset (stop) current delay</xinfo>
                 <xinfo on="float" minvalue="0">set delay time</xinfo>
+                <xinfo>[reset( - resets delay</xinfo>
             </inlet>
         </inlets>
         <outlets>
