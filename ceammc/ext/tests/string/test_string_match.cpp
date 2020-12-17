@@ -11,8 +11,8 @@
  * contact the author of this file, or the owner of the project in which
  * this file belongs to.
  *****************************************************************************/
-#include "string_match.h"
 #include "ceammc_regexp.h"
+#include "string_match.h"
 #include "test_external.h"
 
 PD_COMPLETE_TEST_SETUP(StringMatch, string, match)
@@ -24,33 +24,45 @@ TEST_CASE("string.match", "[external]")
 
     SECTION("init")
     {
-        TestStringMatch t("string.match");
+        TObj t("string.match");
         REQUIRE(t.numInlets() == 2);
         REQUIRE(t.numOutlets() == 1);
         REQUIRE_PROPERTY_LIST(t, @re, LA(""));
 
         SECTION("arg")
         {
-            TestStringMatch t("string.match", LA("a+"));
+            TObj t("string.match", LA("a+"));
             REQUIRE_PROPERTY_LIST(t, @re, LA("a+"));
         }
 
         SECTION("invalid")
         {
-            TestStringMatch t("string.match", LA("\"*[asd\""));
+            TObj t("string.match", LA("\"*[asd\""));
             REQUIRE_PROPERTY_LIST(t, @re, LA("*[asd"));
         }
 
         SECTION("prop")
         {
-            TestStringMatch t("string.match", LA("@re", "\"``sabc\""));
+            TObj t("string.match", LA("@re", "\"``sabc\""));
             REQUIRE_PROPERTY_LIST(t, @re, LA("`sabc"));
+        }
+
+        SECTION("external 1")
+        {
+            TExt t("string.match");
+            REQUIRE_PROPERTY_LIST(t, @re, LA(""));
+        }
+
+        SECTION("external 2")
+        {
+            TExt t("string.match", LA("a+"));
+            REQUIRE_PROPERTY_LIST(t, @re, LA("a+"));
         }
     }
 
     SECTION("empty")
     {
-        TestStringMatch t("string.match");
+        TObj t("string.match");
         WHEN_SEND_SYMBOL_TO(0, t, "");
         REQUIRE_NO_MSG(t);
     }
@@ -69,7 +81,7 @@ TEST_CASE("string.match", "[external]")
         REQUIRE_FLOAT_AT_OUTLET(0, t, 0); \
     }
 
-        TestStringMatch t("string.match", LA("abc+"));
+        TObj t("string.match", LA("abc+"));
         REQUIRE_MATCH(t, "abc");
         REQUIRE_MATCH(t, "abcc");
         REQUIRE_MATCH(t, "abcccc");
@@ -127,7 +139,7 @@ TEST_CASE("string.match", "[external]")
 
     SECTION("unicode")
     {
-        TestStringMatch t("string.match", LA("\"[а-я]+\""));
+        TObj t("string.match", LA("\"[а-я]+\""));
         REQUIRE_NO_MATCH(t, "abc");
         REQUIRE_MATCH(t, "абвгд");
         REQUIRE_NO_MATCH(t, "Абвгд");
