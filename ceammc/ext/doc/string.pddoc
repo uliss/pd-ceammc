@@ -19,6 +19,14 @@
         <arguments>
             <argument name="STR" type="symbol">initial string</argument>
         </arguments>
+        <methods>
+            <method name="clear">clear string without output</method>
+            <method name="set">set string content without output</method>
+            <method name="append">append values to the end of string</method>
+        </methods>
+        <properties>
+            <property name="@value" type="list" default="">string value</property>
+        </properties>
         <inlets>
             <inlet>
                 <xinfo on="bang">outputs string value</xinfo>
@@ -28,11 +36,6 @@
                 value</xinfo>
             </inlet>
         </inlets>
-        <methods>
-            <method name="clear">clear string without output</method>
-            <method name="set">set string content without output</method>
-            <method name="append">append values to the end of string</method>
-        </methods>
         <outlets>
             <outlet>string data</outlet>
         </outlets>
