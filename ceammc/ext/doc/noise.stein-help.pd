@@ -42,21 +42,21 @@
 #X obj 20 538 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 543 cnv 5 73 26 empty empty methods: 4 10 0 14 -262144
 -49933 0;
-#X msg 110 578 a;
+#X msg 110 578 lambda;
 #X text 245 578 Arguments are:;
 #X obj 255 601 cnv 1 52 23 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 255 601 LAMBDA: lambda value. Type: float.;
-#X msg 110 626 b;
+#X msg 110 626 om;
 #X text 245 626 Arguments are:;
-#X obj 255 649 cnv 1 36 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 649 SEED: seed value. Type: float.;
-#X msg 110 674 om;
-#X text 245 674 Arguments are:;
-#X obj 255 697 cnv 1 21 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 697 OM: enables output when cut or fold value is changed.
+#X obj 255 649 cnv 1 21 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 649 OM: enables output when cut or fold value is changed.
 Type: int.;
-#X msg 110 737 reset;
-#X text 245 737 reset state.;
+#X msg 110 689 reset;
+#X text 245 689 reset state.;
+#X msg 110 716 seed;
+#X text 245 716 Arguments are:;
+#X obj 255 739 cnv 1 36 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 739 SEED: seed value. Type: float.;
 #X msg 110 764 set;
 #X text 245 764 Arguments are:;
 #X obj 255 787 cnv 1 29 23 empty empty empty 17 7 0 10 -245695 -1 0;
