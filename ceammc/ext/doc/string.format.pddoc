@@ -45,8 +45,6 @@
 |    |
 [string.format "%08.2f"]
 |
-[str->sym]
-|
 [ui.dt]
 ]]>
             </pdascii>

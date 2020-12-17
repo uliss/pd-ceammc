@@ -21,7 +21,7 @@
             </also>
         </meta>
         <arguments>
-            <argument name="SEP" type="list">separator. For space use ' '.</argument>
+            <argument name="SEP" type="list">separator. For space use quotes.</argument>
         </arguments>
         <properties>
             <property name="@sep" type="symbol" default="">separator</property>
@@ -46,11 +46,11 @@
 |
 [string TEST]
 |
-[string.split]
+[string.split]  [symbol .(
+|               |.
+[string.join " " ]
 |
-[string.join ' ']
-|
-[ui.d @display_type 1]
+[ui.dt]
 ]]>
             </pdascii>
         </example>

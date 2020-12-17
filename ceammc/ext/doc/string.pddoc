@@ -51,8 +51,6 @@
 | |   |                    |
 [string                    ]
 |
-[str->sym]
-|
 [ui.dt]
 ]]>
             </pdascii>
