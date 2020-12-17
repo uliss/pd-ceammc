@@ -58,11 +58,7 @@
 |
 [str.replace _ .]
 |
-[str->sym]
-|
-[msg set]
-|
-[ (
+[ui.dt]
 ]]>
             </pdascii>
         </example>
