@@ -31,10 +31,10 @@
                 <param type="int" name="OM" required="true">enables output when cut or fold value
                 is changed</param>
             </method>
-            <method name="a">
+            <method name="lambda">
                 <param type="float" name="LAMBDA" required="true">lambda value</param>
             </method>
-            <method name="b">
+            <method name="seed">
                 <param type="float" name="SEED" required="true">seed value</param>
             </method>
         </methods>
