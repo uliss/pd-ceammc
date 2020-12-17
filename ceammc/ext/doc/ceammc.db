@@ -320,7 +320,6 @@ local.int		.		.
 local.list		.		.
 local.mlist		.		.
 local.set		.		.
-log		.		-
 logger,log.error,log.post,log.debug,log.verbose,log.stderr,log.stdout		..		-
 math.abs		.		.
 math.abs~		~		~

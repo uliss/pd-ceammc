@@ -17,7 +17,7 @@
             </aliases>
         </meta>
         <properties>
-            <property name="@string" type="flag">ignore parsing error</property>
+            <property name="@strict" type="flag">ignore parsing error</property>
         </properties>
         <inlets>
             <inlet>
