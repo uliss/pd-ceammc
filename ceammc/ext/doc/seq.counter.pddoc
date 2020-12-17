@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <pddoc version="1.0">
-    <object name="counter">
-        <title>counter</title>
+    <object name="seq.counter">
+        <title>seq.counter</title>
         <meta>
             <authors>
                 <author>Serge Poltavsky</author>
@@ -9,9 +9,12 @@
             <description>modulo counter</description>
             <license>GPL3 or later</license>
             <library>ceammc</library>
-            <category>base</category>
+            <category>seq</category>
             <keywords>counter modulo</keywords>
             <since>0.9.1</since>
+            <aliases>
+                <alias>counter</alias>
+            </aliases>
         </meta>
         <arguments>
             <argument name="FROM" type="int">start value</argument>

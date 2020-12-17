@@ -722,6 +722,7 @@ seq
 seq.arp
 seq.b
 seq.bangs
+seq.counter
 seq.matrix
 seq.nb
 seq.nbangs

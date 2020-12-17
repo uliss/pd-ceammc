@@ -520,6 +520,7 @@ replace		...		.
 rtree.to_list,rtree->list		.		.
 seq.arp		.		..
 seq.bangs,seq.b		..		..
+seq.counter,counter		..		..
 seq.matrix		..		..
 seq.nbangs,seq.nb		..		..
 seq.phasor		..		..

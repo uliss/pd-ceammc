@@ -72,7 +72,6 @@ set(DOC_FILES
     conv.sec2samp
     conv.sec2str
     conv.str2sec
-    counter
     data.fifo
     data.float
     data.dict
@@ -528,8 +527,9 @@ set(DOC_FILES
     set.symdiff
     set.union
     sequencer
-    seq.bangs
     seq.arp
+    seq.bangs
+    seq.counter
     seq.matrix
     seq.nbangs
     seq.phasor

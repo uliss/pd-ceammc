@@ -42,7 +42,7 @@
         plot.linspace~ plot.logspace~ plot.response~
     }}
     {base {
-        ceammc.search counter function function.call gain~ logger matrix~
+        ceammc.search function function.call gain~ logger matrix~
         metro.pattern metro.random metro.seq mix~ nsig~ obj.props radio sync
         window xdac~ xfade2~ xfade~
     }}
@@ -203,8 +203,8 @@
         random.linear random.pw_const random.pw_lin
     }}
     {seq {
-        seq.arp seq.bangs seq.matrix seq.nbangs seq.phasor seq.toggles
-        sequencer
+        seq.arp seq.bangs seq.counter seq.matrix seq.nbangs seq.phasor
+        seq.toggles sequencer
     }}
     {snd {
         snd.file
