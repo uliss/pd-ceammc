@@ -14,6 +14,9 @@
             <keywords>fx pitchshift</keywords>
             <since>0.9</since>
         </meta>
+        <methods>
+            <method name="reset">reset object state</method>
+        </methods>
         <properties>
             <property name="@window" type="float" units="millisecond" minvalue="10" maxvalue="2000"
             default="200">the window size</property>

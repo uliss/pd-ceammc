@@ -59,10 +59,10 @@ mid-frequency band. Range: 1\...8;
 int. Default value: 0\. Allowed values: 0 \, 1\.;
 #X msg 110 829 @decay_low;
 #X text 245 829 Get/Set time (in seconds) to decay 60dB in low-frequency
-band. Type: float. Units: sec. Default value: 3\. Range: 1\...25\.;
+band. Type: float. Units: sec. Default value: 3\. Range: 1\...60\.;
 #X msg 110 886 @decay_mid;
 #X text 245 886 Get/Set time (in seconds) to decay 60dB in mid-frequency
-band. Type: float. Units: sec. Default value: 2\. Range: 1\...25\.;
+band. Type: float. Units: sec. Default value: 2\. Range: 1\...60\.;
 #X msg 110 943 @delay;
 #X text 245 943 Get/Set a delay of 20 to 100 ms operating on the 'wet'
 signal. Large values will provide the impression of a larger room.
@@ -76,10 +76,10 @@ T60 is half the middle-band's T60\. Type: float. Units: Hz. Default
 value: 6000\. Range: 1500\...47040\.;
 #X msg 110 1114 @fr_ldecay;
 #X text 245 1114 Get/Set time (in seconds) to decay 60dB in low-frequency
-band. Type: float. Units: sec. Default value: 30\. Range: 0\...60\.;
+band. Type: float. Units: sec. Default value: 40\. Range: 0\...60\.;
 #X msg 110 1171 @fr_mdecay;
 #X text 245 1171 Get/Set time (in seconds) to decay 60dB in mid-frequency
-band. Type: float. Units: sec. Default value: 30\. Range: 0\...60\.;
+band. Type: float. Units: sec. Default value: 40\. Range: 0\...60\.;
 #X msg 110 1228 @fr_time;
 #X text 245 1228 Get/Set length of freeze tail. Type: float. Units:
 ms. Default value: 100\. Range: 0\...1000\.;
