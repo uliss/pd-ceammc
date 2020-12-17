@@ -39,19 +39,23 @@ SeqMatrixBase::SeqMatrixBase(const PdArgs& args)
     interval_->setArgIndex(1);
     addProperty(interval_);
 
-    createCbFloatProperty(
-        "@dur",
-        [this]() -> t_float { return n_->value() * interval_->value(); },
-        [this](t_float f) -> bool {
-            const auto N = n_->value();
-            if (N == 0) {
-                OBJ_ERR << "empty sequence";
-                return false;
-            }
+    {
+        auto p = createCbFloatProperty(
+            "@dur",
+            [this]() -> t_float { return n_->value() * interval_->value(); },
+            [this](t_float f) -> bool {
+                const auto N = n_->value();
+                if (N == 0) {
+                    OBJ_ERR << "empty sequence";
+                    return false;
+                }
 
-            return interval_->setValue(f / N);
-        })
-        ->checkNonNegative();
+                return interval_->setValue(f / N);
+            });
+
+        p->setUnits(PropValueUnits::MSEC);
+        p->checkNonNegative();
+    }
 
     {
         auto p = property(gensym("@r"));
