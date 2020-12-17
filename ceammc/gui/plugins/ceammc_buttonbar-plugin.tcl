@@ -114,7 +114,7 @@ proc ::btnbar::show_options_gui {} {
 
 proc make_pd_button {mytoplevel name tooltip} {
     button $mytoplevel.buttonbar.$name -image buttonimage$name \
-        -relief flat -borderwidth 1 -highlightthickness 0 \
+        -relief flat -borderwidth 0 -highlightthickness 0 \
         -highlightcolor grey -highlightbackground grey -padx 1 -pady 1 \
         -command "menu_send_float \$::focused_window $name 0"
     pack $mytoplevel.buttonbar.$name -side left -padx 0 -pady 0
@@ -123,7 +123,7 @@ proc make_pd_button {mytoplevel name tooltip} {
 
 proc make_iemgui_button {mytoplevel name tooltip} {
     button $mytoplevel.buttonbar.$name -image buttonimage$name \
-        -relief flat -borderwidth 1 -highlightthickness 0 \
+        -relief flat -borderwidth 0 -highlightthickness 0 \
         -highlightcolor grey -highlightbackground grey -padx 1 -pady 1 \
         -command "menu_send \$::focused_window $name"
     pack $mytoplevel.buttonbar.$name -side left -padx 0 -pady 0
@@ -132,7 +132,7 @@ proc make_iemgui_button {mytoplevel name tooltip} {
 
 proc make_ceammc_button {mytoplevel name tooltip} {
     button $mytoplevel.buttonbar.$name -image buttonimage$name \
-        -relief flat -borderwidth 1 -highlightthickness 0 \
+        -relief flat -borderwidth 0 -highlightthickness 0 \
         -highlightcolor grey -highlightbackground grey -padx 1 -pady 1 \
         -command "menu_send \$::focused_window ui.$name"
     pack $mytoplevel.buttonbar.$name -side left -padx 0 -pady 0
@@ -141,7 +141,7 @@ proc make_ceammc_button {mytoplevel name tooltip} {
 
 proc make_ceammc_button_tilde {mytoplevel name tooltip} {
     button $mytoplevel.buttonbar.$name -image buttonimage$name \
-        -relief flat -borderwidth 1 -highlightthickness 0 \
+        -relief flat -borderwidth 0 -highlightthickness 0 \
         -highlightcolor grey -highlightbackground grey -padx 1 -pady 1 \
         -command "menu_send \$::focused_window ui.$name~"
     pack $mytoplevel.buttonbar.$name -side left -padx 0 -pady 0
@@ -149,7 +149,7 @@ proc make_ceammc_button_tilde {mytoplevel name tooltip} {
 }
 
 proc ::btnbar::init {mytoplevel} {
-    ttk::frame $mytoplevel.buttonbar -cursor arrow
+    frame $mytoplevel.buttonbar -cursor arrow -background lightgrey
     make_pd_button $mytoplevel obj [_ "Object"]
     make_pd_button $mytoplevel msg "Message"
     make_pd_button $mytoplevel floatatom "Number box"
