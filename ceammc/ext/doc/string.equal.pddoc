@@ -22,6 +22,9 @@
         <arguments>
             <argument name="STR" type="symbol">second string initial value</argument>
         </arguments>
+        <properties>
+            <property name="@subj" type="symbol" default="">string to compare</property>
+        </properties>
         <inlets>
             <inlet>
                 <xinfo>first string (or symbol)</xinfo>

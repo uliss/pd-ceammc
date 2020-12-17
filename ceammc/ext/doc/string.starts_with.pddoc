@@ -22,9 +22,12 @@
         <arguments>
             <argument name="PREFIX" type="symbol">prefix</argument>
         </arguments>
+        <properties>
+            <property name="@prefix" type="symbol">prefix</property>
+        </properties>
         <inlets>
             <inlet>
-                <xinfo>Input string or symbol</xinfo>
+                <xinfo>input string or symbol</xinfo>
             </inlet>
             <inlet>
                 <xinfo>search prefix (string or symbol)</xinfo>
