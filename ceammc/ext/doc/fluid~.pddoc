@@ -22,6 +22,22 @@
             version</property>
             <property name="@soundfonts" type="list" readonly="true">list of found
             soundfonts</property>
+            <property name="@gain" type="float" minvalue="0" maxvalue="10"
+            default="0">output gain</property>
+            <property name="@reverb_level" type="float"
+            default="0">reverberation level</property>
+            <property name="@reverb_room" type="float"
+            default="0">reverberation room size</property>
+            <property name="@reverb_width" type="float"
+            default="0">reverberation spread width</property>
+            <property name="@reverb_damp" type="float"
+            default="0">reverberation damp</property>
+            <property name="@poly" type="float" minvalue="1" maxvalue="1024"
+            default="0">max number of voices</property>
+            <property name="@avoices" type="float"
+            default="0" readonly="true">number of active voices</property>
+            <property name="@bufsize" units="sample" type="float"
+            default="0" readonly="true">internal buffer size</property>
         </properties>
         <inlets>
             <inlet>
