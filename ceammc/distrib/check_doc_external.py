@@ -264,6 +264,10 @@ if __name__ == '__main__':
 
                 continue
 
+            # aliases
+            if p0["type"] == "int" and p1["type"] in ("flag", "alias"):
+                continue
+
             if p0["type"] != p1["type"]:
                 if p0["type"] == "symbol":
                     if p1["type"] not in ("symbol", "alias"):
