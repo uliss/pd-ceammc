@@ -22,9 +22,12 @@
         <arguments>
             <argument name="SUBSTR" type="symbol">searched substring</argument>
         </arguments>
+        <properties>
+            <property name="@subj" type="symbol" default="">searched substring</property>
+        </properties>
         <inlets>
             <inlet>
-                <xinfo>Input string or symbol</xinfo>
+                <xinfo>input string or symbol</xinfo>
             </inlet>
             <inlet>
                 <xinfo>search substring (string or symbol)</xinfo>
