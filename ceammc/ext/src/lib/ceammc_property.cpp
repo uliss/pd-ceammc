@@ -11,7 +11,6 @@
  * contact the author of this file, or the owner of the project in which
  * this file belongs to.
  *****************************************************************************/
-
 #include "ceammc_property.h"
 #include "ceammc_format.h"
 #include "ceammc_log.h"
@@ -621,6 +620,11 @@ bool Property::checkFloat(t_float v) const
         }
     }
 
+    if (!std::isnormal(v) && v != 0) {
+        PROP_ERR() << "ignore denormal value: " << v;
+        return false;
+    }
+
     return true;
 }
 
@@ -1008,12 +1012,31 @@ bool FloatProperty::setList(const AtomListView& lst)
     if (!emptyCheck(lst))
         return false;
 
-    if (lst.size() != 1) {
+    if (lst.size() == 1)
+        return setValue(lst[0]);
+    else if (lst.size() == 2 && lst[0].isSymbol() && lst[1].isFloat()) {
+        const auto val = lst[1].asT<t_float>();
+        const auto op = lst[0].asT<t_symbol*>()->s_name;
+        if (op[0] == '+' && op[1] == '\0')
+            return setValue(value() + val);
+        else if (op[0] == '-' && op[1] == '\0')
+            return setValue(value() - val);
+        else if (op[0] == '*' && op[1] == '\0')
+            return setValue(value() * val);
+        else if (op[0] == '/' && op[1] == '\0') {
+            if (val == 0) {
+                PROP_ERR() << "division by zero";
+                return false;
+            } else
+                return setValue(value() / val);
+        } else {
+            PROP_ERR() << "expected +-*/, got: " << lst[0];
+            return false;
+        }
+    } else {
         PROP_ERR() << "float value expected, got: " << lst;
         return false;
     }
-
-    return setValue(lst[0]);
 }
 
 bool FloatProperty::setFloat(t_float v)
@@ -1103,6 +1126,10 @@ bool BoolProperty::setValue(const Atom& a)
     static t_symbol* SYM_TRUE = gensym("true");
     static t_symbol* SYM_FALSE = gensym("false");
 
+    auto is_toggle = [](t_symbol* s) {
+        return (s->s_name[0] == '~' || s->s_name[0] == '!') && s->s_name[1] == '\0';
+    };
+
     if (a.isFloat()) {
         v_ = (a.asInt(0) == 0) ? false : true;
         return true;
@@ -1115,6 +1142,9 @@ bool BoolProperty::setValue(const Atom& a)
             return true;
         } else if (s == SYM_FALSE) {
             v_ = false;
+            return true;
+        } else if (is_toggle(s)) {
+            v_ = !v_;
             return true;
         } else { // slow check string
             std::string str(s->s_name);
@@ -1150,12 +1180,31 @@ bool IntProperty::setList(const AtomListView& lst)
     if (!emptyCheck(lst))
         return false;
 
-    if (lst.size() != 1) {
+    if (lst.size() == 1)
+        return setValue(lst[0]);
+    else if (lst.size() == 2 && lst[0].isSymbol() && lst[1].isFloat()) {
+        const auto val = lst[1].asT<int>();
+        const auto op = lst[0].asT<t_symbol*>()->s_name;
+        if (op[0] == '+' && op[1] == '\0')
+            return setValue(value() + val);
+        else if (op[0] == '-' && op[1] == '\0')
+            return setValue(value() - val);
+        else if (op[0] == '*' && op[1] == '\0')
+            return setValue(value() * val);
+        else if (op[0] == '/' && op[1] == '\0') {
+            if (val == 0) {
+                PROP_ERR() << "division by zero";
+                return false;
+            } else
+                return setValue(value() / val);
+        } else {
+            PROP_ERR() << "expected +-*/, got: " << lst[0];
+            return false;
+        }
+    } else {
         PROP_ERR() << "integer value expected, got " << lst;
         return false;
     }
-
-    return setValue(lst[0]);
 }
 
 bool IntProperty::setInt(int v)
@@ -1232,12 +1281,31 @@ bool SizeTProperty::setList(const AtomListView& lst)
     if (!emptyCheck(lst))
         return false;
 
-    if (lst.size() != 1) {
-        PROP_ERR() << "unsigned value expectd, got " << lst;
+    if (lst.size() == 1)
+        return setValue(lst[0]);
+    else if (lst.size() == 2 && lst[0].isSymbol() && lst[1].isFloat()) {
+        const auto val = lst[1].asT<int>();
+        const auto op = lst[0].asT<t_symbol*>()->s_name;
+        if (op[0] == '+' && op[1] == '\0')
+            return setValue(value() + val);
+        else if (op[0] == '-' && op[1] == '\0')
+            return setValue(value() - val);
+        else if (op[0] == '*' && op[1] == '\0')
+            return setValue(value() * val);
+        else if (op[0] == '/' && op[1] == '\0') {
+            if (val == 0) {
+                PROP_ERR() << "division by zero";
+                return false;
+            } else
+                return setValue(value() / val);
+        } else {
+            PROP_ERR() << "expected +-*/, got: " << lst[0];
+            return false;
+        }
+    } else {
+        PROP_ERR() << "unsigned value expected, got " << lst;
         return false;
     }
-
-    return setValue(lst[0]);
 }
 
 bool SizeTProperty::getInt(int& v) const
@@ -1325,7 +1393,7 @@ bool FlagProperty::getInt(int& v) const
     return true;
 }
 
-bool FlagProperty::setList(const AtomListView &)
+bool FlagProperty::setList(const AtomListView&)
 {
     v_ = true;
     return true;
@@ -1398,7 +1466,7 @@ CombinedProperty::CombinedProperty(const std::string& name, std::initializer_lis
     setHidden();
 }
 
-bool CombinedProperty::setList(const AtomListView &)
+bool CombinedProperty::setList(const AtomListView&)
 {
     return true;
 }

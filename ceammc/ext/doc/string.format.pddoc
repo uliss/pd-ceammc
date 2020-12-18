@@ -43,13 +43,9 @@
 [F]  [@format %+02d(
 |    |
 |    |
-[string.format %08.2f]
+[string.format "%08.2f"]
 |
-[str->sym]
-|
-[msg set]
-|
-[ (
+[ui.dt]
 ]]>
             </pdascii>
         </example>

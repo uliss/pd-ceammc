@@ -1,0 +1,149 @@
+#N canvas 0 0 785 555 12;
+#X declare -lib ceammc;
+#X obj 598 50 cnv 1 167 23 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 598 50 basic sequence player;
+#X obj 1 1 cnv 5 765 40 empty empty sequencer 20 20 0 20 -104026 -4096
+0;
+#X obj 629 11 seq;
+#X obj 675 11 sequencer;
+#X obj 50 118 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1;
+#X msg 88 118 @dur 500;
+#X msg 194 118 @dur 1000;
+#X obj 318 118 ui.tab inc dec tri;
+#X msg 318 147 @mode \$1;
+#X obj 50 176 sequencer mtof(seq(56 90 3)) @t 360bpm @inf;
+#X obj 50 205 t b f;
+#X obj 328 205 route done i ri;
+#X obj 50 234 click~;
+#X msg 146 234 @freq \$1;
+#X obj 328 234 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
+-1;
+#X floatatom 376 234 5 0 0 0 - - -;
+#X floatatom 424 234 5 0 0 0 - - -;
+#X obj 50 262 flt.resonbp~ 1000 60;
+#X obj 50 291 ui.hgain~;
+#X obj 213 291 ui.dsp~;
+#X obj 50 320 dac~;
+#X obj 50 349 sequencer.mlist;
+#X obj 20 398 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 403 cnv 5 90 26 empty empty arguments: 4 10 0 14 -262144
+-49933 0;
+#X text 110 438 1\.;
+#X text 150 438 list;
+#X obj 246 439 cnv 1 55 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 245 438 VALUES: sequence elements.;
+#X obj 20 468 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 473 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
+-49933 0;
+#X msg 110 508 @dur;
+#X text 245 508 Get/Set whole sequence duration. Changing this property
+also changes @t interval between bangs. Type: float. Default value:
+0\. Min value: 0\.;
+#X msg 110 565 @i;
+#X text 245 565 (readonly) Get current sequence iteration. Type: int.
+Default value: 0\. Min value: 0\.;
+#X msg 110 607 @inf;
+#X text 245 607 alias to @r -1\.;
+#X msg 110 636 @mode;
+#X text 245 636 Get/Set sequencer mode. 'inc': from first to last \,
+'dec': from last to first \, 'tri': from first to last \, then back.
+Type: symbol. Default value: inc. Allowed values: inc \, dec \, tri.;
+#X msg 110 708 @once;
+#X text 245 708 alias to @r 1\.;
+#X msg 110 737 @r;
+#X text 245 737 Get/Set number of whole sequence repeats. If -1: output
+infinitly. Type: int. Default value: 1\. Min value: -1\.;
+#X msg 110 779 @ri;
+#X text 245 779 (readonly) Get current repeat iteration. Type: int.
+Default value: 0\. Min value: 0\.;
+#X msg 110 821 @t;
+#X text 245 821 Get/Set time interval between bangs. You could also
+use units values like 100ms or 120bpm. Type: float. Units: ms. Default
+value: 20\. Range: 1\...20000\.;
+#X msg 110 878 @v;
+#X text 245 878 Get/Set sequence elements. Type: list.;
+#X obj 20 917 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 922 cnv 5 73 26 empty empty methods: 4 10 0 14 -262144
+-49933 0;
+#X msg 110 957 reset;
+#X text 245 957 reset counters and stop.;
+#X msg 110 984 rewind;
+#X text 245 984 reset all counters without stopping.;
+#X msg 110 1011 start;
+#X text 245 1011 start/stop. Arguments are:;
+#X obj 255 1034 cnv 1 47 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1034 [on=1]: if true - starts sequencer \, otherwise stops.
+Type: int. Allowed values: 0 \, 1\.;
+#X msg 110 1074 stop;
+#X text 245 1074 stop output.;
+#X msg 110 1101 tick;
+#X text 245 1101 manually output current element and move to next.;
+#X obj 20 1138 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1143 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144
+-49933 0;
+#X text 110 1144 1\.;
+#X text 150 1144 *bang*;
+#X text 245 1144 reset all counters and start.;
+#X text 150 1164 *float*;
+#X text 245 1164 reset al counter and start (on 1) or stop(on 0).;
+#X text 110 1184 2\.;
+#X text 150 1184 *list*;
+#X text 245 1184 set sequence.;
+#X obj 20 1214 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1219 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
+-49933 0;
+#X text 110 1220 1\.;
+#X text 245 1220 sequence element output \, in case of Mlist args -
+outputs play lists.;
+#X text 110 1255 2\.;
+#X text 245 1255 [i IDX N( - sequence iteration \, [ri IDX N( - repeat
+iteration or [done( when done.;
+#X obj 10 48 ui.link @title index @url ../index-help.pd;
+#X text 51 45 ::;
+#X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;
+#X text 115 45 ::;
+#X obj 131 48 ui.link @title seq @url ceammc.seq-help.pd;
+#X obj 1 1320 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1323 library: ceammc v0.9.1;
+#N canvas 10 1342 400 290 info 0;
+#X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
+#X text 10 10 library:;
+#X text 120 10 ceammc;
+#X text 10 32 version:;
+#X text 120 32 0.9.1;
+#X text 10 54 object:;
+#X text 120 54 sequencer;
+#X text 10 76 category:;
+#X text 120 76 seq;
+#X text 10 98 since:;
+#X text 120 98 0.9.1;
+#X text 10 120 authors:;
+#X text 120 120 Serge Poltavsky;
+#X text 10 142 license:;
+#X text 120 142 GPL3 or later;
+#X text 10 164 keywords:;
+#X text 120 164 sequencer;
+#X text 10 186 website:;
+#X obj 120 189 ui.link @title https://github.com/uliss/pure-data @url
+https://github.com/uliss/pure-data;
+#X obj 120 208 declare -lib ceammc;
+#X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 120 268 generated by pddoc;
+#X restore 10 1342 pd info;
+#X connect 8 0 9 0;
+#X connect 5 0 10 0;
+#X connect 6 0 10 0;
+#X connect 7 0 10 0;
+#X connect 9 0 10 0;
+#X connect 10 0 11 0;
+#X connect 10 1 12 0;
+#X connect 11 0 13 0;
+#X connect 11 1 14 0;
+#X connect 12 0 15 0;
+#X connect 12 1 16 0;
+#X connect 12 2 17 0;
+#X connect 13 0 18 0;
+#X connect 14 0 18 0;
+#X connect 18 0 19 0;
+#X connect 19 0 21 0;
+#X connect 19 0 21 1;

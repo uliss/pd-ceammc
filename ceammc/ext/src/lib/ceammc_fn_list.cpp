@@ -643,5 +643,22 @@ namespace list {
         return true;
     }
 
+    AtomList bresenham(size_t onsets, size_t pulses)
+    {
+        const auto slope = double(onsets) / double(pulses);
+        AtomList res;
+        if (onsets == 0)
+            return AtomList::filled(0., pulses);
+
+        int prev = -1;
+        for (size_t i = 0; i < pulses; i++) {
+            const auto current = static_cast<int>(std::floor(i * slope));
+            res.append(current != prev ? 1 : 0);
+            prev = current;
+        }
+
+        return res;
+    }
+
 }
 }

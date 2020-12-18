@@ -30,12 +30,6 @@ ListApplyTo::ListApplyTo(const ceammc::PdArgs& args)
         ->setArgIndex(0);
 }
 
-bool ListApplyTo::processAnyProps(t_symbol* sel, const AtomListView& lst)
-{
-    // no props processing
-    return true;
-}
-
 void ListApplyTo::onList(const AtomList& lst)
 {
     const int N = lst.size();
@@ -143,6 +137,7 @@ void setup_list_apply_to()
     obj.processData<DataTypeMList>();
     obj.useDefaultPdFloatFn();
     obj.useDefaultPdSymbolFn();
+    obj.noPropsDispatch();
 
     obj.setDescription("modifies list value at specified position, filtering it via external object");
     obj.addAuthor("Serge Poltavsky");

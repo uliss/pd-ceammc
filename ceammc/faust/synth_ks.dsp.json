@@ -1,10 +1,10 @@
 {
 	"name": "synth.ks",
 	"filename": "synth_ks.dsp",
-	"version": "2.25.3",
+	"version": "2.28.6",
 	"compile_options": "-lang cpp -scal -ftz 0",
-	"library_list": ["/usr/local/share/faust/physmodels.lib","/usr/local/share/faust/stdfaust.lib","/Users/serj/work/music/pure-data/ceammc/faust/spn.lib","/usr/local/share/faust/basics.lib","/usr/local/share/faust/noises.lib","/usr/local/share/faust/filters.lib","/usr/local/share/faust/maths.lib","/usr/local/share/faust/platform.lib","/usr/local/share/faust/envelopes.lib","/usr/local/share/faust/delays.lib","/usr/local/share/faust/routes.lib"],
-	"include_pathnames": ["/usr/local/share/faust","/usr/local/share/faust","/usr/share/faust","/Users/serj/work/music/pure-data/ceammc/faust","/Users/serj/work/music/pure-data/ceammc/faust"],
+	"library_list": ["/usr/local/share/faust/physmodels.lib","/usr/local/share/faust/stdfaust.lib","/Users/serge/work/music/pure-data/ceammc/faust/spn.lib","/usr/local/share/faust/basics.lib","/usr/local/share/faust/noises.lib","/usr/local/share/faust/filters.lib","/usr/local/share/faust/maths.lib","/usr/local/share/faust/platform.lib","/usr/local/share/faust/envelopes.lib","/usr/local/share/faust/delays.lib","/usr/local/share/faust/routes.lib"],
+	"include_pathnames": ["/usr/local/share/faust","/usr/local/share/faust","/usr/share/faust","/Users/serge/work/music/pure-data/ceammc/faust","/Users/serge/work/music/pure-data/ceammc/faust"],
 	"inputs": 0,
 	"outputs": 1,
 	"meta": [ 
@@ -86,6 +86,10 @@
 					"type": "hslider",
 					"label": "mode",
 					"address": "/synth.ks/mode",
+					"meta": [
+						{ "enum": "0 1" },
+						{ "type": "int" }
+					],
 					"init": 0,
 					"min": 0,
 					"max": 1,

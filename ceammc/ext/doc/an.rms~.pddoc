@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="an.rms~">
+        <title>an.rms~</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>root mean square with moving-average algorithm.</description>
+            <license>GPL3 or later</license>
+            <library>ceammc</library>
+            <category>an</category>
+            <keywords>rms root mean square</keywords>
+            <since>0.9.1</since>
+        </meta>
+        <methods>
+            <method name="reset">clear averaging data</method>
+        </methods>
+        <arguments>
+            <argument name="PERIOD" type="float" minvalue="1" maxvalue="1000" units="millisecond">
+            averaging frame</argument>
+        </arguments>
+        <properties>
+            <property name="@period" type="float" minvalue="1" maxvalue="1000" default="200">
+            averaging frame</property>
+            <property name="@active" type="int" enum="0 1" default="1">on/off dsp
+            processing</property>
+        </properties>
+        <inlets>
+            <inlet type="audio">
+                <xinfo>input signal</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet type="audio">rms level</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[sig~ 1]  [osc~ 440]
+|         |
+|         |   [ui.hrd @nitems 2]
+|         |.  |..
+[mux~          2 {i=3,o=1}]
+|
+[an.rms~]
+|
+[ui.n~]
+
+[ui.dsp~]
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

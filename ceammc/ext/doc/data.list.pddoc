@@ -37,6 +37,7 @@
             <method name="fill">fills with specified value 
             <param name="VAL" type="atom" required="true">fill value</param></method>
             <method name="reverse">reverses list</method>
+            <method name="choose">choose random element in list and output it</method>
             <method name="shuffle">put elements in random order</method>
             <method name="sort">sorts list</method>
             <method name="clear">removes all list elements</method>

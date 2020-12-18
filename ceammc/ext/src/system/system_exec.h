@@ -49,6 +49,7 @@ public:
 private:
     void checkProcess();
     bool isRunning() const;
+    int state() const;
 };
 
 void setup_system_exec();

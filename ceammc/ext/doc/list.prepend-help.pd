@@ -18,7 +18,7 @@
 #X obj 136 172 str test1;
 #X obj 318 172 str ANOTHER STRING;
 #X obj 50 215 list.prepend @prop ABC;
-#X obj 50 244 ui.display @display_type=1;
+#X obj 50 244 ui.display @display_type 1;
 #X obj 20 293 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 298 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
@@ -49,7 +49,7 @@
 #X text 115 45 ::;
 #X obj 131 48 ui.link @title list @url ceammc.list-help.pd;
 #X obj 1 505 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 508 library: ceammc v0.9.0;
+#X text 10 508 library: ceammc v0.9.1;
 #X text 587 520 see also:;
 #X obj 661 520 list.append;
 #N canvas 10 527 400 290 info 0;
@@ -57,7 +57,7 @@
 #X text 10 10 library:;
 #X text 120 10 ceammc;
 #X text 10 32 version:;
-#X text 120 32 0.9.0;
+#X text 120 32 0.9.1;
 #X text 10 54 object:;
 #X text 120 54 list.prepend;
 #X text 10 76 category:;

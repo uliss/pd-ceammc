@@ -55,6 +55,12 @@ public:
         INTERP_CUBIC
     };
 
+    enum WindowType {
+        WIN_RECT,
+        WIN_TRIANGLE,
+        WIN_HANN
+    };
+
     using AmpDoneFunc = std::function<float(Grain*)>;
     using PanDoneFunc = std::function<float()>;
     using SpeedDoneFunc = std::function<float(Grain*)>;
@@ -87,6 +93,7 @@ private:
     PanOverflow pan_overflow_ : 2;
     PanMode pan_mode_ : 2;
     PlayInterp play_interp_ : 2;
+    WindowType win_type_ : 2;
 
 public:
     Grain();
@@ -125,6 +132,10 @@ public:
     std::pair<float, float> speedRange() const { return { speed_min_, speed_max_ }; }
     void setSpeedRange(float a, float b);
     void setSpeedExpr(const std::string& expr);
+
+    // window
+    WindowType winType() const { return win_type_; }
+    void setWinType(WindowType t) { win_type_ = t; }
 
     // pan
     float pan() const { return pan_; }
@@ -179,6 +190,9 @@ public:
     {
         play_status = st;
     }
+
+public:
+    static bool initWinTables();
 };
 #pragma pack(pop)
 

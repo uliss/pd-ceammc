@@ -108,6 +108,48 @@ void FlowDelay::proxy_reset(const AtomListView&)
     proxy_reset();
 }
 
+void FlowDelay::proxy_add(const AtomListView& lv)
+{
+    if (lv.empty() || !lv[0].isFloat()) {
+        OBJ_ERR << "usage: + INCREMENT [MAX]";
+        return;
+    }
+
+    const t_float incr = lv[0].asT<t_float>();
+    const t_float max = lv.floatAt(1, 0);
+    if (max < 0) {
+        OBJ_ERR << "positive max delay value expected, got: " << lv[1];
+        return;
+    }
+
+    const t_float new_val = delay_->value() + incr;
+    if (new_val > max || new_val < 0)
+        return;
+
+    delay_->setValue(new_val);
+}
+
+void FlowDelay::proxy_sub(const AtomListView& lv)
+{
+    if (lv.empty() || !lv[0].isFloat()) {
+        OBJ_ERR << "usage: - DECREMENT [MIN]";
+        return;
+    }
+
+    const t_float incr = lv[0].asT<t_float>();
+    const t_float min = lv.floatAt(1, 0);
+    if (min < 0) {
+        OBJ_ERR << "positive min delay value expected, got: " << lv[1];
+        return;
+    }
+
+    const t_float new_val = delay_->value() - incr;
+    if (new_val < min)
+        return;
+
+    delay_->setValue(new_val);
+}
+
 void setup_flow_delay()
 {
     ObjectFactory<FlowDelay> obj("flow.delay");
@@ -121,4 +163,6 @@ void setup_flow_delay()
     InletProxy<FlowDelay>::set_bang_callback(&FlowDelay::proxy_reset);
     InletProxy<FlowDelay>::set_float_callback(&FlowDelay::proxy_delay);
     InletProxy<FlowDelay>::set_method_callback(gensym("reset"), &FlowDelay::proxy_reset);
+    InletProxy<FlowDelay>::set_method_callback(gensym("+"), &FlowDelay::proxy_add);
+    InletProxy<FlowDelay>::set_method_callback(gensym("-"), &FlowDelay::proxy_sub);
 }

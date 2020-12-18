@@ -37,7 +37,7 @@
 |   |
 [matrix.row 2 2 2]
 |       |
-[print] [ui.display @display_type=1]
+[print] [ui.display @display_type 1]
 ]]>
             </pdascii>
         </example>

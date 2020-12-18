@@ -25,7 +25,7 @@
             <argument name="EXPR" type="list">expression</argument>
         </arguments>
         <properties>
-            <property name="@expr" type="list">expression</property>
+            <property name="@expr" type="list" default="">expression</property>
         </properties>
         <inlets>
             <inlet>

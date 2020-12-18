@@ -18,6 +18,8 @@
             algorithm 5 of the TX81Z</par>
         </info>
         <properties>
+            <property name="@pitch" type="float" minvalue="36" maxvalue="84" default="57">midi
+            pitch</property>
             <property name="@freq" type="float" minvalue="0" maxvalue="480" default="220"
             units="herz">maximum speed of whistles</property>
             <property name="@gate" type="float" minvalue="0" maxvalue="1" default="0">synth gate
@@ -37,6 +39,10 @@
             <method name="cc">Control change 
             <param name="CTL" type="int" required="true">control number</param>
             <param name="VAL" type="float" required="true">value</param></method>
+            <method name="note">note on/off message 
+            <param name="NOTE" type="float" required="true">midi note</param>
+            <param name="VEL" type="float" minvalue="0" maxvalue="127" required="true">
+            velocity</param></method>
         </methods>
         <inlets>
             <inlet>
@@ -54,15 +60,9 @@
 |
 |
 |
-[unpack f f ]
-|          ^|
-[mtof]     [> 0]
-|          |
-|          [pipe]
-|          |
-[@freq $1( [@gate $1( [dump(
-|          |          |
-[synth.rhodey~        ]
+[note $1 $2( [dump(
+|            |
+[synth.rhodey~]
 |
 [ui.gain~ @size 120 16]  [ui.dsp~]
 | \

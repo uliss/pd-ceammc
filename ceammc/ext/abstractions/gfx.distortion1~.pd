@@ -18,56 +18,56 @@
 #X obj 12 238 ui.slider @size 125 12 @active_scale 1 @label drive:
 @label_side top @label_align left @fontsize 10 @presetname
 /gui/\$1/fx.distortion1~/slider0 @min 0 @max 1;
+#X obj 190 238 sync;
 #X obj 145 238 ui.number @size 50 12 @min 0 @max 1 @digits 4;
-#X obj 200 238 msg set;
 #X msg 260 238 @drive \$1;
 #X obj 12 270 ui.slider @size 125 12 @active_scale 1 @label gain(db):
 @label_side top @label_align left @fontsize 10 @presetname
 /gui/\$1/fx.distortion1~/slider1 @min -10 @max 10;
+#X obj 190 270 sync;
 #X obj 145 270 ui.number @size 50 12 @min -10 @max 10 @digits 2;
-#X obj 200 270 msg set;
 #X msg 260 270 @gain \$1;
 #X obj 12 302 ui.slider @size 125 12 @active_scale 1 @label
 high_drive: @label_side top @label_align left @fontsize 10 @presetname
 /gui/\$1/fx.distortion1~/slider2 @min 0 @max 1;
+#X obj 190 302 sync;
 #X obj 145 302 ui.number @size 50 12 @min 0 @max 1 @digits 4;
-#X obj 200 302 msg set;
 #X msg 260 302 @high_drive \$1;
 #X obj 12 334 ui.slider @size 125 12 @active_scale 1 @label
 high_gain(db): @label_side top @label_align left @fontsize 10
 @presetname /gui/\$1/fx.distortion1~/slider3 @min -10 @max 20;
+#X obj 190 334 sync;
 #X obj 145 334 ui.number @size 50 12 @min -10 @max 20 @digits 2;
-#X obj 200 334 msg set;
 #X msg 260 334 @high_gain \$1;
 #X obj 12 366 ui.slider @size 125 12 @active_scale 1 @label level:
 @label_side top @label_align left @fontsize 10 @presetname
 /gui/\$1/fx.distortion1~/slider4 @min 0 @max 0.5;
+#X obj 190 366 sync;
 #X obj 145 366 ui.number @size 50 12 @min 0 @max 0.5 @digits 4;
-#X obj 200 366 msg set;
 #X msg 260 366 @level \$1;
 #X obj 12 398 ui.slider @size 125 12 @active_scale 1 @label low_drive:
 @label_side top @label_align left @fontsize 10 @presetname
 /gui/\$1/fx.distortion1~/slider5 @min 0 @max 1;
+#X obj 190 398 sync;
 #X obj 145 398 ui.number @size 50 12 @min 0 @max 1 @digits 4;
-#X obj 200 398 msg set;
 #X msg 260 398 @low_drive \$1;
 #X obj 12 430 ui.slider @size 125 12 @active_scale 1 @label
 low_gain(db): @label_side top @label_align left @fontsize 10
 @presetname /gui/\$1/fx.distortion1~/slider6 @min -10 @max 20;
+#X obj 190 430 sync;
 #X obj 145 430 ui.number @size 50 12 @min -10 @max 20 @digits 2;
-#X obj 200 430 msg set;
 #X msg 260 430 @low_gain \$1;
 #X obj 12 462 ui.slider @size 125 12 @active_scale 1 @label
 sp_high_freq(Hz): @label_side top @label_align left @fontsize 10
 @presetname /gui/\$1/fx.distortion1~/slider7 @min 1000 @max 12000;
+#X obj 190 462 sync;
 #X obj 145 462 ui.number @size 50 12 @min 1000 @max 12000 @digits 1;
-#X obj 200 462 msg set;
 #X msg 260 462 @sp_high_freq \$1;
 #X obj 12 494 ui.slider @size 125 12 @active_scale 1 @label
 sp_low_freq(Hz): @label_side top @label_align left @fontsize 10
 @presetname /gui/\$1/fx.distortion1~/slider8 @min 20 @max 1000;
+#X obj 190 494 sync;
 #X obj 145 494 ui.number @size 50 12 @min 20 @max 1000 @digits 1;
-#X obj 200 494 msg set;
 #X msg 260 494 @sp_low_freq \$1;
 #X obj 12 514 ui.toggle @size 12 12 @label sp_on_off @label_side right
 @label_align left @fontsize 10 @presetname
@@ -77,66 +77,66 @@ sp_low_freq(Hz): @label_side top @label_align left @fontsize 10
 right @label_align left @fontsize 10 @presetname
 /gui/\$1/fx.distortion1~/checkbox10;
 #X msg 260 524 @flt_on_off \$1;
-#X text 10 542 hp_freq:;
-#X obj 12 556 ui.number @size 60 12 @presetname
+#X obj 12 560 ui.number @size 60 12 @label hp_freq: @label_side top
+@label_align left @fontsize 10 @presetname
 /gui/\$1/fx.distortion1~/numbox11 @min 20 @max 7040 @step 10;
-#X msg 260 556 @hp_freq \$1;
-#X text 10 570 lp_freq:;
-#X obj 12 584 ui.number @size 60 12 @presetname
+#X msg 260 560 @hp_freq \$1;
+#X obj 12 590 ui.number @size 60 12 @label lp_freq: @label_side top
+@label_align left @fontsize 10 @presetname
 /gui/\$1/fx.distortion1~/numbox12 @min 20 @max 12000 @step 10;
-#X msg 260 584 @lp_freq \$1;
-#X obj 12 618 ui.slider @size 125 12 @active_scale 1 @label
+#X msg 260 590 @lp_freq \$1;
+#X obj 12 622 ui.slider @size 125 12 @active_scale 1 @label
 middle_h_drive: @label_side top @label_align left @fontsize 10
 @presetname /gui/\$1/fx.distortion1~/slider13 @min 0 @max 1;
-#X obj 145 618 ui.number @size 50 12 @min 0 @max 1 @digits 4;
-#X obj 200 618 msg set;
-#X msg 260 618 @middle_h_drive \$1;
-#X obj 12 650 ui.slider @size 125 12 @active_scale 1 @label
+#X obj 190 622 sync;
+#X obj 145 622 ui.number @size 50 12 @min 0 @max 1 @digits 4;
+#X msg 260 622 @middle_h_drive \$1;
+#X obj 12 654 ui.slider @size 125 12 @active_scale 1 @label
 middle_h_gain(db): @label_side top @label_align left @fontsize 10
 @presetname /gui/\$1/fx.distortion1~/slider14 @min -10 @max 20;
-#X obj 145 650 ui.number @size 50 12 @min -10 @max 20 @digits 2;
-#X obj 200 650 msg set;
-#X msg 260 650 @middle_h_gain \$1;
-#X obj 12 682 ui.slider @size 125 12 @active_scale 1 @label
+#X obj 190 654 sync;
+#X obj 145 654 ui.number @size 50 12 @min -10 @max 20 @digits 2;
+#X msg 260 654 @middle_h_gain \$1;
+#X obj 12 686 ui.slider @size 125 12 @active_scale 1 @label
 middle_l_drive: @label_side top @label_align left @fontsize 10
 @presetname /gui/\$1/fx.distortion1~/slider15 @min 0 @max 1;
-#X obj 145 682 ui.number @size 50 12 @min 0 @max 1 @digits 4;
-#X obj 200 682 msg set;
-#X msg 260 682 @middle_l_drive \$1;
-#X obj 12 714 ui.slider @size 125 12 @active_scale 1 @label
+#X obj 190 686 sync;
+#X obj 145 686 ui.number @size 50 12 @min 0 @max 1 @digits 4;
+#X msg 260 686 @middle_l_drive \$1;
+#X obj 12 718 ui.slider @size 125 12 @active_scale 1 @label
 middle_l_gain(db): @label_side top @label_align left @fontsize 10
 @presetname /gui/\$1/fx.distortion1~/slider16 @min -10 @max 20;
-#X obj 145 714 ui.number @size 50 12 @min -10 @max 20 @digits 2;
-#X obj 200 714 msg set;
-#X msg 260 714 @middle_l_gain \$1;
-#X obj 12 734 ui.toggle @size 12 12 @label res_on_off @label_side
+#X obj 190 718 sync;
+#X obj 145 718 ui.number @size 50 12 @min -10 @max 20 @digits 2;
+#X msg 260 718 @middle_l_gain \$1;
+#X obj 12 738 ui.toggle @size 12 12 @label res_on_off @label_side
 right @label_align left @fontsize 10 @presetname
 /gui/\$1/fx.distortion1~/checkbox17;
-#X msg 260 726 @res_on_off \$1;
-#X text 10 744 split_high_freq:;
-#X obj 12 758 ui.number @size 60 12 @presetname
+#X msg 260 730 @res_on_off \$1;
+#X obj 12 766 ui.number @size 60 12 @label split_high_freq:
+@label_side top @label_align left @fontsize 10 @presetname
 /gui/\$1/fx.distortion1~/numbox18 @min 1250 @max 12000 @step 10;
-#X msg 260 758 @split_high_freq \$1;
-#X text 10 772 split_low_freq:;
-#X obj 12 786 ui.number @size 60 12 @presetname
+#X msg 260 766 @split_high_freq \$1;
+#X obj 12 796 ui.number @size 60 12 @label split_low_freq: @label_side
+top @label_align left @fontsize 10 @presetname
 /gui/\$1/fx.distortion1~/numbox19 @min 20 @max 600 @step 10;
-#X msg 260 786 @split_low_freq \$1;
-#X text 10 800 split_middle_freq:;
-#X obj 12 814 ui.number @size 60 12 @presetname
+#X msg 260 796 @split_low_freq \$1;
+#X obj 12 826 ui.number @size 60 12 @label split_middle_freq:
+@label_side top @label_align left @fontsize 10 @presetname
 /gui/\$1/fx.distortion1~/numbox20 @min 600 @max 1250 @step 10;
-#X msg 260 814 @split_middle_freq \$1;
-#X obj 12 848 ui.slider @size 125 12 @active_scale 1 @label trigger:
+#X msg 260 826 @split_middle_freq \$1;
+#X obj 12 858 ui.slider @size 125 12 @active_scale 1 @label trigger:
 @label_side top @label_align left @fontsize 10 @presetname
 /gui/\$1/fx.distortion1~/slider21 @min 0 @max 1;
-#X obj 145 848 ui.number @size 50 12 @min 0 @max 1 @digits 4;
-#X obj 200 848 msg set;
-#X msg 260 848 @trigger \$1;
-#X obj 12 880 ui.slider @size 125 12 @active_scale 1 @label vibrato:
+#X obj 190 858 sync;
+#X obj 145 858 ui.number @size 50 12 @min 0 @max 1 @digits 4;
+#X msg 260 858 @trigger \$1;
+#X obj 12 890 ui.slider @size 125 12 @active_scale 1 @label vibrato:
 @label_side top @label_align left @fontsize 10 @presetname
 /gui/\$1/fx.distortion1~/slider22 @min 0 @max 1;
-#X obj 145 880 ui.number @size 50 12 @min 0 @max 1 @digits 4;
-#X obj 200 880 msg set;
-#X msg 260 880 @vibrato \$1;
+#X obj 190 890 sync;
+#X obj 145 890 ui.number @size 50 12 @min 0 @max 1 @digits 4;
+#X msg 260 890 @vibrato \$1;
 #X connect 1 0 0 0;
 #X connect 2 0 3 0;
 #X connect 3 0 4 0;
@@ -146,56 +146,65 @@ right @label_align left @fontsize 10 @presetname
 #X connect 0 0 8 0;
 #X connect 3 1 9 0;
 #X connect 11 0 12 0;
-#X connect 12 0 13 0;
-#X connect 13 0 11 0;
+#X connect 12 0 11 0;
+#X connect 13 0 12 1;
+#X connect 12 1 13 0;
 #X connect 11 0 14 0;
 #X connect 14 0 0 0;
 #X connect 4 0 11 0;
 #X connect 15 0 16 0;
-#X connect 16 0 17 0;
-#X connect 17 0 15 0;
+#X connect 16 0 15 0;
+#X connect 17 0 16 1;
+#X connect 16 1 17 0;
 #X connect 15 0 18 0;
 #X connect 18 0 0 0;
 #X connect 4 1 15 0;
 #X connect 19 0 20 0;
-#X connect 20 0 21 0;
-#X connect 21 0 19 0;
+#X connect 20 0 19 0;
+#X connect 21 0 20 1;
+#X connect 20 1 21 0;
 #X connect 19 0 22 0;
 #X connect 22 0 0 0;
 #X connect 4 2 19 0;
 #X connect 23 0 24 0;
-#X connect 24 0 25 0;
-#X connect 25 0 23 0;
+#X connect 24 0 23 0;
+#X connect 25 0 24 1;
+#X connect 24 1 25 0;
 #X connect 23 0 26 0;
 #X connect 26 0 0 0;
 #X connect 4 3 23 0;
 #X connect 27 0 28 0;
-#X connect 28 0 29 0;
-#X connect 29 0 27 0;
+#X connect 28 0 27 0;
+#X connect 29 0 28 1;
+#X connect 28 1 29 0;
 #X connect 27 0 30 0;
 #X connect 30 0 0 0;
 #X connect 4 4 27 0;
 #X connect 31 0 32 0;
-#X connect 32 0 33 0;
-#X connect 33 0 31 0;
+#X connect 32 0 31 0;
+#X connect 33 0 32 1;
+#X connect 32 1 33 0;
 #X connect 31 0 34 0;
 #X connect 34 0 0 0;
 #X connect 4 5 31 0;
 #X connect 35 0 36 0;
-#X connect 36 0 37 0;
-#X connect 37 0 35 0;
+#X connect 36 0 35 0;
+#X connect 37 0 36 1;
+#X connect 36 1 37 0;
 #X connect 35 0 38 0;
 #X connect 38 0 0 0;
 #X connect 4 6 35 0;
 #X connect 39 0 40 0;
-#X connect 40 0 41 0;
-#X connect 41 0 39 0;
+#X connect 40 0 39 0;
+#X connect 41 0 40 1;
+#X connect 40 1 41 0;
 #X connect 39 0 42 0;
 #X connect 42 0 0 0;
 #X connect 4 7 39 0;
 #X connect 43 0 44 0;
-#X connect 44 0 45 0;
-#X connect 45 0 43 0;
+#X connect 44 0 43 0;
+#X connect 45 0 44 1;
+#X connect 44 1 45 0;
 #X connect 43 0 46 0;
 #X connect 46 0 0 0;
 #X connect 4 8 43 0;
@@ -205,58 +214,64 @@ right @label_align left @fontsize 10 @presetname
 #X connect 49 0 50 0;
 #X connect 50 0 0 0;
 #X connect 4 10 49 0;
-#X connect 52 0 53 0;
-#X connect 53 0 0 0;
-#X connect 4 11 52 0;
+#X connect 51 0 52 0;
+#X connect 52 0 0 0;
+#X connect 4 11 51 0;
+#X connect 53 0 54 0;
+#X connect 54 0 0 0;
+#X connect 4 12 53 0;
 #X connect 55 0 56 0;
-#X connect 56 0 0 0;
-#X connect 4 12 55 0;
-#X connect 57 0 58 0;
-#X connect 58 0 59 0;
-#X connect 59 0 57 0;
-#X connect 57 0 60 0;
-#X connect 60 0 0 0;
-#X connect 4 13 57 0;
-#X connect 61 0 62 0;
-#X connect 62 0 63 0;
-#X connect 63 0 61 0;
-#X connect 61 0 64 0;
-#X connect 64 0 0 0;
-#X connect 4 14 61 0;
-#X connect 65 0 66 0;
-#X connect 66 0 67 0;
-#X connect 67 0 65 0;
-#X connect 65 0 68 0;
-#X connect 68 0 0 0;
-#X connect 4 15 65 0;
-#X connect 69 0 70 0;
-#X connect 70 0 71 0;
-#X connect 71 0 69 0;
-#X connect 69 0 72 0;
+#X connect 56 0 55 0;
+#X connect 57 0 56 1;
+#X connect 56 1 57 0;
+#X connect 55 0 58 0;
+#X connect 58 0 0 0;
+#X connect 4 13 55 0;
+#X connect 59 0 60 0;
+#X connect 60 0 59 0;
+#X connect 61 0 60 1;
+#X connect 60 1 61 0;
+#X connect 59 0 62 0;
+#X connect 62 0 0 0;
+#X connect 4 14 59 0;
+#X connect 63 0 64 0;
+#X connect 64 0 63 0;
+#X connect 65 0 64 1;
+#X connect 64 1 65 0;
+#X connect 63 0 66 0;
+#X connect 66 0 0 0;
+#X connect 4 15 63 0;
+#X connect 67 0 68 0;
+#X connect 68 0 67 0;
+#X connect 69 0 68 1;
+#X connect 68 1 69 0;
+#X connect 67 0 70 0;
+#X connect 70 0 0 0;
+#X connect 4 16 67 0;
+#X connect 71 0 72 0;
 #X connect 72 0 0 0;
-#X connect 4 16 69 0;
+#X connect 4 17 71 0;
 #X connect 73 0 74 0;
 #X connect 74 0 0 0;
-#X connect 4 17 73 0;
-#X connect 76 0 77 0;
-#X connect 77 0 0 0;
-#X connect 4 18 76 0;
+#X connect 4 18 73 0;
+#X connect 75 0 76 0;
+#X connect 76 0 0 0;
+#X connect 4 19 75 0;
+#X connect 77 0 78 0;
+#X connect 78 0 0 0;
+#X connect 4 20 77 0;
 #X connect 79 0 80 0;
-#X connect 80 0 0 0;
-#X connect 4 19 79 0;
-#X connect 82 0 83 0;
-#X connect 83 0 0 0;
-#X connect 4 20 82 0;
-#X connect 84 0 85 0;
-#X connect 85 0 86 0;
-#X connect 86 0 84 0;
-#X connect 84 0 87 0;
-#X connect 87 0 0 0;
-#X connect 4 21 84 0;
-#X connect 88 0 89 0;
-#X connect 89 0 90 0;
-#X connect 90 0 88 0;
-#X connect 88 0 91 0;
-#X connect 91 0 0 0;
-#X connect 4 22 88 0;
-#X coords 0 -1 1 1 200 700 2 2 200;
+#X connect 80 0 79 0;
+#X connect 81 0 80 1;
+#X connect 80 1 81 0;
+#X connect 79 0 82 0;
+#X connect 82 0 0 0;
+#X connect 4 21 79 0;
+#X connect 83 0 84 0;
+#X connect 84 0 83 0;
+#X connect 85 0 84 1;
+#X connect 84 1 85 0;
+#X connect 83 0 86 0;
+#X connect 86 0 0 0;
+#X connect 4 22 83 0;
+#X coords 0 -1 1 1 200 710 2 2 200;

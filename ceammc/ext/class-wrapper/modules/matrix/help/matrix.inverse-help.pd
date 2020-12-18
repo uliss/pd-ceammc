@@ -1,37 +1,37 @@
-#N canvas 0 0 760 555 12;
+#N canvas 0 0 785 555 12;
 #X declare -lib ceammc;
 #X declare -lib matrix;
-#X obj 568 50 cnv 1 172 21 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 568 50 inverse square matrix;
-#X obj 1 1 cnv 5 740 40 empty empty matrix.inverse 20 20 0 20 -104026
+#X obj 599 50 cnv 1 166 23 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 599 50 inverse square matrix;
+#X obj 1 1 cnv 5 765 40 empty empty matrix.inverse 20 20 0 20 -104026
 -4096 0;
-#X obj 522 11 matrix.-1;
-#X obj 613 11 matrix.inverse;
+#X obj 547 11 matrix.-1;
+#X obj 638 11 matrix.inverse;
 #X obj 50 118 declare -lib matrix;
 #X msg 50 162 2 2 1 2 3 4;
 #X obj 50 190 matrix.inverse;
-#X obj 184 219 ui.display @display_type 1 @size 150 18;
+#X obj 184 219 ui.display @display_type 1;
 #X obj 50 248 matrix.inverse;
-#X obj 50 277 ui.display @display_type 1 @size 150 18;
-#X obj 20 317 cnv 1 720 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 322 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
+#X obj 50 277 ui.display @display_type 1;
+#X obj 20 326 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 331 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
-#X text 120 327 1\.;
-#X text 150 327 *list*;
-#X text 280 327 Matrix data constructor: NROWS NCOLS ....;
-#X text 150 345 *data*;
-#X text 280 345 Matrix data.;
-#X obj 20 373 cnv 1 720 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 378 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
+#X text 110 332 1\.;
+#X text 150 332 *list*;
+#X text 245 332 Matrix data constructor: NROWS NCOLS ...;
+#X text 150 352 *data*;
+#X text 245 352 Matrix data.;
+#X obj 20 382 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 387 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 120 383 1\.;
-#X text 280 383 output new matrix (Matrix);
+#X text 110 388 1\.;
+#X text 245 388 output new matrix (Matrix).;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 67 48 ui.link @title matrix @url matrix-help.pd;
 #X text 116 45 ::;
 #X obj 132 48 ui.link @title matrix @url matrix.matrix-help.pd;
-#X obj 1 505 cnv 5 740 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 1 505 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 10 508 library: matrix v0.1;
 #N canvas 10 527 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;

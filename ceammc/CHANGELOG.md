@@ -1,39 +1,105 @@
 # CEAMMC external library changelog
 
-## [Unreleased]
+## [0.9.1]
 ### Added:
+- properties:
+  - float and int property simple arithmetic added: @prop + 0.5, adds 0.5 to @prop value.
+    supports +,-,* and / operators
+  - bool property toggle syntax added: @bool_prop ! or @bool_prop ~ inverts boolean value
+  - symbol enum properties index support added: @senum 1 - set second enum value
 - mlist.flatten - simple list support added
-- patch.deps added - list current patch dependencies
-- ceammc.search added
-- random.int @seed property added to gen reproducible random sequences
-- random.float @seed property added to gen reproducible random sequences
-- random.gauss @seed property added to gen reproducible random sequences
-- random.linear @seed property added to gen reproducible random sequences
-- random.pw_const @seed property added to gen reproducible random sequences
-- random.pw_lin @seed property added to gen reproducible random sequences
-- random.discrete @seed property added to gen reproducible random sequences
-- ui.toggle @on_value/@off_value properties added
-- @float_width property added to ui.display
-- @positive property added to car->pol for output in [0..2π) range
-- flow.delay added: enhanced version of vanilla delay
-- flow.dup added: message repeater
-- flow.greater_eq added (with flow.>= alias)
-- flow.group second inlet added to change @by property
-- flow.match property match added, unmatched outlet added
-- flow.space added to space in time messages received in the same logical time
-- flow.stack added
-- flow.pipe added
-- flow.ring added
-- flow.route can output message with matched selector using * prefix
-- flow.split any message support added
-- math.nan~ added (mainly for testing purposes)
-- math.inf~ added (mainly for testing purposes)
-- random.atom (with random.a alias) added for weighted random atom generation
+- an.* updates:
+    - an.rms~, root mean square with moving-average algorithm
+- random.* updates:
+    - random.int @seed property added to gen reproducible random sequences
+    - random.float @seed property added to gen reproducible random sequences
+    - random.gauss @seed property added to gen reproducible random sequences
+    - random.linear @seed property added to gen reproducible random sequences
+    - random.pw_const @seed property added to gen reproducible random sequences
+    - random.pw_lin @seed property added to gen reproducible random sequences
+    - random.discrete @seed property added to gen reproducible random sequences
+    - random.atom (with random.a alias) added for weighted random atom generation
+- flow.* updates:
+    - flow.delay added: enhanced version of vanilla delay
+    - flow.dup added: message repeater
+    - flow.greater_eq added (with flow.>= alias)
+    - flow.group second inlet added to change @by property
+    - flow.match property match added, unmatched outlet added
+    - flow.select added
+    - flow.space added to space in time messages received in the same logical time
+    - flow.stack added
+    - flow.pipe added
+    - flow.ring added
+    - flow.route can output message with matched selector using * prefix
+    - flow.split any message support added
+    - flow.reject alias added: flow.!
+- math new obejcts:
+    - math.nan~ added (mainly for testing purposes)
+    - math.inf~ added (mainly for testing purposes)
+    - math.sync_rshift (with >>' and math.>>' aliases)
+    - math.sync_lshift (with <<' and math.<<' aliases)
+- array.* updates:
+    - array.play~ added (with array.p~ alias)
+- env.* updates:
+    - env.smooth~ play method added
+- conv.* updates:
+    - dbfs->amp~ converter added
+    - conv.sec2bpm (with alias sec->bpm) converter added
+    - conv.ms2bpm (with alias ms->bpm) converter added
+    - conv.degree2key (with degree->key alias) added
+    - conv.int2bits (with int->bits alias) added
+    - symbol2intlist (with sym->ilist alias) converter added
+    - symbol2any (with sym->any alias) added
+    - conv.hex2int (with hex->int alias) added
+    - @positive property added to car->pol for output in [0..2π) range
+- fx.* updates:
+    - freeze added to fx.freeverb~, fx.freeverb2~ and fx.zita_rev1~ (via @freeze property)
+    - fx.pitchshift_s~ added (signal version of fx.pitchshift~)
+- flt.* updates:
+    - flt.ff_comb~ added (feed forward comb filter)
+    - flt.fb_comb~ added (feedback comb filter)
+- midi.* updates:
+    - midi.vramp added
+    - midi.tuning added
+- new category for sequences: seq.*
+    - seq.bangs sequencer (with seq.b alias) added into new category: seq
+    - seq.toggles sequencer (with seq.t alias) added
+    - seq.nbangs added (with seq.nb alias)
+    - seq.phasor added (control rate saw generator)
+    - sequencer object added (with seq alias)
+    - seq.matrix added
+- synth:
+    - synth.dubdub~ @freq property added and 'note' method
+    - synth.eguitar~ ...
+    - synth.ks~ ...
+    - synth.marimba~ ...
+    - synth.rhodey~ @pitch property added and 'note' method
+    - synth.bee3~ ...
+    - synth.wurley~ ...
+    - synth.sitar~ added
+    - synth.russian_bell~ added
+    - synth.glitch~ added
+- ui.* updates:
+    - ui.display alias added: ui.dt for ui.display @display_type=1
+    - ui.toggle @on_value/@off_value properties added
+    - @float_width property added to ui.display
+- base updates:
+    - log.error, log.post, log.debug, log.verbose, log.stdout, log.stderr objects added
+    - sync added for multiple value synchronization without stack overflow
+    - RythmTree support added: rtree->list and built-in function rtree()
+    - patch.deps added - list current patch dependencies
+    - ceammc.search added
+    - counter object added
+- proto.* updates:
+    - proto.xtouch_ext - Behringer XTouch externder support added 
+- noise.* updates:
+    - documentation for a-chaos files added
+    
 
 ### Changed:
 - ext_info output format changed.
-    "inlets": ["audio", "control"...] instead of inlet number
-    "outlets": ["audio", "control"...] instead of outlet number
+    "inlets": \["audio", "control"...] instead of inlet number
+    "outlets": \["audio", "control"...] instead of outlet number
 - props:
     - prop.set renamed to prop.join (with prop<- alias)
     - prop.set now is a new object with different behavior, it changes properties via internal pd calls
@@ -65,6 +131,10 @@
 - flow.multiplex:
    - additional inlet added to choose input
    - setting property only via prop.set object
+- flow.route:
+   - output routed data as message
+- list.^contains @subj property renamed to @value
+- midi.track @events property renamed to @nevents
 
 ### Fixed:
 - data.float creation arg fix

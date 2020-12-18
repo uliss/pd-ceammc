@@ -1,6 +1,6 @@
 /* ------------------------------------------------------------
 name: "dyn.comp"
-Code generated with Faust 2.25.3 (https://faust.grame.fr)
+Code generated with Faust 2.28.6 (https://faust.grame.fr)
 Compilation options: -lang cpp -scal -ftz 0
 ------------------------------------------------------------ */
 
@@ -529,7 +529,16 @@ class dyn_comp : public dyn_comp_dsp {
 		m->declare("basics.lib/name", "Faust Basic Element Library");
 		m->declare("basics.lib/version", "0.1");
 		m->declare("ceammc.lib/name", "Ceammc PureData misc utils");
-		m->declare("ceammc.lib/version", "0.1.1");
+		m->declare("ceammc.lib/version", "0.1.2");
+		m->declare("compressors.lib/compression_gain_mono:author", "Julius O. Smith III");
+		m->declare("compressors.lib/compression_gain_mono:copyright", "Copyright (C) 2014-2020 by Julius O. Smith III <jos@ccrma.stanford.edu>");
+		m->declare("compressors.lib/compression_gain_mono:license", "MIT-style STK-4.3 license");
+		m->declare("compressors.lib/compressor_lad_mono:author", "Julius O. Smith III");
+		m->declare("compressors.lib/compressor_lad_mono:copyright", "Copyright (C) 2014-2020 by Julius O. Smith III <jos@ccrma.stanford.edu>");
+		m->declare("compressors.lib/compressor_lad_mono:license", "MIT-style STK-4.3 license");
+		m->declare("compressors.lib/compressor_mono:author", "Julius O. Smith III");
+		m->declare("compressors.lib/compressor_mono:copyright", "Copyright (C) 2014-2020 by Julius O. Smith III <jos@ccrma.stanford.edu>");
+		m->declare("compressors.lib/compressor_mono:license", "MIT-style STK-4.3 license");
 		m->declare("compressors.lib/name", "Faust Compressor Effect Library");
 		m->declare("compressors.lib/version", "0.0");
 		m->declare("filename", "dyn_comp.dsp");
@@ -647,7 +656,7 @@ class dyn_comp : public dyn_comp_dsp {
 		float fSlow1 = (0.000500000024f * fSlow0);
 		int iSlow2 = (std::fabs(fSlow1) < 1.1920929e-07f);
 		float fSlow3 = (iSlow2 ? 0.0f : std::exp((0.0f - (fConst0 / (iSlow2 ? 1.0f : fSlow1)))));
-		float fSlow4 = ((1.0f / float(fVslider1)) + -1.0f);
+		float fSlow4 = ((1.0f / std::max<float>(1.00000001e-07f, float(fVslider1))) + -1.0f);
 		float fSlow5 = (0.00100000005f * fSlow0);
 		int iSlow6 = (std::fabs(fSlow5) < 1.1920929e-07f);
 		float fSlow7 = (iSlow6 ? 0.0f : std::exp((0.0f - (fConst0 / (iSlow6 ? 1.0f : fSlow5)))));

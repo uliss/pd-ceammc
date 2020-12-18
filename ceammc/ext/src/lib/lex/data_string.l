@@ -55,8 +55,8 @@ close_list \)
 open_dict  \[
 close_dict \]
 
-symbol0    [a-zA-Z_.@#0-9/]
-symbol_    [a-zA-Z_.@#0-9\-+:\?'|/<>=*~]
+symbol0    [a-zA-Z_.@#0-9/%]
+symbol_    [^:\(\)\[\]\"\\\` ]
 symbol     {symbol0} {symbol_}*
 
 key        [a-zA-Z_.@#0-9]+:
@@ -64,6 +64,7 @@ key        [a-zA-Z_.@#0-9]+:
 %%
 
 {space}
+,                       { return DataStringParser::make_COMMA(location()); }
 null                    { return DataStringParser::make_NULL(location()); }
 true                    { return DataStringParser::make_FLOAT(1, location()); }
 false                   { return DataStringParser::make_FLOAT(0, location()); }

@@ -27,6 +27,7 @@
 #include "flow_reject_if.h"
 #include "flow_ring.h"
 #include "flow_route.h"
+#include "flow_select.h"
 #include "flow_speedlim.h"
 #include "flow_split.h"
 #include "flow_stack.h"
@@ -34,13 +35,24 @@
 #include "flow_sync_pack.h"
 #include "flow_tee_tilde.h"
 
-void setup_flow_match();
+void setup_flow_append();
 void setup_flow_delay();
-void setup_flow_space();
+void setup_flow_match();
 void setup_flow_pipe();
+void setup_flow_space();
+
+void setup_seq_arp();
+void setup_seq_bangs();
+void setup_seq_counter();
+void setup_seq_matrix();
+void setup_seq_nbangs();
+void setup_seq_phasor();
+void setup_seq_sequencer();
+void setup_seq_toggles();
 
 void ceammc_flow_setup()
 {
+    setup_flow_append();
     setup_flow_change();
     setup_flow_count();
     setup_flow_delay();
@@ -71,6 +83,7 @@ void ceammc_flow_setup()
     setup_flow_reject();
     setup_flow_reject_if();
     setup_flow_route();
+    setup_flow_select();
     setup_flow_space();
     setup_flow_speedlim();
     setup_flow_split();
@@ -78,4 +91,13 @@ void ceammc_flow_setup()
     setup_flow_sync();
     setup_flow_sync_pack();
     setup_flow_tee_tilde();
+
+    setup_seq_arp();
+    setup_seq_bangs();
+    setup_seq_counter();
+    setup_seq_matrix();
+    setup_seq_nbangs();
+    setup_seq_phasor();
+    setup_seq_sequencer();
+    setup_seq_toggles();
 }

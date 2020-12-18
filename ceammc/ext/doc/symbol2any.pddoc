@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="symbol2any">
+        <title>symbol2any</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>converts symbol to message</description>
+            <license>GPL3 or later</license>
+            <library>ceammc</library>
+            <category>symbol</category>
+            <keywords>symbol any</keywords>
+            <since>0.9.1</since>
+            <aliases>
+                <alias>sym-&gt;any</alias>
+            </aliases>
+        </meta>
+        <inlets>
+            <inlet>
+                <xinfo on="symbol">symbol</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet>output message</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[S digits=40]
+|
+[sym->any]
+|
+[ui.dt]
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

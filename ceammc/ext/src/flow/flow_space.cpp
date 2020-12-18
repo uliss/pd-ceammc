@@ -32,6 +32,7 @@ FlowSpace::FlowSpace(const PdArgs& a)
     delay_ = new FloatProperty("@delay", 1);
     delay_->setArgIndex(0);
     delay_->checkMinEq(1);
+    delay_->setUnits(PropValueUnits::MSEC);
     addProperty(delay_);
 
     done_ = new IntProperty("@done", 1);

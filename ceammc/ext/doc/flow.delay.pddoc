@@ -31,10 +31,6 @@
             <argument name="MS" type="float" minvalue="0" units="millisecond">init @delay
             property</argument>
         </arguments>
-        <methods>
-            <method name="reset">stops scheduled delay. Note: should be send to the second
-            inlet</method>
-        </methods>
         <properties>
             <property name="@delay" type="float" minvalue="0" default="0" units="millisecond">delay
             time</property>
@@ -49,6 +45,7 @@
             <inlet>
                 <xinfo on="bang">reset (stop) current delay</xinfo>
                 <xinfo on="float" minvalue="0">set delay time</xinfo>
+                <xinfo>[reset( - resets delay</xinfo>
             </inlet>
         </inlets>
         <outlets>
@@ -57,18 +54,17 @@
         <example>
             <pdascii>
 <![CDATA[
-[ui.keyboard]
+[@freq 1000( [@freq 2000(
+|            |
+[t a         ]
+| |
+| [flow.del 100]
+| |
+[t b a     ]
+|         ^|
+[click~]   |
 |          |
-|          |
-|          |
-|          |
-[$1(       [@gate 1(
-|          |  |
-[mtof]     |  [flow.delay @delay 100]
-|          |  |
-[@freq $1( [flow.after "@gate" 0 @delay 50]
-|          |
-[synth.bee3~]  [ui.dsp~]
+[flt.resonbp~]
 |
 [ui.hgain~]
 |\
@@ -80,7 +76,7 @@
 |          |                 |.
 [flow.delay 1000              ]
 |
-[ui.display @display_type=1]
+[ui.display @display_type 1]
 
 [1 2(/*zero time*/
 |

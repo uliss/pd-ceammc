@@ -23,6 +23,12 @@
             elements in stack</property>
             <property name="@empty" type="int" default="1" enum="0 1" readonly="true">if stack is
             empty</property>
+            <property name="@on_empty" type="list">message send to destination address when stack
+            becomes empty. First list element is address to send, other additional elements treated
+            as message or bang if not specified.</property>
+            <property name="@on_full" type="list">message send to destination address when stack
+            becomes full. First list element is address to send, other additional elements treated
+            as message or bang if not specified.</property>
         </properties>
         <inlets>
             <inlet>

@@ -21,7 +21,7 @@
 #X text 539 234 vertical slider;
 #X obj 50 262 ui.sliders @max 10 @presetname sl-help;
 #X obj 539 262 ui.sliders @size 100 150;
-#X obj 50 378 ui.display @display_type=1;
+#X obj 50 378 ui.display @display_type 1;
 #X obj 20 427 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 432 cnv 5 115 26 empty empty mouse_events: 4 10 0 14 -262144
 -49933 0;
@@ -220,7 +220,7 @@ are:;
 #X text 115 45 ::;
 #X obj 131 48 ui.link @title ui @url ceammc.ui-help.pd;
 #X obj 1 2805 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 2808 library: ceammc v0.9.0;
+#X text 10 2808 library: ceammc v0.9.1;
 #X text 515 2820 see also:;
 #X obj 589 2823 ui.link @background_color 0.78431 0.78431 0.78431
 @title [ui.slider] @url ui.slider-help.pd;
@@ -231,7 +231,7 @@ are:;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
 #X text 10 32 version:;
-#X text 120 32 0.9.0;
+#X text 120 32 0.9.1;
 #X text 10 54 object:;
 #X text 120 54 ui.sliders;
 #X text 10 76 category:;

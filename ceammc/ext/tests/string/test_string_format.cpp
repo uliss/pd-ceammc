@@ -341,7 +341,7 @@ TEST_CASE("string.format", "[external]")
 
     SECTION("list")
     {
-        TObj t("string.format", LA("A:%s D:%d"));
+        TObj t("string.format", LA("\"A:%s\" \"D:%d\""));
         WHEN_SEND_LIST_TO(0, t, LA("string", 100));
         REQUIRE_STRING_OUTPUT(t, "A:string D:100");
     }

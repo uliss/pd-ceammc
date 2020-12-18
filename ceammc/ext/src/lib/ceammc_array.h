@@ -20,6 +20,7 @@
 #include <string>
 
 #include "ceammc_atomlist.h"
+#include "ceammc_signal.h"
 
 namespace ceammc {
 
@@ -115,6 +116,7 @@ public:
     Array(const char* name, std::initializer_list<t_sample> l);
 
     Array(const Array& array);
+    Array& operator=(const Array& array);
 
     /** iterators */
     iterator begin();
@@ -147,10 +149,21 @@ public:
     bool open(const char* name);
 
     /**
+     * Sets *use_in_dsp* array flag:
+     *  if array will be resized, setupDSP procedure will be called, otherwise not
+     * @return true on success. false on error
+     */
+    void useInDSP();
+
+    /**
      * @brief returns number of samples in array
      */
     size_t size() const { return size_; }
-    std::string name() const;
+
+    /**
+     * @brief array name as string
+     */
+    t_symbol* name() const { return name_; }
 
     /**
      * @brief at - get reference to sample with at position
@@ -247,11 +260,126 @@ public:
      */
     bool normalize(t_float f = 1);
 
+    /**
+     * Non interpolated read
+     * @param fpos - fraction read position, expected: 0 <= fpos && fpos < ARRAYSIZE
+     * @return sample value
+     * @note no range check is performed, could segfault
+     */
+    t_sample readUnsafe0(double fpos) const { return data_[static_cast<size_t>(fpos)].w_float; }
+
+    /**
+     * Read value from array with linear interpolation
+     * @param fpos - fraction read position, expected: 0 <= fpos && fpos < ARRAYSIZE-1
+     * @return interpolated sample value
+     * @note no range check is performed, could segfault
+     */
+    t_sample readUnsafe1(double fpos) const;
+
+    /**
+     * Read value from array with cubic hermite interpolation
+     * @param fpos - fraction read position, expected: 1 <= fpos && fpos < ARRAYSIZE-1
+     * @return interpolated sample value
+     * @note no range check is performed, could segfault
+     */
+    t_sample readUnsafe3(double fpos) const;
+
+    /**
+     * Non interpolated read
+     * @arg fpos - fraction read position
+     * @return array sample value if 0 <= fpos && fpos < ARRAYSIZE, otherwise 0
+     */
+    t_sample readSafe0(double fpos) const;
+
+    /**
+     * Read value from array with linear interpolation
+     * @param fpos - fraction read position
+     * @return array sample value if 0 <= fpos && fpos < ARRAYSIZE, otherwise 0
+     */
+    t_sample readSafe1(double fpos) const;
+
+    /**
+     * Read value from array with cubic hermite interpolation
+     * @param fpos - fraction read position
+     * @return array sample value if 0 <= fpos && fpos < ARRAYSIZE, otherwise 0
+     */
+    t_sample readSafe3(double fpos) const;
+
 public:
     struct Exception : public std::runtime_error {
         Exception(const char* what);
     };
 };
+
+inline t_sample Array::readUnsafe1(double fpos) const
+{
+    const auto ipos = static_cast<size_t>(fpos);
+    const auto x0 = data_[ipos].w_float;
+    const auto x1 = data_[ipos + 1].w_float;
+    const auto t = fpos - double(ipos); // fractional part
+
+    return interpolate::linear<double>(x0, x1, t);
+}
+
+inline t_sample Array::readUnsafe3(double fpos) const
+{
+    const auto ipos = static_cast<size_t>(fpos);
+    const auto x0 = data_[ipos - 1].w_float;
+    const auto x1 = data_[ipos].w_float;
+    const auto x2 = data_[ipos + 1].w_float;
+    const auto x3 = data_[ipos + 2].w_float;
+    const double t = fpos - double(ipos); // fractional part
+
+    return interpolate::cubic_hermite<double>(x0, x1, x2, x3, t);
+}
+
+inline t_sample Array::readSafe0(double fpos) const
+{
+    if (fpos < 0)
+        return 0;
+
+    const auto ipos = static_cast<size_t>(fpos);
+    return (ipos >= size_) ? 0 : data_[ipos].w_float;
+}
+
+inline t_sample Array::readSafe1(double fpos) const
+{
+    if (fpos < 0)
+        return 0;
+
+    const auto ipos = static_cast<size_t>(fpos);
+
+    if (ipos >= size_)
+        return 0;
+
+    const auto x0 = data_[ipos].w_float;
+    if ((ipos + 1) >= size_)
+        return x0;
+
+    const auto x1 = data_[ipos + 1].w_float;
+    const auto t = fpos - double(ipos); // fractional part
+
+    return interpolate::linear<double>(x0, x1, t);
+}
+
+inline t_sample Array::readSafe3(double fpos) const
+{
+    if (fpos < 0)
+        return 0;
+
+    const auto ipos = static_cast<size_t>(fpos);
+
+    if (ipos >= size_)
+        return 0;
+
+    const auto x1 = data_[ipos].w_float;
+    const auto x0 = (ipos < 1) ? x1 : data_[ipos - 1].w_float;
+    const auto x2 = (ipos + 1 >= size_) ? x1 : data_[ipos + 1].w_float;
+    const auto x3 = (ipos + 2 >= size_) ? x2 : data_[ipos + 2].w_float;
+    const double t = fpos - double(ipos); // fractional part
+
+    return interpolate::cubic_hermite<double>(x0, x1, x2, x3, t);
+}
 }
 
 #endif // CEAMMC_ARRAY_H

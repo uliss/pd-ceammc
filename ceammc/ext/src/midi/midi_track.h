@@ -19,7 +19,7 @@ using MidiStreamAtom = DataAtom<DataTypeMidiStream>;
 class MidiTrack : public BaseObject {
     DataTypeMidiTrack midi_track_;
     FlagProperty* join_;
-    SizeTProperty* track_idx_;
+    IntProperty* track_idx_;
     IntProperty* tempo_;
     FloatProperty* speed_;
     size_t current_event_idx_;
@@ -40,11 +40,6 @@ public:
     void onBang() override;
 
     void onDataT(const MidiStreamAtom& stream);
-
-    AtomList p_events() const;
-    AtomList p_current() const;
-    // play state
-    AtomList p_state() const;
 
     void m_next(t_symbol*, const AtomListView&);
     void m_reset(t_symbol*, const AtomListView&);

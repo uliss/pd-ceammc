@@ -26,7 +26,7 @@
             this property value as sublist, otherwise 0</property>
             <property name="@all_of" type="list">all_of mode, output 1 is input list contains all
             of this property values</property>
-            <property name="@all_of" type="list">any_of mode, output 1 is input list contains any
+            <property name="@any_of" type="list">any_of mode, output 1 is input list contains any
             (al least one) of this property values</property>
             <property name="@none_of" type="list">none_of mode, output 1 is input list contains
             none of this property values</property>
@@ -64,7 +64,7 @@
 |           |
 [flow.pass_if] X [list.contains 0]
 |
-[ui.display @display_type=1]
+[ui.display @display_type 1]
 ]]>
             </pdascii>
         </example>

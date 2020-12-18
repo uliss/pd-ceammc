@@ -73,3 +73,7 @@ build/
 CMakeLists.txt.user*
 *.kdev4
 .kdev4
+
+mac/*.gz
+mac/tcl*
+mac/tk*

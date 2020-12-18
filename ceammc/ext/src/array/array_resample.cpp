@@ -68,7 +68,7 @@ void ArrayResample::onBang()
     }
 
     if (src_array_.size() == 0) {
-        OBJ_ERR << fmt::format("empty input array: '{}'", src_array_.name());
+        OBJ_ERR << fmt::format("empty input array: '{}'", src_array_.name()->s_name);
         return;
     }
 
@@ -281,7 +281,7 @@ void ArrayResample::resampleSingle()
     soxr_delete(soxr);
 
     if (!src_array_.resize(DEST_LEN)) {
-        OBJ_ERR << fmt::format("can't resize array '{}' to {} samples", src_array_.name(), DEST_LEN);
+        OBJ_ERR << fmt::format("can't resize array '{}' to {} samples", src_array_.name()->s_name, DEST_LEN);
         return;
     }
 

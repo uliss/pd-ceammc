@@ -18,8 +18,8 @@
 #X obj 12 256 ui.slider @size 125 12 @active_scale 1 @label drive:
 @label_side top @label_align left @fontsize 10 @presetname
 /gui/\$1/fx.drive~/slider1 @min 1 @max 10;
+#X obj 190 256 sync;
 #X obj 145 256 ui.number @size 50 12 @min 1 @max 10 @digits 3;
-#X obj 200 256 msg set;
 #X msg 260 256 @drive \$1;
 #X connect 1 0 0 0;
 #X connect 2 0 3 0;
@@ -33,8 +33,9 @@
 #X connect 12 0 0 0;
 #X connect 4 0 11 0;
 #X connect 13 0 14 0;
-#X connect 14 0 15 0;
-#X connect 15 0 13 0;
+#X connect 14 0 13 0;
+#X connect 15 0 14 1;
+#X connect 14 1 15 0;
 #X connect 13 0 16 0;
 #X connect 16 0 0 0;
 #X connect 4 1 13 0;

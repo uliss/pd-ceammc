@@ -1,7 +1,7 @@
 /* ------------------------------------------------------------
 author: "Pierre Cochard"
 name: "synth.birds"
-Code generated with Faust 2.25.3 (https://faust.grame.fr)
+Code generated with Faust 2.28.6 (https://faust.grame.fr)
 Compilation options: -lang cpp -scal -ftz 0
 ------------------------------------------------------------ */
 
@@ -589,6 +589,8 @@ class synth_birds : public synth_birds_dsp {
 	float fConst5;
 	float fConst6;
 	float fConst7;
+	FAUSTFLOAT fCheckbox0;
+	FAUSTFLOAT fCheckbox1;
 	float fConst8;
 	FAUSTFLOAT fHslider0;
 	float fRec8[2];
@@ -695,6 +697,8 @@ class synth_birds : public synth_birds_dsp {
 		m->declare("author", "Pierre Cochard");
 		m->declare("basics.lib/name", "Faust Basic Element Library");
 		m->declare("basics.lib/version", "0.1");
+		m->declare("ceammc_ui.lib/name", "CEAMMC faust default UI elements");
+		m->declare("ceammc_ui.lib/version", "0.1.2");
 		m->declare("filename", "synth_birds.dsp");
 		m->declare("filters.lib/lowpass0_highpass1", "MIT-style STK-4.3 license");
 		m->declare("filters.lib/lowpass0_highpass1:author", "Julius O. Smith III");
@@ -842,6 +846,8 @@ class synth_birds : public synth_birds_dsp {
 	}
 	
 	virtual void instanceResetUserInterface() {
+		fCheckbox0 = FAUSTFLOAT(0.0f);
+		fCheckbox1 = FAUSTFLOAT(0.0f);
 		fHslider0 = FAUSTFLOAT(240.0f);
 		fHslider1 = FAUSTFLOAT(50.0f);
 	}
@@ -1017,12 +1023,14 @@ class synth_birds : public synth_birds_dsp {
 	}
 	
 	virtual void buildUserInterface(UI* ui_interface) {
-		ui_interface->openHorizontalBox("Bird");
-		ui_interface->declare(&fHslider1, "acc", "0 1 -10 0 10");
+		ui_interface->openVerticalBox("synth.birds");
+		ui_interface->declare(&fCheckbox0, "type", "int");
+		ui_interface->addCheckButton("auto", &fCheckbox0);
+		ui_interface->declare(&fCheckbox1, "type", "bool");
+		ui_interface->addCheckButton("gate", &fCheckbox1);
 		ui_interface->declare(&fHslider1, "style", "knob");
 		ui_interface->declare(&fHslider1, "unit", "%");
 		ui_interface->addHorizontalSlider("probability", &fHslider1, 50.0f, 25.0f, 100.0f, 1.0f);
-		ui_interface->declare(&fHslider0, "acc", "0 1 -10 0 10");
 		ui_interface->declare(&fHslider0, "style", "knob");
 		ui_interface->addHorizontalSlider("speed", &fHslider0, 240.0f, 120.0f, 480.0f, 0.100000001f);
 		ui_interface->closeBox();
@@ -1031,19 +1039,21 @@ class synth_birds : public synth_birds_dsp {
 	virtual void compute(int count, FAUSTFLOAT** inputs, FAUSTFLOAT** outputs) {
 		FAUSTFLOAT* output0 = outputs[0];
 		FAUSTFLOAT* output1 = outputs[1];
-		float fSlow0 = (0.00100000005f * float(fHslider0));
-		float fSlow1 = (9.99999975e-06f * float(fHslider1));
+		int iSlow0 = int(float(fCheckbox0));
+		int iSlow1 = int(float(fCheckbox1));
+		float fSlow2 = (0.00100000005f * float(fHslider0));
+		float fSlow3 = (9.99999975e-06f * float(fHslider1));
 		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int i = 0; (i < count); i = (i + 1)) {
 			iVec0[0] = 1;
-			fRec8[0] = (fSlow0 + (0.999000013f * fRec8[1]));
+			fRec8[0] = (fSlow2 + (0.999000013f * fRec8[1]));
 			iRec7[0] = ((iVec0[1] + iRec7[1]) % int((fConst8 / fRec8[0])));
 			iRec9[0] = ((1103515245 * iRec9[1]) + 12345);
-			fRec10[0] = (fSlow1 + (0.999000013f * fRec10[1]));
+			fRec10[0] = (fSlow3 + (0.999000013f * fRec10[1]));
 			int iTemp0 = ((iRec7[0] == 0) * (std::fabs((4.65661287e-10f * float(iRec9[0]))) <= fRec10[0]));
 			iVec1[0] = iTemp0;
 			fRec6[0] = ((fRec6[1] + float((float((iTemp0 - iVec1[1])) > 0.0f))) - (0.020833334f * float((fRec6[1] > 0.0f))));
-			int iTemp1 = (fRec6[0] > 0.0f);
+			int iTemp1 = (iSlow0 ? (fRec6[0] > 0.0f) : iSlow1);
 			fRec11[0] = std::fmod(float((int((2994.2312f * (fRec11[2] + fRec11[3]))) + 38125)), 2900.0f);
 			fRec5[0] = (iTemp1 ? (fRec11[0] + 100.0f) : fRec5[1]);
 			int iTemp2 = int((fConst7 * std::fabs((fRec5[0] + -1.0f))));
@@ -1102,7 +1112,7 @@ class synth_birds : public synth_birds_dsp {
 			float fTemp37 = (fConst42 * fTemp4);
 			int iTemp38 = (fTemp35 < fTemp37);
 			fRec24[0] = ((0.999000013f * fRec24[1]) + (0.00100000005f * (iTemp36 ? (iTemp38 ? ((iRec25[0] < 0) ? 0.0f : (iTemp38 ? (fConst44 * (fTemp35 / fTemp4)) : 0.55400002f)) : (iTemp36 ? ((fConst43 * ((0.0f - (0.55400002f * (fTemp35 - fTemp37))) / fTemp4)) + 0.55400002f) : 0.0f)) : 0.0f)));
-			fRec23[0] = (fConst5 * ((fRec24[0] + fRec24[1]) - (fConst6 * fRec23[1])));
+			fRec23[0] = (0.0f - (fConst5 * ((fConst6 * fRec23[1]) - (fRec24[0] + fRec24[1]))));
 			iRec28[0] = ((fTemp3 < (fConst45 * fTemp4)) ? iRec4[0] : iRec28[1]);
 			float fTemp39 = float(iRec28[0]);
 			float fTemp40 = (fConst46 * fTemp4);

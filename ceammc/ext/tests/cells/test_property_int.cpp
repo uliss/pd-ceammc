@@ -164,4 +164,62 @@ TEST_CASE("IntProperty", "[core]")
 
         CHECK_SUCCESS(p, LF(2), LF(-2));
     }
+
+    SECTION("+")
+    {
+        REQUIRE(p.setList(AtomList::parseString("+ 2")));
+        REQUIRE(p.value() == 122);
+        REQUIRE(p.setList(AtomList::parseString("+ 2.5")));
+        REQUIRE(p.value() == 124);
+        REQUIRE(p.setList(AtomList::parseString("+ -1")));
+        REQUIRE(p.value() == 123);
+        REQUIRE(p.setList(AtomList::parseString("+ 0")));
+        REQUIRE(p.value() == 123);
+
+        p.checkClosedRange(100, 200);
+        REQUIRE_FALSE(p.setList(AtomList::parseString("+ 1000")));
+        REQUIRE(p.value() == 123);
+    }
+
+    SECTION("-")
+    {
+        REQUIRE(p.setList(AtomList::parseString("- 2")));
+        REQUIRE(p.value() == 118);
+        REQUIRE(p.setList(AtomList::parseString("- 0.5")));
+        REQUIRE(p.value() == 118);
+        REQUIRE(p.setList(AtomList::parseString("- -2")));
+        REQUIRE(p.value() == 120);
+        REQUIRE(p.setList(AtomList::parseString("- -2.5")));
+        REQUIRE(p.value() == 122);
+        REQUIRE(p.setList(AtomList::parseString("- 0")));
+        REQUIRE(p.value() == 122);
+    }
+
+    SECTION("*")
+    {
+        REQUIRE(p.setList(AtomList::parseString("* 2")));
+        REQUIRE(p.value() == 240);
+        REQUIRE(p.setList(AtomList::parseString("* 2.5")));
+        REQUIRE(p.value() == 480);
+        REQUIRE(p.setList(AtomList::parseString("* -1")));
+        REQUIRE(p.value() == -480);
+        REQUIRE(p.setList(AtomList::parseString("* 1")));
+        REQUIRE(p.value() == -480);
+        REQUIRE(p.setList(AtomList::parseString("* 0")));
+        REQUIRE(p.value() == 0);
+    }
+
+    SECTION("/")
+    {
+        REQUIRE(p.setList(AtomList::parseString("/ 2")));
+        REQUIRE(p.value() == 60);
+        REQUIRE(p.setList(AtomList::parseString("/ 5.5")));
+        REQUIRE(p.value() == 12);
+        REQUIRE(p.setList(AtomList::parseString("/ -2")));
+        REQUIRE(p.value() == -6);
+        REQUIRE(p.setList(AtomList::parseString("/ -1")));
+        REQUIRE(p.value() == 6);
+        REQUIRE_FALSE(p.setList(AtomList::parseString("/ 0")));
+        REQUIRE(p.value() == 6);
+    }
 }

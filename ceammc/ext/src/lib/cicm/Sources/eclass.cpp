@@ -21,6 +21,7 @@
 #include "fmt/format.h"
 #pragma clang diagnostic pop
 
+#include <cstdint>
 #include <iostream>
 #include <vector>
 
@@ -403,6 +404,25 @@ void eclass_addmethod(t_eclass* c, t_typ_method m, t_symbol* sname, t_atomtype t
     GSYM(SYM_MOUSE_LEAVE);
     GSYM(SYM_MOUSE_MOVE);
     GSYM(SYM_MOUSE_DOWN);
+    GSYM(SYM_MOUSE_DRAG);
+    GSYM(SYM_MOUSE_UP);
+    GSYM(SYM_MOUSE_RIGHT_CLICK);
+    GSYM(SYM_MOUSE_WHEEL);
+    GSYM(SYM_MOUSE_DBL_CLICK);
+    GSYM(SYM_KEY);
+    GSYM(SYM_KEY_FILTER);
+    GSYM(SYM_PAINT);
+    GSYM(SYM_WIDGET_CREATE);
+    GSYM(SYM_WIDGET_ERASE);
+    GSYM(SYM_NOTIFY);
+    GSYM(SYM_GET_DRAW_PARAMS);
+    GSYM(SYM_OK_SIZE);
+    GSYM(SYM_ONZOOM);
+    GSYM(SYM_SAVE);
+    GSYM(SYM_POPUP);
+    GSYM(SYM_DSP);
+    GSYM(SYM_ANY);
+    GSYM(SYM_PRESET);
 
     t_class* cx = &c->c_class;
     if (sname == G_SYM_MOUSE_ENTER) {
@@ -413,46 +433,48 @@ void eclass_addmethod(t_eclass* c, t_typ_method m, t_symbol* sname, t_atomtype t
         c->c_widget.w_mousemove = reinterpret_cast<t_mousemove_method>(m);
     } else if (sname == G_SYM_MOUSE_DOWN) {
         c->c_widget.w_mousedown = reinterpret_cast<t_mousedown_method>(m);
-    } else if (sname == gensym(SYM_MOUSE_DRAG)) {
+    } else if (sname == G_SYM_MOUSE_DRAG) {
         c->c_widget.w_mousedrag = m;
-    } else if (sname == gensym(SYM_MOUSE_UP)) {
+    } else if (sname == G_SYM_MOUSE_UP) {
         c->c_widget.w_mouseup = reinterpret_cast<t_mouseup_method>(m);
-    } else if (sname == gensym(SYM_MOUSE_RIGHT_CLICK)) {
+    } else if (sname == G_SYM_MOUSE_RIGHT_CLICK) {
         c->c_widget.w_rightclick = reinterpret_cast<t_rightclick_method>(m);
-    } else if (sname == gensym(SYM_MOUSE_WHEEL)) {
-        class_addmethod(cx, reinterpret_cast<t_method>(ebox_mouse_wheel), gensym(SYM_MOUSE_WHEEL), A_DEFFLOAT, A_DEFFLOAT, A_DEFFLOAT, A_DEFFLOAT, 0);
+    } else if (sname == G_SYM_MOUSE_WHEEL) {
+        class_addmethod(cx, reinterpret_cast<t_method>(ebox_mouse_wheel),
+            G_SYM_MOUSE_WHEEL, A_DEFFLOAT, A_DEFFLOAT, A_DEFFLOAT, A_DEFFLOAT, 0);
         c->c_widget.w_mousewheel = reinterpret_cast<t_mousewheel_method>(m);
-    } else if (sname == gensym(SYM_MOUSE_DBL_CLICK)) {
-        class_addmethod(cx, reinterpret_cast<t_method>(ebox_mouse_dblclick), gensym(SYM_MOUSE_DBL_CLICK), A_GIMME, 0);
+    } else if (sname == G_SYM_MOUSE_DBL_CLICK) {
+        class_addmethod(cx, reinterpret_cast<t_method>(ebox_mouse_dblclick),
+            G_SYM_MOUSE_DBL_CLICK, A_GIMME, 0);
         c->c_widget.w_dblclick = reinterpret_cast<t_dblclick_method>(m);
-    } else if (sname == gensym(SYM_KEY) || sname == gensym(SYM_KEY_FILTER)) {
+    } else if (sname == G_SYM_KEY || sname == G_SYM_KEY_FILTER) {
         if (c->c_widget.w_key == nullptr && c->c_widget.w_keyfilter == nullptr)
-            class_addmethod(cx, reinterpret_cast<t_method>(ebox_key), gensym(SYM_KEY), A_GIMME, 0);
-        if (sname == gensym(SYM_KEY))
+            class_addmethod(cx, reinterpret_cast<t_method>(ebox_key), G_SYM_KEY, A_GIMME, 0);
+        if (sname == G_SYM_KEY)
             c->c_widget.w_key = m;
-        if (sname == gensym(SYM_KEY_FILTER))
+        if (sname == G_SYM_KEY_FILTER)
             c->c_widget.w_keyfilter = m;
-    } else if (sname == gensym(SYM_PAINT)) {
+    } else if (sname == G_SYM_PAINT) {
         c->c_widget.w_paint = m;
-    } else if (sname == gensym(SYM_WIDGET_CREATE)) {
+    } else if (sname == G_SYM_WIDGET_CREATE) {
         c->c_widget.w_create = m;
-    } else if (sname == gensym(SYM_WIDGET_ERASE)) {
+    } else if (sname == G_SYM_WIDGET_ERASE) {
         c->c_widget.w_erase = m;
-    } else if (sname == gensym(SYM_NOTIFY)) {
+    } else if (sname == G_SYM_NOTIFY) {
         c->c_widget.w_notify = reinterpret_cast<t_err_method>(m);
-    } else if (sname == gensym(SYM_GET_DRAW_PARAMS)) {
+    } else if (sname == G_SYM_GET_DRAW_PARAMS) {
         c->c_widget.w_getdrawparameters = m;
-    } else if (sname == gensym(SYM_OK_SIZE)) {
+    } else if (sname == G_SYM_OK_SIZE) {
         c->c_widget.w_oksize = m;
-    } else if (sname == gensym(SYM_ONZOOM)) {
+    } else if (sname == G_SYM_ONZOOM) {
         c->c_widget.w_onzoom = m;
-    } else if (sname == gensym(SYM_SAVE)) {
+    } else if (sname == G_SYM_SAVE) {
         c->c_widget.w_save = m;
-    } else if (sname == gensym(SYM_POPUP)) {
-        class_addmethod(cx, reinterpret_cast<t_method>(eobj_popup), gensym(SYM_POPUP), A_SYMBOL, A_DEFFLOAT, A_DEFFLOAT, A_DEFFLOAT, 0);
+    } else if (sname == G_SYM_POPUP) {
+        class_addmethod(cx, reinterpret_cast<t_method>(eobj_popup),
+            G_SYM_POPUP, A_SYMBOL, A_DEFFLOAT, A_DEFFLOAT, A_DEFFLOAT, 0);
         c->c_widget.w_popup = reinterpret_cast<t_popup_method>(m);
-        ;
-    } else if (sname == gensym(SYM_DSP)) {
+    } else if (sname == G_SYM_DSP) {
         c->c_widget.w_dsp = m;
     } else if (sname == &s_bang) {
         class_addbang(cx, reinterpret_cast<t_method>(m));
@@ -460,11 +482,11 @@ void eclass_addmethod(t_eclass* c, t_typ_method m, t_symbol* sname, t_atomtype t
         class_doaddfloat(cx, reinterpret_cast<t_method>(m));
     } else if (sname == &s_list) {
         class_addlist(cx, reinterpret_cast<t_method>(m));
-    } else if (sname == gensym(SYM_ANY)) {
+    } else if (sname == G_SYM_ANY) {
         class_addanything(cx, reinterpret_cast<t_method>(m));
     } else if (sname == &s_symbol) {
         class_addsymbol(cx, reinterpret_cast<t_method>(m));
-    } else if (sname == gensym(SYM_PRESET)) {
+    } else if (sname == G_SYM_PRESET) {
         CLASS_ATTR_SYMBOL(c, "presetname", t_ebox, b_objpreset_id);
         CLASS_ATTR_DEFAULT(c, "presetname", "(null)");
         CLASS_ATTR_SAVE(c, "presetname");
@@ -962,83 +984,363 @@ static void eclass_attr_ceammc_setter(t_object* x, t_symbol* s, size_t argc, t_a
     eclass_attr_setter(x, prop_name, argc, argv);
 }
 
+bool ebox_attr_long_setter(t_ebox* x, t_eattr* a, t_float value, size_t idx, t_eattr_op op)
+{
+    const auto* xclass = x->b_obj.o_obj.te_g.g_pd;
+    const size_t N = (a->sizemax == 0) ? a->size : a->sizemax;
+
+    if (idx >= N) {
+        pd_error(x, "[%s][%s] invalid value index: %d",
+            class_getname(xclass), a->name->s_name, (int)idx);
+        return false;
+    }
+
+    const auto type = a->type;
+    if (a->type != s_int && a->type != s_long) {
+        pd_error(x, "[%s][@%s] not a int property",
+            eobj_getclassname(&x->b_obj)->s_name, a->name->s_name);
+        return false;
+    }
+
+    auto* ptr = reinterpret_cast<int8_t*>(x) + a->offset;
+    long cur_val = 0;
+    if (type == s_int) {
+        auto* pval = reinterpret_cast<int*>(ptr);
+        cur_val = pval[idx];
+    } else if (type == s_long) {
+        auto* pval = reinterpret_cast<long*>(ptr);
+        cur_val = pval[idx];
+    } else {
+        return false;
+    }
+
+    long new_val = 0;
+    switch (op) {
+    case EATTR_OP_ASSIGN:
+        new_val = value;
+        break;
+    case EATTR_OP_ADD:
+        new_val += value;
+        break;
+    case EATTR_OP_SUB:
+        new_val -= value;
+        break;
+    case EATTR_OP_MUL:
+        new_val *= value;
+        break;
+    case EATTR_OP_DIV:
+        if (value == 0)
+            return false;
+
+        new_val /= value;
+        break;
+    default:
+        return false;
+    }
+
+    if (a->clipped & E_CLIP_MINMAX && (new_val < a->minimum || new_val > a->maximum)) {
+        pd_error(x, "[%s][%s] expecting value in [%f-%f] range, got: %ld",
+            class_getname(xclass), a->name->s_name, a->minimum, a->maximum, new_val);
+        new_val = a->minimum;
+    } else if (a->clipped & E_CLIP_MIN && value < a->minimum) {
+        pd_error(x, "[%s][%s] value >= %f expected, got: %ld",
+            class_getname(xclass), a->name->s_name, a->minimum, new_val);
+        new_val = a->minimum;
+        return false;
+    } else if (a->clipped & E_CLIP_MAX && value > a->maximum) {
+        pd_error(x, "[%s][%s] value <= %f expected, got: %ld",
+            class_getname(xclass), a->name->s_name, a->maximum, new_val);
+        new_val = a->maximum;
+    }
+
+    if (type == s_int) {
+        auto* pval = reinterpret_cast<int*>(ptr);
+        pval[idx] = value;
+        return true;
+    } else if (type == s_long) {
+        auto* pval = reinterpret_cast<long*>(ptr);
+        pval[idx] = value;
+        return true;
+    } else {
+        return false;
+    }
+}
+
+bool ebox_attr_float_setter(t_ebox* x, t_eattr* a, t_float value, size_t idx, t_eattr_op op)
+{
+    const auto* xclass = x->b_obj.o_obj.te_g.g_pd;
+    const size_t N = (a->sizemax == 0) ? a->size : a->sizemax;
+
+    if (idx >= N) {
+        pd_error(x, "[%s][%s] invalid value index: %d",
+            class_getname(xclass), a->name->s_name, (int)idx);
+        return false;
+    }
+
+    const auto type = a->type;
+    if (a->type != &s_float && a->type != s_double) {
+        pd_error(x, "[%s][@%s] not a float property",
+            eobj_getclassname(&x->b_obj)->s_name, a->name->s_name);
+        return false;
+    }
+
+    auto* ptr = reinterpret_cast<int8_t*>(x) + a->offset;
+    double cur_val = 0;
+    if (type == &s_float) {
+        auto* pval = reinterpret_cast<float*>(ptr);
+        cur_val = pval[idx];
+    } else if (type == s_double) {
+        auto* pval = reinterpret_cast<double*>(ptr);
+        cur_val = pval[idx];
+    } else {
+        return false;
+    }
+
+    double new_val = 0;
+    switch (op) {
+    case EATTR_OP_ASSIGN:
+        new_val = value;
+        break;
+    case EATTR_OP_ADD:
+        new_val += value;
+        break;
+    case EATTR_OP_SUB:
+        new_val -= value;
+        break;
+    case EATTR_OP_MUL:
+        new_val *= value;
+        break;
+    case EATTR_OP_DIV:
+        if (value == 0)
+            return false;
+
+        new_val /= value;
+        break;
+    default:
+        return false;
+    }
+
+    if (a->clipped & E_CLIP_MINMAX && (new_val < a->minimum || new_val > a->maximum)) {
+        pd_error(x, "[%s][%s] expecting value in [%f-%f] range, got: %f",
+            class_getname(xclass), a->name->s_name, a->minimum, a->maximum, new_val);
+        new_val = a->minimum;
+    } else if (a->clipped & E_CLIP_MIN && value < a->minimum) {
+        pd_error(x, "[%s][%s] value >= %f expected, got: %f",
+            class_getname(xclass), a->name->s_name, a->minimum, new_val);
+        new_val = a->minimum;
+        return false;
+    } else if (a->clipped & E_CLIP_MAX && value > a->maximum) {
+        pd_error(x, "[%s][%s] value <= %f expected, got: %f",
+            class_getname(xclass), a->name->s_name, a->maximum, new_val);
+        new_val = a->maximum;
+    }
+
+    if (type == &s_float) {
+        auto* pval = reinterpret_cast<float*>(ptr);
+        pval[idx] = value;
+        return true;
+    } else if (type == s_double) {
+        auto* pval = reinterpret_cast<float*>(ptr);
+        pval[idx] = value;
+        return true;
+    } else {
+        return false;
+    }
+}
+
+static t_eattr_op atom2op(t_atom* a)
+{
+    if (atom_gettype(a) == A_SYMBOL) {
+        auto ch = atom_getsymbol(a)->s_name;
+
+        if (ch[1] == '\0') {
+            switch (ch[0]) {
+            case '+':
+                return EATTR_OP_ADD;
+            case '-':
+                return EATTR_OP_SUB;
+            case '*':
+                return EATTR_OP_MUL;
+            case '/':
+                return EATTR_OP_DIV;
+            default:
+                break;
+            }
+        }
+    }
+
+    return static_cast<t_eattr_op>(-1);
+}
+
+// caller should free result
+static bool eclass_attr_setter_op(t_object* x, t_symbol* prop_name, t_eattr_op op, t_float v,
+    int& argc,
+    t_atom*& argv)
+{
+    t_ebox* z = reinterpret_cast<t_ebox*>(x);
+
+    int new_argc = 0;
+    t_atom* new_argv = nullptr;
+    // get current values
+    auto ok = eclass_attr_getter(x, prop_name, &new_argc, &new_argv);
+    if (ok && new_argc && new_argv) {
+        // apply math to copy of current values
+        // calc arguments
+        for (int i = 0; i < new_argc; i++) {
+            auto a = &new_argv[i];
+            if (atom_gettype(a) != A_FLOAT)
+                continue;
+
+            t_float& av = a->a_w.w_float;
+
+            switch (op) {
+            case EATTR_OP_ADD:
+                av += v;
+                break;
+            case EATTR_OP_SUB:
+                av -= v;
+                break;
+            case EATTR_OP_MUL:
+                av *= v;
+                break;
+            case EATTR_OP_DIV:
+                if (v == 0) {
+                    pd_error(x, "[%s][@%s] division by zero",
+                        eobj_getclassname(&z->b_obj)->s_name, prop_name->s_name);
+                    freebytes(new_argv, new_argc);
+                    return false;
+                }
+
+                av /= v;
+                break;
+            default:
+                break;
+            }
+        }
+
+        argc = new_argc;
+        argv = new_argv;
+        return true;
+    } else
+        return false;
+}
+
 int eclass_attr_setter(t_object* x, t_symbol* s, int argc, t_atom* argv)
 {
     char* point;
-    long* point_size;
     t_ebox* z = reinterpret_cast<t_ebox*>(x);
     t_eclass* c = reinterpret_cast<t_eclass*>(z->b_obj.o_obj.te_g.g_pd);
 
+    auto is_float_type = [](const t_symbol* t) { return t == &s_float || t == s_double; };
+    auto is_symbol_op = [](const t_atom* a) {
+        if (a->a_type != A_SYMBOL)
+            return false;
+        const auto ch = a->a_w.w_symbol->s_name;
+
+        if (ch[0] == '\0')
+            return false;
+        if (ch[1] != '\0')
+            return false;
+
+        return ch[0] == '+' || ch[0] == '-' || ch[0] == '*' || ch[0] == '/';
+    };
+    auto is_float_op = [&](t_eattr* attr, int argc, t_atom* argv) {
+        return is_float_type(attr->type)
+            && argc == 2
+            && is_symbol_op(&argv[0])
+            && atom_gettype(&argv[1]) == A_FLOAT;
+    };
+    auto clip_args = [](const t_eattr* attr, int argc, t_atom* argv) {
+        if (attr->clipped & E_CLIP_MIN) {
+            for (int j = 0; j < argc; j++) {
+                if (atom_gettype(argv + j) == A_FLOAT) {
+                    atom_setfloat(argv + j, pd_clip_min(atom_getfloat(argv + j), attr->minimum));
+                }
+            }
+        }
+
+        if (attr->clipped & E_CLIP_MAX) {
+            for (int j = 0; j < argc; j++) {
+                if (atom_gettype(argv + j) == A_FLOAT) {
+                    atom_setfloat(argv + j, pd_clip_max(atom_getfloat(argv + j), attr->maximum));
+                }
+            }
+        }
+    };
+    auto prop_setter = [&](t_eattr* attr, int argc, t_atom* argv) {
+        // math operators: +-*/
+        // example: + 0.4
+        if (is_float_op(attr, argc, argv)) {
+            int new_argc = 0;
+            t_atom* new_argv = nullptr;
+
+            auto ok = eclass_attr_setter_op(x, s,
+                atom2op(&argv[0]), atom_getfloat(&argv[1]),
+                new_argc, new_argv);
+
+            if (ok) {
+                clip_args(attr, new_argc, new_argv);
+                attr->setter(x, attr, new_argc, new_argv);
+                freebytes(new_argv, new_argc);
+            } else {
+                clip_args(attr, argc, argv);
+                attr->setter(x, attr, argc, argv);
+            }
+        } else {
+            clip_args(attr, argc, argv);
+            attr->setter(x, attr, argc, argv);
+        }
+    };
+
     for (size_t i = 0; i < c->c_nattr; i++) {
         size_t size;
+        t_eattr* attr = c->c_attr[i];
 
-        if (c->c_attr[i]->name == s) {
-            t_symbol* type = c->c_attr[i]->type;
-            if (c->c_attr[i]->sizemax == 0) {
-                size = c->c_attr[i]->size;
+        if (attr->name == s) {
+            const t_symbol* type = attr->type;
+
+            if (attr->sizemax == 0) {
+                size = attr->size;
             } else {
-                if (argc > c->c_attr[i]->sizemax) {
-                    argc = c->c_attr[i]->sizemax;
+                if (argc > attr->sizemax) {
+                    argc = attr->sizemax;
                 }
                 size = argc;
-                point = (char*)x + c->c_attr[i]->size;
-                point_size = (long*)point;
-                point_size[0] = (long)size;
+                point = (char*)x + attr->size;
             }
 
-            point = (char*)(x) + c->c_attr[i]->offset;
+            point = (char*)(x) + attr->offset;
 
-            if (c->c_attr[i]->clipped & E_CLIP_MIN) {
-                for (int j = 0; j < argc; j++) {
-                    if (atom_gettype(argv + j) == A_FLOAT) {
-                        atom_setfloat(argv + j, pd_clip_min(atom_getfloat(argv + j), c->c_attr[i]->minimum));
-                    }
-                }
-            }
-            if (c->c_attr[i]->clipped & E_CLIP_MAX) {
-                for (size_t j = 0; j < argc; j++) {
-                    if (atom_gettype(argv + j) == A_FLOAT) {
-                        atom_setfloat(argv + j, pd_clip_max(atom_getfloat(argv + j), c->c_attr[i]->maximum));
-                    }
-                }
-            }
-
-            if (c->c_attr[i]->getter) {
-                if (c->c_attr[i]->setter) { // getter and setter
-                    c->c_attr[i]->setter(x, c->c_attr[i], argc, argv);
+            if (attr->getter) {
+                if (attr->setter) { // getter and setter
+                    prop_setter(attr, argc, argv);
                 } else { // getter only (readonly)
-                    pd_error(x, "[%s] readonly property: @%s", c->c_class.c_name->s_name, c->c_attr[i]->name->s_name);
+                    pd_error(x, "[%s] readonly property: @%s", c->c_class.c_name->s_name, attr->name->s_name);
                 }
-            } else if (c->c_attr[i]->getter == nullptr
-                && c->c_attr[i]->setter != nullptr) { // setter only (using default set method)
-                c->c_attr[i]->setter(x, c->c_attr[i], argc, argv);
-            } else if (type == s_int) {
-                int* pointor = (int*)point;
-                for (size_t j = 0; j < size && j < argc; j++) {
-                    if (atom_gettype(argv + j) == A_FLOAT) {
-                        pointor[j] = (int)atom_getlong(argv + j);
-                    }
+            } else if (attr->getter == nullptr && attr->setter != nullptr) {
+                // setter only (using default set method), getter is default reading
+                prop_setter(attr, argc, argv);
+            } else if (type == s_int || type == s_long) {
+                t_eattr_op op = EATTR_OP_ASSIGN;
+
+                if (atom_gettype(argv) == A_SYMBOL)
+                    op = atom2op(argv);
+
+                const auto N = std::min<size_t>(size, argc);
+                for (size_t j = (op == EATTR_OP_ASSIGN) ? 0 : 1; j < N; j++) {
+                    if (atom_gettype(argv + j) == A_FLOAT)
+                        ebox_attr_long_setter(z, attr, atom_getlong(argv + j), j, op);
                 }
-            } else if (type == s_long) {
-                long* pointor = (long*)point;
-                for (size_t j = 0; j < size && j < argc; j++) {
-                    if (atom_gettype(argv + j) == A_FLOAT) {
-                        pointor[j] = (long)atom_getlong(argv + j);
-                    }
-                }
-            } else if (type == &s_float) {
-                float* pointor = (float*)point;
-                for (size_t j = 0; j < size && j < argc; j++) {
-                    if (atom_gettype(argv + j) == A_FLOAT) {
-                        pointor[j] = (float)atom_getfloat(argv + j);
-                    }
-                }
-            } else if (type == s_double) {
-                double* pointor = (double*)point;
-                for (size_t j = 0; j < size && j < argc; j++) {
-                    if (atom_gettype(argv + j) == A_FLOAT) {
-                        pointor[j] = (double)atom_getfloat(argv + j);
-                    }
+            } else if (is_float_type(type)) {
+                t_eattr_op op = EATTR_OP_ASSIGN;
+
+                if (atom_gettype(argv) == A_SYMBOL)
+                    op = atom2op(argv);
+
+                const auto N = std::min<size_t>(size, argc);
+                for (size_t j = (op == EATTR_OP_ASSIGN) ? 0 : 1; j < N; j++) {
+                    if (atom_gettype(argv + j) == A_FLOAT)
+                        ebox_attr_float_setter(z, attr, atom_getfloat(argv + j), j, op);
                 }
             } else if (type == &s_symbol) {
                 t_symbol** pointor = (t_symbol**)point;
@@ -1048,19 +1350,21 @@ int eclass_attr_setter(t_object* x, t_symbol* s, int argc, t_atom* argv)
                     }
                 }
             } else if (type == s_atom) {
+                clip_args(attr, argc, argv);
+
                 t_atom* pointor = (t_atom*)point;
                 for (size_t j = 0; j < size && j < argc; j++) {
                     pointor[j] = argv[j];
                 }
             }
 
+            // hangle @size or @pinned change
             ebox_notify(z, s);
 
-            if (c->c_widget.w_notify != nullptr) {
+            if (c->c_widget.w_notify != nullptr)
                 c->c_widget.w_notify(x, s, s_attr_modified);
-            }
 
-            if (c->c_attr[i]->paint) {
+            if (attr->paint) {
                 if (c->c_widget.w_oksize != nullptr) {
                     c->c_widget.w_oksize(x, &z->b_rect);
                 }
@@ -1070,9 +1374,10 @@ int eclass_attr_setter(t_object* x, t_symbol* s, int argc, t_atom* argv)
 
                 ebox_redraw(z);
             }
-            if (c->c_attr[i]->save && eobj_isbox(&z->b_obj) && ebox_isdrawable(z)) {
+
+            // mark as changed for gui objects
+            if (attr->save && eobj_isbox(&z->b_obj) && ebox_isdrawable(z))
                 canvas_dirty(eobj_getcanvas(&z->b_obj), 1);
-            }
 
             return 1;
         }
@@ -1186,6 +1491,17 @@ static void eclass_properties_dialog(t_eclass* c)
                                   "   set cmd [concat $id dialog $id {2} @{1} [eval concat $$var_{1}]]\n"
                                   "   pdsend $cmd\n"
                                   "}}\n";
+
+#ifdef __MACH__
+    static bool use_theme = false;
+    if (!use_theme) {
+        use_theme = true;
+        auto is_ceammc = getenv("is_ceammc");
+        if (!is_ceammc)
+            sys_gui("ttk::style theme use alt\n");
+
+    }
+#endif
 
     t_symbol* s_color = gensym(SYM_COLOR);
     t_symbol* s_number = gensym(SYM_NUMBER);

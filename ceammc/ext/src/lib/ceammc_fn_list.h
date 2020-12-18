@@ -26,7 +26,7 @@ namespace list {
     size_t longestListSize(const std::vector<AtomList>& l);
     std::pair<size_t, size_t> minmaxListSize(const std::vector<AtomList>& l);
 
-    typedef const Atom* (AtomList::*constAtomlistAt)(int)const;
+    typedef const Atom* (AtomList::*constAtomlistAt)(int) const;
 
     AtomList interleaveMinLength(const std::vector<AtomList>& l);
     AtomList interleaveMaxLength(const std::vector<AtomList>& l, constAtomlistAt fn);
@@ -105,6 +105,17 @@ namespace list {
         PREPEND,
         APPEND
     };
+
+    /**
+     * Generate euclidean rythm pattern using bresenham line algorithm
+     * @see https://en.wikipedia.org/wiki/Euclidean_rhythm
+     * @see https://en.wikipedia.org/wiki/Bresenham%27s_line_algorithm
+     * @param onsets- number of onsets, should be <= pulses
+     * @param pulses - pattern length, should be >0
+     * @note caller should check params
+     * @return list of 1 and 0
+     */
+    AtomList bresenham(size_t onsets, size_t pulses);
 
     AtomList enumerate(const AtomList& l, int from = 0, enumerateMode mode = PREPEND);
 

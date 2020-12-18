@@ -56,6 +56,7 @@ set(CEAMMC_LIB_SOURCES
     ceammc_faust.cpp
     ceammc_fn_list.cpp
     ceammc_format.cpp
+    ceammc_function.cpp
     ceammc_impl.cpp
     ceammc_json.h
     ceammc_json.cpp
@@ -79,10 +80,13 @@ set(CEAMMC_LIB_SOURCES
     ceammc_property_enum.cpp
     ceammc_property_info.cpp
     ceammc_regexp.cpp
+    ceammc_rtree.cpp
+    ceammc_score.cpp
     ceammc_sound_external.cpp
     ceammc_string.cpp
     ceammc_thread.cpp
     ceammc_timeline.cpp
+    ceammc_transport.cpp
     ceammc_units.cpp
     ceammc_window.cpp
     datatype_dict.cpp
@@ -147,6 +151,23 @@ if(BISON_FOUND AND FLEX_FOUND)
         COMMAND $<TARGET_FILE:reflex-bin> fraction.l
         SOURCES lex/fraction.l
         WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/lex)
+
+    add_custom_target(ceammc_select_gen
+        COMMAND $<TARGET_FILE:reflex-bin> select.l
+        COMMAND ${BISON_EXECUTABLE} select.y
+        SOURCES lex/select.l lex/select.y
+        WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/lex)
+
+    add_custom_target(ceammc_score_gen
+        COMMAND $<TARGET_FILE:reflex-bin> score.l
+        COMMAND ${BISON_EXECUTABLE} score.y
+        SOURCES lex/score.l lex/score.y
+        WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/lex)
+
+    add_custom_target(ceammc_units_gen
+        COMMAND $<TARGET_FILE:reflex-bin> units.l
+        SOURCES lex/units.l
+        WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/lex)
 endif()
 
 if(WIN32)
@@ -194,6 +215,11 @@ set(CEAMMC_LOAD_SRC
     lex/array_loader.parser.cpp
     lex/array_loader.cpp
     lex/fraction.lexer.cpp
+    lex/select.lexer.cpp
+    lex/select.parser.cpp
+    lex/units.lexer.cpp
+    lex/score.lexer.cpp
+    lex/score.parser.cpp
     array_load_pattern.h
     array_load_pattern.cpp)
 

@@ -1,6 +1,6 @@
 /* ------------------------------------------------------------
 name: "lfo_pulse_pos"
-Code generated with Faust 2.25.3 (https://faust.grame.fr)
+Code generated with Faust 2.28.6 (https://faust.grame.fr)
 Compilation options: -lang cpp -scal -ftz 0
 ------------------------------------------------------------ */
 

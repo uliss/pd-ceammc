@@ -19,6 +19,7 @@ void setup_array_each();
 void setup_array_grainer();
 void setup_array_minmax();
 void setup_array_p2s();
+void setup_array_play_tilde();
 void setup_array_plot_tilde();
 void setup_array_resample();
 void setup_array_s2p();
@@ -41,6 +42,7 @@ void ceammc_array_setup()
     setup_array_mean();
     setup_array_minmax();
     setup_array_p2s();
+    setup_array_play_tilde();
     setup_array_plot_tilde();
     setup_array_resample();
     setup_array_rms();

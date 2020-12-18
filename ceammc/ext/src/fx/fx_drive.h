@@ -1,6 +1,6 @@
 /* ------------------------------------------------------------
 name: "fx.drive"
-Code generated with Faust 2.25.3 (https://faust.grame.fr)
+Code generated with Faust 2.28.6 (https://faust.grame.fr)
 Compilation options: -lang cpp -scal -ftz 0
 ------------------------------------------------------------ */
 
@@ -521,7 +521,7 @@ class fx_drive : public fx_drive_dsp {
 		m->declare("basics.lib/name", "Faust Basic Element Library");
 		m->declare("basics.lib/version", "0.1");
 		m->declare("ceammc_ui.lib/name", "CEAMMC faust default UI elements");
-		m->declare("ceammc_ui.lib/version", "0.1.1");
+		m->declare("ceammc_ui.lib/version", "0.1.2");
 		m->declare("filename", "fx_drive.dsp");
 		m->declare("name", "fx.drive");
 		m->declare("signals.lib/name", "Faust Signal Routing Library");

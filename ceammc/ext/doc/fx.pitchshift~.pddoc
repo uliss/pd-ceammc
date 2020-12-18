@@ -18,6 +18,9 @@
             <argument name="PITCH" type="float" minvalue="-38" maxvalue="60">pitch shift in
             semitones</argument>
         </arguments>
+        <methods>
+            <method name="reset">reset object state</method>
+        </methods>
         <properties>
             <property name="@pitch" type="float" minvalue="-38" maxvalue="60" default="0">
             pitchshift in semitones</property>

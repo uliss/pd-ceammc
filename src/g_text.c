@@ -1315,8 +1315,9 @@ void text_save(t_gobj *z, t_binbuf *b)
     }
 }
 
+    /* ceammc: removed const for xlets tooltips support */
     /* this one is for everyone but "gatoms"; it's imposed in m_class.c */
-const t_widgetbehavior text_widgetbehavior =
+t_widgetbehavior text_widgetbehavior =
 {
     text_getrect,
     text_displace,

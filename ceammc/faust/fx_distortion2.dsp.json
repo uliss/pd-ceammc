@@ -1,10 +1,10 @@
 {
 	"name": "fx.distortion2",
 	"filename": "fx_distortion2.dsp",
-	"version": "2.25.3",
+	"version": "2.28.6",
 	"compile_options": "-lang cpp -scal -ftz 0",
-	"library_list": ["/Users/serj/work/music/pure-data/ceammc/faust/guitarix.lib","/usr/local/share/faust/stdfaust.lib","/usr/local/share/faust/delays.lib","/usr/local/share/faust/basics.lib","/usr/local/share/faust/filters.lib","/usr/local/share/faust/maths.lib","/usr/local/share/faust/platform.lib","/usr/local/share/faust/misceffects.lib","/Users/serj/work/music/pure-data/ceammc/faust/HighShelf.dsp","/usr/local/share/faust/maxmsp.lib","/usr/local/share/faust/signals.lib"],
-	"include_pathnames": ["/usr/local/share/faust","/usr/local/share/faust","/usr/share/faust","/Users/serj/work/music/pure-data/ceammc/faust","/Users/serj/work/music/pure-data/ceammc/faust"],
+	"library_list": ["/Users/serge/work/music/pure-data/ceammc/faust/guitarix.lib","/usr/local/share/faust/stdfaust.lib","/usr/local/share/faust/delays.lib","/usr/local/share/faust/basics.lib","/usr/local/share/faust/filters.lib","/usr/local/share/faust/maths.lib","/usr/local/share/faust/platform.lib","/usr/local/share/faust/misceffects.lib","/Users/serge/work/music/pure-data/ceammc/faust/HighShelf.dsp","/usr/local/share/faust/maxmsp.lib","/usr/local/share/faust/signals.lib"],
+	"include_pathnames": ["/usr/local/share/faust","/usr/local/share/faust","/usr/share/faust","/Users/serge/work/music/pure-data/ceammc/faust","/Users/serge/work/music/pure-data/ceammc/faust"],
 	"inputs": 1,
 	"outputs": 1,
 	"meta": [ 

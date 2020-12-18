@@ -2,6 +2,7 @@ set(DOC_FILES
     an.onset
     an.onset~
     an.pitchtrack~
+    an.rms~
     array.bpm
     array.copy
     array.do
@@ -11,6 +12,7 @@ set(DOC_FILES
     array.mean
     array.minmax
     array.p2s
+    array.play~
     array.plot~
     array.resample
     array.rms
@@ -44,12 +46,17 @@ set(DOC_FILES
     conv.car2pol
     conv.cc2amp
     conv.dbfs2amp
+    conv.dbfs2amp~
+    conv.degree2key
+    conv.int2bits
+    conv.hex2int
     conv.lin2curve
     conv.lin2exp
     conv.lin2lin
     conv.lin2lin~
     conv.list2props
     conv.midi2freq
+    conv.ms2bpm
     conv.ms2samp
     conv.ms2samp~
     conv.phase2rad
@@ -61,6 +68,7 @@ set(DOC_FILES
     conv.samp2ms
     conv.samp2ms~
     conv.samp2sec
+    conv.sec2bpm
     conv.sec2samp
     conv.sec2str
     conv.str2sec
@@ -104,6 +112,7 @@ set(DOC_FILES
     env2vline
     vline2env
     expand_env
+    flow.append
     flow.change
     flow.count
     flow.delay
@@ -132,6 +141,8 @@ set(DOC_FILES
     flow.reject_if
     flow.ring
     flow.route
+    flow.queue
+    flow.select
     flow.space
     flow.speedlim
     flow.split
@@ -154,6 +165,8 @@ set(DOC_FILES
     flt.eq10~
     flt.eq_peak~
     flt.eq_peak_cq~
+    flt.fb_comb~
+    flt.ff_comb~
     flt.freqz~
     flt.highshelf~
     flt.hpf12~
@@ -185,6 +198,7 @@ set(DOC_FILES
     fx.greyhole~
     fx.looper~
     fx.pitchshift~
+    fx.pitchshift_s~
     fx.sdelay~
     fx.vocoder~
     fx.wahwah~
@@ -307,6 +321,7 @@ set(DOC_FILES
     local.list
     local.mlist
     local.set
+    logger
     math.abs
     math.abs~
     math.acos
@@ -396,6 +411,8 @@ set(DOC_FILES
     math.sync_or
     math.sync_sub
     math.sync_xor
+    math.sync_lshift
+    math.sync_rshift
     math.tan
     math.tan~
     math.tanh
@@ -407,13 +424,15 @@ set(DOC_FILES
     metro.random
     metro.seq
     midi.ctl2str
-    midi.file
-    midi.track
     midi.event2ctl
     midi.event2note
     midi.event2prg
-    midi.prg2str
+    midi.file
     midi.key2str
+    midi.prg2str
+    midi.track
+    midi.tuning
+    midi.vramp
     mix~
     mlist.flatten
     modplug~
@@ -421,11 +440,30 @@ set(DOC_FILES
     msg.after
     msg.onload
     net.host2ip
+    noise.baker
+    noise.clifford
+    noise.collatz
     noise.crackle~
-    noise.pink~
-    noise.white~
-    noise.lfreq~
+    noise.duffing
+    noise.ginger
+    noise.henon
+    noise.henon_heilles
+    noise.henon_phase
+    noise.henonf
+    noise.ikeda
+    noise.jong
     noise.lfreq0~
+    noise.lfreq~
+    noise.logistic
+    noise.lorenz
+    noise.lyapunov
+    noise.navier_stokes
+    noise.pink~
+    noise.rossler
+    noise.stein
+    noise.torus
+    noise.verhulst
+    noise.white~
     nsig~
     obj.props
     osc.blit~
@@ -468,6 +506,7 @@ set(DOC_FILES
     prop.set
     prop.split
     proto.firmata
+    proto.xtouch_ext
     proto.sp.alpaca
     radio
     random.atom
@@ -479,6 +518,7 @@ set(DOC_FILES
     random.pw_const
     random.discrete
     replace
+    rtree.to_list
     set.contains
     set.diff
     set.equal
@@ -486,9 +526,18 @@ set(DOC_FILES
     set.size
     set.symdiff
     set.union
+    sequencer
+    seq.arp
+    seq.bangs
+    seq.counter
+    seq.matrix
+    seq.nbangs
+    seq.phasor
+    seq.toggles
     snd.file
     spat.pan4~
     spat.pan8~
+    spat.zita6x8~
     speech.flite
     string
     string.contains
@@ -507,18 +556,25 @@ set(DOC_FILES
     symbol.equal
     symbol.length
     symbol.num_compare
+    symbol2intlist
+    symbol2any
+    sync
     synth.bee3~
     synth.birds~
     synth.church_bell~
     synth.dubdub~
+    synth.dx7~
     synth.eguitar~
     synth.fgrain~
+    synth.glitch~
     synth.ks~
     synth.marimba~
     synth.rhodey~
     synth.risset_arp~
     synth.risset_tone~
+    synth.russian_bell~
     synth.shakers~
+    synth.sitar~
     synth.wurley~
     system.colorpanel
     system.cursor

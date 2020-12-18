@@ -87,6 +87,11 @@ StkSynth::StkSynth(const PdArgs& args, stk::Instrmnt* instr)
         [this]() -> t_float { return gate_; },
         [this](t_float f) -> bool { return propSetGate(f); })
         ->setFloatCheck(PropValueConstraints::CLOSED_RANGE, 0, 1);
+
+    createCbFloatProperty(
+        "@pitch",
+        [this]() { return convert::freq2midi(freq_->value()); },
+        [this](t_float p) -> bool { return freq_->setValue(convert::midi2freq(p)); });
 }
 
 bool StkSynth::propSetGate(t_float f)
@@ -98,6 +103,25 @@ bool StkSynth::propSetGate(t_float f)
 
     gate_ = f;
     return true;
+}
+
+void StkSynth::m_note(t_symbol* s, const AtomListView& lv)
+{
+    if (lv.size() != 2 && !lv.allOf(isFloat)) {
+        METHOD_ERR(s) << "usage: " << s->s_name << " NOTE VELOCITY";
+        return;
+    }
+
+    const auto note = lv.floatAt(0, -1);
+    const auto vel = lv.floatAt(1, -1);
+
+    if (vel < 0 || vel > 127) {
+        METHOD_ERR(s) << "velocity value is out of [0..127] range: " << vel;
+        return;
+    }
+
+    freq_->setValue(mtof(note));
+    propSetGate(convert::lin2lin_clip<t_float, 0, 127>(vel, 0, 1));
 }
 
 void StkBase::m_cc(t_symbol* s, const AtomListView& lst)

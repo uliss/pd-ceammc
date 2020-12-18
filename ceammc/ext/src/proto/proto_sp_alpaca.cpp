@@ -55,7 +55,7 @@ typedef std::function<bool(ProtoSpAlpaca*, uint8_t)> TransitionFn;
 typedef std::function<bool(uint8_t)> ValidatorFn;
 typedef std::tuple<StateType, ValidatorFn, StateType, TransitionFn> FSMRow;
 
-static std::vector<FSMRow> fsm({{
+static std::vector<FSMRow> fsm({ {
     // start->cmd
     { STATE_START,
         [](uint8_t v) { return v == CMD_START; },
@@ -101,9 +101,9 @@ static std::vector<FSMRow> fsm({{
 
     // analog_raw->end
     { STATE_ANALOG_VALUE_RAW,
-       [](uint8_t v) { return v == CMD_END; },
+        [](uint8_t v) { return v == CMD_END; },
         STATE_END,
-       [](ProtoSpAlpaca* p, uint8_t v) { return p->fsm_output_analog_raw(); } },
+        [](ProtoSpAlpaca* p, uint8_t v) { return p->fsm_output_analog_raw(); } },
 
     // analog_raw->analog_raw
     { STATE_ANALOG_VALUE_RAW,
@@ -128,7 +128,7 @@ static std::vector<FSMRow> fsm({{
         [](uint8_t v) { return v == CMD_END; },
         STATE_END,
         [](ProtoSpAlpaca* p, uint8_t v) { return p->fsm_output_response(); } },
-}});
+} });
 
 ProtoSpAlpaca::ProtoSpAlpaca(const PdArgs& args)
     : BaseObject(args)
@@ -198,14 +198,16 @@ bool ProtoSpAlpaca::fsm_output_response()
 
     switch (in_cmd_[0]) {
     case 0: {
-        size_t argc = 0;
-        auto argv = &in_cmd_[2];
-        if (in_cmd_.size() > 1) {
-            argc = in_cmd_[1];
+        if (in_cmd_.size() > 2) {
+            const size_t argc = in_cmd_[1];
+
             if (in_cmd_.size() != argc + 2) { // target, nargs, ....
                 OBJ_ERR << "invalid response format...";
                 return false;
             }
+
+            OBJ_DBG << "command size: " << in_cmd_.size();
+            const auto argv = (&in_cmd_[0]) + 2;
 
             if (argc == 2 && argv[0] == CMD_DEVICE_VERSION)
                 anyTo(0, SYM_VERSION, argv[1]);

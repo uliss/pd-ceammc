@@ -18,7 +18,7 @@
 #X obj 261 147 msg 1 2;
 #X obj 357 147 msg a b c;
 #X obj 472 147 msg @a;
-#X obj 50 190 ui.display @display_type=1;
+#X obj 50 190 ui.display @display_type 1;
 #X msg 50 234 symbol A;
 #X msg 155 234 symbol A;
 #X msg 261 234 symbol A;
@@ -27,7 +27,7 @@
 #X obj 155 262 msg B;
 #X obj 261 262 msg 1 2;
 #X obj 366 262 msg a b c;
-#X obj 50 305 ui.display @display_type=1;
+#X obj 50 305 ui.display @display_type 1;
 #X msg 50 349 b c;
 #X msg 117 349 b c;
 #X msg 194 349 b c;
@@ -40,7 +40,7 @@
 #X obj 270 378 msg 1 2;
 #X obj 366 378 msg a b c;
 #X obj 482 378 msg @a;
-#X obj 50 421 ui.display @display_type=1;
+#X obj 50 421 ui.display @display_type 1;
 #X msg 50 464 bang;
 #X msg 117 464 bang;
 #X msg 194 464 bang;
@@ -53,7 +53,7 @@
 #X obj 270 493 msg 1 2;
 #X obj 366 493 msg a b c;
 #X obj 482 493 msg @a;
-#X obj 50 536 ui.display @display_type=1;
+#X obj 50 536 ui.display @display_type 1;
 #X obj 20 585 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 590 cnv 5 90 26 empty empty arguments: 4 10 0 14 -262144
 -49933 0;
@@ -93,13 +93,13 @@
 #X text 115 45 ::;
 #X obj 131 48 ui.link @title msg @url ceammc.msg-help.pd;
 #X obj 1 867 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 870 library: ceammc v0.9.0;
+#X text 10 870 library: ceammc v0.9.1;
 #N canvas 10 889 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
 #X text 10 32 version:;
-#X text 120 32 0.9.0;
+#X text 120 32 0.9.1;
 #X text 10 54 object:;
 #X text 120 54 msg;
 #X text 10 76 category:;

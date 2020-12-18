@@ -7,8 +7,7 @@
 #X obj 30 116 list.^at;
 #X text 200 116 on input index(es) outputs list element(s);
 #X obj 30 143 list.^contains;
-#X text 200 143 on input atom or list checks if specified list contains
-it;
+#X text 200 143 checks if input atom is found in the list;
 #X obj 30 170 list.^search;
 #X text 200 170 on input atom returns it index in list;
 #X obj 30 197 list.all_of;

@@ -48,7 +48,7 @@
 |  |   |      | |
 [flow.pass 1 10 100 a z]
 |
-[ui.display @display_type=1]
+[ui.display @display_type 1]
 ]]>
             </pdascii>
         </example>

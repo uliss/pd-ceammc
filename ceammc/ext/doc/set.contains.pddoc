@@ -17,19 +17,21 @@
             </also>
         </meta>
         <arguments>
-            <argument name="X" type="list">searched elements</argument>
+            <argument name="X" type="atom">searched element</argument>
         </arguments>
+        <properties>
+            <property name="@subj" type="atom">searched element</property>
+        </properties>
         <inlets>
             <inlet>
                 <xinfo>input set. Other values are ignored</xinfo>
             </inlet>
             <inlet>
-                <xinfo on="atom">single searched element</xinfo>
-                <xinfo on="list">check if at least one of elements is in set</xinfo>
+                <xinfo on="atom">set searched element</xinfo>
             </inlet>
         </inlets>
         <outlets>
-            <outlet>1 if element exists in set, otherwise 0.</outlet>
+            <outlet>1 if element exists in set, otherwise 0</outlet>
         </outlets>
         <example>
             <pdascii>

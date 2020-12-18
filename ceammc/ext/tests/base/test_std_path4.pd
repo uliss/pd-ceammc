@@ -1,0 +1,10 @@
+#N canvas 569 464 700 500 12;
+#X declare -path ..;
+#X obj 331 144 inlet;
+#X obj 351 196 print;
+#X obj 331 222 outlet;
+#X obj 442 98 declare -path ../;
+#X obj 331 170 ext.d;
+#X connect 0 0 4 0;
+#X connect 4 0 2 0;
+#X connect 4 0 1 0;

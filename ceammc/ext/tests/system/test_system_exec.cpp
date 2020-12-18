@@ -41,9 +41,12 @@ TEST_CASE("system.exec", "[externals]")
     {
         TExt t("system.exec");
 
+        REQUIRE_PROPERTY(t, @state, -1);
+
         t << LA(TEST_EXEC);
-        REQUIRE_PROPERTY(t, @is_running, 1);
+
 #ifndef __WIN32__
+        REQUIRE_PROPERTY(t, @is_running, 1);
         REQUIRE_FALSE(t.hasNewMessages(0));
 #endif
 
@@ -51,11 +54,12 @@ TEST_CASE("system.exec", "[externals]")
         REQUIRE(t.hasNewMessages(0));
 
 #ifdef __WIN32__
-        REQUIRE(floatAt(t, 0_out) == 127);
+        REQUIRE(floatAt(t, 0_out) == -1);
 #else
         REQUIRE(floatAt(t, 0_out) == 255);
 #endif
         REQUIRE_PROPERTY(t, @is_running, 0);
+        REQUIRE_PROPERTY(t, @state, -1);
 
         /* normal exit */
         t << LA(TEST_EXEC, 0.);
@@ -70,7 +74,10 @@ TEST_CASE("system.exec", "[externals]")
         t->setProperty(SYM("@priority"), LA("low"));
         REQUIRE_PROPERTY(t, @priority, "low");
         t << LA(TEST_EXEC, 1);
+
+#ifndef __WIN32__
         REQUIRE_FALSE(t.hasNewMessages(0));
+#endif
 
         test::pdRunMainLoopMs(MS(50));
         REQUIRE(floatAt(t, 0_out) == 100);
@@ -140,8 +147,10 @@ TEST_CASE("system.exec", "[externals]")
         SECTION("normal exit")
         {
             t << LA(TEST_EXEC, 0.f);
-            test::pdRunMainLoopMs(10);
+            test::pdRunMainLoopMs(MS(10));
+#ifndef __WIN32__
             REQUIRE_PROPERTY(t, @is_running, 1);
+#endif
         }
 
         SECTION("inf loop")
@@ -257,6 +266,7 @@ TEST_CASE("system.exec", "[externals]")
 
         SECTION("sort")
         {
+#ifndef __WIN32__
             t << LA("sort", "-n", "-r");
             REQUIRE_FALSE(t.hasNewMessages(0));
 
@@ -270,6 +280,7 @@ TEST_CASE("system.exec", "[externals]")
             test::pdRunMainLoopMs(MS(50));
             REQUIRE(atomAt(t, 1_out) == StringAtom("11"));
             REQUIRE_PROPERTY(t, @is_running, 0);
+#endif
         }
 
         SECTION("cat")

@@ -148,13 +148,15 @@ TEST_CASE("ui.gain~", "[ui.gain~]")
         t.addListener("r1");
 
         t << BANG;
-        REQUIRE_ANY_WAS_SEND(t, "r1", LA("@db", -60));
+        REQUIRE_FLOAT_WAS_SEND(t, "r1", -60);
 
         t.mouseDown(5, 20);
         REQUIRE_NONE_WAS_SEND(t, "r1");
+        t.mouseDrag(4, 18);
+        REQUIRE_FLOAT_WAS_SEND(t, "r1", -59);
 
-        t->setProperty(gensym("output_value"), LF(1));
-        t.mouseDown(5, 20);
-        //        REQUIRE_ANY_WAS_SEND(t, "r1", LA("@db", -10));
+        t->setProperty(gensym("relative"), LF(0));
+        t.mouseDown(5, 10);
+        REQUIRE_FLOAT_WAS_SEND(t, "r1", -5);
     }
 }

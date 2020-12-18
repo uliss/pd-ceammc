@@ -26,10 +26,11 @@
         <arguments>
             <argument name="N" type="int" minvalue="2" maxvalue="24">number of multiplexed
             inputs</argument>
-            <argument name="N" type="int" minvalue="0" maxvalue="24">default input index</argument>
+            <argument name="N" type="int" minvalue="0" maxvalue="23">default input index</argument>
         </arguments>
         <properties>
-            <property name="@index" type="int" minvalue="0" default="0">input index</property>
+            <property name="@index" type="int" minvalue="0" default="0" maxvalue="23">input
+            index</property>
         </properties>
         <inlets dynamic="true">
             <inlet>

@@ -1,6 +1,6 @@
 /* ------------------------------------------------------------
 name: "synth.ks"
-Code generated with Faust 2.25.3 (https://faust.grame.fr)
+Code generated with Faust 2.28.6 (https://faust.grame.fr)
 Compilation options: -lang cpp -scal -ftz 0
 ------------------------------------------------------------ */
 
@@ -718,6 +718,8 @@ class synth_ks : public synth_ks_dsp {
 		ui_interface->addHorizontalSlider("cutoff", &fHslider4, 1.0f, 0.100000001f, 1.0f, 0.00100000005f);
 		ui_interface->addHorizontalSlider("gain", &fHslider3, 1.0f, 0.0f, 1.0f, 0.00100000005f);
 		ui_interface->addButton("gate", &fButton0);
+		ui_interface->declare(&fHslider2, "enum", "0 1");
+		ui_interface->declare(&fHslider2, "type", "int");
 		ui_interface->addHorizontalSlider("mode", &fHslider2, 0.0f, 0.0f, 1.0f, 1.0f);
 		ui_interface->addHorizontalSlider("mute", &fHslider0, 0.0f, 0.0f, 1.0f, 0.00100000005f);
 		ui_interface->addHorizontalSlider("pitch", &fHslider1, 48.0f, 36.0f, 84.0f, 0.00100000005f);
@@ -797,9 +799,10 @@ class synth_ks : public synth_ks_dsp {
 			float fTemp5 = (iSlow22 ? (fSlow38 * ((fRec14[2] + (fRec14[0] + (2.0f * fRec14[1]))) * std::max<float>(0.0f, std::min<float>(fTemp4, (2.0f - fTemp4))))) : (fSlow27 * ((fRec11[2] + (fRec11[0] + (2.0f * fRec11[1]))) * std::max<float>(0.0f, std::min<float>(fTemp3, (2.0f - fTemp3))))));
 			float fTemp6 = (fRec0[2] + fTemp5);
 			fVec1[(IOTA & 2047)] = fTemp6;
-			float fTemp7 = ((fSlow9 * fVec1[((IOTA - iSlow11) & 2047)]) + (fSlow12 * ((((fSlow13 * fVec1[((IOTA - iSlow14) & 2047)]) + (fSlow15 * fVec1[((IOTA - iSlow16) & 2047)])) + (fSlow18 * fVec1[((IOTA - iSlow19) & 2047)])) + (fSlow20 * fVec1[((IOTA - iSlow21) & 2047)]))));
-			float fRec9 = fTemp7;
-			float fRec10 = (fTemp0 + fTemp7);
+			float fTemp7 = (fSlow9 * fVec1[((IOTA - iSlow11) & 2047)]);
+			float fTemp8 = (fSlow12 * ((((fSlow13 * fVec1[((IOTA - iSlow14) & 2047)]) + (fSlow15 * fVec1[((IOTA - iSlow16) & 2047)])) + (fSlow18 * fVec1[((IOTA - iSlow19) & 2047)])) + (fSlow20 * fVec1[((IOTA - iSlow21) & 2047)])));
+			float fRec9 = (fTemp7 + fTemp8);
+			float fRec10 = (fTemp8 + (fTemp0 + fTemp7));
 			fRec3[0] = fRec8;
 			float fRec4 = (fTemp5 + fRec3[1]);
 			float fRec5 = fRec9;

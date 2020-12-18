@@ -2,9 +2,9 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Pure Data 0.47.1_ceammc\n"
-"Report-Msgid-Bugs-To: pd-dev@iem.at\n"
-"POT-Creation-Date: 2020-07-30 05:15+0300\n"
-"PO-Revision-Date: 2020-07-30 05:21+0300\n"
+"Report-Msgid-Bugs-To: serge.uliss at gmail.com\n"
+"POT-Creation-Date: 2020-12-14 11:55+0300\n"
+"PO-Revision-Date: 2020-12-14 11:56+0300\n"
 "Last-Translator: Serge Poltavski <serge.poltavski@gmail.com>\n"
 "Language-Team: Russian\n"
 "Language: ru\n"
@@ -17,7 +17,7 @@ msgstr ""
 "X-Language: ru_RU\n"
 "X-Source-Language: C\n"
 "X-Loco-Parser: loco_parse_po\n"
-"X-Generator: Poedit 2.3.1\n"
+"X-Generator: Poedit 2.4.2\n"
 
 #: ../tcl/dialog_font.tcl
 #, tcl-format
@@ -40,7 +40,7 @@ msgstr "(Раз)соединить"
 
 #: ../tcl/pd_connect.tcl ../tcl/pdwindow.tcl
 msgid "(Tcl) INVALID COMMAND NAME: "
-msgstr ""
+msgstr "(Tcl) НЕВЕРНОЕ ИМЯ КОМАНДЫ: "
 
 #: ../tcl/pd_connect.tcl ../tcl/pdwindow.tcl
 msgid "(Tcl) MISSING CLOSE-BRACE '}': "
@@ -52,7 +52,7 @@ msgstr ""
 
 #: ../tcl/pd_connect.tcl ../tcl/pdwindow.tcl
 msgid "(Tcl) UNHANDLED ERROR: "
-msgstr ""
+msgstr "(Tcl) НЕОБРАБОТАННАЯ ОШИБКА: "
 
 #: pd_dynamic_strings.tcl
 msgid "(re-save preferences to reinstate them)"
@@ -325,6 +325,22 @@ msgstr "Обзор"
 #: ../tcl/pd_menus.tcl
 msgid "Browser..."
 msgstr "Обзор справки..."
+
+#: ../ceammc/gui/plugins/ceammc_buttonbar-plugin.tcl
+msgid "Button Bar"
+msgstr "Панель кнопок"
+
+#: ../ceammc/gui/plugins/ceammc_buttonbar-plugin.tcl
+msgid "Button Bar Settings"
+msgstr "Настройки панели кнопок"
+
+#: ../ceammc/gui/plugins/ceammc_buttonbar-plugin.tcl
+msgid "ButtonBar Settings"
+msgstr "Настройки панели кнопок"
+
+#: ../ceammc/gui/plugins/ceammc_buttonbar-plugin.tcl
+msgid "ButtonBar settings"
+msgstr "Настройки панели кнопок"
 
 #: ../tcl/pd_menus.tcl
 msgid "CEAMMC objects"
@@ -650,6 +666,10 @@ msgstr "Цвет первого графика"
 msgid "Flash Time (msec)"
 msgstr "Время индикации нажатия (мкс)"
 
+#: ../ceammc/ext/src/ui/ui_display.cpp
+msgid "Float formatting width"
+msgstr "Число разрядов форматирования"
+
 #: ../tcl/dialog_font.tcl ../tcl/pd_menus.tcl
 msgid "Font"
 msgstr "Шрифт"
@@ -722,6 +742,10 @@ msgstr "Обзор справки"
 #: ../tcl/pd_deken.tcl
 msgid "Hide foreign architectures?"
 msgstr "Скрывать другие архитектуры?"
+
+#: ../ceammc/gui/plugins/ceammc_buttonbar-plugin.tcl
+msgid "Hide in runmode"
+msgstr "Скрывать в режиме исполнения"
 
 #: ../tcl/dialog_canvas.tcl
 msgid "Hide object name and arguments"
@@ -888,7 +912,7 @@ msgstr "Загрузить из..."
 #: ../tcl/pd-gui.tcl
 #, tcl-format
 msgid "Loading plugin: %s"
-msgstr ""
+msgstr "Загрузка плагина: %s"
 
 #: ../tcl/dialog_iemgui.tcl
 msgid "Log height:"
@@ -947,7 +971,7 @@ msgstr "MIDI..."
 #: ../ceammc/ext/src/ui/ui_menu.cpp ../ceammc/ext/src/ui/ui_meter.cpp
 #: ../ceammc/ext/src/ui/ui_number.cpp ../ceammc/ext/src/ui/ui_number_tilde.cpp
 #: ../ceammc/ext/src/ui/ui_polar.cpp ../ceammc/ext/src/ui/ui_radio.cpp
-#: ../ceammc/ext/src/ui/ui_scope.cpp
+#: ../ceammc/ext/src/ui/ui_scope.cpp ../ceammc/ext/src/ui/ui_toggle.cpp
 msgid "Main"
 msgstr "Основные"
 
@@ -1164,6 +1188,14 @@ msgstr "OK"
 #: ../ceammc/gui/plugins/ceammc_buttonbar-plugin.tcl ../tcl/pd_menus.tcl
 msgid "Object"
 msgstr "Объект"
+
+#: ../ceammc/ext/src/ui/ui_toggle.cpp
+msgid "Off value"
+msgstr "Выкл. значение"
+
+#: ../ceammc/ext/src/ui/ui_toggle.cpp
+msgid "On value"
+msgstr "Вкл. значение"
 
 #: ../tcl/pd_deken.tcl
 msgid "Only install externals uploaded by people you trust."
@@ -1466,6 +1498,10 @@ msgstr "Сохранить как..."
 msgid "Save contents"
 msgstr "Сохранять содержимое"
 
+#: ../ceammc/gui/plugins/ceammc_buttonbar-plugin.tcl
+msgid "Save settings"
+msgstr "Сохранить настройки"
+
 #: ../tcl/pd_menus.tcl
 msgid "Save to..."
 msgstr "Сохранить в..."
@@ -1530,6 +1566,10 @@ msgstr "Настройки"
 #: ../tcl/pd_deken.tcl
 msgid "Should newly installed libraries be added to Pd's search path?"
 msgstr "Добавлять установленные библиотеки к путям поиска Pd?"
+
+#: ../ceammc/gui/plugins/ceammc_buttonbar-plugin.tcl
+msgid "Show"
+msgstr "Показать"
 
 #: pd_dynamic_strings.tcl
 msgid "Show &Hidden Files and Directories"
@@ -1703,7 +1743,7 @@ msgstr "Попробуйте использовать полное имя, на�
 #: ../tcl/pd-gui.tcl
 #, tcl-format
 msgid "UNHANDLED ERROR: %s"
-msgstr ""
+msgstr "НЕОБРАБОТАННАЯ ОШИБКА: %s"
 
 #: ../ceammc/ext/src/ui/ui_link.cpp
 msgid "URL"

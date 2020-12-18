@@ -2,6 +2,7 @@ an.onset	onset detector for arrays
 an.onset~	onset detector
 an.pitchtrack~	pitch tracker
 helmholtz~	pitch tracker
+an.rms~	root mean square with moving-average algorithm.
 array.bpm	BPM calculator
 array.copy	copy samples from one array to another
 array.do	iterate and modify array content via side-chain
@@ -10,6 +11,8 @@ array.fill	fill array with single value or pattern
 array.hist	calculates array histogram
 array.mean	calculates array arithmetic mean value
 array.minmax	find array min and max element value
+array.play~	array player with variable speed and amplitude
+array.p~	array player with variable speed and amplitude
 array.plot~	plot signal on specified array
 array.resample	array resampler
 array.r	array resampler
@@ -35,6 +38,13 @@ func	named function
 function.call	call named function
 func.call	call named function
 gain~	multislot signal gain
+logger	advanced data logger
+log.error	advanced data logger
+log.post	advanced data logger
+log.debug	advanced data logger
+log.verbose	advanced data logger
+log.stderr	advanced data logger
+log.stdout	advanced data logger
 matrix~	signal routing matrix
 metro.pattern	metro with rhythmic patterns
 metro.random	metro random bang with specified range
@@ -43,6 +53,7 @@ mix~	multislot signal mixer
 nsig~	Mulitchannel converter from control to audio rate
 obj.props	property extractor
 radio	float index to outlet values as radio switch
+sync	value synchronization
 window	returns window value by given window position
 win	returns window value by given window position
 xdac~	dac~ with channel ranges
@@ -78,6 +89,14 @@ conv.cc2amp	convert from MIDI Control Change range
 cc->amp	convert from MIDI Control Change range
 conv.dbfs2amp	convert decibel full scale to amplitude
 dbfs->amp	convert decibel full scale to amplitude
+conv.dbfs2amp~	convert decibel full scale to amplitude
+dbfs->amp~	convert decibel full scale to amplitude
+conv.degree2key	convert scale degree to key
+degree->key	convert scale degree to key
+conv.hex2int	hex symbol to int value
+hex->int	hex symbol to int value
+conv.int2bits	convert integer to list of bits
+int->bits	convert integer to list of bits
 conv.lin2curve	map linear to exponential range with 0 allowed.
 lin->curve	map linear to exponential range with 0 allowed.
 conv.lin2exp	maps linear range to exponential range
@@ -94,6 +113,8 @@ any->props	converts list to series of property messages
 conv.midi2freq	convert from midi pitch to frequency in hz (with various base A and temperament)
 midi->freq	convert from midi pitch to frequency in hz (with various base A and temperament)
 m->f	convert from midi pitch to frequency in hz (with various base A and temperament)
+conv.ms2bpm	convert period in milliseconds to frequency in BPM
+ms->bpm	convert period in milliseconds to frequency in BPM
 conv.ms2samp	convert time in milliseconds to number of samples according to current samplerate
 ms->samp	convert time in milliseconds to number of samples according to current samplerate
 conv.ms2samp~	convert time in milliseconds to number of samples according to current samplerate
@@ -116,6 +137,8 @@ conv.samp2ms~	convert samples to milliseconds according to samplerate
 samp->ms~	convert samples to milliseconds according to samplerate
 conv.samp2sec	convert samples to time according to samplerate
 samp->sec	convert samples to time according to samplerate
+conv.sec2bpm	convert period in seconds to frequency in BPM
+sec->bpm	convert period in seconds to frequency in BPM
 conv.sec2samp	convert time in seconds to number of samples according to current samplerate
 sec->samp	convert time in seconds to number of samples according to current samplerate
 conv.sec2str	converts float time in seconds to formated symbol (or string)
@@ -151,6 +174,8 @@ dict.to_list	converts dictionary to plain list
 dict->list	converts dictionary to plain list
 dict.values	dictionary values as mlist
 mlist.flatten	flatten nested mlist
+rtree.to_list	convert OpenMusic-like rythm tree to list of fractions
+rtree->list	convert OpenMusic-like rythm tree to list of fractions
 set.contains	check if specified element is in set
 set.diff	difference between two sets
 set.equal	checks if two sets are equal (contains same elements)
@@ -184,6 +209,7 @@ env	Envelope data type
 vline2env	Converts vline messages to env
 vline->env	Converts vline messages to env
 expand_env	Substitute environment variables in data stream
+flow.append	append message to flow stream
 flow.change	rejects redundant input values
 flow.count	control flow event counter
 flow.delay	enhanced version on vanilla delay object
@@ -228,14 +254,18 @@ pass	pass specified values
 flow.pass_if	pass values that accepted by predicate object
 pass_if	pass values that accepted by predicate object
 flow.pipe	enhanced version on vanilla pipe object
+flow.queue	multi-channel control flow sync queue (or FIFO)
 flow.reject	reject specified values
 reject	reject specified values
+flow.!	reject specified values
 flow.reject_if	reject values by predicate
 reject_if	reject values by predicate
 flow.ring	dataflow ring buffer
 flow.>>	dataflow ring buffer
 flow.route	advanced message router
-flow.space	space in time messages received in the same logical time
+flow.select	vanilla flow on steroids
+flow.sel	vanilla flow on steroids
+flow.space	space in time messages received at the same logical time
 flow.speedlim	control stream speed limiter
 speedlim	control stream speed limiter
 flow.split	split data flow by external side-chain predicate
@@ -264,6 +294,8 @@ flt.dcblock~	mono DC blocker
 flt.eq10~	graphic 10 band equalizer
 flt.eq_peak_cq~	constant-Q second order peaking equalizer section
 flt.eq_peak~	second order "peaking equalizer" section (gain boost or cut near some frequency). Also called a "parametric equalizer" section.
+flt.fb_comb~	feedback comb filter
+flt.ff_comb~	feed forward comb filter
 flt.freqz~	compute the frequency response of a digital filter
 flt.highshelf~	gain boost|cut above some frequency
 flt.hpf12~	High-pass second order Butterworth filter
@@ -291,6 +323,7 @@ fx.freqshift~	frequency shifter or single-sideband ring modulation
 fx.granulator~	simple input stream granulator
 fx.greyhole~	A complex echo-like effect
 fx.looper~	One track looper
+fx.pitchshift_s~	signal version of fx.pitchshift~
 fx.pitchshift~	simple pitch shifter based on 2 delay lines
 fx.sdelay~	smooth delay with a feedback control
 fx.vocoder~	very simple vocoder where the spectrum of the modulation signal is analyzed using a 32-band filter bank
@@ -319,7 +352,7 @@ lfo.saw~	Full-range unit-amplitude low frequency saw
 lfo.square~	Zero-mean unit-amplitude low frequency square wave
 lfo.tri~	Zero-mean unit-amplitude low frequency triangle wave
 list.^at	on input index(es) outputs list element(s)
-list.^contains	on input atom or list checks if specified list contains it
+list.^contains	checks if input atom is found in the list
 list.^search	on input atom returns it index in list
 list.all_of	checks if all list atoms accepted by predicate
 list.any_of	checks if at least one list element is accepted by predicate
@@ -518,6 +551,9 @@ math.>'	sync greater then numbers compare
 math.sync_le	sync less equal numbers compare
 math.<='	sync less equal numbers compare
 <='	sync less equal numbers compare
+math.sync_lshift	sync signed bit left shift
+math.<<'	sync signed bit left shift
+<<'	sync signed bit left shift
 math.sync_lt	sync less then numbers compare
 math.<'	sync less then numbers compare
 <'	sync less then numbers compare
@@ -533,6 +569,9 @@ math.!='	sync numbers for not equality
 math.sync_or	sync logical OR operation
 math.||'	sync logical OR operation
 ||'	sync logical OR operation
+math.sync_rshift	sync signed bit right shift
+math.>>'	sync signed bit right shift
+>>'	sync signed bit right shift
 math.sync_sub	sync subtraction
 math.-'	sync subtraction
 -'	sync subtraction
@@ -559,6 +598,8 @@ midi.key->str	convert key number to SPN name according to tonality
 midi.prg2str	convert GM Instrument number to name (string or symbol)
 midi.prg->str	convert GM Instrument number to name (string or symbol)
 midi.track	extract track from MidiFile
+midi.tuning	apply tuning to midi messages
+midi.vramp	apply crescendo or diminuendo for midi message flow
 click~	Output single impulse on bang
 fluid~	FluidSynth SoundFont 2 player
 modplug~	MOD file player (using libmodplug)
@@ -571,10 +612,29 @@ msg.onload	send message when patch loads
 loadmsg	send message when patch loads
 net.host2ip	returns IP address by DNS name
 net.host->ip	returns IP address by DNS name
+noise.baker	Part of a-chaos library
+noise.clifford	Part of a-chaos library
+noise.collatz	Part of a-chaos library
 noise.crackle~	sparse noise generator
+noise.duffing	Part of a-chaos library
+noise.ginger	Gingerbreadman map chaotic generator
+noise.henon	Part of a-chaos library
+noise.henon_heilles	Part of a-chaos library
+noise.henon_phase	Part of a-chaos library
+noise.henonf	Part of a-chaos library
+noise.ikeda	Part of a-chaos library
+noise.jong	Part of a-chaos library
 noise.lfreq0~	sampled/held noise (piecewise constant)
 noise.lfreq~	noise.lfreq0~ smoothed with no overshoot
+noise.logistic	Part of a-chaos library
+noise.lorenz	Part of a-chaos library
+noise.lyapunov	Part of a-chaos library
+noise.navier_stokes	Part of a-chaos library
 noise.pink~	Pink noise generator
+noise.rossler	Part of a-chaos library
+noise.stein	Part of a-chaos library
+noise.torus	Part of a-chaos library
+noise.verhulst	Part of a-chaos library
 noise.white~	White noise generator
 osc.blit~	Bandlimited impulse train oscillator
 osc.impulse~	Bandlimited impulse train generator
@@ -634,6 +694,7 @@ prop->	separate properties from dataflow
 @->	separate properties from dataflow
 proto.firmata	Firmata Arduino protocol support
 proto.sp.alpaca	protocol parser for Arduino-based CEAMMC footswitch
+proto.xtouch_ext	Behringer XTouch Extender XMidi protocol
 random.atom	weighted atom generation from specified list
 random.a	weighted atom generation from specified list
 random.discrete	random weighted integers on interval [0, n)
@@ -645,6 +706,19 @@ random.i	uniform random integer generator in specified range
 random.linear	random linear distribution
 random.pw_const	piecewise constant random distribution
 random.pw_lin	piecewise linear random distribution
+seq.arp	sequence arpeggiator
+seq.bangs	bang sequencer
+seq.b	bang sequencer
+seq.counter	modulo counter
+counter	modulo counter
+seq.matrix	sequencer control for ui.matrix
+seq.nbangs	output specified number of bang with time intervals
+seq.nb	output specified number of bang with time intervals
+seq.phasor	control rate phasor (saw) generator
+seq.toggles	toggle sequencer
+seq.t	toggle sequencer
+sequencer	basic sequence player
+seq	basic sequence player
 snd.file	Sound file loader on steroids
 hoa.2d.decoder~	hoa 2d decoder
 hoa.decoder~	hoa 2d decoder
@@ -679,6 +753,7 @@ spat.pan4~	GMEM SPAT: 4-outputs spatializer
 pan4~	GMEM SPAT: 4-outputs spatializer
 spat.pan8~	GMEM SPAT: 8-outputs spatializer
 pan8~	GMEM SPAT: 8-outputs spatializer
+spat.zita6x8~	spat with 6 inputs sources to 8 channel output
 string	string constructor
 str	string constructor
 string.contains	checks if string contains specified substring
@@ -710,18 +785,26 @@ str->sym	converts string to symbol
 symbol.equal	check symbols for equality
 symbol.length	number of characters in symbol (unicode supported)
 symbol.num_compare	numeric symbol compare
+symbol2any	converts symbol to message
+sym->any	converts symbol to message
+symbol2intlist	converts symbol to list of character codes
+sym->ilist	converts symbol to list of character codes
 synth.bee3~	Hammond-oid organ FM synthesis instrument
 synth.birds~	bird singing generator
 synth.church_bell~	generic church bell modal model
 synth.dubdub~	simple synth based on a sawtooth wave filtered by a resonant lowpass
+synth.dx7~	FAUST dx7 implementation
 synth.eguitar~	simple electric guitar model with steel strings
 synth.fgrain~	file granulator from STK
+synth.glitch~	Glitch synthesizer by naivesound
 synth.ks~	Karplus-Strong string
 synth.marimba~	simple marimba physical model implementing a single tone bar connected to tube
 synth.rhodey~	STK Fender Rhodes electric piano FM synthesis instrument
 synth.risset_arp~	Jean Claude Risset's harmonic arpeggio effect
 synth.risset_tone~	Jean Claude Risset's endless glissando
+synth.russian_bell~	russian church bell modal model
 synth.shakers~	various percussion sounds from STK library
+synth.sitar~	STK sitar
 synth.wurley~	Wurlitzer electric piano FM synthesis instrument
 system.colorpanel	System color panel dialog popup
 system.cursor	Output cursor motion, mousewheel and buttonclicks
@@ -745,6 +828,7 @@ ui.b	A bang... that's all
 ui.colorpanel	colorchooser widget
 ui.display	Display GUI object
 ui.d	Display GUI object
+ui.dt	Display GUI object
 ui.dsp~	GUI for turning DSP on/off
 ui.env	envelope editor widget
 ui.gain2~	UI stereo gain control

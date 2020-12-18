@@ -84,8 +84,9 @@ ceammc_lib=$(find_ext "${BINDIR}/ceammc/ext" ceammc)
 cp $ceammc_lib "${OUTDIR}"
 ${DYLIBBUNDLER} -x ${OUTDIR}/$(basename $ceammc_lib) -b -d ${OUTDIR} -p @loader_path/ -of
 
+# copy all pd files from doc folder
 echo "Copying help files to ${OUTDIR} ..."
-find "@PROJECT_SOURCE_DIR@/ceammc/ext/doc" -name *-help\\.pd -maxdepth 1 | while read file
+find "@PROJECT_SOURCE_DIR@/ceammc/ext/doc" -name *\\.pd -maxdepth 1 | while read file
 do
     help=$(basename $file)
     cat "$file" | sed -e 's/ceammc\/ceammc-help\.pd/ceammc-help.pd/' \
@@ -134,6 +135,9 @@ do
     echo "+ WAV: '$help'"
 done
 
+echo "Copying sound samples to ${OUTDIR}/sound ..."
+cp -R "${SRCDIR}/ext/doc/sound" ${OUTDIR}
+
 echo "Copying SF2 fonts to ${OUTDIR}/sf2 ..."
 cp -R "${SRCDIR}/extra/fluidsynth/fluidsynth/sf2" ${OUTDIR}
 
@@ -149,6 +153,8 @@ echo "    stargazing.mod"
 cp "${SRCDIR}/ext/doc/stargazing.mod" "${OUTDIR}"
 echo "    prs.txt"
 cp "${SRCDIR}/ext/doc/prs.txt" "${OUTDIR}"
+echo "    sur_la_planche.glitch"
+cp "${SRCDIR}/ext/doc/sur_la_planche.glitch" "${OUTDIR}"
 echo "    soundtouch~"
 soundtouch_ext=$(find_ext "${BINDIR}/ceammc/extra/SoundTouch/pd" "soundtouch~")
 cp "$soundtouch_ext" "${OUTDIR}"

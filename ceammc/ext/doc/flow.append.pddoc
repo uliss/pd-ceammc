@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="flow.append">
+        <title>flow.append</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>append message to flow stream</description>
+            <license>GPL3 or later</license>
+            <library>ceammc</library>
+            <category>flow</category>
+            <keywords>flow append</keywords>
+            <since>0.9</since>
+        </meta>
+        <properties>
+            <property name="@delay" type="float" default="-1" minvalue="-1" units="millisecond">
+            append delay. If &lt;0 append immidiately at the same logical time, if equal zero -
+            output after next DSP block.</property>
+        </properties>
+        <inlets>
+            <inlet>
+                <xinfo on="any">input message</xinfo>
+            </inlet>
+            <inlet>
+                <xinfo on="any">set append value</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet>output message</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[F]
+|
+|     [F]
+|     |
+|     [prop.set @delay]       [other append message(
+|     |                       |.
+[flow.append "@message" 1 2 3 @delay 100]
+|
+[print]
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

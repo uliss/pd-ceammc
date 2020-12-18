@@ -16,7 +16,12 @@
         <arguments>
             <argument name="IDX" type="int">element position. Negative indexes are supported. -1
             means last element</argument>
+            <argument name="VAL" type="atom">element value</argument>
         </arguments>
+        <properties>
+            <property name="@index" type="int" default="0">element index</property>
+            <property name="@value" type="atom">element value</property>
+        </properties>
         <inlets>
             <inlet>
                 <xinfo on="list">input list</xinfo>

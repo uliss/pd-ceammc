@@ -15,13 +15,13 @@ namespace ceammc {
 
 static const size_t MAX_PRESET_COUNT = 256;
 const char* Preset::SYM_PRESET_ALL = ".preset update all";
-const char* PresetStorage::SYM_PRESET_UPDATE_INDEX_ADDR = ".preset index update addr";
-const char* PresetStorage::SYM_PRESET_INDEX_ADD = ".preset index add";
-const char* PresetStorage::SYM_PRESET_INDEX_REMOVE = ".preset index remove";
 
 PresetStorage::PresetStorage()
     : indexes_(MAX_PRESET_COUNT, PresetNameSet())
 {
+    SYM_PRESET_UPDATE_INDEX_ADDR = gensym(".preset index update addr");
+    SYM_PRESET_INDEX_ADD = gensym(".preset index add");
+    SYM_PRESET_INDEX_REMOVE = gensym(".preset index remove");
 }
 
 PresetStorage& PresetStorage::instance()
@@ -379,6 +379,16 @@ void PresetStorage::unbindPreset(t_symbol* name)
 
     if (n == 0) {
         params_.erase(it);
+        for (size_t i = 0; i < indexes_.size(); i++) {
+            auto& idx_set = indexes_[i];
+            idx_set.erase(name);
+            if (idx_set.empty() && SYM_PRESET_UPDATE_INDEX_ADDR->s_thing) {
+                t_atom a;
+                SETFLOAT(&a, i);
+                pd_typedmess(SYM_PRESET_UPDATE_INDEX_ADDR->s_thing, SYM_PRESET_INDEX_REMOVE, 1, &a);
+            }
+        }
+
     } else if (n < 0) {
         LIB_ERR << "preset ref count error: " << name;
     }
@@ -500,9 +510,6 @@ PresetPtr PresetStorage::getOrCreate(t_symbol* name)
 
 void PresetStorage::addPresetIndex(t_symbol* name, size_t idx)
 {
-    t_symbol* SYM_PRESET_UPDATE_INDEX_ADDR = gensym(PresetStorage::SYM_PRESET_UPDATE_INDEX_ADDR);
-    t_symbol* SYM_PRESET_INDEX_ADD = gensym(PresetStorage::SYM_PRESET_INDEX_ADD);
-
     if (idx >= MAX_PRESET_COUNT)
         return;
 
@@ -518,9 +525,6 @@ void PresetStorage::addPresetIndex(t_symbol* name, size_t idx)
 
 void PresetStorage::removePresetIndex(t_symbol* name, size_t idx)
 {
-    t_symbol* SYM_PRESET_UPDATE_INDEX_ADDR = gensym(PresetStorage::SYM_PRESET_UPDATE_INDEX_ADDR);
-    t_symbol* SYM_PRESET_INDEX_REMOVE = gensym(PresetStorage::SYM_PRESET_INDEX_REMOVE);
-
     if (idx >= MAX_PRESET_COUNT)
         return;
 

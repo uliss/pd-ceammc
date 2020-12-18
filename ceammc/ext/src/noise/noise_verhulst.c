@@ -24,28 +24,23 @@ typedef struct
     bool om;
 } verhulst;
 
-void* verhulst_new(t_symbol* msg, short argc, t_atom* argv);
+void* verhulst_new(t_symbol* msg, int argc, t_atom* argv);
 void verhulst_bang(verhulst* x);
 void verhulst_calc(verhulst* x);
-void verhulst_set(verhulst* x, t_symbol* msg, short argc, t_atom* argv);
-void verhulst_reset(verhulst* x, t_symbol* msg, short argc, t_atom* argv);
+void verhulst_set(verhulst* x, t_symbol* msg, int argc, t_atom* argv);
+void verhulst_reset(verhulst* x, t_symbol* msg, int argc, t_atom* argv);
 
-void verhulst_echo(verhulst* x, float echo);
-void verhulst_int(verhulst* x, int n);
-void verhulst_float(verhulst* x, float n);
+void verhulst_echo(verhulst* x, t_float echo);
+void verhulst_float(verhulst* x, t_float n);
 
-void verhulst_lambda(verhulst* x, float echo);
-void verhulst_seed(verhulst* x, float echo);
+void verhulst_lambda(verhulst* x, t_float echo);
+void verhulst_seed(verhulst* x, t_float echo);
 
-void verhulst_assist(verhulst* x, void* b, long m, long a, char* s);
 static t_class* verhulst_class;
 
-void* verhulst_new(t_symbol* msg, short argc, t_atom* argv) //input the args
+void* verhulst_new(t_symbol* msg, int argc, t_atom* argv) //input the args
 {
-    verhulst* x;
-    int i;
-
-    x = (verhulst*)pd_new(verhulst_class);
+    verhulst* x = (verhulst*)pd_new(verhulst_class);
 
     x->c_out = outlet_new(&x->x_obj, &s_float);
 
@@ -59,9 +54,8 @@ void* verhulst_new(t_symbol* msg, short argc, t_atom* argv) //input the args
     return (x);
 }
 
-void verhulst_set(verhulst* x, t_symbol* msg, short argc, t_atom* argv) //input the args
+void verhulst_set(verhulst* x, t_symbol* msg, int argc, t_atom* argv) //input the args
 {
-
     if (argc) {
 
         if (argc > 1) {
@@ -82,7 +76,7 @@ void verhulst_set(verhulst* x, t_symbol* msg, short argc, t_atom* argv) //input 
     } //end if args
 }
 
-void verhulst_reset(verhulst* x, t_symbol* msg, short argc, t_atom* argv)
+void verhulst_reset(verhulst* x, t_symbol* msg, int argc, t_atom* argv)
 {
     x->seed = x->seedinit;
 }
@@ -97,33 +91,30 @@ void verhulst_calc(verhulst* x)
     x->seed = seed + (seed * lambda * (1.0 - seed));
 }
 
-void verhulst_echo(verhulst* x, float echo)
+void verhulst_echo(verhulst* x, t_float echo)
 {
     x->lambda = echo;
     if (x->om)
         verhulst_bang(x);
 }
 
-void verhulst_int(verhulst* x, int n) { verhulst_echo(x, n * 0.01); }
-void verhulst_float(verhulst* x, float n) { verhulst_echo(x, n); }
+void verhulst_float(verhulst* x, t_float n) { verhulst_echo(x, n); }
 
 void verhulst_om(verhulst* x, int n) { x->om = (n > 0); }
 
 void verhulst_bang(verhulst* x)
 {
-
     outlet_float(x->c_out, x->seed);
-
     verhulst_calc(x); //next
 }
 
-void verhulst_lambda(verhulst* x, float echo)
+void verhulst_lambda(verhulst* x, t_float echo)
 {
     x->lambda = echo;
     if (x->om)
         verhulst_bang(x);
 }
-void verhulst_seed(verhulst* x, float echo)
+void verhulst_seed(verhulst* x, t_float echo)
 {
     x->seed = echo;
     x->seedinit = echo;
@@ -131,7 +122,7 @@ void verhulst_seed(verhulst* x, float echo)
         verhulst_bang(x);
 }
 
-void verhulst_free() {}
+void verhulst_free() { }
 
 void setup_noise0x2everhulst()
 {
@@ -144,11 +135,8 @@ void setup_noise0x2everhulst()
 
     class_addmethod(verhulst_class, (t_method)verhulst_reset, gensym("reset"), A_GIMME, 0);
     class_addmethod(verhulst_class, (t_method)verhulst_set, gensym("set"), A_GIMME, 0);
-    class_addmethod(verhulst_class, (t_method)verhulst_int, gensym("int"), A_GIMME, 0);
     class_doaddfloat(verhulst_class, (t_method)verhulst_float);
     class_addmethod(verhulst_class, (t_method)verhulst_lambda, gensym("lambda"), A_DEFFLOAT, 0);
     class_addmethod(verhulst_class, (t_method)verhulst_seed, gensym("seed"), A_DEFFLOAT, 0);
     class_addmethod(verhulst_class, (t_method)verhulst_om, gensym("om"), A_DEFFLOAT, 0);
 }
-
-

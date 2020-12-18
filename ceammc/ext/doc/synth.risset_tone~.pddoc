@@ -14,6 +14,10 @@
             <keywords>risset</keywords>
             <since>0.5</since>
         </meta>
+        <arguments>
+            <argument name="CENTROID" type="float">main frequency (MIDI pitch)</argument>
+            <argument name="RATE" type="float">glissanso speed</argument>
+        </arguments>
         <properties>
             <property name="@rate" type="float" minvalue="-2" maxvalue="2" default="0.01">glissanso
             speed</property>
@@ -24,28 +28,37 @@
             <property name="@active" type="int" enum="0 1" default="1">on/off dsp
             processing</property>
         </properties>
+        <methods>
+            <method name="reset">reset to start position</method>
+        </methods>
         <inlets>
             <inlet>
-                <xinfo>control inlet</xinfo>
+                <xinfo on="bang">reset to start position</xinfo>
             </inlet>
         </inlets>
         <outlets>
-            <outlet type="audio" />
+            <outlet type="audio">output signal</outlet>
         </outlets>
         <example>
             <pdascii>
 <![CDATA[
-[@rate 0.005( [@centroid 80(   [@range 70(
-|             |                |
-| [@rate -1(  | [@centroid 55( | [@range 110(
-| |           | |              | |
-| |           | |              | |
-| |           | |              | |
-[synth.risset_tone~              ]
+[F]              [bang #a(
 |
-[ui.gain~ @size 120 16]                     [ui.dsp~]
+[* 0.001]
+|
+[@rate $1 #b(
+
+[synth.risset_tone~ 60 -0.005 #x ]
+|
+| [synth.risset_tone~ 56 -0.005 #y]
+| |
+| | [synth.risset_tone~ 53 -0.005 #z]
+| | |
+[ui.hgain~]      [ui.dsp~]
 | \
 [dac~]
+[X a->x] [X a->y] [X a->z]
+[X b->x] [X b->y] [X b->z]
 ]]>
             </pdascii>
         </example>

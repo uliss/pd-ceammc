@@ -36,7 +36,7 @@ FlowMem::FlowMem(const PdArgs& a)
     addProperty(num_);
 
     ttl_ = new IntProperty("@ttl", 0);
-    num_->checkClosedRange(0, 1024);
+    ttl_->checkClosedRange(0, 1024);
     ttl_->setArgIndex(1);
     ttl_->setSuccessFn([this](Property*) { mem_ttl_.assign(mem_ttl_.size(), ttl_->value()); });
     addProperty(ttl_);
@@ -67,9 +67,9 @@ void FlowMem::onInlet(size_t, const AtomList& v)
 
     if (v.empty()) { // bang
         for (int i = num_->value(); i > 0; i--) {
-            if (ttl == 0)
+            if (ttl == 0) // output always
                 messageTo(i - 1, mem_[i - 1]);
-            else if (mem_ttl_[i - 1] > 0) {
+            else if (mem_ttl_[i - 1] > 0) { // output while alive
                 messageTo(i - 1, mem_[i - 1]);
                 mem_ttl_[i - 1]--;
             } else if (free_->value()) // free value when ttl is expired and @free is true

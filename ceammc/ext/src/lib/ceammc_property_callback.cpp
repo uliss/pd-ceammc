@@ -68,6 +68,15 @@ CallbackProperty::CallbackProperty(const std::string& name, PropertyListGetter g
 
 bool CallbackProperty::setList(const AtomListView& lst)
 {
+    static auto is_toggle = [](t_symbol* s) {
+        return (s->s_name[0] == '~' || s->s_name[0] == '!') && s->s_name[1] == '\0';
+    };
+
+    static auto is_plus = [](t_symbol* s) { return s->s_name[0] == '+' && s->s_name[1] == '\0'; };
+    static auto is_minus = [](t_symbol* s) { return s->s_name[0] == '-' && s->s_name[1] == '\0'; };
+    static auto is_mul = [](t_symbol* s) { return s->s_name[0] == '*' && s->s_name[1] == '\0'; };
+    static auto is_div = [](t_symbol* s) { return s->s_name[0] == '/' && s->s_name[1] == '\0'; };
+
     switch (setter_.type) {
     case Type::LIST:
         if (!hasListCb(SETTER) || !checkList(lst))
@@ -83,14 +92,44 @@ bool CallbackProperty::setList(const AtomListView& lst)
     case Type::BOOL:
         if (lst.isBool())
             return setBool(lst[0].asBool());
-        else
+        else if (lst.isSymbol() && is_toggle(lst[0].asT<t_symbol*>())) {
+            bool v = false;
+
+            if (!getBool(v))
+                return false;
+            else
+                return setBool(!v);
+        } else
             PROP_ERR << "bool value expected (0|1|true|false), got: " << lst;
 
         break;
     case Type::FLOAT:
         if (lst.isFloat())
             return setFloat(lst[0].asFloat());
-        else
+        else if (lst.size() == 2 && lst[0].isSymbol() && lst[1].isFloat()) {
+            t_float a = 0;
+            if (!getFloat(a))
+                return false;
+
+            const auto b = lst[1].asT<t_float>();
+            const auto op = lst[0].asT<t_symbol*>();
+            if (is_plus(op))
+                return setFloat(a + b);
+            else if (is_minus(op))
+                return setFloat(a - b);
+            else if (is_mul(op))
+                return setFloat(a * b);
+            else if (is_div(op)) {
+                if (b == 0) {
+                    PROP_ERR << "division by zero";
+                    return false;
+                } else
+                    return setFloat(a / b);
+            } else {
+                PROP_ERR << "expected +-*/, got: " << lst[0];
+                return false;
+            }
+        } else
             PROP_ERR << "float value expected, got: " << lst;
 
         break;
@@ -104,6 +143,29 @@ bool CallbackProperty::setList(const AtomListView& lst)
             }
 
             return setInt(static_cast<int>(v));
+        } else if (lst.size() == 2 && lst[0].isSymbol() && lst[1].isFloat()) {
+            int a = 0;
+            if (!getInt(a))
+                return false;
+
+            const auto b = lst[1].asT<int>();
+            const auto op = lst[0].asT<t_symbol*>();
+            if (is_plus(op))
+                return setInt(a + b);
+            else if (is_minus(op))
+                return setInt(a - b);
+            else if (is_mul(op))
+                return setInt(a * b);
+            else if (is_div(op)) {
+                if (b == 0) {
+                    PROP_ERR << "division by zero";
+                    return false;
+                } else
+                    return setInt(a / b);
+            } else {
+                PROP_ERR << "expected +-*/, got: " << lst[0];
+                return false;
+            }
         } else
             PROP_ERR << "int value expected, got: " << lst;
 

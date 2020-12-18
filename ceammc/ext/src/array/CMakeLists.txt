@@ -25,6 +25,7 @@ ceammc_array_external(hist)
 ceammc_array_external(mean)
 ceammc_array_external(minmax)
 ceammc_array_external(p2s)
+ceammc_array_external(play_tilde)
 ceammc_array_external(plot_tilde)
 ceammc_array_external(resample)
 ceammc_array_external(rms)
@@ -39,10 +40,18 @@ ceammc_array_external(vline_play)
 ceammc_array_external(window)
 
 add_library(ceammc_array STATIC mod_array.h mod_array.cpp ${ARRAY_SOURCES})
-target_include_directories(ceammc_array PRIVATE "${PROJECT_SOURCE_DIR}/ceammc/extra/muparser/muparser/include")
+target_sources(ceammc_array PRIVATE
+    grainprops.parser.hpp
+    grainprops.parser.cpp
+    grainprops.lexer.h
+    grainprops.lexer.cpp
+)
 
 if(UNIX)
-    target_link_libraries(ceammc_array PRIVATE soxr)
+    target_link_libraries(ceammc_array PRIVATE
+        soxr
+        reflex
+    )
 endif()
 
 if(BISON_FOUND)
@@ -52,16 +61,13 @@ if(BISON_FOUND)
         WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR})
 endif()
 
-target_sources(ceammc_array PRIVATE
-    grainprops.parser.hpp grainprops.parser.cpp
-    grainprops.lexer.h grainprops.lexer.cpp
-)
-
 target_include_directories(ceammc_array PRIVATE
     "${PROJECT_SOURCE_DIR}/src"
     "$<TARGET_PROPERTY:soundtouch,INCLUDE_DIRECTORIES>"
     "$<TARGET_PROPERTY:soxr,INCLUDE_DIRECTORIES>"
     "$<TARGET_PROPERTY:fmt,INCLUDE_DIRECTORIES>"
+    "$<TARGET_PROPERTY:muparser,INCLUDE_DIRECTORIES>"
+    "$<TARGET_PROPERTY:reflex,INCLUDE_DIRECTORIES>"
 )
 
 target_link_libraries(ceammc_array PRIVATE

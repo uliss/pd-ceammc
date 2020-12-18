@@ -125,7 +125,7 @@ void UIArrayView::drawLabels()
 
     // top left
     label_top_left_.setColor(prop_color_border);
-    label_top_left_.set(array_.name().c_str(), 5, 3, 0, 0);
+    label_top_left_.set(array_.name()->s_name, 5, 3, 0, 0);
     p.drawText(label_top_left_);
 
     // top right

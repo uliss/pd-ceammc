@@ -19,16 +19,16 @@
         <properties>
             <property name="@capacity" type="float" minvalue="0" maxvalue="120" default="5"
             units="second">max loop time</property>
-            <property name="@length" type="float" units="second" minvalue="0" readonly="true">
-            recorded loop length</property>
+            <property name="@length" type="float" units="second" minvalue="0" default="0"
+            readonly="true">recorded loop length</property>
             <property name="@array" type="symbol" default="">use specified array for record instead
             of internal buffer</property>
-            <property name="@play_pos" type="float" units="second" minvalue="0" readonly="true">
-            current playing position</property>
-            <property name="@play_phase" type="float" minvalue="0" maxvalue="1" readonly="true">
-            current playing phase position</property>
+            <property name="@play_pos" type="float" units="second" minvalue="0" default="0"
+            readonly="true">current playing position</property>
+            <property name="@play_phase" type="float" minvalue="0" maxvalue="1" default="0"
+            readonly="true">current playing phase position</property>
             <property name="@state" type="symbol" enum="init stop record play overdub"
-            readonly="true">current state</property>
+            readonly="true" default="init">current state</property>
             <property name="@loop_bang" type="int" enum="0 1" default="0">output bang on each loop
             start</property>
             <property name="@loop_smooth" type="float" units="millisecond" default="10"

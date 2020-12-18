@@ -26,6 +26,10 @@
             <argument name="LIST" type="list">compare values: list of floats in descending
             order</argument>
         </arguments>
+        <properties>
+            <property name="@values" type="list">compare values: list of floats in descending
+            order</property>
+        </properties>
         <inlets>
             <inlet>
                 <xinfo on="float">input flow</xinfo>

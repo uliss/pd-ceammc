@@ -53,11 +53,7 @@
 |
 [str.substr 4]
 |
-[str->sym]
-|
-[msg set]
-|
-[ (
+[ui.dt]
 ]]>
             </pdascii>
         </example>

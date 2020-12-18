@@ -17,33 +17,19 @@
 LoadMsg::LoadMsg(const PdArgs& args)
     : BaseObject(args)
 {
-    if (!args.args.empty()) {
-        if (args.args.isFloat())
-            msg_.setFloat(args.args[0].asFloat());
-        else if (args.args[0].isFloat() && args.args.size() > 1)
-            msg_.setList(args.args);
-        else if (args.args[0].isSymbol())
-            msg_.setAny(args.args[0].asSymbol(), args.args.slice(1));
-    }
-
     createOutlet();
 }
 
 void LoadMsg::output()
 {
-    if (msg_.isNone())
+    if (args().empty())
         bangTo(0);
+    else if (args().size() == 1 && args()[0].isFloat())
+        floatTo(0, args()[0].asT<t_float>());
+    else if (args().size() > 0 && args()[0].isSymbol())
+        anyTo(0, args()[0].asT<t_symbol*>(), args().slice(1));
     else
-        msg_.output(outletAt(0));
-}
-
-void LoadMsg::parseProperties()
-{
-}
-
-bool LoadMsg::processAnyProps(t_symbol* /*sel*/, const AtomListView& /*lst*/)
-{
-    return true;
+        listTo(0, args());
 }
 
 void LoadMsg::onClick(t_floatarg /*xpos*/, t_floatarg /*ypos*/, t_floatarg /*shift*/, t_floatarg /*ctrl*/, t_floatarg /*alt*/)
@@ -62,10 +48,12 @@ void setup_load_msg()
     obj.addAlias("loadmsg");
     obj.useClick();
     obj.useLoadBang();
+    obj.noPropsDispatch();
+    obj.noArgsDataParsing();
 
     obj.setDescription("send message when patch loads");
     obj.addAuthor("Serge Poltavsky");
-    obj.setKeywords({"message", "loadbang", "onload"});
+    obj.setKeywords({ "message", "loadbang", "onload" });
     obj.setCategory("msg");
     obj.setSinceVersion(0, 7);
 }

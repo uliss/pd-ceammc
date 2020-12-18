@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="array.play~">
+        <title>array.play~</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>array player with variable speed and amplitude</description>
+            <license>GPL3 or later</license>
+            <library>ceammc</library>
+            <category>array</category>
+            <keywords>array play</keywords>
+            <since>0.9.1</since>
+            <aliases>
+                <alias>array.p~</alias>
+            </aliases>
+            <also>
+                <see>tabplay~</see>
+            </also>
+        </meta>
+        <arguments>
+            <argument name="ARRAY" type="symbol">array name</argument>
+            <argument name="SPEED" type="float">play speed</argument>
+        </arguments>
+        <properties>
+            <property name="@array" type="symbol" default="">array name</property>
+            <property name="@begin" type="float" default="0" units="sample">playback start
+            position. Negative value means position relative to the end of the array</property>
+            <property name="@end" type="float" default="-1" units="sample">playback end position.
+            Negative value means position relative to the end of the array</property>
+            <property name="@speed" type="float" default="1">playback speed. Negative value means
+            reversed playback</property>
+            <property name="@amp" type="float" default="1" minvalue="0">playback
+            amplitude</property>
+            <property name="@interp" type="int" enum="0 1 3" default="1">interpolation type. 0: no
+            interpolationm 1: linear, 3: cubic.</property>
+            <property name="@clock" type="float" default="0" minvalue="0" maxvalue="20"
+            units="second">clock output period. Zero means: no clock output (by
+            default).</property>
+            <property name="@cfmt" type="symbol" default="sec" enum="sec ms samp phase">clock
+            output format</property>
+            <property name="@state" type="int" default="0" readonly="true">playing state. 0:
+            stopped, 1: playing, 2: paused.</property>
+            <property name="@cursor_ms" type="float" default="0" readonly="true"
+            units="millisecond">current play position</property>
+            <property name="@cursor_sec" type="float" default="0" readonly="true" units="second">
+            current play position</property>
+            <property name="@cursor_phase" type="float" default="0">current play
+            position</property>
+            <property name="@cursor_samp" type="float" default="0" units="sample">current play
+            position</property>
+        </properties>
+        <methods>
+            <method name="play">start playback from current play position</method>
+            <method name="stop">stop playback and reset play position</method>
+            <method name="pause">pause/resume playback 
+            <param type="int" enum="0 1" default="1">if true: pause, else resume
+            playing</param></method>
+            <method name="range">set @begin and @end property 
+            <param type="atom" required="true" name="BEGIN">begin position. If float value given:
+            interpret as phase in [0..1] range. Otherwise unit value expected. Examples: 10ms, 5%,
+            4sec, 20samp etc.</param>
+            <param type="atom" required="true" name="END">end position. Value type same as for
+            first argument</param></method>
+        </methods>
+        <inlets>
+            <inlet>
+                <xinfo on="bang">resets play position and starts playback</xinfo>
+                <xinfo on="float">starts playback from the specified sample. Negative offsets are
+                also supported: -10 means play last 10 samples of array till the end</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet type="audio">played signal</outlet>
+            <outlet>output current playing position according to @cfmt property. By default output
+            seconds</outlet>
+            <outlet>output bang when finished</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[open %CEAMMC%/guitar1.wav(  [array APLAY]
+|
+[expand_env]
+|
+[load $1 @to APLAY @resize(
+|
+[snd.file]
+
+[bng]
+|
+[array.play~ APLAY] [ui.dsp~]
+|
+[ui.hgain~]
+|\
+[dac~]
+
+[array.play~.speed]   [array.play~.range]
+
+[array.play~.speed2]  [array.play~.clock]
+
+[array.play~.amp]
+]]>
+            </pdascii>
+            <pdascii id="speed">
+<![CDATA[
+[@speed 1, bang #a( [@speed 0.5, bang #b( [@speed -1, bang #c(
+
+[@speed 1.5, bang #d( [@speed -0.5, bang #e( [@speed -1.5, bang #f(
+
+
+
+[array.play~ APLAY #x]
+|
+[ui.hgain~]
+|\
+[dac~]
+
+[X a->x]
+[X b->x]
+[X c->x]
+[X d->x]
+[X e->x]
+[X f->x]
+]]>
+            </pdascii>
+            <pdascii id="speed2">
+<![CDATA[
+[stop #b(
+
+[@speed * 0.9, bang #a(
+|
+[array.play~ APLAY #x]
+|
+[ui.hgain~]
+|\
+[dac~]
+
+[X b->x]
+[X x:2->a]
+]]>
+            </pdascii>
+            <pdascii id="amp">
+<![CDATA[
+[stop #b(
+
+[@amp * 0.9, bang #a(
+|
+[array.play~ APLAY #x]
+|
+[ui.hgain~]
+|\
+[dac~]
+
+[X b->x]
+[X x:2->a]
+]]>
+            </pdascii>
+            <pdascii id="range">
+<![CDATA[
+[stop #b(
+
+/*phase range 0..1*/ /*percent range 0..100*/
+
+[ui.rslider]         [ui.rslider]
+|                    |
+[range $1 $2 (       [math.* 100]
+|                    |
+|          [bang #a( [range $1% $2%(
+|                    |
+[array.play~ APLAY #x]
+|
+[ui.hgain~]
+|\
+[dac~]
+
+[X a->x]
+[X b->x]
+[X x:2->a]
+]]>
+            </pdascii>
+            <pdascii id="clock">
+<![CDATA[
+[play( [stop(  [@speed 0.5, bang(  [@speed -2, bang(
+|      |       |                   |
+[array.play~ APLAY @clock 0.1      ]
+^|
+[sec->str @symbol @ms]
+|
+[S digits=15]
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

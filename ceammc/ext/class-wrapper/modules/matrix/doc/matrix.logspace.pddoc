@@ -46,7 +46,7 @@
 |   |       |
 [matrix.logspace 1 2 10]
 |
-[ui.display @display_type=1]
+[ui.display @display_type 1]
 ]]>
             </pdascii>
         </example>

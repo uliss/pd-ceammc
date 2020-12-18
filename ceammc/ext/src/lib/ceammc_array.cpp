@@ -25,36 +25,36 @@ extern "C" {
 using namespace ceammc;
 
 Array::Array()
-    : name_(0)
-    , array_(0)
+    : name_(&s_)
+    , array_(nullptr)
     , size_(0)
-    , data_(0)
+    , data_(nullptr)
 {
 }
 
 Array::Array(t_symbol* name)
-    : name_(0)
-    , array_(0)
+    : name_(&s_)
+    , array_(nullptr)
     , size_(0)
-    , data_(0)
+    , data_(nullptr)
 {
     open(name);
 }
 
 Array::Array(const char* name)
-    : name_(0)
-    , array_(0)
+    : name_(&s_)
+    , array_(nullptr)
     , size_(0)
-    , data_(0)
+    , data_(nullptr)
 {
     open(name);
 }
 
 Array::Array(const char* name, std::initializer_list<t_sample> l)
-    : name_(0)
-    , array_(0)
+    : name_(&s_)
+    , array_(nullptr)
     , size_(0)
-    , data_(0)
+    , data_(nullptr)
 {
     if (open(name)) {
         if (resize(l.size()))
@@ -68,6 +68,15 @@ Array::Array(const Array& array)
     , size_(array.size_)
     , data_(array.data_)
 {
+}
+
+Array& Array::operator=(const Array& array)
+{
+    name_ = array.name_;
+    array_ = array.array_;
+    size_ = array.size_;
+    data_ = array.data_;
+    return *this;
 }
 
 Array::iterator Array::begin()
@@ -92,7 +101,7 @@ const Array::iterator Array::end() const
 
 bool Array::update()
 {
-    if (!name_)
+    if (name_ == &s_)
         return false;
 
     return open(name_);
@@ -116,19 +125,19 @@ bool Array::open(t_symbol* name)
     array_ = reinterpret_cast<t_garray*>(pd_findbyclass(name, garray_class));
     if (!array_) {
         size_ = 0;
-        data_ = 0;
-        array_ = 0;
-        name_ = 0;
+        data_ = nullptr;
+        array_ = nullptr;
+        name_ = &s_;
         return false;
     }
 
     int vecsize = 0;
-    t_word* vec = 0;
+    t_word* vec = nullptr;
     if (!garray_getfloatwords(array_, &vecsize, &vec)) {
         size_ = 0;
-        data_ = 0;
-        array_ = 0;
-        name_ = 0;
+        data_ = nullptr;
+        array_ = nullptr;
+        name_ = &s_;
         return false;
     }
 
@@ -143,14 +152,15 @@ bool Array::open(const char* name)
     return open(gensym(name));
 }
 
-std::string Array::name() const
+void Array::useInDSP()
 {
-    return name_ == 0 ? std::string() : std::string(name_->s_name);
+    if (array_)
+        garray_usedindsp(array_);
 }
 
 const t_float& Array::at(size_t n) const
 {
-    if (array_ == 0)
+    if (!array_ || !data_)
         throw Exception("invalid array");
 
     if (n >= size_)
@@ -161,7 +171,7 @@ const t_float& Array::at(size_t n) const
 
 t_float& Array::at(size_t n)
 {
-    if (array_ == 0)
+    if (!array_ || !data_)
         throw Exception("invalid array");
 
     if (n >= size_)
@@ -172,7 +182,7 @@ t_float& Array::at(size_t n)
 
 bool Array::resize(size_t n)
 {
-    if (!isValid())
+    if (!array_)
         return false;
 
     garray_resize_long(array_, static_cast<long>(n));
@@ -225,7 +235,7 @@ bool Array::setYBounds(t_float yBottom, t_float yTop)
 {
     static t_symbol* SYM_BOUNDS = gensym("bounds");
 
-    if (!isValid() || !name_->s_thing)
+    if (!array_ || !name_->s_thing)
         return false;
 
     t_atom args[4];
@@ -241,7 +251,7 @@ bool Array::setYTicks(t_float step, size_t bigN)
 {
     static t_symbol* SYM_YTICKS = gensym("yticks");
 
-    if (!isValid() || !name_->s_thing)
+    if (!array_ || !name_->s_thing)
         return false;
 
     t_atom args[4];
@@ -256,7 +266,7 @@ bool Array::setYLabels(const AtomList& labels)
 {
     static t_symbol* SYM_YLABELS = gensym("ylabel");
 
-    if (!isValid() || !name_->s_thing)
+    if (!array_ || !name_->s_thing)
         return false;
 
     if (!(*name_->s_thing)->c_gobj)
@@ -286,7 +296,7 @@ bool Array::normalize(t_float f)
 {
     static t_symbol* SYM_NORMALIZE = gensym("normalize");
 
-    if (!isValid() || !name_->s_thing)
+    if (!array_ || !name_->s_thing)
         return false;
 
     t_atom arg;

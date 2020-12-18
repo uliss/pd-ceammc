@@ -11,20 +11,20 @@
 #X msg 117 162 2 2 1 2 3 4;
 #X obj 50 190 matrix.new 10 16;
 #X obj 50 219 matrix.size;
-#X obj 50 248 ui.display @display_type 1 @size 150 18;
-#X obj 20 288 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 293 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
+#X obj 50 248 ui.display @display_type 1;
+#X obj 20 297 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 302 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
-#X text 110 294 1\.;
-#X text 150 294 *list*;
-#X text 245 294 Matrix data constructor: NROWS NCOLS ...;
-#X text 150 314 *data*;
-#X text 245 314 Matrix data.;
-#X obj 20 344 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 349 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
+#X text 110 303 1\.;
+#X text 150 303 *list*;
+#X text 245 303 Matrix data constructor: NROWS NCOLS ...;
+#X text 150 323 *data*;
+#X text 245 323 Matrix data.;
+#X obj 20 353 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 358 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 350 1\.;
-#X text 245 350 output list (rows \, columns) (list).;
+#X text 110 359 1\.;
+#X text 245 359 output list (rows \, columns) (list).;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 67 48 ui.link @title matrix @url matrix-help.pd;

@@ -114,6 +114,9 @@ void eclass_new_attr_typed(t_eclass* c, const char* attrname, const char* type, 
  */
 int eclass_attr_setter(t_object* x, t_symbol* s, int argc, t_atom* argv);
 
+bool ebox_attr_float_setter(t_ebox* x, t_eattr* a, t_float value, size_t idx, t_eattr_op op);
+bool ebox_attr_long_setter(t_ebox* x, t_eattr* a, t_float value, size_t idx, t_eattr_op op);
+
 /*!
  * \fn       int eclass_attr_getter(t_object* x, t_symbol *s, int* argc, t_atom** argv)
  * \brief           The getter method of the attributes.

@@ -325,5 +325,17 @@ namespace music {
         const auto cents = (DEVIATIONS[size_t(t)][pitch] - base_correction) * 0.01;
         return base_freq * std::pow(2, (p + cents - (60 + base_pitch.absolutePitch())) / 12);
     }
+
+    double to_deviation(size_t p, const TemperamentType& t, const PitchClass& base_pitch)
+    {
+        if (t >= TemperamentType::__TOTAL)
+            return 0;
+
+        const auto pitch = p % 12;
+        const auto base_correction = DEVIATIONS[size_t(t)][base_pitch.absolutePitch()];
+        const auto cents = (DEVIATIONS[size_t(t)][pitch] - base_correction);
+        return cents;
+    }
+
 }
 }

@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="flow.select">
+        <title>flow.select</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>vanilla flow on steroids</description>
+            <license>GPL3 or later</license>
+            <library>ceammc</library>
+            <category>flow</category>
+            <keywords>select</keywords>
+            <since>0.9.1</since>
+            <aliases>
+                <alias>flow.sel</alias>
+            </aliases>
+            <also>
+                <see>flow.match</see>
+            </also>
+        </meta>
+        <info>
+            <par>Match syntax:</par>
+            <par>common: symbols or floats</par>
+            <par>compare: &gt;NUM, &gt;=NUM, &lt;NUM, &lt;=NUM</par>
+            <par>intervals: FROM..TO, or [FROM..TO] - closed interval, [FROM..TO) or (FROM..TO]
+            semi-open interval, (FROM..TO) open interval, NUM~EPSILON - value in NUM+-EPSILON
+            range</par>
+            <par>set: A|B|C - match to A or B or C</par>
+        </info>
+        <arguments>
+            <argument type="list" name="ARGS">flow match expressions</argument>
+        </arguments>
+        <properties>
+            <property name="@v" type="alias">alias to @keep_value 1</property>
+            <property name="@keep_value" type="int" default="0" enum="0 1 on off">vakue output
+            mode. If false (by default) acts like vanilla select: output bang on match or full
+            unmatched message to last outlet. If true always outputs full matched message to
+            corresponding outlet.</property>
+        </properties>
+        <inlets>
+            <inlet>
+                <xinfo on="float">check float for matches</xinfo>
+                <xinfo on="symbol">check symbol for matches</xinfo>
+                <xinfo on="list">check first list element for matches</xinfo>
+                <xinfo on="any">check message selector for matches</xinfo>
+            </inlet>
+        </inlets>
+        <outlets dynamic="true">
+            <outlet number="1">first matched output: bang or full message</outlet>
+            <outlet number="...">... matched output: bang or full message</outlet>
+            <outlet number="n">nth matched output: bang or full message</outlet>
+            <outlet number="n+1">unmatched message</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[1 2 3 #q(     [list c 17 #s(
+
+[10(   [40 #p( [b #o(
+|
+[F]    [30(    [symbol c(   [unmatched(
+|      |       |            |
+[flow.sel 1..10 >20 a|b|c @v #a {w=32}]
+|
+[ui.dt #b]
+
+       [ui.dt #c]
+
+               [ui.dt #d]
+
+                       [ui.dt #e]
+[X a->b]
+[X a:1->c]
+[X a:2->d]
+[X a:3->e]
+[X p->a]
+[X o->a]
+[X q->a]
+[X s->a]
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

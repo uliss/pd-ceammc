@@ -1,6 +1,6 @@
 /* ------------------------------------------------------------
 name: "fx.distortion3"
-Code generated with Faust 2.25.3 (https://faust.grame.fr)
+Code generated with Faust 2.28.6 (https://faust.grame.fr)
 Compilation options: -lang cpp -scal -ftz 0
 ------------------------------------------------------------ */
 
@@ -542,9 +542,9 @@ class fx_distortion3 : public fx_distortion3_dsp {
 		m->declare("basics.lib/version", "0.1");
 		m->declare("category", "Distortion");
 		m->declare("ceammc.lib/name", "Ceammc PureData misc utils");
-		m->declare("ceammc.lib/version", "0.1.1");
+		m->declare("ceammc.lib/version", "0.1.2");
 		m->declare("ceammc_ui.lib/name", "CEAMMC faust default UI elements");
-		m->declare("ceammc_ui.lib/version", "0.1.1");
+		m->declare("ceammc_ui.lib/version", "0.1.2");
 		m->declare("description", "A simple Wavesharper distortion");
 		m->declare("filename", "fx_distortion3.dsp");
 		m->declare("filters.lib/fir:author", "Julius O. Smith III");

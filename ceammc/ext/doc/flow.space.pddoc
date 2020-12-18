@@ -6,7 +6,7 @@
             <authors>
                 <author>Serge Poltavsky</author>
             </authors>
-            <description>space in time messages received in the same logical time</description>
+            <description>space in time messages received at the same logical time</description>
             <license>GPL3 or later</license>
             <library>ceammc</library>
             <category>flow</category>
@@ -15,10 +15,14 @@
         </meta>
         <arguments>
             <argument type="float" name="MS" units="msec">time space between messages</argument>
-            <argument type="int" name="N" minvalue="0">time space = N*space after last outputted message</argument>
+            <argument type="int" name="N" minvalue="0">time space = N*space after last outputted
+            message</argument>
         </arguments>
         <properties>
-            <property name="@delay" type="float" default="1" minvalue="1" units="msec">time-space between messages</property>
+            <property name="@delay" type="float" default="1" minvalue="1" units="millisecond">
+            time-space between messages</property>
+            <property name="@done" type="int" default="1" minvalue="0">time space (=@done*@delay)
+            after last outputted message. After that delay output sbang to second outlet</property>
         </properties>
         <inlets>
             <inlet>
@@ -50,6 +54,27 @@
 [env.ar~ 10 90]
 |
 [ui.hgain~]    [ui.dsp~]
+|\
+[dac~]
+
+[flow.space.done]
+
+[X b:1->a]
+]]>
+            </pdascii>
+            <pdascii id="done">
+<![CDATA[
+[3 #a(       [ui.hrd]
+|            |
+[until]      [prop.set @done]  [reset(
+|            |                 |.
+[flow.space 150 #b              ]
+|
+[click~]
+|
+[flt.resonbp~ 1000 32]
+|
+[ui.hgain~]
 |\
 [dac~]
 

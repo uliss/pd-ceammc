@@ -168,6 +168,7 @@ namespace faust {
 
         const PropertyInfo& propInfo() const { return pinfo_; }
         void setUnits(PropValueUnits u) { pinfo_.setUnits(u); }
+        void setType(PropValueType t) { pinfo_.setType(t); }
     };
 
     inline const std::string& UIElement::label() const
@@ -216,6 +217,7 @@ namespace faust {
         std::string name_;
         std::string id_;
         std::unordered_map<FAUSTFLOAT*, const char*> unit_map_;
+        std::unordered_map<FAUSTFLOAT*, PropValueType> type_map_;
 
     public:
         PdUI(const std::string& name, const std::string& id);
@@ -224,7 +226,7 @@ namespace faust {
         UIElement* uiAt(size_t pos);
         const UIElement* uiAt(size_t pos) const;
         size_t uiCount() const { return ui_elements_.size(); }
-        void addSoundfile(const char* /*label*/, const char* /*filename*/, Soundfile** /*sf_zone*/) {}
+        void addSoundfile(const char* /*label*/, const char* /*filename*/, Soundfile** /*sf_zone*/) { }
 
     protected:
         void add_elem(UIElementType type, const std::string& label, t_float* zone);
@@ -384,6 +386,10 @@ namespace faust {
     void PdUI<T>::add_elem(UIElementType type, const std::string& label, t_float* zone)
     {
         UIElement* elems = new UIElement(type, oscPath(label), label);
+        auto it = type_map_.find(zone);
+        if (it != type_map_.end())
+            elems->setType(it->second);
+
         elems->setValuePtr(zone);
         ui_elements_.push_back(elems);
     }
@@ -393,6 +399,10 @@ namespace faust {
         t_float init, t_float min, t_float max, t_float step)
     {
         UIElement* elems = new UIElement(type, oscPath(label), label);
+        auto it = type_map_.find(zone);
+        if (it != type_map_.end())
+            elems->setType(it->second);
+
         elems->setContraints(init, min, max, step);
         elems->setValuePtr(zone);
         ui_elements_.push_back(elems);
@@ -403,6 +413,10 @@ namespace faust {
         t_float min, t_float max)
     {
         UIElement* elems = new UIElement(type, oscPath(label), label);
+        auto it = type_map_.find(zone);
+        if (it != type_map_.end())
+            elems->setType(it->second);
+
         elems->setContraints(0.0, min, max, 0.0);
         elems->setValuePtr(zone);
         ui_elements_.push_back(elems);
@@ -421,6 +435,10 @@ namespace faust {
     void PdUI<T>::addCheckButton(const char* label, t_float* zone)
     {
         UIElement* elems = new UIElement(UI_CHECK_BUTTON, oscPath(label), label);
+        auto it = type_map_.find(zone);
+        if (it != type_map_.end())
+            elems->setType(it->second);
+
         elems->setContraints(0, 0, 1, 1);
         elems->setValuePtr(zone);
         ui_elements_.push_back(elems);
@@ -484,7 +502,7 @@ namespace faust {
             if (it == unit_map_.end())
                 continue;
 
-            el->setUnits(to_units(it->second));
+             el->setUnits(to_units(it->second));
         }
     }
 
@@ -493,11 +511,20 @@ namespace faust {
     {
         if (strcmp(name, "unit") == 0) {
             unit_map_[v] = value;
+        } else if (strcmp(name, "type") == 0) {
+            if (strcmp(value, "int") == 0)
+                type_map_[v] = PropValueType::INTEGER;
+            else if (strcmp(value, "bool") == 0)
+                type_map_[v] = PropValueType::BOOLEAN;
+            else if (strcmp(value, "float") == 0)
+                type_map_[v] = PropValueType::FLOAT;
+            else
+                LIB_ERR << "[dev][faust] unsupported type: " << value;
         }
     }
 
     template <typename T>
-    void PdUI<T>::run() {}
+    void PdUI<T>::run() { }
 
     template <typename T>
     UIElement* PdUI<T>::findElementByLabel(const char* label)

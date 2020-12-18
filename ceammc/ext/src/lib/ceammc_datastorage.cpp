@@ -13,15 +13,12 @@
  *****************************************************************************/
 #include "ceammc_datastorage.h"
 #include "ceammc_atomlist.h"
-#include "ceammc_convert.h"
 #include "ceammc_datatypes.h"
 #include "ceammc_format.h"
 #include "ceammc_log.h"
 #include "fmt/format.h"
-#include "muparser/muparser/include/muParser.h"
 
 #include <algorithm>
-#include <cmath>
 
 namespace ceammc {
 
@@ -105,33 +102,6 @@ void DataStorage::clearAll()
 
 DataStorage::DataStorage()
 {
-    static const t_float m_pi = std::acos(t_float(-1));
-    static const t_float m_exp = std::exp(t_float(1));
-    registerNewType("pi", [](const AtomList&) -> Atom { return Atom(m_pi); });
-    registerNewType("e", [](const AtomList&) -> Atom { return Atom(m_exp); });
-    registerNewType("sr", [](const AtomList&) -> Atom { return Atom(sys_getsr()); });
-    registerNewType("bs", [](const AtomList&) -> Atom { return Atom(sys_getblksize()); });
-    registerNewType("mtof", [](const AtomList& a) -> Atom { return Atom(convert::midi2freq(a.floatAt(0, 0))); });
-    registerNewType("ftom", [](const AtomList& a) -> Atom { return Atom(convert::freq2midi(a.floatAt(0, 0))); });
-    registerNewType("expr", [](const AtomList& expr) -> Atom {
-        try {
-            using DD = double (*)(double);
-            mu::Parser p;
-            p.DefineConst("sr", sys_getsr());
-            p.DefineConst("bs", sys_getblksize());
-            p.DefineConst("e", m_exp);
-            p.DefineConst("pi", m_pi);
-            p.DefineFun("floor", (DD)std::floor);
-            p.DefineFun("ceil", (DD)std::ceil);
-            p.SetExpr(to_string(expr));
-
-            return Atom(p.Eval());
-        } catch (mu::Parser::exception_type& e) {
-            pd_error(nullptr, "[muparser] exception: %s", e.GetMsg().c_str());
-        }
-
-        return Atom(0.f);
-    });
 }
 
 DataStorage::type_iterator DataStorage::findByName(const std::string& name) const

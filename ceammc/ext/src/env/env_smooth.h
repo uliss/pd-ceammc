@@ -1,6 +1,6 @@
 /* ------------------------------------------------------------
 name: "env_smooth"
-Code generated with Faust 2.25.3 (https://faust.grame.fr)
+Code generated with Faust 2.28.6 (https://faust.grame.fr)
 Compilation options: -lang cpp -scal -ftz 0
 ------------------------------------------------------------ */
 
@@ -523,9 +523,9 @@ class env_smooth : public env_smooth_dsp {
 		m->declare("basics.lib/name", "Faust Basic Element Library");
 		m->declare("basics.lib/version", "0.1");
 		m->declare("ceammc.lib/name", "Ceammc PureData misc utils");
-		m->declare("ceammc.lib/version", "0.1.1");
+		m->declare("ceammc.lib/version", "0.1.2");
 		m->declare("ceammc_ui.lib/name", "CEAMMC faust default UI elements");
-		m->declare("ceammc_ui.lib/version", "0.1.1");
+		m->declare("ceammc_ui.lib/version", "0.1.2");
 		m->declare("envelopes.lib/author", "GRAME");
 		m->declare("envelopes.lib/copyright", "GRAME");
 		m->declare("envelopes.lib/license", "LGPL with exception");
@@ -619,6 +619,7 @@ class env_smooth : public env_smooth_dsp {
 	
 	virtual void buildUserInterface(UI* ui_interface) {
 		ui_interface->openVerticalBox("env_smooth");
+		ui_interface->declare(&fHslider0, "unit", "ms");
 		ui_interface->addHorizontalSlider("duration", &fHslider0, 100.0f, 0.0f, 100000.0f, 1.0f);
 		ui_interface->addCheckButton("gate", &fCheckbox0);
 		ui_interface->closeBox();

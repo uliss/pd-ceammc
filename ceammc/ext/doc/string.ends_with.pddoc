@@ -22,9 +22,12 @@
         <arguments>
             <argument name="SUFFIX" type="symbol">suffix</argument>
         </arguments>
+        <properties>
+            <property name="@suffix" type="symbol" default="">suffix to search</property>
+        </properties>
         <inlets>
             <inlet>
-                <xinfo>Input string or symbol</xinfo>
+                <xinfo>input string or symbol</xinfo>
             </inlet>
             <inlet>
                 <xinfo>search suffix (string or symbol)</xinfo>

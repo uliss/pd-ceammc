@@ -86,6 +86,14 @@ UIDisplay::UIDisplay()
 {
 }
 
+void UIDisplay::init(t_symbol* name, const AtomList& args, bool usePresets)
+{
+    UIObject::init(name, args, usePresets);
+
+    if (name == gensym("ui.dt"))
+        prop_display_type = 1;
+}
+
 void UIDisplay::paint()
 {
     const t_rect r = rect();
@@ -261,6 +269,7 @@ void UIDisplay::setup()
 {
     UIObjectFactory<UIDisplay> obj("ui.display");
     obj.addAlias("ui.d");
+    obj.addAlias("ui.dt");
     obj.hideLabel();
     obj.useAnnotations();
 

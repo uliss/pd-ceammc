@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="midi.vramp">
+        <title>midi.vramp</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>apply crescendo or diminuendo for midi message flow</description>
+            <license>GPL3 or later</license>
+            <library>ceammc</library>
+            <category>midi</category>
+            <keywords>midi ramp crescendo diminuendo</keywords>
+            <since>0.9.1</since>
+        </meta>
+        <arguments>
+            <argument name="FROM" type="int" maxvalue="127" minvalue="0">start value</argument>
+            <argument name="TO" type="int" maxvalue="127" minvalue="0">end value</argument>
+            <argument name="N" type="int" minvalue="0">number of steps</argument>
+        </arguments>
+        <properties>
+            <property name="@from" type="int" default="127" maxvalue="127" minvalue="0">start
+            value</property>
+            <property name="@to" type="int" default="127" maxvalue="127" minvalue="0">end
+            value</property>
+            <property name="@n" type="int" default="0" minvalue="0">number of steps</property>
+            <property name="@auto" type="int" default="0" enum="0 1">auto reset mode. If true:
+            reset to @start value after ramp is finished</property>
+        </properties>
+        <methods>
+            <method name="reset">reset to start value</method>
+        </methods>
+        <inlets>
+            <inlet>
+                <xinfo on="float">if VALUE &gt;0, treat as (VALUE 127) list, otherwise as (-VALUE,
+                0)</xinfo>
+                <xinfo on="list">NOTE [VELOCITY] list expected</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet>outputs NOTE VELOCITY pair</outlet>
+            <outlet>bang when destination value is reached</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[ui.keyboard]
+|
+|
+|
+|
+|                            [reset(
+|                            |
+[midi.vramp 30 127 12 @auto 1]
+|
+[msg note]
+|
+[fluid~ sf2/VintageDreamsWaves-v2.sf2]
+*|*
+[ui.hgain2~]     [ui.dsp~]
+*|*
+[dac~]
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

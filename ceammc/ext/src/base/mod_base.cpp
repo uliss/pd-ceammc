@@ -2,6 +2,7 @@
 
 #include "base_click.h"
 #include "base_dac.h"
+#include "base_log.h"
 #include "canvas_current.h"
 #include "canvas_top.h"
 #include "ceammc_search.h"
@@ -44,6 +45,7 @@ void setup_base_canvas_path();
 void setup_base_expand_env();
 void setup_base_msg();
 void setup_base_replace();
+void setup_base_sync();
 void setup_is_data();
 void setup_is_file();
 void setup_load_msg();
@@ -73,12 +75,14 @@ void ceammc_base_setup()
     setup_base_dac();
     setup_base_expand_env();
     setup_base_function();
+    setup_base_log();
     setup_base_matrix();
     setup_base_mix();
     setup_base_msg();
     setup_base_prop();
     setup_base_radio();
     setup_base_replace();
+    setup_base_sync();
     setup_base_xfade2_tilde();
     setup_base_xfade_tilde();
     setup_canvas_current();

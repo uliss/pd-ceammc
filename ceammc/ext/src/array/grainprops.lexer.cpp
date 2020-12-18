@@ -135,11 +135,12 @@ GrainPropertiesParser::symbol_type GrainPropertiesLexer::lex()
         }
         else if (looksLikeUnitValue(s) && units::TimeValue::parse(atom).matchValue(time))
         {
-            return GrainPropertiesParser::make_FLOAT(time.toSamples(sys_getsr()));
+            time.setSamplerate(sys_getsr());
+            return GrainPropertiesParser::make_FLOAT(time.toSamples());
         }
-        else if (looksLikeUnitValue(s) && units::FractionValue::match(atom).matchValue(frac))
+        else if (looksLikeUnitValue(s) && units::FractionValue::parse(atom).matchValue(frac))
         {
-            return GrainPropertiesParser::make_FLOAT(frac.toValue(arraySize()));
+            return GrainPropertiesParser::make_FLOAT(frac.calcPartOfTotal(arraySize()));
         }
         else
         {

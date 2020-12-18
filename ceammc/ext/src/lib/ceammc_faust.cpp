@@ -428,12 +428,37 @@ namespace faust {
         if (!emptyCheck(lst))
             return false;
 
-        if (!lst[0].isFloat())
+        if (lst.isFloat()) {
+            setValue(lst[0].asT<t_float>(), true);
+            return true;
+        } else if (lst.size() == 2 && lst[0].isSymbol() && lst[1].isFloat()) {
+            const auto val = lst[1].asT<t_float>();
+            const auto op = lst[0].asT<t_symbol*>()->s_name;
+            if (op[0] == '+' && op[1] == '\0') {
+                setValue(value() + val, true);
+                return true;
+            } else if (op[0] == '-' && op[1] == '\0') {
+                setValue(value() - val, true);
+                return true;
+            } else if (op[0] == '*' && op[1] == '\0') {
+                setValue(value() * val, true);
+                return true;
+            } else if (op[0] == '/' && op[1] == '\0') {
+                if (val == 0) {
+                    LIB_ERR << "[@" << name()->s_name << "] division by zero";
+                    return false;
+                } else {
+                    setValue(value() / val, true);
+                    return true;
+                }
+            } else {
+                LIB_ERR << "[@" << name()->s_name << "] expected +-*/, got: " << lst[0];
+                return false;
+            }
+        } else {
+            LIB_ERR << "[@" << name()->s_name << "] float value expected, got: " << lst;
             return false;
-
-        t_float v = lst[0].asFloat();
-        el_->setValue(v, true);
-        return true;
+        }
     }
 
     AtomList UIProperty::get() const
@@ -464,10 +489,18 @@ namespace faust {
             if (!pinfo_.setConstraints(PropValueConstraints::CLOSED_RANGE))
                 LIB_ERR << set_prop_symbol_ << " can't set constraints";
 
-            if (!pinfo_.setRangeFloat(min_, max_))
+            if (pinfo_.type() == PropValueType::FLOAT && !pinfo_.setRangeFloat(min_, max_))
+                LIB_ERR << set_prop_symbol_ << " can't set range: " << min_ << " - " << max_;
+            else if (pinfo_.type() == PropValueType::INTEGER && !pinfo_.setRangeInt(min_, max_))
                 LIB_ERR << set_prop_symbol_ << " can't set range: " << min_ << " - " << max_;
 
-            pinfo_.setDefault(init_);
+            if (pinfo_.type() == PropValueType::FLOAT)
+                pinfo_.setDefault(init_);
+            else if (pinfo_.type() == PropValueType::INTEGER)
+                pinfo_.setDefault(static_cast<int>(init_));
+            else if (pinfo_.type() == PropValueType::BOOLEAN)
+                pinfo_.setDefault(static_cast<bool>(init_));
+
             pinfo_.setStep(step_);
         }
     }
@@ -477,8 +510,10 @@ namespace faust {
         static std::pair<const char*, PropValueUnits> umap[] = {
             { "Hz", PropValueUnits::HZ },
             { "ms", PropValueUnits::MSEC },
+            { "sec", PropValueUnits::SEC },
             { "percent", PropValueUnits::PERCENT },
-            { "db", PropValueUnits::DB }
+            { "db", PropValueUnits::DB },
+            { "bpm", PropValueUnits::BPM }
         };
 
         for (auto& p : umap) {

@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="midi.tuning">
+        <title>midi.tuning</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>apply tuning to midi messages</description>
+            <license>GPL3 or later</license>
+            <library>ceammc</library>
+            <category>midi</category>
+            <keywords>midi tuning</keywords>
+            <since>0.9.1</since>
+        </meta>
+        <arguments>
+            <argument name="LIST" type="list">if symbol - set named temperament deviations, valid
+            names are: "eq", "just", "ganassi", "meantone", "kirnberger3", "pythagorean", "rameau",
+            "valotti" or "zarlino". If list: set deviation in cents per pitch</argument>
+        </arguments>
+        <properties>
+            <property name="@base" type="int" minvalue="0" maxvalue="11" default="9">base pitch (C:
+            0, A: 9, etc..)</property>
+            <property name="@dev" type="list" default="0 0 0 0 0 0 0 0 0 0 0 0">list of deviations
+            in cents</property>
+        </properties>
+        <inlets>
+            <inlet>
+                <xinfo on="list">NOTE VELOCITY pair expected</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet>note velocity pair</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[ui.keyboard]
+|
+|
+|
+|
+|
+[midi.tuning just @base 0]
+|
+[unpack f f]
+|         ^|
+[mtof]   [sel 0   ]
+|        |       ^|.
+[osc~]   [0 100( [1 20(
+|        |
+|        [line~]
+|        |.
+[*~       ]
+|
+[ui.hgain~]          [ui.dsp~]
+|\
+[dac~]
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

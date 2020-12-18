@@ -22,6 +22,7 @@
         <properties>
             <property name="@match" type="symbol">match mask: for example *.wav for all wav
             files</property>
+            <property name="@path" type="list" default="">current path</property>
         </properties>
         <inlets>
             <inlet>

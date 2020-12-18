@@ -63,6 +63,7 @@ protected:
     int prop_pickup_midi;
 
     void initHorizontal();
+    void output();
 
 public:
     UIGain();

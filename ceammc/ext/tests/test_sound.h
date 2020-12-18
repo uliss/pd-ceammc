@@ -136,6 +136,11 @@ struct TestSignal {
         for (size_t s = 0; s < 64; s++)
             buf_in[n][s] = v;
     }
+
+    t_sample* beginOut(size_t i) { return &buf_out[i][0]; }
+    t_sample* endOut(size_t i) { return &buf_out[i][64]; }
+
+    size_t blocksize() const { return 64; }
 };
 
 template <class T, class E>

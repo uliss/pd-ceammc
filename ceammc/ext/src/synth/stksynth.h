@@ -38,6 +38,8 @@ public:
     StkSynth(const PdArgs& args, stk::Instrmnt* instr);
 
     bool propSetGate(t_float f);
+
+    void m_note(t_symbol* s, const AtomListView& lv);
 };
 
 template <class T>

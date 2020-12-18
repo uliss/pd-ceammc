@@ -28,6 +28,7 @@ SndFile::SndFile(const PdArgs& a)
     addProperty(verbose_);
 
     debug_ = new FlagProperty("@.debug");
+    debug_->setInternal();
     addProperty(debug_);
 
     smpte_framerate_ = new FloatProperty("@smpte_fr", 30);

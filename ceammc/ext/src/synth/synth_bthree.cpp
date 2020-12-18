@@ -17,7 +17,7 @@
 #include "BeeThree.h"
 #include "stksynth_p.h"
 
-typedef StkFMSynth<stk::BeeThree> Synth;
+using Synth = StkFMSynth<stk::BeeThree>;
 
 SynthBThree::SynthBThree(const PdArgs& args)
     : StkSynth(args, new Synth())
@@ -32,4 +32,5 @@ SynthBThree::SynthBThree(const PdArgs& args)
 void setup_synth_bthree()
 {
     StkSynthFactory<SynthBThree> obj("synth.bee3~");
+    obj.addMethod("note", &SynthBThree::m_note);
 }

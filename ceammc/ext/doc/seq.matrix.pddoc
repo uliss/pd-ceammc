@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="seq.matrix">
+        <title>seq.matrix</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>sequencer control for ui.matrix</description>
+            <license>GPL3 or later</license>
+            <library>ceammc</library>
+            <category>seq</category>
+            <keywords>seq sequencer bang pattern rythm matrix</keywords>
+            <since>0.9.1</since>
+            <also>
+                <see view="link">ui.matrix</see>
+            </also>
+        </meta>
+        <arguments>
+            <argument name="N" type="int" minvalue="0">number of steps</argument>
+            <argument name="T" type="float" minvalue="0">time interval between steps or
+            bpm</argument>
+        </arguments>
+        <properties>
+            <property name="@t" type="float" default="250" minvalue="1" maxvalue="20000"
+            units="millisecond">time between beats. Unit values like 100ms or 240bpm also can be
+            used</property>
+            <property name="@r" type="int" minvalue="-1" default="-1">number of whole sequence
+            repeats. If -1: repeat infinitely</property>
+            <property name="@inf" type="alias">alias to @r -1, repeats infinitely</property>
+            <property name="@once" type="alias">alias to @r 1, play once</property>
+            <property name="@dur" type="float" default="4000" minvalue="0" units="millisecond">
+            whole sequence duration. (Recalculates @t property accordingly)</property>
+            <property name="@i" type="int" minvalue="0" readonly="true" default="0">current
+            sequence iteration</property>
+            <property name="@ri" type="int" minvalue="0" readonly="true" default="0">current repeat
+            iteration</property>
+            <property name="@mode" type="symbol" enum="inc dec tri" default="inc">sequencer mode.
+            'inc': from first to last, 'dec': from last to first, 'tri': from first to last, then
+            back</property>
+            <property name="@n" type="int" default="16" minvalue="0">number of cols in
+            matrix</property>
+        </properties>
+        <methods>
+            <method name="start">start sequencer from current position</method>
+            <method name="reset">reset all counters and stop</method>
+            <method name="rewind">reset all counters without stopping</method>
+            <method name="stop">stop sequencer</method>
+            <method name="tick">output current sequence element and move to next</method>
+        </methods>
+        <inlets>
+            <inlet>
+                <xinfo on="bang">reset all counters and start sequencer</xinfo>
+                <xinfo on="float">if 1 reset then start, if 0 - stop</xinfo>
+            </inlet>
+            <inlet>
+                <xinfo on="bang">reset</xinfo>
+                <xinfo on="float">set number of steps</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet>output for ui.matrix</outlet>
+            <outlet>[i IDX N( - sequence iteration, [ri IDX N( - repeat iteration or [done( when
+            done</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[T] [rewind(  [ui.tab inc dec tri]   [ui.dsp~]
+|   |         |
+|   |         [@mode $1(
+|   |         |
+[seq.matrix 16 120#4bpm] [loadmsg random]
+|                        |
+[ui.matrix 3 16 @size 257 46]
+|
+|
+|
+[route col]
+|
+[unpack f f f f #a]
+|
+[F]  [osc~ 400]    [osc~ 1200]   [osc~ 100]
+     |             |             |
+     | [@gate #g0( | [@gate #g1( | [@gate #g2(
+     | |           | |           | |
+     [env.ar~ #e0] [env.ar~ #e1] [env.ar~ #e2]
+
+[pan.spread~ 5 #s {w=16}]
+*|*
+[ui.hgain2~]
+*|*
+[dac~ {w=16}]
+#e0 20 100
+#e1 10 80
+#e2 6 200
+#g0 $1
+#g1 $1
+#g2 $1
+[X a:1->g0]
+[X a:2->g1]
+[X a:3->g2]
+[X e0->s:1]
+[X e1->s:2]
+[X e2->s:3]
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

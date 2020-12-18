@@ -35,8 +35,8 @@ iratio      {uint} [/] {uint}
 %%
 
 {space}         { }
-{percent}       { auto v = strtod(text(), nullptr); value = units::FractionValue(v, units::FracUnits::PERCENT); return 1; }
-{fratio}        { auto v = strtod(text(), nullptr); value = units::FractionValue(v, units::FracUnits::FRACTION); return 1; }
+{percent}       { auto v = strtod(text(), nullptr); value = units::FractionValue(v, units::FractionValue::PERCENT); return 1; }
+{fratio}        { auto v = strtod(text(), nullptr); value = units::FractionValue(v, units::FractionValue::PHASE); return 1; }
 {iratio}        {
                     char* end;
                     auto num = strtol(text(), &end, 10);

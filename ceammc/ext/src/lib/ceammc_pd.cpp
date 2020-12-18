@@ -108,19 +108,19 @@ pd::External::External(const char* name, const AtomList& lst)
 
         t_pd* ptr = pd_newest();
         if (!ptr) {
-            printf("object creation failed\n");
+            printf("object creation failed: [%s]\n", name);
             return;
         }
 
         t_object* res = pd_checkobject(ptr);
         if (!res) {
-            printf("invalid object\n");
+            printf("invalid object: [%s]\n", name);
             return;
         }
 
         obj_ = res;
     } catch (std::exception& e) {
-        std::cerr << "error: " << e.what() << std::endl;
+        std::cerr << "error: " << e.what() << " while object creation [" << name << "]" << std::endl;
         obj_ = 0;
     }
 }
@@ -522,17 +522,19 @@ CanvasPtr PureData::createTopCanvas(const char* name, const AtomList& args)
 {
     CanvasPtr ptr;
 
-    //    CanvasMap::iterator it = canvas_map_.find(name);
-    //    if (it != canvas_map_.end())
-    //        return it->second;
-
     AtomList l(0.f, 0.f); // x, y
     l.append(Atom(600)); // width
     l.append(Atom(400)); // height
     l.append(Atom(10)); // font size
 
-    if (canvas_getcurrent())
-        canvas_unsetcurrent(canvas_getcurrent());
+    auto ccnv = canvas_getcurrent();
+
+    LIB_DBG << "canvas_getcurrent(): " << ccnv;
+
+    if (ccnv) {
+        canvas_unsetcurrent(ccnv);
+        LIB_DBG << "after canvas_unsetcurrent(): " << canvas_getcurrent();
+    }
 
     if (platform::is_path_relative(name)) {
         glob_setfilename(0, gensym(name), gensym("~"));
@@ -552,6 +554,9 @@ CanvasPtr PureData::createTopCanvas(const char* name, const AtomList& args)
         return ptr;
 
     cnv->gl_loading = 0;
+
+    LIB_DBG << "canvas_new(): " << cnv;
+    LIB_DBG << "canvas_getcurrent(): " << canvas_getcurrent() << "\n";
 
     ptr.reset(new Canvas(cnv));
     return ptr;

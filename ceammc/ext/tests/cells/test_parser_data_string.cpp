@@ -11,6 +11,7 @@
  * contact the author of this file, or the owner of the project in which
  * this file belongs to.
  *****************************************************************************/
+#include "ceammc_platform.h"
 #include "datatype_dict.h"
 #include "datatype_mlist.h"
 #include "datatype_string.h"
@@ -165,5 +166,144 @@ TEST_CASE("DataStringParser", "[core]")
         // ctor-syntax
         REQUIRE(parse("Dict[]") == LA(new DD()));
         //        REQUIRE(parse("Dict[a: IntData(100)]") == LA(new DD("([a: 100])")));
+    }
+
+    SECTION("expr")
+    {
+        REQUIRE(parse("expr(100)") == LA(100));
+        REQUIRE(parse("expr(-100)") == LA(-100));
+        REQUIRE(parse("expr(0.5)") == LA(0.5));
+        REQUIRE(parse("expr(-0.5)") == LA(-0.5));
+        REQUIRE(parse("expr(1+3)") == LA(4));
+        REQUIRE(parse("expr(1-3)") == LA(-2));
+        REQUIRE(parse("expr(1.5-3)") == LA(-1.5));
+        REQUIRE(parse("expr(1.5+-3)") == LA(-1.5));
+        REQUIRE(parse("expr(\"-1.5+-3\")") == LA(-4.5));
+        REQUIRE(parse("expr(\"-1.5--3\")") == LA(1.5));
+        REQUIRE(parse("expr(2*3.5)") == LA(7));
+        REQUIRE(parse("expr(2*-3.5)") == LA(-7));
+        REQUIRE(parse("expr(\"-2*-3.5\")") == LA(7));
+
+        const t_float m_pi = std::acos(-1);
+        REQUIRE(parse("expr(2*pi)") == LX(2 * m_pi));
+        const t_float m_e = std::exp(1);
+        REQUIRE(parse("expr(2*e)") == LX(2 * m_e));
+        REQUIRE(parse("expr(XXXX)").empty());
+        REQUIRE(parse("expr(\"min(100,200)\")") == LF(100));
+    }
+
+    SECTION("seq()")
+    {
+        REQUIRE(parse("seq()").empty());
+        REQUIRE(parse("seq(abc)").empty());
+        REQUIRE(parse("seq(1)") == LF(1));
+        REQUIRE(parse("seq(-10)") == LF(-10));
+        REQUIRE(parse("seq(0.5)") == LF(0.5));
+        REQUIRE(parse("seq(1 1)") == LF(1));
+        REQUIRE(parse("seq(0 1)") == LF(0, 1));
+        REQUIRE(parse("seq(1 0)") == LF(1, 0));
+        REQUIRE(parse("seq(-2 1)") == LF(-2, -1, 0, 1));
+        REQUIRE(parse("seq(1 -2)") == LF(1, 0, -1, -2));
+        REQUIRE(parse("seq(1 2000)") == LF(1, 2000));
+        REQUIRE(parse("seq(0.5 2.5)") == LF(0.5, 1.5, 2.5));
+        REQUIRE(parse("seq(0.5 2.4)") == LF(0.5, 1.5));
+        REQUIRE(parse("seq(0 1 0)").empty());
+        REQUIRE(parse("seq(0 1 -0.1)").empty());
+        REQUIRE(parse("seq(0 1 0.5)") == LF(0, 0.5, 1));
+        REQUIRE(parse("seq(0 1 1)") == LF(0, 1));
+        REQUIRE(parse("seq(1 2 1.1)") == LF(1));
+        REQUIRE(parse("seq(1.5 2.5 1.1)") == LF(1.5));
+        REQUIRE(parse("seq(2 -2 0.5)") == LF(2, 1.5, 1, 0.5, 0, -0.5, -1, -1.5, -2));
+        REQUIRE(parse("seq(bs())") == LF(64));
+    }
+
+    SECTION("env()")
+    {
+        REQUIRE(parse("env()").empty());
+        REQUIRE(parse("env(10)").empty());
+        REQUIRE(parse("env(A B C)").empty());
+
+#ifdef __MACH__
+        const auto home_dir = platform::home_directory();
+        REQUIRE(parse("env(%HOME%)") == LA(home_dir.c_str()));
+        REQUIRE(parse("env(%HOME%/test.wav)") == LA((home_dir + "/test.wav").c_str()));
+#endif
+    }
+
+    SECTION("db2amp()")
+    {
+        REQUIRE(parse("db2amp()") == LF(0));
+        REQUIRE(parse("db2amp(ABC)") == LF(0));
+        REQUIRE(parse("db2amp(1 2 3)") == LF(0));
+        REQUIRE(parse("db2amp(0)") == LX(1));
+        REQUIRE(parse("db2amp(-6)") == LX(0.501187));
+    }
+
+    SECTION("amp2db()")
+    {
+        REQUIRE(parse("amp2db()") == LF(-144));
+        REQUIRE(parse("amp2db(ABC)") == LF(-144));
+        REQUIRE(parse("amp2db(1 2 3)") == LF(-144));
+        REQUIRE(parse("amp2db(0)") == LF(-144));
+        REQUIRE(parse("amp2db(-1)") == LF(-144));
+        REQUIRE(parse("amp2db(1)") == LF(0));
+        REQUIRE(parse("amp2db(0.501187)") == LX(-6));
+    }
+
+    SECTION("repeat()")
+    {
+        REQUIRE(parse("repeat()").empty());
+        REQUIRE(parse("repeat(A B)").empty());
+        REQUIRE(parse("repeat(100)").empty());
+        REQUIRE(parse("repeat(-1 100)").empty());
+        REQUIRE(parse("repeat(0 100)").empty());
+        REQUIRE(parse("repeat(1 A)") == LA("A"));
+        REQUIRE(parse("repeat(2 A)") == LA("A", "A"));
+        REQUIRE(parse("repeat(2 A B)") == LA("A", "B", "A", "B"));
+        REQUIRE(parse("repeat(2 repeat(1 A C))") == LA("A", "C", "A", "C"));
+        REQUIRE(parse("repeat(1024 A B C)").empty());
+    }
+
+    SECTION("reverse()")
+    {
+        REQUIRE(parse("reverse()").empty());
+        REQUIRE(parse("reverse(A)") == LA("A"));
+        REQUIRE(parse("reverse(A B)") == LA("B", "A"));
+    }
+
+    SECTION("rtree()")
+    {
+        REQUIRE(parse("rtree()").empty());
+        REQUIRE(parse("rtree(1)").empty());
+        REQUIRE(parse("rtree(1 2)").empty());
+        REQUIRE(parse("rtree(x ())").empty());
+        REQUIRE(parse("rtree(1 (1))") == LF(1));
+        REQUIRE(parse("rtree(1 (1 1))") == LF(0.5, 0.5));
+        REQUIRE(parse("rtree(2 (1 1))") == LF(1, 1));
+        REQUIRE(parse("rtree(2 (1 1(1 1)))") == LF(1, 0.5, 0.5));
+        REQUIRE(parse("rtree(1 (1 1 2))") == LF(0.25, 0.25, 0.5));
+        REQUIRE(parse("rtree(1 (1 1 2( 2 1 1)))") == LF(0.25, 0.25, 0.25, 0.125, 0.125));
+    }
+
+    SECTION("euclid()")
+    {
+        REQUIRE(parse("euclid()").empty());
+        REQUIRE(parse("euclid(1)").empty());
+        REQUIRE(parse("euclid(A B)").empty());
+        REQUIRE(parse("euclid(10 1)").empty());
+        REQUIRE(parse("euclid(-1 10)").empty());
+        REQUIRE(parse("euclid(1 -2)").empty());
+        REQUIRE(parse("euclid(0 4)") == LF(0, 0, 0, 0));
+        REQUIRE(parse("euclid(1 1)") == LF(1));
+        REQUIRE(parse("euclid(2 2)") == LF(1, 1));
+        REQUIRE(parse("euclid(3 3)") == LF(1, 1, 1));
+        REQUIRE(parse("euclid(2 3)") == LF(1, 0, 1));
+        REQUIRE(parse("euclid(2 5)") == LF(1, 0, 0, 1, 0));
+        REQUIRE(parse("euclid(7 16)") == LF(1, 0, 0, 1, 0, 1, 0, 1, 0, 0, 1, 0, 1, 0, 1, 0));
+        REQUIRE(parse("euclid(3 7)") == LF(1, 0, 0, 1, 0, 1, 0));
+        REQUIRE(parse("euclid(3 4)") == LF(1, 0, 1, 1));
+        REQUIRE(parse("euclid(3 5)") == LF(1, 0, 1, 0, 1));
+        REQUIRE(parse("euclid(3 8)") == LF(1, 0, 0, 1, 0, 0, 1, 0));
+        //        REQUIRE(parse("euclid(3 7)") == LF(1, 0, 1, 0, 0, 1, 0));
     }
 }

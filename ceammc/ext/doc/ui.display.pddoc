@@ -15,11 +15,15 @@
             <since>0.1</since>
             <aliases>
                 <alias view="link">ui.d</alias>
+                <alias view="link">ui.dt</alias>
             </aliases>
             <also>
                 <see>msg</see>
             </also>
         </meta>
+        <info>
+            <par>[ui.dt] is alias for [ui.display @display_type=1]</par>
+        </info>
         <mouse>
             <event editmode="false" type="double-click">show/hide message type</event>
             <event editmode="false" type="right-click" keys="Shift">open object help</event>
@@ -86,7 +90,7 @@
 |            |   |          |         |
 |            |   |          |         |
 |            |   |          |         |
-[ui.display            @display_type=1]
+[ui.display            @display_type 1]
 
 
 ]]>

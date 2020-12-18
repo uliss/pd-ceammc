@@ -25,7 +25,7 @@ PathListDir::PathListDir(const PdArgs& a)
     createCbListProperty(
         "@path",
         [this]() -> AtomList { return AtomList(gensym(path_.c_str())); },
-        [this](const AtomList& l) -> bool {path_ = to_string(l); return true; })
+        [this](const AtomList& l) -> bool { path_ = to_string(l); return true; })
         ->setArgIndex(0);
 }
 

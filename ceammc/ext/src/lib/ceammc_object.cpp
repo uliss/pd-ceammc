@@ -403,7 +403,10 @@ bool BaseObject::processAnyProps(t_symbol* sel, const AtomListView& lst)
         } else
             rc = p->set(lst);
 
-        return rc;
+        if (!rc)
+            OBJ_ERR << "can't set property: " << sel;
+
+        return true;
     }
 
     return true;
@@ -685,7 +688,7 @@ void BaseObject::updatePropertyDefaults()
         p->updateDefault();
 }
 
-void BaseObject::initDone() {}
+void BaseObject::initDone() { }
 
 bool BaseObject::checkArg(const Atom& atom, BaseObject::ArgumentType type, int pos) const
 {
@@ -974,9 +977,15 @@ t_canvas* BaseObject::rootCanvas() const
     return canvas_getrootfor(const_cast<t_canvas*>(cnv_));
 }
 
+bool BaseObject::isPatchLoading() const
+{
+    auto* c = canvas();
+    return c ? c->gl_loading : false;
+}
+
 std::string BaseObject::findInStdPaths(const char* fname) const
 {
-    return platform::find_in_std_path(rootCanvas(), fname);
+    return platform::find_in_std_path(cnv_, fname);
 }
 
 t_symbol* BaseObject::tryGetPropKey(t_symbol* sel)

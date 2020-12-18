@@ -54,6 +54,7 @@ public:
 
     void paint();
     void okSize(::t_rect* newrect);
+    void init(t_symbol* name, const AtomList& args, bool usePresets);
 
     void onBang();
     void onFloat(t_float f);

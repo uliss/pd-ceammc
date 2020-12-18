@@ -1,6 +1,6 @@
 /* ------------------------------------------------------------
 name: "spat.pan8"
-Code generated with Faust 2.25.3 (https://faust.grame.fr)
+Code generated with Faust 2.28.6 (https://faust.grame.fr)
 Compilation options: -lang cpp -scal -ftz 0
 ------------------------------------------------------------ */
 
@@ -493,6 +493,8 @@ struct spat_pan8 : public spat_pan8_dsp {
 #define FAUSTFLOAT float
 #endif 
 
+/* link with : "" */
+#include "m_pd.h"
 #include <algorithm>
 #include <cmath>
 
@@ -534,8 +536,6 @@ class spat_pan8 : public spat_pan8_dsp {
 		m->declare("name", "spat.pan8");
 		m->declare("signals.lib/name", "Faust Signal Routing Library");
 		m->declare("signals.lib/version", "0.0");
-		m->declare("spats.lib/name", "Faust Spatialization Library");
-		m->declare("spats.lib/version", "0.0");
 	}
 
 	virtual int getNumInputs() {
@@ -687,14 +687,14 @@ class spat_pan8 : public spat_pan8_dsp {
 		float fSlow0 = float(fVslider0);
 		float fSlow1 = (fSlow0 + 1.0f);
 		float fSlow2 = (0.159154937f * float(fVslider1));
-		float fSlow3 = (4.99999987e-05f * (fSlow1 * std::sqrt(std::max<float>(0.0f, (1.0f - (8.0f * (fSlow0 * std::fabs((std::fmod((fSlow2 + 1.5f), 1.0f) + -0.5f)))))))));
-		float fSlow4 = (4.99999987e-05f * (fSlow1 * std::sqrt(std::max<float>(0.0f, (1.0f - (8.0f * (fSlow0 * std::fabs((std::fmod((fSlow2 + 1.375f), 1.0f) + -0.5f)))))))));
-		float fSlow5 = (4.99999987e-05f * (fSlow1 * std::sqrt(std::max<float>(0.0f, (1.0f - (8.0f * (fSlow0 * std::fabs((std::fmod((fSlow2 + 1.25f), 1.0f) + -0.5f)))))))));
-		float fSlow6 = (4.99999987e-05f * (fSlow1 * std::sqrt(std::max<float>(0.0f, (1.0f - (8.0f * (fSlow0 * std::fabs((std::fmod((fSlow2 + 1.125f), 1.0f) + -0.5f)))))))));
-		float fSlow7 = (4.99999987e-05f * (fSlow1 * std::sqrt(std::max<float>(0.0f, (1.0f - (8.0f * (fSlow0 * std::fabs((std::fmod((fSlow2 + 1.0f), 1.0f) + -0.5f)))))))));
-		float fSlow8 = (4.99999987e-05f * (fSlow1 * std::sqrt(std::max<float>(0.0f, (1.0f - (8.0f * (fSlow0 * std::fabs((std::fmod((fSlow2 + 0.875f), 1.0f) + -0.5f)))))))));
-		float fSlow9 = (4.99999987e-05f * (fSlow1 * std::sqrt(std::max<float>(0.0f, (1.0f - (8.0f * (fSlow0 * std::fabs((std::fmod((fSlow2 + 0.75f), 1.0f) + -0.5f)))))))));
-		float fSlow10 = (4.99999987e-05f * (fSlow1 * std::sqrt(std::max<float>(0.0f, (1.0f - (8.0f * (fSlow0 * std::fabs((std::fmod((fSlow2 + 0.625f), 1.0f) + -0.5f)))))))));
+		float fSlow3 = (4.99999987e-05f * (fSlow1 * float(q8_sqrt(float(std::max<float>(0.0f, (1.0f - (8.0f * (fSlow0 * std::fabs((std::fmod((fSlow2 + 1.5f), 1.0f) + -0.5f)))))))))));
+		float fSlow4 = (4.99999987e-05f * (fSlow1 * float(q8_sqrt(float(std::max<float>(0.0f, (1.0f - (8.0f * (fSlow0 * std::fabs((std::fmod((fSlow2 + 1.375f), 1.0f) + -0.5f)))))))))));
+		float fSlow5 = (4.99999987e-05f * (fSlow1 * float(q8_sqrt(float(std::max<float>(0.0f, (1.0f - (8.0f * (fSlow0 * std::fabs((std::fmod((fSlow2 + 1.25f), 1.0f) + -0.5f)))))))))));
+		float fSlow6 = (4.99999987e-05f * (fSlow1 * float(q8_sqrt(float(std::max<float>(0.0f, (1.0f - (8.0f * (fSlow0 * std::fabs((std::fmod((fSlow2 + 1.125f), 1.0f) + -0.5f)))))))))));
+		float fSlow7 = (4.99999987e-05f * (fSlow1 * float(q8_sqrt(float(std::max<float>(0.0f, (1.0f - (8.0f * (fSlow0 * std::fabs((std::fmod((fSlow2 + 1.0f), 1.0f) + -0.5f)))))))))));
+		float fSlow8 = (4.99999987e-05f * (fSlow1 * float(q8_sqrt(float(std::max<float>(0.0f, (1.0f - (8.0f * (fSlow0 * std::fabs((std::fmod((fSlow2 + 0.875f), 1.0f) + -0.5f)))))))))));
+		float fSlow9 = (4.99999987e-05f * (fSlow1 * float(q8_sqrt(float(std::max<float>(0.0f, (1.0f - (8.0f * (fSlow0 * std::fabs((std::fmod((fSlow2 + 0.75f), 1.0f) + -0.5f)))))))))));
+		float fSlow10 = (4.99999987e-05f * (fSlow1 * float(q8_sqrt(float(std::max<float>(0.0f, (1.0f - (8.0f * (fSlow0 * std::fabs((std::fmod((fSlow2 + 0.625f), 1.0f) + -0.5f)))))))))));
 		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int i = 0; (i < count); i = (i + 1)) {
 			float fTemp0 = float(input0[i]);

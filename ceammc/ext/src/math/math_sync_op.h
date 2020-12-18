@@ -92,6 +92,16 @@ public:
     MathSyncXor(const PdArgs& args);
 };
 
+class MathSyncLeftShift : public MathSyncBase {
+public:
+    MathSyncLeftShift(const PdArgs& args);
+};
+
+class MathSyncRightShift : public MathSyncBase {
+public:
+    MathSyncRightShift(const PdArgs& args);
+};
+
 void setup_math_sync_op();
 
 #endif // MATH_SYNC_OP_H

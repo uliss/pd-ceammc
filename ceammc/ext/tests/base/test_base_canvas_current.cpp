@@ -20,10 +20,11 @@ PD_COMPLETE_TEST_SETUP(CanvasCurrent, canvas, current)
 TEST_CASE("canvas.current", "[externals]")
 {
     pd_test_init();
+    test::pdPrintToStdError();
 
     SECTION("init")
     {
-        TestCanvasCurrent t("canvas.current");
+        TObj t("canvas.current");
         REQUIRE(t.numInlets() == 1);
         REQUIRE(t.numOutlets() == 1);
 
@@ -40,15 +41,18 @@ TEST_CASE("canvas.current", "[externals]")
         REQUIRE_PROPERTY_LIST(t, @args, L());
         REQUIRE_PROPERTY_LIST(t, @paths, L());
         REQUIRE_PROPERTY_LIST(t, @size, AtomList(600, 400));
+    }
 
-        CanvasPtr cnv = PureData::instance().createTopCanvas(TEST_DATA_DIR "/patch");
+    SECTION("external")
+    {
+        CanvasPtr cnv = PureData::instance().createTopCanvas(TEST_DATA_DIR "/patch_cnv_current");
 
         {
-            TestExtCanvasCurrent t("canvas.current");
+            TExt t("canvas.current");
             REQUIRE(t.numInlets() == 1);
             REQUIRE(t.numOutlets() == 1);
 
-            REQUIRE_PROPERTY(t, @name, "patch");
+            REQUIRE_PROPERTY(t, @name, "patch_cnv_current");
             REQUIRE_PROPERTY(t, @dir, TEST_DATA_DIR);
             REQUIRE_PROPERTY(t, @root, 1);
             REQUIRE_PROPERTY(t, @abstraction, Atom(1));

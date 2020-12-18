@@ -21,6 +21,9 @@
             <argument name="index" type="list">apply index(es) (starting from 0). Negative value
             means position from end of the list. For example: '-1' means last element.</argument>
         </arguments>
+        <properties>
+            <property name="@indexes" type="list">applied index(es)</property>
+        </properties>
         <inlets>
             <inlet>
                 <xinfo on="list">Input list. If no element found by specified index - list passed
