@@ -1,8 +1,10 @@
 # CEAMMC Pd distribution changelog
 
-## [Unreleased]
+## [2020.12]
 ### Added:
 - xlet tooltips support added for ceammc objects
+- coremidi driver added
+- **CEAMMC** external library v0.9,1 - [ceammc/CHANGELOG.md](ceammc/CHANGELOG.md)
 
 ## [2020.02]
 ### Added:
@@ -40,16 +42,16 @@
 ## [2017.10]
 ### Added:
 - **CEAMMC** external library v0.4 - [ceammc/CHANGELOG.md](ceammc/CHANGELOG.md)
-- **Autotune** an autotuner for Puredata ported from the autotalented LADSPA plugin 
+- **Autotune** an autotuner for Puredata ported from the autotalented LADSPA plugin
 
     * [autotune/autotune~]
-    
+
     https://github.com/megrimm/pd-autotuned
 
 - **FFTease** is a collection of Max/MSP objects implementing various forms of spectral sound processing.
     These include an additive-synthesis phase vocoder, noise reduction, cross synthesis,
-    and more unusual forms of spectral processing. 
-    
+    and more unusual forms of spectral processing.
+
     * [fftease/bthresher~]
     * [fftease/burrow~]
     * [fftease/cavoc27~]
@@ -87,14 +89,14 @@
     * [fftease/thresher~]
     * [fftease/vacancy~]
     * [fftease/xsyn~]
-    
+
     https://github.com/ericlyon/fftease3.0-32bit
 
 - **VASP** modular – Vector assembling signal processor
     for Pure Data and Max by [declare -lib vasp]
-    
+
     https://github.com/grrrr/vasp
-    
+
     * [vasp]
     * [vasp.abs]
     * [vasp.cabs]
@@ -182,32 +184,32 @@
     * [vasp.xtilt]
     * [vasp.xwindow]
 
-- **Leapmotion** - Pd external for leap motion 
-    
+- **Leapmotion** - Pd external for leap motion
+
     * [leapmotion]
-        
+
     https://github.com/chikashimiyama/Pd_leapmotion
-    
-- **xsample** - collection of efficient buffer-based sampling objects for Pure Data. 
-    There’s the variable-speed interpolating player xgroove~, 
+
+- **xsample** - collection of efficient buffer-based sampling objects for Pure Data.
+    There’s the variable-speed interpolating player xgroove~,
     the index-driven xplay~ and the sample-accurate recorder xrecord~.
 
     * [xplay~]
     * [xrecord~]
     * [xgroove~]
-    
+
     https://grrrr.org/research/software/xsample/
-    
-- **zconf** library - zeroconf networking objects for Pure data. [declare -lib zconf] 
-    
+
+- **zconf** library - zeroconf networking objects for Pure data. [declare -lib zconf]
+
     * [zconf.browse]
     * [zconf.domains]
     * [zconf.meta]
     * [zconf.resolve]
     * [zconf.service]
-    
+
     https://github.com/grrrr/zconf
-    
+
 - **LyonPotpourri** - a collection of externals developed for the creation and performance of computer music.
 
     * [lyonpotpourri/adsr~]
@@ -268,10 +270,10 @@
     * [lyonpotpourri/windowvec~]
 
     https://github.com/pd-projects/lyonpotpourri
-    
+
 - **Soundtouch** - using Olli Parviainen SoundTouch Audio Processing Library.
     Pitch-shifter
-    
+
     * [soundtouch~]
 
     http://www.surina.net/soundtouch/
