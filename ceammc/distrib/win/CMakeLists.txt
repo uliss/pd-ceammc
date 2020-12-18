@@ -11,6 +11,14 @@ if(WIN32)
         set(CEAMMC_DISTRIB_ARCH "32-bit")
     endif()
 
+    if(WITH_DOUBLE_PRECISION)
+        set(CEAMMC_PRECISION "double")
+        set(CEAMMC_APP_SUFFIX " (double)")
+    else()
+        set(CEAMMC_PRECISION "float")
+        set(CEAMMC_APP_SUFFIX "")
+    endif()
+
     configure_file(${CMAKE_CURRENT_SOURCE_DIR}/pd.iss ${CMAKE_BINARY_DIR})
     configure_file(${CMAKE_CURRENT_SOURCE_DIR}/fix_dll_deps.sh ${CMAKE_BINARY_DIR} @ONLY)
     configure_file(${CMAKE_CURRENT_SOURCE_DIR}/win_upload_to_github.sh ${CMAKE_BINARY_DIR} @ONLY)
@@ -72,4 +80,5 @@ add_custom_target(window_installer SOURCES
     make_lib_win.sh
     win_upload_to_github.sh
     win_fix_pddoc_key_modifiers.sh
-    pd.iss)
+    pd.iss
+)
