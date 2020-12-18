@@ -24,14 +24,14 @@ REM Update
 bash -lc "pacman -Syu --noconfirm"
 
 REM build tools
-bash -lc "pacman -S --needed --noconfirm mingw-w64-${MSYS2_ARCH}-toolchain make patch"
+bash -lc "pacman -S --needed --noconfirm mingw-w64-${MSYS2_ARCH}-toolchain make patch ninja"
 REM dependencies
 bash -lc "pacman -S --needed --noconfirm mingw-w64-${MSYS2_ARCH}-{cmake,glib2,libmodplug,tcllib,tcl,tk,tklib,portaudio,fftw,libsndfile,boost,dlfcn,armadillo}"
 
 bash -lc "echo ${APPVEYOR_BUILD_FOLDER}"
 bash -lc "ls ${APPVEYOR_BUILD_FOLDER}"
 bash -lc "mkdir ${APPVEYOR_BUILD_FOLDER}/build"
-bash -lc "cd ${APPVEYOR_BUILD_FOLDER}/build && cmake -G 'MSYS Makefiles' -DCMAKE_BUILD_TYPE=Release -DWITH_FFTW=ON -DWITH_EXT_FLEXT=OFF -DWITH_EXT_LYONPOTPOURRI=OFF -DWITH_EXT_FFTEASE=OFF -DWITH_BENCHMARK=OFF -DCMAKE_INSTALL_PREFIX=/opt/local/release/pd ${APPVEYOR_BUILD_FOLDER}"
+bash -lc "cd ${APPVEYOR_BUILD_FOLDER}/build && cmake -G Ninja -DCMAKE_BUILD_TYPE=Release -DWITH_FFTW=ON -DWITH_EXT_FLEXT=OFF -DWITH_EXT_LYONPOTPOURRI=OFF -DWITH_EXT_FFTEASE=OFF -DWITH_BENCHMARK=OFF -DCMAKE_INSTALL_PREFIX=/opt/local/release/pd ${APPVEYOR_BUILD_FOLDER}"
 bash -lc "ls ${APPVEYOR_BUILD_FOLDER}/build"
-bash -lc "cd ${APPVEYOR_BUILD_FOLDER}/build && make -j3 && make -j3 install && ./fix_dll_deps.sh && ./win_fix_pddoc_key_modifiers.sh"
-bash -lc "cd ${APPVEYOR_BUILD_FOLDER}/build && make inno && make ceammc_lib"
+bash -lc "cd ${APPVEYOR_BUILD_FOLDER}/build && ninja install && ./fix_dll_deps.sh && ./win_fix_pddoc_key_modifiers.sh"
+bash -lc "cd ${APPVEYOR_BUILD_FOLDER}/build && ninja inno && ninja ceammc_lib"
