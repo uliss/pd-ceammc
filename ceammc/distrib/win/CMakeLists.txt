@@ -24,6 +24,29 @@ if(WIN32)
     configure_file(${CMAKE_CURRENT_SOURCE_DIR}/win_upload_to_github.sh ${CMAKE_BINARY_DIR} @ONLY)
     configure_file(${CMAKE_CURRENT_SOURCE_DIR}/win_fix_pddoc_key_modifiers.sh ${CMAKE_BINARY_DIR} @ONLY)
 
+    find_program(7Z_EXE
+        NAMES "7z" "7z.exe"
+        PATH_SUFFIXES "7-Zip"
+    )
+    if(7Z_EXE)
+        message(STATUS "7z found at: ${7Z_EXE}")
+    endif()
+
+    configure_file(${CMAKE_CURRENT_SOURCE_DIR}/make_lib_win.sh
+                   ${PROJECT_BINARY_DIR}/dist/make_lib_win.sh @ONLY)
+    configure_file(${CMAKE_CURRENT_SOURCE_DIR}/install_external.sh
+                   ${PROJECT_BINARY_DIR}/dist/install_external.sh @ONLY)
+
+    add_custom_target(ceammc_lib
+        COMMAND make_lib_win.sh "${PROJECT_BINARY_DIR}/dist"
+        SOURCES make_lib_win.sh
+        WORKING_DIRECTORY "${PROJECT_BINARY_DIR}/dist")
+
+    add_custom_target(install_external
+        COMMAND install_external.sh
+        SOURCES install_external.sh
+        WORKING_DIRECTORY "${PROJECT_BINARY_DIR}/dist")
+
     add_custom_target(install0
         COMMAND ${CMAKE_COMMAND} -E copy $<TARGET_FILE:ceammc_core> "${CMAKE_INSTALL_PREFIX}/${PD_INTERNAL_EXT_INSTALL_PATH}/ceammc"
         COMMAND ${CMAKE_COMMAND} -E copy $<TARGET_FILE:ceammc> "${CMAKE_INSTALL_PREFIX}/${PD_INTERNAL_EXT_INSTALL_PATH}/ceammc")

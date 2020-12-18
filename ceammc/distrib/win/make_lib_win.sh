@@ -22,6 +22,8 @@ echo "    - binary dir:  ${BINDIR}"
 echo "    - output dir:  ${OUTDIR}"
 echo "    - version:     ${VERSION}"
 echo "    - output file: ${OUTFILE}"
+echo "    - 7zip: ${P7Z_EXE}"
+
 
 function skip_ext {
     #skip experimental extensions
@@ -140,7 +142,7 @@ echo "+ MISC: stargazing.mod"
 cp "${SRCDIR}/ext/doc/stargazing.mod" "${OUTDIR}"
 echo "+ MISC: prs.txt"
 cp "${SRCDIR}/ext/doc/prs.txt" "${OUTDIR}"
-echo "    sur_la_planche.glitch"
+echo "+ MISC: sur_la_planche.glitch"
 cp "${SRCDIR}/ext/doc/sur_la_planche.glitch" "${OUTDIR}"
 echo "+ MISC: system.serial-help.pd"
 cp "${SRCDIR}/extra/comport/system.serial-help.pd" "${OUTDIR}"
@@ -155,7 +157,7 @@ if [ -x "${P7Z_EXE}" ]
 then
     cd "${OUTDIR}/.."
     "${P7Z_EXE}" a "${OUTFILE}" "${BASEOUTDIR}"
-    mv "${OUTFILE}" ..
+    cp "${OUTFILE}" ..
 else
     echo "7z is not found. Create zip archive manually..."
 fi

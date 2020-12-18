@@ -29,28 +29,11 @@ if(UNIX AND NOT APPLE)
     configure_file(${CMAKE_CURRENT_SOURCE_DIR}/linux/make_lib_linux.sh ${MAKELIB_SCRIPT} @ONLY)
 endif()
 
-if(WIN32 OR MSYS)
-    find_program(7Z_EXE NAMES "7z" "7z.exe")
-    if(7Z_EXE)
-        message(STATUS "7z found at: ${7Z_EXE}")
-    endif()
-    set(MAKELIB_SCRIPT "${PROJECT_BINARY_DIR}/dist/make_lib_win.sh")
-    configure_file(${CMAKE_CURRENT_SOURCE_DIR}/win/make_lib_win.sh ${MAKELIB_SCRIPT} @ONLY)
-    configure_file(${CMAKE_CURRENT_SOURCE_DIR}/win/install_external.sh
-                   ${PROJECT_BINARY_DIR}/dist/install_external.sh @ONLY)
-endif()
-
 if(MAKELIB_SCRIPT)
     if(APPLE)
         add_custom_target(ceammc_lib
             COMMAND "${MAKELIB_SCRIPT}" "${CMAKE_BINARY_DIR}/dist"
             SOURCES mac/make_lib_mac.sh)
-
-        add_custom_target(install_external COMMAND ${PROJECT_BINARY_DIR}/dist/install_external.sh)
-    elseif(WIN32)
-        add_custom_target(ceammc_lib
-            COMMAND "${MAKELIB_SCRIPT}" "${CMAKE_BINARY_DIR}/dist"
-            SOURCES win/make_lib_win.sh)
 
         add_custom_target(install_external COMMAND ${PROJECT_BINARY_DIR}/dist/install_external.sh)
     endif()

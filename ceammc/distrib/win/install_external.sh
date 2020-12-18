@@ -3,8 +3,9 @@
 BIN_DIR="@PROJECT_BINARY_DIR@"
 VERSION="@CEAMMC_LIB_VERSION@"
 ARCH="@CEAMMC_DISTRIB_ARCH@"
+PRECISION="@CEAMMC_PRECISION@"
 PD_VERSION="@PD_TEXT_VERSION_FULL@"
-OUTFILE="ceammc-${VERSION}-win-pd-${PD_VERSION}-${ARCH}.zip"
+OUTFILE="ceammc-${VERSION}-win-pd-${PD_VERSION}-${ARCH}-${PRECISION}.zip"
 DEST="${USERPROFILE}/Documents/Pd/externals/${ARCH%-bit}"
 P7Z_EXE="@7Z_EXE@"
 
@@ -25,5 +26,5 @@ then
 fi
 
 cd "${BIN_DIR}"
-${P7Z_EXE} x "${OUTFILE}" -o"${DEST}"
+"${P7Z_EXE}" x "${OUTFILE}" -o"${DEST}"
 echo "Done"
