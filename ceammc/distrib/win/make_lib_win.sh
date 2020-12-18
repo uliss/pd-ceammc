@@ -77,7 +77,7 @@ done
 rm -f "${OUTDIR}/debug.gensym.dll"
 
 echo "Copying help files to ${OUTDIR} ..."
-find "${SRCDIR}/ext/doc" -name *-help\\.pd | while read file
+find "${SRCDIR}/ext/doc" -name *\\.pd | while read file
 do
     help=$(basename $file)
     cat "$file" |
