@@ -13,13 +13,6 @@ echo Bits: %BIT%
 set "PATH=C:\%MSYS2_DIR%\%MSYSTEM%\bin;C:\%MSYS2_DIR%\usr\bin;%PATH%"
 bash -lc "pacman -S --needed --noconfirm pacman-mirrors"
 bash -lc "pacman -S --needed --noconfirm git"
-REM bash -lc "curl -O http://repo.msys2.org/msys/x86_64/msys2-keyring-r21.b39fb11-1-any.pkg.tar.xz"
-REM bash -lc "curl -O http://repo.msys2.org/msys/x86_64/msys2-keyring-r21.b39fb11-1-any.pkg.tar.xz.sig"
-REM bash -lc "pacman -Uy --noconfirm --config <(echo) msys2-keyring-r21.b39fb11-1-any.pkg.tar.xz"
-REM bash -lc "rm -r /etc/pacman.d/gnupg/"
-REM bash -lc "pacman-key --init"
-REM bash -lc "pacman-key --populate msys2"
-REM bash -lc "pacman-key --refresh-keys"
 REM Update
 bash -lc "pacman -Syu --noconfirm"
 
