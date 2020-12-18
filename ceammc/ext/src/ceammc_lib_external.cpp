@@ -32,10 +32,14 @@ void ceammc_info_message()
     post("\nCEAMMC library\n"
          "       Centre for Electroacoustic Music Moscow Conservatory, © 2016-2020\n"
          "       authors: Serge Poltavsky and Alex Nadzharov\n"
+         "       arch: %d-bit\n"
+         "       precision: %s\n"
          "       version: %s\n"
          "       url: %s\n"
          "       license: GPL-3\n"
          "       build date: '%s'\n",
+        sizeof(void*) * 8,
+        sizeof(t_float) == sizeof(float) ? "float" : "double",
         CEAMMC_LIB_VERSION, CEAMMC_LIB_HOME, __DATE__);
 
     int major, minor, fix;
