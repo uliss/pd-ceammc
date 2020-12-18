@@ -3,7 +3,7 @@ os: Visual Studio 2019
 
 version: 2020.02.{build}
 
-clone_depth: 1
+clone_depth: 2
 
 environment:
   CTEST_OUTPUT_ON_FAILURE: 1
@@ -37,9 +37,9 @@ environment:
       DOUBLE_PRECISION: ON
       BUILDTOOL: cmake
 
-# cache:
-#   - C:\msys64\var\cache
-#   - C:\msys64\mingw64\var\cache
+cache:
+  - C:\msys64\var\cache
+  - C:\msys64\mingw64\var\cache
 
 artifacts:
   - path: build\inno\*.exe
@@ -49,7 +49,7 @@ artifacts:
 
 before_build:
   - git submodule init
-  - git submodule update --init --recursive --depth 3
+  - git submodule update --init --recursive --depth 5
 
 build_script:
   - set VERBOSE=1
