@@ -13,19 +13,33 @@ environment:
       MSYS2_ARCH: i686
       MSYS2_DIR: msys64
       MSYSTEM: MINGW32
-      BIT: 32
+      DOUBLE_PRECISION: OFF
       BUILDTOOL: cmake
     - COMPILER: msys2
       PLATFORM: x64
       MSYS2_ARCH: x86_64
       MSYS2_DIR: msys64
       MSYSTEM: MINGW64
-      BIT: 64
+      DOUBLE_PRECISION: OFF
+      BUILDTOOL: cmake
+    - COMPILER: msys2
+      PLATFORM: x64
+      MSYS2_ARCH: i686
+      MSYS2_DIR: msys64
+      MSYSTEM: MINGW32
+      DOUBLE_PRECISION: ON
+      BUILDTOOL: cmake
+    - COMPILER: msys2
+      PLATFORM: x64
+      MSYS2_ARCH: x86_64
+      MSYS2_DIR: msys64
+      MSYSTEM: MINGW64
+      DOUBLE_PRECISION: ON
       BUILDTOOL: cmake
 
-cache:
-  - C:\msys64\var\cache
-  - C:\msys64\mingw64\var\cache
+# cache:
+#   - C:\msys64\var\cache
+#   - C:\msys64\mingw64\var\cache
 
 artifacts:
   - path: build\inno\*.exe
@@ -35,7 +49,7 @@ artifacts:
 
 before_build:
   - git submodule init
-  - git submodule update --init --recursive --depth 5
+  - git submodule update --init --recursive --depth 3
 
 build_script:
   - set VERBOSE=1
