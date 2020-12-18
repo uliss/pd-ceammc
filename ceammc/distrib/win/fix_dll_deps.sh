@@ -38,7 +38,7 @@ find_all_dll_deps() {
         list_dll "$dll"
     done
 
-    # ceammc exteernals x86
+    # ceammc externals x86
     find "@PROJECT_BINARY_DIR@/ceammc/ext" -name *.m_i386 | grep -v tests | while read dll
     do
         list_dll "$dll"
