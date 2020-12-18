@@ -14,7 +14,8 @@ set "PATH=C:\%MSYS2_DIR%\%MSYSTEM%\bin;C:\%MSYS2_DIR%\usr\bin;%PATH%"
 bash -lc "pacman -S --needed --noconfirm pacman-mirrors"
 bash -lc "pacman -S --needed --noconfirm git"
 bash -lc "pacman-key --init"
-bash -lc "pacman-key --populate"
+bash -lc "pacman-key --populate msys2"
+bash -lc "pacman-key --refresh-keys"
 REM Update
 bash -lc "pacman -Syu --noconfirm"
 

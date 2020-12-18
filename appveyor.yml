@@ -35,7 +35,7 @@ artifacts:
 
 before_build:
   - git submodule init
-  - git submodule update --init --recursive
+  - git submodule update --init --recursive --depth 5
 
 build_script:
   - set VERBOSE=1
