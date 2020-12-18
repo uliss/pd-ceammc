@@ -1,5 +1,4 @@
-add_executable(test_ext_music)
-#target_sources(test_ext_music PRIVATE test_misc_base.cpp)
+add_executable(test_ext_music test_music_base.h)
 
 target_compile_definitions(test_ext_music
     PRIVATE -DPROJECT_SOURCE_DIR="${PROJECT_SOURCE_DIR}"

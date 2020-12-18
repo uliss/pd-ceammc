@@ -1,4 +1,4 @@
-add_executable(test_ext_net)
+add_executable(test_ext_net test_net_base.h)
 
 target_include_directories(test_ext_net
     PRIVATE

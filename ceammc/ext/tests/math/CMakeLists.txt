@@ -1,6 +1,4 @@
-add_executable(test_ext_math)
-target_sources(test_ext_math
-    PRIVATE test_math_base.h)
+add_executable(test_ext_math test_math_base.h)
 
 target_compile_definitions(test_ext_math
     PRIVATE -DPROJECT_SOURCE_DIR="${PROJECT_SOURCE_DIR}"

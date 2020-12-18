@@ -1,6 +1,6 @@
-add_executable(test_ext_list)
+add_executable(test_ext_list test_list_base.h)
 target_sources(test_ext_list
-    PRIVATE test_list_base.h test_list_base.cpp)
+    PRIVATE test_list_base.cpp)
 
 target_compile_definitions(test_ext_list
     PRIVATE -DPROJECT_SOURCE_DIR="${PROJECT_SOURCE_DIR}"

@@ -1,5 +1,4 @@
-add_executable(test_ext_wrapper)
-target_sources(test_ext_wrapper PRIVATE test_wrapper_base.h)
+add_executable(test_ext_wrapper test_wrapper_base.h)
 
 target_compile_definitions(test_ext_wrapper
     PRIVATE -DPROJECT_SOURCE_DIR="${PROJECT_SOURCE_DIR}"

@@ -1,4 +1,4 @@
-add_executable(test_cells)
+add_executable(test_cells test_property.h)
 
 target_compile_definitions(test_cells
     PRIVATE -DPROJECT_SOURCE_DIR="${PROJECT_SOURCE_DIR}"

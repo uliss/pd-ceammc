@@ -1,6 +1,4 @@
-add_executable(test_ext_flow)
-target_sources(test_ext_flow
-    PRIVATE test_flow_base.h)
+add_executable(test_ext_flow test_flow_base.h)
 
 target_compile_definitions(test_ext_flow
     PRIVATE -DPROJECT_SOURCE_DIR="${PROJECT_SOURCE_DIR}"

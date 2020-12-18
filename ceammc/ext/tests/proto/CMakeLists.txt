@@ -1,4 +1,4 @@
-add_executable(test_ext_proto)
+add_executable(test_ext_proto test_proto_base.h)
 
 target_include_directories(test_ext_proto
     PRIVATE

@@ -1,6 +1,4 @@
-add_executable(test_ext_spat)
-target_sources(test_ext_spat
-    PRIVATE test_spat_base.h)
+add_executable(test_ext_spat test_spat_base.h)
 
 target_compile_definitions(test_ext_spat
     PRIVATE -DPROJECT_SOURCE_DIR="${PROJECT_SOURCE_DIR}"

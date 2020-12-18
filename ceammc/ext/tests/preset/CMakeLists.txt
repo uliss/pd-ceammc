@@ -1,5 +1,4 @@
-add_executable(test_ext_preset)
-#target_sources(test_ext_preset PRIVATE test_preset_base.h)
+add_executable(test_ext_preset test_preset_base.h)
 
 target_compile_definitions(test_ext_preset
     PRIVATE -DPROJECT_SOURCE_DIR="${PROJECT_SOURCE_DIR}"

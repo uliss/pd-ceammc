@@ -1,4 +1,4 @@
-add_executable(test_ext_fx)
+add_executable(test_ext_fx test_fx_base.h)
 
 target_include_directories(test_ext_fx
     PRIVATE

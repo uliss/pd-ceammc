@@ -1,6 +1,4 @@
-add_executable(test_ext_midi)
-target_sources(test_ext_midi
-    PRIVATE test_midi_base.h)
+add_executable(test_ext_midi test_midi_base.h)
 
 target_compile_definitions(test_ext_midi
     PRIVATE -DPROJECT_SOURCE_DIR="${PROJECT_SOURCE_DIR}"

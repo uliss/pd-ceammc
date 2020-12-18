@@ -1,4 +1,4 @@
-add_executable(test_ext_an)
+add_executable(test_ext_an test_an.h)
 
 target_include_directories(test_ext_an
     PRIVATE

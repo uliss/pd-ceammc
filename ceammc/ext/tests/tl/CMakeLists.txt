@@ -1,5 +1,4 @@
-add_executable(test_ext_tl)
-target_sources(test_ext_tl PRIVATE test_tl_base.cpp)
+add_executable(test_ext_tl test_tl_base.cpp)
 
 target_compile_definitions(test_ext_tl
     PRIVATE -DPROJECT_SOURCE_DIR="${PROJECT_SOURCE_DIR}"

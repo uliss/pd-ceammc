@@ -1,5 +1,5 @@
-add_executable(test_ext_ui)
-target_sources(test_ext_ui PRIVATE test_ui_base.h test_ui.h test_ui.cpp)
+add_executable(test_ext_ui test_ui_base.h)
+target_sources(test_ext_ui PRIVATE test_ui.h test_ui.cpp)
 
 target_compile_definitions(test_ext_ui
     PRIVATE -DPROJECT_SOURCE_DIR="${PROJECT_SOURCE_DIR}"

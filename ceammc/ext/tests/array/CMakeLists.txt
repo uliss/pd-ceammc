@@ -1,6 +1,4 @@
-add_executable(test_ext_array)
-target_sources(test_ext_array
-    PRIVATE test_array_base.h)
+add_executable(test_ext_array test_array_base.h)
 
 target_compile_definitions(test_ext_array
     PRIVATE -DPROJECT_SOURCE_DIR="${PROJECT_SOURCE_DIR}"

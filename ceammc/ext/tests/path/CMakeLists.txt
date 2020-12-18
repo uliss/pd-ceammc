@@ -1,6 +1,4 @@
-add_executable(test_ext_path)
-target_sources(test_ext_path
-    PRIVATE test_path_base.h)
+add_executable(test_ext_path test_path_base.h)
 
 target_compile_definitions(test_ext_path
     PRIVATE -DPROJECT_SOURCE_DIR="${PROJECT_SOURCE_DIR}"
