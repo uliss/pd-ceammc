@@ -13,6 +13,7 @@ echo Bits: %BIT%
 set "PATH=C:\%MSYS2_DIR%\%MSYSTEM%\bin;C:\%MSYS2_DIR%\usr\bin;%PATH%"
 bash -lc "pacman -S --needed --noconfirm pacman-mirrors"
 bash -lc "pacman -S --needed --noconfirm git"
+bash -lc "rm -r /etc/pacman.d/gnupg/"
 bash -lc "pacman-key --init"
 bash -lc "pacman-key --populate msys2"
 bash -lc "pacman-key --refresh-keys"
