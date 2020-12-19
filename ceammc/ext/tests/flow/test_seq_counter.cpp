@@ -30,7 +30,7 @@ TEST_CASE("seq.counter", "[externals]")
             REQUIRE(t.numOutlets() == 2);
             REQUIRE_PROPERTY(t, @from, 0);
             REQUIRE_PROPERTY(t, @to, 0);
-            REQUIRE_PROPERTY(t, @r, -1);
+            REQUIRE_PROPERTY(t, @r, "inf");
         }
 
         SECTION("arg0")
@@ -38,7 +38,7 @@ TEST_CASE("seq.counter", "[externals]")
             TExt t("seq.counter", LF(-10));
             REQUIRE_PROPERTY(t, @from, -10);
             REQUIRE_PROPERTY(t, @to, 0);
-            REQUIRE_PROPERTY(t, @r, -1);
+            REQUIRE_PROPERTY(t, @r, "inf");
         }
 
         SECTION("arg1")
@@ -46,7 +46,7 @@ TEST_CASE("seq.counter", "[externals]")
             TExt t("counter", LF(-10, 20));
             REQUIRE_PROPERTY(t, @from, -10);
             REQUIRE_PROPERTY(t, @to, 20);
-            REQUIRE_PROPERTY(t, @r, -1);
+            REQUIRE_PROPERTY(t, @r, "inf");
         }
 
         SECTION("arg2")
@@ -263,6 +263,129 @@ TEST_CASE("seq.counter", "[externals]")
             t.sendBang();
             REQUIRE(t.messagesAt(0) == ML { M(1), M(0.) });
             REQUIRE(t.messagesAt(1) == ML { i(0) });
+        }
+
+        SECTION("@fold const")
+        {
+
+            TExt t("counter", LA("@from", 1, "@to", 1, "@r", 2, "@fold"));
+
+            t.bang();
+            REQUIRE(t.messagesAt(0) == ML { M(1) });
+            REQUIRE(t.messagesAt(1) == ML { i(0) });
+
+            t.sendBang();
+            REQUIRE(t.messagesAt(0) == ML { M(1), M(1) });
+            REQUIRE(t.messagesAt(1) == ML { i(0), i(1), done });
+        }
+
+//        SECTION("@fold positive")
+//        {
+
+//            TExt t("counter", LA("@from", 1, "@to", 2, "@r", 2, "@fold"));
+//            REQUIRE_PROPERTY(t, @mode, "fold");
+
+//            t.bang();
+//            REQUIRE(t.messagesAt(0) == ML { M(1) });
+//            REQUIRE(t.messagesAt(1) == ML { i(0) });
+
+//            t.sendBang();
+//            REQUIRE(t.messagesAt(0) == ML { M(1), M(2) });
+//            REQUIRE(t.messagesAt(1) == ML { i(0) });
+
+//            t.sendBang();
+//            REQUIRE(t.messagesAt(0) == ML { M(1), M(2), M(1) });
+//            REQUIRE(t.messagesAt(1) == ML { i(0), i(1) });
+
+//            t.sendBang();
+//            REQUIRE(t.messagesAt(0) == ML { M(1), M(2), M(1), M(2) });
+//            REQUIRE(t.messagesAt(1) == ML { i(0), i(1), done });
+//        }
+
+        SECTION("@fold positive")
+        {
+
+            TExt t("counter", LA("@from", 1, "@to", 3, "@r", 2, "@fold"));
+            REQUIRE_PROPERTY(t, @mode, "fold");
+
+            t.bang();
+            REQUIRE(t.messagesAt(0) == ML { M(1) });
+            REQUIRE(t.messagesAt(1) == ML { i(0) });
+
+            t.sendBang();
+            REQUIRE(t.messagesAt(0) == ML { M(1), M(2) });
+            REQUIRE(t.messagesAt(1) == ML { i(0) });
+
+            t.sendBang();
+            REQUIRE(t.messagesAt(0) == ML { M(1), M(2), M(3) });
+            REQUIRE(t.messagesAt(1) == ML { i(0) });
+
+            t.sendBang();
+            REQUIRE(t.messagesAt(0) == ML { M(1), M(2), M(3), M(2) });
+            REQUIRE(t.messagesAt(1) == ML { i(0) });
+
+            t.sendBang();
+            REQUIRE(t.messagesAt(0) == ML { M(1), M(2), M(3), M(2), M(1) });
+            REQUIRE(t.messagesAt(1) == ML { i(0), i(1) });
+
+            t.sendBang();
+            REQUIRE(t.messagesAt(0) == ML { M(1), M(2), M(3), M(2), M(1), M(2) });
+            REQUIRE(t.messagesAt(1) == ML { i(0), i(1) });
+
+            t.sendBang();
+            REQUIRE(t.messagesAt(0) == ML { M(1), M(2), M(3), M(2), M(1), M(2), M(3) });
+            REQUIRE(t.messagesAt(1) == ML { i(0), i(1) });
+
+            t.sendBang();
+            REQUIRE(t.messagesAt(0) == ML { M(1), M(2), M(3), M(2), M(1), M(2), M(3), M(2) });
+            REQUIRE(t.messagesAt(1) == ML { i(0), i(1), done });
+
+            t.sendBang();
+            REQUIRE(t.messagesAt(0) == ML { M(1), M(2), M(3), M(2), M(1), M(2), M(3), M(2) });
+            REQUIRE(t.messagesAt(1) == ML { i(0), i(1), done });
+        }
+
+        SECTION("@fold negative")
+        {
+
+            TExt t("counter", LA("@from", 3, "@to", 1, "@r", 2, "@fold"));
+            REQUIRE_PROPERTY(t, @mode, "fold");
+
+            t.bang();
+            REQUIRE(t.messagesAt(0) == ML { M(3) });
+            REQUIRE(t.messagesAt(1) == ML { i(0) });
+
+            t.sendBang();
+            REQUIRE(t.messagesAt(0) == ML { M(3), M(2) });
+            REQUIRE(t.messagesAt(1) == ML { i(0) });
+
+            t.sendBang();
+            REQUIRE(t.messagesAt(0) == ML { M(3), M(2), M(1) });
+            REQUIRE(t.messagesAt(1) == ML { i(0) });
+
+            t.sendBang();
+            REQUIRE(t.messagesAt(0) == ML { M(3), M(2), M(1), M(2) });
+            REQUIRE(t.messagesAt(1) == ML { i(0) });
+
+            t.sendBang();
+            REQUIRE(t.messagesAt(0) == ML { M(3), M(2), M(1), M(2), M(3) });
+            REQUIRE(t.messagesAt(1) == ML { i(0), i(1) });
+
+            t.sendBang();
+            REQUIRE(t.messagesAt(0) == ML { M(3), M(2), M(1), M(2), M(3), M(2) });
+            REQUIRE(t.messagesAt(1) == ML { i(0), i(1) });
+
+            t.sendBang();
+            REQUIRE(t.messagesAt(0) == ML { M(3), M(2), M(1), M(2), M(3), M(2), M(1) });
+            REQUIRE(t.messagesAt(1) == ML { i(0), i(1) });
+
+            t.sendBang();
+            REQUIRE(t.messagesAt(0) == ML { M(3), M(2), M(1), M(2), M(3), M(2), M(1), M(2) });
+            REQUIRE(t.messagesAt(1) == ML { i(0), i(1), done });
+
+            t.sendBang();
+            REQUIRE(t.messagesAt(0) == ML { M(3), M(2), M(1), M(2), M(3), M(2), M(1), M(2) });
+            REQUIRE(t.messagesAt(1) == ML { i(0), i(1), done });
         }
     }
 }

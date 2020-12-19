@@ -15,14 +15,16 @@
 #define SEQ_COUNTER_H
 
 #include "ceammc_object.h"
+#include "seq_base.h"
 using namespace ceammc;
 
 class SeqCounter : public BaseObject {
     IntProperty* from_;
     IntProperty* to_;
-    IntProperty* repeat_;
+    RepeatProperty* repeat_;
+    SymbolEnumProperty* mode_;
     int ri_, i_;
-    bool done_;
+    bool done_, up_;
 
 public:
     SeqCounter(const PdArgs& args);
@@ -32,7 +34,9 @@ public:
     void m_reset(t_symbol*, const AtomListView& lv);
 
 private:
-    void next();
+    void nextWrapped();
+    void nextFolded();
+    void nextConst();
     void reset();
     bool shouldRepeat() const;
 };
