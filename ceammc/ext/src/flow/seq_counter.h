@@ -16,15 +16,23 @@
 
 #include "ceammc_object.h"
 #include "seq_base.h"
-using namespace ceammc;
+
+#include <cstdint>
 
 class SeqCounter : public BaseObject {
+    enum Direction : uint8_t {
+        DIR_FORWARD = 1,
+        DIR_BACK = 0
+    };
+
+private:
     IntProperty* from_;
     IntProperty* to_;
     RepeatProperty* repeat_;
     SymbolEnumProperty* mode_;
     int ri_, i_;
-    bool done_, up_;
+    bool done_;
+    Direction dir_;
 
 public:
     SeqCounter(const PdArgs& args);

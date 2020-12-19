@@ -29,7 +29,7 @@ SeqCounter::SeqCounter(const PdArgs& args)
     , ri_(0)
     , i_(0)
     , done_(false)
-    , up_(true)
+    , dir_(DIR_FORWARD)
 {
     from_ = new IntProperty("@from", 0);
     from_->setArgIndex(0);
@@ -125,11 +125,22 @@ void SeqCounter::nextFolded()
 
     const auto RANGE = to_->value() - from_->value();
     const auto NR = repeat_->value();
-    const auto LAST = (RANGE > 0) ? from_->value() + 1 : from_->value() - 1;
+    const auto BEGIN = from_->value();
+    const auto END = to_->value();
+
+    int LAST = 0;
+    if (RANGE > 1)
+        LAST = BEGIN + 1;
+    else if (RANGE < -1)
+        LAST = END + 1;
+    else {
+        dir_ = DIR_BACK;
+        LAST = END;
+    }
 
     // repeat counter
-    if (i_ == from_->value()) {
-        up_ = true;
+    if (i_ == BEGIN) {
+        dir_ = DIR_FORWARD;
         floatTo(1, ri_);
     }
 
@@ -137,8 +148,8 @@ void SeqCounter::nextFolded()
     floatTo(0, i_);
 
     // update
-    if (i_ == LAST && !up_) { // last element in folded sequence
-        up_ = true;
+    if (i_ == LAST && dir_ == DIR_BACK) { // last element in folded sequence
+        dir_ = DIR_FORWARD;
 
         if (NR == R_INFINITE || ri_ < NR) {
             if (++ri_ == NR) { // should stop
@@ -149,15 +160,15 @@ void SeqCounter::nextFolded()
 
         i_ = from_->value();
     } else if (i_ == to_->value()) { // going down
-        up_ = false;
+        dir_ = DIR_BACK;
 
         if (RANGE > 0)
             i_ = to_->value() - 1;
         else if (RANGE < 0)
             i_ = to_->value() + 1;
     } else {
-        const bool up = (RANGE > 0 && up_) || (RANGE < 0 && !up_);
-        const bool down = (RANGE > 0 && !up_) || (RANGE < 0 && up_);
+        const bool up = (RANGE > 0 && dir_) || (RANGE < 0 && !dir_);
+        const bool down = (RANGE > 0 && !dir_) || (RANGE < 0 && dir_);
 
         if (up)
             i_++;
@@ -183,7 +194,7 @@ void SeqCounter::nextConst()
 void SeqCounter::reset()
 {
     done_ = false;
-    up_ = true;
+    dir_ = DIR_FORWARD;
     ri_ = 0;
     i_ = from_->value();
 }

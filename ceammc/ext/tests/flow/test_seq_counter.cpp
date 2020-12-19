@@ -279,28 +279,28 @@ TEST_CASE("seq.counter", "[externals]")
             REQUIRE(t.messagesAt(1) == ML { i(0), i(1), done });
         }
 
-//        SECTION("@fold positive")
-//        {
+        SECTION("@fold positive")
+        {
 
-//            TExt t("counter", LA("@from", 1, "@to", 2, "@r", 2, "@fold"));
-//            REQUIRE_PROPERTY(t, @mode, "fold");
+            TExt t("counter", LA("@from", 1, "@to", 2, "@r", 2, "@fold"));
+            REQUIRE_PROPERTY(t, @mode, "fold");
 
-//            t.bang();
-//            REQUIRE(t.messagesAt(0) == ML { M(1) });
-//            REQUIRE(t.messagesAt(1) == ML { i(0) });
+            t.bang();
+            REQUIRE(t.messagesAt(0) == ML { M(1) });
+            REQUIRE(t.messagesAt(1) == ML { i(0) });
 
-//            t.sendBang();
-//            REQUIRE(t.messagesAt(0) == ML { M(1), M(2) });
-//            REQUIRE(t.messagesAt(1) == ML { i(0) });
+            t.sendBang();
+            REQUIRE(t.messagesAt(0) == ML { M(1), M(2) });
+            REQUIRE(t.messagesAt(1) == ML { i(0) });
 
-//            t.sendBang();
-//            REQUIRE(t.messagesAt(0) == ML { M(1), M(2), M(1) });
-//            REQUIRE(t.messagesAt(1) == ML { i(0), i(1) });
+            t.sendBang();
+            REQUIRE(t.messagesAt(0) == ML { M(1), M(2), M(1) });
+            REQUIRE(t.messagesAt(1) == ML { i(0), i(1) });
 
-//            t.sendBang();
-//            REQUIRE(t.messagesAt(0) == ML { M(1), M(2), M(1), M(2) });
-//            REQUIRE(t.messagesAt(1) == ML { i(0), i(1), done });
-//        }
+            t.sendBang();
+            REQUIRE(t.messagesAt(0) == ML { M(1), M(2), M(1), M(2) });
+            REQUIRE(t.messagesAt(1) == ML { i(0), i(1), done });
+        }
 
         SECTION("@fold positive")
         {
@@ -342,6 +342,28 @@ TEST_CASE("seq.counter", "[externals]")
 
             t.sendBang();
             REQUIRE(t.messagesAt(0) == ML { M(1), M(2), M(3), M(2), M(1), M(2), M(3), M(2) });
+            REQUIRE(t.messagesAt(1) == ML { i(0), i(1), done });
+        }
+
+        SECTION("@fold negative")
+        {
+            TExt t("counter", LA("@from", 2, "@to", 1, "@r", 2, "@fold"));
+            REQUIRE_PROPERTY(t, @mode, "fold");
+
+            t.bang();
+            REQUIRE(t.messagesAt(0) == ML { M(2) });
+            REQUIRE(t.messagesAt(1) == ML { i(0) });
+
+            t.sendBang();
+            REQUIRE(t.messagesAt(0) == ML { M(2), M(1) });
+            REQUIRE(t.messagesAt(1) == ML { i(0) });
+
+            t.sendBang();
+            REQUIRE(t.messagesAt(0) == ML { M(2), M(1), M(2) });
+            REQUIRE(t.messagesAt(1) == ML { i(0), i(1) });
+
+            t.sendBang();
+            REQUIRE(t.messagesAt(0) == ML { M(2), M(1), M(2), M(1) });
             REQUIRE(t.messagesAt(1) == ML { i(0), i(1), done });
         }
 
