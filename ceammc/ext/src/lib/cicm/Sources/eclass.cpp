@@ -1140,7 +1140,7 @@ bool ebox_attr_float_setter(t_ebox* x, t_eattr* a, t_float value, size_t idx, t_
         pval[idx] = value;
         return true;
     } else if (type == s_double) {
-        auto* pval = reinterpret_cast<float*>(ptr);
+        auto* pval = reinterpret_cast<double*>(ptr);
         pval[idx] = value;
         return true;
     } else {
@@ -1339,8 +1339,10 @@ int eclass_attr_setter(t_object* x, t_symbol* s, int argc, t_atom* argv)
 
                 const auto N = std::min<size_t>(size, argc);
                 for (size_t j = (op == EATTR_OP_ASSIGN) ? 0 : 1; j < N; j++) {
-                    if (atom_gettype(argv + j) == A_FLOAT)
-                        ebox_attr_float_setter(z, attr, atom_getfloat(argv + j), j, op);
+                    if (atom_gettype(argv + j) == A_FLOAT) {
+                        if(!ebox_attr_float_setter(z, attr, atom_getfloat(argv + j), j, op))
+                            pd_error(z, "can't set property: %s", s->s_name);
+                    }
                 }
             } else if (type == &s_symbol) {
                 t_symbol** pointor = (t_symbol**)point;

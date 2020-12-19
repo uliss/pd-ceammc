@@ -135,6 +135,7 @@ TEST_CASE("ui.slider2d", "[ui.slider2d]")
         t->setProperty(gensym("x_right"), LF(1));
         t->setProperty(gensym("y_top"), LF(10));
         t->setProperty(gensym("y_bottom"), LF(10));
+        REQUIRE_UI_FLOAT_PROPERTY(t, "y_bottom", 10);
 
         t->setProperty(gensym("x_value"), LF(1));
         REQUIRE(t->realXValue() == Approx(1));
