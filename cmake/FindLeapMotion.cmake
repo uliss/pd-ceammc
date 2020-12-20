@@ -12,7 +12,7 @@
 #   LEAPMOTION_ROOT               ... if set, the libraries are exclusively searched
 #                               under this path
 
-#If environment variable MODPLUG_DIR is specified, it has same effect as MODPLUG_ROOT
+#If environment variable LEAPMOTION_DIR is specified, it has same effect as LEAPMOTION_ROOT
 if(NOT LEAPMOTION_ROOT AND ENV{LEAPMOTION_DIR})
     set(LEAPMOTION_ROOT $ENV{LEAPMOTION_DIR})
 endif()
