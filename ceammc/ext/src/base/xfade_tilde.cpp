@@ -14,38 +14,34 @@
 #include "xfade_tilde.h"
 #include "ceammc_convert.h"
 #include "ceammc_factory.h"
+#include "ceammc_property_callback.h"
 
 #include <algorithm>
 
 static t_symbol* SYM_POW;
 static t_symbol* SYM_LIN;
 
-static const int DEFAULT_INLETS = 2;
-static const t_float DEFAULT_SMOOTH_MS = 20;
-static const int MIN_INLETS = 2;
-static const int MAX_INLETS = 16;
+constexpr t_float DEFAULT_SMOOTH_MS = 20;
+constexpr size_t DEF_NCHAN = 2;
+constexpr size_t MIN_NCHAN = 2;
+constexpr size_t MAX_NCHAN = 16;
 
-static int maxInlets(const PdArgs& args)
+static size_t inMultiple(const PdArgs& args)
 {
     if (args.flags & XFADE_STEREO)
-        return MAX_INLETS / 2;
+        return 2;
     else
-        return MAX_INLETS;
+        return 1;
 }
 
 XFadeTilde::XFadeTilde(const PdArgs& args)
     : SoundExternal(args)
-    , n_(clip<int>(positionalFloatArgument(0, DEFAULT_INLETS), MIN_INLETS, maxInlets(args)))
     , smooth_ms_(DEFAULT_SMOOTH_MS)
     , prop_type_(nullptr)
 {
-    for (size_t i = 1; i < n_; i++)
+    const size_t N = positionalConstant<DEF_NCHAN, MIN_NCHAN, MAX_NCHAN>(0);
+    for (size_t i = 1; i < N * inMultiple(args); i++)
         createSignalInlet();
-
-    if (args.flags & XFADE_STEREO) {
-        for (size_t i = 0; i < n_; i++)
-            createSignalInlet();
-    }
 
     createInlet();
 
@@ -53,22 +49,22 @@ XFadeTilde::XFadeTilde(const PdArgs& args)
     if (args.flags & XFADE_STEREO)
         createSignalOutlet();
 
-    prop_type_ = new SymbolEnumProperty("@type", SYM_POW);
-    prop_type_->appendEnum(SYM_LIN);
-    createProperty(prop_type_);
+    prop_type_ = new SymbolEnumProperty("@type", { SYM_POW, SYM_LIN });
+    addProperty(prop_type_);
 
-    createProperty(new SymbolEnumAlias("@pow", prop_type_, SYM_POW));
-    createProperty(new SymbolEnumAlias("@lin", prop_type_, SYM_LIN));
+    addProperty(new SymbolEnumAlias("@pow", prop_type_, SYM_POW));
+    addProperty(new SymbolEnumAlias("@lin", prop_type_, SYM_LIN));
 
     {
-        auto p = createCbProperty("@smooth", &XFadeTilde::propSmooth, &XFadeTilde::propSetSmooth);
-        p->info().setType(PropertyInfoType::FLOAT);
-        p->info().setDefault(DEFAULT_SMOOTH_MS);
-        p->info().setMin(1);
-        p->info().setUnits(PropertyInfoUnits::MSEC);
+        Property* p = createCbFloatProperty(
+            "@smooth",
+            [this]() -> t_float { return smooth_ms_; },
+            [this](t_float f) -> bool { smooth_ms_ = f; return true; });
+        p->setUnitsMs();
+        p->setFloatCheck(PropValueConstraints::GREATER_EQUAL, 1);
     }
 
-    gain_.assign(n_, t_smooth(0));
+    gain_.assign(N, t_smooth(0));
     gain_[0].setTargetValue(1);
 }
 
@@ -78,17 +74,18 @@ void XFadeTilde::setupDSP(t_signal** in)
 
     const double SR = samplerate();
 
-    for (size_t i = 0; i < n_; i++)
+    for (size_t i = 0; i < gain_.size(); i++)
         gain_[i].setDurationMs(smooth_ms_, SR);
 }
 
 void XFadeTilde::processBlock(const t_sample** in, t_sample** out)
 {
     const size_t BS = blockSize();
+    const size_t N = gain_.size();
 
     for (size_t i = 0; i < BS; i++) {
         t_sample v = 0;
-        for (size_t j = 0; j < n_; j++) {
+        for (size_t j = 0; j < N; j++) {
             t_sample s = gain_[j]() * in[j][i];
             v += s;
         }
@@ -123,28 +120,19 @@ void XFadeTilde::onInlet(size_t n, const AtomList& lst)
         return;
     }
 
-    for (size_t i = 0; i < n_; i++) {
-        if (v >= i && v < (i + 1) && (i + 1) < n_) {
+    const size_t N = gain_.size();
+    for (size_t i = 0; i < N; i++) {
+        if (v >= i && v < (i + 1) && (i + 1) < N) {
             t_float k = fn_it->second(v, i);
             gain_[i].setTargetValue(1 - k);
             gain_[i + 1].setTargetValue(k);
             i++;
-        } else if (v >= i && (i + 1) == n_) {
+        } else if (v >= i && (i + 1) == N) {
             gain_[i].setTargetValue(1);
         } else {
             gain_[i].setTargetValue(0);
         }
     }
-}
-
-AtomList XFadeTilde::propSmooth() const
-{
-    return Atom(smooth_ms_);
-}
-
-void XFadeTilde::propSetSmooth(const AtomList& ms)
-{
-    smooth_ms_ = std::max<t_float>(1, ms.floatAt(0, DEFAULT_SMOOTH_MS));
 }
 
 std::vector<float> XFadeTilde::gains() const
@@ -163,4 +151,10 @@ void setup_base_xfade_tilde()
     SYM_LIN = gensym("lin");
 
     SoundExternalFactory<XFadeTilde> obj("xfade~");
+
+    obj.setDescription("multi signal crossfade");
+    obj.addAuthor("Serge Poltavsky");
+    obj.setKeywords({ "crossfade", "xfade" });
+    obj.setCategory("base");
+    obj.setSinceVersion(0, 6);
 }

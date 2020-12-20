@@ -21,13 +21,13 @@ namespace ceammc {
 
 MathSyncBase::MathSyncBase(FloatBinFn fn, const PdArgs& args)
     : BaseObject(args)
-    , prop_int_(nullptr)
     , v1_(0)
-    , v2_(positionalFloatArgument(0, 0))
+    , v2_(parsedPosArgs().floatAt(0, 0))
     , fn_(fn)
+    , prop_int_(nullptr)
 {
     prop_int_ = new FlagProperty("@int");
-    createProperty(prop_int_);
+    addProperty(prop_int_);
 
     createInlet();
     createOutlet();
@@ -80,7 +80,7 @@ void MathSyncBase::onList(const AtomList& lst)
 MathSyncBool::MathSyncBool(BoolBinFn fn, const PdArgs& args)
     : BaseObject(args)
     , v1_(false)
-    , v2_(checkBool(positionalFloatArgument(0, 0)))
+    , v2_(parsedPosArgs().boolAt(0, false))
     , fn_(fn)
 {
     createInlet();
@@ -124,9 +124,9 @@ void MathSyncBool::onList(const AtomList& lst)
 
 bool MathSyncBool::checkBool(t_float f) const
 {
-    if (f == 0)
+    if (std::equal_to<t_float>()(f, 0))
         return false;
-    else if (f == 1)
+    else if (std::equal_to<t_float>()(f, 1))
         return true;
     else {
         OBJ_ERR << "1 or 0 expected";

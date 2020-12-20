@@ -1,0 +1,24 @@
+#N canvas 1038 594 575 229 12;
+#X obj 45 91 hoa.process~ 2 hoa_test_10 planewaves;
+#X obj 45 59 sig~ 1;
+#X obj 45 117 ui.number~ @size 80 15 @receive "(null)" @send "(null)"
+@pinned 0 @background_color 0.3 0.3 0.3 1 @border_color 0 0 0 1 @label_color
+0 0 0 1 @text_color 0.9 0.9 0.9 1 @active_color 0 0.75 1 1 @fontname
+"Helvetica" @fontweight "normal" @fontslant "roman" @fontsize 11 @label
+"(null)" @label_inner 0 @label_side "top" @label_align "left" @label_valign
+"top" @label_margins 0 0 @decimal 6 @interval 50;
+#X obj 301 117 ui.number~ @size 80 15 @receive "(null)" @send "(null)"
+@pinned 0 @background_color 0.3 0.3 0.3 1 @border_color 0 0 0 1 @label_color
+0 0 0 1 @text_color 0.9 0.9 0.9 1 @active_color 0 0.75 1 1 @fontname
+"Helvetica" @fontweight "normal" @fontslant "roman" @fontsize 11 @label
+"(null)" @label_inner 0 @label_side "top" @label_align "left" @label_valign
+"top" @label_margins 0 0 @decimal 6 @interval 50;
+#X obj 301 59 sig~ 3;
+#X floatatom 45 29 5 0 0 0 - - -;
+#X floatatom 301 31 5 0 0 0 - - -;
+#X connect 0 0 2 0;
+#X connect 0 1 3 0;
+#X connect 1 0 0 0;
+#X connect 4 0 0 1;
+#X connect 5 0 1 0;
+#X connect 6 0 4 0;

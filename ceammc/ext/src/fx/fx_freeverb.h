@@ -1,6 +1,6 @@
 /* ------------------------------------------------------------
 name: "fx.freeverb"
-Code generated with Faust 2.22.1 (https://faust.grame.fr)
+Code generated with Faust 2.28.6 (https://faust.grame.fr)
 Compilation options: -lang cpp -scal -ftz 0
 ------------------------------------------------------------ */
 
@@ -14,7 +14,7 @@ Compilation options: -lang cpp -scal -ftz 0
 #include <memory>
 #include <string>
 
-/************************** BEGIN dsp.h **************************/
+/************************** BEGIN fx_freeverb_dsp.h **************************/
 /************************************************************************
  FAUST Architecture File
  Copyright (C) 2003-2017 GRAME, Centre National de Creation Musicale
@@ -48,7 +48,7 @@ Compilation options: -lang cpp -scal -ftz 0
 #define FAUSTFLOAT float
 #endif
 
-class UI;
+struct UI;
 struct Meta;
 
 /**
@@ -68,12 +68,12 @@ struct dsp_memory_manager {
 * Signal processor definition.
 */
 
-class dsp {
+class fx_freeverb_dsp {
 
     public:
 
-        dsp() {}
-        virtual ~dsp() {}
+        fx_freeverb_dsp() {}
+        virtual ~fx_freeverb_dsp() {}
 
         /* Return instance number of audio inputs */
         virtual int getNumInputs() = 0;
@@ -83,7 +83,7 @@ class dsp {
     
         /**
          * Trigger the ui_interface parameter with instance specific calls
-         * to 'addBtton', 'addVerticalSlider'... in order to build the UI.
+         * to 'openTabBox', 'addButton', 'addVerticalSlider'... in order to build the UI.
          *
          * @param ui_interface - the user interface builder
          */
@@ -126,7 +126,7 @@ class dsp {
          *
          * @return a copy of the instance on success, otherwise a null pointer.
          */
-        virtual dsp* clone() = 0;
+        virtual fx_freeverb_dsp* clone() = 0;
     
         /**
          * Trigger the Meta* parameter with instance specific calls to 'declare' (key, value) metadata.
@@ -162,15 +162,15 @@ class dsp {
  * Generic DSP decorator.
  */
 
-class decorator_dsp : public dsp {
+class decorator_dsp : public fx_freeverb_dsp {
 
     protected:
 
-        dsp* fDSP;
+        fx_freeverb_dsp* fDSP;
 
     public:
 
-        decorator_dsp(dsp* dsp = nullptr):fDSP(dsp) {}
+        decorator_dsp(fx_freeverb_dsp* fx_freeverb_dsp = nullptr):fDSP(fx_freeverb_dsp) {}
         virtual ~decorator_dsp() { delete fDSP; }
 
         virtual int getNumInputs() { return fDSP->getNumInputs(); }
@@ -210,7 +210,7 @@ class dsp_factory {
         virtual std::vector<std::string> getLibraryList() = 0;
         virtual std::vector<std::string> getIncludePathnames() = 0;
     
-        virtual dsp* createDSPInstance() = 0;
+        virtual fx_freeverb_dsp* createDSPInstance() = 0;
     
         virtual void setMemoryManager(dsp_memory_manager* manager) = 0;
         virtual dsp_memory_manager* getMemoryManager() = 0;
@@ -234,11 +234,11 @@ class dsp_factory {
 #endif
 
 #endif
-/**************************  END  dsp.h **************************/
+/**************************  END  fx_freeverb_dsp.h **************************/
 /************************** BEGIN UI.h **************************/
 /************************************************************************
  FAUST Architecture File
- Copyright (C) 2003-2017 GRAME, Centre National de Creation Musicale
+ Copyright (C) 2003-2020 GRAME, Centre National de Creation Musicale
  ---------------------------------------------------------------------
  This Architecture section is free software; you can redistribute it
  and/or modify it under the terms of the GNU General Public License
@@ -276,48 +276,44 @@ class dsp_factory {
 struct Soundfile;
 
 template <typename REAL>
-class UIReal
+struct UIReal
 {
+    UIReal() {}
+    virtual ~UIReal() {}
     
-    public:
-        
-        UIReal() {}
-        virtual ~UIReal() {}
-        
-        // -- widget's layouts
-        
-        virtual void openTabBox(const char* label) = 0;
-        virtual void openHorizontalBox(const char* label) = 0;
-        virtual void openVerticalBox(const char* label) = 0;
-        virtual void closeBox() = 0;
-        
-        // -- active widgets
-        
-        virtual void addButton(const char* label, REAL* zone) = 0;
-        virtual void addCheckButton(const char* label, REAL* zone) = 0;
-        virtual void addVerticalSlider(const char* label, REAL* zone, REAL init, REAL min, REAL max, REAL step) = 0;
-        virtual void addHorizontalSlider(const char* label, REAL* zone, REAL init, REAL min, REAL max, REAL step) = 0;
-        virtual void addNumEntry(const char* label, REAL* zone, REAL init, REAL min, REAL max, REAL step) = 0;
-        
-        // -- passive widgets
-        
-        virtual void addHorizontalBargraph(const char* label, REAL* zone, REAL min, REAL max) = 0;
-        virtual void addVerticalBargraph(const char* label, REAL* zone, REAL min, REAL max) = 0;
-        
-        // -- soundfiles
-        
-        virtual void addSoundfile(const char* label, const char* filename, Soundfile** sf_zone) = 0;
-        
-        // -- metadata declarations
-        
-        virtual void declare(REAL* zone, const char* key, const char* val) {}
+    // -- widget's layouts
+    
+    virtual void openTabBox(const char* label) = 0;
+    virtual void openHorizontalBox(const char* label) = 0;
+    virtual void openVerticalBox(const char* label) = 0;
+    virtual void closeBox() = 0;
+    
+    // -- active widgets
+    
+    virtual void addButton(const char* label, REAL* zone) = 0;
+    virtual void addCheckButton(const char* label, REAL* zone) = 0;
+    virtual void addVerticalSlider(const char* label, REAL* zone, REAL init, REAL min, REAL max, REAL step) = 0;
+    virtual void addHorizontalSlider(const char* label, REAL* zone, REAL init, REAL min, REAL max, REAL step) = 0;
+    virtual void addNumEntry(const char* label, REAL* zone, REAL init, REAL min, REAL max, REAL step) = 0;
+    
+    // -- passive widgets
+    
+    virtual void addHorizontalBargraph(const char* label, REAL* zone, REAL min, REAL max) = 0;
+    virtual void addVerticalBargraph(const char* label, REAL* zone, REAL min, REAL max) = 0;
+    
+    // -- soundfiles
+    
+    virtual void addSoundfile(const char* label, const char* filename, Soundfile** sf_zone) = 0;
+    
+    // -- metadata declarations
+    
+    virtual void declare(REAL* zone, const char* key, const char* val) {}
 };
 
 struct UI : public UIReal<FAUSTFLOAT>
 {
-
-        UI() {}
-        virtual ~UI() {}
+    UI() {}
+    virtual ~UI() {}
 };
 
 #endif
@@ -486,7 +482,7 @@ using namespace ceammc::faust;
 
 // clang-format off
 #ifndef FAUST_MACRO
-struct fx_freeverb : public dsp {
+struct fx_freeverb : public fx_freeverb_dsp {
 };
 #endif
 // clang-format on
@@ -511,7 +507,7 @@ struct fx_freeverb : public dsp {
 #define exp10 __exp10
 #endif
 
-class fx_freeverb : public dsp {
+class fx_freeverb : public fx_freeverb_dsp {
 	
  private:
 	
@@ -519,55 +515,63 @@ class fx_freeverb : public dsp {
 	FAUSTFLOAT fHslider0;
 	float fRec0[2];
 	FAUSTFLOAT fHslider1;
-	float fRec11[2];
-	float fRec10[2];
-	FAUSTFLOAT fHslider2;
-	float fRec12[2];
-	int IOTA;
-	float fVec0[8192];
 	int fSampleRate;
 	float fConst0;
-	int iConst1;
-	float fRec9[2];
+	float fConst1;
+	FAUSTFLOAT fCheckbox1;
+	FAUSTFLOAT fHslider2;
+	float fRec12[2];
+	FAUSTFLOAT fHslider3;
+	float fRec11[2];
+	float fRec10[2];
+	FAUSTFLOAT fHslider4;
 	float fRec14[2];
-	float fVec1[8192];
-	int iConst2;
+	FAUSTFLOAT fHslider5;
 	float fRec13[2];
-	float fRec16[2];
-	float fVec2[8192];
-	int iConst3;
 	float fRec15[2];
-	float fRec18[2];
-	float fVec3[8192];
-	int iConst4;
+	int IOTA;
+	float fVec0[8192];
+	int iConst2;
+	float fRec9[2];
 	float fRec17[2];
-	float fRec20[2];
-	float fVec4[8192];
-	int iConst5;
+	float fVec1[8192];
+	int iConst3;
+	float fRec16[2];
 	float fRec19[2];
-	float fRec22[2];
-	float fVec5[8192];
-	int iConst6;
+	float fVec2[8192];
+	int iConst4;
+	float fRec18[2];
 	float fRec21[2];
-	float fRec24[2];
-	float fVec6[8192];
-	int iConst7;
+	float fVec3[8192];
+	int iConst5;
+	float fRec20[2];
 	float fRec23[2];
-	float fRec26[2];
-	float fVec7[8192];
-	int iConst8;
+	float fVec4[8192];
+	int iConst6;
+	float fRec22[2];
 	float fRec25[2];
-	float fVec8[2048];
+	float fVec5[8192];
+	int iConst7;
+	float fRec24[2];
+	float fRec27[2];
+	float fVec6[8192];
+	int iConst8;
+	float fRec26[2];
+	float fRec29[2];
+	float fVec7[8192];
 	int iConst9;
+	float fRec28[2];
+	float fVec8[2048];
+	int iConst10;
 	float fRec7[2];
 	float fVec9[2048];
-	int iConst10;
+	int iConst11;
 	float fRec5[2];
 	float fVec10[2048];
-	int iConst11;
+	int iConst12;
 	float fRec3[2];
 	float fVec11[1024];
-	int iConst12;
+	int iConst13;
 	float fRec1[2];
 	
  public:
@@ -576,23 +580,25 @@ class fx_freeverb : public dsp {
 		m->declare("basics.lib/name", "Faust Basic Element Library");
 		m->declare("basics.lib/version", "0.1");
 		m->declare("ceammc.lib/name", "Ceammc PureData misc utils");
-		m->declare("ceammc.lib/version", "0.1.1");
+		m->declare("ceammc.lib/version", "0.1.2");
 		m->declare("ceammc_ui.lib/name", "CEAMMC faust default UI elements");
-		m->declare("ceammc_ui.lib/version", "0.1.1");
+		m->declare("ceammc_ui.lib/version", "0.1.2");
 		m->declare("delays.lib/name", "Faust Delay Library");
 		m->declare("delays.lib/version", "0.1");
 		m->declare("filename", "fx_freeverb.dsp");
 		m->declare("filters.lib/allpass_comb:author", "Julius O. Smith III");
 		m->declare("filters.lib/allpass_comb:copyright", "Copyright (C) 2003-2019 by Julius O. Smith III <jos@ccrma.stanford.edu>");
 		m->declare("filters.lib/allpass_comb:license", "MIT-style STK-4.3 license");
-		m->declare("filters.lib/lowpass0_highpass1", "Copyright (C) 2003-2019 by Julius O. Smith III <jos@ccrma.stanford.edu>");
+		m->declare("filters.lib/lowpass0_highpass1", "MIT-style STK-4.3 license");
 		m->declare("filters.lib/name", "Faust Filters Library");
 		m->declare("maths.lib/author", "GRAME");
 		m->declare("maths.lib/copyright", "GRAME");
 		m->declare("maths.lib/license", "LGPL with exception");
 		m->declare("maths.lib/name", "Faust Math Library");
-		m->declare("maths.lib/version", "2.1");
+		m->declare("maths.lib/version", "2.3");
 		m->declare("name", "fx.freeverb");
+		m->declare("platform.lib/name", "Generic Platform Library");
+		m->declare("platform.lib/version", "0.1");
 		m->declare("reverbs.lib/name", "Faust Reverb Library");
 		m->declare("reverbs.lib/version", "0.0");
 		m->declare("signals.lib/name", "Faust Signal Routing Library");
@@ -640,133 +646,185 @@ class fx_freeverb : public dsp {
 	virtual void instanceConstants(int sample_rate) {
 		fSampleRate = sample_rate;
 		fConst0 = std::min<float>(192000.0f, std::max<float>(1.0f, float(fSampleRate)));
-		iConst1 = int((0.0253061224f * fConst0));
-		iConst2 = int((0.0269387756f * fConst0));
-		iConst3 = int((0.0289569162f * fConst0));
-		iConst4 = int((0.0307482984f * fConst0));
-		iConst5 = int((0.0322448984f * fConst0));
-		iConst6 = int((0.033809524f * fConst0));
-		iConst7 = int((0.0353061222f * fConst0));
-		iConst8 = int((0.0366666652f * fConst0));
-		iConst9 = std::min<int>(1024, std::max<int>(0, (int((0.0126077095f * fConst0)) + -1)));
-		iConst10 = std::min<int>(1024, std::max<int>(0, (int((0.00999999978f * fConst0)) + -1)));
-		iConst11 = std::min<int>(1024, std::max<int>(0, (int((0.00773242628f * fConst0)) + -1)));
-		iConst12 = std::min<int>(1024, std::max<int>(0, (int((0.00510204071f * fConst0)) + -1)));
+		fConst1 = (1.0f / fConst0);
+		iConst2 = int((0.0253061224f * fConst0));
+		iConst3 = int((0.0269387756f * fConst0));
+		iConst4 = int((0.0289569162f * fConst0));
+		iConst5 = int((0.0307482984f * fConst0));
+		iConst6 = int((0.0322448984f * fConst0));
+		iConst7 = int((0.033809524f * fConst0));
+		iConst8 = int((0.0353061222f * fConst0));
+		iConst9 = int((0.0366666652f * fConst0));
+		iConst10 = std::min<int>(1024, std::max<int>(0, (int((0.0126077095f * fConst0)) + -1)));
+		iConst11 = std::min<int>(1024, std::max<int>(0, (int((0.00999999978f * fConst0)) + -1)));
+		iConst12 = std::min<int>(1024, std::max<int>(0, (int((0.00773242628f * fConst0)) + -1)));
+		iConst13 = std::min<int>(1024, std::max<int>(0, (int((0.00510204071f * fConst0)) + -1)));
 	}
 	
 	virtual void instanceResetUserInterface() {
 		fCheckbox0 = FAUSTFLOAT(0.0f);
 		fHslider0 = FAUSTFLOAT(0.33000000000000002f);
-		fHslider1 = FAUSTFLOAT(0.5f);
+		fHslider1 = FAUSTFLOAT(100.0f);
+		fCheckbox1 = FAUSTFLOAT(0.0f);
 		fHslider2 = FAUSTFLOAT(0.5f);
+		fHslider3 = FAUSTFLOAT(0.0001f);
+		fHslider4 = FAUSTFLOAT(0.5f);
+		fHslider5 = FAUSTFLOAT(0.999f);
 	}
 	
 	virtual void instanceClear() {
+		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l0 = 0; (l0 < 2); l0 = (l0 + 1)) {
 			fRec0[l0] = 0.0f;
 		}
+		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l1 = 0; (l1 < 2); l1 = (l1 + 1)) {
-			fRec11[l1] = 0.0f;
+			fRec12[l1] = 0.0f;
 		}
+		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l2 = 0; (l2 < 2); l2 = (l2 + 1)) {
-			fRec10[l2] = 0.0f;
+			fRec11[l2] = 0.0f;
 		}
+		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l3 = 0; (l3 < 2); l3 = (l3 + 1)) {
-			fRec12[l3] = 0.0f;
+			fRec10[l3] = 0.0f;
+		}
+		#pragma clang loop vectorize(enable) interleave(enable)
+		for (int l4 = 0; (l4 < 2); l4 = (l4 + 1)) {
+			fRec14[l4] = 0.0f;
+		}
+		#pragma clang loop vectorize(enable) interleave(enable)
+		for (int l5 = 0; (l5 < 2); l5 = (l5 + 1)) {
+			fRec13[l5] = 0.0f;
+		}
+		#pragma clang loop vectorize(enable) interleave(enable)
+		for (int l6 = 0; (l6 < 2); l6 = (l6 + 1)) {
+			fRec15[l6] = 0.0f;
 		}
 		IOTA = 0;
-		for (int l4 = 0; (l4 < 8192); l4 = (l4 + 1)) {
-			fVec0[l4] = 0.0f;
-		}
-		for (int l5 = 0; (l5 < 2); l5 = (l5 + 1)) {
-			fRec9[l5] = 0.0f;
-		}
-		for (int l6 = 0; (l6 < 2); l6 = (l6 + 1)) {
-			fRec14[l6] = 0.0f;
-		}
+		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l7 = 0; (l7 < 8192); l7 = (l7 + 1)) {
-			fVec1[l7] = 0.0f;
+			fVec0[l7] = 0.0f;
 		}
+		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l8 = 0; (l8 < 2); l8 = (l8 + 1)) {
-			fRec13[l8] = 0.0f;
+			fRec9[l8] = 0.0f;
 		}
+		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l9 = 0; (l9 < 2); l9 = (l9 + 1)) {
-			fRec16[l9] = 0.0f;
+			fRec17[l9] = 0.0f;
 		}
+		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l10 = 0; (l10 < 8192); l10 = (l10 + 1)) {
-			fVec2[l10] = 0.0f;
+			fVec1[l10] = 0.0f;
 		}
+		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l11 = 0; (l11 < 2); l11 = (l11 + 1)) {
-			fRec15[l11] = 0.0f;
+			fRec16[l11] = 0.0f;
 		}
+		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l12 = 0; (l12 < 2); l12 = (l12 + 1)) {
-			fRec18[l12] = 0.0f;
+			fRec19[l12] = 0.0f;
 		}
+		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l13 = 0; (l13 < 8192); l13 = (l13 + 1)) {
-			fVec3[l13] = 0.0f;
+			fVec2[l13] = 0.0f;
 		}
+		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l14 = 0; (l14 < 2); l14 = (l14 + 1)) {
-			fRec17[l14] = 0.0f;
+			fRec18[l14] = 0.0f;
 		}
+		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l15 = 0; (l15 < 2); l15 = (l15 + 1)) {
-			fRec20[l15] = 0.0f;
+			fRec21[l15] = 0.0f;
 		}
+		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l16 = 0; (l16 < 8192); l16 = (l16 + 1)) {
-			fVec4[l16] = 0.0f;
+			fVec3[l16] = 0.0f;
 		}
+		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l17 = 0; (l17 < 2); l17 = (l17 + 1)) {
-			fRec19[l17] = 0.0f;
+			fRec20[l17] = 0.0f;
 		}
+		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l18 = 0; (l18 < 2); l18 = (l18 + 1)) {
-			fRec22[l18] = 0.0f;
+			fRec23[l18] = 0.0f;
 		}
+		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l19 = 0; (l19 < 8192); l19 = (l19 + 1)) {
-			fVec5[l19] = 0.0f;
+			fVec4[l19] = 0.0f;
 		}
+		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l20 = 0; (l20 < 2); l20 = (l20 + 1)) {
-			fRec21[l20] = 0.0f;
+			fRec22[l20] = 0.0f;
 		}
+		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l21 = 0; (l21 < 2); l21 = (l21 + 1)) {
-			fRec24[l21] = 0.0f;
+			fRec25[l21] = 0.0f;
 		}
+		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l22 = 0; (l22 < 8192); l22 = (l22 + 1)) {
-			fVec6[l22] = 0.0f;
+			fVec5[l22] = 0.0f;
 		}
+		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l23 = 0; (l23 < 2); l23 = (l23 + 1)) {
-			fRec23[l23] = 0.0f;
+			fRec24[l23] = 0.0f;
 		}
+		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l24 = 0; (l24 < 2); l24 = (l24 + 1)) {
-			fRec26[l24] = 0.0f;
+			fRec27[l24] = 0.0f;
 		}
+		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l25 = 0; (l25 < 8192); l25 = (l25 + 1)) {
-			fVec7[l25] = 0.0f;
+			fVec6[l25] = 0.0f;
 		}
+		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l26 = 0; (l26 < 2); l26 = (l26 + 1)) {
-			fRec25[l26] = 0.0f;
+			fRec26[l26] = 0.0f;
 		}
-		for (int l27 = 0; (l27 < 2048); l27 = (l27 + 1)) {
-			fVec8[l27] = 0.0f;
+		#pragma clang loop vectorize(enable) interleave(enable)
+		for (int l27 = 0; (l27 < 2); l27 = (l27 + 1)) {
+			fRec29[l27] = 0.0f;
 		}
-		for (int l28 = 0; (l28 < 2); l28 = (l28 + 1)) {
-			fRec7[l28] = 0.0f;
+		#pragma clang loop vectorize(enable) interleave(enable)
+		for (int l28 = 0; (l28 < 8192); l28 = (l28 + 1)) {
+			fVec7[l28] = 0.0f;
 		}
-		for (int l29 = 0; (l29 < 2048); l29 = (l29 + 1)) {
-			fVec9[l29] = 0.0f;
+		#pragma clang loop vectorize(enable) interleave(enable)
+		for (int l29 = 0; (l29 < 2); l29 = (l29 + 1)) {
+			fRec28[l29] = 0.0f;
 		}
-		for (int l30 = 0; (l30 < 2); l30 = (l30 + 1)) {
-			fRec5[l30] = 0.0f;
+		#pragma clang loop vectorize(enable) interleave(enable)
+		for (int l30 = 0; (l30 < 2048); l30 = (l30 + 1)) {
+			fVec8[l30] = 0.0f;
 		}
-		for (int l31 = 0; (l31 < 2048); l31 = (l31 + 1)) {
-			fVec10[l31] = 0.0f;
+		#pragma clang loop vectorize(enable) interleave(enable)
+		for (int l31 = 0; (l31 < 2); l31 = (l31 + 1)) {
+			fRec7[l31] = 0.0f;
 		}
-		for (int l32 = 0; (l32 < 2); l32 = (l32 + 1)) {
-			fRec3[l32] = 0.0f;
+		#pragma clang loop vectorize(enable) interleave(enable)
+		for (int l32 = 0; (l32 < 2048); l32 = (l32 + 1)) {
+			fVec9[l32] = 0.0f;
 		}
-		for (int l33 = 0; (l33 < 1024); l33 = (l33 + 1)) {
-			fVec11[l33] = 0.0f;
+		#pragma clang loop vectorize(enable) interleave(enable)
+		for (int l33 = 0; (l33 < 2); l33 = (l33 + 1)) {
+			fRec5[l33] = 0.0f;
 		}
-		for (int l34 = 0; (l34 < 2); l34 = (l34 + 1)) {
-			fRec1[l34] = 0.0f;
+		#pragma clang loop vectorize(enable) interleave(enable)
+		for (int l34 = 0; (l34 < 2048); l34 = (l34 + 1)) {
+			fVec10[l34] = 0.0f;
+		}
+		#pragma clang loop vectorize(enable) interleave(enable)
+		for (int l35 = 0; (l35 < 2); l35 = (l35 + 1)) {
+			fRec3[l35] = 0.0f;
+		}
+		#pragma clang loop vectorize(enable) interleave(enable)
+		for (int l36 = 0; (l36 < 1024); l36 = (l36 + 1)) {
+			fVec11[l36] = 0.0f;
+		}
+		#pragma clang loop vectorize(enable) interleave(enable)
+		for (int l37 = 0; (l37 < 2); l37 = (l37 + 1)) {
+			fRec1[l37] = 0.0f;
 		}
 	}
 	
@@ -791,12 +849,21 @@ class fx_freeverb : public dsp {
 	virtual void buildUserInterface(UI* ui_interface) {
 		ui_interface->openVerticalBox("fx.freeverb");
 		ui_interface->addCheckButton("bypass", &fCheckbox0);
-		ui_interface->declare(&fHslider1, "style", "knob");
-		ui_interface->addHorizontalSlider("damp", &fHslider1, 0.5f, 0.0f, 1.0f, 0.00100000005f);
+		ui_interface->declare(&fHslider2, "style", "knob");
+		ui_interface->addHorizontalSlider("damp", &fHslider2, 0.5f, 0.0f, 1.0f, 0.00100000005f);
 		ui_interface->declare(&fHslider0, "style", "knob");
 		ui_interface->addHorizontalSlider("drywet", &fHslider0, 0.330000013f, 0.0f, 1.0f, 0.00999999978f);
-		ui_interface->declare(&fHslider2, "stye", "knob");
-		ui_interface->addHorizontalSlider("room", &fHslider2, 0.5f, 0.0f, 1.0f, 0.00100000005f);
+		ui_interface->declare(&fHslider3, "style", "knob");
+		ui_interface->addHorizontalSlider("fr_damp", &fHslider3, 9.99999975e-05f, 0.0f, 1.0f, 0.00100000005f);
+		ui_interface->declare(&fHslider5, "style", "knob");
+		ui_interface->addHorizontalSlider("fr_room", &fHslider5, 0.999000013f, 0.0f, 1.0f, 0.00100000005f);
+		ui_interface->declare(&fHslider1, "style", "knob");
+		ui_interface->declare(&fHslider1, "unit", "ms");
+		ui_interface->addHorizontalSlider("fr_time", &fHslider1, 100.0f, 0.0f, 1000.0f, 0.00100000005f);
+		ui_interface->declare(&fCheckbox1, "type", "bool");
+		ui_interface->addCheckButton("freeze", &fCheckbox1);
+		ui_interface->declare(&fHslider4, "stye", "knob");
+		ui_interface->addHorizontalSlider("room", &fHslider4, 0.5f, 0.0f, 1.0f, 0.00100000005f);
 		ui_interface->closeBox();
 	}
 	
@@ -806,75 +873,91 @@ class fx_freeverb : public dsp {
 		int iSlow0 = int(float(fCheckbox0));
 		float fSlow1 = (0.00100000005f * float(fHslider0));
 		float fSlow2 = (0.00100000005f * float(fHslider1));
-		float fSlow3 = (0.00100000005f * float(fHslider2));
+		int iSlow3 = (std::fabs(fSlow2) < 1.1920929e-07f);
+		float fSlow4 = (iSlow3 ? 0.0f : std::exp((0.0f - (fConst1 / (iSlow3 ? 1.0f : fSlow2)))));
+		int iSlow5 = int(float(fCheckbox1));
+		float fSlow6 = (0.00100000005f * float(fHslider2));
+		float fSlow7 = float(fHslider3);
+		float fSlow8 = (1.0f - fSlow4);
+		float fSlow9 = (0.00100000005f * float(fHslider4));
+		float fSlow10 = float(fHslider5);
+		float fSlow11 = (float((1 - iSlow5)) * fSlow8);
+		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int i = 0; (i < count); i = (i + 1)) {
 			float fTemp0 = float(input0[i]);
 			float fTemp1 = (iSlow0 ? 0.0f : fTemp0);
 			fRec0[0] = (fSlow1 + (0.999000013f * fRec0[1]));
-			fRec11[0] = (fSlow2 + (0.999000013f * fRec11[1]));
+			fRec12[0] = (fSlow6 + (0.999000013f * fRec12[1]));
+			fRec11[0] = ((fRec11[1] * fSlow4) + ((iSlow5 ? fSlow7 : fRec12[0]) * fSlow8));
 			float fTemp2 = (1.0f - fRec11[0]);
 			fRec10[0] = ((fRec11[0] * fRec10[1]) + (fTemp2 * fRec9[1]));
-			fRec12[0] = (fSlow3 + (0.999000013f * fRec12[1]));
-			fVec0[(IOTA & 8191)] = ((fRec10[0] * fRec12[0]) + fTemp1);
-			fRec9[0] = fVec0[((IOTA - iConst1) & 8191)];
-			fRec14[0] = ((fRec11[0] * fRec14[1]) + (fTemp2 * fRec13[1]));
-			fVec1[(IOTA & 8191)] = (fTemp1 + (fRec12[0] * fRec14[0]));
-			fRec13[0] = fVec1[((IOTA - iConst2) & 8191)];
-			fRec16[0] = ((fRec11[0] * fRec16[1]) + (fTemp2 * fRec15[1]));
-			fVec2[(IOTA & 8191)] = (fTemp1 + (fRec12[0] * fRec16[0]));
-			fRec15[0] = fVec2[((IOTA - iConst3) & 8191)];
-			fRec18[0] = ((fRec11[0] * fRec18[1]) + (fTemp2 * fRec17[1]));
-			fVec3[(IOTA & 8191)] = (fTemp1 + (fRec12[0] * fRec18[0]));
-			fRec17[0] = fVec3[((IOTA - iConst4) & 8191)];
-			fRec20[0] = ((fRec11[0] * fRec20[1]) + (fTemp2 * fRec19[1]));
-			fVec4[(IOTA & 8191)] = (fTemp1 + (fRec12[0] * fRec20[0]));
-			fRec19[0] = fVec4[((IOTA - iConst5) & 8191)];
-			fRec22[0] = ((fRec11[0] * fRec22[1]) + (fTemp2 * fRec21[1]));
-			fVec5[(IOTA & 8191)] = (fTemp1 + (fRec12[0] * fRec22[0]));
-			fRec21[0] = fVec5[((IOTA - iConst6) & 8191)];
-			fRec24[0] = ((fRec11[0] * fRec24[1]) + (fTemp2 * fRec23[1]));
-			fVec6[(IOTA & 8191)] = (fTemp1 + (fRec12[0] * fRec24[0]));
-			fRec23[0] = fVec6[((IOTA - iConst7) & 8191)];
-			fRec26[0] = ((fRec11[0] * fRec26[1]) + (fTemp2 * fRec25[1]));
-			fVec7[(IOTA & 8191)] = (fTemp1 + (fRec12[0] * fRec26[0]));
-			fRec25[0] = fVec7[((IOTA - iConst8) & 8191)];
-			float fTemp3 = ((((((((fRec9[0] + fRec13[0]) + fRec15[0]) + fRec17[0]) + fRec19[0]) + fRec21[0]) + fRec23[0]) + fRec25[0]) + (0.5f * fRec7[1]));
-			fVec8[(IOTA & 2047)] = fTemp3;
-			fRec7[0] = fVec8[((IOTA - iConst9) & 2047)];
-			float fRec8 = (0.0f - (0.5f * fTemp3));
-			float fTemp4 = (fRec7[1] + (fRec8 + (0.5f * fRec5[1])));
-			fVec9[(IOTA & 2047)] = fTemp4;
-			fRec5[0] = fVec9[((IOTA - iConst10) & 2047)];
-			float fRec6 = (0.0f - (0.5f * fTemp4));
-			float fTemp5 = (fRec5[1] + (fRec6 + (0.5f * fRec3[1])));
-			fVec10[(IOTA & 2047)] = fTemp5;
-			fRec3[0] = fVec10[((IOTA - iConst11) & 2047)];
-			float fRec4 = (0.0f - (0.5f * fTemp5));
-			float fTemp6 = (fRec3[1] + (fRec4 + (0.5f * fRec1[1])));
-			fVec11[(IOTA & 1023)] = fTemp6;
-			fRec1[0] = fVec11[((IOTA - iConst12) & 1023)];
-			float fRec2 = (0.0f - (0.5f * fTemp6));
+			fRec14[0] = (fSlow9 + (0.999000013f * fRec14[1]));
+			fRec13[0] = ((fSlow4 * fRec13[1]) + ((iSlow5 ? fSlow10 : fRec14[0]) * fSlow8));
+			fRec15[0] = ((fSlow4 * fRec15[1]) + fSlow11);
+			float fTemp3 = (fRec15[0] * fTemp1);
+			fVec0[(IOTA & 8191)] = ((fRec10[0] * fRec13[0]) + fTemp3);
+			fRec9[0] = fVec0[((IOTA - iConst2) & 8191)];
+			fRec17[0] = ((fRec11[0] * fRec17[1]) + (fTemp2 * fRec16[1]));
+			fVec1[(IOTA & 8191)] = (fTemp3 + (fRec13[0] * fRec17[0]));
+			fRec16[0] = fVec1[((IOTA - iConst3) & 8191)];
+			fRec19[0] = ((fRec11[0] * fRec19[1]) + (fTemp2 * fRec18[1]));
+			fVec2[(IOTA & 8191)] = (fTemp3 + (fRec13[0] * fRec19[0]));
+			fRec18[0] = fVec2[((IOTA - iConst4) & 8191)];
+			fRec21[0] = ((fRec11[0] * fRec21[1]) + (fTemp2 * fRec20[1]));
+			fVec3[(IOTA & 8191)] = (fTemp3 + (fRec13[0] * fRec21[0]));
+			fRec20[0] = fVec3[((IOTA - iConst5) & 8191)];
+			fRec23[0] = ((fRec11[0] * fRec23[1]) + (fTemp2 * fRec22[1]));
+			fVec4[(IOTA & 8191)] = (fTemp3 + (fRec13[0] * fRec23[0]));
+			fRec22[0] = fVec4[((IOTA - iConst6) & 8191)];
+			fRec25[0] = ((fRec11[0] * fRec25[1]) + (fTemp2 * fRec24[1]));
+			fVec5[(IOTA & 8191)] = (fTemp3 + (fRec13[0] * fRec25[0]));
+			fRec24[0] = fVec5[((IOTA - iConst7) & 8191)];
+			fRec27[0] = ((fRec11[0] * fRec27[1]) + (fTemp2 * fRec26[1]));
+			fVec6[(IOTA & 8191)] = (fTemp3 + (fRec13[0] * fRec27[0]));
+			fRec26[0] = fVec6[((IOTA - iConst8) & 8191)];
+			fRec29[0] = ((fRec11[0] * fRec29[1]) + (fTemp2 * fRec28[1]));
+			fVec7[(IOTA & 8191)] = (fTemp3 + (fRec13[0] * fRec29[0]));
+			fRec28[0] = fVec7[((IOTA - iConst9) & 8191)];
+			float fTemp4 = ((((((((fRec9[0] + fRec16[0]) + fRec18[0]) + fRec20[0]) + fRec22[0]) + fRec24[0]) + fRec26[0]) + fRec28[0]) + (0.5f * fRec7[1]));
+			fVec8[(IOTA & 2047)] = fTemp4;
+			fRec7[0] = fVec8[((IOTA - iConst10) & 2047)];
+			float fRec8 = (0.0f - (0.5f * fTemp4));
+			float fTemp5 = (fRec7[1] + (fRec8 + (0.5f * fRec5[1])));
+			fVec9[(IOTA & 2047)] = fTemp5;
+			fRec5[0] = fVec9[((IOTA - iConst11) & 2047)];
+			float fRec6 = (0.0f - (0.5f * fTemp5));
+			float fTemp6 = (fRec5[1] + (fRec6 + (0.5f * fRec3[1])));
+			fVec10[(IOTA & 2047)] = fTemp6;
+			fRec3[0] = fVec10[((IOTA - iConst12) & 2047)];
+			float fRec4 = (0.0f - (0.5f * fTemp6));
+			float fTemp7 = (fRec3[1] + (fRec4 + (0.5f * fRec1[1])));
+			fVec11[(IOTA & 1023)] = fTemp7;
+			fRec1[0] = fVec11[((IOTA - iConst13) & 1023)];
+			float fRec2 = (0.0f - (0.5f * fTemp7));
 			output0[i] = FAUSTFLOAT((iSlow0 ? fTemp0 : ((fTemp1 * (1.0f - fRec0[0])) + (fRec0[0] * (fRec2 + fRec1[1])))));
 			fRec0[1] = fRec0[0];
+			fRec12[1] = fRec12[0];
 			fRec11[1] = fRec11[0];
 			fRec10[1] = fRec10[0];
-			fRec12[1] = fRec12[0];
-			IOTA = (IOTA + 1);
-			fRec9[1] = fRec9[0];
 			fRec14[1] = fRec14[0];
 			fRec13[1] = fRec13[0];
-			fRec16[1] = fRec16[0];
 			fRec15[1] = fRec15[0];
-			fRec18[1] = fRec18[0];
+			IOTA = (IOTA + 1);
+			fRec9[1] = fRec9[0];
 			fRec17[1] = fRec17[0];
-			fRec20[1] = fRec20[0];
+			fRec16[1] = fRec16[0];
 			fRec19[1] = fRec19[0];
-			fRec22[1] = fRec22[0];
+			fRec18[1] = fRec18[0];
 			fRec21[1] = fRec21[0];
-			fRec24[1] = fRec24[0];
+			fRec20[1] = fRec20[0];
 			fRec23[1] = fRec23[0];
-			fRec26[1] = fRec26[0];
+			fRec22[1] = fRec22[0];
 			fRec25[1] = fRec25[0];
+			fRec24[1] = fRec24[0];
+			fRec27[1] = fRec27[0];
+			fRec26[1] = fRec26[0];
+			fRec29[1] = fRec29[0];
+			fRec28[1] = fRec28[0];
 			fRec7[1] = fRec7[0];
 			fRec5[1] = fRec5[0];
 			fRec3[1] = fRec3[0];

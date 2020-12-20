@@ -14,15 +14,11 @@
 #ifndef LIST_EACH_H
 #define LIST_EACH_H
 
-#include "ceammc_dataatomlist.h"
 #include "ceammc_factory.h"
 #include "ceammc_object.h"
 #include "datatype_mlist.h"
 
 using namespace ceammc;
-
-typedef bool (*StepPropertyCheck)(int);
-typedef CheckedProperty<IntProperty, int, StepPropertyCheck> StepProperty;
 
 enum ListMode {
     MODE_NORMAL = 0,
@@ -32,9 +28,7 @@ enum ListMode {
 
 class ListEach : public BaseObject {
     AtomList mapped_list_;
-    DataAtomList mapped_dlist_;
-    DataTypeMList mapped_mlist_;
-    StepProperty* step_prop_;
+    IntProperty* step_prop_;
     ListMode mode_;
 
 public:
@@ -43,7 +37,10 @@ public:
     void onList(const AtomList& l) override;
     void onInlet(size_t n, const AtomList& l) override;
 
-    void onDataT(const DataTPtr<DataTypeMList>& dptr);
+    void onDataT(const MListAtom& ml);
+
+private:
+    void doEach(const AtomList& l);
 };
 
 void setup_list_each();

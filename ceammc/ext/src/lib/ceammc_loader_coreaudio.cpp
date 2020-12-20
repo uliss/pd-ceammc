@@ -58,9 +58,9 @@ bool CoreAudioFile::close()
     return true;
 }
 
-long CoreAudioFile::read(t_word* dest, size_t sz, size_t channel, long offset)
+long CoreAudioFile::read(t_word* dest, size_t sz, size_t channel, long offset, size_t max_samples)
 {
-    int64_t res = ceammc_coreaudio_load(filename().c_str(), channel, offset, sz, dest);
+    int64_t res = ceammc_coreaudio_load(filename().c_str(), channel, offset, sz, dest, gain(), resampleRatio(), max_samples);
     return res < 0 ? -1 : res;
 }
 
@@ -69,7 +69,7 @@ FormatList CoreAudioFile::supportedFormats()
     FormatList fmts;
     fmts.push_back(std::make_pair<std::string>("AIFF", "Audio Interchange File Format"));
     fmts.push_back(std::make_pair<std::string>("ALAC", "AppleLossless"));
-    fmts.push_back(std::make_pair<std::string>("AAC",  "MPEG 4 Audio - AAC"));
+    fmts.push_back(std::make_pair<std::string>("AAC", "MPEG 4 Audio - AAC"));
     fmts.push_back(std::make_pair<std::string>("CAF", "Apple Core Audio Format"));
     fmts.push_back(std::make_pair<std::string>("MP3", "MPEG Layer 3"));
     fmts.push_back(std::make_pair<std::string>("MP4", "MPEG 4 Audio"));

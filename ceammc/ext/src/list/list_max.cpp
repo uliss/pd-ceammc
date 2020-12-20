@@ -12,14 +12,12 @@ ListMax::ListMax(const PdArgs& a)
 {
     createOutlet();
 
-    type_ = new SymbolEnumProperty("@type", SYM_FLOAT);
-    type_->appendEnum(SYM_SYMBOL);
-    type_->appendEnum(SYM_ANY);
-    createProperty(type_);
+    type_ = new SymbolEnumProperty("@type", { SYM_FLOAT, SYM_SYMBOL, SYM_ANY });
+    addProperty(type_);
 
-    createProperty(new SymbolEnumAlias("@float", type_, SYM_FLOAT));
-    createProperty(new SymbolEnumAlias("@symbol", type_, SYM_SYMBOL));
-    createProperty(new SymbolEnumAlias("@any", type_, SYM_ANY));
+    addProperty(new SymbolEnumAlias("@float", type_, SYM_FLOAT));
+    addProperty(new SymbolEnumAlias("@symbol", type_, SYM_SYMBOL));
+    addProperty(new SymbolEnumAlias("@any", type_, SYM_ANY));
 }
 
 void ListMax::onList(const AtomList& l)
@@ -27,35 +25,14 @@ void ListMax::onList(const AtomList& l)
     if (type_->value() == SYM_ANY)
         max(l.begin(), l.end());
     else if (type_->value() == SYM_FLOAT)
-        max(l.beginFilter(isFloat), l.endFilter());
+        max(l.begin_atom_filter(isFloat), l.end_atom_filter());
     else if (type_->value() == SYM_SYMBOL)
-        max(l.beginFilter(isSymbol), l.endFilter());
+        max(l.begin_atom_filter(isSymbol), l.end_atom_filter());
 }
 
-// predicates
-static bool is_float(const DataAtom& d)
+void ListMax::onDataT(const MListAtom& ml)
 {
-    return d.isAtom() && d.toAtom().isFloat();
-}
-
-static bool is_symbol(const DataAtom& d)
-{
-    return d.isAtom() && d.toAtom().isSymbol();
-}
-
-static bool is_atom(const DataAtom& d)
-{
-    return d.isAtom();
-}
-
-void ListMax::onDataT(const DataTPtr<DataTypeMList>& dptr)
-{
-    if (type_->value() == SYM_ANY)
-        maxData(dptr->begin_filter(is_atom), dptr->end_filter());
-    else if (type_->value() == SYM_FLOAT)
-        maxData(dptr->begin_filter(is_float), dptr->end_filter());
-    else if (type_->value() == SYM_SYMBOL)
-        maxData(dptr->begin_filter(is_symbol), dptr->end_filter());
+    onList(ml->data());
 }
 
 void setup_list_max()
@@ -65,8 +42,17 @@ void setup_list_max()
     SYM_ANY = gensym("any");
 
     ObjectFactory<ListMax> obj("list.max");
-    obj.mapFloatToList();
-    obj.mapSymbolToList();
+    obj.useDefaultPdFloatFn();
+    obj.useDefaultPdSymbolFn();
 
     obj.processData<DataTypeMList>();
+
+    obj.setDescription("output largest element in the list");
+    obj.addAuthor("Serge Poltavsky");
+    obj.setKeywords({ "list", "max", "compare" });
+    obj.setCategory("list");
+    obj.setSinceVersion(0, 1);
+
+    ListMax::setInletsInfo(obj.classPointer(), { "list or Mlist" });
+    ListMax::setOutletsInfo(obj.classPointer(), { "atom" });
 }

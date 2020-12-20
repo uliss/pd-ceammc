@@ -15,6 +15,7 @@
 #define PROP_DECLARE_H
 
 #include "ceammc_object.h"
+#include "ceammc_property_enum.h"
 #include "datatype_property.h"
 
 using namespace ceammc;

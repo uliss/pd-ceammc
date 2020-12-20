@@ -18,6 +18,7 @@
 #include "ceammc_format.h"
 #include "ceammc_object.h"
 #include "ceammc_platform.h"
+#include "ceammc_property_callback.h"
 
 #include <fstream>
 
@@ -32,12 +33,12 @@ public:
         static_assert(std::is_base_of<BaseObject, T>::value, "need to be ancestor of BaseObject");
     }
 
-    void m_set(t_symbol* s, const AtomList& lst)
+    void m_set(t_symbol* /*s*/, const AtomListView& lst)
     {
         proto_set(lst);
     }
 
-    virtual void proto_set(const AtomList& lst) = 0;
+    virtual void proto_set(const AtomListView&) = 0;
 };
 
 template <typename T, typename NumType>
@@ -46,17 +47,18 @@ public:
     NumericIFace(const PdArgs& args)
         : BaseIFace<T>(args)
     {
-        T::createCbProperty("@value", &NumericIFace::propValue);
+        using F = std::function<NumType()>;
+        T::addProperty(new CallbackProperty("@value", F([this]() -> NumType { return value(); }), nullptr));
     }
 
     void onBang() override
     {
-        this->floatTo(0, value());
+        this->floatTo(0, static_cast<NumType>(value()));
     }
 
     void onFloat(t_float f) override
     {
-        value() = f;
+        value() = static_cast<NumType>(f);
         onBang();
     }
 
@@ -75,7 +77,7 @@ public:
         onFloat(l[0].asFloat());
     }
 
-    void onInlet(size_t n, const AtomList& lst) override
+    void onInlet(size_t /*n*/, const AtomList& lst) override
     {
         proto_set(lst);
     }
@@ -85,7 +87,7 @@ public:
         return Atom(value());
     }
 
-    void m_plus(t_symbol* s, const AtomList& lst)
+    void m_plus(t_symbol* s, const AtomListView& lst)
     {
         if (!T::checkArgs(lst, T::ARG_FLOAT) || lst.size() != 1) {
             METHOD_ERR(s) << "single numeric argument expected: " << lst;
@@ -95,7 +97,7 @@ public:
         value() += NumType(lst[0].asFloat());
     }
 
-    void m_minus(t_symbol* s, const AtomList& lst)
+    void m_minus(t_symbol* s, const AtomListView& lst)
     {
         if (!T::checkArgs(lst, T::ARG_FLOAT) || lst.size() != 1) {
             METHOD_ERR(s) << "single numeric argument expected: " << lst;
@@ -105,7 +107,7 @@ public:
         value() -= NumType(lst[0].asFloat());
     }
 
-    void m_mul(t_symbol* s, const AtomList& lst)
+    void m_mul(t_symbol* s, const AtomListView& lst)
     {
         if (!T::checkArgs(lst, T::ARG_FLOAT) || lst.size() != 1) {
             METHOD_ERR(s) << "single numeric argument expected: " << lst;
@@ -115,7 +117,7 @@ public:
         value() *= NumType(lst[0].asFloat());
     }
 
-    void m_div(t_symbol* s, const AtomList& lst)
+    void m_div(t_symbol* s, const AtomListView& lst)
     {
         if (!T::checkArgs(lst, T::ARG_FLOAT) || lst.size() != 1) {
             METHOD_ERR(s) << "single numeric argument expected: " << lst;
@@ -123,7 +125,7 @@ public:
         }
 
         t_float v = lst[0].asFloat();
-        if (v == t_float(0)) {
+        if (std::equal_to<t_float>()(v, 0)) {
             METHOD_ERR(s) << "division by zero";
             return;
         }
@@ -131,7 +133,7 @@ public:
         value() /= NumType(v);
     }
 
-    void m_set(t_symbol* s, const AtomList& lst)
+    void m_set(t_symbol* /*s*/, const AtomListView& lst)
     {
         proto_set(lst);
     }
@@ -139,7 +141,7 @@ public:
     virtual NumType& value() = 0;
     virtual const NumType& value() const = 0;
 
-    void proto_set(const AtomList& lst) override
+    void proto_set(const AtomListView& lst) override
     {
         static t_symbol* SYM_SET = gensym("set");
 
@@ -148,7 +150,7 @@ public:
             return;
         }
 
-        value() = lst[0].asFloat();
+        value() = static_cast<NumType>(lst[0].asFloat());
     }
 };
 
@@ -158,21 +160,18 @@ public:
     CollectionIFace(const PdArgs& args)
         : BaseIFace<T>(args)
     {
-        T::createCbProperty("@size", &CollectionIFace::propSize);
-        PropertyInfo& size_info = T::property("@size")->info();
-        size_info.setType(PropertyInfoType::INTEGER);
-        size_info.setMin(0);
+        T::createCbIntProperty("@size", [this]() { return proto_size(); })
+            ->setIntCheck(PropValueConstraints::GREATER_EQUAL, 0);
 
-        T::createCbProperty("@empty", &CollectionIFace::propEmpty);
-        T::property("@empty")->info().setType(PropertyInfoType::BOOLEAN);
+        T::createCbBoolProperty("@empty", [this]() { return proto_size() == 0; });
     }
 
-    virtual void proto_add(const AtomList& lst) = 0;
-    virtual bool proto_remove(const AtomList& lst) = 0;
+    virtual void proto_add(const AtomListView& lst) = 0;
+    virtual bool proto_remove(const AtomListView& lst) = 0;
     virtual void proto_clear() = 0;
     virtual size_t proto_size() const = 0;
 
-    void m_add(t_symbol* s, const AtomList& lst)
+    void m_add(t_symbol* s, const AtomListView& lst)
     {
         if (lst.empty()) {
             METHOD_ERR(s) << "empty list";
@@ -182,25 +181,15 @@ public:
         proto_add(lst);
     }
 
-    void m_remove(t_symbol* s, const AtomList& lst)
+    void m_remove(t_symbol* s, const AtomListView& lst)
     {
         if (!proto_remove(lst))
             METHOD_ERR(s) << "can't remove element at: " << lst;
     }
 
-    void m_clear(t_symbol* s, const AtomList& lst)
+    void m_clear(t_symbol* /*s*/, const AtomListView& /*lst*/)
     {
         proto_clear();
-    }
-
-    AtomList propSize() const
-    {
-        return Atom(proto_size());
-    }
-
-    AtomList propEmpty() const
-    {
-        return Atom(proto_size() == 0 ? 1 : 0);
     }
 };
 
@@ -210,18 +199,15 @@ public:
     ListIFace(const PdArgs& args)
         : BaseIFace<T>(args)
     {
-        T::createCbProperty("@size", &ListIFace::propSize);
-        PropertyInfo& size_info = T::property("@size")->info();
-        size_info.setType(PropertyInfoType::INTEGER);
-        size_info.setMin(0);
+        T::createCbIntProperty("@size", [this]() { return proto_size(); })
+            ->setIntCheck(PropValueConstraints::GREATER_EQUAL, 0);
 
-        T::createCbProperty("@empty", &ListIFace::propEmpty);
-        T::property("@empty")->info().setType(PropertyInfoType::BOOLEAN);
+        T::createCbBoolProperty("@empty", [this]() { return proto_size() == 0; });
     }
 
-    virtual void proto_append(const AtomList& lst) = 0;
-    virtual void proto_prepend(const AtomList& lst) = 0;
-    virtual bool proto_insert(size_t idx, const AtomList& lst) = 0;
+    virtual void proto_append(const AtomListView& lst) = 0;
+    virtual void proto_prepend(const AtomListView& lst) = 0;
+    virtual bool proto_insert(size_t idx, const AtomListView& lst) = 0;
     virtual bool proto_pop() = 0;
     virtual bool proto_removeAt(size_t idx) = 0;
     virtual void proto_clear() = 0;
@@ -231,18 +217,19 @@ public:
     virtual void proto_reverse() = 0;
     virtual void proto_shuffle() = 0;
     virtual size_t proto_size() const = 0;
+    virtual void proto_choose() = 0;
 
-    void m_append(t_symbol* s, const AtomList& lst)
+    void m_append(t_symbol* /*s*/, const AtomListView& lst)
     {
         proto_append(lst);
     }
 
-    void m_prepend(t_symbol* s, const AtomList& lst)
+    void m_prepend(t_symbol* /*s*/, const AtomListView& lst)
     {
         proto_prepend(lst);
     }
 
-    void m_insert(t_symbol* s, const AtomList& lst)
+    void m_insert(t_symbol* s, const AtomListView& lst)
     {
         if (lst.size() < 2) {
             METHOD_ERR(s) << "POS ARG expected";
@@ -259,11 +246,11 @@ public:
             return;
         }
 
-        if (!proto_insert(idx, lst.slice(1)))
+        if (!proto_insert(idx, lst.subView(1)))
             METHOD_ERR(s) << "can't insert to " << lst[0];
     }
 
-    void m_pop(t_symbol* s, const AtomList& lst)
+    void m_pop(t_symbol* s, const AtomListView& /*lst*/)
     {
         if (proto_size() < 1) {
             METHOD_ERR(s) << "empty collection";
@@ -273,7 +260,7 @@ public:
         proto_pop();
     }
 
-    void m_removeAt(t_symbol* s, const AtomList& lst)
+    void m_removeAt(t_symbol* s, const AtomListView& lst)
     {
         if (!T::checkArgs(lst, T::ARG_INT)) {
             METHOD_ERR(s) << "POS expected";
@@ -294,12 +281,12 @@ public:
             METHOD_ERR(s) << "can't remove element: " << lst[0];
     }
 
-    void m_clear(t_symbol* s, const AtomList& lst)
+    void m_clear(t_symbol* /*s*/, const AtomListView& /*lst*/)
     {
         proto_clear();
     }
 
-    void m_fill(t_symbol* s, const AtomList& lst)
+    void m_fill(t_symbol* s, const AtomListView& lst)
     {
         if (lst.empty()) {
             METHOD_ERR(s) << "fill value is required";
@@ -309,29 +296,24 @@ public:
         proto_fill(lst[0]);
     }
 
-    void m_sort(t_symbol* s, const AtomList& lst)
+    void m_sort(t_symbol* /*s*/, const AtomListView& /*lst*/)
     {
         proto_sort();
     }
 
-    void m_reverse(t_symbol* s, const AtomList& lst)
+    void m_reverse(t_symbol* /*s*/, const AtomListView& /*lst*/)
     {
         proto_reverse();
     }
 
-    void m_shuffle(t_symbol* s, const AtomList& lst)
+    void m_shuffle(t_symbol* /*s*/, const AtomListView& /*lst*/)
     {
         proto_shuffle();
     }
 
-    AtomList propSize() const
+    void m_choose(t_symbol* /*s*/, const AtomListView& /*lst*/)
     {
-        return Atom(proto_size());
-    }
-
-    AtomList propEmpty() const
-    {
-        return Atom(proto_size() == 0 ? 1 : 0);
+        proto_choose();
     }
 };
 
@@ -343,7 +325,7 @@ public:
     {
     }
 
-    void m_read(t_symbol* s, const AtomList& path)
+    void m_read(t_symbol* s, const AtomListView& path)
     {
         std::string concat_path = to_string(path);
         if (concat_path.empty()) {
@@ -377,7 +359,7 @@ public:
     {
     }
 
-    void m_write(t_symbol* s, const AtomList& path)
+    void m_write(t_symbol* s, const AtomListView& path)
     {
         std::string concat_path = to_string(path);
         if (concat_path.empty()) {
@@ -486,6 +468,9 @@ namespace protocol {
 
             // void proto_shuffle()
             obj.addMethod("shuffle", &T::m_shuffle);
+
+            // void proto_choose()
+            obj.addMethod("choose", &T::m_choose);
         }
     };
 
@@ -510,15 +495,14 @@ namespace protocol {
     };
 
     template <template <typename T> class Factory, typename T>
-    class Storage : public Factory<T> {
+    class Storage {
     public:
-        Storage(Factory<T>& obj)
-            : Factory<T>(obj)
+        Storage(Factory<T>* obj)
         {
-            obj.addMethod("clear", &T::m_clear);
-            obj.addMethod("store", &T::m_store);
-            obj.addMethod("load", &T::m_load);
-            obj.addMethod("update", &T::m_update);
+            obj->addMethod("clear", &T::m_clear);
+            obj->addMethod("store", &T::m_store);
+            obj->addMethod("load", &T::m_load);
+            obj->addMethod("update", &T::m_update);
         }
     };
 }

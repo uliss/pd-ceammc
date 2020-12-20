@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="chaos.std0~">
+        <title>chaos.std0~</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavski</author>
+            </authors>
+            <description>Standard map chaotic generator</description>
+            <license>GPL3 or later</license>
+            <library>ceammc</library>
+            <category>chaos</category>
+            <keywords>chaos standard map</keywords>
+            <since>0.9</since>
+            <also>
+                <see>chaos.std0</see>
+            </also>
+        </meta>
+        <info>
+            <par>A non-interpolating generator based on the difference equations:</par>
+            <par>y(n+1) = (y(n) + k * sin(x(n))) % 2pi</par>
+            <par>x(n+1) = (x(n) + y(n+1)) % 2pi</par>
+            <a href="https://en.wikipedia.org/wiki/Standard_map">wiki: Standard map</a>
+            <par>The properties of chaos of the standard map were established by Boris Chirikov in
+            1969</par>
+        </info>
+        <arguments>
+            <argument name="X" type="float">initial x value, default 0.5</argument>
+            <argument name="Y" type="float">initial y value, default 0</argument>
+        </arguments>
+        <properties />
+        <methods />
+        <inlets>
+            <inlet type="audio">
+                <xinfo>generation frequency, minimal value 0.001Hz</xinfo>
+            </inlet>
+            <inlet type="audio">
+                <xinfo>k-value</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet type="audio">outputs x-value mapped to [-1..1] range</outlet>
+            <outlet type="audio">outputs y-value mapped to [-1..1] range</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[440( [15000( [F]       [ui.dsp~]
+|     |       |
+[sig~    400] [sig~ 1]
+|             |.
+[chaos.std0~   ]
+|
+[fx.pitchshift~ @drywet 0.5 @fade 50 @pitch 15.1 @window 93]
+|
+[flt.dcblock~]
+|
+[ui.hgain~]
+|\
+[dac~]
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

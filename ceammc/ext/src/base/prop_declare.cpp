@@ -33,10 +33,10 @@ static t_symbol* SYM_BOOL;
 static t_symbol* SYM_INT;
 static t_symbol* SYM_ENUM;
 
-static const t_float FMIN = std::numeric_limits<t_float>::lowest();
-static const t_float FMAX = std::numeric_limits<t_float>::max();
-static const long IMIN = std::numeric_limits<long>::min();
-static const long IMAX = std::numeric_limits<long>::max();
+constexpr t_float FMIN = std::numeric_limits<t_float>::lowest();
+constexpr t_float FMAX = std::numeric_limits<t_float>::max();
+constexpr int IMIN = std::numeric_limits<int>::min();
+constexpr int IMAX = std::numeric_limits<int>::max();
 
 class CanvasEditCallback {
     std::unordered_map<t_canvas*, t_glistkeyfn> map_;
@@ -101,23 +101,28 @@ PropDeclare::PropDeclare(const PdArgs& args)
     type_->appendEnum(SYM_ENUM);
     type_->appendEnum(&s_symbol);
     type_->appendEnum(&s_list);
-    createProperty(type_);
+    addProperty(type_);
 
-    createProperty(new SymbolEnumAlias("@f", type_, &s_float));
-    createProperty(new SymbolEnumAlias("@s", type_, &s_symbol));
-    createProperty(new SymbolEnumAlias("@l", type_, &s_list));
-    createProperty(new SymbolEnumAlias("@i", type_, SYM_INT));
-    createProperty(new SymbolEnumAlias("@b", type_, SYM_BOOL));
+    addProperty(new SymbolEnumAlias("@f", type_, &s_float));
+    addProperty(new SymbolEnumAlias("@s", type_, &s_symbol));
+    addProperty(new SymbolEnumAlias("@l", type_, &s_list));
+    addProperty(new SymbolEnumAlias("@i", type_, SYM_INT));
+    addProperty(new SymbolEnumAlias("@b", type_, SYM_BOOL));
 
     min_ = new FloatProperty("@min", FMIN);
     max_ = new FloatProperty("@max", FMAX);
     enum_ = new ListProperty("@enum", AtomList());
     default_ = new ListProperty("@default", AtomList());
 
-    createProperty(min_);
-    createProperty(max_);
-    createProperty(enum_);
-    createProperty(default_);
+    min_->setInitOnly();
+    max_->setInitOnly();
+    enum_->setInitOnly();
+    default_->setInitOnly();
+
+    addProperty(min_);
+    addProperty(max_);
+    addProperty(enum_);
+    addProperty(default_);
 }
 
 PropDeclare::~PropDeclare()
@@ -128,11 +133,6 @@ PropDeclare::~PropDeclare()
 void PropDeclare::parseProperties()
 {
     BaseObject::parseProperties();
-
-    max_->setReadonly(true);
-    min_->setReadonly(true);
-    enum_->setReadonly(true);
-    default_->setReadonly(true);
 
     if (isFloat()) {
         pprop_->setTypeFloat(atomlistToValue<t_float>(default_->value(), 0.f));
@@ -192,7 +192,7 @@ void PropDeclare::onLoadBang()
 
     AtomList pv;
     // no property defined in canvas arguments
-    if (!canvas_info_args(cnv).property(sym_name_->s_name, &pv)) {
+    if (!canvas_info_args(cnv).property(sym_name_, &pv)) {
         // output default values
         if (sym_full_name_->s_thing)
             pd_bang(sym_full_name_->s_thing);
@@ -257,4 +257,10 @@ void setup_prop_declare()
 
     ObjectFactory<PropDeclare> obj("prop.declare", OBJECT_FACTORY_NO_DEFAULT_INLET);
     obj.useLoadBang();
+
+    obj.setDescription("declare named property for subpatch or abstraction");
+    obj.addAuthor("Serge Poltavsky");
+    obj.setKeywords({"property", "declare"});
+    obj.setCategory("property");
+    obj.setSinceVersion(0, 7);
 }

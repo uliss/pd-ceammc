@@ -30,7 +30,7 @@
         <example>
             <pdascii>
 <![CDATA[
-[\[a: b\] \[c: d e f\], bang(
+[\[a: b c: d e f\], bang(
 |
 [data.dict]
 |

@@ -9,7 +9,7 @@ PitchToMIDI::PitchToMIDI(const PdArgs& a)
     createOutlet();
 }
 
-void PitchToMIDI::onDataT(const DataTPtr<DataTypeString>& s)
+void PitchToMIDI::onDataT(const StringAtom& s)
 {
     convert(s->str().c_str());
 }
@@ -47,7 +47,7 @@ int PitchToMIDI::spn2midi(const char* p)
     return convert::spn2midi(p);
 }
 
-extern "C" void setup_conv0x2epitch2midi()
+void setup_conv_pitch2midi()
 {
     ObjectFactory<PitchToMIDI> obj("conv.pitch2midi");
     obj.addAlias("pitch->midi");

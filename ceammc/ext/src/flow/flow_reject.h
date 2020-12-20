@@ -19,20 +19,18 @@
 using namespace ceammc;
 
 class FlowReject : public BaseObject {
-    ListProperty* values_;
+    ListProperty* reject_list_;
 
 public:
     FlowReject(const PdArgs& a);
-    void onBang();
-    void onFloat(float v);
-    void onSymbol(t_symbol* s);
-    void onList(const AtomList& l);
-    void onAny(t_symbol* sel, const AtomList& l);
-
-    void parseProperties();
-    bool processAnyProps(t_symbol* sel, const AtomList& lst);
+    void onBang() override;
+    void onFloat(t_float v) override;
+    void onSymbol(t_symbol* s) override;
+    void onList(const AtomList& l) override;
+    void onAny(t_symbol* sel, const AtomListView& l) override;
+    void onInlet(size_t, const AtomList&) override;
 };
 
-extern "C" void setup_flow0x2ereject();
+void setup_flow_reject();
 
 #endif // FLOW_REJECT_H

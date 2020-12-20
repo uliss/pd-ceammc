@@ -43,7 +43,7 @@ LogExternalOutput::LogExternalOutput()
 Message LogExternalOutput::msg()
 {
 #if LOG_MULTI
-    t_log_output_multi* obj = (t_log_output_multi*)object();
+    auto* obj = (t_log_output_multi*)object();
     if (!obj || !obj->msg_list || obj->msg_list->empty())
         return Message();
 
@@ -96,7 +96,7 @@ static void log_output_single_free(t_log_output_single* x)
 
 static void log_output_single_bang(t_log_output_single* x)
 {
-    x->msg->setSymbol(&s_bang);
+    x->msg->setBang();
 }
 
 static void log_output_single_float(t_log_output_single* x, t_float f)
@@ -121,6 +121,10 @@ static void log_output_single_any(t_log_output_single* x, t_symbol* s, int argc,
 
 bool setup_log_output_single()
 {
+    static std::unique_ptr<t_class, std::function<void(t_class*)>> cls_owner(
+        nullptr,
+        [](t_class* c) { free(c); });
+
     log_output_single = class_new(gensym("log_output_single"),
         reinterpret_cast<t_newmethod>(log_output_single_new),
         reinterpret_cast<t_method>(log_output_single_free),
@@ -130,6 +134,9 @@ bool setup_log_output_single()
     class_addlist(log_output_single, log_output_single_list);
     class_addsymbol(log_output_single, log_output_single_symbol);
     class_addanything(log_output_single, log_output_single_any);
+
+    cls_owner.reset(log_output_single);
+
     return true;
 }
 
@@ -151,7 +158,7 @@ static void log_output_multi_free(t_log_output_multi* x)
 
 static void log_output_multi_bang(t_log_output_multi* x)
 {
-    x->msg_list->push_back(Message(&s_bang));
+    x->msg_list->push_back(Message::makeBang());
 }
 
 static void log_output_multi_float(t_log_output_multi* x, t_float f)
@@ -176,6 +183,10 @@ static void log_output_multi_any(t_log_output_multi* x, t_symbol* s, int argc, t
 
 bool setup_log_output_multi()
 {
+    static std::unique_ptr<t_class, std::function<void(t_class*)>> cls_owner(
+        nullptr,
+        [](t_class* c) { free(c); });
+
     log_output_multi = class_new(gensym("log_output_multi"),
         reinterpret_cast<t_newmethod>(log_output_multi_new),
         reinterpret_cast<t_method>(log_output_multi_free),
@@ -185,5 +196,7 @@ bool setup_log_output_multi()
     class_addlist(log_output_multi, log_output_multi_list);
     class_addsymbol(log_output_multi, log_output_multi_symbol);
     class_addanything(log_output_multi, log_output_multi_any);
+
+    cls_owner.reset(log_output_multi);
     return true;
 }

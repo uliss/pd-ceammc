@@ -14,6 +14,7 @@
 #include "gain.h"
 #include "ceammc_convert.h"
 #include "ceammc_factory.h"
+#include "ceammc_property_callback.h"
 #include "ceammc_signal.h"
 
 static t_float toDb(t_float amp)
@@ -29,13 +30,18 @@ static t_float fromDb(t_float db)
     return convert::dbfs2amp(db);
 }
 
+constexpr size_t DEFAULT_N = 1;
+constexpr size_t MIN_N = 1;
+constexpr size_t MAX_N = 64;
+
 Gain::Gain(const PdArgs& args)
     : SoundExternal(args)
     , prev_bs_(0)
-    , n_(std::max<int>(1, static_cast<int>(positionalFloatArgument(0, 1))))
     , smooth_(nullptr)
 {
-    for (size_t i = 1; i < n_; i++) {
+    const size_t NCHAN(positionalConstant<DEFAULT_N, MIN_N, MAX_N>(0));
+
+    for (size_t i = 1; i < NCHAN; i++) {
         createSignalInlet();
         createSignalOutlet();
     }
@@ -44,14 +50,15 @@ Gain::Gain(const PdArgs& args)
     createSignalOutlet();
 
     allocateOutBlocks();
-    gain_.assign(n_, 0);
+    gain_.assign(NCHAN, 0);
 
     createCbProperty("@db", &Gain::propDb, &Gain::propSetDb);
     createCbProperty("@value", &Gain::propGain, &Gain::propSetGain);
 
-    smooth_ = new FloatPropertyMin("@smooth_time", 20, 1);
-    smooth_->info().setUnits(PropertyInfoUnits::MSEC);
-    createProperty(smooth_);
+    smooth_ = new FloatProperty("@smooth_time", 20);
+    smooth_->checkMin(1);
+    smooth_->setUnitsMs();
+    addProperty(smooth_);
 }
 
 void Gain::onInlet(size_t n, const AtomList& lst)
@@ -108,7 +115,7 @@ void Gain::setupDSP(t_signal** sp)
 
 AtomList Gain::propDb() const
 {
-    return propGain().map(toDb);
+    return propGain().mapFloat(toDb);
 }
 
 AtomList Gain::propGain() const
@@ -124,7 +131,7 @@ AtomList Gain::propGain() const
 
 void Gain::propSetDb(const AtomList& lst)
 {
-    propSetGain(lst.map(fromDb));
+    propSetGain(lst.mapFloat(fromDb));
 }
 
 void Gain::propSetGain(const AtomList& lst)
@@ -137,7 +144,7 @@ void Gain::propSetGain(const AtomList& lst)
     }
 }
 
-void Gain::m_plus(t_symbol* s, const AtomList& lst)
+void Gain::m_plus(t_symbol* s, const AtomListView& lst)
 {
     const size_t N = std::min<size_t>(gain_.size(), lst.size());
 
@@ -152,12 +159,13 @@ static Atom negate(const Atom& a)
     return a.isFloat() ? -a.asFloat() : a;
 }
 
-void Gain::m_minus(t_symbol* s, const AtomList& lst)
+void Gain::m_minus(t_symbol* s, const AtomListView& lst)
 {
-    m_plus(s, lst.map(negate));
+    auto neg = AtomList(lst).map(negate);
+    m_plus(s, neg.view());
 }
 
-void Gain::m_plusDb(t_symbol* s, const AtomList& lst)
+void Gain::m_plusDb(t_symbol* s, const AtomListView& lst)
 {
     const size_t N = std::min<size_t>(gain_.size(), lst.size());
 
@@ -167,12 +175,13 @@ void Gain::m_plusDb(t_symbol* s, const AtomList& lst)
     }
 }
 
-void Gain::m_minusDb(t_symbol* s, const AtomList& lst)
+void Gain::m_minusDb(t_symbol* s, const AtomListView& lst)
 {
-    m_plusDb(s, lst.map(negate));
+    auto neg = AtomList(lst).map(negate);
+    m_plusDb(s, neg.view());
 }
 
-void Gain::m_plusAll(t_symbol* s, const AtomList& lst)
+void Gain::m_plusAll(t_symbol* s, const AtomListView& lst)
 {
     t_float v = lst.floatAt(0, 0);
     for (size_t i = 0; i < gain_.size(); i++) {
@@ -181,19 +190,20 @@ void Gain::m_plusAll(t_symbol* s, const AtomList& lst)
     }
 }
 
-void Gain::m_minusAll(t_symbol* s, const AtomList& lst)
+void Gain::m_minusAll(t_symbol* s, const AtomListView& lst)
 {
-    m_plusAll(s, lst.map(negate));
+    auto neg = AtomList(lst).map(negate);
+    m_plusAll(s, neg.view());
 }
 
-void Gain::m_set(t_symbol* s, const AtomList& lst)
+void Gain::m_set(t_symbol* s, const AtomListView& lst)
 {
     t_float v = lst.floatAt(0, 0);
     for (size_t i = 0; i < gain_.size(); i++)
         gain_[i].setTargetValue(std::max<t_float>(0, v));
 }
 
-void Gain::m_setDb(t_symbol* s, const AtomList& lst)
+void Gain::m_setDb(t_symbol* s, const AtomListView& lst)
 {
     t_float v = lst.floatAt(0, 0);
     for (size_t i = 0; i < gain_.size(); i++)
@@ -202,7 +212,7 @@ void Gain::m_setDb(t_symbol* s, const AtomList& lst)
 
 void Gain::allocateOutBlocks()
 {
-    const size_t N = std::max<size_t>(1, n_) * blockSize();
+    const size_t N = std::max<size_t>(1, gain_.size()) * blockSize();
     outs_.resize(N, 0);
 }
 
@@ -217,4 +227,10 @@ void setup_gain_tilde()
     obj.addMethod("-all", &Gain::m_minusAll);
     obj.addMethod("set", &Gain::m_set);
     obj.addMethod("set_db", &Gain::m_setDb);
+
+    obj.setDescription("multislot signal gain");
+    obj.addAuthor("Serge Poltavsky");
+    obj.setKeywords({ "gain", "amplitude", "decibel" });
+    obj.setCategory("base");
+    obj.setSinceVersion(0, 6);
 }

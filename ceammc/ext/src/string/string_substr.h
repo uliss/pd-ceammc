@@ -14,8 +14,8 @@
 #ifndef STRING_SUBSTR_H
 #define STRING_SUBSTR_H
 
+#include "ceammc_data.h"
 #include "ceammc_object.h"
-#include "datatype_string.h"
 
 using namespace ceammc;
 
@@ -25,10 +25,11 @@ class StringSubstr : public BaseObject {
 
 public:
     StringSubstr(const PdArgs& a);
-    void onDataT(const DataTPtr<DataTypeString>& dptr);
-    void onSymbol(t_symbol* s);
+    void onDataT(const StringAtom& str);
+    void onSymbol(t_symbol* s) override;
+    void onInlet(size_t n, const AtomList& l) override;
 };
 
-extern "C" void setup_string0x2esubstr();
+void setup_string_substr();
 
 #endif // STRING_SUBSTR_H

@@ -24,24 +24,28 @@
             <par>This is the ceammc counterpart of the vanilla toggle</par>
         </info>
         <properties>
-            <property name="@value" type="float" default="0" enum="0 1">widget value</property>
+            <property name="@value" type="float" default="0" enum="0 1">widget logical
+            value</property>
+            <property name="@on_value" type="float" default="1">output on value</property>
+            <property name="@off_value" type="float" default="0">output off value</property>
             <!-- common -->
-            <property name="@presetname" type="symbol">preset name for using with
+            <property name="@presetname" type="symbol" default="(null)">preset name for using with
             [ui.preset]</property>
-            <property name="@send" type="symbol">send destination</property>
-            <property name="@receive" type="symbol">receive source</property>
-            <property name="@size" type="list">element size (width, height pair)</property>
+            <property name="@send" type="symbol" default="(null)">send destination</property>
+            <property name="@receive" type="symbol" default="(null)">receive source</property>
+            <property name="@size" type="list" default="15 15">element size (width, height
+            pair)</property>
             <property name="@pinned" type="int" enum="0 1" default="0">pin mode. if 1 - put element
             to the lowest level</property>
-            <property name="@active_color" type="list">active color (list of red, green, blue
-            values in 0-1 range)</property>
-            <property name="@background_color" type="list">element background color (list of red,
-            green, blue values in 0-1 range)</property>
-            <property name="@border_color" type="list">border color (list of red, green, blue
-            values in 0-1 range)</property>
+            <property name="@active_color" type="list" default="0 0.75 1 1">active color (list of
+            red, green, blue values in 0-1 range)</property>
+            <property name="@background_color" type="list" default="0.93 0.93 0.93 1">element
+            background color (list of red, green, blue values in 0-1 range)</property>
+            <property name="@border_color" type="list" default="0.6 0.6 0.6 1">border color (list
+            of red, green, blue values in 0-1 range)</property>
             <property name="@fontsize" type="int" minvalue="4" maxvalue="11" default="11">
             fontsize</property>
-            <property name="@fontname" type="symbol">fontname</property>
+            <property name="@fontname" type="symbol" default="Helvetica">fontname</property>
             <property name="@fontweight" type="symbol" enum="normal bold" default="normal">font
             weight</property>
             <property name="@fontslant" type="symbol" enum="roman italic" default="roman">font
@@ -65,12 +69,12 @@
         <inlets>
             <inlet>
                 <xinfo on="bang">change toggle state</xinfo>
-                <xinfo on="float">if *0* given, sets state to unchecked and outputs 0. On any other
-                number sets to checked state and outputs 1.</xinfo>
+                <xinfo on="float">if *0* given, sets state to unchecked and outputs @off_value. On
+                any other number sets to checked state and outputs @on_value</xinfo>
             </inlet>
         </inlets>
         <outlets>
-            <outlet>outputs 0 or 1</outlet>
+            <outlet>outputs @on_value or @off_value (by default 0 or 1)</outlet>
         </outlets>
         <example>
             <pdascii>
@@ -80,12 +84,11 @@
 [B] [0( [1( [-1(  [set $1(
 |   |   |   |     |
 |   |   |   |     |
-[ui.toggle @size=40x40]
+[ui.toggle @size=40x40]  [ui.t @on_value 90 @off_value -90]
+|                        |
+|                        [F] /*other on/off values*/
 |
-|
-[m set]
-|
-[ (
+[ui.display]
 ]]>
             </pdascii>
         </example>

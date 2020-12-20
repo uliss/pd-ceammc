@@ -33,6 +33,26 @@ class BaseObject;
 class UIObject;
 
 namespace pd {
+
+    struct XletInfo {
+        enum Type {
+            NONE,
+            CONTROL,
+            SIGNAL
+        };
+
+        Type type = { NONE };
+        XletInfo(Type t)
+            : type(t)
+        {
+        }
+        bool isSignal() const { return type == SIGNAL; }
+    };
+
+    std::vector<std::string> currentListOfExternals();
+
+    bool addPdPrintDataSupport();
+
     class External {
     private:
         t_object* obj_;
@@ -40,32 +60,50 @@ namespace pd {
 
     public:
         External(const char* name, const AtomList& lst = AtomList());
+
+        template <typename... Args>
+        External(const char* name, Args... args)
+            : External(name, AtomList(args...))
+        {
+        }
+
         ~External();
 
         bool isNull() const;
 
+        t_symbol* className() const;
+
         // connect this object outlet to external object inlet
-        bool connectTo(int outn, t_object* dest, int inln);
-        bool connectTo(int outn, External& ext, int inln);
+        bool connectTo(size_t outn, t_object* dest, size_t inln);
+        bool connectTo(size_t outn, External& ext, size_t inln);
 
         // connect external source outlet to this object inlet
-        bool connectFrom(int outn, t_object* src, int inln);
-        bool connectFrom(int outn, External& ext, int inln);
+        bool connectFrom(size_t outn, t_object* src, size_t inln);
+        bool connectFrom(size_t outn, External& ext, size_t inln);
 
         t_object* object();
+        const t_object* object() const;
         t_pd* pd() { return &obj_->te_g.g_pd; }
         void setParent(_glist* cnv);
 
         void sendBang();
         void sendFloat(t_float v);
         void sendSymbol(t_symbol* s);
+        void sendSymbol(const char* s) { sendSymbol(gensym(s)); }
         void sendList(const AtomList& l);
+        template <typename... Args>
+        void sendList(Args... args)
+        {
+            sendList(AtomList(args...));
+        }
+
         void sendBangTo(size_t inlet);
         void sendFloatTo(t_float v, size_t inlet);
         void sendSymbolTo(t_symbol* s, size_t inlet);
         void sendListTo(const AtomList& l, size_t inlet);
         void sendMessage(t_symbol* msg, const AtomList& args = AtomList());
         void sendMessage(const Message& m);
+        void sendMessageTo(const Message& m, size_t inlet);
 
         template <typename... Args>
         void sendMessage(const char* msg, Args... args)
@@ -80,6 +118,9 @@ namespace pd {
 
         int numOutlets() const;
         int numInlets() const;
+
+        XletInfo inletInfo(int i) const;
+        XletInfo outletInfo(int i) const;
 
         int xPos() const;
         int yPos() const;
@@ -116,6 +157,10 @@ public:
     static PureData& instance();
     CanvasPtr createTopCanvas(const char* name, const AtomList& args = AtomList());
     CanvasPtr createSubpatch(_glist* parent, const char* name);
+    CanvasPtr findCanvas(const char* name);
+
+    PureData(const PureData&) = delete;
+    PureData& operator=(const PureData&) = delete;
 
 private:
     PureData();

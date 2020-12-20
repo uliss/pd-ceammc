@@ -26,7 +26,8 @@
             stereo-pairs</argument>
         </arguments>
         <properties>
-            <property name="@value" type="list">gain coefficients per each output</property>
+            <property name="@value" type="list" default="1 0">gain coefficients per each
+            output</property>
         </properties>
         <inlets>
             <inlet type="audio">
@@ -61,7 +62,7 @@
 |
 [~->]
 | ^|
-|  [ui.display @display_type=1]
+|  [ui.display @display_type 1]
 |
 [env~]   [env~ #b] [env~ #c] [env~ #d]
 |        |         |         |

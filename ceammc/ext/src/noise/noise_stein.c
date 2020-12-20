@@ -146,7 +146,7 @@ void setup_noise0x2estein()
 
     class_addmethod(stein_class, (t_method)stein_reset, gensym("reset"), A_GIMME, 0);
     class_addmethod(stein_class, (t_method)stein_set, gensym("set"), A_GIMME, 0);
-    class_addfloat(stein_class, (t_method)stein_float);
+    class_doaddfloat(stein_class, (t_method)stein_float);
     class_addmethod(stein_class, (t_method)stein_lambda, gensym("lambda"), A_DEFFLOAT, 0);
     class_addmethod(stein_class, (t_method)stein_seed, gensym("seed"), A_DEFFLOAT, 0);
     class_addmethod(stein_class, (t_method)stein_om, gensym("om"), A_DEFFLOAT, 0);

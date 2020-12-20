@@ -10,7 +10,7 @@ ListDistribution::ListDistribution(const PdArgs& a)
     createOutlet();
 
     normalize_ = new BoolProperty("@normalize", true);
-    createProperty(normalize_);
+    addProperty(normalize_);
 }
 
 void ListDistribution::onList(const AtomList& l)

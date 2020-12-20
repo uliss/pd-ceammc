@@ -11,7 +11,3 @@ include_directories(${CMAKE_SOURCE_DIR}/ceammc/extra/serial/serial/include)
 include_directories(${PROJECT_SOURCE_DIR}/ceammc/extra) # for readerwriterqueue
 
 target_link_libraries(hw_arduino serial ceammc_core)
-
-if(UNIX)
-    set_target_properties(hw_arduino PROPERTIES COMPILE_FLAGS "-fPIC")
-endif()

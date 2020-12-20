@@ -14,16 +14,18 @@
 #include "radio.h"
 #include "ceammc_factory.h"
 
-static const int DEFAULT_OUTLETS = 2;
-static const int MIN_OUTLETS = 2;
-static const int MAX_OUTLETS = 24;
+constexpr int DEFAULT_OUTLETS = 2;
+constexpr int MIN_OUTLETS = 2;
+constexpr int MAX_OUTLETS = 24;
 
 Radio::Radio(const PdArgs& args)
     : BaseObject(args)
     , n_(nullptr)
 {
-    n_ = new IntPropertyClosedRange("@n", positionalFloatArgument(0, DEFAULT_OUTLETS), MIN_OUTLETS, MAX_OUTLETS);
-    createProperty(n_);
+    n_ = new IntProperty("@n", DEFAULT_OUTLETS);
+    n_->setArgIndex(0);
+    n_->checkClosedRange(MIN_OUTLETS, MAX_OUTLETS);
+    addProperty(n_);
 
     parseProperties();
 
@@ -46,7 +48,7 @@ void Radio::onFloat(t_float f)
     }
 }
 
-void Radio::m_reset(t_symbol* s, const AtomList& lst)
+void Radio::m_reset(t_symbol* s, const AtomListView&)
 {
     for (size_t i = n_->value(); i > 0; i--)
         floatTo(i - 1, 0);
@@ -56,4 +58,10 @@ void setup_base_radio()
 {
     ObjectFactory<Radio> obj("radio");
     obj.addMethod("reset", &Radio::m_reset);
+
+    obj.setDescription("float index to outlet values as radio switch");
+    obj.addAuthor("Serge Poltavsky");
+    obj.setKeywords({ "radio" });
+    obj.setCategory("base");
+    obj.setSinceVersion(0, 6);
 }

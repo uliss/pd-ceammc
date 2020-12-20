@@ -11,7 +11,7 @@ class EnvTimeShift : public BaseObject {
 
 public:
     EnvTimeShift(const PdArgs& args);
-    void onDataT(const DataTPtr<DataTypeEnv>& dptr);
+    void onDataT(const EnvAtom& env);
 };
 
 void setup_env_tshift();

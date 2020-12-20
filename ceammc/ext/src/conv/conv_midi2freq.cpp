@@ -37,19 +37,18 @@ Midi2Freq::Midi2Freq(const PdArgs& args)
     , base_a_(nullptr)
     , prop_temperament_(nullptr)
 {
-    base_a_ = new FloatPropertyClosedRange("@a", positionalFloatArgument(0, 440.f), 200, 600);
-    createProperty(base_a_);
+    constexpr t_float MIN_A_FREQ = 200;
+    constexpr t_float MAX_A_FREQ = 600;
+    constexpr t_float DEF_A_FREQ = 440;
+    base_a_ = new FloatProperty("@a", DEF_A_FREQ);
+    base_a_->setArgIndex(0);
+    base_a_->checkClosedRange(MIN_A_FREQ, MAX_A_FREQ);
+    base_a_->setUnitsHz();
+    addProperty(base_a_);
 
-    prop_temperament_ = new SymbolEnumProperty("@t", SYM_EQ12);
-    prop_temperament_->appendEnum(SYM_JUST);
-    prop_temperament_->appendEnum(SYM_GANASSI);
-    prop_temperament_->appendEnum(SYM_MEANTONE);
-    prop_temperament_->appendEnum(SYM_KIRN3);
-    prop_temperament_->appendEnum(SYM_PYTH);
-    prop_temperament_->appendEnum(SYM_PYTH);
-    prop_temperament_->appendEnum(SYM_VALOTTI);
-    prop_temperament_->appendEnum(SYM_ZARLINO);
-    createProperty(prop_temperament_);
+    prop_temperament_ = new SymbolEnumProperty("@t",
+        { SYM_EQ12, SYM_JUST, SYM_GANASSI, SYM_MEANTONE, SYM_KIRN3, SYM_PYTH, SYM_RAMEAU, SYM_VALOTTI, SYM_ZARLINO });
+    addProperty(prop_temperament_);
 
     createOutlet();
 }

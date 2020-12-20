@@ -2,12 +2,15 @@
 #define LIST_IFACE_H_
 
 #include "ceammc_convert.h"
+#include "ceammc_data.h"
 #include "ceammc_object.h"
 #include "data_protocol.h"
+#include "datatype_mlist.h"
+
+#include <ctime>
+#include <random>
 
 using namespace ceammc;
-
-class DataTypeMList;
 
 template <class T>
 class DataListIFace : public ListIFace<T> {
@@ -22,7 +25,7 @@ public:
         this->listTo(0, list());
     }
 
-    void onFloat(float f) override
+    void onFloat(t_float f) override
     {
         const size_t N = list().size();
         if (!N)
@@ -35,6 +38,11 @@ public:
         }
 
         this->atomTo(0, list()[idx]);
+    }
+
+    void onSymbol(t_symbol* s) override
+    {
+        onList(AtomList(s));
     }
 
     void onList(const AtomList& l) override
@@ -51,13 +59,12 @@ public:
         list() = l;
     }
 
-    void onDataT(const DataTPtr<DataTypeMList>& dptr)
+    void onDataT(const MListAtom& ml)
     {
-        auto pred = [](const DataAtom& a) { return a.isAtom(); };
-        onList(dptr->toList(pred));
+        onList(ml->data());
     }
 
-    void proto_set(const AtomList& lst) override
+    void proto_set(const AtomListView& lst) override
     {
         list() = lst;
     }
@@ -67,17 +74,17 @@ public:
         list().clear();
     }
 
-    void proto_append(const AtomList& lst) override
+    void proto_append(const AtomListView& lst) override
     {
         list().append(lst);
     }
 
-    void proto_prepend(const AtomList& lst) override
+    void proto_prepend(const AtomListView& lst) override
     {
         list().insert(0, lst);
     }
 
-    bool proto_insert(size_t idx, const AtomList& lst) override
+    bool proto_insert(size_t idx, const AtomListView& lst) override
     {
         return list().insert(idx, lst);
     }
@@ -119,6 +126,19 @@ public:
     void proto_fill(const Atom& v) override
     {
         list().fill(v);
+    }
+
+    void proto_choose() override
+    {
+        using RandomGenT = std::mt19937;
+        static RandomGenT gen(time(0));
+
+        auto N = list().size();
+        if (N < 1)
+            return;
+
+        auto idx = std::uniform_int_distribution<size_t>(0, N - 1)(gen);
+        this->atomTo(0, list().at(idx));
     }
 
     void dump() const override

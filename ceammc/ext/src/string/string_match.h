@@ -14,8 +14,8 @@
 #ifndef STRING_MATCH_H
 #define STRING_MATCH_H
 
+#include "ceammc_data.h"
 #include "ceammc_object.h"
-#include "datatype_string.h"
 
 #include <memory>
 
@@ -27,21 +27,23 @@ class RE2;
 using namespace ceammc;
 
 class StringMatch : public BaseObject {
-    typedef std::shared_ptr<re2::RE2> Regexp;
+    using Regexp = std::unique_ptr<re2::RE2>;
     Regexp re_;
 
 public:
     StringMatch(const PdArgs& args);
+    ~StringMatch();
 
-    void onSymbol(t_symbol* s);
-    void onDataT(const DataTPtr<DataTypeString>& dptr);
-    void onInlet(size_t n, const AtomList& l);
+    void onSymbol(t_symbol* s) override;
+    void onDataT(const StringAtom& str);
+    void onInlet(size_t n, const AtomList& l) override;
 
     void update(const std::string& re);
 
 private:
+    void doMatch(const char* str);
     AtomList propRe2() const;
-    void propSetRe2(const AtomList& lst);
+    bool propSetRe2(const AtomList& lst);
 };
 
 void setup_string_match();

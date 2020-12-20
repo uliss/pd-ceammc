@@ -20,9 +20,9 @@ UIMouseFilter::UIMouseFilter(const PdArgs& args)
 {
     auto makeProp = [this](const char* sym, const char* alias) {
         BoolProperty* b = new BoolProperty(sym, false);
-        createProperty(b);
+        addProperty(b);
         mouse_events_.push_back(b);
-        createProperty(new AliasProperty<BoolProperty, bool>(alias, b, true));
+        addProperty(new AliasProperty<BoolProperty>(alias, b, true));
     };
 
     makeProp("@mouse_up", "@up");
@@ -35,12 +35,12 @@ UIMouseFilter::UIMouseFilter(const PdArgs& args)
     createOutlet();
 }
 
-bool UIMouseFilter::processAnyProps(t_symbol* sel, const AtomList& lst)
+bool UIMouseFilter::processAnyProps(t_symbol* sel, const AtomListView& lst)
 {
     BoolProperty* p = dynamic_cast<BoolProperty*>(property(sel));
     if (p) {
         if (p->value())
-            closed_ = !atomlistToValue<bool>(lst, false);
+            closed_ = !lst.boolAt(0, false);
         else
             return true;
 
@@ -75,16 +75,16 @@ void UIMouseFilter::onList(const AtomList& l)
         listTo(0, l);
 }
 
-void UIMouseFilter::onAny(t_symbol* s, const AtomList& l)
+void UIMouseFilter::onAny(t_symbol* s, const AtomListView& l)
 {
     if (!closed_)
         anyTo(0, s, l);
 }
 
-void UIMouseFilter::onData(const DataPtr& ptr)
+void UIMouseFilter::onData(const Atom& data)
 {
     if (!closed_)
-        dataTo(0, ptr);
+        atomTo(0, data);
 }
 
 void setup_ui_mouse_filter()

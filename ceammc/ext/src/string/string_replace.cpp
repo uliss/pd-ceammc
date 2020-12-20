@@ -14,8 +14,7 @@
 #include "string_replace.h"
 #include "ceammc_factory.h"
 #include "ceammc_format.h"
-
-#include <boost/algorithm/string.hpp>
+#include "datatype_string.h"
 
 static t_symbol* REPLACE_ALL;
 static t_symbol* REPLACE_FIRST;
@@ -23,45 +22,45 @@ static t_symbol* REPLACE_LAST;
 
 StringReplace::StringReplace(const PdArgs& a)
     : BaseObject(a)
-    , mode_(0)
+    , mode_(nullptr)
 {
     createInlet();
     createInlet();
     createOutlet();
 
-    mode_ = new SymbolEnumProperty("@mode", REPLACE_ALL);
-    mode_->appendEnum(REPLACE_FIRST);
-    mode_->appendEnum(REPLACE_LAST);
-    createProperty(mode_);
+    mode_ = new SymbolEnumProperty("@mode", { REPLACE_ALL, REPLACE_FIRST, REPLACE_LAST });
+    addProperty(mode_);
 
-    createProperty(new SymbolEnumAlias("@all", mode_, REPLACE_ALL));
-    createProperty(new SymbolEnumAlias("@first", mode_, REPLACE_FIRST));
-    createProperty(new SymbolEnumAlias("@last", mode_, REPLACE_LAST));
+    addProperty(new SymbolEnumAlias("@all", mode_, REPLACE_ALL));
+    addProperty(new SymbolEnumAlias("@first", mode_, REPLACE_FIRST));
+    addProperty(new SymbolEnumAlias("@last", mode_, REPLACE_LAST));
 
-    createCbProperty("@from", &StringReplace::propFrom, &StringReplace::setPropFrom);
-    createCbProperty("@to", &StringReplace::propTo, &StringReplace::setPropTo);
+    createCbSymbolProperty(
+        "@from",
+        [this]() -> t_symbol* { return gensym(from_.c_str()); },
+        [this](t_symbol* s) -> bool { from_ = s->s_name; return true; })
+        ->setArgIndex(0);
 
-    const size_t nargs = positionalArguments().size();
-    if (nargs > 0)
-        from_ = to_string(positionalArguments()[0]);
-
-    if (nargs > 1)
-        to_ = to_string(positionalArguments()[1]);
+    createCbSymbolProperty(
+        "@to",
+        [this]() -> t_symbol* { return gensym(to_.c_str()); },
+        [this](t_symbol* s) -> bool { to_ = s->s_name; return true; })
+        ->setArgIndex(1);
 }
 
 void StringReplace::onSymbol(t_symbol* s)
 {
-    onDataT(DataTypeString(s));
+    onDataT(StringAtom(s));
 }
 
-void StringReplace::onDataT(const DataTPtr<DataTypeString>& dptr)
+void StringReplace::onDataT(const StringAtom& str)
 {
     if (mode_->value() == REPLACE_ALL) {
-        dataTo(0, DataTPtr<DataTypeString>(dptr->replaceAll(from_, to_)));
+        atomTo(0, StringAtom(str->replaceAll(from_, to_)));
     } else if (mode_->value() == REPLACE_FIRST) {
-        dataTo(0, DataTPtr<DataTypeString>(dptr->replaceFirst(from_, to_)));
+        atomTo(0, StringAtom(str->replaceFirst(from_, to_)));
     } else if (mode_->value() == REPLACE_LAST) {
-        dataTo(0, DataTPtr<DataTypeString>(dptr->replaceLast(from_, to_)));
+        atomTo(0, StringAtom(str->replaceLast(from_, to_)));
     }
 }
 
@@ -78,27 +77,7 @@ void StringReplace::onInlet(size_t n, const AtomList& l)
     }
 }
 
-AtomList StringReplace::propFrom() const
-{
-    return DataPtr(new DataTypeString(from_)).asAtom();
-}
-
-AtomList StringReplace::propTo() const
-{
-    return DataPtr(new DataTypeString(to_)).asAtom();
-}
-
-void StringReplace::setPropFrom(const AtomList& l)
-{
-    from_ = to_string(l);
-}
-
-void StringReplace::setPropTo(const AtomList& l)
-{
-    to_ = to_string(l);
-}
-
-void setup_string0x2ereplace()
+void setup_string_replace()
 {
     REPLACE_ALL = gensym("all");
     REPLACE_FIRST = gensym("first");

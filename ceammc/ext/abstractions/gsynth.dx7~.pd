@@ -2,388 +2,387 @@
 #X obj 25 125 synth.dx7~;
 #X obj 325 25 inlet;
 #X obj 325 200 route synth.dx7;
-#X obj 325 250 route @algorithm @feedback @freq @gain @gate @op0:egL1
-@op0:egL2 @op0:egL3 @op0:egL4 @op0:egR1 @op0:egR2 @op0:egR3 @op0:egR4
-@op0:keyVelSens @op0:level @op0:opDetune @op0:opFreq @op0:opMode
-@op0:opRateScale @op1:egL1 @op1:egL2 @op1:egL3 @op1:egL4 @op1:egR1
-@op1:egR2 @op1:egR3 @op1:egR4 @op1:keyVelSens @op1:level @op1:opDetune
-@op1:opFreq @op1:opMode @op1:opRateScale @op2:egL1 @op2:egL2 @op2:egL3
-@op2:egL4 @op2:egR1 @op2:egR2 @op2:egR3 @op2:egR4 @op2:keyVelSens
-@op2:level @op2:opDetune @op2:opFreq @op2:opMode @op2:opRateScale
+#X obj 325 250 route @algorithm @feedback @gain @gate @op0:detune
+@op0:egL1 @op0:egL2 @op0:egL3 @op0:egL4 @op0:egR1 @op0:egR2 @op0:egR3
+@op0:egR4 @op0:freq @op0:key_vel_sens @op0:level @op0:mode
+@op0:rate_scale @op1:detune @op1:egL1 @op1:egL2 @op1:egL3 @op1:egL4
+@op1:egR1 @op1:egR2 @op1:egR3 @op1:egR4 @op1:freq @op1:key_vel_sens
+@op1:level @op1:mode @op1:rate_scale @op2:detune @op2:egL1 @op2:egL2
+@op2:egL3 @op2:egL4 @op2:egR1 @op2:egR2 @op2:egR3 @op2:egR4 @op2:freq
+@op2:key_vel_sens @op2:level @op2:mode @op2:rate_scale @op3:detune
 @op3:egL1 @op3:egL2 @op3:egL3 @op3:egL4 @op3:egR1 @op3:egR2 @op3:egR3
-@op3:egR4 @op3:keyVelSens @op3:level @op3:opDetune @op3:opFreq
-@op3:opMode @op3:opRateScale @op4:egL1 @op4:egL2 @op4:egL3 @op4:egL4
-@op4:egR1 @op4:egR2 @op4:egR3 @op4:egR4 @op4:keyVelSens @op4:level
-@op4:opDetune @op4:opFreq @op4:opMode @op4:opRateScale @op5:egL1
-@op5:egL2 @op5:egL3 @op5:egL4 @op5:egR1 @op5:egR2 @op5:egR3 @op5:egR4
-@op5:keyVelSens @op5:level @op5:opDetune @op5:opFreq @op5:opMode
-@op5:opRateScale;
+@op3:egR4 @op3:freq @op3:key_vel_sens @op3:level @op3:mode
+@op3:rate_scale @op4:detune @op4:egL1 @op4:egL2 @op4:egL3 @op4:egL4
+@op4:egR1 @op4:egR2 @op4:egR3 @op4:egR4 @op4:freq @op4:key_vel_sens
+@op4:level @op4:mode @op4:rate_scale @op5:detune @op5:egL1 @op5:egL2
+@op5:egL3 @op5:egL4 @op5:egR1 @op5:egR2 @op5:egR3 @op5:egR4 @op5:freq
+@op5:key_vel_sens @op5:level @op5:mode @op5:rate_scale @pitch;
 #X obj 575 350 print unknown property;
-#X msg 225 75 @algorithm 0 \, @feedback 0 \, @freq 400 \, @gain 0.8 \, @op0:egL1 0 \, @op0:egL2 90 \, @op0:egL3 90 \, @op0:egL4 0 \, @op0:egR1 90 \, @op0:egR2 90 \, @op0:egR3 90 \, @op0:egR4 90 \, @op0:keyVelSens 1 \, @op0:level 95 \, @op0:opDetune 1 \, @op0:opFreq 1 \, @op0:opMode 0 \, @op0:opRateScale 0 \, @op1:egL1 0 \, @op1:egL2 90 \, @op1:egL3 90 \, @op1:egL4 0 \, @op1:egR1 90 \, @op1:egR2 90 \, @op1:egR3 90 \, @op1:egR4 90 \, @op1:keyVelSens 1 \, @op1:level 95 \, @op1:opDetune 1 \, @op1:opFreq 1 \, @op1:opMode 0 \, @op1:opRateScale 0 \, @op2:egL1 0 \, @op2:egL2 90 \, @op2:egL3 90 \, @op2:egL4 0 \, @op2:egR1 90 \, @op2:egR2 90 \, @op2:egR3 90 \, @op2:egR4 90 \, @op2:keyVelSens 1 \, @op2:level 95 \, @op2:opDetune 1 \, @op2:opFreq 1 \, @op2:opMode 0 \, @op2:opRateScale 0 \, @op3:egL1 0 \, @op3:egL2 90 \, @op3:egL3 90 \, @op3:egL4 0 \, @op3:egR1 90 \, @op3:egR2 90 \, @op3:egR3 90 \, @op3:egR4 90 \, @op3:keyVelSens 1 \, @op3:level 95 \, @op3:opDetune 1 \, @op3:opFreq 1 \, @op3:opMode 0 \, @op3:opRateScale 0 \, @op4:egL1 0 \, @op4:egL2 90 \, @op4:egL3 90 \, @op4:egL4 0 \, @op4:egR1 90 \, @op4:egR2 90 \, @op4:egR3 90 \, @op4:egR4 90 \, @op4:keyVelSens 1 \, @op4:level 95 \, @op4:opDetune 1 \, @op4:opFreq 1 \, @op4:opMode 0 \, @op4:opRateScale 0 \, @op5:egL1 0 \, @op5:egL2 90 \, @op5:egL3 90 \, @op5:egL4 0 \, @op5:egR1 90 \, @op5:egR2 90 \, @op5:egR3 90 \, @op5:egR4 90 \, @op5:keyVelSens 1 \, @op5:level 95 \, @op5:opDetune 1 \, @op5:opFreq 1 \, @op5:opMode 0 \, @op5:opRateScale 0 \,;
+#X msg 225 75 @algorithm 0 \, @feedback 0 \, @gain 0.8 \, @op0:detune 1 \, @op0:egL1 0 \, @op0:egL2 90 \, @op0:egL3 90 \, @op0:egL4 0 \, @op0:egR1 90 \, @op0:egR2 90 \, @op0:egR3 90 \, @op0:egR4 90 \, @op0:freq 1 \, @op0:key_vel_sens 1 \, @op0:level 95 \, @op0:mode 0 \, @op0:rate_scale 0 \, @op1:detune 1 \, @op1:egL1 0 \, @op1:egL2 90 \, @op1:egL3 90 \, @op1:egL4 0 \, @op1:egR1 90 \, @op1:egR2 90 \, @op1:egR3 90 \, @op1:egR4 90 \, @op1:freq 1 \, @op1:key_vel_sens 1 \, @op1:level 95 \, @op1:mode 0 \, @op1:rate_scale 0 \, @op2:detune 1 \, @op2:egL1 0 \, @op2:egL2 90 \, @op2:egL3 90 \, @op2:egL4 0 \, @op2:egR1 90 \, @op2:egR2 90 \, @op2:egR3 90 \, @op2:egR4 90 \, @op2:freq 1 \, @op2:key_vel_sens 1 \, @op2:level 95 \, @op2:mode 0 \, @op2:rate_scale 0 \, @op3:detune 1 \, @op3:egL1 0 \, @op3:egL2 90 \, @op3:egL3 90 \, @op3:egL4 0 \, @op3:egR1 90 \, @op3:egR2 90 \, @op3:egR3 90 \, @op3:egR4 90 \, @op3:freq 1 \, @op3:key_vel_sens 1 \, @op3:level 95 \, @op3:mode 0 \, @op3:rate_scale 0 \, @op4:detune 1 \, @op4:egL1 0 \, @op4:egL2 90 \, @op4:egL3 90 \, @op4:egL4 0 \, @op4:egR1 90 \, @op4:egR2 90 \, @op4:egR3 90 \, @op4:egR4 90 \, @op4:freq 1 \, @op4:key_vel_sens 1 \, @op4:level 95 \, @op4:mode 0 \, @op4:rate_scale 0 \, @op5:detune 1 \, @op5:egL1 0 \, @op5:egL2 90 \, @op5:egL3 90 \, @op5:egL4 0 \, @op5:egR1 90 \, @op5:egR2 90 \, @op5:egR3 90 \, @op5:egR4 90 \, @op5:freq 1 \, @op5:key_vel_sens 1 \, @op5:level 95 \, @op5:mode 0 \, @op5:rate_scale 0 \, @pitch 48 \,;
 #X obj 225 25 msg.onload;
 #X obj 500 550 outlet~;
 #X obj 600 550 outlet ctl;
 #X obj 3 202 cnv 8 198 18 empty empty [synth.dx7~] 3 9 0 12 -104026
 -262144 0;
-#X text 10 218 algorithm:;
-#X obj 12 237 ui.number @size 60 12 @presetname
-/gui/$1/synth.dx7~/numbox0 @min 0 @max 31 @step 1;
-#X msg 260 237 @algorithm \$1;
-#X text 10 251 feedback:;
-#X obj 12 270 ui.number @size 60 12 @presetname
-/gui/$1/synth.dx7~/numbox1 @min 0 @max 99 @step 1;
-#X msg 260 270 @feedback \$1;
-#X text 10 284 freq:;
-#X obj 12 303 ui.slider @size 120 12 @active_scale 1 @presetname
-/gui/$1/synth.dx7~/slider2 @min 50 @max 1000;
-#X obj 140 303 ui.number @size 40 12 @digits 3 @min 50 @max 1000;
-#X obj 190 303 msg set;
-#X msg 260 303 @freq \$1;
-#X text 10 317 gain:;
-#X obj 12 336 ui.slider @size 120 12 @active_scale 1 @presetname
-/gui/$1/synth.dx7~/slider3 @min 0 @max 1;
-#X obj 140 336 ui.number @size 40 12 @digits 3 @min 0 @max 1;
-#X obj 190 336 msg set;
-#X msg 260 336 @gain \$1;
-#X obj 12 358 ui.toggle @size 12 12;
-#X text 26 353 gate;
-#X msg 260 350 @gate \$1;
-#X text 10 370 op0:egL1:;
-#X obj 12 389 ui.number @size 60 12 @presetname
-/gui/$1/synth.dx7~/numbox5 @min 0 @max 99 @step 1;
-#X msg 260 389 @op0:egL1 \$1;
-#X text 10 403 op0:egL2:;
-#X obj 12 422 ui.number @size 60 12 @presetname
-/gui/$1/synth.dx7~/numbox6 @min 0 @max 99 @step 1;
-#X msg 260 422 @op0:egL2 \$1;
-#X text 10 436 op0:egL3:;
-#X obj 12 455 ui.number @size 60 12 @presetname
-/gui/$1/synth.dx7~/numbox7 @min 0 @max 99 @step 1;
-#X msg 260 455 @op0:egL3 \$1;
-#X text 10 469 op0:egL4:;
-#X obj 12 488 ui.number @size 60 12 @presetname
-/gui/$1/synth.dx7~/numbox8 @min 0 @max 99 @step 1;
-#X msg 260 488 @op0:egL4 \$1;
-#X text 10 502 op0:egR1:;
-#X obj 12 521 ui.number @size 60 12 @presetname
-/gui/$1/synth.dx7~/numbox9 @min 0 @max 99 @step 1;
-#X msg 260 521 @op0:egR1 \$1;
-#X text 10 535 op0:egR2:;
-#X obj 12 554 ui.number @size 60 12 @presetname
-/gui/$1/synth.dx7~/numbox10 @min 0 @max 99 @step 1;
-#X msg 260 554 @op0:egR2 \$1;
-#X text 10 568 op0:egR3:;
-#X obj 12 587 ui.number @size 60 12 @presetname
-/gui/$1/synth.dx7~/numbox11 @min 0 @max 99 @step 1;
-#X msg 260 587 @op0:egR3 \$1;
-#X text 10 601 op0:egR4:;
-#X obj 12 620 ui.number @size 60 12 @presetname
-/gui/$1/synth.dx7~/numbox12 @min 0 @max 99 @step 1;
-#X msg 260 620 @op0:egR4 \$1;
-#X text 10 634 op0:keyVelSens:;
-#X obj 12 653 ui.number @size 60 12 @presetname
-/gui/$1/synth.dx7~/numbox13 @min 0 @max 8 @step 1;
-#X msg 260 653 @op0:keyVelSens \$1;
-#X text 10 667 op0:level:;
-#X obj 12 686 ui.number @size 60 12 @presetname
-/gui/$1/synth.dx7~/numbox14 @min 0 @max 99 @step 1;
-#X msg 260 686 @op0:level \$1;
-#X text 10 700 op0:opDetune:;
-#X obj 12 719 ui.number @size 60 12 @presetname
-/gui/$1/synth.dx7~/numbox15 @min -10 @max 10 @step 1;
-#X msg 260 719 @op0:opDetune \$1;
-#X text 10 733 op0:opFreq:;
-#X obj 12 752 ui.number @size 60 12 @presetname
-/gui/$1/synth.dx7~/numbox16 @min 0 @max 2 @step 0.01;
-#X msg 260 752 @op0:opFreq \$1;
-#X text 10 766 op0:opMode:;
-#X obj 12 785 ui.number @size 60 12 @presetname
-/gui/$1/synth.dx7~/numbox17 @min 0 @max 1 @step 1;
-#X msg 260 785 @op0:opMode \$1;
-#X text 10 799 op0:opRateScale:;
-#X obj 12 818 ui.number @size 60 12 @presetname
-/gui/$1/synth.dx7~/numbox18 @min 0 @max 10 @step 1;
-#X msg 260 818 @op0:opRateScale \$1;
-#X text 10 832 op1:egL1:;
-#X obj 12 851 ui.number @size 60 12 @presetname
-/gui/$1/synth.dx7~/numbox19 @min 0 @max 99 @step 1;
-#X msg 260 851 @op1:egL1 \$1;
-#X text 10 865 op1:egL2:;
-#X obj 12 884 ui.number @size 60 12 @presetname
-/gui/$1/synth.dx7~/numbox20 @min 0 @max 99 @step 1;
-#X msg 260 884 @op1:egL2 \$1;
-#X text 10 898 op1:egL3:;
-#X obj 12 917 ui.number @size 60 12 @presetname
-/gui/$1/synth.dx7~/numbox21 @min 0 @max 99 @step 1;
-#X msg 260 917 @op1:egL3 \$1;
-#X text 10 931 op1:egL4:;
-#X obj 12 950 ui.number @size 60 12 @presetname
-/gui/$1/synth.dx7~/numbox22 @min 0 @max 99 @step 1;
-#X msg 260 950 @op1:egL4 \$1;
-#X text 10 964 op1:egR1:;
-#X obj 12 983 ui.number @size 60 12 @presetname
-/gui/$1/synth.dx7~/numbox23 @min 0 @max 99 @step 1;
-#X msg 260 983 @op1:egR1 \$1;
-#X text 10 997 op1:egR2:;
-#X obj 12 1016 ui.number @size 60 12 @presetname
-/gui/$1/synth.dx7~/numbox24 @min 0 @max 99 @step 1;
-#X msg 260 1016 @op1:egR2 \$1;
-#X text 10 1030 op1:egR3:;
-#X obj 12 1049 ui.number @size 60 12 @presetname
-/gui/$1/synth.dx7~/numbox25 @min 0 @max 99 @step 1;
-#X msg 260 1049 @op1:egR3 \$1;
-#X text 10 1063 op1:egR4:;
-#X obj 12 1082 ui.number @size 60 12 @presetname
-/gui/$1/synth.dx7~/numbox26 @min 0 @max 99 @step 1;
-#X msg 260 1082 @op1:egR4 \$1;
-#X text 10 1096 op1:keyVelSens:;
-#X obj 12 1115 ui.number @size 60 12 @presetname
-/gui/$1/synth.dx7~/numbox27 @min 0 @max 8 @step 1;
-#X msg 260 1115 @op1:keyVelSens \$1;
-#X text 10 1129 op1:level:;
-#X obj 12 1148 ui.number @size 60 12 @presetname
-/gui/$1/synth.dx7~/numbox28 @min 0 @max 99 @step 1;
-#X msg 260 1148 @op1:level \$1;
-#X text 10 1162 op1:opDetune:;
-#X obj 12 1181 ui.number @size 60 12 @presetname
-/gui/$1/synth.dx7~/numbox29 @min -10 @max 10 @step 1;
-#X msg 260 1181 @op1:opDetune \$1;
-#X text 10 1195 op1:opFreq:;
-#X obj 12 1214 ui.number @size 60 12 @presetname
-/gui/$1/synth.dx7~/numbox30 @min 0 @max 2 @step 0.01;
-#X msg 260 1214 @op1:opFreq \$1;
-#X text 10 1228 op1:opMode:;
-#X obj 12 1247 ui.number @size 60 12 @presetname
-/gui/$1/synth.dx7~/numbox31 @min 0 @max 1 @step 1;
-#X msg 260 1247 @op1:opMode \$1;
-#X text 10 1261 op1:opRateScale:;
-#X obj 12 1280 ui.number @size 60 12 @presetname
-/gui/$1/synth.dx7~/numbox32 @min 0 @max 10 @step 1;
-#X msg 260 1280 @op1:opRateScale \$1;
-#X text 10 1294 op2:egL1:;
-#X obj 12 1313 ui.number @size 60 12 @presetname
-/gui/$1/synth.dx7~/numbox33 @min 0 @max 99 @step 1;
-#X msg 260 1313 @op2:egL1 \$1;
-#X text 10 1327 op2:egL2:;
-#X obj 12 1346 ui.number @size 60 12 @presetname
-/gui/$1/synth.dx7~/numbox34 @min 0 @max 99 @step 1;
-#X msg 260 1346 @op2:egL2 \$1;
-#X text 10 1360 op2:egL3:;
-#X obj 12 1379 ui.number @size 60 12 @presetname
-/gui/$1/synth.dx7~/numbox35 @min 0 @max 99 @step 1;
-#X msg 260 1379 @op2:egL3 \$1;
-#X text 10 1393 op2:egL4:;
-#X obj 12 1412 ui.number @size 60 12 @presetname
-/gui/$1/synth.dx7~/numbox36 @min 0 @max 99 @step 1;
-#X msg 260 1412 @op2:egL4 \$1;
-#X text 10 1426 op2:egR1:;
-#X obj 12 1445 ui.number @size 60 12 @presetname
-/gui/$1/synth.dx7~/numbox37 @min 0 @max 99 @step 1;
-#X msg 260 1445 @op2:egR1 \$1;
-#X text 10 1459 op2:egR2:;
-#X obj 12 1478 ui.number @size 60 12 @presetname
-/gui/$1/synth.dx7~/numbox38 @min 0 @max 99 @step 1;
-#X msg 260 1478 @op2:egR2 \$1;
-#X text 10 1492 op2:egR3:;
-#X obj 12 1511 ui.number @size 60 12 @presetname
-/gui/$1/synth.dx7~/numbox39 @min 0 @max 99 @step 1;
-#X msg 260 1511 @op2:egR3 \$1;
-#X text 10 1525 op2:egR4:;
-#X obj 12 1544 ui.number @size 60 12 @presetname
-/gui/$1/synth.dx7~/numbox40 @min 0 @max 99 @step 1;
-#X msg 260 1544 @op2:egR4 \$1;
-#X text 10 1558 op2:keyVelSens:;
-#X obj 12 1577 ui.number @size 60 12 @presetname
-/gui/$1/synth.dx7~/numbox41 @min 0 @max 8 @step 1;
-#X msg 260 1577 @op2:keyVelSens \$1;
-#X text 10 1591 op2:level:;
-#X obj 12 1610 ui.number @size 60 12 @presetname
-/gui/$1/synth.dx7~/numbox42 @min 0 @max 99 @step 1;
-#X msg 260 1610 @op2:level \$1;
-#X text 10 1624 op2:opDetune:;
-#X obj 12 1643 ui.number @size 60 12 @presetname
-/gui/$1/synth.dx7~/numbox43 @min -10 @max 10 @step 1;
-#X msg 260 1643 @op2:opDetune \$1;
-#X text 10 1657 op2:opFreq:;
-#X obj 12 1676 ui.number @size 60 12 @presetname
-/gui/$1/synth.dx7~/numbox44 @min 0 @max 2 @step 0.01;
-#X msg 260 1676 @op2:opFreq \$1;
-#X text 10 1690 op2:opMode:;
-#X obj 12 1709 ui.number @size 60 12 @presetname
-/gui/$1/synth.dx7~/numbox45 @min 0 @max 1 @step 1;
-#X msg 260 1709 @op2:opMode \$1;
-#X text 10 1723 op2:opRateScale:;
-#X obj 12 1742 ui.number @size 60 12 @presetname
-/gui/$1/synth.dx7~/numbox46 @min 0 @max 10 @step 1;
-#X msg 260 1742 @op2:opRateScale \$1;
-#X text 10 1756 op3:egL1:;
-#X obj 12 1775 ui.number @size 60 12 @presetname
-/gui/$1/synth.dx7~/numbox47 @min 0 @max 99 @step 1;
-#X msg 260 1775 @op3:egL1 \$1;
-#X text 10 1789 op3:egL2:;
-#X obj 12 1808 ui.number @size 60 12 @presetname
-/gui/$1/synth.dx7~/numbox48 @min 0 @max 99 @step 1;
-#X msg 260 1808 @op3:egL2 \$1;
-#X text 10 1822 op3:egL3:;
-#X obj 12 1841 ui.number @size 60 12 @presetname
-/gui/$1/synth.dx7~/numbox49 @min 0 @max 99 @step 1;
-#X msg 260 1841 @op3:egL3 \$1;
-#X text 10 1855 op3:egL4:;
-#X obj 12 1874 ui.number @size 60 12 @presetname
-/gui/$1/synth.dx7~/numbox50 @min 0 @max 99 @step 1;
-#X msg 260 1874 @op3:egL4 \$1;
-#X text 10 1888 op3:egR1:;
-#X obj 12 1907 ui.number @size 60 12 @presetname
-/gui/$1/synth.dx7~/numbox51 @min 0 @max 99 @step 1;
-#X msg 260 1907 @op3:egR1 \$1;
-#X text 10 1921 op3:egR2:;
-#X obj 12 1940 ui.number @size 60 12 @presetname
-/gui/$1/synth.dx7~/numbox52 @min 0 @max 99 @step 1;
-#X msg 260 1940 @op3:egR2 \$1;
-#X text 10 1954 op3:egR3:;
-#X obj 12 1973 ui.number @size 60 12 @presetname
-/gui/$1/synth.dx7~/numbox53 @min 0 @max 99 @step 1;
-#X msg 260 1973 @op3:egR3 \$1;
-#X text 10 1987 op3:egR4:;
-#X obj 12 2006 ui.number @size 60 12 @presetname
-/gui/$1/synth.dx7~/numbox54 @min 0 @max 99 @step 1;
-#X msg 260 2006 @op3:egR4 \$1;
-#X text 10 2020 op3:keyVelSens:;
-#X obj 12 2039 ui.number @size 60 12 @presetname
-/gui/$1/synth.dx7~/numbox55 @min 0 @max 8 @step 1;
-#X msg 260 2039 @op3:keyVelSens \$1;
-#X text 10 2053 op3:level:;
-#X obj 12 2072 ui.number @size 60 12 @presetname
-/gui/$1/synth.dx7~/numbox56 @min 0 @max 99 @step 1;
-#X msg 260 2072 @op3:level \$1;
-#X text 10 2086 op3:opDetune:;
-#X obj 12 2105 ui.number @size 60 12 @presetname
-/gui/$1/synth.dx7~/numbox57 @min -10 @max 10 @step 1;
-#X msg 260 2105 @op3:opDetune \$1;
-#X text 10 2119 op3:opFreq:;
-#X obj 12 2138 ui.number @size 60 12 @presetname
-/gui/$1/synth.dx7~/numbox58 @min 0 @max 2 @step 0.01;
-#X msg 260 2138 @op3:opFreq \$1;
-#X text 10 2152 op3:opMode:;
-#X obj 12 2171 ui.number @size 60 12 @presetname
-/gui/$1/synth.dx7~/numbox59 @min 0 @max 1 @step 1;
-#X msg 260 2171 @op3:opMode \$1;
-#X text 10 2185 op3:opRateScale:;
-#X obj 12 2204 ui.number @size 60 12 @presetname
-/gui/$1/synth.dx7~/numbox60 @min 0 @max 10 @step 1;
-#X msg 260 2204 @op3:opRateScale \$1;
-#X text 10 2218 op4:egL1:;
-#X obj 12 2237 ui.number @size 60 12 @presetname
-/gui/$1/synth.dx7~/numbox61 @min 0 @max 99 @step 1;
-#X msg 260 2237 @op4:egL1 \$1;
-#X text 10 2251 op4:egL2:;
-#X obj 12 2270 ui.number @size 60 12 @presetname
-/gui/$1/synth.dx7~/numbox62 @min 0 @max 99 @step 1;
-#X msg 260 2270 @op4:egL2 \$1;
-#X text 10 2284 op4:egL3:;
-#X obj 12 2303 ui.number @size 60 12 @presetname
-/gui/$1/synth.dx7~/numbox63 @min 0 @max 99 @step 1;
-#X msg 260 2303 @op4:egL3 \$1;
-#X text 10 2317 op4:egL4:;
-#X obj 12 2336 ui.number @size 60 12 @presetname
-/gui/$1/synth.dx7~/numbox64 @min 0 @max 99 @step 1;
-#X msg 260 2336 @op4:egL4 \$1;
-#X text 10 2350 op4:egR1:;
-#X obj 12 2369 ui.number @size 60 12 @presetname
-/gui/$1/synth.dx7~/numbox65 @min 0 @max 99 @step 1;
-#X msg 260 2369 @op4:egR1 \$1;
-#X text 10 2383 op4:egR2:;
-#X obj 12 2402 ui.number @size 60 12 @presetname
-/gui/$1/synth.dx7~/numbox66 @min 0 @max 99 @step 1;
-#X msg 260 2402 @op4:egR2 \$1;
-#X text 10 2416 op4:egR3:;
-#X obj 12 2435 ui.number @size 60 12 @presetname
-/gui/$1/synth.dx7~/numbox67 @min 0 @max 99 @step 1;
-#X msg 260 2435 @op4:egR3 \$1;
-#X text 10 2449 op4:egR4:;
-#X obj 12 2468 ui.number @size 60 12 @presetname
-/gui/$1/synth.dx7~/numbox68 @min 0 @max 99 @step 1;
-#X msg 260 2468 @op4:egR4 \$1;
-#X text 10 2482 op4:keyVelSens:;
-#X obj 12 2501 ui.number @size 60 12 @presetname
-/gui/$1/synth.dx7~/numbox69 @min 0 @max 8 @step 1;
-#X msg 260 2501 @op4:keyVelSens \$1;
-#X text 10 2515 op4:level:;
-#X obj 12 2534 ui.number @size 60 12 @presetname
-/gui/$1/synth.dx7~/numbox70 @min 0 @max 99 @step 1;
-#X msg 260 2534 @op4:level \$1;
-#X text 10 2548 op4:opDetune:;
-#X obj 12 2567 ui.number @size 60 12 @presetname
-/gui/$1/synth.dx7~/numbox71 @min -10 @max 10 @step 1;
-#X msg 260 2567 @op4:opDetune \$1;
-#X text 10 2581 op4:opFreq:;
-#X obj 12 2600 ui.number @size 60 12 @presetname
-/gui/$1/synth.dx7~/numbox72 @min 0 @max 2 @step 0.01;
-#X msg 260 2600 @op4:opFreq \$1;
-#X text 10 2614 op4:opMode:;
-#X obj 12 2633 ui.number @size 60 12 @presetname
-/gui/$1/synth.dx7~/numbox73 @min 0 @max 1 @step 1;
-#X msg 260 2633 @op4:opMode \$1;
-#X text 10 2647 op4:opRateScale:;
-#X obj 12 2666 ui.number @size 60 12 @presetname
-/gui/$1/synth.dx7~/numbox74 @min 0 @max 10 @step 1;
-#X msg 260 2666 @op4:opRateScale \$1;
-#X text 10 2680 op5:egL1:;
-#X obj 12 2699 ui.number @size 60 12 @presetname
-/gui/$1/synth.dx7~/numbox75 @min 0 @max 99 @step 1;
-#X msg 260 2699 @op5:egL1 \$1;
-#X text 10 2713 op5:egL2:;
-#X obj 12 2732 ui.number @size 60 12 @presetname
-/gui/$1/synth.dx7~/numbox76 @min 0 @max 99 @step 1;
-#X msg 260 2732 @op5:egL2 \$1;
-#X text 10 2746 op5:egL3:;
-#X obj 12 2765 ui.number @size 60 12 @presetname
-/gui/$1/synth.dx7~/numbox77 @min 0 @max 99 @step 1;
-#X msg 260 2765 @op5:egL3 \$1;
-#X text 10 2779 op5:egL4:;
-#X obj 12 2798 ui.number @size 60 12 @presetname
-/gui/$1/synth.dx7~/numbox78 @min 0 @max 99 @step 1;
-#X msg 260 2798 @op5:egL4 \$1;
-#X text 10 2812 op5:egR1:;
-#X obj 12 2831 ui.number @size 60 12 @presetname
-/gui/$1/synth.dx7~/numbox79 @min 0 @max 99 @step 1;
-#X msg 260 2831 @op5:egR1 \$1;
-#X text 10 2845 op5:egR2:;
-#X obj 12 2864 ui.number @size 60 12 @presetname
-/gui/$1/synth.dx7~/numbox80 @min 0 @max 99 @step 1;
-#X msg 260 2864 @op5:egR2 \$1;
-#X text 10 2878 op5:egR3:;
-#X obj 12 2897 ui.number @size 60 12 @presetname
-/gui/$1/synth.dx7~/numbox81 @min 0 @max 99 @step 1;
-#X msg 260 2897 @op5:egR3 \$1;
-#X text 10 2911 op5:egR4:;
-#X obj 12 2930 ui.number @size 60 12 @presetname
-/gui/$1/synth.dx7~/numbox82 @min 0 @max 99 @step 1;
-#X msg 260 2930 @op5:egR4 \$1;
-#X text 10 2944 op5:keyVelSens:;
-#X obj 12 2963 ui.number @size 60 12 @presetname
-/gui/$1/synth.dx7~/numbox83 @min 0 @max 8 @step 1;
-#X msg 260 2963 @op5:keyVelSens \$1;
-#X text 10 2977 op5:level:;
-#X obj 12 2996 ui.number @size 60 12 @presetname
-/gui/$1/synth.dx7~/numbox84 @min 0 @max 99 @step 1;
-#X msg 260 2996 @op5:level \$1;
-#X text 10 3010 op5:opDetune:;
-#X obj 12 3029 ui.number @size 60 12 @presetname
-/gui/$1/synth.dx7~/numbox85 @min -10 @max 10 @step 1;
-#X msg 260 3029 @op5:opDetune \$1;
-#X text 10 3043 op5:opFreq:;
-#X obj 12 3062 ui.number @size 60 12 @presetname
-/gui/$1/synth.dx7~/numbox86 @min 0 @max 2 @step 0.01;
-#X msg 260 3062 @op5:opFreq \$1;
-#X text 10 3076 op5:opMode:;
-#X obj 12 3095 ui.number @size 60 12 @presetname
-/gui/$1/synth.dx7~/numbox87 @min 0 @max 1 @step 1;
-#X msg 260 3095 @op5:opMode \$1;
-#X text 10 3109 op5:opRateScale:;
-#X obj 12 3128 ui.number @size 60 12 @presetname
-/gui/$1/synth.dx7~/numbox88 @min 0 @max 10 @step 1;
-#X msg 260 3128 @op5:opRateScale \$1;
+#X obj 12 236 ui.number @size 60 12 @label algorithm: @label_side top
+@label_align left @fontsize 10 @presetname /gui/\$1/synth.dx7~/numbox0
+@min 0 @max 15 @step 1;
+#X msg 260 236 @algorithm \$1;
+#X obj 12 266 ui.number @size 60 12 @label feedback: @label_side top
+@label_align left @fontsize 10 @presetname /gui/\$1/synth.dx7~/numbox1
+@min 0 @max 99 @step 1;
+#X msg 260 266 @feedback \$1;
+#X obj 12 298 ui.slider @size 125 12 @active_scale 1 @label gain:
+@label_side top @label_align left @fontsize 10 @presetname
+/gui/\$1/synth.dx7~/slider2 @min 0 @max 1;
+#X obj 190 298 sync;
+#X obj 145 298 ui.number @size 50 12 @min 0 @max 1 @digits 4;
+#X msg 260 298 @gain \$1;
+#X obj 12 318 ui.toggle @size 12 12 @label gate @label_side right
+@label_align left @fontsize 10;
+#X msg 260 310 @gate \$1;
+#X obj 12 346 ui.number @size 60 12 @label op0:detune: @label_side top
+@label_align left @fontsize 10 @presetname /gui/\$1/synth.dx7~/numbox4
+@min -10 @max 10 @step 1;
+#X msg 260 346 @op0:detune \$1;
+#X obj 12 376 ui.number @size 60 12 @label op0:egL1: @label_side top
+@label_align left @fontsize 10 @presetname /gui/\$1/synth.dx7~/numbox5
+@min 0 @max 99 @step 1;
+#X msg 260 376 @op0:egL1 \$1;
+#X obj 12 406 ui.number @size 60 12 @label op0:egL2: @label_side top
+@label_align left @fontsize 10 @presetname /gui/\$1/synth.dx7~/numbox6
+@min 0 @max 99 @step 1;
+#X msg 260 406 @op0:egL2 \$1;
+#X obj 12 436 ui.number @size 60 12 @label op0:egL3: @label_side top
+@label_align left @fontsize 10 @presetname /gui/\$1/synth.dx7~/numbox7
+@min 0 @max 99 @step 1;
+#X msg 260 436 @op0:egL3 \$1;
+#X obj 12 466 ui.number @size 60 12 @label op0:egL4: @label_side top
+@label_align left @fontsize 10 @presetname /gui/\$1/synth.dx7~/numbox8
+@min 0 @max 99 @step 1;
+#X msg 260 466 @op0:egL4 \$1;
+#X obj 12 496 ui.number @size 60 12 @label op0:egR1: @label_side top
+@label_align left @fontsize 10 @presetname /gui/\$1/synth.dx7~/numbox9
+@min 0 @max 99 @step 1;
+#X msg 260 496 @op0:egR1 \$1;
+#X obj 12 526 ui.number @size 60 12 @label op0:egR2: @label_side top
+@label_align left @fontsize 10 @presetname
+/gui/\$1/synth.dx7~/numbox10 @min 0 @max 99 @step 1;
+#X msg 260 526 @op0:egR2 \$1;
+#X obj 12 556 ui.number @size 60 12 @label op0:egR3: @label_side top
+@label_align left @fontsize 10 @presetname
+/gui/\$1/synth.dx7~/numbox11 @min 0 @max 99 @step 1;
+#X msg 260 556 @op0:egR3 \$1;
+#X obj 12 586 ui.number @size 60 12 @label op0:egR4: @label_side top
+@label_align left @fontsize 10 @presetname
+/gui/\$1/synth.dx7~/numbox12 @min 0 @max 99 @step 1;
+#X msg 260 586 @op0:egR4 \$1;
+#X obj 12 616 ui.number @size 60 12 @label op0:freq: @label_side top
+@label_align left @fontsize 10 @presetname
+/gui/\$1/synth.dx7~/numbox13 @min 0 @max 2 @step 0.01;
+#X msg 260 616 @op0:freq \$1;
+#X obj 12 646 ui.number @size 60 12 @label op0:key_vel_sens:
+@label_side top @label_align left @fontsize 10 @presetname
+/gui/\$1/synth.dx7~/numbox14 @min 0 @max 8 @step 1;
+#X msg 260 646 @op0:key_vel_sens \$1;
+#X obj 12 676 ui.number @size 60 12 @label op0:level: @label_side top
+@label_align left @fontsize 10 @presetname
+/gui/\$1/synth.dx7~/numbox15 @min 0 @max 99 @step 1;
+#X msg 260 676 @op0:level \$1;
+#X obj 12 706 ui.number @size 60 12 @label op0:mode: @label_side top
+@label_align left @fontsize 10 @presetname
+/gui/\$1/synth.dx7~/numbox16 @min 0 @max 1 @step 1;
+#X msg 260 706 @op0:mode \$1;
+#X obj 12 736 ui.number @size 60 12 @label op0:rate_scale: @label_side
+top @label_align left @fontsize 10 @presetname
+/gui/\$1/synth.dx7~/numbox17 @min 0 @max 10 @step 1;
+#X msg 260 736 @op0:rate_scale \$1;
+#X obj 12 766 ui.number @size 60 12 @label op1:detune: @label_side top
+@label_align left @fontsize 10 @presetname
+/gui/\$1/synth.dx7~/numbox18 @min -10 @max 10 @step 1;
+#X msg 260 766 @op1:detune \$1;
+#X obj 12 796 ui.number @size 60 12 @label op1:egL1: @label_side top
+@label_align left @fontsize 10 @presetname
+/gui/\$1/synth.dx7~/numbox19 @min 0 @max 99 @step 1;
+#X msg 260 796 @op1:egL1 \$1;
+#X obj 12 826 ui.number @size 60 12 @label op1:egL2: @label_side top
+@label_align left @fontsize 10 @presetname
+/gui/\$1/synth.dx7~/numbox20 @min 0 @max 99 @step 1;
+#X msg 260 826 @op1:egL2 \$1;
+#X obj 12 856 ui.number @size 60 12 @label op1:egL3: @label_side top
+@label_align left @fontsize 10 @presetname
+/gui/\$1/synth.dx7~/numbox21 @min 0 @max 99 @step 1;
+#X msg 260 856 @op1:egL3 \$1;
+#X obj 12 886 ui.number @size 60 12 @label op1:egL4: @label_side top
+@label_align left @fontsize 10 @presetname
+/gui/\$1/synth.dx7~/numbox22 @min 0 @max 99 @step 1;
+#X msg 260 886 @op1:egL4 \$1;
+#X obj 12 916 ui.number @size 60 12 @label op1:egR1: @label_side top
+@label_align left @fontsize 10 @presetname
+/gui/\$1/synth.dx7~/numbox23 @min 0 @max 99 @step 1;
+#X msg 260 916 @op1:egR1 \$1;
+#X obj 12 946 ui.number @size 60 12 @label op1:egR2: @label_side top
+@label_align left @fontsize 10 @presetname
+/gui/\$1/synth.dx7~/numbox24 @min 0 @max 99 @step 1;
+#X msg 260 946 @op1:egR2 \$1;
+#X obj 12 976 ui.number @size 60 12 @label op1:egR3: @label_side top
+@label_align left @fontsize 10 @presetname
+/gui/\$1/synth.dx7~/numbox25 @min 0 @max 99 @step 1;
+#X msg 260 976 @op1:egR3 \$1;
+#X obj 12 1006 ui.number @size 60 12 @label op1:egR4: @label_side top
+@label_align left @fontsize 10 @presetname
+/gui/\$1/synth.dx7~/numbox26 @min 0 @max 99 @step 1;
+#X msg 260 1006 @op1:egR4 \$1;
+#X obj 12 1036 ui.number @size 60 12 @label op1:freq: @label_side top
+@label_align left @fontsize 10 @presetname
+/gui/\$1/synth.dx7~/numbox27 @min 0 @max 2 @step 0.01;
+#X msg 260 1036 @op1:freq \$1;
+#X obj 12 1066 ui.number @size 60 12 @label op1:key_vel_sens:
+@label_side top @label_align left @fontsize 10 @presetname
+/gui/\$1/synth.dx7~/numbox28 @min 0 @max 8 @step 1;
+#X msg 260 1066 @op1:key_vel_sens \$1;
+#X obj 12 1096 ui.number @size 60 12 @label op1:level: @label_side top
+@label_align left @fontsize 10 @presetname
+/gui/\$1/synth.dx7~/numbox29 @min 0 @max 99 @step 1;
+#X msg 260 1096 @op1:level \$1;
+#X obj 12 1126 ui.number @size 60 12 @label op1:mode: @label_side top
+@label_align left @fontsize 10 @presetname
+/gui/\$1/synth.dx7~/numbox30 @min 0 @max 1 @step 1;
+#X msg 260 1126 @op1:mode \$1;
+#X obj 12 1156 ui.number @size 60 12 @label op1:rate_scale:
+@label_side top @label_align left @fontsize 10 @presetname
+/gui/\$1/synth.dx7~/numbox31 @min 0 @max 10 @step 1;
+#X msg 260 1156 @op1:rate_scale \$1;
+#X obj 12 1186 ui.number @size 60 12 @label op2:detune: @label_side
+top @label_align left @fontsize 10 @presetname
+/gui/\$1/synth.dx7~/numbox32 @min -10 @max 10 @step 1;
+#X msg 260 1186 @op2:detune \$1;
+#X obj 12 1216 ui.number @size 60 12 @label op2:egL1: @label_side top
+@label_align left @fontsize 10 @presetname
+/gui/\$1/synth.dx7~/numbox33 @min 0 @max 99 @step 1;
+#X msg 260 1216 @op2:egL1 \$1;
+#X obj 12 1246 ui.number @size 60 12 @label op2:egL2: @label_side top
+@label_align left @fontsize 10 @presetname
+/gui/\$1/synth.dx7~/numbox34 @min 0 @max 99 @step 1;
+#X msg 260 1246 @op2:egL2 \$1;
+#X obj 12 1276 ui.number @size 60 12 @label op2:egL3: @label_side top
+@label_align left @fontsize 10 @presetname
+/gui/\$1/synth.dx7~/numbox35 @min 0 @max 99 @step 1;
+#X msg 260 1276 @op2:egL3 \$1;
+#X obj 12 1306 ui.number @size 60 12 @label op2:egL4: @label_side top
+@label_align left @fontsize 10 @presetname
+/gui/\$1/synth.dx7~/numbox36 @min 0 @max 99 @step 1;
+#X msg 260 1306 @op2:egL4 \$1;
+#X obj 12 1336 ui.number @size 60 12 @label op2:egR1: @label_side top
+@label_align left @fontsize 10 @presetname
+/gui/\$1/synth.dx7~/numbox37 @min 0 @max 99 @step 1;
+#X msg 260 1336 @op2:egR1 \$1;
+#X obj 12 1366 ui.number @size 60 12 @label op2:egR2: @label_side top
+@label_align left @fontsize 10 @presetname
+/gui/\$1/synth.dx7~/numbox38 @min 0 @max 99 @step 1;
+#X msg 260 1366 @op2:egR2 \$1;
+#X obj 12 1396 ui.number @size 60 12 @label op2:egR3: @label_side top
+@label_align left @fontsize 10 @presetname
+/gui/\$1/synth.dx7~/numbox39 @min 0 @max 99 @step 1;
+#X msg 260 1396 @op2:egR3 \$1;
+#X obj 12 1426 ui.number @size 60 12 @label op2:egR4: @label_side top
+@label_align left @fontsize 10 @presetname
+/gui/\$1/synth.dx7~/numbox40 @min 0 @max 99 @step 1;
+#X msg 260 1426 @op2:egR4 \$1;
+#X obj 12 1456 ui.number @size 60 12 @label op2:freq: @label_side top
+@label_align left @fontsize 10 @presetname
+/gui/\$1/synth.dx7~/numbox41 @min 0 @max 2 @step 0.01;
+#X msg 260 1456 @op2:freq \$1;
+#X obj 12 1486 ui.number @size 60 12 @label op2:key_vel_sens:
+@label_side top @label_align left @fontsize 10 @presetname
+/gui/\$1/synth.dx7~/numbox42 @min 0 @max 8 @step 1;
+#X msg 260 1486 @op2:key_vel_sens \$1;
+#X obj 12 1516 ui.number @size 60 12 @label op2:level: @label_side top
+@label_align left @fontsize 10 @presetname
+/gui/\$1/synth.dx7~/numbox43 @min 0 @max 99 @step 1;
+#X msg 260 1516 @op2:level \$1;
+#X obj 12 1546 ui.number @size 60 12 @label op2:mode: @label_side top
+@label_align left @fontsize 10 @presetname
+/gui/\$1/synth.dx7~/numbox44 @min 0 @max 1 @step 1;
+#X msg 260 1546 @op2:mode \$1;
+#X obj 12 1576 ui.number @size 60 12 @label op2:rate_scale:
+@label_side top @label_align left @fontsize 10 @presetname
+/gui/\$1/synth.dx7~/numbox45 @min 0 @max 10 @step 1;
+#X msg 260 1576 @op2:rate_scale \$1;
+#X obj 12 1606 ui.number @size 60 12 @label op3:detune: @label_side
+top @label_align left @fontsize 10 @presetname
+/gui/\$1/synth.dx7~/numbox46 @min -10 @max 10 @step 1;
+#X msg 260 1606 @op3:detune \$1;
+#X obj 12 1636 ui.number @size 60 12 @label op3:egL1: @label_side top
+@label_align left @fontsize 10 @presetname
+/gui/\$1/synth.dx7~/numbox47 @min 0 @max 99 @step 1;
+#X msg 260 1636 @op3:egL1 \$1;
+#X obj 12 1666 ui.number @size 60 12 @label op3:egL2: @label_side top
+@label_align left @fontsize 10 @presetname
+/gui/\$1/synth.dx7~/numbox48 @min 0 @max 99 @step 1;
+#X msg 260 1666 @op3:egL2 \$1;
+#X obj 12 1696 ui.number @size 60 12 @label op3:egL3: @label_side top
+@label_align left @fontsize 10 @presetname
+/gui/\$1/synth.dx7~/numbox49 @min 0 @max 99 @step 1;
+#X msg 260 1696 @op3:egL3 \$1;
+#X obj 12 1726 ui.number @size 60 12 @label op3:egL4: @label_side top
+@label_align left @fontsize 10 @presetname
+/gui/\$1/synth.dx7~/numbox50 @min 0 @max 99 @step 1;
+#X msg 260 1726 @op3:egL4 \$1;
+#X obj 12 1756 ui.number @size 60 12 @label op3:egR1: @label_side top
+@label_align left @fontsize 10 @presetname
+/gui/\$1/synth.dx7~/numbox51 @min 0 @max 99 @step 1;
+#X msg 260 1756 @op3:egR1 \$1;
+#X obj 12 1786 ui.number @size 60 12 @label op3:egR2: @label_side top
+@label_align left @fontsize 10 @presetname
+/gui/\$1/synth.dx7~/numbox52 @min 0 @max 99 @step 1;
+#X msg 260 1786 @op3:egR2 \$1;
+#X obj 12 1816 ui.number @size 60 12 @label op3:egR3: @label_side top
+@label_align left @fontsize 10 @presetname
+/gui/\$1/synth.dx7~/numbox53 @min 0 @max 99 @step 1;
+#X msg 260 1816 @op3:egR3 \$1;
+#X obj 12 1846 ui.number @size 60 12 @label op3:egR4: @label_side top
+@label_align left @fontsize 10 @presetname
+/gui/\$1/synth.dx7~/numbox54 @min 0 @max 99 @step 1;
+#X msg 260 1846 @op3:egR4 \$1;
+#X obj 12 1876 ui.number @size 60 12 @label op3:freq: @label_side top
+@label_align left @fontsize 10 @presetname
+/gui/\$1/synth.dx7~/numbox55 @min 0 @max 2 @step 0.01;
+#X msg 260 1876 @op3:freq \$1;
+#X obj 12 1906 ui.number @size 60 12 @label op3:key_vel_sens:
+@label_side top @label_align left @fontsize 10 @presetname
+/gui/\$1/synth.dx7~/numbox56 @min 0 @max 8 @step 1;
+#X msg 260 1906 @op3:key_vel_sens \$1;
+#X obj 12 1936 ui.number @size 60 12 @label op3:level: @label_side top
+@label_align left @fontsize 10 @presetname
+/gui/\$1/synth.dx7~/numbox57 @min 0 @max 99 @step 1;
+#X msg 260 1936 @op3:level \$1;
+#X obj 12 1966 ui.number @size 60 12 @label op3:mode: @label_side top
+@label_align left @fontsize 10 @presetname
+/gui/\$1/synth.dx7~/numbox58 @min 0 @max 1 @step 1;
+#X msg 260 1966 @op3:mode \$1;
+#X obj 12 1996 ui.number @size 60 12 @label op3:rate_scale:
+@label_side top @label_align left @fontsize 10 @presetname
+/gui/\$1/synth.dx7~/numbox59 @min 0 @max 10 @step 1;
+#X msg 260 1996 @op3:rate_scale \$1;
+#X obj 12 2026 ui.number @size 60 12 @label op4:detune: @label_side
+top @label_align left @fontsize 10 @presetname
+/gui/\$1/synth.dx7~/numbox60 @min -10 @max 10 @step 1;
+#X msg 260 2026 @op4:detune \$1;
+#X obj 12 2056 ui.number @size 60 12 @label op4:egL1: @label_side top
+@label_align left @fontsize 10 @presetname
+/gui/\$1/synth.dx7~/numbox61 @min 0 @max 99 @step 1;
+#X msg 260 2056 @op4:egL1 \$1;
+#X obj 12 2086 ui.number @size 60 12 @label op4:egL2: @label_side top
+@label_align left @fontsize 10 @presetname
+/gui/\$1/synth.dx7~/numbox62 @min 0 @max 99 @step 1;
+#X msg 260 2086 @op4:egL2 \$1;
+#X obj 12 2116 ui.number @size 60 12 @label op4:egL3: @label_side top
+@label_align left @fontsize 10 @presetname
+/gui/\$1/synth.dx7~/numbox63 @min 0 @max 99 @step 1;
+#X msg 260 2116 @op4:egL3 \$1;
+#X obj 12 2146 ui.number @size 60 12 @label op4:egL4: @label_side top
+@label_align left @fontsize 10 @presetname
+/gui/\$1/synth.dx7~/numbox64 @min 0 @max 99 @step 1;
+#X msg 260 2146 @op4:egL4 \$1;
+#X obj 12 2176 ui.number @size 60 12 @label op4:egR1: @label_side top
+@label_align left @fontsize 10 @presetname
+/gui/\$1/synth.dx7~/numbox65 @min 0 @max 99 @step 1;
+#X msg 260 2176 @op4:egR1 \$1;
+#X obj 12 2206 ui.number @size 60 12 @label op4:egR2: @label_side top
+@label_align left @fontsize 10 @presetname
+/gui/\$1/synth.dx7~/numbox66 @min 0 @max 99 @step 1;
+#X msg 260 2206 @op4:egR2 \$1;
+#X obj 12 2236 ui.number @size 60 12 @label op4:egR3: @label_side top
+@label_align left @fontsize 10 @presetname
+/gui/\$1/synth.dx7~/numbox67 @min 0 @max 99 @step 1;
+#X msg 260 2236 @op4:egR3 \$1;
+#X obj 12 2266 ui.number @size 60 12 @label op4:egR4: @label_side top
+@label_align left @fontsize 10 @presetname
+/gui/\$1/synth.dx7~/numbox68 @min 0 @max 99 @step 1;
+#X msg 260 2266 @op4:egR4 \$1;
+#X obj 12 2296 ui.number @size 60 12 @label op4:freq: @label_side top
+@label_align left @fontsize 10 @presetname
+/gui/\$1/synth.dx7~/numbox69 @min 0 @max 2 @step 0.01;
+#X msg 260 2296 @op4:freq \$1;
+#X obj 12 2326 ui.number @size 60 12 @label op4:key_vel_sens:
+@label_side top @label_align left @fontsize 10 @presetname
+/gui/\$1/synth.dx7~/numbox70 @min 0 @max 8 @step 1;
+#X msg 260 2326 @op4:key_vel_sens \$1;
+#X obj 12 2356 ui.number @size 60 12 @label op4:level: @label_side top
+@label_align left @fontsize 10 @presetname
+/gui/\$1/synth.dx7~/numbox71 @min 0 @max 99 @step 1;
+#X msg 260 2356 @op4:level \$1;
+#X obj 12 2386 ui.number @size 60 12 @label op4:mode: @label_side top
+@label_align left @fontsize 10 @presetname
+/gui/\$1/synth.dx7~/numbox72 @min 0 @max 1 @step 1;
+#X msg 260 2386 @op4:mode \$1;
+#X obj 12 2416 ui.number @size 60 12 @label op4:rate_scale:
+@label_side top @label_align left @fontsize 10 @presetname
+/gui/\$1/synth.dx7~/numbox73 @min 0 @max 10 @step 1;
+#X msg 260 2416 @op4:rate_scale \$1;
+#X obj 12 2446 ui.number @size 60 12 @label op5:detune: @label_side
+top @label_align left @fontsize 10 @presetname
+/gui/\$1/synth.dx7~/numbox74 @min -10 @max 10 @step 1;
+#X msg 260 2446 @op5:detune \$1;
+#X obj 12 2476 ui.number @size 60 12 @label op5:egL1: @label_side top
+@label_align left @fontsize 10 @presetname
+/gui/\$1/synth.dx7~/numbox75 @min 0 @max 99 @step 1;
+#X msg 260 2476 @op5:egL1 \$1;
+#X obj 12 2506 ui.number @size 60 12 @label op5:egL2: @label_side top
+@label_align left @fontsize 10 @presetname
+/gui/\$1/synth.dx7~/numbox76 @min 0 @max 99 @step 1;
+#X msg 260 2506 @op5:egL2 \$1;
+#X obj 12 2536 ui.number @size 60 12 @label op5:egL3: @label_side top
+@label_align left @fontsize 10 @presetname
+/gui/\$1/synth.dx7~/numbox77 @min 0 @max 99 @step 1;
+#X msg 260 2536 @op5:egL3 \$1;
+#X obj 12 2566 ui.number @size 60 12 @label op5:egL4: @label_side top
+@label_align left @fontsize 10 @presetname
+/gui/\$1/synth.dx7~/numbox78 @min 0 @max 99 @step 1;
+#X msg 260 2566 @op5:egL4 \$1;
+#X obj 12 2596 ui.number @size 60 12 @label op5:egR1: @label_side top
+@label_align left @fontsize 10 @presetname
+/gui/\$1/synth.dx7~/numbox79 @min 0 @max 99 @step 1;
+#X msg 260 2596 @op5:egR1 \$1;
+#X obj 12 2626 ui.number @size 60 12 @label op5:egR2: @label_side top
+@label_align left @fontsize 10 @presetname
+/gui/\$1/synth.dx7~/numbox80 @min 0 @max 99 @step 1;
+#X msg 260 2626 @op5:egR2 \$1;
+#X obj 12 2656 ui.number @size 60 12 @label op5:egR3: @label_side top
+@label_align left @fontsize 10 @presetname
+/gui/\$1/synth.dx7~/numbox81 @min 0 @max 99 @step 1;
+#X msg 260 2656 @op5:egR3 \$1;
+#X obj 12 2686 ui.number @size 60 12 @label op5:egR4: @label_side top
+@label_align left @fontsize 10 @presetname
+/gui/\$1/synth.dx7~/numbox82 @min 0 @max 99 @step 1;
+#X msg 260 2686 @op5:egR4 \$1;
+#X obj 12 2716 ui.number @size 60 12 @label op5:freq: @label_side top
+@label_align left @fontsize 10 @presetname
+/gui/\$1/synth.dx7~/numbox83 @min 0 @max 2 @step 0.01;
+#X msg 260 2716 @op5:freq \$1;
+#X obj 12 2746 ui.number @size 60 12 @label op5:key_vel_sens:
+@label_side top @label_align left @fontsize 10 @presetname
+/gui/\$1/synth.dx7~/numbox84 @min 0 @max 8 @step 1;
+#X msg 260 2746 @op5:key_vel_sens \$1;
+#X obj 12 2776 ui.number @size 60 12 @label op5:level: @label_side top
+@label_align left @fontsize 10 @presetname
+/gui/\$1/synth.dx7~/numbox85 @min 0 @max 99 @step 1;
+#X msg 260 2776 @op5:level \$1;
+#X obj 12 2806 ui.number @size 60 12 @label op5:mode: @label_side top
+@label_align left @fontsize 10 @presetname
+/gui/\$1/synth.dx7~/numbox86 @min 0 @max 1 @step 1;
+#X msg 260 2806 @op5:mode \$1;
+#X obj 12 2836 ui.number @size 60 12 @label op5:rate_scale:
+@label_side top @label_align left @fontsize 10 @presetname
+/gui/\$1/synth.dx7~/numbox87 @min 0 @max 10 @step 1;
+#X msg 260 2836 @op5:rate_scale \$1;
+#X obj 12 2868 ui.slider @size 125 12 @active_scale 1 @label pitch:
+@label_side top @label_align left @fontsize 10 @presetname
+/gui/\$1/synth.dx7~/slider88 @min 24 @max 84;
+#X obj 190 2868 sync;
+#X obj 145 2868 ui.number @size 50 12 @min 24 @max 84 @digits 2;
+#X msg 260 2868 @pitch \$1;
 #X connect 1 0 2 0;
 #X connect 2 0 3 0;
 #X connect 3 89 4 0;
@@ -391,277 +390,279 @@
 #X connect 6 0 5 0;
 #X connect 0 0 7 0;
 #X connect 2 1 8 0;
-#X connect 11 0 12 0;
-#X connect 12 0 0 0;
-#X connect 3 0 11 0;
+#X connect 10 0 11 0;
+#X connect 11 0 0 0;
+#X connect 3 0 10 0;
+#X connect 12 0 13 0;
+#X connect 13 0 0 0;
+#X connect 3 1 12 0;
 #X connect 14 0 15 0;
-#X connect 15 0 0 0;
-#X connect 3 1 14 0;
-#X connect 17 0 18 0;
+#X connect 15 0 14 0;
+#X connect 16 0 15 1;
+#X connect 15 1 16 0;
+#X connect 14 0 17 0;
+#X connect 17 0 0 0;
+#X connect 3 2 14 0;
 #X connect 18 0 19 0;
-#X connect 19 0 17 0;
-#X connect 17 0 20 0;
-#X connect 20 0 0 0;
-#X connect 3 2 17 0;
+#X connect 19 0 0 0;
+#X connect 3 3 18 0;
+#X connect 20 0 21 0;
+#X connect 21 0 0 0;
+#X connect 3 4 20 0;
 #X connect 22 0 23 0;
-#X connect 23 0 24 0;
-#X connect 24 0 22 0;
-#X connect 22 0 25 0;
+#X connect 23 0 0 0;
+#X connect 3 5 22 0;
+#X connect 24 0 25 0;
 #X connect 25 0 0 0;
-#X connect 3 3 22 0;
-#X connect 26 0 28 0;
-#X connect 28 0 0 0;
-#X connect 3 4 26 0;
+#X connect 3 6 24 0;
+#X connect 26 0 27 0;
+#X connect 27 0 0 0;
+#X connect 3 7 26 0;
+#X connect 28 0 29 0;
+#X connect 29 0 0 0;
+#X connect 3 8 28 0;
 #X connect 30 0 31 0;
 #X connect 31 0 0 0;
-#X connect 3 5 30 0;
-#X connect 33 0 34 0;
-#X connect 34 0 0 0;
-#X connect 3 6 33 0;
+#X connect 3 9 30 0;
+#X connect 32 0 33 0;
+#X connect 33 0 0 0;
+#X connect 3 10 32 0;
+#X connect 34 0 35 0;
+#X connect 35 0 0 0;
+#X connect 3 11 34 0;
 #X connect 36 0 37 0;
 #X connect 37 0 0 0;
-#X connect 3 7 36 0;
-#X connect 39 0 40 0;
-#X connect 40 0 0 0;
-#X connect 3 8 39 0;
+#X connect 3 12 36 0;
+#X connect 38 0 39 0;
+#X connect 39 0 0 0;
+#X connect 3 13 38 0;
+#X connect 40 0 41 0;
+#X connect 41 0 0 0;
+#X connect 3 14 40 0;
 #X connect 42 0 43 0;
 #X connect 43 0 0 0;
-#X connect 3 9 42 0;
-#X connect 45 0 46 0;
-#X connect 46 0 0 0;
-#X connect 3 10 45 0;
+#X connect 3 15 42 0;
+#X connect 44 0 45 0;
+#X connect 45 0 0 0;
+#X connect 3 16 44 0;
+#X connect 46 0 47 0;
+#X connect 47 0 0 0;
+#X connect 3 17 46 0;
 #X connect 48 0 49 0;
 #X connect 49 0 0 0;
-#X connect 3 11 48 0;
-#X connect 51 0 52 0;
-#X connect 52 0 0 0;
-#X connect 3 12 51 0;
+#X connect 3 18 48 0;
+#X connect 50 0 51 0;
+#X connect 51 0 0 0;
+#X connect 3 19 50 0;
+#X connect 52 0 53 0;
+#X connect 53 0 0 0;
+#X connect 3 20 52 0;
 #X connect 54 0 55 0;
 #X connect 55 0 0 0;
-#X connect 3 13 54 0;
-#X connect 57 0 58 0;
-#X connect 58 0 0 0;
-#X connect 3 14 57 0;
+#X connect 3 21 54 0;
+#X connect 56 0 57 0;
+#X connect 57 0 0 0;
+#X connect 3 22 56 0;
+#X connect 58 0 59 0;
+#X connect 59 0 0 0;
+#X connect 3 23 58 0;
 #X connect 60 0 61 0;
 #X connect 61 0 0 0;
-#X connect 3 15 60 0;
-#X connect 63 0 64 0;
-#X connect 64 0 0 0;
-#X connect 3 16 63 0;
+#X connect 3 24 60 0;
+#X connect 62 0 63 0;
+#X connect 63 0 0 0;
+#X connect 3 25 62 0;
+#X connect 64 0 65 0;
+#X connect 65 0 0 0;
+#X connect 3 26 64 0;
 #X connect 66 0 67 0;
 #X connect 67 0 0 0;
-#X connect 3 17 66 0;
-#X connect 69 0 70 0;
-#X connect 70 0 0 0;
-#X connect 3 18 69 0;
+#X connect 3 27 66 0;
+#X connect 68 0 69 0;
+#X connect 69 0 0 0;
+#X connect 3 28 68 0;
+#X connect 70 0 71 0;
+#X connect 71 0 0 0;
+#X connect 3 29 70 0;
 #X connect 72 0 73 0;
 #X connect 73 0 0 0;
-#X connect 3 19 72 0;
-#X connect 75 0 76 0;
-#X connect 76 0 0 0;
-#X connect 3 20 75 0;
+#X connect 3 30 72 0;
+#X connect 74 0 75 0;
+#X connect 75 0 0 0;
+#X connect 3 31 74 0;
+#X connect 76 0 77 0;
+#X connect 77 0 0 0;
+#X connect 3 32 76 0;
 #X connect 78 0 79 0;
 #X connect 79 0 0 0;
-#X connect 3 21 78 0;
-#X connect 81 0 82 0;
-#X connect 82 0 0 0;
-#X connect 3 22 81 0;
+#X connect 3 33 78 0;
+#X connect 80 0 81 0;
+#X connect 81 0 0 0;
+#X connect 3 34 80 0;
+#X connect 82 0 83 0;
+#X connect 83 0 0 0;
+#X connect 3 35 82 0;
 #X connect 84 0 85 0;
 #X connect 85 0 0 0;
-#X connect 3 23 84 0;
-#X connect 87 0 88 0;
-#X connect 88 0 0 0;
-#X connect 3 24 87 0;
+#X connect 3 36 84 0;
+#X connect 86 0 87 0;
+#X connect 87 0 0 0;
+#X connect 3 37 86 0;
+#X connect 88 0 89 0;
+#X connect 89 0 0 0;
+#X connect 3 38 88 0;
 #X connect 90 0 91 0;
 #X connect 91 0 0 0;
-#X connect 3 25 90 0;
-#X connect 93 0 94 0;
-#X connect 94 0 0 0;
-#X connect 3 26 93 0;
+#X connect 3 39 90 0;
+#X connect 92 0 93 0;
+#X connect 93 0 0 0;
+#X connect 3 40 92 0;
+#X connect 94 0 95 0;
+#X connect 95 0 0 0;
+#X connect 3 41 94 0;
 #X connect 96 0 97 0;
 #X connect 97 0 0 0;
-#X connect 3 27 96 0;
-#X connect 99 0 100 0;
-#X connect 100 0 0 0;
-#X connect 3 28 99 0;
+#X connect 3 42 96 0;
+#X connect 98 0 99 0;
+#X connect 99 0 0 0;
+#X connect 3 43 98 0;
+#X connect 100 0 101 0;
+#X connect 101 0 0 0;
+#X connect 3 44 100 0;
 #X connect 102 0 103 0;
 #X connect 103 0 0 0;
-#X connect 3 29 102 0;
-#X connect 105 0 106 0;
-#X connect 106 0 0 0;
-#X connect 3 30 105 0;
+#X connect 3 45 102 0;
+#X connect 104 0 105 0;
+#X connect 105 0 0 0;
+#X connect 3 46 104 0;
+#X connect 106 0 107 0;
+#X connect 107 0 0 0;
+#X connect 3 47 106 0;
 #X connect 108 0 109 0;
 #X connect 109 0 0 0;
-#X connect 3 31 108 0;
-#X connect 111 0 112 0;
-#X connect 112 0 0 0;
-#X connect 3 32 111 0;
+#X connect 3 48 108 0;
+#X connect 110 0 111 0;
+#X connect 111 0 0 0;
+#X connect 3 49 110 0;
+#X connect 112 0 113 0;
+#X connect 113 0 0 0;
+#X connect 3 50 112 0;
 #X connect 114 0 115 0;
 #X connect 115 0 0 0;
-#X connect 3 33 114 0;
-#X connect 117 0 118 0;
-#X connect 118 0 0 0;
-#X connect 3 34 117 0;
+#X connect 3 51 114 0;
+#X connect 116 0 117 0;
+#X connect 117 0 0 0;
+#X connect 3 52 116 0;
+#X connect 118 0 119 0;
+#X connect 119 0 0 0;
+#X connect 3 53 118 0;
 #X connect 120 0 121 0;
 #X connect 121 0 0 0;
-#X connect 3 35 120 0;
-#X connect 123 0 124 0;
-#X connect 124 0 0 0;
-#X connect 3 36 123 0;
+#X connect 3 54 120 0;
+#X connect 122 0 123 0;
+#X connect 123 0 0 0;
+#X connect 3 55 122 0;
+#X connect 124 0 125 0;
+#X connect 125 0 0 0;
+#X connect 3 56 124 0;
 #X connect 126 0 127 0;
 #X connect 127 0 0 0;
-#X connect 3 37 126 0;
-#X connect 129 0 130 0;
-#X connect 130 0 0 0;
-#X connect 3 38 129 0;
+#X connect 3 57 126 0;
+#X connect 128 0 129 0;
+#X connect 129 0 0 0;
+#X connect 3 58 128 0;
+#X connect 130 0 131 0;
+#X connect 131 0 0 0;
+#X connect 3 59 130 0;
 #X connect 132 0 133 0;
 #X connect 133 0 0 0;
-#X connect 3 39 132 0;
-#X connect 135 0 136 0;
-#X connect 136 0 0 0;
-#X connect 3 40 135 0;
+#X connect 3 60 132 0;
+#X connect 134 0 135 0;
+#X connect 135 0 0 0;
+#X connect 3 61 134 0;
+#X connect 136 0 137 0;
+#X connect 137 0 0 0;
+#X connect 3 62 136 0;
 #X connect 138 0 139 0;
 #X connect 139 0 0 0;
-#X connect 3 41 138 0;
-#X connect 141 0 142 0;
-#X connect 142 0 0 0;
-#X connect 3 42 141 0;
+#X connect 3 63 138 0;
+#X connect 140 0 141 0;
+#X connect 141 0 0 0;
+#X connect 3 64 140 0;
+#X connect 142 0 143 0;
+#X connect 143 0 0 0;
+#X connect 3 65 142 0;
 #X connect 144 0 145 0;
 #X connect 145 0 0 0;
-#X connect 3 43 144 0;
-#X connect 147 0 148 0;
-#X connect 148 0 0 0;
-#X connect 3 44 147 0;
+#X connect 3 66 144 0;
+#X connect 146 0 147 0;
+#X connect 147 0 0 0;
+#X connect 3 67 146 0;
+#X connect 148 0 149 0;
+#X connect 149 0 0 0;
+#X connect 3 68 148 0;
 #X connect 150 0 151 0;
 #X connect 151 0 0 0;
-#X connect 3 45 150 0;
-#X connect 153 0 154 0;
-#X connect 154 0 0 0;
-#X connect 3 46 153 0;
+#X connect 3 69 150 0;
+#X connect 152 0 153 0;
+#X connect 153 0 0 0;
+#X connect 3 70 152 0;
+#X connect 154 0 155 0;
+#X connect 155 0 0 0;
+#X connect 3 71 154 0;
 #X connect 156 0 157 0;
 #X connect 157 0 0 0;
-#X connect 3 47 156 0;
-#X connect 159 0 160 0;
-#X connect 160 0 0 0;
-#X connect 3 48 159 0;
+#X connect 3 72 156 0;
+#X connect 158 0 159 0;
+#X connect 159 0 0 0;
+#X connect 3 73 158 0;
+#X connect 160 0 161 0;
+#X connect 161 0 0 0;
+#X connect 3 74 160 0;
 #X connect 162 0 163 0;
 #X connect 163 0 0 0;
-#X connect 3 49 162 0;
-#X connect 165 0 166 0;
-#X connect 166 0 0 0;
-#X connect 3 50 165 0;
+#X connect 3 75 162 0;
+#X connect 164 0 165 0;
+#X connect 165 0 0 0;
+#X connect 3 76 164 0;
+#X connect 166 0 167 0;
+#X connect 167 0 0 0;
+#X connect 3 77 166 0;
 #X connect 168 0 169 0;
 #X connect 169 0 0 0;
-#X connect 3 51 168 0;
-#X connect 171 0 172 0;
-#X connect 172 0 0 0;
-#X connect 3 52 171 0;
+#X connect 3 78 168 0;
+#X connect 170 0 171 0;
+#X connect 171 0 0 0;
+#X connect 3 79 170 0;
+#X connect 172 0 173 0;
+#X connect 173 0 0 0;
+#X connect 3 80 172 0;
 #X connect 174 0 175 0;
 #X connect 175 0 0 0;
-#X connect 3 53 174 0;
-#X connect 177 0 178 0;
-#X connect 178 0 0 0;
-#X connect 3 54 177 0;
+#X connect 3 81 174 0;
+#X connect 176 0 177 0;
+#X connect 177 0 0 0;
+#X connect 3 82 176 0;
+#X connect 178 0 179 0;
+#X connect 179 0 0 0;
+#X connect 3 83 178 0;
 #X connect 180 0 181 0;
 #X connect 181 0 0 0;
-#X connect 3 55 180 0;
-#X connect 183 0 184 0;
-#X connect 184 0 0 0;
-#X connect 3 56 183 0;
+#X connect 3 84 180 0;
+#X connect 182 0 183 0;
+#X connect 183 0 0 0;
+#X connect 3 85 182 0;
+#X connect 184 0 185 0;
+#X connect 185 0 0 0;
+#X connect 3 86 184 0;
 #X connect 186 0 187 0;
 #X connect 187 0 0 0;
-#X connect 3 57 186 0;
-#X connect 189 0 190 0;
-#X connect 190 0 0 0;
-#X connect 3 58 189 0;
-#X connect 192 0 193 0;
-#X connect 193 0 0 0;
-#X connect 3 59 192 0;
-#X connect 195 0 196 0;
-#X connect 196 0 0 0;
-#X connect 3 60 195 0;
-#X connect 198 0 199 0;
-#X connect 199 0 0 0;
-#X connect 3 61 198 0;
-#X connect 201 0 202 0;
-#X connect 202 0 0 0;
-#X connect 3 62 201 0;
-#X connect 204 0 205 0;
-#X connect 205 0 0 0;
-#X connect 3 63 204 0;
-#X connect 207 0 208 0;
-#X connect 208 0 0 0;
-#X connect 3 64 207 0;
-#X connect 210 0 211 0;
-#X connect 211 0 0 0;
-#X connect 3 65 210 0;
-#X connect 213 0 214 0;
-#X connect 214 0 0 0;
-#X connect 3 66 213 0;
-#X connect 216 0 217 0;
-#X connect 217 0 0 0;
-#X connect 3 67 216 0;
-#X connect 219 0 220 0;
-#X connect 220 0 0 0;
-#X connect 3 68 219 0;
-#X connect 222 0 223 0;
-#X connect 223 0 0 0;
-#X connect 3 69 222 0;
-#X connect 225 0 226 0;
-#X connect 226 0 0 0;
-#X connect 3 70 225 0;
-#X connect 228 0 229 0;
-#X connect 229 0 0 0;
-#X connect 3 71 228 0;
-#X connect 231 0 232 0;
-#X connect 232 0 0 0;
-#X connect 3 72 231 0;
-#X connect 234 0 235 0;
-#X connect 235 0 0 0;
-#X connect 3 73 234 0;
-#X connect 237 0 238 0;
-#X connect 238 0 0 0;
-#X connect 3 74 237 0;
-#X connect 240 0 241 0;
-#X connect 241 0 0 0;
-#X connect 3 75 240 0;
-#X connect 243 0 244 0;
-#X connect 244 0 0 0;
-#X connect 3 76 243 0;
-#X connect 246 0 247 0;
-#X connect 247 0 0 0;
-#X connect 3 77 246 0;
-#X connect 249 0 250 0;
-#X connect 250 0 0 0;
-#X connect 3 78 249 0;
-#X connect 252 0 253 0;
-#X connect 253 0 0 0;
-#X connect 3 79 252 0;
-#X connect 255 0 256 0;
-#X connect 256 0 0 0;
-#X connect 3 80 255 0;
-#X connect 258 0 259 0;
-#X connect 259 0 0 0;
-#X connect 3 81 258 0;
-#X connect 261 0 262 0;
-#X connect 262 0 0 0;
-#X connect 3 82 261 0;
-#X connect 264 0 265 0;
-#X connect 265 0 0 0;
-#X connect 3 83 264 0;
-#X connect 267 0 268 0;
-#X connect 268 0 0 0;
-#X connect 3 84 267 0;
-#X connect 270 0 271 0;
-#X connect 271 0 0 0;
-#X connect 3 85 270 0;
-#X connect 273 0 274 0;
-#X connect 274 0 0 0;
-#X connect 3 86 273 0;
-#X connect 276 0 277 0;
-#X connect 277 0 0 0;
-#X connect 3 87 276 0;
-#X connect 279 0 280 0;
-#X connect 280 0 0 0;
-#X connect 3 88 279 0;
-#X coords 0 -1 1 1 200 2950 2 2 200;
+#X connect 3 87 186 0;
+#X connect 188 0 189 0;
+#X connect 189 0 188 0;
+#X connect 190 0 189 1;
+#X connect 189 1 190 0;
+#X connect 188 0 191 0;
+#X connect 191 0 0 0;
+#X connect 3 88 188 0;
+#X coords 0 -1 1 1 200 2688 2 2 200;

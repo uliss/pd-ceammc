@@ -3,6 +3,7 @@
 
 #include "ceammc_array.h"
 #include "ceammc_clock.h"
+#include "ceammc_property_enum.h"
 #include "ceammc_sound_external.h"
 
 #include <array>
@@ -45,7 +46,7 @@ public:
     size_t samples() const { return length_; }
     void next() { phase_ += (phase_ < length_); }
     virtual t_float amp() const = 0;
-    bool set(const AtomList& lst) override;
+    bool set(const AtomListView& lst) override;
 };
 
 class LinFadeoutProperty : public XFadeProperty {
@@ -79,7 +80,7 @@ class FxLooper : public SoundExternal {
     LinFadeinProperty* x_play_to_dub_;
     LinFadeoutProperty* x_dub_to_play_;
     LinFadeoutProperty* x_dub_to_stop_;
-    FloatPropertyMinEq* loop_smooth_ms_;
+    FloatProperty* loop_smooth_ms_;
     size_t max_samples_;
     size_t loop_len_;
     size_t play_phase_;
@@ -114,19 +115,14 @@ public:
     void stateDubToStop(const t_sample** in, t_sample** out);
     void stateDubToPlay(const t_sample** in, t_sample** out);
 
-    void m_record(t_symbol*, const AtomList&);
-    void m_stop(t_symbol*, const AtomList&);
-    void m_pause(t_symbol*, const AtomList&);
-    void m_play(t_symbol*, const AtomList&);
-    void m_overdub(t_symbol*, const AtomList&);
-    void m_clear(t_symbol*, const AtomList&);
-    void m_adjust(t_symbol*, const AtomList& lst);
-    void m_smooth(t_symbol*, const AtomList& lst);
-
-    AtomList p_length() const;
-    AtomList p_play_pos() const;
-    AtomList p_play_phase() const;
-    AtomList p_state() const;
+    void m_record(t_symbol*, const AtomListView&);
+    void m_stop(t_symbol*, const AtomListView&);
+    void m_pause(t_symbol*, const AtomListView&);
+    void m_play(t_symbol*, const AtomListView&);
+    void m_overdub(t_symbol*, const AtomListView&);
+    void m_clear(t_symbol*, const AtomListView&);
+    void m_adjust(t_symbol*, const AtomListView& lst);
+    void m_smooth(t_symbol*, const AtomListView& lst);
 
     // test functions
     FxLooperState state() const { return state_; }

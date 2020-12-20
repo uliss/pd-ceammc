@@ -15,44 +15,72 @@
 #X obj 50 262 @->;
 #X floatatom 50 291 5 0 0 0 - - -;
 #X obj 117 291 print;
-#X obj 20 330 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 335 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
+#X obj 20 340 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 345 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
 -49933 0;
-#X msg 110 370 @keys;
-#X text 245 370 (readonly) Get list of all found SMC key. Type: list.;
-#X obj 20 409 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 414 cnv 5 73 26 empty empty methods: 4 10 0 14 -262144
+#X msg 110 380 @keys;
+#X text 245 380 (readonly) Get list of all found SMC key. Type: list.
+Default value: #KEY $Adr $Num +LKS ACCL ACEN ACFP ACIC ACID ACIN ACLM
+AL! ALA0 ALA1 ALA2 ALA3 ALA4 ALA5 ALAT ALFC ALI0 ALI1 ALP0 ALP1 ALRV
+ALSC ALSF ALSL ALT0 ALT1 ALTH ALV0 ALV1 AUPO B0AC B0AV B0Al B0Am B0Ar
+B0As B0At B0Au B0BI B0CT B0FC B0LI B0RI B0RM B0St B0TF BATP BBAD BBIN
+BC1V BC2V BC3V BCHA BCHB BCHF BCHG BCHL BCHO BCHP BCHR BCHT BCHX BCLM
+BCMV BEMB BFCT BILB BILO BLPT BNCM BNCR BNum BPII BPIT BRII BRIT BRSC
+BSAC BSIn BTIL BTTI BTVI BTVR BTVT BWLM CHBI CHBV CHGC CHGD CHGI CHGV
+CHLC CLK! CLKC CLKH CLKS CLKT CLSD CLWK CRCB CRCU DPLM ECIP ECIT EPCA
+EPCF EPCI EPCV EPMA EPMI EPUA EPUF EPUI EPUV EVCT EVMD EVRD F0Ac F0ID
+F0Mn F0Mt F0Mx F0Tg FMAx FNum FPDc FPhz FS! FSDc G3WD HBKP HBKT HBWK
+HDBS HDST HDSW IB0R IB0r IC0C IC0R IC0c IC0r IC1C IC1c ID0R ID0r IN0C
+IN0c IO0R IO0r KWS4 LAcN LAtN LC2D LC2E LCCN LCCQ LCKA LCSA LCTN LCTQ
+LDEN LDI2 LDS4 LDSP LDWE LKSB LS! LSCF LSDD LSDU LSFD LSFU LSLB LSLF
+LSLN LSOF LSOO LSPV LSRB LSSB LSSE LSSS LSSV LSUP MACA MACM MACR MOCF
+MOCN MOHD MOHT MOLD MOLT MOST MOTP MOVX MOVY MOVZ MO_X MO_Y MO_Z MSAL
+MSAc MSAf MSAg MSAm MSBC MSBP MSBc MSBp MSDI MSDW MSG3 MSLB MSLC MSLD
+MSLF MSLG MSLP MSLT MSPA MSPC MSPS MSPs MSSD MSSE MSSF MSSG MSSP MSSS
+MSTC MSTM MSTS MSTc MSTf MSTg MSTm MSWA MSWE MSWF MSWO MSWP MSWR MSWr
+MSXC MSXD MSXK MSXN MSXS MSXb MSXc MSXd MSXk MSXm MSXn MSXs MSa! MSac
+MSaf MSag MSam MSap MVDS MVS4 NACK NATJ NATi NOPB NTOK ONMI PB0R PC0C
+PC0R PCPC PCPG PCPL PCPT PD0R PHPC PN0C PO0R PTHC PZ0F PZ0S RBr REV
+RMde RPlt RSvn RVBF RVUF SAS! SBF SBFC SBFD SBFE SBFN SBFU SBS! SCIA
+SCII SCIL SCXC SDAF SDAS SDRd SFBR SIS! SIT! SIU! SMBC SMBG SMBR SMBS
+SMBW SPH0 SPHR SPHS SPHT SPHZ SPS! SPT! SWER Sr0P Sr0T Sr1P Sr1T Sw0P
+Sw0T Sw1P Sw1T Sw2P Sw2T Sw3P Sw3T Sw4P Sw4T TB0T TB1T TB2T TC0C TC0D
+TC0E TC0F TC0J TC0P TC1C TC2C TCFC TCGC TCSA TCTD TM0P TM0S TMBS TP0P
+TPCD TW0P Th1H Ts0P Ts0S UPRC VC0C VC0c VD0R VD0r VN0R VN0r VP0R VP0r
+WKEN WVr0 WVw0 zDBG zDSF.;
+#X obj 20 899 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 904 cnv 5 73 26 empty empty methods: 4 10 0 14 -262144
 -49933 0;
-#X msg 110 449 read;
-#X text 245 449 query specified SMC key. Arguments are:;
-#X obj 255 472 cnv 1 29 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 472 KEY: SMC key. Type: symbol.;
-#X obj 20 507 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 512 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
-0;
-#X text 110 513 1\.;
-#X text 245 513 input.;
-#X obj 20 543 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 548 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
+#X msg 110 939 read;
+#X text 245 939 query specified SMC key. Arguments are:;
+#X obj 255 962 cnv 1 29 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 962 KEY: SMC key. Type: symbol.;
+#X obj 20 997 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1002 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 549 1\.;
-#X text 245 549 output key value.;
+#X text 110 1003 1\.;
+#X text 245 1003 input.;
+#X obj 20 1033 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1038 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
+-49933 0;
+#X text 110 1039 1\.;
+#X text 245 1039 output key value.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 115 45 ::;
 #X obj 131 48 ui.link @title hw @url ceammc.hw-help.pd;
-#X obj 1 599 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 602 library: ceammc v0.8.0;
-#X text 485 614 see also:;
-#X obj 559 614 hw.apple_sms;
-#X obj 660 614 hw.cpu_temp;
-#N canvas 10 621 400 290 info 0;
+#X obj 1 1089 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1092 library: ceammc v0.9.1;
+#X text 485 1104 see also:;
+#X obj 559 1104 hw.apple_sms;
+#X obj 660 1104 hw.cpu_temp;
+#N canvas 10 1111 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
 #X text 10 32 version:;
-#X text 120 32 0.8.0;
+#X text 120 32 0.9.1;
 #X text 10 54 object:;
 #X text 120 54 hw.apple_smc;
 #X text 10 76 category:;
@@ -71,7 +99,7 @@ https://github.com/uliss/pure-data;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 generated by pddoc;
-#X restore 10 621 pd info;
+#X restore 10 1111 pd info;
 #X connect 4 0 6 0;
 #X connect 6 0 7 0;
 #X connect 7 0 9 0;

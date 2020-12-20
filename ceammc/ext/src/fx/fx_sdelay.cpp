@@ -13,16 +13,11 @@ public:
 
         bindPositionalArgsToProps({ SYM_PROP_DELAY, SYM_PROP_FEEDBACK });
     }
-
-    void m_clear(t_symbol*, const AtomList&)
-    {
-        dsp_->instanceClear();
-    }
 };
 
 void setup_fx_sdelay_tilde()
 {
     SoundExternalFactory<FxSmoothDelay> obj("fx.sdelay~");
-    obj.addMethod("clear", &FxSmoothDelay::m_clear);
-    obj.addMethod("reset", &FxSmoothDelay::m_clear);
+    obj.addMethod("clear", &FxSmoothDelay::m_reset);
+    obj.addMethod("reset", &FxSmoothDelay::m_reset);
 }

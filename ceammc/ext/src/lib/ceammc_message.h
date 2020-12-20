@@ -15,8 +15,6 @@
 #define CEAMMC_MESSAGE_H
 
 #include "ceammc_atomlist.h"
-#include "ceammc_data.h"
-#include "ceammc_dataatom.h"
 
 namespace ceammc {
 
@@ -24,8 +22,10 @@ class Message {
 public:
     enum Type {
         NONE,
+        BANG,
         FLOAT,
         SYMBOL,
+        POINTER,
         LIST,
         ANY,
         DATA
@@ -34,7 +34,6 @@ public:
 private:
     Type type_;
     Atom value_;
-    DataPtr data_;
     AtomList v_list_;
 
 public:
@@ -47,16 +46,17 @@ public:
     Message(const Atom& a);
     // create list
     Message(const AtomList& l);
+    Message(const AtomListView& v);
     Message(int argc, t_atom* argv);
     // create any
     Message(t_symbol* s, const AtomList& l);
+    Message(t_symbol* s, const AtomListView& v);
     Message(t_symbol* s, int argc, t_atom* argv);
 
     template <typename... Args>
     Message(const char* s, Args... args)
         : type_(ANY)
         , value_(gensym(s))
-        , data_(Atom())
         , v_list_({ wrap_atom(args)... })
     {
     }
@@ -67,6 +67,7 @@ public:
     Message& operator=(const Message& m);
     Message& operator=(Message&& m);
 
+    void setBang();
     void setAtom(const Atom& a);
     void setFloat(t_float v);
     void setSymbol(t_symbol* s);
@@ -86,7 +87,7 @@ public:
     inline bool isList() const { return type_ == LIST; }
     inline bool isAny() const { return type_ == ANY; }
     inline bool isNone() const { return type_ == NONE; }
-    bool isBang() const;
+    inline bool isBang() const { return type_ == BANG; }
 
     inline const Atom& atomValue() const { return value_; }
     inline const AtomList& listValue() const { return v_list_; }
@@ -97,13 +98,14 @@ public:
         return res;
     }
 
-    const DataPtr& dataValue() const;
+public:
+    static Message makeBang();
 
 private:
     static Atom wrap_atom(const char* str) { return Atom(gensym(str)); }
     static Atom wrap_atom(t_symbol* s) { return Atom(s); }
-    static Atom wrap_atom(double f) { return Atom(f); }
-    static Atom wrap_atom(float f) { return Atom(f); }
+    static Atom wrap_atom(double d) { return Atom(static_cast<t_float>(d)); }
+    static Atom wrap_atom(float f) { return Atom(static_cast<t_float>(f)); }
     static Atom wrap_atom(int i) { return Atom(i); }
     static Atom wrap_atom(long l) { return Atom(l); }
 };

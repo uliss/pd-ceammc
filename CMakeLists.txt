@@ -42,6 +42,11 @@ if(NOT CMAKE_BUILD_TYPE)
     set(CMAKE_BUILD_TYPE Debug)
 endif()
 
+if(POLICY CMP0074)
+    #policy for <PackageName>_ROOT variables
+    cmake_policy(SET CMP0074 NEW)
+endif()
+
 if(UNIX)
     if(APPLE)
         set(CMAKE_MACOSX_RPATH FALSE)
@@ -57,6 +62,8 @@ if(UNIX)
         set(CMAKE_BUILD_WITH_INSTALL_RPATH FALSE)
         set(CMAKE_INSTALL_RPATH "\$ORIGIN")
      endif()
+
+     set(CMAKE_POSITION_INDEPENDENT_CODE ON)
 endif()
 
 set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -std=gnu99")
@@ -71,14 +78,26 @@ find_package(LeapMotion)
 include(PdPlatform)
 include(PdExternal)
 find_package(Gettext)
-find_package(LibUSB)
+#find_package(LibUSB)
 include(config)
 include(sound)
 include(cmake_uninstall)
 
+if(WITH_CLANG_TIDY)
+    find_program(CLANG_TIDY_COMMAND NAMES clang-tidy)
+        if(NOT CLANG_TIDY_COMMAND)
+            message(WARNING "WITH_CLANG_TIDY is ON but clang-tidy is not found!")
+            set(CMAKE_CXX_CLANG_TIDY "" CACHE STRING "" FORCE)
+        else()
+            set(CLANG_TIDY_CHECKS "-*,modernize-*")
+            set(CMAKE_CXX_CLANG_TIDY "${CLANG_TIDY_COMMAND}")
+      endif()
+endif()
+
 # libsndfile backend
 if(WITH_LIBSNDFILE)
-    include(FindLibSndFile)
+    include(FindLibSndFile REQUIRED)
+    set(CEAMMC_HAVE_LIBSNDFILE TRUE)
 endif()
 
 # FFTW3

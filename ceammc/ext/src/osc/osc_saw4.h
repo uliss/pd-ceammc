@@ -1,6 +1,6 @@
 /* ------------------------------------------------------------
 name: "osc_saw4"
-Code generated with Faust 2.22.1 (https://faust.grame.fr)
+Code generated with Faust 2.28.6 (https://faust.grame.fr)
 Compilation options: -lang cpp -scal -ftz 0
 ------------------------------------------------------------ */
 
@@ -14,7 +14,7 @@ Compilation options: -lang cpp -scal -ftz 0
 #include <memory>
 #include <string>
 
-/************************** BEGIN dsp.h **************************/
+/************************** BEGIN osc_saw4_dsp.h **************************/
 /************************************************************************
  FAUST Architecture File
  Copyright (C) 2003-2017 GRAME, Centre National de Creation Musicale
@@ -48,7 +48,7 @@ Compilation options: -lang cpp -scal -ftz 0
 #define FAUSTFLOAT float
 #endif
 
-class UI;
+struct UI;
 struct Meta;
 
 /**
@@ -68,12 +68,12 @@ struct dsp_memory_manager {
 * Signal processor definition.
 */
 
-class dsp {
+class osc_saw4_dsp {
 
     public:
 
-        dsp() {}
-        virtual ~dsp() {}
+        osc_saw4_dsp() {}
+        virtual ~osc_saw4_dsp() {}
 
         /* Return instance number of audio inputs */
         virtual int getNumInputs() = 0;
@@ -83,7 +83,7 @@ class dsp {
     
         /**
          * Trigger the ui_interface parameter with instance specific calls
-         * to 'addBtton', 'addVerticalSlider'... in order to build the UI.
+         * to 'openTabBox', 'addButton', 'addVerticalSlider'... in order to build the UI.
          *
          * @param ui_interface - the user interface builder
          */
@@ -126,7 +126,7 @@ class dsp {
          *
          * @return a copy of the instance on success, otherwise a null pointer.
          */
-        virtual dsp* clone() = 0;
+        virtual osc_saw4_dsp* clone() = 0;
     
         /**
          * Trigger the Meta* parameter with instance specific calls to 'declare' (key, value) metadata.
@@ -162,15 +162,15 @@ class dsp {
  * Generic DSP decorator.
  */
 
-class decorator_dsp : public dsp {
+class decorator_dsp : public osc_saw4_dsp {
 
     protected:
 
-        dsp* fDSP;
+        osc_saw4_dsp* fDSP;
 
     public:
 
-        decorator_dsp(dsp* dsp = nullptr):fDSP(dsp) {}
+        decorator_dsp(osc_saw4_dsp* osc_saw4_dsp = nullptr):fDSP(osc_saw4_dsp) {}
         virtual ~decorator_dsp() { delete fDSP; }
 
         virtual int getNumInputs() { return fDSP->getNumInputs(); }
@@ -210,7 +210,7 @@ class dsp_factory {
         virtual std::vector<std::string> getLibraryList() = 0;
         virtual std::vector<std::string> getIncludePathnames() = 0;
     
-        virtual dsp* createDSPInstance() = 0;
+        virtual osc_saw4_dsp* createDSPInstance() = 0;
     
         virtual void setMemoryManager(dsp_memory_manager* manager) = 0;
         virtual dsp_memory_manager* getMemoryManager() = 0;
@@ -234,11 +234,11 @@ class dsp_factory {
 #endif
 
 #endif
-/**************************  END  dsp.h **************************/
+/**************************  END  osc_saw4_dsp.h **************************/
 /************************** BEGIN UI.h **************************/
 /************************************************************************
  FAUST Architecture File
- Copyright (C) 2003-2017 GRAME, Centre National de Creation Musicale
+ Copyright (C) 2003-2020 GRAME, Centre National de Creation Musicale
  ---------------------------------------------------------------------
  This Architecture section is free software; you can redistribute it
  and/or modify it under the terms of the GNU General Public License
@@ -276,48 +276,44 @@ class dsp_factory {
 struct Soundfile;
 
 template <typename REAL>
-class UIReal
+struct UIReal
 {
+    UIReal() {}
+    virtual ~UIReal() {}
     
-    public:
-        
-        UIReal() {}
-        virtual ~UIReal() {}
-        
-        // -- widget's layouts
-        
-        virtual void openTabBox(const char* label) = 0;
-        virtual void openHorizontalBox(const char* label) = 0;
-        virtual void openVerticalBox(const char* label) = 0;
-        virtual void closeBox() = 0;
-        
-        // -- active widgets
-        
-        virtual void addButton(const char* label, REAL* zone) = 0;
-        virtual void addCheckButton(const char* label, REAL* zone) = 0;
-        virtual void addVerticalSlider(const char* label, REAL* zone, REAL init, REAL min, REAL max, REAL step) = 0;
-        virtual void addHorizontalSlider(const char* label, REAL* zone, REAL init, REAL min, REAL max, REAL step) = 0;
-        virtual void addNumEntry(const char* label, REAL* zone, REAL init, REAL min, REAL max, REAL step) = 0;
-        
-        // -- passive widgets
-        
-        virtual void addHorizontalBargraph(const char* label, REAL* zone, REAL min, REAL max) = 0;
-        virtual void addVerticalBargraph(const char* label, REAL* zone, REAL min, REAL max) = 0;
-        
-        // -- soundfiles
-        
-        virtual void addSoundfile(const char* label, const char* filename, Soundfile** sf_zone) = 0;
-        
-        // -- metadata declarations
-        
-        virtual void declare(REAL* zone, const char* key, const char* val) {}
+    // -- widget's layouts
+    
+    virtual void openTabBox(const char* label) = 0;
+    virtual void openHorizontalBox(const char* label) = 0;
+    virtual void openVerticalBox(const char* label) = 0;
+    virtual void closeBox() = 0;
+    
+    // -- active widgets
+    
+    virtual void addButton(const char* label, REAL* zone) = 0;
+    virtual void addCheckButton(const char* label, REAL* zone) = 0;
+    virtual void addVerticalSlider(const char* label, REAL* zone, REAL init, REAL min, REAL max, REAL step) = 0;
+    virtual void addHorizontalSlider(const char* label, REAL* zone, REAL init, REAL min, REAL max, REAL step) = 0;
+    virtual void addNumEntry(const char* label, REAL* zone, REAL init, REAL min, REAL max, REAL step) = 0;
+    
+    // -- passive widgets
+    
+    virtual void addHorizontalBargraph(const char* label, REAL* zone, REAL min, REAL max) = 0;
+    virtual void addVerticalBargraph(const char* label, REAL* zone, REAL min, REAL max) = 0;
+    
+    // -- soundfiles
+    
+    virtual void addSoundfile(const char* label, const char* filename, Soundfile** sf_zone) = 0;
+    
+    // -- metadata declarations
+    
+    virtual void declare(REAL* zone, const char* key, const char* val) {}
 };
 
 struct UI : public UIReal<FAUSTFLOAT>
 {
-
-        UI() {}
-        virtual ~UI() {}
+    UI() {}
+    virtual ~UI() {}
 };
 
 #endif
@@ -486,7 +482,7 @@ using namespace ceammc::faust;
 
 // clang-format off
 #ifndef FAUST_MACRO
-struct osc_saw4 : public dsp {
+struct osc_saw4 : public osc_saw4_dsp {
 };
 #endif
 // clang-format on
@@ -517,7 +513,7 @@ static float osc_saw4_faustpower2_f(float value) {
 #define exp10 __exp10
 #endif
 
-class osc_saw4 : public dsp {
+class osc_saw4 : public osc_saw4_dsp {
 	
  private:
 	
@@ -526,13 +522,12 @@ class osc_saw4 : public dsp {
 	float fConst1;
 	int iVec0[4];
 	float fConst2;
-	float fVec1[2];
 	float fRec0[2];
+	float fVec1[2];
 	float fVec2[2];
 	float fVec3[2];
-	float fVec4[2];
 	int IOTA;
-	float fVec5[8192];
+	float fVec4[8192];
 	FAUSTFLOAT fHslider0;
 	float fRec1[2];
 	
@@ -546,10 +541,12 @@ class osc_saw4 : public dsp {
 		m->declare("maths.lib/copyright", "GRAME");
 		m->declare("maths.lib/license", "LGPL with exception");
 		m->declare("maths.lib/name", "Faust Math Library");
-		m->declare("maths.lib/version", "2.1");
+		m->declare("maths.lib/version", "2.3");
 		m->declare("name", "osc_saw4");
 		m->declare("oscillators.lib/name", "Faust Oscillator Library");
-		m->declare("oscillators.lib/version", "0.0");
+		m->declare("oscillators.lib/version", "0.1");
+		m->declare("platform.lib/name", "Generic Platform Library");
+		m->declare("platform.lib/version", "0.1");
 		m->declare("signals.lib/name", "Faust Signal Routing Library");
 		m->declare("signals.lib/version", "0.0");
 	}
@@ -604,30 +601,34 @@ class osc_saw4 : public dsp {
 	}
 	
 	virtual void instanceClear() {
+		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l0 = 0; (l0 < 4); l0 = (l0 + 1)) {
 			iVec0[l0] = 0;
 		}
+		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l1 = 0; (l1 < 2); l1 = (l1 + 1)) {
-			fVec1[l1] = 0.0f;
+			fRec0[l1] = 0.0f;
 		}
+		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l2 = 0; (l2 < 2); l2 = (l2 + 1)) {
-			fRec0[l2] = 0.0f;
+			fVec1[l2] = 0.0f;
 		}
+		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l3 = 0; (l3 < 2); l3 = (l3 + 1)) {
 			fVec2[l3] = 0.0f;
 		}
+		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l4 = 0; (l4 < 2); l4 = (l4 + 1)) {
 			fVec3[l4] = 0.0f;
 		}
-		for (int l5 = 0; (l5 < 2); l5 = (l5 + 1)) {
+		IOTA = 0;
+		#pragma clang loop vectorize(enable) interleave(enable)
+		for (int l5 = 0; (l5 < 8192); l5 = (l5 + 1)) {
 			fVec4[l5] = 0.0f;
 		}
-		IOTA = 0;
-		for (int l6 = 0; (l6 < 8192); l6 = (l6 + 1)) {
-			fVec5[l6] = 0.0f;
-		}
-		for (int l7 = 0; (l7 < 2); l7 = (l7 + 1)) {
-			fRec1[l7] = 0.0f;
+		#pragma clang loop vectorize(enable) interleave(enable)
+		for (int l6 = 0; (l6 < 2); l6 = (l6 + 1)) {
+			fRec1[l6] = 0.0f;
 		}
 	}
 	
@@ -659,31 +660,31 @@ class osc_saw4 : public dsp {
 		FAUSTFLOAT* input0 = inputs[0];
 		FAUSTFLOAT* output0 = outputs[0];
 		float fSlow0 = (0.00100000005f * float(fHslider0));
+		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int i = 0; (i < count); i = (i + 1)) {
 			float fTemp0 = float(input0[i]);
 			iVec0[0] = 1;
 			float fTemp1 = std::max<float>(20.0f, std::fabs(fTemp0));
-			fVec1[0] = fTemp1;
-			float fTemp2 = (fRec0[1] + (fConst2 * fVec1[1]));
+			float fTemp2 = (fRec0[1] + (fConst2 * fTemp1));
 			fRec0[0] = (fTemp2 - std::floor(fTemp2));
 			float fTemp3 = osc_saw4_faustpower2_f(((2.0f * fRec0[0]) + -1.0f));
 			float fTemp4 = (fTemp3 * (fTemp3 + -2.0f));
-			fVec2[0] = fTemp4;
-			float fTemp5 = ((fTemp4 - fVec2[1]) / fTemp1);
-			fVec3[0] = fTemp5;
-			float fTemp6 = ((fTemp5 - fVec3[1]) / fTemp1);
-			fVec4[0] = fTemp6;
-			fVec5[(IOTA & 8191)] = ((float(iVec0[3]) * (fTemp6 - fVec4[1])) / fTemp1);
+			fVec1[0] = fTemp4;
+			float fTemp5 = ((fTemp4 - fVec1[1]) / fTemp1);
+			fVec2[0] = fTemp5;
+			float fTemp6 = ((fTemp5 - fVec2[1]) / fTemp1);
+			fVec3[0] = fTemp6;
+			fVec4[(IOTA & 8191)] = ((float(iVec0[3]) * (fTemp6 - fVec3[1])) / fTemp1);
 			fRec1[0] = (fSlow0 + (0.999000013f * fRec1[1]));
-			output0[i] = FAUSTFLOAT(((fTemp0 == 0.0f) ? 0.0f : (fConst1 * fVec5[((IOTA - std::max<int>(0, std::min<int>(8191, int((fConst0 * (fRec1[0] / fTemp0)))))) & 8191)])));
+			output0[i] = FAUSTFLOAT(((fTemp0 == 0.0f) ? 0.0f : (fConst1 * fVec4[((IOTA - std::max<int>(0, std::min<int>(8191, int((fConst0 * (fRec1[0] / fTemp0)))))) & 8191)])));
+			#pragma clang loop vectorize(enable) interleave(enable)
 			for (int j0 = 3; (j0 > 0); j0 = (j0 - 1)) {
 				iVec0[j0] = iVec0[(j0 - 1)];
 			}
-			fVec1[1] = fVec1[0];
 			fRec0[1] = fRec0[0];
+			fVec1[1] = fVec1[0];
 			fVec2[1] = fVec2[0];
 			fVec3[1] = fVec3[0];
-			fVec4[1] = fVec4[0];
 			IOTA = (IOTA + 1);
 			fRec1[1] = fRec1[0];
 		}

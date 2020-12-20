@@ -16,7 +16,7 @@
 
 SetIntersection::SetIntersection(const PdArgs& a)
     : BaseObject(a)
-    , set1_(positionalArguments())
+    , set1_(parsedPosArgs())
 {
     createInlet();
     createOutlet();
@@ -24,26 +24,24 @@ SetIntersection::SetIntersection(const PdArgs& a)
 
 void SetIntersection::onList(const AtomList& lst)
 {
-    onDataT(DataTypeSet(lst));
+    onDataT(SetAtom(lst));
 }
 
-void SetIntersection::onDataT(const DataTPtr<DataTypeSet>& dptr)
+void SetIntersection::onDataT(const SetAtom& set)
 {
-    DataTypeSet res;
-    DataTypeSet::intersection(res, *dptr, set1_);
-    dataTo(0, DataTPtr<DataTypeSet>(res));
+    atomTo(0, SetAtom(DataTypeSet::intersection(*set, set1_)));
 }
 
 void SetIntersection::onInlet(size_t, const AtomList& l)
 {
-    if (l.isDataType<DataTypeSet>()) {
-        set1_ = *DataPtr(l[0]).as<DataTypeSet>();
+    if (l.isA<DataTypeSet>()) {
+        set1_ = *l.asD<DataTypeSet>();
     } else {
         set1_ = DataTypeSet(l);
     }
 }
 
-extern "C" void setup_set0x2eintersection()
+void setup_set_intersection()
 {
     ObjectFactory<SetIntersection> obj("set.intersect");
     obj.processData<DataTypeSet>();

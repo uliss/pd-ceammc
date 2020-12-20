@@ -27,7 +27,7 @@ TEST_CASE("DataTypeEnv", "[ceammc::DataTypeEnv]")
     SECTION("init")
     {
         DataTypeEnv env;
-        REQUIRE(env.type() == data::DATA_ENVELOPE);
+        REQUIRE(env.typeName() == "Env");
         REQUIRE(env.empty());
         REQUIRE_FALSE(env.hasPointAtTime(0));
         REQUIRE_FALSE(env.hasPointAtTime(10));
@@ -362,10 +362,10 @@ TEST_CASE("DataTypeEnv", "[ceammc::DataTypeEnv]")
                 env.pointAt(1).type = CURVE_EXP;
                 env.pointAt(1).data = 0;
 
-                std::vector<float> data(7, -1);
+                std::vector<t_float> data(7, -1);
                 env.render(data.begin(), data.end());
                 REQUIRE(data[0] == 0);
-                REQUIRE(data[1] == Approx(0.1653f));
+                REQUIRE(data[1] == Approx(0.1653f).epsilon(0.001));
                 REQUIRE(data[2] == Approx(0.37754f));
                 REQUIRE(data[3] == Approx(0.65007f));
                 REQUIRE(data[4] == 1);

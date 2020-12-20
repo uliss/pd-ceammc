@@ -2,7 +2,7 @@
 #
 # Usage:
 #   find_package(FFTW [REQUIRED] [QUIET])
-#     
+#
 # It sets the following variables:
 #   FFTW_FOUND               ... true if fftw is found on the system
 #   FFTW_LIBRARIES           ... full path to fftw library
@@ -17,6 +17,11 @@ if(NOT FFTW_ROOT AND ENV{FFTWDIR})
     set(FFTW_ROOT $ENV{FFTWDIR})
 endif()
 
+if(POLICY CMP0074)
+    #policy for <PackageName>_ROOT variables
+    cmake_policy(SET CMP0074 NEW)
+endif()
+
 if(FFTW_ROOT)
 
     find_path(FFTW_INCLUDE_DIR
@@ -28,7 +33,7 @@ if(FFTW_ROOT)
     find_library(FFTW_FLOAT_LIBRARY
         NAMES "fftw3f"
         PATHS ${FFTW_ROOT}
-        PATH_SUFFIXES "lib" "lib64"
+        PATH_SUFFIXES "lib" "lib64" "lib/arm-linux-gnueabihf"
         NO_DEFAULT_PATH)
 
 else()
@@ -53,6 +58,7 @@ else()
     find_library(FFTW_FLOAT_LIBRARY
         NAMES "fftw3f"
         HINTS ${PKGCONFIG_FFTW_LIBDIR} ${PKGCONFIG_FFTW_LIBRARY_DIRS}
+	PATH_SUFFIXES lib lib/arm-linux-gnueabihf
         PATHS
           ${LIB_INSTALL_DIR}
           /usr/lib
@@ -75,4 +81,3 @@ endif()
 
 
 mark_as_advanced(FFTW_INCLUDES FFTW_LIBRARIES FFTWF_LIB)
-

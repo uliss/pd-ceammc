@@ -14,27 +14,16 @@
 #include "flt_median.h"
 #include "ceammc_factory.h"
 
-static void updatePropSize(BaseObject* b, t_symbol* prop)
-{
-    static t_symbol* PROP_SIZE = gensym("@size");
-
-    if (prop != PROP_SIZE)
-        return;
-
-    auto obj = static_cast<FltMedian*>(b);
-    obj->updateSize();
-}
-
 FltMedian::FltMedian(const PdArgs& args)
     : BaseObject(args)
     , window_size_(nullptr)
     , window_idx_(-1)
 {
-    window_size_ = new IntPropertyClosedRange("@size", 9, 1, 128);
-    window_size_->info().setUnits(PropertyInfoUnits::SAMP);
-    createProperty(window_size_);
-
-    setPropertyCallback(updatePropSize);
+    window_size_ = new IntProperty("@size", 9);
+    window_size_->checkClosedRange(1, 128);
+    window_size_->setUnitsSamp();
+    window_size_->setSuccessFn([this](Property* p) { updateSize(); });
+    addProperty(window_size_);
 
     createOutlet();
 }

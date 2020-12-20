@@ -1,289 +1,289 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<library xmlns:xi="http://www.w3.org/2001/XInclude" name="matrix" version="1.0">
+<library xmlns:xi="http://www.w3.org/2001/XInclude" version="1.0" name="matrix">
   <category name="matrix">
-    <entry descr="calc abs value for each matrix element" name="matrix.abs" ref_view="object">
+    <entry name="matrix.abs" descr="calc abs value for each matrix element" ref_view="object">
       <xi:include href="matrix.abs.pddoc" parse="xml"/>
     </entry>
-    <entry descr="accumulate (sum) all elements of matrix" name="matrix.accu" ref_view="object">
+    <entry name="matrix.accu" descr="accumulate (sum) all elements of matrix" ref_view="object">
       <xi:include href="matrix.accu.pddoc" parse="xml"/>
     </entry>
-    <entry descr="element-wise acrcosine" name="matrix.acos" ref_view="object">
+    <entry name="matrix.acos" descr="element-wise acrcosine" ref_view="object">
       <xi:include href="matrix.acos.pddoc" parse="xml"/>
     </entry>
-    <entry descr="element-wise hyperbolic acrcosine" name="matrix.acosh" ref_view="object">
+    <entry name="matrix.acosh" descr="element-wise hyperbolic acrcosine" ref_view="object">
       <xi:include href="matrix.acosh.pddoc" parse="xml"/>
     </entry>
-    <entry descr="element-wise matrix addition" name="matrix.add" ref_view="object">
+    <entry name="matrix.add" descr="element-wise matrix addition" ref_view="object">
       <xi:include href="matrix.add.pddoc" parse="xml"/>
     </entry>
-    <entry descr="check if all elements of the matrix are non-zero" name="matrix.all" ref_view="object">
+    <entry name="matrix.all" descr="check if all elements of the matrix are non-zero" ref_view="object">
       <xi:include href="matrix.all.pddoc" parse="xml"/>
     </entry>
-    <entry descr="row with each element (0 or 1) indicating whether the corresponding column has all non-zero elements" name="matrix.all_col" ref_view="object">
+    <entry name="matrix.all_col" descr="row with each element (0 or 1) indicating whether the corresponding column has all non-zero elements" ref_view="object">
       <xi:include href="matrix.all_col.pddoc" parse="xml"/>
     </entry>
-    <entry descr="column with each element (0 or 1) indicating whether the corresponding row has all non-zero elements" name="matrix.all_row" ref_view="object">
+    <entry name="matrix.all_row" descr="column with each element (0 or 1) indicating whether the corresponding row has all non-zero elements" ref_view="object">
       <xi:include href="matrix.all_row.pddoc" parse="xml"/>
     </entry>
-    <entry descr="check if any elements of the matrix are non-zero" name="matrix.any" ref_view="object">
+    <entry name="matrix.any" descr="check if any elements of the matrix are non-zero" ref_view="object">
       <xi:include href="matrix.any.pddoc" parse="xml"/>
     </entry>
-    <entry descr="row with each element (0 or 1) indicating whether the corresponding column has any non-zero elements" name="matrix.any_col" ref_view="object">
+    <entry name="matrix.any_col" descr="row with each element (0 or 1) indicating whether the corresponding column has any non-zero elements" ref_view="object">
       <xi:include href="matrix.any_col.pddoc" parse="xml"/>
     </entry>
-    <entry descr="column with each element (0 or 1) indicating whether the corresponding row has any non-zero elements" name="matrix.any_row" ref_view="object">
+    <entry name="matrix.any_row" descr="column with each element (0 or 1) indicating whether the corresponding row has any non-zero elements" ref_view="object">
       <xi:include href="matrix.any_row.pddoc" parse="xml"/>
     </entry>
-    <entry descr="element-wise acrsine" name="matrix.asin" ref_view="object">
+    <entry name="matrix.asin" descr="element-wise acrsine" ref_view="object">
       <xi:include href="matrix.asin.pddoc" parse="xml"/>
     </entry>
-    <entry descr="element-wise hyperbolic acrsine" name="matrix.asinh" ref_view="object">
+    <entry name="matrix.asinh" descr="element-wise hyperbolic acrsine" ref_view="object">
       <xi:include href="matrix.asinh.pddoc" parse="xml"/>
     </entry>
-    <entry descr="select matrix element at specified position" name="matrix.at" ref_view="object">
+    <entry name="matrix.at" descr="select matrix element at specified position" ref_view="object">
       <xi:include href="matrix.at.pddoc" parse="xml"/>
     </entry>
-    <entry descr="element-wise arctangent" name="matrix.atan" ref_view="object">
+    <entry name="matrix.atan" descr="element-wise arctangent" ref_view="object">
       <xi:include href="matrix.atan.pddoc" parse="xml"/>
     </entry>
-    <entry descr="element-wise hyperbolic acrtangent" name="matrix.atanh" ref_view="object">
+    <entry name="matrix.atanh" descr="element-wise hyperbolic acrtangent" ref_view="object">
       <xi:include href="matrix.atanh.pddoc" parse="xml"/>
     </entry>
-    <entry descr="clip matrix value to range [min, max]" name="matrix.clip" ref_view="object">
+    <entry name="matrix.clip" descr="clip matrix value to range [min, max]" ref_view="object">
       <xi:include href="matrix.clip.pddoc" parse="xml"/>
     </entry>
-    <entry descr="create Matrix column with specified values" name="matrix.col" ref_view="object">
+    <entry name="matrix.col" descr="create Matrix column with specified values" ref_view="object">
       <xi:include href="matrix.col.pddoc" parse="xml"/>
     </entry>
-    <entry descr="get specified column" name="matrix.col_at" ref_view="object">
+    <entry name="matrix.col_at" descr="get specified column" ref_view="object">
       <xi:include href="matrix.col_at.pddoc" parse="xml"/>
     </entry>
-    <entry descr="2D matrix convolution" name="matrix.conv2" ref_view="object">
+    <entry name="matrix.conv2" descr="2D matrix convolution" ref_view="object">
       <xi:include href="matrix.conv2.pddoc" parse="xml"/>
     </entry>
-    <entry descr="element-wise cosine" name="matrix.cos" ref_view="object">
+    <entry name="matrix.cos" descr="element-wise cosine" ref_view="object">
       <xi:include href="matrix.cos.pddoc" parse="xml"/>
     </entry>
-    <entry descr="element-wise hyperbolic cosine" name="matrix.cosh" ref_view="object">
+    <entry name="matrix.cosh" descr="element-wise hyperbolic cosine" ref_view="object">
       <xi:include href="matrix.cosh.pddoc" parse="xml"/>
     </entry>
-    <entry descr="determinant of square matrix" name="matrix.det" ref_view="object">
+    <entry name="matrix.det" descr="determinant of square matrix" ref_view="object">
       <xi:include href="matrix.det.pddoc" parse="xml"/>
     </entry>
-    <entry descr="get matrix diagonals" name="matrix.diag" ref_view="object">
+    <entry name="matrix.diag" descr="get matrix diagonals" ref_view="object">
       <xi:include href="matrix.diag.pddoc" parse="xml"/>
     </entry>
-    <entry descr="element-wise matrix division" name="matrix.div" ref_view="object">
+    <entry name="matrix.div" descr="element-wise matrix division" ref_view="object">
       <xi:include href="matrix.div.pddoc" parse="xml"/>
     </entry>
-    <entry descr="element-wise matrix equal comparasion" name="matrix.eq" ref_view="object">
+    <entry name="matrix.eq" descr="element-wise matrix equal comparasion" ref_view="object">
       <xi:include href="matrix.eq.pddoc" parse="xml"/>
     </entry>
-    <entry descr="element-wise base-e exponent: e^x" name="matrix.exp" ref_view="object">
+    <entry name="matrix.exp" descr="element-wise base-e exponent: e^x" ref_view="object">
       <xi:include href="matrix.exp.pddoc" parse="xml"/>
     </entry>
-    <entry descr="element-wise base-10 exponent: 10^x" name="matrix.exp10" ref_view="object">
+    <entry name="matrix.exp10" descr="element-wise base-10 exponent: 10^x" ref_view="object">
       <xi:include href="matrix.exp10.pddoc" parse="xml"/>
     </entry>
-    <entry descr="element-wise base-2 exponent: 2^x" name="matrix.exp2" ref_view="object">
+    <entry name="matrix.exp2" descr="element-wise base-2 exponent: 2^x" ref_view="object">
       <xi:include href="matrix.exp2.pddoc" parse="xml"/>
     </entry>
-    <entry descr="fill input Matrix with value" name="matrix.fill" ref_view="object">
+    <entry name="matrix.fill" descr="fill input Matrix with value" ref_view="object">
       <xi:include href="matrix.fill.pddoc" parse="xml"/>
     </entry>
-    <entry descr="create Matrix from list values" name="matrix.from_list" ref_view="object">
+    <entry name="matrix.from_list" descr="create Matrix from list values" ref_view="object">
       <xi:include href="matrix.from_list.pddoc" parse="xml"/>
     </entry>
-    <entry descr="create Matrix filled with specified value" name="matrix.full" ref_view="object">
+    <entry name="matrix.full" descr="create Matrix filled with specified value" ref_view="object">
       <xi:include href="matrix.full.pddoc" parse="xml"/>
     </entry>
-    <entry descr="element-wise greater equal comparasion" name="matrix.ge" ref_view="object">
+    <entry name="matrix.ge" descr="element-wise greater equal comparasion" ref_view="object">
       <xi:include href="matrix.ge.pddoc" parse="xml"/>
     </entry>
-    <entry descr="element-wise greater then comparasion" name="matrix.gt" ref_view="object">
+    <entry name="matrix.gt" descr="element-wise greater then comparasion" ref_view="object">
       <xi:include href="matrix.gt.pddoc" parse="xml"/>
     </entry>
-    <entry descr="produce a matrix containing column histogram counts" name="matrix.hist" ref_view="object">
+    <entry name="matrix.hist" descr="produce a matrix containing column histogram counts" ref_view="object">
       <xi:include href="matrix.hist.pddoc" parse="xml"/>
     </entry>
-    <entry descr="create identity Matrix" name="matrix.identity" ref_view="object">
+    <entry name="matrix.identity" descr="create identity Matrix" ref_view="object">
       <xi:include href="matrix.identity.pddoc" parse="xml"/>
     </entry>
-    <entry descr="insert vector at specified matrix column" name="matrix.insert_col" ref_view="object">
+    <entry name="matrix.insert_col" descr="insert vector at specified matrix column" ref_view="object">
       <xi:include href="matrix.insert_col.pddoc" parse="xml"/>
     </entry>
-    <entry descr="insert vector at specified matrix row" name="matrix.insert_row" ref_view="object">
+    <entry name="matrix.insert_row" descr="insert vector at specified matrix row" ref_view="object">
       <xi:include href="matrix.insert_row.pddoc" parse="xml"/>
     </entry>
-    <entry descr="inverse square matrix" name="matrix.inverse" ref_view="object">
+    <entry name="matrix.inverse" descr="inverse square matrix" ref_view="object">
       <xi:include href="matrix.inverse.pddoc" parse="xml"/>
     </entry>
-    <entry descr="element-wise less equal comparasion" name="matrix.le" ref_view="object">
+    <entry name="matrix.le" descr="element-wise less equal comparasion" ref_view="object">
       <xi:include href="matrix.le.pddoc" parse="xml"/>
     </entry>
-    <entry descr="generate row with linearly spaced N elements" name="matrix.linspace" ref_view="object">
+    <entry name="matrix.linspace" descr="generate row with linearly spaced N elements" ref_view="object">
       <xi:include href="matrix.linspace.pddoc" parse="xml"/>
     </entry>
-    <entry descr="load matrix from CSV format" name="matrix.load" ref_view="object">
+    <entry name="matrix.load" descr="load matrix from CSV format" ref_view="object">
       <xi:include href="matrix.load.pddoc" parse="xml"/>
     </entry>
-    <entry descr="generate row with N elements spaced logarithmically" name="matrix.logspace" ref_view="object">
+    <entry name="matrix.logspace" descr="generate row with N elements spaced logarithmically" ref_view="object">
       <xi:include href="matrix.logspace.pddoc" parse="xml"/>
     </entry>
-    <entry descr="element-wise less then comparasion" name="matrix.lt" ref_view="object">
+    <entry name="matrix.lt" descr="element-wise less then comparasion" ref_view="object">
       <xi:include href="matrix.lt.pddoc" parse="xml"/>
     </entry>
-    <entry descr="matrix product" name="matrix.matmul" ref_view="object">
+    <entry name="matrix.matmul" descr="matrix product" ref_view="object">
       <xi:include href="matrix.matmul.pddoc" parse="xml"/>
     </entry>
-    <entry descr="returns maximum in Matrix" name="matrix.max" ref_view="object">
+    <entry name="matrix.max" descr="returns maximum in Matrix" ref_view="object">
       <xi:include href="matrix.max.pddoc" parse="xml"/>
     </entry>
-    <entry descr="mean matrix value" name="matrix.mean" ref_view="object">
+    <entry name="matrix.mean" descr="mean matrix value" ref_view="object">
       <xi:include href="matrix.mean.pddoc" parse="xml"/>
     </entry>
-    <entry descr="mean value for each matrix column" name="matrix.mean_col" ref_view="object">
+    <entry name="matrix.mean_col" descr="mean value for each matrix column" ref_view="object">
       <xi:include href="matrix.mean_col.pddoc" parse="xml"/>
     </entry>
-    <entry descr="mean value for each matrix row" name="matrix.mean_row" ref_view="object">
+    <entry name="matrix.mean_row" descr="mean value for each matrix row" ref_view="object">
       <xi:include href="matrix.mean_row.pddoc" parse="xml"/>
     </entry>
-    <entry descr="median matrix value" name="matrix.median" ref_view="object">
+    <entry name="matrix.median" descr="median matrix value" ref_view="object">
       <xi:include href="matrix.median.pddoc" parse="xml"/>
     </entry>
-    <entry descr="median matrix value for each column" name="matrix.median_col" ref_view="object">
+    <entry name="matrix.median_col" descr="median matrix value for each column" ref_view="object">
       <xi:include href="matrix.median_col.pddoc" parse="xml"/>
     </entry>
-    <entry descr="median matrix value for each row" name="matrix.median_row" ref_view="object">
+    <entry name="matrix.median_row" descr="median matrix value for each row" ref_view="object">
       <xi:include href="matrix.median_row.pddoc" parse="xml"/>
     </entry>
-    <entry descr="returns minimum value in Matrix" name="matrix.min" ref_view="object">
+    <entry name="matrix.min" descr="returns minimum value in Matrix" ref_view="object">
       <xi:include href="matrix.min.pddoc" parse="xml"/>
     </entry>
-    <entry descr="element-wise matrix multiplication" name="matrix.mul" ref_view="object">
+    <entry name="matrix.mul" descr="element-wise matrix multiplication" ref_view="object">
       <xi:include href="matrix.mul.pddoc" parse="xml"/>
     </entry>
-    <entry descr="return number of columns in Matrix" name="matrix.ncols" ref_view="object">
+    <entry name="matrix.ncols" descr="return number of columns in Matrix" ref_view="object">
       <xi:include href="matrix.ncols.pddoc" parse="xml"/>
     </entry>
-    <entry descr="element-wise matrix not equal comparasion" name="matrix.ne" ref_view="object">
+    <entry name="matrix.ne" descr="element-wise matrix not equal comparasion" ref_view="object">
       <xi:include href="matrix.ne.pddoc" parse="xml"/>
     </entry>
-    <entry descr="Matrix data type" name="matrix.new" ref_view="object">
+    <entry name="matrix.new" descr="Matrix data type" ref_view="object">
       <xi:include href="matrix.new.pddoc" parse="xml"/>
     </entry>
-    <entry descr="return number of rows in Matrix" name="matrix.nrows" ref_view="object">
+    <entry name="matrix.nrows" descr="return number of rows in Matrix" ref_view="object">
       <xi:include href="matrix.nrows.pddoc" parse="xml"/>
     </entry>
-    <entry descr="create Matrix with ones" name="matrix.ones" ref_view="object">
+    <entry name="matrix.ones" descr="create Matrix with ones" ref_view="object">
       <xi:include href="matrix.ones.pddoc" parse="xml"/>
     </entry>
-    <entry descr="create Matrix filled with ones with the same shape as input" name="matrix.ones_like" ref_view="object">
+    <entry name="matrix.ones_like" descr="create Matrix filled with ones with the same shape as input" ref_view="object">
       <xi:include href="matrix.ones_like.pddoc" parse="xml"/>
     </entry>
-    <entry descr="generates Matrix using Gaussian distribution with zero mean and unit variance" name="matrix.randn" ref_view="object">
+    <entry name="matrix.randn" descr="generates Matrix using Gaussian distribution with zero mean and unit variance" ref_view="object">
       <xi:include href="matrix.randn.pddoc" parse="xml"/>
     </entry>
-    <entry descr="generates Matrix with uniform distribution [0-1]" name="matrix.randu" ref_view="object">
+    <entry name="matrix.randu" descr="generates Matrix with uniform distribution [0-1]" ref_view="object">
       <xi:include href="matrix.randu.pddoc" parse="xml"/>
     </entry>
-    <entry descr="matrix range (difference between max and min)" name="matrix.range" ref_view="object">
+    <entry name="matrix.range" descr="matrix range (difference between max and min)" ref_view="object">
       <xi:include href="matrix.range.pddoc" parse="xml"/>
     </entry>
-    <entry descr="matrix column range (difference between max and min)" name="matrix.range_col" ref_view="object">
+    <entry name="matrix.range_col" descr="matrix column range (difference between max and min)" ref_view="object">
       <xi:include href="matrix.range_col.pddoc" parse="xml"/>
     </entry>
-    <entry descr="matrix row range (difference between max and min)" name="matrix.range_row" ref_view="object">
+    <entry name="matrix.range_row" descr="matrix row range (difference between max and min)" ref_view="object">
       <xi:include href="matrix.range_row.pddoc" parse="xml"/>
     </entry>
-    <entry descr="rank of the matrix" name="matrix.rank" ref_view="object">
+    <entry name="matrix.rank" descr="rank of the matrix" ref_view="object">
       <xi:include href="matrix.rank.pddoc" parse="xml"/>
     </entry>
-    <entry descr="remove specified matrix column" name="matrix.remove_col" ref_view="object">
+    <entry name="matrix.remove_col" descr="remove specified matrix column" ref_view="object">
       <xi:include href="matrix.remove_col.pddoc" parse="xml"/>
     </entry>
-    <entry descr="remove specified matrix row" name="matrix.remove_row" ref_view="object">
+    <entry name="matrix.remove_row" descr="remove specified matrix row" ref_view="object">
       <xi:include href="matrix.remove_row.pddoc" parse="xml"/>
     </entry>
-    <entry descr="replace specific elements with a new value" name="matrix.replace" ref_view="object">
+    <entry name="matrix.replace" descr="replace specific elements with a new value" ref_view="object">
       <xi:include href="matrix.replace.pddoc" parse="xml"/>
     </entry>
-    <entry descr="change size while keeping elements" name="matrix.reshape" ref_view="object">
+    <entry name="matrix.reshape" descr="change size while keeping elements" ref_view="object">
       <xi:include href="matrix.reshape.pddoc" parse="xml"/>
     </entry>
-    <entry descr="change size while keeping elements and preserving layout" name="matrix.resize" ref_view="object">
+    <entry name="matrix.resize" descr="change size while keeping elements and preserving layout" ref_view="object">
       <xi:include href="matrix.resize.pddoc" parse="xml"/>
     </entry>
-    <entry descr="create Matrix row with specified values" name="matrix.row" ref_view="object">
+    <entry name="matrix.row" descr="create Matrix row with specified values" ref_view="object">
       <xi:include href="matrix.row.pddoc" parse="xml"/>
     </entry>
-    <entry descr="get specified row" name="matrix.row_at" ref_view="object">
+    <entry name="matrix.row_at" descr="get specified row" ref_view="object">
       <xi:include href="matrix.row_at.pddoc" parse="xml"/>
     </entry>
-    <entry descr="save matrix in CSV format" name="matrix.save" ref_view="object">
+    <entry name="matrix.save" descr="save matrix in CSV format" ref_view="object">
       <xi:include href="matrix.save.pddoc" parse="xml"/>
     </entry>
-    <entry descr="shift Matrix elements by N positions in each column" name="matrix.shift_col" ref_view="object">
+    <entry name="matrix.shift_col" descr="shift Matrix elements by N positions in each column" ref_view="object">
       <xi:include href="matrix.shift_col.pddoc" parse="xml"/>
     </entry>
-    <entry descr="shift Matrix elements by N positions in each row" name="matrix.shift_row" ref_view="object">
+    <entry name="matrix.shift_row" descr="shift Matrix elements by N positions in each row" ref_view="object">
       <xi:include href="matrix.shift_row.pddoc" parse="xml"/>
     </entry>
-    <entry descr="element-wise signum function" name="matrix.sign" ref_view="object">
+    <entry name="matrix.sign" descr="element-wise signum function" ref_view="object">
       <xi:include href="matrix.sign.pddoc" parse="xml"/>
     </entry>
-    <entry descr="element-wise sine" name="matrix.sin" ref_view="object">
+    <entry name="matrix.sin" descr="element-wise sine" ref_view="object">
       <xi:include href="matrix.sin.pddoc" parse="xml"/>
     </entry>
-    <entry descr="element-wise hyperbolic sine" name="matrix.sinh" ref_view="object">
+    <entry name="matrix.sinh" descr="element-wise hyperbolic sine" ref_view="object">
       <xi:include href="matrix.sinh.pddoc" parse="xml"/>
     </entry>
-    <entry descr="return Matrix size (rows, columns)" name="matrix.size" ref_view="object">
+    <entry name="matrix.size" descr="return Matrix size (rows, columns)" ref_view="object">
       <xi:include href="matrix.size.pddoc" parse="xml"/>
     </entry>
-    <entry descr="Solve a system of linear equations, A*X = B, where X is unknown" name="matrix.solve" ref_view="object">
+    <entry name="matrix.solve" descr="Solve a system of linear equations, A*X = B, where X is unknown" ref_view="object">
       <xi:include href="matrix.solve.pddoc" parse="xml"/>
     </entry>
-    <entry descr="standart deviation for matrix values" name="matrix.stddev" ref_view="object">
+    <entry name="matrix.stddev" descr="standart deviation for matrix values" ref_view="object">
       <xi:include href="matrix.stddev.pddoc" parse="xml"/>
     </entry>
-    <entry descr="standart deviation matrix value for each column" name="matrix.stddev_col" ref_view="object">
+    <entry name="matrix.stddev_col" descr="standart deviation matrix value for each column" ref_view="object">
       <xi:include href="matrix.stddev_col.pddoc" parse="xml"/>
     </entry>
-    <entry descr="standart deviation matrix value for each row" name="matrix.stddev_row" ref_view="object">
+    <entry name="matrix.stddev_row" descr="standart deviation matrix value for each row" ref_view="object">
       <xi:include href="matrix.stddev_row.pddoc" parse="xml"/>
     </entry>
-    <entry descr="element-wise matrix subtraction" name="matrix.sub" ref_view="object">
+    <entry name="matrix.sub" descr="element-wise matrix subtraction" ref_view="object">
       <xi:include href="matrix.sub.pddoc" parse="xml"/>
     </entry>
-    <entry descr="swaps specified columns in matrix" name="matrix.swap_cols" ref_view="object">
+    <entry name="matrix.swap_cols" descr="swaps specified columns in matrix" ref_view="object">
       <xi:include href="matrix.swap_cols.pddoc" parse="xml"/>
     </entry>
-    <entry descr="swaps specified rows in matrix" name="matrix.swap_rows" ref_view="object">
+    <entry name="matrix.swap_rows" descr="swaps specified rows in matrix" ref_view="object">
       <xi:include href="matrix.swap_rows.pddoc" parse="xml"/>
     </entry>
-    <entry descr="element-wise tangent" name="matrix.tan" ref_view="object">
+    <entry name="matrix.tan" descr="element-wise tangent" ref_view="object">
       <xi:include href="matrix.tan.pddoc" parse="xml"/>
     </entry>
-    <entry descr="element-wise hyperbolic tangent" name="matrix.tanh" ref_view="object">
+    <entry name="matrix.tanh" descr="element-wise hyperbolic tangent" ref_view="object">
       <xi:include href="matrix.tanh.pddoc" parse="xml"/>
     </entry>
-    <entry descr="convert Matrix to list" name="matrix.to_list" ref_view="object">
+    <entry name="matrix.to_list" descr="convert Matrix to list" ref_view="object">
       <xi:include href="matrix.to_list.pddoc" parse="xml"/>
     </entry>
-    <entry descr="transpose Matrix" name="matrix.transpose" ref_view="object">
+    <entry name="matrix.transpose" descr="transpose Matrix" ref_view="object">
       <xi:include href="matrix.transpose.pddoc" parse="xml"/>
     </entry>
-    <entry descr="element-wise base-e exponent, truncated to avoid infinity" name="matrix.trunc_exp" ref_view="object">
+    <entry name="matrix.trunc_exp" descr="element-wise base-e exponent, truncated to avoid infinity" ref_view="object">
       <xi:include href="matrix.trunc_exp.pddoc" parse="xml"/>
     </entry>
-    <entry descr="generate a column vector or row vector from matrix" name="matrix.vectorise" ref_view="object">
+    <entry name="matrix.vectorise" descr="generate a column vector or row vector from matrix" ref_view="object">
       <xi:include href="matrix.vectorise.pddoc" parse="xml"/>
     </entry>
-    <entry descr="create Matrix with zeros" name="matrix.zeros" ref_view="object">
+    <entry name="matrix.zeros" descr="create Matrix with zeros" ref_view="object">
       <xi:include href="matrix.zeros.pddoc" parse="xml"/>
     </entry>
-    <entry descr="create Matrix filled with zeros with the same shape as input" name="matrix.zeros_like" ref_view="object">
+    <entry name="matrix.zeros_like" descr="create Matrix filled with zeros with the same shape as input" ref_view="object">
       <xi:include href="matrix.zeros_like.pddoc" parse="xml"/>
     </entry>
   </category>

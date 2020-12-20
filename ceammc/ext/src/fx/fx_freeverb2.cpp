@@ -28,11 +28,6 @@ public:
 
         bindPositionalArgsToProps({ SYM_PROP_ROOM, SYM_PROP_DRYWET });
     }
-
-    void m_reset(t_symbol*, const AtomList&)
-    {
-        dsp_->instanceClear();
-    }
 };
 
 void setup_fx_freeverb2_tilde()

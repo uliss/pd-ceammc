@@ -12,13 +12,26 @@
  * this file belongs to.
  *****************************************************************************/
 #include "ceammc_string.h"
+#include "re2/re2.h"
 #include "utf8rewind/utf8rewind.h"
 
+#include <boost/algorithm/string.hpp>
 #include <boost/scoped_array.hpp>
 #include <cstdlib>
 #include <iostream>
 
-size_t ceammc::string::utf8_strlen(const char* str)
+// list of escapes
+//  `" -> "
+//  `` -> `
+//  `/ -> \
+//  `. -> ,
+//  `: -> ;
+//  `@ -> @
+
+static re2::RE2 re_double_quoted("\"(([^`\"]|`[`\"./:()@])*)\"");
+static re2::RE2 re_double_quoted_end("([^`\"]|`[`\"./:()@])*\"");
+
+size_t ceammc::string::utf8_strlen(const char* str) noexcept
 {
     return utf8len(str);
 }
@@ -121,4 +134,224 @@ void ceammc::string::utf8_split_by_char(std::vector<std::string>& vec, const cha
         vec.push_back(std::string(c0, c1 - c0));
         c0 = c1;
     }
+}
+
+bool ceammc::string::starts_with(const std::string& str, const std::string& prefix)
+{
+    return boost::starts_with(str, prefix);
+}
+
+bool ceammc::string::starts_with(const char* str, const char* prefix)
+{
+    return boost::starts_with(str, prefix);
+}
+
+bool ceammc::string::ends_with(const char* str, const char* suffix)
+{
+    return boost::ends_with(str, suffix);
+}
+
+bool ceammc::string::ends_with(const std::string& str, const std::string& suffix)
+{
+    return boost::ends_with(str, suffix);
+}
+
+bool ceammc::string::contains(const char* haystack, const char* needle)
+{
+    return boost::algorithm::contains(haystack, needle);
+}
+
+bool ceammc::string::contains(const std::string& haystack, const std::string& needle)
+{
+    return boost::algorithm::contains(haystack, needle);
+}
+
+std::string ceammc::string::escape_for_json(const std::string& str)
+{
+    std::string res;
+    res.reserve(str.length() + 4);
+
+    for (auto c : str) {
+        switch (c) {
+        case '\b':
+            res.push_back('\\');
+            res.push_back('b');
+            break;
+        case '\t':
+            res.push_back('\\');
+            res.push_back('t');
+            break;
+        case '\n':
+            res.push_back('\\');
+            res.push_back('n');
+            break;
+        case '\f':
+            res.push_back('\\');
+            res.push_back('f');
+            break;
+        case '\r':
+            res.push_back('\\');
+            res.push_back('r');
+            break;
+        case '"':
+            res.push_back('\\');
+            res.push_back('"');
+            break;
+        case '\\':
+            res.push_back('\\');
+            res.push_back('\\');
+            break;
+        default:
+            res.push_back(c);
+            break;
+        }
+    }
+
+    return res;
+}
+
+std::string ceammc::string::pd_string_unescape(const std::string& str)
+{
+    if (str.size() < 2)
+        return str;
+
+    std::string res;
+    res.reserve(str.size());
+
+    for (size_t i = 0; i < str.size(); i++) {
+        auto* c = &str[i];
+        if (*c != '`')
+            res.push_back(*c);
+        else {
+            switch (*(c + 1)) {
+            case '"':
+                res.push_back('"');
+                i++;
+                break;
+            case '`':
+                res.push_back('`');
+                i++;
+                break;
+            case '(':
+                res.push_back('{');
+                i++;
+                break;
+            case ')':
+                res.push_back('}');
+                i++;
+                break;
+            case '.':
+                res.push_back(',');
+                i++;
+                break;
+            case ':':
+                res.push_back(';');
+                i++;
+                break;
+            case '/':
+                res.push_back('\\');
+                i++;
+                break;
+            case '@':
+                res.push_back('@');
+                i++;
+                break;
+            default:
+                break;
+            }
+        }
+    }
+
+    return res;
+}
+
+bool ceammc::string::pd_string_match(const std::string& str, std::string& matched)
+{
+    if (str.empty() || str[0] != '"')
+        return false;
+
+    return re2::RE2::FullMatch(str, re_double_quoted, &matched);
+}
+
+bool ceammc::string::pd_string_parse(const std::string& str, std::string& out)
+{
+    if (pd_string_match(str, out)) {
+        out = pd_string_unescape(out);
+        return true;
+    } else
+        return false;
+}
+
+bool ceammc::string::is_pd_string(const char* str)
+{
+    if (!str[0])
+        return false;
+
+    if (str[0] != '"')
+        return false;
+
+    const size_t N = strlen(str);
+    if (N < 2)
+        return false;
+
+    if (str[N - 1] != '"')
+        return false;
+
+    return re2::RE2::FullMatch(str, re_double_quoted);
+}
+
+bool ceammc::string::pd_string_end_quote(const char* str)
+{
+    const size_t N = strlen(str);
+
+    if (N < 1)
+        return false;
+
+    if (str[N - 1] != '"')
+        return false;
+
+    return re2::RE2::FullMatch(str, re_double_quoted_end);
+}
+
+std::string ceammc::string::remove_all(const std::string& input, const std::string& search)
+{
+    return boost::algorithm::erase_all_copy(input, search);
+}
+
+std::string ceammc::string::remove_first(const std::string& input, const std::string& search)
+{
+    return boost::algorithm::erase_first_copy(input, search);
+}
+
+std::string ceammc::string::remove_last(const std::string& input, const std::string& search)
+{
+    return boost::algorithm::erase_last_copy(input, search);
+}
+
+std::string ceammc::string::replace_all(const std::string& input, const std::string& from, const std::string& to)
+{
+    return boost::algorithm::replace_all_copy(input, from, to);
+}
+
+std::string ceammc::string::replace_first(const std::string& input, const std::string& from, const std::string& to)
+{
+    return boost::algorithm::replace_first_copy(input, from, to);
+}
+
+std::string ceammc::string::replace_last(const std::string& input, const std::string& from, const std::string& to)
+{
+    return boost::algorithm::replace_last_copy(input, from, to);
+}
+
+void ceammc::string::split(std::vector<std::string>& vec, const std::string& str, const char* anysep)
+{
+    vec.clear();
+    if (str.empty())
+        return;
+
+    boost::algorithm::split(vec, str, boost::is_any_of(anysep), boost::token_compress_on);
+    // remove all empty elements
+    vec.erase(
+        std::remove_if(vec.begin(), vec.end(), [](const std::string& s) { return s.empty(); }),
+        vec.end());
 }

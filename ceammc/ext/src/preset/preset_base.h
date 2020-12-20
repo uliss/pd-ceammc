@@ -15,7 +15,9 @@ class PresetBase : public BaseObject {
 
 public:
     PresetBase(const PdArgs& args);
-    ~PresetBase();
+    ~PresetBase() override;
+
+    void initDone() override;
 
     t_symbol* makePath() const;
     t_symbol* makePresetPath() const;
@@ -38,10 +40,10 @@ public:
     void storeAny(t_symbol* sel, const AtomList& l, size_t idx);
 
 public:
-    void m_load(t_symbol*, const AtomList& index);
-    void m_store(t_symbol*, const AtomList& index);
-    void m_update(t_symbol*, const AtomList&);
-    void m_clear(t_symbol*, const AtomList& index);
+    void m_load(t_symbol*, const AtomListView& index);
+    void m_store(t_symbol*, const AtomListView& index);
+    void m_update(t_symbol*, const AtomListView&);
+    void m_clear(t_symbol*, const AtomListView& index);
 
 private:
     void bind();

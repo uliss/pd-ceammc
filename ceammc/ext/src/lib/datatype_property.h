@@ -19,39 +19,26 @@
 #include "ceammc_globaldata.h"
 #include "ceammc_property_info.h"
 
-#include <boost/variant.hpp>
-
 using namespace ceammc;
 
 class DataTypeProperty : public AbstractData {
 public:
-    enum Type {
-        T_FLOAT = 0,
-        T_INT,
-        T_BOOL,
-        T_SYMBOL,
-        T_LIST
-    };
-
-    typedef boost::variant<t_float, long, t_symbol*, bool, AtomList> PropertyValue;
-
-public:
     DataTypeProperty(t_symbol* name);
     DataTypeProperty(const DataTypeProperty& p);
 
-    DataType type() const override;
+    int type() const noexcept override;
     DataTypeProperty* clone() const override;
     std::string toString() const override;
 
     void setTypeFloat(t_float def = 0);
-    void setTypeInt(long def = 0);
+    void setTypeInt(int def = 0);
     void setTypeBool(bool def);
     void setTypeSymbol(t_symbol* def);
     void setTypeList(const AtomList& def);
 
     bool setBool(bool v);
     bool setFloat(t_float f);
-    bool setInt(long v);
+    bool setInt(int v);
     bool setSymbol(t_symbol* s);
     bool setList(const AtomList& lst);
     bool setFromPdArgs(const AtomList& lst);
@@ -59,29 +46,28 @@ public:
     void restoreDefault();
 
     bool getFloat(t_float& out) const;
-    bool getInt(long& out) const;
+    bool getInt(int &out) const;
     bool getBool(bool& out) const;
     bool getSymbol(t_symbol** s) const;
     bool getList(AtomList& out) const;
 
     bool setFloatRange(t_float min, t_float max);
-    bool setIntRange(long min, long max);
+    bool setIntRange(int min, int max);
     bool setEnumValues(const AtomList& lst);
 
-    bool isFloat() const { return type_ == T_FLOAT; }
-    bool isInt() const { return type_ == T_INT; }
-    bool isBool() const { return type_ == T_BOOL; }
-    bool isSymbol() const { return type_ == T_SYMBOL; }
-    bool isList() const { return type_ == T_LIST; }
+    bool isFloat() const { return type_ == PropValueType::FLOAT; }
+    bool isInt() const { return type_ == PropValueType::INTEGER; }
+    bool isBool() const { return type_ == PropValueType::BOOLEAN; }
+    bool isSymbol() const { return type_ == PropValueType::SYMBOL; }
+    bool isList() const { return type_ == PropValueType::LIST; }
 
     t_symbol* name() const { return name_; }
-    Type propertyType() const { return type_; }
-    const std::string& propertyStrType() const;
+    PropValueType propertyType() const { return type_; }
     std::string propertyStrValue() const;
     std::string propertyStrMinValue() const;
     std::string propertyStrMaxValue() const;
     std::pair<t_float, t_float> floatRange() const { return { fmin_, fmax_ }; }
-    std::pair<long, long> intRange() const { return { lmin_, lmax_ }; }
+    std::pair<int, int> intRange() const { return { lmin_, lmax_ }; }
     const AtomList& enumValues() const { return enum_; }
 
     bool hasMinValue() const;
@@ -91,18 +77,18 @@ public:
     PropertyInfo info() const;
 
 public:
-    static const DataType dataType;
+    static const int dataType;
 
 private:
     void updateAll();
 
 private:
     t_symbol* name_;
-    Type type_;
+    PropValueType type_;
     PropertyValue value_;
     PropertyValue default_;
     t_float fmin_, fmax_;
-    long lmin_, lmax_;
+    int lmin_, lmax_;
     AtomList enum_;
 };
 

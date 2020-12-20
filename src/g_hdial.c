@@ -16,7 +16,6 @@ put out a "float" as in sliders, toggles, etc. */
 #include "g_canvas.h"
 
 #include "g_all_guis.h"
-#include "g_ceammc_draw.h"
 #include <math.h>
 
 #ifdef _WIN32
@@ -39,109 +38,131 @@ void hradio_draw_update(t_gobj *client, t_glist *glist)
     {
         t_canvas *canvas = glist_getcanvas(glist);
 
-        char buf_id[10] = { 0 };
-        snprintf(buf_id, sizeof(buf_id), "BUT%d", x->x_drawn);
-        g_figure_outfill(canvas, x, buf_id, x->x_gui.x_bcol);
-        snprintf(buf_id, sizeof(buf_id), "BUT%d", x->x_on);
-        g_figure_outfill(canvas, x, buf_id, x->x_gui.x_fcol);
-
+        sys_vgui(".x%lx.c itemconfigure %lxBUT%d -fill #%06x -outline #%06x\n",
+                 canvas, x, x->x_drawn,
+                 x->x_gui.x_bcol, x->x_gui.x_bcol);
+        sys_vgui(".x%lx.c itemconfigure %lxBUT%d -fill #%06x -outline #%06x\n",
+                 canvas, x, x->x_on,
+                 x->x_gui.x_fcol, x->x_gui.x_fcol);
         x->x_drawn = x->x_on;
     }
 }
 
 void hradio_draw_new(t_hradio *x, t_glist *glist)
 {
-    const int n = x->x_number;
-    const int cell_size = x->x_gui.x_w;
-    const unsigned int z = IEMGUI_ZOOM(x);
-    const int zoom_fix = -1 * (z >> 1);
-    const int knob_margin = cell_size / 4 + zoom_fix;
-    const int knob_size = cell_size - 2 * knob_margin;
-    const int xpos = text_xpix(&x->x_gui.x_obj, glist);
-    const int ypos = text_ypix(&x->x_gui.x_obj, glist);
-    char buf_id[10];
-
+    int n = x->x_number, i, dx = x->x_gui.x_w, s4 = dx / 4;
+    int yy11 = text_ypix(&x->x_gui.x_obj, glist), yy12 = yy11 + dx;
+    int yy21 = yy11 + s4, yy22 = yy12 - s4;
+    int xx11b = text_xpix(&x->x_gui.x_obj, glist), xx11 = xx11b, xx21 = xx11b + s4;
+    int xx22 = xx11b + dx - s4;
+    int iow = IOWIDTH * IEMGUI_ZOOM(x), ioh = IEM_GUI_IOHEIGHT * IEMGUI_ZOOM(x);
     t_canvas *canvas = glist_getcanvas(glist);
 
-    for(int i = 0; i < n; i++)
+    for(i = 0; i < n; i++)
     {
-        const int cellx = xpos + i * cell_size;
-        snprintf(buf_id, sizeof(buf_id), "BASE%d", i);
-
-        g_rect_draw_filled(canvas, x, buf_id,
-                           cellx, ypos, cell_size, cell_size,
-                           x->x_gui.x_bcol);
-        g_figure_set_linewidth(canvas, x, buf_id, IEMGUI_ZOOM(x));
-
-        int color = (x->x_on == i) ? x->x_gui.x_fcol : x->x_gui.x_bcol;
-        snprintf(buf_id, sizeof(buf_id), "BUT%d", i);
-        g_rect_draw_outfilled(canvas, x, buf_id,
-                              cellx + knob_margin, ypos + knob_margin,
-                              knob_size, knob_size, color);
+        sys_vgui(".x%lx.c create rectangle %d %d %d %d -width %d -fill #%06x -tags %lxBASE%d\n",
+                 canvas, xx11, yy11, xx11 + dx, yy12, IEMGUI_ZOOM(x),
+                 x->x_gui.x_bcol, x, i);
+        sys_vgui(".x%lx.c create rectangle %d %d %d %d -fill #%06x -outline #%06x -tags %lxBUT%d\n",
+                 canvas, xx21, yy21, xx22, yy22,
+                 (x->x_on == i) ? x->x_gui.x_fcol : x->x_gui.x_bcol,
+                 (x->x_on == i) ? x->x_gui.x_fcol : x->x_gui.x_bcol, x, i);
+        xx11 += dx;
+        xx21 += dx;
+        xx22 += dx;
         x->x_drawn = x->x_on;
     }
-
-    g_iem_inlets_draw(canvas, &x->x_gui, xpos, ypos);
-    g_iem_outlets_draw(canvas, &x->x_gui, xpos, ypos);
-    g_iem_label_draw(canvas, &x->x_gui, xpos, ypos);
+    if(!x->x_gui.x_fsf.x_snd_able)
+        sys_vgui(".x%lx.c create rectangle %d %d %d %d -fill black -tags [list %lxOUT%d outlet]\n",
+             canvas,
+             xx11b, yy12 + IEMGUI_ZOOM(x) - ioh,
+             xx11b + iow, yy12,
+             x, 0);
+    if(!x->x_gui.x_fsf.x_rcv_able)
+        sys_vgui(".x%lx.c create rectangle %d %d %d %d -fill black -tags [list %lxIN%d inlet]\n",
+             canvas,
+             xx11b, yy11,
+             xx11b + iow, yy11 - IEMGUI_ZOOM(x) + ioh,
+             x, 0);
+    sys_vgui(".x%lx.c create text %d %d -text {%s} -anchor w -font {{%s} -%d %s} -fill #%06x -tags [list %lxLABEL label text]\n",
+             canvas, xx11b + x->x_gui.x_ldx * IEMGUI_ZOOM(x),
+             yy11 + x->x_gui.x_ldy * IEMGUI_ZOOM(x),
+             (strcmp(x->x_gui.x_lab->s_name, "empty") ? x->x_gui.x_lab->s_name : ""),
+             x->x_gui.x_font, x->x_gui.x_fontsize * IEMGUI_ZOOM(x), sys_fontweight,
+             x->x_gui.x_lcol, x);
 }
 
 void hradio_draw_move(t_hradio *x, t_glist *glist)
 {
-    const int n = x->x_number;
-    const int cell_size = x->x_gui.x_w;
-    const unsigned int z = IEMGUI_ZOOM(x);
-    const int zoom_fix = -1 * (z >> 1);
-    const int knob_margin = cell_size / 4 + zoom_fix;
-    const int knob_size = cell_size - 2 * knob_margin;
-    const int xpos = text_xpix(&x->x_gui.x_obj, glist);
-    const int ypos = text_ypix(&x->x_gui.x_obj, glist);
-    char buf_id[10];
-
+    int n = x->x_number, i, dx = x->x_gui.x_w, s4 = dx / 4;
+    int yy11 = text_ypix(&x->x_gui.x_obj, glist), yy12 = yy11 + dx;
+    int yy21 = yy11 + s4, yy22 = yy12 - s4;
+    int xx11b = text_xpix(&x->x_gui.x_obj, glist), xx11 = xx11b, xx21 = xx11b + s4;
+    int xx22 = xx11b + dx - s4;
+    int iow = IOWIDTH * IEMGUI_ZOOM(x), ioh = IEM_GUI_IOHEIGHT * IEMGUI_ZOOM(x);
     t_canvas *canvas = glist_getcanvas(glist);
 
-    for(int i = 0; i < n; i++)
+    xx11 = xx11b;
+    xx21 = xx11b + s4;
+    xx22 = xx11b + dx - s4;
+    for(i = 0; i < n; i++)
     {
-        const int cellx = xpos + i * cell_size;
-        snprintf(buf_id, sizeof(buf_id), "BASE%d", i);
-        g_rect_move(canvas, x, buf_id, cellx, ypos, cell_size, cell_size);
-
-        snprintf(buf_id, sizeof(buf_id), "BUT%d", i);
-        g_rect_move(canvas, x, buf_id,
-                    cellx + knob_margin, ypos + knob_margin, knob_size, knob_size);
+        sys_vgui(".x%lx.c coords %lxBASE%d %d %d %d %d\n",
+                 canvas, x, i, xx11, yy11, xx11 + dx, yy12);
+        sys_vgui(".x%lx.c coords %lxBUT%d %d %d %d %d\n",
+                 canvas, x, i, xx21, yy21, xx22, yy22);
+        xx11 += dx;
+        xx21 += dx;
+        xx22 += dx;
     }
-
-    g_iem_label_move(canvas, &x->x_gui, xpos, ypos);
-    g_iem_io_move(canvas, &x->x_gui, xpos, ypos);
+    sys_vgui(".x%lx.c coords %lxLABEL %d %d\n",
+             canvas, x, xx11b + x->x_gui.x_ldx * IEMGUI_ZOOM(x),
+             yy11 + x->x_gui.x_ldy * IEMGUI_ZOOM(x));
+    if(!x->x_gui.x_fsf.x_snd_able)
+        sys_vgui(".x%lx.c coords %lxOUT%d %d %d %d %d\n",
+             canvas, x, 0,
+             xx11b, yy12 + IEMGUI_ZOOM(x) - ioh,
+             xx11b + iow, yy12);
+    if(!x->x_gui.x_fsf.x_rcv_able)
+        sys_vgui(".x%lx.c coords %lxIN%d %d %d %d %d\n",
+             canvas, x, 0,
+             xx11b, yy11,
+             xx11b + iow, yy11 - IEMGUI_ZOOM(x) + ioh);
 }
 
 void hradio_draw_erase(t_hradio* x, t_glist* glist)
 {
-    int n = x->x_number;
-
+    int n = x->x_number, i;
     t_canvas *canvas = glist_getcanvas(glist);
 
-    g_figure_erase_n(canvas, x, "BASE%d", n);
-    g_figure_erase_n(canvas, x, "BUT%d", n);
-    g_figure_erase(canvas, x, "LABEL");
-    g_iem_io_erase(canvas, &x->x_gui);
+    for(i = 0; i < n; i++)
+    {
+        sys_vgui(".x%lx.c delete %lxBASE%d\n", canvas, x, i);
+        sys_vgui(".x%lx.c delete %lxBUT%d\n", canvas, x, i);
+    }
+    sys_vgui(".x%lx.c delete %lxLABEL\n", canvas, x);
+    if(!x->x_gui.x_fsf.x_snd_able)
+        sys_vgui(".x%lx.c delete %lxOUT%d\n", canvas, x, 0);
+    if(!x->x_gui.x_fsf.x_rcv_able)
+        sys_vgui(".x%lx.c delete %lxIN%d\n", canvas, x, 0);
 }
 
 void hradio_draw_config(t_hradio* x, t_glist* glist)
 {
-    int n = x->x_number;
-    char buf_id[10] = { 0 };
-
+    int n = x->x_number, i;
     t_canvas *canvas = glist_getcanvas(glist);
 
-    g_iem_label_config(canvas, &x->x_gui);
-    g_figure_fill_n(canvas, x, "BASE%d", n, x->x_gui.x_bcol);
-
-    for(int i = 0; i < n; i++)
+    sys_vgui(".x%lx.c itemconfigure %lxLABEL -font {{%s} -%d %s} -fill #%06x -text {%s} \n",
+             canvas, x, x->x_gui.x_font, x->x_gui.x_fontsize, sys_fontweight,
+             x->x_gui.x_fsf.x_selected ? IEM_GUI_COLOR_SELECTED:x->x_gui.x_lcol,
+             strcmp(x->x_gui.x_lab->s_name, "empty") ? x->x_gui.x_lab->s_name : "");
+    for(i = 0; i < n; i++)
     {
-        snprintf(buf_id, sizeof(buf_id), "BUT%d", i);
-        int color = (x->x_on == i) ? x->x_gui.x_fcol : x->x_gui.x_bcol;
-        g_figure_outfill(canvas, x, buf_id, color);
+        sys_vgui(".x%lx.c itemconfigure %lxBASE%d -fill #%06x\n", canvas, x, i,
+                 x->x_gui.x_bcol);
+        sys_vgui(".x%lx.c itemconfigure %lxBUT%d -fill #%06x -outline #%06x\n", canvas, x, i,
+                 (x->x_on == i) ? x->x_gui.x_fcol : x->x_gui.x_bcol,
+                 (x->x_on == i) ? x->x_gui.x_fcol : x->x_gui.x_bcol);
     }
 }
 
@@ -149,41 +170,64 @@ void hradio_draw_io(t_hradio* x, t_glist* glist, int old_snd_rcv_flags)
 {
     int xpos = text_xpix(&x->x_gui.x_obj, glist);
     int ypos = text_ypix(&x->x_gui.x_obj, glist);
+    int iow = IOWIDTH * IEMGUI_ZOOM(x), ioh = IEM_GUI_IOHEIGHT * IEMGUI_ZOOM(x);
     t_canvas *canvas = glist_getcanvas(glist);
-
-    g_iem_io_draw(canvas, &x->x_gui, xpos, ypos, old_snd_rcv_flags);
 
     if((old_snd_rcv_flags & IEM_GUI_OLD_SND_FLAG) && !x->x_gui.x_fsf.x_snd_able)
     {
+        sys_vgui(".x%lx.c create rectangle %d %d %d %d -fill black -tags %lxOUT%d\n",
+                 canvas,
+                 xpos, ypos + x->x_gui.x_h + IEMGUI_ZOOM(x) - ioh,
+                 xpos + iow, ypos + x->x_gui.x_h,
+                 x, 0);
         /* keep these above outlet */
         if(x->x_on == 0) {
-            g_figure_raise(canvas, x, "BUT0", "OUT0");
-            g_figure_raise(canvas, x, "LABEL", "BUT0");
+            sys_vgui(".x%lx.c raise %lxBUT%d %lxOUT%d\n", canvas, x, x->x_on, x, 0);
+            sys_vgui(".x%lx.c raise %lxLABEL %lxBUT%d\n", canvas, x, x, x->x_on);
         }
     }
+    if(!(old_snd_rcv_flags & IEM_GUI_OLD_SND_FLAG) && x->x_gui.x_fsf.x_snd_able)
+        sys_vgui(".x%lx.c delete %lxOUT%d\n", canvas, x, 0);
     if((old_snd_rcv_flags & IEM_GUI_OLD_RCV_FLAG) && !x->x_gui.x_fsf.x_rcv_able)
     {
+        sys_vgui(".x%lx.c create rectangle %d %d %d %d -fill black -tags %lxIN%d\n",
+                 canvas,
+                 xpos, ypos,
+                 xpos + iow, ypos - IEMGUI_ZOOM(x) + ioh,
+                 x, 0);
         /* keep these above inlet */
         if(x->x_on == 0) {
-            g_figure_raise(canvas, x, "BUT0", "IN0");
-            g_figure_raise(canvas, x, "LABEL", "BUT0");
+            sys_vgui(".x%lx.c raise %lxBUT%d %lxIN%d\n", canvas, x, x->x_on, x, 0);
+            sys_vgui(".x%lx.c raise %lxLABEL %lxBUT%d\n", canvas, x, x, x->x_on);
         }
     }
+    if(!(old_snd_rcv_flags & IEM_GUI_OLD_RCV_FLAG) && x->x_gui.x_fsf.x_rcv_able)
+        sys_vgui(".x%lx.c delete %lxIN%d\n", canvas, x, 0);
 }
 
 void hradio_draw_select(t_hradio* x, t_glist* glist)
 {
+    int n = x->x_number, i;
     t_canvas *canvas = glist_getcanvas(glist);
 
     if(x->x_gui.x_fsf.x_selected)
     {
-        g_figure_outline_n(canvas, x, "BASE%d", x->x_number, IEM_GUI_COLOR_SELECTED);
-        g_iem_label_select(canvas, &x->x_gui);
+        for(i = 0; i < n; i++)
+        {
+            sys_vgui(".x%lx.c itemconfigure %lxBASE%d -outline #%06x\n", canvas, x, i,
+                     IEM_GUI_COLOR_SELECTED);
+        }
+        sys_vgui(".x%lx.c itemconfigure %lxLABEL -fill #%06x\n", canvas, x, IEM_GUI_COLOR_SELECTED);
     }
     else
     {
-        g_figure_outline_n(canvas, x, "BASE%d", x->x_number, IEM_GUI_COLOR_NORMAL);
-        g_iem_label_unselect(canvas, &x->x_gui);
+        for(i = 0; i < n; i++)
+        {
+            sys_vgui(".x%lx.c itemconfigure %lxBASE%d -outline #%06x\n", canvas, x, i,
+                     IEM_GUI_COLOR_NORMAL);
+        }
+        sys_vgui(".x%lx.c itemconfigure %lxLABEL -fill #%06x\n", canvas, x,
+                 x->x_gui.x_lcol);
     }
 }
 
@@ -346,7 +390,7 @@ static void hradio_bang(t_hradio *x)
     }
     else
     {
-        float outval = (pd_compatibilitylevel < 46 ? x->x_on : x->x_fval);
+        t_float outval = (pd_compatibilitylevel < 46 ? x->x_on : x->x_fval);
         outlet_float(x->x_gui.x_obj.ob_outlet, outval);
         if(x->x_gui.x_fsf.x_snd_able && x->x_gui.x_snd->s_thing)
             pd_float(x->x_gui.x_snd->s_thing, outval);
@@ -386,7 +430,7 @@ static void hradio_fout(t_hradio *x, t_floatarg f)
     }
     else
     {
-        float outval = (pd_compatibilitylevel < 46 ? i : x->x_fval);
+        t_float outval = (pd_compatibilitylevel < 46 ? i : x->x_fval);
         x->x_on_old = x->x_on;
         x->x_on = i;
         (*x->x_gui.x_draw)(x, x->x_gui.x_glist, IEM_GUI_DRAW_MODE_UPDATE);
@@ -435,7 +479,7 @@ static void hradio_float(t_hradio *x, t_floatarg f)
     }
     else
     {
-        float outval = (pd_compatibilitylevel < 46 ? i : x->x_fval);
+        t_float outval = (pd_compatibilitylevel < 46 ? i : x->x_fval);
         x->x_on_old = x->x_on;
         x->x_on = i;
         (*x->x_gui.x_draw)(x, x->x_gui.x_glist, IEM_GUI_DRAW_MODE_UPDATE);
@@ -534,7 +578,7 @@ static void *hradio_donew(t_symbol *s, int argc, t_atom *argv, int old)
     int a = IEM_GUI_DEFAULTSIZE, on = 0;
     int ldx = 0, ldy = -8, chg = 1, num = 8;
     int fs = 10;
-    float fval = 0;
+    t_float fval = 0;
 
     iem_inttosymargs(&x->x_gui.x_isa, 0);
     iem_inttofstyle(&x->x_gui.x_fsf, 0);
@@ -661,10 +705,6 @@ void g_hradio_setup(void)
         gensym("init"), A_FLOAT, 0);
     class_addmethod(hradio_class, (t_method)hradio_number,
         gensym("number"), A_FLOAT, 0);
-    class_addmethod(hradio_class, (t_method)hradio_single_change,
-        gensym("single_change"), 0);
-    class_addmethod(hradio_class, (t_method)hradio_double_change,
-        gensym("double_change"), 0);
     class_addmethod(hradio_class, (t_method)iemgui_zoom,
         gensym("zoom"), A_CANT, 0);
     hradio_widgetbehavior.w_getrectfn = hradio_getrect;
@@ -725,5 +765,4 @@ void g_hradio_setup(void)
     class_addmethod(hradio_old_class, (t_method)iemgui_zoom,
         gensym("zoom"), A_CANT, 0);
     class_setwidget(hradio_old_class, &hradio_widgetbehavior);
-    class_sethelpsymbol(hradio_old_class, gensym("hradio"));
 }

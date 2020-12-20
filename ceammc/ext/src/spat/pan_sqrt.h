@@ -7,7 +7,7 @@ class PanSqrt : public PanBase {
 
 public:
     PanSqrt(const PdArgs& args);
-    void processBlock(const t_sample** in, t_sample** out);
+    void processBlock(const t_sample** in, t_sample** out) override;
 };
 
 void setup_pan_sqrt();

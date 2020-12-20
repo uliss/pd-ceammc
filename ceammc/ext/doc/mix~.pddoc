@@ -29,11 +29,14 @@
         <properties>
             <property name="@xfade_time" type="float" minvalue="1" default="20"
             units="millisecond">smooth time</property>
-            <property name="@value" type="list" minvalue="0">linear amplitude values</property>
-            <property name="@db" type="list" minvalue="-144" units="decibel">amplitude values in
-            decibels</property>
-            <property name="@mute" type="list" enum="0 1">mute channel list</property>
-            <property name="@solo" type="list" enum="0 1">solo channel list</property>
+            <property name="@value" type="list" minvalue="0" default="0 0">linear amplitude
+            values</property>
+            <property name="@db" type="list" minvalue="-144" units="decibel" default="-144 -144">
+            amplitude values in decibels</property>
+            <property name="@mute" type="list" default="0 0">mute channel list, allowed values: 0,
+            1</property>
+            <property name="@solo" type="list" default="0 0">solo channel list, allowed values: 0,
+            1</property>
         </properties>
         <inlets dynamic="true">
             <inlet number="1" type="audio">

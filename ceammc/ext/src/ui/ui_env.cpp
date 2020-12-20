@@ -20,6 +20,8 @@ static t_symbol* SYM_EADSR;
 static t_symbol* SYM_EASR;
 static t_symbol* SYM_EAR;
 static t_symbol* SYM_LENGTH;
+static t_symbol* SYM_MODE_ON_MOUSE_UP;
+static t_symbol* SYM_MODE_ON_DRAG;
 
 static float lin2lin(float v, float x0, float x1, float y0, float y1)
 {
@@ -39,6 +41,7 @@ UIEnv::UIEnv()
     , txt_value0(txt_font.font(), ColorRGBA::black(), ETEXT_UP_LEFT, ETEXT_JLEFT)
     , txt_value1(txt_font.font(), ColorRGBA::black(), ETEXT_DOWN_LEFT, ETEXT_JLEFT)
     , txt_value2(txt_font.font(), ColorRGBA::black(), ETEXT_DOWN_LEFT, ETEXT_JLEFT)
+    , output_mode_(SYM_MODE_ON_MOUSE_UP)
 {
     cursor_pos_.x = 0;
     cursor_pos_.y = 0;
@@ -127,22 +130,17 @@ UIEnv::UIEnv()
 
 void UIEnv::onBang()
 {
-    dataTo(0, DataPtr(env_.clone()));
+    atomTo(0, EnvAtom(env_));
 }
 
-void UIEnv::onData(const DataPtr& ptr)
+void UIEnv::onData(const Atom& data)
 {
-    if (ptr->type() != data::DATA_ENVELOPE) {
-        UI_ERR << "not Envelope received: " << ptr->toString();
+    if (!data.isA<DataTypeEnv>()) {
+        UI_ERR << "not Envelope received: " << data;
         return;
     }
 
-    if (ptr.isNull()) {
-        UI_ERR << "NULL pointer";
-        return;
-    }
-
-    const DataTypeEnv* env = ptr->as<DataTypeEnv>();
+    const DataTypeEnv* env = data.asD<DataTypeEnv>();
 
     if (env->numPoints() < 2) {
         UI_ERR << "invalid (for editor) envelope : " << *env;
@@ -465,7 +463,7 @@ void UIEnv::onMouseDrag(t_object*, const t_pt& pt, long mod)
     cursor_layer_.invalidate();
     redrawInnerArea();
 
-    if (shouldOutput(mod))
+    if (output_mode_ == SYM_MODE_ON_DRAG)
         outputEnvelope();
 }
 
@@ -519,10 +517,10 @@ bool UIEnv::hasSelectedEdge() const
 void UIEnv::outputEnvelope()
 {
     updateEnvelope();
-    dataTo(0, DataPtr(env_.clone()));
+    atomTo(0, EnvAtom(env_));
 }
 
-bool UIEnv::shouldOutput(long mod)
+bool UIEnv::isCmdPressed(long mod)
 {
 #ifndef __APPLE__
     return (mod & EMOD_CTRL);
@@ -566,7 +564,7 @@ void UIEnv::onMouseDown(t_object*, const t_pt& pt, const t_pt& abs_pt, long mod)
         }
     }
 
-    if (shouldOutput(mod))
+    if (isCmdPressed(mod))
         outputEnvelope();
 }
 
@@ -579,7 +577,7 @@ void UIEnv::onMouseLeave(t_object*, const t_pt& pt, long)
 
 void UIEnv::onMouseUp(t_object* view, const t_pt& pt, long mod)
 {
-    if (shouldOutput(mod))
+    if (output_mode_ == SYM_MODE_ON_MOUSE_UP && !isCmdPressed(mod))
         outputEnvelope();
 }
 
@@ -818,9 +816,11 @@ void UIEnv::setup()
 
     obj.addProperty(PROP_ACTIVE_COLOR, _("Active Color"), DEFAULT_ACTIVE_COLOR, &UIEnv::prop_active_color);
     obj.addProperty("line_color", _("Line Color"), DEFAULT_LINE_COLOR, &UIEnv::prop_line_color);
-    obj.addProperty(PROP_LENGTH, _("Length (ms)"), 400, &UIEnv::prop_length, _("Main"));
+    obj.addFloatProperty(PROP_LENGTH, _("Length (ms)"), 400, &UIEnv::prop_length, _("Main"));
     obj.setPropertyMin(PROP_LENGTH, 10);
     obj.setPropertyUnits(gensym(PROP_LENGTH), gensym("msec"));
+
+    obj.addMenuProperty("output_mode", _("Output Mode"), "mouse_up", &UIEnv::output_mode_, "mouse_up drag", _("Main"));
 
     obj.addMethod(SYM_ADSR, &UIEnv::m_adsr);
     obj.addMethod(SYM_ASR, &UIEnv::m_asr);
@@ -839,6 +839,9 @@ void setup_ui_env()
     SYM_EASR = gensym("easr");
     SYM_EAR = gensym("ear");
     SYM_LENGTH = gensym("length");
+    // keep in sync with @output_mode property!
+    SYM_MODE_ON_MOUSE_UP = gensym("mouse_up");
+    SYM_MODE_ON_DRAG = gensym("drag");
 
     UIEnv::setup();
 }

@@ -14,10 +14,12 @@
 #ifndef SPEECH_FLITE_H
 #define SPEECH_FLITE_H
 
-#include "datatype_string.h"
 #include "ceammc_array.h"
 #include "ceammc_clock.h"
+#include "ceammc_data.h"
 #include "ceammc_object.h"
+#include "ceammc_property_enum.h"
+#include "datatype_string.h"
 
 using namespace ceammc;
 
@@ -26,8 +28,8 @@ class FliteThread;
 class SpeechFlite : public BaseObject {
     Array array_;
     t_symbol* name_;
-    SymbolProperty* voice_name_;
-    FloatPropertyClosedRange* speed_;
+    SymbolEnumProperty* voice_name_;
+    FloatProperty* speed_;
     FloatProperty* pitch_;
     FliteThread* render_;
     ClockMemberFunction<SpeechFlite> clock_;
@@ -36,10 +38,10 @@ public:
     SpeechFlite(const PdArgs& args);
     ~SpeechFlite();
 
-    void onFloat(t_float v);
-    void onSymbol(t_symbol* s);
-    void onList(const AtomList& lst);
-    void onDataT(const DataTPtr<DataTypeString>& str);
+    void onFloat(t_float v) override;
+    void onSymbol(t_symbol* s) override;
+    void onList(const AtomList& lst) override;
+    void onDataT(const StringAtom& str);
 
 private:
     bool synth(const char* str);

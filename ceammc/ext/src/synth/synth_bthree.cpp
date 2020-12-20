@@ -17,19 +17,20 @@
 #include "BeeThree.h"
 #include "stksynth_p.h"
 
-typedef StkFMSynth<stk::BeeThree> Synth;
+using Synth = StkFMSynth<stk::BeeThree>;
 
 SynthBThree::SynthBThree(const PdArgs& args)
     : StkSynth(args, new Synth())
 {
-    createProperty(new Synth::CCProperty("@op4", 2, *this));
-    createProperty(new Synth::CCProperty("@op3", 4, *this));
-    createProperty(new Synth::CCProperty("@lfo_speed", 11, *this));
-    createProperty(new Synth::CCProperty("@lfo_depth", 1, *this));
-    createProperty(new Synth::CCProperty("@adsr", 128, *this));
+    addProperty(new Synth::CCProperty("@op4", 2, *this));
+    addProperty(new Synth::CCProperty("@op3", 4, *this));
+    addProperty(new Synth::CCProperty("@lfo_speed", 11, *this));
+    addProperty(new Synth::CCProperty("@lfo_depth", 1, *this));
+    addProperty(new Synth::CCProperty("@adsr", 128, *this));
 }
 
 void setup_synth_bthree()
 {
     StkSynthFactory<SynthBThree> obj("synth.bee3~");
+    obj.addMethod("note", &SynthBThree::m_note);
 }

@@ -17,4 +17,5 @@ public:
 void setup_flt_moog_vcf_tilde()
 {
     SoundExternalFactory<FltMoogVcf> obj("flt.moog_vcf~");
+    obj.addMethod("reset", &FltMoogVcf::m_reset);
 }

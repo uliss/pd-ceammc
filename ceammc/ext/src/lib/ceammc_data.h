@@ -1,5 +1,5 @@
 /*****************************************************************************
- * Copyright 2017 Serge Poltavsky. All rights reserved.
+ * Copyright 2020 Serge Poltavsky. All rights reserved.
  *
  * This file may be distributed under the terms of GNU Public License version
  * 3 (GPL v3) as defined by the Free Software Foundation (FSF). A copy of the
@@ -11,123 +11,128 @@
  * contact the author of this file, or the owner of the project in which
  * this file belongs to.
  *****************************************************************************/
-#ifndef CEAMMC_XDATA_H
-#define CEAMMC_XDATA_H
+#ifndef CEAMMC_DATA_H
+#define CEAMMC_DATA_H
 
-#include "ceammc_abstractdata.h"
+#include "ceammc_atomlist.h"
+#include "ceammc_log.h"
 
-#include <type_traits>
+#include <string>
 
 namespace ceammc {
 
-class DataPtr {
-    DataDesc desc_;
-    const AbstractData* data_;
-    DataPtr();
+class DataTypeMList;
+class DataTypeDict;
+class DataTypeString;
 
+template <typename T>
+class DataAtom : public Atom {
 public:
-    DataPtr(AbstractData* data);
-    DataPtr(const Atom& data);
+    explicit DataAtom(const Atom& a)
+        : Atom(a)
+    {
+    }
 
-    // copy/move
-    DataPtr(const DataPtr& d);
-    DataPtr(DataPtr&& d);
-    DataPtr& operator=(const DataPtr& d);
-    DataPtr& operator=(DataPtr&& d);
+    explicit DataAtom(const T& data)
+        : Atom(new T(data))
+    {
+    }
 
-    ~DataPtr();
+    explicit DataAtom(T&& data)
+        : Atom(new T(std::move(data)))
+    {
+    }
 
-    bool isValid() const;
-    bool isNull() const;
-    ceammc::DataDesc desc() const;
-    size_t refCount() const;
+    explicit DataAtom(Atom&& a)
+        : Atom(std::move(a))
+    {
+    }
 
-    const AbstractData* data() const;
-    const AbstractData* operator->() const;
+    DataAtom(const DataAtom& x) = default;
 
-    template <class T>
-    const T* as() const;
+    template <typename... Args>
+    explicit DataAtom(Args... args)
+        : Atom(new T(args...))
+    {
+    }
 
-    Atom asAtom() const;
+    operator bool() const noexcept { return isA<T>(); }
 
-    bool operator==(const DataPtr& d) const;
-    bool operator!=(const DataPtr& d) const;
+    T* operator->() noexcept { return static_cast<T*>(const_cast<AbstractData*>(asData())); }
+    const T* operator->() const noexcept { return static_cast<const T*>(asData()); }
 
-protected:
-    void invalidate();
+    T& operator*() noexcept { return *(operator->()); }
+    const T& operator*() const noexcept { return *(operator->()); }
 };
 
-template <class T>
-const T* DataPtr::as() const
-{
-    if (data_ == 0)
-        return 0;
+using MListAtom = DataAtom<DataTypeMList>;
+using DictAtom = DataAtom<DataTypeDict>;
+using StringAtom = DataAtom<DataTypeString>;
 
-    return data_->as<T>();
-}
+static_assert(sizeof(MListAtom) == sizeof(Atom), "DataAtom size mismatch");
 
-bool operator<(const DataPtr& d0, const DataPtr& d1);
+class DataParseResult {
+    AtomList res_;
+    std::string err_;
+    bool ok_ = { true };
 
-template <class T>
-class DataTPtr : public DataPtr {
+    DataParseResult() = delete;
+
 public:
-    /// move constructor
-    DataTPtr(DataTPtr&& ptr)
-        : DataPtr(ptr)
+    DataParseResult(const DataParseResult& r) noexcept;
+    DataParseResult(DataParseResult&& r) noexcept;
+    DataParseResult& operator=(const DataParseResult& r) noexcept;
+    DataParseResult& operator=(DataParseResult&& r) noexcept;
+
+    explicit DataParseResult(const std::string& err)
+        : err_(err)
+        , ok_(false)
     {
     }
 
-    /// copy constructor
-    DataTPtr(const DataTPtr& ptr)
-        : DataPtr(ptr)
+    explicit DataParseResult(const AtomList& l)
+        : res_(l)
+        , ok_(true)
     {
     }
 
-    /// create from pointer
-    /// take ownership
-    DataTPtr(T* d)
-        : DataPtr(d)
+    explicit DataParseResult(AtomList&& l)
+        : res_(std::move(l))
+        , ok_(true)
     {
     }
 
-    /// create from copy
-    DataTPtr(const T& d)
-        : DataPtr(new T(d))
-    {
-    }
+    operator bool() const { return ok_; }
 
-    /// create from move
-    DataTPtr(T&& d)
-        : DataPtr(new T(std::move(d)))
-    {
-    }
-
-    /// from atom
-    DataTPtr(const Atom& a)
-        : DataPtr(a)
-    {
-        if (!a.isDataType(T::dataType)) {
-            invalidate();
-        }
-    }
-
-    DataTPtr& operator=(const DataTPtr& d)
-    {
-        DataPtr::operator=(d);
-        return *this;
-    }
-
-    DataTPtr& operator=(DataTPtr&& d)
-    {
-        DataPtr::operator=(std::move(d));
-        return *this;
-    }
-
-    const T* data() const { return static_cast<const T*>(DataPtr::data()); }
-    const T* operator->() const { return data(); }
-
-    const T& operator*() const { return *data(); }
+    const std::string& err() const { return err_; }
+    const AtomList& result() const { return res_; }
 };
+
+/**
+ * Parse raw list with data constructor syntax:
+ *  - **null**  -> Atom()
+ *  - **true**  -> 1.0
+ *  - **false** -> 0.0
+ *  - 2.345     -> 2.345
+ *  - abc       -> 'abc' t_symbol*
+ *  - "a b c"   -> 'a b c' t_symbol* with spaces
+ *  -
+ * @example (1 2 3) -> MListAtom(1, 2, 3)
+ * @example 1 2 3 -> AtomList(1, 2, 3)
+ * @example [key: 1 2 3] -> DictAtom
+ * @param lst - raw input list
+ * @param log - error logger, use LogNone to disable logging
+ * @return parse result
+ */
+DataParseResult parseDataList(const AtomList& lst) noexcept;
+DataParseResult parseDataList(const AtomListView& view) noexcept;
+
+/**
+ * Parse string
+ * @return parse result
+ */
+DataParseResult parseDataString(const std::string& str) noexcept;
+
 }
 
-#endif // CEAMMC_XDATA_H
+#endif // CEAMMC_DATA_H

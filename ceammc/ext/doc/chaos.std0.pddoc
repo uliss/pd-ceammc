@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="chaos.std0">
+        <title>chaos.std0</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavski</author>
+            </authors>
+            <description>Standard map chaotic generator</description>
+            <license>GPL3 or later</license>
+            <library>ceammc</library>
+            <category>chaos</category>
+            <keywords>chaos standard map</keywords>
+            <since>0.9</since>
+            <also>
+                <see>chaos.std0~</see>
+            </also>
+        </meta>
+        <info>
+            <par>A non-interpolating generator based on the difference equations:</par>
+            <par>y(n+1) = (y(n) + k * sin(x(n))) % 2pi</par>
+            <par>x(n+1) = (x(n) + y(n+1)) % 2pi</par>
+            <a href="https://en.wikipedia.org/wiki/Standard_map">wiki: Standard map</a>
+            <par>The properties of chaos of the standard map were established by Boris Chirikov in
+            1969</par>
+        </info>
+        <arguments>
+            <argument name="K" type="float">k value, default 1</argument>
+            <argument name="X" type="float">initial x value, default 0.5</argument>
+            <argument name="Y" type="float">initial y value, default 0</argument>
+        </arguments>
+        <properties />
+        <methods />
+        <inlets>
+            <inlet>
+                <xinfo on="bang">generates and outputs next x-value</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet>outputs x-value mapped to [-1..1] range</outlet>
+            <outlet>outputs y-value mapped to [-1..1] range</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[T]             [ui.dsp~]  [r~ std0]
+|                          |
+[metro.random 100 200]     [ui.scope~ @size=420x100]
+|
+[3(
+|
+[list.gen] X [chaos.std0]
+|
+[l->l -2 1 20 55 @clip minmax]
+|
+[list.unpack 3           ]
+|             ^|       ^^|
+[sig~]        [* 8000] [/ 200]
+|             |        |
+|             [sig~]   [@res $1(
+|             |        |
+[osc.square~] [lop~ 2] |
+|             |.       |
+[flt.moog_vcf~         ]
+|
+[clip~ -1 1    ]
+|              |
+[flt.dcblock~] [s~ std0]
+|
+[ui.hgain~]
+| \
+[dac~]
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

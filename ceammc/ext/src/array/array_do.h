@@ -22,13 +22,15 @@ class ArrayDo : public ArrayMod {
 
 public:
     ArrayDo(const PdArgs& a);
-    void onBang();
-    void onSymbol(t_symbol* s);
-    void onInlet(size_t n, const AtomList& l);
+    void onBang() override;
+    void onSymbol(t_symbol* s) override;
+    void onInlet(size_t n, const AtomList& l) override;
 
 private:
     void output();
     void finish();
 };
+
+void setup_array_do();
 
 #endif // ARRAY_DO_H

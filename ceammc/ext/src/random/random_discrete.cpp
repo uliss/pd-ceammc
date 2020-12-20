@@ -1,21 +1,22 @@
-#include <boost/random/discrete_distribution.hpp>
-#include <boost/random/mersenne_twister.hpp>
-#include <ctime>
-
-#include "ceammc_factory.h"
 #include "random_discrete.h"
-
-static boost::random::mt19937 random_gen(std::time(0));
+#include "ceammc_factory.h"
 
 RandomDiscrete::RandomDiscrete(const PdArgs& a)
     : BaseObject(a)
+    , seed_(nullptr)
 {
     createOutlet();
 
     // the interval boundaries interleaved with weights
-    createCbProperty("@weights", &RandomDiscrete::propWeights, &RandomDiscrete::setPropWeights);
-    if (!positionalArguments().empty())
-        set(positionalArguments());
+    createCbListProperty(
+        "@weights",
+        [this]() -> AtomList { return propWeights(); },
+        [this](const AtomList& l) -> bool { setPropWeights(l); return true; })
+        ->setArgIndex(0);
+
+    seed_ = new SizeTProperty("@seed", 0);
+    seed_->setSuccessFn([this](Property* p) { gen_.setSeed(seed_->value()); });
+    addProperty(seed_);
 }
 
 void RandomDiscrete::onBang()
@@ -25,8 +26,8 @@ void RandomDiscrete::onBang()
         return;
     }
 
-    boost::random::discrete_distribution<size_t> dist(weights_.begin(), weights_.end());
-    floatTo(0, dist(random_gen));
+    std::discrete_distribution<size_t> dist(weights_.begin(), weights_.end());
+    floatTo(0, dist(gen_.get()));
 }
 
 void RandomDiscrete::onList(const AtomList& l)
@@ -81,7 +82,18 @@ bool RandomDiscrete::set(const AtomList& l)
     return true;
 }
 
-extern "C" void setup_random0x2ediscrete()
+void setup_random_discrete()
 {
     ObjectFactory<RandomDiscrete> obj("random.discrete");
+
+    obj.setDescription("random weighted integers on interval [0, n)");
+    obj.addAuthor("Serge Poltavsky");
+    obj.setKeywords({ "linear", "random", "discrete" });
+    obj.setCategory("random");
+    obj.setSinceVersion(0, 4);
+
+    RandomDiscrete::setInletsInfo(obj.classPointer(), { "bang: output new random\n"
+                                                        "list: set new weights and output\n"
+                                                        "args: w0 w1 w2..." });
+    RandomDiscrete::setOutletsInfo(obj.classPointer(), { "int: random weighted integer on interval \\[0, n)" });
 }

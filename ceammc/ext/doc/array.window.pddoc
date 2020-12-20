@@ -17,7 +17,7 @@
             <since>0.7</since>
         </meta>
         <properties>
-            <property name="@array" type="symbol">array name</property>
+            <property name="@array" type="symbol" default="">array name</property>
             <property name="@redraw" type="int" enum="1 0" default="1">redraw after array
             change</property>
             <property name="@type" type="symbol"

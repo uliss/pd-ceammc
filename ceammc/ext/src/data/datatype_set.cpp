@@ -12,13 +12,23 @@
  * this file belongs to.
  *****************************************************************************/
 #include "datatype_set.h"
-#include "ceammc_datatypes.h"
+#include "ceammc_abstractdata.h"
+#include "ceammc_datastorage.h"
 #include "ceammc_format.h"
 #include "ceammc_log.h"
 
 #include <algorithm>
+#include <boost/functional/hash.hpp>
 
-const DataType DataTypeSet::dataType = ceammc::data::DATA_SET;
+namespace {
+
+Atom newFromList(const AtomList& lst)
+{
+    return new DataTypeSet(lst);
+}
+}
+
+const int DataTypeSet::dataType = DataStorage::instance().registerNewType("Set", newFromList);
 
 DataTypeSet::DataTypeSet()
 {
@@ -34,77 +44,54 @@ DataTypeSet::DataTypeSet(const AtomList& l)
     add(l);
 }
 
-DataTypeSet::DataTypeSet(DataTypeSet&& ds)
+DataTypeSet::DataTypeSet(DataTypeSet&& ds) noexcept
     : data_(std::move(ds.data_))
 {
 }
 
-DataTypeSet::~DataTypeSet()
-{
-}
+DataTypeSet::~DataTypeSet() noexcept = default;
 
 void DataTypeSet::add(const Atom& a)
 {
-    if (a.isData() && contains(a))
-        return;
-
-    data_.insert(DataAtom(a));
+    data_.insert(a);
 }
 
 void DataTypeSet::add(const AtomList& l)
 {
-    for (auto& el : l)
-        add(el);
+    for (auto& x : l)
+        add(x);
 }
 
 void DataTypeSet::remove(const Atom& a)
 {
-    data_.erase(DataAtom(a));
+    data_.erase(a);
 }
 
 void DataTypeSet::remove(const AtomList& l)
 {
-    for (auto& el : l)
-        remove(el);
+    for (auto& x : l)
+        remove(x);
 }
 
-void DataTypeSet::clear()
+void DataTypeSet::clear() noexcept
 {
     data_.clear();
 }
 
-size_t DataTypeSet::size() const
+size_t DataTypeSet::size() const noexcept
 {
     return data_.size();
 }
 
-bool DataTypeSet::contains(const Atom& a) const
+bool DataTypeSet::contains(const Atom& a) const noexcept
 {
-    if (!a.isData())
-        return contains(DataAtom(a));
-
-    DataSet::const_iterator it = data_.begin();
-    for (; it != data_.end(); ++it) {
-        if (!it->isData())
-            continue;
-
-        if (*it == DataAtom(a))
-            return true;
-    }
-
-    return false;
+    return data_.find(a) != data_.end();
 }
 
-bool DataTypeSet::contains(const DataAtom& a) const
+bool DataTypeSet::contains_any_of(const AtomList& lst) const noexcept
 {
-    DataSet::const_iterator it = data_.find(a);
-    return it != data_.end();
-}
-
-bool DataTypeSet::contains(const AtomList& lst) const
-{
-    for (size_t i = 0; i < lst.size(); i++) {
-        if (contains(lst[i]))
+    for (auto& a : lst) {
+        if (contains(a))
             return true;
     }
 
@@ -116,12 +103,12 @@ std::string DataTypeSet::toString() const
     return std::string("Set ") + to_string(toList());
 }
 
-DataType DataTypeSet::type() const
+int DataTypeSet::type() const noexcept
 {
     return dataType;
 }
 
-bool DataTypeSet::isEqual(const AbstractData* d) const
+bool DataTypeSet::isEqual(const AbstractData* d) const noexcept
 {
     if (!d || d->type() != dataType)
         return false;
@@ -130,23 +117,19 @@ bool DataTypeSet::isEqual(const AbstractData* d) const
     if (size() != ds->size())
         return false;
 
-    for (auto& el : data_) {
-        if (!ds->contains(el.toAtom()))
-            return false;
-    }
-
-    return true;
+    return operator==(*ds);
 }
 
-AtomList DataTypeSet::toList() const
+AtomList DataTypeSet::toList(bool sorted) const
 {
     AtomList res;
     res.reserve(size());
 
-    DataSet::const_iterator it = data_.begin();
-    for (; it != data_.end(); ++it) {
-        res.append(it->toAtom());
-    }
+    for (auto& a : data_)
+        res.append(a);
+
+    if (sorted)
+        res.sort();
 
     return res;
 }
@@ -156,9 +139,9 @@ AbstractData* DataTypeSet::clone() const
     return new DataTypeSet(*this);
 }
 
-bool DataTypeSet::operator==(const DataTypeSet& s) const
+bool DataTypeSet::operator==(const DataTypeSet& s) const noexcept
 {
-    return isEqual(&s);
+    return data_ == s.data_;
 }
 
 void DataTypeSet::operator=(const DataTypeSet& s)
@@ -169,56 +152,75 @@ void DataTypeSet::operator=(const DataTypeSet& s)
     data_ = s.data_;
 }
 
-void DataTypeSet::intersection(DataTypeSet& out, const DataTypeSet& s0, const DataTypeSet& s1)
+DataTypeSet DataTypeSet::intersection(const DataTypeSet& s0, const DataTypeSet& s1)
 {
     if (s0.size() > s1.size())
-        return intersection(out, s1, s0);
+        return intersection(s1, s0);
 
-    out.clear();
-    for (DataSet::const_iterator it = s0.data_.begin(); it != s0.data_.end(); ++it) {
-        DataAtom elem(it->toAtom());
-        if (s1.data_.find(elem) != s0.data_.end())
-            out.data_.insert(elem);
+    DataTypeSet out;
+
+    for (auto& x : s0.data_) {
+        if (s1.contains(x))
+            out.data_.insert(x);
     }
+
+    return out;
 }
 
-void DataTypeSet::set_union(DataTypeSet& out, const DataTypeSet& s0, const DataTypeSet& s1)
+DataTypeSet DataTypeSet::set_union(const DataTypeSet& s0, const DataTypeSet& s1)
 {
-    out.clear();
-
-    for (DataSet::const_iterator it = s0.data_.begin(); it != s0.data_.end(); ++it)
-        out.add(it->toAtom());
-
-    for (DataSet::const_iterator it = s1.data_.begin(); it != s1.data_.end(); ++it)
-        out.add(it->toAtom());
+    DataTypeSet out;
+    out.data_ = s0.data_;
+    out.data_.insert(s1.data_.begin(), s1.data_.end());
+    return out;
 }
 
-void DataTypeSet::set_difference(DataTypeSet& out, const DataTypeSet& s0, const DataTypeSet& s1)
+DataTypeSet DataTypeSet::difference(const DataTypeSet& s0, const DataTypeSet& s1)
 {
-    out.clear();
+    DataTypeSet out;
 
-    for (DataSet::const_iterator it = s0.data_.begin(); it != s0.data_.end(); ++it) {
-        if (!s1.contains(it->toAtom()))
-            out.add(it->toAtom());
+    for (auto& x : s0.data_) {
+        if (!s1.contains(x))
+            out.data_.insert(x);
     }
+
+    return out;
 }
 
-void DataTypeSet::set_sym_difference(DataTypeSet& out, const DataTypeSet& s0, const DataTypeSet& s1)
+DataTypeSet DataTypeSet::sym_difference(const DataTypeSet& s0, const DataTypeSet& s1)
 {
-    out.clear();
+    DataTypeSet out;
 
-    for (DataSet::const_iterator it = s0.data_.begin(); it != s0.data_.end(); ++it) {
-        if (!s1.contains(it->toAtom()))
-            out.add(it->toAtom());
+    for (auto& x : s0.data_) {
+        if (!s1.contains(x))
+            out.data_.insert(x);
     }
 
-    for (DataSet::const_iterator it = s1.data_.begin(); it != s1.data_.end(); ++it) {
-        if (!s0.contains(it->toAtom()))
-            out.add(it->toAtom());
+    for (auto& x : s1.data_) {
+        if (!s0.contains(x))
+            out.data_.insert(x);
     }
+
+    return out;
 }
 
 DataTypeSet::DataTypeSet(const DataTypeSet& ds)
     : data_(ds.data_)
 {
+}
+
+size_t hash_value(const Atom& a) noexcept
+{
+    size_t res = a.type();
+
+    if (a.isFloat())
+        boost::hash_combine(res, boost::hash_value(a.asFloat()));
+    else if (a.isSymbol())
+        boost::hash_combine(res, boost::hash_value(a.asSymbol()));
+    else if (a.isData()) {
+        boost::hash_combine(res, boost::hash_value(a.dataType()));
+        boost::hash_combine(res, boost::hash_value(a.asData()));
+    }
+
+    return res;
 }

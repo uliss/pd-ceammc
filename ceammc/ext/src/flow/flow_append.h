@@ -1,5 +1,5 @@
 /*****************************************************************************
- * Copyright 2018 Serge Poltavsky. All rights reserved.
+ * Copyright 2020 Serge Poltavsky. All rights reserved.
  *
  * This file may be distributed under the terms of GNU Public License version
  * 3 (GPL v3) as defined by the Free Software Foundation (FSF). A copy of the
@@ -16,31 +16,31 @@
 
 #include "ceammc_clock.h"
 #include "ceammc_object.h"
+#include "ceammc_proxy.h"
 
 using namespace ceammc;
 
 class FlowAppend : public BaseObject {
-    AtomList msg_;
-    FloatProperty* delay_time_;
-    FlagProperty* as_msg_;
-    ClockMemberFunction<FlowAppend> clock_;
+    FloatProperty* delay_;
+    ListProperty* msg_value_;
+    ClockLambdaFunction delay_fn_;
+    Message msg_;
+    InletProxy<FlowAppend> inlet2_;
 
 public:
     FlowAppend(const PdArgs& args);
-    void onBang();
-    void onFloat(t_float f);
-    void onSymbol(t_symbol* s);
-    void onList(const AtomList& lst);
-    void onAny(t_symbol* s, const AtomList& lst);
 
-    bool processAnyInlets(t_symbol* sel, const AtomList& lst);
-    bool processAnyProps(t_symbol*s, const AtomList& lst);
-    void parseProperties();
+    void onBang() override;
+    void onFloat(t_float v) override;
+    void onSymbol(t_symbol* s) override;
+    void onList(const AtomList& l) override;
+    void onAny(t_symbol* s, const AtomListView& lv) override;
+
+    void proxy_any(InletProxy<FlowAppend>* x, t_symbol* s, const AtomListView& v);
 
 private:
-    void process();
-    void tick();
-    void outputAppend();
+    void append();
+    void output();
 };
 
 void setup_flow_append();

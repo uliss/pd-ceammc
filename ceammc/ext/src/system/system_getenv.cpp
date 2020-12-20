@@ -11,16 +11,10 @@
  * contact the author of this file, or the owner of the project in which
  * this file belongs to.
  *****************************************************************************/
-
 #include "system_getenv.h"
 
 #include <cstdlib>
 #include <cstring>
-
-extern "C" void setup_system0x2egetenv()
-{
-    ObjectFactory<SystemGetEnv> obj("system.getenv");
-}
 
 SystemGetEnv::SystemGetEnv(const PdArgs& a)
     : BaseObject(a)
@@ -51,4 +45,9 @@ void SystemGetEnv::onSymbol(t_symbol* s)
 {
     var_name_ = s;
     onBang();
+}
+
+void setup_system_getenv()
+{
+    ObjectFactory<SystemGetEnv> obj("system.getenv");
 }

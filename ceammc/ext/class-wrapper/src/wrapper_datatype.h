@@ -28,7 +28,8 @@
 
 #include "ceammc_abstractdata.h"
 #include "ceammc_data.h"
-#include "ceammc_datatypes.h"
+#include "ceammc_datastorage.h"
+#include "ceammc_log.h"
 
 #include <algorithm>
 #include <memory>
@@ -39,116 +40,137 @@ using namespace ceammc;
 
 namespace wrapper {
 
-class WrapperIDFactory {
-    size_t id_;
-
-private:
-    WrapperIDFactory();
-    WrapperIDFactory(const WrapperIDFactory&) = delete;
-    void operator=(const WrapperIDFactory&) = delete;
-
-public:
-    static WrapperIDFactory& instance();
-    size_t generateNewId();
-};
-
-class AbstractDataId : public AbstractData {
-    size_t data_type_id_;
-
-public:
-    AbstractDataId(size_t id);
-    size_t dataTypeId() const;
-    bool hasEqualType(const AbstractData* d) const;
-};
-
 template <typename T>
-class AbstractDataWrapper : public AbstractDataId {
+class AbstractDataWrapper : public AbstractData {
     T value_;
 
 public:
-    explicit AbstractDataWrapper(const T& v)
-        : AbstractDataId(wrappedDataTypeId)
-        , value_(v)
-    {
-    }
+    AbstractDataWrapper() = default;
+    explicit AbstractDataWrapper(const T& v);
 
-    AbstractDataWrapper()
-        : AbstractDataId(wrappedDataTypeId)
-    {
-    }
+    /**
+     * Copy ctor
+     */
+    AbstractDataWrapper(const AbstractDataWrapper& v);
 
-    AbstractDataWrapper& operator=(const AbstractDataWrapper& v)
-    {
-        value_ = v.value_;
-        return (*this);
-    }
+    /**
+     * Move ctor
+     */
+    AbstractDataWrapper(AbstractDataWrapper&& v) noexcept;
 
-    AbstractDataWrapper* clone() const override
-    {
-        return new AbstractDataWrapper(value_);
-    }
+    /**
+     * Copy assign
+     */
+    AbstractDataWrapper& operator=(const AbstractDataWrapper& v);
 
-    bool isEqual(const AbstractData* d) const override
-    {
-        if (!hasEqualType(d))
-            return false;
+    /**
+     * Move assign
+     */
+    AbstractDataWrapper& operator=(AbstractDataWrapper&& v);
 
-        auto* dw = static_cast<const AbstractDataWrapper*>(d);
-        return value_ == dw->value_;
-    }
+    /**
+     * Polymorphic clone function
+     */
+    AbstractDataWrapper* clone() const final;
 
-    const T& value() const { return value_; }
-    T& value() { return value_; }
-    DataType type() const override { return AbstractDataWrapper<T>::dataType; }
-    std::string toString() const override { return value_.toString(); }
+    /**
+     * Polymorphic equality check
+     */
+    bool isEqual(const AbstractData* d) const noexcept final;
+
+    /**
+     * Reference to wrapped value
+     */
+    const T& value() const noexcept { return value_; }
+    T& value() noexcept { return value_; }
+
+    /**
+     * Data type
+     */
+    int type() const noexcept final { return AbstractDataWrapper<T>::dataType; }
+
+    /**
+     * Polymorphic convertion to string
+     */
+    std::string toString() const final { return value_.toString(); }
+
+    /**
+     * Polymorphic convertsion to json string
+     */
+    std::string valueToJsonString() const final { return value_.toJsonString(); }
 
 public:
-    static const DataType dataType;
-    static const size_t wrappedDataTypeId;
+    static const int dataType;
 };
 
 template <typename T>
-const DataType AbstractDataWrapper<T>::dataType = ceammc::data::DATA_WRAPPER;
+AbstractDataWrapper<T>::AbstractDataWrapper(const T& v)
+    : value_(v)
+{
+}
 
 template <typename T>
-const size_t AbstractDataWrapper<T>::wrappedDataTypeId = WrapperIDFactory::instance().generateNewId();
+AbstractDataWrapper<T>::AbstractDataWrapper(const AbstractDataWrapper& v)
+    : value_(v.value_)
+{
+}
 
-template <class T>
-class WrapperTPtr : public DataTPtr<AbstractDataWrapper<T>> {
-    using Type = AbstractDataWrapper<T>;
+template <typename T>
+bool AbstractDataWrapper<T>::isEqual(const AbstractData* d) const noexcept
+{
+    if (d->type() != type())
+        return false;
 
-public:
-    WrapperTPtr(AbstractDataWrapper<T>* d)
-        : DataTPtr<Type>(d)
-    {
-    }
+    auto* dw = static_cast<const AbstractDataWrapper*>(d);
+    return value_ == dw->value_;
+}
 
-    WrapperTPtr(const Atom& a)
-        : DataTPtr<Type>(a)
-    {
-        if (!a.isDataType(Type::dataType)) {
-            this->invalidate();
-            return;
+template <typename T>
+AbstractDataWrapper<T>* AbstractDataWrapper<T>::clone() const
+{
+    return new AbstractDataWrapper(value_);
+}
+
+template <typename T>
+AbstractDataWrapper<T>::AbstractDataWrapper(AbstractDataWrapper&& v) noexcept
+    : value_(std::move(v.value()))
+{
+}
+
+template <typename T>
+AbstractDataWrapper<T>& AbstractDataWrapper<T>::operator=(const AbstractDataWrapper& v)
+{
+    if (&v == this)
+        return *this;
+
+    value_ = v.value_;
+    return (*this);
+}
+
+template <typename T>
+AbstractDataWrapper<T>& AbstractDataWrapper<T>::operator=(AbstractDataWrapper&& v)
+{
+    if (&v == this)
+        return *this;
+
+    value_ = std::move(v.value_);
+    return (*this);
+}
+
+template <typename T>
+const int AbstractDataWrapper<T>::dataType = ceammc::DataStorage::instance().registerNewType(
+    T::typeName(),
+    [](const AtomList& lst) -> Atom {
+        T data;
+        auto st = data.setFromPd(lst);
+        std::string err;
+        if (st.error(&err)) {
+            LIB_ERR << err;
+            return Atom();
+        } else {
+            return new AbstractDataWrapper(data);
         }
-
-        DataPtr dptr(a);
-        if (dptr.isNull()) {
-            this->invalidate();
-            return;
-        }
-
-        const AbstractDataId* id = dynamic_cast<const AbstractDataId*>(dptr.data());
-        if (!id) {
-            this->invalidate();
-            return;
-        }
-
-        if (id->dataTypeId() != Type::wrappedDataTypeId) {
-            this->invalidate();
-            return;
-        }
-    }
-};
+    });
 
 }
 

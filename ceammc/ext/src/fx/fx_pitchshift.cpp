@@ -16,14 +16,10 @@ public:
     {
         setProperty(gensym("@pitch"), l);
     }
-
-    void m_clear(t_symbol*, const AtomList&)
-    {
-        dsp_->instanceClear();
-    }
 };
 
 void setup_fx_pitchshift_tilde()
 {
     SoundExternalFactory<FxPitchShift> obj("fx.pitchshift~");
+    obj.addMethod("reset", &FxPitchShift::m_reset);
 }

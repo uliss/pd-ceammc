@@ -51,7 +51,11 @@ public:
     void m_load(const AtomList& lst);
     void m_store(const AtomList& lst);
     void m_clear(const AtomList& lst);
+    void m_clearall(const AtomList& lst);
+    void m_duplicate(const AtomList& lst);
     AtomList propCurrent() const;
+
+    bool hasPresetAt(size_t n) const { return presets_.test(n); }
 
 public:
     static void setup();
@@ -60,9 +64,9 @@ private:
     void indexAdd(const AtomList& lst);
     void indexRemove(const AtomList& lst);
     void updateIndexes();
-    void loadIndex(size_t idx);
-    void storeIndex(size_t idx);
-    void clearIndex(size_t idx);
+    void loadIndex(int idx);
+    void storeIndex(int idx);
+    void clearIndex(int idx);
 };
 
 void setup_ui_preset();

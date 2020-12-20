@@ -35,7 +35,7 @@
             </inlet>
         </inlets>
         <outlets>
-            <outlet>output 1 if left number is greater then right (bool)</outlet>
+            <outlet>output 1 if left number is greater then right (int)</outlet>
         </outlets>
         <example>
             <pdascii>

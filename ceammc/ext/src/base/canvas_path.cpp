@@ -40,4 +40,10 @@ void CanvasPath::onBang()
 void setup_base_canvas_path()
 {
     ObjectFactory<CanvasPath> obj("canvas.path");
+
+    obj.setDescription("current canvas fullpath");
+    obj.addAuthor("Serge Poltavsky");
+    obj.setKeywords({"canvas", "path"});
+    obj.setCategory("patch");
+    obj.setSinceVersion(0, 8);
 }

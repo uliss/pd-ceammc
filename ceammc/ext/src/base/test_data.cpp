@@ -204,7 +204,7 @@ extern "C" void setup_test0x2edata()
     test_data_class = class_new(gensym("test.data"),
         (t_newmethod)test_data_new, (t_method)test_data_free,
         sizeof(t_test_data), 0, A_NULL);
-    class_addbang(test_data_class, test_data_bang);
+    class_addbang(test_data_class, (t_method)test_data_bang);
 
     class_addmethod(test_data_class,
         (t_method)test_data_clear, gensym("clear"), A_NULL, 0);

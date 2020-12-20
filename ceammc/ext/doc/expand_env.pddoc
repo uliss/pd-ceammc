@@ -6,7 +6,7 @@
             <authors>
                 <author>Serge Poltavsky</author>
             </authors>
-            <description>Substitute enviroment variables in data stream</description>
+            <description>Substitute environment variables in data stream</description>
             <license>GPL3 or later</license>
             <library>ceammc</library>
             <category>flow</category>
@@ -23,8 +23,8 @@
             path to ceammc library directory</par>
         </info>
         <properties>
-            <property name="@any" type="flag">if specified - also do substitution in message
-            selector</property>
+            <property name="@any" type="flag" default="0">if specified - also do substitution in
+            message selector</property>
         </properties>
         <inlets>
             <inlet>
@@ -50,7 +50,7 @@
 |   |    |  |  |              |  | |
 [expand_env                        ]
 |
-[ui.display @display_type=1]
+[ui.display @display_type 1]
 
 
 

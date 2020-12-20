@@ -14,17 +14,16 @@
 #ifndef LIST_SORT_H
 #define LIST_SORT_H
 
+#include "ceammc_data.h"
 #include "ceammc_object.h"
 using namespace ceammc;
-
-class DataTypeMList;
 
 class ListSort : public BaseObject {
 public:
     ListSort(const PdArgs& args);
 
-    void onList(const AtomList& lst);
-    void onDataT(const DataTPtr<DataTypeMList>& lst);
+    void onList(const AtomList& lst) override;
+    void onDataT(const MListAtom& ml);
 };
 
 void setup_list_sort();

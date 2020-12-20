@@ -9,7 +9,7 @@ ListMean::ListMean(const PdArgs& a)
     createOutlet();
 }
 
-void ListMean::onFloat(float f)
+void ListMean::onFloat(t_float f)
 {
     floatTo(0, f);
 }

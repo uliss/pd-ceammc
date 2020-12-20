@@ -116,167 +116,10 @@ void g_connection_draw(t_canvas* canvas, int x0, int y0, int x1, int y1, int iss
         canvas, x0, y0, x1, y1, style_cord_width_by_type(issignal) * canvas->gl_zoom);
 }
 
-void g_iem_brect_draw(t_canvas* canvas, t_iemgui* x, int xpos, int ypos)
-{
-    const int z = x->x_glist->gl_zoom;
-
-    g_rect_draw_filled(canvas, x, "BASE", xpos, ypos, x->x_w, x->x_h, x->x_bcol);
-    g_figure_set_linewidth(canvas, x, "BASE", z);
-}
-
-void g_iem_inlets_draw(t_canvas* canvas, t_iemgui* x, int xpos, int ypos)
-{
-    const int z = x->x_glist->gl_zoom;
-    const int iow = IOWIDTH * z;
-    const int ioh = IEM_GUI_IOHEIGHT * z;
-
-    if (!x->x_fsf.x_rcv_able)
-        sys_vgui(".x%lx.c create rectangle %d %d %d %d -fill #%6.6x -tags [list %lx_IN0 inlet]\n",
-            canvas,
-            xpos, ypos,
-            xpos + iow, ypos - z + ioh, IEM_GUI_COLOR_XLET, x);
-}
-
-void g_iem_inlets_move(t_canvas* canvas, t_iemgui* x, int xpos, int ypos)
-{
-    const int z = x->x_glist->gl_zoom;
-    const int iow = IOWIDTH * z;
-    const int ioh = IEM_GUI_IOHEIGHT * z;
-
-    if (!x->x_fsf.x_rcv_able)
-        g_rect_move(canvas, x, "IN0", xpos, ypos, iow, ioh - z);
-}
-
-void g_iem_outlets_draw(t_canvas* canvas, t_iemgui* x, int xpos, int ypos)
-{
-    const int z = x->x_glist->gl_zoom;
-    const int iow = IOWIDTH * z;
-    const int ioh = IEM_GUI_IOHEIGHT * z;
-
-    if (!x->x_fsf.x_snd_able)
-        sys_vgui(".x%lx.c create rectangle %d %d %d %d -fill #%6.6x -tags [list %lx_OUT0 outlet]\n",
-            canvas,
-            xpos, ypos + x->x_h - ioh + z,
-            xpos + iow, ypos + x->x_h, IEM_GUI_COLOR_XLET, x);
-}
-
-void g_iem_outlets_move(t_canvas* canvas, t_iemgui* x, int xpos, int ypos)
-{
-    const int z = x->x_glist->gl_zoom;
-    const int iow = IOWIDTH * z;
-    const int ioh = IEM_GUI_IOHEIGHT * z;
-
-    if (!x->x_fsf.x_snd_able)
-        g_rect_move(canvas, x, "OUT0", xpos, ypos + x->x_h, iow, z - ioh);
-}
-
-void g_iem_label_draw(t_canvas* canvas, t_iemgui* x, int xpos, int ypos)
-{
-    const int z = x->x_glist->gl_zoom;
-    sys_vgui(".x%lx.c create text %d %d -text {%s} -anchor w \
-             -font {{%s} -%d %s} -fill #%6.6x -tags [list %lx_LABEL label text]\n",
-        canvas, xpos + x->x_ldx * z,
-        ypos + x->x_ldy * z, (strcmp(x->x_lab->s_name, "empty") ? x->x_lab->s_name : ""),
-        x->x_font, x->x_fontsize * z, sys_fontweight,
-        x->x_lcol, x);
-}
-
-void g_iem_label_config(t_canvas* canvas, t_iemgui* x)
-{
-    const int z = x->x_glist->gl_zoom;
-
-    g_text_set(canvas, x, "LABEL", (strcmp(x->x_lab->s_name, "empty") ? x->x_lab->s_name : ""));
-    g_text_font(canvas, x, "LABEL", x->x_font, x->x_fontsize * z, sys_fontweight);
-    g_text_color(canvas, x, "LABEL", (x->x_fsf.x_selected ? IEM_GUI_COLOR_SELECTED : x->x_lcol));
-}
-
-void g_iem_label_move(t_canvas* canvas, t_iemgui* x, int xpos, int ypos)
-{
-    const int z = x->x_glist->gl_zoom;
-
-    g_text_move(canvas, x, "LABEL",
-        xpos + x->x_ldx * z,
-        ypos + x->x_ldy * z);
-}
-
-void g_iem_label_select(t_canvas* canvas, t_iemgui* x)
-{
-    g_figure_fill(canvas, x, "LABEL", IEM_GUI_COLOR_SELECTED);
-}
-
-void g_iem_label_unselect(t_canvas* canvas, t_iemgui* x)
-{
-    g_figure_fill(canvas, x, "LABEL", x->x_lcol);
-}
-
-void g_iem_box_draw(t_canvas* canvas, t_iemgui* x, int xpos, int ypos)
-{
-    g_iem_brect_draw(canvas, x, xpos, ypos);
-    g_iem_inlets_draw(canvas, x, xpos, ypos);
-    g_iem_outlets_draw(canvas, x, xpos, ypos);
-}
-
-void g_iem_box_move(t_canvas* canvas, t_iemgui* x, int xpos, int ypos)
-{
-    g_rect_move(canvas, x, "BASE", xpos, ypos, x->x_w, x->x_h);
-    g_iem_io_move(canvas, x, xpos, ypos);
-}
-
-void g_iem_box_erase(t_canvas* canvas, t_iemgui* x)
-{
-    g_figure_erase(canvas, x, "BASE");
-    g_figure_erase(canvas, x, "LABEL");
-    g_iem_io_erase(canvas, x);
-}
-
-void g_iem_io_draw(t_canvas* canvas, t_iemgui* x, int xpos, int ypos, int old_snd_rcv_flags)
-{
-    const int z = x->x_glist->gl_zoom;
-    const int iow = IOWIDTH * z;
-    const int ioh = IEM_GUI_IOHEIGHT * z;
-
-    if ((old_snd_rcv_flags & IEM_GUI_OLD_SND_FLAG) && !x->x_fsf.x_snd_able) {
-        g_rect_draw_filled(canvas, x, "OUT0",
-            xpos, ypos + x->x_h, iow, z - ioh,
-            IEM_GUI_COLOR_XLET);
-        /* keep above outlet */
-        g_figure_raise(canvas, x, "LABEL", "OUT0");
-    }
-
-    if (!(old_snd_rcv_flags & IEM_GUI_OLD_SND_FLAG) && x->x_fsf.x_snd_able)
-        g_figure_erase(canvas, x, "OUT0");
-
-    if ((old_snd_rcv_flags & IEM_GUI_OLD_RCV_FLAG) && !x->x_fsf.x_rcv_able) {
-        g_rect_draw_filled(canvas, x, "IN0",
-            xpos, ypos, iow, ioh,
-            IEM_GUI_COLOR_XLET);
-        /* keep above inlet */
-        g_figure_raise(canvas, x, "LABEL", "IN0");
-    }
-
-    if (!(old_snd_rcv_flags & IEM_GUI_OLD_RCV_FLAG) && x->x_fsf.x_rcv_able)
-        g_figure_erase(canvas, x, "IN0");
-}
-
-void g_iem_io_move(t_canvas* canvas, t_iemgui* x, int xpos, int ypos)
-{
-    g_iem_inlets_move(canvas, x, xpos, ypos);
-    g_iem_outlets_move(canvas, x, xpos, ypos);
-}
-
 void g_figure_outfill(t_canvas* canvas, void* x, const char* figure_id, int color)
 {
     sys_vgui(".x%lx.c itemconfigure %lx_%s -fill #%6.6x -outline #%6.6x \n",
         canvas, x, figure_id, color, color);
-}
-
-void g_iem_io_erase(t_canvas* canvas, t_iemgui* x)
-{
-    if (!x->x_fsf.x_snd_able)
-        g_figure_erase(canvas, x, "OUT0");
-
-    if (!x->x_fsf.x_rcv_able)
-        g_figure_erase(canvas, x, "IN0");
 }
 
 void g_circle_draw_filled(t_canvas* canvas, void* x, const char* figure_id,
@@ -295,27 +138,11 @@ void g_circle_move(t_canvas* canvas, void* x, const char* figure_id, int xpos, i
         xpos, ypos, xpos + w, ypos + h);
 }
 
-void g_figure_outline(t_canvas* canvas, void* x, const char* figure_id, int color)
-{
-    sys_vgui(".x%lx.c itemconfigure %lx_%s -outline #%6.6x\n", canvas, x, figure_id, color);
-}
-
 void g_figure_fill(t_canvas* canvas, void* x, const char* figure_id, int color)
 {
     sys_vgui(".x%lx.c itemconfigure %lx_%s -fill #%6.6x\n",
         canvas, x, figure_id, color);
 }
-
-void g_figure_set_linewidth(t_canvas* canvas, void* x, const char* figure_id, int width)
-{
-    sys_vgui(".x%lx.c itemconfigure %lx_%s -width %d\n", canvas, x, figure_id, width);
-}
-
-void g_figure_erase(t_canvas* canvas, void* x, const char* figure_id)
-{
-    sys_vgui(".x%lx.c delete %lx_%s\n", canvas, x, figure_id);
-}
-
 void g_rect_draw_filled(t_canvas* canvas, void* x, const char* figure_id,
     int xpos, int ypos, int w, int h, int color)
 {
@@ -378,47 +205,6 @@ void g_text_font(t_canvas* canvas, void* x, const char* figure_id,
 void g_text_anchor(t_canvas* canvas, void* x, const char* figure_id, const char* anchor)
 {
     sys_vgui(".x%lx.c itemconfigure %lx_%s -anchor %s \n", canvas, x, figure_id, anchor);
-}
-
-void g_figure_raise(t_canvas* canvas, void* x, const char* fig_upper, const char* fig_lower)
-{
-    sys_vgui(".x%lx.c raise %lx_%s %lx_%s\n", canvas, x, fig_upper, x, fig_lower);
-}
-
-void g_figure_fill_n(t_canvas* canvas, void* x, const char* figure_tmp, int n, int color)
-{
-    char buf_id[64];
-    for (int i = 0; i < n; i++) {
-        snprintf(buf_id, sizeof(buf_id), figure_tmp, i);
-        g_figure_fill(canvas, x, buf_id, color);
-    }
-}
-
-void g_figure_outline_n(t_canvas* canvas, void* x, const char* figure_tmp, int n, int color)
-{
-    char buf_id[64];
-    for (int i = 0; i < n; i++) {
-        snprintf(buf_id, sizeof(buf_id), figure_tmp, i);
-        g_figure_outline(canvas, x, buf_id, color);
-    }
-}
-
-void g_figure_outfill_n(t_canvas* canvas, void* x, const char* figure_tmp, int n, int color)
-{
-    char buf_id[64];
-    for (int i = 0; i < n; i++) {
-        snprintf(buf_id, sizeof(buf_id), figure_tmp, i);
-        g_figure_outfill(canvas, x, buf_id, color);
-    }
-}
-
-void g_figure_erase_n(t_canvas* canvas, void* x, const char* figure_tmp, int n)
-{
-    char buf_id[64];
-    for (int i = 0; i < n; i++) {
-        snprintf(buf_id, sizeof(buf_id), figure_tmp, i);
-        g_figure_erase(canvas, x, buf_id);
-    }
 }
 
 void g_line_draw(t_canvas* canvas, void* x, const char* figure_id,
@@ -528,21 +314,6 @@ int g_va_int2str(char* dest, size_t n, unsigned argc, ...)
     int rc = g_va_int2str_helper(dest, n, argc, args);
     va_end(args);
     return rc;
-}
-
-void g_figure_move_var(t_canvas* canvas, void* x, const char* figure_id, unsigned int ncoords, ...)
-{
-    va_list args;
-    va_start(args, ncoords);
-
-    char buf_int[VAR_INT_BUFFER_SIZE] = { 0 };
-    int rc = g_va_int2str_helper(buf_int, VAR_INT_BUFFER_SIZE, ncoords, args);
-    va_end(args);
-
-    if (rc != 0)
-        return;
-
-    sys_vgui(".x%lx.c coords %lx_%s %s\n", canvas, x, figure_id, buf_int);
 }
 
 void g_line_draw_var(t_canvas* canvas, void* x, const char* figure_id, unsigned ncoords, ...)

@@ -22,9 +22,6 @@ ceammc_tl_extension(transport)
 
 
 add_library(ceammc_tl STATIC mod_tl.h mod_tl.cpp ${TL_SOURCES})
-if(UNIX)
-    set_target_properties(ceammc_tl PROPERTIES COMPILE_FLAGS "-fPIC")
-endif()
 
 if(BISON_FOUND AND FLEX_FOUND)
     add_custom_target(tl_parser_gen

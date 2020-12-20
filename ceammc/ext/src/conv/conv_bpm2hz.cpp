@@ -30,7 +30,7 @@ void BpmToHz::onList(const AtomList& lst)
     listTo(0, lst / 60);
 }
 
-extern "C" void setup_conv0x2ebpm2hz()
+void setup_conv_bpm2hz()
 {
     ObjectFactory<BpmToHz> obj("conv.bpm2hz");
     obj.addAlias("bpm->hz");

@@ -4,14 +4,15 @@ file LICENSE.txt in this distribution. */
 /* A plug-in scheduler that turns Pd into a filter that inputs and
 outputs audio and messages. */
 
-/* todo:
+/* todo: 
     fix schedlib code to use extent2
     figure out about  if (sys_externalschedlib) { return; } in s_audio.c
     make buffer size ynamically growable
 
-*/
+*/    
 #include "m_pd.h"
 #include "s_stuff.h"
+#include "m_imp.h"
 #include <stdio.h>
 #ifdef _WIN32
 #include <io.h>

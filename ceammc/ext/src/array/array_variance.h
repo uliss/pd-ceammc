@@ -19,7 +19,7 @@
 class ArrayVariance : public ArrayBase {
 public:
     ArrayVariance(const PdArgs& args);
-    void onBang();
+    void onBang() override;
 };
 
 void setup_array_variance();

@@ -6,11 +6,11 @@
             <authors>
                 <author>Serge Poltavsky</author>
             </authors>
-            <description>checks if given string contains specified substring</description>
+            <description>checks if string contains specified substring</description>
             <license>GPL3 or later</license>
             <library>ceammc</library>
             <category>string</category>
-            <keywords>contains</keywords>
+            <keywords>contains search</keywords>
             <since>0.3</since>
             <aliases>
                 <alias>str.contains</alias>
@@ -22,9 +22,12 @@
         <arguments>
             <argument name="SUBSTR" type="symbol">searched substring</argument>
         </arguments>
+        <properties>
+            <property name="@subj" type="symbol" default="">searched substring</property>
+        </properties>
         <inlets>
             <inlet>
-                <xinfo>Input string or symbol</xinfo>
+                <xinfo>input string or symbol</xinfo>
             </inlet>
             <inlet>
                 <xinfo>search substring (string or symbol)</xinfo>

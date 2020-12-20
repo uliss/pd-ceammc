@@ -16,7 +16,13 @@
 #include "ceammc_format.h"
 #include "ceammc_pd.h"
 #include "ceammc_platform.h"
+#include "ceammc_property_info.h"
 #include "stk/stk/include/Stk.h"
+
+extern "C" {
+extern "C" void pd_init();
+#include "s_stuff.h"
+}
 
 #include <algorithm>
 #include <iostream>
@@ -24,77 +30,11 @@
 #include <vector>
 
 static t_symbol* any = &s_anything;
-extern "C" void pd_init();
+
 t_class* ceammc_class = nullptr;
 
 using namespace std;
 using namespace ceammc;
-
-static const char* to_string(PropertyInfoType t)
-{
-    switch (t) {
-    case PropertyInfoType::BOOLEAN:
-        return "bool";
-    case PropertyInfoType::FLOAT:
-        return "float";
-    case PropertyInfoType::INTEGER:
-        return "int";
-    case PropertyInfoType::LIST:
-        return "list";
-    case PropertyInfoType::SYMBOL:
-        return "symbol";
-    case PropertyInfoType::VARIANT:
-        return "atom";
-    }
-}
-
-static const char* to_string(PropertyInfoView v)
-{
-    switch (v) {
-    case PropertyInfoView::SLIDER:
-        return "slider";
-    case PropertyInfoView::KNOB:
-        return "knob";
-    case PropertyInfoView::TOGGLE:
-        return "toggle";
-    case PropertyInfoView::COLOR:
-        return "color";
-    case PropertyInfoView::NUMBOX:
-        return "numbox";
-    default:
-        return "entry";
-    }
-}
-
-static const char* to_string(PropertyInfoUnits u)
-{
-    switch (u) {
-    case PropertyInfoUnits::MSEC:
-        return "millisecond";
-    case PropertyInfoUnits::SEC:
-        return "second";
-    case PropertyInfoUnits::DB:
-        return "decibel";
-    case PropertyInfoUnits::HZ:
-        return "herz";
-    case PropertyInfoUnits::PERCENT:
-        return "percent";
-    case PropertyInfoUnits::RAD:
-        return "radian";
-    case PropertyInfoUnits::DEG:
-        return "degree";
-    case PropertyInfoUnits::SEMITONE:
-        return "semitone";
-    case PropertyInfoUnits::CENT:
-        return "cent";
-    case PropertyInfoUnits::TONE:
-        return "tone";
-    case PropertyInfoUnits::SAMP:
-        return "sample";
-    default:
-        return "";
-    }
-}
 
 static std::string to_string2(const AtomList& lst)
 {
@@ -115,45 +55,69 @@ static std::string to_string2(const AtomList& lst)
     return res;
 }
 
+static std::string pddoc_units(const std::string& u)
+{
+    static std::map<string, string> um = {
+        { "samp", "sample" },
+        { "db", "decibel" },
+        { "hz", "herz" },
+        { "msec", "millisecond" },
+        { "sec", "second" },
+    };
+    auto it = um.find(u);
+    if (it == um.end())
+        return u;
+    else
+        return it->second;
+}
+
 static void printInfo(std::ostream& os, const PropertyInfo& pi)
 {
-    os << "  \"" << pi.name() << "\": {\n";
+    os << "  \"" << pi.name()->s_name << "\": {\n";
     os << "    \"type\": \"" << to_string(pi.type()) << "\",\n";
     os << "    \"view\": \"" << to_string(pi.view()) << "\",\n";
     if (pi.hasEnumLimit())
         os << "    \"enum\": " << to_string2(pi.enumValues()) << ",\n";
-    if (pi.hasMinLimit())
-        os << "    \"min\": " << pi.min() << ",\n";
-    if (pi.hasMaxLimit())
-        os << "    \"max\": " << pi.max() << ",\n";
+    if (pi.isFloat()) {
+        if (pi.hasConstraintsMin())
+            os << "    \"min\": " << pi.minFloat() << ",\n";
+        if (pi.hasConstraintsMax())
+            os << "    \"max\": " << pi.maxFloat() << ",\n";
+    } else if (pi.isInt()) {
+        if (pi.hasConstraintsMin())
+            os << "    \"min\": " << pi.minInt() << ",\n";
+        if (pi.hasConstraintsMax())
+            os << "    \"max\": " << pi.maxInt() << ",\n";
+    }
 
     switch (pi.type()) {
-    case PropertyInfoType::BOOLEAN:
+    case PropValueType::BOOLEAN:
         os << "    \"default\": " << pi.defaultBool() << ",\n";
         break;
-    case PropertyInfoType::FLOAT:
+    case PropValueType::FLOAT:
         os << "    \"default\": " << pi.defaultFloat() << ",\n";
         break;
-    case PropertyInfoType::INTEGER:
+    case PropValueType::INTEGER:
         os << "    \"default\": " << pi.defaultInt() << ",\n";
         break;
-    case PropertyInfoType::LIST:
-        os << "    \"default\": " << pi.defaultList() << ",\n";
+    case PropValueType::LIST:
+        os << "    \"default\": " << to_json_string(pi.defaultList()) << ",\n";
         break;
-    case PropertyInfoType::SYMBOL:
-        os << "    \"default\": \"" << pi.defaultSymbol(&s_)->s_name << "\",\n";
+    case PropValueType::SYMBOL:
+        os << "    \"default\": " << to_json_string(pi.defaultSymbol(&s_)) << ",\n";
         break;
-    case PropertyInfoType::VARIANT:
+    case PropValueType::ATOM:
         if (!pi.defaultAtom().isNone())
-            os << "    \"default\": " << pi.defaultAtom() << ",\n";
+            os << "    \"default\": " << to_json_string(pi.defaultAtom()) << ",\n";
         break;
     }
 
-    if (pi.units() != PropertyInfoUnits::UNKNOWN)
-        os << "    \"units\": \"" << to_string(pi.units()) << "\",\n";
+    if (pi.units() != PropValueUnits::NONE)
+        os << "    \"units\": \"" << pddoc_units(to_string(pi.units())) << "\",\n";
 
-    os << "    \"name\": \"" << pi.name() << "\",\n";
-    os << "    \"readonly\": " << (pi.readonly() ? 1 : 0) << "\n";
+    os << "    \"name\": \"" << pi.name()->s_name << "\",\n";
+    os << "    \"access\": \"" << to_string(pi.access()) << "\",\n";
+    os << "    \"visibility\": \"" << to_string(pi.visibility()) << "\"\n";
     os << "  }";
 }
 
@@ -161,6 +125,8 @@ int main(int argc, char* argv[])
 {
     pd_init();
     ceammc_init();
+
+    sys_printtostderr = 1;
 
     if (argc < 2) {
         cerr << "usage: " << platform::basename(argv[0]) << " OBJECT_NAME [ARGS]" << endl;
@@ -211,8 +177,8 @@ int main(int argc, char* argv[])
     cout << "{\n";
 
     for (auto& p : ext.properties()) {
-        if (p.name().size() > 1 && p.name()[1] == '.')
-            continue;
+        //        if (p.isInternal())
+        //            continue;
 
         if (!first)
             cout << ",\n";

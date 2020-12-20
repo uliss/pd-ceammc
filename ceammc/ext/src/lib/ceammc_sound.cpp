@@ -13,8 +13,9 @@
  *****************************************************************************/
 
 #include "ceammc_sound.h"
+#include "ceammc_config.h"
 
-#ifdef WITH_LIBSOUNDFILE
+#ifdef CEAMMC_HAVE_LIBSNDFILE
 #include "ceammc_loader_sndfile.h"
 #endif
 
@@ -30,7 +31,7 @@ using namespace std;
 namespace ceammc {
 namespace sound {
 
-#ifdef WITH_LIBSOUNDFILE
+#ifdef CEAMMC_HAVE_LIBSNDFILE
     static SoundFilePtr libsndfile_load_func(const std::string& path)
     {
         return SoundFilePtr(new LibSndFile(path));

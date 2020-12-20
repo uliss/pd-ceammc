@@ -14,7 +14,6 @@
 #include "misc_modplug.h"
 #include "../base/function.h"
 #include "ceammc_factory.h"
-#include "ceammc_platform.h"
 
 #include <cmath>
 #include <fstream>
@@ -22,30 +21,45 @@
 
 ModPlug::ModPlug(const PdArgs& a)
     : SoundExternal(a)
-    , path_(gensym(""))
+    , path_(&s_)
     , file_(0)
     , play_(false)
     , play_prop_(0)
     , pos_(0)
     , func_on_end_(&s_)
-    , cnv_(canvas_getcurrent())
+    , log_error_(false)
 {
     createSignalOutlet();
     createSignalOutlet();
 
-    play_prop_ = new PointerProperty<bool>("@play", &play_, false);
-    createProperty(play_prop_);
-    createCbProperty("@pos", &ModPlug::p_pos, &ModPlug::p_set_pos);
-    property("@pos")->info().setType(PropertyInfoType::FLOAT);
+    play_prop_ = new PointerProperty<bool>("@play", &play_, PropValueAccess::READWRITE);
+    addProperty(play_prop_);
 
-    createCbProperty("@rpos", &ModPlug::p_rel_pos, &ModPlug::p_set_rel_pos);
-    property("@rpos")->info().setType(PropertyInfoType::FLOAT);
-    property("@rpos")->info().setRange(0, 1);
-    createCbProperty("@len", &ModPlug::p_len);
-    createCbProperty("@name", &ModPlug::p_name);
-    property("@name")->info().setType(PropertyInfoType::SYMBOL);
-    createCbProperty("@done", &ModPlug::p_on_end, &ModPlug::p_set_on_end);
-    property("@done")->info().setType(PropertyInfoType::SYMBOL);
+    createCbFloatProperty(
+        "@pos",
+        [this]() -> t_float { return p_pos(); },
+        [this](t_float f) -> bool { return p_set_pos(f); })
+        ->setUnitsMs();
+
+    createCbFloatProperty(
+        "@rpos",
+        [this]() -> t_float { return p_rel_pos(); },
+        [this](t_float f) -> bool { return p_set_rel_pos(f); })
+        ->setFloatCheck(PropValueConstraints::CLOSED_RANGE, 0, 1);
+
+    createCbFloatProperty(
+        "@len",
+        [this]() -> t_float { return p_len(); })
+        ->setUnitsMs();
+
+    createCbSymbolProperty(
+        "@name",
+        [this]() -> t_symbol* { return p_name(); });
+
+    createCbSymbolProperty(
+        "@done",
+        [this]() -> t_symbol* { return func_on_end_; },
+        [this](t_symbol* s) -> bool { return p_set_on_end(s); });
 }
 
 ModPlug::~ModPlug()
@@ -100,7 +114,7 @@ void ModPlug::processBlock(const t_sample** /*in*/, t_sample** out)
     }
 }
 
-void ModPlug::m_play(t_symbol*, const AtomList&)
+void ModPlug::m_play(t_symbol*, const AtomListView&)
 {
     if (!file_) {
         OBJ_ERR << "file is not loaded";
@@ -111,7 +125,7 @@ void ModPlug::m_play(t_symbol*, const AtomList&)
     OBJ_DBG << "play";
 }
 
-void ModPlug::m_stop(t_symbol*, const AtomList&)
+void ModPlug::m_stop(t_symbol*, const AtomListView&)
 {
     if (!file_) {
         OBJ_ERR << "file is not loaded";
@@ -129,102 +143,92 @@ void ModPlug::m_stop(t_symbol*, const AtomList&)
     OBJ_DBG << "stop";
 }
 
-void ModPlug::m_pause(t_symbol*, const AtomList&)
+void ModPlug::m_pause(t_symbol*, const AtomListView&)
 {
     play_ = false;
     OBJ_DBG << "pause";
 }
 
-AtomList ModPlug::p_rel_pos() const
+t_float ModPlug::p_rel_pos() const
 {
     if (!isOpened())
-        return AtomList();
+        return 0;
+
+    t_float len = ModPlug_GetLength(file_);
+    if (len > 0)
+        return pos_ / len;
+    else
+        return 0;
+}
+
+bool ModPlug::p_set_rel_pos(t_float pos)
+{
+    if (!isOpened())
+        return false;
 
     float len = ModPlug_GetLength(file_);
-    return Atom(pos_ / len);
+    int off = static_cast<int>(std::round(pos * len));
+    ModPlug_Seek(file_, off);
+    pos_ = off;
+
+    return true;
 }
 
-void ModPlug::p_set_rel_pos(const AtomList& pos)
+bool ModPlug::p_set_on_end(t_symbol* s)
 {
-    if (!isOpened())
-        return;
-
-    if (!checkArgs(pos, ARG_FLOAT)) {
-        OBJ_ERR << "position in range [0-1] expexted: " << pos;
-        return;
-    }
-
-    float p = pos[0].asFloat();
-    if (0 <= p && p <= 1) {
-        float len = ModPlug_GetLength(file_);
-        int off = static_cast<int>(roundf(p * len));
-        ModPlug_Seek(file_, off);
-        pos_ = off;
-    } else {
-        OBJ_ERR << "position in range [0-1] expexted: " << p;
-    }
-}
-
-AtomList ModPlug::p_on_end() const
-{
-    return Atom(func_on_end_);
-}
-
-void ModPlug::p_set_on_end(const AtomList& fn)
-{
-    if (!checkArgs(fn, ARG_SYMBOL)) {
-        OBJ_ERR << "function name expected: " << fn;
-        return;
-    }
-
-    func_on_end_ = fn[0].asSymbol();
+    func_on_end_ = s;
     if (Function::function(func_on_end_) == 0) {
-        OBJ_ERR << "function not exists: " << fn;
+        OBJ_ERR << "function not exists: " << func_on_end_;
+        return false;
     }
+
+    return true;
 }
 
-void ModPlug::p_set_pos(const AtomList& pos)
+void ModPlug::initDone()
+{
+    SoundExternal::initDone();
+    log_error_ = true;
+}
+
+bool ModPlug::p_set_pos(t_float pos)
 {
     if (!isOpened())
-        return;
+        return false;
 
-    if (!checkArgs(pos, ARG_FLOAT)) {
-        OBJ_ERR << "time position in ms expected: " << pos;
-        return;
-    }
-
-    int off = pos.at(0).asInt();
+    int off = static_cast<int>(pos);
     if (off < 0) {
         OBJ_ERR << "position should be positive" << off;
-        return;
+        return false;
     }
 
     ModPlug_Seek(file_, off);
     pos_ = off;
+    return pos;
 }
 
-AtomList ModPlug::p_pos() const
+t_float ModPlug::p_pos() const
 {
     if (!isOpened())
-        return AtomList(-1);
+        return -1;
 
-    return AtomList(pos_);
+    return pos_;
 }
 
-AtomList ModPlug::p_name() const
+t_symbol* ModPlug::p_name() const
 {
     if (!isOpened())
-        return AtomList();
+        return &s_;
 
-    return AtomList(gensym(ModPlug_GetName(file_)));
+    return gensym(ModPlug_GetName(file_));
 }
 
-AtomList ModPlug::p_len() const
+t_float ModPlug::p_len() const
 {
     if (!isOpened())
-        return AtomList(0.f);
+        return 0;
 
-    return AtomList(ModPlug_GetLength(file_));
+    return ModPlug_GetLength(file_);
 }
 
 void ModPlug::load()
@@ -233,7 +237,7 @@ void ModPlug::load()
         unload();
 
     // search in standard locations
-    std::string path = platform::find_in_std_path(cnv_, path_->s_name);
+    std::string path = findInStdPaths(path_->s_name);
     if (path.empty()) {
         OBJ_ERR << "can't find file: " << path_->s_name;
         return;
@@ -277,14 +281,17 @@ void ModPlug::unload()
 bool ModPlug::isOpened() const
 {
     if (!file_) {
-        OBJ_ERR << "file is not loaded";
+        if (log_error_) {
+            OBJ_ERR << "file is not loaded";
+        }
+
         return false;
     }
 
     return true;
 }
 
-extern "C" void setup_misc0x2emodplug_tilde()
+void setup_misc_modplug_tilde()
 {
     ModPlug_Settings s;
     s.mFlags = MODPLUG_ENABLE_OVERSAMPLING
@@ -300,7 +307,8 @@ extern "C" void setup_misc0x2emodplug_tilde()
 
     ModPlug_SetSettings(&s);
 
-    SoundExternalFactory<ModPlug> obj("modplug~", OBJECT_FACTORY_DEFAULT | OBJECT_FACTORY_NO_FLOAT);
+    SoundExternalFactory<ModPlug> obj("modplug~", OBJECT_FACTORY_DEFAULT);
+    obj.useDefaultPdFloatFn();
     obj.addMethod("play", &ModPlug::m_play);
     obj.addMethod("stop", &ModPlug::m_stop);
     obj.addMethod("pause", &ModPlug::m_pause);

@@ -19,12 +19,15 @@
         <arguments>
             <argument name="KEYS" type="list">keys</argument>
         </arguments>
+        <properties>
+            <property name="@keys" type="list">passed keys</property>
+        </properties>
         <inlets>
             <inlet>
                 <xinfo on="data:dict">input dictionary</xinfo>
             </inlet>
             <inlet>
-                <xinfo>set new keys</xinfo>
+                <xinfo>set passed keys</xinfo>
             </inlet>
         </inlets>
         <outlets>
@@ -33,7 +36,7 @@
         <example>
             <pdascii>
 <![CDATA[
-[\[a: b\] \[c: d\] \[e: f\], bang(
+[\[a: b c: d e: f\], bang(
 |
 [dict]
 |

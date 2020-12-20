@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="math.reciprocal~">
+        <title>math.reciprocal~</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>calculate reciprocal number for signals</description>
+            <license>GPL3 or later</license>
+            <library>ceammc</library>
+            <category>math</category>
+            <keywords>math reciprocal</keywords>
+            <since>0.9</since>
+            <aliases>
+                <alias>1/x~</alias>
+            </aliases>
+        </meta>
+        <inlets>
+            <inlet type="audio">
+                <xinfo on="float">input signal</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet type="audio">output signal</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[B]
+|
+[plot.linspace~ -5 5 256]
+|                   ^|
+[math.reciprocal~]   |
+|                    |.
+[ui.plot~ @ymin -20 @ymax 20 @xlabels 1]
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+[ui.dsp~]
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

@@ -80,13 +80,13 @@ namespace tl {
             return false;
 
         t_canvas* cnv = const_cast<t_canvas*>(c->canvas());
-        CanvasCueMap::iterator it = cue_map_.find(cnv);
+        auto it = cue_map_.find(cnv);
         if (it == cue_map_.end())
             return false;
 
         CueList* lst = &it->second;
 
-        CueList::iterator cue_it = std::find(lst->begin(), lst->end(), c);
+        auto cue_it = std::find(lst->begin(), lst->end(), c);
         if (cue_it != lst->end())
             lst->erase(cue_it);
 
@@ -201,6 +201,11 @@ namespace tl {
             return 0;
 
         return cueList(const_cast<t_canvas*>(c->canvas()));
+    }
+
+    void CueStorage::clear()
+    {
+        cue_map_.clear();
     }
 
     TimelineData::TimelineData(t_canvas* c, t_object* obj)

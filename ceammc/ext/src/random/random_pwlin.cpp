@@ -1,25 +1,36 @@
-#include <boost/algorithm/cxx11/is_sorted.hpp>
-#include <boost/random/mersenne_twister.hpp>
-#include <boost/random/piecewise_linear_distribution.hpp>
-#include <ctime>
+#include <boost/algorithm/cxx11/is_sorted.hpp> // for is_strictly_increasing
 
 #include "ceammc_factory.h"
 #include "random_pwlin.h"
 
-static boost::random::mt19937 random_gen(std::time(0));
+static AtomList vector2list(const std::vector<t_float>& v)
+{
+    AtomList res;
+    res.reserve(v.size());
+    for (auto& x : v)
+        res.append(x);
+
+    return res;
+}
 
 RandomPwLinear::RandomPwLinear(const PdArgs& a)
     : BaseObject(a)
+    , seed_(nullptr)
 {
     createOutlet();
 
-    // the interval boundaries interleaved with weights
-    createCbProperty("@v", &RandomPwLinear::propValues, &RandomPwLinear::propSetValues);
-    if (positionalArguments().size() > 1)
-        set(positionalArguments());
+    createCbListProperty(
+        "@v",
+        [this]() -> AtomList { return values_; },
+        [this](const AtomList& l) -> bool { return set(l); })
+        ->setArgIndex(0);
 
-    createCbProperty("@bounds", &RandomPwLinear::propBounds);
-    createCbProperty("@weights", &RandomPwLinear::propWeights);
+    createCbListProperty("@bounds", [this]() { return vector2list(bounds_); });
+    createCbListProperty("@weights", [this]() { return vector2list(weights_); });
+
+    seed_ = new SizeTProperty("@seed", 0);
+    seed_->setSuccessFn([this](Property* p) { gen_.setSeed(seed_->value()); });
+    addProperty(seed_);
 }
 
 void RandomPwLinear::onBang()
@@ -29,10 +40,10 @@ void RandomPwLinear::onBang()
         return;
     }
 
-    boost::random::piecewise_linear_distribution<t_float> dist(
+    std::piecewise_linear_distribution<t_float> dist(
         bounds_.begin(), bounds_.end(), weights_.begin());
 
-    floatTo(0, dist(random_gen));
+    floatTo(0, dist(gen_.get()));
 }
 
 void RandomPwLinear::onList(const AtomList& w)
@@ -65,7 +76,7 @@ bool RandomPwLinear::set(const AtomList& data)
         return false;
     }
 
-    if (std::count_if(w.begin(), w.end(), std::bind2nd(std::less<t_float>(), 0))) {
+    if (std::count_if(w.begin(), w.end(), [](t_float f) { return f < 0; })) {
         OBJ_ERR << "negative weights are found: " << w;
         return false;
     }
@@ -76,37 +87,18 @@ bool RandomPwLinear::set(const AtomList& data)
     return true;
 }
 
-AtomList RandomPwLinear::propValues() const
-{
-    return values_;
-}
-
-void RandomPwLinear::propSetValues(const AtomList& s)
-{
-    set(s);
-}
-
-static AtomList vector2list(const std::vector<t_float>& v)
-{
-    AtomList res;
-    res.reserve(v.size());
-    for (size_t i = 0; i < v.size(); i++)
-        res.append(v[i]);
-
-    return res;
-}
-
-AtomList RandomPwLinear::propBounds() const
-{
-    return vector2list(bounds_);
-}
-
-AtomList RandomPwLinear::propWeights() const
-{
-    return vector2list(weights_);
-}
-
-extern "C" void setup_random0x2epw_lin()
+void setup_random_pw_lin()
 {
     ObjectFactory<RandomPwLinear> obj("random.pw_lin");
+
+    obj.setDescription("piecewise linear random distribution");
+    obj.addAuthor("Serge Poltavsky");
+    obj.setKeywords({ "linear", "random", "piecewise" });
+    obj.setCategory("random");
+    obj.setSinceVersion(0, 4);
+
+    RandomPwLinear::setInletsInfo(obj.classPointer(), { "bang: output new random\n"
+                                                       "list: set new distribution values and output\n"
+                                                       "args: b0 w0 b1 w1..." });
+    RandomPwLinear::setOutletsInfo(obj.classPointer(), { "float: piecewise linear distributed random" });
 }

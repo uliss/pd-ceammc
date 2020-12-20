@@ -186,28 +186,13 @@ SerialPort::SerialPort(const PdArgs& args)
 {
     createOutlet();
 
-    port_ = new SymbolProperty("@port", positionalSymbolArgument(1, &s_), false);
-    createProperty(port_);
+    port_ = new SymbolProperty("@port", &s_);
+    port_->setArgIndex(1);
+    addProperty(port_);
 
-    baud_rate_ = new IntEnumProperty("@rate", positionalFloatArgument(0, 57600));
-
-    baud_rate_->appendEnum(110);
-    baud_rate_->appendEnum(300);
-    baud_rate_->appendEnum(600);
-    baud_rate_->appendEnum(1200);
-    baud_rate_->appendEnum(2400);
-    baud_rate_->appendEnum(4800);
-    baud_rate_->appendEnum(9600);
-    baud_rate_->appendEnum(14400);
-    baud_rate_->appendEnum(19200);
-    baud_rate_->appendEnum(38400);
-    baud_rate_->appendEnum(56000);
-    baud_rate_->appendEnum(57600);
-    baud_rate_->appendEnum(115200);
-    baud_rate_->appendEnum(128000);
-    baud_rate_->appendEnum(256000);
-
-    createProperty(baud_rate_);
+    baud_rate_ = new IntEnumProperty("@rate", { 57600, 110, 300, 600, 1200, 2400, 4800, 9600, 14400, 19200, 38400, 56000, 115200, 128000, 256000 });
+    baud_rate_->setArgIndex(0);
+    addProperty(baud_rate_);
 
     createCbProperty("@devices", &SerialPort::propDevices);
 
@@ -257,7 +242,7 @@ bool SerialPort::onThreadCommand(int code)
     return ThreadExternal::onThreadCommand(code);
 }
 
-void SerialPort::m_open(t_symbol* s, const AtomList& l)
+void SerialPort::m_open(t_symbol* s, const AtomListView& l)
 {
     if (isRunning()) {
         OBJ_ERR << "already connected";
@@ -266,7 +251,7 @@ void SerialPort::m_open(t_symbol* s, const AtomList& l)
 
     // using numeric index
     if (l.isFloat()) {
-        int idx = atomlistToValue<int>(l, 0);
+        int idx = l.toT<int>(0);
         auto ports = serial::list_ports();
         if (idx >= 0 || idx < ports.size()) {
             port_->setValue(gensym(ports[idx].port.c_str()));
@@ -278,7 +263,7 @@ void SerialPort::m_open(t_symbol* s, const AtomList& l)
     start();
 }
 
-void SerialPort::m_close(t_symbol* s, const AtomList&)
+void SerialPort::m_close(t_symbol* s, const AtomListView&)
 {
     if (!isRunning()) {
         OBJ_ERR << "not connected";

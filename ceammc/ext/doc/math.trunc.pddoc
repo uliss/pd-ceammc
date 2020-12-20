@@ -15,36 +15,30 @@
                 <see>math.ceil</see>
                 <see>math.floor</see>
                 <see>math.round</see>
-                <see>math.math</see>
             </also>
             <since>0.1</since>
         </meta>
         <info>
-            <par>The trunc() functions return the integral value nearest to but no larger in
-            magnitude than x.</par>
-            <par>Special values:</par>
-            <par>trunc(+-0) returns +-0.</par>
-            <par>trunc(+-infinity) returns +-infinity.</par>
+            <par>Outputs the integral value nearest to but no larger in magnitude than x</par>
         </info>
         <inlets>
-            <inlet>
-                <xinfo on="float">input value</xinfo>
-                <xinfo on="list">apply to all numeric values</xinfo>
+            <inlet type="audio">
+                <xinfo>input signal</xinfo>
             </inlet>
         </inlets>
         <outlets>
-            <outlet>result value</outlet>
+            <outlet type="audio">result signal</outlet>
         </outlets>
         <example>
             <pdascii>
 <![CDATA[
-[F]  [2.3 3.8 5.5 -2.3 -3.8 -5.5(
-|    |
+[bang(                 [array TRUNC yr=-4..4 w=320]
+|
+[list.seq -4 4 0.025]
+|
 [math.trunc]
 |
-[msg set]
-|
-[  (
+[list->array TRUNC]
 ]]>
             </pdascii>
         </example>

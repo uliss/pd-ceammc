@@ -18,24 +18,29 @@
             <since>0.4</since>
         </meta>
         <properties>
-            <property name="@name" readonly="true" type="symbol">canvas name</property>
-            <property name="@dir" readonly="true" type="symbol">canvas directory (only if top level
-            or abstraction)</property>
+            <property name="@name" readonly="true" type="symbol" default="test_canvas">canvas
+            name</property>
+            <property name="@dir" readonly="true" type="symbol" default="/">canvas directory (only
+            if top level or abstraction)</property>
             <property name="@args" readonly="true" type="list">canvas creation arguments</property>
-            <property name="@root" readonly="true" type="int" enum="0 1">1 if canvas is top-level
-            (window)</property>
-            <property name="@abstraction" readonly="true" type="int" enum="0 1">1 if canvas is
-            abstraction</property>
-            <property name="@size" readonly="true" type="list">canvas dimensions. If root canvas
-            (window) return window size, if subpatch return Graph on Parent size</property>
-            <property name="@font" readonly="true" type="int">canvas font size</property>
+            <property name="@root" readonly="true" type="int" enum="0 1" default="1">1 if canvas is
+            top-level (window)</property>
+            <property name="@abstraction" readonly="true" type="int" enum="0 1" default="1">1 if
+            canvas is abstraction</property>
+            <property name="@size" readonly="true" type="list" default="600 400">canvas dimensions.
+            If root canvas (window) return window size, if subpatch return Graph on Parent
+            size</property>
+            <property name="@font" readonly="true" type="int" default="10">canvas font
+            size</property>
             <property name="@paths" readonly="true" type="list">canvas search paths</property>
-            <property name="@width" readonly="true" type="int">canvas width (window or
+            <property name="@width" readonly="true" type="int" default="600">canvas width (window
+            or GOP)</property>
+            <property name="@height" readonly="true" type="int" default="400">canvas height (window
+            or GOP)</property>
+            <property name="@x" readonly="true" type="int" default="0">canvas x-pos (window or
             GOP)</property>
-            <property name="@height" readonly="true" type="int">canvas height (window or
+            <property name="@y" readonly="true" type="int" default="0">canvas y-pos (window or
             GOP)</property>
-            <property name="@x" readonly="true" type="int">canvas x-pos (window or GOP)</property>
-            <property name="@y" readonly="true" type="int">canvas y-pos (window or GOP)</property>
         </properties>
         <inlets>
             <inlet>
@@ -59,7 +64,7 @@
 | |  | |   | | |      | | |
 [canvas.current           ]
 |
-[ui.display @display_type=1]
+[ui.display @display_type 1]
 ]]>
             </pdascii>
         </example>

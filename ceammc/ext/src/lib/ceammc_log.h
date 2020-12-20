@@ -14,56 +14,109 @@
 #ifndef CEAMMC_LOG_H
 #define CEAMMC_LOG_H
 
+#include <iostream>
 #include <sstream>
+#include <string>
 #include <vector>
+
+#include "m_pd.h"
 
 namespace ceammc {
 
+enum LogLevel {
+    LOG_FATAL = 0, // fatal errors
+    LOG_ERROR = 1, // errors
+    LOG_POST = 2, // common messages
+    LOG_DEBUG = 3, // debug
+    LOG_ALL = 4,
+    LOG_NONE
+};
+
+void pdPost(const char* name, const std::string& s);
+void pdDebug(const void* pd_obj, const std::string& s);
+void pdError(const void* pd_obj, const std::string& s);
+void pdLog(const void* pd_obj, LogLevel level, const std::string& s);
+
 class BaseObject;
 
-class Error : public std::ostringstream {
-    const BaseObject* obj_;
+class LogPdObject : public std::ostringstream {
+    const void* obj_;
+    LogLevel level_;
+    bool log_empty_;
+
+    LogPdObject(const LogPdObject&) = delete;
+    LogPdObject(LogPdObject&&) = delete;
+    void operator=(const LogPdObject&) = delete;
+    void operator=(LogPdObject&&) = delete;
 
 public:
-    Error(const BaseObject* obj = NULL);
-    ~Error();
-    Error& stream() { return *this; }
+    LogPdObject(const void* obj, LogLevel level, bool log_empty = false);
+    ~LogPdObject();
+
+    const void* object() const { return obj_; }
+    LogPdObject& stream() { return *this; }
+
+    void error(const std::string& str) const;
+    void post(const std::string& str) const;
+    void debug(const std::string& str) const;
+    void flush();
+    void endl();
+
+    std::string prefix() const;
+    void setLogLevel(LogLevel level);
+    void setLogEmpty(bool v);
 };
 
-class Debug : public std::ostringstream {
-    const BaseObject* obj_;
-
+class LogBaseObject : public LogPdObject {
 public:
-    Debug(const BaseObject* obj = NULL);
-    ~Debug();
-    Debug& stream() { return *this; }
+    LogBaseObject(const BaseObject* obj, LogLevel level);
 };
 
-class Log : public std::ostringstream {
-    const BaseObject* obj_;
-    int level_;
-
+class Error : public LogBaseObject {
 public:
-    Log(const BaseObject* obj = NULL, int level = 0);
-    ~Log();
-    Log& stream() { return *this; }
+    Error(const BaseObject* obj = nullptr);
 };
 
-#define OBJ_ERR Error(this).stream()
-#define OBJ_DBG Debug(this).stream()
-#define OBJ_LOG Log(this).stream()
-#define METHOD_ERR(s) Error(this).stream() << "[" << s->s_name << "( "
-#define METHOD_DBG(s) Debug(this).stream() << "[" << s->s_name << "( "
-#define METHOD_LOG(s) Log(this).stream() << "[" << s->s_name << "( "
+class Post : public LogBaseObject {
+public:
+    Post(const BaseObject* obj = nullptr);
+};
 
-#define LIB_ERR Error(nullptr).stream()
-#define LIB_DBG Debug(nullptr).stream()
-#define LIB_LOG Log(nullptr).stream()
+class Debug : public LogBaseObject {
+public:
+    Debug(const BaseObject* obj = nullptr);
+};
+
+class Log : public LogBaseObject {
+public:
+    Log(const BaseObject* obj = nullptr);
+};
+
+class LogNone : public LogPdObject {
+public:
+    LogNone();
+
+private:
+    class NoneBuffer : public std::stringbuf {
+    public:
+        int overflow(int c = EOF) override;
+    };
+
+private:
+    NoneBuffer buf_;
+};
+
+#define LIB_ERR LogPdObject(nullptr, LOG_ERROR).stream()
+#define LIB_DBG LogPdObject(nullptr, LOG_DEBUG).stream()
+#define LIB_POST LogPdObject(nullptr, LOG_POST).stream()
+#define LIB_LOG LogPdObject(nullptr, LOG_ALL).stream()
+
 }
 
-struct _symbol;
-std::ostream& operator<<(std::ostream& os, _symbol*& s);
-std::ostream& operator<<(std::ostream& os, const _symbol* const& s);
+/**
+ * t_symbol* output operator
+ */
+std::ostream& operator<<(std::ostream& os, t_symbol* s);
 
 template <typename T>
 inline std::ostream& operator<<(std::ostream& os, const std::vector<T>& v)

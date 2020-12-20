@@ -39,8 +39,8 @@ public:
     void setCallback(RtMidiIn::RtMidiCallback cb);
 
     /** pd */
-    void onFloat(float f);
-    void onSymbol(t_symbol* s);
+    void onFloat(t_float f) override;
+    void onSymbol(t_symbol* s) override;
 
     /** props */
     AtomList p_getPort() const;

@@ -33,6 +33,9 @@ public:
     bool hasListAt(size_t idx) { return hasDataTypeAt(idx, Message::LIST); }
     bool hasAnyAt(size_t idx) { return hasDataTypeAt(idx, Message::ANY); }
 
+    bool copyData(size_t src_idx, size_t dst_idx);
+    bool duplicate();
+
     float floatAt(size_t idx, float def = 0) const;
     t_symbol* symbolAt(size_t idx, t_symbol* def = &s_) const;
     AtomList listAt(size_t idx, const AtomList& def = AtomList()) const;
@@ -102,11 +105,12 @@ public:
     void loadAll(size_t idx);
     void storeAll(size_t idx);
     void updateAll();
+    void duplicateAll();
 
 public:
-    static const char* SYM_PRESET_UPDATE_INDEX_ADDR;
-    static const char* SYM_PRESET_INDEX_ADD;
-    static const char* SYM_PRESET_INDEX_REMOVE;
+    t_symbol* SYM_PRESET_UPDATE_INDEX_ADDR;
+    t_symbol* SYM_PRESET_INDEX_ADD;
+    t_symbol* SYM_PRESET_INDEX_REMOVE;
 
 private:
     PresetPtr getOrCreate(t_symbol* name);

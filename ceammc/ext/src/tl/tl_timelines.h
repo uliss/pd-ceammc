@@ -20,9 +20,9 @@
 
 #include <cmath>
 #include <functional>
+#include <limits>
 #include <numeric>
 #include <vector>
-#include <limits>
 
 namespace ceammc {
 namespace tl {
@@ -52,7 +52,7 @@ namespace tl {
         size_t event_idx_;
         double start_time_sys_;
         double pause_time_ms_;
-        ceammc::ClockMemberFunction<TimeLineSingle<T>> clock_;
+        ceammc::ClockLambdaFunction clock_;
         t_float len_;
         RunState state_;
         LoopMode mode_;
@@ -73,7 +73,7 @@ namespace tl {
     public:
         TimeLineSingle(T* owner, t_float length_ms)
             : owner_(owner)
-            , clock_(this, &TimeLineSingle<T>::tick)
+            , clock_([this]() { tick(); })
             , event_idx_(0)
             , start_time_sys_(0)
             , pause_time_ms_(0)
@@ -121,15 +121,16 @@ namespace tl {
         double currentTime() const
         {
             switch (state_) {
-            case STATE_INIT:
-            case STATE_STOP:
-                return 0;
             case STATE_PAUSE:
                 return pause_time_ms_;
             case STATE_GOTO:
                 return goto_time_ms_;
             case STATE_RUN:
                 return clock_gettimesince(start_time_sys_);
+            case STATE_INIT:
+            case STATE_STOP:
+            default:
+                return 0;
             }
         }
 
@@ -172,15 +173,17 @@ namespace tl {
             if (!ptr)
                 return false;
 
-            double removed_time = ptr->abs_time;
+            const auto removed_time = ptr->abs_time;
 
             if (!events_.removeAtPos(pos))
                 return false;
 
-            if (state_ == STATE_RUN) {
-                auto t = currentTime();
-                if (removed_time > t)
-                    clock_.delay(events_[pos].abs_time - t);
+            if (state_ == STATE_RUN && pos < events_.size()) {
+                const auto& next_ev = events_[pos];
+                const auto t = currentTime();
+                if (removed_time > t) {
+                    clock_.delay(next_ev.abs_time - t);
+                }
             }
 
             return true;
@@ -472,7 +475,7 @@ namespace tl {
                 // if exact match found
                 if (std::fabs(it->abs_time - goto_time_ms_) < std::numeric_limits<float>::epsilon()) {
                     // output current event
-                    if(event_idx_ == (events_.size() - 1)) {
+                    if (event_idx_ == (events_.size() - 1)) {
                         owner_->eventEnd();
                     } else {
                         owner_->event(event_idx_, events_[event_idx_].abs_time);

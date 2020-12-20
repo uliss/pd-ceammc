@@ -37,24 +37,25 @@
             <property name="@current_col" type="int" minvalue="0" default="-1">current column
             index. -1 if not specified. This property is not saved in patch</property>
             <!-- common -->
-            <property name="@presetname" type="symbol">preset name for using with
+            <property name="@presetname" type="symbol" default="(null)">preset name for using with
             [ui.preset]</property>
-            <property name="@send" type="symbol">send destination</property>
-            <property name="@receive" type="symbol">receive source</property>
-            <property name="@size" type="list">element size (width, height pair)</property>
+            <property name="@send" type="symbol" default="(null)">send destination</property>
+            <property name="@receive" type="symbol" default="(null)">receive source</property>
+            <property name="@size" type="list" default="105 53">element size (width, height
+            pair)</property>
             <property name="@pinned" type="int" enum="0 1" default="0">pin mode. if 1 - put element
             to the lowest level</property>
-            <property name="@active_color" type="list">active color (list of red, green, blue
-            values in 0-1 range)</property>
-            <property name="@current_color" type="list">current col/row color (list of red, green,
-            blue values in 0-1 range)</property>
-            <property name="@background_color" type="list">element background color (list of red,
-            green, blue values in 0-1 range)</property>
-            <property name="@border_color" type="list">border color (list of red, green, blue
-            values in 0-1 range)</property>
+            <property name="@active_color" type="list" default="0 0.75 1 1">active color (list of
+            red, green, blue values in 0-1 range)</property>
+            <property name="@current_color" type="list" default="1 0.75 0 1">current col/row color
+            (list of red, green, blue values in 0-1 range)</property>
+            <property name="@background_color" type="list" default="0.93 0.93 0.93 1">element
+            background color (list of red, green, blue values in 0-1 range)</property>
+            <property name="@border_color" type="list" default="0.6 0.6 0.6 1">border color (list
+            of red, green, blue values in 0-1 range)</property>
             <property name="@fontsize" type="int" minvalue="4" maxvalue="11" default="11">
             fontsize</property>
-            <property name="@fontname" type="symbol">fontname</property>
+            <property name="@fontname" type="symbol" default="Helvetica">fontname</property>
             <property name="@fontweight" type="symbol" enum="normal bold" default="normal">font
             weight</property>
             <property name="@fontslant" type="symbol" enum="roman italic" default="roman">font
@@ -143,13 +144,13 @@
 |
 [route cell row col]
 |    ^|  ^^|   ^^^|
-|     |    |      [ui.display @size=60x18]
+|     |    |      [ui.d]
 |     |    |
-|     |    [ui.display @size=60x18]
+|     |    [ui.d]
 |     |
-|     [ui.display @size=60x18]
+|     [ui.d]
 |
-[ui.display @size=60x18]
+[ui.d]
 ]]>
             </pdascii>
         </example>

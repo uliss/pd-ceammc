@@ -26,10 +26,12 @@
         <properties>
             <property name="@gate" type="float" minvalue="0" maxvalue="1" default="0">synth gate
             (&gt;0 - play)</property>
-            <property name="@type" type="symbol"
+            <property name="@type" type="atom"
             enum="maraca cabasa sekere tambourine sleigh_bells bamboo_chimes sand_paper coke_can sticks crunch big_rocks little_rocks next_mug penny_mug nickle_mug dime_mug quarter_mug franc_mug peso_mug guiro wrench water_drops tuned_bamboo_chimes"
             default="maraca">instrument type</property>
-            <property name="@types" type="list" readonly="true">all instrument types</property>
+            <property name="@types" type="list" readonly="true"
+            default="maraca cabasa sekere tambourine sleigh_bells bamboo_chimes sand_paper coke_can sticks crunch big_rocks little_rocks next_mug penny_mug nickle_mug dime_mug quarter_mug franc_mug peso_mug guiro wrench water_drops tuned_bamboo_chimes">
+            all instrument types</property>
         </properties>
         <methods>
             <method name="cc">Control change 

@@ -87,6 +87,7 @@ void eclass_dspinit(t_eclass* c);
  * \param type  The type of the method.
  * \param dummy The dummy type that should be 0.
  */
+void eclass_addmethod(t_eclass* c, t_typ_method m, t_symbol* name, t_atomtype type, long dummy);
 void eclass_addmethod(t_eclass* c, t_typ_method m, const char* name, t_atomtype type, long dummy);
 
 /*!
@@ -111,17 +112,21 @@ void eclass_new_attr_typed(t_eclass* c, const char* attrname, const char* type, 
  * \param argc      The size of the array of atoms
  * \param argv      The array of atoms that contains the attributes values
  */
-void eclass_attr_setter(t_object* x, t_symbol* s, int argc, t_atom* argv);
+int eclass_attr_setter(t_object* x, t_symbol* s, int argc, t_atom* argv);
+
+bool ebox_attr_float_setter(t_ebox* x, t_eattr* a, t_float value, size_t idx, t_eattr_op op);
+bool ebox_attr_long_setter(t_ebox* x, t_eattr* a, t_float value, size_t idx, t_eattr_op op);
 
 /*!
- * \fn       void eclass_attr_getter(t_object* x, t_symbol *s, int* argc, t_atom** argv)
+ * \fn       int eclass_attr_getter(t_object* x, t_symbol *s, int* argc, t_atom** argv)
  * \brief           The getter method of the attributes.
  * \param x         The object pointer
  * \param s         The attribute name
  * \param argc      The size of the array of atoms
  * \param argv      The array of atoms that contains the attributes values
+ * \return 1 on success, 0 on error
  */
-void eclass_attr_getter(t_object* x, t_symbol* s, int* argc, t_atom** argv);
+int eclass_attr_getter(t_object* x, t_symbol* s, int* argc, t_atom** argv);
 
 /*!
  * \fn       void eclass_attr_ceammc_getter(t_object* x, t_symbol *s, int* argc, t_atom** argv)
@@ -202,7 +207,7 @@ void eclass_attr_default(t_eclass* c, const char* attrname, const char* value);
  * \param attrname  The attribute name
  * \param value     The minimum value of the attribute
  */
-void eclass_attr_filter_min(t_eclass* c, const char* attrname, float value);
+void eclass_attr_filter_min(t_eclass* c, const char* attrname, t_float value);
 
 /*!
  * \fn          void eclass_attr_filter_max(t_eclass* c, const char* attrname, float value)
@@ -212,7 +217,7 @@ void eclass_attr_filter_min(t_eclass* c, const char* attrname, float value);
  * \param attrname  The attribute name
  * \param value     The maximum value of the attribute
  */
-void eclass_attr_filter_max(t_eclass* c, const char* attrname, float value);
+void eclass_attr_filter_max(t_eclass* c, const char* attrname, t_float value);
 
 /*!
  * \fn          void eclass_attr_step(t_eclass* c, const char* attrname, float value)
@@ -222,7 +227,7 @@ void eclass_attr_filter_max(t_eclass* c, const char* attrname, float value);
  * \param attrname  The attribute name
  * \param value     The maximum value of the attribute
  */
-void eclass_attr_step(t_eclass* c, const char* attrname, float value);
+void eclass_attr_step(t_eclass* c, const char* attrname, t_float value);
 
 /*!
  * \fn          void eclass_attr_save(t_eclass* c, const char* attrname, long flags)
@@ -292,7 +297,7 @@ void eclass_attr_redirect(t_eclass* c, const char* attrname, t_gotfn fn);
 std::pair<int, int> eclass_tcl_version();
 
 //! @cond
-#define calcoffset(x, y) ((ptrdiff_t)(&(((x*)0L)->y)))
+#define calcoffset(x, y) (reinterpret_cast<ptrdiff_t>(&((static_cast<x*>(0L))->y)))
 //! @endcond
 
 //! Macros that create an int attribute
@@ -390,7 +395,7 @@ std::pair<int, int> eclass_tcl_version();
 //! Macros that define the visible behavior of the attributes
 #define CLASS_ATTR_INVISIBLE(c, name) eclass_attr_invisible(c, name)
 //! Macros that define the setter and getter of the attributes
-#define CLASS_ATTR_ACCESSORS(c, name, getter, setter) eclass_attr_accessor(c, name, (t_err_method)getter, (t_err_method)setter)
+#define CLASS_ATTR_ACCESSORS(c, name, getter, setter) eclass_attr_accessor(c, name, reinterpret_cast<t_err_method>(getter), reinterpret_cast<t_err_method>(setter))
 //! Macros that define the items list of the attributes
 #define CLASS_ATTR_ITEMS(c, name, list) eclass_attr_itemlist(c, name, list)
 //! Macros that define the deault value, save and paint bbehavior of the attributes

@@ -1,12 +1,5 @@
 #include "msg.h"
 
-extern "C" void msg_setup()
-{
-    ObjectFactory<Msg> obj("msg");
-    obj.addAlias("m");
-    obj.addAlias("prepend");
-}
-
 Msg::Msg(const PdArgs& a)
     : BaseObject(a)
 {
@@ -22,7 +15,7 @@ void Msg::onBang()
     output();
 }
 
-void Msg::onFloat(float v)
+void Msg::onFloat(t_float v)
 {
     data_ = prefix_;
     data_.append(v);
@@ -43,7 +36,7 @@ void Msg::onList(const AtomList& l)
     output();
 }
 
-void Msg::onAny(t_symbol* sel, const AtomList& l)
+void Msg::onAny(t_symbol* sel, const AtomListView& l)
 {
     data_ = prefix_;
     data_.append(sel);
@@ -57,15 +50,6 @@ void Msg::onInlet(size_t n, const AtomList& l)
         return;
 
     setMethod(l);
-}
-
-bool Msg::processAnyProps(t_symbol* s, const AtomList&)
-{
-    return false;
-}
-
-void Msg::parseProperties()
-{
 }
 
 void Msg::setMethod(const AtomList& l)
@@ -85,4 +69,19 @@ void Msg::output()
         anyTo(0, data_);
     else
         listTo(0, data_);
+}
+
+void setup_base_msg()
+{
+    ObjectFactory<Msg> obj("msg");
+    obj.addAlias("m");
+    obj.addAlias("prepend");
+    obj.noPropsDispatch();
+    obj.noArgsDataParsing();
+
+    obj.setDescription("message constructor");
+    obj.addAuthor("Serge Poltavsky");
+    obj.setKeywords({"msg", "message"});
+    obj.setCategory("msg");
+    obj.setSinceVersion(0, 1);
 }

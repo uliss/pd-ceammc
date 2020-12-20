@@ -3,10 +3,8 @@
 #include "arduino/arduino.h"
 #include "ceammc_factory.h"
 
-#include <math.h>
-#include <stdint.h>
-
-#include <boost/foreach.hpp>
+#include <cmath>
+#include <cstdint>
 #include <sstream>
 
 using namespace ceammc::hw;
@@ -34,20 +32,43 @@ ArduinoExternal::ArduinoExternal(const PdArgs& args)
     , ready_(false)
 {
     createOutlet();
-    initProperties();
-    // we need all properties before Arduino creation
-    parseProperties();
 
-    arduino_.reset(new Arduino(port_->value()->s_name, baud_rate_->value()));
-    arduino_->setReconnect(reconnect_->value());
-    arduino_->setVendorId(vid_->value());
-    arduino_->setProductId(pid_->value());
-    arduino_->setUsbSerial(serial_->value()->s_name);
+    createCbBoolProperty("@connected", [this]() -> bool { return arduino_ && arduino_->isConnected(); });
 
-    read_clock_ = clock_new(this, (t_method)read_tick);
-    clock_set(read_clock_, 3000);
+    port_ = new SymbolProperty("@port", &s_);
+    port_->setArgIndex(0);
+    port_->setInitOnly();
+    addProperty(port_);
 
-    arduino_->start();
+    on_connect_ = new SymbolProperty("@on_connect", &s_);
+    addProperty(on_connect_);
+
+    baud_rate_ = new IntEnumProperty("@rate", { 57600, 110, 300, 600, 1200, 2400, 4800, 9600, 14400, 19200, 38400, 56000, 115200, 128000, 256000 });
+    baud_rate_->setArgIndex(1);
+    addProperty(baud_rate_);
+
+    serial_ = new SymbolProperty("@serial", &s_);
+    addProperty(serial_);
+
+    vid_ = new IntProperty("@vendor_id", 0);
+    addProperty(vid_);
+
+    pid_ = new IntProperty("@product_id", 0);
+    addProperty(pid_);
+
+    reconnect_ = new FlagProperty("@reconnect");
+    addProperty(reconnect_);
+
+    createCbListProperty("@devices", [this]() -> AtomList {
+        AtomList res;
+
+        if (arduino_) {
+            for (auto& s : arduino_->allDevices())
+                res.append(gensym(s.c_str()));
+        }
+
+        return res;
+    });
 }
 
 ArduinoExternal::~ArduinoExternal()
@@ -95,6 +116,22 @@ void ArduinoExternal::onList(const AtomList& lst)
         OBJ_ERR << "can't send data: device is not connected";
 }
 
+void ArduinoExternal::initDone()
+{
+    BaseObject::initDone();
+
+    arduino_.reset(new Arduino(port_->value()->s_name, baud_rate_->value()));
+    arduino_->setReconnect(reconnect_->value());
+    arduino_->setVendorId(vid_->value());
+    arduino_->setProductId(pid_->value());
+    arduino_->setUsbSerial(serial_->value()->s_name);
+
+    read_clock_ = clock_new(this, (t_method)read_tick);
+    clock_set(read_clock_, 3000);
+
+    arduino_->start();
+}
+
 void ArduinoExternal::tick()
 {
     clock_delay(read_clock_, 10);
@@ -118,33 +155,15 @@ void ArduinoExternal::tick()
     }
 }
 
-AtomList ArduinoExternal::p_connected() const
+void ArduinoExternal::m_connect(t_symbol*, const AtomListView& args)
 {
-    return Atom(arduino_->isConnected() ? 1.f : 0.f);
-}
-
-AtomList ArduinoExternal::p_devices() const
-{
-    AtomList res;
-
-    BOOST_FOREACH (const std::string& dev, arduino_->allDevices()) {
-        res.append(gensym(dev.c_str()));
-    }
-
-    return res;
-}
-
-void ArduinoExternal::m_connect(t_symbol*, const AtomList& args)
-{
-    size_t on = args.asSizeT(1);
-
-    if (on)
+    if (args.toT<bool>(true))
         arduino_->start();
     else
         arduino_->stop();
 }
 
-void ArduinoExternal::m_disconnect(t_symbol*, const AtomList& args)
+void ArduinoExternal::m_disconnect(t_symbol*, const AtomListView&)
 {
     arduino_->stop();
 }
@@ -182,37 +201,6 @@ void ArduinoExternal::processMessages()
                 onConnect();
         }
     }
-}
-
-void ArduinoExternal::initProperties()
-{
-    {
-        Property* p = createCbProperty("@connected", &ArduinoExternal::p_connected);
-        p->info().setType(PropertyInfoType::BOOLEAN);
-    }
-
-    port_ = new SymbolProperty("@port", positionalSymbolArgument(0, &s_), true);
-    createProperty(port_);
-
-    on_connect_ = new SymbolProperty("@on_connect", &s_);
-    createProperty(on_connect_);
-
-    baud_rate_ = new SizeTProperty("@rate", 57600);
-    createProperty(baud_rate_);
-
-    serial_ = new SymbolProperty("@serial", &s_);
-    createProperty(serial_);
-
-    vid_ = new IntProperty("@vendor_id", 0);
-    createProperty(vid_);
-
-    pid_ = new IntProperty("@product_id", 0);
-    createProperty(pid_);
-
-    reconnect_ = new FlagProperty("@reconnect");
-    createProperty(reconnect_);
-
-    createCbProperty("@devices", &ArduinoExternal::p_devices);
 }
 
 void hw_setup_arduino()

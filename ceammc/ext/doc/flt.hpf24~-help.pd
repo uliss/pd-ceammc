@@ -1,67 +1,72 @@
 #N canvas 0 0 785 555 12;
 #X declare -lib ceammc;
-#X obj 422 50 cnv 1 343 23 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 422 50 High-pass filter with 24/db per octave slope;
+#X obj 445 50 cnv 1 320 23 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 445 50 High-pass fourth order Butterworth filter;
 #X obj 1 1 cnv 5 765 40 empty empty flt.hpf24~ 20 20 0 20 -104026
 -4096 0;
 #X obj 667 11 flt.hpf24~;
-#X obj 210 80 cnv 1 555 80 empty empty empty 17 7 0 10 -257983 -1 0;
+#X obj 210 80 cnv 1 555 143 empty empty empty 17 7 0 10 -257983 -1 0;
 #X text 215 80 A high-pass filter is an electronic filter that passes
 signals with a frequency higher than a certain cutoff frequency and
 attenuates signals with frequencies lower than the cutoff frequency.;
-#X obj 50 188 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1;
-#X obj 50 217 metro 10;
-#X obj 155 217 ui.hsl;
-#X obj 50 246 click~;
-#X obj 155 246 lin->lin 0 1 500 15000;
-#X obj 50 275 *~ 100;
-#X msg 155 275 @freq \$1;
-#X obj 50 304 flt.hpf24~ 5000;
-#X obj 50 332 ui.spectroscope~ @size 400 120;
-#X obj 50 476 ui.dsp~;
-#X obj 20 515 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 520 cnv 5 90 26 empty empty arguments: 4 10 0 14 -262144
+#X text 215 150 Butterworth filter is a type of filter designed to
+have a frequency response as flat as possible in the passband.;
+#X obj 215 190 ui.link @background_color 0.98039 0.98039 0.98039
+@title wiki: Butterworth filter @url
+https://en.wikipedia.org/wiki/Butterworth_filter;
+#X obj 50 251 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1;
+#X obj 50 280 metro 10;
+#X obj 155 280 ui.hsl;
+#X obj 50 309 click~;
+#X obj 155 309 lin->lin 0 1 500 15000;
+#X obj 50 338 *~ 100;
+#X msg 155 338 @freq \$1;
+#X obj 50 367 flt.hpf24~ 5000;
+#X obj 50 395 ui.spectroscope~ @size 400 120;
+#X obj 50 539 ui.dsp~;
+#X obj 20 588 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 593 cnv 5 90 26 empty empty arguments: 4 10 0 14 -262144
 -49933 0;
-#X text 110 555 1\.;
-#X text 150 555 float;
-#X obj 246 556 cnv 1 69 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 555 freq(Hz): cutoff frequency. Range: 20\...20000;
-#X obj 20 585 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 590 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
+#X text 110 628 1\.;
+#X text 150 628 float;
+#X obj 246 629 cnv 1 69 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 245 628 freq(Hz): cutoff frequency. Range: 20\...20000;
+#X obj 20 658 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 663 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
 -49933 0;
-#X msg 110 625 @active;
-#X text 245 625 Get/Set on/off dsp processing. Type: int. Default value:
+#X msg 110 698 @active;
+#X text 245 698 Get/Set on/off dsp processing. Type: int. Default value:
 1\. Allowed values: 0 \, 1\.;
-#X msg 110 667 @freq;
-#X text 245 667 Get/Set cutoff frequency. Type: float. Units: Hz. Default
+#X msg 110 740 @freq;
+#X text 245 740 Get/Set cutoff frequency. Type: float. Units: Hz. Default
 value: 10000\. Range: 20\...20000\.;
-#X obj 20 719 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 724 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
+#X obj 20 792 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 797 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
-#X text 110 725 1\.;
-#X text 245 725 input signal.;
-#X obj 20 755 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 760 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
+#X text 110 798 1\.;
+#X text 245 798 input signal.;
+#X obj 20 828 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 833 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 761 1\.;
-#X text 245 761 filtered signal.;
+#X text 110 834 1\.;
+#X text 245 834 filtered signal.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 115 45 ::;
 #X obj 131 48 ui.link @title flt @url ceammc.flt-help.pd;
-#X obj 1 811 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 814 library: ceammc v0.8.0;
-#X text 417 826 see also:;
-#X obj 491 826 flt.hpf12~;
-#X obj 579 826 flt.lpf12~;
-#X obj 667 826 flt.c_hpf~;
-#N canvas 10 833 400 290 info 0;
+#X obj 1 884 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 887 library: ceammc v0.9.1;
+#X text 417 899 see also:;
+#X obj 491 899 flt.hpf12~;
+#X obj 579 899 flt.lpf12~;
+#X obj 667 899 flt.c_hpf~;
+#N canvas 10 906 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
 #X text 10 32 version:;
-#X text 120 32 0.8.0;
+#X text 120 32 0.9.1;
 #X text 10 54 object:;
 #X text 120 54 flt.hpf24~;
 #X text 10 76 category:;
@@ -80,12 +85,12 @@ https://github.com/uliss/pure-data;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 generated by pddoc;
-#X restore 10 833 pd info;
-#X connect 6 0 7 0;
-#X connect 7 0 9 0;
-#X connect 8 0 10 0;
+#X restore 10 906 pd info;
+#X connect 8 0 9 0;
 #X connect 9 0 11 0;
 #X connect 10 0 12 0;
 #X connect 11 0 13 0;
-#X connect 12 0 13 0;
-#X connect 13 0 14 0;
+#X connect 12 0 14 0;
+#X connect 13 0 15 0;
+#X connect 14 0 15 0;
+#X connect 15 0 16 0;

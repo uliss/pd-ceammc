@@ -1,37 +1,36 @@
-#N canvas 0 0 760 555 12;
+#N canvas 0 0 785 555 12;
 #X declare -lib ceammc;
 #X declare -lib numeric;
-#X obj 289 50 cnv 1 451 21 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 289 50 complex square root in the range of the right half-
-plane;
-#X obj 1 1 cnv 5 740 40 empty empty complex.sqrt 20 20 0 20 -104026
+#X obj 331 50 cnv 1 434 23 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 331 50 complex square root in the range of the right half-plane;
+#X obj 1 1 cnv 5 765 40 empty empty complex.sqrt 20 20 0 20 -104026
 -4096 0;
-#X obj 629 11 complex.sqrt;
+#X obj 654 11 complex.sqrt;
 #X obj 50 118 declare -lib numeric;
 #X msg 50 162 0 0;
 #X msg 107 162 1 0;
 #X msg 165 162 2 2;
 #X obj 50 190 complex.sqrt;
-#X obj 50 219 ui.display @display_type 1 @size 150 18;
-#X obj 20 259 cnv 1 720 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 264 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
+#X obj 50 219 ui.display @display_type 1;
+#X obj 20 268 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 273 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
-#X text 120 269 1\.;
-#X text 150 269 *list*;
-#X text 280 269 Complex data constructor: REAL IMAG.;
-#X text 150 287 *data*;
-#X text 280 287 Complex data.;
-#X obj 20 315 cnv 1 720 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 320 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
+#X text 110 274 1\.;
+#X text 150 274 *list*;
+#X text 245 274 Complex data constructor: REAL IMAG.;
+#X text 150 294 *data*;
+#X text 245 294 Complex data.;
+#X obj 20 324 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 329 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 120 325 1\.;
-#X text 280 325 output result (Complex);
+#X text 110 330 1\.;
+#X text 245 330 output result (Complex).;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 67 48 ui.link @title numeric @url numeric-help.pd;
 #X text 122 45 ::;
 #X obj 138 48 ui.link @title complex @url numeric.complex-help.pd;
-#X obj 1 505 cnv 5 740 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 1 505 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 10 508 library: numeric v0.1;
 #N canvas 10 527 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;

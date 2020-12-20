@@ -1,6 +1,7 @@
 #ifndef MIDI_TRACK_H
 #define MIDI_TRACK_H
 
+#include "ceammc_data.h"
 #include "ceammc_object.h"
 #include "datatype_midistream.h"
 #include "datatype_miditrack.h"
@@ -13,12 +14,14 @@ enum PlayState {
     PLAY_STATE_PAUSED = 2
 };
 
+using MidiStreamAtom = DataAtom<DataTypeMidiStream>;
+
 class MidiTrack : public BaseObject {
     DataTypeMidiTrack midi_track_;
     FlagProperty* join_;
-    SizeTProperty* track_idx_;
+    IntProperty* track_idx_;
     IntProperty* tempo_;
-    FloatPropertyMin* speed_;
+    FloatProperty* speed_;
     size_t current_event_idx_;
     // used with reserved memory
     // to avoid allocation on every outputEvent() call
@@ -27,28 +30,23 @@ class MidiTrack : public BaseObject {
     PlayState play_state_;
 
 public:
-    typedef DataTypeMidiTrack::iterator MidiEventIterator;
-    typedef DataTypeMidiTrack::const_iterator MidiEventConstIterator;
+    using MidiEventIterator = DataTypeMidiTrack::iterator;
+    using MidiEventConstIterator = DataTypeMidiTrack::const_iterator;
 
 public:
     MidiTrack(const PdArgs& args);
     ~MidiTrack();
 
-    void onBang();
+    void onBang() override;
 
-    void onDataT(const DataTPtr<DataTypeMidiStream>& dptr);
+    void onDataT(const MidiStreamAtom& stream);
 
-    AtomList p_events() const;
-    AtomList p_current() const;
-    // play state
-    AtomList p_state() const;
-
-    void m_next(t_symbol*, const AtomList&);
-    void m_reset(t_symbol*, const AtomList&);
-    void m_seek(t_symbol*, const AtomList& l);
-    void m_play(t_symbol*, const AtomList&);
-    void m_stop(t_symbol*, const AtomList&);
-    void m_pause(t_symbol*, const AtomList&);
+    void m_next(t_symbol*, const AtomListView&);
+    void m_reset(t_symbol*, const AtomListView&);
+    void m_seek(t_symbol*, const AtomListView& l);
+    void m_play(t_symbol*, const AtomListView&);
+    void m_stop(t_symbol*, const AtomListView&);
+    void m_pause(t_symbol*, const AtomListView&);
 
     void outputEvent(MidiEvent* ev);
 

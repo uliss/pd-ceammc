@@ -20,7 +20,7 @@ FlowChange::FlowChange(const PdArgs& a)
     , on_repeat_(NULL)
 {
     on_repeat_ = new SymbolProperty("@onrepeat", &s_);
-    createProperty(on_repeat_);
+    addProperty(on_repeat_);
     createOutlet();
 }
 
@@ -32,7 +32,7 @@ void FlowChange::onBang()
     messageTo(0, msg_);
 }
 
-void FlowChange::onFloat(float f)
+void FlowChange::onFloat(t_float f)
 {
     if (msg_.isEqual(f)) {
         onRepeat();
@@ -65,7 +65,7 @@ void FlowChange::onList(const AtomList& l)
     listTo(0, l);
 }
 
-void FlowChange::onAny(t_symbol* s, const AtomList& l)
+void FlowChange::onAny(t_symbol* s, const AtomListView& l)
 {
     if (msg_.isEqual(Message(s, l))) {
         onRepeat();
@@ -76,12 +76,12 @@ void FlowChange::onAny(t_symbol* s, const AtomList& l)
     anyTo(0, s, l);
 }
 
-void FlowChange::m_reset(t_symbol*, const AtomList&)
+void FlowChange::m_reset(t_symbol*, const AtomListView&)
 {
     msg_ = Message();
 }
 
-void FlowChange::m_set(t_symbol*, const AtomList& l)
+void FlowChange::m_set(t_symbol*, const AtomListView& l)
 {
     if (l.size() == 1)
         msg_ = Message(l[0]);
@@ -104,7 +104,7 @@ void FlowChange::onRepeat()
     fn->onBang();
 }
 
-extern "C" void setup_flow0x2echange()
+void setup_flow_change()
 {
     ObjectFactory<FlowChange> obj("flow.change");
     obj.addMethod("reset", &FlowChange::m_reset);

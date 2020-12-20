@@ -39,7 +39,7 @@ public:
     }
 };
 
-extern "C" void setup_system0x2ehostname()
+void setup_system_hostname()
 {
     ObjectFactory<SystemHostname> obj("system.hostname");
 }

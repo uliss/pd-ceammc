@@ -37,11 +37,28 @@ void Dbfs2amp::onFloat(t_float v)
 
 void Dbfs2amp::onList(const AtomList& args)
 {
-    listTo(0, args.map(dbfs2amp_));
+    listTo(0, args.mapFloat(dbfs2amp_));
+}
+
+Dbfs2ampTilde::Dbfs2ampTilde(const PdArgs& args)
+    : SoundExternal(args)
+{
+    createSignalOutlet();
+}
+
+void Dbfs2ampTilde::processBlock(const t_sample** in, t_sample** out)
+{
+    const size_t BS = blockSize();
+
+    for (size_t i = 0; i < BS; i++)
+        out[0][i] = dbfs2amp_(in[0][i]);
 }
 
 void setup_conv_dbfs2amp()
 {
-    ObjectFactory<Dbfs2amp> obj("conv.dbfs2amp");
-    obj.addAlias("dbfs->amp");
+    ObjectFactory<Dbfs2amp> obj1("conv.dbfs2amp");
+    obj1.addAlias("dbfs->amp");
+
+    ObjectFactory<Dbfs2amp> obj2("conv.dbfs2amp~");
+    obj1.addAlias("dbfs->amp~");
 }

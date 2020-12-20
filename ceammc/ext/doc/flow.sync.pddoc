@@ -12,12 +12,17 @@
             <category>flow</category>
             <keywords>flow control</keywords>
             <since>0.1</since>
+            <aliases>
+                <alias>flow.'</alias>
+            </aliases>
+            <also>
+                <see>flow.pack'</see>
+            </also>
         </meta>
         <info>
-            <par>Sync inlets data. All inlets are 'hot'. When float, symbol or list arrives to
-            inlet, it's value stored. Then output all stored values from all inlets from rightmost
-            to leftmost. The main usage is to escape 'trigger hell' when using many UI
-            controls.</par>
+            <par>Sync data flow. All inlets are 'hot'. When float, symbol or list arrives to inlet,
+            it's value stored. Then output all stored values from all inlets from rightmost to
+            leftmost</par>
         </info>
         <arguments>
             <argument type="int" minvalue="1" maxvalue="16" name="N">Number of
@@ -44,18 +49,17 @@
 <![CDATA[
 [HS]
 |
-| [HS]
-| |
-| |  [HS]
-| |. |..
+|   [HS]
+|   |
+|   |   [HS]
+|   |.  |..
 [flow.sync 3]
-|  ^|. ^^|
-[+   ]   |
-|        |.
-[*        ]
+|  ^|   ^^|
+|   |   [ui.d @display_type 1]
+|   |
+|   [ui.d @display_type 1]
 |
-|
-[F digits=10]
+[ui.d @display_type 1]
 ]]>
             </pdascii>
         </example>

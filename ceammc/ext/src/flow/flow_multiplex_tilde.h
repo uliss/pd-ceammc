@@ -16,7 +16,7 @@
 
 #include "ceammc_signal.h"
 #include "ceammc_sound_external.h"
-
+constexpr size_t MAX_NCHAN = 16;
 using namespace ceammc;
 
 enum FlowMultiplexFlags {
@@ -27,7 +27,6 @@ class MultiplexTilde : public SoundExternal {
 protected:
     typedef SmoothLinT<t_float> t_smooth;
     std::vector<t_smooth> gain_;
-    const size_t n_;
 
 public:
     MultiplexTilde(const PdArgs& args);
@@ -40,6 +39,8 @@ public:
 
     AtomList propValue() const;
     void propSetValue(const AtomList& lst);
+
+    const char* annotateInlet(size_t) const override;
 };
 
 void setup_flow_multiplex_tilde();

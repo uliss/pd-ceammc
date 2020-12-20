@@ -13,20 +13,38 @@
  *****************************************************************************/
 #include "list_xsearch.h"
 #include "ceammc_factory.h"
+#include "ceammc_fn_list.h"
+#include "datatype_mlist.h"
+#include "fmt/format.h"
 
 ListXSearch::ListXSearch(const PdArgs& args)
     : BaseObject(args)
-    , lst_(positionalArguments())
     , start_(nullptr)
     , end_(nullptr)
 {
     createInlet();
     createOutlet();
 
+    createCbListProperty(
+        "@value",
+        [this]() -> AtomList { return lst_; },
+        [this](const AtomList& l) -> bool {
+            if (l.isData() && !l.isA<DataTypeMList>()) {
+                OBJ_ERR << fmt::format(
+                    "invalid datatype {}, only data.mlist is supported",
+                    l.first()->asData()->typeName());
+
+                return false;
+            }
+
+            lst_ = l;
+            return true;
+        });
+
     start_ = new SizeTProperty("@start", 0);
-    createProperty(start_);
+    addProperty(start_);
     end_ = new IntProperty("@end", -1);
-    createProperty(end_);
+    addProperty(end_);
 }
 
 void ListXSearch::onFloat(t_float f)
@@ -41,47 +59,46 @@ void ListXSearch::onSymbol(t_symbol* s)
 
 void ListXSearch::onList(const AtomList& lst)
 {
-    search(lst);
+    if (lst.empty())
+        return;
+
+    search(lst[0]);
 }
 
-void ListXSearch::onData(const DataPtr& ptr)
+void ListXSearch::onData(const Atom& a)
 {
-    auto mlist = lst_.asSingle<DataTypeMList>();
-
-    if (mlist) {
-        auto input_mlist = ptr.as<DataTypeMList>();
-
-        if (input_mlist)
-            output(mlist->data().search(input_mlist->toList()));
-        else
-            output(mlist->data().search(ptr));
-    } else
-        output(lst_.search(ptr, start_->value(), end()));
+    search(a);
 }
 
 void ListXSearch::onInlet(size_t n, const AtomList& lst)
 {
-    if (lst.isData() && !lst.isDataType<DataTypeMList>()) {
-        OBJ_ERR << "invalid datatype. Only data.mlist is supported!";
-        return;
-    }
-
-    lst_ = lst;
+    property("@value")->set(lst);
 }
 
-void ListXSearch::output(long idx)
+void ListXSearch::search(const Atom& a)
 {
-    floatTo(0, idx);
-}
-
-size_t ListXSearch::end() const
-{
-    auto v = end_->value();
-    return v < 0 ? DataAtomList::END : v;
+    if (lst_.isA<DataTypeMList>()) {
+        auto mlist = lst_.asD<DataTypeMList>();
+        floatTo(0, mlist->data().findPos(a));
+    } else
+        floatTo(0, lst_.findPos(a));
 }
 
 void setup_list_xsearch()
 {
     ObjectFactory<ListXSearch> obj("list.^search");
     obj.processData();
+
+    obj.setDescription("on input atom returns it index in list");
+    obj.addAuthor("Serge Poltavsky");
+    obj.setKeywords({ "list", "search", "index", "find" });
+    obj.setCategory("list");
+    obj.setSinceVersion(0, 6);
+
+    ListXSearch::setInletsInfo(obj.classPointer(), { "float:  search float position in list\n"
+                                                     "symbol: search symbol position in list\n"
+                                                     "list:   search sublist position in list"
+                                                     "Mlist:  search sublist position in list",
+                                                       "list: set list value" });
+    ListXSearch::setOutletsInfo(obj.classPointer(), { "int: found position or -1 if not found" });
 }

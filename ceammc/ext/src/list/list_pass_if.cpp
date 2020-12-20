@@ -48,27 +48,36 @@ void ListPassIf::onInlet(size_t n, const AtomList& l)
     pass_flag_ = (!l.empty() && l[0].asInt(0) != 0);
 }
 
-void ListPassIf::onDataT(const DataTPtr<DataTypeMList>& lst)
+void ListPassIf::onDataT(const MListAtom& ml)
 {
-    DataTypeMList res;
+    MListAtom res;
 
-    for (size_t i = 0; i < lst->size(); i++) {
+    for (size_t i = 0; i < ml->size(); i++) {
         pass_flag_ = false;
 
-        atomTo(1, lst->at(i).toAtom());
+        atomTo(1, ml->at(i));
 
         if (pass_flag_)
-            res.append(lst->at(i));
+            res->append(ml->at(i));
     }
 
-    dataTo(0, DataTPtr<DataTypeMList>(res));
+    atomTo(0, res);
 }
 
 void setup_list_pass_if()
 {
     ObjectFactory<ListPassIf> obj("list.pass_if");
     obj.addAlias("list.filter");
-    obj.mapFloatToList();
+    obj.useDefaultPdFloatFn();
 
     obj.processData<DataTypeMList>();
+
+    obj.setDescription("leave only elements accepted by predicate");
+    obj.addAuthor("Serge Poltavsky");
+    obj.setKeywords({ "list", "pass", "accept", "leave", "predicate" });
+    obj.setCategory("list");
+    obj.setSinceVersion(0, 3);
+
+    ListPassIf::setInletsInfo(obj.classPointer(), { "list or Mlist", "int: 1 or 0 from predicate" });
+    ListPassIf::setOutletsInfo(obj.classPointer(), { "list or Mlist", "atom: to predicate" });
 }

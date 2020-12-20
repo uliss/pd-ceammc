@@ -27,10 +27,10 @@ public:
 
 public:
     MathBoolOp(const PdArgs& a);
-    void onFloat(t_float f);
-    void onInlet(size_t n, const AtomList& l);
+    void onFloat(t_float f) override;
+    void onInlet(size_t n, const AtomList& l) override;
 
-    void m_reset(t_symbol* m, const AtomList&);
+    void m_reset(t_symbol* m, const AtomListView&);
     virtual int operate() const;
 
 private:
@@ -38,7 +38,7 @@ private:
 
 protected:
     FlagProperty* sync_;
-    size_t arg_num_;
+    const size_t arg_num_;
     std::vector<bool> vars_;
 };
 

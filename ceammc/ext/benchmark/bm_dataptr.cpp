@@ -12,6 +12,7 @@
  * this file belongs to.
  *****************************************************************************/
 #include "ceammc_data.h"
+#include "ceammc_datastorage.h"
 
 #include <nonius/nonius.h++>
 #include <random>
@@ -27,9 +28,9 @@ public:
     {
     }
 
-    DataType type() const override
+    int type() const noexcept override
     {
-        return DataType(1024);
+        return dataType;
     }
 
     IntData* clone() const override
@@ -37,7 +38,7 @@ public:
         return new IntData(v_);
     }
 
-    bool isLess(const AbstractData* d) const override
+    bool isLess(const AbstractData* d) const noexcept override
     {
         if (d->type() == type())
             return v_ < d->as<IntData>()->v_;
@@ -50,31 +51,34 @@ public:
         return std::to_string(v_);
     }
 
-    static DataType dataType;
+    static const int dataType;
 };
 
-DataType IntData::dataType = DataType(1024);
+const int IntData::dataType = DataStorage::instance().registerNewType("IntData");
+using IntA = DataAtom<IntData>;
 
-static void init(std::vector<DataPtr>& vec)
+static void init(std::vector<IntA>& vec)
 {
     static int cnt = 0;
     if (cnt++)
         return;
 
+    vec.reserve(2000);
+
     std::default_random_engine generator;
     std::uniform_int_distribution<int> distribution;
 
-    for (size_t i = 0; i < vec.size(); i++)
-        vec[i] = DataPtr(new IntData(distribution(generator)));
+    for (size_t i = 0; i < 2000; i++)
+        vec.emplace_back(distribution(generator));
 
     std::cerr << "init done...\n";
 }
 
-std::vector<DataPtr> vec2000(2000, DataPtr(Atom()));
+std::vector<IntA> vec2000;
 
 NONIUS_BENCHMARK("DataPtr", [] {
-    std::vector<DataPtr> vec;
-    vec.assign(1000, DataPtr(Atom()));
+    std::vector<IntA> vec;
+    vec.assign(1000, IntA(11));
     return 0;
 })
 

@@ -13,8 +13,7 @@ class PdExternal(object):
         self.type_ = 't_' + self.name_
         self.headers = headers
         self.gen_free = gen_free
-        self.gen_cpp = False
-        self.cpp = cpp
+        self.gen_cpp = cpp
 
     def generate(self, methods='common'):
         self.generate_header()
@@ -154,11 +153,11 @@ static void {name}_free({type} *x)
         if methods is None:
             methods = ['float', 'list']
         if self.gen_cpp:
-            res = '\nextern "C" '
+            res = '\nextern '
         else:
             res = '\n'
 
-        res += 'void setup_{0}0x2e{1}()\n{{'.format(self.module, self.extension)
+        res += 'void setup_{0}_{1}()\n{{'.format(self.module, self.extension)
 
         free = '0';
         if self.gen_free:
@@ -186,10 +185,16 @@ static void {name}_free({type} *x)
                                                    mod=self.module,
                                                    ext=self.extension)
 
-        for m in methods:
-            res += "\n    class_add{0}({class_}, {name_}_{0});".format(m,
-                                                                       class_=self.class_,
-                                                                       name_=self.name_)
+        if self.gen_cpp:
+            for m in methods:
+                res += "\n    class_add{0}({class_}, reinterpret_cast<t_method>({name_}_{0}));".format(m,
+                                                                           class_=self.class_,
+                                                                           name_=self.name_)
+        else:
+            for m in methods:
+                res += "\n    class_add{0}({class_}, {name_}_{0});".format(m,
+                                                                           class_=self.class_,
+                                                                           name_=self.name_)
 
         res += "\n}\n"
 
@@ -238,11 +243,11 @@ class PdMathUnaryExternal(PdExternal):
 
 
 class PdMathConstExternal(PdExternal):
-    def __init__(self, name, const_value, headers=None):
+    def __init__(self, name, const_value, headers=None, cpp=True):
         if headers is None:
             headers = ["math.h"]
 
-        super(self.__class__, self).__init__("math", name, headers, False, False)
+        super(self.__class__, self).__init__("math", name, headers, False, cpp)
         self.const_value = const_value
 
     def generate(self):

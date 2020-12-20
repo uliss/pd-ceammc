@@ -18,19 +18,20 @@ HwDisplay::HwDisplay(const PdArgs& args)
     : BaseObject(args)
 {
     createOutlet();
-    createCbProperty("@brightness", &HwDisplay::propBrightness, &HwDisplay::setPropBrightness)
-        ->info()
-        .setType(PropertyInfoType::FLOAT);
+    createCbFloatProperty(
+        "@brightness",
+        [this]() -> t_float { return propBrightness(); },
+        [this](t_float f) -> bool { return setPropBrightness(f); });
 }
 
-AtomList HwDisplay::propBrightness() const
+t_float HwDisplay::propBrightness() const
 {
 #ifdef WITH_IODISPLAY
     float v = 0;
     if (!display_.getBrightness(&v))
         OBJ_ERR << "can't get brightness";
 
-    return AtomList(v);
+    return v;
 #endif
 
 #ifdef WITH_X11DISPLAY
@@ -38,29 +39,31 @@ AtomList HwDisplay::propBrightness() const
     if (!display_.getBrightness(&v))
         OBJ_ERR << "can't get brightness";
 
-    return AtomList(v);
+    return v;
 #endif
 
-    return AtomList(-1);
+    return -1;
 }
 
-void HwDisplay::setPropBrightness(const AtomList& v)
+bool HwDisplay::setPropBrightness(t_float v)
 {
 #ifdef WITH_IODISPLAY
-    if (!checkArgs(v, ARG_FLOAT))
-        return;
-
-    if (!display_.setBrightness(v.floatAt(0, 0)))
+    if (!display_.setBrightness(v)) {
         OBJ_ERR << "can't set brightness";
+        return false;
+    } else
+        return true;
 #endif
 
 #ifdef WITH_X11DISPLAY
-    if (!checkArgs(v, ARG_FLOAT))
-        return;
-
-    if (!display_.setBrightness(v.floatAt(0, 0)))
+    if (!display_.setBrightness(v)) {
         OBJ_ERR << "can't set brightness";
+        return false;
+    } else
+        return true;
 #endif
+
+    return false;
 }
 
 void setup_hw_display()

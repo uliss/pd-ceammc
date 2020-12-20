@@ -20,6 +20,3 @@ add_library(ceammc_osc STATIC mod_osc.cpp ${OSC_SOURCES})
 target_link_libraries(ceammc_osc stk)
 
 set_target_properties(ceammc_osc PROPERTIES COMPILE_DEFINITIONS "FAUST_MACRO")
-if(UNIX)
-    set_target_properties(ceammc_osc PROPERTIES COMPILE_FLAGS "-fPIC")
-endif()

@@ -14,13 +14,13 @@
 #ifndef LIST_MIN_H
 #define LIST_MIN_H
 
+#include "ceammc_data.h"
 #include "ceammc_object.h"
+#include "ceammc_property_enum.h"
 
 #include <algorithm>
 
 using namespace ceammc;
-
-class DataTypeMList;
 
 class ListMin : public BaseObject {
     SymbolEnumProperty* type_;
@@ -29,7 +29,7 @@ public:
     ListMin(const PdArgs& a);
 
     void onList(const AtomList& l) override;
-    void onDataT(const DataTPtr<DataTypeMList>& lst);
+    void onDataT(const MListAtom& ml);
 
     template <typename Iterator>
     void min(Iterator begin, Iterator end)

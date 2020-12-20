@@ -30,16 +30,29 @@ void UIGain2::init(t_symbol* name, const AtomList& args, bool usePresets)
 
 void UIGain2::dspProcess(t_sample** ins, long n_ins, t_sample** outs, long n_outs, long sampleframes)
 {
-    const float v = ampValue();
-
-    for (long i = 0; i < sampleframes; i++) {
-        auto amp = smooth_.get(v);
-        auto x0 = ins[0][i] * amp;
-        auto x1 = ins[1][i] * amp;
-
-        outs[0][i] = x0;
-        outs[1][i] = x1;
+#define COPY_SAMPLE(offset)                               \
+    {                                                     \
+        auto amp = smooth_.get(v);                        \
+        auto x0 = ins[0][i + offset] * amp;               \
+        auto x1 = ins[1][i + offset] * amp;               \
+        outs[0][i + offset] = std::isnormal(x0) ? x0 : 0; \
+        outs[1][i + offset] = std::isnormal(x1) ? x1 : 0; \
     }
+
+    const t_float v = ampValue();
+
+    for (long i = 0; i < sampleframes; i += 8) {
+        COPY_SAMPLE(0);
+        COPY_SAMPLE(1);
+        COPY_SAMPLE(2);
+        COPY_SAMPLE(3);
+        COPY_SAMPLE(4);
+        COPY_SAMPLE(5);
+        COPY_SAMPLE(6);
+        COPY_SAMPLE(7);
+    }
+
+#undef COPY_SAMPLE
 }
 
 void UIGain2::setup()

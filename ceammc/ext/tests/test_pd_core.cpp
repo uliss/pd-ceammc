@@ -11,15 +11,16 @@
  * contact the author of this file, or the owner of the project in which
  * this file belongs to.
  *****************************************************************************/
-
-#define CATCH_CONFIG_MAIN
 #include "catch.hpp"
 #include "g_ceammc_draw.h"
 
 #include <cstdlib>
+#include <cstring>
 #include <ctime>
 
+#ifndef __APPLE__
 extern "C" void strcpy_safe_tcl(char* dest, const char* src);
+#endif
 
 TEST_CASE("pd core", "[PureData]")
 {
@@ -70,6 +71,7 @@ TEST_CASE("pd core", "[PureData]")
         REQUIRE(std::string(buf2) == "100 200 ");
     }
 
+#ifndef __APPLE__
     SECTION("strcpy_safe_tcl")
     {
         char buf[100];
@@ -81,4 +83,5 @@ TEST_CASE("pd core", "[PureData]")
         strcpy_safe_tcl(buf, "123{}");
         REQUIRE(std::string(buf) == "123()");
     }
+#endif
 }

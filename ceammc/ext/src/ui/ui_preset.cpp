@@ -28,14 +28,15 @@ UIPreset::UIPreset()
     , mouse_over_index_(-1)
 {
     initPopupMenu("preset",
-        { { _("read"), [this](const t_pt&) {m_read(AtomList());} },
-            { _("write"), [this](const t_pt&) { m_write(AtomList());} } });
+        { { _("read"), [this](const t_pt&) { m_read(AtomList()); updateIndexes(); } },
+            { _("write"), [this](const t_pt&) { m_write(AtomList()); } },
+            { _("duplicate all"), [this](const t_pt&) { m_duplicate(AtomList()); } } });
 }
 
 void UIPreset::init(t_symbol* name, const AtomList& args, bool usePresets)
 {
     UIObject::init(name, args, usePresets);
-    bindTo(gensym(PresetStorage::SYM_PRESET_UPDATE_INDEX_ADDR));
+    bindTo(PresetStorage::instance().SYM_PRESET_UPDATE_INDEX_ADDR);
     updateIndexes();
 }
 
@@ -120,9 +121,9 @@ void UIPreset::onMouseDown(t_object* view, const t_pt& pt, const t_pt& abs_pt, l
     if (index < 0 || index >= presets_.size())
         return;
 
-    if (modifiers == EMOD_ALT)
+    if (modifiers & EMOD_ALT)
         clearIndex(index);
-    else if (modifiers == EMOD_SHIFT)
+    else if (modifiers & EMOD_SHIFT)
         storeIndex(index);
     else
         loadIndex(index);
@@ -158,6 +159,7 @@ void UIPreset::m_read(const AtomList& lst)
 {
     if (PresetStorage::instance().read(canvas(), to_string(lst))) {
         selected_index_ = -1;
+
         redrawLayer(bg_layer_);
     }
 }
@@ -179,12 +181,118 @@ void UIPreset::m_store(const AtomList& lst)
 
 void UIPreset::m_clear(const AtomList& lst)
 {
-    clearIndex(lst.floatAt(0, 0));
+    for (auto x : lst.filtered(isFloat))
+        clearIndex(x.asFloat());
+}
+
+void UIPreset::m_clearall(const AtomList& lst)
+{
+    for (size_t i = 0; i < presets_.size(); i++) {
+        if (!presets_.test(i))
+            continue;
+
+        PresetStorage::instance().clearAll(i);
+        redrawLayer(bg_layer_);
+    }
+
+    selected_index_ = -1;
+    presets_.reset();
+    redrawLayer(bg_layer_);
+}
+
+void UIPreset::m_duplicate(const AtomList& lst)
+{
+    if (lst.empty())
+        PresetStorage::instance().duplicateAll();
 }
 
 AtomList UIPreset::propCurrent() const
 {
     return Atom(selected_index_);
+}
+
+void UIPreset::indexAdd(const AtomList& lst)
+{
+    if (lst.isFloat()) {
+        int idx = lst.asT<int>();
+        if (idx < 0 || idx >= presets_.size()) {
+            UI_ERR << "invalid preset index: " << idx;
+            return;
+        }
+
+        // update only if changed
+        if (!presets_.test(idx)) {
+            presets_.set(idx, true);
+            redrawLayer(bg_layer_);
+        }
+    }
+}
+
+void UIPreset::indexRemove(const AtomList& lst)
+{
+    if (lst.isFloat()) {
+        int idx = lst.asT<int>();
+        if (idx < 0 || idx >= presets_.size()) {
+            UI_ERR << "invalid preset index: " << idx;
+            return;
+        }
+
+        // update only if changed
+        if (presets_.test(idx)) {
+            presets_.set(idx, false);
+            redrawLayer(bg_layer_);
+        }
+    }
+}
+
+void UIPreset::updateIndexes()
+{
+    PresetStorage& s = PresetStorage::instance();
+    for (size_t i = 0; i < presets_.size(); i++)
+        presets_.set(i, s.hasIndex(i));
+}
+
+void UIPreset::loadIndex(int idx)
+{
+    if (idx < 0 || idx >= presets_.size()) {
+        UI_ERR << "invalid preset index: " << idx;
+        return;
+    }
+
+    if (presets_.test(idx)) {
+        selected_index_ = idx;
+        PresetStorage::instance().loadAll(idx);
+        redrawLayer(bg_layer_);
+    }
+}
+
+void UIPreset::storeIndex(int idx)
+{
+    if (idx < 0 || idx >= presets_.size()) {
+        UI_ERR << "invalid preset index: " << idx;
+        return;
+    }
+
+    PresetStorage::instance().storeAll(idx);
+    presets_.set(idx, true);
+    selected_index_ = idx;
+}
+
+void UIPreset::clearIndex(int idx)
+{
+    if (idx < 0 || idx >= presets_.size()) {
+        UI_ERR << "invalid preset index: " << idx;
+        return;
+    }
+
+    if (presets_.test(idx)) {
+        if (selected_index_ == idx)
+            selected_index_ = -1;
+
+        PresetStorage::instance().clearAll(idx);
+        presets_.set(idx, false);
+        redrawLayer(bg_layer_);
+    }
 }
 
 void UIPreset::setup()
@@ -205,94 +313,16 @@ void UIPreset::setup()
 
     obj.useMouseEvents(UI_MOUSE_DOWN | UI_MOUSE_MOVE | UI_MOUSE_LEAVE);
     obj.usePopup();
-    obj.addMethod(PresetStorage::SYM_PRESET_INDEX_ADD, &UIPreset::indexAdd);
-    obj.addMethod(PresetStorage::SYM_PRESET_INDEX_REMOVE, &UIPreset::indexRemove);
+    obj.addMethod(PresetStorage::instance().SYM_PRESET_INDEX_ADD, &UIPreset::indexAdd);
+    obj.addMethod(PresetStorage::instance().SYM_PRESET_INDEX_REMOVE, &UIPreset::indexRemove);
 
-    obj.addMethod("read", &UIPreset::m_read);
-    obj.addMethod("write", &UIPreset::m_write);
     obj.addMethod("clear", &UIPreset::m_clear);
+    obj.addMethod("clearall", &UIPreset::m_clearall);
+    obj.addMethod("duplicate", &UIPreset::m_duplicate);
     obj.addMethod("load", &UIPreset::m_load);
+    obj.addMethod("read", &UIPreset::m_read);
     obj.addMethod("store", &UIPreset::m_store);
-}
-
-void UIPreset::indexAdd(const AtomList& lst)
-{
-    float f;
-    if (lst.size() == 1 && lst[0].getFloat(&f)) {
-        size_t idx = f;
-        if (idx >= presets_.size()) {
-            UI_ERR << "invalid preset index: " << idx;
-            return;
-        }
-
-        presets_.set(idx, true);
-        redrawLayer(bg_layer_);
-    }
-}
-
-void UIPreset::indexRemove(const AtomList& lst)
-{
-    float f;
-    if (lst.size() == 1 && lst[0].getFloat(&f)) {
-        size_t idx = f;
-        if (idx >= presets_.size()) {
-            UI_ERR << "invalid preset index: " << idx;
-            return;
-        }
-
-        presets_.set(idx, false);
-        redrawLayer(bg_layer_);
-    }
-}
-
-void UIPreset::updateIndexes()
-{
-    PresetStorage& s = PresetStorage::instance();
-    for (size_t i = 0; i < presets_.size(); i++)
-        presets_.set(i, s.hasIndex(i));
-}
-
-void UIPreset::loadIndex(size_t idx)
-{
-    if (idx >= presets_.size()) {
-        UI_ERR << "Invalid preset index: " << idx;
-        return;
-    }
-
-    if (presets_.test(idx)) {
-        selected_index_ = idx;
-        PresetStorage::instance().loadAll(idx);
-        redrawLayer(bg_layer_);
-    }
-}
-
-void UIPreset::storeIndex(size_t idx)
-{
-    if (idx >= presets_.size()) {
-        UI_ERR << "Invalid preset index: " << idx;
-        return;
-    }
-
-    PresetStorage::instance().storeAll(idx);
-    presets_.set(idx, true);
-    selected_index_ = idx;
-}
-
-void UIPreset::clearIndex(size_t idx)
-{
-    if (idx >= presets_.size()) {
-        UI_ERR << "Invalid preset index: " << idx;
-        return;
-    }
-
-    if (presets_.test(idx)) {
-        if (selected_index_ == idx)
-            selected_index_ = -1;
-
-        PresetStorage::instance().clearAll(idx);
-        presets_.set(idx, false);
-        redrawLayer(bg_layer_);
-    }
+    obj.addMethod("write", &UIPreset::m_write);
 }
 
 void setup_ui_preset()

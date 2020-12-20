@@ -14,20 +14,20 @@
 #ifndef DICT_GET_H
 #define DICT_GET_H
 
-#include "ceammc_object.h"
 #include "datatype_dict.h"
+#include "dict_base.h"
 
 using namespace ceammc;
 
-class DictGet : public BaseObject {
-    AtomList keys_;
+class DictGet : public DictBase {
+    std::vector<t_symbol*> keys_;
+    AtomProperty* default_;
 
 public:
     DictGet(const PdArgs& args);
-    void onDataT(const DataTPtr<DataTypeDict>& dptr);
+    void initDone() final;
 
-    void parseProperties() override;
-    bool processAnyProps(t_symbol* sel, const AtomList& lst) override;
+    void onDataT(const DictAtom& dict);
 };
 
 void setup_dict_get();

@@ -20,23 +20,29 @@
         <properties>
             <property name="@freq" type="float" minvalue="0" maxvalue="480" default="220"
             units="herz">maximum speed of whistles</property>
+            <property name="@pitch" type="float" minvalue="36" maxvalue="84" default="57">midi
+            pitch</property>
             <property name="@gate" type="float" minvalue="0" maxvalue="1" default="0">synth gate
             (&gt;0 - play)</property>
-            <property name="@mod" type="int" minvalue="0" maxvalue="127">modulator index one
-            (cc2)</property>
-            <property name="@xfade" type="int" minvalue="0" maxvalue="127">crossfade of outputs
-            (cc4)</property>
-            <property name="@lfo_speed" type="int" minvalue="0" maxvalue="127">LFO Speed
-            (cc11)</property>
-            <property name="@lfo_depth" type="int" minvalue="0" maxvalue="127">LFO Speed
-            (cc1)</property>
-            <property name="@adsr" type="int" minvalue="0" maxvalue="127">ADSR 2 &amp; 4
-            Target</property>
+            <property name="@mod" type="int" minvalue="0" maxvalue="127" default="0">modulator
+            index one (cc2)</property>
+            <property name="@xfade" type="int" minvalue="0" maxvalue="127" default="0">crossfade of
+            outputs (cc4)</property>
+            <property name="@lfo_speed" type="int" minvalue="0" maxvalue="127" default="0">LFO
+            Speed (cc11)</property>
+            <property name="@lfo_depth" type="int" minvalue="0" maxvalue="127" default="0">LFO
+            Speed (cc1)</property>
+            <property name="@adsr" type="int" minvalue="0" maxvalue="127" default="0">ADSR 2 &amp;
+            4 Target</property>
         </properties>
         <methods>
             <method name="cc">Control change 
             <param name="CTL" type="int" required="true">control number</param>
             <param name="VAL" type="float" required="true">value</param></method>
+            <method name="note">note on/off message 
+            <param name="NOTE" type="float" required="true">midi note</param>
+            <param name="VEL" type="float" minvalue="0" maxvalue="127" required="true">
+            velocity</param></method>
         </methods>
         <inlets>
             <inlet>
@@ -54,15 +60,9 @@
 |
 |
 |
-[unpack f f ]
-|          ^|
-[mtof]     [> 0]
-|          |
-|          [pipe]
-|          |
-[@freq $1( [@gate $1( [dump(
-|          |          |
-[synth.wurley~        ]
+[note $1 $2(
+|
+[synth.wurley~]
 |
 [ui.gain~ @size 120 16]  [ui.dsp~]
 | \

@@ -21,8 +21,10 @@ using namespace ceammc;
 class Lin2Lin : public BaseRangeConverter {
 public:
     Lin2Lin(const PdArgs& a);
-    void onFloat(float value);
-    void onList(const AtomList& l);
+    void onFloat(t_float value) override;
+    void onList(const AtomList& l) override;
 };
+
+void setup_conv_lin2lin();
 
 #endif // CONV_LIN2LIN_H

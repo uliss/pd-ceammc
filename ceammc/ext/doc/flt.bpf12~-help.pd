@@ -1,78 +1,91 @@
 #N canvas 0 0 785 555 12;
 #X declare -lib ceammc;
-#X obj 422 50 cnv 1 343 23 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 422 50 Band-pass filter with 12/db per octave slope;
+#X obj 475 50 cnv 1 290 23 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 475 50 Two pole band-pass butterworth filter;
 #X obj 1 1 cnv 5 765 40 empty empty flt.bpf12~ 20 20 0 20 -104026
 -4096 0;
 #X obj 667 11 flt.bpf12~;
-#X obj 210 80 cnv 1 555 50 empty empty empty 17 7 0 10 -257983 -1 0;
+#X obj 210 80 cnv 1 555 113 empty empty empty 17 7 0 10 -257983 -1 0;
 #X text 215 80 Band-pass filter passes frequencies within a certain
 range and rejects frequencies outside that range.;
-#X floatatom 50 158 5 0 0 0 - - -;
-#X msg 213 158 400;
-#X msg 270 158 800;
-#X msg 328 158 1000;
-#X msg 395 158 1200;
-#X msg 462 158 2400;
-#X obj 50 187 osc~ 1000;
-#X floatatom 213 187 5 0 0 0 - - -;
-#X msg 213 216 @freq \$1;
-#X obj 117 245 flt.bpf12~ 1000 2.5;
-#X text 328 245 800-1200;
-#X obj 50 274 env~;
-#X obj 117 274 env~;
-#X floatatom 50 302 5 0 0 0 - - -;
-#X floatatom 117 302 5 0 0 0 - - -;
-#X obj 50 331 ui.dsp~;
-#X obj 20 370 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 375 cnv 5 90 26 empty empty arguments: 4 10 0 14 -262144
+#X text 215 120 Butterworth filter is a type of filter designed to
+have a frequency response as flat as possible in the passband.;
+#X obj 215 160 ui.link @background_color 0.98039 0.98039 0.98039
+@title wiki: Butterworth filter @url
+https://en.wikipedia.org/wiki/Butterworth_filter;
+#X msg 50 221 100;
+#X msg 107 221 500;
+#X msg 165 221 1000;
+#X msg 232 221 5000;
+#X msg 299 221 10000;
+#X msg 376 221 15000;
+#X msg 453 221 20000;
+#X floatatom 50 250 5 0 0 0 - - -;
+#X floatatom 165 265 5 0 0 0 - - -;
+#X msg 376 265 bang;
+#X text 472 265 plot response;
+#X msg 50 293 @freq \$1;
+#X msg 165 293 @q \$1;
+#X obj 376 293 click~;
+#X obj 50 322 flt.bpf12~ 1000 2.5;
+#X obj 50 351 plot.response~ @sr 1 @db 1;
+#X obj 50 380 ui.plot~ @xlabels 1 @ylabels 1 @ymin -60 @ymax 0
+@ymin_ticks 0 @ymaj_ticks 0 @size 400 200;
+#X obj 50 596 ui.dsp~;
+#X obj 20 645 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 650 cnv 5 90 26 empty empty arguments: 4 10 0 14 -262144
 -49933 0;
-#X text 110 410 1\.;
-#X text 150 410 float;
-#X obj 246 411 cnv 1 69 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 410 freq(Hz): center frequency. Range: 20\...20000;
-#X text 110 430 2\.;
-#X text 150 430 float;
-#X obj 246 431 cnv 1 16 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 430 q: quality factory: @freq/BANDWIDTH. Range: 0.01\...100;
-#X obj 20 460 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 465 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
+#X text 110 685 1\.;
+#X text 150 685 float;
+#X obj 246 686 cnv 1 69 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 245 685 freq(Hz): center frequency. Range: 20\...20000;
+#X text 110 705 2\.;
+#X text 150 705 float;
+#X obj 246 706 cnv 1 16 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 245 705 q: quality factory: @freq/BANDWIDTH. Range: 0.01\...100;
+#X obj 20 735 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 740 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
 -49933 0;
-#X msg 110 500 @active;
-#X text 245 500 Get/Set on/off dsp processing. Type: int. Default value:
+#X msg 110 775 @active;
+#X text 245 775 Get/Set on/off dsp processing. Type: int. Default value:
 1\. Allowed values: 0 \, 1\.;
-#X msg 110 542 @freq;
-#X text 245 542 Get/Set center frequency. Type: float. Units: Hz. Default
+#X msg 110 817 @freq;
+#X text 245 817 Get/Set center frequency. Type: float. Units: Hz. Default
 value: 1000\. Range: 20\...20000\.;
-#X msg 110 584 @q;
-#X text 245 584 Get/Set quality factor: @freq/BANDWIDTH. Type: float.
+#X msg 110 859 @q;
+#X text 245 859 Get/Set quality factor: @freq/BANDWIDTH. Type: float.
 Default value: 2\. Range: 0.01\...100\.;
-#X obj 20 636 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 641 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
-0;
-#X text 110 642 1\.;
-#X text 245 642 input signal.;
-#X obj 20 672 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 677 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
+#X obj 20 911 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 916 cnv 5 73 26 empty empty methods: 4 10 0 14 -262144
 -49933 0;
-#X text 110 678 1\.;
-#X text 245 678 filtered signal.;
+#X msg 110 951 reset;
+#X text 245 951 reset filter state.;
+#X obj 20 988 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 993 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
+0;
+#X text 110 994 1\.;
+#X text 245 994 input signal.;
+#X obj 20 1024 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1029 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
+-49933 0;
+#X text 110 1030 1\.;
+#X text 245 1030 filtered signal.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 115 45 ::;
 #X obj 131 48 ui.link @title flt @url ceammc.flt-help.pd;
-#X obj 1 728 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 731 library: ceammc v0.8.0;
-#X text 505 743 see also:;
-#X obj 579 743 flt.bpf24~;
-#X obj 667 743 flt.c_bpf~;
-#N canvas 10 750 400 290 info 0;
+#X obj 1 1080 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1083 library: ceammc v0.9.1;
+#X text 505 1095 see also:;
+#X obj 579 1095 flt.bpf24~;
+#X obj 667 1095 flt.c_bpf~;
+#N canvas 10 1102 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
 #X text 10 32 version:;
-#X text 120 32 0.8.0;
+#X text 120 32 0.9.1;
 #X text 10 54 object:;
 #X text 120 54 flt.bpf12~;
 #X text 10 76 category:;
@@ -91,17 +104,21 @@ https://github.com/uliss/pure-data;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 generated by pddoc;
-#X restore 10 750 pd info;
-#X connect 6 0 12 0;
-#X connect 7 0 13 0;
-#X connect 8 0 13 0;
-#X connect 9 0 13 0;
-#X connect 10 0 13 0;
-#X connect 11 0 13 0;
-#X connect 13 0 14 0;
+#X restore 10 1102 pd info;
+#X connect 8 0 15 0;
+#X connect 9 0 15 0;
+#X connect 10 0 15 0;
+#X connect 11 0 15 0;
 #X connect 12 0 15 0;
+#X connect 13 0 15 0;
 #X connect 14 0 15 0;
-#X connect 12 0 17 0;
-#X connect 15 0 18 0;
-#X connect 17 0 19 0;
-#X connect 18 0 20 0;
+#X connect 15 0 19 0;
+#X connect 16 0 20 0;
+#X connect 17 0 21 0;
+#X connect 19 0 22 0;
+#X connect 20 0 22 0;
+#X connect 21 0 22 0;
+#X connect 22 0 23 0;
+#X connect 23 0 24 0;
+#X connect 23 2 24 1;
+#X connect 17 0 23 1;

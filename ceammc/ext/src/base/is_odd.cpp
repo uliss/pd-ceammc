@@ -37,5 +37,5 @@ extern "C" void is_odd_setup()
         reinterpret_cast<t_newmethod>(is_odd_new),
         reinterpret_cast<t_method>(is_odd_free),
         sizeof(t_is_odd), 0, A_NULL);
-    class_addfloat(is_odd_class, is_odd_float);
+    class_doaddfloat(is_odd_class, reinterpret_cast<t_method>(is_odd_float));
 }

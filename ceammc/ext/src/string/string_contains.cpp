@@ -14,33 +14,47 @@
 #include "string_contains.h"
 #include "ceammc_factory.h"
 #include "ceammc_format.h"
+#include "ceammc_string.h"
+#include "datatype_string.h"
 
 StringContains::StringContains(const PdArgs& a)
     : BaseObject(a)
-    , subj_(to_string(positionalArguments()))
+    , subj_(nullptr)
 {
+    subj_ = new StringProperty("@subj");
+    subj_->setArgIndex(0);
+    addProperty(subj_);
+
     createInlet();
     createOutlet();
 }
 
 void StringContains::onSymbol(t_symbol* s)
 {
-    floatTo(0, DataTypeString(s).contains(subj_));
+    boolTo(0, string::contains(s->s_name, subj_->str()));
 }
 
-void StringContains::onDataT(const DataTPtr<DataTypeString>& dptr)
+void StringContains::onDataT(const StringAtom& str)
 {
-    floatTo(0, dptr->contains(subj_));
+    boolTo(0, string::contains(str->str(), subj_->str()));
 }
 
 void StringContains::onInlet(size_t, const AtomList& l)
 {
-    subj_ = to_string(l);
+    subj_->set(l);
 }
 
-extern "C" void setup_string0x2econtains()
+void setup_string_contains()
 {
     ObjectFactory<StringContains> obj("string.contains");
     obj.processData<DataTypeString>();
     obj.addAlias("str.contains");
+    obj.setCategory("string");
+    obj.setKeywords({ "contains", "search" });
+    obj.setDescription("checks if string contains specified substring");
+
+    obj.setXletsInfo({ "symbol or String to check", "symbol: search subject\n"
+                                                    "\\\"quoted string\\\": search subject\n"
+                                                    "String: search subject" },
+        { "bool: 1 if string contains @subj, 0 otherwise" });
 }

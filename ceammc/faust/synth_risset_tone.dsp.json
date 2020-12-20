@@ -1,10 +1,10 @@
 {
 	"name": "synth.risset_tone",
 	"filename": "synth_risset_tone.dsp",
-	"version": "2.22.1",
+	"version": "2.28.6",
 	"compile_options": "-lang cpp -scal -ftz 0",
-	"library_list": ["/usr/local/share/faust/stdfaust.lib","/usr/local/share/faust/maths.lib","/Users/serj/work/music/pure-data/ceammc/faust/ceammc.lib","/usr/local/share/faust/basics.lib","/usr/local/share/faust/oscillators.lib"],
-	"include_pathnames": ["/usr/local/share/faust","/usr/local/share/faust","/usr/share/faust","/Users/serj/work/music/pure-data/ceammc/faust","/Users/serj/work/music/pure-data/ceammc/faust"],
+	"library_list": ["/usr/local/share/faust/stdfaust.lib","/usr/local/share/faust/maths.lib","/usr/local/share/faust/platform.lib","/Users/serge/work/music/pure-data/ceammc/faust/ceammc.lib","/usr/local/share/faust/basics.lib","/usr/local/share/faust/oscillators.lib"],
+	"include_pathnames": ["/usr/local/share/faust","/usr/local/share/faust","/usr/share/faust","/Users/serge/work/music/pure-data/ceammc/faust","/Users/serge/work/music/pure-data/ceammc/faust"],
 	"inputs": 0,
 	"outputs": 1,
 	"meta": [ 
@@ -12,7 +12,7 @@
 		{ "basics.lib/name": "Faust Basic Element Library" },
 		{ "basics.lib/version": "0.1" },
 		{ "ceammc.lib/name": "Ceammc PureData misc utils" },
-		{ "ceammc.lib/version": "0.1.1" },
+		{ "ceammc.lib/version": "0.1.2" },
 		{ "copyright": "Oliver Larkin" },
 		{ "description": "Jean Claude Risset's endless glissando" },
 		{ "filename": "synth_risset_tone.dsp" },
@@ -21,10 +21,12 @@
 		{ "maths.lib/copyright": "GRAME" },
 		{ "maths.lib/license": "LGPL with exception" },
 		{ "maths.lib/name": "Faust Math Library" },
-		{ "maths.lib/version": "2.1" },
+		{ "maths.lib/version": "2.3" },
 		{ "name": "synth.risset_tone" },
 		{ "oscillators.lib/name": "Faust Oscillator Library" },
-		{ "oscillators.lib/version": "0.0" },
+		{ "oscillators.lib/version": "0.1" },
+		{ "platform.lib/name": "Generic Platform Library" },
+		{ "platform.lib/version": "0.1" },
 		{ "version": "0.1" }
 	],
 	"ui": [ 

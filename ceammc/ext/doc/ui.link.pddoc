@@ -25,25 +25,26 @@
             <param name="Y" type="float" required="true">top right y-coord</param></method>
         </methods>
         <properties>
-            <property name="@url" type="symbol">destination url</property>
-            <property name="@title" type="symbol">link title</property>
+            <property name="@url" type="symbol" default="&lt;no url&gt;">destination url</property>
+            <property name="@title" type="symbol" default="&lt;no title&gt;">link title</property>
             <!-- common -->
-            <property name="@send" type="symbol">send destination</property>
-            <property name="@receive" type="symbol">receive source</property>
-            <property name="@size" type="list">element size (width, height pair)</property>
+            <property name="@send" type="symbol" default="(null)">send destination</property>
+            <property name="@receive" type="symbol" default="(null)">receive source</property>
+            <property name="@size" type="list" default="120 15">element size (width, height
+            pair)</property>
             <property name="@pinned" type="int" enum="0 1" default="0">pin mode. if 1 - put element
             to the lowest level</property>
-            <property name="@hover_color" type="list">color when mouse pointer is over element
-            (list of red, green, blue values in 0-1 range)</property>
-            <property name="@link_color" type="list">link color (list of red, green, blue values in
-            0-1 range)</property>
-            <property name="@background_color" type="list">element background color (list of red,
-            green, blue values in 0-1 range)</property>
-            <property name="@border_color" type="list">border color (list of red, green, blue
-            values in 0-1 range)</property>
+            <property name="@hover_color" type="list" default="1 0 0.5 1">color when mouse pointer
+            is over element (list of red, green, blue values in 0-1 range)</property>
+            <property name="@link_color" type="list" default="0 0.625 0.75 1">link color (list of
+            red, green, blue values in 0-1 range)</property>
+            <property name="@background_color" type="list" default="1 1 1 1">element background
+            color (list of red, green, blue values in 0-1 range)</property>
+            <property name="@border_color" type="list" default="0.6 0.6 0.6 1">border color (list
+            of red, green, blue values in 0-1 range)</property>
             <property name="@fontsize" type="int" minvalue="4" maxvalue="11" default="11">
             fontsize</property>
-            <property name="@fontname" type="symbol">fontname</property>
+            <property name="@fontname" type="symbol" default="Helvetica">fontname</property>
             <property name="@fontweight" type="symbol" enum="normal bold" default="normal">font
             weight</property>
             <property name="@fontslant" type="symbol" enum="roman italic" default="roman">font

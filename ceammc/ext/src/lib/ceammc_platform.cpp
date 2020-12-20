@@ -20,6 +20,9 @@ extern "C" {
 #include "m_imp.h"
 }
 
+#include "memrss.h"
+#include "memsize.h"
+
 #include <cerrno>
 #include <cstdio>
 #include <cstdlib>
@@ -70,6 +73,21 @@ namespace platform {
 #else
         return "???";
 #endif
+    }
+
+    size_t memory_size()
+    {
+        return getMemorySize();
+    }
+
+    size_t memory_current_rss()
+    {
+        return getCurrentRSS();
+    }
+
+    size_t memory_peak_rss()
+    {
+        return getPeakRSS();
     }
 
     std::string basename(const char* path)
@@ -132,6 +150,28 @@ namespace platform {
         return res;
     }
 
+    std::string get_env(const char* varname)
+    {
+        std::string res;
+        char* env = ::getenv(varname);
+        if (env)
+            res = env;
+
+        return res;
+    }
+
+    void set_env(const char* varname, const char* val)
+    {
+#ifdef HAVE_SETENV
+        ::setenv(varname, val, 1);
+#else
+        std::string str(varname);
+        str += '=';
+        str += val;
+        ::putenv(str.c_str());
+#endif
+    }
+
     bool fnmatch(const char* pattern, const char* str)
     {
         return NS(fnmatch)(pattern, str);
@@ -174,13 +214,8 @@ namespace platform {
         if (!is_path_relative(path))
             return path;
 
-        const char* patch_dir = "";
-        if (cnv && (cnv->gl_owner || cnv->gl_env)) {
-            patch_dir = canvas_getdir(cnv)->s_name;
-        }
-
         char dirname[MAXPDSTRING], *filename;
-        int fd = open_via_path(patch_dir, path, "", dirname, &filename, MAXPDSTRING, 1);
+        int fd = canvas_open(cnv, path, "", dirname, &filename, MAXPDSTRING, 1);
         if (fd < 0)
             return std::string();
 
@@ -298,7 +333,7 @@ namespace platform {
         return home_directory() + "/Documents/Pd";
     }
 
-    Either<NetAddressList> hostnametoip(const char* name, NetAddressType type)
+    Either<NetAddressList, PlatformError> hostnametoip(const char* name, NetAddressType type)
     {
         return NS(hostnametoip(name, type));
     }
@@ -309,12 +344,12 @@ namespace platform {
     {
     }
 
-    Either<int> fd_set_non_blocking(int fd)
+    Either<int, PlatformError> fd_set_non_blocking(int fd)
     {
         return NS(fd_set_non_blocking(fd));
     }
 
-    Either<bool> init_pipe(int fd[])
+    Either<bool, PlatformError> init_pipe(int fd[])
     {
         return NS(init_pipe(fd));
     }

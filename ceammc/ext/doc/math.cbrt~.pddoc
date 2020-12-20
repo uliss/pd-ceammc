@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="math.cbrt~">
+        <title>math.cbrt~</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>cube root function for signals</description>
+            <license>GPL3 or later</license>
+            <library>ceammc</library>
+            <category>math</category>
+            <keywords>math cbrt</keywords>
+            <also>
+                <see>math.cbrt</see>
+            </also>
+            <since>0.9</since>
+        </meta>
+        <info>
+            <par>Outputs the cube root of input signal</par>
+            <par>Special values:</par>
+            <par>cbrt(+-0) returns +-0.</par>
+            <par>cbrt(+-infinity) returns +-infinity.</par>
+        </info>
+        <inlets>
+            <inlet type="audio">
+                <xinfo>input signal</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet type="audio">result signal</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[B]
+|
+[plot.linspace~ -8 8]
+|                 ^|
+[math.cbrt~]       |
+|                  |.
+[ui.plot~ @xlabels 1 @ylabels 1 @yauto 1 @size 400 200]
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+[ui.dsp~]
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

@@ -18,32 +18,32 @@ string);
 #X obj 261 205 str->sec;
 #X symbolatom 50 234 12 0 0 0 - - -;
 #X floatatom 261 234 5 0 0 0 - - -;
-#X obj 20 273 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 278 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
+#X obj 20 283 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 288 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
 -49933 0;
-#X msg 110 313 @ms;
-#X text 245 313 output milliseconds.;
-#X msg 110 342 @symbol;
-#X text 245 342 if specified - output formatted time as symbol \, otherwise
-as string.;
-#X obj 20 394 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 399 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
+#X msg 110 323 @ms;
+#X text 245 323 output milliseconds. Default value: 0\.;
+#X msg 110 352 @symbol;
+#X text 245 352 if specified - output formatted time as symbol \, otherwise
+as string. Default value: 0\.;
+#X obj 20 404 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 409 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
-#X text 110 400 1\.;
-#X text 150 400 *float*;
-#X text 245 400 converts float value in seconds to formatted symbol.;
-#X obj 20 430 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 435 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
+#X text 110 410 1\.;
+#X text 150 410 *float*;
+#X text 245 410 converts float value in seconds to formatted symbol.;
+#X obj 20 440 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 445 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 436 1\.;
-#X text 245 436 time in format "HH:MM::SS" or "HH:MM:SS.XXX".;
+#X text 110 446 1\.;
+#X text 245 446 time in format "HH:MM::SS" or "HH:MM:SS.XXX".;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 115 45 ::;
 #X obj 131 48 ui.link @title conv @url ceammc.conv-help.pd;
 #X obj 1 505 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 508 library: ceammc v0.8.0;
+#X text 10 508 library: ceammc v0.9.1;
 #X text 579 520 see also:;
 #X obj 653 520 conv.str2sec;
 #N canvas 10 527 400 290 info 0;
@@ -51,7 +51,7 @@ as string.;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
 #X text 10 32 version:;
-#X text 120 32 0.8.0;
+#X text 120 32 0.9.1;
 #X text 10 54 object:;
 #X text 120 54 conv.sec2str;
 #X text 10 76 category:;

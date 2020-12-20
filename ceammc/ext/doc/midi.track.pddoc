@@ -14,17 +14,26 @@
             <since>0.4</since>
         </meta>
         <properties>
-            <property name="@track" type="float" readonly="true">track number</property>
-            <property name="@join" type="flag">join all tracks into one</property>
+            <property name="@track" type="int" default="0" minvalue="0">track number</property>
+            <property name="@join" type="flag" default="0">join all tracks into one</property>
             <property name="@speed" type="float" minvalue="0.01" default="1">play speed
             factor</property>
-            <property name="@tempo" type="float" readonly="true">current tempo in TPQ</property>
+            <property name="@tempo" type="int" readonly="true" default="120">current tempo in
+            TPQ</property>
+            <property name="@current" type="int" readonly="true" default="0">current event tick
+            index</property>
+            <property name="@nevents" type="int" readonly="true" default="0">number of events in
+            track</property>
+            <property name="@state" type="int" readonly="true" default="0" enum="0 1 2">current
+            state. 0: stopped, 1: playing, 2: paused</property>
         </properties>
         <methods>
             <method name="play">start playing</method>
             <method name="pause">pause playing</method>
             <method name="stop">stop playing</method>
             <method name="next">moves playing position to next event. No output</method>
+            <method name="reset">set current event index to zero</method>
+            <method name="seek">seek to specified tick</method>
         </methods>
         <inlets>
             <inlet>

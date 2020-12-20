@@ -3,7 +3,7 @@
 
 #include "ceammc_atomlist.h"
 #include "ceammc_cicm.h"
-#include "ceammc_data.h"
+//#include "ceammc_data.h"
 #include "ceammc_property_info.h"
 
 #include <initializer_list>
@@ -125,10 +125,10 @@ public:
     void onFloat(t_float f);
     void onSymbol(t_symbol* s);
     void onList(const AtomList& lst);
-    void onAny(t_symbol* s, const AtomList& lst);
+    void onAny(t_symbol* s, const AtomListView& lst);
     void onKey(int k, long modifiers);
     void onKeyFilter(int k, long modifiers);
-    void onData(const DataPtr& ptr);
+    void onData(const AbstractData* ptr);
     void onProperty(t_symbol* s, const AtomList& lst);
 
     void loadPreset(size_t idx);
@@ -138,10 +138,10 @@ public:
     void bangTo(size_t n);
     void floatTo(size_t n, t_float f);
     void symbolTo(size_t n, t_symbol* s);
+    void atomTo(size_t n, const Atom& a);
     void listTo(size_t n, const AtomList& lst);
     void anyTo(size_t n, t_symbol* s, const AtomList& args);
     void anyTo(size_t n, const AtomList& msg);
-    void dataTo(size_t n, const DataPtr& ptr);
 
     void sendBang();
     void send(t_float f);
@@ -170,6 +170,8 @@ public:
     size_t numOutlets() const;
     const std::vector<t_outlet*>& outlets() const { return outlets_; }
     t_outlet* createOutlet();
+    const char* annotateInlet(int n) const;
+    const char* annotateOutlet(int n) const;;
 
     bool hasProperty(t_symbol* name) const;
     bool getProperty(t_symbol* name, t_float& f) const;

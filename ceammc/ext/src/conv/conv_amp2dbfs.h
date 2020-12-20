@@ -15,17 +15,21 @@
 #define CONV_AMP2DBFS_H
 
 #include "ceammc_object.h"
+#include "ceammc_sound_external.h"
 
 using namespace ceammc;
 
 class Amp2dbfs : public BaseObject {
 public:
     Amp2dbfs(const PdArgs& args);
-    void onFloat(t_float v);
-    void onList(const AtomList& lst);
+    void onFloat(t_float v) override;
+    void onList(const AtomList& lst) override;
+};
 
-private:
-    static t_float low_limit_;
+class Amp2dbfsTilde : public SoundExternal {
+public:
+    Amp2dbfsTilde(const PdArgs& args);
+    void processBlock(const t_sample** in, t_sample** out) override;
 };
 
 void setup_conv_amp2dbfs();

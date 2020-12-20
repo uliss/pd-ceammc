@@ -14,6 +14,7 @@
 #ifndef MLIST_FLATTEN_H
 #define MLIST_FLATTEN_H
 
+#include "ceammc_data.h"
 #include "ceammc_object.h"
 #include "datatype_mlist.h"
 
@@ -22,7 +23,8 @@ using namespace ceammc;
 class MListFlatten : public BaseObject {
 public:
     MListFlatten(const PdArgs& args);
-    void onDataT(const DataTPtr<DataTypeMList>& lst);
+    void onList(const AtomList& lst) override;
+    void onDataT(const MListAtom& lst);
 };
 
 void setup_mlist_flatten();

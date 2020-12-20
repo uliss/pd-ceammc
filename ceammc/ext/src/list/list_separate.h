@@ -14,10 +14,9 @@
 #ifndef LIST_SEPARATE_H
 #define LIST_SEPARATE_H
 
+#include "ceammc_data.h"
 #include "ceammc_object.h"
 using namespace ceammc;
-
-class DataTypeMList;
 
 class ListSeparate : public BaseObject {
     BoolProperty* enumerate_;
@@ -25,8 +24,8 @@ class ListSeparate : public BaseObject {
 
 public:
     ListSeparate(const PdArgs& a);
-    void onList(const AtomList& l);
-    void onDataT(const DataTPtr<DataTypeMList>& l);
+    void onList(const AtomList& l) override;
+    void onDataT(const MListAtom& ml);
 };
 
 void setup_list_separate();

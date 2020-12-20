@@ -8,7 +8,7 @@
 #X obj 210 80 cnv 1 555 35 empty empty empty 17 7 0 10 -257983 -1 0;
 #X text 215 80 Values outside of range @min...@max are ignored;
 #N canvas 0 22 450 300 (subpatch) 0;
-#X array ahist 512 float 0;
+#X array ahist 512 float 1;
 #A 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
@@ -38,65 +38,65 @@
 #X obj 50 403 array.hist ahist 100;
 #X obj 50 431 list.reverse;
 #X obj 50 460 s ahist-r;
-#X obj 20 499 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 504 cnv 5 90 26 empty empty arguments: 4 10 0 14 -262144
+#X obj 20 509 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 514 cnv 5 90 26 empty empty arguments: 4 10 0 14 -262144
 -49933 0;
-#X text 110 539 1\.;
-#X text 150 539 symbol;
-#X obj 246 540 cnv 1 40 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 539 NAME: array name.;
-#X text 110 559 2\.;
-#X text 150 559 int;
-#X obj 246 560 cnv 1 39 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 559 BINS: number of bins. Range: 2\...1000;
-#X text 110 579 3\.;
-#X text 150 579 float;
-#X obj 246 580 cnv 1 32 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 579 MIN: minimal value.;
-#X text 110 599 4\.;
-#X text 150 599 float;
-#X obj 246 600 cnv 1 32 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 599 MAX: maximum value.;
-#X obj 20 629 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 634 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
+#X text 110 549 1\.;
+#X text 150 549 symbol;
+#X obj 246 550 cnv 1 40 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 245 549 NAME: array name.;
+#X text 110 569 2\.;
+#X text 150 569 int;
+#X obj 246 570 cnv 1 39 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 245 569 BINS: number of bins. Range: 2\...1000;
+#X text 110 589 3\.;
+#X text 150 589 float;
+#X obj 246 590 cnv 1 32 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 245 589 MIN: minimal value.;
+#X text 110 609 4\.;
+#X text 150 609 float;
+#X obj 246 610 cnv 1 32 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 245 609 MAX: maximum value.;
+#X obj 20 639 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 644 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
 -49933 0;
-#X msg 110 669 @array;
-#X text 245 669 Get/Set array name. Type: symbol.;
-#X msg 110 698 @bins;
-#X text 245 698 Get/Set number of bins. Type: int. Default value: 100\.
+#X msg 110 679 @array;
+#X text 245 679 Get/Set array name. Type: symbol.;
+#X msg 110 708 @bins;
+#X text 245 708 Get/Set number of bins. Type: int. Default value: 100\.
 Range: 2\...1000\.;
-#X msg 110 740 @max;
-#X text 245 740 Get/Set maximum value. Type: float. Default value:
+#X msg 110 750 @max;
+#X text 245 750 Get/Set maximum value. Type: float. Default value:
 1\.;
-#X msg 110 769 @min;
-#X text 245 769 Get/Set minimal value. Type: float. Default value:
+#X msg 110 779 @min;
+#X text 245 779 Get/Set minimal value. Type: float. Default value:
 -1\.;
-#X obj 20 808 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 813 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
+#X obj 20 818 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 823 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
-#X text 110 814 1\.;
-#X text 150 814 *bang*;
-#X text 245 814 calculates and outputs histogram.;
-#X obj 20 844 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 849 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
+#X text 110 824 1\.;
+#X text 150 824 *bang*;
+#X text 245 824 calculates and outputs histogram.;
+#X obj 20 854 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 859 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 850 1\.;
-#X text 245 850 list of histogram value (length=@bins).;
+#X text 110 860 1\.;
+#X text 245 860 list of histogram value (length=@bins).;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 115 45 ::;
 #X obj 131 48 ui.link @title array @url ceammc.array-help.pd;
-#X obj 1 900 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 903 library: ceammc v0.8.0;
-#X text 565 915 see also:;
-#X obj 639 915 list.histogram;
-#N canvas 10 922 400 290 info 0;
+#X obj 1 910 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 913 library: ceammc v0.9.1;
+#X text 565 925 see also:;
+#X obj 639 925 list.histogram;
+#N canvas 10 932 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
 #X text 10 32 version:;
-#X text 120 32 0.8.0;
+#X text 120 32 0.9.1;
 #X text 10 54 object:;
 #X text 120 54 array.hist;
 #X text 10 76 category:;
@@ -115,7 +115,7 @@ https://github.com/uliss/pure-data;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 generated by pddoc;
-#X restore 10 922 pd info;
+#X restore 10 932 pd info;
 #X connect 8 0 9 0;
 #X connect 9 0 13 0;
 #X connect 10 0 13 0;

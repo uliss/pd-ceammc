@@ -33,6 +33,9 @@ if(DPKG_FOUND AND NOT WIN32)
         DESTINATION ${PD_PIXMAPS_DIR})
     install(FILES "${CMAKE_SOURCE_DIR}/ceammc/gui/icons/puredata-ceammc.png"
         DESTINATION ${PD_ICONS_DIR})
+    # install to tcl dir because pd-gui.tcl sets app icon manually
+    install(FILES "${CMAKE_SOURCE_DIR}/ceammc/gui/icons/puredata-ceammc.png"
+        DESTINATION ${PD_GUI_PLUGINS_PATH})
     # MIME file for .pd documents
     install(FILES "${CMAKE_SOURCE_DIR}/ceammc/gui/linux/${MIME_FILE}" DESTINATION ${PD_MIME_DIR})
     # Desktop files

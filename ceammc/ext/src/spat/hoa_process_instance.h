@@ -50,7 +50,7 @@ public:
     void floatTo(size_t inlet_idx, t_float v);
     void symbolTo(size_t inlet_idx, t_symbol* s);
     void listTo(size_t inlet_idx, const AtomList& l);
-    void anyTo(size_t inlet_idx, t_symbol* s, const AtomList& l);
+    void anyTo(size_t inlet_idx, t_symbol* s, const AtomListView& l);
 
     bool hasStaticInputSignal() const;
     bool hasStaticOutputSignal() const;

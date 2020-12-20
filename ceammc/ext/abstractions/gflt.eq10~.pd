@@ -12,66 +12,66 @@
 #X obj 600 550 outlet ctl;
 #X obj 3 202 cnv 8 198 18 empty empty [flt.eq10~] 3 9 0 12 -104026
 -262144 0;
-#X text 10 218 f1000(db):;
-#X obj 12 237 ui.slider @size 120 12 @active_scale 1 @presetname
-/gui/$1/flt.eq10~/slider0 @min -70 @max 10;
-#X obj 140 237 ui.number @size 40 12 @digits 3 @min -70 @max 10;
-#X obj 190 237 msg set;
-#X msg 260 237 @f1000 \$1;
-#X text 10 251 f125(db):;
-#X obj 12 270 ui.slider @size 120 12 @active_scale 1 @presetname
-/gui/$1/flt.eq10~/slider1 @min -70 @max 10;
-#X obj 140 270 ui.number @size 40 12 @digits 3 @min -70 @max 10;
-#X obj 190 270 msg set;
+#X obj 12 238 ui.slider @size 125 12 @active_scale 1 @label f1000(db):
+@label_side top @label_align left @fontsize 10 @presetname
+/gui/\$1/flt.eq10~/slider0 @min -70 @max 10;
+#X obj 190 238 sync;
+#X obj 145 238 ui.number @size 50 12 @min -70 @max 10 @digits 2;
+#X msg 260 238 @f1000 \$1;
+#X obj 12 270 ui.slider @size 125 12 @active_scale 1 @label f125(db):
+@label_side top @label_align left @fontsize 10 @presetname
+/gui/\$1/flt.eq10~/slider1 @min -70 @max 10;
+#X obj 190 270 sync;
+#X obj 145 270 ui.number @size 50 12 @min -70 @max 10 @digits 2;
 #X msg 260 270 @f125 \$1;
-#X text 10 284 f16000(db):;
-#X obj 12 303 ui.slider @size 120 12 @active_scale 1 @presetname
-/gui/$1/flt.eq10~/slider2 @min -70 @max 10;
-#X obj 140 303 ui.number @size 40 12 @digits 3 @min -70 @max 10;
-#X obj 190 303 msg set;
-#X msg 260 303 @f16000 \$1;
-#X text 10 317 f2000(db):;
-#X obj 12 336 ui.slider @size 120 12 @active_scale 1 @presetname
-/gui/$1/flt.eq10~/slider3 @min -70 @max 10;
-#X obj 140 336 ui.number @size 40 12 @digits 3 @min -70 @max 10;
-#X obj 190 336 msg set;
-#X msg 260 336 @f2000 \$1;
-#X text 10 350 f250(db):;
-#X obj 12 369 ui.slider @size 120 12 @active_scale 1 @presetname
-/gui/$1/flt.eq10~/slider4 @min -70 @max 10;
-#X obj 140 369 ui.number @size 40 12 @digits 3 @min -70 @max 10;
-#X obj 190 369 msg set;
-#X msg 260 369 @f250 \$1;
-#X text 10 383 f31(db):;
-#X obj 12 402 ui.slider @size 120 12 @active_scale 1 @presetname
-/gui/$1/flt.eq10~/slider5 @min -70 @max 10;
-#X obj 140 402 ui.number @size 40 12 @digits 3 @min -70 @max 10;
-#X obj 190 402 msg set;
-#X msg 260 402 @f31 \$1;
-#X text 10 416 f4000(db):;
-#X obj 12 435 ui.slider @size 120 12 @active_scale 1 @presetname
-/gui/$1/flt.eq10~/slider6 @min -70 @max 10;
-#X obj 140 435 ui.number @size 40 12 @digits 3 @min -70 @max 10;
-#X obj 190 435 msg set;
-#X msg 260 435 @f4000 \$1;
-#X text 10 449 f500(db):;
-#X obj 12 468 ui.slider @size 120 12 @active_scale 1 @presetname
-/gui/$1/flt.eq10~/slider7 @min -70 @max 10;
-#X obj 140 468 ui.number @size 40 12 @digits 3 @min -70 @max 10;
-#X obj 190 468 msg set;
-#X msg 260 468 @f500 \$1;
-#X text 10 482 f62(db):;
-#X obj 12 501 ui.slider @size 120 12 @active_scale 1 @presetname
-/gui/$1/flt.eq10~/slider8 @min -70 @max 10;
-#X obj 140 501 ui.number @size 40 12 @digits 3 @min -70 @max 10;
-#X obj 190 501 msg set;
-#X msg 260 501 @f62 \$1;
-#X text 10 515 f8000(db):;
-#X obj 12 534 ui.slider @size 120 12 @active_scale 1 @presetname
-/gui/$1/flt.eq10~/slider9 @min -70 @max 10;
-#X obj 140 534 ui.number @size 40 12 @digits 3 @min -70 @max 10;
-#X obj 190 534 msg set;
-#X msg 260 534 @f8000 \$1;
+#X obj 12 302 ui.slider @size 125 12 @active_scale 1 @label
+f16000(db): @label_side top @label_align left @fontsize 10 @presetname
+/gui/\$1/flt.eq10~/slider2 @min -70 @max 10;
+#X obj 190 302 sync;
+#X obj 145 302 ui.number @size 50 12 @min -70 @max 10 @digits 2;
+#X msg 260 302 @f16000 \$1;
+#X obj 12 334 ui.slider @size 125 12 @active_scale 1 @label f2000(db):
+@label_side top @label_align left @fontsize 10 @presetname
+/gui/\$1/flt.eq10~/slider3 @min -70 @max 10;
+#X obj 190 334 sync;
+#X obj 145 334 ui.number @size 50 12 @min -70 @max 10 @digits 2;
+#X msg 260 334 @f2000 \$1;
+#X obj 12 366 ui.slider @size 125 12 @active_scale 1 @label f250(db):
+@label_side top @label_align left @fontsize 10 @presetname
+/gui/\$1/flt.eq10~/slider4 @min -70 @max 10;
+#X obj 190 366 sync;
+#X obj 145 366 ui.number @size 50 12 @min -70 @max 10 @digits 2;
+#X msg 260 366 @f250 \$1;
+#X obj 12 398 ui.slider @size 125 12 @active_scale 1 @label f31(db):
+@label_side top @label_align left @fontsize 10 @presetname
+/gui/\$1/flt.eq10~/slider5 @min -70 @max 10;
+#X obj 190 398 sync;
+#X obj 145 398 ui.number @size 50 12 @min -70 @max 10 @digits 2;
+#X msg 260 398 @f31 \$1;
+#X obj 12 430 ui.slider @size 125 12 @active_scale 1 @label f4000(db):
+@label_side top @label_align left @fontsize 10 @presetname
+/gui/\$1/flt.eq10~/slider6 @min -70 @max 10;
+#X obj 190 430 sync;
+#X obj 145 430 ui.number @size 50 12 @min -70 @max 10 @digits 2;
+#X msg 260 430 @f4000 \$1;
+#X obj 12 462 ui.slider @size 125 12 @active_scale 1 @label f500(db):
+@label_side top @label_align left @fontsize 10 @presetname
+/gui/\$1/flt.eq10~/slider7 @min -70 @max 10;
+#X obj 190 462 sync;
+#X obj 145 462 ui.number @size 50 12 @min -70 @max 10 @digits 2;
+#X msg 260 462 @f500 \$1;
+#X obj 12 494 ui.slider @size 125 12 @active_scale 1 @label f62(db):
+@label_side top @label_align left @fontsize 10 @presetname
+/gui/\$1/flt.eq10~/slider8 @min -70 @max 10;
+#X obj 190 494 sync;
+#X obj 145 494 ui.number @size 50 12 @min -70 @max 10 @digits 2;
+#X msg 260 494 @f62 \$1;
+#X obj 12 526 ui.slider @size 125 12 @active_scale 1 @label f8000(db):
+@label_side top @label_align left @fontsize 10 @presetname
+/gui/\$1/flt.eq10~/slider9 @min -70 @max 10;
+#X obj 190 526 sync;
+#X obj 145 526 ui.number @size 50 12 @min -70 @max 10 @digits 2;
+#X msg 260 526 @f8000 \$1;
 #X connect 1 0 0 0;
 #X connect 2 0 3 0;
 #X connect 3 0 4 0;
@@ -80,64 +80,74 @@
 #X connect 7 0 6 0;
 #X connect 0 0 8 0;
 #X connect 3 1 9 0;
-#X connect 12 0 13 0;
-#X connect 13 0 14 0;
-#X connect 14 0 12 0;
-#X connect 12 0 15 0;
-#X connect 15 0 0 0;
-#X connect 4 0 12 0;
-#X connect 17 0 18 0;
-#X connect 18 0 19 0;
-#X connect 19 0 17 0;
-#X connect 17 0 20 0;
-#X connect 20 0 0 0;
-#X connect 4 1 17 0;
-#X connect 22 0 23 0;
+#X connect 11 0 12 0;
+#X connect 12 0 11 0;
+#X connect 13 0 12 1;
+#X connect 12 1 13 0;
+#X connect 11 0 14 0;
+#X connect 14 0 0 0;
+#X connect 4 0 11 0;
+#X connect 15 0 16 0;
+#X connect 16 0 15 0;
+#X connect 17 0 16 1;
+#X connect 16 1 17 0;
+#X connect 15 0 18 0;
+#X connect 18 0 0 0;
+#X connect 4 1 15 0;
+#X connect 19 0 20 0;
+#X connect 20 0 19 0;
+#X connect 21 0 20 1;
+#X connect 20 1 21 0;
+#X connect 19 0 22 0;
+#X connect 22 0 0 0;
+#X connect 4 2 19 0;
 #X connect 23 0 24 0;
-#X connect 24 0 22 0;
-#X connect 22 0 25 0;
-#X connect 25 0 0 0;
-#X connect 4 2 22 0;
+#X connect 24 0 23 0;
+#X connect 25 0 24 1;
+#X connect 24 1 25 0;
+#X connect 23 0 26 0;
+#X connect 26 0 0 0;
+#X connect 4 3 23 0;
 #X connect 27 0 28 0;
-#X connect 28 0 29 0;
-#X connect 29 0 27 0;
+#X connect 28 0 27 0;
+#X connect 29 0 28 1;
+#X connect 28 1 29 0;
 #X connect 27 0 30 0;
 #X connect 30 0 0 0;
-#X connect 4 3 27 0;
-#X connect 32 0 33 0;
-#X connect 33 0 34 0;
-#X connect 34 0 32 0;
-#X connect 32 0 35 0;
-#X connect 35 0 0 0;
-#X connect 4 4 32 0;
-#X connect 37 0 38 0;
-#X connect 38 0 39 0;
-#X connect 39 0 37 0;
-#X connect 37 0 40 0;
-#X connect 40 0 0 0;
-#X connect 4 5 37 0;
-#X connect 42 0 43 0;
+#X connect 4 4 27 0;
+#X connect 31 0 32 0;
+#X connect 32 0 31 0;
+#X connect 33 0 32 1;
+#X connect 32 1 33 0;
+#X connect 31 0 34 0;
+#X connect 34 0 0 0;
+#X connect 4 5 31 0;
+#X connect 35 0 36 0;
+#X connect 36 0 35 0;
+#X connect 37 0 36 1;
+#X connect 36 1 37 0;
+#X connect 35 0 38 0;
+#X connect 38 0 0 0;
+#X connect 4 6 35 0;
+#X connect 39 0 40 0;
+#X connect 40 0 39 0;
+#X connect 41 0 40 1;
+#X connect 40 1 41 0;
+#X connect 39 0 42 0;
+#X connect 42 0 0 0;
+#X connect 4 7 39 0;
 #X connect 43 0 44 0;
-#X connect 44 0 42 0;
-#X connect 42 0 45 0;
-#X connect 45 0 0 0;
-#X connect 4 6 42 0;
+#X connect 44 0 43 0;
+#X connect 45 0 44 1;
+#X connect 44 1 45 0;
+#X connect 43 0 46 0;
+#X connect 46 0 0 0;
+#X connect 4 8 43 0;
 #X connect 47 0 48 0;
-#X connect 48 0 49 0;
-#X connect 49 0 47 0;
+#X connect 48 0 47 0;
+#X connect 49 0 48 1;
+#X connect 48 1 49 0;
 #X connect 47 0 50 0;
 #X connect 50 0 0 0;
-#X connect 4 7 47 0;
-#X connect 52 0 53 0;
-#X connect 53 0 54 0;
-#X connect 54 0 52 0;
-#X connect 52 0 55 0;
-#X connect 55 0 0 0;
-#X connect 4 8 52 0;
-#X connect 57 0 58 0;
-#X connect 58 0 59 0;
-#X connect 59 0 57 0;
-#X connect 57 0 60 0;
-#X connect 60 0 0 0;
-#X connect 4 9 57 0;
-#X coords 0 -1 1 1 200 356 2 2 200;
+#X connect 4 9 47 0;
+#X coords 0 -1 1 1 200 346 2 2 200;

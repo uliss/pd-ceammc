@@ -11,7 +11,7 @@ class Prg2Str : public BaseObject {
 
 public:
     Prg2Str(const PdArgs& a);
-    void onFloat(float v);
+    void onFloat(t_float v) override;
 };
 
 void setup_midi_prg2str();

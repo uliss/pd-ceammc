@@ -14,17 +14,13 @@
 #ifndef LIST_LENGTH_H
 #define LIST_LENGTH_H
 
+#include "ceammc_data.h"
 #include "ceammc_object.h"
 using namespace ceammc;
-
-class DataTypeMList;
 
 class ListLength : public BaseObject {
 public:
     ListLength(const PdArgs& args);
-
-    void onList(const AtomList& lst) override;
-    void onDataT(const DataTypeMList& lst);
 };
 
 void setup_list_length();

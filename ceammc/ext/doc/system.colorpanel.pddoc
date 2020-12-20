@@ -23,9 +23,12 @@
             0-255 range.</property>
             <property name="@h" type="alias">alias for @mode hex. Output value as #RRGGBB
             symbol.</property>
-            <property name="@float" type="list">RGB color value in float range (0-1)</property>
-            <property name="@int" type="list">RGB color value in int range (0-255)</property>
-            <property name="@hex" type="symbol">color value as #RRGGBB symbol</property>
+            <property name="@float" type="list" default="1 1 1">RGB color value in float range
+            (0-1)</property>
+            <property name="@int" type="list" default="255 255 255">RGB color value in int range
+            (0-255)</property>
+            <property name="@hex" type="symbol" default="#ffffff">color value as #RRGGBB
+            symbol</property>
         </properties>
         <inlets>
             <inlet>

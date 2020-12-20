@@ -17,11 +17,17 @@ ceammc_string_extension(to_symbol)
 ceammc_string_extension(substr)
 ceammc_string_extension(match)
 
+list(APPEND STRING_SOURCES
+    string_property.cpp
+    symbol_equal.cpp
+    symbol_length.cpp
+    symbol_num_compare.cpp
+    symbol_to_any.cpp
+    symbol_to_int.cpp
+)
 
 add_library(ceammc_string STATIC mod_string.cpp ${STRING_SOURCES})
-if(UNIX)
-    set_target_properties(ceammc_string PROPERTIES COMPILE_FLAGS "-fPIC")
-endif()
 
-target_link_libraries(ceammc_string re2)
-include_directories(${PROJECT_SOURCE_DIR}/ceammc/extra/re2)
+target_include_directories(ceammc_string
+    PRIVATE "$<TARGET_PROPERTY:fmt,INCLUDE_DIRECTORIES>"
+            "$<TARGET_PROPERTY:re2,INCLUDE_DIRECTORIES>")

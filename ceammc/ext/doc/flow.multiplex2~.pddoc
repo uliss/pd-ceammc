@@ -26,7 +26,8 @@
             stereo-pairs</argument>
         </arguments>
         <properties>
-            <property name="@value" type="list">gain coefficients per each input</property>
+            <property name="@value" type="list" default="1 0">gain coefficients per each
+            input</property>
         </properties>
         <inlets dynamic="true">
             <inlet type="audio" number="1">
@@ -41,13 +42,13 @@
             <inlet type="audio" number="...">
                 <xinfo>... right input signal</xinfo>
             </inlet>
-            <inlet type="audio" number="n-1">
+            <inlet type="audio" number="n">
                 <xinfo>last left input signal</xinfo>
             </inlet>
-            <inlet type="audio" number="n-1">
+            <inlet type="audio" number="n">
                 <xinfo>last right input signal</xinfo>
             </inlet>
-            <inlet type="control" number="n-1">
+            <inlet type="control" number="n+1">
                 <xinfo>multiplexer control</xinfo>
             </inlet>
         </inlets>

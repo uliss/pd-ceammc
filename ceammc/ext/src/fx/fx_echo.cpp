@@ -13,11 +13,6 @@ public:
 
         bindPositionalArgsToProps({ SYM_PROP_DELAY, SYM_PROP_FEEDBACK });
     }
-
-    void m_reset(t_symbol*, const AtomList&)
-    {
-        dsp_->instanceClear();
-    }
 };
 
 void setup_fx_echo_tilde()

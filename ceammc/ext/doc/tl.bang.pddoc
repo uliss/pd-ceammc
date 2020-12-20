@@ -17,6 +17,9 @@
                 <see>tl.toggle</see>
                 <see view="link">tl.cue</see>
             </also>
+            <aliases>
+                <alias>tl.b</alias>
+            </aliases>
         </meta>
         <info>
             <par>Bang only when nearest left tl.cue was activated. If other cue is activated and

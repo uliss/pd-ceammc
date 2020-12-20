@@ -20,51 +20,40 @@
 
 namespace ceammc {
 
+constexpr const char* DEFAULT_ID = "default";
+
 template <typename T>
 class GlobalBase : public BaseObject {
     GlobalData<T> data_;
     GlobalBase(const GlobalBase&) = delete;
     void operator=(const GlobalBase&) = delete;
 
-    static t_symbol* to_symbol(const Atom& a)
-    {
-        if (a.isSymbol())
-            return a.asSymbol();
-        else
-            return gensym(to_string(a).c_str());
-    }
-
-    static t_symbol* arg_id(const AtomList& args)
-    {
-        if (args.empty())
-            return gensym("default");
-        else
-            return to_symbol(args[0]);
-    }
-
 public:
     GlobalBase(const PdArgs& a)
         : BaseObject(a)
-        , data_(arg_id(a.args), a.className->s_name)
+        , data_(parsedPosArgs().symbolAt(0, gensym(DEFAULT_ID)), a.className->s_name)
     {
-        if (positionalArguments().empty())
-            OBJ_DBG << "global object ID required! Using default id: \"" << data_.name()->s_name << '"';
+        if (data_.name() == gensym(DEFAULT_ID))
+            OBJ_DBG << "global object ID required! Using default id: " << data_.name();
 
         createOutlet();
-        createCbProperty("@.id", &GlobalBase::m_id);
-        createCbProperty("@.obj_refs", &GlobalBase::m_refs);
-        createCbProperty("@.obj_keys", &GlobalBase::m_keys);
+
+        createCbSymbolProperty("@.id", [this]() -> t_symbol* { return data_.name(); })
+            ->setInternal();
+
+        createCbListProperty("@.obj_refs",
+            [this]() -> AtomList { return m_refs(); })
+            ->setInternal();
+
+        createCbListProperty("@.obj_keys",
+            [this]() -> AtomList { return m_keys(); })
+            ->setInternal();
     }
 
     T& ref() { return data_.ref(); }
     const T& ref() const { return data_.ref(); }
 
     size_t refCount() const { return data_.refCount(); }
-
-    AtomList m_id() const
-    {
-        return listFrom(data_.name());
-    }
 
     AtomList m_keys() const
     {
@@ -73,7 +62,7 @@ public:
 
         AtomList res;
         res.reserve(keys.size());
-        for (auto s : keys)
+        for (auto& s : keys)
             res.append(Atom(s));
 
         return res;

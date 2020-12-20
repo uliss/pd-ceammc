@@ -13,8 +13,11 @@
  *****************************************************************************/
 
 #include <array>
+#include <cassert>
 
 #include "ceammc_faust.h"
+#include "ceammc_output.h"
+#include "ceammc_property_callback.h"
 
 namespace ceammc {
 namespace faust {
@@ -59,27 +62,35 @@ namespace faust {
         // set type and view
         switch (type_) {
         case UI_CHECK_BUTTON:
-            pinfo_.setType(PropertyInfoType::BOOLEAN);
-            pinfo_.setView(PropertyInfoView::TOGGLE);
+            pinfo_.setType(PropValueType::BOOLEAN);
+            pinfo_.setView(PropValueView::TOGGLE);
+            pinfo_.setDefault(init_ != 0);
             break;
         case UI_V_SLIDER:
         case UI_H_SLIDER:
-            pinfo_.setType(PropertyInfoType::FLOAT);
-            pinfo_.setView(PropertyInfoView::SLIDER);
+            pinfo_.setType(PropValueType::FLOAT);
+            pinfo_.setView(PropValueView::SLIDER);
             break;
         case UI_NUM_ENTRY:
-            pinfo_.setType(PropertyInfoType::FLOAT);
-            pinfo_.setView(PropertyInfoView::NUMBOX);
+            pinfo_.setType(PropValueType::FLOAT);
+            pinfo_.setView(PropValueView::NUMBOX);
             break;
         default:
-            pinfo_.setType(PropertyInfoType::FLOAT);
-            pinfo_.setView(PropertyInfoView::SLIDER);
+            pinfo_.setType(PropValueType::FLOAT);
+            pinfo_.setView(PropValueView::SLIDER);
             break;
         }
 
-        pinfo_.setDefault(init_);
-        pinfo_.setStep(step_);
-        pinfo_.setRange(min_, max_);
+        if (type_ != UI_CHECK_BUTTON) {
+            if (!pinfo_.setConstraints(PropValueConstraints::CLOSED_RANGE))
+                LIB_ERR << set_prop_symbol_ << " can't set constraints";
+
+            if (!pinfo_.setRangeFloat(min_, max_))
+                LIB_ERR << set_prop_symbol_ << " can't set range: " << min_ << " - " << max_;
+
+            pinfo_.setDefault(init_);
+            pinfo_.setStep(step_);
+        }
     }
 
     void UIElement::outputProperty(t_outlet* out)
@@ -94,7 +105,7 @@ namespace faust {
         else
             a.setSymbol(gensym("?"), true);
 
-        a.outputAsAny(out, set_prop_symbol_);
+        outletAny(out, set_prop_symbol_, a);
     }
 
     void UIElement::outputValue(t_outlet* out)
@@ -103,7 +114,7 @@ namespace faust {
             return;
 
         Atom a(value());
-        a.outputAsAny(out, gensym(path_.c_str()));
+        outletAny(out, gensym(path_.c_str()), a);
     }
 
     UIElement::UIElement(UIElementType t, const std::string& path, const std::string& label)
@@ -117,7 +128,7 @@ namespace faust {
         , value_(0)
         , set_prop_symbol_(0)
         , get_prop_symbol_(0)
-        , pinfo_(std::string("@") + label, PropertyInfoType::FLOAT)
+        , pinfo_(std::string("@") + label, PropValueType::FLOAT)
     {
         initProperty(label);
     }
@@ -184,13 +195,13 @@ namespace faust {
 
         AtomList lst;
         lst.append(atomFrom(path_));
-        lst.append(value());
-        lst.append(init_);
-        lst.append(min_);
-        lst.append(max_);
-        lst.append(step_);
+        lst.append(Atom(value()));
+        lst.append(Atom(init_));
+        lst.append(Atom(min_));
+        lst.append(Atom(max_));
+        lst.append(Atom(step_));
 
-        lst.outputAsAny(out, sel);
+        outletAny(out, sel, lst);
     }
 
     bool isGetAllProperties(t_symbol* s)
@@ -267,10 +278,10 @@ namespace faust {
         , xfade_(0)
         , n_xfade_(static_cast<int>(rate_ * xfadeTime() / 64))
     {
-        createCbProperty("@active", &FaustExternalBase::propActive, &FaustExternalBase::propSetActive);
-        auto& info = property("@active")->info();
-        info.setDefault(true);
-        info.setType(PropertyInfoType::BOOLEAN);
+        createCbBoolProperty(
+            "@active",
+            [this]() -> bool { return active_; },
+            [this](bool b) -> bool { active_ = b; return true; });
     }
 
     FaustExternalBase::~FaustExternalBase()
@@ -281,26 +292,20 @@ namespace faust {
 
     void FaustExternalBase::bindPositionalArgToProperty(size_t idx, t_symbol* propName)
     {
-        if (idx >= positionalArguments().size())
-            return;
-
-        const Atom& a = positionalArguments()[idx];
-
         if (!hasProperty(propName)) {
             OBJ_ERR << "invalid property name: " << propName;
             return;
         }
 
-        if (!property(propName)->set(a)) {
-            OBJ_ERR << "can't set " << propName << " from positional argument " << a;
+        if (!property(propName)->setArgIndex(idx)) {
+            OBJ_ERR << "can't set " << propName << " from positional argument " << idx;
             return;
         }
     }
 
     void FaustExternalBase::bindPositionalArgsToProps(std::initializer_list<t_symbol*> lst)
     {
-        size_t n = std::min(lst.size(), positionalArguments().size());
-        for (size_t i = 0; i < n; i++) {
+        for (size_t i = 0; i < lst.size(); i++) {
             t_symbol* p = lst.begin()[i];
             bindPositionalArgToProperty(i, p);
         }
@@ -333,7 +338,7 @@ namespace faust {
         if (N_IN == N_OUT) {
             // in non-active state - just pass thru samples
             copy_samples(N_IN, BS, in, faust_buf_.data());
-            copy_samples(N_OUT, BS, (const t_sample**)faust_buf_.data(), out);
+            copy_samples(N_OUT, BS, const_cast<const t_sample**>(faust_buf_.data()), out);
         } else {
             // if state is non-active and different inputs and outputs count
             // fill outs with zero
@@ -365,13 +370,13 @@ namespace faust {
 
     void FaustExternalBase::initSignalInputs(size_t n)
     {
-        for (int i = 1; i < n; i++)
+        for (size_t i = 1; i < n; i++)
             createSignalInlet();
     }
 
     void FaustExternalBase::initSignalOutputs(size_t n)
     {
-        for (int i = 0; i < n; i++)
+        for (size_t i = 0; i < n; i++)
             createSignalOutlet();
 
         faust_buf_.assign(n, nullptr);
@@ -380,16 +385,6 @@ namespace faust {
     float FaustExternalBase::xfadeTime() const
     {
         return 0.1f;
-    }
-
-    void FaustExternalBase::propSetActive(const AtomList& lst)
-    {
-        active_ = atomlistToValue<bool>(lst, false);
-    }
-
-    AtomList FaustExternalBase::propActive() const
-    {
-        return Atom(active_ ? 1 : 0);
     }
 
     void FaustExternalBase::bufFadeIn(const t_sample** in, t_sample** out, float k0)
@@ -401,8 +396,8 @@ namespace faust {
         float f = (xfade_--) * d;
         d = d / BS;
 
-        for (int j = 0; j < BS; j++, f -= d) {
-            for (int i = 0; i < N_OUT; i++)
+        for (size_t j = 0; j < BS; j++, f -= d) {
+            for (size_t i = 0; i < N_OUT; i++)
                 out[i][j] = k0 * f * in[i][j] + (1.0f - f) * faust_buf_[i][j];
         }
     }
@@ -416,8 +411,8 @@ namespace faust {
         float f = (xfade_--) * d;
         d = d / BS;
 
-        for (int j = 0; j < BS; j++, f -= d) {
-            for (int i = 0; i < N_OUT; i++)
+        for (size_t j = 0; j < BS; j++, f -= d) {
+            for (size_t i = 0; i < N_OUT; i++)
                 out[i][j] = f * faust_buf_[i][j] + k0 * (1.0f - f) * in[i][j];
         }
     }
@@ -428,20 +423,42 @@ namespace faust {
     {
     }
 
-    bool UIProperty::set(const AtomList& lst)
+    bool UIProperty::setList(const AtomListView& lst)
     {
-        if (!readonlyCheck())
+        if (!emptyCheck(lst))
             return false;
 
-        if (!emptyValueCheck(lst))
+        if (lst.isFloat()) {
+            setValue(lst[0].asT<t_float>(), true);
+            return true;
+        } else if (lst.size() == 2 && lst[0].isSymbol() && lst[1].isFloat()) {
+            const auto val = lst[1].asT<t_float>();
+            const auto op = lst[0].asT<t_symbol*>()->s_name;
+            if (op[0] == '+' && op[1] == '\0') {
+                setValue(value() + val, true);
+                return true;
+            } else if (op[0] == '-' && op[1] == '\0') {
+                setValue(value() - val, true);
+                return true;
+            } else if (op[0] == '*' && op[1] == '\0') {
+                setValue(value() * val, true);
+                return true;
+            } else if (op[0] == '/' && op[1] == '\0') {
+                if (val == 0) {
+                    LIB_ERR << "[@" << name()->s_name << "] division by zero";
+                    return false;
+                } else {
+                    setValue(value() / val, true);
+                    return true;
+                }
+            } else {
+                LIB_ERR << "[@" << name()->s_name << "] expected +-*/, got: " << lst[0];
+                return false;
+            }
+        } else {
+            LIB_ERR << "[@" << name()->s_name << "] float value expected, got: " << lst;
             return false;
-
-        if (!lst[0].isFloat())
-            return false;
-
-        t_float v = lst[0].asFloat();
-        el_->setValue(v, true);
-        return true;
+        }
     }
 
     AtomList UIProperty::get() const
@@ -449,17 +466,17 @@ namespace faust {
         return Atom(el_->value());
     }
 
-    float UIProperty::value() const
+    t_float UIProperty::value() const
     {
         return el_->value(el_->init());
     }
 
-    void UIProperty::setValue(float v, bool clip) const
+    void UIProperty::setValue(t_float v, bool clip) const
     {
         el_->setValue(v, clip);
     }
 
-    void UIElement::setContraints(float init, float min, float max, float step)
+    void UIElement::setContraints(FAUSTFLOAT init, FAUSTFLOAT min, FAUSTFLOAT max, FAUSTFLOAT step)
     {
         assert(min <= init && init <= max);
 
@@ -467,18 +484,36 @@ namespace faust {
         min_ = min;
         max_ = max;
         step_ = step;
-        pinfo_.setDefault(init_);
-        pinfo_.setRange(min_, max_);
-        pinfo_.setStep(step_);
+
+        if (type() != UI_CHECK_BUTTON) {
+            if (!pinfo_.setConstraints(PropValueConstraints::CLOSED_RANGE))
+                LIB_ERR << set_prop_symbol_ << " can't set constraints";
+
+            if (pinfo_.type() == PropValueType::FLOAT && !pinfo_.setRangeFloat(min_, max_))
+                LIB_ERR << set_prop_symbol_ << " can't set range: " << min_ << " - " << max_;
+            else if (pinfo_.type() == PropValueType::INTEGER && !pinfo_.setRangeInt(min_, max_))
+                LIB_ERR << set_prop_symbol_ << " can't set range: " << min_ << " - " << max_;
+
+            if (pinfo_.type() == PropValueType::FLOAT)
+                pinfo_.setDefault(init_);
+            else if (pinfo_.type() == PropValueType::INTEGER)
+                pinfo_.setDefault(static_cast<int>(init_));
+            else if (pinfo_.type() == PropValueType::BOOLEAN)
+                pinfo_.setDefault(static_cast<bool>(init_));
+
+            pinfo_.setStep(step_);
+        }
     }
 
-    PropertyInfoUnits to_units(const char* u)
+    PropValueUnits to_units(const char* u)
     {
-        static std::pair<const char*, PropertyInfoUnits> umap[] = {
-            { "Hz", PropertyInfoUnits::HZ },
-            { "ms", PropertyInfoUnits::MSEC },
-            { "percent", PropertyInfoUnits::PERCENT },
-            { "db", PropertyInfoUnits::DB }
+        static std::pair<const char*, PropValueUnits> umap[] = {
+            { "Hz", PropValueUnits::HZ },
+            { "ms", PropValueUnits::MSEC },
+            { "sec", PropValueUnits::SEC },
+            { "percent", PropValueUnits::PERCENT },
+            { "db", PropValueUnits::DB },
+            { "bpm", PropValueUnits::BPM }
         };
 
         for (auto& p : umap) {
@@ -486,7 +521,30 @@ namespace faust {
                 return p.second;
         }
 
-        return PropertyInfoUnits::UNKNOWN;
+        return PropValueUnits::NONE;
+    }
+
+    void copy_samples(size_t n_ch, size_t bs, const t_sample** in, t_sample** out, bool zero_abnormals)
+    {
+        if (!zero_abnormals) {
+            for (size_t i = 0; i < n_ch; i++)
+                memcpy(out[i], in[i], bs * sizeof(t_sample));
+        } else {
+            assert(bs % 8 == 0);
+
+            for (size_t i = 0; i < n_ch; i++) {
+                for (size_t j = 0; j < bs; j += 8) {
+                    out[i][j + 0] = std::isnormal(in[i][j + 0]) ? in[i][j + 0] : 0;
+                    out[i][j + 1] = std::isnormal(in[i][j + 1]) ? in[i][j + 1] : 0;
+                    out[i][j + 2] = std::isnormal(in[i][j + 2]) ? in[i][j + 2] : 0;
+                    out[i][j + 3] = std::isnormal(in[i][j + 3]) ? in[i][j + 3] : 0;
+                    out[i][j + 4] = std::isnormal(in[i][j + 4]) ? in[i][j + 4] : 0;
+                    out[i][j + 5] = std::isnormal(in[i][j + 5]) ? in[i][j + 5] : 0;
+                    out[i][j + 6] = std::isnormal(in[i][j + 6]) ? in[i][j + 6] : 0;
+                    out[i][j + 7] = std::isnormal(in[i][j + 7]) ? in[i][j + 7] : 0;
+                }
+            }
+        }
     }
 
 }

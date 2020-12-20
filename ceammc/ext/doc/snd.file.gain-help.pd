@@ -1,0 +1,24 @@
+#N canvas 556 418 666 433 12;
+#N canvas 0 22 450 278 (subpatch) 0;
+#X array sfg1 512 float 2;
+#X coords 0 1 512 -1 180 90 1 0 0;
+#X restore 50 281 graph;
+#N canvas 0 22 450 278 (subpatch) 0;
+#X array sfg2 512 float 2;
+#X coords 0 1 512 -1 180 90 1 0 0;
+#X restore 288 281 graph;
+#X obj 52 190 expand_env;
+#X msg 52 74 symbol sin_440_48k.wav;
+#X obj 52 221 snd.file;
+#X text 51 29 Gain value can be in decibels \, like +6.02db \, -3db
+and amplitude float coefficent., f 85;
+#X msg 292 74 symbol sin_440_48k.wav;
+#X msg 292 111 load %CEAMMC%/\$1 to sfg1 \, load %CEAMMC%/\$1 to sfg2
+@gain 0.5, f 29;
+#X msg 52 111 load %CEAMMC%/\$1 to sfg1 \, load %CEAMMC%/\$1 to sfg2
+@gain -3.01db, f 29;
+#X connect 2 0 4 0;
+#X connect 3 0 8 0;
+#X connect 6 0 7 0;
+#X connect 7 0 2 0;
+#X connect 8 0 2 0;

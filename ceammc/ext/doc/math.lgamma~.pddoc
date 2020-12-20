@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="math.lgamma~">
+        <title>math.lgamma~</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>natural logarithm of the absolute value of the gamma function for
+            signals</description>
+            <license>GPL3 or later</license>
+            <library>ceammc</library>
+            <category>math</category>
+            <keywords>math log gamma factorial</keywords>
+            <also>
+                <see>math.lgamma</see>
+                <see>math.gamma~</see>
+            </also>
+            <since>0.9</since>
+        </meta>
+        <inlets>
+            <inlet type="audio">
+                <xinfo>input signal</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet type="audio">output signal</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[bang(
+|
+[plot.linspace~ -4 5 400 #a]
+|
+[math.lgamma~]
+|
+[ui.plot~ @xlabels 1 @ylabels 1 @ymin -5 @ymax 10 @size 400 170 #b]
+
+
+
+
+
+
+
+
+
+
+
+
+[ui.dsp~]
+[X a:1->b:1]
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

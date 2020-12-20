@@ -15,65 +15,20 @@
 #include "ceammc_factory.h"
 #include "ceammc_faust.h"
 #include "ceammc_object.h"
+#include "ceammc_object_info.h"
 #include "ceammc_ui_object.h"
 #include "datatype_property.h"
 
-struct mockUI {
-};
-
-struct MockFaustExternal {
-    t_object x_obj;
-#ifdef __MINGW32__
-    /* This seems to be necessary as some as yet undetermined Pd routine seems
-     to write past the end of x_obj on Windows. */
-    int fence; /* dummy field (not used) */
-#endif
-    void* dsp;
-    ceammc::faust::PdUI<mockUI>* ui;
-};
-
 namespace ceammc {
-
-static ExternalSet ui_ext, base_ext, faust_ext, flext_ext;
-
-const ExternalSet& ui_external_set()
-{
-    return ui_ext;
-}
-
-const ExternalSet& base_external_set()
-{
-    return base_ext;
-}
-
-const ExternalSet& faust_external_set()
-{
-    return faust_ext;
-}
-
-const ExternalSet& flext_external_set()
-{
-    return flext_ext;
-}
 
 void register_ui_external(t_class* c)
 {
-    ui_ext.insert(c);
-}
-
-void register_base_external(t_class* c)
-{
-    base_ext.insert(c);
-}
-
-void register_faust_external(t_class* c)
-{
-    faust_ext.insert(c);
+    ObjectInfoStorage::instance().addUI(c);
 }
 
 void register_flext_external(t_class* c)
 {
-    flext_ext.insert(c);
+    ObjectInfoStorage::instance().addFlext(c);
 }
 
 bool is_ceammc(t_object* x)
@@ -93,7 +48,7 @@ bool is_ceammc_base(t_object* x)
     if (!x)
         return false;
 
-    return base_external_set().find(x->te_g.g_pd) != base_external_set().end();
+    return ObjectInfoStorage::instance().findInBase(x->te_g.g_pd);
 }
 
 bool is_ceammc_ui(t_object* x)
@@ -101,7 +56,7 @@ bool is_ceammc_ui(t_object* x)
     if (!x)
         return false;
 
-    return ui_external_set().find(x->te_g.g_pd) != ui_external_set().end();
+    return ObjectInfoStorage::instance().findInUI(x->te_g.g_pd);
 }
 
 bool is_ceammc_faust(t_object* x)
@@ -109,7 +64,7 @@ bool is_ceammc_faust(t_object* x)
     if (!x)
         return false;
 
-    return faust_external_set().find(x->te_g.g_pd) != faust_external_set().end();
+    return ObjectInfoStorage::instance().findInFaust(x->te_g.g_pd);
 }
 
 bool is_ceammc_flext(t_object* x)
@@ -117,7 +72,7 @@ bool is_ceammc_flext(t_object* x)
     if (!x)
         return false;
 
-    return flext_external_set().find(x->te_g.g_pd) != flext_external_set().end();
+    return ObjectInfoStorage::instance().findInFlext(x->te_g.g_pd);
 }
 
 bool is_ceammc_abstraction(t_object* x)
@@ -160,12 +115,12 @@ std::vector<PropertyInfo> ceammc_base_properties(t_object* x)
     std::vector<PropertyInfo> res;
     res.reserve(obj->properties().size());
 
-    for (auto& kv : obj->properties()) {
-        Property* p = kv.second;
-        if (!p || !p->visible())
+    for (auto p : obj->properties()) {
+        if (!p)
             continue;
 
-        res.push_back(p->info());
+        p->get();
+        res.push_back(p->infoT());
     }
 
     return res;
@@ -197,14 +152,19 @@ std::vector<PropertyInfo> ceammc_faust_properties(t_object* x)
     if (!is_ceammc_faust(x))
         return {};
 
-    MockFaustExternal* ext = reinterpret_cast<MockFaustExternal*>(x);
-    size_t n = ext->ui->uiCount();
+    using FaustObj = PdObject<faust::FaustExternalBase>;
 
+    auto* obj = reinterpret_cast<FaustObj*>(x)->impl;
     std::vector<PropertyInfo> res;
-    res.reserve(n);
+    res.reserve(obj->properties().size());
 
-    for (size_t i = 0; i < n; i++)
-        res.push_back(ext->ui->uiAt(i)->propInfo());
+    for (auto p : obj->properties()) {
+        if (!p)
+            continue;
+
+        p->get();
+        res.push_back(p->infoT());
+    }
 
     return res;
 }
@@ -223,7 +183,7 @@ std::vector<PropertyInfo> ceammc_abstraction_properties(t_object* x)
         if (y->g_pd->c_name != SYM_PROP_DECL)
             continue;
 
-        t_object* prop_declare = (t_object*)y;
+        t_object* prop_declare = reinterpret_cast<t_object*>(y);
         int argc = binbuf_getnatom(prop_declare->te_binbuf);
         t_atom* argv = binbuf_getvec(prop_declare->te_binbuf);
 

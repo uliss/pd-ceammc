@@ -2,6 +2,7 @@
 
 BINDIR="@PROJECT_BINARY_DIR@/dist"
 VERSION="@CEAMMC_LIB_VERSION@"
+OBJLIST="@PROJECT_SOURCE_DIR@/ceammc/ext/doc/ceammc_deken_objlist.txt"
 DEKEN="@DEKEN@"
 
 CEAMMC_LIB_DIR="$BINDIR/ceammc"
@@ -9,8 +10,13 @@ CEAMMC_LIB_DIR="$BINDIR/ceammc"
 if [ ! -d "$CEAMMC_LIB_DIR" ]
 then
     echo "ceammc external directory not found: $CEAMMC_LIB_DIR"
-    echo "may be you shoudl call make ceammc_lib"
+    echo "may be you should call make ceammc_lib"
     exit 1
 fi
 
-$DEKEN package --version $VERSION "${CEAMMC_LIB_DIR}"
+cd "@BINDIR@"
+rm -f ceammc[v@CEAMMC_LIB_VERSION@*.dek.txt
+
+$DEKEN package --version $VERSION \
+    --objects "${OBJLIST}" \
+    "${CEAMMC_LIB_DIR}"

@@ -14,6 +14,7 @@
 #include "speech_flite.h"
 #include "ceammc_factory.h"
 #include "ceammc_format.h"
+#include "datatype_string.h"
 #include "fliterender.h"
 
 extern "C" {
@@ -29,27 +30,28 @@ extern void unregister_cmu_us_kal16();
 
 SpeechFlite::SpeechFlite(const PdArgs& args)
     : BaseObject(args)
-    , name_(positionalSymbolArgument(0, &s_))
+    , name_(&s_)
     , voice_name_(nullptr)
     , speed_(nullptr)
     , pitch_(nullptr)
     , render_(new FliteThread())
     , clock_(this, &SpeechFlite::clockTick)
 {
-    createProperty(new PointerProperty<t_symbol*>("@array", &name_, false));
+    createCbSymbolProperty(
+        "@array",
+        [this]() -> t_symbol* { return name_; },
+        [this](t_symbol* s) -> bool { name_ = s; return true; })
+        ->setArgIndex(0);
 
-    voice_name_ = new SymbolProperty("@voice", gensym("kal16"));
-    voice_name_->info().addEnum("slt");
-    voice_name_->info().addEnum("rms");
-    voice_name_->info().addEnum("awb");
-    voice_name_->info().addEnum("kal16");
-    createProperty(voice_name_);
+    voice_name_ = new SymbolEnumProperty("@voice", { "kal16", "slt", "rms", "awb" });
+    addProperty(voice_name_);
 
-    speed_ = new FloatPropertyClosedRange("@speed", 1, 1, 4);
-    createProperty(speed_);
+    speed_ = new FloatProperty("@speed", 1);
+    speed_->checkClosedRange(1, 4);
+    addProperty(speed_);
 
     pitch_ = new FloatProperty("@pitch", -1);
-    createProperty(pitch_);
+    addProperty(pitch_);
 
     createInlet(&name_);
     createOutlet();
@@ -77,7 +79,7 @@ void SpeechFlite::onList(const AtomList& lst)
     synth(to_string(lst).c_str());
 }
 
-void SpeechFlite::onDataT(const DataTPtr<DataTypeString>& dptr)
+void SpeechFlite::onDataT(const StringAtom& dptr)
 {
     synth(dptr->str().c_str());
 }
@@ -109,9 +111,8 @@ void SpeechFlite::clockTick()
         clock_.delay(25);
     } else {
         // array was delete while worker running
-        std::string name = array_.name();
         if (!array_.update()) {
-            OBJ_ERR << "array not found: " << name;
+            OBJ_ERR << "array not found: " << array_.name();
             return;
         }
 

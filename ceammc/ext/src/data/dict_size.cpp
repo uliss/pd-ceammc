@@ -15,14 +15,14 @@
 #include "ceammc_factory.h"
 
 DictSize::DictSize(const PdArgs& args)
-    : BaseObject(args)
+    : DictBase(args)
 {
     createOutlet();
 }
 
-void DictSize::onDataT(const DataTPtr<DataTypeDict>& dptr)
+void DictSize::onDataT(const DictAtom& dict)
 {
-    floatTo(0, dptr->size());
+    floatTo(0, dict->size());
 }
 
 void setup_dict_size()

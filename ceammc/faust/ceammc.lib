@@ -1,15 +1,14 @@
 declare name "Ceammc PureData misc utils";
-declare version "0.1.1";
+declare version "0.1.2";
 
 ba = library("basics.lib");
 si = library("signals.lib");
 
 // in puredata 0db = 100db
 db_pd2faust(v) = (v - 100);
-db_faust2pd(v) = (v + 100);
 
 // in puredata common time management in milliseconds
-time_pd2faust(sec) = (sec / 1000.0);
+time_pd2faust(msec) = (msec / 1000.0);
 
 // duplicate inputs
 duplicate(1, x) = x;

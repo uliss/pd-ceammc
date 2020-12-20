@@ -15,34 +15,43 @@
 #include "ceammc_factory.h"
 
 DictReject::DictReject(const PdArgs& args)
-    : BaseObject(args)
-    , keys_(args.args)
+    : DictBase(args)
+    , keys_(nullptr)
 {
+    keys_ = new ListProperty("@keys");
+    keys_->setArgIndex(0);
+    addProperty(keys_);
+
     createInlet();
     createOutlet();
 }
 
-void DictReject::parseProperties()
-{
-}
-
 void DictReject::onInlet(size_t, const AtomList& lst)
 {
-    keys_ = lst;
+    keys_->set(lst);
 }
 
-void DictReject::onDataT(const DataTPtr<DataTypeDict>& dptr)
+void DictReject::onDataT(const DictAtom& dict)
 {
-    DataTypeDict res(*dptr);
+    DictAtom res = dict;
 
-    for (auto& a : keys_)
-        res.remove(a);
+    res.detachData();
+    res->removeIf([this](const Atom& a) -> bool { return keys_->value().contains(a); });
 
-    dataTo(0, DataTPtr<DataTypeDict>(res));
+    atomTo(0, res);
 }
 
 void setup_dict_reject()
 {
     ObjectFactory<DictReject> obj("dict.reject");
     obj.processData<DataTypeDict>();
+
+    obj.setDescription("rejects specified keys from dict");
+    obj.addAuthor("Serge Poltavsky");
+    obj.setKeywords({ "reject", "dictionary" });
+    obj.setCategory("data");
+    obj.setSinceVersion(0, 7);
+
+    DictReject::setInletsInfo(obj.classPointer(), { "Dict", "list: set rejected keys" });
+    DictReject::setOutletsInfo(obj.classPointer(), { "Dict" });
 }

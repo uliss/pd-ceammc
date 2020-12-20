@@ -5,13 +5,14 @@
 
 ListCount::ListCount(const PdArgs& a)
     : ListBase(a)
-    , pattern_(0)
+    , pattern_(nullptr)
 {
     createInlet();
     createOutlet();
 
-    pattern_ = new AtomProperty("@pattern", positionalArgument(0));
-    createProperty(pattern_);
+    pattern_ = new AtomProperty("@pattern", Atom());
+    pattern_->setArgIndex(0);
+    addProperty(pattern_);
 }
 
 void ListCount::onList(const AtomList& l)
@@ -35,4 +36,13 @@ void setup_list_count()
 {
     ObjectFactory<ListCount> obj("list.count");
     obj.processData<DataTypeMList>();
+
+    obj.setDescription("output the number of items that equal to specified value");
+    obj.addAuthor("Serge Poltavsky");
+    obj.setKeywords({ "list", "count" });
+    obj.setCategory("list");
+    obj.setSinceVersion(0, 1);
+
+    ListCount::setInletsInfo(obj.classPointer(), { "list or Mlist", "atom: pattern to compare" });
+    ListCount::setOutletsInfo(obj.classPointer(), { "int" });
 }

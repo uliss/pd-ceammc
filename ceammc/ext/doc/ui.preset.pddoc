@@ -31,33 +31,34 @@
             specified preset slot</event>
             <event editmode="false" type="left-click" keys="Alt">clear all values from specified
             preset slot</event>
-            <event editmode="false" type="right-click">opens popup menu with read/write
+            <event editmode="false" type="right-click">opens popup menu with read/write/duplicate
             actions</event>
         </mouse>
         <properties>
             <property name="@current" type="int" default="0" readonly="true">current preset
             index</property>
             <!-- common -->
-            <property name="@send" type="symbol">send destination</property>
-            <property name="@receive" type="symbol">receive source</property>
-            <property name="@size" type="list">element size (width, height pair)</property>
+            <property name="@send" type="symbol" default="(null)">send destination</property>
+            <property name="@receive" type="symbol" default="(null)">receive source</property>
+            <property name="@size" type="list" default="102 42">element size (width, height
+            pair)</property>
             <property name="@pinned" type="int" enum="0 1" default="0">pin mode. if 1 - put element
             to the lowest level</property>
-            <property name="@active_color" type="list">active color (list of red, green, blue
-            values in 0-1 range)</property>
-            <property name="@text_color" type="list">text color (list of red, green, blue values in
-            0-1 range)</property>
-            <property name="@empty_color" type="list">empty cell color (list of red, green, blue
-            values in 0-1 range)</property>
-            <property name="@stored_color" type="list">stored cell color (list of red, green, blue
-            values in 0-1 range)</property>
-            <property name="@background_color" type="list">element background color (list of red,
+            <property name="@active_color" type="list" default="0 0.75 1 1">active color (list of
+            red, green, blue values in 0-1 range)</property>
+            <property name="@text_color" type="list" default="0 0 0 1">text color (list of red,
             green, blue values in 0-1 range)</property>
-            <property name="@border_color" type="list">border color (list of red, green, blue
-            values in 0-1 range)</property>
+            <property name="@empty_color" type="list" default="0.86 0.86 0.86 1">empty cell color
+            (list of red, green, blue values in 0-1 range)</property>
+            <property name="@stored_color" type="list" default="0.5 0.5 0.5 1">stored cell color
+            (list of red, green, blue values in 0-1 range)</property>
+            <property name="@background_color" type="list" default="0.93 0.93 0.93 1">element
+            background color (list of red, green, blue values in 0-1 range)</property>
+            <property name="@border_color" type="list" default="0.6 0.6 0.6 1">border color (list
+            of red, green, blue values in 0-1 range)</property>
             <property name="@fontsize" type="int" minvalue="4" maxvalue="11" default="11">
             fontsize</property>
-            <property name="@fontname" type="symbol">fontname</property>
+            <property name="@fontname" type="symbol" default="Helvetica">fontname</property>
             <property name="@fontweight" type="symbol" enum="normal bold" default="normal">font
             weight</property>
             <property name="@fontslant" type="symbol" enum="roman italic" default="roman">font
@@ -74,6 +75,7 @@
             <param type="symbol" name="PATH" required="true">path to preset file</param></method>
             <method name="write">read presets from file 
             <param type="symbol" name="PATH" required="true">path to preset file</param></method>
+            <method name="duplicate">fill empty presets by coping exiting values</method>
             <!-- common-->
             <method name="pos">set UI element position 
             <param name="X" type="float" required="true">top left x-coord</param>
@@ -97,9 +99,9 @@
 |
 [load $1(
 |
-| [clear 1(   [clearall(         [loadbang]
-| |           |                  |
-| | [store 1( | [write prs.txt(  [read prs.txt(
+| [clear 1(   [clearall(
+| |           |
+| | [store 1( | [write prs.txt(  [loadmsg read prs.txt]
 | | |         | |                |
 | | |         | |                |
 [ui.preset                       ]

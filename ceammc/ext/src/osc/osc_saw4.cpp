@@ -9,7 +9,7 @@ public:
         : faust_osc_saw4_tilde(args)
     {
         createInlet();
-        setInitSignalValue(positionalFloatArgument(0, 0));
+        setInitSignalValue(parsedPosArgs().floatAt(0, 0));
     }
 
     void onInlet(size_t n, const AtomList&) override

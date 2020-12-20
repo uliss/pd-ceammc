@@ -1,64 +1,67 @@
-#include <boost/random/mersenne_twister.hpp>
-#include <boost/random/uniform_int_distribution.hpp>
-#include <ctime>
-#include <m_pd.h>
+#include "random_int.h"
+#include "ceammc_factory.h"
+#include "fmt/format.h"
 
-#include "ceammc.h"
-
-t_class* random_uniform_int_class;
-struct t_random_uniform_int {
-    t_object x_obj;
-    t_inlet* upper_range_inlet;
-    t_float lower_range;
-    t_float upper_range;
-};
-
-static boost::random::mt19937 random_gen(std::time(0));
-
-static void random_uniform_int_bang(t_random_uniform_int* x)
+RandomInt::RandomInt(const PdArgs& a)
+    : BaseObject(a)
+    , min_(nullptr)
+    , max_(nullptr)
+    , seed_(nullptr)
 {
-    x->lower_range = static_cast<int>(x->lower_range);
-    x->upper_range = static_cast<int>(x->upper_range);
+    createOutlet();
 
-    if (x->lower_range == x->upper_range) {
-        outlet_float(x->x_obj.te_outlet, x->lower_range);
+    min_ = new IntProperty("@min", 0);
+    max_ = new IntProperty("@max", 255);
+
+    addProperty(min_);
+    addProperty(max_);
+
+    switch (parsedPosArgs().size()) {
+    case 2:
+        min_->setArgIndex(0);
+        max_->setArgIndex(1);
+        break;
+    case 1:
+        max_->setArgIndex(0);
+        break;
+    case 0:
+        break;
+    default:
+        OBJ_ERR << "expecting MIN MAX or MAX args";
+        break;
+    }
+
+    seed_ = new SizeTProperty("@seed", 0);
+    seed_->setSuccessFn([this](Property* p) { gen_.setSeed(seed_->value()); });
+    addProperty(seed_);
+}
+
+void RandomInt::onBang()
+{
+    if (min_->value() > max_->value()) {
+        LIB_ERR << fmt::format("@min should be less then @max, got: {} > {}",
+            min_->value(), max_->value());
         return;
     }
 
-    boost::random::uniform_int_distribution<int> dist(x->lower_range, x->upper_range);
-    outlet_float(x->x_obj.te_outlet, dist(random_gen));
+    if (min_->value() == max_->value())
+        return floatTo(0, min_->value());
+
+    std::uniform_int_distribution<int> dist(min_->value(), max_->value());
+    floatTo(0, dist(gen_.get()));
 }
 
-static void random_uniform_int_float(t_random_uniform_int* x, t_floatarg lower)
+void setup_random_int()
 {
-    x->lower_range = lower;
-}
+    ObjectFactory<RandomInt> obj("random.int");
+    obj.addAlias("random.i");
 
-static void* random_uniform_int_new(t_floatarg lower, t_floatarg upper)
-{
-    t_random_uniform_int* x = reinterpret_cast<t_random_uniform_int*>(pd_new(random_uniform_int_class));
-    outlet_new(&x->x_obj, &s_float);
-    x->upper_range_inlet = floatinlet_new(&x->x_obj, &x->upper_range);
+    obj.setDescription("uniform random integer generator in specified range");
+    obj.addAuthor("Serge Poltavsky");
+    obj.setKeywords({ "random", "int" });
+    obj.setCategory("random");
+    obj.setSinceVersion(0, 1);
 
-    if (upper < lower)
-        std::swap(lower, upper);
-    x->upper_range = upper;
-    x->lower_range = lower;
-
-    return static_cast<void*>(x);
-}
-
-static void random_uniform_int_free(t_random_uniform_int* x)
-{
-    inlet_free(x->upper_range_inlet);
-}
-
-extern "C" void setup_random0x2eint()
-{
-    random_uniform_int_class = class_new(gensym("random.int"),
-        reinterpret_cast<t_newmethod>(random_uniform_int_new),
-        reinterpret_cast<t_method>(random_uniform_int_free),
-        sizeof(t_random_uniform_int), 0, A_DEFFLOAT, A_DEFFLOAT, 0);
-    class_addbang(random_uniform_int_class, random_uniform_int_bang);
-    class_addfloat(random_uniform_int_class, random_uniform_int_float);
+    RandomInt::setInletsInfo(obj.classPointer(), { "bang" });
+    RandomInt::setOutletsInfo(obj.classPointer(), { "int: random in \\[@min..@max\\] range" });
 }

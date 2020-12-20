@@ -1,6 +1,6 @@
 /* ------------------------------------------------------------
 name: "fx.wahwah"
-Code generated with Faust 2.22.1 (https://faust.grame.fr)
+Code generated with Faust 2.28.6 (https://faust.grame.fr)
 Compilation options: -lang cpp -scal -ftz 0
 ------------------------------------------------------------ */
 
@@ -14,7 +14,7 @@ Compilation options: -lang cpp -scal -ftz 0
 #include <memory>
 #include <string>
 
-/************************** BEGIN dsp.h **************************/
+/************************** BEGIN fx_wahwah_dsp.h **************************/
 /************************************************************************
  FAUST Architecture File
  Copyright (C) 2003-2017 GRAME, Centre National de Creation Musicale
@@ -48,7 +48,7 @@ Compilation options: -lang cpp -scal -ftz 0
 #define FAUSTFLOAT float
 #endif
 
-class UI;
+struct UI;
 struct Meta;
 
 /**
@@ -68,12 +68,12 @@ struct dsp_memory_manager {
 * Signal processor definition.
 */
 
-class dsp {
+class fx_wahwah_dsp {
 
     public:
 
-        dsp() {}
-        virtual ~dsp() {}
+        fx_wahwah_dsp() {}
+        virtual ~fx_wahwah_dsp() {}
 
         /* Return instance number of audio inputs */
         virtual int getNumInputs() = 0;
@@ -83,7 +83,7 @@ class dsp {
     
         /**
          * Trigger the ui_interface parameter with instance specific calls
-         * to 'addBtton', 'addVerticalSlider'... in order to build the UI.
+         * to 'openTabBox', 'addButton', 'addVerticalSlider'... in order to build the UI.
          *
          * @param ui_interface - the user interface builder
          */
@@ -126,7 +126,7 @@ class dsp {
          *
          * @return a copy of the instance on success, otherwise a null pointer.
          */
-        virtual dsp* clone() = 0;
+        virtual fx_wahwah_dsp* clone() = 0;
     
         /**
          * Trigger the Meta* parameter with instance specific calls to 'declare' (key, value) metadata.
@@ -162,15 +162,15 @@ class dsp {
  * Generic DSP decorator.
  */
 
-class decorator_dsp : public dsp {
+class decorator_dsp : public fx_wahwah_dsp {
 
     protected:
 
-        dsp* fDSP;
+        fx_wahwah_dsp* fDSP;
 
     public:
 
-        decorator_dsp(dsp* dsp = nullptr):fDSP(dsp) {}
+        decorator_dsp(fx_wahwah_dsp* fx_wahwah_dsp = nullptr):fDSP(fx_wahwah_dsp) {}
         virtual ~decorator_dsp() { delete fDSP; }
 
         virtual int getNumInputs() { return fDSP->getNumInputs(); }
@@ -210,7 +210,7 @@ class dsp_factory {
         virtual std::vector<std::string> getLibraryList() = 0;
         virtual std::vector<std::string> getIncludePathnames() = 0;
     
-        virtual dsp* createDSPInstance() = 0;
+        virtual fx_wahwah_dsp* createDSPInstance() = 0;
     
         virtual void setMemoryManager(dsp_memory_manager* manager) = 0;
         virtual dsp_memory_manager* getMemoryManager() = 0;
@@ -234,11 +234,11 @@ class dsp_factory {
 #endif
 
 #endif
-/**************************  END  dsp.h **************************/
+/**************************  END  fx_wahwah_dsp.h **************************/
 /************************** BEGIN UI.h **************************/
 /************************************************************************
  FAUST Architecture File
- Copyright (C) 2003-2017 GRAME, Centre National de Creation Musicale
+ Copyright (C) 2003-2020 GRAME, Centre National de Creation Musicale
  ---------------------------------------------------------------------
  This Architecture section is free software; you can redistribute it
  and/or modify it under the terms of the GNU General Public License
@@ -276,48 +276,44 @@ class dsp_factory {
 struct Soundfile;
 
 template <typename REAL>
-class UIReal
+struct UIReal
 {
+    UIReal() {}
+    virtual ~UIReal() {}
     
-    public:
-        
-        UIReal() {}
-        virtual ~UIReal() {}
-        
-        // -- widget's layouts
-        
-        virtual void openTabBox(const char* label) = 0;
-        virtual void openHorizontalBox(const char* label) = 0;
-        virtual void openVerticalBox(const char* label) = 0;
-        virtual void closeBox() = 0;
-        
-        // -- active widgets
-        
-        virtual void addButton(const char* label, REAL* zone) = 0;
-        virtual void addCheckButton(const char* label, REAL* zone) = 0;
-        virtual void addVerticalSlider(const char* label, REAL* zone, REAL init, REAL min, REAL max, REAL step) = 0;
-        virtual void addHorizontalSlider(const char* label, REAL* zone, REAL init, REAL min, REAL max, REAL step) = 0;
-        virtual void addNumEntry(const char* label, REAL* zone, REAL init, REAL min, REAL max, REAL step) = 0;
-        
-        // -- passive widgets
-        
-        virtual void addHorizontalBargraph(const char* label, REAL* zone, REAL min, REAL max) = 0;
-        virtual void addVerticalBargraph(const char* label, REAL* zone, REAL min, REAL max) = 0;
-        
-        // -- soundfiles
-        
-        virtual void addSoundfile(const char* label, const char* filename, Soundfile** sf_zone) = 0;
-        
-        // -- metadata declarations
-        
-        virtual void declare(REAL* zone, const char* key, const char* val) {}
+    // -- widget's layouts
+    
+    virtual void openTabBox(const char* label) = 0;
+    virtual void openHorizontalBox(const char* label) = 0;
+    virtual void openVerticalBox(const char* label) = 0;
+    virtual void closeBox() = 0;
+    
+    // -- active widgets
+    
+    virtual void addButton(const char* label, REAL* zone) = 0;
+    virtual void addCheckButton(const char* label, REAL* zone) = 0;
+    virtual void addVerticalSlider(const char* label, REAL* zone, REAL init, REAL min, REAL max, REAL step) = 0;
+    virtual void addHorizontalSlider(const char* label, REAL* zone, REAL init, REAL min, REAL max, REAL step) = 0;
+    virtual void addNumEntry(const char* label, REAL* zone, REAL init, REAL min, REAL max, REAL step) = 0;
+    
+    // -- passive widgets
+    
+    virtual void addHorizontalBargraph(const char* label, REAL* zone, REAL min, REAL max) = 0;
+    virtual void addVerticalBargraph(const char* label, REAL* zone, REAL min, REAL max) = 0;
+    
+    // -- soundfiles
+    
+    virtual void addSoundfile(const char* label, const char* filename, Soundfile** sf_zone) = 0;
+    
+    // -- metadata declarations
+    
+    virtual void declare(REAL* zone, const char* key, const char* val) {}
 };
 
 struct UI : public UIReal<FAUSTFLOAT>
 {
-
-        UI() {}
-        virtual ~UI() {}
+    UI() {}
+    virtual ~UI() {}
 };
 
 #endif
@@ -486,7 +482,7 @@ using namespace ceammc::faust;
 
 // clang-format off
 #ifndef FAUST_MACRO
-struct fx_wahwah : public dsp {
+struct fx_wahwah : public fx_wahwah_dsp {
 };
 #endif
 // clang-format on
@@ -543,6 +539,7 @@ class fx_wahwahSIG0 {
 	}
 	
 	void fillfx_wahwahSIG0(int count, float* table) {
+		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int i = 0; (i < count); i = (i + 1)) {
 			table[i] = 0.0f;
 		}
@@ -566,7 +563,7 @@ static float fx_wahwah_faustpower2_f(float value) {
 #define exp10 __exp10
 #endif
 
-class fx_wahwah : public dsp {
+class fx_wahwah : public fx_wahwah_dsp {
 	
  private:
 	
@@ -575,15 +572,15 @@ class fx_wahwah : public dsp {
 	int iVec0[2];
 	float fRec0[2];
 	float ftbl0[16];
+	FAUSTFLOAT fHslider1;
+	float fVec1[2];
 	int fSampleRate;
 	float fConst0;
 	float fConst1;
-	FAUSTFLOAT fHslider1;
+	FAUSTFLOAT fHslider2;
 	float fRec4[2];
 	int iRec3[2];
-	int iVec1[2];
-	FAUSTFLOAT fHslider2;
-	float fVec2[2];
+	int iVec2[2];
 	float fRec5[2];
 	int iRec6[2];
 	float fRec2[2];
@@ -599,9 +596,9 @@ class fx_wahwah : public dsp {
 		m->declare("basics.lib/name", "Faust Basic Element Library");
 		m->declare("basics.lib/version", "0.1");
 		m->declare("ceammc.lib/name", "Ceammc PureData misc utils");
-		m->declare("ceammc.lib/version", "0.1.1");
+		m->declare("ceammc.lib/version", "0.1.2");
 		m->declare("ceammc_ui.lib/name", "CEAMMC faust default UI elements");
-		m->declare("ceammc_ui.lib/version", "0.1.1");
+		m->declare("ceammc_ui.lib/version", "0.1.2");
 		m->declare("filename", "fx_wahwah.dsp");
 		m->declare("filters.lib/fir:author", "Julius O. Smith III");
 		m->declare("filters.lib/fir:copyright", "Copyright (C) 2003-2019 by Julius O. Smith III <jos@ccrma.stanford.edu>");
@@ -618,8 +615,10 @@ class fx_wahwah : public dsp {
 		m->declare("maths.lib/copyright", "GRAME");
 		m->declare("maths.lib/license", "LGPL with exception");
 		m->declare("maths.lib/name", "Faust Math Library");
-		m->declare("maths.lib/version", "2.1");
+		m->declare("maths.lib/version", "2.3");
 		m->declare("name", "fx.wahwah");
+		m->declare("platform.lib/name", "Generic Platform Library");
+		m->declare("platform.lib/version", "0.1");
 		m->declare("signals.lib/name", "Faust Signal Routing Library");
 		m->declare("signals.lib/version", "0.0");
 		m->declare("vaeffects.lib/name", "Faust Virtual Analog Filter Effect Library");
@@ -679,44 +678,56 @@ class fx_wahwah : public dsp {
 	virtual void instanceResetUserInterface() {
 		fCheckbox0 = FAUSTFLOAT(0.0f);
 		fHslider0 = FAUSTFLOAT(1.0f);
-		fHslider1 = FAUSTFLOAT(540.0f);
-		fHslider2 = FAUSTFLOAT(0.59999999999999998f);
+		fHslider1 = FAUSTFLOAT(0.59999999999999998f);
+		fHslider2 = FAUSTFLOAT(540.0f);
 	}
 	
 	virtual void instanceClear() {
+		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l0 = 0; (l0 < 2); l0 = (l0 + 1)) {
 			iVec0[l0] = 0;
 		}
+		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l1 = 0; (l1 < 2); l1 = (l1 + 1)) {
 			fRec0[l1] = 0.0f;
 		}
+		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l2 = 0; (l2 < 2); l2 = (l2 + 1)) {
-			fRec4[l2] = 0.0f;
+			fVec1[l2] = 0.0f;
 		}
+		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l3 = 0; (l3 < 2); l3 = (l3 + 1)) {
-			iRec3[l3] = 0;
+			fRec4[l3] = 0.0f;
 		}
+		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l4 = 0; (l4 < 2); l4 = (l4 + 1)) {
-			iVec1[l4] = 0;
+			iRec3[l4] = 0;
 		}
+		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l5 = 0; (l5 < 2); l5 = (l5 + 1)) {
-			fVec2[l5] = 0.0f;
+			iVec2[l5] = 0;
 		}
+		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l6 = 0; (l6 < 2); l6 = (l6 + 1)) {
 			fRec5[l6] = 0.0f;
 		}
+		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l7 = 0; (l7 < 2); l7 = (l7 + 1)) {
 			iRec6[l7] = 0;
 		}
+		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l8 = 0; (l8 < 2); l8 = (l8 + 1)) {
 			fRec2[l8] = 0.0f;
 		}
+		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l9 = 0; (l9 < 2); l9 = (l9 + 1)) {
 			fRec7[l9] = 0.0f;
 		}
+		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l10 = 0; (l10 < 2); l10 = (l10 + 1)) {
 			fRec8[l10] = 0.0f;
 		}
+		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l11 = 0; (l11 < 3); l11 = (l11 + 1)) {
 			fRec1[l11] = 0.0f;
 		}
@@ -742,12 +753,12 @@ class fx_wahwah : public dsp {
 	
 	virtual void buildUserInterface(UI* ui_interface) {
 		ui_interface->openVerticalBox("fx.wahwah");
-		ui_interface->addHorizontalSlider("angle", &fHslider2, 0.600000024f, 0.0f, 1.0f, 0.00999999978f);
+		ui_interface->addHorizontalSlider("angle", &fHslider1, 0.600000024f, 0.0f, 1.0f, 0.00999999978f);
 		ui_interface->addCheckButton("bypass", &fCheckbox0);
 		ui_interface->declare(&fHslider0, "style", "knob");
 		ui_interface->addHorizontalSlider("drywet", &fHslider0, 1.0f, 0.0f, 1.0f, 0.00999999978f);
-		ui_interface->declare(&fHslider1, "unit", "bpm");
-		ui_interface->addHorizontalSlider("speed", &fHslider1, 540.0f, 360.0f, 780.0f, 0.100000001f);
+		ui_interface->declare(&fHslider2, "unit", "bpm");
+		ui_interface->addHorizontalSlider("speed", &fHslider2, 540.0f, 360.0f, 780.0f, 0.100000001f);
 		ui_interface->closeBox();
 	}
 	
@@ -756,22 +767,23 @@ class fx_wahwah : public dsp {
 		FAUSTFLOAT* output0 = outputs[0];
 		int iSlow0 = int(float(fCheckbox0));
 		float fSlow1 = (0.00100000005f * float(fHslider0));
-		float fSlow2 = (0.00100000005f * float(fHslider1));
-		float fSlow3 = float(fHslider2);
-		int iSlow4 = (fSlow3 <= 0.0f);
+		float fSlow2 = float(fHslider1);
+		float fSlow3 = (0.00100000005f * float(fHslider2));
+		int iSlow4 = (fSlow2 <= 0.0f);
+		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int i = 0; (i < count); i = (i + 1)) {
 			float fTemp0 = float(input0[i]);
 			float fTemp1 = (iSlow0 ? 0.0f : fTemp0);
 			iVec0[0] = 1;
 			fRec0[0] = (fSlow1 + (0.999000013f * fRec0[1]));
-			fRec4[0] = (fSlow2 + (0.999000013f * fRec4[1]));
+			fVec1[0] = fSlow2;
+			fRec4[0] = (fSlow3 + (0.999000013f * fRec4[1]));
 			iRec3[0] = ((iVec0[1] + iRec3[1]) % int((fConst1 / float(int(fRec4[0])))));
 			int iTemp2 = (iRec3[0] == 0);
-			iVec1[0] = iTemp2;
-			fVec2[0] = fSlow3;
-			fRec5[0] = (iVec1[1] ? 0.0f : (std::fabs((fSlow3 - fVec2[1])) + fRec5[1]));
+			iVec2[0] = iTemp2;
+			fRec5[0] = (iVec2[1] ? 0.0f : (std::fabs((fSlow2 - fVec1[1])) + fRec5[1]));
 			iRec6[0] = ((iTemp2 + iRec6[1]) % 15);
-			ftbl0[((iTemp2 & ((fRec5[0] > 0.0f) | iSlow4)) ? iRec6[0] : 15)] = fSlow3;
+			ftbl0[((iTemp2 & ((fRec5[0] > 0.0f) | iSlow4)) ? iRec6[0] : 15)] = fSlow2;
 			float fTemp3 = ftbl0[iRec6[0]];
 			fRec2[0] = ((0.999000013f * fRec2[1]) + (9.99999975e-05f * std::pow(4.0f, fTemp3)));
 			float fTemp4 = std::pow(2.0f, (2.29999995f * fTemp3));
@@ -782,10 +794,10 @@ class fx_wahwah : public dsp {
 			output0[i] = FAUSTFLOAT((iSlow0 ? fTemp0 : ((fTemp1 * (1.0f - fRec0[0])) + (fRec0[0] * (fRec1[0] - fRec1[1])))));
 			iVec0[1] = iVec0[0];
 			fRec0[1] = fRec0[0];
+			fVec1[1] = fVec1[0];
 			fRec4[1] = fRec4[0];
 			iRec3[1] = iRec3[0];
-			iVec1[1] = iVec1[0];
-			fVec2[1] = fVec2[0];
+			iVec2[1] = iVec2[0];
 			fRec5[1] = fRec5[0];
 			iRec6[1] = iRec6[0];
 			fRec2[1] = fRec2[0];

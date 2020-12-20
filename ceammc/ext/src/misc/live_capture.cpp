@@ -11,17 +11,17 @@ public:
         createInlet();
     }
 
-    void m_reset(t_symbol*, const AtomList&)
+    void m_reset(t_symbol*, const AtomListView&)
     {
         dsp_->instanceClear();
     }
 
-    void m_record(t_symbol*, const AtomList&)
+    void m_record(t_symbol*, const AtomListView&)
     {
         setProperty(gensym("@gate"), Atom(1));
     }
 
-    void m_stop(t_symbol*, const AtomList&)
+    void m_stop(t_symbol*, const AtomListView&)
     {
         setProperty(gensym("@gate"), Atom(0.f));
     }

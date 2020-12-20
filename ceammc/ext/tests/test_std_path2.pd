@@ -1,0 +1,14 @@
+#N canvas 0 23 700 500 12;
+#X obj 331 144 inlet;
+#X obj 351 196 print;
+#X obj 331 222 outlet;
+#N canvas 0 23 700 500 test 1;
+#X obj 287 101 inlet;
+#X obj 287 153 outlet;
+#X obj 287 127 test_std_path0;
+#X connect 0 0 2 0;
+#X connect 2 0 1 0;
+#X restore 331 170 pd test;
+#X connect 0 0 3 0;
+#X connect 3 0 2 0;
+#X connect 3 0 1 0;

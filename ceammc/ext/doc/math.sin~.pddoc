@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="math.sin~">
+        <title>math.sin~</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>sine function</description>
+            <license>GPL3 or later</license>
+            <library>ceammc</library>
+            <category>math</category>
+            <keywords>math sin</keywords>
+            <also>
+                <see>math.sin</see>
+                <see>math.cos~</see>
+            </also>
+            <since>0.9</since>
+        </meta>
+        <info>
+            <par>Computes the sine of input signal (in radians)</par>
+            <a href="https://en.wikipedia.org/wiki/Sine">wiki: Sine</a>
+        </info>
+        <inlets>
+            <inlet type="audio">
+                <xinfo>input signal</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet type="audio">result signal</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[bang(
+|
+[plot.linspace~ -7 7 @pi #a]
+|            |
+[math.sin~]  [math.cos~]
+|            |
+|            |.
+[ui.plot~ @xlabels 1 @ylabels 1 @size 400 170 @n 2 #b]
+
+
+
+
+
+
+
+
+
+
+
+
+[ui.dsp~]
+[X a:1->b:2]
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

@@ -37,13 +37,13 @@ public:
         }
     }
 
-    void screenSize(t_symbol*, const AtomList& data)
+    void screenSize(t_symbol*, const AtomListView& data)
     {
         listTo(0, data);
     }
 };
 
-extern "C" void setup_system0x2escreen_size()
+void setup_system_screen_size()
 {
     ObjectFactory<SystemScreenSize> obj("system.screen_size");
     obj.addMethod(".screensize", &SystemScreenSize::screenSize);

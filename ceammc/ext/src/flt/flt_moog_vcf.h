@@ -1,7 +1,7 @@
 /* ------------------------------------------------------------
 name: "flt.moog_vcf"
-Code generated with Faust 2.22.1 (https://faust.grame.fr)
-Compilation options: -lang cpp -scal -ftz 0
+Code generated with Faust 2.28.6 (https://faust.grame.fr)
+Compilation options: -lang cpp -double -ftz 0
 ------------------------------------------------------------ */
 
 #ifndef  __flt_moog_vcf_H__
@@ -14,7 +14,7 @@ Compilation options: -lang cpp -scal -ftz 0
 #include <memory>
 #include <string>
 
-/************************** BEGIN dsp.h **************************/
+/************************** BEGIN flt_moog_vcf_dsp.h **************************/
 /************************************************************************
  FAUST Architecture File
  Copyright (C) 2003-2017 GRAME, Centre National de Creation Musicale
@@ -48,7 +48,7 @@ Compilation options: -lang cpp -scal -ftz 0
 #define FAUSTFLOAT float
 #endif
 
-class UI;
+struct UI;
 struct Meta;
 
 /**
@@ -68,12 +68,12 @@ struct dsp_memory_manager {
 * Signal processor definition.
 */
 
-class dsp {
+class flt_moog_vcf_dsp {
 
     public:
 
-        dsp() {}
-        virtual ~dsp() {}
+        flt_moog_vcf_dsp() {}
+        virtual ~flt_moog_vcf_dsp() {}
 
         /* Return instance number of audio inputs */
         virtual int getNumInputs() = 0;
@@ -83,7 +83,7 @@ class dsp {
     
         /**
          * Trigger the ui_interface parameter with instance specific calls
-         * to 'addBtton', 'addVerticalSlider'... in order to build the UI.
+         * to 'openTabBox', 'addButton', 'addVerticalSlider'... in order to build the UI.
          *
          * @param ui_interface - the user interface builder
          */
@@ -126,7 +126,7 @@ class dsp {
          *
          * @return a copy of the instance on success, otherwise a null pointer.
          */
-        virtual dsp* clone() = 0;
+        virtual flt_moog_vcf_dsp* clone() = 0;
     
         /**
          * Trigger the Meta* parameter with instance specific calls to 'declare' (key, value) metadata.
@@ -162,15 +162,15 @@ class dsp {
  * Generic DSP decorator.
  */
 
-class decorator_dsp : public dsp {
+class decorator_dsp : public flt_moog_vcf_dsp {
 
     protected:
 
-        dsp* fDSP;
+        flt_moog_vcf_dsp* fDSP;
 
     public:
 
-        decorator_dsp(dsp* dsp = nullptr):fDSP(dsp) {}
+        decorator_dsp(flt_moog_vcf_dsp* flt_moog_vcf_dsp = nullptr):fDSP(flt_moog_vcf_dsp) {}
         virtual ~decorator_dsp() { delete fDSP; }
 
         virtual int getNumInputs() { return fDSP->getNumInputs(); }
@@ -210,7 +210,7 @@ class dsp_factory {
         virtual std::vector<std::string> getLibraryList() = 0;
         virtual std::vector<std::string> getIncludePathnames() = 0;
     
-        virtual dsp* createDSPInstance() = 0;
+        virtual flt_moog_vcf_dsp* createDSPInstance() = 0;
     
         virtual void setMemoryManager(dsp_memory_manager* manager) = 0;
         virtual dsp_memory_manager* getMemoryManager() = 0;
@@ -234,11 +234,11 @@ class dsp_factory {
 #endif
 
 #endif
-/**************************  END  dsp.h **************************/
+/**************************  END  flt_moog_vcf_dsp.h **************************/
 /************************** BEGIN UI.h **************************/
 /************************************************************************
  FAUST Architecture File
- Copyright (C) 2003-2017 GRAME, Centre National de Creation Musicale
+ Copyright (C) 2003-2020 GRAME, Centre National de Creation Musicale
  ---------------------------------------------------------------------
  This Architecture section is free software; you can redistribute it
  and/or modify it under the terms of the GNU General Public License
@@ -276,48 +276,44 @@ class dsp_factory {
 struct Soundfile;
 
 template <typename REAL>
-class UIReal
+struct UIReal
 {
+    UIReal() {}
+    virtual ~UIReal() {}
     
-    public:
-        
-        UIReal() {}
-        virtual ~UIReal() {}
-        
-        // -- widget's layouts
-        
-        virtual void openTabBox(const char* label) = 0;
-        virtual void openHorizontalBox(const char* label) = 0;
-        virtual void openVerticalBox(const char* label) = 0;
-        virtual void closeBox() = 0;
-        
-        // -- active widgets
-        
-        virtual void addButton(const char* label, REAL* zone) = 0;
-        virtual void addCheckButton(const char* label, REAL* zone) = 0;
-        virtual void addVerticalSlider(const char* label, REAL* zone, REAL init, REAL min, REAL max, REAL step) = 0;
-        virtual void addHorizontalSlider(const char* label, REAL* zone, REAL init, REAL min, REAL max, REAL step) = 0;
-        virtual void addNumEntry(const char* label, REAL* zone, REAL init, REAL min, REAL max, REAL step) = 0;
-        
-        // -- passive widgets
-        
-        virtual void addHorizontalBargraph(const char* label, REAL* zone, REAL min, REAL max) = 0;
-        virtual void addVerticalBargraph(const char* label, REAL* zone, REAL min, REAL max) = 0;
-        
-        // -- soundfiles
-        
-        virtual void addSoundfile(const char* label, const char* filename, Soundfile** sf_zone) = 0;
-        
-        // -- metadata declarations
-        
-        virtual void declare(REAL* zone, const char* key, const char* val) {}
+    // -- widget's layouts
+    
+    virtual void openTabBox(const char* label) = 0;
+    virtual void openHorizontalBox(const char* label) = 0;
+    virtual void openVerticalBox(const char* label) = 0;
+    virtual void closeBox() = 0;
+    
+    // -- active widgets
+    
+    virtual void addButton(const char* label, REAL* zone) = 0;
+    virtual void addCheckButton(const char* label, REAL* zone) = 0;
+    virtual void addVerticalSlider(const char* label, REAL* zone, REAL init, REAL min, REAL max, REAL step) = 0;
+    virtual void addHorizontalSlider(const char* label, REAL* zone, REAL init, REAL min, REAL max, REAL step) = 0;
+    virtual void addNumEntry(const char* label, REAL* zone, REAL init, REAL min, REAL max, REAL step) = 0;
+    
+    // -- passive widgets
+    
+    virtual void addHorizontalBargraph(const char* label, REAL* zone, REAL min, REAL max) = 0;
+    virtual void addVerticalBargraph(const char* label, REAL* zone, REAL min, REAL max) = 0;
+    
+    // -- soundfiles
+    
+    virtual void addSoundfile(const char* label, const char* filename, Soundfile** sf_zone) = 0;
+    
+    // -- metadata declarations
+    
+    virtual void declare(REAL* zone, const char* key, const char* val) {}
 };
 
 struct UI : public UIReal<FAUSTFLOAT>
 {
-
-        UI() {}
-        virtual ~UI() {}
+    UI() {}
+    virtual ~UI() {}
 };
 
 #endif
@@ -486,7 +482,7 @@ using namespace ceammc::faust;
 
 // clang-format off
 #ifndef FAUST_MACRO
-struct flt_moog_vcf : public dsp {
+struct flt_moog_vcf : public flt_moog_vcf_dsp {
 };
 #endif
 // clang-format on
@@ -501,7 +497,7 @@ struct flt_moog_vcf : public dsp {
 #include <cmath>
 #include <math.h>
 
-static float flt_moog_vcf_faustpower2_f(float value) {
+static double flt_moog_vcf_faustpower2_f(double value) {
 	return (value * value);
 }
 
@@ -514,18 +510,18 @@ static float flt_moog_vcf_faustpower2_f(float value) {
 #define exp10 __exp10
 #endif
 
-class flt_moog_vcf : public dsp {
+class flt_moog_vcf : public flt_moog_vcf_dsp {
 	
  private:
 	
 	FAUSTFLOAT fVslider0;
-	float fRec0[2];
+	double fRec0[2];
 	int fSampleRate;
-	float fConst0;
-	float fRec3[2];
-	float fRec1[2];
-	float fRec6[2];
-	float fRec4[2];
+	double fConst0;
+	double fRec3[2];
+	double fRec1[2];
+	double fRec6[2];
+	double fRec4[2];
 	
  public:
 	
@@ -545,8 +541,10 @@ class flt_moog_vcf : public dsp {
 		m->declare("maths.lib/copyright", "GRAME");
 		m->declare("maths.lib/license", "LGPL with exception");
 		m->declare("maths.lib/name", "Faust Math Library");
-		m->declare("maths.lib/version", "2.1");
+		m->declare("maths.lib/version", "2.3");
 		m->declare("name", "flt.moog_vcf");
+		m->declare("platform.lib/name", "Generic Platform Library");
+		m->declare("platform.lib/version", "0.1");
 		m->declare("signals.lib/name", "Faust Signal Routing Library");
 		m->declare("signals.lib/version", "0.0");
 		m->declare("vaeffects.lib/moog_vcf_2bn:author", "Julius O. Smith III");
@@ -600,28 +598,33 @@ class flt_moog_vcf : public dsp {
 	
 	virtual void instanceConstants(int sample_rate) {
 		fSampleRate = sample_rate;
-		fConst0 = (3.14159274f / std::min<float>(192000.0f, std::max<float>(1.0f, float(fSampleRate))));
+		fConst0 = (3.1415926535897931 / std::min<double>(192000.0, std::max<double>(1.0, double(fSampleRate))));
 	}
 	
 	virtual void instanceResetUserInterface() {
-		fVslider0 = FAUSTFLOAT(0.40000000000000002f);
+		fVslider0 = FAUSTFLOAT(0.40000000000000002);
 	}
 	
 	virtual void instanceClear() {
+		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l0 = 0; (l0 < 2); l0 = (l0 + 1)) {
-			fRec0[l0] = 0.0f;
+			fRec0[l0] = 0.0;
 		}
+		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l1 = 0; (l1 < 2); l1 = (l1 + 1)) {
-			fRec3[l1] = 0.0f;
+			fRec3[l1] = 0.0;
 		}
+		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l2 = 0; (l2 < 2); l2 = (l2 + 1)) {
-			fRec1[l2] = 0.0f;
+			fRec1[l2] = 0.0;
 		}
+		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l3 = 0; (l3 < 2); l3 = (l3 + 1)) {
-			fRec6[l3] = 0.0f;
+			fRec6[l3] = 0.0;
 		}
+		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l4 = 0; (l4 < 2); l4 = (l4 + 1)) {
-			fRec4[l4] = 0.0f;
+			fRec4[l4] = 0.0;
 		}
 	}
 	
@@ -645,7 +648,7 @@ class flt_moog_vcf : public dsp {
 	
 	virtual void buildUserInterface(UI* ui_interface) {
 		ui_interface->openVerticalBox("flt.moog_vcf");
-		ui_interface->addVerticalSlider("res", &fVslider0, 0.400000006f, 0.0f, 1.0f, 0.00100000005f);
+		ui_interface->addVerticalSlider("res", &fVslider0, 0.40000000000000002, 0.0, 1.0, 0.001);
 		ui_interface->closeBox();
 	}
 	
@@ -653,50 +656,52 @@ class flt_moog_vcf : public dsp {
 		FAUSTFLOAT* input0 = inputs[0];
 		FAUSTFLOAT* input1 = inputs[1];
 		FAUSTFLOAT* output0 = outputs[0];
-		float fSlow0 = (0.00100000005f * float(fVslider0));
+		double fSlow0 = (0.0010000000000000009 * double(fVslider0));
+		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int i = 0; (i < count); i = (i + 1)) {
-			float fTemp0 = float(input0[i]);
-			fRec0[0] = (fSlow0 + (0.999000013f * fRec0[1]));
-			float fTemp1 = flt_moog_vcf_faustpower2_f((1.41419947f * fRec0[0]));
-			float fTemp2 = (1.99997997f * fRec0[0]);
-			float fTemp3 = (fTemp1 + fTemp2);
-			float fTemp4 = (fTemp2 + 2.0f);
-			float fTemp5 = std::tan((fConst0 * std::max<float>(float(input1[i]), 20.0f)));
-			float fTemp6 = (1.0f / fTemp5);
-			float fTemp7 = ((fTemp3 + ((fTemp4 + fTemp6) / fTemp5)) + 1.0f);
-			float fTemp8 = ((fTemp3 + (1.0f - ((fTemp4 - fTemp6) / fTemp5))) / fTemp7);
-			float fTemp9 = std::max<float>(-0.999899983f, std::min<float>(0.999899983f, fTemp8));
-			float fTemp10 = (1.0f - flt_moog_vcf_faustpower2_f(fTemp9));
-			float fTemp11 = std::sqrt(std::max<float>(0.0f, fTemp10));
-			float fTemp12 = ((fTemp0 * fTemp11) - (fTemp9 * fRec1[1]));
-			float fTemp13 = (1.0f / flt_moog_vcf_faustpower2_f(fTemp5));
-			float fTemp14 = (fTemp3 + (1.0f - fTemp13));
-			float fTemp15 = std::max<float>(-0.999899983f, std::min<float>(0.999899983f, (2.0f * (fTemp14 / (fTemp7 * (fTemp8 + 1.0f))))));
-			float fTemp16 = (1.0f - flt_moog_vcf_faustpower2_f(fTemp15));
-			float fTemp17 = std::sqrt(std::max<float>(0.0f, fTemp16));
+			double fTemp0 = double(input0[i]);
+			fRec0[0] = (fSlow0 + (0.999 * fRec0[1]));
+			double fTemp1 = flt_moog_vcf_faustpower2_f((1.4141994202374715 * fRec0[0]));
+			double fTemp2 = (1.9999800000000003 * fRec0[0]);
+			double fTemp3 = (fTemp1 + fTemp2);
+			double fTemp4 = (fTemp2 + 2.0);
+			double fTemp5 = std::tan((fConst0 * std::max<double>(double(input1[i]), 20.0)));
+			double fTemp6 = (1.0 / fTemp5);
+			double fTemp7 = ((fTemp1 + (fTemp2 + ((fTemp4 + fTemp6) / fTemp5))) + 1.0);
+			double fTemp8 = ((fTemp3 + (1.0 - ((fTemp4 - fTemp6) / fTemp5))) / fTemp7);
+			double fTemp9 = std::max<double>(-0.99990000000000001, std::min<double>(0.99990000000000001, fTemp8));
+			double fTemp10 = (1.0 - flt_moog_vcf_faustpower2_f(fTemp9));
+			double fTemp11 = std::sqrt(std::max<double>(0.0, fTemp10));
+			double fTemp12 = ((fTemp0 * fTemp11) - (fTemp9 * fRec1[1]));
+			double fTemp13 = (1.0 / flt_moog_vcf_faustpower2_f(fTemp5));
+			double fTemp14 = (fTemp3 + (1.0 - fTemp13));
+			double fTemp15 = std::max<double>(-0.99990000000000001, std::min<double>(0.99990000000000001, (2.0 * (fTemp14 / (fTemp7 * (fTemp8 + 1.0))))));
+			double fTemp16 = (1.0 - flt_moog_vcf_faustpower2_f(fTemp15));
+			double fTemp17 = std::sqrt(std::max<double>(0.0, fTemp16));
 			fRec3[0] = ((fTemp12 * fTemp17) - (fTemp15 * fRec3[1]));
 			fRec1[0] = ((fTemp12 * fTemp15) + (fRec3[1] * fTemp17));
-			float fRec2 = fRec3[0];
-			float fTemp18 = (1.0f - (fTemp14 / fTemp7));
-			float fTemp19 = std::sqrt(fTemp10);
-			float fTemp20 = ((((fTemp0 * fTemp9) + (fRec1[1] * fTemp11)) + (2.0f * ((fRec1[0] * fTemp18) / fTemp19))) + ((fRec2 * ((1.0f - fTemp8) - (2.0f * (fTemp15 * fTemp18)))) / (fTemp19 * std::sqrt(fTemp16))));
-			float fTemp21 = (2.0f - fTemp2);
-			float fTemp22 = ((fTemp1 + ((fTemp6 + fTemp21) / fTemp5)) + (1.0f - fTemp2));
-			float fTemp23 = ((fTemp1 + (1.0f - (fTemp2 + ((fTemp21 - fTemp6) / fTemp5)))) / fTemp22);
-			float fTemp24 = std::max<float>(-0.999899983f, std::min<float>(0.999899983f, fTemp23));
-			float fTemp25 = (1.0f - flt_moog_vcf_faustpower2_f(fTemp24));
-			float fTemp26 = std::sqrt(std::max<float>(0.0f, fTemp25));
-			float fTemp27 = (((fTemp20 * fTemp26) / fTemp7) - (fTemp24 * fRec4[1]));
-			float fTemp28 = (fTemp1 + (1.0f - (fTemp2 + fTemp13)));
-			float fTemp29 = std::max<float>(-0.999899983f, std::min<float>(0.999899983f, (2.0f * (fTemp28 / (fTemp22 * (fTemp23 + 1.0f))))));
-			float fTemp30 = (1.0f - flt_moog_vcf_faustpower2_f(fTemp29));
-			float fTemp31 = std::sqrt(std::max<float>(0.0f, fTemp30));
-			fRec6[0] = ((fTemp27 * fTemp31) - (fTemp29 * fRec6[1]));
-			fRec4[0] = ((fTemp27 * fTemp29) + (fRec6[1] * fTemp31));
-			float fRec5 = fRec6[0];
-			float fTemp32 = (1.0f - (fTemp28 / fTemp22));
-			float fTemp33 = std::sqrt(fTemp25);
-			output0[i] = FAUSTFLOAT(((((((fTemp20 * fTemp24) / fTemp7) + (fRec4[1] * fTemp26)) + (2.0f * ((fRec4[0] * fTemp32) / fTemp33))) + ((fRec5 * ((1.0f - fTemp23) - (2.0f * (fTemp29 * fTemp32)))) / (fTemp33 * std::sqrt(fTemp30)))) / fTemp22));
+			double fRec2 = fRec3[0];
+			double fTemp18 = (1.0 - (fTemp14 / fTemp7));
+			double fTemp19 = std::sqrt(fTemp10);
+			double fTemp20 = ((((fTemp0 * fTemp9) + (fRec1[1] * fTemp11)) + (2.0 * ((fRec1[0] * fTemp18) / fTemp19))) + ((fRec2 * (0.0 - ((fTemp8 + -1.0) + (2.0 * (fTemp15 * fTemp18))))) / (fTemp19 * std::sqrt(fTemp16))));
+			double fTemp21 = (2.0 - fTemp2);
+			double fTemp22 = (1.0 - fTemp2);
+			double fTemp23 = ((fTemp1 + ((fTemp6 + fTemp21) / fTemp5)) + fTemp22);
+			double fTemp24 = (((fTemp1 + ((fTemp6 - fTemp21) / fTemp5)) + fTemp22) / fTemp23);
+			double fTemp25 = std::max<double>(-0.99990000000000001, std::min<double>(0.99990000000000001, fTemp24));
+			double fTemp26 = (1.0 - flt_moog_vcf_faustpower2_f(fTemp25));
+			double fTemp27 = std::sqrt(std::max<double>(0.0, fTemp26));
+			double fTemp28 = (((fTemp20 * fTemp27) / fTemp7) - (fTemp25 * fRec4[1]));
+			double fTemp29 = (fTemp1 + (1.0 - (fTemp2 + fTemp13)));
+			double fTemp30 = std::max<double>(-0.99990000000000001, std::min<double>(0.99990000000000001, (2.0 * (fTemp29 / (fTemp23 * (fTemp24 + 1.0))))));
+			double fTemp31 = (1.0 - flt_moog_vcf_faustpower2_f(fTemp30));
+			double fTemp32 = std::sqrt(std::max<double>(0.0, fTemp31));
+			fRec6[0] = ((fTemp28 * fTemp32) - (fTemp30 * fRec6[1]));
+			fRec4[0] = ((fTemp28 * fTemp30) + (fRec6[1] * fTemp32));
+			double fRec5 = fRec6[0];
+			double fTemp33 = (1.0 - (fTemp29 / fTemp23));
+			double fTemp34 = std::sqrt(fTemp26);
+			output0[i] = FAUSTFLOAT(((((((fTemp20 * fTemp25) / fTemp7) + (fRec4[1] * fTemp27)) + (2.0 * ((fRec4[0] * fTemp33) / fTemp34))) + ((fRec5 * ((1.0 - fTemp24) - (2.0 * (fTemp30 * fTemp33)))) / (fTemp34 * std::sqrt(fTemp31)))) / fTemp23));
 			fRec0[1] = fRec0[0];
 			fRec3[1] = fRec3[0];
 			fRec1[1] = fRec1[0];

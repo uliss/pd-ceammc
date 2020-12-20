@@ -128,7 +128,7 @@ private:
 class ThreadPollClockExternal : public ThreadExternalBase {
     std::unique_ptr<thread::Pipe> pipe_cmd_;
     ClockMemberFunction<ThreadPollClockExternal> clock_;
-    IntPropertyMin* poll_time_;
+    IntProperty* poll_time_;
 
     ThreadPollClockExternal(const ThreadPollPipeExternal&) = delete;
     void operator=(const ThreadPollPipeExternal&) = delete;

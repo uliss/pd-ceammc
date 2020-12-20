@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="conv.ms2bpm">
+        <title>conv.ms2bpm</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>convert period in milliseconds to frequency in BPM</description>
+            <license>GPL3 or later</license>
+            <library>ceammc</library>
+            <category>conv</category>
+            <keywords>conv time</keywords>
+            <also>
+                <see>conv.bpm2sec</see>
+                <see>conv.sec2bpm</see>
+            </also>
+            <since>0.9.11</since>
+            <aliases>
+                <alias>ms-&gt;bpm</alias>
+            </aliases>
+        </meta>
+        <inlets>
+            <inlet>
+                <xinfo on="float">period in milliseconds</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet>bpm frequency</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[1000( [500(
+|      |
+[ms->bpm]
+|
+[F]
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

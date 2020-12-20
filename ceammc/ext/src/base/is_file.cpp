@@ -1,51 +1,58 @@
+#include "is_file.h"
 #include "ceammc_factory.h"
-#include "ceammc_object.h"
 #include "datatype_string.h"
 
 #include <fstream>
 
-using namespace ceammc;
+IsFile::IsFile(const PdArgs& a)
+    : BaseObject(a)
+{
+    createOutlet();
+    createOutlet();
+}
 
-class IsFile : public BaseObject {
-    t_canvas* cnv_;
+void IsFile::onSymbol(t_symbol* s)
+{
+    bool exists = fileExists(s->s_name);
 
-public:
-    IsFile(const PdArgs& a)
-        : BaseObject(a)
-        , cnv_(canvas_getcurrent())
-    {
-        createOutlet();
-    }
+    if (exists)
+        symbolTo(1, s);
 
-    void onSymbol(t_symbol* s)
-    {
-        floatTo(0, isFile(s->s_name) ? 1 : 0);
-    }
+    boolTo(0, exists);
+}
 
-    void onDataT(const DataTPtr<DataTypeString>& dptr)
-    {
-        floatTo(0, isFile(dptr->str()) ? 1 : 0);
-    }
+void IsFile::onDataT(const StringAtom& str)
+{
+    bool exists = fileExists(str->str());
 
-    bool isFile(const std::string& p) const
-    {
-        std::string path(p);
+    if (exists)
+        atomTo(1, str);
 
-        if (!sys_isabsolutepath(path.c_str())) {
-            if (cnv_) {
-                t_symbol* canvas_dir = canvas_getdir(cnv_);
-                if (canvas_dir)
-                    path = std::string(canvas_dir->s_name) + "/" + path;
-            }
-        }
+    boolTo(0, exists);
+}
 
-        std::ifstream f(path.c_str());
-        return f.is_open();
-    }
-};
+bool IsFile::fileExists(const std::string& p) const
+{
+    std::string path(p);
 
-extern "C" void is_file_setup()
+    if (!isAbsolutePath(path.c_str()))
+        path = findInStdPaths(path.c_str());
+
+    if (path.empty())
+        return false;
+
+    std::ifstream f(path.c_str());
+    return f.is_open();
+}
+
+void setup_is_file()
 {
     ObjectFactory<IsFile> obj("is_file");
     obj.processData<DataTypeString>();
+
+    obj.setDescription("checks if file exists and accessible");
+    obj.addAuthor("Serge Poltavsky");
+    obj.setKeywords({"predicate", "filesystem"});
+    obj.setCategory("predicates");
+    obj.setSinceVersion(0, 2);
 }

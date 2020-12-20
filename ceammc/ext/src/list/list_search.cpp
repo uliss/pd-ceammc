@@ -21,25 +21,7 @@ void ListSearch::onList(const AtomList& lst)
     idxs.reserve(subj_.size());
 
     for (size_t i = 0; i < subj_.size(); i++) {
-        if (subj_[i].isAtom()) {
-            // search raw atom
-            idxs.append(lst.findPos(subj_[i].toAtom()));
-        } else {
-            int idx = -1;
-            for (size_t k = 0; k < lst.size(); k++) {
-                // skip non-data atoms
-                if (!lst[k].isData())
-                    continue;
-
-                // compare data
-                if (DataAtom(lst[k]) == subj_[i]) {
-                    idx = k;
-                    break;
-                }
-            }
-
-            idxs.append(idx);
-        }
+        idxs.append(lst.findPos(subj_[i]));
     }
 
     listTo(0, idxs);
@@ -47,11 +29,20 @@ void ListSearch::onList(const AtomList& lst)
 
 void ListSearch::onInlet(size_t n, const AtomList& lst)
 {
-    subj_.set(lst);
+    subj_ = lst;
 }
 
 void setup_list_search()
 {
     ObjectFactory<ListSearch> obj("list.search");
     obj.processData<DataTypeMList>();
+
+    obj.setDescription("search specified items in input list");
+    obj.addAuthor("Serge Poltavsky");
+    obj.setKeywords({ "list", "search", "find" });
+    obj.setCategory("list");
+    obj.setSinceVersion(0, 6);
+
+    ListSearch::setInletsInfo(obj.classPointer(), { "list or Mlist", "list: set search items" });
+    ListSearch::setOutletsInfo(obj.classPointer(), { "list: list of element indexes in input list, -1 if not found" });
 }

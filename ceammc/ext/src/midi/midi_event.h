@@ -20,7 +20,7 @@ class XMidiEvent {
 
 public:
     XMidiEvent(const AtomList& l);
-    bool parse(const AtomList& l);
+    bool parse(const AtomListView& l);
     bool isNote() const;
     bool isProgramChange() const;
     bool isControl() const;
@@ -37,7 +37,7 @@ protected:
 public:
     BaseMidiEventExternal(const PdArgs& a);
 
-    void onAny(t_symbol* s, const AtomList& args);
+    void onAny(t_symbol* s, const AtomListView& args) override;
     virtual void processEvent() = 0;
 };
 

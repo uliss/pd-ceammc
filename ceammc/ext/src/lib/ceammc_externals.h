@@ -17,21 +17,12 @@
 #include "ceammc_property_info.h"
 #include "m_pd.h"
 
-#include <unordered_set>
 #include <vector>
 
 namespace ceammc {
 class BaseObject;
 class UIObject;
-typedef std::unordered_set<t_class*> ExternalSet;
 
-const ExternalSet& base_external_set();
-const ExternalSet& faust_external_set();
-const ExternalSet& flext_external_set();
-const ExternalSet& ui_external_set();
-
-void register_base_external(t_class* c);
-void register_faust_external(t_class* c);
 void register_flext_external(t_class* c);
 void register_ui_external(t_class* c);
 

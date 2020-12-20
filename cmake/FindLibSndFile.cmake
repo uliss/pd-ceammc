@@ -50,6 +50,7 @@ else()
     find_library(LIBSNDFILE_LIBRARY
         NAMES sndfile libsndfile-1
         HINTS ${PKGCONFIG_LIBSNDFILE_LIBDIR} ${PKGCONFIG_LIBSNDFILE_LIBRARY_DIRS}
+	PATH_SUFFIXES lib lib/arm-linux-gnueabihf
         PATHS
           ${LIB_INSTALL_DIR}
           /usr/lib

@@ -1,0 +1,53 @@
+#N canvas 590 23 849 807 12;
+#N canvas 0 22 450 278 (subpatch) 0;
+#X array sfpos1 512 float 2;
+#X coords 0 1 512 -1 512 100 1 0 0;
+#X restore 281 480 graph;
+#X obj 32 710 expand_env;
+#X obj 32 738 snd.file;
+#X text 58 117 @begin 100 or @begin 100samp or @begin 100samples (note:
+no space!) - means read file from 100 samples from the beginning.,
+f 80;
+#X text 58 157 @begin 1.5s or @begin 1.5sec - means start file read
+1.5 seconds after beginning \, according file (not Pd!) samplerate.
+, f 80;
+#X text 58 197 @begin 100ms or @begin 100msec - means start file read
+100 milliseconds after beginning \, according file (not Pd!) samplerate.
+, f 80;
+#X text 58 237 @begin 00:02 or @begin 00:00:02 - means start file read
+2 seconds after beginning \, according file (not Pd!) samplerate.,
+f 80;
+#X text 307 367 load last 5 seconds file F to array A;
+#X text 307 427 load file F to A except first and last 100 milliseconds
+, f 73;
+#X msg 57 662 load %CEAMMC%/sin_ch4_44.1k.wav to sfpos1 @ch 1 @aoff
+100;
+#X obj 523 692 array.fill sfpos1;
+#X obj 523 662 msg.onload uniform -1 1;
+#X msg 32 601 load %CEAMMC%/sin_ch4_44.1k.wav to sfpos1 @ch 1 @l 8ms
+;
+#X text 39 14 Input file can loaded partially. To address loaded segment
+you can you three options: @begin \, @end and @length (@b \, @e \,
+@l or @len). Last two can not be used simultaneously. All options can
+be specified in samples (by default) \, time in seconds or milliseconds
+(source file sample rate used for this calculations). @begin should
+be less then @end and both can use end-OFF \, which means offset from
+the end of source file., f 88;
+#X text 58 303 @end (@e) option is the same. If not specified - read
+until source file end, f 80;
+#X text 58 331 @length (@l or @len) option should be positive and cannot
+be used together with @end, f 85;
+#X msg 47 632 load %CEAMMC%/sin_ch4_44.1k.wav to sfpos1 @ch 2 @b $-5ms
+;
+#X text 58 277 @begin $-2s - means start file read 2 seconds before
+end., f 80;
+#X msg 33 368 load F to A @begin $-5sec;
+#X msg 33 398 load F to A @begin $-5s @length 2s;
+#X msg 33 428 load F to A @begin 100ms @end $-100ms;
+#X text 307 397 load 2 second from file F to array A \, starting 5
+seconds before the end, f 73;
+#X connect 1 0 2 0;
+#X connect 9 0 1 0;
+#X connect 11 0 10 0;
+#X connect 12 0 1 0;
+#X connect 16 0 1 0;

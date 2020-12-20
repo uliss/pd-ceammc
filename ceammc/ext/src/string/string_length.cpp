@@ -13,6 +13,8 @@
  *****************************************************************************/
 #include "string_length.h"
 #include "ceammc_factory.h"
+#include "ceammc_string.h"
+#include "datatype_string.h"
 
 StringLength::StringLength(const PdArgs& a)
     : BaseObject(a)
@@ -22,15 +24,15 @@ StringLength::StringLength(const PdArgs& a)
 
 void StringLength::onSymbol(t_symbol* s)
 {
-    floatTo(0, DataTypeString(s).length());
+    floatTo(0, string::utf8_strlen(s->s_name));
 }
 
-void StringLength::onDataT(const DataTPtr<DataTypeString>& dptr)
+void StringLength::onDataT(const StringAtom& str)
 {
-    floatTo(0, dptr->length());
+    floatTo(0, str->length());
 }
 
-void setup_string0x2elength()
+void setup_string_length()
 {
     ObjectFactory<StringLength> obj("string.length");
     obj.processData<DataTypeString>();

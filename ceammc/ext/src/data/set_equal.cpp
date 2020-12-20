@@ -16,32 +16,40 @@
 
 SetEqual::SetEqual(const PdArgs& a)
     : BaseObject(a)
-    , set1_(positionalArguments())
 {
+    createCbListProperty(
+        "@subj",
+        [this]() { return set1_; },
+        [this](const AtomList& l) -> bool {
+            if (l.isA<DataTypeSet>())
+                set1_ = SetAtom(l[0]);
+            else
+                set1_ = SetAtom(l);
+
+            return true;
+        })
+        ->setArgIndex(0);
+
     createInlet();
     createOutlet();
 }
 
-void SetEqual::onDataT(const DataTPtr<DataTypeSet>& dptr)
+void SetEqual::onDataT(const SetAtom& set)
 {
-    floatTo(0, (dptr->operator==(set1_)) ? 1 : 0);
+    boolTo(0, set == set1_);
 }
 
 void SetEqual::onInlet(size_t, const AtomList& l)
 {
-    if (l.isDataType<DataTypeSet>())
-        set1_ = *DataTPtr<DataTypeSet>(l[0]).data();
-    else
-        set1_ = DataTypeSet(l);
+    property("@subj")->set(l);
 }
 
 void SetEqual::onList(const AtomList& l)
 {
-    DataTypeSet s(l);
-    onDataT(s);
+    onDataT(SetAtom(l));
 }
 
-extern "C" void setup_set0x2eequal()
+void setup_set_equal()
 {
     ObjectFactory<SetEqual> obj("set.equal");
     obj.processData<DataTypeSet>();

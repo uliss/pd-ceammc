@@ -14,8 +14,7 @@
 #include "string_remove.h"
 #include "ceammc_factory.h"
 #include "ceammc_format.h"
-
-#include <boost/algorithm/string.hpp>
+#include "datatype_string.h"
 
 static t_symbol* REMOVE_ALL;
 static t_symbol* REMOVE_FIRST;
@@ -23,44 +22,45 @@ static t_symbol* REMOVE_LAST;
 
 StringRemove::StringRemove(const PdArgs& a)
     : BaseObject(a)
-    , mode_(0)
-    , str_to_remove_(to_string(positionalArguments()))
+    , mode_(nullptr)
 {
     createInlet();
     createOutlet();
 
-    mode_ = new SymbolEnumProperty("@mode", REMOVE_ALL);
-    mode_->appendEnum(REMOVE_FIRST);
-    mode_->appendEnum(REMOVE_LAST);
-    createProperty(mode_);
+    addProperty(new SymbolProperty("@str", &s_))
+        ->setSuccessFn([this](Property* p) { str_to_remove_ = to_string(p->get()); });
+    property("@str")->setArgIndex(0);
 
-    createProperty(new SymbolEnumAlias("@all", mode_, REMOVE_ALL));
-    createProperty(new SymbolEnumAlias("@first", mode_, REMOVE_FIRST));
-    createProperty(new SymbolEnumAlias("@last", mode_, REMOVE_LAST));
+    mode_ = new SymbolEnumProperty("@mode", { REMOVE_ALL, REMOVE_FIRST, REMOVE_LAST });
+    addProperty(mode_);
+
+    addProperty(new SymbolEnumAlias("@all", mode_, REMOVE_ALL));
+    addProperty(new SymbolEnumAlias("@first", mode_, REMOVE_FIRST));
+    addProperty(new SymbolEnumAlias("@last", mode_, REMOVE_LAST));
 }
 
 void StringRemove::onSymbol(t_symbol* s)
 {
-    onDataT(DataTypeString(s));
+    onDataT(StringAtom(s));
 }
 
 void StringRemove::onInlet(size_t, const AtomList& l)
 {
-    str_to_remove_ = to_string(l);
+    str_to_remove_ = parse_quoted(l);
 }
 
-void StringRemove::onDataT(const DataTPtr<DataTypeString>& dptr)
+void StringRemove::onDataT(const StringAtom& str)
 {
     if (mode_->value() == REMOVE_ALL) {
-        dataTo(0, DataTPtr<DataTypeString>(dptr->removeAll(str_to_remove_)));
+        atomTo(0, StringAtom(str->removeAll(str_to_remove_)));
     } else if (mode_->value() == REMOVE_FIRST) {
-        dataTo(0, DataTPtr<DataTypeString>(dptr->removeFirst(str_to_remove_)));
+        atomTo(0, StringAtom(str->removeFirst(str_to_remove_)));
     } else if (mode_->value() == REMOVE_LAST) {
-        dataTo(0, DataTPtr<DataTypeString>(dptr->removeLast(str_to_remove_)));
+        atomTo(0, StringAtom(str->removeLast(str_to_remove_)));
     }
 }
 
-void setup_string0x2eremove()
+void setup_string_remove()
 {
     REMOVE_ALL = gensym("all");
     REMOVE_FIRST = gensym("first");

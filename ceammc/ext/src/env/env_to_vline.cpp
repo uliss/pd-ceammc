@@ -12,7 +12,7 @@ Env2VLine::Env2VLine(const PdArgs& args)
     , data_sync_(0)
 {
     data_sync_ = new BoolProperty("@sync", false);
-    createProperty(data_sync_);
+    addProperty(data_sync_);
 
     createOutlet();
 }
@@ -24,10 +24,10 @@ void Env2VLine::onBang()
 
 void Env2VLine::onFloat(t_float f)
 {
-    size_t n_stops = env_.numStopPoints();
+    size_t n_stops = env_->numStopPoints();
 
     if (n_stops == 0) {
-        OBJ_DBG << "envelope contains no stop points" << env_.toString();
+        OBJ_DBG << "envelope contains no stop points" << env_->toString();
         return outputFixed();
     } else if (n_stops > 1) {
         OBJ_ERR << "envelope contains multiple stop points: " << n_stops;
@@ -40,9 +40,9 @@ void Env2VLine::onFloat(t_float f)
         outputRelease();
 }
 
-void Env2VLine::onDataT(const DataTPtr<DataTypeEnv>& dptr)
+void Env2VLine::onDataT(const EnvAtom& env)
 {
-    env_ = *dptr;
+    env_ = env;
     stop_point_index_ = 0;
     stop_offset_us_ = 0;
     state_ = STATE_INIT;
@@ -87,24 +87,24 @@ void Env2VLine::outputSegment(const EnvelopePoint& pt0, const EnvelopePoint& pt1
 
 void Env2VLine::outputFixed()
 {
-    if (env_.empty()) {
+    if (env_->empty()) {
         OBJ_ERR << "empty envelope";
         return;
     }
 
     AtomList lst;
     lst.fill(Atom(0.f), 3);
-    lst[0] = env_.pointAt(0).value;
+    lst[0] = env_->pointAt(0).value;
 
     // output first points
     listTo(0, lst);
 
     stop_offset_us_ = 0;
 
-    const size_t n_pt = env_.numPoints();
+    const size_t n_pt = env_->numPoints();
     for (size_t i = 1; i < n_pt; i++) {
-        EnvelopePoint& pt0 = env_.pointAt(i - 1);
-        EnvelopePoint& pt1 = env_.pointAt(i);
+        EnvelopePoint& pt0 = env_->pointAt(i - 1);
+        EnvelopePoint& pt1 = env_->pointAt(i);
 
         outputSegment(pt0, pt1, pt0.utime);
     }
@@ -112,7 +112,7 @@ void Env2VLine::outputFixed()
 
 void Env2VLine::outputStart()
 {
-    if (env_.empty()) {
+    if (env_->empty()) {
         OBJ_ERR << "empty envelope";
         return;
     }
@@ -120,11 +120,11 @@ void Env2VLine::outputStart()
     // output first point
     AtomList lst;
     lst.fill(Atom(0.f), 3);
-    lst[0] = env_.pointAt(0).value;
+    lst[0] = env_->pointAt(0).value;
     listTo(0, lst);
 
     // find first stop point
-    stop_point_index_ = env_.nextStopIdx(0);
+    stop_point_index_ = env_->nextStopIdx(0);
 
     // stop point is not found
     if (stop_point_index_ < 0) {
@@ -132,20 +132,20 @@ void Env2VLine::outputStart()
         return;
     }
 
-    assert(!env_.empty());
-    assert(stop_point_index_ < (env_.numPoints() - 1));
+    assert(!env_->empty());
+    assert(stop_point_index_ < (env_->numPoints() - 1));
     stop_offset_us_ = 0;
 
     // output segment until stop point
     for (long i = 1; i <= stop_point_index_; i++) {
-        EnvelopePoint& pt0 = env_.pointAt(i - 1);
-        EnvelopePoint& pt1 = env_.pointAt(i);
+        EnvelopePoint& pt0 = env_->pointAt(i - 1);
+        EnvelopePoint& pt1 = env_->pointAt(i);
 
         outputSegment(pt0, pt1, pt0.utime);
     }
 
     state_ = STATE_ACTIVE;
-    stop_offset_us_ = env_.pointAt(stop_point_index_).utime;
+    stop_offset_us_ = env_->pointAt(stop_point_index_).utime;
 }
 
 void Env2VLine::outputRelease()
@@ -155,12 +155,12 @@ void Env2VLine::outputRelease()
         return;
     }
 
-    long offset_us = (stop_point_index_ < env_.numPoints()) ? env_.pointAt(stop_point_index_).utime : 0;
+    long offset_us = (stop_point_index_ < env_->numPoints()) ? env_->pointAt(stop_point_index_).utime : 0;
 
     // output from stop point till the end
-    for (long i = stop_point_index_ + 1; i < env_.numPoints(); i++) {
-        EnvelopePoint& pt0 = env_.pointAt(i - 1);
-        EnvelopePoint& pt1 = env_.pointAt(i);
+    for (long i = stop_point_index_ + 1; i < env_->numPoints(); i++) {
+        EnvelopePoint& pt0 = env_->pointAt(i - 1);
+        EnvelopePoint& pt1 = env_->pointAt(i);
 
         outputSegment(pt0, pt1, pt0.utime - offset_us);
     }
@@ -172,7 +172,7 @@ void Env2VLine::outputRelease()
 
 void Env2VLine::outputNextStop()
 {
-    if (env_.empty()) {
+    if (env_->empty()) {
         OBJ_ERR << "empty envelope";
         return;
     }
@@ -186,13 +186,13 @@ void Env2VLine::outputNextStop()
         // output first point
         AtomList lst;
         lst.fill(Atom(0.f), 3);
-        lst[0] = env_.pointAt(0).value;
+        lst[0] = env_->pointAt(0).value;
         listTo(0, lst);
         state_ = STATE_ACTIVE;
     }
 
     size_t begin = stop_point_index_;
-    stop_point_index_ = env_.nextStopIdx(stop_point_index_);
+    stop_point_index_ = env_->nextStopIdx(stop_point_index_);
 
     if (stop_point_index_ < 0) {
         OBJ_DBG << "finished...";
@@ -200,17 +200,17 @@ void Env2VLine::outputNextStop()
         return;
     }
 
-    assert(stop_point_index_ < env_.numPoints());
-    long offset_us = env_.pointAt(begin).utime;
+    assert(stop_point_index_ < env_->numPoints());
+    long offset_us = env_->pointAt(begin).utime;
 
     for (long i = begin; i < stop_point_index_; i++) {
-        EnvelopePoint& pt0 = env_.pointAt(i);
-        EnvelopePoint& pt1 = env_.pointAt(i + 1);
+        EnvelopePoint& pt0 = env_->pointAt(i);
+        EnvelopePoint& pt1 = env_->pointAt(i + 1);
 
         outputSegment(pt0, pt1, pt0.utime - offset_us);
     }
 
-    stop_offset_us_ = env_.pointAt(stop_point_index_).utime;
+    stop_offset_us_ = env_->pointAt(stop_point_index_).utime;
 }
 
 void Env2VLine::interpSegment(const EnvelopePoint& pt0, const EnvelopePoint& pt1, Env2VLine::InterpMethod m, AtomList& res)
@@ -277,12 +277,12 @@ void Env2VLine::interpExp(size_t step_idx, double step_ms,
     listTo(0, lst);
 }
 
-void Env2VLine::m_next(t_symbol*, const AtomList&)
+void Env2VLine::m_next(t_symbol*, const AtomListView&)
 {
     outputNextStop();
 }
 
-void Env2VLine::m_reset(t_symbol*, const AtomList&)
+void Env2VLine::m_reset(t_symbol*, const AtomListView&)
 {
     stop_point_index_ = 0;
     stop_offset_us_ = 0;

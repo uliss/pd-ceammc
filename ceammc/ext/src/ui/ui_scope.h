@@ -15,7 +15,7 @@
 #define UI_SCOPE_H
 
 #include "ceammc_clock.h"
-#include "ceammc_ui_dsp_object.h"
+#include "ceammc_ui_object.h"
 
 using namespace ceammc;
 
@@ -38,8 +38,8 @@ private:
 
 private:
     t_rgba prop_color_active;
-    float prop_min;
-    float prop_max;
+    t_float prop_min;
+    t_float prop_max;
     int prop_window;
     int prop_refresh;
 

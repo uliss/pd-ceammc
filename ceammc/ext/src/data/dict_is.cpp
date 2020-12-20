@@ -14,6 +14,7 @@
 #include "dict_is.h"
 #include "ceammc_datatypes.h"
 #include "ceammc_factory.h"
+#include "datatype_dict.h"
 
 IsDict::IsDict(const PdArgs& args)
     : BaseObject(args)
@@ -24,31 +25,31 @@ IsDict::IsDict(const PdArgs& args)
 
 void IsDict::onFloat(t_float)
 {
-    floatTo(0, 0);
+    boolTo(0, false);
 }
 
 void IsDict::onSymbol(t_symbol*)
 {
-    floatTo(0, 0);
+    boolTo(0, false);
 }
 
 void IsDict::onList(const AtomList&)
 {
-    floatTo(0, 0);
+    boolTo(0, false);
 }
 
-void IsDict::onAny(t_symbol*, const AtomList&)
+void IsDict::onAny(t_symbol*, const AtomListView&)
 {
-    floatTo(0, 0);
+    boolTo(0, false);
 }
 
-void IsDict::onData(const DataPtr& ptr)
+void IsDict::onData(const Atom& d)
 {
-    if (ptr.isValid() && ptr->type() == data::DATA_DICT) {
-        dataTo(1, ptr);
-        floatTo(0, 1);
+    if (d.isA<DataTypeDict>()) {
+        atomTo(1, d);
+        boolTo(0, true);
     } else
-        floatTo(0, 0);
+        boolTo(0, false);
 }
 
 void setup_is_dict()

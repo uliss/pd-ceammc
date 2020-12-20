@@ -15,38 +15,43 @@
 #include "ceammc_factory.h"
 
 DictPass::DictPass(const PdArgs& args)
-    : BaseObject(args)
-    , keys_(args.args)
+    : DictBase(args)
+    , keys_(nullptr)
 {
+    keys_ = new ListProperty("@keys");
+    keys_->setArgIndex(0);
+    addProperty(keys_);
+
     createInlet();
     createOutlet();
 }
 
-void DictPass::parseProperties()
-{
-    // skip arguments property parsing
-}
-
 void DictPass::onInlet(size_t, const AtomList& lst)
 {
-    keys_ = lst;
+    keys_->set(lst);
 }
 
-void DictPass::onDataT(const DataTPtr<DataTypeDict>& dptr)
+void DictPass::onDataT(const DictAtom& dict)
 {
-    DataTypeDict res(*dptr);
+    DictAtom res = dict;
+    res.detachData();
 
-    const auto& dict = dptr->innerData();
-    for (auto& kv : dict) {
-        if (!keys_.contains(kv.first))
-            res.remove(kv.first);
-    }
+    res->removeIf([this](const Atom& k) -> bool { return !keys_->value().contains(k); });
 
-    dataTo(0, DataTPtr<DataTypeDict>(res));
+    atomTo(0, res);
 }
 
 void setup_dict_pass()
 {
     ObjectFactory<DictPass> obj("dict.pass");
     obj.processData<DataTypeDict>();
+
+    obj.setDescription("passes specified keys in dict");
+    obj.addAuthor("Serge Poltavsky");
+    obj.setKeywords({ "pass", "dictionary" });
+    obj.setCategory("data");
+    obj.setSinceVersion(0, 7);
+
+    DictPass::setInletsInfo(obj.classPointer(), { "Dict", "list: set passed keys" });
+    DictPass::setOutletsInfo(obj.classPointer(), { "Dict" });
 }

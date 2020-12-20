@@ -32,7 +32,7 @@ void FlowPassIf::onBang()
         bangTo(0);
 }
 
-void FlowPassIf::onFloat(float v)
+void FlowPassIf::onFloat(t_float v)
 {
     pass_ = 0;
     floatTo(1, v);
@@ -59,7 +59,7 @@ void FlowPassIf::onList(const AtomList& l)
         listTo(0, l);
 }
 
-void FlowPassIf::onAny(t_symbol* s, const AtomList& l)
+void FlowPassIf::onAny(t_symbol* s, const AtomListView& l)
 {
     pass_ = 0;
     anyTo(1, s, l);
@@ -73,11 +73,12 @@ void FlowPassIf::onInlet(size_t n, const AtomList& l)
     if (n != 1 || l.empty())
         return;
 
-    pass_ = (l.asSizeT(0) == 1) ? 1 : 0;
+    pass_ = (l.toT<size_t>(0) == 1) ? 1 : 0;
 }
 
-extern "C" void setup_flow0x2epass_if()
+void setup_flow_pass_if()
 {
     ObjectFactory<FlowPassIf> obj("flow.pass_if");
     obj.addAlias("pass_if");
+    obj.noPropsDispatch();
 }

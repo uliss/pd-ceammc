@@ -46,7 +46,7 @@ public:
     }
 
     Maybe(Maybe&& m)
-        : value_(m.value_)
+        : value_(std::move(m.value_))
         , null_(m.null_)
     {
     }

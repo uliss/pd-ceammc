@@ -14,15 +14,13 @@
 #ifndef LIST_INSERT_H
 #define LIST_INSERT_H
 
-#include "ceammc_dataatomlist.h"
+#include "ceammc_data.h"
 #include "ceammc_object.h"
 
 using namespace ceammc;
 
-class DataTypeMList;
-
 class ListInsert : public BaseObject {
-    DataAtomList lst_;
+    ListProperty* lst_;
     SizeTProperty* index_;
 
 public:
@@ -30,7 +28,7 @@ public:
 
     void onList(const AtomList& lst) override;
     void onInlet(size_t n, const AtomList& lst) override;
-    void onDataT(const DataTPtr<DataTypeMList>& lst);
+    void onDataT(const MListAtom& ml);
 };
 
 void setup_list_insert();

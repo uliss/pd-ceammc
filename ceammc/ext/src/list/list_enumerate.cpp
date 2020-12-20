@@ -12,9 +12,9 @@
  * this file belongs to.
  *****************************************************************************/
 #include "list_enumerate.h"
-#include "datatype_mlist.h"
 #include "ceammc_factory.h"
 #include "ceammc_fn_list.h"
+#include "datatype_mlist.h"
 
 ListEnumerate::ListEnumerate(const PdArgs& a)
     : ListBase(a)
@@ -23,11 +23,12 @@ ListEnumerate::ListEnumerate(const PdArgs& a)
 {
     createOutlet();
 
-    from_ = new IntProperty("@from", int(positionalFloatArgument(0, 0)));
-    createProperty(from_);
+    from_ = new IntProperty("@from", 0);
+    from_->setArgIndex(0);
+    addProperty(from_);
 
     append_ = new FlagProperty("@append");
-    createProperty(append_);
+    addProperty(append_);
 }
 
 void ListEnumerate::onList(const AtomList& l)
@@ -39,4 +40,15 @@ void setup_list_enumerate()
 {
     ObjectFactory<ListEnumerate> obj("list.enumerate");
     obj.processData<DataTypeMList>();
+
+    obj.setDescription("enumerates input list");
+    obj.addAuthor("Serge Poltavsky");
+    obj.setKeywords({ "list", "enumerate" });
+    obj.setCategory("list");
+    obj.setSinceVersion(0, 3);
+
+    ListEnumerate::setInletsInfo(obj.classPointer(), { "list or Mlist" });
+    ListEnumerate::setOutletsInfo(obj.classPointer(), { "list or Mlist\n"
+                                                        "    0 L₀ 1 L₁ etc. or\n"
+                                                        "    L₀ 0 L₁ 1 etc. if @append flag used" });
 }

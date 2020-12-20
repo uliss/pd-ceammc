@@ -24,16 +24,16 @@ class HoaDecoder : public HoaBase {
     std::unique_ptr<Decoder2d> decoder_;
     Buffer in_buf_;
     Buffer out_buf_;
-    size_t crop_size_;
     // decoder_ is not available while parsing properties
     // this members store initial values
-    AtomList init_offset_;
-    AtomList init_angles_;
+    t_float cache_offset_ = { 0 };
+    int cache_crop_size_ = { 16 };
+    AtomList cache_angles_;
 
 public:
     HoaDecoder(const PdArgs& args);
 
-    void parseProperties() override;
+    void initDone() override;
     void processBlock(const t_sample** in, t_sample** out) override;
     void setupDSP(t_signal** sp) override;
     void blockSizeChanged(size_t bs) override;
@@ -41,16 +41,14 @@ public:
     AtomList propPlaneWavesX() const;
     AtomList propPlaneWavesY() const;
     AtomList propPlaneWavesZ() const;
-    AtomList propNumHarmonics() const;
 
-    AtomList propCropSize() const;
-    void propSetCropSize(const AtomList& lst);
+    int propCropSize() const;
+    bool propSetCropSize(int n);
 
     AtomList propAngles() const;
-    void propSetAngles(const AtomList& lst);
+    bool propSetAngles(const AtomList& lst);
 
-    AtomList propOffset() const;
-    void propSetOffset(const AtomList& lst);
+    bool propSetOffset(t_float lst);
 
 private:
     void processCommon();
@@ -71,7 +69,6 @@ private:
     }
 
     void initDecoder();
-    void parseMode();
     void parsePlainWavesNum();
 };
 

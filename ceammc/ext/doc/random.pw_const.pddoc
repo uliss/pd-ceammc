@@ -10,7 +10,7 @@
             <license>GPL3 or later</license>
             <library>ceammc</library>
             <category>random</category>
-            <keywords>linear random piecewise</keywords>
+            <keywords>linear random piecewise const</keywords>
             <also>
                 <see>random.linear</see>
                 <see>random.pw_lin</see>
@@ -21,6 +21,8 @@
             <par>Produces random floating-point numbers, which are uniformly distributed within
             each of the several subintervals [b0, b1) , each with its own weight</par>
             <par>Const segments specified as: bound0, weight0, bound1, weight0, bound2 etc</par>
+            <par>Use @seed property to get reproducible sequences. If @seed property was not
+            explicitly set or specified, uses generator initialized with current time.</par>
         </info>
         <arguments>
             <argument type="list" name="P">interleaved interval boundaries and boundary
@@ -32,6 +34,7 @@
             propabilities.</property>
             <property name="@bounds" type="list" readonly="true">list of boundaries</property>
             <property name="@weights" type="list" readonly="true">list of weights</property>
+            <property name="@seed" type="int" minvalue="0" default="0">generator seed</property>
         </properties>
         <inlets>
             <inlet>

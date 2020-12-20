@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="math.gamma">
+        <title>math.gamma</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>gamma function</description>
+            <license>GPL3 or later</license>
+            <library>ceammc</library>
+            <category>math</category>
+            <keywords>math gamma factorial</keywords>
+            <also>
+                <see>math.gamma</see>
+                <see>math.lgamma~</see>
+            </also>
+            <since>0.9</since>
+        </meta>
+        <info>
+            <par>Extension of factorial function to real numbers</par>
+            <par>For any positive integer n, Γ(n) = (n−1)!</par>
+        </info>
+        <inlets>
+            <inlet>
+                <xinfo on="float">input value</xinfo>
+                <xinfo on="list">apply to all numeric values</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet>result value or list</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[bang(                   [array GAMMA size=161 w=300 h=150 yr=-40..40]
+|
+[list.seq -4 4 0.05]
+|
+[list.each #a] [math.gamma #b]
+|              |
+|              [clip -50 50 #c]
+|
+|
+[list.sep @enumerate 1]
+|
+[swap]
+|   ^|.
+[tabwrite GAMMA]
+[X a:1->b] [X c->a:1]
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

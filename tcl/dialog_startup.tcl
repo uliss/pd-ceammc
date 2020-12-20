@@ -22,15 +22,18 @@ proc ::dialog_startup::chooseCommand { prompt initialValue } {
     wm group .inputbox .
     wm minsize .inputbox 450 30
     wm resizable .inputbox 0 0
+    # ceammc: size
     wm geom .inputbox "450x40"
+    # ceammc: padx, pady
     .inputbox configure -padx 5 -pady 5
     # not all Tcl/Tk versions or platforms support -topmost, so catch the error
     catch {wm attributes $mytoplevel -topmost 1}
 
+    # ceammc: padx
     button .inputbox.button -text [_ "OK"] -command { destroy .inputbox } \
         -width [::msgcat::mcmax [_ "OK"]] -padx 10
 
-    entry .inputbox.entry -width 40 -textvariable cmd
+    entry .inputbox.entry -width 50 -textvariable cmd
     pack .inputbox.button -side right
     bind .inputbox.entry <KeyPress-Return> { destroy .inputbox }
     bind .inputbox.entry <KeyPress-Escape> { destroy .inputbox }

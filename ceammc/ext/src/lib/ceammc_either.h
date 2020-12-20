@@ -102,6 +102,24 @@ struct Either : public boost::variant<T, Error> {
         return true;
     }
 
+    template <class U>
+    Either<U, Error> call(std::function<U(const T&)> fn)
+    {
+        if (isError())
+            return Either<U, Error>(error());
+        else
+            return Either<U, Error>(fn(value()));
+    }
+
+    template <class U>
+    Either<U, Error> call(U (*fn)(const T&))
+    {
+        if (isError())
+            return Either<U, Error>(error());
+        else
+            return Either<U, Error>(fn(value()));
+    }
+
     T& value()
     {
         return boost::get<T>(*this);

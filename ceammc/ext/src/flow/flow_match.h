@@ -14,26 +14,38 @@
 #ifndef FLOW_MATCH_H
 #define FLOW_MATCH_H
 
+#include "ceammc_data.h"
 #include "ceammc_object.h"
-#include "datatype_string.h"
-#include "re2/re2.h"
 
 #include <memory>
+
+namespace re2 {
+class RE2;
+}
 
 using namespace ceammc;
 
 class FlowMatch : public BaseObject {
-    typedef std::shared_ptr<re2::RE2> Re2Ptr;
-    std::vector<Re2Ptr> re_;
+    using RE2list = std::vector<re2::RE2*>;
+    ListProperty* patterns_;
+    RE2list re_;
     BoolProperty* cut_;
 
 public:
     FlowMatch(const PdArgs& args);
-    void onInlet(size_t idx, const AtomList& l);
+    ~FlowMatch();
 
-    void onSymbol(t_symbol* s);
-    void onAny(t_symbol* s, const AtomList& l);
-    void onDataT(const DataTPtr<DataTypeString>& data);
+    void initDone() override;
+    void onInlet(size_t idx, const AtomList& l) override;
+
+    void onSymbol(t_symbol* s) override;
+    void onAny(t_symbol* s, const AtomListView& l) override;
+    void onDataT(const StringAtom& data);
+
+    const char* annotateInlet(size_t n) const override;
+    const char* annotateOutlet(size_t n) const override;
+
+    bool processAnyProps(t_symbol* sel, const AtomListView& lst) override { return false; }
 };
 
 void setup_flow_match();

@@ -1,39 +1,53 @@
 #include "midi_file.h"
 #include "ceammc_canvas.h"
 #include "ceammc_factory.h"
+#include "datatype_dict.h"
 
 #include "MidiFile.h"
 
-extern "C" {
-#include "g_canvas.h"
-}
-
 XMidiFile::XMidiFile(const PdArgs& a)
     : BaseObject(a)
-    , midi_stream_(new DataTypeMidiStream())
-    , cnv_(canvas_getcurrent())
 {
     createOutlet();
 
-    createCbProperty("@filename", &XMidiFile::p_filename);
-    createCbProperty("@tracks", &XMidiFile::p_tracks);
-    createCbProperty("@tempo", &XMidiFile::p_tempo);
-    createCbProperty("@length_sec", &XMidiFile::p_length_sec);
-    createCbProperty("@length_tick", &XMidiFile::p_length_tick);
-    createCbProperty("@length_beat", &XMidiFile::p_length_beat);
+    createCbSymbolProperty(
+        "@filename",
+        [this]() -> t_symbol* { return midi_stream_->filename(); },
+        [this](t_symbol* path) -> bool { return open(path->s_name); })
+        ->setArgIndex(0);
+
+    createCbIntProperty("@tracks",
+        [this]() -> int { return midi_stream_->trackCount(); });
+    createCbIntProperty("@tempo",
+        [this]() -> int { return midi_stream_->tempo(); });
+    createCbFloatProperty("@length_sec",
+        [this]() -> t_float { return midi_stream_->totalTimeInSeconds(); })
+        ->setUnits(PropValueUnits::SEC);
+    createCbIntProperty("@length_tick",
+        [this]() -> int { return midi_stream_->totalTimeInTicks(); });
+    createCbFloatProperty("@length_beat",
+        [this]() -> t_float { return midi_stream_->totalTimeInQuarters(); });
 }
 
 void XMidiFile::onBang()
 {
-    dataTo(0, midi_stream_);
+    atomTo(0, midi_stream_);
 }
 
-void XMidiFile::m_clear(t_symbol*, const AtomList&)
+void XMidiFile::m_clear(t_symbol*, const AtomListView&)
 {
-    midi_stream_ = new DataTypeMidiStream();
+    midi_stream_ = MidiStreamAtom();
 }
 
-void XMidiFile::m_read(t_symbol*, const AtomList& l)
+void XMidiFile::m_info(t_symbol*, const AtomListView&)
+{
+    DictAtom info;
+    info->insert("filename", midi_stream_->filename());
+
+    atomTo(0, info);
+}
+
+void XMidiFile::m_read(t_symbol*, const AtomListView& l)
 {
     if (!checkArgs(l, ARG_SYMBOL))
         return;
@@ -44,7 +58,7 @@ void XMidiFile::m_read(t_symbol*, const AtomList& l)
         return;
     }
 
-    midi_stream_ = new DataTypeMidiStream(path.c_str());
+    midi_stream_ = MidiStreamAtom(path.c_str());
     if (!midi_stream_->is_open()) {
         OBJ_ERR << "can't read MIDI file: " << path.c_str();
         return;
@@ -53,7 +67,7 @@ void XMidiFile::m_read(t_symbol*, const AtomList& l)
     OBJ_DBG << "file read from: \"" << path << "\"";
 }
 
-void XMidiFile::m_write(t_symbol*, const AtomList& l)
+void XMidiFile::m_write(t_symbol*, const AtomListView& l)
 {
     if (!checkArgs(l, ARG_SYMBOL))
         return;
@@ -73,39 +87,26 @@ void XMidiFile::m_write(t_symbol*, const AtomList& l)
     OBJ_DBG << "file written to: \"" << filepath << "\"";
 }
 
-AtomList XMidiFile::p_filename() const
-{
-    return Atom(midi_stream_->filename());
-}
-
-AtomList XMidiFile::p_tempo() const
-{
-    return Atom(midi_stream_->tempo());
-}
-
-AtomList XMidiFile::p_tracks() const
-{
-    return Atom(midi_stream_->trackCount());
-}
-
-AtomList XMidiFile::p_length_sec() const
-{
-    return Atom(midi_stream_->totalTimeInSeconds());
-}
-
-AtomList XMidiFile::p_length_tick() const
-{
-    return Atom(midi_stream_->totalTimeInTicks());
-}
-
-AtomList XMidiFile::p_length_beat() const
-{
-    return Atom(midi_stream_->totalTimeInQuarters());
-}
-
-void XMidiFile::onDataT(const DataTPtr<DataTypeMidiStream>& data)
+void XMidiFile::onDataT(const MidiStreamAtom& data)
 {
     midi_stream_ = data;
+}
+
+bool XMidiFile::open(const char* path)
+{
+    std::string full_path = findInStdPaths(path);
+    if (full_path.empty()) {
+        OBJ_ERR << "file is not found in search paths: " << path;
+        return false;
+    }
+
+    midi_stream_ = MidiStreamAtom(full_path.c_str());
+    if (!midi_stream_->is_open()) {
+        OBJ_ERR << "can't read MIDI file: " << full_path;
+        return false;
+    }
+
+    return true;
 }
 
 void setup_midi_file()

@@ -77,50 +77,66 @@ StkSynth::StkSynth(const PdArgs& args, stk::Instrmnt* instr)
     , freq_(nullptr)
     , gate_(0)
 {
-    freq_ = new FloatPropertyMin("@freq", mtof(57), 0);
-    freq_->info().setUnits(PropertyInfoUnits::HZ);
-    createProperty(freq_);
+    freq_ = new FloatProperty("@freq", mtof(57));
+    freq_->checkNonNegative();
+    freq_->setUnitsHz();
+    addProperty(freq_);
 
-    {
-        Property* p = createCbProperty("@gate", &StkSynth::propGate, &StkSynth::propSetGate);
-        p->info().setType(PropertyInfoType::FLOAT);
-        p->info().setRange(0, 1);
-    }
+    createCbFloatProperty(
+        "@gate",
+        [this]() -> t_float { return gate_; },
+        [this](t_float f) -> bool { return propSetGate(f); })
+        ->setFloatCheck(PropValueConstraints::CLOSED_RANGE, 0, 1);
+
+    createCbFloatProperty(
+        "@pitch",
+        [this]() { return convert::freq2midi(freq_->value()); },
+        [this](t_float p) -> bool { return freq_->setValue(convert::midi2freq(p)); });
 }
 
-AtomList StkSynth::propGate() const
+bool StkSynth::propSetGate(t_float f)
 {
-    return Atom(gate_);
-}
-
-void StkSynth::propSetGate(const AtomList& lst)
-{
-    if (!checkArgs(lst, ARG_FLOAT)) {
-        OBJ_ERR << "gate value expected: " << lst;
-        return;
-    }
-
-    t_float amp = ceammc::clip<t_float>(lst.floatAt(0, 60), 0, 1);
-
-    if (amp > 0)
-        synth_->noteOn(freq_->value(), amp);
+    if (f > 0)
+        synth_->noteOn(freq_->value(), f);
     else
         synth_->noteOff(freq_->value());
 
-    gate_ = amp;
+    gate_ = f;
+    return true;
 }
 
-void StkBase::m_cc(t_symbol* s, const AtomList& lst)
+void StkSynth::m_note(t_symbol* s, const AtomListView& lv)
+{
+    if (lv.size() != 2 && !lv.allOf(isFloat)) {
+        METHOD_ERR(s) << "usage: " << s->s_name << " NOTE VELOCITY";
+        return;
+    }
+
+    const auto note = lv.floatAt(0, -1);
+    const auto vel = lv.floatAt(1, -1);
+
+    if (vel < 0 || vel > 127) {
+        METHOD_ERR(s) << "velocity value is out of [0..127] range: " << vel;
+        return;
+    }
+
+    freq_->setValue(mtof(note));
+    propSetGate(convert::lin2lin_clip<t_float, 0, 127>(vel, 0, 1));
+}
+
+void StkBase::m_cc(t_symbol* s, const AtomListView& lst)
 {
     if (!checkArgs(lst, ARG_INT, ARG_FLOAT, s))
         return;
 
-    int ctl_num = lst[0].asInt();
-    stk::StkFloat ctl_val = lst[1].asFloat();
+    controlChange(lst[0].asInt(), lst[1].asFloat());
+}
 
-    OBJ_DBG << lst;
+void StkBase::controlChange(int n, t_float val)
+{
+    OBJ_DBG << n << " -> " << val;
 
-    synth_->controlChange(ctl_num, ctl_val);
+    synth_->controlChange(n, val);
 }
 
 void StkBase::initRawWaves(t_class* c)

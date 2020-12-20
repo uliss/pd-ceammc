@@ -12,66 +12,98 @@
  * this file belongs to.
  *****************************************************************************/
 #include "list_xcontains.h"
-#include "datatype_mlist.h"
 #include "ceammc_factory.h"
 #include "ceammc_fn_list.h"
+#include "datatype_mlist.h"
+#include "fmt/format.h"
 
 ListXContains::ListXContains(const PdArgs& args)
     : BaseObject(args)
-    , lst_(positionalArguments())
 {
     createInlet();
     createOutlet();
+
+    createCbListProperty(
+        "@value",
+        [this]() -> AtomList { return lst_; },
+        [this](const AtomList& l) -> bool { onInlet(1, l); return true; })
+        ->setArgIndex(0);
 }
 
 void ListXContains::onFloat(t_float f)
 {
-    contains<Atom>(Atom(f));
+    if (lst_.isA<DataTypeMList>()) {
+        auto haystack = lst_.asD<DataTypeMList>();
+        boolTo(0, haystack->contains(f));
+    } else {
+        boolTo(0, lst_.contains(f));
+    }
 }
 
 void ListXContains::onSymbol(t_symbol* s)
 {
-    contains<Atom>(Atom(s));
+    if (lst_.isA<DataTypeMList>()) {
+        auto haystack = lst_.asD<DataTypeMList>();
+        boolTo(0, haystack->contains(s));
+    } else {
+        boolTo(0, lst_.contains(s));
+    }
 }
 
 void ListXContains::onList(const AtomList& lst)
 {
-    contains(lst);
+    if (lst.size() < 1) {
+        boolTo(0, false);
+        return;
+    }
+
+    if (lst_.isA<DataTypeMList>()) {
+        auto haystack = lst_.asD<DataTypeMList>();
+        boolTo(0, haystack->contains(lst[0]));
+    } else {
+        boolTo(0, lst_.contains(lst));
+    }
 }
 
-void ListXContains::onData(const DataPtr& ptr)
+void ListXContains::onData(const Atom& d)
 {
-    auto mlist = lst_.asSingle<DataTypeMList>();
+    if (lst_.isA<DataTypeMList>()) {
+        auto haystack = lst_.asD<DataTypeMList>();
 
-    if (mlist) {
-        auto input_mlist = ptr.as<DataTypeMList>();
-
-        if (input_mlist)
-            output(mlist->contains(*input_mlist));
+        if (d.isA<DataTypeMList>())
+            boolTo(0, haystack->contains(*d.asD<DataTypeMList>()));
         else
-            output(mlist->contains(ptr));
+            boolTo(0, haystack->contains(d));
+
     } else {
-        output(lst_.contains(ptr));
+        boolTo(0, lst_.contains(d));
     }
 }
 
 void ListXContains::onInlet(size_t n, const AtomList& lst)
 {
-    if (lst.isData() && !lst.isDataType<DataTypeMList>()) {
-        OBJ_ERR << "invalid datatype. Only data.mlist is supported!";
+    if (lst.isData() && !lst.isA<DataTypeMList>()) {
+        OBJ_ERR << fmt::format("invalid datatype {}, only data.mlist is supported", lst[0].asData()->typeName());
         return;
     }
 
     lst_ = lst;
 }
 
-void ListXContains::output(bool v)
-{
-    floatTo(0, v ? 1 : 0);
-}
-
 void setup_list_xcontains()
 {
     ObjectFactory<ListXContains> obj("list.^contains");
     obj.processData();
+
+    obj.setDescription("on input atom or list checks if specified list contains it");
+    obj.addAuthor("Serge Poltavsky");
+    obj.setKeywords({ "list", "predicate", "any" });
+    obj.setCategory("list");
+    obj.setSinceVersion(0, 6);
+
+    ListXContains::setInletsInfo(obj.classPointer(), { "float:  check if float in list\n"
+                                                       "symbol: check if symbol in list\n"
+                                                       "list:   check if sublist in list",
+                                                         "list: set list value" });
+    ListXContains::setOutletsInfo(obj.classPointer(), { "int: 1 or 0" });
 }

@@ -16,8 +16,15 @@
 
 DataSet::DataSet(const PdArgs& a)
     : DataSetBase(a)
-    , set_(positionalArguments())
 {
+    auto p = createCbListProperty(
+        "@value",
+        [this]() -> AtomList { return set_.toList(); },
+        [this](const AtomList& l) -> bool { set_ = DataTypeSet(l); return true; });
+
+    p->setArgIndex(0);
+    p->setInitOnly();
+
     createOutlet();
 }
 

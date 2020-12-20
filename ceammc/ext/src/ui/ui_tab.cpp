@@ -33,9 +33,16 @@ UITab::UITab()
 void UITab::init(t_symbol* name, const AtomList& args, bool usePresets)
 {
     UIObject::init(name, args, usePresets);
-    if (args.size() > 0 && !args[0].isProperty()) {
-        propSetItems(args);
+    AtomList items;
+    for (auto& a : args) {
+        if (a.isProperty())
+            break;
+
+        items.append(a);
     }
+
+    if (items.size() > 0)
+        propSetItems(items);
 }
 
 void UITab::okSize(t_rect* newrect)

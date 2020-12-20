@@ -14,6 +14,8 @@
 #ifndef DICT_IFACE_H
 #define DICT_IFACE_H
 
+#include "ceammc_args.h"
+#include "ceammc_data.h"
 #include "ceammc_object.h"
 #include "data_protocol.h"
 #include "datatype_dict.h"
@@ -26,18 +28,18 @@ public:
     DictIFace(const PdArgs& args)
         : FilesystemIFace<CollectionIFace<T>>(args)
     {
-        T::createCbProperty("@keys", &DictIFace::propKeys);
+        T::createCbListProperty("@keys", [this]() -> AtomList { return dict()->keys(); });
     }
 
     void dump() const override
     {
         FilesystemIFace<CollectionIFace<T>>::dump();
-        OBJ_DBG << dict().toString();
+        OBJ_DBG << dict();
     }
 
     void onBang() override
     {
-        this->dataTo(0, dict().clone());
+        this->atomTo(0, dict());
     }
 
     void onList(const AtomList& args) override
@@ -47,108 +49,103 @@ public:
             return;
         }
 
-        dict().clear();
-
-        for (size_t i = 0; i < args.size(); i += 2)
-            dict().insert(args[i], args[i + 1]);
+        dict().detachData();
+        *dict() = DataTypeDict::fromList(args, 2);
     }
 
-    void onAny(t_symbol* s, const AtomList& args) override
+    void onAny(t_symbol* s, const AtomListView& args) override
     {
         std::string str(s->s_name);
         str += ' ';
         str += to_string(args, " ");
 
-        if (!dict().fromString(str)) {
+        dict().detachData();
+
+        if (!dict()->fromString(str)) {
             OBJ_ERR << "parse error: " << s << args;
             return;
         }
     }
 
-    void onDataT(const DataTPtr<DataTypeDict>& d)
+    void onDataT(const DictAtom& d)
     {
-        dict() = *d.data();
+        dict() = d;
         onBang();
     }
 
-    void m_get_key(t_symbol* s, const AtomList& key)
+    void m_get_key(t_symbol* s, const AtomListView& key)
     {
-        if (key.empty()) {
+        if (!key.isSymbol()) {
             METHOD_ERR(s) << "key expected";
             METHOD_ERR(s) << "usage: " << s << " KEY";
             return;
         }
 
-        auto v = dict().value(key[0]);
-        if (DataTypeDict::isNull(v))
-            return;
+        auto k = key.asT<t_symbol*>();
 
-        if (v.type() == typeid(Atom))
-            this->atomTo(0, boost::get<Atom>(v));
-        else if (v.type() == typeid(AtomList))
-            this->listTo(0, boost::get<AtomList>(v));
-        else if (v.type() == typeid(DataAtom))
-            this->atomTo(0, boost::get<DataAtom>(v).toAtom());
-        else
-            METHOD_ERR(s) << "unknown value type";
+        if (dict()->contains(k))
+            this->listTo(0, dict()->at(k));
     }
 
-    void m_set_key(t_symbol* s, const AtomList& lst)
+    void m_set_key(t_symbol* s, const AtomListView& lst)
     {
-        if (lst.empty()) {
+        if (lst.empty() || !lst[0].isSymbol()) {
             METHOD_ERR(s) << "key expected";
-            METHOD_ERR(s) << "usage: " << s << " KEY VALUES...";
+            METHOD_ERR(s) << "usage: " << s << " KEY [VALUES...]";
             return;
         }
 
-        if (lst.size() < 2) {
-            METHOD_ERR(s) << "value expected";
-            METHOD_ERR(s) << "usage: " << s << " KEY VALUES...";
+        auto key = lst[0].asSymbol();
+
+        if (!dict()->contains(key)) {
+            METHOD_ERR(s) << "key not found: " << lst[0];
             return;
         }
 
-        auto key = lst[0];
-
-        if (!dict().contains(key)) {
-            METHOD_ERR(s) << "key not found: " << key;
-            return;
-        }
-
-        proto_add(lst);
+        dict().detachData();
+        dict()->at(key) = lst.subView(1);
     }
 
-    void proto_add(const AtomList& lst) override
+    void proto_add(const AtomListView& lst) override
     {
-        if (lst.size() < 2) {
-            OBJ_ERR << "Usage: add KEY VALUES...";
+        if (lst.empty() || !lst[0].isSymbol()) {
+            OBJ_ERR << "Usage: add KEY [VALUES...]";
             return;
         }
 
-        if (lst.size() == 2) {
-            if (lst[1].isData())
-                dict().insert(lst[0], DataAtom(lst[1]));
-            else
-                dict().insert(lst[0], lst[1]);
-        } else
-            dict().insert(lst[0], lst.slice(1));
+        dict().detachData();
+        auto key = lst[0].asSymbol();
+
+        if (lst.size() == 2)
+            dict()->insert(key, lst[1]);
+        else
+            dict()->insert(key, lst.subView(1));
     }
 
     void proto_clear() override
     {
-        dict().clear();
+        dict().detachData();
+        dict()->clear();
     }
 
-    void proto_set(const AtomList& lst) override
+    void proto_set(const AtomListView& lst) override
     {
-        dict().fromString(to_string(lst, " "));
+        dict().detachData();
+        dict()->fromString(to_string(lst, " "));
     }
 
-    bool proto_remove(const AtomList& lst) override
+    bool proto_remove(const AtomListView& lst) override
     {
+        if (lst.empty() || !lst.anyOf(isSymbol)) {
+            OBJ_ERR << "key list expected, got: " << lst;
+            return false;
+        }
+
         bool res = true;
+        dict().detachData();
 
         for (auto& el : lst) {
-            if (!dict().remove(el)) {
+            if (!dict()->remove(el.asSymbol())) {
                 res = false;
                 OBJ_ERR << "key not found: " << el;
             }
@@ -159,33 +156,22 @@ public:
 
     size_t proto_size() const override
     {
-        return dict().size();
+        return dict()->size();
     }
 
     bool proto_write(const std::string& path) const override
     {
-        return dict().write(path);
+        return dict()->write(path);
     }
 
     bool proto_read(const std::string& path) override
     {
-        return dict().read(path);
+        dict().detachData();
+        return dict()->read(path);
     }
 
-    AtomList propKeys() const
-    {
-        AtomList res;
-
-        res.reserve(dict().size());
-        for (auto& el : dict().innerData())
-            res.append(el.first);
-
-        return res;
-    }
-
-public:
-    virtual DataTypeDict& dict() = 0;
-    virtual const DataTypeDict& dict() const = 0;
+    virtual const DictAtom& dict() const = 0;
+    virtual DictAtom& dict() = 0;
 };
 
 template <typename T>

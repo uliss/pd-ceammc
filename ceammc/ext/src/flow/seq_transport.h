@@ -1,0 +1,43 @@
+/*****************************************************************************
+ * Copyright 2020 Serge Poltavsky. All rights reserved.
+ *
+ * This file may be distributed under the terms of GNU Public License version
+ * 3 (GPL v3) as defined by the Free Software Foundation (FSF). A copy of the
+ * license should have been included with this file, or the project in which
+ * this file belongs to. You may also find the details of GPL v3 at:
+ * http://www.gnu.org/licenses/gpl-3.0.txt
+ *
+ * If you have any questions regarding the use of this file, feel free to
+ * contact the author of this file, or the owner of the project in which
+ * this file belongs to.
+ *****************************************************************************/
+#ifndef SEQ_TRANSPORT_H
+#define SEQ_TRANSPORT_H
+
+#include "ceammc_clock.h"
+#include "ceammc_object.h"
+using namespace ceammc;
+
+namespace ceammc {
+class Transport;
+}
+
+class SeqTransport : public BaseObject {
+    SymbolProperty* name_;
+    ClockLambdaFunction clock_;
+    Transport* transport_;
+    IntProperty* beats_in_bar_;
+    FloatProperty* bpm_;
+
+public:
+    SeqTransport(const PdArgs& args);
+
+    void onFloat(t_float f) override;
+
+private:
+    void tick();
+};
+
+void setup_seq_transport();
+
+#endif // SEQ_TRANSPORT_H

@@ -14,21 +14,21 @@
 #ifndef STRING_STARTS_WITH_H
 #define STRING_STARTS_WITH_H
 
+#include "ceammc_data.h"
 #include "ceammc_object.h"
-#include "datatype_string.h"
 
-using namespace std;
+using namespace ceammc;
 
 class StringStartsWith : public BaseObject {
-    std::string suffix_;
+    std::string prefix_;
 
 public:
     StringStartsWith(const PdArgs& a);
-    void onSymbol(t_symbol* s);
-    void onInlet(size_t, const AtomList& l);
-    void onDataT(const DataTPtr<DataTypeString>& dptr);
+    void onSymbol(t_symbol* s) override;
+    void onInlet(size_t, const AtomList& l) override;
+    void onDataT(const StringAtom& str);
 };
 
-extern "C" void setup_string0x2estarts_with();
+void setup_string_starts_with();
 
 #endif // STRING_STARTS_WITH_H

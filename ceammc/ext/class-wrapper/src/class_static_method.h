@@ -28,7 +28,6 @@
 #define CLASS_STATIC_METHOD_HPP
 
 #include "ceammc_atomlist.h"
-#include "ceammc_dataatom.h"
 #include "ceammc_log.h"
 #include "ceammc_object.h"
 
@@ -53,6 +52,7 @@ public:
     using InletArgSetter = InletArgFromAtomList<MethodTraits::nargs, MethodArgs>;
 
     static constexpr bool has_varargs = tuple_utils::has_type<std::vector<float>, MethodArgs>::value
+        || tuple_utils::has_type<std::vector<double>, MethodArgs>::value
         || tuple_utils::has_type<std::vector<int>, MethodArgs>::value
         || tuple_utils::has_type<std::vector<std::string>, MethodArgs>::value
         || tuple_utils::has_type<AtomList, MethodArgs>::value;
@@ -60,32 +60,37 @@ public:
 private:
     Method method_;
     MethodArgs arguments_;
+    ListProperty* pd_args_;
 
 public:
     ClassStaticMethod(PdArgs& a, Method m)
         : BaseObject(a)
         , method_(m)
-    {
-        initXlets();
-        initArguments();
-    }
-
-    void initXlets()
+        , pd_args_(nullptr)
     {
         for (size_t i = 1; i < MethodTraits::nargs; i++)
             createInlet();
 
         for (size_t i = 0; i < MethodTraits::nouts; i++)
             createOutlet();
+
+        initArguments();
     }
 
     void initArguments()
     {
-        try {
-            atomListToArguments<Method>(positionalArguments(), arguments_);
-        } catch (std::exception& e) {
-            OBJ_ERR << "initial arguments: " << e.what();
-        }
+        pd_args_ = new ListProperty("@args");
+        pd_args_->setArgIndex(0);
+        pd_args_->setListCheckFn([this](const AtomList& l) {
+            try {
+                atomListToArguments<Method>(l, arguments_);
+                return true;
+            } catch (std::exception& e) {
+                OBJ_ERR << "initial arguments error: " << e.what();
+                return false;
+            }
+        });
+        addProperty(pd_args_);
     }
 
     void dispatch()
@@ -104,7 +109,7 @@ public:
         dispatch();
     }
 
-    void onFloat(float f) override
+    void onFloat(t_float f) override
     {
         switch (MethodTraits::nargs) {
         case 0:
@@ -148,14 +153,6 @@ public:
             OBJ_ERR << err.msg();
     }
 
-    void dump() const override
-    {
-        BaseObject::dump();
-        Debug dbg(this);
-        dbg << "args:";
-        tuple_utils::for_each(arguments_, PdDump(dbg));
-    }
-
 private:
     template <typename C>
     void outputTo(size_t n, const C& v)
@@ -168,13 +165,7 @@ private:
     template <bool enable = has_varargs>
     bool processList(const typename std::enable_if<enable, AtomList>::type& l)
     {
-        try {
-            atomListToArguments<Method>(l, arguments_);
-            return true;
-        } catch (std::exception& e) {
-            OBJ_ERR << "initial arguments: " << e.what();
-            return false;
-        }
+        return pd_args_->set(l);
     }
 
     template <bool enable = has_varargs>
@@ -187,13 +178,7 @@ private:
             return false;
         }
 
-        try {
-            atomListToArguments<Method>(l, arguments_);
-            return true;
-        } catch (std::exception& e) {
-            OBJ_ERR << "initial arguments: " << e.what();
-            return false;
-        }
+        return pd_args_->set(l);
     }
 };
 }

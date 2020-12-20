@@ -1,9 +1,24 @@
 include(TestBigEndian)
 include(FindLibDL)
 include(windres)
+
+function(ceammc_remove_duplicate_substring stringIn stringOut)
+    separate_arguments(stringIn)
+    list(REMOVE_DUPLICATES stringIn)
+    string(REPLACE ";" " " stringIn "${stringIn}")
+    set(${stringOut} "${stringIn}" PARENT_SCOPE)
+endfunction()
+
+
+# big endian check
 test_big_endian(IS_BIG_ENDIAN)
 if(NOT ${IS_BIG_ENDIAN})
     add_definitions(-DLITTLE_ENDIAN=0x0001 -DBYTE_ORDER=LITTLE_ENDIAN)
+endif()
+
+set(CEAMMC_COMPILER_WARNING_FLAGS "-Wall -Wextra")
+if(APPLE AND CMAKE_CXX_COMPILER_ID MATCHES "Clang")
+    set(CEAMMC_COMPILER_WARNING_FLAGS "${CEAMMC_COMPILER_WARNING_FLAGS} -Wno-unused-function -Wcast-align -Wcast-qual -Wconversion -Wctor-dtor-privacy -Wduplicate-enum -Wextra-semi -Wfloat-equal -Wlong-long -Wnon-virtual-dtor -Wold-style-cast -Woverloaded-virtual -Wredundant-decls -Wsign-conversion -Wsign-promo")
 endif()
 
 # needed for math constants in <math.h>: M_PI etc.
@@ -21,13 +36,6 @@ if(UNIX AND NOT APPLE)
     set(LINUX True)
 endif()
 
-function(ceammc_remove_duplicate_substring stringIn stringOut)
-    separate_arguments(stringIn)
-    list(REMOVE_DUPLICATES stringIn)
-    string(REPLACE ";" " " stringIn "${stringIn}")
-    set(${stringOut} "${stringIn}" PARENT_SCOPE)
-endfunction()
-
 # address sanitizer
 if(WITH_ASAN)
     set (CEAMMC_ASAN "-fno-omit-frame-pointer -fsanitize=undefined -fsanitize=address")
@@ -42,6 +50,23 @@ if(WITH_ASAN)
     ceammc_remove_duplicate_substring(${CMAKE_CXX_FLAGS_RELEASE} CMAKE_CXX_FLAGS_RELEASE)
     ceammc_remove_duplicate_substring(${CMAKE_LINKER_FLAGS_RELEASE} CMAKE_LINKER_FLAGS_RELEASE)
     ceammc_remove_duplicate_substring(${CMAKE_LINKER_FLAGS} CMAKE_LINKER_FLAGS)
+endif()
+
+# address sanitizer
+if(WITH_PROFILE)
+    if(APPLE)
+        set (CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -g -fprofile-instr-generate -fcoverage-mapping")
+        set (CMAKE_LINKER_FLAGS_DEBUG "${CMAKE_STATIC_LINKER_FLAGS_DEBUG} -fprofile-instr-generate")
+        set (CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} -g -fprofile-instr-generate -fcoverage-mapping")
+        set (CMAKE_LINKER_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} -fprofile-instr-generate")
+        set (CMAKE_LINKER_FLAGS "${CMAKE_LINKER_FLAGS} -fprofile-instr-generate")
+
+        ceammc_remove_duplicate_substring(${CMAKE_CXX_FLAGS_DEBUG} CMAKE_CXX_FLAGS_DEBUG)
+        ceammc_remove_duplicate_substring(${CMAKE_LINKER_FLAGS_DEBUG} CMAKE_LINKER_FLAGS_DEBUG)
+        ceammc_remove_duplicate_substring(${CMAKE_CXX_FLAGS_RELEASE} CMAKE_CXX_FLAGS_RELEASE)
+        ceammc_remove_duplicate_substring(${CMAKE_LINKER_FLAGS_RELEASE} CMAKE_LINKER_FLAGS_RELEASE)
+        ceammc_remove_duplicate_substring(${CMAKE_LINKER_FLAGS} CMAKE_LINKER_FLAGS)
+    endif()
 endif()
 
 function(find_and_install_dll mask dir)
@@ -107,6 +132,7 @@ if(WIN32)
     install_tcl_dir(dde1.4)
     install_tcl_dir(tcllib1.18)
     install_tcl_dir(tcllib1.19)
+    install_tcl_dir(tcllib1.20)
     # try different tooltip location
     install_tcl_dir(tklib0.6)
     install_tcl_dir(tklib0.6/tooltip)
@@ -125,20 +151,8 @@ if(WIN32)
         DESTINATION
             ${CMAKE_INSTALL_PREFIX})
 
-    if(${CMAKE_SYSTEM_NAME} STREQUAL "WindowsStore")
-        message("Building for UWP")
-        set(FIPS_UWP 1)
-    else()
-        set(FIPS_UWP 0)
-    endif()
-
-    if (FIPS_UWP)
-        set(CMAKE_CXX_STANDARD_LIBRARIES "WindowsApp.lib")
-        set(CMAKE_C_STANDARD_LIBRARIES "WindowsApp.lib")
-    else()
-        set(CMAKE_CXX_STANDARD_LIBRARIES "-lkernel32 -lgdi32 -lole32 -lwinmm -luuid -lwsock32 -lws2_32")
-        set(CMAKE_C_STANDARD_LIBRARIES ${CMAKE_CXX_STANDARD_LIBRARIES})
-    endif()
+    set(CMAKE_CXX_STANDARD_LIBRARIES "-lkernel32 -lgdi32 -lole32 -lwinmm -luuid -lwsock32 -lws2_32")
+    set(CMAKE_C_STANDARD_LIBRARIES ${CMAKE_CXX_STANDARD_LIBRARIES})
 
     add_definitions(-DPD_INTERNAL -DWINVER=0x0502 -D_WIN32_WINNT=0x0502 -D_USE_MATH_DEFINES -D_WINDOWS)
     set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -mms-bitfields")
@@ -147,7 +161,8 @@ if(WIN32)
     set(CMAKE_C_FLAGS_RELEASE "${CMAKE_C_FLAGS_RELEASE} -mms-bitfields -O2 -funroll-loops -fomit-frame-pointer")
     set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} -std=c++11 -mms-bitfields -O2 -funroll-loops -fomit-frame-pointer")
 
-    set(CMAKE_SHARED_LINKER_FLAGS "-Wl,--export-all-symbols -lpthread")
+    set(CMAKE_SHARED_LINKER_FLAGS "-lpthread")
+    # set(CMAKE_SHARED_LINKER_FLAGS "-Wl,--export-all-symbols -lpthread")
     set(CMAKE_EXE_LINKER_FLAGS "-shared-libgcc -lpthread")
 
     list(APPEND PLATFORM_LINK_LIBRARIES ${CMAKE_THREAD_LIBS_INIT})
@@ -161,7 +176,6 @@ if(WIN32)
     add_custom_target(prepare_win_tests
         COMMAND ${CMAKE_COMMAND} -E copy "$<TARGET_FILE:puredata-core>" "${PROJECT_BINARY_DIR}/ceammc/ext/tests"
         COMMAND ${CMAKE_COMMAND} -E copy "$<TARGET_FILE:ceammc_core>" "${PROJECT_BINARY_DIR}/ceammc/ext/tests"
-        COMMAND ${CMAKE_COMMAND} -E copy "$<TARGET_FILE:ceammc_sound>" "${PROJECT_BINARY_DIR}/ceammc/ext/tests"
         COMMAND ${CMAKE_COMMAND} -E copy "$<TARGET_FILE:wrapper_lib>" "${PROJECT_BINARY_DIR}/ceammc/ext/tests"
     )
 endif()
@@ -173,7 +187,7 @@ if(APPLE)
     set(CMAKE_C_FLAGS_RELEASE "-O2 -DNDEBUG -ffast-math -funroll-loops -fomit-frame-pointer")
     set(CMAKE_CXX_FLAGS_RELEASE "-std=c++11 -O2 -DNDEBUG -ffast-math -funroll-loops -fomit-frame-pointer")
 
-    if(NOT WITH_ASAN)
+    if(NOT WITH_ASAN AND NOT WITH_PROFILE)
         set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -fomit-frame-pointer")
         set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fomit-frame-pointer")
     endif()
@@ -185,6 +199,10 @@ if(APPLE)
     # copy and substitute variables to Info.plist
     file(MAKE_DIRECTORY ${PROJECT_BINARY_DIR}/dist)
     configure_file(${PROJECT_SOURCE_DIR}/ceammc/gui/Info.plist ${PROJECT_BINARY_DIR}/dist/Info.plist)
+
+    set(EMBEDDED_TCL "${PROJECT_SOURCE_DIR}/mac/build/tcl/Tcl.framework")
+    set(EMBEDDED_TK  "${PROJECT_SOURCE_DIR}/mac/build/tk/Tk.framework")
+    set(EMBEDDED_WISH "${PROJECT_SOURCE_DIR}/mac/Wish-8.6.10.app")
 
     set(CUSTOM_TCL "/Library/Frameworks/Tcl.framework")
     set(CUSTOM_TK  "/Library/Frameworks/Tk.framework")
@@ -198,7 +216,12 @@ if(APPLE)
     set(IS_SYSTEM_TK 0)
     set(TK_VERSION "")
 
-    if(EXISTS ${CUSTOM_TCL} AND EXISTS ${CUSTOM_TK} AND EXISTS ${CUSTOM_WISH})
+    if(EXISTS ${EMBEDDED_TCL} AND EXISTS ${EMBEDDED_TK} AND EXISTS ${EMBEDDED_WISH})
+        set(TCL_PATH "${EMBEDDED_TCL}")
+        set(TK_PATH  "${EMBEDDED_TK}")
+        set(WISH_APP "${EMBEDDED_WISH}")
+        set(TK_VERSION "8.6")
+    elseif(EXISTS ${CUSTOM_TCL} AND EXISTS ${CUSTOM_TK} AND EXISTS ${CUSTOM_WISH})
         set(TCL_PATH "${CUSTOM_TCL}")
         set(TK_PATH  "${CUSTOM_TK}")
         set(WISH_APP "${CUSTOM_WISH}")
@@ -265,6 +288,15 @@ if(APPLE)
             ${PROJECT_SOURCE_DIR}
         WORKING_DIRECTORY ${PROJECT_BINARY_DIR}
         DEPENDS app)
+
+    add_custom_target(build_tcltk
+        COMMAND
+            ${PROJECT_SOURCE_DIR}/mac/tcltk-wish.sh --build --leave --arch x86_64 8.6.10
+        COMMAND
+            ${PROJECT_SOURCE_DIR}/mac/tcltk-libs.sh --build 1.20 0.7
+
+        WORKING_DIRECTORY ${PROJECT_SOURCE_DIR}/mac
+        DEPENDS)
 
     find_program(GPGENV_EXE NAMES gpgenv)
 

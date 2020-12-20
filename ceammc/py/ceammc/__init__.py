@@ -1,7 +1,7 @@
 import template
 
 
-def generate_extension(module, name, headers=None):
+def generate_external(module, name, headers=None):
     if headers is None:
         headers = []
 

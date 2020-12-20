@@ -97,7 +97,7 @@ public:
         : PollMemberFunction<T>(this__, fn)
     {
         using namespace platform;
-        Either<bool> res = init_pipe(fd);
+        Either<bool, PlatformError> res = init_pipe(fd);
         PlatformError err;
         bool val;
         if (res.matchError(err))

@@ -1,33 +1,47 @@
-#include <boost/random/mersenne_twister.hpp>
-#include <boost/random/normal_distribution.hpp>
 #include <ctime>
+#include <random>
 
 #include "ceammc_factory.h"
 #include "random_gauss.h"
 
-extern "C" void setup_random0x2egauss()
-{
-    ObjectFactory<RandomGauss> obj("random.gauss");
-}
-
 RandomGauss::RandomGauss(const PdArgs& a)
     : BaseObject(a)
-    , mu_(0)
-    , sigma_(0)
+    , mu_(nullptr)
+    , sigma_(nullptr)
+    , seed_(nullptr)
 {
     createOutlet();
 
-    mu_ = new FloatProperty("@mu", positionalFloatArgument(0, 0));
-    sigma_ = new FloatPropertyMinEq("@sigma", positionalFloatArgument(1, 0), 0);
+    mu_ = new FloatProperty("@mu", 0);
+    mu_->setArgIndex(0);
+    sigma_ = new FloatProperty("@sigma", 0);
+    sigma_->setArgIndexNext(mu_);
+    sigma_->checkNonNegative();
 
-    createProperty(mu_);
-    createProperty(sigma_);
+    addProperty(mu_);
+    addProperty(sigma_);
+
+    seed_ = new SizeTProperty("@seed", 0);
+    seed_->setSuccessFn([this](Property* p) { gen_.setSeed(seed_->value()); });
+    addProperty(seed_);
 }
 
 void RandomGauss::onBang()
 {
-    static boost::random::mt19937 random_gen(std::time(0));
+    std::normal_distribution<t_float> dist(mu_->value(), sigma_->value());
+    floatTo(0, dist(gen_.get()));
+}
 
-    boost::random::normal_distribution<t_float> dist(mu_->value(), sigma_->value());
-    floatTo(0, dist(random_gen));
+void setup_random_gauss()
+{
+    ObjectFactory<RandomGauss> obj("random.gauss");
+
+    obj.setDescription("gaussian random distribution");
+    obj.addAuthor("Serge Poltavsky");
+    obj.setKeywords({ "gauss", "random" });
+    obj.setCategory("random");
+    obj.setSinceVersion(0, 1);
+
+    RandomGauss::setInletsInfo(obj.classPointer(), { "bang" });
+    RandomGauss::setOutletsInfo(obj.classPointer(), { "float: gaussian distributed random with mean=@mu and stddev=@sigma" });
 }

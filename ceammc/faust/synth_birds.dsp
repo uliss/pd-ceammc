@@ -12,28 +12,35 @@ declare author "Pierre Cochard";
 */
 
 import("stdfaust.lib");
+cm = library("ceammc_ui.lib");
+ba = library("basics.lib");
 
 // PROCESS - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
-process = hgroup("Bird", mainOsc(noteTrig : rdm(72,94) : mtof , noteTrig) * envWrapper(noteTrig, ampEnv, amp_xp(2510)) : fi.lowpass(1, 2500) *(0.8) <: _,_);
+process = mainOsc(noteTrig : rdm(72,94) : mtof , noteTrig) * envWrapper(noteTrig, ampEnv, amp_xp(2510))
+    : fi.lowpass(1, 2500) *(0.8)
+    <: _,_;
 
 // AUTO TRIGGER
-
 autoTrig = ba.beat(t) * (abs(no.noise) <= p) : trigger(48)
-    with {
-        t = hslider("speed [style:knob][acc:0 1 -10 0 10]", 240, 120, 480, 0.1) : si.smooth(0.999);
-        p = hslider("probability [unit:%][style:knob][acc:0 1 -10 0 10]", 50, 25, 100, 1)*(0.01) : si.smooth(0.999);
-        trigger(n) 	= upfront : release(n) : >(0.0)
-        with {
-            upfront(x) 	= (x-x') > 0.0;
-            decay(n,x)	= x - (x>0.0)/n;
-            release(n)	= + ~ decay(n);
-            };
-        };
+with {
+    t = hslider("speed [style:knob]", 240, 120, 480, 0.1) : si.smooth(0.999);
+    p = hslider("probability [unit:%][style:knob]", 50, 25, 100, 1)*(0.01) : si.smooth(0.999);
+    trigger(n) = upfront : release(n) : >(0.0)
+    with
+    {
+        upfront(x) 	= (x-x') > 0.0;
+        decay(n,x)	= x - (x>0.0)/n;
+        release(n)	= + ~ decay(n);
+    };
+};
 
 // BIRD TRIGGER
-
-noteTrig = autoTrig;
+noteTrig = trigger
+with {
+    auto = checkbox("auto [type:int]");
+    trigger = ba.if(auto, autoTrig, cm.igate);
+};
 
 // OSCILLATORS - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 

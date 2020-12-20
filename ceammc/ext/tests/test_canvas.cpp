@@ -23,6 +23,7 @@ extern int sys_verbose;
 
 TEST_CASE("Canvas", "[ceammc::Canvas]")
 {
+    const bool i = []() { PureData::instance(); return true; }();
     test::pdPrintToStdError();
 
     SECTION("utils")
@@ -30,20 +31,20 @@ TEST_CASE("Canvas", "[ceammc::Canvas]")
         SECTION("name")
         {
             REQUIRE(canvas_info_name(0)->s_name == std::string());
-            REQUIRE(canvas_info_name(0) == &s_);
+            REQUIRE(canvas_info_name(0) == gensym(""));
 
             CanvasPtr cnv = PureData::instance().createTopCanvas("test");
             REQUIRE(canvas_info_name(cnv->pd_canvas()) == gensym("test"));
             REQUIRE(cnv->name() == gensym("test"));
 
             Canvas null(nullptr);
-            REQUIRE(null.name() == &s_);
+            REQUIRE(null.name() == gensym(""));
         }
 
         SECTION("dir")
         {
             REQUIRE(canvas_info_dir(0)->s_name == std::string());
-            REQUIRE(canvas_info_dir(0) == &s_);
+            REQUIRE(canvas_info_dir(0) == gensym(""));
 
             CanvasPtr cnv = PureData::instance().createTopCanvas("test");
             REQUIRE(canvas_info_dir(cnv->pd_canvas()) == gensym("~"));
@@ -121,8 +122,8 @@ TEST_CASE("Canvas", "[ceammc::Canvas]")
         {
             REQUIRE(canvas_info_args(0) == L());
 
-            CanvasPtr cnv = PureData::instance().createTopCanvas("patch", LX(1, 2, 3));
-            REQUIRE(canvas_info_args(cnv->pd_canvas()) == L());
+            CanvasPtr cnv = PureData::instance().createTopCanvas("patch", LF(1, 2, 3));
+            REQUIRE(canvas_info_args(cnv->pd_canvas()) == LF(1, 2, 3));
 
             // load abstraction
             CanvasPtr cnv2 = PureData::instance().createTopCanvas(TEST_DATA_DIR "/patch2", LX(1, 2, 3));
@@ -183,7 +184,7 @@ TEST_CASE("Canvas", "[ceammc::Canvas]")
 
             auto a1 = cnv->createArray("array1", 20);
             REQUIRE(a1);
-            REQUIRE(a1->name() == "array1");
+            REQUIRE(a1->name() == SYM("array1"));
             REQUIRE(a1->size() == 20);
             REQUIRE(cnv->objectList().empty());
         }

@@ -397,11 +397,17 @@ int UIKeyboard::findPressedKey(const t_pt& pt) const
     return res;
 }
 
+const char *UIKeyboard::annotateOutlet(int n) const
+{
+    return "list: pitch velocity";
+}
+
 void UIKeyboard::setup()
 {
     UIObjectFactory<UIKeyboard> obj("ui.keyboard");
 
     obj.hideLabelInner();
+    obj.useAnnotations();
     obj.useBang();
     obj.usePopup();
     obj.useMouseEvents(UI_MOUSE_DOWN | UI_MOUSE_DRAG
@@ -440,39 +446,27 @@ void UIKeyboard::drawBackground()
     const float key_h = height();
 
     if (p) {
+        p.preAllocObjects(keys_);
+        p.preAllocPoints(keys_ * 3);
+
         // two pass draw
         // draw white keys first
+        p.setColor(prop_color_border);
         for (int i = 0; i < keys_; i++) {
             if (music::keyboard::is_black_key(i))
                 continue;
 
             t_rect key_rect = white_key_rect(i, black_key_w, key_h);
-
-            p.drawRect(key_rect);
-            p.setColor(RGBA_WHITE);
-            p.fillPreserve();
-            p.setColor(prop_color_border);
-            p.stroke();
-
-            if (i + shift_ == 60) { // middle C indicator
-                p.setLineWidth(2);
-                p.setColor(prop_color_active_);
-
-                const float w = black_key_w * 1.5;
-
-                p.drawLine(key_rect.x, key_rect.y, key_rect.x + w / 2, key_rect.y + w / 2);
-                p.drawLine(key_rect.x + w, key_rect.y, key_rect.x + w / 2, key_rect.y + w / 2);
-                p.drawLine(key_rect.x, key_rect.y, key_rect.x + w, key_rect.y);
-
-                p.setLineWidth(1);
-            }
+            p.drawLine(key_rect.x, 0, key_rect.x, key_h);
         }
+        p.stroke();
 
         // draw black keys
         for (int i = 0; i < keys_; i++) {
             if (music::keyboard::is_white_key(i))
                 continue;
 
+            p.preAllocPoints(4);
             t_rect key_r = black_key_rect(i, black_key_w, key_h);
 
             p.drawRect(key_r);

@@ -69,8 +69,6 @@ public:
 
 TEST_CASE("hw::ArduinoThread", "[hw]")
 {
-    obj_init();
-
     SECTION("tracker")
     {
         Arduino a;

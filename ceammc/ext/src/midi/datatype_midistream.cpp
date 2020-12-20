@@ -1,9 +1,11 @@
 #include "datatype_midistream.h"
-#include "MidiFile.h"
+#include "ceammc_datastorage.h"
 #include "ceammc_datatypes.h"
 #include "ceammc_log.h"
 
-const DataType DataTypeMidiStream::dataType = ceammc::data::DATA_MIDI_STREAM;
+#include "MidiFile.h"
+
+const int DataTypeMidiStream::dataType = DataStorage::instance().registerNewType("MidiStream");
 
 DataTypeMidiStream::DataTypeMidiStream()
     : midi_file_(new MidiFile())
@@ -37,9 +39,16 @@ DataTypeMidiStream::DataTypeMidiStream(const char* fname)
     calcTime();
 }
 
-DataTypeMidiStream::~DataTypeMidiStream()
+DataTypeMidiStream::DataTypeMidiStream(const DataTypeMidiStream& s)
+    : midi_file_(new MidiFile(*s.midi_file_))
+    , total_ticks_(s.total_ticks_)
+    , total_secs_(s.total_secs_)
+    , total_quarters_(s.total_quarters_)
+    , is_open_(s.is_open_)
 {
 }
+
+DataTypeMidiStream::~DataTypeMidiStream() = default;
 
 size_t DataTypeMidiStream::trackCount() const
 {
@@ -61,9 +70,9 @@ DataTypeMidiStream* DataTypeMidiStream::clone() const
     return new DataTypeMidiStream(*this);
 }
 
-DataType DataTypeMidiStream::type() const
+int DataTypeMidiStream::type() const noexcept
 {
-    return data::DATA_MIDI_STREAM;
+    return dataType;
 }
 
 double DataTypeMidiStream::totalTimeInQuarters() const

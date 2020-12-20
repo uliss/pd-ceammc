@@ -14,6 +14,10 @@
             <keywords>fx freqshift</keywords>
             <since>0.1</since>
         </meta>
+        <properties>
+            <property name="@active" type="int" enum="0 1" default="1">on/off dsp
+            processing</property>
+        </properties>
         <inlets>
             <inlet type="audio">
                 <xinfo>input signal</xinfo>

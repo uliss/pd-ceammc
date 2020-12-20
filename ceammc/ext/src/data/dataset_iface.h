@@ -36,10 +36,10 @@ public:
 
     void onBang() override
     {
-        this->dataTo(0, data().clone());
+        this->atomTo(0, data().clone());
     }
 
-    void onFloat(float f) override
+    void onFloat(t_float f) override
     {
         data().add(Atom(f));
     }
@@ -54,13 +54,13 @@ public:
         data().add(l);
     }
 
-    void onDataT(const DataTPtr<DataTypeSet>& s)
+    void onDataT(const SetAtom& s)
     {
-        data() = *s.data();
+        data() = *s;
         onBang();
     }
 
-    void proto_add(const AtomList& l) override
+    void proto_add(const AtomListView& l) override
     {
         data().add(l);
     }
@@ -75,16 +75,13 @@ public:
         return data().size();
     }
 
-    bool proto_remove(const AtomList& lst) override
+    bool proto_remove(const AtomListView& lst) override
     {
-        if (!data().contains(lst))
-            return false;
-
         data().remove(lst);
         return true;
     }
 
-    void proto_set(const AtomList& lst) override
+    void proto_set(const AtomListView& lst) override
     {
         data() = DataTypeSet(lst);
     }

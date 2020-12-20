@@ -11,16 +11,16 @@ class FlowGate : public BaseObject {
 public:
     FlowGate(const PdArgs& args);
 
-    void onBang();
-    void onFloat(t_float f);
-    void onSymbol(t_symbol* s);
-    void onList(const AtomList& l);
-    void onAny(t_symbol* s, const AtomList& l);
-    void onData(const DataPtr& ptr);
+    void onBang() override;
+    void onFloat(t_float f) override;
+    void onSymbol(t_symbol* s) override;
+    void onList(const AtomList& l) override;
+    void onAny(t_symbol* s, const AtomListView& l) override;
+    void onData(const Atom& data) override;
 
-    void onInlet(size_t n, const AtomList& l);
+    void onInlet(size_t n, const AtomList& l) override;
 
-    bool processAnyProps(t_symbol* s, const AtomList& l);
+    bool processAnyProps(t_symbol* s, const AtomListView& l) override;
 };
 
 void setup_flow_gate();

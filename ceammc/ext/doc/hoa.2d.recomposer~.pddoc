@@ -55,7 +55,7 @@
             <property name="@fixe" type="alias">alias for @mode fixe</property>
             <property name="@fisheye" type="alias">alias for @mode fisheye</property>
             <property name="@free" type="alias">alias for @mode free</property>
-            <property name="@ramp" type="float" default="0" minvalue="0">ramp time</property>
+            <property name="@ramp" type="float" default="100" minvalue="0">ramp time</property>
         </properties>
         <methods>
             <method name="angles">set the angles of channels. Angles are in radians, wrapped

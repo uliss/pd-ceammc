@@ -20,7 +20,8 @@ public:
     void setupDSP(t_signal** sp) override;
     void processBlock(const t_sample**, t_sample** out) override;
 
-    void m_cc(t_symbol* s, const AtomList& lst);
+    void m_cc(t_symbol* s, const AtomListView& lst);
+    void controlChange(int n, t_float val);
 
     template <class T>
     T* synth() { return static_cast<T*>(synth_); }
@@ -30,14 +31,15 @@ public:
 };
 
 class StkSynth : public StkBase {
-    FloatPropertyMin* freq_;
+    FloatProperty* freq_;
     t_float gate_;
 
 public:
     StkSynth(const PdArgs& args, stk::Instrmnt* instr);
 
-    AtomList propGate() const;
-    void propSetGate(const AtomList& lst);
+    bool propSetGate(t_float f);
+
+    void m_note(t_symbol* s, const AtomListView& lv);
 };
 
 template <class T>
@@ -48,13 +50,13 @@ class ControlChangeProperty : public Property {
 
 public:
     ControlChangeProperty(const char* name, int ch, StkBase& synth)
-        : Property(PropertyInfo(name, PropertyInfoType::INTEGER))
+        : Property(PropertyInfo(name, PropValueType::INTEGER))
         , synth_(synth)
         , channel_(ch)
         , value_(0)
     {
         info().setDefault(int(0));
-        info().setRange(0, 127);
+        setIntCheck(PropValueConstraints::CLOSED_RANGE, 0, 127);
         value_ = synth_.synth<T>()->getControlChange(ch);
     }
 
@@ -63,13 +65,13 @@ public:
         return Atom(value_);
     }
 
-    bool set(const AtomList& lst) override
+    bool setList(const AtomListView& lst) override
     {
         if (lst.empty())
             return false;
 
         value_ = lst[0].asFloat();
-        synth_.m_cc(gensym("cc"), AtomList(channel_, value_));
+        synth_.controlChange(channel_, value_);
         return true;
     }
 };

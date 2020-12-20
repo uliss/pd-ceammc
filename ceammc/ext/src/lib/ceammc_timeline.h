@@ -68,6 +68,8 @@ namespace tl {
 
         static CueList* cueList(const t_canvas* c);
         static CueList* cueList(CueData* c);
+
+        static void clear();
     };
 
     class TimelineData;

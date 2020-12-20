@@ -19,6 +19,7 @@
 #include <cctype>
 #include <cstring>
 #include <initializer_list>
+#include <memory>
 #include <string>
 #include <unordered_map>
 #include <vector>
@@ -26,11 +27,28 @@
 #include "ceammc_atom.h"
 #include "ceammc_atomlist.h"
 #include "ceammc_object.h"
+#include "ceammc_output.h"
 #include "ceammc_property_info.h"
 #include "ceammc_sound_external.h"
 
 #ifndef FAUSTFLOAT
-#define FAUSTFLOAT float
+#define FAUSTFLOAT t_float
+#endif
+
+/**
+ * On Intel set FZ (Flush to Zero) and DAZ (Denormals Are Zero)
+ * flags to avoid costly denormals.
+ */
+
+#ifdef __SSE__
+#include <xmmintrin.h>
+#ifdef __SSE2__
+#define AVOIDDENORMALS _mm_setcsr(_mm_getcsr() | 0x8040)
+#else
+#define AVOIDDENORMALS _mm_setcsr(_mm_getcsr() | 0x8000)
+#endif
+#else
+#define AVOIDDENORMALS
 #endif
 
 struct Soundfile;
@@ -40,7 +58,7 @@ namespace faust {
 
     class UIElement;
 
-    PropertyInfoUnits to_units(const char* u);
+    PropValueUnits to_units(const char* u);
 
     class UIProperty : public Property {
         UIElement* el_;
@@ -48,29 +66,25 @@ namespace faust {
     public:
         UIProperty(UIElement* el);
 
-        bool set(const AtomList& lst) override;
+        bool setList(const AtomListView& lst) override;
         AtomList get() const override;
-        float value() const;
-        void setValue(float v, bool clip = false) const;
+        t_float value() const;
+        void setValue(t_float v, bool clip = false) const;
     };
 
-    static inline void zero_samples(int n_ch, size_t bs, t_sample** out)
+    static inline void zero_samples(size_t n_ch, size_t bs, t_sample** out)
     {
-        for (int i = 0; i < n_ch; i++)
+        for (size_t i = 0; i < n_ch; i++)
 #ifdef __STDC_IEC_559__
             /* IEC 559 a.k.a. IEEE 754 floats can be initialized faster like this */
             memset(out[i], 0, bs * sizeof(t_sample));
 #else
             for (size_t j = 0; j < bs; j++)
-                out[i][j] = 0.0f;
+                out[i][j] = t_sample(0);
 #endif
     }
 
-    static inline void copy_samples(int n_ch, size_t bs, const t_sample** in, t_sample** out)
-    {
-        for (int i = 0; i < n_ch; i++)
-            memcpy(out[i], in[i], bs * sizeof(t_sample));
-    }
+    void copy_samples(size_t n_ch, size_t bs, const t_sample** in, t_sample** out, bool zero_abnormals = true);
 
     class FaustExternalBase : public SoundExternal {
     protected:
@@ -94,8 +108,6 @@ namespace faust {
         void initSignalInputs(size_t n);
         void initSignalOutputs(size_t n);
         float xfadeTime() const;
-        void propSetActive(const AtomList& lst);
-        AtomList propActive() const;
 
     private:
         void bufFadeIn(const t_sample** in, t_sample** out, float k0);
@@ -155,7 +167,8 @@ namespace faust {
         void dump(t_outlet* out);
 
         const PropertyInfo& propInfo() const { return pinfo_; }
-        void setUnits(PropertyInfoUnits u) { pinfo_.setUnits(u); }
+        void setUnits(PropValueUnits u) { pinfo_.setUnits(u); }
+        void setType(PropValueType t) { pinfo_.setType(t); }
     };
 
     inline const std::string& UIElement::label() const
@@ -204,6 +217,7 @@ namespace faust {
         std::string name_;
         std::string id_;
         std::unordered_map<FAUSTFLOAT*, const char*> unit_map_;
+        std::unordered_map<FAUSTFLOAT*, PropValueType> type_map_;
 
     public:
         PdUI(const std::string& name, const std::string& id);
@@ -212,23 +226,23 @@ namespace faust {
         UIElement* uiAt(size_t pos);
         const UIElement* uiAt(size_t pos) const;
         size_t uiCount() const { return ui_elements_.size(); }
-        void addSoundfile(const char* label, const char* filename, Soundfile** sf_zone) {}
+        void addSoundfile(const char* /*label*/, const char* /*filename*/, Soundfile** /*sf_zone*/) { }
 
     protected:
-        void add_elem(UIElementType type, const std::string& label, float* zone);
-        void add_elem(UIElementType type, const std::string& label, float* zone,
-            float init, float min, float max, float step);
-        void add_elem(UIElementType type, const std::string& label, float* zone, float min, float max);
+        void add_elem(UIElementType type, const std::string& label, t_float* zone);
+        void add_elem(UIElementType type, const std::string& label, t_float* zone,
+            t_float init, t_float min, t_float max, t_float step);
+        void add_elem(UIElementType type, const std::string& label, t_float* zone, t_float min, t_float max);
 
     public:
-        virtual void addButton(const char* label, float* zone);
-        virtual void addCheckButton(const char* label, float* zone);
-        virtual void addVerticalSlider(const char* label, float* zone, float init, float min, float max, float step);
-        virtual void addHorizontalSlider(const char* label, float* zone, float init, float min, float max, float step);
-        virtual void addNumEntry(const char* label, float* zone, float init, float min, float max, float step);
+        virtual void addButton(const char* label, t_float* zone);
+        virtual void addCheckButton(const char* label, t_float* zone);
+        virtual void addVerticalSlider(const char* label, t_float* zone, t_float init, t_float min, t_float max, t_float step);
+        virtual void addHorizontalSlider(const char* label, t_float* zone, t_float init, t_float min, t_float max, t_float step);
+        virtual void addNumEntry(const char* label, t_float* zone, t_float init, t_float min, t_float max, t_float step);
 
-        virtual void addHorizontalBargraph(const char* label, float* zone, float min, float max);
-        virtual void addVerticalBargraph(const char* label, float* zone, float min, float max);
+        virtual void addHorizontalBargraph(const char* label, t_float* zone, t_float min, t_float max);
+        virtual void addVerticalBargraph(const char* label, t_float* zone, t_float min, t_float max);
 
         virtual void openTabBox(const char* label);
         virtual void openHorizontalBox(const char* label);
@@ -249,16 +263,19 @@ namespace faust {
         void setProperty(t_symbol* s, int argc, t_atom* argv);
 
         std::vector<FAUSTFLOAT> uiValues() const;
-        void setUIValues(const std::vector<FAUSTFLOAT>& v);
+        void setUIValues(const std::vector<t_float>& v);
         std::string fullName() const;
         std::string oscPath(const std::string& label) const;
     };
 
     template <typename DSP, typename ui_tag>
     class FaustExternal : public FaustExternalBase {
+        using DspPtr = std::unique_ptr<DSP>;
+        using UiPtr = std::unique_ptr<PdUI<ui_tag>>;
+
     protected:
-        DSP* dsp_;
-        PdUI<ui_tag>* ui_;
+        DspPtr dsp_;
+        UiPtr ui_;
 
     public:
         FaustExternal(const PdArgs& args)
@@ -266,21 +283,15 @@ namespace faust {
             , dsp_(new DSP())
             , ui_(new PdUI<ui_tag>(ui_tag::name, ""))
         {
-            initSignalInputs(dsp_->getNumInputs());
-            initSignalOutputs(dsp_->getNumOutputs());
+            initSignalInputs(static_cast<size_t>(dsp_->getNumInputs()));
+            initSignalOutputs(static_cast<size_t>(dsp_->getNumOutputs()));
 
-            dsp_->init(samplerate());
-            dsp_->buildUserInterface(ui_);
+            dsp_->init(static_cast<int>(samplerate()));
+            dsp_->buildUserInterface(ui_.get());
 
-            size_t n_ui = ui_->uiCount();
+            const size_t n_ui = ui_->uiCount();
             for (size_t i = 0; i < n_ui; i++)
-                createProperty(new UIProperty(ui_->uiAt(i)));
-        }
-
-        ~FaustExternal()
-        {
-            delete dsp_;
-            delete ui_;
+                addProperty(new UIProperty(ui_->uiAt(i)));
         }
 
         void setupDSP(t_signal** sp) override
@@ -293,7 +304,7 @@ namespace faust {
             if (rate_ <= 0) {
                 std::vector<FAUSTFLOAT> z = ui_->uiValues();
                 /* set the proper sample rate; this requires reinitializing the dsp */
-                dsp_->init(SR);
+                dsp_->init(int(SR));
                 ui_->setUIValues(z);
             }
 
@@ -302,6 +313,8 @@ namespace faust {
 
         void processBlock(const t_sample** in, t_sample** out) override
         {
+            AVOIDDENORMALS;
+
             if (!dsp_)
                 return;
 
@@ -309,11 +322,11 @@ namespace faust {
             const size_t BS = blockSize();
 
             if (xfade_ > 0) {
-                dsp_->compute(BS, (t_sample**)in, faust_buf_.data());
+                dsp_->compute(static_cast<int>(BS), const_cast<t_sample**>(in), faust_buf_.data());
                 processXfade(in, out);
             } else if (active_) {
-                dsp_->compute(BS, (t_sample**)in, faust_buf_.data());
-                copy_samples(N_OUT, BS, (const t_sample**)faust_buf_.data(), out);
+                dsp_->compute(static_cast<int>(BS), const_cast<t_sample**>(in), faust_buf_.data());
+                copy_samples(N_OUT, BS, const_cast<const t_sample**>(faust_buf_.data()), out);
             } else
                 processInactive(in, out);
         }
@@ -331,6 +344,11 @@ namespace faust {
         void setInitSignalValue(t_float f)
         {
             pd_float(reinterpret_cast<t_pd*>(owner()), f);
+        }
+
+        void m_reset(t_symbol* s, const AtomListView&)
+        {
+            dsp_->instanceClear();
         }
     };
 
@@ -365,35 +383,47 @@ namespace faust {
     }
 
     template <typename T>
-    void PdUI<T>::add_elem(UIElementType type, const std::string& label, float* zone)
+    void PdUI<T>::add_elem(UIElementType type, const std::string& label, t_float* zone)
     {
         UIElement* elems = new UIElement(type, oscPath(label), label);
+        auto it = type_map_.find(zone);
+        if (it != type_map_.end())
+            elems->setType(it->second);
+
         elems->setValuePtr(zone);
         ui_elements_.push_back(elems);
     }
 
     template <typename T>
-    void PdUI<T>::add_elem(UIElementType type, const std::string& label, float* zone,
-        float init, float min, float max, float step)
+    void PdUI<T>::add_elem(UIElementType type, const std::string& label, t_float* zone,
+        t_float init, t_float min, t_float max, t_float step)
     {
         UIElement* elems = new UIElement(type, oscPath(label), label);
+        auto it = type_map_.find(zone);
+        if (it != type_map_.end())
+            elems->setType(it->second);
+
         elems->setContraints(init, min, max, step);
         elems->setValuePtr(zone);
         ui_elements_.push_back(elems);
     }
 
     template <typename T>
-    void PdUI<T>::add_elem(UIElementType type, const std::string& label, float* zone,
-        float min, float max)
+    void PdUI<T>::add_elem(UIElementType type, const std::string& label, t_float* zone,
+        t_float min, t_float max)
     {
         UIElement* elems = new UIElement(type, oscPath(label), label);
+        auto it = type_map_.find(zone);
+        if (it != type_map_.end())
+            elems->setType(it->second);
+
         elems->setContraints(0.0, min, max, 0.0);
         elems->setValuePtr(zone);
         ui_elements_.push_back(elems);
     }
 
     template <typename T>
-    void PdUI<T>::addButton(const char* label, float* zone)
+    void PdUI<T>::addButton(const char* label, t_float* zone)
     {
         UIElement* elems = new UIElement(UI_BUTTON, oscPath(label), label);
         elems->setContraints(0, 0, 1, 1);
@@ -402,40 +432,44 @@ namespace faust {
     }
 
     template <typename T>
-    void PdUI<T>::addCheckButton(const char* label, float* zone)
+    void PdUI<T>::addCheckButton(const char* label, t_float* zone)
     {
         UIElement* elems = new UIElement(UI_CHECK_BUTTON, oscPath(label), label);
+        auto it = type_map_.find(zone);
+        if (it != type_map_.end())
+            elems->setType(it->second);
+
         elems->setContraints(0, 0, 1, 1);
         elems->setValuePtr(zone);
         ui_elements_.push_back(elems);
     }
 
     template <typename T>
-    void PdUI<T>::addVerticalSlider(const char* label, float* zone, float init, float min, float max, float step)
+    void PdUI<T>::addVerticalSlider(const char* label, t_float* zone, t_float init, t_float min, t_float max, t_float step)
     {
         add_elem(UI_V_SLIDER, label, zone, init, min, max, step);
     }
 
     template <typename T>
-    void PdUI<T>::addHorizontalSlider(const char* label, float* zone, float init, float min, float max, float step)
+    void PdUI<T>::addHorizontalSlider(const char* label, t_float* zone, t_float init, t_float min, t_float max, t_float step)
     {
         add_elem(UI_H_SLIDER, label, zone, init, min, max, step);
     }
 
     template <typename T>
-    void PdUI<T>::addNumEntry(const char* label, float* zone, float init, float min, float max, float step)
+    void PdUI<T>::addNumEntry(const char* label, t_float* zone, t_float init, t_float min, t_float max, t_float step)
     {
         add_elem(UI_NUM_ENTRY, label, zone, init, min, max, step);
     }
 
     template <typename T>
-    void PdUI<T>::addHorizontalBargraph(const char* label, float* zone, float min, float max)
+    void PdUI<T>::addHorizontalBargraph(const char* label, t_float* zone, t_float min, t_float max)
     {
         add_elem(UI_H_BARGRAPH, label, zone, min, max);
     }
 
     template <typename T>
-    void PdUI<T>::addVerticalBargraph(const char* label, float* zone, float min, float max)
+    void PdUI<T>::addVerticalBargraph(const char* label, t_float* zone, t_float min, t_float max)
     {
         add_elem(UI_V_BARGRAPH, label, zone, min, max);
     }
@@ -468,7 +502,7 @@ namespace faust {
             if (it == unit_map_.end())
                 continue;
 
-            el->setUnits(to_units(it->second));
+             el->setUnits(to_units(it->second));
         }
     }
 
@@ -477,11 +511,20 @@ namespace faust {
     {
         if (strcmp(name, "unit") == 0) {
             unit_map_[v] = value;
+        } else if (strcmp(name, "type") == 0) {
+            if (strcmp(value, "int") == 0)
+                type_map_[v] = PropValueType::INTEGER;
+            else if (strcmp(value, "bool") == 0)
+                type_map_[v] = PropValueType::BOOLEAN;
+            else if (strcmp(value, "float") == 0)
+                type_map_[v] = PropValueType::FLOAT;
+            else
+                LIB_ERR << "[dev][faust] unsupported type: " << value;
         }
     }
 
     template <typename T>
-    void PdUI<T>::run() {}
+    void PdUI<T>::run() { }
 
     template <typename T>
     UIElement* PdUI<T>::findElementByLabel(const char* label)
@@ -529,7 +572,7 @@ namespace faust {
         for (size_t i = 0; i < uiCount(); i++)
             l.append(ui_elements_[i]->setPropertySym());
 
-        l.output(out);
+        outletAtomList(out, l);
     }
 
     template <typename T>
@@ -570,7 +613,7 @@ namespace faust {
     }
 
     template <typename T>
-    void PdUI<T>::setUIValues(const std::vector<float>& v)
+    void PdUI<T>::setUIValues(const std::vector<t_float>& v)
     {
         size_t max = std::min(v.size(), uiCount());
         for (size_t i = 0; i < max; i++)

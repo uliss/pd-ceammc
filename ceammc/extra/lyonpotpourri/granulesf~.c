@@ -750,8 +750,8 @@ void granulesf_setbuf(t_granulesf *x, t_symbol *wavename, t_symbol *windowname)
 t_int *granulesf_performhose(t_int *w)
 {
     //	t_granulesf *x = (t_granulesf *) (w[1]);
-	float *outputL = (t_float *)(w[3]);
-	float *outputR = (t_float *)(w[4]);
+        t_sample *outputL = (t_sample *)(w[3]);
+        t_sample *outputR = (t_sample *)(w[4]);
 	int n = (int) w[5];
 	while(n--) *outputL++ = *outputR++ = 0;
 	return (w+6);
@@ -761,8 +761,8 @@ t_int *granulesf_perform_no_interpolation(t_int *w)
 {
 	t_granulesf *x = (t_granulesf *) (w[1]);
     //	float *in = (t_float *)(w[2]); // ignoring input
-	float *outputL = (t_float *)(w[3]);
-	float *outputR = (t_float *)(w[4]);
+        t_sample *outputL = (t_float *)(w[3]);
+        t_sample *outputR = (t_float *)(w[4]);
 	int n = (int) w[5];
 
 	t_pdbuffer *wavebuf = x->wavebuf;
@@ -886,8 +886,8 @@ t_int *granulesf_perform(t_int *w)
 {
 	t_granulesf *x = (t_granulesf *) (w[1]);
     //	float *in = (t_float *)(w[2]); // ignoring input
-	float *outputL = (t_float *)(w[3]);
-	float *outputR = (t_float *)(w[4]);
+        t_sample *outputL = (t_sample *)(w[3]);
+        t_sample *outputR = (t_sample *)(w[4]);
 	int n = (int) w[5];
 
 	t_pdbuffer *wavebuf = x->wavebuf;

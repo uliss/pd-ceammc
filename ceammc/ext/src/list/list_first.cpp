@@ -1,6 +1,6 @@
 #include "list_first.h"
-#include "datatype_mlist.h"
 #include "ceammc_factory.h"
+#include "datatype_mlist.h"
 
 ListFirst::ListFirst(const PdArgs& args)
     : BaseObject(args)
@@ -16,12 +16,12 @@ void ListFirst::onList(const AtomList& lst)
     atomTo(0, lst[0]);
 }
 
-void ListFirst::onDataT(const DataTPtr<DataTypeMList>& dptr)
+void ListFirst::onDataT(const MListAtom& ml)
 {
-    if (dptr->empty())
+    if (ml->empty())
         return;
 
-    atomTo(0, dptr->at(0).toAtom());
+    atomTo(0, ml->at(0));
 }
 
 void setup_list_first()

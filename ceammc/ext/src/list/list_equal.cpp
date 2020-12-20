@@ -10,7 +10,7 @@ ListEqual::ListEqual(const PdArgs& a)
     createOutlet();
 
     pattern_ = new ListProperty("@pattern", a.args);
-    createProperty(pattern_);
+    addProperty(pattern_);
 }
 
 void ListEqual::onInlet(size_t n, const AtomList& lst)

@@ -11,9 +11,8 @@
  * contact the author of this file, or the owner of the project in which
  * this file belongs to.
  *****************************************************************************/
-
 #include "catch.hpp"
-#include "ceammc.hpp"
+#include "ceammc.h"
 #include "ceammc_convert.h"
 #include "ceammc_signal.h"
 

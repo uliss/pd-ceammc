@@ -1,7 +1,3 @@
-[submodule "ceammc/ext/src/tests/Catch"]
-	path = ceammc/ext/tests/Catch
-	url = https://github.com/catchorg/Catch2.git
-	branch = Catch1.x
 [submodule "ceammc/distrib/git-archive-all"]
 	path = ceammc/distrib/git-archive-all
 	url = https://github.com/Kentzo/git-archive-all.git
@@ -50,3 +46,15 @@
 [submodule "ceammc/extra/aubio/aubio"]
 	path = ceammc/extra/aubio/aubio
 	url = https://github.com/aubio/aubio
+[submodule "ceammc/extra/reflex/RE-flex"]
+	path = ceammc/extra/reflex/RE-flex
+	url = https://github.com/Genivia/RE-flex
+[submodule "ceammc/extra/soxr/code"]
+	path = ceammc/extra/soxr/code
+	url = https://git.code.sf.net/p/soxr/code
+[submodule "ceammc/extra/muparser/muparser"]
+	path = ceammc/extra/muparser/muparser
+	url = https://github.com/beltoforion/muparser
+[submodule "ceammc/extra/glitch/glitch"]
+	path = ceammc/extra/glitch/glitch
+	url = https://github.com/naivesound/glitch.git

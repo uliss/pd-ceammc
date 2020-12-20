@@ -14,22 +14,23 @@
 #include "string_join.h"
 #include "ceammc_factory.h"
 #include "ceammc_format.h"
+#include "datatype_mlist.h"
+#include "datatype_string.h"
 
 StringJoin::StringJoin(const PdArgs& a)
     : BaseObject(a)
-    , str_("")
-    , sep_("")
 {
+    createInlet();
     createOutlet();
 
-    createCbProperty("@sep", &StringJoin::propGetSeparator, &StringJoin::propSetSeparator);
-    property("@sep")->info().setType(PropertyInfoType::VARIANT);
-    parseArgs();
+    addProperty(new SymbolProperty("@sep", &s_))
+        ->setSuccessFn([this](Property* p) { sep_ = to_string(p->get()); });
+    property("@sep")->setArgIndex(0);
 }
 
 void StringJoin::onBang()
 {
-    dataTo(0, DataPtr(new DataTypeString(str_)));
+    atomTo(0, StringAtom(str_));
 }
 
 void StringJoin::onSymbol(t_symbol* s)
@@ -38,9 +39,9 @@ void StringJoin::onSymbol(t_symbol* s)
     onBang();
 }
 
-void StringJoin::onData(const DataPtr& d)
+void StringJoin::onData(const Atom& d)
 {
-    str_ = d->toString();
+    str_ = d.asData()->toString();
     onBang();
 }
 
@@ -50,37 +51,20 @@ void StringJoin::onList(const AtomList& l)
     onBang();
 }
 
-AtomList StringJoin::propGetSeparator() const
+void StringJoin::onInlet(size_t n, const AtomList& l)
 {
-    return Atom(gensym(sep_.c_str()));
+    property("@sep")->set(l);
 }
 
-void StringJoin::propSetSeparator(const AtomList& l)
+void StringJoin::onDataT(const MListAtom& ml)
 {
-    if (l.size() != 1) {
-        OBJ_ERR << "single separator value required";
-        return;
-    }
-
-    sep_ = to_string(l[0]);
+    str_ = to_string(ml->data(), sep_);
+    onBang();
 }
 
-void StringJoin::parseArgs()
-{
-    if (positionalArguments() == AtomList(gensym("'"), gensym("'"))) {
-        sep_ = " ";
-        return;
-    }
-
-    if (positionalArguments().size() > 0) {
-        const Atom& a = positionalArguments()[0];
-        sep_ = to_string(a);
-    }
-}
-
-extern "C" void setup_string0x2ejoin()
+void setup_string_join()
 {
     ObjectFactory<StringJoin> obj("string.join");
-    obj.processData();
+    obj.processData<DataTypeMList>();
     obj.addAlias("str.join");
 }

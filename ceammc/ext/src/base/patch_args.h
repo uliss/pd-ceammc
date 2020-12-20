@@ -9,7 +9,7 @@ class PatchArgs : public BaseObject {
 public:
     PatchArgs(const PdArgs& a);
 
-    void onBang();
+    void onBang() override;
 };
 
 void setup_patch_args();

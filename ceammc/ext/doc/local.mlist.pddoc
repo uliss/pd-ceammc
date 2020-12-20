@@ -25,10 +25,10 @@
             <argument name="ID" type="symbol">object ID</argument>
         </arguments>
         <properties>
-            <property name="@empty" readonly="true" enum="0 1" type="int">1 if list is empty,
-            otherwise 0</property>
-            <property name="@size" readonly="true" minvalue="0" type="int">number of elements in
-            list</property>
+            <property name="@empty" readonly="true" enum="0 1" type="int" default="1">1 if list is
+            empty, otherwise 0</property>
+            <property name="@size" readonly="true" minvalue="0" type="int" default="0">number of
+            elements in list</property>
         </properties>
         <methods>
             <method name="append">adds values to the end of the list 
@@ -41,6 +41,7 @@
             <method name="fill">fills with specified value 
             <param name="VAL" type="atom" required="true">fill value</param></method>
             <method name="reverse">reverses list</method>
+            <method name="choose">choose random element in list and output it</method>
             <method name="shuffle">put elements in random order</method>
             <method name="sort">sorts list</method>
             <method name="clear">removes all list elements</method>
@@ -71,9 +72,9 @@
 |                           |
 [ml]                        [local.mlist l1]
 |                           |
-[local.mlist l1]            [ui.display @display_type=1]
+[local.mlist l1]            [ui.display @display_type 1]
 |
-[ui.display @display_type=1]
+[ui.display @display_type 1]
 ]]>
             </pdascii>
         </example>

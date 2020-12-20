@@ -1,4 +1,5 @@
 #include "list_walk.h"
+#include "ceammc_property_enum.h"
 
 #include <cstdlib>
 
@@ -12,6 +13,7 @@ static t_symbol* SYM_FOLD;
 
 ListWalk::ListWalk(const PdArgs& a)
     : BaseObject(a)
+    , lst_(nullptr)
     , walk_mode_(nullptr)
     , current_pos_(0)
     , length_(1)
@@ -21,37 +23,34 @@ ListWalk::ListWalk(const PdArgs& a)
     createOutlet();
     createOutlet();
 
-    createProperty(new PointerProperty<bool>("@direction", &forward_, false));
-    createProperty(new PointerProperty<int>("@length", &length_, false));
-    createProperty(new PointerProperty<AtomList>("@value", &lst_));
+    addProperty(new PointerProperty<bool>("@direction", &forward_, PropValueAccess::READWRITE));
+    addProperty(new PointerProperty<int>("@length", &length_, PropValueAccess::READWRITE));
 
-    walk_mode_ = new SymbolEnumProperty("@mode", SYM_SINGLE);
-    walk_mode_->appendEnum(SYM_WRAP);
-    walk_mode_->appendEnum(SYM_CLIP);
-    walk_mode_->appendEnum(SYM_FOLD);
-    createProperty(walk_mode_);
+    walk_mode_ = new SymbolEnumProperty("@mode", { SYM_SINGLE, SYM_WRAP, SYM_CLIP, SYM_FOLD });
+    addProperty(walk_mode_);
+
+    lst_ = new ListProperty("@value");
+    lst_->setArgIndex(0);
+    addProperty(lst_);
 
     // aliases
-    createProperty(new SymbolEnumAlias("@single", walk_mode_, SYM_SINGLE));
-    createProperty(new SymbolEnumAlias("@loop", walk_mode_, SYM_WRAP));
-    createProperty(new SymbolEnumAlias("@wrap", walk_mode_, SYM_WRAP));
-    createProperty(new SymbolEnumAlias("@clip", walk_mode_, SYM_CLIP));
-    createProperty(new SymbolEnumAlias("@fold", walk_mode_, SYM_FOLD));
+    addProperty(new SymbolEnumAlias("@single", walk_mode_, SYM_SINGLE));
+    addProperty(new SymbolEnumAlias("@loop", walk_mode_, SYM_WRAP));
+    addProperty(new SymbolEnumAlias("@wrap", walk_mode_, SYM_WRAP));
+    addProperty(new SymbolEnumAlias("@clip", walk_mode_, SYM_CLIP));
+    addProperty(new SymbolEnumAlias("@fold", walk_mode_, SYM_FOLD));
 
-    {
-        Property* p = createCbProperty("@size", &ListWalk::p_size);
-        p->info().setType(PropertyInfoType::INTEGER);
-    }
+    createCbIntProperty(
+        "@size",
+        [this]() -> int { return lst_->value().size(); })
+        ->setIntCheck(PropValueConstraints::GREATER_EQUAL, 0);
 
     createCbProperty("@index", &ListWalk::p_index, &ListWalk::p_set_index);
-    property("@index")->info().setType(PropertyInfoType::INTEGER);
-
-    lst_ = positionalArguments();
 }
 
 void ListWalk::onBang() { onFloat(1); }
 
-void ListWalk::onFloat(float v)
+void ListWalk::onFloat(t_float v)
 {
     int step = static_cast<int>(v);
 
@@ -67,22 +66,20 @@ void ListWalk::onFloat(float v)
 
 void ListWalk::onList(const AtomList& l)
 {
-    lst_ = l;
+    lst_->set(l);
     current_pos_ = 0;
     single_done_ = false;
 }
 
-void ListWalk::m_current(t_symbol*, const AtomList&) { current(); }
-void ListWalk::m_next(t_symbol*, const AtomList& l) { next(atomlistToValue<int>(l, 1)); }
-void ListWalk::m_prev(t_symbol*, const AtomList& l) { prev(atomlistToValue<int>(l, 1)); }
+void ListWalk::m_current(t_symbol*, const AtomListView&) { current(); }
+void ListWalk::m_next(t_symbol*, const AtomListView& l) { next(l.toT<int>(1)); }
+void ListWalk::m_prev(t_symbol*, const AtomListView& l) { prev(l.toT<int>(1)); }
 
-void ListWalk::m_reset(t_symbol*, const AtomList&)
+void ListWalk::m_reset(t_symbol*, const AtomListView&)
 {
     current_pos_ = 0;
     single_done_ = false;
 }
-
-AtomList ListWalk::p_size() const { return AtomList(lst_.size()); }
 
 AtomList ListWalk::p_index() const
 {
@@ -90,7 +87,7 @@ AtomList ListWalk::p_index() const
         return AtomList(current_pos_);
     else {
         size_t idx = 0;
-        list::calcFoldIndex(current_pos_, lst_.size(), &idx);
+        list::calcFoldIndex(current_pos_, lst_->value().size(), &idx);
         return AtomList(idx);
     }
 }
@@ -99,9 +96,9 @@ void ListWalk::p_set_index(const AtomList& l)
 {
     int idx = atomlistToValue<int>(l, 0);
     if (idx < 0)
-        idx += lst_.size();
+        idx += lst_->value().size();
 
-    current_pos_ = std::max(0, std::min<int>(idx, lst_.size() - 1));
+    current_pos_ = std::max(0, std::min<int>(idx, lst_->value().size() - 1));
 }
 
 void ListWalk::next(int step)
@@ -128,7 +125,7 @@ void ListWalk::prev(int step)
 
 void ListWalk::toPosition(int pos)
 {
-    if (lst_.empty()) // error message in current()
+    if (lst_->value().empty()) // error message in current()
         return;
 
     size_t idx = 0;
@@ -137,18 +134,18 @@ void ListWalk::toPosition(int pos)
         if (pos < 0) {
             current_pos_ = 0;
             single_done_ = true;
-        } else if (pos < lst_.size()) {
+        } else if (pos < lst_->value().size()) {
             current_pos_ = pos;
             single_done_ = false;
         } else {
-            current_pos_ = lst_.size() - 1;
+            current_pos_ = lst_->value().size() - 1;
             single_done_ = true;
         }
     } else if (walk_mode_->value() == SYM_WRAP) {
-        if (calcWrapIndex(pos, lst_.size(), &idx))
+        if (calcWrapIndex(pos, lst_->value().size(), &idx))
             current_pos_ = idx;
     } else if (walk_mode_->value() == SYM_CLIP) {
-        if (calcClipIndex(pos, lst_.size(), &idx))
+        if (calcClipIndex(pos, lst_->value().size(), &idx))
             current_pos_ = idx;
     } else if (walk_mode_->value() == SYM_FOLD) {
         current_pos_ = pos;
@@ -164,7 +161,7 @@ void ListWalk::current()
         return;
     }
 
-    if (lst_.empty()) {
+    if (lst_->value().empty()) {
         OBJ_ERR << "empty list";
         return;
     }
@@ -174,23 +171,23 @@ void ListWalk::current()
         if (single_done_)
             return;
 
-        listTo(0, lst_.slice(current_pos_, current_pos_ + length_ - 1));
+        listTo(0, lst_->value().slice(current_pos_, current_pos_ + length_ - 1));
     }
     //! clip
     else if (walk_mode_->value() == SYM_CLIP) {
-        listTo(0, list::sliceClip(lst_, current_pos_, length_));
+        listTo(0, list::sliceClip(lst_->value(), current_pos_, length_));
     }
     //! wrap/loop
     else if (walk_mode_->value() == SYM_WRAP) {
-        listTo(0, list::sliceWrap(lst_, current_pos_, length_));
+        listTo(0, list::sliceWrap(lst_->value(), current_pos_, length_));
     }
     //! fold
     else if (walk_mode_->value() == SYM_FOLD) {
-        listTo(0, list::sliceFold(lst_, current_pos_, length_));
+        listTo(0, list::sliceFold(lst_->value(), current_pos_, length_));
     }
 
     // last element
-    if ((current_pos_ + 1) == lst_.size())
+    if ((current_pos_ + 1) == lst_->value().size())
         bangTo(1);
 }
 
@@ -206,4 +203,19 @@ void setup_list_walk()
     obj.addMethod("next", &ListWalk::m_next);
     obj.addMethod("prev", &ListWalk::m_prev);
     obj.addMethod("reset", &ListWalk::m_reset);
+
+    obj.setDescription("Walks thru the list");
+    obj.addAuthor("Serge Poltavsky");
+    obj.setKeywords({ "list", "walk", "iterate" });
+    obj.setCategory("list");
+    obj.setSinceVersion(0, 1);
+
+    ListWalk::setInletsInfo(obj.classPointer(), { "bang:    output current element, then move to next position\n"
+                                                  "float N: output current element, then move N-steps forward/back\n"
+                                                  "list:    set list, reset position, no output\n"
+                                                  "current: output current element\n"
+                                                  "next N:  move to next N, then output\n"
+                                                  "prev N:  move to prev N, then output\n"
+                                                  "reset:   reset position, no output" });
+    ListWalk::setOutletsInfo(obj.classPointer(), { "atom", "bang: when last element reached" });
 }

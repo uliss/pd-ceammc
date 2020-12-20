@@ -39,10 +39,10 @@ namespace wrapper {
  * @brief Dumps values to Pd window
  */
 class PdDump {
-    ceammc::Debug& os_;
+    ceammc::LogBaseObject& os_;
 
 public:
-    PdDump(ceammc::Debug& stream)
+    PdDump(ceammc::LogBaseObject& stream)
         : os_(stream)
     {
     }
@@ -94,6 +94,12 @@ public:
             os_ << ' ' << i;
     }
 
+    void operator()(int, const std::vector<double>& v)
+    {
+        for (auto& i : v)
+            os_ << ' ' << i;
+    }
+
     void operator()(int, const std::vector<std::string>& v)
     {
         for (auto& i : v)
@@ -137,7 +143,7 @@ struct PdOutput {
 
     void output(size_t n, const V& v)
     {
-        t_->dataTo(n, DataPtr(new AbstractDataWrapper<V>(v)));
+        t_->atomTo(n, DataAtom<AbstractDataWrapper<V>>(v));
     }
 };
 
@@ -262,6 +268,26 @@ struct PdOutput<T, std::vector<float>> {
     }
 
     void output(size_t n, const std::vector<float>& v)
+    {
+        AtomList res;
+        res.reserve(v.size());
+
+        for (auto f : v)
+            res.append(Atom(f));
+
+        t_->listTo(n, res);
+    }
+};
+
+template <typename T>
+struct PdOutput<T, std::vector<double>> {
+    T* t_;
+    PdOutput(T* t)
+        : t_(t)
+    {
+    }
+
+    void output(size_t n, const std::vector<double>& v)
     {
         AtomList res;
         res.reserve(v.size());
@@ -415,6 +441,15 @@ private:
         }
 
         void operator()(int index, const std::vector<float>& v)
+        {
+            AtomList res;
+            for (auto& f : v)
+                res.append(f);
+
+            t_->listTo(n_ + index, res);
+        }
+
+        void operator()(int index, const std::vector<double>& v)
         {
             AtomList res;
             for (auto& f : v)

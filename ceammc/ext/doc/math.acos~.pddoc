@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="math.acos~">
+        <title>math.acos~</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>arc cosine function for signals</description>
+            <license>GPL3 or later</license>
+            <library>ceammc</library>
+            <category>math</category>
+            <keywords>math acos</keywords>
+            <also>
+                <see>math.acos</see>
+            </also>
+            <since>0.9</since>
+        </meta>
+        <info>
+            <par>Outputs the principle value of the arc cosine of input signal. The result is in
+            the range [0, pi]</par>
+        </info>
+        <inlets>
+            <inlet type="audio">
+                <xinfo>input signal</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet type="audio">result signal</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[B]
+|
+[plot.linspace~ -1 1]
+|                 ^|
+[math.acos~]       |
+|                  |.
+[ui.plot~ @xlabels 1 @ylabels 1 @yauto 1 @size 200 200]
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+[ui.dsp~]
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

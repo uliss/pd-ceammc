@@ -19,71 +19,61 @@
 
 StringStr::StringStr(const PdArgs& a)
     : BaseObject(a)
-    , str_(new DataTypeString(positionalArguments()))
-    , pstr_(str_)
 {
+    addProperty(new ListProperty("@value", AtomList(&s_)))
+        ->setSuccessFn([this](Property* p) { str_ = to_string(p->get()); });
+    property("@value")->setArgIndex(0);
+
     createOutlet();
 }
 
 void StringStr::onBang()
 {
-    if (pstr_.isNull())
-        return;
-
-    dataTo(0, pstr_);
+    atomTo(0, StringAtom(str_));
 }
 
-void StringStr::onFloat(float f)
+void StringStr::onFloat(t_float f)
 {
     char buf[20];
     sprintf(buf, "%g", f);
-    str_->str() = buf;
+    str_ = buf;
     onBang();
 }
 
 void StringStr::onSymbol(t_symbol* s)
 {
-    str_->str() = s->s_name;
+    str_ = s->s_name;
     onBang();
 }
 
 void StringStr::onList(const AtomList& l)
 {
-    str_->str() = to_string(l);
+    str_ = to_string(l);
     onBang();
 }
 
-void StringStr::onData(const DataPtr& d)
+void StringStr::onData(const Atom& d)
 {
-    str_->str() = d->toString();
+    str_ = d.asData()->toString();
     onBang();
 }
 
-void StringStr::dump() const
+void StringStr::m_append(t_symbol*, const AtomListView& lst)
 {
-    OBJ_DBG << "DATA: STRING";
-    BaseObject::dump();
-    OBJ_DBG << "id:       " << pstr_.desc().id;
-    OBJ_DBG << "refcount: " << pstr_.refCount();
-    OBJ_DBG << "content:  " << str_->str();
+    str_ += to_string(lst);
 }
 
-void StringStr::m_append(t_symbol*, const AtomList& lst)
+void StringStr::m_set(t_symbol*, const AtomListView& lst)
 {
-    str_->str() += to_string(lst);
+    str_ = to_string(lst);
 }
 
-void StringStr::m_set(t_symbol*, const AtomList& lst)
+void StringStr::m_clear(t_symbol*, const AtomListView&)
 {
-    str_->str() = to_string(lst);
+    str_.clear();
 }
 
-void StringStr::m_clear(t_symbol*, const AtomList&)
-{
-    str_->clear();
-}
-
-void string_setup()
+void setup_string_str()
 {
     ObjectFactory<StringStr> obj("string");
     obj.processData();

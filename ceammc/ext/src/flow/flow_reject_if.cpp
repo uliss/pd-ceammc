@@ -32,7 +32,7 @@ void FlowRejectIf::onBang()
         bangTo(0);
 }
 
-void FlowRejectIf::onFloat(float f)
+void FlowRejectIf::onFloat(t_float f)
 {
     reject_ = 1;
     floatTo(1, f);
@@ -59,7 +59,7 @@ void FlowRejectIf::onList(const AtomList& l)
         listTo(0, l);
 }
 
-void FlowRejectIf::onAny(t_symbol* s, const AtomList& l)
+void FlowRejectIf::onAny(t_symbol* s, const AtomListView& l)
 {
     reject_ = 1;
     anyTo(1, s, l);
@@ -73,11 +73,12 @@ void FlowRejectIf::onInlet(size_t n, const AtomList& l)
     if (n != 1 || l.empty())
         return;
 
-    reject_ = (l.asSizeT(0) == 0) ? 0 : 1;
+    reject_ = (l.toT<size_t>(0) == 0) ? 0 : 1;
 }
 
-extern "C" void setup_flow0x2ereject_if()
+void setup_flow_reject_if()
 {
     ObjectFactory<FlowRejectIf> obj("flow.reject_if");
     obj.addAlias("reject_if");
+    obj.noPropsDispatch();
 }

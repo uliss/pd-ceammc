@@ -12,15 +12,14 @@
  * this file belongs to.
  *****************************************************************************/
 #include "data_mlist.h"
+#include "ceammc_data.h"
 #include "ceammc_factory.h"
 #include "ceammc_format.h"
 
 DataMList::DataMList(const PdArgs& args)
     : DataMListBase(args)
 {
-    auto lst = DataTypeMList::parse(positionalArguments());
-    if (lst)
-        mlist_ = *lst;
+    mlist()->setParsed(args.args);
 
     createOutlet();
 }
@@ -31,4 +30,5 @@ void setup_data_mlist()
     obj.addAlias("mlist");
     obj.addAlias("ml");
     obj.processData<DataTypeMList>();
+    obj.noArgsDataParsing();
 }

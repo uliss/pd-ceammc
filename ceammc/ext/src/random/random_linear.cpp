@@ -1,11 +1,5 @@
-#include <boost/random/mersenne_twister.hpp>
-#include <boost/random/piecewise_linear_distribution.hpp>
-#include <ctime>
-
-#include "ceammc_factory.h"
 #include "random_linear.h"
-
-static boost::random::mt19937 random_gen(std::time(0));
+#include "ceammc_factory.h"
 
 RandomLinear::RandomLinear(const PdArgs& a)
     : BaseObject(a)
@@ -13,6 +7,7 @@ RandomLinear::RandomLinear(const PdArgs& a)
     , v1_(0)
     , p0_(0)
     , p1_(0)
+    , seed_(nullptr)
 {
     createOutlet();
 
@@ -21,10 +16,14 @@ RandomLinear::RandomLinear(const PdArgs& a)
     p0_ = new FloatProperty("@p0", 1);
     p1_ = new FloatProperty("@p1", 0);
 
-    createProperty(v0_);
-    createProperty(v1_);
-    createProperty(p0_);
-    createProperty(p1_);
+    addProperty(v0_);
+    addProperty(v1_);
+    addProperty(p0_);
+    addProperty(p1_);
+
+    seed_ = new SizeTProperty("@seed", 0);
+    seed_->setSuccessFn([this](Property* p) { gen_.setSeed(seed_->value()); });
+    addProperty(seed_);
 }
 
 void RandomLinear::onBang()
@@ -40,11 +39,21 @@ void RandomLinear::onBang()
     t_float intervals[] = { v0, v1 };
     t_float weights[] = { p0_->value(), p1_->value() };
 
-    boost::random::piecewise_linear_distribution<t_float> dist(intervals, intervals + 2, weights);
-    floatTo(0, dist(random_gen));
+    std::piecewise_linear_distribution<t_float> dist(intervals, intervals + 2, weights);
+    floatTo(0, dist(gen_.get()));
 }
 
-extern "C" void setup_random0x2elinear()
+void setup_random_linear()
 {
     ObjectFactory<RandomLinear> obj("random.linear");
+
+    obj.setDescription("random linear distribution");
+    obj.addAuthor("Serge Poltavsky");
+    obj.setKeywords({ "linear", "random" });
+    obj.setCategory("random");
+    obj.setSinceVersion(0, 4);
+
+    RandomLinear::setInletsInfo(obj.classPointer(), { "bang" });
+    RandomLinear::setOutletsInfo(obj.classPointer(), { "float: random in \\[@v0..@v1) range\n"
+                                                       "       with linear probs in \\[@p0..@p1)" });
 }

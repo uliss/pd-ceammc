@@ -3,6 +3,7 @@
 
 #include "ceammc_clock.h"
 #include "ceammc_object.h"
+#include "ceammc_proxy.h"
 
 using namespace ceammc;
 
@@ -10,17 +11,20 @@ class FlowSpeedLimit : public BaseObject {
     IntProperty* period_;
     bool is_closed_;
     ClockMemberFunction<FlowSpeedLimit> clock_;
+    InletProxy<FlowSpeedLimit> inlet_;
 
 public:
     FlowSpeedLimit(const PdArgs& a);
-    void onBang();
-    void onFloat(t_float f);
-    void onSymbol(t_symbol* s);
-    void onList(const AtomList& l);
-    void onAny(t_symbol* s, const AtomList& l);
-    void onData(const DataPtr& p);
+    void onBang() override;
+    void onFloat(t_float f) override;
+    void onSymbol(t_symbol* s) override;
+    void onList(const AtomList& l) override;
+    void onAny(t_symbol* s, const AtomListView& l) override;
+    void onData(const Atom& data) override;
 
-    void m_reset(t_symbol*, const AtomList&);
+    void proxy_float(t_float f) { period_->setValue(f); }
+    void proxy_reset() { proxy_reset({}); }
+    void proxy_reset(const AtomListView&);
 
     void accept();
     void clock_handler();

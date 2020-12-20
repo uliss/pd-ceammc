@@ -7,7 +7,6 @@ using namespace ceammc;
 
 class FlowDemultiplex : public BaseObject {
     SizeTProperty* index_;
-    FlagProperty* no_props_;
 
 public:
     FlowDemultiplex(const PdArgs& a);
@@ -16,11 +15,12 @@ public:
     void onFloat(t_float f) override;
     void onSymbol(t_symbol* s) override;
     void onList(const AtomList& l) override;
-    void onAny(t_symbol* s, const AtomList& l) override;
-    void onData(const DataPtr& d) override;
+    void onAny(t_symbol* s, const AtomListView& l) override;
+    void onData(const Atom& d) override;
     void onInlet(size_t n, const AtomList& l) override;
 
-    bool processAnyProps(t_symbol* sel, const AtomList& lst) override;
+    bool processAnyProps(t_symbol* sel, const AtomListView& lst) override;
+    const char* annotateOutlet(size_t n) const override;
 
     bool checkIndex() const;
 };

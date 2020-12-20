@@ -20,15 +20,15 @@
 using namespace ceammc;
 
 class SetEqual : public BaseObject {
-    DataTypeSet set1_;
+    SetAtom set1_;
 
 public:
     SetEqual(const PdArgs& a);
-    void onDataT(const DataTPtr<DataTypeSet>& s);
-    void onInlet(size_t, const AtomList& l);
-    void onList(const AtomList& l);
+    void onDataT(const SetAtom& set);
+    void onInlet(size_t, const AtomList& l) override;
+    void onList(const AtomList& l) override;
 };
 
-extern "C" void setup_set0x2eequal();
+void setup_set_equal();
 
 #endif // SET_EQUAL_H

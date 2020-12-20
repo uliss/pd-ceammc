@@ -76,15 +76,22 @@ int midi_inhead, midi_intail;
 static double sys_midiinittime;
 #define API_DEFAULTMIDI 0
 
+#ifdef __APPLE__
+#define USEAPI_COREMIDI 1
+#endif
+
 #if (defined USEAPI_ALSA) && (defined USEAPI_MIDIDUMMY)
         /* if the only available MIDI-backend is ALSA, choose that */
 # define FORCEAPI_ALSA
+#elif defined(USEAPI_COREMIDI)
+# define FORCEAPI_COREMIDI
 #endif
-
 
 int sys_midiapi =
 #ifdef FORCEAPI_ALSA
     API_ALSA
+#elif defined(FORCEAPI_COREMIDI)
+    API_COREMIDI
 #else
     API_DEFAULTMIDI
 #endif
@@ -355,7 +362,7 @@ static void sys_dispatchnextmidiin(void)
         else if (parserp->mp_status < MIDI_NOTEOFF)
         {
             /* running status w/out prev status byte or other invalid message */
-            error("dropping unexpected midi byte %02X", byte);
+            error("dropping unexpected MIDI byte %02X", byte);
         }
         else
         {
@@ -646,7 +653,7 @@ void sys_listmididevs(void)
         MAXNDEV, DEVDESCSIZE);
 
     if (!nindevs)
-        post("no midi input devices found");
+        post("no MIDI input devices found");
     else
     {
         post("MIDI input devices:");
@@ -654,7 +661,7 @@ void sys_listmididevs(void)
             post("%d. %s", i+1, indevlist + i * DEVDESCSIZE);
     }
     if (!noutdevs)
-        post("no midi output devices found");
+        post("no MIDI output devices found");
     else
     {
         post("MIDI output devices:");
@@ -674,7 +681,7 @@ void sys_set_midi_api(int which)
 #endif
     default:
         if (sys_verbose)
-            post("Ignoring unknown MIDI-API %d", which);
+            post("ignoring unknown MIDI API %d", which);
         return;
     }
 

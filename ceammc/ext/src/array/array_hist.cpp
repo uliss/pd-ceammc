@@ -28,19 +28,18 @@ ArrayHist::ArrayHist(const PdArgs& args)
     , min_(nullptr)
     , max_(nullptr)
 {
-    // checking for first symbol argument, that is array name
-    int off = (positionalArguments().symbolAt(0, nullptr) == nullptr) ? 0 : 1;
+    nbins_ = new IntProperty("@bins", HIST_DEFAULT_SIZE);
+    nbins_->setArgIndex(1);
+    nbins_->checkClosedRange(HIST_MIN_SIZE, HIST_MAX_SIZE);
+    addProperty(nbins_);
 
-    const size_t N = clip<t_float>(positionalFloatArgument(off, 100), HIST_MIN_SIZE, HIST_MAX_SIZE);
-    nbins_ = new SizeTPropertyClosedRange("@bins", N, HIST_MIN_SIZE, HIST_MAX_SIZE);
-    createProperty(nbins_);
+    min_ = new FloatProperty("@min", -1);
+    min_->setArgIndexNext(nbins_);
+    addProperty(min_);
 
-    const t_float MIN = positionalFloatArgument(off + 1, -1);
-    const t_float MAX = positionalFloatArgument(off + 2, 1);
-    min_ = new FloatProperty("@min", MIN);
-    max_ = new FloatProperty("@max", MAX);
-    createProperty(min_);
-    createProperty(max_);
+    max_ = new FloatProperty("@max", 1);
+    max_->setArgIndexNext(min_);
+    addProperty(max_);
 
     createOutlet();
 }
@@ -80,6 +79,7 @@ void ArrayHist::onBang()
     }
 
     AtomList res;
+    res.reserve(hist.size());
     res.fill(0.f, hist.size());
     for (size_t i = 0; i < res.size(); i++)
         res[i].setFloat(hist[i]);

@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="math.erf">
+        <title>math.erf</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>error function</description>
+            <license>GPL3 or later</license>
+            <library>ceammc</library>
+            <category>math</category>
+            <keywords>math error gauss</keywords>
+            <also>
+                <see>math.erf~</see>
+            </also>
+            <since>0.9</since>
+        </meta>
+        <info>
+            <par>In statistics, for non-negative values of x, the error function has the following
+            interpretation:</par>
+            <par>for a random variable Y that is normally distributed with mean 0 and variance 1/2,
+            erf x is the probability that Y falls in the range [−x, x]</par>
+        </info>
+        <inlets>
+            <inlet>
+                <xinfo on="float">input value</xinfo>
+                <xinfo on="list">apply to all numeric values</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet>result value</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[bang(                 [array ERF y=0..1 w=320]
+|
+[list.seq -4 4 0.025]
+|
+[math.erf]
+|
+[list->array ERF]
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

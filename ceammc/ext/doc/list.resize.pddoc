@@ -21,9 +21,10 @@
         </arguments>
         <properties>
             <property name="@size" type="int" minvalue="0" default="0">output list size</property>
-            <property name="@method" type="symbol" enum="pad clip wrap fold">method of resizing, if
-            new size is longer then current</property>
-            <property name="@pad" type="atom">pad value for pad method of resizing</property>
+            <property name="@method" type="symbol" enum="pad clip wrap fold" default="pad">method
+            of resizing, if new size is longer then current</property>
+            <property name="@pad" type="atom" default="0">pad value for pad method of
+            resizing</property>
             <property name="@clip" type="alias">alias for @method clip</property>
             <property name="@wrap" type="alias">alias for @method wrap</property>
             <property name="@fold" type="alias">alias for @method fold</property>

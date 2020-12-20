@@ -112,7 +112,7 @@ protected:
 private:
     inline void _processBlock()
     {
-        processBlock((const t_sample**)in_, out_);
+        processBlock(const_cast<const t_sample**>(static_cast<t_sample**>(in_)), out_);
     }
 
     inline static t_int* dspPerform(t_int* w)

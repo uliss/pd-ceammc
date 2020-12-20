@@ -21,23 +21,22 @@ class HoaRecomposer : public HoaBase {
     Buffer out_buf_;
     Buffer line_buf_;
     std::unique_ptr<MultiEncoder2d> processor_;
-    std::unique_ptr<PolarLines2d> lines_;
+    std::unique_ptr<PolarLines2d> free_mode_lines_;
     IntProperty* plane_waves_;
     SymbolEnumProperty* mode_;
     t_float ramp_;
 
 public:
     HoaRecomposer(const PdArgs& args);
-    void parseProperties() override;
+    void initDone() override;
     void blockSizeChanged(size_t bs) override;
     void processBlock(const t_sample** in, t_sample** out) override;
     void setupDSP(t_signal** sp) override;
 
-    void m_angles(t_symbol* s, const AtomList& lst);
-    void m_wide(t_symbol* s, const AtomList& lst);
+    void m_angles(t_symbol* s, const AtomListView& lst);
+    void m_wide(t_symbol* s, const AtomListView& lst);
 
-    AtomList propRamp() const;
-    void propSetRamp(const AtomList& lst);
+    bool propSetRamp(t_float f);
 
 private:
     void parseNumPlaneWaves();

@@ -1,13 +1,13 @@
 #ifndef LIST_SEARCH_H
 #define LIST_SEARCH_H
 
-#include "ceammc_dataatomlist.h"
+#include "ceammc_data.h"
 #include "list_base.h"
 
 using namespace ceammc;
 
 class ListSearch : public ListBase {
-    DataAtomList subj_;
+    AtomList subj_;
 
 public:
     ListSearch(const PdArgs& args);

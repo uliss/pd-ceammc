@@ -14,10 +14,9 @@
 #ifndef LIST_UNIQUE_H
 #define LIST_UNIQUE_H
 
+#include "ceammc_data.h"
 #include "ceammc_object.h"
 using namespace ceammc;
-
-class DataTypeMList;
 
 class ListUnique : public BaseObject {
     BoolProperty* stable_;
@@ -25,7 +24,7 @@ class ListUnique : public BaseObject {
 public:
     ListUnique(const PdArgs& a);
     void onList(const AtomList& l) override;
-    void onDataT(const DataTPtr<DataTypeMList>& l);
+    void onDataT(const MListAtom& ml);
 };
 
 void setup_list_unique();

@@ -37,12 +37,18 @@ Rad2PhaseTilde::Rad2PhaseTilde(const PdArgs& args)
 
 Car2Pol::Car2Pol(const PdArgs& args)
     : BaseObject(args)
+    , positive_range_(nullptr)
 {
+    positive_range_ = new BoolProperty("@positive", false);
+    addProperty(positive_range_);
+
     createOutlet();
 }
 
 void Car2Pol::onList(const AtomList& lst)
 {
+    static const t_float m_pi = std::acos(t_float(-1));
+
     if (!checkArgs(lst, ARG_FLOAT, ARG_FLOAT)) {
         OBJ_ERR << "X Y coordinates expected: " << lst;
         return;
@@ -51,7 +57,10 @@ void Car2Pol::onList(const AtomList& lst)
     const auto x = lst[0].asFloat();
     const auto y = lst[1].asFloat();
 
-    listTo(0, { std::hypot(x, y), std::atan2(y, x) });
+    if (true)
+        listTo(0, { std::hypot(x, y), wrapFloatMinMax<t_float>(std::atan2(y, x), 0, 2 * m_pi) });
+    else
+        listTo(0, { std::hypot(x, y), std::atan2(y, x) });
 }
 
 Pol2Car::Pol2Car(const PdArgs& args)
@@ -86,6 +95,8 @@ void setup_conv_angles()
 
     ObjectFactory<Car2Pol> car2pol("conv.car2pol");
     car2pol.addAlias("car->pol");
+    car2pol.setXletsInfo({ "list: x y" }, { "list: radius angle\n"
+                                            "    - angle in radians in \\[-π..+π\\] or \\[0..2π) range" });
 
     SoundExternalFactory<Phase2RadTilde> p2rt("conv.phase2rad~");
     p2rt.addAlias("phase->rad~");

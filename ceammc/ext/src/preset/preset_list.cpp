@@ -4,13 +4,19 @@
 
 PresetList::PresetList(const PdArgs& args)
     : PresetBase(args)
-    , init_(0)
+    , init_(nullptr)
 {
     // 1st positionalSymbolArgument is preset name - in base class
     // positional arguments from 2 we are using as init arguments
-    init_ = new ListProperty("@init", positionalArguments().slice(1));
+    init_ = new ListProperty("@init", AtomList());
+    init_->setArgIndex(1);
+    addProperty(init_);
+}
+
+void PresetList::initDone()
+{
+    PresetBase::initDone();
     current_value_ = init_->value();
-    createProperty(init_);
 }
 
 void PresetList::onList(const AtomList& lst)
@@ -32,4 +38,5 @@ void PresetList::storeAt(size_t idx)
 void setup_preset_list()
 {
     PresetIFaceFactory<PresetList> obj("preset.list");
+    obj.addAlias("preset.l");
 }

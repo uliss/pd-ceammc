@@ -31,7 +31,7 @@ public:
 };
 
 class FltMedian : public BaseObject {
-    IntPropertyClosedRange* window_size_;
+    IntProperty* window_size_;
     std::vector<t_float> window_;
     std::vector<t_float> pool_;
     long window_idx_;

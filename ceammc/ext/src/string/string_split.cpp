@@ -14,27 +14,16 @@
 #include "string_split.h"
 #include "ceammc_factory.h"
 #include "ceammc_format.h"
-
-#include <boost/algorithm/string.hpp>
-
-static bool isSpace(const AtomList& lst)
-{
-    static t_symbol* SQUOTE = gensym("'");
-
-    if (lst.size() != 2)
-        return false;
-
-    return lst == AtomList(SQUOTE, SQUOTE);
-}
+#include "datatype_string.h"
 
 StringSplit::StringSplit(const PdArgs& a)
     : BaseObject(a)
 {
     createOutlet();
 
-    createCbProperty("@sep", &StringSplit::propGetSeparator, &StringSplit::propSetSeparator);
-    property("@sep")->info().setType(PropertyInfoType::VARIANT);
-    parseArgs();
+    addProperty(new SymbolProperty("@sep", &s_))
+        ->setSuccessFn([this](Property* p) { sep_ = to_string(p->get()); });
+    property("@sep")->setArgIndex(0);
 }
 
 void StringSplit::onSymbol(t_symbol* s)
@@ -43,9 +32,9 @@ void StringSplit::onSymbol(t_symbol* s)
     output();
 }
 
-void StringSplit::onDataT(const DataTPtr<DataTypeString>& dptr)
+void StringSplit::onDataT(const StringAtom& str)
 {
-    split(*dptr);
+    split(*str);
     output();
 }
 
@@ -55,60 +44,19 @@ void StringSplit::split(const DataTypeString& s)
     std::vector<std::string> tokens;
     s.split(tokens, sep_);
 
-    for (size_t i = 0; i < tokens.size(); i++) {
-        tokens_.emplace_back(DataTPtr<DataTypeString>(tokens[i]));
-    }
+    for (auto& x : tokens)
+        tokens_.append(new DataTypeString(x));
 }
 
 void StringSplit::output()
 {
-    AtomList res;
-
-    for (size_t i = 0; i < tokens_.size(); i++)
-        res.append(tokens_[i].toAtom());
-
-    listTo(0, res);
+    listTo(0, tokens_);
 }
 
-void StringSplit::parseArgs()
-{
-    if (isSpace(positionalArguments())) {
-        sep_ = " ";
-        return;
-    }
-
-    if (positionalArguments().size() > 0) {
-        const Atom& a = positionalArguments()[0];
-        sep_ = to_string(a);
-    }
-}
-
-AtomList StringSplit::propGetSeparator() const
-{
-    return Atom(gensym(sep_.c_str()));
-}
-
-void StringSplit::propSetSeparator(const AtomList& l)
-{
-    switch (l.size()) {
-    case 0:
-        sep_ = "";
-        return;
-    case 1:
-        sep_ = to_string(l[0]);
-        return;
-    default: {
-        if (isSpace(l))
-            sep_ = " ";
-        else
-            sep_ = to_string(l[0]);
-    }
-    }
-}
-
-extern "C" void setup_string0x2esplit()
+void setup_string_split()
 {
     ObjectFactory<StringSplit> obj("string.split");
     obj.processData<DataTypeString>();
     obj.addAlias("str.split");
+    obj.ignoreDataParseErrors();
 }

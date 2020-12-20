@@ -12,13 +12,13 @@
             <category>env</category>
             <keywords>envelope</keywords>
             <since>0.5</since>
-            <aliases>
-                <alias>env</alias>
-            </aliases>
             <also>
                 <see>env-&gt;array</see>
                 <see>env-&gt;vline</see>
             </also>
+            <aliases>
+                <alias>env</alias>
+            </aliases>
         </meta>
         <info>
             <par>Data type for sound envelope. Contains points specified by time and value. Points
@@ -207,10 +207,10 @@
             release(ms), release_curve - no sustain point</argument>
         </arguments>
         <properties>
-            <property name="@npoints" type="int" readonly="true" minvalue="0">number of
+            <property name="@npoints" type="int" readonly="true" minvalue="0" default="0">number of
             points</property>
-            <property name="@length" type="float" units="millisecond" readonly="true">total
-            envelope time length</property>
+            <property name="@length" type="float" units="millisecond" readonly="true" default="0"
+            minvalue="0">total envelope time length</property>
             <property name="@points" type="list" readonly="true">list of point times
             (ms)</property>
             <property name="@values" type="list" readonly="true">list of point values</property>
@@ -236,7 +236,7 @@
 | | |
 | | | [eadsr 20 -5 70 -12 30 100 -7, bang( [sin2 0 80 1 80 0, bang #d(
 | | | |
-[env #env]
+[envelope #env]
 |
 [env->array env_arr]
 

@@ -1,45 +1,45 @@
-#N canvas 0 0 760 555 12;
+#N canvas 0 0 785 555 12;
 #X declare -lib ceammc;
 #X declare -lib matrix;
-#X obj 401 50 cnv 1 339 21 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 401 50 create Matrix column with specified values;
-#X obj 1 1 cnv 5 740 40 empty empty matrix.col 20 20 0 20 -104026
+#X obj 438 50 cnv 1 327 23 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 438 50 create Matrix column with specified values;
+#X obj 1 1 cnv 5 765 40 empty empty matrix.col 20 20 0 20 -104026
 -4096 0;
-#X obj 642 11 matrix.col;
+#X obj 667 11 matrix.col;
 #X obj 50 118 declare -lib matrix;
 #X obj 50 162 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
 -1;
 #X msg 88 162 1 2 3 4;
 #X obj 50 190 matrix.col 0.2345 1.2345 3.1415;
 #X obj 50 219 print;
-#X obj 126 219 ui.display @display_type 1 @size 150 18;
-#X obj 20 259 cnv 1 720 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 264 cnv 5 90 26 empty empty arguments: 4 10 0 14 -262144
+#X obj 126 219 ui.display @display_type 1;
+#X obj 20 268 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 273 cnv 5 90 26 empty empty arguments: 4 10 0 14 -262144
 -49933 0;
-#X text 120 269 1\.;
-#X text 150 269 list;
-#X obj 281 270 cnv 1 17 18 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 269 V: column values.;
-#X obj 20 297 cnv 1 720 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 302 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
+#X text 110 308 1\.;
+#X text 150 308 list;
+#X obj 246 309 cnv 1 16 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 245 308 V: column values.;
+#X obj 20 338 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 343 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
-#X text 120 307 1\.;
-#X text 150 307 *list*;
-#X text 280 307 column values.;
-#X obj 20 335 cnv 1 720 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 340 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
+#X text 110 344 1\.;
+#X text 150 344 *list*;
+#X text 245 344 column values.;
+#X obj 20 374 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 379 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 120 345 1\.;
-#X text 280 345 output column (Matrix);
+#X text 110 380 1\.;
+#X text 245 380 output column (Matrix).;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 67 48 ui.link @title matrix @url matrix-help.pd;
 #X text 116 45 ::;
 #X obj 132 48 ui.link @title matrix @url matrix.matrix-help.pd;
-#X obj 1 505 cnv 5 740 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 1 505 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 10 508 library: matrix v0.1;
-#X text 570 520 see also:;
-#X obj 646 520 matrix.row;
+#X text 592 520 see also:;
+#X obj 666 520 matrix.row;
 #N canvas 10 527 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;

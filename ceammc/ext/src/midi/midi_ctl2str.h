@@ -10,7 +10,7 @@ class MidiCtl2Str : public BaseObject {
 
 public:
     MidiCtl2Str(const PdArgs& args);
-    void onFloat(float f);
+    void onFloat(t_float f) override;
 };
 
 void setup_midi_ctl2str();

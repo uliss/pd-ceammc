@@ -38,9 +38,16 @@ bool operator==(const ListApprox& la, const AtomList& al)
     if (la.lst_.size() != al.size())
         return false;
 
-    for (size_t i = 0; i < la.lst_.size(); i++) {
-        if (la.lst_[i].asFloat() != Approx(al[i].asFloat()))
-            return false;
+    if (la.margin_ != 0) {
+        for (size_t i = 0; i < la.lst_.size(); i++) {
+            if (la.lst_[i].asFloat() != Approx(al[i].asFloat()).margin(la.margin_))
+                return false;
+        }
+    } else {
+        for (size_t i = 0; i < la.lst_.size(); i++) {
+            if (la.lst_[i].asFloat() != Approx(al[i].asFloat()))
+                return false;
+        }
     }
 
     return true;
@@ -55,7 +62,7 @@ ListApprox::ListApprox()
 {
 }
 
-ListApprox::ListApprox(std::initializer_list<float> l)
+ListApprox::ListApprox(std::initializer_list<t_float> l)
     : lst_(l)
 {
 }
@@ -65,6 +72,12 @@ std::string ListApprox::toString() const
     std::ostringstream oss;
     oss << "ListApprox( " << lst_ << " )";
     return oss.str();
+}
+
+ListApprox& ListApprox::margin(t_float m)
+{
+    margin_ = m;
+    return *this;
 }
 
 AtomListApprox::AtomListApprox(const AtomList& lst)
@@ -81,10 +94,13 @@ bool operator==(const AtomListApprox& la, const AtomList& al)
         auto& a0 = la[i];
         auto& a1 = al[i];
 
+        if (a0.type() != a1.type())
+            return false;
+
         if (a0.isSymbol() && a0 != a1)
             return false;
 
-        if (a0.asFloat() != Approx(a1.asFloat()))
+        if (a0.asFloat() != Approx(a1.asFloat()).epsilon(0.1))
             return false;
     }
 

@@ -15,6 +15,7 @@
 #define HW_SERIAL_H
 
 #include "ceammc_pollfd.h"
+#include "ceammc_property_enum.h"
 #include "ceammc_thread.h"
 
 #include <future>
@@ -42,8 +43,8 @@ public:
     void onThreadDone(int rc) override;
     bool onThreadCommand(int code) override;
 
-    void m_open(t_symbol* s, const AtomList& l);
-    void m_close(t_symbol* s, const AtomList&);
+    void m_open(t_symbol* s, const AtomListView& l);
+    void m_close(t_symbol* s, const AtomListView&);
 
     AtomList propDevices() const;
 

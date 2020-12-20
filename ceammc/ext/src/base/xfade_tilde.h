@@ -14,6 +14,7 @@
 #ifndef XFADE_TILDE_H
 #define XFADE_TILDE_H
 
+#include "ceammc_property_enum.h"
 #include "ceammc_signal.h"
 #include "ceammc_sound_external.h"
 
@@ -27,7 +28,6 @@ class XFadeTilde : public SoundExternal {
 protected:
     typedef SmoothLinT<t_float> t_smooth;
     std::vector<t_smooth> gain_;
-    const size_t n_;
     t_float smooth_ms_;
     SymbolEnumProperty* prop_type_;
 
@@ -38,9 +38,6 @@ public:
     void processBlock(const t_sample** in, t_sample** out) override;
 
     void onInlet(size_t n, const AtomList& lst) override;
-
-    AtomList propSmooth() const;
-    void propSetSmooth(const AtomList& ms);
 
 public:
     // test

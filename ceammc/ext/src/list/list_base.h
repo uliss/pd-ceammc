@@ -14,21 +14,15 @@
 #ifndef LIST_BASE_H
 #define LIST_BASE_H
 
+#include "ceammc_data.h"
 #include "ceammc_object.h"
-#include "datatype_mlist.h"
 
 namespace ceammc {
+
 class ListBase : public BaseObject {
 public:
-    ListBase(const PdArgs& args)
-        : BaseObject(args)
-    {
-    }
-
-    void onDataT(const DataTPtr<DataTypeMList>& dptr)
-    {
-        onList(dptr->toList());
-    }
+    ListBase(const PdArgs& args);
+    virtual void onDataT(const MListAtom& ml);
 };
 }
 

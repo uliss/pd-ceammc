@@ -12,80 +12,80 @@
 #X msg 107 147 @clip \$1;
 #X obj 50 176 lin->lin 0 127 -1 1;
 #X floatatom 50 205 5 0 0 0 - - -;
-#X obj 20 244 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 249 cnv 5 90 26 empty empty arguments: 4 10 0 14 -262144
+#X obj 20 254 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 259 cnv 5 90 26 empty empty arguments: 4 10 0 14 -262144
 -49933 0;
-#X text 110 284 1\.;
-#X text 150 284 float;
-#X obj 246 285 cnv 1 38 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 284 FROM: begin of input range.;
-#X text 110 304 2\.;
-#X text 150 304 float;
-#X obj 246 305 cnv 1 24 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 304 TO: end of input range.;
-#X text 110 324 3\.;
-#X text 150 324 float;
-#X obj 246 325 cnv 1 38 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 324 FROM: begin of output range.;
-#X text 110 344 4\.;
-#X text 150 344 float;
-#X obj 246 345 cnv 1 24 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 344 TO: end of input output.;
-#X obj 20 374 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 379 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
+#X text 110 294 1\.;
+#X text 150 294 float;
+#X obj 246 295 cnv 1 38 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 245 294 FROM: begin of input range.;
+#X text 110 314 2\.;
+#X text 150 314 float;
+#X obj 246 315 cnv 1 24 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 245 314 TO: end of input range.;
+#X text 110 334 3\.;
+#X text 150 334 float;
+#X obj 246 335 cnv 1 38 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 245 334 FROM: begin of output range.;
+#X text 110 354 4\.;
+#X text 150 354 float;
+#X obj 246 355 cnv 1 24 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 245 354 TO: end of input output.;
+#X obj 20 384 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 389 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
 -49933 0;
-#X msg 110 414 @clip;
-#X text 245 414 Get/Set noclip (don't clip) max (clip ceiling) min
+#X msg 110 424 @clip;
+#X text 245 424 Get/Set noclip (don't clip) max (clip ceiling) min
 (clip floor) minmax (clip both). Type: symbol. Default value: minmax.
 Allowed values: noclip \, min \, max \, minmax.;
-#X msg 110 471 @in_from;
-#X text 245 471 Get/Set begin of input range. Type: float. Default
+#X msg 110 481 @in_from;
+#X text 245 481 Get/Set begin of input range. Type: float. Default
 value: 0\.;
-#X msg 110 500 @in_to;
-#X text 245 500 Get/Set end of input range. Type: float. Default value:
+#X msg 110 510 @in_to;
+#X text 245 510 Get/Set end of input range. Type: float. Default value:
 127\.;
-#X msg 110 529 @max;
-#X text 245 529 Get/Set alias to @clip max. Type: symbol.;
-#X msg 110 558 @min;
-#X text 245 558 Get/Set alias to @clip min. Type: symbol.;
-#X msg 110 587 @minmax;
-#X text 245 587 Get/Set alias to @clip minmax. Type: symbol.;
-#X msg 110 616 @noclip;
-#X text 245 616 Get/Set alias to @clip noclip. Type: symbol.;
-#X msg 110 645 @out_from;
-#X text 245 645 Get/Set begin of output range. Type: float. Default
+#X msg 110 539 @max;
+#X text 245 539 Get/Set alias to @clip max. Type: symbol.;
+#X msg 110 568 @min;
+#X text 245 568 Get/Set alias to @clip min. Type: symbol.;
+#X msg 110 597 @minmax;
+#X text 245 597 Get/Set alias to @clip minmax. Type: symbol.;
+#X msg 110 626 @noclip;
+#X text 245 626 Get/Set alias to @clip noclip. Type: symbol.;
+#X msg 110 655 @out_from;
+#X text 245 655 Get/Set begin of output range. Type: float. Default
 value: 0\.;
-#X msg 110 687 @out_to;
-#X text 245 687 Get/Set end of output range. Type: float. Default value:
+#X msg 110 697 @out_to;
+#X text 245 697 Get/Set end of output range. Type: float. Default value:
 1\.;
-#X obj 20 726 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 731 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
+#X obj 20 736 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 741 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
-#X text 110 732 1\.;
-#X text 150 732 *float*;
-#X text 245 732 input float.;
-#X text 150 752 *list*;
-#X text 245 752 input list.;
-#X obj 20 782 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 787 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
+#X text 110 742 1\.;
+#X text 150 742 *float*;
+#X text 245 742 input float.;
+#X text 150 762 *list*;
+#X text 245 762 input list.;
+#X obj 20 792 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 797 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 788 1\.;
-#X text 245 788 converted float/list.;
+#X text 110 798 1\.;
+#X text 245 798 converted float/list.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 115 45 ::;
 #X obj 131 48 ui.link @title conv @url ceammc.conv-help.pd;
-#X obj 1 838 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 841 library: ceammc v0.8.0;
-#X text 586 853 see also:;
-#X obj 660 853 conv.cc2amp;
-#N canvas 10 860 400 290 info 0;
+#X obj 1 848 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 851 library: ceammc v0.9.1;
+#X text 586 863 see also:;
+#X obj 660 863 conv.cc2amp;
+#N canvas 10 870 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
 #X text 10 32 version:;
-#X text 120 32 0.8.0;
+#X text 120 32 0.9.1;
 #X text 10 54 object:;
 #X text 120 54 conv.lin2lin;
 #X text 10 76 category:;
@@ -104,7 +104,7 @@ https://github.com/uliss/pure-data;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 generated by pddoc;
-#X restore 10 860 pd info;
+#X restore 10 870 pd info;
 #X connect 7 0 8 0;
 #X connect 6 0 9 0;
 #X connect 8 0 9 0;

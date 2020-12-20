@@ -1,5 +1,6 @@
 #include "metro_seq.h"
 #include "ceammc_factory.h"
+#include "ceammc_property_callback.h"
 
 static Atom toDigit(const Atom& l)
 {
@@ -9,23 +10,41 @@ static Atom toDigit(const Atom& l)
 MetroSeq::MetroSeq(const PdArgs& a)
     : BaseObject(a)
     , clock_(this, &MetroSeq::clockTick)
-    , pattern_(positionalArguments().slice(1).map(toDigit))
     , interval_(0)
     , current_(0)
 {
     createOutlet();
 
-    interval_ = new FloatProperty("@interval", positionalFloatArgument(0));
-    interval_->info().setUnits(PropertyInfoUnits::MSEC);
-    createProperty(interval_);
+    interval_ = new FloatProperty("@interval", 0);
+    interval_->setArgIndex(0);
+    interval_->setUnitsMs();
+    addProperty(interval_);
 
-    createCbProperty("@current", &MetroSeq::p_current, &MetroSeq::p_set_current);
-    auto& curinfo = property("@current")->info();
-    curinfo.setType(PropertyInfoType::INTEGER);
-    curinfo.setMin(0);
-    curinfo.setDefault(0);
+    createCbIntProperty(
+        "@current",
+        [this]() -> int { return current_; },
+        [this](int v) -> bool {
+            if (v >= pattern_.size())
+                return false;
+            else {
+                current_ = v;
+                return true;
+            }
+        })
+        ->setIntCheck(PropValueConstraints::GREATER_EQUAL, 0);
 
-    createCbProperty("@pattern", &MetroSeq::p_pattern, &MetroSeq::p_set_pattern);
+    createCbListProperty(
+        "@pattern",
+        [this]() -> AtomList { return pattern_; },
+        [this](const AtomList& l) {
+            if (l.empty())
+                return false;
+            else {
+                pattern_ = l.map(toDigit);
+                return true;
+            }
+        })
+        ->setArgIndex(1);
 }
 
 void MetroSeq::onFloat(t_float f)
@@ -57,38 +76,13 @@ void MetroSeq::clockTick()
     current_ = (current_ + 1) % pattern_.size();
 }
 
-AtomList MetroSeq::p_current() const
-{
-    return Atom(current_);
-}
-
-void MetroSeq::p_set_current(const AtomList& l)
-{
-    size_t n = l.asSizeT();
-    if (n >= pattern_.size()) {
-        OBJ_ERR << "invalid current value: " << n;
-        return;
-    }
-
-    current_ = n;
-}
-
-AtomList MetroSeq::p_pattern() const
-{
-    return pattern_;
-}
-
-void MetroSeq::p_set_pattern(const AtomList& l)
-{
-    if (l.empty()) {
-        OBJ_ERR << "empty pattern";
-        return;
-    }
-
-    pattern_ = l.map(toDigit);
-}
-
 void setup_metro_seq()
 {
     ObjectFactory<MetroSeq> obj("metro.seq");
+
+    obj.setDescription("metro sequencer");
+    obj.addAuthor("Serge Poltavsky");
+    obj.setKeywords({ "metro", "sequencer" });
+    obj.setCategory("base");
+    obj.setSinceVersion(0, 5);
 }

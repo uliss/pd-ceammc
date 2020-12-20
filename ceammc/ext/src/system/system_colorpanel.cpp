@@ -36,22 +36,20 @@ SystemColorpanel::SystemColorpanel(const PdArgs& args)
 
     createOutlet();
 
-    mode_ = new SymbolEnumProperty("@mode", SYM_FLOAT);
-    mode_->appendEnum(SYM_INT);
-    mode_->appendEnum(SYM_HEX);
-    createProperty(mode_);
+    mode_ = new SymbolEnumProperty("@mode", { SYM_FLOAT, SYM_INT, SYM_HEX });
+    addProperty(mode_);
 
-    createProperty(new SymbolEnumAlias("@f", mode_, SYM_FLOAT));
-    createProperty(new SymbolEnumAlias("@i", mode_, SYM_INT));
-    createProperty(new SymbolEnumAlias("@h", mode_, SYM_HEX));
+    addProperty(new SymbolEnumAlias("@f", mode_, SYM_FLOAT));
+    addProperty(new SymbolEnumAlias("@i", mode_, SYM_INT));
+    addProperty(new SymbolEnumAlias("@h", mode_, SYM_HEX));
 
     createCbProperty("@float", &SystemColorpanel::propFloat, &SystemColorpanel::propSetFloat);
     createCbProperty("@int", &SystemColorpanel::propInt, &SystemColorpanel::propSetInt);
 
-    {
-        Property* p = createCbProperty("@hex", &SystemColorpanel::propHex, &SystemColorpanel::propSetHex);
-        p->info().setType(PropertyInfoType::SYMBOL);
-    }
+    createCbSymbolProperty(
+        "@hex",
+        [this]() -> t_symbol* { return gensym(hex_); },
+        [this](t_symbol* s) -> bool { return setHex(s); });
 }
 
 void SystemColorpanel::onBang()
@@ -72,7 +70,7 @@ void SystemColorpanel::onClick(t_floatarg xpos, t_floatarg ypos, t_floatarg shif
         onBang();
 }
 
-void SystemColorpanel::m_callback(t_symbol* s, const AtomList& args)
+void SystemColorpanel::m_callback(t_symbol* s, const AtomListView& args)
 {
     if (!args.isSymbol())
         return;
@@ -135,16 +133,6 @@ void SystemColorpanel::propSetInt(const AtomList& v)
     r_ = v[0].asFloat();
     g_ = v[1].asFloat();
     b_ = v[2].asFloat();
-}
-
-void SystemColorpanel::propSetHex(const AtomList& v)
-{
-    if (!checkArgs(v, ARG_SYMBOL)) {
-        OBJ_ERR << "color hex value expected in #xxxxxx format: " << v;
-        return;
-    }
-
-    setHex(v[0].asSymbol());
 }
 
 void setup_system_colorpanel()

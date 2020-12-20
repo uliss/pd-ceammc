@@ -70,7 +70,7 @@ void ArrayDo::finish()
     bangTo(0);
 }
 
-extern "C" void setup_array0x2edo()
+void setup_array_do()
 {
     ObjectFactory<ArrayDo> obj("array.do");
 }

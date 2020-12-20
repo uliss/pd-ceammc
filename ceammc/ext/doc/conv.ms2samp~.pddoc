@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="conv.ms2samp~">
+        <title>conv.ms2samp~</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>convert time in milliseconds to number of samples according to current
+            samplerate</description>
+            <license>GPL3 or later</license>
+            <library>ceammc</library>
+            <category>conv</category>
+            <keywords>conv samp ms</keywords>
+            <since>0.9</since>
+            <aliases>
+                <alias>ms-&gt;samp~</alias>
+            </aliases>
+            <also>
+                <see>conv.samp2ms~</see>
+            </also>
+        </meta>
+        <inlets>
+            <inlet type="audio">
+                <xinfo>input signal</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet type="audio">output signal</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[bang(
+|
+[plot.linspace~ 0 1000]
+|                    ^|
+[ms->samp~]           |
+|                     |.
+[ui.plot~ @size 400 170 @xlabels 1 @ylabels 1 @ymin 0 @ymax 1000 @yauto 1 @ymin_ticks 0]
+
+
+
+
+
+
+
+
+
+
+
+
+
+[ui.dsp~]
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

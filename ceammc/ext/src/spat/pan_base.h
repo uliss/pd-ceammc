@@ -6,17 +6,17 @@
 using namespace ceammc;
 
 class PanBase : public SoundExternal {
-    InitIntPropertyClosedRange* smooth_;
+    IntProperty* smooth_;
 
 protected:
-    FloatPropertyClosedRange* pos_;
+    FloatProperty* pos_;
     SmoothControlValue smooth_pos_;
 
 public:
     PanBase(const PdArgs& args);
-    void onInlet(size_t n, const AtomList& l);
+    void onInlet(size_t n, const AtomList& l) override;
 
-    void setupDSP(t_signal** sp);
+    void setupDSP(t_signal** sp) override;
 };
 
 #endif // PAN_BASE_H

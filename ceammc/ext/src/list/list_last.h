@@ -14,18 +14,17 @@
 #ifndef LIST_LAST_H
 #define LIST_LAST_H
 
+#include "ceammc_data.h"
 #include "ceammc_object.h"
 
 using namespace ceammc;
-
-class DataTypeMList;
 
 class ListLast : public BaseObject {
 public:
     ListLast(const PdArgs& args);
 
     void onList(const AtomList& lst) override;
-    void onDataT(const DataTPtr<DataTypeMList>& lst);
+    void onDataT(const MListAtom& ml);
 };
 
 void setup_list_last();

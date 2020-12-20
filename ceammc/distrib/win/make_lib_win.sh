@@ -7,12 +7,14 @@ then
 fi
 
 OUTDIR="$1/ceammc"
+BASEOUTDIR="ceammc"
 SRCDIR="@PROJECT_SOURCE_DIR@/ceammc"
 BINDIR="@CMAKE_INSTALL_PREFIX@"
 VERSION="@CEAMMC_LIB_VERSION@"
 ARCH="@CEAMMC_DISTRIB_ARCH@"
+PRECISION="@CEAMMC_PRECISION@"
 PD_VERSION="@PD_TEXT_VERSION_FULL@"
-OUTFILE="ceammc-${VERSION}-win-pd-${PD_VERSION}-${ARCH}.zip"
+OUTFILE="ceammc-${VERSION}-win-pd-${PD_VERSION}-${ARCH}-${PRECISION}.zip"
 P7Z_EXE="@7Z_EXE@"
 
 echo "    - source dir:  ${SRCDIR}"
@@ -20,6 +22,8 @@ echo "    - binary dir:  ${BINDIR}"
 echo "    - output dir:  ${OUTDIR}"
 echo "    - version:     ${VERSION}"
 echo "    - output file: ${OUTFILE}"
+echo "    - 7zip: ${P7Z_EXE}"
+
 
 function skip_ext {
     #skip experimental extensions
@@ -72,15 +76,8 @@ done
 
 rm -f "${OUTDIR}/debug.gensym.dll"
 
-echo "Copying TCL files to ${OUTDIR} ..."
-find "${SRCDIR}/extra/hcs" -name *\\.tcl | while read file
-do
-    cp "$file" "${OUTDIR}"
-    echo "+ Tcl:  $(basename $file)"
-done
-
 echo "Copying help files to ${OUTDIR} ..."
-find "${SRCDIR}/ext/doc" -name *-help\\.pd | while read file
+find "${SRCDIR}/ext/doc" -name *\\.pd | while read file
 do
     help=$(basename $file)
     cat "$file" |
@@ -94,6 +91,15 @@ find "${SRCDIR}/ext/doc" -name *\\.wav | while read file
 do
     cp "$file" "${OUTDIR}"
     echo "+ WAV:  $(basename $file)"
+done
+
+echo "Copying HOA help files to ${OUTDIR} ..."
+mkdir -p "${OUTDIR}/hoa"
+find "@PROJECT_SOURCE_DIR@/ceammc/ext/doc/hoa" -type f | while read file
+do
+    help=$(basename $file)
+    cp "$file" "${OUTDIR}/hoa"
+    echo "+ HOA:  '$help'"
 done
 
 echo "Copying STK raw files to ${OUTDIR}/stk ..."
@@ -136,6 +142,8 @@ echo "+ MISC: stargazing.mod"
 cp "${SRCDIR}/ext/doc/stargazing.mod" "${OUTDIR}"
 echo "+ MISC: prs.txt"
 cp "${SRCDIR}/ext/doc/prs.txt" "${OUTDIR}"
+echo "+ MISC: sur_la_planche.glitch"
+cp "${SRCDIR}/ext/doc/sur_la_planche.glitch" "${OUTDIR}"
 echo "+ MISC: system.serial-help.pd"
 cp "${SRCDIR}/extra/comport/system.serial-help.pd" "${OUTDIR}"
 
@@ -148,8 +156,8 @@ mv tmp "${OUTDIR}/index-help.pd"
 if [ -x "${P7Z_EXE}" ]
 then
     cd "${OUTDIR}/.."
-    ${P7Z_EXE} a "${OUTFILE}" $(basename $OUTDIR)
-    mv "${OUTFILE}" ..
+    "${P7Z_EXE}" a "${OUTFILE}" "${BASEOUTDIR}"
+    cp "${OUTFILE}" ..
 else
     echo "7z is not found. Create zip archive manually..."
 fi

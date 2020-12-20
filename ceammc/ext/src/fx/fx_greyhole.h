@@ -4,7 +4,7 @@ copyright: "(c) Julian Parker 2013"
 license: "GPL2+"
 name: "fx.greyhole"
 version: "1.0"
-Code generated with Faust 2.22.1 (https://faust.grame.fr)
+Code generated with Faust 2.28.6 (https://faust.grame.fr)
 Compilation options: -lang cpp -scal -ftz 0
 ------------------------------------------------------------ */
 
@@ -18,7 +18,7 @@ Compilation options: -lang cpp -scal -ftz 0
 #include <memory>
 #include <string>
 
-/************************** BEGIN dsp.h **************************/
+/************************** BEGIN fx_greyhole_dsp.h **************************/
 /************************************************************************
  FAUST Architecture File
  Copyright (C) 2003-2017 GRAME, Centre National de Creation Musicale
@@ -52,7 +52,7 @@ Compilation options: -lang cpp -scal -ftz 0
 #define FAUSTFLOAT float
 #endif
 
-class UI;
+struct UI;
 struct Meta;
 
 /**
@@ -72,12 +72,12 @@ struct dsp_memory_manager {
 * Signal processor definition.
 */
 
-class dsp {
+class fx_greyhole_dsp {
 
     public:
 
-        dsp() {}
-        virtual ~dsp() {}
+        fx_greyhole_dsp() {}
+        virtual ~fx_greyhole_dsp() {}
 
         /* Return instance number of audio inputs */
         virtual int getNumInputs() = 0;
@@ -87,7 +87,7 @@ class dsp {
     
         /**
          * Trigger the ui_interface parameter with instance specific calls
-         * to 'addBtton', 'addVerticalSlider'... in order to build the UI.
+         * to 'openTabBox', 'addButton', 'addVerticalSlider'... in order to build the UI.
          *
          * @param ui_interface - the user interface builder
          */
@@ -130,7 +130,7 @@ class dsp {
          *
          * @return a copy of the instance on success, otherwise a null pointer.
          */
-        virtual dsp* clone() = 0;
+        virtual fx_greyhole_dsp* clone() = 0;
     
         /**
          * Trigger the Meta* parameter with instance specific calls to 'declare' (key, value) metadata.
@@ -166,15 +166,15 @@ class dsp {
  * Generic DSP decorator.
  */
 
-class decorator_dsp : public dsp {
+class decorator_dsp : public fx_greyhole_dsp {
 
     protected:
 
-        dsp* fDSP;
+        fx_greyhole_dsp* fDSP;
 
     public:
 
-        decorator_dsp(dsp* dsp = nullptr):fDSP(dsp) {}
+        decorator_dsp(fx_greyhole_dsp* fx_greyhole_dsp = nullptr):fDSP(fx_greyhole_dsp) {}
         virtual ~decorator_dsp() { delete fDSP; }
 
         virtual int getNumInputs() { return fDSP->getNumInputs(); }
@@ -214,7 +214,7 @@ class dsp_factory {
         virtual std::vector<std::string> getLibraryList() = 0;
         virtual std::vector<std::string> getIncludePathnames() = 0;
     
-        virtual dsp* createDSPInstance() = 0;
+        virtual fx_greyhole_dsp* createDSPInstance() = 0;
     
         virtual void setMemoryManager(dsp_memory_manager* manager) = 0;
         virtual dsp_memory_manager* getMemoryManager() = 0;
@@ -238,11 +238,11 @@ class dsp_factory {
 #endif
 
 #endif
-/**************************  END  dsp.h **************************/
+/**************************  END  fx_greyhole_dsp.h **************************/
 /************************** BEGIN UI.h **************************/
 /************************************************************************
  FAUST Architecture File
- Copyright (C) 2003-2017 GRAME, Centre National de Creation Musicale
+ Copyright (C) 2003-2020 GRAME, Centre National de Creation Musicale
  ---------------------------------------------------------------------
  This Architecture section is free software; you can redistribute it
  and/or modify it under the terms of the GNU General Public License
@@ -280,48 +280,44 @@ class dsp_factory {
 struct Soundfile;
 
 template <typename REAL>
-class UIReal
+struct UIReal
 {
+    UIReal() {}
+    virtual ~UIReal() {}
     
-    public:
-        
-        UIReal() {}
-        virtual ~UIReal() {}
-        
-        // -- widget's layouts
-        
-        virtual void openTabBox(const char* label) = 0;
-        virtual void openHorizontalBox(const char* label) = 0;
-        virtual void openVerticalBox(const char* label) = 0;
-        virtual void closeBox() = 0;
-        
-        // -- active widgets
-        
-        virtual void addButton(const char* label, REAL* zone) = 0;
-        virtual void addCheckButton(const char* label, REAL* zone) = 0;
-        virtual void addVerticalSlider(const char* label, REAL* zone, REAL init, REAL min, REAL max, REAL step) = 0;
-        virtual void addHorizontalSlider(const char* label, REAL* zone, REAL init, REAL min, REAL max, REAL step) = 0;
-        virtual void addNumEntry(const char* label, REAL* zone, REAL init, REAL min, REAL max, REAL step) = 0;
-        
-        // -- passive widgets
-        
-        virtual void addHorizontalBargraph(const char* label, REAL* zone, REAL min, REAL max) = 0;
-        virtual void addVerticalBargraph(const char* label, REAL* zone, REAL min, REAL max) = 0;
-        
-        // -- soundfiles
-        
-        virtual void addSoundfile(const char* label, const char* filename, Soundfile** sf_zone) = 0;
-        
-        // -- metadata declarations
-        
-        virtual void declare(REAL* zone, const char* key, const char* val) {}
+    // -- widget's layouts
+    
+    virtual void openTabBox(const char* label) = 0;
+    virtual void openHorizontalBox(const char* label) = 0;
+    virtual void openVerticalBox(const char* label) = 0;
+    virtual void closeBox() = 0;
+    
+    // -- active widgets
+    
+    virtual void addButton(const char* label, REAL* zone) = 0;
+    virtual void addCheckButton(const char* label, REAL* zone) = 0;
+    virtual void addVerticalSlider(const char* label, REAL* zone, REAL init, REAL min, REAL max, REAL step) = 0;
+    virtual void addHorizontalSlider(const char* label, REAL* zone, REAL init, REAL min, REAL max, REAL step) = 0;
+    virtual void addNumEntry(const char* label, REAL* zone, REAL init, REAL min, REAL max, REAL step) = 0;
+    
+    // -- passive widgets
+    
+    virtual void addHorizontalBargraph(const char* label, REAL* zone, REAL min, REAL max) = 0;
+    virtual void addVerticalBargraph(const char* label, REAL* zone, REAL min, REAL max) = 0;
+    
+    // -- soundfiles
+    
+    virtual void addSoundfile(const char* label, const char* filename, Soundfile** sf_zone) = 0;
+    
+    // -- metadata declarations
+    
+    virtual void declare(REAL* zone, const char* key, const char* val) {}
 };
 
 struct UI : public UIReal<FAUSTFLOAT>
 {
-
-        UI() {}
-        virtual ~UI() {}
+    UI() {}
+    virtual ~UI() {}
 };
 
 #endif
@@ -490,7 +486,7 @@ using namespace ceammc::faust;
 
 // clang-format off
 #ifndef FAUST_MACRO
-struct fx_greyhole : public dsp {
+struct fx_greyhole : public fx_greyhole_dsp {
 };
 #endif
 // clang-format on
@@ -517,7 +513,7 @@ struct fx_greyhole : public dsp {
 #define exp10 __exp10
 #endif
 
-class fx_greyhole : public dsp {
+class fx_greyhole : public fx_greyhole_dsp {
 	
  private:
 	
@@ -682,9 +678,9 @@ class fx_greyhole : public dsp {
 		m->declare("basics.lib/name", "Faust Basic Element Library");
 		m->declare("basics.lib/version", "0.1");
 		m->declare("ceammc.lib/name", "Ceammc PureData misc utils");
-		m->declare("ceammc.lib/version", "0.1.1");
+		m->declare("ceammc.lib/version", "0.1.2");
 		m->declare("ceammc_ui.lib/name", "CEAMMC faust default UI elements");
-		m->declare("ceammc_ui.lib/version", "0.1.1");
+		m->declare("ceammc_ui.lib/version", "0.1.2");
 		m->declare("copyright", "(c) Julian Parker 2013");
 		m->declare("delays.lib/name", "Faust Delay Library");
 		m->declare("delays.lib/version", "0.1");
@@ -702,12 +698,14 @@ class fx_greyhole : public dsp {
 		m->declare("maths.lib/copyright", "GRAME");
 		m->declare("maths.lib/license", "LGPL with exception");
 		m->declare("maths.lib/name", "Faust Math Library");
-		m->declare("maths.lib/version", "2.1");
+		m->declare("maths.lib/version", "2.3");
 		m->declare("name", "fx.greyhole");
 		m->declare("oscillators.lib/name", "Faust Oscillator Library");
-		m->declare("oscillators.lib/version", "0.0");
+		m->declare("oscillators.lib/version", "0.1");
+		m->declare("platform.lib/name", "Generic Platform Library");
+		m->declare("platform.lib/version", "0.1");
 		m->declare("routes.lib/name", "Faust Signal Routing Library");
-		m->declare("routes.lib/version", "0.1");
+		m->declare("routes.lib/version", "0.2");
 		m->declare("signals.lib/name", "Faust Signal Routing Library");
 		m->declare("signals.lib/version", "0.0");
 		m->declare("version", "1.0");
@@ -779,421 +777,560 @@ class fx_greyhole : public dsp {
 	}
 	
 	virtual void instanceClear() {
+		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l0 = 0; (l0 < 2); l0 = (l0 + 1)) {
 			iVec0[l0] = 0;
 		}
+		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l1 = 0; (l1 < 2); l1 = (l1 + 1)) {
 			fRec0[l1] = 0.0f;
 		}
+		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l2 = 0; (l2 < 2); l2 = (l2 + 1)) {
 			fVec1[l2] = 0.0f;
 		}
+		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l3 = 0; (l3 < 2); l3 = (l3 + 1)) {
 			fVec2[l3] = 0.0f;
 		}
+		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l4 = 0; (l4 < 2); l4 = (l4 + 1)) {
 			fVec3[l4] = 0.0f;
 		}
+		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l5 = 0; (l5 < 2); l5 = (l5 + 1)) {
 			fRec40[l5] = 0.0f;
 		}
+		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l6 = 0; (l6 < 2); l6 = (l6 + 1)) {
 			fRec41[l6] = 0.0f;
 		}
+		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l7 = 0; (l7 < 2); l7 = (l7 + 1)) {
 			fRec42[l7] = 0.0f;
 		}
+		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l8 = 0; (l8 < 2); l8 = (l8 + 1)) {
 			fRec43[l8] = 0.0f;
 		}
+		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l9 = 0; (l9 < 2); l9 = (l9 + 1)) {
 			fVec4[l9] = 0.0f;
 		}
+		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l10 = 0; (l10 < 2); l10 = (l10 + 1)) {
 			fVec5[l10] = 0.0f;
 		}
+		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l11 = 0; (l11 < 2); l11 = (l11 + 1)) {
 			fRec44[l11] = 0.0f;
 		}
+		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l12 = 0; (l12 < 2); l12 = (l12 + 1)) {
 			fRec45[l12] = 0.0f;
 		}
 		IOTA = 0;
+		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l13 = 0; (l13 < 131072); l13 = (l13 + 1)) {
 			fVec6[l13] = 0.0f;
 		}
+		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l14 = 0; (l14 < 16384); l14 = (l14 + 1)) {
 			fVec7[l14] = 0.0f;
 		}
+		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l15 = 0; (l15 < 2); l15 = (l15 + 1)) {
 			fRec46[l15] = 0.0f;
 		}
+		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l16 = 0; (l16 < 2); l16 = (l16 + 1)) {
 			fVec8[l16] = 0.0f;
 		}
+		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l17 = 0; (l17 < 2); l17 = (l17 + 1)) {
 			fRec39[l17] = 0.0f;
 		}
+		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l18 = 0; (l18 < 2); l18 = (l18 + 1)) {
 			fRec37[l18] = 0.0f;
 		}
+		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l19 = 0; (l19 < 131072); l19 = (l19 + 1)) {
 			fVec9[l19] = 0.0f;
 		}
+		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l20 = 0; (l20 < 16384); l20 = (l20 + 1)) {
 			fVec10[l20] = 0.0f;
 		}
+		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l21 = 0; (l21 < 2); l21 = (l21 + 1)) {
 			fRec48[l21] = 0.0f;
 		}
+		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l22 = 0; (l22 < 2); l22 = (l22 + 1)) {
 			fVec11[l22] = 0.0f;
 		}
+		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l23 = 0; (l23 < 2); l23 = (l23 + 1)) {
 			fRec47[l23] = 0.0f;
 		}
+		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l24 = 0; (l24 < 2); l24 = (l24 + 1)) {
 			fRec38[l24] = 0.0f;
 		}
+		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l25 = 0; (l25 < 16384); l25 = (l25 + 1)) {
 			fVec12[l25] = 0.0f;
 		}
+		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l26 = 0; (l26 < 2); l26 = (l26 + 1)) {
 			fRec49[l26] = 0.0f;
 		}
+		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l27 = 0; (l27 < 2); l27 = (l27 + 1)) {
 			fVec13[l27] = 0.0f;
 		}
+		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l28 = 0; (l28 < 2); l28 = (l28 + 1)) {
 			fRec36[l28] = 0.0f;
 		}
+		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l29 = 0; (l29 < 2); l29 = (l29 + 1)) {
 			fRec34[l29] = 0.0f;
 		}
+		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l30 = 0; (l30 < 16384); l30 = (l30 + 1)) {
 			fVec14[l30] = 0.0f;
 		}
+		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l31 = 0; (l31 < 2); l31 = (l31 + 1)) {
 			fRec51[l31] = 0.0f;
 		}
+		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l32 = 0; (l32 < 2); l32 = (l32 + 1)) {
 			fVec15[l32] = 0.0f;
 		}
+		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l33 = 0; (l33 < 2); l33 = (l33 + 1)) {
 			fRec50[l33] = 0.0f;
 		}
+		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l34 = 0; (l34 < 2); l34 = (l34 + 1)) {
 			fRec35[l34] = 0.0f;
 		}
+		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l35 = 0; (l35 < 16384); l35 = (l35 + 1)) {
 			fVec16[l35] = 0.0f;
 		}
+		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l36 = 0; (l36 < 2); l36 = (l36 + 1)) {
 			fRec52[l36] = 0.0f;
 		}
+		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l37 = 0; (l37 < 2); l37 = (l37 + 1)) {
 			fVec17[l37] = 0.0f;
 		}
+		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l38 = 0; (l38 < 2); l38 = (l38 + 1)) {
 			fRec33[l38] = 0.0f;
 		}
+		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l39 = 0; (l39 < 2); l39 = (l39 + 1)) {
 			fRec31[l39] = 0.0f;
 		}
+		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l40 = 0; (l40 < 16384); l40 = (l40 + 1)) {
 			fVec18[l40] = 0.0f;
 		}
+		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l41 = 0; (l41 < 2); l41 = (l41 + 1)) {
 			fRec54[l41] = 0.0f;
 		}
+		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l42 = 0; (l42 < 2); l42 = (l42 + 1)) {
 			fVec19[l42] = 0.0f;
 		}
+		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l43 = 0; (l43 < 2); l43 = (l43 + 1)) {
 			fRec53[l43] = 0.0f;
 		}
+		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l44 = 0; (l44 < 2); l44 = (l44 + 1)) {
 			fRec32[l44] = 0.0f;
 		}
+		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l45 = 0; (l45 < 16384); l45 = (l45 + 1)) {
 			fVec20[l45] = 0.0f;
 		}
+		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l46 = 0; (l46 < 2); l46 = (l46 + 1)) {
 			fRec55[l46] = 0.0f;
 		}
+		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l47 = 0; (l47 < 2); l47 = (l47 + 1)) {
 			fVec21[l47] = 0.0f;
 		}
+		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l48 = 0; (l48 < 2); l48 = (l48 + 1)) {
 			fRec30[l48] = 0.0f;
 		}
+		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l49 = 0; (l49 < 2); l49 = (l49 + 1)) {
 			fRec28[l49] = 0.0f;
 		}
+		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l50 = 0; (l50 < 16384); l50 = (l50 + 1)) {
 			fVec22[l50] = 0.0f;
 		}
+		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l51 = 0; (l51 < 2); l51 = (l51 + 1)) {
 			fRec57[l51] = 0.0f;
 		}
+		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l52 = 0; (l52 < 2); l52 = (l52 + 1)) {
 			fVec23[l52] = 0.0f;
 		}
+		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l53 = 0; (l53 < 2); l53 = (l53 + 1)) {
 			fRec56[l53] = 0.0f;
 		}
+		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l54 = 0; (l54 < 2); l54 = (l54 + 1)) {
 			fRec29[l54] = 0.0f;
 		}
+		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l55 = 0; (l55 < 16384); l55 = (l55 + 1)) {
 			fVec24[l55] = 0.0f;
 		}
+		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l56 = 0; (l56 < 2); l56 = (l56 + 1)) {
 			fRec58[l56] = 0.0f;
 		}
+		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l57 = 0; (l57 < 2); l57 = (l57 + 1)) {
 			fVec25[l57] = 0.0f;
 		}
+		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l58 = 0; (l58 < 2); l58 = (l58 + 1)) {
 			fRec27[l58] = 0.0f;
 		}
+		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l59 = 0; (l59 < 2); l59 = (l59 + 1)) {
 			fRec25[l59] = 0.0f;
 		}
+		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l60 = 0; (l60 < 16384); l60 = (l60 + 1)) {
 			fVec26[l60] = 0.0f;
 		}
+		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l61 = 0; (l61 < 2); l61 = (l61 + 1)) {
 			fRec60[l61] = 0.0f;
 		}
+		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l62 = 0; (l62 < 2); l62 = (l62 + 1)) {
 			fVec27[l62] = 0.0f;
 		}
+		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l63 = 0; (l63 < 2); l63 = (l63 + 1)) {
 			fRec59[l63] = 0.0f;
 		}
+		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l64 = 0; (l64 < 2); l64 = (l64 + 1)) {
 			fRec26[l64] = 0.0f;
 		}
+		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l65 = 0; (l65 < 16384); l65 = (l65 + 1)) {
 			fVec28[l65] = 0.0f;
 		}
+		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l66 = 0; (l66 < 2); l66 = (l66 + 1)) {
 			fRec61[l66] = 0.0f;
 		}
+		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l67 = 0; (l67 < 2); l67 = (l67 + 1)) {
 			fVec29[l67] = 0.0f;
 		}
+		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l68 = 0; (l68 < 2); l68 = (l68 + 1)) {
 			fRec24[l68] = 0.0f;
 		}
+		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l69 = 0; (l69 < 2); l69 = (l69 + 1)) {
 			fRec22[l69] = 0.0f;
 		}
+		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l70 = 0; (l70 < 16384); l70 = (l70 + 1)) {
 			fVec30[l70] = 0.0f;
 		}
+		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l71 = 0; (l71 < 2); l71 = (l71 + 1)) {
 			fRec63[l71] = 0.0f;
 		}
+		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l72 = 0; (l72 < 2); l72 = (l72 + 1)) {
 			fVec31[l72] = 0.0f;
 		}
+		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l73 = 0; (l73 < 2); l73 = (l73 + 1)) {
 			fRec62[l73] = 0.0f;
 		}
+		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l74 = 0; (l74 < 2); l74 = (l74 + 1)) {
 			fRec23[l74] = 0.0f;
 		}
+		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l75 = 0; (l75 < 16384); l75 = (l75 + 1)) {
 			fVec32[l75] = 0.0f;
 		}
+		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l76 = 0; (l76 < 2); l76 = (l76 + 1)) {
 			fRec64[l76] = 0.0f;
 		}
+		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l77 = 0; (l77 < 2); l77 = (l77 + 1)) {
 			fVec33[l77] = 0.0f;
 		}
+		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l78 = 0; (l78 < 2); l78 = (l78 + 1)) {
 			fRec21[l78] = 0.0f;
 		}
+		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l79 = 0; (l79 < 2); l79 = (l79 + 1)) {
 			fRec19[l79] = 0.0f;
 		}
+		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l80 = 0; (l80 < 16384); l80 = (l80 + 1)) {
 			fVec34[l80] = 0.0f;
 		}
+		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l81 = 0; (l81 < 2); l81 = (l81 + 1)) {
 			fRec66[l81] = 0.0f;
 		}
+		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l82 = 0; (l82 < 2); l82 = (l82 + 1)) {
 			fVec35[l82] = 0.0f;
 		}
+		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l83 = 0; (l83 < 2); l83 = (l83 + 1)) {
 			fRec65[l83] = 0.0f;
 		}
+		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l84 = 0; (l84 < 2); l84 = (l84 + 1)) {
 			fRec20[l84] = 0.0f;
 		}
+		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l85 = 0; (l85 < 16384); l85 = (l85 + 1)) {
 			fVec36[l85] = 0.0f;
 		}
+		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l86 = 0; (l86 < 2); l86 = (l86 + 1)) {
 			fRec67[l86] = 0.0f;
 		}
+		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l87 = 0; (l87 < 2); l87 = (l87 + 1)) {
 			fVec37[l87] = 0.0f;
 		}
+		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l88 = 0; (l88 < 2); l88 = (l88 + 1)) {
 			fRec18[l88] = 0.0f;
 		}
+		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l89 = 0; (l89 < 2); l89 = (l89 + 1)) {
 			fRec16[l89] = 0.0f;
 		}
+		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l90 = 0; (l90 < 16384); l90 = (l90 + 1)) {
 			fVec38[l90] = 0.0f;
 		}
+		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l91 = 0; (l91 < 2); l91 = (l91 + 1)) {
 			fRec69[l91] = 0.0f;
 		}
+		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l92 = 0; (l92 < 2); l92 = (l92 + 1)) {
 			fVec39[l92] = 0.0f;
 		}
+		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l93 = 0; (l93 < 2); l93 = (l93 + 1)) {
 			fRec68[l93] = 0.0f;
 		}
+		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l94 = 0; (l94 < 2); l94 = (l94 + 1)) {
 			fRec17[l94] = 0.0f;
 		}
+		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l95 = 0; (l95 < 16384); l95 = (l95 + 1)) {
 			fVec40[l95] = 0.0f;
 		}
+		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l96 = 0; (l96 < 2); l96 = (l96 + 1)) {
 			fRec70[l96] = 0.0f;
 		}
+		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l97 = 0; (l97 < 2); l97 = (l97 + 1)) {
 			fVec41[l97] = 0.0f;
 		}
+		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l98 = 0; (l98 < 2); l98 = (l98 + 1)) {
 			fRec15[l98] = 0.0f;
 		}
+		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l99 = 0; (l99 < 2); l99 = (l99 + 1)) {
 			fRec13[l99] = 0.0f;
 		}
+		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l100 = 0; (l100 < 16384); l100 = (l100 + 1)) {
 			fVec42[l100] = 0.0f;
 		}
+		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l101 = 0; (l101 < 2); l101 = (l101 + 1)) {
 			fRec72[l101] = 0.0f;
 		}
+		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l102 = 0; (l102 < 2); l102 = (l102 + 1)) {
 			fVec43[l102] = 0.0f;
 		}
+		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l103 = 0; (l103 < 2); l103 = (l103 + 1)) {
 			fRec71[l103] = 0.0f;
 		}
+		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l104 = 0; (l104 < 2); l104 = (l104 + 1)) {
 			fRec14[l104] = 0.0f;
 		}
+		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l105 = 0; (l105 < 16384); l105 = (l105 + 1)) {
 			fVec44[l105] = 0.0f;
 		}
+		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l106 = 0; (l106 < 2); l106 = (l106 + 1)) {
 			fRec73[l106] = 0.0f;
 		}
+		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l107 = 0; (l107 < 2); l107 = (l107 + 1)) {
 			fVec45[l107] = 0.0f;
 		}
+		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l108 = 0; (l108 < 2); l108 = (l108 + 1)) {
 			fRec12[l108] = 0.0f;
 		}
+		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l109 = 0; (l109 < 2); l109 = (l109 + 1)) {
 			fRec10[l109] = 0.0f;
 		}
+		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l110 = 0; (l110 < 16384); l110 = (l110 + 1)) {
 			fVec46[l110] = 0.0f;
 		}
+		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l111 = 0; (l111 < 2); l111 = (l111 + 1)) {
 			fRec75[l111] = 0.0f;
 		}
+		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l112 = 0; (l112 < 2); l112 = (l112 + 1)) {
 			fVec47[l112] = 0.0f;
 		}
+		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l113 = 0; (l113 < 2); l113 = (l113 + 1)) {
 			fRec74[l113] = 0.0f;
 		}
+		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l114 = 0; (l114 < 2); l114 = (l114 + 1)) {
 			fRec11[l114] = 0.0f;
 		}
+		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l115 = 0; (l115 < 16384); l115 = (l115 + 1)) {
 			fVec48[l115] = 0.0f;
 		}
+		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l116 = 0; (l116 < 2); l116 = (l116 + 1)) {
 			fRec76[l116] = 0.0f;
 		}
+		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l117 = 0; (l117 < 2); l117 = (l117 + 1)) {
 			fVec49[l117] = 0.0f;
 		}
+		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l118 = 0; (l118 < 2); l118 = (l118 + 1)) {
 			fRec9[l118] = 0.0f;
 		}
+		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l119 = 0; (l119 < 2); l119 = (l119 + 1)) {
 			fRec7[l119] = 0.0f;
 		}
+		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l120 = 0; (l120 < 16384); l120 = (l120 + 1)) {
 			fVec50[l120] = 0.0f;
 		}
+		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l121 = 0; (l121 < 2); l121 = (l121 + 1)) {
 			fRec78[l121] = 0.0f;
 		}
+		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l122 = 0; (l122 < 2); l122 = (l122 + 1)) {
 			fVec51[l122] = 0.0f;
 		}
+		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l123 = 0; (l123 < 2); l123 = (l123 + 1)) {
 			fRec77[l123] = 0.0f;
 		}
+		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l124 = 0; (l124 < 2); l124 = (l124 + 1)) {
 			fRec8[l124] = 0.0f;
 		}
+		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l125 = 0; (l125 < 16384); l125 = (l125 + 1)) {
 			fVec52[l125] = 0.0f;
 		}
+		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l126 = 0; (l126 < 2); l126 = (l126 + 1)) {
 			fRec79[l126] = 0.0f;
 		}
+		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l127 = 0; (l127 < 2); l127 = (l127 + 1)) {
 			fVec53[l127] = 0.0f;
 		}
+		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l128 = 0; (l128 < 2); l128 = (l128 + 1)) {
 			fRec6[l128] = 0.0f;
 		}
+		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l129 = 0; (l129 < 2); l129 = (l129 + 1)) {
 			fRec4[l129] = 0.0f;
 		}
+		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l130 = 0; (l130 < 16384); l130 = (l130 + 1)) {
 			fVec54[l130] = 0.0f;
 		}
+		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l131 = 0; (l131 < 2); l131 = (l131 + 1)) {
 			fRec81[l131] = 0.0f;
 		}
+		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l132 = 0; (l132 < 2); l132 = (l132 + 1)) {
 			fVec55[l132] = 0.0f;
 		}
+		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l133 = 0; (l133 < 2); l133 = (l133 + 1)) {
 			fRec80[l133] = 0.0f;
 		}
+		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l134 = 0; (l134 < 2); l134 = (l134 + 1)) {
 			fRec5[l134] = 0.0f;
 		}
+		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l135 = 0; (l135 < 2); l135 = (l135 + 1)) {
 			fRec3[l135] = 0.0f;
 		}
+		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l136 = 0; (l136 < 1024); l136 = (l136 + 1)) {
 			fRec1[l136] = 0.0f;
 		}
+		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l137 = 0; (l137 < 2); l137 = (l137 + 1)) {
 			fRec82[l137] = 0.0f;
 		}
+		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l138 = 0; (l138 < 1024); l138 = (l138 + 1)) {
 			fRec2[l138] = 0.0f;
 		}
@@ -1221,6 +1358,7 @@ class fx_greyhole : public dsp {
 		ui_interface->openVerticalBox("fx.greyhole");
 		ui_interface->addCheckButton("bypass", &fCheckbox0);
 		ui_interface->addHorizontalSlider("damping", &fHslider1, 0.0f, 0.0f, 0.99000001f, 0.00100000005f);
+		ui_interface->declare(&fHslider4, "unit", "sec");
 		ui_interface->addHorizontalSlider("delaytime", &fHslider4, 0.200000003f, 0.00100000005f, 1.45000005f, 9.99999975e-05f);
 		ui_interface->addHorizontalSlider("diffusion", &fHslider2, 0.5f, 0.0f, 0.99000001f, 9.99999975e-05f);
 		ui_interface->declare(&fHslider0, "style", "knob");
@@ -1305,6 +1443,7 @@ class fx_greyhole : public dsp {
 		float fSlow65 = (0.00100000005f * float(iSlow64));
 		int iSlow66 = int(primes(int((fSlow63 + 10.0f))));
 		float fSlow67 = (0.00100000005f * float(iSlow66));
+		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int i = 0; (i < count); i = (i + 1)) {
 			float fTemp0 = float(input0[i]);
 			float fTemp1 = (iSlow0 ? 0.0f : fTemp0);
@@ -1361,7 +1500,7 @@ class fx_greyhole : public dsp {
 			float fTemp36 = fVec7[((IOTA - std::min<int>(8192, std::max<int>(0, int(fTemp35)))) & 16383)];
 			fVec8[0] = fTemp36;
 			float fTemp37 = std::floor(fTemp35);
-			fRec39[0] = (fVec8[1] - (((fTemp37 + (2.0f - fRec46[0])) * (fRec39[1] - fTemp36)) / (fRec46[0] - fTemp37)));
+			fRec39[0] = (fVec8[1] + (((fTemp37 + (2.0f - fRec46[0])) * (fTemp36 - fRec39[1])) / (fRec46[0] - fTemp37)));
 			fRec37[0] = fRec39[0];
 			float fTemp38 = (fConst1 * (fTemp13 * (fRec45[0] + 1.0f)));
 			float fTemp39 = (fTemp38 + 8.50000477f);
@@ -1392,7 +1531,7 @@ class fx_greyhole : public dsp {
 			float fTemp56 = fVec12[((IOTA - std::min<int>(8192, std::max<int>(0, int(fTemp55)))) & 16383)];
 			fVec13[0] = fTemp56;
 			float fTemp57 = std::floor(fTemp55);
-			fRec36[0] = (fVec13[1] - (((fTemp57 + (2.0f - fRec49[0])) * (fRec36[1] - fTemp56)) / (fRec49[0] - fTemp57)));
+			fRec36[0] = (fVec13[1] + (((fTemp57 + (2.0f - fRec49[0])) * (fTemp56 - fRec36[1])) / (fRec49[0] - fTemp57)));
 			fRec34[0] = fRec36[0];
 			fVec14[(IOTA & 16383)] = ((fRec37[1] * fTemp5) + (fTemp31 * fTemp51));
 			fRec51[0] = (fSlow18 + (0.999000013f * (fRec51[1] + float((iSlow17 * iTemp17)))));
@@ -1416,7 +1555,7 @@ class fx_greyhole : public dsp {
 			float fTemp65 = fVec18[((IOTA - std::min<int>(8192, std::max<int>(0, int(fTemp64)))) & 16383)];
 			fVec19[0] = fTemp65;
 			float fTemp66 = std::floor(fTemp64);
-			fRec53[0] = (fVec19[1] - (((fTemp66 + (2.0f - fRec54[0])) * (fRec53[1] - fTemp65)) / (fRec54[0] - fTemp66)));
+			fRec53[0] = (fVec19[1] + (((fTemp66 + (2.0f - fRec54[0])) * (fTemp65 - fRec53[1])) / (fRec54[0] - fTemp66)));
 			fRec32[0] = fRec53[0];
 			fVec20[(IOTA & 16383)] = (0.0f - ((fTemp5 * fRec32[1]) + (fTemp31 * fTemp32)));
 			fRec55[0] = (fSlow25 + (0.999000013f * (fRec55[1] + float((iSlow24 * iTemp17)))));
@@ -1445,7 +1584,7 @@ class fx_greyhole : public dsp {
 			float fTemp79 = fVec24[((IOTA - std::min<int>(8192, std::max<int>(0, int(fTemp78)))) & 16383)];
 			fVec25[0] = fTemp79;
 			float fTemp80 = std::floor(fTemp78);
-			fRec27[0] = (fVec25[1] - (((fTemp80 + (2.0f - fRec58[0])) * (fRec27[1] - fTemp79)) / (fRec58[0] - fTemp80)));
+			fRec27[0] = (fVec25[1] + (((fTemp80 + (2.0f - fRec58[0])) * (fTemp79 - fRec27[1])) / (fRec58[0] - fTemp80)));
 			fRec25[0] = fRec27[0];
 			float fTemp81 = ((fRec28[1] * fTemp5) + (fTemp31 * fTemp48));
 			float fTemp82 = ((fTemp81 * fTemp7) - (fTemp74 * fRec16[1]));
@@ -1497,7 +1636,7 @@ class fx_greyhole : public dsp {
 			float fTemp101 = fVec36[((IOTA - std::min<int>(8192, std::max<int>(0, int(fTemp100)))) & 16383)];
 			fVec37[0] = fTemp101;
 			float fTemp102 = std::floor(fTemp100);
-			fRec18[0] = (fVec37[1] - (((fTemp102 + (2.0f - fRec67[0])) * (fRec18[1] - fTemp101)) / (fRec67[0] - fTemp102)));
+			fRec18[0] = (fVec37[1] + (((fTemp102 + (2.0f - fRec67[0])) * (fTemp101 - fRec18[1])) / (fRec67[0] - fTemp102)));
 			fRec16[0] = fRec18[0];
 			fVec38[(IOTA & 16383)] = ((fRec19[1] * fTemp7) + (fTemp74 * fTemp82));
 			fRec69[0] = (fSlow47 + (0.999000013f * (fRec69[1] + float((iSlow46 * iTemp17)))));
@@ -1517,7 +1656,7 @@ class fx_greyhole : public dsp {
 			float fTemp111 = fVec40[((IOTA - std::min<int>(8192, std::max<int>(0, int(fTemp110)))) & 16383)];
 			fVec41[0] = fTemp111;
 			float fTemp112 = std::floor(fTemp110);
-			fRec15[0] = (fVec41[1] - (((fTemp112 + (2.0f - fRec70[0])) * (fRec15[1] - fTemp111)) / (fRec70[0] - fTemp112)));
+			fRec15[0] = (fVec41[1] + (((fTemp112 + (2.0f - fRec70[0])) * (fTemp111 - fRec15[1])) / (fRec70[0] - fTemp112)));
 			fRec13[0] = fRec15[0];
 			float fTemp113 = ((fRec16[1] * fTemp7) + (fTemp74 * fTemp81));
 			float fTemp114 = ((fTemp5 * fTemp113) - (fTemp31 * fRec4[1]));
@@ -1529,7 +1668,7 @@ class fx_greyhole : public dsp {
 			float fTemp118 = fVec42[((IOTA - std::min<int>(8192, std::max<int>(0, int(fTemp117)))) & 16383)];
 			fVec43[0] = fTemp118;
 			float fTemp119 = std::floor(fTemp117);
-			fRec71[0] = (fVec43[1] - (((fTemp119 + (2.0f - fRec72[0])) * (fRec71[1] - fTemp118)) / (fRec72[0] - fTemp119)));
+			fRec71[0] = (fVec43[1] + (((fTemp119 + (2.0f - fRec72[0])) * (fTemp118 - fRec71[1])) / (fRec72[0] - fTemp119)));
 			fRec14[0] = fRec71[0];
 			fVec44[(IOTA & 16383)] = (0.0f - ((fTemp5 * fRec14[1]) + (fTemp31 * fTemp109)));
 			fRec73[0] = (fSlow55 + (0.999000013f * (fRec73[1] + float((iSlow54 * iTemp17)))));
@@ -1537,7 +1676,7 @@ class fx_greyhole : public dsp {
 			float fTemp121 = fVec44[((IOTA - std::min<int>(8192, std::max<int>(0, int(fTemp120)))) & 16383)];
 			fVec45[0] = fTemp121;
 			float fTemp122 = std::floor(fTemp120);
-			fRec12[0] = (fVec45[1] - (((fTemp122 + (2.0f - fRec73[0])) * (fRec12[1] - fTemp121)) / (fRec73[0] - fTemp122)));
+			fRec12[0] = (fVec45[1] + (((fTemp122 + (2.0f - fRec73[0])) * (fTemp121 - fRec12[1])) / (fRec73[0] - fTemp122)));
 			fRec10[0] = fRec12[0];
 			fVec46[(IOTA & 16383)] = ((fRec13[1] * fTemp5) + (fTemp31 * fTemp116));
 			fRec75[0] = (fSlow57 + (0.999000013f * (fRec75[1] + float((iSlow56 * iTemp17)))));
@@ -1553,7 +1692,7 @@ class fx_greyhole : public dsp {
 			float fTemp127 = fVec48[((IOTA - std::min<int>(8192, std::max<int>(0, int(fTemp126)))) & 16383)];
 			fVec49[0] = fTemp127;
 			float fTemp128 = std::floor(fTemp126);
-			fRec9[0] = (fVec49[1] - (((fTemp128 + (2.0f - fRec76[0])) * (fRec9[1] - fTemp127)) / (fRec76[0] - fTemp128)));
+			fRec9[0] = (fVec49[1] + (((fTemp128 + (2.0f - fRec76[0])) * (fTemp127 - fRec9[1])) / (fRec76[0] - fTemp128)));
 			fRec7[0] = fRec9[0];
 			fVec50[(IOTA & 16383)] = ((fRec10[1] * fTemp5) + (fTemp31 * fTemp115));
 			fRec78[0] = (fSlow62 + (0.999000013f * (fRec78[1] + float((iSlow61 * iTemp17)))));
@@ -1569,7 +1708,7 @@ class fx_greyhole : public dsp {
 			float fTemp133 = fVec52[((IOTA - std::min<int>(8192, std::max<int>(0, int(fTemp132)))) & 16383)];
 			fVec53[0] = fTemp133;
 			float fTemp134 = std::floor(fTemp132);
-			fRec6[0] = (fVec53[1] - (((fTemp134 + (2.0f - fRec79[0])) * (fRec6[1] - fTemp133)) / (fRec79[0] - fTemp134)));
+			fRec6[0] = (fVec53[1] + (((fTemp134 + (2.0f - fRec79[0])) * (fTemp133 - fRec6[1])) / (fRec79[0] - fTemp134)));
 			fRec4[0] = fRec6[0];
 			fVec54[(IOTA & 16383)] = ((fRec7[1] * fTemp5) + (fTemp31 * fTemp114));
 			fRec81[0] = (fSlow67 + (0.999000013f * (fRec81[1] + float((iSlow66 * iTemp17)))));

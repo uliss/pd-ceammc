@@ -128,7 +128,7 @@ void UIRadio::onList(const AtomList& lst)
     redrawItems();
 }
 
-const int UIRadio::click2Cell(const t_pt& pt)
+int UIRadio::click2Cell(const t_pt& pt) const
 {
     auto r = rect();
     return isVertical() ? (pt.y / r.height * prop_nitems_) : (pt.x / r.width * prop_nitems_);
@@ -186,12 +186,12 @@ void UIRadio::onDblClick(t_object* view, const t_pt& pt, long modifiers)
         onMouseDown(view, pt, pt, modifiers);
 }
 
-float UIRadio::p_numItems() const
+t_float UIRadio::p_numItems() const
 {
     return prop_nitems_;
 }
 
-void UIRadio::p_setNumItems(float n)
+void UIRadio::p_setNumItems(t_float n)
 {
     int num = clip<int>(n, 2, MAX_ITEMS);
     if (num != prop_nitems_) {
@@ -201,12 +201,12 @@ void UIRadio::p_setNumItems(float n)
     }
 }
 
-float UIRadio::p_mode() const
+t_float UIRadio::p_mode() const
 {
     return prop_checklist_mode_;
 }
 
-void UIRadio::p_setMode(float f)
+void UIRadio::p_setMode(t_float f)
 {
     int mode = f ? 1 : 0;
 
@@ -317,7 +317,7 @@ void UIRadio::m_plus(t_float f)
         return;
     }
 
-    int v = idx_ + int(f);
+    int v = idx_ + static_cast<int>(f);
     idx_ = (v >= 0) ? v % prop_nitems_ : prop_nitems_ - (abs(v) % prop_nitems_);
     output();
     redrawItems();

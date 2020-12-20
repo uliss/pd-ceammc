@@ -77,8 +77,8 @@ void UIKnob::setup()
     obj.addProperty("scale_color", _("Scale Color"), "0.6 0.6 0.6 1.0", &UIKnob::prop_scale_color);
     obj.addProperty("knob_color", _("Knob Color"), DEFAULT_ACTIVE_COLOR, &UIKnob::prop_knob_color);
 
-    obj.addProperty("min", _("Minimum Value"), 0, &UISingleValue::prop_min, "Bounds");
-    obj.addProperty("max", _("Maximum Value"), 1, &UISingleValue::prop_max, "Bounds");
+    obj.addFloatProperty("min", _("Minimum Value"), 0, &UISingleValue::prop_min, "Bounds");
+    obj.addFloatProperty("max", _("Maximum Value"), 1, &UISingleValue::prop_max, "Bounds");
     obj.addProperty("show_range", _("Show range"), false, &UIKnob::show_range_);
     obj.addProperty("scale", _("Scale Mode"), "linear", &UISingleValue::prop_scale, "linear log", "Main");
 
@@ -120,7 +120,7 @@ void UIKnob::paint()
             const float xoff = (1 + (r.width > 50)) * zoom();
             const float yoff = (1 + (r.height > 50)) * zoom();
 
-            char buf[10];
+            char buf[14];
             sprintf(buf, "%g", minValue());
 
             txt_min.set(buf, xoff, r.height - yoff, r.width * 2, r.height / 2);

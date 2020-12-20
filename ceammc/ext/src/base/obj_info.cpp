@@ -31,7 +31,7 @@ void ObjectInfo::onBang()
     m_props(gensym("props"), AtomList());
 }
 
-void ObjectInfo::m_props(t_symbol* s, const AtomList& l)
+void ObjectInfo::m_props(t_symbol* s, const AtomListView& l)
 {
     AtomList res;
     for (t_object* o : connected()) {
@@ -48,7 +48,7 @@ void ObjectInfo::m_props(t_symbol* s, const AtomList& l)
             props = ceammc_faust_properties(o);
 
         for (const PropertyInfo& p : props)
-            res.append(gensym(p.name().c_str()));
+            res.append(p.name());
     }
 
     listTo(0, res);

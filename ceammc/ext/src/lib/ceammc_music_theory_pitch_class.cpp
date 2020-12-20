@@ -63,7 +63,7 @@ const PitchClass PitchClass::B(PitchName::B, Alteration::NATURAL);
 const PitchClass PitchClass::Bs(PitchName::B, Alteration::SHARP);
 const PitchClass PitchClass::Bss(PitchName::B, Alteration::DOUBLE_SHARP);
 
-const boost::array<PitchClass, 35> PitchClass::all = {
+const std::array<PitchClass, 35> PitchClass::all = {
     Cff, Cf, C, Cs, Css,
     Dff, Df, D, Ds, Dss,
     Eff, Ef, E, Es, Ess,
@@ -266,7 +266,7 @@ bool PitchClass::operator!=(const PitchClass& c) const
 size_t PitchClass::absolutePitch() const
 {
     int res = int(pitch_name_.absolutePitch()) + alt_.semitones();
-    return res < 0 ? (12 + res) % 12 : (res % 12);
+    return (res < 0 ? (12 + res) : res) % 12;
 }
 
 PitchClass::operator bool() const

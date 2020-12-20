@@ -1,0 +1,141 @@
+{
+	"name": "spat.zita8",
+	"filename": "spat_zita8.dsp",
+	"version": "2.28.6",
+	"compile_options": "-lang cpp -scal -ftz 0",
+	"library_list": ["/usr/local/share/faust/reverbs.lib","/usr/local/share/faust/signals.lib","/usr/local/share/faust/delays.lib","/usr/local/share/faust/maths.lib","/usr/local/share/faust/platform.lib","/usr/local/share/faust/filters.lib","/usr/local/share/faust/basics.lib","/usr/local/share/faust/routes.lib"],
+	"include_pathnames": ["/usr/local/share/faust","/usr/local/share/faust","/usr/share/faust","/Users/serge/work/music/pure-data/ceammc/faust","/Users/serge/work/music/pure-data/ceammc/faust"],
+	"inputs": 1,
+	"outputs": 8,
+	"meta": [ 
+		{ "basics.lib/name": "Faust Basic Element Library" },
+		{ "basics.lib/version": "0.1" },
+		{ "delays.lib/name": "Faust Delay Library" },
+		{ "delays.lib/version": "0.1" },
+		{ "filename": "spat_zita8.dsp" },
+		{ "filters.lib/allpass_comb:author": "Julius O. Smith III" },
+		{ "filters.lib/allpass_comb:copyright": "Copyright (C) 2003-2019 by Julius O. Smith III <jos@ccrma.stanford.edu>" },
+		{ "filters.lib/allpass_comb:license": "MIT-style STK-4.3 license" },
+		{ "filters.lib/lowpass0_highpass1": "MIT-style STK-4.3 license" },
+		{ "filters.lib/lowpass0_highpass1:author": "Julius O. Smith III" },
+		{ "filters.lib/lowpass:author": "Julius O. Smith III" },
+		{ "filters.lib/lowpass:copyright": "Copyright (C) 2003-2019 by Julius O. Smith III <jos@ccrma.stanford.edu>" },
+		{ "filters.lib/lowpass:license": "MIT-style STK-4.3 license" },
+		{ "filters.lib/name": "Faust Filters Library" },
+		{ "filters.lib/tf1:author": "Julius O. Smith III" },
+		{ "filters.lib/tf1:copyright": "Copyright (C) 2003-2019 by Julius O. Smith III <jos@ccrma.stanford.edu>" },
+		{ "filters.lib/tf1:license": "MIT-style STK-4.3 license" },
+		{ "filters.lib/tf1s:author": "Julius O. Smith III" },
+		{ "filters.lib/tf1s:copyright": "Copyright (C) 2003-2019 by Julius O. Smith III <jos@ccrma.stanford.edu>" },
+		{ "filters.lib/tf1s:license": "MIT-style STK-4.3 license" },
+		{ "maths.lib/author": "GRAME" },
+		{ "maths.lib/copyright": "GRAME" },
+		{ "maths.lib/license": "LGPL with exception" },
+		{ "maths.lib/name": "Faust Math Library" },
+		{ "maths.lib/version": "2.3" },
+		{ "name": "spat.zita8" },
+		{ "platform.lib/name": "Generic Platform Library" },
+		{ "platform.lib/version": "0.1" },
+		{ "reverbs.lib/name": "Faust Reverb Library" },
+		{ "reverbs.lib/version": "0.0" },
+		{ "routes.lib/name": "Faust Signal Routing Library" },
+		{ "routes.lib/version": "0.2" },
+		{ "signals.lib/name": "Faust Signal Routing Library" },
+		{ "signals.lib/version": "0.0" }
+	],
+	"ui": [ 
+		{
+			"type": "vgroup",
+			"label": "spat.zita8",
+			"items": [ 
+				{
+					"type": "vslider",
+					"label": "angle",
+					"address": "/spat.zita8/angle",
+					"init": 0,
+					"min": 0,
+					"max": 1,
+					"step": 0.0001
+				},
+				{
+					"type": "vslider",
+					"label": "decay_low",
+					"address": "/spat.zita8/decay_low",
+					"meta": [
+						{ "scale": "log" },
+						{ "style": "knob" },
+						{ "unit": "sec" }
+					],
+					"init": 3,
+					"min": 1,
+					"max": 60,
+					"step": 0.1
+				},
+				{
+					"type": "vslider",
+					"label": "decay_mid",
+					"address": "/spat.zita8/decay_mid",
+					"meta": [
+						{ "scale": "log" },
+						{ "style": "knob" },
+						{ "unit": "sec" }
+					],
+					"init": 2,
+					"min": 1,
+					"max": 60,
+					"step": 0.1
+				},
+				{
+					"type": "vslider",
+					"label": "delay",
+					"address": "/spat.zita8/delay",
+					"meta": [
+						{ "style": "knob" },
+						{ "unit": "ms" }
+					],
+					"init": 60,
+					"min": 20,
+					"max": 100,
+					"step": 1
+				},
+				{
+					"type": "vslider",
+					"label": "dump_hf",
+					"address": "/spat.zita8/dump_hf",
+					"meta": [
+						{ "scale": "log" },
+						{ "style": "knob" },
+						{ "unit": "Hz" }
+					],
+					"init": 6000,
+					"min": 1500,
+					"max": 47040,
+					"step": 1
+				},
+				{
+					"type": "vslider",
+					"label": "freq_low",
+					"address": "/spat.zita8/freq_low",
+					"meta": [
+						{ "scale": "log" },
+						{ "style": "knob" },
+						{ "unit": "Hz" }
+					],
+					"init": 200,
+					"min": 50,
+					"max": 1000,
+					"step": 1
+				},
+				{
+					"type": "vslider",
+					"label": "radius",
+					"address": "/spat.zita8/radius",
+					"init": 1,
+					"min": 0,
+					"max": 1,
+					"step": 0.0001
+				}
+			]
+		}
+	]
+}

@@ -1,6 +1,4 @@
 #include "env_mix.h"
-#include "ceammc_dataatom.h"
-#include "ceammc_datatypes.h"
 #include "ceammc_factory.h"
 
 EnvMix::EnvMix(const PdArgs& args)
@@ -13,46 +11,36 @@ EnvMix::EnvMix(const PdArgs& args)
 
 void EnvMix::onFloat(t_float v)
 {
-    if (env0_.isEqual(&env1_))
+    // no interpoltaion needed
+    if (env0_ == env1_)
         return;
 
     if (v < 0 || v > 1) {
-        OBJ_ERR << "value in range: [0-1] expected";
+        OBJ_ERR << "value in range: [0-1] expected, got: " << v;
         return;
     }
 
-    DataTypeEnv env;
-    if (!DataTypeEnv::interpolated(env0_, env1_, v, env)) {
+    EnvAtom env;
+    if (!DataTypeEnv::interpolated(*env0_, *env1_, v, *env)) {
         OBJ_ERR << "can't interpolate envelopes";
         return;
     }
 
-    dataTo(0, DataPtr(env.clone()));
+    atomTo(0, env);
 }
 
 void EnvMix::onInlet(size_t n, const AtomList& lst)
 {
     if (n == 1 || n == 2) {
-        if (lst.empty())
-            return;
-
-        DataAtom a(lst[0]);
-
-        if (!a.isData()) {
-            OBJ_ERR << "envelope data type expected";
-            return;
-        }
-
-        DataPtr dptr = a.data();
-        if (dptr->type() != data::DATA_ENVELOPE) {
+        if (!lst.isA<DataTypeEnv>()) {
             OBJ_ERR << "envelope data type expected";
             return;
         }
 
         if (n == 1)
-            env0_ = *dptr->as<DataTypeEnv>();
+            env0_ = EnvAtom(lst[0]);
         else if (n == 2)
-            env1_ = *dptr->as<DataTypeEnv>();
+            env1_ = EnvAtom(lst[0]);
     }
 }
 

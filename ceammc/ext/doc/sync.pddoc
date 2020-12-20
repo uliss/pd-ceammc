@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="sync">
+        <title>sync</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>value synchronization</description>
+            <license>GPL3 or later</license>
+            <library>ceammc</library>
+            <category>base</category>
+            <keywords>sync</keywords>
+            <since>0.9.1</since>
+        </meta>
+        <arguments>
+            <argument name="N" type="int" minvalue="2" maxvalue="8">number of synchronized
+            values</argument>
+        </arguments>
+        <inlets dynamic="true">
+            <inlet number="1">
+                <xinfo>first synchronized input</xinfo>
+            </inlet>
+            <inlet number="...">
+                <xinfo>... synchronized input</xinfo>
+            </inlet>
+            <inlet number="n">
+                <xinfo>n-th synchronized input</xinfo>
+            </inlet>
+        </inlets>
+        <outlets dynamic="true">
+            <outlet number="1">first synchronized output</outlet>
+            <outlet number="...">... synchronized output</outlet>
+            <outlet number="n">n-th synchronized output</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+/*simple example*/
+
+[F #m]   [sync #n] [F #p]
+
+/*more complex*/
+
+[F #a]  [F #b]  [F #c]
+
+[sync 3 #z {w=22,i=3,o=3}]
+[X a->z]
+[X z->a]
+[X b->z:1]
+[X z:1->b]
+[X c->z:2]
+[X z:2->c]
+[X m->n]
+[X n->m]
+[X n:1->p]
+[X p->n:1]
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

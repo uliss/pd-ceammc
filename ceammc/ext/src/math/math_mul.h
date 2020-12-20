@@ -24,9 +24,9 @@ class MathMul : public BaseObject {
 public:
     MathMul(const PdArgs& args);
 
-    void onFloat(t_float v);
-    void onList(const AtomList& lst);
-    void onInlet(size_t n, const AtomList& lst);
+    void onFloat(t_float v) override;
+    void onList(const AtomList& lst) override;
+    void onInlet(size_t n, const AtomList& lst) override;
 };
 
 void setup_math_mul();

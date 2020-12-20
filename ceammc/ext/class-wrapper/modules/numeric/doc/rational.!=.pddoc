@@ -32,7 +32,7 @@
             </inlet>
         </inlets>
         <outlets>
-            <outlet>output 1 if numbers are not equal, otherwise 0 (bool)</outlet>
+            <outlet>output 1 if numbers are not equal, otherwise 0 (int)</outlet>
         </outlets>
         <example>
             <pdascii>

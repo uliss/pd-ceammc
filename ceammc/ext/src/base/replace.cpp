@@ -9,11 +9,11 @@ Replace::Replace(const PdArgs& a)
     createInlet();
     createOutlet();
 
-    createProperty(new PointerProperty<Atom>("@from", &from_, false));
-    createProperty(new PointerProperty<Atom>("@to", &to_, false));
+    addProperty(new PointerProperty<Atom>("@from", &from_, PropValueAccess::READWRITE))
+        ->setArgIndex(0);
 
-    from_ = positionalArgument(0);
-    to_ = positionalArgument(1);
+    addProperty(new PointerProperty<Atom>("@to", &to_, PropValueAccess::READWRITE))
+        ->setArgIndex(1);
 }
 
 void Replace::onInlet(size_t n, const AtomList& l)
@@ -24,7 +24,7 @@ void Replace::onInlet(size_t n, const AtomList& l)
         to_ = l.empty() ? Atom() : l[0];
 }
 
-void Replace::onAny(t_symbol* sel, const AtomList& l)
+void Replace::onAny(t_symbol* sel, const AtomListView& l)
 {
     if (validateArgs()) {
         AtomList res(sel);
@@ -59,7 +59,7 @@ void Replace::onList(const AtomList& l)
     }
 }
 
-void Replace::onFloat(float v)
+void Replace::onFloat(t_float v)
 {
     if (validateArgs() && Atom(v) == from_) {
         if (!to_.isNone())
@@ -82,7 +82,13 @@ bool Replace::validateArgs() const
     return !from_.isNone() && from_ != to_;
 }
 
-extern "C" void replace_setup()
+void setup_base_replace()
 {
     ObjectFactory<Replace> obj("replace");
+
+    obj.setDescription("Replace atoms in data stream");
+    obj.addAuthor("Serge Poltavsky");
+    obj.setKeywords({"replace", "test"});
+    obj.setCategory("flow");
+    obj.setSinceVersion(0, 1);
 }

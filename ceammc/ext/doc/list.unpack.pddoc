@@ -28,7 +28,7 @@
         </inlets>
         <outlets dynamic="true">
             <outlet number="1">outlet for first atom in list</outlet>
-            <outlet number="..."></outlet>
+            <outlet number="..." />
             <outlet number="n">outlet for Nth atom in list</outlet>
         </outlets>
         <example>

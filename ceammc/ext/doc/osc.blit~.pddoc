@@ -18,12 +18,10 @@
             </also>
         </meta>
         <arguments>
-            <argument name="freq" type="float" units="herz" minvalue="0">default
-            frequency</argument>
+            <argument name="freq" type="float" units="herz" minvalue="0">default frequency (440hz
+            if not specified)</argument>
         </arguments>
         <properties>
-            <property name="@freq" type="float" units="herz" minvalue="0" default="440">main
-            frequency</property>
             <property name="@harmonics" type="int" minvalue="0" default="0">number of harmonics. 0
             means all available harmonics until SR/2</property>
         </properties>

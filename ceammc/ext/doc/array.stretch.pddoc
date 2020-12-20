@@ -23,8 +23,8 @@
             <argument name="DEST" type="symbol">destination array</argument>
         </arguments>
         <properties>
-            <property name="@src" type="symbol">source array</property>
-            <property name="@dest" type="symbol">destination array</property>
+            <property name="@src" type="symbol" default="">source array</property>
+            <property name="@dest" type="symbol" default="">destination array</property>
             <property name="@tempo" type="float" units="percent" minvalue="-50" maxvalue="100"
             default="0">relative tempo change without affecting the sound pitch</property>
             <property name="@pitch" type="float" default="0" units="semitone">relative pitch change
@@ -57,7 +57,7 @@
             reducing this setting. Increasing this value increases computational burden &amp; vice
             versa. Giving *0* value for the seek window length sets automatic parameter value
             according to tempo setting (recommended)</property>
-            <property name="@overlap" type="int" units="millisecond" minvalue="1" maxvalue="100"
+            <property name="@overlap" type="int" units="millisecond" minvalue="0" maxvalue="100"
             default="8">Overlap length in milliseconds. When the chopped sound sequences are mixed
             back together, to form a continuous sound stream, this parameter defines over how long
             period the two consecutive sequences are let to overlap each other. Increasing this

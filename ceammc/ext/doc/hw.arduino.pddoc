@@ -37,9 +37,9 @@
             <property name="@product_id" type="int" default="0">USB device product id. If vendor
             and product ids are specified at creation, tries to connect to devices only with such
             properties. Note: product id is specified in decimal mode, not in hex</property>
-            <property name="@reconnect" type="flag">enables hot-pluggin</property>
-            <property name="@connected" type="int" enum="0 1" readonly="true">state of connection
-            to device</property>
+            <property name="@reconnect" type="flag" default="0">enables hot-pluggin</property>
+            <property name="@connected" type="int" enum="0 1" readonly="true" default="0">state of
+            connection to device</property>
             <property name="@devices" type="list" readonly="true">list of found Arduino
             devices</property>
             <property name="@on_connect" type="symbol">function called every time on
@@ -73,7 +73,7 @@
 |
 [print arduino]
 
-[func ardconn]X[b]
+[function ardconn]X[b]
 |
 [flow.count]
 |

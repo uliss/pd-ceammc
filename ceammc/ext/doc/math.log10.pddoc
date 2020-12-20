@@ -37,11 +37,13 @@
         <example>
             <pdascii>
 <![CDATA[
-[F]
+[bang(                  [array LOG10 yr=-2..2 w=320]
+|
+[list.seq -1 100 0.5]
 |
 [math.log10]
 |
-[F]
+[list->array LOG10]
 ]]>
             </pdascii>
         </example>

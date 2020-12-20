@@ -14,15 +14,15 @@
 #include "hoa_wider.h"
 #include "ceammc_factory.h"
 
+std::array<char[HoaWider::ANNOT_LEN], HOA_MAX_ORDER> HoaWider::xlet_annotations_;
+
 HoaWider::HoaWider(const PdArgs& args)
     : HoaBase(args)
 {
 }
 
-void HoaWider::parseProperties()
+void HoaWider::initDone()
 {
-    HoaBase::parseProperties();
-
     wider_.reset(new Wider2d(order()));
 
     const size_t N = wider_->getNumberOfHarmonics();
@@ -51,8 +51,34 @@ void HoaWider::processBlock(const t_sample** in, t_sample** out)
         Signal::copy(BS, &out_buf_[i], NOUTS, &out[i][0], 1);
 }
 
+const char* HoaWider::annotateInlet(size_t n) const
+{
+    const size_t N = numInputChannels() - 1;
+    if (n < N && n < HOA_MAX_ORDER)
+        return xlet_annotations_[n];
+    else if (n == N)
+        return "signal: widening in \\[0-1\\] range";
+    else
+        return nullptr;
+}
+
+const char* HoaWider::annotateOutlet(size_t n) const
+{
+    if (n < in_buf_.size() && n < HOA_MAX_ORDER)
+        return xlet_annotations_[n];
+    else
+        return nullptr;
+}
+
+void HoaWider::initAnnotations()
+{
+    for (size_t i = 0; i < xlet_annotations_.size(); i++)
+        snprintf(xlet_annotations_[i], ANNOT_LEN, "signal: harmonic\\[%d\\]", (int)i);
+}
+
 void setup_spat_hoa_wider()
 {
+    HoaWider::initAnnotations();
     SoundExternalFactory<HoaWider> obj("hoa.2d.wider~");
     obj.addAlias("hoa.wider~");
 }

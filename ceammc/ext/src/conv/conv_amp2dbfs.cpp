@@ -15,16 +15,16 @@
 #include "ceammc_convert.h"
 #include "ceammc_factory.h"
 
-static const t_float theshold = 1.0 / double(1L << 24);
-
-static t_float a2d(t_float v)
+static inline t_float a2d(t_float v)
 {
-    static const t_float low_limit = ceilf(convert::amp2dbfs(theshold));
+    constexpr t_float threshold = 1.0 / double(1L << 24);
 
-    if (v <= theshold)
+    static const t_float low_limit = ceilf(convert::amp2dbfs(threshold));
+
+    if (v <= threshold)
         return low_limit;
-
-    return convert::amp2dbfs(v);
+    else
+        return convert::amp2dbfs(v);
 }
 
 Amp2dbfs::Amp2dbfs(const PdArgs& args)
@@ -41,11 +41,28 @@ void Amp2dbfs::onFloat(t_float v)
 
 void Amp2dbfs::onList(const AtomList& lst)
 {
-    listTo(0, lst.map(a2d));
+    listTo(0, lst.mapFloat(a2d));
+}
+
+Amp2dbfsTilde::Amp2dbfsTilde(const PdArgs& args)
+    : SoundExternal(args)
+{
+    createSignalOutlet();
+}
+
+void Amp2dbfsTilde::processBlock(const t_sample** in, t_sample** out)
+{
+    const size_t BS = blockSize();
+
+    for (size_t i = 0; i < BS; i++)
+        out[0][i] = a2d(in[0][i]);
 }
 
 void setup_conv_amp2dbfs()
 {
     ObjectFactory<Amp2dbfs> obj("conv.amp2dbfs");
     obj.addAlias("amp->dbfs");
+
+    SoundExternalFactory<Amp2dbfsTilde> obj1("conv.amp2dbfs~");
+    obj1.addAlias("amp->dbfs~");
 }

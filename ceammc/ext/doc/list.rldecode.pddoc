@@ -23,6 +23,9 @@
         <arguments>
             <argument name="LST" type="list">initial element repeat list</argument>
         </arguments>
+        <properties>
+            <property name="@l" type="list">list of repeats</property>
+        </properties>
         <inlets>
             <inlet>
                 <xinfo on="list">First list - single elements</xinfo>
@@ -38,13 +41,11 @@
         <example>
             <pdascii>
 <![CDATA[
-[1 2 1 3(    [1 3 2 2(
+[1 2 1 3(    [1 2 3 4(
 |            |.
-[list.unwrap  ]
+[list.rlencode 4 3 2 1]
 |
-[msg set]
-|
-[ (
+[ui.d @display_type 1]
 ]]>
             </pdascii>
         </example>

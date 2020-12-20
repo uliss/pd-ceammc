@@ -16,7 +16,7 @@
 
 SetSymmetricDifference::SetSymmetricDifference(const PdArgs& a)
     : BaseObject(a)
-    , set1_(positionalArguments())
+    , set1_(parsedPosArgs())
 {
     createInlet();
     createOutlet();
@@ -24,26 +24,24 @@ SetSymmetricDifference::SetSymmetricDifference(const PdArgs& a)
 
 void SetSymmetricDifference::onList(const AtomList& l)
 {
-    onDataT(DataTypeSet(l));
+    onDataT(SetAtom(l));
 }
 
-void SetSymmetricDifference::onDataT(const DataTPtr<DataTypeSet>& dptr)
+void SetSymmetricDifference::onDataT(const SetAtom& set)
 {
-    DataTypeSet res;
-    DataTypeSet::set_sym_difference(res, *dptr, set1_);
-    dataTo(0, DataTPtr<DataTypeSet>(res));
+    atomTo(0, SetAtom(DataTypeSet::sym_difference(*set, set1_)));
 }
 
 void SetSymmetricDifference::onInlet(size_t, const AtomList& l)
 {
-    if (l.isDataType<DataTypeSet>()) {
-        set1_ = *DataPtr(l[0]).as<DataTypeSet>();
+    if (l.isA<DataTypeSet>()) {
+        set1_ = *l.asD<DataTypeSet>();
     } else {
         set1_ = DataTypeSet(l);
     }
 }
 
-void setup_set0x2esymdiff()
+void setup_set_symdiff()
 {
     ObjectFactory<SetSymmetricDifference> obj("set.symdiff");
     obj.processData<DataTypeSet>();

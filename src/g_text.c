@@ -589,8 +589,9 @@ typedef struct _gatom
     t_symbol *a_symfrom;    /* "receive" name -- bind ourselvs to this */
     t_symbol *a_symto;      /* "send" name -- send to this on output */
     char a_buf[ATOMBUFSIZE];/* string buffer for typing */
-    char a_shift;           /* was shift key down when dragging started? */
-    char a_wherelabel;      /* 0-3 for left, right, above, below */
+    unsigned int a_shift:1;         /* was shift key down when drag started? */
+    unsigned int a_wherelabel:2;    /* 0-3 for left, right, above, below */
+    unsigned int a_grabbed:1;       /* 1 if we've grabbed keyboard */
     t_symbol *a_expanded_to; /* a_symto after $0, $1, ...  expansion */
 } t_gatom;
 
@@ -631,8 +632,9 @@ static void gatom_retext(t_gatom *x, int senditup)
 {
     binbuf_clear(x->a_text.te_binbuf);
     binbuf_add(x->a_text.te_binbuf, 1, &x->a_atom);
-    if (senditup && glist_isvisible(x->a_glist))
-        sys_queuegui(x, x->a_glist, gatom_redraw);
+    if (senditup && glist_isvisible(x->a_glist)
+        && gobj_shouldvis(&x->a_text.te_g, x->a_glist))
+            sys_queuegui(x, x->a_glist, gatom_redraw);
 }
 
 #ifdef _MSC_VER
@@ -756,6 +758,13 @@ static void gatom_motion(void *z, t_floatarg dx, t_floatarg dy)
     }
 }
 
+static void gatom_reborder(t_gatom *x)
+{
+    t_rtext *y = glist_findrtext(x->a_glist, &x->a_text);
+    text_drawborder(&x->a_text, x->a_glist, rtext_gettag(y),
+        rtext_width(y), rtext_height(y), 0);
+}
+
 static void gatom_key(void *z, t_floatarg f)
 {
     t_gatom *x = (t_gatom *)z;
@@ -766,8 +775,10 @@ static void gatom_key(void *z, t_floatarg f)
     if (c == 0)
     {
         /* we're being notified that no more keys will come for this grab */
-        if (x->a_buf[0])
-            gatom_retext(x, 1);
+        x->a_grabbed = 0;
+        gatom_reborder(x);
+        gatom_retext(x, 1);
+        gatom_redraw(&x->a_text.te_g, x->a_glist);
         return;
     }
     else if (c == '\b')
@@ -846,6 +857,8 @@ static void gatom_click(t_gatom *x,
             else gatom_float(x, x->a_toggle);
         }
         x->a_shift = shift;
+        x->a_grabbed = 1;
+        gatom_reborder(x);
         x->a_buf[0] = 0;
         glist_grab(x->a_glist, &x->a_text.te_g, gatom_motion, gatom_key,
             xpos, ypos);
@@ -909,39 +922,40 @@ static void gatom_param(t_gatom *x, t_symbol *sel, int argc, t_atom *argv)
     /* ---------------- gatom-specific widget functions --------------- */
 static void gatom_getwherelabel(t_gatom *x, t_glist *glist, int *xp, int *yp)
 {
-    int x1, y1, x2, y2, width, height;
+    int x1, y1, x2, y2;
+    int zoom = glist_getzoom(glist);
     text_getrect(&x->a_text.te_g, glist, &x1, &y1, &x2, &y2);
-    width = x2 - x1;
-    height = y2 - y1;
     if (x->a_wherelabel == ATOM_LABELLEFT)
     {
-        *xp = x1 - 3 -
+        *xp = x1 - 3 * zoom - (
             (int)strlen(canvas_realizedollar(x->a_glist, x->a_label)->s_name) *
-            glist_fontwidth(glist);
-        *yp = y1 + 2;
+            glist_fontwidth(glist));
+        *yp = y1 + 2 * zoom;
     }
     else if (x->a_wherelabel == ATOM_LABELRIGHT)
     {
-        *xp = x2 + 2;
-        *yp = y1 + 2;
+        *xp = x2 + 2 * zoom;
+        *yp = y1 + 2 * zoom;
     }
     else if (x->a_wherelabel == ATOM_LABELUP)
     {
-        *xp = x1 - 1;
-        *yp = y1 - 1 - glist_fontheight(glist);
+        *xp = x1 - 1 * zoom;
+        *yp = y1 - 1 * zoom - glist_fontheight(glist);
     }
     else
     {
-        *xp = x1 - 1;
-        *yp = y2 + 3;
+        *xp = x1 - 1 * zoom;
+        *yp = y2 + 3 * zoom;
     }
 }
 
 static void gatom_displace(t_gobj *z, t_glist *glist,
     int dx, int dy)
 {
+    t_gatom *x = (t_gatom*)z;
     text_displace(z, glist, dx, dy);
-    g_atom_label_move(glist_getcanvas(glist), z, dx, dy);
+    sys_vgui(".x%lx.c move %lx.l %d %d\n", glist_getcanvas(glist),
+        x, dx * glist->gl_zoom, dy * glist->gl_zoom);
 }
 
 static void gatom_vis(t_gobj *z, t_glist *glist, int vis)
@@ -983,6 +997,7 @@ void canvas_atom(t_glist *gl, t_atomtype type,
     x->a_label = &s_;
     x->a_symfrom = &s_;
     x->a_symto = x->a_expanded_to = &s_;
+    x->a_grabbed = 0;
     if (type == A_FLOAT)
     {
         x->a_atom.a_w.w_float = 0;
@@ -1300,8 +1315,9 @@ void text_save(t_gobj *z, t_binbuf *b)
     }
 }
 
+    /* ceammc: removed const for xlets tooltips support */
     /* this one is for everyone but "gatoms"; it's imposed in m_class.c */
-const t_widgetbehavior text_widgetbehavior =
+t_widgetbehavior text_widgetbehavior =
 {
     text_getrect,
     text_displace,
@@ -1327,7 +1343,7 @@ static const t_widgetbehavior gatom_widgetbehavior =
 
     /* draw inlets and outlets for a text object or for a graph. */
 void glist_drawiofor(t_glist *glist, t_object *ob, int firsttime,
-    char *tag, int x1, int y1, int x2, int y2)
+    const char *tag, int x1, int y1, int x2, int y2)
 {
     int n = obj_noutlets(ob), nplus = (n == 1 ? 1 : n-1), i;
     int width = x2 - x1;
@@ -1337,7 +1353,6 @@ void glist_drawiofor(t_glist *glist, t_object *ob, int firsttime,
     {
         t_canvas* canvas = glist_getcanvas(glist);
         int onset = x1 + (width - iow) * i / nplus;
-
         if (firsttime)
             g_outlet_draw(canvas, ob, tag, i, onset, y2, glist->gl_zoom);
         else
@@ -1349,7 +1364,6 @@ void glist_drawiofor(t_glist *glist, t_object *ob, int firsttime,
     {
         int onset = x1 + (width - iow) * i / nplus;
         t_canvas* canvas = glist_getcanvas(glist);
-
         if (firsttime)
             g_inlet_draw(canvas, ob, tag, i, onset, y1, glist->gl_zoom);
         else
@@ -1358,7 +1372,7 @@ void glist_drawiofor(t_glist *glist, t_object *ob, int firsttime,
 }
 
 void text_drawborder(t_text *x, t_glist *glist,
-    char *tag, int width2, int height2, int firsttime)
+    const char *tag, int width2, int height2, int firsttime)
 {
     t_object *ob;
     int x1, y1, x2, y2, width, height, corner;
@@ -1413,13 +1427,13 @@ void text_drawborder(t_text *x, t_glist *glist,
         g_cord_raise_all(glist_getcanvas(glist));
 }
 
-void glist_eraseiofor(t_glist *glist, t_object *ob, char *tag)
+void glist_eraseiofor(t_glist *glist, t_object *ob, const char *tag)
 {
     g_inlets_erase(glist_getcanvas(glist), tag, obj_ninlets(ob));
     g_outlets_erase(glist_getcanvas(glist), tag, obj_noutlets(ob));
 }
 
-void text_eraseborder(t_text *x, t_glist *glist, char *tag)
+void text_eraseborder(t_text *x, t_glist *glist, const char *tag)
 {
     if (x->te_type == T_TEXT && !glist->gl_edit) return;
     g_atom_erase(glist_getcanvas(glist), tag);
@@ -1427,7 +1441,7 @@ void text_eraseborder(t_text *x, t_glist *glist, char *tag)
 }
 
     /* change text; if T_OBJECT, remake it.  */
-void text_setto(t_text *x, t_glist *glist, char *buf, int bufsize)
+void text_setto(t_text *x, t_glist *glist, const char *buf, int bufsize)
 {
     int pos = glist_getindex(glist_getcanvas(glist), &x->te_g);;
     if (x->te_type == T_OBJECT)

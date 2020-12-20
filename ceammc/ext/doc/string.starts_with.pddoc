@@ -6,11 +6,11 @@
             <authors>
                 <author>Serge Poltavsky</author>
             </authors>
-            <description>checks if given string starts with specified prefix</description>
+            <description>checks if string starts with specified substring</description>
             <license>GPL3 or later</license>
             <library>ceammc</library>
             <category>string</category>
-            <keywords>starts_with</keywords>
+            <keywords>starts search</keywords>
             <since>0.3</since>
             <aliases>
                 <alias>str.starts_with</alias>
@@ -22,9 +22,12 @@
         <arguments>
             <argument name="PREFIX" type="symbol">prefix</argument>
         </arguments>
+        <properties>
+            <property name="@prefix" type="symbol">prefix</property>
+        </properties>
         <inlets>
             <inlet>
-                <xinfo>Input string or symbol</xinfo>
+                <xinfo>input string or symbol</xinfo>
             </inlet>
             <inlet>
                 <xinfo>search prefix (string or symbol)</xinfo>

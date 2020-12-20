@@ -16,29 +16,19 @@
 #include "datatype_mlist.h"
 
 DictValues::DictValues(const PdArgs& args)
-    : BaseObject(args)
+    : DictBase(args)
 {
     createOutlet();
 }
 
-void DictValues::onDataT(const DataTPtr<DataTypeDict>& dptr)
+void DictValues::onDataT(const DictAtom& dptr)
 {
-    const auto& d = dptr->innerData();
+    AtomList res;
 
-    DataTypeMList res;
+    for (auto& kv : *dptr)
+        res.append(MListAtom(kv.second));
 
-    for (auto& kv : d) {
-        auto& v = kv.second;
-
-        if (v.type() == typeid(Atom))
-            res.append(boost::get<Atom>(v));
-        else if (v.type() == typeid(AtomList))
-            res.append(boost::get<AtomList>(v));
-        else if (v.type() == typeid(DataAtom))
-            res.append(boost::get<DataAtom>(v));
-    }
-
-    dataTo(0, DataTPtr<DataTypeMList>(res));
+    listTo(0, res);
 }
 
 void setup_dict_values()

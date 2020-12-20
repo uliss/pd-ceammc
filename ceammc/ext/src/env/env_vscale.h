@@ -11,7 +11,7 @@ class EnvValueScale : public BaseObject {
 
 public:
     EnvValueScale(const PdArgs& args);
-    void onDataT(const DataTPtr<DataTypeEnv>& dptr);
+    void onDataT(const EnvAtom& env);
 };
 
 void setup_env_vscale();

@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="math.cabs~">
+        <title>math.cabs~</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>magnitude of a complex signals</description>
+            <license>GPL3 or later</license>
+            <library>ceammc</library>
+            <category>math</category>
+            <keywords>math complex magnitude module</keywords>
+            <aliases>
+                <alias>cabs~</alias>
+            </aliases>
+            <since>0.9</since>
+            <also>
+                <see>math.carg~</see>
+            </also>
+        </meta>
+        <inlets>
+            <inlet type="audio">
+                <xinfo>real part of input signal</xinfo>
+            </inlet>
+            <inlet type="audio">
+                <xinfo>imag part of input signal</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet type="audio">signal magnitude</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[ui.slider2d @show_grid=1]
+|
+|
+|
+|
+|
+|
+|
+[unpack f f]
+|       ^|
+[sig~] [sig~]
+|      |.
+[math.cabs~]  [ui.dsp~]
+|
+[ui.n~]
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

@@ -14,11 +14,12 @@
 #include "mix.h"
 #include "ceammc_convert.h"
 #include "ceammc_factory.h"
+#include "ceammc_property_callback.h"
 
-static const int DEFAULT_INLETS = 2;
-static const t_float DEFAULT_XFADE = 20;
-static const int MIN_INLETS = 2;
-static const int MAX_INLETS = 16;
+constexpr t_float DEFAULT_XFADE = 20;
+constexpr size_t DEF_NCHAN = 2;
+constexpr size_t MIN_NCHAN = 2;
+constexpr size_t MAX_NCHAN = 16;
 
 static t_float toDb(t_float amp)
 {
@@ -36,7 +37,7 @@ static t_float fromDb(t_float db)
 Mix::Mix(const PdArgs& args)
     : SoundExternal(args)
     , is_solo_(false)
-    , n_(clip<int>(positionalFloatArgument(0, DEFAULT_INLETS), MIN_INLETS, MAX_INLETS))
+    , n_(positionalConstant<DEF_NCHAN, MIN_NCHAN, MAX_NCHAN>(0))
     , xfade_time_(DEFAULT_XFADE)
 {
     for (size_t i = 1; i < n_; i++)
@@ -50,31 +51,27 @@ Mix::Mix(const PdArgs& args)
     solo_values_.assign(n_, 0);
 
     {
-        auto p = createCbProperty("@xfade_time", &Mix::propXFadeTime, &Mix::setPropXFadeTime);
-        p->info().setType(PropertyInfoType::FLOAT);
-        p->info().setDefault(DEFAULT_XFADE);
-        p->info().setUnits(PropertyInfoUnits::MSEC);
+        Property* p = createCbFloatProperty(
+            "@xfade_time",
+            [this]() -> t_float { return xfade_time_; },
+            [this](t_float f) -> bool { xfade_time_ = f; return true; });
+        p->setFloatCheck(PropValueConstraints::GREATER_EQUAL, 1);
+        p->setUnitsMs();
     }
 
-    {
-        auto p = createCbProperty("@db", &Mix::propDb, &Mix::setPropDb);
-        p->info().setType(PropertyInfoType::LIST);
-        p->info().setUnits(PropertyInfoUnits::DB);
-    }
-
+    createCbListProperty(
+        "@db",
+        [this]() { return propDb(); },
+        [this](const AtomList& l) { setPropDb(l); return true; })
+        ->setUnitsDb();
     createCbProperty("@value", &Mix::propValue, &Mix::setPropValue);
 
-    {
-        Property* p = createCbProperty("@mute", &Mix::propMute, &Mix::setPropMute);
-        p->info().addEnum(0);
-        p->info().addEnum(1);
-    }
+    createCbListProperty(
+        "@mute",
+        [this]() { return propMute(); },
+        [this](const AtomList& l) { setPropMute(l); return true; });
 
-    {
-        Property* p = createCbProperty("@solo", &Mix::propSolo, &Mix::setPropSolo);
-        p->info().addEnum(0);
-        p->info().addEnum(1);
-    }
+    createCbProperty("@solo", &Mix::propSolo, &Mix::setPropSolo);
 }
 
 void Mix::onList(const AtomList& lst)
@@ -116,16 +113,6 @@ void Mix::processBlock(const t_sample** in, t_sample** out)
     }
 }
 
-AtomList Mix::propXFadeTime() const
-{
-    return Atom(xfade_time_);
-}
-
-void Mix::setPropXFadeTime(const AtomList& ms)
-{
-    xfade_time_ = std::max<t_float>(1, ms.floatAt(0, DEFAULT_XFADE));
-}
-
 AtomList Mix::propValue() const
 {
     AtomList res;
@@ -144,12 +131,12 @@ void Mix::setPropValue(const AtomList& lst)
 
 AtomList Mix::propDb() const
 {
-    return propValue().map(toDb);
+    return propValue().mapFloat(toDb);
 }
 
 void Mix::setPropDb(const AtomList& lst)
 {
-    setPropValue(lst.map(fromDb));
+    setPropValue(lst.mapFloat(fromDb));
 }
 
 AtomList Mix::propMute() const
@@ -204,7 +191,7 @@ void Mix::setPropSolo(const AtomList& lst)
     }
 }
 
-void Mix::m_mute(t_symbol* s, const AtomList& lst)
+void Mix::m_mute(t_symbol* s, const AtomListView& lst)
 {
     if (!checkArgs(lst, ARG_NATURAL, ARG_BOOL, s))
         return;
@@ -225,7 +212,7 @@ void Mix::m_mute(t_symbol* s, const AtomList& lst)
         OBJ_ERR << "invalid mute value: " << lst[1];
 }
 
-void Mix::m_solo(t_symbol* s, const AtomList& lst)
+void Mix::m_solo(t_symbol* s, const AtomListView& lst)
 {
     if (!checkArgs(lst, ARG_NATURAL, ARG_BOOL, s))
         return;
@@ -257,4 +244,10 @@ void setup_base_mix()
     SoundExternalFactory<Mix> obj("mix~");
     obj.addMethod("mute", &Mix::m_mute);
     obj.addMethod("solo", &Mix::m_solo);
+
+    obj.setDescription("multislot signal mixer");
+    obj.addAuthor("Serge Poltavsky");
+    obj.setKeywords({ "mix", "amplitude", "decibel" });
+    obj.setCategory("base");
+    obj.setSinceVersion(0, 6);
 }

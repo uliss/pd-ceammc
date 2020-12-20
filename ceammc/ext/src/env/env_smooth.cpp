@@ -5,8 +5,11 @@
 
 using namespace ceammc;
 
+static t_symbol* PROP_GATE;
+static t_symbol* PROP_DURATION;
+
 class EnvSmooth : public faust_env_smooth_tilde {
-    ClockMemberFunction<EnvSmooth> done_;
+    ClockLambdaFunction done_;
 
     UIProperty* prop_duration_;
     UIProperty* prop_gate_;
@@ -14,24 +17,24 @@ class EnvSmooth : public faust_env_smooth_tilde {
 public:
     EnvSmooth(const PdArgs& args)
         : faust_env_smooth_tilde(args)
-        , done_(this, &EnvSmooth::done)
-        , prop_duration_((UIProperty*)property(gensym("@duration")))
-        , prop_gate_((UIProperty*)property(gensym("@gate")))
+        , done_([this]() { bangTo(1); })
+        , prop_duration_((UIProperty*)property(PROP_DURATION))
+        , prop_gate_((UIProperty*)property(PROP_GATE))
     {
-        bindPositionalArgsToProps({ gensym("@duration") });
+        bindPositionalArgsToProps({ PROP_DURATION });
         createOutlet();
     }
 
-    bool processAnyProps(t_symbol* sel, const AtomList& lst) override
+    bool processAnyProps(t_symbol* sel, const AtomListView& lst) override
     {
-        if (sel == gensym("@gate") && !atomlistToValue<bool>(lst, false)) {
+        if (sel == PROP_GATE && !lst.boolAt(0, false)) {
             done_.delay(prop_duration_->value());
         }
 
         return faust_env_smooth_tilde::processAnyProps(sel, lst);
     }
 
-    void m_reset(t_symbol*, const AtomList&)
+    void m_reset(t_symbol*, const AtomListView&)
     {
         prop_gate_->setValue(0);
         dsp_->instanceClear();
@@ -39,11 +42,6 @@ public:
     }
 
 private:
-    void done()
-    {
-        bangTo(1);
-    }
-
     void resetClocks()
     {
         done_.unset();
@@ -52,7 +50,12 @@ private:
 
 void setup_env_smooth_tilde()
 {
-    typedef EnvAutoplay<EnvSmooth> EnvSmooth2;
+    PROP_GATE = gensym("@gate");
+    PROP_DURATION = gensym("@duration");
+
+    using EnvSmooth2 = EnvAutoplay<EnvSmooth>;
     SoundExternalFactory<EnvSmooth2> obj("env.smooth~");
+    obj.addMethod("play", &EnvSmooth2::m_play);
     obj.addMethod("reset", &EnvSmooth2::m_reset);
+    obj.setXletsInfo({ "input signal" }, { "enveloped signal", "bang when done" });
 }

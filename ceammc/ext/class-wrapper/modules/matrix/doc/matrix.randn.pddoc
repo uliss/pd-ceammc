@@ -42,7 +42,7 @@
 |   |     |    |.
 [matrix.randn 2 2]
 |
-[ui.display @display_type=1]
+[ui.display @display_type 1]
 ]]>
             </pdascii>
         </example>

@@ -19,7 +19,7 @@
 class ArrayMean : public ArrayBase {
 public:
     ArrayMean(const PdArgs& args);
-    void onBang();
+    void onBang() override;
 };
 
 void setup_array_mean();

@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="conv.samp2ms">
+        <title>conv.samp2ms</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>convert samples to time according to samplerate</description>
+            <license>GPL3 or later</license>
+            <library>ceammc</library>
+            <category>conv</category>
+            <keywords>conv samp</keywords>
+            <since>0.8</since>
+            <aliases>
+                <alias>samp-&gt;ms</alias>
+            </aliases>
+            <also>
+                <see>conv.sec2samp</see>
+            </also>
+        </meta>
+        <inlets>
+            <inlet>
+                <xinfo on="int">number of samples</xinfo>
+                <xinfo on="list">list of number of samples</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet>converted value (float or list)</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[44100(  [20 1000 5000 20000(
+|        |
+[samp->ms]
+|
+[F digits=10]
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

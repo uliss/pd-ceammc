@@ -25,7 +25,7 @@
             </inlet>
         </inlets>
         <outlets>
-            <outlet>output list (rows, columns) (std::vector&lt;int&gt;)</outlet>
+            <outlet>output list (rows, columns) (list)</outlet>
         </outlets>
         <example>
             <pdascii>
@@ -39,7 +39,7 @@
 |
 [matrix.size]
 |
-[ui.display @display_type=1]
+[ui.display @display_type 1]
 ]]>
             </pdascii>
         </example>

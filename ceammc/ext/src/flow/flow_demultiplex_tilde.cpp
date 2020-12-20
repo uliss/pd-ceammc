@@ -15,23 +15,20 @@
 #include "ceammc_convert.h"
 #include "ceammc_factory.h"
 
-static const int DEFAULT_OUTLETS = 2;
-static const int MIN_OUTLETS = 2;
-static const int MAX_OUTLETS = 16;
+constexpr size_t DEFAULT_OUTLETS = 2;
+constexpr size_t MIN_OUTLETS = 2;
+constexpr size_t MAX_OUTLETS = 16;
 
-static int outMultiplier(const PdArgs& args)
+static size_t chMultiplier(const PdArgs& args)
 {
     return (args.flags & DEMULTIPLEX_STEREO) ? 2 : 1;
 }
 
 DemultiplexTilde::DemultiplexTilde(const PdArgs& args)
     : SoundExternal(args)
-    , n_(clip<int>(
-          positionalFloatArgument(0, DEFAULT_OUTLETS),
-          MIN_OUTLETS,
-          MAX_OUTLETS / outMultiplier(args)))
 {
-    for (size_t i = 0; i < n_ * outMultiplier(args); i++)
+    const size_t NCHAN = positionalConstant<DEFAULT_OUTLETS, MIN_OUTLETS, MAX_OUTLETS>(0);
+    for (size_t i = 0; i < NCHAN * chMultiplier(args); i++)
         createSignalOutlet();
 
     if (args.flags == DEMULTIPLEX_STEREO)
@@ -39,7 +36,7 @@ DemultiplexTilde::DemultiplexTilde(const PdArgs& args)
 
     createInlet();
 
-    gain_.assign(n_, t_smooth(0));
+    gain_.assign(NCHAN, t_smooth(0));
     gain_[0].setTargetValue(1);
 
     createCbProperty("@value", &DemultiplexTilde::propValue, &DemultiplexTilde::propSetValue);
@@ -69,7 +66,7 @@ void DemultiplexTilde::setupDSP(t_signal** in)
     }
 }
 
-void DemultiplexTilde::onInlet(size_t n, const AtomList& lst)
+void DemultiplexTilde::onInlet(size_t /*n*/, const AtomList& lst)
 {
     const int idx = lst.intAt(0, -1);
     const t_float fidx = lst.floatAt(0, -1);

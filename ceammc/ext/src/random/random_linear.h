@@ -2,6 +2,7 @@
 #define RANDOM_LINEAR_H
 
 #include "ceammc_object.h"
+#include "rnd_gen.h"
 
 using namespace ceammc;
 
@@ -10,12 +11,14 @@ class RandomLinear : public BaseObject {
     FloatProperty* v1_;
     FloatProperty* p0_;
     FloatProperty* p1_;
+    RandomGen gen_;
+    SizeTProperty* seed_;
 
 public:
     RandomLinear(const PdArgs& a);
-    void onBang();
+    void onBang() override;
 };
 
-extern "C" void setup_random0x2elinear();
+void setup_random_linear();
 
 #endif // RANDOM_LINEAR_H

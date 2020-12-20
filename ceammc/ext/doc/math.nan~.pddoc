@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="math.nan~">
+        <title>math.nan~</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>signal NaN</description>
+            <license>GPL3 or later</license>
+            <library>ceammc</library>
+            <category>math</category>
+            <keywords>math nan</keywords>
+            <also>
+                <see>math.nan</see>
+                <see>math.inf~</see>
+            </also>
+            <since>0.9.1</since>
+        </meta>
+        <info>
+            <par>In computing, NaN, standing for not a number, is a numeric data type value
+            representing an undefined or unrepresentable value, especially in floating-point
+            calculations. Systematic use of NaNs was introduced by the IEEE 754 floating-point
+            standard in 1985, along with the representation of other non-finite quantities like
+            infinities.</par>
+            <par>When an operation results in a quiet NaN, there is no indication that anything is
+            unusual until the program checks the result and sees a NaN. That is, computation
+            continues without any signal from the floating point unit (FPU) or library if
+            floating-point is implemented in software. A signalling NaN will produce a signal,
+            usually in the form of exception from the FPU. Whether the exception is thrown depends
+            on the state of the FPU.</par>
+            <par>Note: in Pd float point exceptions are disabled.</par>
+        </info>
+        <properties>
+            <property name="@type" type="symbol" default="quiet" enum="quiet signal">type of
+            outputed NaN: quiet or signal</property>
+            <property name="@quiet" type="alias">alias to @type quiet</property>
+            <property name="@signal" type="alias">alias to @type signal</property>
+        </properties>
+        <inlets>
+            <inlet>
+                <xinfo>control input</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet type="audio">output</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[math.nan~ @quiet]   [ui.dsp~]
+|
+[ui.n~]
+
+[math.nan~ @signal]
+|
+[ui.n~]
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

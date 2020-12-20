@@ -1,12 +1,12 @@
 %{
-#include <math.h>   /* For math functions: cos(), sin(), etc. */
-#include <string.h>
-#include <stdio.h>
+# include <math.h>   /* For math functions: cos(), sin(), etc. */
+# include <string.h>
+# include <stdio.h>
 
-#include "m_pd.h"
-#include "math_expr_calc.h" /* Contains definition of 'symrec'        */
-#include "lex.math_expr.h"
-#include "math_expr_ast.h"
+# include "m_pd.h"
+# include "math_expr_calc.h" /* Contains definition of 'symrec'        */
+# include "lex.math_expr.h"
+# include "math_expr_ast.h"
 
 static double fn_plus(double d0, double d1) { return d0 + d1; }
 static double fn_minus(double d0, double d1) { return d0 - d1; }
@@ -22,6 +22,18 @@ static double fn_le(double d0, double d1) { return d0 <= d1; }
 static double fn_lt(double d0, double d1) { return d0 < d1; }
 static double fn_ge(double d0, double d1) { return d0 >= d1; }
 static double fn_gt(double d0, double d1) { return d0 > d1; }
+static double fn_approx_eq(double d0, double d1) {
+    const double epsilon = 1.0e-08;
+    double da0 = fabs(d0);
+    double da1 = fabs(d1);
+
+    double x = fabs(d0 - d1);
+    if (x <= epsilon)
+        return 1;
+
+    double max = (da0 < da1) ? da1 : da0;
+    return x <= (epsilon * max);
+}
 
 static void print_error(Ast* tree, const char* msg, int c) {
     char buf[100];
@@ -51,16 +63,16 @@ static void print_error(Ast* tree, const char* msg, int c) {
 }
 
 %token <val> T_NUM T_REF
-%token <val> T_EQ T_NOT_EQ
+%token <val> T_EQ T_NOT_EQ T_APPROX_EQ
 %token <txt> T_ARRAY_BEGIN T_ARRAY_END
 %token <val> T_UFUNC T_BFUNC T_ERROR
 
 %type  <node>  exp input array_at
 
-%left T_EQ T_NOT_EQ T_LE T_LT T_GT T_GE
+%left  T_EQ T_NOT_EQ T_APPROX_EQ T_LE T_LT T_GT T_GE
 %left  '-' '+'
 %left  '*' '/' '%'
-%left  T_NEG     /* unary minus    */
+%right T_NEG     /* unary minus    */
 %right '^'     /* exponentiation */
 
 /* Grammar follows */
@@ -79,6 +91,7 @@ exp : T_NUM               { $$ = node_create_value_float($1);                   
     | T_BFUNC '(' exp ',' exp ')' { $$ = node_create_bfunc(bfnNameToPtr($1), $3, $5); }
     | T_REF               { $$ = node_create_ref_float(ast_ref(tree, $1));            }
     | exp T_EQ exp        { $$ = node_create_bfunc(fn_eq, $1, $3);                    }
+    | exp T_APPROX_EQ exp { $$ = node_create_bfunc(fn_approx_eq, $1, $3);             }
     | exp T_NOT_EQ exp    { $$ = node_create_bfunc(fn_ne, $1, $3);                    }
     | exp T_LT exp        { $$ = node_create_bfunc(fn_lt, $1, $3);                    }
     | exp T_LE exp        { $$ = node_create_bfunc(fn_le, $1, $3);                    }

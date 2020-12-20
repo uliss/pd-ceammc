@@ -18,6 +18,10 @@
             </also>
             <since>0.6</since>
         </meta>
+        <properties>
+            <property name="@in_list" type="flag" default="0">output '1' is list contains at least
+            one data atom</property>
+        </properties>
         <inlets>
             <inlet>
                 <xinfo on="data">outputs '1' to 1st outlet, otherwise '0'</xinfo>

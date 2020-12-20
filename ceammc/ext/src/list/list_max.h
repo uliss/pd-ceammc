@@ -14,11 +14,13 @@
 #ifndef LIST_MAX_H
 #define LIST_MAX_H
 
+#include <algorithm>
+
+#include "ceammc_data.h"
 #include "ceammc_object.h"
+#include "ceammc_property_enum.h"
 
 using namespace ceammc;
-
-class DataTypeMList;
 
 class ListMax : public BaseObject {
     SymbolEnumProperty* type_;
@@ -27,7 +29,7 @@ public:
     ListMax(const PdArgs& a);
     void onList(const AtomList& l) override;
 
-    void onDataT(const DataTPtr<DataTypeMList>& dptr);
+    void onDataT(const MListAtom& ml);
 
     template <typename Iterator>
     void max(Iterator begin, Iterator end)
@@ -37,17 +39,6 @@ public:
             return;
 
         atomTo(0, *it);
-    }
-
-    template <typename Iterator>
-    void maxData(Iterator begin, Iterator end)
-    {
-        auto less = [](const DataAtom& d0, const DataAtom& d1) { return d0.toAtom() < d1.toAtom(); };
-        auto it = std::max_element(begin, end, less);
-        if (it == end)
-            return;
-
-        atomTo(0, it->toAtom());
     }
 };
 

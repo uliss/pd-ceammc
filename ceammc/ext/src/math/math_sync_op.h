@@ -39,14 +39,14 @@ public:
 };
 
 class MathSyncEqual : public MathSyncBase {
-    FloatPropertyMinEq* epsilon_;
+    FloatProperty* epsilon_;
 
 public:
     MathSyncEqual(const PdArgs& args);
 };
 
 class MathSyncNotEqual : public MathSyncBase {
-    FloatPropertyMinEq* epsilon_;
+    FloatProperty* epsilon_;
 
 public:
     MathSyncNotEqual(const PdArgs& args);
@@ -90,6 +90,16 @@ public:
 class MathSyncXor : public MathSyncBool {
 public:
     MathSyncXor(const PdArgs& args);
+};
+
+class MathSyncLeftShift : public MathSyncBase {
+public:
+    MathSyncLeftShift(const PdArgs& args);
+};
+
+class MathSyncRightShift : public MathSyncBase {
+public:
+    MathSyncRightShift(const PdArgs& args);
 };
 
 void setup_math_sync_op();

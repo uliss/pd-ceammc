@@ -36,11 +36,13 @@
         <example>
             <pdascii>
 <![CDATA[
-[F]
+[bang(                  [array TANH w=320]
+|
+[list.seq -5 5 0.1]
 |
 [math.tanh]
 |
-[F]
+[list->array TANH]
 ]]>
             </pdascii>
         </example>

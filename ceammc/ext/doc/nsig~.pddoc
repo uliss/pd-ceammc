@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="nsig~">
+        <title>nsig~</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>Mulitchannel converter from control to audio rate</description>
+            <license>GPL3 or later</license>
+            <library>ceammc</library>
+            <category>base</category>
+            <keywords>sig list</keywords>
+            <since>0.9</since>
+            <also>
+                <see>sig~</see>
+            </also>
+        </meta>
+        <arguments>
+            <argument name="NUM" type="float" minvalue="1" maxvalue="12">@n property</argument>
+            <argument name="INIT" type="list">init values</argument>
+        </arguments>
+        <properties>
+            <property name="@n" type="int" minvalue="1" default="1" maxvalue="12">number of
+            inputs/outputs</property>
+            <property name="@values" type="list">current output values. Default: 0</property>
+        </properties>
+        <inlets dynamic="true">
+            <inlet number="1">
+                <xinfo on="float">set first output value</xinfo>
+                <xinfo on="list">set list of output values</xinfo>
+            </inlet>
+            <inlet number="...">
+                <xinfo on="float">set ... output value</xinfo>
+            </inlet>
+            <inlet number="n">
+                <xinfo on="float">set n-th output value</xinfo>
+            </inlet>
+        </inlets>
+        <outlets dynamic="true">
+            <outlet type="audio" number="1">first value output</outlet>
+            <outlet type="audio" number="...">... value output</outlet>
+            <outlet type="audio" number="n">n-th value output</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[3 2 1 #b( [0.5 0.5 #c(
+
+[F]  [F]  [F]     [ui.dsp~]
+|    |.   |..
+[nsig~ 3 1 2 3 #a]
+|
+[ui.n~]
+
+     [ui.n~ #y]
+
+          [ui.n~ #z]
+[X a:1->y] [X a:2->z] [X b->a] [X c->a]
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

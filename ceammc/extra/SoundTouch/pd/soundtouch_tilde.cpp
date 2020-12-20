@@ -4,34 +4,47 @@
 
 #include <cmath>
 
-static t_symbol* PROP_ANTIALIAS = gensym("@antialias");
+constexpr t_float DEF_PITCH = 0;
 static t_symbol* PROP_ANTIALIAS_LENGTH = gensym("@aalength");
 
 SoundTouchExt::SoundTouchExt(const PdArgs& a)
     : SoundExternal(a)
-    , bypass_(0)
-    , pitch_(positionalFloatArgument(0))
+    , bypass_(nullptr)
+    , pitch_(nullptr)
+    , pitch_value_(DEF_PITCH)
 {
     createSignalOutlet();
     createInlet();
 
-    createCbProperty("@pitch", &SoundTouchExt::propPitch, &SoundTouchExt::propSetPitch);
+    pitch_ = createCbFloatProperty(
+        "@pitch",
+        [this]() -> t_float { return pitch_value_; },
+        [this](t_float f) -> bool {
+            pitch_value_ = f;
+            stouch_.setPitchSemiTones(pitch_value_);
+            return true;
+        });
+    pitch_->setUnits(PropValueUnits::SEMITONE);
+    pitch_->setArgIndex(0);
 
     // antialias
-    createCbProperty(PROP_ANTIALIAS->s_name,
-        &SoundTouchExt::propAnitAlias,
-        &SoundTouchExt::propSetAntiAlias);
+    createCbBoolProperty(
+        "@antialias",
+        [this]() -> bool { return stouch_.getSetting(SETTING_USE_AA_FILTER); },
+        [this](bool b) -> bool { return stouch_.setSetting(SETTING_USE_AA_FILTER, b); });
 
     // antialias length
-    createCbProperty(PROP_ANTIALIAS_LENGTH->s_name,
-        &SoundTouchExt::propAnitAliasLength,
-        &SoundTouchExt::propSetAntiAliasLength);
+    auto alen = createCbIntProperty(
+        "@aalength",
+        [this]() -> int { return stouch_.getSetting(SETTING_AA_FILTER_LENGTH); },
+        [this](int v) -> bool { return stouch_.setSetting(SETTING_AA_FILTER_LENGTH, v); });
+    alen->setDefault(8);
+    alen->setIntCheck(PropValueConstraints::CLOSED_RANGE, 8, 128);
 
     bypass_ = new BoolProperty("@bypass", false);
-    createProperty(bypass_);
+    addProperty(bypass_);
 
     initSoundTouch();
-    propSetPitch(Atom(pitch_));
 }
 
 void SoundTouchExt::processBlock(const t_sample** in, t_sample** out)
@@ -41,54 +54,29 @@ void SoundTouchExt::processBlock(const t_sample** in, t_sample** out)
         return;
     }
 
-    stouch_.putSamples(in[0], blockSize());
-    stouch_.receiveSamples(out[0], blockSize());
+    const size_t bs = blockSize();
+
+#if PD_FLOATSIZE == 32
+    stouch_.putSamples(in[0], bs);
+    stouch_.receiveSamples(out[0], bs);
+#elif PD_FLOATSIZE == 64
+    float fin[bs];
+    float fout[bs];
+
+    for(size_t i = 0; i < bs; i++)
+        fin[i] = in[0][i];
+
+    stouch_.putSamples(fin, bs);
+    stouch_.receiveSamples(fout, bs);
+
+    for(size_t i = 0; i < bs; i++)
+        out[0][i] = fout[i];
+#endif
 }
 
 void SoundTouchExt::onInlet(size_t, const AtomList& lst)
 {
-    propSetPitch(lst);
-}
-
-AtomList SoundTouchExt::propAnitAlias() const
-{
-    return Atom(stouch_.getSetting(SETTING_USE_AA_FILTER));
-}
-
-void SoundTouchExt::propSetAntiAlias(const AtomList& l)
-{
-    if (!checkArgs(l, ARG_BOOL, gensym("@antialias")))
-        return;
-
-    stouch_.setSetting(SETTING_USE_AA_FILTER, l[0].asInt());
-}
-
-AtomList SoundTouchExt::propAnitAliasLength() const
-{
-    return Atom(stouch_.getSetting(SETTING_AA_FILTER_LENGTH));
-}
-
-void SoundTouchExt::propSetAntiAliasLength(const AtomList& l)
-{
-    if (!checkArgs(l, ARG_FLOAT, PROP_ANTIALIAS_LENGTH))
-        return;
-
-    int len = clip<int>(l[0].asInt(), 8, 128);
-    stouch_.setSetting(SETTING_AA_FILTER_LENGTH, len);
-}
-
-AtomList SoundTouchExt::propPitch() const
-{
-    return Atom(pitch_);
-}
-
-void SoundTouchExt::propSetPitch(const AtomList& l)
-{
-    if (!checkArgs(l, ARG_FLOAT))
-        return;
-
-    pitch_ = l[0].asFloat();
-    stouch_.setPitchSemiTones(pitch_);
+    pitch_->set(lst);
 }
 
 void SoundTouchExt::initSoundTouch()

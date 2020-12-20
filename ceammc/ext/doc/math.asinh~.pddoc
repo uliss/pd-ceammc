@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="math.asinh~">
+        <title>math.asinh~</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>hyperbolic arc sine for signals</description>
+            <license>GPL3 or later</license>
+            <library>ceammc</library>
+            <category>math</category>
+            <keywords>math hyperbolic arc sine</keywords>
+            <also>
+                <see>math.sinh~</see>
+                <see>math.asinh</see>
+            </also>
+            <since>0.9</since>
+        </meta>
+        <info>
+            <par>Outputs the principle value of the hyperbolic arc sine of input signal</par>
+            <a href="https://en.wikipedia.org/wiki/Inverse_hyperbolic_functions">wiki: Inverse
+            hyperbolic functions</a>
+        </info>
+        <inlets>
+            <inlet type="audio">
+                <xinfo>input signal</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet type="audio">result signal</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[B]
+|
+[plot.linspace~ -4 4]
+|                 ^|
+[math.asinh~]      |
+|                  |.
+[ui.plot~ @xlabels 1 @ylabels 1 @ymin -2.5 @ymax 2.5 @ymin_ticks 0 @ymaj_ticks 0 @size 400 200]
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+[ui.dsp~]
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

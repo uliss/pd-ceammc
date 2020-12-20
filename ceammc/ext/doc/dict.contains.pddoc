@@ -6,7 +6,7 @@
             <authors>
                 <author>Serge Poltavsky</author>
             </authors>
-            <description>predicate to check dict contains key</description>
+            <description>predicate to check if dict contains a keys</description>
             <license>GPL3 or later</license>
             <library>ceammc</library>
             <category>data</category>
@@ -18,29 +18,32 @@
             </also>
         </meta>
         <arguments>
-            <argument name="KEY" type="atom">checked key</argument>
+            <argument name="KEY" type="list">checked keys</argument>
         </arguments>
+        <properties>
+            <property name="@keys" type="list">checked keys</property>
+        </properties>
         <inlets>
             <inlet>
                 <xinfo on="data">Data.dict expected</xinfo>
             </inlet>
             <inlet>
-                <xinfo on="atom">change searched key</xinfo>
+                <xinfo on="list">set searched keys</xinfo>
             </inlet>
         </inlets>
         <outlets>
-            <outlet>output 1 is contains key, otherwise 0</outlet>
+            <outlet>output list of 1 and 0. One means dict contains key, zero - not</outlet>
         </outlets>
         <example>
             <pdascii>
 <![CDATA[
 [B]
 |
-[data.dict \[a: b\] \[c: 200\]]
+[data.dict \[a: 1 b: 2 c: 3 d: 4\]]
 |
-[dict.contains c]
+[dict.contains c d e]
 |
-[F]
+[ui.display]
 ]]>
             </pdascii>
         </example>

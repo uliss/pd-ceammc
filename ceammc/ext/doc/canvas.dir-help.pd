@@ -10,25 +10,25 @@
 #X obj 50 147 canvas.dir;
 #X obj 174 147 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
 -1;
-#X obj 50 176 ui.display @size 150 18;
-#X obj 20 216 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 221 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
+#X obj 50 176 ui.display;
+#X obj 20 225 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 230 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
-#X text 110 222 1\.;
-#X text 150 222 *bang*;
-#X text 245 222 output current canvas directory.;
-#X obj 20 252 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 257 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
+#X text 110 231 1\.;
+#X text 150 231 *bang*;
+#X text 245 231 output current canvas directory.;
+#X obj 20 261 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 266 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 258 1\.;
-#X text 245 258 current canvas directory as symbol.;
+#X text 110 267 1\.;
+#X text 245 267 current canvas directory as symbol.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 115 45 ::;
 #X obj 131 48 ui.link @title patch @url ceammc.patch-help.pd;
 #X obj 1 505 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 508 library: ceammc v0.8.0;
+#X text 10 508 library: ceammc v0.9.1;
 #X text 492 520 see also:;
 #X obj 566 520 canvas.name;
 #X obj 661 520 canvas.path;
@@ -37,7 +37,7 @@
 #X text 10 10 library:;
 #X text 120 10 ceammc;
 #X text 10 32 version:;
-#X text 120 32 0.8.0;
+#X text 120 32 0.9.1;
 #X text 10 54 object:;
 #X text 120 54 canvas.dir;
 #X text 10 76 category:;

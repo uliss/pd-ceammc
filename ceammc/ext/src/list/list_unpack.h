@@ -14,11 +14,10 @@
 #ifndef LIST_UNPACK_H
 #define LIST_UNPACK_H
 
+#include "ceammc_data.h"
 #include "ceammc_object.h"
 
 using namespace ceammc;
-
-class DataTypeMList;
 
 class ListUnpack : public BaseObject {
     const size_t n_;
@@ -26,7 +25,9 @@ class ListUnpack : public BaseObject {
 public:
     ListUnpack(const PdArgs& a);
     void onList(const AtomList& l) override;
-    void onDataT(const DataTPtr<DataTypeMList>& dptr);
+    void onDataT(const MListAtom& ml);
+
+    const char* annotateOutlet(size_t n) const final;
 };
 
 void setup_list_unpack();

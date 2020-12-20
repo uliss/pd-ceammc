@@ -20,20 +20,20 @@ extern "C" {
 #include "m_imp.h"
 }
 
-static t_symbol* typeToSymbol(PropertyInfoType t)
+static t_symbol* typeToSymbol(PropValueType t)
 {
     static t_symbol* TYPE_NAMES[] = {
         gensym("bool"), gensym("int"), gensym("float"),
         gensym("symbol"), gensym("variant"), gensym("list")
     };
 
-    static_assert(sizeof(TYPE_NAMES) / sizeof(TYPE_NAMES[0]) == int(PropertyInfoType::LIST) + 1,
+    static_assert(sizeof(TYPE_NAMES) / sizeof(TYPE_NAMES[0]) == int(PropValueType::LIST) + 1,
         "type to symbol table size mismatch");
 
     return TYPE_NAMES[int(t)];
 }
 
-static t_symbol* viewToSymbol(PropertyInfoView v)
+static t_symbol* viewToSymbol(PropValueView v)
 {
     static t_symbol* VIEW_NAMES[] = {
         gensym("slider"), gensym("knob"), gensym("numbox"),
@@ -41,7 +41,7 @@ static t_symbol* viewToSymbol(PropertyInfoView v)
         gensym("entry"), gensym("color")
     };
 
-    static_assert(sizeof(VIEW_NAMES) / sizeof(VIEW_NAMES[0]) == int(PropertyInfoView::COLOR) + 1,
+    static_assert(sizeof(VIEW_NAMES) / sizeof(VIEW_NAMES[0]) == int(PropValueView::COLOR) + 1,
         "view to symbol table size mismatch");
 
     return VIEW_NAMES[int(v)];
@@ -61,12 +61,15 @@ void ObjProps::onBang()
     if (lst.size() > 1)
         OBJ_DBG << "warning: several objects connected";
 
-    DataTypeDict* dict = new DataTypeDict;
-    DataPtr pdict(dict);
+    auto KEY_DEF = gensym("default");
+
+    AtomList obj_list;
 
     for (t_object* o : lst) {
+        t_symbol* obj_name = o->te_g.g_pd->c_name;
+
         if (!is_ceammc(o)) {
-            OBJ_DBG << "not a CEAMMC object: " << o->te_g.g_pd->c_name->s_name;
+            OBJ_DBG << "can't get properties, not a CEAMMC object: [" << obj_name->s_name << "]";
             continue;
         }
 
@@ -81,55 +84,83 @@ void ObjProps::onBang()
         if (is_ceammc_abstraction(o))
             props = ceammc_abstraction_properties(o);
 
+        DictAtom obj_info;
+        obj_info->insert("name", obj_name);
+        obj_info->insert("properties", AtomList());
+        auto& obj_props = obj_info->at("properties");
+
         for (PropertyInfo& p : props) {
+            DictAtom prop_info;
 
-            DataTypeDict* val = new DataTypeDict;
-            dict->insert(Atom(gensym(p.name().c_str())), DataAtom(DataPtr(val)));
+            obj_props.append(prop_info);
 
-            val->insert("name", p.name());
-            val->insert("type", typeToSymbol(p.type()));
-            val->insert("view", viewToSymbol(p.view()));
+            prop_info->insert("name", p.name());
+            prop_info->insert("type", typeToSymbol(p.type()));
+            prop_info->insert("view", viewToSymbol(p.view()));
 
-            PropertyValue defval = p.defaultValue();
-            if (defval.type() == typeid(AtomList))
-                val->insert("default", boost::get<AtomList>(defval));
-            else if (defval.type() == typeid(PropertySingleValue)) {
-                PropertySingleValue sv = boost::get<PropertySingleValue>(defval);
-                Atom def;
-
-                if (sv.type() == typeid(bool))
-                    def.setFloat(boost::get<bool>(sv) ? 1 : 0, true);
-                else if (sv.type() == typeid(int))
-                    def.setFloat(boost::get<int>(sv), true);
-                else if (sv.type() == typeid(float))
-                    def.setFloat(boost::get<float>(sv), true);
-                else if (sv.type() == typeid(t_symbol*))
-                    def.setSymbol(boost::get<t_symbol*>(sv), true);
-                else if (sv.type() == typeid(Atom))
-                    def = boost::get<Atom>(sv);
-
-                if (!def.isNone())
-                    val->insert("default", def);
+            if (p.isBool()) {
+                bool b;
+                if (p.getDefault(b))
+                    prop_info->insert(KEY_DEF, Atom(b ? 1 : 0));
+            } else if (p.isFloat()) {
+                t_float f;
+                if (p.getDefault(f))
+                    prop_info->insert(KEY_DEF, f);
+            } else if (p.isInt()) {
+                int i;
+                if (p.getDefault(i))
+                    prop_info->insert(KEY_DEF, Atom(i));
+            } else if (p.isSymbol()) {
+                t_symbol* s;
+                if (p.getDefault(s))
+                    prop_info->insert(KEY_DEF, Atom(s));
+            } else if (p.isVariant()) {
+                Atom a;
+                if (p.getDefault(a))
+                    prop_info->insert(KEY_DEF, a);
+            } else if (p.isList()) {
+                AtomList l;
+                if (p.getDefault(l))
+                    prop_info->insert(KEY_DEF, l);
             }
 
-            if (p.hasMinLimit())
-                val->insert("min", p.min());
+            if (p.hasConstraintsMin()) {
+                if (p.isFloat())
+                    prop_info->insert("min", p.minFloat());
+                else if (p.isInt())
+                    prop_info->insert("min", p.minInt());
+            }
 
-            if (p.hasMaxLimit())
-                val->insert("max", p.max());
+            if (p.hasConstraintsMax()) {
+                if (p.isFloat())
+                    prop_info->insert("max", p.maxFloat());
+                else if (p.isInt())
+                    prop_info->insert("max", p.maxInt());
+            }
 
             if (p.hasStep())
-                val->insert("step", p.step());
+                prop_info->insert("step", p.step());
 
             if (p.hasEnumLimit())
-                val->insert("enum", p.enumValues());
+                prop_info->insert("enum", p.enumValues());
+
+            if (p.units() != PropValueUnits::NONE)
+                prop_info->insert("units", to_symbol(p.units()));
         }
+
+        obj_list.append(obj_info);
     }
 
-    dataTo(0, pdict);
+    listTo(0, obj_list);
 }
 
 void setup_obj_props()
 {
     ObjectFactory<ObjProps> obj("obj.props");
+
+    obj.setDescription("property extractor");
+    obj.addAuthor("Serge Poltavsky");
+    obj.setKeywords({"property"});
+    obj.setCategory("base");
+    obj.setSinceVersion(0, 7);
 }

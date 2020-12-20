@@ -15,4 +15,5 @@ public:
 void setup_flt_bpf12_tilde()
 {
     SoundExternalFactory<FltBpf12> obj("flt.bpf12~");
+    obj.addMethod("reset", &FltBpf12::m_reset);
 }

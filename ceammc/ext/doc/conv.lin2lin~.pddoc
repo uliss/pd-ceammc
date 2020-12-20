@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="conv.lin2lin~">
+        <title>conv.lin2lin~</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>convert from one linear range to another for signals</description>
+            <license>GPL3 or later</license>
+            <library>ceammc</library>
+            <category>conv</category>
+            <keywords>convert linear</keywords>
+            <also>
+                <see>conv.lin2lin</see>
+            </also>
+            <since>0.9</since>
+            <aliases>
+                <alias>lin-&gt;lin~</alias>
+                <alias>l-&gt;l~</alias>
+            </aliases>
+        </meta>
+        <properties>
+            <property name="@in_from" type="float" default="-1">begin of input range</property>
+            <property name="@in_to" type="float" default="1">end of input range</property>
+            <property name="@out_from" type="float" default="-1">begin of output range</property>
+            <property name="@out_to" type="float" default="1">end of output range</property>
+            <property name="@clip" type="symbol" default="minmax" enum="noclip min max minmax">
+            noclip (don't clip) max (clip ceiling) min (clip floor) minmax (clip both).</property>
+            <property name="@noclip" type="symbol">alias to @clip noclip</property>
+            <property name="@min" type="symbol">alias to @clip min</property>
+            <property name="@max" type="symbol">alias to @clip max</property>
+            <property name="@minmax" type="symbol">alias to @clip minmax</property>
+        </properties>
+        <arguments>
+            <argument name="FROM" type="float">begin of input range</argument>
+            <argument name="TO" type="float">end of input range</argument>
+            <argument name="FROM" type="float">begin of output range</argument>
+            <argument name="TO" type="float">end of input output</argument>
+        </arguments>
+        <inlets>
+            <inlet type="audio">
+                <xinfo>input singnal</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet type="audio">converted signal</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[osc.tri~ 0.05]   [T]
+|                 |
+|                 [@clip $1(
+|                 |
+[lin->lin~ -1 1 20 10000]
+|
+[ui.n~]
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

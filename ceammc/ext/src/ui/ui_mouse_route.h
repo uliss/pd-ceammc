@@ -24,15 +24,15 @@ class UIMouseRoute : public BaseObject {
 public:
     UIMouseRoute(const PdArgs& args);
 
-    bool processAnyProps(t_symbol* sel, const AtomList& lst) final;
+    bool processAnyProps(t_symbol* sel, const AtomListView& lst) final;
     void parseProperties();
 
     void onBang() final;
     void onFloat(t_float f) final;
     void onSymbol(t_symbol* s) final;
     void onList(const AtomList& l) final;
-    void onAny(t_symbol* s, const AtomList& l) final;
-    void onData(const DataPtr& ptr);
+    void onAny(t_symbol* s, const AtomListView& l) final;
+    void onData(const Atom& data) final;
 };
 
 void setup_ui_mouse_route();

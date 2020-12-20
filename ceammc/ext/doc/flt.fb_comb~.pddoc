@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="flt.fb_comb~">
+        <title>flt.fb_comb~</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>feedback comb filter</description>
+            <license>GPL3 or later</license>
+            <library>ceammc</library>
+            <category>flt</category>
+            <keywords>filter comb</keywords>
+            <since>0.9.1</since>
+            <also>
+                <see>flt.ff_comb~</see>
+            </also>
+        </meta>
+        <info>
+            <par>Frequency response of a comb filter consists of a series of regularly spaced
+            notches, giving the appearance of a comb</par>
+            <par>Structure of a feedforward comb filter may be described by the following
+            difference equation: y[n]=x[n]+αy[n-K]} where K is the delay length (measured in
+            samples), and α is a scaling factor applied to the delayed sum</par>
+            <a href="https://en.wikipedia.org/wiki/Comb_filter">wiki: Comb filter</a>
+        </info>
+        <arguments>
+            <argument name="a" type="float" minvalue="-1" maxvalue="1">scaling factor of delayed
+            sum</argument>
+        </arguments>
+        <properties>
+            <property name="@a" type="float" minvalue="-1" maxvalue="1" default="0.75">scaling
+            factor of delayed signal sum</property>
+            <property name="@active" type="int" enum="0 1" default="1">on/off dsp
+            processing</property>
+        </properties>
+        <methods>
+            <method name="reset">reset filter state</method>
+        </methods>
+        <inlets>
+            <inlet type="audio">
+                <xinfo>input signal</xinfo>
+            </inlet>
+            <inlet type="audio">
+                <xinfo>filter notch frequency</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet type="audio">filtered signal</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[B #a]   [msg.onload]   [ui.knob @min -1 @max 1 #c]
+|        |              |       |
+[click~] [samplerate~]  |       |
+|        |              |       |
+|        [/ 8]          [@a $1( [F]
+|        |.             |
+[flt.fb_comb~           ]
+|
+[plot.response~             #b]
+|                          ^^|.
+[ui.plot~ @xlabels 1 @ylabels 1 @ymin 0 @ymax 4 @ymin_ticks 0 @ymaj_ticks 0 @size 400 200]
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+[ui.dsp~]
+[X a->b:1]
+[X c->a]
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

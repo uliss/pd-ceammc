@@ -14,33 +14,41 @@
 #include "string_ends_with.h"
 #include "ceammc_factory.h"
 #include "ceammc_format.h"
+#include "ceammc_string.h"
+#include "datatype_string.h"
 
 StringEndsWith::StringEndsWith(const PdArgs& a)
     : BaseObject(a)
-    , suffix_(to_string(positionalArguments()))
 {
+    auto p = addProperty(new SymbolProperty("@suffix", &s_));
+    p->setArgIndex(0);
+    p->setSuccessFn([this](Property* p) { suffix_ = static_cast<SymbolProperty*>(p)->value()->s_name; });
+
     createInlet();
     createOutlet();
 }
 
 void StringEndsWith::onSymbol(t_symbol* s)
 {
-    floatTo(0, DataTypeString(s).endsWith(suffix_) ? 1 : 0);
+    boolTo(0, string::ends_with(s->s_name, suffix_.c_str()));
 }
 
 void StringEndsWith::onInlet(size_t, const AtomList& l)
 {
-    suffix_ = to_string(l);
+    suffix_ = parse_quoted(l);
 }
 
-void StringEndsWith::onDataT(const DataTPtr<DataTypeString>& dptr)
+void StringEndsWith::onDataT(const StringAtom& str)
 {
-    floatTo(0, dptr->endsWith(suffix_) ? 1 : 0);
+    boolTo(0, string::ends_with(str->str(), suffix_));
 }
 
-extern "C" void setup_string0x2eends_with()
+void setup_string_ends_with()
 {
     ObjectFactory<StringEndsWith> obj("string.ends_with");
     obj.processData<DataTypeString>();
     obj.addAlias("str.ends_with");
+    obj.setCategory("string");
+    obj.setKeywords({ "ends", "search" });
+    obj.setDescription("checks if string ends with specified substring");
 }

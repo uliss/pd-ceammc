@@ -1,10 +1,6 @@
 #include "list_each.h"
+#include "ceammc_output.h"
 #include "datatype_mlist.h"
-
-static bool is_valid_step(int v)
-{
-    return v > 0 && v < 1024;
-}
 
 ListEach::ListEach(const PdArgs& a)
     : BaseObject(a)
@@ -14,29 +10,21 @@ ListEach::ListEach(const PdArgs& a)
     createOutlet();
     createOutlet();
 
-    step_prop_ = new StepProperty("@step", 1, is_valid_step);
-    createProperty(step_prop_);
-
-    // if we have positional step argument without @step
-    const AtomList& args = positionalArguments();
-    if (checkArgs(args, ARG_INT)) {
-        int v = args[0].asInt();
-        if (v > 1)
-            step_prop_->setValue(v);
-    }
+    step_prop_ = new IntProperty("@step", 1);
+    step_prop_->checkClosedRange(1, 1024);
+    step_prop_->setArgIndex(0);
+    addProperty(step_prop_);
 }
 
 void ListEach::onList(const AtomList& l)
 {
-    mode_ = l.anyOf(isData) ? MODE_DLIST : MODE_NORMAL;
+    doEach(l);
+    return listTo(0, mapped_list_);
+}
 
-    switch (mode_) {
-    case MODE_DLIST:
-        mapped_dlist_.clear();
-        break;
-    default:
-        mapped_list_.clear();
-    }
+void ListEach::doEach(const AtomList& l)
+{
+    mapped_list_.clear();
 
     size_t step = step_prop_->value();
 
@@ -46,14 +34,7 @@ void ListEach::onList(const AtomList& l)
             atomTo(1, l[i]);
     } else { // output as sublist
         for (size_t i = 0; i < l.size(); i += step)
-            listTo(1, l.slice(i, i + step - 1));
-    }
-
-    switch (mode_) {
-    case MODE_DLIST:
-        return listTo(0, mapped_dlist_.toList());
-    default:
-        return listTo(0, mapped_list_);
+            listTo(1, l.view(i, step));
     }
 }
 
@@ -65,42 +46,26 @@ void ListEach::onInlet(size_t n, const AtomList& l)
     if (l.empty())
         return;
 
-    switch (mode_) {
-    case MODE_NORMAL:
-        mapped_list_.append(l);
-        break;
-    case MODE_DLIST:
-        mapped_dlist_.append(l);
-        break;
-    default:
-        mapped_mlist_.append(l);
-        break;
-    }
+    mapped_list_.append(l);
 }
 
-void ListEach::onDataT(const DataTPtr<DataTypeMList>& dptr)
+void ListEach::onDataT(const MListAtom& ml)
 {
-    mode_ = MODE_MLIST;
-    mapped_mlist_.clear();
-
-    size_t step = step_prop_->value();
-
-    // output single values
-    if (step == 1) {
-        for (size_t i = 0; i < dptr->size(); i += step)
-            atomTo(1, dptr->at(i).toAtom());
-
-    } else { // output as sublist
-        AtomList l = dptr->toList();
-        for (size_t i = 0; i < dptr->size(); i += step)
-            listTo(1, l.slice(i, i + step - 1));
-    }
-
-    dataTo(0, DataTPtr<DataTypeMList>(mapped_mlist_));
+    doEach(ml->data());
+    atomTo(0, MListAtom(mapped_list_));
 }
 
 void setup_list_each()
 {
     ObjectFactory<ListEach> obj("list.each");
     obj.processData<DataTypeMList>();
+
+    obj.setDescription("maps each list value via external side-chain");
+    obj.addAuthor("Serge Poltavsky");
+    obj.setKeywords({ "list", "functional", "map", "iterate" });
+    obj.setCategory("list");
+    obj.setSinceVersion(0, 1);
+
+    ListEach::setInletsInfo(obj.classPointer(), { "list or Mlist", "value(s) from side-chain" });
+    ListEach::setOutletsInfo(obj.classPointer(), { "list or Mlist", "atom or list to side-chain (depends on @step property)" });
 }

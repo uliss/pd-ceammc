@@ -20,13 +20,12 @@
 MathBoolOp::MathBoolOp(const PdArgs& a)
     : BaseObject(a)
     , sync_(0)
-    , arg_num_(MIN_ARGS)
+    , arg_num_(positionalConstant<MIN_ARGS, MIN_ARGS, MAX_ARGS>(0))
 {
-    arg_num_ = size_t(clip<int>(positionalFloatArgument(0, MIN_ARGS), MIN_ARGS, MAX_ARGS));
     vars_.assign(arg_num_, false);
 
     sync_ = new FlagProperty("@sync");
-    createProperty(sync_);
+    addProperty(sync_);
     createCbProperty("@state", &MathBoolOp::p_state);
 
     for (size_t i = 1; i < arg_num_; i++)
@@ -53,7 +52,7 @@ void MathBoolOp::onInlet(size_t n, const AtomList& l)
         floatTo(0, operate());
 }
 
-void MathBoolOp::m_reset(t_symbol* m, const AtomList&)
+void MathBoolOp::m_reset(t_symbol* /*m*/, const AtomListView&)
 {
     vars_.assign(arg_num_, false);
 }

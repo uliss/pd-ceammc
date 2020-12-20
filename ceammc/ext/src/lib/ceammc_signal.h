@@ -22,12 +22,31 @@
 
 namespace ceammc {
 
+namespace interpolate {
+    template <typename T>
+    static T linear(T x0, T x1, T t)
+    {
+        return x0 + t * (x1 - x0);
+    }
+
+    template <typename T>
+    T cubic_hermite(T x0, T x1, T x2, T x3, T t)
+    {
+        const T a = -x0 / 2 + (3 * x1) / 2 - (3 * x2) / 2 + x3 / 2;
+        const T b = x0 - (5 * x1) / 2 + 2 * x2 - x3 / 2;
+        const T c = -x0 / 2 + x2 / 2;
+        const T d = x1;
+
+        return a * t * t * t + b * t * t + c * t + d;
+    }
+}
+
 template <class T>
 class SmoothLinT {
-    T step_;
     T current_;
     T target_;
-    uint32_t N_;
+    T step_;
+    size_t N_;
     bool done_;
 
 public:
@@ -38,6 +57,7 @@ public:
         , N_(std::max<size_t>(duration, 1))
         , done_(false)
     {
+        static_assert(std::is_floating_point<T>::value, "not floating point type");
         setTargetValue(target);
     }
 

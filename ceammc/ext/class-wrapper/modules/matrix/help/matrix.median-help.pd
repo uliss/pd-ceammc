@@ -1,40 +1,40 @@
-#N canvas 0 0 760 555 12;
+#N canvas 0 0 785 555 12;
 #X declare -lib ceammc;
 #X declare -lib matrix;
-#X obj 583 50 cnv 1 157 21 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 583 50 median matrix value;
-#X obj 1 1 cnv 5 740 40 empty empty matrix.median 20 20 0 20 -104026
+#X obj 613 50 cnv 1 152 23 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 613 50 median matrix value;
+#X obj 1 1 cnv 5 765 40 empty empty matrix.median 20 20 0 20 -104026
 -4096 0;
-#X obj 621 11 matrix.median;
+#X obj 646 11 matrix.median;
 #X obj 50 118 declare -lib matrix;
 #X msg 50 162 1 9 1 1 1 2 2 3 3 6 10;
 #X obj 50 190 matrix.median;
 #X obj 203 190 matrix.mean;
 #X floatatom 50 219 8 0 0 0 - - -;
 #X floatatom 203 219 8 0 0 0 - - -;
-#X obj 20 258 cnv 1 720 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 258 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 263 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
-#X text 120 268 1\.;
-#X text 150 268 *list*;
-#X text 280 268 Matrix data constructor: NROWS NCOLS ....;
-#X text 150 286 *data*;
-#X text 280 286 Matrix data.;
-#X obj 20 314 cnv 1 720 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 110 264 1\.;
+#X text 150 264 *list*;
+#X text 245 264 Matrix data constructor: NROWS NCOLS ...;
+#X text 150 284 *data*;
+#X text 245 284 Matrix data.;
+#X obj 20 314 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 319 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 120 324 1\.;
-#X text 280 324 output median value (float);
+#X text 110 320 1\.;
+#X text 245 320 output median value (float).;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 67 48 ui.link @title matrix @url matrix-help.pd;
 #X text 116 45 ::;
 #X obj 132 48 ui.link @title matrix @url matrix.matrix-help.pd;
-#X obj 1 505 cnv 5 740 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 1 505 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 10 508 library: matrix v0.1;
-#X text 382 520 see also:;
-#X obj 458 520 matrix.median_row;
-#X obj 597 520 matrix.median_col;
+#X text 404 520 see also:;
+#X obj 478 520 matrix.median_row;
+#X obj 617 520 matrix.median_col;
 #N canvas 10 527 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;

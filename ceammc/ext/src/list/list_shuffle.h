@@ -14,17 +14,16 @@
 #ifndef LIST_SHUFFLE_H
 #define LIST_SHUFFLE_H
 
+#include "ceammc_data.h"
 #include "ceammc_object.h"
 using namespace ceammc;
-
-class DataTypeMList;
 
 class ListShuffle : public BaseObject {
 public:
     ListShuffle(const PdArgs& args);
 
     void onList(const AtomList& lst) override;
-    void onDataT(const DataTPtr<DataTypeMList>& lst);
+    void onDataT(const MListAtom& ml);
 };
 
 void setup_list_shuffle();

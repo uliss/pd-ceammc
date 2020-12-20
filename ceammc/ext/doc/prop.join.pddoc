@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="prop.join">
+        <title>prop.join</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>join property to main data flow</description>
+            <license>GPL3 or later</license>
+            <library>ceammc</library>
+            <category>property</category>
+            <keywords>property</keywords>
+            <since>0.9</since>
+            <aliases>
+                <alias>prop&lt;-</alias>
+            </aliases>
+            <also>
+                <see>prop-&gt;</see>
+            </also>
+        </meta>
+        <info>
+            <par>Injects properties into data stream. Values from first inlet are passed unchanged
+            and named property values added to stream. Note: all property inlets are *hot*, i.e. if
+            object receives new value on inlet it immediately outputs it.</par>
+        </info>
+        <inlets dynamic="true">
+            <inlet>
+                <xinfo>data stream</xinfo>
+            </inlet>
+            <inlet>
+                <xinfo>property value</xinfo>
+            </inlet>
+            <inlet number="...">
+                <xinfo>property value</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet>output values</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[F]      [F]
+|        |
+|  [B]   [$1 $1(
+|  |     |
+|  |     |      [F]
+|  |     |.     |..
+[prop<-  @size  @a]
+|
+[prop->     @size                    ]
+|      ^|                          ^^|
+[F]   [ui.display @display_type 1] [ui.display @display_type 1]
+
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

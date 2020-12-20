@@ -1,9 +1,9 @@
 ---
-os: Visual Studio 2015
+os: Visual Studio 2019
 
 version: 2020.02.{build}
 
-clone_depth: 1
+clone_depth: 2
 
 environment:
   CTEST_OUTPUT_ON_FAILURE: 1
@@ -13,14 +13,28 @@ environment:
       MSYS2_ARCH: i686
       MSYS2_DIR: msys64
       MSYSTEM: MINGW32
-      BIT: 32
+      DOUBLE_PRECISION: OFF
       BUILDTOOL: cmake
     - COMPILER: msys2
       PLATFORM: x64
       MSYS2_ARCH: x86_64
       MSYS2_DIR: msys64
       MSYSTEM: MINGW64
-      BIT: 64
+      DOUBLE_PRECISION: OFF
+      BUILDTOOL: cmake
+    - COMPILER: msys2
+      PLATFORM: x64
+      MSYS2_ARCH: i686
+      MSYS2_DIR: msys64
+      MSYSTEM: MINGW32
+      DOUBLE_PRECISION: ON
+      BUILDTOOL: cmake
+    - COMPILER: msys2
+      PLATFORM: x64
+      MSYS2_ARCH: x86_64
+      MSYS2_DIR: msys64
+      MSYSTEM: MINGW64
+      DOUBLE_PRECISION: ON
       BUILDTOOL: cmake
 
 cache:
@@ -30,12 +44,12 @@ cache:
 artifacts:
   - path: build\inno\*.exe
     name: SetupExe
-  - path: ceammc-*.zip
+  - path: build\ceammc-*.zip
     name: externals
 
 before_build:
   - git submodule init
-  - git submodule update --init --recursive
+  - git submodule update --init --recursive --depth 5
 
 build_script:
   - set VERBOSE=1

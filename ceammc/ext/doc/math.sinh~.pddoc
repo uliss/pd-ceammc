@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="math.sinh~">
+        <title>math.sinh~</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>hyperbolic sine for signals</description>
+            <license>GPL3 or later</license>
+            <library>ceammc</library>
+            <category>math</category>
+            <keywords>math hyperbolic arc sine</keywords>
+            <also>
+                <see>math.asinh~</see>
+                <see>math.sinh</see>
+            </also>
+            <since>0.9</since>
+        </meta>
+        <info>
+            <par>Outputs hyperbolic sine of input signal</par>
+            <par>sinh x = (ℯˣ - ℯ⁻ˣ)/2</par>
+            <a href="https://en.wikipedia.org/wiki/Hyperbolic_functions">wiki: Hyperbolic
+            functions</a>
+        </info>
+        <inlets>
+            <inlet type="audio">
+                <xinfo>input signal</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet type="audio">result signal</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[B]
+|
+[plot.linspace~ -3 3  {w=37} #a]
+|            |           |
+|            |           [*~ -1]
+|            |           |
+[math.sinh~] [math.exp~] [math.exp~]
+|            |.          |..
+[ui.plot~ @xlabels 1 @ylabels 1 @ymin -10 @ymax 10 @size 250 200 @n 3 #b]
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+[ui.dsp~]
+[X a:1->b:3]
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

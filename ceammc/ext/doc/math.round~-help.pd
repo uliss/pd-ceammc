@@ -13,23 +13,23 @@
 #X obj 126 205 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1;
 #X obj 50 234 *~;
 #X obj 50 262 dac~;
-#X obj 20 301 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 306 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
+#X obj 20 311 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 316 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
-#X text 110 307 1\.;
-#X text 245 307 input signal.;
-#X obj 20 337 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 342 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
+#X text 110 317 1\.;
+#X text 245 317 input signal.;
+#X obj 20 347 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 352 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 343 1\.;
-#X text 245 343 output rounded signal.;
+#X text 110 353 1\.;
+#X text 245 353 output rounded signal.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 115 45 ::;
 #X obj 131 48 ui.link @title math @url ceammc.math-help.pd;
 #X obj 1 505 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 508 library: ceammc v0.8.0;
+#X text 10 508 library: ceammc v0.9.1;
 #X text 594 520 see also:;
 #X obj 668 520 math.round;
 #N canvas 10 527 400 290 info 0;
@@ -37,7 +37,7 @@
 #X text 10 10 library:;
 #X text 120 10 ceammc;
 #X text 10 32 version:;
-#X text 120 32 0.8.0;
+#X text 120 32 0.9.1;
 #X text 10 54 object:;
 #X text 120 54 math.round~;
 #X text 10 76 category:;

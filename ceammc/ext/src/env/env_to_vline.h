@@ -13,7 +13,7 @@ enum EnvelopeState {
 };
 
 class Env2VLine : public BaseObject {
-    DataTypeEnv env_;
+    EnvAtom env_;
     long stop_point_index_;
     size_t stop_offset_us_;
     EnvelopeState state_;
@@ -26,9 +26,9 @@ public:
 public:
     Env2VLine(const PdArgs& args);
 
-    void onBang();
-    void onFloat(t_float f);
-    void onDataT(const DataTPtr<DataTypeEnv>& env);
+    void onBang() override;
+    void onFloat(t_float f) override;
+    void onDataT(const EnvAtom& env);
 
     void outputSegment(const EnvelopePoint& pt0, const EnvelopePoint& pt1, long offset_us);
     void outputFixed();
@@ -41,8 +41,8 @@ public:
     void interpSigmoid(size_t step_idx, double step_ms, const EnvelopePoint& pt0, const EnvelopePoint& pt1, AtomList& lst);
     void interpExp(size_t step_idx, double step_ms, const EnvelopePoint& pt0, const EnvelopePoint& pt1, AtomList& lst);
 
-    void m_next(t_symbol*, const AtomList&);
-    void m_reset(t_symbol*, const AtomList&);
+    void m_next(t_symbol*, const AtomListView&);
+    void m_reset(t_symbol*, const AtomListView&);
 };
 
 void setup_env_to_vline();

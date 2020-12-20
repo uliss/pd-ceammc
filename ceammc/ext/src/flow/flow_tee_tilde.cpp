@@ -18,7 +18,7 @@ void FlowTeeTilde::onSymbol(t_symbol* s)
     symbolTo(1, s);
 }
 
-void FlowTeeTilde::onFloat(float f)
+void FlowTeeTilde::onFloat(t_float f)
 {
     floatTo(1, f);
 }
@@ -28,7 +28,7 @@ void FlowTeeTilde::onList(const AtomList& l)
     listTo(1, l);
 }
 
-void FlowTeeTilde::onAny(t_symbol* s, const AtomList& l)
+void FlowTeeTilde::onAny(t_symbol* s, const AtomListView& l)
 {
     anyTo(1, s, l);
 }
@@ -56,14 +56,16 @@ void FlowTeeTilde::processBlock(const t_sample** in, t_sample** out)
     }
 }
 
-bool FlowTeeTilde::processAnyProps(t_symbol*, const AtomList&)
+bool FlowTeeTilde::processAnyProps(t_symbol*, const AtomListView&)
 {
     return false;
 }
 
-extern "C" void setup_flow0x2etee_tilde()
+void setup_flow_tee_tilde()
 {
     SoundExternalFactory<FlowTeeTilde> obj("flow.tee~");
     obj.addAlias("tee~");
     obj.addAlias("~->");
+
+    obj.setXletsInfo({ "intermixed control/signal" }, { "output signal", "output control messages" });
 }

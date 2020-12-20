@@ -29,11 +29,11 @@ public:
     size_t grainDuration() const { return gDuration_; }
     size_t grainDelay() const { return gDelay_; }
     int grainOffset() const { return gOffset_; }
-    t_float grainRamp() const { return gRampPercent_ / 100.f; }
+    t_float grainRamp() const { return gRampPercent_; }
     t_float grainRandomFactor() const { return gRandomFactor_ / 0.97; }
 
     void setGrainDuration(size_t d) { setGrainParameters(d, gRampPercent_, gOffset_, gDelay_); }
-    void setGrainRamp(t_float p) { setGrainParameters(gDuration_, p * 100.f, gOffset_, gDelay_); }
+    void setGrainRamp(int p) { setGrainParameters(gDuration_, p, gOffset_, gDelay_); }
     void setGrainOffset(int off) { setGrainParameters(gDuration_, gRampPercent_, off, gDelay_); }
     void setGrainDelay(size_t d) { setGrainParameters(gDuration_, gRampPercent_, gOffset_, d); }
 };
@@ -47,60 +47,68 @@ SynthFGrain::SynthFGrain(const PdArgs& args)
     const size_t DEFAULT_STRETCH = 1;
     const size_t DEFAULT_VOICES = 1;
 
-    {
-        Property* p = createCbProperty("@file", &SynthFGrain::propFile, &SynthFGrain::propSetFile);
-        p->info().setType(PropertyInfoType::SYMBOL);
-    }
-
-    {
-        Property* p = createCbProperty("@voices", &SynthFGrain::propVoices, &SynthFGrain::propSetVoices);
-        p->info().setType(PropertyInfoType::INTEGER);
-        p->info().setRange(0, 200);
-        p->info().setDefault(DEFAULT_VOICES);
-    }
-
-    {
-        Property* p = createCbProperty("@stretch", &SynthFGrain::propStretch, &SynthFGrain::propSetStretch);
-        p->info().setType(PropertyInfoType::INTEGER);
-        p->info().setRange(1, 1000);
-        p->info().setDefault(DEFAULT_STRETCH);
-    }
-
-    {
-        Property* p = createCbProperty("@random", &SynthFGrain::propRandom, &SynthFGrain::propSetRandom);
-        p->info().setType(PropertyInfoType::FLOAT);
-        p->info().setRange(0, 0.97);
-        p->info().setDefault(0.1f);
-    }
-
-    createCbProperty("@gramp", &SynthFGrain::propGrainRamp, &SynthFGrain::propSetGrainRamp);
-
-    {
-        Property* p = createCbProperty("@gdur", &SynthFGrain::propGrainDuration, &SynthFGrain::propSetGrainDuration);
-        p->info().setType(PropertyInfoType::INTEGER);
-        p->info().setMin(1);
-        p->info().setUnits(PropertyInfoUnits::MSEC);
-        p->info().setDefault(30);
-    }
-
-    {
-        Property* p = createCbProperty("@goffset", &SynthFGrain::propGrainOffset, &SynthFGrain::propSetGrainOffset);
-        p->info().setType(PropertyInfoType::INTEGER);
-        p->info().setDefault(int(0));
-        p->info().setUnits(PropertyInfoUnits::MSEC);
-    }
-
-    {
-        Property* p = createCbProperty("@gdelay", &SynthFGrain::propGrainDelay, &SynthFGrain::propSetGrainDelay);
-        p->info().setType(PropertyInfoType::INTEGER);
-        p->info().setDefault(int(0));
-        p->info().setUnits(PropertyInfoUnits::MSEC);
-        p->info().setMin(0);
-    }
-
     synth_->setVoices(DEFAULT_VOICES);
     synth_->setStretch(DEFAULT_STRETCH);
+    synth_->setGrainDuration(30);
     synth_->setRandomFactor(randomness_);
+
+    constexpr int MIN_VOICES = 0;
+    constexpr int MAX_VOICES = 200;
+    constexpr int MIN_STRETCH = 1;
+    constexpr int MAX_STRETCH = 1000;
+    constexpr t_float MIN_RANDOM = 0;
+    constexpr t_float MAX_RANDOM = 0.97;
+
+    createCbSymbolProperty(
+        "@file",
+        [this]() -> t_symbol* { return fname_; },
+        [this](t_symbol* s) -> bool { return propSetFile(s); });
+
+    createCbIntProperty(
+        "@voices",
+        [this]() -> int { return synth_->voices(); },
+        [this](int n) -> bool { synth_->setVoices(n); return true; })
+        ->setIntCheck(PropValueConstraints::CLOSED_RANGE, MIN_VOICES, MAX_VOICES);
+
+    createCbIntProperty(
+        "@stretch",
+        [this]() -> int { return synth_->stretch(); },
+        [this](int v) -> bool { synth_->setStretch(v); return true; })
+        ->setIntCheck(PropValueConstraints::CLOSED_RANGE, MIN_STRETCH, MAX_STRETCH);
+
+    createCbFloatProperty(
+        "@random",
+        [this]() -> t_float { return synth_->grainRandomFactor(); },
+        [this](t_float f) -> bool { synth_->setRandomFactor(f); return true; })
+        ->setFloatCheck(PropValueConstraints::CLOSED_RANGE, MIN_RANDOM, MAX_RANDOM);
+
+    createCbIntProperty(
+        "@gramp",
+        [this]() -> int { return synth_->grainRamp(); },
+        [this](int f) -> bool { synth_->setGrainRamp(f); return true; })
+        ->setIntCheck(PropValueConstraints::CLOSED_RANGE, 1, 100);
+    property("@gramp")->setUnits(PropValueUnits::PERCENT);
+
+    Property* gdur = createCbIntProperty(
+        "@gdur",
+        [this]() -> int { return synth_->grainDuration(); },
+        [this](int v) -> bool { synth_->setGrainDuration(v); return true; });
+    gdur->setUnitsMs();
+    gdur->setIntCheck(PropValueConstraints::GREATER_EQUAL, 1);
+
+    Property* goffset = createCbIntProperty(
+        "@goffset",
+        [this]() -> int { return synth_->grainOffset(); },
+        [this](int v) -> bool { synth_->setGrainOffset(v); return true; });
+    goffset->setUnitsMs();
+    goffset->checkNonNegative();
+
+    Property* delay = createCbIntProperty(
+        "@gdelay",
+        [this]() -> int { return synth_->grainDelay(); },
+        [this](int v) -> bool { synth_->setGrainDelay(v); return true; });
+    delay->setUnitsMs();
+    delay->checkNonNegative();
 
     createSignalOutlet();
 }
@@ -124,146 +132,25 @@ void SynthFGrain::processBlock(const t_sample**, t_sample** out)
         out[0][i] = synth_->tick();
 }
 
-AtomList SynthFGrain::propVoices() const
+bool SynthFGrain::propSetFile(t_symbol* fname)
 {
-    return Atom(synth_->voices());
-}
-
-void SynthFGrain::propSetVoices(const AtomList& lst)
-{
-    if (!checkArgs(lst, ARG_NATURAL))
-        return;
-
-    size_t n = lst.floatAt(0, 1);
-    if (n > 200) {
-        OBJ_ERR << "too many voices: " << n;
-        return;
-    }
-
-    synth_->setVoices(n);
-}
-
-AtomList SynthFGrain::propStretch() const
-{
-    return Atom(synth_->stretch());
-}
-
-void SynthFGrain::propSetStretch(const AtomList& lst)
-{
-    int stretch = lst.floatAt(0, 0);
-    if (stretch < 1 || stretch > 1000) {
-        OBJ_ERR << "invalid stretch value: " << stretch;
-        OBJ_ERR << "should be in range: [1-1000]";
-        return;
-    }
-
-    synth_->setStretch(stretch);
-}
-
-AtomList SynthFGrain::propRandom() const
-{
-    return Atom(synth_->grainRandomFactor());
-}
-
-void SynthFGrain::propSetRandom(const AtomList& lst)
-{
-    t_float k = lst.floatAt(0, 0);
-    if (k < 0 || k > 1) {
-        OBJ_ERR << "invalid grain random factor: " << k;
-        OBJ_ERR << "should be in range [0-1]";
-        return;
-    }
-
-    synth_->setRandomFactor(k);
-}
-
-AtomList SynthFGrain::propGrainDuration() const
-{
-    return Atom(synth_->grainDuration());
-}
-
-void SynthFGrain::propSetGrainDuration(const AtomList& lst)
-{
-    int dur = lst.floatAt(0, 0);
-    if (dur < 1) {
-        OBJ_ERR << "invalid grain duration: " << dur;
-        OBJ_ERR << "should be >= 1";
-        return;
-    }
-
-    synth_->setGrainDuration(dur);
-}
-
-AtomList SynthFGrain::propGrainOffset() const
-{
-    return Atom(synth_->grainOffset());
-}
-
-void SynthFGrain::propSetGrainOffset(const AtomList& lst)
-{
-    int ms = lst.floatAt(0, 0);
-    synth_->setGrainOffset(ms);
-}
-
-AtomList SynthFGrain::propGrainDelay() const
-{
-    return Atom(synth_->grainDelay());
-}
-
-void SynthFGrain::propSetGrainDelay(const AtomList& lst)
-{
-    int ms = lst.floatAt(0, 0);
-    if (ms < 0) {
-        OBJ_ERR << "invalid grain delay: " << ms;
-        OBJ_ERR << "should be >= 0";
-        return;
-    }
-
-    synth_->setGrainDelay(ms);
-}
-
-AtomList SynthFGrain::propGrainRamp() const
-{
-    return Atom(synth_->grainRamp());
-}
-
-void SynthFGrain::propSetGrainRamp(const AtomList& lst)
-{
-    t_float perc = lst.floatAt(0, 0);
-    if (perc < 0 || perc > 1) {
-        OBJ_ERR << "invalid grain ramp: " << perc;
-        OBJ_ERR << "should be in range [0-1]";
-        return;
-    }
-
-    synth_->setGrainRamp(perc);
-}
-
-AtomList SynthFGrain::propFile() const
-{
-    return Atom(fname_);
-}
-
-void SynthFGrain::propSetFile(const AtomList& lst)
-{
-    std::string fname = to_string(lst);
-
     try {
-        synth_->openFile(fname.c_str(), false);
+        synth_->openFile(fname->s_name, false);
     } catch (stk::StkError& e) {
-        OBJ_ERR << "can't open file: " << fname;
-        return;
+        OBJ_ERR << "can't open file: " << fname << ", error: " << e.getMessage();
+        return false;
     }
 
-    fname_ = gensym(fname.c_str());
+    fname_ = fname;
+    return true;
 }
 
-void SynthFGrain::m_open(t_symbol* s, const AtomList& lst)
+void SynthFGrain::m_open(t_symbol* s, const AtomListView& lst)
 {
-    propSetFile(lst);
+    propSetFile(lst.toT<t_symbol*>(&s_));
 }
 
-void SynthFGrain::m_reset(t_symbol* s, const AtomList& lst)
+void SynthFGrain::m_reset(t_symbol* s, const AtomListView&)
 {
     synth_->reset();
 }

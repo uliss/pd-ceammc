@@ -14,6 +14,7 @@
 #ifndef DICT_IS_H
 #define DICT_IS_H
 
+#include "ceammc_data.h"
 #include "ceammc_object.h"
 
 using namespace ceammc;
@@ -24,8 +25,8 @@ public:
     void onFloat(t_float) override;
     void onSymbol(t_symbol*) override;
     void onList(const AtomList&) override;
-    void onAny(t_symbol*, const AtomList&) override;
-    void onData(const DataPtr& ptr) override;
+    void onAny(t_symbol*, const AtomListView&) override;
+    void onData(const Atom& ptr) override;
 };
 
 void setup_is_dict();

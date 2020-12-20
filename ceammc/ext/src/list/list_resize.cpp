@@ -53,41 +53,32 @@ void ListResize::onList(const AtomList& l)
 
 void ListResize::initProperties()
 {
-    size_ = new SizeTProperty("@size", size_t(positionalFloatArgument(0, 0)), false);
-    createProperty(size_);
+    constexpr size_t DEFAULT_SIZE = 0;
+    size_ = new SizeTProperty("@size", DEFAULT_SIZE);
+    size_->setArgIndex(0);
+    addProperty(size_);
 
     // resize methods:
     // @clip - pad with last element (by default)
     // @pad - pad with specified value (@pad_value property)
     // @wrap - pad with wrapped values
     // @fold - pad with fold values
-    method_ = new SymbolEnumProperty("@method", SYM_PAD);
-    method_->appendEnum(SYM_CLIP);
-    method_->appendEnum(SYM_WRAP);
-    method_->appendEnum(SYM_FOLD);
-    createProperty(method_);
+    method_ = new SymbolEnumProperty("@method", { SYM_PAD, SYM_CLIP, SYM_WRAP, SYM_FOLD });
+    addProperty(method_);
 
     // adding aliases
-    createProperty(new SymbolEnumAlias("@pad", method_, SYM_PAD));
-    createProperty(new SymbolEnumAlias("@clip", method_, SYM_CLIP));
-    createProperty(new SymbolEnumAlias("@wrap", method_, SYM_WRAP));
-    createProperty(new SymbolEnumAlias("@fold", method_, SYM_FOLD));
+    addProperty(new SymbolEnumAlias("@pad", method_, SYM_PAD));
+    addProperty(new SymbolEnumAlias("@clip", method_, SYM_CLIP));
+    addProperty(new SymbolEnumAlias("@wrap", method_, SYM_WRAP));
+    addProperty(new SymbolEnumAlias("@fold", method_, SYM_FOLD));
 
-    {
-        Property* p = createCbProperty("@pad", &ListResize::getPadValue, &ListResize::setPadValue);
-        p->info().setType(PropertyInfoType::VARIANT);
-    }
-}
-
-AtomList ListResize::getPadValue() const
-{
-    return listFrom(pad_);
-}
-
-void ListResize::setPadValue(const AtomList& l)
-{
-    pad_ = atomlistToValue<Atom>(l, Atom(0.f));
-    method_->setValue(SYM_PAD);
+    createCbAtomProperty(
+        "@pad",
+        [this]() -> Atom { return pad_; },
+        [this](const Atom& a) -> bool {
+            pad_ = a;
+            method_->setValue(SYM_PAD);
+            return true; });
 }
 
 void setup_list_resize()

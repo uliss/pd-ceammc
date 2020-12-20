@@ -26,8 +26,8 @@
             <argument type="list" name="INIT">initial list</argument>
         </arguments>
         <properties>
-            <property name="@mode" type="symbol" enum="single clip wrap fold">pass mode. See
-            properties below for detailed information.</property>
+            <property name="@mode" type="symbol" enum="single clip wrap fold" default="single">pass
+            mode. See properties below for detailed information.</property>
             <property name="@clip" type="alias">clipped pass mode. When the list bounds are reached
             - min/max value repeats perpetually.</property>
             <property name="@single" type="alias">single pass mode. When the list bounds are
@@ -39,12 +39,13 @@
             with folding</property>
             <property name="@direction" type="int" default="1" enum="0 1">walking direction. "1" -
             forwards, "0" - backwards.</property>
-            <property name="@index" type="int" minvalue="0" default="0">current position</property>
+            <property name="@index" type="list" minvalue="0" default="0">current
+            position</property>
             <property name="@length" type="int" minvalue="1" default="1">output list
             length</property>
-            <property name="@size" type="int" readonly="true">current list size</property>
-            <property name="@value" type="list" default="[]" readonly="true">current
-            list</property>
+            <property name="@size" type="int" minvalue="0" readonly="true" default="0">current list
+            size</property>
+            <property name="@value" type="list">current list</property>
         </properties>
         <methods>
             <method name="current">outputs current element</method>
@@ -88,9 +89,9 @@
 |
 [osc~]
 |
-[*~ 0.1]
+[ui.hgain~]
 | \
-[dac~]
+[dac~] [ui.dsp~]
 ]]>
             </pdascii>
         </example>

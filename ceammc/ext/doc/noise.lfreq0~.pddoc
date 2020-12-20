@@ -23,8 +23,8 @@
             <argument type="float" name="FREQ">noise generation freq</argument>
         </arguments>
         <properties>
-            <property name="@freq" type="float" minvalue="5" maxvalue="22050" default="1000">noise
-            generation freq. New random number every int(SR/freq)</property>
+            <property name="@freq" type="float" minvalue="5" maxvalue="22050" default="1000"
+            units="herz">noise generation freq. New random number every int(SR/freq)</property>
             <property name="@active" type="int" enum="0 1" default="1">on/off dsp
             processing</property>
         </properties>

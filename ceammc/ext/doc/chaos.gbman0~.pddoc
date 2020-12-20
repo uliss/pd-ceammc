@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="chaos.gbman0~">
+        <title>chaos.gbman0~</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavski</author>
+            </authors>
+            <description>Gingerbreadman map chaotic generator</description>
+            <license>GPL3 or later</license>
+            <library>ceammc</library>
+            <category>chaos</category>
+            <keywords>chaos</keywords>
+            <since>0.9</since>
+            <also>
+                <see>chaos.gbman0</see>
+            </also>
+        </meta>
+        <info>
+            <par>A non-interpolating sound generator based on the difference equations:</par>
+            <par>x(n+1) = 1 - y(n) + |x(n)|</par>
+            <par>y(n+1) = x(n)</par>
+            <a href="https://en.wikipedia.org/wiki/Gingerbreadman_map">wiki: Gingerbreadman map</a>
+        </info>
+        <arguments>
+            <argument name="X" type="float">initial x value, default 1.2</argument>
+            <argument name="Y" type="float">initial y value, default 2.1</argument>
+        </arguments>
+        <properties />
+        <methods />
+        <inlets>
+            <inlet type="audio">
+                <xinfo>generation frequency, minimal value 0.001Hz</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet type="audio">outputs x value</outlet>
+            <outlet type="audio">outputs y value</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[10( [100( [20000( [ui.dsp~] [sig~ 35]
+|    |     |                 |
+[sig~    10]                 [chaos.gbman0~]
+|                            |
+[chaos.gbman0~]              [l->l~ -3 6 50 10000 @clip minmax]
+|                            |
+[dyn.limit~]                 [osc.sin~]
+|                            |
+[ui.hgain~]                  [ui.hgain~]
+|\                           |\
+[dac~]                       [dac~]
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

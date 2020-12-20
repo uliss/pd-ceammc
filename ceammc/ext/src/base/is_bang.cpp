@@ -57,10 +57,10 @@ extern "C" void is_bang_setup()
         reinterpret_cast<t_newmethod>(is_bang_new),
         reinterpret_cast<t_method>(is_bang_free),
         sizeof(t_is_bang), 0, A_NULL);
-    class_addanything(is_bang_class, is_bang_anything);
-    class_addbang(is_bang_class, is_bang_bang);
-    class_addfloat(is_bang_class, is_bang_float);
-    class_addlist(is_bang_class, is_bang_list);
-    class_addpointer(is_bang_class, is_bang_pointer);
-    class_addsymbol(is_bang_class, is_bang_symbol);
+    class_addanything(is_bang_class, reinterpret_cast<t_method>(is_bang_anything));
+    class_addbang(is_bang_class, reinterpret_cast<t_method>(is_bang_bang));
+    class_doaddfloat(is_bang_class, reinterpret_cast<t_method>(is_bang_float));
+    class_addlist(is_bang_class, reinterpret_cast<t_method>(is_bang_list));
+    class_addpointer(is_bang_class, reinterpret_cast<t_method>(is_bang_pointer));
+    class_addsymbol(is_bang_class, reinterpret_cast<t_method>(is_bang_symbol));
 }

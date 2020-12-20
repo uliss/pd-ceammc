@@ -26,7 +26,7 @@ namespace list {
     size_t longestListSize(const std::vector<AtomList>& l);
     std::pair<size_t, size_t> minmaxListSize(const std::vector<AtomList>& l);
 
-    typedef const Atom* (AtomList::*constAtomlistAt)(int)const;
+    typedef const Atom* (AtomList::*constAtomlistAt)(int) const;
 
     AtomList interleaveMinLength(const std::vector<AtomList>& l);
     AtomList interleaveMaxLength(const std::vector<AtomList>& l, constAtomlistAt fn);
@@ -43,6 +43,9 @@ namespace list {
 
     AtomList countRepeats(const AtomList& l, bool normalizeBySum = false);
 
+    bool containsAllOff(const AtomList& input, const AtomList& needles);
+    bool containsAnyOff(const AtomList& input, const AtomList& needles);
+
     AtomList sliceWrap(const AtomList& l, int pos, size_t len);
     AtomList sliceClip(const AtomList& l, int pos, size_t len);
     AtomList sliceFold(const AtomList& l, int pos, size_t len);
@@ -56,12 +59,63 @@ namespace list {
 
     AtomList histogram(const AtomList& l, size_t bins);
 
+    /**
+     * Normalize floats by total sum, that goes to 1, and each element is equal value/sum
+     * @param src - source data (should contains only t_floats, otherwise result in undefined)
+     * @param dest - write result
+     * @return true on success, false on error (zero range, empty etc.)
+     */
+    bool normalizeBySum(const AtomList& src, AtomList& dest);
+
+    /**
+     * Normalize floats to [0, 1] range: min element goes to 0, max element goes to 1
+     * @param src - source data (should contains only t_floats, otherwise result in undefined)
+     * @param dest - write result
+     * @return true on success, false on error (zero range, empty etc.)
+     */
     bool normalizeByRange(const AtomList& src, AtomList& dest);
+
+    /**
+     * Resample list
+     * @param src - source data
+     * @param dest - output data
+     * @param ratio - resample ratio (src/desc)
+     * @return treu on success, false on error
+     */
+    bool resample(const AtomList& src, AtomList& dest, t_float ratio);
+
+    /**
+     * Return vector of types containing in lst, elements of other types are discarded
+     */
+    template <typename T>
+    std::vector<T> extractByType(const AtomList& l)
+    {
+        std::vector<T> res;
+        res.reserve(l.size());
+
+        for (const Atom& a : l) {
+            if (a.isA<T>())
+                res.push_back(a.asT<T>());
+        }
+
+        return res;
+    }
 
     enum enumerateMode {
         PREPEND,
         APPEND
     };
+
+    /**
+     * Generate euclidean rythm pattern using bresenham line algorithm
+     * @see https://en.wikipedia.org/wiki/Euclidean_rhythm
+     * @see https://en.wikipedia.org/wiki/Bresenham%27s_line_algorithm
+     * @param onsets- number of onsets, should be <= pulses
+     * @param pulses - pattern length, should be >0
+     * @note caller should check params
+     * @return list of 1 and 0
+     */
+    AtomList bresenham(size_t onsets, size_t pulses);
 
     AtomList enumerate(const AtomList& l, int from = 0, enumerateMode mode = PREPEND);
 
@@ -137,7 +191,7 @@ namespace list {
     }
 
     template <>
-    bool canConvertToType<AtomList>(const AtomList& l)
+    bool canConvertToType<AtomList>(const AtomList&)
     {
         return true;
     }

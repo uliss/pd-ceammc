@@ -16,16 +16,16 @@
 
 #include "catch.hpp"
 #include "ceammc_log.h"
-#include "m_pd.h"
+#include "test_base.h"
 #include "test_external.h"
 
 #include <sstream>
 
-static std::string print_hook_result;
+static std::string log_str;
 
 static void print_hook(const char* msg)
 {
-    print_hook_result += msg;
+    log_str += msg;
 }
 
 TEST_CASE("ceammc_log", "[ceammc_log]")
@@ -43,7 +43,53 @@ TEST_CASE("ceammc_log", "[ceammc_log]")
     SECTION("Debug")
     {
         LIB_DBG << "a message " << 123 << '-' << gensym("abc");
-        REQUIRE(print_hook_result == "[ceammc] a message 123-\"abc\"\n");
+        REQUIRE(log_str == "verbose(3): [ceammc] a message 123-\"abc\"\n");
+        log_str.clear();
+    }
+
+    SECTION("Post")
+    {
+        LIB_POST << "a message " << 123 << '-' << gensym("abc");
+        REQUIRE(log_str == "[ceammc] a message 123-\"abc\"\n");
+        log_str.clear();
+    }
+
+    SECTION("Log")
+    {
+        LIB_LOG << "test message";
+        REQUIRE(log_str == "verbose(4): [ceammc] test message\n");
+        log_str.clear();
+    }
+
+    SECTION("Error")
+    {
+        LIB_ERR << "error message";
+        REQUIRE(log_str == "error: [ceammc] error message\n"
+                           "verbose(4): ... you might be able to track this down from the Find menu.\n");
+        log_str.clear();
+    }
+
+    SECTION("None")
+    {
+        {
+            LogNone l;
+            l << "test";
+            REQUIRE(l.str() == "");
+        }
+
+        REQUIRE(log_str.empty());
+    }
+
+    SECTION("endl")
+    {
+        LogPdObject log(nullptr, LogLevel::LOG_POST);
+        log << "1";
+        log.endl();
+        log << "2";
+        log.flush();
+        REQUIRE(log_str == "[ceammc] 1\n"
+                           "[ceammc] 2\n");
+        log_str.clear();
     }
 
     SECTION("operator<< std::vector<int>")

@@ -35,8 +35,8 @@ class HwDisplay : public BaseObject {
 public:
     HwDisplay(const PdArgs& args);
 
-    AtomList propBrightness() const;
-    void setPropBrightness(const AtomList& v);
+    t_float propBrightness() const;
+    bool setPropBrightness(t_float v);
 };
 
 void setup_hw_display();

@@ -2,19 +2,12 @@
 
 import sys
 import signal
-
-def signal_handler(sig, frame):
-    sys.exit(0)
-
-signal.signal(signal.SIGINT, signal_handler)
-
 import argparse
 import subprocess
 import os.path
 from lxml import etree
-from termcolor import colored, cprint
+from termcolor import cprint
 import json
-import jamspell
 
 SRC_PATH = "@PROJECT_SOURCE_DIR@/"
 BIN_PATH = "@PROJECT_BINARY_DIR@/ceammc/ext/src/lib/"
@@ -27,10 +20,16 @@ EXT_PROPS = BIN_PATH + "ext_props"
 
 SPECIAL_OBJ = {"function": "f"}
 
-corrector = jamspell.TSpellCorrector()
+
+def signal_handler(sig, frame):
+    sys.exit(0)
+
+
+signal.signal(signal.SIGINT, signal_handler)
 
 def read_all_externals():
     return list(filter(lambda x: len(x), subprocess.check_output([EXT_LIST], stderr=subprocess.DEVNULL).decode().split('\n')))
+
 
 def read_methods(name):
     # methods starting with @ - properties in UI objects
@@ -45,10 +44,12 @@ def read_methods(name):
             args.append(SPECIAL_OBJ[name])
 
         return set(filter(valid_method,
-            subprocess.check_output(args, stderr=subprocess.DEVNULL, env={"RAWWAVES": STK_RAWWAVES_PATH}).decode().split('\n')))
+            subprocess.check_output(args, stderr=subprocess.DEVNULL,
+                                    env={"RAWWAVES": STK_RAWWAVES_PATH}).decode().split('\n')))
     except(subprocess.CalledProcessError):
         cprint(f"[{name}] can't get methods", "red")
         return set()
+
 
 def read_props(name):
     try:
@@ -56,7 +57,9 @@ def read_props(name):
         if name in SPECIAL_OBJ:
             args.append(SPECIAL_OBJ[name])
 
-        s = subprocess.check_output(args, stderr=subprocess.DEVNULL, env={"RAWWAVES": STK_RAWWAVES_PATH}).decode()
+        s = subprocess.check_output(args, stderr=subprocess.DEVNULL,
+                                    env={"RAWWAVES": STK_RAWWAVES_PATH},
+                                    encoding="utf-8", errors="ignore")
         js = json.loads(s)
         return set(js.keys()), js
     except(subprocess.CalledProcessError) as e:
@@ -64,6 +67,7 @@ def read_props(name):
             cprint(f"[{name}] can't get properties", "red")
 
         return set(), dict()
+
 
 def check_spell(obj):
     if obj.text:
@@ -81,6 +85,7 @@ def check_spell(obj):
             continue
 
         check_spell(node)
+
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='CEAMMC Pd documentation checker')
@@ -161,9 +166,10 @@ if __name__ == '__main__':
         # print(doc_methods_set)
         # print(ext_methods)
         ignored_methods = {'dump', 'dsp', 'signal', 'mouseup', 'mouseenter', 'dialog', 'iscicm',
-        'zoom', 'mousewheel', 'mousemove', 'mousedown', 'mouseleave',
-        'symbol', 'float', 'bang', 'dblclick', 'list', 'dsp_add', 'loadbang',
-        'click', 'dsp_add_aliased', 'vis', 'popup', 'eobjreadfrom', 'eobjwriteto', 'rightclick', 'key' }
+                           'zoom', 'mousewheel', 'mousemove', 'mousedown', 'mouseleave',
+                           'symbol', 'float', 'bang', 'dblclick', 'list', 'dsp_add', 'loadbang',
+                           'click', 'dsp_add_aliased', 'vis', 'popup', 'eobjreadfrom', 'eobjwriteto',
+                           'rightclick', 'key' }
         undoc_methods_set = ext_methods - doc_methods_set - ignored_methods
         unknown_methods = doc_methods_set - ext_methods
         if len(undoc_methods_set):
@@ -179,6 +185,8 @@ if __name__ == '__main__':
         undoc_props_set = ext_props_set - doc_props_set - ignored_props
         unknown_props = doc_props_set - ext_props_set
         exists_props = ext_props_set & doc_props_set
+
+        undoc_props_set = {x for x in undoc_props_set if ext_props_dict[x].get("visibility", "") != "internal" }
 
         if len(undoc_props_set):
             cprint(f"[{ext_name}] undocumented properties: {undoc_props_set}", 'magenta')
@@ -211,16 +219,17 @@ if __name__ == '__main__':
             p1 = doc_props_dict[p]
 
             # readonly in external
-            if p0.get("readonly", False):
+            if p0.get("access", "") == "readonly":
                 # but not in doc
-                if not p1.get("readonly", False):
-                    cprint(f"[{ext_name}] missing readonly attribute in \"{p}\"", 'magenta')
+                if "readonly" not in p1 and p1["readonly"] != "true":
+                    print(p1)
+                    cprint(f"DOC [{ext_name}] missing readonly attribute in \"{p}\"", 'magenta')
 
             # readonly in docs
-            if "readonly" in p1 and p1["readonly"] == "true":
+            if "readonly" in p1 and p1["readonly"]:
                 # but not readonly in external
-                if not p0.get("readonly", False):
-                    cprint(f"[{ext_name}] non-readonly attribute in \"{p}\"", 'red')
+                if p0.get("access", "") != "readonly":
+                    cprint(f"EXT [{ext_name}] non-readonly attribute in \"{p}\"", 'red')
 
             # units checks
             if p1.get("units", False):
@@ -233,7 +242,7 @@ if __name__ == '__main__':
 
             if p0.get("units", False):
                 if not p1.get("units", False):
-                    cprint(f"[{ext_name}] missing units attribute in pddoc \"{p}\"", 'magenta')
+                    cprint(f"DOC [{ext_name}] missing units \"{p}\"", 'magenta')
 
             if p0["type"] == "bool":
                 if p1["type"] in ("flag", "alias"):
@@ -253,6 +262,10 @@ if __name__ == '__main__':
                     if v0 != v1:
                         cprint(f"[{ext_name}] invalid value for default attribute \"{p}\": {v0} != {v1}", 'magenta')
 
+                continue
+
+            # aliases
+            if p0["type"] == "int" and p1["type"] in ("flag", "alias"):
                 continue
 
             if p0["type"] != p1["type"]:
@@ -278,7 +291,7 @@ if __name__ == '__main__':
                 v0 = str(p0["min"])
                 v1 = str(p1["minvalue"])
                 if v0 != v1:
-                    cprint(f"[{ext_name}] invalid value for minvalue attribute \"{p}\": {v0} != {v1}", 'magenta')
+                    cprint(f"DOC [{ext_name}] invalid minvalue \"{p}\": {v1}, in external: {v0}", 'magenta')
 
             if "max" in p0 and "maxvalue" in p1:
                 v0 = str(p0["max"])
@@ -292,42 +305,58 @@ if __name__ == '__main__':
                     v0 = p0["default"]
                     v1 = p1["default"].split(" ")
 
-                    if len(v0) > 0 and isinstance(v0[0], int):
-                        v1 = list(map(int, v1))
+                    if len(v0) > 0 and (isinstance(v0[0], float) or isinstance(v0[0], int)):
+                        v1 = list(map(float, v1))
                 else:
                     v0 = str(p0["default"])
                     v1 = p1["default"]
 
                 if v0 != v1:
-                    cprint(f"[{ext_name}] invalid value for default attribute \"{p}\": {v0} != {v1}", 'magenta')
-            elif attr == HAVE_EXTERNAL and "readonly" not in p0:
-                cprint(f"[{ext_name}] missing attribute default in \"{p}\"", 'magenta')
+                    cprint(f"DOC [{ext_name}] invalid default \"{p}\": {v1}, in external: {v0}", 'magenta')
+            elif attr == HAVE_EXTERNAL:
+                vdef = p0["default"]
+                is_empty = hasattr(vdef, '__len__') and len(vdef) == 0
+                if not is_empty:
+                    cprint(f"EXT [{ext_name}] missing default in doc \"{p}\"", 'magenta')
 
             attr = check_attr("enum", p0, p1)
             if attr == HAVE_BOTH:
                 v0 = set(p0["enum"])
                 v1 = set(p1["enum"].split(" "))
 
-                if len(p0["enum"]) > 0 and isinstance(p0["enum"][0], int):
-                    v1 = set(map(lambda x: int(x), p1["enum"].split(" ")))
+                if len(p0["enum"]) > 0:
+                    e1 = []
+                    for x in p1["enum"].split(" "):
+                        try:
+                            y = float(x)
+                            if y.is_integer():
+                                y = int(x)
+
+                            e1.append(y)
+                        except:
+                            e1.append(x)
+
+                    v1 = set(e1)
 
                 if v0 != v1:
                     cprint(f"[{ext_name}] invalid value for enum attribute \"{p}\": {v0} != {v1}", 'magenta')
                     d0 = v0 - v1
                     d1 = v1 - v0
                     if len(d0):
-                        cprint(f"[{ext_name}] non-documented elements are: {d0}", 'magenta')
+                        cprint(f"[{ext_name}] missing elements are: {d0}", 'magenta')
                     if len(d1):
                         cprint(f"[{ext_name}] invalid elements in doc are: {d1}", 'magenta')
 
             elif attr == HAVE_EXTERNAL:
                 if ext_name.startswith("ui.") and p not in ("@fontname"):
-                    cprint(f"[{ext_name}] missing enum attribute in pddoc \"{p}\"", 'magenta')
+                    cprint(f"DOC [{ext_name}] missing enum attribute\"{p}\"", 'magenta')
             elif attr == HAVE_PDDOC:
-                    cprint(f"[{ext_name}] pddoc enum for attribute \"{p}\" not exists", 'magenta')
-
+                    cprint(f"DOC [{ext_name}] no enum for attribute \"{p}\" (in external)", 'magenta')
 
     if args.spell:
+        import jamspell
+        corrector = jamspell.TSpellCorrector()
+
         corrector.LoadLangModel('ceammc.bin')
         cprint(f"checking [{ext_name}] ...", "blue")
         check_spell(root)

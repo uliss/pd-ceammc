@@ -6,7 +6,7 @@
             <authors>
                 <author>Serge Poltavsky</author>
             </authors>
-            <description>logarithm functions</description>
+            <description>natural logarithm</description>
             <license>GPL3 or later</license>
             <library>ceammc</library>
             <category>math</category>
@@ -17,8 +17,7 @@
             <since>0.1</since>
         </meta>
         <info>
-            <par>The log() function computes the value of the natural logarithm of argu- ment
-            x.</par>
+            <par>Computes the value of the natural logarithm of argument x.</par>
             <par>Special values:</par>
             <par>log(+-0) return -infinity</par>
             <par>log(1) return +0.</par>
@@ -37,11 +36,13 @@
         <example>
             <pdascii>
 <![CDATA[
-[F]
+[bang(                  [array LOG yr=-4..4 w=320]
+|
+[list.seq -1 16 0.125]
 |
 [math.log]
 |
-[F]
+[list->array LOG]
 ]]>
             </pdascii>
         </example>

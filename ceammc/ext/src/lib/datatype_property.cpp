@@ -21,17 +21,17 @@
 #include <limits>
 #include <sstream>
 
-const DataType DataTypeProperty::dataType = data::DATA_PROPERTY;
+const int DataTypeProperty::dataType = data::DATA_PROPERTY;
 
 DataTypeProperty::DataTypeProperty(t_symbol* name)
     : name_(name)
-    , type_(T_FLOAT)
+    , type_(PropValueType::FLOAT)
     , value_(0.f)
     , default_(0.f)
     , fmin_(std::numeric_limits<t_float>::lowest())
     , fmax_(std::numeric_limits<t_float>::max())
-    , lmin_(std::numeric_limits<long>::lowest())
-    , lmax_(std::numeric_limits<long>::max())
+    , lmin_(std::numeric_limits<decltype(lmin_)>::lowest())
+    , lmax_(std::numeric_limits<decltype(lmax_)>::max())
 {
 }
 
@@ -47,7 +47,7 @@ DataTypeProperty::DataTypeProperty(const DataTypeProperty& p)
 {
 }
 
-DataType DataTypeProperty::type() const
+int DataTypeProperty::type() const noexcept
 {
     return dataType;
 }
@@ -61,7 +61,7 @@ std::string DataTypeProperty::toString() const
 {
     std::ostringstream ss;
     ss << "Property: " << name_ << "\n"
-       << "  type:  " << type_ << "\n"
+       << "  type:  " << to_string(type_) << "\n"
        << "  value: " << propertyStrValue() << "\n";
 
     return ss.str();
@@ -69,42 +69,42 @@ std::string DataTypeProperty::toString() const
 
 void DataTypeProperty::setTypeFloat(t_float def)
 {
-    type_ = T_FLOAT;
+    type_ = PropValueType::FLOAT;
     default_ = def;
     value_ = default_;
 }
 
-void DataTypeProperty::setTypeInt(long def)
+void DataTypeProperty::setTypeInt(int def)
 {
-    type_ = T_INT;
+    type_ = PropValueType::INTEGER;
     default_ = def;
     value_ = default_;
 }
 
 void DataTypeProperty::setTypeBool(bool def)
 {
-    type_ = T_BOOL;
+    type_ = PropValueType::BOOLEAN;
     default_ = def;
     value_ = default_;
 }
 
 void DataTypeProperty::setTypeSymbol(t_symbol* def)
 {
-    type_ = T_SYMBOL;
+    type_ = PropValueType::SYMBOL;
     default_ = def;
     value_ = default_;
 }
 
 void DataTypeProperty::setTypeList(const AtomList& def)
 {
-    type_ = T_LIST;
+    type_ = PropValueType::LIST;
     default_ = def;
     value_ = default_;
 }
 
 bool DataTypeProperty::setBool(bool v)
 {
-    if (type_ != T_BOOL)
+    if (type_ != PropValueType::BOOLEAN)
         return false;
 
     value_ = v;
@@ -114,7 +114,7 @@ bool DataTypeProperty::setBool(bool v)
 
 bool DataTypeProperty::setFloat(t_float f)
 {
-    if (type_ != T_FLOAT)
+    if (type_ != PropValueType::FLOAT)
         return false;
 
     value_ = clip<t_float>(f, fmin_, fmax_);
@@ -122,19 +122,19 @@ bool DataTypeProperty::setFloat(t_float f)
     return true;
 }
 
-bool DataTypeProperty::setInt(long v)
+bool DataTypeProperty::setInt(int v)
 {
-    if (type_ != T_INT)
+    if (type_ != PropValueType::INTEGER)
         return false;
 
-    value_ = clip<long>(v, lmin_, lmax_);
+    value_ = clip<int>(v, lmin_, lmax_);
     updateAll();
     return true;
 }
 
 bool DataTypeProperty::setSymbol(t_symbol* s)
 {
-    if (type_ != T_SYMBOL)
+    if (type_ != PropValueType::SYMBOL)
         return false;
 
     if (enum_.size() > 0 && !enum_.contains(Atom(s)))
@@ -147,7 +147,7 @@ bool DataTypeProperty::setSymbol(t_symbol* s)
 
 bool DataTypeProperty::setList(const AtomList& lst)
 {
-    if (type_ != T_LIST)
+    if (type_ != PropValueType::LIST)
         return false;
 
     value_ = lst;
@@ -188,7 +188,7 @@ bool DataTypeProperty::setFromPdArgs(const AtomList& lst)
     } else if (isList()) {
         setList(lst);
     } else {
-        LIB_ERR << "unhandled property type: " << propertyType();
+        LIB_ERR << "unhandled property type: " << to_string(propertyType());
         return false;
     }
 
@@ -203,25 +203,25 @@ void DataTypeProperty::restoreDefault()
 
 bool DataTypeProperty::getFloat(t_float& out) const
 {
-    if (type_ != T_FLOAT)
+    if (type_ != PropValueType::FLOAT)
         return false;
 
     out = boost::get<t_float>(value_);
     return true;
 }
 
-bool DataTypeProperty::getInt(long& out) const
+bool DataTypeProperty::getInt(int& out) const
 {
-    if (type_ != T_INT)
+    if (type_ != PropValueType::INTEGER)
         return false;
 
-    out = boost::get<long>(value_);
+    out = boost::get<int>(value_);
     return true;
 }
 
 bool DataTypeProperty::getBool(bool& out) const
 {
-    if (type_ != T_BOOL)
+    if (type_ != PropValueType::BOOLEAN)
         return false;
 
     out = boost::get<bool>(value_);
@@ -230,7 +230,7 @@ bool DataTypeProperty::getBool(bool& out) const
 
 bool DataTypeProperty::getSymbol(t_symbol** s) const
 {
-    if (type_ != T_SYMBOL)
+    if (type_ != PropValueType::SYMBOL)
         return false;
 
     *s = boost::get<t_symbol*>(value_);
@@ -239,7 +239,7 @@ bool DataTypeProperty::getSymbol(t_symbol** s) const
 
 bool DataTypeProperty::getList(AtomList& out) const
 {
-    if (type_ != T_LIST)
+    if (type_ != PropValueType::LIST)
         return false;
 
     out = boost::get<AtomList>(value_);
@@ -248,7 +248,7 @@ bool DataTypeProperty::getList(AtomList& out) const
 
 bool DataTypeProperty::setFloatRange(t_float min, t_float max)
 {
-    if (type_ != T_FLOAT)
+    if (type_ != PropValueType::FLOAT)
         return false;
 
     auto p = std::minmax(min, max);
@@ -258,39 +258,33 @@ bool DataTypeProperty::setFloatRange(t_float min, t_float max)
     return true;
 }
 
-bool DataTypeProperty::setIntRange(long min, long max)
+bool DataTypeProperty::setIntRange(int min, int max)
 {
-    if (type_ != T_INT)
+    if (type_ != PropValueType::INTEGER)
         return false;
 
     auto p = std::minmax(min, max);
     lmin_ = p.first;
     lmax_ = p.second;
-    default_ = clip<long>(boost::get<long>(default_), lmin_, lmax_);
+    default_ = clip<int>(boost::get<int>(default_), lmin_, lmax_);
     return true;
 }
 
 bool DataTypeProperty::setEnumValues(const AtomList& lst)
 {
-    if (type_ != T_SYMBOL)
+    if (type_ != PropValueType::SYMBOL)
         return false;
 
     enum_.clear();
     enum_.append(boost::get<t_symbol*>(default_));
-    enum_.append(lst.filter(ceammc::isSymbol));
+    enum_.append(lst.filtered(ceammc::isSymbol));
     return true;
-}
-
-const std::string& DataTypeProperty::propertyStrType() const
-{
-    static std::string str_[] = { "float", "int", "bool", "symbol", "list" };
-    return str_[type_];
 }
 
 std::string DataTypeProperty::propertyStrValue() const
 {
     bool vbool = false;
-    long vint = 0;
+    int vint = 0;
     t_float vfloat = 0;
     t_symbol* vsym = &s_;
     AtomList vlist;
@@ -334,7 +328,7 @@ bool DataTypeProperty::hasMinValue() const
     if (isFloat())
         return floatRange().first != std::numeric_limits<t_float>::lowest();
     else if (isInt())
-        return intRange().first != std::numeric_limits<long>::lowest();
+        return intRange().first != std::numeric_limits<int>::lowest();
     else
         return false;
 }
@@ -344,7 +338,7 @@ bool DataTypeProperty::hasMaxValue() const
     if (isFloat())
         return floatRange().second != std::numeric_limits<t_float>::max();
     else if (isInt())
-        return intRange().second != std::numeric_limits<long>::max();
+        return intRange().second != std::numeric_limits<int>::max();
     else
         return false;
 }
@@ -354,34 +348,17 @@ bool DataTypeProperty::hasEnumValues() const
     return !enum_.empty();
 }
 
-static PropertyInfoType type2type(DataTypeProperty::Type t)
-{
-    switch (t) {
-    case DataTypeProperty::T_FLOAT:
-        return PropertyInfoType::FLOAT;
-    case DataTypeProperty::T_INT:
-        return PropertyInfoType::INTEGER;
-    case DataTypeProperty::T_BOOL:
-        return PropertyInfoType::BOOLEAN;
-    case DataTypeProperty::T_SYMBOL:
-        return PropertyInfoType::SYMBOL;
-    case DataTypeProperty::T_LIST:
-        return PropertyInfoType::LIST;
-    }
-}
-
 PropertyInfo DataTypeProperty::info() const
 {
     auto name = std::strchr(name_->s_name, '@');
-    PropertyInfo res(name, type2type(type_));
+    PropertyInfo res(name, type_);
 
     if (isFloat()) {
-        res.setRange(fmin_, fmax_);
-        res.setDefault(boost::get<t_float>(default_));
+        if (res.setRangeFloat(fmin_, fmax_))
+            res.setDefault(boost::get<t_float>(default_));
     } else if (isInt()) {
-        res.setDefault((int)boost::get<long>(default_));
+        res.setDefault(boost::get<int>(default_));
     } else if (isBool()) {
-        res.setRange(0, 1);
         res.setDefault(boost::get<bool>(default_) ? 1 : 0);
     } else if (isSymbol()) {
         res.setDefault(boost::get<t_symbol*>(default_));
@@ -406,22 +383,16 @@ PropertyStorage::Dict& PropertyStorage::storage()
 
 t_symbol* PropertyStorage::makeFullName(const std::string& name, t_glist* cnv)
 {
-    std::string res;
-    char buf[30];
-    snprintf(buf, sizeof(buf), "%p:", (void*)cnv);
-    res += buf;
-    res += name;
-    return gensym(res.c_str());
+    char buf[MAXPDSTRING];
+    snprintf(buf, sizeof(buf), "%p:%s", reinterpret_cast<void*>(cnv), name.c_str());
+    return gensym(buf);
 }
 
 t_symbol* PropertyStorage::makeFullName(t_symbol* name, t_glist* cnv)
 {
-    std::string res;
-    char buf[30];
-    snprintf(buf, sizeof(buf), "%p:", (void*)cnv);
-    res += buf;
-    res += name->s_name;
-    return gensym(res.c_str());
+    char buf[MAXPDSTRING];
+    snprintf(buf, sizeof(buf), "%p:%s", reinterpret_cast<void*>(cnv), name->s_name);
+    return gensym(buf);
 }
 
 PropertyPtr::PropertyPtr(t_symbol* name)

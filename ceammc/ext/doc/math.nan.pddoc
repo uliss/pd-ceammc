@@ -12,6 +12,7 @@
             <category>math</category>
             <keywords>math nan</keywords>
             <also>
+                <see>math.nan~</see>
                 <see>math.inf</see>
             </also>
             <since>0.1</since>
@@ -22,7 +23,20 @@
             calculations. Systematic use of NaNs was introduced by the IEEE 754 floating-point
             standard in 1985, along with the representation of other non-finite quantities like
             infinities.</par>
+            <par>When an operation results in a quiet NaN, there is no indication that anything is
+            unusual until the program checks the result and sees a NaN. That is, computation
+            continues without any signal from the floating point unit (FPU) or library if
+            floating-point is implemented in software. A signalling NaN will produce a signal,
+            usually in the form of exception from the FPU. Whether the exception is thrown depends
+            on the state of the FPU.</par>
+            <par>Note: in Pd float point exceptions are disabled.</par>
         </info>
+        <properties>
+            <property name="@type" type="symbol" default="quiet" enum="quiet signal">type of
+            outputed NaN: quiet or signal</property>
+            <property name="@quiet" type="alias">alias to @type quiet</property>
+            <property name="@signal" type="alias">alias to @type signal</property>
+        </properties>
         <inlets>
             <inlet>
                 <xinfo on="bang">outputs value</xinfo>

@@ -29,6 +29,7 @@ PD_TCL=$PD_RESOURCES/tcl
 PD_PO=$PD_RESOURCES/po
 PD_CEAMMC=$PD_EXTRA/ceammc
 PD_SF2=$PD_CEAMMC/sf2
+PD_SAMPLES=$PD_CEAMMC/sound
 
 # absolute dir names
 BUNDLE_APP="${DIST_DIR}/${PD_APP}"
@@ -41,6 +42,7 @@ BUNDLE_BIN="${DIST_DIR}/${PD_BIN}"
 BUNDLE_TCL="${DIST_DIR}/${PD_TCL}"
 BUNDLE_CEAMMC="${DIST_DIR}/${PD_CEAMMC}"
 BUNDLE_SF2="${DIST_DIR}/${PD_SF2}"
+BUNDLE_SAMPLES="${DIST_DIR}/${PD_SAMPLES}"
 BUNDLE_INCLUDE="${DIST_DIR}/${PD_INCLUDE}"
 BUNDLE_COMPLETIONS="${BUNDLE_TCL}/ceammc/custom_completions"
 
@@ -285,6 +287,13 @@ do
     copy ${sf} "${BUNDLE_SF2}"
 done
 
+section "Copying sound samples"
+mkdir -p "${BUNDLE_SAMPLES}"
+for samp in $SRC_CEAMMC/ext/doc/sound/*
+do
+    copy ${samp} "${BUNDLE_SAMPLES}"
+done
+
 section "Copying CEAMMC cmake files"
 mkdir -p "${BUNDLE_INCLUDE}"
 copy "${SRC_DIR}/cmake/PdExternal.cmake" "${BUNDLE_INCLUDE}"
@@ -313,10 +322,17 @@ for pdhelp in ${SRC_CEAMMC}/ext/doc/*-help.pd
 do
     copy ${pdhelp} "${BUNDLE_CEAMMC}"
     chmod 0444 "${BUNDLE_CEAMMC}/$(basename $pdhelp)"
+    pdhelp_base=$(basename $pdhelp | sed 's/-help\.pd$//')
+    extra=`find ${SRC_CEAMMC}/ext/doc -name "${pdhelp_base}.*.pd"`
+    for x in ${extra}
+    do
+        copy ${x} "${BUNDLE_CEAMMC}"
+        chmod 0444 "${BUNDLE_CEAMMC}/$(basename $x)"
+    done
 done
 
 section "Copying CEAMMC help additional files"
-for f in ${SRC_CEAMMC}/ext/doc/*.@(mod|txt|wav)
+for f in ${SRC_CEAMMC}/ext/doc/*.@(mod|txt|wav|glitch)
 do
     copy ${f} "${BUNDLE_CEAMMC}"
     chmod 0444 "${BUNDLE_CEAMMC}/$(basename $f)"

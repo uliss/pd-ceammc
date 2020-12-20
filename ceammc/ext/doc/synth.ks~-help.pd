@@ -6,73 +6,92 @@
 0;
 #X obj 674 11 synth.ks~;
 #X obj 50 118 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1;
+#X obj 251 118 ui.dsp~;
 #X obj 50 147 metro 130;
 #X msg 50 176 0 12 0 36 7 12;
 #X obj 50 205 list.choice;
 #X obj 251 205 ui.knob;
 #X obj 376 205 ui.knob;
+#X obj 510 205 ui.knob;
 #X obj 50 234 + 36;
-#X msg 50 262 @pitch \$1 \, @gate 1;
+#X obj 50 262 makenote 127 100;
 #X msg 251 262 @pos \$1;
-#X msg 376 262 @gain \$1;
-#X obj 50 291 flow.append @gate 0 @msg @delay 10;
+#X msg 376 262 @mute \$1;
+#X msg 510 262 @sharp \$1;
+#X obj 50 291 pack f f;
+#X obj 251 291 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1;
+#X floatatom 376 291 5 0 0 0 - - -;
+#X obj 50 320 msg note;
+#X msg 251 320 @mode \$1;
+#X msg 376 320 @freq \$1;
 #X obj 50 349 synth.ks~;
 #X obj 50 378 ui.gain~ @size 120 16;
 #X obj 50 406 dac~;
-#X obj 50 435 ui.dsp~;
-#X obj 20 474 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 479 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
+#X obj 20 455 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 460 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
 -49933 0;
-#X msg 110 514 @active;
-#X text 245 514 Get/Set on/off dsp processing. Type: int. Default value:
+#X msg 110 495 @active;
+#X text 245 495 Get/Set on/off dsp processing. Type: int. Default value:
 1\. Allowed values: 0 \, 1\.;
-#X msg 110 556 @cutoff;
-#X text 245 556 Get/Set cutoff coefficent (for low pass filter). Type:
+#X msg 110 537 @cutoff;
+#X text 245 537 Get/Set cutoff coefficent (for low pass filter). Type:
 float. Default value: 1\. Range: 0.1\...1\.;
-#X msg 110 598 @gain;
-#X text 245 598 Get/Set pluck gain. Type: float. Default value: 1\.
+#X msg 110 579 @freq;
+#X text 245 579 Get/Set frequency. Type: float. Units: Hz. Default
+value: 130.813\.;
+#X msg 110 621 @gain;
+#X text 245 621 Get/Set pluck gain. Type: float. Default value: 1\.
 Range: 0\...1\.;
-#X msg 110 640 @gate;
-#X text 245 640 Get/Set play trigger - 1: on \, 0: off. Type: float.
+#X msg 110 663 @gate;
+#X text 245 663 Get/Set play trigger - 1: on \, 0: off. Type: float.
 Default value: 0\. Range: 0\...1\.;
-#X msg 110 682 @mode;
-#X text 245 682 Get/Set excitation mode: 0 - pluck \, 1 - strike. Type:
-int. Default value: 0\. Range: 0\...1\. Allowed values: 0 \, 1\.;
-#X msg 110 724 @mute;
-#X text 245 724 Get/Set mute coefficient (0 for no mute and 1 for instant
+#X msg 110 705 @mode;
+#X text 245 705 Get/Set excitation mode: 0 - pluck \, 1 - strike. Type:
+int. Default value: 0\. Range: 0\...1\.;
+#X msg 110 747 @mute;
+#X text 245 747 Get/Set mute coefficient (0 for no mute and 1 for instant
 mute). Type: float. Default value: 0\. Range: 0\...1\.;
-#X msg 110 766 @pitch;
-#X text 245 766 Get/Set pitch. Type: float. Default value: 48\. Range:
-36\...84\.;
-#X msg 110 808 @pos;
-#X text 245 808 Get/Set pluck position (1 is on the bridge). Type:
+#X msg 110 789 @pitch;
+#X text 245 789 Get/Set midi pitch. Type: float. Default value: 48\.
+Range: 36\...84\.;
+#X msg 110 831 @pos;
+#X text 245 831 Get/Set pluck position (1 is on the bridge). Type:
 float. Default value: 0.7\. Range: 0\...1\.;
-#X msg 110 850 @sharp;
-#X text 245 850 Get/Set pluck sharpness. Type: float. Default value:
+#X msg 110 873 @sharp;
+#X text 245 873 Get/Set pluck sharpness. Type: float. Default value:
 0.25\. Range: 0.01\...1\.;
-#X obj 20 902 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 907 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
-0;
-#X text 110 908 1\.;
-#X text 245 908 input signal.;
-#X obj 20 938 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 943 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
+#X obj 20 925 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 930 cnv 5 73 26 empty empty methods: 4 10 0 14 -262144
 -49933 0;
-#X text 110 944 1\.;
-#X text 245 944;
+#X msg 110 965 note;
+#X text 245 965 note on/off message. Arguments are:;
+#X obj 255 988 cnv 1 37 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 988 NOTE: midi note. Type: float.;
+#X obj 255 1011 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1011 VEL: velocity. Type: float. Range: 0\...127\.;
+#X obj 20 1046 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1051 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144
+-49933 0;
+#X text 110 1052 1\.;
+#X text 245 1052 input signal.;
+#X obj 20 1082 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1087 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
+-49933 0;
+#X text 110 1088 1\.;
+#X text 245 1088 synth output.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 115 45 ::;
 #X obj 131 48 ui.link @title synth @url ceammc.synth-help.pd;
-#X obj 1 994 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 997 library: ceammc v0.8.0;
-#N canvas 10 1016 400 290 info 0;
+#X obj 1 1138 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1141 library: ceammc v0.9.1;
+#N canvas 10 1160 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
 #X text 10 32 version:;
-#X text 120 32 0.8.0;
+#X text 120 32 0.9.1;
 #X text 10 54 object:;
 #X text 120 54 synth.ks~;
 #X text 10 76 category:;
@@ -91,18 +110,26 @@ https://github.com/uliss/pure-data;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 generated by pddoc;
-#X restore 10 1016 pd info;
-#X connect 4 0 5 0;
-#X connect 5 0 6 0;
+#X restore 10 1160 pd info;
+#X connect 4 0 6 0;
 #X connect 6 0 7 0;
-#X connect 7 0 10 0;
-#X connect 10 0 11 0;
+#X connect 7 0 8 0;
 #X connect 8 0 12 0;
-#X connect 9 0 13 0;
-#X connect 11 0 14 0;
-#X connect 14 0 15 0;
-#X connect 15 0 16 0;
-#X connect 16 0 17 0;
-#X connect 16 0 17 1;
-#X connect 12 0 15 0;
-#X connect 13 0 15 0;
+#X connect 12 0 13 0;
+#X connect 9 0 14 0;
+#X connect 10 0 15 0;
+#X connect 11 0 16 0;
+#X connect 13 0 17 0;
+#X connect 13 1 17 1;
+#X connect 17 0 20 0;
+#X connect 18 0 21 0;
+#X connect 19 0 22 0;
+#X connect 20 0 23 0;
+#X connect 23 0 24 0;
+#X connect 24 0 25 0;
+#X connect 24 0 25 1;
+#X connect 14 0 23 0;
+#X connect 15 0 23 0;
+#X connect 21 0 23 0;
+#X connect 16 0 23 0;
+#X connect 22 0 23 0;

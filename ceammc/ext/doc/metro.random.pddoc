@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="metro.random">
+        <title>metro.random</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>metro random bang with specified range</description>
+            <license>GPL3 or later</license>
+            <library>ceammc</library>
+            <category>base</category>
+            <keywords>metro random</keywords>
+            <also>
+                <see>metro</see>
+                <see>metro.pattern</see>
+            </also>
+            <since>0.9</since>
+        </meta>
+        <info>
+            <par>Random distribution: uniform</par>
+        </info>
+        <arguments>
+            <argument name="MIN" units="millisecond" minvalue="1" type="int">minimal bang
+            interval</argument>
+            <argument name="MAX" units="millisecond" minvalue="1" type="int">maximum bang
+            interval</argument>
+        </arguments>
+        <properties>
+            <property name="@min" units="millisecond" minvalue="1" type="int" default="100">minimal
+            bang interval</property>
+            <property name="@max" units="millisecond" minvalue="1" type="int" default="200">maximum
+            bang interval</property>
+        </properties>
+        <inlets>
+            <inlet>
+                <xinfo on="float">starts (on &gt; 0) or stops (on &lt;= 0) metro</xinfo>
+            </inlet>
+            <inlet>
+                <xinfo on="list">set random range. min max pair expected.</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet>outputs *bang*</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[T]  [ui.rsl @min 50 @max 1000]
+|    |.
+[metro.random 100 140]
+|
+[click~]
+|
+[flt.resonbp~ 1000 20] [ui.dsp~]
+|
+[ui.hgain~]
+|\
+[dac~]
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

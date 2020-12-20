@@ -10,19 +10,7 @@ public:
     CanvasCurrent(const PdArgs& a);
 
     void onBang() override;
-
-    AtomList p_name() const;
-    AtomList p_dir() const;
-    AtomList p_root() const;
-    AtomList p_abstraction() const;
-    AtomList p_args() const;
-    AtomList p_font() const;
-    AtomList p_paths() const;
     AtomList p_size() const;
-    AtomList p_width() const;
-    AtomList p_height() const;
-    AtomList p_x() const;
-    AtomList p_y() const;
 };
 
 void setup_canvas_current();

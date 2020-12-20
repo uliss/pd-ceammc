@@ -1,6 +1,6 @@
 #include "midi_prg2str.h"
-#include "datatype_string.h"
 #include "ceammc_factory.h"
+#include "datatype_string.h"
 #include "midi_common.h"
 
 Prg2Str::Prg2Str(const PdArgs& a)
@@ -10,13 +10,13 @@ Prg2Str::Prg2Str(const PdArgs& a)
 {
     as_symbol_ = new FlagProperty("@symbol");
     family_ = new FlagProperty("@family");
-    createProperty(as_symbol_);
-    createProperty(family_);
+    addProperty(as_symbol_);
+    addProperty(family_);
 
     createOutlet();
 }
 
-void Prg2Str::onFloat(float v)
+void Prg2Str::onFloat(t_float v)
 {
     int val = v;
 
@@ -30,7 +30,7 @@ void Prg2Str::onFloat(float v)
     if (as_symbol_->value())
         symbolTo(0, name);
     else
-        dataTo(0, DataPtr(new DataTypeString(name->s_name)));
+        atomTo(0, new DataTypeString(name->s_name));
 }
 
 void setup_midi_prg2str()

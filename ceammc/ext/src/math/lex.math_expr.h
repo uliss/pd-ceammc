@@ -2,9 +2,9 @@
 #define math_expr_HEADER_H 1
 #define math_expr_IN_HEADER 1
 
-#line 6 "lex.math_expr.h"
+#line 5 "lex.math_expr.h"
 
-#line 8 "lex.math_expr.h"
+#line 7 "lex.math_expr.h"
 
 #define  YY_INT_ALIGNED short int
 
@@ -12,10 +12,244 @@
 
 #define FLEX_SCANNER
 #define YY_FLEX_MAJOR_VERSION 2
-#define YY_FLEX_MINOR_VERSION 5
-#define YY_FLEX_SUBMINOR_VERSION 35
+#define YY_FLEX_MINOR_VERSION 6
+#define YY_FLEX_SUBMINOR_VERSION 4
 #if YY_FLEX_SUBMINOR_VERSION > 0
 #define FLEX_BETA
+#endif
+
+#ifdef yy_create_buffer
+#define math_expr__create_buffer_ALREADY_DEFINED
+#else
+#define yy_create_buffer math_expr__create_buffer
+#endif
+
+#ifdef yy_delete_buffer
+#define math_expr__delete_buffer_ALREADY_DEFINED
+#else
+#define yy_delete_buffer math_expr__delete_buffer
+#endif
+
+#ifdef yy_scan_buffer
+#define math_expr__scan_buffer_ALREADY_DEFINED
+#else
+#define yy_scan_buffer math_expr__scan_buffer
+#endif
+
+#ifdef yy_scan_string
+#define math_expr__scan_string_ALREADY_DEFINED
+#else
+#define yy_scan_string math_expr__scan_string
+#endif
+
+#ifdef yy_scan_bytes
+#define math_expr__scan_bytes_ALREADY_DEFINED
+#else
+#define yy_scan_bytes math_expr__scan_bytes
+#endif
+
+#ifdef yy_init_buffer
+#define math_expr__init_buffer_ALREADY_DEFINED
+#else
+#define yy_init_buffer math_expr__init_buffer
+#endif
+
+#ifdef yy_flush_buffer
+#define math_expr__flush_buffer_ALREADY_DEFINED
+#else
+#define yy_flush_buffer math_expr__flush_buffer
+#endif
+
+#ifdef yy_load_buffer_state
+#define math_expr__load_buffer_state_ALREADY_DEFINED
+#else
+#define yy_load_buffer_state math_expr__load_buffer_state
+#endif
+
+#ifdef yy_switch_to_buffer
+#define math_expr__switch_to_buffer_ALREADY_DEFINED
+#else
+#define yy_switch_to_buffer math_expr__switch_to_buffer
+#endif
+
+#ifdef yypush_buffer_state
+#define math_expr_push_buffer_state_ALREADY_DEFINED
+#else
+#define yypush_buffer_state math_expr_push_buffer_state
+#endif
+
+#ifdef yypop_buffer_state
+#define math_expr_pop_buffer_state_ALREADY_DEFINED
+#else
+#define yypop_buffer_state math_expr_pop_buffer_state
+#endif
+
+#ifdef yyensure_buffer_stack
+#define math_expr_ensure_buffer_stack_ALREADY_DEFINED
+#else
+#define yyensure_buffer_stack math_expr_ensure_buffer_stack
+#endif
+
+#ifdef yylex
+#define math_expr_lex_ALREADY_DEFINED
+#else
+#define yylex math_expr_lex
+#endif
+
+#ifdef yyrestart
+#define math_expr_restart_ALREADY_DEFINED
+#else
+#define yyrestart math_expr_restart
+#endif
+
+#ifdef yylex_init
+#define math_expr_lex_init_ALREADY_DEFINED
+#else
+#define yylex_init math_expr_lex_init
+#endif
+
+#ifdef yylex_init_extra
+#define math_expr_lex_init_extra_ALREADY_DEFINED
+#else
+#define yylex_init_extra math_expr_lex_init_extra
+#endif
+
+#ifdef yylex_destroy
+#define math_expr_lex_destroy_ALREADY_DEFINED
+#else
+#define yylex_destroy math_expr_lex_destroy
+#endif
+
+#ifdef yyget_debug
+#define math_expr_get_debug_ALREADY_DEFINED
+#else
+#define yyget_debug math_expr_get_debug
+#endif
+
+#ifdef yyset_debug
+#define math_expr_set_debug_ALREADY_DEFINED
+#else
+#define yyset_debug math_expr_set_debug
+#endif
+
+#ifdef yyget_extra
+#define math_expr_get_extra_ALREADY_DEFINED
+#else
+#define yyget_extra math_expr_get_extra
+#endif
+
+#ifdef yyset_extra
+#define math_expr_set_extra_ALREADY_DEFINED
+#else
+#define yyset_extra math_expr_set_extra
+#endif
+
+#ifdef yyget_in
+#define math_expr_get_in_ALREADY_DEFINED
+#else
+#define yyget_in math_expr_get_in
+#endif
+
+#ifdef yyset_in
+#define math_expr_set_in_ALREADY_DEFINED
+#else
+#define yyset_in math_expr_set_in
+#endif
+
+#ifdef yyget_out
+#define math_expr_get_out_ALREADY_DEFINED
+#else
+#define yyget_out math_expr_get_out
+#endif
+
+#ifdef yyset_out
+#define math_expr_set_out_ALREADY_DEFINED
+#else
+#define yyset_out math_expr_set_out
+#endif
+
+#ifdef yyget_leng
+#define math_expr_get_leng_ALREADY_DEFINED
+#else
+#define yyget_leng math_expr_get_leng
+#endif
+
+#ifdef yyget_text
+#define math_expr_get_text_ALREADY_DEFINED
+#else
+#define yyget_text math_expr_get_text
+#endif
+
+#ifdef yyget_lineno
+#define math_expr_get_lineno_ALREADY_DEFINED
+#else
+#define yyget_lineno math_expr_get_lineno
+#endif
+
+#ifdef yyset_lineno
+#define math_expr_set_lineno_ALREADY_DEFINED
+#else
+#define yyset_lineno math_expr_set_lineno
+#endif
+
+#ifdef yywrap
+#define math_expr_wrap_ALREADY_DEFINED
+#else
+#define yywrap math_expr_wrap
+#endif
+
+#ifdef yyalloc
+#define math_expr_alloc_ALREADY_DEFINED
+#else
+#define yyalloc math_expr_alloc
+#endif
+
+#ifdef yyrealloc
+#define math_expr_realloc_ALREADY_DEFINED
+#else
+#define yyrealloc math_expr_realloc
+#endif
+
+#ifdef yyfree
+#define math_expr_free_ALREADY_DEFINED
+#else
+#define yyfree math_expr_free
+#endif
+
+#ifdef yytext
+#define math_expr_text_ALREADY_DEFINED
+#else
+#define yytext math_expr_text
+#endif
+
+#ifdef yyleng
+#define math_expr_leng_ALREADY_DEFINED
+#else
+#define yyleng math_expr_leng
+#endif
+
+#ifdef yyin
+#define math_expr_in_ALREADY_DEFINED
+#else
+#define yyin math_expr_in
+#endif
+
+#ifdef yyout
+#define math_expr_out_ALREADY_DEFINED
+#else
+#define yyout math_expr_out
+#endif
+
+#ifdef yy_flex_debug
+#define math_expr__flex_debug_ALREADY_DEFINED
+#else
+#define yy_flex_debug math_expr__flex_debug
+#endif
+
+#ifdef yylineno
+#define math_expr_lineno_ALREADY_DEFINED
+#else
+#define yylineno math_expr_lineno
 #endif
 
 /* First, we deal with  platform-specific or compiler-specific issues. */
@@ -51,7 +285,6 @@ typedef int16_t flex_int16_t;
 typedef uint16_t flex_uint16_t;
 typedef int32_t flex_int32_t;
 typedef uint32_t flex_uint32_t;
-typedef uint64_t flex_uint64_t;
 #else
 typedef signed char flex_int8_t;
 typedef short int flex_int16_t;
@@ -59,7 +292,6 @@ typedef int flex_int32_t;
 typedef unsigned char flex_uint8_t; 
 typedef unsigned short int flex_uint16_t;
 typedef unsigned int flex_uint32_t;
-#endif /* ! C99 */
 
 /* Limits of integral types. */
 #ifndef INT8_MIN
@@ -90,32 +322,36 @@ typedef unsigned int flex_uint32_t;
 #define UINT32_MAX             (4294967295U)
 #endif
 
+#ifndef SIZE_MAX
+#define SIZE_MAX               (~(size_t)0)
+#endif
+
+#endif /* ! C99 */
+
 #endif /* ! FLEXINT_H */
 
-#ifdef __cplusplus
+/* begin standard C++ headers. */
 
-/* The "const" storage-class-modifier is valid. */
-#define YY_USE_CONST
-
-#else	/* ! __cplusplus */
-
-/* C99 requires __STDC__ to be defined as 1. */
-#if defined (__STDC__)
-
-#define YY_USE_CONST
-
-#endif	/* defined (__STDC__) */
-#endif	/* ! __cplusplus */
-
-#ifdef YY_USE_CONST
+/* TODO: this is always defined, so inline it */
 #define yyconst const
+
+#if defined(__GNUC__) && __GNUC__ >= 3
+#define yynoreturn __attribute__((__noreturn__))
 #else
-#define yyconst
+#define yynoreturn
 #endif
 
 /* Size of default input buffer. */
 #ifndef YY_BUF_SIZE
+#ifdef __ia64__
+/* On IA-64, the buffer size is 16k, not 8k.
+ * Moreover, YY_BUF_SIZE is 2*YY_READ_BUF_SIZE in the general case.
+ * Ditto for the __ia64__ case accordingly.
+ */
+#define YY_BUF_SIZE 32768
+#else
 #define YY_BUF_SIZE 16384
+#endif /* __ia64__ */
 #endif
 
 #ifndef YY_TYPEDEF_YY_BUFFER_STATE
@@ -128,9 +364,9 @@ typedef struct yy_buffer_state *YY_BUFFER_STATE;
 typedef size_t yy_size_t;
 #endif
 
-extern yy_size_t math_expr_leng;
+extern int yyleng;
 
-extern FILE *math_expr_in, *math_expr_out;
+extern FILE *yyin, *yyout;
 
 #ifndef YY_STRUCT_YY_BUFFER_STATE
 #define YY_STRUCT_YY_BUFFER_STATE
@@ -144,12 +380,12 @@ struct yy_buffer_state
 	/* Size of input buffer in bytes, not including room for EOB
 	 * characters.
 	 */
-	yy_size_t yy_buf_size;
+	int yy_buf_size;
 
 	/* Number of characters read into yy_ch_buf, not including EOB
 	 * characters.
 	 */
-	yy_size_t yy_n_chars;
+	int yy_n_chars;
 
 	/* Whether we "own" the buffer - i.e., we know we created it,
 	 * and can realloc() it to grow it, and should free() it to
@@ -172,7 +408,7 @@ struct yy_buffer_state
 
     int yy_bs_lineno; /**< The line count. */
     int yy_bs_column; /**< The column count. */
-    
+
 	/* Whether to try to fill the input buffer when we reach the
 	 * end of it.
 	 */
@@ -183,31 +419,34 @@ struct yy_buffer_state
 	};
 #endif /* !YY_STRUCT_YY_BUFFER_STATE */
 
-void math_expr_restart (FILE *input_file  );
-void math_expr__switch_to_buffer (YY_BUFFER_STATE new_buffer  );
-YY_BUFFER_STATE math_expr__create_buffer (FILE *file,int size  );
-void math_expr__delete_buffer (YY_BUFFER_STATE b  );
-void math_expr__flush_buffer (YY_BUFFER_STATE b  );
-void math_expr_push_buffer_state (YY_BUFFER_STATE new_buffer  );
-void math_expr_pop_buffer_state (void );
+void yyrestart ( FILE *input_file  );
+void yy_switch_to_buffer ( YY_BUFFER_STATE new_buffer  );
+YY_BUFFER_STATE yy_create_buffer ( FILE *file, int size  );
+void yy_delete_buffer ( YY_BUFFER_STATE b  );
+void yy_flush_buffer ( YY_BUFFER_STATE b  );
+void yypush_buffer_state ( YY_BUFFER_STATE new_buffer  );
+void yypop_buffer_state ( void );
 
-YY_BUFFER_STATE math_expr__scan_buffer (char *base,yy_size_t size  );
-YY_BUFFER_STATE math_expr__scan_string (yyconst char *yy_str  );
-YY_BUFFER_STATE math_expr__scan_bytes (yyconst char *bytes,yy_size_t len  );
+YY_BUFFER_STATE yy_scan_buffer ( char *base, yy_size_t size  );
+YY_BUFFER_STATE yy_scan_string ( const char *yy_str  );
+YY_BUFFER_STATE yy_scan_bytes ( const char *bytes, int len  );
 
-void *math_expr_alloc (yy_size_t  );
-void *math_expr_realloc (void *,yy_size_t  );
-void math_expr_free (void *  );
+void *yyalloc ( yy_size_t  );
+void *yyrealloc ( void *, yy_size_t  );
+void yyfree ( void *  );
 
 /* Begin user sect3 */
 
-#define math_expr_wrap(n) 1
+#define math_expr_wrap() (/*CONSTCOND*/1)
 #define YY_SKIP_YYWRAP
 
-extern int math_expr_lineno;
+extern int yylineno;
 
-extern char *math_expr_text;
-#define yytext_ptr math_expr_text
+extern char *yytext;
+#ifdef yytext_ptr
+#undef yytext_ptr
+#endif
+#define yytext_ptr yytext
 
 #ifdef YY_HEADER_EXPORT_START_CONDITIONS
 #define INITIAL 0
@@ -229,31 +468,31 @@ extern char *math_expr_text;
 /* Accessor methods to globals.
    These are made visible to non-reentrant scanners for convenience. */
 
-int math_expr_lex_destroy (void );
+int yylex_destroy ( void );
 
-int math_expr_get_debug (void );
+int yyget_debug ( void );
 
-void math_expr_set_debug (int debug_flag  );
+void yyset_debug ( int debug_flag  );
 
-YY_EXTRA_TYPE math_expr_get_extra (void );
+YY_EXTRA_TYPE yyget_extra ( void );
 
-void math_expr_set_extra (YY_EXTRA_TYPE user_defined  );
+void yyset_extra ( YY_EXTRA_TYPE user_defined  );
 
-FILE *math_expr_get_in (void );
+FILE *yyget_in ( void );
 
-void math_expr_set_in  (FILE * in_str  );
+void yyset_in  ( FILE * _in_str  );
 
-FILE *math_expr_get_out (void );
+FILE *yyget_out ( void );
 
-void math_expr_set_out  (FILE * out_str  );
+void yyset_out  ( FILE * _out_str  );
 
-yy_size_t math_expr_get_leng (void );
+			int yyget_leng ( void );
 
-char *math_expr_get_text (void );
+char *yyget_text ( void );
 
-int math_expr_get_lineno (void );
+int yyget_lineno ( void );
 
-void math_expr_set_lineno (int line_number  );
+void yyset_lineno ( int _line_number  );
 
 /* Macros after this point can all be overridden by user definitions in
  * section 1.
@@ -261,18 +500,18 @@ void math_expr_set_lineno (int line_number  );
 
 #ifndef YY_SKIP_YYWRAP
 #ifdef __cplusplus
-extern "C" int math_expr_wrap (void );
+extern "C" int yywrap ( void );
 #else
-extern int math_expr_wrap (void );
+extern int yywrap ( void );
 #endif
 #endif
 
 #ifndef yytext_ptr
-static void yy_flex_strncpy (char *,yyconst char *,int );
+static void yy_flex_strncpy ( char *, const char *, int );
 #endif
 
 #ifdef YY_NEED_STRLEN
-static int yy_flex_strlen (yyconst char * );
+static int yy_flex_strlen ( const char * );
 #endif
 
 #ifndef YY_NO_INPUT
@@ -281,7 +520,12 @@ static int yy_flex_strlen (yyconst char * );
 
 /* Amount of stuff to slurp up with each read. */
 #ifndef YY_READ_BUF_SIZE
+#ifdef __ia64__
+/* On IA-64, the buffer size is 16k, not 8k */
+#define YY_READ_BUF_SIZE 16384
+#else
 #define YY_READ_BUF_SIZE 8192
+#endif /* __ia64__ */
 #endif
 
 /* Number of entries by which start-condition stack grows. */
@@ -295,9 +539,9 @@ static int yy_flex_strlen (yyconst char * );
 #ifndef YY_DECL
 #define YY_DECL_IS_OURS 1
 
-extern int math_expr_lex (void);
+extern int yylex (void);
 
-#define YY_DECL int math_expr_lex (void)
+#define YY_DECL int yylex (void)
 #endif /* !YY_DECL */
 
 /* yy_get_previous_state - get the state just before the EOB char was reached */
@@ -314,9 +558,154 @@ extern int math_expr_lex (void);
 #undef YY_DECL
 #endif
 
-#line 147 "math_expr.lex"
+#ifndef math_expr__create_buffer_ALREADY_DEFINED
+#undef yy_create_buffer
+#endif
+#ifndef math_expr__delete_buffer_ALREADY_DEFINED
+#undef yy_delete_buffer
+#endif
+#ifndef math_expr__scan_buffer_ALREADY_DEFINED
+#undef yy_scan_buffer
+#endif
+#ifndef math_expr__scan_string_ALREADY_DEFINED
+#undef yy_scan_string
+#endif
+#ifndef math_expr__scan_bytes_ALREADY_DEFINED
+#undef yy_scan_bytes
+#endif
+#ifndef math_expr__init_buffer_ALREADY_DEFINED
+#undef yy_init_buffer
+#endif
+#ifndef math_expr__flush_buffer_ALREADY_DEFINED
+#undef yy_flush_buffer
+#endif
+#ifndef math_expr__load_buffer_state_ALREADY_DEFINED
+#undef yy_load_buffer_state
+#endif
+#ifndef math_expr__switch_to_buffer_ALREADY_DEFINED
+#undef yy_switch_to_buffer
+#endif
+#ifndef math_expr_push_buffer_state_ALREADY_DEFINED
+#undef yypush_buffer_state
+#endif
+#ifndef math_expr_pop_buffer_state_ALREADY_DEFINED
+#undef yypop_buffer_state
+#endif
+#ifndef math_expr_ensure_buffer_stack_ALREADY_DEFINED
+#undef yyensure_buffer_stack
+#endif
+#ifndef math_expr_lex_ALREADY_DEFINED
+#undef yylex
+#endif
+#ifndef math_expr_restart_ALREADY_DEFINED
+#undef yyrestart
+#endif
+#ifndef math_expr_lex_init_ALREADY_DEFINED
+#undef yylex_init
+#endif
+#ifndef math_expr_lex_init_extra_ALREADY_DEFINED
+#undef yylex_init_extra
+#endif
+#ifndef math_expr_lex_destroy_ALREADY_DEFINED
+#undef yylex_destroy
+#endif
+#ifndef math_expr_get_debug_ALREADY_DEFINED
+#undef yyget_debug
+#endif
+#ifndef math_expr_set_debug_ALREADY_DEFINED
+#undef yyset_debug
+#endif
+#ifndef math_expr_get_extra_ALREADY_DEFINED
+#undef yyget_extra
+#endif
+#ifndef math_expr_set_extra_ALREADY_DEFINED
+#undef yyset_extra
+#endif
+#ifndef math_expr_get_in_ALREADY_DEFINED
+#undef yyget_in
+#endif
+#ifndef math_expr_set_in_ALREADY_DEFINED
+#undef yyset_in
+#endif
+#ifndef math_expr_get_out_ALREADY_DEFINED
+#undef yyget_out
+#endif
+#ifndef math_expr_set_out_ALREADY_DEFINED
+#undef yyset_out
+#endif
+#ifndef math_expr_get_leng_ALREADY_DEFINED
+#undef yyget_leng
+#endif
+#ifndef math_expr_get_text_ALREADY_DEFINED
+#undef yyget_text
+#endif
+#ifndef math_expr_get_lineno_ALREADY_DEFINED
+#undef yyget_lineno
+#endif
+#ifndef math_expr_set_lineno_ALREADY_DEFINED
+#undef yyset_lineno
+#endif
+#ifndef math_expr_get_column_ALREADY_DEFINED
+#undef yyget_column
+#endif
+#ifndef math_expr_set_column_ALREADY_DEFINED
+#undef yyset_column
+#endif
+#ifndef math_expr_wrap_ALREADY_DEFINED
+#undef yywrap
+#endif
+#ifndef math_expr_get_lval_ALREADY_DEFINED
+#undef yyget_lval
+#endif
+#ifndef math_expr_set_lval_ALREADY_DEFINED
+#undef yyset_lval
+#endif
+#ifndef math_expr_get_lloc_ALREADY_DEFINED
+#undef yyget_lloc
+#endif
+#ifndef math_expr_set_lloc_ALREADY_DEFINED
+#undef yyset_lloc
+#endif
+#ifndef math_expr_alloc_ALREADY_DEFINED
+#undef yyalloc
+#endif
+#ifndef math_expr_realloc_ALREADY_DEFINED
+#undef yyrealloc
+#endif
+#ifndef math_expr_free_ALREADY_DEFINED
+#undef yyfree
+#endif
+#ifndef math_expr_text_ALREADY_DEFINED
+#undef yytext
+#endif
+#ifndef math_expr_leng_ALREADY_DEFINED
+#undef yyleng
+#endif
+#ifndef math_expr_in_ALREADY_DEFINED
+#undef yyin
+#endif
+#ifndef math_expr_out_ALREADY_DEFINED
+#undef yyout
+#endif
+#ifndef math_expr__flex_debug_ALREADY_DEFINED
+#undef yy_flex_debug
+#endif
+#ifndef math_expr_lineno_ALREADY_DEFINED
+#undef yylineno
+#endif
+#ifndef math_expr_tables_fload_ALREADY_DEFINED
+#undef yytables_fload
+#endif
+#ifndef math_expr_tables_destroy_ALREADY_DEFINED
+#undef yytables_destroy
+#endif
+#ifndef math_expr_TABLES_NAME_ALREADY_DEFINED
+#undef yyTABLES_NAME
+#endif
+
+#line 146 "math_expr.lex"
 
 
-#line 321 "lex.math_expr.h"
+#line 709 "lex.math_expr.h"
 #undef math_expr_IN_HEADER
 #endif /* math_expr_HEADER_H */

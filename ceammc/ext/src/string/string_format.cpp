@@ -33,22 +33,22 @@ StringFormat::StringFormat(const PdArgs& a)
 {
     createOutlet();
 
-    propSetFormat(positionalArguments());
-    createCbProperty("@format", &StringFormat::propGetFormat, &StringFormat::propSetFormat);
+    createCbProperty("@format", &StringFormat::propGetFormat, &StringFormat::propSetFormat)
+        ->setArgIndex(0);
 
     int_mode_ = new FlagProperty("@int");
-    createProperty(int_mode_);
+    addProperty(int_mode_);
 }
 
 void StringFormat::onBang()
 {
-    dataTo(0, DataPtr(new DataTypeString(fmt_result_)));
+    atomTo(0, new DataTypeString(fmt_result_));
 }
 
-void StringFormat::onData(const DataPtr& d)
+void StringFormat::onData(const Atom& d)
 {
     try {
-        fmt_result_ = tfm::format(fmt_str_.c_str(), d->toString());
+        fmt_result_ = tfm::format(fmt_str_.c_str(), d.asData()->toString());
     } catch (std::exception& e) {
         OBJ_ERR << e.what();
         return;
@@ -57,7 +57,7 @@ void StringFormat::onData(const DataPtr& d)
     onBang();
 }
 
-void StringFormat::onFloat(float v)
+void StringFormat::onFloat(t_float v)
 {
     try {
         if (int_mode_->value()) {
@@ -127,7 +127,7 @@ void StringFormat::propSetFormat(const AtomList& lst)
     fmt_str_ = to_string(lst, " ");
 }
 
-extern "C" void setup_string0x2eformat()
+void setup_string_format()
 {
     ObjectFactory<StringFormat> obj("string.format");
     obj.processData();

@@ -19,7 +19,7 @@ HwAppleSMC::HwAppleSMC(const PdArgs& args)
 {
     createOutlet();
 
-    createCbProperty("@keys", &HwAppleSMC::propKeys);
+    createCbListProperty("@keys", [this]() -> AtomList { return propKeys(); });
 
 #ifndef WITH_SMC
     OBJ_ERR << "no system management control support for this device";
@@ -35,7 +35,7 @@ AtomList HwAppleSMC::propKeys() const
 #endif
 }
 
-void HwAppleSMC::m_read(t_symbol* s, const AtomList& l)
+void HwAppleSMC::m_read(t_symbol* s, const AtomListView& l)
 {
 #ifdef WITH_SMC
     if (!checkArgs(l, ARG_SYMBOL, s))

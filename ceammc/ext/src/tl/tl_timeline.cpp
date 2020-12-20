@@ -25,20 +25,58 @@ static const char* SYM_FIXED = "fixed";
 
 TlTimeLine::TlTimeLine(const PdArgs& args)
     : BaseObject(args)
-    , tl_(this, positionalFloatArgument(0, 60) * 1000)
+    , tl_(this, parsedPosArgs().floatAt(0, 60) * 1000)
     , cmd_parser_(this)
 {
     createOutlet();
 
-    createCbProperty("@is_running", &TlTimeLine::propIsRunning);
-    createCbProperty("@length", &TlTimeLine::propLength);
-    createCbProperty("@phase", &TlTimeLine::propPhase);
-    createCbProperty("@size", &TlTimeLine::propNumEvents);
-    createCbProperty("@current", &TlTimeLine::propCurrentTime);
+    createCbBoolProperty("@is_running",
+        [this]() -> bool { return tl_.state() == tl::STATE_RUN; });
+
+    createCbFloatProperty("@length",
+        [this]() -> t_float { return tl_.length() / 1000; })
+        ->setUnitsSec();
+
+    createCbFloatProperty("@phase",
+        [this]() -> t_float { return (tl_.length() == 0) ? 0 : (tl_.currentTime() / tl_.length()); })
+        ->setFloatCheck(PropValueConstraints::CLOSED_RANGE, 0, 1);
+
+    createCbIntProperty("@size", [this]() -> int { return tl_.events().size(); })
+        ->checkNonNegative();
+
+    createCbFloatProperty("@current",
+        [this]() -> t_float { return tl_.currentTime(); })
+        ->setUnitsMs();
+
     createCbProperty("@events", &TlTimeLine::propEvents);
 
-    createCbProperty("@loop", &TlTimeLine::propLoop, &TlTimeLine::propSetLoop);
-    createCbProperty("@mode", &TlTimeLine::propMode, &TlTimeLine::propSetMode);
+    createCbBoolProperty(
+        "@loop",
+        [this]() -> bool { return tl_.isLoop(); },
+        [this](bool v) -> bool { tl_.setLoop(v); return true; });
+
+    createCbSymbolProperty(
+        "@mode",
+        [this]() -> t_symbol* {
+            switch (tl_.mode()) {
+            case tl::MODE_FIXED:
+                return gensym(SYM_FIXED);
+            case tl::MODE_INFINITE:
+            default:
+                return gensym(SYM_INF);
+            } },
+        [this](t_symbol* s) -> bool {
+            if (s == gensym(SYM_INF) || s == gensym(SYM_INF2))
+                tl_.setMode(tl::MODE_INFINITE);
+            else if (s == gensym(SYM_FIXED))
+                tl_.setMode(tl::MODE_FIXED);
+            else {
+                OBJ_ERR << gensym(SYM_INF) << " or " << gensym(SYM_FIXED) << " expected";
+                return false;
+            }
+
+            return true;
+        });
 }
 
 void TlTimeLine::dump() const
@@ -64,7 +102,7 @@ void TlTimeLine::event(size_t n, t_float at)
 
 void TlTimeLine::eventStart()
 {
-    listTo(0, AtomList(gensym(SYM_START), Atom(0.f)));
+    listTo(0, { gensym(SYM_START), 0.f });
 }
 
 void TlTimeLine::eventEnd()
@@ -72,63 +110,53 @@ void TlTimeLine::eventEnd()
     listTo(0, AtomList(gensym(SYM_END), tl_.length()));
 }
 
-void TlTimeLine::m_add(t_symbol* s, const AtomList& lst)
+void TlTimeLine::m_add(t_symbol* s, const AtomListView& lst)
 {
     if (!cmd_parser_.parse(to_string(Message(s, lst))))
         METHOD_ERR(s) << "can't add event: " << lst;
 }
 
-void TlTimeLine::m_remove(t_symbol* s, const AtomList& lst)
+void TlTimeLine::m_remove(t_symbol* s, const AtomListView& lst)
 {
     if (!cmd_parser_.parse(to_string(Message(s, lst))))
         METHOD_ERR(s) << "can't remove event: " << lst;
 }
 
-void TlTimeLine::m_clear(t_symbol* s, const AtomList& lst)
+void TlTimeLine::m_clear(t_symbol* s, const AtomListView& lst)
 {
     tl_.clear();
 }
 
-void TlTimeLine::m_start(t_symbol* s, const AtomList& lst)
+void TlTimeLine::m_start(t_symbol* s, const AtomListView& lst)
 {
     tl_.start();
 }
 
-void TlTimeLine::m_stop(t_symbol* s, const AtomList& lst)
+void TlTimeLine::m_stop(t_symbol* s, const AtomListView& lst)
 {
     tl_.stop();
 }
 
-void TlTimeLine::m_pause(t_symbol* s, const AtomList& lst)
+void TlTimeLine::m_pause(t_symbol* s, const AtomListView& lst)
 {
     tl_.pause();
 }
 
-void TlTimeLine::m_reset(t_symbol* s, const AtomList& lst)
+void TlTimeLine::m_reset(t_symbol* s, const AtomListView& lst)
 {
     tl_.reset();
 }
 
-void TlTimeLine::m_to_event(t_symbol* s, const AtomList& lst)
+void TlTimeLine::m_to_event(t_symbol* s, const AtomListView& lst)
 {
     if (!cmd_parser_.parse(to_string(Message(s, lst))))
         METHOD_ERR(s) << "can't move to event: " << lst;
 }
 
-void TlTimeLine::m_to_time(t_symbol* s, const AtomList& lst)
+void TlTimeLine::m_to_time(t_symbol* s, const AtomListView& lst)
 {
     if (!cmd_parser_.parse(to_string(Message(s, lst))))
         METHOD_ERR(s) << "can't move to time: " << lst;
-}
-
-AtomList TlTimeLine::propIsRunning() const
-{
-    return AtomList(Atom(tl_.state() == tl::STATE_RUN));
-}
-
-AtomList TlTimeLine::propLength() const
-{
-    return Atom(tl_.length() / 1000);
 }
 
 AtomList TlTimeLine::propNumEvents() const
@@ -139,11 +167,6 @@ AtomList TlTimeLine::propNumEvents() const
 AtomList TlTimeLine::propCurrentTime() const
 {
     return Atom(tl_.currentTime());
-}
-
-AtomList TlTimeLine::propLoop() const
-{
-    return Atom(tl_.isLoop());
 }
 
 AtomList TlTimeLine::propPhase() const
@@ -158,33 +181,6 @@ AtomList TlTimeLine::propEvents() const
         res.append(Atom(e.name));
 
     return res;
-}
-
-void TlTimeLine::propSetLoop(const AtomList& l)
-{
-    tl_.setLoop(atomlistToValue<bool>(l, false));
-}
-
-AtomList TlTimeLine::propMode() const
-{
-    switch (tl_.mode()) {
-    case tl::MODE_FIXED:
-        return Atom(gensym(SYM_FIXED));
-    case tl::MODE_INFINITE:
-        return Atom(gensym(SYM_INF));
-    }
-}
-
-void TlTimeLine::propSetMode(const AtomList& lst)
-{
-    t_symbol* s = lst.symbolAt(0, 0);
-
-    if (s == gensym(SYM_INF) || s == gensym(SYM_INF2))
-        tl_.setMode(tl::MODE_INFINITE);
-    else if (s == gensym(SYM_FIXED))
-        tl_.setMode(tl::MODE_FIXED);
-    else
-        OBJ_ERR << gensym(SYM_INF) << " or " << gensym(SYM_FIXED) << " expected";
 }
 
 tl::RunState TlTimeLine::state() const

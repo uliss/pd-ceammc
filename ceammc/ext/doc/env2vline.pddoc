@@ -53,7 +53,7 @@
 <![CDATA[
 [loadbang]                            [r a1]
 |                                     |
-[env easr 20 -4 1000 -8]              [env->array env_a1]
+[envelope easr 20 -4 1000 -8]         [env->array env_a1]
 | |
 | [s a1] [bang( [T]
 |        |      |
@@ -70,11 +70,11 @@
 [line 0 100 1 400 0.2 1000 0.7 2000 0, set_stop_point 2 1, set_stop_point 3 1, bang(
 |
 |
-[env]    [next( [reset(               [r a2]
-| |      |      |                     |
-| [s a2] |      |                     [env->array env_b1]
-|        |      |
-[env->vline     ]
+[envelope] [next( [reset(               [r a2]
+| |        |      |                     |
+| [s a2]   |      |                     [env->array env_b1]
+|          |      |
+[env->vline       ]
 |
 [vline~] [osc~ 1200]                  [array env_b1 w=110 h=80 yr=0..1]
 |        |.

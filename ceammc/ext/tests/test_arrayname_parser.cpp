@@ -13,8 +13,20 @@
  *****************************************************************************/
 #include "array_load_pattern.h"
 #include "catch.hpp"
+#include "lex/array_loader.h"
 
 #include <cstdio>
+
+bool parse_array_string(const std::string& str)
+{
+    using namespace ceammc;
+    ArrayLoader loader;
+    loader.setSrcSampleCount(80000);
+    loader.setSrcChannels(2);
+    bool res = loader.parse(str);
+    loader.validateArrays();
+    return res;
+}
 
 TEST_CASE("arrayname_parser", "[arrayname_parser]")
 {
@@ -229,5 +241,46 @@ TEST_CASE("arrayname_parser", "[arrayname_parser]")
         REQUIRE(res.size() == 2);
         REQUIRE(res[0] == "array1");
         REQUIRE(res[1] == "array0");
+    }
+
+    SECTION("lexer")
+    {
+        REQUIRE(parse_array_string("to array_[]"));
+        REQUIRE(parse_array_string("to array_[12-17]"));
+        REQUIRE(parse_array_string("to array_[l|r]"));
+        REQUIRE(parse_array_string("to array_[left|center|right]"));
+        REQUIRE(parse_array_string("to array_[0|1|10]"));
+        REQUIRE(parse_array_string("to array_[0|1|9|13] @r"));
+        REQUIRE(parse_array_string("to array_[0|1|9|13] @resize @offset 1ms"));
+        REQUIRE(parse_array_string("to array_[0|1|9|13] @resize @begin 0.75 sec"));
+        REQUIRE(parse_array_string("to array_[0|1|9|13] @offset 00:01"));
+        REQUIRE(parse_array_string("to array_[0|1|9|13] @offset 00:00:01.01"));
+        REQUIRE(parse_array_string("to array_[0|1|9|13] @l 150 ms"));
+        REQUIRE(parse_array_string("to []_pat @r @g 0.5"));
+        REQUIRE(parse_array_string("to array_[0-3]_gr @r @g -0.5db @resample 48000"));
+        REQUIRE(parse_array_string("to a1 a2 @n"));
+        REQUIRE(parse_array_string("to array_[0|1|9|13] @b 00:01 @l 30 sec"));
+        REQUIRE(parse_array_string("to a1 @ch 1"));
+        REQUIRE(parse_array_string("to a1 a2 @ch 1 2"));
+        REQUIRE(parse_array_string("to a[1-4] @ch 2-4 1"));
+        REQUIRE(parse_array_string("to \"array[1]\""));
+        REQUIRE(parse_array_string("to \"@array[1]\""));
+        REQUIRE(parse_array_string("@to a1 a2 @ch 4-1"));
+        REQUIRE(parse_array_string("@to a1 @resample 2/1"));
+        REQUIRE(parse_array_string("@to a1 @resample 48000/44100"));
+        REQUIRE(parse_array_string("@to a1 @resample 24000"));
+        REQUIRE(parse_array_string("@to a1 @b 1000"));
+        REQUIRE(parse_array_string("@to a1 @b 1 sec"));
+        REQUIRE(parse_array_string("@to a1 @b 1sec"));
+        REQUIRE(parse_array_string("@to a1 @b 1s"));
+        REQUIRE(parse_array_string("@to a1 @b 1 ms"));
+        REQUIRE(parse_array_string("@to a1 @b 100ms"));
+        REQUIRE(parse_array_string("@to a1 @b 0.5s"));
+        REQUIRE(parse_array_string("@to a1 @b $-0.5s"));
+        REQUIRE(parse_array_string("@to a1 @b $-1000"));
+        REQUIRE(parse_array_string("@to a1 @b 00:00:01.15"));
+        REQUIRE(parse_array_string("@to a1 @b 00:00:01"));
+        REQUIRE(parse_array_string("@to a1 @b 00:01"));
+        REQUIRE(parse_array_string("@to a1 @b 00:00.15"));
     }
 }

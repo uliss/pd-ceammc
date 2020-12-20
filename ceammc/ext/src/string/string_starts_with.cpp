@@ -14,33 +14,41 @@
 #include "string_starts_with.h"
 #include "ceammc_factory.h"
 #include "ceammc_format.h"
+#include "ceammc_string.h"
+#include "datatype_string.h"
 
 StringStartsWith::StringStartsWith(const PdArgs& a)
     : BaseObject(a)
-    , suffix_(to_string(positionalArguments()))
 {
+    addProperty(new SymbolProperty("@prefix", &s_))
+        ->setSuccessFn([this](Property* p) { prefix_ = static_cast<SymbolProperty*>(p)->value()->s_name; });
+    property("@prefix")->setArgIndex(0);
+
     createInlet();
     createOutlet();
 }
 
 void StringStartsWith::onSymbol(t_symbol* s)
 {
-    floatTo(0, DataTypeString(s).startsWith(suffix_) ? 1 : 0);
+    boolTo(0, string::starts_with(s->s_name, prefix_.c_str()));
 }
 
 void StringStartsWith::onInlet(size_t, const AtomList& l)
 {
-    suffix_ = to_string(l);
+    prefix_ = parse_quoted(l);
 }
 
-void StringStartsWith::onDataT(const DataTPtr<DataTypeString>& dptr)
+void StringStartsWith::onDataT(const StringAtom& str)
 {
-    floatTo(0, dptr->startsWith(suffix_) ? 1 : 0);
+    boolTo(0, string::starts_with(str->str(), prefix_));
 }
 
-extern "C" void setup_string0x2estarts_with()
+void setup_string_starts_with()
 {
     ObjectFactory<StringStartsWith> obj("string.starts_with");
     obj.processData<DataTypeString>();
     obj.addAlias("str.starts_with");
+    obj.setCategory("string");
+    obj.setKeywords({ "starts", "search" });
+    obj.setDescription("checks if string starts with specified substring");
 }

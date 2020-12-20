@@ -7,7 +7,6 @@
 #include <string.h>
 
 #include <algorithm>
-#include <boost/foreach.hpp>
 #include <iostream>
 
 #define ARDUINO_THREAD_CHECK(status, msg)                               \
@@ -286,7 +285,7 @@ namespace hw {
         PortList lst = ArduinoThread::findAllArduinos();
         std::vector<std::string> res;
 
-        BOOST_FOREACH (serial::PortInfo& pi, lst) {
+        for (auto& pi : lst) {
             res.push_back(pi.port);
         }
 
@@ -298,7 +297,7 @@ namespace hw {
         PortList lst = ArduinoThread::findAllDevices();
         std::vector<std::string> res;
 
-        BOOST_FOREACH (serial::PortInfo& pi, lst) {
+        for (auto& pi : lst) {
             res.push_back(pi.port);
         }
 

@@ -4,8 +4,9 @@
 FlowGate::FlowGate(const PdArgs& args)
     : BaseObject(args)
 {
-    state_ = new BoolProperty("@state", positionalFloatArgument(0, 0) != 0);
-    createProperty(state_);
+    state_ = new BoolProperty("@state", false);
+    state_->setArgIndex(0);
+    addProperty(state_);
 
     createInlet();
     createOutlet();
@@ -43,7 +44,7 @@ void FlowGate::onList(const AtomList& l)
     listTo(0, l);
 }
 
-void FlowGate::onAny(t_symbol* s, const AtomList& l)
+void FlowGate::onAny(t_symbol* s, const AtomListView& l)
 {
     if (!state_->value())
         return;
@@ -51,12 +52,12 @@ void FlowGate::onAny(t_symbol* s, const AtomList& l)
     anyTo(0, s, l);
 }
 
-void FlowGate::onData(const DataPtr& ptr)
+void FlowGate::onData(const Atom& data)
 {
     if (!state_->value())
         return;
 
-    dataTo(0, ptr);
+    atomTo(0, data);
 }
 
 void FlowGate::onInlet(size_t n, const AtomList& l)
@@ -67,24 +68,8 @@ void FlowGate::onInlet(size_t n, const AtomList& l)
     state_->set(l);
 }
 
-bool FlowGate::processAnyProps(t_symbol* s, const AtomList& l)
+bool FlowGate::processAnyProps(t_symbol* s, const AtomListView& l)
 {
-    static t_symbol* PROP_STATE = gensym("@state");
-    static t_symbol* PROP_GET_STATE = gensym("@state?");
-
-    // get
-    if (s == PROP_GET_STATE) {
-        anyTo(0, PROP_STATE, state_->value());
-        return true;
-    }
-
-    // set
-    if (s == PROP_STATE) {
-        state_->set(l);
-        return true;
-    }
-
-    // pass thru others
     return false;
 }
 
@@ -92,4 +77,6 @@ void setup_flow_gate()
 {
     ObjectFactory<FlowGate> obj("flow.gate");
     obj.addAlias("gate");
+
+    obj.setXletsInfo({ "any: input data flow", "int: 1 or 0 to open/close  the gate" }, { "any: output data flow" });
 }

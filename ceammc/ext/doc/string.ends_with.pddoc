@@ -6,11 +6,11 @@
             <authors>
                 <author>Serge Poltavsky</author>
             </authors>
-            <description>checks if given string ends with specified suffix</description>
+            <description>checks if string ends with specified substring</description>
             <license>GPL3 or later</license>
             <library>ceammc</library>
             <category>string</category>
-            <keywords>ends_with</keywords>
+            <keywords>ends search</keywords>
             <since>0.3</since>
             <aliases>
                 <alias>str.ends_with</alias>
@@ -22,9 +22,12 @@
         <arguments>
             <argument name="SUFFIX" type="symbol">suffix</argument>
         </arguments>
+        <properties>
+            <property name="@suffix" type="symbol" default="">suffix to search</property>
+        </properties>
         <inlets>
             <inlet>
-                <xinfo>Input string or symbol</xinfo>
+                <xinfo>input string or symbol</xinfo>
             </inlet>
             <inlet>
                 <xinfo>search suffix (string or symbol)</xinfo>

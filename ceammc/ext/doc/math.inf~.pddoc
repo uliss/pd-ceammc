@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="math.inf~">
+        <title>math.inf~</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>inifinity signal generator</description>
+            <license>GPL3 or later</license>
+            <library>ceammc</library>
+            <category>math</category>
+            <keywords>math inf</keywords>
+            <also>
+                <see>math.inf</see>
+                <see>math.nan~</see>
+            </also>
+            <since>0.9.1</since>
+        </meta>
+        <info>
+            <par>IEEE 754 floating point numbers can represent positive or negative infinity, and
+            NaN (not a number). These three values arise from calculations whose result is
+            undefined or cannot be represented accurately.</par>
+        </info>
+        <inlets>
+            <inlet>
+                <xinfo>control input</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet type="audio">output value</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[math.inf~]      [ui.dsp~]
+|        |
+|        [*~ -1]
+|        |
+[ui.n~]  [ui.n~]
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

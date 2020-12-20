@@ -16,7 +16,7 @@
 
 SetDifference::SetDifference(const PdArgs& a)
     : BaseObject(a)
-    , set1_(positionalArguments())
+    , set1_(parsedPosArgs())
 {
     createInlet();
     createOutlet();
@@ -24,26 +24,24 @@ SetDifference::SetDifference(const PdArgs& a)
 
 void SetDifference::onList(const AtomList& l)
 {
-    onDataT(DataTypeSet(l));
+    onDataT(SetAtom(l));
 }
 
-void SetDifference::onDataT(const DataTPtr<DataTypeSet>& dptr)
+void SetDifference::onDataT(const SetAtom& set)
 {
-    DataTypeSet res;
-    DataTypeSet::set_difference(res, *dptr, set1_);
-    dataTo(0, DataTPtr<DataTypeSet>(res));
+    atomTo(0, SetAtom(DataTypeSet::difference(*set, set1_)));
 }
 
 void SetDifference::onInlet(size_t, const AtomList& l)
 {
-    if (l.isDataType<DataTypeSet>()) {
-        set1_ = *DataPtr(l[0]).as<DataTypeSet>();
+    if (l.isA<DataTypeSet>()) {
+        set1_ = *l[0].asD<DataTypeSet>();
     } else {
         set1_ = DataTypeSet(l);
     }
 }
 
-extern "C" void setup_set0x2edifference()
+void setup_set_difference()
 {
     ObjectFactory<SetDifference> obj("set.diff");
     obj.processData<DataTypeSet>();

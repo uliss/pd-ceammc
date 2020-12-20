@@ -3,20 +3,21 @@
 
 EnvValueScale::EnvValueScale(const PdArgs& args)
     : BaseObject(args)
-    , scale_(0)
+    , scale_(nullptr)
 {
-    scale_ = new FloatProperty("@scale", positionalFloatArgument(0, 1));
-    createProperty(scale_);
+    scale_ = new FloatProperty("@scale", 1);
+    scale_->setArgIndex(0);
+    addProperty(scale_);
 
     createOutlet();
 }
 
-void EnvValueScale::onDataT(const DataTPtr<DataTypeEnv>& dptr)
+void EnvValueScale::onDataT(const EnvAtom& env)
 {
-    DataTypeEnv res(*dptr);
+    DataTypeEnv res(*env);
     res.scaleValue(scale_->value());
 
-    dataTo(0, DataTPtr<DataTypeEnv>(res));
+    atomTo(0, EnvAtom(res));
 }
 
 void setup_env_vscale()

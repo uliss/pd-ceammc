@@ -15,6 +15,7 @@
 #include <algorithm>
 #include <cmath>
 
+#include "ceammc_abstractdata.h"
 #include "ceammc_atomlist.h"
 #include "ceammc_format.h"
 
@@ -46,39 +47,51 @@ static const int TYPE_WIDTH = 50;
 static const int TEXT_XPAD = 3;
 static const int TEXT_YPAD = 2;
 
-static inline const t_rgba& msg_color(t_symbol* s_type)
+static inline const t_rgba& msg_color(UIMessageType type)
 {
-    if (s_type == &s_list)
-        return COLOR_LIST_TYPE;
-    else if (s_type == &s_float)
-        return COLOR_FLOAT_TYPE;
-    else if (s_type == &s_bang)
+    switch (type) {
+    case MSG_TYPE_BANG:
         return COLOR_BANG_TYPE;
-    else if (s_type == &s_symbol)
+    case MSG_TYPE_FLOAT:
+        return COLOR_FLOAT_TYPE;
+    case MSG_TYPE_SYMBOL:
         return COLOR_SYMBOL_TYPE;
-    else if (s_type == SYM_DATA_TYPE)
-        return COLOR_DATA_TYPE;
-    else if (s_type->s_name[0] == '@')
+    case MSG_TYPE_PROPERTY:
         return COLOR_PROPERTY_TYPE;
-    else
+    case MSG_TYPE_LIST:
+        return COLOR_LIST_TYPE;
+    case MSG_TYPE_DATA:
+        return COLOR_DATA_TYPE;
+    case MSG_TYPE_ANY:
+    default:
         return COLOR_DEFAULT_TYPE;
+    }
 }
 
 UIDisplay::UIDisplay()
     : prop_display_events(1)
     , prop_display_type(0)
     , prop_auto_size(1)
-    , on_bang_(false)
-    , type_width_(-1)
-    , prop_active_color(rgba_white)
     , prop_text_color(rgba_black)
+    , prop_active_color(rgba_white)
     , font_(gensym(FONT_FAMILY), FONT_SIZE)
     , txt_value_(font_.font(), ColorRGBA::black(), ETEXT_UP_LEFT, ETEXT_JLEFT, ETEXT_WRAP)
     , txt_type_(font_.font(), ColorRGBA::black(), ETEXT_UP_LEFT, ETEXT_JLEFT, ETEXT_NOWRAP)
-    , msg_type_(gensym("..."))
+    , msg_type_txt_(gensym("..."))
     , timer_(this, &UIDisplay::onClock)
     , last_update_(clock_getlogicaltime())
+    , type_width_(-1)
+    , on_bang_(false)
+    , msg_type_(MSG_TYPE_ANY)
 {
+}
+
+void UIDisplay::init(t_symbol* name, const AtomList& args, bool usePresets)
+{
+    UIObject::init(name, args, usePresets);
+
+    if (name == gensym("ui.dt"))
+        prop_display_type = 1;
 }
 
 void UIDisplay::paint()
@@ -102,7 +115,7 @@ void UIDisplay::paint()
             p.drawRect(0, 0, type_width_ * zoom(), r.height);
             p.fill();
 
-            txt_type_.set(msg_type_->s_name, 0 + TEXT_XPAD, 0 + TEXT_YPAD, type_width_ - TEXT_XPAD, r.height);
+            txt_type_.set(msg_type_txt_->s_name, 0 + TEXT_XPAD, 0 + TEXT_YPAD, type_width_ - TEXT_XPAD, r.height);
             txt_type_.setColor(prop_text_color);
             p.drawText(txt_type_);
 
@@ -131,19 +144,38 @@ void UIDisplay::okSize(t_rect* newrect)
 void UIDisplay::onBang()
 {
     msg_txt_ = "";
-    msg_type_ = &s_bang;
+    msg_type_txt_ = &s_bang;
+    msg_type_ = MSG_TYPE_BANG;
 
     flash();
     update();
 }
 
+void UIDisplay::appendFloatToText(t_float f)
+{
+    char buf[48];
+
+    if (prop_float_width_ < 0) {
+        if (sizeof(t_float) == sizeof(float))
+            snprintf(buf, sizeof(buf), "%.9g", f);
+        else
+            snprintf(buf, sizeof(buf), "%.17g", f);
+
+        msg_txt_ += buf;
+    } else if (prop_float_width_ == 0) {
+        msg_txt_ += std::to_string((t_int)f);
+    } else {
+        snprintf(buf, sizeof(buf), "%.*f", prop_float_width_, f);
+        msg_txt_ += buf;
+    }
+}
+
 void UIDisplay::onFloat(t_float f)
 {
-    char buf[64];
-    snprintf(buf, 63, "%g", f);
-
-    msg_txt_ = buf;
-    msg_type_ = &s_float;
+    msg_txt_.clear();
+    appendFloatToText(f);
+    msg_type_txt_ = &s_float;
+    msg_type_ = MSG_TYPE_FLOAT;
 
     flash();
     update();
@@ -152,25 +184,50 @@ void UIDisplay::onFloat(t_float f)
 void UIDisplay::onSymbol(t_symbol* s)
 {
     msg_txt_ = s->s_name;
-    msg_type_ = &s_symbol;
+    msg_type_txt_ = &s_symbol;
+    msg_type_ = MSG_TYPE_SYMBOL;
 
     flash();
     update();
 }
 
+void UIDisplay::setMessage(UIMessageType t, t_symbol* s, const AtomList& lst)
+{
+    msg_type_ = t;
+    msg_type_txt_ = s;
+
+    msg_txt_.clear();
+
+    for (auto& a : lst) {
+        // space separator
+        if (!msg_txt_.empty())
+            msg_txt_ += ' ';
+
+        if (a.isFloat())
+            appendFloatToText(a.asT<t_float>());
+        else if (a.isSymbol())
+            msg_txt_ += a.asT<t_symbol*>()->s_name;
+        else if (a.isData())
+            msg_txt_ += a.asData()->toString();
+        else
+            msg_txt_ += to_string(a);
+    }
+}
+
 void UIDisplay::onList(const AtomList& lst)
 {
-    onAny(&s_list, lst);
+    if (lst.isData())
+        setMessage(MSG_TYPE_DATA, gensym(lst[0].asData()->typeName().c_str()), lst);
+    else
+        setMessage(MSG_TYPE_LIST, &s_list, lst);
+
+    flash();
+    update();
 }
 
 void UIDisplay::onAny(t_symbol* s, const AtomList& lst)
 {
-    msg_txt_ = to_string(lst);
-    msg_type_ = s;
-
-    if (lst.size() == 1 && lst[0].isData())
-        msg_type_ = SYM_DATA_TYPE;
-
+    setMessage(MSG_TYPE_ANY, s, lst);
     flash();
     update();
 }
@@ -182,7 +239,9 @@ void UIDisplay::onProperty(t_symbol* s, const AtomList& lst)
         return;
     }
 
-    onAny(s, lst);
+    setMessage(MSG_TYPE_PROPERTY, s, lst);
+    flash();
+    update();
 }
 
 void UIDisplay::onDblClick(t_object* view, const t_pt& pt, long modifiers)
@@ -198,14 +257,21 @@ const std::string& UIDisplay::text() const
 
 const std::string UIDisplay::type() const
 {
-    return msg_type_->s_name;
+    return msg_type_txt_->s_name;
+}
+
+const char* UIDisplay::annotateInlet(int /*n*/) const
+{
+    return "any message";
 }
 
 void UIDisplay::setup()
 {
     UIObjectFactory<UIDisplay> obj("ui.display");
     obj.addAlias("ui.d");
+    obj.addAlias("ui.dt");
     obj.hideLabel();
+    obj.useAnnotations();
 
     obj.setDefaultSize(150, 18);
 
@@ -215,6 +281,8 @@ void UIDisplay::setup()
     obj.addProperty("auto_size", _("Auto size"), true, &UIDisplay::prop_auto_size, _("Main"));
     obj.addProperty(PROP_TEXT_COLOR, _("Text Color"), DEFAULT_TEXT_COLOR, &UIDisplay::prop_text_color);
     obj.addProperty(PROP_ACTIVE_COLOR, _("Active Color"), DEFAULT_ACTIVE_COLOR, &UIDisplay::prop_active_color);
+    obj.addIntProperty("float_width", _("Float formatting width"), -1, &UIDisplay::prop_float_width_, _("Main"));
+    obj.setPropertyRange("float_width", -1, 17);
 
     obj.setPropertyRedirect("send");
     obj.setPropertyRedirect("size");
@@ -232,6 +300,7 @@ void UIDisplay::setup()
     obj.setPropertyRedirect("display_events");
     obj.setPropertyRedirect("display_type");
     obj.setPropertyRedirect("auto_size");
+    obj.setPropertyRedirect("float_width");
 
     obj.useBang();
     obj.useSymbol();
@@ -255,14 +324,10 @@ void UIDisplay::update()
     last_update_ = clock_getlogicaltime();
 
     if (prop_display_type) {
-        const bool calc_type_wd = (msg_type_ != &s_float
-            && msg_type_ != &s_bang
-            && msg_type_ != &s_symbol
-            && msg_type_ != &s_list
-            && msg_type_ != SYM_DATA_TYPE);
+        const bool calc_type_wd = (msg_type_ == MSG_TYPE_ANY || msg_type_ == MSG_TYPE_DATA);
 
         if (calc_type_wd)
-            type_width_ = std::max<int>(TYPE_WIDTH, strlen(msg_type_->s_name) * 7) + 3;
+            type_width_ = std::max<int>(TYPE_WIDTH, strlen(msg_type_txt_->s_name) * 7) + 3;
         else
             type_width_ = TYPE_WIDTH;
 

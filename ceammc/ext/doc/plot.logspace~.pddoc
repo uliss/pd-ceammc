@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="plot.logspace~">
+        <title>plot.logspace~</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>outputs numbers spaced evenly on a log scale</description>
+            <license>GPL3 or later</license>
+            <library>ceammc</library>
+            <category>array</category>
+            <keywords>array geom log scale</keywords>
+            <also>
+                <see>plot.linspace~</see>
+                <see>plot.geomspace~</see>
+            </also>
+            <since>0.9</since>
+        </meta>
+        <info>
+            <par>In linear space, the sequence starts at base^start (base to the power of start)
+            and ends with base^stop (see @endpoint).</par>
+        </info>
+        <arguments>
+            <argument name="start" type="float">@start property</argument>
+            <argument name="stop" type="float">@stop property</argument>
+        </arguments>
+        <properties>
+            <property name="@start" minvalue="0" type="float" default="0">starting value of the
+            sequence: base^start</property>
+            <property name="@stop" minvalue="0" type="float" default="2">the final value
+            (base^stop) of the sequence, unless @endpoint is false. In that case, @n + 1 values are
+            spaced over the interval in log-space, of which all but the last (a sequence of length
+            @n) are returned.</property>
+            <property name="@n" minvalue="4" maxvalue="1024" type="int" default="100">number of
+            points</property>
+            <property name="@base" enum="10 2 e" type="atom" default="10">x-axis scale
+            base</property>
+            <property name="@2" type="atom">alias to @base 2</property>
+            <property name="@10" type="atom">alias to @base 10</property>
+            <property name="@e" type="atom">alias to @base e</property>
+            <property name="@endpoint" type="int" enum="0 1" default="1">include @stop to
+            interval</property>
+        </properties>
+        <inlets>
+            <inlet>
+                <xinfo on="bang">starts output</xinfo>
+                <xinfo on="float">output specified number of values, change @n property
+                valuue</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet type="audio">signal output</outlet>
+            <outlet>output to [array.plot~] or [ui.plot~]</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[B]
+|
+|
+[plot.logspace~ 1 4 @10]
+|      ^|.
+[ui.plot~ @size 400 150 @xlabels 1 @ylabels 1 @xmin_grid 1 @ymin_ticks 0 @xmin_ticks 0 @yauto 1]
+
+
+
+
+
+
+
+
+
+
+[ui.dsp~]
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

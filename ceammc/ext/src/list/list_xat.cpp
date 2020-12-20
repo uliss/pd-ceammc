@@ -12,9 +12,10 @@
  * this file belongs to.
  *****************************************************************************/
 #include "list_xat.h"
-#include "datatype_mlist.h"
 #include "ceammc_convert.h"
 #include "ceammc_factory.h"
+#include "ceammc_property_enum.h"
+#include "datatype_mlist.h"
 
 static t_symbol* SYM_REL;
 static t_symbol* SYM_CLIP;
@@ -23,26 +24,28 @@ static t_symbol* SYM_FOLD;
 
 ListXAt::ListXAt(const PdArgs& args)
     : BaseObject(args)
-    , list_(positionalArguments())
     , def_(nullptr)
     , at_method_(nullptr)
 {
     createInlet();
     createOutlet();
 
+    createCbListProperty(
+        "@value",
+        [this]() -> AtomList { return list_; },
+        [this](const AtomList& l) -> bool { list_ = l; return true; })
+        ->setArgIndex(0);
+
     def_ = new AtomProperty("@default", Atom());
-    createProperty(def_);
+    addProperty(def_);
 
-    at_method_ = new SymbolEnumProperty("@method", SYM_REL);
-    at_method_->appendEnum(SYM_CLIP);
-    at_method_->appendEnum(SYM_WRAP);
-    at_method_->appendEnum(SYM_FOLD);
-    createProperty(at_method_);
+    at_method_ = new SymbolEnumProperty("@method", { SYM_REL, SYM_CLIP, SYM_WRAP, SYM_FOLD });
+    addProperty(at_method_);
 
-    createProperty(new SymbolEnumAlias("@rel", at_method_, SYM_REL));
-    createProperty(new SymbolEnumAlias("@clip", at_method_, SYM_CLIP));
-    createProperty(new SymbolEnumAlias("@wrap", at_method_, SYM_WRAP));
-    createProperty(new SymbolEnumAlias("@fold", at_method_, SYM_FOLD));
+    addProperty(new SymbolEnumAlias("@rel", at_method_, SYM_REL));
+    addProperty(new SymbolEnumAlias("@clip", at_method_, SYM_CLIP));
+    addProperty(new SymbolEnumAlias("@wrap", at_method_, SYM_WRAP));
+    addProperty(new SymbolEnumAlias("@fold", at_method_, SYM_FOLD));
 }
 
 void ListXAt::onFloat(t_float f)
@@ -50,7 +53,7 @@ void ListXAt::onFloat(t_float f)
     auto atom = at(int(f));
 
     if (atom)
-        atomTo(0, atom->toAtom());
+        atomTo(0, *atom);
     else if (!def_->value().isNone())
         atomTo(0, def_->value());
     else
@@ -66,7 +69,7 @@ void ListXAt::onList(const AtomList& lst)
         auto atom = at(el.asInt(std::numeric_limits<int>::max()));
 
         if (atom)
-            res.append(atom->toAtom());
+            res.append(*atom);
         else if (!def_->value().isNone())
             res.append(def_->value());
         else
@@ -78,7 +81,7 @@ void ListXAt::onList(const AtomList& lst)
 
 void ListXAt::onInlet(size_t n, const AtomList& lst)
 {
-    if (lst.isData() && !lst.isDataType<DataTypeMList>()) {
+    if (lst.isData() && !lst.isA<DataTypeMList>()) {
         OBJ_ERR << "invalid datatype. Only data.mlist is supported!";
         return;
     }
@@ -86,11 +89,11 @@ void ListXAt::onInlet(size_t n, const AtomList& lst)
     list_ = lst;
 }
 
-const DataAtom* ListXAt::at(int pos) const
+const Atom* ListXAt::at(int pos) const
 {
-    auto mlist = list_.asSingle<DataTypeMList>();
+    if (list_.isA<DataTypeMList>()) {
+        auto mlist = list_.asD<DataTypeMList>();
 
-    if (mlist) {
         const size_t N = mlist->size();
         if (N == 0)
             return nullptr;
@@ -140,4 +143,15 @@ void setup_list_xat()
     SYM_FOLD = gensym("fold");
 
     ObjectFactory<ListXAt> obj("list.^at");
+
+    obj.setDescription("on input index(es) outputs list element(s)");
+    obj.addAuthor("Serge Poltavsky");
+    obj.setKeywords({ "list", "at" });
+    obj.setCategory("list");
+    obj.setSinceVersion(0, 6);
+
+    ListXAt::setInletsInfo(obj.classPointer(), { "int:  index\n"
+                                                 "list: list of indexes",
+                                                   "list: set value" });
+    ListXAt::setOutletsInfo(obj.classPointer(), { "list" });
 }

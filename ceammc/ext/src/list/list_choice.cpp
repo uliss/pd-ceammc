@@ -1,7 +1,7 @@
 #include "list_choice.h"
-#include "datatype_mlist.h"
 #include "ceammc_factory.h"
 #include "ceammc_log.h"
+#include "datatype_mlist.h"
 
 #include <cstdlib>
 
@@ -14,7 +14,7 @@ ListChoice::ListChoice(const PdArgs& a)
 {
     // do not repeat index value (not the values itself in list!)
     no_repeat_ = new BoolProperty("@norepeat", false);
-    createProperty(no_repeat_);
+    addProperty(no_repeat_);
 
     createOutlet();
 }
@@ -56,6 +56,15 @@ void ListChoice::onList(const AtomList& l)
 void setup_list_choice()
 {
     ObjectFactory<ListChoice> obj("list.choice");
-    obj.mapFloatToList();
+    obj.useDefaultPdFloatFn();
     obj.processData<DataTypeMList>();
+
+    obj.setDescription("outputs random element from list");
+    obj.addAuthor("Serge Poltavsky");
+    obj.setKeywords({ "list", "random", "choice" });
+    obj.setCategory("list");
+    obj.setSinceVersion(0, 1);
+
+    ListChoice::setInletsInfo(obj.classPointer(), { "list or Mlist" });
+    ListChoice::setOutletsInfo(obj.classPointer(), { "atom" });
 }

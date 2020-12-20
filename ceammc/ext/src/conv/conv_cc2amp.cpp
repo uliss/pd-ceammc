@@ -21,11 +21,13 @@ CC2Amp::CC2Amp(const PdArgs& a)
 {
     createOutlet();
 
-    from_ = new FloatProperty("@from", positionalFloatArgument(0, 0));
-    to_ = new FloatProperty("@to", positionalFloatArgument(1, 1));
+    from_ = new FloatProperty("@from", 0);
+    from_->setArgIndex(0);
+    to_ = new FloatProperty("@to", 1);
+    to_->setArgIndexNext(from_);
 
-    createProperty(from_);
-    createProperty(to_);
+    addProperty(from_);
+    addProperty(to_);
 }
 
 void CC2Amp::onFloat(t_float v)
@@ -44,7 +46,7 @@ t_float CC2Amp::convert(t_float v)
     return convert::lin2lin<t_float>(v, 0, 127, from_->value(), to_->value());
 }
 
-extern "C" void setup_conv0x2ecc2amp()
+void setup_conv_cc2amp()
 {
     ObjectFactory<CC2Amp> obj("conv.cc2amp");
     obj.addAlias("cc->amp");

@@ -20,8 +20,14 @@
         </meta>
         <arguments>
             <argument name="N" type="int" minvalue="1">number of inputs</argument>
-            <argument name="VALS" type="list">default values for all inlets. If not enough default values given it sets to 0.</argument>
+            <argument name="VALS" type="list">default values for all inlets. If not enough default
+            values given it sets to 0.</argument>
         </arguments>
+        <properties>
+            <property name="@n" type="int" minvalue="1" default="1" maxvalue="255">number of
+            inlets</property>
+            <property name="@init" type="list">default init values</property>
+        </properties>
         <inlets dynamic="true">
             <inlet number="1">
                 <xinfo on="bang">output current value</xinfo>
@@ -52,7 +58,7 @@
 |    |     |.   |       |       |..
 [flow.pack 3 0 0 ABC {w=20}       ]
 |
-[ui.display @display_type=1]
+[ui.display @display_type 1]
 ]]>
             </pdascii>
         </example>

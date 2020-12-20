@@ -20,7 +20,7 @@
 using namespace ceammc;
 
 class HoaXlet : public BaseObject {
-    IntPropertyMinEq* extra_;
+    IntProperty* extra_;
 
 public:
     HoaXlet(const PdArgs& args);
@@ -34,7 +34,7 @@ public:
     void onFloat(t_float v) final;
     void onSymbol(t_symbol* s) final;
     void onList(const AtomList& l) final;
-    void onAny(t_symbol* s, const AtomList& l) final;
+    void onAny(t_symbol* s, const AtomListView& l) final;
 
 public:
     static HoaIn* fromObject(void* obj);
@@ -50,9 +50,9 @@ public:
     void onFloat(t_float v) final;
     void onSymbol(t_symbol* s) final;
     void onList(const AtomList& l) final;
-    void onAny(t_symbol* s, const AtomList& l) final;
+    void onAny(t_symbol* s, const AtomListView& l) final;
 
-    bool processAnyProps(t_symbol* sel, const AtomList& lst) override;
+    bool processAnyProps(t_symbol* sel, const AtomListView& lst) override;
 
     void setOutlet(t_outlet* x);
 
@@ -62,7 +62,7 @@ public:
 };
 
 class HoaXletTilde : public SoundExternal {
-    IntPropertyMinEq* extra_;
+    IntProperty* extra_;
 
 protected:
     t_sample* signal_;

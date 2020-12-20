@@ -14,29 +14,29 @@
 #X obj 50 227 flow.reject_if;
 #X obj 232 227 < 10;
 #X floatatom 50 256 5 0 0 0 - - -;
-#X obj 20 295 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 300 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
+#X obj 20 305 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 310 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
-#X text 110 301 1\.;
-#X text 245 301 input value.;
-#X text 110 321 2\.;
-#X text 150 321 *int*;
-#X text 245 321 value from predicate (0 or 1). If *1* reject value
+#X text 110 311 1\.;
+#X text 245 311 input value.;
+#X text 110 331 2\.;
+#X text 150 331 *int*;
+#X text 245 331 value from predicate (0 or 1). If *1* reject value
 \, if *0* - pass.;
-#X obj 20 366 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 371 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
+#X obj 20 376 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 381 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 372 1\.;
-#X text 245 372 passed values.;
-#X text 110 392 2\.;
-#X text 245 392 output value to predicate.;
+#X text 110 382 1\.;
+#X text 245 382 passed values.;
+#X text 110 402 2\.;
+#X text 245 402 output value to predicate.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 115 45 ::;
 #X obj 131 48 ui.link @title flow @url ceammc.flow-help.pd;
 #X obj 1 505 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 508 library: ceammc v0.8.0;
+#X text 10 508 library: ceammc v0.9.1;
 #X text 420 520 see also:;
 #X obj 494 520 flow.pass_if;
 #X obj 596 520 flow.reject;
@@ -46,7 +46,7 @@
 #X text 10 10 library:;
 #X text 120 10 ceammc;
 #X text 10 32 version:;
-#X text 120 32 0.8.0;
+#X text 120 32 0.9.1;
 #X text 10 54 object:;
 #X text 120 54 flow.reject_if;
 #X text 10 76 category:;

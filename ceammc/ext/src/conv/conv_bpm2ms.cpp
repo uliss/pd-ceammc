@@ -32,11 +32,14 @@ void BpmToMs::onFloat(t_float v)
 
 void BpmToMs::onList(const AtomList& lst)
 {
-    listTo(0, lst.map(bpm2ms));
+    listTo(0, lst.mapFloat(bpm2ms));
 }
 
-extern "C" void setup_conv0x2ebpm2ms()
+void setup_conv_bpm2ms()
 {
     ObjectFactory<BpmToMs> obj("conv.bpm2ms");
     obj.addAlias("bpm->ms");
+
+    obj.setXletsInfo({ "float: bpm" }, { "float: period in ms" });
+
 }

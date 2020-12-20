@@ -23,15 +23,15 @@ class FlowPassIf : public BaseObject {
 
 public:
     FlowPassIf(const PdArgs& a);
-    void onBang();
-    void onFloat(float v);
-    void onSymbol(t_symbol* s);
-    void onList(const AtomList& l);
-    void onAny(t_symbol* s, const AtomList& l);
+    void onBang() override;
+    void onFloat(t_float v) override;
+    void onSymbol(t_symbol* s) override;
+    void onList(const AtomList& l) override;
+    void onAny(t_symbol* s, const AtomListView& l) override;
 
-    void onInlet(size_t n, const AtomList& l);
+    void onInlet(size_t n, const AtomList& l) override;
 };
 
-extern "C" void setup_flow0x2epass_if();
+void setup_flow_pass_if();
 
 #endif // FLOW_PASS_IF_H

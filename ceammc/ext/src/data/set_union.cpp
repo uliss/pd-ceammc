@@ -16,7 +16,7 @@
 
 SetUnion::SetUnion(const PdArgs& a)
     : BaseObject(a)
-    , set1_(positionalArguments())
+    , set1_(parsedPosArgs())
 {
     createInlet();
     createOutlet();
@@ -24,25 +24,23 @@ SetUnion::SetUnion(const PdArgs& a)
 
 void SetUnion::onList(const AtomList& lst)
 {
-    onDataT(DataTypeSet(lst));
+    onDataT(SetAtom(lst));
 }
 
-void SetUnion::onDataT(const DataTPtr<DataTypeSet>& dptr)
+void SetUnion::onDataT(const SetAtom& set)
 {
-    DataTypeSet res;
-    DataTypeSet::set_union(res, *dptr, set1_);
-    dataTo(0, DataTPtr<DataTypeSet>(res));
+    atomTo(0, SetAtom(DataTypeSet::set_union(*set, set1_)));
 }
 
 void SetUnion::onInlet(size_t, const AtomList& lst)
 {
-    if (lst.isDataType<DataTypeSet>())
-        set1_ = *DataPtr(lst[0])->as<DataTypeSet>();
+    if (lst.isA<DataTypeSet>())
+        set1_ = *lst.asD<DataTypeSet>();
     else
         set1_ = DataTypeSet(lst);
 }
 
-extern "C" void setup_set0x2eunion()
+void setup_set_union()
 {
     ObjectFactory<SetUnion> obj("set.union");
     obj.processData<DataTypeSet>();

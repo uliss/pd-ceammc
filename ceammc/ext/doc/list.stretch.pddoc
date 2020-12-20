@@ -7,7 +7,7 @@
                 <author>Alex Nadzharov</author>
                 <author>Serge Poltavsky</author>
             </authors>
-            <description>stretches list - chenges its size with linear interpolation.</description>
+            <description>stretches list - changes its size with linear interpolation</description>
             <license>GPL3 or later</license>
             <library>ceammc</library>
             <category>list</category>
@@ -18,7 +18,7 @@
             </also>
         </meta>
         <properties>
-            <property name="@size" type="int" minvalue="1" default="1">new size</property>
+            <property name="@size" type="int" minvalue="0" default="1">new size</property>
         </properties>
         <arguments>
             <argument name="stretch" type="int" minvalue="1">New size of output list. Input list

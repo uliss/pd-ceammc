@@ -23,10 +23,6 @@
 # 
 
 include(CMakeParseArguments)
-# allow creating targets with reserved names or which do not match the validity pattern
-if(${CMAKE_VERSION} VERSION_GREATER "3.0")
-    cmake_policy(SET CMP0037 OLD)
-endif()
 
 function(make_pddoc_lib)
     set(_OPTIONS_ARGS)
@@ -38,6 +34,17 @@ function(make_pddoc_lib)
     set(_LIB_PD_FILES)
     set(_LIB_XLET_DB_FILES)
     set(_LIB_PDDOC_FILES)
+
+    set(TARGET_NAME ${_LIB_NAME})
+
+    # check for ending "~". replace it to _tilde
+    # because targets with ~ in names are not allowed, see CMP0037
+    if("${_LIB_NAME}" MATCHES ".+~$")
+        string(LENGTH ${_LIB_NAME} _len)
+        math(EXPR _len "${_len} - 1")
+        string(SUBSTRING ${_LIB_NAME} 0 ${_len} _name)
+        set(TARGET_NAME "${_name}_tilde")
+    endif()
     
     foreach(f ${_LIB_FILES})
         set(fname "${CMAKE_CURRENT_BINARY_DIR}/${f}-help.pd")
@@ -80,13 +87,13 @@ function(make_pddoc_lib)
         COMMAND ${CMAKE_COMMAND} -E copy_if_different "${_LIB_NAME}-help.pd" ${CMAKE_CURRENT_SOURCE_DIR})
 
     # extract categories from library XML file and generate their categoryX-help.pd
-    add_custom_target(${_LIB_NAME}_pddoc_cat
+    add_custom_target(${TARGET_NAME}_pddoc_cat
         DEPENDS ${DOC_PD_FILES} "${_LIB_NAME}.xml"
         COMMAND ${PD_CAT2PD} "${_LIB_NAME}.xml"
         WORKING_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}")
     
     # generate all library documentation and xlet database
-    add_custom_target(${_LIB_NAME}_pddoc
+    add_custom_target(${TARGET_NAME}_pddoc
         DEPENDS ${_LIB_PD_FILES} "${_LIB_NAME}_lib.xml" "${_LIB_NAME}-help.pd"
         COMMAND cat "*-xlet_db.txt" | sort > "${_LIB_NAME}.db"
         COMMAND ${CMAKE_COMMAND} -E copy_if_different "${_LIB_NAME}.db" ${CMAKE_CURRENT_SOURCE_DIR})

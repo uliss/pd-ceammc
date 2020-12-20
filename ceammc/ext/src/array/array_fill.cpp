@@ -31,13 +31,13 @@ void ArrayFill::onSymbol(t_symbol* s)
     setArray(s);
 }
 
-void ArrayFill::onFloat(float f)
+void ArrayFill::onFloat(t_float f)
 {
     if (!checkArray())
         return;
 
-    for (size_t i = 0; i < array_.size(); i++)
-        array_[i] = f;
+    for (auto& i : array_)
+        i = f;
 
     finish();
 }
@@ -47,7 +47,7 @@ void ArrayFill::onList(const AtomList& l)
     m_fill(gensym("fill"), l);
 }
 
-void ArrayFill::m_gauss(t_symbol* m, const AtomList& l)
+void ArrayFill::m_gauss(t_symbol* m, const AtomListView& l)
 {
     if (!checkArray())
         return;
@@ -71,7 +71,7 @@ void ArrayFill::m_gauss(t_symbol* m, const AtomList& l)
     finish();
 }
 
-void ArrayFill::m_uniform(t_symbol* m, const AtomList& l)
+void ArrayFill::m_uniform(t_symbol* m, const AtomListView& l)
 {
     if (!checkArray())
         return;
@@ -95,14 +95,14 @@ void ArrayFill::m_uniform(t_symbol* m, const AtomList& l)
     finish();
 }
 
-void ArrayFill::m_fill(t_symbol* m, const AtomList& l)
+void ArrayFill::m_fill(t_symbol* m, const AtomListView& l)
 {
     if (!checkArray())
         return;
 
     size_t from = 0;
     size_t to = 0;
-    AtomList values = parseRange(l, &from, &to);
+    const AtomListView values = parseRange(l, &from, &to);
 
     if (values.empty()) {
         METHOD_ERR(m) << "usage: [@from N] [@to N] VALUES...";
@@ -113,7 +113,7 @@ void ArrayFill::m_fill(t_symbol* m, const AtomList& l)
         fillRange(from, to, values);
 }
 
-void ArrayFill::m_sin(t_symbol* m, const AtomList& l)
+void ArrayFill::m_sin(t_symbol* m, const AtomListView& l)
 {
     if (!checkArray())
         return;
@@ -141,7 +141,7 @@ void ArrayFill::m_sin(t_symbol* m, const AtomList& l)
     finish();
 }
 
-void ArrayFill::m_pulse(t_symbol* m, const AtomList& l)
+void ArrayFill::m_pulse(t_symbol* m, const AtomListView& l)
 {
     if (!checkArray())
         return;
@@ -153,7 +153,7 @@ void ArrayFill::m_pulse(t_symbol* m, const AtomList& l)
 
     const t_float period = l.floatAt(0, 0);
     const t_float amp = l.floatAt(1, 1);
-    const t_float duty = clip<t_float>(l.floatAt(2, 0.5), 0.001, 0.999);
+    const t_float duty = clip<t_float>(l.floatAt(2, 0.5), t_float(0.001), t_float(0.999));
 
     if (period <= 1) {
         METHOD_ERR(m) << "invalid period value: " << period;
@@ -170,7 +170,7 @@ void ArrayFill::m_pulse(t_symbol* m, const AtomList& l)
     finish();
 }
 
-void ArrayFill::m_saw(t_symbol* m, const AtomList& l)
+void ArrayFill::m_saw(t_symbol* m, const AtomListView& l)
 {
     if (!checkArray())
         return;
@@ -198,7 +198,7 @@ void ArrayFill::m_saw(t_symbol* m, const AtomList& l)
     finish();
 }
 
-void ArrayFill::m_tri(t_symbol* m, const AtomList& l)
+void ArrayFill::m_tri(t_symbol* m, const AtomListView& l)
 {
     if (!checkArray())
         return;
@@ -251,29 +251,42 @@ void ArrayFill::finish()
     bangTo(0);
 }
 
-AtomList ArrayFill::parseRange(const AtomList& args, size_t* from, size_t* to) const
+AtomListView ArrayFill::parseRange(const AtomListView& args, size_t* from, size_t* to) const
 {
-    AtomList res;
+    static t_symbol* PROP_FROM = gensym("@from");
+    static t_symbol* PROP_TO = gensym("@to");
+
+    AtomListView res;
 
     Atom p_from;
     Atom p_to;
 
     size_t num_props = 0;
 
-    if (args.hasProperty("@from")) {
+    auto it = std::find(args.begin(), args.end(), PROP_FROM);
+    auto end = args.end();
+
+    if (it != end) {
 
         num_props++;
+        ++it;
 
-        if (args.property("@from", &p_from))
+        if (it != end) {
+            p_from = *it;
             num_props++;
+        }
     }
 
-    if (args.hasProperty("@to")) {
+    it = std::find(args.begin(), args.end(), PROP_TO);
+    if (it != end) {
 
         num_props++;
+        ++it;
 
-        if (args.property("@to", &p_to))
+        if (it != end) {
+            p_to = *it;
             num_props++;
+        }
     }
 
     int n_from = p_from.asInt(0);
@@ -307,7 +320,7 @@ AtomList ArrayFill::parseRange(const AtomList& args, size_t* from, size_t* to) c
         return res;
     }
 
-    res = args.slice(num_props);
+    res = args.subView(num_props);
 
     if (res.empty()) {
         OBJ_ERR << "fill values are required";

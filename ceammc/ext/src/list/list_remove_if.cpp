@@ -48,24 +48,33 @@ void ListRemoveIf::onInlet(size_t n, const AtomList& l)
     remove_ = l[0].asFloat() != 0;
 }
 
-void ListRemoveIf::onDataT(const DataTPtr<DataTypeMList>& dptr)
+void ListRemoveIf::onDataT(const MListAtom& ml)
 {
     remove_ = true;
-    DataTypeMList res;
+    MListAtom res;
 
-    for (size_t i = 0; i < dptr->size(); i++) {
+    for (size_t i = 0; i < ml->size(); i++) {
         remove_ = true;
 
-        atomTo(1, dptr->at(i).toAtom());
+        atomTo(1, ml->at(i));
         if (!remove_)
-            res.append(dptr->at(i));
+            res->append(ml->at(i));
     }
 
-    dataTo(0, DataTPtr<DataTypeMList>(res));
+    atomTo(0, res);
 }
 
 void setup_list_remove_if()
 {
     ObjectFactory<ListRemoveIf> obj("list.remove_if");
     obj.processData<DataTypeMList>();
+
+    obj.setDescription("remove elements by predicate");
+    obj.addAuthor("Serge Poltavsky");
+    obj.setKeywords({ "list", "remove", "predicate" });
+    obj.setCategory("list");
+    obj.setSinceVersion(0, 1);
+
+    ListRemoveIf::setInletsInfo(obj.classPointer(), { "list or Mlist", "int: 1 or 0 from predicate" });
+    ListRemoveIf::setOutletsInfo(obj.classPointer(), { "list or Mlist", "atom: to predicate" });
 }

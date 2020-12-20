@@ -29,10 +29,10 @@
         </arguments>
         <properties>
             <property name="@keys" readonly="true" type="list">keys of dictionary</property>
-            <property name="@empty" readonly="true" enum="0 1" type="int">1 if dict is empty,
-            otherwise 0</property>
-            <property name="@size" readonly="true" minvalue="0" type="int">number of entries in
-            dictionary</property>
+            <property name="@empty" readonly="true" enum="0 1" type="int" default="1">1 if dict is
+            empty, otherwise 0</property>
+            <property name="@size" readonly="true" minvalue="0" type="int" default="0">number of
+            entries in dictionary</property>
         </properties>
         <methods>
             <method name="add">adds entry to dictionary 
@@ -71,9 +71,9 @@
 |                               |
 |                               [global.dict d1]
 |                               |
-[global.dict d1]                [ui.display @display_type=1]
+[global.dict d1]                [ui.display @display_type 1]
 |
-[ui.display @display_type=1]
+[ui.display @display_type 1]
 ]]>
             </pdascii>
         </example>

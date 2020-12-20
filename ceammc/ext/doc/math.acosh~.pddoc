@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="math.acosh~">
+        <title>math.acosh~</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>hyperbolic arc cosine for signals</description>
+            <license>GPL3 or later</license>
+            <library>ceammc</library>
+            <category>math</category>
+            <keywords>math hyperbolic arc cosine</keywords>
+            <also>
+                <see>math.cosh~</see>
+                <see>math.acosh</see>
+            </also>
+            <since>0.9</since>
+        </meta>
+        <info>
+            <par>Outputs the principle value of the hyperbolic arc cosine of input signal. Input
+            signal expected to be &gt;= 1, otherwise output will be NAN</par>
+            <a href="https://en.wikipedia.org/wiki/Inverse_hyperbolic_functions">wiki: Inverse
+            hyperbolic functions</a>
+        </info>
+        <inlets>
+            <inlet type="audio">
+                <xinfo>input signal</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet type="audio">result signal</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[B]
+|
+[plot.linspace~ 0 15]
+|                 ^|
+[math.acosh~]      |
+|                  |.
+[ui.plot~ @xlabels 1 @ylabels 1 @ymin -1 @ymax 4 @ymin_ticks 0 @ymaj_ticks 0 @size 400 200]
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+[ui.dsp~]
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

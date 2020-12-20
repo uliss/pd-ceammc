@@ -1,5 +1,6 @@
 #include "metro_pattern.h"
 #include "ceammc_factory.h"
+#include "ceammc_property_callback.h"
 
 static bool validTime(const Atom& a)
 {
@@ -9,7 +10,6 @@ static bool validTime(const Atom& a)
 MetroPattern::MetroPattern(const PdArgs& args)
     : BaseObject(args)
     , clock_(this, &MetroPattern::tick)
-    , pattern_(positionalArguments().filtered(validTime))
     , current_(nullptr)
     , sync_(nullptr)
     , sync_update_(false)
@@ -18,12 +18,15 @@ MetroPattern::MetroPattern(const PdArgs& args)
     createOutlet();
 
     current_ = new SizeTProperty("@current", 0);
-    createProperty(current_);
+    addProperty(current_);
 
     sync_ = new BoolProperty("@sync", false);
-    createProperty(sync_);
+    addProperty(sync_);
 
-    createCbProperty("@pattern", &MetroPattern::p_pattern, &MetroPattern::p_set_pattern);
+    createCbListProperty(
+        "@pattern", [this]() -> AtomList { return pattern_; },
+        [this](const AtomList& lst) -> bool { return p_set_pattern(lst); })
+        ->setArgIndex(0);
 }
 
 void MetroPattern::onFloat(t_float on)
@@ -35,16 +38,11 @@ void MetroPattern::onFloat(t_float on)
         clock_.unset();
 }
 
-AtomList MetroPattern::p_pattern() const
-{
-    return pattern_;
-}
-
-void MetroPattern::p_set_pattern(const AtomList& l)
+bool MetroPattern::p_set_pattern(const AtomList& l)
 {
     if (l.empty() || (!l.allOf(validTime))) {
         OBJ_ERR << "invalid pattern: " << l;
-        return;
+        return false;
     }
 
     if (sync_->value()) {
@@ -61,6 +59,8 @@ void MetroPattern::p_set_pattern(const AtomList& l)
         // keep in sync - to handle @sync property change while running
         new_pattern_ = l;
     }
+
+    return true;
 }
 
 void MetroPattern::tick()
@@ -136,4 +136,10 @@ void MetroPattern::output(bool on_start)
 void setup_metro_pattern()
 {
     ObjectFactory<MetroPattern> obj("metro.pattern");
+
+    obj.setDescription("metro with rhythmic patterns");
+    obj.addAuthor("Serge Poltavsky");
+    obj.setKeywords({ "metro", "pattern", "rhythm" });
+    obj.setCategory("base");
+    obj.setSinceVersion(0, 5);
 }

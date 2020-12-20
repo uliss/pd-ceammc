@@ -13,61 +13,19 @@
  *****************************************************************************/
 #include "flow_less.h"
 #include "ceammc_factory.h"
-#include "ceammc_fn_list.h"
-
-static bool is_sorted(const std::vector<t_float>& v)
-{
-    if (v.empty())
-        return true;
-
-    t_float cur = v[0];
-    for (size_t i = 1; i < v.size(); i++) {
-        if (cur > v[i])
-            return false;
-
-        cur = v[i];
-    }
-
-    return true;
-}
 
 FlowLess::FlowLess(const PdArgs& a)
-    : BaseObject(a)
+    : FlowCompareBase(a, &FlowLess::cmp, { "<", ">=" })
 {
-    const AtomList& pos_args = positionalArguments();
-
-    for (size_t i = 0; i < pos_args.size(); i++) {
-        if (pos_args[i].isFloat()) {
-            createOutlet();
-            args_.push_back(pos_args[i].asFloat());
-        }
-    }
-
-    createOutlet();
-
-    if (args_.empty())
-        OBJ_DBG << "Usage: flow.less FLOAT1 [FLOAT2] ... [FLOAT-N] (in ascending order)";
-    else if (!is_sorted(args_))
-        OBJ_ERR << "values should be in ascending order: " << pos_args;
 }
 
-void FlowLess::onFloat(t_float f)
+bool FlowLess::cmp(t_float f0, t_float f1)
 {
-    if (args_.empty())
-        return;
-
-    if (f < args_[0])
-        return floatTo(0, f);
-
-    for (size_t i = 1; i < args_.size(); i++) {
-        if (args_[i - 1] <= f && f < args_[i])
-            return floatTo(i, f);
-    }
-
-    floatTo(numOutlets() - 1, f);
+    return f0 < f1;
 }
 
 void setup_flow_less()
 {
     ObjectFactory<FlowLess> obj("flow.less");
+    obj.addAlias("flow.<");
 }

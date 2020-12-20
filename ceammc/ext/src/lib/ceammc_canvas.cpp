@@ -86,7 +86,7 @@ static bool is_pd048()
 {
     int major, minor, bugfix;
     sys_getversion(&major, &minor, &bugfix);
-    static_assert(PD_MINOR_VERSION < 51, "update for minor version");
+    static_assert(PD_MINOR_VERSION <= 51, "update for minor version");
     if (major == PD_MAJOR_VERSION && minor == PD_MINOR_VERSION)
         return false;
 
@@ -178,6 +178,10 @@ Canvas::Canvas(t_canvas* c)
 {
 }
 
+Canvas::~Canvas()
+{
+}
+
 ArrayPtr Canvas::createArray(const char* name, size_t n)
 {
     ArrayPtr ptr;
@@ -198,7 +202,7 @@ bool Canvas::connect(t_object* src, size_t nout, t_object* dest, size_t ninl)
     if (!src || !dest)
         return false;
 
-    t_outconnect* c = obj_connect(src, nout, dest, ninl);
+    t_outconnect* c = obj_connect(src, int(nout), dest, int(ninl));
     return c != 0;
 }
 
@@ -297,7 +301,7 @@ void Canvas::createPdObject(int x, int y, t_symbol* name, const AtomList& args)
     xargs.append(Atom(name));
     xargs.append(args);
 
-    pd_typedmess(&canvas_->gl_obj.te_g.g_pd, SYM_OBJ, xargs.size(), xargs.toPdData());
+    pd_typedmess(&canvas_->gl_obj.te_g.g_pd, SYM_OBJ, static_cast<int>(xargs.size()), xargs.toPdData());
 }
 
 _glist* Canvas::createAbstraction(int x, int y, t_symbol* name, const AtomList& args)
@@ -419,4 +423,85 @@ const _glist* ceammc::canvas_root(const _glist* c)
         return nullptr;
 
     return canvas_getrootfor(const_cast<t_canvas*>(c));
+}
+
+namespace ceammc {
+
+std::unique_ptr<pd::CanvasTree> canvas_info_tree(const t_canvas* c)
+{
+    std::unique_ptr<pd::CanvasTree> tree;
+
+    if (!c || !c->gl_list)
+        return tree;
+
+    auto x = c->gl_list;
+    for (; x != nullptr; x = x->g_next) {
+        auto pdobj = x->g_pd;
+        if (!pd_checkobject(&pdobj))
+            continue;
+
+        if (!tree)
+            tree.reset(new pd::CanvasTree(canvas_info_name(c), canvas_info_dir(c)));
+
+        if (pd_class(&pdobj) == canvas_class) {
+
+            t_canvas* obj_cnv = reinterpret_cast<t_canvas*>(x);
+            tree->objects.emplace_back(canvas_info_name(obj_cnv),
+                canvas_info_dir(obj_cnv),
+                canvas_isabstraction(obj_cnv) ? pd::CanvasTree::ABSTRACTION : pd::CanvasTree::SUBPATCH);
+            tree->objects.back().obj_tree = canvas_info_tree(obj_cnv);
+
+            continue;
+        }
+
+        auto name = pdobj->c_name;
+        auto dir = pdobj->c_externdir;
+        if (dir == &s_)
+            dir = gensym("_core");
+
+        tree->objects.emplace_back(name, dir, pd::CanvasTree::OBJECT);
+    }
+
+    return tree;
+}
+
+pd::CanvasTree::Object::Object(t_symbol* name, t_symbol* dir, pd::CanvasTree::Type t)
+    : obj_name(name)
+    , obj_dir(dir)
+    , obj_type(t)
+{
+}
+
+pd::CanvasTree::Object::Object(pd::CanvasTree::Object&& obj)
+    : obj_name(obj.obj_name)
+    , obj_dir(obj.obj_dir)
+    , obj_tree(std::move(obj.obj_tree))
+    , obj_type(obj.obj_type)
+{
+}
+
+pd::CanvasTree::Object& pd::CanvasTree::Object::operator=(pd::CanvasTree::Object&& obj)
+{
+    std::swap(*this, obj);
+    return *this;
+}
+
+pd::CanvasTree::CanvasTree(t_symbol* name, t_symbol* dir)
+    : cnv_name(name)
+    , cnv_dir(dir)
+{
+}
+
+pd::CanvasTree::CanvasTree(pd::CanvasTree&& t)
+    : cnv_name(t.cnv_name)
+    , cnv_dir(t.cnv_dir)
+    , objects(std::move(t.objects))
+{
+}
+
+pd::CanvasTree& pd::CanvasTree::operator=(pd::CanvasTree&& t)
+{
+    std::swap(*this, t);
+    return *this;
+}
 }

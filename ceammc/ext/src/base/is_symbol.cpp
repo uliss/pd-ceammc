@@ -57,10 +57,10 @@ extern "C" void is_symbol_setup()
         reinterpret_cast<t_newmethod>(is_symbol_new),
         reinterpret_cast<t_method>(is_symbol_free),
         sizeof(t_is_symbol), 0, A_NULL);
-    class_addanything(is_symbol_class, is_symbol_anything);
-    class_addbang(is_symbol_class, is_symbol_bang);
-    class_addfloat(is_symbol_class, is_symbol_float);
-    class_addlist(is_symbol_class, is_symbol_list);
-    class_addpointer(is_symbol_class, is_symbol_pointer);
-    class_addsymbol(is_symbol_class, is_symbol_symbol);
+    class_addanything(is_symbol_class, reinterpret_cast<t_method>(is_symbol_anything));
+    class_addbang(is_symbol_class, reinterpret_cast<t_method>(is_symbol_bang));
+    class_doaddfloat(is_symbol_class, reinterpret_cast<t_method>(is_symbol_float));
+    class_addlist(is_symbol_class, reinterpret_cast<t_method>(is_symbol_list));
+    class_addpointer(is_symbol_class, reinterpret_cast<t_method>(is_symbol_pointer));
+    class_addsymbol(is_symbol_class, reinterpret_cast<t_method>(is_symbol_symbol));
 }

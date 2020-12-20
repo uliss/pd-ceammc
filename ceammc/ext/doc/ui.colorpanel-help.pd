@@ -14,121 +14,125 @@
 #X obj 50 248 route @pd;
 #X msg 50 277 color \$1;
 #X obj 50 305 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1;
-#X obj 20 342 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 347 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
+#X obj 20 352 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 357 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
 -49933 0;
-#X msg 110 382 @hex;
-#X text 245 382 (readonly) Get HEX value in format #RRGGBB. Type: symbol.;
-#X msg 110 411 @hsl;
-#X text 245 411 (readonly) Get HSL value triplet on 0-1 range. Type:
+#X msg 110 392 @hex;
+#X text 245 392 (readonly) Get HEX value in format #RRGGBB. Type: symbol.;
+#X msg 110 421 @hsl;
+#X text 245 421 (readonly) Get HSL value triplet on 0-1 range. Type:
 list.;
-#X msg 110 440 @hue;
-#X text 245 440 Get/Set first hue. Type: float. Default value: 0\.
+#X msg 110 450 @hue;
+#X text 245 450 Get/Set first hue. Type: float. Default value: 0\.
 Range: 0\...1\.;
-#X msg 110 482 @index;
-#X text 245 482 Get/Set color position in panel. Type: list.;
-#X msg 110 511 @lightness;
-#X text 245 511 Get/Set first lightness. Type: float. Default value:
+#X msg 110 492 @index;
+#X text 245 492 Get/Set color position in panel. Type: list.;
+#X msg 110 521 @lightness;
+#X text 245 521 Get/Set first lightness. Type: float. Default value:
 1\. Range: 0\...1\.;
-#X msg 110 553 @matrix;
-#X text 245 553 Get/Set matrix size. Type: list. Default value: 24
+#X msg 110 563 @matrix;
+#X text 245 563 Get/Set matrix size. Type: list. Default value: 24
 13\.;
-#X msg 110 582 @pd;
-#X text 245 582 (readonly) Get pd color value. Type: int.;
-#X msg 110 611 @receive;
-#X text 245 611 Get/Set receive source. Type: symbol.;
-#X msg 110 640 @reverse;
-#X text 245 640 Get/Set matrix reversed. Type: int. Default value:
+#X msg 110 592 @pd;
+#X text 245 592 (readonly) Get pd color value. Type: int. Default value:
+0\.;
+#X msg 110 621 @receive;
+#X text 245 621 Get/Set receive source. Type: symbol. Default value:
+(null).;
+#X msg 110 650 @reverse;
+#X text 245 650 Get/Set matrix reversed. Type: int. Default value:
 0\. Allowed values: 0 \, 1\.;
-#X msg 110 682 @rgb;
-#X text 245 682 (readonly) Get RGB value triplet on 0-1 range. Type:
+#X msg 110 692 @rgb;
+#X text 245 692 (readonly) Get RGB value triplet on 0-1 range. Type:
 list.;
-#X msg 110 711 @saturation;
-#X text 245 711 Get/Set saturation. Type: float. Default value: 1\.
+#X msg 110 721 @saturation;
+#X text 245 721 Get/Set saturation. Type: float. Default value: 1\.
 Range: 0\...1\.;
-#X msg 110 753 @send;
-#X text 245 753 Get/Set send destination. Type: symbol.;
-#X msg 110 782 @background_color;
-#X text 245 782 Get/Set element background color (list of red \, green
-\, blue values in 0-1 range). Type: list.;
-#X msg 110 824 @border_color;
-#X text 245 824 Get/Set border color (list of red \, green \, blue
-values in 0-1 range). Type: list.;
-#X msg 110 866 @fontname;
-#X text 245 866 Get/Set fontname. Type: symbol.;
-#X msg 110 895 @fontsize;
-#X text 245 895 Get/Set fontsize. Type: int. Default value: 11\. Range:
+#X msg 110 763 @send;
+#X text 245 763 Get/Set send destination. Type: symbol. Default value:
+(null).;
+#X msg 110 805 @background_color;
+#X text 245 805 Get/Set element background color (list of red \, green
+\, blue values in 0-1 range). Type: list. Default value: 0.93 0.93
+0.93 1\.;
+#X msg 110 862 @border_color;
+#X text 245 862 Get/Set border color (list of red \, green \, blue
+values in 0-1 range). Type: list. Default value: 0.6 0.6 0.6 1\.;
+#X msg 110 904 @fontname;
+#X text 245 904 Get/Set fontname. Type: symbol. Default value: Helvetica.;
+#X msg 110 933 @fontsize;
+#X text 245 933 Get/Set fontsize. Type: int. Default value: 11\. Range:
 4\...11\.;
-#X msg 110 937 @fontslant;
-#X text 245 937 Get/Set font slant. Type: symbol. Default value: roman.
+#X msg 110 975 @fontslant;
+#X text 245 975 Get/Set font slant. Type: symbol. Default value: roman.
 Allowed values: roman \, italic.;
-#X msg 110 979 @fontweight;
-#X text 245 979 Get/Set font weight. Type: symbol. Default value: normal.
-Allowed values: normal \, bold.;
-#X msg 110 1021 @pinned;
-#X text 245 1021 Get/Set pin mode. if 1 - put element to the lowest
+#X msg 110 1017 @fontweight;
+#X text 245 1017 Get/Set font weight. Type: symbol. Default value:
+normal. Allowed values: normal \, bold.;
+#X msg 110 1059 @pinned;
+#X text 245 1059 Get/Set pin mode. if 1 - put element to the lowest
 level. Type: int. Default value: 0\. Allowed values: 0 \, 1\.;
-#X msg 110 1063 @presetname;
-#X text 245 1063 Get/Set preset name for using with [ui.preset]. Type:
-symbol.;
-#X msg 110 1092 @size;
-#X text 245 1092 Get/Set element size (width \, height pair). Type:
-list.;
-#X obj 20 1131 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1136 cnv 5 73 26 empty empty methods: 4 10 0 14 -262144
+#X msg 110 1101 @presetname;
+#X text 245 1101 Get/Set preset name for using with [ui.preset]. Type:
+symbol. Default value: (null).;
+#X msg 110 1143 @size;
+#X text 245 1143 Get/Set element size (width \, height pair). Type:
+list. Default value: 181 105\.;
+#X obj 20 1195 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1200 cnv 5 73 26 empty empty methods: 4 10 0 14 -262144
 -49933 0;
-#X msg 110 1171 clear;
-#X text 245 1171 clears specified preset. Arguments are:;
-#X obj 255 1194 cnv 1 29 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1194 IDX: preset index. Type: int.;
-#X msg 110 1219 load;
-#X text 245 1219 loads specified preset. Arguments are:;
-#X obj 255 1242 cnv 1 29 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1242 IDX: preset index. Type: int.;
-#X msg 110 1267 pos;
-#X text 245 1267 set UI element position. Arguments are:;
-#X obj 255 1290 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1290 X: top left x-coord. Type: float.;
-#X obj 255 1313 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1313 Y: top right y-coord. Type: float.;
-#X msg 110 1338 set;
-#X text 245 1338 set widget value with no output. Arguments are:;
-#X obj 255 1361 cnv 1 29 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1361 COL: column index. Type: int.;
-#X obj 255 1384 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1384 ROW: row index. Type: int.;
-#X msg 110 1409 store;
-#X text 245 1409 stores specified preset. Arguments are:;
-#X obj 255 1432 cnv 1 29 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1432 IDX: preset index. Type: int.;
-#X obj 20 1467 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1472 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144
+#X msg 110 1235 clear;
+#X text 245 1235 clears specified preset. Arguments are:;
+#X obj 255 1258 cnv 1 29 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1258 IDX: preset index. Type: int.;
+#X msg 110 1283 load;
+#X text 245 1283 loads specified preset. Arguments are:;
+#X obj 255 1306 cnv 1 29 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1306 IDX: preset index. Type: int.;
+#X msg 110 1331 pos;
+#X text 245 1331 set UI element position. Arguments are:;
+#X obj 255 1354 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1354 X: top left x-coord. Type: float.;
+#X obj 255 1377 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1377 Y: top right y-coord. Type: float.;
+#X msg 110 1402 set;
+#X text 245 1402 set widget value with no output. Arguments are:;
+#X obj 255 1425 cnv 1 29 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1425 COL: column index. Type: int.;
+#X obj 255 1448 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1448 ROW: row index. Type: int.;
+#X msg 110 1473 store;
+#X text 245 1473 stores specified preset. Arguments are:;
+#X obj 255 1496 cnv 1 29 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1496 IDX: preset index. Type: int.;
+#X obj 20 1531 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1536 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 1473 1\.;
-#X text 150 1473 *bang*;
-#X text 245 1473 outputs current widget value.;
-#X obj 20 1503 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1508 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
+#X text 110 1537 1\.;
+#X text 150 1537 *bang*;
+#X text 245 1537 outputs current widget value.;
+#X obj 20 1567 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1572 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 1509 1\.;
-#X text 245 1509 output values: @pd COLOR \, @rgb in range [0-1] \,
+#X text 110 1573 1\.;
+#X text 245 1573 output values: @pd COLOR \, @rgb in range [0-1] \,
 @hsl in range [0-1] \, @hex.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 115 45 ::;
 #X obj 131 48 ui.link @title ui @url ceammc.ui-help.pd;
-#X obj 1 1574 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 1577 library: ceammc v0.8.0;
-#X text 598 1589 see also:;
-#X obj 672 1592 ui.link @background_color 0.78431 0.78431 0.78431
+#X obj 1 1638 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1641 library: ceammc v0.9.1;
+#X text 598 1653 see also:;
+#X obj 672 1656 ui.link @background_color 0.78431 0.78431 0.78431
 @title [ui.number] @url ui.number-help.pd;
-#N canvas 10 1596 400 290 info 0;
+#N canvas 10 1660 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
 #X text 10 32 version:;
-#X text 120 32 0.8.0;
+#X text 120 32 0.9.1;
 #X text 10 54 object:;
 #X text 120 54 ui.colorpanel;
 #X text 10 76 category:;
@@ -147,7 +151,7 @@ https://github.com/uliss/pure-data;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 generated by pddoc;
-#X restore 10 1596 pd info;
+#X restore 10 1660 pd info;
 #X connect 5 0 6 0;
 #X connect 6 0 7 0;
 #X connect 7 0 8 0;

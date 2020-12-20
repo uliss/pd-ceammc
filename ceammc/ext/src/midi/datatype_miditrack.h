@@ -3,7 +3,7 @@
 
 #include "ceammc_abstractdata.h"
 
-#include <boost/shared_ptr.hpp>
+#include <memory>
 #include <vector>
 
 using namespace ceammc;
@@ -12,35 +12,47 @@ class MidiEvent;
 class MidiEventList;
 
 class DataTypeMidiTrack : public AbstractData {
-    boost::shared_ptr<MidiEventList> events_;
+    // pimpl
+    std::unique_ptr<MidiEventList> events_;
 
 public:
     DataTypeMidiTrack();
+    DataTypeMidiTrack(const DataTypeMidiTrack& mt);
     DataTypeMidiTrack(const MidiEventList& lst);
 
+    DataTypeMidiTrack& operator=(const DataTypeMidiTrack& mt);
+
+    ~DataTypeMidiTrack();
+
+    /**
+     * Polymorphic copy creation
+     */
     DataTypeMidiTrack* clone() const;
-    DataType type() const;
+
+    /**
+     * Polymorphic data type
+     */
+    int type() const noexcept;
 
     size_t eventCount() const;
     MidiEventList& events();
     MidiEvent* eventAt(size_t n);
     const MidiEvent* eventAt(size_t n) const;
 
-public:
-    typedef std::vector<MidiEvent*>::iterator iterator;
-    typedef std::vector<MidiEvent*>::const_iterator const_iterator;
+    void setEventList(const MidiEventList& lst);
 
+public:
+    using iterator = std::vector<MidiEvent*>::iterator;
+    using const_iterator = std::vector<MidiEvent*>::const_iterator;
+
+    // iterators
     iterator begin();
     iterator end();
-
     const_iterator begin() const;
     const_iterator end() const;
 
 public:
-    static const DataType dataType;
-
-private:
-    DataTypeMidiTrack(const DataTypeMidiTrack& dt);
+    static const int dataType;
 };
 
 #endif // DATATYPE_MIDITRACK_H

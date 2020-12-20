@@ -3,30 +3,33 @@
 
 EnvTimeShift::EnvTimeShift(const PdArgs& args)
     : BaseObject(args)
-    , shift_(0)
+    , shift_(nullptr)
 {
+    shift_ = new FloatProperty("@shift", 0);
+    shift_->setArgIndex(0);
+    shift_->setUnitsMs();
 
-    shift_ = new FloatProperty("@shift", positionalFloatArgument(0, 0));
-    createProperty(shift_);
-    shift_->info().setUnits(PropertyInfoUnits::MSEC);
+    addProperty(shift_);
 
     createOutlet();
 }
 
-void EnvTimeShift::onDataT(const DataTPtr<DataTypeEnv>& dptr)
+void EnvTimeShift::onDataT(const EnvAtom& env)
 {
-    DataTypeEnv env(*dptr);
-
-    if (!env.empty()) {
-        if (shift_->value() < 0 && env.pointAt(0).timeMs() < (-shift_->value())) {
-            OBJ_ERR << "invalid shift value: " << shift_->value();
-            return;
-        }
-
-        env.shiftTime(shift_->value() * 1000);
+    if (env->empty() || shift_->value() == 0) {
+        atomTo(0, env);
+        return;
     }
 
-    dataTo(0, DataTPtr<DataTypeEnv>(env));
+    if (shift_->value() < 0 && env->pointAt(0).timeMs() < (-shift_->value())) {
+        OBJ_ERR << "invalid shift value: " << shift_->value();
+        return;
+    }
+
+    EnvAtom res = env;
+    res.detachData();
+    res->shiftTime(shift_->value() * 1000);
+    atomTo(0, res);
 }
 
 void setup_env_tshift()

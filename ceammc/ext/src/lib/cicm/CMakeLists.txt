@@ -18,10 +18,6 @@ add_library(cicm_static STATIC ${CICM_SRC})
 
 set(CICM_COMPILE_FLAGS "")
 
-if(UNIX)
-    list(APPEND CICM_COMPILE_FLAGS "-fPIC")
-else()
-
 endif()
 
 

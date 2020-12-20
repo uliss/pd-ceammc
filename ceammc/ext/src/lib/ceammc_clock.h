@@ -3,42 +3,68 @@
 
 #include "m_pd.h"
 
+#include <functional>
+
 namespace ceammc {
 
-template <class T>
-class ClockFunction {
+class ClockLambdaFunction {
+    std::function<void()> fn_;
     t_clock* clock_;
+    bool is_active_ = { false };
+
+    ClockLambdaFunction(const ClockLambdaFunction&) = delete;
+    ClockLambdaFunction(ClockLambdaFunction&&) = delete;
+    ClockLambdaFunction& operator=(const ClockLambdaFunction&) = delete;
 
 public:
-    typedef void (*FunPtr)(T*);
-
-protected:
-    FunPtr fn_;
-    T* arg_;
-
-public:
-    ClockFunction(FunPtr fn, T* arg)
-        : clock_(0)
-        , fn_(fn)
-        , arg_(arg)
+    ClockLambdaFunction(std::function<void()> fn)
+        : fn_(fn)
+        , clock_(nullptr)
     {
-        clock_ = clock_new(static_cast<void*>(arg_), reinterpret_cast<t_method>(fn_));
+        clock_ = clock_new(static_cast<void*>(this), reinterpret_cast<t_method>(tick));
     }
 
+    /** unset clock if active */
     void unset()
     {
-        clock_unset(clock_);
+        if (clock_) {
+            clock_unset(clock_);
+            is_active_ = false;
+        }
     }
 
+    /** schedule clock execution in future */
     void delay(double ms)
     {
-        clock_delay(clock_, ms);
+        if (clock_) {
+            clock_delay(clock_, ms);
+            is_active_ = true;
+        }
     }
 
-    ~ClockFunction()
+    ~ClockLambdaFunction()
     {
-        clock_free(clock_);
+        if (clock_)
+            clock_free(clock_);
     }
+
+    /** check if clock is active */
+    bool isActive() const { return is_active_; }
+
+    /** get clock callback */
+    const std::function<void()>& callback() const { return fn_; }
+
+    /** set clock callback */
+    void setCallback(const std::function<void()>& f) { fn_ = f; }
+
+    /** execure callback */
+    void exec()
+    {
+        fn_();
+        is_active_ = false;
+    }
+
+    static void tick(ClockLambdaFunction* fn) { fn->exec(); }
 };
 
 template <class T>
@@ -48,7 +74,7 @@ public:
 
 public:
     ClockMemberFunction(T* this__, MemberFunPtr fn)
-        : clock_(0)
+        : clock_(nullptr)
         , this_(this__)
         , mem_fn_(fn)
     {
@@ -84,9 +110,9 @@ private:
     }
 
 private:
-    MemberFunPtr mem_fn_;
-    T* this_;
     t_clock* clock_;
+    T* this_;
+    MemberFunPtr mem_fn_;
 };
 }
 

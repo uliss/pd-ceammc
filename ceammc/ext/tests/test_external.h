@@ -30,14 +30,15 @@ extern "C" void sched_tick();
 extern "C" int* get_sys_schedblocksize();
 extern "C" t_float* get_sys_dacsr();
 
-#define PD_TEST_CANVAS() static CanvasPtr cnv = PureData::instance().createTopCanvas("test_canvas")
-
 #define PD_TEST_TYPEDEF(T)                \
     typedef TestPdExternal<T> TestExt##T; \
-    typedef TestExternal<T> Test##T
+    typedef TestExternal<T> Test##T;      \
+    using TObj = Test##T;                 \
+    using TExt = TestExt##T
 
-#define PD_TEST_SND_TYPEDEF(T) \
-    typedef TestSoundExternal<T> TestExt##T;
+#define PD_TEST_SND_TYPEDEF(T)               \
+    typedef TestSoundExternal<T> TestExt##T; \
+    using TExt = TestExt##T;
 
 #define PD_TEST_SND_DSP(T)                                       \
     template <size_t IN, size_t OUT>                             \
@@ -49,54 +50,40 @@ extern "C" t_float* get_sys_dacsr();
         }                                                        \
     };
 
-#define PD_TEST_CORE_INIT()         \
-    static void pd_test_core_init() \
-    {                               \
-        pd_init();                  \
-        LogExternalOutput::setup(); \
-        ListenerExternal::setup();  \
-    }
-
 #define PD_TEST_MOD_INIT(mod, name)               \
     static void pd_test_mod_init_##mod##_##name() \
     {                                             \
         setup_##mod##_##name();                   \
     }
 
-#define PD_TEST_FULL_INIT(mod, name)       \
-    static void pd_test_init()             \
-    {                                      \
-        static bool done = false;          \
-        if (done)                          \
-            return;                        \
-        pd_test_core_init();               \
-        pd_test_mod_init_##mod##_##name(); \
-        done = true;                       \
-    }                                      \
-    template <typename F>                  \
-    static void pd_test_init(F fn)         \
-    {                                      \
-        static bool done = false;          \
-        if (done)                          \
-            return;                        \
-        pd_test_core_init();               \
-        pd_test_mod_init_##mod##_##name(); \
-        fn();                              \
-        done = true;                       \
+#define PD_TEST_FULL_INIT(mod, name)          \
+    CEAMMC_NO_ASAN static void pd_test_init() \
+    {                                         \
+        static bool done = false;             \
+        if (done)                             \
+            return;                           \
+        pd_test_mod_init_##mod##_##name();    \
+        done = true;                          \
+    }                                         \
+    template <typename F>                     \
+    static void pd_test_init(F fn)            \
+    {                                         \
+        static bool done = false;             \
+        if (done)                             \
+            return;                           \
+        pd_test_mod_init_##mod##_##name();    \
+        fn();                                 \
+        done = true;                          \
     }
 
 #define PD_COMPLETE_TEST_SETUP(T, mod, name) \
-    PD_TEST_CANVAS();                        \
     PD_TEST_TYPEDEF(T);                      \
-    PD_TEST_CORE_INIT();                     \
     PD_TEST_MOD_INIT(mod, name);             \
     PD_TEST_FULL_INIT(mod, name);
 
 #define PD_COMPLETE_SND_TEST_SETUP(T, mod, name) \
-    PD_TEST_CANVAS();                            \
     PD_TEST_SND_TYPEDEF(T);                      \
     PD_TEST_SND_DSP(T);                          \
-    PD_TEST_CORE_INIT();                         \
     PD_TEST_MOD_INIT(mod, name);                 \
     PD_TEST_FULL_INIT(mod, name);
 
@@ -200,23 +187,24 @@ public:
         }
     }
 
-    t_object* pdObject()
+    template <typename... Args>
+    TestPdExternal(const char* name, Args... args)
+        : TestPdExternal(name, AtomList(args...))
     {
-        return object();
     }
 
-    Property* property(const char* key)
-    {
-        return property(gensym(key));
-    }
+    const t_object* pdObject() const { return object(); }
 
-    Property* property(t_symbol* key)
+    Property* property(const char* key) { return (Property*)property(gensym(key)); }
+    const Property* property(const char* key) const { return property(gensym(key)); }
+
+    const Property* property(t_symbol* key) const
     {
         bool is_ceammc_ctl = std::is_base_of<ceammc::BaseObject, T>::value;
 
         if (is_ceammc_ctl) {
-            PdObject<T>* proxy = (PdObject<T>*)pdObject();
-            ceammc::BaseObject* base = (ceammc::BaseObject*)proxy->impl;
+            auto proxy = (const PdObject<T>*)pdObject();
+            auto base = (const ceammc::BaseObject*)proxy->impl;
             return base->property(key);
         }
 
@@ -241,19 +229,31 @@ public:
         sendMessage(method, l);
     }
 
+    template <typename... Args>
+    void call(const char* method, Args... args)
+    {
+        call(method, AtomList({ test_atom_wrap(args)... }));
+    }
+
     void bang()
     {
         clearAll();
         sendBang();
     }
 
-    void call(const char* method, float f)
+    void call(const char* method, t_float f)
     {
         clearAll();
         sendMessage(gensym(method), AtomList(Atom(f)));
     }
 
-    void send(float f)
+    void send(int i)
+    {
+        clearAll();
+        sendFloat(i);
+    }
+
+    void send(t_float f)
     {
         clearAll();
         sendFloat(f);
@@ -276,17 +276,23 @@ public:
         sendList(lst);
     }
 
-    void send(const AbstractData& data)
+    void send(const Atom& a)
     {
         clearAll();
-        DataPtr ptr(data.clone());
-        sendList(AtomList(ptr.asAtom()));
+
+        if (a.isFloat())
+            sendFloat(a.asFloat());
+        else if (a.isSymbol())
+            sendSymbol(a.asSymbol());
+        else
+            sendList({ a });
     }
 
-    void send(const DataPtr& ptr)
+    template <typename... Args>
+    void send(Args... args)
     {
         clearAll();
-        sendList(AtomList(ptr.asAtom()));
+        sendList(AtomList(args...));
     }
 
     void sendBangTo(size_t inlet)
@@ -336,7 +342,7 @@ public:
 
     bool hasListener(t_symbol* addr) const
     {
-        ListenerMap::const_iterator it = listeners_.find(addr);
+        auto it = listeners_.find(addr);
         return it != listeners_.end();
     }
 
@@ -350,7 +356,7 @@ public:
 
     bool bangWasSentTo(t_symbol* addr) const
     {
-        ListenerMap::const_iterator it = listeners_.find(addr);
+        auto it = listeners_.find(addr);
         if (it == listeners_.end())
             return false;
 
@@ -359,7 +365,7 @@ public:
 
     bool floatWasSentTo(t_symbol* addr) const
     {
-        ListenerMap::const_iterator it = listeners_.find(addr);
+        auto it = listeners_.find(addr);
         if (it == listeners_.end())
             return false;
 
@@ -368,7 +374,7 @@ public:
 
     bool symbolWasSentTo(t_symbol* addr) const
     {
-        ListenerMap::const_iterator it = listeners_.find(addr);
+        auto it = listeners_.find(addr);
         if (it == listeners_.end())
             return false;
 
@@ -377,7 +383,7 @@ public:
 
     bool listWasSentTo(t_symbol* addr) const
     {
-        ListenerMap::const_iterator it = listeners_.find(addr);
+        auto it = listeners_.find(addr);
         if (it == listeners_.end())
             return false;
 
@@ -386,7 +392,7 @@ public:
 
     bool anyWasSentTo(t_symbol* addr) const
     {
-        ListenerMap::const_iterator it = listeners_.find(addr);
+        auto it = listeners_.find(addr);
         if (it == listeners_.end())
             return false;
 
@@ -395,7 +401,7 @@ public:
 
     bool noneWasSentTo(t_symbol* addr) const
     {
-        ListenerMap::const_iterator it = listeners_.find(addr);
+        auto it = listeners_.find(addr);
         if (it == listeners_.end())
             return true;
 
@@ -404,7 +410,7 @@ public:
 
     bool dataWasSentTo(t_symbol* addr) const
     {
-        ListenerMap::const_iterator it = listeners_.find(addr);
+        auto it = listeners_.find(addr);
         if (it == listeners_.end())
             return false;
 
@@ -413,7 +419,7 @@ public:
 
     t_float lastSentFloat(t_symbol* addr) const
     {
-        ListenerMap::const_iterator it = listeners_.find(addr);
+        auto it = listeners_.find(addr);
         if (it == listeners_.end())
             return std::numeric_limits<t_float>::min();
 
@@ -422,7 +428,7 @@ public:
 
     t_symbol* lastSentSymbol(t_symbol* addr) const
     {
-        ListenerMap::const_iterator it = listeners_.find(addr);
+        auto it = listeners_.find(addr);
         if (it == listeners_.end())
             return &s_;
 
@@ -431,7 +437,7 @@ public:
 
     AtomList lastSentList(t_symbol* addr) const
     {
-        ListenerMap::const_iterator it = listeners_.find(addr);
+        auto it = listeners_.find(addr);
         if (it == listeners_.end())
             return L();
 
@@ -440,7 +446,7 @@ public:
 
     AtomList lastSentAny(t_symbol* addr) const
     {
-        ListenerMap::const_iterator it = listeners_.find(addr);
+        auto it = listeners_.find(addr);
         if (it == listeners_.end())
             return L();
 
@@ -455,6 +461,11 @@ public:
     bool hasOutputAt(size_t n) const
     {
         return !outs_.at(n)->msg().isNone();
+    }
+
+    bool hasNewMessages(size_t n) const
+    {
+        return hasOutputAt(n);
     }
 
     bool hasOutput() const
@@ -497,6 +508,18 @@ public:
         return outs_.at(n)->msg().isBang();
     }
 
+    bool isOutputAtomAt(size_t n) const
+    {
+        return outs_.at(n)->msg().isFloat()
+            || outs_.at(n)->msg().isSymbol()
+            || outs_.at(n)->msg().isData();
+    }
+
+    Message lastMessage(size_t n) const
+    {
+        return outs_.at(n)->msg();
+    }
+
     AtomList outputListAt(size_t n) const
     {
         return outs_.at(n)->msg().listValue();
@@ -507,7 +530,7 @@ public:
         return outs_.at(n)->msg().anyValue();
     }
 
-    float outputFloatAt(size_t n) const
+    t_float outputFloatAt(size_t n) const
     {
         return outs_.at(n)->msg().atomValue().asFloat();
     }
@@ -515,11 +538,6 @@ public:
     Atom outputAtomAt(size_t n) const
     {
         return outs_.at(n)->msg().atomValue();
-    }
-
-    DataPtr outputDataAt(size_t n) const
-    {
-        return outs_.at(n)->msg().dataValue();
     }
 
     t_symbol* outputSymbolAt(size_t n) const
@@ -580,6 +598,12 @@ public:
         return *this;
     }
 
+    TestPdExternal& operator<<(const Atom& a)
+    {
+        send(a);
+        return *this;
+    }
+
     TestPdExternal& operator<<(const AtomList& lst)
     {
         send(lst);
@@ -602,12 +626,11 @@ public:
 
     ~TestPdExternal()
     {
-        for (size_t i = 0; i < outs_.size(); i++)
-            delete outs_[i];
+        for (auto p : outs_)
+            delete p;
 
-        ListenerMap::iterator it = listeners_.begin();
-        for (; it != listeners_.end(); ++it)
-            delete it->second;
+        for (auto& kv : listeners_)
+            delete kv.second;
     }
 
     TestPdExternal& operator<<(const PropertySetter& p)

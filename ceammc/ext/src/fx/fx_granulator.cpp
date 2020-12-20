@@ -9,11 +9,6 @@ public:
         : faust_fx_granulator_tilde(args)
     {
     }
-
-    void m_reset(t_symbol*, const AtomList&)
-    {
-        dsp_->instanceClear();
-    }
 };
 
 void setup_fx_granulator_tilde()

@@ -14,6 +14,10 @@
 #X text 200 224 verbose information about top-level canvas;
 #X obj 30 251 patch.args;
 #X text 200 251 Get patch or subpatch arguments;
+#X obj 30 278 patch.deps;
+#X text 200 278 patch dependencies: used objects and abstractions;
+#X obj 30 305 patch.tree;
+#X text 200 305 patch tree;
 #X obj 1 1 cnv 5 740 40 empty empty ceammc::patch 20 20 0 20 -104026
 -4096 0;
 #X obj 1 513 cnv 5 740 40 empty empty empty 17 7 0 10 -203890 -1 0;

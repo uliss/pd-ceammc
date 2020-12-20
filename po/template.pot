@@ -5,9 +5,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: Pure\\ Data 0.50.1_ceammc\n"
-"Report-Msgid-Bugs-To: pd-dev@iem.at\n"
-"POT-Creation-Date: 2019-11-19 03:38+0300\n"
+"Project-Id-Version: Pure\\ Data 0.51.0_ceammc\n"
+"Report-Msgid-Bugs-To: serge.uliss at gmail.com\n"
+"POT-Creation-Date: 2020-12-14 11:55+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -16,38 +16,31 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: ../ceammc/ext/src/lib/ceammc_dsp_ui.h ../ceammc/ext/src/lib/ceammc_ui.h
+#: ../ceammc/ext/src/lib/ceammc_ui.h
 msgid "Background Color"
 msgstr ""
 
-#: ../ceammc/ext/src/lib/ceammc_dsp_ui.h ../ceammc/ext/src/lib/ceammc_ui.h
+#: ../ceammc/ext/src/lib/ceammc_ui.h
 #: ../ceammc/ext/src/lib/cicm/Sources/eclass.cpp
-#: ../ceammc/ext/src/ui/cicm/Sources/eclass.c ../ceammc/ext/src/ui/ui_icon.cpp
+#: ../ceammc/ext/src/ui/ui_icon.cpp
 msgid "Basic"
 msgstr ""
 
-#: ../ceammc/ext/src/lib/ceammc_dsp_ui.h ../ceammc/ext/src/lib/ceammc_ui.h
+#: ../ceammc/ext/src/lib/ceammc_ui.h
 msgid "Border Color"
 msgstr ""
 
-#: ../ceammc/ext/src/lib/ceammc_dsp_ui.h ../ceammc/ext/src/lib/ceammc_ui.h
-#: ../ceammc/ext/src/ui/ui_spectroscope.cpp
+#: ../ceammc/ext/src/lib/ceammc_ui.h
 msgid "Label Color"
-msgstr ""
-
-#: ../ceammc/ext/src/lib/ceammc_dsp_ui.h ../ceammc/ext/src/lib/ceammc_ui.h
-#: ../ceammc/ext/src/lib/cicm/Sources/eclass.cpp
-#: ../ceammc/ext/src/ui/cicm/Sources/eclass.c
-msgid "Preset Name"
 msgstr ""
 
 #: ../ceammc/ext/src/lib/ceammc_ui.h
 msgid "Output mouse events"
 msgstr ""
 
+#: ../ceammc/ext/src/lib/ceammc_ui.h
 #: ../ceammc/ext/src/lib/cicm/Sources/eclass.cpp
-#, c-format
-msgid "%s properties"
+msgid "Preset Name"
 msgstr ""
 
 #: ../ceammc/ext/src/lib/cicm/Sources/eclass.cpp
@@ -55,34 +48,29 @@ msgid "Attach side"
 msgstr ""
 
 #: ../ceammc/ext/src/lib/cicm/Sources/eclass.cpp
-#: ../ceammc/ext/src/ui/cicm/Sources/eclass.c ../ceammc/ext/src/ui/ui_gain.cpp
-#: ../ceammc/ext/src/ui/ui_gain2.cpp ../ceammc/ext/src/ui/ui_rslider.cpp
+#: ../ceammc/ext/src/ui/ui_gain.cpp ../ceammc/ext/src/ui/ui_gain2.cpp
+#: ../ceammc/ext/src/ui/ui_plot_tilde.cpp ../ceammc/ext/src/ui/ui_rslider.cpp
 #: ../ceammc/ext/src/ui/ui_scope.cpp
 msgid "Bounds"
 msgstr ""
 
-#: ../ceammc/ext/src/lib/cicm/Sources/eclass.cpp
-#: ../ceammc/ext/src/ui/cicm/Sources/eclass.c ../tcl/dialog_iemgui.tcl
+#: ../ceammc/ext/src/lib/cicm/Sources/eclass.cpp ../tcl/dialog_iemgui.tcl
 msgid "Colors"
 msgstr ""
 
 #: ../ceammc/ext/src/lib/cicm/Sources/eclass.cpp
-#: ../ceammc/ext/src/ui/cicm/Sources/eclass.c
 msgid "Font Name"
 msgstr ""
 
-#: ../ceammc/ext/src/lib/cicm/Sources/eclass.cpp
-#: ../ceammc/ext/src/ui/cicm/Sources/eclass.c ../tcl/dialog_font.tcl
+#: ../ceammc/ext/src/lib/cicm/Sources/eclass.cpp ../tcl/dialog_font.tcl
 msgid "Font Size"
 msgstr ""
 
 #: ../ceammc/ext/src/lib/cicm/Sources/eclass.cpp
-#: ../ceammc/ext/src/ui/cicm/Sources/eclass.c
 msgid "Font Slant"
 msgstr ""
 
 #: ../ceammc/ext/src/lib/cicm/Sources/eclass.cpp
-#: ../ceammc/ext/src/ui/cicm/Sources/eclass.c
 msgid "Font Weight"
 msgstr ""
 
@@ -100,31 +88,6 @@ msgid "Label"
 msgstr ""
 
 #: ../ceammc/ext/src/lib/cicm/Sources/eclass.cpp
-msgid "Label align"
-msgstr ""
-
-#: ../ceammc/ext/src/lib/cicm/Sources/eclass.cpp
-msgid "Label horizontal margin"
-msgstr ""
-
-#: ../ceammc/ext/src/lib/cicm/Sources/eclass.cpp
-msgid "Label margins"
-msgstr ""
-
-#: ../ceammc/ext/src/lib/cicm/Sources/eclass.cpp
-msgid "Label position"
-msgstr ""
-
-#: ../ceammc/ext/src/lib/cicm/Sources/eclass.cpp
-msgid "Label side"
-msgstr ""
-
-#: ../ceammc/ext/src/lib/cicm/Sources/eclass.cpp
-msgid "Label vertical align"
-msgstr ""
-
-#: ../ceammc/ext/src/lib/cicm/Sources/eclass.cpp
-#: ../ceammc/ext/src/ui/cicm/Sources/eclass.c
 msgid "MIDI"
 msgstr ""
 
@@ -138,7 +101,7 @@ msgstr ""
 #: ../ceammc/ext/src/ui/ui_menu.cpp ../ceammc/ext/src/ui/ui_meter.cpp
 #: ../ceammc/ext/src/ui/ui_number.cpp ../ceammc/ext/src/ui/ui_number_tilde.cpp
 #: ../ceammc/ext/src/ui/ui_polar.cpp ../ceammc/ext/src/ui/ui_radio.cpp
-#: ../ceammc/ext/src/ui/ui_rslider.cpp ../ceammc/ext/src/ui/ui_scope.cpp
+#: ../ceammc/ext/src/ui/ui_scope.cpp ../ceammc/ext/src/ui/ui_toggle.cpp
 msgid "Main"
 msgstr ""
 
@@ -147,31 +110,22 @@ msgid "Margins"
 msgstr ""
 
 #: ../ceammc/ext/src/lib/cicm/Sources/eclass.cpp
-#: ../ceammc/ext/src/ui/cicm/Sources/eclass.c
 msgid "Patching Size"
 msgstr ""
 
 #: ../ceammc/ext/src/lib/cicm/Sources/eclass.cpp
-#: ../ceammc/ext/src/ui/cicm/Sources/eclass.c
 msgid "Pinned"
 msgstr ""
 
 #: ../ceammc/ext/src/lib/cicm/Sources/eclass.cpp
-msgid "Position"
-msgstr ""
-
-#: ../ceammc/ext/src/lib/cicm/Sources/eclass.cpp
-#: ../ceammc/ext/src/ui/cicm/Sources/eclass.c
 msgid "Receive Symbol"
 msgstr ""
 
 #: ../ceammc/ext/src/lib/cicm/Sources/eclass.cpp
-#: ../ceammc/ext/src/ui/cicm/Sources/eclass.c
 msgid "Select"
 msgstr ""
 
 #: ../ceammc/ext/src/lib/cicm/Sources/eclass.cpp
-#: ../ceammc/ext/src/ui/cicm/Sources/eclass.c
 msgid "Send Symbol"
 msgstr ""
 
@@ -184,8 +138,7 @@ msgstr ""
 msgid "Vertical align"
 msgstr ""
 
-#: ../ceammc/ext/src/lib/cicm/Sources/eclass.cpp
-#: ../ceammc/ext/src/ui/cicm/Sources/eclass.c ../tcl/pdwindow.tcl
+#: ../ceammc/ext/src/lib/cicm/Sources/eclass.cpp ../tcl/pdwindow.tcl
 msgid "normal"
 msgstr ""
 
@@ -281,6 +234,10 @@ msgstr ""
 msgid "Display type"
 msgstr ""
 
+#: ../ceammc/ext/src/ui/ui_display.cpp
+msgid "Float formatting width"
+msgstr ""
+
 #: ../ceammc/ext/src/ui/ui_display.cpp ../ceammc/ext/src/ui/ui_label.cpp
 #: ../ceammc/ext/src/ui/ui_menu.cpp ../ceammc/ext/src/ui/ui_preset.cpp
 #: ../ceammc/ext/src/ui/ui_slider.cpp ../ceammc/ext/src/ui/ui_tab.cpp
@@ -292,15 +249,15 @@ msgid "Audio Settings"
 msgstr ""
 
 #: ../ceammc/ext/src/ui/ui_env.cpp
-msgid "Length"
-msgstr ""
-
-#: ../ceammc/ext/src/ui/ui_env.cpp
 msgid "Length (ms)"
 msgstr ""
 
 #: ../ceammc/ext/src/ui/ui_env.cpp
 msgid "Line Color"
+msgstr ""
+
+#: ../ceammc/ext/src/ui/ui_env.cpp
+msgid "Output Mode"
 msgstr ""
 
 #: ../ceammc/ext/src/ui/ui_gain.cpp ../ceammc/ext/src/ui/ui_gain2.cpp
@@ -309,18 +266,18 @@ msgstr ""
 msgid "Knob Color"
 msgstr ""
 
-#: ../ceammc/ext/src/ui/ui_gain.cpp ../ceammc/ext/src/ui/ui_knob.cpp
-#: ../ceammc/ext/src/ui/ui_slider.cpp
+#: ../ceammc/ext/src/ui/ui_gain.cpp ../ceammc/ext/src/ui/ui_gain2.cpp
+#: ../ceammc/ext/src/ui/ui_knob.cpp ../ceammc/ext/src/ui/ui_slider.cpp
 msgid "MIDI channel"
 msgstr ""
 
-#: ../ceammc/ext/src/ui/ui_gain.cpp ../ceammc/ext/src/ui/ui_knob.cpp
-#: ../ceammc/ext/src/ui/ui_slider.cpp
+#: ../ceammc/ext/src/ui/ui_gain.cpp ../ceammc/ext/src/ui/ui_gain2.cpp
+#: ../ceammc/ext/src/ui/ui_knob.cpp ../ceammc/ext/src/ui/ui_slider.cpp
 msgid "MIDI control"
 msgstr ""
 
-#: ../ceammc/ext/src/ui/ui_gain.cpp ../ceammc/ext/src/ui/ui_knob.cpp
-#: ../ceammc/ext/src/ui/ui_slider.cpp
+#: ../ceammc/ext/src/ui/ui_gain.cpp ../ceammc/ext/src/ui/ui_gain2.cpp
+#: ../ceammc/ext/src/ui/ui_knob.cpp ../ceammc/ext/src/ui/ui_slider.cpp
 msgid "MIDI pickup"
 msgstr ""
 
@@ -356,7 +313,7 @@ msgstr ""
 msgid "Icon"
 msgstr ""
 
-#: ../ceammc/ext/src/ui/ui_icon.cpp
+#: ../ceammc/ext/src/ui/ui_icon.cpp ../ceammc/ext/src/ui/ui_plot_tilde.cpp
 msgid "Mode"
 msgstr ""
 
@@ -373,11 +330,43 @@ msgid "Step increment"
 msgstr ""
 
 #: ../ceammc/ext/src/ui/ui_keyboard.cpp
+msgid "7"
+msgstr ""
+
+#: ../ceammc/ext/src/ui/ui_keyboard.cpp
 msgid "Keys"
 msgstr ""
 
 #: ../ceammc/ext/src/ui/ui_keyboard.cpp
 msgid "Leftmost MIDI note"
+msgstr ""
+
+#: ../ceammc/ext/src/ui/ui_keyboard.cpp
+msgid "aug"
+msgstr ""
+
+#: ../ceammc/ext/src/ui/ui_keyboard.cpp
+msgid "aug7"
+msgstr ""
+
+#: ../ceammc/ext/src/ui/ui_keyboard.cpp
+msgid "dim"
+msgstr ""
+
+#: ../ceammc/ext/src/ui/ui_keyboard.cpp
+msgid "maj"
+msgstr ""
+
+#: ../ceammc/ext/src/ui/ui_keyboard.cpp
+msgid "maj7"
+msgstr ""
+
+#: ../ceammc/ext/src/ui/ui_keyboard.cpp ../ceammc/ext/src/ui/ui_knob.cpp
+msgid "min"
+msgstr ""
+
+#: ../ceammc/ext/src/ui/ui_keyboard.cpp
+msgid "min7"
 msgstr ""
 
 #: ../ceammc/ext/src/ui/ui_keyboard.cpp
@@ -415,10 +404,6 @@ msgstr ""
 
 #: ../ceammc/ext/src/ui/ui_knob.cpp
 msgid "max"
-msgstr ""
-
-#: ../ceammc/ext/src/ui/ui_knob.cpp
-msgid "min"
 msgstr ""
 
 #: ../ceammc/ext/src/ui/ui_label.cpp
@@ -495,7 +480,7 @@ msgid "reset"
 msgstr ""
 
 #: ../ceammc/ext/src/ui/ui_matrix.cpp
-msgid "save"
+msgid "reset column"
 msgstr ""
 
 #: ../ceammc/ext/src/ui/ui_matrix.cpp
@@ -503,7 +488,7 @@ msgid "reset row"
 msgstr ""
 
 #: ../ceammc/ext/src/ui/ui_matrix.cpp
-msgid "reset column"
+msgid "save"
 msgstr ""
 
 #: ../ceammc/ext/src/ui/ui_menu.cpp ../ceammc/ext/src/ui/ui_tab.cpp
@@ -550,6 +535,78 @@ msgstr ""
 msgid "Decimal precision"
 msgstr ""
 
+#: ../ceammc/ext/src/ui/ui_plot_tilde.cpp
+msgid "Auto Y-range"
+msgstr ""
+
+#: ../ceammc/ext/src/ui/ui_plot_tilde.cpp
+msgid "First plot color"
+msgstr ""
+
+#: ../ceammc/ext/src/ui/ui_plot_tilde.cpp
+msgid "Fourth plot color"
+msgstr ""
+
+#: ../ceammc/ext/src/ui/ui_plot_tilde.cpp
+msgid "Labels on x-axis"
+msgstr ""
+
+#: ../ceammc/ext/src/ui/ui_plot_tilde.cpp
+msgid "Labels on y-axis"
+msgstr ""
+
+#: ../ceammc/ext/src/ui/ui_plot_tilde.cpp
+msgid "Major grid on x-axis"
+msgstr ""
+
+#: ../ceammc/ext/src/ui/ui_plot_tilde.cpp
+msgid "Major grid on y-axis"
+msgstr ""
+
+#: ../ceammc/ext/src/ui/ui_plot_tilde.cpp
+msgid "Major ticks on x-axis"
+msgstr ""
+
+#: ../ceammc/ext/src/ui/ui_plot_tilde.cpp
+msgid "Major ticks on y-axis"
+msgstr ""
+
+#: ../ceammc/ext/src/ui/ui_plot_tilde.cpp
+msgid "Maximum Y-value"
+msgstr ""
+
+#: ../ceammc/ext/src/ui/ui_plot_tilde.cpp
+msgid "Minimum Y-value"
+msgstr ""
+
+#: ../ceammc/ext/src/ui/ui_plot_tilde.cpp
+msgid "Minor grid on x-axis"
+msgstr ""
+
+#: ../ceammc/ext/src/ui/ui_plot_tilde.cpp
+msgid "Minor grid on y-axis"
+msgstr ""
+
+#: ../ceammc/ext/src/ui/ui_plot_tilde.cpp
+msgid "Minor ticks on x-axis"
+msgstr ""
+
+#: ../ceammc/ext/src/ui/ui_plot_tilde.cpp
+msgid "Minor ticks on y-axis"
+msgstr ""
+
+#: ../ceammc/ext/src/ui/ui_plot_tilde.cpp
+msgid "Number of inputs"
+msgstr ""
+
+#: ../ceammc/ext/src/ui/ui_plot_tilde.cpp
+msgid "Second plot color"
+msgstr ""
+
+#: ../ceammc/ext/src/ui/ui_plot_tilde.cpp
+msgid "Third plot color"
+msgstr ""
+
 #: ../ceammc/ext/src/ui/ui_polar.cpp
 msgid "Clockwise"
 msgstr ""
@@ -560,10 +617,6 @@ msgstr ""
 
 #: ../ceammc/ext/src/ui/ui_polar.cpp
 msgid "Positive output"
-msgstr ""
-
-#: ../ceammc/ext/src/ui/ui_polar.cpp
-msgid "Use degrees"
 msgstr ""
 
 #: ../ceammc/ext/src/ui/ui_polar.cpp
@@ -595,6 +648,10 @@ msgid "Stored Button Color"
 msgstr ""
 
 #: ../ceammc/ext/src/ui/ui_preset.cpp
+msgid "duplicate all"
+msgstr ""
+
+#: ../ceammc/ext/src/ui/ui_preset.cpp
 msgid "read"
 msgstr ""
 
@@ -608,10 +665,6 @@ msgstr ""
 
 #: ../ceammc/ext/src/ui/ui_radio.cpp
 msgid "Number of Items"
-msgstr ""
-
-#: ../ceammc/ext/src/ui/ui_rslider.cpp
-msgid "Mouse sync"
 msgstr ""
 
 #: ../ceammc/ext/src/ui/ui_scope.cpp
@@ -628,10 +681,6 @@ msgstr ""
 
 #: ../ceammc/ext/src/ui/ui_scope.cpp
 msgid "Zoom 50%"
-msgstr ""
-
-#: ../ceammc/ext/src/ui/ui_slider.cpp
-msgid "Output on mouse up"
 msgstr ""
 
 #: ../ceammc/ext/src/ui/ui_slider.cpp
@@ -656,22 +705,6 @@ msgstr ""
 
 #: ../ceammc/ext/src/ui/ui_slider2d.cpp
 msgid "Left X-value"
-msgstr ""
-
-#: ../ceammc/ext/src/ui/ui_slider2d.cpp
-msgid "Maximum X-value"
-msgstr ""
-
-#: ../ceammc/ext/src/ui/ui_slider2d.cpp
-msgid "Maximum Y-value"
-msgstr ""
-
-#: ../ceammc/ext/src/ui/ui_slider2d.cpp
-msgid "Minimum X-value"
-msgstr ""
-
-#: ../ceammc/ext/src/ui/ui_slider2d.cpp
-msgid "Minimum Y-value"
 msgstr ""
 
 #: ../ceammc/ext/src/ui/ui_slider2d.cpp
@@ -703,8 +736,15 @@ msgid "Sliders count"
 msgstr ""
 
 #: ../ceammc/ext/src/ui/ui_sliders.cpp
-#, c-format
-msgid "fill with %f"
+msgid "fill with max"
+msgstr ""
+
+#: ../ceammc/ext/src/ui/ui_sliders.cpp
+msgid "fill with mean"
+msgstr ""
+
+#: ../ceammc/ext/src/ui/ui_sliders.cpp
+msgid "fill with min"
 msgstr ""
 
 #: ../ceammc/ext/src/ui/ui_sliders.cpp
@@ -727,10 +767,6 @@ msgstr ""
 msgid "log scale"
 msgstr ""
 
-#: ../ceammc/ext/src/ui/ui_spectroscope~.cpp ../tcl/dialog_iemgui.tcl
-msgid "Foreground color"
-msgstr ""
-
 #: ../ceammc/ext/src/ui/ui_tab.cpp
 msgid "Toggle Mode"
 msgstr ""
@@ -739,9 +775,45 @@ msgstr ""
 msgid "Vertical Orientation"
 msgstr ""
 
+#: ../ceammc/ext/src/ui/ui_toggle.cpp
+msgid "Off value"
+msgstr ""
+
+#: ../ceammc/ext/src/ui/ui_toggle.cpp
+msgid "On value"
+msgstr ""
+
 #: ../ceammc/gui/plugins/buttonbar.tmpl.tcl
 #: ../ceammc/gui/plugins/ceammc_buttonbar-plugin.tcl ../tcl/pd_menus.tcl
 msgid "Object"
+msgstr ""
+
+#: ../ceammc/gui/plugins/ceammc_buttonbar-plugin.tcl
+msgid "ButtonBar Settings"
+msgstr ""
+
+#: ../ceammc/gui/plugins/ceammc_buttonbar-plugin.tcl
+msgid "ButtonBar settings"
+msgstr ""
+
+#: ../ceammc/gui/plugins/ceammc_buttonbar-plugin.tcl
+msgid "Hide in runmode"
+msgstr ""
+
+#: ../ceammc/gui/plugins/ceammc_buttonbar-plugin.tcl
+msgid "Save settings"
+msgstr ""
+
+#: ../ceammc/gui/plugins/ceammc_buttonbar-plugin.tcl
+msgid "Show"
+msgstr ""
+
+#: ../ceammc/gui/plugins/ceammc_buttonbar-plugin.tcl
+msgid "Button Bar"
+msgstr ""
+
+#: ../ceammc/gui/plugins/ceammc_buttonbar-plugin.tcl
+msgid "Button Bar Settings"
 msgstr ""
 
 #: ../ceammc/gui/plugins/patch2svg-plugin.tcl
@@ -839,19 +911,19 @@ msgstr ""
 msgid "(same as input device)..."
 msgstr ""
 
-#: ../tcl/dialog_audio.tcl ../tcl/dialog_midi.tcl
+#: ../tcl/dialog_audio.tcl
 msgid "1:"
 msgstr ""
 
-#: ../tcl/dialog_audio.tcl ../tcl/dialog_midi.tcl
+#: ../tcl/dialog_audio.tcl
 msgid "2:"
 msgstr ""
 
-#: ../tcl/dialog_audio.tcl ../tcl/dialog_midi.tcl
+#: ../tcl/dialog_audio.tcl
 msgid "3:"
 msgstr ""
 
-#: ../tcl/dialog_audio.tcl ../tcl/dialog_midi.tcl
+#: ../tcl/dialog_audio.tcl
 msgid "4:"
 msgstr ""
 
@@ -879,7 +951,7 @@ msgstr ""
 msgid "Sample rate:"
 msgstr ""
 
-#: ../tcl/dialog_audio.tcl ../tcl/dialog_midi.tcl ../tcl/pd_menus.tcl
+#: ../tcl/dialog_audio.tcl ../tcl/dialog_midi.tcl
 msgid "Save All Settings"
 msgstr ""
 
@@ -887,12 +959,12 @@ msgstr ""
 msgid "Settings"
 msgstr ""
 
-#: ../tcl/dialog_audio.tcl
-msgid "Use callbacks"
+#: ../tcl/dialog_audio.tcl ../tcl/dialog_midi.tcl
+msgid "Use Multiple Devices"
 msgstr ""
 
-#: ../tcl/dialog_audio.tcl ../tcl/dialog_midi.tcl
-msgid "Use multiple devices"
+#: ../tcl/dialog_audio.tcl
+msgid "Use callbacks"
 msgstr ""
 
 #: ../tcl/dialog_canvas.tcl
@@ -960,12 +1032,7 @@ msgstr ""
 msgid "Couldn't find '%1$s' in %2$s"
 msgstr ""
 
-#: ../tcl/dialog_find.tcl
-#, tcl-format
-msgid "Couldn't find '%s' in %s"
-msgstr ""
-
-#: ../tcl/dialog_find.tcl
+#: ../tcl/dialog_find.tcl pd_dynamic_strings.tcl
 msgid "Find"
 msgstr ""
 
@@ -983,10 +1050,6 @@ msgid "Pd window"
 msgstr ""
 
 #: ../tcl/dialog_find.tcl
-msgid "Search in"
-msgstr ""
-
-#: ../tcl/dialog_find.tcl
 #, tcl-format
 msgid "Search in %s for:"
 msgstr ""
@@ -998,21 +1061,7 @@ msgstr ""
 
 #: ../tcl/dialog_find.tcl
 #, tcl-format
-msgid "Showed last '%s' in %s"
-msgstr ""
-
-#: ../tcl/dialog_find.tcl
-#, tcl-format
 msgid "Showing '%1$d' out of %2$d items in %3$s"
-msgstr ""
-
-#: ../tcl/dialog_find.tcl
-#, tcl-format
-msgid "Showing '%d' out of %d items in %s"
-msgstr ""
-
-#: ../tcl/dialog_find.tcl
-msgid "for:"
 msgstr ""
 
 #: ../tcl/dialog_font.tcl
@@ -1050,10 +1099,6 @@ msgstr ""
 
 #: ../tcl/dialog_gatom.tcl
 msgid "Left"
-msgstr ""
-
-#: ../tcl/dialog_gatom.tcl
-msgid "Left   "
 msgstr ""
 
 #: ../tcl/dialog_gatom.tcl
@@ -1119,6 +1164,10 @@ msgstr ""
 
 #: ../tcl/dialog_iemgui.tcl
 msgid "Flash Time (msec)"
+msgstr ""
+
+#: ../tcl/dialog_iemgui.tcl
+msgid "Foreground color"
 msgstr ""
 
 #: ../tcl/dialog_iemgui.tcl
@@ -1230,31 +1279,15 @@ msgid "Y offset:"
 msgstr ""
 
 #: ../tcl/dialog_message.tcl
+msgid "(use arrow keys for history)"
+msgstr ""
+
+#: ../tcl/dialog_message.tcl
 msgid "(use arrow keys ↑↓ for history)"
 msgstr ""
 
 #: ../tcl/dialog_message.tcl
 msgid "Send a Pd message"
-msgstr ""
-
-#: ../tcl/dialog_midi.tcl
-msgid "5:"
-msgstr ""
-
-#: ../tcl/dialog_midi.tcl
-msgid "6:"
-msgstr ""
-
-#: ../tcl/dialog_midi.tcl
-msgid "7:"
-msgstr ""
-
-#: ../tcl/dialog_midi.tcl
-msgid "8:"
-msgstr ""
-
-#: ../tcl/dialog_midi.tcl
-msgid "9:"
 msgstr ""
 
 #: ../tcl/dialog_midi.tcl
@@ -1271,10 +1304,6 @@ msgstr ""
 
 #: ../tcl/dialog_midi.tcl
 msgid "Out Ports:"
-msgstr ""
-
-#: ../tcl/dialog_midi.tcl
-msgid "Use Multiple Devices"
 msgstr ""
 
 #: ../tcl/dialog_path.tcl
@@ -1318,10 +1347,6 @@ msgid "Reset"
 msgstr ""
 
 #: ../tcl/dialog_path.tcl
-msgid "Use standard extensions"
-msgstr ""
-
-#: ../tcl/dialog_path.tcl
 msgid "Use standard paths"
 msgstr ""
 
@@ -1354,7 +1379,32 @@ msgid "Help Browser"
 msgstr ""
 
 #: ../tcl/pd-gui.tcl
+#, tcl-format
+msgid "'%1$s' already loaded, ignoring: '%2$s'"
+msgstr ""
+
+#: ../tcl/pd-gui.tcl
 msgid "Associated Files"
+msgstr ""
+
+#: ../tcl/pd-gui.tcl
+#, tcl-format
+msgid "FAILED TO LOAD %s"
+msgstr ""
+
+#: ../tcl/pd-gui.tcl
+#, tcl-format
+msgid "Failed to find plugins in %s ...skipping!"
+msgstr ""
+
+#: ../tcl/pd-gui.tcl
+#, tcl-format
+msgid "Failed to read plugin %s ...skipping!"
+msgstr ""
+
+#: ../tcl/pd-gui.tcl
+#, tcl-format
+msgid "Loading plugin: %s"
 msgstr ""
 
 #: ../tcl/pd-gui.tcl
@@ -1379,12 +1429,27 @@ msgstr ""
 
 #: ../tcl/pd-gui.tcl
 #, tcl-format
+msgid "UNHANDLED ERROR: %s"
+msgstr ""
+
+#: ../tcl/pd-gui.tcl
+#, tcl-format
 msgid "WARNING: Font family '%s' not found, using default (%s)\n"
 msgstr ""
 
 #: ../tcl/pd-gui.tcl
 #, tcl-format
 msgid "WARNING: Font weight '%s' not found, using default (%s)\n"
+msgstr ""
+
+#: ../tcl/pd-gui.tcl
+#, tcl-format
+msgid "WARNING: font family '%s' not found, using default (%s)\n"
+msgstr ""
+
+#: ../tcl/pd-gui.tcl
+#, tcl-format
+msgid "WARNING: font weight '%s' not found, using default (%s)\n"
 msgstr ""
 
 #: ../tcl/pd_connect.tcl ../tcl/pdwindow.tcl
@@ -1400,8 +1465,17 @@ msgid "(Tcl) UNHANDLED ERROR: "
 msgstr ""
 
 #: ../tcl/pd_deken.tcl
+msgid "... aborting"
+msgstr ""
+
+#: ../tcl/pd_deken.tcl
 #, tcl-format
 msgid "1. Unzip %s."
+msgstr ""
+
+#: ../tcl/pd_deken.tcl
+#, tcl-format
+msgid "1. unzip %s"
 msgstr ""
 
 #: ../tcl/pd_deken.tcl
@@ -1411,7 +1485,7 @@ msgstr ""
 
 #: ../tcl/pd_deken.tcl
 #, tcl-format
-msgid "2. Copy the contents into %s.\n"
+msgid "2. copy the contents into %s"
 msgstr ""
 
 #: ../tcl/pd_deken.tcl
@@ -1429,10 +1503,6 @@ msgid "Are you online?"
 msgstr ""
 
 #: ../tcl/pd_deken.tcl
-msgid "Cannot download/install libraries!"
-msgstr ""
-
-#: ../tcl/pd_deken.tcl
 msgid "Check"
 msgstr ""
 
@@ -1442,14 +1512,6 @@ msgid ""
 "Commencing downloading of:\n"
 "%1$s\n"
 "Into %2$s..."
-msgstr ""
-
-#: ../tcl/pd_deken.tcl
-#, tcl-format
-msgid ""
-"Commencing downloading of:\n"
-"%s\n"
-"Into %s..."
 msgstr ""
 
 #: ../tcl/pd_deken.tcl
@@ -1480,16 +1542,7 @@ msgid "Install %1$s to %2$s?"
 msgstr ""
 
 #: ../tcl/pd_deken.tcl
-msgid "Install libraries to directory:"
-msgstr ""
-
-#: ../tcl/pd_deken.tcl
 msgid "Install package"
-msgstr ""
-
-#: ../tcl/pd_deken.tcl
-#, tcl-format
-msgid "Install to directory %s?"
 msgstr ""
 
 #: ../tcl/pd_deken.tcl
@@ -1498,14 +1551,6 @@ msgstr ""
 
 #: ../tcl/pd_deken.tcl
 msgid "No matching externals found."
-msgstr ""
-
-#: ../tcl/pd_deken.tcl
-msgid "No matching externals found. Try using the full name e.g. 'freeverb'."
-msgstr ""
-
-#: ../tcl/pd_deken.tcl
-msgid "No writeable directory found in:"
 msgstr ""
 
 #: ../tcl/pd_deken.tcl
@@ -1537,10 +1582,6 @@ msgid "Search"
 msgstr ""
 
 #: ../tcl/pd_deken.tcl
-msgid "Searching for externals..."
-msgstr ""
-
-#: ../tcl/pd_deken.tcl
 msgid "Should newly installed libraries be added to Pd's search path?"
 msgstr ""
 
@@ -1555,11 +1596,6 @@ msgstr ""
 #: ../tcl/pd_deken.tcl
 #, tcl-format
 msgid "Successfully unzipped %1$s into %2$s."
-msgstr ""
-
-#: ../tcl/pd_deken.tcl
-#, tcl-format
-msgid "Successfully unzipped %s into %s.\n"
 msgstr ""
 
 #: ../tcl/pd_deken.tcl
@@ -1585,15 +1621,7 @@ msgid "Unable to download from %1$s [%2$s]"
 msgstr ""
 
 #: ../tcl/pd_deken.tcl
-msgid "Unable to extract package automatically."
-msgstr ""
-
-#: ../tcl/pd_deken.tcl
 msgid "Unable to perform search."
-msgstr ""
-
-#: ../tcl/pd_deken.tcl
-msgid "Unable to perform search. Are you online?"
 msgstr ""
 
 #: ../tcl/pd_deken.tcl
@@ -1614,11 +1642,6 @@ msgstr ""
 #: ../tcl/pd_deken.tcl
 #, tcl-format
 msgid "Uploaded by %1$s @ %2$s"
-msgstr ""
-
-#: ../tcl/pd_deken.tcl
-#, tcl-format
-msgid "Uploaded by %s @ %s"
 msgstr ""
 
 #: ../tcl/pd_deken.tcl
@@ -1691,7 +1714,114 @@ msgstr ""
 
 #: ../tcl/pd_deken.tcl
 #, tcl-format
+msgid "added %s to search paths"
+msgstr ""
+
+#: ../tcl/pd_deken.tcl
+#, tcl-format
+msgid ""
+"commencing downloading of:\n"
+"%1$s\n"
+"into %2$s..."
+msgstr ""
+
+#: ../tcl/pd_deken.tcl
+#, tcl-format
+msgid "deken-plugin.tcl (Pd externals search) loaded from %s"
+msgstr ""
+
+#: ../tcl/pd_deken.tcl
+#, tcl-format
+msgid "installed version [%1$s] < %2$s...overwriting!"
+msgstr ""
+
+#: ../tcl/pd_deken.tcl
+#, tcl-format
+msgid "installed version [%1$s] == %2$s...skipping!"
+msgstr ""
+
+#: ../tcl/pd_deken.tcl
+#, tcl-format
+msgid "installed version [%1$s] > %2$s...skipping!"
+msgstr ""
+
+#: ../tcl/pd_deken.tcl
+msgid "no matching externals found"
+msgstr ""
+
+#: ../tcl/pd_deken.tcl
+#, tcl-format
+msgid "online? %s"
+msgstr ""
+
+#: ../tcl/pd_deken.tcl
+#, tcl-format
+msgid "platform detected: %s"
+msgstr ""
+
+#: ../tcl/pd_deken.tcl
+#, tcl-format
+msgid "platform re-detected: %s"
+msgstr ""
+
+#: ../tcl/pd_deken.tcl
+msgid "please perform the following steps manually:"
+msgstr ""
+
+#: ../tcl/pd_deken.tcl
+#, tcl-format
 msgid "searching for '%s'"
+msgstr ""
+
+#: ../tcl/pd_deken.tcl
+msgid "start searching for externals..."
+msgstr ""
+
+#: ../tcl/pd_deken.tcl
+#, tcl-format
+msgid "successfully unzipped %1$s into %2$s"
+msgstr ""
+
+#: ../tcl/pd_deken.tcl
+msgid "try using the full name e.g. 'freeverb'"
+msgstr ""
+
+#: ../tcl/pd_deken.tcl
+#, tcl-format
+msgid "unable to add %s to search paths"
+msgstr ""
+
+#: ../tcl/pd_deken.tcl
+#, tcl-format
+msgid "unable to download from %1$s [%2$s]"
+msgstr ""
+
+#: ../tcl/pd_deken.tcl
+msgid "unable to extract package automatically"
+msgstr ""
+
+#: ../tcl/pd_deken.tcl
+msgid "unable to perform search"
+msgstr ""
+
+#: ../tcl/pd_deken.tcl
+#, tcl-format
+msgid "unable to remove stray file %s"
+msgstr ""
+
+#: ../tcl/pd_deken.tcl
+#, tcl-format
+msgid "unable to rename downloaded file to %s"
+msgstr ""
+
+#: ../tcl/pd_deken.tcl
+#, tcl-format
+msgid "uninstalling %1$s from %2$s failed!"
+msgstr ""
+
+#: ../tcl/pd_deken.tcl
+#, tcl-format
+msgid "uninstalling '%s'"
 msgstr ""
 
 #: ../tcl/pd_docsdir.tcl
@@ -1725,16 +1855,27 @@ msgid ""
 "Choose a new location?"
 msgstr ""
 
+#: ../tcl/pd_docsdir.tcl
+#, tcl-format
+msgid "couldn't create \"externals\" directory in: %s\n"
+msgstr ""
+
+#: ../tcl/pd_docsdir.tcl
+#, tcl-format
+msgid "couldn't create Pd documents directory: %s\n"
+msgstr ""
+
+#: ../tcl/pd_guiprefs.tcl
+#, tcl-format
+msgid "Couldn't create preferences \"%1$s\" in %2$s"
+msgstr ""
+
 #: ../tcl/pd_menus.tcl
 msgid "(Dis)Connect Selection"
 msgstr ""
 
 #: ../tcl/pd_menus.tcl
 msgid "About Pd"
-msgstr ""
-
-#: ../tcl/pd_menus.tcl
-msgid "Align To Grid"
 msgstr ""
 
 #: ../tcl/pd_menus.tcl
@@ -1785,10 +1926,6 @@ msgstr ""
 msgid ""
 "Delete all preferences?\n"
 "(takes effect when Pd is restarted)"
-msgstr ""
-
-#: ../tcl/pd_menus.tcl
-msgid "Draw Grid"
 msgstr ""
 
 #: ../tcl/pd_menus.tcl
@@ -1928,10 +2065,6 @@ msgid "Save As..."
 msgstr ""
 
 #: ../tcl/pd_menus.tcl
-msgid "Save Current Patch As..."
-msgstr ""
-
-#: ../tcl/pd_menus.tcl
 msgid "Save to..."
 msgstr ""
 
@@ -1980,14 +2113,10 @@ msgid "Zoom Out"
 msgstr ""
 
 #: ../tcl/pd_menus.tcl
-msgid "Zoom new windows"
-msgstr ""
-
-#: ../tcl/pd_menus.tcl
 msgid "puredata.info"
 msgstr ""
 
-#: ../tcl/pdtk_canvas.tcl
+#: ../tcl/pdtk_canvas.tcl pd_dynamic_strings.tcl
 msgid "Help"
 msgstr ""
 
@@ -2063,6 +2192,16 @@ msgstr ""
 #: ../tcl/wheredoesthisgo.tcl
 #, tcl-format
 msgid "Ignoring '%s': doesn't look like a Pd-file"
+msgstr ""
+
+#: ../tcl/wheredoesthisgo.tcl
+#, tcl-format
+msgid "ignoring '%s': doesn't exist"
+msgstr ""
+
+#: ../tcl/wheredoesthisgo.tcl
+#, tcl-format
+msgid "ignoring '%s': doesn't look like a Pd file"
 msgstr ""
 
 #: iemgui_dynamic_strings.tcl
@@ -2154,6 +2293,10 @@ msgid "width:"
 msgstr ""
 
 #: pd_dynamic_strings.tcl
+msgid "(re-save preferences to reinstate them)"
+msgstr ""
+
+#: pd_dynamic_strings.tcl
 #, tcl-format
 msgid "Discard changes to '%s'?"
 msgstr ""
@@ -2161,6 +2304,22 @@ msgstr ""
 #: pd_dynamic_strings.tcl
 #, tcl-format
 msgid "Do you want to save the changes you made in '%s'?"
+msgstr ""
+
+#: pd_dynamic_strings.tcl
+msgid "Edit"
+msgstr ""
+
+#: pd_dynamic_strings.tcl
+msgid "File"
+msgstr ""
+
+#: pd_dynamic_strings.tcl
+msgid "Media"
+msgstr ""
+
+#: pd_dynamic_strings.tcl
+msgid "Put"
 msgstr ""
 
 #: pd_dynamic_strings.tcl
@@ -2196,6 +2355,10 @@ msgid "Redo typing"
 msgstr ""
 
 #: pd_dynamic_strings.tcl
+msgid "Show &Hidden Files and Directories"
+msgstr ""
+
+#: pd_dynamic_strings.tcl
 msgid "Undo clear"
 msgstr ""
 
@@ -2225,4 +2388,36 @@ msgstr ""
 
 #: pd_dynamic_strings.tcl
 msgid "Undo typing"
+msgstr ""
+
+#: pd_dynamic_strings.tcl
+msgid "Window"
+msgstr ""
+
+#: pd_dynamic_strings.tcl
+msgid "couldn't delete .pdsettings file"
+msgstr ""
+
+#: pd_dynamic_strings.tcl
+msgid "erased Pd settings"
+msgstr ""
+
+#: pd_dynamic_strings.tcl
+msgid "failed to erase Pd settings"
+msgstr ""
+
+#: pd_dynamic_strings.tcl
+msgid "no Pd settings to clear"
+msgstr ""
+
+#: pd_dynamic_strings.tcl
+msgid "no Pd settings to erase"
+msgstr ""
+
+#: pd_dynamic_strings.tcl
+msgid "removed .pdsettings file"
+msgstr ""
+
+#: pd_dynamic_strings.tcl
+msgid "skipping loading preferences... Pd seems to have crashed on startup"
 msgstr ""

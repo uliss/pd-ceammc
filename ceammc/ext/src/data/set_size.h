@@ -20,9 +20,10 @@
 class SetSize : public BaseObject {
 public:
     SetSize(const PdArgs& a);
-    void onDataT(const DataTPtr<DataTypeSet>& s);
+    void onList(const AtomList& l) override;
+    void onDataT(const SetAtom& set);
 };
 
-extern "C" void setup_set0x2esize();
+void setup_set_size();
 
 #endif // SET_SIZE_H

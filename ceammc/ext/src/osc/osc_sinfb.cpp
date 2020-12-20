@@ -9,7 +9,7 @@ public:
         : faust_osc_sinfb_tilde(args)
     {
         createInlet();
-        setInitSignalValue(positionalFloatArgument(0, 0));
+        setInitSignalValue(parsedPosArgs().floatAt(0, 0));
         bindPositionalArgToProperty(1, gensym("@feedback"));
     }
 

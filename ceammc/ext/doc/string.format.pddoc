@@ -24,8 +24,8 @@
         </arguments>
         <properties>
             <property name="@format" type="list">format string</property>
-            <property name="@int" type="flag">flag for integer mode. If specified all floats are
-            converted to integers. This usefull for hex and octal formatting</property>
+            <property name="@int" type="flag" default="0">flag for integer mode. If specified all
+            floats are converted to integers. This usefull for hex and octal formatting</property>
         </properties>
         <inlets>
             <inlet>
@@ -43,13 +43,9 @@
 [F]  [@format %+02d(
 |    |
 |    |
-[string.format %08.2f]
+[string.format "%08.2f"]
 |
-[str->sym]
-|
-[msg set]
-|
-[ (
+[ui.dt]
 ]]>
             </pdascii>
         </example>

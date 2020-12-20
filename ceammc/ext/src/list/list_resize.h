@@ -15,6 +15,7 @@
 #define LIST_RESIZE_H
 
 #include "ceammc_object.h"
+#include "ceammc_property_enum.h"
 
 using namespace ceammc;
 
@@ -30,8 +31,6 @@ public:
 
 private:
     void initProperties();
-    AtomList getPadValue() const;
-    void setPadValue(const AtomList& l);
 };
 
 void setup_list_resize();

@@ -7,28 +7,28 @@
 #X obj 660 11 dict.values;
 #X obj 50 118 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
 -1;
-#X obj 50 147 data.dict \[bpm: 120\] \[title: "Unknown masterpiece"\]
-\[freqs: 1 2 3 4\];
+#X obj 50 147 data.dict \[bpm: 120 title: "Unknown masterpiece" freqs:
+1 2 3 4\];
 #X obj 50 205 dict.values;
-#X obj 50 234 ui.display @display_type 1 @size 150 18;
-#X obj 20 274 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 279 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
+#X obj 50 234 ui.display @display_type 1;
+#X obj 20 283 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 288 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
-#X text 110 280 1\.;
-#X text 150 280 *data*;
-#X text 245 280 data.dict.;
-#X obj 20 310 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 315 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
+#X text 110 289 1\.;
+#X text 150 289 *data*;
+#X text 245 289 data.dict.;
+#X obj 20 319 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 324 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 316 1\.;
-#X text 245 316 mlist of values.;
+#X text 110 325 1\.;
+#X text 245 325 mlist of values.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 115 45 ::;
 #X obj 131 48 ui.link @title data @url ceammc.data-help.pd;
 #X obj 1 505 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 508 library: ceammc v0.8.0;
+#X text 10 508 library: ceammc v0.9.1;
 #X text 434 520 see also:;
 #X obj 508 520 data.dict;
 #X obj 588 520 data.mlist;
@@ -38,7 +38,7 @@
 #X text 10 10 library:;
 #X text 120 10 ceammc;
 #X text 10 32 version:;
-#X text 120 32 0.8.0;
+#X text 120 32 0.9.1;
 #X text 10 54 object:;
 #X text 120 54 dict.values;
 #X text 10 76 category:;

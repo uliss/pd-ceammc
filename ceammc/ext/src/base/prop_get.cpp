@@ -1,100 +1,183 @@
-#include "ceammc_atomlist.h"
-#include "ceammc_log.h"
+/*****************************************************************************
+ * Copyright 2020 Serge Poltavsky. All rights reserved.
+ *
+ * This file may be distributed under the terms of GNU Public License version
+ * 3 (GPL v3) as defined by the Free Software Foundation (FSF). A copy of the
+ * license should have been included with this file, or the project in which
+ * this file belongs to. You may also find the details of GPL v3 at:
+ * http://www.gnu.org/licenses/gpl-3.0.txt
+ *
+ * If you have any questions regarding the use of this file, feel free to
+ * contact the author of this file, or the owner of the project in which
+ * this file belongs to.
+ *****************************************************************************/
+#include "prop_get.h"
+#include "ceammc_factory.h"
+#include "ceammc_output.h"
+#include "datatype_property.h"
+#include "fmt/format.h"
 
-#include <m_pd.h>
-#include <map>
-#include <string>
-#include <vector>
-
-#define MSG_PREFIX "[prop->] "
-
-using namespace ceammc;
-typedef std::map<t_symbol*, t_outlet*> OutletIndexMap;
-
-static t_class* prop_get_class;
-struct t_prop {
-    t_object x_obj;
-    OutletIndexMap* prop_map;
-    t_outlet* all_prop;
-};
-
-static void prop_get_dump(t_prop* x)
-{
-    OutletIndexMap::iterator it;
-    for (it = x->prop_map->begin(); it != x->prop_map->end(); ++it)
-        post(MSG_PREFIX "dump: property %s", it->first->s_name);
+extern "C" {
+#include "g_canvas.h"
+#include "m_imp.h"
 }
 
-static inline void add_prop_map(t_prop* x, t_symbol* s)
+PropGet::PropGet(const PdArgs& args)
+    : BaseObject(args)
 {
-    t_outlet* out = outlet_new(&x->x_obj, &s_list);
-    (*x->prop_map)[s] = out;
+    createOutlet();
+
+    for (auto& a : args.args) {
+        if (a.isProperty()) {
+            props_.push_back(a.asSymbol());
+            createOutlet();
+        } else
+            OBJ_ERR << "property name expected (starting from '@'), got: " << a << ", skipping argument";
+    }
+
+    if (numOutlets() < 2)
+        createOutlet();
 }
 
-static inline t_outlet* get_prop_outlet(t_prop* x, t_symbol* sel)
+t_object* PropGet::findDestination()
 {
-    OutletIndexMap::iterator it = x->prop_map->find(sel);
-    return it == x->prop_map->end() ? 0 : it->second;
+    t_outlet* outlet = nullptr;
+    auto conn = obj_starttraverseoutlet(owner(), &outlet, 0);
+    if (!conn) {
+        OBJ_ERR << "not connected to object";
+        return nullptr;
+    }
+
+    t_object* dest;
+    t_inlet* inletp;
+    int whichp;
+
+    if (obj_nexttraverseoutlet(conn, &dest, &inletp, &whichp))
+        OBJ_ERR << "warning: connected to several objects, will get property only from the first one";
+
+    if (!dest) {
+        OBJ_ERR << "invalid connection";
+        return nullptr;
+    } else
+        return dest;
 }
 
-static void prop_get_anything(t_prop* x, t_symbol* s, int argc, t_atom* argv)
+void PropGet::outputProperties(t_object* dest, const std::vector<t_symbol*>& props)
 {
-    // pass thru non-properties
-    if (s->s_name[0] != '@') {
-        outlet_anything(x->x_obj.te_outlet, s, argc, argv);
+    if (!dest)
+        return;
+
+    if (dest->te_g.g_pd == canvas_class)
+        processAbstractionProps(reinterpret_cast<t_canvas*>(dest), props);
+    else
+        processObjectProps(dest, props);
+}
+
+void PropGet::onBang()
+{
+    outputProperties(findDestination(), props_);
+}
+
+void PropGet::onClick(t_floatarg xpos, t_floatarg ypos, t_floatarg shift, t_floatarg ctrl, t_floatarg alt)
+{
+    onBang();
+}
+
+const char* PropGet::annotateOutlet(size_t n) const
+{
+    if (n == 0)
+        return "connect to destination object";
+    else if (n <= props_.size())
+        return props_[n - 1]->s_name;
+    else
+        return nullptr;
+}
+
+void PropGet::processObjectProps(t_object* dest, const std::vector<t_symbol*>& props)
+{
+    auto fn = ceammc_get_propget_fn(dest);
+    if (!fn) {
+        OBJ_ERR << fmt::format("object has no properties: [{}]", class_getname(dest->te_g.g_pd));
         return;
     }
 
-    AtomList args(argc, argv);
-    args.insert(0, s);
-    AtomList unmatched;
+    for (auto it = props.rbegin(); it != props.rend(); ++it) {
+        int argc = 0;
+        t_atom* argv = nullptr;
+        int rc = fn(dest, *it, &argc, &argv);
+        if (!rc) {
+            OBJ_ERR << fmt::format("property '{}' not found in object [{}]", (*it)->s_name, class_getname(dest->te_g.g_pd));
+            continue;
+        }
 
-    std::deque<AtomList> props = args.properties();
+        const size_t IDX = props.size() - std::distance(props.rbegin(), it);
+        outletAtomListView(outletAt(IDX), AtomListView(argv, argc), true);
+
+        freebytes(argv, argc);
+    }
+}
+
+void PropGet::processAbstractionProps(t_glist* dest, const std::vector<t_symbol*>& props)
+{
     for (size_t i = 0; i < props.size(); i++) {
-        // get mapped to property outlet
-        t_outlet* prop_out = get_prop_outlet(x, props[i].first()->asSymbol());
-        if (prop_out != 0) {
-            to_outlet(prop_out, props[i].slice(1), true);
-        } else
-            unmatched.append(props[i]);
+        auto* full = PropertyStorage::makeFullName(props[i], dest);
+        PropertyPtr pp(full);
+        const size_t IDX = i + 1;
+        if (pp) {
+            if (pp->isBool()) {
+                bool b = false;
+                pp->getBool(b);
+                boolTo(IDX, b);
+            } else if (pp->isInt()) {
+                int ii = 0;
+                pp->getInt(ii);
+                floatTo(IDX, ii);
+            } else if (pp->isFloat()) {
+                t_float f = 0;
+                pp->getFloat(f);
+                floatTo(IDX, f);
+            } else if (pp->isSymbol()) {
+                t_symbol* s = &s_;
+                pp->getSymbol(&s);
+                symbolTo(IDX, s);
+            } else if (pp->isList()) {
+                AtomList l;
+                pp->getList(l);
+                listTo(IDX, l);
+            } else {
+                OBJ_ERR << "unknown property type: " << (int)pp->propertyType();
+            }
+        } else {
+            OBJ_ERR << "property not found: " << props[i]->s_name;
+        }
+    }
+}
+
+void PropGet::onAny(t_symbol* s, const AtomListView& /*lv*/)
+{
+    if (!Atom(s).isProperty()) {
+        OBJ_ERR << "property name expected, got: " << s;
+        return;
     }
 
-    if (!unmatched.empty())
-        unmatched.outputAsAny(x->all_prop);
+    const auto len = strlen(s->s_name);
+    if (s->s_name[len - 1] == '?') {
+        // remove trailing '?'
+        char buf[len];
+        memcpy(buf, s->s_name, len);
+        buf[len - 1] = '\0';
+        outputProperties(findDestination(), { gensym(buf) });
+    } else
+        outputProperties(findDestination(), { s });
 }
 
-static void* prop_get_new(t_symbol*, int argc, t_atom* argv)
+void setup_prop_get()
 {
-    t_prop* x = reinterpret_cast<t_prop*>(pd_new(prop_get_class));
-    outlet_new(&x->x_obj, &s_anything);
-    x->prop_map = new OutletIndexMap;
-
-    // use only symbol started from '@'
-    AtomList args = AtomList(argc, argv).filtered(isProperty);
-    for (size_t i = 0; i < args.size(); i++)
-        add_prop_map(x, args.at(i).asSymbol());
-
-    x->all_prop = outlet_new(&x->x_obj, &s_anything);
-    return static_cast<void*>(x);
-}
-
-static void prop_get_free(t_prop* x)
-{
-    delete x->prop_map;
-
-    if (x->all_prop)
-        outlet_free(x->all_prop);
-}
-
-extern "C" void setup_prop0x2eget()
-{
-    prop_get_class = class_new(gensym("prop.get"),
-        reinterpret_cast<t_newmethod>(prop_get_new),
-        reinterpret_cast<t_method>(prop_get_free),
-        sizeof(t_prop), 0, A_GIMME, A_NULL);
-    class_addcreator(reinterpret_cast<t_newmethod>(prop_get_new), gensym("prop->"), A_GIMME, A_NULL);
-    class_addcreator(reinterpret_cast<t_newmethod>(prop_get_new), gensym("@->"), A_GIMME, A_NULL);
-    class_addanything(prop_get_class, prop_get_anything);
-    class_addmethod(prop_get_class, reinterpret_cast<t_method>(prop_get_dump), gensym("dump"), A_NULL);
-    class_sethelpsymbol(prop_get_class, gensym("prop.get"));
+    ObjectFactory<PropGet> obj("prop.get");
+    obj.addAlias("p.get");
+    obj.addInletInfo("bang:  get specified properties\n"
+                     "click: same as bang");
+    obj.useClick();
+    obj.noPropsDispatch();
+    obj.noArgsDataParsing();
 }

@@ -26,7 +26,7 @@ int MathOr::operate() const
     return (std::find(vars_.begin(), vars_.begin() + long(arg_num_), true) == vars_.end()) ? 0 : 1;
 }
 
-extern "C" void setup_math0x2eor()
+void setup_math_or()
 {
     ObjectFactory<MathOr> obj("math.or");
     obj.addAlias("or");

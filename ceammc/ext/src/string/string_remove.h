@@ -14,10 +14,11 @@
 #ifndef STRING_REMOVE_H
 #define STRING_REMOVE_H
 
+#include "ceammc_data.h"
 #include "ceammc_object.h"
-#include "datatype_string.h"
+#include "ceammc_property_enum.h"
 
-using namespace std;
+using namespace ceammc;
 
 class StringRemove : public BaseObject {
     SymbolEnumProperty* mode_;
@@ -25,11 +26,11 @@ class StringRemove : public BaseObject {
 
 public:
     StringRemove(const PdArgs& a);
-    void onSymbol(t_symbol* s);
-    void onInlet(size_t, const AtomList& l);
-    void onDataT(const DataTPtr<DataTypeString>& dptr);
+    void onSymbol(t_symbol* s) override;
+    void onInlet(size_t, const AtomList& l) override;
+    void onDataT(const StringAtom& str);
 };
 
-extern "C" void setup_string0x2eremove();
+void setup_string_remove();
 
 #endif // STRING_REMOVE_H

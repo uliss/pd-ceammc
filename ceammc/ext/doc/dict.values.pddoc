@@ -31,13 +31,13 @@
 <![CDATA[
 [B]
 |
-[data.dict \[bpm: 120\] \[title: "Unknown masterpiece"\] \[freqs: 1 2 3 4\]]
+[data.dict \[bpm: 120 title: "Unknown masterpiece" freqs: 1 2 3 4\]]
 |
 |
 |
 [dict.values  ]
 |
-[ui.display @display_type=1]
+[ui.display @display_type 1]
 ]]>
             </pdascii>
         </example>

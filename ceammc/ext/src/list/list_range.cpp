@@ -2,7 +2,6 @@
 #include "ceammc_factory.h"
 #include "datatype_mlist.h"
 
-#include <algorithm>
 #include <iterator>
 
 ListRange::ListRange(const PdArgs& a)
@@ -14,14 +13,16 @@ ListRange::ListRange(const PdArgs& a)
 void ListRange::onList(const AtomList& l)
 {
     Atom min, max;
-    if (l.range(min, max))
+    if (l.filtered(
+             [](const Atom& a) -> bool { return !a.isData(); })
+            .range(min, max)) {
         listTo(0, AtomList(min, max));
+    }
 }
 
-void ListRange::onDataT(const DataTPtr<DataTypeMList>& l)
+void ListRange::onDataT(const MListAtom& ml)
 {
-    auto is_atom = [](const DataAtom& a) { return a.isAtom(); };
-    onList(l->toList(is_atom));
+    onList(ml->data());
 }
 
 void setup_list_range()
@@ -29,4 +30,13 @@ void setup_list_range()
     ObjectFactory<ListRange> obj("list.range");
     obj.addAlias("list.minmax");
     obj.processData<DataTypeMList>();
+
+    obj.setDescription("output list smallest and largest value");
+    obj.addAuthor("Serge Poltavsky");
+    obj.setKeywords({ "list", "range", "compare" });
+    obj.setCategory("list");
+    obj.setSinceVersion(0, 1);
+
+    ListRange::setInletsInfo(obj.classPointer(), { "list or Mlist" });
+    ListRange::setOutletsInfo(obj.classPointer(), { "list: min max" });
 }

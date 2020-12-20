@@ -37,13 +37,11 @@ endmacro()
 
 ceammc_spat_obj_ext(pan4)
 ceammc_spat_obj_ext(pan8)
+ceammc_spat_obj_ext(zita8)
+ceammc_spat_obj_ext(zita6x8)
 
 add_library(ceammc_spat STATIC mod_spat.cpp ${SPAT_SOURCES} ${HOA_SOURCES})
 set_target_properties(ceammc_spat PROPERTIES COMPILE_DEFINITIONS "FAUST_MACRO")
 set_property(TARGET ceammc_spat PROPERTY CXX_STANDARD 14)
-target_link_libraries(ceammc_spat PRIVATE fmt::fmt-header-only)
+target_include_directories(ceammc_spat PRIVATE $<TARGET_PROPERTY:fmt,INCLUDE_DIRECTORIES>)
 target_compile_definitions(ceammc_spat PUBLIC -DFMT_USE_CONSTEXPR=0)
-
-if(UNIX)
-    set_target_properties(ceammc_spat PROPERTIES COMPILE_FLAGS "-fPIC")
-endif()

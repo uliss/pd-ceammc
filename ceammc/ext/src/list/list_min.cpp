@@ -8,18 +8,16 @@ static t_symbol* SYM_ANY;
 
 ListMin::ListMin(const PdArgs& a)
     : BaseObject(a)
-    , type_(0)
+    , type_(nullptr)
 {
     createOutlet();
 
-    type_ = new SymbolEnumProperty("@type", SYM_FLOAT);
-    type_->appendEnum(SYM_SYMBOL);
-    type_->appendEnum(SYM_ANY);
-    createProperty(type_);
+    type_ = new SymbolEnumProperty("@type", { SYM_FLOAT, SYM_SYMBOL, SYM_ANY });
+    addProperty(type_);
 
-    createProperty(new SymbolEnumAlias("@float", type_, SYM_FLOAT));
-    createProperty(new SymbolEnumAlias("@symbol", type_, SYM_SYMBOL));
-    createProperty(new SymbolEnumAlias("@any", type_, SYM_ANY));
+    addProperty(new SymbolEnumAlias("@float", type_, SYM_FLOAT));
+    addProperty(new SymbolEnumAlias("@symbol", type_, SYM_SYMBOL));
+    addProperty(new SymbolEnumAlias("@any", type_, SYM_ANY));
 }
 
 void ListMin::onList(const AtomList& l)
@@ -27,15 +25,14 @@ void ListMin::onList(const AtomList& l)
     if (type_->value() == SYM_ANY)
         min(l.begin(), l.end());
     else if (type_->value() == SYM_FLOAT)
-        min(l.beginFilter(isFloat), l.endFilter());
+        min(l.begin_atom_filter(isFloat), l.end_atom_filter());
     else if (type_->value() == SYM_SYMBOL)
-        min(l.beginFilter(isSymbol), l.endFilter());
+        min(l.begin_atom_filter(isSymbol), l.end_atom_filter());
 }
 
-void ListMin::onDataT(const DataTPtr<DataTypeMList>& lst)
+void ListMin::onDataT(const MListAtom& ml)
 {
-    auto pred = [](const DataAtom& a) { return a.isAtom() && (a.toAtom().isFloat() || a.toAtom().isSymbol()); };
-    onList(lst->toList(pred));
+    onList(ml->data());
 }
 
 void setup_list_min()
@@ -45,8 +42,17 @@ void setup_list_min()
     SYM_ANY = gensym("any");
 
     ObjectFactory<ListMin> obj("list.min");
-    obj.mapFloatToList();
-    obj.mapSymbolToList();
+    obj.useDefaultPdFloatFn();
+    obj.useDefaultPdSymbolFn();
 
     obj.processData<DataTypeMList>();
+
+    obj.setDescription("returns smallest element in the list");
+    obj.addAuthor("Serge Poltavsky");
+    obj.setKeywords({ "list", "min", "compare" });
+    obj.setCategory("list");
+    obj.setSinceVersion(0, 1);
+
+    ListMin::setInletsInfo(obj.classPointer(), { "list or Mlist" });
+    ListMin::setOutletsInfo(obj.classPointer(), { "atom" });
 }

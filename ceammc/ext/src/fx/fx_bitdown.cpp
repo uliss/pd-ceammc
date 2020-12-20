@@ -12,6 +12,7 @@ public:
         static t_symbol* SYM_PROP_DOWNSAMP = gensym("@downsamp");
 
         bindPositionalArgsToProps({ SYM_PROP_BITS, SYM_PROP_DOWNSAMP });
+        property(SYM_PROP_DOWNSAMP)->setUnitsSamp();
     }
 };
 

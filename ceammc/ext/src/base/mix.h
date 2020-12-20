@@ -36,9 +36,6 @@ public:
     void processBlock(const t_sample** in, t_sample** out) override;
     void setupDSP(t_signal** in) override;
 
-    AtomList propXFadeTime() const;
-    void setPropXFadeTime(const AtomList& ms);
-
     AtomList propValue() const;
     void setPropValue(const AtomList& lst);
     AtomList propDb() const;
@@ -48,8 +45,8 @@ public:
     AtomList propSolo() const;
     void setPropSolo(const AtomList& lst);
 
-    void m_mute(t_symbol* s, const AtomList& lst);
-    void m_solo(t_symbol* s, const AtomList& lst);
+    void m_mute(t_symbol* s, const AtomListView& lst);
+    void m_solo(t_symbol* s, const AtomListView& lst);
 };
 
 void setup_base_mix();

@@ -31,7 +31,7 @@ void FlowSplit::onBang()
     bangTo(split_);
 }
 
-void FlowSplit::onFloat(float v)
+void FlowSplit::onFloat(t_float v)
 {
     split_ = 1;
     floatTo(2, v);
@@ -52,7 +52,7 @@ void FlowSplit::onList(const AtomList& l)
     listTo(split_, l);
 }
 
-void FlowSplit::onAny(t_symbol* s, const AtomList& l)
+void FlowSplit::onAny(t_symbol* s, const AtomListView& l)
 {
     split_ = 1;
     anyTo(2, s, l);
@@ -64,11 +64,17 @@ void FlowSplit::onInlet(size_t n, const AtomList& l)
     if (n != 1 || l.empty())
         return;
 
-    split_ = (l.asSizeT(0) == 1) ? 0 : 1;
+    split_ = (l.toT<size_t>(0) == 1) ? 0 : 1;
 }
 
-extern "C" void setup_flow0x2esplit()
+void setup_flow_split()
 {
     ObjectFactory<FlowSplit> obj("flow.split");
     obj.addAlias("split");
+    obj.noPropsDispatch();
+    obj.setXletsInfo(
+        { "input message", "bool: 0 or 1 from side-chain" },
+        { "output message for which side-chain returned true (1)",
+            "output message for which side-chain returned false (0)",
+            "message to side-chain predicate" });
 }

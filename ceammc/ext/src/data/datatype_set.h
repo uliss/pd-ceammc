@@ -14,25 +14,35 @@
 #ifndef DATATYPE_SET_H
 #define DATATYPE_SET_H
 
+#include "ceammc_abstractdata.h"
 #include "ceammc_atomlist.h"
-#include "ceammc_dataatom.h"
+#include "ceammc_data.h"
 
-#include <boost/unordered_set.hpp>
+#include <set>
 
 using namespace ceammc;
 
+class DataTypeSet;
+using SetAtom = DataAtom<DataTypeSet>;
+
 class DataTypeSet : public AbstractData {
 private:
-    typedef boost::unordered_set<DataAtom> DataSet;
+    using DataSet = std::set<Atom>;
     DataSet data_;
 
 public:
     DataTypeSet();
     DataTypeSet(const Atom& a);
     DataTypeSet(const AtomList& l);
-    DataTypeSet(DataTypeSet&& ds);
+    DataTypeSet(DataTypeSet&& ds) noexcept;
     DataTypeSet(const DataTypeSet& ds);
-    ~DataTypeSet();
+    ~DataTypeSet() noexcept;
+
+    template <typename... Args>
+    explicit DataTypeSet(Args... args)
+        : DataTypeSet(AtomList(args...))
+    {
+    }
 
     /**
      * Add element to set
@@ -53,29 +63,30 @@ public:
     /**
      * Removes all elements from set
      */
-    void clear();
+    void clear() noexcept;
 
     /**
      * Returns number of elements in set
      */
-    size_t size() const;
+    size_t size() const noexcept;
 
     /**
      * Checks if set contains element
      */
-    bool contains(const Atom& a) const;
-    bool contains(const DataAtom& a) const;
+    bool contains(const Atom& a) const noexcept;
 
     /**
-     * Returns true if set contains *one* of given values
+     * Returns true if set contains at least *one* of given values
      */
-    bool contains(const AtomList& lst) const;
+    bool contains_any_of(const AtomList& lst) const noexcept;
+
     std::string toString() const;
-    DataType type() const;
-    bool isEqual(const AbstractData* d) const;
-    AtomList toList() const;
+    int type() const noexcept;
+    bool isEqual(const AbstractData* d) const noexcept;
+    AtomList toList(bool sorted = false) const;
     AbstractData* clone() const;
-    bool operator==(const DataTypeSet& s) const;
+    bool operator==(const DataTypeSet& s) const noexcept;
+    bool operator!=(const DataTypeSet& s) const noexcept { return !operator==(s); }
 
     /**
       * Assign set
@@ -83,7 +94,7 @@ public:
     void operator=(const DataTypeSet& s);
 
 public:
-    static const DataType dataType;
+    static const int dataType;
 
     /**
      * Set intersection
@@ -91,7 +102,7 @@ public:
      * @param s0 - first set
      * @param s1 - second set
      */
-    static void intersection(DataTypeSet& out, const DataTypeSet& s0, const DataTypeSet& s1);
+    static DataTypeSet intersection(const DataTypeSet& s0, const DataTypeSet& s1);
 
     /**
      * Set union
@@ -99,7 +110,7 @@ public:
      * @param s0 - first set
      * @param s1 - second set
      */
-    static void set_union(DataTypeSet& out, const DataTypeSet& s0, const DataTypeSet& s1);
+    static DataTypeSet set_union(const DataTypeSet& s0, const DataTypeSet& s1);
 
     /**
      * Set difference
@@ -107,7 +118,7 @@ public:
      * @param s0 - first set
      * @param s1 - second set
      */
-    static void set_difference(DataTypeSet& out, const DataTypeSet& s0, const DataTypeSet& s1);
+    static DataTypeSet difference(const DataTypeSet& s0, const DataTypeSet& s1);
 
     /**
      * Set symmetric difference
@@ -115,7 +126,9 @@ public:
      * @param s0 - first set
      * @param s1 - second set
      */
-    static void set_sym_difference(DataTypeSet& out, const DataTypeSet& s0, const DataTypeSet& s1);
+    static DataTypeSet sym_difference(const DataTypeSet& s0, const DataTypeSet& s1);
 };
+
+size_t hash_value(const Atom& a) noexcept;
 
 #endif // DATATYPE_SET_H

@@ -32,7 +32,7 @@ public:
     void onSymbol(t_symbol* s) override;
     void onList(const AtomList& l) override;
 
-    void m_default(t_symbol*, const AtomList&);
+    void m_default(t_symbol*, const AtomListView&);
 
     void dump() const override;
 };

@@ -17,19 +17,20 @@
 #include "Rhodey.h"
 #include "stksynth_p.h"
 
-typedef StkFMSynth<stk::Rhodey> Synth;
+using Synth = StkFMSynth<stk::Rhodey>;
 
 SynthRhodey::SynthRhodey(const PdArgs& args)
     : StkSynth(args, new Synth())
 {
-    createProperty(new Synth::CCProperty("@mod", 2, *this));
-    createProperty(new Synth::CCProperty("@xfade", 4, *this));
-    createProperty(new Synth::CCProperty("@lfo_speed", 11, *this));
-    createProperty(new Synth::CCProperty("@lfo_depth", 1, *this));
-    createProperty(new Synth::CCProperty("@adsr", 128, *this));
+    addProperty(new Synth::CCProperty("@mod", 2, *this));
+    addProperty(new Synth::CCProperty("@xfade", 4, *this));
+    addProperty(new Synth::CCProperty("@lfo_speed", 11, *this));
+    addProperty(new Synth::CCProperty("@lfo_depth", 1, *this));
+    addProperty(new Synth::CCProperty("@adsr", 128, *this));
 }
 
 void setup_synth_rhodey()
 {
     StkSynthFactory<SynthRhodey> obj("synth.rhodey~");
+    obj.addMethod("note", &SynthRhodey::m_note);
 }

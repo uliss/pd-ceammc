@@ -14,15 +14,11 @@
 #ifndef HOA_MAP_H
 #define HOA_MAP_H
 
-#include "ceammc_property_extra.h"
 #include "hoa_common.h"
 
-class HoaMap;
-typedef LambdaCallProperty<HoaMap, IntPropertyMinEq> RampProperty;
-
 class HoaMap : public HoaBase {
-    IntPropertyMinEq* nins_;
-    RampProperty* ramp_;
+    IntProperty* nins_;
+    FloatProperty* ramp_;
 
     std::unique_ptr<MultiEncoder2d> map_;
     std::unique_ptr<PolarLines2d> lines_;
@@ -43,8 +39,8 @@ public:
     void processMultiSource();
     void processIn1In2();
 
-    void m_polar(t_symbol* s, const AtomList& l);
-    void m_mute(t_symbol* s, const AtomList& l);
+    void m_polar(t_symbol* s, const AtomListView& l);
+    void m_mute(t_symbol* s, const AtomListView& l);
 
 private:
     static t_int* dspPerformMultiSource(t_int* w)

@@ -28,18 +28,18 @@ public:
         , prop_gate_((UIProperty*)property(gensym("@gate")))
     {
         bindPositionalArgsToProps({ gensym("@attack"), gensym("@decay"), gensym("@sustain"), gensym("@release") });
-        createProperty(new CombinedProperty("@adsr",
+        addProperty(new CombinedProperty("@adsr",
             { property(gensym("@attack")), property(gensym("@decay")),
                 property(gensym("@sustain")), property(gensym("@release")) }));
 
         createOutlet();
     }
 
-    bool processAnyProps(t_symbol* sel, const AtomList& lst) override
+    bool processAnyProps(t_symbol* sel, const AtomListView& lst) override
     {
         // intercept @gate call
         if (sel == gensym("@gate")) {
-            if (atomlistToValue<bool>(lst, false)) {
+            if (lst.boolAt(0, false)) {
                 clockReset();
                 ad_done_.delay(prop_attack_->value() + prop_decay_->value());
             } else {
@@ -62,23 +62,23 @@ public:
             OBJ_ERR << "can't set envelope";
     }
 
-    void onDataT(const DataTPtr<DataTypeEnv>& dptr)
+    void onDataT(const EnvAtom& env)
     {
-        if (!dptr->isADSR()) {
-            OBJ_ERR << "not an ADSR envelope: " << *dptr;
+        if (!env->isADSR()) {
+            OBJ_ERR << "not an ADSR envelope: " << *env;
             return;
         }
 
-        float attack = dptr->pointAt(1).timeMs() - dptr->pointAt(0).timeMs();
-        float decay = dptr->pointAt(2).timeMs() - dptr->pointAt(1).timeMs();
-        float sustain = dptr->pointAt(2).value * 100;
-        float release = dptr->pointAt(3).timeMs() - dptr->pointAt(2).timeMs();
+        t_float attack = env->pointAt(1).timeMs() - env->pointAt(0).timeMs();
+        t_float decay = env->pointAt(2).timeMs() - env->pointAt(1).timeMs();
+        t_float sustain = env->pointAt(2).value * 100;
+        t_float release = env->pointAt(3).timeMs() - env->pointAt(2).timeMs();
 
         if (!set(attack, decay, sustain, release))
-            OBJ_ERR << "can't set envelope: " << *dptr;
+            OBJ_ERR << "can't set envelope: " << *env;
     }
 
-    void m_reset(t_symbol*, const AtomList&)
+    void m_reset(t_symbol*, const AtomListView&)
     {
         prop_gate_->setValue(0);
         dsp_->instanceClear();
@@ -107,12 +107,12 @@ private:
         release_done_.unset();
     }
 
-    bool checkValues(float a, float d, float s, float r)
+    bool checkValues(t_float a, t_float d, t_float s, t_float r)
     {
         return a >= 0 && d >= 0 && r >= 0 && s >= 0 && s <= 100 && (a + d + r) > 0;
     }
 
-    bool set(float a, float d, float s, float r)
+    bool set(t_float a, t_float d, t_float s, t_float r)
     {
         if (!checkValues(a, d, s, r)) {
             OBJ_ERR << "invalid values: " << a << ", " << d << ", " << s << ", " << r;

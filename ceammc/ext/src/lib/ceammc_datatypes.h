@@ -14,20 +14,13 @@
 #ifndef CEAMMC_DATATYPES_H
 #define CEAMMC_DATATYPES_H
 
-#include "ceammc_atom.h"
+#include <cstdint>
 
 namespace ceammc {
 namespace data {
-    static const ::ceammc::DataType DATA_INVALID = ::ceammc::DataType(-1);
-    static const ::ceammc::DataType DATA_STRING = 1;
-    static const ::ceammc::DataType DATA_SET = 2;
-    static const ::ceammc::DataType DATA_DICT = 3;
-    static const ::ceammc::DataType DATA_MIDI_STREAM = 10;
-    static const ::ceammc::DataType DATA_MIDI_TRACK = 11;
-    static const ::ceammc::DataType DATA_ENVELOPE = 20;
-    static const ::ceammc::DataType DATA_MLIST = 30;
-    static const ::ceammc::DataType DATA_PROPERTY = 31;
-    static const ::ceammc::DataType DATA_WRAPPER = 32;
+    static const uint16_t DATA_INVALID = uint16_t(-1);
+    static const uint16_t DATA_PROPERTY = 31;
+    static const uint16_t DATA_WRAPPER = 32;
 }
 }
 

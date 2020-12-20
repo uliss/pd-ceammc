@@ -21,7 +21,6 @@ extern "C" {
 #include "s_stuff.h"
 }
 
-#define OBJ_NAME "xdac~"
 #define DEFDACBLKSIZE 64
 
 static std::vector<t_int> parseRange(const std::string& str)
@@ -57,7 +56,7 @@ static std::vector<t_int> parseRange(const std::string& str)
 BaseDac::BaseDac(const PdArgs& args)
     : SoundExternal(args)
 {
-    auto& pos_args = positionalArguments();
+    auto& pos_args = parsedPosArgs();
     if (pos_args.empty()) {
         vec_.assign({ 1, 2 });
     } else {
@@ -95,7 +94,7 @@ void BaseDac::setupDSP(t_signal** sp)
     for (size_t i = 0; i < vec_.size(); i++) {
         t_signal* sig = sp[i];
         if (sig->s_n != DEFDACBLKSIZE) {
-            error(OBJ_NAME ": bad vector size");
+            OBJ_ERR << "bad vector size: " << sig->s_n;
             break;
         }
 
@@ -117,6 +116,13 @@ void BaseDac::onClick(t_floatarg xpos, t_floatarg ypos, t_floatarg shift, t_floa
 
 void setup_base_dac()
 {
-    SoundExternalFactory<BaseDac> obj(OBJ_NAME);
+    SoundExternalFactory<BaseDac> obj("xdac~");
     obj.useClick();
+    obj.noArgsDataParsing();
+
+    obj.setDescription("dac~ with channel ranges");
+    obj.addAuthor("Serge Poltavsky");
+    obj.setKeywords({"base"});
+    obj.setCategory("base");
+    obj.setSinceVersion(0, 8);
 }

@@ -25,16 +25,16 @@ class FunctionCall : public BaseObject {
 
 public:
     FunctionCall(const PdArgs& a);
-    void onBang();
-    void onFloat(float f);
-    void onSymbol(t_symbol* s);
-    void onList(const AtomList& lst);
+    void onBang() final;
+    void onFloat(t_float f) final;
+    void onSymbol(t_symbol* s) final;
+    void onList(const AtomList& lst) final;
 
 private:
     Function* getFunc();
     void outputResult(Function* fn);
 };
 
-extern "C" void function_call_setup();
+void setup_function_call();
 
 #endif // FUNCTION_CALL_H

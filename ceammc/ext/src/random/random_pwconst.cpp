@@ -1,25 +1,36 @@
 #include <boost/algorithm/cxx11/is_sorted.hpp>
-#include <boost/random/mersenne_twister.hpp>
-#include <boost/random/piecewise_constant_distribution.hpp>
-#include <ctime>
 
 #include "ceammc_factory.h"
 #include "random_pwconst.h"
 
-static boost::random::mt19937 random_gen(std::time(0));
+static AtomList vector2list(const std::vector<t_float>& v)
+{
+    AtomList res;
+    res.reserve(v.size());
+    for (auto x : v)
+        res.append(x);
+
+    return res;
+}
 
 RandomPWConst::RandomPWConst(const PdArgs& a)
     : BaseObject(a)
+    , seed_(nullptr)
 {
     createOutlet();
 
-    // the interval boundaries interleaved with weights
-    createCbProperty("@v", &RandomPWConst::propValues, &RandomPWConst::propSetValues);
-    if (positionalArguments().size() > 4)
-        set(positionalArguments());
+    createCbListProperty(
+        "@v",
+        [this]() -> AtomList { return values_; },
+        [this](const AtomList& l) -> bool { return set(l); })
+        ->setArgIndex(0);
 
-    createCbProperty("@bounds", &RandomPWConst::propBounds);
-    createCbProperty("@weights", &RandomPWConst::propWeights);
+    createCbListProperty("@bounds", [this]() { return vector2list(bounds_); });
+    createCbListProperty("@weights", [this]() { return vector2list(weights_); });
+
+    seed_ = new SizeTProperty("@seed", 0);
+    seed_->setSuccessFn([this](Property* p) { gen_.setSeed(seed_->value()); });
+    addProperty(seed_);
 }
 
 void RandomPWConst::onBang()
@@ -29,46 +40,16 @@ void RandomPWConst::onBang()
         return;
     }
 
-    boost::random::piecewise_constant_distribution<t_float> dist(
+    std::piecewise_constant_distribution<t_float> dist(
         bounds_.begin(), bounds_.end(), weights_.begin());
 
-    floatTo(0, dist(random_gen));
+    floatTo(0, dist(gen_.get()));
 }
 
 void RandomPWConst::onList(const AtomList& v)
 {
     if (set(v))
         onBang();
-}
-
-static AtomList vector2list(const std::vector<t_float>& v)
-{
-    AtomList res;
-    res.reserve(v.size());
-    for (size_t i = 0; i < v.size(); i++)
-        res.append(v[i]);
-
-    return res;
-}
-
-AtomList RandomPWConst::propBounds() const
-{
-    return vector2list(bounds_);
-}
-
-AtomList RandomPWConst::propWeights() const
-{
-    return vector2list(weights_);
-}
-
-AtomList RandomPWConst::propValues() const
-{
-    return values_;
-}
-
-void RandomPWConst::propSetValues(const AtomList& s)
-{
-    set(s);
 }
 
 bool RandomPWConst::set(const AtomList& data)
@@ -108,7 +89,18 @@ bool RandomPWConst::set(const AtomList& data)
     return true;
 }
 
-extern "C" void setup_random0x2epw_const()
+void setup_random_pw_const()
 {
     ObjectFactory<RandomPWConst> obj("random.pw_const");
+
+    obj.setDescription("piecewise constant random distribution");
+    obj.addAuthor("Serge Poltavsky");
+    obj.setKeywords({ "linear", "random", "piecewise", "const" });
+    obj.setCategory("random");
+    obj.setSinceVersion(0, 4);
+
+    RandomPWConst::setInletsInfo(obj.classPointer(), { "bang: output new random\n"
+                                                       "list: set new distribution values and output\n"
+                                                       "args: b0 w0 b1 w1 b2..." });
+    RandomPWConst::setOutletsInfo(obj.classPointer(), { "float: piecewise constant distributed random" });
 }

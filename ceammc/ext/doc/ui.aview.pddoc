@@ -54,31 +54,32 @@
             <property name="@label_bottom" type="symbol">bottom right label if @show_labels is
             on</property>
             <!-- size -->
-            <property name="@size_samp" type="int" minvalue="0" readonly="true" units="sample">
-            array size in samples</property>
-            <property name="@size_sec" type="float" minvalue="0" readonly="true" units="second">
-            array size in seconds</property>
-            <property name="@size_ms" type="float" minvalue="0" readonly="true"
-            units="millisecond">array size in milliseconds</property>
+            <property name="@size_samp" type="int" minvalue="0" readonly="true" units="sample"
+            default="0">array size in samples</property>
+            <property name="@size_sec" type="float" minvalue="0" readonly="true" units="second"
+            default="0">array size in seconds</property>
+            <property name="@size_ms" type="float" minvalue="0" readonly="true" units="millisecond"
+            default="0">array size in milliseconds</property>
             <!-- common -->
-            <property name="@send" type="symbol">send destination</property>
-            <property name="@receive" type="symbol">receive source</property>
-            <property name="@size" type="list">element size (width, height pair)</property>
+            <property name="@send" type="symbol" default="(null)">send destination</property>
+            <property name="@receive" type="symbol" default="(null)">receive source</property>
+            <property name="@size" type="list" default="300 100">element size (width, height
+            pair)</property>
             <property name="@pinned" type="int" enum="0 1" default="0">pin mode. if 1 - put element
             to the lowest level</property>
-            <property name="@selection_color" type="list">selection color (list of red, green, blue
-            values in 0-1 range)</property>
-            <property name="@cursor_color" type="list">cursor color (list of red, green, blue
-            values in 0-1 range)</property>
-            <property name="@wave_color" type="list">wave color (list of red, green, blue values in
-            0-1 range)</property>
-            <property name="@background_color" type="list">element background color (list of red,
-            green, blue values in 0-1 range)</property>
-            <property name="@border_color" type="list">border color (list of red, green, blue
-            values in 0-1 range)</property>
+            <property name="@selection_color" type="list" default="0 0.75 1 1">selection color
+            (list of red, green, blue values in 0-1 range)</property>
+            <property name="@cursor_color" type="list" default="0 0.75 1 1">cursor color (list of
+            red, green, blue values in 0-1 range)</property>
+            <property name="@wave_color" type="list" default="0.3 0.3 0.3 1">wave color (list of
+            red, green, blue values in 0-1 range)</property>
+            <property name="@background_color" type="list" default="0.93 0.93 0.93 1">element
+            background color (list of red, green, blue values in 0-1 range)</property>
+            <property name="@border_color" type="list" default="0.6 0.6 0.6 1">border color (list
+            of red, green, blue values in 0-1 range)</property>
             <property name="@fontsize" type="int" minvalue="4" maxvalue="11" default="11">
             fontsize</property>
-            <property name="@fontname" type="symbol">fontname</property>
+            <property name="@fontname" type="symbol" default="Helvetica">fontname</property>
             <property name="@fontweight" type="symbol" enum="normal bold" default="normal">font
             weight</property>
             <property name="@fontslant" type="symbol" enum="roman italic" default="roman">font

@@ -13,15 +13,14 @@ extern "C" {
 
 PresetExternal::PresetExternal(const PdArgs& args)
     : BaseObject(args)
-    , root_cnv_(rootCanvas())
     , patch_dir_(".")
 {
     createCbProperty("@keys", &PresetExternal::p_keys);
 
     createOutlet();
 
-    if (root_cnv_)
-        patch_dir_ = canvas_getdir(root_cnv_)->s_name;
+    if (rootCanvas())
+        patch_dir_ = canvas_getdir(rootCanvas())->s_name;
 }
 
 AtomList PresetExternal::p_keys() const
@@ -29,23 +28,23 @@ AtomList PresetExternal::p_keys() const
     return PresetStorage::instance().keys();
 }
 
-void PresetExternal::m_load(t_symbol*, const AtomList& l)
+void PresetExternal::m_load(t_symbol*, const AtomListView& l)
 {
-    size_t idx = l.asSizeT(0);
+    size_t idx = l.toT<size_t>(0);
     PresetStorage::instance().loadAll(idx);
 }
 
-void PresetExternal::m_store(t_symbol*, const AtomList& l)
+void PresetExternal::m_store(t_symbol*, const AtomListView& l)
 {
-    size_t idx = l.asSizeT(0);
+    size_t idx = l.toT<size_t>(0);
     PresetStorage::instance().storeAll(idx);
 }
 
-void PresetExternal::m_clear(t_symbol*, const AtomList& l)
+void PresetExternal::m_clear(t_symbol*, const AtomListView& l)
 {
     t_symbol* SYM_PRESET_ALL = gensym(Preset::SYM_PRESET_ALL);
 
-    size_t idx = l.asSizeT(0);
+    size_t idx = l.toT<size_t>(0);
 
     if (!SYM_PRESET_ALL->s_thing)
         return;
@@ -55,27 +54,33 @@ void PresetExternal::m_clear(t_symbol*, const AtomList& l)
     pd_typedmess(SYM_PRESET_ALL->s_thing, gensym("clear"), 1, &a);
 }
 
-void PresetExternal::m_write(t_symbol*, const AtomList& l)
+void PresetExternal::m_write(t_symbol*, const AtomListView& l)
 {
     PresetStorage::instance().write(canvas(), to_string(l));
 }
 
-void PresetExternal::m_read(t_symbol*, const AtomList& l)
+void PresetExternal::m_read(t_symbol*, const AtomListView& l)
 {
     PresetStorage::instance().read(canvas(), to_string(l));
 }
 
-void PresetExternal::m_update(t_symbol*, const AtomList&)
+void PresetExternal::m_update(t_symbol*, const AtomListView&)
 {
     PresetStorage::instance().updateAll();
+}
+
+void PresetExternal::m_duplicate(t_symbol*, const AtomListView& l)
+{
+    if (l.empty())
+        PresetStorage::instance().duplicateAll();
 }
 
 std::string PresetExternal::makeDefaultPresetPath() const
 {
     std::string res;
 
-    if (root_cnv_) {
-        res += platform::strip_extension(root_cnv_->gl_name->s_name);
+    if (rootCanvas()) {
+        res += platform::strip_extension(rootCanvas()->gl_name->s_name);
         res += "-preset.txt";
     }
 
@@ -91,4 +96,5 @@ void setup_preset_storage()
     obj.addMethod("write", &PresetExternal::m_write);
     obj.addMethod("clear", &PresetExternal::m_clear);
     obj.addMethod("update", &PresetExternal::m_update);
+    obj.addMethod("duplicate", &PresetExternal::m_duplicate);
 }

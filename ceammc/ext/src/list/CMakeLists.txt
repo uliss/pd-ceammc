@@ -1,6 +1,6 @@
 include_directories(${CMAKE_SOURCE_DIR}/src)
 
-set(LIST_SOURCES "")
+set(LIST_SOURCES list_base.cpp)
 
 macro(ceammc_list_extension name)
     list(APPEND LIST_SOURCES "list_${name}.cpp")
@@ -42,6 +42,7 @@ ceammc_list_extension(remove)
 ceammc_list_extension(remove_if)
 ceammc_list_extension(repack)
 ceammc_list_extension(repeat)
+ceammc_list_extension(resample)
 ceammc_list_extension(resize)
 ceammc_list_extension(reverse)
 ceammc_list_extension(rldecode)
@@ -71,6 +72,5 @@ ceammc_list_extension(zip)
 ceammc_list_extension(zip)
 
 add_library(ceammc_list STATIC mod_list.h mod_list.cpp ${LIST_SOURCES})
-if(UNIX)
-    set_target_properties(ceammc_list PROPERTIES COMPILE_FLAGS "-fPIC")
-endif()
+target_include_directories(ceammc_list
+    PRIVATE "$<TARGET_PROPERTY:fmt,INCLUDE_DIRECTORIES>")

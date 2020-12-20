@@ -12,34 +12,63 @@
  * this file belongs to.
  *****************************************************************************/
 #include "test_datatypes.h"
+#include "ceammc_datastorage.h"
 #include "ceammc_factory.h"
 
 #include <sstream>
 
-ceammc::DataType IntData::dataType = 1001;
+static ceammc::Atom newIntData(const ceammc::AtomList& args)
+{
+    if (args.isInteger())
+        return new IntData(args.asT<int>());
+    else {
+        using namespace ceammc;
+        LIB_ERR << "integer is expected, got: " << args;
+        return Atom();
+    }
+}
+
+static ceammc::Atom newStrData(const ceammc::AtomList& args)
+{
+    if (args.isSymbol())
+        return new StrData(args.asT<t_symbol*>()->s_name);
+    else {
+        using namespace ceammc;
+        LIB_ERR << "string is expected, got: " << args;
+        return Atom();
+    }
+}
+
+int IntData::dataType = ceammc::DataStorage::instance().registerNewType("IntData", newIntData);
 int IntData::constructor_called = 0;
 int IntData::destructor_called = 0;
 
-ceammc::DataType StrData::dataType = 1002;
+int StrData::dataType = ceammc::DataStorage::instance().registerNewType("StrData", newStrData);
 int StrData::constructor_called = 0;
 int StrData::destructor_called = 0;
 
-IntData::IntData(int v)
+IntData::IntData(int v) noexcept
     : v_(v)
 {
     constructor_called++;
 }
 
-IntData::~IntData()
+IntData::IntData(const IntData& i)
+    : v_(i.v_)
+{
+    constructor_called++;
+}
+
+IntData::~IntData() noexcept
 {
     destructor_called++;
 }
 
-int IntData::value() const { return v_; }
+int IntData::value() const noexcept { return v_; }
 
-void IntData::setValue(int v) { v_ = v; }
+void IntData::setValue(int v) noexcept { v_ = v; }
 
-bool IntData::isEqual(const ceammc::AbstractData* d) const
+bool IntData::isEqual(const ceammc::AbstractData* d) const noexcept
 {
     const IntData* dt = d->as<IntData>();
     if (!dt)
@@ -48,7 +77,7 @@ bool IntData::isEqual(const ceammc::AbstractData* d) const
     return v_ == dt->v_;
 }
 
-bool IntData::isLess(const ceammc::AbstractData* d) const
+bool IntData::isLess(const ceammc::AbstractData* d) const noexcept
 {
     const IntData* dt = d->as<IntData>();
     if (!dt)
@@ -64,7 +93,12 @@ std::string IntData::toString() const
     return buf.str();
 }
 
-ceammc::DataType IntData::type() const { return dataType; }
+std::string IntData::valueToJsonString() const
+{
+    return toString();
+}
+
+int IntData::type() const noexcept { return dataType; }
 
 IntData* IntData::clone() const { return new IntData(v_); }
 
@@ -78,7 +112,7 @@ public:
 
     void onFloat(t_float f)
     {
-        dataTo(0, ceammc::DataPtr(new IntData(f)));
+        atomTo(0, new IntData(f));
     }
 };
 
@@ -87,22 +121,27 @@ void IntData::init()
     ceammc::ObjectFactory<TestInt> obj("test.int");
 }
 
+bool IntData::operator==(const IntData& d) const noexcept
+{
+    return v_ == d.v_;
+}
+
 StrData::StrData(const std::string& v)
     : v_(v)
 {
     constructor_called++;
 }
 
-StrData::~StrData()
+StrData::~StrData() noexcept
 {
     destructor_called++;
 }
 
-const std::string& StrData::get() const { return v_; }
+const std::string& StrData::get() const noexcept { return v_; }
 
 void StrData::setValue(const std::string& v) { v_ = v; }
 
-bool StrData::isEqual(const ceammc::AbstractData* d) const
+bool StrData::isEqual(const ceammc::AbstractData* d) const noexcept
 {
     const StrData* dt = d->as<StrData>();
     if (!dt)
@@ -116,6 +155,17 @@ std::string StrData::toString() const
     return v_;
 }
 
-ceammc::DataType StrData::type() const { return dataType; }
+int StrData::type() const noexcept { return dataType; }
 
 StrData* StrData::clone() const { return new StrData(v_); }
+
+bool StrData::operator==(const StrData& d) const noexcept
+{
+    return v_ == d.v_;
+}
+
+std::ostream& operator<<(std::ostream& os, const IntData& d)
+{
+    os << "IntData: " << d.value();
+    return os;
+}

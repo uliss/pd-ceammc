@@ -36,6 +36,12 @@
             <inlet>
                 <xinfo>input string</xinfo>
             </inlet>
+            <inlet>
+                <xinfo>from</xinfo>
+            </inlet>
+            <inlet>
+                <xinfo>to</xinfo>
+            </inlet>
         </inlets>
         <outlets>
             <outlet>output substring</outlet>
@@ -47,11 +53,7 @@
 |
 [str.substr 4]
 |
-[str->sym]
-|
-[msg set]
-|
-[ (
+[ui.dt]
 ]]>
             </pdascii>
         </example>

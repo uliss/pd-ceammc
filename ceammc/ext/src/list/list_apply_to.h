@@ -14,13 +14,13 @@
 #ifndef LIST_APPLY_TO_H
 #define LIST_APPLY_TO_H
 
+#include "ceammc_data.h"
 #include "ceammc_object.h"
+
 using namespace ceammc;
 
-class DataTypeMList;
-
 class ListApplyTo : public BaseObject {
-    typedef std::vector<int> IndexList;
+    using IndexList = std::vector<int>;
     IndexList idxs_;
     IndexList norm_idxs_;
     AtomList mapped_;
@@ -30,11 +30,9 @@ class ListApplyTo : public BaseObject {
 public:
     ListApplyTo(const PdArgs& args);
 
-    bool processAnyProps(t_symbol* sel, const AtomList& lst) override;
-
     void onList(const AtomList&) override;
     void onInlet(size_t n, const AtomList&) override;
-    void onDataT(const DataTPtr<DataTypeMList>& dptr);
+    void onDataT(const MListAtom& ml);
 
 private:
     void setIndexes(const AtomList& lst);

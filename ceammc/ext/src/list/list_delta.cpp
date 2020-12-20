@@ -1,6 +1,7 @@
 #include "ceammc_factory.h"
 #include "ceammc_log.h"
 #include "ceammc_object.h"
+#include "ceammc_property_enum.h"
 
 using namespace ceammc;
 
@@ -20,18 +21,14 @@ public:
         : BaseObject(a)
     {
         createOutlet();
-        wrap_method_ = new SymbolEnumProperty("@oversize", SYM_PADZ);
-        wrap_method_->appendEnum(SYM_MIN);
-        wrap_method_->appendEnum(SYM_CLIP);
-        wrap_method_->appendEnum(SYM_FOLD);
-        wrap_method_->appendEnum(SYM_WRAP);
-        createProperty(wrap_method_);
+        wrap_method_ = new SymbolEnumProperty("@oversize", { SYM_PADZ, SYM_MIN, SYM_CLIP, SYM_FOLD, SYM_WRAP });
+        addProperty(wrap_method_);
 
-        createProperty(new SymbolEnumAlias("@min", wrap_method_, SYM_MIN));
-        createProperty(new SymbolEnumAlias("@padz", wrap_method_, SYM_PADZ));
-        createProperty(new SymbolEnumAlias("@clip", wrap_method_, SYM_CLIP));
-        createProperty(new SymbolEnumAlias("@wrap", wrap_method_, SYM_WRAP));
-        createProperty(new SymbolEnumAlias("@fold", wrap_method_, SYM_FOLD));
+        addProperty(new SymbolEnumAlias("@min", wrap_method_, SYM_MIN));
+        addProperty(new SymbolEnumAlias("@padz", wrap_method_, SYM_PADZ));
+        addProperty(new SymbolEnumAlias("@clip", wrap_method_, SYM_CLIP));
+        addProperty(new SymbolEnumAlias("@wrap", wrap_method_, SYM_WRAP));
+        addProperty(new SymbolEnumAlias("@fold", wrap_method_, SYM_FOLD));
     }
 
     AtomList::NonEqualLengthBehaivor symbolToWrap(t_symbol* s)
@@ -63,7 +60,7 @@ public:
         listTo(0, delta_list_);
     }
 
-    void m_clear(t_symbol*, const AtomList&)
+    void m_clear(t_symbol*, const AtomListView&)
     {
         prev_list_.clear();
         delta_list_.clear();
@@ -77,7 +74,7 @@ public:
     }
 };
 
-extern "C" void setup_list0x2edelta()
+void setup_list_delta()
 {
     SYM_MIN = gensym("min");
     SYM_PADZ = gensym("padz");

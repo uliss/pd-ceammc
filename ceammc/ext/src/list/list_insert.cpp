@@ -17,11 +17,15 @@
 
 ListInsert::ListInsert(const PdArgs& args)
     : BaseObject(args)
-    , lst_(positionalArguments())
+    , lst_(nullptr)
     , index_(nullptr)
 {
     index_ = new SizeTProperty("@index", 0);
-    createProperty(index_);
+    addProperty(index_);
+
+    lst_ = new ListProperty("@value");
+    lst_->setArgIndex(0);
+    addProperty(lst_);
 
     createInlet();
     createInlet();
@@ -31,7 +35,7 @@ ListInsert::ListInsert(const PdArgs& args)
 void ListInsert::onList(const AtomList& lst)
 {
     AtomList res;
-    res.reserve(lst.size() + lst_.size());
+    res.reserve(lst.size() + lst_->value().size());
 
     if (index_->value() > lst.size()) {
         OBJ_ERR << "index value is too big: " << index_->value();
@@ -45,8 +49,8 @@ void ListInsert::onList(const AtomList& lst)
         res.append(lst[i]);
 
     // main insert
-    for (size_t i = 0; i < lst_.size(); i++)
-        res.append(lst_[i].toAtom());
+    for (size_t i = 0; i < lst_->value().size(); i++)
+        res.append(lst_->value().at(i));
 
     // insert after
     for (size_t i = N; i < lst.size(); i++)
@@ -59,7 +63,7 @@ void ListInsert::onInlet(size_t n, const AtomList& lst)
 {
     switch (n) {
     case 1:
-        lst_.set(lst);
+        lst_->set(lst);
         break;
     case 2:
         index_->set(lst);
@@ -70,22 +74,31 @@ void ListInsert::onInlet(size_t n, const AtomList& lst)
     }
 }
 
-void ListInsert::onDataT(const DataTPtr<DataTypeMList>& dptr)
+void ListInsert::onDataT(const MListAtom& ml)
 {
-    if (index_->value() > dptr->size()) {
+    if (index_->value() > ml->size()) {
         OBJ_ERR << "index value is too big: " << index_->value();
         return;
     }
 
-    const size_t N = std::min<size_t>(dptr->size(), index_->value());
+    const size_t N = std::min<size_t>(ml->size(), index_->value());
 
-    DataTypeMList res(*dptr);
-    res.insert(N, lst_);
-    dataTo(0, DataTPtr<DataTypeMList>(res));
+    MListAtom res(*ml);
+    res->insert(N, lst_->value());
+    atomTo(0, res);
 }
 
 void setup_list_insert()
 {
     ObjectFactory<ListInsert> obj("list.insert");
     obj.processData<DataTypeMList>();
+
+    obj.setDescription("insert atom or list to the specified position of input list");
+    obj.addAuthor("Serge Poltavsky");
+    obj.setKeywords({ "list", "insert" });
+    obj.setCategory("list");
+    obj.setSinceVersion(0, 6);
+
+    ListInsert::setInletsInfo(obj.classPointer(), { "list or Mlist", "list: inserted atoms", "int: index position" });
+    ListInsert::setOutletsInfo(obj.classPointer(), { "list or Mlist" });
 }

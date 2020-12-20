@@ -6,11 +6,11 @@
             <authors>
                 <author>Serge Poltavsky</author>
             </authors>
-            <description>maps each list value via external object(s)</description>
+            <description>maps each list value via external side-chain</description>
             <license>GPL3 or later</license>
             <library>ceammc</library>
             <category>list</category>
-            <keywords>list functional</keywords>
+            <keywords>list functional map iterate</keywords>
             <since>0.1</since>
             <also>
                 <see>list.do</see>

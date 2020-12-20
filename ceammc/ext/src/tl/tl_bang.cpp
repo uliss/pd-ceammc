@@ -9,9 +9,11 @@ TlBang::TlBang(const PdArgs& args)
     , delay_(nullptr)
     , clock_(this, &TlBang::tick)
 {
-    delay_ = new FloatPropertyMinEq("@delay", 0, 0);
-    delay_->info().setUnits(PropertyInfoUnits::MSEC);
-    createProperty(delay_);
+    delay_ = new FloatProperty("@delay", 0);
+    delay_->checkNonNegative();
+    delay_->setArgIndex(0);
+    delay_->setUnitsMs();
+    addProperty(delay_);
 }
 
 void TlBang::tick()
@@ -32,5 +34,6 @@ void TlBang::onCueLeave()
 void setup_tl_bang()
 {
     ObjectFactory<TlBang> obj("tl.bang");
+    obj.addAlias("tl.b");
     TlBang::setDisplaceFn(obj.classPointer());
 }

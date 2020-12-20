@@ -26,23 +26,23 @@
 #define WRAPPER_CONVERTERS_H
 
 #include "ceammc_atomlist.h"
-#include "ceammc_dataatom.h"
+#include "ceammc_data.h"
 #include "wrapper_datatype.h"
 
 namespace wrapper {
 
 template <typename T>
 class AtomListFromReturnType {
-    DataTPtr<AbstractDataWrapper<T>> dptr_;
+    DataAtom<AbstractDataWrapper<T>> dptr_;
 
 public:
     explicit AtomListFromReturnType(T v)
-        : dptr_(new AbstractDataWrapper<T>(v))
+        : dptr_(v)
     {
     }
 
     AtomListFromReturnType()
-        : dptr_(new AbstractDataWrapper<T>())
+        : dptr_()
     {
     }
 

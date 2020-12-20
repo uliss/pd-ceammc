@@ -57,10 +57,11 @@ extern "C" void is_any_setup()
         reinterpret_cast<t_newmethod>(is_any_new),
         reinterpret_cast<t_method>(is_any_free),
         sizeof(t_is_any), CLASS_DEFAULT, A_NULL);
-    class_addanything(is_any_class, is_any_anything);
-    class_addbang(is_any_class, is_any_bang);
-    class_addfloat(is_any_class, is_any_float);
-    class_addlist(is_any_class, is_any_list);
-    class_addpointer(is_any_class, is_any_pointer);
-    class_addsymbol(is_any_class, is_any_symbol);
+
+    class_addanything(is_any_class, reinterpret_cast<t_method>(is_any_anything));
+    class_addbang(is_any_class, reinterpret_cast<t_method>(is_any_bang));
+    class_doaddfloat(is_any_class, reinterpret_cast<t_method>(is_any_float));
+    class_addlist(is_any_class, reinterpret_cast<t_method>(is_any_list));
+    class_addpointer(is_any_class, reinterpret_cast<t_method>(is_any_pointer));
+    class_addsymbol(is_any_class, reinterpret_cast<t_method>(is_any_symbol));
 }

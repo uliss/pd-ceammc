@@ -40,6 +40,7 @@ extern "C" {
 #include <stdarg.h>
 #include <stdlib.h>
 #include <string.h>
+#include <vector>
 
 #ifdef _MSC_VER
 
@@ -54,7 +55,7 @@ extern "C" {
 
 //! @cond
 #define atom_setfloat(a, f) SETFLOAT(a, f)
-#define atom_setlong(a, l) SETFLOAT(a, (float)l)
+#define atom_setlong(a, l) SETFLOAT(a, (t_float)l)
 #define atom_setsym(a, s) SETSYMBOL(a, s)
 #define atom_getlong(a) (long)atom_getfloat(a)
 #define atom_gettype(a) (a)[0].a_type
@@ -227,7 +228,8 @@ typedef enum {
     E_SHAPE_OVAL = 0, /*!< This shape is oval. */
     E_SHAPE_ARC = 1, /*!< This shape is arc. */
     E_SHAPE_IMAGE = 2, /*!< This shape is image. */
-    E_SHAPE_RECT = 3 /*!< This shape is rectangle. */
+    E_SHAPE_RECT = 3, /*!< This shape is rectangle. */
+    E_SHAPE_XLETS = 4 /*!< This shape is xlets. */
 } eshape_types;
 
 enum eclip_flags {
@@ -242,36 +244,72 @@ enum eclip_flags {
  * @brief A point structure.
  * @details It contains the members x and y for abscissa and ordinate.
  */
-typedef struct t_pt {
+struct t_pt {
     float x; /*!< The abscissa coordiante. */
     float y; /*!< The ordiante coordiante. */
-} t_pt;
+
+    constexpr t_pt()
+        : x(0)
+        , y(0)
+    {
+    }
+
+    constexpr t_pt(epath_types path, float y_)
+        : x(path)
+        , y(y_)
+    {
+    }
+
+    constexpr t_pt(eshape_types shape, float y_)
+        : x(shape)
+        , y(y_)
+    {
+    }
+
+    constexpr t_pt(float x_, float y_)
+        : x(x_)
+        , y(y_)
+    {
+    }
+
+    constexpr t_pt(double x_, double y_)
+        : x(x_)
+        , y(y_)
+    {
+    }
+
+    bool operator==(const t_pt& pt) const { return x == pt.x && y == pt.y; }
+    bool operator!=(const t_pt& pt) const { return !this->operator==(pt); }
+};
 
 /**
  * @struct t_rect
  * @brief A rectangle structure.
  * @details It contains the members x, y, width and height for abscissa and ordinate and size.
  */
-typedef struct t_rect {
+struct t_rect {
     float x; /*!< The abscissa coordiante. */
     float y; /*!< The ordiante coordiante. */
     float width; /*!< The width of the rectangle */
     float height; /*!< The height of the rectangle */
-} t_rect;
+
+    bool operator==(const t_rect& r) const { return r.x == x && r.y == y && r.width == width && r.height == height; }
+    bool operator!=(const t_rect& r) const { return !this->operator==(r); }
+};
 
 /**
  * @struct t_matrix
  * @brief A matrix structure.
  * @details It contains the members xx, yx, xy, yy, x0 and y0
  */
-typedef struct t_matrix {
+struct t_matrix {
     float xx; /*!< The abscissa-abscissa translation of the matrix */
     float yx; /*!< The abscissa-ordiante translation of the matrix */
     float xy; /*!< The ordiante-abscissa translation of the matrix */
     float yy; /*!< The ordiante-ordiante translation of the matrix */
     float x0; /*!< The abscissa origin of the matrix */
     float y0; /*!< The ordiante origin of the matrix */
-} t_matrix;
+};
 
 /**
  * @struct t_rgb
@@ -396,8 +434,8 @@ typedef struct t_etext {
 } t_etext;
 
 /**
- * @struct t_etext
- * @brief The text structure.
+ * @struct t_eimage
+ * @brief The image structure.
  * @details It contains the all the informations to be drawn.
  */
 typedef struct t_eimage {
@@ -415,8 +453,7 @@ typedef struct t_eimage {
  * @todo should keep the allocated memory
  */
 typedef struct t_egobj {
-    t_pt* e_points; /*!< The points of the graphical object. */
-    int e_npoints; /*!< The number of points of the graphical object. */
+    std::vector<t_pt> e_points; /*!< The points of the graphical object. */
     t_efont e_font; /*!< The font of the graphical object. */
     const char* e_text; /*!< The text of the graphical object. */
     t_eimage* e_image; /*!< The image of the graphical object. */
@@ -443,19 +480,19 @@ typedef struct t_elayer {
     t_object* e_owner; /*!< The layer owner. */
     t_symbol* e_name; /*!< The layer name. */
     t_symbol* e_id; /*!< The layer canvas ID. */
-    t_egobj* e_objects; /*!< The layer objects. */
+    std::vector<t_egobj> e_objects; /*!< The layer objects. */
     t_rect e_rect; /*!< The layer size. */
     t_matrix e_matrix; /*!< The layer matrix. */
     t_egobj e_new_objects; /*!< The layer new object. */
 
     uint32_t e_color; /*!< The layer color. */
-    uint16_t e_number_objects; /*!< The number of layer objects. */
     uint16_t e_line_width; /*!< The layer line width. */
 
     elayer_flags e_state; /*!< The layer state. */
     t_capstyle e_line_capstyle; /*!< The layer line capstyle. */
     t_dashstyle e_line_dashstyle; /*!< The layer line dashstyle. */
     t_smooth e_line_smooth; /*!< The layer line dashstyle. */
+    bool e_optimize; /*!< optimize line drawing */
 } t_elayer;
 
 /** @} */
@@ -554,21 +591,29 @@ typedef struct t_eattr {
     t_symbol* units; /*!< The units of the attribute. */
     t_symbol* defvals; /*!< The default value of the attribute. */
     t_symbol** itemslist; /*!< The available items of an attribute if it is a menu. */
-    long itemssize; /*!< The number of available items of an attribute if it is a menu. */
+    size_t itemssize; /*!< The number of available items of an attribute if it is a menu. */
     t_err_method getter; /*!< The getter method of the attribute. */
     t_err_method setter; /*!< The setter method of the attribute. */
     size_t offset; /*!< The offset of the attribute in the object structure. */
     size_t sizemax; /*!< The maximum size of the attribute if the attribute is an array. */
     size_t size; /*!< The size of the attribute if the attribute is an array. */
-    float minimum; /*!< The minimum value of the attribute. */
-    float maximum; /*!< The maximum value of the attribute. */
-    float step; /*!< The increment or decrement step calue of the attribute. */
+    t_float minimum; /*!< The minimum value of the attribute. */
+    t_float maximum; /*!< The maximum value of the attribute. */
+    t_float step; /*!< The increment or decrement step calue of the attribute. */
     int order; /*!< The dummy order of the attribute. */
     eclip_flags clipped; /*!< If the attribute is clipped if it's value or an array of numerical values. */
     bool save; /*!< If the attribute should be saved. */
     bool paint; /*!< If the attribute should repaint the t_ebox when it has changed. */
     bool invisible; /*!< If the attribute is invisible. */
 } t_eattr;
+
+enum t_eattr_op {
+    EATTR_OP_ASSIGN,
+    EATTR_OP_ADD,
+    EATTR_OP_SUB,
+    EATTR_OP_MUL,
+    EATTR_OP_DIV
+};
 
 /**
  * @struct t_eclass
@@ -585,7 +630,7 @@ typedef struct t_eclass {
     bool c_dsp; /*!< The marker if the class is DSP. */
     t_ewidget c_widget; /*!< The extra widget methods. */
     t_eattr** c_attr; /*!< The attributes. */
-    long c_nattr; /*!< The number of attributes. */
+    size_t c_nattr; /*!< The number of attributes. */
 } t_eclass;
 
 /** @} */
@@ -797,6 +842,7 @@ typedef struct t_ebox_ {
 
     bool b_mouse_down; /*!< The mouse state. */
     bool b_resize; /*!< Widget is in resize state */
+    bool b_resize_redraw_all; /*!< Widget in resize state and redraw all layers */
 
     bool b_visible; /*!< The visible state. */
     bool b_ready_to_draw; /*!< The ebox state for drawing. */
@@ -804,8 +850,7 @@ typedef struct t_ebox_ {
     bool b_isinsubcanvas; /*!< If the box is in a sub canvas. */
     t_edrawparams b_boxparameters; /*!< The ebox parameters. */
 
-    t_elayer* b_layers; /*!< The ebox layers. */
-    long b_number_of_layers; /*!< The ebox number of layers. */
+    std::vector<t_elayer>* b_layers; /*!< The ebox layers. */
 
     t_symbol* b_label; /*!< The UI label. */
     t_symbol* label_align; /*!< The UI label align: left center or right */

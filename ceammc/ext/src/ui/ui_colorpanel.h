@@ -29,9 +29,9 @@ class UIColorPanel : public UIObject {
     UILayer hover_layer_;
     UILayer picked_layer_;
 
-    float saturation_;
-    float hue_;
-    float lightness_;
+    t_float saturation_;
+    t_float hue_;
+    t_float lightness_;
 
     int prop_reverse_;
 

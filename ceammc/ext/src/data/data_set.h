@@ -19,7 +19,7 @@
 
 using namespace ceammc;
 
-typedef DataSetIface<BaseObject> DataSetBase;
+using DataSetBase = DataSetIface<BaseObject>;
 
 class DataSet : public DataSetBase {
     DataTypeSet set_;

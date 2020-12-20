@@ -26,7 +26,7 @@
             <argument name="RE" type="symbol">regular expression</argument>
         </arguments>
         <properties>
-            <property name="@re" type="symbol" default="">regular expression</property>
+            <property name="@re" type="list" default="">regular expression</property>
         </properties>
         <inlets>
             <inlet>
@@ -42,14 +42,14 @@
         <example>
             <pdascii>
 <![CDATA[
-[test.mp3( [test.mp4( [FILE.mp2( [ABC( [abc.mp5( [symbol [a-z]\(\(2..4))`..+(
+[test.mp3( [test.mp4( [FILE.mp2( [ABC( [abc.mp5( [symbol .*`.mp2(
 |          |          |          |     |         |
 |          |          |          |     |         |
 [symbol                                ]         |
 |                                                |.
-[str.match \[a-z\]+`.mp\[34\]                     ]
+[str.match "t.+``.mp\[34\]"                        ]
 |
-[ui.display @display_type=1]
+[ui.dt]
 ]]>
             </pdascii>
         </example>

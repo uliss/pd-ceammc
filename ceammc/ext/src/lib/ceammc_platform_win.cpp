@@ -215,7 +215,7 @@ namespace platform {
         }
     }
 
-    Either<NetAddressList> win_hostnametoip(const char* name, NetAddressType type)
+    Either<NetAddressList, PlatformError> win_hostnametoip(const char* name, NetAddressType type)
     {
         struct addrinfo* result = NULL;
         struct addrinfo hints;
@@ -247,7 +247,7 @@ namespace platform {
         return res;
     }
 
-    Either<int> win_fd_set_non_blocking(int fd)
+    Either<int, PlatformError> win_fd_set_non_blocking(int fd)
     {
         return 0;
 
@@ -259,7 +259,7 @@ namespace platform {
         return rc;
     }
 
-    Either<bool> win_init_pipe(int fd[])
+    Either<bool, PlatformError> win_init_pipe(int fd[])
     {
         int rc = _pipe(fd, 256, O_BINARY);
         if (rc == -1)

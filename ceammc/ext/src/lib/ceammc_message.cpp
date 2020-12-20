@@ -12,7 +12,11 @@
  * this file belongs to.
  *****************************************************************************/
 #include "ceammc_message.h"
+#include "ceammc_abstractdata.h"
 #include "ceammc_format.h"
+#include "ceammc_log.h"
+#include "ceammc_output.h"
+
 #include <cassert>
 #include <cstring>
 
@@ -20,52 +24,59 @@ namespace ceammc {
 
 Message::Message()
     : type_(NONE)
-    , value_(Atom(0.f))
-    , data_(Atom())
+    , value_(Atom(0.))
 {
 }
 
 Message::Message(t_float v)
     : type_(FLOAT)
     , value_(v)
-    , data_(Atom())
 {
 }
 
 Message::Message(t_symbol* s)
     : type_(SYMBOL)
     , value_(s)
-    , data_(Atom())
 {
 }
 
 Message::Message(const Atom& a)
     : type_(NONE)
     , value_(a)
-    , data_(a)
 {
     if (value_.isFloat())
         type_ = FLOAT;
-    if (value_.isSymbol())
+    else if (value_.isSymbol())
         type_ = SYMBOL;
-    if (value_.isData())
+    else if (value_.isData())
         type_ = DATA;
+    else if (value_.isNone())
+        type_ = NONE;
+    else
+        LogPdObject(nullptr, LOG_DEBUG).stream() << "unknown atom type: " << a.type();
 }
 
 Message::Message(const AtomList& l)
     : type_(LIST)
-    , value_(Atom(0.f))
-    , data_(Atom())
+    , value_(Atom(0.))
     , v_list_(l)
 {
     if (l.size() == 1)
         setAtom(l[0]);
 }
 
+Message::Message(const AtomListView& view)
+    : type_(LIST)
+    , value_(Atom(0.))
+    , v_list_(view)
+{
+    if (view.size() == 1)
+        setAtom(view[0]);
+}
+
 Message::Message(int argc, t_atom* argv)
     : type_(LIST)
-    , value_(Atom(0.f))
-    , data_(Atom())
+    , value_(Atom(0.))
     , v_list_(argc, argv)
 {
     if (argc == 1)
@@ -75,15 +86,20 @@ Message::Message(int argc, t_atom* argv)
 Message::Message(t_symbol* s, const AtomList& l)
     : type_(ANY)
     , value_(s)
-    , data_(Atom())
     , v_list_(l)
+{
+}
+
+Message::Message(t_symbol* s, const AtomListView& v)
+    : type_(ANY)
+    , value_(s)
+    , v_list_(v)
 {
 }
 
 Message::Message(t_symbol* s, int argc, t_atom* argv)
     : type_(ANY)
     , value_(s)
-    , data_(Atom())
     , v_list_(argc, argv)
 {
 }
@@ -91,7 +107,6 @@ Message::Message(t_symbol* s, int argc, t_atom* argv)
 Message::Message(const Message& m)
     : type_(m.type_)
     , value_(m.value_)
-    , data_(m.data_)
     , v_list_(m.v_list_)
 {
 }
@@ -99,7 +114,6 @@ Message::Message(const Message& m)
 Message::Message(Message&& m)
     : type_(m.type_)
     , value_(m.value_)
-    , data_(std::move(m.data_))
     , v_list_(std::move(m.v_list_))
 {
 }
@@ -111,7 +125,6 @@ Message& Message::operator=(const Message& m)
 
     type_ = m.type_;
     value_ = m.value_;
-    data_ = m.data_;
     v_list_ = m.v_list_;
 
     return *this;
@@ -124,10 +137,16 @@ Message& Message::operator=(Message&& m)
 
     type_ = m.type_;
     value_ = m.value_;
-    data_ = std::move(m.data_);
     v_list_ = std::move(m.v_list_);
 
     return *this;
+}
+
+void Message::setBang()
+{
+    type_ = BANG;
+    value_ = Atom();
+    v_list_.clear();
 }
 
 void Message::setAtom(const Atom& a)
@@ -140,7 +159,7 @@ void Message::setAtom(const Atom& a)
         value_ = a;
     } else if (a.isData()) {
         type_ = DATA;
-        data_ = DataPtr(a);
+        value_ = a;
     }
 }
 
@@ -192,6 +211,8 @@ bool Message::isEqual(const Message& v) const
         return false;
 
     switch (type_) {
+    case BANG:
+        return true;
     case FLOAT:
     case SYMBOL:
         return value_ == v.value_;
@@ -200,7 +221,7 @@ bool Message::isEqual(const Message& v) const
     case ANY:
         return value_ == v.value_ && v_list_ == v.v_list_;
     case DATA:
-        return data_.isValid() && data_->isEqual(v.dataValue().data());
+        return value_.asData()->isEqual(v.value_.asData());
     default:
         return false;
     }
@@ -214,12 +235,17 @@ Message::Type Message::type() const
 void Message::output(t_outlet* x) const
 {
     switch (type_) {
+    case BANG:
+        outlet_bang(x);
+        break;
     case FLOAT:
+        outlet_float(x, value_.asT<t_float>());
+        break;
     case SYMBOL:
-        to_outlet(x, value_);
+        outlet_symbol(x, value_.asT<t_symbol*>());
         break;
     case LIST:
-        to_outlet(x, v_list_);
+        outletAtomList(x, v_list_);
         break;
     case ANY:
         outlet_anything(x,
@@ -228,22 +254,19 @@ void Message::output(t_outlet* x) const
             v_list_.toPdData());
         break;
     case DATA:
-        to_outlet(x, data_.asAtom());
+        outletAtom(x, value_);
         break;
     case NONE:
+    default:
         break;
     }
 }
 
-bool Message::isBang() const
+Message Message::makeBang()
 {
-    // NB: this is only for testing purposes now
-    return (type_ == SYMBOL && value_.asSymbol() == &s_bang);
-}
-
-const DataPtr& Message::dataValue() const
-{
-    return data_;
+    Message m;
+    m.type_ = BANG;
+    return m;
 }
 
 bool operator==(const Message& c1, const Message& c2)
@@ -268,6 +291,8 @@ std::ostream& operator<<(std::ostream& os, const Message& m)
         os << "symbol ";
     else if (m.isList())
         os << "list ";
+    else if (m.isData())
+        os << "data ";
 
     os << to_string(m, " ") << '(';
     return os;

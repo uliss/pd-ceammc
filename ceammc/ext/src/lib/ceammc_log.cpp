@@ -15,60 +15,212 @@
 #include "ceammc_log.h"
 #include "ceammc_object.h"
 
-#include "m_pd.h"
+#include <cstdio>
 
 namespace ceammc {
 
+#define PG_LOG_FMT_PREFIX "[%s]"
+#define PD_LOG_FMT PG_LOG_FMT_PREFIX " %s"
+constexpr size_t PD_MAXLOGSTRLENGTH = MAXPDSTRING - (sizeof(PD_LOG_FMT) + 16);
+// see s_print.c for details, 16 seems to be enough for all cases
+
+static const char* pd_object_name(const void* x)
+{
+    if (!x)
+        return "ceammc";
+    else
+        return class_getname(pd_class(&static_cast<const t_gobj*>(x)->g_pd));
+}
+
+void pdPost(const char* name, const std::string& s)
+{
+    const size_t N = PD_MAXLOGSTRLENGTH - strlen(name);
+    assert(N < MAXPDSTRING);
+
+    if (s.size() < N) {
+        post(PD_LOG_FMT, name, s.c_str());
+    } else {
+        char buf[MAXPDSTRING] = { 0 };
+        for (size_t i = 0; i < s.size(); i += N) {
+            const auto len = s.copy(buf, N, i);
+            buf[len] = '\0';
+            post(PD_LOG_FMT, name, buf);
+        }
+    }
+}
+
+void pdDebug(const void* pd_obj, const std::string& s)
+{
+    pdLog(pd_obj, LOG_DEBUG, s);
+}
+
+void pdLog(const void* pd_obj, LogLevel level, const std::string& s)
+{
+    const char* name = pd_object_name(pd_obj);
+    const size_t N = PD_MAXLOGSTRLENGTH - strlen(name);
+    assert(N < MAXPDSTRING);
+
+    if (s.size() < N) {
+        logpost(pd_obj, static_cast<int>(level), PD_LOG_FMT, name, s.c_str());
+    } else {
+        char buf[MAXPDSTRING] = { 0 };
+        for (size_t i = 0; i < s.size(); i += N) {
+            const auto len = s.copy(buf, N, i);
+            buf[len] = '\0';
+
+            logpost(pd_obj, static_cast<int>(level), PD_LOG_FMT, name, s.c_str());
+        }
+    }
+}
+
+void pdError(const void* pd_obj, const std::string& s)
+{
+    const char* name = pd_object_name(pd_obj);
+    const size_t N = PD_MAXLOGSTRLENGTH - strlen(name);
+    assert(N < MAXPDSTRING);
+
+    if (s.size() < N) {
+        pd_error(pd_obj, PD_LOG_FMT, name, s.c_str());
+    } else {
+        char buf[MAXPDSTRING] = { 0 };
+        for (size_t i = 0; i < s.size(); i += N) {
+            const auto len = s.copy(buf, N, i);
+            buf[len] = '\0';
+
+            pd_error(pd_obj, PD_LOG_FMT, name, buf);
+        }
+    }
+}
+
 Error::Error(const BaseObject* obj)
-    : obj_(obj)
+    : LogBaseObject(obj, LogLevel::LOG_ERROR)
 {
 }
 
-Error::~Error()
+Post::Post(const BaseObject* obj)
+    : LogBaseObject(obj, LogLevel::LOG_POST)
 {
-    if (obj_ != 0)
-        pd_error(static_cast<void*>(obj_->owner()), "[%s] %s", obj_->className()->s_name, str().c_str());
-    else
-        pd_error(0, "[ceammc] %s", str().c_str());
 }
 
 Debug::Debug(const BaseObject* obj)
-    : obj_(obj)
+    : LogBaseObject(obj, LOG_DEBUG)
 {
 }
 
-Debug::~Debug()
+Log::Log(const BaseObject* obj)
+    : LogBaseObject(obj, LogLevel::LOG_ALL)
 {
-    if (obj_ != 0)
-        post("[%s] %s", obj_->className()->s_name, str().c_str());
-    else
-        post("[ceammc] %s", str().c_str());
 }
 
-Log::Log(const BaseObject* obj, int level)
+LogPdObject::LogPdObject(const void* obj, LogLevel level, bool log_empty)
     : obj_(obj)
     , level_(level)
+    , log_empty_(log_empty)
 {
 }
 
-Log::~Log()
+LogPdObject::~LogPdObject()
 {
-    if (obj_ != 0)
-        logpost(static_cast<void*>(obj_->owner()), level_ + 4, "[%s] %s", obj_->className()->s_name, str().c_str());
+    flush();
+}
+
+void LogPdObject::error(const std::string& str) const
+{
+    pdError(obj_, str);
+}
+
+void LogPdObject::post(const std::string& str) const
+{
+    pdPost(pd_object_name(obj_), str);
+}
+
+void LogPdObject::debug(const std::string& str) const
+{
+    pdDebug(obj_, str);
+}
+
+void LogPdObject::flush()
+{
+    if (!log_empty_ && str().empty())
+        return;
+
+    auto s = str();
+    if (s.back() == '\n')
+        s.pop_back();
+
+    if (!pd_objectmaker) {
+        std::cerr << s << "\n";
+        str("");
+        return;
+    }
+
+    switch (level_) {
+    case LogLevel::LOG_FATAL:
+    case LogLevel::LOG_ERROR:
+        error(s);
+        break;
+    case LOG_DEBUG:
+        debug(s);
+        break;
+    case LogLevel::LOG_ALL:
+        pdLog(obj_, level_, s);
+        break;
+    case LogLevel::LOG_POST:
+        post(s);
+        break;
+    case LogLevel::LOG_NONE:
+        break;
+    }
+
+    str("");
+}
+
+void LogPdObject::endl()
+{
+    flush();
+}
+
+std::string LogPdObject::prefix() const
+{
+    char buf[64];
+    snprintf(buf, sizeof(buf), PG_LOG_FMT_PREFIX, pd_object_name(obj_));
+    return buf;
+}
+
+void LogPdObject::setLogLevel(LogLevel level)
+{
+    level_ = level;
+}
+
+void LogPdObject::setLogEmpty(bool v)
+{
+    log_empty_ = v;
+}
+
+LogBaseObject::LogBaseObject(const BaseObject* obj, LogLevel level)
+    : LogPdObject(obj ? static_cast<void*>(obj->owner()) : nullptr, level)
+{
+}
+
+LogNone::LogNone()
+    : LogPdObject(nullptr, LOG_NONE)
+{
+    this->set_rdbuf(&buf_);
+}
+
+int LogNone::NoneBuffer::overflow(int c)
+{
+    return c;
+}
+
+}
+
+std::ostream& operator<<(std::ostream& os, t_symbol* s)
+{
+    if (s == nullptr)
+        os << "NULLSYM";
     else
-        logpost(nullptr, level_ + 4, "[ceammc] %s", str().c_str());
-}
+        os << '"' << s->s_name << '"';
 
-}
-
-std::ostream& operator<<(std::ostream& os, t_symbol*& s)
-{
-    os << '"' << s->s_name << '"';
-    return os;
-}
-
-std::ostream& operator<<(std::ostream& os, const t_symbol* const& s)
-{
-    os << '"' << s->s_name << '"';
     return os;
 }

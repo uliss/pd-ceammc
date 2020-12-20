@@ -1,4 +1,18 @@
 #include "noise_white.h"
 
-EXTERNAL_SIMPLE_NEW();
-EXTERNAL_SETUP_NO_IN(noise);
+#include "ceammc_factory.h"
+
+using namespace ceammc;
+
+class WhiteNoise : public faust_noise_white_tilde {
+public:
+    WhiteNoise(const PdArgs& args)
+        : faust_noise_white_tilde(args)
+    {
+    }
+};
+
+void setup_noise_white_tilde()
+{
+    SoundExternalFactory<WhiteNoise> obj("noise.white~", OBJECT_FACTORY_NO_DEFAULT_INLET);
+}

@@ -23,10 +23,10 @@ class MathGCD : public BaseObject {
 
 public:
     MathGCD(const PdArgs& a);
-    void onFloat(float v);
-    void onList(const AtomList& l);
+    void onFloat(t_float v) override;
+    void onList(const AtomList& l) override;
 };
 
-extern "C" void setup_math0x2egcd();
+void setup_math_gcd();
 
 #endif // MATH_GCD_H

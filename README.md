@@ -2,9 +2,8 @@
 [![Build status](https://ci.appveyor.com/api/projects/status/mfc2ahj8ttexapsj?svg=true)](https://ci.appveyor.com/project/uliss/pure-data)
 [![Coverage Status](https://coveralls.io/repos/github/uliss/pure-data/badge.svg?branch=ceammc)](https://coveralls.io/github/uliss/pure-data?branch=ceammc)
 [![Snap Status](https://build.snapcraft.io/badge/uliss/pure-data.svg)](https://build.snapcraft.io/user/uliss/pure-data)
-[![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2Fuliss%2Fpure-data.svg?type=shield)](https://app.fossa.io/projects/git%2Bgithub.com%2Fuliss%2Fpure-data?ref=badge_shield)
 
-CEAMMC Puredata distribution 2020.02
+CEAMMC PureData distribution 2020.12
 ------------------------------------
 
 General purpose Pd distribution and library used for work and education purposes in Centre of electoacoustic music of Moscow Conservatory (CEAMMC) and ZIL-electro studio.
@@ -30,11 +29,23 @@ this work is based on / includes:
 ---------------------------------
    - Pd vanilla (this repository)
    - CICM Wrapper library (https://github.com/CICM/CicmWrapper)
-   - hcs library (https://puredata.info/downloads/hcs)
-   - comport object
    - A-Chaos library - https://github.com/s373/ofxAChaosLib
    - FAUSTDSP (http://faust.grame.fr)
    - pddoc (https://github.com/uliss/pddoc)
+   - muparser (https://beltoforion.de/en/muparser/)
+   - FluidSynth (https://www.fluidsynth.org/)
+   - aubio (https://aubio.org/)
+   - HoaLibrary (https://github.com/CICM/HoaLibrary-Light)
+   - STK (https://ccrma.stanford.edu/software/stk/)
+   - autotune object
+   - comport object
+   - FFTease
+   - lyonpotpourri
+   - re2
+   - glitch
+   - SoundTouch
+   - SoxR
+   - flext
 
 
 ### Authors

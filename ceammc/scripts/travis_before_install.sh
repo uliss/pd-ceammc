@@ -7,7 +7,7 @@ sudo apt-get install -qq libboost-dev libsndfile1 libsndfile-dev\
 	libportaudio-dev \
 	libfftw3-dev libasound2-dev libjack-dev \
     libmodplug-dev libavahi-compat-libdnssd-dev \
-    libglib2.0-dev
+    libglib2.0-dev ninja-build
 
 if [[ ${CEAMMC_COVERAGE} == "ON" ]]
 then

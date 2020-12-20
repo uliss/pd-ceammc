@@ -26,13 +26,12 @@ a-jong - © andré sier 2004
 */
 
 // CEAMMC pd library version
-
 #include "m_pd.h"
 
 #include <math.h>
 #include <stdbool.h>
 
-//#define	j_calc(a, b, c, d) (sin((a)*(b))-cos((c)*(d)))
+static t_class* jong_class;
 
 typedef struct _jong {
     t_object x_obj;
@@ -43,30 +42,23 @@ typedef struct _jong {
     bool om;
 } jong;
 
-void* jong_new(t_symbol* msg, short argc, t_atom* argv);
+void* jong_new(t_symbol* msg, int argc, t_atom* argv);
 void jong_calc(jong* x);
 void jong_bang(jong* x);
-void jong_set(jong* x, t_symbol* msg, short argc, t_atom* argv);
-void jong_reset(jong* x, t_symbol* msg, short argc, t_atom* argv);
-void jong_info(jong* x, t_symbol* msg, short argc, t_atom* argv);
+void jong_set(jong* x, t_symbol* msg, int argc, t_atom* argv);
+void jong_reset(jong* x, t_symbol* msg, int argc, t_atom* argv);
 
-void jong_a(jong* x, double max);
-void jong_b(jong* x, double max);
-void jong_c(jong* x, double max);
-void jong_d(jong* x, double max);
-void jong_nx(jong* x, double max);
-void jong_ny(jong* x, double max);
-void jong_om(jong* x, long max);
+void jong_a(jong* x, t_float max);
+void jong_b(jong* x, t_float max);
+void jong_c(jong* x, t_float max);
+void jong_d(jong* x, t_float max);
+void jong_nx(jong* x, t_float max);
+void jong_ny(jong* x, t_float max);
+void jong_om(jong* x, t_float max);
 
-void jong_assist(jong* x, void* b, long m, long a, char* s);
-static t_class* jong_class;
-
-void* jong_new(t_symbol* msg, short argc, t_atom* argv) //input the args
+void* jong_new(t_symbol* msg, int argc, t_atom* argv) //input the args
 {
-    jong* x;
-    int i;
-
-    x = (jong*)pd_new(jong_class);
+    jong* x = (jong*)pd_new(jong_class);
 
     x->c_out2 = outlet_new(&x->x_obj, &s_float);
     x->c_out = outlet_new(&x->x_obj, &s_float);
@@ -85,7 +77,7 @@ void* jong_new(t_symbol* msg, short argc, t_atom* argv) //input the args
     x->nxinit = 0.0f;
     x->nyinit = 0.0f;
 
-    x->om = 0;
+    x->om = false;
 
     if (argc)
         jong_set(x, msg, argc, argv);
@@ -93,16 +85,14 @@ void* jong_new(t_symbol* msg, short argc, t_atom* argv) //input the args
     return (x);
 }
 
-void jong_om(jong* x, long max) { x->om = (max > 0); }
+void jong_om(jong* x, t_float max) { x->om = (max > 0); }
 
-void jong_set(jong* x, t_symbol* msg, short argc, t_atom* argv) //input the args
+void jong_set(jong* x, t_symbol* msg, int argc, t_atom* argv) //input the args
 {
     // super elegant xoaz set method
     if (argc) {
         if (argc > 5) {
             if (argv[5].a_type == A_FLOAT)
-                x->nyinit = (double)argv[5].a_w.w_float;
-            else if (argv[5].a_type == A_FLOAT)
                 x->nyinit = (double)argv[5].a_w.w_float;
             x->ny = x->nyinit;
         }
@@ -110,15 +100,11 @@ void jong_set(jong* x, t_symbol* msg, short argc, t_atom* argv) //input the args
         if (argc > 4) {
             if (argv[4].a_type == A_FLOAT)
                 x->nxinit = (double)argv[4].a_w.w_float;
-            else if (argv[4].a_type == A_FLOAT)
-                x->nyinit = (double)argv[4].a_w.w_float;
             x->nx = x->nxinit;
         }
 
         if (argc > 3) {
             if (argv[3].a_type == A_FLOAT)
-                x->dinit = (double)argv[3].a_w.w_float;
-            else if (argv[3].a_type == A_FLOAT)
                 x->dinit = (double)argv[3].a_w.w_float;
             x->d = x->dinit;
         }
@@ -126,23 +112,17 @@ void jong_set(jong* x, t_symbol* msg, short argc, t_atom* argv) //input the args
         if (argc > 2) {
             if (argv[2].a_type == A_FLOAT)
                 x->cinit = (double)argv[2].a_w.w_float;
-            else if (argv[2].a_type == A_FLOAT)
-                x->cinit = (double)argv[2].a_w.w_float;
             x->c = x->cinit;
         }
 
         if (argc > 1) {
             if (argv[1].a_type == A_FLOAT)
                 x->binit = (double)argv[1].a_w.w_float;
-            else if (argv[1].a_type == A_FLOAT)
-                x->binit = (double)argv[1].a_w.w_float;
             x->b = x->binit;
         }
 
         if (argc > 0) {
             if (argv[0].a_type == A_FLOAT)
-                x->ainit = (double)argv[0].a_w.w_float;
-            else if (argv[0].a_type == A_FLOAT)
                 x->ainit = (double)argv[0].a_w.w_float;
             x->a = x->ainit;
         }
@@ -180,42 +160,42 @@ void jong_bang(jong* x) //important, first output values then calc next
     jong_calc(x);
 }
 
-void jong_nx(jong* x, double max)
+void jong_nx(jong* x, t_float max)
 {
     x->nx = max;
     //	x->nxinit = max;
     if (x->om)
         jong_bang(x);
 }
-void jong_ny(jong* x, double max)
+void jong_ny(jong* x, t_float max)
 {
     x->ny = max;
     //	x->nyinit = max;
     if (x->om)
         jong_bang(x);
 }
-void jong_a(jong* x, double max)
+void jong_a(jong* x, t_float max)
 {
     x->a = max;
     //	x->ainit = max;
     if (x->om)
         jong_bang(x);
 }
-void jong_b(jong* x, double max)
+void jong_b(jong* x, t_float max)
 {
     x->b = max;
     //	x->binit = max;
     if (x->om)
         jong_bang(x);
 }
-void jong_c(jong* x, double max)
+void jong_c(jong* x, t_float max)
 {
     x->c = max;
     //	x->cinit = max;
     if (x->om)
         jong_bang(x);
 }
-void jong_d(jong* x, double max)
+void jong_d(jong* x, t_float max)
 {
     x->d = max;
     //	x->dinit = max;
@@ -223,7 +203,7 @@ void jong_d(jong* x, double max)
         jong_bang(x);
 }
 
-void jong_reset(jong* x, t_symbol* msg, short argc, t_atom* argv)
+void jong_reset(jong* x, t_symbol* msg, int argc, t_atom* argv)
 {
     x->a = x->ainit;
     x->b = x->binit;
@@ -233,15 +213,17 @@ void jong_reset(jong* x, t_symbol* msg, short argc, t_atom* argv)
     x->ny = x->nyinit;
 }
 
-void jong_free() {}
+void jong_free() { }
 
 void setup_noise0x2ejong()
 {
 
-    jong_class = class_new(gensym("noise.jong"),
+    jong_class = class_new(gensym("chaos.jong"),
         (t_newmethod)(jong_new),
         (t_method)(jong_free),
         sizeof(jong), 0, A_GIMME, 0);
+
+    class_addcreator((t_newmethod)(jong_new), gensym("noise.jong"), A_GIMME, 0);
 
     class_addbang(jong_class, (t_method)jong_bang);
     class_addmethod(jong_class, (t_method)jong_reset, gensym("reset"), A_GIMME, 0);
@@ -254,5 +236,3 @@ void setup_noise0x2ejong()
     class_addmethod(jong_class, (t_method)jong_d, gensym("d"), A_DEFFLOAT, 0);
     class_addmethod(jong_class, (t_method)jong_om, gensym("om"), A_DEFFLOAT, 0);
 }
-
-

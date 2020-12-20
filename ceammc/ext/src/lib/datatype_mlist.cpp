@@ -12,35 +12,34 @@
  * this file belongs to.
  *****************************************************************************/
 #include "datatype_mlist.h"
-#include "ceammc_datatypes.h"
+#include "ceammc_data.h"
+#include "ceammc_datastorage.h"
 #include "ceammc_format.h"
+#include "ceammc_json.h"
 #include "ceammc_log.h"
-#include "mlist_parser_impl.h"
 
-#include <cassert>
+#include <algorithm>
 #include <cmath>
 #include <cstring>
 
-DataType DataTypeMList::dataType = data::DATA_MLIST;
+namespace ceammc {
 
-DataTypeMList::DataTypeMList()
+static Atom newMList(const AtomList& args)
 {
+    return new DataTypeMList(args);
 }
 
-DataTypeMList::DataTypeMList(const std::string& str)
-{
-    auto l = parse(str);
-    if (l)
-        data_ = l->data_;
-}
+int DataTypeMList::dataType = DataStorage::instance().registerNewType("MList", newMList);
+
+DataTypeMList::DataTypeMList() noexcept = default;
 
 DataTypeMList::DataTypeMList(const AtomList& lst)
     : data_(lst)
 {
 }
 
-DataTypeMList::DataTypeMList(AtomList&& lst)
-    : data_(lst)
+DataTypeMList::DataTypeMList(AtomList&& lst) noexcept
+    : data_(std::move(lst))
 {
 }
 
@@ -49,7 +48,7 @@ DataTypeMList::DataTypeMList(const DataTypeMList& mlist)
 {
 }
 
-DataTypeMList::DataTypeMList(DataTypeMList&& mlist)
+DataTypeMList::DataTypeMList(DataTypeMList&& mlist) noexcept
     : data_(std::move(mlist.data_))
 {
 }
@@ -72,9 +71,9 @@ DataTypeMList& DataTypeMList::operator=(DataTypeMList&& mlist)
     return *this;
 }
 
-DataType DataTypeMList::type() const
+int DataTypeMList::type() const noexcept
 {
-    return data::DATA_MLIST;
+    return dataType;
 }
 
 DataTypeMList* DataTypeMList::clone() const
@@ -82,7 +81,7 @@ DataTypeMList* DataTypeMList::clone() const
     return new DataTypeMList(*this);
 }
 
-bool DataTypeMList::isEqual(const AbstractData* cmp) const
+bool DataTypeMList::isEqual(const AbstractData* cmp) const noexcept
 {
     auto mlist = cmp->as<DataTypeMList>();
     if (!mlist)
@@ -91,59 +90,25 @@ bool DataTypeMList::isEqual(const AbstractData* cmp) const
     return mlist->data_ == data_;
 }
 
-void DataTypeMList::dump()
-{
-    LIB_DBG << toString();
-}
-
 std::string DataTypeMList::toString() const
 {
     std::string res("(");
 
     for (size_t i = 0; i < data_.size(); i++) {
-        if (i != 0)
-            res.push_back(' ');
-
-        res += to_string_quoted(data_[i].toAtom());
+        res += to_string_quoted(data_[i]);
+        res.push_back(' ');
     }
+
+    if (!data_.empty())
+        res.pop_back();
 
     res.push_back(')');
     return res;
 }
 
-AtomList DataTypeMList::toList() const
+std::string DataTypeMList::valueToJsonString() const
 {
-    return data_.toList();
-}
-
-bool DataTypeMList::empty() const
-{
-    return data_.empty();
-}
-
-size_t DataTypeMList::size() const
-{
-    return data_.size();
-}
-
-const DataAtom& DataTypeMList::at(size_t n) const
-{
-    return data_[n];
-}
-
-DataAtom& DataTypeMList::at(size_t n)
-{
-    return data_[n];
-}
-
-const DataAtom& DataTypeMList::operator[](size_t n) const
-{
-    return data_[n];
-}
-
-DataAtom& DataTypeMList::operator[](size_t n)
-{
-    return data_[n];
+    return ceammc::json::to_json(*this);
 }
 
 void DataTypeMList::append(const Atom& a)
@@ -151,17 +116,7 @@ void DataTypeMList::append(const Atom& a)
     data_.append(a);
 }
 
-void DataTypeMList::append(const DataAtom& a)
-{
-    data_.append(a);
-}
-
 void DataTypeMList::append(const AtomList& lst)
-{
-    data_.append(lst);
-}
-
-void DataTypeMList::append(const DataAtomList& lst)
 {
     data_.append(lst);
 }
@@ -176,34 +131,23 @@ bool DataTypeMList::insert(size_t idx, const AtomList& lst)
     return data_.insert(idx, lst);
 }
 
-bool DataTypeMList::insert(size_t idx, const DataAtomList& lst)
-{
-    return data_.insert(idx, lst);
-}
-
 void DataTypeMList::prepend(const Atom& a)
 {
-    data_.prepend(a);
-}
-
-void DataTypeMList::prepend(const DataAtom& a)
-{
-    data_.prepend(a);
+    data_.insert(0, a);
 }
 
 void DataTypeMList::prepend(const AtomList& lst)
 {
-    data_.prepend(lst);
-}
-
-void DataTypeMList::prepend(const DataAtomList& lst)
-{
-    data_.prepend(lst);
+    data_.insert(0, lst);
 }
 
 bool DataTypeMList::pop()
 {
-    return data_.pop();
+    if (data_.empty())
+        return false;
+
+    data_.remove(data_.size() - 1);
+    return true;
 }
 
 bool DataTypeMList::remove(size_t idx)
@@ -216,9 +160,16 @@ void DataTypeMList::reserve(size_t n)
     data_.reserve(n);
 }
 
-void DataTypeMList::set(const AtomList& lst)
+void DataTypeMList::setRaw(const AtomList& lst)
 {
-    data_.set(lst);
+    data_ = lst;
+}
+
+void DataTypeMList::setParsed(const AtomList& lst)
+{
+    auto ml = parse(lst);
+    if (ml)
+        std::swap(data_, ml.value().data_);
 }
 
 DataTypeMList DataTypeMList::rotateLeft(int steps) const
@@ -241,120 +192,49 @@ DataTypeMList DataTypeMList::flatten() const
     DataTypeMList res;
     res.data_.reserve(size());
 
-    for (auto& el : data_) {
-        if (el.isAtom()) {
-            res.data_.append(el.toAtom());
-        } else {
-            auto data = el.data();
-            // skipping null pointer
-            if (data.isNull()) {
-                LIB_ERR << "invalid data pointer";
-                continue;
-            }
-
-            if (data->type() == DataTypeMList::dataType) {
-                auto mlist = data->as<DataTypeMList>();
+    for (auto& x : data_) {
+        if (x.isData()) {
+            if (x.isA<DataTypeMList>()) {
+                auto mlist = x.asD<DataTypeMList>();
                 if (!mlist) {
                     LIB_ERR << "invalid mlist pointer";
                     continue;
                 }
 
-                // recursion
-                auto mlist_flatten = mlist->flatten();
-                res.data_.append(mlist_flatten.data_);
+                // recursion call
+                res.data_.append(mlist->flatten().data_);
             } else
-                res.data_.append(el);
-        }
+                res.data_.append(x);
+        } else
+            res.data_.append(x);
     }
 
     return res;
-}
-
-template <class T>
-T sign(T v)
-{
-    return v < 0 ? -1 : 1;
-}
-
-static size_t normalizeIdx(int idx, size_t N, bool clip)
-{
-    const bool is_negative = idx < 0;
-    int abs_idx = idx;
-
-    if (is_negative)
-        abs_idx = -(idx + 1);
-
-    if (clip)
-        abs_idx = std::min<int>(abs_idx, N - 1);
-
-    return is_negative ? (N - 1 - abs_idx) : abs_idx;
 }
 
 DataTypeMList DataTypeMList::slice(int start, int end, size_t step) const
 {
-    DataTypeMList res;
-
-    if (step < 1 || data_.empty())
-        return res;
-
-    const size_t N = data_.size();
-    size_t nfirst = normalizeIdx(start, N, false);
-    if (nfirst >= N)
-        return res;
-
-    size_t last = normalizeIdx(end, N, true);
-
-    if (nfirst <= last) {
-        for (size_t i = nfirst; i <= last; i += step)
-            res.append(data_[i]);
-    } else {
-        for (long i = nfirst; i >= long(last); i -= step)
-            res.append(data_[i]);
-    }
-
-    return res;
+    return DataTypeMList(data_.slice(start, end, step));
 }
 
 void DataTypeMList::sort()
 {
-    auto pred = [](const DataAtom& a0, const DataAtom& a1) {
-        if (a0.isAtom() && a1.isAtom())
-            return a0.toAtom() < a1.toAtom();
-
-        return false;
-    };
-
-    std::sort(begin(), end(), pred);
+    data_.sort();
 }
 
 void DataTypeMList::reverse()
 {
-    std::reverse(data_.begin(), data_.end());
+    data_.reverse();
 }
 
 void DataTypeMList::shuffle()
 {
-    std::random_shuffle(data_.begin(), data_.end());
+    data_.shuffle();
 }
 
 bool DataTypeMList::contains(const Atom& a) const
 {
     return data_.contains(a);
-}
-
-bool DataTypeMList::contains(const AtomList& l) const
-{
-    return data_.contains(l);
-}
-
-bool DataTypeMList::contains(const DataAtom& d) const
-{
-    return data_.contains(d);
-}
-
-bool DataTypeMList::contains(const DataPtr& ptr) const
-{
-    return data_.contains(ptr);
 }
 
 bool DataTypeMList::contains(const DataTypeMList& l) const
@@ -375,71 +255,28 @@ DataTypeMList::MaybeList DataTypeMList::parse(const AtomList& lst)
 
 DataTypeMList::MaybeList DataTypeMList::parse(const std::string& str)
 {
-    DataTypeMList res;
+    auto pos = str.find('(');
 
-    mlist_ast* ast = mlist_ast_create();
-    int err = mlist_parse_string(ast, str.c_str());
+    if (str.empty() || pos == std::string::npos)
+        return {};
 
-    if (err) {
-        mlist_ast_free(ast);
-        LIB_ERR << "[mlist] parse error: " << str;
-        return res;
+    auto parse_result = parseDataString(str);
+    if (!parse_result) {
+        LIB_ERR << "parse error: " << parse_result.err();
+        return {};
     }
 
-    std::vector<DataTypeMList*> stack;
-    mlist_ast_traverse(ast, &res, &stack, (traverse_fn)traverse);
+    if (!parse_result.result().isA<DataTypeMList>()) {
+        LIB_ERR << "not a MList: " << str;
+        return {};
+    }
 
-    mlist_ast_free(ast);
-
-    if (res.data_.size() == 0)
-        return res;
-
-    return *res.data_[0].data()->as<DataTypeMList>();
+    return *parse_result.result().asD<DataTypeMList>();
 }
 
-void DataTypeMList::traverse(mlist_node* node, DataTypeMList* data, MListStack* stack, int act, const char* txt)
+std::ostream& operator<<(std::ostream& os, const DataTypeMList& d)
 {
-    switch (act) {
-    case TRAVERSE_PUSH: {
-        auto mlist = new DataTypeMList;
-        auto lst_ptr = DataPtr(mlist);
+    return os << d.toString();
+}
 
-        // insert stack top
-        if (stack->empty()) {
-            data->data_.append(lst_ptr);
-            stack->push_back(mlist);
-        } else {
-            stack->back()->data_.append(lst_ptr);
-            stack->push_back(mlist);
-        }
-
-        break;
-    }
-    case TRAVERSE_ADD: {
-        assert(!stack->empty());
-
-        if (mlist_node_is_quoted(node)) {
-            stack->back()->data_.append(Atom(gensym(txt)));
-        } else {
-            auto b = binbuf_new();
-            binbuf_text(b, (char*)txt, strlen(txt));
-            const int N = binbuf_getnatom(b);
-            auto a = binbuf_getvec(b);
-
-            if (N > 0)
-                stack->back()->data_.append(Atom(*a));
-            else
-                std::cerr << "invalid atom: " << txt;
-
-            binbuf_free(b);
-        }
-
-        break;
-    }
-    case TRAVERSE_POP: {
-        assert(!stack->empty());
-        stack->pop_back();
-        break;
-    }
-    }
 }

@@ -21,30 +21,29 @@
             </aliases>
         </meta>
         <info>
-            <par>Syntax: ([key1: value] [key2 : "with space"]). Parenthesis can be ommitted if you
-            are not using nested dictionaries. Nested dictionaries are supported: ([a:
-            ([A:1][B:2])]).</par>
+            <par>Syntax: [key1: value key2 : "with space"]. Nested dictionaries are supported: [a:
+            [A:1 B:2]]).</par>
         </info>
         <properties>
             <property name="@keys" readonly="true" type="list">keys of dictionary</property>
-            <property name="@empty" readonly="true" enum="0 1" type="int" default="0">1 if dict is
+            <property name="@empty" readonly="true" enum="0 1" type="int" default="1">1 if dict is
             empty, otherwise 0</property>
             <property name="@size" readonly="true" minvalue="0" type="int" default="0">number of
             entries in dictionary</property>
         </properties>
         <methods>
             <method name="add">adds entry to dictionary 
-            <param name="KEY" type="atom" required="true">entry key</param>
+            <param name="KEY" type="symbol" required="true">entry key</param>
             <param name="VAL" type="list" required="true">single value or list</param></method>
             <method name="clear">removes all dict values. No output</method>
             <method name="get_key">get entry from dictionary 
-            <param name="KEY" type="atom" required="true">entry key</param></method>
+            <param name="KEY" type="symbol" required="true">entry key</param></method>
             <method name="set_key">change entry in dictionary. If it's not exists, do nothing. 
-            <param name="KEY" type="atom" required="true">key</param>
+            <param name="KEY" type="symbol" required="true">key</param>
             <param name="VAL" type="list" required="true">single value or list</param></method>
             <method name="set">set dict content without output</method>
             <method name="remove">remove entry from dictionary 
-            <param name="KEY" type="atom" required="true">entry key</param></method>
+            <param name="KEY" type="symbol" required="true">entry key</param></method>
             <method name="[....]" example="true">sets new content without output</method>
             <method name="read">read dict from JSON file 
             <param name="PATH" type="symbol" required="true">file path</param></method>
@@ -65,19 +64,20 @@
         <example>
             <pdascii>
 <![CDATA[
-[bang(
+[bang( [[a: [K0: 1 2 3 K2: "a symbol"]], bang #a( [get_key a #b(
 |
-|  [[a: b] [c: d], bang( [clear( [remove a(
-|  |                     |       |
-|  |  [add 100 float(    |       | [B]
-|  |  |                  |       | |
-|  |  |                  |       | [openpanel]
-|  |  |  [list a b c d(  |       | |
-|  |  |  |               |       | [read $1(
-|  |  |  |               |       | |
-[data.dict (\[tempo: 120\]\[title: "New Masterpiece"\]) ]
+|  [[a: b c: d], bang(  [clear( [remove a(
+|  |                    |       |
+|  |  [add KEY value(   |       | [B]
+|  |  |                 |       | |
+|  |  |                 |       | [openpanel]
+|  |  |  [list a b c d( |       | |
+|  |  |  |              |       | [read $1(
+|  |  |  |              |       | |
+[data.dict \[tempo: 120 title: "New Masterpiece"\] #z]
 |
-[ui.display @display_type=1]
+[ui.display @display_type 1]
+[X a->z] [X b->z]
 ]]>
             </pdascii>
         </example>

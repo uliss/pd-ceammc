@@ -19,92 +19,93 @@
 #X floatatom 117 378 5 0 0 0 - - -;
 #X floatatom 184 378 5 0 0 0 - - -;
 #X floatatom 251 378 5 0 0 0 - - -;
-#X obj 20 417 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 422 cnv 5 90 26 empty empty arguments: 4 10 0 14 -262144
+#X obj 20 427 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 432 cnv 5 90 26 empty empty arguments: 4 10 0 14 -262144
 -49933 0;
-#X text 110 457 1\.;
-#X text 150 457 int;
-#X obj 246 458 cnv 1 17 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 457 N: number of inputs/outputs. Range: 1\...16;
-#X obj 20 487 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 492 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
+#X text 110 467 1\.;
+#X text 150 467 int;
+#X obj 246 468 cnv 1 17 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 245 467 N: number of inputs/outputs. Range: 1\...16;
+#X obj 20 497 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 502 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
 -49933 0;
-#X msg 110 527 @db;
-#X text 245 527 Get/Set gain decibel (dbfs) values. Type: list. Min
-value: -144\.;
-#X msg 110 569 @smooth_time;
-#X text 245 569 Get/Set gain change smooth time. Type: float. Units:
+#X msg 110 537 @db;
+#X text 245 537 Get/Set gain decibel (dbfs) values. Type: list. Default
+value: -144\. Min value: -144\.;
+#X msg 110 579 @smooth_time;
+#X text 245 579 Get/Set gain change smooth time. Type: float. Units:
 ms. Default value: 20\. Min value: 1\.;
-#X msg 110 611 @value;
-#X text 245 611 Get/Set gain amplitude values. Type: list. Min value:
-0\.;
-#X obj 20 650 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 655 cnv 5 73 26 empty empty methods: 4 10 0 14 -262144
+#X msg 110 621 @value;
+#X text 245 621 Get/Set gain amplitude values. Type: list. Default
+value: 0\. Min value: 0\.;
+#X obj 20 673 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 678 cnv 5 73 26 empty empty methods: 4 10 0 14 -262144
 -49933 0;
-#X msg 110 690 set;
-#X text 245 690 set gain amplitude for all inputs. Arguments are:;
-#X obj 255 713 cnv 1 14 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 713 V: new gain value. Type: float. Min value: 0\.;
-#X msg 110 738 set_db;
-#X text 245 738 set gain in db for all inputs. Arguments are:;
-#X obj 255 761 cnv 1 14 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 761 V: new gain value. Type: float. Min value: -144\.;
-#X msg 110 786 +;
-#X text 245 786 increase gain amplitude. Arguments are:;
-#X obj 255 809 cnv 1 47 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 809 [VALS]: values for each input channel. Type: list.;
-#X msg 110 834 +all;
-#X text 245 834 increase gain amplitude for all inputs. Arguments are:;
-#X obj 255 857 cnv 1 14 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 857 V: single value for each input channel. Type: float.;
-#X msg 110 882 +db;
-#X text 245 882 increase gain in db. Arguments are:;
-#X obj 255 905 cnv 1 47 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 905 [VALS]: values for each input channel. Type: list.;
-#X msg 110 930 -;
-#X text 245 930 decrease gain amplitude. Arguments are:;
-#X obj 255 953 cnv 1 47 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 953 [VALS]: values for each input channel. Type: list.;
-#X msg 110 978 -all;
-#X text 245 978 decrease gain amplitude for all inputs. Arguments are:;
-#X obj 255 1001 cnv 1 14 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1001 V: single value for each input channel. Type: float.;
-#X msg 110 1026 -db;
-#X text 245 1026 decrease gain in db. Arguments are:;
-#X obj 255 1049 cnv 1 47 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1049 [VALS]: values for each input channel. Type: list.;
-#X obj 20 1084 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1089 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144
+#X msg 110 713 set;
+#X text 245 713 set gain amplitude for all inputs. Arguments are:;
+#X obj 255 736 cnv 1 14 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 736 V: new gain value. Type: float. Min value: 0\.;
+#X msg 110 761 set_db;
+#X text 245 761 set gain in db for all inputs. Arguments are:;
+#X obj 255 784 cnv 1 14 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 784 V: new gain value. Type: float. Min value: -144\.;
+#X msg 110 809 +;
+#X text 245 809 increase gain amplitude. Arguments are:;
+#X obj 255 832 cnv 1 47 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 832 [VALS]: values for each input channel. Type: list.;
+#X msg 110 857 +all;
+#X text 245 857 increase gain amplitude for all inputs. Arguments are:;
+#X obj 255 880 cnv 1 14 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 880 V: single value for each input channel. Type: float.;
+#X msg 110 905 +db;
+#X text 245 905 increase gain in db. Arguments are:;
+#X obj 255 928 cnv 1 47 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 928 [VALS]: values for each input channel. Type: list.;
+#X msg 110 953 -;
+#X text 245 953 decrease gain amplitude. Arguments are:;
+#X obj 255 976 cnv 1 47 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 976 [VALS]: values for each input channel. Type: list.;
+#X msg 110 1001 -all;
+#X text 245 1001 decrease gain amplitude for all inputs. Arguments
+are:;
+#X obj 255 1024 cnv 1 14 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1024 V: single value for each input channel. Type: float.;
+#X msg 110 1049 -db;
+#X text 245 1049 decrease gain in db. Arguments are:;
+#X obj 255 1072 cnv 1 47 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1072 [VALS]: values for each input channel. Type: list.;
+#X obj 20 1107 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1112 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 1090 1\.;
-#X text 245 1090 input signal.;
-#X text 110 1110 ....;
-#X text 245 1110 input signal.;
-#X text 110 1130 n.;
-#X text 150 1130 *float*;
-#X text 245 1130 set gain for all inputs.;
-#X obj 20 1160 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1165 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
+#X text 110 1113 1\.;
+#X text 245 1113 input signal.;
+#X text 110 1133 ....;
+#X text 245 1133 input signal.;
+#X text 110 1153 n.;
+#X text 150 1153 *float*;
+#X text 245 1153 set gain for all inputs.;
+#X obj 20 1183 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1188 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 1166 1\.;
-#X text 245 1166 output signal.;
-#X text 110 1186 ....;
-#X text 245 1186 output signal.;
-#X text 110 1206 n.;
-#X text 245 1206 output signal.;
+#X text 110 1189 1\.;
+#X text 245 1189 output signal.;
+#X text 110 1209 ....;
+#X text 245 1209 output signal.;
+#X text 110 1229 n.;
+#X text 245 1229 output signal.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 115 45 ::;
 #X obj 131 48 ui.link @title base @url ceammc.base-help.pd;
-#X obj 1 1256 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 1259 library: ceammc v0.8.0;
-#N canvas 10 1278 400 290 info 0;
+#X obj 1 1279 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1282 library: ceammc v0.9.1;
+#N canvas 10 1301 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
 #X text 10 32 version:;
-#X text 120 32 0.8.0;
+#X text 120 32 0.9.1;
 #X text 10 54 object:;
 #X text 120 54 gain~;
 #X text 10 76 category:;
@@ -123,7 +124,7 @@ https://github.com/uliss/pure-data;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 generated by pddoc;
-#X restore 10 1278 pd info;
+#X restore 10 1301 pd info;
 #X connect 4 0 10 0;
 #X connect 7 0 10 0;
 #X connect 8 0 10 0;

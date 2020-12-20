@@ -37,18 +37,18 @@ static WFuncMap win_func_map;
 
 static bool initFuncMap()
 {
-    win_func_map[WIN_DEFAULT] = window::hann<float>;
-    win_func_map[WIN_WELCH] = window::welch<float>;
-    win_func_map[WIN_TRIANGLE] = window::triangle<float>;
-    win_func_map[WIN_HANN] = window::hann<float>;
-    win_func_map[WIN_RECT] = window::rect<float>;
-    win_func_map[WIN_SINE] = window::sine<float>;
-    win_func_map[WIN_HAMMING] = window::hamming<float>;
-    win_func_map[WIN_BLACKMAN] = window::blackman<float>;
-    win_func_map[WIN_NUTTALL] = window::nuttall<float>;
-    win_func_map[WIN_BLACKMAN_HARRIS] = window::blackman_harris<float>;
-    win_func_map[WIN_FLATTOP] = window::flattop<float>;
-    win_func_map[WIN_GAUSS] = window::gauss<20>;
+    win_func_map[WIN_DEFAULT] = window::hann<t_sample>;
+    win_func_map[WIN_WELCH] = window::welch<t_sample>;
+    win_func_map[WIN_TRIANGLE] = window::triangle<t_sample>;
+    win_func_map[WIN_HANN] = window::hann<t_sample>;
+    win_func_map[WIN_RECT] = window::rect<t_sample>;
+    win_func_map[WIN_SINE] = window::sine<t_sample>;
+    win_func_map[WIN_HAMMING] = window::hamming<t_sample>;
+    win_func_map[WIN_BLACKMAN] = window::blackman<t_sample>;
+    win_func_map[WIN_NUTTALL] = window::nuttall<t_sample>;
+    win_func_map[WIN_BLACKMAN_HARRIS] = window::blackman_harris<t_sample>;
+    win_func_map[WIN_FLATTOP] = window::flattop<t_sample>;
+    win_func_map[WIN_GAUSS] = window::gauss<t_sample, 20>;
     return true;
 }
 
@@ -56,15 +56,19 @@ Window::Window(const PdArgs& a)
     : BaseObject(a)
     , size_(nullptr)
     , type_(WIN_DEFAULT)
-    , fn_(window::hann<float>)
+    , fn_(window::hann<t_sample>)
 {
-    createCbProperty("@type", &Window::pTypeGet, &Window::pTypeSet);
-    property("@type")->info().setType(PropertyInfoType::SYMBOL);
+    createCbSymbolProperty(
+        "@type",
+        [this]() -> t_symbol* { return type_; },
+        [this](t_symbol* s) -> bool { return setWindowFunc(s); })
+        ->setArgIndex(0);
 
-    setWindowFunc(positionalSymbolArgument(0, WIN_DEFAULT));
-
-    size_ = new IntPropertyMinEq("@size", positionalFloatArgument(1, DEFAULT_SIZE), 16);
-    createProperty(size_);
+    size_ = new IntProperty("@size", DEFAULT_SIZE);
+    size_->setArgIndex(1);
+    size_->checkMinEq(16);
+    size_->setUnitsSamp();
+    addProperty(size_);
 
     createOutlet();
 }
@@ -81,7 +85,7 @@ void Window::onBang()
     listTo(0, res);
 }
 
-void Window::onFloat(float v)
+void Window::onFloat(t_float v)
 {
     int idx = int(v);
     float res = 0;
@@ -97,26 +101,13 @@ void Window::onList(const AtomList& l)
     if (!checkArgs(l, ARG_INT, ARG_INT))
         return;
 
-    size_->set(l[1]);
+    size_->set(l.view(1, 1));
     onFloat(l[0].asFloat());
 }
 
-void Window::pTypeSet(const AtomList& l)
+bool Window::setWindowFunc(t_symbol* name)
 {
-    if (!checkArgs(l, ARG_SYMBOL))
-        return;
-
-    setWindowFunc(l[0].asSymbol());
-}
-
-AtomList Window::pTypeGet() const
-{
-    return AtomList(type_);
-}
-
-void Window::setWindowFunc(t_symbol* name)
-{
-    WFuncMap::iterator it = win_func_map.find(name);
+    auto it = win_func_map.find(name);
     if (it == win_func_map.end()) {
         OBJ_ERR << "unknown window type: " << name->s_name << ". setting default: "
                 << WIN_DEFAULT->s_name;
@@ -125,6 +116,7 @@ void Window::setWindowFunc(t_symbol* name)
 
     fn_ = it->second;
     type_ = it->first;
+    return true;
 }
 
 WindowFuncPtr Window::windowFunc()
@@ -132,57 +124,57 @@ WindowFuncPtr Window::windowFunc()
     return fn_;
 }
 
-void Window::m_hann(t_symbol*, const AtomList&)
+void Window::m_hann(t_symbol*, const AtomListView&)
 {
     setWindowFunc(WIN_HANN);
 }
 
-void Window::m_tri(t_symbol*, const AtomList&)
+void Window::m_tri(t_symbol*, const AtomListView&)
 {
     setWindowFunc(WIN_TRIANGLE);
 }
 
-void Window::m_welch(t_symbol*, const AtomList&)
+void Window::m_welch(t_symbol*, const AtomListView&)
 {
     setWindowFunc(WIN_WELCH);
 }
 
-void Window::m_rect(t_symbol*, const AtomList&)
+void Window::m_rect(t_symbol*, const AtomListView&)
 {
     setWindowFunc(WIN_RECT);
 }
 
-void Window::m_sine(t_symbol*, const AtomList&)
+void Window::m_sine(t_symbol*, const AtomListView&)
 {
     setWindowFunc(WIN_SINE);
 }
 
-void Window::m_hamming(t_symbol*, const AtomList&)
+void Window::m_hamming(t_symbol*, const AtomListView&)
 {
     setWindowFunc(WIN_HAMMING);
 }
 
-void Window::m_blackman(t_symbol*, const AtomList&)
+void Window::m_blackman(t_symbol*, const AtomListView&)
 {
     setWindowFunc(WIN_BLACKMAN);
 }
 
-void Window::m_nuttall(t_symbol*, const AtomList&)
+void Window::m_nuttall(t_symbol*, const AtomListView&)
 {
     setWindowFunc(WIN_NUTTALL);
 }
 
-void Window::m_blackman_harris(t_symbol*, const AtomList&)
+void Window::m_blackman_harris(t_symbol*, const AtomListView&)
 {
     setWindowFunc(WIN_BLACKMAN_HARRIS);
 }
 
-void Window::m_flattop(t_symbol*, const AtomList&)
+void Window::m_flattop(t_symbol*, const AtomListView&)
 {
     setWindowFunc(WIN_FLATTOP);
 }
 
-void Window::m_gauss(t_symbol*, const AtomList&)
+void Window::m_gauss(t_symbol*, const AtomListView&)
 {
     setWindowFunc(WIN_GAUSS);
 }

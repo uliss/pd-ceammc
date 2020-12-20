@@ -37,109 +37,47 @@ HoaProcessProps::HoaProcessProps(const PdArgs& args)
 
     createOutlet();
 
-    {
-        Property* p = createCbProperty("@pmode", &HoaProcessProps::propPMode);
-        p->info().setType(PropertyInfoType::SYMBOL);
-        p->info().addEnum(SYM_2D);
-        p->info().addEnum(SYM_3D);
-    }
+    createCbSymbolProperty("@pmode", [this]() -> t_symbol* { return args_.mode; })
+        ->setSymbolEnumCheck({ SYM_2D, SYM_3D });
 
-    {
-        Property* p = createCbProperty("@ptype", &HoaProcessProps::propPType);
-        p->info().setType(PropertyInfoType::SYMBOL);
-        p->info().addEnum(SYM_HARMONICS);
-        p->info().addEnum(SYM_PLANEWAVES);
-    }
+    createCbSymbolProperty("@ptype", [this]() -> t_symbol* { return args_.type; })
+        ->setSymbolEnumCheck({ SYM_HARMONICS, SYM_PLANEWAVES });
 
-    {
-        Property* p = createCbProperty("@order", &HoaProcessProps::propOrder);
-        p->info().setType(PropertyInfoType::INTEGER);
-    }
-
-    {
-        Property* p = createCbProperty("@total", &HoaProcessProps::propTotal);
-        p->info().setType(PropertyInfoType::INTEGER);
-    }
-
-    {
-        Property* p = createCbProperty("@index", &HoaProcessProps::propIndex);
-        p->info().setType(PropertyInfoType::INTEGER);
-    }
-
-    {
-        Property* p = createCbProperty("@hdegree", &HoaProcessProps::propHarmDegree);
-        p->info().setType(PropertyInfoType::INTEGER);
-    }
-
-    {
-        Property* p = createCbProperty("@horder", &HoaProcessProps::propHarmOrder);
-        p->info().setType(PropertyInfoType::INTEGER);
-    }
+    createCbIntProperty("@order", [this]() -> int { return args_.order; });
+    createCbIntProperty("@total", [this]() -> int { return args_.total; });
+    createCbIntProperty("@index", [this]() -> int { return args_.index; });
+    createCbIntProperty("@hdegree", [this]() -> int { return args_.harm_degree; });
+    createCbIntProperty("@horder", [this]() -> int { return args_.harm_order; });
 
     auto cnv_args = canvas_info_args(canvas());
     if (!cnv_args.empty())
         args_ = processHoaProps(cnv_args);
 }
 
-AtomList HoaProcessProps::propPMode() const
-{
-    return Atom(args_.mode);
-}
-
-AtomList HoaProcessProps::propPType() const
-{
-    return Atom(args_.type);
-}
-
-AtomList HoaProcessProps::propOrder() const
-{
-    return Atom(args_.order);
-}
-
-AtomList HoaProcessProps::propTotal() const
-{
-    return Atom(args_.total);
-}
-
-AtomList HoaProcessProps::propIndex() const
-{
-    return Atom(args_.index);
-}
-
-AtomList HoaProcessProps::propHarmDegree() const
-{
-    return Atom(args_.harm_degree);
-}
-
-AtomList HoaProcessProps::propHarmOrder() const
-{
-    return Atom(args_.harm_order);
-}
-
 static void propToList(DataTypeProperty* prop, AtomList& out)
 {
     switch (prop->propertyType()) {
-    case DataTypeProperty::T_BOOL: {
+    case PropValueType::BOOLEAN: {
         bool b = false;
         if (prop->getBool(b))
             out.append(Atom(b ? 1.f : 0.f));
     } break;
-    case DataTypeProperty::T_FLOAT: {
+    case PropValueType::FLOAT: {
         t_float f = 0;
         if (prop->getFloat(f))
             out.append(Atom(f));
     } break;
-    case DataTypeProperty::T_INT: {
-        long i = 0;
+    case PropValueType::INTEGER: {
+        int i = 0;
         if (prop->getInt(i))
             out.append(Atom(i));
     } break;
-    case DataTypeProperty::T_SYMBOL: {
+    case PropValueType::SYMBOL: {
         t_symbol* s = &s_;
         if (prop->getSymbol(&s))
             out.append(Atom(s));
     } break;
-    case DataTypeProperty::T_LIST: {
+    case PropValueType::LIST: {
         AtomList l;
         if (prop->getList(l))
             out.append(l);
@@ -204,10 +142,10 @@ bool HoaProcessProps::eachProperty(const AtomList& lst,
             continue;
 
         // search inner property
-        for (auto& inner_prop : properties()) {
+        for (auto inner_prop : properties()) {
             // found inner property
-            if (prop_equal(inner_prop.first->s_name, p->s_name)) {
-                inner_process(inner_prop.second, inner_prop.first, args.slice(1));
+            if (prop_equal(inner_prop->name()->s_name, p->s_name)) {
+                inner_process(inner_prop, inner_prop->name(), args.slice(1));
                 cnt++;
                 goto continue_label;
             }
@@ -249,7 +187,7 @@ bool HoaProcessProps::eachProperty(const AtomList& lst,
     return cnt > 0;
 }
 
-bool HoaProcessProps::processAnyProps(t_symbol* sel, const AtomList& lst)
+bool HoaProcessProps::processAnyProps(t_symbol* sel, const AtomListView& lst)
 {
     if (sel->s_name[0] != '@')
         return false;
@@ -292,10 +230,10 @@ bool HoaProcessProps::processAnyProps(t_symbol* sel, const AtomList& lst)
                 // per instance args
                 if (args.size() > 1) {
                     switch (prop->propertyType()) {
-                    case DataTypeProperty::T_BOOL:
-                    case DataTypeProperty::T_FLOAT:
-                    case DataTypeProperty::T_INT:
-                    case DataTypeProperty::T_SYMBOL: {
+                    case PropValueType::BOOLEAN:
+                    case PropValueType::FLOAT:
+                    case PropValueType::INTEGER:
+                    case PropValueType::SYMBOL: {
                         size_t idx = this->args_.index;
                         if (idx >= args.size()) {
                             OBJ_ERR << "invalid list size: " << idx << ", index not exists: " << idx;
@@ -303,7 +241,7 @@ bool HoaProcessProps::processAnyProps(t_symbol* sel, const AtomList& lst)
                             prop->setFromPdArgs(args.slice(idx, idx + 1));
                         }
                     } break;
-                    case DataTypeProperty::T_LIST:
+                    case PropValueType::LIST:
                     default:
                         prop->setFromPdArgs(args);
                         break;

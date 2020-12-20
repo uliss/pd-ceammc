@@ -731,3 +731,5 @@ void glob_startup_dialog(t_pd *dummy, t_symbol *s, int argc, t_atom *argv)
                 namelist_append_files(STUFF->st_externlist, s->s_name);
     }
 }
+
+

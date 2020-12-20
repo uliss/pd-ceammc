@@ -34,7 +34,7 @@
 |             |             |
 [matrix.new                 ]
 |             |
-[matrix.rank] [ui.display @display_type=1]
+[matrix.rank] [ui.display @display_type 1]
 |
 [F]
 ]]>

@@ -14,26 +14,35 @@
 #ifndef LIST_CONTAINS_H
 #define LIST_CONTAINS_H
 
-#include "ceammc_dataatomlist.h"
+#include "ceammc_data.h"
 #include "ceammc_object.h"
+#include "ceammc_property_callback.h"
+#include "ceammc_property_enum.h"
 
 using namespace ceammc;
 
-class DataTypeMList;
+enum SearchMode {
+    MODE_ALL,
+    MODE_ANY,
+    MODE_NONE,
+    MODE_SUBLIST
+};
 
 class ListContains : public BaseObject {
-    AtomList needle_;
+    ListProperty* sublist_;
+    ListProperty* all_of_;
+    ListProperty* any_of_;
+    ListProperty* none_of_;
+
+    SearchMode mode_;
 
 public:
     ListContains(const PdArgs& args);
 
     void onList(const AtomList& lst) override;
-    void onDataT(const DataTPtr<DataTypeMList>& dptr);
+    void onDataT(const MListAtom& ml);
 
     void onInlet(size_t n, const AtomList& lst) override;
-
-private:
-    void output(bool v);
 };
 
 void setup_list_contains();

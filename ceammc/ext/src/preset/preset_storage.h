@@ -6,7 +6,6 @@
 using namespace ceammc;
 
 class PresetExternal : public BaseObject {
-    t_canvas* root_cnv_;
     std::string patch_dir_;
 
 public:
@@ -14,12 +13,13 @@ public:
 
     AtomList p_keys() const;
 
-    void m_load(t_symbol*, const AtomList& l);
-    void m_store(t_symbol*, const AtomList& l);
-    void m_clear(t_symbol*, const AtomList& l);
-    void m_write(t_symbol*, const AtomList& fname);
-    void m_read(t_symbol*, const AtomList& fname);
-    void m_update(t_symbol*, const AtomList&);
+    void m_load(t_symbol*, const AtomListView& l);
+    void m_store(t_symbol*, const AtomListView& l);
+    void m_clear(t_symbol*, const AtomListView& l);
+    void m_write(t_symbol*, const AtomListView& fname);
+    void m_read(t_symbol*, const AtomListView& fname);
+    void m_update(t_symbol*, const AtomListView&);
+    void m_duplicate(t_symbol*, const AtomListView& l);
 
     std::string makeDefaultPresetPath() const;
 };

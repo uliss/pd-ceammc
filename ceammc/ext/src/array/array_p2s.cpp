@@ -15,11 +15,6 @@
 #include "ceammc_convert.h"
 #include "ceammc_factory.h"
 
-static t_float phaseClipMinMax(t_float v)
-{
-    return clip<t_float>(v, 0, 1);
-}
-
 ArrayPhaseToSample::ArrayPhaseToSample(const PdArgs& a)
     : ArrayBase(a)
 {
@@ -29,16 +24,16 @@ ArrayPhaseToSample::ArrayPhaseToSample(const PdArgs& a)
 void ArrayPhaseToSample::onFloat(t_float phase)
 {
     array_.update();
-    floatTo(0, phaseClipMinMax(phase) * array_.size());
+    floatTo(0, clip01(phase) * array_.size());
 }
 
 void ArrayPhaseToSample::onList(const AtomList& lst)
 {
     array_.update();
-    listTo(0, lst.filtered(isFloat).map(phaseClipMinMax) * array_.size());
+    listTo(0, lst.mapFloat([this](t_float v) { return clip01(v) * array_.size(); }, AtomListMapType::FILTER));
 }
 
-extern "C" void setup_array0x2ep2s()
+void setup_array_p2s()
 {
     ObjectFactory<ArrayPhaseToSample> obj("array.p2s");
     obj.addAlias("array.p->s");

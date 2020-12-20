@@ -23,8 +23,8 @@ class UIPolar : public UIObject {
     UITextLayout txt_radius_;
     UITextLayout txt_angle_;
     UILayer knob_layer_;
-    float radius_;
-    float angle_;
+    t_float radius_;
+    t_float angle_;
     t_symbol* prop_direction_;
     bool mouse_down_;
     int prop_clockwise_;
@@ -73,6 +73,10 @@ public:
     void propSetRadius(const AtomList& lst);
     void propSetAngle(const AtomList& lst);
 
+    const char* annotateInlet(int n) const { return "bang: output\n"
+                                                    "list: radius angle"; }
+    const char* annotateOutlet(int n) const { return "list: radius angle"; }
+
 public:
     static void setup();
 
@@ -82,7 +86,7 @@ private:
     void redrawKnob();
     void redrawAll();
     double directionAngleOffset() const;
-    float side2Angle(SideT side);
+    t_float side2Angle(SideT side);
 };
 
 void setup_ui_polar();

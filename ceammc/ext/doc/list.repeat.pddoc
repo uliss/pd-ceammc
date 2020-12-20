@@ -6,7 +6,7 @@
             <authors>
                 <author>Serge Poltavsky</author>
             </authors>
-            <description>creates new list by repeating given list specified times</description>
+            <description>output new list by repeating input list specified times</description>
             <license>GPL3 or later</license>
             <library>ceammc</library>
             <category>list</category>
@@ -50,7 +50,7 @@
 | | |        |                 | |.
 [list.repeat 3                    ]
 |
-[ui.display @display_type=1]
+[ui.display @display_type 1]
 ]]>
             </pdascii>
         </example>

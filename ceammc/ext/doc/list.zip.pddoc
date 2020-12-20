@@ -22,7 +22,7 @@
             </also>
         </meta>
         <arguments>
-            <argument name="N" type="int" minvalue="2">number of inputs</argument>
+            <argument name="N" type="int" minvalue="2" maxvalue="20">number of inputs</argument>
         </arguments>
         <properties>
             <property name="@method" type="symbol" enum="min pad clip wrap fold" default="min">
@@ -36,9 +36,12 @@
             <property name="@fold" type="alias">alias for "@oversize fold" property. Pad shortest
             list with repeated values from the end to the beginning, then back and so
             on.</property>
-            <property name="@pad" type="atom">pad value for pad method of resizing</property>
-            <property name="@l0" type="list" readonly="true">first list</property>
-            <property name="@l1" type="list" readonly="true">second list, etc.</property>
+            <property name="@pad" type="atom" default="0">pad value for pad method of
+            resizing</property>
+            <property name="@n" type="int" minvalue="2" maxvalue="20" default="2">number of
+            inputs</property>
+            <property name="@lists" type="list" readonly="true">input data list: list of
+            data:mlist</property>
         </properties>
         <inlets dynamic="true">
             <inlet>

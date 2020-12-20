@@ -39,7 +39,40 @@
 [loadmsg load message]
 |   |       |
 |   |       |
-[B] [print] [ui.display @display_type=1]
+[B] [print] [ui.d @display_type 1 @auto_size 0]
+
+[msg.onload.type]
+]]>
+            </pdascii>
+            <pdascii id="type">
+<![CDATA[
+[msg.onload]
+|
+[ui.d @display_type 1 @auto_size 0]
+
+[msg.onload 1000]
+|
+[ui.d @display_type 1 @auto_size 0]
+
+[msg.onload symbol TEXT]
+|
+[ui.d @display_type 1 @auto_size 0]
+
+[msg.onload 1 2 3 4 5]   /*implicit list*/
+|
+[ui.d @display_type 1 @auto_size 0]
+
+[msg.onload list A B @C] /*explicit list*/
+|
+[ui.d @display_type 1 @auto_size 0]
+
+[msg.onload TEXT]
+|
+[ui.d @display_type 1 @auto_size 0]
+
+[msg.onload MSG ARG0 @ARG1]
+|
+[ui.d @display_type 1 @auto_size 0]
 ]]>
             </pdascii>
         </example>

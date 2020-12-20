@@ -15,12 +15,10 @@
 
 DataFloat::DataFloat(const PdArgs& a)
     : DataFloatBase(a)
-    , value_(0)
+    , value_(parsedPosArgs().floatAt(0, 0))
 {
     createInlet();
     createOutlet();
-
-    property("@value")->info().setType(PropertyInfoType::FLOAT);
 }
 
 void setup_data_float()

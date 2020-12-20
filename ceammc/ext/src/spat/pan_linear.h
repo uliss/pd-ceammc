@@ -6,7 +6,7 @@
 class PanLinear : public PanBase {
 public:
     PanLinear(const PdArgs& args);
-    void processBlock(const t_sample** in, t_sample** out);
+    void processBlock(const t_sample** in, t_sample** out) override;
 };
 
 void setup_pan_linear();

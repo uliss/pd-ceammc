@@ -14,13 +14,14 @@
 #ifndef LIST_XAT_H
 #define LIST_XAT_H
 
-#include "ceammc_dataatomlist.h"
+#include "ceammc_data.h"
 #include "ceammc_object.h"
+#include "ceammc_property_enum.h"
 
 using namespace ceammc;
 
 class ListXAt : public BaseObject {
-    DataAtomList list_;
+    AtomList list_;
     AtomProperty* def_;
     SymbolEnumProperty* at_method_;
 
@@ -32,7 +33,7 @@ public:
     void onInlet(size_t n, const AtomList& lst) override;
 
 private:
-    const DataAtom* at(int pos) const;
+    const Atom* at(int pos) const;
 };
 
 void setup_list_xat();

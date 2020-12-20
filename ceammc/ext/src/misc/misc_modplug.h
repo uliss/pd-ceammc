@@ -23,32 +23,32 @@ using namespace ceammc;
 class ModPlug : public SoundExternal {
     t_symbol* path_;
     ModPlugFile* file_;
-    bool play_;
     PointerProperty<bool>* play_prop_;
     float pos_;
     t_symbol* func_on_end_;
-    t_canvas* cnv_;
+    bool play_;
+    bool log_error_;
 
 public:
     ModPlug(const PdArgs& a);
     ~ModPlug();
-    void onSymbol(t_symbol* s);
-    void processBlock(const t_sample**, t_sample** out);
+    void onSymbol(t_symbol* s) override;
+    void processBlock(const t_sample**, t_sample** out) override;
 
-    void m_play(t_symbol*, const AtomList&);
-    void m_stop(t_symbol*, const AtomList&);
-    void m_pause(t_symbol*, const AtomList&);
+    void m_play(t_symbol*, const AtomListView&);
+    void m_stop(t_symbol*, const AtomListView&);
+    void m_pause(t_symbol*, const AtomListView&);
 
-    AtomList p_pos() const;
-    void p_set_pos(const AtomList& pos);
-    AtomList p_name() const;
-    AtomList p_len() const;
+    t_float p_pos() const;
+    bool p_set_pos(t_float pos);
+    t_symbol* p_name() const;
+    t_float p_len() const;
 
-    AtomList p_rel_pos() const;
-    void p_set_rel_pos(const AtomList& pos);
+    t_float p_rel_pos() const;
+    bool p_set_rel_pos(t_float pos);
+    bool p_set_on_end(t_symbol* s);
 
-    AtomList p_on_end() const;
-    void p_set_on_end(const AtomList& fn);
+    void initDone() override;
 
 private:
     void load();
@@ -57,6 +57,6 @@ private:
     bool isOpened() const;
 };
 
-extern "C" void setup_misc0x2emodplug_tilde();
+void setup_misc_modplug_tilde();
 
 #endif // MISC_MIKMOD_H

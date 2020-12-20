@@ -35,8 +35,10 @@
             <method name="welch">Sets Welch window type</method>
         </methods>
         <properties>
-            <property name="@type" type="symbol">window type. See argument description</property>
-            <property name="@size" type="int" minvalue="16" default="512">window size</property>
+            <property name="@type" type="symbol" default="hann">window type. See argument
+            description</property>
+            <property name="@size" type="int" minvalue="16" default="512" units="sample">window
+            size</property>
         </properties>
         <inlets>
             <inlet>

@@ -1,54 +1,67 @@
-#include <boost/random/mersenne_twister.hpp>
-#include <boost/random/uniform_real_distribution.hpp>
-#include <ctime>
-
-#include "ceammc.h"
-#include "ceammc_factory.h"
 #include "random_float.h"
-
-static boost::random::mt19937 random_gen(std::time(0));
+#include "ceammc_factory.h"
+#include "fmt/format.h"
 
 RandomFloat::RandomFloat(const PdArgs& a)
     : BaseObject(a)
-    , min_(0)
-    , max_(0)
+    , min_(nullptr)
+    , max_(nullptr)
+    , seed_(nullptr)
 {
     createOutlet();
 
     min_ = new FloatProperty("@min", 0);
     max_ = new FloatProperty("@max", 1);
 
-    createProperty(min_);
-    createProperty(max_);
+    addProperty(min_);
+    addProperty(max_);
 
-    if (positionalArguments().size() == 2) {
-        min_->setValue(positionalArgument(0).asFloat(0));
-        max_->setValue(positionalArgument(1).asFloat(1));
+    switch (parsedPosArgs().size()) {
+    case 2:
+        min_->setArgIndex(0);
+        max_->setArgIndex(1);
+        break;
+    case 1:
+        max_->setArgIndex(0);
+        break;
+    case 0:
+        break;
+    default:
+        OBJ_ERR << "expecting MIN MAX or MAX args";
+        break;
     }
 
-    if (positionalArguments().size() == 1) {
-        min_->setValue(0);
-        max_->setValue(positionalArgument(0).asFloat(1));
-    }
+    seed_ = new SizeTProperty("@seed", 0);
+    seed_->setSuccessFn([this](Property* p) { gen_.setSeed(seed_->value()); });
+    addProperty(seed_);
 }
 
 void RandomFloat::onBang()
 {
+    if (min_->value() > max_->value()) {
+        LIB_ERR << fmt::format("@min should be less then @max, got: {} > {}",
+            min_->value(), max_->value());
+        return;
+    }
+
     if (min_->value() == max_->value())
         return floatTo(0, min_->value());
 
-    if (min_->value() > max_->value()) {
-        float v0 = min_->value();
-        float v1 = max_->value();
-        min_->setValue(std::min(v0, v1));
-        max_->setValue(std::max(v0, v1));
-    }
-
-    boost::random::uniform_real_distribution<t_float> dist(min_->value(), max_->value());
-    floatTo(0, dist(random_gen));
+    std::uniform_real_distribution<t_float> dist(min_->value(), max_->value());
+    floatTo(0, dist(gen_.get()));
 }
 
-extern "C" void setup_random0x2efloat()
+void setup_random_float()
 {
     ObjectFactory<RandomFloat> obj("random.float");
+    obj.addAlias("random.f");
+
+    obj.setDescription("uniform random float generator in specified range");
+    obj.addAuthor("Serge Poltavsky");
+    obj.setKeywords({ "random", "float" });
+    obj.setCategory("random");
+    obj.setSinceVersion(0, 1);
+
+    RandomFloat::setInletsInfo(obj.classPointer(), { "bang" });
+    RandomFloat::setOutletsInfo(obj.classPointer(), { "float: random within \\[@min..@max) range" });
 }

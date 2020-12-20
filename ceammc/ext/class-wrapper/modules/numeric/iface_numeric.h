@@ -42,7 +42,7 @@ public:
      * |      |             |
      * [complex.polar 1 1.5707963]
      * |
-     * [ui.display display_type=1]
+     * [ui.display @display_type 1]
      */
     static Complex polar(float r = 0, float theta = 0);
 
@@ -56,7 +56,7 @@ public:
      * |   |     |
      * [complex.new 4 5]
      * |
-     * [ui.display display_type=1]
+     * [ui.display @display_type 1]
      */
     Complex(float re = 0, float im = 0);
     bool operator==(const Complex& c) const;
@@ -123,7 +123,7 @@ public:
      * |                 |.
      * [complex.add 3     ]
      * |
-     * [ui.display @display_type=1]
+     * [ui.display @display_type 1]
      */
     Complex add(const Complex& c) const;
     /**
@@ -146,7 +146,7 @@ public:
      * |                 |.
      * [complex.sub    1  ]
      * |
-     * [ui.display @display_type=1]
+     * [ui.display @display_type 1]
      */
     Complex sub(const Complex& c) const;
     /**
@@ -169,7 +169,7 @@ public:
      * |                 |.
      * [complex.mul     3  ]
      * |
-     * [ui.display @display_type=1]
+     * [ui.display @display_type 1]
      */
     Complex mul(const Complex& c) const;
     /**
@@ -192,7 +192,7 @@ public:
      * |                 |.
      * [complex.div       2]
      * |
-     * [ui.display @display_type=1]
+     * [ui.display @display_type 1]
      */
     Complex div(const Complex& c) const;
     /**
@@ -211,7 +211,7 @@ public:
      * |
      * [complex.conj]
      * |
-     * [ui.display @display_type=1]
+     * [ui.display @display_type 1]
      */
     Complex conj() const;
 
@@ -295,7 +295,7 @@ public:
      * |     |     |
      * [complex.exp]
      * |
-     * [ui.display @display_type=1]
+     * [ui.display @display_type 1]
      */
     Complex exp() const;
 
@@ -309,7 +309,7 @@ public:
      * |     |     |
      * [complex.log]
      * |
-     * [ui.display @display_type=1]
+     * [ui.display @display_type 1]
      */
     Complex log() const;
 
@@ -322,7 +322,7 @@ public:
      * |      |     |
      * [complex.log10]
      * |
-     * [ui.display @display_type=1]
+     * [ui.display @display_type 1]
      */
     Complex log10() const;
 
@@ -337,7 +337,7 @@ public:
      * |                 |.
      * [complex.pow       ]
      * |
-     * [ui.display @display_type=1]
+     * [ui.display @display_type 1]
      * @param p - complex power
      */
     Complex pow(const Complex& p) const;
@@ -351,7 +351,7 @@ public:
      * |     |     |
      * [complex.sqrt]
      * |
-     * [ui.display @display_type=1]
+     * [ui.display @display_type 1]
      */
     Complex sqrt() const;
 
@@ -365,7 +365,7 @@ public:
      * |     |     |
      * [complex.sin]
      * |
-     * [ui.display @display_type=1]
+     * [ui.display @display_type 1]
      */
     Complex sin() const;
 
@@ -379,7 +379,7 @@ public:
      * |     |     |
      * [complex.cos]
      * |
-     * [ui.display @display_type=1]
+     * [ui.display @display_type 1]
      */
     Complex cos() const;
 
@@ -393,7 +393,7 @@ public:
      * |     |     |
      * [complex.tan]
      * |
-     * [ui.display @display_type=1]
+     * [ui.display @display_type 1]
      */
     Complex tan() const;
 
@@ -427,7 +427,7 @@ public:
      * |     |     |
      * [complex->list]
      * |
-     * [ui.display @display_type=1]
+     * [ui.display @display_type 1]
      */
     std::vector<float> toList() const
     {
@@ -446,7 +446,7 @@ public:
         return "Complex";
     }
 
-    Result setFromFloat(float f) override
+    Result setFromFloat(t_float f) override
     {
         v_ = std::complex<float>(f, 0);
         return ok();
@@ -662,7 +662,7 @@ public:
      * |   |     |         |     |     |
      * [rational.new 4                 ]
      * |
-     * [ui.display display_type=1]
+     * [ui.display @display_type 1]
      */
     Rational(int num = 0, int den = 1);
     bool operator==(const Rational& c) const;
@@ -813,7 +813,7 @@ public:
      * |                  |.                 |.
      * [rational.add                     10 -10]
      * |
-     * [ui.display @display_type=1]
+     * [ui.display @display_type 1]
      */
     Rational add(const Rational& c) const;
     /**
@@ -836,7 +836,7 @@ public:
      * |                  |.
      * [rational.sub  1    ]
      * |
-     * [ui.display @display_type=1]
+     * [ui.display @display_type 1]
      */
     Rational sub(const Rational& c) const;
     /**
@@ -858,7 +858,7 @@ public:
      * |                  |.
      * [rational.mul     10 ]
      * |
-     * [ui.display @display_type=1]
+     * [ui.display @display_type 1]
      */
     Rational mul(const Rational& c) const;
     /**
@@ -881,7 +881,7 @@ public:
      * |                  |.
      * [rational.div       3]
      * |
-     * [ui.display @display_type=1]
+     * [ui.display @display_type 1]
      */
     Rational div(const Rational& c) const;
     /**
@@ -916,7 +916,7 @@ public:
      * |     |     |
      * [rational->list]
      * |
-     * [ui.display @display_type=1]
+     * [ui.display @display_type 1]
      */
     std::vector<float> toList() const;
 
@@ -945,7 +945,7 @@ public:
      * |             |.
      * [rational.pow 10]
      * |
-     * [ui.display @display_type=1]
+     * [ui.display @display_type 1]
      */
     Rational pow(int n) const;
 
@@ -958,7 +958,7 @@ public:
      * |       |
      * [rational.abs]
      * |
-     * [ui.display @display_type=1]
+     * [ui.display @display_type 1]
      */
     Rational abs() const;
 
@@ -972,9 +972,9 @@ public:
      * |
      * [rational.reciprocal  ]
      * |                     |
-     * [rational.reciprocal] [ui.display @display_type=1]
+     * [rational.reciprocal] [ui.display @display_type 1]
      * |
-     * [ui.display @display_type=1]
+     * [ui.display @display_type 1]
      */
     Rational reciprocal() const;
 
@@ -993,7 +993,7 @@ public:
      * |   |.  |.   |.    |.
      * [float->rational   1]
      * |
-     * [ui.display @display_type=1]
+     * [ui.display @display_type 1]
      */
     static Rational floatToRational(float f, int max_den);
 
@@ -1025,7 +1025,7 @@ public:
         return ok();
     }
 
-    Result setFromFloat(float f) override
+    Result setFromFloat(t_float f) override
     {
         r_.assign(int(f), 1);
         return ok();

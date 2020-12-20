@@ -21,11 +21,13 @@ using namespace ceammc;
 class ArrayMinMax : public ArrayBase {
 public:
     ArrayMinMax(const PdArgs& a);
-    void onBang();
-    void onSymbol(t_symbol* s);
+    void onBang() override;
+    void onSymbol(t_symbol* s) override;
 
 private:
     void perform();
 };
+
+void setup_array_minmax();
 
 #endif // ARRAY_MINMAX_H

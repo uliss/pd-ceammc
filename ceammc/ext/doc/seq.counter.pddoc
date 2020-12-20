@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="seq.counter">
+        <title>seq.counter</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>modulo counter</description>
+            <license>GPL3 or later</license>
+            <library>ceammc</library>
+            <category>seq</category>
+            <keywords>counter modulo</keywords>
+            <since>0.9.1</since>
+            <aliases>
+                <alias>counter</alias>
+            </aliases>
+        </meta>
+        <arguments>
+            <argument name="FROM" type="int">start value</argument>
+            <argument name="TO" type="int">end value</argument>
+            <argument name="REPEATS" type="int">number of repeats</argument>
+        </arguments>
+        <properties>
+            <property name="@from" type="int" default="0">start value</property>
+            <property name="@to" type="int" default="0">end value</property>
+            <property name="@r" type="int" default="-1" minvalue="-1">number of repeats. If -1 -
+            repeat infinitely.</property>
+        </properties>
+        <methods>
+            <method name="reset">reset counter to start value and repeat counter to 0</method>
+        </methods>
+        <inlets>
+            <inlet>
+                <xinfo on="bang">output current value and increment counter</xinfo>
+            </inlet>
+            <inlet>
+                <xinfo on="bang">reset counter to start value</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet>int: counter value</outlet>
+            <outlet>int: repeat counter, done: when done</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[bng]             [bng]         [bng]
+|                 |             |.
+[counter 1 4]     [counter 1 4 @r 2]/*repeat two times*/
+|                 |             ^|
+[F]               [F]           [route done]
+                                |       ^|
+                                [bng]   [F]
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

@@ -20,8 +20,10 @@ HoaXlet::HoaXlet(const PdArgs& args)
     : BaseObject(args)
     , extra_(nullptr)
 {
-    extra_ = new IntPropertyMinEq("@index", positionalFloatArgument(0, 1), 1);
-    createProperty(extra_);
+    extra_ = new IntProperty("@index", 1);
+    extra_->setArgIndex(0);
+    extra_->checkMinEq(1);
+    addProperty(extra_);
 }
 
 HoaIn::HoaIn(const PdArgs& args)
@@ -50,7 +52,7 @@ void HoaIn::onList(const AtomList& l)
     listTo(0, l);
 }
 
-void HoaIn::onAny(t_symbol* s, const AtomList& l)
+void HoaIn::onAny(t_symbol* s, const AtomListView& l)
 {
     anyTo(0, s, l);
 }
@@ -99,13 +101,13 @@ void HoaOut::onList(const AtomList& l)
         outlet_list(outlet_, &s_list, l.size(), l.toPdData());
 }
 
-void HoaOut::onAny(t_symbol* s, const AtomList& l)
+void HoaOut::onAny(t_symbol* s, const AtomListView& l)
 {
     if (outlet_)
         outlet_anything(outlet_, s, l.size(), l.toPdData());
 }
 
-bool HoaOut::processAnyProps(t_symbol* sel, const AtomList& lst)
+bool HoaOut::processAnyProps(t_symbol* sel, const AtomListView& lst)
 {
     return false;
 }
@@ -134,8 +136,10 @@ HoaXletTilde::HoaXletTilde(const PdArgs& args)
     , extra_(nullptr)
     , signal_(nullptr)
 {
-    extra_ = new IntPropertyMinEq("@extra", positionalFloatArgument(0, 0), 0);
-    createProperty(extra_);
+    extra_ = new IntProperty("@extra", 0);
+    extra_->setArgIndex(0);
+    extra_->checkMinEq(0);
+    addProperty(extra_);
 }
 
 void HoaXletTilde::setSignal(t_sample* sig)

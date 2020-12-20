@@ -17,9 +17,9 @@ Lin2Lin::Lin2Lin(const PdArgs& a)
     createOutlet();
 }
 
-void Lin2Lin::onFloat(float value)
+void Lin2Lin::onFloat(t_float value)
 {
-    if (doClip(value))
+    if (doClip(value, clipType()))
         return floatTo(0, value);
 
     const t_float x0 = in_from();
@@ -42,8 +42,10 @@ void Lin2Lin::onList(const AtomList& l)
     const t_float y0 = out_from();
     const t_float y1 = out_to();
 
-    auto fn = [this, x0, x1, y0, y1](t_float value) {
-        if (doClip(value))
+    auto type = clipType();
+
+    auto fn = [this, x0, x1, y0, y1, type](t_float value) {
+        if (doClip(value, type))
             return value;
 
         return convert::lin2lin<t_float>(value, x0, x1, y0, y1);
@@ -52,7 +54,7 @@ void Lin2Lin::onList(const AtomList& l)
     listTo(0, l.mapFloat(fn));
 }
 
-extern "C" void setup_conv0x2elin2lin()
+void setup_conv_lin2lin()
 {
     ObjectFactory<Lin2Lin> obj("conv.lin2lin");
     obj.addAlias("lin->lin");

@@ -25,40 +25,41 @@ HoaRecomposer::HoaRecomposer(const PdArgs& args)
     , ramp_(100)
 {
     plane_waves_ = new IntProperty("@n", 0);
-    createProperty(plane_waves_);
+    plane_waves_->setInitOnly();
+    plane_waves_->checkNonNegative();
+    plane_waves_->setArgIndex(1);
+    addProperty(plane_waves_);
 
-    mode_ = new SymbolEnumProperty("@mode", SYM_FREE);
-    mode_->appendEnum(SYM_FIXE);
-    mode_->appendEnum(SYM_FISHEYE);
-    createProperty(mode_);
+    mode_ = new SymbolEnumProperty("@mode", { SYM_FREE, SYM_FIXE, SYM_FISHEYE });
+    mode_->setInitOnly();
+    addProperty(mode_);
 
-    createProperty(new SymbolEnumAlias("@free", mode_, SYM_FREE));
-    createProperty(new SymbolEnumAlias("@fixe", mode_, SYM_FIXE));
-    createProperty(new SymbolEnumAlias("@fisheye", mode_, SYM_FISHEYE));
+    addProperty(new SymbolEnumAlias("@free", mode_, SYM_FREE));
+    addProperty(new SymbolEnumAlias("@fixe", mode_, SYM_FIXE));
+    addProperty(new SymbolEnumAlias("@fisheye", mode_, SYM_FISHEYE));
 
-    createCbProperty("@ramp", &HoaRecomposer::propRamp, &HoaRecomposer::propSetRamp);
-    Property* pramp = property("@ramp");
-    pramp->info().setType(PropertyInfoType::FLOAT);
-    pramp->info().setMin(0);
+    createCbFloatProperty(
+        "@ramp",
+        [this]() -> t_float { return ramp_; },
+        [this](t_float f) -> bool { return propSetRamp(f); })
+        ->checkNonNegative();
 }
 
-void HoaRecomposer::parseProperties()
+void HoaRecomposer::initDone()
 {
-    HoaBase::parseProperties();
     parseNumPlaneWaves();
-    mode_->setReadonly(true);
 
     processor_.reset(new MultiEncoder2d(order(), plane_waves_->value()));
 
     if (mode_->value() == SYM_FREE) {
-        lines_.reset(new PolarLines2d(plane_waves_->value()));
-        lines_->setRamp(ramp_ / 1000 * sys_getsr());
+        free_mode_lines_.reset(new PolarLines2d(plane_waves_->value()));
+        free_mode_lines_->setRamp(ramp_ / 1000 * sys_getsr());
 
         const size_t NSRC = processor_->getNumberOfSources();
 
         for (size_t i = 0; i < NSRC; i++) {
-            lines_->setRadiusDirect(i, processor_->getWidening(i));
-            lines_->setAzimuthDirect(i, processor_->getAzimuth(i));
+            free_mode_lines_->setRadiusDirect(i, processor_->getWidening(i));
+            free_mode_lines_->setAzimuthDirect(i, processor_->getAzimuth(i));
         }
 
         line_buf_.resize(NSRC * 2);
@@ -91,67 +92,60 @@ void HoaRecomposer::setupDSP(t_signal** sp)
     } else if (mode_->value() == SYM_FISHEYE) {
         dsp_add(dspPerformFisheye, 1, static_cast<void*>(this));
     } else if (mode_->value() == SYM_FREE) {
-        lines_->setRamp(ramp_ / 1000 * sys_getsr());
+        assert(free_mode_lines_);
+        free_mode_lines_->setRamp(ramp_ / 1000 * sys_getsr());
         dsp_add(dspPerformFree, 1, static_cast<void*>(this));
     } else
         OBJ_ERR << "unknown mode: " << mode_->value();
 }
 
-void HoaRecomposer::m_angles(t_symbol* s, const AtomList& lst)
+void HoaRecomposer::m_angles(t_symbol* s, const AtomListView& lst)
 {
-    const size_t N = std::min(lst.size(), processor_->getNumberOfSources());
-    for (size_t i = 0; i < N; i++)
-        lines_->setAzimuth(i, lst[i].asFloat());
-}
-
-void HoaRecomposer::m_wide(t_symbol* s, const AtomList& lst)
-{
-    const size_t N = std::min(lst.size(), processor_->getNumberOfSources());
-    for (size_t i = 0; i < N; i++)
-        lines_->setRadius(i, lst[i].asFloat());
-}
-
-AtomList HoaRecomposer::propRamp() const
-{
-    return Atom(ramp_);
-}
-
-void HoaRecomposer::propSetRamp(const AtomList& lst)
-{
-    if (!lst.isFloat()) {
-        OBJ_ERR << "ramp: float value expected: " << lst;
+    if (!free_mode_lines_) {
+        OBJ_ERR << "not in @free mode, can't set angles";
         return;
     }
 
-    auto v = lst.floatAt(0, 0);
-    if (v < 0) {
-        OBJ_ERR << "ramp: >= 0 value expected: " << v;
+    const size_t N = std::min(lst.size(), processor_->getNumberOfSources());
+    for (size_t i = 0; i < N; i++)
+        free_mode_lines_->setAzimuth(i, lst[i].asFloat());
+}
+
+void HoaRecomposer::m_wide(t_symbol* s, const AtomListView& lst)
+{
+    if (!free_mode_lines_) {
+        OBJ_ERR << "not in @free mode, can't set wide";
         return;
     }
 
-    ramp_ = v;
-    lines_->setRamp(ramp_ / 1000 * sys_getsr());
+    const size_t N = std::min(lst.size(), processor_->getNumberOfSources());
+    for (size_t i = 0; i < N; i++)
+        free_mode_lines_->setRadius(i, lst[i].asFloat());
+}
+
+bool HoaRecomposer::propSetRamp(t_float f)
+{
+    if (!free_mode_lines_) {
+        OBJ_ERR << "not in @free mode, can't set @ramp";
+        return false;
+    }
+
+    ramp_ = f;
+    free_mode_lines_->setRamp(ramp_ / 1000 * sys_getsr());
+    return true;
 }
 
 void HoaRecomposer::parseNumPlaneWaves()
 {
     const int MIN_PW_COUNT = 2 * order() + 1;
-
-    auto pos_arg = positionalFloatArgument(1, 0);
-    if (pos_arg != 0)
-        plane_waves_->setValue(pos_arg);
-
     const auto N = plane_waves_->value();
 
-    if (N < MIN_PW_COUNT) {
-        // zero means auto calc
-        if (N != 0)
-            OBJ_ERR << "minimal number of plane waves should be >= " << MIN_PW_COUNT << ", setting to this value";
-
+    if (N == 0) { // zero means auto calc
+        plane_waves_->setValue(MIN_PW_COUNT);
+    } else if (N < MIN_PW_COUNT) {
+        OBJ_ERR << "minimal number of plane waves should be >= " << MIN_PW_COUNT << ", setting to this value";
         plane_waves_->setValue(MIN_PW_COUNT);
     }
-
-    plane_waves_->setReadonly(true);
 }
 
 void HoaRecomposer::processFixE()
@@ -186,7 +180,7 @@ void HoaRecomposer::processFree()
         Signal::copy(BS, &in[i][0], 1, &in_buf_[i], NINS);
 
     for (size_t i = 0; i < BS; i++) {
-        lines_->process(line_buf_.data());
+        free_mode_lines_->process(line_buf_.data());
 
         for (size_t j = 0; j < NINS; j++)
             processor_->setWidening(j, line_buf_[j]);

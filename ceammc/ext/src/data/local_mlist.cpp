@@ -12,9 +12,9 @@
  * this file belongs to.
  *****************************************************************************/
 #include "local_mlist.h"
-#include "datatype_mlist.h"
 #include "ceammc_factory.h"
 #include "data_protocol.h"
+#include "datatype_mlist.h"
 
 LocalMList::LocalMList(const PdArgs& args)
     : LocalMListBase(args)
@@ -25,6 +25,6 @@ void setup_local_mlist()
 {
     ListIFaceFactory<LocalMList> obj("local.mlist");
     obj.processData<DataTypeMList>();
-    obj.mapFloatToList();
-    obj.mapSymbolToList();
+    obj.useDefaultPdFloatFn();
+    obj.useDefaultPdSymbolFn();
 }

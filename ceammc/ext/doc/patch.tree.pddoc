@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="patch.tree">
+        <title>patch.tree</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavski</author>
+            </authors>
+            <description>patch tree</description>
+            <license>GPL3 or later</license>
+            <library>ceammc</library>
+            <category>patch</category>
+            <keywords>patch tree</keywords>
+            <since>0.9.1</since>
+            <also>
+                <see>patch.deps</see>
+            </also>
+        </meta>
+        <inlets>
+            <inlet type="control">
+                <xinfo on="bang">output current patch tree as Dict</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet type="control">patch tree as Dict</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[bang(
+|
+[patch.tree]
+|
+[print TREE]
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

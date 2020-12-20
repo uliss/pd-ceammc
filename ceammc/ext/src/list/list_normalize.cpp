@@ -9,24 +9,23 @@ static t_symbol* BY_SUM;
 
 ListNormalize::ListNormalize(const PdArgs& a)
     : ListBase(a)
-    , by_(0)
+    , by_(nullptr)
 {
     createOutlet();
 
-    by_ = new SymbolEnumProperty("@by", BY_SUM);
-    by_->appendEnum(BY_RANGE);
-    createProperty(by_);
+    by_ = new SymbolEnumProperty("@by", { BY_SUM, BY_RANGE });
+    addProperty(by_);
 
-    createProperty(new SymbolEnumAlias("@sum", by_, BY_SUM));
-    createProperty(new SymbolEnumAlias("@range", by_, BY_RANGE));
+    addProperty(new SymbolEnumAlias("@sum", by_, BY_SUM));
+    addProperty(new SymbolEnumAlias("@range", by_, BY_RANGE));
 }
 
 void ListNormalize::onList(const AtomList& lst)
 {
-    AtomList out(lst.filtered(isFloat));
+    AtomList out;
 
     if (by_->value() == BY_SUM) {
-        if (!out.normalizeFloats()) {
+        if (!list::normalizeBySum(lst, out)) {
             OBJ_ERR << "Invalid list values: " << out;
             return;
         }

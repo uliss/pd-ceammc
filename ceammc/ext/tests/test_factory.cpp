@@ -11,12 +11,12 @@
  * contact the author of this file, or the owner of the project in which
  * this file belongs to.
  *****************************************************************************/
-
 #include <stdexcept>
 
 #include "catch.hpp"
 #include "ceammc_factory.h"
 #include "ceammc_pd.h"
+#include "datatype_mlist.h"
 #include "test_base.h"
 
 using namespace ceammc;
@@ -37,14 +37,35 @@ class TestClass : public BaseObject {
 public:
     TestClass(const PdArgs& a)
         : BaseObject(a)
+        , f(0)
     {
-        createProperty(new FloatProperty("@test_prop", -1));
+        addProperty(new FloatProperty("@test_prop", -1));
+    }
+
+    void onFloat(t_float v) override
+    {
+        f = v;
+    }
+
+    void onList(const AtomList& lst) override
+    {
+        l = lst;
+    }
+
+    void parseProperties() override
+    {
+        std::cerr << "Parse properties....\n";
+        BaseObject::parseProperties();
     }
 
     ~TestClass()
     {
         destructor_called = true;
     }
+
+public:
+    t_float f;
+    AtomList l;
 };
 
 class ExceptionTest : public TestClass {
@@ -73,12 +94,42 @@ public:
     t_symbol* methodSel() { return sel_; }
     const AtomList& methodArgs() const { return args_; }
 
-    void m_method(t_symbol* sel, const AtomList& args)
+    void m_method(t_symbol* sel, const AtomListView& args)
     {
         method_called_++;
         args_ = args;
         sel_ = sel;
     }
+};
+
+class TestDataClass : public TestClass {
+public:
+    TestDataClass(const PdArgs& a)
+        : TestClass(a)
+        , d_int(0)
+        , d_str("")
+    {
+    }
+
+    void onDataT(const DataAtom<IntData>& d) { d_int = d; }
+    void onDataT(const DataAtom<StrData>& d) { d_str = d; }
+    void onData(const Atom& d) { d_any = d; }
+
+public:
+    DataAtom<IntData> d_int;
+    DataAtom<StrData> d_str;
+    Atom d_any;
+};
+
+class TestProperties : public TestClass {
+public:
+    TestProperties(const PdArgs& a)
+        : TestClass(a)
+    {
+    }
+
+public:
+    SymbolProperty* sym_;
 };
 
 template <typename T>
@@ -95,9 +146,8 @@ public:
     }
 };
 
-TEST_CASE("ceammc_factory", "[PureData]")
+TEST_CASE("ceammc_factory", "[core]")
 {
-    obj_init();
     SECTION("new")
     {
         typedef PdObject<TestClass> PdExternal;
@@ -116,7 +166,8 @@ TEST_CASE("ceammc_factory", "[PureData]")
         REQUIRE(ext->impl->owner() == &ext->pd_obj);
         REQUIRE(ext->impl->className() == gensym("test.new"));
         REQUIRE(ext->impl->classPointer() == ext->pd_obj.te_g.g_pd);
-        REQUIRE(ext->impl->positionalArguments() == LA(2, "a"));
+        REQUIRE(ext->impl->parsedPosArgs() == LA(2, "a"));
+        REQUIRE(ext->impl->unparsedPosArgs() == LA(2, "a"));
         REQUIRE_PROPERTY((*ext->impl), @test_prop, -1);
 
         pd_free(&ext->pd_obj.te_g.g_pd);
@@ -141,28 +192,35 @@ TEST_CASE("ceammc_factory", "[PureData]")
 
     SECTION("arguments")
     {
-
         typedef PdObject<TestClass> PdExternal;
 
         test_reset();
         ObjectFactory<TestClass> f("test.new");
+        f.setApiVersion(23);
+        f.setCategory("test");
+        f.setDeprecated();
+        f.setDescription("test.new object");
+        f.setUseInstead("test.new2");
+        f.setSinceVersion(0, 2);
 
-        t_atom args[4];
-        SETFLOAT(&args[0], 2);
-        SETSYMBOL(&args[1], gensym("a"));
-        SETSYMBOL(&args[2], gensym("@test_prop"));
-        SETFLOAT(&args[3], 33);
-
-        PdExternal* ext = reinterpret_cast<PdExternal*>(f.createObject(gensym("test.new"), 4, args));
+        AtomList args(2, "a", "@test_prop", 33);
+        PdExternal* ext = reinterpret_cast<PdExternal*>(f.createObject(gensym("test.new"), args.size(), args.toPdData()));
 
         REQUIRE(ext != 0);
         REQUIRE(ext->impl != 0);
         REQUIRE(ext->impl->owner() == &ext->pd_obj);
         REQUIRE(ext->impl->className() == gensym("test.new"));
-        REQUIRE(ext->impl->positionalArguments() == LA(2, "a"));
+        REQUIRE(ext->impl->parsedPosArgs() == LA(2, "a"));
+        REQUIRE(ext->impl->unparsedPosArgs() == LA(2, "a"));
         REQUIRE_PROPERTY((*ext->impl), @test_prop, 33);
 
         pd_free(&ext->pd_obj.te_g.g_pd);
+
+        // do not parse properties
+        f.parseOnlyPositionalProps(true);
+        PdExternal* ext1 = reinterpret_cast<PdExternal*>(f.createObject(gensym("test.new"), args.size(), args.toPdData()));
+        REQUIRE_PROPERTY((*ext1->impl), @test_prop, -1);
+        pd_free(&ext1->pd_obj.te_g.g_pd);
 
         REQUIRE(destructor_called);
     }
@@ -172,6 +230,10 @@ TEST_CASE("ceammc_factory", "[PureData]")
         test::pdPrintToStdError(true);
 
         ObjectFactory<TestListMethodClass> f("test.list_method");
+        f.addAuthor("a1");
+        f.addAuthor("a2");
+        f.addAlias("test.lm");
+        f.addAlias("test.lm2");
 
         typedef PdExternalT<TestListMethodClass> External;
         External t("test.list_method");
@@ -186,5 +248,162 @@ TEST_CASE("ceammc_factory", "[PureData]")
         REQUIRE(t->methodCalled() == 1);
         REQUIRE(t->methodSel() == gensym("msg"));
         REQUIRE(t->methodArgs() == LA(1, 2, 3));
+    }
+
+    SECTION("dataT")
+    {
+        using Factory = ObjectFactory<TestDataClass>;
+        using External = PdExternalT<TestDataClass>;
+        using Int = DataAtom<IntData>;
+        using Str = DataAtom<StrData>;
+
+        SECTION("IntData")
+        {
+            // create object that support only IntData
+            Factory f("test.data0");
+            f.processData<IntData>();
+
+            External t("test.data0");
+            REQUIRE(!t.isNull());
+            REQUIRE(t->d_any.isNone());
+
+            // mlist goes to common data
+            t.sendList(MListAtom(1, 2, 3));
+
+            REQUIRE(t->d_int->value() == 0);
+            REQUIRE(t->d_str->get() == "");
+            REQUIRE(t->d_any.isA<DataTypeMList>());
+            REQUIRE(MListAtom(1, 2, 3) == t->d_any);
+
+            // string goes to common data
+            t.sendList(Str("abcde"));
+
+            REQUIRE(t->d_int->value() == 0);
+            REQUIRE(t->d_str->get() == "");
+            REQUIRE(t->d_any.isA<StrData>());
+            REQUIRE(Str("abcde") == t->d_any);
+
+            // int goes to int data
+            t.sendList(Int(1000));
+
+            REQUIRE(t->d_int->value() == 1000);
+            REQUIRE(t->d_str->get() == "");
+            REQUIRE(t->d_any.isA<StrData>());
+        }
+
+        SECTION("IntData, StrData")
+        {
+            // create object that support only IntData
+            Factory f("test.data0");
+            f.processData<IntData, StrData>();
+
+            External t("test.data0");
+            REQUIRE(!t.isNull());
+            REQUIRE(t->d_any.isNone());
+
+            // mlist goes to common data
+            t.sendList(MListAtom(1, 2, 3));
+
+            REQUIRE(t->d_int->value() == 0);
+            REQUIRE(t->d_str->get() == "");
+            REQUIRE(t->d_any.isA<DataTypeMList>());
+            REQUIRE(MListAtom(1, 2, 3) == t->d_any);
+
+            // string goes to str data
+            t.sendList(Str("abcde"));
+
+            REQUIRE(t->d_int->value() == 0);
+            REQUIRE(t->d_str->get() == "abcde");
+            REQUIRE(t->d_any.isA<DataTypeMList>());
+
+            // int goes to int data
+            t.sendList(Int(1000));
+
+            REQUIRE(t->d_int->value() == 1000);
+            REQUIRE(t->d_str->get() == "abcde");
+            REQUIRE(t->d_any.isA<DataTypeMList>());
+        }
+
+        SECTION("<>")
+        {
+            // create object that support only IntData
+            Factory f("test.data0");
+            f.processData();
+
+            External t("test.data0");
+            REQUIRE(!t.isNull());
+            REQUIRE(t->d_any.isNone());
+
+            // mlist goes to common data
+            t.sendList(MListAtom(1, 2, 3));
+
+            REQUIRE(t->d_int->value() == 0);
+            REQUIRE(t->d_str->get() == "");
+            REQUIRE(t->d_any.isA<DataTypeMList>());
+            REQUIRE(MListAtom(1, 2, 3) == t->d_any);
+
+            // string goes to common data
+            t.sendList(Str("abcde"));
+
+            REQUIRE(t->d_int->value() == 0);
+            REQUIRE(t->d_str->get() == "");
+            REQUIRE(Str("abcde") == t->d_any);
+
+            // int goes to common data
+            t.sendList(Int(1000));
+
+            REQUIRE(t->d_int->value() == 0);
+            REQUIRE(t->d_str->get() == "");
+            REQUIRE(Int(1000) == t->d_any);
+        }
+    }
+
+    SECTION("info")
+    {
+        ObjectInfoStorage::Info info;
+        REQUIRE(ObjectInfoStorage::instance().find(SYM("test.new"), info));
+        REQUIRE(info.api == 23);
+        REQUIRE(info.deprecated);
+        REQUIRE(info.since_version == ObjectInfoStorage::Version(0, 2));
+        REQUIRE(info.dict["category"] == "test");
+        REQUIRE(info.dict["description"] == "test.new object");
+        REQUIRE(info.dict["use_instead"] == "test.new2");
+
+        REQUIRE(ObjectInfoStorage::instance().find(SYM("test.list_method"), info));
+        REQUIRE(info.authors == ObjectInfoStorage::AuthorList({ "a1", "a2" }));
+        REQUIRE(info.authors == ObjectInfoStorage::AuthorList({ "a1", "a2" }));
+        REQUIRE(info.aliases == ObjectInfoStorage::AliasList({ "test.lm", "test.lm2" }));
+    }
+
+    SECTION("default pd handlers")
+    {
+        using Factory = ObjectFactory<TestDataClass>;
+        using External = PdExternalT<TestDataClass>;
+
+        SECTION("default ceammc")
+        {
+            Factory f("test.data0");
+            f.finalize();
+            REQUIRE(f.classPointer()->c_floatmethod == (void*)Factory::processFloat);
+
+            External t("test.data0");
+            REQUIRE(t->f == 0);
+            t.sendFloat(100);
+            REQUIRE(t->f == 100);
+        }
+
+        SECTION("default ceammc")
+        {
+            Factory f("test.data0");
+            f.useDefaultPdFloatFn();
+            f.finalize();
+            REQUIRE(f.classPointer()->c_floatmethod != (void*)Factory::processFloat);
+
+            External t("test.data0");
+            REQUIRE(t->f == 0);
+            t.sendFloat(100);
+            REQUIRE(t->f == 0);
+            REQUIRE(t->l == LF(100));
+        }
     }
 }

@@ -1,65 +1,82 @@
-#include "ceammc_atomlist.h"
-#include <m_pd.h>
-#include <map>
-#include <string>
-#include <vector>
+#include "prop_set.h"
+#include "ceammc.h"
+#include "ceammc_factory.h"
+#include "datatype_property.h"
 
-#define MSG_PREFIX "[prop<-] "
-
-using namespace ceammc;
-typedef std::map<t_symbol*, t_inlet*> InletIndexMap;
-
-static t_class* prop_set_class;
-struct t_prop {
-    t_object x_obj;
-    InletIndexMap* prop_map;
-};
-
-static void prop_set_dump(t_prop* x)
-{
-    InletIndexMap::iterator it;
-    for (it = x->prop_map->begin(); it != x->prop_map->end(); ++it)
-        post(MSG_PREFIX "dump: property %s", it->first->s_name);
+extern "C" {
+#include "g_canvas.h"
+#include "m_imp.h"
 }
 
-static inline void add_prop_map(t_prop* x, t_symbol* s)
+PropSet::PropSet(const PdArgs& args)
+    : BaseObject(args)
 {
-    t_inlet* in = inlet_new(&x->x_obj, &x->x_obj.ob_pd, &s_list, s);
-    (*x->prop_map)[s] = in;
+    for (auto& a : args.args) {
+        if (a.isProperty()) {
+            props_.push_back(a.asSymbol());
+            createInlet();
+        } else
+            OBJ_ERR << "property name expected (starting from '@'), got: " << a << ", skipping argument";
+    }
+
+    createOutlet();
 }
 
-static void pass_any(t_prop* x, t_symbol* s, int argc, t_atom* argv)
+void PropSet::parseProperties() {}
+
+void PropSet::onInlet(size_t n, const AtomList& lst)
 {
-    outlet_anything(x->x_obj.te_outlet, s, argc, argv);
+    // inlet index correction
+    if (n-- == 0)
+        return;
+
+    t_outlet* outlet = nullptr;
+    auto conn = obj_starttraverseoutlet(owner(), &outlet, 0);
+    while (conn) {
+        t_object* dest;
+        t_inlet* inletp;
+        int whichp;
+        conn = obj_nexttraverseoutlet(conn, &dest, &inletp, &whichp);
+
+        if (dest->te_g.g_pd == canvas_class)
+            processCanvasProps(reinterpret_cast<t_glist*>(dest), props_[n], lst);
+        else
+            processObjectProps(dest, props_[n], lst);
+    }
 }
 
-static void* prop_set_new(t_symbol*, int argc, t_atom* argv)
+const char* PropSet::annotateInlet(size_t n) const
 {
-    t_prop* x = reinterpret_cast<t_prop*>(pd_new(prop_set_class));
-    outlet_new(&x->x_obj, &s_anything);
-    x->prop_map = new InletIndexMap;
-
-    // use only symbol started from '@'
-    AtomList args = AtomList(argc, argv).filtered(isProperty);
-    for (size_t i = 0; i < args.size(); i++)
-        add_prop_map(x, args.at(i).asSymbol());
-
-    return static_cast<void*>(x);
+    if (n < props_.size())
+        return props_[n]->s_name;
+    else
+        return nullptr;
 }
 
-static void prop_set_free(t_prop* x)
+void PropSet::processCanvasProps(t_glist* dest, t_symbol* s, const AtomList& lst)
 {
-    delete x->prop_map;
+    for (size_t i = 0; i < props_.size(); i++) {
+        auto* full = PropertyStorage::makeFullName(props_[i], dest);
+        PropertyPtr pp(full);
+        if (pp)
+            pp->setFromPdArgs(lst);
+        else
+            OBJ_ERR << "can't find property: " << s->s_name;
+    }
 }
 
-extern "C" void setup_prop0x2eset()
+void PropSet::processObjectProps(t_object* dest, t_symbol* s, const AtomList& lst)
 {
-    prop_set_class = class_new(gensym("prop.set"),
-        reinterpret_cast<t_newmethod>(prop_set_new),
-        reinterpret_cast<t_method>(prop_set_free),
-        sizeof(t_prop), 0, A_GIMME, A_NULL);
-    class_addcreator(reinterpret_cast<t_newmethod>(prop_set_new), gensym("prop<-"), A_GIMME, A_NULL);
-    class_addanything(prop_set_class, pass_any);
-    class_addmethod(prop_set_class, reinterpret_cast<t_method>(prop_set_dump), gensym("dump"), A_NULL);
-    class_sethelpsymbol(prop_set_class, gensym("prop.set"));
+    auto fn = ceammc_get_propset_fn(dest);
+    if (!fn)
+        OBJ_ERR << "can't find property: " << s->s_name;
+    else if (!fn(dest, s, lst.size(), lst.toPdData()))
+        OBJ_ERR << "can't set property: " << s->s_name;
+}
+
+void setup_prop_set()
+{
+    ObjectFactory<PropSet> obj("prop.set", OBJECT_FACTORY_DEFAULT | OBJECT_FACTORY_NO_DEFAULT_INLET);
+    obj.addAlias("p.set");
+    obj.addOutletInfo("connect to target objects");
 }

@@ -12,11 +12,13 @@
  * this file belongs to.
  *****************************************************************************/
 #include "ceammc_format.h"
+#include "ceammc_abstractdata.h"
 #include "ceammc_atom.h"
 #include "ceammc_atomlist.h"
-#include "ceammc_data.h"
-#include "ceammc_dataatom.h"
+#include "ceammc_atomlist_view.h"
 #include "ceammc_message.h"
+#include "ceammc_string.h"
+#include "fmt/format.h"
 
 #include <algorithm>
 #include <iomanip>
@@ -25,91 +27,71 @@
 
 namespace ceammc {
 
-template <class T>
-static inline T clip(T v, T min, T max)
-{
-    return std::min(max, std::max(min, v));
-}
-
 std::string to_string(const Atom& a)
 {
     if (a.isSymbol())
         return std::string(a.asSymbol()->s_name);
+    else if (a.isData())
+        return a.asData()->toString();
+    else {
+        std::ostringstream ss;
+        ss << a;
+        return ss.str();
+    }
+}
 
-    if (a.isData())
-        return to_string(DataPtr(a));
+std::string to_string(const AtomListView v, const std::string& separator)
+{
+    if (v.empty())
+        return "";
 
-    std::ostringstream ss;
-    ss << a;
-    return ss.str();
+    std::string res;
+    for (size_t i = 0; i < v.size(); i++) {
+        if (i != 0)
+            res += separator;
+
+        res += to_string(v[i]);
+    }
+
+    return res;
+}
+
+std::string to_string(const AtomList& l, const std::string& separator)
+{
+    if (l.empty())
+        return "";
+
+    std::string res;
+    for (size_t i = 0; i < l.size(); i++) {
+        if (i != 0)
+            res += separator;
+
+        res += to_string(l[i]);
+    }
+
+    return res;
+}
+
+std::string to_string(const Message& m, const std::string& separator)
+{
+    if (m.isFloat() || m.isSymbol())
+        return to_string(m.atomValue());
+    else if (m.isData())
+        return to_string(m.atomValue());
+    else if (m.isList())
+        return to_string(m.listValue(), separator);
+    else if (m.isAny())
+        return to_string(m.atomValue()) + separator + to_string(m.listValue(), separator);
+    else
+        return {};
 }
 
 std::string to_string_quoted(const Atom& a)
 {
     if (a.isSymbol())
         return to_string_quoted(a.asSymbol()->s_name);
-    else if (a.isData())
+    else
         return to_string(a);
-    return to_string(a);
-}
-
-std::string to_float_string(const Atom& a, const std::string& defaultValue)
-{
-    if (!a.isFloat())
-        return defaultValue;
-
-    std::ostringstream ss;
-    ss << a.asFloat();
-    return ss.str();
-}
-
-std::string to_hex_string(const Atom& a, const std::string& defaultValue)
-{
-    if (!a.isFloat())
-        return defaultValue;
-
-    std::ostringstream ss;
-    ss << std::hex << std::uppercase << static_cast<long>(a.asFloat());
-    return ss.str();
-}
-
-std::string to_float_range_string(const Atom& a, float min, float max, const std::string& defaultValue)
-{
-    if (!a.isFloat())
-        return defaultValue;
-
-    std::ostringstream ss;
-    ss << clip(a.asFloat(), min, max);
-    return ss.str();
-}
-
-std::string to_string(const AtomList& a, const std::string& separator)
-{
-    if (a.empty())
-        return "";
-
-    std::ostringstream ss;
-    for (size_t i = 0; i < a.size(); i++) {
-        if (i != 0)
-            ss << separator;
-
-        ss << to_string(a[i]);
-    }
-    return ss.str();
-}
-
-std::string to_string(const Message& msg, const std::string& separator)
-{
-    if (msg.isFloat() || msg.isSymbol())
-        return to_string(msg.atomValue());
-
-    if (msg.isList())
-        return to_string(msg.listValue(), separator);
-
-    if (msg.isAny())
-        return to_string(msg.atomValue()) + separator + to_string(msg.listValue(), separator);
-
-    return "";
 }
 
 std::string to_string_quoted(const std::string& str)
@@ -152,11 +134,6 @@ std::string to_string_quoted(const std::string& str)
     return res;
 }
 
-std::string to_string(const DataPtr& p)
-{
-    return p.isNull() ? "???" : p->toString();
-}
-
 std::string quote(const std::string& str, char q)
 {
     std::string res;
@@ -165,6 +142,103 @@ std::string quote(const std::string& str, char q)
     res += str;
     res.push_back(q);
     return res;
+}
+
+static std::string quote_json(const std::string& str)
+{
+    std::string res;
+    res.reserve(str.length() + 4);
+    res.push_back('"');
+    for (auto c : str) {
+        if (c == '"') {
+            res.push_back('\\');
+            res.push_back(c);
+        } else
+            res.push_back(c);
+    }
+    res.push_back('"');
+    return res;
+}
+
+std::string to_json_string(const Atom& a)
+{
+    if (a.isInteger())
+        return fmt::format("{}", a.asInt());
+    else if (a.isFloat())
+        return fmt::format("{}", a.asFloat());
+    else if (a.isSymbol()) {
+        return quote_json(a.asSymbol()->s_name);
+    } else if (a.isData())
+        return quote_json(a.asData()->toString());
+    else if (a.isNone())
+        return "null";
+    else {
+        std::cerr << "ATOM: " << a << std::endl;
+        return "?????????";
+    }
+}
+
+std::string to_json_string(const AtomList& l)
+{
+    std::string res;
+    res.push_back('[');
+
+    for (size_t i = 0; i < l.size(); i++) {
+        if (i > 0)
+            res += ", ";
+
+        res += to_json_string(l[i]);
+    }
+
+    res.push_back(']');
+    return res;
+}
+
+std::string parse_quoted(const Atom& a)
+{
+    auto res = to_string(a);
+    string::pd_string_parse(res, res);
+    return res;
+}
+
+std::string parse_quoted(const AtomList& l)
+{
+    auto res = to_string(l, " ");
+    string::pd_string_parse(res, res);
+    return res;
+}
+
+std::string parse_quoted(const AtomListView& v)
+{
+    auto res = to_string(v, " ");
+    string::pd_string_parse(res, res);
+    return res;
+}
+
+std::string format(const std::string& fmt, const AtomList& l)
+{
+    std::string format_str = fmt;
+    for (auto& c : format_str) {
+        if (c == '(')
+            c = '{';
+        else if (c == ')')
+            c = '}';
+    }
+
+    using ctx = fmt::format_context;
+    std::vector<fmt::basic_format_arg<ctx>> fmt_args;
+
+    for (auto& a : l) {
+        if (a.isSymbol())
+            fmt_args.push_back(fmt::internal::make_arg<ctx>(a.asSymbol()->s_name));
+        else if (a.isInteger())
+            fmt_args.push_back(fmt::internal::make_arg<ctx>(a.asInt()));
+        else if (a.isFloat())
+            fmt_args.push_back(fmt::internal::make_arg<ctx>(a.asFloat()));
+    }
+
+    return fmt::vformat(format_str,
+        fmt::basic_format_args<ctx>(fmt_args.data(), fmt_args.size()));
 }
 
 } // namespace ceammc

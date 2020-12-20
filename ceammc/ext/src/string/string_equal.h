@@ -14,21 +14,22 @@
 #ifndef STRING_EQUAL_H
 #define STRING_EQUAL_H
 
+#include "ceammc_data.h"
 #include "ceammc_object.h"
-#include "datatype_string.h"
+#include "string_property.h"
 
 using namespace ceammc;
 
 class StringEqual : public BaseObject {
-    std::string str1_;
+    StringProperty* pattern_;
 
 public:
     StringEqual(const PdArgs& a);
-    void onSymbol(t_symbol* s);
-    void onDataT(const DataTPtr<DataTypeString>& data);
-    void onInlet(size_t, const AtomList& l);
+    void onSymbol(t_symbol* s) override;
+    void onDataT(const StringAtom& str);
+    void onInlet(size_t, const AtomList& l) override;
 };
 
-extern "C" void setup_string0x2eequal();
+void setup_string_equal();
 
 #endif // STRING_EQUAL_H

@@ -5,21 +5,20 @@
 static const size_t MIN_OUTLETS = 2;
 static const size_t MAX_OUTLETS = 24;
 
+using TxtBuf = char[32];
+static TxtBuf ANNOT[MAX_OUTLETS] = {};
+
 FlowDemultiplex::FlowDemultiplex(const PdArgs& a)
     : BaseObject(a)
     , index_(nullptr)
-    , no_props_(nullptr)
 {
-    size_t n = clip((size_t)positionalFloatArgument(0, 2), MIN_OUTLETS, MAX_OUTLETS);
     index_ = new SizeTProperty("@index", 0);
-    createProperty(index_);
-
-    no_props_ = new FlagProperty("@noprops");
-    createProperty(no_props_);
+    addProperty(index_);
 
     createInlet();
 
-    for (size_t i = 0; i < n; i++)
+    const size_t N = positionalConstant<MIN_OUTLETS, MIN_OUTLETS, MAX_OUTLETS>(0);
+    for (size_t i = 0; i < N; i++)
         createOutlet();
 }
 
@@ -55,7 +54,7 @@ void FlowDemultiplex::onList(const AtomList& l)
     listTo(index_->value(), l);
 }
 
-void FlowDemultiplex::onAny(t_symbol* s, const AtomList& l)
+void FlowDemultiplex::onAny(t_symbol* s, const AtomListView& l)
 {
     if (!checkIndex())
         return;
@@ -63,28 +62,30 @@ void FlowDemultiplex::onAny(t_symbol* s, const AtomList& l)
     anyTo(index_->value(), s, l);
 }
 
-void FlowDemultiplex::onData(const DataPtr& d)
+void FlowDemultiplex::onData(const Atom& d)
 {
     if (!checkIndex())
         return;
 
-    dataTo(index_->value(), d);
+    atomTo(index_->value(), d);
 }
 
-void FlowDemultiplex::onInlet(size_t n, const AtomList& l)
+void FlowDemultiplex::onInlet(size_t /*n*/, const AtomList& l)
 {
     index_->set(l);
 }
 
-bool FlowDemultiplex::processAnyProps(t_symbol* sel, const AtomList& lst)
+bool FlowDemultiplex::processAnyProps(t_symbol* sel, const AtomListView& lst)
 {
-    static t_symbol* SYM_INDEX_GET = gensym("@index?");
-    static t_symbol* SYM_INDEX_SET = gensym("@index");
-
-    if (!no_props_->value() && (sel == SYM_INDEX_GET || sel == SYM_INDEX_SET))
-        return BaseObject::processAnyProps(sel, lst);
-
     return false;
+}
+
+const char* FlowDemultiplex::annotateOutlet(size_t n) const
+{
+    if (n < MAX_OUTLETS)
+        return ANNOT[n];
+    else
+        return nullptr;
 }
 
 bool FlowDemultiplex::checkIndex() const
@@ -99,6 +100,11 @@ bool FlowDemultiplex::checkIndex() const
 
 void setup_flow_demultiplex()
 {
+    for (size_t i = 0; i < MAX_OUTLETS; i++)
+        snprintf((char*)ANNOT[i], sizeof(ANNOT[0]), "output\\[%ld\\]", i);
+
     ObjectFactory<FlowDemultiplex> obj("flow.demultiplex");
     obj.addAlias("flow.demux");
+    obj.addInletInfo("any: input data flow");
+    obj.addInletInfo("int: select output number");
 }

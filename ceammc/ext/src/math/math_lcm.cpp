@@ -18,13 +18,13 @@
 
 MathLCM::MathLCM(const PdArgs& a)
     : BaseObject(a)
-    , b_(positionalFloatArgument(0, 0))
+    , b_(parsedPosArgs().intAt(0, 0))
 {
     createInlet(&b_);
     createOutlet();
 }
 
-void MathLCM::onFloat(float f)
+void MathLCM::onFloat(t_float f)
 {
     floatTo(0, boost::math::lcm(int(f), int(b_)));
 }
@@ -41,7 +41,7 @@ void MathLCM::onList(const AtomList& l)
     onFloat(l[0].asFloat());
 }
 
-extern "C" void setup_math0x2elcm()
+void setup_math_lcm()
 {
     ObjectFactory<MathLCM> obj("math.lcm");
 }

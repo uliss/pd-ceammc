@@ -32,27 +32,10 @@ public:
     void setupDSP(t_signal** sp) override;
     void processBlock(const t_sample**, t_sample** out) override;
 
-    AtomList propVoices() const;
-    void propSetVoices(const AtomList& lst);
-    AtomList propStretch() const;
-    void propSetStretch(const AtomList& lst);
-    AtomList propRandom() const;
-    void propSetRandom(const AtomList& lst);
+    bool propSetFile(t_symbol* fname);
 
-    AtomList propGrainDuration() const;
-    void propSetGrainDuration(const AtomList& lst);
-    AtomList propGrainOffset() const;
-    void propSetGrainOffset(const AtomList& lst);
-    AtomList propGrainDelay() const;
-    void propSetGrainDelay(const AtomList& lst);
-    AtomList propGrainRamp() const;
-    void propSetGrainRamp(const AtomList& lst);
-
-    AtomList propFile() const;
-    void propSetFile(const AtomList& lst);
-
-    void m_open(t_symbol* s, const AtomList& lst);
-    void m_reset(t_symbol* s, const AtomList& lst);
+    void m_open(t_symbol* s, const AtomListView& lst);
+    void m_reset(t_symbol* s, const AtomListView&);
 };
 
 void setup_synth_fgrain();

@@ -14,10 +14,9 @@
 #ifndef LIST_SHIFT_H
 #define LIST_SHIFT_H
 
+#include "ceammc_data.h"
 #include "ceammc_object.h"
 using namespace ceammc;
-
-class DataTypeMList;
 
 class ListShift : public BaseObject {
     FloatProperty* shift_;
@@ -27,7 +26,7 @@ public:
 
     void onList(const AtomList& lst) override;
     void onInlet(size_t n, const AtomList& lst) override;
-    void onDataT(const DataTPtr<DataTypeMList>& lst);
+    void onDataT(const MListAtom& ml);
 };
 
 void setup_list_shift();

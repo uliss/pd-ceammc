@@ -5,88 +5,242 @@
 # not in Edit Mode.  Also, if a patch is switched to Run Mode, the
 # menubar will be removed.
 
-package require base64
-package require tooltip
+# try enabling base64 if possible
+catch {package require base64}
+# preferences
+package require pd_guiprefs
+
+namespace eval ::btnbar:: {
+    variable show; # if show button bar
+    variable hidden; # burrent button bar state
+    variable hide_in_runmode;
+}
+
+set ::btnbar::show true
+set ::btnbar::hidden true
+set ::btnbar::hide_in_runmode false
+
+namespace eval ::btnbar::utils { }
+
+# tooltips
+if { [catch {package require tooltip} ] } {
+    proc ::btnbar::tooltip {id msg} {}
+} {
+    proc ::btnbar::tooltip {id msg} { tooltip::tooltip $id $msg }
+}
+
+# helper utils
+proc ::btnbar::utils::bool {value {fallback 0}} {
+    catch {set fallback [expr bool($value) ] } stdout
+    return $fallback
+}
+
+if { [ catch { set ::btnbar::hide_in_runmode [::pd_guiprefs::read btnbar] } stdout ] } {
+    set ::btnbar::hide_in_runmode true
+    set ::btnbar::show true
+} {
+    # read config values
+    set ::btnbar::show [::btnbar::utils::bool [::pd_guiprefs::read btnbar_show] 1]
+    set ::btnbar::hide_in_runmode [::btnbar::utils::bool [::pd_guiprefs::read btnbar_hide_in_runmode] 1]
+}
+
+proc ::btnbar::init_options_menu {} {
+    if {$::windowingsystem eq "aqua"} {
+        set mymenu .menubar.apple.preferences
+    } else {
+        set mymenu .menubar.file.preferences
+    }
+
+    if { [catch {
+        $mymenu entryconfigure [_ "Button Bar"] -command {::btnbar::show_options_gui}
+    } _ ] } {
+        $mymenu add separator
+        $mymenu add command -label [_ "Button Bar"] -command {::btnbar::show_options_gui}
+    }
+}
+
+proc ::btnbar::write_config {} {
+    ::pd_guiprefs::write btnbar_show $::btnbar::show
+    ::pd_guiprefs::write btnbar_hide_in_runmode $::btnbar::hide_in_runmode
+}
+
+proc ::btnbar::show_options_gui {} {
+    if {[winfo exists .options]} {
+        focus .options
+        return
+    }
+
+    toplevel .options
+    wm title .options [_ "Button Bar Settings"]
+
+    frame .options.f -padx 5 -pady 5 -background #ECECEC
+
+    ttk::checkbutton .options.f.show -variable ::btnbar::show -onvalue 1 -offvalue 0 -command {
+        if {$::btnbar::show} {
+            .options.f.hide_in_runmode configure -state normal
+        } {
+            .options.f.hide_in_runmode configure -state disable
+        }
+    }
+    ttk::label .options.f.show_label -text [_ "Show" ]
+
+    ttk::checkbutton .options.f.hide_in_runmode -variable ::btnbar::hide_in_runmode -onvalue 1 -offvalue 0
+    ttk::label .options.f.hide_in_runmode_label -text [_ "Hide in runmode" ]
+
+    # buttons
+    ttk::button .options.f.save_btn -text [_ "Save settings" ] -command ::btnbar::write_config
+
+    set padding 2
+
+    # ::::GRID::::
+
+    # setup main frame stuff
+    grid .options.f -column 0 -row 0
+    set current_row 0
+
+    # show
+    grid .options.f.show_label -column 0 -row $current_row -padx $padding -pady $padding -sticky "w"
+    grid .options.f.show -column 1 -row $current_row -padx $padding -pady $padding -sticky "w"
+    incr current_row
+
+    # hide in runmode
+    grid .options.f.hide_in_runmode_label -column 0 -row $current_row -padx $padding -pady $padding -sticky "w"
+    grid .options.f.hide_in_runmode -column 1 -row $current_row -padx $padding -pady $padding -sticky "w"
+    incr current_row
+
+    # buttons
+    grid .options.f.save_btn -column 1 -row $current_row -padx $padding -pady 8 -sticky "w"
+}
 
 proc make_pd_button {mytoplevel name tooltip} {
     button $mytoplevel.buttonbar.$name -image buttonimage$name \
-        -relief flat -borderwidth 1 -highlightthickness 0 \
+        -relief flat -borderwidth 0 -highlightthickness 0 \
         -highlightcolor grey -highlightbackground grey -padx 1 -pady 1 \
         -command "menu_send_float \$::focused_window $name 0"
     pack $mytoplevel.buttonbar.$name -side left -padx 0 -pady 0
-    tooltip::tooltip $mytoplevel.buttonbar.$name $tooltip
+    ::btnbar::tooltip $mytoplevel.buttonbar.$name $tooltip
 }
 
 proc make_iemgui_button {mytoplevel name tooltip} {
     button $mytoplevel.buttonbar.$name -image buttonimage$name \
-        -relief flat -borderwidth 1 -highlightthickness 0 \
+        -relief flat -borderwidth 0 -highlightthickness 0 \
         -highlightcolor grey -highlightbackground grey -padx 1 -pady 1 \
         -command "menu_send \$::focused_window $name"
     pack $mytoplevel.buttonbar.$name -side left -padx 0 -pady 0
-    tooltip::tooltip $mytoplevel.buttonbar.$name $tooltip
+    ::btnbar::tooltip $mytoplevel.buttonbar.$name $tooltip
 }
 
 proc make_ceammc_button {mytoplevel name tooltip} {
     button $mytoplevel.buttonbar.$name -image buttonimage$name \
-        -relief flat -borderwidth 1 -highlightthickness 0 \
+        -relief flat -borderwidth 0 -highlightthickness 0 \
         -highlightcolor grey -highlightbackground grey -padx 1 -pady 1 \
         -command "menu_send \$::focused_window ui.$name"
     pack $mytoplevel.buttonbar.$name -side left -padx 0 -pady 0
-    tooltip::tooltip $mytoplevel.buttonbar.$name $tooltip
+    ::btnbar::tooltip $mytoplevel.buttonbar.$name $tooltip
 }
 
 proc make_ceammc_button_tilde {mytoplevel name tooltip} {
     button $mytoplevel.buttonbar.$name -image buttonimage$name \
-        -relief flat -borderwidth 1 -highlightthickness 0 \
+        -relief flat -borderwidth 0 -highlightthickness 0 \
         -highlightcolor grey -highlightbackground grey -padx 1 -pady 1 \
         -command "menu_send \$::focused_window ui.$name~"
     pack $mytoplevel.buttonbar.$name -side left -padx 0 -pady 0
-    tooltip::tooltip $mytoplevel.buttonbar.$name $tooltip
+    ::btnbar::tooltip $mytoplevel.buttonbar.$name $tooltip
 }
 
-proc showhide_buttonbar {mytoplevel} {
-    if { ! [winfo exists $mytoplevel.buttonbar]} {
-        frame $mytoplevel.buttonbar -cursor arrow -background grey \
-            -pady 0 -padx 0
-        make_pd_button $mytoplevel obj [_ "Object"]
-        make_pd_button $mytoplevel msg "Message"
-        make_pd_button $mytoplevel floatatom "Number box"
-        make_pd_button $mytoplevel symbolatom "Symbol box"
-        make_pd_button $mytoplevel text "Comment"
-        make_iemgui_button $mytoplevel bng "Button"
-        make_iemgui_button $mytoplevel toggle "Toggle"
-        make_iemgui_button $mytoplevel numbox "Number box2"
-        make_iemgui_button $mytoplevel hslider "Horizontal slider"
-        make_iemgui_button $mytoplevel vslider "Vertial slider"
-        make_iemgui_button $mytoplevel hradio  "Horizontal radio"
-        make_iemgui_button $mytoplevel vradio  "Vertical radio"
-        make_iemgui_button $mytoplevel mycnv   "Canvas"
-        make_iemgui_button $mytoplevel menuarray "Array"
-        make_ceammc_button $mytoplevel knob "Knob"
-        make_ceammc_button $mytoplevel sliders "Sliders"
-        make_ceammc_button $mytoplevel slider2d "Slider 2D"
-        make_ceammc_button $mytoplevel keyboard "Keyboard"
-        make_ceammc_button $mytoplevel env "Breakpoint function"
-        make_ceammc_button $mytoplevel display "Display"
-        make_ceammc_button_tilde $mytoplevel scope "Scope"
-        make_ceammc_button_tilde $mytoplevel spectroscope "Spectroscope"
-        make_ceammc_button $mytoplevel preset "Presets"
-    }
-    if {$::editmode($mytoplevel)} {
+proc ::btnbar::init {mytoplevel} {
+    frame $mytoplevel.buttonbar -cursor arrow -background lightgrey
+    make_pd_button $mytoplevel obj [_ "Object"]
+    make_pd_button $mytoplevel msg "Message"
+    make_pd_button $mytoplevel floatatom "Number box"
+    make_pd_button $mytoplevel symbolatom "Symbol box"
+    make_pd_button $mytoplevel text "Comment"
+    make_iemgui_button $mytoplevel bng "Button"
+    make_iemgui_button $mytoplevel toggle "Toggle"
+    make_iemgui_button $mytoplevel numbox "Number box2"
+    make_iemgui_button $mytoplevel hslider "Horizontal slider"
+    make_iemgui_button $mytoplevel vslider "Vertial slider"
+    make_iemgui_button $mytoplevel hradio  "Horizontal radio"
+    make_iemgui_button $mytoplevel vradio  "Vertical radio"
+    make_iemgui_button $mytoplevel mycnv   "Canvas"
+    make_iemgui_button $mytoplevel menuarray "Array"
+    make_ceammc_button $mytoplevel knob "Knob"
+    make_ceammc_button $mytoplevel sliders "Sliders"
+    make_ceammc_button $mytoplevel slider2d "Slider 2D"
+    make_ceammc_button $mytoplevel keyboard "Keyboard"
+    make_ceammc_button $mytoplevel env "Breakpoint function"
+    make_ceammc_button $mytoplevel display "Display"
+    make_ceammc_button_tilde $mytoplevel scope "Scope"
+    make_ceammc_button_tilde $mytoplevel spectroscope "Spectroscope"
+    make_ceammc_button $mytoplevel preset "Presets"
+}
+
+proc ::btnbar::show {mytoplevel} {
+    if {$::btnbar::hidden} {
         set tkcanvas [tkcanvas_name $mytoplevel]
         pack forget $tkcanvas
         pack $mytoplevel.buttonbar -side top -fill x
         pack $tkcanvas -side top -expand 1 -fill both
-    } else {
-        pack forget $mytoplevel.buttonbar
+        set ::btnbar::hidden false
     }
 }
 
-bind PatchWindow <FocusIn> {+showhide_buttonbar %W}
-bind PatchWindow <<EditMode>> {+showhide_buttonbar %W}
+proc ::btnbar::hide {mytoplevel} {
+    if {$::btnbar::hidden} {} {
+        pack forget $mytoplevel.buttonbar
+        set ::btnbar::hidden true
+    }
+}
 
+proc ::btnbar::enable {mytoplevel} {
+    ::btnbar::show $mytoplevel
+
+    foreach child [winfo children $mytoplevel.buttonbar] {
+        catch { $child configure -state normal }
+    }
+}
+
+proc ::btnbar::disable {mytoplevel} {
+    foreach child [winfo children $mytoplevel.buttonbar] {
+        catch { $child configure -state disabled }
+    }
+}
+
+proc ::btnbar::showhide {mytoplevel} {
+    # populate button bar with entries
+    if { ! [winfo exists $mytoplevel.buttonbar]} {
+        ::btnbar::init $mytoplevel
+    }
+
+    if {!$::btnbar::show} {
+        catch { ::btnbar::hide $mytoplevel }
+        return;
+    }
+
+    if {$::editmode($mytoplevel)} {
+        if {$::btnbar::hide_in_runmode} {
+            ::btnbar::show $mytoplevel
+        } {
+            ::btnbar::enable $mytoplevel
+        }
+    } {
+        if {$::btnbar::hide_in_runmode} {
+            ::btnbar::hide $mytoplevel
+        } {
+            ::btnbar::disable $mytoplevel
+        }
+    }
+}
+
+bind PatchWindow <FocusIn> {+::btnbar::showhide %W}
+bind PatchWindow <<EditMode>> {+::btnbar::showhide %W}
+
+::btnbar::init_options_menu
 set bngdata {R0lGODdhIAAgAIQUAAAAAAEBAQEDAgUKCwsTExwnKB0oKQdhcQdlc3NvcQaqyAasygax0AjJ7KmpqQnU+cC+vsDAwN7e3vz8/P///////////////////////////////////////////////ywAAAAAIAAgAAAFpyAljmRpnmiqrmzrvnAsz3Rtr0Cu73wAA5OgJFEYDAoJSXAC+AUdBMSi0VggBJFg8wWMABSPsJgBcDB/EgFDzH4oCJKtC5A4tNuIhLwFMCzubAsFeywAAw2AYg0DhDiHiWGLjSp9f5CCkyl0dpB5mSgAEgRggAwCcU4OAGttCgBZnydAExACB1NVBwRmZ1xLQwZGBklLsSYBPMk6PjfNzs/Q0dLT1DQhADs=}
 image create photo buttonimagebng -data $bngdata
+
+set bpfuncdata {R0lGODlhIAAgAOYAAAAAAP////7+/vv7+/f39/b29vX19fT09PPz8/Ly8vHx8fDw8O/v7+7u7u3t7ezs7Ovr6+rq6unp6ejo6Ofn5+bm5uXl5eTk5OPj4+Li4uHh4eDg4N/f397e3tzc3NnZ2djY2NfX19bW1tHR0c3NzczMzMrKysbGxsXFxcTExMLCwsHBwb+/v76+vr29vby8vLu7u7m5ubi4uLW1tbOzs7Gxsa+vr6ysrKurq6mpqaioqKenp6ampqWlpaSkpKOjo6GhoaCgoJ+fn56enp2dnZycnJubm5qampmZmZaWlpWVlZSUlJOTk5KSkpGRkZCQkIyMjImJiYiIiIWFhYSEhIODg4KCgoGBgX9/f35+fnx8fHt7e3p6enl5eXV1dXR0dHBwcG5ubmxsbGtra2NjY2BgYFJSUlFRUVBQUE5OTkZGRjc3NzExMR4eHv///wAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACH5BAEAAG4ALAAAAAAgACAAAAf/gAGCg4SFhoeIiYqLjI2HVVRKQ0aUlZaXmERBV4Q/FZ+goaKjolWERqSpqRYVKFynqrGhFARDT7CysgYnSDiwFsDBwsPEFxVMMzSER7mhHQcHHZ8TIVkOOb/E2hcLMjAJF8ZATxU8uLkXBgJpagcGFAtWKRU756sUBxUPWkA+WAQVZkwBqMMeqQkWPLwAg+TTEyoBnNz4VHBQkQoUMmrcuCDCGTMkKkBwcCxMFAgPKlQUxExVhwIryIiowIFDBwcP0EipsKFCD1zhMlAY4EADhggKtpjgGe4ChgkZNlgwVs/ip4wQMrjIgMBYkp0bNS5ogFHlOQsHPqzh8qnFGAkKhljFWhkAFagCJa44kaLCy1IMuehezMgqSI0KPtoIqWAhrGMKZge13ADhQ5YPHWWAkNAz10/JFTIYg7KEJuQHHJqVI3SxgoERXS4weExbY2RBdj+wyVHBmOpQdIkw/iKmA4LfoujyqCCFBXJSNQhpKcMkRo4d2LNr387dRhNH4MOLH0++/KJAADs=}
+image create photo buttonimagebpfunc -data $bpfuncdata
 
 set displaydata {R0lGODlhIAAgAMQAAAAAAP///09vgVNpdlhjaUCBoUV7l0p1jCmWxi+RvTWLtDqGqxGl3xqg1yKbzwCu7wBcfwBdfwBRcABScAAxQwAsPAArOwAmNAep51xcXP///wAAAAAAAAAAAAAAAAAAACH5BAEAABoALAAAAAAgACAAAAWrYCCOZGmeaKqubOu+cCzPdG3fuH1JfO//wJ+FNHkYj8ikMgkhLp9QY3NUNDoOjcXzCp2Kig2DAbvAjBGJxSFxNR/QiezDGygaEonDVfFWKAoMBFcOfnoGfnNObwh6WH8ECmUZVwmHBw8EBwyJVA8IAmNXDQMHhwICClcIAwYCDwWunF9RD4hLGAsKUk5RDg5PDAoYuyMVEcfIycrLyhQ5z9DR0tPU1dbX2DghADs=}
 image create photo buttonimagedisplay -data $displaydata

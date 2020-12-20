@@ -17,7 +17,7 @@
 #include "ceammc_control.h"
 #include "ceammc_object.h"
 #include "ceammc_proxy.h"
-#include "ceammc_ui_dsp_object.h"
+#include "ceammc_ui_object.h"
 
 #include <functional>
 #include <unordered_map>
@@ -30,7 +30,7 @@ class UIGain : public UIDspObject {
     UITextLayout txt_max_;
     UITextLayout txt_min_;
     t_pt click_pos_;
-    float knob_phase_;
+    t_float knob_phase_;
     bool is_horizontal_;
 
     enum ControlState {
@@ -63,6 +63,7 @@ protected:
     int prop_pickup_midi;
 
     void initHorizontal();
+    void output();
 
 public:
     UIGain();
@@ -78,7 +79,7 @@ public:
     void onMouseDown(t_object* view, const t_pt& pt, const t_pt& abs_pt, long modifiers);
     void onMouseDrag(t_object* view, const t_pt& pt, long modifiers);
     void onDblClick(t_object* view, const t_pt& pt, long modifiers);
-    void onMouseWheel(const t_pt& pt, long modifiers, float delta);
+    void onMouseWheel(const t_pt& pt, long modifiers, t_float delta);
 
     t_float dbValue() const;
     t_float ampValue() const;

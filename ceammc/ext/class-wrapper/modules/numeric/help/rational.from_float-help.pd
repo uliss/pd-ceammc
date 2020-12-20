@@ -1,13 +1,12 @@
-#N canvas 0 0 760 555 12;
+#N canvas 0 0 785 555 12;
 #X declare -lib ceammc;
 #X declare -lib numeric;
-#X obj 282 50 cnv 1 458 21 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 282 50 converts input float to rational with specified
-precision;
-#X obj 1 1 cnv 5 740 40 empty empty rational.from_float 20 20 0 20
+#X obj 323 50 cnv 1 442 23 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 323 50 converts input float to rational with specified precision;
+#X obj 1 1 cnv 5 765 40 empty empty rational.from_float 20 20 0 20
 -104026 -4096 0;
-#X obj 445 11 float->rational;
-#X obj 579 11 rational.from_float;
+#X obj 470 11 float->rational;
+#X obj 604 11 rational.from_float;
 #X obj 50 118 declare -lib numeric;
 #X msg 50 162 3.14159265;
 #X msg 88 190 1;
@@ -15,38 +14,38 @@ precision;
 #X msg 174 190 256;
 #X msg 232 190 4096;
 #X obj 50 219 float->rational 1;
-#X obj 50 248 ui.display @display_type 1 @size 150 18;
-#X obj 20 288 cnv 1 720 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 293 cnv 5 90 26 empty empty arguments: 4 10 0 14 -262144
+#X obj 50 248 ui.display @display_type 1;
+#X obj 20 297 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 302 cnv 5 90 26 empty empty arguments: 4 10 0 14 -262144
 -49933 0;
-#X text 120 298 1\.;
-#X text 150 298 float;
-#X obj 281 299 cnv 1 16 18 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 298 F: input float.;
-#X text 120 316 2\.;
-#X text 150 316 int;
-#X obj 281 317 cnv 1 65 18 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 316 MAX_DEN: max denominator value.;
-#X obj 20 344 cnv 1 720 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 349 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
+#X text 110 337 1\.;
+#X text 150 337 float;
+#X obj 246 338 cnv 1 15 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 245 337 F: input float.;
+#X text 110 357 2\.;
+#X text 150 357 int;
+#X obj 246 358 cnv 1 62 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 245 357 MAX_DEN: max denominator value.;
+#X obj 20 387 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 392 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
-#X text 120 354 1\.;
-#X text 150 354 *float*;
-#X text 280 354 input float.;
-#X text 120 372 2\.;
-#X text 150 372 *int*;
-#X text 280 372 max denominator value.;
-#X obj 20 400 cnv 1 720 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 405 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
+#X text 110 393 1\.;
+#X text 150 393 *float*;
+#X text 245 393 input float.;
+#X text 110 413 2\.;
+#X text 150 413 *int*;
+#X text 245 413 max denominator value.;
+#X obj 20 443 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 448 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 120 410 1\.;
-#X text 280 410 output rational number (Rational);
+#X text 110 449 1\.;
+#X text 245 449 output rational number (Rational).;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 67 48 ui.link @title numeric @url numeric-help.pd;
 #X text 122 45 ::;
 #X obj 138 48 ui.link @title rational @url numeric.rational-help.pd;
-#X obj 1 505 cnv 5 740 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 1 505 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 10 508 library: numeric v0.1;
 #N canvas 10 527 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;

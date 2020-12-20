@@ -1,6 +1,7 @@
 #include "list_count_if.h"
-#include "datatype_mlist.h"
 #include "ceammc_factory.h"
+#include "ceammc_output.h"
+#include "datatype_mlist.h"
 
 ListCountIf::ListCountIf(const PdArgs& a)
     : ListBase(a)
@@ -19,7 +20,11 @@ void ListCountIf::onBang()
 void ListCountIf::onList(const AtomList& lst)
 {
     count_ = 0;
-    lst.outputAtoms(outletAt(1));
+
+    auto out = outletAt(1);
+    for (auto& a : lst)
+        outletAtom(out, a);
+
     onBang();
 }
 
@@ -37,4 +42,13 @@ void setup_list_count_if()
 {
     ObjectFactory<ListCountIf> obj("list.count_if");
     obj.processData<DataTypeMList>();
+
+    obj.setDescription("output the number of items that satisfy to external predicate");
+    obj.addAuthor("Serge Poltavsky");
+    obj.setKeywords({ "list", "count" });
+    obj.setCategory("list");
+    obj.setSinceVersion(0, 1);
+
+    ListCountIf::setInletsInfo(obj.classPointer(), { "list or Mlist", "int: 1 or 0 from predicate" });
+    ListCountIf::setOutletsInfo(obj.classPointer(), { "int", "atom: to predicate" });
 }

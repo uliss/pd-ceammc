@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="plot.hist~">
+        <title>plot.hist~</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>calculate and output signal histogram</description>
+            <license>GPL3 or later</license>
+            <library>ceammc</library>
+            <category>array</category>
+            <keywords>array histogram</keywords>
+            <also>
+                <see>plot.linspace~</see>
+                <see>plot.geomspace~</see>
+                <see>plot.response~</see>
+            </also>
+            <aliases>
+                <alias>hist~</alias>
+            </aliases>
+            <since>0.9</since>
+        </meta>
+        <arguments>
+            <argument name="NSAMP" type="int">@nsamp property</argument>
+        </arguments>
+        <properties>
+            <property name="@nsamp" minvalue="8" maxvalue="32768" type="int" default="512">max
+            number of input samples</property>
+            <property name="@nbins" minvalue="8" maxvalue="512" type="int" default="63">number of
+            histogram bins</property>
+            <property name="@min" type="float" default="-1">minimal input value</property>
+            <property name="@max" type="float" default="1">maximum input value</property>
+            <property name="@clip" enum="0 1" type="int" default="1">clip input values into input
+            range, otherwise just ignore them</property>
+        </properties>
+        <inlets>
+            <inlet type="audio">
+                <xinfo on="bang">starts histogram calculation</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet type="audio">signal output</outlet>
+            <outlet>output to [array.plot~] or [ui.plot~]</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[noise.white~] [osc~ 40 #a]
+|
+|              [ui.hrd @nitems 2 #c]
+|
+[flow.multiplex~ 2 #b] [bang(
+|                      |
+[plot.hist~ 2048 @nbins 32]
+|            ^|.
+[ui.plot~ @size 300 150 @xlabels 1 @ylabels 1 @xmin_grid 1 @ymin_ticks 0 @ymaj_ticks 0 @xmin_ticks 0 @ymin 0 @ymax 100 @mode bars @plot_color0 0.2 0.2 0.2]
+
+
+
+
+
+
+
+
+
+
+[ui.dsp~]
+[X a->b:1]
+[X c->b:2]
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

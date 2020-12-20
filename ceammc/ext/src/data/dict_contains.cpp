@@ -13,44 +13,52 @@
  *****************************************************************************/
 #include "dict_contains.h"
 #include "ceammc_factory.h"
+#include "datatype_dict.h"
 
 DictContains::DictContains(const PdArgs& args)
-    : BaseObject(args)
+    : DictBase(args)
+    , keys_(nullptr)
 {
-    if (args.args.size() > 0)
-        key_ = args.args[0];
+    keys_ = new ListProperty("@keys");
+    keys_->setArgIndex(0);
+    addProperty(keys_);
 
     createInlet();
     createOutlet();
 }
 
-void DictContains::parseProperties()
-{
-    return;
-}
-
 void DictContains::onInlet(size_t n, const AtomList& lst)
 {
-    if (lst.empty()) {
-        OBJ_ERR << "empty key: " << lst;
-        return;
-    }
-
-    key_ = lst[0];
+    keys_->set(lst);
 }
 
-void DictContains::onDataT(const DataTPtr<DataTypeDict>& dptr)
+void DictContains::onDataT(const DictAtom& dict)
 {
-    if (key_.isNone()) {
-        OBJ_ERR << "no key specified: " << key_;
+    if (keys_->value().empty()) {
+        OBJ_ERR << "no key specified: " << keys_;
         return;
     }
 
-    floatTo(0, dptr->contains(key_));
+    listTo(0, keys_->value().map([&dict](const Atom& a) -> Atom {
+        if (!a.isSymbol())
+            return Atom(0.0);
+
+        return Atom(dict->contains(a.asSymbol()) ? 1 : 0);
+    }));
 }
 
 void setup_dict_contains()
 {
     ObjectFactory<DictContains> obj("dict.contains");
+    obj.parseOnlyPositionalProps(true);
     obj.processData<DataTypeDict>();
+
+    obj.setDescription("predicate to check if dict contains a keys");
+    obj.addAuthor("Serge Poltavsky");
+    obj.setKeywords({ "contains", "dictionary" });
+    obj.setCategory("data");
+    obj.setSinceVersion(0, 6);
+
+    DictContains::setInletsInfo(obj.classPointer(), { "Dict", "list: set checked keys" });
+    DictContains::setOutletsInfo(obj.classPointer(), { "list of 1 or 0" });
 }

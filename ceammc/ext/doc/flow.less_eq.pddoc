@@ -12,6 +12,9 @@
             <category>flow</category>
             <keywords>gate</keywords>
             <since>0.4</since>
+            <aliases>
+                <alias>flow.&lt;=</alias>
+            </aliases>
             <also>
                 <see>flow.less</see>
             </also>
@@ -23,15 +26,20 @@
             <argument name="LIST" type="list">compare values: list of floats in ascending
             order</argument>
         </arguments>
+        <properties>
+            <property name="@values" type="list">compare values: list of floats in ascending
+            order</property>
+        </properties>
         <inlets>
             <inlet>
                 <xinfo on="float">input flow</xinfo>
             </inlet>
         </inlets>
         <outlets dynamic="true">
-            <outlet>numbers that are less equal then 1st argument</outlet>
-            <outlet number="...">numbers that are less equal than N-th argument</outlet>
-            <outlet number="n">numbers that are greater than last argument</outlet>
+            <outlet number="1">numbers that are less equal then 1st argument</outlet>
+            <outlet number="...">numbers that are less equal than ... argument</outlet>
+            <outlet number="n">numbers that are less equal than N-th argument</outlet>
+            <outlet number="n+1">numbers that are greater than last argument</outlet>
         </outlets>
         <example>
             <pdascii>

@@ -18,74 +18,81 @@
 
 ListSet::ListSet(const PdArgs& args)
     : BaseObject(args)
-    , idx_(positionalFloatArgument(0))
-    , value_(positionalArgument(1))
+    , index_(nullptr)
+    , value_(nullptr)
 {
-    createInlet(&idx_);
+    index_ = new IntProperty("@index", 0);
+    index_->setArgIndex(0);
+    addProperty(index_);
+
+    value_ = new AtomProperty("@value", Atom());
+    value_->setArgIndex(1);
+    addProperty(value_);
+
+    createInlet();
     createInlet();
     createOutlet();
 }
 
 void ListSet::onList(const AtomList& lst)
 {
-    if (!value_.isValid()) {
-        OBJ_ERR << "empty value";
+    if (value_->value().isNone())
         return;
-    }
 
-    auto idx = relativeIndex<long>(idx_, lst.size());
+    auto idx = relativeIndex<long>(index_->value(), lst.size());
 
     if (idx < 0) {
-        OBJ_ERR << "invalid index: " << idx_;
+        OBJ_ERR << "invalid index: " << index_->value();
         return;
     }
 
     AtomList res(lst);
-    res[idx] = value_.toAtom();
+    res[idx] = value_->value();
     listTo(0, res);
 }
 
 void ListSet::onInlet(size_t n, const AtomList& lst)
 {
-    if (lst.empty())
-        value_ = DataAtom();
-    else
-        value_ = DataAtom(lst[0]);
+    if (n == 2) {
+        if (lst.empty())
+            value_->value() = Atom();
+        else
+            value_->set(lst);
+    } else if (n == 1)
+        index_->set(lst);
 }
 
-void ListSet::onDataT(const DataTPtr<DataTypeMList>& lst)
+void ListSet::onDataT(const MListAtom& ml)
 {
-    if (!value_.isValid()) {
-        OBJ_ERR << "empty value";
+    if (value_->value().isNone())
         return;
-    }
 
-    auto idx = relativeIndex<long>(idx_, lst->size());
+    auto idx = relativeIndex<long>(index_->value(), ml->size());
 
     if (idx < 0) {
-        OBJ_ERR << "invalid index: " << idx_;
+        OBJ_ERR << "invalid index: " << index_->value();
         return;
     }
 
-    DataTypeMList res(*lst);
-    res.at(idx) = value_;
-    dataTo(0, DataTPtr<DataTypeMList>(res));
-}
-
-t_float ListSet::index() const
-{
-    return idx_;
-}
-
-const DataAtom& ListSet::value() const
-{
-    return value_;
+    MListAtom res(*ml);
+    res.detachData();
+    res->at(idx) = value_->value();
+    atomTo(0, res);
 }
 
 void setup_list_set()
 {
     ObjectFactory<ListSet> obj("list.set");
     obj.processData<DataTypeMList>();
-    obj.mapFloatToList();
-    obj.mapSymbolToList();
+    obj.useDefaultPdFloatFn();
+    obj.useDefaultPdSymbolFn();
+
+    obj.setDescription("set list value at specified position");
+    obj.addAuthor("Serge Poltavsky");
+    obj.setKeywords({ "list", "set" });
+    obj.setCategory("list");
+    obj.setSinceVersion(0, 6);
+
+    ListSet::setInletsInfo(obj.classPointer(), { "list or Mlist", "int: set index", "atom: set value" });
+    ListSet::setOutletsInfo(obj.classPointer(), { "list or Mlist" });
 }

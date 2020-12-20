@@ -11,32 +11,32 @@
 #X msg 117 162 1 3.1415926;
 #X msg 251 162 1 6.2831852;
 #X obj 50 190 complex.polar 1 1.5707963;
-#X obj 50 219 ui.display @size 150 18 display_type 1;
-#X obj 20 259 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 264 cnv 5 90 26 empty empty arguments: 4 10 0 14 -262144
+#X obj 50 219 ui.display @display_type 1;
+#X obj 20 268 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 273 cnv 5 90 26 empty empty arguments: 4 10 0 14 -262144
 -49933 0;
-#X text 110 299 1\.;
-#X text 150 299 float;
-#X obj 246 300 cnv 1 16 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 299 R: magnitude.;
-#X text 110 319 2\.;
-#X text 150 319 float;
-#X obj 246 320 cnv 1 47 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 319 THETA: phase angle in radians.;
-#X obj 20 349 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 354 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
+#X text 110 308 1\.;
+#X text 150 308 float;
+#X obj 246 309 cnv 1 16 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 245 308 R: magnitude.;
+#X text 110 328 2\.;
+#X text 150 328 float;
+#X obj 246 329 cnv 1 47 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 245 328 THETA: phase angle in radians.;
+#X obj 20 358 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 363 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
-#X text 110 355 1\.;
-#X text 150 355 *float*;
-#X text 245 355 magnitude.;
-#X text 110 375 2\.;
-#X text 150 375 *float*;
-#X text 245 375 phase angle in radians.;
-#X obj 20 405 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 410 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
+#X text 110 364 1\.;
+#X text 150 364 *float*;
+#X text 245 364 magnitude.;
+#X text 110 384 2\.;
+#X text 150 384 *float*;
+#X text 245 384 phase angle in radians.;
+#X obj 20 414 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 419 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 411 1\.;
-#X text 245 411 output Complex number (Complex).;
+#X text 110 420 1\.;
+#X text 245 420 output Complex number (Complex).;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 67 48 ui.link @title numeric @url numeric-help.pd;

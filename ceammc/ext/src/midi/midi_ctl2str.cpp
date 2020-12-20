@@ -1,6 +1,6 @@
 #include "midi_ctl2str.h"
-#include "datatype_string.h"
 #include "ceammc_factory.h"
+#include "datatype_string.h"
 #include "midi_common.h"
 
 MidiCtl2Str::MidiCtl2Str(const PdArgs& args)
@@ -8,12 +8,12 @@ MidiCtl2Str::MidiCtl2Str(const PdArgs& args)
     , as_symbol_(0)
 {
     as_symbol_ = new FlagProperty("@symbol");
-    createProperty(as_symbol_);
+    addProperty(as_symbol_);
 
     createOutlet();
 }
 
-void MidiCtl2Str::onFloat(float f)
+void MidiCtl2Str::onFloat(t_float f)
 {
     size_t n = f;
 
@@ -27,7 +27,7 @@ void MidiCtl2Str::onFloat(float f)
     if (as_symbol_->value())
         symbolTo(0, name);
     else
-        dataTo(0, DataPtr(new DataTypeString(name->s_name)));
+        atomTo(0, new DataTypeString(name->s_name));
 }
 
 void setup_midi_ctl2str()

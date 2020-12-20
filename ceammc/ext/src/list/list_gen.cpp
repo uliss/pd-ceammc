@@ -1,10 +1,11 @@
 #include "list_gen.h"
-#include "ceammc.hpp"
 #include "ceammc_factory.h"
 #include "ceammc_log.h"
+#include "ceammc_numeric.h"
 
-static const int MIN_COUNT = 1;
-static const int MAX_COUNT = 1024;
+constexpr int DEF_COUNT = 1;
+constexpr int MIN_COUNT = 1;
+constexpr int MAX_COUNT = 1024;
 
 ListGenerate::ListGenerate(const PdArgs& a)
     : BaseObject(a)
@@ -15,8 +16,10 @@ ListGenerate::ListGenerate(const PdArgs& a)
     createOutlet();
     createOutlet();
 
-    count_ = new IntPropertyClosedRange("@count", positionalFloatArgument(0, 1), MIN_COUNT, MAX_COUNT);
-    createProperty(count_);
+    count_ = new IntProperty("@count", DEF_COUNT);
+    count_->setArgIndex(0);
+    count_->checkClosedRange(MIN_COUNT, MAX_COUNT);
+    addProperty(count_);
 }
 
 bool ListGenerate::loopbackDetected()
@@ -38,11 +41,11 @@ void ListGenerate::onBang()
     for (int i = 0; i < count_->value(); i++)
         bangTo(1);
 
-    listTo(0, gen_values_.toList());
+    listTo(0, gen_values_);
     in_process_ = false;
 }
 
-void ListGenerate::onFloat(float v)
+void ListGenerate::onFloat(t_float v)
 {
     if (loopbackDetected())
         return;
@@ -80,4 +83,15 @@ bool ListGenerate::setCount(float v)
 void setup_list_gen()
 {
     ObjectFactory<ListGenerate> obj("list.gen");
+
+    obj.setDescription("generates list of specified length via external generator");
+    obj.addAuthor("Serge Poltavsky");
+    obj.setKeywords({ "list", "generate" });
+    obj.setCategory("list");
+    obj.setSinceVersion(0, 1);
+
+    ListGenerate::setInletsInfo(obj.classPointer(), { "bang: generate list with @count length\n"
+                                                      "int: update @count and generate list",
+                                                        "list: values from generator" });
+    ListGenerate::setOutletsInfo(obj.classPointer(), { "list", "bang to side-chain generator" });
 }

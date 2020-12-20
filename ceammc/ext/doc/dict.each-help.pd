@@ -5,33 +5,33 @@
 #X obj 1 1 cnv 5 765 40 empty empty dict.each 20 20 0 20 -104026 -4096
 0;
 #X obj 675 11 dict.each;
-#X msg 50 118 [a: 1] [c: 2] [e: 3] \, bang;
+#X msg 50 118 [a: 1 c: 2 e: 3] \, bang;
 #X obj 50 147 dict;
 #X obj 50 176 dict.each;
 #X obj 184 176 * 100;
 #X obj 50 205 ui.d;
-#X obj 20 244 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 249 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
+#X obj 20 254 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 259 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
-#X text 110 250 1\.;
-#X text 150 250 *data:dict*;
-#X text 245 250 input dictionary.;
-#X text 110 270 2\.;
-#X text 245 270 new key value from sidechain.;
-#X obj 20 300 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 305 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
+#X text 110 260 1\.;
+#X text 150 260 *data:dict*;
+#X text 245 260 input dictionary.;
+#X text 110 280 2\.;
+#X text 245 280 new key value from sidechain.;
+#X obj 20 310 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 315 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 306 1\.;
-#X text 245 306 processed dict.;
-#X text 110 326 2\.;
-#X text 245 326 send value to sidechain.;
+#X text 110 316 1\.;
+#X text 245 316 processed dict.;
+#X text 110 336 2\.;
+#X text 245 336 send value to sidechain.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 115 45 ::;
 #X obj 131 48 ui.link @title data @url ceammc.data-help.pd;
 #X obj 1 505 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 508 library: ceammc v0.8.0;
+#X text 10 508 library: ceammc v0.9.1;
 #X text 601 520 see also:;
 #X obj 675 520 data.dict;
 #N canvas 10 527 400 290 info 0;
@@ -39,7 +39,7 @@
 #X text 10 10 library:;
 #X text 120 10 ceammc;
 #X text 10 32 version:;
-#X text 120 32 0.8.0;
+#X text 120 32 0.9.1;
 #X text 10 54 object:;
 #X text 120 54 dict.each;
 #X text 10 76 category:;

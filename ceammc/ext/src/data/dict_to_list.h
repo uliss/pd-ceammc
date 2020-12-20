@@ -14,15 +14,15 @@
 #ifndef DICT_TO_LIST_H
 #define DICT_TO_LIST_H
 
-#include "ceammc_object.h"
 #include "datatype_dict.h"
+#include "dict_base.h"
 using namespace ceammc;
 
-class DictToList : public BaseObject {
+class DictToList : public DictBase {
 public:
     DictToList(const PdArgs& args);
 
-    void onDataT(const DataTPtr<DataTypeDict>& d);
+    void onDataT(const DictAtom& dict) override;
 };
 
 void setup_dict_to_list();

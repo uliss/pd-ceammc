@@ -12,22 +12,21 @@
  * this file belongs to.
  *****************************************************************************/
 #include "conv_sec2str.h"
-#include "datatype_string.h"
 #include "ceammc_convert.h"
-
-using namespace ceammc;
+#include "ceammc_factory.h"
+#include "datatype_string.h"
 
 SecToStr::SecToStr(const PdArgs& a)
     : BaseObject(a)
-    , ms_flag_(0)
-    , symbol_out_(0)
+    , ms_flag_(nullptr)
+    , symbol_out_(nullptr)
 {
     createOutlet();
 
     ms_flag_ = new FlagProperty("@ms");
     symbol_out_ = new FlagProperty("@symbol");
-    createProperty(ms_flag_);
-    createProperty(symbol_out_);
+    addProperty(ms_flag_);
+    addProperty(symbol_out_);
 }
 
 void SecToStr::onFloat(t_float v)
@@ -37,10 +36,10 @@ void SecToStr::onFloat(t_float v)
     if (symbol_out_->value())
         symbolTo(0, gensym(str.c_str()));
     else
-        dataTo(0, DataPtr(new DataTypeString(str)));
+        atomTo(0, new DataTypeString(str));
 }
 
-extern "C" void setup_conv0x2esec2str()
+void setup_conv_sec2str()
 {
     ObjectFactory<SecToStr> obj("conv.sec2str");
     obj.addAlias("sec->str");

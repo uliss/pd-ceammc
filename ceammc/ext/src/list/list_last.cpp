@@ -16,16 +16,25 @@ void ListLast::onList(const AtomList& lst)
         atomTo(0, *last);
 }
 
-void ListLast::onDataT(const DataTPtr<DataTypeMList>& dptr)
+void ListLast::onDataT(const MListAtom& ml)
 {
-    if (dptr->empty())
+    if (ml->empty())
         return;
 
-    atomTo(0, dptr->at(dptr->size() - 1).toAtom());
+    atomTo(0, ml->at(ml->size() - 1));
 }
 
 void setup_list_last()
 {
     ObjectFactory<ListLast> obj("list.last");
     obj.processData<DataTypeMList>();
+
+    obj.setDescription("output last list element");
+    obj.addAuthor("Serge Poltavsky");
+    obj.setKeywords({ "list", "last", "back" });
+    obj.setCategory("list");
+    obj.setSinceVersion(0, 1);
+
+    ListLast::setInletsInfo(obj.classPointer(), { "list or Mlist" });
+    ListLast::setOutletsInfo(obj.classPointer(), { "atom" });
 }

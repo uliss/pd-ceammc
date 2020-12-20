@@ -7,30 +7,27 @@
 
 using namespace ceammc;
 
+using MidiStreamAtom = DataAtom<DataTypeMidiStream>;
+
 class XMidiFile : public BaseObject {
-    DataTPtr<DataTypeMidiStream> midi_stream_;
-    t_canvas* cnv_;
+    MidiStreamAtom midi_stream_;
 
 public:
     XMidiFile(const PdArgs& a);
 
-    void onBang();
+    void onBang() override;
 
-    void m_clear(t_symbol*, const AtomList&);
-    void m_info(t_symbol*, const AtomList&);
-    void m_read(t_symbol*, const AtomList& l);
-    void m_write(t_symbol*, const AtomList& l);
+    void m_clear(t_symbol*, const AtomListView&);
+    void m_info(t_symbol*, const AtomListView&);
+    void m_read(t_symbol*, const AtomListView& l);
+    void m_write(t_symbol*, const AtomListView& l);
 
-    AtomList p_filename() const;
-    AtomList p_tempo() const;
-    AtomList p_tracks() const;
-    AtomList p_length_sec() const;
-    AtomList p_length_tick() const;
-    AtomList p_length_beat() const;
+    void onDataT(const MidiStreamAtom& data);
 
-    void onDataT(const DataTPtr<DataTypeMidiStream>& data);
+private:
+    bool open(const char* path);
 };
 
-extern "C" void setup_midi_file();
+void setup_midi_file();
 
 #endif // MIDI_FILE_H

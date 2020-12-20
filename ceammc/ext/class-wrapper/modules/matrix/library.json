@@ -43,7 +43,7 @@
                             "type": "Matrix"
                         }
                     ],
-                    "example": "\n[2 2 -1 -2 -3 -4(\n|\n[matrix.abs]\n|\n[ui.display @display_type=1]",
+                    "example": "\n[2 2 -1 -2 -3 -4(\n|\n[matrix.abs]\n|\n[ui.display @display_type 1]",
                     "keywords": [
                         "abs",
                         "magnitude"
@@ -240,7 +240,7 @@
                             "type": "Matrix"
                         }
                     ],
-                    "example": "\n[2 3(         [2 3(\n|             |\n[matrix.ones] [matrix.randu]\n|             |.\n[matrix.add  10]\n|\n[ui.display @display_type=1]",
+                    "example": "\n[2 3(         [2 3(\n|             |\n[matrix.ones] [matrix.randu]\n|             |.\n[matrix.add  10]\n|\n[ui.display @display_type 1]",
                     "overloads": {
                         "param_names": [
                             "m"
@@ -302,7 +302,7 @@
                     "doc_outlets": [
                         {
                             "info": "1 or 0",
-                            "type": "bool"
+                            "type": "int"
                         }
                     ],
                     "example": "\n[2 2(         [3 3(          [4(\n|             |              |\n[matrix.ones] [matrix.zeros] [matrix.id]\n|             |              |\n|             |              |\n|             |              |\n[matrix.all                  ]\n|\n[F]",
@@ -348,7 +348,7 @@
                             "type": "Matrix"
                         }
                     ],
-                    "example": "\n[2 2 1 2 3 4( [2 2 1 2 0 3( [2 2 1 0 0 1(\n|             |             |\n|             |             |\n|             |             |\n[matrix.all_col             ]\n|\n[ui.display @display_type=1]",
+                    "example": "\n[2 2 1 2 3 4( [2 2 1 2 0 3( [2 2 1 0 0 1(\n|             |             |\n|             |             |\n|             |             |\n[matrix.all_col             ]\n|\n[ui.display @display_type 1]",
                     "param_names": [],
                     "params": [],
                     "pd_aliases": [],
@@ -392,7 +392,7 @@
                             "type": "Matrix"
                         }
                     ],
-                    "example": "\n[2 2 1 2 3 4( [2 2 1 2 0 3( [2 2 1 0 0 1(\n|             |             |\n|             |             |\n|             |             |\n[matrix.all_row             ]\n|\n[ui.display @display_type=1]",
+                    "example": "\n[2 2 1 2 3 4( [2 2 1 2 0 3( [2 2 1 0 0 1(\n|             |             |\n|             |             |\n|             |             |\n[matrix.all_row             ]\n|\n[ui.display @display_type 1]",
                     "param_names": [],
                     "params": [],
                     "pd_aliases": [],
@@ -433,7 +433,7 @@
                     "doc_outlets": [
                         {
                             "info": "1 or 0",
-                            "type": "bool"
+                            "type": "int"
                         }
                     ],
                     "example": "\n[2 2(         [3 3(          [4(\n|             |              |\n[matrix.ones] [matrix.zeros] [matrix.id]\n|             |              |\n|             |              |\n|             |              |\n[matrix.any                  ]\n|\n[F]",
@@ -479,7 +479,7 @@
                             "type": "Matrix"
                         }
                     ],
-                    "example": "\n[2 2 1 2 3 4( [2 2 1 2 0 3( [2 2 1 0 0 0(\n|             |             |\n|             |             |\n|             |             |\n[matrix.any_col             ]\n|\n[ui.display @display_type=1]",
+                    "example": "\n[2 2 1 2 3 4( [2 2 1 2 0 3( [2 2 1 0 0 0(\n|             |             |\n|             |             |\n|             |             |\n[matrix.any_col             ]\n|\n[ui.display @display_type 1]",
                     "param_names": [],
                     "params": [],
                     "pd_aliases": [],
@@ -523,7 +523,7 @@
                             "type": "Matrix"
                         }
                     ],
-                    "example": "\n[2 2 1 2 3 4( [2 2 1 2 0 3( [2 2 1 0 0 0(\n|             |             |\n|             |             |\n|             |             |\n[matrix.any_row             ]\n|\n[ui.display @display_type=1]",
+                    "example": "\n[2 2 1 2 3 4( [2 2 1 2 0 3( [2 2 1 0 0 0(\n|             |             |\n|             |             |\n|             |             |\n[matrix.any_row             ]\n|\n[ui.display @display_type 1]",
                     "param_names": [],
                     "params": [],
                     "pd_aliases": [],
@@ -847,7 +847,7 @@
                             "type": "Matrix"
                         }
                     ],
-                    "example": "\n[3 3(\n|\n[matrix.randn]\n|\n[matrix.clip 0 1]\n|\n[ui.display @display_type=1]",
+                    "example": "\n[3 3(\n|\n[matrix.randn]\n|\n[matrix.clip 0 1]\n|\n[ui.display @display_type 1]",
                     "keywords": [
                         "clip",
                         "min",
@@ -909,7 +909,7 @@
                             "type": "Matrix"
                         }
                     ],
-                    "example": "\n[B] [1 2 3 4(\n|   |\n[matrix.col 0.2345 1.2345 3.1415]\n|       |\n[print] [ui.display @display_type=1]",
+                    "example": "\n[B] [1 2 3 4(\n|   |\n[matrix.col 0.2345 1.2345 3.1415]\n|       |\n[print] [ui.display @display_type 1]",
                     "param_names": [
                         "v"
                     ],
@@ -969,7 +969,7 @@
                             "type": "Matrix"
                         }
                     ],
-                    "example": "\n[2 3 1 2 3 4 5 6(  [F]\n|                  |.\n[matrix.col_at 1    ]\n|\n[ui.display @display_type=1]",
+                    "example": "\n[2 3 1 2 3 4 5 6(  [F]\n|                  |.\n[matrix.col_at 1    ]\n|\n[ui.display @display_type 1]",
                     "keywords": [
                         "row",
                         "col"
@@ -1233,7 +1233,7 @@
                             "type": "Matrix"
                         }
                     ],
-                    "example": "\n[3 3 1 2 3 4 5 6 7 8 9(\n|\n[list->matrix] [F]\n|              |.\n[matrix.diag   0]\n|\n[ui.display @display_type=1]",
+                    "example": "\n[3 3 1 2 3 4 5 6 7 8 9(\n|\n[list->matrix] [F]\n|              |.\n[matrix.diag   0]\n|\n[ui.display @display_type 1]",
                     "keywords": [
                         "diagonal"
                     ],
@@ -1301,7 +1301,7 @@
                             "type": "Matrix"
                         }
                     ],
-                    "example": "\n[2 4(\n|\n[matrix.ones]  [2 4 1 2 3 4 5 6 7 8(\n|              |.\n[matrix.div    4]\n|\n[ui.display @display_type=1]",
+                    "example": "\n[2 4(\n|\n[matrix.ones]  [2 4 1 2 3 4 5 6 7 8(\n|              |.\n[matrix.div    4]\n|\n[ui.display @display_type 1]",
                     "overloads": {
                         "param_names": [
                             "v"
@@ -1377,7 +1377,7 @@
                             "type": "Matrix"
                         }
                     ],
-                    "example": "\n[2 2 1 2 3 4(        [F]   [2 2 1 4 3 6(\n|                    |.    |.\n[matrix.== Matrix 2 2 1 2 3 4]\n|\n[ui.display @display_type=1]",
+                    "example": "\n[2 2 1 2 3 4(        [F]   [2 2 1 4 3 6(\n|                    |.    |.\n[matrix.== Matrix 2 2 1 2 3 4]\n|\n[ui.display @display_type 1]",
                     "overloads": {
                         "param_names": [
                             "b"
@@ -1443,7 +1443,7 @@
                             "type": "Matrix"
                         }
                     ],
-                    "example": "\n[2 2 1 2 3 4(\n|\n[matrix.exp]\n|\n[ui.display @display_type=1]",
+                    "example": "\n[2 2 1 2 3 4(\n|\n[matrix.exp]\n|\n[ui.display @display_type 1]",
                     "keywords": [
                         "exponent"
                     ],
@@ -1486,7 +1486,7 @@
                             "type": "Matrix"
                         }
                     ],
-                    "example": "\n[2 2 0 1 2 3(\n|\n[matrix.exp10]\n|\n[ui.display @display_type=1]",
+                    "example": "\n[2 2 0 1 2 3(\n|\n[matrix.exp10]\n|\n[ui.display @display_type 1]",
                     "keywords": [
                         "exponent"
                     ],
@@ -1529,7 +1529,7 @@
                             "type": "Matrix"
                         }
                     ],
-                    "example": "\n[2 2 1 2 3 4(\n|\n[matrix.exp2]\n|\n[ui.display @display_type=1]",
+                    "example": "\n[2 2 1 2 3 4(\n|\n[matrix.exp2]\n|\n[ui.display @display_type 1]",
                     "keywords": [
                         "exponent"
                     ],
@@ -1579,7 +1579,7 @@
                             "type": "Matrix"
                         }
                     ],
-                    "example": "\n[2 4(\n|\n[matrix.randu]\n|\n[matrix.fill 0.1]\n|\n[ui.display @display_type=1]",
+                    "example": "\n[2 4(\n|\n[matrix.randu]\n|\n[matrix.fill 0.1]\n|\n[ui.display @display_type 1]",
                     "keywords": [
                         "fill"
                     ],
@@ -1631,7 +1631,7 @@
                             "type": "Matrix"
                         }
                     ],
-                    "example": "\n[2 2 10 20 30 40(\n|\n[matrix.from_list]\n|\n[ui.display @display_type=1]",
+                    "example": "\n[2 2 10 20 30 40(\n|\n[matrix.from_list]\n|\n[ui.display @display_type 1]",
                     "param_names": [
                         "v"
                     ],
@@ -1697,7 +1697,7 @@
                             "type": "Matrix"
                         }
                     ],
-                    "example": "\n[B] [2 2 4(      [F]\n|   |            |..\n[matrix.full 2 3 -5]\n|\n[ui.display @display_type=1]",
+                    "example": "\n[B] [2 2 4(      [F]\n|   |            |..\n[matrix.full 2 3 -5]\n|\n[ui.display @display_type 1]",
                     "keywords": [
                         "fill"
                     ],
@@ -1784,7 +1784,7 @@
                             "type": "Matrix"
                         }
                     ],
-                    "example": "\n[2 2 1 2 3 4(             [F]\n|                         |.\n[matrix.>= Matrix 2 2 4 3 2 1]\n|\n[ui.display @display_type=1]",
+                    "example": "\n[2 2 1 2 3 4(             [F]\n|                         |.\n[matrix.>= Matrix 2 2 4 3 2 1]\n|\n[ui.display @display_type 1]",
                     "overloads": {
                         "param_names": [
                             "v"
@@ -1864,7 +1864,7 @@
                             "type": "Matrix"
                         }
                     ],
-                    "example": "\n[2 2 1 2 3 4(             [F]\n|                         |.\n[matrix.> Matrix 2 2 4 3 2 1]\n|\n[ui.display @display_type=1]",
+                    "example": "\n[2 2 1 2 3 4(             [F]\n|                         |.\n[matrix.> Matrix 2 2 4 3 2 1]\n|\n[ui.display @display_type 1]",
                     "overloads": {
                         "param_names": [
                             "v"
@@ -1984,7 +1984,7 @@
                             "type": "Matrix"
                         }
                     ],
-                    "example": "\n[B] [3( [F]\n|   |   |\n[matrix.identity 2]\n|\n[ui.display @display_type=1]",
+                    "example": "\n[B] [3( [F]\n|   |   |\n[matrix.identity 2]\n|\n[ui.display @display_type 1]",
                     "keywords": [
                         "fill",
                         "indentity"
@@ -2063,7 +2063,7 @@
                             "type": "Matrix"
                         }
                     ],
-                    "example": "\n[3 3(                [B]\n|                    |\n[matrix.zeros] [F]   [matrix.col 10 20 30]\n|              |.    |..\n[matrix.insert_col    1 3 1 2 4 6]\n|\n[ui.display @display_type=1]",
+                    "example": "\n[3 3(                [B]\n|                    |\n[matrix.zeros] [F]   [matrix.col 10 20 30]\n|              |.    |..\n[matrix.insert_col    1 3 1 2 4 6]\n|\n[ui.display @display_type 1]",
                     "keywords": [
                         "insert"
                     ],
@@ -2145,7 +2145,7 @@
                             "type": "Matrix"
                         }
                     ],
-                    "example": "\n[3 3(                  [B]\n|                      |\n[matrix.zeros]  [F]    [matrix.row 10 20 30]\n|               |.     |..\n[matrix.insert_row     1 1 3 1 2 3]\n|\n[ui.display @display_type=1]",
+                    "example": "\n[3 3(                  [B]\n|                      |\n[matrix.zeros]  [F]    [matrix.row 10 20 30]\n|               |.     |..\n[matrix.insert_row     1 1 3 1 2 3]\n|\n[ui.display @display_type 1]",
                     "keywords": [
                         "insert"
                     ],
@@ -2209,7 +2209,7 @@
                             "type": "Matrix"
                         }
                     ],
-                    "example": "\n[2 2 1 2 3 4(\n|\n[matrix.inverse]\n|             |\n|             [ui.display @display_type=1]\n|\n[matrix.inverse]\n|\n[ui.display @display_type=1]",
+                    "example": "\n[2 2 1 2 3 4(\n|\n[matrix.inverse]\n|             |\n|             [ui.display @display_type 1]\n|\n[matrix.inverse]\n|\n[ui.display @display_type 1]",
                     "keywords": [
                         "inverse",
                         "solve"
@@ -2270,7 +2270,7 @@
                             "type": "Matrix"
                         }
                     ],
-                    "example": "\n[2 2 1 2 3 4(              [F]\n|                          |.\n[matrix.<= Matrix 2 2 4 3 2 1]\n|\n[ui.display @display_type=1]",
+                    "example": "\n[2 2 1 2 3 4(              [F]\n|                          |.\n[matrix.<= Matrix 2 2 4 3 2 1]\n|\n[ui.display @display_type 1]",
                     "overloads": {
                         "param_names": [
                             "v"
@@ -2345,7 +2345,7 @@
                             "type": "Matrix"
                         }
                     ],
-                    "example": "\n[B] [0 10 5(\n|   |\n[matrix.linspace 1 2 3]\n|\n[ui.display @display_type=1]",
+                    "example": "\n[B] [0 10 5(\n|   |\n[matrix.linspace 1 2 3]\n|\n[ui.display @display_type 1]",
                     "keywords": [
                         "linspace"
                     ],
@@ -2412,7 +2412,7 @@
                             "type": "Matrix"
                         }
                     ],
-                    "example": "\n[2 4(\n|\n[matrix.randu]         [symbol test_matrix2.csv(\n|                      |.\n[matrix.save test_matrix.csv]\n|\n[ui.display @display_type=1]\n\n\n\n\n\n[test_matrix.csv(      [test_matrix2.csv(\n|                      |\n[symbol                ]\n|\n[matrix.load]\n|\n[ui.display @display_type=1]",
+                    "example": "\n[2 4(\n|\n[matrix.randu]         [symbol test_matrix2.csv(\n|                      |.\n[matrix.save test_matrix.csv]\n|\n[ui.display @display_type 1]\n\n\n\n\n\n[test_matrix.csv(      [test_matrix2.csv(\n|                      |\n[symbol                ]\n|\n[matrix.load]\n|\n[ui.display @display_type 1]",
                     "param_names": [
                         "fname"
                     ],
@@ -2475,7 +2475,7 @@
                             "type": "Matrix"
                         }
                     ],
-                    "example": "\n[B] [1 3 5( [1 3 20(\n|   |       |\n[matrix.logspace 1 2 10]\n|\n[ui.display @display_type=1]",
+                    "example": "\n[B] [1 3 5( [1 3 20(\n|   |       |\n[matrix.logspace 1 2 10]\n|\n[ui.display @display_type 1]",
                     "keywords": [
                         "logspace"
                     ],
@@ -2561,7 +2561,7 @@
                             "type": "Matrix"
                         }
                     ],
-                    "example": "\n[2 2 1 2 3 4(         [F]\n|                     |.\n[matrix.< Matrix 2 2 4 3 2 1]\n|\n[ui.display @display_type=1]",
+                    "example": "\n[2 2 1 2 3 4(         [F]\n|                     |.\n[matrix.< Matrix 2 2 4 3 2 1]\n|\n[ui.display @display_type 1]",
                     "overloads": {
                         "param_names": [
                             "v"
@@ -2637,7 +2637,7 @@
                             "type": "Matrix"
                         }
                     ],
-                    "example": "\n[2 2(              [2 4(\n|                  |\n[matrix.fill 2]    [matrix.randu] [2 3 1 2 3 4 5 6(\n|                  |.             |.\n[matrix.dot Matrix       2 2 1 0 0 1]\n|\n[ui.display @display_type=1]",
+                    "example": "\n[2 2(              [2 4(\n|                  |\n[matrix.fill 2]    [matrix.randu] [2 3 1 2 3 4 5 6(\n|                  |.             |.\n[matrix.dot Matrix       2 2 1 0 0 1]\n|\n[ui.display @display_type 1]",
                     "param_names": [
                         "m"
                     ],
@@ -2779,7 +2779,7 @@
                             "type": "Matrix"
                         }
                     ],
-                    "example": "\n[3 4(\n|\n[matrix.randu]\n|\n[matrix.mean_col]\n|\n[ui.display @display_type=1]",
+                    "example": "\n[3 4(\n|\n[matrix.randu]\n|\n[matrix.mean_col]\n|\n[ui.display @display_type 1]",
                     "param_names": [],
                     "params": [],
                     "pd_aliases": [],
@@ -2823,7 +2823,7 @@
                             "type": "Matrix"
                         }
                     ],
-                    "example": "\n[3 4(\n|\n[matrix.randu]\n|\n[matrix.mean_row]\n|\n[ui.display @display_type=1]",
+                    "example": "\n[3 4(\n|\n[matrix.randu]\n|\n[matrix.mean_row]\n|\n[ui.display @display_type 1]",
                     "param_names": [],
                     "params": [],
                     "pd_aliases": [],
@@ -2911,7 +2911,7 @@
                             "type": "Matrix"
                         }
                     ],
-                    "example": "\n[3 3 1 2 3 4 5 6 7 8 9(\n|\n[matrix.median_col]\n|\n[ui.display @display_type=1]",
+                    "example": "\n[3 3 1 2 3 4 5 6 7 8 9(\n|\n[matrix.median_col]\n|\n[ui.display @display_type 1]",
                     "param_names": [],
                     "params": [],
                     "pd_aliases": [],
@@ -2955,7 +2955,7 @@
                             "type": "Matrix"
                         }
                     ],
-                    "example": "\n[3 3 1 2 3 4 5 6 7 8 9(\n|\n[matrix.median_row]\n|\n[ui.display @display_type=1]",
+                    "example": "\n[3 3 1 2 3 4 5 6 7 8 9(\n|\n[matrix.median_row]\n|\n[ui.display @display_type 1]",
                     "param_names": [],
                     "params": [],
                     "pd_aliases": [],
@@ -3057,7 +3057,7 @@
                             "type": "Matrix"
                         }
                     ],
-                    "example": "\n[2 2 1 2 3 4(   [2 2 4 3 2 1(\n|               |.\n[matrix.mul    10]\n|\n[ui.display @display_type=1]",
+                    "example": "\n[2 2 1 2 3 4(   [2 2 4 3 2 1(\n|               |.\n[matrix.mul    10]\n|\n[ui.display @display_type 1]",
                     "overloads": {
                         "param_names": [
                             "v"
@@ -3180,7 +3180,7 @@
                             "type": "Matrix"
                         }
                     ],
-                    "example": "\n[2 2 1 2 3 4(         [F]   [2 2 1 4 3 6(\n|                     |.    |.\n[matrix.!= Matrix 2 2 1 2 3 4]\n|\n[ui.display @display_type=1]",
+                    "example": "\n[2 2 1 2 3 4(         [F]   [2 2 1 4 3 6(\n|                     |.    |.\n[matrix.!= Matrix 2 2 1 2 3 4]\n|\n[ui.display @display_type 1]",
                     "overloads": {
                         "param_names": [
                             "b"
@@ -3295,7 +3295,7 @@
                             "type": "Matrix"
                         }
                     ],
-                    "example": "\n[B] [F]  [2 2(  [F]\n|   |    |      |.\n[matrix.ones  2 3]\n|\n[ui.display @display_type=1]",
+                    "example": "\n[B] [F]  [2 2(  [F]\n|   |    |      |.\n[matrix.ones  2 3]\n|\n[ui.display @display_type 1]",
                     "keywords": [
                         "fill",
                         "ones"
@@ -3363,7 +3363,7 @@
                             "type": "Matrix"
                         }
                     ],
-                    "example": "\n[3 3(\n|\n[matrix.randu] [2 2(\n|              |\n[matrix.ones_like]\n|\n[ui.display @display_type=1]",
+                    "example": "\n[3 3(\n|\n[matrix.randu] [2 2(\n|              |\n[matrix.ones_like]\n|\n[ui.display @display_type 1]",
                     "keywords": [
                         "fill",
                         "ones"
@@ -3413,7 +3413,7 @@
                             "type": "Matrix"
                         }
                     ],
-                    "example": "\n[B] [3 3( [F]  [F]\n|   |     |    |.\n[matrix.randn 2 2]\n|\n[ui.display @display_type=1]",
+                    "example": "\n[B] [3 3( [F]  [F]\n|   |     |    |.\n[matrix.randn 2 2]\n|\n[ui.display @display_type 1]",
                     "keywords": [
                         "random",
                         "generate",
@@ -3483,7 +3483,7 @@
                             "type": "Matrix"
                         }
                     ],
-                    "example": "\n[B] [3 3( [F]  [F]\n|   |     |    |.\n[matrix.randu 2 2]\n|\n[ui.display @display_type=1]",
+                    "example": "\n[B] [3 3( [F]  [F]\n|   |     |    |.\n[matrix.randu 2 2]\n|\n[ui.display @display_type 1]",
                     "keywords": [
                         "random",
                         "generate"
@@ -3593,7 +3593,7 @@
                             "type": "Matrix"
                         }
                     ],
-                    "example": "\n[3 3 1 2 3 4 5 6 7 8 9(\n|\n[matrix.range_col]\n|\n[ui.display @display_type=1]",
+                    "example": "\n[3 3 1 2 3 4 5 6 7 8 9(\n|\n[matrix.range_col]\n|\n[ui.display @display_type 1]",
                     "param_names": [],
                     "params": [],
                     "pd_aliases": [],
@@ -3637,7 +3637,7 @@
                             "type": "Matrix"
                         }
                     ],
-                    "example": "\n[3 3 1 2 3 4 5 6 7 8 9(\n|\n[matrix.range_row]\n|\n[ui.display @display_type=1]",
+                    "example": "\n[3 3 1 2 3 4 5 6 7 8 9(\n|\n[matrix.range_row]\n|\n[ui.display @display_type 1]",
                     "param_names": [],
                     "params": [],
                     "pd_aliases": [],
@@ -3681,7 +3681,7 @@
                             "type": "int"
                         }
                     ],
-                    "example": "\n[2 2 1 1 0 1( [2 2 0 1 0 0( [2 2 0 0 0 0(\n|             |             |\n|             |             |\n|             |             |\n[matrix.new                 ]\n|             |\n[matrix.rank] [ui.display @display_type=1]\n|\n[F]",
+                    "example": "\n[2 2 1 1 0 1( [2 2 0 1 0 0( [2 2 0 0 0 0(\n|             |             |\n|             |             |\n|             |             |\n[matrix.new                 ]\n|             |\n[matrix.rank] [ui.display @display_type 1]\n|\n[F]",
                     "param_names": [],
                     "params": [],
                     "pd_aliases": [],
@@ -3728,7 +3728,7 @@
                             "type": "Matrix"
                         }
                     ],
-                    "example": "\n[3 3 1 2 3 4 5 6 7 8 9(  [F]\n|                        |.\n[matrix.remove_col        0]\n|\n[ui.display @display_type=1]",
+                    "example": "\n[3 3 1 2 3 4 5 6 7 8 9(  [F]\n|                        |.\n[matrix.remove_col        0]\n|\n[ui.display @display_type 1]",
                     "keywords": [
                         "remove"
                     ],
@@ -3792,7 +3792,7 @@
                             "type": "Matrix"
                         }
                     ],
-                    "example": "\n[3 3 1 2 3 4 5 6 7 8 9(  [F]\n|                        |.\n[matrix.remove_row        0]\n|\n[ui.display @display_type=1]",
+                    "example": "\n[3 3 1 2 3 4 5 6 7 8 9(  [F]\n|                        |.\n[matrix.remove_row        0]\n|\n[ui.display @display_type 1]",
                     "keywords": [
                         "remove"
                     ],
@@ -3863,7 +3863,7 @@
                             "type": "Matrix"
                         }
                     ],
-                    "example": "\n[3 3(\n|\n[matrix.identity] [F]   [F]\n|                 |.    |..\n[matrix.replace      0  0.1]\n|\n[ui.display @display_type=1]",
+                    "example": "\n[3 3(\n|\n[matrix.identity] [F]   [F]\n|                 |.    |..\n[matrix.replace      0  0.1]\n|\n[ui.display @display_type 1]",
                     "keywords": [
                         "replace"
                     ],
@@ -3937,7 +3937,7 @@
                             "type": "Matrix"
                         }
                     ],
-                    "example": "\n[2 3 1 2 3 4 5 6(\n|\n[list->matrix] [F]   [F]\n|              |.    |..\n[matrix.reshape     3 2]\n|\n[ui.display @display_type=1]",
+                    "example": "\n[2 3 1 2 3 4 5 6(\n|\n[list->matrix] [F]   [F]\n|              |.    |..\n[matrix.reshape     3 2]\n|\n[ui.display @display_type 1]",
                     "keywords": [
                         "reshape"
                     ],
@@ -4011,7 +4011,7 @@
                             "type": "Matrix"
                         }
                     ],
-                    "example": "\n[2 2 1 2 3 4(\n|\n[list->matrix] [F]  [F]\n|              |.   |..\n[matrix.resize       3 3]\n|\n[ui.display @display_type=1]",
+                    "example": "\n[2 2 1 2 3 4(\n|\n[list->matrix] [F]  [F]\n|              |.   |..\n[matrix.resize       3 3]\n|\n[ui.display @display_type 1]",
                     "keywords": [
                         "size"
                     ],
@@ -4070,7 +4070,7 @@
                             "type": "Matrix"
                         }
                     ],
-                    "example": "\n[B] [1 2 3 4(\n|   |\n[matrix.row 2 2 2]\n|       |\n[print] [ui.display @display_type=1]",
+                    "example": "\n[B] [1 2 3 4(\n|   |\n[matrix.row 2 2 2]\n|       |\n[print] [ui.display @display_type 1]",
                     "param_names": [
                         "v"
                     ],
@@ -4130,7 +4130,7 @@
                             "type": "Matrix"
                         }
                     ],
-                    "example": "\n[3 3 1 2 3 4 5 6 7 8 9(  [F]\n|                        |.\n[matrix.row_at 1           ]\n|\n[ui.display @display_type=1]",
+                    "example": "\n[3 3 1 2 3 4 5 6 7 8 9(  [F]\n|                        |.\n[matrix.row_at 1           ]\n|\n[ui.display @display_type 1]",
                     "keywords": [
                         "row",
                         "col"
@@ -4195,7 +4195,7 @@
                             "type": "Matrix"
                         }
                     ],
-                    "example": "\n[2 4(\n|\n[matrix.randu]         [symbol test_matrix2.csv(\n|                      |.\n[matrix.save test_matrix.csv]\n|\n[ui.display @display_type=1]\n\n\n\n\n\n[test_matrix.csv(      [test_matrix2.csv(\n|                      |\n|                      |\n[symbol                ]\n|\n[matrix.load]\n|\n[ui.display @display_type=1]",
+                    "example": "\n[2 4(\n|\n[matrix.randu]         [symbol test_matrix2.csv(\n|                      |.\n[matrix.save test_matrix.csv]\n|\n[ui.display @display_type 1]\n\n\n\n\n\n[test_matrix.csv(      [test_matrix2.csv(\n|                      |\n|                      |\n[symbol                ]\n|\n[matrix.load]\n|\n[ui.display @display_type 1]",
                     "param_names": [
                         "fname"
                     ],
@@ -4255,7 +4255,7 @@
                             "type": "Matrix"
                         }
                     ],
-                    "example": "\n[3 3 1 2 3 4 5 6 7 8 9(\n|\n[list->matrix] [F]\n|              |.\n[matrix.shift_col 1]\n|\n[ui.display @display_type=1]",
+                    "example": "\n[3 3 1 2 3 4 5 6 7 8 9(\n|\n[list->matrix] [F]\n|              |.\n[matrix.shift_col 1]\n|\n[ui.display @display_type 1]",
                     "keywords": [
                         "shift"
                     ],
@@ -4318,7 +4318,7 @@
                             "type": "Matrix"
                         }
                     ],
-                    "example": "\n[3 3 1 2 3 4 5 6 7 8 9(\n|\n[list->matrix] [F]\n|              |.\n[matrix.shift_row 1]\n|\n[ui.display @display_type=1]",
+                    "example": "\n[3 3 1 2 3 4 5 6 7 8 9(\n|\n[list->matrix] [F]\n|              |.\n[matrix.shift_row 1]\n|\n[ui.display @display_type 1]",
                     "keywords": [
                         "shift"
                     ],
@@ -4376,7 +4376,7 @@
                             "type": "Matrix"
                         }
                     ],
-                    "example": "\n[2 4(\n|\n[matrix.randn]\n|\n[matrix.sign]\n|\n[ui.display @display_type=1]",
+                    "example": "\n[2 4(\n|\n[matrix.randn]\n|\n[matrix.sign]\n|\n[ui.display @display_type 1]",
                     "keywords": [
                         "exponent"
                     ],
@@ -4510,10 +4510,10 @@
                     "doc_outlets": [
                         {
                             "info": "list (rows, columns)",
-                            "type": "std::vector<int>"
+                            "type": "list"
                         }
                     ],
-                    "example": "\n[bang( [2 2 1 2 3 4(\n|      |\n[matrix.new 10 16]\n|\n[matrix.size]\n|\n[ui.display @display_type=1]",
+                    "example": "\n[bang( [2 2 1 2 3 4(\n|      |\n[matrix.new 10 16]\n|\n[matrix.size]\n|\n[ui.display @display_type 1]",
                     "keywords": [
                         "size",
                         "dimensions"
@@ -4572,7 +4572,7 @@
                             "type": "Matrix"
                         }
                     ],
-                    "example": "\n[2 2 1 2 3 4(\n|\n[matrix.solve 2 2 1 2 3 4]\n|\n[ui.display @display_type=1]",
+                    "example": "\n[2 2 1 2 3 4(\n|\n[matrix.solve 2 2 1 2 3 4]\n|\n[ui.display @display_type 1]",
                     "param_names": [
                         "b"
                     ],
@@ -4691,7 +4691,7 @@
                             "type": "Matrix"
                         }
                     ],
-                    "example": "\n[3 3 3 3 3 3 4 5 3 2 6(\n|\n[matrix.stddev_col]\n|\n[ui.display @display_type=1]",
+                    "example": "\n[3 3 3 3 3 3 4 5 3 2 6(\n|\n[matrix.stddev_col]\n|\n[ui.display @display_type 1]",
                     "param_names": [
                         "norm_type"
                     ],
@@ -4753,7 +4753,7 @@
                             "type": "Matrix"
                         }
                     ],
-                    "example": "\n[3 3 3 3 3 3 4 5 3 2 6(\n|\n[matrix.stddev_row]\n|\n[ui.display @display_type=1]",
+                    "example": "\n[3 3 3 3 3 3 4 5 3 2 6(\n|\n[matrix.stddev_row]\n|\n[ui.display @display_type 1]",
                     "param_names": [
                         "norm_type"
                     ],
@@ -4823,7 +4823,7 @@
                             "type": "Matrix"
                         }
                     ],
-                    "example": "\n[2 4(         [2 4(\n|             |\n[matrix.ones] [matrix.randu]\n|             |.\n[matrix.add   1]\n|\n[ui.display @display_type=1]",
+                    "example": "\n[2 4(         [2 4(\n|             |\n[matrix.ones] [matrix.randu]\n|             |.\n[matrix.add   1]\n|\n[ui.display @display_type 1]",
                     "overloads": {
                         "param_names": [
                             "v"
@@ -4902,7 +4902,7 @@
                             "type": "Matrix"
                         }
                     ],
-                    "example": "\n[3 3 1 2 3 4 5 6 7 8 9(\n|\n[matrix.swap_cols 0 2]\n|\n[ui.display @display_type=1]",
+                    "example": "\n[3 3 1 2 3 4 5 6 7 8 9(\n|\n[matrix.swap_cols 0 2]\n|\n[ui.display @display_type 1]",
                     "keywords": [
                         "swap"
                     ],
@@ -4981,7 +4981,7 @@
                             "type": "Matrix"
                         }
                     ],
-                    "example": "\n[3 3 1 2 3 4 5 6 7 8 9(\n|\n[matrix.swap_rows 1 2]\n|\n[ui.display @display_type=1]",
+                    "example": "\n[3 3 1 2 3 4 5 6 7 8 9(\n|\n[matrix.swap_rows 1 2]\n|\n[ui.display @display_type 1]",
                     "keywords": [
                         "swap"
                     ],
@@ -5193,7 +5193,7 @@
                             "type": "Matrix"
                         }
                     ],
-                    "example": "\n[3 3 1 2 3 4 5 6 7 8 9(\n|\n[matrix.transpose]\n|\n[ui.display @display_type=1]",
+                    "example": "\n[3 3 1 2 3 4 5 6 7 8 9(\n|\n[matrix.transpose]\n|\n[ui.display @display_type 1]",
                     "keywords": [
                         "transpose"
                     ],
@@ -5238,7 +5238,7 @@
                             "type": "Matrix"
                         }
                     ],
-                    "example": "\n[2 2 10 50 100 150(      [2 2 10 50 100 150(\n|                        |\n[matrix.trunc_exp]       [matrix.exp]\n|                        |\n[ui.display @display_type=1]",
+                    "example": "\n[2 2 10 50 100 150(      [2 2 10 50 100 150(\n|                        |\n[matrix.trunc_exp]       [matrix.exp]\n|                        |\n[ui.display @display_type 1]",
                     "keywords": [
                         "exponent"
                     ],
@@ -5288,7 +5288,7 @@
                             "type": "Matrix"
                         }
                     ],
-                    "example": "\n[2 2 1 2 3 4(  [T]\n|              |.\n[matrix.vectorise 1]\n|\n[ui.display @display_type=1]",
+                    "example": "\n[2 2 1 2 3 4(  [T]\n|              |.\n[matrix.vectorise 1]\n|\n[ui.display @display_type 1]",
                     "param_names": [
                         "dim"
                     ],
@@ -5342,7 +5342,7 @@
                             "type": "Matrix"
                         }
                     ],
-                    "example": "\n[B] [F]  [2 2(  [F]\n|   |    |      |.\n[matrix.zeros 2 3]\n|\n[ui.display @display_type=1]",
+                    "example": "\n[B] [F]  [2 2(  [F]\n|   |    |      |.\n[matrix.zeros 2 3]\n|\n[ui.display @display_type 1]",
                     "keywords": [
                         "fill",
                         "zeros"
@@ -5409,7 +5409,7 @@
                             "type": "Matrix"
                         }
                     ],
-                    "example": "\n[3 3(\n|\n[matrix.randu] [2 2(\n|              |\n[matrix.zeros_like]\n|\n[ui.display @display_type=1]",
+                    "example": "\n[3 3(\n|\n[matrix.randu] [2 2(\n|              |\n[matrix.zeros_like]\n|\n[ui.display @display_type 1]",
                     "keywords": [
                         "fill",
                         "zeros"
@@ -5444,7 +5444,7 @@
                         "type": "int"
                     }
                 ],
-                "example": "\n[B] [3 4 10 20 30(\n|   |\n|   |     [set 3 2 6 5 4 3 2 1(\n|   |     |\n[matrix.new 2 2 1 2 3 4]\n|  |\n|  [set $1( [B]\n|  |        |\n|  [matrix.new]\n|  |\n[ui.display @display_type=1]",
+                "example": "\n[B] [3 4 10 20 30(\n|   |\n|   |     [set 3 2 6 5 4 3 2 1(\n|   |     |\n[matrix.new 2 2 1 2 3 4]\n|  |\n|  [set $1( [B]\n|  |        |\n|  [matrix.new]\n|  |\n[ui.display @display_type 1]",
                 "inlets": [
                     [
                         {

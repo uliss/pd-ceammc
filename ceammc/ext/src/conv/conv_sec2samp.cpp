@@ -30,7 +30,7 @@ void SecondToSample::onList(const AtomList& lst)
     listTo(0, lst * sys_getsr());
 }
 
-extern "C" void setup_conv0x2esec2samp()
+void setup_conv_sec2samp()
 {
     ObjectFactory<SecondToSample> obj("conv.sec2samp");
     obj.addAlias("sec->samp");

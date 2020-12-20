@@ -59,7 +59,7 @@ void BaseProp::onBang()
         if (prop->getFloat(f))
             floatTo(0, f);
     } else if (prop->isInt()) {
-        long i = 0;
+        int i = 0;
         if (prop->getInt(i))
             floatTo(0, i);
     } else if (prop->isBool()) {
@@ -147,7 +147,7 @@ void BaseProp::onList(const AtomList& l)
         OBJ_ERR << "can't set property to " << l;
 }
 
-void BaseProp::m_default(t_symbol*, const AtomList&)
+void BaseProp::m_default(t_symbol*, const AtomListView&)
 {
     DataTypeProperty* prop = PropertyStorage::storage().acquire(full_name_);
 
@@ -174,7 +174,7 @@ void BaseProp::dump() const
 
     OBJ_DBG << "name:      " << name_->s_name << "\n"
             << "full name: " << full_name_ << "\n"
-            << "type:      " << prop->propertyStrType() << "\n"
+            << "type:      " << to_string(prop->propertyType()) << "\n"
             << "value:     " << prop->propertyStrValue();
 
     if (prop->hasMinValue())
@@ -194,4 +194,10 @@ void setup_base_prop()
 
     ObjectFactory<BaseProp> obj("prop");
     obj.addMethod("default", &BaseProp::m_default);
+
+    obj.setDescription("get/set named property value for subpatch or abstraction");
+    obj.addAuthor("Serge Poltavsky");
+    obj.setKeywords({ "property" });
+    obj.setCategory("property");
+    obj.setSinceVersion(0, 7);
 }

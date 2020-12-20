@@ -33,7 +33,6 @@
 #include "wrapper_tuple.h"
 
 #include "ceammc_atomlist.h"
-#include "ceammc_dataatom.h"
 #include "ceammc_log.h"
 #include "ceammc_object.h"
 
@@ -105,7 +104,7 @@ public:
     using MethodArgs = typename MethodTraits::arguments;
     using MethodReturnType = typename MethodTraits::return_type;
     using DataType = AbstractDataWrapper<T>;
-    using TypedDataPtr = DataTPtr<DataType>;
+    using TypedDataPtr = DataAtom<DataType>;
     using InletArgSetter = InletArgFromAtomList<MethodTraits::nargs, MethodArgs>;
     using MethodCall = InvocationClassMethod<typename MethodTraits::return_type, T, Method, MethodArgs>;
     using MethodOverloadedArgs = typename MethodArgList<MethodOverloadList>::type;
@@ -117,6 +116,7 @@ private:
     MethodOverloadList overloads_;
     MethodOverloadedArgs overload_args_;
     int method_call_idx_;
+    ListProperty* pd_args_;
     static const int MAIN_METHOD_CALL = -1;
 
 public:
@@ -125,37 +125,65 @@ public:
         , main_method_(std::get<0>(methods))
         , overloads_(tuple_utils::get_tail(methods))
         , method_call_idx_(MAIN_METHOD_CALL)
+        , pd_args_(nullptr)
     {
-        initXlets();
-        initArguments();
+        for (size_t i = 0; i < MethodTraits::nargs; i++)
+            createInlet();
+
+        for (size_t i = 0; i < MethodTraits::nouts; i++)
+            createOutlet();
+
+        pd_args_ = new ListProperty("@args");
+        pd_args_->setArgIndex(0);
+        pd_args_->setSuccessFn([this](Property* p) { pd_args_->setValue(parseDataList(p->get()).result()); });
+        addProperty(pd_args_);
+    }
+
+    void initDone() final
+    {
+        // first try to find appropriate overloaded method and if found, store arguments
+        int idx = tuple_utils::find_first(overload_args_, ArgumentMatchAndSet(pd_args_->get()));
+
+        if (idx == MAIN_METHOD_CALL) {
+            // unexpected arguments warning
+            if (MethodTraits::nargs == 0 && pd_args_->value().size() > 0) {
+                OBJ_ERR << "no arguments expected: " << pd_args_->value();
+                return;
+            }
+
+            try {
+                atomListToArguments<Method>(pd_args_->value(), main_method_args_);
+            } catch (std::exception& e) {
+                OBJ_ERR << "initial arguments error: " << e.what();
+            }
+
+            method_call_idx_ = MAIN_METHOD_CALL;
+        } else {
+            method_call_idx_ = idx;
+        }
     }
 
     void onInlet(size_t n, const AtomList& lst) override
     {
-        int idx = tuple_utils::find_last(overload_args_, ArgumentMatchAndSet(lst));
-        if (idx >= 0) {
+        // find overloaded method first
+        int idx = tuple_utils::find_first(overload_args_, ArgumentMatchAndSet(lst));
+
+        if (idx == MAIN_METHOD_CALL) { // overload not found
+            InletArgSetter arg_setter(main_method_args_);
+            // set specified argument
+            ErrorMsg err = arg_setter.setNthArg(n, lst);
+            if (err)
+                OBJ_ERR << err.msg();
+
+            method_call_idx_ = MAIN_METHOD_CALL;
+        } else { // overload found
             method_call_idx_ = idx;
-            return;
         }
-
-        InletArgSetter arg_setter(main_method_args_);
-        ErrorMsg err = arg_setter.setNthArg(n, lst);
-        if (err)
-            OBJ_ERR << err.msg();
-
-        method_call_idx_ = MAIN_METHOD_CALL;
     }
 
-    void onDataT(const DataTPtr<DataType>& dptr)
+    void onDataT(const DataAtom<DataType>& data)
     {
-        if (dptr->dataTypeId() != DataType::wrappedDataTypeId) {
-            OBJ_ERR << "unexpected data with id=" << dptr->dataTypeId()
-                    << ", expecting " << T::typeName()
-                    << " with id=" << DataType::wrappedDataTypeId;
-            return;
-        }
-
-        data_ = dptr->value();
+        data_ = data->value();
         dispatch();
     }
 
@@ -172,7 +200,7 @@ public:
         }
     }
 
-    void onFloat(float f) override
+    void onFloat(t_float f) override
     {
         Result res = data_.setFromFloat(f);
 
@@ -214,7 +242,7 @@ public:
         }
     }
 
-    void onAny(t_symbol* s, const AtomList& lst) override
+    void onAny(t_symbol* s, const AtomListView& lst) override
     {
         Result res = data_.setFromAny(s, lst);
 
@@ -231,13 +259,12 @@ public:
     {
         BaseObject::dump();
 
-        OBJ_DBG << "name:    " << T::typeName();
-        OBJ_DBG << "type id: " << DataType::wrappedDataTypeId;
-        OBJ_DBG << "value:   " << data_.toString();
+        OBJ_POST << "name:    " << T::typeName();
+        OBJ_POST << "value:   " << data_.toString();
 
-        Debug dbg(this);
-        dbg << "args:";
-        tuple_utils::for_each(main_method_args_, PdDump(dbg));
+        Post post(this);
+        post << "args:    ";
+        tuple_utils::for_each(main_method_args_, PdDump(post));
     }
 
 private:
@@ -249,54 +276,24 @@ private:
         out.output(n, v);
     }
 
-    void initXlets()
-    {
-        for (size_t i = 0; i < MethodTraits::nargs; i++)
-            createInlet();
-
-        for (size_t i = 0; i < MethodTraits::nouts; i++)
-            createOutlet();
-    }
-
-    void initArguments()
-    {
-        // first try to find appropriate overloaded method
-        int idx = tuple_utils::find_first(overload_args_, ArgumentMatchAndSet(positionalArguments()));
-        if (idx >= 0) {
-            method_call_idx_ = idx;
-            return;
-        }
-
-        // unexpected arguments warning
-        if (MethodTraits::nargs == 0 && positionalArguments().size() > 0) {
-            OBJ_ERR << "no arguments expected: " << positionalArguments();
-            return;
-        }
-
-        try {
-            atomListToArguments<Method>(positionalArguments(), main_method_args_);
-        } catch (std::exception& e) {
-            OBJ_ERR << "initial arguments: " << e.what();
-        }
-    }
-
     void dispatch()
     {
         try {
-            if (method_call_idx_ != MAIN_METHOD_CALL) {
+            if (method_call_idx_ == MAIN_METHOD_CALL) {
+
+                MethodCall call(data_, main_method_, main_method_args_);
+                call.exec();
+                outputTo<MethodReturnType>(0, call.result);
+
+            } else {
                 using ThisT = typename std::remove_reference<decltype(*this)>::type;
 
-                OverloadDataCall<T, ThisT> call(method_call_idx_, positionalArguments(), &data_, this);
+                OverloadDataCall<T, ThisT> call(method_call_idx_, pd_args_->value(), &data_, this);
                 if (tuple_utils::find_first(overload_args_, overloads_, call) != -1)
                     return;
 
                 OBJ_ERR << "non dispatched method: " << method_call_idx_;
-                return;
             }
-
-            MethodCall call(data_, main_method_, main_method_args_);
-            call.exec();
-            outputTo<MethodReturnType>(0, call.result);
         } catch (std::exception& e) {
             OBJ_ERR << e.what();
         }

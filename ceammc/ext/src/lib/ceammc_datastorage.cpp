@@ -12,22 +12,15 @@
  * this file belongs to.
  *****************************************************************************/
 #include "ceammc_datastorage.h"
+#include "ceammc_atomlist.h"
 #include "ceammc_datatypes.h"
+#include "ceammc_format.h"
+#include "ceammc_log.h"
+#include "fmt/format.h"
 
-#include <boost/functional/hash.hpp>
+#include <algorithm>
 
-using namespace ceammc;
-
-size_t DataStorageHasher::operator()(const DataDesc& d) const
-{
-    size_t res = d.type;
-    boost::hash_combine(res, boost::hash_value(d.id));
-    return res;
-}
-
-DataStorage::DataStorage()
-{
-}
+namespace ceammc {
 
 DataStorage& DataStorage::instance()
 {
@@ -35,65 +28,96 @@ DataStorage& DataStorage::instance()
     return s;
 }
 
-size_t DataStorage::size() const
+int DataStorage::registerNewType(const std::string& name,
+    CreateFromListFn fromListFn,
+    CreateFromDictFn fromDictFn)
 {
-    return map_.size();
-}
+    constexpr auto FIRST_TYPE_ID = 256;
 
-DataDesc DataStorage::add(const AbstractData* data)
-{
-    if (data == 0)
-        return DataDesc(data::DATA_INVALID, DataId(-1));
+    if (type_list_.empty()) {
+        type_list_.emplace_back(FIRST_TYPE_ID, name, fromListFn, fromDictFn);
+        return FIRST_TYPE_ID;
+    } else {
+        const auto LAST_ID = type_list_.back().type;
 
-    DataDesc desc(data->type(), generateId(data));
-    auto it = map_.find(desc);
-    if (it != map_.end()) {
-        it->second.ref_count++;
-        return desc;
-    }
+        if (LAST_ID >= type_list_.capacity()) {
+            LIB_ERR << fmt::format(
+                "can't register type {}, max number of types ({}) is exceed: {}",
+                name, type_list_.capacity(), __FUNCTION__);
+            return data::DATA_INVALID;
+        }
 
-    Entry entry;
-    entry.ref_count = 1;
-    entry.data = data;
-    map_[desc] = entry;
-    return desc;
-}
+        if (type_list_.capacity() == type_list_.size()) {
+            LIB_ERR << fmt::format("can't register type {}, datastorage overflow: {}", name, __FUNCTION__);
+            return data::DATA_INVALID;
+        }
 
-const AbstractData* DataStorage::acquire(const DataDesc& desc)
-{
-    auto it = map_.find(desc);
-    if (it == map_.end())
-        return nullptr;
+        if (findByName(name) != type_list_.cend()) {
+            LIB_ERR << fmt::format("can't register type {}, it already exists: {}", name, __FUNCTION__);
+            return data::DATA_INVALID;
+        }
 
-    it->second.ref_count++;
-    return it->second.data;
-}
+        const auto NEW_ID = LAST_ID + 1;
+        LIB_LOG << fmt::format("new data type {} is registered with id: {}", name, NEW_ID);
 
-void DataStorage::release(const DataDesc& desc)
-{
-    auto it = map_.find(desc);
-    if (it == map_.end())
-        return;
-
-    it->second.ref_count--;
-    if (it->second.ref_count == 0) {
-        delete it->second.data;
-        map_.erase(desc);
+        type_list_.emplace_back(NEW_ID, name, fromListFn, fromDictFn);
+        return NEW_ID;
     }
 }
 
-size_t DataStorage::refCount(const DataDesc& desc)
+int DataStorage::typeByName(const std::string& name) const
 {
-    auto it = map_.find(desc);
-    return (it == map_.end()) ? 0 : it->second.ref_count;
+    auto it = findByName(name);
+    return (it == type_list_.cend()) ? data::DATA_INVALID
+                                     : it->type;
 }
 
-DataId DataStorage::generateId(const AbstractData* data)
+std::string DataStorage::nameByType(int type) const
 {
-    size_t hash = 0;
-    boost::hash_combine(hash, reinterpret_cast<ptrdiff_t>(data));
-    boost::hash_combine(hash, data->type());
-    // NB: data type truncation!
-    Atom a(DataDesc(0, DataId(hash)));
-    return a.getData().id;
+    auto it = findByType(type);
+    return (it == type_list_.cend()) ? std::string()
+                                     : it->name;
+}
+
+CreateFromListFn DataStorage::fromListFunction(const std::string& name) const
+{
+    auto it = std::find_if(type_list_.begin(), type_list_.end(),
+        [&name](const DataTypeRecord& r) { return r.name == name; });
+
+    return (it == type_list_.end()) ? nullptr : it->from_list_fn;
+}
+
+CreateFromDictFn DataStorage::fromDictFunction(const std::string& name) const
+{
+    auto it = std::find_if(type_list_.begin(), type_list_.end(),
+        [&name](const DataTypeRecord& r) { return r.name == name; });
+
+    return (it == type_list_.end()) ? nullptr : it->from_dict_fn;
+}
+
+void DataStorage::clearAll()
+{
+    type_list_.clear();
+}
+
+DataStorage::DataStorage()
+{
+}
+
+DataStorage::type_iterator DataStorage::findByName(const std::string& name) const
+{
+    return std::find_if(
+        type_list_.begin(),
+        type_list_.end(),
+        [name](const DataTypeRecord& r) { return r.name == name; });
+}
+
+DataStorage::type_iterator DataStorage::findByType(int type) const
+{
+    return std::find_if(
+        type_list_.begin(),
+        type_list_.end(),
+        [type](const DataTypeRecord& r) { return r.type == type; });
+}
+
 }

@@ -42,7 +42,7 @@ public:
     void onBang();
     void onList(const AtomList& lst);
     void onAny(t_symbol* s, const AtomList& lst);
-    void onData(const DataPtr& ptr);
+    void onData(const Atom& data);
 
     void m_clear(const AtomList&);
     void m_append(const AtomList& lst);

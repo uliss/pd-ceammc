@@ -35,5 +35,5 @@ extern "C" void is_even_setup()
         static_cast<t_newmethod>(is_even_new),
         reinterpret_cast<t_method>(is_even_free),
         sizeof(t_is_even), 0, A_NULL);
-    class_addfloat(is_even_class, is_even_float);
+    class_doaddfloat(is_even_class, reinterpret_cast<t_method>(is_even_float));
 }

@@ -14,20 +14,19 @@
 #ifndef LIST_REMOVE_IF_H
 #define LIST_REMOVE_IF_H
 
+#include "ceammc_data.h"
 #include "ceammc_object.h"
 
 using namespace ceammc;
-
-class DataTypeMList;
 
 class ListRemoveIf : public BaseObject {
     bool remove_;
 
 public:
     ListRemoveIf(const PdArgs& a);
-    void onList(const AtomList& l);
-    void onInlet(size_t n, const AtomList& l);
-    void onDataT(const DataTPtr<DataTypeMList>& dptr);
+    void onList(const AtomList& l) override;
+    void onInlet(size_t n, const AtomList& l) override;
+    void onDataT(const MListAtom& ml);
 };
 
 void setup_list_remove_if();

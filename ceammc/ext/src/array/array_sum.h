@@ -19,7 +19,7 @@
 class ArraySum : public ArrayBase {
 public:
     ArraySum(const PdArgs& args);
-    void onBang();
+    void onBang() override;
 };
 
 void setup_array_sum();

@@ -23,12 +23,15 @@ namespace ceammc {
  */
 class AbstractData {
 public:
-    virtual ~AbstractData();
+    AbstractData() = default;
+    AbstractData(const AbstractData&) = delete;
+
+    virtual ~AbstractData() noexcept;
 
     /**
      * override this method to dump data to Pd console
      */
-    virtual void dump() {}
+    virtual void dump() const;
 
     /**
      * This method should return pointer to new dynamically allocated copy of data
@@ -38,7 +41,7 @@ public:
     /**
      * This method should return ID to data type.
      */
-    virtual DataType type() const = 0;
+    virtual int type() const noexcept = 0;
 
     /**
      * Override this method to get non-default string data representation
@@ -46,14 +49,29 @@ public:
     virtual std::string toString() const;
 
     /**
-     * Override this method to compare data by pointer to base class
+     * Returns JSON object with "datatype" and "value" fields
      */
-    virtual bool isEqual(const AbstractData* d) const;
+    std::string objectToJsonString() const;
+
+    /**
+     * Returns object value as JSON string
+     */
+    virtual std::string valueToJsonString() const;
 
     /**
      * Override this method to compare data by pointer to base class
      */
-    virtual bool isLess(const AbstractData* d) const;
+    virtual bool isEqual(const AbstractData* d) const noexcept;
+
+    /**
+     * Override this method to compare data by pointer to base class
+     */
+    virtual bool isLess(const AbstractData* d) const noexcept;
+
+    /**
+     * Returns datatype name
+     */
+    virtual std::string typeName() const noexcept final;
 
     /**
      * Helper functions to return pointer to derived classes
@@ -74,7 +92,7 @@ template <class T>
 T* AbstractData::cloneT() const
 {
     if (type() != T::dataType)
-        return 0;
+        return nullptr;
 
     return static_cast<T*>(clone());
 }
@@ -82,13 +100,13 @@ T* AbstractData::cloneT() const
 template <class T>
 T* AbstractData::as()
 {
-    return type() == T::dataType ? static_cast<T*>(this) : 0;
+    return type() == T::dataType ? static_cast<T*>(this) : nullptr;
 }
 
 template <class T>
 const T* AbstractData::as() const
 {
-    return type() == T::dataType ? static_cast<const T*>(this) : 0;
+    return type() == T::dataType ? static_cast<const T*>(this) : nullptr;
 }
 }
 

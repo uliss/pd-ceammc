@@ -13,17 +13,24 @@
  *****************************************************************************/
 #include "datatype_string.h"
 #include "ceammc_atomlist.h"
-#include "ceammc_datatypes.h"
+#include "ceammc_datastorage.h"
 #include "ceammc_format.h"
 #include "ceammc_log.h"
 #include "ceammc_string.h"
 
 #include <algorithm>
-#include <boost/algorithm/string.hpp>
 #include <iostream>
-#include <sstream>
 
-const DataType DataTypeString::dataType = ceammc::data::DATA_STRING;
+namespace ceammc {
+
+#define NDEBUG 1
+
+static Atom newString(const AtomList& l)
+{
+    return new DataTypeString(l);
+}
+
+const int DataTypeString::dataType = DataStorage::instance().registerNewType("String", newString);
 
 DataTypeString::DataTypeString(t_symbol* s)
     : str_(s->s_name)
@@ -70,7 +77,7 @@ DataTypeString::DataTypeString(const DataTypeString& d)
 {
 }
 
-DataTypeString::DataTypeString(DataTypeString&& d)
+DataTypeString::DataTypeString(DataTypeString&& d) noexcept
     : str_(std::move(d.str_))
 {
 }
@@ -91,19 +98,19 @@ DataTypeString& DataTypeString::operator=(DataTypeString&& s)
     return *this;
 }
 
-DataTypeString::~DataTypeString()
+DataTypeString::~DataTypeString() noexcept
 {
 #ifndef NDEBUG
     LIB_DBG << "string destructed: " << str_;
 #endif
 }
 
-void DataTypeString::clear()
+void DataTypeString::clear() noexcept
 {
     str_.clear();
 }
 
-DataType DataTypeString::type() const
+int DataTypeString::type() const noexcept
 {
     return dataType;
 }
@@ -118,11 +125,9 @@ std::string DataTypeString::toString() const
     return str();
 }
 
-void DataTypeString::set(float f)
+std::string DataTypeString::valueToJsonString() const
 {
-    std::ostringstream os;
-    os << f;
-    str_ = os.str();
+    return "\"" + string::escape_for_json(str()) + '"';
 }
 
 void DataTypeString::set(t_symbol* s)
@@ -143,59 +148,34 @@ void DataTypeString::split(std::vector<std::string>& res, const std::string& sep
         splitBySep(res, sep);
 }
 
-bool DataTypeString::operator==(const DataTypeString& s) const
-{
-    return str_ == s.str_;
-}
-
-bool DataTypeString::operator!=(const DataTypeString& s) const
-{
-    return str_ != s.str_;
-}
-
 DataTypeString DataTypeString::removeAll(const std::string& s) const
 {
-    return DataTypeString(boost::algorithm::erase_all_copy(str_, s));
+    return string::remove_all(str_, s);
 }
 
 DataTypeString DataTypeString::removeFirst(const std::string& s) const
 {
-    return DataTypeString(boost::algorithm::erase_first_copy(str_, s));
+    return string::remove_first(str_, s);
 }
 
 DataTypeString DataTypeString::removeLast(const std::string& s) const
 {
-    return DataTypeString(boost::algorithm::erase_last_copy(str_, s));
+    return string::remove_last(str_, s);
 }
 
 DataTypeString DataTypeString::replaceAll(const std::string& from, const std::string& to) const
 {
-    return DataTypeString(boost::algorithm::replace_all_copy(str_, from, to));
+    return string::replace_all(str_, from, to);
 }
 
 DataTypeString DataTypeString::replaceFirst(const std::string& from, const std::string& to) const
 {
-    return DataTypeString(boost::algorithm::replace_first_copy(str_, from, to));
+    return string::replace_first(str_, from, to);
 }
 
 DataTypeString DataTypeString::replaceLast(const std::string& from, const std::string& to) const
 {
-    return DataTypeString(boost::algorithm::replace_last_copy(str_, from, to));
-}
-
-bool DataTypeString::contains(const std::string& s) const
-{
-    return boost::algorithm::contains(str_, s);
-}
-
-bool DataTypeString::startsWith(const std::string& s) const
-{
-    return boost::algorithm::starts_with(str_, s);
-}
-
-bool DataTypeString::endsWith(const std::string& s) const
-{
-    return boost::algorithm::ends_with(str_, s);
+    return string::replace_last(str_, from, to);
 }
 
 size_t DataTypeString::length() const
@@ -205,20 +185,20 @@ size_t DataTypeString::length() const
 
 DataTypeString DataTypeString::toLower() const
 {
-    return ceammc::string::utf8_to_lower(str_.c_str());
+    return string::utf8_to_lower(str_.c_str());
 }
 
 DataTypeString DataTypeString::toUpper() const
 {
-    return ceammc::string::utf8_to_upper(str_.c_str());
+    return string::utf8_to_upper(str_.c_str());
 }
 
 DataTypeString DataTypeString::substr(int from, size_t len) const
 {
-    return ceammc::string::utf8_substr(str_.c_str(), from, len);
+    return string::utf8_substr(str_.c_str(), from, len);
 }
 
-bool DataTypeString::isEqual(const AbstractData* d) const
+bool DataTypeString::isEqual(const AbstractData* d) const noexcept
 {
     if (type() != d->type())
         return false;
@@ -226,33 +206,38 @@ bool DataTypeString::isEqual(const AbstractData* d) const
     if (this == d)
         return true;
 
-    const DataTypeString* cmp = static_cast<const DataTypeString*>(d);
+    const DataTypeString* cmp = d->as<DataTypeString>();
+
+    static_assert(noexcept(operator==(*cmp)), "noexcept required");
+
     return this->operator==(*cmp);
+}
+
+bool DataTypeString::isLess(const AbstractData* d) const noexcept
+{
+    if (type() != d->type())
+        return type() < d->type();
+
+    if (this == d)
+        return false;
+
+    return str_ < (d->as<DataTypeString>()->str_);
 }
 
 void DataTypeString::splitEveryChar(std::vector<std::string>& res) const
 {
-    ceammc::string::utf8_split_by_char(res, str_.c_str());
-}
-
-static bool is_empty(const std::string& s)
-{
-    return s.empty();
+    string::utf8_split_by_char(res, str_.c_str());
 }
 
 void DataTypeString::splitBySep(std::vector<std::string>& res, const std::string& sep) const
 {
-    res.clear();
-    if (str_.empty())
-        return;
-
-    boost::algorithm::split(res, str_, boost::is_any_of(sep), boost::token_compress_on);
-    // remove all empty elements
-    res.erase(std::remove_if(res.begin(), res.end(), is_empty), res.end());
+    string::split(res, str_, sep.c_str());
 }
 
 std::ostream& operator<<(std::ostream& os, const DataTypeString& d)
 {
     os << d.toString();
     return os;
+}
+
 }

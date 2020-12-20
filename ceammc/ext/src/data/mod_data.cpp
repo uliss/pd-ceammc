@@ -1,5 +1,6 @@
 #include "mod_data.h"
 #include "data_dict.h"
+#include "data_fifo.h"
 #include "data_float.h"
 #include "data_int.h"
 #include "data_list.h"
@@ -38,22 +39,22 @@
 #include "set_to_list.h"
 #include "set_union.h"
 
-extern "C" void setup_data0x2efifo();
+void setup_rtree_to_list();
 
 void ceammc_data_setup()
 {
-    setup_data0x2efifo();
 
-    setup_set0x2econtains();
-    setup_set0x2edifference();
-    setup_set0x2eequal();
-    setup_set0x2eintersection();
-    setup_set0x2elist();
-    setup_set0x2esize();
-    setup_set0x2eunion();
-    setup_set0x2esymdiff();
+    setup_set_contains();
+    setup_set_difference();
+    setup_set_equal();
+    setup_set_intersection();
+    setup_set_list();
+    setup_set_size();
+    setup_set_union();
+    setup_set_symdiff();
 
     setup_data_dict();
+    setup_data_fifo();
     setup_data_float();
     setup_data_int();
     setup_data_list();
@@ -87,4 +88,5 @@ void ceammc_data_setup()
     setup_global_set();
 
     setup_mlist_flatten();
+    setup_rtree_to_list();
 }

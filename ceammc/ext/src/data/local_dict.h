@@ -19,14 +19,13 @@
 
 using namespace ceammc;
 
-typedef DictIFace<LocalBase<DataTypeDict>> LocalDictBase;
+typedef DictIFace<LocalBase<DictAtom>> LocalDictBase;
 
 class LocalDict : public LocalDictBase {
 public:
     LocalDict(const PdArgs& args);
-
-    DataTypeDict& dict() final { return ref(); }
-    const DataTypeDict& dict() const final { return ref(); }
+    const DictAtom& dict() const final { return ref(); }
+    DictAtom& dict() final { return ref(); }
 };
 
 void setup_local_dict();

@@ -57,10 +57,10 @@ extern "C" void is_float_setup()
         reinterpret_cast<t_newmethod>(is_float_new),
         reinterpret_cast<t_method>(is_float_free),
         sizeof(t_is_float), 0, A_NULL);
-    class_addanything(is_float_class, is_float_anything);
-    class_addbang(is_float_class, is_float_bang);
-    class_addfloat(is_float_class, is_float_float);
-    class_addlist(is_float_class, is_float_list);
-    class_addpointer(is_float_class, is_float_pointer);
-    class_addsymbol(is_float_class, is_float_symbol);
+    class_addanything(is_float_class, reinterpret_cast<t_method>(is_float_anything));
+    class_addbang(is_float_class, reinterpret_cast<t_method>(is_float_bang));
+    class_doaddfloat(is_float_class, reinterpret_cast<t_method>(is_float_float));
+    class_addlist(is_float_class, reinterpret_cast<t_method>(is_float_list));
+    class_addpointer(is_float_class, reinterpret_cast<t_method>(is_float_pointer));
+    class_addsymbol(is_float_class, reinterpret_cast<t_method>(is_float_symbol));
 }

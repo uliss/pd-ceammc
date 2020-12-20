@@ -1,14 +1,13 @@
 #ifndef CEAMMC_NEW_GUI_H
 #define CEAMMC_NEW_GUI_H
 
+#include "ceammc.h"
 #include "ceammc_atomlist.h"
 #include "ceammc_cicm.h"
-#include "ceammc_data.h"
 #include "ceammc_externals.h"
 #include "ceammc_format.h"
 #include "ceammc_log.h"
 #include "ceammc_platform.h"
-#include "m_pd.h"
 
 #include <stdexcept>
 #include <string>
@@ -20,19 +19,19 @@ namespace ceammc {
 class UIObject;
 class UIDspObject;
 
-static const char* DEFAULT_ACTIVE_COLOR = "0. 0.75 1. 1.";
-static const char* DEFAULT_BORDER_COLOR = "0.6 0.6 0.6 1.";
-static const char* DEFAULT_BACKGROUND_COLOR = "0.93 0.93 0.93 1.";
-static const char* DEFAULT_TEXT_COLOR = "0. 0. 0. 1.";
-static const char* DEFAULT_LABEL_COLOR = "0. 0. 0. 1.";
+constexpr const char* DEFAULT_ACTIVE_COLOR = "0. 0.75 1. 1.";
+constexpr const char* DEFAULT_BORDER_COLOR = "0.6 0.6 0.6 1.";
+constexpr const char* DEFAULT_BACKGROUND_COLOR = "0.93 0.93 0.93 1.";
+constexpr const char* DEFAULT_TEXT_COLOR = "0. 0. 0. 1.";
+constexpr const char* DEFAULT_LABEL_COLOR = "0. 0. 0. 1.";
 
-static const char* PROP_ACTIVE_COLOR = "active_color";
-static const char* PROP_BACKGROUND_COLOR = "background_color";
-static const char* PROP_BORDER_COLOR = "border_color";
-static const char* PROP_TEXT_COLOR = "text_color";
-static const char* PROP_LABEL_COLOR = "label_color";
+constexpr const char* PROP_ACTIVE_COLOR = "active_color";
+constexpr const char* PROP_BACKGROUND_COLOR = "background_color";
+constexpr const char* PROP_BORDER_COLOR = "border_color";
+constexpr const char* PROP_TEXT_COLOR = "text_color";
+constexpr const char* PROP_LABEL_COLOR = "label_color";
 
-static const char* PROP_PRESET_NAME = "presetname";
+constexpr const char* PROP_PRESET_NAME = "presetname";
 
 //! Gettext extract message helper
 #ifndef _
@@ -67,8 +66,8 @@ public:
     typedef void (UI::*bangMethodPtr)();
     typedef void (UI::*floatMethodPtr)(t_float);
     typedef void (UI::*listMethodPtr)(const AtomList&);
-    typedef float (UI::*propFloatGet)() const;
-    typedef void (UI::*propFloatSet)(float);
+    typedef t_float (UI::*propFloatGet)() const;
+    typedef void (UI::*propFloatSet)(t_float);
     typedef AtomList (UI::*propListGet)() const;
     typedef void (UI::*propListSet)(const AtomList&);
     typedef std::pair<propFloatGet, propFloatSet> propertyFloatAccess;
@@ -125,8 +124,8 @@ public:
 
             ebox_new(x->asEBox(), 0 | flags);
             dspInit(x);
-            ebox_attrprocess_viabinbuf(x, d);
-            ebox_ready((t_ebox*)x);
+            ebox_attrprocess_viabinbuf(x->asEBox(), d);
+            ebox_ready(x->asEBox());
             binbuf_free(d);
 
             x->init(s, AtomList(argc, argv), use_presets);
@@ -343,22 +342,22 @@ public:
 
     void useBang()
     {
-        eclass_addmethod(pd_class, UI_METHOD_PTR(onBang), "bang", A_GIMME, 0);
+        eclass_addmethod(pd_class, UI_METHOD_PTR(onBang), &s_bang, A_GIMME, 0);
     }
 
     void useFloat()
     {
-        eclass_addmethod(pd_class, UI_METHOD_PTR(onFloat), "float", A_FLOAT, 0);
+        eclass_addmethod(pd_class, UI_METHOD_PTR(onFloat), &s_float, A_FLOAT, 0);
     }
 
     void useSymbol()
     {
-        eclass_addmethod(pd_class, UI_METHOD_PTR(onSymbol), "symbol", A_SYMBOL, 0);
+        eclass_addmethod(pd_class, UI_METHOD_PTR(onSymbol), &s_symbol, A_SYMBOL, 0);
     }
 
     void useList()
     {
-        eclass_addmethod(pd_class, UI_METHOD_PTR(onList), "list", A_GIMME, 0);
+        eclass_addmethod(pd_class, UI_METHOD_PTR(onList), &s_list, A_GIMME, 0);
     }
 
     void useAny()
@@ -368,13 +367,18 @@ public:
 
     void useData()
     {
-        eclass_addmethod(pd_class, UI_METHOD_PTR(onData), "list", A_GIMME, 0);
+        eclass_addmethod(pd_class, UI_METHOD_PTR(onData), &s_list, A_GIMME, 0);
     }
 
     void useDrawCallbacks()
     {
         eclass_addmethod(pd_class, UI_METHOD_PTR(create), ".create", A_CANT, 0);
         eclass_addmethod(pd_class, UI_METHOD_PTR(erase), ".erase", A_CANT, 0);
+    }
+
+    void useAnnotations()
+    {
+        eclass_addmethod(pd_class, UI_METHOD_PTR(annotate), ceammc::SymbolTable::instance().s_annotate_fn, A_CANT, 0);
     }
 
     void addMethod(const char* name, listMethodPtr m)
@@ -385,7 +389,7 @@ public:
     void addMethod(t_symbol* name, listMethodPtr m)
     {
         list_map[name] = m;
-        eclass_addmethod(pd_class, reinterpret_cast<t_typ_method>(customMethodList), name->s_name, A_GIMME, 0);
+        eclass_addmethod(pd_class, reinterpret_cast<t_typ_method>(customMethodList), name, A_GIMME, 0);
     }
 
     void addMethod(const char* name, floatMethodPtr m)
@@ -396,7 +400,7 @@ public:
     void addMethod(t_symbol* name, floatMethodPtr m)
     {
         float_map[name] = m;
-        eclass_addmethod(pd_class, reinterpret_cast<t_typ_method>(customMethodFloat), name->s_name, A_GIMME, 0);
+        eclass_addmethod(pd_class, reinterpret_cast<t_typ_method>(customMethodFloat), name, A_GIMME, 0);
     }
 
     void addMethod(const char* name, bangMethodPtr m)
@@ -407,7 +411,7 @@ public:
     void addMethod(t_symbol* name, bangMethodPtr m)
     {
         bang_map[name] = m;
-        eclass_addmethod(pd_class, reinterpret_cast<t_typ_method>(customMethodBang), name->s_name, A_GIMME, 0);
+        eclass_addmethod(pd_class, reinterpret_cast<t_typ_method>(customMethodBang), name, A_GIMME, 0);
     }
 
     /**
@@ -437,12 +441,16 @@ public:
      * @param m - member pointer to property
      * @param category - property category
      */
-    void addFloatProperty(const char* name, const char* label, float def, float UI::*m, const char* category = "Misc")
+    void addFloatProperty(const char* name, const char* label, t_float def, t_float UI::*m, const char* category = "Misc")
     {
         char buf[32];
         snprintf(buf, 30, "%g", def);
 
-        eclass_new_attr_typed(pd_class, name, "float", 1, 0, offset(m));
+        if (sizeof(t_float) == sizeof(float))
+            eclass_new_attr_typed(pd_class, name, "float", 1, 0, offset(m));
+        else if (sizeof(t_float) == sizeof(double))
+            eclass_new_attr_typed(pd_class, name, "double", 1, 0, offset(m));
+
         eclass_attr_label(pd_class, name, label);
         eclass_attr_save(pd_class, name);
         eclass_attr_paint(pd_class, name);
@@ -539,8 +547,8 @@ public:
      * @param setter - member pointer to setter function
      */
     void addHiddenFloatCbProperty(const char* name,
-        float (UI::*getter)() const,
-        void (UI::*setter)(float))
+        t_float (UI::*getter)() const,
+        void (UI::*setter)(t_float))
     {
         eclass_new_attr_typed(pd_class, name, "float", 1, 0, 0);
         eclass_attr_invisible(pd_class, name);
@@ -560,20 +568,6 @@ public:
         eclass_new_attr_typed(pd_class, name, "atom", 1, 0, 0);
         eclass_attr_invisible(pd_class, name);
         setPropertyAccessor(name, getter, setter);
-    }
-
-    void addProperty(const char* name, const char* label, float def, float UI::*m, const char* category = "Misc")
-    {
-        char buf[32];
-        snprintf(buf, 30, "%g", def);
-
-        eclass_new_attr_typed(pd_class, name, "float", 1, 0, offset(m));
-        eclass_attr_label(pd_class, name, label);
-        eclass_attr_save(pd_class, name);
-        eclass_attr_paint(pd_class, name);
-        eclass_attr_default(pd_class, name, buf);
-        eclass_attr_style(pd_class, name, "number");
-        eclass_attr_category(pd_class, name, category);
     }
 
     void addProperty(const char* name, const char* label, int def, int UI::*m, const char* category = "Misc")
@@ -642,12 +636,12 @@ public:
         eclass_attr_category(pd_class, name, category);
     }
 
-    void setPropertyMin(const char* name, float v)
+    void setPropertyMin(const char* name, t_float v)
     {
         eclass_attr_filter_min(pd_class, name, v);
     }
 
-    void setPropertyMax(const char* name, float v)
+    void setPropertyMax(const char* name, t_float v)
     {
         eclass_attr_filter_max(pd_class, name, v);
     }
@@ -657,7 +651,7 @@ public:
         eclass_attr_label(pd_class, name, label);
     }
 
-    void setPropertyRange(const char* name, float min, float max)
+    void setPropertyRange(const char* name, t_float min, t_float max)
     {
         setPropertyMin(name, min);
         setPropertyMax(name, max);
@@ -673,7 +667,7 @@ public:
         eclass_attr_default(pd_class, name, def);
     }
 
-    void setPropertyStep(const char* name, float step)
+    void setPropertyStep(const char* name, t_float step)
     {
         eclass_attr_step(pd_class, name, step);
     }
@@ -702,8 +696,8 @@ public:
     }
 
     void addProperty(const char* name,
-        float (UI::*getter)() const,
-        void (UI::*setter)(float))
+        t_float (UI::*getter)() const,
+        void (UI::*setter)(t_float))
     {
         eclass_new_attr_typed(pd_class, name, "float", 1, 0, 0);
         eclass_attr_invisible(pd_class, name);
@@ -747,7 +741,7 @@ public:
         eclass_attr_itemlist(pd_class, name, items);
     }
 
-    void setPropertyAccessor(const char* name, float (UI::*getter)() const, void (UI::*setter)(float))
+    void setPropertyAccessor(const char* name, t_float (UI::*getter)() const, void (UI::*setter)(t_float))
     {
         t_err_method m = reinterpret_cast<t_err_method>(setter != nullptr ? floatPropSetter : nullptr);
         eclass_attr_accessor(pd_class, name, (t_err_method)floatPropGetter, m);
@@ -795,6 +789,18 @@ public:
     static void erase(UI* z)
     {
         z->erase();
+    }
+
+    static const char* annotate(UI* z, int type, int idx)
+    {
+        switch (type) {
+        case 0:
+            return z->annotateOutlet(idx);
+        case 1:
+            return z->annotateInlet(idx);
+        default:
+            return nullptr;
+        }
     }
 
     template <class T>
@@ -866,7 +872,7 @@ public:
 
         // invalidate mouse pointer coord on mouseLeave to prevent mouseWheel handle
         // when mouse is outside of widget
-        updateMousePos({std::numeric_limits<decltype(t_pt::x)>::max(), std::numeric_limits<decltype(t_pt::y)>::max()});
+        updateMousePos({ std::numeric_limits<decltype(t_pt::x)>::max(), std::numeric_limits<decltype(t_pt::y)>::max() });
 
         outputMouse(z, SYM, true);
         z->onMouseLeave(view, pt, modifiers);
@@ -884,7 +890,7 @@ public:
         outputMouse(z, SYM, false);
     }
 
-    static void mouseWheel(UI* z, t_pt pt, long modifiers, float delta)
+    static void mouseWheel(UI* z, t_pt pt, long modifiers, t_float delta)
     {
         z->onMouseWheel(mouse_pos_, modifiers, delta);
     }
@@ -971,7 +977,7 @@ public:
 
     static void onAny(UI* z, t_symbol* s, int argc, t_atom* argv)
     {
-        z->onAny(s, AtomList(argc, argv));
+        z->onAny(s, AtomListView(argv, argc));
     }
 
     static int checkPresetIndex(UI* z, int argc, t_atom* argv)
@@ -1021,7 +1027,7 @@ public:
 
     static void customMethodList(UI* z, t_symbol* s, int argc, t_atom* argv)
     {
-        typename ListMethodMap::iterator it = list_map.find(s);
+        auto it = list_map.find(s);
         if (it == list_map.end()) {
             pd_error(z->asPdObject(), "[%s] unknown method: %s", z->name()->s_name, s->s_name);
             return;
@@ -1042,7 +1048,7 @@ public:
         if (argc < 1)
             return;
 
-        typename FloatMethodMap::iterator it = float_map.find(s);
+        auto it = float_map.find(s);
         if (it == float_map.end()) {
             pd_error(z->asPdObject(), "[%s] unknown method: %s", z->name()->s_name, s->s_name);
             return;
@@ -1083,7 +1089,7 @@ public:
 
     static t_pd_err floatPropGetter(UI* z, t_eattr* attr, int* argc, t_atom** argv)
     {
-        typename FloatPropertyMap::iterator it = prop_float_map.find(attr->name);
+        auto it = prop_float_map.find(attr->name);
         if (it == prop_float_map.end())
             return 1;
 
@@ -1104,7 +1110,7 @@ public:
 
     static t_pd_err floatPropSetter(UI* z, t_eattr* attr, int argc, t_atom* argv)
     {
-        typename FloatPropertyMap::iterator it = prop_float_map.find(attr->name);
+        auto it = prop_float_map.find(attr->name);
         if (it == prop_float_map.end())
             return 1;
 
@@ -1163,17 +1169,10 @@ public:
 
     static void onData(UI* z, t_symbol*, int argc, t_atom* argv)
     {
-        AtomList l(argc, argv);
-        if (l.size() == 1 && l[0].isData()) {
-            DataPtr ptr(l[0]);
-            if (ptr.isValid()) {
-                z->onData(ptr);
-            } else {
-                DataDesc desc = l[0].getData();
-                LIB_ERR << "can't get data with type=" << desc.type << " and id=" << desc.id;
-            }
+        if (argc == 1 && Atom::is_data(argv)) {
+            z->onData(Atom(*argv));
         } else {
-            z->onList(l);
+            z->onList(AtomList(argc, argv));
         }
     }
 

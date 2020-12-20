@@ -71,3 +71,9 @@ ceammc/extra/m_pd_doc/doc
 build/
 *.snap
 CMakeLists.txt.user*
+*.kdev4
+.kdev4
+
+mac/*.gz
+mac/tcl*
+mac/tk*

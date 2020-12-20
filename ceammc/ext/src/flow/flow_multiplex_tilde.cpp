@@ -14,24 +14,26 @@
 #include "flow_multiplex_tilde.h"
 #include "ceammc_convert.h"
 #include "ceammc_factory.h"
+#include "ceammc_format.h"
+#include "fmt/format.h"
 
-static const int DEFAULT_INLETS = 2;
-static const int MIN_INLETS = 2;
-static const int MAX_INLETS = 16;
+#include <array>
 
-static int outMultiplier(const PdArgs& args)
+constexpr size_t DEF_INLETS = 2;
+constexpr size_t MIN_NCHAN = 2;
+
+static std::array<std::string, MAX_NCHAN> inlet_info = {};
+
+static size_t chanMuliplier(const PdArgs& args)
 {
     return (args.flags & MULTIPLEX_STEREO) ? 2 : 1;
 }
 
 MultiplexTilde::MultiplexTilde(const PdArgs& args)
     : SoundExternal(args)
-    , n_(clip<int>(
-          positionalFloatArgument(0, DEFAULT_INLETS),
-          MIN_INLETS,
-          MAX_INLETS / outMultiplier(args)))
 {
-    for (size_t i = 1; i < n_ * outMultiplier(args); i++)
+    const size_t NCHAN = positionalConstant<DEF_INLETS, MIN_NCHAN, MAX_NCHAN>(0);
+    for (size_t i = 1; i < NCHAN * chanMuliplier(args); i++)
         createSignalInlet();
 
     // control inlet
@@ -42,7 +44,7 @@ MultiplexTilde::MultiplexTilde(const PdArgs& args)
     if (args.flags == MULTIPLEX_STEREO)
         createSignalOutlet();
 
-    gain_.assign(n_, t_smooth(0));
+    gain_.assign(NCHAN, t_smooth(0));
     gain_[0].setTargetValue(1);
 
     createCbProperty("@value", &MultiplexTilde::propValue, &MultiplexTilde::propSetValue);
@@ -79,7 +81,10 @@ void MultiplexTilde::onInlet(size_t n, const AtomList& lst)
     const t_float fidx = lst.floatAt(0, -1);
 
     if (idx < 0 || idx >= gain_.size()) {
-        OBJ_ERR << "invalid index: " << lst;
+        OBJ_ERR << fmt::format(
+            "expected input channel index in range [0-{}], got: {}",
+            gain_.size() - 1, to_string(lst));
+
         return;
     }
 
@@ -101,7 +106,7 @@ void MultiplexTilde::onInlet(size_t n, const AtomList& lst)
 void MultiplexTilde::onList(const AtomList& lst)
 {
     for (size_t i = 0; i < gain_.size(); i++)
-        gain_[i].setTargetValue(clip<t_float>(lst.floatAt(i, 0), 0, 1));
+        gain_[i].setTargetValue(clip<t_float>(lst[i].asFloat(), 0, 1));
 }
 
 AtomList MultiplexTilde::propValue() const
@@ -120,9 +125,24 @@ void MultiplexTilde::propSetValue(const AtomList& lst)
     onList(lst);
 }
 
+const char* MultiplexTilde::annotateInlet(size_t n) const
+{
+    if (n < gain_.size() && n < inlet_info.size())
+        return inlet_info[n].c_str();
+    else if (n == gain_.size())
+        return "int: select input";
+    else
+        return nullptr;
+}
+
 void setup_flow_multiplex_tilde()
 {
+    for (size_t i = 0; i < inlet_info.size(); i++)
+        inlet_info[i] = fmt::format("input\\[{}\\]", i);
+
     SoundExternalFactory<MultiplexTilde> obj("flow.multiplex~");
     obj.addAlias("flow.mux~");
     obj.addAlias("mux~");
+
+    obj.addOutletInfo("signal: output");
 }

@@ -1,10 +1,10 @@
 {
 	"name": "fx.sdelay",
 	"filename": "fx_sdelay.dsp",
-	"version": "2.22.1",
+	"version": "2.28.6",
 	"compile_options": "-lang cpp -scal -ftz 0",
-	"library_list": ["/usr/local/share/faust/stdfaust.lib","/Users/serj/work/music/pure-data/ceammc/faust/ceammc.lib","/usr/local/share/faust/delays.lib","/usr/local/share/faust/maths.lib","/usr/local/share/faust/signals.lib","/Users/serj/work/music/pure-data/ceammc/faust/ceammc_ui.lib","/usr/local/share/faust/basics.lib"],
-	"include_pathnames": ["/usr/local/share/faust","/usr/local/share/faust","/usr/share/faust","/Users/serj/work/music/pure-data/ceammc/faust","/Users/serj/work/music/pure-data/ceammc/faust"],
+	"library_list": ["/usr/local/share/faust/stdfaust.lib","/Users/serge/work/music/pure-data/ceammc/faust/ceammc.lib","/usr/local/share/faust/delays.lib","/usr/local/share/faust/maths.lib","/usr/local/share/faust/platform.lib","/usr/local/share/faust/signals.lib","/Users/serge/work/music/pure-data/ceammc/faust/ceammc_ui.lib","/usr/local/share/faust/basics.lib"],
+	"include_pathnames": ["/usr/local/share/faust","/usr/local/share/faust","/usr/share/faust","/Users/serge/work/music/pure-data/ceammc/faust","/Users/serge/work/music/pure-data/ceammc/faust"],
 	"inputs": 1,
 	"outputs": 1,
 	"meta": [ 
@@ -12,9 +12,9 @@
 		{ "basics.lib/name": "Faust Basic Element Library" },
 		{ "basics.lib/version": "0.1" },
 		{ "ceammc.lib/name": "Ceammc PureData misc utils" },
-		{ "ceammc.lib/version": "0.1.1" },
+		{ "ceammc.lib/version": "0.1.2" },
 		{ "ceammc_ui.lib/name": "CEAMMC faust default UI elements" },
-		{ "ceammc_ui.lib/version": "0.1.1" },
+		{ "ceammc_ui.lib/version": "0.1.2" },
 		{ "copyright": "Grame" },
 		{ "delays.lib/name": "Faust Delay Library" },
 		{ "delays.lib/version": "0.1" },
@@ -24,8 +24,10 @@
 		{ "maths.lib/copyright": "GRAME" },
 		{ "maths.lib/license": "LGPL with exception" },
 		{ "maths.lib/name": "Faust Math Library" },
-		{ "maths.lib/version": "2.1" },
+		{ "maths.lib/version": "2.3" },
 		{ "name": "fx.sdelay" },
+		{ "platform.lib/name": "Generic Platform Library" },
+		{ "platform.lib/version": "0.1" },
 		{ "signals.lib/name": "Faust Signal Routing Library" },
 		{ "signals.lib/version": "0.0" },
 		{ "version": "1.0" }
@@ -44,6 +46,9 @@
 					"type": "hslider",
 					"label": "delay",
 					"address": "/fx.sdelay/delay",
+					"meta": [
+						{ "unit": "ms" }
+					],
 					"init": 1,
 					"min": 0,
 					"max": 6000,
@@ -74,6 +79,9 @@
 					"type": "hslider",
 					"label": "interpolation",
 					"address": "/fx.sdelay/interpolation",
+					"meta": [
+						{ "unit": "ms" }
+					],
 					"init": 20,
 					"min": 1,
 					"max": 200,

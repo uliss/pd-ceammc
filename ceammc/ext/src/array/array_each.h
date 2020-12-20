@@ -22,13 +22,15 @@ class ArrayEach : public ArrayMod {
 
 public:
     ArrayEach(const PdArgs& a);
-    void onBang();
-    void onSymbol(t_symbol* s);
-    void onInlet(size_t n, const AtomList& l);
+    void onBang() override;
+    void onSymbol(t_symbol* s) override;
+    void onInlet(size_t n, const AtomList& l) override;
 
 private:
     void outputEach();
     void finish();
 };
+
+void setup_array_each();
 
 #endif // ARRAY_EACH_H

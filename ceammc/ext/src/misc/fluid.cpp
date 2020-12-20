@@ -18,10 +18,79 @@
 #include "../src/sfloader/fluid_sfont.h"
 #include "fluidsynth.h"
 
+#define PROP_ERR() LogPdObject(owner(), LOG_ERROR).stream() << errorPrefix()
+
+class FluidSynthProperty : public Property {
+public:
+    using FluidFnGetter = std::function<t_float(fluid_synth_t*)>;
+    using FluidFnSetter = std::function<bool(fluid_synth_t*, t_float)>;
+
+private:
+    fluid_synth_t* synth_;
+    FluidFnGetter getter_;
+    FluidFnSetter setter_;
+
+public:
+    FluidSynthProperty(const std::string& name, fluid_synth_t* synth, FluidFnGetter getter, FluidFnSetter setter)
+        : Property(PropertyInfo(name, PropValueType::FLOAT))
+        , synth_(synth)
+        , getter_(getter)
+        , setter_(setter)
+    {
+        if (!setter_)
+            setReadOnly();
+    }
+
+    AtomList get() const override
+    {
+        if (!synth_) {
+            PROP_ERR() << "null synth";
+            return {};
+        }
+
+        return { getter_(synth_) };
+    }
+
+    bool getFloat(t_float& v) const override
+    {
+        if (!synth_)
+            return false;
+
+        v = getter_(synth_);
+        return true;
+    }
+
+    bool setFloat(t_float v) override
+    {
+        if (!synth_) {
+            PROP_ERR() << "null synth";
+            return false;
+        }
+
+        return setter_(synth_, v);
+    }
+
+    bool setList(const AtomListView& lst) override
+    {
+        if (!lst.isFloat()) {
+            PROP_ERR() << "float value expected, got: " << lst;
+            return false;
+        }
+
+        return setFloat(lst.asT<t_float>());
+    }
+};
+
 Fluid::Fluid(const PdArgs& args)
     : SoundExternal(args)
     , synth_(nullptr)
     , sound_font_(&s_)
+    , reverb_room_(nullptr)
+    , reverb_damp_(nullptr)
+    , reverb_width_(nullptr)
+    , reverb_level_(nullptr)
+    , gain_(nullptr)
+    , polyphony_(nullptr)
 {
     createSignalOutlet();
     createSignalOutlet();
@@ -37,9 +106,6 @@ Fluid::Fluid(const PdArgs& args)
     fluid_settings_setnum(settings, "synth.polyphony", 256);
     fluid_settings_setnum(settings, "synth.gain", 0.6);
     fluid_settings_setnum(settings, "synth.sample-rate", 44100);
-    fluid_settings_setstr(settings, "synth.chorus.active", "no");
-    fluid_settings_setstr(settings, "synth.reverb.active", "no");
-    fluid_settings_setstr(settings, "synth.ladspa.active", "no");
 
     // Create fluidsynth instance:
     synth_ = new_fluid_synth(settings);
@@ -47,17 +113,106 @@ Fluid::Fluid(const PdArgs& args)
     if (synth_ == nullptr)
         OBJ_ERR << "couldn't create synth";
 
-    {
-        Property* p = createCbProperty("@sf", &Fluid::propSoundFont, &Fluid::propSetSoundFont);
-        p->info().setType(PropertyInfoType::SYMBOL);
-    }
+    createCbSymbolProperty(
+        "@sf", [this]() -> t_symbol* { return sound_font_; },
+        [this](t_symbol* s) -> bool { return propSetSoundFont(s); })
+        ->setArgIndex(0);
 
-    {
-        Property* p = createCbProperty("@version", &Fluid::propVersion);
-        p->info().setType(PropertyInfoType::SYMBOL);
-    }
+    createCbSymbolProperty("@version",
+        []() -> t_symbol* { return gensym(FLUIDSYNTH_VERSION); });
 
     createCbProperty("@soundfonts", &Fluid::propSoundFonts);
+
+    reverb_room_ = new FluidSynthProperty(
+        "@reverb_room", synth_,
+        [](fluid_synth_t* synth) -> t_float {
+            return fluid_synth_get_reverb_roomsize(synth);
+        },
+        [](fluid_synth_t* synth, t_float v) -> bool {
+            return fluid_synth_set_reverb_roomsize(synth, v) == FLUID_OK;
+        });
+    addProperty(reverb_room_);
+
+    reverb_damp_ = new FluidSynthProperty(
+        "@reverb_damp", synth_,
+        [](fluid_synth_t* synth) -> t_float {
+            return fluid_synth_get_reverb_damp(synth);
+        },
+        [](fluid_synth_t* synth, t_float v) -> bool {
+            return fluid_synth_set_reverb_damp(synth, v) == FLUID_OK;
+        });
+    addProperty(reverb_damp_);
+
+    reverb_width_ = new FluidSynthProperty(
+        "@reverb_width", synth_,
+        [](fluid_synth_t* synth) -> t_float {
+            return fluid_synth_get_reverb_width(synth);
+        },
+        [](fluid_synth_t* synth, t_float v) -> bool {
+            return fluid_synth_set_reverb_width(synth, v) == FLUID_OK;
+        });
+    addProperty(reverb_width_);
+
+    reverb_level_ = new FluidSynthProperty(
+        "@reverb_level", synth_,
+        [](fluid_synth_t* synth) -> t_float {
+            return fluid_synth_get_reverb_level(synth);
+        },
+        [](fluid_synth_t* synth, t_float v) -> bool {
+            return fluid_synth_set_reverb_level(synth, v) == FLUID_OK;
+        });
+    addProperty(reverb_level_);
+
+    gain_ = new FluidSynthProperty(
+        "@gain", synth_,
+        [](fluid_synth_t* synth) -> t_float {
+            return fluid_synth_get_gain(synth);
+        },
+        [](fluid_synth_t* synth, t_float v) -> bool {
+            fluid_synth_set_gain(synth, v);
+            return true;
+        });
+
+    if (gain_->infoT().setConstraints(PropValueConstraints::CLOSED_RANGE))
+        (void)gain_->infoT().setRangeFloat(0, 10);
+
+    addProperty(gain_);
+
+    polyphony_ = new FluidSynthProperty(
+        "@poly", synth_,
+        [](fluid_synth_t* synth) -> t_float {
+            return fluid_synth_get_polyphony(synth);
+        },
+        [](fluid_synth_t* synth, t_float v) -> bool {
+            return fluid_synth_set_polyphony(synth, v) == FLUID_OK;
+        });
+
+    if (polyphony_->infoT().setConstraints(PropValueConstraints::CLOSED_RANGE))
+        (void)polyphony_->infoT().setRangeFloat(1, 1024);
+
+    addProperty(polyphony_);
+
+    {
+        auto p = new FluidSynthProperty(
+            "@bufsize", synth_,
+            [](fluid_synth_t* synth) -> t_float {
+                return fluid_synth_get_internal_bufsize(synth);
+            },
+            nullptr);
+        p->setUnits(PropValueUnits::SAMP);
+        addProperty(p);
+    }
+
+    {
+        auto p = new FluidSynthProperty(
+            "@avoices", synth_,
+            [](fluid_synth_t* synth) -> t_float {
+                return fluid_synth_get_active_voice_count(synth);
+            },
+            nullptr);
+
+        addProperty(p);
+    }
 }
 
 Fluid::~Fluid()
@@ -87,32 +242,21 @@ void Fluid::setupDSP(t_signal** sp)
     }
 }
 
-AtomList Fluid::propSoundFont() const
-{
-    return Atom(sound_font_);
-}
-
-void Fluid::propSetSoundFont(const AtomList& lst)
+bool Fluid::propSetSoundFont(t_symbol* s)
 {
     if (!synth_) {
         OBJ_ERR << "NULL synth";
-        return;
+        return false;
     }
 
-    if (!checkArgs(lst, ARG_SYMBOL)) {
-        OBJ_ERR << "path to soundfont expected: " << lst;
-        return;
-    }
-
-    const char* fn = lst.symbolAt(0, &s_)->s_name;
-    std::string filename = findInStdPaths(fn);
+    std::string filename = findInStdPaths(s->s_name);
 
     if (filename.empty()) {
-        filename = platform::find_in_exernal_dir(owner(), fn);
+        filename = platform::find_in_exernal_dir(owner(), s->s_name);
 
         if (filename.empty()) {
-            OBJ_ERR << "sound font is not found: " << lst;
-            return;
+            OBJ_ERR << "sound font is not found: " << s;
+            return false;
         }
     }
 
@@ -121,15 +265,13 @@ void Fluid::propSetSoundFont(const AtomList& lst)
         OBJ_DBG << "loaded soundfont: " << filename;
         fluid_synth_program_reset(synth_);
 
-        sound_font_ = lst.symbolAt(0, &s_);
+        sound_font_ = s;
     } else {
-        OBJ_ERR << "can't load soundfont: " << lst;
+        OBJ_ERR << "can't load soundfont: " << s;
+        return false;
     }
-}
 
-AtomList Fluid::propVersion() const
-{
-    return Atom(gensym(FLUIDSYNTH_VERSION));
+    return true;
 }
 
 AtomList Fluid::propSoundFonts() const
@@ -146,7 +288,7 @@ AtomList Fluid::propSoundFonts() const
     return res;
 }
 
-void Fluid::m_note(t_symbol* s, const AtomList& lst)
+void Fluid::m_note(t_symbol* s, const AtomListView& lst)
 {
     if (synth_ == nullptr)
         return;
@@ -166,7 +308,7 @@ void Fluid::m_note(t_symbol* s, const AtomList& lst)
     }
 }
 
-void Fluid::m_cc(t_symbol* s, const AtomList& lst)
+void Fluid::m_cc(t_symbol* s, const AtomListView& lst)
 {
     if (synth_ == nullptr)
         return;
@@ -186,7 +328,7 @@ void Fluid::m_cc(t_symbol* s, const AtomList& lst)
     }
 }
 
-void Fluid::m_prog(t_symbol* s, const AtomList& lst)
+void Fluid::m_prog(t_symbol* s, const AtomListView& lst)
 {
     if (synth_ == nullptr)
         return;
@@ -200,7 +342,7 @@ void Fluid::m_prog(t_symbol* s, const AtomList& lst)
     }
 }
 
-void Fluid::m_bank(t_symbol* s, const AtomList& lst)
+void Fluid::m_bank(t_symbol* s, const AtomListView& lst)
 {
     if (synth_ == nullptr)
         return;
@@ -221,7 +363,7 @@ void Fluid::m_bank(t_symbol* s, const AtomList& lst)
     }
 }
 
-void Fluid::m_bend(t_symbol* s, const AtomList& lst)
+void Fluid::m_bend(t_symbol* s, const AtomListView& lst)
 {
     if (synth_ == nullptr)
         return;
@@ -235,7 +377,7 @@ void Fluid::m_bend(t_symbol* s, const AtomList& lst)
     }
 }
 
-void Fluid::m_gen(t_symbol* s, const AtomList& lst)
+void Fluid::m_gen(t_symbol* s, const AtomListView& lst)
 {
     if (synth_ == nullptr)
         return;
@@ -255,7 +397,7 @@ void Fluid::m_gen(t_symbol* s, const AtomList& lst)
     }
 }
 
-void Fluid::m_panic(t_symbol* s, const AtomList& lst)
+void Fluid::m_panic(t_symbol* s, const AtomListView& lst)
 {
     if (synth_ == nullptr)
         return;
@@ -263,7 +405,7 @@ void Fluid::m_panic(t_symbol* s, const AtomList& lst)
     fluid_synth_system_reset(synth_);
 }
 
-void Fluid::m_reset(t_symbol* s, const AtomList& lst)
+void Fluid::m_reset(t_symbol* s, const AtomListView& lst)
 {
     if (synth_ == nullptr)
         return;
@@ -274,7 +416,7 @@ void Fluid::m_reset(t_symbol* s, const AtomList& lst)
         fluid_synth_reset_basic_channel(synth_, i);
 }
 
-void Fluid::m_notesOff(t_symbol* s, const AtomList& lst)
+void Fluid::m_notesOff(t_symbol* s, const AtomListView& lst)
 {
     if (synth_ == nullptr)
         return;
@@ -283,7 +425,7 @@ void Fluid::m_notesOff(t_symbol* s, const AtomList& lst)
     fluid_synth_all_notes_off(synth_, chan - 1);
 }
 
-void Fluid::m_soundsOff(t_symbol* s, const AtomList& lst)
+void Fluid::m_soundsOff(t_symbol* s, const AtomListView& lst)
 {
     if (synth_ == nullptr)
         return;
@@ -352,9 +494,24 @@ void Fluid::processBlock(const t_sample** in, t_sample** out)
     if (synth_ == nullptr)
         return;
 
+    const auto bs = blockSize();
+
+#if PD_FLOATSIZE == 32
     float* left = out[0];
     float* right = out[1];
-    fluid_synth_write_float(synth_, blockSize(), left, 0, 1, right, 0, 1);
+    fluid_synth_write_float(synth_, bs, left, 0, 1, right, 0, 1);
+#elif PD_FLOATSIZE == 64
+    float left[bs];
+    float right[bs];
+
+    fluid_synth_write_float(synth_, bs, left, 0, 1, right, 0, 1);
+
+    for (size_t i = 0; i < bs; i++)
+        out[0][i] = left[i];
+
+    for (size_t i = 0; i < bs; i++)
+        out[1][i] = right[i];
+#endif
 }
 
 void setup_misc_fluid()

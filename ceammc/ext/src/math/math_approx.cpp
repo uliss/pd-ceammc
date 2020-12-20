@@ -25,30 +25,37 @@ MathApprox::MathApprox(const PdArgs& a)
     createInlet();
     createOutlet();
 
-    value_ = new FloatProperty("@value", positionalFloatArgument(0, 0));
-    epsilon_ = new FloatProperty("@epsilon", positionalFloatArgument(1, 0.01f));
+    value_ = new FloatProperty("@value", 0);
+    value_->setArgIndex(0);
+    epsilon_ = new FloatProperty("@epsilon", t_float(0.01));
+    epsilon_->setArgIndexNext(value_);
 
-    createProperty(value_);
-    createProperty(epsilon_);
+    addProperty(value_);
+    addProperty(epsilon_);
 }
 
-void MathApprox::onFloat(float f)
+void MathApprox::onFloat(t_float f)
 {
     const t_float v = value_->value();
     const t_float e = epsilon_->value();
-    floatTo(0, fabsf(f - v) <= fabsf(e) ? 1 : 0);
+    floatTo(0, std::fabs(f - v) <= std::fabs(e) ? 1 : 0);
 }
 
 void MathApprox::onList(const AtomList& l)
 {
+    static ArgChecker arg_cheker("f f f?");
+
+    if (!arg_cheker.check(l))
+        return;
+
     if (l.size() == 3) {
-        value_->set(l[1]);
-        epsilon_->set(l[2]);
+        value_->set(l.view(1, 1));
+        epsilon_->set(l.view(2, 1));
         onFloat(l[0].asFloat(0));
     }
 
     if (l.size() == 2) {
-        value_->set(l[1]);
+        value_->set(l.view(1, 1));
         onFloat(l[0].asFloat(0));
     }
 }
@@ -65,7 +72,7 @@ void MathApprox::onInlet(size_t n, const AtomList& l)
     }
 }
 
-extern "C" void setup_math0x2eaapprox()
+void setup_math_approx()
 {
     ObjectFactory<MathApprox> obj("math.approx");
     obj.addAlias("approx");

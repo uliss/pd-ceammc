@@ -14,21 +14,32 @@
 #include "string_to_symbol.h"
 
 void setup_string_match();
+void setup_symbol_equal();
+void setup_symbol_length();
+void setup_symbol_num_compare();
+void setup_symbol_to_any();
+void setup_symbol_to_int();
 
 void ceammc_string_setup()
 {
-    setup_string0x2econtains();
-    setup_string0x2eends_with();
-    setup_string0x2eequal();
-    setup_string0x2eformat();
-    setup_string0x2ejoin();
-    setup_string0x2elength();
-    setup_string0x2eremove();
-    setup_string0x2ereplace();
-    setup_string0x2esplit();
-    setup_string0x2estarts_with();
-    setup_string0x2esubstr();
-    setup_string0x2eto_symbol();
+    setup_string_contains();
+    setup_string_ends_with();
+    setup_string_equal();
+    setup_string_format();
+    setup_string_join();
+    setup_string_length();
     setup_string_match();
-    string_setup();
+    setup_string_remove();
+    setup_string_replace();
+    setup_string_split();
+    setup_string_starts_with();
+    setup_string_str();
+    setup_string_substr();
+    setup_string_to_symbol();
+
+    setup_symbol_equal();
+    setup_symbol_length();
+    setup_symbol_num_compare();
+    setup_symbol_to_any();
+    setup_symbol_to_int();
 }

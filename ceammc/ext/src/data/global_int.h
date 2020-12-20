@@ -15,12 +15,12 @@
 #define GLOBAL_INT_H
 
 #include "data_protocol.h"
-#include "local_base.h"
+#include "global_base.h"
 
 using namespace ceammc;
 
-typedef long GlobalIntType;
-typedef NumericIFace<LocalBase<GlobalIntType>, GlobalIntType> GlobalIntBase;
+typedef int GlobalIntType;
+using GlobalIntBase = NumericIFace<GlobalBase<GlobalIntType>, GlobalIntType>;
 
 class GlobalInt : public GlobalIntBase {
 public:

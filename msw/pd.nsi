@@ -115,7 +115,7 @@ SectionGroup /e "${COMPONENT_GROUP_TEXT}"
     WriteRegStr HKCR "PureData\DefaultIcon" "" "$INSTDIR\bin\pd.exe"
     WriteRegStr HKCR "PureData\shell" "" ""
     WriteRegStr HKCR "PureData\shell\open" "" ""
-    WriteRegStr HKCR "PureData\shell\open\command" "" '$INSTDIR\bin\WISHNAME "$INSTDIR\tcl\pd-gui.tcl" %1'
+    WriteRegStr HKCR "PureData\shell\open\command" "" '$INSTDIR\bin\WISHNAME "$INSTDIR\tcl\pd-gui.tcl" "%1"'
   ; Set file ext icon
     WriteRegStr HKCU "Software\Microsoft\Windows\CurrentVersion\Explorer\FileExts\.pd" "" ""
     WriteRegStr HKCU "Software\Microsoft\Windows\CurrentVersion\Explorer\FileExts\.pd\OpenWithList" "a" "pd.exe"
@@ -130,10 +130,10 @@ SectionGroupEnd
 Section -Post
   WriteUninstaller "$INSTDIR\uninst.exe"
 
+  
+  WriteRegStr HKLM "${PRODUCT_DIR_REGKEY}" "${ARCHI}" "$INSTDIR"
 
-  WriteRegStr HKLM "${PRODUCT_DIR_REGKEY}" "${ARCHI}" "$INSTDIR\bin\pd.exe"
-
-
+  
   WriteRegStr ${PRODUCT_UNINST_ROOT_KEY} "${PRODUCT_UNINST_KEY}" "DisplayName" "$(^Name)"
   WriteRegStr ${PRODUCT_UNINST_ROOT_KEY} "${PRODUCT_UNINST_KEY}" "UninstallString" "$INSTDIR\uninst.exe"
   WriteRegStr ${PRODUCT_UNINST_ROOT_KEY} "${PRODUCT_UNINST_KEY}" "DisplayIcon" "$INSTDIR\bin\pd.exe"
@@ -165,8 +165,8 @@ Section Uninstall
 
 ; file ext association
   DeleteRegKey ${PRODUCT_UNINST_ROOT_KEY} "${PRODUCT_UNINST_KEY}"
-
-
+  
+  
   DeleteRegKey /ifempty HKLM "${PRODUCT_DIR_REGKEY}"
 
 

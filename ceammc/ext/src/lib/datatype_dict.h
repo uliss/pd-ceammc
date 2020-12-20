@@ -16,82 +16,165 @@
 
 #include "ceammc_abstractdata.h"
 #include "ceammc_atomlist.h"
-#include "ceammc_data.h"
-#include "ceammc_dataatom.h"
+#include "ceammc_maybe.h"
 
-#include <boost/optional.hpp>
-#include <boost/variant.hpp>
 #include <map>
 #include <type_traits>
 
 namespace ceammc {
 
-typedef boost::variant<boost::blank, DataAtom, Atom, AtomList> DictValue;
-typedef boost::optional<std::string> MaybeString;
-
-/**
- * Outputs dict value to specified outlet
- * @return true on success
- */
-bool to_outlet(t_outlet* x, const DictValue& v);
+using MaybeString = Maybe<std::string>;
 
 class DataTypeDict : public AbstractData {
 public:
-    typedef std::map<Atom, DictValue> DictMap;
+    using DictMap = std::map<t_symbol*, AtomList>;
+    using DictKeyValue = DictMap::value_type;
+
+    struct DictEntry : public DictKeyValue {
+        template <typename... Values>
+        DictEntry(const char* k, Values... args)
+            : DictKeyValue(gensym(k), AtomList(args...))
+        {
+        }
+
+        template <typename... Values>
+        DictEntry(t_symbol* k, Values... args)
+            : DictKeyValue(k, AtomList(args...))
+        {
+        }
+    };
+
+    using iterator = DictMap::iterator;
+    using const_iterator = DictMap::const_iterator;
 
 private:
     DictMap dict_;
 
 public:
-    DataTypeDict();
-    DataTypeDict(const DataTypeDict& dict);
-    DataTypeDict(DataTypeDict&& dict);
+    /**
+     * create empty dict
+     */
+    DataTypeDict() noexcept;
+
+    /**
+     * Create dict from doing string parse
+     * If parsing error occurs returns ???
+     * @throw std::logic_error
+     */
     DataTypeDict(const std::string& str);
 
-    DataTypeDict& operator=(const DataTypeDict& dict);
-    DataTypeDict& operator=(DataTypeDict&& dict);
-
-    DataTypeDict* clone() const override;
-    DataType type() const override;
-    std::string toString() const override;
-    bool isEqual(const AbstractData* d) const override;
-    bool operator==(const DataTypeDict& d) const;
-
-    size_t size() const;
-    bool contains(const Atom& key) const;
-    DictValue value(const Atom& key) const;
-
-    template <class T>
-    boost::optional<T> valueT(const Atom& key) const
-    {
-        static_assert(std::is_same<T, DataAtom>()
-                || std::is_same<T, Atom>()
-                || std::is_same<T, AtomList>(),
-            "unsupported type");
-
-        DictValue val = value(key);
-
-        if (val.type() == typeid(T))
-            return boost::get<T>(val);
-        else
-            return boost::none;
-    }
-
-    void insert(const std::string& key, const std::string& value);
-    void insert(const std::string& key, t_float value);
-    void insert(const std::string& key, const Atom& value);
-    void insert(const std::string& key, const AtomList& lst);
     /**
-     * @note - takes pointer ownership
+     * Copy ctor
      */
-    void insert(const std::string& key, AbstractData* data);
+    DataTypeDict(const DataTypeDict& dict);
 
-    void insert(const Atom& key, t_float value);
-    void insert(const Atom& key, const Atom& value);
-    void insert(const Atom& key, const AtomList& value);
-    void insert(const Atom& key, const DataAtom& value);
-    bool remove(const Atom& key);
-    void clear();
+    /**
+     * Init list initializer
+     */
+    DataTypeDict(std::initializer_list<DictKeyValue> pairs);
+
+    /**
+     * Move ctor
+     */
+    DataTypeDict(DataTypeDict&& dict) noexcept;
+
+    /**
+     * Assign operators
+     */
+    DataTypeDict& operator=(const DataTypeDict& dict);
+    DataTypeDict& operator=(DataTypeDict&& dict) noexcept;
+
+    /**
+     * Polymorphic copy
+     */
+    DataTypeDict* clone() const override;
+
+    /**
+     * Polynorphic data type
+     */
+    int type() const noexcept final;
+
+    /**
+     * Polymorphic string value
+     */
+    std::string toString() const override;
+
+    std::string valueToJsonString() const override;
+
+    /**
+     * Polymorphics equality check
+     */
+    bool isEqual(const AbstractData* d) const noexcept final;
+
+    /**
+     * Equal check
+     */
+    bool operator==(const DataTypeDict& d) const noexcept;
+
+    // iterators
+    iterator begin() { return dict_.begin(); }
+    iterator end() { return dict_.end(); }
+    const_iterator begin() const { return dict_.begin(); }
+    const_iterator end() const { return dict_.end(); }
+    const_iterator cbegin() { return dict_.begin(); }
+    const_iterator cend() { return dict_.end(); }
+
+    /**
+     * Return number of entries in dict
+     */
+    size_t size() const noexcept { return dict_.size(); }
+
+    /**
+     * Checks if dict contains key
+     */
+    bool contains(t_symbol* key) const noexcept { return dict_.find(key) != dict_.end(); }
+    bool contains(const char* key) const noexcept { return contains(gensym(key)); }
+
+    /**
+     * Returns list of all keys in dict
+     */
+    AtomList keys() const;
+
+    /**
+     * Returns keys and values intermixed as single list
+     */
+    AtomList flattenToList() const;
+
+    /**
+     * Get element value by specified key
+     * @param key
+     * @return reference to element value or
+     * @throw std::out_of_range if key not found
+     */
+    AtomList& at(t_symbol* key);
+    AtomList& at(const char* key) { return at(gensym(key)); }
+    const AtomList& at(t_symbol* key) const;
+    const AtomList& at(const char* key) const { return at(gensym(key)); }
+
+    /**
+     * Insert key for dict
+     */
+    void insert(const char* key, const Atom& atom) { insert(gensym(key), atom); }
+    void insert(t_symbol* key, const Atom& atom) { dict_[key] = atom; }
+    void insert(const char* key, const AtomList& value) { insert(gensym(key), value); }
+    void insert(t_symbol* key, const AtomList& value) { dict_[key] = value; }
+
+    /**
+     * Remove dict entries by key predicate
+     */
+    void removeIf(std::function<bool(t_symbol*)> key_pred);
+
+    /**
+     * Tries to remove specified key
+     * @return true on success, false if key not found
+     */
+    bool remove(t_symbol* key);
+    bool remove(const char* key) { return remove(gensym(key)); }
+
+    /**
+     * Removes all data from dict
+     */
+    void clear() noexcept { dict_.clear(); }
 
     bool fromString(const std::string& str);
 
@@ -102,25 +185,20 @@ public:
     bool write(const std::string& path) const;
 
 public:
-    template <class T>
-    static bool isType(const DictValue& v)
-    {
-        return v.type() == typeid(T);
-    }
+    /**
+     * Creates dict from list, splitting it by step
+     * @param step - should be >0
+     */
+    static DataTypeDict fromList(const AtomList& l, size_t step = 2);
 
-    static bool isNull(const DictValue& v);
-    static bool isAtom(const DictValue& v);
-    static bool isAtomList(const DictValue& v);
-    static bool isDataAtom(const DictValue& v);
-
-public:
     DictMap& innerData() { return dict_; }
     const DictMap& innerData() const { return dict_; }
 
 public:
-    static const DataType dataType;
+    static const int dataType;
 };
 
+std::ostream& operator<<(std::ostream& os, const DataTypeDict& dict);
 }
 
 #endif // DATATYPE_DICT_H

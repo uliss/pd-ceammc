@@ -15,11 +15,15 @@
             <since>0.1</since>
             <aliases>
                 <alias view="link">ui.d</alias>
+                <alias view="link">ui.dt</alias>
             </aliases>
             <also>
                 <see>msg</see>
             </also>
         </meta>
+        <info>
+            <par>[ui.dt] is alias for [ui.display @display_type=1]</par>
+        </info>
         <mouse>
             <event editmode="false" type="double-click">show/hide message type</event>
             <event editmode="false" type="right-click" keys="Shift">open object help</event>
@@ -29,7 +33,7 @@
         </mouse>
         <inlets>
             <inlet>
-                <xinfo on="list">accepts any messages and displays it.</xinfo>
+                <xinfo>accepts any messages and displays it</xinfo>
             </inlet>
         </inlets>
         <methods>
@@ -44,22 +48,26 @@
             incoming message type</property>
             <property name="@display_events" type="int" default="1" enum="0 1">flag for blinking on
             incoming messages</property>
-            <property name="@send" type="symbol">send destination</property>
-            <property name="@receive" type="symbol">receive source</property>
-            <property name="@size" type="list">element size (width, height pair)</property>
+            <property name="@float_width" type="int" default="-1" minvalue="-1" maxvalue="17">
+            number of digits after floating point. If -1: skip trailing zeroes, if 0 - output as
+            integers</property>
+            <property name="@send" type="symbol" default="(null)">send destination</property>
+            <property name="@receive" type="symbol" default="(null)">receive source</property>
+            <property name="@size" type="list" default="150 18">element size (width, height
+            pair)</property>
             <property name="@pinned" type="int" enum="0 1" default="0">pin mode. if 1 - put element
             to the lowest level</property>
-            <property name="@active_color" type="list">element active color (list of red, green,
-            blue values in 0-1 range)</property>
-            <property name="@text_color" type="list">text color (list of red, green, blue values in
-            0-1 range)</property>
-            <property name="@background_color" type="list">element background color (list of red,
+            <property name="@active_color" type="list" default="0 0.75 1 1">element active color
+            (list of red, green, blue values in 0-1 range)</property>
+            <property name="@text_color" type="list" default="0 0 0 1">text color (list of red,
             green, blue values in 0-1 range)</property>
-            <property name="@border_color" type="list">border color (list of red, green, blue
-            values in 0-1 range)</property>
+            <property name="@background_color" type="list" default="0.93 0.93 0.93 1">element
+            background color (list of red, green, blue values in 0-1 range)</property>
+            <property name="@border_color" type="list" default="0.6 0.6 0.6 1">border color (list
+            of red, green, blue values in 0-1 range)</property>
             <property name="@fontsize" type="int" minvalue="4" maxvalue="11" default="11">
             fontsize</property>
-            <property name="@fontname" type="symbol">fontname</property>
+            <property name="@fontname" type="symbol" default="Helvetica">fontname</property>
             <property name="@fontweight" type="symbol" enum="normal bold" default="normal">font
             weight</property>
             <property name="@fontslant" type="symbol" enum="roman italic" default="roman">font
@@ -82,7 +90,7 @@
 |            |   |          |         |
 |            |   |          |         |
 |            |   |          |         |
-[ui.display            @display_type=1]
+[ui.display            @display_type 1]
 
 
 ]]>

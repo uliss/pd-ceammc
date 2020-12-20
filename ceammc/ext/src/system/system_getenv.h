@@ -24,8 +24,10 @@ class SystemGetEnv : public BaseObject {
 
 public:
     SystemGetEnv(const PdArgs& a);
-    void onBang();
-    void onSymbol(t_symbol* s);
+    void onBang() override;
+    void onSymbol(t_symbol* s) override;
 };
+
+void setup_system_getenv();
 
 #endif // SYSTEM_GETENV_H

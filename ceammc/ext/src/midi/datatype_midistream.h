@@ -3,35 +3,61 @@
 
 #include "ceammc_abstractdata.h"
 
-#include <boost/shared_ptr.hpp>
+#include <memory>
 
 class MidiFile;
 using namespace ceammc;
 
 class DataTypeMidiStream : public AbstractData {
-    boost::shared_ptr<MidiFile> midi_file_;
+    std::unique_ptr<MidiFile> midi_file_;
     int total_ticks_;
     double total_secs_;
     double total_quarters_;
     bool is_open_;
 
 public:
+    /**
+     * Creates empty midi stream
+     */
     DataTypeMidiStream();
     explicit DataTypeMidiStream(const MidiFile& midifile);
+
+    /**
+     * Creates midi stream from midifile
+     */
     explicit DataTypeMidiStream(const char* fname);
+
+    DataTypeMidiStream(const DataTypeMidiStream& s);
     ~DataTypeMidiStream();
 
+    /**
+     * Number of tracks in midifile
+     */
     size_t trackCount() const;
     size_t tempo() const;
+
+    /**
+     * Filename (not full path)
+     */
     t_symbol* filename() const;
 
+    /**
+     * Polymorphic data copy
+     */
     DataTypeMidiStream* clone() const;
-    DataType type() const;
+
+    /**
+     * Polymorphics data type
+     */
+    int type() const noexcept;
 
     double totalTimeInQuarters() const;
     int totalTimeInTicks() const;
     double totalTimeInSeconds() const;
 
+    /**
+     * Pointer to MidiFile struct
+     */
     MidiFile* midifile();
     const MidiFile* midifile() const;
 
@@ -41,7 +67,7 @@ public:
     bool is_open() const;
 
 public:
-    static const DataType dataType;
+    static const int dataType;
 
 private:
     void calcTime();

@@ -53,11 +53,11 @@ MathSyncEqual::MathSyncEqual(const PdArgs& args)
         args)
     , epsilon_(nullptr)
 {
-    prop_int_->setReadonly(true);
-    prop_int_->setVisible(false);
+    epsilon_ = new FloatProperty("@epsilon", 0);
+    epsilon_->checkMinEq(0);
+    addProperty(epsilon_);
 
-    epsilon_ = new FloatPropertyMinEq("@epsilon", 0, 0);
-    createProperty(epsilon_);
+    prop_int_->setInternal();
 }
 
 MathSyncNotEqual::MathSyncNotEqual(const PdArgs& args)
@@ -70,39 +70,35 @@ MathSyncNotEqual::MathSyncNotEqual(const PdArgs& args)
         args)
     , epsilon_(nullptr)
 {
-    prop_int_->setReadonly(true);
-    prop_int_->setVisible(false);
+    epsilon_ = new FloatProperty("@epsilon");
+    epsilon_->checkMinEq(0);
+    addProperty(epsilon_);
 
-    epsilon_ = new FloatPropertyMinEq("@epsilon", 0, 0);
-    createProperty(epsilon_);
+    prop_int_->setInternal();
 }
 
 MathSyncLessThen::MathSyncLessThen(const PdArgs& args)
     : MathSyncBase([](t_float v1, t_float v2) { return v1 < v2; }, args)
 {
-    prop_int_->setReadonly(true);
-    prop_int_->setVisible(false);
+    prop_int_->setInternal();
 }
 
 MathSyncLessEqual::MathSyncLessEqual(const PdArgs& args)
     : MathSyncBase([](t_float v1, t_float v2) { return v1 <= v2; }, args)
 {
-    prop_int_->setReadonly(true);
-    prop_int_->setVisible(false);
+    prop_int_->setInternal();
 }
 
 MathSyncGreaterThen::MathSyncGreaterThen(const PdArgs& args)
     : MathSyncBase([](t_float v1, t_float v2) { return v1 > v2; }, args)
 {
-    prop_int_->setReadonly(true);
-    prop_int_->setVisible(false);
+    prop_int_->setInternal();
 }
 
 MathSyncGreaterEqual::MathSyncGreaterEqual(const PdArgs& args)
     : MathSyncBase([](t_float v1, t_float v2) { return v1 >= v2; }, args)
 {
-    prop_int_->setReadonly(true);
-    prop_int_->setVisible(false);
+    prop_int_->setInternal();
 }
 
 MathSyncMod::MathSyncMod(const PdArgs& args)
@@ -134,6 +130,26 @@ MathSyncXor::MathSyncXor(const PdArgs& args)
 {
 }
 
+MathSyncLeftShift::MathSyncLeftShift(const PdArgs& args)
+    : MathSyncBase([](t_float v1, t_float v2) {
+        const auto i1 = static_cast<IntType>(v1);
+        const auto i2 = static_cast<IntType>(v2);
+
+        return (i2 >= 0) ? (i1 << i2) : (i1 >> (-i2));
+    },
+        args)
+{
+}
+
+MathSyncRightShift::MathSyncRightShift(const PdArgs& args)
+    : MathSyncBase([](t_float v1, t_float v2) {
+        const auto i1 = static_cast<IntType>(v1);
+        const auto i2 = static_cast<IntType>(v2);
+
+        return (i2 >= 0) ? (i1 >> i2) : (i1 << (-i2)); }, args)
+{
+}
+
 void setup_math_sync_op()
 {
 #define FACTORY_INIT(class_name, full_name, short_name)        \
@@ -159,4 +175,7 @@ void setup_math_sync_op()
     FACTORY_INIT(MathSyncAnd, "and", "&&")
     FACTORY_INIT(MathSyncOr, "or", "||")
     FACTORY_INIT(MathSyncXor, "xor", "^")
+
+    FACTORY_INIT(MathSyncLeftShift, "lshift", "<<")
+    FACTORY_INIT(MathSyncRightShift, "rshift", ">>")
 }

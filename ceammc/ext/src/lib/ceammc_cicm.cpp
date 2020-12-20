@@ -65,7 +65,7 @@ void UIFont::operator=(const UIFont& font)
     font_ = efont_create(family_, toSymbol(dec_), toSymbol(w_), size_);
 }
 
-UIFont::~UIFont()
+UIFont::~UIFont() noexcept
 {
     efont_destroy(font_);
 }
@@ -76,9 +76,9 @@ UITextLayout::UITextLayout(t_efont* font,
     const ColorRGBA& c,
     etextanchor_flags anchor,
     etextjustify_flags justify,
-    etextwrap_flags wrap)
+    etextwrap_flags wrap) noexcept
 
-    : text_(0)
+    : text_(nullptr)
     , font_(font)
     , anchor_(anchor)
     , justify_(justify)
@@ -94,9 +94,29 @@ UITextLayout::UITextLayout(t_efont* font,
     etext_layout_settextcolor(text_, &color);
 }
 
-UITextLayout::~UITextLayout()
+UITextLayout::UITextLayout(UITextLayout&& l) noexcept
+    : text_(l.text_)
+    , font_(l.font_)
+    , anchor_(l.anchor_)
+    , justify_(l.justify_)
+    , wrap_(l.wrap_)
+    , x_(l.x_)
+    , y_(l.y_)
+    , w_(l.w_)
+    , h_(l.h_)
 {
-    etext_layout_destroy(text_);
+    l.text_ = nullptr;
+    l.font_ = nullptr;
+    l.x_ = -1;
+    l.y_ = -1;
+    l.w_ = 0;
+    l.h_ = 0;
+}
+
+UITextLayout::~UITextLayout() noexcept
+{
+    if (text_)
+        etext_layout_destroy(text_);
 }
 
 ColorRGBA UITextLayout::color() const
@@ -260,8 +280,10 @@ UIPainter::UIPainter(t_ebox* box, t_symbol* name, const t_rect& brect)
 
 UIPainter::~UIPainter()
 {
-    if (layer_)
+    if (layer_) {
         ebox_end_layer(parent_, name_);
+        layer_->e_optimize = false;
+    }
 
     ebox_paint_layer(parent_, name_, 0, 0);
 }
@@ -393,6 +415,21 @@ void UIPainter::rotate(float angle)
 void UIPainter::setMatrix(const t_matrix& mtx)
 {
     egraphics_set_matrix(layer_, &mtx);
+}
+
+void UIPainter::preAllocObjects(size_t n)
+{
+    egraphics_preallocate_objects(layer_, n);
+}
+
+void UIPainter::preAllocPoints(size_t n)
+{
+    egraphics_preallocate_points(layer_, n);
+}
+
+void UIPainter::optimizeLines(bool v)
+{
+    layer_->e_optimize = v;
 }
 
 UIPopupMenu::UIPopupMenu(t_eobj* x,

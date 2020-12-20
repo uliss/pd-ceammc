@@ -1,5 +1,5 @@
 /*****************************************************************************
- * Copyright 2018 Serge Poltavsky. All rights reserved.
+ * Copyright 2020 Serge Poltavsky. All rights reserved.
  *
  * This file may be distributed under the terms of GNU Public License version
  * 3 (GPL v3) as defined by the Free Software Foundation (FSF). A copy of the
@@ -16,124 +16,85 @@
 
 FlowAppend::FlowAppend(const PdArgs& args)
     : BaseObject(args)
-    , delay_time_(0)
-    , as_msg_(0)
-    , clock_(this, &FlowAppend::tick)
+    , delay_(nullptr)
+    , delay_fn_([this]() { output(); })
+    , inlet2_(this)
 {
-    delay_time_ = new FloatProperty("@delay", 0, 0);
-    delay_time_->info().setUnits(PropertyInfoUnits::MSEC);
-    createProperty(delay_time_);
+    delay_ = new FloatProperty("@delay", -1);
+    delay_->checkMinEq(-1);
+    delay_->setUnits(PropValueUnits::MSEC);
+    addProperty(delay_);
 
-    as_msg_ = new FlagProperty("@msg");
-    createProperty(as_msg_);
-
-    msg_ = positionalArguments();
-
+    inlet_new(owner(), &inlet2_.x_obj, nullptr, nullptr);
     createOutlet();
+
+    auto& pargs = parsedPosArgs();
+    if (pargs.size() >= 1 && pargs[0].isSymbol())
+        msg_.setAny(pargs[0].asT<t_symbol*>(), pargs.view(1));
+    else if (pargs.empty())
+        msg_.setBang();
+    else
+        msg_.setList(pargs);
 }
 
 void FlowAppend::onBang()
 {
     bangTo(0);
-    process();
+    append();
 }
 
-void FlowAppend::onFloat(t_float f)
+void FlowAppend::onFloat(t_float v)
 {
-    floatTo(0, f);
-    process();
+    floatTo(0, v);
+    append();
 }
 
 void FlowAppend::onSymbol(t_symbol* s)
 {
     symbolTo(0, s);
-    process();
+    append();
 }
 
-void FlowAppend::onList(const AtomList& lst)
+void FlowAppend::onList(const AtomList& l)
 {
-    listTo(0, lst);
-    process();
+    listTo(0, l);
+    append();
 }
 
-void FlowAppend::onAny(t_symbol* s, const AtomList& lst)
+void FlowAppend::onAny(t_symbol* s, const AtomListView& lv)
 {
-    anyTo(0, s, lst);
-    process();
+    anyTo(0, s, lv);
+    append();
 }
 
-bool FlowAppend::processAnyInlets(t_symbol* sel, const AtomList& lst)
+void FlowAppend::proxy_any(InletProxy<FlowAppend>* /*x*/, t_symbol* s, const AtomListView& v)
 {
-    return false;
+    msg_.setAny(s, v);
 }
 
-bool FlowAppend::processAnyProps(t_symbol* s, const AtomList& lst)
+void FlowAppend::append()
 {
-    static t_symbol* SYM_PROP_GET_DELAY = gensym("@delay?");
-    static t_symbol* SYM_PROP_DELAY = gensym("@delay");
-
-    // get
-    if (s == SYM_PROP_GET_DELAY) {
-        anyTo(0, SYM_PROP_DELAY, delay_time_->get());
-        return true;
-    }
-
-    // set
-    if (s == SYM_PROP_DELAY) {
-        delay_time_->set(lst);
-        return true;
-    }
-
-    return false;
+    const auto dt = delay_->value();
+    if (dt < 0)
+        output();
+    else
+        delay_fn_.delay(dt);
 }
 
-void FlowAppend::parseProperties()
+void FlowAppend::output()
 {
-    std::deque<AtomList> p = args().properties();
-    for (size_t i = 0; i < p.size(); i++) {
-        if (p[i].size() < 1)
-            continue;
-
-        t_symbol* pname = p[i][0].asSymbol();
-
-        if (!hasProperty(pname)) {
-            msg_.append(p[i]);
-            continue;
-        }
-
-        // skip readonly properties
-        if (property(pname)->readonly())
-            continue;
-
-        property(pname)->set(p[i].slice(1));
-    }
-}
-
-void FlowAppend::process()
-{
-    if (delay_time_->value() >= 0) {
-        clock_.delay(delay_time_->value());
-        return;
-    } else {
-        outputAppend();
-    }
-}
-
-void FlowAppend::tick()
-{
-    outputAppend();
-}
-
-void FlowAppend::outputAppend()
-{
-    if (as_msg_->value()) {
-        anyTo(0, msg_);
-    } else {
-        listTo(0, msg_);
-    }
+    if (msg_.isNone())
+        bangTo(0);
+    else
+        messageTo(0, msg_);
 }
 
 void setup_flow_append()
 {
     ObjectFactory<FlowAppend> obj("flow.append");
+    obj.noPropsDispatch();
+    obj.setXletsInfo({ "any: input flow", "any: set append message" }, { "any: output" });
+
+    InletProxy<FlowAppend>::init();
+    InletProxy<FlowAppend>::set_any_callback(&FlowAppend::proxy_any);
 }

@@ -16,43 +16,66 @@
 
 static const size_t MAX_KEYS = 32;
 
-static AtomList clipped(const AtomList& l)
+DictGet::DictGet(const PdArgs& args)
+    : DictBase(args)
+    , default_(nullptr)
 {
-    AtomList res(l);
-    if (res.size() > MAX_KEYS)
-        res.resizeClip(MAX_KEYS);
+    auto p = createCbListProperty(
+        "@keys",
+        [this]() -> AtomList {
+            AtomList res;
+            res.reserve(keys_.size());
+            for (auto k : keys_)
+                res.append(k);
 
-    return res;
+            return res;
+        },
+        [this](const AtomList& l) -> bool {
+            for (auto it = l.begin_atom_filter(isSymbol); it != l.end_atom_filter(); ++it)
+                keys_.push_back(it->asSymbol());
+
+            return true;
+        });
+
+    p->setInitOnly();
+    p->setArgIndex(0);
+
+    p->setListCheckFn([this](const AtomList& l) {
+        if (!l.anyOf(isSymbol)) {
+            OBJ_ERR << "only symbols are allowed as key, got: " << l;
+            return false;
+        }
+
+        if (l.size() > MAX_KEYS) {
+            OBJ_ERR << "only " << MAX_KEYS << " max keys are allowed, got: " << l.size();
+            return false;
+        }
+
+        return true;
+    });
+
+    default_ = new AtomProperty("@default", Atom());
+    addProperty(default_);
 }
 
-DictGet::DictGet(const PdArgs& args)
-    : BaseObject(args)
-    , keys_(clipped(args.args))
+void DictGet::initDone()
 {
     for (size_t i = 0; i < keys_.size(); i++)
         createOutlet();
 }
 
-void DictGet::parseProperties()
-{
-}
-
-bool DictGet::processAnyProps(t_symbol* sel, const AtomList& lst)
-{
-    return true;
-}
-
-void DictGet::onDataT(const DataTPtr<DataTypeDict>& dptr)
+void DictGet::onDataT(const DictAtom& dict)
 {
     long n = keys_.size();
+
     // back order
     while (n-- > 0) {
-        const auto& k = keys_[n];
-        auto v = dptr->value(k);
-        if (DataTypeDict::isNull(v))
-            continue;
-
-        to_outlet(outletAt(n), v);
+        if (dict->contains(keys_[n]))
+            listTo(n, dict->at(keys_[n]));
+        else if (!default_->value().isNone())
+            atomTo(n, default_->value());
+        else
+            ; // no output
     }
 }
 

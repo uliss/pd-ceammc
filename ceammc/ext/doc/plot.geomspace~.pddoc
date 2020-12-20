@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="plot.geomspace~">
+        <title>plot.geomspace~</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>outputs numbers spaced evenly on a log scale (a geometric
+            progression)</description>
+            <license>GPL3 or later</license>
+            <library>ceammc</library>
+            <category>array</category>
+            <keywords>array geom log scale</keywords>
+            <also>
+                <see>plot.linspace~</see>
+                <see>plot.logspace~</see>
+            </also>
+            <since>0.9</since>
+        </meta>
+        <properties>
+            <property name="@start" minvalue="0" type="float" default="0.1">the starting value of
+            the sequence</property>
+            <property name="@stop" minvalue="0" type="float" default="100">the final value of the
+            sequence, unless @endpoint is false. In that case, @n + 1 values are spaced over the
+            interval in log-space, of which all but the last (a sequence of length @n) are
+            returned.</property>
+            <property name="@n" minvalue="4" maxvalue="1024" type="int" default="100">number of
+            points</property>
+            <property name="@base" enum="10 2 e" type="atom" default="10">x-axis scale
+            base</property>
+            <property name="@2" type="atom">alias to @base 2</property>
+            <property name="@10" type="atom">alias to @base 10</property>
+            <property name="@e" type="atom">alias to @base e</property>
+            <property name="@endpoint" type="int" enum="0 1" default="1">include @stop to
+            interval</property>
+        </properties>
+        <inlets>
+            <inlet>
+                <xinfo on="bang">starts output</xinfo>
+                <xinfo on="float">output specified number of values, change @n property
+                valuue</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet type="audio">signal output</outlet>
+            <outlet>output to [array.plot~] or [ui.plot~]</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[B]
+|
+|
+[plot.geomspace~ 2 1024]
+|      ^|.
+[ui.plot~ @size 400 150 @xlabels 1 @ylabels 1 @xmin_grid 1 @ymin_ticks 0 @xmin_ticks 0 @yauto 1]
+
+
+
+
+
+
+
+
+
+
+[ui.dsp~]
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

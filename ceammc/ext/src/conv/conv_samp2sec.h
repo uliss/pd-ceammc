@@ -21,8 +21,8 @@ using namespace ceammc;
 class SampleToSec : public BaseObject {
 public:
     SampleToSec(const PdArgs& a);
-    void onFloat(t_float v);
-    void onList(const AtomList& lst);
+    void onFloat(t_float v) override;
+    void onList(const AtomList& lst) override;
 };
 
 #endif // CONV_SAMP2SEC_H

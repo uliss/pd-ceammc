@@ -1,103 +1,106 @@
 #include "mod_math.h"
 
-#include "math_div.h"
-#include "math_expr.h"
-#include "math_gcd.h"
-#include "math_lcm.h"
-#include "math_mul.h"
-#include "math_polyeval.h"
-#include "math_sync_op.h"
-
-extern "C" void setup_math0x2eabs();
-extern "C" void setup_math0x2eacos();
-extern "C" void setup_math0x2eacosh();
-extern "C" void setup_math0x2easin();
-extern "C" void setup_math0x2easinh();
-extern "C" void setup_math0x2eatan();
-extern "C" void setup_math0x2eatanh();
-extern "C" void setup_math0x2ecbrt();
-extern "C" void setup_math0x2eceil();
-extern "C" void setup_math0x2ecos();
-extern "C" void setup_math0x2ecosh();
-extern "C" void setup_math0x2ee();
-extern "C" void setup_math0x2eexp();
-extern "C" void setup_math0x2eexp2();
-extern "C" void setup_math0x2efloor();
-extern "C" void setup_math0x2einf();
-extern "C" void setup_math0x2elog();
-extern "C" void setup_math0x2elog10();
-extern "C" void setup_math0x2elog2();
-extern "C" void setup_math0x2enan();
-extern "C" void setup_math0x2eneg();
-extern "C" void setup_math0x2epi();
-extern "C" void setup_math0x2ereciprocal();
-extern "C" void setup_math0x2eround();
-extern "C" void setup_math0x2esign();
-extern "C" void setup_math0x2esin();
-extern "C" void setup_math0x2esinh();
-extern "C" void setup_math0x2esqrt();
-extern "C" void setup_math0x2esquared();
-extern "C" void setup_math0x2etan();
-extern "C" void setup_math0x2etanh();
-extern "C" void setup_math0x2etrunc();
-
-extern "C" void setup_math0x2eand();
-extern "C" void setup_math0x2eor();
-extern "C" void setup_math0x2eaapprox();
-
-void setup_math_round_tilde();
+void setup_math_abs();
+void setup_math_acos();
+void setup_math_acosh();
+void setup_math_and();
+void setup_math_approx();
+void setup_math_asin();
+void setup_math_asinh();
+void setup_math_atan();
+void setup_math_atanh();
+void setup_math_cabs_tilde();
+void setup_math_carg_tilde();
+void setup_math_cbrt();
 void setup_math_cdiv_tilde();
+void setup_math_ceil();
+void setup_math_cexp_tilde();
 void setup_math_cmul_tilde();
+void setup_math_cos();
+void setup_math_cosh();
+void setup_math_div();
+void setup_math_e();
+void setup_math_erf();
+void setup_math_exp();
+void setup_math_exp2();
+void setup_math_expr();
+void setup_math_floor();
+void setup_math_gamma();
+void setup_math_lgamma();
+void setup_math_gcd();
+void setup_math_inf();
+void setup_math_lcm();
+void setup_math_log();
+void setup_math_log10();
+void setup_math_log2();
+void setup_math_mul();
+void setup_math_nan();
+void setup_math_neg();
+void setup_math_or();
+void setup_math_pi();
+void setup_math_polyeval();
+void setup_math_reciprocal();
+void setup_math_round();
+void setup_math_sign();
+void setup_math_sin();
+void setup_math_sinh();
+void setup_math_sqrt();
+void setup_math_squared();
+void setup_math_sync_op();
+void setup_math_tan();
+void setup_math_tanh();
+void setup_math_trunc();
 
 void ceammc_math_setup()
 {
-    setup_math0x2eabs();
-    setup_math0x2eacos();
-    setup_math0x2eacosh();
-    setup_math0x2easin();
-    setup_math0x2easinh();
-    setup_math0x2eatan();
-    setup_math0x2eatanh();
-    setup_math0x2ecbrt();
-    setup_math0x2eceil();
-    setup_math0x2ecos();
-    setup_math0x2ecosh();
-    setup_math0x2ee();
-    setup_math0x2eexp();
-    setup_math0x2eexp2();
-    setup_math0x2efloor();
-    setup_math0x2einf();
-    setup_math0x2elog();
-    setup_math0x2elog10();
-    setup_math0x2elog2();
-    setup_math0x2enan();
-    setup_math0x2eneg();
-    setup_math0x2epi();
-    setup_math0x2ereciprocal();
-    setup_math0x2eround();
-    setup_math0x2esign();
-    setup_math0x2esin();
-    setup_math0x2esinh();
-    setup_math0x2esqrt();
-    setup_math0x2esquared();
-    setup_math0x2etan();
-    setup_math0x2etanh();
-    setup_math0x2etrunc();
-
-    setup_math0x2eand();
-    setup_math0x2eor();
-    setup_math0x2eaapprox();
-
-    setup_math0x2egcd();
-    setup_math0x2elcm();
-
+    setup_math_abs();
+    setup_math_acos();
+    setup_math_acosh();
+    setup_math_and();
+    setup_math_approx();
+    setup_math_asin();
+    setup_math_asinh();
+    setup_math_atan();
+    setup_math_atanh();
+    setup_math_cabs_tilde();
+    setup_math_carg_tilde();
+    setup_math_cbrt();
     setup_math_cdiv_tilde();
+    setup_math_ceil();
+    setup_math_cexp_tilde();
     setup_math_cmul_tilde();
+    setup_math_cos();
+    setup_math_cosh();
     setup_math_div();
+    setup_math_e();
+    setup_math_erf();
+    setup_math_exp();
+    setup_math_exp2();
     setup_math_expr();
+    setup_math_floor();
+    setup_math_gamma();
+    setup_math_gcd();
+    setup_math_inf();
+    setup_math_lcm();
+    setup_math_lgamma();
+    setup_math_log();
+    setup_math_log10();
+    setup_math_log2();
     setup_math_mul();
+    setup_math_nan();
+    setup_math_neg();
+    setup_math_or();
+    setup_math_pi();
     setup_math_polyeval();
-    setup_math_round_tilde();
-
+    setup_math_reciprocal();
+    setup_math_round();
+    setup_math_sign();
+    setup_math_sin();
+    setup_math_sinh();
+    setup_math_sqrt();
+    setup_math_squared();
     setup_math_sync_op();
+    setup_math_tan();
+    setup_math_tanh();
+    setup_math_trunc();
 }

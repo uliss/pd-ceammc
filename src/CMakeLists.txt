@@ -70,6 +70,7 @@ set(S_SRC
     s_main.c
     s_midi.c
 #    s_midi_dummy.c
+    s_net.c
     s_path.c
     s_print.c
     s_utf8.c)
@@ -151,6 +152,10 @@ if(WITH_PORTMIDI)
     list(APPEND PD_NEEDED_LIBS portmidi-static)
 endif()
 
+if(WITH_COREMIDI)
+    list(APPEND S_SRC s_midi_coremidi.c)
+endif()
+
 if(WISHAPP)
     add_definitions(-DWISHAPP="${WISHAPP}")
 endif()
@@ -180,24 +185,31 @@ if(WIN32 OR MSYS)
 
     add_library(puredata-core SHARED ${D_SRC} ${G_SRC} ${M_SRC} ${S_SRC} ${X_SRC})
     set_target_properties(puredata-core PROPERTIES PREFIX "" OUTPUT_NAME pd)
+    target_link_options(puredata-core PRIVATE "-Wl,--export-all-symbols")
     add_executable(pd WIN32 s_entry.c ${RESOURCE})
 else()
     add_library(puredata-core STATIC ${D_SRC} ${G_SRC} ${M_SRC} ${S_SRC} ${X_SRC} ${MISC_H})
     add_executable(pd s_entry.c)
     set_target_properties(puredata-core PROPERTIES COMPILE_FLAGS "-fPIC")
+
+    if(APPLE)
+        target_link_libraries(puredata-core PRIVATE "-framework CoreMIDI")
+        target_link_libraries(puredata-core PRIVATE "-framework CoreMedia")
+        target_link_libraries(puredata-core PRIVATE "-framework CoreFoundation")
+    endif()
 endif()
 
-target_link_libraries(puredata-core ${PD_NEEDED_LIBS} ${PLATFORM_LINK_LIBRARIES})
-target_link_libraries(pd puredata-core ${PD_NEEDED_LIBS})
+target_link_libraries(puredata-core PUBLIC ${PD_NEEDED_LIBS} ${PLATFORM_LINK_LIBRARIES})
+target_link_libraries(pd PUBLIC puredata-core ${PD_NEEDED_LIBS})
 
 if(UNIX AND NOT APPLE)
     add_executable(pd-watchdog s_watchdog.c)
     target_link_libraries(pd-watchdog ${PLATFORM_LINK_LIBRARIES})
 endif()
 
-add_executable(pdsend u_pdsend.c)
+add_executable(pdsend u_pdsend.c s_net.c)
 target_link_libraries(pdsend ${PLATFORM_LINK_LIBRARIES})
-add_executable(pdreceive u_pdreceive.c)
+add_executable(pdreceive u_pdreceive.c s_net.c)
 target_link_libraries(pdreceive ${PLATFORM_LINK_LIBRARIES})
 
 # exe install

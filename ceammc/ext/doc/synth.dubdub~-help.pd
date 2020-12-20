@@ -6,67 +6,78 @@ resonant lowpass;
 #X obj 1 1 cnv 5 765 40 empty empty synth.dubdub~ 20 20 0 20 -104026
 -4096 0;
 #X obj 645 11 synth.dubdub~;
-#X obj 50 118 ui.keyboard @size 433 60;
-#X obj 50 190 list.apply_to 1;
-#X obj 242 190 > 0;
-#X msg 50 219 @pitch \$1 \, @gate \$2;
-#X obj 69 248 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1;
-#X obj 328 248 ui.knob;
-#X obj 434 248 ui.knob;
-#X obj 69 277 metro.pattern 200 150 50;
-#X msg 328 291 @q \$1;
-#X obj 434 291 lin->lin 0 1 100 8000;
-#X msg 69 305 next;
-#X obj 69 334 list.walk C2 D3 G3 C4 Bb2 C2 @loop;
-#X msg 434 334 @cutoff \$1;
-#X obj 69 363 pitch->midi;
-#X msg 69 392 @pitch \$1 \, @gate 0;
-#X obj 69 421 flow.append @gate 1 @msg @delay 10;
-#X obj 50 449 synth.dubdub~;
-#X obj 50 478 ui.gain~ @size 120 16;
-#X obj 50 507 dac~;
-#X obj 50 536 ui.dsp~;
-#X obj 20 575 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 580 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
+#X obj 50 118 ui.keyboard;
+#X obj 50 190 msg note;
+#X obj 69 219 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1;
+#X obj 328 219 ui.knob;
+#X obj 434 219 ui.knob;
+#X obj 69 248 metro.pattern 200 150 50;
+#X msg 328 262 @q \$1;
+#X obj 434 262 lin->lin 0 1 100 8000;
+#X msg 69 277 next;
+#X obj 69 305 list.walk C2 D3 G3 C4 Bb2 C2 @loop;
+#X msg 434 305 @cutoff \$1;
+#X obj 69 334 pitch->midi;
+#X msg 69 363 @pitch \$1 \, @gate 0;
+#X obj 69 392 msg.after 10 @gate 1;
+#X obj 50 421 synth.dubdub~;
+#X obj 50 449 ui.gain~ @size 120 16;
+#X obj 50 478 dac~;
+#X obj 50 507 ui.dsp~;
+#X obj 20 556 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 561 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
 -49933 0;
-#X msg 110 615 @active;
-#X text 245 615 Get/Set on/off dsp processing. Type: int. Default value:
+#X msg 110 596 @active;
+#X text 245 596 Get/Set on/off dsp processing. Type: int. Default value:
 1\. Allowed values: 0 \, 1\.;
-#X msg 110 657 @cutoff;
-#X text 245 657 Get/Set cutoff frequency. Type: float. Default value:
+#X msg 110 638 @cutoff;
+#X text 245 638 Get/Set cutoff frequency. Type: float. Default value:
 3000\. Range: 20\...20000\.;
-#X msg 110 699 @gate;
-#X text 245 699 Get/Set play trigger - 1: on \, 0: off. Type: float.
-Default value: 0\. Range: 0\...1\.;
-#X msg 110 741 @pitch;
-#X text 245 741 Get/Set pitch. Type: float. Default value: 48\. Range:
-24\...84\.;
-#X msg 110 783 @q;
-#X text 245 783 Get/Set quality factor. Type: float. Default value:
+#X msg 110 680 @freq;
+#X text 245 680 Get/Set frequency. Type: float. Units: Hz. Default
+value: 130.813\.;
+#X msg 110 722 @gate;
+#X text 245 722 Get/Set play trigger >0: on \, 0: off. Values greater
+then zero set output amplitude. Type: float. Default value: 0\. Range:
+0\...1\.;
+#X msg 110 779 @pitch;
+#X text 245 779 Get/Set midi pitch. Type: float. Default value: 48\.
+Range: 24\...84\.;
+#X msg 110 821 @q;
+#X text 245 821 Get/Set quality factor. Type: float. Default value:
 0.1\. Range: 0.01\...100\.;
-#X obj 20 835 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 840 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
-0;
-#X text 110 841 1\.;
-#X text 245 841 input control.;
-#X obj 20 871 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 876 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
+#X obj 20 873 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 878 cnv 5 73 26 empty empty methods: 4 10 0 14 -262144
 -49933 0;
-#X text 110 877 1\.;
-#X text 245 877;
+#X msg 110 913 note;
+#X text 245 913 note on/off message. Arguments are:;
+#X obj 255 936 cnv 1 37 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 936 NOTE: midi note. Type: float.;
+#X obj 255 959 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 959 VEL: velocity. Type: float. Range: 0\...127\.;
+#X obj 20 994 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 999 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
+0;
+#X text 110 1000 1\.;
+#X text 245 1000 input control.;
+#X obj 20 1030 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1035 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
+-49933 0;
+#X text 110 1036 1\.;
+#X text 245 1036;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 115 45 ::;
 #X obj 131 48 ui.link @title synth @url ceammc.synth-help.pd;
-#X obj 1 927 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 930 library: ceammc v0.8.0;
-#N canvas 10 949 400 290 info 0;
+#X obj 1 1086 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1089 library: ceammc v0.9.1;
+#N canvas 10 1108 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
 #X text 10 32 version:;
-#X text 120 32 0.8.0;
+#X text 120 32 0.9.1;
 #X text 10 54 object:;
 #X text 120 54 synth.dubdub~;
 #X text 10 76 category:;
@@ -85,24 +96,21 @@ https://github.com/uliss/pure-data;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 generated by pddoc;
-#X restore 10 949 pd info;
+#X restore 10 1108 pd info;
 #X connect 4 0 5 0;
-#X connect 5 0 7 0;
+#X connect 6 0 9 0;
+#X connect 7 0 10 0;
 #X connect 8 0 11 0;
 #X connect 9 0 12 0;
-#X connect 10 0 13 0;
+#X connect 12 0 13 0;
 #X connect 11 0 14 0;
-#X connect 14 0 15 0;
-#X connect 13 0 16 0;
-#X connect 15 0 17 0;
+#X connect 13 0 15 0;
+#X connect 15 0 16 0;
+#X connect 16 0 17 0;
+#X connect 5 0 18 0;
 #X connect 17 0 18 0;
 #X connect 18 0 19 0;
-#X connect 7 0 20 0;
 #X connect 19 0 20 0;
-#X connect 20 0 21 0;
-#X connect 21 0 22 0;
-#X connect 21 0 22 1;
-#X connect 12 0 20 0;
-#X connect 16 0 20 0;
-#X connect 5 1 6 0;
-#X connect 6 0 5 2;
+#X connect 19 0 20 1;
+#X connect 10 0 18 0;
+#X connect 14 0 18 0;

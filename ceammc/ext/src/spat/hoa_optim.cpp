@@ -20,62 +20,23 @@ static t_symbol* SYM_BASIC;
 static t_symbol* SYM_MAXRE;
 static t_symbol* SYM_INPHASE;
 
-template <typename Owner, typename Prop>
-class LambdaProperty : public Prop {
-    std::function<void(Owner*, const AtomList&)> fn_;
-    Owner* this_;
-
-public:
-    template <typename Fn, typename... Args>
-    LambdaProperty(Owner* obj, const Fn& fn, Args... args)
-        : Prop(args...)
-        , this_(obj)
-        , fn_(fn)
-    {
-        static_assert(std::is_base_of<Property, Prop>::value, "not a Property subclass");
-    }
-
-    bool set(const AtomList& l) override
-    {
-        bool ok = Prop::set(l);
-
-        if (ok)
-            fn_(this_, Prop::get());
-
-        return ok;
-    }
-};
-
-using HoaSymbolEnumCallback = LambdaProperty<HoaOptim, SymbolEnumProperty>;
-
 HoaOptim::HoaOptim(const PdArgs& args)
     : HoaBase(args)
     , mode_(nullptr)
 {
-    mode_ = new HoaSymbolEnumCallback(
-        this,
-        [](HoaOptim* this_, const AtomList&) { this_->adjustMode(); },
-        std::string("@mode"),
-        SYM_BASIC);
+    mode_ = new SymbolEnumProperty("@mode", { SYM_BASIC, SYM_MAXRE, SYM_INPHASE });
+    mode_->setArgIndex(1);
+    mode_->setSuccessFn([this](Property*) { adjustMode(); });
+    addProperty(mode_);
 
-    mode_->appendEnum(SYM_MAXRE);
-    mode_->appendEnum(SYM_INPHASE);
-    createProperty(mode_);
-
-    createProperty(new SymbolEnumAlias("@basic", mode_, SYM_BASIC));
-    createProperty(new SymbolEnumAlias("@maxre", mode_, SYM_MAXRE));
-    createProperty(new SymbolEnumAlias("@inphase", mode_, SYM_INPHASE));
+    addProperty(new SymbolEnumAlias("@basic", mode_, SYM_BASIC));
+    addProperty(new SymbolEnumAlias("@maxre", mode_, SYM_MAXRE));
+    addProperty(new SymbolEnumAlias("@inphase", mode_, SYM_INPHASE));
 }
 
-void HoaOptim::parseProperties()
+void HoaOptim::initDone()
 {
-    HoaBase::parseProperties();
-
-    if (positionalSymbolArgument(1, nullptr))
-        mode_->setValue(positionalSymbolArgument(1));
-
     optim_.reset(new Optim2d(order()));
-
     adjustMode();
 
     const size_t N = optim_->getNumberOfHarmonics();
@@ -104,6 +65,9 @@ void HoaOptim::processBlock(const t_sample** in, t_sample** out)
 
 void HoaOptim::adjustMode()
 {
+    if (!optim_)
+        return;
+
     if (mode_->value() == SYM_BASIC)
         optim_->setMode(Optim2d::Basic);
     else if (mode_->value() == SYM_MAXRE)

@@ -24,6 +24,7 @@
 #include <iterator>
 #include <memory>
 #include <string>
+#include <tuple>
 #include <type_traits>
 #include <vector>
 
@@ -33,801 +34,598 @@ t_symbol* SYM_DUMP();
 t_symbol* SYM_PROPS_ALL();
 t_symbol* SYM_PROPS_ALL_Q();
 
+using PropertyBoolGetter = std::function<bool()>;
+using PropertyBoolSetter = std::function<bool(bool)>;
+using PropertyFloatGetter = std::function<t_float()>;
+using PropertyFloatSetter = std::function<bool(t_float)>;
+using PropertyIntGetter = std::function<int()>;
+using PropertyIntSetter = std::function<bool(int)>;
+using PropertySymbolGetter = std::function<t_symbol*()>;
+using PropertySymbolSetter = std::function<bool(t_symbol*)>;
+using PropertyAtomGetter = std::function<Atom()>;
+using PropertyAtomSetter = std::function<bool(const Atom&)>;
+using PropertyListGetter = std::function<AtomList()>;
+using PropertyListSetter = std::function<bool(const AtomList&)>;
+
+/**
+ * @brief Base class for all properties
+ */
 class Property {
-    PropertyInfo info_;
-    bool readonly_;
-    bool visible_;
+public:
+    using PropFloatCheckFn = std::function<bool(t_float)>;
+    using PropIntCheckFn = std::function<bool(int)>;
+    using PropSymbolCheckFn = std::function<bool(t_symbol*)>;
+    using PropAtomCheckFn = std::function<bool(const Atom&)>;
+    using PropListCheckFn = std::function<bool(const AtomList&)>;
+    using PropSuccessFn = std::function<void(Property*)>;
+
+    using CheckFnTuple = std::tuple<
+        PropFloatCheckFn,
+        PropIntCheckFn,
+        PropSymbolCheckFn,
+        PropAtomCheckFn,
+        PropListCheckFn>;
+
+    using CheckFnPtr = std::unique_ptr<CheckFnTuple>;
+    using SuccessFnPtr = std::unique_ptr<PropSuccessFn>;
 
 public:
-    Property(const PropertyInfo& info, bool readonly = false);
-    virtual ~Property();
+    Property(const PropertyInfo& info, PropValueAccess access = PropValueAccess::READWRITE);
+    virtual ~Property() = default;
 
-    const std::string& name() const { return info_.name(); }
-
-    bool readonly() const { return readonly_; }
-    bool visible() const { return visible_; }
-
-    virtual bool set(const AtomList&) = 0;
+    /// pure virtual
     virtual AtomList get() const = 0;
+    virtual bool setList(const AtomListView& lst) = 0;
+    /// virtual
+    virtual bool set(const AtomListView& lst);
+    virtual bool setInit(const AtomListView& lst);
 
-    void setVisible(bool v) { visible_ = v; }
-    void setReadonly(bool v);
+    inline t_symbol* name() const { return info_.name(); }
 
-    PropertyInfo& info() { return info_; }
-    const PropertyInfo& info() const { return info_; }
+    inline const PropertyInfo& info() const { return info_; }
+
+    inline PropValueAccess access() const { return info_.access(); }
+    inline PropValueType type() const { return info_.type(); }
+    inline PropValueUnits units() const { return info_.units(); }
+    inline PropValueView view() const { return info_.view(); }
+    inline PropValueVis visibility() const { return info_.visibility(); }
+    inline int8_t argIndex() const { return info_.argIndex(); }
+    inline bool hasArgIndex() const { return info_.hasArgIndex(); }
+
+    inline void setReadOnly() { info_.setAccess(PropValueAccess::READONLY); }
+    inline void setInitOnly() { info_.setAccess(PropValueAccess::INITONLY); }
+    inline void setPublic() { info_.setVisibility(PropValueVis::PUBLIC); }
+    inline void setHidden() { info_.setVisibility(PropValueVis::HIDDEN); }
+    inline void setInternal() { info_.setVisibility(PropValueVis::INTERNAL); }
+    bool setArgIndex(int8_t idx);
+    bool setArgIndexNext(Property* p);
+
+    inline void setType(PropValueType t) { info_.setType(t); }
+    inline void setUnits(PropValueUnits u) { info_.setUnits(u); }
+    inline void setView(PropValueView v) { info_.setView(v); }
+    inline void setVisibility(PropValueVis v) { info_.setVisibility(v); }
+
+    bool getDefault(bool& b) const;
+    bool getDefault(t_float& f) const;
+    bool getDefault(int& i) const;
+    bool getDefault(t_symbol*& s) const;
+    bool getDefault(Atom& a) const;
+    bool getDefault(AtomList& l) const;
+    // some types of properties (callbacks for example)
+    // can call virtual methods to get default value (and storing it info property info)
+    // so to prevent them from calling such methods
+    // when object is still constructing - we can update default info later with this call
+    virtual void updateDefault();
+
+    template <typename T>
+    inline void setDefault(T v) { info_.setDefault(v); }
+
+    // set to default value
+    bool reset();
+
+    inline bool isPublic() const { return info_.isPublic(); }
+    inline bool isInternal() const { return info_.isInternal(); }
+    inline bool isHidden() const { return info_.isHidden(); }
+    inline bool isReadOnly() const { return info_.isReadOnly(); }
+    inline bool isInitOnly() const { return info_.isInitOnly(); }
+    inline bool isReadWrite() const { return info_.isReadWrite(); }
+    inline bool isBool() const { return info_.isBool(); }
+    inline bool isInt() const { return info_.isInt(); }
+    inline bool isFloat() const { return info_.isFloat(); }
+    inline bool isNumeric() const { return info_.isNumeric(); }
+    inline bool isSymbol() const { return info_.isSymbol(); }
+    inline bool isAtom() const { return info_.isVariant(); }
+    inline bool isList() const { return info_.isList(); }
+
+    bool setFloatCheckFn(PropFloatCheckFn fn, const std::string& err = std::string());
+    bool setIntCheckFn(PropIntCheckFn fn, const std::string& err = std::string());
+    bool setSymbolCheckFn(PropSymbolCheckFn fn, const std::string& err = std::string());
+    bool setAtomCheckFn(PropAtomCheckFn fn, const std::string& err = std::string());
+    bool setListCheckFn(PropListCheckFn fn, const std::string& err = std::string());
+    bool setSuccessFn(PropSuccessFn fn);
+
+    bool setFloatCheck(PropValueConstraints type, t_float a = 0, t_float b = 0);
+    bool setIntCheck(PropValueConstraints type, int a = 0, int b = 0);
+    bool setSymbolEnumCheck(std::initializer_list<t_symbol*> l);
+    bool setSymbolEnumCheck(std::initializer_list<const char*> l);
+    void setCheckErrorMsg(const std::string& str);
+
+    virtual bool checkPositive();
+    virtual bool checkNegative();
+    virtual bool checkNonNegative();
+
+    virtual bool getBool(bool&) const;
+    virtual bool getFloat(t_float&) const;
+    virtual bool getInt(int&) const;
+    virtual bool getSymbol(t_symbol*&) const;
+    virtual bool getAtom(Atom&) const;
+    virtual bool getList(AtomList&) const;
+
+    // generic get
+    template <typename T>
+    inline bool getT(T&) const;
+
+    virtual bool setBool(bool);
+    virtual bool setFloat(t_float);
+    virtual bool setInt(int);
+    virtual bool setSymbol(t_symbol*);
+    virtual bool setAtom(const Atom&);
+
+    // generic set
+    inline bool setT(bool b) { return setBool(b); }
+    inline bool setT(t_float f) { return setFloat(f); }
+    inline bool setT(int i) { return setInt(i); }
+    inline bool setT(t_symbol* s) { return setSymbol(s); }
+    inline bool setT(const Atom& a) { return setAtom(a); }
+    inline bool setT(const AtomList& l) { return setList(l); }
+
+    // freq used
+    inline void setUnitsHz() { setUnits(PropValueUnits::HZ); }
+    inline void setUnitsDb() { setUnits(PropValueUnits::DB); }
+    inline void setUnitsMs() { setUnits(PropValueUnits::MSEC); }
+    inline void setUnitsSec() { setUnits(PropValueUnits::SEC); }
+    inline void setUnitsSamp() { setUnits(PropValueUnits::SAMP); }
+
+    void setOwner(void* p) { owner_ = p; }
+    const void* owner() const { return owner_; }
+
+    PropertyInfo& infoT() { return info_; }
 
 protected:
-    bool readonlyCheck() const;
-    bool emptyValueCheck(const AtomList& v) const;
+    PropertyInfo& info() { return info_; }
+    bool checkAtom(const Atom& a) const;
+    bool checkFloat(t_float v) const;
+    bool checkInt(int v) const;
+    bool checkList(const AtomListView& l) const;
+    bool checkSymbol(t_symbol* s) const;
+    bool emptyCheck(const AtomListView& v) const;
+    bool initCheck() const;
+    bool writeCheck() const;
+    std::string errorPrefix() const;
+
+    template <typename V>
+    inline bool checkValueT(const V& v);
+
+    template <typename V>
+    inline bool isA() const { return info_.isA<V>(); }
+
+private:
+    PropertyInfo info_;
+    SuccessFnPtr ok_fn_ptr_;
+    std::string err_msg_;
+    void* owner_;
+
+protected:
+    CheckFnPtr check_fn_ptr_;
 };
 
+template <>
+inline bool Property::checkValueT<bool>(const bool&) { return true; }
+template <>
+inline bool Property::checkValueT<t_float>(const t_float& v) { return checkFloat(v); }
+template <>
+inline bool Property::checkValueT<int>(const int& v) { return checkInt(v); }
+template <>
+inline bool Property::checkValueT<t_symbol*>(t_symbol* const& s) { return checkSymbol(s); }
+template <>
+inline bool Property::checkValueT<Atom>(const Atom& a) { return checkAtom(a); }
+template <>
+inline bool Property::checkValueT<AtomList>(const AtomList& l) { return checkList(l); }
+
+template <>
+inline bool Property::getT(bool& b) const { return getBool(b); }
+template <>
+inline bool Property::getT(t_float& f) const { return getFloat(f); }
+template <>
+inline bool Property::getT(int& i) const { return getInt(i); }
+template <>
+inline bool Property::getT(t_symbol*& s) const { return getSymbol(s); }
+template <>
+inline bool Property::getT(Atom& a) const { return getAtom(a); }
+template <>
+inline bool Property::getT(AtomList& l) const { return getList(l); }
+
+/**
+ * @brief Atom property: float or symbol
+ */
 class AtomProperty : public Property {
     Atom v_;
 
 public:
-    AtomProperty(const std::string& name, const Atom& def, bool readonly = false);
-    bool set(const AtomList& lst);
-    AtomList get() const;
+    AtomProperty(const std::string& name, const Atom& def, PropValueAccess access = PropValueAccess::READWRITE);
 
-    const Atom& value() const { return v_; }
-    Atom& value() { return v_; }
-    void setValue(const Atom& v) { v_ = v; }
+    bool setList(const AtomListView& lst) override;
+    AtomList get() const override;
+    bool getAtom(Atom& a) const override;
+
+    bool setBool(bool b) override;
+    bool setFloat(t_float f) override;
+    bool setInt(int i) override;
+    bool setSymbol(t_symbol* s) override;
+    bool setAtom(const Atom& a) override;
+
+    inline Atom& value() { return v_; }
+    inline const Atom& value() const { return v_; }
+    bool setValue(const Atom& v);
+    Atom defaultValue() const;
+
+public:
+    using value_type = Atom;
 };
 
+/**
+ * @brief float property
+ */
+class FloatProperty : public Property {
+    t_float v_;
+
+public:
+    FloatProperty(const std::string& name, t_float init = 0, PropValueAccess access = PropValueAccess::READWRITE);
+
+    AtomList get() const override;
+    bool setList(const AtomListView& lst) override;
+    bool setFloat(t_float v) override;
+    bool setInt(int v) override;
+    bool getFloat(t_float& v) const override;
+
+    inline t_float value() const { return v_; }
+    bool setValue(t_float v);
+    bool setValue(const Atom& a);
+    t_float defaultValue() const;
+
+    bool checkMin(t_float v) { return setFloatCheck(PropValueConstraints::GREATER_THEN, v); }
+    bool checkMinEq(t_float v) { return setFloatCheck(PropValueConstraints::GREATER_EQUAL, v); }
+    bool checkMax(t_float v) { return setFloatCheck(PropValueConstraints::LESS_THEN, v); }
+    bool checkMaxEq(t_float v) { return setFloatCheck(PropValueConstraints::LESS_EQUAL, v); }
+    bool checkClosedRange(t_float a, t_float b) { return setFloatCheck(PropValueConstraints::CLOSED_RANGE, a, b); }
+    bool checkOpenedRange(t_float a, t_float b) { return setFloatCheck(PropValueConstraints::OPEN_RANGE, a, b); }
+    bool checkNonZero() { return setFloatCheck(PropValueConstraints::NON_ZERO); }
+
+    bool checkPositive() final { return checkMin(0); }
+    bool checkNegative() final { return checkMax(0); }
+    bool checkNonNegative() final { return checkMinEq(0); }
+
+public:
+    using value_type = t_float;
+};
+
+/**
+ * @brief integer property
+ */
+class IntProperty : public Property {
+    int v_;
+
+public:
+    IntProperty(const std::string& name, int init = 0, PropValueAccess access = PropValueAccess::READWRITE);
+
+    AtomList get() const override;
+    bool setList(const AtomListView& lst) override;
+    bool setInt(int v) override;
+    bool getInt(int& v) const override;
+
+    inline int value() const { return v_; }
+    bool setValue(int v);
+    bool setValue(t_float f);
+    bool setValue(const Atom& a);
+    int defaultValue() const;
+
+    bool checkMin(int v) { return setIntCheck(PropValueConstraints::GREATER_THEN, v); }
+    bool checkMinEq(int v) { return setIntCheck(PropValueConstraints::GREATER_EQUAL, v); }
+    bool checkMax(int v) { return setIntCheck(PropValueConstraints::LESS_THEN, v); }
+    bool checkMaxEq(int v) { return setIntCheck(PropValueConstraints::LESS_EQUAL, v); }
+    bool checkClosedRange(int a, int b) { return setIntCheck(PropValueConstraints::CLOSED_RANGE, a, b); }
+    bool checkOpenedRange(int a, int b) { return setIntCheck(PropValueConstraints::OPEN_RANGE, a, b); }
+    bool checkNonZero() { return setIntCheck(PropValueConstraints::NON_ZERO); }
+
+    bool checkPositive() final { return checkMin(0); }
+    bool checkNegative() final { return checkMax(0); }
+    bool checkNonNegative() final { return checkMinEq(0); }
+
+public:
+    using value_type = int;
+};
+
+/**
+ * @brief unsigned integer property
+ */
+class SizeTProperty : public Property {
+    size_t v_;
+
+public:
+    SizeTProperty(const std::string& name, size_t init = 0, PropValueAccess access = PropValueAccess::READWRITE);
+
+    AtomList get() const override;
+    bool setList(const AtomListView& lst) override;
+    bool getInt(int&) const override;
+
+    inline size_t value() const { return v_; }
+    bool setValue(size_t v);
+    bool setValue(t_float f);
+    bool setValue(const Atom& a);
+    size_t defaultValue() const;
+
+    bool checkPositive() final;
+    bool checkNonNegative() final { return true; }
+
+public:
+    using value_type = size_t;
+};
+
+/**
+ * @brief symbol property
+ */
+class SymbolProperty : public Property {
+    mutable t_symbol* value_;
+
+public:
+    SymbolProperty(const std::string& name, t_symbol* init, PropValueAccess access = PropValueAccess::READWRITE);
+
+    AtomList get() const override;
+    bool setList(const AtomListView& lst) override;
+    bool setSymbol(t_symbol* s) override;
+    bool getSymbol(t_symbol*& s) const override;
+
+    inline t_symbol* value() const { return value_; }
+    bool setValue(t_symbol* s);
+    bool setValue(const Atom& a);
+    t_symbol* defaultValue() const;
+
+    std::string str() const { return value_->s_name; }
+
+public:
+    using value_type = t_symbol*;
+};
+
+/**
+ * @brief list property
+ */
+class ListProperty : public Property {
+    AtomList lst_;
+    PropAtomCheckFn filter_;
+    AtomMapFunction map_;
+
+public:
+    ListProperty(const std::string& name, const AtomList& init = AtomList(), PropValueAccess access = PropValueAccess::READWRITE);
+
+    AtomList get() const override;
+    bool setList(const AtomListView& l) override;
+    bool getList(AtomList& l) const override;
+
+    inline const AtomList& value() const { return lst_; }
+    inline AtomList& value() { return lst_; }
+    bool setValue(const AtomList& l);
+    const AtomList& defaultValue() const;
+
+    bool checkNonNegative() override;
+    bool checkPositive() override;
+    bool checkNegative() override;
+
+    bool checkMinElementCount(size_t n);
+    bool checkMaxElementCount(size_t n);
+    bool checkRangeElementCount(size_t min, size_t max);
+
+    /**
+     * pass atoms from list for which fn returns true
+     * the order is: filter -> map -> check
+     */
+    void setFilterAtomFn(PropAtomCheckFn pred);
+
+    /**
+     * maps each list value
+     * the order is: filter -> map -> check
+     **/
+    void setMapAtomFn(AtomMapFunction fn);
+
+    // easy to use filter function setup
+    void acceptFloats();
+    void acceptIntegers();
+    void acceptSymbols();
+    // ready map function
+    void roundFloats();
+    void truncateFloats();
+
+public:
+    using value_type = AtomList;
+};
+
+/**
+ * @brief readonly property for getting several props at once.
+ * @example property @pos could be defined for getting @x and @y properties
+ * @note property is hidden: cab be set via messages, but not shown in UI
+ */
 class CombinedProperty : public Property {
     std::vector<Property*> props_;
 
 public:
     CombinedProperty(const std::string& name, std::initializer_list<Property*> props);
-    bool set(const AtomList&);
-    AtomList get() const;
+
+    /**
+     * always return true
+     */
+    bool setList(const AtomListView&) override;
+
+    /**
+     * @return concatenated list of combined properties
+     */
+    AtomList get() const override;
+
+    bool getList(AtomList& l) const override;
 };
 
-class ListProperty : public Property {
-    AtomList lst_;
-
-public:
-    ListProperty(const std::string& name, const AtomList& l = AtomList(), bool readonly = false);
-    bool set(const AtomList& lst);
-    AtomList get() const;
-
-    const AtomList& value() const;
-    AtomList& value();
-};
-
-class FloatProperty : public Property {
-    float v_;
-
-public:
-    FloatProperty(const std::string& name, float init = 0, bool readonly = false);
-    bool set(const AtomList& lst);
-    AtomList get() const;
-
-    float value() const { return v_; }
-    void setValue(float v) { v_ = v; }
-};
-
-class IntProperty : public Property {
-    int v_;
-
-public:
-    IntProperty(const std::string& name, int init = 0, bool readonly = false);
-    bool set(const AtomList& lst);
-    AtomList get() const;
-
-    int value() const { return v_; }
-    void setValue(int v) { v_ = v; }
-};
-
-class SizeTProperty : public Property {
-    size_t v_;
-
-public:
-    SizeTProperty(const std::string& name, size_t init = 0, bool readonly = false);
-    bool set(const AtomList& lst);
-    AtomList get() const;
-
-    size_t value() const { return v_; }
-    void setValue(size_t v) { v_ = v; }
-};
-
-template <typename T>
-class EnumProperty : public Property {
-public:
-    typedef std::vector<T> ValueList;
-
-public:
-    EnumProperty(const std::string& name, T def, bool readonly = false)
-        : Property(PropertyInfo(name, PropertyInfoType::LIST), readonly)
-        , idx_(0)
-        , def_(def)
-    {
-        info().setDefault(def);
-        info().addEnum(def);
-        allowed_.push_back(def);
-    }
-
-    bool set(const AtomList& lst)
-    {
-        if (!readonlyCheck())
-            return false;
-
-        if (!emptyValueCheck(lst))
-            return false;
-
-        T v = atomlistToValue<T>(lst, def_);
-        long idx = enumIndex(v);
-        if (idx < 0) {
-            ::operator<<(LIB_ERR << "invalid property value: " << v << ". valid values are: ", allowed_);
-            return false;
-        }
-
-        idx_ = idx;
-        return true;
-    }
-
-    AtomList get() const
-    {
-        return listFrom(value());
-    }
-
-    size_t numEnums() const { return allowed_.size(); }
-
-    T value() const
-    {
-        if (idx_ < 0)
-            return def_;
-        return allowed_[idx_];
-    }
-
-    bool setValue(T v)
-    {
-        long idx = enumIndex(v);
-        if (idx < 0)
-            return false;
-
-        idx_ = idx;
-        return true;
-    }
-
-    void appendEnum(T v)
-    {
-        if (enumIndex(v) < 0) {
-            allowed_.push_back(v);
-            info().addEnum(v);
-        }
-    }
-
-    long enumIndex(T v) const
-    {
-        for (auto it = allowed_.begin(); it != allowed_.end(); ++it) {
-            if (*it == v)
-                return std::distance(allowed_.begin(), it);
-        }
-
-        return -1;
-    }
-
-private:
-    ValueList allowed_;
-    T def_;
-    int idx_;
-};
-
-class SymbolProperty : public Property {
-    mutable t_symbol* value_;
-
-public:
-    SymbolProperty(const std::string& name, t_symbol* init, bool readonly = false);
-
-    AtomList get() const;
-    bool set(const AtomList& lst);
-
-    t_symbol* value() const;
-    void setValue(t_symbol* s);
-
-    std::string str() const;
-};
-
-class SymbolEnumProperty : public EnumProperty<t_symbol*> {
-public:
-    SymbolEnumProperty(const std::string& name, t_symbol* init, bool readonly = false)
-        : EnumProperty<t_symbol*>(name, init, readonly)
-    {
-        info().setType(PropertyInfoType::SYMBOL);
-        info().setView(PropertyInfoView::MENU);
-    }
-
-    ~SymbolEnumProperty();
-
-    bool is(const char* v) const
-    {
-        return value() == gensym(v);
-    }
-};
-
+/**
+ * @brief boolean initonly property defined like [obj @flag]
+ * if flag is specified - it equals to true, if not - to false
+ */
 class FlagProperty : public Property {
     bool v_;
 
 public:
     FlagProperty(const std::string& name);
-    bool value() const { return v_; }
-    AtomList get() const;
-    bool set(const AtomList&);
-};
 
-template <typename T, typename V>
-class AliasProperty : public Property {
-    T* ptr_;
-    V val_;
+    AtomList get() const override;
+    bool getBool(bool& b) const override;
+    bool getInt(int& v) const override;
+    bool setList(const AtomListView&) override;
+
+    inline bool value() const { return v_; }
 
 public:
-    AliasProperty(const std::string& name, T* prop, V v)
-        : Property(PropertyInfo(name, PropertyInfoType::LIST), false)
+    using value_type = bool;
+};
+
+/**
+ * alias to property: @wrap -> @mode V
+ */
+template <typename T>
+class AliasProperty : public Property {
+public:
+    using value_type = typename T::value_type;
+
+private:
+    T* ptr_;
+    value_type val_;
+
+public:
+    AliasProperty(const std::string& name, T* prop, typename T::value_type v)
+        : Property(PropertyInfo(name, prop->type()), prop->access())
         , ptr_(prop)
         , val_(v)
     {
-        info().setType(prop->info().type());
+        static_assert(std::is_base_of<Property, T>::value, "should be base of Property");
+
+        setType(prop->type());
+        setUnits(prop->units());
+        setView(prop->view());
+        setHidden();
     }
 
-    bool set(const AtomList&)
+    value_type value() const { return val_; }
+
+    bool setList(const AtomListView& lst) override
     {
-        ptr_->setValue(val_);
-        return true;
+        if (!lst.empty())
+            LIB_ERR << "no arguments required for alias property: " << name();
+
+        return ptr_->setValue(val_);
     }
 
-    AtomList get() const { return listFrom(bool(ptr_->value() == val_)); }
+    AtomList get() const override { return listFrom(bool(ptr_->value() == val_)); }
 };
 
-typedef AliasProperty<SymbolEnumProperty, t_symbol*> SymbolEnumAlias;
-
-class IntEnumProperty : public EnumProperty<int> {
-public:
-    IntEnumProperty(const std::string& name, int def, bool readonly = false)
-        : EnumProperty<int>(name, def, readonly)
-    {
-        info().setType(PropertyInfoType::INTEGER);
-    }
-};
-
+/**
+ * @brief boolean property
+ * @note @prop 1 and @prop true|false supported
+ */
 class BoolProperty : public Property {
     bool v_;
 
 public:
-    BoolProperty(const std::string& name, bool init, bool readonly = false);
-    bool set(const AtomList& lst);
-    AtomList get() const;
+    BoolProperty(const std::string& name, bool init, PropValueAccess access = PropValueAccess::READWRITE);
+
+    AtomList get() const override;
+    bool setList(const AtomListView& lst) override;
+    bool setBool(bool b) override;
+    bool getBool(bool& b) const override;
 
     bool value() const { return v_; }
-    void setValue(bool v) { v_ = v; }
-};
-
-template <typename T>
-class CallbackProperty : public Property {
-public:
-    typedef AtomList (T::*GetterFn)() const;
-    typedef void (T::*SetterFn)(const AtomList& v);
+    bool setValue(bool v);
+    bool setValue(const Atom& a);
+    bool defaultValue() const;
 
 public:
-    CallbackProperty(const std::string& name, T* obj, GetterFn gf, SetterFn sf = 0)
-        : Property(PropertyInfo(name, PropertyInfoType::LIST), sf == 0 ? true : false)
-        , obj_(obj)
-        , getter_(gf)
-        , setter_(sf)
-    {
-    }
-
-    bool set(const AtomList& lst)
-    {
-        if (!readonlyCheck())
-            return false;
-
-        (obj_->*setter_)(lst);
-        return true;
-    }
-
-    AtomList get() const
-    {
-        return (obj_->*getter_)();
-    }
-
-protected:
-    T* obj_;
-
-private:
-    GetterFn getter_;
-    SetterFn setter_;
+    using value_type = bool;
 };
 
-template <typename T, typename B>
-class TypedCbProperty : public CallbackProperty<TypedCbProperty<T, B>> {
-    typedef T (B::*TGetterFn)() const;
-    typedef void (B::*SGetterFn)(const T&);
-
-public:
-    TypedCbProperty(const std::string& name, B* obj, TGetterFn gf, SGetterFn sf = 0)
-        : CallbackProperty<TypedCbProperty<T, B>>(name,
-              this,
-              &TypedCbProperty::defGetter, sf == 0 ? 0 : &TypedCbProperty::defSetter)
-        , bobj_(obj)
-        , tgetter_(gf)
-        , tsetter_(sf)
-
-    {
-    }
-
-private:
-    AtomList defGetter() const
-    {
-        T v = (this->bobj_->*tgetter_)();
-        return listFrom(v);
-    }
-
-    void defSetter(const AtomList& l)
-    {
-        T v = atomlistToValue<T>(l, T());
-        (this->bobj_->*tsetter_)(v);
-    }
-
-private:
-    B* bobj_;
-    TGetterFn tgetter_;
-    SGetterFn tsetter_;
-};
-
-template <typename T, typename Prop>
-class CallbackMemFnProperty : public Property {
-    std::unique_ptr<Prop> prop_;
-    std::function<void(T*, Prop*)> fn_;
-    T* this_;
-
-public:
-    CallbackMemFnProperty(Prop* prop, T* t, void fn(T*, Prop*))
-        : Property(prop->info(), prop->readonly())
-        , prop_(prop)
-        , fn_(fn)
-        , this_(t)
-    {
-        setVisible(prop->visible());
-        fn_(this_, prop_.get());
-    }
-
-    AtomList get() const override
-    {
-        return prop_->get();
-    }
-
-    bool set(const AtomList& l) override
-    {
-        bool ok = prop_->set(l);
-
-        if (ok)
-            fn_(this_, prop_.get());
-
-        return ok;
-    }
-};
-
+/**
+ * writes property value to pointer
+ */
 template <typename T>
 class PointerProperty : public Property {
     T* vptr_;
 
 public:
-    PointerProperty(const std::string& name, T* value, bool readonly = true)
-        : Property(PropertyInfo(name, PropertyInfo::toType<T>()), readonly)
+    PointerProperty(const std::string& name, T* value, PropValueAccess access = PropValueAccess::READONLY)
+        : Property(PropertyInfo(name, PropertyInfo::toType<T>()), access)
         , vptr_(value)
     {
         info().setDefault(*value);
     }
 
-    bool set(const AtomList& lst)
+    T value() const { return *vptr_; }
+
+    bool setValue(const T& v)
     {
-        if (!readonlyCheck())
+        if (!checkValueT(v))
             return false;
 
-        if (!emptyValueCheck(lst))
-            return false;
-
-        *vptr_ = atomlistToValue(lst, T());
+        *vptr_ = v;
         return true;
     }
 
-    AtomList get() const
+    bool setList(const AtomListView& lst) override
+    {
+        if (!emptyCheck(lst))
+            return false;
+
+        if (!lst.isA<T>())
+            return false;
+
+        return setValue(atomlistToValue(lst, T()));
+    }
+
+    AtomList get() const override
     {
         return listFrom(*vptr_);
     }
-};
 
-template <typename P, typename V, typename CheckFunc>
-class CheckedProperty : public Property {
-public:
-    CheckedProperty(const std::string& name, V value, CheckFunc fn)
-        : Property(PropertyInfo(name, PropertyInfo::toType<V>()), false)
-        , prop_(new P(name, value, false))
-        , def_(value)
-        , check_fn_(fn)
-    {
-        info().setDefault(value);
-    }
-
-    ~CheckedProperty()
-    {
-        delete prop_;
-    }
-
-    AtomList get() const
-    {
-        return prop_->get();
-    }
-
-    bool set(const AtomList& lst)
-    {
-        if (!readonlyCheck())
-            return false;
-
-        if (!emptyValueCheck(lst))
-            return false;
-
-        if (!check_fn_(atomlistToValue<V>(lst, def_))) {
-            LIB_ERR << "invalid value for property " << name() << ": " << lst << ". " << errorString();
-            return false;
-        }
-
-        prop_->set(lst);
-        return true;
-    }
-
-    void setValue(V v)
-    {
-        if (check_fn_(v))
-            reinterpret_cast<P*>(prop_)->setValue(v);
-    }
-
-    V value()
-    {
-        return reinterpret_cast<P*>(prop_)->value();
-    }
-
-    virtual std::string errorString() const
-    {
-        return std::string();
-    }
+    bool setBool(bool b) override { return setBoolT(b); }
+    bool setFloat(t_float f) override { return setFloatT(f); }
+    bool setInt(int i) override { return setIntT(i); }
+    bool setSymbol(t_symbol* s) override { return setSymbolT(s); }
+    bool setAtom(const Atom& a) override { return setAtomT(a); }
 
 private:
-    Property* prop_;
-    V def_;
+    bool setBoolT(bool) { return false; }
+    bool setFloatT(t_float) { return false; }
+    bool setIntT(int) { return false; }
+    bool setSymbolT(t_symbol*) { return false; }
+    bool setAtomT(const Atom&) { return false; }
 
 public:
-    CheckFunc check_fn_;
+    using value_type = T;
 };
 
-template <typename T>
-class ValidateLT {
-public:
-    T upper_;
+template <>
+inline bool PointerProperty<bool>::setBoolT(bool b) { return setValue(b); }
+template <>
+inline bool PointerProperty<t_float>::setFloatT(t_float f) { return setValue(f); }
+template <>
+inline bool PointerProperty<int>::setIntT(int i) { return setValue(i); }
+template <>
+inline bool PointerProperty<t_symbol*>::setSymbolT(t_symbol* s) { return setValue(s); }
+template <>
+inline bool PointerProperty<Atom>::setAtomT(const Atom& a) { return setValue(a); }
 
-public:
-    ValidateLT(T upperBound)
-        : upper_(upperBound)
-    {
-    }
-
-    bool operator()(T v) const
-    {
-        return v < upper_;
-    }
-};
-
-template <typename T>
-class ValidateLE {
-public:
-    T upper_;
-
-public:
-    ValidateLE(T upperBound)
-        : upper_(upperBound)
-    {
-    }
-
-    bool operator()(T v) const
-    {
-        return v <= upper_;
-    }
-};
-
-template <typename T>
-class ValidateGT {
-public:
-    T lower_;
-
-public:
-    ValidateGT(T lowerBound)
-        : lower_(lowerBound)
-    {
-    }
-
-    bool operator()(T v) const
-    {
-        return lower_ < v;
-    }
-};
-
-template <typename T>
-class ValidateGE {
-public:
-    T lower_;
-
-public:
-    ValidateGE(T lowerBound)
-        : lower_(lowerBound)
-    {
-    }
-
-    bool operator()(T v) const
-    {
-        return lower_ <= v;
-    }
-};
-
-template <typename T>
-class ValidateRangeOpen {
-public:
-    T lower_;
-    T upper_;
-
-public:
-    ValidateRangeOpen(T lowerBound, T upperBound)
-        : lower_(lowerBound)
-        , upper_(upperBound)
-    {
-    }
-
-    bool operator()(T v) const
-    {
-        return lower_ < v && v < upper_;
-    }
-};
-
-template <typename T>
-class ValidateRangeClosed {
-public:
-    T lower_;
-    T upper_;
-
-public:
-    ValidateRangeClosed(T lowerBound, T upperBound)
-        : lower_(lowerBound)
-        , upper_(upperBound)
-    {
-    }
-
-    bool operator()(T v) const
-    {
-        return lower_ <= v && v <= upper_;
-    }
-};
-
-template <typename P, typename V>
-class GreaterThenProperty : public CheckedProperty<P, V, ValidateGT<V>> {
-public:
-    GreaterThenProperty(const std::string& name, V initValue, V minValue)
-        : CheckedProperty<P, V, ValidateGT<V>>(name,
-              ValidateGT<V>(minValue)(initValue) ? initValue : minValue + 1,
-              minValue)
-    {
-        Property::info().setMin(minValue);
-    }
-
-    virtual std::string errorString() const
-    {
-        std::ostringstream os;
-        os << "Value shoud be > " << this->check_fn_.lower_ << '.';
-        return os.str();
-    }
-};
-
-template <typename P, typename V>
-class GreaterEqualProperty : public CheckedProperty<P, V, ValidateGE<V>> {
-public:
-    GreaterEqualProperty(const std::string& name, V initValue, V minValue)
-        : CheckedProperty<P, V, ValidateGE<V>>(name, std::max(initValue, minValue), minValue)
-    {
-        Property::info().setMin(minValue);
-    }
-
-    std::string errorString() const
-    {
-        std::ostringstream os;
-        os << "Value shoud be >= " << this->check_fn_.lower_ << '.';
-        return os.str();
-    }
-};
-
-template <typename P, typename V>
-class LessThenProperty : public CheckedProperty<P, V, ValidateLT<V>> {
-public:
-    LessThenProperty(const std::string& name, V initValue, V maxValue)
-        : CheckedProperty<P, V, ValidateLT<V>>(name,
-              ValidateLT<V>(maxValue)(initValue) ? initValue : maxValue - 1, maxValue)
-    {
-        Property::info().setMax(maxValue);
-    }
-
-    std::string errorString() const
-    {
-        std::ostringstream os;
-        os << "Value shoud be < " << this->check_fn_.upper_ << '.';
-        return os.str();
-    }
-};
-
-template <typename P, typename V>
-class LessEqualProperty : public CheckedProperty<P, V, ValidateLE<V>> {
-public:
-    LessEqualProperty(const std::string& name, V initValue, V maxValue)
-        : CheckedProperty<P, V, ValidateLE<V>>(name, std::min(initValue, maxValue), maxValue)
-    {
-        Property::info().setMax(maxValue);
-    }
-
-    virtual std::string errorString() const
-    {
-        std::ostringstream os;
-        os << "Value shoud be <= " << this->check_fn_.upper_ << '.';
-        return os.str();
-    }
-};
-
-template <typename P, typename V>
-class OpenRangeProperty : public CheckedProperty<P, V, ValidateRangeOpen<V>> {
-public:
-    OpenRangeProperty(const std::string& name, V initValue, V minValue, V maxValue)
-        : CheckedProperty<P, V, ValidateRangeOpen<V>>(name,
-              ValidateRangeOpen<V>(minValue, maxValue)(initValue) ? initValue : (minValue + maxValue) / 2,
-              ValidateRangeOpen<V>(minValue, maxValue))
-    {
-        Property::info().setRange(minValue, maxValue);
-    }
-
-    virtual std::string errorString() const
-    {
-        std::ostringstream os;
-        os << "Value shoud be "
-           << this->check_fn_.lower_ << " < x < " << this->check_fn_.upper_
-           << '.';
-        return os.str();
-    }
-};
-
-template <typename P, typename V>
-class ClosedRangeProperty : public CheckedProperty<P, V, ValidateRangeClosed<V>> {
-public:
-    ClosedRangeProperty(const std::string& name, V initValue, V minValue, V maxValue)
-        : CheckedProperty<P, V, ValidateRangeClosed<V>>(name,
-              std::min(std::max(initValue, minValue), maxValue),
-              ValidateRangeClosed<V>(minValue, maxValue))
-    {
-        Property::info().setRange(minValue, maxValue);
-    }
-
-    virtual std::string errorString() const
-    {
-        std::ostringstream os;
-        os << "Value shoud be "
-           << this->check_fn_.lower_ << " <= x <= " << this->check_fn_.upper_
-           << '.';
-        return os.str();
-    }
-};
-
-template <typename P, typename V>
-class InitProperty : public Property {
-    P* prop_;
-
-public:
-    InitProperty(P* prop)
-        : Property(PropertyInfo(prop->name(), PropertyInfo::toType<V>()), false)
-        , prop_(prop)
-    {
-        info().setDefault(prop->info().defaultValue());
-    }
-
-    ~InitProperty()
-    {
-        delete prop_;
-    }
-
-    V value() const
-    {
-        return prop_->value();
-    }
-
-    AtomList get() const
-    {
-        return prop_->get();
-    }
-
-    bool set(const AtomList& lst)
-    {
-        if (!readonlyCheck())
-            return false;
-
-        prop_->set(lst);
-        prop_->setReadonly(true);
-        setReadonly(true);
-        return true;
-    }
-
-    const P* prop() const
-    {
-        return prop_;
-    }
-
-    P* prop()
-    {
-        return prop_;
-    }
-};
-
-typedef GreaterEqualProperty<IntProperty, int> IntPropertyMinEq;
-typedef GreaterThenProperty<IntProperty, int> IntPropertyMin;
-typedef LessEqualProperty<IntProperty, int> IntPropertyMaxEq;
-typedef LessThenProperty<IntProperty, int> IntPropertyMax;
-typedef OpenRangeProperty<IntProperty, int> IntPropertyOpenRange;
-typedef ClosedRangeProperty<IntProperty, int> IntPropertyClosedRange;
-
-typedef GreaterEqualProperty<SizeTProperty, size_t> SizeTPropertyMinEq;
-typedef GreaterThenProperty<SizeTProperty, size_t> SizeTPropertyMin;
-typedef LessEqualProperty<SizeTProperty, size_t> SizeTPropertyMaxEq;
-typedef LessThenProperty<SizeTProperty, size_t> SizeTPropertyMax;
-typedef OpenRangeProperty<SizeTProperty, size_t> SizeTPropertyOpenRange;
-typedef ClosedRangeProperty<SizeTProperty, size_t> SizeTPropertyClosedRange;
-
-typedef GreaterEqualProperty<FloatProperty, float> FloatPropertyMinEq;
-typedef GreaterThenProperty<FloatProperty, float> FloatPropertyMin;
-typedef LessEqualProperty<FloatProperty, float> FloatPropertyMaxEq;
-typedef LessThenProperty<FloatProperty, float> FloatPropertyMax;
-typedef OpenRangeProperty<FloatProperty, float> FloatPropertyOpenRange;
-typedef ClosedRangeProperty<FloatProperty, float> FloatPropertyClosedRange;
-
-typedef InitProperty<AtomProperty, Atom> InitAtomProperty;
-typedef InitProperty<ListProperty, AtomList> InitListProperty;
-typedef InitProperty<IntProperty, int> InitIntProperty;
-typedef InitProperty<SizeTProperty, size_t> InitSizeTProperty;
-typedef InitProperty<BoolProperty, bool> InitBoolProperty;
-typedef InitProperty<SymbolProperty, t_symbol*> InitSymbolProperty;
-
-#define CEAMMC_FLOAT_PROPERTY_DECLARE(_name) typedef InitProperty<_name, float> Init##_name
-#define CEAMMC_INT_PROPERTY_DECLARE(_name) typedef InitProperty<_name, int> Init##_name
-#define CEAMMC_SIZE_T_PROPERTY_DECLARE(_name) typedef InitProperty<_name, size_t> Init##_name
-
-CEAMMC_FLOAT_PROPERTY_DECLARE(FloatProperty);
-CEAMMC_FLOAT_PROPERTY_DECLARE(FloatPropertyMin);
-CEAMMC_FLOAT_PROPERTY_DECLARE(FloatPropertyMax);
-CEAMMC_FLOAT_PROPERTY_DECLARE(FloatPropertyMinEq);
-CEAMMC_FLOAT_PROPERTY_DECLARE(FloatPropertyMaxEq);
-CEAMMC_FLOAT_PROPERTY_DECLARE(FloatPropertyOpenRange);
-CEAMMC_FLOAT_PROPERTY_DECLARE(FloatPropertyClosedRange);
-
-CEAMMC_INT_PROPERTY_DECLARE(IntProperty);
-CEAMMC_INT_PROPERTY_DECLARE(IntPropertyMin);
-CEAMMC_INT_PROPERTY_DECLARE(IntPropertyMax);
-CEAMMC_INT_PROPERTY_DECLARE(IntPropertyMinEq);
-CEAMMC_INT_PROPERTY_DECLARE(IntPropertyMaxEq);
-CEAMMC_INT_PROPERTY_DECLARE(IntPropertyOpenRange);
-CEAMMC_INT_PROPERTY_DECLARE(IntPropertyClosedRange);
-
-CEAMMC_SIZE_T_PROPERTY_DECLARE(SizeTProperty);
-CEAMMC_SIZE_T_PROPERTY_DECLARE(SizeTPropertyMin);
-CEAMMC_SIZE_T_PROPERTY_DECLARE(SizeTPropertyMax);
-CEAMMC_SIZE_T_PROPERTY_DECLARE(SizeTPropertyMinEq);
-CEAMMC_SIZE_T_PROPERTY_DECLARE(SizeTPropertyMaxEq);
-CEAMMC_SIZE_T_PROPERTY_DECLARE(SizeTPropertyOpenRange);
-CEAMMC_SIZE_T_PROPERTY_DECLARE(SizeTPropertyClosedRange);
-
-#undef CEAMMC_FLOAT_PROPERTY_DECLARE
-#undef CEAMMC_INT_PROPERTY_DECLARE
-#undef CEAMMC_SIZE_T_PROPERTY_DECLARE
 }
 
 #endif // CEAMMC_PROPERTY_H

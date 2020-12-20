@@ -6,7 +6,7 @@
             <authors>
                 <author>Serge Poltavsky</author>
             </authors>
-            <description>on input list outputs element(s) at specified index(es)</description>
+            <description>outputs list element(s) at specified index(es)</description>
             <license>GPL3 or later</license>
             <library>ceammc</library>
             <category>list</category>
@@ -42,7 +42,7 @@
             etc.</property>
             <property name="@wrap" type="alias">alias to @method wrap. In range [0, LIST_SIZE)
             ordinal elements are returned. Other indexes are wrapped by modulo division.</property>
-            <property name="@index" type="list">indexes</property>
+            <property name="@index" type="list" default="0">indexes</property>
             <property name="@default" type="atom">default output value if not found. If not set,
             outputs error message to console</property>
         </properties>

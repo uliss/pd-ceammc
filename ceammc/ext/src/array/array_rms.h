@@ -19,7 +19,7 @@
 class ArrayRMS : public ArrayBase {
 public:
     ArrayRMS(const PdArgs& args);
-    void onBang();
+    void onBang() override;
 };
 
 void setup_array_rms();

@@ -12,7 +12,7 @@
  * this file belongs to.
  *****************************************************************************/
 #include "ceammc_fn_list.h"
-#include "ceammc_data.h"
+#include "soxr.h"
 
 #include <algorithm>
 #include <boost/functional/hash.hpp>
@@ -185,7 +185,7 @@ namespace list {
         size_t n = 0;
         t_float sum = 0;
 
-        for (auto el : l) {
+        for (auto& el : l) {
             if (!el.isFloat())
                 continue;
 
@@ -212,13 +212,13 @@ namespace list {
         res.reserve(hist_map.size() * 2);
         const t_float N = l.size();
 
-        for (auto it : hist_map) {
-            res.append(it.first);
+        for (auto& x : hist_map) {
+            res.append(x.first);
 
             if (normalizeBySum)
-                res.append(it.second / N);
+                res.append(Atom(x.second / N));
             else
-                res.append(it.second);
+                res.append(Atom(x.second));
         }
 
         return res;
@@ -322,9 +322,8 @@ namespace list {
 
         res.reserve(l.size() * n);
 
-        while (n-- > 0) {
+        while (n-- > 0)
             res.append(l);
-        }
 
         return res;
     }
@@ -343,7 +342,7 @@ namespace list {
         l.range(amin, amax);
         const t_float min = amin.asFloat();
         const t_float max = amax.asFloat();
-        t_float range = fabsf(max - min);
+        t_float range = std::fabs(max - min);
 
         if (range == 0) {
             hist[0] = max * bins;
@@ -360,7 +359,7 @@ namespace list {
         AtomList res;
         res.reserve(hist.size());
         for (size_t i = 0; i < hist.size(); i++) {
-            res.append(hist[i] / float(total));
+            res.append(Atom(hist[i] / t_float(total)));
         }
 
         return res;
@@ -382,8 +381,8 @@ namespace list {
         dest.clear();
         dest.reserve(src.size());
 
-        for (size_t i = 0; i < src.size(); i++)
-            dest.append((src[i].asFloat() - min) / t_float(range));
+        for (auto& a : src)
+            dest.append(Atom((a.asFloat() - min) / range));
 
         return true;
     }
@@ -400,11 +399,11 @@ namespace list {
             const int idx = int(i) + from;
 
             if (mode == PREPEND) {
-                res.append(idx);
+                res.append(Atom(idx));
                 res.append(l[i]);
             } else if (mode == APPEND) {
                 res.append(l[i]);
-                res.append(idx);
+                res.append(Atom(idx));
             }
         }
 
@@ -421,9 +420,8 @@ namespace list {
             else if (a.isSymbol())
                 boost::hash_combine(res, boost::hash_value(a.asSymbol()));
             else if (a.isData()) {
-                auto data = a.getData();
-                boost::hash_combine(res, boost::hash_value(data.id));
-                boost::hash_combine(res, boost::hash_value(data.type));
+                boost::hash_combine(res, boost::hash_value(a.dataType()));
+                boost::hash_combine(res, boost::hash_value(a.asData()));
             }
 
             return res;
@@ -455,14 +453,9 @@ namespace list {
         AtomList res(l);
         res.sort();
 
-        auto pred = [](const Atom& a0, const Atom& a1) {
-            if (a0.isData() && a1.isData())
-                return DataPtr(a0) == DataPtr(a1);
+        auto last = std::unique(res.begin(), res.end(),
+            [](const Atom& a0, const Atom& a1) { return a0 == a1; });
 
-            return a0 == a1;
-        };
-
-        auto last = std::unique(res.begin(), res.end(), pred);
         res.resizeClip(last - res.begin());
         return res;
     }
@@ -491,7 +484,7 @@ namespace list {
             t_float mix = fidx - std::floor(fidx);
 
             // linear interpolation
-            res[i] = a * (1 - mix) + b * mix;
+            res[i] = Atom(a * (1 - mix) + b * mix);
         }
 
         return res;
@@ -517,7 +510,7 @@ namespace list {
             double mix = old_fidx - old_idx0;
 
             double value = l[old_idx0].asFloat() * (1 - mix) + l[old_idx1].asFloat() * mix;
-            res.append(value);
+            res.append(Atom(value));
         }
 
         return res;
@@ -557,6 +550,111 @@ namespace list {
             size_t n = p.second;
             while (n-- > 0)
                 res.append(p.first);
+        }
+
+        return res;
+    }
+
+    bool normalizeBySum(const AtomList& src, AtomList& dest)
+    {
+        if (src.empty())
+            return false;
+
+        auto x = src.sum();
+        if (x == boost::none || std::equal_to<t_float>()(*x, 0))
+            return false;
+
+        dest.clear();
+        dest.reserve(src.size());
+        const t_float sum = *x;
+
+        for (auto& x : src)
+            dest.append(Atom(x.asFloat() / sum));
+
+        return true;
+    }
+
+    bool containsAllOff(const AtomList& input, const AtomList& needles)
+    {
+        size_t cnt = 0;
+
+        for (auto& n : needles) {
+            if (input.contains(n))
+                cnt++;
+        }
+
+        return cnt == needles.size();
+    }
+
+    bool containsAnyOff(const AtomList& input, const AtomList& needles)
+    {
+        for (auto& x : input) {
+            if (needles.contains(x))
+                return true;
+        }
+
+        return false;
+    }
+
+    bool resample(const AtomList& src, AtomList& dest, t_float ratio)
+    {
+        if (ratio <= 0)
+            return false;
+
+        if (ratio == 1) {
+            dest = src;
+            return true;
+        }
+
+        std::vector<t_float> in;
+        in.reserve(src.size());
+
+        for (auto& x : src)
+            in.push_back(x.asFloat());
+
+        std::vector<t_float> out;
+        const size_t OUTS = std::round(in.size() * ratio);
+        if (OUTS < 1) {
+            dest = AtomList();
+            return true;
+        }
+
+        out.resize(OUTS);
+
+        size_t idone = 0;
+        size_t odone = 0;
+
+        constexpr soxr_datatype_t samptype = (sizeof(t_sample) == sizeof(float)) ? SOXR_FLOAT32_I : SOXR_FLOAT64_I;
+        const auto io_spec = soxr_io_spec(samptype, samptype);
+
+        auto err = soxr_oneshot(1, ratio, 1,
+            in.data(), in.size(), &idone,
+            out.data(), OUTS, &odone,
+            &io_spec, nullptr, nullptr);
+
+        if (err) {
+            std::cerr << err << "\n";
+            return false;
+        }
+
+        for (auto f : out)
+            dest.append(f);
+
+        return true;
+    }
+
+    AtomList bresenham(size_t onsets, size_t pulses)
+    {
+        const auto slope = double(onsets) / double(pulses);
+        AtomList res;
+        if (onsets == 0)
+            return AtomList::filled(0., pulses);
+
+        int prev = -1;
+        for (size_t i = 0; i < pulses; i++) {
+            const auto current = static_cast<int>(std::floor(i * slope));
+            res.append(current != prev ? 1 : 0);
+            prev = current;
         }
 
         return res;

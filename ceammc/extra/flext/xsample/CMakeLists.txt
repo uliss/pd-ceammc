@@ -14,8 +14,10 @@ pd_add_external(NAME xsample
 
 if(WIN32)
     # C++11 doesn't defines M_PI etc
-    target_compile_options(xsample PUBLIC -U__STRICT_ANSI__)
+    target_compile_options(xsample PUBLIC -U__STRICT_ANSI__ -Wno-deprecated-register)
 endif()
+
+target_compile_options(xsample PRIVATE -Wno-deprecated-register)
 
 # help files
 file(GLOB _xsample_help_files "xsample/pd/*.pd")

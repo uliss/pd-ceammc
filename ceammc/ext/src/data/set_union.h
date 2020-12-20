@@ -24,11 +24,11 @@ class SetUnion : public BaseObject {
 
 public:
     SetUnion(const PdArgs& a);
-    void onList(const AtomList& lst);
-    void onDataT(const DataTPtr<DataTypeSet>& dptr);
-    void onInlet(size_t, const AtomList& lst);
+    void onList(const AtomList& lst) override;
+    void onDataT(const SetAtom& dptr);
+    void onInlet(size_t, const AtomList& lst) override;
 };
 
-extern "C" void setup_set0x2eunion();
+void setup_set_union();
 
 #endif // SET_UNION_H

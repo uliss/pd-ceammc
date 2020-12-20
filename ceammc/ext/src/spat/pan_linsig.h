@@ -8,7 +8,7 @@ using namespace ceammc;
 class PanLinSig : public SoundExternal {
 public:
     PanLinSig(const PdArgs& args);
-    void processBlock(const t_sample** in, t_sample** out);
+    void processBlock(const t_sample** in, t_sample** out) override;
 };
 
 void setup_pan_linsig();

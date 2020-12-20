@@ -57,7 +57,7 @@
 |
 [list.seq]
 |
-[list.unpack              ]
+[list.separate            ]
 |                         |
 [lin->exp 0 1001 0.01 1]  |
 |                         |.

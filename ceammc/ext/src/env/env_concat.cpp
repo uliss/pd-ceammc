@@ -3,7 +3,6 @@
 
 EnvConcat::EnvConcat(const PdArgs& args)
     : BaseObject(args)
-    , right_(0)
 {
     createInlet();
     createOutlet();
@@ -11,31 +10,24 @@ EnvConcat::EnvConcat(const PdArgs& args)
 
 void EnvConcat::onBang()
 {
-    dataTo(0, DataPtr(res_env_.clone()));
+    atomTo(0, res_env_);
 }
 
-void EnvConcat::onDataT(const DataTPtr<DataTypeEnv>& dptr)
+void EnvConcat::onDataT(const EnvAtom& dptr)
 {
-    if (right_.isValid())
-        res_env_ = *dptr + *right_;
-    else
-        res_env_ = *dptr;
-
+    res_env_ = EnvAtom(*dptr + *right_);
     onBang();
 }
 
 void EnvConcat::onInlet(size_t n, const AtomList& lst)
 {
     if (n == 1) {
-        if (lst.empty())
-            return;
-
-        right_ = DataTPtr<DataTypeEnv>(lst[0]);
-
-        if (!right_.isValid()) {
+        if (!lst.isA<DataTypeEnv>()) {
             OBJ_ERR << "envelope data type expected";
             return;
         }
+
+        right_ = EnvAtom(lst[0]);
     }
 }
 

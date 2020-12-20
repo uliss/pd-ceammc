@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="chaos.logistic">
+        <title>chaos.logistic</title>
+        <meta>
+            <authors>
+                <author>André Sier</author>
+            </authors>
+            <description>Logistic map chaotic generator</description>
+            <license>GPL3 or later</license>
+            <library>ceammc</library>
+            <category>chaos</category>
+            <keywords>chaos logistic</keywords>
+            <since>0.9</since>
+            <also>
+                <see>chaos.std0</see>
+            </also>
+            <aliases>
+                <alias>noise.logistic</alias>
+            </aliases>
+        </meta>
+        <info>
+            <par>A non-interpolating generator based on the difference equations:</par>
+            <par>x[n+1] = λ * x[n] * (1 - x[n])</par>
+            <a href="https://en.wikipedia.org/wiki/Logistic_map">wiki: Logistic map</a>
+            <par>By varying the parameter λ, the following behavior is observed:</par>
+            <par>• With λ between 0 and 1, the population will eventually die, independent of the
+            initial population</par>
+            <par>• With λ between 1 and 2, the population will quickly approach the value λ − 1/λ,
+            independent of the initial population</par>
+            <par>• With λ between 2 and 3, the population will also eventually approach the same
+            value λ − 1/λ, but first will fluctuate around that value for some time.</par>
+            <par>• With λ between 3 and 1 + √6 ≈ 3.44949, from almost all initial conditions the
+            population will approach permanent oscillations between two values. These two values
+            are dependent on λ.</par>
+            <par>• With λ between 3.44949 and 3.54409 (approximately), from almost all initial
+            conditions the population will approach permanent oscillations among four values.</par>
+            <par>• With λ increasing beyond 3.54409, from almost all initial conditions the
+            population will approach oscillations among 8 values, then 16, 32, etc.</par>
+            <par>• At λ ≈ 3.56995 is the onset of chaos, at the end of the period-doubling
+            cascade.</par>
+            <par>• Most values of r beyond 3.56995 exhibit chaotic behaviour, but there are still
+            certain isolated ranges of r that show non-chaotic behavior.</par>
+            <par>Beyond λ = 4, almost all initial values eventually leave the interval [0,1] and
+            diverge.</par>
+        </info>
+        <arguments>
+            <argument type="float" name="INIT">x init value (default 0.777)</argument>
+            <argument type="float" name="LAMBDA">lambda value (default 3.9)</argument>
+        </arguments>
+        <methods>
+            <method name="reset">set to initial state</method>
+            <method name="set">set init value and lambda value and updates init value</method>
+            <method name="lambda">set lambda value</method>
+            <method name="seed">set init value, updates init value</method>
+            <method name="om">set output mode. 
+            <param name="BOOL" type="int" required="true">output mode. If 1: outputs new generated
+            value after lambda or seed method call, if 0 - change values without output. Default is
+            0.</param></method>
+        </methods>
+        <inlets>
+            <inlet>
+                <xinfo on="bang">generate and output new value</xinfo>
+                <xinfo on="float">set x-value and if output mode is 1 outputs new value</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet>new generated x-value</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[T]                                 [r~ logistic]
+|                                   |
+[metro.random 60 100]   [F]         [ui.scope~ @size=360x100]
+|                       |
+[3(          [reset(    [lambda $1(
+|            |          |
+[list.gen] X [chaos.logistic 0.777 3.97]
+|
+[l->l -1 1 20 600 @clip minmax]
+|
+[list.unpack 3           ]
+|             ^|       ^^|
+[sig~]        [* 400]  [/ 250]
+|             |        |
+|             [sig~]   [@res $1(
+|             |        |
+[osc~]        [lop~ 2] |
+|             |.       |
+[flt.moog_vcf~         ]
+|
+[clip~ -1 1    ]
+|              |
+[ui.hgain~]    [s~ logistic]         [ui.dsp~]
+| \
+[dac~]
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>
