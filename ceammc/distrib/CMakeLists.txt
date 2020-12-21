@@ -11,6 +11,12 @@ elseif(CMAKE_SIZEOF_VOID_P EQUAL 4)
     set(CEAMMC_DISTRIB_ARCH "32-bit")
 endif()
 
+if(WITH_DOUBLE_PRECISION)
+    set(PD_FLOAT_SIZE 64)
+else()
+    set(PD_FLOAT_SIZE 32)
+endif()
+
 if(APPLE)
     set(DYLIBBUNDLER "${CMAKE_CURRENT_BINARY_DIR}/mac/dylibbundler")
 
@@ -41,12 +47,6 @@ find_program(DEKEN deken PATH $ENV{HOME}/bin)
 
 if(DEKEN)
     message(STATUS "deken program found: ${DEKEN}. Target `make deken_package` is available")
-
-    if(WITH_DOUBLE_PRECISION)
-        set(DEKEN_FLOAT_SIZE 64)
-    else()
-        set(DEKEN_FLOAT_SIZE 32)
-    endif()
 
     set(DEKEN_MAKE_PACKAGE "${PROJECT_BINARY_DIR}/dist/deken_make_package.sh")
     configure_file(${CMAKE_CURRENT_SOURCE_DIR}/deken_make_package.sh ${DEKEN_MAKE_PACKAGE} @ONLY)
