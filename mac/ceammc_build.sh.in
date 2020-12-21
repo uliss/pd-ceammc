@@ -16,9 +16,16 @@ TCL_PATH="@TCL_PATH@"
 TK_VERSION="@TK_VERSION@"
 IS_SYSTEM_TK=@IS_SYSTEM_TK@
 LIB_LEAPMOTION="@LEAPMOTION_LIBRARY@"
+FLOATSIZE="@PD_FLOAT_SIZE@"
+if [ $FLOATSIZE -ne 32 ]
+then
+    BUNDLE_SUFFIX="-${FLOATSIZE}"
+else
+    BUNDLE_SUFFIX=""
+fi
 
 # relative dir names
-PD_APP=$(basename $BUNDLE)
+PD_APP="$(basename $BUNDLE)${BUNDLE_SUFFIX}"
 PD_CONTENT=$PD_APP/Contents
 PD_RESOURCES=$PD_CONTENT/Resources
 PD_FRAMEWORKS=$PD_CONTENT/Frameworks
@@ -482,5 +489,16 @@ for pdhelp in $SRC_DIR/ceammc/extra/flext/disis_munger/*-help.pd
 do
     copy ${pdhelp} "$BUNDLE_EXTRA/disis_munger~"
 done
+
+# "code signing" which also sets entitlements
+# note: "-" identity results in "ad-hoc signing" aka no signing is performed
+# for one, this allows loading un-validated external libraries on macOS 10.15+:
+# https://cutecoder.org/programming/shared-framework-hardened-runtime
+ENTITLEMENTS="${SRC_DIR}/mac/stuff/pd.entitlements"
+codesign -f --deep -s "-" --entitlements ${ENTITLEMENTS} \
+    "${BUNDLE_FRAMEWORKS}/Tcl.framework/Versions/Current"
+codesign -f --deep -s "-" --entitlements ${ENTITLEMENTS} \
+    ${BUNDLE_FRAMEWORKS}/Tk.framework/Versions/Current
+codesign --deep -s "-" --entitlements ${ENTITLEMENTS} ${BUNDLE_APP}
 
 cd "${BUILD_DIR}"
