@@ -4,7 +4,7 @@
 #   find_package(LeapMotion [REQUIRED] [QUIET])
 #
 # It sets the following variables:
-#   LEAPMOTION_FOUND               ... true if leapmotion is found on the system
+#   LeapMotion_FOUND               ... true if leapmotion is found on the system
 #   LEAPMOTION_LIBRARIES           ... full path to leapmotion library
 #   LEAPMOTION_INCLUDES            ... leapmotion include directory
 #
@@ -37,9 +37,9 @@ if(LEAPMOTION_ROOT)
               ${LEAPMOTION_ROOT}/lib/x64
         PATH_SUFFIXES "lib" "lib64")
 
-    find_package_handle_standard_args(LEAPMOTION DEFAULT_MSG LEAPMOTION_INCLUDE_DIR LEAPMOTION_LIBRARY)
+    find_package_handle_standard_args(LeapMotion DEFAULT_MSG LEAPMOTION_INCLUDE_DIR LEAPMOTION_LIBRARY)
     
-    if(LEAPMOTION_FOUND)
+    if(LeapMotion_FOUND)
         set(LEAPMOTION_INCLUDES ${LEAPMOTION_INCLUDE_DIR})
         set(LEAPMOTION_LIBRARIES ${LEAPMOTION_LIBRARY})
     endif()
