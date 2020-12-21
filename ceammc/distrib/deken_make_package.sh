@@ -4,6 +4,7 @@ BINDIR="@PROJECT_BINARY_DIR@/dist"
 VERSION="@CEAMMC_LIB_VERSION@"
 OBJLIST="@PROJECT_SOURCE_DIR@/ceammc/ext/doc/ceammc_deken_objlist.txt"
 DEKEN="@DEKEN@"
+FLOATSIZE="@DEKEN_FLOAT_SIZE@"
 
 CEAMMC_LIB_DIR="$BINDIR/ceammc"
 
@@ -19,4 +20,5 @@ rm -f ceammc[v@CEAMMC_LIB_VERSION@*.dek.txt
 
 $DEKEN package --version $VERSION \
     --objects "${OBJLIST}" \
+    --default-floatsize ${FLOATSIZE} \
     "${CEAMMC_LIB_DIR}"
