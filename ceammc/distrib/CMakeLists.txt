@@ -13,15 +13,23 @@ endif()
 
 if(APPLE)
     set(DYLIBBUNDLER "${CMAKE_CURRENT_BINARY_DIR}/mac/dylibbundler")
-    set(MAKELIB_SCRIPT "${PROJECT_BINARY_DIR}/dist/make_lib_mac.sh")
+
     configure_file(${CMAKE_CURRENT_SOURCE_DIR}/mac/make_lib_mac.sh
-                   ${MAKELIB_SCRIPT} @ONLY)
+                   ${PROJECT_BINARY_DIR}/dist/make_lib_mac.sh @ONLY)
     configure_file(${CMAKE_CURRENT_SOURCE_DIR}/mac/github_upload_release.sh
                    ${PROJECT_BINARY_DIR}/dist/github_upload_release.sh @ONLY)
     configure_file(${CMAKE_CURRENT_SOURCE_DIR}/mac/install_external.sh
                    ${PROJECT_BINARY_DIR}/dist/install_external.sh @ONLY)
     configure_file(${CMAKE_CURRENT_SOURCE_DIR}/update_cpp_src_from_doc.sh
                    ${PROJECT_BINARY_DIR}/update_cpp_src_from_doc.sh @ONLY)
+
+    add_custom_target(ceammc_lib
+        COMMAND ${PROJECT_BINARY_DIR}/dist/make_lib_mac.sh "${PROJECT_BINARY_DIR}/dist"
+        SOURCES ${CMAKE_CURRENT_SOURCE_DIR}/mac/make_lib_mac.sh)
+
+    add_custom_target(install_external
+        COMMAND ${PROJECT_BINARY_DIR}/dist/install_external.sh
+        SOURCES ${CMAKE_CURRENT_SOURCE_DIR}/mac/install_external.sh)
 endif()
 
 if(UNIX AND NOT APPLE)
@@ -29,20 +37,16 @@ if(UNIX AND NOT APPLE)
     configure_file(${CMAKE_CURRENT_SOURCE_DIR}/linux/make_lib_linux.sh ${MAKELIB_SCRIPT} @ONLY)
 endif()
 
-if(MAKELIB_SCRIPT)
-    if(APPLE)
-        add_custom_target(ceammc_lib
-            COMMAND "${MAKELIB_SCRIPT}" "${CMAKE_BINARY_DIR}/dist"
-            SOURCES mac/make_lib_mac.sh)
-
-        add_custom_target(install_external COMMAND ${PROJECT_BINARY_DIR}/dist/install_external.sh)
-    endif()
-endif()
-
 find_program(DEKEN deken PATH $ENV{HOME}/bin)
 
 if(DEKEN)
     message(STATUS "deken program found: ${DEKEN}. Target `make deken_package` is available")
+
+    if(WITH_DOUBLE_PRECISION)
+        set(DEKEN_FLOAT_SIZE 64)
+    else()
+        set(DEKEN_FLOAT_SIZE 32)
+    endif()
 
     set(DEKEN_MAKE_PACKAGE "${PROJECT_BINARY_DIR}/dist/deken_make_package.sh")
     configure_file(${CMAKE_CURRENT_SOURCE_DIR}/deken_make_package.sh ${DEKEN_MAKE_PACKAGE} @ONLY)
