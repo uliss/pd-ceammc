@@ -1,31 +1,32 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE plist PUBLIC "-//Apple Computer//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple Computer//DTD PLIST 1.0//EN"
+"http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
-<dict>
-	<key>CFBundleDevelopmentRegion</key>
-	<string>English</string>
-	<key>CFBundleDocumentTypes</key>
-	<array>
-		<dict>
-			<key>CFBundleTypeExtensions</key>
-			<array>
-				<string>pd</string>
-			</array>
-			<key>CFBundleTypeIconFile</key>
-			<string>pd_doc.icns</string>
-			<key>CFBundleTypeName</key>
-			<string>Pure Data Patch</string>
-			<key>CFBundleTypeRole</key>
-			<string>Editor</string>
-            <key>CFBundleTypeMIMETypes</key>
-            <array>
-                <string>text/plain</string>
-            </array>
-		</dict>
-	</array>
-	<key>CFBundleExecutable</key>
+  <dict>
+    <key>CFBundleDevelopmentRegion</key>
+    <string>English</string>
+    <key>CFBundleDocumentTypes</key>
+    <array>
+      <dict>
+        <key>CFBundleTypeExtensions</key>
+        <array>
+          <string>pd</string>
+        </array>
+        <key>CFBundleTypeIconFile</key>
+        <string>pd_doc.icns</string>
+        <key>CFBundleTypeName</key>
+        <string>Pure Data Patch</string>
+        <key>CFBundleTypeRole</key>
+        <string>Editor</string>
+        <key>CFBundleTypeMIMETypes</key>
+        <array>
+          <string>text/plain</string>
+        </array>
+      </dict>
+    </array>
+    <key>CFBundleExecutable</key>
     <string>Wish</string>
-	<key>CFBundleIdentifier</key>
+    <key>CFBundleIdentifier</key>
     <string>com.ceammc.puredata</string>
     <key>CFBundleDisplayName</key>
     <string>PureData (${PD_MACOSX_BUNDLE_SUFFIX})</string>
@@ -33,35 +34,44 @@
     <string>Pd</string>
     <key>CFBundleSpokenName</key>
     <string>PureData</string>
-	<key>CFBundleInfoDictionaryVersion</key>
-	<string>6.0</string>
-	<key>CFBundlePackageType</key>
-	<string>APPL</string>
-	<key>CFBundleSignature</key>
-	<string>????</string>
-	<key>CFBundleIconFile</key>
+    <key>CFBundleInfoDictionaryVersion</key>
+    <string>6.0</string>
+    <key>CFBundlePackageType</key>
+    <string>APPL</string>
+    <key>CFBundleSignature</key>
+    <string>????</string>
+    <key>CFBundleIconFile</key>
     <string>pd_ceammc.icns</string>
-	<key>CFBundleVersion</key>
+    <key>NSCameraUsageDescription</key>
+    <string>Camera access is required for live video
+    input.</string>
+    <key>CFBundleVersion</key>
     <string>${PD_TEXT_VERSION_SHORT}</string>
     <key>NSHighResolutionCapable</key>
-    <true/>
+    <true />
+    <key>NSMicrophoneUsageDescription</key>
+    <string>Microphone access is required for audio input.</string>
     <key>UTExportedTypeDeclarations</key>
     <array>
+      <dict>
+        <key>UTTypeConformsTo</key>
+        <array>
+          <string>public.text</string>
+        </array>
+        <key>UTTypeDescription</key>
+        <string>Pure Data patch</string>
+        <key>UTTypeIconFile</key>
+        <string>pd_doc.icns</string>
+        <key>UTTypeIdentifier</key>
+        <string>org.puredata.pd-patch</string>
+        <key>UTTypeTagSpecification</key>
         <dict>
-            <key>UTTypeConformsTo</key>
-            <array><string>public.text</string></array>
-            <key>UTTypeDescription</key>
-            <string>Pure Data patch</string>
-            <key>UTTypeIconFile</key>
-            <string>pd_doc.icns</string>
-            <key>UTTypeIdentifier</key>
-            <string>org.puredata.pd-patch</string>
-            <key>UTTypeTagSpecification</key>
-            <dict>
-                <key>public.filename-extension</key>
-                <array><string>pd</string></array>
-            </dict>
+          <key>public.filename-extension</key>
+          <array>
+            <string>pd</string>
+          </array>
         </dict>
+      </dict>
     </array>
-</dict>
+  </dict>
 </plist>
