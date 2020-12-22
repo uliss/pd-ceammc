@@ -612,7 +612,8 @@ enum t_eattr_op {
     EATTR_OP_ADD,
     EATTR_OP_SUB,
     EATTR_OP_MUL,
-    EATTR_OP_DIV
+    EATTR_OP_DIV,
+    EATTR_OP_UNKNOWN
 };
 
 /**

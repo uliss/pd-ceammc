@@ -574,4 +574,37 @@ TEST_CASE("ui.knob", "[ui.knob]")
         t.call("@size", LA("-", 100)); // set to minimal size
         REQUIRE_UI_LIST_PROPERTY(t, "size", LA(20, 20));
     }
+
+    SECTION("prop math")
+    {
+        TestExtKnob t("ui.knob");
+        REQUIRE_UI_FLOAT_PROPERTY(t, "midi_channel", 0);
+
+        t.call("@midi_channel", LA(2));
+        REQUIRE_UI_FLOAT_PROPERTY(t, "midi_channel", 2);
+
+        t.call("@midi_channel", LA("+", 3));
+        REQUIRE_UI_FLOAT_PROPERTY(t, "midi_channel", 5);
+
+        t.call("@midi_channel", LA("+", 32));
+        REQUIRE_UI_FLOAT_PROPERTY(t, "midi_channel", 16);
+
+        t.call("@midi_channel", LA("-", 4));
+        REQUIRE_UI_FLOAT_PROPERTY(t, "midi_channel", 12);
+
+        t.call("@midi_channel", LA("-", 44));
+        REQUIRE_UI_FLOAT_PROPERTY(t, "midi_channel", 12);
+
+        t.call("@midi_channel", LA("/", 3));
+        REQUIRE_UI_FLOAT_PROPERTY(t, "midi_channel", 4);
+
+        t.call("@midi_channel", LA("/", 0.));
+        REQUIRE_UI_FLOAT_PROPERTY(t, "midi_channel", 4);
+
+        t.call("@midi_channel", LA("*", 2));
+        REQUIRE_UI_FLOAT_PROPERTY(t, "midi_channel", 8);
+
+        t.call("@midi_channel", LA("*", 200));
+        REQUIRE_UI_FLOAT_PROPERTY(t, "midi_channel", 16);
+    }
 }

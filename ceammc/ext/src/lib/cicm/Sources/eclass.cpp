@@ -1014,7 +1014,7 @@ bool ebox_attr_long_setter(t_ebox* x, t_eattr* a, t_float value, size_t idx, t_e
         return false;
     }
 
-    long new_val = 0;
+    long new_val = cur_val;
     switch (op) {
     case EATTR_OP_ASSIGN:
         new_val = value;
@@ -1042,12 +1042,12 @@ bool ebox_attr_long_setter(t_ebox* x, t_eattr* a, t_float value, size_t idx, t_e
         pd_error(x, "[%s][%s] expecting value in [%f-%f] range, got: %ld",
             class_getname(xclass), a->name->s_name, a->minimum, a->maximum, new_val);
         new_val = a->minimum;
-    } else if (a->clipped & E_CLIP_MIN && value < a->minimum) {
+    } else if (a->clipped & E_CLIP_MIN && new_val < a->minimum) {
         pd_error(x, "[%s][%s] value >= %f expected, got: %ld",
             class_getname(xclass), a->name->s_name, a->minimum, new_val);
         new_val = a->minimum;
         return false;
-    } else if (a->clipped & E_CLIP_MAX && value > a->maximum) {
+    } else if (a->clipped & E_CLIP_MAX && new_val > a->maximum) {
         pd_error(x, "[%s][%s] value <= %f expected, got: %ld",
             class_getname(xclass), a->name->s_name, a->maximum, new_val);
         new_val = a->maximum;
@@ -1055,11 +1055,11 @@ bool ebox_attr_long_setter(t_ebox* x, t_eattr* a, t_float value, size_t idx, t_e
 
     if (type == s_int) {
         auto* pval = reinterpret_cast<int*>(ptr);
-        pval[idx] = value;
+        pval[idx] = new_val;
         return true;
     } else if (type == s_long) {
         auto* pval = reinterpret_cast<long*>(ptr);
-        pval[idx] = value;
+        pval[idx] = new_val;
         return true;
     } else {
         return false;
@@ -1169,7 +1169,7 @@ static t_eattr_op atom2op(t_atom* a)
         }
     }
 
-    return static_cast<t_eattr_op>(-1);
+    return EATTR_OP_UNKNOWN;
 }
 
 // caller should free result
@@ -1296,93 +1296,123 @@ int eclass_attr_setter(t_object* x, t_symbol* s, int argc, t_atom* argv)
         size_t size;
         t_eattr* attr = c->c_attr[i];
 
-        if (attr->name == s) {
-            const t_symbol* type = attr->type;
+        if (attr->name != s)
+            continue;
 
-            if (attr->sizemax == 0) {
-                size = attr->size;
-            } else {
-                if (argc > attr->sizemax) {
-                    argc = attr->sizemax;
-                }
-                size = argc;
-                point = (char*)x + attr->size;
+        if (attr->sizemax == 0) {
+            size = attr->size;
+        } else {
+            if (argc > attr->sizemax) {
+                argc = attr->sizemax;
             }
-
-            point = (char*)(x) + attr->offset;
-
-            if (attr->getter) {
-                if (attr->setter) { // getter and setter
-                    prop_setter(attr, argc, argv);
-                } else { // getter only (readonly)
-                    pd_error(x, "[%s] readonly property: @%s", c->c_class.c_name->s_name, attr->name->s_name);
-                }
-            } else if (attr->getter == nullptr && attr->setter != nullptr) {
-                // setter only (using default set method), getter is default reading
-                prop_setter(attr, argc, argv);
-            } else if (type == s_int || type == s_long) {
-                t_eattr_op op = EATTR_OP_ASSIGN;
-
-                if (atom_gettype(argv) == A_SYMBOL)
-                    op = atom2op(argv);
-
-                const auto N = std::min<size_t>(size, argc);
-                for (size_t j = (op == EATTR_OP_ASSIGN) ? 0 : 1; j < N; j++) {
-                    if (atom_gettype(argv + j) == A_FLOAT)
-                        ebox_attr_long_setter(z, attr, atom_getlong(argv + j), j, op);
-                }
-            } else if (is_float_type(type)) {
-                t_eattr_op op = EATTR_OP_ASSIGN;
-
-                if (atom_gettype(argv) == A_SYMBOL)
-                    op = atom2op(argv);
-
-                const auto N = std::min<size_t>(size, argc);
-                for (size_t j = (op == EATTR_OP_ASSIGN) ? 0 : 1; j < N; j++) {
-                    if (atom_gettype(argv + j) == A_FLOAT) {
-                        if(!ebox_attr_float_setter(z, attr, atom_getfloat(argv + j), j, op))
-                            pd_error(z, "can't set property: %s", s->s_name);
-                    }
-                }
-            } else if (type == &s_symbol) {
-                t_symbol** pointor = (t_symbol**)point;
-                for (size_t j = 0; j < size && j < argc; j++) {
-                    if (atom_gettype(argv + j) == A_SYMBOL) {
-                        pointor[j] = gensym(atom_getsymbol(argv + j)->s_name);
-                    }
-                }
-            } else if (type == s_atom) {
-                clip_args(attr, argc, argv);
-
-                t_atom* pointor = (t_atom*)point;
-                for (size_t j = 0; j < size && j < argc; j++) {
-                    pointor[j] = argv[j];
-                }
-            }
-
-            // hangle @size or @pinned change
-            ebox_notify(z, s);
-
-            if (c->c_widget.w_notify != nullptr)
-                c->c_widget.w_notify(x, s, s_attr_modified);
-
-            if (attr->paint) {
-                if (c->c_widget.w_oksize != nullptr) {
-                    c->c_widget.w_oksize(x, &z->b_rect);
-                }
-                if (c->c_widget.w_getdrawparameters != nullptr) {
-                    c->c_widget.w_getdrawparameters(x, &z->b_boxparameters);
-                }
-
-                ebox_redraw(z);
-            }
-
-            // mark as changed for gui objects
-            if (attr->save && eobj_isbox(&z->b_obj) && ebox_isdrawable(z))
-                canvas_dirty(eobj_getcanvas(&z->b_obj), 1);
-
-            return 1;
+            size = argc;
+            point = (char*)x + attr->size;
         }
+
+        point = (char*)(x) + attr->offset;
+        const auto type = attr->type;
+
+        if (attr->getter) {
+            if (attr->setter) { // getter and setter
+                prop_setter(attr, argc, argv);
+            } else { // getter only (readonly)
+                pd_error(x, "[%s] readonly property: @%s", c->c_class.c_name->s_name, attr->name->s_name);
+            }
+        } else if (attr->getter == nullptr && attr->setter != nullptr) {
+            // setter only (using default set method), getter is default reading
+            prop_setter(attr, argc, argv);
+        } else if (type == s_int || type == s_long) {
+            t_eattr_op op = EATTR_OP_ASSIGN;
+            int arg_offset = 0;
+
+            if (atom_gettype(argv) == A_SYMBOL) {
+                arg_offset++;
+                op = atom2op(argv);
+            }
+
+            if (op == EATTR_OP_UNKNOWN) {
+                pd_error(x,
+                    "[%s] unknown operator for property @%s: '%s'",
+                    eobj_getclassname(&z->b_obj)->s_name,
+                    s->s_name,
+                    atom_getsymbol(argv)->s_name);
+                return false;
+            }
+
+            const size_t N = argc - arg_offset;
+
+            if (size != N) {
+                pd_error(x,
+                    "[%s] invalid argument count for @%s: %d",
+                    eobj_getclassname(&z->b_obj)->s_name,
+                    s->s_name, argc);
+                return false;
+            }
+
+            for (size_t j = 0; j < N; j++) {
+                const auto a = argv + j + arg_offset;
+                if (atom_gettype(a) == A_FLOAT) {
+                    ebox_attr_long_setter(z, attr, atom_getlong(a), j, op);
+                } else {
+                    char buf[32];
+                    atom_string(a, buf, sizeof(buf) - 1);
+                    pd_error(x, "[%s] not float argument for property @%s: %s, ignoring",
+                        eobj_getclassname(&z->b_obj)->s_name,
+                        s->s_name,
+                        buf);
+                }
+            }
+        } else if (is_float_type(type)) {
+            t_eattr_op op = EATTR_OP_ASSIGN;
+
+            if (atom_gettype(argv) == A_SYMBOL)
+                op = atom2op(argv);
+
+            const auto N = std::min<size_t>(size, argc);
+            for (size_t j = (op == EATTR_OP_ASSIGN) ? 0 : 1; j < N; j++) {
+                if (atom_gettype(argv + j) == A_FLOAT) {
+                    if (!ebox_attr_float_setter(z, attr, atom_getfloat(argv + j), j, op))
+                        pd_error(z, "can't set property: %s", s->s_name);
+                }
+            }
+        } else if (type == &s_symbol) {
+            t_symbol** pointor = (t_symbol**)point;
+            for (size_t j = 0; j < size && j < argc; j++) {
+                if (atom_gettype(argv + j) == A_SYMBOL) {
+                    pointor[j] = gensym(atom_getsymbol(argv + j)->s_name);
+                }
+            }
+        } else if (type == s_atom) {
+            clip_args(attr, argc, argv);
+
+            t_atom* pointor = (t_atom*)point;
+            for (size_t j = 0; j < size && j < argc; j++) {
+                pointor[j] = argv[j];
+            }
+        }
+
+        // handle @size or @pinned change
+        ebox_notify(z, s);
+
+        if (c->c_widget.w_notify != nullptr)
+            c->c_widget.w_notify(x, s, s_attr_modified);
+
+        if (attr->paint) {
+            if (c->c_widget.w_oksize != nullptr) {
+                c->c_widget.w_oksize(x, &z->b_rect);
+            }
+            if (c->c_widget.w_getdrawparameters != nullptr) {
+                c->c_widget.w_getdrawparameters(x, &z->b_boxparameters);
+            }
+
+            ebox_redraw(z);
+        }
+
+        // mark as changed for gui objects
+        if (attr->save && eobj_isbox(&z->b_obj) && ebox_isdrawable(z))
+            canvas_dirty(eobj_getcanvas(&z->b_obj), 1);
+
+        return 1;
     }
 
     pd_error(x, "[%s] property not found: %s", eobj_getclassname(&z->b_obj)->s_name, s->s_name);
@@ -1501,7 +1531,6 @@ static void eclass_properties_dialog(t_eclass* c)
         auto is_ceammc = getenv("is_ceammc");
         if (!is_ceammc)
             sys_gui("ttk::style theme use alt\n");
-
     }
 #endif
 
