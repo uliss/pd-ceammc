@@ -11,6 +11,7 @@
 
 #include <stdexcept>
 #include <string>
+#include <type_traits>
 #include <unordered_map>
 #include <utility>
 
@@ -444,11 +445,11 @@ public:
     void addFloatProperty(const char* name, const char* label, t_float def, t_float UI::*m, const char* category = "Misc")
     {
         char buf[32];
-        snprintf(buf, 30, "%g", def);
+        snprintf(buf, sizeof(buf) - 1, "%g", def);
 
-        if (sizeof(t_float) == sizeof(float))
+        if (std::is_same<t_float, float>::value)
             eclass_new_attr_typed(pd_class, name, "float", 1, 0, offset(m));
-        else if (sizeof(t_float) == sizeof(double))
+        else if (std::is_same<t_float, double>::value)
             eclass_new_attr_typed(pd_class, name, "double", 1, 0, offset(m));
 
         eclass_attr_label(pd_class, name, label);
@@ -470,7 +471,7 @@ public:
     void addIntProperty(const char* name, const char* label, int def, int UI::*m, const char* category = "Misc")
     {
         char buf[32];
-        snprintf(buf, 30, "%d", def);
+        snprintf(buf, sizeof(buf) - 1, "%d", def);
 
         eclass_new_attr_typed(pd_class, name, "int", 1, 0, offset(m));
         eclass_attr_label(pd_class, name, label);
