@@ -1860,6 +1860,10 @@ std::string ceammc_quote_str(const std::string& str, char q)
 
 void ebox_dialog(t_ebox* x, t_symbol* s, int argc, t_atom* argv)
 {
+    static t_symbol* S_COLOR = gensym(SYM_COLOR);
+    static t_symbol* S_CHECKBUTTON = gensym(SYM_CHECKBUTTON);
+    static t_symbol* S_MENU = gensym(SYM_MENU);
+
     t_eclass* c = eobj_getclass(&x->b_obj);
     t_atom* av = NULL;
     int ac;
@@ -1882,17 +1886,19 @@ void ebox_dialog(t_ebox* x, t_symbol* s, int argc, t_atom* argv)
                 eobj_attr_getvalueof(&x->b_obj, c->c_attr[attrindex]->name, &ac, &av);
 
                 if (ac && av) {
-                    if (c->c_attr[attrindex]->style == gensym(SYM_CHECKBUTTON)) {
+                    const auto style = c->c_attr[attrindex]->style;
+
+                    if (style == S_CHECKBUTTON) {
                         if (atom_getfloat(av) == 0)
                             sys_vgui("%s state !selected\n", WIDGET_ID);
                         else
                             sys_vgui("%s state selected\n", WIDGET_ID);
-                    } else if (c->c_attr[attrindex]->style == gensym(SYM_COLOR)) {
+                    } else if (style == S_COLOR) {
                         color.red = atom_getfloat(av);
                         color.green = atom_getfloat(av + 1);
                         color.blue = atom_getfloat(av + 2);
                         sys_vgui("%s configure -readonlybackground #%6.6x\n", WIDGET_ID, rgb_to_hex_int(color));
-                    } else if (c->c_attr[attrindex]->style == gensym(SYM_MENU)) {
+                    } else if (style == S_MENU) {
                         atom_string(av, temp, MAXPDSTRING);
                         std::string buffer(temp);
                         for (int i = 1; i < ac; i++) {
