@@ -79,15 +79,15 @@ void UIKnob::setup()
 
     obj.addFloatProperty("min", _("Minimum Value"), 0, &UISingleValue::prop_min, "Bounds");
     obj.addFloatProperty("max", _("Maximum Value"), 1, &UISingleValue::prop_max, "Bounds");
-    obj.addProperty("show_range", _("Show range"), false, &UIKnob::show_range_);
+    obj.addBoolProperty("show_range", _("Show range"), false, &UIKnob::show_range_);
     obj.addProperty("scale", _("Scale Mode"), "linear", &UISingleValue::prop_scale, "linear log", "Main");
 
-    obj.addProperty("active_scale", _("Draw active scale"), false, &UIKnob::draw_active_scale_);
-    obj.addProperty("midi_channel", _("MIDI channel"), 0, &UISingleValue::prop_midi_chn, "MIDI");
+    obj.addBoolProperty("active_scale", _("Draw active scale"), false, &UIKnob::draw_active_scale_);
+    obj.addIntProperty("midi_channel", _("MIDI channel"), 0, &UISingleValue::prop_midi_chn, "MIDI");
     obj.setPropertyRange("midi_channel", 0, 16);
-    obj.addProperty("midi_control", _("MIDI control"), 0, &UISingleValue::prop_midi_ctl, "MIDI");
+    obj.addIntProperty("midi_control", _("MIDI control"), 0, &UISingleValue::prop_midi_ctl, "MIDI");
     obj.setPropertyRange("midi_control", 0, 128);
-    obj.addProperty("midi_pickup", _("MIDI pickup"), true, &UISingleValue::prop_pickup_midi, "MIDI");
+    obj.addBoolProperty("midi_pickup", _("MIDI pickup"), true, &UISingleValue::prop_pickup_midi, "MIDI");
 
     obj.addProperty("value", &UISingleValue::value, &UISingleValue::setValue);
 }
