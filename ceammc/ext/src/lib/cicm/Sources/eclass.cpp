@@ -1331,11 +1331,11 @@ int eclass_attr_setter(t_object* x, t_symbol* s, int argc, t_atom* argv)
             }
 
             if (op == EATTR_OP_UNKNOWN) {
+                const char* op = atom_getsymbol(argv)->s_name;
                 pd_error(x,
                     "[%s] unknown operator for property @%s: '%s'",
                     eobj_getclassname(&z->b_obj)->s_name,
-                    s->s_name,
-                    atom_getsymbol(argv)->s_name);
+                    s->s_name, op);
                 return false;
             }
 
@@ -1372,11 +1372,11 @@ int eclass_attr_setter(t_object* x, t_symbol* s, int argc, t_atom* argv)
             }
 
             if (op == EATTR_OP_UNKNOWN) {
+                const char* op_str = atom_getsymbol(argv)->s_name;
                 pd_error(x,
                     "[%s] unknown operator for property @%s: '%s'",
                     eobj_getclassname(&z->b_obj)->s_name,
-                    s->s_name,
-                    atom_getsymbol(argv)->s_name);
+                    s->s_name, op_str);
                 return false;
             }
 
