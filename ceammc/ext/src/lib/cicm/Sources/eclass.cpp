@@ -1096,7 +1096,7 @@ bool ebox_attr_float_setter(t_ebox* x, t_eattr* a, t_float value, size_t idx, t_
         return false;
     }
 
-    double new_val = 0;
+    double new_val = cur_val;
     switch (op) {
     case EATTR_OP_ASSIGN:
         new_val = value;
@@ -1124,12 +1124,12 @@ bool ebox_attr_float_setter(t_ebox* x, t_eattr* a, t_float value, size_t idx, t_
         pd_error(x, "[%s][%s] expecting value in [%f-%f] range, got: %f",
             class_getname(xclass), a->name->s_name, a->minimum, a->maximum, new_val);
         new_val = a->minimum;
-    } else if (a->clipped & E_CLIP_MIN && value < a->minimum) {
+    } else if (a->clipped & E_CLIP_MIN && new_val < a->minimum) {
         pd_error(x, "[%s][%s] value >= %f expected, got: %f",
             class_getname(xclass), a->name->s_name, a->minimum, new_val);
         new_val = a->minimum;
         return false;
-    } else if (a->clipped & E_CLIP_MAX && value > a->maximum) {
+    } else if (a->clipped & E_CLIP_MAX && new_val > a->maximum) {
         pd_error(x, "[%s][%s] value <= %f expected, got: %f",
             class_getname(xclass), a->name->s_name, a->maximum, new_val);
         new_val = a->maximum;
@@ -1137,11 +1137,11 @@ bool ebox_attr_float_setter(t_ebox* x, t_eattr* a, t_float value, size_t idx, t_
 
     if (type == &s_float) {
         auto* pval = reinterpret_cast<float*>(ptr);
-        pval[idx] = value;
+        pval[idx] = new_val;
         return true;
     } else if (type == s_double) {
         auto* pval = reinterpret_cast<double*>(ptr);
-        pval[idx] = value;
+        pval[idx] = new_val;
         return true;
     } else {
         return false;
@@ -1326,7 +1326,7 @@ int eclass_attr_setter(t_object* x, t_symbol* s, int argc, t_atom* argv)
             int arg_offset = 0;
 
             if (atom_gettype(argv) == A_SYMBOL) {
-                arg_offset++;
+                arg_offset = 1;
                 op = atom2op(argv);
             }
 
@@ -1341,11 +1341,11 @@ int eclass_attr_setter(t_object* x, t_symbol* s, int argc, t_atom* argv)
 
             const size_t N = argc - arg_offset;
 
-            if (size != N) {
+            if (N > size) {
                 pd_error(x,
-                    "[%s] invalid argument count for @%s: %d",
+                    "[%s] invalid argument count for @%s: %d, max number is %d",
                     eobj_getclassname(&z->b_obj)->s_name,
-                    s->s_name, argc);
+                    s->s_name, argc, (int)size);
                 return false;
             }
 
@@ -1364,14 +1364,37 @@ int eclass_attr_setter(t_object* x, t_symbol* s, int argc, t_atom* argv)
             }
         } else if (is_float_type(type)) {
             t_eattr_op op = EATTR_OP_ASSIGN;
+            int arg_offset = 0;
 
-            if (atom_gettype(argv) == A_SYMBOL)
+            if (atom_gettype(argv) == A_SYMBOL) {
+                arg_offset = 1;
                 op = atom2op(argv);
+            }
 
-            const auto N = std::min<size_t>(size, argc);
-            for (size_t j = (op == EATTR_OP_ASSIGN) ? 0 : 1; j < N; j++) {
-                if (atom_gettype(argv + j) == A_FLOAT) {
-                    if (!ebox_attr_float_setter(z, attr, atom_getfloat(argv + j), j, op))
+            if (op == EATTR_OP_UNKNOWN) {
+                pd_error(x,
+                    "[%s] unknown operator for property @%s: '%s'",
+                    eobj_getclassname(&z->b_obj)->s_name,
+                    s->s_name,
+                    atom_getsymbol(argv)->s_name);
+                return false;
+            }
+
+            const size_t N = argc - arg_offset;
+
+            if (N > size) {
+                pd_error(x,
+                    "[%s] invalid argument count for @%s: %d, max number is %d",
+                    eobj_getclassname(&z->b_obj)->s_name,
+                    s->s_name, argc, (int)size);
+                return false;
+            }
+
+            for (size_t j = 0; j < N; j++) {
+                const auto a = argv + j + arg_offset;
+
+                if (atom_gettype(a) == A_FLOAT) {
+                    if (!ebox_attr_float_setter(z, attr, atom_getfloat(a), j, op))
                         pd_error(z, "can't set property: %s", s->s_name);
                 }
             }

@@ -539,9 +539,6 @@ TEST_CASE("ui.knob", "[ui.knob]")
         TestExtKnob t("ui.knob");
         REQUIRE_UI_FLOAT_PROPERTY(t, "max", 1);
 
-        t.call("@max", LA("+", 10));
-        REQUIRE_UI_FLOAT_PROPERTY(t, "max", 1);
-
         REQUIRE_UI_LIST_PROPERTY(t, "size", LA(40, 40));
         t.call("@size", LA("+", 5));
         REQUIRE_UI_LIST_PROPERTY(t, "size", LA(45, 45));
@@ -606,5 +603,49 @@ TEST_CASE("ui.knob", "[ui.knob]")
 
         t.call("@midi_channel", LA("*", 200));
         REQUIRE_UI_FLOAT_PROPERTY(t, "midi_channel", 16);
+    }
+
+    SECTION("prop math @max")
+    {
+        TestExtKnob t("ui.knob");
+        REQUIRE_UI_FLOAT_PROPERTY(t, "max", 1);
+
+        t.call("@max", LA(2));
+        REQUIRE_UI_FLOAT_PROPERTY(t, "max", 2);
+
+        t.call("@max", LA("+", 3));
+        REQUIRE_UI_FLOAT_PROPERTY(t, "max", 5);
+
+        t.call("@max", LA("+", 32));
+        REQUIRE_UI_FLOAT_PROPERTY(t, "max", 37);
+
+        t.call("@max", LA("-", 4));
+        REQUIRE_UI_FLOAT_PROPERTY(t, "max", 33);
+
+        t.call("@max", LA("-", 45));
+        REQUIRE_UI_FLOAT_PROPERTY(t, "max", -12);
+
+        t.call("@max", LA("/", 3));
+        REQUIRE_UI_FLOAT_PROPERTY(t, "max", -4);
+
+        t.call("@max", LA("/", 0.));
+        REQUIRE_UI_FLOAT_PROPERTY(t, "max", -4);
+
+        t.call("@max", LA("*", 2));
+        REQUIRE_UI_FLOAT_PROPERTY(t, "max", -8);
+
+        t.call("@max", LA("*", 20));
+        REQUIRE_UI_FLOAT_PROPERTY(t, "max", -160);
+    }
+
+    SECTION("prop @border_color")
+    {
+        TestExtKnob t("ui.knob");
+
+        t.call("@border_color", LF(0.125, 0.25, 0.5, 1));
+        REQUIRE_UI_LIST_PROPERTY(t, "border_color", LF(0.125, 0.25, 0.5, 1));
+
+        t.call("@border_color", LF(0.75, 0.5, 0.25));
+        REQUIRE_UI_LIST_PROPERTY(t, "border_color", LF(0.75, 0.5, 0.25, 1));
     }
 }
