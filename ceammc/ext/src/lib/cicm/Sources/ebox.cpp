@@ -610,8 +610,10 @@ static void ebox_attrprocess_default(t_ebox* x)
     t_eclass* c = eobj_getclass(&x->b_obj);
 
     for (size_t i = 0; i < c->c_nattr; i++) {
+        auto defvals = c->c_attr[i]->defvals;
+
         // skip if default is not set
-        if (!c->c_attr[i]->defvals)
+        if (!defvals)
             continue;
 
         if (c->c_attr[i]->size < 1) {
@@ -623,15 +625,11 @@ static void ebox_attrprocess_default(t_ebox* x)
         t_atom defv[N];
         memset(defv, 0, sizeof(defv));
 
-        const std::string str = c->c_attr[i]->defvals->s_name;
-        const bool has_alpha = std::any_of(str.begin(), str.end(), ::isalpha);
-        const bool has_special = (str.find_first_of("<>()'\"") != std::string::npos);
-        const bool is_symbol = has_alpha || has_special;
-
         // list of numbers
-        if (!is_symbol) {
+        auto type = c->c_attr[i]->type;
+        if (type == s_int || type == s_long || type == &s_float || type == s_double) {
             std::vector<std::string> result;
-            boost::split(result, c->c_attr[i]->defvals->s_name, boost::is_any_of(" "), boost::token_compress_on);
+            boost::split(result, defvals->s_name, boost::is_any_of(" "), boost::token_compress_on);
 
             if (N != result.size()) {
                 pd_error(x, "[%s] mismatched size of default values: %d != %d",
@@ -669,11 +667,11 @@ static void ebox_attrprocess_default(t_ebox* x)
         } else {
             // single symbol
             if (N == 1) {
-                atom_setsym(&defv[0], gensym(str.c_str()));
+                atom_setsym(&defv[0], defvals);
             } else {
                 // symbol list
                 std::vector<std::string> result;
-                boost::split(result, c->c_attr[i]->defvals->s_name, boost::is_any_of(" "), boost::token_compress_on);
+                boost::split(result, defvals->s_name, boost::is_any_of(" "), boost::token_compress_on);
 
                 if (N != result.size()) {
                     pd_error(x, "[%s] mismatched size of default values: %d != %d",
