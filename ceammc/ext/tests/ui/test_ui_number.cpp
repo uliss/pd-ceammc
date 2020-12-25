@@ -218,4 +218,12 @@ TEST_CASE("ui.number", "[ui.number]")
     {
         TestExtNumber t("ui.n");
     }
+
+    SECTION("max")
+    {
+        TestExtNumber t("ui.n");
+
+        t.call("@max", -3);
+        REQUIRE_UI_FLOAT_PROPERTY(t, "max", -3);
+    }
 }
