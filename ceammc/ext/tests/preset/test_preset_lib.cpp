@@ -198,10 +198,15 @@ TEST_CASE("ceammc_preset", "[PureData]")
         REQUIRE(s.read("./presets_nan.txt"));
         REQUIRE(s.keys().size() == 1);
 
-        REQUIRE(s.hasValueAt(KEY, 0));
-        REQUIRE(s.hasValueAt(KEY, 1));
-        REQUIRE(s.floatValueAt(KEY, 0) == 0);
-        REQUIRE(s.floatValueAt(KEY, 1) == 0);
+        if (std::isnan(qn)) {
+            REQUIRE(s.hasValueAt(KEY, 0));
+            REQUIRE(s.floatValueAt(KEY, 0) == 0);
+        }
+
+        if (std::isnan(sn)) {
+            REQUIRE(s.hasValueAt(KEY, 1));
+            REQUIRE(s.floatValueAt(KEY, 1) == 0);
+        }
     }
 
     SECTION("INF")
