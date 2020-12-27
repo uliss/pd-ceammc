@@ -183,6 +183,9 @@ TEST_CASE("ceammc_preset", "[PureData]")
             REQUIRE(s.floatValueAt(KEY, 1, -1000) == -1000);
         }
 
+        // in case two upper conditions are false and storage is empty
+        s.setFloatValueAt(KEY, 2, 1000);
+
         REQUIRE(s.write("./presets_nan.txt"));
         REQUIRE(platform::path_exists("./presets_nan.txt"));
         REQUIRE(s.keys().size() == 1);
