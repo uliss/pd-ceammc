@@ -206,10 +206,13 @@ TEST_CASE("ceammc_preset", "[PureData]")
         PresetStorage& s = PresetStorage::instance();
         s.clearAll();
 
-        REQUIRE(s.setFloatValueAt(gensym("test"), 2, std::numeric_limits<float>::infinity()));
-        REQUIRE(s.hasFloatValueAt(gensym("test"), 2));
-        REQUIRE(s.floatValueAt(gensym("test"), 2) == 0);
-        REQUIRE(s.floatValueAt(gensym("test"), 2, -100) == 0);
+        const auto inf = std::numeric_limits<t_float>::infinity();
+        if (std::isinf(inf)) {
+            REQUIRE(s.setFloatValueAt(gensym("test"), 2, inf));
+            REQUIRE(s.hasFloatValueAt(gensym("test"), 2));
+            REQUIRE(s.floatValueAt(gensym("test"), 2) == 0);
+            REQUIRE(s.floatValueAt(gensym("test"), 2, -100) == 0);
+        }
     }
 
     SECTION("preset duplicate")
