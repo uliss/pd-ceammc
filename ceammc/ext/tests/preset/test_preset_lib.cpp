@@ -162,37 +162,43 @@ TEST_CASE("ceammc_preset", "[PureData]")
 
     SECTION("NAN")
     {
-        //        REQUIRE(platform::remove("./presets.txt"));
-
         PresetStorage& s = PresetStorage::instance();
         s.clearAll();
 
-        s.setFloatValueAt(gensym("test"), 0, std::numeric_limits<float>::quiet_NaN());
-        REQUIRE(s.hasFloatValueAt(gensym("test"), 0));
-        REQUIRE(s.floatValueAt(gensym("test"), 0) == 0);
-        REQUIRE(s.floatValueAt(gensym("test"), 0, -100) == -100);
+        auto KEY = gensym("test");
 
-        s.setFloatValueAt(gensym("test"), 1, std::numeric_limits<float>::signaling_NaN());
-        REQUIRE(s.hasFloatValueAt(gensym("test"), 1));
-        REQUIRE(s.floatValueAt(gensym("test"), 1) == 0);
-        REQUIRE(s.floatValueAt(gensym("test"), 1, -1000) == -1000);
+        const auto qn = std::numeric_limits<t_float>::quiet_NaN();
+        if (std::isnan(qn)) {
+            s.setListValueAt(KEY, 0, LF(qn));
+            REQUIRE(s.hasValueAt(KEY, 0));
+            REQUIRE(s.floatValueAt(KEY, 0) == 0);
+            REQUIRE(s.floatValueAt(KEY, 0, -100) == -100);
+        }
+
+        const auto sn = std::numeric_limits<t_float>::signaling_NaN();
+        if (std::isnan(sn)) {
+            s.setListValueAt(KEY, 1, LF(sn));
+            REQUIRE(s.hasValueAt(KEY, 1));
+            REQUIRE(s.floatValueAt(KEY, 1) == 0);
+            REQUIRE(s.floatValueAt(KEY, 1, -1000) == -1000);
+        }
 
         REQUIRE(s.write("./presets_nan.txt"));
         REQUIRE(platform::path_exists("./presets_nan.txt"));
         REQUIRE(s.keys().size() == 1);
 
         // change presets
-        s.setFloatValueAt(gensym("test"), 0, 20);
-        s.floatValueAt(gensym("test"), 1, 40);
+        s.setFloatValueAt(KEY, 0, 20);
+        s.floatValueAt(KEY, 1, 40);
 
         // restore presets
         REQUIRE(s.read("./presets_nan.txt"));
         REQUIRE(s.keys().size() == 1);
 
-        REQUIRE(s.hasFloatValueAt(gensym("test"), 0));
-        REQUIRE(s.hasFloatValueAt(gensym("test"), 1));
-        REQUIRE(s.floatValueAt(gensym("test"), 0) == 0);
-        REQUIRE(s.floatValueAt(gensym("test"), 1) == 0);
+        REQUIRE(s.hasValueAt(KEY, 0));
+        REQUIRE(s.hasValueAt(KEY, 1));
+        REQUIRE(s.floatValueAt(KEY, 0) == 0);
+        REQUIRE(s.floatValueAt(KEY, 1) == 0);
     }
 
     SECTION("INF")

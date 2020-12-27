@@ -35,7 +35,7 @@ size_t PresetStorage::maxPresetCount() const
     return MAX_PRESET_COUNT;
 }
 
-bool PresetStorage::setFloatValueAt(t_symbol* name, size_t presetIdx, float v)
+bool PresetStorage::setFloatValueAt(t_symbol* name, size_t presetIdx, t_float v)
 {
     PresetPtr param = getOrCreate(name);
     addPresetIndex(name, presetIdx);
@@ -100,7 +100,7 @@ AtomList PresetStorage::anyValueAt(t_symbol* name, size_t presetIdx, const AtomL
     return it->second->anyAt(presetIdx, def);
 }
 
-float PresetStorage::floatValueAt(t_symbol* name, size_t presetIdx, float def) const
+t_float PresetStorage::floatValueAt(t_symbol* name, size_t presetIdx, t_float def) const
 {
     auto it = params_.find(name);
     if (it == params_.end())
@@ -602,13 +602,13 @@ bool Preset::duplicate()
     return true;
 }
 
-float Preset::floatAt(size_t idx, float def) const
+t_float Preset::floatAt(size_t idx, t_float def) const
 {
     if (idx >= data_.size())
         return def;
 
     if (data_[idx].isFloat()) {
-        t_float v = data_[idx].atomValue().asFloat();
+        const auto v = data_[idx].atomValue().asFloat();
 
         if (std::isnan(v) || std::isinf(v))
             return def;
@@ -618,12 +618,12 @@ float Preset::floatAt(size_t idx, float def) const
         return def;
 }
 
-bool Preset::setFloatAt(size_t idx, float v)
+bool Preset::setFloatAt(size_t idx, t_float v)
 {
     if (idx >= data_.size())
         return false;
 
-    if (v == std::numeric_limits<float>::infinity())
+    if (std::isnan(v) || std::isinf(v))
         v = 0;
 
     data_[idx].setFloat(v);

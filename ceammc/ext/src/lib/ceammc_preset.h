@@ -36,12 +36,12 @@ public:
     bool copyData(size_t src_idx, size_t dst_idx);
     bool duplicate();
 
-    float floatAt(size_t idx, float def = 0) const;
+    t_float floatAt(size_t idx, t_float def = 0) const;
     t_symbol* symbolAt(size_t idx, t_symbol* def = &s_) const;
     AtomList listAt(size_t idx, const AtomList& def = AtomList()) const;
     AtomList anyAt(size_t idx, const AtomList& def = AtomList()) const;
 
-    bool setFloatAt(size_t idx, float v);
+    bool setFloatAt(size_t idx, t_float v);
     bool setSymbolAt(size_t idx, t_symbol* v);
     bool setListAt(size_t idx, const AtomList& l);
     bool setAnyAt(size_t idx, t_symbol* sel, const AtomList& args);
@@ -71,8 +71,8 @@ public:
     static PresetStorage& instance();
     size_t maxPresetCount() const;
 
-    bool setFloatValueAt(t_symbol* name, size_t presetIdx, float v);
-    float floatValueAt(t_symbol* name, size_t presetIdx, float def = 0) const;
+    bool setFloatValueAt(t_symbol* name, size_t presetIdx, t_float v);
+    t_float floatValueAt(t_symbol* name, size_t presetIdx, t_float def = 0) const;
     bool clearValueAt(t_symbol* name, size_t presetIdx);
 
     bool setSymbolValueAt(t_symbol* name, size_t presetIdx, t_symbol* v);
