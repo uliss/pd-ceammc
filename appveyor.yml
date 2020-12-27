@@ -65,5 +65,5 @@ deploy:
     package: PureData
     publish: true
     override: true
-    explode: true
+    explode: false
 
