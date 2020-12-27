@@ -10,7 +10,8 @@ BINDIR="@PROJECT_BINARY_DIR@"
 OUTDIR="$1/ceammc"
 VERSION="@CEAMMC_LIB_VERSION@"
 SYSVER=$(sw_vers | grep ProductVersion | cut -f2 | cut -f1,2 -d.)
-OUTFILE="ceammc-${VERSION}-macosx-${SYSVER}-pd-@PD_TEXT_VERSION_SHORT@.tar.gz"
+FLOATSIZE="f@PD_FLOAT_SIZE@"
+OUTFILE="ceammc-${VERSION}-macosx-${SYSVER}-pd-@PD_TEXT_VERSION_SHORT@-${FLOATSIZE}.tar.gz"
 DYLIBBUNDLER="@DYLIBBUNDLER@"
 
 CURRENT_DATE=$(LANG=C date -u '+%d %h %Y %Z %H:%M:%S')
