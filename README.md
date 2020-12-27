@@ -16,7 +16,7 @@ Key concepts
    - All the externals are grouped by their function. This is different from the traditional approach but this aims to simplify the learning process and makes the language itself more clear.
    - Higher level set of objects for education and handy use in work process: oscillators, filters etc.
    - Library adds several features to basic Pd API. It is written in C++ and covered with tests.
-   - Inclusion of some modern techniques. Library v0.8 includes comprehensive set of objects that work with lists and include some concepts from functional programming.
+   - Inclusion of some modern techniques. Library v0.9.1 includes comprehensive set of objects that work with lists and include some concepts from functional programming.
 
 ChangeLog:
 ----------
