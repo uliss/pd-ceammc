@@ -58,23 +58,23 @@ TEST_CASE("ui.preset", "[ui.preset]")
 
         // load 0 by default
         t.call("load");
-        REQUIRE(s0->value() == 0.2f);
-        REQUIRE(s1->value() == 0.8f);
+        REQUIRE(s0->value() == Approx(0.2));
+        REQUIRE(s1->value() == Approx(0.8));
         REQUIRE(t->propCurrent() == LF(0));
 
         t.call("load", LF(1));
-        REQUIRE(s0->value() == 0.3f);
-        REQUIRE(s1->value() == 0.7f);
+        REQUIRE(s0->value() == Approx(0.3));
+        REQUIRE(s1->value() == Approx(0.7));
         REQUIRE(t->propCurrent() == LF(1));
 
         t.call("load", LF(2));
-        REQUIRE(s0->value() == 0.4f);
-        REQUIRE(s1->value() == 0.6f);
+        REQUIRE(s0->value() == Approx(0.4));
+        REQUIRE(s1->value() == Approx(0.6));
         REQUIRE(t->propCurrent() == LF(2));
 
         t.call("load", LF(0));
-        REQUIRE(s0->value() == 0.2f);
-        REQUIRE(s1->value() == 0.8f);
+        REQUIRE(s0->value() == Approx(0.2));
+        REQUIRE(s1->value() == Approx(0.8));
         REQUIRE(t->propCurrent() == LF(0));
 
         t.call("write", LA(TEST_BIN_DIR "/abc.txt"));
@@ -83,20 +83,20 @@ TEST_CASE("ui.preset", "[ui.preset]")
         t.call("clear", LF(0, 1, 2));
         REQUIRE(t->propCurrent() == LF(-1));
 
-        REQUIRE(s0->value() == 0.2f);
-        REQUIRE(s1->value() == 0.8f);
+        REQUIRE(s0->value() == Approx(0.2));
+        REQUIRE(s1->value() == Approx(0.8));
 
         // no load after clean
         t.call("load", LF(0));
-        REQUIRE(s0->value() == 0.2f);
-        REQUIRE(s1->value() == 0.8f);
+        REQUIRE(s0->value() == Approx(0.2));
+        REQUIRE(s1->value() == Approx(0.8));
         REQUIRE(t->propCurrent() == LF(-1));
         t.call("load", LF(1));
-        REQUIRE(s0->value() == 0.2f);
-        REQUIRE(s1->value() == 0.8f);
+        REQUIRE(s0->value() == Approx(0.2));
+        REQUIRE(s1->value() == Approx(0.8));
         t.call("load", LF(2));
-        REQUIRE(s0->value() == 0.2f);
-        REQUIRE(s1->value() == 0.8f);
+        REQUIRE(s0->value() == Approx(0.2));
+        REQUIRE(s1->value() == Approx(0.8));
         REQUIRE(t->propCurrent() == LF(-1));
 
         // read again
@@ -104,18 +104,18 @@ TEST_CASE("ui.preset", "[ui.preset]")
         REQUIRE(t->propCurrent() == LF(-1));
 
         t.call("load", LF(1));
-        REQUIRE(s0->value() == 0.3f);
-        REQUIRE(s1->value() == 0.7f);
+        REQUIRE(s0->value() == Approx(0.3));
+        REQUIRE(s1->value() == Approx(0.7));
         REQUIRE(t->propCurrent() == LF(1));
 
         t.call("load", LF(2));
-        REQUIRE(s0->value() == 0.4f);
-        REQUIRE(s1->value() == 0.6f);
+        REQUIRE(s0->value() == Approx(0.4));
+        REQUIRE(s1->value() == Approx(0.6));
         REQUIRE(t->propCurrent() == LF(2));
 
         t.call("load");
-        REQUIRE(s0->value() == 0.2f);
-        REQUIRE(s1->value() == 0.8f);
+        REQUIRE(s0->value() == Approx(0.2));
+        REQUIRE(s1->value() == Approx(0.8));
         REQUIRE(t->propCurrent() == LF(0));
 
         platform::remove(TEST_BIN_DIR "/abc.txt");
