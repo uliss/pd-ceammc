@@ -5,6 +5,21 @@ else()
 endif()
 
 if(WIN32)
+    find_program(7Z_EXE
+        NAMES "7z" "7z.exe"
+        PATH_SUFFIXES "7-Zip"
+    )
+    if(7Z_EXE)
+        message(STATUS "7z found at: ${7Z_EXE}")
+    endif()
+
+
+    if(CMAKE_SIZEOF_VOID_P EQUAL 8)
+        set(CEAMMC_DISTRIB_ARCH "x86_64")
+    elseif(CMAKE_SIZEOF_VOID_P EQUAL 4)
+        set(CEAMMC_DISTRIB_ARCH "i686")
+    endif()
+
     if(WITH_DOUBLE_PRECISION)
         set(CEAMMC_PRECISION "double")
         set(CEAMMC_APP_SUFFIX " (double)")
@@ -14,19 +29,14 @@ if(WIN32)
         set(PD_FLOAT_SIZE 32)
     endif()
 
-    configure_file(${CMAKE_CURRENT_SOURCE_DIR}/pd.iss ${CMAKE_BINARY_DIR})
-    configure_file(${CMAKE_CURRENT_SOURCE_DIR}/fix_dll_deps.sh ${CMAKE_BINARY_DIR} @ONLY)
-    configure_file(${CMAKE_CURRENT_SOURCE_DIR}/win_upload_to_github.sh ${CMAKE_BINARY_DIR} @ONLY)
-    configure_file(${CMAKE_CURRENT_SOURCE_DIR}/win_fix_pddoc_key_modifiers.sh ${CMAKE_BINARY_DIR} @ONLY)
-
-    find_program(7Z_EXE
-        NAMES "7z" "7z.exe"
-        PATH_SUFFIXES "7-Zip"
-    )
-    if(7Z_EXE)
-        message(STATUS "7z found at: ${7Z_EXE}")
-    endif()
-
+    configure_file(${CMAKE_CURRENT_SOURCE_DIR}/pd.iss
+                   ${CMAKE_BINARY_DIR})
+    configure_file(${CMAKE_CURRENT_SOURCE_DIR}/fix_dll_deps.sh
+                   ${CMAKE_BINARY_DIR} @ONLY)
+    configure_file(${CMAKE_CURRENT_SOURCE_DIR}/win_upload_to_github.sh
+                   ${CMAKE_BINARY_DIR} @ONLY)
+    configure_file(${CMAKE_CURRENT_SOURCE_DIR}/win_fix_pddoc_key_modifiers.sh
+                   ${CMAKE_BINARY_DIR} @ONLY)
     configure_file(${CMAKE_CURRENT_SOURCE_DIR}/make_lib_win.sh
                    ${PROJECT_BINARY_DIR}/dist/make_lib_win.sh @ONLY)
     configure_file(${CMAKE_CURRENT_SOURCE_DIR}/install_external.sh

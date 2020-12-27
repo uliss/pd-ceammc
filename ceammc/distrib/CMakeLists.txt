@@ -5,12 +5,6 @@ add_subdirectory(docker)
 
 set(MAKELIB_SCRIPT "")
 
-if(CMAKE_SIZEOF_VOID_P EQUAL 8)
-    set(CEAMMC_DISTRIB_ARCH "x86_64")
-elseif(CMAKE_SIZEOF_VOID_P EQUAL 4)
-    set(CEAMMC_DISTRIB_ARCH "i386")
-endif()
-
 if(WITH_DOUBLE_PRECISION)
     set(PD_FLOAT_SIZE 64)
 else()
