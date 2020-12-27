@@ -1490,21 +1490,21 @@ static void ewidget_init(t_eclass* c)
 static const char* dialog_frame_id(int i)
 {
     static char buf[100];
-    snprintf(buf, 100, "$id.t.frame%i", i);
+    snprintf(buf, 100, "$id.canvas.container.content.frame%i", i);
     return buf;
 }
 
 static const char* dialog_label_id(int i)
 {
     static char buf[100];
-    snprintf(buf, 100, "$id.t.l%i", i);
+    snprintf(buf, 100, "$id.canvas.container.content.l%i", i);
     return buf;
 }
 
 static const char* dialog_widget_id(int i)
 {
     static char buf[100];
-    snprintf(buf, 100, "$id.t.w%i", i);
+    snprintf(buf, 100, "$id.canvas.container.content.w%i", i);
     return buf;
 }
 
@@ -1633,13 +1633,17 @@ static void eclass_properties_dialog(t_eclass* c)
     sys_gui("   # window\n");
 #endif
     // _("%s properties")
-    auto str = fmt::format("   toplevel $id\n"
-                           "   wm title $id [format [_ \"%s properties\" ] {{{0}}}] \n"
-                           "   wm resizable $id 0 0\n"
-                           "   raise [winfo toplevel $id]\n"
-                           "   $id configure " DIALOG_BACKGROUND DIALOG_WINDOW_PADX DIALOG_WINDOW_PADY "\n"
-                           "   frame $id.t\n"
-                           "   grid $id.t\n",
+    auto str = fmt::format(
+        "   ::ceammc::ui::sframe::new $id -toplevel true -anchor w\n"
+        "   wm title $id [format [_ \"%s properties\" ] {{{0}}}] \n"
+        "   wm resizable $id 0 1\n" /// resize only height
+        "   wm minsize $id 200 300\n"
+        "   wm geometry $id 200x600\n"
+        "   bind $id <Key-Escape> \"destroy $id; break\"\n" /// close dialog by key-pressing 'Escape'
+        "   raise [winfo toplevel $id]\n"
+        "   $id configure " DIALOG_BACKGROUND DIALOG_WINDOW_PADX DIALOG_WINDOW_PADY "\n"
+        "   set fp [::ceammc::ui::sframe::content $id]\n"
+        "   grid $fp\n",
         c->c_class.c_name->s_name);
     sys_gui(str.c_str());
 
@@ -1658,12 +1662,12 @@ static void eclass_properties_dialog(t_eclass* c)
                 auto str = fmt::format(
                     "   global var_cat{0}_state\n"
                     "   if {{ [info exists var_cat{0}_state] eq 0 }} {{ set var_cat{0}_state 1 }}\n"
-                    "   ttk::label $id.t.cat_img{0} -image [ceammc_category_icon var_cat{0}_state]\n"
-                    "   bind $id.t.cat_img{0} <Button> [list ceammc_category_toggle"
-                    "       $id.t.cat_img{0} var_cat{0}_state [concat [dict get $cat_dict \"{0}\"]]]\n"
-                    "   ttk::label $id.t.cat_lbl{0} -justify left -text [_ \"{0}\"] -font CICMCategoryFont\n"
-                    "   grid config $id.t.cat_img{0} -column 0 -row {1} -sticky w\n"
-                    "   grid config $id.t.cat_lbl{0} -column 1 -columnspan 2 -row {1} -sticky nwse\n",
+                    "   ttk::label $fp.cat_img{0} -image [ceammc_category_icon var_cat{0}_state]\n"
+                    "   bind $fp.cat_img{0} <Button> [list ceammc_category_toggle"
+                    "       $fp.cat_img{0} var_cat{0}_state [concat [dict get $cat_dict \"{0}\"]]]\n"
+                    "   ttk::label $fp.cat_lbl{0} -justify left -text [_ \"{0}\"] -font CICMCategoryFont\n"
+                    "   grid config $fp.cat_img{0} -column 0 -row {1} -sticky w\n"
+                    "   grid config $fp.cat_lbl{0} -column 1 -columnspan 2 -row {1} -sticky nwse\n",
                     c->c_attr[i]->category->s_name, i + category_idx + 1);
                 // update current category
                 cat = c->c_attr[i]->category;
@@ -1697,6 +1701,7 @@ static void eclass_properties_dialog(t_eclass* c)
                     "   ttk::spinbox {0} -width 18 -textvariable [string trim $var_{2}] -increment {3} \n"
                     "   {0} configure -command [concat pdtk_{1}_dialog_apply_{2} $id]\n"
                     "   {0} configure -from -9999999999999 -to 9999999999999\n"
+                    "   bind {0} <MouseWheel> {{ break }}\n"
                     "   {0} delete 0 end \n"
                     "   {0} insert 0 ${2} \n"
                     "   bind {0} <KeyPress-Return> [concat pdtk_{1}_dialog_apply_{2} $id]\n",
@@ -1716,6 +1721,7 @@ static void eclass_properties_dialog(t_eclass* c)
 
                 tmpl += "}}\n"
                         "   bind {0} <<ComboboxSelected>> [concat pdtk_{1}_dialog_apply_{2} $id]\n"
+                        "   bind {0} <MouseWheel> {{ break }}\n"
                         "   {0} set [string trim ${2}] \n";
 
                 sys_gui(fmt::format(tmpl, WIDGET_ID, CLASS_NAME, ATTR_NAME).c_str());
@@ -1747,7 +1753,7 @@ static void eclass_properties_dialog(t_eclass* c)
 
             str = fmt::format(
                 "   grid [ttk::frame {1}] -column 0 -row {0} -sticky nwse\n"
-                "   grid {2} -column 1 -row {0} -sticky nwse\n"
+                "   grid {2} -column 1 -row {0} -sticky nw\n"
                 "   grid {3} -column 2 -row {0} -sticky nwse\n",
                 i + category_idx + 1, FRAME_ID, LABEL_ID, WIDGET_ID);
             sys_gui(str.c_str());
@@ -1768,7 +1774,7 @@ static void eclass_properties_dialog(t_eclass* c)
             str = fmt::format(
                 "   if {{ $var_cat{0}_state eq 0 }} {{\n"
                 "      set lst [dict get $cat_dict \"{0}\"]\n"
-                "      ceammc_category_apply $id.t.cat_img{0} var_cat{0}_state $lst\n"
+                "      ceammc_category_apply $fp.cat_img{0} var_cat{0}_state $lst\n"
                 "   }}\n",
                 cat->s_name);
             sys_gui(str.c_str());
