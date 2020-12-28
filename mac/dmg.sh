@@ -24,7 +24,6 @@ ARG_TMP_DIR="./tmp"
 ARG_ADD_VERSION=
 ARG_CODESIGN_ID=
 ARG_ICON_SIZE=72
-XQUARTZ_PATH="XQuartz.pkg"
 
 APP_BUNDLE_PATH=$1
 APP_BUNDLE_NAME=$(basename ${APP_BUNDLE_PATH})
@@ -108,9 +107,6 @@ fi
 echo -n "*** Copying ${APP_BUNDLE_PATH} to the temporary dir... "
 mkdir "$TMP_DIR"
 cp -R "${APP_BUNDLE_PATH}" ${TMP_DIR}/
-if [ -e ${XQUARTZ_PATH} ]; then
-    cp "${XQUARTZ_PATH}" ${TMP_DIR}/
-fi
 echo "done!"
 
 TMP_INFO_PLIST="${TMP_DIR}/${APP_BUNDLE_NAME}/Contents/Info.plist"
