@@ -207,7 +207,7 @@ if(APPLE)
     if(EXISTS ${EMBEDDED_WISH})
         set(WISH_APP "${EMBEDDED_WISH}")
     else()
-        message(FATAL_ERROR "TCL not found. You should run *build_tcltk* target to build embedded version")
+        message(FATAL_ERROR "TCL not found. You should build embedded Wish.app with build scripts in ./mac durectory")
     endif()
 
     message(STATUS "found Wish.app: ${WISH_APP}")
@@ -248,15 +248,6 @@ if(APPLE)
             ${PROJECT_SOURCE_DIR}
         WORKING_DIRECTORY ${PROJECT_BINARY_DIR}
         DEPENDS app)
-
-    add_custom_target(build_tcltk
-        COMMAND
-            ${PROJECT_SOURCE_DIR}/mac/tcltk-wish.sh --build --leave --arch x86_64 ${TK_VERSION}
-        COMMAND
-            ${PROJECT_SOURCE_DIR}/mac/tcltk-libs.sh --build 1.20 0.7
-
-        WORKING_DIRECTORY ${PROJECT_SOURCE_DIR}/mac
-        DEPENDS)
 
     find_program(GPGENV_EXE NAMES gpgenv)
 

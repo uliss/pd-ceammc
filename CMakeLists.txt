@@ -113,6 +113,7 @@ add_subdirectory(src)
 add_subdirectory(tcl)
 add_subdirectory(extra)
 add_subdirectory(doc)
+add_subdirectory(mac)
 
 if(GETTEXT_FOUND)
     add_subdirectory(po)
@@ -126,10 +127,6 @@ add_subdirectory(ceammc)
 
 include(summary)
 include(package)
-
-if(APPLE)
-    add_custom_target(mac_deploy SOURCES mac/ceammc_build.sh.in mac/codesign.sh mac/dmg.sh)
-endif()
 
 add_custom_target(puredata_changelog SOURCES CHANGELOG.md)
 
