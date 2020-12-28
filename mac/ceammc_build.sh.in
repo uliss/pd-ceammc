@@ -11,8 +11,6 @@ DIST_DIR="@PROJECT_BINARY_DIR@/dist"
 DYLIBBUNDLER="@DYLIBBUNDLER@"
 BUNDLE="@BUNDLE@"
 WISH_APP="@WISH_APP@"
-TK_PATH="@TK_PATH@"
-TCL_PATH="@TCL_PATH@"
 TK_VERSION="@TK_VERSION@"
 IS_SYSTEM_TK=@IS_SYSTEM_TK@
 LIB_LEAPMOTION="@LEAPMOTION_LIBRARY@"
@@ -68,9 +66,6 @@ SRC_CEAMMC="${SRC_DIR}/ceammc"
 SRC_TCL="${SRC_DIR}/tcl"
 CEAMMC_EXT_SRC_DIR="${SRC_DIR}/ceammc/ext/src"
 CEAMMC_EXT_BIN_DIR="${BUILD_DIR}/ceammc/ext/src"
-
-echo "TK_PATH: ${TK_PATH}"
-echo "TCL_PATH: ${TCL_PATH}"
 
 #############
 # FUNCTIONS
@@ -147,31 +142,6 @@ cd "${BUNDLE_RESOURCES}"
 rm -f Wish.icns
 cp -p "${PD_ICON}" "${PD_ICON_FILE}" .
 mkdir -p "${BUNDLE_BIN}"
-
-if [ $IS_SYSTEM_TK -eq 0 ]
-then
-    section "Copying TCL/Tk Frameworks"
-    mkdir -p "${BUNDLE_FRAMEWORKS}"
-
-    cp -R "${TK_PATH}" "${BUNDLE_FRAMEWORKS}"
-    cp -R "${TCL_PATH}" "${BUNDLE_FRAMEWORKS}"
-    # remove unused Tcl files
-    rm -rf "${BUNDLE_FRAMEWORKS}/Tcl.framework/Versions/${TK_VERSION}/Headers"
-    rm -rf "${BUNDLE_FRAMEWORKS}/Tcl.framework/Versions/${TK_VERSION}/PrivateHeaders"
-    rm -rf "${BUNDLE_FRAMEWORKS}/Tcl.framework/Versions/${TK_VERSION}/Resources/Documentation"
-    # remove unused Tk files
-    rm -rf "${BUNDLE_FRAMEWORKS}/Tk.framework/Versions/${TK_VERSION}/Headers"
-    rm -rf "${BUNDLE_FRAMEWORKS}/Tk.framework/Versions/${TK_VERSION}/PrivateHeaders"
-    rm -rf "${BUNDLE_FRAMEWORKS}/Tk.framework/Versions/${TK_VERSION}/Resources/Scripts/demos"
-    rm -rf "${BUNDLE_FRAMEWORKS}/Tk.framework/Versions/${TK_VERSION}/Resources/Wish.app"
-
-    section "Tk link fix"
-    /usr/bin/otool -LX "${BUNDLE_CONTENT}/MacOS/Wish" | cut -f2 | cut -d ' ' -f1 | grep -e Tk -e Tcl | while read framework
-    do
-        newpath=$(echo $framework | sed 's|/Library/Frameworks/||')
-        install_name_tool -change $framework "@executable_path/../Frameworks/$newpath" "${BUNDLE_CONTENT}/MacOS/Wish" > /dev/null
-    done
-fi
 
 ############
 # Pd files
