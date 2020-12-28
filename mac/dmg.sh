@@ -111,12 +111,6 @@ echo "done!"
 
 TMP_INFO_PLIST="${TMP_DIR}/${APP_BUNDLE_NAME}/Contents/Info.plist"
 BUNDLE_VERSION=`/usr/libexec/PlistBuddy -c "Print :CFBundleDisplayName" "${TMP_INFO_PLIST}"`
-echo "Bundle version: ${BUNDLE_VERSION}"
-GIT_HASH=$(${GIT} -C "${SRC_PATH}" log -1 --pretty=format:%h)
-echo "Build git hash: ${GIT_HASH}"
-BUNDLE_VERSION="${BUNDLE_VERSION} ${GIT_HASH}"
-echo "New bundle version: ${BUNDLE_VERSION}"
-/usr/libexec/PlistBuddy -c "Set :CFBundleDisplayName '${BUNDLE_VERSION}'" "${TMP_INFO_PLIST}"
 
 echo -n "*** Creating temporary dmg disk image..."
 rm -f "${DMG_NAME_TMP}"
