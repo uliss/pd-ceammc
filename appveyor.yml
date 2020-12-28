@@ -55,15 +55,15 @@ build_script:
   - set VERBOSE=1
   - '%APPVEYOR_BUILD_FOLDER%\ceammc\distrib\appveyor\install.bat'
 
-deploy:
-  - provider: BinTray
-    username: uliss
-    api_key:
-      secure: bTOeHHMZIBIrf/TUaMcki0VxKDostykjmOE0LPT7MncOBosohm8YkJyZEOumbA15
-    subject: uliss
-    repo: ceammc
-    package: PureData
-    publish: true
-    override: true
-    explode: false
+#deploy:
+#  - provider: BinTray
+#    username: uliss
+#    api_key:
+#      secure: bTOeHHMZIBIrf/TUaMcki0VxKDostykjmOE0LPT7MncOBosohm8YkJyZEOumbA15
+#    subject: uliss
+#    repo: ceammc
+#    package: PureData
+#    publish: true
+#    override: true
+#    explode: false
 
