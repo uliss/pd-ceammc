@@ -34,12 +34,14 @@ void ceammc_info_message()
          "       authors: Serge Poltavsky and Alex Nadzharov\n"
          "       arch: %d-bit\n"
          "       precision: %s\n"
+         "       path: %s\n"
          "       version: %s\n"
          "       url: %s\n"
          "       license: GPL-3\n"
          "       build date: '%s'\n",
         sizeof(void*) * 8,
-        sizeof(t_float) == sizeof(float) ? "float" : "double",
+        std::is_same<t_float, float>::value ? "float" : "double",
+        ceammc_class ? class_gethelpdir(ceammc_class) : "?",
         CEAMMC_LIB_VERSION, CEAMMC_LIB_HOME, __DATE__);
 
     int major, minor, fix;
