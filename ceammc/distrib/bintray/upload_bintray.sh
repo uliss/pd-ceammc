@@ -2,12 +2,33 @@
 
 BINDIR="@PROJECT_BINARY_DIR@/dist"
 VERSION="v@CEAMMC_DISTRIB_VERSION@"
+OVERRIDE=0
+PUBLISH=0
+
+usage() {
+    echo "Usage: $(basename $0) [OPTIONS] FILE"
+    echo " OPTIONS: -h show this help"
+    echo "          -p publish uploaded file"
+    echo "          -o override existing file"
+    echo "          -v <version> specify version suffix"
+}
 
 if [ $# -lt 1 ]
 then
-    echo "Usage: $(basename $0) FILE [SUFFIX]"
+    usage
     exit 1
 fi
+
+while getopts "hpov:" opt
+do
+case $opt in
+h) usage && exit 0;;
+v) VERSION="${VERSION}.${OPTARG}";;
+o) OVERRIDE=1;;
+p) PUBLISH=1;;
+?) usage && exit 1;;
+esac
+done
 
 if [[ -z ${BINTRAY_API_KEY} ]]
 then
@@ -18,13 +39,8 @@ then
     exit 1
 fi
 
-if [ $# -eq 2 ]
-then
-    VERSION="${VERSION}.$2"
-fi
+FILE=${@:$OPTIND:1}
+NAME=$(basename $FILE)
+URL="https://api.bintray.com/content/uliss/ceammc/PureData/${VERSION}/${NAME}?override=${OVERRIDE}?publish=${PUBLISH}"
 
-FILE=$(basename $1)
-
-URL="https://api.bintray.com/content/uliss/ceammc/PureData/${VERSION}/${FILE}?override=1"
-
-curl -T $1 -uuliss:$BINTRAY_API_KEY $URL
+curl -T $FILE -uuliss:$BINTRAY_API_KEY $URL
