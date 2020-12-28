@@ -11,14 +11,14 @@ catch {package require base64}
 package require pd_guiprefs
 
 namespace eval ::btnbar:: {
-    variable show; # if show button bar
-    variable hidden; # burrent button bar state
+    variable show;   # if show button bar
     variable hide_in_runmode;
+    variable states;  # current button bar show states
 }
 
 set ::btnbar::show true
-set ::btnbar::hidden true
-set ::btnbar::hide_in_runmode false
+set ::btnbar::hide_in_runmode true
+set ::btnbar::states [dict create]
 
 namespace eval ::btnbar::utils { }
 
@@ -33,6 +33,29 @@ if { [catch {package require tooltip} ] } {
 proc ::btnbar::utils::bool {value {fallback 0}} {
     catch {set fallback [expr bool($value) ] } stdout
     return $fallback
+}
+
+proc ::btnbar::addTopLevel { id } {
+    if {! [dict exists $::btnbar::states $id] } {
+        dict append ::btnbar::states $id $::btnbar::show
+        ::btnbar::showhide $id
+    }
+}
+
+proc ::btnbar::removeTopLevel { id } {
+    if { [dict exists $::btnbar::states $id] } { dict unset ::btnbar::states $id }
+}
+
+proc ::btnbar::getState { id } {
+    if { [dict exists $::btnbar::states $id] } {
+        return [dict get $::btnbar::states $id]
+    } {
+        return 0
+    }
+}
+
+proc ::btnbar::setState { id val } {
+    if { [dict exists $::btnbar::states $id] } { dict set ::btnbar::states $id $val }
 }
 
 if { [ catch { set ::btnbar::hide_in_runmode [::pd_guiprefs::read btnbar] } stdout ] } {
@@ -176,19 +199,23 @@ proc ::btnbar::init {mytoplevel} {
 }
 
 proc ::btnbar::show {mytoplevel} {
-    if {$::btnbar::hidden} {
+    set state [::btnbar::getState $mytoplevel]
+
+    if {$state} {
         set tkcanvas [tkcanvas_name $mytoplevel]
         pack forget $tkcanvas
         pack $mytoplevel.buttonbar -side top -fill x
         pack $tkcanvas -side top -expand 1 -fill both
-        set ::btnbar::hidden false
+        ::btnbar::setState $mytoplevel false
     }
 }
 
 proc ::btnbar::hide {mytoplevel} {
-    if {$::btnbar::hidden} {} {
+    set state [::btnbar::getState $mytoplevel]
+
+    if {!$state} {
         pack forget $mytoplevel.buttonbar
-        set ::btnbar::hidden true
+        ::btnbar::setState $mytoplevel true
     }
 }
 
@@ -232,7 +259,8 @@ proc ::btnbar::showhide {mytoplevel} {
     }
 }
 
-bind PatchWindow <FocusIn> {+::btnbar::showhide %W}
+bind PatchWindow <Expose>  {+::btnbar::addTopLevel %W}
+bind PatchWindow <Destroy> {+::btnbar::removeTopLevel %W}
 bind PatchWindow <<EditMode>> {+::btnbar::showhide %W}
 
 ::btnbar::init_options_menu
