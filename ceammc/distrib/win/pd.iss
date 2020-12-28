@@ -32,7 +32,7 @@ Compression=lzma
 SolidCompression=yes
 ChangesAssociations=yes
 
-#if MyAppArch == "64-bit"
+#if MyAppArch == "x86_64"
 ArchitecturesInstallIn64BitMode = x64
 #endif
 
