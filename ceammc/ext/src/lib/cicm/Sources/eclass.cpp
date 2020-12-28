@@ -684,57 +684,99 @@ void eclass_attr_style(t_eclass* c, const char* attrname, const char* style)
 
 void eclass_attr_itemlist(t_eclass* c, const char* attrname, const char* list)
 {
-    int j = 0;
-    char* pch;
-    size_t size = 0;
-    t_symbol* s_attrname = gensym(attrname);
+    constexpr size_t MAX_ITEMS = 256;
+    const auto SYM_ATTR = gensym(attrname);
+
     for (size_t i = 0; i < c->c_nattr; i++) {
-        if (c->c_attr[i]->name == s_attrname) {
-            auto plist = strdup(list);
-            if (!plist)
-                return;
+        auto attr = c->c_attr[i];
 
-            pch = strtok(plist, " ,");
+        // looking for attr
+        if (attr->name != SYM_ATTR)
+            continue;
 
-            while (pch != nullptr) {
-                pch = strtok(NULL, " ,");
-                size++;
-            }
+        size_t new_size = 0;
 
-            free(plist);
-            if (size > 0) {
-                if (c->c_attr[i]->itemssize) {
-                    size_t new_sz = size * sizeof(t_symbol*);
-                    c->c_attr[i]->itemslist = (t_symbol**)resizebytes(c->c_attr[i]->itemslist, new_sz, new_sz);
-                    if (c->c_attr[i]->itemslist)
-                        c->c_attr[i]->itemssize = size;
-                } else {
-                    c->c_attr[i]->itemslist = (t_symbol**)getbytes(size * sizeof(t_symbol*));
-                    if (c->c_attr[i]->itemslist)
-                        c->c_attr[i]->itemssize = size;
-                }
-                if (c->c_attr[i]->itemslist && c->c_attr[i]->itemssize) {
-                    auto plist = strdup(list);
-                    if (!plist)
-                        return;
+        const size_t len = list ? strlen(list) : 0;
+        if (len > 0)
+            new_size++;
 
-                    pch = strtok(plist, " ,");
-                    while (pch != nullptr && j < c->c_attr[i]->itemssize) {
-                        c->c_attr[i]->itemslist[j] = gensym(pch);
-                        pch = strtok(NULL, " ,");
-                        j++;
-                    }
-
-                    free(plist);
-                }
-
-            } else {
-                if (c->c_attr[i]->itemssize)
-                    freebytes(c->c_attr[i]->itemslist, 0);
-                c->c_attr[i]->itemssize = 0;
-            }
-            return;
+        // count separators
+        for (size_t i = 0; i < len; i++) {
+            if (list[i] == ' ' || list[i] == ',')
+                new_size++;
         }
+
+        if (new_size > MAX_ITEMS) {
+            error("[%s] to many property items: %d, clipping to %d", c->c_class.c_name->s_name, (int)new_size, (int)MAX_ITEMS);
+            new_size = MAX_ITEMS;
+        }
+
+        // non-empty list
+        if (new_size > 0) {
+            const auto old_size = attr->itemssize;
+            const auto old_bsize = old_size * sizeof(t_symbol*);
+            const auto new_bsize = new_size * sizeof(t_symbol*);
+
+            // memory allocation
+            if (old_size > 0) {
+                attr->itemslist = (t_symbol**)resizebytes(attr->itemslist, old_bsize, new_bsize);
+                if (attr->itemslist)
+                    attr->itemssize = new_size;
+                else {
+                    error("[%s] can't resize itemlist to size %d", c->c_class.c_name->s_name, (int)new_size);
+                    return;
+                }
+            } else {
+                attr->itemslist = (t_symbol**)getbytes(new_bsize);
+                if (attr->itemslist)
+                    attr->itemssize = new_size;
+                else {
+                    error("[%s] can't allocate itemlist of size %d", c->c_class.c_name->s_name, (int)new_size);
+                    return;
+                }
+            }
+
+            // memory alloc is ok
+            if (attr->itemslist && attr->itemssize) {
+                char buf[2048] = ""; // rather big cause for ex.: ui.icon items string could be rather long
+                const auto n = std::min<size_t>(len, sizeof(buf) - 1);
+                memcpy(buf, list, n);
+                buf[n] = '\0';
+
+                size_t b = 0;
+                size_t attr_count = 0;
+                for (size_t i = 0; i < n; i++) {
+                    if (buf[i] == ' ' || buf[i] == ',') {
+                        auto l = i - b;
+                        if (l > 0) {
+                            buf[i] = '\0';
+                            if (attr_count < attr->itemssize) {
+                                auto sym = gensym(buf + b);
+                                attr->itemslist[attr_count++] = sym;
+                            }
+                        }
+
+                        b = i + 1;
+                    }
+                }
+
+                // adding last (or single) item
+                if (new_size > 0 && attr_count < attr->itemssize) {
+                    auto sym = gensym(buf + b);
+                    attr->itemslist[attr_count] = sym;
+                }
+            } else {
+                error("[%s] %s error in @%s", c->c_class.c_name->s_name, __FUNCTION__, attrname);
+                return;
+            }
+
+        } else {
+            if (c->c_attr[i]->itemssize)
+                freebytes(c->c_attr[i]->itemslist, 0);
+
+            c->c_attr[i]->itemssize = 0;
+        }
+        return;
     }
 }
 
