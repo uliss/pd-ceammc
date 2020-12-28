@@ -1701,7 +1701,7 @@ static void eclass_properties_dialog(t_eclass* c)
                     "   ttk::spinbox {0} -width 18 -textvariable [string trim $var_{2}] -increment {3} \n"
                     "   {0} configure -command [concat pdtk_{1}_dialog_apply_{2} $id]\n"
                     "   {0} configure -from -9999999999999 -to 9999999999999\n"
-                    "   bind {0} <MouseWheel> {{ break }}\n"
+                    "   ::ceammc::ui::bindMouseWheel {0} {{ ::ceammc::ui::spinboxScroll %W }}\n"
                     "   {0} delete 0 end \n"
                     "   {0} insert 0 ${2} \n"
                     "   bind {0} <KeyPress-Return> [concat pdtk_{1}_dialog_apply_{2} $id]\n",
@@ -1721,7 +1721,7 @@ static void eclass_properties_dialog(t_eclass* c)
 
                 tmpl += "}}\n"
                         "   bind {0} <<ComboboxSelected>> [concat pdtk_{1}_dialog_apply_{2} $id]\n"
-                        "   bind {0} <MouseWheel> {{ break }}\n"
+                        "   ::ceammc::ui::bindMouseWheel {0} {{ ::ceammc::ui::comboboxScroll %W }}\n"
                         "   {0} set [string trim ${2}] \n";
 
                 sys_gui(fmt::format(tmpl, WIDGET_ID, CLASS_NAME, ATTR_NAME).c_str());

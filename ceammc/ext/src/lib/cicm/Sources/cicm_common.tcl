@@ -154,6 +154,32 @@ if { [catch {package require tooltip} ] } {
 namespace eval ::ceammc {
 namespace eval ui {
 
+# from ttk::bindMouseWheel
+proc bindMouseWheel {bindtag callback} {
+    switch -- [tk windowingsystem] {
+        x11 {
+            bind $bindtag <ButtonPress-4> "$callback -1"
+            bind $bindtag <ButtonPress-5> "$callback +1"
+        }
+        win32 {
+            bind $bindtag <MouseWheel> [append callback { [expr {-(%D/120)}]}]
+        }
+        aqua {
+            bind $bindtag <MouseWheel> [append callback { [expr {-(%D)}]} ]
+        }
+    }
+}
+
+proc spinboxScroll {id delta} {
+    if {[string equal [focus] "$id"]} { ttk::spinbox::MouseWheel $id $delta }
+    return -code break
+}
+
+proc comboboxScroll {id delta} {
+    if {[string equal [focus] "$id"]} { ttk::combobox::Scroll $id $delta }
+    return -code break
+}
+
 # https://wiki.tcl-lang.org/page/A+scrolled+frame
 # sframe.tcl
 # Paul Walton
