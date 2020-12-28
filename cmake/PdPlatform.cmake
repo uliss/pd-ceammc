@@ -200,52 +200,16 @@ if(APPLE)
     file(MAKE_DIRECTORY ${PROJECT_BINARY_DIR}/dist)
     configure_file(${PROJECT_SOURCE_DIR}/ceammc/gui/Info.plist ${PROJECT_BINARY_DIR}/dist/Info.plist)
 
-    set(EMBEDDED_TCL "${PROJECT_SOURCE_DIR}/mac/build/tcl/Tcl.framework")
-    set(EMBEDDED_TK  "${PROJECT_SOURCE_DIR}/mac/build/tk/Tk.framework")
-    set(EMBEDDED_WISH "${PROJECT_SOURCE_DIR}/mac/Wish-8.6.10.app")
+    # tk versions later then 8.6.8 have problems with russian keyboard shortcuts
+    set(TK_VERSION "8.6.8")
+    set(EMBEDDED_WISH "${PROJECT_SOURCE_DIR}/mac/Wish-${TK_VERSION}.app")
 
-    set(CUSTOM_TCL "/Library/Frameworks/Tcl.framework")
-    set(CUSTOM_TK  "/Library/Frameworks/Tk.framework")
-    set(CUSTOM_WISH "${CUSTOM_TK}/Versions/8.6/Resources/Wish.app")
-
-    set(SYSTEM_TCL     "/System/Library/Frameworks/Tcl.framework")
-    set(SYSTEM_TK      "/System/Library/Frameworks/Tk.framework")
-    set(SYSTEM_WISH_V5 "${SYSTEM_TK}/Versions/8.5/Resources/Wish.app")
-    set(SYSTEM_WISH_V4 "${SYSTEM_TK}/Versions/8.4/Resources/Wish.app")
-
-    set(IS_SYSTEM_TK 0)
-    set(TK_VERSION "")
-
-    if(EXISTS ${EMBEDDED_TCL} AND EXISTS ${EMBEDDED_TK} AND EXISTS ${EMBEDDED_WISH})
-        set(TCL_PATH "${EMBEDDED_TCL}")
-        set(TK_PATH  "${EMBEDDED_TK}")
+    if(EXISTS ${EMBEDDED_WISH})
         set(WISH_APP "${EMBEDDED_WISH}")
-        set(TK_VERSION "8.6")
-    elseif(EXISTS ${CUSTOM_TCL} AND EXISTS ${CUSTOM_TK} AND EXISTS ${CUSTOM_WISH})
-        set(TCL_PATH "${CUSTOM_TCL}")
-        set(TK_PATH  "${CUSTOM_TK}")
-        set(WISH_APP "${CUSTOM_WISH}")
-        set(TK_VERSION "8.6")
-    elseif(EXISTS ${SYSTEM_TCL} AND EXISTS ${SYSTEM_TK})
-        set(TCL_PATH "${SYSTEM_TCL}")
-        set(TK_PATH  "${SYSTEM_TK}")
-
-        if(EXISTS ${SYSTEM_WISH_V5})
-            set(WISH_APP "${SYSTEM_WISH_V5}")
-            set(TK_VERSION "8.5")
-        elseif(EXISTS ${SYSTEM_WISH_V4})
-            set(WISH_APP "${SYSTEM_WISH_V4}")
-            set(TK_VERSION "8.4")
-        else()
-            message(FATAL_ERROR "Wish.app not found in \"${SYSTEM_TK}\"")
-        endif()
-        set(IS_SYSTEM_TK 1)
     else()
-        message(FATAL_ERROR "TCL not found")
+        message(FATAL_ERROR "TCL not found. You should run *build_tcltk* target to build embedded version")
     endif()
 
-    message(STATUS "found Tcl: ${TCL_PATH}")
-    message(STATUS "found Tk:  ${TK_PATH}")
     message(STATUS "found Wish.app: ${WISH_APP}")
     message(STATUS "found Tcl/Tk version: ${TK_VERSION}")
 
@@ -256,12 +220,8 @@ if(APPLE)
             -DPROJECT_BINARY_DIR="${PROJECT_BINARY_DIR}"
             -DBUNDLE=${BUNDLE_FULL_PATH}
             -DWISH_APP=${WISH_APP}
-            -DTCL_PATH=${TCL_PATH}
             -DLEAPMOTION_LIBRARY=${LEAPMOTION_LIBRARY}
             -DDYLIBBUNDLER="${CMAKE_BINARY_DIR}/ceammc/distrib/mac/dylibbundler"
-            -DTK_PATH=${TK_PATH}
-            -DIS_SYSTEM_TK=${IS_SYSTEM_TK}
-            -DTK_VERSION=${TK_VERSION}
             -P ${PROJECT_SOURCE_DIR}/cmake/cmake_build_mac.cmake)
 
     add_custom_command(
@@ -291,7 +251,7 @@ if(APPLE)
 
     add_custom_target(build_tcltk
         COMMAND
-            ${PROJECT_SOURCE_DIR}/mac/tcltk-wish.sh --build --leave --arch x86_64 8.6.10
+            ${PROJECT_SOURCE_DIR}/mac/tcltk-wish.sh --build --leave --arch x86_64 ${TK_VERSION}
         COMMAND
             ${PROJECT_SOURCE_DIR}/mac/tcltk-libs.sh --build 1.20 0.7
 
