@@ -3,6 +3,8 @@
 [![Coverage Status](https://coveralls.io/repos/github/uliss/pure-data/badge.svg?branch=ceammc)](https://coveralls.io/github/uliss/pure-data?branch=ceammc)
 [![pd-ceammc](https://snapcraft.io/pd-ceammc/badge.svg)](https://snapcraft.io/pd-ceammc)
 
+[ ![Download](https://api.bintray.com/packages/uliss/ceammc/PureData/images/download.svg?version=v2020.12) ](https://bintray.com/uliss/ceammc/PureData/v2020.12/link)
+
 CEAMMC PureData distribution 2020.12
 ------------------------------------
 
