@@ -77,3 +77,4 @@ CMakeLists.txt.user*
 mac/*.gz
 mac/tcl*
 mac/tk*
+mac/embedded
