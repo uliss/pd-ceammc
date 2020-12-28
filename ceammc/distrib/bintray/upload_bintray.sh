@@ -41,6 +41,6 @@ fi
 
 FILE=${@:$OPTIND:1}
 NAME=$(basename $FILE)
-URL="https://api.bintray.com/content/uliss/ceammc/PureData/${VERSION}/${NAME}?override=${OVERRIDE}?publish=${PUBLISH}"
+URL="https://api.bintray.com/content/uliss/ceammc/PureData/${VERSION}/${NAME}?override=${OVERRIDE}&publish=${PUBLISH}"
 
 curl -T $FILE -uuliss:$BINTRAY_API_KEY $URL
