@@ -23,6 +23,8 @@ then
     VERSION="${VERSION}.$2"
 fi
 
-URL="https://api.bintray.com/content/uliss/ceammc/PureData/${VERSION}/$1?override=1"
+FILE=$(basename $1)
+
+URL="https://api.bintray.com/content/uliss/ceammc/PureData/${VERSION}/${FILE}?override=1"
 
 curl -T $1 -uuliss:$BINTRAY_API_KEY $URL
