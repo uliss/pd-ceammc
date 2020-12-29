@@ -78,3 +78,5 @@ mac/*.gz
 mac/tcl*
 mac/tk*
 mac/embedded
+
+msw/tcltk*
