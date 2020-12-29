@@ -11,6 +11,7 @@ DIST_DIR="@PROJECT_BINARY_DIR@/dist"
 DYLIBBUNDLER="@DYLIBBUNDLER@"
 BUNDLE="@BUNDLE@"
 WISH_APP="@WISH_APP@"
+TK_VERSION="@TK_VERSION@"
 LIB_LEAPMOTION="@LEAPMOTION_LIBRARY@"
 
 # relative dir names
@@ -52,7 +53,6 @@ PD_ICON_FILE="${SRC_DIR}/ceammc/gui/icons/pd_doc.icns"
 CURRENT_DATE=$(LANG=C date -u '+%d %h %Y %Z %H:%M:%S')
 GIT_BRANCH=$(git --git-dir $SRC_DIR/.git symbolic-ref --short HEAD)
 GIT_COMMIT=$(git --git-dir $SRC_DIR/.git describe --tags)
-GIT_HASH=$(git -C $SRC_DIR/.git log -1 --pretty=format:%h)
 
 # source paths
 SRC_CEAMMC="${SRC_DIR}/ceammc"
@@ -134,7 +134,7 @@ cp -R "${WISH_APP}" "${BUNDLE_APP}"
 copy "${PD_INFO_PLIST}" "${BUNDLE_CONTENT}"
 # add git hash to version
 BUNDLE_VERSION=`/usr/libexec/PlistBuddy -c "Print :CFBundleDisplayName" "${BUNDLE_INFO_PLIST}"`
-BUNDLE_VERSION="${BUNDLE_VERSION} ${GIT_HASH}"
+BUNDLE_VERSION="${BUNDLE_VERSION} [tcl:${TK_VERSION} git:${GIT_COMMIT}]"
 /usr/libexec/PlistBuddy -c "Set :CFBundleDisplayName '${BUNDLE_VERSION}'" "${BUNDLE_INFO_PLIST}"
 
 # format plist XML

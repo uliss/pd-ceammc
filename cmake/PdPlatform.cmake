@@ -220,6 +220,7 @@ if(APPLE)
             -DPROJECT_BINARY_DIR="${PROJECT_BINARY_DIR}"
             -DBUNDLE=${BUNDLE_FULL_PATH}
             -DWISH_APP=${WISH_APP}
+            -DTK_VERSION=${TK_VERSION}
             -DLEAPMOTION_LIBRARY=${LEAPMOTION_LIBRARY}
             -DDYLIBBUNDLER="${CMAKE_BINARY_DIR}/ceammc/distrib/mac/dylibbundler"
             -P ${PROJECT_SOURCE_DIR}/cmake/cmake_build_mac.cmake)
