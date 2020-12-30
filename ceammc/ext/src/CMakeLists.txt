@@ -88,6 +88,11 @@ add_subdirectory(tl)
 add_subdirectory(ui)
 add_subdirectory(window)
 
+add_custom_target(ceammc_touch_version
+    COMMAND
+        ${CMAKE_COMMAND} -E touch "${CMAKE_CURRENT_SOURCE_DIR}/ceammc_lib_external.cpp"
+)
+
 pd_add_external(NAME ceammc
     FILES ceammc_lib_external.cpp mod_init.cpp
     INTERNAL True
