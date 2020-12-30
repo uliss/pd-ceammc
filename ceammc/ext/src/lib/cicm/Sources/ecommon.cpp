@@ -80,7 +80,17 @@ void epd_init(void)
     s_value_label_side_right = gensym("right");
     s_value_label_side_bottom = gensym("bottom");
 
-    sys_gui(cicm_common_tcl);
+    // split long output
+    char buf[1024];
+    const size_t LEN = strlen(cicm_common_tcl);
+    const size_t BLEN = sizeof(buf)-1;
+    const size_t N = LEN / BLEN;
+    for(size_t i = 0; i <= N; i++) {
+        strncpy(buf, cicm_common_tcl + i * BLEN, BLEN);
+        buf[BLEN] = '\0';
+        sys_gui(buf);
+    }
+
     sys_gui(cicm_common_bind_tcl);
 
     done = true;
