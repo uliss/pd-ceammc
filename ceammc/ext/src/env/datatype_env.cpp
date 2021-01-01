@@ -527,7 +527,7 @@ void DataTypeEnv::setEADSR(size_t attack_us, float attack_curve, size_t decay_us
     points_.push_back(EnvelopePoint(attack_us + decay_us + release_us, 0, false, CURVE_LINE));
 }
 
-bool DataTypeEnv::setAR(const AtomList& lst)
+bool DataTypeEnv::setAR(const AtomListView& lst)
 {
     const char* usage = "Usage: AR attack(ms) release(ms)";
 
@@ -544,7 +544,7 @@ bool DataTypeEnv::setAR(const AtomList& lst)
     return true;
 }
 
-bool DataTypeEnv::setASR(const AtomList& lst)
+bool DataTypeEnv::setASR(const AtomListView& lst)
 {
     const char* usage = "Usage: ASR attack(ms) release(ms)";
 
@@ -561,7 +561,7 @@ bool DataTypeEnv::setASR(const AtomList& lst)
     return true;
 }
 
-bool DataTypeEnv::setADSR(const AtomList& lst)
+bool DataTypeEnv::setADSR(const AtomListView& lst)
 {
     static const char* usage = "Usage: ADSR attack(ms) decay(ms) sustain(%) release(ms)";
 
@@ -583,7 +583,7 @@ bool DataTypeEnv::setADSR(const AtomList& lst)
     return true;
 }
 
-bool DataTypeEnv::setEAR(const AtomList& lst)
+bool DataTypeEnv::setEAR(const AtomListView& lst)
 {
     static const char* usage = "Usage: EAR attack(ms) attack_curve release(ms) release_curve";
 
@@ -602,7 +602,7 @@ bool DataTypeEnv::setEAR(const AtomList& lst)
     return true;
 }
 
-bool DataTypeEnv::setEASR(const AtomList& lst)
+bool DataTypeEnv::setEASR(const AtomListView& lst)
 {
     static const char* usage = "Usage: EASR attack(ms) attack_curve release(ms) release_curve";
 
@@ -621,7 +621,7 @@ bool DataTypeEnv::setEASR(const AtomList& lst)
     return true;
 }
 
-bool DataTypeEnv::setEADSR(const AtomList& lst)
+bool DataTypeEnv::setEADSR(const AtomListView& lst)
 {
     static const char* usage = "Usage: EADSR attack(ms) attack_curve "
                                "decay(ms) decay_curve sustain_level "
@@ -648,7 +648,7 @@ bool DataTypeEnv::setEADSR(const AtomList& lst)
     return true;
 }
 
-bool DataTypeEnv::setStep(const AtomList& lst)
+bool DataTypeEnv::setStep(const AtomListView& lst)
 {
     // check args
     if (lst.size() % 2 != 1) {
@@ -680,7 +680,7 @@ bool DataTypeEnv::setStep(const AtomList& lst)
     return true;
 }
 
-bool DataTypeEnv::setLine(const AtomList& lst)
+bool DataTypeEnv::setLine(const AtomListView& lst)
 {
     // check args
     if (lst.size() % 2 != 1) {
@@ -712,7 +712,7 @@ bool DataTypeEnv::setLine(const AtomList& lst)
     return true;
 }
 
-bool DataTypeEnv::setExponential(const AtomList& lst)
+bool DataTypeEnv::setExponential(const AtomListView& lst)
 {
     const size_t N = lst.size();
 
@@ -741,12 +741,12 @@ bool DataTypeEnv::setExponential(const AtomList& lst)
         offset_us += segm_len_us;
     }
 
-    points_.push_back(EnvelopePoint(offset_us, lst.last()->asFloat(), false, CURVE_EXP, 0));
+    points_.push_back(EnvelopePoint(offset_us, lst.back().asFloat(), false, CURVE_EXP, 0));
 
     return true;
 }
 
-bool DataTypeEnv::setSin2(const AtomList& lst)
+bool DataTypeEnv::setSin2(const AtomListView& lst)
 {
     // check args
     if (lst.size() % 2 != 1) {
@@ -778,7 +778,7 @@ bool DataTypeEnv::setSin2(const AtomList& lst)
     return true;
 }
 
-bool DataTypeEnv::setSigmoid(const AtomList& lst)
+bool DataTypeEnv::setSigmoid(const AtomListView& lst)
 {
     const size_t N = lst.size();
 
@@ -808,14 +808,14 @@ bool DataTypeEnv::setSigmoid(const AtomList& lst)
         offset_us += segm_len_us;
     }
 
-    points_.push_back(EnvelopePoint(offset_us, lst.last()->asFloat(), false, CURVE_SIGMOID, 0));
+    points_.push_back(EnvelopePoint(offset_us, lst.back().asFloat(0), false, CURVE_SIGMOID, 0));
 
     return true;
 }
 
 struct NameEntry {
     t_symbol* s;
-    bool (DataTypeEnv::*m)(const AtomList&);
+    bool (DataTypeEnv::*m)(const AtomListView&);
 };
 
 bool DataTypeEnv::setNamedEnvelope(t_symbol* name, const AtomListView& args)
