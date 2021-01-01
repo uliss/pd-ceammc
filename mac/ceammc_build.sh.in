@@ -128,6 +128,11 @@ cd "${DIST_DIR}"
 section "Copy Wish Shell to ${PD_APP}"
 cp -R "${WISH_APP}" "${BUNDLE_APP}"
 
+# tcllib: base64
+rsync -a "${SRC_DIR}/ceammc/extra/tcltk/base64" ${BUNDLE_FRAMEWORKS}
+# tklib: tooltip
+rsync -a "${SRC_DIR}/ceammc/extra/tcltk/tooltip" ${BUNDLE_FRAMEWORKS}
+
 #
 # Info.plist
 #
