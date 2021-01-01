@@ -81,7 +81,7 @@ public:
 private:
     void syncLabels();
     int findIndex(int y);
-    bool selectByValue(const AtomList& lst);
+    bool selectByValue(const AtomListView& lst);
     void output();
     void setOpen(bool v = true);
     void adjustSize();

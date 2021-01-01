@@ -178,7 +178,7 @@ void UIMenu::onFloat(t_float f)
 
 void UIMenu::onSymbol(t_symbol* s)
 {
-    if (!selectByValue(AtomList(s)))
+    if (!selectByValue(AtomListView(s)))
         return;
 
     output();
@@ -481,7 +481,7 @@ int UIMenu::findIndex(int y)
     return res;
 }
 
-bool UIMenu::selectByValue(const AtomList& lst)
+bool UIMenu::selectByValue(const AtomListView& lst)
 {
     if (lst.size() < 1) {
         UI_ERR << "item title expected";

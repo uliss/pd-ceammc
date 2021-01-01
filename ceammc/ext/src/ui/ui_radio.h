@@ -26,7 +26,7 @@ public:
     int singleValue() const;
     void setSingleValue(int idx);
     AtomList listValue() const;
-    void setListValue(const AtomList& lst);
+    void setListValue(const AtomListView& lst);
 
     void output();
     bool isVertical() const { return width() < height(); }
@@ -41,7 +41,7 @@ public:
 
     void onBang();
     void onFloat(t_float f);
-    void onList(const AtomList& lst);
+    void onList(const AtomListView& lst);
     void onMouseDown(t_object*, const t_pt& pt, const t_pt& abs_pt, long mod);
     void onMouseDrag(t_object* view, const t_pt& pt, long mod);
     void onDblClick(t_object* view, const t_pt& pt, long modifiers);
@@ -69,6 +69,7 @@ public:
 
 public:
     static void setup();
+
 private:
     int click2Cell(const t_pt& pt) const;
 };

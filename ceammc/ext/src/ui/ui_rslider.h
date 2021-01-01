@@ -56,7 +56,7 @@ public:
     void drawKnob();
 
     void onBang();
-    void onList(const AtomList& lst);
+    void onList(const AtomListView& lst);
 
     void onMouseDown(t_object* view, const t_pt& pt, const t_pt& abs_pt, long modifiers);
     void onMouseUp(t_object* view, const t_pt& pt, long modifiers);

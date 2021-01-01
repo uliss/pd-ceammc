@@ -59,7 +59,7 @@ public:
     void onBang();
     void onFloat(t_float f);
     void onSymbol(t_symbol* s);
-    void onList(const AtomList& lst);
+    void onList(const AtomListView& lst);
     void onAny(t_symbol* s, const AtomListView& lst);
     void onProperty(t_symbol* s, const AtomListView& lst);
 

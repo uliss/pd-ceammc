@@ -137,7 +137,7 @@ void UIRSlider::onBang()
     output();
 }
 
-void UIRSlider::onList(const AtomList& lst)
+void UIRSlider::onList(const AtomListView& lst)
 {
     if (!setValue(lst))
         return;

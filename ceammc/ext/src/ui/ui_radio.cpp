@@ -116,7 +116,7 @@ void UIRadio::onFloat(t_float f)
     redrawItems();
 }
 
-void UIRadio::onList(const AtomList& lst)
+void UIRadio::onList(const AtomListView& lst)
 {
     if (!prop_checklist_mode_) {
         UI_ERR << "no lists expected in single mode: " << lst;
@@ -372,7 +372,7 @@ AtomList UIRadio::listValue() const
     return lst;
 }
 
-void UIRadio::setListValue(const AtomList& lst)
+void UIRadio::setListValue(const AtomListView& lst)
 {
     size_t total = std::min<size_t>(lst.size(), prop_nitems_);
     for (size_t i = 0; i < total; i++)

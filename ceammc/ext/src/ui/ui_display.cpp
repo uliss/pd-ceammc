@@ -214,7 +214,7 @@ void UIDisplay::setMessage(UIMessageType t, t_symbol* s, const AtomListView& lst
     }
 }
 
-void UIDisplay::onList(const AtomList& lst)
+void UIDisplay::onList(const AtomListView& lst)
 {
     if (lst.isData())
         setMessage(MSG_TYPE_DATA, gensym(lst[0].asData()->typeName().c_str()), lst);

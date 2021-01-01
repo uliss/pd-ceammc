@@ -160,7 +160,7 @@ void UITab::onSymbol(t_symbol* s)
     redrawBGLayer();
 }
 
-void UITab::onAny(t_symbol* s, const AtomList& lst)
+void UITab::onAny(t_symbol* s, const AtomListView&)
 {
     onSymbol(s);
 }
