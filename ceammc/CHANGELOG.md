@@ -1,5 +1,14 @@
 # CEAMMC external library changelog
 
+## [Unreleased]
+### Added:
+
+
+### Changed:
+- using AtomListView instead of AtomList in BaseObject::onInlet method
+- using AtomListView instead of AtomList in UI objects
+
+
 ## [0.9.1]
 ### Added:
 - properties:
