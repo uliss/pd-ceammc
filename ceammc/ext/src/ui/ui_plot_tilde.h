@@ -102,7 +102,7 @@ public:
     void init(t_symbol* name, const AtomList& args, bool usePresets);
     void dspProcess(t_sample** ins, long n_ins, t_sample** outs, long n_outs, long sampleframes);
 
-    void onInlet(const AtomList& args);
+    void onInlet(const AtomListView& args);
     void onMouseDown(t_object*, const t_pt& pt, const t_pt& abs_pt, long modifiers);
 
     t_float propNumInputs() const;

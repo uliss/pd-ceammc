@@ -53,7 +53,7 @@ public:
 
     void onBang();
     void onFloat(t_float f);
-    void onMidiCtrl(const AtomList& l);
+    void onMidiCtrl(const AtomListView& l);
     void onDblClick(t_object*, const t_pt&, long mod);
 
     void loadPreset(size_t idx);

@@ -155,7 +155,7 @@ int UIPreset::buttonIndexAt(float x, float y) const
     return row * num_cols + col;
 }
 
-void UIPreset::m_read(const AtomList& lst)
+void UIPreset::m_read(const AtomListView& lst)
 {
     if (PresetStorage::instance().read(canvas(), to_string(lst))) {
         selected_index_ = -1;
@@ -164,28 +164,30 @@ void UIPreset::m_read(const AtomList& lst)
     }
 }
 
-void UIPreset::m_write(const AtomList& lst)
+void UIPreset::m_write(const AtomListView& lst)
 {
     PresetStorage::instance().write(canvas(), to_string(lst));
 }
 
-void UIPreset::m_load(const AtomList& lst)
+void UIPreset::m_load(const AtomListView& lst)
 {
     loadIndex(lst.floatAt(0, 0));
 }
 
-void UIPreset::m_store(const AtomList& lst)
+void UIPreset::m_store(const AtomListView& lst)
 {
     storeIndex(lst.floatAt(0, 0));
 }
 
-void UIPreset::m_clear(const AtomList& lst)
+void UIPreset::m_clear(const AtomListView& lst)
 {
-    for (auto x : lst.filtered(isFloat))
-        clearIndex(x.asFloat());
+    for (auto x : lst) {
+        if (x.isFloat())
+            clearIndex(x.asFloat());
+    }
 }
 
-void UIPreset::m_clearall(const AtomList& lst)
+void UIPreset::m_clearall(const AtomListView& lst)
 {
     for (size_t i = 0; i < presets_.size(); i++) {
         if (!presets_.test(i))
@@ -200,7 +202,7 @@ void UIPreset::m_clearall(const AtomList& lst)
     redrawLayer(bg_layer_);
 }
 
-void UIPreset::m_duplicate(const AtomList& lst)
+void UIPreset::m_duplicate(const AtomListView& lst)
 {
     if (lst.empty())
         PresetStorage::instance().duplicateAll();
@@ -211,7 +213,7 @@ AtomList UIPreset::propCurrent() const
     return Atom(selected_index_);
 }
 
-void UIPreset::indexAdd(const AtomList& lst)
+void UIPreset::indexAdd(const AtomListView& lst)
 {
     if (lst.isFloat()) {
         int idx = lst.asT<int>();
@@ -228,7 +230,7 @@ void UIPreset::indexAdd(const AtomList& lst)
     }
 }
 
-void UIPreset::indexRemove(const AtomList& lst)
+void UIPreset::indexRemove(const AtomListView& lst)
 {
     if (lst.isFloat()) {
         int idx = lst.asT<int>();

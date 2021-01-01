@@ -63,7 +63,7 @@ public:
     void onMouseDrag(t_object* view, const t_pt& pt, long modifiers);
 
     AtomList propValue() const;
-    void propSetValue(const AtomList& lst);
+    void propSetValue(const AtomListView& lst);
     t_float propLow() const;
     t_float propHigh() const;
     void propSetLow(t_float f);
@@ -78,7 +78,7 @@ private:
     void adjustValues();
     void redrawKnob();
     void output();
-    bool setValue(const AtomList& lst);
+    bool setValue(const AtomListView &lst);
     EditMode keyMod2EditMode(long mod, float value) const;
 
 public:

@@ -195,7 +195,7 @@ void UISliders::onBang()
     outputList();
 }
 
-void UISliders::onList(const AtomList& lst)
+void UISliders::onList(const AtomListView& lst)
 {
     if (!setRealValues(lst))
         return;
@@ -258,7 +258,7 @@ void UISliders::onDblClick(t_object* view, const t_pt& pt, long modifiers)
         resize(height() / zoom(), width() / zoom());
 }
 
-void UISliders::m_get(const AtomList& l)
+void UISliders::m_get(const AtomListView& l)
 {
     if (l.size() > 0 && l[0].isSymbol()) {
         if (l.size() == 2
@@ -300,7 +300,7 @@ t_float UISliders::realValueAt(size_t n) const
     return pos_values_[n] * (prop_max - prop_min) + prop_min;
 }
 
-bool UISliders::setRealValues(const AtomList& l)
+bool UISliders::setRealValues(const AtomListView& l)
 {
     t_float range = prop_max - prop_min;
 
@@ -310,8 +310,12 @@ bool UISliders::setRealValues(const AtomList& l)
     }
 
     if (prop_auto_range) {
-        auto min = l.min()->asFloat(0);
-        auto max = l.max()->asFloat(1);
+        auto mm = std::minmax_element(l.begin(), l.end(),
+            [](const Atom& a, const Atom& b) {
+                return a.toT<t_float>(0) < b.toT<t_float>(0);
+            });
+        auto min = mm.first->asFloat(0);
+        auto max = mm.second->asFloat(1);
         range = max - min;
 
         if (range == 0.) {
@@ -415,7 +419,7 @@ void UISliders::normalize()
     setProperty(gensym("max"), AtomList(real_max));
 }
 
-void UISliders::m_set(const AtomList& l)
+void UISliders::m_set(const AtomListView& l)
 {
     // set slider IDX VALUE
     // or
@@ -445,7 +449,7 @@ void UISliders::m_set(const AtomList& l)
     }
 }
 
-void UISliders::m_select(const AtomList& l)
+void UISliders::m_select(const AtomListView& l)
 {
     select_idx_ = l.floatAt(0, -1);
     redrawAll();

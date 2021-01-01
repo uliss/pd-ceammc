@@ -56,7 +56,7 @@ public:
     void onBang();
 
     AtomList propMatrixSize() const;
-    void propSetMatrixSize(const AtomList& lst);
+    void propSetMatrixSize(const AtomListView& lst);
     AtomList propColorIndex() const;
 
     t_float propPdColor() const;
@@ -64,7 +64,7 @@ public:
     AtomList propHslColor() const;
     AtomList propHexColor() const;
 
-    void m_set(const AtomList& lst);
+    void m_set(const AtomListView& lst);
 
     void loadPreset(size_t idx);
     void storePreset(size_t idx);

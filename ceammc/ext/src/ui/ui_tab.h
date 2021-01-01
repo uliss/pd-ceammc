@@ -59,17 +59,17 @@ public:
     void storePreset(size_t idx);
 
     AtomList propItems() const;
-    void propSetItems(const AtomList& lst);
+    void propSetItems(const AtomListView& lst);
     AtomList propSelected() const;
     t_float propCount() const;
     t_float propCurrent() const;
 
-    void m_append(const AtomList& lst);
+    void m_append(const AtomListView& lst);
     void m_clear();
     void m_delete(t_float f);
-    void m_insert(const AtomList& lst);
-    void m_select(const AtomList& lst);
-    void m_set_item(const AtomList& lst);
+    void m_insert(const AtomListView& lst);
+    void m_select(const AtomListView& lst);
+    void m_set_item(const AtomListView& lst);
 
 private:
     bool isSelected(size_t idx) const;

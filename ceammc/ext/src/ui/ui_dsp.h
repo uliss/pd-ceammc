@@ -19,11 +19,11 @@ public:
     void paint();
 
     void onMouseDown(t_object* view, const t_pt& pt, const t_pt& abs_pt, long modifiers);
-    void onAny(t_symbol* s, const AtomList& lst);
+    void onAny(t_symbol* s, const AtomListView& lst);
 
-    void m_start(const AtomList&);
-    void m_stop(const AtomList&);
-    void m_settings(const AtomList&);
+    void m_start(const AtomListView&);
+    void m_stop(const AtomListView&);
+    void m_settings(const AtomListView&);
 
 public:
     static void setup();

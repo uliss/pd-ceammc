@@ -50,7 +50,7 @@ public:
     void onMouseDown(t_object* view, const t_pt& pt, const t_pt& abs_pt, long modifiers);
     void onMouseUp(t_object* view, const t_pt& pt, long modifiers);
 
-    void m_set(const AtomList& lst);
+    void m_set(const AtomListView& lst);
 
     void loadPreset(size_t idx);
     void storePreset(size_t idx);
@@ -67,7 +67,7 @@ private:
     void redrawAll();
 
     AtomList propEnabled() const;
-    void propSetEnabled(const AtomList& lst);
+    void propSetEnabled(const AtomListView& lst);
 };
 
 void setup_ui_icon();

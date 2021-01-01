@@ -818,7 +818,7 @@ struct NameEntry {
     bool (DataTypeEnv::*m)(const AtomList&);
 };
 
-bool DataTypeEnv::setNamedEnvelope(t_symbol* name, const AtomList& args)
+bool DataTypeEnv::setNamedEnvelope(t_symbol* name, const AtomListView& args)
 {
     static const NameEntry envs[] = {
         { gensym(SYM_EADSR), &DataTypeEnv::setEADSR },

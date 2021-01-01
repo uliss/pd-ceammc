@@ -73,7 +73,7 @@ void UIBang::onMouseUp(t_object* view, const t_pt& pt, long modifiers)
     deactivate();
 }
 
-void UIBang::onAny(t_symbol* s, const AtomList& lst)
+void UIBang::onAny(t_symbol* s, const AtomListView&)
 {
     activate();
     clock_.delay(100);

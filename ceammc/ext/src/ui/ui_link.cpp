@@ -138,7 +138,7 @@ AtomList UILink::p_title() const
     return AtomList(prop_title);
 }
 
-void UILink::p_setTitle(const AtomList& lst)
+void UILink::p_setTitle(const AtomListView& lst)
 {
     prop_title = gensym(to_string(lst).c_str());
 }

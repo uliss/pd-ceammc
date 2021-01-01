@@ -47,17 +47,17 @@ public:
     void paintKnob();
 
     void onBang();
-    void onList(const AtomList& lst);
+    void onList(const AtomListView& lst);
     void onMouseDown(t_object* view, const t_pt& pt, const t_pt& abs_pt, long modifiers);
     void onMouseDrag(t_object* view, const t_pt& pt, long modifiers);
     void onMouseUp(t_object* view, const t_pt& pt, long modifiers);
 
-    void m_set(const AtomList& lst);
-    void m_move(const AtomList& lst);
+    void m_set(const AtomListView& lst);
+    void m_move(const AtomListView& lst);
     void loadPreset(size_t idx);
     void storePreset(size_t idx);
 
-    bool setRealValue(const AtomList& lst);
+    bool setRealValue(const AtomListView& lst);
     AtomList realValue() const;
     t_float realXValue() const;
     t_float realYValue() const;
@@ -72,8 +72,8 @@ public:
 
     AtomList propXValue() const;
     AtomList propYValue() const;
-    void propSetXValue(const AtomList& lst);
-    void propSetYValue(const AtomList& lst);
+    void propSetXValue(const AtomListView& lst);
+    void propSetYValue(const AtomListView& lst);
 
 public:
     static void setup();

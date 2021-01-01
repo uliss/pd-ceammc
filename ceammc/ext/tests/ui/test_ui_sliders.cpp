@@ -101,7 +101,7 @@ TEST_CASE("ui.sliders", "[ui.sliders]")
         {
             TestSliders t("ui.sliders", LA("@auto_range", 1));
             REQUIRE(t->realValues() == AtomList::zeroes(8));
-            t->onList(LF(1, 2, 3, 4, 5));
+            t->onList(AtomList { 1, 2, 3, 4, 5 });
             REQUIRE(t->realValues() == LF(1, 2, 3, 4, 5));
             REQUIRE_UI_FLOAT_PROPERTY(t, "min", 1);
             REQUIRE_UI_FLOAT_PROPERTY(t, "max", 5);

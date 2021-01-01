@@ -55,11 +55,11 @@ public:
     void create();
     void erase();
     void outputCell(size_t row, size_t column);
-    void outputCell(const AtomList& args);
+    void outputCell(const AtomListView& args);
     void outputCol(size_t column);
-    void outputCol(const AtomList& args);
+    void outputCol(const AtomListView& args);
     void outputRow(size_t idx);
-    void outputRow(const AtomList& args);
+    void outputRow(const AtomListView& args);
     void outputAllCols();
     void outputAllRows();
     void outputAllCells();
@@ -77,11 +77,11 @@ public:
     void p_setRows(t_float n);
     void p_setCols(t_float n);
 
-    void m_flip(const AtomList& lst);
+    void m_flip(const AtomListView& lst);
     void m_reset();
     void m_random();
-    void m_get(const AtomList& lst);
-    void m_set(const AtomList& lst);
+    void m_get(const AtomListView& lst);
+    void m_set(const AtomListView& lst);
 
     void loadPreset(size_t idx);
     void storePreset(size_t idx);

@@ -150,7 +150,7 @@ AtomList UIMenu::propItems() const
     return items_;
 }
 
-void UIMenu::propSetItems(const AtomList& lst)
+void UIMenu::propSetItems(const AtomListView& lst)
 {
     items_ = lst;
     current_idx_ = -1;
@@ -184,7 +184,7 @@ void UIMenu::onSymbol(t_symbol* s)
     output();
 }
 
-void UIMenu::onAny(t_symbol* s, const AtomList& lst)
+void UIMenu::onAny(t_symbol* s, const AtomListView&)
 {
     onSymbol(s);
 }
@@ -251,7 +251,7 @@ AtomList UIMenu::propValue() const
     return items_[current_idx_];
 }
 
-void UIMenu::propSetValue(const AtomList& lst)
+void UIMenu::propSetValue(const AtomListView& lst)
 {
     if (!selectByValue(lst))
         return;
@@ -298,7 +298,7 @@ void UIMenu::storePreset(size_t idx)
     PresetStorage::instance().setFloatValueAt(presetId(), idx, current_idx_);
 }
 
-void UIMenu::m_append(const AtomList& lst)
+void UIMenu::m_append(const AtomListView& lst)
 {
     if (lst.size() < 1) {
         UI_ERR << "items expected";
@@ -341,7 +341,7 @@ void UIMenu::m_delete(t_float f)
     adjustSize();
 }
 
-void UIMenu::m_set(const AtomList& lst)
+void UIMenu::m_set(const AtomListView& lst)
 {
     if (lst.size() < 1) {
         UI_ERR << "menu index or item title expected";
@@ -356,7 +356,7 @@ void UIMenu::m_set(const AtomList& lst)
     }
 }
 
-void UIMenu::m_insert(const AtomList& lst)
+void UIMenu::m_insert(const AtomListView& lst)
 {
     bool ok = (lst.size() == 2 && lst[0].isFloat());
     if (!ok) {
@@ -377,7 +377,7 @@ void UIMenu::m_insert(const AtomList& lst)
     redrawBGLayer();
 }
 
-void UIMenu::m_set_item(const AtomList& lst)
+void UIMenu::m_set_item(const AtomListView& lst)
 {
     bool ok = (lst.size() == 2 && lst[0].isFloat());
     if (!ok) {
@@ -397,7 +397,7 @@ void UIMenu::m_set_item(const AtomList& lst)
     redrawBGLayer();
 }
 
-void UIMenu::m_file_glob(const AtomList& lst)
+void UIMenu::m_file_glob(const AtomListView& lst)
 {
     if (lst.size() < 1) {
         UI_ERR << "usage: file_glob PATTERN [PATH]";

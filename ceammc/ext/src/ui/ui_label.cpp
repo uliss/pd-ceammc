@@ -101,13 +101,13 @@ void UILabel::onBang()
     // should be empty
 }
 
-void UILabel::onList(const AtomList& lst)
+void UILabel::onList(const AtomListView& lst)
 {
     text_str_ = to_string(lst, " ");
     redrawBGLayer();
 }
 
-void UILabel::onAny(t_symbol* s, const AtomList& lst)
+void UILabel::onAny(t_symbol* s, const AtomListView& lst)
 {
     text_str_ = to_string(Atom(s) + lst, " ");
     redrawBGLayer();
@@ -119,13 +119,13 @@ void UILabel::onData(const Atom& data)
     redrawBGLayer();
 }
 
-void UILabel::m_clear(const AtomList&)
+void UILabel::m_clear(const AtomListView&)
 {
     text_str_ = "";
     redrawBGLayer();
 }
 
-void UILabel::m_append(const AtomList& lst)
+void UILabel::m_append(const AtomListView& lst)
 {
     std::string s = to_string(lst);
     if (s.empty())
@@ -136,7 +136,7 @@ void UILabel::m_append(const AtomList& lst)
     redrawBGLayer();
 }
 
-void UILabel::m_prepend(const AtomList& lst)
+void UILabel::m_prepend(const AtomListView& lst)
 {
     std::string s = to_string(lst);
     if (s.empty())
@@ -199,7 +199,7 @@ AtomList UILabel::propGetText() const
     return prop_text;
 }
 
-void UILabel::propSetText(const AtomList& lst)
+void UILabel::propSetText(const AtomListView& lst)
 {
     text_str_ = to_string(lst, " ");
     prop_text = lst;

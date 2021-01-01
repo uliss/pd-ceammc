@@ -276,7 +276,7 @@ AtomList UIRSlider::propValue() const
     return AtomList(vlow_, vhigh_);
 }
 
-void UIRSlider::propSetValue(const AtomList& lst)
+void UIRSlider::propSetValue(const AtomListView& lst)
 {
     if (!setValue(lst))
         return;
@@ -344,7 +344,7 @@ void UIRSlider::output()
     send(res);
 }
 
-bool UIRSlider::setValue(const AtomList& lst)
+bool UIRSlider::setValue(const AtomListView& lst)
 {
     if (lst.size() != 2) {
         UI_ERR << "min max values expected: " << lst;

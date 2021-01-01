@@ -45,7 +45,7 @@ public:
     void onZoom(t_float z);
     void onPropChange(t_symbol* prop_name);
 
-    void m_updateLine(const AtomList& l);
+    void m_updateLine(const AtomListView& l);
     void syncXPos();
     bool updateCues();
 

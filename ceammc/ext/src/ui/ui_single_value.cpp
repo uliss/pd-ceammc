@@ -172,7 +172,7 @@ void UISingleValue::onFloat(t_float f)
     output();
 }
 
-void UISingleValue::onMidiCtrl(const AtomList& l)
+void UISingleValue::onMidiCtrl(const AtomListView& l)
 {
     // invalid format
     if (l.size() != 3)

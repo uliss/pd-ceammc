@@ -288,7 +288,7 @@ void UIGain::onMouseWheel(const t_pt& pt, long modifiers, t_float delta)
     output();
 }
 
-void UIGain::onMidiCtrl(const AtomList& l)
+void UIGain::onMidiCtrl(const AtomListView& l)
 {
     // invalid format
     if (l.size() != 3)

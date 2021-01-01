@@ -167,7 +167,7 @@ void UISlider2D::onBang()
     output();
 }
 
-void UISlider2D::onList(const AtomList& lst)
+void UISlider2D::onList(const AtomListView& lst)
 {
     if (lst.size() != 2) {
         UI_ERR << "invalid list given: X Y expected";
@@ -204,7 +204,7 @@ void UISlider2D::onMouseUp(t_object* view, const t_pt& pt, long modifiers)
     output();
 }
 
-void UISlider2D::m_set(const AtomList& lst)
+void UISlider2D::m_set(const AtomListView& lst)
 {
     if (lst.size() != 2) {
         UI_ERR << "invalid list given: set X Y expected";
@@ -217,7 +217,7 @@ void UISlider2D::m_set(const AtomList& lst)
     redrawKnob();
 }
 
-void UISlider2D::m_move(const AtomList& lst)
+void UISlider2D::m_move(const AtomListView& lst)
 {
     if (lst.size() != 2) {
         UI_ERR << "invalid data: X Y offset expected: " << lst;
@@ -248,7 +248,7 @@ void UISlider2D::storePreset(size_t idx)
     PresetStorage::instance().setListValueAt(presetId(), idx, realValue());
 }
 
-bool UISlider2D::setRealValue(const AtomList& lst)
+bool UISlider2D::setRealValue(const AtomListView& lst)
 {
     if (lst.size() != 2)
         return false;
@@ -311,7 +311,7 @@ AtomList UISlider2D::propYValue() const
     return AtomList(realYValue());
 }
 
-void UISlider2D::propSetXValue(const AtomList& lst)
+void UISlider2D::propSetXValue(const AtomListView& lst)
 {
     t_float x;
     if (lst.empty() || !lst[0].getFloat(&x)) {
@@ -329,7 +329,7 @@ void UISlider2D::propSetXValue(const AtomList& lst)
     redrawKnob();
 }
 
-void UISlider2D::propSetYValue(const AtomList& lst)
+void UISlider2D::propSetYValue(const AtomListView& lst)
 {
     t_float y;
     if (lst.empty() || !lst[0].getFloat(&y)) {

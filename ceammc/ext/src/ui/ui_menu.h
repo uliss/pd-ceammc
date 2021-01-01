@@ -50,7 +50,7 @@ public:
     void onBang();
     void onFloat(t_float f);
     void onSymbol(t_symbol* s);
-    void onAny(t_symbol* s, const AtomList& lst);
+    void onAny(t_symbol* s, const AtomListView&);
 
     void onMouseDown(t_object* view, const t_pt& pt, const t_pt& abs_pt, long modifiers);
     void onMouseMove(t_object* view, const t_pt& pt, long modifiers);
@@ -58,11 +58,11 @@ public:
 
     t_float propCount() const;
     AtomList propItems() const;
-    void propSetItems(const AtomList& lst);
+    void propSetItems(const AtomListView& lst);
     t_float propIndex() const;
     void propSetIndex(t_float f);
     AtomList propValue() const;
-    void propSetValue(const AtomList& lst);
+    void propSetValue(const AtomListView& lst);
     t_float propOpen() const;
     void propSetOpen(t_float v);
     AtomList propTitle() const;
@@ -70,13 +70,13 @@ public:
     void loadPreset(size_t idx);
     void storePreset(size_t idx);
 
-    void m_append(const AtomList& lst);
+    void m_append(const AtomListView& lst);
     void m_clear();
     void m_delete(t_float idx);
-    void m_set(const AtomList& lst);
-    void m_insert(const AtomList& lst);
-    void m_set_item(const AtomList& lst);
-    void m_file_glob(const AtomList& lst);
+    void m_set(const AtomListView& lst);
+    void m_insert(const AtomListView& lst);
+    void m_set_item(const AtomListView& lst);
+    void m_file_glob(const AtomListView& lst);
 
 private:
     void syncLabels();

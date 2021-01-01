@@ -191,7 +191,7 @@ void UIDisplay::onSymbol(t_symbol* s)
     update();
 }
 
-void UIDisplay::setMessage(UIMessageType t, t_symbol* s, const AtomList& lst)
+void UIDisplay::setMessage(UIMessageType t, t_symbol* s, const AtomListView& lst)
 {
     msg_type_ = t;
     msg_type_txt_ = s;
@@ -225,14 +225,14 @@ void UIDisplay::onList(const AtomList& lst)
     update();
 }
 
-void UIDisplay::onAny(t_symbol* s, const AtomList& lst)
+void UIDisplay::onAny(t_symbol* s, const AtomListView& lst)
 {
     setMessage(MSG_TYPE_ANY, s, lst);
     flash();
     update();
 }
 
-void UIDisplay::onProperty(t_symbol* s, const AtomList& lst)
+void UIDisplay::onProperty(t_symbol* s, const AtomListView& lst)
 {
     if (s == SYM_PROP_SIZE && asEBox()->b_resize) {
         eclass_attr_setter(asPdObject(), SYM_SIZE, lst.size(), lst.toPdData());

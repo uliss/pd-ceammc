@@ -56,9 +56,9 @@ UIEnv::UIEnv()
     updateNodes();
 
     initPopupMenu("env",
-        { { "ADSR(10 20 30 500)", [this](const t_pt&) { setNamedEnvelope(SYM_ADSR, { 10, 20, 30, 500 }); } },
-            { "ASR (500 500)", [this](const t_pt&) { setNamedEnvelope(SYM_ASR, { 500, 500 }); } },
-            { "AR (500 500)", [this](const t_pt&) { setNamedEnvelope(SYM_AR, { 500, 500 }); } } });
+        { { "ADSR(10 20 30 500)", [this](const t_pt&) { setNamedEnvelope(SYM_ADSR, AtomList { 10, 20, 30, 500 }); } },
+            { "ASR (500 500)", [this](const t_pt&) { setNamedEnvelope(SYM_ASR, AtomList { 500, 500 }); } },
+            { "AR (500 500)", [this](const t_pt&) { setNamedEnvelope(SYM_AR, AtomList { 500, 500 }); } } });
 
     initPopupMenu("point",
         { { "toggle stop", [this](const t_pt& pt) {
@@ -720,37 +720,37 @@ bool UIEnv::selectNode(size_t idx)
     return num_changes > 0;
 }
 
-void UIEnv::m_adsr(const AtomList& lst)
+void UIEnv::m_adsr(const AtomListView& lst)
 {
     setNamedEnvelope(SYM_ADSR, lst);
 }
 
-void UIEnv::m_asr(const AtomList& lst)
+void UIEnv::m_asr(const AtomListView& lst)
 {
     setNamedEnvelope(SYM_ASR, lst);
 }
 
-void UIEnv::m_ar(const AtomList& lst)
+void UIEnv::m_ar(const AtomListView& lst)
 {
     setNamedEnvelope(SYM_AR, lst);
 }
 
-void UIEnv::m_eadsr(const AtomList& lst)
+void UIEnv::m_eadsr(const AtomListView& lst)
 {
     setNamedEnvelope(SYM_EADSR, lst);
 }
 
-void UIEnv::m_easr(const AtomList& lst)
+void UIEnv::m_easr(const AtomListView& lst)
 {
     setNamedEnvelope(SYM_EASR, lst);
 }
 
-void UIEnv::m_ear(const AtomList& lst)
+void UIEnv::m_ear(const AtomListView& lst)
 {
     setNamedEnvelope(SYM_EAR, lst);
 }
 
-void UIEnv::setNamedEnvelope(t_symbol* env, const AtomList& args)
+void UIEnv::setNamedEnvelope(t_symbol* env, const AtomListView& args)
 {
     if (!env_.setNamedEnvelope(env, args)) {
         UI_ERR << "unknown envelope: " << Atom(env) + args;

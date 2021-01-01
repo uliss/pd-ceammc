@@ -34,7 +34,7 @@ public:
         f = v;
     }
 
-    void onList(const AtomList& lst)
+    void onList(const AtomListView& lst)
     {
         l = lst;
     }

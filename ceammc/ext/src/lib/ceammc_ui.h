@@ -66,11 +66,11 @@ class UIObjectFactory {
 public:
     typedef void (UI::*bangMethodPtr)();
     typedef void (UI::*floatMethodPtr)(t_float);
-    typedef void (UI::*listMethodPtr)(const AtomList&);
+    typedef void (UI::*listMethodPtr)(const AtomListView&);
     typedef t_float (UI::*propFloatGet)() const;
     typedef void (UI::*propFloatSet)(t_float);
     typedef AtomList (UI::*propListGet)() const;
-    typedef void (UI::*propListSet)(const AtomList&);
+    typedef void (UI::*propListSet)(const AtomListView&);
     typedef std::pair<propFloatGet, propFloatSet> propertyFloatAccess;
     typedef std::pair<propListGet, propListSet> propertyListAccess;
     typedef std::is_base_of<UIObject, UI> isControlObject;
@@ -530,7 +530,7 @@ public:
      * @param def - default value
      */
     void addVirtualProperty(const char* name, const char* label, const char* def,
-        AtomList (UI::*getter)() const, void (UI::*setter)(const AtomList&))
+        AtomList (UI::*getter)() const, void (UI::*setter)(const AtomListView&))
     {
         eclass_new_attr_typed(pd_class, name, "symbol", 1, 0, 0);
         eclass_attr_label(pd_class, name, label);
@@ -707,7 +707,7 @@ public:
 
     void addProperty(const char* name,
         AtomList (UI::*getter)() const,
-        void (UI::*setter)(const AtomList&) = 0)
+        void (UI::*setter)(const AtomListView&) = 0)
     {
         eclass_new_attr_typed(pd_class, name, "atom", 1, 0, 0);
         eclass_attr_invisible(pd_class, name);
@@ -749,7 +749,7 @@ public:
         prop_float_map[gensym(name)] = std::make_pair(getter, setter);
     }
 
-    void setPropertyAccessor(const char* name, AtomList (UI::*getter)() const, void (UI::*setter)(const AtomList&))
+    void setPropertyAccessor(const char* name, AtomList (UI::*getter)() const, void (UI::*setter)(const AtomListView&))
     {
         t_err_method m = reinterpret_cast<t_err_method>(setter != nullptr ? listPropSetter : nullptr);
         eclass_attr_accessor(pd_class, name, (t_err_method)listPropGetter, m);
@@ -973,7 +973,7 @@ public:
 
     static void onList(UI* z, t_symbol* s, int argc, t_atom* argv)
     {
-        z->onList(AtomList(argc, argv));
+        z->onList(AtomListView(argv, argc));
     }
 
     static void onAny(UI* z, t_symbol* s, int argc, t_atom* argv)
@@ -1041,7 +1041,7 @@ public:
             return;
         }
 
-        (z->*m)(AtomList(argc, argv));
+        (z->*m)(AtomListView(argv, argc));
     }
 
     static void customMethodFloat(UI* z, t_symbol* s, int argc, t_atom* argv)
@@ -1164,7 +1164,7 @@ public:
             return 1;
         }
 
-        (z->*m)(AtomList(argc, argv));
+        (z->*m)(AtomListView(argv, argc));
         return 0;
     }
 
@@ -1173,13 +1173,13 @@ public:
         if (argc == 1 && Atom::is_data(argv)) {
             z->onData(Atom(*argv));
         } else {
-            z->onList(AtomList(argc, argv));
+            z->onList(AtomListView(argv, argc));
         }
     }
 
     static void listPropRedirector(UI* z, t_symbol* s, int argc, t_atom* argv)
     {
-        z->onProperty(s, AtomList(argc, argv));
+        z->onProperty(s, AtomListView(argv, argc));
     }
 
 public:

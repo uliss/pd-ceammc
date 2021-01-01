@@ -223,7 +223,7 @@ AtomList UIRadio::p_value() const
     return prop_checklist_mode_ ? listValue() : Atom(singleValue());
 }
 
-void UIRadio::p_setValue(const AtomList& lst)
+void UIRadio::p_setValue(const AtomListView& lst)
 {
     if (prop_checklist_mode_)
         setListValue(lst);

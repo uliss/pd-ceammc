@@ -255,7 +255,7 @@ void UIIcon::onMouseUp(t_object* view, const t_pt& pt, long modifiers)
     }
 }
 
-void UIIcon::m_set(const AtomList& lst)
+void UIIcon::m_set(const AtomListView& lst)
 {
     if (lst.empty()) {
         UI_ERR << "icon name expected";
@@ -384,7 +384,7 @@ AtomList UIIcon::propEnabled() const
     return Atom(is_enabled_ ? 1 : 0.f);
 }
 
-void UIIcon::propSetEnabled(const AtomList& lst)
+void UIIcon::propSetEnabled(const AtomListView& lst)
 {
     bool v = lst.floatAt(0, 0);
 

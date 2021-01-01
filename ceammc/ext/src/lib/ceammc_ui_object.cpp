@@ -350,7 +350,7 @@ void UIObjectImpl::onSymbol(t_symbol* s)
 {
 }
 
-void UIObjectImpl::onList(const AtomList& lst)
+void UIObjectImpl::onList(const AtomListView& lst)
 {
 }
 

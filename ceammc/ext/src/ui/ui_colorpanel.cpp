@@ -190,7 +190,7 @@ AtomList UIColorPanel::propMatrixSize() const
     return AtomList(Atom(matrix_x_), Atom(matrix_y_));
 }
 
-void UIColorPanel::propSetMatrixSize(const AtomList& lst)
+void UIColorPanel::propSetMatrixSize(const AtomListView& lst)
 {
     bool ok = lst.size() > 1 && lst[0].isFloat() && lst[1].isFloat();
 
@@ -259,7 +259,7 @@ AtomList UIColorPanel::propHexColor() const
     return Atom(gensym(rgba_to_hex(colors_[picked_x_][picked_y_])));
 }
 
-void UIColorPanel::m_set(const AtomList& lst)
+void UIColorPanel::m_set(const AtomListView& lst)
 {
     if (lst.size() < 2) {
         UI_ERR << "color indexes expected: X Y";

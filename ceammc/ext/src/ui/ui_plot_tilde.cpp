@@ -1155,7 +1155,7 @@ void UIPlotTilde::dspProcess(t_sample** ins, long n_ins, t_sample** outs, long n
     }
 }
 
-void UIPlotTilde::onInlet(const AtomList& args)
+void UIPlotTilde::onInlet(const AtomListView& args)
 {
     constexpr int NMAX = 1024;
     constexpr int NMIN = 4;

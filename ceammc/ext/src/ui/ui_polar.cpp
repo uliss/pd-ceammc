@@ -85,11 +85,11 @@ UIPolar::UIPolar()
     createOutlet();
 
     initPopupMenu("polar",
-        { { _("center"), [this](const t_pt&) { onList({ 0.f, 0.f }); } },
-            { _("left center"), [this](const t_pt&) { onList({ 1, side2Angle(LEFT) }); } },
-            { _("right center"), [this](const t_pt&) { onList({ 1, side2Angle(RIGHT) }); } },
-            { _("top center"), [this](const t_pt&) { onList({ 1, side2Angle(TOP) }); } },
-            { _("bottom center"), [this](const t_pt&) { onList({ 1, side2Angle(BOTTOM) }); } } });
+        { { _("center"), [this](const t_pt&) { onList(AtomList { 0.f, 0.f }); } },
+            { _("left center"), [this](const t_pt&) { onList(AtomList { 1, side2Angle(LEFT) }); } },
+            { _("right center"), [this](const t_pt&) { onList(AtomList { 1, side2Angle(RIGHT) }); } },
+            { _("top center"), [this](const t_pt&) { onList(AtomList { 1, side2Angle(TOP) }); } },
+            { _("bottom center"), [this](const t_pt&) { onList(AtomList { 1, side2Angle(BOTTOM) }); } } });
 }
 
 t_float UIPolar::side2Angle(SideT side)
@@ -233,7 +233,7 @@ void UIPolar::onBang()
     output();
 }
 
-void UIPolar::onList(const AtomList& lst)
+void UIPolar::onList(const AtomListView& lst)
 {
     if (lst.size() != 2) {
         UI_ERR << "invalid list given: RAD ANG expected";
@@ -281,7 +281,7 @@ void UIPolar::onMouseUp(t_object* view, const t_pt& pt, long modifiers)
     output();
 }
 
-void UIPolar::m_set(const AtomList& lst)
+void UIPolar::m_set(const AtomListView& lst)
 {
     if (lst.size() != 2) {
         UI_ERR << "invalid list given: set RAD ANG expected";
@@ -294,7 +294,7 @@ void UIPolar::m_set(const AtomList& lst)
     redrawKnob();
 }
 
-void UIPolar::m_polar(const AtomList& lst)
+void UIPolar::m_polar(const AtomListView& lst)
 {
     if (lst.size() != 2) {
         UI_ERR << "invalid list given: polar RAD ANG expected";
@@ -305,7 +305,7 @@ void UIPolar::m_polar(const AtomList& lst)
     output();
 }
 
-void UIPolar::m_cartesian(const AtomList& lst)
+void UIPolar::m_cartesian(const AtomListView& lst)
 {
     if (lst.size() != 2) {
         UI_ERR << "invalid list given: polar RAD ANG expected";
@@ -357,7 +357,7 @@ void UIPolar::storePreset(size_t idx)
     PresetStorage::instance().setListValueAt(presetId(), idx, realValue());
 }
 
-bool UIPolar::setRealValue(const AtomList& lst)
+bool UIPolar::setRealValue(const AtomListView& lst)
 {
     if (lst.size() != 2)
         return false;
@@ -428,7 +428,7 @@ AtomList UIPolar::propAngle() const
     return AtomList(realAngle());
 }
 
-void UIPolar::propSetRadius(const AtomList& lst)
+void UIPolar::propSetRadius(const AtomListView& lst)
 {
     t_float r;
 
@@ -441,7 +441,7 @@ void UIPolar::propSetRadius(const AtomList& lst)
     redrawKnob();
 }
 
-void UIPolar::propSetAngle(const AtomList& lst)
+void UIPolar::propSetAngle(const AtomListView& lst)
 {
     t_float a;
 

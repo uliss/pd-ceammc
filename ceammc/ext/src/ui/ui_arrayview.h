@@ -123,7 +123,7 @@ public:
     void onFloat(t_float f);
 
     void m_update();
-    void m_selectSamples(const AtomList& lst);
+    void m_selectSamples(const AtomListView& lst);
 
 private:
     bool quickRender();
@@ -153,16 +153,16 @@ private:
     void setCursorPosSec(t_float pos);
 
     AtomList selectPosSample() const;
-    void setSelectPosSample(const AtomList& pos);
+    void setSelectPosSample(const AtomListView& pos);
 
     AtomList selectPosPhase() const;
-    void setSelectPosPhase(const AtomList& pos);
+    void setSelectPosPhase(const AtomListView& pos);
 
     AtomList selectPosMs() const;
-    void setSelectPosMs(const AtomList& pos);
+    void setSelectPosMs(const AtomListView& pos);
 
     AtomList selectPosSec() const;
-    void setSelectPosSec(const AtomList& pos);
+    void setSelectPosSec(const AtomListView& pos);
 
     bool isValidArray();
 
@@ -181,12 +181,12 @@ public:
     t_float sizeMs() const;
 
     AtomList labelTopRight() const;
-    void setLabelTopRight(const AtomList& lst);
+    void setLabelTopRight(const AtomListView& lst);
     AtomList labelBottomRight() const;
-    void setLabelBottomRight(const AtomList& lst);
+    void setLabelBottomRight(const AtomListView& lst);
 
     AtomList propArray() const;
-    void propSetArray(const AtomList& lst);
+    void propSetArray(const AtomListView& lst);
 
 public:
     static void setup();

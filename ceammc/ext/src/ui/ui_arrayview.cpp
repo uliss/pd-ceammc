@@ -428,7 +428,7 @@ void UIArrayView::m_update()
     render_clock_.delay(RENDER_CHUNK_PERIOD);
 }
 
-void UIArrayView::m_selectSamples(const AtomList& lst)
+void UIArrayView::m_selectSamples(const AtomListView& lst)
 {
     if (lst.empty()) {
         // remove selection
@@ -744,7 +744,7 @@ AtomList UIArrayView::selectPosSample() const
     return AtomList(selection_.from(), selection_.to());
 }
 
-void UIArrayView::setSelectPosSample(const AtomList& pos)
+void UIArrayView::setSelectPosSample(const AtomListView& pos)
 {
     bool ok = pos.size() == 2 && pos[0].isFloat() && pos[1].isFloat();
     if (!ok) {
@@ -774,7 +774,7 @@ AtomList UIArrayView::selectPosPhase() const
     return AtomList(selection_.from() / N, selection_.to() / N);
 }
 
-void UIArrayView::setSelectPosPhase(const AtomList& pos)
+void UIArrayView::setSelectPosPhase(const AtomListView& pos)
 {
     bool ok = pos.size() == 2 && pos[0].isFloat() && pos[1].isFloat();
     if (!ok) {
@@ -806,7 +806,7 @@ AtomList UIArrayView::selectPosMs() const
     return AtomList(selection_.from() * 1000.0 / SR, selection_.to() * 1000.0 / SR);
 }
 
-void UIArrayView::setSelectPosMs(const AtomList& pos)
+void UIArrayView::setSelectPosMs(const AtomListView& pos)
 {
     bool ok = pos.size() == 2 && pos[0].isFloat() && pos[1].isFloat();
     if (!ok) {
@@ -844,9 +844,9 @@ AtomList UIArrayView::selectPosSec() const
     return AtomList(selection_.from() / SR, selection_.to() / SR);
 }
 
-void UIArrayView::setSelectPosSec(const AtomList& pos)
+void UIArrayView::setSelectPosSec(const AtomListView& pos)
 {
-    setSelectPosMs(pos * 1000.f);
+    setSelectPosMs(AtomList(pos) * 1000.f);
 }
 
 bool UIArrayView::isValidArray()
@@ -959,7 +959,7 @@ AtomList UIArrayView::labelTopRight() const
     return Atom(gensym(str_label_top_right_.c_str()));
 }
 
-void UIArrayView::setLabelTopRight(const AtomList& lst)
+void UIArrayView::setLabelTopRight(const AtomListView& lst)
 {
     auto str = to_string(lst);
     if (str != str_label_top_right_) {
@@ -974,7 +974,7 @@ AtomList UIArrayView::labelBottomRight() const
     return Atom(gensym(str_label_bottom_right_.c_str()));
 }
 
-void UIArrayView::setLabelBottomRight(const AtomList& lst)
+void UIArrayView::setLabelBottomRight(const AtomListView& lst)
 {
     auto str = to_string(lst);
     if (str != str_label_bottom_right_) {
@@ -989,7 +989,7 @@ AtomList UIArrayView::propArray() const
     return Atom(prop_array);
 }
 
-void UIArrayView::propSetArray(const AtomList& lst)
+void UIArrayView::propSetArray(const AtomListView& lst)
 {
     t_symbol* name = lst.symbolAt(0, 0);
     if (!name)

@@ -54,7 +54,7 @@ void UIDsp::onMouseDown(t_object* view, const t_pt& pt, const t_pt& abs_pt, long
         m_start(AtomList());
 }
 
-void UIDsp::onAny(t_symbol* s, const AtomList& lst)
+void UIDsp::onAny(t_symbol* s, const AtomListView& lst)
 {
     if (s == gensym("dsp") && lst.size() > 0 && lst[0].isFloat()) {
         state_ = lst[0].asInt(0);
@@ -62,7 +62,7 @@ void UIDsp::onAny(t_symbol* s, const AtomList& lst)
     }
 }
 
-void UIDsp::m_start(const AtomList&)
+void UIDsp::m_start(const AtomListView&)
 {
     t_symbol* SYM_PD = gensym("pd");
     t_atom av;
@@ -72,7 +72,7 @@ void UIDsp::m_start(const AtomList&)
     redrawAll();
 }
 
-void UIDsp::m_stop(const AtomList&)
+void UIDsp::m_stop(const AtomListView&)
 {
     t_symbol* SYM_PD = gensym("pd");
     t_atom av;
@@ -82,7 +82,7 @@ void UIDsp::m_stop(const AtomList&)
     redrawAll();
 }
 
-void UIDsp::m_settings(const AtomList&)
+void UIDsp::m_settings(const AtomListView&)
 {
     openSoundSettingsDialog();
 }

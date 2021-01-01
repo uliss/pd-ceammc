@@ -439,7 +439,7 @@ void UIMatrix::outputCell(size_t row, size_t col)
     send(SYM_CELL, args);
 }
 
-void UIMatrix::outputCell(const AtomList& args)
+void UIMatrix::outputCell(const AtomListView& args)
 {
     if (args.size() != 2) {
         UI_ERR << "usage: get cell ROW COL";
@@ -467,7 +467,7 @@ void UIMatrix::outputCol(size_t col)
     send(SYM_COL, lst);
 }
 
-void UIMatrix::outputCol(const AtomList& args)
+void UIMatrix::outputCol(const AtomListView& args)
 {
     if (args.empty()) {
         UI_ERR << "column index expected";
@@ -494,7 +494,7 @@ void UIMatrix::outputRow(size_t idx)
     send(SYM_ROW, lst);
 }
 
-void UIMatrix::outputRow(const AtomList& args)
+void UIMatrix::outputRow(const AtomListView& args)
 {
     if (args.empty()) {
         UI_ERR << "row index expected";
@@ -644,7 +644,7 @@ void UIMatrix::write(const std::string& fname)
         UI_ERR << "error while writing to file: " << quote(fname);
 }
 
-void UIMatrix::m_flip(const AtomList& lst)
+void UIMatrix::m_flip(const AtomListView& lst)
 {
     if (lst.empty()) {
         flipAll();
@@ -720,7 +720,7 @@ void UIMatrix::m_random()
     drawActiveCells();
 }
 
-void UIMatrix::m_get(const AtomList& lst)
+void UIMatrix::m_get(const AtomListView& lst)
 {
     if (lst.empty() || !lst[0].isSymbol()) {
         UI_ERR << "missing arguments: ";
@@ -729,7 +729,7 @@ void UIMatrix::m_get(const AtomList& lst)
     }
 
     t_symbol* sel = lst[0].asSymbol();
-    const AtomList args = lst.slice(1);
+    const auto args = lst.subView(1);
 
     if (sel == SYM_CELL) {
         outputCell(args);
@@ -752,7 +752,7 @@ void UIMatrix::m_get(const AtomList& lst)
     }
 }
 
-void UIMatrix::m_set(const AtomList& lst)
+void UIMatrix::m_set(const AtomListView& lst)
 {
     if (lst.empty() || !lst[0].isSymbol()) {
         UI_ERR << "missing arguments: ";
@@ -761,7 +761,7 @@ void UIMatrix::m_set(const AtomList& lst)
     }
 
     t_symbol* sel = lst[0].asSymbol();
-    const AtomList args = lst.slice(1);
+    const auto args = lst.subView(1);
 
     if (sel == SYM_CELL) {
         setCell(args);

@@ -256,7 +256,7 @@ AtomList UITab::propItems() const
     return items_;
 }
 
-void UITab::propSetItems(const AtomList& lst)
+void UITab::propSetItems(const AtomListView& lst)
 {
     items_ = lst;
     layouts_.reserve(lst.size());
@@ -303,7 +303,7 @@ t_float UITab::propCurrent() const
         return item_selected_;
 }
 
-void UITab::m_select(const AtomList& lst)
+void UITab::m_select(const AtomListView& lst)
 {
     if (lst.empty()) {
         UI_ERR << "select: index or symbol expected";
@@ -337,7 +337,7 @@ void UITab::m_clear()
     redrawBGLayer();
 }
 
-void UITab::m_append(const AtomList& lst)
+void UITab::m_append(const AtomListView& lst)
 {
     if (lst.empty())
         return;
@@ -346,7 +346,7 @@ void UITab::m_append(const AtomList& lst)
     resize(width(), height());
 }
 
-void UITab::m_set_item(const AtomList& lst)
+void UITab::m_set_item(const AtomListView &lst)
 {
     if (lst.size() != 2) {
         UI_ERR << "usage: set_item INDEX VALUE";
@@ -378,7 +378,7 @@ void UITab::m_delete(t_float f)
     redrawBGLayer();
 }
 
-void UITab::m_insert(const AtomList& lst)
+void UITab::m_insert(const AtomListView& lst)
 {
     if (lst.size() != 2) {
         UI_ERR << "usage: insert INDEX VALUE";

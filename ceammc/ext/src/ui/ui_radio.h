@@ -56,7 +56,7 @@ public:
     t_float p_mode() const;
     void p_setMode(t_float p_mode);
     AtomList p_value() const;
-    void p_setValue(const AtomList& lst);
+    void p_setValue(const AtomListView& lst);
 
     // methods
     void m_flip();

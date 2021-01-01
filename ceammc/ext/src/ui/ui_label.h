@@ -40,16 +40,16 @@ public:
     void init(t_symbol* name, const AtomList& args, bool usePresets);
 
     void onBang();
-    void onList(const AtomList& lst);
-    void onAny(t_symbol* s, const AtomList& lst);
+    void onList(const AtomListView& lst);
+    void onAny(t_symbol* s, const AtomListView& lst);
     void onData(const Atom& data);
 
-    void m_clear(const AtomList&);
-    void m_append(const AtomList& lst);
-    void m_prepend(const AtomList& lst);
+    void m_clear(const AtomListView&);
+    void m_append(const AtomListView& lst);
+    void m_prepend(const AtomListView& lst);
 
     AtomList propGetText() const;
-    void propSetText(const AtomList& lst);
+    void propSetText(const AtomListView& lst);
 
     const std::string& text() const;
 

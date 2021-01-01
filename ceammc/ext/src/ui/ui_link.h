@@ -39,7 +39,7 @@ public:
     void onMouseLeave(t_object* view, const t_pt& pt, long modifiers);
 
     AtomList p_title() const;
-    void p_setTitle(const AtomList& lst);
+    void p_setTitle(const AtomListView& lst);
 
 public:
     static void setup();

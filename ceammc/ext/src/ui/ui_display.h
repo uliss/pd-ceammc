@@ -60,8 +60,8 @@ public:
     void onFloat(t_float f);
     void onSymbol(t_symbol* s);
     void onList(const AtomList& lst);
-    void onAny(t_symbol* s, const AtomList& lst);
-    void onProperty(t_symbol* s, const AtomList& lst);
+    void onAny(t_symbol* s, const AtomListView& lst);
+    void onProperty(t_symbol* s, const AtomListView& lst);
 
     void onDblClick(t_object* view, const t_pt& pt, long modifiers);
 
@@ -80,7 +80,7 @@ public:
 private:
     void redrawAll();
     void appendFloatToText(t_float f);
-    void setMessage(UIMessageType t, t_symbol* s, const AtomList& lst);
+    void setMessage(UIMessageType t, t_symbol* s, const AtomListView& lst);
 };
 
 void setup_ui_display();

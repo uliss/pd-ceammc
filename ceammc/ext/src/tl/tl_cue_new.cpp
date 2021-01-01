@@ -159,7 +159,7 @@ void TlCue::onPropChange(t_symbol* prop_name)
     return UIObject::onPropChange(prop_name);
 }
 
-void TlCue::m_updateLine(const AtomList& l)
+void TlCue::m_updateLine(const AtomListView& l)
 {
     if (l.symbolAt(0, &s_) != asEBox()->b_canvas_id)
         return;
