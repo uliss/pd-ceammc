@@ -28,7 +28,7 @@ public:
     void onSymbol(t_symbol* s) override;
     void onList(const AtomList& l) override;
     void onAny(t_symbol* sel, const AtomListView& l) override;
-    void onInlet(size_t, const AtomList&) override;
+    void onInlet(size_t, const AtomListView&) override;
 };
 
 void setup_flow_reject();

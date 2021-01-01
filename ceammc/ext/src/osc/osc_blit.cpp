@@ -59,7 +59,7 @@ void OscBlit::setupDSP(t_signal** sp)
     stk::Stk::setSampleRate(samplerate());
 }
 
-void OscBlit::onInlet(size_t n, const AtomList& l)
+void OscBlit::onInlet(size_t n, const AtomListView& l)
 {
     osc_->reset();
 }

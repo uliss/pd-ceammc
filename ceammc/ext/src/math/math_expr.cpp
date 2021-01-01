@@ -65,7 +65,7 @@ void MathExpr::onFloat(t_float v)
     floatTo(0, res);
 }
 
-void MathExpr::onInlet(size_t n, const AtomList& lst)
+void MathExpr::onInlet(size_t n, const AtomListView& lst)
 {
     setProperty("@expr", lst);
 }

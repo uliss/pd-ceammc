@@ -48,7 +48,7 @@ void MetroRandom::onFloat(t_float f)
         clock_.unset();
 }
 
-void MetroRandom::onInlet(size_t n, const AtomList& lst)
+void MetroRandom::onInlet(size_t n, const AtomListView& lst)
 {
     if (lst.isFloat())
         min_->setValue(lst[0].asFloat());

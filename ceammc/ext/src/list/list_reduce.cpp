@@ -27,7 +27,7 @@ void ListReduce::onList(const AtomList& l)
     atomTo(0, accum_);
 }
 
-void ListReduce::onInlet(size_t n, const AtomList& l)
+void ListReduce::onInlet(size_t n, const AtomListView& l)
 {
     if (n != 1)
         return;

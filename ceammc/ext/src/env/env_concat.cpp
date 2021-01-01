@@ -19,7 +19,7 @@ void EnvConcat::onDataT(const EnvAtom& dptr)
     onBang();
 }
 
-void EnvConcat::onInlet(size_t n, const AtomList& lst)
+void EnvConcat::onInlet(size_t n, const AtomListView& lst)
 {
     if (n == 1) {
         if (!lst.isA<DataTypeEnv>()) {

@@ -60,7 +60,7 @@ void FlowGate::onData(const Atom& data)
     atomTo(0, data);
 }
 
-void FlowGate::onInlet(size_t n, const AtomList& l)
+void FlowGate::onInlet(size_t n, const AtomListView& l)
 {
     if (n != 1)
         return;

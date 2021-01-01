@@ -55,7 +55,7 @@ public:
         createOutlet();
     }
 
-    void onInlet(size_t n, const AtomList& l)
+    void onInlet(size_t n, const AtomListView& l)
     {
         last_inlet = n;
         last_inlet_data = l;

@@ -26,7 +26,7 @@ class ListAt : public ListBase {
 
 public:
     ListAt(const PdArgs& a);
-    void onInlet(size_t idx, const AtomList& l) override;
+    void onInlet(size_t idx, const AtomListView& l) override;
     void onList(const AtomList& l) override;
 
 private:

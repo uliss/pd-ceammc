@@ -27,7 +27,7 @@ void ListSearch::onList(const AtomList& lst)
     listTo(0, idxs);
 }
 
-void ListSearch::onInlet(size_t n, const AtomList& lst)
+void ListSearch::onInlet(size_t n, const AtomListView& lst)
 {
     subj_ = lst;
 }

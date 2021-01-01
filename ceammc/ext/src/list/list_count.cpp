@@ -20,7 +20,7 @@ void ListCount::onList(const AtomList& l)
     floatTo(0, l.count(pattern_->value()));
 }
 
-void ListCount::onInlet(size_t n, const AtomList& l)
+void ListCount::onInlet(size_t n, const AtomListView& l)
 {
     if (l.size() < 1)
         return;

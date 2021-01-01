@@ -58,7 +58,7 @@ void ListRepeat::onData(const Atom& d)
     }
 }
 
-void ListRepeat::onInlet(size_t, const AtomList& l)
+void ListRepeat::onInlet(size_t, const AtomListView& l)
 {
     times_->set(l);
 }

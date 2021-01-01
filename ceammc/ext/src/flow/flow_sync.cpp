@@ -40,7 +40,7 @@ FlowSync::FlowSync(const PdArgs& a)
     }
 }
 
-void FlowSync::onInlet(size_t n, const AtomList& l)
+void FlowSync::onInlet(size_t n, const AtomListView& l)
 {
     if (n >= msg_list_.size())
         return;

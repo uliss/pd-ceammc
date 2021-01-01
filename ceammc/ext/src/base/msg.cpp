@@ -44,7 +44,7 @@ void Msg::onAny(t_symbol* sel, const AtomListView& l)
     output();
 }
 
-void Msg::onInlet(size_t n, const AtomList& l)
+void Msg::onInlet(size_t n, const AtomListView& l)
 {
     if (n != 1)
         return;

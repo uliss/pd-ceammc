@@ -48,7 +48,7 @@ void ListRemove::setRemoveList(const AtomList& lst)
         idx_.push_back(el.asInt());
 }
 
-void ListRemove::onInlet(size_t, const AtomList& lst)
+void ListRemove::onInlet(size_t, const AtomListView& lst)
 {
     setRemoveList(lst);
 }

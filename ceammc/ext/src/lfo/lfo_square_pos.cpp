@@ -11,7 +11,7 @@ public:
         setInitSignalValue(parsedPosArgs().floatAt(0, 0));
     }
 
-    void onInlet(size_t n, const AtomList&) override
+    void onInlet(size_t n, const AtomListView&) override
     {
         dsp_->instanceClear();
     }

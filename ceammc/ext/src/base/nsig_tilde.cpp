@@ -70,7 +70,7 @@ void NSigTilde::onFloat(t_float v)
     samp_[0] = v;
 }
 
-void NSigTilde::onInlet(size_t n, const AtomList& l)
+void NSigTilde::onInlet(size_t n, const AtomListView& l)
 {
     updateSamples();
     samp_[n] = l.floatAt(0, 0);

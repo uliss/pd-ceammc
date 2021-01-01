@@ -60,7 +60,7 @@ void MathApprox::onList(const AtomList& l)
     }
 }
 
-void MathApprox::onInlet(size_t n, const AtomList& l)
+void MathApprox::onInlet(size_t n, const AtomListView& l)
 {
     switch (n) {
     case 1:

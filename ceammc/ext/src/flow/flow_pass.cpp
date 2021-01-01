@@ -58,7 +58,7 @@ void FlowPass::onAny(t_symbol* s, const AtomListView& lst)
         anyTo(0, s, lst);
 }
 
-void FlowPass::onInlet(size_t, const AtomList& l)
+void FlowPass::onInlet(size_t, const AtomListView& l)
 {
     pass_list_->set(l);
 }

@@ -79,7 +79,7 @@ void ListXAt::onList(const AtomList& lst)
     listTo(0, res);
 }
 
-void ListXAt::onInlet(size_t n, const AtomList& lst)
+void ListXAt::onInlet(size_t n, const AtomListView& lst)
 {
     if (lst.isData() && !lst.isA<DataTypeMList>()) {
         OBJ_ERR << "invalid datatype. Only data.mlist is supported!";

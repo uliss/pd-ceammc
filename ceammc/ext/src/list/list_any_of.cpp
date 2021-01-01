@@ -42,7 +42,7 @@ void ListAnyOf::onList(const AtomList& l)
     floatTo(0, any_ ? 1 : 0);
 }
 
-void ListAnyOf::onInlet(size_t n, const AtomList& l)
+void ListAnyOf::onInlet(size_t n, const AtomListView& l)
 {
     if (n != 1 || l.empty())
         return;
@@ -50,7 +50,7 @@ void ListAnyOf::onInlet(size_t n, const AtomList& l)
     if (any_)
         return;
 
-    if (l.first()->asInt(0) == 1)
+    if (l[0].asInt(0) == 1)
         any_ = true;
 }
 

@@ -20,7 +20,7 @@ void ListShift::onList(const AtomList& lst)
     listTo(0, list::shift(lst, shift_->value()));
 }
 
-void ListShift::onInlet(size_t n, const AtomList& lst)
+void ListShift::onInlet(size_t n, const AtomListView& lst)
 {
     shift_->set(lst);
 }

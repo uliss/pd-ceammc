@@ -65,7 +65,7 @@ void FlowPack::onSymbol(t_symbol* s)
     output(0);
 }
 
-void FlowPack::onInlet(size_t idx, const AtomList& l)
+void FlowPack::onInlet(size_t idx, const AtomListView& l)
 {
     const size_t N = msg_->value().size();
 

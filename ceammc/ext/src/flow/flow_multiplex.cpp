@@ -79,7 +79,7 @@ void FlowMultiplex::onData(const Atom& data)
     atomTo(0, data);
 }
 
-void FlowMultiplex::onInlet(size_t idx, const AtomList& l)
+void FlowMultiplex::onInlet(size_t idx, const AtomListView& l)
 {
     if (idx != index_->value())
         return;

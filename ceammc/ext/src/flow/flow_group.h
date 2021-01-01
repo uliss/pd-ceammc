@@ -28,7 +28,7 @@ public:
     void onSymbol(t_symbol* s) override;
     void onList(const AtomList& l) override;
     void onData(const Atom& d) override;
-    void onInlet(size_t, const AtomList& l) override;
+    void onInlet(size_t, const AtomListView& l) override;
 
     void m_flush(t_symbol*, const AtomListView&);
     void m_clear(t_symbol*, const AtomListView &);

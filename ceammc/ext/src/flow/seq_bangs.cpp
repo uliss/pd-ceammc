@@ -73,7 +73,7 @@ void SeqBangsBase::onBang()
     start();
 }
 
-void SeqBangsBase::onInlet(size_t n, const AtomList& l)
+void SeqBangsBase::onInlet(size_t n, const AtomListView& l)
 {
     pattern_->set(l);
 }

@@ -59,7 +59,7 @@ void FlowSplit::onAny(t_symbol* s, const AtomListView& l)
     anyTo(split_, s, l);
 }
 
-void FlowSplit::onInlet(size_t n, const AtomList& l)
+void FlowSplit::onInlet(size_t n, const AtomListView& l)
 {
     if (n != 1 || l.empty())
         return;

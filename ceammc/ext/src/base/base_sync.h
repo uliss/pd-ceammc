@@ -25,7 +25,7 @@ class BaseSync : public BaseObject {
 public:
     BaseSync(const PdArgs& args);
 
-    void onInlet(size_t idx, const AtomList& lv) override;
+    void onInlet(size_t idx, const AtomListView& lv) override;
 };
 
 void setup_base_sync();

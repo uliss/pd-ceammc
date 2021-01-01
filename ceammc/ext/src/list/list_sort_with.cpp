@@ -44,7 +44,7 @@ void ListSortWith::onList(const AtomList& l)
     listTo(0, res);
 }
 
-void ListSortWith::onInlet(size_t n, const AtomList& l)
+void ListSortWith::onInlet(size_t n, const AtomListView& l)
 {
     if (n == 1) {
         if (!checkArgs(l, ARG_BOOL))

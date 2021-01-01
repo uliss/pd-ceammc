@@ -27,7 +27,7 @@ public:
     void onFloat(t_float v) override;
     void onList(const AtomList& v) override;
 
-    void onInlet(size_t n, const AtomList& lst) override;
+    void onInlet(size_t n, const AtomListView& lst) override;
 
     AtomList propCoeffs() const;
     void propSetCoeffs(const AtomList& lst);

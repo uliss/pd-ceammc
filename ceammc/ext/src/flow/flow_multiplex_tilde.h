@@ -34,7 +34,7 @@ public:
     void processBlock(const t_sample** in, t_sample** out) override;
     void setupDSP(t_signal** in) override;
 
-    void onInlet(size_t n, const AtomList& lst) override;
+    void onInlet(size_t n, const AtomListView& lst) override;
     void onList(const AtomList& lst) override;
 
     AtomList propValue() const;

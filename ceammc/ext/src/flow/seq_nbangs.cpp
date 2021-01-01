@@ -83,7 +83,7 @@ void SeqNBangs::onList(const AtomList& l)
         OBJ_ERR << "usage: NUM INTERVAL";
 }
 
-void SeqNBangs::onInlet(size_t n, const AtomList& lv)
+void SeqNBangs::onInlet(size_t n, const AtomListView& lv)
 {
     n_->set(lv);
 }

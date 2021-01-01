@@ -80,7 +80,7 @@ void ListXContains::onData(const Atom& d)
     }
 }
 
-void ListXContains::onInlet(size_t n, const AtomList& lst)
+void ListXContains::onInlet(size_t n, const AtomListView& lst)
 {
     if (lst.isData() && !lst.isA<DataTypeMList>()) {
         OBJ_ERR << fmt::format("invalid datatype {}, only data.mlist is supported", lst[0].asData()->typeName());

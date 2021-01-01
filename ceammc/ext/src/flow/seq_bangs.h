@@ -26,7 +26,7 @@ public:
     SeqBangsBase(const PdArgs& args);
 
     void onBang() override;
-    void onInlet(size_t n, const AtomList& l) override;
+    void onInlet(size_t n, const AtomListView& l) override;
 
     size_t sequenceSize() const final { return pattern_->value().size(); }
     double calcNextTick() const final;

@@ -40,7 +40,7 @@ void ListPassIf::onList(const AtomList& lst)
     listTo(0, res);
 }
 
-void ListPassIf::onInlet(size_t n, const AtomList& l)
+void ListPassIf::onInlet(size_t n, const AtomListView& l)
 {
     if (n != 1)
         return;

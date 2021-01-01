@@ -63,7 +63,7 @@ PlotResponseTilde::PlotResponseTilde(const PdArgs& a)
     createOutlet();
 }
 
-void PlotResponseTilde::onInlet(size_t, const AtomList&)
+void PlotResponseTilde::onInlet(size_t, const AtomListView &)
 {
     clock_.unset();
     phase_ = 0;

@@ -66,7 +66,7 @@ void FlowReject::onAny(t_symbol* sel, const AtomListView& l)
     anyTo(0, sel, l);
 }
 
-void FlowReject::onInlet(size_t, const AtomList& l)
+void FlowReject::onInlet(size_t, const AtomListView& l)
 {
     reject_list_->set(l);
 }

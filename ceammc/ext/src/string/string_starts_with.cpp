@@ -33,7 +33,7 @@ void StringStartsWith::onSymbol(t_symbol* s)
     boolTo(0, string::starts_with(s->s_name, prefix_.c_str()));
 }
 
-void StringStartsWith::onInlet(size_t, const AtomList& l)
+void StringStartsWith::onInlet(size_t, const AtomListView& l)
 {
     prefix_ = parse_quoted(l);
 }

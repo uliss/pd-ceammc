@@ -26,7 +26,7 @@ MathMul::MathMul(const PdArgs& args)
     createOutlet();
 }
 
-void MathMul::onInlet(size_t n, const AtomList& lst)
+void MathMul::onInlet(size_t n, const AtomListView& lst)
 {
     if (n != 1)
         return;

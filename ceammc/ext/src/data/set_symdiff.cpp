@@ -32,7 +32,7 @@ void SetSymmetricDifference::onDataT(const SetAtom& set)
     atomTo(0, SetAtom(DataTypeSet::sym_difference(*set, set1_)));
 }
 
-void SetSymmetricDifference::onInlet(size_t, const AtomList& l)
+void SetSymmetricDifference::onInlet(size_t, const AtomListView& l)
 {
     if (l.isA<DataTypeSet>()) {
         set1_ = *l.asD<DataTypeSet>();

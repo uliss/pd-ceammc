@@ -25,7 +25,7 @@ public:
     ListCountIf(const PdArgs& a);
     void onBang() override;
     void onList(const AtomList& lst) override;
-    void onInlet(size_t n, const AtomList& l) override;
+    void onInlet(size_t n, const AtomListView& l) override;
 };
 
 void setup_list_count_if();

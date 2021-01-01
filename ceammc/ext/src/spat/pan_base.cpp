@@ -23,7 +23,7 @@ PanBase::PanBase(const PdArgs& args)
     createSignalOutlet();
 }
 
-void PanBase::onInlet(size_t n, const AtomList& l)
+void PanBase::onInlet(size_t n, const AtomListView& l)
 {
     if (n != 1)
         return;

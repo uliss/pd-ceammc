@@ -66,7 +66,7 @@ ArrayPlotTilde::ArrayPlotTilde(const PdArgs& a)
     createOutlet();
 }
 
-void ArrayPlotTilde::onInlet(size_t n, const AtomList& l)
+void ArrayPlotTilde::onInlet(size_t n, const AtomListView& l)
 {
     if (n != 1)
         return;

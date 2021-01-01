@@ -39,7 +39,7 @@ void StringEqual::onDataT(const StringAtom& str)
     boolTo(0, str->str() == pattern_->str());
 }
 
-void StringEqual::onInlet(size_t, const AtomList& l)
+void StringEqual::onInlet(size_t, const AtomListView& l)
 {
     pattern_->setList(l);
 }

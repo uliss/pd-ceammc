@@ -67,7 +67,7 @@ void SeqSequencerBase::onFloat(t_float f)
         start();
 }
 
-void SeqSequencerBase::onInlet(size_t n, const AtomList& l)
+void SeqSequencerBase::onInlet(size_t n, const AtomListView& l)
 {
     if (!l.empty())
         values_->setList(l);

@@ -41,7 +41,7 @@ void ArrayDo::onSymbol(t_symbol* s)
     finish();
 }
 
-void ArrayDo::onInlet(size_t n, const AtomList& l)
+void ArrayDo::onInlet(size_t n, const AtomListView& l)
 {
     if (n != 1 || l.empty())
         return;

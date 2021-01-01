@@ -31,7 +31,7 @@ public:
     void onBang() override;
     void onFloat(t_float f) override;
     void onList(const AtomList& l) override;
-    void onInlet(size_t n, const AtomList& lv) override;
+    void onInlet(size_t n, const AtomListView& lv) override;
 
     void start();
     void stop();

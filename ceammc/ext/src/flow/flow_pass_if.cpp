@@ -68,7 +68,7 @@ void FlowPassIf::onAny(t_symbol* s, const AtomListView& l)
         anyTo(0, s, l);
 }
 
-void FlowPassIf::onInlet(size_t n, const AtomList& l)
+void FlowPassIf::onInlet(size_t n, const AtomListView& l)
 {
     if (n != 1 || l.empty())
         return;

@@ -25,11 +25,11 @@ DictEach::DictEach(const PdArgs& args)
     createOutlet();
 }
 
-void DictEach::onInlet(size_t n, const AtomList& lst)
+void DictEach::onInlet(size_t n, const AtomListView& lst)
 {
     if (lst.isData())
         dict_->insert(current_key_, lst[0]);
-    else if (lst.isList())
+    else if (lst.size() > 1)
         dict_->insert(current_key_, lst);
     else if (lst.isAtom())
         dict_->insert(current_key_, lst[0]);

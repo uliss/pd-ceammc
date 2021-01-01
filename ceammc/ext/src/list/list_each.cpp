@@ -38,7 +38,7 @@ void ListEach::doEach(const AtomList& l)
     }
 }
 
-void ListEach::onInlet(size_t n, const AtomList& l)
+void ListEach::onInlet(size_t n, const AtomListView& l)
 {
     if (n != 1)
         return;

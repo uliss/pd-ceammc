@@ -51,7 +51,7 @@ public:
         onBang();
     }
 
-    void onInlet(size_t n, const AtomList& l) override
+    void onInlet(size_t n, const AtomListView& l) override
     {
         if (n != 1)
             return;

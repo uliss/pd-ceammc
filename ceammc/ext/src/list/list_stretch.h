@@ -24,7 +24,7 @@ class ListStretch : public BaseObject {
 public:
     ListStretch(const PdArgs& args);
     void onList(const AtomList& lst) override;
-    void onInlet(size_t n, const AtomList& lst) override;
+    void onInlet(size_t n, const AtomListView& lst) override;
     void onDataT(const MListAtom& ml);
 };
 

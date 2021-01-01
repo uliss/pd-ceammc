@@ -163,7 +163,7 @@ public:
         }
     }
 
-    void onInlet(size_t n, const AtomList& lst) override
+    void onInlet(size_t n, const AtomListView& lst) override
     {
         // find overloaded method first
         int idx = tuple_utils::find_first(overload_args_, ArgumentMatchAndSet(lst));

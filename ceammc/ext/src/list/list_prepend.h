@@ -33,7 +33,7 @@ public:
     void onList(const AtomList& lst) override;
     void onData(const Atom& d) override;
     void onDataT(const MListAtom& ml);
-    void onInlet(size_t n, const AtomList& lst) override;
+    void onInlet(size_t n, const AtomListView& lst) override;
 };
 
 void setup_list_prepend();

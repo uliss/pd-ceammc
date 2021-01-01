@@ -137,7 +137,7 @@ void BaseLog::onAny(t_symbol* s, const AtomListView& lv)
     LOG_VALUE(s->s_name << ' ' << to_string(lv));
 }
 
-void BaseLog::onInlet(size_t n, const AtomList& l)
+void BaseLog::onInlet(size_t n, const AtomListView& l)
 {
     active_->set(l);
 }

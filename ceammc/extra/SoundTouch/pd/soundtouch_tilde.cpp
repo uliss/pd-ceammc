@@ -74,7 +74,7 @@ void SoundTouchExt::processBlock(const t_sample** in, t_sample** out)
 #endif
 }
 
-void SoundTouchExt::onInlet(size_t, const AtomList& lst)
+void SoundTouchExt::onInlet(size_t, const AtomListView& lst)
 {
     pitch_->set(lst);
 }

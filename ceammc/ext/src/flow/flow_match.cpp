@@ -55,7 +55,7 @@ void FlowMatch::initDone()
     createOutlet();
 }
 
-void FlowMatch::onInlet(size_t idx, const AtomList& l)
+void FlowMatch::onInlet(size_t idx, const AtomListView& l)
 {
     if (idx < re_.size()) {
         delete re_[idx];

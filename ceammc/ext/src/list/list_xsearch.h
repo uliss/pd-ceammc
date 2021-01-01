@@ -31,7 +31,7 @@ public:
     void onList(const AtomList& lst) override;
     void onData(const Atom& a) override;
 
-    void onInlet(size_t n, const AtomList& lst) override;
+    void onInlet(size_t n, const AtomListView& lst) override;
 
 private:
     void search(const Atom& a);

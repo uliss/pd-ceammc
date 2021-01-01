@@ -31,7 +31,7 @@ public:
     void onSymbol(t_symbol* s) final;
     void onList(const AtomList& l) final;
     void onAny(t_symbol* sel, const AtomListView& l) final;
-    void onInlet(size_t n, const AtomList& l) final;
+    void onInlet(size_t n, const AtomListView& l) final;
 
 private:
     void setMethod(const AtomList& l);

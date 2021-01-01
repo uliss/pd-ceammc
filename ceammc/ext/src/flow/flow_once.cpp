@@ -62,7 +62,7 @@ void FlowOnce::onAny(t_symbol* s, const AtomListView& lst)
     }
 }
 
-void FlowOnce::onInlet(size_t, const AtomList&)
+void FlowOnce::onInlet(size_t, const AtomListView&)
 {
     pass_ = true;
 }

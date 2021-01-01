@@ -70,7 +70,7 @@ void FlowDemultiplex::onData(const Atom& d)
     atomTo(index_->value(), d);
 }
 
-void FlowDemultiplex::onInlet(size_t /*n*/, const AtomList& l)
+void FlowDemultiplex::onInlet(size_t /*n*/, const AtomListView& l)
 {
     index_->set(l);
 }

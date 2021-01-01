@@ -26,7 +26,7 @@ public:
 
     void initDone() override;
     void onFloat(t_float v) override;
-    void onInlet(size_t n, const AtomList& l) override;
+    void onInlet(size_t n, const AtomListView& l) override;
     void onList(const AtomList& lst) override;
 
     void processBlock(const t_sample** in, t_sample** out) override;

@@ -82,7 +82,7 @@ void SeqMatrixBase::onFloat(t_float f)
     }
 }
 
-void SeqMatrixBase::onInlet(size_t n, const AtomList& l)
+void SeqMatrixBase::onInlet(size_t n, const AtomListView& l)
 {
     if (l.empty())
         reset();

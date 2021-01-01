@@ -23,7 +23,7 @@ class ListRLDecode : public BaseObject {
 public:
     ListRLDecode(const PdArgs& args);
     void onList(const AtomList& l) override;
-    void onInlet(size_t n, const AtomList& l) override;
+    void onInlet(size_t n, const AtomListView& l) override;
 };
 
 void setup_list_rldecode();

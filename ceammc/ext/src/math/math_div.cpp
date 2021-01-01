@@ -54,7 +54,7 @@ bool MathDiv::zeroCheck() const
     return true;
 }
 
-void MathDiv::onInlet(const size_t /*n*/, const AtomList& lst)
+void MathDiv::onInlet(const size_t /*n*/, const AtomListView& lst)
 {
     div_->set(lst);
 }

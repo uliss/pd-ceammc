@@ -31,7 +31,7 @@ public:
     void onList(const AtomList& l) override;
     void onAny(t_symbol* sel, const AtomListView& args) override;
     void onData(const Atom& data) override;
-    void onInlet(size_t idx, const AtomList& l) override;
+    void onInlet(size_t idx, const AtomListView& l) override;
 
     const char* annotateInlet(size_t n) const override;
 

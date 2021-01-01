@@ -51,7 +51,7 @@ void ListSet::onList(const AtomList& lst)
     listTo(0, res);
 }
 
-void ListSet::onInlet(size_t n, const AtomList& lst)
+void ListSet::onInlet(size_t n, const AtomListView& lst)
 {
     if (n == 2) {
         if (lst.empty())

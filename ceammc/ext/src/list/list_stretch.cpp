@@ -24,7 +24,7 @@ void ListStretch::onList(const AtomList& lst)
     listTo(0, list::stretch(lst, n_->value()));
 }
 
-void ListStretch::onInlet(size_t n, const AtomList& lst)
+void ListStretch::onInlet(size_t n, const AtomListView& lst)
 {
     n_->set(lst);
 }

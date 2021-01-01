@@ -27,7 +27,7 @@ public:
     MetroRandom(const PdArgs& args);
 
     void onFloat(t_float f) final;
-    void onInlet(size_t n, const AtomList& lst) final;
+    void onInlet(size_t n, const AtomListView& lst) final;
 
 private:
     void tick();

@@ -16,7 +16,7 @@ public:
     SoundTouchExt(const PdArgs& a);
     void processBlock(const t_sample** in, t_sample** out) override;
 
-    void onInlet(size_t, const AtomList&) override;
+    void onInlet(size_t, const AtomListView&) override;
 
 private:
     void initSoundTouch();

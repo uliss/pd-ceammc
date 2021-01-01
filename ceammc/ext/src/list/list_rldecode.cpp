@@ -43,7 +43,7 @@ void ListRLDecode::onList(const AtomList& l)
     listTo(0, list::rleDecode(rle));
 }
 
-void ListRLDecode::onInlet(size_t n, const AtomList& l)
+void ListRLDecode::onInlet(size_t n, const AtomListView& l)
 {
     len_ = l;
 }

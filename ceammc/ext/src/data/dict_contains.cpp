@@ -27,7 +27,7 @@ DictContains::DictContains(const PdArgs& args)
     createOutlet();
 }
 
-void DictContains::onInlet(size_t n, const AtomList& lst)
+void DictContains::onInlet(size_t n, const AtomListView& lst)
 {
     keys_->set(lst);
 }

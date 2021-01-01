@@ -36,7 +36,7 @@ public:
     ~FlowMatch();
 
     void initDone() override;
-    void onInlet(size_t idx, const AtomList& l) override;
+    void onInlet(size_t idx, const AtomListView& l) override;
 
     void onSymbol(t_symbol* s) override;
     void onAny(t_symbol* s, const AtomListView& l) override;

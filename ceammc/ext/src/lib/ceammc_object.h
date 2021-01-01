@@ -216,7 +216,7 @@ public:
      * @param - inlet number, starting form 0
      * @param - incoming message
      */
-    virtual void onInlet(size_t, const AtomList&) {}
+    virtual void onInlet(size_t, const AtomListView&) {}
 
     /**
      * This function called on object click  (should be enabled in factory)

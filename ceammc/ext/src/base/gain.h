@@ -31,7 +31,7 @@ class Gain : public SoundExternal {
 public:
     Gain(const PdArgs& args);
 
-    void onInlet(size_t n, const AtomList& lst) override;
+    void onInlet(size_t n, const AtomListView& lst) override;
     void onList(const AtomList& lst) override;
 
     void processBlock(const t_sample** in, t_sample** out) override;

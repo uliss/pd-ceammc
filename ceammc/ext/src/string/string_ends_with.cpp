@@ -33,7 +33,7 @@ void StringEndsWith::onSymbol(t_symbol* s)
     boolTo(0, string::ends_with(s->s_name, suffix_.c_str()));
 }
 
-void StringEndsWith::onInlet(size_t, const AtomList& l)
+void StringEndsWith::onInlet(size_t, const AtomListView& l)
 {
     suffix_ = parse_quoted(l);
 }

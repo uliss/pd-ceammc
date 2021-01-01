@@ -39,7 +39,7 @@ void StringContains::onDataT(const StringAtom& str)
     boolTo(0, string::contains(str->str(), subj_->str()));
 }
 
-void StringContains::onInlet(size_t, const AtomList& l)
+void StringContains::onInlet(size_t, const AtomListView& l)
 {
     subj_->set(l);
 }

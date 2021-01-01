@@ -24,7 +24,7 @@ public:
     ArrayEach(const PdArgs& a);
     void onBang() override;
     void onSymbol(t_symbol* s) override;
-    void onInlet(size_t n, const AtomList& l) override;
+    void onInlet(size_t n, const AtomListView& l) override;
 
 private:
     void outputEach();

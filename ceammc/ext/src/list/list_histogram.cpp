@@ -39,7 +39,7 @@ void ListHistogram::onList(const AtomList& l)
     listTo(0, list::histogram(l, size_t(bins)));
 }
 
-void ListHistogram::onInlet(size_t, const AtomList& l)
+void ListHistogram::onInlet(size_t, const AtomListView& l)
 {
     bins_->set(l);
 }

@@ -28,7 +28,7 @@ public:
 
     void onSymbol(t_symbol* s) override;
     void onDataT(const StringAtom& str);
-    void onInlet(size_t, const AtomList& l) override;
+    void onInlet(size_t, const AtomListView& l) override;
 };
 
 void setup_string_contains();

@@ -123,7 +123,7 @@ void FlowLoop::onList(const AtomList& l)
     appendMessage(l);
 }
 
-void FlowLoop::onInlet(size_t n, const AtomList& l)
+void FlowLoop::onInlet(size_t n, const AtomListView& l)
 {
     mode_ = MODE_REC;
     messages_.clear();

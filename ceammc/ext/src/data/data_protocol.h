@@ -77,7 +77,7 @@ public:
         onFloat(l[0].asFloat());
     }
 
-    void onInlet(size_t /*n*/, const AtomList& lst) override
+    void onInlet(size_t /*n*/, const AtomListView& lst) override
     {
         proto_set(lst);
     }

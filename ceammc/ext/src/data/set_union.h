@@ -26,7 +26,7 @@ public:
     SetUnion(const PdArgs& a);
     void onList(const AtomList& lst) override;
     void onDataT(const SetAtom& dptr);
-    void onInlet(size_t, const AtomList& lst) override;
+    void onInlet(size_t, const AtomListView& lst) override;
 };
 
 void setup_set_union();

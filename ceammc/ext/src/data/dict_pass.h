@@ -25,7 +25,7 @@ class DictPass : public DictBase {
 public:
     DictPass(const PdArgs& args);
 
-    void onInlet(size_t, const AtomList&) override;
+    void onInlet(size_t, const AtomListView&) override;
     void onDataT(const DictAtom& dict) final;
 };
 

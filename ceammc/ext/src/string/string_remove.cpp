@@ -44,7 +44,7 @@ void StringRemove::onSymbol(t_symbol* s)
     onDataT(StringAtom(s));
 }
 
-void StringRemove::onInlet(size_t, const AtomList& l)
+void StringRemove::onInlet(size_t, const AtomListView& l)
 {
     str_to_remove_ = parse_quoted(l);
 }

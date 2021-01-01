@@ -19,7 +19,7 @@ ListResize::ListResize(const PdArgs& a)
     initProperties();
 }
 
-void ListResize::onInlet(size_t n, const AtomList& l)
+void ListResize::onInlet(size_t n, const AtomListView& l)
 {
     if (n != 1)
         return;

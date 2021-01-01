@@ -64,7 +64,7 @@ void StringReplace::onDataT(const StringAtom& str)
     }
 }
 
-void StringReplace::onInlet(size_t n, const AtomList& l)
+void StringReplace::onInlet(size_t n, const AtomListView& l)
 {
     if (n == 1) {
         from_ = to_string(l);

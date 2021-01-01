@@ -31,7 +31,7 @@ void SetContains::onDataT(const SetAtom& set)
     boolTo(0, set->contains(element_->value()));
 }
 
-void SetContains::onInlet(size_t n, const AtomList& lst)
+void SetContains::onInlet(size_t n, const AtomListView& lst)
 {
     element_->set(lst);
 }
