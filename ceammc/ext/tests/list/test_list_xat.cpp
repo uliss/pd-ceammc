@@ -133,7 +133,7 @@ TEST_CASE("list.^at", "[externals]")
 
         SECTION("rel @default")
         {
-            TObj t("list.^at", LA(1, 2, 3, "@default", "???"));
+            TObj t("list.^at", LA(1, 2, 3, "@default", "\"???\""));
             REQUIRE_PROPERTY(t, @method, "rel");
             REQUIRE(t.property("@default") != 0);
             REQUIRE(t.property("@default")->get() == LA("???"));

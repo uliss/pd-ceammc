@@ -186,7 +186,7 @@ void setup_flow_route()
     obj.processData();
     obj.addInletInfo("input messages");
     obj.noPropsDispatch();
-    obj.noArgsDataParsing();
+    obj.noArgsAndPropsParse();
     obj.useDefaultPdFloatFn();
     obj.useDefaultPdSymbolFn();
 }

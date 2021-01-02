@@ -26,7 +26,7 @@ void setup_data_dict()
 {
     DictIFaceFactory<DataDict> obj("data.dict");
     obj.addAlias("dict");
-    obj.noArgsDataParsing();
+    obj.noArgsAndPropsParse();
     obj.setXletsInfo({ "bang: output\n"
                        "methods: add, clear, get_key, set_key, remove, set, read, write" },
         { "data: dict" });

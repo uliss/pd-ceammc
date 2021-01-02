@@ -50,12 +50,12 @@ enum ObjectFactoryFlags : uint32_t {
     OBJECT_FACTORY_NO_SYMBOL = 0x10,
     OBJECT_FACTORY_NO_LIST = 0x20,
     OBJECT_FACTORY_NO_ANY = 0x40,
-    OBJECT_FACTORY_PARSE_POSITIONAL_PROPS_ONLY = 0x80,
-    OBJECT_FACTORY_NO_TOOLTIPS = 0x100,
-    OBJECT_FACTORY_NO_ARGS_DATA_PARSE = 0x200,
-    OBJECT_FACTORY_IGNORE_DATA_PARSE_ERRORS = 0x400,
-    OBJECT_FACTORY_NO_INLET_DISPATCH = 0x800,
-    OBJECT_FACTORY_NO_PROP_DISPATCH = 0x1000
+    OBJECT_FACTORY_NO_TOOLTIPS = 0x80,
+    OBJECT_FACTORY_NO_INLET_DISPATCH = 0x100,
+    OBJECT_FACTORY_NO_PROP_DISPATCH = 0x200,
+    OBJECT_FACTORY_PARSE_ARGS = 0x400, // process positional args
+    OBJECT_FACTORY_PARSE_PROPS = 0x800, // process common properties (starting with @)
+    OBJECT_FACTORY_PARSE_POS_PROPS = 0x1000, // process positional properties
 };
 
 template <typename T>
@@ -100,6 +100,10 @@ public:
 
         class_ = c;
         flags_ = flags;
+
+        setFlag(OBJECT_FACTORY_PARSE_ARGS, true);
+        setFlag(OBJECT_FACTORY_PARSE_PROPS, true);
+        setFlag(OBJECT_FACTORY_PARSE_POS_PROPS, true);
 
         // add [dump( method to dump to Pd console
         class_addmethod(c, reinterpret_cast<t_method>(dumpMethodList), SymbolTable::instance().s_dump_fn, A_NULL);
@@ -155,10 +159,7 @@ public:
     void useDefaultPdAnyFn() { flags_ |= OBJECT_FACTORY_NO_ANY; }
     /** do not show xlet tooltips */
     void noTooltips() { flags_ |= OBJECT_FACTORY_NO_TOOLTIPS; }
-    /** ignore data parse error - use args 'as is' if parsing failed */
-    void ignoreDataParseErrors() { flags_ |= OBJECT_FACTORY_IGNORE_DATA_PARSE_ERRORS; }
-    /** do not parse creation args for data */
-    void noArgsDataParsing() { flags_ |= OBJECT_FACTORY_NO_ARGS_DATA_PARSE; }
+
     /** do not dispatch inlets */
     void noInletsDispatch() { flags_ |= OBJECT_FACTORY_NO_INLET_DISPATCH; }
     /** do not dispatch properties */
@@ -324,9 +325,28 @@ public:
             flags_ = (flags_ & (~f));
     }
 
-    void parseOnlyPositionalProps(bool value)
+    bool checkFlag(uint32_t f) const { return flags_ & f; }
+
+    /** parse positional args */
+    void parseArgs(bool value = true) { setFlag(OBJECT_FACTORY_PARSE_ARGS, value); }
+
+    /** parse properties */
+    void parseProps(bool value = true) { setFlag(OBJECT_FACTORY_PARSE_PROPS, value); }
+
+    /** parse positional props arguments */
+    void parsePosProps(bool value = true) { setFlag(OBJECT_FACTORY_PARSE_POS_PROPS, value); }
+
+    /** set parse mode for positional arguments */
+    void parseArgsMode(PdArgs::ParseMode mode) { parse_args_mode_ = mode; }
+
+    /** set parse mode for properties */
+    void parsePropsMode(PdArgs::ParseMode mode) { parse_props_mode_ = mode; }
+
+    void noArgsAndPropsParse()
     {
-        setFlag(OBJECT_FACTORY_PARSE_POSITIONAL_PROPS_ONLY, value);
+        parseArgs(false);
+        parseProps(false);
+        parsePosProps(false);
     }
 
     /** default factory object constructor function */
@@ -356,9 +376,13 @@ public:
 
             args.noDefaultInlet = flags_ & OBJECT_FACTORY_NO_DEFAULT_INLET;
             args.mainSignalInlet = flags_ & OBJECT_FACTORY_MAIN_SIGNAL_INLET;
-            args.ignoreDataParseErrors = flags_ & OBJECT_FACTORY_IGNORE_DATA_PARSE_ERRORS;
-            args.noArgsDataParsing = flags_ & OBJECT_FACTORY_NO_ARGS_DATA_PARSE;
-            args.parsePosPropsOnly = flags_ & OBJECT_FACTORY_PARSE_POSITIONAL_PROPS_ONLY;
+
+            args.parseArgsMode = parse_args_mode_;
+            args.parsePropsMode = parse_props_mode_;
+
+            args.parseArgs = flags_ & OBJECT_FACTORY_PARSE_ARGS;
+            args.parseProps = flags_ & OBJECT_FACTORY_PARSE_PROPS;
+            args.parsePosProps = flags_ & OBJECT_FACTORY_PARSE_POS_PROPS;
 
             // construct ceammc object
             x->impl = new T(args);
@@ -563,6 +587,8 @@ public:
         return reinterpret_cast<ObjectProxy*>(x)->impl;
     }
 
+    static uint32_t flags() { return flags_; }
+
 private:
     template <typename DataT>
     static bool processDataSingleTypedFn(ObjectProxy* x, const Atom& a)
@@ -622,6 +648,8 @@ private:
 
     static MethodListMap list_methods_;
     static uint32_t flags_;
+    static PdArgs::ParseMode parse_args_mode_;
+    static PdArgs::ParseMode parse_props_mode_;
 
 private:
     PdBangFunction fn_bang_;
@@ -668,6 +696,12 @@ typename ObjectFactory<T>::MethodListMap ObjectFactory<T>::list_methods_;
 
 template <typename T>
 uint32_t ObjectFactory<T>::flags_ = 0;
+
+template <typename T>
+PdArgs::ParseMode ObjectFactory<T>::parse_args_mode_ = PdArgs::PARSE_EXPR;
+
+template <typename T>
+PdArgs::ParseMode ObjectFactory<T>::parse_props_mode_ = PdArgs::PARSE_EXPR;
 
 #define CLASS_ADD_METHOD()
 

@@ -50,7 +50,6 @@ void DictContains::onDataT(const DictAtom& dict)
 void setup_dict_contains()
 {
     ObjectFactory<DictContains> obj("dict.contains");
-    obj.parseOnlyPositionalProps(true);
     obj.processData<DataTypeDict>();
 
     obj.setDescription("predicate to check if dict contains a keys");

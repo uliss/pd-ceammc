@@ -93,4 +93,6 @@ void setup_path_lsdir()
     ObjectFactory<PathListDir> obj("path.lsdir");
     obj.addAlias("path.ls");
     obj.processData<DataTypeString>();
+    obj.parseArgsMode(PdArgs::PARSE_COPY);
+    obj.parsePropsMode(PdArgs::PARSE_COPY);
 }

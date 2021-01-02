@@ -49,7 +49,7 @@ void setup_load_msg()
     obj.useClick();
     obj.useLoadBang();
     obj.noPropsDispatch();
-    obj.noArgsDataParsing();
+    obj.noArgsAndPropsParse();
 
     obj.setDescription("send message when patch loads");
     obj.addAuthor("Serge Poltavsky");

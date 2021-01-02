@@ -39,7 +39,8 @@ public:
         : BaseObject(a)
         , f(0)
     {
-        addProperty(new FloatProperty("@test_prop", -1));
+        addProperty(new FloatProperty("@test_prop", -1))->setArgIndex(0);
+        addProperty(new ListProperty("@l"))->setArgIndex(1);
     }
 
     void onFloat(t_float v) override
@@ -146,6 +147,22 @@ public:
     }
 };
 
+template <class T>
+class ExtT {
+    PdObject<T>* ext_ = 0;
+
+public:
+    ExtT(ObjectFactory<T>& f, const char* name, const AtomList& args)
+    {
+        ext_ = reinterpret_cast<PdObject<T>*>(f.createObject(gensym(name), args.size(), args.toPdData()));
+    }
+
+    ~ExtT() { pd_free(&ext_->pd_obj.te_g.g_pd); }
+
+    T* impl() { return ext_->impl; }
+    T* operator->() { return ext_->impl; }
+};
+
 TEST_CASE("ceammc_factory", "[core]")
 {
     SECTION("new")
@@ -154,6 +171,11 @@ TEST_CASE("ceammc_factory", "[core]")
 
         test_reset();
         ObjectFactory<TestClass> f("test.new");
+        f.parsePosProps(false);
+
+        REQUIRE(f.checkFlag(OBJECT_FACTORY_PARSE_ARGS));
+        REQUIRE(f.checkFlag(OBJECT_FACTORY_PARSE_PROPS));
+        REQUIRE_FALSE(f.checkFlag(OBJECT_FACTORY_PARSE_POS_PROPS));
 
         t_atom args[2];
         SETFLOAT(&args[0], 2);
@@ -166,8 +188,9 @@ TEST_CASE("ceammc_factory", "[core]")
         REQUIRE(ext->impl->owner() == &ext->pd_obj);
         REQUIRE(ext->impl->className() == gensym("test.new"));
         REQUIRE(ext->impl->classPointer() == ext->pd_obj.te_g.g_pd);
+        REQUIRE(ext->impl->args() == LA(2, "a"));
         REQUIRE(ext->impl->parsedPosArgs() == LA(2, "a"));
-        REQUIRE(ext->impl->unparsedPosArgs() == LA(2, "a"));
+
         REQUIRE_PROPERTY((*ext->impl), @test_prop, -1);
 
         pd_free(&ext->pd_obj.te_g.g_pd);
@@ -211,18 +234,193 @@ TEST_CASE("ceammc_factory", "[core]")
         REQUIRE(ext->impl->owner() == &ext->pd_obj);
         REQUIRE(ext->impl->className() == gensym("test.new"));
         REQUIRE(ext->impl->parsedPosArgs() == LA(2, "a"));
-        REQUIRE(ext->impl->unparsedPosArgs() == LA(2, "a"));
+        REQUIRE(ext->impl->args() == LA(2, "a", "@test_prop", 33));
         REQUIRE_PROPERTY((*ext->impl), @test_prop, 33);
 
         pd_free(&ext->pd_obj.te_g.g_pd);
 
         // do not parse properties
-        f.parseOnlyPositionalProps(true);
+        f.parseProps(false);
+        f.parsePosProps(false);
         PdExternal* ext1 = reinterpret_cast<PdExternal*>(f.createObject(gensym("test.new"), args.size(), args.toPdData()));
         REQUIRE_PROPERTY((*ext1->impl), @test_prop, -1);
         pd_free(&ext1->pd_obj.te_g.g_pd);
 
         REQUIRE(destructor_called);
+    }
+
+    SECTION("parse")
+    {
+        SECTION("none")
+        {
+            test_reset();
+            ObjectFactory<TestClass> f("test.new");
+            f.parseArgs(false);
+            f.parseProps(false);
+
+            ExtT<TestClass> t(f, "test.new", LA(2, "a", "@test_prop", 33));
+
+            REQUIRE(t->parsedPosArgs() == L());
+            REQUIRE_PROPERTY((*t.impl()), @test_prop, -1);
+        }
+
+        SECTION("none")
+        {
+            test_reset();
+            ObjectFactory<TestClass> f("test.new");
+            f.parseArgs(true);
+            f.parseProps(true);
+            f.parseArgsMode(PdArgs::PARSE_NONE);
+            f.parsePropsMode(PdArgs::PARSE_NONE);
+
+            ExtT<TestClass> t(f, "test.new", LA(2, "a", "@test_prop", 33));
+
+            REQUIRE(t->parsedPosArgs() == L());
+            REQUIRE_PROPERTY((*t.impl()), @test_prop, -1);
+        }
+
+        SECTION("args copy")
+        {
+            test_reset();
+            ObjectFactory<TestClass> f("test.new");
+            f.parseArgs(true);
+            f.parseProps(false);
+            f.parseArgsMode(PdArgs::PARSE_COPY);
+
+            ExtT<TestClass> t(f, "test.new", LA(2, "a", "\"b", "c\"", "pi()", "@test_prop", 33));
+
+            REQUIRE(t->parsedPosArgs() == LA(2, "a", "\"b", "c\"", "pi()"));
+            REQUIRE_PROPERTY((*t.impl()), @test_prop, -1);
+        }
+
+        SECTION("args unquote")
+        {
+            test_reset();
+            ObjectFactory<TestClass> f("test.new");
+            f.parseArgs(true);
+            f.parseProps(false);
+            f.parseArgsMode(PdArgs::PARSE_UNQUOTE);
+
+            ExtT<TestClass> t(f, "test.new", LA(2, "a", "\"b", "c\"", "pi()", "@test_prop", 33));
+
+            REQUIRE(t->parsedPosArgs() == LA(2, "a", "b c", "pi()"));
+            REQUIRE_PROPERTY((*t.impl()), @test_prop, -1);
+        }
+
+        SECTION("args unquote invalid")
+        {
+            test_reset();
+            ObjectFactory<TestClass> f("test.new");
+            f.parseArgs(true);
+            f.parseProps(false);
+            f.parseArgsMode(PdArgs::PARSE_UNQUOTE);
+
+            ExtT<TestClass> t(f, "test.new", LA(2, "a", "\"b", "c", "@test_prop", 33));
+
+            REQUIRE(t->parsedPosArgs() == LA(2, "a", "\"b", "c"));
+            REQUIRE_PROPERTY((*t.impl()), @test_prop, -1);
+        }
+
+        SECTION("args expr")
+        {
+            test_reset();
+            ObjectFactory<TestClass> f("test.new");
+            f.parseArgs(true);
+            f.parseProps(false);
+            f.parseArgsMode(PdArgs::PARSE_EXPR);
+
+            ExtT<TestClass> t(f, "test.new", LA(2, "pi()", "\"b", "c\"", "@test_prop", 33));
+
+            REQUIRE(t->parsedPosArgs() == LAX(2, std::acos((t_float)-1), "b c"));
+            REQUIRE_PROPERTY((*t.impl()), @test_prop, -1);
+        }
+
+        SECTION("props copy")
+        {
+            test_reset();
+            ObjectFactory<TestClass> f("test.new");
+            f.parseArgs(false);
+            f.parseProps(true);
+            f.parsePropsMode(PdArgs::PARSE_COPY);
+
+            ExtT<TestClass> t(f, "test.new", LA(2, "a", "@test_prop", 33));
+
+            REQUIRE(t->parsedPosArgs() == L());
+            REQUIRE_PROPERTY((*t.impl()), @test_prop, 33);
+        }
+
+        SECTION("props copy invalid")
+        {
+            test_reset();
+            ObjectFactory<TestClass> f("test.new");
+            f.parseArgs(false);
+            f.parseProps(true);
+            f.parsePropsMode(PdArgs::PARSE_COPY);
+
+            ExtT<TestClass> t(f, "test.new", LA(2, "a", "@test_prop", "pi()"));
+
+            REQUIRE(t->parsedPosArgs() == L());
+            REQUIRE_PROPERTY((*t.impl()), @test_prop, -1);
+        }
+
+        SECTION("props expr")
+        {
+            test_reset();
+            ObjectFactory<TestClass> f("test.new");
+            f.parseArgs(false);
+            f.parseProps(true);
+            f.parsePropsMode(PdArgs::PARSE_EXPR);
+
+            ExtT<TestClass> t(f, "test.new", LA(2, "a", "@test_prop", "expr(2^4)"));
+
+            REQUIRE(t->parsedPosArgs() == L());
+            REQUIRE_PROPERTY((*t.impl()), @test_prop, 16);
+        }
+
+        SECTION("props pos, but no parse args")
+        {
+            test_reset();
+            ObjectFactory<TestClass> f("test.new");
+            f.parseArgs(false);
+            f.parseProps(false);
+            f.parsePosProps(true);
+            f.parsePropsMode(PdArgs::PARSE_COPY);
+
+            ExtT<TestClass> t(f, "test.new", LA(2, "a", "@test_prop", "expr(2^4)"));
+
+            REQUIRE(t->parsedPosArgs() == L());
+            REQUIRE_PROPERTY((*t.impl()), @test_prop, -1);
+        }
+
+        SECTION("props pos")
+        {
+            test_reset();
+            ObjectFactory<TestClass> f("test.new");
+            f.parseArgs(true);
+            f.parseProps(false);
+            f.parsePosProps(true);
+            f.parsePropsMode(PdArgs::PARSE_COPY);
+
+            ExtT<TestClass> t(f, "test.new", LA(2, "a", "@test_prop", "expr(2^4)"));
+
+            REQUIRE(t->parsedPosArgs() == LA(2, "a"));
+            REQUIRE_PROPERTY((*t.impl()), @test_prop, 2);
+        }
+
+        SECTION("props pos")
+        {
+            test_reset();
+            ObjectFactory<TestClass> f("test.new");
+            f.parseArgs(true);
+            f.parseProps(true);
+            f.parsePosProps(true);
+            f.parsePropsMode(PdArgs::PARSE_EXPR);
+
+            ExtT<TestClass> t(f, "test.new", LA(2, "a", "@test_prop", "expr(2^4)"));
+
+            REQUIRE(t->parsedPosArgs() == LA(2, "a"));
+            REQUIRE_PROPERTY((*t.impl()), @test_prop, 16);
+        }
     }
 
     SECTION("list method")

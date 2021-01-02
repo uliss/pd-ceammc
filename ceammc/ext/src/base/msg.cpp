@@ -77,7 +77,7 @@ void setup_base_msg()
     obj.addAlias("m");
     obj.addAlias("prepend");
     obj.noPropsDispatch();
-    obj.noArgsDataParsing();
+    obj.noArgsAndPropsParse();
 
     obj.setDescription("message constructor");
     obj.addAuthor("Serge Poltavsky");

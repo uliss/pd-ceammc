@@ -39,6 +39,5 @@ void SetContains::onInlet(size_t n, const AtomListView& lst)
 void setup_set_contains()
 {
     ObjectFactory<SetContains> obj("set.contains");
-    obj.parseOnlyPositionalProps(true);
     obj.processData<DataTypeSet>();
 }

@@ -86,17 +86,11 @@ SynthGlitch::SynthGlitch(const PdArgs& args)
         OBJ_ERR << "can't set list check...";
     }
     expr_->value().reserve(32);
+    expr_->setArgIndex(0);
     addProperty(expr_);
-    if (!expr_->setList(unparsedPosArgs()))
-        OBJ_ERR << "invalid expression: " << unparsedPosArgs();
 
     clip_ = new BoolProperty("@clip", true);
     addProperty(clip_);
-
-    for (auto& p : args.args.properties()) {
-        if (p[0].asT<t_symbol*>() == clip_->name())
-            clip_->setList(p.view(1));
-    }
 
     file_path_.reserve(256);
 }
@@ -105,7 +99,6 @@ void SynthGlitch::processBlock(const t_sample** /*in*/, t_sample** out)
 {
     const auto bs = blockSize();
     const auto do_clip = clip_->value();
-
 
 #if PD_FLOATSIZE == 32
     glitch_.fill(out[0], bs, 1);
@@ -185,5 +178,6 @@ void setup_synth_glitch()
     obj.addMethod("reset", &SynthGlitch::m_reset);
     obj.addMethod("read", &SynthGlitch::m_read);
     obj.useDefaultPdFloatFn();
-    obj.noArgsDataParsing();
+    obj.parseArgsMode(PdArgs::PARSE_COPY);
+    obj.parsePropsMode(PdArgs::PARSE_COPY);
 }

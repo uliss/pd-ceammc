@@ -95,4 +95,6 @@ void setup_string_match()
     ObjectFactory<StringMatch> obj("string.match");
     obj.processData<DataTypeString>();
     obj.addAlias("str.match");
+    obj.parseArgsMode(PdArgs::PARSE_UNQUOTE);
+    obj.parsePropsMode(PdArgs::PARSE_UNQUOTE);
 }
