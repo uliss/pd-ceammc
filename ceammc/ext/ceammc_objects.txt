@@ -430,6 +430,7 @@ list.walk
 list.wrap
 list.zip
 live.capture~
+loadexpr
 loadmsg
 local.dict
 local.float

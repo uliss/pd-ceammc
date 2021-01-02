@@ -71,7 +71,6 @@ conv.sec2bpm,sec->bpm		.		.
 conv.sec2samp,sec->samp		.		.
 conv.sec2str,sec->str		.		.
 conv.str2sec,str->sec		.		.
-counter		..		..
 data.dict,dict		.		.
 data.fifo		.		.
 data.float,.float,.f		..		.
@@ -314,6 +313,7 @@ list.unzip,list.deinterleave		.		?
 list.walk		.		.
 list.zip,list.interleave		?		.
 live.capture~		~.		~
+loadexpr		-		.
 local.dict,local.json		.		.
 local.float		.		.
 local.int		.		.

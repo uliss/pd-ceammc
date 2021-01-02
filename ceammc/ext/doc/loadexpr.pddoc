@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="loadexpr">
+        <title>loadexpr</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>send message when patch loads</description>
+            <license>GPL3 or later</license>
+            <library>ceammc</library>
+            <category>msg</category>
+            <keywords>message loadbang onload</keywords>
+            <since>0.9.2</since>
+            <also>
+                <see>loadmsg</see>
+            </also>
+        </meta>
+        <info>
+            <par>like [loadmsg], but support expression calls ans datatype</par>
+            <par>Click on object sends message again</par>
+        </info>
+        <mouse>
+            <event editmode="false" type="left-click">output again</event>
+        </mouse>
+        <arguments>
+            <argument name="ARGS" type="list">message. Comma separated messages are supported</argument>
+        </arguments>
+        <inlets />
+        <outlets>
+            <outlet>message output</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+/*click me!*/
+
+[loadexpr symbol "with space" \, pi() \, mtof(60 61) \, \[a: 1 2 3 b: 4 5 6\]]
+|       |
+|       |
+|       |
+|       [flow.space 50]
+|       |
+[print] [ui.dt @auto_size 0]
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

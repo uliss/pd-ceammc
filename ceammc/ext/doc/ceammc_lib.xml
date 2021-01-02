@@ -1330,6 +1330,9 @@
     </entry>
   </category>
   <category name="msg">
+    <entry name="loadexpr" descr="send message when patch loads" ref_view="object">
+      <xi:include href="loadexpr.pddoc" parse="xml"/>
+    </entry>
     <entry name="msg" descr="message constructor" ref_view="object">
       <xi:include href="msg.pddoc" parse="xml"/>
     </entry>

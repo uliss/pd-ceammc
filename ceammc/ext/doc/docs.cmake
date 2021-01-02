@@ -315,6 +315,7 @@ set(DOC_FILES
     list.walk
     list.zip
     live.capture~
+    loadexpr
     local.float
     local.dict
     local.int

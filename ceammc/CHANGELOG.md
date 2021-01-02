@@ -2,6 +2,8 @@
 
 ## [Unreleased]
 ### Added:
+- new objects:
+  - loadexpr added (supports functions and datatypes)
 - comma separated messages added to msg.onload (loadmsg)
 - xlet tooltips added to:
   - xdac~

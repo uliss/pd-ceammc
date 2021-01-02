@@ -41,6 +41,8 @@ void LoadExpr::doOutput(const AtomListView& lv)
             listTo(0, msg);
         else if (msg.size() > 1 && msg[0] == &s_list) // explicit list: list 1 2 3
             listTo(0, msg.view(1));
+        else if (msg.isData())
+            atomTo(0, msg[0]);
         else
             anyTo(0, msg);
     }
