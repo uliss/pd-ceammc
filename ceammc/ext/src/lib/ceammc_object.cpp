@@ -685,10 +685,11 @@ void BaseObject::parseProps(int flags, PdArgs::ParseMode mode)
 
 AtomListView BaseObject::binbufArgs() const
 {
-    if (!owner() || !owner()->te_binbuf)
-        return {};
+    if (!owner() || !owner()->te_binbuf) { // no binbuf: object created not from GUI
+        return pd_.args.view(0); // for test purposes we are returning creation args
+    }
 
-    return AtomListView(binbuf_getvec(owner()->te_binbuf), binbuf_getnatom(owner()->te_binbuf));
+    return AtomListView(binbuf_getvec(owner()->te_binbuf), binbuf_getnatom(owner()->te_binbuf)).subView(1);
 }
 
 void BaseObject::parseProperties()

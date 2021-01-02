@@ -242,7 +242,7 @@ TEST_CASE("BaseObject", "[ceammc::BaseObject]")
             BaseObject b(PdArgs(LA("@p1", 1, "@p2", 2, 3), gensym("testname"), 0, gensym("testname")));
             REQUIRE(b.parsedPosArgs() == L());
             // synthehic test
-            REQUIRE(b.binbufArgs() == L());
+            REQUIRE(b.binbufArgs() == LA("@p1", 1, "@p2", 2, 3));
 
             b.addProperty(new FloatProperty("@p1", -1));
             b.addProperty(new ListProperty("@p2"));
@@ -261,7 +261,7 @@ TEST_CASE("BaseObject", "[ceammc::BaseObject]")
             BaseObject b(PdArgs(LA(1, 2, "a", "b", "c"), gensym("testname"), 0, gensym("testname")));
             REQUIRE(b.parsedPosArgs() == LA(1, 2, "a", "b", "c"));
             // synthehic test
-            REQUIRE(b.binbufArgs() == L());
+            REQUIRE(b.binbufArgs() == LA(1, 2, "a", "b", "c"));
 
             b.addProperty(new FloatProperty("@p1", -1));
             b.addProperty(new ListProperty("@p2"));
@@ -281,7 +281,7 @@ TEST_CASE("BaseObject", "[ceammc::BaseObject]")
             BaseObject b(PdArgs(LA(1, 2, "@p1", "@p2", "c"), gensym("testname"), 0, gensym("testname")));
             REQUIRE(b.parsedPosArgs() == LF(1, 2));
             // synthehic test
-            REQUIRE(b.binbufArgs() == L());
+            REQUIRE(b.binbufArgs() == LA(1, 2, "@p1", "@p2", "c"));
 
             b.addProperty(new FloatProperty("@p1", -1));
             b.addProperty(new ListProperty("@p2"));
