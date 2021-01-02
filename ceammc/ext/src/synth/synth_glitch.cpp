@@ -51,7 +51,7 @@ SynthGlitch::SynthGlitch(const PdArgs& args)
     , clip_(nullptr)
     , read_clock_([this]() {
         if (read_content_.valid()) {
-            auto st = read_content_.wait_for(std::chrono::milliseconds(20));
+            auto st = read_content_.wait_for(std::chrono::milliseconds(0));
 
             if (st == std::future_status::ready) {
                 try {
