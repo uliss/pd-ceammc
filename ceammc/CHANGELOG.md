@@ -2,6 +2,7 @@
 
 ## [Unreleased]
 ### Added:
+- comma separated messages added to msg.onload (loadmsg)
 - xlet tooltips added to:
   - xdac~
 
