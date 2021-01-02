@@ -48,6 +48,7 @@ void setup_base_replace();
 void setup_base_sync();
 void setup_is_data();
 void setup_is_file();
+void setup_load_expr();
 void setup_load_msg();
 void setup_nsig_tilde();
 void setup_prop_get();
@@ -92,6 +93,7 @@ void ceammc_base_setup()
     setup_gain_tilde();
     setup_is_data();
     setup_is_file();
+    setup_load_expr();
     setup_load_msg();
     setup_metro_pattern();
     setup_metro_random();

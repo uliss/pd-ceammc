@@ -1,5 +1,5 @@
 /*****************************************************************************
- * Copyright 2018 Serge Poltavsky. All rights reserved.
+ * Copyright 2021 Serge Poltavsky. All rights reserved.
  *
  * This file may be distributed under the terms of GNU Public License version
  * 3 (GPL v3) as defined by the Free Software Foundation (FSF). A copy of the
@@ -11,24 +11,18 @@
  * contact the author of this file, or the owner of the project in which
  * this file belongs to.
  *****************************************************************************/
-#ifndef LOAD_MSG_H
-#define LOAD_MSG_H
+#ifndef LOAD_EXPR_H
+#define LOAD_EXPR_H
 
-#include "ceammc_object.h"
+#include "load_msg.h"
 
-using namespace ceammc;
-
-class LoadMsg : public BaseObject {
+class LoadExpr : public LoadMsg {
 public:
-    LoadMsg(const PdArgs& args);
-    void output();
+    LoadExpr(const PdArgs& args);
 
-    void onClick(t_floatarg xpos, t_floatarg ypos, t_floatarg shift, t_floatarg ctrl, t_floatarg alt) override;
-    void onLoadBang() override;
-
-    virtual void doOutput(const AtomListView& lv);
+    void doOutput(const AtomListView& lv) override;
 };
 
-void setup_load_msg();
+void setup_load_expr();
 
-#endif // LOAD_MSG_H
+#endif // LOAD_EXPR_H
