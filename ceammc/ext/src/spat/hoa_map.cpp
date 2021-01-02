@@ -38,10 +38,8 @@ HoaMap::HoaMap(const PdArgs& args)
     addProperty(ramp_);
 }
 
-void HoaMap::parseProperties()
+void HoaMap::initDone()
 {
-    HoaBase::parseProperties();
-
     map_.reset(new MultiEncoder2d(order(), nins_->value()));
     lines_.reset(new PolarLines2d(map_->getNumberOfSources()));
     lines_->setRamp(ramp_->value() / 1000. * sys_getsr());
@@ -59,6 +57,12 @@ void HoaMap::parseProperties()
     out_buf_.resize(numOutputChannels() * HOA_DEFAULT_BLOCK_SIZE);
 
     lines_vec_.resize(map_->getNumberOfSources() * 2);
+
+    if (nins_->value() > 1) {
+        for (int i = 0; i < nins_->value(); i++) {
+            in_info_.emplace_back("in: %d", i + 1);
+        }
+    }
 }
 
 void HoaMap::setupDSP(t_signal** sp)
@@ -163,6 +167,28 @@ void HoaMap::m_mute(t_symbol* s, const AtomListView& l)
 
     bool mute = l[1].asInt();
     map_->setMute(idx, mute);
+}
+
+const char* HoaMap::annotateInlet(size_t n) const
+{
+
+    if (nins_->value() == 1) {
+        switch (n) {
+        case 0:
+            return "input signal";
+        case 1:
+            return "radius";
+        case 2:
+            return "rotation";
+        default:
+            return "";
+        }
+    } else {
+        if (n < in_info_.size())
+            return in_info_[n].txt();
+        else
+            return "";
+    }
 }
 
 void setup_spat_hoa_map()
