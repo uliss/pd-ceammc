@@ -14,7 +14,7 @@
 #X obj 50 240 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
 -1;
 #X obj 88 240 print;
-#X obj 165 240 ui.d @display_type 1 @auto_size 0;
+#X obj 165 240 ui.dt @auto_size 0;
 #X obj 50 269 msg.onload.type;
 #X obj 20 318 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 323 cnv 5 90 26 empty empty arguments: 4 10 0 14 -262144
@@ -22,7 +22,7 @@
 #X text 110 358 1\.;
 #X text 150 358 list;
 #X obj 246 359 cnv 1 40 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 358 ARGS: message.;
+#X text 245 358 ARGS: message. Comma separated messages are supported.;
 #X obj 20 388 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 393 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
