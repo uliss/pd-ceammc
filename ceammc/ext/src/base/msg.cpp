@@ -81,7 +81,14 @@ void setup_base_msg()
 
     obj.setDescription("message constructor");
     obj.addAuthor("Serge Poltavsky");
-    obj.setKeywords({"msg", "message"});
+    obj.setKeywords({ "msg", "message" });
     obj.setCategory("msg");
     obj.setSinceVersion(0, 1);
+    obj.setXletsInfo({ "any: append all atoms to message and output\n"
+                       "list: append list to message and output\n"
+                       "float: append float to message and output\n"
+                       "symbol: append symbol to message and output",
+                         "symbol: set message prefix (selector)\n"
+                         "list: set message prefix" },
+        { "any: message output" });
 }
