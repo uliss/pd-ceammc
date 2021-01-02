@@ -1,4 +1,4 @@
-#N canvas 0 0 491 529 12;
+#N canvas 0 0 529 529 12;
 #X obj 20 48 msg.onload;
 #X obj 20 77 ui.d @display_type 1 @auto_size 0;
 #X obj 20 106 msg.onload 1000;
@@ -15,8 +15,8 @@
 #X obj 20 365 ui.d @display_type 1 @auto_size 0;
 #X obj 20 394 msg.onload MSG ARG0 @ARG1;
 #X obj 20 423 ui.d @display_type 1 @auto_size 0;
-#X obj 20 451 msg.onload A, B, C;
-#X text 250 451 comma separated messages;
+#X obj 20 451 msg.onload A \, B \, C;
+#X text 288 451 comma separated messages;
 #X obj 20 480 print;
 #X connect 0 0 1 0;
 #X connect 2 0 3 0;
