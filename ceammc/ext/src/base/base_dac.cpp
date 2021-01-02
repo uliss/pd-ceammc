@@ -118,7 +118,9 @@ void setup_base_dac()
 {
     SoundExternalFactory<BaseDac> obj("xdac~");
     obj.useClick();
-    obj.noArgsAndPropsParse();
+    obj.parseProps(false);
+    obj.parsePosProps(false);
+    obj.parseArgsMode(PdArgs::PARSE_COPY);
 
     obj.setDescription("dac~ with channel ranges");
     obj.addAuthor("Serge Poltavsky");
