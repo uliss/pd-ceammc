@@ -559,4 +559,32 @@ TEST_CASE("Atom2", "[core]")
         REQUIRE(F(1).asIntInClosedInterval(-1, 1, 0) == F(1));
         REQUIRE(F(2).asIntInClosedInterval(-1, 1, 0) == F(1));
     }
+
+    SECTION("comma")
+    {
+        REQUIRE_FALSE(Atom().isComma());
+        REQUIRE(Atom::comma().isComma());
+        REQUIRE(Atom::comma().type() == Atom::COMMA);
+
+        Atom a(1);
+        REQUIRE_FALSE(a.isComma());
+        a.setComma();
+        REQUIRE(a.isComma());
+
+        REQUIRE(a == Atom::comma());
+    }
+
+    SECTION("semicolon")
+    {
+        REQUIRE_FALSE(Atom().isSemicolon());
+        REQUIRE(Atom::semicolon().isSemicolon());
+        REQUIRE(Atom::semicolon().type() == Atom::SEMICOLON);
+
+        Atom a(1);
+        REQUIRE_FALSE(a.isSemicolon());
+        a.setSemicolon();
+        REQUIRE(a.isSemicolon());
+
+        REQUIRE(a == Atom::semicolon());
+    }
 }

@@ -45,7 +45,10 @@ public:
         FLOAT,
         SYMBOL,
         PROPERTY,
-        DATA
+        DATA,
+        POINTER,
+        SEMICOLON,
+        COMMA
     };
 
     static const char PROP_PREFIX = '@';
@@ -102,6 +105,16 @@ public:
     ~Atom() noexcept;
 
     /**
+     * Create comma atom
+     */
+    static Atom comma() noexcept;
+
+    /**
+     * Create semicolon atom
+     */
+    static Atom semicolon() noexcept;
+
+    /**
      * Checks if atom is (0|1|true|false)
      */
     bool isBool() const noexcept;
@@ -126,6 +139,21 @@ public:
      * @returns true if atom has logical type Atom::PROPERTY
      */
     bool isProperty() const noexcept { return type() == PROPERTY; }
+
+    /**
+     * @returns true if atom has PureData type A_COMMA
+     */
+    bool isComma() const noexcept { return a_type == A_COMMA; }
+
+    /**
+     * @returns true if atom has PureData type A_SEMI
+     */
+    bool isSemicolon() const noexcept { return a_type == A_SEMI; }
+
+    /**
+     * @returns true if atom has PureData type A_POINTER
+     */
+    bool isPointer() const noexcept { return a_type == A_POINTER; }
 
     /**
      * @returns true if atom has logical type Atom::FLOAT and value is integer
@@ -190,6 +218,16 @@ public:
      * If atom type is non-symbol and force is not set - returns false
      */
     bool setSymbol(t_symbol* s, bool force = false) noexcept;
+
+    /**
+     * Set atom to comma
+     */
+    void setComma() noexcept;
+
+    /**
+     * Set atom to semicolon
+     */
+    void setSemicolon() noexcept;
 
     /**
      * Try to get atom value as bool

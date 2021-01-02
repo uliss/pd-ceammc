@@ -300,7 +300,7 @@ bool PresetStorage::read(const char* path)
                 setSymbolValueAt(name, index, line[3].asSymbol());
             } else {
                 AtomList lst = line.slice(3);
-                if (lst.last() && lst.last()->isNone())
+                if (lst.last() && lst.last()->isSemicolon())
                     lst.remove(lst.size() - 1);
 
                 if (sel == SYM_WITH_SPACES) {

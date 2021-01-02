@@ -208,6 +208,20 @@ Atom::~Atom() noexcept
         release();
 }
 
+Atom Atom::comma() noexcept
+{
+    Atom a;
+    a.setComma();
+    return a;
+}
+
+Atom Atom::semicolon() noexcept
+{
+    Atom a;
+    a.setSemicolon();
+    return a;
+}
+
 int Atom::dataType() const noexcept
 {
     if (a_type == TYPE_DATA) {
@@ -406,6 +420,12 @@ Atom::Type Atom::type() const noexcept
         return FLOAT;
     case TYPE_DATA:
         return DATA;
+    case A_POINTER:
+        return POINTER;
+    case A_SEMI:
+        return SEMICOLON;
+    case A_COMMA:
+        return COMMA;
     default:
         return NONE;
     }
@@ -457,6 +477,16 @@ bool Atom::setSymbol(t_symbol* s, bool force) noexcept
 
     SETSYMBOL(this, s);
     return true;
+}
+
+void Atom::setComma() noexcept
+{
+    SETCOMMA(this);
+}
+
+void Atom::setSemicolon() noexcept
+{
+    SETSEMI(this);
 }
 
 bool Atom::asBool(bool def) const noexcept
@@ -664,6 +694,10 @@ bool Atom::operator==(const Atom& x) const noexcept
         } else
             return false;
     }
+    case COMMA:
+        return x.isComma();
+    case SEMICOLON:
+        return x.isSemicolon();
     case NONE:
         return true;
     default:
@@ -682,8 +716,6 @@ std::ostream& operator<<(std::ostream& os, const Atom& a)
         os << a.asFloat();
     else if (a.isSymbol())
         os << a.asSymbol()->s_name;
-    else if (a.isNone())
-        os << "NONE";
     else if (a.isData()) {
         auto dptr = a.asData();
 
@@ -698,7 +730,15 @@ std::ostream& operator<<(std::ostream& os, const Atom& a)
         } else {
             os << "NULL data pointer";
         }
-    } else
+    } else if (a.isNone())
+        os << "NONE";
+    else if (a.isComma())
+        os << "[A_COMMA]";
+    else if (a.isSemicolon())
+        os << "[A_SEMI]";
+    else if (a.isPointer())
+        os << "[A_POINTER]";
+    else
         os << "???";
 
     return os;
