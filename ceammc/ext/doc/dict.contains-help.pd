@@ -9,7 +9,7 @@
 -1;
 #X obj 50 147 data.dict \[a: 1 b: 2 c: 3 d: 4\];
 #X obj 50 176 dict.contains c d e;
-#X obj 50 205 ui.display;
+#X obj 50 205 ui.dt;
 #X obj 20 254 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 259 cnv 5 90 26 empty empty arguments: 4 10 0 14 -262144
 -49933 0;
