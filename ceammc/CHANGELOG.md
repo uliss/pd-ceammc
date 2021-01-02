@@ -7,10 +7,12 @@
 - comma separated messages added to msg.onload (loadmsg)
 - xlet tooltips added to:
   - xdac~
+  - prop.ls
 
 ### Changed:
 - using AtomListView instead of AtomList in BaseObject::onInlet method
 - using AtomListView instead of AtomList in UI objects
+- second inlet added to path.ls to set @match property
 
 
 ## [0.9.1]

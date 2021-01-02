@@ -21,6 +21,7 @@ PathListDir::PathListDir(const PdArgs& a)
     createOutlet();
 
     addProperty(new PointerProperty<t_symbol*>("@match", &match_, PropValueAccess::READWRITE));
+    createInlet(&match_);
 
     createCbListProperty(
         "@path",
@@ -95,4 +96,9 @@ void setup_path_lsdir()
     obj.processData<DataTypeString>();
     obj.parseArgsMode(PdArgs::PARSE_COPY);
     obj.parsePropsMode(PdArgs::PARSE_COPY);
+
+    obj.setXletsInfo({ "bang: list directory\n"
+                       "symbol: set directory path and output",
+                         "symbol: set @match property" },
+        { "list: list of strings" });
 }

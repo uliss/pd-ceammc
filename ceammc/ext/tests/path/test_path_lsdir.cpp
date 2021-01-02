@@ -44,6 +44,8 @@ TEST_CASE("path.lsdir", "[externals]")
         SECTION("empty arguments")
         {
             TObj t("path.ls", L());
+            REQUIRE(t.numInlets() == 2);
+            REQUIRE(t.numOutlets() == 1);
             REQUIRE_PROPERTY(t, @match, "");
 
             WHEN_SEND_BANG_TO(0, t);
@@ -117,5 +119,13 @@ TEST_CASE("path.lsdir", "[externals]")
         REQUIRE(t.lastMessage(0).isList());
         REQUIRE(t.lastMessage(0).listValue().size() > 0);
 #endif
+    }
+
+    SECTION("set match")
+    {
+        TExt t("path.ls");
+        REQUIRE_PROPERTY(t, @match, "");
+        t.sendSymbolTo(SYM("*.mp4"), 1);
+        REQUIRE_PROPERTY(t, @match, "*.mp4");
     }
 }
