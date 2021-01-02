@@ -160,7 +160,7 @@
         click~ fluid~ modplug~ speech.flite
     }}
     {msg {
-        msg msg.after msg.onload
+        loadexpr msg msg.after msg.onload
     }}
     {net {
         net.host2ip
