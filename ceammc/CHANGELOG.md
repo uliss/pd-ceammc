@@ -2,7 +2,8 @@
 
 ## [Unreleased]
 ### Added:
-
+- xlet tooltips added to:
+  - xdac~
 
 ### Changed:
 - using AtomListView instead of AtomList in BaseObject::onInlet method

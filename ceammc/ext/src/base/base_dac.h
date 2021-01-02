@@ -18,8 +18,17 @@
 
 using namespace ceammc;
 
+class Descr {
+    char txt_[4];
+
+public:
+    Descr(t_int i);
+    const char* txt() const { return txt_; }
+};
+
 class BaseDac : public SoundExternal {
     std::vector<t_int> vec_;
+    std::vector<Descr> vec_str_;
 
 public:
     BaseDac(const PdArgs& args);
@@ -28,6 +37,8 @@ public:
     void setupDSP(t_signal** sp) override;
 
     void onClick(t_floatarg xpos, t_floatarg ypos, t_floatarg shift, t_floatarg ctrl, t_floatarg alt) override;
+
+    const char* annotateInlet(size_t n) const override;
 };
 
 void setup_base_dac();
