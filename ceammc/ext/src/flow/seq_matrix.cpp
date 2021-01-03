@@ -104,7 +104,7 @@ void SeqMatrixBase::outputTick()
 void SeqMatrixBase::outputRepeat(size_t ridx)
 {
     Atom l[2] = { ridx, numRepeats() };
-    anyTo(1, SYM_REPEAT_IDX, AtomListView(&l->atom(), 2));
+    anyTo(1, SYM_REPEAT_IDX, AtomListView(l, 2));
 }
 
 void SeqMatrixBase::outputRepeatDone()
