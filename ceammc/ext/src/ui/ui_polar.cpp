@@ -413,9 +413,12 @@ t_float UIPolar::realRadius() const
 
 void UIPolar::output()
 {
-    AtomList v = realValue();
-    listTo(0, v);
-    send(v);
+    Atom res[2];
+    res[0] = radius_;
+    res[1] = realAngle();
+    AtomListView lv(&res->atom(), 2);
+    listTo(0, lv);
+    send(lv);
 }
 
 AtomList UIPolar::propRadius() const

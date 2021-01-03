@@ -366,9 +366,8 @@ void UIGain::onMidiCtrl(const AtomListView& l)
 void UIGain::doOutput()
 {
     static t_symbol* SYM_DB = gensym("@db");
-
-    AtomList v(dbValue());
-    anyTo(0, SYM_DB, v);
+    Atom db = dbValue();
+    anyTo(0, SYM_DB, AtomListView(db));
 }
 
 void UIGain::updateIndicators()

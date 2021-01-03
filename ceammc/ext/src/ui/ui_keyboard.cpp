@@ -244,7 +244,10 @@ void UIKeyboard::paint()
 void UIKeyboard::releaseAllNotes()
 {
     for (int k : sustained_keys_) {
-        listTo(0, AtomList(shift_ + k, 0.f));
+        Atom res[2];
+        res[0] = shift_ + k;
+        res[1] = 0.f;
+        listTo(0, AtomListView(&res->atom(), 2));
     }
 
     sustained_keys_.clear();
@@ -397,7 +400,7 @@ int UIKeyboard::findPressedKey(const t_pt& pt) const
     return res;
 }
 
-const char *UIKeyboard::annotateOutlet(int n) const
+const char* UIKeyboard::annotateOutlet(int n) const
 {
     return "list: pitch velocity";
 }
@@ -435,7 +438,10 @@ void UIKeyboard::output()
     if (current_key_ == -1)
         return;
 
-    listTo(0, AtomList(realPitch(), velocity_));
+    Atom res[2];
+    res[0] = realPitch();
+    res[1] = velocity_;
+    listTo(0, AtomListView(&res->atom(), 2));
 }
 
 void UIKeyboard::drawBackground()

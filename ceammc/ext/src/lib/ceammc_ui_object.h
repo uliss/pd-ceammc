@@ -138,15 +138,15 @@ public:
     void floatTo(size_t n, t_float f);
     void symbolTo(size_t n, t_symbol* s);
     void atomTo(size_t n, const Atom& a);
-    void listTo(size_t n, const AtomList& lst);
-    void anyTo(size_t n, t_symbol* s, const AtomList& args);
-    void anyTo(size_t n, const AtomList& msg);
+    void listTo(size_t n, const AtomListView& lst);
+    void anyTo(size_t n, t_symbol* s, const AtomListView& args);
+    void anyTo(size_t n, const AtomListView& msg);
 
     void sendBang();
     void send(t_float f);
     void send(t_symbol* s);
-    void send(const AtomList& lst);
-    void send(t_symbol* s, const AtomList& lst);
+    void send(const AtomListView& lst);
+    void send(t_symbol* s, const AtomListView& lst);
 
     t_rect rect() const;
     float x() const;

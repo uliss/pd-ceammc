@@ -377,34 +377,31 @@ void UIColorPanel::output()
     t_hsla color_hls = rgba_to_hsla(color_rgb);
     t_symbol* color_hex = gensym(rgba_to_hex(color_rgb));
 
-    AtomList out;
-    out.reserve(4);
+    Atom out[4];
 
     // output pd
-    out.append(Atom(rgb_to_pd(color_rgb)));
-    anyTo(0, SYM_PROP_PD, out);
-    send(SYM_PROP_PD, out);
+    out[0] = rgb_to_pd(color_rgb);
+    anyTo(0, SYM_PROP_PD, AtomListView(&out->atom(), 1));
+    send(SYM_PROP_PD, AtomListView(&out->atom(), 1));
 
     // output rgb
-    out.fill(Atom(0.f), 3);
-    out[0].setFloat(color_rgb.red);
-    out[1].setFloat(color_rgb.green);
-    out[2].setFloat(color_rgb.blue);
-    anyTo(0, SYM_PROP_RGB, out);
-    send(SYM_PROP_RGB, out);
+    out[0] = color_rgb.red;
+    out[1] = color_rgb.green;
+    out[2] = color_rgb.blue;
+    anyTo(0, SYM_PROP_RGB, AtomListView(&out->atom(), 3));
+    send(SYM_PROP_RGB, AtomListView(&out->atom(), 3));
 
     // hsl
-    out[0].setFloat(color_hls.hue);
-    out[1].setFloat(color_hls.saturation);
-    out[2].setFloat(color_hls.lightness);
-    anyTo(0, SYM_PROP_HSL, out);
-    send(SYM_PROP_HSL, out);
+    out[0] = color_hls.hue;
+    out[1] = color_hls.saturation;
+    out[2] = color_hls.lightness;
+    anyTo(0, SYM_PROP_HSL, AtomListView(&out->atom(), 3));
+    send(SYM_PROP_HSL, AtomListView(&out->atom(), 3));
 
     // hex
-    out.resizeClip(1);
-    out[0].setSymbol(color_hex, true);
-    anyTo(0, SYM_PROP_HEX, out);
-    send(SYM_PROP_HEX, out);
+    out[0] = color_hex;
+    anyTo(0, SYM_PROP_HEX, AtomListView(&out->atom(), 1));
+    send(SYM_PROP_HEX, AtomListView(&out->atom(), 1));
 }
 
 void UIColorPanel::setup()

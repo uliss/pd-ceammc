@@ -286,9 +286,13 @@ t_float UISlider2D::realYValue() const
 
 void UISlider2D::output()
 {
-    AtomList v = realValue();
-    listTo(0, v);
-    send(v);
+    Atom res[2];
+    res[0] = realXValue();
+    res[1] = realYValue();
+
+    AtomListView lv(&res->atom(), 2);
+    listTo(0, lv);
+    send(lv);
 }
 
 AtomList UISlider2D::propXRange() const

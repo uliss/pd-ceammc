@@ -506,9 +506,12 @@ void UIMenu::output()
         return;
     }
 
-    AtomList res(Atom(current_idx_), items_[current_idx_]);
-    listTo(0, res);
-    send(res);
+    Atom res[2];
+    res[0] = current_idx_;
+    res[1] = items_[current_idx_];
+
+    listTo(0, AtomListView(&res->atom(), 2));
+    send(AtomListView(&res->atom(), 2));
 }
 
 void UIMenu::setOpen(bool v)

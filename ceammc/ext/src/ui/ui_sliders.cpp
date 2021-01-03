@@ -271,7 +271,10 @@ void UISliders::m_get(const AtomListView& l)
                 return;
             }
 
-            anyTo(0, SYM_SLIDER, AtomList(idx, realValueAt(idx)));
+            Atom res[2];
+            res[0] = idx;
+            res[1] = realValueAt(idx);
+            anyTo(0, SYM_SLIDER, AtomListView(&res->atom(), 2));
         } else {
             UI_ERR << "usage: get slider IDX";
             return;
@@ -522,9 +525,14 @@ void UISliders::m_lindown()
 
 void UISliders::outputList()
 {
-    AtomList v = realValues();
-    listTo(0, v);
-    send(v);
+    const auto N = pos_values_.size();
+    Atom res[N];
+    for (size_t i = 0; i < N; i++)
+        res[i] = realValueAt(i);
+
+    AtomListView lv(&res->atom(), N);
+    listTo(0, lv);
+    send(lv);
 }
 
 void UISliders::setup()

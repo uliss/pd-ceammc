@@ -339,9 +339,11 @@ void UIRSlider::redrawKnob()
 
 void UIRSlider::output()
 {
-    AtomList res(vlow_, vhigh_);
-    listTo(0, res);
-    send(res);
+    Atom res[2];
+    res[0] = vlow_;
+    res[1] = vhigh_;
+    listTo(0, AtomListView(&res->atom(), 2));
+    send(AtomListView(&res->atom(), 2));
 }
 
 bool UIRSlider::setValue(const AtomListView& lst)

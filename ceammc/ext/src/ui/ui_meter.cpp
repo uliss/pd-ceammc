@@ -255,9 +255,11 @@ void UIMeter::clockTick()
 
 void UIMeter::output()
 {
-    AtomList res(rms_dbfs_, peak_dbfs_);
-    listTo(0, res);
-    send(res);
+    Atom res[2];
+    res[0] = rms_dbfs_;
+    res[1] = peak_dbfs_;
+    listTo(0, AtomListView(&res->atom(), 2));
+    send(AtomListView(&res->atom(), 2));
 }
 
 const t_rgba& UIMeter::dbfsToColor(int dbfs) const

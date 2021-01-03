@@ -385,9 +385,13 @@ void UIRadio::output()
         floatTo(0, idx_);
         send(idx_);
     } else {
-        AtomList v = listValue();
-        listTo(0, v);
-        send(v);
+        Atom res[prop_nitems_];
+        for (int i = 0; i < prop_nitems_; i++)
+            res[i] = Atom(items_[i]);
+
+        auto lv = AtomListView(&res->atom(), prop_nitems_);
+        listTo(0, lv);
+        send(lv);
     }
 }
 

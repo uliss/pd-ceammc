@@ -420,7 +420,7 @@ void UIObjectImpl::atomTo(size_t n, const Atom& a)
     outlet_list(outlets_[n], &s_list, 1, const_cast<t_atom*>(&a.atom()));
 }
 
-void UIObjectImpl::listTo(size_t n, const AtomList& lst)
+void UIObjectImpl::listTo(size_t n, const AtomListView &lst)
 {
     if (n >= outlets_.size())
         return;
@@ -428,7 +428,7 @@ void UIObjectImpl::listTo(size_t n, const AtomList& lst)
     outlet_list(outlets_[n], &s_list, lst.size(), lst.toPdData());
 }
 
-void UIObjectImpl::anyTo(size_t n, t_symbol* s, const AtomList& args)
+void UIObjectImpl::anyTo(size_t n, t_symbol* s, const AtomListView& args)
 {
     if (n >= outlets_.size())
         return;
@@ -436,7 +436,7 @@ void UIObjectImpl::anyTo(size_t n, t_symbol* s, const AtomList& args)
     outlet_anything(outlets_[n], s, args.size(), args.toPdData());
 }
 
-void UIObjectImpl::anyTo(size_t n, const AtomList& msg)
+void UIObjectImpl::anyTo(size_t n, const AtomListView& msg)
 {
     if (n >= outlets_.size())
         return;
@@ -471,14 +471,14 @@ void UIObjectImpl::send(t_symbol* s)
         pd_symbol(send, s);
 }
 
-void UIObjectImpl::send(const AtomList& lst)
+void UIObjectImpl::send(const AtomListView& lst)
 {
     t_pd* send = ebox_getsender(box_);
     if (send)
         pd_list(send, &s_list, lst.size(), lst.toPdData());
 }
 
-void UIObjectImpl::send(t_symbol* s, const AtomList& lst)
+void UIObjectImpl::send(t_symbol* s, const AtomListView& lst)
 {
     t_pd* send = ebox_getsender(box_);
     if (send)

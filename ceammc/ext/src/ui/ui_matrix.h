@@ -58,7 +58,7 @@ public:
     void outputCell(const AtomListView& args);
     void outputCol(size_t column);
     void outputCol(const AtomListView& args);
-    void outputRow(size_t idx);
+    void outputRow(size_t row);
     void outputRow(const AtomListView& args);
     void outputAllCols();
     void outputAllRows();

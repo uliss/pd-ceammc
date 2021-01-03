@@ -346,7 +346,7 @@ void UITab::m_append(const AtomListView& lst)
     resize(width(), height());
 }
 
-void UITab::m_set_item(const AtomListView &lst)
+void UITab::m_set_item(const AtomListView& lst)
 {
     if (lst.size() != 2) {
         UI_ERR << "usage: set_item INDEX VALUE";
@@ -414,31 +414,34 @@ void UITab::output()
 {
     if (prop_toggle_mode) {
         const size_t N = items_.size();
-        AtomList res;
-        res.reserve(N);
+        Atom res[N];
         for (size_t i = 0; i < N; i++) {
-            res.append(Atom(toggles_.test(i) ? 1 : 0));
+            res[i] = toggles_.test(i) ? 1 : 0;
         }
 
         t_symbol* SYM_PROP_SELECTED = gensym("@selected");
-        anyTo(0, SYM_PROP_SELECTED, res);
-        send(SYM_PROP_SELECTED, res);
+        anyTo(0, SYM_PROP_SELECTED, AtomListView(&res->atom(), N));
+        send(SYM_PROP_SELECTED, AtomListView(&res->atom(), N));
 
         if (item_selected_ < 0 || item_selected_ >= items_.size())
             return;
 
-        AtomList sel(item_selected_, toggles_.test(item_selected_));
-        listTo(0, sel);
-        send(sel);
+        Atom sel[2];
+        sel[0] = item_selected_;
+        sel[1] = toggles_.test(item_selected_);
+        listTo(0, AtomListView(&sel->atom(), 2));
+        send(AtomListView(&sel->atom(), 2));
     } else {
         if (item_selected_ < 0 || item_selected_ >= items_.size()) {
             UI_ERR << "no item selected";
             return;
         }
 
-        AtomList res(Atom(item_selected_), items_[item_selected_]);
-        listTo(0, res);
-        send(res);
+        Atom sel[2];
+        sel[0] = item_selected_;
+        sel[1] = items_[item_selected_];
+        listTo(0, AtomListView(&sel->atom(), 2));
+        send(AtomListView(&sel->atom(), 2));
     }
 }
 
