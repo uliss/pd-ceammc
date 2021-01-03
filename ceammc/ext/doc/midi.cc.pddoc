@@ -33,7 +33,7 @@
         </properties>
         <inlets>
             <inlet>
-                <xinfo>control intput</xinfo>
+                <xinfo>control input</xinfo>
             </inlet>
         </inlets>
         <outlets>
