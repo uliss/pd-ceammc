@@ -70,6 +70,10 @@ void UIMidi::paint()
     lbl_wd += 0;
 #endif
 
+#ifdef __WIN32__
+    lbl_wd += 12;
+#endif
+
     p.drawRect(-1, -1, lbl_wd, r.height + 1);
     p.setColor(prop_active_color);
     p.fillPreserve();
