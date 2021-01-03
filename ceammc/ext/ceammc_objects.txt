@@ -570,6 +570,7 @@ metro.pattern
 metro.random
 metro.seq
 midi->freq
+midi.cc
 midi.ctl->str
 midi.ctl2str
 midi.ev->ctl

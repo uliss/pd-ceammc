@@ -1,4 +1,5 @@
 #include "mod_midi.h"
+#include "midi_cc.h"
 #include "midi_ctl2str.h"
 #include "midi_event.h"
 #include "midi_event_to_ctl.h"
@@ -11,6 +12,7 @@
 
 void ceammc_midi_setup()
 {
+    setup_midi_cc();
     setup_midi_ctl2str();
     setup_midi_event();
     setup_midi_event2ctl();

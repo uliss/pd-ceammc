@@ -424,6 +424,7 @@ set(DOC_FILES
     metro.pattern
     metro.random
     metro.seq
+    midi.cc
     midi.ctl2str
     midi.event2ctl
     midi.event2note

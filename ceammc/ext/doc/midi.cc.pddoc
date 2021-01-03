@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="midi.cc">
+        <title>midi.cc</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>enhanced version of vanilla ctlin</description>
+            <license>GPL3 or later</license>
+            <library>ceammc</library>
+            <category>midi</category>
+            <keywords>midi controller name cc ctlin</keywords>
+            <since>0.9.2</since>
+        </meta>
+        <properties>
+            <property name="@cc" type="int" default="0" minvalue="0" maxvalue="127">controller
+            number</property>
+            <property name="@ch" type="int" default="0" minvalue="0" maxvalue="16">MIDI
+            channel</property>
+            <property name="@min" type="float" default="0">output value at midi input ==
+            0</property>
+            <property name="@max" type="float" default="127">output value at midi input ==
+            127</property>
+            <property name="@curve" type="float" default="0">output curve. If @curve&lt;0: fast
+            begin, slow end, else if @curve&gt;0: slow begin, fast end, if @curve==0: linear
+            speed</property>
+        </properties>
+        <inlets>
+            <inlet>
+                <xinfo>control intput</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet>float value</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[F]      [F]
+|        |
+[@cc $1( [@curve $1(
+|        |
+[midi.cc 10 @min 0 @max 1 @curve -2]
+|
+[ui.hsl]
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

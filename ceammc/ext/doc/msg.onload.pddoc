@@ -25,7 +25,8 @@
             <par>Click on object sends message again.</par>
         </info>
         <arguments>
-            <argument name="ARGS" type="list">message. Comma separated messages are supported</argument>
+            <argument name="ARGS" type="list">message. Comma separated messages are
+            supported</argument>
         </arguments>
         <inlets />
         <outlets>

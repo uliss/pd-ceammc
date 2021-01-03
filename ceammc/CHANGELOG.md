@@ -4,6 +4,7 @@
 ### Added:
 - new objects:
   - loadexpr added (supports functions and datatypes)
+  - midi.cc added (enhanced version of ctlin)
 - comma separated messages added to msg.onload (loadmsg)
 - xlet tooltips added to:
   - xdac~
