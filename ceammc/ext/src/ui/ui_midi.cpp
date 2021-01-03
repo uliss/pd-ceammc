@@ -101,12 +101,14 @@ void UIMidi::onNote(const AtomListView& lv)
     snprintf(msg_type_, sizeof(msg_type_) - 1, "MIDI[%02d]", lv[2].asT<int>());
 
     if (prop_hex)
-        snprintf(msg_body_, sizeof(msg_body_) - 1, "NOTE: %02X %02X", lv[0].asT<int>(), lv[1].asT<int>());
+        snprintf(msg_body_, sizeof(msg_body_) - 1, "Note: %02X %02X", lv[0].asT<int>(), lv[1].asT<int>());
     else
-        snprintf(msg_body_, sizeof(msg_body_) - 1, "NOTE: %3d %3d", lv[0].asT<int>(), lv[1].asT<int>());
+        snprintf(msg_body_, sizeof(msg_body_) - 1, "Note: %3d %3d", lv[0].asT<int>(), lv[1].asT<int>());
 
     bg_layer_.invalidate();
     redraw();
+
+    listTo(0, lv);
 }
 
 void UIMidi::onCtlin(const AtomListView& lv)
@@ -117,12 +119,14 @@ void UIMidi::onCtlin(const AtomListView& lv)
     snprintf(msg_type_, sizeof(msg_type_) - 1, "MIDI[%02d]", lv[2].asT<int>());
 
     if (prop_hex)
-        snprintf(msg_body_, sizeof(msg_body_) - 1, "CC: %02X %02X", lv[0].asT<int>(), lv[1].asT<int>());
+        snprintf(msg_body_, sizeof(msg_body_) - 1, "Ctl: %02X %02X", lv[0].asT<int>(), lv[1].asT<int>());
     else
-        snprintf(msg_body_, sizeof(msg_body_) - 1, "CC: %3d %3d", lv[0].asT<int>(), lv[1].asT<int>());
+        snprintf(msg_body_, sizeof(msg_body_) - 1, "Ctl: %3d %3d", lv[0].asT<int>(), lv[1].asT<int>());
 
     bg_layer_.invalidate();
     redraw();
+
+    listTo(0, lv);
 }
 
 void UIMidi::onPgmin(const AtomListView& lv)
@@ -133,12 +137,14 @@ void UIMidi::onPgmin(const AtomListView& lv)
     snprintf(msg_type_, sizeof(msg_type_) - 1, "MIDI[%02d]", lv[1].asT<int>());
 
     if (prop_hex)
-        snprintf(msg_body_, sizeof(msg_body_) - 1, "PGM: %02X", lv[0].asT<int>());
+        snprintf(msg_body_, sizeof(msg_body_) - 1, "Program: %02X", lv[0].asT<int>());
     else
-        snprintf(msg_body_, sizeof(msg_body_) - 1, "PGM: %3d", lv[0].asT<int>());
+        snprintf(msg_body_, sizeof(msg_body_) - 1, "Program: %3d", lv[0].asT<int>());
 
     bg_layer_.invalidate();
     redraw();
+
+    listTo(0, lv);
 }
 
 void UIMidi::onSysex(const AtomListView& lv)
@@ -163,7 +169,7 @@ void UIMidi::onSysex(const AtomListView& lv)
         snprintf(msg_type_, sizeof(msg_type_) - 1, "MIDI[%02d]", ch);
 
         const int LEN = sizeof(msg_body_) - 1;
-        auto pos = snprintf(msg_body_, LEN, "SYSEX:");
+        auto pos = snprintf(msg_body_, LEN, "SysEx:");
         for (size_t i = 0; i < sysex_buffer_.size(); i++) {
             const auto v = sysex_buffer_[i];
             out_msg[i] = v;
@@ -193,18 +199,32 @@ void UIMidi::onBendin(const AtomListView& lv)
     snprintf(msg_type_, sizeof(msg_type_) - 1, "MIDI[%02d]", lv[1].asT<int>());
 
     if (prop_hex)
-        snprintf(msg_body_, sizeof(msg_body_) - 1, "BEND: %04X", lv[0].asT<int>());
+        snprintf(msg_body_, sizeof(msg_body_) - 1, "Pitch Wheel: %04X", lv[0].asT<int>());
     else
-        snprintf(msg_body_, sizeof(msg_body_) - 1, "BEND: %6d", lv[0].asT<int>() - 8192);
+        snprintf(msg_body_, sizeof(msg_body_) - 1, "Pitch Wheel: %6d", lv[0].asT<int>() - 8192);
 
     bg_layer_.invalidate();
     redraw();
+
+    listTo(0, lv);
 }
 
 void UIMidi::onTouch(const AtomListView& lv)
 {
-    if (!prop_show_touch)
+    if (!prop_show_touch || lv.size() != 2)
         return;
+
+    snprintf(msg_type_, sizeof(msg_type_) - 1, "MIDI[%02d]", lv[1].asT<int>());
+
+    if (prop_hex)
+        snprintf(msg_body_, sizeof(msg_body_) - 1, "Aftertouch: %02X", lv[0].asT<int>());
+    else
+        snprintf(msg_body_, sizeof(msg_body_) - 1, "Aftertouch: %3d", lv[0].asT<int>());
+
+    bg_layer_.invalidate();
+    redraw();
+
+    listTo(0, lv);
 }
 
 void UIMidi::onPolyTouch(const AtomListView& lv)
@@ -215,12 +235,14 @@ void UIMidi::onPolyTouch(const AtomListView& lv)
     snprintf(msg_type_, sizeof(msg_type_) - 1, "MIDI[%02d]", lv[2].asT<int>());
 
     if (prop_hex)
-        snprintf(msg_body_, sizeof(msg_body_) - 1, "POLYTCH: %02X %02X", lv[0].asT<int>(), lv[1].asT<int>());
+        snprintf(msg_body_, sizeof(msg_body_) - 1, "Aftertouch(Poly): %02X %02X", lv[0].asT<int>(), lv[1].asT<int>());
     else
-        snprintf(msg_body_, sizeof(msg_body_) - 1, "POLYTCH: %3d %3d", lv[0].asT<int>(), lv[1].asT<int>());
+        snprintf(msg_body_, sizeof(msg_body_) - 1, "Aftertouch(Poly): %3d %3d", lv[0].asT<int>(), lv[1].asT<int>());
 
     bg_layer_.invalidate();
     redraw();
+
+    listTo(0, lv);
 }
 
 void UIMidi::setup()
@@ -235,7 +257,7 @@ void UIMidi::setup()
 
     UIObjectFactory<UIMidi> obj("ui.midi", EBOX_GROWINDI);
     obj.useList();
-    obj.setDefaultSize(140, 15);
+    obj.setDefaultSize(180, 15);
     obj.hideLabel();
 
     obj.addProperty(PROP_TEXT_COLOR, _("Text Color"), DEFAULT_TEXT_COLOR, &UIMidi::prop_text_color);
