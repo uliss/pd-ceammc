@@ -241,9 +241,10 @@
     {ui {
         ui.aview ui.bang ui.colorpanel ui.display ui.dsp~ ui.env ui.gain2~
         ui.gain~ ui.icon ui.incdec ui.keyboard ui.knob ui.label ui.link
-        ui.matrix ui.menu ui.meter~ ui.mouse_filter ui.mouse_route ui.number
-        ui.number~ ui.plot~ ui.polar ui.preset ui.radio ui.rslider ui.scope~
-        ui.slider ui.slider2d ui.sliders ui.spectroscope~ ui.tab ui.toggle
+        ui.matrix ui.menu ui.meter~ ui.midi ui.mouse_filter ui.mouse_route
+        ui.number ui.number~ ui.plot~ ui.polar ui.preset ui.radio ui.rslider
+        ui.scope~ ui.slider ui.slider2d ui.sliders ui.spectroscope~ ui.tab
+        ui.toggle
     }}
 }
 {extra

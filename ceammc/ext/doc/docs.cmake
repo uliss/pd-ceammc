@@ -605,6 +605,7 @@ set(DOC_FILES
     ui.knob
     ui.matrix
     ui.menu
+    ui.midi
     ui.mouse_filter
     ui.mouse_route
     ui.number

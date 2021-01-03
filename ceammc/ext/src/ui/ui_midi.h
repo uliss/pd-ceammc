@@ -30,7 +30,7 @@ class UIMidi : public UIObject {
     std::vector<uint8_t> sysex_buffer_;
     // props
     t_rgba prop_text_color;
-    t_rgba prop_channel_bgcolor;
+    t_rgba prop_active_color;
     int prop_hex;
     int prop_show_note,
         prop_show_cc,

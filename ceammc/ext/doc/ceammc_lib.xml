@@ -1920,6 +1920,9 @@
     <entry name="ui.meter~" descr="Shows peak and rms signal level" ref_view="link">
       <xi:include href="ui.meter~.pddoc" parse="xml"/>
     </entry>
+    <entry name="ui.midi" descr="incoming MIDI message viewport" ref_view="link">
+      <xi:include href="ui.midi.pddoc" parse="xml"/>
+    </entry>
     <entry name="ui.mouse_filter" descr="filter mouse events from ui objects" ref_view="link">
       <xi:include href="ui.mouse_filter.pddoc" parse="xml"/>
     </entry>

@@ -1383,48 +1383,50 @@ ui.colorpanel-help.pd;
 #X text 200 18949 Dropdown menu;
 #X obj 30 18977 ui.link @title [ui.meter~] @url ui.meter~-help.pd;
 #X text 200 18974 Shows peak and rms signal level;
-#X obj 30 19002 ui.link @title [ui.mouse_filter] @url
+#X obj 30 19002 ui.link @title [ui.midi] @url ui.midi-help.pd;
+#X text 200 18999 incoming MIDI message viewport;
+#X obj 30 19027 ui.link @title [ui.mouse_filter] @url
 ui.mouse_filter-help.pd;
-#X text 200 18999 filter mouse events from ui objects;
-#X obj 30 19027 ui.link @title [ui.mouse_route] @url
+#X text 200 19024 filter mouse events from ui objects;
+#X obj 30 19052 ui.link @title [ui.mouse_route] @url
 ui.mouse_route-help.pd;
-#X text 200 19024 routes mouse events from ui objects;
-#X obj 30 19052 ui.link @title [ui.number] @url ui.number-help.pd;
-#X text 200 19049 counterpart of the vanilla [nbx];
-#X obj 30 19077 ui.link @title [ui.number~] @url ui.number~-help.pd;
-#X text 200 19074 counterpart of the vanilla [nbx] for signal;
-#X obj 30 19102 ui.link @title [ui.plot~] @url ui.plot~-help.pd;
-#X text 200 19099 signal plotter;
-#X obj 30 19127 ui.link @title [ui.polar] @url ui.polar-help.pd;
-#X text 200 19124 2D slider in polar coordinates;
-#X obj 30 19152 ui.link @title [ui.preset] @url ui.preset-help.pd;
-#X text 200 19149 Preset manager;
-#X obj 30 19177 ui.link @title [ui.radio] @url ui.radio-help.pd;
-#X text 200 19174 counterpart of the vanilla radio toggle;
-#X obj 30 19202 ui.link @title [ui.rslider] @url ui.rslider-help.pd;
-#X text 200 19199 range slider;
-#X obj 30 19227 ui.link @title [ui.scope~] @url ui.scope~-help.pd;
-#X text 200 19224 Scope GUI object;
-#X obj 30 19252 ui.link @title [ui.slider] @url ui.slider-help.pd;
-#X text 200 19249 counterpart of the vanilla slider;
-#X obj 30 19277 ui.link @title [ui.slider2d] @url ui.slider2d-help.pd;
-#X text 200 19274 2D slider widget;
-#X obj 30 19302 ui.link @title [ui.sliders] @url ui.sliders-help.pd;
-#X text 200 19299 Multiple slider widget;
-#X obj 30 19327 ui.link @title [ui.spectroscope~] @url
+#X text 200 19049 routes mouse events from ui objects;
+#X obj 30 19077 ui.link @title [ui.number] @url ui.number-help.pd;
+#X text 200 19074 counterpart of the vanilla [nbx];
+#X obj 30 19102 ui.link @title [ui.number~] @url ui.number~-help.pd;
+#X text 200 19099 counterpart of the vanilla [nbx] for signal;
+#X obj 30 19127 ui.link @title [ui.plot~] @url ui.plot~-help.pd;
+#X text 200 19124 signal plotter;
+#X obj 30 19152 ui.link @title [ui.polar] @url ui.polar-help.pd;
+#X text 200 19149 2D slider in polar coordinates;
+#X obj 30 19177 ui.link @title [ui.preset] @url ui.preset-help.pd;
+#X text 200 19174 Preset manager;
+#X obj 30 19202 ui.link @title [ui.radio] @url ui.radio-help.pd;
+#X text 200 19199 counterpart of the vanilla radio toggle;
+#X obj 30 19227 ui.link @title [ui.rslider] @url ui.rslider-help.pd;
+#X text 200 19224 range slider;
+#X obj 30 19252 ui.link @title [ui.scope~] @url ui.scope~-help.pd;
+#X text 200 19249 Scope GUI object;
+#X obj 30 19277 ui.link @title [ui.slider] @url ui.slider-help.pd;
+#X text 200 19274 counterpart of the vanilla slider;
+#X obj 30 19302 ui.link @title [ui.slider2d] @url ui.slider2d-help.pd;
+#X text 200 19299 2D slider widget;
+#X obj 30 19327 ui.link @title [ui.sliders] @url ui.sliders-help.pd;
+#X text 200 19324 Multiple slider widget;
+#X obj 30 19352 ui.link @title [ui.spectroscope~] @url
 ui.spectroscope~-help.pd;
-#X text 200 19324 Spectroscope GUI object;
-#X obj 30 19352 ui.link @title [ui.tab] @url ui.tab-help.pd;
-#X text 200 19349 displays a list of text buttons or text toggles;
-#X obj 30 19377 ui.link @title [ui.toggle] @url ui.toggle-help.pd;
-#X text 200 19374 modern toggle widget;
+#X text 200 19349 Spectroscope GUI object;
+#X obj 30 19377 ui.link @title [ui.tab] @url ui.tab-help.pd;
+#X text 200 19374 displays a list of text buttons or text toggles;
+#X obj 30 19402 ui.link @title [ui.toggle] @url ui.toggle-help.pd;
+#X text 200 19399 modern toggle widget;
 #X obj 1 1 cnv 5 740 40 empty empty ceammc 20 20 0 20 -104026 -4096 0;
-#X obj 1 19399 cnv 5 740 80 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 20 19399 version: v0.9.1 \, license: GPL3;
-#X obj 20 19427 ui.link @title https://github.com/uliss/pure-data @url
+#X obj 1 19424 cnv 5 740 80 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 20 19424 version: v0.9.1 \, license: GPL3;
+#X obj 20 19452 ui.link @title https://github.com/uliss/pure-data @url
 https://github.com/uliss/pure-data;
-#X obj 20 19450 ui.link @title Generated with pddoc @url
+#X obj 20 19475 ui.link @title Generated with pddoc @url
 http://github.com/uliss/pddoc;
-#X obj 670 19414 msg 0;
-#X obj 670 19449 switch~;
-#X connect 1344 0 1345 0;
+#X obj 670 19439 msg 0;
+#X obj 670 19474 switch~;
+#X connect 1346 0 1347 0;

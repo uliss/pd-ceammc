@@ -22,8 +22,6 @@ static t_symbol* SYM_BENDIN;
 static t_symbol* SYM_TOUCHIN;
 static t_symbol* SYM_POLYTOUCH;
 
-static t_rgba CHANNEL_BACKGROUND = hex_to_rgba("#A0E000");
-
 UIMidi::UIMidi()
     : note_(this, &UIMidi::onNote)
     , ctlin_(this, &UIMidi::onCtlin)
@@ -35,7 +33,6 @@ UIMidi::UIMidi()
     , txt_type_(&asEBox()->b_font, ColorRGBA::black(), ETEXT_LEFT, ETEXT_JLEFT, ETEXT_NOWRAP)
     , txt_body_(&asEBox()->b_font, ColorRGBA::black(), ETEXT_LEFT, ETEXT_JLEFT, ETEXT_NOWRAP)
     , prop_text_color(rgba_black)
-    , prop_channel_bgcolor(CHANNEL_BACKGROUND)
     , prop_hex(0)
 {
     createOutlet();
@@ -74,7 +71,7 @@ void UIMidi::paint()
 #endif
 
     p.drawRect(-1, -1, lbl_wd, r.height + 1);
-    p.setColor(prop_channel_bgcolor);
+    p.setColor(prop_active_color);
     p.fillPreserve();
     p.setColor(prop_color_border);
     p.setLineWidth(1);
@@ -259,16 +256,18 @@ void UIMidi::setup()
     obj.useList();
     obj.setDefaultSize(180, 15);
     obj.hideLabel();
+    obj.hideFontProps();
 
     obj.addProperty(PROP_TEXT_COLOR, _("Text Color"), DEFAULT_TEXT_COLOR, &UIMidi::prop_text_color);
-    obj.addProperty("midi_label_color", _("Label Color"), "0.6274509 0.87843 0 1", &UIMidi::prop_channel_bgcolor);
+    obj.addProperty(PROP_ACTIVE_COLOR, _("Active Color"), "0.63 0.88 0 1", &UIMidi::prop_active_color);
+
     obj.addBoolProperty("hex", _("Show in hex"), false, &UIMidi::prop_hex, _("Main"));
-    obj.addBoolProperty("show_notes", _("Show Note On/Off"), true, &UIMidi::prop_show_note, _("Main"));
-    obj.addBoolProperty("show_cc", _("Show Control"), true, &UIMidi::prop_show_cc, _("Main"));
-    obj.addBoolProperty("show_pgm", _("Show Program"), true, &UIMidi::prop_show_pgm, _("Main"));
-    obj.addBoolProperty("show_touch", _("Show Aftertouch (poly)"), true, &UIMidi::prop_show_touch, _("Main"));
-    obj.addBoolProperty("show_pitchwheel", _("Show Pitch Wheel"), true, &UIMidi::prop_show_bend, _("Main"));
-    obj.addBoolProperty("show_sysex", _("Show SysEx"), true, &UIMidi::prop_show_sysex, _("Main"));
+    obj.addBoolProperty("notes", _("Show Note On/Off"), true, &UIMidi::prop_show_note, _("Main"));
+    obj.addBoolProperty("cc", _("Show Control"), true, &UIMidi::prop_show_cc, _("Main"));
+    obj.addBoolProperty("program", _("Show Program"), true, &UIMidi::prop_show_pgm, _("Main"));
+    obj.addBoolProperty("touch", _("Show Aftertouch (poly)"), true, &UIMidi::prop_show_touch, _("Main"));
+    obj.addBoolProperty("pitchwheel", _("Show Pitch Wheel"), true, &UIMidi::prop_show_bend, _("Main"));
+    obj.addBoolProperty("sysex", _("Show SysEx"), true, &UIMidi::prop_show_sysex, _("Main"));
 }
 
 void setup_ui_midi()

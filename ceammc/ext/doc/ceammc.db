@@ -606,6 +606,7 @@ ui.link		-		-
 ui.matrix		.		.
 ui.menu		.		.
 ui.meter~,ui.m~		~		.
+ui.midi		.		.
 ui.mouse_filter,ui.mf		.		.
 ui.mouse_route,ui.mr		.		?
 ui.number,ui.n		.		.

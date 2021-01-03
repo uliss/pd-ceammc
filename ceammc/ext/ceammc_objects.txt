@@ -847,6 +847,7 @@ ui.matrix
 ui.menu
 ui.meter~
 ui.mf
+ui.midi
 ui.mouse_filter
 ui.mouse_route
 ui.mr
