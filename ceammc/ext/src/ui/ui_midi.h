@@ -17,6 +17,8 @@
 #include "ceammc_proxy.h"
 #include "ceammc_ui_object.h"
 
+#include <cstdint>
+
 using namespace ceammc;
 
 class UIMidi : public UIObject {
@@ -25,10 +27,17 @@ class UIMidi : public UIObject {
     char msg_type_[16];
     char msg_body_[240];
     UITextLayout txt_type_, txt_body_;
+    std::vector<uint8_t> sysex_buffer_;
     // props
     t_rgba prop_text_color;
     t_rgba prop_channel_bgcolor;
     int prop_hex;
+    int prop_show_note,
+        prop_show_cc,
+        prop_show_sysex,
+        prop_show_pgm,
+        prop_show_bend,
+        prop_show_touch;
 
 public:
     UIMidi();

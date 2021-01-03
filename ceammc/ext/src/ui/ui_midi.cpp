@@ -45,11 +45,14 @@ void UIMidi::init(t_symbol* name, const AtomList& args, bool usePresets)
 {
     UIObject::init(name, args, usePresets);
 
+    sysex_buffer_.reserve(256);
+
     // note: here, not in constructor!
     ctlin_.bind(SYM_CTLIN);
     note_.bind(SYM_NOTEIN);
     polyt_.bind(SYM_POLYTOUCH);
     bend_.bind(SYM_BENDIN);
+    sysex_.bind(SYM_SYSEX);
 }
 
 void UIMidi::okSize(t_rect* newrect)
@@ -92,7 +95,7 @@ void UIMidi::paint()
 
 void UIMidi::onNote(const AtomListView& lv)
 {
-    if (lv.size() != 3)
+    if (!prop_show_note || lv.size() != 3)
         return;
 
     snprintf(msg_type_, sizeof(msg_type_) - 1, "MIDI[%02d]", lv[2].asT<int>());
@@ -108,7 +111,7 @@ void UIMidi::onNote(const AtomListView& lv)
 
 void UIMidi::onCtlin(const AtomListView& lv)
 {
-    if (lv.size() != 3)
+    if (!prop_show_cc || lv.size() != 3)
         return;
 
     snprintf(msg_type_, sizeof(msg_type_) - 1, "MIDI[%02d]", lv[2].asT<int>());
@@ -124,7 +127,7 @@ void UIMidi::onCtlin(const AtomListView& lv)
 
 void UIMidi::onPgmin(const AtomListView& lv)
 {
-    if (lv.size() != 2)
+    if (!prop_show_pgm || lv.size() != 2)
         return;
 
     snprintf(msg_type_, sizeof(msg_type_) - 1, "MIDI[%02d]", lv[1].asT<int>());
@@ -140,11 +143,51 @@ void UIMidi::onPgmin(const AtomListView& lv)
 
 void UIMidi::onSysex(const AtomListView& lv)
 {
+    if (!prop_show_sysex || lv.size() != 2)
+        return;
+
+    constexpr int SYSEX_BEGIN = 0xF0;
+    constexpr int SYSEX_END = 0xF7;
+
+    const auto byte = lv[0].asT<int>();
+    const auto ch = lv[1].asT<int>();
+
+    if (byte == SYSEX_BEGIN)
+        sysex_buffer_.clear();
+
+    sysex_buffer_.push_back(byte);
+
+    if (byte == SYSEX_END) {
+        Atom out_msg[sysex_buffer_.size()];
+
+        snprintf(msg_type_, sizeof(msg_type_) - 1, "MIDI[%02d]", ch);
+
+        const int LEN = sizeof(msg_body_) - 1;
+        auto pos = snprintf(msg_body_, LEN, "SYSEX:");
+        for (size_t i = 0; i < sysex_buffer_.size(); i++) {
+            const auto v = sysex_buffer_[i];
+            out_msg[i] = v;
+
+            if ((LEN - pos) < 1)
+                continue;
+
+            if (prop_hex)
+                pos += snprintf(msg_body_ + pos, LEN - pos, " %02X", (int)v);
+            else
+                pos += snprintf(msg_body_ + pos, LEN - pos, " %d", (int)v);
+        }
+
+        bg_layer_.invalidate();
+        redraw();
+
+        listTo(0, AtomListView(&out_msg->atom(), sysex_buffer_.size()));
+        sysex_buffer_.clear();
+    }
 }
 
 void UIMidi::onBendin(const AtomListView& lv)
 {
-    if (lv.size() != 2)
+    if (!prop_show_bend || lv.size() != 2)
         return;
 
     snprintf(msg_type_, sizeof(msg_type_) - 1, "MIDI[%02d]", lv[1].asT<int>());
@@ -160,11 +203,13 @@ void UIMidi::onBendin(const AtomListView& lv)
 
 void UIMidi::onTouch(const AtomListView& lv)
 {
+    if (!prop_show_touch)
+        return;
 }
 
 void UIMidi::onPolyTouch(const AtomListView& lv)
 {
-    if (lv.size() != 3)
+    if (!prop_show_touch || lv.size() != 3)
         return;
 
     snprintf(msg_type_, sizeof(msg_type_) - 1, "MIDI[%02d]", lv[2].asT<int>());
@@ -195,7 +240,13 @@ void UIMidi::setup()
 
     obj.addProperty(PROP_TEXT_COLOR, _("Text Color"), DEFAULT_TEXT_COLOR, &UIMidi::prop_text_color);
     obj.addProperty("midi_label_color", _("Label Color"), "0.6274509 0.87843 0 1", &UIMidi::prop_channel_bgcolor);
-    obj.addBoolProperty("hex", _("Hex"), false, &UIMidi::prop_hex, _("Main"));
+    obj.addBoolProperty("hex", _("Show in hex"), false, &UIMidi::prop_hex, _("Main"));
+    obj.addBoolProperty("show_notes", _("Show Note On/Off"), true, &UIMidi::prop_show_note, _("Main"));
+    obj.addBoolProperty("show_cc", _("Show Control"), true, &UIMidi::prop_show_cc, _("Main"));
+    obj.addBoolProperty("show_pgm", _("Show Program"), true, &UIMidi::prop_show_pgm, _("Main"));
+    obj.addBoolProperty("show_touch", _("Show Aftertouch (poly)"), true, &UIMidi::prop_show_touch, _("Main"));
+    obj.addBoolProperty("show_pitchwheel", _("Show Pitch Wheel"), true, &UIMidi::prop_show_bend, _("Main"));
+    obj.addBoolProperty("show_sysex", _("Show SysEx"), true, &UIMidi::prop_show_sysex, _("Main"));
 }
 
 void setup_ui_midi()
