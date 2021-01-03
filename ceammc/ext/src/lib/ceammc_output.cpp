@@ -73,12 +73,12 @@ bool outletAtomListView(t_outlet* o, const AtomListView& v, bool simplifyType)
             outlet_list(o,
                 &s_list,
                 static_cast<int>(v.size()),
-                const_cast<t_atom*>(&v.begin()->atom()));
+                const_cast<t_atom*>(v.toPdData()));
     } else {
         outlet_list(o,
             &s_list,
             static_cast<int>(v.size()),
-            const_cast<t_atom*>(&v.begin()->atom()));
+            const_cast<t_atom*>(v.toPdData()));
     }
 
     return true;
@@ -100,7 +100,7 @@ bool outletAny(_outlet* o, t_symbol* s, const AtomListView& v)
 {
     outlet_anything(o, s,
         static_cast<int>(v.size()),
-        const_cast<t_atom*>(&v.begin()->atom()));
+        const_cast<t_atom*>(v.toPdData()));
 
     return true;
 }
@@ -115,9 +115,9 @@ bool outletAny(t_outlet* o, const AtomList& l)
         return false;
 
     outlet_anything(o,
-                    l.first()->asSymbol(),
-                    static_cast<int>(l.size() - 1),
-                    l.size() == 1 ? nullptr : l.toPdData() + 1);
+        l.first()->asSymbol(),
+        static_cast<int>(l.size() - 1),
+        l.size() == 1 ? nullptr : l.toPdData() + 1);
     return true;
 }
 
@@ -131,9 +131,9 @@ bool outletAny(t_outlet* o, const AtomListView& l)
         return false;
 
     outlet_anything(o,
-                    l.front().asSymbol(),
-                    static_cast<int>(l.size() - 1),
-                    l.size() == 1 ? nullptr : l.toPdData() + 1);
+        l.front().asSymbol(),
+        static_cast<int>(l.size() - 1),
+        l.size() == 1 ? nullptr : l.toPdData() + 1);
     return true;
 }
 
