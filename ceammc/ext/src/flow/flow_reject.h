@@ -27,8 +27,8 @@ public:
     void onFloat(t_float v) override;
     void onSymbol(t_symbol* s) override;
     void onList(const AtomList& l) override;
-    void onAny(t_symbol* sel, const AtomListView& l) override;
-    void onInlet(size_t, const AtomListView&) override;
+    void onAny(t_symbol* sel, const AtomListView& lv) override;
+    void onInlet(size_t, const AtomListView& lv) override;
 };
 
 void setup_flow_reject();

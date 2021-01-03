@@ -59,21 +59,21 @@ void FlowRejectIf::onList(const AtomList& l)
         listTo(0, l);
 }
 
-void FlowRejectIf::onAny(t_symbol* s, const AtomListView& l)
+void FlowRejectIf::onAny(t_symbol* s, const AtomListView& lv)
 {
     reject_ = 1;
-    anyTo(1, s, l);
+    anyTo(1, s, lv);
 
     if (reject_ == 0)
-        anyTo(0, s, l);
+        anyTo(0, s, lv);
 }
 
-void FlowRejectIf::onInlet(size_t n, const AtomListView& l)
+void FlowRejectIf::onInlet(size_t n, const AtomListView& lv)
 {
-    if (n != 1 || l.empty())
+    if (n != 1 || lv.empty())
         return;
 
-    reject_ = (l.toT<size_t>(0) == 0) ? 0 : 1;
+    reject_ = (lv.toT<size_t>(0) == 0) ? 0 : 1;
 }
 
 void setup_flow_reject_if()

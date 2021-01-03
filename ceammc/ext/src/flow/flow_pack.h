@@ -34,7 +34,7 @@ public:
     void onSymbol(t_symbol* s) final;
     void onInlet(size_t idx, const AtomListView& l) final;
     void onList(const AtomList& l) final;
-    void onAny(t_symbol* s, const AtomListView& l) final;
+    void onAny(t_symbol* s, const AtomListView& lv) final;
 
     virtual void output(size_t inlet_idx);
 

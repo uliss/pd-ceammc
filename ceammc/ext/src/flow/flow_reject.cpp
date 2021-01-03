@@ -58,17 +58,17 @@ void FlowReject::onList(const AtomList& l)
     listTo(0, l);
 }
 
-void FlowReject::onAny(t_symbol* sel, const AtomListView& l)
+void FlowReject::onAny(t_symbol* sel, const AtomListView& lv)
 {
     if (reject_list_->value().contains(sel))
         return;
 
-    anyTo(0, sel, l);
+    anyTo(0, sel, lv);
 }
 
-void FlowReject::onInlet(size_t, const AtomListView& l)
+void FlowReject::onInlet(size_t, const AtomListView& lv)
 {
-    reject_list_->set(l);
+    reject_list_->set(lv);
 }
 
 void setup_flow_reject()

@@ -29,13 +29,13 @@ public:
     void onFloat(t_float f) override;
     void onSymbol(t_symbol* s) override;
     void onList(const AtomList& l) override;
-    void onAny(t_symbol* sel, const AtomListView& args) override;
+    void onAny(t_symbol* sel, const AtomListView& lv) override;
     void onData(const Atom& data) override;
-    void onInlet(size_t idx, const AtomListView& l) override;
+    void onInlet(size_t idx, const AtomListView& lv) override;
 
     const char* annotateInlet(size_t n) const override;
 
-    void proxy_any(Inlet* x, t_symbol* s, const AtomListView& v);
+    void proxy_any(Inlet* x, t_symbol* s, const AtomListView& lv);
     void proxy_float(t_float f);
 
 public:

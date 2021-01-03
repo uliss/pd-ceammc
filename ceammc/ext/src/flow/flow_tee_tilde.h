@@ -12,7 +12,7 @@ public:
     void onSymbol(t_symbol* s) override;
     void onFloat(t_float f) override;
     void onList(const AtomList& l) override;
-    void onAny(t_symbol* s, const AtomListView& l) override;
+    void onAny(t_symbol* s, const AtomListView& lv) override;
     void processBlock(const t_sample** in, t_sample** out) override;
 
     bool processAnyProps(t_symbol*, const AtomListView&) override;

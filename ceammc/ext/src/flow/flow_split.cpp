@@ -52,19 +52,19 @@ void FlowSplit::onList(const AtomList& l)
     listTo(split_, l);
 }
 
-void FlowSplit::onAny(t_symbol* s, const AtomListView& l)
+void FlowSplit::onAny(t_symbol* s, const AtomListView& lv)
 {
     split_ = 1;
-    anyTo(2, s, l);
-    anyTo(split_, s, l);
+    anyTo(2, s, lv);
+    anyTo(split_, s, lv);
 }
 
-void FlowSplit::onInlet(size_t n, const AtomListView& l)
+void FlowSplit::onInlet(size_t n, const AtomListView& lv)
 {
-    if (n != 1 || l.empty())
+    if (n != 1 || lv.empty())
         return;
 
-    split_ = (l.toT<size_t>(0) == 1) ? 0 : 1;
+    split_ = (lv.toT<size_t>(0) == 1) ? 0 : 1;
 }
 
 void setup_flow_split()

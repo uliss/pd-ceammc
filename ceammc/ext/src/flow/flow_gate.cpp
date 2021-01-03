@@ -44,12 +44,12 @@ void FlowGate::onList(const AtomList& l)
     listTo(0, l);
 }
 
-void FlowGate::onAny(t_symbol* s, const AtomListView& l)
+void FlowGate::onAny(t_symbol* s, const AtomListView& lv)
 {
     if (!state_->value())
         return;
 
-    anyTo(0, s, l);
+    anyTo(0, s, lv);
 }
 
 void FlowGate::onData(const Atom& data)
