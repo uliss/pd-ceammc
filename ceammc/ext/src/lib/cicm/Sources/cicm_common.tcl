@@ -266,9 +266,7 @@ namespace eval sframe {
        }
 
        $canvas configure -width $width -height $height
-       $container configure -width $width -height $height
-
-       wm geometry [winfo toplevel $path] [expr $width + 40]x[winfo height $path]
+       # $container configure -width $width -height $height
 
        # Configure the canvas's scroll region to match the height and width of the container.
        $canvas configure -scrollregion [list 0 0 $width $height]
