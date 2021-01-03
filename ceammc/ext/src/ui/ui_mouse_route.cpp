@@ -75,11 +75,11 @@ UIMouseRoute::UIMouseRoute(const PdArgs& args)
     }
 }
 
-bool UIMouseRoute::processAnyProps(t_symbol* sel, const AtomListView& lst)
+bool UIMouseRoute::processAnyProps(t_symbol* sel, const AtomListView& lv)
 {
     auto it = std::find(mouse_events_.begin(), mouse_events_.end(), sel);
     if (it != mouse_events_.end()) {
-        if (!atomlistToValue<bool>(lst, false))
+        if (!atomlistToValue<bool>(lv, false))
             index_ = -1;
         else
             index_ = std::distance(mouse_events_.begin(), it);
@@ -118,10 +118,10 @@ void UIMouseRoute::onList(const AtomList& l)
         listTo(index_, l);
 }
 
-void UIMouseRoute::onAny(t_symbol* s, const AtomListView& l)
+void UIMouseRoute::onAny(t_symbol* s, const AtomListView& lv)
 {
     if (index_ >= 0)
-        anyTo(index_, s, l);
+        anyTo(index_, s, lv);
 }
 
 void UIMouseRoute::onData(const Atom& data)
