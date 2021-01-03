@@ -1532,21 +1532,21 @@ static void ewidget_init(t_eclass* c)
 static const char* dialog_frame_id(int i)
 {
     static char buf[100];
-    snprintf(buf, 100, "$id.canvas.container.content.frame%i", i);
+    snprintf(buf, 100, "$fp.frame%i", i);
     return buf;
 }
 
 static const char* dialog_label_id(int i)
 {
     static char buf[100];
-    snprintf(buf, 100, "$id.canvas.container.content.l%i", i);
+    snprintf(buf, 100, "$fp.l%i", i);
     return buf;
 }
 
 static const char* dialog_widget_id(int i)
 {
     static char buf[100];
-    snprintf(buf, 100, "$id.canvas.container.content.w%i", i);
+    snprintf(buf, 100, "$fp.w%i", i);
     return buf;
 }
 
@@ -1589,11 +1589,13 @@ static void eclass_properties_dialog(t_eclass* c)
                                   "   pdsend $cmd\n"
                                   "}}\n";
 
+    const bool is_ceammc = (getenv("is_ceammc") != nullptr);
+    const bool use_sframe = !is_ceammc;
+
 #ifdef __MACH__
     static bool use_theme = false;
     if (!use_theme) {
         use_theme = true;
-        auto is_ceammc = getenv("is_ceammc");
         if (!is_ceammc)
             sys_gui("ttk::style theme use alt\n");
     }
@@ -1632,6 +1634,10 @@ static void eclass_properties_dialog(t_eclass* c)
     }
     sys_gui("} {\n");
     sys_gui("   set vid [string trimleft $id .]\n");
+    if (use_sframe)
+        sys_gui("   set fp $id.canvas.container.content\n");
+    else
+        sys_gui("   set fp $id.f\n");
 
     /// fill category dict
 #ifndef NDEBUG
@@ -1675,19 +1681,32 @@ static void eclass_properties_dialog(t_eclass* c)
     sys_gui("   # window\n");
 #endif
     // _("%s properties")
-    auto str = fmt::format(
-        "   ::ceammc::ui::sframe::new $id -toplevel true -anchor w\n"
-        "   wm title $id [format [_ \"%s properties\" ] {{{0}}}] \n"
-        "   wm resizable $id 0 1\n" /// resize only height
-        "   wm minsize $id 200 300\n"
-        "   wm geometry $id 200x600\n"
-        "   bind $id <Key-Escape> \"destroy $id; break\"\n" /// close dialog by key-pressing 'Escape'
-        "   raise [winfo toplevel $id]\n"
-        "   $id configure " DIALOG_BACKGROUND DIALOG_WINDOW_PADX DIALOG_WINDOW_PADY "\n"
-        "   set fp [::ceammc::ui::sframe::content $id]\n"
-        "   grid $fp\n",
-        c->c_class.c_name->s_name);
-    sys_gui(str.c_str());
+    //
+    if (use_sframe) {
+        auto str = fmt::format(
+            "   ::ceammc::ui::sframe::new $id -toplevel true -anchor w\n"
+            "   wm title $id [format [_ \"%s properties\" ] {{{0}}}] \n"
+            "   wm resizable $id 0 1\n" /// resize only height
+            "   wm minsize $id 200 300\n"
+            "   bind $id <Key-Escape> \"destroy $id; break\"\n" /// close dialog by key-pressing 'Escape'
+            "   raise [winfo toplevel $id]\n"
+            "   $id configure " DIALOG_BACKGROUND DIALOG_WINDOW_PADX DIALOG_WINDOW_PADY "\n"
+            "   grid $fp\n",
+            c->c_class.c_name->s_name);
+        sys_gui(str.c_str());
+    } else {
+        auto str = fmt::format(
+            "   toplevel $id\n"
+            "   wm title $id [format [_ \"%s properties\" ] {{{0}}}] \n"
+            "   wm minsize $id 200 300\n"
+            "   bind $id <Key-Escape> \"destroy $id; break\"\n" /// close dialog by key-pressing 'Escape'
+            "   raise [winfo toplevel $id]\n"
+            "   $id configure " DIALOG_BACKGROUND DIALOG_WINDOW_PADX DIALOG_WINDOW_PADY "\n"
+            "   set fp [ttk::frame $id.f]\n"
+            "   grid $fp\n",
+            c->c_class.c_name->s_name);
+        sys_gui(str.c_str());
+    }
 
     t_symbol* cat = &s_;
     int category_idx = 0;
@@ -1813,7 +1832,7 @@ static void eclass_properties_dialog(t_eclass* c)
                 continue;
 
             cat = c->c_attr[i]->category;
-            str = fmt::format(
+            auto str = fmt::format(
                 "   if {{ $var_cat{0}_state eq 0 }} {{\n"
                 "      set lst [dict get $cat_dict \"{0}\"]\n"
                 "      ceammc_category_apply $fp.cat_img{0} var_cat{0}_state $lst\n"
