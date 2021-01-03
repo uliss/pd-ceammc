@@ -247,7 +247,7 @@ void UIKeyboard::releaseAllNotes()
         Atom res[2];
         res[0] = shift_ + k;
         res[1] = 0.f;
-        listTo(0, AtomListView(&res->atom(), 2));
+        listTo(0, AtomListView(res, 2));
     }
 
     sustained_keys_.clear();
@@ -441,7 +441,7 @@ void UIKeyboard::output()
     Atom res[2];
     res[0] = realPitch();
     res[1] = velocity_;
-    listTo(0, AtomListView(&res->atom(), 2));
+    listTo(0, AtomListView(res, 2));
 }
 
 void UIKeyboard::drawBackground()

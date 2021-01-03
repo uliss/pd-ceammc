@@ -258,8 +258,8 @@ void UIMeter::output()
     Atom res[2];
     res[0] = rms_dbfs_;
     res[1] = peak_dbfs_;
-    listTo(0, AtomListView(&res->atom(), 2));
-    send(AtomListView(&res->atom(), 2));
+    listTo(0, AtomListView(res, 2));
+    send(AtomListView(res, 2));
 }
 
 const t_rgba& UIMeter::dbfsToColor(int dbfs) const

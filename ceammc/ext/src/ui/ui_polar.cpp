@@ -416,7 +416,7 @@ void UIPolar::output()
     Atom res[2];
     res[0] = radius_;
     res[1] = realAngle();
-    AtomListView lv(&res->atom(), 2);
+    AtomListView lv(res, 2);
     listTo(0, lv);
     send(lv);
 }

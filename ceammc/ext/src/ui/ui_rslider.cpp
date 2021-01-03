@@ -342,8 +342,8 @@ void UIRSlider::output()
     Atom res[2];
     res[0] = vlow_;
     res[1] = vhigh_;
-    listTo(0, AtomListView(&res->atom(), 2));
-    send(AtomListView(&res->atom(), 2));
+    listTo(0, AtomListView(res, 2));
+    send(AtomListView(res, 2));
 }
 
 bool UIRSlider::setValue(const AtomListView& lst)

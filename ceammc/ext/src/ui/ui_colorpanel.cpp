@@ -381,27 +381,27 @@ void UIColorPanel::output()
 
     // output pd
     out[0] = rgb_to_pd(color_rgb);
-    anyTo(0, SYM_PROP_PD, AtomListView(&out->atom(), 1));
-    send(SYM_PROP_PD, AtomListView(&out->atom(), 1));
+    anyTo(0, SYM_PROP_PD, AtomListView(out, 1));
+    send(SYM_PROP_PD, AtomListView(out, 1));
 
     // output rgb
     out[0] = color_rgb.red;
     out[1] = color_rgb.green;
     out[2] = color_rgb.blue;
-    anyTo(0, SYM_PROP_RGB, AtomListView(&out->atom(), 3));
-    send(SYM_PROP_RGB, AtomListView(&out->atom(), 3));
+    anyTo(0, SYM_PROP_RGB, AtomListView(out, 3));
+    send(SYM_PROP_RGB, AtomListView(out, 3));
 
     // hsl
     out[0] = color_hls.hue;
     out[1] = color_hls.saturation;
     out[2] = color_hls.lightness;
-    anyTo(0, SYM_PROP_HSL, AtomListView(&out->atom(), 3));
-    send(SYM_PROP_HSL, AtomListView(&out->atom(), 3));
+    anyTo(0, SYM_PROP_HSL, AtomListView(out, 3));
+    send(SYM_PROP_HSL, AtomListView(out, 3));
 
     // hex
     out[0] = color_hex;
-    anyTo(0, SYM_PROP_HEX, AtomListView(&out->atom(), 1));
-    send(SYM_PROP_HEX, AtomListView(&out->atom(), 1));
+    anyTo(0, SYM_PROP_HEX, AtomListView(out, 1));
+    send(SYM_PROP_HEX, AtomListView(out, 1));
 }
 
 void UIColorPanel::setup()

@@ -435,8 +435,8 @@ void UIMatrix::outputCell(size_t row, size_t col)
     args[1] = col;
     args[2] = cell(row, col) ? 1 : 0;
 
-    anyTo(0, SYM_CELL, AtomListView(&args->atom(), N));
-    send(SYM_CELL, AtomListView(&args->atom(), N));
+    anyTo(0, SYM_CELL, AtomListView(args, N));
+    send(SYM_CELL, AtomListView(args, N));
 }
 
 void UIMatrix::outputCell(const AtomListView& args)
@@ -466,7 +466,7 @@ void UIMatrix::outputCol(size_t col)
     for (int i = 0; i < prop_rows_; i++)
         res[i + 1] = cell(i, col) ? 1 : 0;
 
-    AtomListView lv(&res->atom(), N);
+    AtomListView lv(res, N);
     anyTo(0, SYM_COL, lv);
     send(SYM_COL, lv);
 }
@@ -497,7 +497,7 @@ void UIMatrix::outputRow(size_t row)
     for (int i = 0; i < prop_cols_; i++)
         res[i + 1] = cell(row, i) ? 1 : 0;
 
-    AtomListView lv(&res->atom(), N);
+    AtomListView lv(res, N);
 
     anyTo(0, SYM_ROW, lv);
     send(SYM_ROW, lv);

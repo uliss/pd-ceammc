@@ -420,8 +420,8 @@ void UITab::output()
         }
 
         t_symbol* SYM_PROP_SELECTED = gensym("@selected");
-        anyTo(0, SYM_PROP_SELECTED, AtomListView(&res->atom(), N));
-        send(SYM_PROP_SELECTED, AtomListView(&res->atom(), N));
+        anyTo(0, SYM_PROP_SELECTED, AtomListView(res, N));
+        send(SYM_PROP_SELECTED, AtomListView(res, N));
 
         if (item_selected_ < 0 || item_selected_ >= items_.size())
             return;
@@ -429,8 +429,8 @@ void UITab::output()
         Atom sel[2];
         sel[0] = item_selected_;
         sel[1] = toggles_.test(item_selected_);
-        listTo(0, AtomListView(&sel->atom(), 2));
-        send(AtomListView(&sel->atom(), 2));
+        listTo(0, AtomListView(sel, 2));
+        send(AtomListView(sel, 2));
     } else {
         if (item_selected_ < 0 || item_selected_ >= items_.size()) {
             UI_ERR << "no item selected";
@@ -440,8 +440,8 @@ void UITab::output()
         Atom sel[2];
         sel[0] = item_selected_;
         sel[1] = items_[item_selected_];
-        listTo(0, AtomListView(&sel->atom(), 2));
-        send(AtomListView(&sel->atom(), 2));
+        listTo(0, AtomListView(sel, 2));
+        send(AtomListView(sel, 2));
     }
 }
 

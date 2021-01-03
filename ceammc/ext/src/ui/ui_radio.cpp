@@ -389,7 +389,7 @@ void UIRadio::output()
         for (int i = 0; i < prop_nitems_; i++)
             res[i] = Atom(items_[i]);
 
-        auto lv = AtomListView(&res->atom(), prop_nitems_);
+        auto lv = AtomListView(res, prop_nitems_);
         listTo(0, lv);
         send(lv);
     }

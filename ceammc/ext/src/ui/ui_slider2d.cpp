@@ -290,7 +290,7 @@ void UISlider2D::output()
     res[0] = realXValue();
     res[1] = realYValue();
 
-    AtomListView lv(&res->atom(), 2);
+    AtomListView lv(res, 2);
     listTo(0, lv);
     send(lv);
 }

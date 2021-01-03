@@ -186,7 +186,7 @@ void UIMidi::onSysex(const AtomListView& lv)
         bg_layer_.invalidate();
         redraw();
 
-        anyTo(0, SYM_SYSEX, AtomListView(&out_msg->atom(), sysex_buffer_.size()));
+        anyTo(0, SYM_SYSEX, AtomListView(out_msg, sysex_buffer_.size()));
         sysex_buffer_.clear();
     }
 }
