@@ -108,7 +108,7 @@ void UIMidi::onNote(const AtomListView& lv)
     bg_layer_.invalidate();
     redraw();
 
-    listTo(0, lv);
+    anyTo(0, SYM_NOTEIN, lv);
 }
 
 void UIMidi::onCtlin(const AtomListView& lv)
@@ -126,7 +126,7 @@ void UIMidi::onCtlin(const AtomListView& lv)
     bg_layer_.invalidate();
     redraw();
 
-    listTo(0, lv);
+    anyTo(0, SYM_CTLIN, lv);
 }
 
 void UIMidi::onPgmin(const AtomListView& lv)
@@ -144,7 +144,7 @@ void UIMidi::onPgmin(const AtomListView& lv)
     bg_layer_.invalidate();
     redraw();
 
-    listTo(0, lv);
+    anyTo(0, SYM_PGMIN, lv);
 }
 
 void UIMidi::onSysex(const AtomListView& lv)
@@ -186,7 +186,7 @@ void UIMidi::onSysex(const AtomListView& lv)
         bg_layer_.invalidate();
         redraw();
 
-        listTo(0, AtomListView(&out_msg->atom(), sysex_buffer_.size()));
+        anyTo(0, SYM_SYSEX, AtomListView(&out_msg->atom(), sysex_buffer_.size()));
         sysex_buffer_.clear();
     }
 }
@@ -206,7 +206,7 @@ void UIMidi::onBendin(const AtomListView& lv)
     bg_layer_.invalidate();
     redraw();
 
-    listTo(0, lv);
+    anyTo(0, SYM_BENDIN, lv);
 }
 
 void UIMidi::onTouch(const AtomListView& lv)
@@ -224,7 +224,7 @@ void UIMidi::onTouch(const AtomListView& lv)
     bg_layer_.invalidate();
     redraw();
 
-    listTo(0, lv);
+    anyTo(0, SYM_TOUCHIN, lv);
 }
 
 void UIMidi::onPolyTouch(const AtomListView& lv)
@@ -242,7 +242,7 @@ void UIMidi::onPolyTouch(const AtomListView& lv)
     bg_layer_.invalidate();
     redraw();
 
-    listTo(0, lv);
+    anyTo(0, SYM_POLYTOUCH, lv);
 }
 
 void UIMidi::setup()
