@@ -1308,6 +1308,9 @@
     <entry name="midi.prg2str" descr="convert GM Instrument number to name (string or symbol)" ref_view="object">
       <xi:include href="midi.prg2str.pddoc" parse="xml"/>
     </entry>
+    <entry name="midi.sysex" descr="sysex input messages as list" ref_view="object">
+      <xi:include href="midi.sysex.pddoc" parse="xml"/>
+    </entry>
     <entry name="midi.track" descr="extract track from MidiFile" ref_view="object">
       <xi:include href="midi.track.pddoc" parse="xml"/>
     </entry>

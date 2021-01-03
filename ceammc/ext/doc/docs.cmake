@@ -432,6 +432,7 @@ set(DOC_FILES
     midi.file
     midi.key2str
     midi.prg2str
+    midi.sysex
     midi.track
     midi.tuning
     midi.vramp

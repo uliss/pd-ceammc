@@ -598,6 +598,7 @@ midi.key2str	convert key number to SPN name according to tonality
 midi.key->str	convert key number to SPN name according to tonality
 midi.prg2str	convert GM Instrument number to name (string or symbol)
 midi.prg->str	convert GM Instrument number to name (string or symbol)
+midi.sysex	sysex input messages as list
 midi.track	extract track from MidiFile
 midi.tuning	apply tuning to midi messages
 midi.vramp	apply crescendo or diminuendo for midi message flow
