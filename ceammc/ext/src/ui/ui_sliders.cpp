@@ -415,8 +415,8 @@ void UISliders::normalize()
 
     prop_min = real_min;
     prop_max = real_max;
-    setProperty(gensym("min"), AtomList(real_min));
-    setProperty(gensym("max"), AtomList(real_max));
+    setProperty(gensym("min"), Atom(real_min));
+    setProperty(gensym("max"), Atom(real_max));
 }
 
 void UISliders::m_set(const AtomListView& l)

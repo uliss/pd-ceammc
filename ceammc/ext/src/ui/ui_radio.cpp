@@ -47,7 +47,7 @@ void UIRadio::init(t_symbol* name, const AtomList& args, bool usePresets)
 
     // check checklist mode
     if (name == SYM_VRD_MULT || name == SYM_HRD_MULT || name == SYM_RADIO_MULT)
-        setProperty(gensym("mode"), { 1 });
+        setProperty(gensym("mode"), Atom(1));
 
     // has positional arguments
     int n = args.intAt(0, -1);
