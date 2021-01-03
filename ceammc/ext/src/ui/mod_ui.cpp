@@ -17,6 +17,7 @@
 #include "ui_matrix.h"
 #include "ui_menu.h"
 #include "ui_meter.h"
+#include "ui_midi.h"
 #include "ui_mouse_filter.h"
 #include "ui_mouse_route.h"
 #include "ui_number.h"
@@ -53,6 +54,7 @@ void ceammc_ui_setup()
     setup_ui_matrix();
     setup_ui_menu();
     setup_ui_meter();
+    setup_ui_midi();
     setup_ui_mouse_filter();
     setup_ui_mouse_route();
     setup_ui_number();
