@@ -1019,7 +1019,7 @@ void XTouchExtender::m_get_button_fn(t_symbol* s, const AtomListView& lv, Button
     Atom lout[2];
     lout[0] = lv[0];
     lout[1] = (sc.*fn)(idx).state();
-    anyTo(1, s, AtomListView(&lout->atom(), 2));
+    anyTo(1, s, AtomListView(lout, 2));
 }
 
 void XTouchExtender::m_get_fader_fn(t_symbol* s, const AtomListView& lv, Fader& (Scene::*fn)(uint8_t))
@@ -1034,7 +1034,7 @@ void XTouchExtender::m_get_fader_fn(t_symbol* s, const AtomListView& lv, Fader& 
     Atom lout[2];
     lout[0] = lv[0];
     lout[1] = (sc.*fn)(idx).value();
-    anyTo(1, s, AtomListView(&lout->atom(), 2));
+    anyTo(1, s, AtomListView(lout, 2));
 }
 
 static void init_symbols()

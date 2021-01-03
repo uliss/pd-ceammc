@@ -134,7 +134,7 @@ void SynthGlitch::m_byte(t_symbol* /*s*/, const AtomListView& lv)
     for (size_t i = 0; i < lv.size(); i++)
         atoms[i + 1] = lv[i];
 
-    expr_->setList(AtomListView(&(atoms->atom()), n));
+    expr_->setList(AtomListView(atoms, n));
 }
 
 void SynthGlitch::m_reset(t_symbol* s, const AtomListView& lv)

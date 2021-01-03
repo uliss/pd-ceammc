@@ -93,12 +93,12 @@ void SeqMatrixBase::onInlet(size_t n, const AtomListView& l)
 void SeqMatrixBase::outputTick()
 {
     Atom l0[2] = { sequenceCounter(), sequenceSize() };
-    anyTo(1, SYM_IDX, AtomListView(&l0->atom(), 2));
+    anyTo(1, SYM_IDX, AtomListView(l0, 2));
 
     anyTo(0, PROP_CURRENT_COL, Atom(sequenceCounter()));
 
     Atom l1[2] = { SYM_COL, sequenceCounter() };
-    anyTo(0, SYM_GET, AtomListView(&l1->atom(), 2));
+    anyTo(0, SYM_GET, AtomListView(l1, 2));
 }
 
 void SeqMatrixBase::outputRepeat(size_t ridx)

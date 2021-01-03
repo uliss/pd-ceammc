@@ -81,7 +81,7 @@ void SeqSequencerBase::outputTick()
         return;
 
     Atom l[2] = { i, sequenceSize() };
-    anyTo(1, SYM_IDX, AtomListView(&l->atom(), 2));
+    anyTo(1, SYM_IDX, AtomListView(l, 2));
 
     const auto& a = v[i];
     if (a.isDataType(DataTypeMList::dataType))
@@ -93,7 +93,7 @@ void SeqSequencerBase::outputTick()
 void SeqSequencerBase::outputRepeat(size_t ridx)
 {
     Atom l[2] = { ridx, numRepeats() };
-    anyTo(1, SYM_REPEAT_IDX, AtomListView(&l->atom(), 2));
+    anyTo(1, SYM_REPEAT_IDX, AtomListView(l, 2));
 }
 
 void SeqSequencerBase::outputRepeatDone()
