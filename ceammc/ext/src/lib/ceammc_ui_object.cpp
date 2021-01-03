@@ -655,9 +655,9 @@ bool UIObjectImpl::getProperty(t_symbol* name, AtomList& lst) const
     return false;
 }
 
-void UIObjectImpl::setProperty(t_symbol* name, const AtomList& lst)
+bool UIObjectImpl::setProperty(t_symbol* name, const AtomListView& lst)
 {
-    eclass_attr_setter(asPdObject(), name, lst.size(), lst.toPdData());
+    return eclass_attr_setter(asPdObject(), name, lst.size(), lst.toPdData());
 }
 
 static AtomList sym_to_list(t_symbol* sym)
@@ -845,6 +845,18 @@ std::vector<PropertyInfo> UIObjectImpl::propsInfo() const
         res.push_back(attr_to_prop(c->c_attr[i]));
 
     return res;
+}
+
+boost::optional<PropertyInfo> UIObjectImpl::propertyInfo(t_symbol* name) const
+{
+    auto* c = reinterpret_cast<const t_eclass*>(box_->b_obj.o_obj.te_g.g_pd);
+
+    for (size_t i = 0; i < c->c_nattr; i++) {
+        if (c->c_attr[i]->name == name)
+            return attr_to_prop(c->c_attr[i]);
+    }
+
+    return {};
 }
 
 void UIObjectImpl::bindTo(t_symbol* s)

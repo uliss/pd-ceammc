@@ -3,7 +3,6 @@
 
 #include "ceammc_atomlist.h"
 #include "ceammc_cicm.h"
-//#include "ceammc_data.h"
 #include "ceammc_property_info.h"
 
 #include <initializer_list>
@@ -171,13 +170,14 @@ public:
     const std::vector<t_outlet*>& outlets() const { return outlets_; }
     t_outlet* createOutlet();
     const char* annotateInlet(int n) const;
-    const char* annotateOutlet(int n) const;;
+    const char* annotateOutlet(int n) const;
 
     bool hasProperty(t_symbol* name) const;
     bool getProperty(t_symbol* name, t_float& f) const;
     bool getProperty(t_symbol* name, AtomList& lst) const;
-    void setProperty(t_symbol* name, const AtomList& lst);
+    bool setProperty(t_symbol* name, const AtomListView& lv);
     std::vector<PropertyInfo> propsInfo() const;
+    boost::optional<PropertyInfo> propertyInfo(t_symbol* name) const;
 
     // bind to global dispatcher
     void bindTo(t_symbol* s);
