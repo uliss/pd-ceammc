@@ -24,7 +24,8 @@
             <event editmode="false" type="left-click">output again</event>
         </mouse>
         <arguments>
-            <argument name="ARGS" type="list">message. Comma separated messages are supported</argument>
+            <argument name="ARGS" type="list">message. Comma separated messages are
+            supported</argument>
         </arguments>
         <inlets />
         <outlets>
