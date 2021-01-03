@@ -30,6 +30,7 @@ class AtomListView {
 public:
     AtomListView() noexcept;
     AtomListView(const t_atom* a, size_t n) noexcept;
+    AtomListView(const Atom* a, size_t n) noexcept;
     AtomListView(const Atom& a) noexcept;
     AtomListView(const AtomList& l) noexcept;
 
