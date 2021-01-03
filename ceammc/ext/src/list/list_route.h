@@ -25,7 +25,7 @@ public:
     const char* annotateOutlet(size_t n) const final;
 
 private:
-    void outputList(size_t idx, const AtomList& l);
+    void outputList(size_t idx, const AtomListView& lv);
 };
 
 void setup_list_route();

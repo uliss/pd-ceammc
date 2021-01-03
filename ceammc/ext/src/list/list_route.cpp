@@ -63,7 +63,7 @@ void ListRoute::onSymbol(t_symbol* s)
             return bangTo(idx);
         else {
             if (as_any_->value())
-                anyTo(idx, s, AtomList());
+                anyTo(idx, s, AtomListView());
             else
                 symbolTo(idx, s);
         }
@@ -82,9 +82,9 @@ void ListRoute::onList(const AtomList& lst)
         return listTo(numOutlets() - 1, lst);
     } else {
         if (trim_->value())
-            outputList(idx, lst.slice(1));
+            outputList(idx, lst.view(1));
         else
-            outputList(idx, lst);
+            outputList(idx, lst.view());
     }
 }
 
@@ -101,22 +101,22 @@ const char* ListRoute::annotateOutlet(size_t n) const
     return out_annotations_[n].c_str();
 }
 
-void ListRoute::outputList(size_t idx, const AtomList& l)
+void ListRoute::outputList(size_t idx, const AtomListView& lv)
 {
-    const size_t sz = l.size();
+    const size_t sz = lv.size();
 
     // empty list
     if (sz == 0)
         return bangTo(0);
 
     // list with first symbol and @as_any flag is set
-    if (l[0].isSymbol() && as_any_->value())
-        return anyTo(idx, l[0].asSymbol(), l.slice(1));
+    if (lv[0].isSymbol() && as_any_->value())
+        return anyTo(idx, lv[0].asSymbol(), lv.subView(1));
 
     if (sz == 1 && simplify_types_->value())
-        return atomTo(idx, l[0]);
+        return atomTo(idx, lv[0]);
     else
-        return listTo(idx, l);
+        return listTo(idx, lv);
 }
 
 void setup_list_route()
