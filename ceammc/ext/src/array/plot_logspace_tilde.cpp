@@ -82,7 +82,8 @@ void PlotLogTilde::onBang()
     else if (base_->value() == Atom(gensym("e")))
         fbase_ = m_e;
 
-    listTo(1, { (t_float)num_->value(), std::pow(fbase_, start_->value()), std::pow(fbase_, stop_->value()), base_->value() });
+    Atom out[4] = { (t_float)num_->value(), std::pow(fbase_, start_->value()), std::pow(fbase_, stop_->value()), base_->value() };
+    listTo(1, AtomListView(out, 4));
 }
 
 void PlotLogTilde::onFloat(t_float f)

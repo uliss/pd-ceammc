@@ -29,7 +29,8 @@ PlotHistTilde::PlotHistTilde(const PdArgs& args)
     , clock_([this] {
         state_ = OUTPUT;
         phase_ = 0;
-        listTo(1, { (t_float)buf_.size(), min_->value(), max_->value(), gensym("hist") });
+        Atom out[4] = { (t_float)buf_.size(), min_->value(), max_->value(), gensym("hist") };
+        listTo(1, AtomListView(out, 4));
     })
     , phase_(0)
 {

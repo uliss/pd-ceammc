@@ -62,7 +62,8 @@ void PlotLinTilde::onBang()
     incr_ = (stop_->value() - start_->value()) / n;
     running_ = true;
 
-    listTo(1, { (t_float)num_->value(), start_->value(), stop_->value(), base_->value() });
+    Atom out[4] = { (t_float)num_->value(), start_->value(), stop_->value(), base_->value() };
+    listTo(1, AtomListView(out, 4));
 }
 
 void PlotLinTilde::onFloat(t_float n)
