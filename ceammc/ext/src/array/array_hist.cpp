@@ -55,7 +55,11 @@ void ArrayHist::onBang()
         return;
     }
 
-    std::vector<uint32_t> hist(nbins_->value());
+    const size_t NBINS = nbins_->value();
+    uint32_t hist[NBINS];
+    for (size_t i = 0; i < NBINS; i++)
+        hist[i] = 0;
+
     const t_sample MIN = min_->value();
     const t_sample MAX = max_->value();
 
@@ -64,7 +68,6 @@ void ArrayHist::onBang()
         return;
     }
 
-    const t_sample NBINS = nbins_->value();
     for (t_sample samp : array_) {
         // ignore out of range values
         if (samp < MIN || samp > MAX)
@@ -78,13 +81,11 @@ void ArrayHist::onBang()
         hist[idx]++;
     }
 
-    AtomList res;
-    res.reserve(hist.size());
-    res.fill(0.f, hist.size());
-    for (size_t i = 0; i < res.size(); i++)
-        res[i].setFloat(hist[i]);
+    Atom res[NBINS];
+    for (size_t i = 0; i < NBINS; i++)
+        res[i] = hist[i];
 
-    listTo(0, res);
+    listTo(0, AtomListView(res, NBINS));
 }
 
 void setup_array_hist()
