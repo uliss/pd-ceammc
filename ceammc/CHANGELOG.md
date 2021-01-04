@@ -6,6 +6,7 @@
   - loadexpr added (supports functions and datatypes)
   - midi.cc added (enhanced version of ctlin)
   - midi.sysex added (read sysex messages as list)
+  - midi.clock added
   - ui.midi added (display for incoming messages)
 - comma separated messages added to msg.onload (loadmsg)
 - xlet tooltips added to:

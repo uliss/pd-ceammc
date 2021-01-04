@@ -585,6 +585,7 @@ math.tan~	tangent function
 math.trunc	truncate to integer value
 math.trunc~	truncate to integer value
 midi.cc	enhanced version of vanilla ctlin
+midi.clock	midi clock toolbox
 midi.ctl2str	convert Standard MIDI Controllers number to name
 midi.ctl->str	convert Standard MIDI Controllers number to name
 midi.event2ctl	convert MidiEvent message to controller channel/value pair

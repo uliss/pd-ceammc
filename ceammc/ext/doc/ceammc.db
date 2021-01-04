@@ -423,6 +423,7 @@ metro.pattern		.		..
 metro.random		..		.
 metro.seq		.		.
 midi.cc		.		.
+midi.clock		.		..
 midi.ctl2str,midi.ctl->str		.		.
 midi.event2ctl,midi.ev->ctl		.		..
 midi.event2note,midi.ev->note		.		...

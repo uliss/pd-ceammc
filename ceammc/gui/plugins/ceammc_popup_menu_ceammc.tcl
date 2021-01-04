@@ -121,9 +121,9 @@
         math.trunc~
     }}
     {midi {
-        midi.cc midi.ctl2str midi.event2ctl midi.event2note midi.event2prg
-        midi.file midi.key2str midi.prg2str midi.sysex midi.track midi.tuning
-        midi.vramp
+        midi.cc midi.clock midi.ctl2str midi.event2ctl midi.event2note
+        midi.event2prg midi.file midi.key2str midi.prg2str midi.sysex
+        midi.track midi.tuning midi.vramp
     }}
     {misc {
         click~ fluid~ modplug~ speech.flite

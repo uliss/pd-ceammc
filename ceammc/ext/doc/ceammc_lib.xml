@@ -1287,6 +1287,9 @@
     <entry name="midi.cc" descr="enhanced version of vanilla ctlin" ref_view="object">
       <xi:include href="midi.cc.pddoc" parse="xml"/>
     </entry>
+    <entry name="midi.clock" descr="midi clock toolbox" ref_view="object">
+      <xi:include href="midi.clock.pddoc" parse="xml"/>
+    </entry>
     <entry name="midi.ctl2str" descr="convert Standard MIDI Controllers number to name" ref_view="object">
       <xi:include href="midi.ctl2str.pddoc" parse="xml"/>
     </entry>

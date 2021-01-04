@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="midi.clock">
+        <title>midi.clock</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>midi clock toolbox</description>
+            <license>GPL3 or later</license>
+            <library>ceammc</library>
+            <category>midi</category>
+            <keywords>midi clock</keywords>
+            <since>0.9.2</since>
+        </meta>
+        <arguments>
+            <argument name="DIV" type="int" enum="0 4 8 16 32">@div clock subdivision</argument>
+        </arguments>
+        <properties>
+            <property name="@div" type="int" enum="0 4 8 16 32" default="0">clock subdivision. If
+            0: bang each incoming midi clock message, if 4: output every quoter note, 8: every
+            eight note etc.</property>
+        </properties>
+        <inlets>
+            <inlet>
+                <xinfo>control input</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet>bang: on specified beat</outlet>
+            <outlet>float: measured bpm (output every beat)</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[midi.clock 8] /*bang every eight note*/
+|
+[click~]                   [T]    [F] /*24 pulses per quater note*/
+|                          |      |.
+[flt.resonbp~ 1440 40]     [metro 10]
+|                          |
+[ui.hgain~]                [\\\; \#midirealtimein 1 248(
+|\
+[dac~]
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>
