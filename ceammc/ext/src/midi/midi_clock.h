@@ -25,13 +25,14 @@ class MidiClock : public BaseObject {
 private:
     Proxy proxy_;
     double tprev_;
-    uint16_t delta_counter_;
+    uint16_t beat_counter_;
     IntEnumProperty* div_;
 
 public:
     MidiClock(const PdArgs& args);
 
     void onClock(const AtomListView& lv);
+    void m_reset(t_symbol*, const AtomListView&);
 };
 
 void setup_midi_clock();

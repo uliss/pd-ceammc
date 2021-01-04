@@ -30,7 +30,7 @@ MidiClock::MidiClock(const PdArgs& args)
     : BaseObject(args)
     , proxy_(this, &MidiClock::onClock)
     , tprev_(-1)
-    , delta_counter_(0)
+    , beat_counter_(0)
     , div_(nullptr)
 {
     createOutlet();
@@ -54,7 +54,7 @@ void MidiClock::onClock(const AtomListView& lv)
     if (byte != 0xF8)
         return;
 
-    if (delta_counter_ == 0) {
+    if (beat_counter_ == 0) {
         if (tprev_ > 0) {
             auto ms = clock_gettimesince(tprev_);
             floatTo(1, 60000 / ms);
@@ -65,16 +65,24 @@ void MidiClock::onClock(const AtomListView& lv)
 
     // output bang at specified division
     const auto div = enumToDiv(div_->value());
-    if (delta_counter_ % div == 0)
+    if (beat_counter_ % div == 0)
         bangTo(0);
 
-    delta_counter_++;
-    delta_counter_ %= 24;
+    beat_counter_++;
+    beat_counter_ %= 24;
+}
+
+void MidiClock::m_reset(t_symbol*, const AtomListView&)
+{
+    beat_counter_ = 0;
 }
 
 void setup_midi_clock()
 {
     SYM_MIDIRT = gensym("#midirealtimein");
+
     ObjectFactory<MidiClock> obj("midi.clock");
+
+    obj.addMethod("reset", &MidiClock::m_reset);
     obj.setXletsInfo({ "control inlet" }, { "bang: on midi clock message", "float: measured tempo in bpm" });
 }

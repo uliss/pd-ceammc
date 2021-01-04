@@ -25,6 +25,7 @@ function(add_midi_test src)
     target_sources(test_ext_midi PRIVATE "test_midi_${src}.cpp")
 endfunction()
 
+add_midi_test(clock)
 add_midi_test(ctl_to_str)
 add_midi_test(file)
 add_midi_test(key_to_str)
