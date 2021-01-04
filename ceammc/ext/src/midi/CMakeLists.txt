@@ -9,6 +9,7 @@ macro(ceammc_midi_external name)
 endmacro()
 
 ceammc_midi_external(cc)
+ceammc_midi_external(clock)
 ceammc_midi_external(ctl2str)
 ceammc_midi_external(event)
 ceammc_midi_external(event_to_ctl)
