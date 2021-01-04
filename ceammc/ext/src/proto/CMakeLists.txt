@@ -8,7 +8,10 @@ endfunction()
 
 ceammc_proto_extension(firmata)
 ceammc_proto_extension(hui)
+ceammc_proto_extension(midi)
 ceammc_proto_extension(sp_alpaca)
 ceammc_proto_extension(xtouch_ext)
+
+target_sources(ceammc_proto PRIVATE proto_midi_parser.cpp)
 
 target_link_libraries(ceammc_proto proto_firmata)
