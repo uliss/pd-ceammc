@@ -31,6 +31,7 @@ static t_symbol* SYM_START;
 static t_symbol* SYM_STOP;
 static t_symbol* SYM_SYSRESET;
 static t_symbol* SYM_TICK;
+static t_symbol* SYM_TUNEREQUEST;
 
 static std::tuple<uint8_t, uint8_t> floatToBit14(t_float v)
 {
@@ -84,6 +85,13 @@ ProtoMidi::ProtoMidi(const PdArgs& args)
         const t_float v = ((msb << 7) | lsb) - 0x2000;
         Atom msg[2] = { 0x0F & b, v };
         msgTo(SYM_PITCHWHEEL, msg, 2);
+    });
+
+    parser_.setSysCommonFn([this](Byte b, Byte d0, Byte d1) {
+        switch (b) {
+        case midi::MIDI_TUNEREQUEST:
+            return anyTo(0, SYM_TUNEREQUEST, AtomListView());
+        }
     });
 
     parser_.setRealtimeFn([this](Byte msg) {
@@ -171,6 +179,11 @@ void ProtoMidi::m_stop(t_symbol*, const AtomListView&)
 void ProtoMidi::m_sysReset(t_symbol*, const AtomListView&)
 {
     floatTo(0, midi::MIDI_SYSTEM_RESET);
+}
+
+void ProtoMidi::m_tuneRequest(t_symbol*, const AtomListView&)
+{
+    floatTo(0, midi::MIDI_TUNEREQUEST);
 }
 
 void ProtoMidi::m_pitchWheel(t_symbol* s, const AtomListView& lv)
@@ -315,6 +328,7 @@ void setup_proto_midi()
     SYM_STOP = gensym("stop");
     SYM_SYSRESET = gensym("sysreset");
     SYM_TICK = gensym("tick");
+    SYM_TUNEREQUEST = gensym("tunerequest");
 
     ObjectFactory<ProtoMidi> obj("proto.midi");
 
@@ -332,4 +346,5 @@ void setup_proto_midi()
     obj.addMethod(SYM_START->s_name, &ProtoMidi::m_start);
     obj.addMethod(SYM_STOP->s_name, &ProtoMidi::m_stop);
     obj.addMethod(SYM_SYSRESET->s_name, &ProtoMidi::m_sysReset);
+    obj.addMethod(SYM_TUNEREQUEST->s_name, &ProtoMidi::m_tuneRequest);
 }

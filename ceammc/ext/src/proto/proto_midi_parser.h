@@ -21,7 +21,6 @@ namespace ceammc {
 namespace midi {
     using Byte = std::uint8_t;
     using SysRealtimeCb = std::function<void(Byte)>;
-    using SysCommonCb = std::function<void(Byte, Byte, Byte)>;
     using SysExcCb = std::function<void(size_t, Byte*)>;
     using Byte3Cb = std::function<void(Byte, Byte, Byte)>;
     using Byte2Cb = std::function<void(Byte, Byte)>;
@@ -90,9 +89,8 @@ namespace midi {
         std::uint32_t max_data_len_;
 
         SysRealtimeCb sys_realtime_cb_;
-        SysCommonCb sys_common_cb_;
         SysExcCb sys_exclusive_cb_;
-        Byte3Cb noteon_cb_, noteoff_cb_, cc_cb_, pitchbend_cb_, poly_cb_;
+        Byte3Cb noteon_cb_, noteoff_cb_, cc_cb_, pitchbend_cb_, poly_cb_, sys_common_cb_;
         Byte2Cb atouch_cb_, prg_cb_;
 
     public:
@@ -108,6 +106,7 @@ namespace midi {
         void setPolyTouchFn(Byte3Cb cb) { poly_cb_ = cb; }
         void setProgramChangeFn(Byte2Cb cb) { prg_cb_ = cb; }
         void setRealtimeFn(SysRealtimeCb cb) { sys_realtime_cb_ = cb; }
+        void setSysCommonFn(Byte3Cb cb) { sys_common_cb_ = cb; }
 
     private:
         void reset()

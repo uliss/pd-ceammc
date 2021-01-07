@@ -183,5 +183,9 @@ TEST_CASE("proto.midi", "[externals]")
         t0.call("sysreset");
         REQUIRE(t1.messagesAt(0) == ML { M("sysreset") });
         t1.clearAll();
+
+        t0.call("tunerequest");
+        REQUIRE(t1.messagesAt(0) == ML { M("tunerequest") });
+        t1.clearAll();
     }
 }
