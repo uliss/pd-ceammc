@@ -22,6 +22,7 @@ static t_symbol* SYM_CONTINUE;
 static t_symbol* SYM_CONTROLCHANGE;
 static t_symbol* SYM_NOTEOFF;
 static t_symbol* SYM_NOTEON;
+static t_symbol* SYM_PROGRAMCHANGE;
 static t_symbol* SYM_START;
 static t_symbol* SYM_STOP;
 static t_symbol* SYM_SYSRESET;
@@ -57,6 +58,11 @@ ProtoMidi::ProtoMidi(const PdArgs& args)
     parser_.setControlChangeFn([this](Byte b, Byte c, Byte v) {
         Atom msg[3] = { 0x0F & b, c, v };
         anyTo(0, SYM_CONTROLCHANGE, AtomListView(msg, 3));
+    });
+
+    parser_.setProgramChangeFn([this](Byte b, Byte v) {
+        Atom msg[2] = { 0x0F & b, v };
+        anyTo(0, SYM_PROGRAMCHANGE, AtomListView(msg, 2));
     });
 
     parser_.setRealtimeFn([this](Byte msg) {
@@ -113,6 +119,17 @@ void ProtoMidi::m_noteOn(t_symbol* s, const AtomListView& lv)
     byteStatus(midi::MIDI_NOTEON, lv[0].asT<int>());
     byteData(lv[1].asT<int>());
     byteData(lv[2].asT<int>());
+}
+
+void ProtoMidi::m_programChange(t_symbol* s, const AtomListView& lv)
+{
+    if (!checkMethodByte2(s, lv)) {
+        METHOD_ERR(s) << "usage: CHAN PROG";
+        return;
+    }
+
+    byteStatus(midi::MIDI_PROGRAMCHANGE, lv[0].asT<int>());
+    byteData(lv[1].asT<int>());
 }
 
 void ProtoMidi::m_noteOff(t_symbol* s, const AtomListView& lv)
@@ -224,6 +241,7 @@ void setup_proto_midi()
     SYM_CONTROLCHANGE = gensym("cc");
     SYM_NOTEOFF = gensym("noteoff");
     SYM_NOTEON = gensym("noteon");
+    SYM_PROGRAMCHANGE = gensym("program");
     SYM_START = gensym("start");
     SYM_STOP = gensym("stop");
     SYM_SYSRESET = gensym("sysreset");
@@ -237,4 +255,5 @@ void setup_proto_midi()
     obj.addMethod(SYM_AFTOUCH_MONO->s_name, &ProtoMidi::m_afterTouchMono);
     obj.addMethod(SYM_AFTOUCH_POLY->s_name, &ProtoMidi::m_afterTouchPoly);
     obj.addMethod(SYM_CONTROLCHANGE->s_name, &ProtoMidi::m_cc);
+    obj.addMethod(SYM_PROGRAMCHANGE->s_name, &ProtoMidi::m_programChange);
 }

@@ -143,5 +143,9 @@ TEST_CASE("proto.midi", "[externals]")
         t0.call("cc", LF(0, 79, 18));
         REQUIRE(t1.messagesAt(0) == ML { M("cc", 0, 79, 18) });
         t1.clearAll();
+
+        t0.call("program", LF(1, 79));
+        REQUIRE(t1.messagesAt(0) == ML { M("program", 1, 79) });
+        t1.clearAll();
     }
 }
