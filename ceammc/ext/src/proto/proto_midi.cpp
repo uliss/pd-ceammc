@@ -14,17 +14,18 @@
 #include "proto_midi.h"
 #include "ceammc_factory.h"
 
-static t_symbol* SYM_NOTEON;
-static t_symbol* SYM_NOTEOFF;
-static t_symbol* SYM_CLOCK;
-static t_symbol* SYM_TICK;
-static t_symbol* SYM_START;
-static t_symbol* SYM_STOP;
-static t_symbol* SYM_CONTINUE;
 static t_symbol* SYM_ACTIVESENSE;
-static t_symbol* SYM_SYSRESET;
 static t_symbol* SYM_AFTOUCH_MONO;
 static t_symbol* SYM_AFTOUCH_POLY;
+static t_symbol* SYM_CLOCK;
+static t_symbol* SYM_CONTINUE;
+static t_symbol* SYM_CONTROLCHANGE;
+static t_symbol* SYM_NOTEOFF;
+static t_symbol* SYM_NOTEON;
+static t_symbol* SYM_START;
+static t_symbol* SYM_STOP;
+static t_symbol* SYM_SYSRESET;
+static t_symbol* SYM_TICK;
 
 ProtoMidi::ProtoMidi(const PdArgs& args)
     : BaseObject(args)
@@ -51,6 +52,11 @@ ProtoMidi::ProtoMidi(const PdArgs& args)
     parser_.setPolyTouchFn([this](Byte b, Byte n, Byte v) {
         Atom msg[3] = { 0x0F & b, n, v };
         anyTo(0, SYM_AFTOUCH_POLY, AtomListView(msg, 3));
+    });
+
+    parser_.setControlChangeFn([this](Byte b, Byte c, Byte v) {
+        Atom msg[3] = { 0x0F & b, c, v };
+        anyTo(0, SYM_CONTROLCHANGE, AtomListView(msg, 3));
     });
 
     parser_.setRealtimeFn([this](Byte msg) {
@@ -144,6 +150,18 @@ void ProtoMidi::m_afterTouchPoly(t_symbol* s, const AtomListView& lv)
     byteData(lv[2].asT<int>());
 }
 
+void ProtoMidi::m_cc(t_symbol* s, const AtomListView& lv)
+{
+    if (!checkMethodByte3(s, lv)) {
+        METHOD_ERR(s) << "usage: CHAN CC VALUE";
+        return;
+    }
+
+    byteStatus(midi::MIDI_CONTROLCHANGE, lv[0].asT<int>());
+    byteData(lv[1].asT<int>());
+    byteData(lv[2].asT<int>());
+}
+
 bool ProtoMidi::checkMethodByte2(t_symbol* m, const AtomListView& lv)
 {
     if (lv.size() != 2) {
@@ -203,6 +221,7 @@ void setup_proto_midi()
     SYM_AFTOUCH_POLY = gensym("polytouch");
     SYM_CLOCK = gensym("clock");
     SYM_CONTINUE = gensym("continue");
+    SYM_CONTROLCHANGE = gensym("cc");
     SYM_NOTEOFF = gensym("noteoff");
     SYM_NOTEON = gensym("noteon");
     SYM_START = gensym("start");
@@ -217,4 +236,5 @@ void setup_proto_midi()
     obj.addMethod(SYM_NOTEOFF->s_name, &ProtoMidi::m_noteOff);
     obj.addMethod(SYM_AFTOUCH_MONO->s_name, &ProtoMidi::m_afterTouchMono);
     obj.addMethod(SYM_AFTOUCH_POLY->s_name, &ProtoMidi::m_afterTouchPoly);
+    obj.addMethod(SYM_CONTROLCHANGE->s_name, &ProtoMidi::m_cc);
 }

@@ -30,6 +30,7 @@ public:
     void m_noteOff(t_symbol* s, const AtomListView& lv);
     void m_afterTouchMono(t_symbol* s, const AtomListView& lv);
     void m_afterTouchPoly(t_symbol* s, const AtomListView& lv);
+    void m_cc(t_symbol* s, const AtomListView& lv);
 
 private:
     bool checkMethodByte2(t_symbol* m, const AtomListView& lv);
