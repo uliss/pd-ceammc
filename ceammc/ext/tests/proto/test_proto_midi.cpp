@@ -70,5 +70,13 @@ TEST_CASE("proto.midi", "[externals]")
         // NoteOff with continue
         t << LF(0x83, 12, 1, 0xFB);
         REQUIRE(t.messagesAt(0) == ML { M("noteoff", 3, 12, 1), M("continue") });
+
+        // NoteOn with activesense
+        t << LF(0x91, 0x42, 0xFE, 0x13);
+        REQUIRE(t.messagesAt(0) == ML { M("activesense"), M("noteon", 1, 0x42, 0x13) });
+
+        // NoteOn with system reset
+        t << LF(0x91, 0x42, 0xFF, 0x13);
+        REQUIRE(t.messagesAt(0) == ML { M("sysreset"), M("noteon", 1, 0x42, 0x13) });
     }
 }

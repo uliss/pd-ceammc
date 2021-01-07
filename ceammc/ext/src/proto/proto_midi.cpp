@@ -21,6 +21,8 @@ static t_symbol* SYM_TICK;
 static t_symbol* SYM_START;
 static t_symbol* SYM_STOP;
 static t_symbol* SYM_CONTINUE;
+static t_symbol* SYM_ACTIVESENSE;
+static t_symbol* SYM_SYSRESET;
 
 ProtoMidi::ProtoMidi(const PdArgs& args)
     : BaseObject(args)
@@ -51,6 +53,10 @@ ProtoMidi::ProtoMidi(const PdArgs& args)
             return anyTo(0, SYM_STOP, AtomListView());
         case midi::MIDI_CONTINUE:
             return anyTo(0, SYM_CONTINUE, AtomListView());
+        case midi::MIDI_ACTIVE_SENSE:
+            return anyTo(0, SYM_ACTIVESENSE, AtomListView());
+        case midi::MIDI_SYSTEM_RESET:
+            return anyTo(0, SYM_SYSRESET, AtomListView());
         default:
             break;
         }
@@ -87,6 +93,8 @@ void setup_proto_midi()
     SYM_START = gensym("start");
     SYM_STOP = gensym("stop");
     SYM_CONTINUE = gensym("continue");
+    SYM_ACTIVESENSE = gensym("activesense");
+    SYM_SYSRESET = gensym("sysreset");
 
     ObjectFactory<ProtoMidi> obj("proto.midi");
 }
