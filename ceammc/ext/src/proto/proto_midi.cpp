@@ -170,6 +170,11 @@ void ProtoMidi::m_pitchWheel(t_symbol* s, const AtomListView& lv)
     byteData(std::get<1>(bb));
 }
 
+void ProtoMidi::m_clock(t_symbol*, const AtomListView&)
+{
+    floatTo(0, midi::MIDI_TIMECLOCK);
+}
+
 void ProtoMidi::m_noteOff(t_symbol* s, const AtomListView& lv)
 {
     if (!checkMethodByte3(s, lv)) {
@@ -288,12 +293,13 @@ void setup_proto_midi()
 
     ObjectFactory<ProtoMidi> obj("proto.midi");
 
-    obj.addMethod(SYM_NOTEON->s_name, &ProtoMidi::m_noteOn);
     obj.addMethod("note", &ProtoMidi::m_noteOn);
-    obj.addMethod(SYM_NOTEOFF->s_name, &ProtoMidi::m_noteOff);
     obj.addMethod(SYM_AFTOUCH_MONO->s_name, &ProtoMidi::m_afterTouchMono);
     obj.addMethod(SYM_AFTOUCH_POLY->s_name, &ProtoMidi::m_afterTouchPoly);
+    obj.addMethod(SYM_CLOCK->s_name, &ProtoMidi::m_clock);
     obj.addMethod(SYM_CONTROLCHANGE->s_name, &ProtoMidi::m_cc);
+    obj.addMethod(SYM_NOTEOFF->s_name, &ProtoMidi::m_noteOff);
+    obj.addMethod(SYM_NOTEON->s_name, &ProtoMidi::m_noteOn);
     obj.addMethod(SYM_PITCHWHEEL->s_name, &ProtoMidi::m_pitchWheel);
     obj.addMethod(SYM_PROGRAMCHANGE->s_name, &ProtoMidi::m_programChange);
 }

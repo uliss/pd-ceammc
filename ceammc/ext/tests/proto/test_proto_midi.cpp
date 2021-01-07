@@ -159,5 +159,9 @@ TEST_CASE("proto.midi", "[externals]")
         t0.call("pitchwheel", LF(1, 0x1fff));
         REQUIRE(t1.messagesAt(0) == ML { M("pitchwheel", 1, 0x1fff) });
         t1.clearAll();
+
+        t0.call("clock");
+        REQUIRE(t1.messagesAt(0) == ML { M("clock") });
+        t1.clearAll();
     }
 }
