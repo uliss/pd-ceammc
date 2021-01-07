@@ -12,7 +12,10 @@
  * this file belongs to.
  *****************************************************************************/
 #include "proto_midi.h"
+#include "ceammc_convert.h"
 #include "ceammc_factory.h"
+
+#include <tuple>
 
 static t_symbol* SYM_ACTIVESENSE;
 static t_symbol* SYM_AFTOUCH_MONO;
@@ -22,16 +25,44 @@ static t_symbol* SYM_CONTINUE;
 static t_symbol* SYM_CONTROLCHANGE;
 static t_symbol* SYM_NOTEOFF;
 static t_symbol* SYM_NOTEON;
+static t_symbol* SYM_PITCHWHEEL;
 static t_symbol* SYM_PROGRAMCHANGE;
 static t_symbol* SYM_START;
 static t_symbol* SYM_STOP;
 static t_symbol* SYM_SYSRESET;
 static t_symbol* SYM_TICK;
 
+static t_float bit14toFloat(midi::Byte msb, midi::Byte lsb)
+{
+    uint16_t v = (msb << 7) | lsb;
+    if (v >= 0x2000)
+        return convert::lin2lin_clip<t_float, 0x2000, 0x3fff>(v, 0, 1);
+    else
+        return convert::lin2lin_clip<t_float, 0, 0x2000>(v, -1, 0);
+}
+
+static std::tuple<t_float, t_float> floatToBit14(t_float v)
+{
+    const uint16_t uval = (v >= 0) ? std::round(convert::lin2lin_clip<t_float, 0, 1>(v, 0x2000, 0x3fff))
+                                   : std::round(convert::lin2lin_clip<t_float, -1, 0>(v, 0, 0x2000));
+
+    return { 0x7F & (uval >> 7), 0x7F & uval };
+}
+
+static std::tuple<t_float, t_float> float01ToBit14(t_float v)
+{
+    const uint16_t uval = std::round(convert::lin2lin_clip<t_float, 0, 1>(v, 0, 0x3fff));
+    return { 0x7F & (uval >> 7), 0x7F & uval };
+}
+
 ProtoMidi::ProtoMidi(const PdArgs& args)
     : BaseObject(args)
+    , raw_(nullptr)
 {
     createOutlet();
+
+    raw_ = new BoolProperty("@raw", true);
+    addProperty(raw_);
 
     using midi::Byte;
 
@@ -63,6 +94,16 @@ ProtoMidi::ProtoMidi(const PdArgs& args)
     parser_.setProgramChangeFn([this](Byte b, Byte v) {
         Atom msg[2] = { 0x0F & b, v };
         anyTo(0, SYM_PROGRAMCHANGE, AtomListView(msg, 2));
+    });
+
+    parser_.setPitchWheelFn([this](Byte b, Byte msb, Byte lsb) {
+        if (raw_->value()) {
+            Atom msg[3] = { 0x0F & b, msb, lsb };
+            anyTo(0, SYM_PITCHWHEEL, AtomListView(msg, 3));
+        } else {
+            Atom msg[2] = { 0x0F & b, bit14toFloat(msb, lsb) };
+            anyTo(0, SYM_PITCHWHEEL, AtomListView(msg, 2));
+        }
     });
 
     parser_.setRealtimeFn([this](Byte msg) {
@@ -132,6 +173,30 @@ void ProtoMidi::m_programChange(t_symbol* s, const AtomListView& lv)
     byteData(lv[1].asT<int>());
 }
 
+void ProtoMidi::m_pitchWheel(t_symbol* s, const AtomListView& lv)
+{
+    if (raw_->value()) {
+        if (!checkMethodByte3(s, lv)) {
+            METHOD_ERR(s) << "usage: CHAN MSB LSB";
+            return;
+        }
+
+        byteStatus(midi::MIDI_PITCHBEND, lv[0].asT<int>());
+        byteData(lv[1].asT<int>());
+        byteData(lv[2].asT<int>());
+    } else {
+        if (!checkMethodFloat(s, lv, -1, 1)) {
+            METHOD_ERR(s) << "usage: CHAN VALUE(-1..+1)";
+            return;
+        }
+
+        byteStatus(midi::MIDI_PITCHBEND, lv[0].asT<int>());
+        const auto bb = floatToBit14(lv[1].asT<t_float>());
+        byteData(std::get<0>(bb));
+        byteData(std::get<1>(bb));
+    }
+}
+
 void ProtoMidi::m_noteOff(t_symbol* s, const AtomListView& lv)
 {
     if (!checkMethodByte3(s, lv)) {
@@ -190,12 +255,12 @@ bool ProtoMidi::checkMethodByte2(t_symbol* m, const AtomListView& lv)
     const auto byte0 = lv[1].asInt(-1);
 
     if (chan < 0 || chan > 15) {
-        METHOD_ERR(m) << "channel value in [0-15] range expected, got: " << lv[0];
+        METHOD_ERR(m) << "channel value in [0..15] range expected, got: " << lv[0];
         return false;
     }
 
     if (byte0 < 0 || byte0 > 127) {
-        METHOD_ERR(m) << "byte value in [0-127] range expected, got: " << lv[1];
+        METHOD_ERR(m) << "byte value in [0..127] range expected, got: " << lv[1];
         return false;
     }
 
@@ -214,17 +279,41 @@ bool ProtoMidi::checkMethodByte3(t_symbol* m, const AtomListView& lv)
     const auto byte1 = lv[2].asInt(-1);
 
     if (chan < 0 || chan > 15) {
-        METHOD_ERR(m) << "channel value in [0-15] range expected, got: " << lv[0];
+        METHOD_ERR(m) << "channel value in [0..15] range expected, got: " << lv[0];
         return false;
     }
 
     if (byte0 < 0 || byte0 > 127) {
-        METHOD_ERR(m) << "byte value in [0-127] range expected, got: " << lv[1];
+        METHOD_ERR(m) << "byte value in [0..127] range expected, got: " << lv[1];
         return false;
     }
 
     if (byte1 < 0 || byte1 > 127) {
-        METHOD_ERR(m) << "byte value in [0-127] range expected, got: " << lv[2];
+        METHOD_ERR(m) << "byte value in [0..127] range expected, got: " << lv[2];
+        return false;
+    }
+
+    return true;
+}
+
+bool ProtoMidi::checkMethodFloat(t_symbol* m, const AtomListView& lv, t_float from, t_float to)
+{
+    if (lv.size() != 2) {
+        METHOD_ERR(m) << "invalid arg count: " << lv.size();
+        return false;
+    }
+
+    const auto chan = lv[0].asInt(-1);
+
+    if (chan < 0 || chan > 15) {
+        METHOD_ERR(m) << "channel value in [0..15] range expected, got: " << lv[0];
+        return false;
+    }
+
+    const auto fval = lv[1].asT<t_float>();
+    if (!lv[1].isFloat() || (fval < from || fval > to)) {
+        METHOD_ERR(m) << "float value in ["
+                      << from << ".." << to << "] range expected, got: " << lv[1];
         return false;
     }
 
@@ -241,6 +330,7 @@ void setup_proto_midi()
     SYM_CONTROLCHANGE = gensym("cc");
     SYM_NOTEOFF = gensym("noteoff");
     SYM_NOTEON = gensym("noteon");
+    SYM_PITCHWHEEL = gensym("pitchwheel");
     SYM_PROGRAMCHANGE = gensym("program");
     SYM_START = gensym("start");
     SYM_STOP = gensym("stop");
@@ -255,5 +345,6 @@ void setup_proto_midi()
     obj.addMethod(SYM_AFTOUCH_MONO->s_name, &ProtoMidi::m_afterTouchMono);
     obj.addMethod(SYM_AFTOUCH_POLY->s_name, &ProtoMidi::m_afterTouchPoly);
     obj.addMethod(SYM_CONTROLCHANGE->s_name, &ProtoMidi::m_cc);
+    obj.addMethod(SYM_PITCHWHEEL->s_name, &ProtoMidi::m_pitchWheel);
     obj.addMethod(SYM_PROGRAMCHANGE->s_name, &ProtoMidi::m_programChange);
 }

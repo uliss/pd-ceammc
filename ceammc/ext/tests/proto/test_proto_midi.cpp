@@ -147,5 +147,46 @@ TEST_CASE("proto.midi", "[externals]")
         t0.call("program", LF(1, 79));
         REQUIRE(t1.messagesAt(0) == ML { M("program", 1, 79) });
         t1.clearAll();
+
+        t0.call("pitchwheel", LF(1, 40, 40));
+        REQUIRE(t1.messagesAt(0) == ML { M("pitchwheel", 1, 40, 40) });
+        t1.clearAll();
+    }
+
+    SECTION("float")
+    {
+        TExt t0("proto.midi", LA("@raw", "false"));
+        TExt t1("proto.midi", LA("@raw", "false"));
+        t0.connectTo(0, t1, 0);
+
+        t0.call("pitchwheel", LF(1, 1.1));
+        REQUIRE(t1.messagesAt(0) == ML {});
+
+        t0.call("pitchwheel", LF(1, -1.1));
+        REQUIRE(t1.messagesAt(0) == ML {});
+
+        t0.call("pitchwheel", LF(1));
+        REQUIRE(t1.messagesAt(0) == ML {});
+
+        t0.call("pitchwheel", LA("?"));
+        REQUIRE(t1.messagesAt(0) == ML {});
+
+        t0.call("pitchwheel", LA("?", "?"));
+        REQUIRE(t1.messagesAt(0) == ML {});
+
+        t0.call("pitchwheel", LA(2, "V"));
+        REQUIRE(t1.messagesAt(0) == ML {});
+
+        t0.call("pitchwheel", LA(2, 1));
+        REQUIRE(t1.messagesAt(0) == ML { M("pitchwheel", 2, 1) });
+        t1.clearAll();
+
+        t0.call("pitchwheel", LA(2, 0.f));
+        REQUIRE(t1.messagesAt(0) == ML { M("pitchwheel", 2, 0) });
+        t1.clearAll();
+
+        t0.call("pitchwheel", LA(2, -1));
+        REQUIRE(t1.messagesAt(0) == ML { M("pitchwheel", 2, -1) });
+        t1.clearAll();
     }
 }

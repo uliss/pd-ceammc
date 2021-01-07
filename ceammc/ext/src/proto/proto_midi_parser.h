@@ -104,6 +104,7 @@ namespace midi {
         void setControlChangeFn(Byte3Cb cb) { cc_cb_ = cb; }
         void setNoteOffFn(Byte3Cb cb) { noteoff_cb_ = cb; }
         void setNoteOnFn(Byte3Cb cb) { noteon_cb_ = cb; }
+        void setPitchWheelFn(Byte3Cb cb) { pitchbend_cb_ = cb; }
         void setPolyTouchFn(Byte3Cb cb) { poly_cb_ = cb; }
         void setProgramChangeFn(Byte2Cb cb) { prg_cb_ = cb; }
         void setRealtimeFn(SysRealtimeCb cb) { sys_realtime_cb_ = cb; }
