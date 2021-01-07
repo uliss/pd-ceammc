@@ -130,6 +130,11 @@ void ProtoMidi::onList(const AtomList& lst)
     }
 }
 
+void ProtoMidi::m_activeSense(t_symbol*, const AtomListView&)
+{
+    floatTo(0, midi::MIDI_ACTIVE_SENSE);
+}
+
 void ProtoMidi::m_noteOn(t_symbol* s, const AtomListView& lv)
 {
     if (!checkMethodByte3(s, lv)) {
@@ -309,6 +314,7 @@ void setup_proto_midi()
     ObjectFactory<ProtoMidi> obj("proto.midi");
 
     obj.addMethod("note", &ProtoMidi::m_noteOn);
+    obj.addMethod(SYM_ACTIVESENSE->s_name, &ProtoMidi::m_activeSense);
     obj.addMethod(SYM_AFTOUCH_MONO->s_name, &ProtoMidi::m_afterTouchMono);
     obj.addMethod(SYM_AFTOUCH_POLY->s_name, &ProtoMidi::m_afterTouchPoly);
     obj.addMethod(SYM_CLOCK->s_name, &ProtoMidi::m_clock);

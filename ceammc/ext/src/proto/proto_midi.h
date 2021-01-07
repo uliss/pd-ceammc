@@ -26,6 +26,7 @@ public:
     void onFloat(t_float f) override;
     void onList(const AtomList& lst) override;
 
+    void m_activeSense(t_symbol*, const AtomListView&);
     void m_afterTouchMono(t_symbol* s, const AtomListView& lv);
     void m_afterTouchPoly(t_symbol* s, const AtomListView& lv);
     void m_cc(t_symbol* s, const AtomListView& lv);
