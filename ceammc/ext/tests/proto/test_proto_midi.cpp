@@ -135,5 +135,9 @@ TEST_CASE("proto.midi", "[externals]")
         t0.call("aftertouch", LF(0, 60));
         REQUIRE(t1.messagesAt(0) == ML { M("aftertouch", 0, 60) });
         t1.clearAll();
+
+        t0.call("polytouch", LF(0, 60, 43));
+        REQUIRE(t1.messagesAt(0) == ML { M("polytouch", 0, 60, 43) });
+        t1.clearAll();
     }
 }

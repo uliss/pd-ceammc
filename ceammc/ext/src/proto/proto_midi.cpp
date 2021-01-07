@@ -48,6 +48,11 @@ ProtoMidi::ProtoMidi(const PdArgs& args)
         anyTo(0, SYM_AFTOUCH_MONO, AtomListView(msg, 2));
     });
 
+    parser_.setPolyTouchFn([this](Byte b, Byte n, Byte v) {
+        Atom msg[3] = { 0x0F & b, n, v };
+        anyTo(0, SYM_AFTOUCH_POLY, AtomListView(msg, 3));
+    });
+
     parser_.setRealtimeFn([this](Byte msg) {
         switch (msg) {
         case midi::MIDI_TIMECLOCK:
@@ -127,6 +132,18 @@ void ProtoMidi::m_afterTouchMono(t_symbol* s, const AtomListView& lv)
     byteData(lv[1].asT<int>());
 }
 
+void ProtoMidi::m_afterTouchPoly(t_symbol* s, const AtomListView& lv)
+{
+    if (!checkMethodByte3(s, lv)) {
+        METHOD_ERR(s) << "usage: CHAN NOTE VEL";
+        return;
+    }
+
+    byteStatus(midi::MIDI_POLYAFTERTOUCH, lv[0].asT<int>());
+    byteData(lv[1].asT<int>());
+    byteData(lv[2].asT<int>());
+}
+
 bool ProtoMidi::checkMethodByte2(t_symbol* m, const AtomListView& lv)
 {
     if (lv.size() != 2) {
@@ -199,4 +216,5 @@ void setup_proto_midi()
     obj.addMethod("note", &ProtoMidi::m_noteOn);
     obj.addMethod(SYM_NOTEOFF->s_name, &ProtoMidi::m_noteOff);
     obj.addMethod(SYM_AFTOUCH_MONO->s_name, &ProtoMidi::m_afterTouchMono);
+    obj.addMethod(SYM_AFTOUCH_POLY->s_name, &ProtoMidi::m_afterTouchPoly);
 }
