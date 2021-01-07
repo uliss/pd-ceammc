@@ -102,7 +102,8 @@ namespace midi {
 
         void setNoteOnFn(Byte3Cb cb) { noteon_cb_ = cb; }
         void setNoteOffFn(Byte3Cb cb) { noteoff_cb_ = cb; }
-        void setRealtimeCb(SysRealtimeCb cb) { sys_realtime_cb_ = cb; }
+        void setAfterTouchFn(Byte2Cb cb) { atouch_cb_ = cb; }
+        void setRealtimeFn(SysRealtimeCb cb) { sys_realtime_cb_ = cb; }
 
     private:
         void reset()

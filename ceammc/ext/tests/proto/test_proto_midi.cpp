@@ -78,5 +78,53 @@ TEST_CASE("proto.midi", "[externals]")
         // NoteOn with system reset
         t << LF(0x91, 0x42, 0xFF, 0x13);
         REQUIRE(t.messagesAt(0) == ML { M("sysreset"), M("noteon", 1, 0x42, 0x13) });
+
+        // aftertouch
+        t << LF(0xA2, 0x40, 0x15);
+    }
+
+    SECTION("output")
+    {
+        TExt t0("proto.midi");
+        TExt t1("proto.midi");
+
+        t0.connectTo(0, t1, 0);
+        t0.call("note", LF(60, 127));
+        REQUIRE(t1.messagesAt(0) == ML { M("noteon", 0, 60, 127) });
+        t1.clearAll();
+
+        // errors
+        t0.call("note", LF(60, 128));
+        REQUIRE(t1.messagesAt(0) == ML {});
+        t0.call("note", LF(60, -1));
+        REQUIRE(t1.messagesAt(0) == ML {});
+        t0.call("note", LF(-1, 77));
+        REQUIRE(t1.messagesAt(0) == ML {});
+        t0.call("note", LF(128, 77));
+        REQUIRE(t1.messagesAt(0) == ML {});
+        t0.call("note", LA(60, "A"));
+        REQUIRE(t1.messagesAt(0) == ML {});
+        t0.call("note", LA("A", 60));
+        REQUIRE(t1.messagesAt(0) == ML {});
+        t0.call("note", LA("A", "B"));
+        REQUIRE(t1.messagesAt(0) == ML {});
+        t0.call("note", LA(60, 61, "C"));
+        REQUIRE(t1.messagesAt(0) == ML {});
+        t0.call("note", LA(60, 61, -1));
+        REQUIRE(t1.messagesAt(0) == ML {});
+        t0.call("note", LA(60, 61, 16));
+        REQUIRE(t1.messagesAt(0) == ML {});
+        t0.call("note");
+        REQUIRE(t1.messagesAt(0) == ML {});
+        t0.call("note", LA(60, 61, 15, 16));
+        REQUIRE(t1.messagesAt(0) == ML {});
+
+        // ok
+        t0.call("note", LF(60, 61, 3));
+        REQUIRE(t1.messagesAt(0) == ML { M("noteon", 3, 60, 61) });
+        t1.clearAll();
+
+        t0.call("note_off", LF(60, 0));
+        REQUIRE(t1.messagesAt(0) == ML { M("noteoff", 0, 60, 0) });
     }
 }

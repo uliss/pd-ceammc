@@ -25,6 +25,15 @@ public:
     ProtoMidi(const PdArgs& args);
     void onFloat(t_float f) override;
     void onList(const AtomList& lst) override;
+
+    void m_noteOn(t_symbol* s, const AtomListView& lv);
+    void m_noteOff(t_symbol* s, const AtomListView& lv);
+
+private:
+    bool checkMethodByte3(t_symbol* m, const AtomListView& lv);
+
+    void byteStatus(uint8_t st, int chan) { floatTo(0, st | uint8_t(0x0F & chan)); }
+    void byteData(uint8_t data) { floatTo(0, 0x7F & data); }
 };
 
 void setup_proto_midi();
