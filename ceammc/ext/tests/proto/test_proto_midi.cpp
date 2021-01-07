@@ -163,5 +163,9 @@ TEST_CASE("proto.midi", "[externals]")
         t0.call("clock");
         REQUIRE(t1.messagesAt(0) == ML { M("clock") });
         t1.clearAll();
+
+        t0.call("continue");
+        REQUIRE(t1.messagesAt(0) == ML { M("continue") });
+        t1.clearAll();
     }
 }
