@@ -20,7 +20,6 @@ using namespace ceammc;
 
 class ProtoMidi : public BaseObject {
     midi::MidiParser parser_;
-    BoolProperty* raw_;
 
 public:
     ProtoMidi(const PdArgs& args);
@@ -36,12 +35,12 @@ public:
     void m_pitchWheel(t_symbol* s, const AtomListView& lv);
 
 private:
-    bool checkMethodByte2(t_symbol* m, const AtomListView& lv);
+    bool checkMethodByte2(t_symbol* m, const AtomListView& lv, int from = 0, int to = 127);
     bool checkMethodByte3(t_symbol* m, const AtomListView& lv);
-    bool checkMethodFloat(t_symbol* m, const AtomListView& lv, t_float from = 0, t_float to = 1);
 
     void byteStatus(uint8_t st, int chan) { floatTo(0, st | uint8_t(0x0F & chan)); }
     void byteData(uint8_t data) { floatTo(0, 0x7F & data); }
+    void msgTo(t_symbol* s, const Atom* a, size_t n) { anyTo(0, s, AtomListView(a, n)); }
 };
 
 void setup_proto_midi();

@@ -32,78 +32,58 @@ static t_symbol* SYM_STOP;
 static t_symbol* SYM_SYSRESET;
 static t_symbol* SYM_TICK;
 
-static t_float bit14toFloat(midi::Byte msb, midi::Byte lsb)
+static std::tuple<uint8_t, uint8_t> floatToBit14(t_float v)
 {
-    uint16_t v = (msb << 7) | lsb;
-    if (v >= 0x2000)
-        return convert::lin2lin_clip<t_float, 0x2000, 0x3fff>(v, 0, 1);
-    else
-        return convert::lin2lin_clip<t_float, 0, 0x2000>(v, -1, 0);
-}
+    constexpr int16_t IN_MIN = -0x2000;
+    constexpr int16_t IN_MAX = 0x1fff;
 
-static std::tuple<t_float, t_float> floatToBit14(t_float v)
-{
-    const uint16_t uval = (v >= 0) ? std::round(convert::lin2lin_clip<t_float, 0, 1>(v, 0x2000, 0x3fff))
-                                   : std::round(convert::lin2lin_clip<t_float, -1, 0>(v, 0, 0x2000));
+    const auto ival = clip<int16_t, IN_MIN, IN_MAX>(v);
+    const auto uval = static_cast<uint16_t>(ival - IN_MIN);
 
-    return { 0x7F & (uval >> 7), 0x7F & uval };
-}
-
-static std::tuple<t_float, t_float> float01ToBit14(t_float v)
-{
-    const uint16_t uval = std::round(convert::lin2lin_clip<t_float, 0, 1>(v, 0, 0x3fff));
     return { 0x7F & (uval >> 7), 0x7F & uval };
 }
 
 ProtoMidi::ProtoMidi(const PdArgs& args)
     : BaseObject(args)
-    , raw_(nullptr)
 {
     createOutlet();
-
-    raw_ = new BoolProperty("@raw", true);
-    addProperty(raw_);
 
     using midi::Byte;
 
     parser_.setNoteOnFn([this](Byte b, Byte n, Byte v) {
         Atom msg[3] = { 0x0F & b, n, v };
-        anyTo(0, SYM_NOTEON, AtomListView(msg, 3));
+        msgTo(SYM_NOTEON, msg, 3);
     });
 
     parser_.setNoteOffFn([this](Byte b, Byte n, Byte v) {
         Atom msg[3] = { 0x0F & b, n, v };
-        anyTo(0, SYM_NOTEOFF, AtomListView(msg, 3));
+        msgTo(SYM_NOTEOFF, msg, 3);
     });
 
     parser_.setAfterTouchFn([this](Byte b, Byte v) {
         Atom msg[2] = { 0x0F & b, v };
-        anyTo(0, SYM_AFTOUCH_MONO, AtomListView(msg, 2));
+        msgTo(SYM_AFTOUCH_MONO, msg, 2);
     });
 
     parser_.setPolyTouchFn([this](Byte b, Byte n, Byte v) {
         Atom msg[3] = { 0x0F & b, n, v };
-        anyTo(0, SYM_AFTOUCH_POLY, AtomListView(msg, 3));
+        msgTo(SYM_AFTOUCH_POLY, msg, 3);
     });
 
     parser_.setControlChangeFn([this](Byte b, Byte c, Byte v) {
         Atom msg[3] = { 0x0F & b, c, v };
-        anyTo(0, SYM_CONTROLCHANGE, AtomListView(msg, 3));
+        msgTo(SYM_CONTROLCHANGE, msg, 3);
     });
 
     parser_.setProgramChangeFn([this](Byte b, Byte v) {
         Atom msg[2] = { 0x0F & b, v };
-        anyTo(0, SYM_PROGRAMCHANGE, AtomListView(msg, 2));
+        msgTo(SYM_PROGRAMCHANGE, msg, 2);
     });
 
     parser_.setPitchWheelFn([this](Byte b, Byte msb, Byte lsb) {
-        if (raw_->value()) {
-            Atom msg[3] = { 0x0F & b, msb, lsb };
-            anyTo(0, SYM_PITCHWHEEL, AtomListView(msg, 3));
-        } else {
-            Atom msg[2] = { 0x0F & b, bit14toFloat(msb, lsb) };
-            anyTo(0, SYM_PITCHWHEEL, AtomListView(msg, 2));
-        }
+        const t_float v = ((msb << 7) | lsb) - 0x2000;
+        Atom msg[2] = { 0x0F & b, v };
+        msgTo(SYM_PITCHWHEEL, msg, 2);
     });
 
     parser_.setRealtimeFn([this](Byte msg) {
@@ -175,26 +155,19 @@ void ProtoMidi::m_programChange(t_symbol* s, const AtomListView& lv)
 
 void ProtoMidi::m_pitchWheel(t_symbol* s, const AtomListView& lv)
 {
-    if (raw_->value()) {
-        if (!checkMethodByte3(s, lv)) {
-            METHOD_ERR(s) << "usage: CHAN MSB LSB";
-            return;
-        }
+    constexpr int ZERO = 0x2000;
+    constexpr int FROM = -ZERO;
+    constexpr int TO = 0x3FFF - ZERO;
 
-        byteStatus(midi::MIDI_PITCHBEND, lv[0].asT<int>());
-        byteData(lv[1].asT<int>());
-        byteData(lv[2].asT<int>());
-    } else {
-        if (!checkMethodFloat(s, lv, -1, 1)) {
-            METHOD_ERR(s) << "usage: CHAN VALUE(-1..+1)";
-            return;
-        }
-
-        byteStatus(midi::MIDI_PITCHBEND, lv[0].asT<int>());
-        const auto bb = floatToBit14(lv[1].asT<t_float>());
-        byteData(std::get<0>(bb));
-        byteData(std::get<1>(bb));
+    if (!checkMethodByte2(s, lv, FROM, TO)) {
+        METHOD_ERR(s) << "usage: CHAN VALUE(" << FROM << ".." << TO << ")";
+        return;
     }
+
+    byteStatus(midi::MIDI_PITCHBEND, lv[0].asT<int>());
+    auto bb = floatToBit14(lv[1].asInt());
+    byteData(std::get<0>(bb));
+    byteData(std::get<1>(bb));
 }
 
 void ProtoMidi::m_noteOff(t_symbol* s, const AtomListView& lv)
@@ -244,7 +217,7 @@ void ProtoMidi::m_cc(t_symbol* s, const AtomListView& lv)
     byteData(lv[2].asT<int>());
 }
 
-bool ProtoMidi::checkMethodByte2(t_symbol* m, const AtomListView& lv)
+bool ProtoMidi::checkMethodByte2(t_symbol* m, const AtomListView& lv, int from, int to)
 {
     if (lv.size() != 2) {
         METHOD_ERR(m) << "invalid arg count: " << lv.size();
@@ -259,8 +232,8 @@ bool ProtoMidi::checkMethodByte2(t_symbol* m, const AtomListView& lv)
         return false;
     }
 
-    if (byte0 < 0 || byte0 > 127) {
-        METHOD_ERR(m) << "byte value in [0..127] range expected, got: " << lv[1];
+    if (byte0 < from || byte0 > to) {
+        METHOD_ERR(m) << "byte value in [" << from << ".." << to << "] range expected, got: " << lv[1];
         return false;
     }
 
@@ -290,30 +263,6 @@ bool ProtoMidi::checkMethodByte3(t_symbol* m, const AtomListView& lv)
 
     if (byte1 < 0 || byte1 > 127) {
         METHOD_ERR(m) << "byte value in [0..127] range expected, got: " << lv[2];
-        return false;
-    }
-
-    return true;
-}
-
-bool ProtoMidi::checkMethodFloat(t_symbol* m, const AtomListView& lv, t_float from, t_float to)
-{
-    if (lv.size() != 2) {
-        METHOD_ERR(m) << "invalid arg count: " << lv.size();
-        return false;
-    }
-
-    const auto chan = lv[0].asInt(-1);
-
-    if (chan < 0 || chan > 15) {
-        METHOD_ERR(m) << "channel value in [0..15] range expected, got: " << lv[0];
-        return false;
-    }
-
-    const auto fval = lv[1].asT<t_float>();
-    if (!lv[1].isFloat() || (fval < from || fval > to)) {
-        METHOD_ERR(m) << "float value in ["
-                      << from << ".." << to << "] range expected, got: " << lv[1];
         return false;
     }
 
