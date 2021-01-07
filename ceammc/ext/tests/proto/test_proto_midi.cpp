@@ -51,12 +51,24 @@ TEST_CASE("proto.midi", "[externals]")
         t << LF(0x91, 0xF8, 0x41, 0x12);
         REQUIRE(t.messagesAt(0) == ML { M("clock"), M("noteon", 1, 0x41, 0x12) });
 
-        // NoteOn with timeclock
+        // NoteOn with timetick
         t << LF(0x91, 0x42, 0xF9, 0x13);
         REQUIRE(t.messagesAt(0) == ML { M("tick"), M("noteon", 1, 0x42, 0x13) });
 
         // NoteOff
         t << LF(0x80, 10, 0);
         REQUIRE(t.messagesAt(0) == ML { M("noteoff", 0, 10, 0) });
+
+        // NoteOff with start
+        t << LF(0x83, 0xFA, 12, 1);
+        REQUIRE(t.messagesAt(0) == ML { M("start"), M("noteoff", 3, 12, 1) });
+
+        // NoteOff with stop
+        t << LF(0x83, 12, 0xFC, 1);
+        REQUIRE(t.messagesAt(0) == ML { M("stop"), M("noteoff", 3, 12, 1) });
+
+        // NoteOff with continue
+        t << LF(0x83, 12, 1, 0xFB);
+        REQUIRE(t.messagesAt(0) == ML { M("noteoff", 3, 12, 1), M("continue") });
     }
 }

@@ -18,6 +18,9 @@ static t_symbol* SYM_NOTEON;
 static t_symbol* SYM_NOTEOFF;
 static t_symbol* SYM_CLOCK;
 static t_symbol* SYM_TICK;
+static t_symbol* SYM_START;
+static t_symbol* SYM_STOP;
+static t_symbol* SYM_CONTINUE;
 
 ProtoMidi::ProtoMidi(const PdArgs& args)
     : BaseObject(args)
@@ -42,6 +45,12 @@ ProtoMidi::ProtoMidi(const PdArgs& args)
             return anyTo(0, SYM_CLOCK, AtomListView());
         case midi::MIDI_TIMETICK:
             return anyTo(0, SYM_TICK, AtomListView());
+        case midi::MIDI_START:
+            return anyTo(0, SYM_START, AtomListView());
+        case midi::MIDI_STOP:
+            return anyTo(0, SYM_STOP, AtomListView());
+        case midi::MIDI_CONTINUE:
+            return anyTo(0, SYM_CONTINUE, AtomListView());
         default:
             break;
         }
@@ -75,6 +84,9 @@ void setup_proto_midi()
     SYM_CLOCK = gensym("clock");
     SYM_TICK = gensym("tick");
     SYM_NOTEOFF = gensym("noteoff");
+    SYM_START = gensym("start");
+    SYM_STOP = gensym("stop");
+    SYM_CONTINUE = gensym("continue");
 
     ObjectFactory<ProtoMidi> obj("proto.midi");
 }
