@@ -167,5 +167,13 @@ TEST_CASE("proto.midi", "[externals]")
         t0.call("continue");
         REQUIRE(t1.messagesAt(0) == ML { M("continue") });
         t1.clearAll();
+
+        t0.call("start");
+        REQUIRE(t1.messagesAt(0) == ML { M("start") });
+        t1.clearAll();
+
+        t0.call("stop");
+        REQUIRE(t1.messagesAt(0) == ML { M("stop") });
+        t1.clearAll();
     }
 }

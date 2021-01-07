@@ -153,6 +153,16 @@ void ProtoMidi::m_programChange(t_symbol* s, const AtomListView& lv)
     byteData(lv[1].asT<int>());
 }
 
+void ProtoMidi::m_start(t_symbol*, const AtomListView&)
+{
+    floatTo(0, midi::MIDI_START);
+}
+
+void ProtoMidi::m_stop(t_symbol*, const AtomListView&)
+{
+    floatTo(0, midi::MIDI_STOP);
+}
+
 void ProtoMidi::m_pitchWheel(t_symbol* s, const AtomListView& lv)
 {
     constexpr int ZERO = 0x2000;
@@ -308,4 +318,6 @@ void setup_proto_midi()
     obj.addMethod(SYM_NOTEON->s_name, &ProtoMidi::m_noteOn);
     obj.addMethod(SYM_PITCHWHEEL->s_name, &ProtoMidi::m_pitchWheel);
     obj.addMethod(SYM_PROGRAMCHANGE->s_name, &ProtoMidi::m_programChange);
+    obj.addMethod(SYM_START->s_name, &ProtoMidi::m_start);
+    obj.addMethod(SYM_STOP->s_name, &ProtoMidi::m_stop);
 }

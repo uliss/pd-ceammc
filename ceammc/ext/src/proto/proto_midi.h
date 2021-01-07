@@ -35,6 +35,8 @@ public:
     void m_noteOn(t_symbol* s, const AtomListView& lv);
     void m_pitchWheel(t_symbol* s, const AtomListView& lv);
     void m_programChange(t_symbol* s, const AtomListView& lv);
+    void m_start(t_symbol*, const AtomListView&);
+    void m_stop(t_symbol*, const AtomListView&);
 
 private:
     bool checkMethodByte2(t_symbol* m, const AtomListView& lv, int from = 0, int to = 127);
