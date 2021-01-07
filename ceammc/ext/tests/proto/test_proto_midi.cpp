@@ -89,7 +89,7 @@ TEST_CASE("proto.midi", "[externals]")
         TExt t1("proto.midi");
 
         t0.connectTo(0, t1, 0);
-        t0.call("note", LF(60, 127));
+        t0.call("note", LF(0, 60, 127));
         REQUIRE(t1.messagesAt(0) == ML { M("noteon", 0, 60, 127) });
         t1.clearAll();
 
@@ -120,11 +120,20 @@ TEST_CASE("proto.midi", "[externals]")
         REQUIRE(t1.messagesAt(0) == ML {});
 
         // ok
-        t0.call("note", LF(60, 61, 3));
+        t0.call("note", LF(3, 60, 61));
         REQUIRE(t1.messagesAt(0) == ML { M("noteon", 3, 60, 61) });
         t1.clearAll();
 
-        t0.call("note_off", LF(60, 0));
+        t0.call("noteon", LF(0, 127, 64));
+        REQUIRE(t1.messagesAt(0) == ML { M("noteon", 0, 127, 64) });
+        t1.clearAll();
+
+        t0.call("noteoff", LF(0, 60, 0));
         REQUIRE(t1.messagesAt(0) == ML { M("noteoff", 0, 60, 0) });
+        t1.clearAll();
+
+        t0.call("aftertouch", LF(0, 60));
+        REQUIRE(t1.messagesAt(0) == ML { M("aftertouch", 0, 60) });
+        t1.clearAll();
     }
 }

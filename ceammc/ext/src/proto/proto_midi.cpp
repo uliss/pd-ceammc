@@ -95,53 +95,85 @@ void ProtoMidi::onList(const AtomList& lst)
 void ProtoMidi::m_noteOn(t_symbol* s, const AtomListView& lv)
 {
     if (!checkMethodByte3(s, lv)) {
-        METHOD_ERR(s) << "usage: NOTE VEL [CHAN]";
+        METHOD_ERR(s) << "usage: CHAN NOTE VEL";
         return;
     }
 
-    byteStatus(midi::MIDI_NOTEON, lv[2].asT<int>());
-    byteData(lv[0].asT<int>());
+    byteStatus(midi::MIDI_NOTEON, lv[0].asT<int>());
     byteData(lv[1].asT<int>());
+    byteData(lv[2].asT<int>());
 }
 
 void ProtoMidi::m_noteOff(t_symbol* s, const AtomListView& lv)
 {
     if (!checkMethodByte3(s, lv)) {
-        METHOD_ERR(s) << "usage: NOTE VEL [CHAN]";
+        METHOD_ERR(s) << "usage: CHAN NOTE VEL";
         return;
     }
 
-    byteStatus(midi::MIDI_NOTEOFF, lv[2].asT<int>());
-    byteData(lv[0].asT<int>());
+    byteStatus(midi::MIDI_NOTEOFF, lv[0].asT<int>());
+    byteData(lv[1].asT<int>());
+    byteData(lv[2].asT<int>());
+}
+
+void ProtoMidi::m_afterTouchMono(t_symbol* s, const AtomListView& lv)
+{
+    if (!checkMethodByte2(s, lv)) {
+        METHOD_ERR(s) << "usage: CHAN DATA";
+        return;
+    }
+
+    byteStatus(midi::MIDI_AFTERTOUCH, lv[0].asT<int>());
     byteData(lv[1].asT<int>());
 }
 
-bool ProtoMidi::checkMethodByte3(t_symbol* m, const AtomListView& lv)
+bool ProtoMidi::checkMethodByte2(t_symbol* m, const AtomListView& lv)
 {
-    if (lv.size() != 2 && lv.size() != 3) {
+    if (lv.size() != 2) {
         METHOD_ERR(m) << "invalid arg count: " << lv.size();
         return false;
     }
 
-    const auto byte0 = lv[0].asInt(-1);
-    const auto byte1 = lv[1].asInt(-1);
+    const auto chan = lv[0].asInt(-1);
+    const auto byte0 = lv[1].asInt(-1);
 
-    if (byte0 < 0 || byte0 > 127) {
-        METHOD_ERR(m) << "byte value in [0-127] range expected, got: " << lv[0];
+    if (chan < 0 || chan > 15) {
+        METHOD_ERR(m) << "channel value in [0-15] range expected, got: " << lv[0];
         return false;
     }
 
-    if (byte1 < 0 || byte1 > 127) {
+    if (byte0 < 0 || byte0 > 127) {
         METHOD_ERR(m) << "byte value in [0-127] range expected, got: " << lv[1];
         return false;
     }
 
-    if (lv.size() == 3) {
-        const auto chan = lv[2].asInt(-1);
-        if (chan < 0 || chan > 15) {
-            METHOD_ERR(m) << "channel value in [0-15] range expected, got: " << lv[2];
-            return false;
-        }
+    return true;
+}
+
+bool ProtoMidi::checkMethodByte3(t_symbol* m, const AtomListView& lv)
+{
+    if (lv.size() != 3) {
+        METHOD_ERR(m) << "invalid arg count: " << lv.size();
+        return false;
+    }
+
+    const auto chan = lv[0].asInt(-1);
+    const auto byte0 = lv[1].asInt(-1);
+    const auto byte1 = lv[2].asInt(-1);
+
+    if (chan < 0 || chan > 15) {
+        METHOD_ERR(m) << "channel value in [0-15] range expected, got: " << lv[0];
+        return false;
+    }
+
+    if (byte0 < 0 || byte0 > 127) {
+        METHOD_ERR(m) << "byte value in [0-127] range expected, got: " << lv[1];
+        return false;
+    }
+
+    if (byte1 < 0 || byte1 > 127) {
+        METHOD_ERR(m) << "byte value in [0-127] range expected, got: " << lv[2];
+        return false;
     }
 
     return true;
@@ -149,21 +181,22 @@ bool ProtoMidi::checkMethodByte3(t_symbol* m, const AtomListView& lv)
 
 void setup_proto_midi()
 {
-    SYM_NOTEON = gensym("noteon");
-    SYM_CLOCK = gensym("clock");
-    SYM_TICK = gensym("tick");
-    SYM_NOTEOFF = gensym("noteoff");
-    SYM_START = gensym("start");
-    SYM_STOP = gensym("stop");
-    SYM_CONTINUE = gensym("continue");
     SYM_ACTIVESENSE = gensym("activesense");
-    SYM_SYSRESET = gensym("sysreset");
     SYM_AFTOUCH_MONO = gensym("aftertouch");
     SYM_AFTOUCH_POLY = gensym("polytouch");
+    SYM_CLOCK = gensym("clock");
+    SYM_CONTINUE = gensym("continue");
+    SYM_NOTEOFF = gensym("noteoff");
+    SYM_NOTEON = gensym("noteon");
+    SYM_START = gensym("start");
+    SYM_STOP = gensym("stop");
+    SYM_SYSRESET = gensym("sysreset");
+    SYM_TICK = gensym("tick");
 
     ObjectFactory<ProtoMidi> obj("proto.midi");
 
+    obj.addMethod(SYM_NOTEON->s_name, &ProtoMidi::m_noteOn);
     obj.addMethod("note", &ProtoMidi::m_noteOn);
-    obj.addMethod("note_on", &ProtoMidi::m_noteOn);
-    obj.addMethod("note_off", &ProtoMidi::m_noteOff);
+    obj.addMethod(SYM_NOTEOFF->s_name, &ProtoMidi::m_noteOff);
+    obj.addMethod(SYM_AFTOUCH_MONO->s_name, &ProtoMidi::m_afterTouchMono);
 }
