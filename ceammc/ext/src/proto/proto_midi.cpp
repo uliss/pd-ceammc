@@ -168,6 +168,11 @@ void ProtoMidi::m_stop(t_symbol*, const AtomListView&)
     floatTo(0, midi::MIDI_STOP);
 }
 
+void ProtoMidi::m_sysReset(t_symbol*, const AtomListView&)
+{
+    floatTo(0, midi::MIDI_SYSTEM_RESET);
+}
+
 void ProtoMidi::m_pitchWheel(t_symbol* s, const AtomListView& lv)
 {
     constexpr int ZERO = 0x2000;
@@ -326,4 +331,5 @@ void setup_proto_midi()
     obj.addMethod(SYM_PROGRAMCHANGE->s_name, &ProtoMidi::m_programChange);
     obj.addMethod(SYM_START->s_name, &ProtoMidi::m_start);
     obj.addMethod(SYM_STOP->s_name, &ProtoMidi::m_stop);
+    obj.addMethod(SYM_SYSRESET->s_name, &ProtoMidi::m_sysReset);
 }

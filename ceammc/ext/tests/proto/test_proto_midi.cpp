@@ -179,5 +179,9 @@ TEST_CASE("proto.midi", "[externals]")
         t0.call("activesense");
         REQUIRE(t1.messagesAt(0) == ML { M("activesense") });
         t1.clearAll();
+
+        t0.call("sysreset");
+        REQUIRE(t1.messagesAt(0) == ML { M("sysreset") });
+        t1.clearAll();
     }
 }
