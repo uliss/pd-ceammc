@@ -27,6 +27,7 @@ static t_symbol* SYM_NOTEOFF;
 static t_symbol* SYM_NOTEON;
 static t_symbol* SYM_PITCHWHEEL;
 static t_symbol* SYM_PROGRAMCHANGE;
+static t_symbol* SYM_SONGSELECT;
 static t_symbol* SYM_START;
 static t_symbol* SYM_STOP;
 static t_symbol* SYM_SYSRESET;
@@ -91,6 +92,11 @@ ProtoMidi::ProtoMidi(const PdArgs& args)
         switch (b) {
         case midi::MIDI_TUNEREQUEST:
             return anyTo(0, SYM_TUNEREQUEST, AtomListView());
+        case midi::MIDI_SONGSELECT:
+            return anyTo(0, SYM_SONGSELECT, Atom(0x7F & d0));
+        default:
+            OBJ_ERR << "unknown system common message: " << (int)b;
+            break;
         }
     });
 
@@ -164,6 +170,24 @@ void ProtoMidi::m_programChange(t_symbol* s, const AtomListView& lv)
 
     byteStatus(midi::MIDI_PROGRAMCHANGE, lv[0].asT<int>());
     byteData(lv[1].asT<int>());
+}
+
+void ProtoMidi::m_songSelect(t_symbol* s, const AtomListView& lv)
+{
+    if (lv.size() != 1) {
+        METHOD_ERR(s) << "invalid arg count: " << lv.size() << ", usage: SONG_IDX";
+        return;
+    }
+
+    const auto idx = lv[0].asInt(-1);
+
+    if (idx < 0 || idx > 0x7F) {
+        METHOD_ERR(s) << "song index in [0..127] range expected, got: " << lv[0];
+        return;
+    }
+
+    floatTo(0, midi::MIDI_SONGSELECT);
+    byteData(idx);
 }
 
 void ProtoMidi::m_start(t_symbol*, const AtomListView&)
@@ -324,6 +348,7 @@ void setup_proto_midi()
     SYM_NOTEON = gensym("noteon");
     SYM_PITCHWHEEL = gensym("pitchwheel");
     SYM_PROGRAMCHANGE = gensym("program");
+    SYM_SONGSELECT = gensym("songselect");
     SYM_START = gensym("start");
     SYM_STOP = gensym("stop");
     SYM_SYSRESET = gensym("sysreset");
@@ -343,6 +368,7 @@ void setup_proto_midi()
     obj.addMethod(SYM_NOTEON->s_name, &ProtoMidi::m_noteOn);
     obj.addMethod(SYM_PITCHWHEEL->s_name, &ProtoMidi::m_pitchWheel);
     obj.addMethod(SYM_PROGRAMCHANGE->s_name, &ProtoMidi::m_programChange);
+    obj.addMethod(SYM_SONGSELECT->s_name, &ProtoMidi::m_songSelect);
     obj.addMethod(SYM_START->s_name, &ProtoMidi::m_start);
     obj.addMethod(SYM_STOP->s_name, &ProtoMidi::m_stop);
     obj.addMethod(SYM_SYSRESET->s_name, &ProtoMidi::m_sysReset);

@@ -199,6 +199,9 @@ void MidiParser::runCallbacks()
     case STATE_AFTERTOUCH:
         CALL2(atouch_cb_, data_)
         break;
+    case STATE_SYSTEM_COMMON:
+        CALL3(sys_common_cb_, data_);
+        break;
     default:
         break;
     }

@@ -81,6 +81,11 @@ TEST_CASE("proto.midi", "[externals]")
 
         // aftertouch
         t << LF(0xA2, 0x40, 0x15);
+        REQUIRE(t.messagesAt(0) == ML { M("polytouch", 2, 0x40, 0x15) });
+
+        // song select
+        t << LF(0xF3, 5);
+        REQUIRE(t.messagesAt(0) == ML { M("songselect", 5) });
     }
 
     SECTION("output")
@@ -186,6 +191,10 @@ TEST_CASE("proto.midi", "[externals]")
 
         t0.call("tunerequest");
         REQUIRE(t1.messagesAt(0) == ML { M("tunerequest") });
+        t1.clearAll();
+
+        t0.call("songselect", 16);
+        REQUIRE(t1.messagesAt(0) == ML { M("songselect", 16) });
         t1.clearAll();
     }
 }
