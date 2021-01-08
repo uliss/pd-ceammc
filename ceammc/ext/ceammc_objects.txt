@@ -715,6 +715,8 @@ random.pw_lin
 reject
 reject_if
 replace
+route.f
+route.float
 rtree->list
 rtree.to_list
 samp->ms
