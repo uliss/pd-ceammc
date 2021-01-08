@@ -244,5 +244,9 @@ TEST_CASE("proto.midi", "[externals]")
         t0.call("timecode", LA("01:23:45.12", 24));
         REQUIRE(t1.messagesAt(0) == ML { M("timecode", 1, 23, 45, 12, 24) });
         t1.clearAll();
+
+        t0.call("sysex", LF(1, 2, 3));
+        REQUIRE(t1.messagesAt(0) == ML { M("sysex", 240, 1, 2, 3, 247) });
+        t1.clearAll();
     }
 }

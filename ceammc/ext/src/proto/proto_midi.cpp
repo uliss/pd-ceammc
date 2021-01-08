@@ -33,6 +33,7 @@ static t_symbol* SYM_SONGSELECT;
 static t_symbol* SYM_START;
 static t_symbol* SYM_STOP;
 static t_symbol* SYM_SYSRESET;
+static t_symbol* SYM_SYSEX;
 static t_symbol* SYM_TICK;
 static t_symbol* SYM_TIMECODE;
 static t_symbol* SYM_TUNEREQUEST;
@@ -216,6 +217,14 @@ ProtoMidi::ProtoMidi(const PdArgs& args)
             break;
         }
     });
+
+    parser_.setSysExFn([this](size_t n, const Byte* b) {
+        Atom msg[n];
+        for (size_t i = 0; i < n; i++)
+            msg[i] = b[i];
+
+        msgTo(SYM_SYSEX, msg, n);
+    });
 }
 
 void ProtoMidi::onFloat(t_float f)
@@ -331,6 +340,18 @@ void ProtoMidi::m_start(t_symbol*, const AtomListView&)
 void ProtoMidi::m_stop(t_symbol*, const AtomListView&)
 {
     floatTo(0, midi::MIDI_STOP);
+}
+
+void ProtoMidi::m_sysex(t_symbol*, const AtomListView& lv)
+{
+    floatTo(0, midi::MIDI_SYSEX);
+    for (auto& a : lv) {
+        if (a.isFloat()) {
+            auto b = 0x7F & int(a.asT<int>());
+            floatTo(0, b);
+        }
+    }
+    floatTo(0, midi::MIDI_SYSEXEND);
 }
 
 void ProtoMidi::m_sysReset(t_symbol*, const AtomListView&)
@@ -565,6 +586,7 @@ void setup_proto_midi()
     SYM_START = gensym("start");
     SYM_STOP = gensym("stop");
     SYM_SYSRESET = gensym("sysreset");
+    SYM_SYSEX = gensym("sysex");
     SYM_TICK = gensym("tick");
     SYM_TIMECODE = gensym("timecode");
     SYM_TUNEREQUEST = gensym("tunerequest");
@@ -586,6 +608,7 @@ void setup_proto_midi()
     obj.addMethod(SYM_SONGSELECT->s_name, &ProtoMidi::m_songSelect);
     obj.addMethod(SYM_START->s_name, &ProtoMidi::m_start);
     obj.addMethod(SYM_STOP->s_name, &ProtoMidi::m_stop);
+    obj.addMethod(SYM_SYSEX->s_name, &ProtoMidi::m_sysex);
     obj.addMethod(SYM_SYSRESET->s_name, &ProtoMidi::m_sysReset);
     obj.addMethod(SYM_TICK->s_name, &ProtoMidi::m_tick);
     obj.addMethod(SYM_TIMECODE->s_name, &ProtoMidi::m_timecode);

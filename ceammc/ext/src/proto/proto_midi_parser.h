@@ -107,6 +107,7 @@ namespace midi {
         void setProgramChangeFn(Byte2Cb cb) { prg_cb_ = cb; }
         void setRealtimeFn(SysRealtimeCb cb) { sys_realtime_cb_ = cb; }
         void setSysCommonFn(Byte3Cb cb) { sys_common_cb_ = cb; }
+        void setSysExFn(SysExcCb cb) { sys_exclusive_cb_ = cb; }
 
     private:
         void reset()
