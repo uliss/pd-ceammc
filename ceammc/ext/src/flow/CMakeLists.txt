@@ -8,6 +8,7 @@ set(FLOW_SOURCES mod_flow.h mod_flow.cpp
     seq_phasor.cpp
     seq_sequencer.cpp
     seq_toggles.cpp
+    route_float.cpp
 )
 
 macro(ceammc_flow_external name)

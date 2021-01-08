@@ -63,4 +63,5 @@ target_sources(test_ext_flow PRIVATE
     test_seq_phasor.cpp
     test_seq_sequencer.cpp
     test_seq_toggles.cpp
+    test_route_float.cpp
 )
