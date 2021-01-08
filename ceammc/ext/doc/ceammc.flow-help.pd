@@ -83,7 +83,9 @@ time;
 #X text 200 1142 separate audio and control streams;
 #X obj 30 1169 replace;
 #X text 200 1169 Replace atoms in data stream;
+#X obj 30 1196 route.float;
+#X text 200 1196 separate float messages from other types;
 #X obj 1 1 cnv 5 740 40 empty empty ceammc::flow 20 20 0 20 -104026
 -4096 0;
-#X obj 1 1196 cnv 5 740 40 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 20 1206 library: ceammc;
+#X obj 1 1223 cnv 5 740 40 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 20 1233 library: ceammc;

@@ -548,6 +548,9 @@
     <entry name="replace" descr="Replace atoms in data stream" ref_view="object">
       <xi:include href="replace.pddoc" parse="xml"/>
     </entry>
+    <entry name="route.float" descr="separate float messages from other types" ref_view="object">
+      <xi:include href="route.float.pddoc" parse="xml"/>
+    </entry>
   </category>
   <category name="flt">
     <entry name="flt.biquad~" descr="second order IIR filter." ref_view="object">
@@ -1581,6 +1584,9 @@
   <category name="proto">
     <entry name="proto.firmata" descr="Firmata Arduino protocol support" ref_view="object">
       <xi:include href="proto.firmata.pddoc" parse="xml"/>
+    </entry>
+    <entry name="proto.midi" descr="raw midi encoder/parser" ref_view="object">
+      <xi:include href="proto.midi.pddoc" parse="xml"/>
     </entry>
     <entry name="proto.sp.alpaca" descr="protocol parser for Arduino-based CEAMMC footswitch" ref_view="object">
       <xi:include href="proto.sp.alpaca.pddoc" parse="xml"/>

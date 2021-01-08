@@ -510,6 +510,7 @@ set(DOC_FILES
     prop.set
     prop.split
     proto.firmata
+    proto.midi
     proto.xtouch_ext
     proto.sp.alpaca
     radio
@@ -522,6 +523,7 @@ set(DOC_FILES
     random.pw_const
     random.discrete
     replace
+    route.float
     rtree.to_list
     set.contains
     set.diff

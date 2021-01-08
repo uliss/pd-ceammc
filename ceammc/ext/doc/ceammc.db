@@ -508,6 +508,7 @@ prop.join,prop<-		?		.
 prop.set,p.set		?		.
 prop.split,prop->,@->		.		?
 proto.firmata		.		.
+proto.midi		.		.
 proto.sp.alpaca		.		.
 proto.xtouch_ext		.		..
 radio		.		?
@@ -520,6 +521,7 @@ random.linear		.		.
 random.pw_const		.		.
 random.pw_lin		.		.
 replace		...		.
+route.float,route.f		.		..
 rtree.to_list,rtree->list		.		.
 seq.arp		.		..
 seq.bangs,seq.b		..		..

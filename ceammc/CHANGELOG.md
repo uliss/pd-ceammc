@@ -8,6 +8,8 @@
   - midi.sysex added (read sysex messages as list)
   - midi.clock added
   - ui.midi added (display for incoming messages)
+  - proto.midi added (raw dataflow midi parser/encoder)
+  - route.float (with route.f alias) added
 - comma separated messages added to msg.onload (loadmsg)
 - xlet tooltips added to:
   - xdac~

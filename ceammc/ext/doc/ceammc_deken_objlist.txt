@@ -279,6 +279,8 @@ flow.tee~	separate audio and control streams
 tee~	separate audio and control streams
 ~->	separate audio and control streams
 replace	Replace atoms in data stream
+route.float	separate float messages from other types
+route.f	separate float messages from other types
 flt.biquad~	second order IIR filter.
 flt.bpf12~	Two pole band-pass butterworth filter
 flt.bpf24~	Four pole band-pass butterworth filter
@@ -697,6 +699,7 @@ prop.split	separate properties from dataflow
 prop->	separate properties from dataflow
 @->	separate properties from dataflow
 proto.firmata	Firmata Arduino protocol support
+proto.midi	raw midi encoder/parser
 proto.sp.alpaca	protocol parser for Arduino-based CEAMMC footswitch
 proto.xtouch_ext	Behringer XTouch Extender XMidi protocol
 random.atom	weighted atom generation from specified list

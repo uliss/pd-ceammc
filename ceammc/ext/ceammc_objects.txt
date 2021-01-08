@@ -695,6 +695,7 @@ prop<-
 prop~>
 proto.firmata
 proto.hui
+proto.midi
 proto.sp.alpaca
 proto.xtouch_ext
 rad->phase
