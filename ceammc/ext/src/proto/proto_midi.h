@@ -36,6 +36,7 @@ public:
     void m_noteOn(t_symbol* s, const AtomListView& lv);
     void m_pitchWheel(t_symbol* s, const AtomListView& lv);
     void m_programChange(t_symbol* s, const AtomListView& lv);
+    void m_songPosition(t_symbol* s, const AtomListView& lv);
     void m_songSelect(t_symbol* s, const AtomListView& lv);
     void m_start(t_symbol*, const AtomListView&);
     void m_stop(t_symbol*, const AtomListView&);

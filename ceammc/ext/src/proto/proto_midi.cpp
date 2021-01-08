@@ -28,6 +28,7 @@ static t_symbol* SYM_NOTEON;
 static t_symbol* SYM_PITCHWHEEL;
 static t_symbol* SYM_PROGRAMCHANGE;
 static t_symbol* SYM_SONGSELECT;
+static t_symbol* SYM_SONGPOS;
 static t_symbol* SYM_START;
 static t_symbol* SYM_STOP;
 static t_symbol* SYM_SYSRESET;
@@ -94,6 +95,8 @@ ProtoMidi::ProtoMidi(const PdArgs& args)
             return anyTo(0, SYM_TUNEREQUEST, AtomListView());
         case midi::MIDI_SONGSELECT:
             return anyTo(0, SYM_SONGSELECT, Atom(0x7F & d0));
+        case midi::MIDI_SONGPOS:
+            return anyTo(0, SYM_SONGPOS, Atom((d1 << 7) | d0));
         default:
             OBJ_ERR << "unknown system common message: " << (int)b;
             break;
@@ -170,6 +173,45 @@ void ProtoMidi::m_programChange(t_symbol* s, const AtomListView& lv)
 
     byteStatus(midi::MIDI_PROGRAMCHANGE, lv[0].asT<int>());
     byteData(lv[1].asT<int>());
+}
+
+void ProtoMidi::m_songPosition(t_symbol* s, const AtomListView& lv)
+{
+    if (lv.size() < 1) {
+        METHOD_ERR(s) << "invalid arg count: " << lv.size() << ", usage: POS [DUR=16]";
+        return;
+    }
+
+    const auto pos = lv[0].asInt(-1);
+    const auto dur = lv.intAt(1, 16);
+    int k = 1;
+
+    switch (dur) {
+    case 1:
+    case 2:
+    case 4:
+    case 8:
+    case 16:
+        k = 16 / dur;
+        break;
+    default:
+        METHOD_ERR(s) << "invalid position duration, valid values are: 1, 2, 4, 8, 16(default)";
+        break;
+    }
+
+    const int ipos = pos * k;
+
+    if (ipos < 0 || ipos > 0x3fff) {
+        METHOD_ERR(s) << "song position in [0..0x3fff] range expected, got: " << ipos;
+        return;
+    }
+
+    const uint16_t upos = ipos;
+    OBJ_ERR << upos;
+
+    floatTo(0, midi::MIDI_SONGPOS);
+    byteData(upos & 0x7F);
+    byteData(upos >> 7);
 }
 
 void ProtoMidi::m_songSelect(t_symbol* s, const AtomListView& lv)
@@ -353,7 +395,8 @@ void setup_proto_midi()
     SYM_NOTEON = gensym("noteon");
     SYM_PITCHWHEEL = gensym("pitchwheel");
     SYM_PROGRAMCHANGE = gensym("program");
-    SYM_SONGSELECT = gensym("songselect");
+    SYM_SONGSELECT = gensym("songsel");
+    SYM_SONGPOS = gensym("songpos");
     SYM_START = gensym("start");
     SYM_STOP = gensym("stop");
     SYM_SYSRESET = gensym("sysreset");
@@ -374,6 +417,7 @@ void setup_proto_midi()
     obj.addMethod(SYM_PITCHWHEEL->s_name, &ProtoMidi::m_pitchWheel);
     obj.addMethod(SYM_PROGRAMCHANGE->s_name, &ProtoMidi::m_programChange);
     obj.addMethod(SYM_SONGSELECT->s_name, &ProtoMidi::m_songSelect);
+    obj.addMethod(SYM_SONGPOS->s_name, &ProtoMidi::m_songPosition);
     obj.addMethod(SYM_START->s_name, &ProtoMidi::m_start);
     obj.addMethod(SYM_STOP->s_name, &ProtoMidi::m_stop);
     obj.addMethod(SYM_SYSRESET->s_name, &ProtoMidi::m_sysReset);

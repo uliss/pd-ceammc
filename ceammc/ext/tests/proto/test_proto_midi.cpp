@@ -85,7 +85,7 @@ TEST_CASE("proto.midi", "[externals]")
 
         // song select
         t << LF(0xF3, 5);
-        REQUIRE(t.messagesAt(0) == ML { M("songselect", 5) });
+        REQUIRE(t.messagesAt(0) == ML { M("songsel", 5) });
     }
 
     SECTION("output")
@@ -193,12 +193,20 @@ TEST_CASE("proto.midi", "[externals]")
         REQUIRE(t1.messagesAt(0) == ML { M("tunerequest") });
         t1.clearAll();
 
-        t0.call("songselect", 16);
-        REQUIRE(t1.messagesAt(0) == ML { M("songselect", 16) });
+        t0.call("songsel", 16);
+        REQUIRE(t1.messagesAt(0) == ML { M("songsel", 16) });
         t1.clearAll();
 
         t0.call("tick");
         REQUIRE(t1.messagesAt(0) == ML { M("tick") });
+        t1.clearAll();
+
+        t0.call("songpos");
+        REQUIRE(t1.messagesAt(0) == ML {});
+        t1.clearAll();
+
+        t0.call("songpos", 255);
+        REQUIRE(t1.messagesAt(0) == ML { M("songpos", 255) });
         t1.clearAll();
     }
 }
