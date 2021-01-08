@@ -208,5 +208,41 @@ TEST_CASE("proto.midi", "[externals]")
         t0.call("songpos", 255);
         REQUIRE(t1.messagesAt(0) == ML { M("songpos", 255) });
         t1.clearAll();
+
+        t0.call("timecode", LA("19sec", 30));
+        REQUIRE(t1.messagesAt(0) == ML { M("timecode", 0, 0, 19, 0, 30) });
+        t1.clearAll();
+
+        t0.call("timecode", LA("1.1min", 24));
+        REQUIRE(t1.messagesAt(0) == ML { M("timecode", 0, 1, 6, 0, 24) });
+        t1.clearAll();
+
+        t0.call("timecode", LA("610sec", 25));
+        REQUIRE(t1.messagesAt(0) == ML { M("timecode", 0, 10, 10, 0, 25) });
+        t1.clearAll();
+
+        t0.call("timecode", LA("1.1h", 29.97));
+        REQUIRE(t1.messagesAt(0) == ML { M("timecode", 1, 6, 0, 0, 29.97) });
+        t1.clearAll();
+
+        t0.call("timecode", LA("15h", 24));
+        REQUIRE(t1.messagesAt(0) == ML { M("timecode", 15, 0, 0, 0, 24) });
+        t1.clearAll();
+
+        t0.call("timecode", LA("17.1h", 24));
+        REQUIRE(t1.messagesAt(0) == ML { M("timecode", 17, 6, 0, 0, 24) });
+        t1.clearAll();
+
+        t0.call("timecode", LA("0.5sec", 24));
+        REQUIRE(t1.messagesAt(0) == ML { M("timecode", 0, 0, 0, 12, 24) });
+        t1.clearAll();
+
+        t0.call("timecode", LA("10.25sec", 24));
+        REQUIRE(t1.messagesAt(0) == ML { M("timecode", 0, 0, 10, 6, 24) });
+        t1.clearAll();
+
+        t0.call("timecode", LA("01:23:45.12", 24));
+        REQUIRE(t1.messagesAt(0) == ML { M("timecode", 1, 23, 45, 12, 24) });
+        t1.clearAll();
     }
 }

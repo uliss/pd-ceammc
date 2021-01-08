@@ -14,6 +14,7 @@
 #include "proto_midi.h"
 #include "ceammc_convert.h"
 #include "ceammc_factory.h"
+#include "ceammc_units.h"
 
 #include <tuple>
 
@@ -27,12 +28,13 @@ static t_symbol* SYM_NOTEOFF;
 static t_symbol* SYM_NOTEON;
 static t_symbol* SYM_PITCHWHEEL;
 static t_symbol* SYM_PROGRAMCHANGE;
-static t_symbol* SYM_SONGSELECT;
 static t_symbol* SYM_SONGPOS;
+static t_symbol* SYM_SONGSELECT;
 static t_symbol* SYM_START;
 static t_symbol* SYM_STOP;
 static t_symbol* SYM_SYSRESET;
 static t_symbol* SYM_TICK;
+static t_symbol* SYM_TIMECODE;
 static t_symbol* SYM_TUNEREQUEST;
 
 static std::tuple<uint8_t, uint8_t> floatToBit14(t_float v)
@@ -46,6 +48,92 @@ static std::tuple<uint8_t, uint8_t> floatToBit14(t_float v)
     const uint8_t msb = 0x7F & (uval >> 7);
 
     return { lsb, msb };
+}
+
+t_float MidiQuaterFrame::floatFps() const
+{
+    switch (fps_) {
+    case FPS_24:
+        return 24;
+    case FPS_25:
+        return 25;
+    case FPS_30_DROP:
+        return 29.97;
+    case FPS_30:
+        return 30;
+    default:
+        return 24;
+    }
+}
+
+t_float MidiQuaterFrame::floatSeconds() const
+{
+    return frames() / floatFps() + seconds() + minutes() * 60 + hours() * 3600;
+}
+
+bool MidiQuaterFrame::pushByte(uint8_t byte)
+{
+    const uint8_t lnib = 0x0F & byte;
+    const uint8_t unib = 0xF0 & (byte << 4);
+
+    switch (0x70 & byte) {
+    case 0x00: // lower frames nib
+        data_[3] = (0xF0 & data_[3]) | lnib;
+        break;
+    case 0x10:
+        data_[3] = (0x0F & data_[3]) | unib;
+        break;
+    case 0x20: // lower seconds nib
+        data_[2] = (0xF0 & data_[2]) | lnib;
+        break;
+    case 0x30: // upper seconds nib
+        data_[2] = (0x0F & data_[2]) | unib;
+        break;
+    case 0x40: // lower minutes nib
+        data_[1] = (0xF0 & data_[1]) | lnib;
+        break;
+    case 0x50: // upper minutes nib
+        data_[1] = (0x0F & data_[1]) | unib;
+        break;
+    case 0x60: // lower hours nib
+        data_[0] = (0xF0 & data_[0]) | lnib;
+        break;
+    case 0x70: { // upper hours
+        // HOUR BIT2 BIT1 UNUSED
+        data_[0] = (0x0F & data_[0]) | ((byte & 0b1000) << 1);
+        fps_ = static_cast<FPS>((byte >> 1) & 0b0011);
+        return true;
+    } break;
+    default:
+        break;
+    }
+
+    return false;
+}
+
+void MidiQuaterFrame::set(uint8_t h, uint8_t min, uint8_t sec, uint8_t f, MidiQuaterFrame::FPS fps)
+{
+    data_[3] = f;
+    data_[2] = sec;
+    data_[1] = min;
+    data_[0] = h;
+    fps_ = fps;
+}
+
+MidiQuaterFrame::Msg MidiQuaterFrame::get() const
+{
+    Msg out;
+    out[0] = 0x00 | (0x0F & data_[3]);
+    out[1] = 0x10 | (0x0F & (data_[3] >> 4));
+    out[2] = 0x20 | (0x0F & data_[2]);
+    out[3] = 0x30 | (0x0F & (data_[2] >> 4));
+    out[4] = 0x40 | (0x0F & data_[1]);
+    out[5] = 0x50 | (0x0F & (data_[1] >> 4));
+    out[6] = 0x60 | (0x0F & data_[0]);
+    const uint8_t uh = 0b1000 & (data_[0] >> 1);
+    const uint8_t fr = 0b0110 & (fps_ << 1);
+    out[7] = 0x70 | uh | fr;
+    return out;
 }
 
 ProtoMidi::ProtoMidi(const PdArgs& args)
@@ -99,6 +187,8 @@ ProtoMidi::ProtoMidi(const PdArgs& args)
             return anyTo(0, SYM_SONGSELECT, Atom(0x7F & d0));
         case midi::MIDI_SONGPOS:
             return anyTo(0, SYM_SONGPOS, Atom((d1 << 7) | d0));
+        case midi::MIDI_TIMECODE:
+            return handleTimecode(d0);
         default:
             OBJ_ERR << "unknown system common message: " << (int)b;
             break;
@@ -285,6 +375,72 @@ void ProtoMidi::m_continue(t_symbol*, const AtomListView&)
     floatTo(0, midi::MIDI_CONTINUE);
 }
 
+void ProtoMidi::m_timecode(t_symbol* s, const AtomListView& lv)
+{
+    if (lv.size() != 2) {
+        METHOD_ERR(s) << "usage: TIME FPS";
+        return;
+    }
+
+    auto is_equal = [](t_float f, t_float to) {
+        return std::fabs(f - to) < 0.01;
+    };
+
+    const auto tm = lv.subView(0, 1);
+    const auto fps = lv[1].asFloat();
+
+    MidiQuaterFrame::FPS msg_fps;
+    if (is_equal(fps, 24))
+        msg_fps = MidiQuaterFrame::FPS_24;
+    else if (is_equal(fps, 25))
+        msg_fps = MidiQuaterFrame::FPS_25;
+    else if (is_equal(fps, 29.97f))
+        msg_fps = MidiQuaterFrame::FPS_30_DROP;
+    else if (is_equal(fps, 30))
+        msg_fps = MidiQuaterFrame::FPS_30;
+    else {
+        METHOD_ERR(s) << "expected FPS values: 24, 25, 29.97 or 30, got: " << lv[1];
+        return;
+    }
+
+    auto res = units::TimeValue::parse(tm);
+    units::TimeValue val(0);
+    units::UnitParseError err;
+
+    val.setFramerate(fps);
+
+    if (res.matchValue(val)) {
+        MidiQuaterFrame mqf;
+
+        if (val.units() == units::TimeValue::SMPTE) {
+            int v = val.value();
+            int frames = v % 1000;
+            int sec = v / 1000;
+            int min = sec / 60;
+            int hour = min / 60;
+
+            mqf.set(hour % 32, min % 60, sec % 60, frames, msg_fps);
+        } else {
+            t_float ms = val.toMs();
+            int frames = (fps * (int(ms) % 1000)) / 1000;
+            int sec = int(ms / 1000);
+            int min = sec / 60;
+            int hour = min / 60;
+
+            mqf.set(hour % 32, min % 60, sec % 60, frames, msg_fps);
+        }
+
+        for (auto b : mqf.get()) {
+            floatTo(0, midi::MIDI_TIMECODE);
+            byteData(b);
+        }
+
+    } else if (res.matchError(err)) {
+        METHOD_ERR(s) << "parse error: " << err.msg;
+        return;
+    }
+}
+
 void ProtoMidi::m_noteOff(t_symbol* s, const AtomListView& lv)
 {
     if (!checkMethodByte3(s, lv)) {
@@ -384,6 +540,14 @@ bool ProtoMidi::checkMethodByte3(t_symbol* m, const AtomListView& lv)
     return true;
 }
 
+void ProtoMidi::handleTimecode(uint8_t data)
+{
+    if (mqf_.pushByte(data)) {
+        Atom msg[5] = { mqf_.hours(), mqf_.minutes(), mqf_.seconds(), mqf_.frames(), mqf_.floatFps() };
+        msgTo(SYM_TIMECODE, msg, 5);
+    }
+}
+
 void setup_proto_midi()
 {
     SYM_ACTIVESENSE = gensym("activesense");
@@ -402,6 +566,7 @@ void setup_proto_midi()
     SYM_STOP = gensym("stop");
     SYM_SYSRESET = gensym("sysreset");
     SYM_TICK = gensym("tick");
+    SYM_TIMECODE = gensym("timecode");
     SYM_TUNEREQUEST = gensym("tunerequest");
 
     ObjectFactory<ProtoMidi> obj("proto.midi");
@@ -417,11 +582,12 @@ void setup_proto_midi()
     obj.addMethod(SYM_NOTEON->s_name, &ProtoMidi::m_noteOn);
     obj.addMethod(SYM_PITCHWHEEL->s_name, &ProtoMidi::m_pitchWheel);
     obj.addMethod(SYM_PROGRAMCHANGE->s_name, &ProtoMidi::m_programChange);
-    obj.addMethod(SYM_SONGSELECT->s_name, &ProtoMidi::m_songSelect);
     obj.addMethod(SYM_SONGPOS->s_name, &ProtoMidi::m_songPosition);
+    obj.addMethod(SYM_SONGSELECT->s_name, &ProtoMidi::m_songSelect);
     obj.addMethod(SYM_START->s_name, &ProtoMidi::m_start);
     obj.addMethod(SYM_STOP->s_name, &ProtoMidi::m_stop);
     obj.addMethod(SYM_SYSRESET->s_name, &ProtoMidi::m_sysReset);
     obj.addMethod(SYM_TICK->s_name, &ProtoMidi::m_tick);
+    obj.addMethod(SYM_TIMECODE->s_name, &ProtoMidi::m_timecode);
     obj.addMethod(SYM_TUNEREQUEST->s_name, &ProtoMidi::m_tuneRequest);
 }
