@@ -196,5 +196,9 @@ TEST_CASE("proto.midi", "[externals]")
         t0.call("songselect", 16);
         REQUIRE(t1.messagesAt(0) == ML { M("songselect", 16) });
         t1.clearAll();
+
+        t0.call("tick");
+        REQUIRE(t1.messagesAt(0) == ML { M("tick") });
+        t1.clearAll();
     }
 }

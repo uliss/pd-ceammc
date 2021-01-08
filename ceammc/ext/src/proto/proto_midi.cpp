@@ -205,6 +205,11 @@ void ProtoMidi::m_sysReset(t_symbol*, const AtomListView&)
     floatTo(0, midi::MIDI_SYSTEM_RESET);
 }
 
+void ProtoMidi::m_tick(t_symbol*, const AtomListView&)
+{
+    floatTo(0, midi::MIDI_TIMETICK);
+}
+
 void ProtoMidi::m_tuneRequest(t_symbol*, const AtomListView&)
 {
     floatTo(0, midi::MIDI_TUNEREQUEST);
@@ -372,5 +377,6 @@ void setup_proto_midi()
     obj.addMethod(SYM_START->s_name, &ProtoMidi::m_start);
     obj.addMethod(SYM_STOP->s_name, &ProtoMidi::m_stop);
     obj.addMethod(SYM_SYSRESET->s_name, &ProtoMidi::m_sysReset);
+    obj.addMethod(SYM_TICK->s_name, &ProtoMidi::m_tick);
     obj.addMethod(SYM_TUNEREQUEST->s_name, &ProtoMidi::m_tuneRequest);
 }

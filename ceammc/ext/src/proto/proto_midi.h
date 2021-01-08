@@ -40,6 +40,7 @@ public:
     void m_start(t_symbol*, const AtomListView&);
     void m_stop(t_symbol*, const AtomListView&);
     void m_sysReset(t_symbol*, const AtomListView&);
+    void m_tick(t_symbol*, const AtomListView&);
     void m_tuneRequest(t_symbol*, const AtomListView&);
 
 private:
