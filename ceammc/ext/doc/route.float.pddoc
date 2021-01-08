@@ -17,12 +17,12 @@
             </aliases>
         </meta>
         <info>
-            <par>to get properties use *prop.get* object, cause all messages (including property requests)
-            are passed thru</par>
+            <par>to get properties use *prop.get* object, cause all messages (including property
+            requests) are passed thru</par>
         </info>
         <properties>
-            <property name="@strict" type="int" enum="0 1" default="0">strict mode. By default
-            list with single float treated as float. Set to true to disable this behavior</property>
+            <property name="@strict" type="int" enum="0 1" default="0">strict mode. By default list
+            with single float treated as float. Set to true to disable this behavior</property>
         </properties>
         <inlets>
             <inlet>

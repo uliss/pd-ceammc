@@ -15,30 +15,37 @@
         </meta>
         <methods>
             <method name="note">alias to [noteon(</method>
-            <method name="noteon">send Note On message
-            <param type="int" minvalue="0" maxvalue="15" required="true" name="CH">midi channel</param>
-            <param type="int" minvalue="0" maxvalue="127" required="true" name="NOTE">midi note</param>
-            <param type="int" minvalue="0" maxvalue="127" required="true" name="VEL">velocity</param>
-            </method>
-            <method name="noteoff">send Note Off message
-            <param type="int" minvalue="0" maxvalue="15" required="true" name="CH">midi channel</param>
-            <param type="int" minvalue="0" maxvalue="127" required="true" name="NOTE">midi note</param>
-            <param type="int" minvalue="0" maxvalue="127" required="true" name="VEL">velocity</param>
-            </method>
-            <method name="sysex">send SysEx message (0xF0)
-            <param type="list" minvalue="0" maxvalue="127" required="true" name="BYTES">sysex message body</param></method>
+            <method name="noteon">send Note On message 
+            <param type="int" minvalue="0" maxvalue="15" required="true" name="CH">midi
+            channel</param>
+            <param type="int" minvalue="0" maxvalue="127" required="true" name="NOTE">midi
+            note</param>
+            <param type="int" minvalue="0" maxvalue="127" required="true" name="VEL">
+            velocity</param></method>
+            <method name="noteoff">send Note Off message 
+            <param type="int" minvalue="0" maxvalue="15" required="true" name="CH">midi
+            channel</param>
+            <param type="int" minvalue="0" maxvalue="127" required="true" name="NOTE">midi
+            note</param>
+            <param type="int" minvalue="0" maxvalue="127" required="true" name="VEL">
+            velocity</param></method>
+            <method name="sysex">send SysEx message (0xF0) 
+            <param type="list" minvalue="0" maxvalue="127" required="true" name="BYTES">sysex
+            message body</param></method>
             <!-- midi system common -->
-            <method name="timecode">send midi timecode as series of MTC quarter frame messages (0xF1)
-            <param type="atom" required="true" name="TIME">time value. Various formats can be used: 100sec, 1h, 20.5min or 01:12:34.11.</param>
-            <param type="float" enum="24 25 29.97 30" required="true" name="FPS">framerate</param>
-            </method>
-            <method name="songpos">send Song Position Pointer message (0xF2)
+            <method name="timecode">send midi timecode as series of MTC quarter frame messages
+            (0xF1) 
+            <param type="atom" required="true" name="TIME">time value. Various formats can be used:
+            100sec, 1h, 20.5min or 01:12:34.11.</param>
+            <param type="float" enum="24 25 29.97 30" required="true" name="FPS">
+            framerate</param></method>
+            <method name="songpos">send Song Position Pointer message (0xF2) 
             <param type="int" minvalue="0" required="true" name="IDX">position</param>
-            <param type="int" enum="1 2 4 8 16" default="16" required="false" name="DUR">position duration. By default is sixteen note.</param>
-            </method>
-            <method name="songsel">send Song Select message (0xF3)
-            <param type="int" minvalue="0" maxvalue="127" required="true" name="IDX">song index</param>
-            </method>
+            <param type="int" enum="1 2 4 8 16" default="16" required="false" name="DUR">position
+            duration. By default is sixteen note.</param></method>
+            <method name="songsel">send Song Select message (0xF3) 
+            <param type="int" minvalue="0" maxvalue="127" required="true" name="IDX">song
+            index</param></method>
             <method name="tunerequest">send Tune Request message (0xF6)</method>
             <!-- midi system realtime -->
             <method name="clock">send Timing Clock realtime message (0xF8)</method>
@@ -56,7 +63,8 @@
             </inlet>
         </inlets>
         <outlets>
-            <outlet>float: raw midi output or parsed messages with selector (output format same as for corresponding methods)</outlet>
+            <outlet>float: raw midi output or parsed messages with selector (output format same as
+            for corresponding methods)</outlet>
         </outlets>
         <example>
             <pdascii>
