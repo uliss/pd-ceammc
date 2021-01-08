@@ -42,8 +42,10 @@ static std::tuple<uint8_t, uint8_t> floatToBit14(t_float v)
 
     const auto ival = clip<int16_t, IN_MIN, IN_MAX>(v);
     const auto uval = static_cast<uint16_t>(ival - IN_MIN);
+    const uint8_t lsb = 0x7F & uval;
+    const uint8_t msb = 0x7F & (uval >> 7);
 
-    return { 0x7F & (uval >> 7), 0x7F & uval };
+    return { lsb, msb };
 }
 
 ProtoMidi::ProtoMidi(const PdArgs& args)
@@ -83,7 +85,7 @@ ProtoMidi::ProtoMidi(const PdArgs& args)
         msgTo(SYM_PROGRAMCHANGE, msg, 2);
     });
 
-    parser_.setPitchWheelFn([this](Byte b, Byte msb, Byte lsb) {
+    parser_.setPitchWheelFn([this](Byte b, Byte lsb, Byte msb) {
         const t_float v = ((msb << 7) | lsb) - 0x2000;
         Atom msg[2] = { 0x0F & b, v };
         msgTo(SYM_PITCHWHEEL, msg, 2);
@@ -207,7 +209,6 @@ void ProtoMidi::m_songPosition(t_symbol* s, const AtomListView& lv)
     }
 
     const uint16_t upos = ipos;
-    OBJ_ERR << upos;
 
     floatTo(0, midi::MIDI_SONGPOS);
     byteData(upos & 0x7F);
