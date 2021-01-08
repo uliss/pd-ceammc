@@ -14,12 +14,40 @@
             <since>0.9.2</since>
         </meta>
         <methods>
-            <method name="report_dport">turns on/off digital port value reporting. 
-            <param name="PORT#" type="int" required="true">digital port number. Port is a group of
-            pins, port 0 refers pins 0-8</param>
-            <param name="VALUE" type="int" enum="0 1" required="true">value. If 1 - activates
-            digital port reporting, messages like [dport PORT# value( are returned only on pin
-            value change</param></method>
+            <method name="note">alias to [noteon(</method>
+            <method name="noteon">send Note On message
+            <param type="int" minvalue="0" maxvalue="15" required="true" name="CH">midi channel</param>
+            <param type="int" minvalue="0" maxvalue="127" required="true" name="NOTE">midi note</param>
+            <param type="int" minvalue="0" maxvalue="127" required="true" name="VEL">velocity</param>
+            </method>
+            <method name="noteoff">send Note Off message
+            <param type="int" minvalue="0" maxvalue="15" required="true" name="CH">midi channel</param>
+            <param type="int" minvalue="0" maxvalue="127" required="true" name="NOTE">midi note</param>
+            <param type="int" minvalue="0" maxvalue="127" required="true" name="VEL">velocity</param>
+            </method>
+            <method name="sysex">send SysEx message (0xF0)
+            <param type="list" minvalue="0" maxvalue="127" required="true" name="BYTES">sysex message body</param></method>
+            <!-- midi system common -->
+            <method name="timecode">send midi timecode as series of MTC quarter frame messages (0xF1)
+            <param type="atom" required="true" name="TIME">time value. Various formats can be used: 100sec, 1h, 20.5min or 01:12:34.11.</param>
+            <param type="float" enum="24 25 29.97 30" required="true" name="FPS">framerate</param>
+            </method>
+            <method name="songpos">send Song Position Pointer message (0xF2)
+            <param type="int" minvalue="0" required="true" name="IDX">position</param>
+            <param type="int" enum="1 2 4 8 16" default="16" required="false" name="DUR">position duration. By default is sixteen note.</param>
+            </method>
+            <method name="songsel">send Song Select message (0xF3)
+            <param type="int" minvalue="0" maxvalue="127" required="true" name="IDX">song index</param>
+            </method>
+            <method name="tunerequest">send Tune Request message (0xF6)</method>
+            <!-- midi system realtime -->
+            <method name="clock">send Timing Clock realtime message (0xF8)</method>
+            <method name="tick">send Timing Tick realtime message (0xF9)</method>
+            <method name="start">send Start realtime message (0xFA)</method>
+            <method name="stop">send Stop realtime message (0xFC)</method>
+            <method name="continue">send Continue realtime message (0xFB)</method>
+            <method name="activesense">send Active Sense realtime message (0xFE)</method>
+            <method name="sysreset">send System Reset realtime message (0xFF)</method>
         </methods>
         <inlets>
             <inlet>
@@ -28,20 +56,24 @@
             </inlet>
         </inlets>
         <outlets>
-            <outlet>float: raw midi output or parsed messages with selector</outlet>
+            <outlet>float: raw midi output or parsed messages with selector (output format same as for corresponding methods)</outlet>
         </outlets>
         <example>
             <pdascii>
 <![CDATA[
-[midiin]
-|
-|
-|
+[midiin]  [S digits=20]
+|         |
+|         [sym->any]
+|         |
 [proto.midi]
 |
-[route.f]
-|      ^|
-|      [ui.dt @]
+[route.float]
+|  |       ^|
+|  [print] [ui.dt]
+|
+|     [T]
+|     |.
+[gate 0]
 |
 [midiout]
 ]]>

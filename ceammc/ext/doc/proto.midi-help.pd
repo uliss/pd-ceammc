@@ -6,44 +6,99 @@
 -4096 0;
 #X obj 667 11 proto.midi;
 #X obj 50 118 midiin;
+#X symbolatom 146 118 20 0 0 0 - - -;
+#X obj 146 147 sym->any;
 #X obj 50 176 proto.midi;
-#X obj 50 205 route.f;
-#X obj 117 234 ui.dt @;
-#X obj 50 262 midiout;
-#X obj 20 311 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 316 cnv 5 73 26 empty empty methods: 4 10 0 14 -262144
+#X obj 50 205 route.float;
+#X obj 78 234 print;
+#X obj 155 234 ui.dt;
+#X obj 107 262 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1;
+#X obj 50 291 gate 0;
+#X obj 50 320 midiout;
+#X obj 20 369 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 374 cnv 5 73 26 empty empty methods: 4 10 0 14 -262144
 -49933 0;
-#X msg 110 351 report_dport;
-#X text 245 351 turns on/off digital port value reporting. Arguments
+#X msg 110 409 activesense;
+#X text 245 409 send Active Sense realtime message (0xFE).;
+#X msg 110 436 clock;
+#X text 245 436 send Timing Clock realtime message (0xF8).;
+#X msg 110 463 continue;
+#X text 245 463 send Continue realtime message (0xFB).;
+#X msg 110 490 note;
+#X text 245 490 alias to [noteon(.;
+#X msg 110 517 noteoff;
+#X text 245 517 send Note Off message. Arguments are:;
+#X obj 255 540 cnv 1 21 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 540 CH: midi channel. Type: int. Range: 0\...15\.;
+#X obj 255 563 cnv 1 37 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 563 NOTE: midi note. Type: int. Range: 0\...127\.;
+#X obj 255 586 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 586 VEL: velocity. Type: int. Range: 0\...127\.;
+#X msg 110 611 noteon;
+#X text 245 611 send Note On message. Arguments are:;
+#X obj 255 634 cnv 1 21 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 634 CH: midi channel. Type: int. Range: 0\...15\.;
+#X obj 255 657 cnv 1 37 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 657 NOTE: midi note. Type: int. Range: 0\...127\.;
+#X obj 255 680 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 680 VEL: velocity. Type: int. Range: 0\...127\.;
+#X msg 110 705 songpos;
+#X text 245 705 send Song Position Pointer message (0xF2). Arguments
 are:;
-#X obj 255 374 cnv 1 45 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 374 PORT#: digital port number. Port is a group of pins
-\, port 0 refers pins 0-8\. Type: int.;
-#X obj 255 412 cnv 1 45 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 412 VALUE: value. If 1 - activates digital port reporting
-\, messages like [dport PORT# value( are returned only on pin value
-change. Type: int. Allowed values: 0 \, 1\.;
-#X obj 20 477 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 482 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
-0;
-#X text 110 483 1\.;
-#X text 150 483 *float*;
-#X text 245 483 raw midi input bytes.;
-#X text 150 503 *list*;
-#X text 245 503 raw midi input bytes.;
-#X obj 20 533 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 538 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
+#X obj 255 728 cnv 1 29 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 728 IDX: position. Type: int. Min value: 0\.;
+#X obj 255 751 cnv 1 62 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 751 [DUR=16]: position duration. By default is sixteen
+note. Type: int. Allowed values: 1 \, 2 \, 4 \, 8 \, 16\.;
+#X msg 110 791 songsel;
+#X text 245 791 send Song Select message (0xF3). Arguments are:;
+#X obj 255 814 cnv 1 29 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 814 IDX: song index. Type: int. Range: 0\...127\.;
+#X msg 110 839 start;
+#X text 245 839 send Start realtime message (0xFA).;
+#X msg 110 866 stop;
+#X text 245 866 send Stop realtime message (0xFC).;
+#X msg 110 893 sysex;
+#X text 245 893 send SysEx message (0xF0). Arguments are:;
+#X obj 255 916 cnv 1 44 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 916 BYTES: sysex message body. Type: list. Range: 0\...127\.;
+#X msg 110 941 sysreset;
+#X text 245 941 send System Reset realtime message (0xFF).;
+#X msg 110 968 tick;
+#X text 245 968 send Timing Tick realtime message (0xF9).;
+#X msg 110 995 timecode;
+#X text 245 995 send midi timecode as series of MTC quarter frame messages
+(0xF1). Arguments are:;
+#X obj 255 1033 cnv 1 37 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1033 TIME: time value. Various formats can be used: 100sec
+\, 1h \, 20.5min or 01:12:34.11\. Type: atom.;
+#X obj 255 1071 cnv 1 28 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1071 FPS: framerate. Type: float. Allowed values: 24 \,
+25 \, 29.97 \, 30\.;
+#X msg 110 1111 tunerequest;
+#X text 245 1111 send Tune Request message (0xF6).;
+#X obj 20 1148 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1153 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 539 1\.;
-#X text 245 539 float: raw midi output or parsed messages with selector.;
+#X text 110 1154 1\.;
+#X text 150 1154 *float*;
+#X text 245 1154 raw midi input bytes.;
+#X text 150 1174 *list*;
+#X text 245 1174 raw midi input bytes.;
+#X obj 20 1204 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1209 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
+-49933 0;
+#X text 110 1210 1\.;
+#X text 245 1210 float: raw midi output or parsed messages with selector
+(output format same as for corresponding methods).;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 115 45 ::;
 #X obj 131 48 ui.link @title proto @url ceammc.proto-help.pd;
-#X obj 1 589 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 592 library: ceammc v0.9.1;
-#N canvas 10 611 400 290 info 0;
+#X obj 1 1275 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1278 library: ceammc v0.9.1;
+#N canvas 10 1297 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
@@ -67,5 +122,13 @@ https://github.com/uliss/pure-data;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 generated by pddoc;
-#X restore 10 611 pd info;
-#X connect 4 0 5 0;
+#X restore 10 1297 pd info;
+#X connect 5 0 6 0;
+#X connect 4 0 7 0;
+#X connect 6 0 7 0;
+#X connect 7 0 8 0;
+#X connect 8 0 9 0;
+#X connect 8 1 10 0;
+#X connect 8 0 12 0;
+#X connect 11 0 12 1;
+#X connect 12 0 13 0;
