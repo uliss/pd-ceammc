@@ -26,10 +26,11 @@ ArgIsFloat::ArgIsFloat()
     setName("f");
 }
 
-void ArgIsFloat::setCheck(ArgIsFloat::CheckType t, t_float a)
+void ArgIsFloat::setCheck(ArgIsFloat::CheckType t, t_float a, t_float b)
 {
     type_ = t;
     a_ = a;
+    b_ = b;
 }
 
 bool ArgIsFloat::checkAtom(const Atom& a, CheckerContext& ctx) const
@@ -81,6 +82,14 @@ bool ArgIsFloat::checkAtom(const Atom& a, CheckerContext& ctx) const
         bool rc = (f != a_);
         if (!rc)
             ctx.error = fmt::format("value !={} is expected, got {}", a_, f);
+
+        return rc;
+    }
+    case FLOAT_RANGE: {
+        bool rc = (f >= a_ && f <= b_);
+
+        if (!rc)
+            ctx.error = fmt::format("value in {}..{} range is expected, got {}", a_, b_, f);
 
         return rc;
     }

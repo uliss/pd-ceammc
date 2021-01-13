@@ -29,18 +29,19 @@ public:
         FLOAT_GREATER,
         FLOAT_GREATER_EQUAL,
         FLOAT_LESS,
-        FLOAT_LESS_EQUAL
+        FLOAT_LESS_EQUAL,
+        FLOAT_RANGE
     };
 
 public:
     ArgIsFloat();
 
-    void setCheck(CheckType t, t_float a = 0);
+    void setCheck(CheckType t, t_float a = 0, t_float b = 0);
     bool checkAtom(const Atom& a, CheckerContext& ctx) const final;
     std::string name() const final;
 
 private:
-    t_float a_;
+    t_float a_, b_;
     CheckType type_;
 };
 
