@@ -84,6 +84,7 @@ UIDisplay::UIDisplay()
     , on_bang_(false)
     , msg_type_(MSG_TYPE_ANY)
 {
+    msg_txt_.reserve(32);
 }
 
 void UIDisplay::init(t_symbol* name, const AtomList& args, bool usePresets)
@@ -155,18 +156,27 @@ void UIDisplay::appendFloatToText(t_float f)
 {
     char buf[48];
 
-    if (prop_float_width_ < 0) {
-        if (sizeof(t_float) == sizeof(float))
-            snprintf(buf, sizeof(buf), "%.9g", f);
+    if (prop_int_hex_ && std::round(f) == f) { // int
+        if (f >= 0)
+            snprintf(buf, sizeof(buf), "0x%0*lX", prop_hex_format_width_, static_cast<unsigned long>(f));
         else
-            snprintf(buf, sizeof(buf), "%.17g", f);
+            snprintf(buf, sizeof(buf), "-0x%0*lX", prop_hex_format_width_, static_cast<unsigned long>(-f));
 
         msg_txt_ += buf;
-    } else if (prop_float_width_ == 0) {
-        msg_txt_ += std::to_string((t_int)f);
     } else {
-        snprintf(buf, sizeof(buf), "%.*f", prop_float_width_, f);
-        msg_txt_ += buf;
+        if (prop_float_precision_ < 0) {
+            if (sizeof(t_float) == sizeof(float))
+                snprintf(buf, sizeof(buf), "%.9g", f);
+            else
+                snprintf(buf, sizeof(buf), "%.17g", f);
+
+            msg_txt_ += buf;
+        } else if (prop_float_precision_ == 0) {
+            msg_txt_ += std::to_string((t_int)f);
+        } else {
+            snprintf(buf, sizeof(buf), "%.*f", prop_float_precision_, f);
+            msg_txt_ += buf;
+        }
     }
 }
 
@@ -281,26 +291,31 @@ void UIDisplay::setup()
     obj.addProperty("auto_size", _("Auto size"), true, &UIDisplay::prop_auto_size, _("Main"));
     obj.addProperty(PROP_TEXT_COLOR, _("Text Color"), DEFAULT_TEXT_COLOR, &UIDisplay::prop_text_color);
     obj.addProperty(PROP_ACTIVE_COLOR, _("Active Color"), DEFAULT_ACTIVE_COLOR, &UIDisplay::prop_active_color);
-    obj.addIntProperty("float_width", _("Float formatting width"), -1, &UIDisplay::prop_float_width_, _("Main"));
+    obj.addIntProperty("float_width", _("Float precision"), -1, &UIDisplay::prop_float_precision_, _("Main"));
     obj.setPropertyRange("float_width", -1, 17);
 
-    obj.setPropertyRedirect("send");
-    obj.setPropertyRedirect("size");
-    obj.setPropertyRedirect("fontname");
-    obj.setPropertyRedirect("fontweight");
-    obj.setPropertyRedirect("fontslant");
-    obj.setPropertyRedirect("fontsize");
-    obj.setPropertyRedirect("receive");
-    obj.setPropertyRedirect("send");
-    obj.setPropertyRedirect("pinned");
+    obj.addBoolProperty("hex", _("Integer in hex format"), false, &UIDisplay::prop_int_hex_, _("Main"));
+    obj.addIntProperty("hex_width", _("Hex format width"), 2, &UIDisplay::prop_hex_format_width_, _("Main"));
+    obj.setPropertyRange("hex_width", 0, 16);
+
+    obj.setPropertyRedirect("active_color");
+    obj.setPropertyRedirect("auto_size");
     obj.setPropertyRedirect("background_color");
     obj.setPropertyRedirect("border_color");
-    obj.setPropertyRedirect("text_color");
-    obj.setPropertyRedirect("active_color");
     obj.setPropertyRedirect("display_events");
     obj.setPropertyRedirect("display_type");
-    obj.setPropertyRedirect("auto_size");
     obj.setPropertyRedirect("float_width");
+    obj.setPropertyRedirect("fontname");
+    obj.setPropertyRedirect("fontsize");
+    obj.setPropertyRedirect("fontslant");
+    obj.setPropertyRedirect("fontweight");
+    obj.setPropertyRedirect("intbase");
+    obj.setPropertyRedirect("pinned");
+    obj.setPropertyRedirect("receive");
+    obj.setPropertyRedirect("send");
+    obj.setPropertyRedirect("send");
+    obj.setPropertyRedirect("size");
+    obj.setPropertyRedirect("text_color");
 
     obj.useBang();
     obj.useSymbol();

@@ -33,7 +33,9 @@ class UIDisplay : public UIObject {
     int prop_display_events;
     int prop_display_type;
     int prop_auto_size;
-    int prop_float_width_;
+    int prop_float_precision_;
+    int prop_hex_format_width_;
+    int prop_int_hex_;
     t_rgba prop_text_color;
     t_rgba prop_active_color;
 
