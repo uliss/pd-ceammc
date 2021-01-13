@@ -1589,7 +1589,7 @@ static void eclass_properties_dialog(t_eclass* c)
                                   "   pdsend $cmd\n"
                                   "}}\n";
 
-    const bool is_ceammc = (getenv("is_ceammc") != nullptr);
+    static const bool is_ceammc = (getenv("is_ceammc") != nullptr);
     const bool use_sframe = !is_ceammc;
 
 #ifdef __MACH__
@@ -1639,7 +1639,7 @@ static void eclass_properties_dialog(t_eclass* c)
     else
         sys_gui("   set fp $id.f\n");
 
-    /// fill category dict
+        /// fill category dict
 #ifndef NDEBUG
     sys_gui("   # category dictionary\n");
 #endif

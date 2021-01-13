@@ -1862,6 +1862,9 @@ void ebox_dialog(t_ebox* x, t_symbol* s, int argc, t_atom* argv)
     static t_symbol* S_CHECKBUTTON = gensym(SYM_CHECKBUTTON);
     static t_symbol* S_MENU = gensym(SYM_MENU);
 
+    static const bool is_ceammc = (getenv("is_ceammc") != nullptr);
+    const bool use_sframe = !is_ceammc;
+
     t_eclass* c = eobj_getclass(&x->b_obj);
     t_atom* av = NULL;
     int ac;
@@ -1878,8 +1881,15 @@ void ebox_dialog(t_ebox* x, t_symbol* s, int argc, t_atom* argv)
                 ac = 0;
 
                 char WIDGET_ID[64];
-                snprintf(WIDGET_ID, sizeof(WIDGET_ID), "%s.canvas.container.content.w%i",
-                    atom_getsymbol(argv)->s_name, attrindex + 1);
+                if (use_sframe) {
+                    snprintf(WIDGET_ID, sizeof(WIDGET_ID), "%s.canvas.container.content.w%i",
+                        atom_getsymbol(argv)->s_name,
+                        attrindex + 1);
+                } else {
+                    snprintf(WIDGET_ID, sizeof(WIDGET_ID), "%s.f.w%i",
+                        atom_getsymbol(argv)->s_name,
+                        attrindex + 1);
+                }
 
                 eobj_attr_getvalueof(&x->b_obj, c->c_attr[attrindex]->name, &ac, &av);
 
