@@ -1,8 +1,8 @@
-// A Bison parser, made by GNU Bison 3.5.
+// A Bison parser, made by GNU Bison 3.7.4.
 
 // Skeleton implementation for Bison LALR(1) parsers in C++
 
-// Copyright (C) 2002-2015, 2018-2019 Free Software Foundation, Inc.
+// Copyright (C) 2002-2015, 2018-2020 Free Software Foundation, Inc.
 
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -30,8 +30,9 @@
 // This special exception was added by the Free Software Foundation in
 // version 2.2 of Bison.
 
-// Undocumented macros, especially those whose name start with YY_,
-// are private implementation details.  Do not rely on them.
+// DO NOT RELY ON FEATURES THAT ARE NOT DOCUMENTED in the manual,
+// especially those whose name start with YY_ or yy_.  They are
+// private implementation details that can be changed or removed.
 
 
 
@@ -77,7 +78,7 @@
         }
     }
 
-#line 81 "argcheck.parser.cpp"
+#line 82 "argcheck.parser.cpp"
 
 
 #ifndef YY_
@@ -91,6 +92,7 @@
 #  define YY_(msgid) msgid
 # endif
 #endif
+
 
 // Whether we are compiled with exception support.
 #ifndef YY_EXCEPTIONS
@@ -128,7 +130,7 @@
 # define YY_STACK_PRINT()               \
   do {                                  \
     if (yydebug_)                       \
-      yystack_print_ ();                \
+      yy_stack_print_ ();                \
   } while (false)
 
 #else // !YYDEBUG
@@ -150,49 +152,7 @@
 
 #line 7 "argcheck.yy"
 namespace ceammc {
-#line 154 "argcheck.parser.cpp"
-
-
-  /* Return YYSTR after stripping away unnecessary quotes and
-     backslashes, so that it's suitable for yyerror.  The heuristic is
-     that double-quoting is unnecessary unless the string contains an
-     apostrophe, a comma, or backslash (other than backslash-backslash).
-     YYSTR is taken from yytname.  */
-  std::string
-  ArgCheckParser::yytnamerr_ (const char *yystr)
-  {
-    if (*yystr == '"')
-      {
-        std::string yyr;
-        char const *yyp = yystr;
-
-        for (;;)
-          switch (*++yyp)
-            {
-            case '\'':
-            case ',':
-              goto do_not_strip_quotes;
-
-            case '\\':
-              if (*++yyp != '\\')
-                goto do_not_strip_quotes;
-              else
-                goto append;
-
-            append:
-            default:
-              yyr += *yyp;
-              break;
-
-            case '"':
-              return yyr;
-            }
-      do_not_strip_quotes: ;
-      }
-
-    return yystr;
-  }
-
+#line 156 "argcheck.parser.cpp"
 
   /// Build a parser object.
   ArgCheckParser::ArgCheckParser (ceammc::ArgCheckLexer& lexer_yyarg, ceammc::ArgCheckerNode& n_yyarg)
@@ -213,7 +173,7 @@ namespace ceammc {
   {}
 
   /*---------------.
-  | Symbol types.  |
+  | symbol kinds.  |
   `---------------*/
 
 
@@ -244,13 +204,13 @@ namespace ceammc {
     : state (s)
   {}
 
-  ArgCheckParser::symbol_number_type
-  ArgCheckParser::by_state::type_get () const YY_NOEXCEPT
+  ArgCheckParser::symbol_kind_type
+  ArgCheckParser::by_state::kind () const YY_NOEXCEPT
   {
     if (state == empty_state)
-      return empty_symbol;
+      return symbol_kind::S_YYEMPTY;
     else
-      return yystos_[state];
+      return YY_CAST (symbol_kind_type, yystos_[+state]);
   }
 
   ArgCheckParser::stack_symbol_type::stack_symbol_type ()
@@ -259,39 +219,39 @@ namespace ceammc {
   ArgCheckParser::stack_symbol_type::stack_symbol_type (YY_RVREF (stack_symbol_type) that)
     : super_type (YY_MOVE (that.state))
   {
-    switch (that.type_get ())
+    switch (that.kind ())
     {
-      case 38: // ATOM_BOOL
-      case 39: // ATOM_INT
-      case 40: // ATOM_FLOAT
-      case 41: // ATOM_SYMBOL
-      case 42: // ATOM_DATA
-      case 43: // ATOM_SINGLE
-      case 44: // ATOM
-      case 46: // GROUP_OR
+      case symbol_kind::S_ATOM_BOOL: // ATOM_BOOL
+      case symbol_kind::S_ATOM_INT: // ATOM_INT
+      case symbol_kind::S_ATOM_FLOAT: // ATOM_FLOAT
+      case symbol_kind::S_ATOM_SYMBOL: // ATOM_SYMBOL
+      case symbol_kind::S_ATOM_DATA: // ATOM_DATA
+      case symbol_kind::S_ATOM_SINGLE: // ATOM_SINGLE
+      case symbol_kind::S_ATOM: // ATOM
+      case symbol_kind::S_GROUP_OR: // GROUP_OR
         value.YY_MOVE_OR_COPY< ArgCheckPtr > (YY_MOVE (that.value));
         break;
 
-      case 45: // ATOM_OR_SEQ
-      case 47: // ATOM_SEQ
+      case symbol_kind::S_ATOM_OR_SEQ: // ATOM_OR_SEQ
+      case symbol_kind::S_ATOM_SEQ: // ATOM_SEQ
         value.YY_MOVE_OR_COPY< ArgCheckPtrList > (YY_MOVE (that.value));
         break;
 
-      case 31: // FLOAT
-      case 36: // NUMBER
+      case symbol_kind::S_FLOAT: // FLOAT
+      case symbol_kind::S_NUMBER: // NUMBER
         value.YY_MOVE_OR_COPY< double > (YY_MOVE (that.value));
         break;
 
-      case 32: // INTEGER
+      case symbol_kind::S_INTEGER: // INTEGER
         value.YY_MOVE_OR_COPY< int > (YY_MOVE (that.value));
         break;
 
-      case 33: // SYMBOL
-      case 34: // STRING
+      case symbol_kind::S_SYMBOL: // SYMBOL
+      case symbol_kind::S_STRING: // STRING
         value.YY_MOVE_OR_COPY< std::string > (YY_MOVE (that.value));
         break;
 
-      case 37: // REPEAT
+      case symbol_kind::S_REPEAT: // REPEAT
         value.YY_MOVE_OR_COPY< std::vector<int> > (YY_MOVE (that.value));
         break;
 
@@ -308,39 +268,39 @@ namespace ceammc {
   ArgCheckParser::stack_symbol_type::stack_symbol_type (state_type s, YY_MOVE_REF (symbol_type) that)
     : super_type (s)
   {
-    switch (that.type_get ())
+    switch (that.kind ())
     {
-      case 38: // ATOM_BOOL
-      case 39: // ATOM_INT
-      case 40: // ATOM_FLOAT
-      case 41: // ATOM_SYMBOL
-      case 42: // ATOM_DATA
-      case 43: // ATOM_SINGLE
-      case 44: // ATOM
-      case 46: // GROUP_OR
+      case symbol_kind::S_ATOM_BOOL: // ATOM_BOOL
+      case symbol_kind::S_ATOM_INT: // ATOM_INT
+      case symbol_kind::S_ATOM_FLOAT: // ATOM_FLOAT
+      case symbol_kind::S_ATOM_SYMBOL: // ATOM_SYMBOL
+      case symbol_kind::S_ATOM_DATA: // ATOM_DATA
+      case symbol_kind::S_ATOM_SINGLE: // ATOM_SINGLE
+      case symbol_kind::S_ATOM: // ATOM
+      case symbol_kind::S_GROUP_OR: // GROUP_OR
         value.move< ArgCheckPtr > (YY_MOVE (that.value));
         break;
 
-      case 45: // ATOM_OR_SEQ
-      case 47: // ATOM_SEQ
+      case symbol_kind::S_ATOM_OR_SEQ: // ATOM_OR_SEQ
+      case symbol_kind::S_ATOM_SEQ: // ATOM_SEQ
         value.move< ArgCheckPtrList > (YY_MOVE (that.value));
         break;
 
-      case 31: // FLOAT
-      case 36: // NUMBER
+      case symbol_kind::S_FLOAT: // FLOAT
+      case symbol_kind::S_NUMBER: // NUMBER
         value.move< double > (YY_MOVE (that.value));
         break;
 
-      case 32: // INTEGER
+      case symbol_kind::S_INTEGER: // INTEGER
         value.move< int > (YY_MOVE (that.value));
         break;
 
-      case 33: // SYMBOL
-      case 34: // STRING
+      case symbol_kind::S_SYMBOL: // SYMBOL
+      case symbol_kind::S_STRING: // STRING
         value.move< std::string > (YY_MOVE (that.value));
         break;
 
-      case 37: // REPEAT
+      case symbol_kind::S_REPEAT: // REPEAT
         value.move< std::vector<int> > (YY_MOVE (that.value));
         break;
 
@@ -349,7 +309,7 @@ namespace ceammc {
     }
 
     // that is emptied.
-    that.type = empty_symbol;
+    that.kind_ = symbol_kind::S_YYEMPTY;
   }
 
 #if YY_CPLUSPLUS < 201103L
@@ -357,39 +317,39 @@ namespace ceammc {
   ArgCheckParser::stack_symbol_type::operator= (const stack_symbol_type& that)
   {
     state = that.state;
-    switch (that.type_get ())
+    switch (that.kind ())
     {
-      case 38: // ATOM_BOOL
-      case 39: // ATOM_INT
-      case 40: // ATOM_FLOAT
-      case 41: // ATOM_SYMBOL
-      case 42: // ATOM_DATA
-      case 43: // ATOM_SINGLE
-      case 44: // ATOM
-      case 46: // GROUP_OR
+      case symbol_kind::S_ATOM_BOOL: // ATOM_BOOL
+      case symbol_kind::S_ATOM_INT: // ATOM_INT
+      case symbol_kind::S_ATOM_FLOAT: // ATOM_FLOAT
+      case symbol_kind::S_ATOM_SYMBOL: // ATOM_SYMBOL
+      case symbol_kind::S_ATOM_DATA: // ATOM_DATA
+      case symbol_kind::S_ATOM_SINGLE: // ATOM_SINGLE
+      case symbol_kind::S_ATOM: // ATOM
+      case symbol_kind::S_GROUP_OR: // GROUP_OR
         value.copy< ArgCheckPtr > (that.value);
         break;
 
-      case 45: // ATOM_OR_SEQ
-      case 47: // ATOM_SEQ
+      case symbol_kind::S_ATOM_OR_SEQ: // ATOM_OR_SEQ
+      case symbol_kind::S_ATOM_SEQ: // ATOM_SEQ
         value.copy< ArgCheckPtrList > (that.value);
         break;
 
-      case 31: // FLOAT
-      case 36: // NUMBER
+      case symbol_kind::S_FLOAT: // FLOAT
+      case symbol_kind::S_NUMBER: // NUMBER
         value.copy< double > (that.value);
         break;
 
-      case 32: // INTEGER
+      case symbol_kind::S_INTEGER: // INTEGER
         value.copy< int > (that.value);
         break;
 
-      case 33: // SYMBOL
-      case 34: // STRING
+      case symbol_kind::S_SYMBOL: // SYMBOL
+      case symbol_kind::S_STRING: // STRING
         value.copy< std::string > (that.value);
         break;
 
-      case 37: // REPEAT
+      case symbol_kind::S_REPEAT: // REPEAT
         value.copy< std::vector<int> > (that.value);
         break;
 
@@ -404,39 +364,39 @@ namespace ceammc {
   ArgCheckParser::stack_symbol_type::operator= (stack_symbol_type& that)
   {
     state = that.state;
-    switch (that.type_get ())
+    switch (that.kind ())
     {
-      case 38: // ATOM_BOOL
-      case 39: // ATOM_INT
-      case 40: // ATOM_FLOAT
-      case 41: // ATOM_SYMBOL
-      case 42: // ATOM_DATA
-      case 43: // ATOM_SINGLE
-      case 44: // ATOM
-      case 46: // GROUP_OR
+      case symbol_kind::S_ATOM_BOOL: // ATOM_BOOL
+      case symbol_kind::S_ATOM_INT: // ATOM_INT
+      case symbol_kind::S_ATOM_FLOAT: // ATOM_FLOAT
+      case symbol_kind::S_ATOM_SYMBOL: // ATOM_SYMBOL
+      case symbol_kind::S_ATOM_DATA: // ATOM_DATA
+      case symbol_kind::S_ATOM_SINGLE: // ATOM_SINGLE
+      case symbol_kind::S_ATOM: // ATOM
+      case symbol_kind::S_GROUP_OR: // GROUP_OR
         value.move< ArgCheckPtr > (that.value);
         break;
 
-      case 45: // ATOM_OR_SEQ
-      case 47: // ATOM_SEQ
+      case symbol_kind::S_ATOM_OR_SEQ: // ATOM_OR_SEQ
+      case symbol_kind::S_ATOM_SEQ: // ATOM_SEQ
         value.move< ArgCheckPtrList > (that.value);
         break;
 
-      case 31: // FLOAT
-      case 36: // NUMBER
+      case symbol_kind::S_FLOAT: // FLOAT
+      case symbol_kind::S_NUMBER: // NUMBER
         value.move< double > (that.value);
         break;
 
-      case 32: // INTEGER
+      case symbol_kind::S_INTEGER: // INTEGER
         value.move< int > (that.value);
         break;
 
-      case 33: // SYMBOL
-      case 34: // STRING
+      case symbol_kind::S_SYMBOL: // SYMBOL
+      case symbol_kind::S_STRING: // STRING
         value.move< std::string > (that.value);
         break;
 
-      case 37: // REPEAT
+      case symbol_kind::S_REPEAT: // REPEAT
         value.move< std::vector<int> > (that.value);
         break;
 
@@ -461,22 +421,20 @@ namespace ceammc {
 #if YYDEBUG
   template <typename Base>
   void
-  ArgCheckParser::yy_print_ (std::ostream& yyo,
-                                     const basic_symbol<Base>& yysym) const
+  ArgCheckParser::yy_print_ (std::ostream& yyo, const basic_symbol<Base>& yysym) const
   {
     std::ostream& yyoutput = yyo;
     YYUSE (yyoutput);
-    symbol_number_type yytype = yysym.type_get ();
-#if defined __GNUC__ && ! defined __clang__ && ! defined __ICC && __GNUC__ * 100 + __GNUC_MINOR__ <= 408
-    // Avoid a (spurious) G++ 4.8 warning about "array subscript is
-    // below array bounds".
     if (yysym.empty ())
-      std::abort ();
-#endif
-    yyo << (yytype < yyntokens_ ? "token" : "nterm")
-        << ' ' << yytname_[yytype] << " (";
-    YYUSE (yytype);
-    yyo << ')';
+      yyo << "empty symbol";
+    else
+      {
+        symbol_kind_type yykind = yysym.kind ();
+        yyo << (yykind < YYNTOKENS ? "token" : "nterm")
+            << ' ' << yysym.name () << " (";
+        YYUSE (yykind);
+        yyo << ')';
+      }
   }
 #endif
 
@@ -535,11 +493,11 @@ namespace ceammc {
   ArgCheckParser::state_type
   ArgCheckParser::yy_lr_goto_state_ (state_type yystate, int yysym)
   {
-    int yyr = yypgoto_[yysym - yyntokens_] + yystate;
+    int yyr = yypgoto_[yysym - YYNTOKENS] + yystate;
     if (0 <= yyr && yyr <= yylast_ && yycheck_[yyr] == yystate)
       return yytable_[yyr];
     else
-      return yydefgoto_[yysym - yyntokens_];
+      return yydefgoto_[yysym - YYNTOKENS];
   }
 
   bool
@@ -596,6 +554,7 @@ namespace ceammc {
   `-----------------------------------------------*/
   yynewstate:
     YYCDEBUG << "Entering state " << int (yystack_[0].state) << '\n';
+    YY_STACK_PRINT ();
 
     // Accept?
     if (yystack_[0].state == yyfinal_)
@@ -609,14 +568,14 @@ namespace ceammc {
   `-----------*/
   yybackup:
     // Try to take a decision without lookahead.
-    yyn = yypact_[yystack_[0].state];
+    yyn = yypact_[+yystack_[0].state];
     if (yy_pact_value_is_default_ (yyn))
       goto yydefault;
 
     // Read a lookahead token.
     if (yyla.empty ())
       {
-        YYCDEBUG << "Reading a token: ";
+        YYCDEBUG << "Reading a token\n";
 #if YY_EXCEPTIONS
         try
 #endif // YY_EXCEPTIONS
@@ -635,10 +594,20 @@ namespace ceammc {
       }
     YY_SYMBOL_PRINT ("Next token is", yyla);
 
+    if (yyla.kind () == symbol_kind::S_YYerror)
+    {
+      // The scanner already issued an error message, process directly
+      // to error recovery.  But do not keep the error token as
+      // lookahead, it is too special and may lead us to an endless
+      // loop in error recovery. */
+      yyla.kind_ = symbol_kind::S_YYUNDEF;
+      goto yyerrlab1;
+    }
+
     /* If the proper action on seeing token YYLA.TYPE is to reduce or
        to detect an error, take that action.  */
-    yyn += yyla.type_get ();
-    if (yyn < 0 || yylast_ < yyn || yycheck_[yyn] != yyla.type_get ())
+    yyn += yyla.kind ();
+    if (yyn < 0 || yylast_ < yyn || yycheck_[yyn] != yyla.kind ())
       {
         goto yydefault;
       }
@@ -658,7 +627,7 @@ namespace ceammc {
       --yyerrstatus_;
 
     // Shift the lookahead token.
-    yypush_ ("Shifting", static_cast<state_type> (yyn), YY_MOVE (yyla));
+    yypush_ ("Shifting", state_type (yyn), YY_MOVE (yyla));
     goto yynewstate;
 
 
@@ -666,7 +635,7 @@ namespace ceammc {
   | yydefault -- do the default action for the current state.  |
   `-----------------------------------------------------------*/
   yydefault:
-    yyn = yydefact_[yystack_[0].state];
+    yyn = yydefact_[+yystack_[0].state];
     if (yyn == 0)
       goto yyerrlab;
     goto yyreduce;
@@ -685,37 +654,37 @@ namespace ceammc {
          when using variants.  */
       switch (yyr1_[yyn])
     {
-      case 38: // ATOM_BOOL
-      case 39: // ATOM_INT
-      case 40: // ATOM_FLOAT
-      case 41: // ATOM_SYMBOL
-      case 42: // ATOM_DATA
-      case 43: // ATOM_SINGLE
-      case 44: // ATOM
-      case 46: // GROUP_OR
+      case symbol_kind::S_ATOM_BOOL: // ATOM_BOOL
+      case symbol_kind::S_ATOM_INT: // ATOM_INT
+      case symbol_kind::S_ATOM_FLOAT: // ATOM_FLOAT
+      case symbol_kind::S_ATOM_SYMBOL: // ATOM_SYMBOL
+      case symbol_kind::S_ATOM_DATA: // ATOM_DATA
+      case symbol_kind::S_ATOM_SINGLE: // ATOM_SINGLE
+      case symbol_kind::S_ATOM: // ATOM
+      case symbol_kind::S_GROUP_OR: // GROUP_OR
         yylhs.value.emplace< ArgCheckPtr > ();
         break;
 
-      case 45: // ATOM_OR_SEQ
-      case 47: // ATOM_SEQ
+      case symbol_kind::S_ATOM_OR_SEQ: // ATOM_OR_SEQ
+      case symbol_kind::S_ATOM_SEQ: // ATOM_SEQ
         yylhs.value.emplace< ArgCheckPtrList > ();
         break;
 
-      case 31: // FLOAT
-      case 36: // NUMBER
+      case symbol_kind::S_FLOAT: // FLOAT
+      case symbol_kind::S_NUMBER: // NUMBER
         yylhs.value.emplace< double > ();
         break;
 
-      case 32: // INTEGER
+      case symbol_kind::S_INTEGER: // INTEGER
         yylhs.value.emplace< int > ();
         break;
 
-      case 33: // SYMBOL
-      case 34: // STRING
+      case symbol_kind::S_SYMBOL: // SYMBOL
+      case symbol_kind::S_STRING: // STRING
         yylhs.value.emplace< std::string > ();
         break;
 
-      case 37: // REPEAT
+      case symbol_kind::S_REPEAT: // REPEAT
         yylhs.value.emplace< std::vector<int> > ();
         break;
 
@@ -733,416 +702,426 @@ namespace ceammc {
         {
           switch (yyn)
             {
-  case 2:
+  case 2: // NUMBER: INTEGER
 #line 131 "argcheck.yy"
               { yylhs.value.as < double > () = yystack_[0].value.as < int > (); }
-#line 740 "argcheck.parser.cpp"
+#line 709 "argcheck.parser.cpp"
     break;
 
-  case 3:
+  case 3: // NUMBER: FLOAT
 #line 132 "argcheck.yy"
             { yylhs.value.as < double > () = yystack_[0].value.as < double > (); }
-#line 746 "argcheck.parser.cpp"
+#line 715 "argcheck.parser.cpp"
     break;
 
-  case 4:
+  case 4: // REPEAT: PLUS
 #line 136 "argcheck.yy"
            {
         yylhs.value.as < std::vector<int> > ().push_back(1);
         }
-#line 754 "argcheck.parser.cpp"
+#line 723 "argcheck.parser.cpp"
     break;
 
-  case 5:
+  case 5: // REPEAT: ASTERISK
 #line 139 "argcheck.yy"
                {
         yylhs.value.as < std::vector<int> > ().push_back(0);
         }
-#line 762 "argcheck.parser.cpp"
+#line 731 "argcheck.parser.cpp"
     break;
 
-  case 6:
+  case 6: // REPEAT: QUESTION
 #line 142 "argcheck.yy"
                {
         yylhs.value.as < std::vector<int> > ().push_back(0);
         yylhs.value.as < std::vector<int> > ().push_back(1);
         }
-#line 771 "argcheck.parser.cpp"
+#line 740 "argcheck.parser.cpp"
     break;
 
-  case 7:
+  case 7: // REPEAT: REPEAT_START INTEGER REPEAT_END
 #line 146 "argcheck.yy"
                                       {
         yylhs.value.as < std::vector<int> > ().push_back(yystack_[1].value.as < int > ());
         yylhs.value.as < std::vector<int> > ().push_back(yystack_[1].value.as < int > ());
         }
-#line 780 "argcheck.parser.cpp"
+#line 749 "argcheck.parser.cpp"
     break;
 
-  case 8:
+  case 8: // REPEAT: REPEAT_START INTEGER REPEAT_RANGE REPEAT_END
 #line 150 "argcheck.yy"
                                                    {
         yylhs.value.as < std::vector<int> > ().push_back(yystack_[2].value.as < int > ());
         }
-#line 788 "argcheck.parser.cpp"
+#line 757 "argcheck.parser.cpp"
     break;
 
-  case 9:
+  case 9: // REPEAT: REPEAT_START INTEGER REPEAT_RANGE INTEGER REPEAT_END
 #line 153 "argcheck.yy"
                                                            {
         yylhs.value.as < std::vector<int> > ().push_back(yystack_[3].value.as < int > ());
         yylhs.value.as < std::vector<int> > ().push_back(yystack_[1].value.as < int > ());
         }
-#line 797 "argcheck.parser.cpp"
+#line 766 "argcheck.parser.cpp"
     break;
 
-  case 10:
+  case 10: // ATOM_BOOL: TBOOL
 #line 160 "argcheck.yy"
             { yylhs.value.as < ArgCheckPtr > ().reset(new ArgIsBool); }
-#line 803 "argcheck.parser.cpp"
+#line 772 "argcheck.parser.cpp"
     break;
 
-  case 11:
+  case 11: // ATOM_INT: TINT
 #line 164 "argcheck.yy"
            {
         yylhs.value.as < ArgCheckPtr > ().reset(new ArgIsInt);
         }
-#line 811 "argcheck.parser.cpp"
+#line 780 "argcheck.parser.cpp"
     break;
 
-  case 12:
+  case 12: // ATOM_INT: TINT EQ INTEGER
 #line 167 "argcheck.yy"
                       {
         auto p = new ArgIsInt;
         p->setCheck(ArgIsInt::INT_EQUAL, yystack_[0].value.as < int > ());
         yylhs.value.as < ArgCheckPtr > ().reset(p);
         }
-#line 821 "argcheck.parser.cpp"
+#line 790 "argcheck.parser.cpp"
     break;
 
-  case 13:
+  case 13: // ATOM_INT: TINT NE INTEGER
 #line 172 "argcheck.yy"
                       {
         auto p = new ArgIsInt;
         p->setCheck(ArgIsInt::INT_NOT_EQUAL, yystack_[0].value.as < int > ());
         yylhs.value.as < ArgCheckPtr > ().reset(p);
         }
-#line 831 "argcheck.parser.cpp"
+#line 800 "argcheck.parser.cpp"
     break;
 
-  case 14:
+  case 14: // ATOM_INT: TINT GT INTEGER
 #line 177 "argcheck.yy"
                       {
         auto p = new ArgIsInt;
         p->setCheck(ArgIsInt::INT_GREATER, yystack_[0].value.as < int > ());
         yylhs.value.as < ArgCheckPtr > ().reset(p);
         }
-#line 841 "argcheck.parser.cpp"
+#line 810 "argcheck.parser.cpp"
     break;
 
-  case 15:
+  case 15: // ATOM_INT: TINT GE INTEGER
 #line 182 "argcheck.yy"
                       {
         auto p = new ArgIsInt;
         p->setCheck(ArgIsInt::INT_GREATER_EQUAL, yystack_[0].value.as < int > ());
         yylhs.value.as < ArgCheckPtr > ().reset(p);
         }
-#line 851 "argcheck.parser.cpp"
+#line 820 "argcheck.parser.cpp"
     break;
 
-  case 16:
+  case 16: // ATOM_INT: TINT LT INTEGER
 #line 187 "argcheck.yy"
                       {
         auto p = new ArgIsInt;
         p->setCheck(ArgIsInt::INT_LESS, yystack_[0].value.as < int > ());
         yylhs.value.as < ArgCheckPtr > ().reset(p);
         }
-#line 861 "argcheck.parser.cpp"
+#line 830 "argcheck.parser.cpp"
     break;
 
-  case 17:
+  case 17: // ATOM_INT: TINT LE INTEGER
 #line 192 "argcheck.yy"
                       {
         auto p = new ArgIsInt;
         p->setCheck(ArgIsInt::INT_LESS_EQUAL, yystack_[0].value.as < int > ());
         yylhs.value.as < ArgCheckPtr > ().reset(p);
         }
-#line 871 "argcheck.parser.cpp"
+#line 840 "argcheck.parser.cpp"
     break;
 
-  case 18:
+  case 18: // ATOM_INT: TINT INTEGER REPEAT_RANGE INTEGER
 #line 197 "argcheck.yy"
                                         {
         auto p = new ArgIsInt;
         p->setCheck(ArgIsInt::INT_RANGE, yystack_[2].value.as < int > (), yystack_[0].value.as < int > ());
         yylhs.value.as < ArgCheckPtr > ().reset(p);
         }
-#line 881 "argcheck.parser.cpp"
+#line 850 "argcheck.parser.cpp"
     break;
 
-  case 19:
+  case 19: // ATOM_INT: TINT MODULUS INTEGER EQ INTEGER
 #line 202 "argcheck.yy"
                                       {
         auto p = new ArgIsInt;
         p->setCheck(ArgIsInt::INT_MOD, yystack_[2].value.as < int > (), yystack_[0].value.as < int > ());
         yylhs.value.as < ArgCheckPtr > ().reset(p);
         }
-#line 891 "argcheck.parser.cpp"
+#line 860 "argcheck.parser.cpp"
     break;
 
-  case 20:
+  case 20: // ATOM_INT: TINT POWER_OF_TWO
 #line 207 "argcheck.yy"
                         {
         auto p = new ArgIsInt;
         p->setCheck(ArgIsInt::INT_POWER_OF_TWO, 0, 0);
         yylhs.value.as < ArgCheckPtr > ().reset(p);
         }
-#line 901 "argcheck.parser.cpp"
+#line 870 "argcheck.parser.cpp"
     break;
 
-  case 21:
+  case 21: // ATOM_FLOAT: TFLOAT
 #line 215 "argcheck.yy"
              {
         yylhs.value.as < ArgCheckPtr > ().reset(new ArgIsFloat);
         }
-#line 909 "argcheck.parser.cpp"
+#line 878 "argcheck.parser.cpp"
     break;
 
-  case 22:
+  case 22: // ATOM_FLOAT: TFLOAT EQ NUMBER
 #line 218 "argcheck.yy"
                        {
         auto p = new ArgIsFloat;
         p->setCheck(ArgIsFloat::FLOAT_EQUAL, yystack_[0].value.as < double > ());
         yylhs.value.as < ArgCheckPtr > ().reset(p);
         }
-#line 919 "argcheck.parser.cpp"
+#line 888 "argcheck.parser.cpp"
     break;
 
-  case 23:
+  case 23: // ATOM_FLOAT: TFLOAT NE NUMBER
 #line 223 "argcheck.yy"
                        {
         auto p = new ArgIsFloat;
         p->setCheck(ArgIsFloat::FLOAT_NOT_EQUAL, yystack_[0].value.as < double > ());
         yylhs.value.as < ArgCheckPtr > ().reset(p);
         }
-#line 929 "argcheck.parser.cpp"
+#line 898 "argcheck.parser.cpp"
     break;
 
-  case 24:
+  case 24: // ATOM_FLOAT: TFLOAT GE NUMBER
 #line 228 "argcheck.yy"
                        {
         auto p = new ArgIsFloat;
         p->setCheck(ArgIsFloat::FLOAT_GREATER_EQUAL, yystack_[0].value.as < double > ());
         yylhs.value.as < ArgCheckPtr > ().reset(p);
         }
-#line 939 "argcheck.parser.cpp"
+#line 908 "argcheck.parser.cpp"
     break;
 
-  case 25:
+  case 25: // ATOM_FLOAT: TFLOAT GT NUMBER
 #line 233 "argcheck.yy"
                        {
         auto p = new ArgIsFloat;
         p->setCheck(ArgIsFloat::FLOAT_GREATER, yystack_[0].value.as < double > ());
         yylhs.value.as < ArgCheckPtr > ().reset(p);
         }
-#line 949 "argcheck.parser.cpp"
+#line 918 "argcheck.parser.cpp"
     break;
 
-  case 26:
+  case 26: // ATOM_FLOAT: TFLOAT LE NUMBER
 #line 238 "argcheck.yy"
                        {
         auto p = new ArgIsFloat;
         p->setCheck(ArgIsFloat::FLOAT_LESS_EQUAL, yystack_[0].value.as < double > ());
         yylhs.value.as < ArgCheckPtr > ().reset(p);
         }
-#line 959 "argcheck.parser.cpp"
+#line 928 "argcheck.parser.cpp"
     break;
 
-  case 27:
+  case 27: // ATOM_FLOAT: TFLOAT LT NUMBER
 #line 243 "argcheck.yy"
                        {
         auto p = new ArgIsFloat;
         p->setCheck(ArgIsFloat::FLOAT_LESS, yystack_[0].value.as < double > ());
         yylhs.value.as < ArgCheckPtr > ().reset(p);
         }
-#line 969 "argcheck.parser.cpp"
+#line 938 "argcheck.parser.cpp"
     break;
 
-  case 28:
-#line 251 "argcheck.yy"
+  case 28: // ATOM_FLOAT: TFLOAT NUMBER REPEAT_RANGE NUMBER
+#line 248 "argcheck.yy"
+                                        {
+        auto p = new ArgIsFloat;
+        p->setCheck(ArgIsFloat::FLOAT_RANGE, yystack_[2].value.as < double > (), yystack_[0].value.as < double > ());
+        yylhs.value.as < ArgCheckPtr > ().reset(p);
+        }
+#line 948 "argcheck.parser.cpp"
+    break;
+
+  case 29: // ATOM_SYMBOL: TSYMBOL
+#line 256 "argcheck.yy"
               {
         yylhs.value.as < ArgCheckPtr > ().reset(new ArgIsSymbol);
         }
-#line 977 "argcheck.parser.cpp"
+#line 956 "argcheck.parser.cpp"
     break;
 
-  case 29:
-#line 254 "argcheck.yy"
+  case 30: // ATOM_SYMBOL: TSYMBOL EQ STRING
+#line 259 "argcheck.yy"
                         {
         auto p = new ArgIsSymbol;
         p->setCheck(ArgIsSymbol::SYM_EQUAL, yystack_[0].value.as < std::string > ().c_str());
         yylhs.value.as < ArgCheckPtr > ().reset(p);
         }
-#line 987 "argcheck.parser.cpp"
+#line 966 "argcheck.parser.cpp"
     break;
 
-  case 30:
-#line 259 "argcheck.yy"
+  case 31: // ATOM_SYMBOL: TSYMBOL NE STRING
+#line 264 "argcheck.yy"
                         {
         auto p = new ArgIsSymbol;
         p->setCheck(ArgIsSymbol::SYM_NOT_EQUAL, yystack_[0].value.as < std::string > ().c_str());
         yylhs.value.as < ArgCheckPtr > ().reset(p);
         }
-#line 997 "argcheck.parser.cpp"
+#line 976 "argcheck.parser.cpp"
     break;
 
-  case 31:
-#line 264 "argcheck.yy"
+  case 32: // ATOM_SYMBOL: CAPS STRING
+#line 269 "argcheck.yy"
                   {
         auto p = new ArgIsSymbol;
         p->setCheck(ArgIsSymbol::SYM_BEGINS_WITH, yystack_[0].value.as < std::string > ().c_str());
         yylhs.value.as < ArgCheckPtr > ().reset(p);
         }
-#line 1007 "argcheck.parser.cpp"
+#line 986 "argcheck.parser.cpp"
     break;
 
-  case 32:
-#line 269 "argcheck.yy"
+  case 33: // ATOM_SYMBOL: TILDE STRING
+#line 274 "argcheck.yy"
                    {
         auto p = new ArgIsSymbol;
         p->setCheck(ArgIsSymbol::SYM_CONTAINS, yystack_[0].value.as < std::string > ().c_str());
         yylhs.value.as < ArgCheckPtr > ().reset(p);
     }
-#line 1017 "argcheck.parser.cpp"
+#line 996 "argcheck.parser.cpp"
     break;
 
-  case 33:
-#line 274 "argcheck.yy"
+  case 34: // ATOM_SYMBOL: STRING DOLLAR
+#line 279 "argcheck.yy"
                     {
         auto p = new ArgIsSymbol;
         p->setCheck(ArgIsSymbol::SYM_ENDS_WITH, yystack_[1].value.as < std::string > ().c_str());
         yylhs.value.as < ArgCheckPtr > ().reset(p);
         }
-#line 1027 "argcheck.parser.cpp"
+#line 1006 "argcheck.parser.cpp"
     break;
 
-  case 34:
-#line 279 "argcheck.yy"
+  case 35: // ATOM_SYMBOL: STRING
+#line 284 "argcheck.yy"
              {
         auto p = new ArgIsSymbol;
         p->setCheck(ArgIsSymbol::SYM_MATCH, yystack_[0].value.as < std::string > ().c_str());
         yylhs.value.as < ArgCheckPtr > ().reset(p);
         }
-#line 1037 "argcheck.parser.cpp"
+#line 1016 "argcheck.parser.cpp"
     break;
 
-  case 35:
-#line 287 "argcheck.yy"
+  case 36: // ATOM_DATA: TDATA
+#line 292 "argcheck.yy"
             {
         yylhs.value.as < ArgCheckPtr > ().reset(new ArgIsData);
         }
-#line 1045 "argcheck.parser.cpp"
+#line 1024 "argcheck.parser.cpp"
     break;
 
-  case 36:
-#line 290 "argcheck.yy"
+  case 37: // ATOM_DATA: TDATA EQ SYMBOL
+#line 295 "argcheck.yy"
                       {
         auto p = new ArgIsData;
         p->setType(yystack_[0].value.as < std::string > ().c_str());
         yylhs.value.as < ArgCheckPtr > ().reset(p);
         }
-#line 1055 "argcheck.parser.cpp"
+#line 1034 "argcheck.parser.cpp"
     break;
 
-  case 37:
-#line 298 "argcheck.yy"
-                  { yylhs.value.as < ArgCheckPtr > ().reset(new ArgIsAtom); }
-#line 1061 "argcheck.parser.cpp"
-    break;
-
-  case 38:
-#line 299 "argcheck.yy"
-      { yylhs.value.as < ArgCheckPtr > () = yystack_[0].value.as < ArgCheckPtr > (); }
-#line 1067 "argcheck.parser.cpp"
-    break;
-
-  case 39:
-#line 300 "argcheck.yy"
-      { yylhs.value.as < ArgCheckPtr > () = yystack_[0].value.as < ArgCheckPtr > (); }
-#line 1073 "argcheck.parser.cpp"
-    break;
-
-  case 40:
-#line 301 "argcheck.yy"
-      { yylhs.value.as < ArgCheckPtr > () = yystack_[0].value.as < ArgCheckPtr > (); }
-#line 1079 "argcheck.parser.cpp"
-    break;
-
-  case 41:
-#line 302 "argcheck.yy"
-      { yylhs.value.as < ArgCheckPtr > () = yystack_[0].value.as < ArgCheckPtr > (); }
-#line 1085 "argcheck.parser.cpp"
-    break;
-
-  case 42:
+  case 38: // ATOM_SINGLE: TATOM
 #line 303 "argcheck.yy"
-      { yylhs.value.as < ArgCheckPtr > () = yystack_[0].value.as < ArgCheckPtr > (); }
-#line 1091 "argcheck.parser.cpp"
+                  { yylhs.value.as < ArgCheckPtr > ().reset(new ArgIsAtom); }
+#line 1040 "argcheck.parser.cpp"
     break;
 
-  case 43:
+  case 39: // ATOM_SINGLE: ATOM_DATA
+#line 304 "argcheck.yy"
+      { yylhs.value.as < ArgCheckPtr > () = yystack_[0].value.as < ArgCheckPtr > (); }
+#line 1046 "argcheck.parser.cpp"
+    break;
+
+  case 40: // ATOM_SINGLE: ATOM_BOOL
+#line 305 "argcheck.yy"
+      { yylhs.value.as < ArgCheckPtr > () = yystack_[0].value.as < ArgCheckPtr > (); }
+#line 1052 "argcheck.parser.cpp"
+    break;
+
+  case 41: // ATOM_SINGLE: ATOM_FLOAT
+#line 306 "argcheck.yy"
+      { yylhs.value.as < ArgCheckPtr > () = yystack_[0].value.as < ArgCheckPtr > (); }
+#line 1058 "argcheck.parser.cpp"
+    break;
+
+  case 42: // ATOM_SINGLE: ATOM_INT
 #line 307 "argcheck.yy"
       { yylhs.value.as < ArgCheckPtr > () = yystack_[0].value.as < ArgCheckPtr > (); }
-#line 1097 "argcheck.parser.cpp"
+#line 1064 "argcheck.parser.cpp"
     break;
 
-  case 44:
+  case 43: // ATOM_SINGLE: ATOM_SYMBOL
 #line 308 "argcheck.yy"
-                         { yylhs.value.as < ArgCheckPtr > () = yystack_[1].value.as < ArgCheckPtr > (); set_repeats(yylhs.value.as < ArgCheckPtr > (), yystack_[0].value.as < std::vector<int> > ()); }
-#line 1103 "argcheck.parser.cpp"
+      { yylhs.value.as < ArgCheckPtr > () = yystack_[0].value.as < ArgCheckPtr > (); }
+#line 1070 "argcheck.parser.cpp"
     break;
 
-  case 45:
-#line 315 "argcheck.yy"
+  case 44: // ATOM: ATOM_SINGLE
+#line 312 "argcheck.yy"
+      { yylhs.value.as < ArgCheckPtr > () = yystack_[0].value.as < ArgCheckPtr > (); }
+#line 1076 "argcheck.parser.cpp"
+    break;
+
+  case 45: // ATOM: ATOM_SINGLE REPEAT
+#line 313 "argcheck.yy"
+                         { yylhs.value.as < ArgCheckPtr > () = yystack_[1].value.as < ArgCheckPtr > (); set_repeats(yylhs.value.as < ArgCheckPtr > (), yystack_[0].value.as < std::vector<int> > ()); }
+#line 1082 "argcheck.parser.cpp"
+    break;
+
+  case 46: // ATOM_OR_SEQ: ATOM_SINGLE OR ATOM_SINGLE
+#line 320 "argcheck.yy"
                                  {
         yylhs.value.as < ArgCheckPtrList > ().assign({yystack_[2].value.as < ArgCheckPtr > (), yystack_[0].value.as < ArgCheckPtr > ()});
         }
-#line 1111 "argcheck.parser.cpp"
+#line 1090 "argcheck.parser.cpp"
     break;
 
-  case 46:
-#line 318 "argcheck.yy"
+  case 47: // ATOM_OR_SEQ: ATOM_SINGLE OR ATOM_OR_SEQ
+#line 323 "argcheck.yy"
                                  {
         yylhs.value.as < ArgCheckPtrList > ().push_back(yystack_[2].value.as < ArgCheckPtr > ());
         yylhs.value.as < ArgCheckPtrList > ().insert(std::end(yylhs.value.as < ArgCheckPtrList > ()), std::begin(yystack_[0].value.as < ArgCheckPtrList > ()), std::end(yystack_[0].value.as < ArgCheckPtrList > ()));
         }
-#line 1120 "argcheck.parser.cpp"
+#line 1099 "argcheck.parser.cpp"
     break;
 
-  case 47:
-#line 329 "argcheck.yy"
+  case 48: // GROUP_OR: ATOM_OR_SEQ
+#line 334 "argcheck.yy"
         {
             yylhs.value.as < ArgCheckPtr > ().reset(new ArgGroupOr);
             for(auto& p: yystack_[0].value.as < ArgCheckPtrList > ()) {
                 yylhs.value.as < ArgCheckPtr > ()->insertChild(p);
             }
         }
-#line 1131 "argcheck.parser.cpp"
+#line 1110 "argcheck.parser.cpp"
     break;
 
-  case 48:
-#line 336 "argcheck.yy"
+  case 49: // GROUP_OR: GROUP_START ATOM_OR_SEQ GROUP_END
+#line 341 "argcheck.yy"
         {
             yylhs.value.as < ArgCheckPtr > ().reset(new ArgGroupOr);
             for(auto& p: yystack_[1].value.as < ArgCheckPtrList > ()) {
                 yylhs.value.as < ArgCheckPtr > ()->insertChild(p);
             }
         }
-#line 1142 "argcheck.parser.cpp"
+#line 1121 "argcheck.parser.cpp"
     break;
 
-  case 49:
-#line 343 "argcheck.yy"
+  case 50: // GROUP_OR: GROUP_START ATOM_OR_SEQ GROUP_END REPEAT
+#line 348 "argcheck.yy"
         {
             yylhs.value.as < ArgCheckPtr > ().reset(new ArgGroupOr);
             for(auto& p: yystack_[2].value.as < ArgCheckPtrList > ()) {
@@ -1150,51 +1129,51 @@ namespace ceammc {
             }
             set_repeats(yylhs.value.as < ArgCheckPtr > (), yystack_[0].value.as < std::vector<int> > ());
         }
-#line 1154 "argcheck.parser.cpp"
+#line 1133 "argcheck.parser.cpp"
     break;
 
-  case 50:
-#line 353 "argcheck.yy"
+  case 51: // ATOM_SEQ: ATOM
+#line 358 "argcheck.yy"
            {
         yylhs.value.as < ArgCheckPtrList > ().push_back(yystack_[0].value.as < ArgCheckPtr > ());
         }
-#line 1162 "argcheck.parser.cpp"
+#line 1141 "argcheck.parser.cpp"
     break;
 
-  case 51:
-#line 356 "argcheck.yy"
+  case 52: // ATOM_SEQ: ATOM SPACE ATOM_SEQ
+#line 361 "argcheck.yy"
                           {
         yylhs.value.as < ArgCheckPtrList > ().push_back(yystack_[2].value.as < ArgCheckPtr > ());
         yylhs.value.as < ArgCheckPtrList > ().insert(std::end(yylhs.value.as < ArgCheckPtrList > ()), std::begin(yystack_[0].value.as < ArgCheckPtrList > ()), std::end(yystack_[0].value.as < ArgCheckPtrList > ()));
         }
-#line 1171 "argcheck.parser.cpp"
+#line 1150 "argcheck.parser.cpp"
     break;
 
-  case 52:
-#line 363 "argcheck.yy"
+  case 53: // SEQ: ATOM_SEQ
+#line 368 "argcheck.yy"
                {
         for(auto& p: yystack_[0].value.as < ArgCheckPtrList > ())
             n.insertChild(p);
         }
-#line 1180 "argcheck.parser.cpp"
+#line 1159 "argcheck.parser.cpp"
     break;
 
-  case 53:
-#line 367 "argcheck.yy"
+  case 54: // SEQ: GROUP_OR
+#line 372 "argcheck.yy"
                {
         n.insertChild(yystack_[0].value.as < ArgCheckPtr > ());
         }
-#line 1188 "argcheck.parser.cpp"
+#line 1167 "argcheck.parser.cpp"
     break;
 
-  case 56:
-#line 378 "argcheck.yy"
+  case 57: // REGEXP: %empty
+#line 383 "argcheck.yy"
              { }
-#line 1194 "argcheck.parser.cpp"
+#line 1173 "argcheck.parser.cpp"
     break;
 
 
-#line 1198 "argcheck.parser.cpp"
+#line 1177 "argcheck.parser.cpp"
 
             default:
               break;
@@ -1211,7 +1190,6 @@ namespace ceammc {
       YY_SYMBOL_PRINT ("-> $$ =", yylhs);
       yypop_ (yylen);
       yylen = 0;
-      YY_STACK_PRINT ();
 
       // Shift the result of the reduction.
       yypush_ (YY_NULLPTR, YY_MOVE (yylhs));
@@ -1227,7 +1205,9 @@ namespace ceammc {
     if (!yyerrstatus_)
       {
         ++yynerrs_;
-        error (yysyntax_error_ (yystack_[0].state, yyla));
+        context yyctx (*this, yyla);
+        std::string msg = yysyntax_error_ (yyctx);
+        error (YY_MOVE (msg));
       }
 
 
@@ -1237,7 +1217,7 @@ namespace ceammc {
            error, discard it.  */
 
         // Return failure if at end of input.
-        if (yyla.type_get () == yyeof_)
+        if (yyla.kind () == symbol_kind::S_YYEOF)
           YYABORT;
         else if (!yyla.empty ())
           {
@@ -1263,6 +1243,7 @@ namespace ceammc {
        this YYERROR.  */
     yypop_ (yylen);
     yylen = 0;
+    YY_STACK_PRINT ();
     goto yyerrlab1;
 
 
@@ -1271,34 +1252,36 @@ namespace ceammc {
   `-------------------------------------------------------------*/
   yyerrlab1:
     yyerrstatus_ = 3;   // Each real token shifted decrements this.
+    // Pop stack until we find a state that shifts the error token.
+    for (;;)
+      {
+        yyn = yypact_[+yystack_[0].state];
+        if (!yy_pact_value_is_default_ (yyn))
+          {
+            yyn += symbol_kind::S_YYerror;
+            if (0 <= yyn && yyn <= yylast_
+                && yycheck_[yyn] == symbol_kind::S_YYerror)
+              {
+                yyn = yytable_[yyn];
+                if (0 < yyn)
+                  break;
+              }
+          }
+
+        // Pop the current state because it cannot handle the error token.
+        if (yystack_.size () == 1)
+          YYABORT;
+
+        yy_destroy_ ("Error: popping", yystack_[0]);
+        yypop_ ();
+        YY_STACK_PRINT ();
+      }
     {
       stack_symbol_type error_token;
-      for (;;)
-        {
-          yyn = yypact_[yystack_[0].state];
-          if (!yy_pact_value_is_default_ (yyn))
-            {
-              yyn += yy_error_token_;
-              if (0 <= yyn && yyn <= yylast_ && yycheck_[yyn] == yy_error_token_)
-                {
-                  yyn = yytable_[yyn];
-                  if (0 < yyn)
-                    break;
-                }
-            }
-
-          // Pop the current state because it cannot handle the error token.
-          if (yystack_.size () == 1)
-            YYABORT;
-
-          yy_destroy_ ("Error: popping", yystack_[0]);
-          yypop_ ();
-          YY_STACK_PRINT ();
-        }
 
 
       // Shift the error token.
-      error_token.state = static_cast<state_type> (yyn);
+      error_token.state = state_type (yyn);
       yypush_ ("Shifting", YY_MOVE (error_token));
     }
     goto yynewstate;
@@ -1330,6 +1313,7 @@ namespace ceammc {
     /* Do not reclaim the symbols of the rule whose action triggered
        this YYABORT or YYACCEPT.  */
     yypop_ (yylen);
+    YY_STACK_PRINT ();
     while (1 < yystack_.size ())
       {
         yy_destroy_ ("Cleanup: popping", yystack_[0]);
@@ -1363,18 +1347,100 @@ namespace ceammc {
     error (yyexc.what ());
   }
 
-  // Generate an error message.
+  /* Return YYSTR after stripping away unnecessary quotes and
+     backslashes, so that it's suitable for yyerror.  The heuristic is
+     that double-quoting is unnecessary unless the string contains an
+     apostrophe, a comma, or backslash (other than backslash-backslash).
+     YYSTR is taken from yytname.  */
   std::string
-  ArgCheckParser::yysyntax_error_ (state_type yystate, const symbol_type& yyla) const
+  ArgCheckParser::yytnamerr_ (const char *yystr)
   {
-    // Number of reported tokens (one for the "unexpected", one per
-    // "expected").
-    std::ptrdiff_t yycount = 0;
-    // Its maximum.
-    enum { YYERROR_VERBOSE_ARGS_MAXIMUM = 5 };
-    // Arguments of yyformat.
-    char const *yyarg[YYERROR_VERBOSE_ARGS_MAXIMUM];
+    if (*yystr == '"')
+      {
+        std::string yyr;
+        char const *yyp = yystr;
 
+        for (;;)
+          switch (*++yyp)
+            {
+            case '\'':
+            case ',':
+              goto do_not_strip_quotes;
+
+            case '\\':
+              if (*++yyp != '\\')
+                goto do_not_strip_quotes;
+              else
+                goto append;
+
+            append:
+            default:
+              yyr += *yyp;
+              break;
+
+            case '"':
+              return yyr;
+            }
+      do_not_strip_quotes: ;
+      }
+
+    return yystr;
+  }
+
+  std::string
+  ArgCheckParser::symbol_name (symbol_kind_type yysymbol)
+  {
+    return yytnamerr_ (yytname_[yysymbol]);
+  }
+
+
+
+  // ArgCheckParser::context.
+  ArgCheckParser::context::context (const ArgCheckParser& yyparser, const symbol_type& yyla)
+    : yyparser_ (yyparser)
+    , yyla_ (yyla)
+  {}
+
+  int
+  ArgCheckParser::context::expected_tokens (symbol_kind_type yyarg[], int yyargn) const
+  {
+    // Actual number of expected tokens
+    int yycount = 0;
+
+    int yyn = yypact_[+yyparser_.yystack_[0].state];
+    if (!yy_pact_value_is_default_ (yyn))
+      {
+        /* Start YYX at -YYN if negative to avoid negative indexes in
+           YYCHECK.  In other words, skip the first -YYN actions for
+           this state because they are default actions.  */
+        int yyxbegin = yyn < 0 ? -yyn : 0;
+        // Stay within bounds of both yycheck and yytname.
+        int yychecklim = yylast_ - yyn + 1;
+        int yyxend = yychecklim < YYNTOKENS ? yychecklim : YYNTOKENS;
+        for (int yyx = yyxbegin; yyx < yyxend; ++yyx)
+          if (yycheck_[yyx + yyn] == yyx && yyx != symbol_kind::S_YYerror
+              && !yy_table_value_is_error_ (yytable_[yyx + yyn]))
+            {
+              if (!yyarg)
+                ++yycount;
+              else if (yycount == yyargn)
+                return 0;
+              else
+                yyarg[yycount++] = YY_CAST (symbol_kind_type, yyx);
+            }
+      }
+
+    if (yyarg && yycount == 0 && 0 < yyargn)
+      yyarg[0] = symbol_kind::S_YYEMPTY;
+    return yycount;
+  }
+
+
+
+  int
+  ArgCheckParser::yy_syntax_error_arguments_ (const context& yyctx,
+                                                 symbol_kind_type yyarg[], int yyargn) const
+  {
     /* There are many possibilities here to consider:
        - If this state is a consistent state with a default action, then
          the only way this function was invoked is if the default action
@@ -1399,35 +1465,26 @@ namespace ceammc {
          one exception: it will still contain any token that will not be
          accepted due to an error action in a later state.
     */
-    if (!yyla.empty ())
-      {
-        symbol_number_type yytoken = yyla.type_get ();
-        yyarg[yycount++] = yytname_[yytoken];
 
-        int yyn = yypact_[yystate];
-        if (!yy_pact_value_is_default_ (yyn))
-          {
-            /* Start YYX at -YYN if negative to avoid negative indexes in
-               YYCHECK.  In other words, skip the first -YYN actions for
-               this state because they are default actions.  */
-            int yyxbegin = yyn < 0 ? -yyn : 0;
-            // Stay within bounds of both yycheck and yytname.
-            int yychecklim = yylast_ - yyn + 1;
-            int yyxend = yychecklim < yyntokens_ ? yychecklim : yyntokens_;
-            for (int yyx = yyxbegin; yyx < yyxend; ++yyx)
-              if (yycheck_[yyx + yyn] == yyx && yyx != yy_error_token_
-                  && !yy_table_value_is_error_ (yytable_[yyx + yyn]))
-                {
-                  if (yycount == YYERROR_VERBOSE_ARGS_MAXIMUM)
-                    {
-                      yycount = 1;
-                      break;
-                    }
-                  else
-                    yyarg[yycount++] = yytname_[yyx];
-                }
-          }
+    if (!yyctx.lookahead ().empty ())
+      {
+        if (yyarg)
+          yyarg[0] = yyctx.token ();
+        int yyn = yyctx.expected_tokens (yyarg ? yyarg + 1 : yyarg, yyargn - 1);
+        return yyn + 1;
       }
+    return 0;
+  }
+
+  // Generate an error message.
+  std::string
+  ArgCheckParser::yysyntax_error_ (const context& yyctx) const
+  {
+    // Its maximum.
+    enum { YYARGS_MAX = 5 };
+    // Arguments of yyformat.
+    symbol_kind_type yyarg[YYARGS_MAX];
+    int yycount = yy_syntax_error_arguments_ (yyctx, yyarg, YYARGS_MAX);
 
     char const* yyformat = YY_NULLPTR;
     switch (yycount)
@@ -1452,7 +1509,7 @@ namespace ceammc {
     for (char const* yyp = yyformat; *yyp; ++yyp)
       if (yyp[0] == '%' && yyp[1] == 's' && yyi < yycount)
         {
-          yyres += yytnamerr_ (yyarg[yyi++]);
+          yyres += symbol_name (yyarg[yyi++]);
           ++yyp;
         }
       else
@@ -1461,95 +1518,97 @@ namespace ceammc {
   }
 
 
-  const signed char ArgCheckParser::yypact_ninf_ = -24;
+  const signed char ArgCheckParser::yypact_ninf_ = -23;
 
   const signed char ArgCheckParser::yytable_ninf_ = -1;
 
   const signed char
   ArgCheckParser::yypact_[] =
   {
-      -1,   -24,    59,   -24,     6,    36,     8,     7,   -16,   -12,
-      -5,   -24,   -24,   -24,   -24,   -24,   -24,     5,     1,   -24,
-     -24,   -24,    -1,   -24,    38,   -23,   -23,   -23,   -23,   -23,
-     -23,     9,    14,    22,    23,    25,    28,    29,   -24,    32,
-      49,    33,    34,    16,    46,   -24,   -24,   -24,    50,   -24,
-       7,   -24,   -24,   -24,     7,   -24,   -24,   -24,   -24,   -24,
-     -24,   -24,   -24,   -24,   -24,   -24,   -24,   -24,   -24,   -24,
-     -24,   -24,    71,    52,   -24,   -24,    45,    27,    16,   -24,
-      45,   -24,    53,   -24,   -24,   -24,    13,   -24,   -24,    77,
-     -24
+       5,   -23,    59,   -23,     2,    38,    14,    13,    -4,     3,
+      15,   -23,   -23,   -23,   -23,   -23,    11,    12,   -23,   -23,
+     -23,     5,   -23,    48,    -8,    -8,    -8,    -8,    -8,    -8,
+     -23,   -23,    46,    24,    26,    27,    29,    30,    31,    33,
+     -23,    34,    57,    35,    43,    45,    61,   -23,   -23,   -23,
+      49,   -23,    13,   -23,   -23,   -23,    13,   -23,   -23,   -23,
+     -23,   -23,   -23,   -23,   -23,    -8,   -23,   -23,   -23,   -23,
+     -23,   -23,   -23,    66,    50,   -23,   -23,    68,    18,    45,
+     -23,    68,   -23,   -23,    51,   -23,   -23,   -23,     6,   -23,
+     -23,    75,   -23
   };
 
   const signed char
   ArgCheckParser::yydefact_[] =
   {
-      56,    10,    21,    37,    35,    11,    28,     0,     0,     0,
-       0,    34,    39,    41,    40,    42,    38,    43,    50,    47,
-      53,    52,    54,    57,     0,     0,     0,     0,     0,     0,
-       0,     0,     0,     0,     0,     0,     0,     0,    20,     0,
-       0,     0,     0,     0,     0,    31,    32,    33,     0,     5,
-       0,     4,     6,    44,     0,    55,     1,     3,     2,    22,
-      24,    25,    26,    27,    23,    36,    12,    15,    14,    17,
-      16,    13,     0,     0,    29,    30,    48,     0,    45,    46,
-      43,    51,     0,    18,    49,     7,     0,    19,     8,     0,
-       9
+      57,    10,    21,    38,    36,    11,    29,     0,     0,     0,
+      35,    40,    42,    41,    43,    39,    44,    51,    48,    54,
+      53,    55,    58,     0,     0,     0,     0,     0,     0,     0,
+       3,     2,     0,     0,     0,     0,     0,     0,     0,     0,
+      20,     0,     0,     0,     0,     0,     0,    32,    33,    34,
+       0,     5,     0,     4,     6,    45,     0,    56,     1,    22,
+      24,    25,    26,    27,    23,     0,    37,    12,    15,    14,
+      17,    16,    13,     0,     0,    30,    31,    49,     0,    46,
+      47,    44,    52,    28,     0,    18,    50,     7,     0,    19,
+       8,     0,     9
   };
 
   const signed char
   ArgCheckParser::yypgoto_[] =
   {
-     -24,    51,    11,   -24,   -24,   -24,   -24,   -24,    -7,   -24,
-      -6,   -24,    35,   -24,    66,   -24
+     -23,   -22,     8,   -23,   -23,   -23,   -23,   -23,    -7,   -23,
+      -6,   -23,    32,   -23,    73,   -23
   };
 
   const signed char
   ArgCheckParser::yydefgoto_[] =
   {
-      -1,    59,    53,    12,    13,    14,    15,    16,    17,    18,
-      19,    20,    21,    22,    23,    24
+      -1,    32,    55,    11,    12,    13,    14,    15,    16,    17,
+      18,    19,    20,    21,    22,    23
   };
 
   const signed char
   ArgCheckParser::yytable_[] =
   {
-      43,    44,     1,     2,     3,     4,     5,     6,    57,    58,
-       1,     2,     3,     4,     5,     6,    48,    45,    31,     7,
-      41,    46,    88,    49,    47,    42,     8,     9,    50,    51,
-      52,    54,    10,    11,     8,     9,    85,    86,    56,    50,
-      10,    11,    65,    78,    79,    89,    66,    80,    32,    33,
-      34,    35,    36,    37,    67,    68,    48,    69,    38,    73,
-      70,    71,    39,    49,    72,    76,    74,    75,    40,    51,
-      52,    25,    26,    27,    28,    29,    30,    60,    61,    62,
-      63,    64,    77,    82,    83,    87,    90,    84,    55,    81
+      45,    46,    59,    60,    61,    62,    63,    64,     1,     2,
+       3,     4,     5,     6,    33,    90,     1,     2,     3,     4,
+       5,     6,    50,    30,    31,     7,    43,    87,    88,    51,
+      47,    44,     8,     9,    52,    53,    54,    48,    91,    10,
+       8,     9,    56,    83,    49,    79,    80,    10,    58,    81,
+      34,    35,    36,    37,    38,    39,    65,    66,    67,    68,
+      40,    69,    70,    71,    41,    72,    73,    74,    52,    75,
+      42,    24,    25,    26,    27,    28,    29,    76,    84,    50,
+      77,    78,    85,    89,    92,    86,    51,     0,    82,     0,
+      30,    31,    53,    54,    57
   };
 
   const signed char
   ArgCheckParser::yycheck_[] =
   {
-       7,     7,     3,     4,     5,     6,     7,     8,    31,    32,
-       3,     4,     5,     6,     7,     8,    11,    33,    12,    20,
-      12,    33,     9,    18,    29,    17,    27,    28,    23,    24,
-      25,    30,    33,    34,    27,    28,     9,    10,     0,    23,
-      33,    34,    33,    50,    50,    32,    32,    54,    12,    13,
-      14,    15,    16,    17,    32,    32,    11,    32,    22,    10,
-      32,    32,    26,    18,    32,    19,    33,    33,    32,    24,
-      25,    12,    13,    14,    15,    16,    17,    26,    27,    28,
-      29,    30,    32,    12,    32,    32,     9,    76,    22,    54
+       7,     7,    24,    25,    26,    27,    28,    29,     3,     4,
+       5,     6,     7,     8,    12,     9,     3,     4,     5,     6,
+       7,     8,    11,    31,    32,    20,    12,     9,    10,    18,
+      34,    17,    27,    28,    23,    24,    25,    34,    32,    34,
+      27,    28,    30,    65,    29,    52,    52,    34,     0,    56,
+      12,    13,    14,    15,    16,    17,    10,    33,    32,    32,
+      22,    32,    32,    32,    26,    32,    32,    10,    23,    34,
+      32,    12,    13,    14,    15,    16,    17,    34,    12,    11,
+      19,    32,    32,    32,     9,    77,    18,    -1,    56,    -1,
+      31,    32,    24,    25,    21
   };
 
   const signed char
   ArgCheckParser::yystos_[] =
   {
        0,     3,     4,     5,     6,     7,     8,    20,    27,    28,
-      33,    34,    38,    39,    40,    41,    42,    43,    44,    45,
-      46,    47,    48,    49,    50,    12,    13,    14,    15,    16,
-      17,    12,    12,    13,    14,    15,    16,    17,    22,    26,
-      32,    12,    17,    43,    45,    33,    33,    29,    11,    18,
-      23,    24,    25,    37,    30,    49,     0,    31,    32,    36,
-      36,    36,    36,    36,    36,    33,    32,    32,    32,    32,
-      32,    32,    32,    10,    33,    33,    19,    32,    43,    45,
-      43,    47,    12,    32,    37,     9,    10,    32,     9,    32,
-       9
+      34,    38,    39,    40,    41,    42,    43,    44,    45,    46,
+      47,    48,    49,    50,    12,    13,    14,    15,    16,    17,
+      31,    32,    36,    12,    12,    13,    14,    15,    16,    17,
+      22,    26,    32,    12,    17,    43,    45,    34,    34,    29,
+      11,    18,    23,    24,    25,    37,    30,    49,     0,    36,
+      36,    36,    36,    36,    36,    10,    33,    32,    32,    32,
+      32,    32,    32,    32,    10,    34,    34,    19,    32,    43,
+      45,    43,    47,    36,    12,    32,    37,     9,    10,    32,
+       9,    32,     9
   };
 
   const signed char
@@ -1557,10 +1616,10 @@ namespace ceammc {
   {
        0,    35,    36,    36,    37,    37,    37,    37,    37,    37,
       38,    39,    39,    39,    39,    39,    39,    39,    39,    39,
-      39,    40,    40,    40,    40,    40,    40,    40,    41,    41,
-      41,    41,    41,    41,    41,    42,    42,    43,    43,    43,
-      43,    43,    43,    44,    44,    45,    45,    46,    46,    46,
-      47,    47,    48,    48,    49,    49,    50,    50
+      39,    40,    40,    40,    40,    40,    40,    40,    40,    41,
+      41,    41,    41,    41,    41,    41,    42,    42,    43,    43,
+      43,    43,    43,    43,    44,    44,    45,    45,    46,    46,
+      46,    47,    47,    48,    48,    49,    49,    50,    50
   };
 
   const signed char
@@ -1568,28 +1627,31 @@ namespace ceammc {
   {
        0,     2,     1,     1,     1,     1,     1,     3,     4,     5,
        1,     1,     3,     3,     3,     3,     3,     3,     4,     5,
-       2,     1,     3,     3,     3,     3,     3,     3,     1,     3,
-       3,     2,     2,     2,     1,     1,     3,     1,     1,     1,
-       1,     1,     1,     1,     2,     3,     3,     1,     3,     4,
-       1,     3,     1,     1,     1,     2,     0,     1
+       2,     1,     3,     3,     3,     3,     3,     3,     4,     1,
+       3,     3,     2,     2,     2,     1,     1,     3,     1,     1,
+       1,     1,     1,     1,     1,     2,     3,     3,     1,     3,
+       4,     1,     3,     1,     1,     1,     2,     0,     1
   };
 
 
-
+#if YYDEBUG || 1
   // YYTNAME[SYMBOL-NUM] -- String name of the symbol SYMBOL-NUM.
-  // First, the terminals, then, starting at \a yyntokens_, nonterminals.
+  // First, the terminals, then, starting at \a YYNTOKENS, nonterminals.
   const char*
   const ArgCheckParser::yytname_[] =
   {
-  "$end", "error", "$undefined", "TBOOL", "TFLOAT", "TATOM", "TDATA",
-  "TINT", "TSYMBOL", "REPEAT_END", "REPEAT_RANGE", "REPEAT_START", "EQ",
-  "GE", "GT", "LE", "LT", "NE", "ASTERISK", "GROUP_END", "GROUP_START",
-  "LEXER_ERR", "POWER_OF_TWO", "OR", "PLUS", "QUESTION", "MODULUS", "CAPS",
-  "TILDE", "DOLLAR", "SPACE", "FLOAT", "INTEGER", "SYMBOL", "STRING",
-  "$accept", "NUMBER", "REPEAT", "ATOM_BOOL", "ATOM_INT", "ATOM_FLOAT",
-  "ATOM_SYMBOL", "ATOM_DATA", "ATOM_SINGLE", "ATOM", "ATOM_OR_SEQ",
-  "GROUP_OR", "ATOM_SEQ", "SEQ", "EXPR", "REGEXP", YY_NULLPTR
+  "\"end of file\"", "error", "\"invalid token\"", "TBOOL", "TFLOAT",
+  "TATOM", "TDATA", "TINT", "TSYMBOL", "REPEAT_END", "REPEAT_RANGE",
+  "REPEAT_START", "EQ", "GE", "GT", "LE", "LT", "NE", "ASTERISK",
+  "GROUP_END", "GROUP_START", "LEXER_ERR", "POWER_OF_TWO", "OR", "PLUS",
+  "QUESTION", "MODULUS", "CAPS", "TILDE", "DOLLAR", "SPACE", "FLOAT",
+  "INTEGER", "SYMBOL", "STRING", "$accept", "NUMBER", "REPEAT",
+  "ATOM_BOOL", "ATOM_INT", "ATOM_FLOAT", "ATOM_SYMBOL", "ATOM_DATA",
+  "ATOM_SINGLE", "ATOM", "ATOM_OR_SEQ", "GROUP_OR", "ATOM_SEQ", "SEQ",
+  "EXPR", "REGEXP", YY_NULLPTR
   };
+#endif
+
 
 #if YYDEBUG
   const short
@@ -1597,15 +1659,14 @@ namespace ceammc {
   {
        0,   131,   131,   132,   136,   139,   142,   146,   150,   153,
      160,   164,   167,   172,   177,   182,   187,   192,   197,   202,
-     207,   215,   218,   223,   228,   233,   238,   243,   251,   254,
-     259,   264,   269,   274,   279,   287,   290,   298,   299,   300,
-     301,   302,   303,   307,   308,   315,   318,   328,   335,   342,
-     353,   356,   363,   367,   373,   374,   378,   379
+     207,   215,   218,   223,   228,   233,   238,   243,   248,   256,
+     259,   264,   269,   274,   279,   284,   292,   295,   303,   304,
+     305,   306,   307,   308,   312,   313,   320,   323,   333,   340,
+     347,   358,   361,   368,   372,   378,   379,   383,   384
   };
 
-  // Print the state stack on the debug stream.
   void
-  ArgCheckParser::yystack_print_ ()
+  ArgCheckParser::yy_stack_print_ () const
   {
     *yycdebug_ << "Stack now";
     for (stack_type::const_iterator
@@ -1616,9 +1677,8 @@ namespace ceammc {
     *yycdebug_ << '\n';
   }
 
-  // Report on the debug stream that the rule \a yyrule is going to be reduced.
   void
-  ArgCheckParser::yy_reduce_print_ (int yyrule)
+  ArgCheckParser::yy_reduce_print_ (int yyrule) const
   {
     int yylno = yyrline_[yyrule];
     int yynrhs = yyr2_[yyrule];
@@ -1635,9 +1695,9 @@ namespace ceammc {
 
 #line 7 "argcheck.yy"
 } // ceammc
-#line 1639 "argcheck.parser.cpp"
+#line 1699 "argcheck.parser.cpp"
 
-#line 381 "argcheck.yy"
+#line 386 "argcheck.yy"
 
 
 void ceammc::ArgCheckParser::error(const std::string& err_message)

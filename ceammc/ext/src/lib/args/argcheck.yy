@@ -74,21 +74,21 @@
     }
 }
 
-%token			         TBOOL
-%token			         TFLOAT
+%token                   TBOOL
+%token                   TFLOAT
 %token                   TATOM
 %token                   TDATA
 %token                   TINT
 %token                   TSYMBOL
-%token 			         REPEAT_END
-%token 			         REPEAT_RANGE
-%token 			         REPEAT_START
-%token         	         EQ
-%token         	         GE
-%token         	         GT
-%token         	         LE
-%token         	         LT
-%token         	         NE
+%token                   REPEAT_END
+%token                   REPEAT_RANGE
+%token                   REPEAT_START
+%token                   EQ
+%token                   GE
+%token                   GT
+%token                   LE
+%token                   LT
+%token                   NE
 %token                   ASTERISK
 %token                   GROUP_END
 %token                   GROUP_START
@@ -245,33 +245,38 @@ ATOM_FLOAT
         p->setCheck(ArgIsFloat::FLOAT_LESS, $3);
         $$.reset(p);
         }
+    | TFLOAT NUMBER REPEAT_RANGE NUMBER {
+        auto p = new ArgIsFloat;
+        p->setCheck(ArgIsFloat::FLOAT_RANGE, $2, $4);
+        $$.reset(p);
+        }
     ;
 
 ATOM_SYMBOL
     : TSYMBOL {
         $$.reset(new ArgIsSymbol);
         }
-    | TSYMBOL EQ SYMBOL {
+    | TSYMBOL EQ STRING {
         auto p = new ArgIsSymbol;
         p->setCheck(ArgIsSymbol::SYM_EQUAL, $3.c_str());
         $$.reset(p);
         }
-    | TSYMBOL NE SYMBOL {
+    | TSYMBOL NE STRING {
         auto p = new ArgIsSymbol;
         p->setCheck(ArgIsSymbol::SYM_NOT_EQUAL, $3.c_str());
         $$.reset(p);
         }
-    | CAPS SYMBOL {
+    | CAPS STRING {
         auto p = new ArgIsSymbol;
         p->setCheck(ArgIsSymbol::SYM_BEGINS_WITH, $2.c_str());
         $$.reset(p);
         }
-    | TILDE SYMBOL {
+    | TILDE STRING {
         auto p = new ArgIsSymbol;
         p->setCheck(ArgIsSymbol::SYM_CONTAINS, $2.c_str());
         $$.reset(p);
     }
-    | SYMBOL DOLLAR {
+    | STRING DOLLAR {
         auto p = new ArgIsSymbol;
         p->setCheck(ArgIsSymbol::SYM_ENDS_WITH, $1.c_str());
         $$.reset(p);
