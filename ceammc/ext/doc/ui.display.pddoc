@@ -22,7 +22,7 @@
             </also>
         </meta>
         <info>
-            <par>[ui.dt] is alias for [ui.display @display_type=1]</par>
+            <par>[ui.dt] is alias for [ui.display @display_type 1]</par>
         </info>
         <mouse>
             <event editmode="false" type="double-click">show/hide message type</event>
@@ -51,6 +51,8 @@
             <property name="@float_width" type="int" default="-1" minvalue="-1" maxvalue="17">
             number of digits after floating point. If -1: skip trailing zeroes, if 0 - output as
             integers</property>
+            <property name="@hex_width" type="int" default="2" minvalue="0" maxvalue="16">hex output format width</property>
+            <property name="@hex" type="int" default="0" enum="0 1">output integers in hex format</property>
             <property name="@send" type="symbol" default="(null)">send destination</property>
             <property name="@receive" type="symbol" default="(null)">receive source</property>
             <property name="@size" type="list" default="150 18">element size (width, height
