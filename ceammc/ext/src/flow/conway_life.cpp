@@ -161,6 +161,15 @@ void ConwayLife::addGlider(uint16_t row, uint16_t col)
         && setAt(row + 2, col + 2, true);
 }
 
+void ConwayLife::addRPentamino(uint16_t row, uint16_t col)
+{
+    setAt(row + 0, col + 1, true)
+        && setAt(row + 1, col + 1, true)
+        && setAt(row + 2, col + 1, true)
+        && setAt(row + 0, col + 2, true)
+        && setAt(row + 1, col + 0, true);
+}
+
 void ConwayLife::addNeighbour(uint16_t row, uint16_t col)
 {
     if (row >= rows_ || col >= cols_)

@@ -52,6 +52,7 @@ public:
     void addHive(uint16_t row, uint16_t col);
     void addVHive(uint16_t row, uint16_t col);
     void addGlider(uint16_t row, uint16_t col);
+    void addRPentamino(uint16_t row, uint16_t col);
 
 private:
     void addNeighbour(uint16_t row, uint16_t col);

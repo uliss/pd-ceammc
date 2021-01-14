@@ -40,6 +40,7 @@ public:
     void m_hive(t_symbol* s, const AtomListView& lv);
     void m_next(t_symbol* s, const AtomListView& lv);
     void m_rand(t_symbol* s, const AtomListView& lv);
+    void m_rpent(t_symbol* s, const AtomListView& lv);
     void m_vhive(t_symbol* s, const AtomListView& lv);
 
     size_t numCells() const;

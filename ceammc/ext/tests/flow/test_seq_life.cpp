@@ -168,5 +168,11 @@ TEST_CASE("seq.life", "[externals]")
                   << l;
         REQUIRE(l.numAlive() == 5);
 
+        l.clear();
+        l.addRPentamino(0, 1);
+        std::cerr << "R-pentamino:\n"
+                  << l;
+        REQUIRE(l.numAlive() == 5);
+
     }
 }
