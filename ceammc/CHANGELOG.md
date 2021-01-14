@@ -11,6 +11,7 @@
   - proto.midi added (raw dataflow midi parser/encoder)
   - route.float (with route.f alias) added
   - conv.bits2int (with bits->int alias) added
+  - conv.bits2pos (with bits->pos alias) added
 - comma separated messages added to msg.onload (loadmsg)
 - hex output added to ui.display (@hex and @hex_width properties)
 - xlet tooltips added to:
