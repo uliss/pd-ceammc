@@ -61,6 +61,24 @@ void SeqLife::dump() const
         << life_;
 }
 
+#define ADD_FIGURE(method)                     \
+    {                                          \
+        if (!m_pos_check.check(lv)) {          \
+            METHOD_ERR(s) << "usage: ROW COL"; \
+            return;                            \
+        }                                      \
+        const auto row = lv[0].asInt();        \
+        const auto col = lv[1].asInt();        \
+        if (!checkPos(s, row, col))            \
+            return;                            \
+        life_.method(row, col);                \
+    }
+
+void SeqLife::m_blinker(t_symbol* s, const AtomListView& lv)
+{
+    ADD_FIGURE(addBlinker);
+}
+
 void SeqLife::m_rand(t_symbol* s, const AtomListView& lv)
 {
     static ArgChecker argcheck("f0..1?");
@@ -75,19 +93,6 @@ void SeqLife::m_rand(t_symbol* s, const AtomListView& lv)
         METHOD_ERR(s) << "can't set density: " << dens;
 }
 
-#define ADD_FIGURE(method)                     \
-    {                                          \
-        if (!m_pos_check.check(lv)) {          \
-            METHOD_ERR(s) << "usage: ROW COL"; \
-            return;                            \
-        }                                      \
-        const auto row = lv[0].asInt();        \
-        const auto col = lv[1].asInt();        \
-        if (!checkPos(s, row, col))            \
-            return;                            \
-        life_.method(row, col);                \
-    }
-
 void SeqLife::m_rpent(t_symbol* s, const AtomListView& lv)
 {
     ADD_FIGURE(addRPentamino);
@@ -96,6 +101,11 @@ void SeqLife::m_rpent(t_symbol* s, const AtomListView& lv)
 void SeqLife::m_vhive(t_symbol* s, const AtomListView& lv)
 {
     ADD_FIGURE(addVHive);
+}
+
+void SeqLife::m_oct2(t_symbol* s, const AtomListView& lv)
+{
+    ADD_FIGURE(addOctagon2);
 }
 
 void SeqLife::m_next(t_symbol* s, const AtomListView& lv)
@@ -175,9 +185,11 @@ void setup_seq_life()
     obj.addMethod("cell", &SeqLife::m_cell);
     obj.addMethod("rand", &SeqLife::m_rand);
 
+    obj.addMethod("blinker", &SeqLife::m_blinker);
     obj.addMethod("block", &SeqLife::m_block);
     obj.addMethod("glider", &SeqLife::m_glider);
     obj.addMethod("hive", &SeqLife::m_hive);
+    obj.addMethod("oct2", &SeqLife::m_oct2);
     obj.addMethod("rpent", &SeqLife::m_rpent);
     obj.addMethod("vhive", &SeqLife::m_vhive);
 }

@@ -34,6 +34,7 @@ public:
     void onBang() override;
     void dump() const final;
 
+    void m_blinker(t_symbol* s, const AtomListView& lv);
     void m_block(t_symbol* s, const AtomListView& lv);
     void m_cell(t_symbol* s, const AtomListView& lv);
     void m_glider(t_symbol* s, const AtomListView& lv);
@@ -42,6 +43,7 @@ public:
     void m_rand(t_symbol* s, const AtomListView& lv);
     void m_rpent(t_symbol* s, const AtomListView& lv);
     void m_vhive(t_symbol* s, const AtomListView& lv);
+    void m_oct2(t_symbol* s, const AtomListView& lv);
 
     size_t numCells() const;
 

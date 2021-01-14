@@ -18,6 +18,7 @@
 #include <cstdint>
 #include <initializer_list>
 #include <iosfwd>
+#include <utility>
 
 class ConwayLife {
 public:
@@ -53,6 +54,9 @@ public:
     void addVHive(uint16_t row, uint16_t col);
     void addGlider(uint16_t row, uint16_t col);
     void addRPentamino(uint16_t row, uint16_t col);
+    void addBlinker(uint16_t row, uint16_t col);
+    void addOctagon2(uint16_t row, uint16_t col);
+    bool addFigure(uint16_t row, uint16_t col, std::pair<uint16_t, uint16_t> size, std::initializer_list<bool> l);
 
 private:
     void addNeighbour(uint16_t row, uint16_t col);

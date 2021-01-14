@@ -170,6 +170,50 @@ void ConwayLife::addRPentamino(uint16_t row, uint16_t col)
         && setAt(row + 1, col + 0, true);
 }
 
+void ConwayLife::addBlinker(uint16_t row, uint16_t col)
+{
+    setAt(row + 0, col, true)
+        && setAt(row + 1, col, true)
+        && setAt(row + 2, col, true);
+}
+
+void ConwayLife::addOctagon2(uint16_t row, uint16_t col)
+{
+    addFigure(row, col, { 8, 8 }, {
+                                      0, 0, 0, 1, 1, 0, 0, 0, //
+                                      0, 0, 1, 0, 0, 1, 0, 0, //
+                                      0, 1, 0, 0, 0, 0, 1, 0, //
+                                      1, 0, 0, 0, 0, 0, 0, 1, //
+                                      1, 0, 0, 0, 0, 0, 0, 1, //
+                                      0, 1, 0, 0, 0, 0, 1, 0, //
+                                      0, 0, 1, 0, 0, 1, 0, 0, //
+                                      0, 0, 0, 1, 1, 0, 0, 0, //
+                                  });
+}
+
+bool ConwayLife::addFigure(uint16_t row, uint16_t col, std::pair<uint16_t, uint16_t> size, std::initializer_list<bool> l)
+{
+    const auto data_row = size.first;
+    const auto data_col = size.second;
+
+    if (data_row * data_col > l.size())
+        return false;
+
+    for (uint16_t r = 0; r < data_row; r++) {
+        for (uint16_t c = 0; c < data_col; c++) {
+            auto idx = r * data_col + c;
+            auto v = l.begin()[idx];
+            if (!v)
+                continue;
+
+            if (!setAt(row + r, col + c, true))
+                break;
+        }
+    }
+
+    return true;
+}
+
 void ConwayLife::addNeighbour(uint16_t row, uint16_t col)
 {
     if (row >= rows_ || col >= cols_)

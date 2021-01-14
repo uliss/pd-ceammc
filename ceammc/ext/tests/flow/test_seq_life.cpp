@@ -174,5 +174,23 @@ TEST_CASE("seq.life", "[externals]")
                   << l;
         REQUIRE(l.numAlive() == 5);
 
+        l.clear();
+        l.addFigure(0, 0, { 2, 2 }, { 0, 1, 1, 0 });
+        std::cerr << "fig:\n"
+                  << l;
+        REQUIRE(l.at(0, 0) == 0);
+        REQUIRE(l.at(0, 1) == 1);
+        REQUIRE(l.at(1, 0) == 1);
+        REQUIRE(l.at(1, 1) == 0);
+
+        l.clear();
+        l.addFigure(1, 0, { 2, 3 }, { 1, 1, 1, 1, 1, 1 });
+        std::cerr << "fig:\n"
+                  << l;
+
+        l.clear();
+        l.addFigure(1, 2, { 2, 3 }, { 1, 1, 1, 1, 1, 1 });
+        std::cerr << "fig:\n"
+                  << l;
     }
 }
