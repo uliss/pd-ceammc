@@ -49,6 +49,7 @@ void setup_seq_nbangs();
 void setup_seq_phasor();
 void setup_seq_sequencer();
 void setup_seq_toggles();
+void setup_seq_life();
 
 void setup_route_float();
 
@@ -102,6 +103,7 @@ void ceammc_flow_setup()
     setup_seq_phasor();
     setup_seq_sequencer();
     setup_seq_toggles();
+    setup_seq_life();
 
     setup_route_float();
 }
