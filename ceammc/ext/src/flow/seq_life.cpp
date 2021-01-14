@@ -75,6 +75,21 @@ void SeqLife::m_rand(t_symbol* s, const AtomListView& lv)
         METHOD_ERR(s) << "can't set density: " << dens;
 }
 
+void SeqLife::m_vhive(t_symbol* s, const AtomListView& lv)
+{
+    if (!m_pos_check.check(lv)) {
+        METHOD_ERR(s) << "usage: ROW COL";
+        return;
+    }
+
+    const auto row = lv[0].asInt();
+    const auto col = lv[1].asInt();
+    if (!checkPos(s, row, col))
+        return;
+
+    life_.addVHive(row, col);
+}
+
 void SeqLife::m_next(t_symbol* s, const AtomListView& lv)
 {
     life_.next();
@@ -93,6 +108,21 @@ void SeqLife::m_cell(t_symbol* s, const AtomListView& lv)
         return;
 
     life_.setAt(row, col, lv[2].asBool());
+}
+
+void SeqLife::m_hive(t_symbol* s, const AtomListView& lv)
+{
+    if (!m_pos_check.check(lv)) {
+        METHOD_ERR(s) << "usage: ROW COL";
+        return;
+    }
+
+    const auto row = lv[0].asInt();
+    const auto col = lv[1].asInt();
+    if (!checkPos(s, row, col))
+        return;
+
+    life_.addHive(row, col);
 }
 
 void SeqLife::m_block(t_symbol* s, const AtomListView& lv)
@@ -151,5 +181,8 @@ void setup_seq_life()
     obj.addMethod("next", &SeqLife::m_next);
     obj.addMethod("cell", &SeqLife::m_cell);
     obj.addMethod("rand", &SeqLife::m_rand);
+
     obj.addMethod("block", &SeqLife::m_block);
+    obj.addMethod("hive", &SeqLife::m_hive);
+    obj.addMethod("vhive", &SeqLife::m_vhive);
 }

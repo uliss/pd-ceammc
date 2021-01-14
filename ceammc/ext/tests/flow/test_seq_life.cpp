@@ -138,5 +138,28 @@ TEST_CASE("seq.life", "[externals]")
         REQUIRE(l.at(1, 3));
         REQUIRE(l.at(2, 2));
         REQUIRE(l.at(2, 3));
+
+        l.clear();
+        l.addVHive(0, 1);
+        std::cerr << "vhive:\n"
+                  << l;
+        REQUIRE(l.numAlive() == 5);
+        REQUIRE(l.at(0, 2));
+        REQUIRE(l.at(1, 1));
+        REQUIRE(l.at(1, 3));
+        REQUIRE(l.at(2, 1));
+        REQUIRE(l.at(2, 3));
+
+        l.clear();
+        l.addHive(0, 0);
+        std::cerr << "hive:\n"
+                  << l;
+        REQUIRE(l.numAlive() == 6);
+        REQUIRE(l.at(0, 1));
+        REQUIRE(l.at(0, 2));
+        REQUIRE(l.at(1, 0));
+        REQUIRE(l.at(1, 3));
+        REQUIRE(l.at(2, 1));
+        REQUIRE(l.at(2, 2));
     }
 }
