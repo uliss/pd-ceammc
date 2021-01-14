@@ -16,7 +16,11 @@
 
 ConvBits2Pos::ConvBits2Pos(const PdArgs& args)
     : BaseObject(args)
+    , reversed_(nullptr)
 {
+    reversed_ = new BoolProperty("@rev", false);
+    addProperty(reversed_);
+
     createOutlet();
 }
 
@@ -30,10 +34,20 @@ void ConvBits2Pos::onList(const AtomList& lst)
 {
     Atom res[lst.size()];
     size_t n = 0;
-    for (size_t i = 0; i < lst.size(); i++) {
-        const auto& a = lst[i];
-        if (a.isFloat() && a.asT<t_float>() != 0)
-            res[n++] = i;
+
+    if (reversed_->value()) {
+        for (size_t i = 0; i < lst.size(); i++) {
+            const auto& a = lst[i];
+            if (a.isFloat() && a.asT<t_float>() != 0)
+                res[n++] = i;
+        }
+    } else {
+        const auto N = lst.size();
+        for (size_t i = 0; i < lst.size(); i++) {
+            const auto& a = lst[N - (i + 1)];
+            if (a.isFloat() && a.asT<t_float>() != 0)
+                res[n++] = i;
+        }
     }
 
     listTo(0, AtomListView(res, n));
