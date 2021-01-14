@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="conv.bits2pos">
+        <title>conv.bits2pos</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>convert list of bits to list of bit position</description>
+            <license>GPL3 or later</license>
+            <library>ceammc</library>
+            <category>conv</category>
+            <keywords>conv bits position</keywords>
+            <since>0.9.2</since>
+            <aliases>
+                <alias>bits-&gt;pos</alias>
+            </aliases>
+            <also>
+                <see>conv.bits2int</see>
+            </also>
+        </meta>
+        <properties>
+            <property name="@rev" type="int" enum="0 1" default="0">reversed bit order</property>
+        </properties>
+        <inlets>
+            <inlet>
+                <xinfo on="list">input bit list</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet>list of bit positions</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[1 0 1 1 0 0 0 0( [T]
+|                 |
+|                 [@rev $1(
+|                 |
+[bits->pos        ]
+|
+[ui.dt]
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

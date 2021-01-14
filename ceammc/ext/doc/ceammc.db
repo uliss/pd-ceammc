@@ -40,6 +40,7 @@ click~		.		~
 conv.amp2dbfs,amp->dbfs		.		.
 conv.amp2dbfs~,amp->dbfs~		~		~
 conv.bits2int,bits->int		.		.
+conv.bits2pos,bits->pos		.		.
 conv.bpm2hz,bpm->hz		.		.
 conv.bpm2ms,bpm->ms		.		.
 conv.bpm2sec,bpm->sec		.		.

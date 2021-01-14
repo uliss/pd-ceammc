@@ -41,6 +41,7 @@ set(DOC_FILES
     conv.amp2dbfs
     conv.amp2dbfs~
     conv.bits2int
+    conv.bits2pos
     conv.bpm2hz
     conv.bpm2ms
     conv.bpm2sec

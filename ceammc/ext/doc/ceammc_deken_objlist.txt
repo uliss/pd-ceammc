@@ -79,6 +79,8 @@ conv.amp2dbfs~	convert from amplitude to decibel full scale
 amp->dbfs~	convert from amplitude to decibel full scale
 conv.bits2int	convert list of bits to integer
 bits->int	convert list of bits to integer
+conv.bits2pos	convert list of bits to list of bit position
+bits->pos	convert list of bits to list of bit position
 conv.bpm2hz	converts BPM to frequency in herz
 bpm->hz	converts BPM to frequency in herz
 conv.bpm2ms	convert frequency in BPM to period in milliseconds
