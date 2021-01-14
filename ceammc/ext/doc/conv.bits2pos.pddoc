@@ -19,6 +19,10 @@
                 <see>conv.bits2int</see>
             </also>
         </meta>
+        <info>
+            <par>Note: byte default the least significant bit is the rightmost, this can be changed
+            with @rev property</par>
+        </info>
         <properties>
             <property name="@rev" type="int" enum="0 1" default="0">reversed bit order</property>
         </properties>
