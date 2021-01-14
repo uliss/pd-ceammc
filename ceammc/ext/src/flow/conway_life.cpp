@@ -129,7 +129,7 @@ void ConwayLife::addBlock(uint16_t row, uint16_t col)
     setAt(row + 0, col + 0, true)
         && setAt(row + 0, col + 1, true)
         && setAt(row + 1, col + 0, true)
-    && setAt(row + 1, col + 1, true);
+        && setAt(row + 1, col + 1, true);
 }
 
 void ConwayLife::addHive(uint16_t row, uint16_t col)
@@ -150,6 +150,15 @@ void ConwayLife::addVHive(uint16_t row, uint16_t col)
         && setAt(row + 2, col + 0, true)
         && setAt(row + 2, col + 2, true)
         && setAt(row + 3, col + 1, true);
+}
+
+void ConwayLife::addGlider(uint16_t row, uint16_t col)
+{
+    setAt(row + 0, col + 2, true)
+        && setAt(row + 1, col + 0, true)
+        && setAt(row + 1, col + 2, true)
+        && setAt(row + 2, col + 1, true)
+        && setAt(row + 2, col + 2, true);
 }
 
 void ConwayLife::addNeighbour(uint16_t row, uint16_t col)

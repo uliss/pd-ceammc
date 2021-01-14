@@ -161,5 +161,12 @@ TEST_CASE("seq.life", "[externals]")
         REQUIRE(l.at(1, 3));
         REQUIRE(l.at(2, 1));
         REQUIRE(l.at(2, 2));
+
+        l.clear();
+        l.addGlider(0, 0);
+        std::cerr << "glider:\n"
+                  << l;
+        REQUIRE(l.numAlive() == 5);
+
     }
 }

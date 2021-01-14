@@ -36,6 +36,7 @@ public:
 
     void m_block(t_symbol* s, const AtomListView& lv);
     void m_cell(t_symbol* s, const AtomListView& lv);
+    void m_glider(t_symbol* s, const AtomListView& lv);
     void m_hive(t_symbol* s, const AtomListView& lv);
     void m_next(t_symbol* s, const AtomListView& lv);
     void m_rand(t_symbol* s, const AtomListView& lv);

@@ -110,6 +110,21 @@ void SeqLife::m_cell(t_symbol* s, const AtomListView& lv)
     life_.setAt(row, col, lv[2].asBool());
 }
 
+void SeqLife::m_glider(t_symbol* s, const AtomListView& lv)
+{
+    if (!m_pos_check.check(lv)) {
+        METHOD_ERR(s) << "usage: ROW COL";
+        return;
+    }
+
+    const auto row = lv[0].asInt();
+    const auto col = lv[1].asInt();
+    if (!checkPos(s, row, col))
+        return;
+
+    life_.addGlider(row, col);
+}
+
 void SeqLife::m_hive(t_symbol* s, const AtomListView& lv)
 {
     if (!m_pos_check.check(lv)) {
@@ -183,6 +198,7 @@ void setup_seq_life()
     obj.addMethod("rand", &SeqLife::m_rand);
 
     obj.addMethod("block", &SeqLife::m_block);
+    obj.addMethod("glider", &SeqLife::m_glider);
     obj.addMethod("hive", &SeqLife::m_hive);
     obj.addMethod("vhive", &SeqLife::m_vhive);
 }
