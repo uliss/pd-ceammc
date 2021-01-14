@@ -66,4 +66,5 @@ void setup_conv_bits2int()
 {
     ObjectFactory<ConvBits2Int> obj("conv.bits2int");
     obj.addAlias("bits->int");
+    obj.setXletsInfo({ "list: list of 1 or 0" }, { "int" });
 }

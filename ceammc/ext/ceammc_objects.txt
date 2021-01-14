@@ -63,6 +63,7 @@ array.sum2
 array.variance
 array.vplay
 array.window
+bits->int
 bpm->hz
 bpm->ms
 bpm->sec
@@ -77,6 +78,7 @@ carg~
 cc->amp
 cdiv~
 ceammc.search
+ceammc/xfade~
 cexp~
 chaos.gbman0
 chaos.gbman0~
@@ -88,6 +90,7 @@ click~
 cmul~
 conv.amp2dbfs
 conv.amp2dbfs~
+conv.bits2int
 conv.bpm2hz
 conv.bpm2ms
 conv.bpm2sec
@@ -696,6 +699,7 @@ prop~>
 proto.firmata
 proto.hui
 proto.midi
+proto.midi.sysex
 proto.sp.alpaca
 proto.xtouch_ext
 rad->phase
@@ -730,6 +734,7 @@ seq.arp
 seq.b
 seq.bangs
 seq.counter
+seq.life
 seq.matrix
 seq.nb
 seq.nbangs
