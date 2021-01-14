@@ -32,27 +32,27 @@
             <param type="int" minvalue="0" maxvalue="127" required="true" name="VEL">
             velocity</param></method>
             <!-- cc -->
-            <method name="cc">send Control Change message
+            <method name="cc">send Control Change message 
             <param type="int" minvalue="0" maxvalue="15" required="true" name="CH">midi
             channel</param>
-            <param type="int" minvalue="0" maxvalue="127" required="true" name="CTL">
-            control number</param>
-            <param type="int" minvalue="0" maxvalue="127" required="true" name="VAL">
-            control value</param></method>
+            <param type="int" minvalue="0" maxvalue="127" required="true" name="CTL">control
+            number</param>
+            <param type="int" minvalue="0" maxvalue="127" required="true" name="VAL">control
+            value</param></method>
             <!-- program -->
-            <method name="program">send Program Change message
+            <method name="program">send Program Change message 
             <param type="int" minvalue="0" maxvalue="15" required="true" name="CH">midi
             channel</param>
-            <param type="int" minvalue="0" maxvalue="127" required="true" name="N">
-            program number</param></method>
+            <param type="int" minvalue="0" maxvalue="127" required="true" name="N">program
+            number</param></method>
             <!-- aftertouch -->
-            <method name="aftertouch">send After Touch (Mono) message
+            <method name="aftertouch">send After Touch (Mono) message 
             <param type="int" minvalue="0" maxvalue="15" required="true" name="CH">midi
             channel</param>
             <param type="int" minvalue="0" maxvalue="127" required="true" name="VEL">
             velocity</param></method>
             <!-- polytouch -->
-            <method name="polytouch">send After Touch (Poly) message
+            <method name="polytouch">send After Touch (Poly) message 
             <param type="int" minvalue="0" maxvalue="15" required="true" name="CH">midi
             channel</param>
             <param type="int" minvalue="0" maxvalue="127" required="true" name="NOTE">midi
@@ -60,7 +60,7 @@
             <param type="int" minvalue="0" maxvalue="127" required="true" name="VEL">
             velocity</param></method>
             <!-- pitch wheel -->
-            <method name="pitchwheel">send Pitch Wheel message
+            <method name="pitchwheel">send Pitch Wheel message 
             <param type="int" minvalue="0" maxvalue="15" required="true" name="CH">midi
             channel</param>
             <param type="int" minvalue="-8192" maxvalue="8191" required="true" name="VAL">
