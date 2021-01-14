@@ -6,6 +6,7 @@ endmacro()
 
 ceammc_conv_external(amp2dbfs)
 ceammc_conv_external(angles)
+ceammc_conv_external(bits2int)
 ceammc_conv_external(bpm2hz)
 ceammc_conv_external(bpm2ms)
 ceammc_conv_external(bpm2sec)
