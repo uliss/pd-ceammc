@@ -32,6 +32,7 @@ void setup_conv_lin2lin_tilde();
 
 void setup_conv_hex2int();
 void setup_conv_bits2int();
+void setup_conv_bits2pos();
 
 void ceammc_conv_setup()
 {
@@ -63,6 +64,7 @@ void ceammc_conv_setup()
 
     setup_conv_angles();
     setup_conv_bits2int();
+    setup_conv_bits2pos();
     setup_conv_hex2int();
     setup_conv_int2bits();
 
