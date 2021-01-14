@@ -15,6 +15,9 @@
             <aliases>
                 <alias>int-&gt;bits</alias>
             </aliases>
+            <also>
+                <see>conv.bits2int</see>
+            </also>
         </meta>
         <info>
             <par>Note: negative numbers converted using machine architecture, commonly two's
