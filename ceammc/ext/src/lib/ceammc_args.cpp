@@ -16,6 +16,7 @@
 #include "args/argcheck.parser.hpp"
 #include "ceammc_atomlist_view.h"
 #include "ceammc_format.h"
+#include "ceammc_log.h"
 #include "ceammc_string.h"
 #include "fmt/format.h"
 
@@ -49,15 +50,19 @@ bool ArgChecker::check(const AtomListView& v) const
 
 bool ArgChecker::parse(const std::string& format)
 {
-    ArgCheckLexer lexer(format);
-    ArgCheckParser parser(lexer, checker_);
+    try {
+        ArgCheckLexer lexer(format);
+        ArgCheckParser parser(lexer, checker_);
 
-    if (parser.parse() != 0) {
-        out() << "parse error: " << format << "\n";
+        if (parser.parse() != 0) {
+            out() << "parse error: " << format << "\n";
+            return false;
+        }
+
+        return true;
+    } catch (std::exception& e) {
+        LIB_ERR << "checker error: " << e.what();
         return false;
     }
-
-    return true;
 }
-
 }
