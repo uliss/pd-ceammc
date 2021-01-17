@@ -63,6 +63,7 @@ array.sum2
 array.variance
 array.vplay
 array.window
+bits->bang
 bits->int
 bits->pos
 bpm->hz
@@ -91,6 +92,7 @@ click~
 cmul~
 conv.amp2dbfs
 conv.amp2dbfs~
+conv.bits2bang
 conv.bits2int
 conv.bits2pos
 conv.bpm2hz
