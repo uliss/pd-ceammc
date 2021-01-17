@@ -128,6 +128,11 @@ void SeqLife::m_cell(t_symbol* s, const AtomListView& lv)
     life_.setAt(row, col, lv[2].asBool());
 }
 
+void SeqLife::m_clear(t_symbol* s, const AtomListView& lv)
+{
+    life_.clear();
+}
+
 void SeqLife::m_glider(t_symbol* s, const AtomListView& lv)
 {
     ADD_FIGURE(addGlider);
@@ -183,6 +188,7 @@ void setup_seq_life()
     ObjectFactory<SeqLife> obj("seq.life");
     obj.addMethod("next", &SeqLife::m_next);
     obj.addMethod("cell", &SeqLife::m_cell);
+    obj.addMethod("clear", &SeqLife::m_clear);
     obj.addMethod("rand", &SeqLife::m_rand);
 
     obj.addMethod("blinker", &SeqLife::m_blinker);
