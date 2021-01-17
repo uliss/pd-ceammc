@@ -25,6 +25,7 @@ function(add_conv_test src)
 endfunction()
 
 add_conv_test(amp2dbfs)
+add_conv_test(bits2bang)
 add_conv_test(bits2int)
 add_conv_test(bits2pos)
 add_conv_test(cc2amp)
