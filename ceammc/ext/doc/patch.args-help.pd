@@ -5,21 +5,32 @@
 #X obj 1 1 cnv 5 765 40 empty empty patch.args 20 20 0 20 -104026
 -4096 0;
 #X obj 668 11 patch.args;
-#X obj 50 118 loadbang;
-#X obj 50 147 patch.args;
-#X obj 50 176 msg set;
-#X msg 50 205 ;
-#X obj 20 254 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 259 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
-0;
-#X text 110 260 1\.;
-#X text 150 260 *bang*;
-#X text 245 260 output patch or subpatch arguments.;
-#X obj 20 290 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 295 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
+#X obj 50 118 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
+-1;
+#X obj 50 147 patch.args.ex1 1 2 3 4 5;
+#X obj 50 176 ui.dt;
+#X obj 50 205 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
+-1;
+#X text 88 205 @from 2;
+#X obj 50 234 patch.args.ex2 1 2 3 4 5;
+#X obj 50 262 ui.dt;
+#X obj 20 311 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 316 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
 -49933 0;
-#X text 110 296 1\.;
-#X text 245 296 list of arguments.;
+#X msg 110 351 @from;
+#X text 245 351 Get/Set starting args index. Type: int. Default value:
+0\. Min value: 0\.;
+#X obj 20 403 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 408 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
+0;
+#X text 110 409 1\.;
+#X text 150 409 *bang*;
+#X text 245 409 output patch or subpatch arguments.;
+#X obj 20 439 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 444 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
+-49933 0;
+#X text 110 445 1\.;
+#X text 245 445 list of arguments.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;
@@ -58,4 +69,5 @@ https://github.com/uliss/pure-data;
 #X restore 10 527 pd info;
 #X connect 4 0 5 0;
 #X connect 5 0 6 0;
-#X connect 6 0 7 0;
+#X connect 7 0 9 0;
+#X connect 9 0 10 0;

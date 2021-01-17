@@ -12,7 +12,9 @@
   - route.float (with route.f alias) added
   - conv.bits2int (with bits->int alias) added
   - conv.bits2pos (with bits->pos alias) added
+  - conv.bits2bang (with bits->bang) added
 - comma separated messages added to msg.onload (loadmsg)
+- @from property added to patch.args
 - hex output added to ui.display (@hex and @hex_width properties)
 - xlet tooltips added to:
   - xdac~

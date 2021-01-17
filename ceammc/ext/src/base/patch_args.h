@@ -6,6 +6,8 @@
 using namespace ceammc;
 
 class PatchArgs : public BaseObject {
+    IntProperty* from_;
+
 public:
     PatchArgs(const PdArgs& a);
 
