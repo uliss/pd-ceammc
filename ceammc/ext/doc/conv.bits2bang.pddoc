@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="conv.bits2bang">
+        <title>conv.bits2bang</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>convert list of bits to bang events</description>
+            <license>GPL3 or later</license>
+            <library>ceammc</library>
+            <category>conv</category>
+            <keywords>conv bits bangs</keywords>
+            <since>0.9.2</since>
+            <aliases>
+                <alias>bits-&gt;bang</alias>
+            </aliases>
+        </meta>
+        <info>
+            <par>in default mode if bit is on - sends bang to corresponding outlet</par>
+            <par>in @poly mode if bit is on - send list (BIT_IDX bang) to single outlet</par>
+         </info>
+        <properties>
+            <property name="@n" type="int" minvalue="1" maxvalue="64" default="8" readonly="true">
+            123</property>
+            <property name="@rev" type="int" enum="0 1" default="0">reversed bit order</property>
+            <property name="@poly" type="flag">polyphonic mode for using with [clone] object</property>
+        </properties>
+        <inlets>
+            <inlet>
+                <xinfo on="list">input bit list</xinfo>
+            </inlet>
+        </inlets>
+        <outlets dynamic="true">
+            <outlet>output</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[random(
+|
+[ui.hrd* @nitems 4]
+|
+[bits->bang 4 #x]
+
+[osc~ 400]   [osc~ 800]   [osc~ 1200]  [osc~ 1600]
+|            |            |            |
+[env.ar~ #a] [env.ar~ #b] [env.ar~ #c] [env.ar~ #d]
+|            |.           |..          |...
+[pan.spread~ 4 {w=54}                      ]
+*|*
+[ui.hgain2~]
+*|*
+[dac~]
+
+/*Poly version*/
+
+[ui.hrd* 4]
+|
+[bits->bang @poly]
+|
+[clone conv.bits2bang.osc~ 4 400 800 1200 1600 {i=1,o=1}]
+|
+[ui.hgain~]
+|\
+[dac~]
+
+[X x:0->a]
+[X x:1->b]
+[X x:2->c]
+[X x:3->d]
+#a 50 500
+#b 50 500
+#c 50 500
+#d 50 500
+]]>
+            </pdascii>
+            <pdascii id="osc~">
+<![CDATA[
+[inlet] [loadbang]
+|       |
+|       [patch.args @from expr($1+1)]
+|       |
+|       [f]
+|       |
+[b]     [osc~]
+|       |
+[env.ar~ 50 500]
+|
+[outlet~]
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

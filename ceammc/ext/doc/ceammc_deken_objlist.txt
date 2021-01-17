@@ -77,6 +77,8 @@ conv.amp2dbfs	convert from amplitude to decibel full scale
 amp->dbfs	convert from amplitude to decibel full scale
 conv.amp2dbfs~	convert from amplitude to decibel full scale
 amp->dbfs~	convert from amplitude to decibel full scale
+conv.bits2bang	convert list of bits to bang events
+bits->bang	convert list of bits to bang events
 conv.bits2int	convert list of bits to integer
 bits->int	convert list of bits to integer
 conv.bits2pos	convert list of bits to list of bit position

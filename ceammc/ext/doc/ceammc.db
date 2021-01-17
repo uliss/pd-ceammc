@@ -39,6 +39,7 @@ chaos.std0~		~~		~~
 click~		.		~
 conv.amp2dbfs,amp->dbfs		.		.
 conv.amp2dbfs~,amp->dbfs~		~		~
+conv.bits2bang,bits->bang		.		?
 conv.bits2int,bits->int		.		.
 conv.bits2pos,bits->pos		.		.
 conv.bpm2hz,bpm->hz		.		.

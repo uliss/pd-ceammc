@@ -40,6 +40,7 @@ set(DOC_FILES
     click~
     conv.amp2dbfs
     conv.amp2dbfs~
+    conv.bits2bang
     conv.bits2int
     conv.bits2pos
     conv.bpm2hz

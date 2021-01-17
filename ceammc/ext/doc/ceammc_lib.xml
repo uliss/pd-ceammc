@@ -180,6 +180,9 @@
     <entry name="conv.amp2dbfs~" descr="convert from amplitude to decibel full scale" ref_view="object">
       <xi:include href="conv.amp2dbfs~.pddoc" parse="xml"/>
     </entry>
+    <entry name="conv.bits2bang" descr="convert list of bits to bang events" ref_view="object">
+      <xi:include href="conv.bits2bang.pddoc" parse="xml"/>
+    </entry>
     <entry name="conv.bits2int" descr="convert list of bits to integer" ref_view="object">
       <xi:include href="conv.bits2int.pddoc" parse="xml"/>
     </entry>
