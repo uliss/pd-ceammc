@@ -186,6 +186,9 @@
     <entry name="conv.bits2int" descr="convert list of bits to integer" ref_view="object">
       <xi:include href="conv.bits2int.pddoc" parse="xml"/>
     </entry>
+    <entry name="conv.bits2note" descr="convert list of bits to note events" ref_view="object">
+      <xi:include href="conv.bits2note.pddoc" parse="xml"/>
+    </entry>
     <entry name="conv.bits2pos" descr="convert list of bits to list of bit position" ref_view="object">
       <xi:include href="conv.bits2pos.pddoc" parse="xml"/>
     </entry>

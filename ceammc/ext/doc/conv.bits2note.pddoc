@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="conv.bits2note">
+        <title>conv.bits2note</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>convert list of bits to note events</description>
+            <license>GPL3 or later</license>
+            <library>ceammc</library>
+            <category>conv</category>
+            <keywords>conv bits note poly</keywords>
+            <since>0.9.2</since>
+            <aliases>
+                <alias>bits-&gt;note</alias>
+            </aliases>
+        </meta>
+        <info>
+            <par>In default mode: output NOTE VEL pair to corresponding bit index outlet. If bit is on:
+            velocity is @vel, otherwise 0</par>
+            <par>In @poly mode: output VOICE NOTE VEL triplet to first outlet</par>
+        </info>
+        <properties>
+            <property name="@poly" type="flag" default="0">polyphonic mode. (for using with [clone] object)</property>
+            <property name="@mode" type="symbol" default="off" enum="off tie retrig">mode for repeated notes.
+            If 'off' - send note off before retriggering, if 'tie' - ignore repeated events, if 'retrig' - always
+            send on/off events</property>
+        </properties>
+        <inlets>
+            <inlet>
+                <xinfo on="list">input bit list</xinfo>
+            </inlet>
+        </inlets>
+        <outlets dynamic="true">
+            <outlet>output</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[bang(
+|
+[ui.hrd* 4]  [ui.tab tie off retrig]
+|            |
+|            [@mode $2(
+|            |
+[bits->note 60 70 80 90 @vel 100]
+|         ^|        ^^|       ^^^|
+[ui.d]    [ui.d]    [ui.d]    [ui.d]
+
+[bang(
+|
+[ui.hrd* 4]  [ui.tab tie off retrig]
+|            |
+|            [@mode $2(
+|            |
+[bits->note 60 70 80 90 @vel 100 @poly]
+|
+[ui.dt]
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

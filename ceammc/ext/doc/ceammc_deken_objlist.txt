@@ -81,6 +81,8 @@ conv.bits2bang	convert list of bits to bang events
 bits->bang	convert list of bits to bang events
 conv.bits2int	convert list of bits to integer
 bits->int	convert list of bits to integer
+conv.bits2note	convert list of bits to note events
+bits->note	convert list of bits to note events
 conv.bits2pos	convert list of bits to list of bit position
 bits->pos	convert list of bits to list of bit position
 conv.bpm2hz	converts BPM to frequency in herz
