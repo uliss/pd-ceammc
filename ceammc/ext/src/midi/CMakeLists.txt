@@ -21,6 +21,7 @@ ceammc_midi_external(sysex)
 ceammc_midi_external(track)
 ceammc_midi_external(tuning)
 ceammc_midi_external(velocity_ramp)
+ceammc_midi_external(vrand)
 
 include_directories(${PROJECT_SOURCE_DIR}/ceammc/extra/midifile)
 add_library(ceammc_midi STATIC mod_midi.cpp ${MIDI_SOURCES})

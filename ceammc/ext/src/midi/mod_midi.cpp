@@ -11,6 +11,7 @@
 #include "midi_track.h"
 #include "midi_tuning.h"
 #include "midi_velocity_ramp.h"
+#include "midi_vrand.h"
 
 void ceammc_midi_setup()
 {
@@ -26,4 +27,5 @@ void ceammc_midi_setup()
     setup_midi_track();
     setup_midi_tuning();
     setup_midi_vel_ramp();
+    setup_midi_vrand();
 }
