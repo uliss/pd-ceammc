@@ -21,11 +21,16 @@
             velocity is @vel, otherwise 0</par>
             <par>In @poly mode: output VOICE NOTE VEL triplet to first outlet</par>
         </info>
+        <arguments>
+            <argument name="KEYS" type="list">list of note keys</argument>
+        </arguments>
         <properties>
             <property name="@poly" type="flag" default="0">polyphonic mode. (for using with [clone] object)</property>
             <property name="@mode" type="symbol" default="off" enum="off tie raw">mode for repeated notes.
             If 'off' - send note off before retriggering, if 'tie' - ignore repeated events, if 'raw' - always
             send on/off events</property>
+            <property name="@keys" type="list">list of mapped keys</property>
+            <property name="@vel" type="float" minvalue="0" maxvalue="127" default="90">output velocity</property>
         </properties>
         <inlets>
             <inlet>
