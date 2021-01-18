@@ -65,6 +65,7 @@ array.vplay
 array.window
 bits->bang
 bits->int
+bits->note
 bits->pos
 bpm->hz
 bpm->ms
@@ -94,6 +95,7 @@ conv.amp2dbfs
 conv.amp2dbfs~
 conv.bits2bang
 conv.bits2int
+conv.bits2note
 conv.bits2pos
 conv.bpm2hz
 conv.bpm2ms
@@ -126,6 +128,7 @@ conv.samp2sec
 conv.sec2bpm
 conv.sec2samp
 conv.sec2str
+conv.sig2float~
 conv.str2sec
 counter
 data.dict
@@ -727,6 +730,7 @@ route.f
 route.float
 rtree->list
 rtree.to_list
+s->f~
 samp->ms
 samp->ms~
 samp->sec
@@ -754,6 +758,7 @@ set.intersect
 set.size
 set.symdiff
 set.union
+sig->float~
 snd.file
 spat.pan4~
 spat.pan8~
