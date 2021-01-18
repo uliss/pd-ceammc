@@ -6,6 +6,7 @@
 #include "conv_list2props.h"
 #include "conv_midi2freq.h"
 #include "conv_pitch2midi.h"
+#include "conv_sig2float.h"
 
 void setup_conv_sec2str();
 void setup_conv_str2sec();
@@ -31,7 +32,9 @@ void setup_conv_lin2lin();
 void setup_conv_lin2lin_tilde();
 
 void setup_conv_hex2int();
+void setup_conv_bits2bang();
 void setup_conv_bits2int();
+void setup_conv_bits2note();
 void setup_conv_bits2pos();
 
 void ceammc_conv_setup()
@@ -63,10 +66,14 @@ void ceammc_conv_setup()
     setup_list_to_props();
 
     setup_conv_angles();
+    setup_conv_bits2bang();
     setup_conv_bits2int();
+    setup_conv_bits2note();
     setup_conv_bits2pos();
     setup_conv_hex2int();
     setup_conv_int2bits();
 
     setup_conv_degree2key();
+
+    setup_conv_sig2float();
 }
