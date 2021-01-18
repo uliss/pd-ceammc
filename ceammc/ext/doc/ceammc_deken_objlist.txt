@@ -151,6 +151,9 @@ conv.sec2samp	convert time in seconds to number of samples according to current 
 sec->samp	convert time in seconds to number of samples according to current samplerate
 conv.sec2str	converts float time in seconds to formated symbol (or string)
 sec->str	converts float time in seconds to formated symbol (or string)
+conv.sig2float~	convert signal to floats
+sig->float~	convert signal to floats
+s->f~	convert signal to floats
 conv.str2sec	converts formatted time to float value in seconds
 str->sec	converts formatted time to float value in seconds
 data.dict	dictionary container: store values by key

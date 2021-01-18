@@ -86,9 +86,11 @@ to current samplerate;
 #X obj 30 1207 conv.sec2str;
 #X text 200 1207 converts float time in seconds to formated symbol
 (or string);
-#X obj 30 1234 conv.str2sec;
-#X text 200 1234 converts formatted time to float value in seconds;
+#X obj 30 1234 conv.sig2float~;
+#X text 200 1234 convert signal to floats;
+#X obj 30 1261 conv.str2sec;
+#X text 200 1261 converts formatted time to float value in seconds;
 #X obj 1 1 cnv 5 740 40 empty empty ceammc::conv 20 20 0 20 -104026
 -4096 0;
-#X obj 1 1261 cnv 5 740 40 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 20 1271 library: ceammc;
+#X obj 1 1288 cnv 5 740 40 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 20 1298 library: ceammc;

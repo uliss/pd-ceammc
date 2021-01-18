@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="conv.sig2float~">
+        <title>conv.sig2float~</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>convert signal to floats</description>
+            <license>GPL3 or later</license>
+            <library>ceammc</library>
+            <category>conv</category>
+            <keywords>conv signal float snapshot</keywords>
+            <since>0.9.2</since>
+            <aliases>
+                <alias>sig-&gt;float~</alias>
+                <alias>s-&gt;f~</alias>
+            </aliases>
+            <also>
+                <see>snapshot~</see>
+            </also>
+        </meta>
+        <info>
+            <par>convert signal to float via specified time invervals</par>
+        </info>
+        <mouse>
+            <event editmode="false" type="right-click">sample immidiately</event>
+        </mouse>
+        <arguments>
+            <argument name="INTERV" type="float">sampling interval</argument>
+        </arguments>
+        <properties>
+            <property name="@interval" type="float" minvalue="-1" default="50" units="millisecond">
+            sampling interval</property>
+            <property name="@offset" type="int" default="0" minvalue="0" maxvalue="8192" units="sample">
+            sample offset inside DSP block</property>
+        </properties>
+        <inlets>
+            <inlet type="audio">
+                <xinfo>input signal</xinfo>
+                <xinfo on="bang">sample immidiately</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet>float: sample</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[phasor~ 0.5] [bang(
+|             |
+[sig->float~ 500]
+|
+[F]           [ui.dsp~]
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

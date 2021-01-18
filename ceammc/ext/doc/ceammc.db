@@ -74,6 +74,7 @@ conv.samp2sec,samp->sec		.		.
 conv.sec2bpm,sec->bpm		.		.
 conv.sec2samp,sec->samp		.		.
 conv.sec2str,sec->str		.		.
+conv.sig2float~,sig->float~,s->f~		~		.
 conv.str2sec,str->sec		.		.
 data.dict,dict		.		.
 data.fifo		.		.

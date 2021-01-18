@@ -75,6 +75,7 @@ set(DOC_FILES
     conv.sec2bpm
     conv.sec2samp
     conv.sec2str
+    conv.sig2float~
     conv.str2sec
     data.fifo
     data.float

@@ -28,6 +28,8 @@ class ConvSig2Float : public SoundExternal {
 public:
     ConvSig2Float(const PdArgs& args);
 
+    void onBang() override;
+    void onClick(t_floatarg xpos, t_floatarg ypos, t_floatarg shift, t_floatarg ctrl, t_floatarg alt) override;
     void onInlet(size_t n, const AtomListView& lv) override;
     void setupDSP(t_signal** sp) final;
     void processBlock(const t_sample** in, t_sample**) final;

@@ -285,6 +285,9 @@
     <entry name="conv.sec2str" descr="converts float time in seconds to formated symbol (or string)" ref_view="object">
       <xi:include href="conv.sec2str.pddoc" parse="xml"/>
     </entry>
+    <entry name="conv.sig2float~" descr="convert signal to floats" ref_view="object">
+      <xi:include href="conv.sig2float~.pddoc" parse="xml"/>
+    </entry>
     <entry name="conv.str2sec" descr="converts formatted time to float value in seconds" ref_view="object">
       <xi:include href="conv.str2sec.pddoc" parse="xml"/>
     </entry>
