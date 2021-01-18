@@ -23,8 +23,8 @@
         </info>
         <properties>
             <property name="@poly" type="flag" default="0">polyphonic mode. (for using with [clone] object)</property>
-            <property name="@mode" type="symbol" default="off" enum="off tie retrig">mode for repeated notes.
-            If 'off' - send note off before retriggering, if 'tie' - ignore repeated events, if 'retrig' - always
+            <property name="@mode" type="symbol" default="off" enum="off tie raw">mode for repeated notes.
+            If 'off' - send note off before retriggering, if 'tie' - ignore repeated events, if 'raw' - always
             send on/off events</property>
         </properties>
         <inlets>
@@ -40,7 +40,7 @@
 <![CDATA[
 [bang(
 |
-[ui.hrd* 4]  [ui.tab tie off retrig]
+[ui.hrd* 4]  [ui.tab tie off raw]
 |            |
 |            [@mode $2(
 |            |
@@ -50,7 +50,7 @@
 
 [bang(
 |
-[ui.hrd* 4]  [ui.tab tie off retrig]
+[ui.hrd* 4]  [ui.tab tie off raw]
 |            |
 |            [@mode $2(
 |            |
