@@ -40,7 +40,10 @@ TEST_CASE("midi.vrand", "[externals]")
             REQUIRE_PROPERTY(t, @max, 127);
             REQUIRE_PROPERTY(t, @seed, 0);
             REQUIRE_PROPERTY(t, @dist, "uniform");
-            REQUIRE_PROPERTY(t, @dev, 0);
+            REQUIRE_PROPERTY(t, @mode, "assign");
+            REQUIRE_PROPERTY(t, @add, 0);
+            REQUIRE_PROPERTY(t, @sub, 0);
+            REQUIRE_PROPERTY(t, @assign, 1);
         }
 
         SECTION("args")
@@ -114,9 +117,9 @@ TEST_CASE("midi.vrand", "[externals]")
         }
     }
 
-    SECTION("process @dev 1")
+    SECTION("process @mode add")
     {
-        TExt t("midi.vrand", -10, 10, "@dist", "uniform", "@dev", 1);
+        TExt t("midi.vrand", -10, 10, "@dist", "uniform", "@add");
         REQUIRE_PROPERTY(t, @min, -10);
 
         for (int i = 0; i < 100; i++) {
@@ -127,6 +130,22 @@ TEST_CASE("midi.vrand", "[externals]")
         for (int i = 0; i < 100; i++) {
             t << LF(120, 40);
             VEL_RANGE(t.outputListAt(0), 120, 30, 50);
+        }
+    }
+
+    SECTION("process @mode sub")
+    {
+        TExt t("midi.vrand", 10, 20, "@dist", "uniform", "@sub");
+        REQUIRE_PROPERTY(t, @min, 10);
+
+        for (int i = 0; i < 100; i++) {
+            t << 100;
+            VEL_RANGE(t.outputListAt(0), 100, 44, 54);
+        }
+
+        for (int i = 0; i < 100; i++) {
+            t << LF(120, 40);
+            VEL_RANGE(t.outputListAt(0), 120, 20, 30);
         }
     }
 }

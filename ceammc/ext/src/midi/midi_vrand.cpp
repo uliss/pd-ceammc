@@ -29,6 +29,9 @@ static t_symbol* SYM_LINDOWN;
 static t_symbol* SYM_CONST_MIN;
 static t_symbol* SYM_CONST_MAX;
 static t_symbol* SYM_CONST_MEAN;
+static t_symbol* SYM_ADD;
+static t_symbol* SYM_SUBTRACT;
+static t_symbol* SYM_ASSIGN;
 
 static std::unique_ptr<ArgChecker> onlist_chk;
 
@@ -37,7 +40,7 @@ MidiVRrand::MidiVRrand(const PdArgs& args)
     , min_(nullptr)
     , max_(nullptr)
     , dist_(nullptr)
-    , dev_(nullptr)
+    , mode_(nullptr)
     , seed_(nullptr)
 {
     min_ = new FloatProperty("@min", 0);
@@ -59,8 +62,11 @@ MidiVRrand::MidiVRrand(const PdArgs& args)
                                             });
     addProperty(dist_);
 
-    dev_ = new BoolProperty("@dev", false);
-    addProperty(dev_);
+    mode_ = new SymbolEnumProperty("@mode", { SYM_ASSIGN, SYM_ADD, SYM_SUBTRACT });
+    addProperty(mode_);
+    addProperty(new SymbolEnumAlias("@assign", mode_, SYM_ASSIGN));
+    addProperty(new SymbolEnumAlias("@add", mode_, SYM_ADD));
+    addProperty(new SymbolEnumAlias("@sub", mode_, SYM_SUBTRACT));
 
     seed_ = new SizeTProperty("@seed", 0);
     seed_->setSuccessFn([this](Property*) {
@@ -136,8 +142,14 @@ t_float MidiVRrand::generate()
 
 t_float MidiVRrand::velocity(t_float orig)
 {
-    if (dev_->value())
-        return clip<int, 0, 127>(generate() + orig);
+    auto m = mode_->value();
+
+    if (m == SYM_ASSIGN)
+        return clip<int, 0, 127>(generate());
+    else if (m == SYM_ADD)
+        return clip<int, 0, 127>(orig + generate());
+    else if (m == SYM_SUBTRACT)
+        return clip<int, 0, 127>(orig - generate());
     else
         return clip<int, 0, 127>(generate());
 }
@@ -151,6 +163,9 @@ void setup_midi_vrand()
     SYM_CONST_MIN = gensym("cmin");
     SYM_CONST_MAX = gensym("cmax");
     SYM_CONST_MEAN = gensym("cmean");
+    SYM_ADD = gensym("add");
+    SYM_SUBTRACT = gensym("sub");
+    SYM_ASSIGN = gensym("assign");
 
     onlist_chk.reset(new ArgChecker("f0..127 f0..127 f?"));
 

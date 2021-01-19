@@ -24,7 +24,7 @@ using namespace ceammc;
 class MidiVRrand : public BaseObject {
     FloatProperty *min_, *max_;
     SymbolEnumProperty* dist_;
-    BoolProperty* dev_;
+    SymbolEnumProperty* mode_;
     SizeTProperty* seed_;
     std::mt19937 gen_;
 
