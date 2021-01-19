@@ -442,6 +442,7 @@ set(DOC_FILES
     midi.track
     midi.tuning
     midi.vramp
+    midi.vrand
     mix~
     mlist.flatten
     modplug~

@@ -440,6 +440,7 @@ midi.sysex		.		.
 midi.track		.		..
 midi.tuning		.		.
 midi.vramp		.		..
+midi.vrand		.		.
 mix~		?		~
 mlist.flatten		.		.
 modplug~		.		~~

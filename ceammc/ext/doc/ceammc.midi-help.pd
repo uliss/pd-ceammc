@@ -29,6 +29,8 @@ pair;
 #X text 200 413 apply tuning to midi messages;
 #X obj 30 440 midi.vramp;
 #X text 200 440 apply crescendo or diminuendo for midi message flow;
+#X obj 30 467 midi.vrand;
+#X text 200 467 midi velocity randomizer;
 #X obj 1 1 cnv 5 740 40 empty empty ceammc::midi 20 20 0 20 -104026
 -4096 0;
 #X obj 1 513 cnv 5 740 40 empty empty empty 17 7 0 10 -203890 -1 0;

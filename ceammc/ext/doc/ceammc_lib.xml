@@ -1341,6 +1341,9 @@
     <entry name="midi.vramp" descr="apply crescendo or diminuendo for midi message flow" ref_view="object">
       <xi:include href="midi.vramp.pddoc" parse="xml"/>
     </entry>
+    <entry name="midi.vrand" descr="midi velocity randomizer" ref_view="object">
+      <xi:include href="midi.vrand.pddoc" parse="xml"/>
+    </entry>
   </category>
   <category name="misc">
     <entry name="click~" descr="Output single impulse on bang" ref_view="object">

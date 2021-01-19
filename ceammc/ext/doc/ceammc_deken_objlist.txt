@@ -616,6 +616,7 @@ midi.sysex	sysex input messages as list
 midi.track	extract track from MidiFile
 midi.tuning	apply tuning to midi messages
 midi.vramp	apply crescendo or diminuendo for midi message flow
+midi.vrand	midi velocity randomizer
 click~	Output single impulse on bang
 fluid~	FluidSynth SoundFont 2 player
 modplug~	MOD file player (using libmodplug)
