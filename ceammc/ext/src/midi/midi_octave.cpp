@@ -17,27 +17,76 @@
 #include "ceammc_factory.h"
 
 #include <memory>
+#include <random>
 
 static std::unique_ptr<ArgChecker> onlist_chk;
+static std::mt19937 oct_gen;
 
 static t_symbol* SYM_TRANSPOSE;
 static t_symbol* SYM_SET;
+static t_symbol* SYM_RANDOM;
+
+constexpr int MIN_OCT = -11;
+constexpr int MAX_OCT = 11;
 
 MidiOctave::MidiOctave(const PdArgs& args)
     : BaseObject(args)
     , oct_(nullptr)
     , mode_(nullptr)
+    , a_(-1)
+    , b_(1)
+    , random_(false)
 {
     oct_ = new IntProperty("@oct", 0);
     oct_->setArgIndex(0);
-    oct_->checkClosedRange(-11, 11);
+    oct_->checkClosedRange(MIN_OCT, MAX_OCT);
     addProperty(oct_);
 
     mode_ = new SymbolEnumProperty("@mode", { SYM_TRANSPOSE, SYM_SET });
     addProperty(mode_);
-
     addProperty(new SymbolEnumAlias("@set", mode_, SYM_SET));
     addProperty(new SymbolEnumAlias("@transpose", mode_, SYM_TRANSPOSE));
+
+    createCbListProperty(
+        "@random",
+        [this]() -> AtomList { return random_ ? AtomList { (t_float)a_, (t_float)b_ } : AtomList(); },
+        [this](const AtomList& lst) -> bool {
+            if (lst.empty()) {
+                random_ = false;
+                return true;
+            } else if (lst.size() == 2) {
+                if (lst[0].isFloat() && lst[1].isFloat()) {
+                    auto a = lst[0].asInt();
+                    auto b = lst[1].asInt();
+
+                    if (a < MIN_OCT || a > MAX_OCT) {
+                        OBJ_ERR << MIN_OCT << "<=MIN<=" << MAX_OCT << " expected, got: " << a;
+                        return false;
+                    }
+
+                    if (b < MIN_OCT || b > MAX_OCT) {
+                        OBJ_ERR << MIN_OCT << "<=MAX<=" << MAX_OCT << " expected, got: " << b;
+                        return false;
+                    }
+
+                    if (a >= b) {
+                        OBJ_ERR << "MIN<MAX expected, got: " << lst;
+                        return false;
+                    }
+
+                    random_ = true;
+                    a_ = a;
+                    b_ = b;
+                    return true;
+                } else {
+                    OBJ_ERR << "usage: @random [MIN MAX]";
+                    return false;
+                }
+            } else {
+                OBJ_ERR << "usage: @random [MIN MAX]";
+                return false;
+            }
+        });
 
     createInlet();
     createOutlet();
@@ -69,7 +118,10 @@ void MidiOctave::onInlet(size_t, const AtomListView& lv)
 
 t_float MidiOctave::octave(t_float note) const
 {
-    const auto oct = oct_->value();
+    const int oct = random_
+        ? std::uniform_int_distribution<int>(a_, b_)(oct_gen)
+        : oct_->value();
+
     note = clip<t_float, 0, 127>(note);
 
     if (mode_->value() == SYM_SET)
@@ -85,6 +137,7 @@ void setup_midi_octave()
 
     SYM_TRANSPOSE = gensym("transpose");
     SYM_SET = gensym("set");
+    SYM_RANDOM = gensym("random");
 
     ObjectFactory<MidiOctave> obj("midi.oct");
     obj.setXletsInfo({ "float: note\n"

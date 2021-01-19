@@ -16,11 +16,16 @@
 
 #include "ceammc_object.h"
 #include "ceammc_property_enum.h"
+
+#include <cstdint>
+
 using namespace ceammc;
 
 class MidiOctave : public BaseObject {
     IntProperty* oct_;
     SymbolEnumProperty* mode_;
+    int8_t a_, b_;
+    bool random_;
 
 public:
     MidiOctave(const PdArgs& args);

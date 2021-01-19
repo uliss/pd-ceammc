@@ -32,6 +32,7 @@ TEST_CASE("midi.oct", "[externals]")
             REQUIRE_PROPERTY(t, @mode, "transpose");
             REQUIRE_PROPERTY(t, @set, 0);
             REQUIRE_PROPERTY(t, @transpose, 1);
+            REQUIRE_PROPERTY_LIST(t, @random, L());
 
             t.sendFloatTo(4, 1);
             REQUIRE_PROPERTY(t, @oct, 4);
@@ -124,5 +125,29 @@ TEST_CASE("midi.oct", "[externals]")
         REQUIRE(t.outputListAt(0) == LF(127, 64, 100));
         t << LF(68, 64, 100);
         REQUIRE(t.outputListAt(0) == LF(68, 64, 100));
+    }
+
+    SECTION("@random")
+    {
+        TExt t("midi.oct", "@random", -5, 5);
+
+        REQUIRE_FALSE(t->setProperty("@random", LF(1)));
+        REQUIRE_FALSE(t->setProperty("@random", LF(1, 1)));
+        REQUIRE_FALSE(t->setProperty("@random", LA("A", 1)));
+        REQUIRE_FALSE(t->setProperty("@random", LA("A", "B")));
+        REQUIRE_FALSE(t->setProperty("@random", LA(1, "B")));
+        REQUIRE_FALSE(t->setProperty("@random", LF(-12, 0)));
+        REQUIRE_FALSE(t->setProperty("@random", LF(12, 0)));
+        REQUIRE_FALSE(t->setProperty("@random", LF(-11, 12)));
+
+        REQUIRE(t->setProperty("@random", LF(-1, 1)));
+        REQUIRE_PROPERTY_LIST(t, @random, LF(-1, 1));
+
+        for (int i = 0; i < 10; i++) {
+            t << 63;
+            auto v = t.outputFloatAt(0);
+            bool ok = (v == 63 || v == 75 || v == 51);
+            REQUIRE(ok);
+        }
     }
 }
