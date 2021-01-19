@@ -18,6 +18,7 @@
 #include <memory>
 
 constexpr int CC_SUSTAIN = 64;
+static t_symbol* SYM_CTLIN;
 
 static std::unique_ptr<ArgChecker> onlist_chk;
 
@@ -32,6 +33,12 @@ MidiSustain::MidiSustain(const PdArgs& args)
     addProperty(on_);
 
     ctlin_ = new BoolProperty("@ctlin", false);
+    ctlin_->setSuccessFn([this](Property*) {
+        if (ctlin_->value())
+            proxy_.bind(SYM_CTLIN);
+        else
+            proxy_.unbind();
+    });
     addProperty(ctlin_);
 
     createInlet();
@@ -88,6 +95,7 @@ void MidiSustain::notesOff()
 void setup_midi_sustain()
 {
     onlist_chk.reset(new ArgChecker("f0..127 f0..127"));
+    SYM_CTLIN = gensym("#ctlin");
 
     ObjectFactory<MidiSustain> obj("midi.sustain");
 }

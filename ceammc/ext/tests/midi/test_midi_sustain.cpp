@@ -61,5 +61,11 @@ TEST_CASE("midi.sustain", "[externals]")
         REQUIRE(t.outputListAt(0) == LF(10, 20));
         t << LF(10, 20);
         REQUIRE(t.outputListAt(0) == LF(10, 20));
+        t.clearAll();
+
+        t->setProperty("@ctlin", LF(1));
+        Atom args[2] = { 64, 10 };
+        pd_typedmess(gensym("#ctlin")->s_thing, &s_list, 2, (t_atom*)args);
+        REQUIRE(t.messagesAt(0) == ML { LF(10, 0), LF(11, 0) });
     }
 }
