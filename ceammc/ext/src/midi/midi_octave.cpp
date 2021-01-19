@@ -59,6 +59,11 @@ MidiOctave::MidiOctave(const PdArgs& args)
                     auto a = lst[0].asInt();
                     auto b = lst[1].asInt();
 
+                    if (a == 0 && b == 0) {
+                        random_ = false;
+                        return true;
+                    }
+
                     if (a < MIN_OCT || a > MAX_OCT) {
                         OBJ_ERR << MIN_OCT << "<=MIN<=" << MAX_OCT << " expected, got: " << a;
                         return false;

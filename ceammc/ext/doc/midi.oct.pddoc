@@ -24,6 +24,8 @@
             mode</property>
             <property name="@set" type="alias">alias to @mode set</property>
             <property name="@transpose" type="alias">alias to @mode transpose</property>
+            <property name="@random" type="list">random octave range. Arguments are:
+            MIN MAX.</property>
         </properties>
         <inlets>
             <inlet>
@@ -35,18 +37,20 @@
             </inlet>
         </inlets>
         <outlets>
-            <outlet>transposeed NOTE VELOCITY [DUR] list</outlet>
+            <outlet>transposed NOTE VELOCITY [DUR] list</outlet>
         </outlets>
         <example>
             <pdascii>
 <![CDATA[
 [T]
 |
-[metro 350]  [ui.tab transpose set]
-|            |
-[60 80 300(  [@mode $2( [F]
-|            |          |.
-[midi.oct    -1  {w=30}  ]
+[metro 350] [ui.tab transpose set] [-2 2( [3 8( [0 0(
+|           |                      |      |     |
+[60 80 300( [@mode $2(             [@random $1 $2(
+|           |                      |
+|           |                      | [F]
+|           |                      | |.
+[midi.oct    3   {w=40}               ]
 |  |
 |  [ui.dt]
 |

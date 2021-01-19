@@ -149,5 +149,8 @@ TEST_CASE("midi.oct", "[externals]")
             bool ok = (v == 63 || v == 75 || v == 51);
             REQUIRE(ok);
         }
+
+        REQUIRE(t->setProperty("@random", LF(0, 0)));
+        REQUIRE_PROPERTY_LIST(t, @random, L());
     }
 }
