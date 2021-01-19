@@ -13,9 +13,6 @@
             <keywords>midi velocity random</keywords>
             <since>0.9.2</since>
         </meta>
-        <info>
-            <par>If random distribution is gauss, generated values can be out of specified range</par>
-        </info>
         <arguments>
             <argument name="MIN" type="float">min random range</argument>
             <argument name="MAX" type="float">max random range</argument>
@@ -24,16 +21,20 @@
             <property name="@min" type="float" default="0">min random range</property>
             <property name="@max" type="float" default="127">max random range</property>
             <property name="@seed" type="int" default="0" minvalue="0">random seed</property>
-            <property name="@dev" type="int" default="0" enum="0 1">deviation mode. If true - adds
-            random value to origin velocity, otherwise - replace origin velocity with new one
-            (default).</property>
+            <property name="@mode" type="symbol" default="assign" enum="assign add sub">assign
+            mode. If *assign* - replace origin velocity with random new one (default), if *add* -
+            adds random value to origin velocity, if *sub* - subtract random value from origin
+            velocity.</property>
+            <property name="@add" type="alias">alias to @mode add</property>
+            <property name="@sub" type="alias">alias to @mode sub</property>
+            <property name="@assign" type="alias">alias to @mode assign</property>
             <property name="@dist" type="symbol" default="uniform"
-            enum="uniform gauss linup lindown cmin cmax cmean">random distribution. *uniform* - generate
-            uniformly distributed value, *gauss* - mean=(@max+@min)/2, sigma=(@max-@max)/3,
-            *linup* - linear distribution with prob=0 at @min and prob=1 at @max,
-            *lindown* - linear distribution with prob=1 at @min and prob=0 at @max,
-            *cmin* - constant @min value, *cmax* - constant @max value, *cmean* - constant
-            (@max+@min)/2 value</property>
+            enum="uniform gauss linup lindown cmin cmax cmean">random distribution. *uniform* -
+            generate uniformly distributed value, *gauss* - mean=(@max+@min)/2,
+            sigma=(@max-@max)/3, *linup* - linear distribution with prob=0 at @min and prob=1 at
+            @max, *lindown* - linear distribution with prob=1 at @min and prob=0 at @max, *cmin* -
+            constant @min value, *cmax* - constant @max value, *cmean* - constant (@max+@min)/2
+            value</property>
         </properties>
         <inlets>
             <inlet>
@@ -42,7 +43,7 @@
             </inlet>
         </inlets>
         <outlets>
-            <outlet>outputs NOTE VELOCITY pair</outlet>
+            <outlet>outputs NOTE VELOCITY [DUR] list with randomized VELOCITY value</outlet>
         </outlets>
         <example>
             <pdascii>
@@ -51,16 +52,17 @@
 |
 [metro 350]  [ui.tab uniform gauss linup lindown cmin cmax cmean @size 400 15]
 |            |
-[60 20 300(  [@dist $2(  [@dev 1, @min -10, @max 10 #a(
-|            |
-[midi.vrand 60 90 #b]   /*deviation mode: +-10 range*/
+[60 20 300(  [@dist $2(  [ui.tab assign add sub]
+|            |           |
+|            |           [@mode $2(
+|            |           |
+[midi.vrand 60 90        ]
 |  |
 |  [ui.dt]
 |
 [makenote]
 *|*
 [midiout]
-[X a->b]
 ]]>
             </pdascii>
         </example>

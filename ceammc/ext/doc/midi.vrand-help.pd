@@ -5,41 +5,38 @@
 #X obj 1 1 cnv 5 765 40 empty empty midi.vrand 20 20 0 20 -104026
 -4096 0;
 #X obj 668 11 midi.vrand;
-#X obj 210 80 cnv 1 555 50 empty empty empty 17 7 0 10 -257983 -1 0;
-#X text 215 80 If random distribution is gauss \, generated values
-can be out of specified range;
-#X obj 50 158 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1;
-#X obj 50 187 metro 350;
-#X obj 174 187 ui.tab uniform gauss linup lindown cmin cmax cmean
+#X obj 50 118 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1;
+#X obj 50 147 metro 350;
+#X obj 174 147 ui.tab uniform gauss linup lindown cmin cmax cmean
 @size 400 15;
-#X msg 50 216 60 20 300;
-#X msg 174 216 @dist \$2;
-#X msg 290 216 @dev 1 \, @min -10 \, @max 10;
-#X obj 50 245 midi.vrand 60 90;
-#X text 280 245 deviation mode: +-10 range;
-#X obj 78 274 ui.dt;
-#X obj 50 302 makenote;
-#X obj 50 331 midiout;
-#X obj 20 380 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 385 cnv 5 90 26 empty empty arguments: 4 10 0 14 -262144
+#X msg 50 176 60 20 300;
+#X msg 174 176 @dist \$2;
+#X obj 290 176 ui.tab assign add sub;
+#X msg 290 205 @mode \$2;
+#X obj 50 234 midi.vrand 60 90;
+#X obj 78 262 ui.dt;
+#X obj 50 291 makenote;
+#X obj 50 320 midiout;
+#X obj 20 369 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 374 cnv 5 90 26 empty empty arguments: 4 10 0 14 -262144
 -49933 0;
-#X text 110 420 1\.;
-#X text 150 420 float;
-#X obj 246 421 cnv 1 32 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 420 MIN: min random range.;
-#X text 110 440 2\.;
-#X text 150 440 float;
-#X obj 246 441 cnv 1 32 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 440 MAX: max random range.;
-#X obj 20 470 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 475 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
+#X text 110 409 1\.;
+#X text 150 409 float;
+#X obj 246 410 cnv 1 32 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 245 409 MIN: min random range.;
+#X text 110 429 2\.;
+#X text 150 429 float;
+#X obj 246 430 cnv 1 32 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 245 429 MAX: max random range.;
+#X obj 20 459 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 464 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
 -49933 0;
-#X msg 110 510 @dev;
-#X text 245 510 Get/Set deviation mode. If true - adds random value
-to origin velocity \, otherwise - replace origin velocity with new
-one (default). Type: int. Default value: 0\. Allowed values: 0 \, 1\.;
-#X msg 110 582 @dist;
-#X text 245 582 Get/Set random distribution. *uniform* - generate uniformly
+#X msg 110 499 @add;
+#X text 245 499 alias to @mode add.;
+#X msg 110 528 @assign;
+#X text 245 528 alias to @mode assign.;
+#X msg 110 557 @dist;
+#X text 245 557 Get/Set random distribution. *uniform* - generate uniformly
 distributed value \, *gauss* - mean=(@max+@min)/2 \, sigma=(@max-@max)/3
 \, *linup* - linear distribution with prob=0 at @min and prob=1 at
 @max \, *lindown* - linear distribution with prob=1 at @min and prob=0
@@ -47,36 +44,45 @@ at @max \, *cmin* - constant @min value \, *cmax* - constant @max value
 \, *cmean* - constant (@max+@min)/2 value. Type: symbol. Default value:
 uniform. Allowed values: uniform \, gauss \, linup \, lindown \, cmin
 \, cmax \, cmean.;
-#X msg 110 729 @max;
-#X text 245 729 Get/Set max random range. Type: float. Default value:
+#X msg 110 704 @max;
+#X text 245 704 Get/Set max random range. Type: float. Default value:
 127\.;
-#X msg 110 758 @min;
-#X text 245 758 Get/Set min random range. Type: float. Default value:
+#X msg 110 733 @min;
+#X text 245 733 Get/Set min random range. Type: float. Default value:
 0\.;
-#X msg 110 787 @seed;
-#X text 245 787 Get/Set random seed. Type: int. Default value: 0\.
+#X msg 110 762 @mode;
+#X text 245 762 Get/Set assign mode. If *assign* - replace origin velocity
+with random new one (default) \, if *add* - adds random value to origin
+velocity \, if *sub* - subtract random value from origin velocity.
+Type: symbol. Default value: assign. Allowed values: assign \, add
+\, sub.;
+#X msg 110 849 @seed;
+#X text 245 849 Get/Set random seed. Type: int. Default value: 0\.
 Min value: 0\.;
-#X obj 20 839 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 844 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
+#X msg 110 891 @sub;
+#X text 245 891 alias to @mode sub.;
+#X obj 20 930 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 935 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
-#X text 110 845 1\.;
-#X text 150 845 *float*;
-#X text 245 845 note value.;
-#X text 150 865 *list*;
-#X text 245 865 NOTE VELOCITY [DUR] list.;
-#X obj 20 895 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 900 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
+#X text 110 936 1\.;
+#X text 150 936 *float*;
+#X text 245 936 note value.;
+#X text 150 956 *list*;
+#X text 245 956 NOTE VELOCITY [DUR] list.;
+#X obj 20 986 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 991 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 901 1\.;
-#X text 245 901 outputs NOTE VELOCITY pair.;
+#X text 110 992 1\.;
+#X text 245 992 outputs NOTE VELOCITY [DUR] list with randomized VELOCITY
+value.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 115 45 ::;
 #X obj 131 48 ui.link @title midi @url ceammc.midi-help.pd;
-#X obj 1 951 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 954 library: ceammc v0.9.1;
-#N canvas 10 973 400 290 info 0;
+#X obj 1 1057 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1060 library: ceammc v0.9.1;
+#N canvas 10 1079 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
@@ -100,14 +106,15 @@ https://github.com/uliss/pure-data;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 generated by pddoc;
-#X restore 10 973 pd info;
-#X connect 6 0 7 0;
-#X connect 7 0 9 0;
-#X connect 8 0 10 0;
-#X connect 9 0 12 0;
-#X connect 10 0 12 0;
-#X connect 12 0 14 0;
-#X connect 12 0 15 0;
-#X connect 15 0 16 0;
-#X connect 15 1 16 1;
+#X restore 10 1079 pd info;
+#X connect 4 0 5 0;
+#X connect 5 0 7 0;
+#X connect 6 0 8 0;
+#X connect 9 0 10 0;
+#X connect 7 0 11 0;
+#X connect 8 0 11 0;
+#X connect 10 0 11 0;
 #X connect 11 0 12 0;
+#X connect 11 0 13 0;
+#X connect 13 0 14 0;
+#X connect 13 1 14 1;
