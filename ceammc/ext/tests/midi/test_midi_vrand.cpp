@@ -40,7 +40,7 @@ TEST_CASE("midi.vrand", "[externals]")
             REQUIRE_PROPERTY(t, @max, 127);
             REQUIRE_PROPERTY(t, @seed, 0);
             REQUIRE_PROPERTY(t, @dist, "uniform");
-            REQUIRE_PROPERTY(t, @rel, 0);
+            REQUIRE_PROPERTY(t, @dev, 0);
         }
 
         SECTION("args")
@@ -51,7 +51,7 @@ TEST_CASE("midi.vrand", "[externals]")
         }
     }
 
-    SECTION("process @rel 0")
+    SECTION("process @dev 0")
     {
         TExt t("midi.vrand", 60, 80, "@dist", "uniform");
 
@@ -114,9 +114,9 @@ TEST_CASE("midi.vrand", "[externals]")
         }
     }
 
-    SECTION("process @rel 1")
+    SECTION("process @dev 1")
     {
-        TExt t("midi.vrand", -10, 10, "@dist", "uniform", "@rel", 1);
+        TExt t("midi.vrand", -10, 10, "@dist", "uniform", "@dev", 1);
         REQUIRE_PROPERTY(t, @min, -10);
 
         for (int i = 0; i < 100; i++) {

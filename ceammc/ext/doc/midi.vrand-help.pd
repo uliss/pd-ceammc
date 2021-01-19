@@ -12,9 +12,11 @@ can be out of specified range;
 #X obj 50 187 metro 350;
 #X obj 174 187 ui.tab uniform gauss linup lindown cmin cmax cmean
 @size 400 15;
-#X msg 50 216 60 0 300;
+#X msg 50 216 60 20 300;
 #X msg 174 216 @dist \$2;
+#X msg 290 216 @dev 1 \, @min -10 \, @max 10;
 #X obj 50 245 midi.vrand 60 90;
+#X text 280 245 deviation mode: +-10 range;
 #X obj 78 274 ui.dt;
 #X obj 50 302 makenote;
 #X obj 50 331 midiout;
@@ -32,24 +34,24 @@ can be out of specified range;
 #X obj 20 470 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 475 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
 -49933 0;
-#X msg 110 510 @dist;
-#X text 245 510 Get/Set random distribution. *uniform* - generate uniformly
+#X msg 110 510 @dev;
+#X text 245 510 Get/Set deviation mode. If true - adds random value
+to origin velocity \, otherwise - replace origin velocity with new
+one (default). Type: int. Default value: 0\. Allowed values: 0 \, 1\.;
+#X msg 110 582 @dist;
+#X text 245 582 Get/Set random distribution. *uniform* - generate uniformly
 distributed value \, *gauss* - mean=(@max+@min)/2 \, sigma=(@max-@max)/3
 \, *linup* - linear distribution with prob=0 at @min and prob=1 at
 @max \, *lindown* - linear distribution with prob=1 at @min and prob=0
 at @max \, *cmin* - constant @min value \, *cmax* - constant @max value
 \, *cmean* - constant (@max+@min)/2 value. Type: symbol. Allowed values:
 uniform \, gauss \, linup \, lindown \, cmin \, cmax \, cmean.;
-#X msg 110 642 @max;
-#X text 245 642 Get/Set max random range. Type: float. Default value:
+#X msg 110 714 @max;
+#X text 245 714 Get/Set max random range. Type: float. Default value:
 127\.;
-#X msg 110 671 @min;
-#X text 245 671 Get/Set min random range. Type: float. Default value:
+#X msg 110 743 @min;
+#X text 245 743 Get/Set min random range. Type: float. Default value:
 0\.;
-#X msg 110 700 @rel;
-#X text 245 700 Get/Set relative mode. If true - adds random value
-to origin velocity \, otherwise - replace origin velocity with new
-one (default). Type: int. Default value: 0\. Allowed values: 0 \, 1\.;
 #X msg 110 772 @seed;
 #X text 245 772 Get/Set random seed. Type: int. Default value: 0\.
 Min value: 0\.;
@@ -101,9 +103,10 @@ https://github.com/uliss/pure-data;
 #X connect 6 0 7 0;
 #X connect 7 0 9 0;
 #X connect 8 0 10 0;
-#X connect 9 0 11 0;
-#X connect 10 0 11 0;
+#X connect 9 0 12 0;
+#X connect 10 0 12 0;
+#X connect 12 0 14 0;
+#X connect 12 0 15 0;
+#X connect 15 0 16 0;
+#X connect 15 1 16 1;
 #X connect 11 0 12 0;
-#X connect 11 0 13 0;
-#X connect 13 0 14 0;
-#X connect 13 1 14 1;

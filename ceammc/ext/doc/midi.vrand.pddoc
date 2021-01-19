@@ -24,7 +24,7 @@
             <property name="@min" type="float" default="0">min random range</property>
             <property name="@max" type="float" default="127">max random range</property>
             <property name="@seed" type="int" default="0" minvalue="0">random seed</property>
-            <property name="@rel" type="int" default="0" enum="0 1">relative mode. If true - adds
+            <property name="@dev" type="int" default="0" enum="0 1">deviation mode. If true - adds
             random value to origin velocity, otherwise - replace origin velocity with new one
             (default).</property>
             <property name="@dist" type="symbol"
@@ -51,15 +51,16 @@
 |
 [metro 350]  [ui.tab uniform gauss linup lindown cmin cmax cmean @size 400 15]
 |            |
-[60 0 300(   [@dist $2(
+[60 20 300(  [@dist $2(  [@dev 1, @min -10, @max 10 #a(
 |            |
-[midi.vrand 60 90]
+[midi.vrand 60 90 #b]   /*deviation mode: +-10 range*/
 |  |
 |  [ui.dt]
 |
 [makenote]
 *|*
 [midiout]
+[X a->b]
 ]]>
             </pdascii>
         </example>

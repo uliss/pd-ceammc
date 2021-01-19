@@ -37,7 +37,7 @@ MidiVRrand::MidiVRrand(const PdArgs& args)
     , min_(nullptr)
     , max_(nullptr)
     , dist_(nullptr)
-    , rel_(nullptr)
+    , dev_(nullptr)
     , seed_(nullptr)
 {
     min_ = new FloatProperty("@min", 0);
@@ -59,8 +59,8 @@ MidiVRrand::MidiVRrand(const PdArgs& args)
                                             });
     addProperty(dist_);
 
-    rel_ = new BoolProperty("@rel", false);
-    addProperty(rel_);
+    dev_ = new BoolProperty("@dev", false);
+    addProperty(dev_);
 
     seed_ = new SizeTProperty("@seed", 0);
     seed_->setSuccessFn([this](Property*) {
@@ -136,7 +136,7 @@ t_float MidiVRrand::generate()
 
 t_float MidiVRrand::velocity(t_float orig)
 {
-    if (rel_->value())
+    if (dev_->value())
         return clip<int, 0, 127>(generate() + orig);
     else
         return clip<int, 0, 127>(generate());
