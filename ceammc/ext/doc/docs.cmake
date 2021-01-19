@@ -437,6 +437,7 @@ set(DOC_FILES
     midi.event2prg
     midi.file
     midi.key2str
+    midi.oct
     midi.prg2str
     midi.sysex
     midi.track

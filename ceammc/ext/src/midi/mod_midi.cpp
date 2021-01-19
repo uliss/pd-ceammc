@@ -6,6 +6,7 @@
 #include "midi_event_to_ctl.h"
 #include "midi_file.h"
 #include "midi_key2str.h"
+#include "midi_octave.h"
 #include "midi_prg2str.h"
 #include "midi_sysex.h"
 #include "midi_track.h"
@@ -22,6 +23,7 @@ void ceammc_midi_setup()
     setup_midi_event2ctl();
     setup_midi_file();
     setup_midi_key2str();
+    setup_midi_octave();
     setup_midi_prg2str();
     setup_midi_sysex();
     setup_midi_track();

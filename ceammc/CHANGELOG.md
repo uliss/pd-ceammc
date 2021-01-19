@@ -8,6 +8,7 @@
   - midi.sysex added (read sysex messages as list)
   - midi.clock added
   - midi.vrand - velocity randomizer added
+  - midi.oct - octave transposer added
   - ui.midi added (display for incoming messages)
   - proto.midi added (raw dataflow midi parser/encoder)
   - route.float (with route.f alias) added

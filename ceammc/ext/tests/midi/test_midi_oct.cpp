@@ -32,6 +32,9 @@ TEST_CASE("midi.oct", "[externals]")
             REQUIRE_PROPERTY(t, @mode, "transpose");
             REQUIRE_PROPERTY(t, @set, 0);
             REQUIRE_PROPERTY(t, @transpose, 1);
+
+            t.sendFloatTo(4, 1);
+            REQUIRE_PROPERTY(t, @oct, 4);
         }
 
         SECTION("args")

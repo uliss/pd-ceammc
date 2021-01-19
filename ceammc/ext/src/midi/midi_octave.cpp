@@ -30,7 +30,7 @@ MidiOctave::MidiOctave(const PdArgs& args)
 {
     oct_ = new IntProperty("@oct", 0);
     oct_->setArgIndex(0);
-    oct_->checkClosedRange(-16, 16);
+    oct_->checkClosedRange(-11, 11);
     addProperty(oct_);
 
     mode_ = new SymbolEnumProperty("@mode", { SYM_TRANSPOSE, SYM_SET });
@@ -62,9 +62,9 @@ void MidiOctave::onList(const AtomList& lst)
     listTo(0, AtomListView(msg, N));
 }
 
-void MidiOctave::onInlet(size_t n, const AtomListView& lv)
+void MidiOctave::onInlet(size_t, const AtomListView& lv)
 {
-    mode_->setList(lv);
+    oct_->setList(lv);
 }
 
 t_float MidiOctave::octave(t_float note) const
@@ -72,11 +72,8 @@ t_float MidiOctave::octave(t_float note) const
     const auto oct = oct_->value();
     note = clip<t_float, 0, 127>(note);
 
-    if (mode_->value() == SYM_SET) {
+    if (mode_->value() == SYM_SET)
         note = std::fmod(note, 12);
-        if (oct < 0)
-            OBJ_ERR << "warning: octave value < 0.0 in set mode";
-    }
 
     auto res = note + 12 * oct;
     return (res < 0 || res > 127) ? note : res;
@@ -90,4 +87,9 @@ void setup_midi_octave()
     SYM_SET = gensym("set");
 
     ObjectFactory<MidiOctave> obj("midi.oct");
+    obj.setXletsInfo({ "float: note\n"
+                       "list: NOTE VEL \\[DUR\\]",
+                         "int: set octave transposition" },
+        { "float: note\n"
+          "list: NOTE VEL \\[DUR\\]" });
 }
