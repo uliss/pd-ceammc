@@ -27,7 +27,7 @@
             <property name="@dev" type="int" default="0" enum="0 1">deviation mode. If true - adds
             random value to origin velocity, otherwise - replace origin velocity with new one
             (default).</property>
-            <property name="@dist" type="symbol"
+            <property name="@dist" type="symbol" default="uniform"
             enum="uniform gauss linup lindown cmin cmax cmean">random distribution. *uniform* - generate
             uniformly distributed value, *gauss* - mean=(@max+@min)/2, sigma=(@max-@max)/3,
             *linup* - linear distribution with prob=0 at @min and prob=1 at @max,
