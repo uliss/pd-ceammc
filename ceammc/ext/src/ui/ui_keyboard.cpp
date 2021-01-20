@@ -13,6 +13,8 @@
 
 #include <cinttypes>
 
+constexpr int NO_KEY = -1;
+
 static t_rgba RGBA_WHITE = hex_to_rgba("#F0F0F0");
 static t_rgba RGBA_BLACK = hex_to_rgba("#505050");
 
@@ -57,7 +59,7 @@ static t_rect white_key_rect(int offset, float black_key_w, float key_h)
 UIKeyboard::UIKeyboard()
     : keys_(61)
     , shift_(36)
-    , current_key_(-1)
+    , current_key_(NO_KEY)
     , velocity_(0)
     , mouse_pressed_(false)
     , prop_color_active_(rgba_black)
@@ -126,17 +128,18 @@ void UIKeyboard::paint()
     const float wkey_w = width() / nw;
     const float wkey_h = height();
 
+    // fill string with 1 and 0
     char bits[128];
-    for (size_t i = 0; i < active_keys_.size(); i++) {
-        if (current_key_ == i)
-            bits[i] = '1';
-        else
-            bits[i] = active_keys_.test(i) ? '1' : '0';
-    }
+    for (size_t i = 0; i < active_keys_.size(); i++)
+        bits[i] = active_keys_.test(i) ? '1' : '0';
 
+    if (current_key_ >= 0 && current_key_ < active_keys_.size())
+        bits[current_key_] = '1';
     bits[127] = '\0';
 
-    sys_vgui("ui::keyboard_delete_keys #%x %s\n", asEBox(), asEBox()->b_drawing_id->s_name, keys_, asEBox());
+    sys_vgui("ui::keyboard_delete_keys #%x %s\n",
+        asEBox(), asEBox()->b_drawing_id->s_name);
+
     sys_vgui("ui::keyboard_create_hkeys #%x %s %d "
              "#%6.6x #%6.6x #%6.6x "
              "%.2f %.2f %s\n",
@@ -168,7 +171,7 @@ void UIKeyboard::resetAllNotes()
     releaseAllNotes();
 
     velocity_ = 0;
-    current_key_ = -1;
+    current_key_ = NO_KEY;
 
     redraw();
 }
@@ -192,11 +195,11 @@ void UIKeyboard::onMouseDown(t_object* view, const t_pt& pt, const t_pt& abs_pt,
             active_keys_.set(current_key_, false);
             velocity_ = 0;
             output();
-            current_key_ = -1;
+            current_key_ = NO_KEY;
         } else { // add new sustaind note
             active_keys_.set(current_key_, true);
             output();
-            current_key_ = -1;
+            current_key_ = NO_KEY;
         }
     } else {
         output();
@@ -207,13 +210,13 @@ void UIKeyboard::onMouseDown(t_object* view, const t_pt& pt, const t_pt& abs_pt,
 
 void UIKeyboard::onMouseUp(t_object* view, const t_pt& pt, long modifiers)
 {
-    if (current_key_ == -1)
+    if (current_key_ == NO_KEY)
         return;
 
     velocity_ = 0;
     mouse_pressed_ = false;
     output();
-    current_key_ = -1;
+    current_key_ = NO_KEY;
 
     redraw();
 }
@@ -225,7 +228,7 @@ void UIKeyboard::onMouseMove(t_object* view, const t_pt& pt, long modifiers)
 
 void UIKeyboard::onMouseLeave(t_object* view, const t_pt& pt, long modifiers)
 {
-    current_key_ = -1;
+    current_key_ = NO_KEY;
     mouse_pressed_ = false;
 
     redraw();
@@ -264,7 +267,7 @@ void UIKeyboard::showPopup(const t_pt& pt, const t_pt& abs_pt)
 
 void UIKeyboard::playChord(const std::initializer_list<uint8_t>& keys)
 {
-    if (current_key_ == -1)
+    if (current_key_ == NO_KEY)
         current_key_ = 60 - shift_;
 
     for (auto k : keys)
@@ -356,7 +359,7 @@ int UIKeyboard::realPitch() const
 
 void UIKeyboard::output()
 {
-    if (current_key_ == -1)
+    if (current_key_ == NO_KEY)
         return;
 
     Atom res[2];
