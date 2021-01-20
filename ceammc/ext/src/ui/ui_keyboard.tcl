@@ -18,9 +18,7 @@ proc keyboard_create_white_keys {id cnv numkeys kcolor acolor bdcolor w h bits} 
         set bit [string index $bits $i]
         if {$bit == 1} { set fc $acolor } { set fc $kcolor }
 
-        $cnv create rectangle [expr $wi*$w] 0 [expr ($wi+1)*$w] $wh \
-            -fill $fc \
-            -outline $bdcolor \
+        $cnv create rectangle [expr $wi*$w] 0 [expr ($wi+1)*$w] $wh -fill $fc -outline $bdcolor \
             -tags ${id}_#all
 
         incr wi
@@ -29,20 +27,20 @@ proc keyboard_create_white_keys {id cnv numkeys kcolor acolor bdcolor w h bits} 
 
 proc keyboard_create_black_keys {id cnv numkeys acolor bdcolor w h bits} {
     set bh [expr $h*0.6]
-    set kw [expr $w*0.5]
+    set kstep [expr 0.5*$w]
+    set koff0 [expr 0.2*$w]
+    set koff1 [expr 0.6*$w]
 
     for {set i 0} {$i < $numkeys} {incr i} {
         if { [keyboard_is_black_key $i] } {
             set kn [expr $i % 12]
             set ko [expr $i / 12]
-            set x [expr $i*$kw + (($kn > 4 ? 1 : 0) + 2 * $ko) * $kw + 0.5 * $kw - 1]
+            set x [expr $i*$kstep + (($kn > 4 ? 1 : 0) + 2 * $ko) * $kstep + $koff0]
 
             set bit [string index $bits $i]
             if {$bit == 1} { set fc $acolor } { set fc black }
 
-            $cnv create rectangle $x 0 [expr $x + $kw] $bh \
-                -fill $fc \
-                -outline $bdcolor \
+            $cnv create rectangle $x 0 [expr $x + $koff1] $bh -fill $fc -outline $bdcolor \
                 -tags ${id}_#all
         }
     }
