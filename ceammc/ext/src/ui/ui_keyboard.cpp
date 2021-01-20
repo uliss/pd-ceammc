@@ -17,6 +17,8 @@ constexpr int NO_KEY = -1;
 constexpr uint32_t RGBA_WHITE = 0xF0F0F0;
 constexpr uint32_t RGBA_BLACK = 0x505050;
 
+static t_symbol* SYM_VKEYBOARD;
+
 size_t keyboard_num_white_keys(size_t num_keys)
 {
     size_t n_octave = num_keys / 12;
@@ -56,8 +58,8 @@ static t_rect white_key_rect(int offset, float black_key_w, float key_h)
 }
 
 UIKeyboard::UIKeyboard()
-    : keys_(61)
-    , shift_(36)
+    : prop_keys(61)
+    , prop_shift(36)
     , current_key_(NO_KEY)
     , velocity_(0)
     , mouse_pressed_(false)
@@ -112,20 +114,23 @@ UIKeyboard::UIKeyboard()
 
 bool UIKeyboard::okSize(t_rect* newrect)
 {
-    float min_width = keyboard_num_white_keys(keys_) * 8;
-    newrect->width = pd_clip_min(newrect->width, min_width);
-    newrect->height = pd_clip_min(newrect->height, 40.);
+    const float min_length = keyboard_num_white_keys(prop_keys) * 8;
+
+    if (prop_vertical) {
+        newrect->width = pd_clip_min(newrect->width, 40.);
+        newrect->height = pd_clip_min(newrect->height, min_length);
+    } else {
+        newrect->width = pd_clip_min(newrect->width, min_length);
+        newrect->height = pd_clip_min(newrect->height, 40.);
+    }
     return true;
 }
 
 void UIKeyboard::paint()
 {
-    const int nw = keyboard_num_white_keys(keys_);
+    const int nw = keyboard_num_white_keys(prop_keys);
     if (nw < 1)
         return;
-
-    const float wkey_w = width() / nw;
-    const float wkey_h = height();
 
     // fill string with 1 and 0
     char bits[MAX_KEYS + 1];
@@ -139,17 +144,41 @@ void UIKeyboard::paint()
     sys_vgui("ui::keyboard_delete_keys #%x %s\n",
         asEBox(), asEBox()->b_drawing_id->s_name);
 
-    sys_vgui("ui::keyboard_create_hkeys #%x %s %d "
-             "#%6.6x #%6.6x #%6.6x #%6.6x "
-             "%.2f %.2f %s\n",
-        asEBox(),
-        asEBox()->b_drawing_id->s_name,
-        keys_,
-        RGBA_WHITE,
-        RGBA_BLACK,
-        rgba_to_hex_int(prop_color_active_),
-        rgba_to_hex_int(prop_color_border),
-        wkey_w, wkey_h, bits);
+    if (prop_vertical) {
+        sys_vgui("ui::keyboard_create_vkeys #%x %s %d "
+                 "#%6.6x #%6.6x #%6.6x #%6.6x "
+                 "%.2f %.2f %s\n",
+            asEBox(),
+            asEBox()->b_drawing_id->s_name,
+            prop_keys,
+            RGBA_WHITE,
+            RGBA_BLACK,
+            rgba_to_hex_int(prop_color_active_),
+            rgba_to_hex_int(prop_color_border),
+            width(), height() / nw, bits);
+    } else {
+        sys_vgui("ui::keyboard_create_hkeys #%x %s %d "
+                 "#%6.6x #%6.6x #%6.6x #%6.6x "
+                 "%.2f %.2f %s\n",
+            asEBox(),
+            asEBox()->b_drawing_id->s_name,
+            prop_keys,
+            RGBA_WHITE,
+            RGBA_BLACK,
+            rgba_to_hex_int(prop_color_active_),
+            rgba_to_hex_int(prop_color_border),
+            width() / nw, height(), bits);
+    }
+}
+
+void UIKeyboard::init(t_symbol* name, const AtomList& args, bool usePresets)
+{
+    UIObject::init(name, args, usePresets);
+
+    if (name == SYM_VKEYBOARD) {
+        prop_vertical = 1;
+        std::swap(asEBox()->b_rect.width, asEBox()->b_rect.height);
+    }
 }
 
 void UIKeyboard::releaseAllNotes()
@@ -157,7 +186,7 @@ void UIKeyboard::releaseAllNotes()
     for (size_t i = 0; i < active_keys_.size(); i++) {
         if (active_keys_.test(i)) {
             Atom res[2];
-            res[0] = shift_ + i;
+            res[0] = prop_shift + i;
             res[1] = 0.f;
             listTo(0, AtomListView(res, 2));
         }
@@ -268,7 +297,7 @@ void UIKeyboard::showPopup(const t_pt& pt, const t_pt& abs_pt)
 void UIKeyboard::playChord(const std::initializer_list<uint8_t>& keys)
 {
     if (current_key_ == NO_KEY)
-        current_key_ = 60 - shift_;
+        current_key_ = 60 - prop_shift;
 
     for (auto k : keys) {
         auto kk = current_key_ + k;
@@ -283,7 +312,7 @@ int UIKeyboard::findPressedKey(const t_pt& pt) const
 {
     int res = -1;
 
-    const float black_key_w = width() / (keyboard_num_white_keys(keys_) * 2.f);
+    const float black_key_w = width() / (keyboard_num_white_keys(prop_keys) * 2.f);
     const float white_key_w = black_key_w * 2;
     const int key = music::keyboard::wkey_to_key<int>(round(pt.x / white_key_w));
 
@@ -309,8 +338,8 @@ int UIKeyboard::findPressedKey(const t_pt& pt) const
         }
     }
 
-    if (res >= keys_)
-        return keys_ - 1;
+    if (res >= prop_keys)
+        return prop_keys - 1;
 
     return res;
 }
@@ -339,7 +368,7 @@ void UIKeyboard::onList(const AtomListView& lv)
         return;
     }
 
-    auto key = note - shift_;
+    auto key = note - prop_shift;
     if (key >= 0 && key < MAX_KEYS)
         active_keys_.set(key, vel > 0);
 
@@ -360,7 +389,7 @@ const char* UIKeyboard::annotateOutlet(int n) const
 
 int UIKeyboard::realPitch() const
 {
-    return (shift_ + current_key_);
+    return (prop_shift + current_key_);
 }
 
 void UIKeyboard::output()
@@ -378,7 +407,10 @@ void UIKeyboard::setup()
 {
     sys_gui(ui_keyboard_tcl);
 
+    SYM_VKEYBOARD = gensym("ui.vkeyboard");
+
     UIObjectFactory<UIKeyboard> obj("ui.keyboard");
+    obj.addAlias(SYM_VKEYBOARD->s_name);
 
     obj.hideLabelInner();
     obj.useAnnotations();
@@ -392,14 +424,12 @@ void UIKeyboard::setup()
     obj.addProperty("active_color", _("Active Color"), DEFAULT_ACTIVE_COLOR, &UIKeyboard::prop_color_active_);
     obj.hideProperty(PROP_BACKGROUND_COLOR);
 
-    obj.addProperty("keys", _("Keys"), 61, &UIKeyboard::keys_, _("Main"));
+    obj.addProperty("keys", _("Keys"), 61, &UIKeyboard::prop_keys, _("Main"));
     obj.setDefaultSize(433, 60);
     obj.setPropertyRange("keys", 5, MAX_KEYS);
 
-    obj.addProperty("shift", _("Leftmost MIDI note"), 36, &UIKeyboard::shift_, _("Main"));
+    obj.addProperty("shift", _("Leftmost MIDI note"), 36, &UIKeyboard::prop_shift, _("Main"));
     obj.setPropertyRange("shift", 6, MAX_KEYS);
-
-    obj.addBoolProperty("vertical", _("Vertical"), false, &UIKeyboard::prop_vertical_, _("Basic"));
 }
 
 void setup_ui_keyboard()

@@ -12,11 +12,11 @@ using namespace ceammc;
 class UIKeyboard : public UIObject {
     static const size_t MAX_KEYS = 88;
 
-    int keys_;
-    int shift_;
+    int prop_keys;
+    int prop_shift;
     int current_key_;
     int velocity_;
-    int prop_vertical_;
+    int prop_vertical;
     bool mouse_pressed_;
     t_rgba prop_color_active_;
     std::bitset<MAX_KEYS> active_keys_;
@@ -26,6 +26,7 @@ public:
 
     bool okSize(t_rect* newrect);
     void paint();
+    void init(t_symbol* name, const AtomList& args, bool usePresets);
 
     void onMouseDown(t_object* view, const t_pt& pt, const t_pt& abs_pt, long modifiers);
     void onMouseUp(t_object* view, const t_pt& pt, long modifiers);

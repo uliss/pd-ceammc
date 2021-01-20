@@ -25,6 +25,22 @@ proc keyboard_create_white_keys {id cnv numkeys wkcolor acolor bdcolor w h bits}
     }
 }
 
+proc keyboard_create_white_vkeys {id cnv numkeys wkcolor acolor bdcolor w h bits} {
+    set ww [expr $w+1]
+    set hi 0
+
+    for {set i 0} {$i < $numkeys} {incr i} {
+        if {[keyboard_is_black_key $i]} { continue }
+        set bit [string index $bits $i]
+        if {$bit == 1} { set fc $acolor } { set fc $wkcolor }
+
+        $cnv create rectangle 0 [expr $hi*$h] $ww [expr ($hi+1)*$h] -fill $fc -outline $bdcolor \
+            -tags ${id}_#all
+
+        incr hi
+    }
+}
+
 proc keyboard_create_black_keys {id cnv numkeys bkcolor acolor bdcolor w h bits} {
     set bh [expr $h*0.6]
     set kstep [expr 0.5*$w]
@@ -46,12 +62,35 @@ proc keyboard_create_black_keys {id cnv numkeys bkcolor acolor bdcolor w h bits}
     }
 }
 
-proc keyboard_create_hkeys {id cnv numkeys wkcolor bkcolor acolor bdcolor w h bits} {
-    # one pixel fix
-    set kh [expr $h]
+proc keyboard_create_black_vkeys {id cnv numkeys bkcolor acolor bdcolor w h bits} {
+#    set bw [expr $w*0.6]
+#    set kstep [expr 0.5*$h]
+#    set koff0 [expr 0.2*$h]
+#    set koff1 [expr 0.6*$h]
 
-    keyboard_create_white_keys $id $cnv $numkeys $wkcolor $acolor $bdcolor $w $kh $bits
-    keyboard_create_black_keys $id $cnv $numkeys $bkcolor $acolor $bdcolor $w $kh $bits
+#    for {set i 0} {$i < $numkeys} {incr i} {
+#        if { [keyboard_is_black_key $i] } {
+#            set kn [expr $i % 12]
+#            set ko [expr $i / 12]
+#            set x [expr $i*$kstep + (($kn > 4 ? 1 : 0) + 2 * $ko) * $kstep + $koff0]
+
+#            set bit [string index $bits $i]
+#            if {$bit == 1} { set fc $acolor } { set fc $bkcolor }
+
+#            $cnv create rectangle $x 0 [expr $x + $koff1] $bh -fill $fc -outline $bdcolor \
+#                -tags ${id}_#all
+#        }
+#    }
+}
+
+proc keyboard_create_hkeys {id cnv numkeys wkcolor bkcolor acolor bdcolor w h bits} {
+    keyboard_create_white_keys $id $cnv $numkeys $wkcolor $acolor $bdcolor $w $h $bits
+    keyboard_create_black_keys $id $cnv $numkeys $bkcolor $acolor $bdcolor $w $h $bits
+}
+
+proc keyboard_create_vkeys {id cnv numkeys wkcolor bkcolor acolor bdcolor w h bits} {
+    keyboard_create_white_vkeys $id $cnv $numkeys $wkcolor $acolor $bdcolor $w $h $bits
+    keyboard_create_black_vkeys $id $cnv $numkeys $bkcolor $acolor $bdcolor $w $h $bits
 }
 
 }
