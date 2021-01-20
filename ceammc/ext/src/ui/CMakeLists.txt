@@ -53,3 +53,9 @@ ceammc_ui_extension(toggle)
 add_library(ceammc_ui STATIC mod_ui.cpp ${UI_SOURCES})
 
 target_link_libraries(ceammc_ui ceammc_env)
+
+add_custom_target(ceammc_ui_tcl_gen
+    COMMAND ${PROJECT_SOURCE_DIR}/ceammc/scripts/filecontent_to_cxx_header.sh ui_keyboard.tcl
+    SOURCES ui_keyboard.tcl
+    WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
+)

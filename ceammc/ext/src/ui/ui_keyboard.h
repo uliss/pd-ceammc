@@ -3,7 +3,9 @@
 
 #include "ceammc_ui_object.h"
 
-#include <unordered_set>
+#include <bitset>
+#include <cstdint>
+#include <initializer_list>
 
 using namespace ceammc;
 
@@ -14,8 +16,7 @@ class UIKeyboard : public UIObject {
     int velocity_;
     bool mouse_pressed_;
     t_rgba prop_color_active_;
-    std::unordered_set<int> sustained_keys_;
-    UILayer key_layer_;
+    std::bitset<127> active_keys_;
 
 public:
     UIKeyboard();
@@ -40,11 +41,9 @@ public:
     static void setup();
 
 private:
-    void playChord(const std::unordered_set<int>& keys);
+    void playChord(const std::initializer_list<uint8_t>& keys);
     int realPitch() const;
     void output();
-    void drawBackground();
-    void drawActive();
     void releaseAllNotes();
     void resetAllNotes();
 };
@@ -56,8 +55,6 @@ private:
  * @return number
  */
 size_t keyboard_num_white_keys(size_t num_keys);
-
-std::vector<t_pt> white_key_poly(int offset, float black_key_w, float key_h);
 
 void setup_ui_keyboard();
 
