@@ -16,6 +16,7 @@ class UIKeyboard : public UIObject {
     int shift_;
     int current_key_;
     int velocity_;
+    int prop_vertical_;
     bool mouse_pressed_;
     t_rgba prop_color_active_;
     std::bitset<MAX_KEYS> active_keys_;

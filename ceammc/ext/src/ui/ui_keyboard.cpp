@@ -14,9 +14,8 @@
 #include <cinttypes>
 
 constexpr int NO_KEY = -1;
-
-static t_rgba RGBA_WHITE = hex_to_rgba("#F0F0F0");
-static t_rgba RGBA_BLACK = hex_to_rgba("#505050");
+constexpr uint32_t RGBA_WHITE = 0xF0F0F0;
+constexpr uint32_t RGBA_BLACK = 0x505050;
 
 size_t keyboard_num_white_keys(size_t num_keys)
 {
@@ -141,12 +140,13 @@ void UIKeyboard::paint()
         asEBox(), asEBox()->b_drawing_id->s_name);
 
     sys_vgui("ui::keyboard_create_hkeys #%x %s %d "
-             "#%6.6x #%6.6x #%6.6x "
+             "#%6.6x #%6.6x #%6.6x #%6.6x "
              "%.2f %.2f %s\n",
         asEBox(),
         asEBox()->b_drawing_id->s_name,
         keys_,
-        rgba_to_hex_int(prop_color_background),
+        RGBA_WHITE,
+        RGBA_BLACK,
         rgba_to_hex_int(prop_color_active_),
         rgba_to_hex_int(prop_color_border),
         wkey_w, wkey_h, bits);
@@ -398,6 +398,8 @@ void UIKeyboard::setup()
 
     obj.addProperty("shift", _("Leftmost MIDI note"), 36, &UIKeyboard::shift_, _("Main"));
     obj.setPropertyRange("shift", 6, MAX_KEYS);
+
+    obj.addBoolProperty("vertical", _("Vertical"), false, &UIKeyboard::prop_vertical_, _("Basic"));
 }
 
 void setup_ui_keyboard()
