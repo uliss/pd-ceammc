@@ -10,13 +10,15 @@
 using namespace ceammc;
 
 class UIKeyboard : public UIObject {
+    static const size_t MAX_KEYS = 88;
+
     int keys_;
     int shift_;
     int current_key_;
     int velocity_;
     bool mouse_pressed_;
     t_rgba prop_color_active_;
-    std::bitset<127> active_keys_;
+    std::bitset<MAX_KEYS> active_keys_;
 
 public:
     UIKeyboard();

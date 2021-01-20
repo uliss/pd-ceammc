@@ -129,13 +129,13 @@ void UIKeyboard::paint()
     const float wkey_h = height();
 
     // fill string with 1 and 0
-    char bits[128];
+    char bits[MAX_KEYS + 1];
     for (size_t i = 0; i < active_keys_.size(); i++)
         bits[i] = active_keys_.test(i) ? '1' : '0';
 
     if (current_key_ >= 0 && current_key_ < active_keys_.size())
         bits[current_key_] = '1';
-    bits[127] = '\0';
+    bits[MAX_KEYS] = '\0';
 
     sys_vgui("ui::keyboard_delete_keys #%x %s\n",
         asEBox(), asEBox()->b_drawing_id->s_name);
@@ -270,8 +270,11 @@ void UIKeyboard::playChord(const std::initializer_list<uint8_t>& keys)
     if (current_key_ == NO_KEY)
         current_key_ = 60 - shift_;
 
-    for (auto k : keys)
-        active_keys_.set(current_key_ + k);
+    for (auto k : keys) {
+        auto kk = current_key_ + k;
+        if (k < MAX_KEYS)
+            active_keys_.set(kk);
+    }
 
     output();
 }
@@ -336,8 +339,11 @@ void UIKeyboard::onList(const AtomListView& lv)
         return;
     }
 
-    active_keys_.set(note, vel > 0);
+    auto key = note - shift_;
+    if (key >= 0 && key < MAX_KEYS)
+        active_keys_.set(key, vel > 0);
 
+    current_key_ = NO_KEY;
     redraw();
     listTo(0, lv);
 }
@@ -388,10 +394,10 @@ void UIKeyboard::setup()
 
     obj.addProperty("keys", _("Keys"), 61, &UIKeyboard::keys_, _("Main"));
     obj.setDefaultSize(433, 60);
-    obj.setPropertyRange("keys", 5, 88);
+    obj.setPropertyRange("keys", 5, MAX_KEYS);
 
     obj.addProperty("shift", _("Leftmost MIDI note"), 36, &UIKeyboard::shift_, _("Main"));
-    obj.setPropertyRange("shift", 6, 88);
+    obj.setPropertyRange("shift", 6, MAX_KEYS);
 }
 
 void setup_ui_keyboard()
