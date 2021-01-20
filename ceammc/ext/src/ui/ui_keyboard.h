@@ -31,7 +31,9 @@ public:
     void showPopup(const t_pt& pt, const t_pt& abs_pt);
 
     int findPressedKey(const t_pt& pt) const;
+    void onList(const AtomListView& lv);
 
+    const char* annotateInlet(int n) const;
     const char* annotateOutlet(int n) const;
 
 public:

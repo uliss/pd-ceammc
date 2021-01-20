@@ -400,6 +400,44 @@ int UIKeyboard::findPressedKey(const t_pt& pt) const
     return res;
 }
 
+void UIKeyboard::onList(const AtomListView& lv)
+{
+    const bool ok = lv.size() == 2
+        && lv[0].isInteger()
+        && lv[1].isFloat();
+
+    if (!ok) {
+        UI_ERR << "usage: NOTE VEL";
+        return;
+    }
+
+    auto note = lv[0].asInt();
+    auto vel = lv[1].asInt();
+
+    if (note < 0 || note > 127) {
+        UI_ERR << "note in 0..127 range expected, got: " << lv[0];
+        return;
+    }
+
+    if (vel < 0 || vel > 127) {
+        UI_ERR << "velocity in 0..127 range expected, got: " << lv[1];
+        return;
+    }
+
+    if (vel == 0)
+        sustained_keys_.erase(-shift_ + note);
+    else
+        sustained_keys_.insert(-shift_ + note);
+
+    redrawLayer(key_layer_);
+    listTo(0, lv);
+}
+
+const char* UIKeyboard::annotateInlet(int n) const
+{
+    return "list: pitch velocity";
+}
+
 const char* UIKeyboard::annotateOutlet(int n) const
 {
     return "list: pitch velocity";
@@ -412,6 +450,7 @@ void UIKeyboard::setup()
     obj.hideLabelInner();
     obj.useAnnotations();
     obj.useBang();
+    obj.useList();
     obj.usePopup();
     obj.useMouseEvents(UI_MOUSE_DOWN | UI_MOUSE_DRAG
         | UI_MOUSE_MOVE | UI_MOUSE_LEAVE
@@ -499,7 +538,10 @@ void UIKeyboard::drawActive()
 
                 kp.drawRect(key_r);
                 kp.setColor(prop_color_active_);
-                kp.fill();
+                kp.fillPreserve();
+
+                kp.setColor(prop_color_border);
+                kp.stroke();
             } else {
                 const bool is_C = (current_key_ % 12) == 0;
                 const bool is_F = (current_key_ % 12) == 5;
