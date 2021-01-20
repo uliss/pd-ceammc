@@ -568,7 +568,10 @@ void UIKeyboard::drawActive()
 
                 kp.drawRect(key_r);
                 kp.setColor(prop_color_active_);
-                kp.fill();
+                kp.fillPreserve();
+
+                kp.setColor(prop_color_border);
+                kp.stroke();
             } else {
                 const bool is_C = (key % 12) == 0;
                 const bool is_F = (key % 12) == 5;
