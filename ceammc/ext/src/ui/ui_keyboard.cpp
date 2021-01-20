@@ -145,17 +145,17 @@ void UIKeyboard::paint()
         asEBox(), asEBox()->b_drawing_id->s_name);
 
     if (prop_vertical) {
-        sys_vgui("ui::keyboard_create_vkeys #%x %s %d "
+        sys_vgui("ui::keyboard_create_vkeys #%x %s "
+                 "%d %d "
                  "#%6.6x #%6.6x #%6.6x #%6.6x "
                  "%.2f %.2f %s\n",
-            asEBox(),
-            asEBox()->b_drawing_id->s_name,
-            prop_keys,
+            asEBox(), asEBox()->b_drawing_id->s_name,
+            prop_keys, nw,
             RGBA_WHITE,
             RGBA_BLACK,
             rgba_to_hex_int(prop_color_active_),
             rgba_to_hex_int(prop_color_border),
-            width(), height() / nw, bits);
+            width(), height(), bits);
     } else {
         sys_vgui("ui::keyboard_create_hkeys #%x %s %d "
                  "#%6.6x #%6.6x #%6.6x #%6.6x "
