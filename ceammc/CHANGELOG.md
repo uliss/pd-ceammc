@@ -10,6 +10,7 @@
   - midi.vrand - velocity randomizer added
   - midi.oct - octave transposer added
   - ui.midi added (display for incoming messages)
+  - ui.button added (with ui.btn alias)
   - proto.midi added (raw dataflow midi parser/encoder)
   - route.float (with route.f alias) added
   - conv.bits2int (with bits->int alias) added

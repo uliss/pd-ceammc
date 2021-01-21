@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="ui.button" type="gui">
+        <title>ui.button</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>button widget</description>
+            <license>GPL3 or later</license>
+            <library>ceammc</library>
+            <category view="link">ui</category>
+            <keywords>ui button</keywords>
+            <since>0.9.2</since>
+            <aliases>
+                <alias view="link">ui.btn</alias>
+            </aliases>
+            <also>
+                <see view="link">ui.toggle</see>
+            </also>
+        </meta>
+        <properties>
+            <property name="@on_value" type="float" default="1">on value</property>
+            <property name="@off_value" type="float" default="0">off value</property>
+            <!-- common -->
+            <property name="@send" type="symbol" default="(null)">send destination</property>
+            <property name="@receive" type="symbol" default="(null)">receive source</property>
+            <property name="@size" type="list" default="15 15">element size (width, height
+            pair)</property>
+            <property name="@pinned" type="int" enum="0 1" default="0">pin mode. if 1 - put element
+            to the lowest level</property>
+            <property name="@active_color" type="list" default="0 0.75 1 1">active color (list of
+            red, green, blue values in 0-1 range)</property>
+            <property name="@background_color" type="list" default="0.93 0.93 0.93 1">element
+            background color (list of red, green, blue values in 0-1 range)</property>
+            <property name="@border_color" type="list" default="0.6 0.6 0.6 1">border color (list
+            of red, green, blue values in 0-1 range)</property>
+            <property name="@fontsize" type="int" minvalue="4" maxvalue="11" default="11">
+            fontsize</property>
+            <property name="@fontname" type="symbol" default="Helvetica">fontname</property>
+            <property name="@fontweight" type="symbol" enum="normal bold" default="normal">font
+            weight</property>
+            <property name="@fontslant" type="symbol" enum="roman italic" default="roman">font
+            slant</property>
+        </properties>
+        <methods>
+            <method name="dump">dumps all object info to Pd console window</method>
+            <!-- common-->
+            <method name="pos">set UI element position 
+            <param name="X" type="float" required="true">top left x-coord</param>
+            <param name="Y" type="float" required="true">top right y-coord</param></method>
+        </methods>
+        <inlets>
+            <inlet>
+                <xinfo on="float">if *0* given, sets state to unchecked and outputs @off_value. On
+                any other number sets to checked state and outputs @on_value</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet>outputs @on_value on mouse down and @off_value on mouse up (default 1 and 0)</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[ui.button]
+|
+|
+|
+[F]
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>
