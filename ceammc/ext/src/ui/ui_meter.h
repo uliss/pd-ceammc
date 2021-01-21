@@ -42,6 +42,7 @@ private:
 public:
     UIMeter();
 
+    void init(t_symbol* name, const AtomList& args, bool usePresets);
     void okSize(t_rect* newrect);
     void paint();
     void drawBackground();
@@ -50,6 +51,11 @@ public:
     void dspInit();
     void dspOn(double samplerate, long blocksize);
     void dspProcess(t_sample** ins, long n_ins, t_sample** outs, long n_outs, long sampleframes);
+
+    const char* annotateInlet(int n) const;
+    const char* annotateOutlet(int n) const;
+
+    void onDblClick(t_object* view, const t_pt& pt, long modifiers);
 
 public:
     static void setup();

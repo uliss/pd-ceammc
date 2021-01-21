@@ -21,6 +21,10 @@
 - new aliases:
   - ui.hk alias added for ui.keyboard (horizontal)
   - ui.k alias added for ui.knob
+  - ui.vm~ alias added for ui.meter~ (vertical)
+  - ui.hm~ alias added for ui.meter~ (horizontal)
+- mouse:
+  - ui.meter~ change orientation by Ctl/Cmd+double-click in edit mode, like ui.radio and ui.slider
 - arguments:
   - ui.keyboard NKEYS SHIFT arguments added
 - comma separated messages added to msg.onload (loadmsg)

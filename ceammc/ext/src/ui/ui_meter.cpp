@@ -20,6 +20,10 @@ static const int NUM_LEDS = 13;
 static const int LED_STEP = 3;
 static const int RMS_BAR_PADDING = 3;
 
+static t_symbol* SYM_HMETER;
+static t_symbol* SYM_VMETER;
+static t_symbol* SYM_VMETER2;
+
 UIMeter::UIMeter()
     : clock_(this, &UIMeter::clockTick)
     , prop_color_cold(rgba_grey)
@@ -39,6 +43,16 @@ UIMeter::UIMeter()
     , is_horizontal_(false)
 {
     createOutlet();
+}
+
+void UIMeter::init(t_symbol* name, const AtomList& args, bool usePresets)
+{
+    UIDspObject::init(name, args, usePresets);
+
+    if (name == SYM_HMETER) {
+        is_horizontal_ = true;
+        std::swap(asEBox()->b_rect.width, asEBox()->b_rect.height);
+    }
 }
 
 void UIMeter::okSize(t_rect* newrect)
@@ -199,22 +213,23 @@ void UIMeter::dspProcess(t_sample** ins, long n_ins, t_sample** outs, long n_out
     }
 }
 
-void UIMeter::setup()
+const char* UIMeter::annotateInlet(int n) const
 {
-    UIObjectFactory<UIMeter> obj("ui.meter~", EBOX_GROWINDI | EBOX_IGNORELOCKCLICK);
-    obj.addAlias("ui.m~");
-    obj.hideLabelInner();
+    return "signal: input";
+}
 
-    obj.setDefaultSize(15, 120);
+const char* UIMeter::annotateOutlet(int n) const
+{
+    return "list: RMS(db) PEAK(db)";
+}
 
-    obj.addColorProperty("cold_color", _("Cold signal color"), "0 0.6 0 1", &UIMeter::prop_color_cold);
-    obj.addColorProperty("tepid_color", _("Tepid signal color"), "0.6 0.73 0 1", &UIMeter::prop_color_tepid);
-    obj.addColorProperty("warm_color", _("Warm signal color"), ".85 .85 0 1", &UIMeter::prop_color_warm);
-    obj.addColorProperty("hot_color", _("Hot signal color"), "1 0.6 0 1", &UIMeter::prop_color_hot);
-    obj.addColorProperty("over_color", _("Overload signal color"), "1 0 0 1", &UIMeter::prop_color_over);
-
-    obj.addIntProperty("interval", _("Refresh interval (ms)"), 50, &UIMeter::prop_interval_ms, _("Main"));
-    obj.setPropertyUnits("interval", "msec");
+void UIMeter::onDblClick(t_object* view, const t_pt& pt, long modifiers)
+{
+    t_canvas* c = reinterpret_cast<t_canvas*>(view);
+    if (c->gl_edit) {
+        is_horizontal_ = !is_horizontal_;
+        resize(height() / zoom(), width() / zoom());
+    }
 }
 
 void UIMeter::calc()
@@ -276,6 +291,33 @@ const t_rgba& UIMeter::dbfsToColor(int dbfs) const
         return prop_color_hot;
     else
         return prop_color_over;
+}
+
+void UIMeter::setup()
+{
+    SYM_HMETER = gensym("ui.hm~");
+    SYM_VMETER = gensym("ui.vm~");
+    SYM_VMETER2 = gensym("ui.m~");
+
+    UIObjectFactory<UIMeter> obj("ui.meter~", EBOX_GROWINDI);
+    obj.addAlias(SYM_VMETER->s_name);
+    obj.addAlias(SYM_VMETER2->s_name);
+    obj.addAlias(SYM_HMETER->s_name);
+    obj.useAnnotations();
+    obj.useMouseEvents(UI_MOUSE_DBL_CLICK);
+
+    obj.hideLabelInner();
+
+    obj.setDefaultSize(15, 120);
+
+    obj.addColorProperty("cold_color", _("Cold signal color"), "0 0.6 0 1", &UIMeter::prop_color_cold);
+    obj.addColorProperty("tepid_color", _("Tepid signal color"), "0.6 0.73 0 1", &UIMeter::prop_color_tepid);
+    obj.addColorProperty("warm_color", _("Warm signal color"), ".85 .85 0 1", &UIMeter::prop_color_warm);
+    obj.addColorProperty("hot_color", _("Hot signal color"), "1 0.6 0 1", &UIMeter::prop_color_hot);
+    obj.addColorProperty("over_color", _("Overload signal color"), "1 0 0 1", &UIMeter::prop_color_over);
+
+    obj.addIntProperty("interval", _("Refresh interval (ms)"), 50, &UIMeter::prop_interval_ms, _("Main"));
+    obj.setPropertyUnits("interval", "msec");
 }
 
 void setup_ui_meter()
