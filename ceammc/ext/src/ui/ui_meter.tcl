@@ -36,7 +36,6 @@ proc meter_create_rms { id cnv w h rms cold tepid warm hot over } {
 
             $cnv create rectangle $x0 $y0 $x1 $y1 -fill $c -width 0 -tags ${id}_#all
         }
-
     }
 }
 
@@ -57,6 +56,25 @@ proc meter_create_peak { id cnv w h peak cold tepid warm hot over } {
     }
 
     $cnv create line $x0 $y0 $x1 $y1 -fill $c -width 2 -tags ${id}_#all
+}
+
+proc meter_create_overload { id cnv w h over } {
+    set led_pad 3
+    if { $w > $h } {
+        set step [expr ($w+1) / 13.0]
+        set x0 [expr round(12 * $step) + 1]
+        set x1 [expr round(13 * $step)]
+        set y0 $led_pad
+        set y1 [expr ($h-$led_pad)+2]
+    } else {
+        set step [expr ($h+1) / 13.0]
+        set x0 $led_pad
+        set x1 [expr ($w-$led_pad)+2]
+        set y0 1
+        set y1 $step
+    }
+
+    $cnv create rectangle $x0 $y0 $x1 $y1 -fill $over -width 0 -tags ${id}_#all
 }
 
 proc meter_create_lines { id cnv w h bdcolor } {
@@ -81,10 +99,11 @@ proc meter_delete {id cnv} {
     $cnv delete ${id}_#all
 }
 
-proc meter_create {id cnv w h bdcolor cold tepid warm hot over rms peak} {
+proc meter_create {id cnv w h bdcolor cold tepid warm hot over rms peak overload} {
     meter_create_lines $id $cnv $w $h $bdcolor
     meter_create_rms $id $cnv $w $h $rms $cold $tepid $warm $hot $over
     meter_create_peak $id $cnv $w $h $peak $cold $tepid $warm $hot $over
+    if { $overload } { meter_create_overload $id $cnv $w $h $over }
 }
 
 }

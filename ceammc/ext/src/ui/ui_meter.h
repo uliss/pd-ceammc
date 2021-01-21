@@ -45,7 +45,6 @@ public:
     void init(t_symbol* name, const AtomList& args, bool usePresets);
     void okSize(t_rect* newrect);
     void paint();
-    void drawLeds();
 
     void dspInit();
     void dspOn(double samplerate, long blocksize);
@@ -64,7 +63,6 @@ private:
     void reset();
     void clockTick();
     void output();
-    const t_rgba& dbfsToColor(int db) const;
 };
 
 void setup_ui_meter();

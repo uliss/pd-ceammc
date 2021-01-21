@@ -17,9 +17,6 @@
 #include "ui_meter.tcl.h"
 
 static const t_float MIN_DB_VALUE = -90;
-static const int NUM_LEDS = 13;
-static const int LED_STEP = 3;
-static const int RMS_BAR_PADDING = 3;
 
 static t_symbol* SYM_HMETER;
 static t_symbol* SYM_VMETER;
@@ -77,7 +74,7 @@ void UIMeter::paint()
     sys_vgui("ui::meter_create #%x %s "
              "%d %d "
              "#%6.6x #%6.6x #%6.6x #%6.6x #%6.6x #%6.6x "
-             "%.2f %.2f\n",
+             "%.2f %.2f %d\n",
         asEBox(), asEBox()->b_drawing_id->s_name,
         (int)width(), (int)height(),
         rgba_to_hex_int(prop_color_border),
@@ -86,37 +83,7 @@ void UIMeter::paint()
         rgba_to_hex_int(prop_color_warm),
         rgba_to_hex_int(prop_color_hot),
         rgba_to_hex_int(prop_color_over),
-        rms_dbfs_, peak_dbfs_);
-}
-
-void UIMeter::drawLeds()
-{
-    const t_rect r = rect();
-    UIPainter p = led_layer_.painter(r);
-    if (!p)
-        return;
-
-    // draw overload
-    if (overload_) {
-        p.setColor(prop_color_over);
-        if (is_horizontal_) {
-            const float led_space = r.width / NUM_LEDS;
-            const int led_x = roundf((NUM_LEDS - 1) * led_space) + 1;
-            const int next_led_x = roundf(NUM_LEDS * led_space);
-            const int led_w = next_led_x - led_x;
-
-            p.drawRect(led_x, RMS_BAR_PADDING, led_w, r.height - 2 * RMS_BAR_PADDING);
-        } else {
-            const float led_space = r.height / NUM_LEDS;
-            const int led_y = 1;
-            const int next_led_y = roundf(led_space);
-            const int led_h = next_led_y - led_y;
-
-            p.drawRect(RMS_BAR_PADDING, led_y, r.width - 2 * RMS_BAR_PADDING, led_h);
-        }
-
-        p.fill();
-    }
+        rms_dbfs_, peak_dbfs_, overload_);
 }
 
 void UIMeter::dspInit()
@@ -153,17 +120,17 @@ void UIMeter::dspProcess(t_sample** ins, long n_ins, t_sample** outs, long n_out
     }
 }
 
-const char* UIMeter::annotateInlet(int n) const
+const char* UIMeter::annotateInlet(int) const
 {
     return "signal: input";
 }
 
-const char* UIMeter::annotateOutlet(int n) const
+const char* UIMeter::annotateOutlet(int) const
 {
     return "list: RMS(db) PEAK(db)";
 }
 
-void UIMeter::onDblClick(t_object* view, const t_pt& pt, long modifiers)
+void UIMeter::onDblClick(t_object* view, const t_pt&, long)
 {
     t_canvas* c = reinterpret_cast<t_canvas*>(view);
     if (c->gl_edit) {
@@ -215,22 +182,6 @@ void UIMeter::output()
     res[1] = peak_dbfs_;
     listTo(0, AtomListView(res, 2));
     send(AtomListView(res, 2));
-}
-
-const t_rgba& UIMeter::dbfsToColor(int dbfs) const
-{
-    dbfs = clip<int>(dbfs, -LED_STEP * NUM_LEDS, 0);
-
-    if (dbfs < -30)
-        return prop_color_cold;
-    else if (dbfs < -21)
-        return prop_color_tepid;
-    else if (dbfs < -12)
-        return prop_color_warm;
-    else if (dbfs < -3)
-        return prop_color_hot;
-    else
-        return prop_color_over;
 }
 
 void UIMeter::setup()
