@@ -18,6 +18,7 @@ constexpr uint32_t RGBA_WHITE = 0xF0F0F0;
 constexpr uint32_t RGBA_BLACK = 0x505050;
 
 static t_symbol* SYM_VKEYBOARD;
+static t_symbol* SYM_VKEYBOARD2;
 
 size_t keyboard_num_white_keys(size_t num_keys)
 {
@@ -175,7 +176,7 @@ void UIKeyboard::init(t_symbol* name, const AtomList& args, bool usePresets)
 {
     UIObject::init(name, args, usePresets);
 
-    if (name == SYM_VKEYBOARD) {
+    if (name == SYM_VKEYBOARD || name == SYM_VKEYBOARD2) {
         prop_vertical = 1;
         std::swap(asEBox()->b_rect.width, asEBox()->b_rect.height);
     }
@@ -312,34 +313,70 @@ int UIKeyboard::findPressedKey(const t_pt& pt) const
 {
     int res = -1;
 
-    const float black_key_w = width() / (keyboard_num_white_keys(prop_keys) * 2.f);
-    const float white_key_w = black_key_w * 2;
-    const int key = music::keyboard::wkey_to_key<int>(round(pt.x / white_key_w));
+    if (prop_vertical) {
+        const auto nwk = keyboard_num_white_keys(prop_keys);
+        const float wkh = height() / nwk;
+        const float pty = height() - pt.y;
 
-    // check nearest white keys
-    for (int i = -2; i < 2; i++) {
-        int idx = key + i;
+        const int wki = std::floor(pty / wkh);
+        const int key = music::keyboard::wkey_to_key<int>(wki);
 
-        if (music::keyboard::is_white_key(idx)) {
-            if (contains_point(white_key_rect(idx, black_key_w, height()), pt)) {
-                res = idx;
+        const float bkw = 0.6 * width();
+
+        if (pt.x < bkw) {
+            const float kstep = 0.5 * wkh;
+            const float koff0 = 0.2 * wkh;
+            const float koff1 = 0.6 * wkh;
+
+            // check nearest black keys
+            for (int i = -2; i < 2; i++) {
+                int idx = key + i;
+
+                if (music::keyboard::is_black_key(idx)) {
+                    int kn = idx % 12;
+                    int koct = idx / 12;
+                    float y0 = (idx * kstep + ((kn > 4 ? 1 : 0) + 2 * koct) * kstep + koff0);
+                    float y1 = y0 + koff1;
+
+                    if (pty >= y0 && pty < y1)
+                        return idx;
+                }
             }
         }
-    }
 
-    // check nearest black keys
-    for (int i = -2; i < 2; i++) {
-        int idx = key + i;
+        return key;
 
-        if (music::keyboard::is_black_key(idx)) {
-            if (contains_point(black_key_rect(idx, black_key_w, height()), pt)) {
-                res = idx;
+    } else {
+
+        const float black_key_w = width() / (keyboard_num_white_keys(prop_keys) * 2.f);
+        const float white_key_w = black_key_w * 2;
+        const int key = music::keyboard::wkey_to_key<int>(round(pt.x / white_key_w));
+
+        // check nearest white keys
+        for (int i = -2; i < 2; i++) {
+            int idx = key + i;
+
+            if (music::keyboard::is_white_key(idx)) {
+                if (contains_point(white_key_rect(idx, black_key_w, height()), pt)) {
+                    res = idx;
+                }
             }
         }
-    }
 
-    if (res >= prop_keys)
-        return prop_keys - 1;
+        // check nearest black keys
+        for (int i = -2; i < 2; i++) {
+            int idx = key + i;
+
+            if (music::keyboard::is_black_key(idx)) {
+                if (contains_point(black_key_rect(idx, black_key_w, height()), pt)) {
+                    res = idx;
+                }
+            }
+        }
+
+        if (res >= prop_keys)
+            return prop_keys - 1;
+    }
 
     return res;
 }
@@ -408,9 +445,12 @@ void UIKeyboard::setup()
     sys_gui(ui_keyboard_tcl);
 
     SYM_VKEYBOARD = gensym("ui.vkeyboard");
+    SYM_VKEYBOARD2 = gensym("ui.vk");
 
     UIObjectFactory<UIKeyboard> obj("ui.keyboard");
+    obj.addAlias("ui.hk");
     obj.addAlias(SYM_VKEYBOARD->s_name);
+    obj.addAlias(SYM_VKEYBOARD2->s_name);
 
     obj.hideLabelInner();
     obj.useAnnotations();

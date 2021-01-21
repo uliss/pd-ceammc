@@ -35,7 +35,8 @@ proc keyboard_create_white_vkeys {id cnv numkeys numwkeys wkcolor acolor bdcolor
         set bit [string index $bits $i]
         if {$bit == 1} { set fc $acolor } { set fc $wkcolor }
 
-        $cnv create rectangle 0 [expr $hi*$wh] $ww [expr ($hi+1)*$wh] -fill $fc -outline $bdcolor \
+        set ki [expr ($numwkeys-($hi+1))]
+        $cnv create rectangle 0 [expr $ki*$wh] $ww [expr ($ki+1)*$wh] -fill $fc -outline $bdcolor \
             -tags ${id}_#all
 
         incr hi
