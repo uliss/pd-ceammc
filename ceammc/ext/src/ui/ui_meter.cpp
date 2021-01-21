@@ -30,7 +30,6 @@ UIMeter::UIMeter()
     , prop_color_hot(rgba_red)
     , prop_color_over(rgba_red)
     , prop_interval_ms(50)
-    , led_layer_(asEBox(), gensym("led_layer"))
     , raw_peak_(0)
     , raw_square_sum_(0)
     , num_samples_(0)
@@ -154,7 +153,6 @@ void UIMeter::calc()
     if (overload_ >= 1000. / prop_interval_ms)
         overload_ = 0;
 
-    led_layer_.invalidate();
     redraw();
 }
 

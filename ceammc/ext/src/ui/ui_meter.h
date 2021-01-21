@@ -29,7 +29,6 @@ class UIMeter : public UIDspObject {
     int prop_interval_ms;
 
 private:
-    UILayer led_layer_;
     t_float raw_peak_;
     double raw_square_sum_;
     size_t num_samples_;
