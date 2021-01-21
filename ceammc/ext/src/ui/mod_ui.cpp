@@ -2,6 +2,7 @@
 
 #include "ui_arrayview.h"
 #include "ui_bang.h"
+#include "ui_button.h"
 #include "ui_colorpanel.h"
 #include "ui_display.h"
 #include "ui_dsp.h"
@@ -39,6 +40,7 @@ void ceammc_ui_setup()
 {
     setup_ui_arrayview();
     setup_ui_bang();
+    setup_ui_button();
     setup_ui_colorpanel();
     setup_ui_display();
     setup_ui_dsp();

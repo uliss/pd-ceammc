@@ -16,6 +16,7 @@ endmacro()
 
 ceammc_ui_extension(arrayview)
 ceammc_ui_extension(bang)
+ceammc_ui_extension(button)
 ceammc_ui_extension(colorpanel)
 ceammc_ui_extension(display)
 ceammc_ui_extension(dsp)
@@ -54,9 +55,12 @@ add_library(ceammc_ui STATIC mod_ui.cpp ${UI_SOURCES})
 
 target_link_libraries(ceammc_ui ceammc_env)
 
+set(TCL_GEN_SCRIPT ${PROJECT_SOURCE_DIR}/ceammc/scripts/filecontent_to_cxx_header.sh)
+
 add_custom_target(ceammc_ui_tcl_gen
-    COMMAND ${PROJECT_SOURCE_DIR}/ceammc/scripts/filecontent_to_cxx_header.sh ui_keyboard.tcl
-    COMMAND ${PROJECT_SOURCE_DIR}/ceammc/scripts/filecontent_to_cxx_header.sh ui_meter.tcl
-    SOURCES ui_keyboard.tcl ui_meter.tcl
+    COMMAND ${TCL_GEN_SCRIPT} ui_keyboard.tcl
+    COMMAND ${TCL_GEN_SCRIPT} ui_meter.tcl
+    COMMAND ${TCL_GEN_SCRIPT} ui_button.tcl
+    SOURCES ui_keyboard.tcl ui_meter.tcl ui_button.tcl
     WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
 )
