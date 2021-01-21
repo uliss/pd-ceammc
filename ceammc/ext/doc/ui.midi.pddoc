@@ -14,6 +14,14 @@
             <keywords>ui menu</keywords>
             <since>0.9.2</since>
         </meta>
+        <mouse>
+            <event editmode="false" type="left-click" keys="Alt">open MIDI-properties dialog</event>
+            <event editmode="false" type="right-click">open popup menu</event>
+            <event editmode="false" type="right-click" keys="Shift">open object help</event>
+            <event editmode="false" type="left-click" keys="Alt">open properties dialog</event>
+            <event editmode="true" type="right-click" keys="Shift">open object help</event>
+            <event editmode="true" type="right-click" keys="Alt">open properties dialog</event>
+        </mouse>
         <properties>
             <property name="@hex" type="int" enum="0 1" default="0">if show values in
             hex</property>

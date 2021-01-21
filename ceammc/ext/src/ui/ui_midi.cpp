@@ -246,6 +246,17 @@ void UIMidi::onPolyTouch(const AtomListView& lv)
     anyTo(0, SYM_POLYTOUCH, lv);
 }
 
+void UIMidi::onMouseDown(t_object* view, const t_pt& pt, const t_pt& abs_pt, long modifiers)
+{
+    if (EMOD_ALT & modifiers)
+        openMidiSettingsDialog();
+}
+
+void UIMidi::openMidiSettingsDialog()
+{
+    sys_gui("pdsend \"pd midi-properties\"\n");
+}
+
 void UIMidi::setup()
 {
     SYM_NOTEIN = gensym("#notein");
@@ -260,6 +271,7 @@ void UIMidi::setup()
     obj.useList();
     obj.setDefaultSize(180, 15);
     obj.hideLabel();
+    obj.useMouseEvents(UI_MOUSE_DOWN);
     obj.hideFontProps();
 
     obj.addProperty(PROP_TEXT_COLOR, _("Text Color"), DEFAULT_TEXT_COLOR, &UIMidi::prop_text_color);

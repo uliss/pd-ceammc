@@ -9,92 +9,109 @@
 #X obj 50 118 ui.midi;
 #X obj 50 147 ui.dt;
 #X obj 20 196 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 201 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
+#X obj 20 201 cnv 5 115 26 empty empty mouse_events: 4 10 0 14 -262144
 -49933 0;
-#X msg 110 236 @cc;
-#X text 245 236 Get/Set if show control change events. Type: int. Default
+#X text 110 236 Left-click + ⌥;
+#X text 285 236 open MIDI-properties dialog.;
+#X text 110 256 Right-click;
+#X text 285 256 open popup menu.;
+#X text 110 276 Right-click + ⇧;
+#X text 285 276 open object help.;
+#X text 110 296 Left-click + ⌥;
+#X text 285 296 open properties dialog.;
+#X text 110 316 Right-click + ⇧;
+#X text 285 316 open object help.;
+#X text 61 316 [Edit];
+#X text 110 336 Right-click + ⌥;
+#X text 285 336 open properties dialog.;
+#X text 61 336 [Edit];
+#X obj 20 366 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 371 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
+-49933 0;
+#X msg 110 406 @cc;
+#X text 245 406 Get/Set if show control change events. Type: int. Default
 value: 1\. Allowed values: 0 \, 1\.;
-#X msg 110 278 @hex;
-#X text 245 278 Get/Set if show values in hex. Type: int. Default value:
+#X msg 110 448 @hex;
+#X text 245 448 Get/Set if show values in hex. Type: int. Default value:
 0\. Allowed values: 0 \, 1\.;
-#X msg 110 320 @notes;
-#X text 245 320 Get/Set if show note on/off events. Type: int. Default
+#X msg 110 490 @notes;
+#X text 245 490 Get/Set if show note on/off events. Type: int. Default
 value: 1\. Allowed values: 0 \, 1\.;
-#X msg 110 362 @pitchwheel;
-#X text 245 362 Get/Set if show pitch wheel events. Type: int. Default
+#X msg 110 532 @pitchwheel;
+#X text 245 532 Get/Set if show pitch wheel events. Type: int. Default
 value: 1\. Allowed values: 0 \, 1\.;
-#X msg 110 404 @program;
-#X text 245 404 Get/Set if show program change events. Type: int. Default
+#X msg 110 574 @program;
+#X text 245 574 Get/Set if show program change events. Type: int. Default
 value: 1\. Allowed values: 0 \, 1\.;
-#X msg 110 446 @receive;
-#X text 245 446 Get/Set receive source. Type: symbol. Default value:
+#X msg 110 616 @receive;
+#X text 245 616 Get/Set receive source. Type: symbol. Default value:
 (null).;
-#X msg 110 475 @send;
-#X text 245 475 Get/Set send destination. Type: symbol. Default value:
+#X msg 110 645 @send;
+#X text 245 645 Get/Set send destination. Type: symbol. Default value:
 (null).;
-#X msg 110 517 @sysex;
-#X text 245 517 Get/Set if show sysex events. Type: int. Default value:
+#X msg 110 687 @sysex;
+#X text 245 687 Get/Set if show sysex events. Type: int. Default value:
 1\. Allowed values: 0 \, 1\.;
-#X msg 110 559 @touch;
-#X text 245 559 Get/Set if show aftertouch (poly) events. Type: int.
+#X msg 110 729 @touch;
+#X text 245 729 Get/Set if show aftertouch (poly) events. Type: int.
 Default value: 1\. Allowed values: 0 \, 1\.;
-#X msg 110 601 @active_color;
-#X text 245 601 Get/Set active color (list of red \, green \, blue
+#X msg 110 771 @active_color;
+#X text 245 771 Get/Set active color (list of red \, green \, blue
 values in 0-1 range). Type: list. Default value: 0.63 0.88 0 1\.;
-#X msg 110 643 @background_color;
-#X text 245 643 Get/Set element background color (list of red \, green
+#X msg 110 813 @background_color;
+#X text 245 813 Get/Set element background color (list of red \, green
 \, blue values in 0-1 range). Type: list. Default value: 0.93 0.93
 0.93 1\.;
-#X msg 110 700 @border_color;
-#X text 245 700 Get/Set border color (list of red \, green \, blue
+#X msg 110 870 @border_color;
+#X text 245 870 Get/Set border color (list of red \, green \, blue
 values in 0-1 range). Type: list. Default value: 0.6 0.6 0.6 1\.;
-#X msg 110 742 @text_color;
-#X text 245 742 Get/Set text color (list of red \, green \, blue values
+#X msg 110 912 @text_color;
+#X text 245 912 Get/Set text color (list of red \, green \, blue values
 in 0-1 range). Type: list. Default value: 0 0 0 1\.;
-#X msg 110 784 @fontname;
-#X text 245 784 Get/Set fontname. Type: symbol. Default value: Helvetica.;
-#X msg 110 813 @fontsize;
-#X text 245 813 Get/Set fontsize. Type: int. Default value: 11\. Range:
+#X msg 110 954 @fontname;
+#X text 245 954 Get/Set fontname. Type: symbol. Default value: Helvetica.;
+#X msg 110 983 @fontsize;
+#X text 245 983 Get/Set fontsize. Type: int. Default value: 11\. Range:
 4\...11\.;
-#X msg 110 855 @fontslant;
-#X text 245 855 Get/Set font slant. Type: symbol. Default value: roman.
+#X msg 110 1025 @fontslant;
+#X text 245 1025 Get/Set font slant. Type: symbol. Default value: roman.
 Allowed values: roman \, italic.;
-#X msg 110 897 @fontweight;
-#X text 245 897 Get/Set font weight. Type: symbol. Default value: normal.
-Allowed values: normal \, bold.;
-#X msg 110 939 @pinned;
-#X text 245 939 Get/Set pin mode. if 1 - put element to the lowest
+#X msg 110 1067 @fontweight;
+#X text 245 1067 Get/Set font weight. Type: symbol. Default value:
+normal. Allowed values: normal \, bold.;
+#X msg 110 1109 @pinned;
+#X text 245 1109 Get/Set pin mode. if 1 - put element to the lowest
 level. Type: int. Default value: 0\. Allowed values: 0 \, 1\.;
-#X msg 110 981 @size;
-#X text 245 981 Get/Set element size (width \, height pair). Type:
+#X msg 110 1151 @size;
+#X text 245 1151 Get/Set element size (width \, height pair). Type:
 list. Default value: 180 15\.;
-#X obj 20 1033 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1038 cnv 5 73 26 empty empty methods: 4 10 0 14 -262144
+#X obj 20 1203 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1208 cnv 5 73 26 empty empty methods: 4 10 0 14 -262144
 -49933 0;
-#X msg 110 1073 pos;
-#X text 245 1073 set UI element position. Arguments are:;
-#X obj 255 1096 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1096 X: top left x-coord. Type: float.;
-#X obj 255 1119 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1119 Y: top right y-coord. Type: float.;
-#X obj 20 1154 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1159 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144
+#X msg 110 1243 pos;
+#X text 245 1243 set UI element position. Arguments are:;
+#X obj 255 1266 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1266 X: top left x-coord. Type: float.;
+#X obj 255 1289 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1289 Y: top right y-coord. Type: float.;
+#X obj 20 1324 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1329 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 1160 1\.;
-#X text 245 1160 control input.;
-#X obj 20 1190 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1195 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
+#X text 110 1330 1\.;
+#X text 245 1330 control input.;
+#X obj 20 1360 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1365 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 1196 1\.;
-#X text 245 1196 MIDI output.;
+#X text 110 1366 1\.;
+#X text 245 1366 MIDI output.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 115 45 ::;
 #X obj 131 48 ui.link @title ui @url ceammc.ui-help.pd;
-#X obj 1 1246 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 1249 library: ceammc v0.9.1;
-#N canvas 10 1268 400 290 info 0;
+#X obj 1 1416 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1419 library: ceammc v0.9.1;
+#N canvas 10 1438 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
@@ -118,5 +135,5 @@ https://github.com/uliss/pure-data;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 generated by pddoc;
-#X restore 10 1268 pd info;
+#X restore 10 1438 pd info;
 #X connect 4 0 5 0;

@@ -54,8 +54,13 @@ public:
     void onTouch(const AtomListView& lv);
     void onPolyTouch(const AtomListView& lv);
 
+    void onMouseDown(t_object* view, const t_pt& pt, const t_pt& abs_pt, long modifiers);
+
 public:
     static void setup();
+
+private:
+    void openMidiSettingsDialog();
 };
 
 void setup_ui_midi();
