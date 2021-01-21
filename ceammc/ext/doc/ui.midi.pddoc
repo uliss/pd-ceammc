@@ -15,7 +15,8 @@
             <since>0.9.2</since>
         </meta>
         <mouse>
-            <event editmode="false" type="right-click">open popup menu with MIDI settings item</event>
+            <event editmode="false" type="right-click">open popup menu with MIDI settings
+            item</event>
             <event editmode="false" type="right-click" keys="Shift">open object help</event>
             <event editmode="false" type="left-click" keys="Alt">open properties dialog</event>
             <event editmode="true" type="right-click" keys="Shift">open object help</event>

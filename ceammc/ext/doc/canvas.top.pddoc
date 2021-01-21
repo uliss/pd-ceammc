@@ -34,9 +34,9 @@
             <property name="@y" readonly="true" type="int" default="0">window y-pos</property>
         </properties>
         <methods>
-            <method name="postscript">save patch to postscript
-            <param type="symbol" name="FNAME" required="false">file. If not specified patch name used with .ps extension
-            </param></method>
+            <method name="postscript">save patch to postscript 
+            <param type="symbol" name="FNAME" required="false">file. If not specified patch name
+            used with .ps extension</param></method>
         </methods>
         <inlets>
             <inlet>

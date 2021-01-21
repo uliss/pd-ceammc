@@ -57,7 +57,8 @@
             </inlet>
         </inlets>
         <outlets>
-            <outlet>outputs @on_value on mouse down and @off_value on mouse up (default 1 and 0)</outlet>
+            <outlet>outputs @on_value on mouse down and @off_value on mouse up (default 1 and
+            0)</outlet>
         </outlets>
         <example>
             <pdascii>

@@ -24,8 +24,8 @@
             mode</property>
             <property name="@set" type="alias">alias to @mode set</property>
             <property name="@transpose" type="alias">alias to @mode transpose</property>
-            <property name="@random" type="list">random octave range. Arguments are:
-            MIN MAX.</property>
+            <property name="@random" type="list">random octave range. Arguments are: MIN
+            MAX.</property>
         </properties>
         <inlets>
             <inlet>
