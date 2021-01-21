@@ -862,6 +862,7 @@ ui.hrd*
 ui.hsl
 ui.icon
 ui.incdec
+ui.k
 ui.keyboard
 ui.knob
 ui.label

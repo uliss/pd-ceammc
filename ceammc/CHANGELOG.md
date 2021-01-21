@@ -17,8 +17,12 @@
   - conv.bits2bang (with bits->bang alias) added
   - conv.bits2note (with bits->note alias) added
   - conv.sig2float (with sig->float~ and s->f~ aliases) added
-  - ui.hk alias added for ui.keyboard (horizontal)
   - ui.vkeyboard added (with ui.vk alias for vertical keyboard)
+- new aliases:
+  - ui.hk alias added for ui.keyboard (horizontal)
+  - ui.k alias added for ui.knob
+- arguments:
+  - ui.keyboard NKEYS SHIFT arguments added
 - comma separated messages added to msg.onload (loadmsg)
 - @from property added to patch.args
 - hex output added to ui.display (@hex and @hex_width properties)
