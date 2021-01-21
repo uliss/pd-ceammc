@@ -28,6 +28,8 @@
   - ui.meter~ change orientation by Ctl/Cmd+double-click in edit mode, like ui.radio and ui.slider
 - arguments:
   - ui.keyboard NKEYS SHIFT arguments added
+- methods:
+  - *postscript* method added to canvas.top for saving patch to PostScript
 - comma separated messages added to msg.onload (loadmsg)
 - @from property added to patch.args
 - hex output added to ui.display (@hex and @hex_width properties)
