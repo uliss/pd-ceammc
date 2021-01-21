@@ -45,7 +45,6 @@ public:
     void init(t_symbol* name, const AtomList& args, bool usePresets);
     void okSize(t_rect* newrect);
     void paint();
-    void drawBackground();
     void drawLeds();
 
     void dspInit();

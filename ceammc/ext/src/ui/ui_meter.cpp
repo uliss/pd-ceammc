@@ -14,6 +14,7 @@
 #include "ui_meter.h"
 #include "ceammc_convert.h"
 #include "ceammc_ui.h"
+#include "ui_meter.tcl.h"
 
 static const t_float MIN_DB_VALUE = -90;
 static const int NUM_LEDS = 13;
@@ -70,38 +71,22 @@ void UIMeter::okSize(t_rect* newrect)
 
 void UIMeter::paint()
 {
-    drawBackground();
-    drawLeds();
-}
+    sys_vgui("ui::meter_delete #%x %s\n",
+        asEBox(), asEBox()->b_drawing_id->s_name);
 
-void UIMeter::drawBackground()
-{
-    const t_rect r = rect();
-    UIPainter p = bg_layer_.painter(r);
-
-    if (!p)
-        return;
-
-    p.setColor(prop_color_border);
-    if (is_horizontal_) {
-        float ratio = r.width / NUM_LEDS;
-        for (int i = 1; i < NUM_LEDS; i++) {
-            float x = roundf(i * ratio);
-            p.drawLine(x, -1, x, r.height + 1);
-        }
-
-    } else {
-        float ratio = r.height / NUM_LEDS;
-        for (int i = 1; i < NUM_LEDS; i++) {
-            float y = roundf(i * ratio);
-            p.drawLine(-1, y, r.width + 1, y);
-        }
-    }
-}
-
-static inline float led2Db(int ledIdx)
-{
-    return -1 * (NUM_LEDS - ledIdx) * LED_STEP;
+    sys_vgui("ui::meter_create #%x %s "
+             "%d %d "
+             "#%6.6x #%6.6x #%6.6x #%6.6x #%6.6x #%6.6x "
+             "%.2f %.2f\n",
+        asEBox(), asEBox()->b_drawing_id->s_name,
+        (int)width(), (int)height(),
+        rgba_to_hex_int(prop_color_border),
+        rgba_to_hex_int(prop_color_cold),
+        rgba_to_hex_int(prop_color_tepid),
+        rgba_to_hex_int(prop_color_warm),
+        rgba_to_hex_int(prop_color_hot),
+        rgba_to_hex_int(prop_color_over),
+        rms_dbfs_, peak_dbfs_);
 }
 
 void UIMeter::drawLeds()
@@ -110,51 +95,6 @@ void UIMeter::drawLeds()
     UIPainter p = led_layer_.painter(r);
     if (!p)
         return;
-
-    // draw rms
-    for (int i = 0; i < NUM_LEDS; i++) {
-        const float db = led2Db(i);
-
-        if (rms_dbfs_ > db) {
-            const float diff = rms_dbfs_ - db;
-            const bool top = (diff < LED_STEP);
-
-            p.setColor(dbfsToColor(db));
-
-            if (is_horizontal_) {
-                const float led_space = r.width / NUM_LEDS;
-                const int top_offset = roundf((top ? (1 - (diff / LED_STEP)) : 0) * led_space);
-                const int led_x = roundf(i * led_space) + 1;
-                const int next_led_x = roundf((i + 1) * led_space);
-                const int led_w = next_led_x - led_x - top_offset;
-
-                p.drawRect(led_x, RMS_BAR_PADDING, led_w, r.height - 2 * RMS_BAR_PADDING);
-            } else {
-                const float led_space = r.height / NUM_LEDS;
-                const float top_offset = (top ? (1 - (diff / LED_STEP)) : 0) * led_space;
-                const int led_y = roundf((NUM_LEDS - i - 1) * led_space + top_offset) + 1;
-                const int next_led_y = roundf((NUM_LEDS - i) * led_space);
-                const int led_h = next_led_y - led_y;
-
-                p.drawRect(RMS_BAR_PADDING, led_y, r.width - 2 * RMS_BAR_PADDING, led_h);
-            }
-
-            p.fill();
-        }
-    }
-
-    // draw peak
-    p.setColor(dbfsToColor(peak_dbfs_));
-    p.setLineWidth(2);
-    if (is_horizontal_) {
-        float x = convert::lin2lin<float>(peak_dbfs_, -(LED_STEP * NUM_LEDS), 0, 0, r.width);
-        x = std::min<float>(roundf(x), r.width);
-        p.drawLine(x, -1, x, r.height + 1);
-    } else {
-        float y = convert::lin2lin<float>(peak_dbfs_, -(LED_STEP * NUM_LEDS), 0, r.height, 0);
-        y = std::max<float>(0, roundf(y));
-        p.drawLine(-1, y, r.width + 1, y);
-    }
 
     // draw overload
     if (overload_) {
@@ -295,6 +235,8 @@ const t_rgba& UIMeter::dbfsToColor(int dbfs) const
 
 void UIMeter::setup()
 {
+    sys_gui(ui_meter_tcl);
+
     SYM_HMETER = gensym("ui.hm~");
     SYM_VMETER = gensym("ui.vm~");
     SYM_VMETER2 = gensym("ui.m~");
