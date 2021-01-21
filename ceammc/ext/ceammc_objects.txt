@@ -596,6 +596,7 @@ midi.key2str
 midi.oct
 midi.prg->str
 midi.prg2str
+midi.sustain
 midi.sysex
 midi.track
 midi.tuning
@@ -855,6 +856,7 @@ ui.gain2~
 ui.gain~
 ui.hgain2~
 ui.hgain~
+ui.hk
 ui.hrd
 ui.hrd*
 ui.hsl
@@ -895,6 +897,8 @@ ui.tab
 ui.toggle
 ui.vgain2~
 ui.vgain~
+ui.vk
+ui.vkeyboard
 ui.vrd
 ui.vrd*
 ui.vsl

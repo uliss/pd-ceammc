@@ -7,6 +7,7 @@
 //
 
 #include "ui_keyboard.h"
+#include "ceammc_convert.h"
 #include "ceammc_music_theory_keyboard.h"
 #include "ceammc_ui.h"
 #include "ui_keyboard.tcl.h"
@@ -14,11 +15,17 @@
 #include <cinttypes>
 
 constexpr int NO_KEY = -1;
+constexpr int MIN_KEYS = 5;
+constexpr int DEFAULT_SHIFT = 36;
+constexpr int DEFAULT_HEIGHT = 60;
+constexpr float MIN_WKEY_WIDTH = 8;
+constexpr float DEFAULT_WKEY_WIDTH = 12;
 constexpr uint32_t RGBA_WHITE = 0xF0F0F0;
 constexpr uint32_t RGBA_BLACK = 0x505050;
 
 static t_symbol* SYM_VKEYBOARD;
 static t_symbol* SYM_VKEYBOARD2;
+static t_symbol* SYM_PROP_KEYS;
 
 size_t keyboard_num_white_keys(size_t num_keys)
 {
@@ -115,7 +122,7 @@ UIKeyboard::UIKeyboard()
 
 bool UIKeyboard::okSize(t_rect* newrect)
 {
-    const float min_length = keyboard_num_white_keys(prop_keys) * 8;
+    const float min_length = keyboard_num_white_keys(prop_keys) * MIN_WKEY_WIDTH;
 
     if (prop_vertical) {
         newrect->width = pd_clip_min(newrect->width, 40.);
@@ -176,10 +183,44 @@ void UIKeyboard::init(t_symbol* name, const AtomList& args, bool usePresets)
 {
     UIObject::init(name, args, usePresets);
 
-    if (name == SYM_VKEYBOARD || name == SYM_VKEYBOARD2) {
+    if (name == SYM_VKEYBOARD || name == SYM_VKEYBOARD2)
         prop_vertical = 1;
-        std::swap(asEBox()->b_rect.width, asEBox()->b_rect.height);
+
+    // number of keys
+    const int nkeys = args.intAt(0, -1);
+
+    // no positional arguments or invalid
+    if (nkeys <= MIN_KEYS) {
+        // set prop_keys
+        const size_t N = args.size();
+        for (size_t i = 0; i < N; i++) {
+            const auto& a = args[i];
+            if (a != SYM_PROP_KEYS)
+                continue;
+
+            if (i + 1 >= N)
+                break;
+
+            prop_keys = clip<int>(args[i + 1].asInt(0), MIN_KEYS, MAX_KEYS);
+            break;
+        }
+    } else {
+        prop_keys = clip<int>(nkeys, MIN_KEYS, MAX_KEYS);
     }
+
+    // set dimensions
+    const int dim1 = DEFAULT_HEIGHT;
+    const int dim2 = keyboard_num_white_keys(prop_keys) * DEFAULT_WKEY_WIDTH;
+    if (prop_vertical) {
+        asEBox()->b_rect.width = dim1;
+        asEBox()->b_rect.height = dim2;
+    } else {
+        asEBox()->b_rect.width = dim2;
+        asEBox()->b_rect.height = dim1;
+    }
+
+    // key shift
+    prop_shift = args.intAt(1, DEFAULT_SHIFT);
 }
 
 void UIKeyboard::releaseAllNotes()
@@ -446,6 +487,7 @@ void UIKeyboard::setup()
 
     SYM_VKEYBOARD = gensym("ui.vkeyboard");
     SYM_VKEYBOARD2 = gensym("ui.vk");
+    SYM_PROP_KEYS = gensym("@keys");
 
     UIObjectFactory<UIKeyboard> obj("ui.keyboard");
     obj.addAlias("ui.hk");
@@ -465,11 +507,11 @@ void UIKeyboard::setup()
     obj.hideProperty(PROP_BACKGROUND_COLOR);
 
     obj.addProperty("keys", _("Keys"), 61, &UIKeyboard::prop_keys, _("Main"));
-    obj.setDefaultSize(433, 60);
-    obj.setPropertyRange("keys", 5, MAX_KEYS);
+    obj.setDefaultSize(433, DEFAULT_HEIGHT);
+    obj.setPropertyRange("keys", MIN_KEYS, MAX_KEYS);
 
     obj.addProperty("shift", _("Leftmost MIDI note"), 36, &UIKeyboard::prop_shift, _("Main"));
-    obj.setPropertyRange("shift", 6, MAX_KEYS);
+    obj.setPropertyRange("shift", DEFAULT_SHIFT, MAX_KEYS);
 }
 
 void setup_ui_keyboard()
