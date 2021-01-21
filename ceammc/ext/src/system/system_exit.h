@@ -22,6 +22,7 @@ class SystemExit : public BaseObject {
     ClockLambdaFunction clock_;
     FloatProperty* delay_;
     IntProperty* rc_;
+    BoolProperty* auto_;
 
 public:
     SystemExit(const PdArgs& args);

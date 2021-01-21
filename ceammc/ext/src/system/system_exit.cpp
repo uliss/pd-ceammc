@@ -19,6 +19,7 @@ SystemExit::SystemExit(const PdArgs& args)
     , clock_([this]() { exit(rc_->value()); })
     , delay_(nullptr)
     , rc_(nullptr)
+    , auto_(nullptr)
 {
     delay_ = new FloatProperty("@delay", 0);
     delay_->checkMinEq(0);
@@ -28,19 +29,21 @@ SystemExit::SystemExit(const PdArgs& args)
 
     rc_ = new IntProperty("@rc", 0);
     addProperty(rc_);
+
+    auto_ = new BoolProperty("@auto", false);
+    addProperty(auto_);
 }
 
 void SystemExit::initDone()
 {
-    auto ms = delay_->value();
-
-    if (ms > 0)
-        clock_.delay(ms);
+    if (auto_->value())
+        clock_.delay(delay_->value());
 }
 
 void SystemExit::m_exit(t_symbol* s, const AtomListView& lv)
 {
-    exit(lv.intAt(0, rc_->value()));
+    rc_->setList(lv);
+    clock_.delay(delay_->value());
 }
 
 void SystemExit::exit(int rc)
