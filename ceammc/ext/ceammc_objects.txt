@@ -846,6 +846,8 @@ tl.transport
 ui.aview
 ui.b
 ui.bang
+ui.btn
+ui.button
 ui.colorpanel
 ui.d
 ui.display
@@ -857,6 +859,7 @@ ui.gain~
 ui.hgain2~
 ui.hgain~
 ui.hk
+ui.hm~
 ui.hrd
 ui.hrd*
 ui.hsl
@@ -900,6 +903,7 @@ ui.vgain2~
 ui.vgain~
 ui.vk
 ui.vkeyboard
+ui.vm~
 ui.vrd
 ui.vrd*
 ui.vsl
