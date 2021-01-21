@@ -219,8 +219,11 @@ void UIKeyboard::init(t_symbol* name, const AtomList& args, bool usePresets)
         asEBox()->b_rect.height = dim1;
     }
 
-    // key shift
-    prop_shift = args.intAt(1, DEFAULT_SHIFT);
+    // check if first argument is not property
+    if (args.size() > 2 && args[0].isFloat()) {
+        // key shift
+        prop_shift = args.intAt(1, DEFAULT_SHIFT);
+    }
 }
 
 void UIKeyboard::releaseAllNotes()
