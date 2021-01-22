@@ -66,6 +66,8 @@ void* ceammc_new()
         return NULL;
     }
 
+    pd_bind(&x->te_g.g_pd, gensym("ceammc"));
+
     return x;
 }
 
@@ -84,6 +86,29 @@ void ceammc_bang(t_object* x)
 
     endpost();
 }
+
+void ceammc_postscript(t_object* x, t_symbol* path)
+{
+    post("ceammc_postscript: %s", path->s_name);
+    sys_vgui("::ceammc::postscript {%s}\n", path->s_name);
+}
+
+void ceammc_tcl(t_object* x, t_symbol* s, int argc, t_atom* argv)
+{
+    for (int i = 0; i < argc; i++) {
+        char buf[MAXPDSTRING];
+        atom_string(argv + i, buf, MAXPDSTRING);
+        sys_vgui("%s ", buf);
+    }
+
+    sys_gui("\n");
+}
+
+void ceammc_cords(t_object* x, t_symbol* s)
+{
+    if (s == gensym("lower"))
+        sys_vgui("[tkcanvas_name $::focused_window] lower cord\n");
+}
 }
 
 extern "C" CEAMMC_EXTERN void ceammc_setup()
@@ -98,6 +123,16 @@ extern "C" CEAMMC_EXTERN void ceammc_setup()
         sizeof(t_object), CLASS_DEFAULT, A_NULL);
 
     class_addbang(ceammc_class, reinterpret_cast<t_method>(ceammc_bang));
+    class_addmethod(ceammc_class,
+        reinterpret_cast<t_method>(ceammc_postscript), gensym("postscript"), A_DEFSYMBOL, 0);
+    class_addmethod(ceammc_class,
+        reinterpret_cast<t_method>(ceammc_cords), gensym("cords"), A_DEFSYMBOL, 0);
+
+    auto tcl = getenv("CEAMMC_TCL");
+    if (tcl && tcl[0] == '1') {
+        class_addmethod(ceammc_class,
+            reinterpret_cast<t_method>(ceammc_tcl), gensym("tcl"), A_GIMME, 0);
+    }
 
     if (!ceammc_class) {
         pd_error(0, "[ceammc] can't create library class");
