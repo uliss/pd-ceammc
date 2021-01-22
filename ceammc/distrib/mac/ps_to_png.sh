@@ -28,9 +28,9 @@ JPEG_OUT="${IN%.ps}.jpg"
 
 gsed -i \
     -e 's/Courier/Monaco/' \
-#    -e 's/findfont 12/findfont 11/' \
+    -e 's/findfont 12/findfont 11/' \
     -e 's/] 16 -0.0 0.0 0 false DrawText/] 16 -0.00 -0.3 0 false DrawText/' \
-    "$1"
+    "$IN"
 
 pstopdf $IN $PDF_OUT
 
