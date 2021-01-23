@@ -2244,56 +2244,64 @@ static void ebox_draw_border(t_ebox* x)
         color);
 }
 
+static void do_draw_inlets(const char* cnv, t_object* x, int w, int h, int zoom, ceammc::XletGetAnnotationFn fn)
+{
+    const int N_IN = obj_ninlets(x);
+    char buf[N_IN + 1];
+
+    for (int i = 0; i < N_IN; i++)
+        buf[i] = obj_issignalinlet(x, i) ? '~' : '_';
+
+    buf[N_IN] = '\0';
+
+    sys_vgui("::ceammc::ui::inlets_draw %s %lx %d %d %d %s\n",
+        cnv, x, w, h, zoom, buf);
+
+    if (fn) {
+        for (int i = 0; i < N_IN; i++) {
+            const char* str = fn(x, ceammc::XLET_IN, i);
+            if (str != nullptr && str[0] != '\0')
+                sys_vgui("::ceammc::ui::inlet_tooltip %s %lx %d {%s}\n", cnv, x, i, str);
+        }
+    }
+}
+
+static void do_draw_outlets(const char* cnv, t_object* x, int w, int h, int zoom, ceammc::XletGetAnnotationFn fn)
+{
+    const int N_OUT = obj_noutlets(x);
+    char buf[N_OUT + 1];
+
+    for (int i = 0; i < N_OUT; i++)
+        buf[i] = obj_issignaloutlet(x, i) ? '~' : '_';
+
+    buf[N_OUT] = '\0';
+
+    sys_vgui("::ceammc::ui::outlets_draw %s %lx %d %d %d %s\n",
+        cnv, x, w, h, zoom, buf);
+
+    if (fn) {
+        for (int i = 0; i < N_OUT; i++) {
+            const char* str = fn(x, ceammc::XLET_OUT, i);
+            if (str != nullptr && str[0] != '\0') {
+                sys_vgui("::ceammc::ui::outlet_tooltip %s %lx %d {%s}\n", cnv, x, i, str);
+            }
+        }
+    }
+}
+
 static void ebox_draw_iolets(t_ebox* x)
 {
     if (!x->b_boxparameters.d_hideiolets) {
         if (!x->b_isinsubcanvas) {
-            const t_object* obj = reinterpret_cast<t_object*>(x);
+            t_object* obj = reinterpret_cast<t_object*>(x);
 
-            const int N_IN = obj_ninlets(obj);
-            char buf[256] = "";
-            for (int i = 0; i < N_IN; i++)
-                buf[i] = obj_issignalinlet(obj, i) ? '~' : '_';
+            auto ann_fn = ceammc::ceammc_get_annotation_fn(&obj->te_g.g_pd);
 
-            buf[N_IN] = '\0';
+            do_draw_inlets(x->b_canvas_id->s_name, obj,
+                x->b_rect.width, x->b_rect.height, x->b_zoom, ann_fn);
 
-            sys_vgui("::ceammc::ui::inlets_draw %s %lx %d %d %d %s\n",
-                x->b_canvas_id->s_name, x,
-                (int)x->b_rect.width, (int)x->b_rect.height,
-                (int)x->b_zoom, buf);
-
-            auto ann_fn = ceammc::ceammc_get_annotation_fn(&x->b_obj.o_obj.te_g.g_pd);
-
-            if (ann_fn) {
-                for (int i = 0; i < N_IN; i++) {
-                    const char* str = ann_fn(&x->b_obj.o_obj, ceammc::XLET_IN, i);
-                    if (str != nullptr && str[0] != '\0') {
-                        sys_vgui("::ceammc::ui::inlet_tooltip %s %lx %d {%s}\n",
-                            x->b_canvas_id->s_name, x, i, str);
-                    }
-                }
-            }
-
-            const int N_OUT = obj_noutlets(obj);
-            for (int i = 0; i < N_OUT; i++)
-                buf[i] = obj_issignaloutlet(obj, i) ? '~' : '_';
-
-            buf[N_OUT] = '\0';
-
-            sys_vgui("::ceammc::ui::outlets_draw %s %lx %d %d %d %s\n",
-                x->b_canvas_id->s_name, x,
-                (int)x->b_rect.width, (int)x->b_rect.height,
-                (int)x->b_zoom, buf);
-
-            if (ann_fn) {
-                for (int i = 0; i < N_OUT; i++) {
-                    const char* str = ann_fn(&x->b_obj.o_obj, ceammc::XLET_OUT, i);
-                    if (str != nullptr && str[0] != '\0') {
-                        sys_vgui("::ceammc::ui::outlet_tooltip %s %lx %d {%s}\n",
-                            x->b_canvas_id->s_name, x, i, str);
-                    }
-                }
-            }
+            do_draw_outlets(x->b_canvas_id->s_name, obj,
+                x->b_rect.width, x->b_rect.height, x->b_zoom, ann_fn);
         }
     }
 }
