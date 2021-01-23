@@ -356,6 +356,10 @@ proc widget_lower { cnv id } {
     lower [widget_canvas $cnv $id]
 }
 
+proc widget_focus { cnv id } {
+    focus [widget_canvas $cnv $id]
+}
+
 proc widget_bg { cnv id color } {
     set c [widget_canvas $cnv $id]
     $c configure -bg $color

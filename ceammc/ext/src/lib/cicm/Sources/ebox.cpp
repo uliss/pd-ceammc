@@ -941,10 +941,10 @@ void ebox_mouse_enter(t_ebox* x)
     t_eclass* c = eobj_getclass(&x->b_obj);
 
     if (!x->b_obj.o_canvas->gl_edit && !x->b_mouse_down) {
-        sys_vgui("focus %s\n", x->b_drawing_id->s_name);
-        if (c->c_widget.w_mouseenter) {
+        sys_vgui("::ceammc::ui::widget_focus %s %lx\n", x->b_canvas_id->s_name, x);
+
+        if (c->c_widget.w_mouseenter)
             c->c_widget.w_mouseenter(x);
-        }
     }
 }
 
