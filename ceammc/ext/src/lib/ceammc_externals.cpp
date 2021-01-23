@@ -12,6 +12,7 @@
  * this file belongs to.
  *****************************************************************************/
 #include "ceammc_externals.h"
+#include "ceammc_convert.h"
 #include "ceammc_factory.h"
 #include "ceammc_faust.h"
 #include "ceammc_object.h"
@@ -95,9 +96,9 @@ bool is_ceammc_abstraction(t_object* x)
     return false;
 }
 
-const BaseObject* ceammc_to_base_object(t_object* x)
+const BaseObject* ceammc_to_base_object(t_object* x, bool check)
 {
-    if (!is_ceammc_base(x))
+    if (check && !is_ceammc_base(x))
         return nullptr;
 
     auto pd_obj = reinterpret_cast<PdObject<BaseObject>*>(x);
@@ -126,9 +127,9 @@ std::vector<PropertyInfo> ceammc_base_properties(t_object* x)
     return res;
 }
 
-const UIObject* ceammc_to_ui_object(t_object* x)
+const UIObject* ceammc_to_ui_object(t_object* x, bool check)
 {
-    if (!is_ceammc_ui(x))
+    if (check && !is_ceammc_ui(x))
         return nullptr;
 
     return reinterpret_cast<const UIObject*>(x);
@@ -172,8 +173,12 @@ std::vector<PropertyInfo> ceammc_faust_properties(t_object* x)
 std::vector<PropertyInfo> ceammc_abstraction_properties(t_object* x)
 {
     static t_symbol* SYM_PROP_DECL = gensym("prop.declare");
+    static t_symbol* SYM_CANVAS = gensym("canvas");
 
-    if (!is_ceammc_abstraction(x))
+    if (!x)
+        return {};
+
+    if (x->te_g.g_pd->c_name != SYM_CANVAS)
         return {};
 
     std::vector<PropertyInfo> res;
@@ -207,6 +212,192 @@ std::vector<PropertyInfo> ceammc_abstraction_properties(t_object* x)
     }
 
     return res;
+}
+
+static MaybeFloat rangeValueFromCC(const PropertyInfo& info, t_float val)
+{
+    if (info.isFloat()) {
+        switch (info.constraints()) {
+        case PropValueConstraints::CLOSED_RANGE:
+            return convert::lin2lin_clip<t_float, 0, 127>(val, info.minFloat(), info.maxFloat());
+        case PropValueConstraints::OPEN_RANGE:
+            return convert::lin2lin_clip<t_float, 1, 126>(val, info.minFloat(), info.maxFloat());
+        case PropValueConstraints::OPEN_CLOSED_RANGE:
+            return convert::lin2lin_clip<t_float, 1, 127>(val, info.minFloat(), info.maxFloat());
+        case PropValueConstraints::CLOSED_OPEN_RANGE:
+            return convert::lin2lin_clip<t_float, 0, 126>(val, info.minFloat(), info.maxFloat());
+        default:
+            return {};
+        }
+    } else if (info.isInt()) {
+        switch (info.constraints()) {
+        case PropValueConstraints::CLOSED_RANGE:
+            return (int)convert::lin2lin_clip<t_float, 0, 127>(val, info.minInt(), info.maxInt());
+        case PropValueConstraints::OPEN_RANGE:
+            return (int)convert::lin2lin_clip<t_float, 1, 126>(val, info.minInt(), info.maxInt());
+        case PropValueConstraints::OPEN_CLOSED_RANGE:
+            return (int)convert::lin2lin_clip<t_float, 1, 127>(val, info.minInt(), info.maxInt());
+        case PropValueConstraints::CLOSED_OPEN_RANGE:
+            return (int)convert::lin2lin_clip<t_float, 0, 126>(val, info.minInt(), info.maxInt());
+        default:
+            return {};
+        }
+    } else if (info.isBool()) {
+        return val > 64;
+    } else
+        return {};
+}
+
+PropertySetState ceammc_base_property_set_cc(t_object* x, t_symbol* key, t_float val, bool check)
+{
+    using PPS = PropertySetState;
+
+    BaseObject* obj = const_cast<BaseObject*>(ceammc_to_base_object(x, check));
+    if (!obj)
+        return PPS::OTHER_TYPE;
+
+    for (auto& p : obj->properties())
+        LIB_ERR << p->name()->s_name;
+
+    auto prop = obj->property(key);
+    if (!prop)
+        return PPS::ERROR_NOT_FOUND;
+
+    auto& info = prop->infoT();
+    // check rw
+    if (!info.isReadWrite())
+        return PPS::ERROR_ACCESS;
+
+    if (!info.isNumeric())
+        return PPS::ERROR_INVALID_TYPE;
+
+    auto newval = rangeValueFromCC(info, val);
+    if (!newval)
+        return PPS::ERROR_NO_RANGE;
+
+    Atom a(*newval);
+    if (prop->set(AtomListView(a)))
+        return PPS::OK;
+    else
+        return PPS::ERROR_SET_VALUE;
+}
+
+PropertySetState ceammc_ui_property_set_cc(t_object* x, t_symbol* key, t_float val, bool check)
+{
+    using PPS = PropertySetState;
+
+    if (check && !is_ceammc_ui(x))
+        return PPS::OTHER_TYPE;
+
+    auto key0 = gensym(key->s_name + 1); // skip first @
+    auto* c = reinterpret_cast<t_eclass*>(x->te_g.g_pd);
+    auto objdsp = static_cast<UIDspObject*>(reinterpret_cast<t_edspbox*>(x));
+    auto obj = static_cast<UIObject*>(reinterpret_cast<t_ebox*>(x));
+
+    auto info = (c->c_dsp) ? objdsp->propertyInfo(key0) : obj->propertyInfo(key0);
+    if (!info)
+        return PPS::ERROR_NOT_FOUND;
+
+    // check rw
+    if (!info->isReadWrite())
+        return PPS::ERROR_ACCESS;
+
+    if (!info->isNumeric())
+        return PPS::ERROR_INVALID_TYPE;
+
+    auto newval = rangeValueFromCC(*info, val);
+    if (!newval)
+        return PPS::ERROR_NO_RANGE;
+
+    Atom a(*newval);
+    if (obj->setProperty(key0, AtomListView(a)))
+        return PPS::OK;
+    else
+        return PPS::ERROR_SET_VALUE;
+}
+
+PropertySetState ceammc_faust_property_set_cc(t_object* x, t_symbol* key, t_float val, bool check)
+{
+    using PSS = PropertySetState;
+    using FaustObj = PdObject<faust::FaustExternalBase>;
+
+    if (check && !is_ceammc_faust(x))
+        return PSS::OTHER_TYPE;
+
+    auto* obj = reinterpret_cast<FaustObj*>(x)->impl;
+    auto prop = obj->property(key);
+    if (!prop)
+        return PSS::ERROR_NOT_FOUND;
+
+    auto& info = prop->infoT();
+    // check rw
+    if (!info.isReadWrite())
+        return PSS::ERROR_ACCESS;
+
+    if (!info.isNumeric())
+        return PSS::ERROR_INVALID_TYPE;
+
+    auto newval = rangeValueFromCC(info, val);
+    if (!newval)
+        return PSS::ERROR_NO_RANGE;
+
+    Atom a(*newval);
+    if (prop->set(AtomListView(a)))
+        return PSS::OK;
+    else
+        return PSS::ERROR_SET_VALUE;
+}
+
+PropertySetState ceammc_abstraction_property_set_cc(t_object* x, t_symbol* key, t_float val, bool check)
+{
+    using PSS = PropertySetState;
+    return PSS::OTHER_TYPE;
+}
+
+PropertySetState ceammc_property_set_cc(t_object* x, t_symbol* key, t_float val)
+{
+    LIB_ERR << "base prop";
+
+    auto res = ceammc_base_property_set_cc(x, key, val, true);
+    if (res == PropertySetState::OK || res != PropertySetState::OTHER_TYPE)
+        return res;
+
+    LIB_ERR << "ui prop";
+
+    res = ceammc_ui_property_set_cc(x, key, val, true);
+    if (res == PropertySetState::OK || res != PropertySetState::OTHER_TYPE)
+        return res;
+
+    LIB_ERR << "faust prop";
+
+    res = ceammc_faust_property_set_cc(x, key, val, true);
+    if (res == PropertySetState::OK || res != PropertySetState::OTHER_TYPE)
+        return res;
+
+    return PropertySetState::ERROR_NOT_FOUND;
+}
+
+const char* ceammc_property_set_cc_str_state(PropertySetState st)
+{
+    using PSS = PropertySetState;
+    switch (st) {
+    case PSS::OK:
+        return "ok";
+    case PSS::OTHER_TYPE:
+        return "unknown object type";
+    case PSS::ERROR_ACCESS:
+        return "readonly property";
+    case PSS::ERROR_INVALID_TYPE:
+        return "non-numeric property type";
+    case PSS::ERROR_NOT_FOUND:
+        return "not found";
+    case PSS::ERROR_NO_RANGE:
+        return "not bounded property";
+    case PSS::ERROR_SET_VALUE:
+        return "set error";
+    default:
+        return "unknown error";
+    }
 }
 
 }
