@@ -2264,6 +2264,16 @@ static void ebox_draw_iolets(t_ebox* x)
 
             auto ann_fn = ceammc::ceammc_get_annotation_fn(&x->b_obj.o_obj.te_g.g_pd);
 
+            if (ann_fn) {
+                for (int i = 0; i < N_IN; i++) {
+                    const char* str = ann_fn(&x->b_obj.o_obj, ceammc::XLET_IN, i);
+                    if (str != nullptr && str[0] != '\0') {
+                        sys_vgui("::ceammc::ui::inlet_tooltip %s %lx %d {%s}\n",
+                            x->b_canvas_id->s_name, x, i, str);
+                    }
+                }
+            }
+
             const int N_OUT = obj_noutlets(obj);
             for (int i = 0; i < N_OUT; i++)
                 buf[i] = obj_issignaloutlet(obj, i) ? '~' : '_';
@@ -2276,8 +2286,8 @@ static void ebox_draw_iolets(t_ebox* x)
                 (int)x->b_zoom, buf);
 
             if (ann_fn) {
-                for (int i = 0; i < N_IN; i++) {
-                    const char* str = ann_fn(&x->b_obj.o_obj, ceammc::XLET_IN, i);
+                for (int i = 0; i < N_OUT; i++) {
+                    const char* str = ann_fn(&x->b_obj.o_obj, ceammc::XLET_OUT, i);
                     if (str != nullptr && str[0] != '\0') {
                         sys_vgui("::ceammc::ui::outlet_tooltip %s %lx %d {%s}\n",
                             x->b_canvas_id->s_name, x, i, str);

@@ -257,6 +257,13 @@ proc inlets_draw { cnv id w h zoom str } {
     }
 }
 
+proc inlet_tooltip { cnv id idx str } {
+    set c [widget_canvas $cnv $id]
+    set win [widget_window $cnv $id]
+    set tag [inlets_tag_idx $id $idx]
+    xlet_tooltip::create $c $win $cnv $tag 1 $str
+}
+
 proc outlets_tag { id } { return "o${id}" }
 proc outlets_tag_idx { id idx } { return "o${id}#${idx}" }
 
