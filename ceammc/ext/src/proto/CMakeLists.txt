@@ -9,6 +9,7 @@ endfunction()
 ceammc_proto_extension(firmata)
 ceammc_proto_extension(hui)
 ceammc_proto_extension(midi)
+ceammc_proto_extension(midi_sysex)
 ceammc_proto_extension(sp_alpaca)
 ceammc_proto_extension(xtouch_ext)
 
