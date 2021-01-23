@@ -808,7 +808,6 @@ typedef struct t_edrawparams {
     t_rgba d_bordercolor; /*!< The border color. */
     t_rgba d_boxfillcolor; /*!< The background color. */
     t_rgba d_labelcolor; /*!< The label color. */
-    float d_borderthickness; /*!< The border size. */
     bool d_hideiolets; /*!< hide standard iolets, for ui.icon for example */
 } t_edrawparams;
 

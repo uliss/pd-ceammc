@@ -154,6 +154,122 @@ if { [catch {package require tooltip} ] } {
 namespace eval ::ceammc {
 namespace eval ui {
 
+# border
+proc border_tag { id } {
+    return "bd${id}"
+}
+
+proc border_w { w zoom } {
+    if { $zoom } {
+        expr ($w * $zoom) + $zoom
+    } else {
+        expr ($w * $zoom) + $zoom + 1
+    }
+}
+
+proc border_h { h zoom } {
+    if { $zoom } {
+        expr ($h * $zoom) + $zoom
+    } else {
+        expr ($h * $zoom) + $zoom + 1
+    }
+}
+
+proc border_x { zoom } { expr ($zoom == 1) ? 0 : 1 }
+proc border_y { zoom } { expr ($zoom == 1) ? 0 : 1 }
+
+proc border_draw { cnv id w h zoom color } {
+    set tag [border_tag $id]
+    set c [widget_canvas $cnv $id]
+    set tags [$c find withtag $tag]
+    # draw params
+    set wd $zoom
+
+    set x [border_x $zoom]
+    set y [border_y $zoom]
+    set w [border_w $w $zoom]
+    set h [border_h $h $zoom]
+
+    if { [llength $tags] == 0 } {
+        $c create rectangle $x $y $w $h -outline $color -width $wd -tags $tag
+    } else {
+        set item [lindex $tags 0]
+        $c coords $item $x $y $w $h
+        $c itemconfigure $item -outline $color -width $wd
+    }
+}
+
+# widget
+proc widget_canvas { cnv id } {
+    return "${cnv}.ecanvas${id}"
+}
+
+proc widget_window { cnv id } {
+    return "${cnv}.ewindow${id}"
+}
+
+proc widget_w { w zoom } { expr ($w * $zoom) + (2*$zoom) }
+proc widget_h { h zoom } { expr ($h * $zoom) + (2*$zoom) }
+
+proc create_widget { id cnv w h zoom } {
+    namespace eval "ebox$id" {}
+    destroy $cnv
+
+    set w [widget_w $w $zoom]
+    set h [widget_h $h $zoom]
+
+    canvas $cnv -width $w -height $h -bd 0 \
+        -highlightthickness 0 -insertborderwidth 0 \
+        -state normal -takefocus 1 -insertwidth 0 -confine 0
+}
+
+proc create_window { cnv id x y w h zoom } {
+    set win [widget_window $cnv $id]
+    set c [widget_canvas $cnv $id]
+    set w [widget_w $w $zoom]
+    set h [widget_h $h $zoom]
+
+    $cnv create window $x $y -anchor nw -window $c -tags $win -width $w -height $h
+}
+
+proc widget_resize { cnv id w h zoom } {
+    set win [widget_window $cnv $id]
+
+    $cnv itemconfigure $win \
+        -width [widget_w $w $zoom] \
+        -height [widget_h $h $zoom]
+
+    # update border, it should exists
+    set c [widget_canvas $cnv $id]
+    set bd [border_tag $id]
+    set x [border_x $zoom]
+    set y [border_y $zoom]
+    set w [border_w $w $zoom]
+    set h [border_h $h $zoom]
+
+    $c coords $bd $x $y $w $h
+}
+
+proc widget_pos { cnv id x y } {
+    set win [widget_window $cnv $id]
+    $cnv coords $win $x $y
+}
+
+proc widget_select { cnv id color } {
+    set c [widget_canvas $cnv $id]
+    set tag [border_tag $id]
+    $c itemconfigure $tag -outline $color
+}
+
+proc widget_lower { cnv id } {
+    lower [widget_canvas $cnv $id]
+}
+
+proc widget_bg { cnv id color } {
+    set c [widget_canvas $cnv $id]
+    $c configure -bg $color
+}
+
 # from ttk::bindMouseWheel
 proc bindMouseWheel {bindtag callback} {
     switch -- [tk windowingsystem] {

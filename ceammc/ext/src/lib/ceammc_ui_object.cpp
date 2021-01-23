@@ -292,7 +292,6 @@ void UIObjectImpl::okSize(t_rect* newrect)
 
 void UIObjectImpl::setDrawParams(t_edrawparams* params)
 {
-    params->d_borderthickness = 1;
     params->d_bordercolor = prop_color_border;
     params->d_boxfillcolor = prop_color_background;
     params->d_labelcolor = prop_color_label;
