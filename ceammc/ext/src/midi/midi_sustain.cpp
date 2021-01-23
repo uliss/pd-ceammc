@@ -66,6 +66,11 @@ void MidiSustain::onList(const AtomList& lst)
     }
 }
 
+void MidiSustain::onInlet(size_t n, const AtomListView& lv)
+{
+    on_->set(lv);
+}
+
 void MidiSustain::onCC(const AtomListView& lv)
 {
     if (!ctlin_->value())
