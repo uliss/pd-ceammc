@@ -2305,45 +2305,14 @@ static void ebox_draw_border(t_ebox* x)
 
 static void ebox_draw_iolets(t_ebox* x)
 {
-    static const int XLET_W = 7;
-    static const float XLET_H = 1;
-
-    const float bdsize = 1; //x->b_boxparameters.d_borderthickness;
-    const float BOX_W = x->b_rect.width * x->b_zoom;
-    const float BOX_H = x->b_rect.height * x->b_zoom;
-
-    t_elayer* g = ebox_start_layer(x, s_eboxio, BOX_W, BOX_H);
-
-    if (g && !x->b_boxparameters.d_hideiolets) {
+    if (!x->b_boxparameters.d_hideiolets) {
         if (!x->b_isinsubcanvas) {
-            egraphics_set_line_width(g, 1);
-            const float XW = XLET_W * x->b_zoom;
-            const float XCTRLH = XLET_H;
-            const float XSIGH = XCTRLH * x->b_zoom + 1;
             const t_object* obj = reinterpret_cast<t_object*>(x);
-            auto& p = g->e_new_objects.e_points;
-            p.clear();
-            g->e_new_objects.e_type = E_GOBJ_SHAPE;
 
             const int N_IN = obj_ninlets(obj);
-            const int N_OUT = obj_noutlets(obj);
-            p.reserve((N_IN + N_OUT) * 4);
-
             char buf[256] = "";
-            for (int i = 0; i < N_IN; i++) {
-                //                float pos_x_inlet = 0;
-                //                if (N_IN != 1)
-                //                    pos_x_inlet = (i * (BOX_W - (XW + 1))) / (N_IN - 1);
-
-                const int is_sig = obj_issignalinlet(obj, i);
-                buf[i] = is_sig ? '~' : '_';
-                                const float c = (is_sig) ? STYLE_AUDIO_XLET_COLOR : STYLE_IEM_BORDER_COLOR;
-                //                const float XH = (is_sig) ? XSIGH : XCTRLH;
-                //                p.push_back({ E_SHAPE_XLETS, 1 });
-                //                p.push_back({ pos_x_inlet, 0 });
-                //                p.push_back({ XW, XH });
-                //                p.push_back({ (float)i, c });
-            }
+            for (int i = 0; i < N_IN; i++)
+                buf[i] = obj_issignalinlet(obj, i) ? '~' : '_';
 
             buf[N_IN] = '\0';
 
@@ -2352,27 +2321,18 @@ static void ebox_draw_iolets(t_ebox* x)
                 (int)x->b_rect.width, (int)x->b_rect.height,
                 (int)x->b_zoom, buf);
 
-            for (int i = 0; i < N_OUT; i++) {
-                float pos_x_outlet = 0;
-                if (N_OUT != 1)
-                    pos_x_outlet = (i * (BOX_W - (XW + 1))) / (N_OUT - 1);
+            const int N_OUT = obj_noutlets(obj);
+            for (int i = 0; i < N_OUT; i++)
+                buf[i] = obj_issignaloutlet(obj, i) ? '~' : '_';
 
-                const int is_sig = obj_issignaloutlet(obj, i);
-                const float c = (is_sig) ? STYLE_AUDIO_XLET_COLOR : STYLE_IEM_BORDER_COLOR;
-                const float XH = (is_sig) ? XSIGH : XCTRLH;
+            buf[N_OUT] = '\0';
 
-                p.push_back({ E_SHAPE_XLETS, 0 });
-                p.push_back({ pos_x_outlet, BOX_H - (XH + 1) + bdsize * 2 });
-                p.push_back({ XW, XH });
-                p.push_back({ (float)i, c });
-            }
-
-            egraphics_fill(g);
+            sys_vgui("::ceammc::ui::outlets_draw %s %lx %d %d %d %s\n",
+                x->b_canvas_id->s_name, x,
+                (int)x->b_rect.width, (int)x->b_rect.height,
+                (int)x->b_zoom, buf);
         }
-
-        ebox_end_layer(x, s_eboxio);
     }
-    ebox_paint_layer(x, s_eboxio, 0, -bdsize);
 }
 
 static void ebox_invalidate_all(t_ebox* x)

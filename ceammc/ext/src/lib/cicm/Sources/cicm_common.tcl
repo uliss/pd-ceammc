@@ -183,7 +183,7 @@ proc border_draw { cnv id w h zoom color } {
     set c [widget_canvas $cnv $id]
     set tags [$c find withtag $tag]
     # draw params
-    set wd $zoom
+    set wd [expr $zoom==1 ? 1 : 3]
 
     set x [border_x $zoom]
     set y [border_y $zoom]
@@ -197,6 +197,8 @@ proc border_draw { cnv id w h zoom color } {
         $c coords $item $x $y $w $h
         $c itemconfigure $item -outline $color -width $wd
     }
+
+    $c raise $tag
 }
 
 # xlets
@@ -217,6 +219,11 @@ proc xlet_color { type } {
     if { $type == "_" } { return "#000000" } { return "#2200AA" }
 }
 
+proc xlet_x { w i n zoom } {
+    set ww [expr $w - [xlet_w $zoom]]
+    return [expr round(($ww/($n-1.0)) * $i)]
+}
+
 proc inlet_draw { cnv id x y zoom type {tooltip {}} } {
     set c [widget_canvas $cnv $id]
     set x1 [expr $x + [xlet_w $zoom]]
@@ -224,11 +231,6 @@ proc inlet_draw { cnv id x y zoom type {tooltip {}} } {
     set color [xlet_color $type]
 
     $c create rectangle $x $y $x1 $y1 -fill $color -width 0 -tags [inlets_tag $id]
-}
-
-proc inlet_x { w i n zoom } {
-    set ww [expr $w - [xlet_w $zoom]]
-    return [expr round(($ww/($n-1.0)) * $i)]
 }
 
 proc inlets_draw { cnv id w h zoom str } {
@@ -244,13 +246,48 @@ proc inlets_draw { cnv id w h zoom str } {
     } elseif { $n > 1 } {
         set i 0
         foreach inlet [split $str {}] {
-            set x [inlet_x $w $i $n $zoom]
+            set x [xlet_x $w $i $n $zoom]
             inlet_draw $cnv $id $x 0 $zoom $inlet
             incr i
         }
     }
+}
 
+proc outlets_tag { id } { return "o${id}" }
 
+proc outlets_delete { cnv id } {
+    set c [widget_canvas $cnv $id]
+    $c delete [outlets_tag $id]
+}
+
+proc outlet_draw { cnv id x y w h zoom type {tooltip {}} } {
+    set c [widget_canvas $cnv $id]
+    set x1 [expr $x + [xlet_w $zoom]]
+    set y [expr $h - [xlet_h $type $zoom]]
+    set y1 [expr $h]
+    set color [xlet_color $type]
+
+    $c create rectangle $x $y $x1 $y1 -fill $color -width 0 -tags [outlets_tag $id]
+}
+
+proc outlets_draw { cnv id w h zoom str } {
+    outlets_delete $cnv $id
+
+    set c [widget_canvas $cnv $id]
+    set w [border_w $w $zoom]
+    set h [widget_h $h $zoom]
+
+    set n [string length $str]
+    if { $n == 1 } {
+        outlet_draw $cnv $id 0 0 $w $h $zoom $str
+    } elseif { $n > 1 } {
+        set i 0
+        foreach inlet [split $str {}] {
+            set x [xlet_x $w $i $n $zoom]
+            outlet_draw $cnv $id $x 0 $w $h $zoom $inlet
+            incr i
+        }
+    }
 }
 
 # widget
