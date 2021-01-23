@@ -120,7 +120,7 @@ void UIToggle::setup()
 void UIToggle::redrawAll()
 {
     bg_layer_.invalidate();
-    redrawInnerArea();
+    redraw();
 }
 
 void setup_ui_toggle()

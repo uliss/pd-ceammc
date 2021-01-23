@@ -460,7 +460,7 @@ void UIPolar::propSetAngle(const AtomListView& lst)
 void UIPolar::redrawKnob()
 {
     knob_layer_.invalidate();
-    redrawInnerArea();
+    redraw();
 }
 
 void UIPolar::redrawAll()

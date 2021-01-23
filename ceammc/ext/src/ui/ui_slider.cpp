@@ -175,9 +175,6 @@ void UISlider::onDblClick(t_object* view, const t_pt& pt, long modifiers)
 
 void UISlider::redrawKnob()
 {
-    if (prop_active_scale)
-        invalidateXlets();
-
     UISingleValue::redrawKnob();
 }
 

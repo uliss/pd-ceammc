@@ -524,13 +524,13 @@ void UIRadio::redrawAll()
 {
     bg_layer_.invalidate();
     items_layer_.invalidate();
-    redrawInnerArea();
+    redraw();
 }
 
 void UIRadio::redrawItems()
 {
     items_layer_.invalidate();
-    redrawInnerArea();
+    redraw();
 }
 
 void UIRadio::onPropChange(t_symbol* prop_name)

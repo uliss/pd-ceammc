@@ -420,7 +420,7 @@ void UIEnv::onMouseMove(t_object*, const t_pt& pt, long modifiers)
         }
     }
 
-    redrawInnerArea();
+    redraw();
 }
 
 void UIEnv::onMouseDrag(t_object*, const t_pt& pt, long mod)
@@ -461,7 +461,7 @@ void UIEnv::onMouseDrag(t_object*, const t_pt& pt, long mod)
     // no background redraw needed
     envelope_layer_.invalidate();
     cursor_layer_.invalidate();
-    redrawInnerArea();
+    redraw();
 
     if (output_mode_ == SYM_MODE_ON_DRAG)
         outputEnvelope();

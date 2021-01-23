@@ -225,13 +225,11 @@ void UISingleValue::onMidiCtrl(const AtomListView& l)
                 setKnobPhase(w);
 
                 asEBox()->b_boxparameters.d_bordercolor = prop_color_border;
-                invalidateBorder();
                 redrawKnob();
                 output();
             } else {
                 asEBox()->b_boxparameters.d_bordercolor = PICKUP_MIDI_COLOR;
-                invalidateBorder();
-                redrawInnerArea();
+                redraw();
             }
 
             return;
@@ -336,7 +334,7 @@ void UISingleValue::stopListenMidi()
 void UISingleValue::redrawKnob()
 {
     knob_layer_.invalidate();
-    redrawInnerArea();
+    redraw();
 }
 
 UISingleValue::ScaleMode UISingleValue::scaleMode() const

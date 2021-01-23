@@ -1665,8 +1665,6 @@ bool ebox_notify(t_ebox* x, t_symbol* s)
 
         if (x->b_resize_redraw_all) {
             ebox_invalidate_all(x);
-        } else {
-            ebox_invalidate_io(x);
         }
 
         if (ebox_isvisible(x)) {
@@ -1943,18 +1941,8 @@ void ebox_dialog(t_ebox* x, t_symbol* s, int argc, t_atom* argv)
 
 void ebox_redraw(t_ebox* x)
 {
-    if (ebox_isvisible(x)) {
-        ebox_invalidate_border(x);
-        ebox_invalidate_io(x);
+    if (ebox_isvisible(x))
         ebox_paint(x);
-    }
-}
-
-void ebox_redraw_inner(t_ebox* x)
-{
-    if (ebox_isvisible(x)) {
-        ebox_paint(x);
-    }
 }
 
 void ebox_get_rect_for_view(t_ebox* x, t_rect* rect)

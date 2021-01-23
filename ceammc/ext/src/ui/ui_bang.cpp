@@ -83,7 +83,7 @@ void UIBang::activate()
 {
     active_ = true;
     bg_layer_.invalidate();
-    redrawInnerArea();
+    redraw();
     bangTo(0);
     sendBang();
 }
@@ -92,7 +92,7 @@ void UIBang::deactivate()
 {
     active_ = false;
     bg_layer_.invalidate();
-    redrawInnerArea();
+    redraw();
 }
 
 void UIBang::setup()

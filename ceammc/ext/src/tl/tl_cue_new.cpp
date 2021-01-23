@@ -215,7 +215,7 @@ void TlCue::redrawCues()
     for (size_t i = 0; i < lst->size(); i++) {
         TlCue* c = reinterpret_cast<TlCue*>(lst->at(i)->object());
         c->bg_layer_.invalidate();
-        c->redrawInnerArea();
+        c->redraw();
     }
 }
 

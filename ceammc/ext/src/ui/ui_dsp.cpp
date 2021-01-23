@@ -115,7 +115,7 @@ void UIDsp::openSoundSettingsDialog()
 void UIDsp::redrawAll()
 {
     bg_layer_.invalidate();
-    redrawInnerArea();
+    redraw();
 }
 
 void setup_ui_dsp()

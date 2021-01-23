@@ -53,9 +53,6 @@ protected:
     void appendToLayerList(UILayer* l);
     void prependToLayerList(UILayer* l);
     void invalidateLayer(UILayer* l);
-    void invalidateBox();
-    void invalidateXlets();
-    void invalidateBorder();
     void initPopupMenu(const std::string& n, std::initializer_list<PopupMenuCallbacks::Entry> args);
     void showDefaultPopupMenu(const t_pt& pt, const t_pt& abs_pt);
     void showPopupMenu(const std::string& n, const t_pt& pt, const t_pt& abs_pt);
@@ -92,7 +89,6 @@ public:
     void erase();
 
     void redraw();
-    void redrawInnerArea();
     void redrawBGLayer();
     void redrawLayer(UILayer& l);
 

@@ -384,8 +384,7 @@ void UIGain::updateIndicators()
         break;
     }
 
-    ebox_invalidate_border(asEBox());
-    redrawInnerArea();
+    redraw();
 }
 
 bool UIGain::isMidiMatched(int num, int ch) const

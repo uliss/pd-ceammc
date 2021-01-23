@@ -75,22 +75,6 @@ void UIObjectImpl::invalidateLayer(UILayer* l)
     }
 }
 
-void UIObjectImpl::invalidateBox()
-{
-    ebox_invalidate_border(box_);
-    ebox_invalidate_io(box_);
-}
-
-void UIObjectImpl::invalidateXlets()
-{
-    ebox_invalidate_io(box_);
-}
-
-void UIObjectImpl::invalidateBorder()
-{
-    ebox_invalidate_border(box_);
-}
-
 void UIObjectImpl::initPopupMenu(const std::string& n, std::initializer_list<PopupMenuCallbacks::Entry> args)
 {
     auto it = std::find_if(popup_menu_list_.begin(), popup_menu_list_.end(), [&n](const PopupMenuCallbacks& c) { return c.name() == n; });
@@ -219,11 +203,6 @@ void UIObjectImpl::redraw()
     ebox_redraw(box_);
 }
 
-void UIObjectImpl::redrawInnerArea()
-{
-    ebox_redraw_inner(box_);
-}
-
 void UIObjectImpl::redrawBGLayer()
 {
     bg_layer_.invalidate();
@@ -246,7 +225,7 @@ void UIObjectImpl::resize(int w, int h)
 void UIObjectImpl::redrawLayer(UILayer& l)
 {
     invalidateLayer(&l);
-    redrawInnerArea();
+    redraw();
 }
 
 void UIObjectImpl::onMouseMove(t_object* view, const t_pt& pt, long modifiers)

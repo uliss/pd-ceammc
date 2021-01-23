@@ -73,7 +73,7 @@ void UIButton::on()
     send(prop_value_on);
 
     bg_layer_.invalidate();
-    redrawInnerArea();
+    redraw();
 }
 
 void UIButton::off()
@@ -86,7 +86,7 @@ void UIButton::off()
     send(prop_value_off);
 
     bg_layer_.invalidate();
-    redrawInnerArea();
+    redraw();
 }
 
 void UIButton::setup()
