@@ -2338,7 +2338,7 @@ static void ebox_erase(t_ebox* x)
             ebox_erase_label(x);
         }
 
-        sys_vgui("destroy %s \n", x->b_drawing_id->s_name);
+        sys_vgui("::ceammc::ui::widget_delete %s %lx\n", x->b_canvas_id->s_name, x);
         x->b_have_window = false;
     }
 

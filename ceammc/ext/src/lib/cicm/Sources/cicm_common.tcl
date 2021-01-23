@@ -386,6 +386,10 @@ proc widget_focus { cnv id } {
     focus [widget_canvas $cnv $id]
 }
 
+proc widget_delete { cnv id } {
+    destroy %s [widget_canvas $cnv $id]
+}
+
 proc widget_bg { cnv id color } {
     set c [widget_canvas $cnv $id]
     $c configure -bg $color
