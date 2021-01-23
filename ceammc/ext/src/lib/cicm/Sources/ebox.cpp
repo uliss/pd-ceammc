@@ -2254,7 +2254,7 @@ static void do_draw_inlets(const char* cnv, t_object* x, int w, int h, int zoom,
 
     buf[N_IN] = '\0';
 
-    sys_vgui("::ceammc::ui::inlets_draw %s %lx %d %d %d %s\n",
+    sys_vgui("::ceammc::ui::inlets_draw %s %lx %d %d %d \"%s\"\n",
         cnv, x, w, h, zoom, buf);
 
     if (fn) {
@@ -2276,7 +2276,7 @@ static void do_draw_outlets(const char* cnv, t_object* x, int w, int h, int zoom
 
     buf[N_OUT] = '\0';
 
-    sys_vgui("::ceammc::ui::outlets_draw %s %lx %d %d %d %s\n",
+    sys_vgui("::ceammc::ui::outlets_draw %s %lx %d %d %d \"%s\"\n",
         cnv, x, w, h, zoom, buf);
 
     if (fn) {
