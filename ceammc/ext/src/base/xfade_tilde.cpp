@@ -151,6 +151,7 @@ void setup_base_xfade_tilde()
     SYM_LIN = gensym("lin");
 
     SoundExternalFactory<XFadeTilde> obj("xfade~");
+    obj.addAlias("ceammc/xfade~");
 
     obj.setDescription("multi signal crossfade");
     obj.addAuthor("Serge Poltavsky");
