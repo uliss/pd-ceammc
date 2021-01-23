@@ -203,6 +203,7 @@ proc border_draw { cnv id w h zoom color } {
 
 # xlets
 proc inlets_tag { id } { return "i${id}" }
+proc inlets_tag_idx { id idx } { return "i${id}#${idx}" }
 
 proc inlets_delete { cnv id } {
     set c [widget_canvas $cnv $id]
@@ -224,13 +225,16 @@ proc xlet_x { w i n zoom } {
     return [expr round(($ww/($n-1.0)) * $i)]
 }
 
-proc inlet_draw { cnv id x y zoom type {tooltip {}} } {
+proc inlet_draw { cnv id x y zoom type {idx 0} } {
     set c [widget_canvas $cnv $id]
     set x1 [expr $x + [xlet_w $zoom]]
     set y1 [expr $y + [xlet_h $type $zoom]]
     set color [xlet_color $type]
 
-    $c create rectangle $x $y $x1 $y1 -fill $color -width 0 -tags [inlets_tag $id]
+    set tags [inlets_tag $id]
+    lappend tags [inlets_tag_idx $id $idx]
+
+    $c create rectangle $x $y $x1 $y1 -fill $color -width 0 -tags $tags
 }
 
 proc inlets_draw { cnv id w h zoom str } {
@@ -242,32 +246,43 @@ proc inlets_draw { cnv id w h zoom str } {
 
     set n [string length $str]
     if { $n == 1 } {
-        inlet_draw $cnv $id 0 0 $zoom $str
+        inlet_draw $cnv $id 0 0 $zoom $str 0
     } elseif { $n > 1 } {
         set i 0
         foreach inlet [split $str {}] {
             set x [xlet_x $w $i $n $zoom]
-            inlet_draw $cnv $id $x 0 $zoom $inlet
+            inlet_draw $cnv $id $x 0 $zoom $inlet $i
             incr i
         }
     }
 }
 
 proc outlets_tag { id } { return "o${id}" }
+proc outlets_tag_idx { id idx } { return "o${id}#${idx}" }
 
 proc outlets_delete { cnv id } {
     set c [widget_canvas $cnv $id]
     $c delete [outlets_tag $id]
 }
 
-proc outlet_draw { cnv id x y w h zoom type {tooltip {}} } {
+proc outlet_tooltip { cnv id idx str } {
+    set c [widget_canvas $cnv $id]
+    set win [widget_window $cnv $id]
+    set tag [outlets_tag_idx $id $idx]
+    xlet_tooltip::create $c $win $cnv $tag 0 $str
+}
+
+proc outlet_draw { cnv id x y w h zoom type {idx 0} } {
     set c [widget_canvas $cnv $id]
     set x1 [expr $x + [xlet_w $zoom]]
     set y [expr $h - [xlet_h $type $zoom]]
     set y1 [expr $h]
     set color [xlet_color $type]
 
-    $c create rectangle $x $y $x1 $y1 -fill $color -width 0 -tags [outlets_tag $id]
+    set tags [outlets_tag $id]
+    lappend tags [outlets_tag_idx $id $idx]
+
+    $c create rectangle $x $y $x1 $y1 -fill $color -width 0 -tags $tags
 }
 
 proc outlets_draw { cnv id w h zoom str } {
@@ -279,12 +294,12 @@ proc outlets_draw { cnv id w h zoom str } {
 
     set n [string length $str]
     if { $n == 1 } {
-        outlet_draw $cnv $id 0 0 $w $h $zoom $str
+        outlet_draw $cnv $id 0 0 $w $h $zoom $str 0
     } elseif { $n > 1 } {
         set i 0
         foreach inlet [split $str {}] {
             set x [xlet_x $w $i $n $zoom]
-            outlet_draw $cnv $id $x 0 $w $h $zoom $inlet
+            outlet_draw $cnv $id $x 0 $w $h $zoom $inlet $i
             incr i
         }
     }

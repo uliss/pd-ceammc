@@ -2104,37 +2104,6 @@ static void ebox_do_paint_arc(t_elayer* g, t_ebox* x, t_egobj const* gobj, float
     }
 }
 
-static void ebox_do_paint_xlets(t_elayer* g, t_ebox* x, t_egobj const* gobj, float x_p, float y_p)
-{
-    auto ann_fn = ceammc::ceammc_get_annotation_fn(&x->b_obj.o_obj.te_g.g_pd);
-
-    for (size_t i = 0; i < gobj->e_points.size(); i += 4) {
-        auto pt = &gobj->e_points[i];
-        int x0 = (int)(pt[1].x + x_p);
-        int y0 = (int)(pt[1].y + y_p);
-        int x1 = x0 + pt[2].x;
-        int y1 = y0 + pt[2].y;
-        int idx = (int)pt[3].x;
-        int c = (int)pt[3].y;
-        bool is_inlet = pt[0].y;
-
-        sys_vgui("%s create rectangle %d %d %d %d -fill #%6.6x -outline #%6.6x -width 1 -tags { %s %s %s_%c%d }\n",
-            x->b_drawing_id->s_name, x0, y0, x1, y1, c, c, g->e_id->s_name,
-            x->b_all_id->s_name,
-            g->e_id->s_name, is_inlet ? 'i' : 'o', idx);
-
-        if (ann_fn) {
-            const char* str = ann_fn(&x->b_obj.o_obj, is_inlet ? ceammc::XLET_IN : ceammc::XLET_OUT, i);
-            if (str != nullptr && str[0] != '\0')
-                sys_vgui("::ceammc::ui::xlet_tooltip::create %s %s %s %s_%c%d %d \"%s\"\n",
-                    x->b_drawing_id->s_name,
-                    x->b_window_id->s_name,
-                    x->b_canvas_id->s_name,
-                    g->e_id->s_name, is_inlet ? 'i' : 'o', idx, is_inlet, str);
-        }
-    }
-}
-
 static void ebox_do_paint_image(t_elayer* g, t_ebox* x, t_egobj const* gobj, float x_p, float y_p)
 {
     t_pt const* pt = &gobj->e_points[0];
@@ -2247,9 +2216,6 @@ t_pd_err ebox_paint_layer(t_ebox* x, t_symbol* name, float x_p, float y_p)
                 case E_SHAPE_IMAGE:
                     ebox_do_paint_image(g, x, &gobj, x_p, y_p);
                     break;
-                case E_SHAPE_XLETS:
-                    ebox_do_paint_xlets(g, x, &gobj, x_p, y_p);
-                    break;
                 default:
                     pd_error(x, "unknown shape: %d", type);
                     break;
@@ -2296,6 +2262,8 @@ static void ebox_draw_iolets(t_ebox* x)
                 (int)x->b_rect.width, (int)x->b_rect.height,
                 (int)x->b_zoom, buf);
 
+            auto ann_fn = ceammc::ceammc_get_annotation_fn(&x->b_obj.o_obj.te_g.g_pd);
+
             const int N_OUT = obj_noutlets(obj);
             for (int i = 0; i < N_OUT; i++)
                 buf[i] = obj_issignaloutlet(obj, i) ? '~' : '_';
@@ -2306,6 +2274,16 @@ static void ebox_draw_iolets(t_ebox* x)
                 x->b_canvas_id->s_name, x,
                 (int)x->b_rect.width, (int)x->b_rect.height,
                 (int)x->b_zoom, buf);
+
+            if (ann_fn) {
+                for (int i = 0; i < N_IN; i++) {
+                    const char* str = ann_fn(&x->b_obj.o_obj, ceammc::XLET_IN, i);
+                    if (str != nullptr && str[0] != '\0') {
+                        sys_vgui("::ceammc::ui::outlet_tooltip %s %lx %d {%s}\n",
+                            x->b_canvas_id->s_name, x, i, str);
+                    }
+                }
+            }
         }
     }
 }
