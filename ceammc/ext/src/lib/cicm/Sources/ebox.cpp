@@ -820,28 +820,23 @@ static void ebox_tk_ids(t_ebox* x, t_canvas* canvas)
     x->b_all_id = gensym(buffer);
 }
 
-static void ebox_bind_event(t_ebox* x, const char* name)
-{
-    sys_vgui("%s %s %s\n", name, x->b_drawing_id->s_name, x->b_obj.o_id->s_name);
-}
-
 static void ebox_bind_events(t_ebox* x)
 {
+    sys_vgui("::ceammc::ui::mouse_events_bind %s %lx %s "
+             "down up move enter leave right_click\n",
+        x->b_canvas_id->s_name, x, x->b_obj.o_id->s_name);
+
     t_eclass* c = eobj_getclass(&x->b_obj);
 
-    ebox_bind_event(x, "ceammc_bind_mouse_down");
-    ebox_bind_event(x, "ceammc_bind_mouse_up");
-
-    ebox_bind_event(x, "ceammc_bind_mouse_move");
-    ebox_bind_event(x, "ceammc_bind_mouse_enter");
-    ebox_bind_event(x, "ceammc_bind_mouse_leave");
-    ebox_bind_event(x, "ceammc_bind_mouse_right_click");
-
     if (c->c_widget.w_dblclick)
-        ebox_bind_event(x, "ceammc_bind_mouse_double_click");
+        sys_vgui("::ceammc::ui::mouse_events_bind %s %lx %s "
+                 "double_click\n",
+            x->b_canvas_id->s_name, x, x->b_obj.o_id->s_name);
 
     if (c->c_widget.w_mousewheel)
-        ebox_bind_event(x, "ceammc_bind_mouse_wheel");
+        sys_vgui("::ceammc::ui::mouse_events_bind %s %lx %s "
+                 "wheel\n",
+            x->b_canvas_id->s_name, x, x->b_obj.o_id->s_name);
 
     if (c->c_widget.w_key || c->c_widget.w_keyfilter) {
         sys_vgui("bind %s <Key>  {+pdsend {%s key  %%k %%N}} \n", x->b_drawing_id->s_name, x->b_obj.o_id->s_name);
@@ -2054,16 +2049,6 @@ t_pd_err ebox_invalidate_layer(t_ebox* x, t_symbol* name)
 
     g->e_state = EGRAPHICS_INVALID;
     return 0;
-}
-
-t_pd_err ebox_invalidate_io(t_ebox* x)
-{
-    return ebox_invalidate_layer(x, s_eboxio);
-}
-
-t_pd_err ebox_invalidate_border(t_ebox* x)
-{
-    return ebox_invalidate_layer(x, s_eboxbd);
 }
 
 static void ebox_do_paint_rect(t_elayer* g, t_ebox* x, t_egobj const* gobj, float x_p, float y_p)

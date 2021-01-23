@@ -361,6 +361,14 @@ proc widget_bg { cnv id color } {
     $c configure -bg $color
 }
 
+proc mouse_events_bind { cnv id target args }  {
+    set c [widget_canvas $cnv $id]
+    foreach name $args {
+        set ev "ceammc_bind_mouse_$name"
+        $ev $c $target
+    }
+}
+
 # from ttk::bindMouseWheel
 proc bindMouseWheel {bindtag callback} {
     switch -- [tk windowingsystem] {

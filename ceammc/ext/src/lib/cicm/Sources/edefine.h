@@ -78,10 +78,6 @@ extern t_symbol* s_obj;
 extern t_symbol* s_atom;
 //! The pre-defined attr_modified t_symbol*
 extern t_symbol* s_attr_modified;
-//! The pre-defined eboxbd t_symbol*
-extern t_symbol* s_eboxbd;
-//! The pre-defined eboxio t_symbol*
-extern t_symbol* s_eboxio;
 //! The pre-defined size t_symbol*
 extern t_symbol* s_size;
 //! The pre-defined int t_symbol*
