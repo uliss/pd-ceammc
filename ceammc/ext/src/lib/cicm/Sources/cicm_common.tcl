@@ -199,6 +199,60 @@ proc border_draw { cnv id w h zoom color } {
     }
 }
 
+# xlets
+proc inlets_tag { id } { return "i${id}" }
+
+proc inlets_delete { cnv id } {
+    set c [widget_canvas $cnv $id]
+    $c delete [inlets_tag $id]
+}
+
+proc xlet_w { zoom } { expr 7*$zoom + 1 }
+
+proc xlet_h { type zoom } {
+    if { $type == "_" } { expr 1 + $zoom } { expr ($zoom==1) ? 3 : 6 }
+}
+
+proc xlet_color { type } {
+    if { $type == "_" } { return "#000000" } { return "#2200AA" }
+}
+
+proc inlet_draw { cnv id x y zoom type {tooltip {}} } {
+    set c [widget_canvas $cnv $id]
+    set x1 [expr $x + [xlet_w $zoom]]
+    set y1 [expr $y + [xlet_h $type $zoom]]
+    set color [xlet_color $type]
+
+    $c create rectangle $x $y $x1 $y1 -fill $color -width 0 -tags [inlets_tag $id]
+}
+
+proc inlet_x { w i n zoom } {
+    set ww [expr $w - [xlet_w $zoom]]
+    return [expr round(($ww/($n-1.0)) * $i)]
+}
+
+proc inlets_draw { cnv id w h zoom str } {
+    inlets_delete $cnv $id
+
+    set c [widget_canvas $cnv $id]
+    set w [border_w $w $zoom]
+    set h [border_h $h $zoom]
+
+    set n [string length $str]
+    if { $n == 1 } {
+        inlet_draw $cnv $id 0 0 $zoom $str
+    } elseif { $n > 1 } {
+        set i 0
+        foreach inlet [split $str {}] {
+            set x [inlet_x $w $i $n $zoom]
+            inlet_draw $cnv $id $x 0 $zoom $inlet
+            incr i
+        }
+    }
+
+
+}
+
 # widget
 proc widget_canvas { cnv id } {
     return "${cnv}.ecanvas${id}"

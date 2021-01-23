@@ -2329,19 +2329,28 @@ static void ebox_draw_iolets(t_ebox* x)
             const int N_OUT = obj_noutlets(obj);
             p.reserve((N_IN + N_OUT) * 4);
 
+            char buf[256] = "";
             for (int i = 0; i < N_IN; i++) {
-                float pos_x_inlet = 0;
-                if (N_IN != 1)
-                    pos_x_inlet = (i * (BOX_W - (XW + 1))) / (N_IN - 1);
+                //                float pos_x_inlet = 0;
+                //                if (N_IN != 1)
+                //                    pos_x_inlet = (i * (BOX_W - (XW + 1))) / (N_IN - 1);
 
                 const int is_sig = obj_issignalinlet(obj, i);
-                const float c = (is_sig) ? STYLE_AUDIO_XLET_COLOR : STYLE_IEM_BORDER_COLOR;
-                const float XH = (is_sig) ? XSIGH : XCTRLH;
-                p.push_back({ E_SHAPE_XLETS, 1 });
-                p.push_back({ pos_x_inlet, 0 });
-                p.push_back({ XW, XH });
-                p.push_back({ (float)i, c });
+                buf[i] = is_sig ? '~' : '_';
+                                const float c = (is_sig) ? STYLE_AUDIO_XLET_COLOR : STYLE_IEM_BORDER_COLOR;
+                //                const float XH = (is_sig) ? XSIGH : XCTRLH;
+                //                p.push_back({ E_SHAPE_XLETS, 1 });
+                //                p.push_back({ pos_x_inlet, 0 });
+                //                p.push_back({ XW, XH });
+                //                p.push_back({ (float)i, c });
             }
+
+            buf[N_IN] = '\0';
+
+            sys_vgui("::ceammc::ui::inlets_draw %s %lx %d %d %d %s\n",
+                x->b_canvas_id->s_name, x,
+                (int)x->b_rect.width, (int)x->b_rect.height,
+                (int)x->b_zoom, buf);
 
             for (int i = 0; i < N_OUT; i++) {
                 float pos_x_outlet = 0;
