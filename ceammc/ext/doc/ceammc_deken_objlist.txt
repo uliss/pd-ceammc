@@ -613,6 +613,7 @@ midi.key->str	convert key number to SPN name according to tonality
 midi.oct	midi octave transpose
 midi.prg2str	convert GM Instrument number to name (string or symbol)
 midi.prg->str	convert GM Instrument number to name (string or symbol)
+midi.sustain	midi sustain: hold notes
 midi.sysex	sysex input messages as list
 midi.track	extract track from MidiFile
 midi.tuning	apply tuning to midi messages
@@ -829,6 +830,7 @@ synth.wurley~	Wurlitzer electric piano FM synthesis instrument
 system.colorpanel	System color panel dialog popup
 system.cursor	Output cursor motion, mousewheel and buttonclicks
 system.exec	run external command in separate process
+system.exit	quit PureData
 system.getenv	Get system environment variables
 system.hostname	outputs system hostname
 system.memsize	returns the size of physical memory (RAM) in bytes round to float data type.
@@ -845,6 +847,8 @@ tl.transport	Timeline transport control
 ui.aview	array view with cursor and selection
 ui.bang	A bang... that's all
 ui.b	A bang... that's all
+ui.button	button widget
+ui.btn	button widget
 ui.colorpanel	colorchooser widget
 ui.display	Display GUI object
 ui.d	Display GUI object
@@ -860,6 +864,9 @@ ui.vgain~	UI gain control
 ui.icon	simple icon with button capabilities
 ui.incdec	value increment/decrement
 ui.keyboard	keyboard widget
+ui.hk	keyboard widget
+ui.vkeyboard	keyboard widget
+ui.vk	keyboard widget
 ui.knob	knob widget
 ui.label	simple label widget
 ui.link	Hyperlink widget

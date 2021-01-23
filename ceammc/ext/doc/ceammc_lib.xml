@@ -1332,6 +1332,9 @@
     <entry name="midi.prg2str" descr="convert GM Instrument number to name (string or symbol)" ref_view="object">
       <xi:include href="midi.prg2str.pddoc" parse="xml"/>
     </entry>
+    <entry name="midi.sustain" descr="midi sustain: hold notes" ref_view="object">
+      <xi:include href="midi.sustain.pddoc" parse="xml"/>
+    </entry>
     <entry name="midi.sysex" descr="sysex input messages as list" ref_view="object">
       <xi:include href="midi.sysex.pddoc" parse="xml"/>
     </entry>
@@ -1868,6 +1871,9 @@
     <entry name="system.exec" descr="run external command in separate process" ref_view="object">
       <xi:include href="system.exec.pddoc" parse="xml"/>
     </entry>
+    <entry name="system.exit" descr="quit PureData" ref_view="object">
+      <xi:include href="system.exit.pddoc" parse="xml"/>
+    </entry>
     <entry name="system.getenv" descr="Get system environment variables" ref_view="object">
       <xi:include href="system.getenv.pddoc" parse="xml"/>
     </entry>
@@ -1907,6 +1913,9 @@
     </entry>
     <entry name="ui.bang" descr="A bang... that's all" ref_view="link">
       <xi:include href="ui.bang.pddoc" parse="xml"/>
+    </entry>
+    <entry name="ui.button" descr="button widget" ref_view="link">
+      <xi:include href="ui.button.pddoc" parse="xml"/>
     </entry>
     <entry name="ui.colorpanel" descr="colorchooser widget" ref_view="link">
       <xi:include href="ui.colorpanel.pddoc" parse="xml"/>

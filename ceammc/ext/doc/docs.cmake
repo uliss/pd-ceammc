@@ -439,6 +439,7 @@ set(DOC_FILES
     midi.key2str
     midi.oct
     midi.prg2str
+    midi.sustain
     midi.sysex
     midi.track
     midi.tuning
@@ -591,6 +592,7 @@ set(DOC_FILES
     synth.wurley~
     system.colorpanel
     system.cursor
+    system.exit
     system.getenv
     system.hostname
     system.memsize
@@ -604,6 +606,7 @@ set(DOC_FILES
     tl.transport
     ui.aview
     ui.bang
+    ui.button
     ui.colorpanel
     ui.display
     ui.dsp~

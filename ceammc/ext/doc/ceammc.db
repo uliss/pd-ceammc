@@ -437,6 +437,7 @@ midi.file		.		.
 midi.key2str,midi.key->str		.		.
 midi.oct		..		.
 midi.prg2str,midi.prg->str		.		.
+midi.sustain		..		.
 midi.sysex		.		.
 midi.track		.		..
 midi.tuning		.		.
@@ -590,6 +591,7 @@ synth.wurley~		.		~
 system.colorpanel		.		.
 system.cursor		.		.
 system.exec		.		..
+system.exit		.		-
 system.getenv		.		.
 system.hostname		.		.
 system.memsize		.		.
@@ -602,6 +604,7 @@ tl.toggle,tl.t		.		.
 tl.transport		.		-
 ui.aview		.		.
 ui.bang,ui.b		.		.
+ui.button,ui.btn		.		.
 ui.colorpanel		.		.
 ui.display,ui.d,ui.dt		.		-
 ui.dsp~		.		-
@@ -610,7 +613,7 @@ ui.gain2~,ui.hgain2~,ui.vgain2~		~~		~~
 ui.gain~,ui.hgain~,ui.vgain~		~		~
 ui.icon		.		.
 ui.incdec		.		.
-ui.keyboard		.		.
+ui.keyboard,ui.hk,ui.vkeyboard,ui.vk		.		.
 ui.knob		.		.
 ui.label		-		-
 ui.link		-		-
