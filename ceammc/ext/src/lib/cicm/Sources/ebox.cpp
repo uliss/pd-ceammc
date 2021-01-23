@@ -561,7 +561,9 @@ bool ebox_isdrawable(t_ebox* x)
 void ebox_set_cursor(t_ebox* x, t_cursor cursor)
 {
     if (x->cursor != cursor) {
-        sys_vgui("%s configure -cursor %s\n", x->b_drawing_id->s_name, my_cursorlist[cursor]);
+        sys_vgui("::ceammc::ui::mouse_cursor %s %lx %s\n",
+            x->b_canvas_id->s_name, x, my_cursorlist[cursor]);
+
         x->cursor = cursor;
     }
 }

@@ -369,6 +369,11 @@ proc mouse_events_bind { cnv id target args }  {
     }
 }
 
+proc mouse_cursor { cnv id name }  {
+    set c [widget_canvas $cnv $id]
+    $c configure -cursor $name
+}
+
 # from ttk::bindMouseWheel
 proc bindMouseWheel {bindtag callback} {
     switch -- [tk windowingsystem] {
