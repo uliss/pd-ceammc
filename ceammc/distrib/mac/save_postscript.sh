@@ -8,6 +8,9 @@ then
     exit 1
 fi
 
+# enable TCL processing
+export CEAMMC_TCL=1
+
 IN=$1
 OUT=$2
 CMD0="tcl after 4000 exit"
