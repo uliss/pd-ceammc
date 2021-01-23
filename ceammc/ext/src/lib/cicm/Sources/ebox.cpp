@@ -1677,9 +1677,9 @@ bool ebox_notify(t_ebox* x, t_symbol* s)
 
     } else if (s == s_pinned && ebox_isvisible(x)) {
         if (x->b_pinned) {
-            sys_vgui("lower %s\n", x->b_drawing_id->s_name);
+            sys_vgui("::ceammc::ui::widget_lower %s %lx\n", x->b_canvas_id->s_name, x);
         } else {
-            sys_vgui("raise %s\n", x->b_drawing_id->s_name);
+            sys_vgui("::ceammc::ui::widget_raise %s %lx\n", x->b_canvas_id->s_name, x);
         }
     }
 
