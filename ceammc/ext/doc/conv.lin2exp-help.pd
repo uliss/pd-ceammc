@@ -11,7 +11,7 @@
 exceeds the input range \, by default clip is applied.;
 #X msg 50 158 0 1001;
 #N canvas 0 22 450 300 (subpatch) 0;
-#X array array1 1000 float 1;
+#X array l2e 1000 float 1;
 #A 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
@@ -45,76 +45,77 @@ exceeds the input range \, by default clip is applied.;
 #X restore 395 158 graph;
 #X obj 50 187 list.seq;
 #X obj 50 216 list.separate;
-#X obj 50 245 lin->exp 0 1001 0.01 1;
-#X obj 50 274 tabwrite array1;
-#X obj 20 330 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 335 cnv 5 90 26 empty empty arguments: 4 10 0 14 -262144
+#X obj 50 245 t f f, f 12;
+#X obj 50 274 lin->exp 0 1001 0.01 1;
+#X obj 50 302 tabwrite l2e;
+#X obj 20 351 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 356 cnv 5 90 26 empty empty arguments: 4 10 0 14 -262144
 -49933 0;
-#X text 110 370 1\.;
-#X text 150 370 float;
-#X obj 246 371 cnv 1 38 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 370 FROM: begin of input range.;
-#X text 110 390 2\.;
-#X text 150 390 float;
-#X obj 246 391 cnv 1 24 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 390 TO: end of input range.;
-#X text 110 410 3\.;
-#X text 150 410 float;
-#X obj 246 411 cnv 1 38 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 410 FROM: begin of output range.;
-#X text 110 430 4\.;
-#X text 150 430 float;
-#X obj 246 431 cnv 1 24 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 430 TO: end of input output.;
-#X obj 20 460 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 465 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
+#X text 110 391 1\.;
+#X text 150 391 float;
+#X obj 246 392 cnv 1 38 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 245 391 FROM: begin of input range.;
+#X text 110 411 2\.;
+#X text 150 411 float;
+#X obj 246 412 cnv 1 24 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 245 411 TO: end of input range.;
+#X text 110 431 3\.;
+#X text 150 431 float;
+#X obj 246 432 cnv 1 38 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 245 431 FROM: begin of output range.;
+#X text 110 451 4\.;
+#X text 150 451 float;
+#X obj 246 452 cnv 1 24 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 245 451 TO: end of input output.;
+#X obj 20 481 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 486 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
 -49933 0;
-#X msg 110 500 @clip;
-#X text 245 500 Get/Set noclip (don't clip) max (clip ceiling) min
+#X msg 110 521 @clip;
+#X text 245 521 Get/Set noclip (don't clip) max (clip ceiling) min
 (clip floor) minmax (clip both). Type: symbol. Default value: minmax.
 Allowed values: noclip \, min \, max \, minmax.;
-#X msg 110 557 @in_from;
-#X text 245 557 Get/Set begin of input range. Type: float. Default
+#X msg 110 578 @in_from;
+#X text 245 578 Get/Set begin of input range. Type: float. Default
 value: 0\.;
-#X msg 110 586 @in_to;
-#X text 245 586 Get/Set end of input range. Type: float. Default value:
+#X msg 110 607 @in_to;
+#X text 245 607 Get/Set end of input range. Type: float. Default value:
 127\.;
-#X msg 110 615 @max;
-#X text 245 615 Get/Set alias to @clip max. Type: symbol.;
-#X msg 110 644 @min;
-#X text 245 644 Get/Set alias to @clip min. Type: symbol.;
-#X msg 110 673 @minmax;
-#X text 245 673 Get/Set alias to @clip minmax. Type: symbol.;
-#X msg 110 702 @noclip;
-#X text 245 702 Get/Set alias to @clip noclip. Type: symbol.;
-#X msg 110 731 @out_from;
-#X text 245 731 Get/Set begin of output range. Type: float. Default
+#X msg 110 636 @max;
+#X text 245 636 Get/Set alias to @clip max. Type: symbol.;
+#X msg 110 665 @min;
+#X text 245 665 Get/Set alias to @clip min. Type: symbol.;
+#X msg 110 694 @minmax;
+#X text 245 694 Get/Set alias to @clip minmax. Type: symbol.;
+#X msg 110 723 @noclip;
+#X text 245 723 Get/Set alias to @clip noclip. Type: symbol.;
+#X msg 110 752 @out_from;
+#X text 245 752 Get/Set begin of output range. Type: float. Default
 value: 0.01\.;
-#X msg 110 773 @out_to;
-#X text 245 773 Get/Set end of output range. Type: float. Default value:
+#X msg 110 794 @out_to;
+#X text 245 794 Get/Set end of output range. Type: float. Default value:
 1\.;
-#X obj 20 812 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 817 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
+#X obj 20 833 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 838 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
-#X text 110 818 1\.;
-#X text 150 818 *float*;
-#X text 245 818 input value.;
-#X obj 20 848 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 853 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
+#X text 110 839 1\.;
+#X text 150 839 *float*;
+#X text 245 839 input value.;
+#X obj 20 869 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 874 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 854 1\.;
-#X text 245 854 converted value.;
+#X text 110 875 1\.;
+#X text 245 875 converted value.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 115 45 ::;
 #X obj 131 48 ui.link @title conv @url ceammc.conv-help.pd;
-#X obj 1 904 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 907 library: ceammc v0.9.1;
-#X text 464 919 see also:;
-#X obj 538 919 conv.lin2lin;
-#X obj 639 919 conv.lin2curve;
-#N canvas 10 926 400 290 info 0;
+#X obj 1 925 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 928 library: ceammc v0.9.1;
+#X text 464 940 see also:;
+#X obj 538 940 conv.lin2lin;
+#X obj 639 940 conv.lin2curve;
+#N canvas 10 947 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
@@ -138,9 +139,10 @@ https://github.com/uliss/pure-data;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 generated by pddoc;
-#X restore 10 926 pd info;
+#X restore 10 947 pd info;
 #X connect 7 0 9 0;
 #X connect 9 0 10 0;
 #X connect 10 0 11 0;
 #X connect 11 0 12 0;
-#X connect 10 0 12 1;
+#X connect 12 0 13 0;
+#X connect 11 0 13 1;

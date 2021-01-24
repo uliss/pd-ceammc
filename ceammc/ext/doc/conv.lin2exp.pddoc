@@ -53,17 +53,17 @@
         <example>
             <pdascii>
 <![CDATA[
-[0 1001(                            [array array1 size=1000 yr=0..1]
+[0 1001(                            [array l2e size=1000 yr=0..1]
 |
 [list.seq]
 |
-[list.separate            ]
+[list.separate]
+|
+[t f f {w=12}             ]
 |                         |
 [lin->exp 0 1001 0.01 1]  |
 |                         |.
-[tabwrite            array1]
-
-
+[tabwrite               l2e]
 ]]>
             </pdascii>
         </example>
