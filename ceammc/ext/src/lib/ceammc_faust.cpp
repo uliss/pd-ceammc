@@ -452,11 +452,11 @@ namespace faust {
                     return true;
                 }
             } else {
-                LIB_ERR << "[@" << name()->s_name << "] expected +-*/, got: " << lst[0];
+                LIB_ERR << "[" << name()->s_name << "] expected +-*/, got: " << lst[0];
                 return false;
             }
         } else {
-            LIB_ERR << "[@" << name()->s_name << "] float value expected, got: " << lst;
+            LIB_ERR << "[" << name()->s_name << "] float value expected, got: " << lst;
             return false;
         }
     }
