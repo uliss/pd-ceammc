@@ -3,7 +3,7 @@
     # include <cctype>
     # include "lex/score.parser.hpp"
 
-    using token = ceammc::ScoreParser::token;
+    using token = ceammc::score::ScoreParser::token;
 %}
 
 %class {
@@ -14,21 +14,21 @@
 %}
 
 %option freespace
-%option namespace=ceammc
+%option namespace=ceammc::score
 %option lexer=ScoreLexer
 %option header-file=score.lexer.h
 %option outfile=score.lexer.cpp
 /*%option graphs-file*/
 %option debug
 /*%option perf-report*/
-%option bison-cc-namespace="ceammc"
+%option bison-cc-namespace=ceammc::score
 %option bison-cc-parser="ScoreParser"
 %option bison-cc
 %option bison-complete
 %option noyywrap
 %option reentrant
 %option noindent
-/*%option fast*/
+%option fast
 
 space        [ \t\n]+
 
