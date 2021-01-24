@@ -151,6 +151,7 @@ int ceammc::convert::spn2midi(const char* p)
 {
     const char* pp = p;
     spn.reset();
+    int guard = 0;
 
     while (true) {
         switch (spn.put(*pp)) {
@@ -161,6 +162,11 @@ int ceammc::convert::spn2midi(const char* p)
             return spn.isRest() ? MIDI_REST : spn.midi();
         default:
             ++pp;
+        }
+
+        if (++guard > 16) {
+            LIB_ERR << "SPN parse loop";
+            return MIDI_NONE;
         }
     }
 }
