@@ -8,15 +8,16 @@
 #X obj 661 11 conv.bpm2hz;
 #X obj 210 80 cnv 1 555 50 empty empty empty 17 7 0 10 -257983 -1 0;
 #X text 215 80 Converts frequency from BPM (beats per minute) to herz.
-It is simple as /60 \, but more readable.;
+It's simple as /60 \, but more readable;
 #X msg 50 158 120;
 #X floatatom 50 187 5 0 0 0 - - -;
 #X text 98 187 simple metronome;
 #X obj 50 216 bpm->hz;
-#X obj 50 245 lfo.impulse~;
-#X obj 50 274 flt.resonbp~ 1000 20;
-#X obj 69 302 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1;
-#X obj 50 331 *~;
+#X obj 203 216 ui.dsp~;
+#X floatatom 50 245 5 0 0 0 - - -;
+#X obj 50 274 lfo.impulse~;
+#X obj 50 302 flt.resonbp~ 1000 20;
+#X obj 50 331 ui.hgain~;
 #X obj 50 360 dac~;
 #X obj 20 409 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 414 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
@@ -28,7 +29,7 @@ It is simple as /60 \, but more readable.;
 #X obj 20 450 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
 #X text 110 451 1\.;
-#X text 245 451 period in milliseconds.;
+#X text 245 451 frequency in herz.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;
@@ -65,8 +66,9 @@ https://github.com/uliss/pure-data;
 #X restore 10 527 pd info;
 #X connect 7 0 8 0;
 #X connect 8 0 10 0;
-#X connect 10 0 11 0;
-#X connect 11 0 12 0;
-#X connect 12 0 14 0;
-#X connect 13 0 14 1;
+#X connect 10 0 12 0;
+#X connect 12 0 13 0;
+#X connect 13 0 14 0;
 #X connect 14 0 15 0;
+#X connect 15 0 16 0;
+#X connect 15 0 16 1;

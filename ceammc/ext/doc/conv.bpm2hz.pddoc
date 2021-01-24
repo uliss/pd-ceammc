@@ -20,8 +20,8 @@
             </aliases>
         </meta>
         <info>
-            <par>Converts frequency from BPM (beats per minute) to herz. It is simple as /60, but
-            more readable.</par>
+            <par>Converts frequency from BPM (beats per minute) to herz. It's simple as /60, but
+            more readable</par>
         </info>
         <inlets>
             <inlet>
@@ -29,7 +29,7 @@
             </inlet>
         </inlets>
         <outlets>
-            <outlet>period in milliseconds</outlet>
+            <outlet>frequency in herz</outlet>
         </outlets>
         <example>
             <pdascii>
@@ -38,16 +38,16 @@
 |
 [F]  /*simple metronome*/
 |
-[bpm->hz]
+[bpm->hz]       [ui.dsp~]
+|
+[F]
 |
 [lfo.impulse~]
 |
 [flt.resonbp~ 1000 20]
 |
-| [T]
-| |.
-[*~]
-|
+[ui.hgain~]
+|\
 [dac~]
 ]]>
             </pdascii>
