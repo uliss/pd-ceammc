@@ -46,9 +46,7 @@
 |
 [amp->dbfs]
 |
-[msg set]
-|
-[ (
+[ui.dt]
 ]]>
             </pdascii>
         </example>
