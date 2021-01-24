@@ -96,8 +96,8 @@ dict.to_list,dict->list		.		.
 dict.values		.		.
 dyn.comp2~		~~		~~.
 dyn.comp~		~		~.
-dyn.gate2~		~~		~~.
-dyn.gate~		~		~.
+dyn.gate2~		~~		~~
+dyn.gate~		~		~
 dyn.limit2~		~~		~~
 dyn.limit~		~		~
 dyn.softclip~		~		~
