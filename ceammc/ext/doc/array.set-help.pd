@@ -7,18 +7,18 @@
 #X obj 570 11 list->array;
 #X obj 675 11 array.set;
 #N canvas 0 22 450 300 (subpatch) 0;
-#X array A1 100 float 1;
+#X array aset 100 float 1;
 #A 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0;
-#X coords 0 1 100 0 130 100 1;
+#X coords 0 1 100 0 450 100 1;
 #X restore 50 118 graph;
 #X msg 50 248 0 0.2 0.5;
 #X msg 165 248 0 0.9;
 #X msg 251 248 1 2 0 4 -5;
-#X msg 376 248 1 2 1 4 5 6 7 8 9;
-#X obj 50 277 array.set A1;
-#X obj 251 277 array.set A1 @normalize;
+#X msg 376 248 1 2 1 4 5 6 7 8 1 9;
+#X obj 50 277 array.set aset;
+#X obj 251 277 array.set aset @normalize;
 #X obj 20 326 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 331 cnv 5 90 26 empty empty arguments: 4 10 0 14 -262144
 -49933 0;
