@@ -40,21 +40,19 @@
         [* 8] /* 32nds */
         |
 [T]     [bpm->ms]
+|       |
+|       [F]
 |       |.
 [metro 80]
 |
 [next(
 |
-[list.walk 60 72 48 77 84 62 67 @fold]
+[list.walk mtof(60 72 48 77 84 62 67) @fold]
 |
-[mtof]
+[osc.pulse~]   [ui.dsp~]
 |
-[osc.pulse~]
-|
-| [T]
-| |.
-[*~]
-|
+[ui.hgain~]
+|\
 [dac~]
 ]]>
             </pdascii>
