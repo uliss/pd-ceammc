@@ -1,4 +1,4 @@
-// A Bison parser, made by GNU Bison 3.7.3.
+// A Bison parser, made by GNU Bison 3.7.4.
 
 // Skeleton interface for Bison LALR(1) parsers in C++
 
@@ -577,7 +577,7 @@ namespace ceammc {
       /// Copy constructor.
       basic_symbol (const basic_symbol& that);
 
-      /// Constructor for valueless symbols, and symbols from each type.
+      /// Constructors for typed symbols.
 #if 201103L <= YY_CPLUSPLUS
       basic_symbol (typename Base::kind_type t)
         : Base (t)
@@ -587,6 +587,7 @@ namespace ceammc {
         : Base (t)
       {}
 #endif
+
 #if 201103L <= YY_CPLUSPLUS
       basic_symbol (typename Base::kind_type t, int&& v)
         : Base (t)
@@ -598,6 +599,7 @@ namespace ceammc {
         , value (v)
       {}
 #endif
+
 #if 201103L <= YY_CPLUSPLUS
       basic_symbol (typename Base::kind_type t, std::string&& v)
         : Base (t)
@@ -732,42 +734,35 @@ switch (yykind)
 #if 201103L <= YY_CPLUSPLUS
       symbol_type (int tok)
         : super_type(token_type (tok))
-      {
-        YY_ASSERT (tok == token::TOK_YYEOF || tok == token::TOK_YYerror || tok == token::TOK_YYUNDEF || tok == token::TOK_SPACE || tok == token::TOK_OR || tok == token::TOK_RANGE || tok == token::TOK_EPSILON || tok == token::TOK_OP_LESS || tok == token::TOK_OP_LESS_EQ || tok == token::TOK_OP_GREATER || tok == token::TOK_OP_GREATER_EQ);
-      }
 #else
       symbol_type (int tok)
         : super_type(token_type (tok))
-      {
-        YY_ASSERT (tok == token::TOK_YYEOF || tok == token::TOK_YYerror || tok == token::TOK_YYUNDEF || tok == token::TOK_SPACE || tok == token::TOK_OR || tok == token::TOK_RANGE || tok == token::TOK_EPSILON || tok == token::TOK_OP_LESS || tok == token::TOK_OP_LESS_EQ || tok == token::TOK_OP_GREATER || tok == token::TOK_OP_GREATER_EQ);
-      }
 #endif
+      {
+        YY_ASSERT (tok == token::TOK_YYEOF
+                   || (token::TOK_YYerror <= tok && tok <= token::TOK_EPSILON)
+                   || (token::TOK_OP_LESS <= tok && tok <= token::TOK_OP_GREATER_EQ));
+      }
 #if 201103L <= YY_CPLUSPLUS
       symbol_type (int tok, int v)
         : super_type(token_type (tok), std::move (v))
-      {
-        YY_ASSERT (tok == token::TOK_OPEN_BRACKET || tok == token::TOK_CLOSE_BRACKET || tok == token::TOK_OPEN_PAR || tok == token::TOK_CLOSE_PAR);
-      }
 #else
       symbol_type (int tok, const int& v)
         : super_type(token_type (tok), v)
-      {
-        YY_ASSERT (tok == token::TOK_OPEN_BRACKET || tok == token::TOK_CLOSE_BRACKET || tok == token::TOK_OPEN_PAR || tok == token::TOK_CLOSE_PAR);
-      }
 #endif
+      {
+        YY_ASSERT ((token::TOK_OPEN_BRACKET <= tok && tok <= token::TOK_CLOSE_PAR));
+      }
 #if 201103L <= YY_CPLUSPLUS
       symbol_type (int tok, std::string v)
         : super_type(token_type (tok), std::move (v))
-      {
-        YY_ASSERT (tok == token::TOK_FLOAT || tok == token::TOK_SYMBOL);
-      }
 #else
       symbol_type (int tok, const std::string& v)
         : super_type(token_type (tok), v)
-      {
-        YY_ASSERT (tok == token::TOK_FLOAT || tok == token::TOK_SYMBOL);
-      }
 #endif
+      {
+        YY_ASSERT ((token::TOK_FLOAT <= tok && tok <= token::TOK_SYMBOL));
+      }
     };
 
     /// Build a parser object.
@@ -1586,7 +1581,7 @@ switch (yykind)
 
 #line 7 "select.y"
 } // ceammc
-#line 1590 "select.parser.hpp"
+#line 1585 "select.parser.hpp"
 
 
 
