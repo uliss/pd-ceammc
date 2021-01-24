@@ -16,7 +16,7 @@
 #include "lex/select.parser.hpp"
 #include "test_base.h"
 
-using namespace ceammc;
+using namespace ceammc::select;
 
 TEST_CASE("SelectParser", "[ceammc::SelectParser]")
 {

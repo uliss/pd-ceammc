@@ -7,7 +7,7 @@
 
     # include "lex/select.parser.hpp"
 
-    using token = ceammc::SelectParser::token;
+    using token = ceammc::select::SelectParser::token;
 %}
 
 %class {
@@ -141,21 +141,21 @@
 %}
 
 %option freespace unicode
-%option namespace=ceammc
+%option namespace=ceammc::select
 %option lexer=SelectLexer
 %option header-file=select.lexer.h
 %option outfile=select.lexer.cpp
 /*%option graphs-file*/
 /*%option debug*/
 /*%option perf-report*/
-%option bison-cc-namespace="ceammc"
-%option bison-cc-parser="SelectParser"
+%option bison-cc-namespace=ceammc::select
+%option bison-cc-parser=SelectParser
 %option bison-cc
 %option bison-complete
 %option noyywrap
 %option reentrant
 %option noindent
-/*%option fast*/
+%option fast
 
 space       [ \t\n]+
 

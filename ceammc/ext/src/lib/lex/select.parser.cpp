@@ -42,7 +42,7 @@
 
 
 // Unqualified %code blocks.
-#line 30 "select.y"
+#line 32 "select.y"
 
     # undef yylex
     # define yylex lexer.lex
@@ -122,11 +122,11 @@
 #define YYRECOVERING()  (!!yyerrstatus_)
 
 #line 7 "select.y"
-namespace ceammc {
+namespace ceammc { namespace select {
 #line 127 "select.parser.cpp"
 
   /// Build a parser object.
-  SelectParser::SelectParser (ceammc::SelectLexer& lexer_yyarg)
+  SelectParser::SelectParser (ceammc::select::SelectLexer& lexer_yyarg)
 #if YYDEBUG
     : yydebug_ (false),
       yycdebug_ (&std::cerr),
@@ -573,55 +573,55 @@ namespace ceammc {
           switch (yyn)
             {
   case 2: // OPEN_B: OPEN_BRACKET
-#line 62 "select.y"
+#line 64 "select.y"
       { yylhs.value.as < int > () = yystack_[0].value.as < int > (); }
 #line 579 "select.parser.cpp"
     break;
 
   case 3: // OPEN_B: OPEN_PAR
-#line 63 "select.y"
+#line 65 "select.y"
       { yylhs.value.as < int > () = yystack_[0].value.as < int > (); }
 #line 585 "select.parser.cpp"
     break;
 
   case 4: // CLOSE_B: CLOSE_BRACKET
-#line 67 "select.y"
+#line 69 "select.y"
       { yylhs.value.as < int > () = yystack_[0].value.as < int > (); }
 #line 591 "select.parser.cpp"
     break;
 
   case 5: // CLOSE_B: CLOSE_PAR
-#line 68 "select.y"
+#line 70 "select.y"
       { yylhs.value.as < int > () = yystack_[0].value.as < int > (); }
 #line 597 "select.parser.cpp"
     break;
 
   case 6: // ATOM0: FLOAT
-#line 72 "select.y"
+#line 74 "select.y"
              { lexer.pushLexerAtom({yystack_[0].value.as < std::string > (), true}); }
 #line 603 "select.parser.cpp"
     break;
 
   case 7: // ATOM0: SYMBOL
-#line 73 "select.y"
+#line 75 "select.y"
              { lexer.pushLexerAtom({yystack_[0].value.as < std::string > (), false}); }
 #line 609 "select.parser.cpp"
     break;
 
   case 10: // SET: ATOM
-#line 82 "select.y"
+#line 84 "select.y"
              { lexer.popLexerAtoms(); }
 #line 615 "select.parser.cpp"
     break;
 
   case 11: // SET: SET OR ATOM
-#line 83 "select.y"
+#line 85 "select.y"
                    { lexer.popLexerAtoms(); lexer.mergeMatch(); }
 #line 621 "select.parser.cpp"
     break;
 
   case 12: // COMPARE: OP_LESS FLOAT
-#line 87 "select.y"
+#line 89 "select.y"
                     {
         const auto a = std::strtod(yystack_[0].value.as < std::string > ().c_str(), nullptr);
         lexer.pushMatch(SelectLexer::MatchData::compare(a, SelectLexer::MATCH_LESS));
@@ -630,7 +630,7 @@ namespace ceammc {
     break;
 
   case 13: // COMPARE: OP_LESS_EQ FLOAT
-#line 91 "select.y"
+#line 93 "select.y"
                        {
         const auto a = std::strtod(yystack_[0].value.as < std::string > ().c_str(), nullptr);
         lexer.pushMatch(SelectLexer::MatchData::compare(a, SelectLexer::MATCH_LESS_EQ));
@@ -639,7 +639,7 @@ namespace ceammc {
     break;
 
   case 14: // COMPARE: OP_GREATER_EQ FLOAT
-#line 95 "select.y"
+#line 97 "select.y"
                           {
         const auto a = std::strtod(yystack_[0].value.as < std::string > ().c_str(), nullptr);
         lexer.pushMatch(SelectLexer::MatchData::compare(a, SelectLexer::MATCH_GREATER_EQ));
@@ -648,7 +648,7 @@ namespace ceammc {
     break;
 
   case 15: // COMPARE: OP_GREATER FLOAT
-#line 99 "select.y"
+#line 101 "select.y"
                        {
         const auto a = std::strtod(yystack_[0].value.as < std::string > ().c_str(), nullptr);
         lexer.pushMatch(SelectLexer::MatchData::compare(a, SelectLexer::MATCH_GREATER));
@@ -657,7 +657,7 @@ namespace ceammc {
     break;
 
   case 16: // EXPR: FLOAT RANGE FLOAT
-#line 106 "select.y"
+#line 108 "select.y"
                         {
         const auto a = std::strtod(yystack_[2].value.as < std::string > ().c_str(), nullptr);
         const auto b = std::strtod(yystack_[0].value.as < std::string > ().c_str(), nullptr);
@@ -667,7 +667,7 @@ namespace ceammc {
     break;
 
   case 17: // EXPR: FLOAT EPSILON FLOAT
-#line 111 "select.y"
+#line 113 "select.y"
                           {
         const auto a = std::strtod(yystack_[2].value.as < std::string > ().c_str(), nullptr);
         const auto b = std::strtod(yystack_[0].value.as < std::string > ().c_str(), nullptr);
@@ -677,7 +677,7 @@ namespace ceammc {
     break;
 
   case 18: // EXPR: OPEN_B FLOAT RANGE FLOAT CLOSE_B
-#line 116 "select.y"
+#line 118 "select.y"
                                        {
         const auto a = std::strtod(yystack_[3].value.as < std::string > ().c_str(), nullptr);
         const auto b = std::strtod(yystack_[1].value.as < std::string > ().c_str(), nullptr);
@@ -1134,9 +1134,9 @@ namespace ceammc {
   const unsigned char
   SelectParser::yyrline_[] =
   {
-       0,    62,    62,    63,    67,    68,    72,    73,    77,    78,
-      82,    83,    87,    91,    95,    99,   106,   111,   116,   128,
-     129,   133,   134,   135
+       0,    64,    64,    65,    69,    70,    74,    75,    79,    80,
+      84,    85,    89,    93,    97,   101,   108,   113,   118,   130,
+     131,   135,   136,   137
   };
 
   void
@@ -1168,13 +1168,13 @@ namespace ceammc {
 
 
 #line 7 "select.y"
-} // ceammc
+} } // ceammc::select
 #line 1173 "select.parser.cpp"
 
-#line 138 "select.y"
+#line 140 "select.y"
 
 
-void ceammc::SelectParser::error(const std::string& err_message)
+void ceammc::select::SelectParser::error(const std::string& err_message)
 {
     lexer.setErrorMsg(err_message);
 }

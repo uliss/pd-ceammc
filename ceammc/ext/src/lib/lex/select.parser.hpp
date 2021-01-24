@@ -33,7 +33,7 @@
 
 /**
  ** \file select.parser.hpp
- ** Define the ceammc::parser class.
+ ** Define the ceammc::select::parser class.
  */
 
 // C++ LALR(1) parser skeleton written by Akim Demaille.
@@ -53,10 +53,12 @@
     # include "ceammc_atom.h"
 
     namespace ceammc {
+    namespace select {
         class SelectLexer;
     }
+    }
 
-#line 60 "select.parser.hpp"
+#line 62 "select.parser.hpp"
 
 # include <cassert>
 # include <cstdlib> // std::abort
@@ -190,8 +192,8 @@
 #endif
 
 #line 7 "select.y"
-namespace ceammc {
-#line 195 "select.parser.hpp"
+namespace ceammc { namespace select {
+#line 197 "select.parser.hpp"
 
 
 
@@ -766,7 +768,7 @@ switch (yykind)
     };
 
     /// Build a parser object.
-    SelectParser (ceammc::SelectLexer& lexer_yyarg);
+    SelectParser (ceammc::select::SelectLexer& lexer_yyarg);
     virtual ~SelectParser ();
 
 #if 201103L <= YY_CPLUSPLUS
@@ -1400,7 +1402,7 @@ switch (yykind)
 
 
     // User arguments.
-    ceammc::SelectLexer& lexer;
+    ceammc::select::SelectLexer& lexer;
 
   };
 
@@ -1580,8 +1582,8 @@ switch (yykind)
   }
 
 #line 7 "select.y"
-} // ceammc
-#line 1585 "select.parser.hpp"
+} } // ceammc::select
+#line 1587 "select.parser.hpp"
 
 
 

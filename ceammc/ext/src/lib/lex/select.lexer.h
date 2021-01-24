@@ -11,23 +11,24 @@
 //                                                                            //
 ////////////////////////////////////////////////////////////////////////////////
 
-#define REFLEX_OPTION_YYLTYPE             ceammc::location
-#define REFLEX_OPTION_YYSTYPE             ceammc::SelectParser::semantic_type
+#define REFLEX_OPTION_YYLTYPE             ceammc::select::location
+#define REFLEX_OPTION_YYSTYPE             ceammc::select::SelectParser::semantic_type
 #define REFLEX_OPTION_bison_cc            true
-#define REFLEX_OPTION_bison_cc_namespace  ceammc
+#define REFLEX_OPTION_bison_cc_namespace  ceammc::select
 #define REFLEX_OPTION_bison_cc_parser     SelectParser
 #define REFLEX_OPTION_bison_complete      true
+#define REFLEX_OPTION_fast                true
 #define REFLEX_OPTION_freespace           true
 #define REFLEX_OPTION_header_file         "select.lexer.h"
 #define REFLEX_OPTION_lex                 lex
 #define REFLEX_OPTION_lexer               SelectLexer
-#define REFLEX_OPTION_namespace           ceammc
+#define REFLEX_OPTION_namespace           ceammc::select
 #define REFLEX_OPTION_noindent            true
 #define REFLEX_OPTION_noyywrap            true
 #define REFLEX_OPTION_outfile             "select.lexer.cpp"
 #define REFLEX_OPTION_reentrant           true
-#define REFLEX_OPTION_token_eof           ceammc::SelectParser::symbol_type(0)
-#define REFLEX_OPTION_token_type          ceammc::SelectParser::symbol_type
+#define REFLEX_OPTION_token_eof           ceammc::select::SelectParser::symbol_type(0)
+#define REFLEX_OPTION_token_type          ceammc::select::SelectParser::symbol_type
 #define REFLEX_OPTION_unicode             true
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -46,7 +47,7 @@
 
     # include "lex/select.parser.hpp"
 
-    using token = ceammc::SelectParser::token;
+    using token = ceammc::select::SelectParser::token;
 
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -73,6 +74,7 @@
 ////////////////////////////////////////////////////////////////////////////////
 
 namespace ceammc {
+namespace select {
 
 class SelectLexer : public reflex::AbstractLexer<reflex::Matcher> {
 #line 13 "select.l"
@@ -217,10 +219,11 @@ class SelectLexer : public reflex::AbstractLexer<reflex::Matcher> {
   static const int INITIAL = 0;
   static const int RANGE = 1;
   static const int EPSILON = 2;
-  virtual ceammc::SelectParser::symbol_type lex(void);
+  virtual ceammc::select::SelectParser::symbol_type lex(void);
 };
 
 } // namespace ceammc
+} // namespace select
 
 ////////////////////////////////////////////////////////////////////////////////
 //                                                                            //
