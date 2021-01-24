@@ -50,9 +50,7 @@
 |    |
 [flow.group @by 5]
 |
-[m set]
-|
-[ (
+[ui.dt]
 ]]>
             </pdascii>
         </example>
