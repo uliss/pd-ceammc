@@ -57,18 +57,19 @@
         <example>
             <pdascii>
 <![CDATA[
-[loadbang]     [F #a]              [array array1 size=1000 w=150 h=80 yr=0..1]
+[loadbang]     [F]              [array l2c size=255 w=250 h=180 yr=0..1]
 |              |
-[0 1001 #d(    [@curve $1 #b(
+[0 256 #d(     [t b f #a]
+|              ^|
+[list.seq]     [@curve $1 #b(
 |
-[list.seq]
+[list.separate             ]
 |
-[list.unpack               ]
-|                          |
-|                          |
-[lin->curve 0 1001 0 1 #c] |
+[t f f               {w=12}]
+|                         ^|
+[lin->curve 0 256  0 1 #c] |
 |                          |.
-[tabwrite             array1]
+[tabwrite                l2c]
 
 [X b->c]
 [X a->d]
