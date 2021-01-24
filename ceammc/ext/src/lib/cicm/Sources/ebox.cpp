@@ -2127,8 +2127,6 @@ t_pd_err ebox_paint_layer(t_ebox* x, t_symbol* name, float x_p, float y_p)
     char bottom[256];
     t_elayer* g = ebox_get_layer(x, name);
     if (g && g->e_state == EGRAPHICS_TODRAW) {
-        x_p += x->b_zoom;
-        y_p += x->b_zoom;
         for (const auto& gobj : g->e_objects) {
             if (gobj.e_type == E_GOBJ_PATH) {
                 if (gobj.e_filled) {

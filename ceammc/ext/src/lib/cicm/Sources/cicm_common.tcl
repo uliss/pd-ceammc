@@ -155,25 +155,9 @@ namespace eval ::ceammc {
 namespace eval ui {
 
 # border
-proc border_tag { id } {
-    return "bd${id}"
-}
-
-proc border_w { w zoom } {
-    if { $zoom } {
-        expr ($w * $zoom) + $zoom
-    } else {
-        expr ($w * $zoom) + $zoom + 1
-    }
-}
-
-proc border_h { h zoom } {
-    if { $zoom } {
-        expr ($h * $zoom) + $zoom
-    } else {
-        expr ($h * $zoom) + $zoom + 1
-    }
-}
+proc border_tag { id }   { return "bd${id}" }
+proc border_w { w zoom } { expr $w * $zoom }
+proc border_h { h zoom } { expr $h * $zoom }
 
 proc border_x { zoom } { expr ($zoom == 1) ? 0 : 1 }
 proc border_y { zoom } { expr ($zoom == 1) ? 0 : 1 }
@@ -183,7 +167,6 @@ proc border_draw { cnv id w h zoom color } {
     set c [widget_canvas $cnv $id]
     set tags [$c find withtag $tag]
     # draw params
-    set wd [expr $zoom==1 ? 1 : 3]
 
     set x [border_x $zoom]
     set y [border_y $zoom]
@@ -191,11 +174,11 @@ proc border_draw { cnv id w h zoom color } {
     set h [border_h $h $zoom]
 
     if { [llength $tags] == 0 } {
-        $c create rectangle $x $y $w $h -outline $color -width $wd -tags $tag
+        $c create rectangle $x $y $w $h -outline $color -width $zoom -tags $tag
     } else {
         set item [lindex $tags 0]
         $c coords $item $x $y $w $h
-        $c itemconfigure $item -outline $color -width $wd
+        $c itemconfigure $item -outline $color -width $zoom
     }
 
     $c raise $tag
@@ -210,10 +193,10 @@ proc inlets_delete { cnv id } {
     $c delete [inlets_tag $id]
 }
 
-proc xlet_w { zoom } { expr 7*$zoom + 1 }
+proc xlet_w { zoom } { expr 6*$zoom + 1 }
 
 proc xlet_h { type zoom } {
-    if { $type == "_" } { expr 1 + $zoom } { expr ($zoom==1) ? 3 : 6 }
+    if { $type == "_" } { expr $zoom } { expr ($zoom==1) ? 2 : 4 }
 }
 
 proc xlet_color { type } {
@@ -234,7 +217,8 @@ proc inlet_draw { cnv id x y zoom type {idx 0} } {
     set tags [inlets_tag $id]
     lappend tags [inlets_tag_idx $id $idx]
 
-    $c create rectangle $x $y $x1 $y1 -fill $color -width 0 -tags $tags
+    $c create rectangle $x $y $x1 $y1 -fill $color -outline $color -width 1 -tags $tags
+    $c raise $tags
 }
 
 proc inlets_draw { cnv id w h zoom str } {
@@ -282,14 +266,15 @@ proc outlet_tooltip { cnv id idx str } {
 proc outlet_draw { cnv id x y w h zoom type {idx 0} } {
     set c [widget_canvas $cnv $id]
     set x1 [expr $x + [xlet_w $zoom]]
-    set y [expr $h - [xlet_h $type $zoom]]
+    set y0  [expr $h - [xlet_h $type $zoom]]
     set y1 [expr $h]
     set color [xlet_color $type]
 
     set tags [outlets_tag $id]
     lappend tags [outlets_tag_idx $id $idx]
 
-    $c create rectangle $x $y $x1 $y1 -fill $color -width 0 -tags $tags
+    $c create rectangle $x $y0 $x1 $y1 -fill $color -outline $color -width 1 -tags $tags
+    $c raise $tags
 }
 
 proc outlets_draw { cnv id w h zoom str } {
@@ -297,7 +282,7 @@ proc outlets_draw { cnv id w h zoom str } {
 
     set c [widget_canvas $cnv $id]
     set w [border_w $w $zoom]
-    set h [widget_h $h $zoom]
+    set h [border_h $h $zoom]
 
     set n [string length $str]
     if { $n == 1 } {
@@ -321,8 +306,8 @@ proc widget_window { cnv id } {
     return "${cnv}.ewindow${id}"
 }
 
-proc widget_w { w zoom } { expr ($w * $zoom) + (2*$zoom) }
-proc widget_h { h zoom } { expr ($h * $zoom) + (2*$zoom) }
+proc widget_w { w zoom } { expr $w * $zoom + 1 }
+proc widget_h { h zoom } { expr $h * $zoom + 1 }
 
 proc create_widget { id cnv w h zoom } {
     namespace eval "ebox$id" {}
