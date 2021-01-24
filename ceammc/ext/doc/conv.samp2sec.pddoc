@@ -35,9 +35,7 @@
 |        |
 [samp->sec]
 |
-[msg set]
-|
-[ (
+[ui.dt]
 ]]>
             </pdascii>
         </example>

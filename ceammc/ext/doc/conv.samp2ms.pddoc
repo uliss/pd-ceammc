@@ -35,7 +35,7 @@
 |        |
 [samp->ms]
 |
-[F digits=10]
+[ui.dt]
 ]]>
             </pdascii>
         </example>
