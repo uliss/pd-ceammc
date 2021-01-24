@@ -32,6 +32,7 @@
 - methods:
   - *postscript* method added to canvas.top for saving patch to PostScript
 - comma separated messages added to msg.onload (loadmsg)
+- rests support added to conv.pitch->midi
 - @from property added to patch.args
 - hex output added to ui.display (@hex and @hex_width properties)
 - xlet tooltips added to:

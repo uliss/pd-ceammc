@@ -13,12 +13,10 @@ public:
     void onSymbol(t_symbol* s) override;
     void onList(const AtomList& lst) override;
     void onDataT(const StringAtom& s);
+    void onDataT(const MListAtom& ml);
 
 private:
     void convert(const char* p);
-
-public:
-    static int spn2midi(const char* p);
 };
 
 void setup_conv_pitch2midi();

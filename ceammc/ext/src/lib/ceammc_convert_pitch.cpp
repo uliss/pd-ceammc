@@ -149,19 +149,19 @@ static SPN spn;
 
 int ceammc::convert::spn2midi(const char* p)
 {
-    const char* pp = p;
+    const char* pch = p;
     spn.reset();
     int guard = 0;
 
     while (true) {
-        switch (spn.put(*pp)) {
+        switch (spn.put(*pch)) {
         case SPN::ST_ERROR:
             LIB_ERR << "SPN parse: " << spn.error();
             return MIDI_NONE;
         case SPN::ST_DONE:
             return spn.isRest() ? MIDI_REST : spn.midi();
         default:
-            ++pp;
+            ++pch;
         }
 
         if (++guard > 16) {

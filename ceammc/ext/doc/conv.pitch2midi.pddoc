@@ -18,35 +18,43 @@
         </meta>
         <info>
             <par>Convert Scientific Pitch Notation to MIDI note numbers. SPN consist of pitch class
-            (C, C#, D, Eb etc.) and octave (0-9). C4 is middle C (MIDI: 60)</par>
+            (C, C#, D, Eb etc.) and octave (0-9). C4 is middle C (MIDI: 60). The rest symtol is R
+            (-1 output)</par>
         </info>
         <inlets>
             <inlet>
                 <xinfo on="symbol">Scientific Pitch Notation value</xinfo>
+                <xinfo on="list">list of SPN values</xinfo>
+                <xinfo on="data:string">SPN value</xinfo>
+                <xinfo on="data:mlist">list SPN values</xinfo>
             </inlet>
         </inlets>
         <outlets>
-            <outlet>MIDI note number</outlet>
+            <outlet>MIDI note number or -1 on Rest</outlet>
         </outlets>
         <example>
             <pdascii>
 <![CDATA[
-[T]
+[T]           [ui.dsp~]
 |
 [metro 100]
 |
-[list C4 F4 G4 C6 Gb7 B##9(
+[list Bb3 C4 F4 G4 C6 E##7 R R R R(
 |
 [list.choice]
 |
 [pitch->midi]
 |
-[mtof]
+[t f f  ]
+|      ^|
+[mtof] [!= -1]
+|      |
+[osc~] [lop~ 30]
+|      |.
+[*~     ]
 |
-[osc~] [T]
-|  .___/
-[*~]
-|
+[ui.hgain~]
+|\
 [dac~]
 ]]>
             </pdascii>
