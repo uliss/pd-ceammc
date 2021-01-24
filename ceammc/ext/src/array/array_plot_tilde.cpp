@@ -220,4 +220,9 @@ void ArrayPlotTilde::updateScale()
 void setup_array_plot_tilde()
 {
     SoundExternalFactory<ArrayPlotTilde> obj("array.plot~");
+
+    obj.setXletsInfo({ "signal: signal to plot",
+                         "bang: plot samples\n"
+                         "int: resize array and plot samples" },
+        { "" });
 }
