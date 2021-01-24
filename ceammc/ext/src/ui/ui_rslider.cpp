@@ -82,7 +82,7 @@ void UIRSlider::drawBackground()
     p.setLineWidth(2);
 
     if (is_horizontal_)
-        p.drawLine(-1, r.height * 0.5, r.width + 2, r.height * 0.5);
+        p.drawLine(-1, r.height * 0.5, r.width + 1, r.height * 0.5);
     else
         p.drawLine(r.width * 0.5, -2, r.width * 0.5, r.height + 4);
 }
@@ -109,26 +109,26 @@ void UIRSlider::drawKnob()
         float x1 = value_high * r.width;
 
         p.setColor(rect_color);
-        p.drawRect(x0, -2, x1 - x0, r.height + 4);
+        p.drawRect(x0, 0, x1 - x0, r.height);
         p.fill();
 
         p.setColor(line_color);
         p.drawLine(x0, r.height * 0.5, x1, r.height * 0.5);
 
         p.setColor(prop_color_knob);
-        p.drawLine(x0, -2, x0, r.height + 4);
-        p.drawLine(x1, -2, x1, r.height + 4);
+        p.drawLine(x0, 0, x0, r.height);
+        p.drawLine(x1, 0, x1, r.height);
     } else {
         p.setColor(rect_color);
-        p.drawRect(-2, value_low * r.height, r.width + 4, value_high * r.height - value_low * r.height);
+        p.drawRect(0, value_low * r.height, r.width, value_high * r.height - value_low * r.height);
         p.fill();
 
         p.setColor(line_color);
         p.drawLine(r.width * 0.5, value_low * r.height, r.width * 0.5, value_high * r.height);
 
         p.setColor(prop_color_knob);
-        p.drawLine(-2, value_low * r.height, r.width + 4, value_low * r.height);
-        p.drawLine(-2, value_high * r.height, r.width + 4, value_high * r.height);
+        p.drawLine(0, value_low * r.height, r.width, value_low * r.height);
+        p.drawLine(0, value_high * r.height, r.width, value_high * r.height);
     }
 }
 
