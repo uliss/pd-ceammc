@@ -69,11 +69,9 @@
 | |  |   |             |
 | |. |.. |...          |....
 [flow.multiplex2~ 2         ]
-|  ^|
-|   |  [ui.slider @size 120 16]
-|   |. |..
-[gain~  2]
-|  ^|.
+*|*
+[ui.hgain2~]
+*|*
 [dac~]
 ]]>
             </pdascii>
