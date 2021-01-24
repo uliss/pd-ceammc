@@ -1,4 +1,4 @@
-// A Bison parser, made by GNU Bison 3.7.3.
+// A Bison parser, made by GNU Bison 3.7.4.
 
 // Skeleton interface for Bison LALR(1) parsers in C++
 
@@ -33,7 +33,7 @@
 
 /**
  ** \file data_string.parser.hpp
- ** Define the ceammc::parser class.
+ ** Define the ceammc::ds::parser class.
  */
 
 // C++ LALR(1) parser skeleton written by Akim Demaille.
@@ -54,14 +54,16 @@
     # include "ceammc_datastorage.h"
 
     namespace ceammc {
+    namespace ds {
         class DataStringLexer;
+    }
     }
 
 # ifndef YY_NULLPTR
 #   define YY_NULLPTR nullptr
 # endif
 
-#line 65 "data_string.parser.hpp"
+#line 67 "data_string.parser.hpp"
 
 
 # include <cstdlib> // std::abort
@@ -107,11 +109,6 @@
 # define YY_CONSTEXPR
 #endif
 # include "data_string.location.hpp"
-
-#ifndef YY_ASSERT
-# include <cassert>
-# define YY_ASSERT assert
-#endif
 
 
 #ifndef YY_ATTRIBUTE_PURE
@@ -195,8 +192,8 @@
 #endif
 
 #line 8 "data_string.y"
-namespace ceammc {
-#line 200 "data_string.parser.hpp"
+namespace ceammc { namespace ds {
+#line 197 "data_string.parser.hpp"
 
 
 
@@ -226,7 +223,6 @@ namespace ceammc {
     template <typename T>
     semantic_type (YY_RVREF (T) t)
     {
-      YY_ASSERT (sizeof (T) <= size);
       new (yyas_<T> ()) T (YY_MOVE (t));
     }
 
@@ -599,7 +595,7 @@ namespace ceammc {
       /// Copy constructor.
       basic_symbol (const basic_symbol& that);
 
-      /// Constructor for valueless symbols, and symbols from each type.
+      /// Constructors for typed symbols.
 #if 201103L <= YY_CPLUSPLUS
       basic_symbol (typename Base::kind_type t, location_type&& l)
         : Base (t)
@@ -611,6 +607,7 @@ namespace ceammc {
         , location (l)
       {}
 #endif
+
 #if 201103L <= YY_CPLUSPLUS
       basic_symbol (typename Base::kind_type t, ceammc::Atom&& v, location_type&& l)
         : Base (t)
@@ -624,6 +621,7 @@ namespace ceammc {
         , location (l)
       {}
 #endif
+
 #if 201103L <= YY_CPLUSPLUS
       basic_symbol (typename Base::kind_type t, ceammc::AtomList&& v, location_type&& l)
         : Base (t)
@@ -637,6 +635,7 @@ namespace ceammc {
         , location (l)
       {}
 #endif
+
 #if 201103L <= YY_CPLUSPLUS
       basic_symbol (typename Base::kind_type t, ceammc::Dict&& v, location_type&& l)
         : Base (t)
@@ -650,6 +649,7 @@ namespace ceammc {
         , location (l)
       {}
 #endif
+
 #if 201103L <= YY_CPLUSPLUS
       basic_symbol (typename Base::kind_type t, ceammc::DictEntry&& v, location_type&& l)
         : Base (t)
@@ -663,6 +663,7 @@ namespace ceammc {
         , location (l)
       {}
 #endif
+
 #if 201103L <= YY_CPLUSPLUS
       basic_symbol (typename Base::kind_type t, const char*&& v, location_type&& l)
         : Base (t)
@@ -676,6 +677,7 @@ namespace ceammc {
         , location (l)
       {}
 #endif
+
 #if 201103L <= YY_CPLUSPLUS
       basic_symbol (typename Base::kind_type t, double&& v, location_type&& l)
         : Base (t)
@@ -689,6 +691,7 @@ namespace ceammc {
         , location (l)
       {}
 #endif
+
 #if 201103L <= YY_CPLUSPLUS
       basic_symbol (typename Base::kind_type t, std::string&& v, location_type&& l)
         : Base (t)
@@ -848,59 +851,39 @@ switch (yykind)
 #if 201103L <= YY_CPLUSPLUS
       symbol_type (int tok, location_type l)
         : super_type(token_type (tok), std::move (l))
-      {
-        YY_ASSERT (tok == token::TOK_END || tok == token::TOK_YYerror || tok == token::TOK_YYUNDEF || tok == token::TOK_NULL || tok == token::TOK_COMMA || tok == token::TOK_OPEN_DICT_BRACKET || tok == token::TOK_CLOSE_DICT_BRACKET || tok == token::TOK_OPEN_LIST_BRACKET || tok == token::TOK_CLOSE_LIST_BRACKET || tok == token::TOK_LEXER_ERROR || tok == token::TOK_DATA_TYPE_STRING);
-      }
 #else
       symbol_type (int tok, const location_type& l)
         : super_type(token_type (tok), l)
-      {
-        YY_ASSERT (tok == token::TOK_END || tok == token::TOK_YYerror || tok == token::TOK_YYUNDEF || tok == token::TOK_NULL || tok == token::TOK_COMMA || tok == token::TOK_OPEN_DICT_BRACKET || tok == token::TOK_CLOSE_DICT_BRACKET || tok == token::TOK_OPEN_LIST_BRACKET || tok == token::TOK_CLOSE_LIST_BRACKET || tok == token::TOK_LEXER_ERROR || tok == token::TOK_DATA_TYPE_STRING);
-      }
 #endif
+      {}
 #if 201103L <= YY_CPLUSPLUS
       symbol_type (int tok, const char* v, location_type l)
         : super_type(token_type (tok), std::move (v), std::move (l))
-      {
-        YY_ASSERT (tok == token::TOK_SYMBOL);
-      }
 #else
       symbol_type (int tok, const const char*& v, const location_type& l)
         : super_type(token_type (tok), v, l)
-      {
-        YY_ASSERT (tok == token::TOK_SYMBOL);
-      }
 #endif
+      {}
 #if 201103L <= YY_CPLUSPLUS
       symbol_type (int tok, double v, location_type l)
         : super_type(token_type (tok), std::move (v), std::move (l))
-      {
-        YY_ASSERT (tok == token::TOK_FLOAT);
-      }
 #else
       symbol_type (int tok, const double& v, const location_type& l)
         : super_type(token_type (tok), v, l)
-      {
-        YY_ASSERT (tok == token::TOK_FLOAT);
-      }
 #endif
+      {}
 #if 201103L <= YY_CPLUSPLUS
       symbol_type (int tok, std::string v, location_type l)
         : super_type(token_type (tok), std::move (v), std::move (l))
-      {
-        YY_ASSERT (tok == token::TOK_KEY || tok == token::TOK_DATA_TYPE || tok == token::TOK_FUNC_CALL || tok == token::TOK_STRING);
-      }
 #else
       symbol_type (int tok, const std::string& v, const location_type& l)
         : super_type(token_type (tok), v, l)
-      {
-        YY_ASSERT (tok == token::TOK_KEY || tok == token::TOK_DATA_TYPE || tok == token::TOK_FUNC_CALL || tok == token::TOK_STRING);
-      }
 #endif
+      {}
     };
 
     /// Build a parser object.
-    DataStringParser (ceammc::DataStringLexer& lexer_yyarg, ceammc::AtomList& result_yyarg);
+    DataStringParser (ceammc::ds::DataStringLexer& lexer_yyarg, ceammc::AtomList& result_yyarg);
     virtual ~DataStringParser ();
 
 #if 201103L <= YY_CPLUSPLUS
@@ -1537,7 +1520,7 @@ switch (yykind)
 
 
     // User arguments.
-    ceammc::DataStringLexer& lexer;
+    ceammc::ds::DataStringLexer& lexer;
     ceammc::AtomList& result;
 
   };
@@ -1760,8 +1743,8 @@ switch (yykind)
   }
 
 #line 8 "data_string.y"
-} // ceammc
-#line 1765 "data_string.parser.hpp"
+} } // ceammc::ds
+#line 1748 "data_string.parser.hpp"
 
 
 
