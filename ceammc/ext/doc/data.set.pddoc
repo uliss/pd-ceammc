@@ -53,17 +53,11 @@
 <![CDATA[
 [F]
 |
-[$1, bang( [clear(
-|        __/
-[data.set]
+[$1, bang( [clear( [@size?(
+|          |       |
+[data.set          ]
 |
-[set->list]
-|
-[list.range]
-|
-[msg set]
-|
-[ (
+[ui.dt]
 ]]>
             </pdascii>
         </example>
