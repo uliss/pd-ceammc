@@ -43,6 +43,7 @@
 - using AtomListView instead of AtomList in BaseObject::onInlet method
 - using AtomListView instead of AtomList in UI objects
 - second inlet added to path.ls to set @match property
+- ui.number~ @decimal property renamed to @precision
 
 
 ## [0.9.1]

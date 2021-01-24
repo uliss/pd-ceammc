@@ -16,12 +16,12 @@
 #X obj 20 236 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 241 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
 -49933 0;
-#X msg 110 276 @decimal;
-#X text 245 276 Get/Set number of decimals. Type: int. Default value:
-6\. Range: -1\...6\.;
-#X msg 110 318 @interval;
-#X text 245 318 Get/Set refresh interval. Type: int. Units: ms. Default
+#X msg 110 276 @interval;
+#X text 245 276 Get/Set refresh interval. Type: int. Units: ms. Default
 value: 50\. Range: 20\...1000\.;
+#X msg 110 318 @precision;
+#X text 245 318 Get/Set float precision. Type: int. Default value:
+6\. Range: -1\...16\.;
 #X msg 110 360 @receive;
 #X text 245 360 Get/Set receive source. Type: symbol. Default value:
 (null).;

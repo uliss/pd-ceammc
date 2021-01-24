@@ -58,9 +58,10 @@ target_link_libraries(ceammc_ui ceammc_env)
 set(TCL_GEN_SCRIPT ${PROJECT_SOURCE_DIR}/ceammc/scripts/filecontent_to_cxx_header.sh)
 
 add_custom_target(ceammc_ui_tcl_gen
+    COMMAND ${TCL_GEN_SCRIPT} ui_button.tcl
     COMMAND ${TCL_GEN_SCRIPT} ui_keyboard.tcl
     COMMAND ${TCL_GEN_SCRIPT} ui_meter.tcl
-    COMMAND ${TCL_GEN_SCRIPT} ui_button.tcl
-    SOURCES ui_keyboard.tcl ui_meter.tcl ui_button.tcl
+    COMMAND ${TCL_GEN_SCRIPT} ui_number_tilde.tcl
+    SOURCES ui_keyboard.tcl ui_meter.tcl ui_button.tcl ui_number_tilde.tcl
     WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
 )

@@ -26,8 +26,7 @@
         <properties>
             <property name="@interval" type="int" default="50" minvalue="20" maxvalue="1000"
             units="millisecond">refresh interval</property>
-            <property name="@decimal" type="int" minvalue="-1" maxvalue="6" default="6">number of
-            decimals</property>
+            <property name="@precision" type="int" minvalue="-1" maxvalue="16" default="6">float precision</property>
             <!-- common -->
             <property name="@send" type="symbol" default="(null)">send destination</property>
             <property name="@receive" type="symbol" default="(null)">receive source</property>
