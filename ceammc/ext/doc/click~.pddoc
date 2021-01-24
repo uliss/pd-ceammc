@@ -24,13 +24,17 @@
         <example>
             <pdascii>
 <![CDATA[
-[T]
+[T]           [ui.dsp~]
 |
 [metro 300]
 |
-[click~]
+[ui.b]
+|
+[click~     ]
 |
 [flt.resonbp~ 1000]
+|
+[ui.hgain~]
 |\    
 [dac~]
 ]]>
