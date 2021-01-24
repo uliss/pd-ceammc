@@ -171,7 +171,7 @@
     <entry name="array.p2s" descr="convert array phase [0..1] to sample position" ref_view="object">
       <xi:include href="array.p2s.pddoc" parse="xml"/>
     </entry>
-    <entry name="array.s2p" descr="convert array sample position to relative phase position [0..1]" ref_view="object">
+    <entry name="array.s2p" descr="convert sample position to phase range [0..1]" ref_view="object">
       <xi:include href="array.s2p.pddoc" parse="xml"/>
     </entry>
     <entry name="conv.amp2dbfs" descr="convert from amplitude to decibel full scale" ref_view="object">

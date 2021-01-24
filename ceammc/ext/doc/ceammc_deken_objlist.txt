@@ -70,9 +70,9 @@ chaos.std0~	Standard map chaotic generator
 array.p2s	convert array phase [0..1] to sample position
 array.p->s	convert array phase [0..1] to sample position
 array.phase->sample	convert array phase [0..1] to sample position
-array.s2p	convert array sample position to relative phase position [0..1]
-array.s->p	convert array sample position to relative phase position [0..1]
-array.sample->phase	convert array sample position to relative phase position [0..1]
+array.s2p	convert sample position to phase range [0..1]
+array.s->p	convert sample position to phase range [0..1]
+array.sample->phase	convert sample position to phase range [0..1]
 conv.amp2dbfs	convert from amplitude to decibel full scale
 amp->dbfs	convert from amplitude to decibel full scale
 conv.amp2dbfs~	convert from amplitude to decibel full scale

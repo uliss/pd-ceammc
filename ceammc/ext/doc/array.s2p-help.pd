@@ -1,8 +1,7 @@
 #N canvas 0 0 785 555 12;
 #X declare -lib ceammc;
-#X obj 331 50 cnv 1 434 38 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 331 50 convert array sample position to relative phase position
-[0\..1];
+#X obj 410 50 cnv 1 355 23 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 410 50 convert sample position to phase range [0\..1];
 #X obj 1 1 cnv 5 765 40 empty empty array.s2p 20 20 0 20 -104026 -4096
 0;
 #X obj 413 11 array.s->p;
@@ -13,16 +12,16 @@
 #X obj 50 143 hslider 128 15 0.0 100.0 0 0 empty empty empty 17 7 0 10
 -262144 -1 -1 0 0;
 #N canvas 0 22 450 300 (subpatch) 0;
-#X array array1 100 float 1;
+#X array s2p 100 float 1;
 #A 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0;
-#X coords 0 1 100 -1 100 70 1;
+#X coords 0 1 100 -1 200 130 1;
 #X restore 290 143 graph;
 #X floatatom 50 172 5 0 0 0 - - -;
-#X obj 50 201 array.s->p array1;
+#X obj 50 201 array.s->p s2p;
 #X floatatom 50 230 5 0 0 0 - - -;
-#X obj 50 259 array.p->s array1;
+#X obj 50 259 array.p->s s2p;
 #X floatatom 50 287 5 0 0 0 - - -;
 #X obj 20 336 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 341 cnv 5 90 26 empty empty arguments: 4 10 0 14 -262144
