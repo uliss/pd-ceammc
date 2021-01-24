@@ -11,9 +11,9 @@
 #X obj 50 176 *~;
 #X floatatom 184 176 5 0 0 0 - - -;
 #X msg 184 205 @threshold \$1;
-#X obj 50 234 dyn.gate~ 90 id;
-#X obj 50 262 ui.gain~ @size 120 16;
-#X obj 280 262 ui.dsp~;
+#X obj 50 234 dyn.gate~ 90;
+#X obj 50 262 ui.hgain~;
+#X obj 203 262 ui.dsp~;
 #X obj 50 291 dac~;
 #X obj 20 340 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 345 cnv 5 90 26 empty empty arguments: 4 10 0 14 -262144
