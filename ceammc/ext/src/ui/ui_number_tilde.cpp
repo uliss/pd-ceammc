@@ -20,13 +20,7 @@ constexpr int MAX_PRECISION = 16;
 constexpr int DEF_PRECISION = 6;
 
 UINumberTilde::UINumberTilde()
-    : clock_([this]() {
-        text_layer_.invalidate();
-        redraw();
-    })
-    , text_(&asEBox()->b_font, ColorRGBA::black(), ETEXT_LEFT, ETEXT_JLEFT, ETEXT_NOWRAP)
-    , bg_tilde_(&asEBox()->b_font, ColorRGBA::black(), ETEXT_CENTER, ETEXT_JCENTER, ETEXT_NOWRAP)
-    , text_layer_(asEBox(), gensym("text_layer"))
+    : clock_([this]() { redraw(); })
     , value_(0)
     , last_redraw_time_(0)
     , text_value_()
@@ -51,8 +45,6 @@ void UINumberTilde::okSize(t_rect* newrect)
 
 void UINumberTilde::paint()
 {
-    const t_rect r = rect();
-
     sys_vgui("::ui::number_update %s %lx "
              "%d %d %d #%6.6x #%6.6x #%6.6x {%s}\n",
         asEBox()->b_canvas_id->s_name, asEBox(),

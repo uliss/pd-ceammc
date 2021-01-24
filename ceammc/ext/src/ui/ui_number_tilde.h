@@ -23,9 +23,6 @@ class UINumberTilde : public UIDspObject {
     static const size_t BUFSIZE = 32;
 
     ClockLambdaFunction clock_;
-    UITextLayout text_;
-    UITextLayout bg_tilde_;
-    UILayer text_layer_;
     t_float value_;
     double last_redraw_time_;
     char text_value_[BUFSIZE];
