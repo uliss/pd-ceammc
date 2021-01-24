@@ -28,11 +28,20 @@
         <example>
             <pdascii>
 <![CDATA[
-[B]
+[B]                         [B]
+|                           |
+[canvas.dir]                [canvas.dir.sp]
+|                           |
+[ui.dt]                     [ui.dt]
+]]>
+            </pdascii>
+            <pdascii id="sp">
+<![CDATA[
+[inlet]
 |
-[canvas.dir] [B]
-|             |
-[ui.display   ]
+[canvas.dir]
+|
+[outlet]
 ]]>
             </pdascii>
         </example>
