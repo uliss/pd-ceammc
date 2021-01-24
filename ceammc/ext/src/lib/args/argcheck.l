@@ -3,22 +3,23 @@
     # include <memory>
 
     # include "argcheck.parser.hpp"
-    using token = ceammc::ArgCheckParser::token;
+    using token = ceammc::argcheck::ArgCheckParser::token;
 %}
 
 %option freespace unicode
-%option namespace=ceammc
+%option namespace=ceammc::argcheck
 %option lexer=ArgCheckLexer
 %option header-file=argcheck.lexer.h
 %option outfile=argcheck.lexer.cpp
 /*%option graphs-file*/
 /*%option debug*/
-%option bison-cc-namespace="ceammc"
-%option bison-cc-parser="ArgCheckParser"
+%option bison-cc-namespace=ceammc::argcheck
+%option bison-cc-parser=ArgCheckParser
 %option bison-cc
 %option bison-complete
 %option noyywrap
 %option reentrant
+%option fast
 
 udec     0 | [1-9] \d*
 int      [-+]? {udec}

@@ -4,7 +4,7 @@
 %debug
 
 %defines
-%define api.namespace {ceammc}
+%define api.namespace {ceammc::argcheck}
 %define api.parser.class {ArgCheckParser}
 %define api.value.type variant
 %define api.token.constructor
@@ -15,7 +15,9 @@
     # include <vector>
 
     namespace ceammc {
+        namespace argcheck {
         class ArgCheckLexer;
+        }
         class ArgCheckerNode;
         class ArgGroupOr;
 
@@ -35,7 +37,7 @@
 # endif
 }
 
-%parse-param { ceammc::ArgCheckLexer& lexer  }
+%parse-param { ceammc::argcheck::ArgCheckLexer& lexer  }
 %parse-param { ceammc::ArgCheckerNode& n  }
 
 %code {
@@ -385,7 +387,7 @@ REGEXP
     ;
 %%
 
-void ceammc::ArgCheckParser::error(const std::string& err_message)
+void ceammc::argcheck::ArgCheckParser::error(const std::string& err_message)
 {
     std::cerr << "Error: " << err_message << '\n';
     throw std::runtime_error(err_message);
