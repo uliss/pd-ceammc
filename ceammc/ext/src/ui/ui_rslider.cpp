@@ -82,9 +82,9 @@ void UIRSlider::drawBackground()
     p.setLineWidth(2);
 
     if (is_horizontal_)
-        p.drawLine(-1, r.height * 0.5, r.width + 1, r.height * 0.5);
+        p.drawLine(0, r.height * 0.5, r.width, r.height * 0.5);
     else
-        p.drawLine(r.width * 0.5, -2, r.width * 0.5, r.height + 4);
+        p.drawLine(r.width * 0.5, 0, r.width * 0.5, r.height);
 }
 
 void UIRSlider::drawKnob()
@@ -104,6 +104,7 @@ void UIRSlider::drawKnob()
     float value_high = convert::lin2lin_clip<float>(vhigh_, prop_min, prop_max, 0, 1);
 
     p.setLineWidth(2);
+
     if (is_horizontal_) {
         float x0 = value_low * r.width;
         float x1 = value_high * r.width;
