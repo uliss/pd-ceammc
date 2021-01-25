@@ -32,14 +32,11 @@ void UIButton::okSize(t_rect* newrect)
 
 void UIButton::paint()
 {
-    sys_vgui("ui::button_delete #%x %s\n",
-        asEBox(), asEBox()->b_drawing_id->s_name);
-
-    sys_vgui("ui::button_create #%x %s "
+    sys_vgui("ui::button_update %s %lx "
              "%d %d "
              "#%6.6x #%6.6x "
              "%d\n",
-        asEBox(), asEBox()->b_drawing_id->s_name,
+        asEBox()->b_canvas_id->s_name, asEBox(),
         (int)width(), (int)height(),
         rgba_to_hex_int(prop_color_border), rgba_to_hex_int(prop_color_active),
         active_ ? 1 : 0);
@@ -97,7 +94,7 @@ void UIButton::setup()
     obj.addAlias("ui.btn");
     obj.useFloat();
 
-    obj.setDefaultSize(15, 15);
+    obj.setDefaultSize(16, 16);
     obj.addProperty(PROP_ACTIVE_COLOR, _("Active Color"), DEFAULT_ACTIVE_COLOR, &UIButton::prop_color_active);
     obj.addFloatProperty("on_value", _("On value"), 1, &UIButton::prop_value_on, _("Main"));
     obj.addFloatProperty("off_value", _("Off value"), 0, &UIButton::prop_value_off, _("Main"));

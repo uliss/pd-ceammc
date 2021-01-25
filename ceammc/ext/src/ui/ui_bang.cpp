@@ -28,9 +28,9 @@ void UIBang::okSize(t_rect* newrect)
     newrect->height = pd_clip_min(newrect->height, 8);
 
     // We defines that the width and the height can't be an even number (to center the bang circle).
-    if ((int)newrect->width % 2 == 0)
+    if ((int)newrect->width % 2 == 1)
         newrect->width++;
-    if ((int)newrect->height % 2 == 0)
+    if ((int)newrect->height % 2 == 1)
         newrect->height++;
 }
 
@@ -44,6 +44,8 @@ void UIBang::paint()
 
     const int box_center = static_cast<int>(floorf(r.width * 0.5f));
     int circle_radius = static_cast<int>(roundf(box_center * 0.9f));
+    if (circle_radius >= box_center)
+        circle_radius--;
 
     // fix for small sizes
     if (r.width < 20)
@@ -100,7 +102,7 @@ void UIBang::setup()
     UIObjectFactory<UIBang> obj("ui.bang", EBOX_GROWLINK);
     obj.addAlias("ui.b");
 
-    obj.setDefaultSize(15, 15);
+    obj.setDefaultSize(16, 16);
     obj.addProperty(PROP_ACTIVE_COLOR, _("Active Color"), DEFAULT_ACTIVE_COLOR, &UIBang::prop_color_active);
 
     obj.useMouseEvents(UI_MOUSE_DOWN | UI_MOUSE_UP);
