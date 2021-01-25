@@ -633,7 +633,7 @@ ui.rslider,ui.rsl		.		.
 ui.scope~		.		-
 ui.slider,ui.hsl,ui.vsl		.		.
 ui.slider2d		.		.
-ui.sliders		.		.
+ui.sliders,ui.vsliders		.		.
 ui.spectroscope~,ui.ssc~		~		-
 ui.tab		.		.
 ui.toggle,ui.t		.		.
