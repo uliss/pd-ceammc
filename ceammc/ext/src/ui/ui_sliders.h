@@ -19,9 +19,6 @@
 using namespace ceammc;
 
 class UISliders : public UIObject {
-    UIFont txt_font_;
-    UITextLayout txt_min_;
-    UITextLayout txt_max_;
     long select_idx_;
     bool is_vertical_;
     std::vector<t_float> pos_values_;

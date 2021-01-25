@@ -33,10 +33,7 @@ static t_symbol* SYM_VSLIDERS;
 static decltype(std::chrono::system_clock::now().time_since_epoch().count()) random_seed;
 
 UISliders::UISliders()
-    : txt_font_(gensym(FONT_FAMILY), FONT_SIZE_SMALL)
-    , txt_min_(txt_font_.font(), ColorRGBA::black(), ETEXT_DOWN_LEFT, ETEXT_JLEFT, ETEXT_NOWRAP)
-    , txt_max_(txt_font_.font(), ColorRGBA::black(), ETEXT_UP_LEFT, ETEXT_JRIGHT, ETEXT_NOWRAP)
-    , select_idx_(-1)
+    : select_idx_(-1)
     , is_vertical_(false)
     , prop_slider_color(rgba_greydark)
     , prop_select_color(rgba_blue)
