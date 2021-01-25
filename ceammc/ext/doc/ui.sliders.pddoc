@@ -141,7 +141,7 @@
 |  |        | |                 |           |   [select 4(
 |  |        | [set slider 4 $1( |           |   |
 |  |        | |                 |           |   |
-|  |        | |                 |           |   |  /*vertical slider*/
+|  |        | |                 |           |   |  /*vertical sliders*/
 |  |        | |                 |           |   |
 [ui.sliders       @max 10  @presetname sl-help  ]  [ui.sliders @size 100 150]
 |
@@ -151,7 +151,7 @@
 |
 |
 |
-[ui.display @display_type 1]
+[ui.dt]
 ]]>
             </pdascii>
         </example>
