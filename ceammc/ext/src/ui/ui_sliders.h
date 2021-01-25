@@ -25,7 +25,6 @@ class UISliders : public UIObject {
     long select_idx_;
     bool is_vertical_;
     std::vector<t_float> pos_values_;
-    UILayer sliders_layer_;
 
 private:
     t_rgba prop_slider_color;

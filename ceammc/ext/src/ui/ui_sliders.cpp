@@ -38,7 +38,6 @@ UISliders::UISliders()
     , txt_max_(txt_font_.font(), ColorRGBA::black(), ETEXT_UP_LEFT, ETEXT_JRIGHT, ETEXT_NOWRAP)
     , select_idx_(-1)
     , is_vertical_(false)
-    , sliders_layer_(asEBox(), gensym("main_layer"))
     , prop_slider_color(rgba_greydark)
     , prop_select_color(rgba_blue)
     , prop_min(0)
@@ -49,7 +48,6 @@ UISliders::UISliders()
     , c_min()
     , c_max()
 {
-    prependToLayerList(&sliders_layer_);
     createOutlet();
 
     initPopupMenu("sliders",
@@ -116,15 +114,10 @@ void UISliders::paint()
             (int)width(), (int)height(), (int)zoom(),
             c_min, c_max);
     }
-
-    //    paintLabels();
 }
 
 void UISliders::paintSliders()
 {
-    const t_rect r = rect();
-    UIPainter p = sliders_layer_.painter(r);
-
     constexpr size_t MAX_BAR_NUM_WD = 4;
     char buf[MAX_SLIDERS_NUM * MAX_BAR_NUM_WD + 1] = "";
     const size_t N = pos_values_.size();
@@ -346,7 +339,6 @@ void UISliders::generateTxtLabels()
 void UISliders::redrawAll()
 {
     bg_layer_.invalidate();
-    sliders_layer_.invalidate();
     redraw();
 }
 
