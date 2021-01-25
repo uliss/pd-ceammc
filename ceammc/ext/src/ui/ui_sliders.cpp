@@ -29,6 +29,7 @@ using namespace ceammc;
 
 static const int MAX_SLIDERS_NUM = 1024;
 static t_symbol* SYM_SLIDER;
+static t_symbol* SYM_VSLIDERS;
 static decltype(std::chrono::system_clock::now().time_since_epoch().count()) random_seed;
 
 UISliders::UISliders()
@@ -89,6 +90,9 @@ void UISliders::init(t_symbol* name, const AtomList& args, bool usePresets)
         prop_count = clip<int>(n, 1, MAX_SLIDERS_NUM);
         pos_values_.resize(prop_count, 0);
     }
+
+    if (name == SYM_VSLIDERS)
+        std::swap(asEBox()->b_rect.width, asEBox()->b_rect.height);
 }
 
 void UISliders::okSize(t_rect* newrect)
@@ -493,11 +497,14 @@ void UISliders::onPropChange(t_symbol* prop_name)
 void UISliders::setup()
 {
     SYM_SLIDER = gensym("slider");
+    SYM_VSLIDERS = gensym("ui.vsliders");
+
     sys_gui(ui_sliders_tcl);
 
     random_seed = std::chrono::system_clock::now().time_since_epoch().count();
 
     UIObjectFactory<UISliders> obj("ui.sliders");
+    obj.addAlias("ui.vsliders");
 
     obj.usePresets();
     obj.useList();

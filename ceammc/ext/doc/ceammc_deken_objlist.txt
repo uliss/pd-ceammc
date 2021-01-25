@@ -896,6 +896,7 @@ ui.hsl	counterpart of the vanilla slider
 ui.vsl	counterpart of the vanilla slider
 ui.slider2d	2D slider widget
 ui.sliders	Multiple slider widget
+ui.vsliders	Multiple slider widget
 ui.spectroscope~	Spectroscope GUI object
 ui.ssc~	Spectroscope GUI object
 ui.tab	displays a list of text buttons or text toggles

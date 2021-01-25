@@ -17,6 +17,9 @@
                 <see view="link">ui.slider</see>
                 <see view="link">ui.preset</see>
             </also>
+            <aliases>
+                <alias view="link">ui.vsliders</alias>
+            </aliases>
         </meta>
         <mouse>
             <event editmode="true" type="double-click" keys="Cmd">changes slider

@@ -81,7 +81,6 @@ carg~
 cc->amp
 cdiv~
 ceammc.search
-ceammc/xfade~
 cexp~
 chaos.gbman0
 chaos.gbman0~
@@ -709,7 +708,6 @@ prop~>
 proto.firmata
 proto.hui
 proto.midi
-proto.midi.sysex
 proto.sp.alpaca
 proto.xtouch_ext
 rad->phase
@@ -827,6 +825,7 @@ synth.wurley~
 system.colorpanel
 system.cursor
 system.exec
+system.exit
 system.getenv
 system.hostname
 system.memsize
@@ -907,6 +906,7 @@ ui.vm~
 ui.vrd
 ui.vrd*
 ui.vsl
+ui.vsliders
 vline->env
 vline2env
 win

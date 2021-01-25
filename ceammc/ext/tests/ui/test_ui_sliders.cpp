@@ -364,4 +364,10 @@ TEST_CASE("ui.sliders", "[ui.sliders]")
         t.mouseDown(10, 25);
         REQUIRE_LIST_WAS_SEND(t, "r1", LX(0.75, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5));
     }
+
+    SECTION("alias")
+    {
+        TestExtSliders t("ui.vsliders");
+        REQUIRE_UI_LIST_PROPERTY(t, "size", LF(100, 150));
+    }
 }

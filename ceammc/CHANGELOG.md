@@ -25,6 +25,7 @@
   - ui.k alias added for ui.knob
   - ui.vm~ alias added for ui.meter~ (vertical)
   - ui.hm~ alias added for ui.meter~ (horizontal)
+  - ui.vsliders alias added for vertical ui.sliders
 - mouse:
   - ui.meter~ change orientation by Ctl/Cmd+double-click in edit mode, like ui.radio and ui.slider
 - arguments:
