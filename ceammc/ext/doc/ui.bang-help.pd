@@ -11,7 +11,7 @@
 #X obj 210 80 cnv 1 555 35 empty empty empty 17 7 0 10 -257983 -1 0;
 #X text 215 80 do nothing more than vanilla bang for the moment...;
 #X msg 50 143 dump;
-#X obj 50 172 ui.bang @size=40x40 @send=b_out @receive=b_in;
+#X obj 50 172 ui.bang @size 40 40 @send b_out @receive b_in;
 #X obj 117 201 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
 -1;
 #X obj 50 230 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
