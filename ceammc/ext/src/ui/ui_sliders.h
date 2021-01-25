@@ -46,7 +46,6 @@ public:
     void okSize(t_rect* newrect);
     void onPropChange(t_symbol* prop_name);
     void paint();
-    void paintLabels();
     void paintSliders();
 
     void onBang();

@@ -23,6 +23,7 @@
 #include "ceammc_preset.h"
 #include "ceammc_ui.h"
 #include "ui_sliders.h"
+#include "ui_sliders.tcl.h"
 
 using namespace ceammc;
 
@@ -100,44 +101,19 @@ void UISliders::okSize(t_rect* newrect)
 
 void UISliders::paint()
 {
+    sys_vgui("ui::sliders_delete %s %lx\n",
+        asEBox()->b_canvas_id->s_name, asEBox());
+
     paintSliders();
-    paintLabels();
-}
-
-void UISliders::paintLabels()
-{
-    const t_rect r = rect();
-    UIPainter p = bg_layer_.painter(r);
-
-    if (!p)
-        return;
 
     if (prop_show_range) {
-        const float z = zoom();
-        const float xoff = 3 * z;
-        const float yoff = 3 * z;
-
-        if (is_vertical_) {
-            txt_min_.setAnchor(ETEXT_UP_LEFT);
-            txt_min_.setJustify(ETEXT_JLEFT);
-            txt_min_.set(c_min, xoff, yoff, r.width * 2, r.height / 2);
-
-            txt_max_.setAnchor(ETEXT_UP_RIGHT);
-            txt_max_.setJustify(ETEXT_JRIGHT);
-            txt_max_.set(c_max, r.width - xoff, yoff, r.width * 2, r.height / 2);
-        } else {
-            txt_min_.setAnchor(ETEXT_DOWN_LEFT);
-            txt_min_.setJustify(ETEXT_JLEFT);
-            txt_min_.set(c_min, xoff, r.height - yoff, r.width * 2, r.height / 2);
-
-            txt_max_.setAnchor(ETEXT_UP_LEFT);
-            txt_max_.setJustify(ETEXT_JLEFT);
-            txt_max_.set(c_max, xoff, yoff, r.width * 2, r.height / 2);
-        }
-
-        p.drawText(txt_min_);
-        p.drawText(txt_max_);
+        sys_vgui("ui::sliders_draw_labels %s %lx %d %d %d {%s} {%s}\n",
+            asEBox()->b_canvas_id->s_name, asEBox(),
+            (int)width(), (int)height(), (int)zoom(),
+            c_min, c_max);
     }
+
+    //    paintLabels();
 }
 
 void UISliders::paintSliders()
@@ -145,49 +121,22 @@ void UISliders::paintSliders()
     const t_rect r = rect();
     UIPainter p = sliders_layer_.painter(r);
 
-    if (!p)
-        return;
-
-    // draw bins
+    constexpr size_t MAX_BAR_NUM_WD = 4;
+    char buf[MAX_SLIDERS_NUM * MAX_BAR_NUM_WD + 1] = "";
     const size_t N = pos_values_.size();
+    size_t idx = 0;
     for (size_t i = 0; i < N; i++) {
-        const t_float v = pos_values_[i];
-
-        t_float x, y, w, h;
-
-        if (is_vertical_) {
-            x = 0;
-            y = i * r.height / N;
-            w = v * r.width;
-            h = r.height / N - 1;
-        } else {
-            y = (1 - v) * (r.height);
-            x = i * r.width / N;
-            h = r.height - 1;
-            w = r.width / N - 1;
-        }
-
-        auto color = (i == select_idx_) ? prop_select_color : prop_slider_color;
-        p.setColor(color);
-        p.drawRect(x, y, w, h);
-        p.fill();
-
-        // draw bar knobs
-        p.setColor(rgba_addContrast(color, -0.2));
-        p.setLineWidth(2);
-
-        if (is_vertical_)
-            p.drawLine(w, y, w, y + h + 1);
-        else
-            p.drawLine(x, y, x + w + 1, y);
-
-        if (i == select_idx_) {
-            p.setLineWidth(2);
-            p.setColor(prop_color_border);
-            p.drawRect(x, y, w - 1, h);
-            p.stroke();
-        }
+        auto n = snprintf(buf + idx, MAX_BAR_NUM_WD + 1, "%d ", (int)std::round(pos_values_[i] * 999));
+        idx += n;
     }
+    buf[idx] = '\0';
+
+    sys_vgui("ui::sliders_draw_bars %s %lx %d %d %d "
+             "#%6.6x #%6.6x %d %d %s\n",
+        asEBox()->b_canvas_id->s_name, asEBox(),
+        (int)width(), (int)height(), (int)zoom(),
+        rgba_to_hex_int(prop_slider_color), rgba_to_hex_int(prop_select_color),
+        (int)is_vertical_, (int)select_idx_, buf);
 }
 
 void UISliders::onBang()
@@ -227,13 +176,13 @@ void UISliders::onMouseDown(t_object* view, const t_pt& pt, const t_pt& abs_pt, 
             return;
 
         idx = clip<size_t>(floorf(pt.y / r.height * N), 0, N - 1);
-        val = clip<t_float>(pt.x / r.width, 0, 1);
+        val = clip01<t_float>(pt.x / r.width);
     } else {
         if (pt.x < 0)
             return;
 
         idx = clip<size_t>(floorf(pt.x / r.width * N), 0, N - 1);
-        val = clip<t_float>(1.f - pt.y / r.height, 0, 1);
+        val = clip01<t_float>(1.f - pt.y / r.height);
     }
 
     pos_values_[idx] = val;
@@ -535,9 +484,17 @@ void UISliders::outputList()
     send(lv);
 }
 
+void UISliders::onPropChange(t_symbol* prop_name)
+{
+    generateTxtLabels();
+    redrawAll();
+}
+
 void UISliders::setup()
 {
     SYM_SLIDER = gensym("slider");
+    sys_gui(ui_sliders_tcl);
+
     random_seed = std::chrono::system_clock::now().time_since_epoch().count();
 
     UIObjectFactory<UISliders> obj("ui.sliders");
@@ -582,12 +539,6 @@ void UISliders::setup()
     obj.addMethod("random", &UISliders::m_random);
     obj.addMethod("linup", &UISliders::m_linup);
     obj.addMethod("lindown", &UISliders::m_lindown);
-}
-
-void UISliders::onPropChange(t_symbol* prop_name)
-{
-    generateTxtLabels();
-    redrawAll();
 }
 
 void setup_ui_sliders()

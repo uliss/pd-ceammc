@@ -63,11 +63,13 @@ add_custom_target(ceammc_ui_tcl_gen
     COMMAND ${TCL_GEN_SCRIPT} ui_keyboard.tcl
     COMMAND ${TCL_GEN_SCRIPT} ui_meter.tcl
     COMMAND ${TCL_GEN_SCRIPT} ui_number_tilde.tcl
+    COMMAND ${TCL_GEN_SCRIPT} ui_sliders.tcl
     SOURCES
         ui_button.tcl
         ui_bang.tcl
         ui_keyboard.tcl
         ui_meter.tcl
         ui_number_tilde.tcl
+        ui_sliders.tcl
     WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
 )
