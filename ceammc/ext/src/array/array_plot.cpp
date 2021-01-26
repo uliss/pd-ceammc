@@ -300,8 +300,9 @@ void setup_array_plot()
 {
     ObjectFactory<ArrayPlot> obj("array.plot");
 
-    obj.setXletsInfo({ "float: floats to plot",
+    obj.setXletsInfo({ "float: floats to plot\n"
+                       "list: samples to plot",
                          "bang: plot samples\n"
                          "int: resize array and plot samples" },
-        { "" });
+        { "bang: on done" });
 }
