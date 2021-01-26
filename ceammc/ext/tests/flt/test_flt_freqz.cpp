@@ -28,6 +28,9 @@ TEST_CASE("flt.freqz", "[externals]")
             TExt t("flt.freqz");
             REQUIRE(t.numInlets() == 1);
             REQUIRE(t.numOutlets() == 3);
+            t->dump();
+            REQUIRE_PROPERTY_LIST(t, @b, LF(1));
+            REQUIRE_PROPERTY_LIST(t, @a, L());
         }
     }
 
@@ -76,5 +79,24 @@ TEST_CASE("flt.freqz", "[externals]")
                 REQUIRE(p0[i].asFloat() == Approx(phasez[i]));
             }
         }
+    }
+
+    SECTION("m_biquad")
+    {
+        TExt t("flt.freqz", 8, "@b", 0.5, 0.5);
+        REQUIRE_PROPERTY(t, @b, LF(0.5, 0.5));
+        REQUIRE_PROPERTY(t, @a, L());
+
+        t.call("biquad", LF(1, 2, 3, 4, 5));
+        REQUIRE_PROPERTY(t, @b, LF(1, 2, 3));
+        REQUIRE_PROPERTY(t, @a, LF(4, 5));
+
+        t.call("biquad", LF(1111, 2, 3, 4, 5, 6));
+        REQUIRE_PROPERTY(t, @b, LF(1, 2, 3));
+        REQUIRE_PROPERTY(t, @a, LF(4, 5));
+
+        t.call("biquad", LF(1, 2, 3, 7));
+        REQUIRE_PROPERTY(t, @b, LF(1, 2, 3));
+        REQUIRE_PROPERTY(t, @a, LF(4, 5));
     }
 }
