@@ -38,7 +38,6 @@ TEST_CASE("array.plot", "[externals]")
 
         SECTION("args")
         {
-
             TExt t("array.plot", LA("array1", -2, 3.5));
 
             REQUIRE_PROPERTY(t, @array, "array1");
@@ -88,6 +87,34 @@ TEST_CASE("array.plot", "[externals]")
             REQUIRE(aptr1->at(5) == 5);
 
             REQUIRE(t.isOutputBangAt(0));
+        }
+
+        SECTION("float")
+        {
+            ArrayPtr aptr2 = cnv->createArray("array_plot2", 3);
+            REQUIRE(t->setProperty("@array", LA("array_plot2")));
+
+            t.sendFloatTo(4, 1);
+            t << 1;
+            REQUIRE_FALSE(t.hasOutput());
+            t << 2;
+            REQUIRE_FALSE(t.hasOutput());
+            t << 3;
+            REQUIRE_FALSE(t.hasOutput());
+            t << 4;
+            REQUIRE(t.isOutputBangAt(0));
+            t << 5;
+            REQUIRE_FALSE(t.hasOutput());
+            t << 6;
+            REQUIRE_FALSE(t.hasOutput());
+
+            REQUIRE(aptr2->update());
+            REQUIRE(aptr2->size() == 4);
+
+            REQUIRE(aptr2->at(0) == 1);
+            REQUIRE(aptr2->at(1) == 2);
+            REQUIRE(aptr2->at(2) == 3);
+            REQUIRE(aptr2->at(3) == 4);
         }
     }
 }
