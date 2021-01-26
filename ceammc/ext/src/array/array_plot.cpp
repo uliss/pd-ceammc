@@ -24,8 +24,8 @@
 constexpr size_t NMAX = 2048;
 constexpr int FMIN = std::numeric_limits<int16_t>::lowest();
 constexpr int FMAX = std::numeric_limits<int16_t>::max();
-constexpr int PLOT_YMAX = FMAX;
-constexpr int PLOT_YMIN = FMIN;
+constexpr int PLOT_YMAX = 2048;
+constexpr int PLOT_YMIN = -2048;
 
 static t_float round_fixed(t_float x, size_t ndigits)
 {
@@ -209,7 +209,8 @@ void ArrayPlot::updateScale()
     if (!array_.setYLabels({ a0, m0, b0 }))
         OBJ_ERR << fmt::format("can't set ylabels for array '{}'", array_.name()->s_name);
 
-    auto step = dist / 20;
+    const auto step = std::pow(10, std::trunc(std::log10(dist)) - 1);
+
     if (!array_.setYTicks(a0, step, 5))
         OBJ_ERR << fmt::format("can't set yticks for array '{}'", array_.name()->s_name);
 

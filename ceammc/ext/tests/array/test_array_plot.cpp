@@ -87,6 +87,9 @@ TEST_CASE("array.plot", "[externals]")
             REQUIRE(aptr1->at(5) == 5);
 
             REQUIRE(t.isOutputBangAt(0));
+
+            t << L();
+            REQUIRE(!t.hasOutput());
         }
 
         SECTION("float")
