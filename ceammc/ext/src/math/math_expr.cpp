@@ -100,4 +100,11 @@ void MathExpr::updateAST()
 void setup_math_expr()
 {
     ObjectFactory<MathExpr> obj("math.expr");
+    obj.parseArgsMode(PdArgs::PARSE_COPY);
+    obj.parsePropsMode(PdArgs::PARSE_COPY);
+
+    obj.setXletsInfo({ "float: input value\n"
+                       "list: input values",
+                         "list: set new expression" },
+        { "float: result expression" });
 }
