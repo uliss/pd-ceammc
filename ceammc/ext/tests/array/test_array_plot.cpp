@@ -116,5 +116,30 @@ TEST_CASE("array.plot", "[externals]")
             REQUIRE(aptr2->at(2) == 3);
             REQUIRE(aptr2->at(3) == 4);
         }
+
+        SECTION("float")
+        {
+            ArrayPtr aptr3 = cnv->createArray("array_plot3", 3);
+            REQUIRE(t->setProperty("@array", LA("array_plot3")));
+
+            t.sendBangTo(1);
+            t << 1;
+            REQUIRE_FALSE(t.hasOutput());
+            t << 2;
+            REQUIRE_FALSE(t.hasOutput());
+            t << 3;
+            REQUIRE(t.isOutputBangAt(0));
+            t << 5;
+            REQUIRE_FALSE(t.hasOutput());
+            t << 6;
+            REQUIRE_FALSE(t.hasOutput());
+
+            REQUIRE(aptr3->update());
+            REQUIRE(aptr3->size() == 3);
+
+            REQUIRE(aptr3->at(0) == 1);
+            REQUIRE(aptr3->at(1) == 2);
+            REQUIRE(aptr3->at(2) == 3);
+        }
     }
 }
