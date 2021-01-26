@@ -19,6 +19,8 @@
 #endif
 
 #include <cmath>
+#include <complex>
+#include <vector>
 
 namespace ceammc {
 namespace flt {
@@ -52,6 +54,39 @@ namespace flt {
      * @return - bandwidth in octaves
      */
     double q2bandwidth(double q, double w);
+
+    template <typename T, typename It>
+    std::complex<T> calcJw(T w, It b, It e)
+    {
+        static_assert(std::is_floating_point<T>::value, "Float value expected");
+
+        if (b == e)
+            return std::complex<T>();
+
+        std::complex<T> a(*b++);
+
+        T j = 1;
+        while (b != e) {
+            auto ejw = std::complex<T>(0, -j * w);
+            a += (*b) * std::exp(ejw);
+            ++j;
+            ++b;
+        }
+
+        return a;
+    }
+
+    template <typename T, typename It>
+    std::complex<T> calcHw(T w, It bbegin, It bend, It abegin, It aend)
+    {
+        const auto Ajw = calcJw(w, abegin, aend);
+        if (Ajw == std::complex<T>())
+            return Ajw;
+
+        const auto Bjw = calcJw(w, bbegin, bend);
+
+        return Bjw / Ajw;
+    }
 }
 }
 

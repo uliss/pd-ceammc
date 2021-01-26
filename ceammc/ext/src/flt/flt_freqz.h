@@ -16,12 +16,11 @@
 
 #include "ceammc_object.h"
 
-#include <complex>
-
 using namespace ceammc;
 
 class FltFreqZ : public BaseObject {
     ListProperty *ca_, *cb_;
+    IntProperty* n_;
     BoolProperty* db_scale_;
     std::vector<t_sample> kb_, ka_;
 
@@ -31,30 +30,6 @@ public:
     void dump() const override;
 
     void m_biquad(t_symbol* s, const AtomListView& lv);
-
-    std::complex<t_float> Ajw(t_float w) const
-    {
-        std::complex<t_float> a(ka_.front());
-
-        for (int j = 1; j < ka_.size(); j++) {
-            auto ejw = std::complex<t_float>(0, -j * w);
-            a += ka_[j] * std::exp(ejw);
-        }
-
-        return a;
-    }
-
-    std::complex<t_float> Bjw(t_float w) const
-    {
-        std::complex<t_float> b(kb_.front());
-
-        for (int j = 1; j < kb_.size(); j++) {
-            auto ejw = std::complex<t_float>(0, -j * w);
-            b += kb_[j] * std::exp(ejw);
-        }
-
-        return b;
-    }
 };
 
 void setup_flt_freqz();

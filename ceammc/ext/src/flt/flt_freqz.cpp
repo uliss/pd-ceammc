@@ -13,16 +13,15 @@
  *****************************************************************************/
 #include "flt_freqz.h"
 #include "ceammc_factory.h"
+#include "flt_common.h"
 
 #include <cmath>
-#include <complex>
-
-static const t_float m_pi = std::acos(t_float(-1));
 
 FltFreqZ::FltFreqZ(const PdArgs& args)
     : BaseObject(args)
     , ca_(nullptr)
     , cb_(nullptr)
+    , n_(nullptr)
     , db_scale_(nullptr)
     , kb_ { 1 }
     , ka_ { 1 }
@@ -57,24 +56,34 @@ FltFreqZ::FltFreqZ(const PdArgs& args)
 
     addProperty(ca_);
 
+    n_ = new IntProperty("@n", 256);
+    n_->checkClosedRange(4, 1024);
+    n_->setArgIndex(0);
+    addProperty(n_);
+
     db_scale_ = new BoolProperty("@db", false);
     addProperty(db_scale_);
 }
 
 void FltFreqZ::onBang()
 {
-    constexpr size_t N = 256;
+    const size_t N = n_->value();
     const bool db = db_scale_->value();
 
+    Atom amp[N];
+    Atom phase[N];
     floatTo(2, N);
 
     for (size_t i = 0; i < N; i++) {
-        t_float w = m_pi * (t_float(i) / N);
-        const auto Hw = Bjw(w) / Ajw(w);
+        t_float w = flt::hz2w(i, 2 * N);
+        const auto Hw = flt::calcHw(w, kb_.begin(), kb_.end(), ka_.begin(), ka_.end());
 
-        floatTo(1, std::arg(Hw));
-        floatTo(0, db ? 20 * std::log(std::abs(Hw)) : std::abs(Hw));
+        amp[i] = db ? 20 * std::log(std::abs(Hw)) : std::abs(Hw);
+        phase[i] = std::arg(Hw);
     }
+
+    listTo(1, AtomListView(phase, N));
+    listTo(0, AtomListView(amp, N));
 }
 
 void FltFreqZ::dump() const
