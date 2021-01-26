@@ -13,6 +13,7 @@ set(DOC_FILES
     array.minmax
     array.p2s
     array.play~
+    array.plot
     array.plot~
     array.resample
     array.rms

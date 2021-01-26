@@ -20,6 +20,7 @@
   - conv.sig2float (with sig->float~ and s->f~ aliases) added
   - ui.vkeyboard added (with ui.vk alias for vertical keyboard)
   - system.exit added
+  - array.plot added
 - new aliases:
   - ui.hk alias added for ui.keyboard (horizontal)
   - ui.k alias added for ui.knob

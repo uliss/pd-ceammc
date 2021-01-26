@@ -42,6 +42,9 @@
     <entry name="array.play~" descr="array player with variable speed and amplitude" ref_view="object">
       <xi:include href="array.play~.pddoc" parse="xml"/>
     </entry>
+    <entry name="array.plot" descr="array data plotter" ref_view="object">
+      <xi:include href="array.plot.pddoc" parse="xml"/>
+    </entry>
     <entry name="array.plot~" descr="plot signal on specified array" ref_view="object">
       <xi:include href="array.plot~.pddoc" parse="xml"/>
     </entry>
