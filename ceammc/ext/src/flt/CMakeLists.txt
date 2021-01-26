@@ -1,6 +1,10 @@
 include_directories(${CMAKE_SOURCE_DIR}/src)
 
-set(FLT_SOURCES flt_freqz.cpp)
+set(FLT_SOURCES
+    flt_common.cpp
+    flt_freqz.cpp
+    flt_freqz_tilde.cpp
+)
 
 macro(ceammc_flt_obj name)
     list(APPEND FLT_SOURCES "flt_${name}.h" "flt_${name}.cpp")
@@ -48,5 +52,10 @@ ceammc_flt_obj_json(resonbp)
 
 list(APPEND FLT_SOURCES "flt_median.h" "flt_median.cpp")
 
-add_library(ceammc_flt STATIC mod_flt.h mod_flt.cpp ${FLT_SOURCES})
+add_library(ceammc_flt STATIC
+    mod_flt.h
+    mod_flt.cpp ${FLT_SOURCES}
+    flt_lpf2biquad.cpp
+    flt_pole2biquad.cpp
+)
 set_target_properties(ceammc_flt PROPERTIES COMPILE_DEFINITIONS "FAUST_MACRO")

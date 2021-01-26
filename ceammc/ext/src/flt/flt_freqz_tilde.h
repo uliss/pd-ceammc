@@ -11,45 +11,44 @@
  * contact the author of this file, or the owner of the project in which
  * this file belongs to.
  *****************************************************************************/
-#ifndef FLT_FREQZ_H
-#define FLT_FREQZ_H
+#ifndef FLT_FREQZ_TILDE_H
+#define FLT_FREQZ_TILDE_H
 
-#include "ceammc_object.h"
+#include "ceammc_sound_external.h"
 
 #include <complex>
 
 using namespace ceammc;
 
-class FltFreqZ : public BaseObject {
+class FltFreqZTilde : public SoundExternal {
     ListProperty *ca_, *cb_;
+    BoolProperty* use_sr_;
     BoolProperty* db_scale_;
     std::vector<t_sample> kb_, ka_;
 
 public:
-    FltFreqZ(const PdArgs& args);
-    void onBang() override;
-    void dump() const override;
+    FltFreqZTilde(const PdArgs& args);
 
-    void m_biquad(t_symbol* s, const AtomListView& lv);
+    void processBlock(const t_sample** in, t_sample** out) override;
 
-    std::complex<t_float> Ajw(t_float w) const
+    std::complex<t_sample> Ajw(t_sample w) const
     {
-        std::complex<t_float> a(ka_.front());
+        std::complex<t_sample> a(ka_.front());
 
         for (int j = 1; j < ka_.size(); j++) {
-            auto ejw = std::complex<t_float>(0, -j * w);
+            auto ejw = std::complex<t_sample>(0, -j * w);
             a += ka_[j] * std::exp(ejw);
         }
 
         return a;
     }
 
-    std::complex<t_float> Bjw(t_float w) const
+    std::complex<t_sample> Bjw(t_sample w) const
     {
-        std::complex<t_float> b(kb_.front());
+        std::complex<t_sample> b(kb_.front());
 
         for (int j = 1; j < kb_.size(); j++) {
-            auto ejw = std::complex<t_float>(0, -j * w);
+            auto ejw = std::complex<t_sample>(0, -j * w);
             b += kb_[j] * std::exp(ejw);
         }
 
@@ -57,6 +56,6 @@ public:
     }
 };
 
-void setup_flt_freqz();
+void setup_flt_freqz_tilde();
 
-#endif // FLT_FREQZ_H
+#endif // FLT_FREQZ_TILDE_H

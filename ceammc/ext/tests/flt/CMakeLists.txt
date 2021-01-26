@@ -25,4 +25,5 @@ function(add_flt_test src)
 endfunction()
 
 
+add_flt_test(lpf2biquad)
 add_flt_test(median)
