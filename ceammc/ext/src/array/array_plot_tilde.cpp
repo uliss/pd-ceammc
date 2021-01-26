@@ -193,6 +193,8 @@ bool ArrayPlotTilde::checkArray(bool log)
 
 void ArrayPlotTilde::updateScale()
 {
+    constexpr t_float MIN_RANGE = 0.1;
+
     t_float a, b;
     if (!yauto_->value()) {
         a = ymin_->value();
@@ -202,27 +204,35 @@ void ArrayPlotTilde::updateScale()
         b = clip_max<decltype(max_), PLOT_YMAX>(max_);
     }
 
-    if (b - a > 0) {
-        array_.setYBounds(a, b);
+    auto is_odd = [](t_float v) { return v == int(v) && (int(v) & 0x1) && int(v) > 1; };
 
-        auto is_odd = [](t_float v) { return v == int(v) && (int(v) & 0x1); };
-
-        const auto a0 = round_fixed(a, 2);
-        const auto b0 = round_fixed(b, 2);
-        const auto m = (a0 + b0);
-        const auto m0 = is_odd(m)
-            ? (m + 1) / 2
-            : round_fixed(m / 2, 2);
-
-        if (!array_.setYLabels({ a0,
-                m0,
-                b0 }))
-            OBJ_ERR
-                << fmt::format("can't set ylabels for array '{}'", array_.name()->s_name);
-
-        if (!array_.setYTicks(round_fixed(a, 2), (b - a) / 20, 5))
-            OBJ_ERR << fmt::format("can't set yticks for array '{}'", array_.name()->s_name);
+    // zero values
+    if (b == a && a == 0) {
+        b = 1;
+        a = 0;
     }
+
+    float a0 = round_fixed(a, 2);
+    float b0 = round_fixed(b, 2);
+    float dist = std::fabs(b0 - a0);
+
+    if (dist < MIN_RANGE) {
+        a0 = b0 - MIN_RANGE;
+        dist = MIN_RANGE;
+    }
+
+    dist += is_odd(dist);
+
+    const float m0 = round_fixed(a0 + (dist / 2), 2);
+    array_.setYBounds(a0, b0);
+
+    if (!array_.setYLabels({ a0, m0, b0 }))
+        OBJ_ERR << fmt::format("can't set ylabels for array '{}'", array_.name()->s_name);
+
+    const auto step = std::pow(10, std::trunc(std::log10(dist)) - 1);
+
+    if (!array_.setYTicks(a0, step, 5))
+        OBJ_ERR << fmt::format("can't set yticks for array '{}'", array_.name()->s_name);
 
     array_.redraw();
 }
