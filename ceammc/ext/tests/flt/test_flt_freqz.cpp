@@ -61,6 +61,11 @@ TEST_CASE("flt.freqz", "[externals]")
                 -1.3744467859455345,
             };
 
+            REQUIRE(t.isOutputListAt(0));
+            REQUIRE(t.isOutputListAt(1));
+            REQUIRE(t.isOutputFloatAt(2));
+            REQUIRE(t.outputFloatAt(2) == 8);
+
             auto a0 = t.outputListAt(0);
             for (int i = 0; i < 8; i++) {
                 REQUIRE(a0[i].asFloat() == Approx(ampz[i]));
