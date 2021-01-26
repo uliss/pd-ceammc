@@ -205,12 +205,22 @@ void ArrayPlotTilde::updateScale()
     if (b - a > 0) {
         array_.setYBounds(a, b);
 
-        if (!array_.setYLabels({ round_fixed(a, 2),
-                round_fixed((a + b) / 2, 2),
-                round_fixed(b, 2) }))
-            OBJ_ERR << fmt::format("can't set ylabels for array '{}'", array_.name()->s_name);
+        auto is_odd = [](t_float v) { return v == int(v) && (int(v) & 0x1); };
 
-        if (!array_.setYTicks((b - a) / 20, 5))
+        const auto a0 = round_fixed(a, 2);
+        const auto b0 = round_fixed(b, 2);
+        const auto m = (a0 + b0);
+        const auto m0 = is_odd(m)
+            ? (m + 1) / 2
+            : round_fixed(m / 2, 2);
+
+        if (!array_.setYLabels({ a0,
+                m0,
+                b0 }))
+            OBJ_ERR
+                << fmt::format("can't set ylabels for array '{}'", array_.name()->s_name);
+
+        if (!array_.setYTicks(round_fixed(a, 2), (b - a) / 20, 5))
             OBJ_ERR << fmt::format("can't set yticks for array '{}'", array_.name()->s_name);
     }
 

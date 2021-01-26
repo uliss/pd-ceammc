@@ -247,15 +247,15 @@ bool Array::setYBounds(t_float yBottom, t_float yTop)
     return true;
 }
 
-bool Array::setYTicks(t_float step, size_t bigN)
+bool Array::setYTicks(t_float y, t_float step, size_t bigN)
 {
     static t_symbol* SYM_YTICKS = gensym("yticks");
 
     if (!array_ || !name_->s_thing)
         return false;
 
-    t_atom args[4];
-    SETFLOAT(&args[0], 0);
+    t_atom args[3];
+    SETFLOAT(&args[0], y);
     SETFLOAT(&args[1], step);
     SETFLOAT(&args[2], bigN);
     pd_typedmess(name_->s_thing, SYM_YTICKS, 3, args);
