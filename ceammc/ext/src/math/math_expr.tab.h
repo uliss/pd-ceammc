@@ -1,8 +1,8 @@
-/* A Bison parser, made by GNU Bison 3.5.  */
+/* A Bison parser, made by GNU Bison 3.7.4.  */
 
 /* Bison interface for Yacc-like parsers in C
 
-   Copyright (C) 1984, 1989-1990, 2000-2015, 2018-2019 Free Software Foundation,
+   Copyright (C) 1984, 1989-1990, 2000-2015, 2018-2020 Free Software Foundation,
    Inc.
 
    This program is free software: you can redistribute it and/or modify
@@ -31,8 +31,9 @@
    This special exception was added by the Free Software Foundation in
    version 2.2 of Bison.  */
 
-/* Undocumented macros, especially those whose name start with YY_,
-   are private implementation details.  Do not rely on them.  */
+/* DO NOT RELY ON FEATURES THAT ARE NOT DOCUMENTED in the manual,
+   especially those whose name start with YY_ or yy_.  They are
+   private implementation details that can be changed or removed.  */
 
 #ifndef YY_MATH_EXPR_MATH_EXPR_TAB_H_INCLUDED
 # define YY_MATH_EXPR_MATH_EXPR_TAB_H_INCLUDED
@@ -52,27 +53,32 @@
 extern int math_expr_debug;
 #endif
 
-/* Token type.  */
+/* Token kinds.  */
 #ifndef MATH_EXPR_TOKENTYPE
 # define MATH_EXPR_TOKENTYPE
   enum math_expr_tokentype
   {
-    T_NUM = 258,
-    T_REF = 259,
-    T_EQ = 260,
-    T_NOT_EQ = 261,
-    T_APPROX_EQ = 262,
-    T_ARRAY_BEGIN = 263,
-    T_ARRAY_END = 264,
-    T_UFUNC = 265,
-    T_BFUNC = 266,
-    T_ERROR = 267,
-    T_LE = 268,
-    T_LT = 269,
-    T_GT = 270,
-    T_GE = 271,
-    T_NEG = 272
+    MATH_EXPR_EMPTY = -2,
+    MATH_EXPR_EOF = 0,             /* "end of file"  */
+    MATH_EXPR_error = 256,         /* error  */
+    MATH_EXPR_UNDEF = 257,         /* "invalid token"  */
+    T_NUM = 258,                   /* T_NUM  */
+    T_REF = 259,                   /* T_REF  */
+    T_EQ = 260,                    /* T_EQ  */
+    T_NOT_EQ = 261,                /* T_NOT_EQ  */
+    T_APPROX_EQ = 262,             /* T_APPROX_EQ  */
+    T_ARRAY_BEGIN = 263,           /* T_ARRAY_BEGIN  */
+    T_ARRAY_END = 264,             /* T_ARRAY_END  */
+    T_UFUNC = 265,                 /* T_UFUNC  */
+    T_BFUNC = 266,                 /* T_BFUNC  */
+    T_ERROR = 267,                 /* T_ERROR  */
+    T_LE = 268,                    /* T_LE  */
+    T_LT = 269,                    /* T_LT  */
+    T_GT = 270,                    /* T_GT  */
+    T_GE = 271,                    /* T_GE  */
+    T_NEG = 272                    /* T_NEG  */
   };
+  typedef enum math_expr_tokentype math_expr_token_kind_t;
 #endif
 
 /* Value type.  */
@@ -85,7 +91,7 @@ union MATH_EXPR_STYPE
   const char* txt;
   Node* node;
 
-#line 89 "math_expr.tab.h"
+#line 95 "math_expr.tab.h"
 
 };
 typedef union MATH_EXPR_STYPE MATH_EXPR_STYPE;
