@@ -22,6 +22,7 @@
   - system.exit added
   - array.plot added
   - flt.c_lpf (with lpf->biquad) biquad calculator added
+  - flt.c_hpf (with hpf->biquad) biquad calculator added
 - new aliases:
   - ui.hk alias added for ui.keyboard (horizontal)
   - ui.k alias added for ui.knob

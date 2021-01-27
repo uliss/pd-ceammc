@@ -14,36 +14,37 @@
 #include "flt_calc_biquad.h"
 #include "flt_common.h"
 
-FltCalcBiquad::FltCalcBiquad(const PdArgs& args)
+FltCalcBiquad::FltCalcBiquad(const PdArgs& args, const FreqCalcParams& fparam)
     : BaseObject(args)
     , freq_(nullptr)
     , q_(nullptr)
     , rad_(nullptr)
 {
-    freq_ = new FloatProperty("@freq", 0);
+    static t_symbol* PROP_RAD = gensym("@rad");
+    const bool rad = args.args.contains(PROP_RAD);
+    const auto freq_def = (rad ? fparam.ang_freq_default : fparam.freq_default);
+
+    freq_ = new FloatProperty("@freq", freq_def);
     freq_->setArgIndex(0);
     addProperty(freq_);
+
+    if (rad) {
+        freq_->checkClosedRange(fparam.ang_freq_min, fparam.ang_freq_max);
+        freq_->setUnits(PropValueUnits::RAD);
+    } else {
+        freq_->checkClosedRange(fparam.freq_min, fparam.freq_max);
+        freq_->setUnits(PropValueUnits::HZ);
+    }
 
     q_ = new FloatProperty("@q", M_SQRT1_2);
     q_->checkClosedRange(0.01, 100);
     addProperty(q_);
 
-    rad_ = new FlagProperty("@rad");
+    rad_ = new FlagProperty(PROP_RAD->s_name);
     rad_->setInitOnly();
     addProperty(rad_);
 
     createOutlet();
-}
-
-void FltCalcBiquad::initDone()
-{
-    if (rad_->value()) {
-        freq_->checkClosedRange(0, flt::m_pi);
-        freq_->setUnits(PropValueUnits::RAD);
-    } else {
-        freq_->checkClosedRange(0, sys_getsr() / 2);
-        freq_->setUnitsHz();
-    }
 }
 
 void FltCalcBiquad::onBang()

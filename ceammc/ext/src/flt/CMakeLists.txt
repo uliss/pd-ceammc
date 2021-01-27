@@ -55,6 +55,8 @@ list(APPEND FLT_SOURCES "flt_median.h" "flt_median.cpp")
 add_library(ceammc_flt STATIC
     mod_flt.h
     mod_flt.cpp ${FLT_SOURCES}
+    flt_calc_biquad.cpp
+    flt_hpf2biquad.cpp
     flt_lpf2biquad.cpp
     flt_pole2biquad.cpp
 )

@@ -11,25 +11,26 @@
  * contact the author of this file, or the owner of the project in which
  * this file belongs to.
  *****************************************************************************/
-#include "flt_lpf2biquad.h"
+#include "flt_hpf2biquad.h"
 #include "ceammc_factory.h"
 #include "flt_common.h"
 
-FltLpf2Biquad::FltLpf2Biquad(const PdArgs& args)
+FltHpf2Biquad::FltHpf2Biquad(const PdArgs& args)
     : FltCalcBiquad(args, { 1000, 20, sys_getsr() / 2, flt::m_pi / 2, 0.001, flt::m_pi })
 {
 }
 
-void FltLpf2Biquad::calc()
+void FltHpf2Biquad::calc()
 {
-    calc_lpf();
+    calc_hpf();
 }
 
-void setup_flt_lpf2biquad()
+void setup_flt_hpf2biquad()
 {
-    ObjectFactory<FltLpf2Biquad> obj("flt.c_lpf");
-    obj.addAlias("lpf->biquad");
-    obj.addMethod("bw", &FltLpf2Biquad::m_bandwidth);
+    ObjectFactory<FltHpf2Biquad> obj("flt.c_hpf");
+    obj.addAlias("hpf->biquad");
+    obj.addMethod("bw", &FltHpf2Biquad::m_bandwidth);
 
-    obj.setXletsInfo({ "float: freq cutoff" }, { "list: biquad coeffs: b0 b1 b2 a1 a2" });
+    obj.setXletsInfo({ "float: freq cutoff in herz or radians" },
+        { "list: biquad coeffs: b0 b1 b2 a1 a2" });
 }

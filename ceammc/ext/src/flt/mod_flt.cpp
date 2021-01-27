@@ -22,6 +22,7 @@ void setup_flt_freqz_tilde();
 void setup_flt_highshelf_tilde();
 void setup_flt_hpf12_tilde();
 void setup_flt_hpf24_tilde();
+void setup_flt_hpf2biquad();
 void setup_flt_lowshelf_tilde();
 void setup_flt_lpf12_tilde();
 void setup_flt_lpf24_tilde();
@@ -56,6 +57,7 @@ void ceammc_flt_setup()
     setup_flt_highshelf_tilde();
     setup_flt_hpf12_tilde();
     setup_flt_hpf24_tilde();
+    setup_flt_hpf2biquad();
     setup_flt_lowshelf_tilde();
     setup_flt_lpf12_tilde();
     setup_flt_lpf24_tilde();

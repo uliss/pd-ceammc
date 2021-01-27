@@ -19,6 +19,11 @@
 #include <array>
 using namespace ceammc;
 
+struct FreqCalcParams {
+    double freq_default, freq_min, freq_max;
+    double ang_freq_default, ang_freq_min, ang_freq_max;
+};
+
 class FltCalcBiquad : public BaseObject {
 protected:
     FloatProperty* freq_;
@@ -28,8 +33,7 @@ protected:
     std::array<double, 3> a_;
 
 public:
-    FltCalcBiquad(const PdArgs& args);
-    void initDone() override;
+    FltCalcBiquad(const PdArgs& args, const FreqCalcParams& fparam);
 
     void onBang() override;
     void onFloat(t_float v) override;

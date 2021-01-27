@@ -298,6 +298,8 @@ flt.bpf12~	Two pole band-pass butterworth filter
 flt.bpf24~	Four pole band-pass butterworth filter
 flt.c_bpf~	BPF coefficient calculator for biquad filter
 flt.c_highshelf~	Highshelf filter coefficient calculator for biquad
+flt.c_hpf	HPF coefficient calculator for biquad filter
+hpf->biquad	HPF coefficient calculator for biquad filter
 flt.c_hpf~	HPF coefficient calculator for biquad filter
 flt.c_lowshelf~	Lowshelf filter coefficient calculator for biquad
 flt.c_lpf	LPF coefficient calculator for biquad filter

@@ -586,6 +586,9 @@
     <entry name="flt.c_highshelf~" descr="Highshelf filter coefficient calculator for biquad" ref_view="object">
       <xi:include href="flt.c_highshelf~.pddoc" parse="xml"/>
     </entry>
+    <entry name="flt.c_hpf" descr="HPF coefficient calculator for biquad filter" ref_view="object">
+      <xi:include href="flt.c_hpf.pddoc" parse="xml"/>
+    </entry>
     <entry name="flt.c_hpf~" descr="HPF coefficient calculator for biquad filter" ref_view="object">
       <xi:include href="flt.c_hpf~.pddoc" parse="xml"/>
     </entry>

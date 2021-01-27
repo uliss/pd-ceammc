@@ -51,7 +51,7 @@ TEST_CASE("flt.c_lpf", "[externals]")
             TExt t("flt.c_lpf");
             REQUIRE(t.numInlets() == 1);
             REQUIRE(t.numOutlets() == 1);
-            REQUIRE_PROPERTY_FLOAT(t, @freq, 0);
+            REQUIRE_PROPERTY_FLOAT(t, @freq, 1000);
             REQUIRE_PROPERTY_FLOAT(t, @q, 1 / std::sqrt(2));
         }
 

@@ -161,6 +161,7 @@ set(DOC_FILES
     flt.bpf24~
     flt.c_bpf~
     flt.c_highshelf~
+    flt.c_hpf
     flt.c_hpf~
     flt.c_lowshelf~
     flt.c_lpf

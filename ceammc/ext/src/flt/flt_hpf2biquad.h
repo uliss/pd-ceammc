@@ -11,25 +11,18 @@
  * contact the author of this file, or the owner of the project in which
  * this file belongs to.
  *****************************************************************************/
-#include "flt_lpf2biquad.h"
-#include "ceammc_factory.h"
-#include "flt_common.h"
+#ifndef FLT_HPF2BIQUAD_H
+#define FLT_HPF2BIQUAD_H
 
-FltLpf2Biquad::FltLpf2Biquad(const PdArgs& args)
-    : FltCalcBiquad(args, { 1000, 20, sys_getsr() / 2, flt::m_pi / 2, 0.001, flt::m_pi })
-{
-}
+#include "flt_calc_biquad.h"
+using namespace ceammc;
 
-void FltLpf2Biquad::calc()
-{
-    calc_lpf();
-}
+class FltHpf2Biquad : public FltCalcBiquad {
+public:
+    FltHpf2Biquad(const PdArgs& args);
+    void calc() final;
+};
 
-void setup_flt_lpf2biquad()
-{
-    ObjectFactory<FltLpf2Biquad> obj("flt.c_lpf");
-    obj.addAlias("lpf->biquad");
-    obj.addMethod("bw", &FltLpf2Biquad::m_bandwidth);
+void setup_flt_hpf2biquad();
 
-    obj.setXletsInfo({ "float: freq cutoff" }, { "list: biquad coeffs: b0 b1 b2 a1 a2" });
-}
+#endif // FLT_HPF2BIQUAD_H
