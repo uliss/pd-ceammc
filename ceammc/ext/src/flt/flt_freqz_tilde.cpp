@@ -13,11 +13,7 @@
  *****************************************************************************/
 #include "flt_freqz_tilde.h"
 #include "ceammc_factory.h"
-
-#include <cmath>
-#include <complex>
-
-static const t_float m_2pi = 2 * std::acos(t_float(-1));
+#include "flt_common.h"
 
 FltFreqZTilde::FltFreqZTilde(const PdArgs& args)
     : SoundExternal(args)
@@ -67,12 +63,12 @@ FltFreqZTilde::FltFreqZTilde(const PdArgs& args)
 void FltFreqZTilde::processBlock(const t_sample** in, t_sample** out)
 {
     const size_t BS = blockSize();
-    const t_float norm = use_sr_->value() ? (m_2pi / (t_sample)samplerate()) : 1;
+    const t_float norm = use_sr_->value() ? (flt::m_2pi / (t_sample)samplerate()) : 1;
     bool db = db_scale_->value();
 
     for (size_t i = 0; i < BS; i++) {
         t_sample w = norm * in[0][i];
-        auto Hw = Bjw(w) / Ajw(w);
+        auto Hw = flt::calcHw<t_sample>(w, kb_.begin(), kb_.end(), ka_.begin(), ka_.end());
         auto m = std::abs(Hw);
         out[0][i] = db ? 20 * std::log(m) : m;
         out[1][i] = std::arg(Hw);

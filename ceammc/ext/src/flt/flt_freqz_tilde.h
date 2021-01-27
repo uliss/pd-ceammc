@@ -16,8 +16,6 @@
 
 #include "ceammc_sound_external.h"
 
-#include <complex>
-
 using namespace ceammc;
 
 class FltFreqZTilde : public SoundExternal {
@@ -30,30 +28,6 @@ public:
     FltFreqZTilde(const PdArgs& args);
 
     void processBlock(const t_sample** in, t_sample** out) override;
-
-    std::complex<t_sample> Ajw(t_sample w) const
-    {
-        std::complex<t_sample> a(ka_.front());
-
-        for (int j = 1; j < ka_.size(); j++) {
-            auto ejw = std::complex<t_sample>(0, -j * w);
-            a += ka_[j] * std::exp(ejw);
-        }
-
-        return a;
-    }
-
-    std::complex<t_sample> Bjw(t_sample w) const
-    {
-        std::complex<t_sample> b(kb_.front());
-
-        for (int j = 1; j < kb_.size(); j++) {
-            auto ejw = std::complex<t_sample>(0, -j * w);
-            b += kb_[j] * std::exp(ejw);
-        }
-
-        return b;
-    }
 };
 
 void setup_flt_freqz_tilde();
