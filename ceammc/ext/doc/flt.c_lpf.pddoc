@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="flt.c_lpf">
+        <title>flt.c_lpf</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>LPF coefficient calculator for biquad filter</description>
+            <license>GPL3 or later</license>
+            <library>ceammc</library>
+            <category>flt</category>
+            <keywords>filter biquad lowpass</keywords>
+            <since>0.9.2</since>
+            <also>
+                <see>flt.c_hpf</see>
+            </also>
+            <aliases>
+                <alias>lpf->biquad</alias>
+            </aliases>
+        </meta>
+        <info>
+            <par>Calculates coefficients for transfer function: H(z)=(b0 + b1*z⁻¹ + b2*z⁻²)/(1 +
+            a1*z⁻¹ + a2*z⁻²)</par>
+        </info>
+        <arguments>
+            <argument name="freq" type="float" units="herz" minvalue="20" maxvalue="20000">center
+            frequency</argument>
+        </arguments>
+        <properties>
+            <property name="@freq" type="float" minvalue="0" maxvalue="22050" default="0"
+            units="herz">center frequency</property>
+            <property name="@q" type="float" minvalue="0.01" maxvalue="100" default="0.707107">quality
+            factor: @freq/BANDWIDTH</property>
+            <property name="@rad" type="flag">use angular frequency</property>
+        </properties>
+        <methods>
+            <method name="bw">set bandwidth in octaves
+            <param type="float" name="OCT" required="true">bandwidth</param></method>
+        </methods>
+        <inlets>
+            <inlet>
+                <xinfo on="float">filter frequency</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet>list: b0 b1 b2 a1 a2</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[ui.hsl]                         [ui.hsl]
+|                                |
+[F]                              [F]
+|                                |
+[math.* expr(sr/2)]              [math.* pi()]
+|                                |
+[flt.c_lpf]                      [flt.c_lpf @rad]
+|                                |
+[ui.dt @float_width 5]           [ui.dt @float_width 5]
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

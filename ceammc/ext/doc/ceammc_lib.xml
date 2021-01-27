@@ -592,6 +592,9 @@
     <entry name="flt.c_lowshelf~" descr="Lowshelf filter coefficient calculator for biquad" ref_view="object">
       <xi:include href="flt.c_lowshelf~.pddoc" parse="xml"/>
     </entry>
+    <entry name="flt.c_lpf" descr="LPF coefficient calculator for biquad filter" ref_view="object">
+      <xi:include href="flt.c_lpf.pddoc" parse="xml"/>
+    </entry>
     <entry name="flt.c_lpf~" descr="LPF coefficient calculator for biquad filter" ref_view="object">
       <xi:include href="flt.c_lpf~.pddoc" parse="xml"/>
     </entry>
