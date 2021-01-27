@@ -69,7 +69,7 @@
 |    [array.plot PHFZ]
 |
 [array.plot AMPFZ]
-#a @min 20 @max 20000 @show_value 1 @scale log
+#a @min 0 @max 20000 @show_value 1
 ]]>
             </pdascii>
         </example>

@@ -9,7 +9,7 @@
 #X text 215 80 Given the M-order numerator b and N-order denominator
 a of a digital filter \, compute its frequency response: H(eʲʷ) = B(eʲʷ)/A(eʲʷ)
 = (b⁰+b¹e⁻ʲʷ+...+bᴹe⁻ʲʷᴹ)/(1+a¹e⁻ʲʷ+...+aᴺe⁻ʲʷᴺ);
-#X obj 50 188 ui.hsl @min 20 @max 20000 @show_value 1 @scale log;
+#X obj 50 188 ui.hsl @min 0 @max 20000 @show_value 1;
 #N canvas 0 22 450 300 (subpatch) 0;
 #X array AMPFZ 100 float 1;
 #A 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
@@ -60,7 +60,8 @@ Default value: 0\. Allowed values: 0 \, 1\.;
 #X obj 20 747 cnv 5 73 26 empty empty methods: 4 10 0 14 -262144
 -49933 0;
 #X msg 110 782 biquad;
-#X text 245 782 set 'b' and 'a' coefficients. Arguments are:;
+#X text 245 782 set 'b' and 'a' coefficients \, no output. Arguments
+are:;
 #X obj 255 805 cnv 1 21 23 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 255 805 b0: b0\. Type: float.;
 #X obj 255 828 cnv 1 21 23 empty empty empty 17 7 0 10 -245695 -1 0;
