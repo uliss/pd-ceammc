@@ -16,7 +16,7 @@
                 <see>flt.c_lpf</see>
             </also>
             <aliases>
-                <alias>hpf->biquad</alias>
+                <alias>hpf-&gt;biquad</alias>
             </aliases>
         </meta>
         <info>
@@ -30,12 +30,12 @@
         <properties>
             <property name="@freq" type="float" minvalue="0" maxvalue="22050" default="0"
             units="herz">center frequency</property>
-            <property name="@q" type="float" minvalue="0.01" maxvalue="100" default="0.707107">quality
-            factor: @freq/BANDWIDTH</property>
+            <property name="@q" type="float" minvalue="0.01" maxvalue="100" default="0.707107">
+            quality factor: @freq/BANDWIDTH</property>
             <property name="@rad" type="flag">use angular frequency</property>
         </properties>
         <methods>
-            <method name="bw">set bandwidth in octaves
+            <method name="bw">set bandwidth in octaves 
             <param type="float" name="OCT" required="true">bandwidth</param></method>
         </methods>
         <inlets>
