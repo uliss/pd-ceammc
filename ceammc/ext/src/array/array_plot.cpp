@@ -209,9 +209,16 @@ void ArrayPlot::updateScale()
     if (!array_.setYLabels({ a0, m0, b0 }))
         OBJ_ERR << fmt::format("can't set ylabels for array '{}'", array_.name()->s_name);
 
-    const auto step = std::pow(10, std::trunc(std::log10(dist)) - 1);
+    auto step = std::pow(10, std::trunc(std::log10(dist)) - 1);
+    const int nsteps = dist / step;
+    if (nsteps > 40)
+        step *= 10;
 
-    if (!array_.setYTicks(a0, step, 5))
+    auto pt = a0;
+    if (int(a0) != a0 && int(b0) == b0)
+        pt = b0;
+
+    if (!array_.setYTicks(pt, step, 5))
         OBJ_ERR << fmt::format("can't set yticks for array '{}'", array_.name()->s_name);
 
     array_.redraw();
