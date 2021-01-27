@@ -310,6 +310,7 @@ flt.eq_peak_cq~	constant-Q second order peaking equalizer section
 flt.eq_peak~	second order "peaking equalizer" section (gain boost or cut near some frequency). Also called a "parametric equalizer" section.
 flt.fb_comb~	feedback comb filter
 flt.ff_comb~	feed forward comb filter
+flt.freqz	compute the frequency response of a digital filter
 flt.freqz~	compute the frequency response of a digital filter
 flt.highshelf~	gain boost|cut above some frequency
 flt.hpf12~	High-pass second order Butterworth filter

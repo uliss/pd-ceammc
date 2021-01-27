@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="flt.freqz">
+        <title>flt.freqz</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>compute the frequency response of a digital filter</description>
+            <license>GPL3 or later</license>
+            <library>ceammc</library>
+            <category>flt</category>
+            <keywords>filter calc bode frequence response phase plot</keywords>
+            <since>0.9.2</since>
+            <also>
+                <see>flt.freqz~</see>
+            </also>
+        </meta>
+        <info>
+            <par>Given the M-order numerator b and N-order denominator a of a digital filter,
+            compute its frequency response: H(eʲʷ) = B(eʲʷ)/A(eʲʷ) =
+            (b⁰+b¹e⁻ʲʷ+...+bᴹe⁻ʲʷᴹ)/(1+a¹e⁻ʲʷ+...+aᴺe⁻ʲʷᴺ)</par>
+        </info>
+        <properties>
+            <property name="@a" type="list">denominator (poles) coefficients. 'a0' always
+            implicitly set to 1, property value set a1...an coefficients</property>
+            <property name="@b" type="list" default="1">numerator (zeros) coefficients</property>
+            <property name="@sr" type="int" enum="0 1" default="0">normalize using current
+            samplerate</property>
+            <property name="@db" type="int" enum="0 1" default="0">output amp response in db
+            scale</property>
+        </properties>
+        <inlets>
+            <inlet>
+                <xinfo>input frequency in radians [0, π] or in hertz [0 sr/2] if @sr property is
+                true</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet>list: amplitude frequency response signal</outlet>
+            <outlet>list: phase frequency response signal</outlet>
+            <outlet>int: number of points</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[ui.hsl]                    [array FRZ0 w=360 h=160]
+|
+[expr $f1*22000+20]
+|
+[lpf->biquad {i=1,o=1}]
+|
+[msg biquad] [T]
+|            |
+[t b a]      [@db $1(
+|   ^|       |
+[flt.freqz 128]
+|
+[array.plot FRZ0]
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

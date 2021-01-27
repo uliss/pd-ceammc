@@ -171,6 +171,7 @@ flt.eq_peak_cq~		.		~
 flt.eq_peak~		~		~
 flt.fb_comb~		~~		~
 flt.ff_comb~		~~		~
+flt.freqz		.		...
 flt.freqz~		~		~~
 flt.highshelf~		~		~
 flt.hpf12~		~		~
