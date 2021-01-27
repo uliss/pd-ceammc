@@ -11,25 +11,41 @@
  * contact the author of this file, or the owner of the project in which
  * this file belongs to.
  *****************************************************************************/
-#include "flt_lpf2biquad.h"
-#include "ceammc_factory.h"
-#include "flt_common.h"
+#ifndef FLT_CALC_BIQUAD_H
+#define FLT_CALC_BIQUAD_H
 
-FltLpf2Biquad::FltLpf2Biquad(const PdArgs& args)
-    : FltCalcBiquad(args)
-{
-}
+#include "ceammc_object.h"
 
-void FltLpf2Biquad::calc()
-{
-    calc_lpf();
-}
+#include <array>
+using namespace ceammc;
 
-void setup_flt_lpf2biquad()
-{
-    ObjectFactory<FltLpf2Biquad> obj("flt.c_lpf");
-    obj.addAlias("lpf->biquad");
-    obj.addMethod("bw", &FltLpf2Biquad::m_bandwidth);
+class FltCalcBiquad : public BaseObject {
+protected:
+    FloatProperty* freq_;
+    FloatProperty* q_;
+    FlagProperty* rad_;
+    std::array<double, 3> b_;
+    std::array<double, 3> a_;
 
-    obj.setXletsInfo({ "float: freq cutoff" }, { "list: biquad coeffs: b0 b1 b2 a1 a2" });
-}
+public:
+    FltCalcBiquad(const PdArgs& args);
+    void initDone() override;
+
+    void onBang() override;
+    void onFloat(t_float v) override;
+
+    virtual void calc() = 0;
+
+    double angleFreq() const;
+
+    void m_bandwidth(t_symbol* s, const AtomListView& lv);
+
+    void calc_hpf();
+    void calc_lpf();
+
+private:
+    void output();
+    void normalizeA();
+};
+
+#endif // FLT_CALC_BIQUAD_H

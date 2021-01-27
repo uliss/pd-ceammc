@@ -14,28 +14,12 @@
 #ifndef FLT_LPF2BIQUAD_H
 #define FLT_LPF2BIQUAD_H
 
-#include "ceammc_object.h"
+#include "flt_calc_biquad.h"
 
-#include <array>
-
-using namespace ceammc;
-
-class FltLpf2Biquad : public BaseObject {
-    FloatProperty* freq_;
-    FloatProperty* q_;
-    FloatProperty* bw_;
-    BoolProperty* norm_;
-    std::array<double, 3> b_;
-    std::array<double, 3> a_;
-
+class FltLpf2Biquad : public FltCalcBiquad {
 public:
     FltLpf2Biquad(const PdArgs& args);
-    void onBang() override;
-    void onFloat(t_float v) override;
-
-private:
-    void calc();
-    void output();
+    void calc() final;
 };
 
 void setup_flt_lpf2biquad();
