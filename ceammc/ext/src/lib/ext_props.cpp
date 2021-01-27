@@ -125,6 +125,7 @@ int main(int argc, char* argv[])
 {
     pd_init();
     ceammc_init();
+    sys_setchsr(0, 0, 44100);
 
     sys_printtostderr = 1;
 
