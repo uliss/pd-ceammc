@@ -39,6 +39,7 @@ ArrayPlot::ArrayPlot(const PdArgs& a)
     , ymin_(nullptr)
     , ymax_(nullptr)
     , yauto_(nullptr)
+    , nan_(nullptr)
     , phase_(0)
     , total_(0)
     , min_(0)
@@ -62,6 +63,9 @@ ArrayPlot::ArrayPlot(const PdArgs& a)
 
     yauto_ = new BoolProperty("@yauto", true);
     addProperty(yauto_);
+
+    nan_ = new FloatProperty("@nan", std::numeric_limits<t_float>::max());
+    addProperty(nan_);
 
     createInlet();
     createOutlet();
@@ -269,9 +273,9 @@ t_float ArrayPlot::processSample(t_float sample, t_float ymin, t_float ymax, boo
 {
     if (auto_range) {
         if (std::isnan(sample) || std::isinf(sample))
-            sample = FMAX;
+            sample = nan_->value();
 
-        sample = clip<t_float, FMIN, FMAX>(sample);
+        sample = clip<t_float, PLOT_YMIN, PLOT_YMAX>(sample);
 
         if (phase_ == 0) {
             min_ = sample;

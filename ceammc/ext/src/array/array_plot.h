@@ -25,6 +25,7 @@ class ArrayPlot : public BaseObject {
     Array array_;
     FloatProperty *ymin_, *ymax_;
     BoolProperty* yauto_;
+    FloatProperty* nan_;
     size_t phase_;
     size_t total_;
     t_float min_, max_;
