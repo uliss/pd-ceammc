@@ -58,6 +58,32 @@
 [flt.c_lpf]                      [flt.c_lpf @rad]
 |                                |
 [ui.dt @float_width 5]           [ui.dt @float_width 5]
+
+
+
+
+[flt.c_lpf.plot]
+]]>
+            </pdascii>
+            <pdascii id="plot">
+<![CDATA[
+[ui.hsl]                       [array CLPF0 size=200 w=300 h=90]
+|
+[F]
+|
+[l->l 0 1 20 expr(sr/2-20)]
+|
+[flt.c_lpf @q 1]
+|
+[t b l ]                       [array CLPF1 size=200 w=300 h=90]
+|     ^|
+|    [msg biquad]
+|    |
+[flt.freqz @db 1]
+|   ^|
+|   [array.plot CLPF1]
+|
+[array.plot CLPF0 @nan 0]
 ]]>
             </pdascii>
         </example>

@@ -3,31 +3,31 @@
 ## [Unreleased]
 ### Added:
 - new objects:
+  - array.plot added
+  - conv.bits2bang (with bits->bang alias) added
+  - conv.bits2int (with bits->int alias) added
+  - conv.bits2note (with bits->note alias) added
+  - conv.bits2pos (with bits->pos alias) added
+  - conv.sig2float (with sig->float~ and s->f~ aliases) added
+  - flt.c_hpf (with hpf->biquad) biquad calculator added
+  - flt.c_lpf (with lpf->biquad) biquad calculator added
   - loadexpr added (supports functions and datatypes)
   - midi.cc added (enhanced version of ctlin)
-  - midi.sysex added (read sysex messages as list)
   - midi.clock added
-  - midi.vrand - velocity randomizer added
   - midi.oct - octave transposer added
-  - ui.midi added (display for incoming messages)
-  - ui.button added (with ui.btn alias)
+  - midi.sysex added (read sysex messages as list)
+  - midi.vrand - velocity randomizer added
   - proto.midi added (raw dataflow midi parser/encoder)
   - route.float (with route.f alias) added
-  - conv.bits2int (with bits->int alias) added
-  - conv.bits2pos (with bits->pos alias) added
-  - conv.bits2bang (with bits->bang alias) added
-  - conv.bits2note (with bits->note alias) added
-  - conv.sig2float (with sig->float~ and s->f~ aliases) added
-  - ui.vkeyboard added (with ui.vk alias for vertical keyboard)
   - system.exit added
-  - array.plot added
-  - flt.c_lpf (with lpf->biquad) biquad calculator added
-  - flt.c_hpf (with hpf->biquad) biquad calculator added
+  - ui.button added (with ui.btn alias)
+  - ui.midi added (display for incoming messages)
+  - ui.vkeyboard added (with ui.vk alias for vertical keyboard)
 - new aliases:
   - ui.hk alias added for ui.keyboard (horizontal)
+  - ui.hm~ alias added for ui.meter~ (horizontal)
   - ui.k alias added for ui.knob
   - ui.vm~ alias added for ui.meter~ (vertical)
-  - ui.hm~ alias added for ui.meter~ (horizontal)
   - ui.vsliders alias added for vertical ui.sliders
 - mouse:
   - ui.meter~ change orientation by Ctl/Cmd+double-click in edit mode, like ui.radio and ui.slider
