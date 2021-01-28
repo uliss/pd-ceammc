@@ -11,7 +11,7 @@
 #X coords 0 1 200 -1 300 90 1;
 #X restore 317 48 graph;
 #X floatatom 20 77 5 0 0 0 - - -;
-#X obj 20 106 l->l 0 1 20 expr(sr/2-20);
+#X obj 20 106 math.* sr();
 #X obj 20 135 flt.c_pole @lpf;
 #X obj 20 164 t b l;
 #N canvas 0 22 450 300 (subpatch) 0;

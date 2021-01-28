@@ -22,9 +22,9 @@ FltPole2Biquad::FltPole2Biquad(const PdArgs& args)
     : FltCalcBiquad(args, { 1000, 0, sys_getsr() / 2, flt::m_pi / 2, 0, flt::m_pi })
     , mode_(nullptr)
 {
-    q_->setHidden();
+    q_->setInternal();
 
-    mode_ = new SymbolEnumProperty("@mode", { SYM_HPF, SYM_LPF });
+    mode_ = new SymbolEnumProperty("@mode", { SYM_LPF, SYM_HPF });
     addProperty(mode_);
 
     addProperty(new SymbolEnumAlias("@lpf", mode_, SYM_LPF));

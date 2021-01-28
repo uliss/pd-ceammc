@@ -28,10 +28,11 @@
             frequency</argument>
         </arguments>
         <properties>
-            <property name="@freq" type="float" minvalue="0" maxvalue="22050" default="0"
+            <property name="@freq" type="float" minvalue="0" maxvalue="22050" default="1000"
             units="herz">center frequency</property>
             <property name="@rad" type="flag">use angular frequency</property>
-            <property name="@mode" type="symbol" enum="hpf lpf" default="lpf">filter modey</property>
+            <property name="@mode" type="symbol" enum="hpf lpf" default="lpf">filter
+            modey</property>
             <property name="@lpf" type="alias">to @mode lpf</property>
             <property name="@hpf" type="alias">ti @mode hpf</property>
         </properties>
