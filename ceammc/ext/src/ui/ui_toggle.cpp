@@ -1,6 +1,7 @@
 #include "ui_toggle.h"
 #include "ceammc_preset.h"
 #include "ceammc_ui.h"
+#include "ui_toggle.tcl.h"
 
 UIToggle::UIToggle()
     : prop_color_active(rgba_black)
@@ -41,21 +42,10 @@ void UIToggle::okSize(t_rect* newrect)
 
 void UIToggle::paint()
 {
-    const t_rect r = rect();
-    UIPainter p = bg_layer_.painter(r);
-    if (!p)
-        return;
-
-    if (value_) {
-        float x = r.width - 1;
-        float y = r.height - 1;
-
-        p.setLineWidth(2);
-        p.setColor(prop_color_active);
-
-        p.drawLine(1, 1, x, y);
-        p.drawLine(1, y, x, 1);
-    }
+    sys_vgui("ui::toggle_update %s %lx %d %d %d #%6.6x %d\n",
+        asEBox()->b_canvas_id->s_name, asEBox(),
+        (int)width(), (int)height(), (int)zoom(),
+        rgba_to_hex_int(prop_color_active), (int)value_);
 }
 
 void UIToggle::onMouseDown(t_object*, const t_pt&, const t_pt& abs_pt, long)
@@ -96,8 +86,16 @@ void UIToggle::storePreset(size_t idx)
     PresetStorage::instance().setFloatValueAt(presetId(), idx, value());
 }
 
+void UIToggle::redrawAll()
+{
+    bg_layer_.invalidate();
+    redraw();
+}
+
 void UIToggle::setup()
 {
+    sys_vgui(ui_toggle_tcl);
+
     UIObjectFactory<UIToggle> obj("ui.toggle", EBOX_GROWLINK);
     obj.addAlias("ui.t");
 
@@ -115,12 +113,6 @@ void UIToggle::setup()
 
     obj.addFloatProperty("on_value", _("On value"), 1, &UIToggle::prop_value_on_, _("Main"));
     obj.addFloatProperty("off_value", _("Off value"), 0, &UIToggle::prop_value_off_, _("Main"));
-}
-
-void UIToggle::redrawAll()
-{
-    bg_layer_.invalidate();
-    redraw();
 }
 
 void setup_ui_toggle()
