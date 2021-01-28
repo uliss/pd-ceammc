@@ -48,6 +48,7 @@ public:
     void calc_lpf();
     void calc_onepole(bool hpf);
     void calc_notch();
+    void calc_allpass();
 
 private:
     void output();

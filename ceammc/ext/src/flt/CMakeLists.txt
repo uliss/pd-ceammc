@@ -56,6 +56,7 @@ add_library(ceammc_flt STATIC
     mod_flt.h
     mod_flt.cpp ${FLT_SOURCES}
     flt_calc_biquad.cpp
+    flt_apf2biquad.cpp
     flt_hpf2biquad.cpp
     flt_lpf2biquad.cpp
     flt_notch2biquad.cpp

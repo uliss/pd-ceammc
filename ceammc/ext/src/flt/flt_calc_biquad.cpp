@@ -137,6 +137,23 @@ void FltCalcBiquad::calc_notch()
     normalizeA();
 }
 
+void FltCalcBiquad::calc_allpass()
+{
+    const double w = angleFreq();
+    const auto cosw = std::cos(w);
+    const auto sinw = std::sin(w);
+    const auto a = sinw / (2 * q_->value());
+
+    b_[0] = 1 - a;
+    b_[1] = -2 * cosw;
+    b_[2] = 1 + a;
+    a_[0] = 1 + a;
+    a_[1] = -2 * cosw;
+    a_[2] = 1 - a;
+
+    normalizeA();
+}
+
 void FltCalcBiquad::calc_hpf()
 {
     const double w = angleFreq();
