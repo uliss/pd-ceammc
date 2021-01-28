@@ -67,21 +67,22 @@
             </pdascii>
             <pdascii id="plot">
 <![CDATA[
-[ui.hsl]                       [array CNF0 size=200 w=300 h=90]
-|
-[math.* pi()]
-|
-[flt.c_notch]
+[ui.hsl]      [ui.hsl #a]        [array CNF0 size=200 w=300 h=90]
+|             |
+[math.* pi()] [@q $1, bang(
+|             |
+[flt.c_notch @rad]
 |
 [t b l ]
 |     ^|
-|    [msg biquad]              [array CNF1 size=200 w=300 h=90]
+|    [msg biquad]                [array CNF1 size=200 w=300 h=90]
 |    |
 [flt.freqz @db 1]
 |   ^|
 |   [array.plot CNF1]
 |
 [array.plot CNF0 @nan -144]
+#a @min 0.1 @max 10 @show_value 1
 ]]>
             </pdascii>
         </example>
