@@ -8,6 +8,7 @@ void setup_flt_c_highshelf_tilde();
 void setup_flt_c_hpf_tilde();
 void setup_flt_c_lowshelf_tilde();
 void setup_flt_c_lpf_tilde();
+void setup_flt_c_notch();
 void setup_flt_c_notch_tilde();
 void setup_flt_c_peak_tilde();
 void setup_flt_dcblock2_tilde();
@@ -43,6 +44,7 @@ void ceammc_flt_setup()
     setup_flt_c_hpf_tilde();
     setup_flt_c_lowshelf_tilde();
     setup_flt_c_lpf_tilde();
+    setup_flt_c_notch();
     setup_flt_c_notch_tilde();
     setup_flt_c_peak_tilde();
     setup_flt_dcblock2_tilde();

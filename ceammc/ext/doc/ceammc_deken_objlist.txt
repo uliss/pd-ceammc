@@ -305,6 +305,8 @@ flt.c_lowshelf~	Lowshelf filter coefficient calculator for biquad
 flt.c_lpf	LPF coefficient calculator for biquad filter
 lpf->biquad	LPF coefficient calculator for biquad filter
 flt.c_lpf~	LPF coefficient calculator for biquad filter
+flt.c_notch	Notch filter coefficient calculator for biquad
+notch->biquad	Notch filter coefficient calculator for biquad
 flt.c_notch~	Band-reject coefficient calculator for biquad filter
 flt.c_peak~	Peaking equalizer calculator for biquad
 flt.c_pole	One-pole coefficient calculator for biquad filter

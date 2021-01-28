@@ -120,6 +120,23 @@ void FltCalcBiquad::calc_onepole(bool hpf)
     }
 }
 
+void FltCalcBiquad::calc_notch()
+{
+    const double w = angleFreq();
+    const auto cosw = std::cos(w);
+    const auto sinw = std::sin(w);
+    const auto alpha = sinw / (2 * q_->value());
+
+    b_[0] = 1;
+    b_[1] = -2 * cosw;
+    b_[2] = 1;
+    a_[0] = 1 + alpha;
+    a_[1] = -2 * cosw;
+    a_[2] = 1 - alpha;
+
+    normalizeA();
+}
+
 void FltCalcBiquad::calc_hpf()
 {
     const double w = angleFreq();

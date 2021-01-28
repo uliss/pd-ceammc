@@ -58,6 +58,7 @@ add_library(ceammc_flt STATIC
     flt_calc_biquad.cpp
     flt_hpf2biquad.cpp
     flt_lpf2biquad.cpp
+    flt_notch2biquad.cpp
     flt_pole2biquad.cpp
 )
 set_target_properties(ceammc_flt PROPERTIES COMPILE_DEFINITIONS "FAUST_MACRO")
