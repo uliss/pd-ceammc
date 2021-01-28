@@ -32,7 +32,7 @@
 -49933 0;
 #X msg 110 504 @freq;
 #X text 245 504 Get/Set center frequency. Type: float. Units: Hz. Default
-value: 0\. Range: 0\...22050\.;
+value: 1000\. Range: 20\...22050\.;
 #X msg 110 546 @q;
 #X text 245 546 Get/Set quality factor: @freq/BANDWIDTH. Type: float.
 Default value: 0.707107\. Range: 0.01\...100\.;
