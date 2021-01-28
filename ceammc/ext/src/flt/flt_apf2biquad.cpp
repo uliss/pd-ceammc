@@ -29,4 +29,7 @@ void setup_flt_apf2biquad()
 {
     ObjectFactory<FltApf2Biquad> obj("flt.c_apf");
     obj.addAlias("apf->biquad");
+    obj.addMethod("bw", &FltApf2Biquad::m_bandwidth);
+
+     obj.setXletsInfo({ "float: freq cutoff" }, { "list: biquad coeffs: b0 b1 b2 a1 a2" });
 }

@@ -159,6 +159,7 @@ set(DOC_FILES
     flt.biquad~
     flt.bpf12~
     flt.bpf24~
+    flt.c_apf
     flt.c_bpf~
     flt.c_highshelf~
     flt.c_hpf
