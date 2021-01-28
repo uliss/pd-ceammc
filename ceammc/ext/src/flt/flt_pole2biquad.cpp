@@ -13,40 +13,34 @@
  *****************************************************************************/
 #include "flt_pole2biquad.h"
 #include "ceammc_factory.h"
+#include "flt_common.h"
+
+static t_symbol* SYM_HPF;
+static t_symbol* SYM_LPF;
 
 FltPole2Biquad::FltPole2Biquad(const PdArgs& args)
-    : BaseObject(args)
-    , freq_(nullptr)
-    , herz_(nullptr)
-    , coeffs_ { 0., 0., 0., 0., 0. }
+    : FltCalcBiquad(args, { 1000, 0, sys_getsr() / 2, flt::m_pi / 2, 0, flt::m_pi })
+    , mode_(nullptr)
 {
-    freq_ = new FloatProperty("@freq", 0);
-    freq_->setArgIndex(0);
-    addProperty(freq_);
+    q_->setHidden();
 
-    herz_ = new BoolProperty("@hz", true);
-    addProperty(herz_);
+    mode_ = new SymbolEnumProperty("@mode", { SYM_HPF, SYM_LPF });
+    addProperty(mode_);
 
-    createOutlet();
+    addProperty(new SymbolEnumAlias("@lpf", mode_, SYM_LPF));
+    addProperty(new SymbolEnumAlias("@hpf", mode_, SYM_HPF));
 }
 
-void FltPole2Biquad::onFloat(t_float freq)
+void FltPole2Biquad::calc()
 {
-    if (herz_->value()) {
-        const double Fs = sys_getsr();
-        freq /= Fs;
-    }
-
-    const auto a1 = exp(-2.0 * M_PI * freq);
-    const auto b0 = 1.0 - a1;
-    coeffs_[0] = b0;
-    coeffs_[3] = a1;
-
-    listTo(0, AtomListView(coeffs_, 5));
+    calc_onepole(mode_->value() == SYM_HPF);
 }
 
 void setup_flt_pole2biquad()
 {
-    ObjectFactory<FltPole2Biquad> obj("flt.pole2biquad");
+    SYM_LPF = gensym("lpf");
+    SYM_HPF = gensym("hpf");
+
+    ObjectFactory<FltPole2Biquad> obj("flt.c_pole");
     obj.addAlias("pole->biquad");
 }

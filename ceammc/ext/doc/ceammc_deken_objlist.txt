@@ -307,6 +307,8 @@ lpf->biquad	LPF coefficient calculator for biquad filter
 flt.c_lpf~	LPF coefficient calculator for biquad filter
 flt.c_notch~	Band-reject coefficient calculator for biquad filter
 flt.c_peak~	Peaking equalizer calculator for biquad
+flt.c_pole	One-pole coefficient calculator for biquad filter
+pole->biquad	One-pole coefficient calculator for biquad filter
 flt.dcblock2~	stereo DC blocker
 flt.dcblock~	mono DC blocker
 flt.eq10~	graphic 10 band equalizer

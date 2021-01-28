@@ -97,6 +97,29 @@ void FltCalcBiquad::calc_lpf()
     normalizeA();
 }
 
+void FltCalcBiquad::calc_onepole(bool hpf)
+{
+    const double w = angleFreq();
+
+    if (!hpf) { // lp
+        const auto expw = std::exp(-w);
+        b_[0] = 1 - expw;
+        b_[1] = 0;
+        b_[2] = 0;
+        a_[0] = 1;
+        a_[1] = -expw;
+        a_[2] = 0;
+    } else {
+        const auto expw = std::exp(-(flt::m_pi - w));
+        b_[0] = 1 - expw;
+        b_[1] = 0;
+        b_[2] = 0;
+        a_[0] = 1;
+        a_[1] = expw;
+        a_[2] = 0;
+    }
+}
+
 void FltCalcBiquad::calc_hpf()
 {
     const double w = angleFreq();

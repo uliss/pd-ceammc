@@ -607,6 +607,9 @@
     <entry name="flt.c_peak~" descr="Peaking equalizer calculator for biquad" ref_view="object">
       <xi:include href="flt.c_peak~.pddoc" parse="xml"/>
     </entry>
+    <entry name="flt.c_pole" descr="One-pole coefficient calculator for biquad filter" ref_view="object">
+      <xi:include href="flt.c_pole.pddoc" parse="xml"/>
+    </entry>
     <entry name="flt.dcblock2~" descr="stereo DC blocker" ref_view="object">
       <xi:include href="flt.dcblock2~.pddoc" parse="xml"/>
     </entry>

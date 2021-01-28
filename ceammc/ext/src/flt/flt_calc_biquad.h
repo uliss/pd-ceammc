@@ -46,6 +46,7 @@ public:
 
     void calc_hpf();
     void calc_lpf();
+    void calc_onepole(bool hpf);
 
 private:
     void output();

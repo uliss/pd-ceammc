@@ -167,6 +167,7 @@ set(DOC_FILES
     flt.c_lpf
     flt.c_lpf~
     flt.c_notch~
+    flt.c_pole
     flt.c_peak~
     flt.dcblock2~
     flt.dcblock~

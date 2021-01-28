@@ -14,17 +14,14 @@
 #ifndef FLT_POLE2BIQUAD_H
 #define FLT_POLE2BIQUAD_H
 
-#include "ceammc_object.h"
-using namespace ceammc;
+#include "flt_calc_biquad.h"
+#include "ceammc_property_enum.h"
 
-class FltPole2Biquad : public BaseObject {
-    FloatProperty* freq_;
-    BoolProperty* herz_;
-    Atom coeffs_[5];
-
+class FltPole2Biquad : public FltCalcBiquad {
+    SymbolEnumProperty* mode_;
 public:
     FltPole2Biquad(const PdArgs& args);
-    void onFloat(t_float freq) override;
+    void calc() override;
 };
 
 void setup_flt_pole2biquad();

@@ -166,6 +166,7 @@ flt.c_lpf,lpf->biquad		.		.
 flt.c_lpf~		.		~~~~~
 flt.c_notch~		.		~~~~~
 flt.c_peak~		.		~~~~~
+flt.c_pole,pole->biquad		.		.
 flt.dcblock2~		~~		~~
 flt.dcblock~		~		~
 flt.eq10~		~		~

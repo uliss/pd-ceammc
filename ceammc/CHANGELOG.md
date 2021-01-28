@@ -9,8 +9,9 @@
   - conv.bits2note (with bits->note alias) added
   - conv.bits2pos (with bits->pos alias) added
   - conv.sig2float (with sig->float~ and s->f~ aliases) added
-  - flt.c_hpf (with hpf->biquad) biquad calculator added
-  - flt.c_lpf (with lpf->biquad) biquad calculator added
+  - flt.c_hpf (with hpf->biquad alias) biquad calculator added
+  - flt.c_lpf (with lpf->biquad alias) biquad calculator added
+  - flt.c_pole (with pole->biquad alias) biquad calculator added
   - loadexpr added (supports functions and datatypes)
   - midi.cc added (enhanced version of ctlin)
   - midi.clock added

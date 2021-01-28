@@ -247,6 +247,7 @@ flt.c_lpf
 flt.c_lpf~
 flt.c_notch~
 flt.c_peak~
+flt.c_pole
 flt.dcblock2~
 flt.dcblock~
 flt.eq10~
@@ -265,7 +266,6 @@ flt.lpf24~
 flt.median
 flt.moog_vcf~
 flt.notch~
-flt.pole2biquad
 flt.resonbp~
 fluid~
 func
