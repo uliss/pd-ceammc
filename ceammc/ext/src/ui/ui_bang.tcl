@@ -7,13 +7,15 @@ proc bang_update {cnv id w h zoom color state} {
     set t [bang_tag $id]
     $c delete $t
 
-    set xpad [expr round($w * 0.9)]
-    set ypad [expr round($h * 0.9)]
+    set xpad [expr round($w * 0.1)]
+    set ypad [expr round($h * 0.1)]
     if {$w < 20 } { set xpad 1 }
     if {$h < 20 } { set ypad 1 }
 
-    set x0 $xpad
-    set y0 $ypad
+    if {$zoom == 1} {set corr 0} {set corr 1}
+
+    set x0 [expr $xpad + $corr]
+    set y0 [expr $ypad + $corr]
     set x1 [expr $w - $xpad]
     set y1 [expr $h - $ypad]
 
