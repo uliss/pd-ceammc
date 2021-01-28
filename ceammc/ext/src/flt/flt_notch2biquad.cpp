@@ -29,4 +29,5 @@ void setup_flt_c_notch()
 {
     ObjectFactory<FltNotch2Biquad> obj("flt.c_notch");
     obj.addAlias("notch->biquad");
+    obj.addMethod("bw", &FltNotch2Biquad::m_bandwidth);
 }

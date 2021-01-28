@@ -28,7 +28,7 @@
             frequency</argument>
         </arguments>
         <properties>
-            <property name="@freq" type="float" minvalue="0" maxvalue="22050" default="0"
+            <property name="@freq" type="float" minvalue="20" maxvalue="22050" default="1000"
             units="herz">center frequency</property>
             <property name="@q" type="float" minvalue="0.01" maxvalue="100" default="0.707107">
             quality factor: @freq/BANDWIDTH</property>
