@@ -986,12 +986,12 @@ void ebox_mouse_move(t_ebox* x, t_floatarg xpos, t_floatarg ypos, t_floatarg mod
             x->b_selected_item = EITEM_NONE;
             sys_vgui("eobj_canvas_motion %s 0\n", x->b_canvas_id->s_name);
 
-            const int right = int(x->b_rect.width * x->b_zoom + 2);
-            const int bottom = int(x->b_rect.height * x->b_zoom + 2);
-            const int CURSOR_AREA = 3;
+            const int right = int(x->b_rect.width * x->b_zoom);
+            const int bottom = int(x->b_rect.height * x->b_zoom);
+            const int CURSOR_AREA = 3 * x->b_zoom;
 
             // BOTTOM & RIGHT //
-            if (mouse.y > bottom - CURSOR_AREA
+            if (mouse.y >= bottom - CURSOR_AREA
                 && mouse.y <= bottom
                 && mouse.x > right - CURSOR_AREA
                 && mouse.x <= right) {
@@ -1001,7 +1001,7 @@ void ebox_mouse_move(t_ebox* x, t_floatarg xpos, t_floatarg ypos, t_floatarg mod
                 return;
             }
             // BOTTOM //
-            else if (mouse.y > bottom - CURSOR_AREA && mouse.y <= bottom) {
+            else if (mouse.y >= bottom - CURSOR_AREA && mouse.y <= bottom) {
                 const int N = obj_noutlets(&x->b_obj.o_obj);
                 const int XLET_W = 7;
                 const int XLET_ZW = int(XLET_W * x->b_zoom);
