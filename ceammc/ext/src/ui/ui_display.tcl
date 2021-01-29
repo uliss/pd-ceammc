@@ -45,7 +45,7 @@ proc display_update {cnv id rid w h zoom hauto bdcolor bgcolor txtcolor typecolo
 
         set typew [display_txt_width $c $ttag]
         set typeh [display_txt_height $c $ttag]
-        set x [expr $txpad + $typew]
+        set x [expr (2*$txpad) + $typew]
         # draw type filled rectangle
         set ttagr "${t}_tr"
         $c create rectangle 0 0 $x $h -fill $typecolor -outline $typecolor -width $zoom -tags [list $t $ttagr]
@@ -74,7 +74,7 @@ proc display_update {cnv id rid w h zoom hauto bdcolor bgcolor txtcolor typecolo
         switch $type {
             bang {
                 # resize to min size
-                pdsend "$rid .resize 10 10"
+                pdsend "$rid .resize [expr $tx+15] 10"
             }
             float {
                 set tw [display_txt_width $c $tt]

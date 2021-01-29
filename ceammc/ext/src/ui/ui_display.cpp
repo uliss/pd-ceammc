@@ -36,18 +36,6 @@ static t_rgba COLOR_DEFAULT_TYPE = hex_to_rgba("#909090");
 static t_rgba COLOR_PROPERTY_TYPE = hex_to_rgba("#00E0A0");
 static t_rgba COLOR_BANG_TYPE = hex_to_rgba("#F03060");
 
-#ifdef __APPLE__
-static const int TYPE_WIDTH = 45;
-#elif __WIN32
-static const int TYPE_WIDTH = 58;
-#else
-static const int TYPE_WIDTH = 50;
-#endif
-
-// macosx, win - checked
-static const int TEXT_XPAD = 3;
-static const int TEXT_YPAD = 2;
-
 static inline const t_rgba& msg_color(UIMessageType type)
 {
     switch (type) {
@@ -96,8 +84,8 @@ UIDisplay::UIDisplay()
 {
     msg_txt_.reserve(32);
 
-    char buf[32];
-    snprintf(buf, 32, "r%lx", this);
+    char buf[64];
+    snprintf(buf, 64, "r%p", this);
     rid_ = gensym(buf);
     pd_bind(asPd(), rid_);
 }
@@ -242,7 +230,8 @@ void UIDisplay::onAny(t_symbol* s, const AtomListView& lst)
 {
     AutoGuard g(auto_);
 
-    setMessage(MSG_TYPE_ANY, s, lst);
+    setMessage((s->s_name[0] == '@') ? MSG_TYPE_PROPERTY : MSG_TYPE_ANY, s, lst);
+
     flash();
     update();
 }
@@ -282,6 +271,48 @@ const char* UIDisplay::annotateInlet(int /*n*/) const
     return "any message";
 }
 
+
+void UIDisplay::onClock()
+{
+    on_bang_ = false;
+    redrawAll();
+}
+
+void UIDisplay::update()
+{
+    if (clock_gettimesince(last_update_) < 30)
+        return;
+
+    last_update_ = clock_getlogicaltime();
+    redrawAll();
+}
+
+void UIDisplay::flash()
+{
+    if (prop_display_events) {
+        on_bang_ = true;
+        timer_.delay(100);
+    }
+}
+
+void UIDisplay::m_resize(const AtomListView& lv)
+{
+    if (prop_auto_size) {
+        auto_ = false;
+        auto w = lv.floatAt(0, 0);
+        auto h = lv.floatAt(1, 0);
+        if (w > 0 && h > 0) {
+            resize(w / zoom(), h / zoom());
+        }
+    }
+}
+
+void UIDisplay::redrawAll()
+{
+    bg_layer_.invalidate();
+    redraw();
+}
+
 void UIDisplay::setup()
 {
     sys_gui(ui_display_tcl);
@@ -292,7 +323,7 @@ void UIDisplay::setup()
     obj.hideLabel();
     obj.useAnnotations();
 
-    obj.setDefaultSize(150, 18);
+    obj.setDefaultSize(80, 18);
 
     obj.hideProperty("send");
     obj.addProperty("display_events", _("Display events"), true, &UIDisplay::prop_display_events, _("Main"));
@@ -334,49 +365,6 @@ void UIDisplay::setup()
     obj.useMouseEvents(UI_MOUSE_DBL_CLICK);
 
     obj.addMethod(".resize", &UIDisplay::m_resize);
-}
-
-void UIDisplay::onClock()
-{
-    on_bang_ = false;
-    redrawAll();
-}
-
-void UIDisplay::update()
-{
-    if (clock_gettimesince(last_update_) < 30)
-        return;
-
-    last_update_ = clock_getlogicaltime();
-    redrawAll();
-}
-
-void UIDisplay::flash()
-{
-    if (prop_display_events) {
-        on_bang_ = true;
-        timer_.delay(100);
-    }
-}
-
-void UIDisplay::m_resize(const AtomListView& lv)
-{
-    if (prop_auto_size) {
-        auto_ = false;
-        auto w = lv.floatAt(0, 0);
-        auto h = lv.floatAt(1, 0);
-        if (w > 0 && h > 0) {
-            UI_DBG << "new width: " << w;
-            UI_DBG << "new height: " << h;
-            resize(w / zoom(), h / zoom());
-        }
-    }
-}
-
-void UIDisplay::redrawAll()
-{
-    bg_layer_.invalidate();
-    redraw();
 }
 
 void setup_ui_display()
