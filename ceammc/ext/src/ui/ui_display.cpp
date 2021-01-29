@@ -107,14 +107,14 @@ void UIDisplay::paint()
 {
     sys_vgui("ui::display_update %s %lx %s %d %d %d %d "
              "#%6.6x #%6.6x #%6.6x #%6.6x "
-             "{%s} {%s}\n",
+             "%d {%s} {%s}\n",
         asEBox()->b_canvas_id->s_name, asEBox(), rid_->s_name,
         (int)width(), (int)height(), (int)zoom(), (int)auto_,
         rgba_to_hex_int(prop_color_border),
         rgba_to_hex_int(on_bang_ ? prop_active_color : prop_color_background),
         rgba_to_hex_int(prop_text_color),
         rgba_to_hex_int(msg_color(msg_type_)),
-        prop_display_type ? msg_type_txt_->s_name : "",
+        prop_display_type, msg_type_txt_->s_name,
         msg_txt_.c_str());
 }
 
@@ -230,7 +230,7 @@ void UIDisplay::onAny(t_symbol* s, const AtomListView& lst)
 {
     AutoGuard g(auto_);
 
-    setMessage((s->s_name[0] == '@') ? MSG_TYPE_PROPERTY : MSG_TYPE_ANY, s, lst);
+    setMessage(Atom(s).isProperty() ? MSG_TYPE_PROPERTY : MSG_TYPE_ANY, s, lst);
 
     flash();
     update();
@@ -270,7 +270,6 @@ const char* UIDisplay::annotateInlet(int /*n*/) const
 {
     return "any message";
 }
-
 
 void UIDisplay::onClock()
 {

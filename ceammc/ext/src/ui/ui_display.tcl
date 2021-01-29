@@ -22,7 +22,7 @@ proc display_txt_height { c tag } {
    return [expr abs($ty1 - $ty0)]
 }
 
-proc display_update {cnv id rid w h zoom hauto bdcolor bgcolor txtcolor typecolor type txt} {
+proc display_update {cnv id rid w h zoom hauto bdcolor bgcolor txtcolor typecolor showtype type txt} {
     set c [::ceammc::ui::widget_canvas $cnv $id]
     set t [display_tag $id]
     $c delete $t
@@ -31,13 +31,14 @@ proc display_update {cnv id rid w h zoom hauto bdcolor bgcolor txtcolor typecolo
     ::ceammc::ui::widget_bg $cnv $id $bgcolor
 
     set txpad [expr $zoom*2+1]
+    set typad [expr $zoom*2+1]
     set tx $txpad
-    set ty $txpad
+    set ty $typad
     set ft [display_type_font $zoom]
 
     set x 0
     set typeh 0
-    if {$type != "" } {
+    if { $showtype == 1 } {
         set ttag "${t}_t"
         # draw type text
         $c create text $tx $ty -text $type -anchor nw -justify left \
@@ -56,7 +57,7 @@ proc display_update {cnv id rid w h zoom hauto bdcolor bgcolor txtcolor typecolo
 
     # draw main text
     set tx [expr $x + $txpad]
-    set ty $txpad
+    set ty $typad
     if {$hauto == 1} {
         set tw 0
         if { ![display_single_line $type] } {
@@ -100,7 +101,7 @@ proc display_update {cnv id rid w h zoom hauto bdcolor bgcolor txtcolor typecolo
 
                 set nh 5
                 set th [display_txt_height $c $tt]
-                set disph [expr $th + (2*$txpad)]
+                set disph [expr $th + $typad]
                 if { $typeh > $nh } { set nh $typeh }
                 if { $disph > $nh } { set nh $disph }
                 if { $nh != $h || $nw != $w } {
