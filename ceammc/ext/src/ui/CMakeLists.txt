@@ -60,6 +60,7 @@ set(TCL_GEN_SCRIPT ${PROJECT_SOURCE_DIR}/ceammc/scripts/filecontent_to_cxx_heade
 add_custom_target(ceammc_ui_tcl_gen
     COMMAND ${TCL_GEN_SCRIPT} ui_bang.tcl
     COMMAND ${TCL_GEN_SCRIPT} ui_button.tcl
+    COMMAND ${TCL_GEN_SCRIPT} ui_display.tcl
     COMMAND ${TCL_GEN_SCRIPT} ui_keyboard.tcl
     COMMAND ${TCL_GEN_SCRIPT} ui_meter.tcl
     COMMAND ${TCL_GEN_SCRIPT} ui_number_tilde.tcl
@@ -68,6 +69,7 @@ add_custom_target(ceammc_ui_tcl_gen
     SOURCES
         ui_button.tcl
         ui_bang.tcl
+        ui_display.tcl
         ui_keyboard.tcl
         ui_meter.tcl
         ui_number_tilde.tcl

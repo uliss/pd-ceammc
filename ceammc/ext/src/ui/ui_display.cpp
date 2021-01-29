@@ -21,6 +21,7 @@
 
 #include "ceammc_ui.h"
 #include "ui_display.h"
+#include "ui_display.tcl.h"
 
 using namespace ceammc;
 
@@ -68,23 +69,42 @@ static inline const t_rgba& msg_color(UIMessageType type)
     }
 }
 
+class AutoGuard {
+    bool& v_;
+
+public:
+    AutoGuard(bool& v)
+        : v_(v)
+    {
+        v_ = true;
+    }
+
+    ~AutoGuard() { v_ = false; }
+};
+
 UIDisplay::UIDisplay()
     : prop_display_events(1)
     , prop_display_type(0)
     , prop_auto_size(1)
     , prop_text_color(rgba_black)
     , prop_active_color(rgba_white)
-    , font_(gensym(FONT_FAMILY), FONT_SIZE)
-    , txt_value_(font_.font(), ColorRGBA::black(), ETEXT_UP_LEFT, ETEXT_JLEFT, ETEXT_WRAP)
-    , txt_type_(font_.font(), ColorRGBA::black(), ETEXT_UP_LEFT, ETEXT_JLEFT, ETEXT_NOWRAP)
     , msg_type_txt_(gensym("..."))
     , timer_(this, &UIDisplay::onClock)
     , last_update_(clock_getlogicaltime())
-    , type_width_(-1)
     , on_bang_(false)
     , msg_type_(MSG_TYPE_ANY)
 {
     msg_txt_.reserve(32);
+
+    char buf[32];
+    snprintf(buf, 32, "r%lx", this);
+    rid_ = gensym(buf);
+    pd_bind(asPd(), rid_);
+}
+
+UIDisplay::~UIDisplay()
+{
+    pd_unbind(asPd(), rid_);
 }
 
 void UIDisplay::init(t_symbol* name, const AtomList& args, bool usePresets)
@@ -97,46 +117,22 @@ void UIDisplay::init(t_symbol* name, const AtomList& args, bool usePresets)
 
 void UIDisplay::paint()
 {
-    const t_rect r = rect();
-
-    UIPainter p = bg_layer_.painter(r);
-
-    if (p) {
-        if (prop_display_events) {
-            p.setColor(on_bang_ ? prop_active_color : prop_color_background);
-            p.setLineWidth(0);
-            p.drawRect(0, 0, r.width, r.height);
-            p.fill();
-        }
-
-        float x_offset = 0;
-
-        if (prop_display_type) {
-            p.setColor(msg_color(msg_type_));
-            p.drawRect(0, 0, type_width_ * zoom(), r.height);
-            p.fill();
-
-            txt_type_.set(msg_type_txt_->s_name, 0 + TEXT_XPAD, 0 + TEXT_YPAD, type_width_ - TEXT_XPAD, r.height);
-            txt_type_.setColor(prop_text_color);
-            p.drawText(txt_type_);
-
-            x_offset += type_width_ * zoom();
-        }
-
-        txt_value_.set(msg_txt_.c_str(),
-            x_offset + TEXT_XPAD,
-            0 + TEXT_YPAD,
-            r.width - 2 * TEXT_XPAD - x_offset, r.height);
-        txt_value_.setColor(prop_text_color);
-        p.drawText(txt_value_);
-    }
+    sys_vgui("ui::display_update %s %lx %s %d %d %d %d "
+             "#%6.6x #%6.6x #%6.6x #%6.6x "
+             "{%s} {%s}\n",
+        asEBox()->b_canvas_id->s_name, asEBox(), rid_->s_name,
+        (int)width(), (int)height(), (int)zoom(), (int)auto_,
+        rgba_to_hex_int(prop_color_border),
+        rgba_to_hex_int(on_bang_ ? prop_active_color : prop_color_background),
+        rgba_to_hex_int(prop_text_color),
+        rgba_to_hex_int(msg_color(msg_type_)),
+        prop_display_type ? msg_type_txt_->s_name : "",
+        msg_txt_.c_str());
 }
 
 void UIDisplay::okSize(t_rect* newrect)
 {
-    float min_width = 40;
-    if (prop_display_type != 0)
-        min_width += TYPE_WIDTH;
+    float min_width = 32;
 
     newrect->width = pd_clip_min(newrect->width, min_width);
     newrect->height = pd_clip_min(newrect->height, 18);
@@ -144,6 +140,7 @@ void UIDisplay::okSize(t_rect* newrect)
 
 void UIDisplay::onBang()
 {
+    AutoGuard g(auto_);
     msg_txt_ = "";
     msg_type_txt_ = &s_bang;
     msg_type_ = MSG_TYPE_BANG;
@@ -182,6 +179,8 @@ void UIDisplay::appendFloatToText(t_float f)
 
 void UIDisplay::onFloat(t_float f)
 {
+    AutoGuard g(auto_);
+
     msg_txt_.clear();
     appendFloatToText(f);
     msg_type_txt_ = &s_float;
@@ -193,6 +192,8 @@ void UIDisplay::onFloat(t_float f)
 
 void UIDisplay::onSymbol(t_symbol* s)
 {
+    AutoGuard g(auto_);
+
     msg_txt_ = s->s_name;
     msg_type_txt_ = &s_symbol;
     msg_type_ = MSG_TYPE_SYMBOL;
@@ -226,6 +227,8 @@ void UIDisplay::setMessage(UIMessageType t, t_symbol* s, const AtomListView& lst
 
 void UIDisplay::onList(const AtomListView& lst)
 {
+    AutoGuard g(auto_);
+
     if (lst.isData())
         setMessage(MSG_TYPE_DATA, gensym(lst[0].asData()->typeName().c_str()), lst);
     else
@@ -237,6 +240,8 @@ void UIDisplay::onList(const AtomListView& lst)
 
 void UIDisplay::onAny(t_symbol* s, const AtomListView& lst)
 {
+    AutoGuard g(auto_);
+
     setMessage(MSG_TYPE_ANY, s, lst);
     flash();
     update();
@@ -249,6 +254,7 @@ void UIDisplay::onProperty(t_symbol* s, const AtomListView& lst)
         return;
     }
 
+    AutoGuard g(auto_);
     setMessage(MSG_TYPE_PROPERTY, s, lst);
     flash();
     update();
@@ -256,6 +262,7 @@ void UIDisplay::onProperty(t_symbol* s, const AtomListView& lst)
 
 void UIDisplay::onDblClick(t_object* view, const t_pt& pt, long modifiers)
 {
+    AutoGuard g(auto_);
     prop_display_type = !prop_display_type;
     update();
 }
@@ -277,6 +284,8 @@ const char* UIDisplay::annotateInlet(int /*n*/) const
 
 void UIDisplay::setup()
 {
+    sys_gui(ui_display_tcl);
+
     UIObjectFactory<UIDisplay> obj("ui.display");
     obj.addAlias("ui.d");
     obj.addAlias("ui.dt");
@@ -323,6 +332,8 @@ void UIDisplay::setup()
     obj.useList();
     obj.useAny();
     obj.useMouseEvents(UI_MOUSE_DBL_CLICK);
+
+    obj.addMethod(".resize", &UIDisplay::m_resize);
 }
 
 void UIDisplay::onClock()
@@ -337,26 +348,6 @@ void UIDisplay::update()
         return;
 
     last_update_ = clock_getlogicaltime();
-
-    if (prop_display_type) {
-        const bool calc_type_wd = (msg_type_ == MSG_TYPE_ANY || msg_type_ == MSG_TYPE_DATA);
-
-        if (calc_type_wd)
-            type_width_ = std::max<int>(TYPE_WIDTH, strlen(msg_type_txt_->s_name) * 7) + 3;
-        else
-            type_width_ = TYPE_WIDTH;
-
-    } else {
-        type_width_ = 0;
-    }
-
-    if (prop_auto_size) {
-        float w = msg_txt_.size() * 8 + type_width_ + 7;
-        float h = int(w / 250) * 15 + 15;
-        w = std::min(std::max(w, 20.f), 250.f); // 20 <= w <= 250
-        resize(w, h);
-    }
-
     redrawAll();
 }
 
@@ -365,6 +356,20 @@ void UIDisplay::flash()
     if (prop_display_events) {
         on_bang_ = true;
         timer_.delay(100);
+    }
+}
+
+void UIDisplay::m_resize(const AtomListView& lv)
+{
+    if (prop_auto_size) {
+        auto_ = false;
+        auto w = lv.floatAt(0, 0);
+        auto h = lv.floatAt(1, 0);
+        if (w > 0 && h > 0) {
+            UI_DBG << "new width: " << w;
+            UI_DBG << "new height: " << h;
+            resize(w / zoom(), h / zoom());
+        }
     }
 }
 
