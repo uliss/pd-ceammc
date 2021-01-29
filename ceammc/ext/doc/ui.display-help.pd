@@ -98,7 +98,7 @@ normal. Allowed values: normal \, bold.;
 level. Type: int. Default value: 0\. Allowed values: 0 \, 1\.;
 #X msg 110 1302 @size;
 #X text 245 1302 Get/Set element size (width \, height pair). Type:
-list. Default value: 150 18\.;
+list. Default value: 80 18\.;
 #X obj 20 1354 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 1359 cnv 5 73 26 empty empty methods: 4 10 0 14 -262144
 -49933 0;
