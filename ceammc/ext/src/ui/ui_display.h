@@ -40,14 +40,14 @@ class UIDisplay : public UIObject {
     t_rgba prop_active_color;
 
 private:
-    std::string msg_txt_;
-    t_symbol* msg_type_txt_;
     ClockMemberFunction<UIDisplay> timer_;
+    std::string msg_txt_;
     double last_update_;
-    bool on_bang_;
-    UIMessageType msg_type_;
+    t_symbol* msg_type_;
     t_symbol* rid_;
+    bool on_bang_;
     bool auto_;
+    UIMessageType type_;
 
 public:
     UIDisplay();

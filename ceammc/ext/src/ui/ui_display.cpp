@@ -28,6 +28,9 @@ using namespace ceammc;
 static t_symbol* SYM_DATA_TYPE;
 static t_symbol* SYM_PROP_SIZE;
 static t_symbol* SYM_SIZE;
+static t_symbol* SYM_DEFAULT;
+static t_symbol* SYM_UI_DT;
+
 static t_rgba COLOR_LIST_TYPE = hex_to_rgba("#00A0C0");
 static t_rgba COLOR_FLOAT_TYPE = hex_to_rgba("#E000A0");
 static t_rgba COLOR_SYMBOL_TYPE = hex_to_rgba("#A0E000");
@@ -76,11 +79,11 @@ UIDisplay::UIDisplay()
     , prop_auto_size(1)
     , prop_text_color(rgba_black)
     , prop_active_color(rgba_white)
-    , msg_type_txt_(gensym("..."))
     , timer_(this, &UIDisplay::onClock)
     , last_update_(clock_getlogicaltime())
+    , msg_type_(SYM_DEFAULT)
     , on_bang_(false)
-    , msg_type_(MSG_TYPE_ANY)
+    , type_(MSG_TYPE_ANY)
 {
     msg_txt_.reserve(32);
 
@@ -99,8 +102,7 @@ void UIDisplay::init(t_symbol* name, const AtomList& args, bool usePresets)
 {
     UIObject::init(name, args, usePresets);
 
-    if (name == gensym("ui.dt"))
-        prop_display_type = 1;
+    prop_display_type = (name == SYM_UI_DT);
 }
 
 void UIDisplay::paint()
@@ -113,8 +115,8 @@ void UIDisplay::paint()
         rgba_to_hex_int(prop_color_border),
         rgba_to_hex_int(on_bang_ ? prop_active_color : prop_color_background),
         rgba_to_hex_int(prop_text_color),
-        rgba_to_hex_int(msg_color(msg_type_)),
-        prop_display_type, msg_type_txt_->s_name,
+        rgba_to_hex_int(msg_color(type_)),
+        prop_display_type, msg_type_->s_name,
         msg_txt_.c_str());
 }
 
@@ -130,8 +132,8 @@ void UIDisplay::onBang()
 {
     AutoGuard g(auto_);
     msg_txt_ = "";
-    msg_type_txt_ = &s_bang;
-    msg_type_ = MSG_TYPE_BANG;
+    msg_type_ = &s_bang;
+    type_ = MSG_TYPE_BANG;
 
     flash();
     update();
@@ -171,8 +173,8 @@ void UIDisplay::onFloat(t_float f)
 
     msg_txt_.clear();
     appendFloatToText(f);
-    msg_type_txt_ = &s_float;
-    msg_type_ = MSG_TYPE_FLOAT;
+    msg_type_ = &s_float;
+    type_ = MSG_TYPE_FLOAT;
 
     flash();
     update();
@@ -183,8 +185,8 @@ void UIDisplay::onSymbol(t_symbol* s)
     AutoGuard g(auto_);
 
     msg_txt_ = s->s_name;
-    msg_type_txt_ = &s_symbol;
-    msg_type_ = MSG_TYPE_SYMBOL;
+    msg_type_ = &s_symbol;
+    type_ = MSG_TYPE_SYMBOL;
 
     flash();
     update();
@@ -192,8 +194,8 @@ void UIDisplay::onSymbol(t_symbol* s)
 
 void UIDisplay::setMessage(UIMessageType t, t_symbol* s, const AtomListView& lst)
 {
-    msg_type_ = t;
-    msg_type_txt_ = s;
+    type_ = t;
+    msg_type_ = s;
 
     msg_txt_.clear();
 
@@ -249,7 +251,7 @@ void UIDisplay::onProperty(t_symbol* s, const AtomListView& lst)
     update();
 }
 
-void UIDisplay::onDblClick(t_object* view, const t_pt& pt, long modifiers)
+void UIDisplay::onDblClick(t_object* /*view*/, const t_pt& /*pt*/, long /*modifiers*/)
 {
     AutoGuard g(auto_);
     prop_display_type = !prop_display_type;
@@ -263,7 +265,7 @@ const std::string& UIDisplay::text() const
 
 const std::string UIDisplay::type() const
 {
-    return msg_type_txt_->s_name;
+    return msg_type_->s_name;
 }
 
 const char* UIDisplay::annotateInlet(int /*n*/) const
@@ -318,7 +320,7 @@ void UIDisplay::setup()
 
     UIObjectFactory<UIDisplay> obj("ui.display");
     obj.addAlias("ui.d");
-    obj.addAlias("ui.dt");
+    obj.addAlias(SYM_UI_DT->s_name);
     obj.hideLabel();
     obj.useAnnotations();
 
@@ -371,6 +373,8 @@ void setup_ui_display()
     SYM_DATA_TYPE = gensym("data");
     SYM_PROP_SIZE = gensym("@size");
     SYM_SIZE = gensym("size");
+    SYM_DEFAULT = gensym("...");
+    SYM_UI_DT = gensym("ui.dt");
 
     UIDisplay::setup();
 }
