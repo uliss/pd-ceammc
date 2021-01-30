@@ -1,5 +1,6 @@
 #include "ui_dsp.h"
 #include "ceammc_ui.h"
+#include "ui_dsp.tcl.h"
 
 static t_symbol* SYM_PD;
 static t_symbol* SYM_DSP;
@@ -33,20 +34,10 @@ void UIDsp::paint()
         init_ = true;
     }
 
-    const auto r = rect();
-    UIPainter p = bg_layer_.painter(r);
-
-    if (p) {
-        p.setColor(state_ ? prop_color_active : prop_color_border);
-        const float center = roundf(r.width * 0.5f - 0.5f);
-
-        p.drawCircle(center, center, roundf(r.width * 0.15f - 0.5f));
-        p.fill();
-
-        p.setLineWidth(2);
-        p.drawCircleArc(center, center, roundf(r.width * 0.25f - 0.5f), 0, EPD_PI);
-        p.drawCircleArc(center, center, roundf(r.width * 0.35f - 0.5f), 0, EPD_PI);
-    }
+    sys_vgui("ui::dsp_update %s %lx %d %d %d #%6.6x\n",
+        asEBox()->b_canvas_id->s_name, asEBox(),
+        (int)width(), (int)height(), (int)zoom(),
+        rgba_to_hex_int(state_ ? prop_color_active : prop_color_border));
 }
 
 void UIDsp::onMouseDown(t_object* view, const t_pt& pt, const t_pt& abs_pt, long modifiers)
@@ -88,8 +79,21 @@ void UIDsp::m_settings(const AtomListView&)
     openSoundSettingsDialog();
 }
 
+void UIDsp::openSoundSettingsDialog()
+{
+    sys_gui("pdsend \"pd audio-properties\"\n");
+}
+
+void UIDsp::redrawAll()
+{
+    bg_layer_.invalidate();
+    redraw();
+}
+
 void UIDsp::setup()
 {
+    sys_gui(ui_dsp_tcl);
+
     SYM_DSP = gensym("dsp");
     SYM_PD = gensym("pd");
 
@@ -105,17 +109,6 @@ void UIDsp::setup()
     obj.addMethod("start", &UIDsp::m_start);
     obj.addMethod("stop", &UIDsp::m_stop);
     obj.addMethod("settings", &UIDsp::m_settings);
-}
-
-void UIDsp::openSoundSettingsDialog()
-{
-    sys_gui("pdsend \"pd audio-properties\"\n");
-}
-
-void UIDsp::redrawAll()
-{
-    bg_layer_.invalidate();
-    redraw();
 }
 
 void setup_ui_dsp()

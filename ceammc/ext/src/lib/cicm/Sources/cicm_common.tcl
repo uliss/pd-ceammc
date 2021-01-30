@@ -306,8 +306,9 @@ proc widget_window { cnv id } {
     return "${cnv}.ewindow${id}"
 }
 
-proc widget_w { w zoom } { expr $w * $zoom + 1 }
-proc widget_h { h zoom } { expr $h * $zoom + 1 }
+proc widget_w   { w zoom } { expr $w * $zoom + 1 }
+proc widget_h   { h zoom } { expr $h * $zoom + 1 }
+proc widget_tag { id } { return "${id}_#all" }
 
 proc create_widget { id cnv w h zoom } {
     namespace eval "ebox$id" {}
