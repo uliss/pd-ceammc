@@ -1,13 +1,26 @@
 namespace eval ui {
 
+namespace eval filter {
+    variable db_min -24.0
+    variable db_max 24.0
+    variable db_range [expr $db_max - $db_min]
+    variable db_labels_short  { -12 0 12 }
+    variable db_labels_long   { -18 -12 -6 0 6 12 18 }
+    variable freq_min 10.0
+    variable freq_max 20000.0
+    variable freq_nyq 22050.0
+    variable freq_steps { 500 1000 2000 2500 5000 10000 }
+}
+
 proc filter_font { zoom } { return "Helvetica [expr $zoom * 7] normal roman" }
 
 proc filter_draw_hdb { c t w h zoom labels color } {
     set ft [filter_font $zoom]
     set lx [expr $w - (2*$zoom)]
+    set t0 [lindex $labels 0]
 
     foreach l $labels {
-        set y [expr ($h/60.0)*$l + $h*0.5]
+        set y [expr ($h/$::ui::filter::db_range)*$l + $h*0.5]
         set wd 1
         # highlight zero level
         if { $l == 0 } {
@@ -18,15 +31,23 @@ proc filter_draw_hdb { c t w h zoom labels color } {
 
         set txt [expr -$l]
         if { $l == 0 } { set txt {0db} }
-        set tt "${t}_t${l}"
-        $c create text $lx $y -text $txt -anchor se -justify right \
-            -font $ft -fill $color -width 0 -tags [list $t $tt]
+        set tt [$c create text $lx $y -text $txt -anchor se -justify right \
+            -font $ft -fill $color -width 0 -tags $t]
 
-        if { [expr $l == -24] } {
+        if { $l == $t0 } {
+            set miny [expr 10*$zoom]
             lassign [$c bbox $tt] tx0 ty0 tx1 ty1
-            if { $ty0 < 0 || $ty1 < 0 } { $c delete $tt }
+            if { $ty0 < $miny || $ty1 < $miny } { $c delete $tt }
         }
     }
+
+    # top db value
+    $c create text $lx 3 -text [expr int($::ui::filter::db_max)] -anchor ne -justify right \
+        -font $ft -fill $color -width 0 -tags $t
+
+    # bottom db value
+    $c create text $lx $h -text [expr int($::ui::filter::db_min)] -anchor se -justify right \
+        -font $ft -fill $color -width 0 -tags $t
 }
 
 proc complex_new {real imag} {
@@ -96,8 +117,7 @@ proc filter_freq_amp {w b a} {
 proc filter_x_to_omega { x w scale } {
     set f 0
     if { $scale == "lin" } {
-        set nyq 22050.0
-        set k [expr 20000.0/$nyq]
+        set k [expr $::ui::filter::freq_max/$::ui::filter::freq_nyq]
         set f [expr ($k*$x)/$w]
     }
 
@@ -106,11 +126,11 @@ proc filter_x_to_omega { x w scale } {
 
 proc filter_draw_fresp { c t w h color b0 b1 b2 a1 a2 tag } {
     set nsteps [expr int($w)]
-    set db_hstep [expr $h / 60.0]
+    set db_hstep [expr $h / $ui::filter::db_range]
 
     set pts {}
 
-    for { set x 0 } { $x < $w } { incr x 2} {
+    for { set x 0 } { $x < $w } { incr x 5 } {
         set omega [filter_x_to_omega $x $w "lin"]
         set wamp [filter_freq_amp $omega [list $b0 $b1 $b2] [list 1 $a1 $a2]]
         set dbamp [expr 20 * log10($wamp)]
@@ -125,32 +145,27 @@ proc filter_draw_fresp { c t w h color b0 b1 b2 a1 a2 tag } {
 
 proc filter_draw_hgrid { c t w h zoom gridcolor } {
     set min_line_space 20
-    set lb0 { -24 -18 -12 -6 0 6 12 18 24 }
-    set lb1 { -24 -12 0 12 24 }
-    set nl0 [llength $lb0]
-    set nl1 [llength $lb1]
-    set sp0 [expr $h/$nl0]
-    set sp1 [expr $h/$nl1]
+    set n_long  [llength $::ui::filter::db_labels_long]
+    set n_short [llength $::ui::filter::db_labels_short]
+    set space_long  [expr $h/$n_long]
+    set space_short [expr $h/$n_short]
 
-    if { $sp0 >= $min_line_space } {
-        filter_draw_hdb $c $t $w $h $zoom $lb0 $gridcolor
+    if { $space_long >= $min_line_space } {
+        filter_draw_hdb $c $t $w $h $zoom $::ui::filter::db_labels_long $gridcolor
     } else {
-        filter_draw_hdb $c $t $w $h $zoom $lb1 $gridcolor
+        filter_draw_hdb $c $t $w $h $zoom $::ui::filter::db_labels_short $gridcolor
     }
 }
 
 proc filter_draw_vgrid { c t w h zoom gridcolor scale } {
     if { $scale == "lin" } {
         set min_hstep [expr 30 * $zoom]
-        set a 0
-        set b 20000.0
-        set fsteps { 500 1000 2000 2500 5000 10000 }
         set fstep 5000
-        set hstep [expr $fstep / ($b-$a) * $w]
+        set hstep [expr $fstep / $::ui::filter::freq_max * $w]
         # fine best freq step
-        foreach f $fsteps {
+        foreach f $::ui::filter::freq_steps {
             # hstep in pixels
-            set hstep [expr ($f / ($b-$a)) * $w]
+            set hstep [expr ($f / $::ui::filter::freq_max) * $w]
             if { $hstep > $min_hstep } {
                 set fstep $f
                 break
