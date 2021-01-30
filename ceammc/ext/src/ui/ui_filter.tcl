@@ -93,7 +93,7 @@ proc filter_freq_amp {w b a} {
     return [complex_mod [complex_div $bjw $ajw]]
 }
 
-proc filter_x_to_omega { x w fs scale } {
+proc filter_x_to_omega { x w scale } {
     set f 0
     if { $scale == "lin" } {
         set nyq 22050.0
@@ -111,7 +111,7 @@ proc filter_draw_fresp { c t w h color b0 b1 b2 a1 a2 tag } {
     set pts {}
 
     for { set x 0 } { $x < $w } { incr x 2} {
-        set omega [filter_x_to_omega $x $w 48000 "lin"]
+        set omega [filter_x_to_omega $x $w "lin"]
         set wamp [filter_freq_amp $omega [list $b0 $b1 $b2] [list 1 $a1 $a2]]
         set dbamp [expr 20 * log10($wamp)]
 
