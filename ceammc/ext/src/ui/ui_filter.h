@@ -1,0 +1,37 @@
+/*****************************************************************************
+ * Copyright 2021 Serge Poltavsky. All rights reserved.
+ *
+ * This file may be distributed under the terms of GNU Public License version
+ * 3 (GPL v3) as defined by the Free Software Foundation (FSF). A copy of the
+ * license should have been included with this file, or the project in which
+ * this file belongs to. You may also find the details of GPL v3 at:
+ * http://www.gnu.org/licenses/gpl-3.0.txt
+ *
+ * If you have any questions regarding the use of this file, feel free to
+ * contact the author of this file, or the owner of the project in which
+ * this file belongs to.
+ *****************************************************************************/
+#ifndef UI_FILTER_H
+#define UI_FILTER_H
+
+#include "ceammc_ui_object.h"
+using namespace ceammc;
+
+class UIFilter : public UIObject {
+    t_float b0_, b1_, b2_, a1_, a2_;
+
+public:
+    UIFilter();
+
+    bool okSize(t_rect* newrect);
+    void paint();
+
+    void onList(const AtomListView& lv);
+
+public:
+    static void setup();
+};
+
+void setup_ui_filter();
+
+#endif // UI_FILTER_H

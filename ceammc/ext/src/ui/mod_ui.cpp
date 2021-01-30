@@ -7,6 +7,7 @@
 #include "ui_display.h"
 #include "ui_dsp.h"
 #include "ui_env.h"
+#include "ui_filter.h"
 #include "ui_gain.h"
 #include "ui_gain2.h"
 #include "ui_icon.h"
@@ -45,6 +46,7 @@ void ceammc_ui_setup()
     setup_ui_display();
     setup_ui_dsp();
     setup_ui_env();
+    setup_ui_filter();
     setup_ui_gain();
     setup_ui_gain2();
     setup_ui_icon();

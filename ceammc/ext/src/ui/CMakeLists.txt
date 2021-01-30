@@ -21,6 +21,7 @@ ceammc_ui_extension(colorpanel)
 ceammc_ui_extension(display)
 ceammc_ui_extension(dsp)
 ceammc_ui_extension(env)
+ceammc_ui_extension(filter)
 ceammc_ui_extension(gain)
 ceammc_ui_extension(gain2)
 ceammc_ui_extension(icon)
@@ -62,6 +63,7 @@ add_custom_target(ceammc_ui_tcl_gen
     COMMAND ${TCL_GEN_SCRIPT} ui_button.tcl
     COMMAND ${TCL_GEN_SCRIPT} ui_display.tcl
     COMMAND ${TCL_GEN_SCRIPT} ui_dsp.tcl
+    COMMAND ${TCL_GEN_SCRIPT} ui_filter.tcl
     COMMAND ${TCL_GEN_SCRIPT} ui_keyboard.tcl
     COMMAND ${TCL_GEN_SCRIPT} ui_meter.tcl
     COMMAND ${TCL_GEN_SCRIPT} ui_number_tilde.tcl
@@ -72,6 +74,7 @@ add_custom_target(ceammc_ui_tcl_gen
         ui_bang.tcl
         ui_display.tcl
         ui_dsp.tcl
+        ui_filter.tcl
         ui_keyboard.tcl
         ui_meter.tcl
         ui_number_tilde.tcl
