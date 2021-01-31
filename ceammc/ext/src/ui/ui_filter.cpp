@@ -33,6 +33,7 @@ UIFilter::UIFilter()
     , a2_(0)
     , prop_type(SYM_LPF)
     , freq_pt_ {}
+    , peak_q_(2)
 {
     createOutlet();
 }
@@ -88,6 +89,19 @@ void UIFilter::onMouseDown(t_object* view, const t_pt& pt, const t_pt& abs_pt, l
     calc();
     redraw();
     output();
+}
+
+void UIFilter::onMouseWheel(const t_pt& pt, long modifiers, float delta)
+{
+    constexpr t_float min_q = 0.5;
+    constexpr t_float max_q = 32;
+
+    if (prop_type == SYM_PEAK_EQ) {
+        peak_q_ = clip<t_float>(peak_q_ * (1 + delta * 0.05), min_q, max_q);
+        calc();
+        redraw();
+        output();
+    }
 }
 
 void UIFilter::onMouseUp(t_object* view, const t_pt& pt, long modifiers)
@@ -161,7 +175,7 @@ float UIFilter::calcQ() const
     } else if (prop_type == SYM_HPF) {
         return std::sqrt(0.5);
     } else if (prop_type == SYM_PEAK_EQ) {
-        return std::sqrt(0.5);
+        return peak_q_;
     } else
         return 0.1;
 }
@@ -200,7 +214,7 @@ void UIFilter::setup()
 
     obj.useList();
     obj.setDefaultSize(300, 100);
-    obj.useMouseEvents(UI_MOUSE_DOWN | UI_MOUSE_UP | UI_MOUSE_DRAG);
+    obj.useMouseEvents(UI_MOUSE_DOWN | UI_MOUSE_UP | UI_MOUSE_DRAG | UI_MOUSE_WHEEL);
     obj.outputMouseEvents(MouseEventsOutput::DEFAULT_OFF);
 
     obj.addMenuProperty("type", _("Filter Type"), "notch", &UIFilter::prop_type, "lpf hpf bpf peak notch", _("Main"));

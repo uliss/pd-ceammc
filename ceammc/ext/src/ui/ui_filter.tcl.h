@@ -175,7 +175,7 @@ const char* ui_filter_tcl =
 "}\n"
 "proc filter_info_txt { freq q bw type } {\n"
 "    set freq [expr int($freq)]\n"
-"    if { $type == \"notch\" } {\n"
+"    if { $type == \"notch\" || $type == \"peak\"} {\n"
 "        return \"f=${freq}Hz Q=$q bw=$bw\"\n"
 "    } else {\n"
 "        return \"f=${freq}Hz\"\n"

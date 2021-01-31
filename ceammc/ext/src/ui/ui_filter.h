@@ -21,6 +21,7 @@ class UIFilter : public UIObject {
     t_float b0_, b1_, b2_, a1_, a2_;
     t_pt freq_pt_;
     t_symbol* prop_type;
+    t_float peak_q_;
 
 public:
     UIFilter();
@@ -33,6 +34,7 @@ public:
     void onMouseDown(t_object* view, const t_pt& pt, const t_pt& abs_pt, long modifiers);
     void onMouseUp(t_object* view, const t_pt& pt, long modifiers);
     void onMouseDrag(t_object* view, const t_pt& pt, long modifiers);
+    void onMouseWheel(const t_pt& pt, long modifiers, float delta);
 
 private:
     void calc();
