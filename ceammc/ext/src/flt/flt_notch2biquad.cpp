@@ -13,7 +13,7 @@
  *****************************************************************************/
 #include "flt_notch2biquad.h"
 #include "ceammc_factory.h"
-#include "flt_common.h"
+#include "ceammc_filter.h"
 
 FltNotch2Biquad::FltNotch2Biquad(const PdArgs& args)
     : FltCalcBiquad(args, { 1000, 20, sys_getsr() / 2, flt::m_pi / 2, 0, flt::m_pi })
@@ -31,5 +31,5 @@ void setup_flt_c_notch()
     obj.addAlias("notch->biquad");
     obj.addMethod("bw", &FltNotch2Biquad::m_bandwidth);
 
-     obj.setXletsInfo({ "float: freq cutoff" }, { "list: biquad coeffs: b0 b1 b2 a1 a2" });
+    obj.setXletsInfo({ "float: freq cutoff" }, { "list: biquad coeffs: b0 b1 b2 a1 a2" });
 }

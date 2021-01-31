@@ -13,7 +13,7 @@
  *****************************************************************************/
 #include "flt_hpf2biquad.h"
 #include "ceammc_factory.h"
-#include "flt_common.h"
+#include "ceammc_filter.h"
 
 FltHpf2Biquad::FltHpf2Biquad(const PdArgs& args)
     : FltCalcBiquad(args, { 1000, 20, sys_getsr() / 2, flt::m_pi / 2, 0.001, flt::m_pi })

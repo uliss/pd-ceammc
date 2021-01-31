@@ -13,7 +13,7 @@
  *****************************************************************************/
 #include "flt_freqz_tilde.h"
 #include "ceammc_factory.h"
-#include "flt_common.h"
+#include "ceammc_filter.h"
 
 FltFreqZTilde::FltFreqZTilde(const PdArgs& args)
     : SoundExternal(args)
@@ -68,7 +68,7 @@ void FltFreqZTilde::processBlock(const t_sample** in, t_sample** out)
 
     for (size_t i = 0; i < BS; i++) {
         t_sample w = norm * in[0][i];
-        auto Hw = flt::calcHw<t_sample>(w, kb_.begin(), kb_.end(), ka_.begin(), ka_.end());
+        auto Hw = flt::freqz<t_sample>(w, kb_.begin(), kb_.end(), ka_.begin(), ka_.end());
         auto m = std::abs(Hw);
         out[0][i] = db ? 20 * std::log(m) : m;
         out[1][i] = std::arg(Hw);

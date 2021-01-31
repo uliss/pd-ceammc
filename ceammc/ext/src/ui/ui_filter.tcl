@@ -10,6 +10,12 @@ namespace eval filter {
     variable freq_max 20000.0
     variable freq_nyq 22050.0
     variable freq_steps { 500 1000 2000 2500 5000 10000 }
+
+    proc clip { v min max } {
+        if {$v < $min} { return $min }
+        if {$v > $max} { return $max }
+        return $v
+    }
 }
 
 proc filter_font { zoom } { return "Helvetica [expr $zoom * 7] normal roman" }
@@ -124,14 +130,23 @@ proc filter_x_to_omega { x w scale } {
     expr 3.141592653589793 * $f
 }
 
-proc filter_draw_fresp { c t w h color b0 b1 b2 a1 a2 tag } {
+proc filter_x_to_herz { x w scale } {
+    set f 0
+    if { $scale == "lin" } {
+        set x [filter::clip $x 0 $w]
+        set f [expr $filter::freq_max * $x / $w]
+    }
+    return $f
+}
+
+proc filter_draw_fresp { c t w h color b0 b1 b2 a1 a2 scale } {
     set nsteps [expr int($w)]
     set db_hstep [expr $h / $ui::filter::db_range]
 
     set pts {}
 
     for { set x 0 } { $x < $w } { incr x 5 } {
-        set omega [filter_x_to_omega $x $w "lin"]
+        set omega [filter_x_to_omega $x $w $scale]
         set wamp [filter_freq_amp $omega [list $b0 $b1 $b2] [list 1 $a1 $a2]]
         set dbamp [expr 20 * log10($wamp)]
 
@@ -140,7 +155,7 @@ proc filter_draw_fresp { c t w h color b0 b1 b2 a1 a2 tag } {
         lappend pts $x $y
     }
 
-    $c create line $pts -fill $color -width 1 -tags $tag
+    $c create line $pts -fill $color -width 1 -tags $t
 }
 
 proc filter_draw_hgrid { c t w h zoom gridcolor } {
@@ -187,14 +202,53 @@ proc filter_draw_vgrid { c t w h zoom gridcolor scale } {
     }
 }
 
-proc filter_update { cnv id w h zoom bdcolor b0 b1 b2 a1 a2 } {
+proc filter_draw_handle { c t w h zoom color scale x y q bw } {
+    set cc [::tk::Darken $color 75]
+
+    # draw Q and bandwidth label
+    set pad [expr 2*$zoom]
+    set tx  [expr $w/2]
+    set ty  [expr $pad]
+    set ft [filter_font $zoom]
+    set freq [expr int([filter_x_to_herz $x $w $scale])]
+    set tid [$c create text $tx $ty -text "f=${freq}Hz Q=$q bw=$bw" -anchor n -justify center \
+        -font $ft -fill $cc -width 0 -tags $t]
+
+    # calc bbox for bg rectangle
+    lassign [$c bbox $tid] tx0 ty0 tx1 ty1
+    set rx0 [expr $tx0-$pad]
+    set rx1 [expr $tx1+$pad]
+    set ry0 -1
+    set ry1 [expr $ty1+$pad]
+
+    # draw label bg rectangle
+    set rbc [::tk::Darken $color 170]
+    set rid [$c create rectangle $rx0 $ry0 $rx1 $ry1 \
+        -outline $cc -fill $rbc -width 1 -tags $t]
+    $c raise $tid $rid
+
+    # draw handle
+    set r  [expr 5*$zoom]
+    set x [filter::clip $x 0 $w]
+    set y [filter::clip $y 0 $h]
+    set x0 [expr $x-$r]
+    set y0 [expr $y-$r]
+    set x1 [expr $x+$r]
+    set y1 [expr $y+$r]
+
+
+    $c create oval $x0 $y0 $x1 $y1 -fill $color -outline $cc -width 1 -tags $t
+}
+
+proc filter_update { cnv id w h zoom bdcolor b0 b1 b2 a1 a2 x y scale type q bw } {
     set c [::ceammc::ui::widget_canvas $cnv $id]
     set t [::ceammc::ui::widget_tag $id]
     $c delete $t
 
     filter_draw_hgrid $c $t $w $h $zoom $bdcolor
-    filter_draw_vgrid $c $t $w $h $zoom $bdcolor "lin"
-    filter_draw_fresp $c $t $w $h black $b0 $b1 $b2 $a1 $a2 $t
+    filter_draw_vgrid $c $t $w $h $zoom $bdcolor $scale
+    filter_draw_fresp $c $t $w $h black $b0 $b1 $b2 $a1 $a2 $scale
+    filter_draw_handle $c $t $w $h $zoom $bdcolor $scale $x $y $q $bw
 }
 
 }

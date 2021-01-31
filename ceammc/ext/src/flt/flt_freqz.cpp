@@ -13,7 +13,7 @@
  *****************************************************************************/
 #include "flt_freqz.h"
 #include "ceammc_factory.h"
-#include "flt_common.h"
+#include "ceammc_filter.h"
 
 #include <cmath>
 
@@ -75,8 +75,8 @@ void FltFreqZ::onBang()
     floatTo(2, N);
 
     for (size_t i = 0; i < N; i++) {
-        t_float w = flt::hz2w(i, 2 * N);
-        const auto Hw = flt::calcHw(w, kb_.begin(), kb_.end(), ka_.begin(), ka_.end());
+        t_float w = flt::freq2ang(i, 2 * N);
+        const auto Hw = flt::freqz(w, kb_.begin(), kb_.end(), ka_.begin(), ka_.end());
 
         amp[i] = db ? 20 * std::log(std::abs(Hw)) : std::abs(Hw);
         phase[i] = std::arg(Hw);

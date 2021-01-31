@@ -12,6 +12,7 @@
  * this file belongs to.
  *****************************************************************************/
 #include "flt_calc_biquad.h"
+#include "ceammc_filter.h"
 #include "flt_common.h"
 
 FltCalcBiquad::FltCalcBiquad(const PdArgs& args, const FreqCalcParams& fparam)
@@ -67,7 +68,7 @@ double FltCalcBiquad::angleFreq() const
     if (rad_->value())
         return freq_->value();
     else
-        return flt::hz2w(freq_->value(), sys_getsr());
+        return flt::freq2ang(freq_->value(), sys_getsr());
 }
 
 void FltCalcBiquad::m_bandwidth(t_symbol* s, const AtomListView& lv)
@@ -123,18 +124,7 @@ void FltCalcBiquad::calc_onepole(bool hpf)
 void FltCalcBiquad::calc_notch()
 {
     const double w = angleFreq();
-    const auto cosw = std::cos(w);
-    const auto sinw = std::sin(w);
-    const auto alpha = sinw / (2 * q_->value());
-
-    b_[0] = 1;
-    b_[1] = -2 * cosw;
-    b_[2] = 1;
-    a_[0] = 1 + alpha;
-    a_[1] = -2 * cosw;
-    a_[2] = 1 - alpha;
-
-    normalizeA();
+    setBA(flt::calc_notch<double>(w, q_->value()));
 }
 
 void FltCalcBiquad::calc_allpass()
@@ -173,7 +163,7 @@ void FltCalcBiquad::calc_hpf()
 
 void FltCalcBiquad::output()
 {
-    Atom res[6];
+    Atom res[5];
     res[0] = b_[0];
     res[1] = b_[1];
     res[2] = b_[2];

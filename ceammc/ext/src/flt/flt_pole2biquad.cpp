@@ -13,7 +13,7 @@
  *****************************************************************************/
 #include "flt_pole2biquad.h"
 #include "ceammc_factory.h"
-#include "flt_common.h"
+#include "ceammc_filter.h"
 
 static t_symbol* SYM_HPF;
 static t_symbol* SYM_LPF;
@@ -44,5 +44,5 @@ void setup_flt_pole2biquad()
     ObjectFactory<FltPole2Biquad> obj("flt.c_pole");
     obj.addAlias("pole->biquad");
 
-     obj.setXletsInfo({ "float: freq cutoff" }, { "list: biquad coeffs: b0 b1 b2 a1 a2" });
+    obj.setXletsInfo({ "float: freq cutoff" }, { "list: biquad coeffs: b0 b1 b2 a1 a2" });
 }

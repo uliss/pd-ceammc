@@ -14,6 +14,7 @@
 #ifndef FLT_CALC_BIQUAD_H
 #define FLT_CALC_BIQUAD_H
 
+#include "ceammc_filter.h"
 #include "ceammc_object.h"
 
 #include <array>
@@ -53,6 +54,16 @@ public:
 private:
     void output();
     void normalizeA();
+
+    void setBA(const flt::ArrayBA<double>& ba)
+    {
+        b_[0] = ba[0];
+        b_[1] = ba[1];
+        b_[2] = ba[2];
+        a_[0] = ba[3];
+        a_[1] = ba[4];
+        a_[2] = ba[5];
+    }
 };
 
 #endif // FLT_CALC_BIQUAD_H

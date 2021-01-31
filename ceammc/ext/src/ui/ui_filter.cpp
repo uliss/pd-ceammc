@@ -12,8 +12,16 @@
  * this file belongs to.
  *****************************************************************************/
 #include "ui_filter.h"
+#include "ceammc_convert.h"
+#include "ceammc_filter.h"
 #include "ceammc_ui.h"
 #include "ui_filter.tcl.h"
+
+static t_symbol* SYM_NOTCH;
+static t_symbol* SYM_LPF;
+
+constexpr int MIN_LIN_FREQ = 0;
+constexpr int MAX_LIN_FREQ = 20000;
 
 UIFilter::UIFilter()
     : b0_(1)
@@ -21,6 +29,8 @@ UIFilter::UIFilter()
     , b2_(0)
     , a1_(0)
     , a2_(0)
+    , prop_type(SYM_LPF)
+    , freq_pt_ {}
 {
 }
 
@@ -33,12 +43,25 @@ bool UIFilter::okSize(t_rect* newrect)
 
 void UIFilter::paint()
 {
+    const auto f = calcFrequency();
+    const auto Fs = sys_getsr();
+    const auto w = flt::freq2ang<float>(f, Fs);
+
+    const auto q = calcQ();
+    auto bw = clip<t_float, MIN_LIN_FREQ, MAX_LIN_FREQ>(flt::q2bandwidth<float>(q, w) * f);
+    if (!std::isnormal(bw))
+        bw = 0;
+
     sys_vgui("ui::filter_update %s %lx %d %d %d "
              "#%6.6x "
-             "%f %f %f %f %f \n",
+             "%f %f %f %f %f "
+             "%.2f %.1f {lin} %s "
+             "%.1f %d\n",
         asEBox()->b_canvas_id->s_name, asEBox(), (int)width(), (int)height(), (int)zoom(),
         rgba_to_hex_int(prop_color_border),
-        b0_, b1_, b2_, a1_, a2_);
+        b0_, b1_, b2_, a1_, a2_,
+        freq_pt_.x, freq_pt_.y, prop_type->s_name,
+        q, (int)bw);
 }
 
 void UIFilter::onList(const AtomListView& lv)
@@ -56,8 +79,69 @@ void UIFilter::onList(const AtomListView& lv)
     redraw();
 }
 
+void UIFilter::onMouseDown(t_object* view, const t_pt& pt, const t_pt& abs_pt, long modifiers)
+{
+    freq_pt_ = pt;
+    calc();
+    redraw();
+}
+
+void UIFilter::onMouseUp(t_object* view, const t_pt& pt, long modifiers)
+{
+}
+
+void UIFilter::onMouseDrag(t_object* view, const t_pt& pt, long modifiers)
+{
+    freq_pt_ = pt;
+    calc();
+    redraw();
+}
+
+void UIFilter::calc()
+{
+    auto f = calcFrequency();
+    auto Fs = sys_getsr();
+    auto w = flt::freq2ang<float>(f, Fs);
+
+    if (prop_type == SYM_NOTCH) {
+        auto c = flt::calc_notch<double>(w, calcQ());
+        b0_ = c[0];
+        b1_ = c[1];
+        b2_ = c[2];
+        a1_ = c[4];
+        a2_ = c[5];
+    } else if (prop_type == SYM_LPF) {
+        auto c = flt::calc_lpf<double>(w, 1);
+        b0_ = c[0];
+        b1_ = c[1];
+        b2_ = c[2];
+        a1_ = c[4];
+        a2_ = c[5];
+    }
+}
+
+float UIFilter::calcFrequency() const
+{
+    const float fmin = 0;
+    const float fmax = 20000;
+
+    return convert::lin2lin_clip<float>(freq_pt_.x, 0, width(), fmin, fmax);
+}
+
+float UIFilter::calcQ() const
+{
+    if (prop_type == SYM_NOTCH) {
+        auto p2 = convert::lin2lin_clip<float>(freq_pt_.y, 0, height(), 6, -6);
+        return std::pow(2, p2);
+    } else
+        return 0.1;
+}
+
 void UIFilter::setup()
 {
+    SYM_NOTCH = gensym("notch");
+    SYM_LPF = gensym("lpf");
+
     sys_gui(ui_filter_tcl);
 
     UIObjectFactory<UIFilter> obj("ui.filter", EBOX_GROWINDI);
@@ -67,7 +151,9 @@ void UIFilter::setup()
     //    obj.useAny();
     //    obj.usePopup();
     obj.setDefaultSize(300, 100);
-    obj.useMouseEvents(UI_MOUSE_DOWN);
+    obj.useMouseEvents(UI_MOUSE_DOWN | UI_MOUSE_DRAG);
+
+    obj.addMenuProperty("type", _("Filter Type"), "notch", &UIFilter::prop_type, "notch hpf lpf bpf apf", _("Main"));
 }
 
 void setup_ui_filter()

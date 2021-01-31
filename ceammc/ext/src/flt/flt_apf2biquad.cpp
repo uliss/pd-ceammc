@@ -13,7 +13,7 @@
  *****************************************************************************/
 #include "flt_apf2biquad.h"
 #include "ceammc_factory.h"
-#include "flt_common.h"
+#include "ceammc_filter.h"
 
 FltApf2Biquad::FltApf2Biquad(const PdArgs& args)
     : FltCalcBiquad(args, { 0, 0, sys_getsr() / 2, 0, 0, flt::m_pi })
@@ -31,5 +31,5 @@ void setup_flt_apf2biquad()
     obj.addAlias("apf->biquad");
     obj.addMethod("bw", &FltApf2Biquad::m_bandwidth);
 
-     obj.setXletsInfo({ "float: freq cutoff" }, { "list: biquad coeffs: b0 b1 b2 a1 a2" });
+    obj.setXletsInfo({ "float: freq cutoff" }, { "list: biquad coeffs: b0 b1 b2 a1 a2" });
 }

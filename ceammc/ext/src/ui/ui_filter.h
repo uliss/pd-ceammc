@@ -19,6 +19,8 @@ using namespace ceammc;
 
 class UIFilter : public UIObject {
     t_float b0_, b1_, b2_, a1_, a2_;
+    t_pt freq_pt_;
+    t_symbol* prop_type;
 
 public:
     UIFilter();
@@ -27,6 +29,15 @@ public:
     void paint();
 
     void onList(const AtomListView& lv);
+
+    void onMouseDown(t_object* view, const t_pt& pt, const t_pt& abs_pt, long modifiers);
+    void onMouseUp(t_object* view, const t_pt& pt, long modifiers);
+    void onMouseDrag(t_object* view, const t_pt& pt, long modifiers);
+
+private:
+    void calc();
+    float calcFrequency() const;
+    float calcQ() const;
 
 public:
     static void setup();
