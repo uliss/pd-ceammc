@@ -38,6 +38,7 @@ private:
     void calc();
     float calcFrequency() const;
     float calcQ() const;
+    void output();
 
 public:
     static void setup();

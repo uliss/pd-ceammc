@@ -16,6 +16,10 @@ namespace eval filter {
         if {$v > $max} { return $max }
         return $v
     }
+
+    proc finite {x} {
+        expr {[string is double -strict $x] && $x == $x && $x + 1 != $x}
+    }
 }
 
 proc filter_font { zoom } { return "Helvetica [expr $zoom * 7] normal roman" }
@@ -151,6 +155,7 @@ proc filter_draw_fresp { c t w h color b0 b1 b2 a1 a2 scale } {
         set dbamp [expr 20 * log10($wamp)]
 
         set y [expr $h - (($dbamp * $db_hstep) + ($h*0.5))]
+        if { ![filter::finite $y] } { set y [expr $w+10] }
 
         lappend pts $x $y
     }
@@ -202,7 +207,16 @@ proc filter_draw_vgrid { c t w h zoom gridcolor scale } {
     }
 }
 
-proc filter_draw_handle { c t w h zoom color scale x y q bw } {
+proc filter_info_txt { freq q bw type } {
+    set freq [expr int($freq)]
+    if { $type == "notch" } {
+        return "f=${freq}Hz Q=$q bw=$bw"
+    } else {
+        return "f=${freq}Hz"
+    }
+}
+
+proc filter_draw_handle { c t w h zoom color scale x y q bw type } {
     set cc [::tk::Darken $color 75]
 
     # draw Q and bandwidth label
@@ -210,8 +224,8 @@ proc filter_draw_handle { c t w h zoom color scale x y q bw } {
     set tx  [expr $w/2]
     set ty  [expr $pad]
     set ft [filter_font $zoom]
-    set freq [expr int([filter_x_to_herz $x $w $scale])]
-    set tid [$c create text $tx $ty -text "f=${freq}Hz Q=$q bw=$bw" -anchor n -justify center \
+    set info [filter_info_txt [filter_x_to_herz $x $w $scale] $q $bw $type]
+    set tid [$c create text $tx $ty -text $info -anchor n -justify center \
         -font $ft -fill $cc -width 0 -tags $t]
 
     # calc bbox for bg rectangle
@@ -248,7 +262,7 @@ proc filter_update { cnv id w h zoom bdcolor b0 b1 b2 a1 a2 x y scale type q bw 
     filter_draw_hgrid $c $t $w $h $zoom $bdcolor
     filter_draw_vgrid $c $t $w $h $zoom $bdcolor $scale
     filter_draw_fresp $c $t $w $h black $b0 $b1 $b2 $a1 $a2 $scale
-    filter_draw_handle $c $t $w $h $zoom $bdcolor $scale $x $y $q $bw
+    filter_draw_handle $c $t $w $h $zoom $bdcolor $scale $x $y $q $bw $type
 }
 
 }

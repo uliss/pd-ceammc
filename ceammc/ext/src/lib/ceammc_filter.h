@@ -96,6 +96,24 @@ namespace flt {
     }
 
     template <typename T = double>
+    ArrayBA<T> calc_hpf(T w, T q)
+    {
+        const T cosw = std::cos(w);
+        const T sinw = std::sin(w);
+        const T a = sinw / (2 * q);
+        const T norm = 1 / (1 + a);
+
+        const T b0 = (1 + cosw) / 2;
+        const T b1 = -(1 + cosw);
+        const T b2 = b0;
+        const T a0 = 1 + a;
+        const T a1 = -2 * cosw;
+        const T a2 = 1 - a;
+
+        return { b0 / a0, b1 / a0, b2 / a0, 1, a1 / a0, a2 / a0 };
+    }
+
+    template <typename T = double>
     ArrayBA<T> calc_notch(T w, T q)
     {
         const T cosw = std::cos(w);

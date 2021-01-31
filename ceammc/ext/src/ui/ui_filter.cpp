@@ -19,6 +19,7 @@
 
 static t_symbol* SYM_NOTCH;
 static t_symbol* SYM_LPF;
+static t_symbol* SYM_HPF;
 
 constexpr int MIN_LIN_FREQ = 0;
 constexpr int MAX_LIN_FREQ = 20000;
@@ -32,6 +33,7 @@ UIFilter::UIFilter()
     , prop_type(SYM_LPF)
     , freq_pt_ {}
 {
+    createOutlet();
 }
 
 bool UIFilter::okSize(t_rect* newrect)
@@ -84,10 +86,15 @@ void UIFilter::onMouseDown(t_object* view, const t_pt& pt, const t_pt& abs_pt, l
     freq_pt_ = pt;
     calc();
     redraw();
+    output();
 }
 
 void UIFilter::onMouseUp(t_object* view, const t_pt& pt, long modifiers)
 {
+    freq_pt_ = pt;
+    calc();
+    redraw();
+    output();
 }
 
 void UIFilter::onMouseDrag(t_object* view, const t_pt& pt, long modifiers)
@@ -95,6 +102,7 @@ void UIFilter::onMouseDrag(t_object* view, const t_pt& pt, long modifiers)
     freq_pt_ = pt;
     calc();
     redraw();
+    output();
 }
 
 void UIFilter::calc()
@@ -111,7 +119,14 @@ void UIFilter::calc()
         a1_ = c[4];
         a2_ = c[5];
     } else if (prop_type == SYM_LPF) {
-        auto c = flt::calc_lpf<double>(w, 1);
+        auto c = flt::calc_lpf<double>(w, calcQ());
+        b0_ = c[0];
+        b1_ = c[1];
+        b2_ = c[2];
+        a1_ = c[4];
+        a2_ = c[5];
+    } else if (prop_type == SYM_HPF) {
+        auto c = flt::calc_hpf<double>(w, calcQ());
         b0_ = c[0];
         b1_ = c[1];
         b2_ = c[2];
@@ -133,14 +148,25 @@ float UIFilter::calcQ() const
     if (prop_type == SYM_NOTCH) {
         auto p2 = convert::lin2lin_clip<float>(freq_pt_.y, 0, height(), 6, -6);
         return std::pow(2, p2);
+    } else if (prop_type == SYM_LPF) {
+        return std::sqrt(0.5);
+    } else if (prop_type == SYM_HPF) {
+        return std::sqrt(0.5);
     } else
         return 0.1;
+}
+
+void UIFilter::output()
+{
+    Atom res[5] = { b0_, b1_, b2_, a1_, a2_ };
+    listTo(0, AtomListView(res, 5));
 }
 
 void UIFilter::setup()
 {
     SYM_NOTCH = gensym("notch");
     SYM_LPF = gensym("lpf");
+    SYM_HPF = gensym("hpf");
 
     sys_gui(ui_filter_tcl);
 
@@ -148,12 +174,11 @@ void UIFilter::setup()
     obj.hideLabelInner();
 
     obj.useList();
-    //    obj.useAny();
-    //    obj.usePopup();
     obj.setDefaultSize(300, 100);
-    obj.useMouseEvents(UI_MOUSE_DOWN | UI_MOUSE_DRAG);
+    obj.useMouseEvents(UI_MOUSE_DOWN | UI_MOUSE_UP | UI_MOUSE_DRAG);
+    obj.outputMouseEvents(MouseEventsOutput::DEFAULT_OFF);
 
-    obj.addMenuProperty("type", _("Filter Type"), "notch", &UIFilter::prop_type, "notch hpf lpf bpf apf", _("Main"));
+    obj.addMenuProperty("type", _("Filter Type"), "notch", &UIFilter::prop_type, "lpf hpf bpf notch", _("Main"));
 }
 
 void setup_ui_filter()
