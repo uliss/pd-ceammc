@@ -38,6 +38,7 @@ private:
     void calc();
     float calcFrequency() const;
     float calcQ() const;
+    float calcDb() const;
     void output();
 
 public:
