@@ -149,7 +149,7 @@ proc filter_draw_fresp { c t w h color b0 b1 b2 a1 a2 scale } {
 
     set pts {}
 
-    for { set x 0 } { $x < $w } { incr x 5 } {
+    for { set x 0 } { $x < $w } { incr x } {
         set omega [filter_x_to_omega $x $w $scale]
         set wamp [filter_freq_amp $omega [list $b0 $b1 $b2] [list 1 $a1 $a2]]
         set dbamp [expr 20 * log10($wamp)]

@@ -124,7 +124,7 @@ const char* ui_filter_tcl =
 "    set nsteps [expr int($w)]\n"
 "    set db_hstep [expr $h / $ui::filter::db_range]\n"
 "    set pts {}\n"
-"    for { set x 0 } { $x < $w } { incr x 5 } {\n"
+"    for { set x 0 } { $x < $w } { incr x } {\n"
 "        set omega [filter_x_to_omega $x $w $scale]\n"
 "        set wamp [filter_freq_amp $omega [list $b0 $b1 $b2] [list 1 $a1 $a2]]\n"
 "        set dbamp [expr 20 * log10($wamp)]\n"
