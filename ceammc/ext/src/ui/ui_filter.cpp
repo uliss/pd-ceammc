@@ -21,6 +21,8 @@ static t_symbol* SYM_NOTCH;
 static t_symbol* SYM_LPF;
 static t_symbol* SYM_HPF;
 static t_symbol* SYM_PEAK_EQ;
+static t_symbol* SYM_LOWSHELF;
+static t_symbol* SYM_HIGHSHELF;
 
 constexpr int MIN_LIN_FREQ = 0;
 constexpr int MAX_LIN_FREQ = 20000;
@@ -154,6 +156,13 @@ void UIFilter::calc()
         b2_ = c[2];
         a1_ = c[4];
         a2_ = c[5];
+    } else if (prop_type == SYM_LOWSHELF) {
+        auto c = flt::calc_lowshelf<double>(w, calcDb(), 1);
+        b0_ = c[0];
+        b1_ = c[1];
+        b2_ = c[2];
+        a1_ = c[4];
+        a2_ = c[5];
     }
 }
 
@@ -182,7 +191,9 @@ float UIFilter::calcQ() const
 
 float UIFilter::calcDb() const
 {
-    if (prop_type == SYM_PEAK_EQ) {
+    if (prop_type == SYM_PEAK_EQ
+        || prop_type == SYM_LOWSHELF
+        || prop_type == SYM_HIGHSHELF) {
         return convert::lin2lin_clip<float>(freq_pt_.y, 0, 1, 24, -24);
     } else
         return 0;
@@ -190,8 +201,8 @@ float UIFilter::calcDb() const
 
 void UIFilter::saveMousePoint(const t_pt& pt)
 {
-    freq_pt_.x = pt.x / width();
-    freq_pt_.y = pt.y / height();
+    freq_pt_.x = clip01<t_float>(pt.x / width());
+    freq_pt_.y = clip01<t_float>(pt.y / height());
 }
 
 void UIFilter::output()
@@ -206,6 +217,8 @@ void UIFilter::setup()
     SYM_LPF = gensym("lpf");
     SYM_HPF = gensym("hpf");
     SYM_PEAK_EQ = gensym("peak");
+    SYM_LOWSHELF = gensym("lowshelf");
+    SYM_HIGHSHELF = gensym("highshelf");
 
     sys_gui(ui_filter_tcl);
 
@@ -217,7 +230,7 @@ void UIFilter::setup()
     obj.useMouseEvents(UI_MOUSE_DOWN | UI_MOUSE_UP | UI_MOUSE_DRAG | UI_MOUSE_WHEEL);
     obj.outputMouseEvents(MouseEventsOutput::DEFAULT_OFF);
 
-    obj.addMenuProperty("type", _("Filter Type"), "notch", &UIFilter::prop_type, "lpf hpf bpf peak notch", _("Main"));
+    obj.addMenuProperty("type", _("Filter Type"), "notch", &UIFilter::prop_type, "lpf hpf bpf lowshelf peak notch", _("Main"));
 }
 
 void setup_ui_filter()
