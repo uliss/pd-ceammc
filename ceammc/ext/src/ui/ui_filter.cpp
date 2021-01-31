@@ -58,12 +58,12 @@ void UIFilter::paint()
     sys_vgui("ui::filter_update %s %lx %d %d %d "
              "#%6.6x "
              "%f %f %f %f %f "
-             "%.2f %.1f {lin} %s "
+             "%.2f %.2f {lin} %s "
              "%.1f %d\n",
         asEBox()->b_canvas_id->s_name, asEBox(), (int)width(), (int)height(), (int)zoom(),
         rgba_to_hex_int(prop_color_border),
         b0_, b1_, b2_, a1_, a2_,
-        freq_pt_.x, freq_pt_.y, prop_type->s_name,
+        freq_pt_.x * width(), freq_pt_.y * height(), prop_type->s_name,
         q, (int)bw);
 }
 
@@ -84,7 +84,7 @@ void UIFilter::onList(const AtomListView& lv)
 
 void UIFilter::onMouseDown(t_object* view, const t_pt& pt, const t_pt& abs_pt, long modifiers)
 {
-    freq_pt_ = pt;
+    saveMousePoint(pt);
     calc();
     redraw();
     output();
@@ -92,7 +92,7 @@ void UIFilter::onMouseDown(t_object* view, const t_pt& pt, const t_pt& abs_pt, l
 
 void UIFilter::onMouseUp(t_object* view, const t_pt& pt, long modifiers)
 {
-    freq_pt_ = pt;
+    saveMousePoint(pt);
     calc();
     redraw();
     output();
@@ -100,7 +100,7 @@ void UIFilter::onMouseUp(t_object* view, const t_pt& pt, long modifiers)
 
 void UIFilter::onMouseDrag(t_object* view, const t_pt& pt, long modifiers)
 {
-    freq_pt_ = pt;
+    saveMousePoint(pt);
     calc();
     redraw();
     output();
@@ -145,16 +145,16 @@ void UIFilter::calc()
 
 float UIFilter::calcFrequency() const
 {
-    const float fmin = 0;
-    const float fmax = 20000;
+    constexpr float fmin = 0;
+    constexpr float fmax = 20000;
 
-    return convert::lin2lin_clip<float>(freq_pt_.x, 0, width(), fmin, fmax);
+    return freq_pt_.x * (fmax - fmin) + fmin;
 }
 
 float UIFilter::calcQ() const
 {
     if (prop_type == SYM_NOTCH) {
-        auto p2 = convert::lin2lin_clip<float>(freq_pt_.y, 0, height(), 6, -6);
+        auto p2 = convert::lin2lin_clip<float>(freq_pt_.y, 0, 1, 6, -6);
         return std::pow(2, p2);
     } else if (prop_type == SYM_LPF) {
         return std::sqrt(0.5);
@@ -169,9 +169,15 @@ float UIFilter::calcQ() const
 float UIFilter::calcDb() const
 {
     if (prop_type == SYM_PEAK_EQ) {
-        return convert::lin2lin_clip<float>(freq_pt_.y, 0, height(), 24, -24);
+        return convert::lin2lin_clip<float>(freq_pt_.y, 0, 1, 24, -24);
     } else
         return 0;
+}
+
+void UIFilter::saveMousePoint(const t_pt& pt)
+{
+    freq_pt_.x = pt.x / width();
+    freq_pt_.y = pt.y / height();
 }
 
 void UIFilter::output()

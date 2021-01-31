@@ -39,6 +39,7 @@ private:
     float calcFrequency() const;
     float calcQ() const;
     float calcDb() const;
+    void saveMousePoint(const t_pt& pt);
     void output();
 
 public:
