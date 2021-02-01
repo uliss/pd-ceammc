@@ -37,10 +37,8 @@ public:
 
     bool cell(size_t row, size_t column) const;
     void setCell(const AtomList& lst);
-    AtomList column(size_t column) const;
     void setColumn(size_t column, const AtomListView& lv);
     void setColumn(const AtomListView& lv);
-    AtomList row(size_t idx) const;
     void setRow(size_t row, const AtomListView& lv);
     void setRow(const AtomListView& lv);
     void setList(const AtomListView& lv);
@@ -77,17 +75,21 @@ public:
     void p_setRows(t_float n);
     void p_setCols(t_float n);
 
-    void m_flip(const AtomListView& lst);
+    void m_flip(const AtomListView& lv);
     void m_reset();
     void m_random();
-    void m_get(const AtomListView& lst);
-    void m_set(const AtomListView& lst);
+    void m_get(const AtomListView& lv);
+    void m_set(const AtomListView& lv);
 
     void loadPreset(size_t idx);
     void storePreset(size_t idx);
 
     void onPropChange(t_symbol* prop_name);
     void onZoom(t_float z);
+
+    // for tests
+    AtomList column(size_t column) const;
+    AtomList row(size_t idx) const;
 
 public:
     static void setup();

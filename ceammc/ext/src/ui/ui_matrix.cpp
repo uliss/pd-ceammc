@@ -654,29 +654,29 @@ void UIMatrix::write(const std::string& fname)
         UI_ERR << "error while writing to file: " << quote(fname);
 }
 
-void UIMatrix::m_flip(const AtomListView& lst)
+void UIMatrix::m_flip(const AtomListView& lv)
 {
-    if (lst.empty()) {
+    if (lv.empty()) {
         flipAll();
-    } else if (lst.size() == 2) {
-        if (lst[0].isSymbol()) {
-            t_symbol* s = lst[0].asSymbol();
+    } else if (lv.size() == 2) {
+        if (lv[0].isSymbol()) {
+            t_symbol* s = lv[0].asSymbol();
 
             if (s == SYM_COL) {
-                int col = lst[1].asInt(-1);
+                int col = lv[1].asInt(-1);
 
                 if (col < 0 || col >= prop_cols_) {
-                    UI_ERR << "invalid column index: " << lst[1];
+                    UI_ERR << "invalid column index: " << lv[1];
                     return;
                 }
 
                 flipColumn(col);
 
             } else if (s == SYM_ROW) {
-                int row = lst[1].asInt(-1);
+                int row = lv[1].asInt(-1);
 
                 if (row < 0 || row >= prop_rows_) {
-                    UI_ERR << "invalid row index: " << lst[1];
+                    UI_ERR << "invalid row index: " << lv[1];
                     return;
                 }
 
@@ -687,12 +687,12 @@ void UIMatrix::m_flip(const AtomListView& lst)
             }
         }
 
-        if (lst[0].isFloat()) {
-            int row = lst[0].asInt(-1);
-            int col = lst[1].asInt(-1);
+        if (lv[0].isFloat()) {
+            int row = lv[0].asInt(-1);
+            int col = lv[1].asInt(-1);
 
             if (row < 0 || row >= prop_rows_ || col < 0 || col >= prop_cols_) {
-                UI_ERR << "invalid indexes: " << lst;
+                UI_ERR << "invalid indexes: " << lv;
                 return;
             }
 
@@ -730,16 +730,16 @@ void UIMatrix::m_random()
     drawActiveCells();
 }
 
-void UIMatrix::m_get(const AtomListView& lst)
+void UIMatrix::m_get(const AtomListView& lv)
 {
-    if (lst.empty() || !lst[0].isSymbol()) {
+    if (lv.empty() || !lv[0].isSymbol()) {
         UI_ERR << "missing arguments: ";
         UI_ERR << "    usage: get col|row|cell|list|cols|rows|cells [ARGS]";
         return;
     }
 
-    t_symbol* sel = lst[0].asSymbol();
-    const auto args = lst.subView(1);
+    t_symbol* sel = lv[0].asSymbol();
+    const auto args = lv.subView(1);
 
     if (sel == SYM_CELL) {
         outputCell(args);
@@ -762,16 +762,16 @@ void UIMatrix::m_get(const AtomListView& lst)
     }
 }
 
-void UIMatrix::m_set(const AtomListView& lst)
+void UIMatrix::m_set(const AtomListView& lv)
 {
-    if (lst.empty() || !lst[0].isSymbol()) {
+    if (lv.empty() || !lv[0].isSymbol()) {
         UI_ERR << "missing arguments: ";
         UI_ERR << "    usage: set col|row|cell|list [ARGS]";
         return;
     }
 
-    t_symbol* sel = lst[0].asSymbol();
-    const auto args = lst.subView(1);
+    t_symbol* sel = lv[0].asSymbol();
+    const auto args = lv.subView(1);
 
     if (sel == SYM_CELL) {
         setCell(args);
