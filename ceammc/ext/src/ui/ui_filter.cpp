@@ -29,8 +29,15 @@ static t_symbol* SYM_NOTCH;
 static t_symbol* SYM_PEAK_EQ;
 static t_symbol* SYM_RAD;
 
+static t_symbol* PROP_FREQ;
+static t_symbol* PROP_GAIN;
+static t_symbol* PROP_Q;
+static t_symbol* PROP_TYPE;
+
 constexpr int MIN_LIN_FREQ = 0;
 constexpr int MAX_LIN_FREQ = 20000;
+constexpr float MIN_Q = 0.5;
+constexpr float MAX_Q = 32;
 
 static_assert(std::is_same<UIFilter::Array, flt::ArrayBA<double>>::value, "same arrays");
 
@@ -40,10 +47,10 @@ UIFilter::UIFilter()
     , b2_(0)
     , a1_(0)
     , a2_(0)
-    , freq_pt_ {}
+    , knob_pt_ {}
     , prop_type(SYM_LPF)
     , prop_scale(SYM_LIN)
-    , peak_q_(2)
+    , prop_freq(1000)
 {
     createOutlet();
 }
@@ -57,12 +64,10 @@ bool UIFilter::okSize(t_rect* newrect)
 
 void UIFilter::paint()
 {
-    const auto f = calcFrequency();
     const auto Fs = sys_getsr();
-    const auto w = flt::freq2ang<float>(f, Fs);
-    const auto q = calcQ();
+    const auto w = flt::freq2ang<float>(prop_freq, Fs);
 
-    const auto bw = calcBandwidth(q, w, f);
+    const auto bw = calcBandwidth(q(), w);
 
     sys_vgui("ui::filter_update %s %lx %d %d %d "
              "#%6.6x #%6.6x #%6.6x #%6.6x #%6.6x "
@@ -76,9 +81,9 @@ void UIFilter::paint()
         rgba_to_hex_int(prop_color_plot),
         rgba_to_hex_int(prop_color_knob),
         b0_, b1_, b2_, a1_, a2_,
-        freq_pt_.x * width(), freq_pt_.y * height(),
+        knob_pt_.x * width(), knob_pt_.y * height(),
         prop_scale->s_name, prop_type->s_name,
-        q, bw);
+        q(), bw);
 }
 
 void UIFilter::onList(const AtomListView& lv)
@@ -95,60 +100,67 @@ void UIFilter::onList(const AtomListView& lv)
     redraw();
 }
 
-void UIFilter::onMouseDown(t_object* view, const t_pt& pt, const t_pt& abs_pt, long modifiers)
+void UIFilter::onMouseDown(t_object* view, const t_pt& pt, const t_pt& /*abs_pt*/, long /*modifiers*/)
 {
     saveMousePoint(pt);
-    calc();
+    updateCoeffs();
     redraw();
     output();
 }
 
-void UIFilter::onMouseWheel(const t_pt& pt, long modifiers, float delta)
+void UIFilter::onMouseWheel(const t_pt& pt, long /*modifiers*/, float delta)
 {
-    constexpr t_float min_q = 0.5;
-    constexpr t_float max_q = 32;
-
     if (prop_type == SYM_PEAK_EQ) {
-        peak_q_ = clip<t_float>(peak_q_ * (1 + delta * 0.05), min_q, max_q);
-        calc();
+        prop_peakq = clip<t_float>(prop_peakq * (1 + delta * 0.05), MIN_Q, MAX_Q);
+        updateCoeffs();
         redraw();
         output();
     }
 }
 
-void UIFilter::onMouseUp(t_object* view, const t_pt& pt, long modifiers)
+void UIFilter::onPropChange(t_symbol* name)
+{
+    if (name == PROP_FREQ
+        || name == PROP_Q
+        || name == PROP_GAIN
+        || name == PROP_TYPE)
+        updateCoeffs();
+
+    UIObject::onPropChange(name);
+}
+
+void UIFilter::onMouseUp(t_object* /*view*/, const t_pt& pt, long /*modifiers*/)
 {
     saveMousePoint(pt);
-    calc();
+    updateCoeffs();
     redraw();
     output();
 }
 
-void UIFilter::onMouseDrag(t_object* view, const t_pt& pt, long modifiers)
+void UIFilter::onMouseDrag(t_object* /*view*/, const t_pt& pt, long /*modifiers*/)
 {
     saveMousePoint(pt);
-    calc();
+    updateCoeffs();
     redraw();
     output();
 }
 
-void UIFilter::calc()
+void UIFilter::updateCoeffs()
 {
-    auto f = calcFrequency();
     auto Fs = sys_getsr();
-    auto w = flt::freq2ang<float>(f, Fs);
+    auto w = flt::freq2ang<float>(prop_freq, Fs);
 
     if (prop_type == SYM_NOTCH) {
-        auto c = flt::calc_notch<double>(w, calcQ());
+        auto c = flt::calc_notch<double>(w, q());
         setBA(c);
     } else if (prop_type == SYM_LPF) {
-        auto c = flt::calc_lpf<double>(w, calcQ());
+        auto c = flt::calc_lpf<double>(w, q());
         setBA(c);
     } else if (prop_type == SYM_HPF) {
-        auto c = flt::calc_hpf<double>(w, calcQ());
+        auto c = flt::calc_hpf<double>(w, q());
         setBA(c);
     } else if (prop_type == SYM_PEAK_EQ) {
-        auto c = flt::calc_peak_eq<double>(w, calcQ(), calcDb());
+        auto c = flt::calc_peak_eq<double>(w, q(), calcDb());
         setBA(c);
     } else if (prop_type == SYM_LOWSHELF) {
         auto c = flt::calc_lowshelf<double>(w, calcDb(), 1);
@@ -157,62 +169,37 @@ void UIFilter::calc()
         auto c = flt::calc_highshelf<double>(w, calcDb(), 1);
         setBA(c);
     } else if (prop_type == SYM_BPFQ) {
-        auto c = flt::calc_bpfq<double>(w, calcQ());
+        auto c = flt::calc_bpfq<double>(w, q());
         setBA(c);
     } else if (prop_type == SYM_BPF) {
-        auto c = flt::calc_bpf<double>(w, calcQ());
+        auto c = flt::calc_bpf<double>(w, q());
         setBA(c);
     }
 }
 
-float UIFilter::calcFrequency() const
-{
-    if (prop_scale == SYM_LIN) {
-        constexpr float fmin = 0;
-        constexpr float fmax = 20000;
-        return freq_pt_.x * (fmax - fmin) + fmin;
-    } else if (prop_scale == SYM_LOG10) {
-        constexpr float fmin = 10;
-        constexpr float fmax = 20000;
-
-        static const float loga = std::log10(fmin);
-        static const float logb = std::log10(fmax);
-        static const float logr = logb - loga;
-
-        const float fp = (freq_pt_.x * logr) + loga;
-        return std::pow(10, fp);
-    } else if (prop_scale == SYM_RAD) {
-        return freq_pt_.x * 0.5 * sys_getsr();
-    } else {
-        UI_ERR << "unknown scale: " << prop_scale;
-        return 1;
-    }
-}
-
-float UIFilter::calcBandwidth(float q, float w, float f) const
+float UIFilter::calcBandwidth(float q, float w) const
 {
     float bw = 0;
     if (prop_scale == SYM_RAD)
         bw = flt::q2bandwidth<float>(q, w);
     else
-        bw = clip<t_float, MIN_LIN_FREQ, MAX_LIN_FREQ>(flt::q2bandwidth<float>(q, w) * f);
+        bw = clip<t_float, MIN_LIN_FREQ, MAX_LIN_FREQ>(flt::q2bandwidth<float>(q, w) * prop_freq);
 
     return std::isnormal(bw) ? bw : 0;
 }
 
-float UIFilter::calcQ() const
+float UIFilter::q() const
 {
     if (prop_type == SYM_NOTCH
         || prop_type == SYM_BPFQ
         || prop_type == SYM_BPF) {
-        auto p2 = convert::lin2lin_clip<float>(freq_pt_.y, 0, 1, 6, -6);
-        return std::pow(2, p2);
+        return prop_q;
     } else if (prop_type == SYM_LPF) {
         return std::sqrt(0.5);
     } else if (prop_type == SYM_HPF) {
         return std::sqrt(0.5);
     } else if (prop_type == SYM_PEAK_EQ) {
-        return peak_q_;
+        return prop_peakq;
     } else
         return 0.1;
 }
@@ -222,15 +209,19 @@ float UIFilter::calcDb() const
     if (prop_type == SYM_PEAK_EQ
         || prop_type == SYM_LOWSHELF
         || prop_type == SYM_HIGHSHELF) {
-        return convert::lin2lin_clip<float>(freq_pt_.y, 0, 1, 24, -24);
+        return prop_gain;
     } else
         return 0;
 }
 
 void UIFilter::saveMousePoint(const t_pt& pt)
 {
-    freq_pt_.x = clip01<t_float>(pt.x / width());
-    freq_pt_.y = clip01<t_float>(pt.y / height());
+    knob_pt_.x = clip01<t_float>(pt.x / width());
+    knob_pt_.y = clip01<t_float>(pt.y / height());
+
+    knobUpdateFreq();
+    knobUpdateGain();
+    knobUpdateQ();
 }
 
 void UIFilter::output()
@@ -241,11 +232,47 @@ void UIFilter::output()
 
 void UIFilter::setBA(const Array& ba)
 {
-    b0_ = ba[0];
-    b1_ = ba[1];
-    b2_ = ba[2];
-    a1_ = ba[4];
-    a2_ = ba[5];
+    auto check_nan = [](double v) { return std::isnormal(v) ? v : 0; };
+
+    b0_ = check_nan(ba[0]);
+    b1_ = check_nan(ba[1]);
+    b2_ = check_nan(ba[2]);
+    a1_ = check_nan(ba[4]);
+    a2_ = check_nan(ba[5]);
+}
+
+void UIFilter::knobUpdateFreq()
+{
+    if (prop_scale == SYM_LIN) {
+        constexpr float fmin = 0;
+        constexpr float fmax = 20000;
+        prop_freq = knob_pt_.x * (fmax - fmin) + fmin;
+    } else if (prop_scale == SYM_LOG10) {
+        constexpr float fmin = 10;
+        constexpr float fmax = 20000;
+
+        static const float loga = std::log10(fmin);
+        static const float logb = std::log10(fmax);
+        static const float logr = logb - loga;
+
+        const float fp = (knob_pt_.x * logr) + loga;
+        prop_freq = std::pow(10, fp);
+    } else if (prop_scale == SYM_RAD) {
+        prop_freq = knob_pt_.x * 0.5 * sys_getsr();
+    } else {
+        UI_ERR << "unknown scale: " << prop_scale;
+        prop_freq = 1;
+    }
+}
+
+void UIFilter::knobUpdateQ()
+{
+    prop_q = std::pow(2, convert::lin2lin_clip<float>(knob_pt_.y, 0, 1, 6, -6));
+}
+
+void UIFilter::knobUpdateGain()
+{
+    prop_gain = convert::lin2lin_clip<float>(knob_pt_.y, 0, 1, 24, -24);
 }
 
 void UIFilter::setup()
@@ -262,6 +289,11 @@ void UIFilter::setup()
     SYM_PEAK_EQ = gensym("peak");
     SYM_RAD = gensym("rad");
 
+    PROP_FREQ = gensym("freq");
+    PROP_Q = gensym("q");
+    PROP_GAIN = gensym("gain");
+    PROP_TYPE = gensym("type");
+
     sys_gui(ui_filter_tcl);
 
     UIObjectFactory<UIFilter> obj("ui.filter", EBOX_GROWINDI);
@@ -277,9 +309,18 @@ void UIFilter::setup()
     obj.addProperty("knob_color", _("Knob Color"), DEFAULT_ACTIVE_COLOR, &UIFilter::prop_color_knob);
     obj.setPropertyDefaultValue("label_color", DEFAULT_BORDER_COLOR);
 
+    obj.addFloatProperty(PROP_FREQ->s_name,
+        _("Frequency"), 1000, &UIFilter::prop_freq, _("Main"));
+    obj.setPropertyRange(PROP_FREQ->s_name, 0, MAX_LIN_FREQ);
+    obj.addFloatProperty(PROP_Q->s_name,
+        _("Quality factory"), std::sqrt(0.5), &UIFilter::prop_q, _("Main"));
+    obj.addFloatProperty(PROP_GAIN->s_name,
+        _("Gain"), 0, &UIFilter::prop_gain, _("Main"));
+    obj.addFloatProperty("peakq", _("Peak Q"), 2, &UIFilter::prop_peakq, _("Main"));
+
     obj.addMenuProperty("type",
         _("Filter Type"),
-        "notch",
+        "lpf",
         &UIFilter::prop_type,
         "lpf hpf bpf bpfq lowshelf highshelf peak notch",
         _("Main"));

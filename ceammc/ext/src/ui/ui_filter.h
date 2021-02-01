@@ -22,13 +22,16 @@ using namespace ceammc;
 
 class UIFilter : public UIObject {
     t_float b0_, b1_, b2_, a1_, a2_;
-    t_pt freq_pt_;
+    t_pt knob_pt_;
     t_symbol* prop_type;
     t_symbol* prop_scale;
-    t_float peak_q_;
     t_rgba prop_color_grid;
     t_rgba prop_color_plot;
     t_rgba prop_color_knob;
+    t_float prop_freq;
+    t_float prop_q;
+    t_float prop_peakq;
+    t_float prop_gain;
 
 public:
     UIFilter();
@@ -43,18 +46,23 @@ public:
     void onMouseDrag(t_object* view, const t_pt& pt, long modifiers);
     void onMouseWheel(const t_pt& pt, long modifiers, float delta);
 
+    void onPropChange(t_symbol* name);
+
 public:
     using Array = std::array<double, 6>;
 
 private:
-    void calc();
-    float calcFrequency() const;
-    float calcQ() const;
+    void updateCoeffs();
+    float q() const;
     float calcDb() const;
-    float calcBandwidth(float q, float w, float f) const;
+    float calcBandwidth(float q, float w) const;
     void saveMousePoint(const t_pt& pt);
     void output();
     void setBA(const Array& ba);
+
+    void knobUpdateFreq();
+    void knobUpdateQ();
+    void knobUpdateGain();
 
 public:
     static void setup();
