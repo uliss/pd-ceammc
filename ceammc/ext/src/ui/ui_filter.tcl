@@ -260,6 +260,20 @@ proc filter_draw_vgrid { c t w h zoom gridcolor txtcolor scale } {
                 set txt_right $tx1
             }
         }
+    } elseif { $scale == "rad" } {
+        set ft [filter_font $zoom]
+        set labels { "π/4" "π/2" "3π/4" }
+        set nl [llength $labels]
+
+        for { set i 0 } { $i < $nl } { incr i } {
+            set x [expr ($i+1.0)/($nl+1.0)*$w]
+            $c create line $x 0 $x $h -width 1 -fill $gridcolor -tags $t
+
+            set txt [lindex $labels $i]
+            set tx [expr $x-(2*$zoom+1)]
+            $c create text $tx $h -text $txt -anchor se -justify right \
+                -font $ft -fill $txtcolor -width 0 -tags $t
+        }
     }
 }
 

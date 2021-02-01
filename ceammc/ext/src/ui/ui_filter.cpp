@@ -27,6 +27,7 @@ static t_symbol* SYM_LOWSHELF;
 static t_symbol* SYM_LPF;
 static t_symbol* SYM_NOTCH;
 static t_symbol* SYM_PEAK_EQ;
+static t_symbol* SYM_RAD;
 
 constexpr int MIN_LIN_FREQ = 0;
 constexpr int MAX_LIN_FREQ = 20000;
@@ -39,8 +40,9 @@ UIFilter::UIFilter()
     , b2_(0)
     , a1_(0)
     , a2_(0)
-    , prop_type(SYM_LPF)
     , freq_pt_ {}
+    , prop_type(SYM_LPF)
+    , prop_scale(SYM_LIN)
     , peak_q_(2)
 {
     createOutlet();
@@ -168,7 +170,7 @@ void UIFilter::calc()
 
 float UIFilter::calcFrequency() const
 {
-    if (prop_scale == SYM_LIN) {
+    if (prop_scale == SYM_LIN || prop_scale == SYM_RAD) {
         constexpr float fmin = 0;
         constexpr float fmax = 20000;
         return freq_pt_.x * (fmax - fmin) + fmin;
@@ -249,6 +251,7 @@ void UIFilter::setup()
     SYM_LPF = gensym("lpf");
     SYM_NOTCH = gensym("notch");
     SYM_PEAK_EQ = gensym("peak");
+    SYM_RAD = gensym("rad");
 
     sys_gui(ui_filter_tcl);
 
