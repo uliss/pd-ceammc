@@ -10,6 +10,8 @@ namespace eval filter {
     variable freq_max 20000.0
     variable freq_nyq 22050.0
     variable freq_steps { 500 1000 2000 2500 5000 10000 }
+    variable fmin_log10 [expr log10($freq_min)]
+    variable fmax_log10 [expr log10($freq_max)]
 
     proc clip { v min max } {
         if {$v < $min} { return $min }
@@ -129,6 +131,14 @@ proc filter_x_to_omega { x w scale } {
     if { $scale == "lin" } {
         set k [expr $::ui::filter::freq_max/$::ui::filter::freq_nyq]
         set f [expr ($k*$x)/$w]
+    } elseif { $scale == "log" } {
+        set loga $filter::fmin_log10
+        set logb $filter::fmax_log10
+        set lrng [expr $logb-$loga]
+
+        set px  [expr (($lrng*$x)/$w) + $loga]
+        set f   [expr pow(10, $px)/$::ui::filter::freq_nyq]
+#        puts "x: $x -> $f"
     }
 
     expr 3.141592653589793 * $f
@@ -137,21 +147,30 @@ proc filter_x_to_omega { x w scale } {
 proc filter_x_to_herz { x w scale } {
     set f 0
     if { $scale == "lin" } {
+        # lin range from 0 to $freq_max
         set x [filter::clip $x 0 $w]
         set f [expr $filter::freq_max * $x / $w]
+    } elseif { $scale == "log" } {
+        # log range from $freq_min to $freq_max
+        set loga $filter::fmin_log10
+        set logb $filter::fmax_log10
+        set lrng [expr $logb-$loga]
+
+        set x [filter::clip $x 0 $w]
+        set px [expr (1.0*$x/$w * $lrng) + $loga]
+        set f  [expr pow(10, $px)]
     }
     return $f
 }
 
 proc filter_draw_fresp { c t w h color b0 b1 b2 a1 a2 scale } {
-    set nsteps [expr int($w)]
     set db_hstep [expr $h / $ui::filter::db_range]
 
     set pts {}
 
     for { set x 0 } { $x < $w } { incr x } {
         set omega [filter_x_to_omega $x $w $scale]
-        set wamp [filter_freq_amp $omega [list $b0 $b1 $b2] [list 1 $a1 $a2]]
+        set wamp  [filter_freq_amp $omega [list $b0 $b1 $b2] [list 1 $a1 $a2]]
         set dbamp [expr 20 * log10($wamp)]
 
         set y [expr $h - (($dbamp * $db_hstep) + ($h*0.5))]
@@ -198,11 +217,47 @@ proc filter_draw_vgrid { c t w h zoom gridcolor scale } {
             $c create line $x 0 $x $h -width 1 -fill $gridcolor -tags $t
 
             set f [expr $i*$fstep]
-            if { $f < 1000 } { set txt "$f" } { set txt "[expr $f/1000.0]k" }
+            if { $f < 1000 } { set txt "[expr int($f)]" } { set txt "[expr $f/1000.0]k" }
             set tx [expr $x-(2*$zoom+1)]
             $c create text $tx $h -text $txt -anchor se -justify right \
                 -font $ft -fill $gridcolor -width 0 -tags $t
 
+        }
+    } elseif { $scale == "log" } {
+        set loga [expr log10($::ui::filter::freq_min)]
+        set logb [expr log10($::ui::filter::freq_max)]
+        set lrng [expr $logb-$loga]
+        set ft [filter_font $zoom]
+        set prevx 0
+        for { set i [expr int($loga)] } { $i <= $logb } { incr i } {
+            set f0 [expr pow(10, $i)]
+            set draw_txt 1
+
+            for { set k 0 } { $k < 9 } { incr k } {
+                set f [expr $f0*(1+$k)]
+                set x [expr (log10($f)-$loga)/$lrng*$w]
+
+                $c create line $x 0 $x $h -width 1 -fill $gridcolor -tags $t
+
+                # too tight
+                if { $draw_txt == 0 } {
+                    set prevx $x
+                    continue
+                }
+
+                if { $f < 1000 } { set txt "[expr int($f)]" } { set txt "[expr int($f/1000.0)]k" }
+                set tx [expr $x-(2*$zoom)]
+                set tid [$c create text $tx $h -text $txt -anchor se -justify right \
+                    -font $ft -fill $gridcolor -width 0 -tags $t]
+
+                lassign [$c bbox $tid] tx0 ty0 tx1 ty1
+                if { $tx0 < $prevx } {
+                    $c delete $tid
+                    set draw_txt 0
+                }
+
+                set prevx $x
+            }
         }
     }
 }
@@ -249,7 +304,6 @@ proc filter_draw_handle { c t w h zoom color scale x y q bw type } {
     set y0 [expr $y-$r]
     set x1 [expr $x+$r]
     set y1 [expr $y+$r]
-
 
     $c create oval $x0 $y0 $x1 $y1 -fill $color -outline $cc -width 1 -tags $t
 }

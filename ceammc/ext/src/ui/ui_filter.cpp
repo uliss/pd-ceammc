@@ -23,6 +23,8 @@ static t_symbol* SYM_HPF;
 static t_symbol* SYM_PEAK_EQ;
 static t_symbol* SYM_LOWSHELF;
 static t_symbol* SYM_HIGHSHELF;
+static t_symbol* SYM_LIN;
+static t_symbol* SYM_LOG10;
 
 constexpr int MIN_LIN_FREQ = 0;
 constexpr int MAX_LIN_FREQ = 20000;
@@ -128,6 +130,9 @@ void UIFilter::onMouseDrag(t_object* view, const t_pt& pt, long modifiers)
 void UIFilter::calc()
 {
     auto f = calcFrequency();
+
+    UI_DBG << "freq: " << f;
+
     auto Fs = sys_getsr();
     auto w = flt::freq2ang<float>(f, Fs);
 
@@ -154,10 +159,24 @@ void UIFilter::calc()
 
 float UIFilter::calcFrequency() const
 {
-    constexpr float fmin = 0;
-    constexpr float fmax = 20000;
+    if (prop_scale == SYM_LIN) {
+        constexpr float fmin = 0;
+        constexpr float fmax = 20000;
+        return freq_pt_.x * (fmax - fmin) + fmin;
+    } else if (prop_scale == SYM_LOG10) {
+        constexpr float fmin = 10;
+        constexpr float fmax = 20000;
+        constexpr float fnyq = 22100;
 
-    return freq_pt_.x * (fmax - fmin) + fmin;
+        static const float loga = std::log10(fmin);
+        static const float logb = std::log10(fmax);
+        static const float logr = logb - loga;
+
+        const float fp = (freq_pt_.x * logr) + loga;
+        return std::pow(10, fp);
+    } else {
+        UI_ERR << "unknown scale: " << prop_scale;
+    }
 }
 
 float UIFilter::calcQ() const
@@ -214,6 +233,8 @@ void UIFilter::setup()
     SYM_PEAK_EQ = gensym("peak");
     SYM_LOWSHELF = gensym("lowshelf");
     SYM_HIGHSHELF = gensym("highshelf");
+    SYM_LIN = gensym("lin");
+    SYM_LOG10 = gensym("log");
 
     sys_gui(ui_filter_tcl);
 
