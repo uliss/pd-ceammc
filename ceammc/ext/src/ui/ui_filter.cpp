@@ -160,6 +160,9 @@ void UIFilter::calc()
     } else if (prop_type == SYM_BPFQ) {
         auto c = flt::calc_bpfq<double>(w, calcQ());
         setBA(c);
+    } else if (prop_type == SYM_BPF) {
+        auto c = flt::calc_bpf<double>(w, calcQ());
+        setBA(c);
     }
 }
 

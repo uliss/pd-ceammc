@@ -130,6 +130,23 @@ namespace flt {
     }
 
     template <typename T = double>
+    ArrayBA<T> calc_bpf(T w, T q)
+    {
+        const T cosw = std::cos(w);
+        const T sinw = std::sin(w);
+        const T a = sinw / (2 * q);
+
+        const T b0 = a;
+        const T b1 = 0;
+        const T b2 = -a;
+        const T a0 = 1 + a;
+        const T a1 = -2 * cosw;
+        const T a2 = 1 - a;
+
+        return { b0 / a0, b1 / a0, b2 / a0, 1, a1 / a0, a2 / a0 };
+    }
+
+    template <typename T = double>
     ArrayBA<T> calc_peak_eq(T w, T q, T db)
     {
         const T A = std::pow(10, db / 40);
