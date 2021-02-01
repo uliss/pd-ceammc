@@ -272,9 +272,7 @@ proc filter_info_txt { freq q bw type } {
     }
 }
 
-proc filter_draw_handle { c t w h zoom color scale x y q bw type } {
-    set cc [::tk::Darken $color 75]
-
+proc filter_draw_handle { c t w h zoom color txtcolor bdcolor bgcolor scale x y q bw type } {
     # draw Q and bandwidth label
     set pad [expr 2*$zoom]
     set tx  [expr $w/2]
@@ -282,19 +280,18 @@ proc filter_draw_handle { c t w h zoom color scale x y q bw type } {
     set ft [filter_font $zoom]
     set info [filter_info_txt [filter_x_to_herz $x $w $scale] $q $bw $type]
     set tid [$c create text $tx $ty -text $info -anchor n -justify center \
-        -font $ft -fill $cc -width 0 -tags $t]
+        -font $ft -fill $txtcolor -width 0 -tags $t]
 
     # calc bbox for bg rectangle
     lassign [$c bbox $tid] tx0 ty0 tx1 ty1
     set rx0 [expr $tx0-$pad]
     set rx1 [expr $tx1+$pad]
     set ry0 -1
-    set ry1 [expr $ty1+$pad]
+    set ry1 [expr $ty1+$pad-1]
 
     # draw label bg rectangle
-    set rbc [::tk::Darken $color 170]
     set rid [$c create rectangle $rx0 $ry0 $rx1 $ry1 \
-        -outline $cc -fill $rbc -width 1 -tags $t]
+        -outline $bdcolor -fill $bgcolor -width 1 -tags $t]
     $c raise $tid $rid
 
     # draw handle
@@ -306,10 +303,11 @@ proc filter_draw_handle { c t w h zoom color scale x y q bw type } {
     set x1 [expr $x+$r]
     set y1 [expr $y+$r]
 
+    set cc [::tk::Darken $color 75]
     $c create oval $x0 $y0 $x1 $y1 -fill $color -outline $cc -width 1 -tags $t
 }
 
-proc filter_update { cnv id w h zoom gridcolor txtcolor plotcolor knobcolor b0 b1 b2 a1 a2 x y scale type q bw } {
+proc filter_update { cnv id w h zoom bgcolor gridcolor txtcolor plotcolor knobcolor b0 b1 b2 a1 a2 x y scale type q bw } {
     set c [::ceammc::ui::widget_canvas $cnv $id]
     set t [::ceammc::ui::widget_tag $id]
     $c delete $t
@@ -317,7 +315,7 @@ proc filter_update { cnv id w h zoom gridcolor txtcolor plotcolor knobcolor b0 b
     filter_draw_hgrid $c $t $w $h $zoom $gridcolor $txtcolor
     filter_draw_vgrid $c $t $w $h $zoom $gridcolor $txtcolor $scale
     filter_draw_fresp $c $t $w $h $zoom $plotcolor $b0 $b1 $b2 $a1 $a2 $scale
-    filter_draw_handle $c $t $w $h $zoom $knobcolor $scale $x $y $q $bw $type
+    filter_draw_handle $c $t $w $h $zoom $knobcolor $txtcolor $gridcolor $bgcolor $scale $x $y $q $bw $type
 }
 
 }

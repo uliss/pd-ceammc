@@ -63,11 +63,12 @@ void UIFilter::paint()
         bw = 0;
 
     sys_vgui("ui::filter_update %s %lx %d %d %d "
-             "#%6.6x #%6.6x #%6.6x #%6.6x "
+             "#%6.6x #%6.6x #%6.6x #%6.6x #%6.6x "
              "%f %f %f %f %f "
              "%.2f %.2f {%s} {%s} "
              "%.1f %d\n",
         asEBox()->b_canvas_id->s_name, asEBox(), (int)width(), (int)height(), (int)zoom(),
+        rgba_to_hex_int(prop_color_background),
         rgba_to_hex_int(prop_color_grid),
         rgba_to_hex_int(prop_color_label),
         rgba_to_hex_int(prop_color_plot),
