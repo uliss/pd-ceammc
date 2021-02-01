@@ -64,7 +64,7 @@ public:
     AtomList propHslColor() const;
     AtomList propHexColor() const;
 
-    void m_set(const AtomListView& lst);
+    void m_set(const AtomListView& lv);
 
     void loadPreset(size_t idx);
     void storePreset(size_t idx);

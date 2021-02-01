@@ -142,28 +142,28 @@ AtomList UIMatrix::column(size_t col) const
     return res;
 }
 
-void UIMatrix::setColumn(size_t col, const AtomList& lst)
+void UIMatrix::setColumn(size_t col, const AtomListView& lv)
 {
-    size_t t = std::min<size_t>(lst.size(), prop_rows_);
+    size_t t = std::min<size_t>(lv.size(), prop_rows_);
     for (size_t row = 0; row < t; row++)
-        setCell(row, col, lst[row].asFloat() != 0);
+        setCell(row, col, lv[row].asFloat() != 0);
 }
 
-void UIMatrix::setColumn(const AtomList& lst)
+void UIMatrix::setColumn(const AtomListView& lv)
 {
-    if (lst.size() < 2) {
-        UI_ERR << "column index and values are expected: " << lst;
+    if (lv.size() < 2) {
+        UI_ERR << "column index and values are expected: " << lv;
         return;
     }
 
-    int idx = lst[0].asInt(-1);
+    int idx = lv[0].asInt(-1);
 
     if (idx < 0 || idx >= prop_cols_) {
         UI_ERR << "invalid column index: " << idx;
         return;
     }
 
-    setColumn(idx, lst.slice(1));
+    setColumn(idx, lv.subView(1));
 }
 
 AtomList UIMatrix::row(size_t idx) const
@@ -179,42 +179,42 @@ AtomList UIMatrix::row(size_t idx) const
     return res;
 }
 
-void UIMatrix::setRow(size_t row, const AtomList& lst)
+void UIMatrix::setRow(size_t row, const AtomListView& lv)
 {
-    size_t t = std::min<size_t>(lst.size(), prop_cols_);
+    size_t t = std::min<size_t>(lv.size(), prop_cols_);
 
     for (size_t col = 0; col < t; col++)
-        setCell(row, col, lst[col].asFloat() != 0);
+        setCell(row, col, lv[col].asFloat() != 0);
 }
 
-void UIMatrix::setRow(const AtomList& lst)
+void UIMatrix::setRow(const AtomListView& lv)
 {
-    if (lst.size() < 2) {
-        UI_ERR << "row index and values are expected: " << lst;
+    if (lv.size() < 2) {
+        UI_ERR << "row index and values are expected: " << lv;
         return;
     }
 
-    int idx = lst[0].asInt(-1);
+    int idx = lv[0].asInt(-1);
 
     if (idx < 0 || idx >= prop_rows_) {
         UI_ERR << "invalid row index: " << idx;
         return;
     }
 
-    setRow(idx, lst.slice(1));
+    setRow(idx, lv.subView(1));
 }
 
-void UIMatrix::setList(const AtomList& lst)
+void UIMatrix::setList(const AtomListView& lv)
 {
-    if (lst.size() != prop_cols_ * prop_rows_)
+    if (lv.size() != prop_cols_ * prop_rows_)
         UI_DBG << "warning: list size is not equal number of matrix cells";
 
-    const size_t total = std::min<size_t>(lst.size(), prop_cols_ * prop_rows_);
+    const size_t total = std::min<size_t>(lv.size(), prop_cols_ * prop_rows_);
     for (size_t i = 0; i < total; i++) {
         size_t col = i % prop_cols_;
         size_t row = i / prop_cols_;
 
-        setCell(row, col, lst[i].asFloat() != 0);
+        setCell(row, col, lv[i].asFloat() != 0);
     }
 }
 
@@ -545,7 +545,7 @@ void UIMatrix::onBang()
     outputAllCells();
 }
 
-void UIMatrix::onList(const AtomList& lst)
+void UIMatrix::onList(const AtomListView& lst)
 {
     setList(lst);
     outputAllCells();

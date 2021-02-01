@@ -149,7 +149,7 @@ t_symbol* PresetBase::loadSymbol(size_t idx, t_symbol* def)
     return PresetStorage::instance().symbolValueAt(preset_path_, idx, def);
 }
 
-AtomList PresetBase::loadList(size_t idx, const AtomList& def)
+AtomListView PresetBase::loadList(size_t idx, const AtomListView& def)
 {
     return PresetStorage::instance().listValueAt(preset_path_, idx, def);
 }

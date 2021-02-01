@@ -38,12 +38,12 @@ public:
     bool cell(size_t row, size_t column) const;
     void setCell(const AtomList& lst);
     AtomList column(size_t column) const;
-    void setColumn(size_t column, const AtomList& lst);
-    void setColumn(const AtomList& lst);
+    void setColumn(size_t column, const AtomListView& lv);
+    void setColumn(const AtomListView& lv);
     AtomList row(size_t idx) const;
-    void setRow(size_t row, const AtomList& lst);
-    void setRow(const AtomList& lst);
-    void setList(const AtomList& lst);
+    void setRow(size_t row, const AtomListView& lv);
+    void setRow(const AtomListView& lv);
+    void setList(const AtomListView& lv);
     void flipCell(size_t row, size_t column);
     void flipColumn(size_t col);
     void flipRow(size_t col);
@@ -65,7 +65,7 @@ public:
     void outputAllCells();
 
     void onBang();
-    void onList(const AtomList& lst);
+    void onList(const AtomListView& lst);
     void onMouseDown(t_object* view, const t_pt& pt, const t_pt& abs_pt, long modifiers);
     void onMouseDrag(t_object* view, const t_pt& pt, long modifiers);
     void onMouseLeave(t_object*, const t_pt&, long);

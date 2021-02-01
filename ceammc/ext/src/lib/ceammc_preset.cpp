@@ -75,7 +75,7 @@ bool PresetStorage::setListValueAt(t_symbol* name, size_t presetIdx, const AtomL
     return param->setListAt(presetIdx, l);
 }
 
-AtomList PresetStorage::listValueAt(t_symbol* name, size_t presetIdx, const AtomList& def) const
+AtomListView PresetStorage::listValueAt(t_symbol* name, size_t presetIdx, const AtomListView& def) const
 {
     auto it = params_.find(name);
     if (it == params_.end())
@@ -665,12 +665,12 @@ t_symbol* Preset::symbolAt(size_t idx, t_symbol* def) const
     return data_[idx].isSymbol() ? data_[idx].atomValue().asSymbol() : def;
 }
 
-AtomList Preset::listAt(size_t idx, const AtomList& def) const
+AtomListView Preset::listAt(size_t idx, const AtomListView& def) const
 {
     if (idx >= data_.size())
         return def;
 
-    return data_[idx].isList() ? data_[idx].listValue() : def;
+    return data_[idx].isList() ? data_[idx].listValue().view() : def;
 }
 
 AtomList Preset::anyAt(size_t idx, const AtomList& def) const

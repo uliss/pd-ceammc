@@ -31,7 +31,7 @@ public:
 
     t_float loadFloat(size_t idx, t_float def = 0.f);
     t_symbol* loadSymbol(size_t idx, t_symbol* def);
-    AtomList loadList(size_t idx, const AtomList& def = AtomList());
+    AtomListView loadList(size_t idx, const AtomListView& def = {});
     AtomList loadAny(size_t idx, const AtomList& def = AtomList());
 
     void storeFloat(t_float f, size_t idx);

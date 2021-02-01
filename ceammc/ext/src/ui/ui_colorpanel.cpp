@@ -259,21 +259,21 @@ AtomList UIColorPanel::propHexColor() const
     return Atom(gensym(rgba_to_hex(colors_[picked_x_][picked_y_])));
 }
 
-void UIColorPanel::m_set(const AtomListView& lst)
+void UIColorPanel::m_set(const AtomListView& lv)
 {
-    if (lst.size() < 2) {
+    if (lv.size() < 2) {
         UI_ERR << "color indexes expected: X Y";
         return;
     }
 
     t_float x, y;
-    if (!lst[0].getFloat(&x) || !lst[1].getFloat(&y)) {
+    if (!lv[0].getFloat(&x) || !lv[1].getFloat(&y)) {
         UI_ERR << "color indexes excpected: X Y";
         return;
     }
 
     if (!(0 <= x && x < matrix_x_) || !(0 <= y && y < matrix_y_)) {
-        UI_ERR << "invalid indexes: " << lst;
+        UI_ERR << "invalid indexes: " << lv;
         return;
     }
 
@@ -286,8 +286,8 @@ void UIColorPanel::m_set(const AtomListView& lst)
 
 void UIColorPanel::loadPreset(size_t idx)
 {
-    AtomList lst = PresetStorage::instance().listValueAt(presetId(), idx);
-    m_set(lst);
+    auto lv = PresetStorage::instance().listValueAt(presetId(), idx);
+    m_set(lv);
     output();
 }
 

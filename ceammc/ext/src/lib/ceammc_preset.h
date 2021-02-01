@@ -38,7 +38,7 @@ public:
 
     t_float floatAt(size_t idx, t_float def = 0) const;
     t_symbol* symbolAt(size_t idx, t_symbol* def = &s_) const;
-    AtomList listAt(size_t idx, const AtomList& def = AtomList()) const;
+    AtomListView listAt(size_t idx, const AtomListView& def = AtomListView()) const;
     AtomList anyAt(size_t idx, const AtomList& def = AtomList()) const;
 
     bool setFloatAt(size_t idx, t_float v);
@@ -79,7 +79,7 @@ public:
     t_symbol* symbolValueAt(t_symbol* name, size_t presetIdx, t_symbol* def) const;
 
     bool setListValueAt(t_symbol* name, size_t presetIdx, const AtomList& l);
-    AtomList listValueAt(t_symbol* name, size_t presetIdx, const AtomList& def = AtomList()) const;
+    AtomListView listValueAt(t_symbol* name, size_t presetIdx, const AtomListView& def = AtomListView()) const;
 
     bool setAnyValueAt(t_symbol* name, size_t presetIdx, t_symbol* sel, const AtomList& l);
     AtomList anyValueAt(t_symbol* name, size_t presetIdx, const AtomList& def = AtomList()) const;

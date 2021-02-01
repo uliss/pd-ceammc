@@ -764,8 +764,8 @@ void UIEnv::setNamedEnvelope(t_symbol* env, const AtomListView& args)
 
 void UIEnv::loadPreset(size_t idx)
 {
-    AtomList lst = PresetStorage::instance().listValueAt(presetId(), idx);
-    DataTypeEnv env = DataTypeEnv::fromListView(lst);
+    auto lv = PresetStorage::instance().listValueAt(presetId(), idx);
+    DataTypeEnv env = DataTypeEnv::fromListView(lv);
     if (env.empty())
         return;
 
