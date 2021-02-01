@@ -63,12 +63,13 @@ void UIFilter::paint()
     sys_vgui("ui::filter_update %s %lx %d %d %d "
              "#%6.6x "
              "%f %f %f %f %f "
-             "%.2f %.2f {lin} %s "
+             "%.2f %.2f {%s} {%s} "
              "%.1f %d\n",
         asEBox()->b_canvas_id->s_name, asEBox(), (int)width(), (int)height(), (int)zoom(),
         rgba_to_hex_int(prop_color_border),
         b0_, b1_, b2_, a1_, a2_,
-        freq_pt_.x * width(), freq_pt_.y * height(), prop_type->s_name,
+        freq_pt_.x * width(), freq_pt_.y * height(),
+        prop_scale->s_name, prop_type->s_name,
         q, (int)bw);
 }
 
@@ -229,6 +230,13 @@ void UIFilter::setup()
         "notch",
         &UIFilter::prop_type,
         "lpf hpf bpf lowshelf highshelf peak notch",
+        _("Main"));
+
+    obj.addMenuProperty("scale",
+        _("Scale"),
+        "lin",
+        &UIFilter::prop_scale,
+        "lin log log2 rad",
         _("Main"));
 }
 

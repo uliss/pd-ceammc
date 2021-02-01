@@ -24,6 +24,7 @@ class UIFilter : public UIObject {
     t_float b0_, b1_, b2_, a1_, a2_;
     t_pt freq_pt_;
     t_symbol* prop_type;
+    t_symbol* prop_scale;
     t_float peak_q_;
 
 public:
