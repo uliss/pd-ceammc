@@ -167,6 +167,24 @@ namespace flt {
     }
 
     template <typename T = double>
+    ArrayBA<T> calc_highshelf(T w, T db, T slope = 1)
+    {
+        const T A = std::pow(10, db / 40);
+        const T cosw = std::cos(w);
+        const T sinw = std::sin(w);
+        const T a = sinw / 2 * std::sqrt((A + (1 / A)) * ((1 / slope) - 1) + 2);
+
+        const T b0 = A * ((A + 1) + ((A - 1) * cosw) + (2 * std::sqrt(A) * a));
+        const T b1 = -2 * A * ((A - 1) + (A + 1) * cosw);
+        const T b2 = A * ((A + 1) + ((A - 1) * cosw) - (2 * std::sqrt(A) * a));
+        const T a0 = (A + 1) - ((A - 1) * cosw) + (2 * std::sqrt(A) * a);
+        const T a1 = 2 * ((A - 1) - (A + 1) * cosw);
+        const T a2 = (A + 1) - ((A - 1) * cosw) - (2 * std::sqrt(A) * a);
+
+        return { b0 / a0, b1 / a0, b2 / a0, 1, a1 / a0, a2 / a0 };
+    }
+
+    template <typename T = double>
     T bandwidth2q(T bw, T w)
     {
         /**

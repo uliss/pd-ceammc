@@ -15,6 +15,9 @@
 #define UI_FILTER_H
 
 #include "ceammc_ui_object.h"
+
+#include <array>
+
 using namespace ceammc;
 
 class UIFilter : public UIObject {
@@ -36,6 +39,9 @@ public:
     void onMouseDrag(t_object* view, const t_pt& pt, long modifiers);
     void onMouseWheel(const t_pt& pt, long modifiers, float delta);
 
+public:
+    using Array = std::array<double, 6>;
+
 private:
     void calc();
     float calcFrequency() const;
@@ -43,6 +49,7 @@ private:
     float calcDb() const;
     void saveMousePoint(const t_pt& pt);
     void output();
+    void setBA(const Array& ba);
 
 public:
     static void setup();

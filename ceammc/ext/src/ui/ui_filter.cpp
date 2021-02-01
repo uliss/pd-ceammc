@@ -27,6 +27,8 @@ static t_symbol* SYM_HIGHSHELF;
 constexpr int MIN_LIN_FREQ = 0;
 constexpr int MAX_LIN_FREQ = 20000;
 
+static_assert(std::is_same<UIFilter::Array, flt::ArrayBA<double>>::value, "same arrays");
+
 UIFilter::UIFilter()
     : b0_(1)
     , b1_(0)
@@ -130,39 +132,22 @@ void UIFilter::calc()
 
     if (prop_type == SYM_NOTCH) {
         auto c = flt::calc_notch<double>(w, calcQ());
-        b0_ = c[0];
-        b1_ = c[1];
-        b2_ = c[2];
-        a1_ = c[4];
-        a2_ = c[5];
+        setBA(c);
     } else if (prop_type == SYM_LPF) {
         auto c = flt::calc_lpf<double>(w, calcQ());
-        b0_ = c[0];
-        b1_ = c[1];
-        b2_ = c[2];
-        a1_ = c[4];
-        a2_ = c[5];
+        setBA(c);
     } else if (prop_type == SYM_HPF) {
         auto c = flt::calc_hpf<double>(w, calcQ());
-        b0_ = c[0];
-        b1_ = c[1];
-        b2_ = c[2];
-        a1_ = c[4];
-        a2_ = c[5];
+        setBA(c);
     } else if (prop_type == SYM_PEAK_EQ) {
         auto c = flt::calc_peak_eq<double>(w, calcQ(), calcDb());
-        b0_ = c[0];
-        b1_ = c[1];
-        b2_ = c[2];
-        a1_ = c[4];
-        a2_ = c[5];
+        setBA(c);
     } else if (prop_type == SYM_LOWSHELF) {
         auto c = flt::calc_lowshelf<double>(w, calcDb(), 1);
-        b0_ = c[0];
-        b1_ = c[1];
-        b2_ = c[2];
-        a1_ = c[4];
-        a2_ = c[5];
+        setBA(c);
+    } else if (prop_type == SYM_HIGHSHELF) {
+        auto c = flt::calc_highshelf<double>(w, calcDb(), 1);
+        setBA(c);
     }
 }
 
@@ -211,6 +196,15 @@ void UIFilter::output()
     listTo(0, AtomListView(res, 5));
 }
 
+void UIFilter::setBA(const Array& ba)
+{
+    b0_ = ba[0];
+    b1_ = ba[1];
+    b2_ = ba[2];
+    a1_ = ba[4];
+    a2_ = ba[5];
+}
+
 void UIFilter::setup()
 {
     SYM_NOTCH = gensym("notch");
@@ -230,7 +224,12 @@ void UIFilter::setup()
     obj.useMouseEvents(UI_MOUSE_DOWN | UI_MOUSE_UP | UI_MOUSE_DRAG | UI_MOUSE_WHEEL);
     obj.outputMouseEvents(MouseEventsOutput::DEFAULT_OFF);
 
-    obj.addMenuProperty("type", _("Filter Type"), "notch", &UIFilter::prop_type, "lpf hpf bpf lowshelf peak notch", _("Main"));
+    obj.addMenuProperty("type",
+        _("Filter Type"),
+        "notch",
+        &UIFilter::prop_type,
+        "lpf hpf bpf lowshelf highshelf peak notch",
+        _("Main"));
 }
 
 void setup_ui_filter()
