@@ -35,12 +35,19 @@ static t_symbol* PROP_Q;
 static t_symbol* PROP_TYPE;
 static t_symbol* PROP_SCALE;
 
+constexpr int ipow(int num, unsigned int pow)
+{
+    return (pow == 0) ? 1 : num * ipow(num, pow - 1);
+}
+
 constexpr int MIN_LIN_FREQ = 0;
 constexpr int MAX_LIN_FREQ = 20000;
 constexpr float MIN_LOG10_FREQ = 10;
 constexpr float MAX_LOG10_FREQ = 20000;
-constexpr float MIN_Q = 0.5;
-constexpr float MAX_Q = 32;
+constexpr int MAX_Q_POW = 6;
+constexpr int MIN_Q_POW = -MAX_Q_POW;
+constexpr float MAX_Q = ipow(2, MAX_Q_POW);
+constexpr float MIN_Q = 1 / MAX_Q;
 constexpr int MIN_DB = -24;
 constexpr int MAX_DB = 24;
 
@@ -282,7 +289,7 @@ void UIFilter::knobUpdateFreq()
 
 void UIFilter::knobUpdateQ()
 {
-    prop_q = std::pow(2, lin2lin_clip<float>(knob_pt_.y, 0, 1, 6, -6));
+    prop_q = std::pow(2, lin2lin_clip<float>(knob_pt_.y, 0, 1, MAX_Q_POW, MIN_Q_POW));
 }
 
 void UIFilter::knobUpdateGain()
@@ -311,13 +318,13 @@ void UIFilter::freqUpdateKnob()
 
 void UIFilter::qUpdateKnob()
 {
-    auto y = lin2lin_clip<float, -6, 6>(std::log2(prop_q), 1, 0);
+    auto y = lin2lin_clip<float, MIN_Q_POW, MAX_Q_POW>(std::log2(prop_q), 1, 0);
     knob_pt_.y = std::isnormal(y) ? y : 0;
 }
 
 void UIFilter::gainUpdateKnob()
 {
-    knob_pt_.y = lin2lin_clip<float, -24, 24>(prop_gain, 1, 0);
+    knob_pt_.y = lin2lin_clip<float, MIN_DB, MAX_DB>(prop_gain, 1, 0);
 }
 
 void UIFilter::setup()
@@ -358,10 +365,18 @@ void UIFilter::setup()
     obj.addFloatProperty(PROP_FREQ->s_name,
         _("Frequency"), 1000, &UIFilter::prop_freq, _("Main"));
     obj.setPropertyRange(PROP_FREQ->s_name, 0, MAX_LIN_FREQ);
+    obj.setPropertySave(PROP_FREQ->s_name, false);
+
     obj.addFloatProperty(PROP_Q->s_name,
         _("Quality factory"), std::sqrt(0.5), &UIFilter::prop_q, _("Main"));
+    obj.setPropertySave(PROP_Q->s_name, false);
+    obj.setPropertyRange(PROP_Q->s_name, MIN_Q, MAX_Q);
+
     obj.addFloatProperty(PROP_GAIN->s_name,
         _("Gain"), 0, &UIFilter::prop_gain, _("Main"));
+    obj.setPropertyRange(PROP_GAIN->s_name, MIN_DB, MAX_DB);
+    obj.setPropertyUnits(PROP_GAIN->s_name, "db");
+    obj.setPropertySave(PROP_GAIN->s_name, false);
 
     obj.addMenuProperty(PROP_TYPE->s_name,
         _("Filter Type"),
