@@ -170,14 +170,13 @@ void UIFilter::calc()
 
 float UIFilter::calcFrequency() const
 {
-    if (prop_scale == SYM_LIN || prop_scale == SYM_RAD) {
+    if (prop_scale == SYM_LIN) {
         constexpr float fmin = 0;
         constexpr float fmax = 20000;
         return freq_pt_.x * (fmax - fmin) + fmin;
     } else if (prop_scale == SYM_LOG10) {
         constexpr float fmin = 10;
         constexpr float fmax = 20000;
-        constexpr float fnyq = 22100;
 
         static const float loga = std::log10(fmin);
         static const float logb = std::log10(fmax);
@@ -185,6 +184,8 @@ float UIFilter::calcFrequency() const
 
         const float fp = (freq_pt_.x * logr) + loga;
         return std::pow(10, fp);
+    } else if (prop_scale == SYM_RAD) {
+        return freq_pt_.x * 0.5 * sys_getsr();
     } else {
         UI_ERR << "unknown scale: " << prop_scale;
         return 1;

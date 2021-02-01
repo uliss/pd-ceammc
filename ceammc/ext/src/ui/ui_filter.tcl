@@ -136,6 +136,8 @@ proc filter_x_to_omega { x w scale } {
 
         set px  [expr (($lrng*$x)/$w) + $loga]
         set f   [expr pow(10, $px)/$::ui::filter::freq_nyq]
+    } elseif { $scale == "rad" } {
+        set f [expr 1.0*$x/$w]
     }
 
     expr 3.141592653589793 * $f
@@ -277,12 +279,11 @@ proc filter_draw_vgrid { c t w h zoom gridcolor txtcolor scale } {
     }
 }
 
-proc filter_info_txt { freq q bw type } {
-    set freq [expr int($freq)]
+proc filter_info_txt { freq q bw type units } {
     if { $type == "notch" || $type == "peak" || $type == "bpf" || $type == "bpfq" } {
-        return "f=${freq}Hz Q=$q bw=$bw"
+        return "f=${freq}${units} Q=$q bw=$bw"
     } else {
-        return "f=${freq}Hz"
+        return "f=${freq}${units}"
     }
 }
 
@@ -292,7 +293,15 @@ proc filter_draw_handle { c t w h zoom color txtcolor bdcolor bgcolor scale x y 
     set tx  [expr $w/2]
     set ty  [expr $pad]
     set ft [filter_font $zoom]
-    set info [filter_info_txt [filter_x_to_herz $x $w $scale] $q $bw $type]
+    if { $scale == "rad" } {
+        set freq [filter_x_to_omega $x $w $scale]
+        set freq [expr int($freq/3.1415926*100)/100.0]
+        set info [filter_info_txt $freq $q $bw $type "π"]
+    } else {
+        set freq [expr int([filter_x_to_herz $x $w $scale])]
+        set info [filter_info_txt $freq $q $bw $type "Hz"]
+    }
+
     set tid [$c create text $tx $ty -text $info -anchor n -justify center \
         -font $ft -fill $txtcolor -width 0 -tags $t]
 
