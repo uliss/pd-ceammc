@@ -63,12 +63,14 @@ void UIFilter::paint()
         bw = 0;
 
     sys_vgui("ui::filter_update %s %lx %d %d %d "
-             "#%6.6x "
+             "#%6.6x #%6.6x #%6.6x "
              "%f %f %f %f %f "
              "%.2f %.2f {%s} {%s} "
              "%.1f %d\n",
         asEBox()->b_canvas_id->s_name, asEBox(), (int)width(), (int)height(), (int)zoom(),
-        rgba_to_hex_int(prop_color_border),
+        rgba_to_hex_int(prop_color_grid),
+        rgba_to_hex_int(prop_color_plot),
+        rgba_to_hex_int(prop_color_knob),
         b0_, b1_, b2_, a1_, a2_,
         freq_pt_.x * width(), freq_pt_.y * height(),
         prop_scale->s_name, prop_type->s_name,
@@ -130,9 +132,6 @@ void UIFilter::onMouseDrag(t_object* view, const t_pt& pt, long modifiers)
 void UIFilter::calc()
 {
     auto f = calcFrequency();
-
-    UI_DBG << "freq: " << f;
-
     auto Fs = sys_getsr();
     auto w = flt::freq2ang<float>(f, Fs);
 
@@ -176,6 +175,7 @@ float UIFilter::calcFrequency() const
         return std::pow(10, fp);
     } else {
         UI_ERR << "unknown scale: " << prop_scale;
+        return 1;
     }
 }
 
@@ -245,6 +245,10 @@ void UIFilter::setup()
     obj.setDefaultSize(300, 100);
     obj.useMouseEvents(UI_MOUSE_DOWN | UI_MOUSE_UP | UI_MOUSE_DRAG | UI_MOUSE_WHEEL);
     obj.outputMouseEvents(MouseEventsOutput::DEFAULT_OFF);
+
+    obj.addProperty("grid_color", _("Grid Color"), DEFAULT_BORDER_COLOR, &UIFilter::prop_color_grid);
+    obj.addProperty("plot_color", _("Plot Color"), "0 0 0 1", &UIFilter::prop_color_plot);
+    obj.addProperty("knob_color", _("Knob Color"), DEFAULT_ACTIVE_COLOR, &UIFilter::prop_color_knob);
 
     obj.addMenuProperty("type",
         _("Filter Type"),

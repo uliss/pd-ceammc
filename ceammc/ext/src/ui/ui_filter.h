@@ -26,6 +26,9 @@ class UIFilter : public UIObject {
     t_symbol* prop_type;
     t_symbol* prop_scale;
     t_float peak_q_;
+    t_rgba prop_color_grid;
+    t_rgba prop_color_plot;
+    t_rgba prop_color_knob;
 
 public:
     UIFilter();

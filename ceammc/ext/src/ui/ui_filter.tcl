@@ -33,13 +33,9 @@ proc filter_draw_hdb { c t w h zoom labels color } {
 
     foreach l $labels {
         set y [expr ($h/$::ui::filter::db_range)*$l + $h*0.5]
-        set wd 1
-        # highlight zero level
-        if { $l == 0 } {
-            $c create line 0 $y $w $y -fill white -width 3 -tag $t
-        }
-
-        $c create line 0 $y $w $y -fill $color -width $wd -tag $t
+        # accent zero level
+        if { $l == 0 } { set lc [::tk::Darken $color 80] } { set lc $color }
+        $c create line 0 $y $w $y -fill $lc -width 1 -tag $t
 
         set txt [expr -$l]
         if { $l == 0 } { set txt {0db} }
@@ -138,7 +134,6 @@ proc filter_x_to_omega { x w scale } {
 
         set px  [expr (($lrng*$x)/$w) + $loga]
         set f   [expr pow(10, $px)/$::ui::filter::freq_nyq]
-#        puts "x: $x -> $f"
     }
 
     expr 3.141592653589793 * $f
@@ -163,7 +158,7 @@ proc filter_x_to_herz { x w scale } {
     return $f
 }
 
-proc filter_draw_fresp { c t w h color b0 b1 b2 a1 a2 scale } {
+proc filter_draw_fresp { c t w h zoom color b0 b1 b2 a1 a2 scale } {
     set db_hstep [expr $h / $ui::filter::db_range]
 
     set pts {}
@@ -179,7 +174,7 @@ proc filter_draw_fresp { c t w h color b0 b1 b2 a1 a2 scale } {
         lappend pts $x $y
     }
 
-    $c create line $pts -fill $color -width 1 -tags $t
+    $c create line $pts -fill $color -width $zoom -tags $t
 }
 
 proc filter_draw_hgrid { c t w h zoom gridcolor } {
@@ -228,35 +223,38 @@ proc filter_draw_vgrid { c t w h zoom gridcolor scale } {
         set logb [expr log10($::ui::filter::freq_max)]
         set lrng [expr $logb-$loga]
         set ft [filter_font $zoom]
-        set prevx 0
+        set txt_right -1
+        set lcolor0 [::tk::Darken $gridcolor 80]
+        set lcolor1 [::tk::Darken $gridcolor 120]
+
         for { set i [expr int($loga)] } { $i <= $logb } { incr i } {
             set f0 [expr pow(10, $i)]
             set draw_txt 1
 
+            set line_prev_x -1
+
             for { set k 0 } { $k < 9 } { incr k } {
                 set f [expr $f0*(1+$k)]
                 set x [expr (log10($f)-$loga)/$lrng*$w]
+                # too close lines, skipping
+                set too_close [expr $x-$line_prev_x < (2*$zoom)]
+                if { $too_close && $k != 0 } { continue }
+                set line_prev_x $x
 
-                $c create line $x 0 $x $h -width 1 -fill $gridcolor -tags $t
+                # 10^x freq highlight
+                if { $k == 0 } { set lc $lcolor0 } { set lc $lcolor1 }
+                $c create line $x 0 $x $h -width 1 -fill $lc -tags $t
 
-                # too tight
-                if { $draw_txt == 0 } {
-                    set prevx $x
-                    continue
-                }
+                # not enough space to freq label
+                if { $x < $txt_right } { $c delete $tid }
 
                 if { $f < 1000 } { set txt "[expr int($f)]" } { set txt "[expr int($f/1000.0)]k" }
-                set tx [expr $x-(2*$zoom)]
-                set tid [$c create text $tx $h -text $txt -anchor se -justify right \
+                set tx [expr $x+(2*$zoom)]
+                set tid [$c create text $tx $h -text $txt -anchor sw -justify left \
                     -font $ft -fill $gridcolor -width 0 -tags $t]
 
                 lassign [$c bbox $tid] tx0 ty0 tx1 ty1
-                if { $tx0 < $prevx } {
-                    $c delete $tid
-                    set draw_txt 0
-                }
-
-                set prevx $x
+                set txt_right $tx1
             }
         }
     }
@@ -308,15 +306,15 @@ proc filter_draw_handle { c t w h zoom color scale x y q bw type } {
     $c create oval $x0 $y0 $x1 $y1 -fill $color -outline $cc -width 1 -tags $t
 }
 
-proc filter_update { cnv id w h zoom bdcolor b0 b1 b2 a1 a2 x y scale type q bw } {
+proc filter_update { cnv id w h zoom gridcolor plotcolor knobcolor b0 b1 b2 a1 a2 x y scale type q bw } {
     set c [::ceammc::ui::widget_canvas $cnv $id]
     set t [::ceammc::ui::widget_tag $id]
     $c delete $t
 
-    filter_draw_hgrid $c $t $w $h $zoom $bdcolor
-    filter_draw_vgrid $c $t $w $h $zoom $bdcolor $scale
-    filter_draw_fresp $c $t $w $h black $b0 $b1 $b2 $a1 $a2 $scale
-    filter_draw_handle $c $t $w $h $zoom $bdcolor $scale $x $y $q $bw $type
+    filter_draw_hgrid $c $t $w $h $zoom $gridcolor
+    filter_draw_vgrid $c $t $w $h $zoom $gridcolor $scale
+    filter_draw_fresp $c $t $w $h $zoom $plotcolor $b0 $b1 $b2 $a1 $a2 $scale
+    filter_draw_handle $c $t $w $h $zoom $knobcolor $scale $x $y $q $bw $type
 }
 
 }
