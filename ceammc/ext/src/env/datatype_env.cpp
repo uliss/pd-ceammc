@@ -921,27 +921,27 @@ DataTypeEnv& DataTypeEnv::operator=(DataTypeEnv&& env)
     return *this;
 }
 
-DataTypeEnv DataTypeEnv::fromList(const AtomList& lst)
+DataTypeEnv DataTypeEnv::fromListView(const AtomListView& lv)
 {
     DataTypeEnv env;
 
-    if (lst.size() % 7 != 0)
+    if (lv.size() % 7 != 0)
         return env;
 
-    size_t n = lst.size() / 7;
+    size_t n = lv.size() / 7;
     for (size_t i = 0; i < n; i++) {
 
-        if (lst[i * 7].asSymbol() != gensym(SYM_ENVELOPE_POINT)) {
-            LIB_ERR << "invalid preset data: " << lst;
+        if (lv[i * 7].asSymbol() != gensym(SYM_ENVELOPE_POINT)) {
+            LIB_ERR << "invalid preset data: " << lv;
             return env;
         }
 
-        size_t tm = lst[i * 7 + 1].asFloat();
-        float value = lst[i * 7 + 2].asFloat();
-        float curve_data = lst[i * 7 + 3].asFloat();
-        float sigmoid_data = lst[i * 7 + 4].asFloat();
-        CurveType t = static_cast<CurveType>(lst[i * 7 + 5].asInt());
-        bool stop = lst[i * 7 + 6].asFloat();
+        size_t tm = lv[i * 7 + 1].asFloat();
+        float value = lv[i * 7 + 2].asFloat();
+        float curve_data = lv[i * 7 + 3].asFloat();
+        float sigmoid_data = lv[i * 7 + 4].asFloat();
+        CurveType t = static_cast<CurveType>(lv[i * 7 + 5].asInt());
+        bool stop = lv[i * 7 + 6].asFloat();
 
         EnvelopePoint pt(tm, value, stop, t, curve_data);
         pt.sigmoid_skew = sigmoid_data;
