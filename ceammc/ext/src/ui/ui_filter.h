@@ -30,7 +30,6 @@ class UIFilter : public UIObject {
     t_rgba prop_color_knob;
     t_float prop_freq;
     t_float prop_q;
-    t_float prop_peakq;
     t_float prop_gain;
 
 public:
@@ -67,6 +66,8 @@ private:
     void freqUpdateKnob();
     void qUpdateKnob();
     void gainUpdateKnob();
+
+    double nyquistFreq() const { return 0.5 * sys_getsr(); }
 
 public:
     static void setup();

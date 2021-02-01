@@ -41,8 +41,12 @@ constexpr float MIN_LOG10_FREQ = 10;
 constexpr float MAX_LOG10_FREQ = 20000;
 constexpr float MIN_Q = 0.5;
 constexpr float MAX_Q = 32;
+constexpr int MIN_DB = -24;
+constexpr int MAX_DB = 24;
 
 static_assert(std::is_same<UIFilter::Array, flt::ArrayBA<double>>::value, "same arrays");
+
+using namespace ceammc::convert;
 
 UIFilter::UIFilter()
     : b0_(1)
@@ -114,7 +118,7 @@ void UIFilter::onMouseDown(t_object* view, const t_pt& pt, const t_pt& /*abs_pt*
 void UIFilter::onMouseWheel(const t_pt& pt, long /*modifiers*/, float delta)
 {
     if (prop_type == SYM_PEAK_EQ) {
-        prop_peakq = clip<t_float>(prop_peakq * (1 + delta * 0.05), MIN_Q, MAX_Q);
+        prop_q = clip<t_float>(prop_q * (1 + delta * 0.05), MIN_Q, MAX_Q);
         updateCoeffs();
         redraw();
         output();
@@ -211,14 +215,12 @@ float UIFilter::q() const
 {
     if (prop_type == SYM_NOTCH
         || prop_type == SYM_BPFQ
-        || prop_type == SYM_BPF) {
+        || prop_type == SYM_BPF
+        || prop_type == SYM_PEAK_EQ) {
         return prop_q;
-    } else if (prop_type == SYM_LPF) {
+    } else if (prop_type == SYM_LPF
+        || prop_type == SYM_HPF) {
         return std::sqrt(0.5);
-    } else if (prop_type == SYM_HPF) {
-        return std::sqrt(0.5);
-    } else if (prop_type == SYM_PEAK_EQ) {
-        return prop_peakq;
     } else
         return 0.1;
 }
@@ -263,15 +265,15 @@ void UIFilter::setBA(const Array& ba)
 void UIFilter::knobUpdateFreq()
 {
     if (prop_scale == SYM_LIN) {
-        prop_freq = convert::lin2lin<float, 0, 1>(knob_pt_.x, MIN_LIN_FREQ, MAX_LIN_FREQ);
+        prop_freq = lin2lin<float, 0, 1>(knob_pt_.x, MIN_LIN_FREQ, MAX_LIN_FREQ);
     } else if (prop_scale == SYM_LOG10) {
         static const float loga = std::log10(MIN_LOG10_FREQ);
         static const float logb = std::log10(MAX_LOG10_FREQ);
 
-        const float fp = convert::lin2lin_clip<float, 0, 1>(knob_pt_.x, loga, logb);
+        const float fp = lin2lin_clip<float, 0, 1>(knob_pt_.x, loga, logb);
         prop_freq = std::pow(10, fp);
     } else if (prop_scale == SYM_RAD) {
-        prop_freq = convert::lin2lin_clip<float, 0, 1>(knob_pt_.x, 0, 0.5 * sys_getsr());
+        prop_freq = lin2lin_clip<float, 0, 1>(knob_pt_.x, 0, nyquistFreq());
     } else {
         UI_ERR << "unknown scale: " << prop_scale;
         prop_freq = 1;
@@ -280,27 +282,27 @@ void UIFilter::knobUpdateFreq()
 
 void UIFilter::knobUpdateQ()
 {
-    prop_q = std::pow(2, convert::lin2lin_clip<float>(knob_pt_.y, 0, 1, 6, -6));
+    prop_q = std::pow(2, lin2lin_clip<float>(knob_pt_.y, 0, 1, 6, -6));
 }
 
 void UIFilter::knobUpdateGain()
 {
-    prop_gain = convert::lin2lin_clip<float>(knob_pt_.y, 0, 1, 24, -24);
+    prop_gain = lin2lin_clip<float>(knob_pt_.y, 0, 1, MAX_DB, MIN_DB);
 }
 
 void UIFilter::freqUpdateKnob()
 {
     if (prop_scale == SYM_LIN) {
-        knob_pt_.x = convert::lin2lin<float, MIN_LIN_FREQ, MAX_LIN_FREQ>(prop_freq, 0, 1);
+        knob_pt_.x = lin2lin<float, MIN_LIN_FREQ, MAX_LIN_FREQ>(prop_freq, 0, 1);
     } else if (prop_scale == SYM_LOG10) {
         static const float loga = std::log10(MIN_LOG10_FREQ);
         static const float logb = std::log10(MAX_LOG10_FREQ);
 
         const float fp = std::log10(prop_freq);
-        const auto f = convert::lin2lin_clip<float>(fp, loga, logb, 0, 1);
+        const auto f = lin2lin_clip<float>(fp, loga, logb, 0, 1);
         knob_pt_.x = std::isnormal(f) ? f : 0;
     } else if (prop_scale == SYM_RAD) {
-        knob_pt_.x = convert::lin2lin_clip<float>(prop_freq, 0, 0.5 * sys_getsr(), 0, 1);
+        knob_pt_.x = lin2lin_clip<float>(prop_freq, 0, nyquistFreq(), 0, 1);
     } else {
         UI_ERR << "unknown scale: " << prop_scale;
         knob_pt_.x = 0;
@@ -309,13 +311,13 @@ void UIFilter::freqUpdateKnob()
 
 void UIFilter::qUpdateKnob()
 {
-    auto y = convert::lin2lin_clip<float, -6, 6>(std::log2(prop_q), 1, 0);
+    auto y = lin2lin_clip<float, -6, 6>(std::log2(prop_q), 1, 0);
     knob_pt_.y = std::isnormal(y) ? y : 0;
 }
 
 void UIFilter::gainUpdateKnob()
 {
-    knob_pt_.y = convert::lin2lin_clip<float, -24, 24>(prop_gain, 1, 0);
+    knob_pt_.y = lin2lin_clip<float, -24, 24>(prop_gain, 1, 0);
 }
 
 void UIFilter::setup()
@@ -360,16 +362,15 @@ void UIFilter::setup()
         _("Quality factory"), std::sqrt(0.5), &UIFilter::prop_q, _("Main"));
     obj.addFloatProperty(PROP_GAIN->s_name,
         _("Gain"), 0, &UIFilter::prop_gain, _("Main"));
-    obj.addFloatProperty("peakq", _("Peak Q"), 2, &UIFilter::prop_peakq, _("Main"));
 
-    obj.addMenuProperty("type",
+    obj.addMenuProperty(PROP_TYPE->s_name,
         _("Filter Type"),
         "lpf",
         &UIFilter::prop_type,
         "lpf hpf bpf bpfq lowshelf highshelf peak notch",
         _("Main"));
 
-    obj.addMenuProperty("scale",
+    obj.addMenuProperty(PROP_SCALE->s_name,
         _("Scale"),
         "lin",
         &UIFilter::prop_scale,
