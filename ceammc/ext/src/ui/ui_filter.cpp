@@ -60,17 +60,15 @@ void UIFilter::paint()
     const auto f = calcFrequency();
     const auto Fs = sys_getsr();
     const auto w = flt::freq2ang<float>(f, Fs);
-
     const auto q = calcQ();
-    auto bw = clip<t_float, MIN_LIN_FREQ, MAX_LIN_FREQ>(flt::q2bandwidth<float>(q, w) * f);
-    if (!std::isnormal(bw))
-        bw = 0;
+
+    const auto bw = calcBandwidth(q, w, f);
 
     sys_vgui("ui::filter_update %s %lx %d %d %d "
              "#%6.6x #%6.6x #%6.6x #%6.6x #%6.6x "
              "%f %f %f %f %f "
              "%.2f %.2f {%s} {%s} "
-             "%.1f %d\n",
+             "%.1f %f\n",
         asEBox()->b_canvas_id->s_name, asEBox(), (int)width(), (int)height(), (int)zoom(),
         rgba_to_hex_int(prop_color_background),
         rgba_to_hex_int(prop_color_grid),
@@ -80,14 +78,13 @@ void UIFilter::paint()
         b0_, b1_, b2_, a1_, a2_,
         freq_pt_.x * width(), freq_pt_.y * height(),
         prop_scale->s_name, prop_type->s_name,
-        q, (int)bw);
+        q, bw);
 }
 
 void UIFilter::onList(const AtomListView& lv)
 {
-    if (lv.size() != 5) {
+    if (lv.size() != 5)
         return;
-    }
 
     b0_ = lv[0].asFloat();
     b1_ = lv[1].asFloat();
@@ -190,6 +187,17 @@ float UIFilter::calcFrequency() const
         UI_ERR << "unknown scale: " << prop_scale;
         return 1;
     }
+}
+
+float UIFilter::calcBandwidth(float q, float w, float f) const
+{
+    float bw = 0;
+    if (prop_scale == SYM_RAD)
+        bw = flt::q2bandwidth<float>(q, w);
+    else
+        bw = clip<t_float, MIN_LIN_FREQ, MAX_LIN_FREQ>(flt::q2bandwidth<float>(q, w) * f);
+
+    return std::isnormal(bw) ? bw : 0;
 }
 
 float UIFilter::calcQ() const

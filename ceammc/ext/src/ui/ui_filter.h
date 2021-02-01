@@ -51,6 +51,7 @@ private:
     float calcFrequency() const;
     float calcQ() const;
     float calcDb() const;
+    float calcBandwidth(float q, float w, float f) const;
     void saveMousePoint(const t_pt& pt);
     void output();
     void setBA(const Array& ba);

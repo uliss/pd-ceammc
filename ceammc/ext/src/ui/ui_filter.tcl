@@ -294,10 +294,12 @@ proc filter_draw_handle { c t w h zoom color txtcolor bdcolor bgcolor scale x y 
     set ty  [expr $pad]
     set ft [filter_font $zoom]
     if { $scale == "rad" } {
-        set freq [filter_x_to_omega $x $w $scale]
-        set freq [expr int($freq/3.1415926*100)/100.0]
-        set info [filter_info_txt $freq $q $bw $type "π"]
+        set omega [filter_x_to_omega $x $w $scale]
+        set omega [expr int($omega/3.1415926*100)/100.0]
+        set bw    [format "%.2f" $bw]
+        set info [filter_info_txt $omega $q $bw $type "π"]
     } else {
+        set bw   [expr int($bw)]
         set freq [expr int([filter_x_to_herz $x $w $scale])]
         set info [filter_info_txt $freq $q $bw $type "Hz"]
     }
