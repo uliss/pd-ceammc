@@ -1,7 +1,6 @@
 include_directories(${CMAKE_SOURCE_DIR}/src)
 
 set(FLT_SOURCES
-    flt_common.cpp
     flt_freqz.cpp
     flt_freqz_tilde.cpp
 )

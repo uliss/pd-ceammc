@@ -25,22 +25,25 @@ TEST_CASE("flt.c_lpf", "[externals]")
     SECTION("flt_common")
     {
         using namespace ceammc::flt;
-        REQUIRE(freq2ang(0, 1000) == 0);
-        REQUIRE(freq2ang(500, 1000) == Approx(m_pi));
+        REQUIRE(freq2ang<float>(0, 1000) == 0);
+        REQUIRE(freq2ang<float>(500, 1000) == Approx(m_pi));
 
         for (float i = 0.1; i < 10; i++) {
-            REQUIRE(bandwidth2q<double>(q2bandwidth<double>(i, 0), 0) == i);
-            REQUIRE(q2bandwidth<double>(bandwidth2q<double>(i, 0), 0) == i);
+            double w = 0.01;
+            REQUIRE(bandwidth2q<double>(q2bandwidth<double>(i, w), w) == Approx(i));
+            REQUIRE(q2bandwidth<double>(bandwidth2q<double>(i, w), w) == Approx(i));
         }
 
         for (float i = 0.1; i < 10; i++) {
-            REQUIRE(bandwidth2q<double>(q2bandwidth<double>(i, m_pi), m_pi) == Approx(i));
+            double w = m_pi;
+            REQUIRE(bandwidth2q<double>(q2bandwidth<double>(i, w), w) == Approx(i));
             REQUIRE(q2bandwidth<double>(bandwidth2q<double>(i, 1), 1) == Approx(i));
         }
 
         for (float i = 0.1; i < 10; i++) {
-            REQUIRE(bandwidth2q<double>(q2bandwidth<double>(i, m_pi / 2), m_pi / 2) == Approx(i));
-            REQUIRE(q2bandwidth<double>(bandwidth2q<double>(i, m_pi / 2), m_pi / 2) == Approx(i));
+            double w = m_pi / 2;
+            REQUIRE(bandwidth2q<double>(q2bandwidth<double>(i, w), w) == Approx(i));
+            REQUIRE(q2bandwidth<double>(bandwidth2q<double>(i, w), w) == Approx(i));
         }
     }
 

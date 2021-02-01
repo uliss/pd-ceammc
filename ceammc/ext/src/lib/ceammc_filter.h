@@ -39,9 +39,10 @@ namespace flt {
      * @param Fs - samplerate frequency
      * @return angular frequency
      */
-    template <typename T = double>
+    template <typename T>
     T freq2ang(T f0, T Fs)
     {
+        static_assert(std::is_floating_point<T>::value, "Float value expected");
         return m_2pi * f0 / Fs;
     }
 
@@ -78,9 +79,10 @@ namespace flt {
         return Bjw / Ajw;
     }
 
-    template <typename T = double>
+    template <typename T>
     ArrayBA<T> calc_lpf(T w, T q)
     {
+        static_assert(std::is_floating_point<T>::value, "Float value expected");
         const T cosw = std::cos(w);
         const T sinw = std::sin(w);
         const T a = sinw / (2 * q);
@@ -95,9 +97,11 @@ namespace flt {
         return { b0, b1, b2, 1, a1, a2 };
     }
 
-    template <typename T = double>
+    template <typename T>
     ArrayBA<T> calc_hpf(T w, T q)
     {
+        static_assert(std::is_floating_point<T>::value, "Float value expected");
+
         const T cosw = std::cos(w);
         const T sinw = std::sin(w);
         const T a = sinw / (2 * q);
@@ -112,9 +116,11 @@ namespace flt {
         return { b0 / a0, b1 / a0, b2 / a0, 1, a1 / a0, a2 / a0 };
     }
 
-    template <typename T = double>
+    template <typename T>
     ArrayBA<T> calc_bpfq(T w, T q)
     {
+        static_assert(std::is_floating_point<T>::value, "Float value expected");
+
         const T cosw = std::cos(w);
         const T sinw = std::sin(w);
         const T a = sinw / (2 * q);
@@ -129,9 +135,11 @@ namespace flt {
         return { b0 / a0, b1 / a0, b2 / a0, 1, a1 / a0, a2 / a0 };
     }
 
-    template <typename T = double>
+    template <typename T>
     ArrayBA<T> calc_bpf(T w, T q)
     {
+        static_assert(std::is_floating_point<T>::value, "Float value expected");
+
         const T cosw = std::cos(w);
         const T sinw = std::sin(w);
         const T a = sinw / (2 * q);
@@ -146,9 +154,11 @@ namespace flt {
         return { b0 / a0, b1 / a0, b2 / a0, 1, a1 / a0, a2 / a0 };
     }
 
-    template <typename T = double>
+    template <typename T>
     ArrayBA<T> calc_peak_eq(T w, T q, T db)
     {
+        static_assert(std::is_floating_point<T>::value, "Float value expected");
+
         const T A = std::pow(10, db / 40);
         const T cosw = std::cos(w);
         const T sinw = std::sin(w);
@@ -164,9 +174,11 @@ namespace flt {
         return { b0 / a0, b1 / a0, b2 / a0, 1, a1 / a0, a2 / a0 };
     }
 
-    template <typename T = double>
+    template <typename T>
     ArrayBA<T> calc_notch(T w, T q)
     {
+        static_assert(std::is_floating_point<T>::value, "Float value expected");
+
         const T cosw = std::cos(w);
         const T sinw = std::sin(w);
         const T a = sinw / (2 * q);
@@ -181,9 +193,11 @@ namespace flt {
         return { b0 / a0, b1 / a0, b2 / a0, 1, a1 / a0, a2 / a0 };
     }
 
-    template <typename T = double>
+    template <typename T>
     ArrayBA<T> calc_lowshelf(T w, T db, T slope = 1)
     {
+        static_assert(std::is_floating_point<T>::value, "Float value expected");
+
         const T A = std::pow(10, db / 40);
         const T cosw = std::cos(w);
         const T sinw = std::sin(w);
@@ -199,9 +213,11 @@ namespace flt {
         return { b0 / a0, b1 / a0, b2 / a0, 1, a1 / a0, a2 / a0 };
     }
 
-    template <typename T = double>
+    template <typename T>
     ArrayBA<T> calc_highshelf(T w, T db, T slope = 1)
     {
+        static_assert(std::is_floating_point<T>::value, "Float value expected");
+
         const T A = std::pow(10, db / 40);
         const T cosw = std::cos(w);
         const T sinw = std::sin(w);
@@ -217,19 +233,22 @@ namespace flt {
         return { b0 / a0, b1 / a0, b2 / a0, 1, a1 / a0, a2 / a0 };
     }
 
-    template <typename T = double>
+    template <typename T>
     T bandwidth2q(T bw, T w)
     {
+        static_assert(std::is_floating_point<T>::value, "Float value expected");
         /**
          * from 'Audio-EQ-Cookbook' by Robert Bristow-Johnson
          * 1/Q = 2 * sinh(log2/2 * BW * (w/sin(w)))
          */
-        return 1 / (2 * std::sinh(ln2_2 * bw * w / std::sin(w)));
+        const auto frl = (w == 0) ? 1 : (w / std::sin(w));
+        return 1 / (2 * std::sinh(ln2_2 * bw * frl));
     }
 
-    template <typename T = double>
+    template <typename T>
     T q2bandwidth(T q, T w)
     {
+        static_assert(std::is_floating_point<T>::value, "Float value expected");
         /**
          * from 'Audio-EQ-Cookbook' by Robert Bristow-Johnson
          * 1/Q = 2 * sinh(log2/2 * BW * (w/sin(w)))

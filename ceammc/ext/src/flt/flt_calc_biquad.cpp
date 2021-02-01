@@ -13,7 +13,6 @@
  *****************************************************************************/
 #include "flt_calc_biquad.h"
 #include "ceammc_filter.h"
-#include "flt_common.h"
 
 FltCalcBiquad::FltCalcBiquad(const PdArgs& args, const FreqCalcParams& fparam)
     : BaseObject(args)

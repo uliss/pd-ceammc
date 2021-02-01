@@ -75,7 +75,7 @@ void FltFreqZ::onBang()
     floatTo(2, N);
 
     for (size_t i = 0; i < N; i++) {
-        t_float w = flt::freq2ang(i, 2 * N);
+        t_float w = flt::freq2ang<t_float>(i, 2 * N);
         const auto Hw = flt::freqz(w, kb_.begin(), kb_.end(), ka_.begin(), ka_.end());
 
         amp[i] = db ? 20 * std::log(std::abs(Hw)) : std::abs(Hw);
