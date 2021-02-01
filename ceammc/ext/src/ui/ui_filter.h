@@ -64,6 +64,10 @@ private:
     void knobUpdateQ();
     void knobUpdateGain();
 
+    void freqUpdateKnob();
+    void qUpdateKnob();
+    void gainUpdateKnob();
+
 public:
     static void setup();
 };

@@ -33,9 +33,12 @@ static t_symbol* PROP_FREQ;
 static t_symbol* PROP_GAIN;
 static t_symbol* PROP_Q;
 static t_symbol* PROP_TYPE;
+static t_symbol* PROP_SCALE;
 
 constexpr int MIN_LIN_FREQ = 0;
 constexpr int MAX_LIN_FREQ = 20000;
+constexpr float MIN_LOG10_FREQ = 10;
+constexpr float MAX_LOG10_FREQ = 20000;
 constexpr float MIN_Q = 0.5;
 constexpr float MAX_Q = 32;
 
@@ -126,7 +129,23 @@ void UIFilter::onPropChange(t_symbol* name)
         || name == PROP_TYPE)
         updateCoeffs();
 
-    UIObject::onPropChange(name);
+    if (name == PROP_Q) {
+        qUpdateKnob();
+        updateCoeffs();
+    } else if (name == PROP_GAIN) {
+        gainUpdateKnob();
+        updateCoeffs();
+    } else if (name == PROP_FREQ) {
+        freqUpdateKnob();
+        updateCoeffs();
+    } else if (name == PROP_TYPE) {
+        updateCoeffs();
+    } else if (name == PROP_SCALE) {
+        freqUpdateKnob();
+        updateCoeffs();
+    }
+
+    redraw();
 }
 
 void UIFilter::onMouseUp(t_object* /*view*/, const t_pt& pt, long /*modifiers*/)
@@ -244,21 +263,15 @@ void UIFilter::setBA(const Array& ba)
 void UIFilter::knobUpdateFreq()
 {
     if (prop_scale == SYM_LIN) {
-        constexpr float fmin = 0;
-        constexpr float fmax = 20000;
-        prop_freq = knob_pt_.x * (fmax - fmin) + fmin;
+        prop_freq = convert::lin2lin<float, 0, 1>(knob_pt_.x, MIN_LIN_FREQ, MAX_LIN_FREQ);
     } else if (prop_scale == SYM_LOG10) {
-        constexpr float fmin = 10;
-        constexpr float fmax = 20000;
+        static const float loga = std::log10(MIN_LOG10_FREQ);
+        static const float logb = std::log10(MAX_LOG10_FREQ);
 
-        static const float loga = std::log10(fmin);
-        static const float logb = std::log10(fmax);
-        static const float logr = logb - loga;
-
-        const float fp = (knob_pt_.x * logr) + loga;
+        const float fp = convert::lin2lin_clip<float, 0, 1>(knob_pt_.x, loga, logb);
         prop_freq = std::pow(10, fp);
     } else if (prop_scale == SYM_RAD) {
-        prop_freq = knob_pt_.x * 0.5 * sys_getsr();
+        prop_freq = convert::lin2lin_clip<float, 0, 1>(knob_pt_.x, 0, 0.5 * sys_getsr());
     } else {
         UI_ERR << "unknown scale: " << prop_scale;
         prop_freq = 1;
@@ -273,6 +286,36 @@ void UIFilter::knobUpdateQ()
 void UIFilter::knobUpdateGain()
 {
     prop_gain = convert::lin2lin_clip<float>(knob_pt_.y, 0, 1, 24, -24);
+}
+
+void UIFilter::freqUpdateKnob()
+{
+    if (prop_scale == SYM_LIN) {
+        knob_pt_.x = convert::lin2lin<float, MIN_LIN_FREQ, MAX_LIN_FREQ>(prop_freq, 0, 1);
+    } else if (prop_scale == SYM_LOG10) {
+        static const float loga = std::log10(MIN_LOG10_FREQ);
+        static const float logb = std::log10(MAX_LOG10_FREQ);
+
+        const float fp = std::log10(prop_freq);
+        const auto f = convert::lin2lin_clip<float>(fp, loga, logb, 0, 1);
+        knob_pt_.x = std::isnormal(f) ? f : 0;
+    } else if (prop_scale == SYM_RAD) {
+        knob_pt_.x = convert::lin2lin_clip<float>(prop_freq, 0, 0.5 * sys_getsr(), 0, 1);
+    } else {
+        UI_ERR << "unknown scale: " << prop_scale;
+        knob_pt_.x = 0;
+    }
+}
+
+void UIFilter::qUpdateKnob()
+{
+    auto y = convert::lin2lin_clip<float, -6, 6>(std::log2(prop_q), 1, 0);
+    knob_pt_.y = std::isnormal(y) ? y : 0;
+}
+
+void UIFilter::gainUpdateKnob()
+{
+    knob_pt_.y = convert::lin2lin_clip<float, -24, 24>(prop_gain, 1, 0);
 }
 
 void UIFilter::setup()
@@ -293,6 +336,7 @@ void UIFilter::setup()
     PROP_Q = gensym("q");
     PROP_GAIN = gensym("gain");
     PROP_TYPE = gensym("type");
+    PROP_SCALE = gensym("scale");
 
     sys_gui(ui_filter_tcl);
 
