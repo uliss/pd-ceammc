@@ -26,22 +26,24 @@ namespace eval filter {
 
 proc filter_font { zoom } { return "Helvetica [expr $zoom * 7] normal roman" }
 
-proc filter_draw_hdb { c t w h zoom labels color } {
+proc filter_draw_hdb { c t w h zoom labels color txtcolor } {
     set ft [filter_font $zoom]
     set lx [expr $w - (2*$zoom)]
     set t0 [lindex $labels 0]
 
     foreach l $labels {
         set y [expr ($h/$::ui::filter::db_range)*$l + $h*0.5]
-        # accent zero level
+        # accent zero level line
         if { $l == 0 } { set lc [::tk::Darken $color 80] } { set lc $color }
         $c create line 0 $y $w $y -fill $lc -width 1 -tag $t
 
+        # draw db label
         set txt [expr -$l]
         if { $l == 0 } { set txt {0db} }
         set tt [$c create text $lx $y -text $txt -anchor se -justify right \
-            -font $ft -fill $color -width 0 -tags $t]
+            -font $ft -fill $txtcolor -width 0 -tags $t]
 
+        # delete label if not enough space
         if { $l == $t0 } {
             set miny [expr 10*$zoom]
             lassign [$c bbox $tt] tx0 ty0 tx1 ty1
@@ -51,11 +53,11 @@ proc filter_draw_hdb { c t w h zoom labels color } {
 
     # top db value
     $c create text $lx 3 -text [expr int($::ui::filter::db_max)] -anchor ne -justify right \
-        -font $ft -fill $color -width 0 -tags $t
+        -font $ft -fill $txtcolor -width 0 -tags $t
 
     # bottom db value
     $c create text $lx $h -text [expr int($::ui::filter::db_min)] -anchor se -justify right \
-        -font $ft -fill $color -width 0 -tags $t
+        -font $ft -fill $txtcolor -width 0 -tags $t
 }
 
 proc complex_new {real imag} {
@@ -177,7 +179,7 @@ proc filter_draw_fresp { c t w h zoom color b0 b1 b2 a1 a2 scale } {
     $c create line $pts -fill $color -width $zoom -tags $t
 }
 
-proc filter_draw_hgrid { c t w h zoom gridcolor } {
+proc filter_draw_hgrid { c t w h zoom gridcolor txtcolor } {
     set min_line_space 20
     set n_long  [llength $::ui::filter::db_labels_long]
     set n_short [llength $::ui::filter::db_labels_short]
@@ -185,13 +187,13 @@ proc filter_draw_hgrid { c t w h zoom gridcolor } {
     set space_short [expr $h/$n_short]
 
     if { $space_long >= $min_line_space } {
-        filter_draw_hdb $c $t $w $h $zoom $::ui::filter::db_labels_long $gridcolor
+        filter_draw_hdb $c $t $w $h $zoom $::ui::filter::db_labels_long $gridcolor $txtcolor
     } else {
-        filter_draw_hdb $c $t $w $h $zoom $::ui::filter::db_labels_short $gridcolor
+        filter_draw_hdb $c $t $w $h $zoom $::ui::filter::db_labels_short $gridcolor $txtcolor
     }
 }
 
-proc filter_draw_vgrid { c t w h zoom gridcolor scale } {
+proc filter_draw_vgrid { c t w h zoom gridcolor txtcolor scale } {
     if { $scale == "lin" } {
         set min_hstep [expr 30 * $zoom]
         set fstep 5000
@@ -215,7 +217,7 @@ proc filter_draw_vgrid { c t w h zoom gridcolor scale } {
             if { $f < 1000 } { set txt "[expr int($f)]" } { set txt "[expr $f/1000.0]k" }
             set tx [expr $x-(2*$zoom+1)]
             $c create text $tx $h -text $txt -anchor se -justify right \
-                -font $ft -fill $gridcolor -width 0 -tags $t
+                -font $ft -fill $txtcolor -width 0 -tags $t
 
         }
     } elseif { $scale == "log" } {
@@ -248,10 +250,11 @@ proc filter_draw_vgrid { c t w h zoom gridcolor scale } {
                 # not enough space to freq label
                 if { $x < $txt_right } { $c delete $tid }
 
+                # draw label
                 if { $f < 1000 } { set txt "[expr int($f)]" } { set txt "[expr int($f/1000.0)]k" }
                 set tx [expr $x+(2*$zoom)]
                 set tid [$c create text $tx $h -text $txt -anchor sw -justify left \
-                    -font $ft -fill $gridcolor -width 0 -tags $t]
+                    -font $ft -fill $txtcolor -width 0 -tags $t]
 
                 lassign [$c bbox $tid] tx0 ty0 tx1 ty1
                 set txt_right $tx1
@@ -306,13 +309,13 @@ proc filter_draw_handle { c t w h zoom color scale x y q bw type } {
     $c create oval $x0 $y0 $x1 $y1 -fill $color -outline $cc -width 1 -tags $t
 }
 
-proc filter_update { cnv id w h zoom gridcolor plotcolor knobcolor b0 b1 b2 a1 a2 x y scale type q bw } {
+proc filter_update { cnv id w h zoom gridcolor txtcolor plotcolor knobcolor b0 b1 b2 a1 a2 x y scale type q bw } {
     set c [::ceammc::ui::widget_canvas $cnv $id]
     set t [::ceammc::ui::widget_tag $id]
     $c delete $t
 
-    filter_draw_hgrid $c $t $w $h $zoom $gridcolor
-    filter_draw_vgrid $c $t $w $h $zoom $gridcolor $scale
+    filter_draw_hgrid $c $t $w $h $zoom $gridcolor $txtcolor
+    filter_draw_vgrid $c $t $w $h $zoom $gridcolor $txtcolor $scale
     filter_draw_fresp $c $t $w $h $zoom $plotcolor $b0 $b1 $b2 $a1 $a2 $scale
     filter_draw_handle $c $t $w $h $zoom $knobcolor $scale $x $y $q $bw $type
 }
