@@ -17,14 +17,16 @@
 #include "ceammc_ui.h"
 #include "ui_filter.tcl.h"
 
-static t_symbol* SYM_NOTCH;
-static t_symbol* SYM_LPF;
-static t_symbol* SYM_HPF;
-static t_symbol* SYM_PEAK_EQ;
-static t_symbol* SYM_LOWSHELF;
+static t_symbol* SYM_BPF;
+static t_symbol* SYM_BPFQ;
 static t_symbol* SYM_HIGHSHELF;
+static t_symbol* SYM_HPF;
 static t_symbol* SYM_LIN;
 static t_symbol* SYM_LOG10;
+static t_symbol* SYM_LOWSHELF;
+static t_symbol* SYM_LPF;
+static t_symbol* SYM_NOTCH;
+static t_symbol* SYM_PEAK_EQ;
 
 constexpr int MIN_LIN_FREQ = 0;
 constexpr int MAX_LIN_FREQ = 20000;
@@ -155,6 +157,9 @@ void UIFilter::calc()
     } else if (prop_type == SYM_HIGHSHELF) {
         auto c = flt::calc_highshelf<double>(w, calcDb(), 1);
         setBA(c);
+    } else if (prop_type == SYM_BPFQ) {
+        auto c = flt::calc_bpfq<double>(w, calcQ());
+        setBA(c);
     }
 }
 
@@ -183,7 +188,9 @@ float UIFilter::calcFrequency() const
 
 float UIFilter::calcQ() const
 {
-    if (prop_type == SYM_NOTCH) {
+    if (prop_type == SYM_NOTCH
+        || prop_type == SYM_BPFQ
+        || prop_type == SYM_BPF) {
         auto p2 = convert::lin2lin_clip<float>(freq_pt_.y, 0, 1, 6, -6);
         return std::pow(2, p2);
     } else if (prop_type == SYM_LPF) {
@@ -229,14 +236,16 @@ void UIFilter::setBA(const Array& ba)
 
 void UIFilter::setup()
 {
-    SYM_NOTCH = gensym("notch");
-    SYM_LPF = gensym("lpf");
-    SYM_HPF = gensym("hpf");
-    SYM_PEAK_EQ = gensym("peak");
-    SYM_LOWSHELF = gensym("lowshelf");
+    SYM_BPF = gensym("bpf");
+    SYM_BPFQ = gensym("bpfq");
     SYM_HIGHSHELF = gensym("highshelf");
+    SYM_HPF = gensym("hpf");
     SYM_LIN = gensym("lin");
     SYM_LOG10 = gensym("log");
+    SYM_LOWSHELF = gensym("lowshelf");
+    SYM_LPF = gensym("lpf");
+    SYM_NOTCH = gensym("notch");
+    SYM_PEAK_EQ = gensym("peak");
 
     sys_gui(ui_filter_tcl);
 
@@ -257,7 +266,7 @@ void UIFilter::setup()
         _("Filter Type"),
         "notch",
         &UIFilter::prop_type,
-        "lpf hpf bpf lowshelf highshelf peak notch",
+        "lpf hpf bpf bpfq lowshelf highshelf peak notch",
         _("Main"));
 
     obj.addMenuProperty("scale",

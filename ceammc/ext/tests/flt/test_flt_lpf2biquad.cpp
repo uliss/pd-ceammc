@@ -11,7 +11,7 @@
  * contact the author of this file, or the owner of the project in which
  * this file belongs to.
  *****************************************************************************/
-#include "flt_common.h"
+#include "ceammc_filter.h"
 #include "flt_lpf2biquad.h"
 #include "test_external.h"
 
@@ -25,22 +25,22 @@ TEST_CASE("flt.c_lpf", "[externals]")
     SECTION("flt_common")
     {
         using namespace ceammc::flt;
-        REQUIRE(hz2w(0, 1000) == 0);
-        REQUIRE(hz2w(500, 1000) == Approx(m_pi));
+        REQUIRE(freq2ang(0, 1000) == 0);
+        REQUIRE(freq2ang(500, 1000) == Approx(m_pi));
 
         for (float i = 0.1; i < 10; i++) {
-            REQUIRE(bandwidth2q(q2bandwidth(i, 0), 0) == i);
-            REQUIRE(q2bandwidth(bandwidth2q(i, 0), 0) == i);
+            REQUIRE(bandwidth2q<double>(q2bandwidth<double>(i, 0), 0) == i);
+            REQUIRE(q2bandwidth<double>(bandwidth2q<double>(i, 0), 0) == i);
         }
 
         for (float i = 0.1; i < 10; i++) {
-            REQUIRE(bandwidth2q(q2bandwidth(i, m_pi), m_pi) == Approx(i));
-            REQUIRE(q2bandwidth(bandwidth2q(i, 1), 1) == Approx(i));
+            REQUIRE(bandwidth2q<double>(q2bandwidth<double>(i, m_pi), m_pi) == Approx(i));
+            REQUIRE(q2bandwidth<double>(bandwidth2q<double>(i, 1), 1) == Approx(i));
         }
 
         for (float i = 0.1; i < 10; i++) {
-            REQUIRE(bandwidth2q(q2bandwidth(i, m_pi / 2), m_pi / 2) == Approx(i));
-            REQUIRE(q2bandwidth(bandwidth2q(i, m_pi / 2), m_pi / 2) == Approx(i));
+            REQUIRE(bandwidth2q<double>(q2bandwidth<double>(i, m_pi / 2), m_pi / 2) == Approx(i));
+            REQUIRE(q2bandwidth<double>(bandwidth2q<double>(i, m_pi / 2), m_pi / 2) == Approx(i));
         }
     }
 

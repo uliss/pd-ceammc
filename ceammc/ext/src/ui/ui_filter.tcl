@@ -265,7 +265,7 @@ proc filter_draw_vgrid { c t w h zoom gridcolor txtcolor scale } {
 
 proc filter_info_txt { freq q bw type } {
     set freq [expr int($freq)]
-    if { $type == "notch" || $type == "peak"} {
+    if { $type == "notch" || $type == "peak" || $type == "bpf" || $type == "bpfq" } {
         return "f=${freq}Hz Q=$q bw=$bw"
     } else {
         return "f=${freq}Hz"
