@@ -102,7 +102,8 @@ void UIDisplay::init(t_symbol* name, const AtomListView& args, bool usePresets)
 {
     UIObject::init(name, args, usePresets);
 
-    prop_display_type = (name == SYM_UI_DT);
+    if (name == SYM_UI_DT)
+        prop_display_type = 1;
 }
 
 void UIDisplay::paint()
