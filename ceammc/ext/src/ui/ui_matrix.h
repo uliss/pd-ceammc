@@ -4,14 +4,18 @@
 #include "ceammc_ui_object.h"
 
 #include <bitset>
+#include <cstdint>
+#include <limits>
 #include <memory>
 #include <vector>
 
 using namespace ceammc;
 
-static const size_t UI_MAX_MATRIX_SIZE = 64;
-static const size_t UI_BITSET_SIZE = UI_MAX_MATRIX_SIZE * UI_MAX_MATRIX_SIZE;
-typedef std::bitset<UI_BITSET_SIZE> BitMatrix;
+constexpr size_t UI_MAX_MATRIX_SIZE = std::numeric_limits<uint64_t>::digits;
+constexpr size_t UI_BITSET_SIZE = UI_MAX_MATRIX_SIZE * UI_MAX_MATRIX_SIZE;
+
+using BitMatrix = std::bitset<UI_BITSET_SIZE>;
+using BitMatrixRow = std::bitset<UI_MAX_MATRIX_SIZE>;
 
 class UIMatrix : public UIObject {
     BitMatrix matrix_;
@@ -46,9 +50,8 @@ public:
     void flipColumn(size_t col);
     void flipRow(size_t col);
     void flipAll();
-    AtomList asList() const;
 
-    void okSize(t_rect* newrect);
+    void okSize(::t_rect* newrect);
     void paint();
     void create();
     void erase();
@@ -61,6 +64,7 @@ public:
     void outputAllCols();
     void outputAllRows();
     void outputAllCells();
+    void outputAllList();
 
     void onBang();
     void onList(const AtomListView& lst);
@@ -89,7 +93,9 @@ public:
 
     // for tests
     AtomList column(size_t column) const;
-    AtomList row(size_t idx) const;
+    BitMatrixRow row(size_t idx) const;
+    const BitMatrix& matrix() const { return matrix_; }
+    std::string matrixStr() const;
 
 public:
     static void setup();
