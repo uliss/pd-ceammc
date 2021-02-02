@@ -616,6 +616,7 @@ ui.colorpanel		.		.
 ui.display,ui.d,ui.dt		.		-
 ui.dsp~		.		-
 ui.env		.		.
+ui.filter~		~		~
 ui.gain2~,ui.hgain2~,ui.vgain2~		~~		~~
 ui.gain~,ui.hgain~,ui.vgain~		~		~
 ui.icon		.		.

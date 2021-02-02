@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="ui.filter~" type="gui">
+        <title>ui.filter~</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>UI filter object based on biquad filter</description>
+            <license>GPL3 or later</license>
+            <library>ceammc</library>
+            <category view="link">ui</category>
+            <keywords>ui filter biquad</keywords>
+            <since>0.9.3</since>
+            <also>
+                <see view="link">ui.filter</see>
+            </also>
+        </meta>
+        <properties>
+            <property name="@mouse_up" type="int" default="0" enum="0 1">passing a @mouse_up
+            events</property>
+            <property name="@mouse_down" type="int" default="0" enum="0 1">passing a @mouse_down
+            events</property>
+            <property name="@mouse_leave" type="int" default="0" enum="0 1">passing a @mouse_leave
+            events</property>
+            <property name="@mouse_enter" type="int" default="0" enum="0 1">passing a @mouse_enter
+            events</property>
+            <property name="@mouse_move" type="int" default="0" enum="0 1">passing a @mouse_move
+            events</property>
+            <property name="@mouse_drag" type="int" default="0" enum="0 1">passing a @mouse_drag
+            events</property>
+            <property name="@up" type="alias" default="0">alias to @mouse_up 1 property</property>
+            <property name="@down" type="alias" default="0">alias to @mouse_down 1
+            property</property>
+            <property name="@leave" type="alias" default="0">alias to @mouse_leave 1
+            property</property>
+            <property name="@enter" type="alias" default="0">alias to @mouse_enter 1
+            property</property>
+            <property name="@move" type="alias" default="0">alias to @mouse_move 1
+            property</property>
+            <property name="@drag" type="alias" default="0">alias to @mouse_drag 1
+            property</property>
+        </properties>
+        <inlets>
+            <inlet type="audio">
+                <xinfo>input signal</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet type="audio">filtered signal</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[noise~]
+|
+[ui.filter~]
+|
+|
+|
+|
+|
+|
+|
+[ui.hgain~]       [ui.dsp~]
+|\
+[dac~]
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

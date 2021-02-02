@@ -136,6 +136,8 @@ namespace ui {
         void loadPreset(size_t idx);
         void storePreset(size_t idx);
 
+        void m_biquad(const AtomListView& lv);
+
     public:
         using Array = std::array<double, 6>;
 
@@ -227,6 +229,8 @@ namespace ui {
                 &TFilter::prop_scale,
                 "lin log log2 rad",
                 _("Main"));
+
+            obj.addMethod("biquad", &TFilter::m_biquad);
         }
     };
 
@@ -533,6 +537,22 @@ namespace ui {
             bw = clip<t_float, MIN_LIN_FREQ, MAX_LIN_FREQ>(flt::q2bandwidth<float>(q, w) * prop_freq);
 
         return std::isnormal(bw) ? bw : 0;
+    }
+
+    template <class TBase>
+    void TFilter<TBase>::m_biquad(const AtomListView& lv)
+    {
+        if (lv.size() != 5) {
+            UI_ERR << "usage: biquad b0 b1 b2 a1 a2";
+            return;
+        }
+
+        b0_ = lv[0].asFloat(1);
+        b1_ = lv[1].asFloat(0);
+        b2_ = lv[2].asFloat(0);
+        a1_ = lv[3].asFloat(0);
+        a2_ = lv[4].asFloat(0);
+        TBase::redraw();
     }
 }
 }

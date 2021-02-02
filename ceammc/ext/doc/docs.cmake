@@ -615,6 +615,7 @@ set(DOC_FILES
     ui.display
     ui.dsp~
     ui.env
+    ui.filter~
     ui.gain~
     ui.gain2~
     ui.icon

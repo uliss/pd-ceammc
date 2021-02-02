@@ -1941,6 +1941,9 @@
     <entry name="ui.env" descr="envelope editor widget" ref_view="link">
       <xi:include href="ui.env.pddoc" parse="xml"/>
     </entry>
+    <entry name="ui.filter~" descr="UI filter object based on biquad filter" ref_view="link">
+      <xi:include href="ui.filter~.pddoc" parse="xml"/>
+    </entry>
     <entry name="ui.gain2~" descr="UI stereo gain control" ref_view="link">
       <xi:include href="ui.gain2~.pddoc" parse="xml"/>
     </entry>
