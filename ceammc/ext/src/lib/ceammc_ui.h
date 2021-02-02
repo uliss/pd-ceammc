@@ -129,7 +129,7 @@ public:
             ebox_ready(x->asEBox());
             binbuf_free(d);
 
-            x->init(s, AtomList(argc, argv), use_presets);
+            x->init(s, AtomListView(argv, argc), use_presets);
             return x;
         }
 

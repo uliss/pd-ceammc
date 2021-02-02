@@ -167,7 +167,7 @@ void UIArrayView::drawCursor()
     }
 }
 
-void UIArrayView::init(t_symbol* name, const AtomList& args, bool usePresets)
+void UIArrayView::init(t_symbol* name, const AtomListView& args, bool usePresets)
 {
     UIObject::init(name, args, usePresets);
     buffer_.reserve(1000);
@@ -428,15 +428,15 @@ void UIArrayView::m_update()
     render_clock_.delay(RENDER_CHUNK_PERIOD);
 }
 
-void UIArrayView::m_selectSamples(const AtomListView& lst)
+void UIArrayView::m_selectSamples(const AtomListView& lv)
 {
-    if (lst.empty()) {
+    if (lv.empty()) {
         // remove selection
         selection_ = SelectionRange(-1, -1);
         invalidateWaveform();
         redraw();
         return;
-    } else if (lst.size() != 2) {
+    } else if (lv.size() != 2) {
         UI_ERR << "usage: select (BEGIN END) | NONE";
         return;
     }
@@ -445,8 +445,8 @@ void UIArrayView::m_selectSamples(const AtomListView& lst)
         return;
 
     const long N = array_.size();
-    auto& atom_from = lst[0];
-    auto& atom_to = lst[1];
+    auto& atom_from = lv[0];
+    auto& atom_to = lv[1];
 
     long from = -1;
     long to = -1;
@@ -959,9 +959,9 @@ AtomList UIArrayView::labelTopRight() const
     return Atom(gensym(str_label_top_right_.c_str()));
 }
 
-void UIArrayView::setLabelTopRight(const AtomListView& lst)
+void UIArrayView::setLabelTopRight(const AtomListView& lv)
 {
-    auto str = to_string(lst);
+    auto str = to_string(lv);
     if (str != str_label_top_right_) {
         str_label_top_right_ = str;
         bg_layer_.invalidate();
@@ -974,9 +974,9 @@ AtomList UIArrayView::labelBottomRight() const
     return Atom(gensym(str_label_bottom_right_.c_str()));
 }
 
-void UIArrayView::setLabelBottomRight(const AtomListView& lst)
+void UIArrayView::setLabelBottomRight(const AtomListView& lv)
 {
-    auto str = to_string(lst);
+    auto str = to_string(lv);
     if (str != str_label_bottom_right_) {
         str_label_bottom_right_ = str;
         bg_layer_.invalidate();
@@ -989,9 +989,9 @@ AtomList UIArrayView::propArray() const
     return Atom(prop_array);
 }
 
-void UIArrayView::propSetArray(const AtomListView& lst)
+void UIArrayView::propSetArray(const AtomListView& lv)
 {
-    t_symbol* name = lst.symbolAt(0, 0);
+    t_symbol* name = lv.symbolAt(0, 0);
     if (!name)
         return;
 

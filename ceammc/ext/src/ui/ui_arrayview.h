@@ -108,7 +108,7 @@ public:
     void drawLabels();
     void drawCursor();
 
-    void init(t_symbol* name, const AtomList& args, bool usePresets);
+    void init(t_symbol* name, const AtomListView& args, bool usePresets);
     void okSize(t_rect* newrect);
     void onPropChange(t_symbol* prop_name);
     void onZoom(t_float z);
@@ -123,7 +123,7 @@ public:
     void onFloat(t_float f);
 
     void m_update();
-    void m_selectSamples(const AtomListView& lst);
+    void m_selectSamples(const AtomListView& lv);
 
 private:
     bool quickRender();
@@ -181,12 +181,12 @@ public:
     t_float sizeMs() const;
 
     AtomList labelTopRight() const;
-    void setLabelTopRight(const AtomListView& lst);
+    void setLabelTopRight(const AtomListView& lv);
     AtomList labelBottomRight() const;
-    void setLabelBottomRight(const AtomListView& lst);
+    void setLabelBottomRight(const AtomListView& lv);
 
     AtomList propArray() const;
-    void propSetArray(const AtomListView& lst);
+    void propSetArray(const AtomListView& lv);
 
 public:
     static void setup();

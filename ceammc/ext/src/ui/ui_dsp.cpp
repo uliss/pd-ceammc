@@ -13,7 +13,7 @@ UIDsp::UIDsp()
     initPopupMenu("main", { { _("Audio Settings"), [this](const t_pt&) { openSoundSettingsDialog(); } } });
 }
 
-void UIDsp::init(t_symbol* name, const AtomList& args, bool)
+void UIDsp::init(t_symbol* name, const AtomListView& args, bool)
 {
     UIObject::init(name, args, false);
     bindTo(SYM_PD);

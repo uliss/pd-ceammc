@@ -38,7 +38,7 @@ public:
 
 class UIObjectImpl {
     t_ebox* const box_;
-    AtomList args_;
+    AtomListView args_;
     std::unordered_set<t_symbol*> binded_signals_;
     std::vector<UILayer*> layer_stack_;
     t_symbol* name_;
@@ -77,10 +77,10 @@ public:
     bool isPatchLoading() const;
     bool isPatchEdited() const;
     bool isVisible() const;
-    const AtomList& args() const { return args_; }
-    AtomList& args() { return args_; }
+    const AtomListView& args() const { return args_; }
+    AtomListView& args() { return args_; }
 
-    void init(t_symbol* name, const AtomList& args, bool usePresets);
+    void init(t_symbol* name, const AtomListView& args, bool usePresets);
     t_symbol* name() const;
     t_symbol* presetId();
 

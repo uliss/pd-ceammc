@@ -166,7 +166,7 @@ bool UIObjectImpl::isVisible() const
     return box_ && ebox_isvisible(box_);
 }
 
-void UIObjectImpl::init(t_symbol* name, const AtomList& args, bool usePresets)
+void UIObjectImpl::init(t_symbol* name, const AtomListView& args, bool usePresets)
 {
     name_ = name;
     args_ = args;
@@ -398,7 +398,7 @@ void UIObjectImpl::atomTo(size_t n, const Atom& a)
     outlet_list(outlets_[n], &s_list, 1, const_cast<t_atom*>(&a.atom()));
 }
 
-void UIObjectImpl::listTo(size_t n, const AtomListView &lst)
+void UIObjectImpl::listTo(size_t n, const AtomListView& lst)
 {
     if (n >= outlets_.size())
         return;
