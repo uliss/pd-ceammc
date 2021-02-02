@@ -224,10 +224,10 @@ void UITab::onMouseLeave(t_object* view, const t_pt& pt, long modifiers)
 void UITab::loadPreset(size_t idx)
 {
     if (prop_toggle_mode) {
-        AtomList l = PresetStorage::instance().listValueAt(presetId(), idx);
-        const size_t t = std::min<size_t>(items_.size(), l.size());
+        auto lv = PresetStorage::instance().listValueAt(presetId(), idx);
+        const size_t t = std::min<size_t>(items_.size(), lv.size());
         for (size_t i = 0; i < t; i++) {
-            bool v = l[i].asFloat(0);
+            bool v = lv[i].asFloat(0);
             toggles_.set(i, v);
         }
     } else {
@@ -256,12 +256,12 @@ AtomList UITab::propItems() const
     return items_;
 }
 
-void UITab::propSetItems(const AtomListView& lst)
+void UITab::propSetItems(const AtomListView& lv)
 {
-    items_ = lst;
-    layouts_.reserve(lst.size());
+    items_ = lv;
+    layouts_.reserve(lv.size());
 
-    for (size_t i = layouts_.size(); i < lst.size(); i++) {
+    for (size_t i = layouts_.size(); i < lv.size(); i++) {
         layouts_.push_back(std::make_shared<UITextLayout>(&asEBox()->b_font, prop_color_text,
             ETEXT_CENTER, ETEXT_JCENTER, ETEXT_NOWRAP));
     }
@@ -303,14 +303,14 @@ t_float UITab::propCurrent() const
         return item_selected_;
 }
 
-void UITab::m_select(const AtomListView& lst)
+void UITab::m_select(const AtomListView& lv)
 {
-    if (lst.empty()) {
+    if (lv.empty()) {
         UI_ERR << "select: index or symbol expected";
         return;
     }
 
-    const Atom& a = lst[0];
+    const Atom& a = lv[0];
     if (a.isFloat()) {
         int idx = a.asFloat();
         if (idx < 0 || idx >= items_.size()) {
@@ -337,29 +337,29 @@ void UITab::m_clear()
     redrawBGLayer();
 }
 
-void UITab::m_append(const AtomListView& lst)
+void UITab::m_append(const AtomListView& lv)
 {
-    if (lst.empty())
+    if (lv.empty())
         return;
 
-    propSetItems(items_ + lst);
+    propSetItems(items_ + lv);
     resize(width(), height());
 }
 
-void UITab::m_set_item(const AtomListView& lst)
+void UITab::m_set_item(const AtomListView& lv)
 {
-    if (lst.size() != 2) {
+    if (lv.size() != 2) {
         UI_ERR << "usage: set_item INDEX VALUE";
         return;
     }
 
-    int idx = lst[0].asFloat(-1);
+    int idx = lv[0].asFloat(-1);
     if (idx < 0 || idx >= items_.size()) {
-        UI_ERR << "set_item: invalid index " << lst[0];
+        UI_ERR << "set_item: invalid index " << lv[0];
         return;
     }
 
-    items_[idx] = lst[1];
+    items_[idx] = lv[1];
     syncLabels();
     redrawBGLayer();
 }
@@ -378,20 +378,20 @@ void UITab::m_delete(t_float f)
     redrawBGLayer();
 }
 
-void UITab::m_insert(const AtomListView& lst)
+void UITab::m_insert(const AtomListView& lv)
 {
-    if (lst.size() != 2) {
+    if (lv.size() != 2) {
         UI_ERR << "usage: insert INDEX VALUE";
         return;
     }
 
-    int idx = lst[0].asFloat(-1);
+    int idx = lv[0].asFloat(-1);
     if (idx < 0) {
-        UI_ERR << "insert: invalid index " << lst[0];
+        UI_ERR << "insert: invalid index " << lv[0];
         return;
     }
 
-    if (!items_.insert(idx, lst[1])) {
+    if (!items_.insert(idx, lv[1])) {
         UI_ERR << "insert error: " << idx;
         return;
     }
