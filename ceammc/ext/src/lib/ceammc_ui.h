@@ -129,6 +129,9 @@ public:
             ebox_ready(x->asEBox());
             binbuf_free(d);
 
+            using InitMethodType = void (UI::*)(t_symbol*, const AtomListView&, bool);
+            InitMethodType minit = &UI::init;
+
             x->init(s, AtomListView(argv, argc), use_presets);
             return x;
         }
@@ -973,11 +976,19 @@ public:
 
     static void onList(UI* z, t_symbol* s, int argc, t_atom* argv)
     {
+        // compile time method type check
+        using ListMethodType = void (UI::*)(const AtomListView&);
+        ListMethodType mptr = &UI::onList;
+
         z->onList(AtomListView(argv, argc));
     }
 
     static void onAny(UI* z, t_symbol* s, int argc, t_atom* argv)
     {
+        // compile time method type check
+        using AnyMethodType = void (UI::*)(t_symbol*, const AtomListView&);
+        AnyMethodType mptr = &UI::onAny;
+
         z->onAny(s, AtomListView(argv, argc));
     }
 
