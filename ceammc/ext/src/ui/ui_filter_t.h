@@ -84,7 +84,43 @@ namespace ui {
         t_float prop_gain { 0 };
 
     public:
-        TFilter() { }
+        TFilter()
+        {
+            TBase::initPopupMenu(
+                "main", {
+                            { _("Low Pass"), [this](const t_pt&) {
+                                 TBase::setProperty(PROP_TYPE, AtomList(SYM_LPF));
+                             } },
+                            { _("High Pass"), [this](const t_pt&) {
+                                 TBase::setProperty(PROP_TYPE, AtomList(SYM_HPF));
+                             } },
+                            { _("Band Pass"), [this](const t_pt&) {
+                                 TBase::setProperty(PROP_TYPE, AtomList(SYM_BPF));
+                             } },
+                            { _("Peak Eq"), [this](const t_pt&) {
+                                 TBase::setProperty(PROP_TYPE, AtomList(SYM_PEAK_EQ));
+                             } },
+                            { _("Low Shelf"), [this](const t_pt&) {
+                                 TBase::setProperty(PROP_TYPE, AtomList(SYM_LOWSHELF));
+                             } },
+                            { _("High Shelf"), [this](const t_pt&) {
+                                 TBase::setProperty(PROP_TYPE, AtomList(SYM_HIGHSHELF));
+                             } },
+                            { _("Notch"), [this](const t_pt&) {
+                                 TBase::setProperty(PROP_TYPE, AtomList(SYM_NOTCH));
+                             } },
+                            { "", { /* separator */ } },
+                            { _("Log"), [this](const t_pt&) {
+                                 TBase::setProperty(PROP_SCALE, AtomList(SYM_LOG10));
+                             } },
+                            { _("Linear Hz"), [this](const t_pt&) {
+                                 TBase::setProperty(PROP_SCALE, AtomList(SYM_LIN));
+                             } },
+                            { _("Linear Rad"), [this](const t_pt&) {
+                                 TBase::setProperty(PROP_SCALE, AtomList(SYM_RAD));
+                             } },
+                        });
+        }
 
         bool okSize(t_rect* newrect);
         void paint();
@@ -148,6 +184,7 @@ namespace ui {
             obj.hideLabelInner();
 
             obj.usePresets();
+            obj.usePopup();
             obj.setDefaultSize(300, 100);
             obj.useMouseEvents(UI_MOUSE_DOWN | UI_MOUSE_UP | UI_MOUSE_DRAG | UI_MOUSE_WHEEL);
             obj.outputMouseEvents(MouseEventsOutput::DEFAULT_OFF);
