@@ -75,7 +75,7 @@ void FltCalcBiquad::m_bandwidth(t_symbol* s, const AtomListView& lv)
     if (!checkArgs(lv, ARG_FLOAT, s))
         return;
 
-    auto q = flt::bandwidth2q(lv[0].asT<t_float>(), angleFreq());
+    auto q = flt::bandwidth2q<t_float>(lv[0].asT<t_float>(), angleFreq());
     if (!q_->setValue(q))
         return;
 }
