@@ -55,14 +55,14 @@ public:
 
     void paint();
     void okSize(::t_rect* newrect);
-    void init(t_symbol* name, const AtomList& args, bool usePresets);
+    void init(t_symbol* name, const AtomListView& args, bool usePresets);
 
     void onBang();
     void onFloat(t_float f);
     void onSymbol(t_symbol* s);
-    void onList(const AtomListView& lst);
-    void onAny(t_symbol* s, const AtomListView& lst);
-    void onProperty(t_symbol* s, const AtomListView& lst);
+    void onList(const AtomListView& lv);
+    void onAny(t_symbol* s, const AtomListView& lv);
+    void onProperty(t_symbol* s, const AtomListView& lv);
 
     void onDblClick(t_object* view, const t_pt& pt, long modifiers);
 
@@ -83,7 +83,7 @@ public:
 private:
     void redrawAll();
     void appendFloatToText(t_float f);
-    void setMessage(UIMessageType t, t_symbol* s, const AtomListView& lst);
+    void setMessage(UIMessageType t, t_symbol* s, const AtomListView& lv);
 };
 
 void setup_ui_display();

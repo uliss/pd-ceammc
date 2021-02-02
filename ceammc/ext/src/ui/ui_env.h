@@ -81,14 +81,14 @@ public:
     int findNearestNode(float x, float y) const;
     bool selectNode(size_t idx);
 
-    void m_adsr(const AtomListView& lst);
-    void m_asr(const AtomListView& lst);
-    void m_ar(const AtomListView& lst);
-    void m_eadsr(const AtomListView& lst);
-    void m_easr(const AtomListView& lst);
-    void m_ear(const AtomListView& lst);
+    void m_adsr(const AtomListView& lv);
+    void m_asr(const AtomListView& lv);
+    void m_ar(const AtomListView& lv);
+    void m_eadsr(const AtomListView& lv);
+    void m_easr(const AtomListView& lv);
+    void m_ear(const AtomListView& lv);
 
-    void setNamedEnvelope(t_symbol* env, const AtomListView& args);
+    void setNamedEnvelope(t_symbol* env, const AtomListView& lv);
 
     void loadPreset(size_t idx);
     void storePreset(size_t idx);

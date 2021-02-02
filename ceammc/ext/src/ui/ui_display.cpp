@@ -98,7 +98,7 @@ UIDisplay::~UIDisplay()
     pd_unbind(asPd(), rid_);
 }
 
-void UIDisplay::init(t_symbol* name, const AtomList& args, bool usePresets)
+void UIDisplay::init(t_symbol* name, const AtomListView& args, bool usePresets)
 {
     UIObject::init(name, args, usePresets);
 
@@ -192,14 +192,14 @@ void UIDisplay::onSymbol(t_symbol* s)
     update();
 }
 
-void UIDisplay::setMessage(UIMessageType t, t_symbol* s, const AtomListView& lst)
+void UIDisplay::setMessage(UIMessageType t, t_symbol* s, const AtomListView& lv)
 {
     type_ = t;
     msg_type_ = s;
 
     msg_txt_.clear();
 
-    for (auto& a : lst) {
+    for (auto& a : lv) {
         // space separator
         if (!msg_txt_.empty())
             msg_txt_ += ' ';
@@ -215,38 +215,38 @@ void UIDisplay::setMessage(UIMessageType t, t_symbol* s, const AtomListView& lst
     }
 }
 
-void UIDisplay::onList(const AtomListView& lst)
+void UIDisplay::onList(const AtomListView& lv)
 {
     AutoGuard g(auto_);
 
-    if (lst.isData())
-        setMessage(MSG_TYPE_DATA, gensym(lst[0].asData()->typeName().c_str()), lst);
+    if (lv.isData())
+        setMessage(MSG_TYPE_DATA, gensym(lv[0].asData()->typeName().c_str()), lv);
     else
-        setMessage(MSG_TYPE_LIST, &s_list, lst);
+        setMessage(MSG_TYPE_LIST, &s_list, lv);
 
     flash();
     update();
 }
 
-void UIDisplay::onAny(t_symbol* s, const AtomListView& lst)
+void UIDisplay::onAny(t_symbol* s, const AtomListView& lv)
 {
     AutoGuard g(auto_);
 
-    setMessage(Atom(s).isProperty() ? MSG_TYPE_PROPERTY : MSG_TYPE_ANY, s, lst);
+    setMessage(Atom(s).isProperty() ? MSG_TYPE_PROPERTY : MSG_TYPE_ANY, s, lv);
 
     flash();
     update();
 }
 
-void UIDisplay::onProperty(t_symbol* s, const AtomListView& lst)
+void UIDisplay::onProperty(t_symbol* s, const AtomListView& lv)
 {
     if (s == SYM_PROP_SIZE && asEBox()->b_resize) {
-        eclass_attr_setter(asPdObject(), SYM_SIZE, lst.size(), lst.toPdData());
+        eclass_attr_setter(asPdObject(), SYM_SIZE, lv.size(), lv.toPdData());
         return;
     }
 
     AutoGuard g(auto_);
-    setMessage(MSG_TYPE_PROPERTY, s, lst);
+    setMessage(MSG_TYPE_PROPERTY, s, lv);
     flash();
     update();
 }

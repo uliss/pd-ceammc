@@ -190,17 +190,17 @@ AtomList UIColorPanel::propMatrixSize() const
     return AtomList(Atom(matrix_x_), Atom(matrix_y_));
 }
 
-void UIColorPanel::propSetMatrixSize(const AtomListView& lst)
+void UIColorPanel::propSetMatrixSize(const AtomListView& lv)
 {
-    bool ok = lst.size() > 1 && lst[0].isFloat() && lst[1].isFloat();
+    bool ok = lv.size() > 1 && lv[0].isFloat() && lv[1].isFloat();
 
     if (!ok) {
         UI_ERR << "matrix size expected: X Y";
         return;
     }
 
-    matrix_x_ = clip<int>(lst[0].asFloat(), 1, 32);
-    matrix_y_ = clip<int>(lst[1].asFloat(), 1, 32);
+    matrix_x_ = clip<int>(lv[0].asFloat(), 1, 32);
+    matrix_y_ = clip<int>(lv[1].asFloat(), 1, 32);
     colors_.assign(matrix_x_, RgbCol(matrix_y_, t_rgba()));
 
     t_rect r = rect();
