@@ -4,10 +4,9 @@
 #define ui_toggle_tcl_h_
 const char* ui_toggle_tcl = 
 "namespace eval ::ui {\n"
-"proc toggle_tag {id} { return  ${id}_#all }\n"
 "proc toggle_update {cnv id w h zoom color state} {\n"
 "    set c [::ceammc::ui::widget_canvas $cnv $id]\n"
-"    set t [toggle_tag $id]\n"
+"    set t [::ceammc::ui::widget_tag $id]\n"
 "    $c delete $t\n"
 "    if { $state == 0 } { return }\n"
 "    set xpad [expr floor($w * 0.1)]\n"

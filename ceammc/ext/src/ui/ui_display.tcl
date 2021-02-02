@@ -1,6 +1,5 @@
 namespace eval ::ui {
 
-proc display_tag {id} { return  ${id}_#all }
 proc display_type_font { zoom } { return "Helvetica [expr $zoom * 11] normal roman" }
 
 proc display_single_line { type } {
@@ -24,7 +23,7 @@ proc display_txt_height { c tag } {
 
 proc display_update {cnv id rid w h zoom hauto bdcolor bgcolor txtcolor typecolor showtype type txt} {
     set c [::ceammc::ui::widget_canvas $cnv $id]
-    set t [display_tag $id]
+    set t [::ceammc::ui::widget_tag $id]
     $c delete $t
 
     # set bg

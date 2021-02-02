@@ -1,10 +1,8 @@
 namespace eval ::ui {
 
-proc button_tag {id} { return  ${id}_#all }
-
 proc button_update {cnv id w h zoom c0 c1 state} {
     set c [::ceammc::ui::widget_canvas $cnv $id]
-    set t [button_tag $id]
+    set t [::ceammc::ui::widget_tag $id]
     $c delete $t
 
     if { $state == 1 } { set color $c1 } { set color $c0 }

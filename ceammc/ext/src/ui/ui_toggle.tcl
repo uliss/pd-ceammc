@@ -1,10 +1,8 @@
 namespace eval ::ui {
 
-proc toggle_tag {id} { return  ${id}_#all }
-
 proc toggle_update {cnv id w h zoom color state} {
     set c [::ceammc::ui::widget_canvas $cnv $id]
-    set t [toggle_tag $id]
+    set t [::ceammc::ui::widget_tag $id]
     $c delete $t
 
     if { $state == 0 } { return }

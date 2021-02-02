@@ -4,7 +4,6 @@
 #define ui_number_tilde_tcl_h_
 const char* ui_number_tilde_tcl = 
 "namespace eval ui {\n"
-"proc number_tag {id} { return \"${id}_#all\" }\n"
 "proc number_font { zoom } { return \"Helvetica [expr $zoom * 11] normal roman\" }\n"
 "proc number_draw_box {c tag w h zoom bdcolor acolor tcolor value} {\n"
 "    set x [expr $h * 0.7]\n"
@@ -21,9 +20,9 @@ const char* ui_number_tilde_tcl =
 "}\n"
 "proc number_update {cnv id w h zoom bdcolor acolor tcolor value} {\n"
 "    set c [::ceammc::ui::widget_canvas $cnv $id]\n"
-"    set tag [number_tag $id]\n"
-"    $c delete $tag\n"
-"    number_draw_box $c $tag $w $h $zoom $bdcolor $acolor $tcolor $value\n"
+"    set t [::ceammc::ui::widget_tag $id]\n"
+"    $c delete $t\n"
+"    number_draw_box $c $t $w $h $zoom $bdcolor $acolor $tcolor $value\n"
 "}\n"
 "}\n"
 ;

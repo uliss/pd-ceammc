@@ -4,7 +4,6 @@
 #define ui_display_tcl_h_
 const char* ui_display_tcl = 
 "namespace eval ::ui {\n"
-"proc display_tag {id} { return  ${id}_#all }\n"
 "proc display_type_font { zoom } { return \"Helvetica [expr $zoom * 11] normal roman\" }\n"
 "proc display_single_line { type } {\n"
 "    switch $type {\n"
@@ -24,7 +23,7 @@ const char* ui_display_tcl =
 "}\n"
 "proc display_update {cnv id rid w h zoom hauto bdcolor bgcolor txtcolor typecolor showtype type txt} {\n"
 "    set c [::ceammc::ui::widget_canvas $cnv $id]\n"
-"    set t [display_tag $id]\n"
+"    set t [::ceammc::ui::widget_tag $id]\n"
 "    $c delete $t\n"
 "    # set bg\n"
 "    ::ceammc::ui::widget_bg $cnv $id $bgcolor\n"

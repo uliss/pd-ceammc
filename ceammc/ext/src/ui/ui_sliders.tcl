@@ -1,17 +1,17 @@
 namespace eval ::ui {
 
-proc sliders_tag {id} { return  ${id}_#all }
 proc sliders_label_font {zoom} { return "Helvetica [expr 8*$zoom] normal roman" }
 
 proc sliders_delete {cnv id} {
     set c [::ceammc::ui::widget_canvas $cnv $id]
-    $c delete [sliders_tag $id]
+    set t [::ceammc::ui::widget_tag $id]
+    $c delete $t
 }
 
 proc sliders_draw_labels {cnv id w h zoom lmin lmax} {
     set c [::ceammc::ui::widget_canvas $cnv $id]
     set f [sliders_label_font $zoom]
-    set t [sliders_tag $id]
+    set t [::ceammc::ui::widget_tag $id]
     set off [expr 3 * $zoom]
     set x0 $off
     set y0 $off
@@ -64,8 +64,9 @@ proc sliders_draw_hbar {c t w h zoom color i bar} {
 
 proc sliders_draw_bars {cnv id w h zoom bar_color active_color vert active args} {
     set c [::ceammc::ui::widget_canvas $cnv $id]
-    set t [sliders_tag $id]
+    set t [::ceammc::ui::widget_tag $id]
     set n [llength $args]
+
     if { $n == 0 } { return }
     if { $vert == 0 } {
         set bar_w [expr $w / ($n+0.0)]

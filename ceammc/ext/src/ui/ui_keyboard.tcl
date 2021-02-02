@@ -6,7 +6,7 @@ proc keyboard_is_black_key {k} {
 }
 
 proc keyboard_delete_keys {id cnv} {
-    $cnv delete ${id}_#all
+    $cnv delete [::ceammc::ui::widget_tag $id]
 }
 
 proc keyboard_create_white_keys {id cnv numkeys wkcolor acolor bdcolor w h bits} {
@@ -19,7 +19,7 @@ proc keyboard_create_white_keys {id cnv numkeys wkcolor acolor bdcolor w h bits}
         if {$bit == 1} { set fc $acolor } { set fc $wkcolor }
 
         $cnv create rectangle [expr $wi*$w] 0 [expr ($wi+1)*$w] $wh -fill $fc -outline $bdcolor \
-            -tags ${id}_#all
+            -tags [::ceammc::ui::widget_tag $id]
 
         incr wi
     }
@@ -37,7 +37,7 @@ proc keyboard_create_white_vkeys {id cnv numkeys numwkeys wkcolor acolor bdcolor
 
         set ki [expr ($numwkeys-($hi+1))]
         $cnv create rectangle 0 [expr $ki*$wh] $ww [expr ($ki+1)*$wh] -fill $fc -outline $bdcolor \
-            -tags ${id}_#all
+            -tags [::ceammc::ui::widget_tag $id]
 
         incr hi
     }
@@ -59,7 +59,7 @@ proc keyboard_create_black_keys {id cnv numkeys bkcolor acolor bdcolor w h bits}
             if {$bit == 1} { set fc $acolor } { set fc $bkcolor }
 
             $cnv create rectangle $x 0 [expr $x + $koff1] $bh -fill $fc -outline $bdcolor \
-                -tags ${id}_#all
+                -tags [::ceammc::ui::widget_tag $id]
         }
     }
 }
@@ -82,7 +82,7 @@ proc keyboard_create_black_vkeys {id cnv numkeys numwkeys bkcolor acolor bdcolor
             if {$bit == 1} { set fc $acolor } { set fc $bkcolor }
 
             $cnv create rectangle 0 $y0 $bw $y1 -fill $fc -outline $bdcolor \
-                -tags ${id}_#all
+                -tags [::ceammc::ui::widget_tag $id]
         }
     }
 }

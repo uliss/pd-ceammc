@@ -1,6 +1,5 @@
 namespace eval ui {
 
-proc number_tag {id} { return "${id}_#all" }
 proc number_font { zoom } { return "Helvetica [expr $zoom * 11] normal roman" }
 
 proc number_draw_box {c tag w h zoom bdcolor acolor tcolor value} {
@@ -22,8 +21,8 @@ proc number_draw_box {c tag w h zoom bdcolor acolor tcolor value} {
 
 proc number_update {cnv id w h zoom bdcolor acolor tcolor value} {
     set c [::ceammc::ui::widget_canvas $cnv $id]
-    set tag [number_tag $id]
-    $c delete $tag
-    number_draw_box $c $tag $w $h $zoom $bdcolor $acolor $tcolor $value
+    set t [::ceammc::ui::widget_tag $id]
+    $c delete $t
+    number_draw_box $c $t $w $h $zoom $bdcolor $acolor $tcolor $value
 }
 }
