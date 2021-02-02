@@ -312,10 +312,6 @@ void UIObjectImpl::read(const std::string& fname)
 {
 }
 
-void UIObjectImpl::m_custom(t_symbol* sel, const AtomList& lst)
-{
-}
-
 void UIObjectImpl::onBang()
 {
 }
@@ -328,11 +324,11 @@ void UIObjectImpl::onSymbol(t_symbol* s)
 {
 }
 
-void UIObjectImpl::onList(const AtomListView& lst)
+void UIObjectImpl::onList(const AtomListView& lv)
 {
 }
 
-void UIObjectImpl::onAny(t_symbol* s, const AtomListView& lst)
+void UIObjectImpl::onAny(t_symbol* s, const AtomListView& lv)
 {
     LIB_ERR << "unknown message: " << s->s_name;
 }
@@ -349,7 +345,7 @@ void UIObjectImpl::onData(const AbstractData* ptr)
 {
 }
 
-void UIObjectImpl::onProperty(t_symbol* s, const AtomList& lst)
+void UIObjectImpl::onProperty(t_symbol* s, const AtomListView& lv)
 {
 }
 
@@ -398,12 +394,12 @@ void UIObjectImpl::atomTo(size_t n, const Atom& a)
     outlet_list(outlets_[n], &s_list, 1, const_cast<t_atom*>(&a.atom()));
 }
 
-void UIObjectImpl::listTo(size_t n, const AtomListView& lst)
+void UIObjectImpl::listTo(size_t n, const AtomListView& lv)
 {
     if (n >= outlets_.size())
         return;
 
-    outlet_list(outlets_[n], &s_list, lst.size(), lst.toPdData());
+    outlet_list(outlets_[n], &s_list, lv.size(), lv.toPdData());
 }
 
 void UIObjectImpl::anyTo(size_t n, t_symbol* s, const AtomListView& args)
@@ -449,18 +445,18 @@ void UIObjectImpl::send(t_symbol* s)
         pd_symbol(send, s);
 }
 
-void UIObjectImpl::send(const AtomListView& lst)
+void UIObjectImpl::send(const AtomListView& lv)
 {
     t_pd* send = ebox_getsender(box_);
     if (send)
-        pd_list(send, &s_list, lst.size(), lst.toPdData());
+        pd_list(send, &s_list, lv.size(), lv.toPdData());
 }
 
-void UIObjectImpl::send(t_symbol* s, const AtomListView& lst)
+void UIObjectImpl::send(t_symbol* s, const AtomListView& lv)
 {
     t_pd* send = ebox_getsender(box_);
     if (send)
-        pd_typedmess(send, s, lst.size(), lst.toPdData());
+        pd_typedmess(send, s, lv.size(), lv.toPdData());
 }
 
 t_rect UIObjectImpl::rect() const

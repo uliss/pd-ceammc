@@ -114,17 +114,15 @@ public:
     void write(const std::string& fname);
     void read(const std::string& fname);
 
-    void m_custom(t_symbol* sel, const AtomList& lst);
-
     void onBang();
     void onFloat(t_float f);
     void onSymbol(t_symbol* s);
     void onList(const AtomListView& lst);
-    void onAny(t_symbol* s, const AtomListView& lst);
+    void onAny(t_symbol* s, const AtomListView& lv);
     void onKey(int k, long modifiers);
     void onKeyFilter(int k, long modifiers);
     void onData(const AbstractData* ptr);
-    void onProperty(t_symbol* s, const AtomList& lst);
+    void onProperty(t_symbol* s, const AtomListView& lv);
 
     void loadPreset(size_t idx);
     void storePreset(size_t idx);
@@ -134,15 +132,15 @@ public:
     void floatTo(size_t n, t_float f);
     void symbolTo(size_t n, t_symbol* s);
     void atomTo(size_t n, const Atom& a);
-    void listTo(size_t n, const AtomListView& lst);
+    void listTo(size_t n, const AtomListView& lv);
     void anyTo(size_t n, t_symbol* s, const AtomListView& args);
     void anyTo(size_t n, const AtomListView& msg);
 
     void sendBang();
     void send(t_float f);
     void send(t_symbol* s);
-    void send(const AtomListView& lst);
-    void send(t_symbol* s, const AtomListView& lst);
+    void send(const AtomListView& lv);
+    void send(t_symbol* s, const AtomListView& lv);
 
     t_rect rect() const;
     float x() const;

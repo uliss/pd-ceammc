@@ -1190,7 +1190,11 @@ public:
 
     static void listPropRedirector(UI* z, t_symbol* s, int argc, t_atom* argv)
     {
-        z->onProperty(s, AtomListView(argv, argc));
+        // compile time method type check
+        using PropertyMethodType = void (UI::*)(t_symbol*, const AtomListView&);
+        PropertyMethodType mptr = &UI::onProperty;
+
+        (z->*mptr)(s, AtomListView(argv, argc));
     }
 
 public:
