@@ -90,7 +90,7 @@ TlCue::~TlCue()
     deleteLine();
 }
 
-void TlCue::init(t_symbol* name, const AtomList& args, bool usePresets)
+void TlCue::init(t_symbol* name, const AtomListView& args, bool usePresets)
 {
     UIObject::init(name, args, usePresets);
     auto ebox = asEBox();
