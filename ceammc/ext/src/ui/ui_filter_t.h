@@ -44,6 +44,7 @@ namespace ui {
     static t_symbol* PROP_Q;
     static t_symbol* PROP_TYPE;
     static t_symbol* PROP_SCALE;
+    static bool sym_init_done = false;
 
     constexpr int ipow(int num, unsigned int pow)
     {
@@ -163,23 +164,26 @@ namespace ui {
         template <class Factory>
         static void setup(Factory& obj)
         {
-            SYM_BPF = gensym("bpf");
-            SYM_BPFQ = gensym("bpfq");
-            SYM_HIGHSHELF = gensym("highshelf");
-            SYM_HPF = gensym("hpf");
-            SYM_LIN = gensym("lin");
-            SYM_LOG10 = gensym("log");
-            SYM_LOWSHELF = gensym("lowshelf");
-            SYM_LPF = gensym("lpf");
-            SYM_NOTCH = gensym("notch");
-            SYM_PEAK_EQ = gensym("peak");
-            SYM_RAD = gensym("rad");
+            if (!sym_init_done) {
+                SYM_BPF = gensym("bpf");
+                SYM_BPFQ = gensym("bpfq");
+                SYM_HIGHSHELF = gensym("highshelf");
+                SYM_HPF = gensym("hpf");
+                SYM_LIN = gensym("lin");
+                SYM_LOG10 = gensym("log");
+                SYM_LOWSHELF = gensym("lowshelf");
+                SYM_LPF = gensym("lpf");
+                SYM_NOTCH = gensym("notch");
+                SYM_PEAK_EQ = gensym("peak");
+                SYM_RAD = gensym("rad");
 
-            PROP_FREQ = gensym("freq");
-            PROP_Q = gensym("q");
-            PROP_GAIN = gensym("gain");
-            PROP_TYPE = gensym("type");
-            PROP_SCALE = gensym("scale");
+                PROP_FREQ = gensym("freq");
+                PROP_Q = gensym("q");
+                PROP_GAIN = gensym("gain");
+                PROP_TYPE = gensym("type");
+                PROP_SCALE = gensym("scale");
+                sym_init_done = true;
+            }
 
             obj.hideLabelInner();
 
