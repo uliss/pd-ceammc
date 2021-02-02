@@ -16,6 +16,12 @@
                 <see view="link">ui.filter</see>
             </also>
         </meta>
+        <mouse>
+            <event editmode="false" type="left-click">jump to coord under mouse pointer</event>
+            <event editmode="false" type="right-click">opens popup menu for filter type selection</event>
+            <event editmode="false" type="drag">change frequency and Q/gain value</event>
+            <event editmode="false" type="wheel">only for peakEq filter: change Q-factor</event>
+        </mouse>
         <methods>
             <method name="biquad">set biquad coefficients (but not changes current filter properties)
             <param type="list" name="b0 b1 b2 a1 a2" required="true">coefficients</param></method>
@@ -94,11 +100,11 @@
         <example>
             <pdascii>
 <![CDATA[
-[noise~] [ui.tab lin log rad]
-|        |
-|        [@scale $2(
-|        |
-[ui.filter~]
+[noise~] [ui.tab lin log rad] [ui.tab lpf hpf bpf bpfq @size 160 15]
+|        |                    |
+|        [@scale $2(          [@type $2(
+|        |                    |
+[ui.filter~                   ]
 |
 |
 |
