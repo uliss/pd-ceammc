@@ -227,7 +227,7 @@ namespace ui {
                 _("Scale"),
                 "lin",
                 &TFilter::prop_scale,
-                "lin log log2 rad",
+                "lin log rad",
                 _("Main"));
 
             obj.addMethod("biquad", &TFilter::m_biquad);
