@@ -32,7 +32,7 @@ UIRadio::UIRadio()
             { _("random"), [this](const t_pt&) { if(prop_checklist_mode_) m_random(); } } });
 }
 
-void UIRadio::init(t_symbol* name, const AtomList& args, bool usePresets)
+void UIRadio::init(t_symbol* name, const AtomListView& args, bool usePresets)
 {
     static t_symbol* SYM_VRD = gensym("ui.vrd");
     static t_symbol* SYM_VRD_MULT = gensym("ui.vrd*");

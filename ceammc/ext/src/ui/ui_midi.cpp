@@ -40,7 +40,7 @@ UIMidi::UIMidi()
     createOutlet();
 }
 
-void UIMidi::init(t_symbol* name, const AtomList& args, bool usePresets)
+void UIMidi::init(t_symbol* name, const AtomListView& args, bool usePresets)
 {
     UIObject::init(name, args, usePresets);
 

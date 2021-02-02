@@ -179,7 +179,7 @@ void UIKeyboard::paint()
     }
 }
 
-void UIKeyboard::init(t_symbol* name, const AtomList& args, bool usePresets)
+void UIKeyboard::init(t_symbol* name, const AtomListView& args, bool usePresets)
 {
     UIObject::init(name, args, usePresets);
 

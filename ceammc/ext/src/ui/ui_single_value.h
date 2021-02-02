@@ -46,7 +46,7 @@ public:
     t_float value() const;
     void setValue(t_float v);
 
-    void init(t_symbol* name, const AtomList& args, bool usePresets);
+    void init(t_symbol* name, const AtomListView& args, bool usePresets);
     void onPropChange(t_symbol* prop_name);
     void output();
     void setDrawParams(t_edrawparams* params);

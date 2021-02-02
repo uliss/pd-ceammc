@@ -30,7 +30,7 @@ UITab::UITab()
     createOutlet();
 }
 
-void UITab::init(t_symbol* name, const AtomList& args, bool usePresets)
+void UITab::init(t_symbol* name, const AtomListView& args, bool usePresets)
 {
     UIObject::init(name, args, usePresets);
     AtomList items;

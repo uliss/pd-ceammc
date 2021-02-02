@@ -116,7 +116,7 @@ void UISingleValue::setValue(t_float v)
     }
 }
 
-void UISingleValue::init(t_symbol* name, const AtomList& args, bool usePresets)
+void UISingleValue::init(t_symbol* name, const AtomListView& args, bool usePresets)
 {
     UIObject::init(name, args, usePresets);
 

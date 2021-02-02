@@ -145,7 +145,7 @@ void UIGain::output()
     send(dbValue());
 }
 
-void UIGain::init(t_symbol* name, const AtomList& args, bool usePresets)
+void UIGain::init(t_symbol* name, const AtomListView& args, bool usePresets)
 {
     UIDspObject::init(name, args, usePresets);
 

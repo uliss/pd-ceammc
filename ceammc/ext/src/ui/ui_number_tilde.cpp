@@ -31,7 +31,7 @@ UINumberTilde::UINumberTilde()
 {
 }
 
-void UINumberTilde::init(t_symbol* name, const AtomList& args, bool usePresets)
+void UINumberTilde::init(t_symbol* name, const AtomListView &args, bool usePresets)
 {
     UIDspObject::init(name, args, usePresets);
     dspSetup(1, 1);

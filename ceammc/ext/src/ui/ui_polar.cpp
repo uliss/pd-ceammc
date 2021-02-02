@@ -233,14 +233,14 @@ void UIPolar::onBang()
     output();
 }
 
-void UIPolar::onList(const AtomListView& lst)
+void UIPolar::onList(const AtomListView& lv)
 {
-    if (lst.size() != 2) {
+    if (lv.size() != 2) {
         UI_ERR << "invalid list given: RAD ANG expected";
         return;
     }
 
-    if (!setRealValue(lst))
+    if (!setRealValue(lv))
         return;
 
     redrawKnob();
@@ -281,40 +281,40 @@ void UIPolar::onMouseUp(t_object* view, const t_pt& pt, long modifiers)
     output();
 }
 
-void UIPolar::m_set(const AtomListView& lst)
+void UIPolar::m_set(const AtomListView& lv)
 {
-    if (lst.size() != 2) {
+    if (lv.size() != 2) {
         UI_ERR << "invalid list given: set RAD ANG expected";
         return;
     }
 
-    if (!setRealValue(lst))
+    if (!setRealValue(lv))
         return;
 
     redrawKnob();
 }
 
-void UIPolar::m_polar(const AtomListView& lst)
+void UIPolar::m_polar(const AtomListView& lv)
 {
-    if (lst.size() != 2) {
+    if (lv.size() != 2) {
         UI_ERR << "invalid list given: polar RAD ANG expected";
         return;
     }
 
-    m_set(lst);
+    m_set(lv);
     output();
 }
 
-void UIPolar::m_cartesian(const AtomListView& lst)
+void UIPolar::m_cartesian(const AtomListView& lv)
 {
-    if (lst.size() != 2) {
+    if (lv.size() != 2) {
         UI_ERR << "invalid list given: polar RAD ANG expected";
         return;
     }
 
     t_float x, y;
-    if (!lst[0].getFloat(&x) || !lst[1].getFloat(&y)) {
-        UI_ERR << "invalid value: " << lst;
+    if (!lv[0].getFloat(&x) || !lv[1].getFloat(&y)) {
+        UI_ERR << "invalid value: " << lv;
         return;
     }
 

@@ -89,7 +89,7 @@ UIMatrix::UIMatrix()
              } } });
 }
 
-void UIMatrix::init(t_symbol* name, const AtomList& args, bool usePresets)
+void UIMatrix::init(t_symbol* name, const AtomListView& args, bool usePresets)
 {
     UIObject::init(name, args, usePresets);
 

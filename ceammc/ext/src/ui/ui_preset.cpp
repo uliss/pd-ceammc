@@ -33,7 +33,7 @@ UIPreset::UIPreset()
             { _("duplicate all"), [this](const t_pt&) { m_duplicate(AtomList()); } } });
 }
 
-void UIPreset::init(t_symbol* name, const AtomList& args, bool usePresets)
+void UIPreset::init(t_symbol* name, const AtomListView& args, bool usePresets)
 {
     UIObject::init(name, args, usePresets);
     bindTo(PresetStorage::instance().SYM_PRESET_UPDATE_INDEX_ADDR);

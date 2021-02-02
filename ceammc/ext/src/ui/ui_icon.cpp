@@ -85,7 +85,7 @@ UIIcon::~UIIcon()
     eimage_destroy(image_);
 }
 
-void UIIcon::init(t_symbol* name, const AtomList& args, bool usePresets)
+void UIIcon::init(t_symbol* name, const AtomListView& args, bool usePresets)
 {
     UIObject::init(name, args, usePresets);
     asEBox()->b_boxparameters.d_hideiolets = true;
@@ -255,20 +255,20 @@ void UIIcon::onMouseUp(t_object* view, const t_pt& pt, long modifiers)
     }
 }
 
-void UIIcon::m_set(const AtomListView& lst)
+void UIIcon::m_set(const AtomListView& lv)
 {
-    if (lst.empty()) {
+    if (lv.empty()) {
         UI_ERR << "icon name expected";
         return;
     }
 
-    if (!lst[0].isSymbol()) {
-        UI_ERR << "icon name expected: " << lst;
+    if (!lv[0].isSymbol()) {
+        UI_ERR << "icon name expected: " << lv;
         UI_ERR << "   available values are: " << allIcons();
         return;
     }
 
-    t_symbol* name = lst[0].asSymbol();
+    t_symbol* name = lv[0].asSymbol();
     icon_entry* entry = iconByName(name);
 
     if (entry == current_)

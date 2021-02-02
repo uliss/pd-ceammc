@@ -37,7 +37,7 @@ class UIMatrix : public UIObject {
 public:
     UIMatrix();
 
-    void init(t_symbol* name, const AtomList& args, bool usePresets);
+    void init(t_symbol* name, const AtomListView& args, bool usePresets);
 
     bool cell(size_t row, size_t column) const;
     void setCell(const AtomList& lst);

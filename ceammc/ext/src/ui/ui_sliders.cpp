@@ -75,7 +75,7 @@ UISliders::UISliders()
                   outputList(); } } });
 }
 
-void UISliders::init(t_symbol* name, const AtomList& args, bool usePresets)
+void UISliders::init(t_symbol* name, const AtomListView& args, bool usePresets)
 {
     UIObject::init(name, args, usePresets);
 

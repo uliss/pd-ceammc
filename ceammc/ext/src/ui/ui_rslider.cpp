@@ -34,7 +34,7 @@ UIRSlider::UIRSlider()
     createOutlet();
 }
 
-void UIRSlider::init(t_symbol* name, const AtomList& args, bool usePresets)
+void UIRSlider::init(t_symbol* name, const AtomListView& args, bool usePresets)
 {
     UIObject::init(name, args, usePresets);
     vlow_ = convert::lin2lin<t_float>(0.4, 0, 1, prop_min, prop_max);

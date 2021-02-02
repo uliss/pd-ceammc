@@ -71,7 +71,7 @@ public:
     void okSize(t_rect* newrect);
     void paint();
 
-    void init(t_symbol* name, const AtomList& args, bool usePresets);
+    void init(t_symbol* name, const AtomListView& args, bool usePresets);
     void dspProcess(t_sample** ins, long n_ins, t_sample** outs, long n_outs, long sampleframes);
     void onPropChange(t_symbol* prop_name);
 
