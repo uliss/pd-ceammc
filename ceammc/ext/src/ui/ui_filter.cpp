@@ -15,6 +15,11 @@
 #include "ceammc_ui.h"
 #include "ui_filter.tcl.h"
 
+UIFilter::UIFilter()
+{
+    createOutlet();
+}
+
 void setup_ui_filter()
 {
     sys_vgui(ui_filter_tcl);

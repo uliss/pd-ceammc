@@ -69,7 +69,10 @@ namespace ui {
                 || std::is_same<TBase, UIDspObject>::value,
             "");
 
+    protected:
         t_float b0_ { 1 }, b1_ { 0 }, b2_ { 0 }, a1_ { 0 }, a2_ { 0 };
+
+    private:
         t_pt knob_pt_;
         t_symbol* prop_type { SYM_LPF };
         t_symbol* prop_scale { SYM_LIN };
@@ -81,7 +84,7 @@ namespace ui {
         t_float prop_gain { 0 };
 
     public:
-        TFilter();
+        TFilter() { }
 
         bool okSize(t_rect* newrect);
         void paint();
@@ -292,12 +295,6 @@ namespace ui {
         using namespace convert;
 
         knob_pt_.y = lin2lin_clip<float, MIN_DB, MAX_DB>(prop_gain, 1, 0);
-    }
-
-    template <class TBase>
-    TFilter<TBase>::TFilter()
-    {
-        TBase::createOutlet();
     }
 
     template <class TBase>

@@ -20,7 +20,7 @@ using namespace ceammc;
 
 class UIFilter : public ui::TFilter<UIObject> {
 public:
-    UIFilter() { }
+    UIFilter();
 };
 
 void setup_ui_filter();
