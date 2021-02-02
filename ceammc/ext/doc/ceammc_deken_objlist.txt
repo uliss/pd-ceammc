@@ -883,6 +883,8 @@ ui.matrix	The matrix of toggles has you.
 ui.menu	Dropdown menu
 ui.meter~	Shows peak and rms signal level
 ui.m~	Shows peak and rms signal level
+ui.hm~	Shows peak and rms signal level
+ui.vm~	Shows peak and rms signal level
 ui.midi	incoming MIDI message viewport
 ui.mouse_filter	filter mouse events from ui objects
 ui.mf	filter mouse events from ui objects

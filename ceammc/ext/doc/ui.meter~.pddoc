@@ -15,12 +15,15 @@
             <since>0.1</since>
             <aliases>
                 <alias view="link">ui.m~</alias>
+                <alias view="link">ui.hm~</alias>
+                <alias view="link">ui.vm~</alias>
             </aliases>
         </meta>
         <info>
             <par>Each cell has 3db range. Full meter range is 39 db.</par>
             <par>Values &gt; -3db are red, range [-12, -3) db is hot, [-21, -12) db is warm, [-30,
             -21) is tepid, values &lt; 30 are cold.</par>
+            <par>[ui.hm~] - alias for horizontal meter</par>
         </info>
         <methods>
             <!-- common-->
@@ -77,7 +80,7 @@
 |              |
 |              [dbtorms]
 |              |
-[ui.meter~]    [ui.meter~]
+[ui.meter~]    [ui.hm~]
 |
 |
 |
@@ -87,7 +90,6 @@
 |
 |
 [ui.display]
-
 ]]>
             </pdascii>
         </example>

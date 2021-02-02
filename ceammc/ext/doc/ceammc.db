@@ -627,7 +627,7 @@ ui.label		-		-
 ui.link		-		-
 ui.matrix		.		.
 ui.menu		.		.
-ui.meter~,ui.m~		~		.
+ui.meter~,ui.m~,ui.hm~,ui.vm~		~		.
 ui.midi		.		.
 ui.mouse_filter,ui.mf		.		.
 ui.mouse_route,ui.mr		.		?
