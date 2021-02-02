@@ -1,10 +1,8 @@
 namespace eval ::ui {
 
-proc bang_tag {id} { return  ${id}_#all }
-
 proc bang_update {cnv id w h zoom color state} {
     set c [::ceammc::ui::widget_canvas $cnv $id]
-    set t [bang_tag $id]
+    set t [::ceammc::ui::widget_tag $id]
     $c delete $t
 
     set xpad [expr round($w * 0.1)]

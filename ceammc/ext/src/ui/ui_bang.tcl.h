@@ -4,10 +4,9 @@
 #define ui_bang_tcl_h_
 const char* ui_bang_tcl = 
 "namespace eval ::ui {\n"
-"proc bang_tag {id} { return  ${id}_#all }\n"
 "proc bang_update {cnv id w h zoom color state} {\n"
 "    set c [::ceammc::ui::widget_canvas $cnv $id]\n"
-"    set t [bang_tag $id]\n"
+"    set t [::ceammc::ui::widget_tag $id]\n"
 "    $c delete $t\n"
 "    set xpad [expr round($w * 0.1)]\n"
 "    set ypad [expr round($h * 0.1)]\n"
