@@ -333,10 +333,25 @@ void UIFilter::gainUpdateKnob()
 void UIFilter::loadPreset(size_t idx)
 {
     auto lv = PresetStorage::instance().listValueAt(presetId(), idx);
+    if (lv.size() == 3) {
+        prop_freq = lv[0].asFloat(1000);
+        prop_q = lv[1].asFloat(1);
+        prop_gain = lv[2].asFloat(0);
+
+        freqUpdateKnob();
+        gainUpdateKnob();
+        qUpdateKnob();
+
+        updateCoeffs();
+        redraw();
+        output();
+    }
 }
 
 void UIFilter::storePreset(size_t idx)
 {
+    AtomList data { prop_freq, prop_q, prop_gain };
+    PresetStorage::instance().setListValueAt(presetId(), idx, data);
 }
 
 void UIFilter::setup()
