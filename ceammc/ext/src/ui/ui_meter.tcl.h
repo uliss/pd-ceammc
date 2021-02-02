@@ -36,7 +36,7 @@ const char* ui_meter_tcl =
 "                set y0 [expr $h - {round($i*$led_hstep)} + 1]\n"
 "                set y1 [expr $h - {round(($i+$led_ratio)*$led_hstep)}]\n"
 "            }\n"
-"            $cnv create rectangle $x0 $y0 $x1 $y1 -fill $c -outline {} -width 0 -tags $t\n"
+"            $cnv create rectangle $x0 $y0 $x1 $y1 -fill $c -outline $c -width 1 -tags $t\n"
 "        }\n"
 "    }\n"
 "}\n"

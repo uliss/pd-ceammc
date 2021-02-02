@@ -35,7 +35,7 @@ proc meter_create_rms { id cnv w h rms cold tepid warm hot over } {
                 set y1 [expr $h - {round(($i+$led_ratio)*$led_hstep)}]
             }
 
-            $cnv create rectangle $x0 $y0 $x1 $y1 -fill $c -outline {} -width 0 -tags $t
+            $cnv create rectangle $x0 $y0 $x1 $y1 -fill $c -outline $c -width 1 -tags $t
         }
     }
 }
