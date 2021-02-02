@@ -45,7 +45,7 @@ public:
     void paintSliders();
 
     void onBang();
-    void onList(const AtomListView& lst);
+    void onList(const AtomListView& lv);
     AtomList realValues() const;
 
     // presets

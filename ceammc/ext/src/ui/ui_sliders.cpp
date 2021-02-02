@@ -138,9 +138,9 @@ void UISliders::onBang()
     outputList();
 }
 
-void UISliders::onList(const AtomListView& lst)
+void UISliders::onList(const AtomListView& lv)
 {
-    if (!setRealValues(lst))
+    if (!setRealValues(lv))
         return;
 
     outputList();
@@ -148,8 +148,8 @@ void UISliders::onList(const AtomListView& lst)
 
 void UISliders::loadPreset(size_t idx)
 {
-    AtomList lst = PresetStorage::instance().listValueAt(presetId(), idx);
-    onList(lst);
+    auto lv = PresetStorage::instance().listValueAt(presetId(), idx);
+    onList(lv);
 }
 
 void UISliders::storePreset(size_t idx)
