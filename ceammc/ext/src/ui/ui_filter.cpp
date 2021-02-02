@@ -14,6 +14,7 @@
 #include "ui_filter.h"
 #include "ceammc_convert.h"
 #include "ceammc_filter.h"
+#include "ceammc_preset.h"
 #include "ceammc_ui.h"
 #include "ui_filter.tcl.h"
 
@@ -249,7 +250,9 @@ void UIFilter::saveMousePoint(const t_pt& pt)
 
     knobUpdateFreq();
     knobUpdateGain();
-    knobUpdateQ();
+
+    if (prop_type != SYM_PEAK_EQ)
+        knobUpdateQ();
 }
 
 void UIFilter::output()
@@ -327,6 +330,15 @@ void UIFilter::gainUpdateKnob()
     knob_pt_.y = lin2lin_clip<float, MIN_DB, MAX_DB>(prop_gain, 1, 0);
 }
 
+void UIFilter::loadPreset(size_t idx)
+{
+    auto lv = PresetStorage::instance().listValueAt(presetId(), idx);
+}
+
+void UIFilter::storePreset(size_t idx)
+{
+}
+
 void UIFilter::setup()
 {
     SYM_BPF = gensym("bpf");
@@ -352,7 +364,7 @@ void UIFilter::setup()
     UIObjectFactory<UIFilter> obj("ui.filter", EBOX_GROWINDI);
     obj.hideLabelInner();
 
-    obj.useList();
+    obj.usePresets();
     obj.setDefaultSize(300, 100);
     obj.useMouseEvents(UI_MOUSE_DOWN | UI_MOUSE_UP | UI_MOUSE_DRAG | UI_MOUSE_WHEEL);
     obj.outputMouseEvents(MouseEventsOutput::DEFAULT_OFF);

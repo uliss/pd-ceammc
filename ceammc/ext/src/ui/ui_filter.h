@@ -47,6 +47,9 @@ public:
 
     void onPropChange(t_symbol* name);
 
+    void loadPreset(size_t idx);
+    void storePreset(size_t idx);
+
 public:
     using Array = std::array<double, 6>;
 
