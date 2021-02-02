@@ -1078,7 +1078,7 @@ public:
 
     static void customMethodBang(UI* z, t_symbol* s, int, t_atom*)
     {
-        typename BangMethodMap::iterator it = bang_map.find(s);
+        auto it = bang_map.find(s);
         if (it == bang_map.end()) {
             pd_error(z->asPdObject(), "[%s] unknown method: %s", z->name()->s_name, s->s_name);
             return;
@@ -1142,7 +1142,7 @@ public:
 
     static t_pd_err listPropGetter(UI* z, t_eattr* attr, int* argc, t_atom** argv)
     {
-        typename ListPropertyMap::iterator it = prop_list_map.find(attr->name);
+        auto it = prop_list_map.find(attr->name);
         if (it == prop_list_map.end())
             return 1;
 
@@ -1164,7 +1164,7 @@ public:
 
     static t_pd_err listPropSetter(UI* z, t_eattr* attr, int argc, t_atom* argv)
     {
-        typename ListPropertyMap::iterator it = prop_list_map.find(attr->name);
+        auto it = prop_list_map.find(attr->name);
         if (it == prop_list_map.end())
             return 1;
 
