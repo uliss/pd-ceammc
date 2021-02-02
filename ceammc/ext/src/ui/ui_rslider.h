@@ -56,14 +56,14 @@ public:
     void drawKnob();
 
     void onBang();
-    void onList(const AtomListView& lst);
+    void onList(const AtomListView& lv);
 
     void onMouseDown(t_object* view, const t_pt& pt, const t_pt& abs_pt, long modifiers);
     void onMouseUp(t_object* view, const t_pt& pt, long modifiers);
     void onMouseDrag(t_object* view, const t_pt& pt, long modifiers);
 
     AtomList propValue() const;
-    void propSetValue(const AtomListView& lst);
+    void propSetValue(const AtomListView& lv);
     t_float propLow() const;
     t_float propHigh() const;
     void propSetLow(t_float f);
@@ -78,7 +78,7 @@ private:
     void adjustValues();
     void redrawKnob();
     void output();
-    bool setValue(const AtomListView &lst);
+    bool setValue(const AtomListView& lv);
     EditMode keyMod2EditMode(long mod, float value) const;
 
 public:

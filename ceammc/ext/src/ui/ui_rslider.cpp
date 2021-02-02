@@ -138,9 +138,9 @@ void UIRSlider::onBang()
     output();
 }
 
-void UIRSlider::onList(const AtomListView& lst)
+void UIRSlider::onList(const AtomListView& lv)
 {
-    if (!setValue(lst))
+    if (!setValue(lv))
         return;
 
     redrawKnob();
@@ -277,9 +277,9 @@ AtomList UIRSlider::propValue() const
     return AtomList(vlow_, vhigh_);
 }
 
-void UIRSlider::propSetValue(const AtomListView& lst)
+void UIRSlider::propSetValue(const AtomListView& lv)
 {
-    if (!setValue(lst))
+    if (!setValue(lv))
         return;
 
     redrawKnob();
@@ -347,20 +347,20 @@ void UIRSlider::output()
     send(AtomListView(res, 2));
 }
 
-bool UIRSlider::setValue(const AtomListView& lst)
+bool UIRSlider::setValue(const AtomListView& lv)
 {
-    if (lst.size() != 2) {
-        UI_ERR << "min max values expected: " << lst;
+    if (lv.size() != 2) {
+        UI_ERR << "min max values expected: " << lv;
         return false;
     }
 
-    const size_t N = lst.size();
+    const size_t N = lv.size();
 
-    if (N > 0 && lst[0].isFloat())
-        vlow_ = clip_any<float>(lst[0].asFloat(), prop_min, prop_max);
+    if (N > 0 && lv[0].isFloat())
+        vlow_ = clip_any<float>(lv[0].asFloat(), prop_min, prop_max);
 
-    if (N > 1 && lst[1].isFloat())
-        vhigh_ = clip_any<float>(lst[1].asFloat(), prop_min, prop_max);
+    if (N > 1 && lv[1].isFloat())
+        vhigh_ = clip_any<float>(lv[1].asFloat(), prop_min, prop_max);
 
     adjustValues();
 
