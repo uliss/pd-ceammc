@@ -116,14 +116,14 @@ void UIRadio::onFloat(t_float f)
     redrawItems();
 }
 
-void UIRadio::onList(const AtomListView& lst)
+void UIRadio::onList(const AtomListView& lv)
 {
     if (!prop_checklist_mode_) {
-        UI_ERR << "no lists expected in single mode: " << lst;
+        UI_ERR << "no lists expected in single mode: " << lv;
         return;
     }
 
-    setListValue(lst);
+    setListValue(lv);
     output();
     redrawItems();
 }
@@ -223,17 +223,17 @@ AtomList UIRadio::p_value() const
     return prop_checklist_mode_ ? listValue() : Atom(singleValue());
 }
 
-void UIRadio::p_setValue(const AtomListView& lst)
+void UIRadio::p_setValue(const AtomListView& lv)
 {
     if (prop_checklist_mode_)
-        setListValue(lst);
+        setListValue(lv);
     else {
-        if (lst.empty()) {
+        if (lv.empty()) {
             UI_ERR << "radio index expected";
             return;
         }
 
-        setSingleValue(lst[0].asFloat());
+        setSingleValue(lv[0].asFloat());
     }
 
     redrawItems();
@@ -339,8 +339,8 @@ void UIRadio::m_minus(t_float f)
 void UIRadio::loadPreset(size_t idx)
 {
     if (prop_checklist_mode_) {
-        AtomList lst = PresetStorage::instance().listValueAt(presetId(), idx);
-        onList(lst);
+        auto lv = PresetStorage::instance().listValueAt(presetId(), idx);
+        onList(lv);
     } else {
         t_float f = PresetStorage::instance().floatValueAt(presetId(), idx);
         onFloat(f);
@@ -372,11 +372,11 @@ AtomList UIRadio::listValue() const
     return lst;
 }
 
-void UIRadio::setListValue(const AtomListView& lst)
+void UIRadio::setListValue(const AtomListView& lv)
 {
-    size_t total = std::min<size_t>(lst.size(), prop_nitems_);
+    size_t total = std::min<size_t>(lv.size(), prop_nitems_);
     for (size_t i = 0; i < total; i++)
-        items_.set(i, lst[i].asFloat());
+        items_.set(i, lv[i].asFloat());
 }
 
 void UIRadio::output()

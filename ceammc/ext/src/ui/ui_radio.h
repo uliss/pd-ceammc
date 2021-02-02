@@ -26,7 +26,7 @@ public:
     int singleValue() const;
     void setSingleValue(int idx);
     AtomList listValue() const;
-    void setListValue(const AtomListView& lst);
+    void setListValue(const AtomListView& lv);
 
     void output();
     bool isVertical() const { return width() < height(); }
@@ -41,7 +41,7 @@ public:
 
     void onBang();
     void onFloat(t_float f);
-    void onList(const AtomListView& lst);
+    void onList(const AtomListView& lv);
     void onMouseDown(t_object*, const t_pt& pt, const t_pt& abs_pt, long mod);
     void onMouseDrag(t_object* view, const t_pt& pt, long mod);
     void onDblClick(t_object* view, const t_pt& pt, long modifiers);
@@ -56,7 +56,7 @@ public:
     t_float p_mode() const;
     void p_setMode(t_float p_mode);
     AtomList p_value() const;
-    void p_setValue(const AtomListView& lst);
+    void p_setValue(const AtomListView& lv);
 
     // methods
     void m_flip();
