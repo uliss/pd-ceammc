@@ -347,7 +347,9 @@ void UIPolar::m_rotate(t_float angle)
 
 void UIPolar::loadPreset(size_t idx)
 {
-    setRealValue(PresetStorage::instance().listValueAt(presetId(), idx, AtomList(0., 0.)));
+    Atom def[2] = { 0., 0. };
+    auto lv = PresetStorage::instance().listValueAt(presetId(), idx, AtomListView(def, 2));
+    setRealValue(lv);
     redrawKnob();
     output();
 }
@@ -357,14 +359,14 @@ void UIPolar::storePreset(size_t idx)
     PresetStorage::instance().setListValueAt(presetId(), idx, realValue());
 }
 
-bool UIPolar::setRealValue(const AtomListView& lst)
+bool UIPolar::setRealValue(const AtomListView& lv)
 {
-    if (lst.size() != 2)
+    if (lv.size() != 2)
         return false;
 
     t_float r, a;
-    if (!lst[0].getFloat(&r) || !lst[1].getFloat(&a)) {
-        UI_ERR << "invalid value: " << lst;
+    if (!lv[0].getFloat(&r) || !lv[1].getFloat(&a)) {
+        UI_ERR << "invalid value: " << lv;
         return false;
     }
 
@@ -431,12 +433,12 @@ AtomList UIPolar::propAngle() const
     return AtomList(realAngle());
 }
 
-void UIPolar::propSetRadius(const AtomListView& lst)
+void UIPolar::propSetRadius(const AtomListView& lv)
 {
     t_float r;
 
-    if (lst.empty() || !lst[0].getFloat(&r)) {
-        UI_ERR << "radius float value expected: " << lst;
+    if (lv.empty() || !lv[0].getFloat(&r)) {
+        UI_ERR << "radius float value expected: " << lv;
         return;
     }
 
@@ -444,12 +446,12 @@ void UIPolar::propSetRadius(const AtomListView& lst)
     redrawKnob();
 }
 
-void UIPolar::propSetAngle(const AtomListView& lst)
+void UIPolar::propSetAngle(const AtomListView& lv)
 {
     t_float a;
 
-    if (lst.empty() || !lst[0].getFloat(&a)) {
-        UI_ERR << "angle float value expected: " << lst;
+    if (lv.empty() || !lv[0].getFloat(&a)) {
+        UI_ERR << "angle float value expected: " << lv;
         return;
     }
 
