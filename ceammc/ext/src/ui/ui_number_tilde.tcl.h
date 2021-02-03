@@ -12,7 +12,7 @@ const char* ui_number_tilde_tcl =
 "    \"aqua\" { }\n"
 "    \"x11\"  { }\n"
 "    \"win32\" {\n"
-"        set number_tilde::font_size 9\n"
+"        set number_tilde::font_size 8\n"
 "    }\n"
 "}\n"
 "proc number_font { zoom } {\n"

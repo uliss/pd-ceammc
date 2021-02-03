@@ -9,7 +9,7 @@ switch -- $::windowingsystem {
     "aqua" { }
     "x11"  { }
     "win32" {
-        set number_tilde::font_size 9
+        set number_tilde::font_size 8
     }
 }
 
