@@ -841,6 +841,7 @@ synth.wurley~	Wurlitzer electric piano FM synthesis instrument
 system.colorpanel	System color panel dialog popup
 system.cursor	Output cursor motion, mousewheel and buttonclicks
 system.exec	run external command in separate process
+system.exit	quit PureData
 system.getenv	Get system environment variables
 system.hostname	outputs system hostname
 system.memsize	returns the size of physical memory (RAM) in bytes round to float data type.
@@ -857,6 +858,8 @@ tl.transport	Timeline transport control
 ui.aview	array view with cursor and selection
 ui.bang	A bang... that's all
 ui.b	A bang... that's all
+ui.button	button widget
+ui.btn	button widget
 ui.colorpanel	colorchooser widget
 ui.display	Display GUI object
 ui.d	Display GUI object

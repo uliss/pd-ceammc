@@ -603,6 +603,7 @@ set(DOC_FILES
     system.memsize
     system.memused
     system.exec
+    system.exit
     system.screen_size
     tl.bang
     tl.cue
@@ -611,6 +612,7 @@ set(DOC_FILES
     tl.transport
     ui.aview
     ui.bang
+    ui.button
     ui.colorpanel
     ui.display
     ui.dsp~
