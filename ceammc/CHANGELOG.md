@@ -16,6 +16,7 @@
   - loadexpr added (supports functions and datatypes)
   - midi.cc added (enhanced version of ctlin)
   - midi.clock added
+  - midi.kbd added (computer key to midi note converter)
   - midi.oct - octave transposer added
   - midi.sustain - sustain pedal emulation added
   - midi.sysex added (read sysex messages as list)

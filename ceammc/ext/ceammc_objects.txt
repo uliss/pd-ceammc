@@ -601,6 +601,7 @@ midi.event2ctl
 midi.event2note
 midi.event2prg
 midi.file
+midi.kbd
 midi.key->str
 midi.key2str
 midi.oct

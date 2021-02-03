@@ -157,8 +157,8 @@
     }}
     {midi {
         midi.cc midi.clock midi.ctl2str midi.event2ctl midi.event2note
-        midi.event2prg midi.file midi.key2str midi.oct midi.prg2str midi.sysex
-        midi.track midi.tuning midi.vramp midi.vrand
+        midi.event2prg midi.file midi.kbd midi.key2str midi.oct midi.prg2str
+        midi.sustain midi.sysex midi.track midi.tuning midi.vramp midi.vrand
     }}
     {misc {
         click~ fluid~ modplug~ speech.flite
@@ -236,16 +236,16 @@
         synth.shakers~ synth.sitar~ synth.wurley~
     }}
     {system {
-        system.colorpanel system.cursor system.exec system.getenv
+        system.colorpanel system.cursor system.exec system.exit system.getenv
         system.hostname system.memsize system.memused system.screen_size
     }}
     {tl {
         tl.bang tl.cue tl.timeline tl.toggle tl.transport
     }}
     {ui {
-        ui.aview ui.bang ui.colorpanel ui.display ui.dsp~ ui.env ui.filter~
-        ui.gain2~ ui.gain~ ui.icon ui.incdec ui.keyboard ui.knob ui.label
-        ui.link ui.matrix ui.menu ui.meter~ ui.midi ui.mouse_filter
+        ui.aview ui.bang ui.button ui.colorpanel ui.display ui.dsp~ ui.env
+        ui.filter~ ui.gain2~ ui.gain~ ui.icon ui.incdec ui.keyboard ui.knob
+        ui.label ui.link ui.matrix ui.menu ui.meter~ ui.midi ui.mouse_filter
         ui.mouse_route ui.number ui.number~ ui.plot~ ui.polar ui.preset
         ui.radio ui.rslider ui.scope~ ui.slider ui.slider2d ui.sliders
         ui.spectroscope~ ui.tab ui.toggle
