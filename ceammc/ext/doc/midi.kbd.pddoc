@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="midi.kbd">
+        <title>midi.kdb</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>computer keyboard midi</description>
+            <license>GPL3 or later</license>
+            <library>ceammc</library>
+            <category>midi</category>
+            <keywords>midi keyboard</keywords>
+            <since>0.9.3</since>
+        </meta>
+        <info>
+            <par>Default keyboard layout is QWERTY, but you can specify custom one</par>
+        </info>
+        <arguments>
+            <argument name="LAYOUT" type="symbol" enum="qwerty names custom">layout name</argument>
+            <argument name="DICT" type="atom">custom layout: Dict type</argument>
+        </arguments>
+        <properties>
+            <property name="@octave" type="int" default="4" minvalue="0" maxvalue="8">output octave</property>
+            <property name="@vel" type="float" minvalue="0" maxvalue="127" default="100">output velocity</property>
+            <property name="@layout" type="symbol" enum="qwerty names custom" default="qwerty">current layout</property>
+            <property name="@custom" type="atom" default="[]">custom layout (Dict data type)</property>
+        </properties>
+        <inlets>
+            <inlet>
+                <xinfo>control input</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet>MIDI output: NOTE VEL</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[ui.tab qwerty names custom @size 200 15]
+|
+|            [F]
+|            |
+[@layout $1( [@octave $1(
+|            |
+[midi.kbd qwerty @custom \[a:0 s:2 d:4 f:5 g:7\]]
+|
+[ui.hk]
+|
+|
+|
+|
+|
+|
+[ui.dt]
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

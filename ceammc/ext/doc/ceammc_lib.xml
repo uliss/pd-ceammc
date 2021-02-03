@@ -1344,6 +1344,9 @@
     <entry name="midi.file" descr="standard midi file SMF reader and writer" ref_view="object">
       <xi:include href="midi.file.pddoc" parse="xml"/>
     </entry>
+    <entry name="midi.kbd" descr="computer keyboard midi" ref_view="object">
+      <xi:include href="midi.kbd.pddoc" parse="xml"/>
+    </entry>
     <entry name="midi.key2str" descr="convert key number to SPN name according to tonality" ref_view="object">
       <xi:include href="midi.key2str.pddoc" parse="xml"/>
     </entry>

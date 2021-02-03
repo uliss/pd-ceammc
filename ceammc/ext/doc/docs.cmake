@@ -443,6 +443,7 @@ set(DOC_FILES
     midi.event2note
     midi.event2prg
     midi.file
+    midi.kbd
     midi.key2str
     midi.oct
     midi.prg2str

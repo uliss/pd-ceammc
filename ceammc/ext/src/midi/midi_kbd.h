@@ -15,6 +15,7 @@
 #define MIDI_KBD_H
 
 #include "ceammc_object.h"
+#include "ceammc_property_enum.h"
 #include "ceammc_proxy.h"
 
 #include <cstdint>
@@ -28,17 +29,25 @@ class MidiKbd : public BaseObject {
     Proxy keypress_, keyrelease_;
     IntProperty* octave_;
     FloatProperty* vel_;
+    SymbolEnumProperty* layout_;
     const KbdLayout* kbd_;
+    KbdLayout custom_;
 
 public:
     MidiKbd(const PdArgs& args);
+
+    void dump() const override;
 
 public:
     void onKeyPress(t_float key);
     void onKeyRelease(t_float key);
 
 private:
-    int findNote(int key) const;
+    int findKey(int key) const;
+    int midiNote(int n) const
+    {
+        return n + octave_->value() * 12;
+    }
 };
 
 void setup_midi_kbd();

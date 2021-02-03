@@ -620,6 +620,7 @@ midi.ev->note	convert MidiEvent message to midi note/velocity pair
 midi.event2prg	convert MidiEvent message to midi program change value
 midi.ev->prg	convert MidiEvent message to midi program change value
 midi.file	standard midi file SMF reader and writer
+midi.kbd	computer keyboard midi
 midi.key2str	convert key number to SPN name according to tonality
 midi.key->str	convert key number to SPN name according to tonality
 midi.oct	midi octave transpose
