@@ -157,6 +157,7 @@ dict.reject
 dict.size
 dict.to_list
 dict.values
+dyn.b3limit~
 dyn.comp2~
 dyn.comp~
 dyn.gate2~
@@ -865,6 +866,8 @@ ui.display
 ui.dsp~
 ui.dt
 ui.env
+ui.filter
+ui.filter~
 ui.gain2~
 ui.gain~
 ui.hgain2~

@@ -25,6 +25,7 @@
   - ui.button added (with ui.btn alias)
   - ui.midi added (display for incoming messages)
   - ui.vkeyboard added (with ui.vk alias for vertical keyboard)
+  - ui.filter~ added
 - new aliases:
   - ui.hk alias added for ui.keyboard (horizontal)
   - ui.hm~ alias added for ui.meter~ (horizontal)
