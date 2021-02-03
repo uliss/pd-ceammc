@@ -381,6 +381,69 @@ proc widget_bg { cnv id color } {
     $c configure -bg $color
 }
 
+proc label_tag { id } { return "${id}_lbl" }
+proc label_makefont { font size } { return "$font $size roman normal" }
+
+proc label_delete { cnv id inner } {
+    set t [label_tag $id]
+    if { $inner == 1 } {
+        set c [widget_canvas $cnv $id]
+        $c delete $t
+    } else {
+        $cnv delete $t
+    }
+}
+
+proc label_canvas { cnv id inner } {
+    if { $inner == 1 } {
+        return [widget_canvas $cnv $id]
+    } else { return $cnv }
+}
+
+proc label_create { cnv id x y inner anchor align font fontsize color text } {
+    set t [label_tag $id]
+    set all [widget_tag $id]
+    set c [label_canvas $cnv $id $inner]
+
+    $c create text $x $y -anchor $anchor -justify $align \
+        -fill $color -font [label_makefont $font $fontsize] \
+        -text "$text" -tags $t
+}
+
+proc label_pos { cnv id x y inner anchor align } {
+    set t [label_tag $id]
+    set c [label_canvas $cnv $id $inner]
+
+    $c coords $t $x $y
+    $c itemconfigure $t -anchor $anchor -justify $align
+}
+
+proc label_font { cnv id inner font fontsize } {
+    set t [label_tag $id]
+    set c [label_canvas $cnv $id $inner]
+    $c itemconfigure $t -font [label_makefont $font $fontsize]
+}
+
+proc label_color { cnv id inner color } {
+    set t [label_tag $id]
+    set c [label_canvas $cnv $id $inner]
+    $c itemconfigure $t -fill $color
+}
+
+proc label_text { cnv id inner text } {
+    set t [label_tag $id]
+    set c [label_canvas $cnv $id $inner]
+    $c itemconfigure $t -text $text
+}
+
+proc label_inner_sync { cnv id inner } {
+    if { $inner == 1 } {
+        set t [label_tag $id]
+        set c [label_canvas $cnv $id $inner]
+        $c raise $t
+    }
+}
+
 proc mouse_events_bind { cnv id target args }  {
     set c [widget_canvas $cnv $id]
     foreach name $args {

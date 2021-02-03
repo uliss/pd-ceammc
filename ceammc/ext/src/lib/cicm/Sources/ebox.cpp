@@ -159,18 +159,14 @@ enum LabelSide {
     LABEL_SIDE_BOTTOM
 };
 
-static t_symbol* label_draw_id(t_ebox* x)
-{
-    if (x->label_inner == 0)
-        return x->b_canvas_id;
-    else
-        return x->b_drawing_id;
-}
-
 static void ebox_erase_label(t_ebox* x)
 {
-    if (x->b_label != s_null)
-        sys_vgui("%s delete " LABEL_TAG "\n", label_draw_id(x)->s_name, x->b_drawing_id->s_name);
+    if (ebox_isvisible(x)
+        && x->b_label
+        && x->b_label != s_null) {
+        sys_vgui("::ceammc::ui::label_delete %s %lx %d\n",
+            x->b_canvas_id->s_name, x, (int)x->label_inner);
+    }
 }
 
 static LabelAlign label_align_idx(t_symbol* s)
@@ -395,53 +391,40 @@ static void ebox_create_label(t_ebox* x)
     auto enums = label_enums(x);
     auto pt = ebox_label_coord(x, std::get<0>(enums), std::get<1>(enums), std::get<2>(enums), std::get<3>(enums));
 
-    sys_vgui("%s create text %d %d -anchor %s "
-             "-justify %s "
-             "-text {%s} -fill #%6.6x "
-             "-font {{%s} %d roman normal} "
-             "-tags { " LABEL_TAG " }\n",
-        label_draw_id(x)->s_name,
-        pt.first, pt.second,
+    sys_vgui("::ceammc::ui::label_create %s %lx "
+             "%d %d %d "
+             "%s %s \"%s\" %d "
+             "#%6.6x {%s}\n",
+        x->b_canvas_id->s_name, x,
+        pt.first, pt.second, (int)x->label_inner,
         ebox_label_anchor(std::get<0>(enums), std::get<1>(enums), std::get<2>(enums), std::get<3>(enums)),
         x->label_align->s_name,
-        x->b_label->s_name,
-        rgba_to_hex_int(x->b_boxparameters.d_labelcolor),
         x->b_font.c_family->s_name,
         int(x->b_font.c_sizereal * x->b_zoom),
-        x->b_drawing_id->s_name);
+        rgba_to_hex_int(x->b_boxparameters.d_labelcolor),
+        x->b_label->s_name);
 }
 
 static void ebox_update_label_pos(t_ebox* x)
 {
-    if (ebox_isvisible(x) && x->b_label != s_null) {
+    if (ebox_isvisible(x) && x->b_label && x->b_label != s_null) {
         auto enums = label_enums(x);
+        auto pt = ebox_label_coord(x, std::get<0>(enums), std::get<1>(enums), std::get<2>(enums), std::get<3>(enums));
 
-        t_symbol* cnv = label_draw_id(x);
-
-        sys_vgui("%s itemconfigure " LABEL_TAG " -anchor %s -justify %s\n",
-            cnv->s_name,
-            x->b_drawing_id->s_name,
+        sys_vgui("::ceammc::ui::label_pos %s %lx %d %d %d %s %s\n",
+            x->b_canvas_id->s_name,
+            x, pt.first, pt.second, (int)x->label_inner,
             ebox_label_anchor(std::get<0>(enums), std::get<1>(enums), std::get<2>(enums), std::get<3>(enums)),
             x->label_align->s_name);
-
-        auto pt = ebox_label_coord(x, std::get<0>(enums), std::get<1>(enums), std::get<2>(enums), std::get<3>(enums));
-        sys_vgui("%s coords " LABEL_TAG " %d %d\n",
-            cnv->s_name,
-            x->b_drawing_id->s_name,
-            pt.first,
-            pt.second);
     }
 }
 
 static void ebox_update_label_font(t_ebox* x)
 {
     if (ebox_isvisible(x) && x->b_label != s_null) {
-        t_symbol* cnv = label_draw_id(x);
-
-        sys_vgui("%s itemconfigure " LABEL_TAG " -font {{%s} %d roman normal}\n",
-            cnv->s_name,
-            x->b_drawing_id->s_name,
-            x->b_font.c_family->s_name,
+        sys_vgui("::ceammc::ui::label_font %s %lx %d \"%s\" %d\n",
+            x->b_canvas_id->s_name, x,
+            (int)x->label_inner, x->b_font.c_family->s_name,
             int(x->b_font.c_sizereal * x->b_zoom));
     }
 }
@@ -722,15 +705,13 @@ static void ebox_paint(t_ebox* x)
         c->c_widget.w_paint(x);
 
     if (x->b_label != s_null) {
-        if (x->label_inner) {
-            // raise up
-            sys_vgui("%s raise " LABEL_TAG " %s\n",
-                label_draw_id(x)->s_name, x->b_drawing_id->s_name, x->b_all_id->s_name);
-        }
-
         // update label color
-        sys_vgui("%s itemconfigure " LABEL_TAG " -fill #%6.6x\n",
-            label_draw_id(x)->s_name, x->b_drawing_id->s_name, rgba_to_hex_int(x->b_boxparameters.d_labelcolor));
+        sys_vgui("::ceammc::ui::label_color %s %lx %d #%6.6x\n",
+            x->b_canvas_id->s_name, x, (int)x->label_inner,
+            rgba_to_hex_int(x->b_boxparameters.d_labelcolor));
+
+        sys_vgui("::ceammc::ui::label_inner_sync %s %lx %d\n",
+            x->b_canvas_id->s_name, x, (int)x->label_inner);
     }
 
     ebox_draw_border(x);
@@ -1378,10 +1359,8 @@ t_pd_err ebox_set_label(t_ebox* x, t_object* /*attr*/, int argc, t_atom* argv)
             }
 
             if (ebox_isvisible(x)) {
-                sys_vgui("%s itemconfigure " LABEL_TAG " -text {%s}\n",
-                    label_draw_id(x)->s_name,
-                    x->b_drawing_id->s_name,
-                    x->b_label->s_name);
+                sys_vgui("::ceammc::ui::label_text %s %lx %d {%s}\n",
+                    x->b_canvas_id->s_name, x, (int)x->label_inner, x->b_label->s_name);
             }
         }
     } else {
