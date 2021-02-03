@@ -20,7 +20,7 @@ constexpr uint8_t SYSEX_BEGIN = 0xF0;
 constexpr uint8_t SYSEX_END = 0xF7;
 constexpr size_t MAX_SYSEX = 1024 * 16;
 
-static inline bool is_realtime(u_int8_t byte)
+static inline bool is_realtime(uint8_t byte)
 {
     return byte > SYSEX_END;
 }
