@@ -84,8 +84,6 @@ static const char* SYM_CHECKBUTTON = "checkbutton";
 static const char* SYM_MENU = "menu";
 static const char* SYM_COLOR = "color";
 
-#define LABEL_TAG "label_%s"
-
 static t_pt ebox_calc_pos(t_ebox* x, t_glist* glist);
 static void ebox_create_window(t_ebox* x, t_glist* glist);
 static void ebox_invalidate_all(t_ebox* x);
