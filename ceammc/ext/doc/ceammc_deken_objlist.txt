@@ -877,6 +877,7 @@ ui.hk	keyboard widget
 ui.vkeyboard	keyboard widget
 ui.vk	keyboard widget
 ui.knob	knob widget
+ui.k	knob widget
 ui.label	simple label widget
 ui.link	Hyperlink widget
 ui.matrix	The matrix of toggles has you.

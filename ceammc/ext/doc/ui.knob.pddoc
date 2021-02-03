@@ -16,6 +16,9 @@
             <also>
                 <see view="link">ui.slider</see>
             </also>
+            <aliases>
+                <alias view="link">ui.k</alias>
+            </aliases>
         </meta>
         <info>
             <par>Simple knob widget with default range 0-1.</par>
