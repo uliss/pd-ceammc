@@ -435,7 +435,6 @@ void ebox_new(t_ebox* x, long flags)
     x->b_ready_to_draw = false;
     x->b_have_window = false;
     x->b_layers = nullptr;
-    x->b_window_id = NULL;
     x->b_receive_id = s_null;
     x->b_send_id = s_null;
     x->b_objpreset_id = s_null;
@@ -745,7 +744,7 @@ void ebox_wdisplace(t_gobj* z, t_glist* /*glist*/, int dx, int dy)
 #endif
 
         // prevents crash on early call
-        if (!x->b_canvas_id || !x->b_window_id)
+        if (!x->b_canvas_id)
             return;
 
         x->b_rect.x += dx;
@@ -796,8 +795,6 @@ static void ebox_tk_ids(t_ebox* x, t_canvas* canvas)
     x->b_canvas_id = gensym(buffer);
     sprintf(buffer, "%s.ecanvas%" PRIxPTR, x->b_canvas_id->s_name, reinterpret_cast<uintptr_t>(x));
     x->b_drawing_id = gensym(buffer);
-    sprintf(buffer, "%s.ewindow%" PRIxPTR, x->b_canvas_id->s_name, reinterpret_cast<uintptr_t>(x));
-    x->b_window_id = gensym(buffer);
     sprintf(buffer, "all%" PRIxPTR, reinterpret_cast<uintptr_t>(x));
     x->b_all_id = gensym(buffer);
 }

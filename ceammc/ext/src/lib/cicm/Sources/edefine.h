@@ -821,7 +821,6 @@ typedef struct t_ebox_ {
 
     t_symbol* b_canvas_id; /*!< The canvas ID. */
     t_symbol* b_drawing_id; /*!< The drawing ID. */
-    t_symbol* b_window_id; /*!< The window ID. */
     t_symbol* b_all_id; /*!< The global ID. */
 
     long b_flags; /*!< The ebox flags. */
