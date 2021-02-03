@@ -446,6 +446,7 @@ set(DOC_FILES
     midi.key2str
     midi.oct
     midi.prg2str
+    midi.sustain
     midi.sysex
     midi.track
     midi.tuning

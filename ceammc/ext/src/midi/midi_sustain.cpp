@@ -30,6 +30,7 @@ MidiSustain::MidiSustain(const PdArgs& args)
 {
     on_ = new BoolProperty("@on", false);
     on_->setSuccessFn([this](Property*) { if(!on_->value()) notesOff(); });
+    on_->setArgIndex(0);
     addProperty(on_);
 
     ctlin_ = new BoolProperty("@ctlin", false);
@@ -103,4 +104,5 @@ void setup_midi_sustain()
     SYM_CTLIN = gensym("#ctlin");
 
     ObjectFactory<MidiSustain> obj("midi.sustain");
+    obj.setXletsInfo({ "list: NOTE VEL", "int: 1 or 0 to turn sustain on/off" }, { "list: NOTE VEL" });
 }

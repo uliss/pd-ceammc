@@ -17,6 +17,7 @@
   - midi.cc added (enhanced version of ctlin)
   - midi.clock added
   - midi.oct - octave transposer added
+  - midi.sustain - sustain pedal emulation added
   - midi.sysex added (read sysex messages as list)
   - midi.vrand - velocity randomizer added
   - proto.midi added (raw dataflow midi parser/encoder)
