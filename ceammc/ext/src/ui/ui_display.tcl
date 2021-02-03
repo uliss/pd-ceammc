@@ -1,6 +1,19 @@
 namespace eval ::ui {
 
-proc display_type_font { zoom } { return "Helvetica [expr $zoom * 11] normal roman" }
+namespace eval display {
+    variable font_size 11
+    variable font_family "Helvetica"
+}
+
+switch -- $::windowingsystem {
+    "aqua" { }
+    "x11"  { }
+    "win32" {
+        set display::font_size 7
+    }
+}
+
+proc display_type_font { zoom } { return "$display::font_family [expr $zoom * $display::font_size] normal roman" }
 
 proc display_single_line { type } {
     switch $type {
