@@ -622,7 +622,7 @@ ui.gain~,ui.hgain~,ui.vgain~		~		~
 ui.icon		.		.
 ui.incdec		.		.
 ui.keyboard,ui.hk,ui.vkeyboard,ui.vk		.		.
-ui.knob		.		.
+ui.knob,ui.k		.		.
 ui.label		-		-
 ui.link		-		-
 ui.matrix		.		.
