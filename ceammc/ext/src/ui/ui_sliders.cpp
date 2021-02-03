@@ -106,9 +106,10 @@ void UISliders::paint()
     paintSliders();
 
     if (prop_show_range) {
-        sys_vgui("ui::sliders_draw_labels %s %lx %d %d %d {%s} {%s}\n",
+        sys_vgui("ui::sliders_draw_labels %s %lx %d %d %d #%6.6x {%s} {%s}\n",
             asEBox()->b_canvas_id->s_name, asEBox(),
             (int)width(), (int)height(), (int)zoom(),
+            rgba_to_hex_int(prop_color_label),
             c_min, c_max);
     }
 }

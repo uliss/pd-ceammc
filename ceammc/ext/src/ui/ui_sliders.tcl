@@ -1,6 +1,13 @@
 namespace eval ::ui {
 
-proc sliders_label_font {zoom} { return "Helvetica [expr 8*$zoom] normal roman" }
+namespace eval sliders {
+    variable lbl_font_size 7
+    variable lbl_font_family "Helvetica"
+}
+
+proc sliders_label_font {zoom} {
+    return "$sliders::lbl_font_family [expr $sliders::lbl_font_size*$zoom] normal roman"
+}
 
 proc sliders_delete {cnv id} {
     set c [::ceammc::ui::widget_canvas $cnv $id]
@@ -8,7 +15,7 @@ proc sliders_delete {cnv id} {
     $c delete $t
 }
 
-proc sliders_draw_labels {cnv id w h zoom lmin lmax} {
+proc sliders_draw_labels {cnv id w h zoom color lmin lmax} {
     set c [::ceammc::ui::widget_canvas $cnv $id]
     set f [sliders_label_font $zoom]
     set t [::ceammc::ui::widget_tag $id]
@@ -18,8 +25,8 @@ proc sliders_draw_labels {cnv id w h zoom lmin lmax} {
     set x1 $off
     set y1 [expr $h-$off]
 
-    $c create text $x1 $y1 -text $lmin -anchor sw -justify left -font $f -fill black -width 0 -tags $t
-    $c create text $x0 $y0 -text $lmax -anchor nw -justify left -font $f -fill black -width 0 -tags $t
+    $c create text $x1 $y1 -text $lmin -anchor sw -justify left -font $f -fill $color -width 0 -tags $t
+    $c create text $x0 $y0 -text $lmax -anchor nw -justify left -font $f -fill $color -width 0 -tags $t
 }
 
 proc sliders_draw_vbar {c t w h zoom color i bar} {
