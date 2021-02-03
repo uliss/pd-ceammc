@@ -11,38 +11,36 @@
  * contact the author of this file, or the owner of the project in which
  * this file belongs to.
  *****************************************************************************/
-#ifndef MIDI_SUSTAIN_H
-#define MIDI_SUSTAIN_H
+#ifndef MIDI_KBD_H
+#define MIDI_KBD_H
 
 #include "ceammc_object.h"
-#include "ceammc_property_enum.h"
 #include "ceammc_proxy.h"
 
-#include <bitset>
+#include <cstdint>
+#include <unordered_map>
 
 using namespace ceammc;
+using KbdLayout = std::unordered_map<uint32_t, int8_t>;
 
-class MidiSustain : public BaseObject {
-    using Proxy = PdListProxy<MidiSustain>;
-
-private:
-    std::bitset<128> notes_;
-    BoolProperty* on_;
-    BoolProperty* ctlin_;
-    Proxy proxy_;
+class MidiKbd : public BaseObject {
+    using Proxy = PdFloatProxy<MidiKbd>;
+    Proxy keypress_, keyrelease_;
+    IntProperty* octave_;
+    FloatProperty* vel_;
+    const KbdLayout* kbd_;
 
 public:
-    MidiSustain(const PdArgs& args);
+    MidiKbd(const PdArgs& args);
 
-    void onList(const AtomList& lst) override;
-    void onInlet(size_t n, const AtomListView& lv) override;
-
-    void onCC(const AtomListView& lv);
+public:
+    void onKeyPress(t_float key);
+    void onKeyRelease(t_float key);
 
 private:
-    void notesOff();
+    int findNote(int key) const;
 };
 
-void setup_midi_sustain();
+void setup_midi_kbd();
 
-#endif // MIDI_SUSTAIN_H
+#endif // MIDI_KBD_H
