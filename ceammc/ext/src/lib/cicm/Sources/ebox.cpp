@@ -753,7 +753,8 @@ void ebox_wdisplace(t_gobj* z, t_glist* /*glist*/, int dx, int dy)
         x->b_obj.o_obj.te_xpix += dx;
         x->b_obj.o_obj.te_ypix += dy;
 
-        sys_vgui("%s move %s %d %d\n", x->b_canvas_id->s_name, x->b_window_id->s_name, dx, dy);
+        sys_vgui("::ceammc::ui::widget_move %s %lx %d %d\n",
+            x->b_canvas_id->s_name, x, dx, dy);
         ebox_move(x);
 
 #ifdef _WINDOWS

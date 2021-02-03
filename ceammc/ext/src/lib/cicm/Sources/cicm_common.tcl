@@ -354,6 +354,11 @@ proc widget_pos { cnv id x y } {
     $cnv coords $win $x $y
 }
 
+proc widget_move { cnv id x y } {
+    set win [widget_window $cnv $id]
+    $cnv move $win $x $y
+}
+
 proc widget_select { cnv id color } {
     set c [widget_canvas $cnv $id]
     set tag [border_tag $id]
