@@ -32,6 +32,9 @@ public:
     void dspOn(double samplerate, long blocksize);
     void dspProcess(t_sample** ins, long n_ins, t_sample** outs, long n_outs, long bs);
 
+    const char* annotateInlet(int) const { return "signal: input"; }
+    const char* annotateOutlet(int n) const;
+
 private:
     t_float process(t_float in, double b0, double b1, double b2, double a1, double a2)
     {

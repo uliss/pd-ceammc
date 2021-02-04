@@ -84,8 +84,11 @@ namespace ui {
         t_float prop_q { 1 };
         t_float prop_gain { 0 };
 
+        const int outlet_n_;
+
     public:
-        TFilter()
+        TFilter(int outn = 0)
+            : outlet_n_(outn)
         {
             TBase::initPopupMenu(
                 "main", {
@@ -189,6 +192,7 @@ namespace ui {
 
             obj.hideLabelInner();
 
+            obj.useAnnotations();
             obj.usePresets();
             obj.usePopup();
             obj.setDefaultSize(300, 100);
@@ -251,7 +255,7 @@ namespace ui {
     void TFilter<TBase>::output()
     {
         Atom res[5] = { b0_, b1_, b2_, a1_, a2_ };
-        TBase::listTo(0, AtomListView(res, 5));
+        TBase::listTo(outlet_n_, AtomListView(res, 5));
     }
 
     template <class TBase>

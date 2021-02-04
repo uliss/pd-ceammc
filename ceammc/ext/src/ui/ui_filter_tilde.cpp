@@ -17,6 +17,7 @@
 constexpr double SMOOTH_TIME_MS = 20;
 
 UIFilterTilde::UIFilterTilde()
+    : FilterBase(1)
 {
 }
 
@@ -24,6 +25,7 @@ void UIFilterTilde::init(t_symbol* name, const AtomListView& args, bool usePrese
 {
     FilterBase::init(name, args, usePresets);
     dspSetup(1, 1);
+    createOutlet();
 }
 
 void UIFilterTilde::dspOn(double samplerate, long blocksize)
@@ -60,6 +62,14 @@ void UIFilterTilde::dspProcess(t_sample** ins, long n_ins, t_sample** outs, long
     }
 
 #undef PROCESS
+}
+
+const char* UIFilterTilde::annotateOutlet(int n) const
+{
+    if (n == 0)
+        return "signal: output";
+    else
+        return "list: biquad coefficients - b0 b1 b2 a1 a2";
 }
 
 void setup_ui_filter_tilde()
