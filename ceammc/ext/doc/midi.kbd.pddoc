@@ -18,17 +18,26 @@
         </info>
         <arguments>
             <argument name="LAYOUT" type="symbol" enum="qwerty names custom">layout name</argument>
-            <argument name="DICT" type="atom">custom layout: Dict type</argument>
+            <argument name="ON" type="int">init on/off state</argument>
         </arguments>
+        <methods>
+            <method name="custom">set custom
+                <param type="symbol" name="KEYSTR" required="true">key string</param>
+            </method>
+        </methods>
         <properties>
             <property name="@octave" type="int" default="4" minvalue="0" maxvalue="8">output octave</property>
             <property name="@vel" type="float" minvalue="0" maxvalue="127" default="100">output velocity</property>
             <property name="@layout" type="symbol" enum="qwerty names custom" default="qwerty">current layout</property>
             <property name="@custom" type="atom" default="[]">custom layout (Dict data type)</property>
+            <property name="@on" type="int" enum="0 1" default="1">on/off state</property>
         </properties>
         <inlets>
             <inlet>
                 <xinfo>control input</xinfo>
+            </inlet>
+            <inlet>
+                <xinfo on="int">1 or 0: turn on/off</xinfo>
             </inlet>
         </inlets>
         <outlets>
@@ -39,11 +48,11 @@
 <![CDATA[
 [ui.tab qwerty names custom @size 200 15]
 |
-|            [F]
+|            [F]  [custom zxcvbnmasdfghjklqwertyuiop #a(
 |            |
-[@layout $1( [@octave $1(
-|            |
-[midi.kbd qwerty @custom \[a:0 s:2 d:4 f:5 g:7\]]
+[@layout $1( [@octave $1(       [T]
+|            |                  |.
+[midi.kbd qwerty @custom \[a:0 s:2 d:4 f:5 g:7\] #x]
 |
 [ui.hk]
 |
@@ -53,6 +62,7 @@
 |
 |
 [ui.dt]
+[X a->x]
 ]]>
             </pdascii>
         </example>

@@ -30,6 +30,7 @@ class MidiKbd : public BaseObject {
     IntProperty* octave_;
     FloatProperty* vel_;
     SymbolEnumProperty* layout_;
+    BoolProperty* on_;
     const KbdLayout* kbd_;
     KbdLayout custom_;
 
@@ -37,6 +38,9 @@ public:
     MidiKbd(const PdArgs& args);
 
     void dump() const override;
+    void onInlet(size_t n, const AtomListView& lv) override;
+
+    void m_custom(t_symbol* s, const AtomListView& lv);
 
 public:
     void onKeyPress(t_float key);

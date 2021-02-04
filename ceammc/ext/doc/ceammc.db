@@ -441,7 +441,7 @@ midi.event2ctl,midi.ev->ctl		.		..
 midi.event2note,midi.ev->note		.		...
 midi.event2prg,midi.ev->prg		.		.
 midi.file		.		.
-midi.kbd		.		.
+midi.kbd		..		.
 midi.key2str,midi.key->str		.		.
 midi.oct		..		.
 midi.prg2str,midi.prg->str		.		.

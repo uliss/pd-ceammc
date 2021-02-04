@@ -14,6 +14,7 @@
 #include "midi_kbd.h"
 #include "ceammc_data.h"
 #include "ceammc_factory.h"
+#include "ceammc_music_scale.h"
 #include "datatype_dict.h"
 #include "kbd_names.h"
 #include "kbd_querty.h"
@@ -31,10 +32,17 @@ static t_symbol* SYM_QWERTY;
 static t_symbol* SYM_NAMES;
 static t_symbol* SYM_CUSTOM;
 
-static inline std::string int2utf8(int v)
+static inline std::string int_to_utf8(char32_t v)
 {
-    std::wstring_convert<std::codecvt_utf8<char32_t>, char32_t> conv1;
-    return conv1.to_bytes(static_cast<uint32_t>(v));
+    std::wstring_convert<std::codecvt_utf8<char32_t>, char32_t> convert;
+    return convert.to_bytes(v);
+}
+
+static inline char32_t utf8_to_int(const char* key)
+{
+    std::wstring_convert<std::codecvt_utf8<char32_t>, char32_t> convert;
+    auto res = convert.from_bytes(key);
+    return res.empty() ? 0 : res[0];
 }
 
 MidiKbd::MidiKbd(const PdArgs& args)
@@ -44,6 +52,7 @@ MidiKbd::MidiKbd(const PdArgs& args)
     , octave_(nullptr)
     , vel_(nullptr)
     , layout_(nullptr)
+    , on_(nullptr)
     , kbd_(&kbd_querty)
 {
     keypress_.bind(SYM_KEYDOWN);
@@ -69,7 +78,12 @@ MidiKbd::MidiKbd(const PdArgs& args)
         else
             OBJ_ERR << "unknown layout type: " << l->s_name;
     });
+    layout_->setArgIndex(0);
     addProperty(layout_);
+
+    on_ = new BoolProperty("@on", true);
+    on_->setArgIndex(1);
+    addProperty(on_);
 
     createCbAtomProperty(
         "@custom",
@@ -86,7 +100,7 @@ MidiKbd::MidiKbd(const PdArgs& args)
                     char buf[2] = { (char)k, 0 };
                     skey = gensym(buf);
                 } else {
-                    skey = gensym(int2utf8(k).c_str());
+                    skey = gensym(int_to_utf8(k).c_str());
                 }
 
                 dict->insert(skey, kv.second);
@@ -104,9 +118,9 @@ MidiKbd::MidiKbd(const PdArgs& args)
                 custom_.reserve(pdict->size());
 
                 for (auto& kv : *pdict) {
-                    auto s = kv.first->s_name;
-                    if (s[0] != 0 && s[1] == 0 && kv.second.isInteger()) { // single ascii char
-                        custom_[s[0]] = kv.second.asT<int>();
+                    if (kv.second.isInteger()) {
+                        auto note = kv.second[0].asT<int>();
+                        custom_[utf8_to_int(kv.first->s_name)] = note;
                     }
                 }
 
@@ -114,6 +128,7 @@ MidiKbd::MidiKbd(const PdArgs& args)
             }
         });
 
+    createInlet();
     createOutlet();
 }
 
@@ -138,9 +153,29 @@ void MidiKbd::dump() const
         if (k < 127)
             keyname = char(k);
         else
-            keyname = int2utf8(k);
+            keyname = int_to_utf8(k);
 
         OBJ_POST << '"' << keyname << "\" -> " << midiNote(kv.second);
+    }
+}
+
+void MidiKbd::onInlet(size_t n, const AtomListView& lv)
+{
+    on_->set(lv);
+}
+
+void MidiKbd::m_custom(t_symbol* s, const AtomListView& lv)
+{
+    if (!checkArgs(lv, ARG_SYMBOL, s))
+        return;
+
+    custom_.clear();
+    auto sym = lv[0].asT<t_symbol*>();
+    if (sym) {
+        std::wstring_convert<std::codecvt_utf8<char32_t>, char32_t> convert;
+        int i = 0;
+        for (auto c : convert.from_bytes(sym->s_name))
+            custom_[c] = i++;
     }
 }
 
@@ -155,6 +190,9 @@ int MidiKbd::findKey(int key) const
 
 void MidiKbd::onKeyPress(t_float key)
 {
+    if (!on_->value())
+        return;
+
     auto note = findKey(key);
     if (note == KEY_NOT_FOUND)
         return;
@@ -165,6 +203,9 @@ void MidiKbd::onKeyPress(t_float key)
 
 void MidiKbd::onKeyRelease(t_float key)
 {
+    if (!on_->value())
+        return;
+
     auto note = findKey(key);
     if (note == KEY_NOT_FOUND)
         return;
@@ -183,4 +224,7 @@ void setup_midi_kbd()
     SYM_CUSTOM = gensym("custom");
 
     ObjectFactory<MidiKbd> obj("midi.kbd");
+    obj.addMethod("custom", &MidiKbd::m_custom);
+
+    obj.setXletsInfo({ "", "int: 1/0 - on/off" }, { "list: NOTE VEL" });
 }
