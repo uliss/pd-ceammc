@@ -25,6 +25,6 @@ public:
     bool processAnyProps(t_symbol* sel, const AtomListView& lst) override;
 };
 
-void setup_list_to_props();
+void setup_conv_list2props();
 
 #endif // CONV_LIST2PROPS_H
