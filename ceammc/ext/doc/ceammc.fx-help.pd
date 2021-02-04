@@ -32,22 +32,24 @@
 #X text 200 467 simple input stream granulator;
 #X obj 30 494 fx.greyhole~;
 #X text 200 494 A complex echo-like effect;
-#X obj 30 521 fx.looper~;
-#X text 200 521 One track looper;
-#X obj 30 548 fx.pitchshift_s~;
-#X text 200 548 signal version of fx.pitchshift~;
-#X obj 30 575 fx.pitchshift~;
-#X text 200 575 simple pitch shifter based on 2 delay lines;
-#X obj 30 602 fx.sdelay~;
-#X text 200 602 smooth delay with a feedback control;
-#X obj 30 629 fx.vocoder~;
-#X text 200 629 very simple vocoder where the spectrum of the modulation
+#X obj 30 521 fx.infrev~;
+#X text 200 521 port of Infinity VST plugin from airwindows;
+#X obj 30 548 fx.looper~;
+#X text 200 548 One track looper;
+#X obj 30 575 fx.pitchshift_s~;
+#X text 200 575 signal version of fx.pitchshift~;
+#X obj 30 602 fx.pitchshift~;
+#X text 200 602 simple pitch shifter based on 2 delay lines;
+#X obj 30 629 fx.sdelay~;
+#X text 200 629 smooth delay with a feedback control;
+#X obj 30 656 fx.vocoder~;
+#X text 200 656 very simple vocoder where the spectrum of the modulation
 signal is analyzed using a 32-band filter bank;
-#X obj 30 669 fx.wahwah~;
-#X text 200 669 digitized CryBaby wah pedal;
-#X obj 30 696 fx.zita_rev1~;
-#X text 200 696 Zita stereo reverb;
+#X obj 30 696 fx.wahwah~;
+#X text 200 696 digitized CryBaby wah pedal;
+#X obj 30 723 fx.zita_rev1~;
+#X text 200 723 Zita stereo reverb;
 #X obj 1 1 cnv 5 740 40 empty empty ceammc::fx 20 20 0 20 -104026
 -4096 0;
-#X obj 1 723 cnv 5 740 40 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 20 733 library: ceammc;
+#X obj 1 750 cnv 5 740 40 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 20 760 library: ceammc;

@@ -13,6 +13,7 @@
   - flt.c_lpf (with lpf->biquad alias) biquad calculator added
   - flt.c_notch (with notch->biquad alias) biquad calculator added
   - flt.c_pole (with pole->biquad alias) biquad calculator added
+  - fx.infrev~ infinite reverb added (port of airwindows Infinity VST OpenSource plugin)
   - loadexpr added (supports functions and datatypes)
   - midi.cc added (enhanced version of ctlin)
   - midi.clock added

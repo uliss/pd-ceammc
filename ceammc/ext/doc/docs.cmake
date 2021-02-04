@@ -208,6 +208,7 @@ set(DOC_FILES
     fx.freqshift~
     fx.granulator~
     fx.greyhole~
+    fx.infrev~
     fx.looper~
     fx.pitchshift~
     fx.pitchshift_s~

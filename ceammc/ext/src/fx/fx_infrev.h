@@ -23,14 +23,17 @@ class FxInfReverb : public SoundExternal {
     Infinity fx_;
 
     FloatProperty* filter_;
-    FloatProperty* dump_;
+    FloatProperty* damp_;
     FloatProperty* size_;
     FloatProperty* drywet_;
+    BoolProperty* bypass_;
 
 public:
     FxInfReverb(const PdArgs& args);
     void processBlock(const t_sample** in, t_sample** out) override;
     void setupDSP(t_signal** in) override;
+
+    void m_reset(t_symbol*, const AtomListView&);
 };
 
 void setup_fx_infrev_tilde();

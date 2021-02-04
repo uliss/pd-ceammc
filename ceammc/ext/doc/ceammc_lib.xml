@@ -720,6 +720,9 @@
     <entry name="fx.greyhole~" descr="A complex echo-like effect" ref_view="object">
       <xi:include href="fx.greyhole~.pddoc" parse="xml"/>
     </entry>
+    <entry name="fx.infrev~" descr="port of Infinity VST plugin from airwindows" ref_view="object">
+      <xi:include href="fx.infrev~.pddoc" parse="xml"/>
+    </entry>
     <entry name="fx.looper~" descr="One track looper" ref_view="object">
       <xi:include href="fx.looper~.pddoc" parse="xml"/>
     </entry>

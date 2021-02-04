@@ -347,6 +347,7 @@ fx.freeverb~	freeverb - common used open-source reverb
 fx.freqshift~	frequency shifter or single-sideband ring modulation
 fx.granulator~	simple input stream granulator
 fx.greyhole~	A complex echo-like effect
+fx.infrev~	port of Infinity VST plugin from airwindows
 fx.looper~	One track looper
 fx.pitchshift_s~	signal version of fx.pitchshift~
 fx.pitchshift~	simple pitch shifter based on 2 delay lines
