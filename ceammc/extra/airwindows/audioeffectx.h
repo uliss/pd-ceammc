@@ -29,11 +29,6 @@ constexpr int kVstMaxVendorStrLen = 0;
 
 using audioMasterCallback = void (*)();
 
-void vst_strncpy(char* dst, const char* src, size_t n)
-{
-    std::strncpy(dst, src, n);
-}
-
 class AudioEffect {
 };
 
@@ -47,6 +42,7 @@ public:
     }
 
     float getSampleRate() const { return samplerate_; }
+    void setSampleRate(size_t sr) { samplerate_ = sr; }
 
     void setNumInputs(int) { }
     void setNumOutputs(int) { }
@@ -55,7 +51,8 @@ public:
     void canDoubleReplacing() { }
     void programsAreChunks(bool) { }
 
-    void float2string (int, char*, size_t) {}
+    void float2string(int, char*, size_t) { }
+    void vst_strncpy(char* dst, const char* src, size_t n) { }
 };
 
 #endif // AUDIOEFFECTX_H
