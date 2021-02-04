@@ -21,6 +21,11 @@ using namespace ceammc;
 class UIFilter : public ui::TFilter<UIObject> {
 public:
     UIFilter();
+
+    const char* annotateOutlet(int n) const
+    {
+        return "list: biquad coefficients - b0 b1 b2 a1 a2";
+    }
 };
 
 void setup_ui_filter();
