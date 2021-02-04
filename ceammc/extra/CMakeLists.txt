@@ -8,6 +8,7 @@ add_subdirectory(comport)
 add_subdirectory(helmholtz)
 add_subdirectory(import)
 add_subdirectory(libdir)
+add_subdirectory(airwindows)
 
 if(WITH_EXT_AUTOTUNE)
     add_subdirectory(autotune)
