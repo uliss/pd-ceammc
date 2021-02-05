@@ -3,7 +3,6 @@
 #include "conv_dbfs2amp.h"
 #include "conv_degree2key.h"
 #include "conv_int2bits.h"
-#include "conv_list2many.h"
 #include "conv_list2props.h"
 #include "conv_midi2freq.h"
 #include "conv_pitch2midi.h"
@@ -64,7 +63,6 @@ void ceammc_conv_setup()
     setup_conv_cc2amp();
     setup_conv_pitch2midi();
     setup_conv_midi2freq();
-    setup_conv_list2many();
     setup_conv_list2props();
 
     setup_conv_angles();
