@@ -41,7 +41,7 @@
 |                               |
 |                               [unpack f f f     ]
 |                               |       ^|      ^^|
-[list->many @a @b @c]           [@a $1( [@b $2( [@c $3(
+[list->many @a @b @c]           [@a $1( [@b $1( [@c $1(
 |     ^|      ^^|               |       |       |
 |      |      [ui.dt]           [ui.dt] [ui.dt] [ui.dt]
 |      |
