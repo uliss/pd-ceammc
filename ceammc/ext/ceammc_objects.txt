@@ -208,6 +208,7 @@ flow.group
 flow.interval
 flow.less
 flow.less_eq
+flow.list2many
 flow.loop
 flow.match
 flow.mem
@@ -258,6 +259,7 @@ flt.eq10~
 flt.eq_peak_cq~
 flt.eq_peak~
 flt.fb_comb~
+flt.fbank5x1~
 flt.ff_comb~
 flt.freqz
 flt.freqz~
@@ -291,6 +293,7 @@ fx.freeverb~
 fx.freqshift~
 fx.granulator~
 fx.greyhole~
+fx.infrev~
 fx.looper~
 fx.pitchshift_s~
 fx.pitchshift~
@@ -371,6 +374,7 @@ lin->lin
 lin->lin~
 list->array
 list->dict
+list->many
 list->props
 list.<<
 list.>>
