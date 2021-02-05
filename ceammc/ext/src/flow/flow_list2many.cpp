@@ -34,7 +34,7 @@ FlowList2Many::FlowList2Many(const PdArgs& args)
         auto sel = a.asT<t_symbol*>();
 
         selectors_.push_back(sel);
-        tooltips_[i] = fmt::format("{} l[{}]", sel->s_name, i);
+        tooltips_.push_back(fmt::format("any: {} list\\[{}\\]", sel->s_name, i));
 
         createOutlet();
     }

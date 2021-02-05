@@ -494,6 +494,9 @@
     <entry name="flow.less_eq" descr="numeric stream router, like many [moses]" ref_view="object">
       <xi:include href="flow.less_eq.pddoc" parse="xml"/>
     </entry>
+    <entry name="flow.list2many" descr="routes list element with message selectors" ref_view="object">
+      <xi:include href="flow.list2many.pddoc" parse="xml"/>
+    </entry>
     <entry name="flow.match" descr="route data flow by regexp match" ref_view="object">
       <xi:include href="flow.match.pddoc" parse="xml"/>
     </entry>

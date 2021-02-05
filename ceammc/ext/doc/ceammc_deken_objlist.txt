@@ -248,6 +248,8 @@ flow.less	numeric stream router, like many [moses]
 flow.<	numeric stream router, like many [moses]
 flow.less_eq	numeric stream router, like many [moses]
 flow.<=	numeric stream router, like many [moses]
+flow.list2many	routes list element with message selectors
+list->many	routes list element with message selectors
 flow.match	route data flow by regexp match
 flow.mem	store data flow in memory
 flow.multiplex	control flow multiplexer
