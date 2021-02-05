@@ -57,22 +57,24 @@
         <example>
             <pdascii>
 <![CDATA[
-[open %CEAMMC%/guitar1.wav, 1(               [loadmsg 0.5 0.2 0.9 0.7]
-|                                            |
-[expand_env] [open %DOC%/sound/voice.wav, 1( [ui.sliders 4]
-|            |                               |
-| [reset #a( [expand_env]                    |
-|            |                               |
-[readsf~]    [readsf~]                       |
-|            |.        [r $0-r #b]           |
-[fx.infrev~ #z]                              |
-*|*                                          |
-[ui.hgain2~]       [ui.dsp~]                 [list->many {i=1,o=1} #l2m]
-*|*                                          |
-[dac~]                                       [s $0-r]
+[open %CEAMMC%/guitar1.wav, 1(        [loadmsg 0.5 0.2 0.9 0.7 #c]
+|
+[expand_env] [open %DOC%/sound/voice.wav, 1(
+|            |
+| [reset #a( [expand_env]             [ui.sliders 4 #x]
+|            |                        |
+[readsf~]    [readsf~]                |
+|            |.        [r $0-r #b]    |
+[fx.infrev~ #z]                       |
+*|*                                   |
+[ui.hgain2~]       [ui.dsp~]          [#l2m(
+*|*                                   |
+[dac~]                                [s $0-r]
 [X a->z]
 [X b->z]
-#l2m @filter @damp @size @drywet
+[X c->x]
+#x @size 125 70
+#l2m @filter $1, @damp $2, @size $3, @drywet $4
 ]]>
             </pdascii>
         </example>
