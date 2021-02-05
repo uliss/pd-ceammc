@@ -1,5 +1,5 @@
 declare name "Standart Pitch Notation constants";
-declare version "0.1";
+declare version "0.2";
 
 ba = library("basics.lib");
 
@@ -20,6 +20,7 @@ C3 = C(3);
 C4 = C(4);
 C5 = C(5);
 C6 = C(6);
+C7 = C(7);
 
 D1 = D(1);
 D2 = D(2);
@@ -27,6 +28,7 @@ D3 = D(3);
 D4 = D(4);
 D5 = D(5);
 D6 = D(6);
+D7 = D(7);
 
 E1 = E(1);
 E2 = E(2);
@@ -34,6 +36,7 @@ E3 = E(3);
 E4 = E(4);
 E5 = E(5);
 E6 = E(6);
+E7 = E(7);
 
 F1 = F(1);
 F2 = F(2);
@@ -41,6 +44,7 @@ F3 = F(3);
 F4 = F(4);
 F5 = F(5);
 F6 = F(6);
+F7 = F(7);
 
 G1 = G(1);
 G2 = G(2);
@@ -48,6 +52,7 @@ G3 = G(3);
 G4 = G(4);
 G5 = G(5);
 G6 = G(6);
+G7 = G(7);
 
 A1 = A(1);
 A2 = A(2);
@@ -55,6 +60,7 @@ A3 = A(3);
 A4 = A(4);
 A5 = A(5);
 A6 = A(6);
+A7 = A(7);
 
 B1 = B(1);
 B2 = B(2);
@@ -62,5 +68,6 @@ B3 = B(3);
 B4 = B(4);
 B5 = B(5);
 B6 = B(6);
+B7 = B(7);
 
 to_freq = ba.midikey2hz;
