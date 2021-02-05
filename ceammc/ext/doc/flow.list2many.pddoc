@@ -35,18 +35,17 @@
         <example>
             <pdascii>
 <![CDATA[
-[ui.sliders 3]
+[ui.sliders 3 @size 100 60]     /*vanilla analogue*/
 |
-|
-|
-|
-|
-|
-[list->many @a @b @c]
-|   ^|  ^^|
-|    |    [ui.dt]
-|    |
-|    [ui.dt]
+|                               [1 2 3(
+|                               |
+|                               [unpack f f f     ]
+|                               |       ^|      ^^|
+[list->many @a @b @c]           [@a $1( [@b $2( [@c $3(
+|     ^|      ^^|               |       |       |
+|      |      [ui.dt]           [ui.dt] [ui.dt] [ui.dt]
+|      |
+|      [ui.dt]
 |
 [ui.dt]
 ]]>
