@@ -637,6 +637,9 @@
     <entry name="flt.fb_comb~" descr="feedback comb filter" ref_view="object">
       <xi:include href="flt.fb_comb~.pddoc" parse="xml"/>
     </entry>
+    <entry name="flt.fbank5x1~" descr="5 band one octave butterworth filterbank" ref_view="object">
+      <xi:include href="flt.fbank5x1~.pddoc" parse="xml"/>
+    </entry>
     <entry name="flt.ff_comb~" descr="feed forward comb filter" ref_view="object">
       <xi:include href="flt.ff_comb~.pddoc" parse="xml"/>
     </entry>

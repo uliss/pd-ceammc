@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="flt.fbank5x1~">
+        <title>flt.fbank5x1~</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>5 band one octave butterworth filterbank</description>
+            <license>GPL3 or later</license>
+            <library>ceammc</library>
+            <category>flt</category>
+            <keywords>filter filterbank</keywords>
+            <since>0.9.2</since>
+        </meta>
+        <info>
+            <par>Split the input signal into a bank of parallel signals, one for each spectral band</par>
+            <par>Contains: lowpass, 3 bandbass and highpass filter</par>
+            <par>A Filter-Bank is a signal bandsplitter having the property
+            that summing its output signals gives an allpass-filtered version of the filter-bank input signal.
+            A more conventional term for this is an "allpass-complementary filter bank"</par>
+        </info>
+        <arguments>
+            <argument name="f250" type="float" units="decibel" minvalue="-6" maxvalue="6">
+            @f250 property init value</argument>
+            <argument name="f500" type="float" units="decibel" minvalue="-6" maxvalue="6">
+            @f500 property init value</argument>
+            <argument name="f1000" type="float" units="decibel" minvalue="-6" maxvalue="6">
+            @f1000 property init value</argument>
+            <argument name="f2000" type="float" units="decibel" minvalue="-6" maxvalue="6">
+            @f2000 property init value</argument>
+            <argument name="f4000" type="float" units="decibel" minvalue="-6" maxvalue="6">
+            @f4000 property init value</argument>
+        </arguments>
+        <properties>
+            <property name="@f250" type="float" minvalue="-6" maxvalue="6" default="0"
+            units="decibel">first filter (lowpass) gain at 250Hz</property>
+            <property name="@f500" type="float" minvalue="-6" maxvalue="6" default="0"
+            units="decibel">second filter (bandpass) gain at 500Hz</property>
+            <property name="@f1000" type="float" minvalue="-6" maxvalue="6" default="0"
+            units="decibel">third filter (bandpass) gain at 1000Hz</property>
+            <property name="@f2000" type="float" minvalue="-6" maxvalue="6" default="0"
+            units="decibel">fourth filter (bandpass) gain at 2000Hz</property>
+            <property name="@f4000" type="float" minvalue="-6" maxvalue="6" default="0"
+            units="decibel">fifth filter (highpass) gain at 4000Hz</property>
+            <property name="@active" type="int" enum="0 1" default="1">on/off dsp
+            processing</property>
+        </properties>
+        <methods>
+            <method name="reset">reset filter state</method>
+        </methods>
+        <inlets>
+            <inlet type="audio">
+                <xinfo>input signal</xinfo>
+                <xinfo on="list">5 element list of db gains</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet type="audio">lpf: 250Hz</outlet>
+            <outlet type="audio">bpf: 500Hz</outlet>
+            <outlet type="audio">bpf: 1000Hz</outlet>
+            <outlet type="audio">bpf: 2000Hz</outlet>
+            <outlet type="audio">hpf: 4000Hz</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[bang #a(          [msg.onload fill 0]
+|                  |
+[click~]           [ui.sliders 5 #c @min -6 @max 6]
+|
+|
+|
+|
+|
+|
+[flt.fbank5x1~ #d]
+*|
+*|
+[plot.response~ @sr 1 @db 1 #b]
+|                          ^^|.
+[ui.plot~ @xlabels 1 @ylabels 1 @ymin -6 @ymax 6 @ymin_ticks 0 @ymaj_ticks 0 @size 300 100]
+
+
+
+
+
+
+
+[ui.dsp~]
+[X a->b:1]
+[X c->d]
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

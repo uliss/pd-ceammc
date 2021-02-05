@@ -15,6 +15,7 @@
   - flt.c_notch (with notch->biquad alias) biquad calculator added
   - flt.c_pole (with pole->biquad alias) biquad calculator added
   - fx.infrev~ infinite reverb added (port of airwindows Infinity VST OpenSource plugin)
+  - fx.fbank5x1~ filterbank added (5 band, one octave) 
   - loadexpr added (supports functions and datatypes)
   - midi.cc added (enhanced version of ctlin)
   - midi.clock added

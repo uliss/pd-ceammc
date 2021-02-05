@@ -175,9 +175,10 @@ set(DOC_FILES
     flt.dcblock2~
     flt.dcblock~
     flt.eq10~
-    flt.eq_peak~
     flt.eq_peak_cq~
+    flt.eq_peak~
     flt.fb_comb~
+    flt.fbank5x1~
     flt.ff_comb~
     flt.freqz
     flt.freqz~
