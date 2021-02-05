@@ -61,9 +61,9 @@
         flt.c_highshelf~ flt.c_hpf flt.c_hpf~ flt.c_lowshelf~ flt.c_lpf
         flt.c_lpf~ flt.c_notch flt.c_notch~ flt.c_peak~ flt.c_pole
         flt.dcblock2~ flt.dcblock~ flt.eq10~ flt.eq_peak_cq~ flt.eq_peak~
-        flt.fb_comb~ flt.ff_comb~ flt.freqz flt.freqz~ flt.highshelf~
-        flt.hpf12~ flt.hpf24~ flt.lowshelf~ flt.lpf12~ flt.lpf24~ flt.median
-        flt.moog_vcf~ flt.notch~ flt.resonbp~
+        flt.fb_comb~ flt.fbank5x1~ flt.ff_comb~ flt.freqz flt.freqz~
+        flt.highshelf~ flt.hpf12~ flt.hpf24~ flt.lowshelf~ flt.lpf12~
+        flt.lpf24~ flt.median flt.moog_vcf~ flt.notch~ flt.resonbp~
     }}
     {fx {
         fx.bitdown~ fx.chorus~ fx.distortion1~ fx.distortion2~ fx.distortion3~
