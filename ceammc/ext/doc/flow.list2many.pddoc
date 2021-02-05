@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="conv.list2props">
+        <title>conv.list2props</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>maps list elements to pairs with message selectors</description>
+            <license>GPL3 or later</license>
+            <library>ceammc</library>
+            <category>conv</category>
+            <keywords>conv map list</keywords>
+            <since>0.9.2</since>
+            <aliases>
+                <alias>list-&gt;many</alias>
+            </aliases>
+        </meta>
+        <info>
+            <par>On incoming list (l⁰ l¹ ...) outputs sequence of message pairs: [s⁰ l⁰(, [s¹ l¹( etc...</par>
+        </info>
+        <arguments>
+            <argument name="SEL" type="list">list of selectors</argument>
+        </arguments>
+        <inlets>
+            <inlet>
+                <xinfo on="list">input list</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet>sequence of messages: selector and corresponding list element</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[1 2 3(
+|
+[list->many a b c]
+|
+[print]
+
+[ui.slider2d]
+|
+|
+|
+[list->many @s @dd]
+|
+[
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

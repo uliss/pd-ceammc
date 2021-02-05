@@ -9,6 +9,7 @@
   - conv.bits2note (with bits->note alias) added
   - conv.bits2pos (with bits->pos alias) added
   - conv.sig2float (with sig->float~ and s->f~ aliases) added
+  - conv.list2many (with list->many alias) added
   - flt.c_hpf (with hpf->biquad alias) biquad calculator added
   - flt.c_lpf (with lpf->biquad alias) biquad calculator added
   - flt.c_notch (with notch->biquad alias) biquad calculator added
