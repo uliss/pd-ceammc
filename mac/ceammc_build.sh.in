@@ -303,18 +303,7 @@ do
 done
 
 section "Copying CEAMMC help files"
-for pdhelp in ${SRC_CEAMMC}/ext/doc/*-help.pd
-do
-    copy ${pdhelp} "${BUNDLE_CEAMMC}"
-    chmod 0444 "${BUNDLE_CEAMMC}/$(basename $pdhelp)"
-    pdhelp_base=$(basename $pdhelp | sed 's/-help\.pd$//')
-    extra=`find ${SRC_CEAMMC}/ext/doc -name "${pdhelp_base}.*.pd"`
-    for x in ${extra}
-    do
-        copy ${x} "${BUNDLE_CEAMMC}"
-        chmod 0444 "${BUNDLE_CEAMMC}/$(basename $x)"
-    done
-done
+rsync --archive --include='*.pd' --exclude='*' "${SRC_CEAMMC}/ext/doc/" "${BUNDLE_CEAMMC}"
 
 section "Copying CEAMMC help additional files"
 for f in ${SRC_CEAMMC}/ext/doc/*.@(mod|txt|wav|glitch)
