@@ -61,12 +61,13 @@ Range: 36\...84\.;
 #X obj 20 949 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
 #X text 110 950 1\.;
-#X text 245 950 control inlet.;
+#X text 150 950 *list*;
+#X text 245 950 NOTE VEL.;
 #X obj 20 980 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 985 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
 #X text 110 986 1\.;
-#X text 245 986;
+#X text 245 986 synth output.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;
