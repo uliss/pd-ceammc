@@ -261,37 +261,45 @@ const double loopFiltera2_points[18 * 2] = {
 const LookupTable loopFiltera2(&loopFiltera2_points[0], 18);
 }
 
-float harpsichordGetValueDryTapAmpT60(float index)
-{
-    return DryTapAmpT60.getValue(index);
-}
+namespace faust {
+namespace synth {
+    namespace harpsichord {
 
-float harpsichordGetValueReleaseLoopGain(float index)
-{
-    return releaseLoopGain.getValue(index);
-}
+        float getValueDryTapAmpT60(float index)
+        {
+            return DryTapAmpT60.getValue(index);
+        }
 
-float harpsichordGetValueLoopFilterb0(float index)
-{
-    return loopFilterb0.getValue(index);
-}
+        float getValueReleaseLoopGain(float index)
+        {
+            return releaseLoopGain.getValue(index);
+        }
 
-float harpsichordGetValueLoopFilterb1(float index)
-{
-    return loopFilterb1.getValue(index);
-}
+        float getValueLoopFilterb0(float index)
+        {
+            return loopFilterb0.getValue(index);
+        }
 
-float harpsichordGetValueLoopFilterb2(float index)
-{
-    return loopFilterb2.getValue(index);
-}
+        float getValueLoopFilterb1(float index)
+        {
+            return loopFilterb1.getValue(index);
+        }
 
-float harpsichordGetValueLoopFiltera1(float index)
-{
-    return loopFiltera1.getValue(index);
-}
+        float getValueLoopFilterb2(float index)
+        {
+            return loopFilterb2.getValue(index);
+        }
 
-float harpsichordGetValueLoopFiltera2(float index)
-{
-    return loopFiltera2.getValue(index);
+        float getValueLoopFiltera1(float index)
+        {
+            return loopFiltera1.getValue(index);
+        }
+
+        float getValueLoopFiltera2(float index)
+        {
+            return loopFiltera2.getValue(index);
+        }
+
+    }
+}
 }

@@ -1,5 +1,7 @@
 set(SYNTH_SOURCES)
 set(SYNTH_STK_SOURCES
+    faust_synth_stk.cpp
+    faust_synth_harpsichord.cpp
     stksynth.cpp
     synth_bthree.cpp
     synth_fgrain.cpp
@@ -18,9 +20,12 @@ ceammc_synth_obj(birds)
 ceammc_synth_obj(church_bell)
 ceammc_synth_obj(dubdub)
 ceammc_synth_obj(eguitar)
+ceammc_synth_obj(glass_harm)
 ceammc_synth_obj(glitch)
+ceammc_synth_obj(harpsichord)
 ceammc_synth_obj(ks)
 ceammc_synth_obj(marimba)
+ceammc_synth_obj(piano)
 ceammc_synth_obj(risset_arp)
 ceammc_synth_obj(risset_tone)
 ceammc_synth_obj(russian_bell)
