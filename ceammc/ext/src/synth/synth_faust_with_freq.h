@@ -61,6 +61,17 @@ public:
         m_note(SYM_NOTE, lst.view());
     }
 
+    const char* annotateInlet(size_t) const override
+    {
+        return "list: NOTE VEL\n"
+               "note NOTE VEL";
+    }
+
+    const char* annoteOutlet(size_t) const override
+    {
+        return "synth output";
+    }
+
     void m_note(t_symbol* s, const AtomListView& lv)
     {
         if (!pitch_ || !gate_) {
