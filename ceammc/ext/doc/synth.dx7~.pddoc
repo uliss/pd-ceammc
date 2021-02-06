@@ -29,7 +29,7 @@
         </methods>
         <inlets>
             <inlet>
-                <xinfo>control inlet</xinfo>
+                <xinfo on="list">NOTE VEL</xinfo>
             </inlet>
         </inlets>
         <outlets>

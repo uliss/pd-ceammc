@@ -58,7 +58,8 @@ float. Default value: 0.5\. Range: 0\...1\.;
 #X obj 20 925 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
 #X text 110 926 1\.;
-#X text 245 926 input signal.;
+#X text 150 926 *list*;
+#X text 245 926 NOTE VEL.;
 #X obj 20 956 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 961 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
