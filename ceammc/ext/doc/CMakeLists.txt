@@ -157,6 +157,8 @@ install(FILES ${EXTRA_DOC_FILES}
         ui.plot~.ln-help.pd
         ui.plot~.log2-help.pd
         ui.plot~.log10-help.pd
+        poly.obj.pd
+        poly.osc~.pd
     DESTINATION ${DOC_INSTALL_PATH}
     PERMISSIONS OWNER_READ GROUP_READ WORLD_READ)
 
