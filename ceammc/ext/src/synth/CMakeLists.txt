@@ -2,6 +2,7 @@ set(SYNTH_SOURCES)
 set(SYNTH_STK_SOURCES
     faust_synth_stk.cpp
     faust_synth_harpsichord.cpp
+    faust_synth_piano.cpp
     stksynth.cpp
     synth_bthree.cpp
     synth_fgrain.cpp
