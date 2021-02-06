@@ -13,7 +13,7 @@ spn = library("spn.lib");
 
 //freq = nentry("freq [1][unit:Hz] [tooltip:Tone frequency]",440,20,20000,1);
 freq = hslider("pitch", spn.C3, spn.C1, spn.C7, 0.001) : ba.midikey2hz;
-gain = nentry("gain[tooltip:Gain (value between 0 and 1)]",0.8,0,1,0.01);
+gain = nentry("gain[tooltip:Gain (value between 0 and 1)]",0.8,0,1,0.01) : si.smoo;
 gate = button("gate") : int;
 
 typeModulation = nentry("modtype
@@ -42,15 +42,11 @@ NLFM =  nonLinearModulator((nonLinearity : si.smoo),1,freq,
 
 //----------------------- Synthesis parameters computing and functions declaration ----------------------------
 
-//convert a frequency in a midi note number
-freqToNoteNumber = (log-log(440))/log(2)*12+69+0.5 : int;
-freqn = freq : freqToNoteNumber;
-
 //string excitation
 soundBoard = dryTapAmp*no.noise
 	with{
                 dryTapAmpT60 = ffunction(float getValueDryTapAmpT60(float), "harpsichord.h","");
-		noteCutOffTime = freqn : dryTapAmpT60*gain;
+                noteCutOffTime = freq : dryTapAmpT60*gain;
 		dryTapAmp = asympT60(0.15,0,noteCutOffTime,gate);
 	};	
 
@@ -64,24 +60,20 @@ loopFilter = fi.TF2(b0,b1,b2,a1,a2)
                 loopFiltera1 = ffunction(float getValueLoopFiltera1(float), "harpsichord.h","");
                 loopFiltera2 = ffunction(float getValueLoopFiltera2(float), "harpsichord.h","");
 		//coefficients are extracted from the functions
-		b0 = loopFilterb0(freqn);
-		b1 = loopFilterb1(freqn);
-		b2 = loopFilterb2(freqn);
-		a1 = loopFiltera1(freqn);
-		a2 = loopFiltera2(freqn);
+                b0 = loopFilterb0(freq);
+                b1 = loopFilterb1(freq);
+                b2 = loopFilterb2(freq);
+                a1 = loopFiltera1(freq);
+                a2 = loopFiltera2(freq);
 	   };
 
 //delay length as a number of samples
 delayLength = ma.SR/freq;
 
-//stereoizer is declared in instruments.lib and implement a stereo spacialisation in function of 
-//the frequency period in number of samples 
-stereo = stereoizer(delayLength);
-
 //----------------------- Algorithm implementation ----------------------------
 
 //envelope for string loop resonance time
-stringLoopGainT = gate*0.9996 + (gate<1)*releaseLoopGain(freqn)*0.9 : si.smoo
+stringLoopGainT = gate*0.9996 + (gate<1)*releaseLoopGain(freq)*0.9 : si.smoo
 		with{
                         releaseLoopGain = ffunction(float getValueReleaseLoopGain(float), "harpsichord.h","");
 		};
@@ -89,6 +81,31 @@ stringLoopGainT = gate*0.9996 + (gate<1)*releaseLoopGain(freqn)*0.9 : si.smoo
 //one string
 string = (*(stringLoopGainT)+_ : de.delay(4096,delayLength) : loopFilter)~NLFM;
 
-process = soundBoard : string : stereo : instrReverb;
+process = soundBoard : string : stereo : reverb
+with {
+    //stereoizer implement a stereo spacialisation in function of
+    //the frequency period in number of samples
+    stereo = _ <: _,widthdelay : stereopanner
+        with {
+            W = hslider("width", 0.5, 0, 1, 0.01) : si.smoo;
+            A = hslider("pan", 0.6, 0, 1, 0.01) : si.smoo;
+            widthdelay = de.delay(4096, W*delayLength/2);
+            stereopanner = _,_ : *(1.0-A), *(A);
+        };
+
+    reverb = _,_ <: *(reverbGain),*(reverbGain),*(1 - reverbGain),*(1 - reverbGain) :
+        re.zita_rev1_stereo(rdel,f1,f2,t60dc,t60m,fsmax),_,_ <: _,!,_,!,!,_,!,_ : +,+
+    with {
+        reverbGain = hslider("reverb_gain",0.137,0,1,0.01) : si.smoo;
+        roomSize = hslider("room_size",0.72,0.01,2,0.01) : si.smoo;
+        rdel = 20;
+        f1 = 200;
+        f2 = 6000;
+        t60dc = roomSize*3;
+        t60m = roomSize*2;
+        fsmax = 96000;
+    };
+
+};
 
 

@@ -3,7 +3,7 @@
 	"filename": "synth_harpsichord.dsp",
 	"version": "2.28.6",
 	"compile_options": "-lang cpp -scal -ftz 0",
-	"library_list": ["/usr/local/share/faust/instruments.lib","/Users/serge/work/music/pure-data/ceammc/faust/spn.lib","/usr/local/share/faust/basics.lib","/usr/local/share/faust/maths.lib","/usr/local/share/faust/platform.lib","/usr/local/share/faust/noises.lib","/usr/local/share/faust/signals.lib","/usr/local/share/faust/delays.lib","/usr/local/share/faust/filters.lib","/usr/local/share/faust/oscillators.lib","/usr/local/share/faust/reverbs.lib","/usr/local/share/faust/routes.lib"],
+	"library_list": ["/usr/local/share/faust/instruments.lib","/Users/serge/work/music/pure-data/ceammc/faust/spn.lib","/usr/local/share/faust/basics.lib","/usr/local/share/faust/signals.lib","/usr/local/share/faust/maths.lib","/usr/local/share/faust/platform.lib","/usr/local/share/faust/noises.lib","/usr/local/share/faust/delays.lib","/usr/local/share/faust/filters.lib","/usr/local/share/faust/oscillators.lib","/usr/local/share/faust/reverbs.lib","/usr/local/share/faust/routes.lib"],
 	"include_pathnames": ["/usr/local/share/faust","/usr/local/share/faust","/usr/share/faust","/Users/serge/work/music/pure-data/ceammc/faust","/Users/serge/work/music/pure-data/ceammc/faust"],
 	"inputs": 0,
 	"outputs": 2,
@@ -22,7 +22,7 @@
 		{ "filters.lib/allpassnn:author": "Julius O. Smith III" },
 		{ "filters.lib/allpassnn:copyright": "Copyright (C) 2003-2019 by Julius O. Smith III <jos@ccrma.stanford.edu>" },
 		{ "filters.lib/allpassnn:license": "MIT-style STK-4.3 license" },
-		{ "filters.lib/lowpass0_highpass1": "Copyright (C) 2003-2019 by Julius O. Smith III <jos@ccrma.stanford.edu>" },
+		{ "filters.lib/lowpass0_highpass1": "MIT-style STK-4.3 license" },
 		{ "filters.lib/lowpass0_highpass1:author": "Julius O. Smith III" },
 		{ "filters.lib/lowpass:author": "Julius O. Smith III" },
 		{ "filters.lib/lowpass:copyright": "Copyright (C) 2003-2019 by Julius O. Smith III <jos@ccrma.stanford.edu>" },
@@ -67,54 +67,6 @@
 			"type": "vgroup",
 			"label": "synth.harpsichord",
 			"items": [ 
-				{
-					"type": "vgroup",
-					"label": "Reverb",
-					"items": [ 
-						{
-							"type": "hslider",
-							"label": "reverbGain",
-							"address": "/synth.harpsichord/Reverb/reverbGain",
-							"init": 0.137,
-							"min": 0,
-							"max": 1,
-							"step": 0.01
-						},
-						{
-							"type": "hslider",
-							"label": "roomSize",
-							"address": "/synth.harpsichord/Reverb/roomSize",
-							"init": 0.72,
-							"min": 0.01,
-							"max": 2,
-							"step": 0.01
-						}
-					]
-				},
-				{
-					"type": "vgroup",
-					"label": "Spat",
-					"items": [ 
-						{
-							"type": "hslider",
-							"label": "pan angle",
-							"address": "/synth.harpsichord/Spat/pan_angle",
-							"init": 0.6,
-							"min": 0,
-							"max": 1,
-							"step": 0.01
-						},
-						{
-							"type": "hslider",
-							"label": "spatial width",
-							"address": "/synth.harpsichord/Spat/spatial_width",
-							"init": 0.5,
-							"min": 0,
-							"max": 1,
-							"step": 0.01
-						}
-					]
-				},
 				{
 					"type": "nentry",
 					"label": "gain",
@@ -171,12 +123,48 @@
 				},
 				{
 					"type": "hslider",
+					"label": "pan",
+					"address": "/synth.harpsichord/pan",
+					"init": 0.6,
+					"min": 0,
+					"max": 1,
+					"step": 0.01
+				},
+				{
+					"type": "hslider",
 					"label": "pitch",
 					"address": "/synth.harpsichord/pitch",
 					"init": 48,
 					"min": 24,
 					"max": 96,
 					"step": 0.001
+				},
+				{
+					"type": "hslider",
+					"label": "reverb_gain",
+					"address": "/synth.harpsichord/reverb_gain",
+					"init": 0.137,
+					"min": 0,
+					"max": 1,
+					"step": 0.01
+				},
+				{
+					"type": "hslider",
+					"label": "room_size",
+					"address": "/synth.harpsichord/room_size",
+					"init": 0.72,
+					"min": 0.01,
+					"max": 2,
+					"step": 0.01
+				},
+				{
+					"type": "hslider",
+					"label": "width",
+					"address": "/synth.harpsichord/width",
+					"init": 0.5,
+					"min": 0,
+					"max": 1,
+					"step": 0.01
 				}
 			]
 		}

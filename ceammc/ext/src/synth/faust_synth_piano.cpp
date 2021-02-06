@@ -150,7 +150,7 @@ const static double stiffnessCoefficient_points[10 * 2] = {
 };
 const LookupTable stiffnessCoefficient(&stiffnessCoefficient_points[0], 10);
 
-const static const double strikePosition_points[12 * 2] = {
+const static double strikePosition_points[12 * 2] = {
     21.000, 0.050,
     24.000, 0.050,
     28.000, 0.050,
@@ -949,4 +949,5 @@ namespace synth {
             return bassLoopFiltera1.getValue(index);
         }
     }
+}
 }
