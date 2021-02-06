@@ -67,7 +67,7 @@ public:
                "note NOTE VEL";
     }
 
-    const char* annoteOutlet(size_t) const override
+    const char* annotateOutlet(size_t) const override
     {
         return "synth output";
     }
