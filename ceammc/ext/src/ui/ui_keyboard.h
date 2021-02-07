@@ -24,7 +24,7 @@ class UIKeyboard : public UIObject {
 public:
     UIKeyboard();
 
-    bool okSize(t_rect* newrect);
+    bool okSize(::t_rect* newrect);
     void paint();
     void init(t_symbol* name, const AtomListView& args, bool usePresets);
 
@@ -41,13 +41,14 @@ public:
     const char* annotateInlet(int n) const;
     const char* annotateOutlet(int n) const;
 
+    void playChord(const std::initializer_list<uint8_t>& keys);
+
 public:
     static void setup();
 
 private:
-    void playChord(const std::initializer_list<uint8_t>& keys);
     int realPitch() const;
-    void output();
+    void outputCurrentKey();
     void releaseAllNotes();
     void resetAllNotes();
 };

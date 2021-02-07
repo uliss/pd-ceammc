@@ -11,15 +11,16 @@
  * contact the author of this file, or the owner of the project in which
  * this file belongs to.
  *****************************************************************************/
-#include "ui_keyboard.h"
 #include "ceammc_format.h"
 #include "test_ui.h"
+#include "ui_keyboard.h"
 
 UI_COMPLETE_TEST_SETUP(Keyboard)
 
 TEST_CASE("ui.keyboard", "[ui.keyboard]")
 {
     ui_test_init();
+    test::pdPrintToStdError();
 
     SECTION("keyboard_num_white_keys")
     {
@@ -38,5 +39,53 @@ TEST_CASE("ui.keyboard", "[ui.keyboard]")
         REQUIRE(keyboard_num_white_keys(12) == 7);
         REQUIRE(keyboard_num_white_keys(13) == 8);
         REQUIRE(keyboard_num_white_keys(14) == 8);
+    }
+
+    SECTION("create")
+    {
+        SECTION("default")
+        {
+            TestExtKeyboard t("ui.keyboard");
+            REQUIRE(t.numInlets() == 1);
+            REQUIRE(t.numOutlets() == 1);
+            REQUIRE_UI_LIST_PROPERTY(t, "size", LF(432, 60));
+        }
+
+        SECTION("alias")
+        {
+            TestExtKeyboard t("ui.hk");
+            REQUIRE_UI_LIST_PROPERTY(t, "size", LF(432, 60));
+        }
+
+        SECTION("alias")
+        {
+            TestExtKeyboard t("ui.vk");
+            REQUIRE_UI_LIST_PROPERTY(t, "size", LF(60, 432));
+        }
+    }
+
+    SECTION("chord")
+    {
+        using M = Message;
+        using ML = std::vector<M>;
+
+        TestExtKeyboard t("ui.keyboard");
+
+        t->showPopup(t_pt { 5., 5. }, { 0., 0. });
+        t->playChord({ 1, 3, 5 });
+        REQUIRE(t.messagesAt(0) == ML {
+                    M(LF(37, 35)),
+                    M(LF(39, 35)),
+                    M(LF(41, 35)),
+                });
+
+        t.clearAll();
+        t->showPopup(t_pt { 45., 5. }, { 0., 0. });
+        t->playChord({ 1, 3, 5 });
+        REQUIRE(t.messagesAt(0) == ML {
+                    M(LF(43, 35)),
+                    M(LF(45, 35)),
+                    M(LF(47, 35)),
+                });
     }
 }
