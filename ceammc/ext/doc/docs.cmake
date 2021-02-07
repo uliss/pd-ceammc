@@ -594,6 +594,7 @@ set(DOC_FILES
     synth.glitch~
     synth.ks~
     synth.marimba~
+    synth.piano~
     synth.rhodey~
     synth.risset_arp~
     synth.risset_tone~

@@ -1872,6 +1872,9 @@
     <entry name="synth.marimba~" descr="simple marimba physical model implementing a single tone bar connected to tube" ref_view="object">
       <xi:include href="synth.marimba~.pddoc" parse="xml"/>
     </entry>
+    <entry name="synth.piano~" descr="waveguide commuted piano" ref_view="object">
+      <xi:include href="synth.piano~.pddoc" parse="xml"/>
+    </entry>
     <entry name="synth.rhodey~" descr="STK Fender Rhodes electric piano FM synthesis instrument" ref_view="object">
       <xi:include href="synth.rhodey~.pddoc" parse="xml"/>
     </entry>
@@ -2068,6 +2071,7 @@
       <author>Pierre Cochard</author>
       <author>Pierre Guillot</author>
       <author>Richard Dudas</author>
+      <author>Romain Michon</author>
       <author>Serge Poltavski</author>
       <author>Serge Poltavsky</author>
       <author>Serge Potlavsky</author>

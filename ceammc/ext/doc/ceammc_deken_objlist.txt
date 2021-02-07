@@ -837,6 +837,7 @@ synth.fgrain~	file granulator from STK
 synth.glitch~	Glitch synthesizer by naivesound
 synth.ks~	Karplus-Strong string
 synth.marimba~	simple marimba physical model implementing a single tone bar connected to tube
+synth.piano~	waveguide commuted piano
 synth.rhodey~	STK Fender Rhodes electric piano FM synthesis instrument
 synth.risset_arp~	Jean Claude Risset's harmonic arpeggio effect
 synth.risset_tone~	Jean Claude Risset's endless glissando
