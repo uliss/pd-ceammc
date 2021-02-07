@@ -35,6 +35,10 @@
             brightness</property>
             <property name="@hammer_hardness" type="float" minvalue="0" maxvalue="1" default="0.1">
             hammer hardness</property>
+            <property name="@room_size" type="float" minvalue="0.005" maxvalue="1" default="0.36">
+            reverb room size</property>
+            <property name="@reverb_gain" type="float" minvalue="0" maxvalue="1" default="0.137">
+            reverb gain</property>
             <property name="@gate" type="float" minvalue="0" maxvalue="1" default="0">play trigger
             - 1: on, 0: off</property>
             <property name="@active" type="int" enum="0 1" default="1">on/off dsp
