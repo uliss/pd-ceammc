@@ -22,7 +22,8 @@
         </arguments>
         <properties>
             <property name="@on" type="int" enum="0 1" default="0">pedal state</property>
-            <property name="@ctlin" type="int" enum="0 1" default="0">listen to CTL64 from MIDI controller</property>
+            <property name="@ctlin" type="int" enum="0 1" default="0">listen to CTL64 from MIDI
+            controller</property>
         </properties>
         <inlets>
             <inlet>

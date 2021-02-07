@@ -18,7 +18,8 @@
             </also>
         </meta>
         <info>
-            <par>Infinity is a MatrixVerb specifically designed to sustain and layer sounds forever.</par>
+            <par>Infinity is a MatrixVerb specifically designed to sustain and layer sounds
+            forever.</par>
             <a href="https://www.airwindows.com/infinity/">More info</a>
         </info>
         <arguments>
@@ -32,13 +33,13 @@
         <properties>
             <property name="@size" type="float" minvalue="0" maxvalue="1" default="0.5">room
             size</property>
-            <property name="@filter" type="float" minvalue="0" maxvalue="1" default="1">
-            filter coefficient</property>
+            <property name="@filter" type="float" minvalue="0" maxvalue="1" default="1">filter
+            coefficient</property>
             <property name="@damp" type="float" minvalue="0" maxvalue="1" default="0">damping of
             the lowpass comb filter</property>
-            <property name="@drywet" type="float" minvalue="0" maxvalue="1" default="1">
-            proportion of mix between the original (dry) and 'effected' (wet) signals. 0 - dry
-            signal, 1 - wet</property>
+            <property name="@drywet" type="float" minvalue="0" maxvalue="1" default="1">proportion
+            of mix between the original (dry) and 'effected' (wet) signals. 0 - dry signal, 1 -
+            wet</property>
             <property name="@bypass" type="int" enum="0 1" default="0">if set to 1 - bypass
             'effected' signal</property>
         </properties>
