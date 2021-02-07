@@ -8,6 +8,7 @@ declare description "A commuted WaveGuide piano.";
 
 import("instruments.lib");
 spn = library("spn.lib");
+inst = library("ceammc_instruments.lib");
 
 
 //==================== GUI SPECIFICATION ================
@@ -250,5 +251,5 @@ conditionHighNote = freqn >= FIRST_HIGH_NOTE;
 
 process = soundBoard <: (*(conditionLowNote)*6 : hammer : dcBlock1 : coupledStrings <: +(eq)),
 (*(conditionHighNote) : hiPass : dcBlock1 : hammer : dcBlock2a : highBqs : dcBlock2b) :> + : *(12) :
-stereo : instrReverb;
+stereo : inst.reverb2;
 
