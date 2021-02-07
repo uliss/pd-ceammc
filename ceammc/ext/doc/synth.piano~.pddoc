@@ -19,17 +19,19 @@
             <param name="NOTE" type="float" required="true">midi note</param>
             <param name="VEL" type="float" minvalue="0" maxvalue="127" required="true">
             velocity</param></method>
+            <method name="reset">reset synth</method>
         </methods>
         <properties>
-            <property name="@pitch" type="float" minvalue="36" maxvalue="84" default="48">midi
+            <property name="@pitch" type="float" minvalue="24" maxvalue="96" default="48">midi
             pitch</property>
             <property name="@freq" type="float" units="herz" default="130.813">frequency</property>
-            <property name="@pos" type="float" minvalue="0" maxvalue="1" default="0.5">pluck
-            position (1 is on the bridge)</property>
-            <property name="@mute" type="float" minvalue="0" maxvalue="1" default="0">mute
-            coefficient (0 for no mute and 1 for instant mute)</property>
-            <property name="@gain" type="float" minvalue="0" maxvalue="1" default="1">pluck
+            <property name="@gain" type="float" minvalue="0" maxvalue="1" default="1">strike
             gain</property>
+            <property name="@stiffness" type="float" minvalue="0" maxvalue="1" default="0.28">stiffness factor
+            </property>
+            <property name="@detuning" type="float" minvalue="0" maxvalue="1" default="0.1">detuning factor</property>
+            <property name="@brightness" type="float" minvalue="0" maxvalue="1" default="0">brightness</property>
+            <property name="@hammer_hardness" type="float" minvalue="0" maxvalue="1" default="0.1">hammer hardness</property>
             <property name="@gate" type="float" minvalue="0" maxvalue="1" default="0">play trigger
             - 1: on, 0: off</property>
             <property name="@active" type="int" enum="0 1" default="1">on/off dsp
