@@ -7,8 +7,8 @@ re = library("reverbs.lib");
 reverb2 = _,_ <: *(reverbGain),*(reverbGain),*(1 - reverbGain),*(1 - reverbGain) :
     re.zita_rev1_stereo(rdel,f1,f2,t60dc,t60m,fsmax),_,_ <: _,!,_,!,!,_,!,_ : +,+
 with {
-    reverbGain = hslider("reverb_gain",0.137,0,1,0.01) : si.smoo;
-    roomSize = hslider("room_size",0.72,0.01,2,0.01) : si.smoo;
+    reverbGain = hslider("reverb_gain", 0.137, 0, 1, 0.01) : si.smoo;
+    roomSize = hslider("room_size", 0.36, 0.005, 1, 0.01) * 2 : si.smoo;
     rdel = 20;
     f1 = 200;
     f2 = 6000;
