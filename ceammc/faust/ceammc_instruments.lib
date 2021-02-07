@@ -2,6 +2,7 @@ declare name "CEAMMC replacement for intruments.lib";
 declare version "0.1";
 
 si = library("signals.lib");
+de = library("delays.lib");
 re = library("reverbs.lib");
 
 reverb2 = _,_ <: *(reverbGain),*(reverbGain),*(1 - reverbGain),*(1 - reverbGain) :
@@ -16,4 +17,14 @@ with {
     t60m = roomSize*2;
     fsmax = 48000;
 };
+
+//stereoizer implement a stereo spacialisation in function of
+//the frequency period in number of samples
+stereo = _ <: _,widthdelay : stereopanner
+    with {
+        W = hslider("width", 0.5, 0, 1, 0.01) : si.smoo;
+        A = hslider("pan", 0.6, 0, 1, 0.01) : si.smoo;
+        widthdelay = de.delay(4096, W*delayLength/2);
+        stereopanner = _,_ : *(1.0-A), *(A);
+    };
 
