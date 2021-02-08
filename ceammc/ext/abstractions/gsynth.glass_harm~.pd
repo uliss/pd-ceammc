@@ -2,96 +2,90 @@
 #X obj 25 125 synth.glass_harm~;
 #X obj 325 25 inlet;
 #X obj 325 200 route synth.glass_harm;
-#X obj 325 250 route @Base_Gain @Bow_Pressure @Excitation_Selector
-@Integration_Constant @Modulation_Frequency @Modulation_Type
-@Nonlinearity @reverbGain @roomSize @pan angle @spatial width @gain
-@gate @pitch;
+#X obj 325 250 route @bow_press @gain @gate @integration @modfreq
+@modtype @nonlin @pan @pitch @reverb_gain @room_size @strike @width;
 #X obj 575 350 print unknown property;
-#X msg 225 75 @Base_Gain 1 \, @Bow_Pressure 0.2 \, @Excitation_Selector 0 \, @Integration_Constant 0 \, @Modulation_Frequency 220 \, @Modulation_Type 0 \, @Nonlinearity 0 \, @reverbGain 0.137 \, @roomSize 0.72 \, @pan angle 0.6 \, @spatial width 0.5 \, @gain 0.8 \, @pitch 48 \,;
+#X msg 225 75 @bow_press 0.2 \, @gain 1 \, @integration 0 \, @modfreq 220 \, @modtype 0 \, @nonlin 0 \, @pan 0.6 \, @pitch 48 \, @reverb_gain 0.137 \, @room_size 0.36 \, @strike 0 \, @width 0.5 \,;
 #X obj 225 25 msg.onload;
 #X obj 500 550 outlet~;
 #X obj 600 550 outlet~;
 #X obj 700 550 outlet ctl;
 #X obj 3 202 cnv 8 198 18 empty empty [synth.glass_harm~] 3 9 0 12
 -104026 -262144 0;
-#X obj 12 238 ui.slider @size 125 12 @active_scale 1 @label Base_Gain:
+#X obj 12 238 ui.slider @size 125 12 @active_scale 1 @label bow_press:
 @label_side top @label_align left @fontsize 10 @presetname
 /gui/\$1/synth.glass_harm~/slider0 @min 0 @max 1;
 #X obj 190 238 sync;
 #X obj 145 238 ui.number @size 50 12 @min 0 @max 1 @digits 4;
-#X msg 260 238 @Base_Gain \$1;
-#X obj 12 270 ui.slider @size 125 12 @active_scale 1 @label
-Bow_Pressure: @label_side top @label_align left @fontsize 10
-@presetname /gui/\$1/synth.glass_harm~/slider1 @min 0 @max 1;
+#X msg 260 238 @bow_press \$1;
+#X obj 12 270 ui.slider @size 125 12 @active_scale 1 @label gain:
+@label_side top @label_align left @fontsize 10 @presetname
+/gui/\$1/synth.glass_harm~/slider1 @min 0 @max 1;
 #X obj 190 270 sync;
 #X obj 145 270 ui.number @size 50 12 @min 0 @max 1 @digits 4;
-#X msg 260 270 @Bow_Pressure \$1;
-#X obj 12 300 ui.number @size 60 12 @label Excitation_Selector:
-@label_side top @label_align left @fontsize 10 @presetname
-/gui/\$1/synth.glass_harm~/numbox2 @min 0 @max 1 @step 1;
-#X msg 260 300 @Excitation_Selector \$1;
-#X obj 12 332 ui.slider @size 125 12 @active_scale 1 @label
-Integration_Constant: @label_side top @label_align left @fontsize 10
-@presetname /gui/\$1/synth.glass_harm~/slider3 @min 0 @max 1;
-#X obj 190 332 sync;
-#X obj 145 332 ui.number @size 50 12 @min 0 @max 1 @digits 4;
-#X msg 260 332 @Integration_Constant \$1;
-#X obj 12 364 ui.slider @size 125 12 @active_scale 1 @label
-Modulation_Frequency(Hz): @label_side top @label_align left @fontsize
-10 @presetname /gui/\$1/synth.glass_harm~/slider4 @min 20 @max 1000;
-#X obj 190 364 sync;
-#X obj 145 364 ui.number @size 50 12 @min 20 @max 1000 @digits 1;
-#X msg 260 364 @Modulation_Frequency \$1;
-#X obj 12 394 ui.number @size 60 12 @label Modulation_Type:
-@label_side top @label_align left @fontsize 10 @presetname
-/gui/\$1/synth.glass_harm~/numbox5 @min 0 @max 4 @step 1;
-#X msg 260 394 @Modulation_Type \$1;
-#X obj 12 426 ui.slider @size 125 12 @active_scale 1 @label
-Nonlinearity: @label_side top @label_align left @fontsize 10
-@presetname /gui/\$1/synth.glass_harm~/slider6 @min 0 @max 1;
-#X obj 190 426 sync;
-#X obj 145 426 ui.number @size 50 12 @min 0 @max 1 @digits 4;
-#X msg 260 426 @Nonlinearity \$1;
-#X obj 12 458 ui.slider @size 125 12 @active_scale 1 @label
-reverbGain: @label_side top @label_align left @fontsize 10 @presetname
-/gui/\$1/synth.glass_harm~/slider7 @min 0 @max 1;
-#X obj 190 458 sync;
-#X obj 145 458 ui.number @size 50 12 @min 0 @max 1 @digits 4;
-#X msg 260 458 @reverbGain \$1;
-#X obj 12 490 ui.slider @size 125 12 @active_scale 1 @label roomSize:
-@label_side top @label_align left @fontsize 10 @presetname
-/gui/\$1/synth.glass_harm~/slider8 @min 0.01 @max 2;
-#X obj 190 490 sync;
-#X obj 145 490 ui.number @size 50 12 @min 0.01 @max 2 @digits 3;
-#X msg 260 490 @roomSize \$1;
-#X obj 12 522 ui.slider @size 125 12 @active_scale 1 @label pan angle:
-@label_side top @label_align left @fontsize 10 @presetname
-/gui/\$1/synth.glass_harm~/slider9 @min 0 @max 1;
-#X obj 190 522 sync;
-#X obj 145 522 ui.number @size 50 12 @min 0 @max 1 @digits 4;
-#X msg 260 522 @pan angle \$1;
-#X obj 12 554 ui.slider @size 125 12 @active_scale 1 @label spatial
-width: @label_side top @label_align left @fontsize 10 @presetname
-/gui/\$1/synth.glass_harm~/slider10 @min 0 @max 1;
-#X obj 190 554 sync;
-#X obj 145 554 ui.number @size 50 12 @min 0 @max 1 @digits 4;
-#X msg 260 554 @spatial width \$1;
-#X obj 12 584 ui.number @size 60 12 @label gain: @label_side top
-@label_align left @fontsize 10 @presetname
-/gui/\$1/synth.glass_harm~/numbox11 @min 0 @max 1 @step 0.01;
-#X msg 260 584 @gain \$1;
-#X obj 12 604 ui.toggle @size 12 12 @label gate @label_side right
+#X msg 260 270 @gain \$1;
+#X obj 12 290 ui.toggle @size 12 12 @label gate @label_side right
 @label_align left @fontsize 10;
-#X msg 260 596 @gate \$1;
-#X obj 12 634 ui.slider @size 125 12 @active_scale 1 @label pitch:
+#X msg 260 282 @gate \$1;
+#X obj 12 320 ui.slider @size 125 12 @active_scale 1 @label
+integration: @label_side top @label_align left @fontsize 10
+@presetname /gui/\$1/synth.glass_harm~/slider3 @min 0 @max 1;
+#X obj 190 320 sync;
+#X obj 145 320 ui.number @size 50 12 @min 0 @max 1 @digits 4;
+#X msg 260 320 @integration \$1;
+#X obj 12 352 ui.slider @size 125 12 @active_scale 1 @label
+modfreq(Hz): @label_side top @label_align left @fontsize 10
+@presetname /gui/\$1/synth.glass_harm~/slider4 @min 20 @max 1000;
+#X obj 190 352 sync;
+#X obj 145 352 ui.number @size 50 12 @min 20 @max 1000 @digits 1;
+#X msg 260 352 @modfreq \$1;
+#X obj 12 382 ui.number @size 60 12 @label modtype: @label_side top
+@label_align left @fontsize 10 @presetname
+/gui/\$1/synth.glass_harm~/numbox5 @min 0 @max 4 @step 1;
+#X msg 260 382 @modtype \$1;
+#X obj 12 414 ui.slider @size 125 12 @active_scale 1 @label nonlin:
 @label_side top @label_align left @fontsize 10 @presetname
-/gui/\$1/synth.glass_harm~/slider13 @min 24 @max 96;
-#X obj 190 634 sync;
-#X obj 145 634 ui.number @size 50 12 @min 24 @max 96 @digits 2;
-#X msg 260 634 @pitch \$1;
+/gui/\$1/synth.glass_harm~/slider6 @min 0 @max 1;
+#X obj 190 414 sync;
+#X obj 145 414 ui.number @size 50 12 @min 0 @max 1 @digits 4;
+#X msg 260 414 @nonlin \$1;
+#X obj 12 446 ui.slider @size 125 12 @active_scale 1 @label pan:
+@label_side top @label_align left @fontsize 10 @presetname
+/gui/\$1/synth.glass_harm~/slider7 @min 0 @max 1;
+#X obj 190 446 sync;
+#X obj 145 446 ui.number @size 50 12 @min 0 @max 1 @digits 4;
+#X msg 260 446 @pan \$1;
+#X obj 12 478 ui.slider @size 125 12 @active_scale 1 @label pitch:
+@label_side top @label_align left @fontsize 10 @presetname
+/gui/\$1/synth.glass_harm~/slider8 @min 24 @max 96;
+#X obj 190 478 sync;
+#X obj 145 478 ui.number @size 50 12 @min 24 @max 96 @digits 2;
+#X msg 260 478 @pitch \$1;
+#X obj 12 510 ui.slider @size 125 12 @active_scale 1 @label
+reverb_gain: @label_side top @label_align left @fontsize 10
+@presetname /gui/\$1/synth.glass_harm~/slider9 @min 0 @max 1;
+#X obj 190 510 sync;
+#X obj 145 510 ui.number @size 50 12 @min 0 @max 1 @digits 4;
+#X msg 260 510 @reverb_gain \$1;
+#X obj 12 542 ui.slider @size 125 12 @active_scale 1 @label room_size:
+@label_side top @label_align left @fontsize 10 @presetname
+/gui/\$1/synth.glass_harm~/slider10 @min 0.005 @max 1;
+#X obj 190 542 sync;
+#X obj 145 542 ui.number @size 50 12 @min 0.005 @max 1 @digits 4;
+#X msg 260 542 @room_size \$1;
+#X obj 12 572 ui.number @size 60 12 @label strike: @label_side top
+@label_align left @fontsize 10 @presetname
+/gui/\$1/synth.glass_harm~/numbox11 @min 0 @max 1 @step 1;
+#X msg 260 572 @strike \$1;
+#X obj 12 604 ui.slider @size 125 12 @active_scale 1 @label width:
+@label_side top @label_align left @fontsize 10 @presetname
+/gui/\$1/synth.glass_harm~/slider12 @min 0 @max 1;
+#X obj 190 604 sync;
+#X obj 145 604 ui.number @size 50 12 @min 0 @max 1 @digits 4;
+#X msg 260 604 @width \$1;
 #X connect 1 0 2 0;
 #X connect 2 0 3 0;
-#X connect 3 14 4 0;
+#X connect 3 13 4 0;
 #X connect 5 0 3 0;
 #X connect 6 0 5 0;
 #X connect 0 0 7 0;
@@ -170,13 +164,10 @@ width: @label_side top @label_align left @fontsize 10 @presetname
 #X connect 52 0 0 0;
 #X connect 3 11 51 0;
 #X connect 53 0 54 0;
-#X connect 54 0 0 0;
+#X connect 54 0 53 0;
+#X connect 55 0 54 1;
+#X connect 54 1 55 0;
+#X connect 53 0 56 0;
+#X connect 56 0 0 0;
 #X connect 3 12 53 0;
-#X connect 55 0 56 0;
-#X connect 56 0 55 0;
-#X connect 57 0 56 1;
-#X connect 56 1 57 0;
-#X connect 55 0 58 0;
-#X connect 58 0 0 0;
-#X connect 3 13 55 0;
-#X coords 0 -1 1 1 200 454 2 2 200;
+#X coords 0 -1 1 1 200 424 2 2 200;
