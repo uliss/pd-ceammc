@@ -8,29 +8,30 @@ declare description "This instrument uses banded waveguide. For more information
 
 import("instruments.lib");
 spn = library("spn.lib");
+cm = library("ceammc.lib");
+ui = library("ceammc_ui.lib");
+inst = library("ceammc_instruments.lib");
 
 //==================== GUI SPECIFICATION ================
 
 freq = hslider("pitch", spn.C3, spn.C1, spn.C7, 0.001) : ba.midikey2hz;
-gain = nentry("gain", 0.8, 0, 1, 0.01);
-gate = button("gate");
+btn = ui.fgate;
+gain = btn : cm.clip(0, 1) : si.smoo;
+gate = btn > 0;
 
-select = nentry("Excitation_Selector [type:int] [tooltip:0=Bow; 1=Strike]",0,0,1,1);
-integrationConstant = hslider("Integration_Constant [tooltip:A value between 0 and 1]",0,0,1,0.01);
-baseGain = hslider("Base_Gain [tooltip:A value between 0 and 1]",1,0,1,0.01);
-bowPressure = hslider("Bow_Pressure [tooltip:Bow pressure on the instrument (Value between 0 and 1)]",0.2,0,1,0.01);
-bowPosition = hslider("Bow_Position [tooltip:Bow position on the instrument (Value between 0 and 1)]",0,0,1,0.01);
+select = nentry("strike [type:int] [tooltip:0=Bow; 1=Strike]",0,0,1,1);
+integrationConstant = hslider("integration [tooltip:A value between 0 and 1]",0,0,1,0.01);
+baseGain = hslider("gain [tooltip:A value between 0 and 1]",1,0,1,0.01);
+bowPressure = hslider("bow_press [tooltip:Bow pressure on the instrument (Value between 0 and 1)]",0.2,0,1,0.01);
+bowPosition = hslider("bow_pos [tooltip:Bow position on the instrument (Value between 0 and 1)]",0,0,1,0.01);
 
-typeModulation = nentry("h:Physical_and_Nonlinearity/v:Nonlinear_Filter_Parameters/Modulation_Type 
-[3][tooltip: 0=theta is modulated by the incoming signal; 1=theta is modulated by the averaged incoming signal;
+typeModulation = nentry("modtype [type:int]
+[tooltip: 0=theta is modulated by the incoming signal; 1=theta is modulated by the averaged incoming signal;
 2=theta is modulated by the squared incoming signal; 3=theta is modulated by a sine wave of frequency freqMod;
-4=theta is modulated by a sine wave of frequency freq;]",0,0,4,1);
-nonLinearity = hslider("h:Physical_and_Nonlinearity/v:Nonlinear_Filter_Parameters/Nonlinearity 
-[3][tooltip:Nonlinearity factor (value between 0 and 1)]",0,0,1,0.01);
-frequencyMod = hslider("h:Physical_and_Nonlinearity/v:Nonlinear_Filter_Parameters/Modulation_Frequency 
-[3][unit:Hz][tooltip:Frequency of the sine wave for the modulation of theta (works if Modulation Type=3)]",220,20,1000,0.1);
-nonLinAttack = hslider("h:Physical_and_Nonlinearity/v:Nonlinear_Filter_Parameters/Nonlinearity_Attack
-[3][unit:s][Attack duration of the nonlinearity]",0.1,0,2,0.01);
+4=theta is modulated by a sine wave of frequency freq;]",0,0,4,1) : int;
+nonLinearity = hslider("nonlin [tooltip:Nonlinearity factor (value between 0 and 1)]",0,0,1,0.01);
+frequencyMod = hslider("modfreq [unit:Hz][tooltip:Frequency of the sine wave for the modulation of theta (works if Modulation Type=3)]",220,20,1000,0.1);
+nonLinAttack = hslider("nlattack [unit:msec][Attack duration of the nonlinearity]",100,0,2000,0.01) : cm.time_pd2faust;
 
 //==================== MODAL PARAMETERS ================
 
@@ -105,23 +106,20 @@ velocityInput = velocityInputApp + _*baseGainApp,par(i,(nModes-1),(_*baseGainApp
 maxVelocity = 0.03 + 0.1*gain;
 bowVelocity = maxVelocity*en.adsr(0.02,0.005,1,0.01,gate);
 
-//stereoizer is declared in instruments.lib and implement a stereo spacialisation in function of 
-//the frequency period in number of samples 
-stereo = stereoizer(delayLengthBase);
-
 //----------------------- Algorithm implementation ----------------------------
-
-//Bow table lookup (bow is decalred in instruments.lib)
-bowing = bowVelocity - velocityInput <: *(bow(tableOffset,tableSlope)) : /(nModes);
 
 //One resonance
 resonance(x) = + : + (excitation(preset,x)*select) : delayLine(x) : *(basegains(preset,x)) : bandPassFilter(x);
 
-process =
-		//Bowed Excitation
-		(bowing*((select-1)*-1) <:
-		//nModes resonances with nModes feedbacks for bow table look-up 
-		par(i,nModes,(resonance(i)~_)))~par(i,nModes,_) :> + : 
-		//Signal Scaling and stereo
-		*(4) : NLFM : stereo : instrReverb;
+process =  bowed :> + : *(4) : NLFM : stereo : inst.reverb2
+with {
+    //Bow table lookup (bow is decalred in instruments.lib)
+    bowing = bowVelocity - velocityInput <: *(bow(tableOffset,tableSlope)) : /(nModes);
+    //Bowed Excitation
+    bowed = (bowing*((select-1)*-1) <:
+            //nModes resonances with nModes feedbacks for bow table look-up
+              par(i,nModes,(resonance(i)~_))) ~par(i,nModes,_);
+
+    stereo = inst.stereoizer(delayLengthBase);
+};
 

@@ -3,7 +3,7 @@
 	"filename": "synth_glass_harm.dsp",
 	"version": "2.28.6",
 	"compile_options": "-lang cpp -scal -ftz 0",
-	"library_list": ["/usr/local/share/faust/instruments.lib","/usr/local/share/faust/envelopes.lib","/usr/local/share/faust/maths.lib","/usr/local/share/faust/platform.lib","/usr/local/share/faust/delays.lib","/Users/serge/work/music/pure-data/ceammc/faust/spn.lib","/usr/local/share/faust/basics.lib","/usr/local/share/faust/filters.lib","/usr/local/share/faust/signals.lib","/usr/local/share/faust/oscillators.lib","/usr/local/share/faust/reverbs.lib","/usr/local/share/faust/routes.lib"],
+	"library_list": ["/usr/local/share/faust/instruments.lib","/Users/serge/work/music/pure-data/ceammc/faust/ceammc_ui.lib","/Users/serge/work/music/pure-data/ceammc/faust/ceammc.lib","/usr/local/share/faust/signals.lib","/usr/local/share/faust/envelopes.lib","/usr/local/share/faust/maths.lib","/usr/local/share/faust/platform.lib","/usr/local/share/faust/delays.lib","/Users/serge/work/music/pure-data/ceammc/faust/spn.lib","/usr/local/share/faust/basics.lib","/usr/local/share/faust/filters.lib","/usr/local/share/faust/oscillators.lib","/Users/serge/work/music/pure-data/ceammc/faust/ceammc_instruments.lib","/usr/local/share/faust/reverbs.lib","/usr/local/share/faust/routes.lib"],
 	"include_pathnames": ["/usr/local/share/faust","/usr/local/share/faust","/usr/share/faust","/Users/serge/work/music/pure-data/ceammc/faust","/Users/serge/work/music/pure-data/ceammc/faust"],
 	"inputs": 0,
 	"outputs": 2,
@@ -11,6 +11,12 @@
 		{ "author": "Romain Michon" },
 		{ "basics.lib/name": "Faust Basic Element Library" },
 		{ "basics.lib/version": "0.1" },
+		{ "ceammc.lib/name": "Ceammc PureData misc utils" },
+		{ "ceammc.lib/version": "0.1.2" },
+		{ "ceammc_instruments.lib/name": "CEAMMC replacement for intruments.lib" },
+		{ "ceammc_instruments.lib/version": "0.3" },
+		{ "ceammc_ui.lib/name": "CEAMMC faust default UI elements" },
+		{ "ceammc_ui.lib/version": "0.1.2" },
 		{ "copyright": "Romain Michon (rmichon@ccrma.stanford.edu)" },
 		{ "delays.lib/name": "Faust Delay Library" },
 		{ "delays.lib/version": "0.1" },
@@ -63,7 +69,7 @@
 		{ "signals.lib/name": "Faust Signal Routing Library" },
 		{ "signals.lib/version": "0.0" },
 		{ "spn.lib/name": "Standart Pitch Notation constants" },
-		{ "spn.lib/version": "0.1" },
+		{ "spn.lib/version": "0.2" },
 		{ "version": "1.0" }
 	],
 	"ui": [ 
@@ -73,20 +79,8 @@
 			"items": [ 
 				{
 					"type": "hslider",
-					"label": "Base_Gain",
-					"address": "/synth.glass_harm/Base_Gain",
-					"meta": [
-						{ "tooltip": "A value between 0 and 1" }
-					],
-					"init": 1,
-					"min": 0,
-					"max": 1,
-					"step": 0.01
-				},
-				{
-					"type": "hslider",
-					"label": "Bow_Pressure",
-					"address": "/synth.glass_harm/Bow_Pressure",
+					"label": "bow_press",
+					"address": "/synth.glass_harm/bow_press",
 					"meta": [
 						{ "tooltip": "Bow pressure on the instrument (Value between 0 and 1)" }
 					],
@@ -96,9 +90,115 @@
 					"step": 0.01
 				},
 				{
+					"type": "hslider",
+					"label": "gain",
+					"address": "/synth.glass_harm/gain",
+					"meta": [
+						{ "tooltip": "A value between 0 and 1" }
+					],
+					"init": 1,
+					"min": 0,
+					"max": 1,
+					"step": 0.01
+				},
+				{
+					"type": "checkbox",
+					"label": "gate",
+					"address": "/synth.glass_harm/gate",
+					"meta": [
+						{ "type": "float" }
+					]
+				},
+				{
+					"type": "hslider",
+					"label": "integration",
+					"address": "/synth.glass_harm/integration",
+					"meta": [
+						{ "tooltip": "A value between 0 and 1" }
+					],
+					"init": 0,
+					"min": 0,
+					"max": 1,
+					"step": 0.01
+				},
+				{
+					"type": "hslider",
+					"label": "modfreq",
+					"address": "/synth.glass_harm/modfreq",
+					"meta": [
+						{ "tooltip": "Frequency of the sine wave for the modulation of theta (works if Modulation Type=3)" },
+						{ "unit": "Hz" }
+					],
+					"init": 220,
+					"min": 20,
+					"max": 1000,
+					"step": 0.1
+				},
+				{
 					"type": "nentry",
-					"label": "Excitation_Selector",
-					"address": "/synth.glass_harm/Excitation_Selector",
+					"label": "modtype",
+					"address": "/synth.glass_harm/modtype",
+					"meta": [
+						{ "tooltip": "0=theta is modulated by the incoming signal; 1=theta is modulated by the averaged incoming signal; 2=theta is modulated by the squared incoming signal; 3=theta is modulated by a sine wave of frequency freqMod; 4=theta is modulated by a sine wave of frequency freq;" },
+						{ "type": "int" }
+					],
+					"init": 0,
+					"min": 0,
+					"max": 4,
+					"step": 1
+				},
+				{
+					"type": "hslider",
+					"label": "nonlin",
+					"address": "/synth.glass_harm/nonlin",
+					"meta": [
+						{ "tooltip": "Nonlinearity factor (value between 0 and 1)" }
+					],
+					"init": 0,
+					"min": 0,
+					"max": 1,
+					"step": 0.01
+				},
+				{
+					"type": "hslider",
+					"label": "pan",
+					"address": "/synth.glass_harm/pan",
+					"init": 0.6,
+					"min": 0,
+					"max": 1,
+					"step": 0.01
+				},
+				{
+					"type": "hslider",
+					"label": "pitch",
+					"address": "/synth.glass_harm/pitch",
+					"init": 48,
+					"min": 24,
+					"max": 96,
+					"step": 0.001
+				},
+				{
+					"type": "hslider",
+					"label": "reverb_gain",
+					"address": "/synth.glass_harm/reverb_gain",
+					"init": 0.137,
+					"min": 0,
+					"max": 1,
+					"step": 0.01
+				},
+				{
+					"type": "hslider",
+					"label": "room_size",
+					"address": "/synth.glass_harm/room_size",
+					"init": 0.36,
+					"min": 0.005,
+					"max": 1,
+					"step": 0.01
+				},
+				{
+					"type": "nentry",
+					"label": "strike",
+					"address": "/synth.glass_harm/strike",
 					"meta": [
 						{ "tooltip": "0=Bow; 1=Strike" },
 						{ "type": "int" }
@@ -110,138 +210,12 @@
 				},
 				{
 					"type": "hslider",
-					"label": "Integration_Constant",
-					"address": "/synth.glass_harm/Integration_Constant",
-					"meta": [
-						{ "tooltip": "A value between 0 and 1" }
-					],
-					"init": 0,
+					"label": "width",
+					"address": "/synth.glass_harm/width",
+					"init": 0.5,
 					"min": 0,
 					"max": 1,
 					"step": 0.01
-				},
-				{
-					"type": "hgroup",
-					"label": "Physical_and_Nonlinearity",
-					"items": [ 
-						{
-							"type": "vgroup",
-							"label": "Nonlinear_Filter_Parameters",
-							"items": [ 
-								{
-									"type": "hslider",
-									"label": "Modulation_Frequency",
-									"address": "/synth.glass_harm/Physical_and_Nonlinearity/Nonlinear_Filter_Parameters/Modulation_Frequency",
-									"meta": [
-										{ "3": "" },
-										{ "tooltip": "Frequency of the sine wave for the modulation of theta (works if Modulation Type=3)" },
-										{ "unit": "Hz" }
-									],
-									"init": 220,
-									"min": 20,
-									"max": 1000,
-									"step": 0.1
-								},
-								{
-									"type": "nentry",
-									"label": "Modulation_Type",
-									"address": "/synth.glass_harm/Physical_and_Nonlinearity/Nonlinear_Filter_Parameters/Modulation_Type",
-									"meta": [
-										{ "3": "" },
-										{ "tooltip": "0=theta is modulated by the incoming signal; 1=theta is modulated by the averaged incoming signal; 2=theta is modulated by the squared incoming signal; 3=theta is modulated by a sine wave of frequency freqMod; 4=theta is modulated by a sine wave of frequency freq;" }
-									],
-									"init": 0,
-									"min": 0,
-									"max": 4,
-									"step": 1
-								},
-								{
-									"type": "hslider",
-									"label": "Nonlinearity",
-									"address": "/synth.glass_harm/Physical_and_Nonlinearity/Nonlinear_Filter_Parameters/Nonlinearity",
-									"meta": [
-										{ "3": "" },
-										{ "tooltip": "Nonlinearity factor (value between 0 and 1)" }
-									],
-									"init": 0,
-									"min": 0,
-									"max": 1,
-									"step": 0.01
-								}
-							]
-						}
-					]
-				},
-				{
-					"type": "vgroup",
-					"label": "Reverb",
-					"items": [ 
-						{
-							"type": "hslider",
-							"label": "reverbGain",
-							"address": "/synth.glass_harm/Reverb/reverbGain",
-							"init": 0.137,
-							"min": 0,
-							"max": 1,
-							"step": 0.01
-						},
-						{
-							"type": "hslider",
-							"label": "roomSize",
-							"address": "/synth.glass_harm/Reverb/roomSize",
-							"init": 0.72,
-							"min": 0.01,
-							"max": 2,
-							"step": 0.01
-						}
-					]
-				},
-				{
-					"type": "vgroup",
-					"label": "Spat",
-					"items": [ 
-						{
-							"type": "hslider",
-							"label": "pan angle",
-							"address": "/synth.glass_harm/Spat/pan_angle",
-							"init": 0.6,
-							"min": 0,
-							"max": 1,
-							"step": 0.01
-						},
-						{
-							"type": "hslider",
-							"label": "spatial width",
-							"address": "/synth.glass_harm/Spat/spatial_width",
-							"init": 0.5,
-							"min": 0,
-							"max": 1,
-							"step": 0.01
-						}
-					]
-				},
-				{
-					"type": "nentry",
-					"label": "gain",
-					"address": "/synth.glass_harm/gain",
-					"init": 0.8,
-					"min": 0,
-					"max": 1,
-					"step": 0.01
-				},
-				{
-					"type": "button",
-					"label": "gate",
-					"address": "/synth.glass_harm/gate"
-				},
-				{
-					"type": "hslider",
-					"label": "pitch",
-					"address": "/synth.glass_harm/pitch",
-					"init": 48,
-					"min": 24,
-					"max": 96,
-					"step": 0.001
 				}
 			]
 		}
