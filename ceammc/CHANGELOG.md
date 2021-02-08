@@ -27,6 +27,7 @@
   - proto.midi added (raw dataflow midi parser/encoder)
   - route.float (with route.f alias) added
   - system.exit added
+  - synth.harpsichord~ added
   - ui.button added (with ui.btn alias)
   - ui.midi added (display for incoming messages)
   - ui.vkeyboard added (with ui.vk alias for vertical keyboard)

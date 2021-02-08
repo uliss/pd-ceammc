@@ -594,7 +594,7 @@ class synth_harpsichord : public synth_harpsichord_dsp {
 	float fRec11[2];
 	float fRec10[2];
 	int IOTA;
-	float fVec0[16384];
+	float fVec0[32768];
 	float fConst9;
 	int iConst10;
 	FAUSTFLOAT fHslider1;
@@ -642,7 +642,7 @@ class synth_harpsichord : public synth_harpsichord_dsp {
 	FAUSTFLOAT fHslider6;
 	float fVec2[4096];
 	int iConst19;
-	float fVec3[4096];
+	float fVec3[2048];
 	int iConst20;
 	float fRec8[2];
 	float fConst21;
@@ -651,10 +651,11 @@ class synth_harpsichord : public synth_harpsichord_dsp {
 	float fConst24;
 	float fRec42[2];
 	float fRec41[2];
-	float fVec4[32768];
+	float fVec4[16384];
 	float fConst25;
 	int iConst26;
-	float fVec5[2048];
+	float fVec5[4096];
+	float fVec6[2048];
 	int iConst27;
 	float fRec39[2];
 	float fConst28;
@@ -663,10 +664,10 @@ class synth_harpsichord : public synth_harpsichord_dsp {
 	float fConst31;
 	float fRec46[2];
 	float fRec45[2];
-	float fVec6[32768];
+	float fVec7[32768];
 	float fConst32;
 	int iConst33;
-	float fVec7[4096];
+	float fVec8[4096];
 	int iConst34;
 	float fRec43[2];
 	float fConst35;
@@ -675,11 +676,10 @@ class synth_harpsichord : public synth_harpsichord_dsp {
 	float fConst38;
 	float fRec50[2];
 	float fRec49[2];
-	float fVec8[16384];
+	float fVec9[16384];
 	float fConst39;
 	int iConst40;
-	float fVec9[4096];
-	float fVec10[2048];
+	float fVec10[4096];
 	int iConst41;
 	float fRec47[2];
 	float fConst42;
@@ -703,7 +703,7 @@ class synth_harpsichord : public synth_harpsichord_dsp {
 	float fVec13[16384];
 	float fConst53;
 	int iConst54;
-	float fVec14[2048];
+	float fVec14[4096];
 	int iConst55;
 	float fRec55[2];
 	float fConst56;
@@ -727,7 +727,7 @@ class synth_harpsichord : public synth_harpsichord_dsp {
 	float fVec17[16384];
 	float fConst67;
 	int iConst68;
-	float fVec18[4096];
+	float fVec18[2048];
 	int iConst69;
 	float fRec63[2];
 	float fRec0[3];
@@ -775,7 +775,7 @@ class synth_harpsichord : public synth_harpsichord_dsp {
 		m->declare("filters.lib/allpassnn:author", "Julius O. Smith III");
 		m->declare("filters.lib/allpassnn:copyright", "Copyright (C) 2003-2019 by Julius O. Smith III <jos@ccrma.stanford.edu>");
 		m->declare("filters.lib/allpassnn:license", "MIT-style STK-4.3 license");
-		m->declare("filters.lib/lowpass0_highpass1", "MIT-style STK-4.3 license");
+		m->declare("filters.lib/lowpass0_highpass1", "Copyright (C) 2003-2019 by Julius O. Smith III <jos@ccrma.stanford.edu>");
 		m->declare("filters.lib/lowpass0_highpass1:author", "Julius O. Smith III");
 		m->declare("filters.lib/lowpass:author", "Julius O. Smith III");
 		m->declare("filters.lib/lowpass:copyright", "Copyright (C) 2003-2019 by Julius O. Smith III <jos@ccrma.stanford.edu>");
@@ -862,15 +862,15 @@ class synth_harpsichord : public synth_harpsichord_dsp {
 		fSampleRate = sample_rate;
 		fConst0 = std::min<float>(192000.0f, std::max<float>(1.0f, float(fSampleRate)));
 		fConst1 = std::cos((37699.1133f / fConst0));
-		fConst2 = std::floor(((0.192303002f * fConst0) + 0.5f));
+		fConst2 = std::floor(((0.219990999f * fConst0) + 0.5f));
 		fConst3 = ((0.0f - (6.90775537f * fConst2)) / fConst0);
 		fConst4 = (0.25f * fConst3);
 		fConst5 = (0.166666672f * fConst3);
 		fConst6 = (1.0f / std::tan((628.318542f / fConst0)));
 		fConst7 = (1.0f / (fConst6 + 1.0f));
 		fConst8 = (1.0f - fConst6);
-		fConst9 = std::floor(((0.0292910002f * fConst0) + 0.5f));
-		iConst10 = int(std::min<float>(8192.0f, std::max<float>(0.0f, (fConst2 - fConst9))));
+		fConst9 = std::floor(((0.0191229992f * fConst0) + 0.5f));
+		iConst10 = int(std::min<float>(16384.0f, std::max<float>(0.0f, (fConst2 - fConst9))));
 		fConst11 = (1.0f / fConst0);
 		fConst12 = (7.0f / fConst0);
 		fConst13 = (0.0022727272f * fConst0);
@@ -880,13 +880,13 @@ class synth_harpsichord : public synth_harpsichord_dsp {
 		fConst17 = std::exp((0.0f - (0.0199999996f / fConst0)));
 		fConst18 = (0.0011363636f * fConst0);
 		iConst19 = int(std::min<float>(8192.0f, std::max<float>(0.0f, (0.0199999996f * fConst0))));
-		iConst20 = int(std::min<float>(2048.0f, std::max<float>(0.0f, (fConst9 + -1.0f))));
-		fConst21 = std::floor(((0.219990999f * fConst0) + 0.5f));
+		iConst20 = int(std::min<float>(1024.0f, std::max<float>(0.0f, (fConst9 + -1.0f))));
+		fConst21 = std::floor(((0.125f * fConst0) + 0.5f));
 		fConst22 = ((0.0f - (6.90775537f * fConst21)) / fConst0);
 		fConst23 = (0.25f * fConst22);
 		fConst24 = (0.166666672f * fConst22);
-		fConst25 = std::floor(((0.0191229992f * fConst0) + 0.5f));
-		iConst26 = int(std::min<float>(16384.0f, std::max<float>(0.0f, (fConst21 - fConst25))));
+		fConst25 = std::floor(((0.0134579996f * fConst0) + 0.5f));
+		iConst26 = int(std::min<float>(8192.0f, std::max<float>(0.0f, (fConst21 - fConst25))));
 		iConst27 = int(std::min<float>(1024.0f, std::max<float>(0.0f, (fConst25 + -1.0f))));
 		fConst28 = std::floor(((0.256891012f * fConst0) + 0.5f));
 		fConst29 = ((0.0f - (6.90775537f * fConst28)) / fConst0);
@@ -895,13 +895,13 @@ class synth_harpsichord : public synth_harpsichord_dsp {
 		fConst32 = std::floor(((0.0273330007f * fConst0) + 0.5f));
 		iConst33 = int(std::min<float>(16384.0f, std::max<float>(0.0f, (fConst28 - fConst32))));
 		iConst34 = int(std::min<float>(2048.0f, std::max<float>(0.0f, (fConst32 + -1.0f))));
-		fConst35 = std::floor(((0.153128996f * fConst0) + 0.5f));
+		fConst35 = std::floor(((0.192303002f * fConst0) + 0.5f));
 		fConst36 = ((0.0f - (6.90775537f * fConst35)) / fConst0);
 		fConst37 = (0.25f * fConst36);
 		fConst38 = (0.166666672f * fConst36);
-		fConst39 = std::floor(((0.0203460008f * fConst0) + 0.5f));
+		fConst39 = std::floor(((0.0292910002f * fConst0) + 0.5f));
 		iConst40 = int(std::min<float>(8192.0f, std::max<float>(0.0f, (fConst35 - fConst39))));
-		iConst41 = int(std::min<float>(1024.0f, std::max<float>(0.0f, (fConst39 + -1.0f))));
+		iConst41 = int(std::min<float>(2048.0f, std::max<float>(0.0f, (fConst39 + -1.0f))));
 		fConst42 = std::floor(((0.210389003f * fConst0) + 0.5f));
 		fConst43 = ((0.0f - (6.90775537f * fConst42)) / fConst0);
 		fConst44 = (0.25f * fConst43);
@@ -909,27 +909,27 @@ class synth_harpsichord : public synth_harpsichord_dsp {
 		fConst46 = std::floor(((0.0244210009f * fConst0) + 0.5f));
 		iConst47 = int(std::min<float>(16384.0f, std::max<float>(0.0f, (fConst42 - fConst46))));
 		iConst48 = int(std::min<float>(2048.0f, std::max<float>(0.0f, (fConst46 + -1.0f))));
-		fConst49 = std::floor(((0.125f * fConst0) + 0.5f));
+		fConst49 = std::floor(((0.127837002f * fConst0) + 0.5f));
 		fConst50 = ((0.0f - (6.90775537f * fConst49)) / fConst0);
 		fConst51 = (0.25f * fConst50);
 		fConst52 = (0.166666672f * fConst50);
-		fConst53 = std::floor(((0.0134579996f * fConst0) + 0.5f));
+		fConst53 = std::floor(((0.0316039994f * fConst0) + 0.5f));
 		iConst54 = int(std::min<float>(8192.0f, std::max<float>(0.0f, (fConst49 - fConst53))));
-		iConst55 = int(std::min<float>(1024.0f, std::max<float>(0.0f, (fConst53 + -1.0f))));
-		fConst56 = std::floor(((0.127837002f * fConst0) + 0.5f));
+		iConst55 = int(std::min<float>(2048.0f, std::max<float>(0.0f, (fConst53 + -1.0f))));
+		fConst56 = std::floor(((0.174713001f * fConst0) + 0.5f));
 		fConst57 = ((0.0f - (6.90775537f * fConst56)) / fConst0);
 		fConst58 = (0.25f * fConst57);
 		fConst59 = (0.166666672f * fConst57);
-		fConst60 = std::floor(((0.0316039994f * fConst0) + 0.5f));
+		fConst60 = std::floor(((0.0229039993f * fConst0) + 0.5f));
 		iConst61 = int(std::min<float>(8192.0f, std::max<float>(0.0f, (fConst56 - fConst60))));
 		iConst62 = int(std::min<float>(2048.0f, std::max<float>(0.0f, (fConst60 + -1.0f))));
-		fConst63 = std::floor(((0.174713001f * fConst0) + 0.5f));
+		fConst63 = std::floor(((0.153128996f * fConst0) + 0.5f));
 		fConst64 = ((0.0f - (6.90775537f * fConst63)) / fConst0);
 		fConst65 = (0.25f * fConst64);
 		fConst66 = (0.166666672f * fConst64);
-		fConst67 = std::floor(((0.0229039993f * fConst0) + 0.5f));
+		fConst67 = std::floor(((0.0203460008f * fConst0) + 0.5f));
 		iConst68 = int(std::min<float>(8192.0f, std::max<float>(0.0f, (fConst63 - fConst67))));
-		iConst69 = int(std::min<float>(2048.0f, std::max<float>(0.0f, (fConst67 + -1.0f))));
+		iConst69 = int(std::min<float>(1024.0f, std::max<float>(0.0f, (fConst67 + -1.0f))));
 	}
 	
 	virtual void instanceResetUserInterface() {
@@ -955,7 +955,7 @@ class synth_harpsichord : public synth_harpsichord_dsp {
 		}
 		IOTA = 0;
 		#pragma clang loop vectorize(enable) interleave(enable)
-		for (int l2 = 0; (l2 < 16384); l2 = (l2 + 1)) {
+		for (int l2 = 0; (l2 < 32768); l2 = (l2 + 1)) {
 			fVec0[l2] = 0.0f;
 		}
 		#pragma clang loop vectorize(enable) interleave(enable)
@@ -1071,7 +1071,7 @@ class synth_harpsichord : public synth_harpsichord_dsp {
 			fVec2[l31] = 0.0f;
 		}
 		#pragma clang loop vectorize(enable) interleave(enable)
-		for (int l32 = 0; (l32 < 4096); l32 = (l32 + 1)) {
+		for (int l32 = 0; (l32 < 2048); l32 = (l32 + 1)) {
 			fVec3[l32] = 0.0f;
 		}
 		#pragma clang loop vectorize(enable) interleave(enable)
@@ -1087,55 +1087,55 @@ class synth_harpsichord : public synth_harpsichord_dsp {
 			fRec41[l35] = 0.0f;
 		}
 		#pragma clang loop vectorize(enable) interleave(enable)
-		for (int l36 = 0; (l36 < 32768); l36 = (l36 + 1)) {
+		for (int l36 = 0; (l36 < 16384); l36 = (l36 + 1)) {
 			fVec4[l36] = 0.0f;
 		}
 		#pragma clang loop vectorize(enable) interleave(enable)
-		for (int l37 = 0; (l37 < 2048); l37 = (l37 + 1)) {
+		for (int l37 = 0; (l37 < 4096); l37 = (l37 + 1)) {
 			fVec5[l37] = 0.0f;
 		}
 		#pragma clang loop vectorize(enable) interleave(enable)
-		for (int l38 = 0; (l38 < 2); l38 = (l38 + 1)) {
-			fRec39[l38] = 0.0f;
+		for (int l38 = 0; (l38 < 2048); l38 = (l38 + 1)) {
+			fVec6[l38] = 0.0f;
 		}
 		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l39 = 0; (l39 < 2); l39 = (l39 + 1)) {
-			fRec46[l39] = 0.0f;
+			fRec39[l39] = 0.0f;
 		}
 		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l40 = 0; (l40 < 2); l40 = (l40 + 1)) {
-			fRec45[l40] = 0.0f;
+			fRec46[l40] = 0.0f;
 		}
 		#pragma clang loop vectorize(enable) interleave(enable)
-		for (int l41 = 0; (l41 < 32768); l41 = (l41 + 1)) {
-			fVec6[l41] = 0.0f;
+		for (int l41 = 0; (l41 < 2); l41 = (l41 + 1)) {
+			fRec45[l41] = 0.0f;
 		}
 		#pragma clang loop vectorize(enable) interleave(enable)
-		for (int l42 = 0; (l42 < 4096); l42 = (l42 + 1)) {
+		for (int l42 = 0; (l42 < 32768); l42 = (l42 + 1)) {
 			fVec7[l42] = 0.0f;
 		}
 		#pragma clang loop vectorize(enable) interleave(enable)
-		for (int l43 = 0; (l43 < 2); l43 = (l43 + 1)) {
-			fRec43[l43] = 0.0f;
+		for (int l43 = 0; (l43 < 4096); l43 = (l43 + 1)) {
+			fVec8[l43] = 0.0f;
 		}
 		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l44 = 0; (l44 < 2); l44 = (l44 + 1)) {
-			fRec50[l44] = 0.0f;
+			fRec43[l44] = 0.0f;
 		}
 		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l45 = 0; (l45 < 2); l45 = (l45 + 1)) {
-			fRec49[l45] = 0.0f;
+			fRec50[l45] = 0.0f;
 		}
 		#pragma clang loop vectorize(enable) interleave(enable)
-		for (int l46 = 0; (l46 < 16384); l46 = (l46 + 1)) {
-			fVec8[l46] = 0.0f;
+		for (int l46 = 0; (l46 < 2); l46 = (l46 + 1)) {
+			fRec49[l46] = 0.0f;
 		}
 		#pragma clang loop vectorize(enable) interleave(enable)
-		for (int l47 = 0; (l47 < 4096); l47 = (l47 + 1)) {
+		for (int l47 = 0; (l47 < 16384); l47 = (l47 + 1)) {
 			fVec9[l47] = 0.0f;
 		}
 		#pragma clang loop vectorize(enable) interleave(enable)
-		for (int l48 = 0; (l48 < 2048); l48 = (l48 + 1)) {
+		for (int l48 = 0; (l48 < 4096); l48 = (l48 + 1)) {
 			fVec10[l48] = 0.0f;
 		}
 		#pragma clang loop vectorize(enable) interleave(enable)
@@ -1175,7 +1175,7 @@ class synth_harpsichord : public synth_harpsichord_dsp {
 			fVec13[l57] = 0.0f;
 		}
 		#pragma clang loop vectorize(enable) interleave(enable)
-		for (int l58 = 0; (l58 < 2048); l58 = (l58 + 1)) {
+		for (int l58 = 0; (l58 < 4096); l58 = (l58 + 1)) {
 			fVec14[l58] = 0.0f;
 		}
 		#pragma clang loop vectorize(enable) interleave(enable)
@@ -1215,7 +1215,7 @@ class synth_harpsichord : public synth_harpsichord_dsp {
 			fVec17[l67] = 0.0f;
 		}
 		#pragma clang loop vectorize(enable) interleave(enable)
-		for (int l68 = 0; (l68 < 4096); l68 = (l68 + 1)) {
+		for (int l68 = 0; (l68 < 2048); l68 = (l68 + 1)) {
 			fVec18[l68] = 0.0f;
 		}
 		#pragma clang loop vectorize(enable) interleave(enable)
@@ -1282,6 +1282,7 @@ class synth_harpsichord : public synth_harpsichord_dsp {
 		ui_interface->declare(&fHslider5, "unit", "Hz");
 		ui_interface->addHorizontalSlider("modfreq", &fHslider5, 220.0f, 20.0f, 1000.0f, 0.100000001f);
 		ui_interface->declare(&fEntry0, "tooltip", "0=theta is modulated by the incoming signal; 1=theta is modulated by the averaged incoming signal; 2=theta is modulated by the squared incoming signal; 3=theta is modulated by a sine wave of frequency freqMod; 4=theta is modulated by a sine wave of frequency freq;");
+		ui_interface->declare(&fEntry0, "type", "int");
 		ui_interface->addNumEntry("modtype", &fEntry0, 0.0f, 0.0f, 4.0f, 1.0f);
 		ui_interface->declare(&fHslider4, "tooltip", "Nonlinearity factor (value between 0 and 1)");
 		ui_interface->addHorizontalSlider("nonlin", &fHslider4, 0.0f, 0.0f, 1.0f, 0.00999999978f);
@@ -1344,25 +1345,25 @@ class synth_harpsichord : public synth_harpsichord_dsp {
 		float fSlow45 = (fSlow43 - fSlow44);
 		float fSlow46 = (fSlow39 * (fSlow44 + (1.0f - fSlow43)));
 		float fSlow47 = ((std::exp((fConst24 / fSlow0)) / fSlow39) + -1.0f);
-		float fSlow48 = std::exp((fConst30 / fSlow0));
-		float fSlow49 = synth_harpsichord_faustpower2_f(fSlow48);
-		float fSlow50 = (1.0f - (fConst1 * fSlow49));
-		float fSlow51 = (1.0f - fSlow49);
-		float fSlow52 = (fSlow50 / fSlow51);
-		float fSlow53 = std::sqrt(std::max<float>(0.0f, ((synth_harpsichord_faustpower2_f(fSlow50) / synth_harpsichord_faustpower2_f(fSlow51)) + -1.0f)));
-		float fSlow54 = (fSlow52 - fSlow53);
-		float fSlow55 = (fSlow48 * (fSlow53 + (1.0f - fSlow52)));
-		float fSlow56 = ((std::exp((fConst31 / fSlow0)) / fSlow48) + -1.0f);
-		float fSlow57 = std::exp((fConst37 / fSlow0));
-		float fSlow58 = synth_harpsichord_faustpower2_f(fSlow57);
-		float fSlow59 = (1.0f - (fConst1 * fSlow58));
-		float fSlow60 = (1.0f - fSlow58);
-		float fSlow61 = (fSlow59 / fSlow60);
-		float fSlow62 = std::sqrt(std::max<float>(0.0f, ((synth_harpsichord_faustpower2_f(fSlow59) / synth_harpsichord_faustpower2_f(fSlow60)) + -1.0f)));
-		float fSlow63 = (fSlow61 - fSlow62);
-		float fSlow64 = (fSlow57 * (fSlow62 + (1.0f - fSlow61)));
-		float fSlow65 = ((std::exp((fConst38 / fSlow0)) / fSlow57) + -1.0f);
-		float fSlow66 = (4.0f * (1.0f - fSlow10));
+		float fSlow48 = (4.0f * (1.0f - fSlow10));
+		float fSlow49 = std::exp((fConst30 / fSlow0));
+		float fSlow50 = synth_harpsichord_faustpower2_f(fSlow49);
+		float fSlow51 = (1.0f - (fConst1 * fSlow50));
+		float fSlow52 = (1.0f - fSlow50);
+		float fSlow53 = (fSlow51 / fSlow52);
+		float fSlow54 = std::sqrt(std::max<float>(0.0f, ((synth_harpsichord_faustpower2_f(fSlow51) / synth_harpsichord_faustpower2_f(fSlow52)) + -1.0f)));
+		float fSlow55 = (fSlow53 - fSlow54);
+		float fSlow56 = (fSlow49 * (fSlow54 + (1.0f - fSlow53)));
+		float fSlow57 = ((std::exp((fConst31 / fSlow0)) / fSlow49) + -1.0f);
+		float fSlow58 = std::exp((fConst37 / fSlow0));
+		float fSlow59 = synth_harpsichord_faustpower2_f(fSlow58);
+		float fSlow60 = (1.0f - (fConst1 * fSlow59));
+		float fSlow61 = (1.0f - fSlow59);
+		float fSlow62 = (fSlow60 / fSlow61);
+		float fSlow63 = std::sqrt(std::max<float>(0.0f, ((synth_harpsichord_faustpower2_f(fSlow60) / synth_harpsichord_faustpower2_f(fSlow61)) + -1.0f)));
+		float fSlow64 = (fSlow62 - fSlow63);
+		float fSlow65 = (fSlow58 * (fSlow63 + (1.0f - fSlow62)));
+		float fSlow66 = ((std::exp((fConst38 / fSlow0)) / fSlow58) + -1.0f);
 		float fSlow67 = std::exp((fConst44 / fSlow0));
 		float fSlow68 = synth_harpsichord_faustpower2_f(fSlow67);
 		float fSlow69 = (1.0f - (fConst1 * fSlow68));
@@ -1401,9 +1402,9 @@ class synth_harpsichord : public synth_harpsichord_dsp {
 		float fSlow102 = ((std::exp((fConst66 / fSlow0)) / fSlow94) + -1.0f);
 		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int i = 0; (i < count); i = (i + 1)) {
-			fRec11[0] = (0.0f - (fConst7 * ((fConst8 * fRec11[1]) - (fRec5[1] + fRec5[2]))));
-			fRec10[0] = ((fSlow7 * fRec10[1]) + (fSlow8 * (fRec5[1] + (fSlow9 * fRec11[0]))));
-			fVec0[(IOTA & 16383)] = ((0.353553385f * fRec10[0]) + 9.99999968e-21f);
+			fRec11[0] = (0.0f - (fConst7 * ((fConst8 * fRec11[1]) - (fRec7[1] + fRec7[2]))));
+			fRec10[0] = ((fSlow7 * fRec10[1]) + (fSlow8 * (fRec7[1] + (fSlow9 * fRec11[0]))));
+			fVec0[(IOTA & 32767)] = ((0.353553385f * fRec10[0]) + 9.99999968e-21f);
 			fRec12[0] = (fSlow12 + (0.999000013f * fRec12[1]));
 			fRec15[0] = (fSlow19 + (0.999000013f * fRec15[1]));
 			float fTemp0 = fRec13[((IOTA - 1) & 8191)];
@@ -1458,34 +1459,34 @@ class synth_harpsichord : public synth_harpsichord_dsp {
 			float fTemp24 = fRec13[((IOTA - iSlow38) & 8191)];
 			fVec2[(IOTA & 4095)] = (fSlow11 * (fRec12[0] * fTemp24));
 			float fTemp25 = (0.300000012f * fVec2[((IOTA - iConst19) & 4095)]);
-			float fTemp26 = (fVec0[((IOTA - iConst10) & 16383)] + (fTemp25 + (0.600000024f * fRec8[1])));
-			fVec3[(IOTA & 4095)] = fTemp26;
-			fRec8[0] = fVec3[((IOTA - iConst20) & 4095)];
+			float fTemp26 = (((0.600000024f * fRec8[1]) + fVec0[((IOTA - iConst10) & 32767)]) - fTemp25);
+			fVec3[(IOTA & 2047)] = fTemp26;
+			fRec8[0] = fVec3[((IOTA - iConst20) & 2047)];
 			float fRec9 = (0.0f - (0.600000024f * fTemp26));
-			fRec42[0] = (0.0f - (fConst7 * ((fConst8 * fRec42[1]) - (fRec7[1] + fRec7[2]))));
-			fRec41[0] = ((fSlow45 * fRec41[1]) + (fSlow46 * (fRec7[1] + (fSlow47 * fRec42[0]))));
-			fVec4[(IOTA & 32767)] = ((0.353553385f * fRec41[0]) + 9.99999968e-21f);
-			float fTemp27 = (((0.600000024f * fRec39[1]) + fVec4[((IOTA - iConst26) & 32767)]) - fTemp25);
-			fVec5[(IOTA & 2047)] = fTemp27;
-			fRec39[0] = fVec5[((IOTA - iConst27) & 2047)];
-			float fRec40 = (0.0f - (0.600000024f * fTemp27));
+			fRec42[0] = (0.0f - (fConst7 * ((fConst8 * fRec42[1]) - (fRec6[1] + fRec6[2]))));
+			fRec41[0] = ((fSlow45 * fRec41[1]) + (fSlow46 * (fRec6[1] + (fSlow47 * fRec42[0]))));
+			fVec4[(IOTA & 16383)] = ((0.353553385f * fRec41[0]) + 9.99999968e-21f);
+			float fTemp27 = fRec13[((IOTA - 0) & 8191)];
+			fVec5[(IOTA & 4095)] = (fSlow48 * (fTemp27 * fRec12[0]));
+			float fTemp28 = (0.300000012f * fVec5[((IOTA - iConst19) & 4095)]);
+			float fTemp29 = (fVec4[((IOTA - iConst26) & 16383)] - (fTemp28 + (0.600000024f * fRec39[1])));
+			fVec6[(IOTA & 2047)] = fTemp29;
+			fRec39[0] = fVec6[((IOTA - iConst27) & 2047)];
+			float fRec40 = (0.600000024f * fTemp29);
 			fRec46[0] = (0.0f - (fConst7 * ((fConst8 * fRec46[1]) - (fRec3[1] + fRec3[2]))));
-			fRec45[0] = ((fSlow54 * fRec45[1]) + (fSlow55 * (fRec3[1] + (fSlow56 * fRec46[0]))));
-			fVec6[(IOTA & 32767)] = ((0.353553385f * fRec45[0]) + 9.99999968e-21f);
-			float fTemp28 = (((0.600000024f * fRec43[1]) + fVec6[((IOTA - iConst33) & 32767)]) - fTemp25);
-			fVec7[(IOTA & 4095)] = fTemp28;
-			fRec43[0] = fVec7[((IOTA - iConst34) & 4095)];
-			float fRec44 = (0.0f - (0.600000024f * fTemp28));
-			fRec50[0] = (0.0f - (fConst7 * ((fConst8 * fRec50[1]) - (fRec0[1] + fRec0[2]))));
-			fRec49[0] = ((fSlow63 * fRec49[1]) + (fSlow64 * (fRec0[1] + (fSlow65 * fRec50[0]))));
-			fVec8[(IOTA & 16383)] = ((0.353553385f * fRec49[0]) + 9.99999968e-21f);
-			float fTemp29 = fRec13[((IOTA - 0) & 8191)];
-			fVec9[(IOTA & 4095)] = (fSlow66 * (fTemp29 * fRec12[0]));
-			float fTemp30 = (0.300000012f * fVec9[((IOTA - iConst19) & 4095)]);
-			float fTemp31 = ((fVec8[((IOTA - iConst40) & 16383)] + fTemp30) - (0.600000024f * fRec47[1]));
-			fVec10[(IOTA & 2047)] = fTemp31;
-			fRec47[0] = fVec10[((IOTA - iConst41) & 2047)];
-			float fRec48 = (0.600000024f * fTemp31);
+			fRec45[0] = ((fSlow55 * fRec45[1]) + (fSlow56 * (fRec3[1] + (fSlow57 * fRec46[0]))));
+			fVec7[(IOTA & 32767)] = ((0.353553385f * fRec45[0]) + 9.99999968e-21f);
+			float fTemp30 = (((0.600000024f * fRec43[1]) + fVec7[((IOTA - iConst33) & 32767)]) - fTemp25);
+			fVec8[(IOTA & 4095)] = fTemp30;
+			fRec43[0] = fVec8[((IOTA - iConst34) & 4095)];
+			float fRec44 = (0.0f - (0.600000024f * fTemp30));
+			fRec50[0] = (0.0f - (fConst7 * ((fConst8 * fRec50[1]) - (fRec5[1] + fRec5[2]))));
+			fRec49[0] = ((fSlow64 * fRec49[1]) + (fSlow65 * (fRec5[1] + (fSlow66 * fRec50[0]))));
+			fVec9[(IOTA & 16383)] = ((0.353553385f * fRec49[0]) + 9.99999968e-21f);
+			float fTemp31 = (fVec9[((IOTA - iConst40) & 16383)] + (fTemp25 + (0.600000024f * fRec47[1])));
+			fVec10[(IOTA & 4095)] = fTemp31;
+			fRec47[0] = fVec10[((IOTA - iConst41) & 4095)];
+			float fRec48 = (0.0f - (0.600000024f * fTemp31));
 			fRec54[0] = (0.0f - (fConst7 * ((fConst8 * fRec54[1]) - (fRec1[1] + fRec1[2]))));
 			fRec53[0] = ((fSlow73 * fRec53[1]) + (fSlow74 * (fRec1[1] + (fSlow75 * fRec54[0]))));
 			fVec11[(IOTA & 32767)] = ((0.353553385f * fRec53[0]) + 9.99999968e-21f);
@@ -1493,45 +1494,42 @@ class synth_harpsichord : public synth_harpsichord_dsp {
 			fVec12[(IOTA & 4095)] = fTemp32;
 			fRec51[0] = fVec12[((IOTA - iConst48) & 4095)];
 			float fRec52 = (0.0f - (0.600000024f * fTemp32));
-			fRec58[0] = (0.0f - (fConst7 * ((fConst8 * fRec58[1]) - (fRec6[1] + fRec6[2]))));
-			fRec57[0] = ((fSlow82 * fRec57[1]) + (fSlow83 * (fRec6[1] + (fSlow84 * fRec58[0]))));
+			fRec58[0] = (0.0f - (fConst7 * ((fConst8 * fRec58[1]) - (fRec2[1] + fRec2[2]))));
+			fRec57[0] = ((fSlow82 * fRec57[1]) + (fSlow83 * (fRec2[1] + (fSlow84 * fRec58[0]))));
 			fVec13[(IOTA & 16383)] = ((0.353553385f * fRec57[0]) + 9.99999968e-21f);
-			float fTemp33 = (fVec13[((IOTA - iConst54) & 16383)] - (fTemp30 + (0.600000024f * fRec55[1])));
-			fVec14[(IOTA & 2047)] = fTemp33;
-			fRec55[0] = fVec14[((IOTA - iConst55) & 2047)];
+			float fTemp33 = (fVec13[((IOTA - iConst54) & 16383)] - (fTemp28 + (0.600000024f * fRec55[1])));
+			fVec14[(IOTA & 4095)] = fTemp33;
+			fRec55[0] = fVec14[((IOTA - iConst55) & 4095)];
 			float fRec56 = (0.600000024f * fTemp33);
-			fRec62[0] = (0.0f - (fConst7 * ((fConst8 * fRec62[1]) - (fRec2[1] + fRec2[2]))));
-			fRec61[0] = ((fSlow91 * fRec61[1]) + (fSlow92 * (fRec2[1] + (fSlow93 * fRec62[0]))));
+			fRec62[0] = (0.0f - (fConst7 * ((fConst8 * fRec62[1]) - (fRec4[1] + fRec4[2]))));
+			fRec61[0] = ((fSlow91 * fRec61[1]) + (fSlow92 * (fRec4[1] + (fSlow93 * fRec62[0]))));
 			fVec15[(IOTA & 16383)] = ((0.353553385f * fRec61[0]) + 9.99999968e-21f);
-			float fTemp34 = (fVec15[((IOTA - iConst61) & 16383)] - (fTemp30 + (0.600000024f * fRec59[1])));
+			float fTemp34 = ((fTemp28 + fVec15[((IOTA - iConst61) & 16383)]) - (0.600000024f * fRec59[1]));
 			fVec16[(IOTA & 4095)] = fTemp34;
 			fRec59[0] = fVec16[((IOTA - iConst62) & 4095)];
 			float fRec60 = (0.600000024f * fTemp34);
-			fRec66[0] = (0.0f - (fConst7 * ((fConst8 * fRec66[1]) - (fRec4[1] + fRec4[2]))));
-			fRec65[0] = ((fSlow100 * fRec65[1]) + (fSlow101 * (fRec4[1] + (fSlow102 * fRec66[0]))));
+			fRec66[0] = (0.0f - (fConst7 * ((fConst8 * fRec66[1]) - (fRec0[1] + fRec0[2]))));
+			fRec65[0] = ((fSlow100 * fRec65[1]) + (fSlow101 * (fRec0[1] + (fSlow102 * fRec66[0]))));
 			fVec17[(IOTA & 16383)] = ((0.353553385f * fRec65[0]) + 9.99999968e-21f);
-			float fTemp35 = ((fTemp30 + fVec17[((IOTA - iConst68) & 16383)]) - (0.600000024f * fRec63[1]));
-			fVec18[(IOTA & 4095)] = fTemp35;
-			fRec63[0] = fVec18[((IOTA - iConst69) & 4095)];
+			float fTemp35 = ((fVec17[((IOTA - iConst68) & 16383)] + fTemp28) - (0.600000024f * fRec63[1]));
+			fVec18[(IOTA & 2047)] = fTemp35;
+			fRec63[0] = fVec18[((IOTA - iConst69) & 2047)];
 			float fRec64 = (0.600000024f * fTemp35);
-			float fTemp36 = (fRec60 + fRec56);
-			float fTemp37 = (fRec9 + (fRec52 + fTemp36));
-			fRec0[0] = (fRec8[1] + (fRec39[1] + (fRec43[1] + (fRec47[1] + (fRec51[1] + (fRec55[1] + (fRec59[1] + (fRec63[1] + (fRec64 + (fRec48 + (fRec40 + (fRec44 + fTemp37))))))))))));
-			float fTemp38 = (fRec52 + fRec9);
-			fRec1[0] = ((fRec47[1] + (fRec55[1] + (fRec59[1] + (fRec63[1] + (fRec64 + (fRec48 + fTemp36)))))) - (fRec8[1] + (fRec39[1] + (fRec43[1] + (fRec51[1] + (fRec40 + (fRec44 + fTemp38)))))));
-			fRec2[0] = ((fRec8[1] + (fRec47[1] + (fRec51[1] + (fRec63[1] + (fRec64 + (fRec48 + fTemp38)))))) - (fRec39[1] + (fRec43[1] + (fRec55[1] + (fRec59[1] + (fRec40 + (fRec44 + fTemp36)))))));
-			fRec3[0] = ((fRec39[1] + (fRec43[1] + (fRec47[1] + (fRec63[1] + (fRec64 + (fRec48 + (fRec44 + fRec40))))))) - (fRec8[1] + (fRec51[1] + (fRec55[1] + (fRec59[1] + fTemp37)))));
-			float fTemp39 = (fRec60 + fRec52);
-			float fTemp40 = (fRec56 + fRec9);
-			fRec4[0] = ((fRec43[1] + (fRec47[1] + (fRec51[1] + (fRec59[1] + (fRec48 + (fRec44 + fTemp39)))))) - (fRec8[1] + (fRec39[1] + (fRec55[1] + (fRec63[1] + (fRec64 + (fRec40 + fTemp40)))))));
-			float fTemp41 = (fRec60 + fRec9);
-			float fTemp42 = (fRec56 + fRec52);
-			fRec5[0] = ((fRec8[1] + (fRec39[1] + (fRec47[1] + (fRec59[1] + (fRec48 + (fRec40 + fTemp41)))))) - (fRec43[1] + (fRec51[1] + (fRec55[1] + (fRec63[1] + (fRec64 + (fRec44 + fTemp42)))))));
-			fRec6[0] = ((fRec39[1] + (fRec47[1] + (fRec51[1] + (fRec55[1] + (fRec48 + (fRec40 + fTemp42)))))) - (fRec8[1] + (fRec43[1] + (fRec59[1] + (fRec63[1] + (fRec64 + (fRec44 + fTemp41)))))));
-			fRec7[0] = ((fRec8[1] + (fRec43[1] + (fRec47[1] + (fRec55[1] + (fRec48 + (fRec44 + fTemp40)))))) - (fRec39[1] + (fRec51[1] + (fRec59[1] + (fRec63[1] + (fRec64 + (fRec40 + fTemp39)))))));
-			float fTemp43 = (1.0f - fRec12[0]);
-			output0[i] = FAUSTFLOAT(((0.370000005f * (fRec1[0] + fRec2[0])) + (fSlow66 * (fTemp29 * fTemp43))));
-			output1[i] = FAUSTFLOAT(((0.370000005f * (fRec1[0] - fRec2[0])) + (fSlow11 * (fTemp43 * fTemp24))));
+			float fTemp36 = (fRec63[1] + fRec51[1]);
+			float fTemp37 = (fRec47[1] + fTemp36);
+			fRec0[0] = (fRec8[1] + (fRec39[1] + (fRec9 + (fRec44 + (fRec48 + (fRec52 + (fRec40 + (fRec56 + (fRec60 + (fRec64 + (fRec55[1] + (fRec59[1] + (fRec43[1] + fTemp37)))))))))))));
+			float fTemp38 = (fRec51[1] + fRec47[1]);
+			fRec1[0] = ((fRec39[1] + (fRec40 + (fRec56 + (fRec60 + (fRec64 + ((fRec63[1] + fRec59[1]) + fRec55[1])))))) - (fRec8[1] + (fRec9 + (fRec44 + (fRec48 + (fRec52 + (fTemp38 + fRec43[1])))))));
+			fRec2[0] = ((fRec48 + (fRec52 + (fRec60 + (fRec64 + (fRec59[1] + fTemp37))))) - (fRec8[1] + (fRec39[1] + (fRec9 + (fRec44 + (fRec40 + (fRec56 + (fRec55[1] + fRec43[1]))))))));
+			fRec3[0] = ((fRec8[1] + (fRec9 + (fRec44 + (fRec60 + (fRec64 + (fRec59[1] + (fRec63[1] + fRec43[1]))))))) - (fRec39[1] + (fRec48 + (fRec52 + (fRec40 + (fRec56 + (fRec55[1] + fTemp38)))))));
+			fRec4[0] = ((fRec44 + (fRec52 + (fRec56 + (fRec64 + (fRec55[1] + (fRec43[1] + fTemp36)))))) - (fRec8[1] + (fRec39[1] + (fRec9 + (fRec48 + (fRec40 + (fRec60 + (fRec59[1] + fRec47[1]))))))));
+			float fTemp39 = (fRec63[1] + fRec47[1]);
+			fRec5[0] = ((fRec8[1] + (fRec9 + (fRec48 + (fRec56 + (fRec64 + (fRec55[1] + fTemp39)))))) - (fRec39[1] + (fRec44 + (fRec52 + (fRec40 + (fRec60 + (fRec59[1] + (fRec51[1] + fRec43[1]))))))));
+			fRec6[0] = ((fRec8[1] + (fRec39[1] + (fRec9 + (fRec52 + (fRec40 + (fRec64 + fTemp36)))))) - (fRec44 + (fRec48 + (fRec56 + (fRec60 + (fRec55[1] + (fRec59[1] + (fRec47[1] + fRec43[1]))))))));
+			fRec7[0] = ((fRec39[1] + (fRec44 + (fRec48 + (fRec40 + (fRec64 + (fRec43[1] + fTemp39)))))) - (fRec8[1] + (fRec9 + (fRec52 + (fRec56 + (fRec60 + (fRec55[1] + (fRec59[1] + fRec51[1]))))))));
+			float fTemp40 = (1.0f - fRec12[0]);
+			output0[i] = FAUSTFLOAT(((0.370000005f * (fRec1[0] + fRec2[0])) + (fSlow48 * (fTemp27 * fTemp40))));
+			output1[i] = FAUSTFLOAT(((0.370000005f * (fRec1[0] - fRec2[0])) + (fSlow11 * (fTemp40 * fTemp24))));
 			fRec11[1] = fRec11[0];
 			fRec10[1] = fRec10[0];
 			IOTA = (IOTA + 1);

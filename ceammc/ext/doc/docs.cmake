@@ -591,6 +591,7 @@ set(DOC_FILES
     synth.dx7~
     synth.eguitar~
     synth.fgrain~
+    synth.harpsichord~
     synth.glitch~
     synth.ks~
     synth.marimba~

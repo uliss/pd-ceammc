@@ -21,7 +21,7 @@ btn = ui.fgate;
 gain = btn : ci.clip(0, 1) : si.smoo;
 gate = btn > 0;
 
-typeModulation = nentry("modtype
+typeModulation = nentry("modtype [type:int]
 [tooltip: 0=theta is modulated by the incoming signal; 1=theta is modulated by the averaged incoming signal;
 2=theta is modulated by the squared incoming signal; 3=theta is modulated by a sine wave of frequency freqMod;
 4=theta is modulated by a sine wave of frequency freq;]",0,0,4,1) : int;

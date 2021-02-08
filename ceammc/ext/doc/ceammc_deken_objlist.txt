@@ -835,6 +835,7 @@ synth.dx7~	FAUST dx7 implementation
 synth.eguitar~	simple electric guitar model with steel strings
 synth.fgrain~	file granulator from STK
 synth.glitch~	Glitch synthesizer by naivesound
+synth.harpsichord~	waveguide commuted harpsichord
 synth.ks~	Karplus-Strong string
 synth.marimba~	simple marimba physical model implementing a single tone bar connected to tube
 synth.piano~	waveguide commuted piano

@@ -157,7 +157,6 @@ dict.reject
 dict.size
 dict.to_list
 dict.values
-dyn.b3limit~
 dyn.comp2~
 dyn.comp~
 dyn.gate2~
@@ -823,6 +822,7 @@ symbol.num_compare
 symbol2any
 symbol2intlist
 sync
+synth.bb0~
 synth.bee3~
 synth.birds~
 synth.church_bell~
@@ -830,9 +830,12 @@ synth.dubdub~
 synth.dx7~
 synth.eguitar~
 synth.fgrain~
+synth.glass_harm~
 synth.glitch~
+synth.harpsichord~
 synth.ks~
 synth.marimba~
+synth.piano~
 synth.rhodey~
 synth.risset_arp~
 synth.risset_tone~
