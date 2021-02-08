@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <pddoc version="1.0">
-    <object name="synth.harpsichord~">
-        <title>synth.harpsichord~</title>
+    <object name="synth.glass_harm~">
+        <title>synth.glass_harm~</title>
         <meta>
             <authors>
                 <author>Romain Michon</author>
                 <author>Serge Poltavsky</author>
             </authors>
-            <description>waveguide commuted harpsichord</description>
+            <description>nonlinear banded waveguide modeled Glass Harmonica</description>
             <license>GPL3 or later</license>
             <library>ceammc</library>
             <category>synth</category>
-            <keywords>model synth harpsichord</keywords>
+            <keywords>model synth glass harmonica</keywords>
             <since>0.9.2</since>
         </meta>
         <methods>
@@ -22,13 +22,21 @@
             <method name="reset">reset synth</method>
         </methods>
         <properties>
-            <property name="@pitch" type="float" minvalue="12" maxvalue="96" default="48">midi
+            <property name="@pitch" type="float" minvalue="24" maxvalue="96" default="48">midi
             pitch</property>
             <property name="@freq" type="float" units="herz" default="130.813">frequency</property>
             <property name="@room_size" type="float" minvalue="0.005" maxvalue="1" default="0.36">
             reverb room size</property>
             <property name="@nonlin" type="float" minvalue="0" maxvalue="1" default="0">
             nonlinearity factor</property>
+            <property name="@integration" type="float" minvalue="0" maxvalue="1" default="0">
+            integration constant</property>
+            <property name="@gain" type="float" minvalue="0" maxvalue="1" default="1">
+            base gain</property>
+            <property name="@strike" type="int" minvalue="0" maxvalue="1" default="0">
+            strike or bow</property>
+            <property name="@bow_press" type="float" minvalue="0" maxvalue="1" default="0.2">
+            bow pressure on the instrument</property>
             <property name="@modtype" type="int" minvalue="0" maxvalue="4" default="0">modulation type.
             0=theta is modulated by the incoming signal;
             1=theta is modulated by the averaged incoming signal;
@@ -74,9 +82,9 @@
 *|*
 [pack f f f {i=3,o=1}]
 |
-[clone 7 poly.obj synth.harpsichord~ {i=1,o=1}]
+[clone 7 poly.obj synth.glass_harm~ {i=1,o=1}]
 |
-[ui.hgain~]
+[ui.hgain~]   [ui.dsp~]
 |\
 [dac~]
 ]]>
