@@ -244,13 +244,13 @@ process = soundBoard <: mid_notes, high_notes :> +
     : stereo
     : inst.reverb2
 with {
-    FIRST_HIGH_NOTE = spn.E6;
 
-    conditionLowNote = pitch < FIRST_HIGH_NOTE;
-    conditionHighNote = pitch >= FIRST_HIGH_NOTE;
+    lowNotes = (pitch >= spn.A1) & (pitch < spn.A2);
+    midNotes = (pitch >= spn.A2) & (pitch < spn.E6);
+    noDampers = pitch >= spn.E6;
 
-    mid_notes = (*(conditionLowNote)*6 : hammer : dcBlock1 : coupledStrings3 <: +(eq));
-    high_notes = (*(conditionHighNote) : hiPass : dcBlock1 : hammer : dcBlock2a : highBqs : dcBlock2b);
+    mid_notes = (*(midNotes)*6 : hammer : dcBlock1 : coupledStrings3 <: +(eq));
+    high_notes = (*(noDampers) : hiPass : dcBlock1 : hammer : dcBlock2a : highBqs : dcBlock2b);
     stereo = inst.stereoizer(ma.SR/freq);
 };
 
