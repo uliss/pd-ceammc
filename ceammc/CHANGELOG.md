@@ -29,6 +29,7 @@
   - system.exit added
   - synth.harpsichord~ added
   - synth.piano~ added
+  - synth.glass_harm~ added
   - ui.button added (with ui.btn alias)
   - ui.midi added (display for incoming messages)
   - ui.vkeyboard added (with ui.vk alias for vertical keyboard)
