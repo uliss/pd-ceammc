@@ -8,18 +8,22 @@ declare description "A commuted WaveGuide Harpsichord.";
 
 import("instruments.lib");
 spn = library("spn.lib");
+inst = library("ceammc_instruments.lib");
+ui = library("ceammc_ui.lib");
+ci = library("ceammc.lib");
 
 //==================== GUI SPECIFICATION ================
 
 //freq = nentry("freq [1][unit:Hz] [tooltip:Tone frequency]",440,20,20000,1);
 freq = hslider("pitch", spn.C3, spn.C1, spn.C7, 0.001) : ba.midikey2hz;
-gain = nentry("gain[tooltip:Gain (value between 0 and 1)]",0.8,0,1,0.01) : si.smoo;
-gate = button("gate") : int;
+btn = ui.fgate;
+gain = btn : ci.clip(0, 1) : si.smoo;
+gate = btn > 0;
 
 typeModulation = nentry("modtype
 [tooltip: 0=theta is modulated by the incoming signal; 1=theta is modulated by the averaged incoming signal;
 2=theta is modulated by the squared incoming signal; 3=theta is modulated by a sine wave of frequency freqMod;
-4=theta is modulated by a sine wave of frequency freq;]",0,0,4,1);
+4=theta is modulated by a sine wave of frequency freq;]",0,0,4,1) : int;
 
 nonLinearity = hslider("nonlin
 [tooltip:Nonlinearity factor (value between 0 and 1)]",0,0,1,0.01);
@@ -83,29 +87,8 @@ string = (*(stringLoopGainT)+_ : de.delay(4096,delayLength) : loopFilter)~NLFM;
 
 process = soundBoard : string : stereo : reverb
 with {
-    //stereoizer implement a stereo spacialisation in function of
-    //the frequency period in number of samples
-    stereo = _ <: _,widthdelay : stereopanner
-        with {
-            W = hslider("width", 0.5, 0, 1, 0.01) : si.smoo;
-            A = hslider("pan", 0.6, 0, 1, 0.01) : si.smoo;
-            widthdelay = de.delay(4096, W*delayLength/2);
-            stereopanner = _,_ : *(1.0-A), *(A);
-        };
-
-    reverb = _,_ <: *(reverbGain),*(reverbGain),*(1 - reverbGain),*(1 - reverbGain) :
-        re.zita_rev1_stereo(rdel,f1,f2,t60dc,t60m,fsmax),_,_ <: _,!,_,!,!,_,!,_ : +,+
-    with {
-        reverbGain = hslider("reverb_gain",0.137,0,1,0.01) : si.smoo;
-        roomSize = hslider("room_size",0.72,0.01,2,0.01) : si.smoo;
-        rdel = 20;
-        f1 = 200;
-        f2 = 6000;
-        t60dc = roomSize*3;
-        t60m = roomSize*2;
-        fsmax = 96000;
-    };
-
+    stereo = inst.stereoizer(ma.SR/freq);
+    reverb = inst.reverb2;
 };
 
 
