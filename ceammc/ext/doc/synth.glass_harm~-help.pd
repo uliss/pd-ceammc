@@ -44,63 +44,63 @@ of theta (works if @modetype=3). Type: float. Units: Hz. Default value:
 220\. Range: 20\...1000\.;
 #X msg 110 776 @modtype;
 #X text 245 776 Get/Set modulation type. 0=theta is modulated by the
-incoming signal; 1=theta is modulated by the averaged incoming signal;
-2=theta is modulated by the squared incoming signal; 3=theta is modulated
-by a sine wave of frequency @modfreq; 4=theta is modulated by a sine
+incoming signal. 1=theta is modulated by the averaged incoming signal.
+2=theta is modulated by the squared incoming signal. 3=theta is modulated
+by a sine wave of frequency @modfreq. 4=theta is modulated by a sine
 wave of frequency @freq. Type: int. Default value: 0\. Range: 0\...4\.;
-#X msg 110 923 @nonlin;
-#X text 245 923 Get/Set nonlinearity factor. Type: float. Default value:
+#X msg 110 878 @nonlin;
+#X text 245 878 Get/Set nonlinearity factor. Type: float. Default value:
 0\. Range: 0\...1\.;
-#X msg 110 965 @pan;
-#X text 245 965 Get/Set pan angle. Type: float. Default value: 0.6\.
+#X msg 110 920 @pan;
+#X text 245 920 Get/Set pan angle. Type: float. Default value: 0.6\.
 Range: 0\...1\.;
-#X msg 110 1007 @pitch;
-#X text 245 1007 Get/Set midi pitch. Type: float. Default value: 48\.
+#X msg 110 962 @pitch;
+#X text 245 962 Get/Set midi pitch. Type: float. Default value: 48\.
 Range: 24\...96\.;
-#X msg 110 1049 @reverb_gain;
-#X text 245 1049 Get/Set reverb gain. Type: float. Default value: 0.137\.
+#X msg 110 1004 @reverb_gain;
+#X text 245 1004 Get/Set reverb gain. Type: float. Default value: 0.137\.
 Range: 0\...1\.;
-#X msg 110 1091 @room_size;
-#X text 245 1091 Get/Set reverb room size. Type: float. Default value:
+#X msg 110 1046 @room_size;
+#X text 245 1046 Get/Set reverb room size. Type: float. Default value:
 0.36\. Range: 0.005\...1\.;
-#X msg 110 1133 @strike;
-#X text 245 1133 Get/Set strike or bow. Type: int. Default value: 0\.
+#X msg 110 1088 @strike;
+#X text 245 1088 Get/Set strike or bow. Type: int. Default value: 0\.
 Range: 0\...1\.;
-#X msg 110 1175 @width;
-#X text 245 1175 Get/Set spatialization width. Type: float. Default
+#X msg 110 1130 @width;
+#X text 245 1130 Get/Set spatialization width. Type: float. Default
 value: 0.5\. Range: 0\...1\.;
-#X obj 20 1227 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1232 cnv 5 73 26 empty empty methods: 4 10 0 14 -262144
+#X obj 20 1182 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1187 cnv 5 73 26 empty empty methods: 4 10 0 14 -262144
 -49933 0;
-#X msg 110 1267 note;
-#X text 245 1267 note on/off message. Arguments are:;
-#X obj 255 1290 cnv 1 37 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1290 NOTE: midi note. Type: float.;
-#X obj 255 1313 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1313 VEL: velocity. Type: float. Range: 0\...127\.;
-#X msg 110 1338 reset;
-#X text 245 1338 reset synth.;
-#X obj 20 1375 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1380 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144
+#X msg 110 1222 note;
+#X text 245 1222 note on/off message. Arguments are:;
+#X obj 255 1245 cnv 1 37 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1245 NOTE: midi note. Type: float.;
+#X obj 255 1268 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1268 VEL: velocity. Type: float. Range: 0\...127\.;
+#X msg 110 1293 reset;
+#X text 245 1293 reset synth.;
+#X obj 20 1330 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1335 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 1381 1\.;
-#X text 150 1381 *list*;
-#X text 245 1381 NOTE VEL.;
-#X obj 20 1411 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1416 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
+#X text 110 1336 1\.;
+#X text 150 1336 *list*;
+#X text 245 1336 NOTE VEL.;
+#X obj 20 1366 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1371 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 1417 1\.;
-#X text 245 1417 left output.;
-#X text 110 1437 2\.;
-#X text 245 1437 right output.;
+#X text 110 1372 1\.;
+#X text 245 1372 left output.;
+#X text 110 1392 2\.;
+#X text 245 1392 right output.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 115 45 ::;
 #X obj 131 48 ui.link @title synth @url ceammc.synth-help.pd;
-#X obj 1 1487 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 1490 library: ceammc v0.9.1;
-#N canvas 10 1509 400 290 info 0;
+#X obj 1 1442 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1445 library: ceammc v0.9.1;
+#N canvas 10 1464 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
@@ -124,7 +124,7 @@ https://github.com/uliss/pure-data;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 generated by pddoc;
-#X restore 10 1509 pd info;
+#X restore 10 1464 pd info;
 #X connect 4 0 5 1;
 #X connect 5 0 6 0;
 #X connect 6 0 8 0;

@@ -30,9 +30,9 @@
             <property name="@nonlin" type="float" minvalue="0" maxvalue="1" default="0">
             nonlinearity factor</property>
             <property name="@modtype" type="int" minvalue="0" maxvalue="4" default="0">modulation
-            type. 0=theta is modulated by the incoming signal; 1=theta is modulated by the averaged
-            incoming signal; 2=theta is modulated by the squared incoming signal; 3=theta is
-            modulated by a sine wave of frequency @modfreq; 4=theta is modulated by a sine wave of
+            type. 0=theta is modulated by the incoming signal. 1=theta is modulated by the averaged
+            incoming signal. 2=theta is modulated by the squared incoming signal. 3=theta is
+            modulated by a sine wave of frequency @modfreq. 4=theta is modulated by a sine wave of
             frequency @freq</property>
             <property name="@modfreq" type="float" minvalue="20" maxvalue="1000" default="220"
             units="herz">frequency of the sine wave for the modulation of theta (works if
