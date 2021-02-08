@@ -1,7 +1,7 @@
 /* ------------------------------------------------------------
 name: "dyn_limit"
-Code generated with Faust 2.28.6 (https://faust.grame.fr)
-Compilation options: -lang cpp -scal -ftz 0
+Code generated with Faust 2.30.12 (https://faust.grame.fr)
+Compilation options: -lang cpp -es 1 -scal -ftz 0
 ------------------------------------------------------------ */
 
 #ifndef  __dyn_limit_H__
@@ -89,7 +89,7 @@ class dyn_limit_dsp {
          */
         virtual void buildUserInterface(UI* ui_interface) = 0;
     
-        /* Returns the sample rate currently used by the instance */
+        /* Return the sample rate currently used by the instance */
         virtual int getSampleRate() = 0;
     
         /**
@@ -97,28 +97,28 @@ class dyn_limit_dsp {
          * - static class 'classInit': static tables initialization
          * - 'instanceInit': constants and instance state initialization
          *
-         * @param sample_rate - the sampling rate in Hertz
+         * @param sample_rate - the sampling rate in Hz
          */
         virtual void init(int sample_rate) = 0;
 
         /**
          * Init instance state
          *
-         * @param sample_rate - the sampling rate in Hertz
+         * @param sample_rate - the sampling rate in Hz
          */
         virtual void instanceInit(int sample_rate) = 0;
-
+    
         /**
          * Init instance constant state
          *
-         * @param sample_rate - the sampling rate in Hertz
+         * @param sample_rate - the sampling rate in Hz
          */
         virtual void instanceConstants(int sample_rate) = 0;
     
         /* Init default control parameters values */
         virtual void instanceResetUserInterface() = 0;
     
-        /* Init instance state (delay lines...) */
+        /* Init instance state (like delay lines...) but keep the control parameter values */
         virtual void instanceClear() = 0;
  
         /**
@@ -191,7 +191,8 @@ class decorator_dsp : public dyn_limit_dsp {
 };
 
 /**
- * DSP factory class.
+ * DSP factory class, used with LLVM and Interpreter backends
+ * to create DSP instances from a compiled DSP program.
  */
 
 class dsp_factory {
@@ -345,11 +346,13 @@ struct UI : public UIReal<FAUSTFLOAT>
 #ifndef __meta__
 #define __meta__
 
+/**
+ The base class of Meta handler to be used in dyn_limit_dsp::metadata(Meta* m) method to retrieve (key, value) metadata.
+ */
 struct Meta
 {
     virtual ~Meta() {};
     virtual void declare(const char* key, const char* value) = 0;
-    
 };
 
 #endif
@@ -495,6 +498,7 @@ struct dyn_limit : public dyn_limit_dsp {
 
 #include <algorithm>
 #include <cmath>
+#include <cstdint>
 #include <math.h>
 
 
@@ -512,7 +516,6 @@ class dyn_limit : public dyn_limit_dsp {
  private:
 	
 	int fSampleRate;
-	float fConst0;
 	float fConst1;
 	float fConst2;
 	float fConst3;
@@ -528,6 +531,7 @@ class dyn_limit : public dyn_limit_dsp {
 		m->declare("analyzers.lib/version", "0.1");
 		m->declare("basics.lib/name", "Faust Basic Element Library");
 		m->declare("basics.lib/version", "0.1");
+		m->declare("compile_options", "-lang cpp -es 1 -scal -ftz 0");
 		m->declare("compressors.lib/compression_gain_mono:author", "Julius O. Smith III");
 		m->declare("compressors.lib/compression_gain_mono:copyright", "Copyright (C) 2014-2020 by Julius O. Smith III <jos@ccrma.stanford.edu>");
 		m->declare("compressors.lib/compression_gain_mono:license", "MIT-style STK-4.3 license");
@@ -541,7 +545,7 @@ class dyn_limit : public dyn_limit_dsp {
 		m->declare("compressors.lib/limiter_1176_R4_mono:copyright", "Copyright (C) 2014-2020 by Julius O. Smith III <jos@ccrma.stanford.edu>");
 		m->declare("compressors.lib/limiter_1176_R4_mono:license", "MIT-style STK-4.3 license");
 		m->declare("compressors.lib/name", "Faust Compressor Effect Library");
-		m->declare("compressors.lib/version", "0.0");
+		m->declare("compressors.lib/version", "0.1");
 		m->declare("filename", "dyn_limit.dsp");
 		m->declare("maths.lib/author", "GRAME");
 		m->declare("maths.lib/copyright", "GRAME");
@@ -595,7 +599,7 @@ class dyn_limit : public dyn_limit_dsp {
 	
 	virtual void instanceConstants(int sample_rate) {
 		fSampleRate = sample_rate;
-		fConst0 = std::min<float>(192000.0f, std::max<float>(1.0f, float(fSampleRate)));
+		float fConst0 = std::min<float>(192000.0f, std::max<float>(1.0f, float(fSampleRate)));
 		fConst1 = std::exp((0.0f - (2500.0f / fConst0)));
 		fConst2 = (1.0f - fConst1);
 		fConst3 = std::exp((0.0f - (1250.0f / fConst0)));

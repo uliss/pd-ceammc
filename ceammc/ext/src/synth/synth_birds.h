@@ -1,8 +1,8 @@
 /* ------------------------------------------------------------
 author: "Pierre Cochard"
 name: "synth.birds"
-Code generated with Faust 2.28.6 (https://faust.grame.fr)
-Compilation options: -lang cpp -scal -ftz 0
+Code generated with Faust 2.30.12 (https://faust.grame.fr)
+Compilation options: -lang cpp -es 1 -scal -ftz 0
 ------------------------------------------------------------ */
 
 #ifndef  __synth_birds_H__
@@ -90,7 +90,7 @@ class synth_birds_dsp {
          */
         virtual void buildUserInterface(UI* ui_interface) = 0;
     
-        /* Returns the sample rate currently used by the instance */
+        /* Return the sample rate currently used by the instance */
         virtual int getSampleRate() = 0;
     
         /**
@@ -98,28 +98,28 @@ class synth_birds_dsp {
          * - static class 'classInit': static tables initialization
          * - 'instanceInit': constants and instance state initialization
          *
-         * @param sample_rate - the sampling rate in Hertz
+         * @param sample_rate - the sampling rate in Hz
          */
         virtual void init(int sample_rate) = 0;
 
         /**
          * Init instance state
          *
-         * @param sample_rate - the sampling rate in Hertz
+         * @param sample_rate - the sampling rate in Hz
          */
         virtual void instanceInit(int sample_rate) = 0;
-
+    
         /**
          * Init instance constant state
          *
-         * @param sample_rate - the sampling rate in Hertz
+         * @param sample_rate - the sampling rate in Hz
          */
         virtual void instanceConstants(int sample_rate) = 0;
     
         /* Init default control parameters values */
         virtual void instanceResetUserInterface() = 0;
     
-        /* Init instance state (delay lines...) */
+        /* Init instance state (like delay lines...) but keep the control parameter values */
         virtual void instanceClear() = 0;
  
         /**
@@ -192,7 +192,8 @@ class decorator_dsp : public synth_birds_dsp {
 };
 
 /**
- * DSP factory class.
+ * DSP factory class, used with LLVM and Interpreter backends
+ * to create DSP instances from a compiled DSP program.
  */
 
 class dsp_factory {
@@ -346,11 +347,13 @@ struct UI : public UIReal<FAUSTFLOAT>
 #ifndef __meta__
 #define __meta__
 
+/**
+ The base class of Meta handler to be used in synth_birds_dsp::metadata(Meta* m) method to retrieve (key, value) metadata.
+ */
 struct Meta
 {
     virtual ~Meta() {};
     virtual void declare(const char* key, const char* value) = 0;
-    
 };
 
 #endif
@@ -496,6 +499,7 @@ struct synth_birds : public synth_birds_dsp {
 
 #include <algorithm>
 #include <cmath>
+#include <cstdint>
 #include <math.h>
 
 class synth_birdsSIG0 {
@@ -580,12 +584,9 @@ class synth_birds : public synth_birds_dsp {
  private:
 	
 	int fSampleRate;
-	float fConst0;
-	float fConst1;
 	float fConst2;
 	float fConst3;
 	int iVec0[3];
-	float fConst4;
 	float fConst5;
 	float fConst6;
 	float fConst7;
@@ -699,8 +700,9 @@ class synth_birds : public synth_birds_dsp {
 		m->declare("basics.lib/version", "0.1");
 		m->declare("ceammc_ui.lib/name", "CEAMMC faust default UI elements");
 		m->declare("ceammc_ui.lib/version", "0.1.2");
+		m->declare("compile_options", "-lang cpp -es 1 -scal -ftz 0");
 		m->declare("filename", "synth_birds.dsp");
-		m->declare("filters.lib/lowpass0_highpass1", "MIT-style STK-4.3 license");
+		m->declare("filters.lib/lowpass0_highpass1", "Copyright (C) 2003-2019 by Julius O. Smith III <jos@ccrma.stanford.edu>");
 		m->declare("filters.lib/lowpass0_highpass1:author", "Julius O. Smith III");
 		m->declare("filters.lib/lowpass:author", "Julius O. Smith III");
 		m->declare("filters.lib/lowpass:copyright", "Copyright (C) 2003-2019 by Julius O. Smith III <jos@ccrma.stanford.edu>");
@@ -715,6 +717,7 @@ class synth_birds : public synth_birds_dsp {
 		m->declare("filters.lib/tf1s:author", "Julius O. Smith III");
 		m->declare("filters.lib/tf1s:copyright", "Copyright (C) 2003-2019 by Julius O. Smith III <jos@ccrma.stanford.edu>");
 		m->declare("filters.lib/tf1s:license", "MIT-style STK-4.3 license");
+		m->declare("filters.lib/version", "0.3");
 		m->declare("maths.lib/author", "GRAME");
 		m->declare("maths.lib/copyright", "GRAME");
 		m->declare("maths.lib/license", "LGPL with exception");
@@ -775,11 +778,11 @@ class synth_birds : public synth_birds_dsp {
 	
 	virtual void instanceConstants(int sample_rate) {
 		fSampleRate = sample_rate;
-		fConst0 = std::min<float>(192000.0f, std::max<float>(1.0f, float(fSampleRate)));
-		fConst1 = (1.0f / std::tan((7853.98145f / fConst0)));
+		float fConst0 = std::min<float>(192000.0f, std::max<float>(1.0f, float(fSampleRate)));
+		float fConst1 = (1.0f / std::tan((7853.98145f / fConst0)));
 		fConst2 = (1.0f / (fConst1 + 1.0f));
 		fConst3 = (1.0f - fConst1);
-		fConst4 = (1.0f / std::tan((9424.77832f / fConst0)));
+		float fConst4 = (1.0f / std::tan((9424.77832f / fConst0)));
 		fConst5 = (1.0f / (fConst4 + 1.0f));
 		fConst6 = (1.0f - fConst4);
 		fConst7 = (0.00100000005f * fConst0);
@@ -1142,7 +1145,7 @@ class synth_birds : public synth_birds_dsp {
 			float fTemp62 = (fConst65 * fTemp4);
 			int iTemp63 = (fTemp39 < fTemp62);
 			fRec27[0] = ((0.999000013f * fRec27[1]) + (0.00100000005f * (iTemp41 ? (iTemp45 ? (iTemp48 ? (iTemp51 ? (iTemp53 ? (iTemp55 ? (iTemp57 ? (iTemp59 ? (iTemp61 ? (iTemp63 ? ((iRec28[0] < 0) ? 0.0f : (iTemp63 ? (fConst67 * (fTemp39 / fTemp4)) : 1.0f)) : (iTemp61 ? ((fConst66 * ((0.0f - (fTemp39 - fTemp62)) / fTemp4)) + 1.0f) : 0.0f)) : (iTemp59 ? (fConst64 * ((fTemp42 * (fTemp39 - fTemp60)) / fTemp4)) : fTemp43)) : (iTemp57 ? (fTemp43 + (fConst62 * ((0.0f - (0.00100000005f * (fTemp42 * (fTemp39 - fTemp58)))) / fTemp4))) : 0.0f)) : (iTemp55 ? (fConst60 * ((fTemp39 - fTemp56) / fTemp4)) : 0.433999985f)) : (iTemp53 ? ((fConst58 * (((fTemp39 - fTemp54) * (fTemp43 + -0.433999985f)) / fTemp4)) + 0.433999985f) : fTemp43)) : (iTemp51 ? (fTemp43 + (fConst56 * ((fTemp49 * (fTemp39 - fTemp52)) / fTemp4))) : 1.0f)) : (iTemp48 ? ((fConst54 * ((fTemp46 * (fTemp39 - fTemp50)) / fTemp4)) + 1.0f) : fTemp43)) : (iTemp45 ? (fTemp43 + (fConst52 * (((fTemp39 - fTemp47) * fTemp49) / fTemp4))) : 1.0f)) : (iTemp41 ? ((fConst50 * (((fTemp39 - fTemp44) * fTemp46) / fTemp4)) + 1.0f) : fTemp43)) : ((fTemp39 < (fConst47 * fTemp4)) ? (fTemp43 + (fConst48 * ((0.0f - (0.00100000005f * (fTemp42 * (fTemp39 - fTemp40)))) / fTemp4))) : 0.0f))));
-			fRec26[0] = (0.0f - (fConst5 * ((fConst6 * fRec26[1]) - (fRec27[0] + fRec27[1]))));
+			fRec26[0] = (fConst5 * ((fRec27[0] + fRec27[1]) - (fConst6 * fRec26[1])));
 			float fTemp64 = (fRec15[1] + (fConst27 * ((fTemp15 * ((fConst28 * ((fRec18[0] * fTemp24) * (fRec23[0] + 1.0f))) + 440.0f)) * (fRec26[0] + 1.0f))));
 			fRec15[0] = (fTemp64 - std::floor(fTemp64));
 			float fTemp65 = (65536.0f * fRec15[0]);

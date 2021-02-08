@@ -4,8 +4,8 @@ copyright: "Grame"
 license: "STK-4.3"
 name: "fx.sdelay"
 version: "1.0"
-Code generated with Faust 2.28.6 (https://faust.grame.fr)
-Compilation options: -lang cpp -scal -ftz 0
+Code generated with Faust 2.30.12 (https://faust.grame.fr)
+Compilation options: -lang cpp -es 1 -scal -ftz 0
 ------------------------------------------------------------ */
 
 #ifndef  __fx_sdelay_H__
@@ -93,7 +93,7 @@ class fx_sdelay_dsp {
          */
         virtual void buildUserInterface(UI* ui_interface) = 0;
     
-        /* Returns the sample rate currently used by the instance */
+        /* Return the sample rate currently used by the instance */
         virtual int getSampleRate() = 0;
     
         /**
@@ -101,28 +101,28 @@ class fx_sdelay_dsp {
          * - static class 'classInit': static tables initialization
          * - 'instanceInit': constants and instance state initialization
          *
-         * @param sample_rate - the sampling rate in Hertz
+         * @param sample_rate - the sampling rate in Hz
          */
         virtual void init(int sample_rate) = 0;
 
         /**
          * Init instance state
          *
-         * @param sample_rate - the sampling rate in Hertz
+         * @param sample_rate - the sampling rate in Hz
          */
         virtual void instanceInit(int sample_rate) = 0;
-
+    
         /**
          * Init instance constant state
          *
-         * @param sample_rate - the sampling rate in Hertz
+         * @param sample_rate - the sampling rate in Hz
          */
         virtual void instanceConstants(int sample_rate) = 0;
     
         /* Init default control parameters values */
         virtual void instanceResetUserInterface() = 0;
     
-        /* Init instance state (delay lines...) */
+        /* Init instance state (like delay lines...) but keep the control parameter values */
         virtual void instanceClear() = 0;
  
         /**
@@ -195,7 +195,8 @@ class decorator_dsp : public fx_sdelay_dsp {
 };
 
 /**
- * DSP factory class.
+ * DSP factory class, used with LLVM and Interpreter backends
+ * to create DSP instances from a compiled DSP program.
  */
 
 class dsp_factory {
@@ -349,11 +350,13 @@ struct UI : public UIReal<FAUSTFLOAT>
 #ifndef __meta__
 #define __meta__
 
+/**
+ The base class of Meta handler to be used in fx_sdelay_dsp::metadata(Meta* m) method to retrieve (key, value) metadata.
+ */
 struct Meta
 {
     virtual ~Meta() {};
     virtual void declare(const char* key, const char* value) = 0;
-    
 };
 
 #endif
@@ -499,6 +502,7 @@ struct fx_sdelay : public fx_sdelay_dsp {
 
 #include <algorithm>
 #include <cmath>
+#include <cstdint>
 #include <math.h>
 
 
@@ -518,21 +522,20 @@ class fx_sdelay : public fx_sdelay_dsp {
 	FAUSTFLOAT fCheckbox0;
 	FAUSTFLOAT fHslider0;
 	float fRec0[2];
-	int fSampleRate;
-	float fConst0;
-	float fConst1;
 	FAUSTFLOAT fHslider1;
-	float fRec6[2];
+	int IOTA;
+	float fVec0[2097152];
+	int fSampleRate;
+	int iConst1;
 	float fConst2;
 	FAUSTFLOAT fHslider2;
+	float fRec6[2];
+	float fConst3;
+	FAUSTFLOAT fHslider3;
 	float fRec2[2];
 	float fRec3[2];
 	float fRec4[2];
 	float fRec5[2];
-	FAUSTFLOAT fHslider3;
-	int IOTA;
-	float fVec0[2097152];
-	int iConst3;
 	float fRec1[2];
 	
  public:
@@ -545,6 +548,7 @@ class fx_sdelay : public fx_sdelay_dsp {
 		m->declare("ceammc.lib/version", "0.1.2");
 		m->declare("ceammc_ui.lib/name", "CEAMMC faust default UI elements");
 		m->declare("ceammc_ui.lib/version", "0.1.2");
+		m->declare("compile_options", "-lang cpp -es 1 -scal -ftz 0");
 		m->declare("copyright", "Grame");
 		m->declare("delays.lib/name", "Faust Delay Library");
 		m->declare("delays.lib/version", "0.1");
@@ -603,18 +607,18 @@ class fx_sdelay : public fx_sdelay_dsp {
 	
 	virtual void instanceConstants(int sample_rate) {
 		fSampleRate = sample_rate;
-		fConst0 = std::min<float>(192000.0f, std::max<float>(1.0f, float(fSampleRate)));
-		fConst1 = (9.99999997e-07f * fConst0);
-		fConst2 = (1000.0f / fConst0);
-		iConst3 = int((6.0f * fConst0));
+		float fConst0 = std::min<float>(192000.0f, std::max<float>(1.0f, float(fSampleRate)));
+		iConst1 = int((6.0f * fConst0));
+		fConst2 = (9.99999997e-07f * fConst0);
+		fConst3 = (1000.0f / fConst0);
 	}
 	
 	virtual void instanceResetUserInterface() {
 		fCheckbox0 = FAUSTFLOAT(0.0f);
 		fHslider0 = FAUSTFLOAT(1.0f);
-		fHslider1 = FAUSTFLOAT(1.0f);
-		fHslider2 = FAUSTFLOAT(20.0f);
-		fHslider3 = FAUSTFLOAT(0.0f);
+		fHslider1 = FAUSTFLOAT(0.0f);
+		fHslider2 = FAUSTFLOAT(1.0f);
+		fHslider3 = FAUSTFLOAT(20.0f);
 	}
 	
 	virtual void instanceClear() {
@@ -622,30 +626,30 @@ class fx_sdelay : public fx_sdelay_dsp {
 		for (int l0 = 0; (l0 < 2); l0 = (l0 + 1)) {
 			fRec0[l0] = 0.0f;
 		}
+		IOTA = 0;
 		#pragma clang loop vectorize(enable) interleave(enable)
-		for (int l1 = 0; (l1 < 2); l1 = (l1 + 1)) {
-			fRec6[l1] = 0.0f;
+		for (int l1 = 0; (l1 < 2097152); l1 = (l1 + 1)) {
+			fVec0[l1] = 0.0f;
 		}
 		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l2 = 0; (l2 < 2); l2 = (l2 + 1)) {
-			fRec2[l2] = 0.0f;
+			fRec6[l2] = 0.0f;
 		}
 		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l3 = 0; (l3 < 2); l3 = (l3 + 1)) {
-			fRec3[l3] = 0.0f;
+			fRec2[l3] = 0.0f;
 		}
 		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l4 = 0; (l4 < 2); l4 = (l4 + 1)) {
-			fRec4[l4] = 0.0f;
+			fRec3[l4] = 0.0f;
 		}
 		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l5 = 0; (l5 < 2); l5 = (l5 + 1)) {
-			fRec5[l5] = 0.0f;
+			fRec4[l5] = 0.0f;
 		}
-		IOTA = 0;
 		#pragma clang loop vectorize(enable) interleave(enable)
-		for (int l6 = 0; (l6 < 2097152); l6 = (l6 + 1)) {
-			fVec0[l6] = 0.0f;
+		for (int l6 = 0; (l6 < 2); l6 = (l6 + 1)) {
+			fRec5[l6] = 0.0f;
 		}
 		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l7 = 0; (l7 < 2); l7 = (l7 + 1)) {
@@ -674,13 +678,13 @@ class fx_sdelay : public fx_sdelay_dsp {
 	virtual void buildUserInterface(UI* ui_interface) {
 		ui_interface->openVerticalBox("fx.sdelay");
 		ui_interface->addCheckButton("bypass", &fCheckbox0);
-		ui_interface->declare(&fHslider1, "unit", "ms");
-		ui_interface->addHorizontalSlider("delay", &fHslider1, 1.0f, 0.0f, 6000.0f, 0.100000001f);
+		ui_interface->declare(&fHslider2, "unit", "ms");
+		ui_interface->addHorizontalSlider("delay", &fHslider2, 1.0f, 0.0f, 6000.0f, 0.100000001f);
 		ui_interface->declare(&fHslider0, "style", "knob");
 		ui_interface->addHorizontalSlider("drywet", &fHslider0, 1.0f, 0.0f, 1.0f, 0.00999999978f);
-		ui_interface->addHorizontalSlider("feedback", &fHslider3, 0.0f, 0.0f, 1.0f, 0.00100000005f);
-		ui_interface->declare(&fHslider2, "unit", "ms");
-		ui_interface->addHorizontalSlider("interpolation", &fHslider2, 20.0f, 1.0f, 200.0f, 0.100000001f);
+		ui_interface->addHorizontalSlider("feedback", &fHslider1, 0.0f, 0.0f, 1.0f, 0.00100000005f);
+		ui_interface->declare(&fHslider3, "unit", "ms");
+		ui_interface->addHorizontalSlider("interpolation", &fHslider3, 20.0f, 1.0f, 200.0f, 0.100000001f);
 		ui_interface->closeBox();
 	}
 	
@@ -689,32 +693,33 @@ class fx_sdelay : public fx_sdelay_dsp {
 		FAUSTFLOAT* output0 = outputs[0];
 		int iSlow0 = int(float(fCheckbox0));
 		float fSlow1 = (0.00100000005f * float(fHslider0));
-		float fSlow2 = (fConst1 * float(fHslider1));
-		float fSlow3 = (fConst2 / float(fHslider2));
-		float fSlow4 = (0.0f - fSlow3);
-		float fSlow5 = float(fHslider3);
+		float fSlow2 = float(fHslider1);
+		float fSlow3 = (fConst2 * float(fHslider2));
+		float fSlow4 = (fConst3 / float(fHslider3));
+		float fSlow5 = (0.0f - fSlow4);
 		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int i = 0; (i < count); i = (i + 1)) {
 			float fTemp0 = float(input0[i]);
 			float fTemp1 = (iSlow0 ? 0.0f : fTemp0);
 			fRec0[0] = (fSlow1 + (0.999000013f * fRec0[1]));
-			fRec6[0] = (fSlow2 + (0.999000013f * fRec6[1]));
-			float fTemp2 = ((fRec2[1] != 0.0f) ? (((fRec3[1] > 0.0f) & (fRec3[1] < 1.0f)) ? fRec2[1] : 0.0f) : (((fRec3[1] == 0.0f) & (fRec6[0] != fRec4[1])) ? fSlow3 : (((fRec3[1] == 1.0f) & (fRec6[0] != fRec5[1])) ? fSlow4 : 0.0f)));
-			fRec2[0] = fTemp2;
-			fRec3[0] = std::max<float>(0.0f, std::min<float>(1.0f, (fRec3[1] + fTemp2)));
+			float fTemp2 = (fTemp1 + (fSlow2 * fRec1[1]));
+			fVec0[(IOTA & 2097151)] = fTemp2;
+			fRec6[0] = (fSlow3 + (0.999000013f * fRec6[1]));
+			float fTemp3 = ((fRec2[1] != 0.0f) ? (((fRec3[1] > 0.0f) & (fRec3[1] < 1.0f)) ? fRec2[1] : 0.0f) : (((fRec3[1] == 0.0f) & (fRec6[0] != fRec4[1])) ? fSlow4 : (((fRec3[1] == 1.0f) & (fRec6[0] != fRec5[1])) ? fSlow5 : 0.0f)));
+			fRec2[0] = fTemp3;
+			fRec3[0] = std::max<float>(0.0f, std::min<float>(1.0f, (fRec3[1] + fTemp3)));
 			fRec4[0] = (((fRec3[1] >= 1.0f) & (fRec5[1] != fRec6[0])) ? fRec6[0] : fRec4[1]);
 			fRec5[0] = (((fRec3[1] <= 0.0f) & (fRec4[1] != fRec6[0])) ? fRec6[0] : fRec5[1]);
-			float fTemp3 = (fTemp1 + (fSlow5 * fRec1[1]));
-			fVec0[(IOTA & 2097151)] = fTemp3;
-			fRec1[0] = (((1.0f - fRec3[0]) * fVec0[((IOTA - int(std::min<float>(float(iConst3), std::max<float>(0.0f, fRec4[0])))) & 2097151)]) + (fRec3[0] * fVec0[((IOTA - int(std::min<float>(float(iConst3), std::max<float>(0.0f, fRec5[0])))) & 2097151)]));
+			float fTemp4 = fVec0[((IOTA - int(std::min<float>(float(iConst1), std::max<float>(0.0f, fRec4[0])))) & 2097151)];
+			fRec1[0] = (fTemp4 + (fRec3[0] * (fVec0[((IOTA - int(std::min<float>(float(iConst1), std::max<float>(0.0f, fRec5[0])))) & 2097151)] - fTemp4)));
 			output0[i] = FAUSTFLOAT((iSlow0 ? fTemp0 : ((fTemp1 * (1.0f - fRec0[0])) + (fRec0[0] * fRec1[0]))));
 			fRec0[1] = fRec0[0];
+			IOTA = (IOTA + 1);
 			fRec6[1] = fRec6[0];
 			fRec2[1] = fRec2[0];
 			fRec3[1] = fRec3[0];
 			fRec4[1] = fRec4[0];
 			fRec5[1] = fRec5[0];
-			IOTA = (IOTA + 1);
 			fRec1[1] = fRec1[0];
 		}
 	}

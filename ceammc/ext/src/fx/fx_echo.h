@@ -1,7 +1,7 @@
 /* ------------------------------------------------------------
 name: "fx.echo"
-Code generated with Faust 2.28.6 (https://faust.grame.fr)
-Compilation options: -lang cpp -scal -ftz 0
+Code generated with Faust 2.30.12 (https://faust.grame.fr)
+Compilation options: -lang cpp -es 1 -scal -ftz 0
 ------------------------------------------------------------ */
 
 #ifndef  __fx_echo_H__
@@ -89,7 +89,7 @@ class fx_echo_dsp {
          */
         virtual void buildUserInterface(UI* ui_interface) = 0;
     
-        /* Returns the sample rate currently used by the instance */
+        /* Return the sample rate currently used by the instance */
         virtual int getSampleRate() = 0;
     
         /**
@@ -97,28 +97,28 @@ class fx_echo_dsp {
          * - static class 'classInit': static tables initialization
          * - 'instanceInit': constants and instance state initialization
          *
-         * @param sample_rate - the sampling rate in Hertz
+         * @param sample_rate - the sampling rate in Hz
          */
         virtual void init(int sample_rate) = 0;
 
         /**
          * Init instance state
          *
-         * @param sample_rate - the sampling rate in Hertz
+         * @param sample_rate - the sampling rate in Hz
          */
         virtual void instanceInit(int sample_rate) = 0;
-
+    
         /**
          * Init instance constant state
          *
-         * @param sample_rate - the sampling rate in Hertz
+         * @param sample_rate - the sampling rate in Hz
          */
         virtual void instanceConstants(int sample_rate) = 0;
     
         /* Init default control parameters values */
         virtual void instanceResetUserInterface() = 0;
     
-        /* Init instance state (delay lines...) */
+        /* Init instance state (like delay lines...) but keep the control parameter values */
         virtual void instanceClear() = 0;
  
         /**
@@ -191,7 +191,8 @@ class decorator_dsp : public fx_echo_dsp {
 };
 
 /**
- * DSP factory class.
+ * DSP factory class, used with LLVM and Interpreter backends
+ * to create DSP instances from a compiled DSP program.
  */
 
 class dsp_factory {
@@ -345,11 +346,13 @@ struct UI : public UIReal<FAUSTFLOAT>
 #ifndef __meta__
 #define __meta__
 
+/**
+ The base class of Meta handler to be used in fx_echo_dsp::metadata(Meta* m) method to retrieve (key, value) metadata.
+ */
 struct Meta
 {
     virtual ~Meta() {};
     virtual void declare(const char* key, const char* value) = 0;
-    
 };
 
 #endif
@@ -495,6 +498,7 @@ struct fx_echo : public fx_echo_dsp {
 
 #include <algorithm>
 #include <cmath>
+#include <cstdint>
 #include <math.h>
 
 
@@ -517,7 +521,6 @@ class fx_echo : public fx_echo_dsp {
 	FAUSTFLOAT fHslider1;
 	float fRec2[2];
 	int fSampleRate;
-	float fConst0;
 	float fConst1;
 	float fConst2;
 	FAUSTFLOAT fHslider2;
@@ -533,6 +536,7 @@ class fx_echo : public fx_echo_dsp {
 		m->declare("ceammc.lib/version", "0.1.2");
 		m->declare("ceammc_ui.lib/name", "CEAMMC faust default UI elements");
 		m->declare("ceammc_ui.lib/version", "0.1.2");
+		m->declare("compile_options", "-lang cpp -es 1 -scal -ftz 0");
 		m->declare("delays.lib/name", "Faust Delay Library");
 		m->declare("delays.lib/version", "0.1");
 		m->declare("filename", "fx_echo.dsp");
@@ -590,7 +594,7 @@ class fx_echo : public fx_echo_dsp {
 	
 	virtual void instanceConstants(int sample_rate) {
 		fSampleRate = sample_rate;
-		fConst0 = std::min<float>(192000.0f, std::max<float>(1.0f, float(fSampleRate)));
+		float fConst0 = std::min<float>(192000.0f, std::max<float>(1.0f, float(fSampleRate)));
 		fConst1 = (10.0f * fConst0);
 		fConst2 = (0.00100000005f * fConst0);
 	}

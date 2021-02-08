@@ -23,7 +23,7 @@
 		{ "platform.lib/name": "Generic Platform Library" },
 		{ "platform.lib/version": "0.1" },
 		{ "spn.lib/name": "Standart Pitch Notation constants" },
-		{ "spn.lib/version": "0.1" }
+		{ "spn.lib/version": "0.2" }
 	],
 	"ui": [ 
 		{

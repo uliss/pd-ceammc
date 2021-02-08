@@ -3,8 +3,8 @@ author: "Oli Larkin (contact@olilarkin.co.uk)"
 copyright: "Oliver Larkin"
 name: "fx.drone_box"
 version: "0.1"
-Code generated with Faust 2.28.6 (https://faust.grame.fr)
-Compilation options: -lang cpp -scal -ftz 0
+Code generated with Faust 2.30.12 (https://faust.grame.fr)
+Compilation options: -lang cpp -es 1 -scal -ftz 0
 ------------------------------------------------------------ */
 
 #ifndef  __fx_drone_box_H__
@@ -92,7 +92,7 @@ class fx_drone_box_dsp {
          */
         virtual void buildUserInterface(UI* ui_interface) = 0;
     
-        /* Returns the sample rate currently used by the instance */
+        /* Return the sample rate currently used by the instance */
         virtual int getSampleRate() = 0;
     
         /**
@@ -100,28 +100,28 @@ class fx_drone_box_dsp {
          * - static class 'classInit': static tables initialization
          * - 'instanceInit': constants and instance state initialization
          *
-         * @param sample_rate - the sampling rate in Hertz
+         * @param sample_rate - the sampling rate in Hz
          */
         virtual void init(int sample_rate) = 0;
 
         /**
          * Init instance state
          *
-         * @param sample_rate - the sampling rate in Hertz
+         * @param sample_rate - the sampling rate in Hz
          */
         virtual void instanceInit(int sample_rate) = 0;
-
+    
         /**
          * Init instance constant state
          *
-         * @param sample_rate - the sampling rate in Hertz
+         * @param sample_rate - the sampling rate in Hz
          */
         virtual void instanceConstants(int sample_rate) = 0;
     
         /* Init default control parameters values */
         virtual void instanceResetUserInterface() = 0;
     
-        /* Init instance state (delay lines...) */
+        /* Init instance state (like delay lines...) but keep the control parameter values */
         virtual void instanceClear() = 0;
  
         /**
@@ -194,7 +194,8 @@ class decorator_dsp : public fx_drone_box_dsp {
 };
 
 /**
- * DSP factory class.
+ * DSP factory class, used with LLVM and Interpreter backends
+ * to create DSP instances from a compiled DSP program.
  */
 
 class dsp_factory {
@@ -348,11 +349,13 @@ struct UI : public UIReal<FAUSTFLOAT>
 #ifndef __meta__
 #define __meta__
 
+/**
+ The base class of Meta handler to be used in fx_drone_box_dsp::metadata(Meta* m) method to retrieve (key, value) metadata.
+ */
 struct Meta
 {
     virtual ~Meta() {};
     virtual void declare(const char* key, const char* value) = 0;
-    
 };
 
 #endif
@@ -498,6 +501,7 @@ struct fx_drone_box : public fx_drone_box_dsp {
 
 #include <algorithm>
 #include <cmath>
+#include <cstdint>
 #include <math.h>
 
 
@@ -520,7 +524,6 @@ class fx_drone_box : public fx_drone_box_dsp {
 	int fSampleRate;
 	float fConst0;
 	float fConst1;
-	float fConst2;
 	float fConst3;
 	FAUSTFLOAT fHslider1;
 	float fRec2[2];
@@ -550,6 +553,7 @@ class fx_drone_box : public fx_drone_box_dsp {
 		m->declare("ceammc.lib/version", "0.1.2");
 		m->declare("ceammc_ui.lib/name", "CEAMMC faust default UI elements");
 		m->declare("ceammc_ui.lib/version", "0.1.2");
+		m->declare("compile_options", "-lang cpp -es 1 -scal -ftz 0");
 		m->declare("copyright", "Oliver Larkin");
 		m->declare("delays.lib/name", "Faust Delay Library");
 		m->declare("delays.lib/version", "0.1");
@@ -611,7 +615,7 @@ class fx_drone_box : public fx_drone_box_dsp {
 		fSampleRate = sample_rate;
 		fConst0 = std::min<float>(192000.0f, std::max<float>(1.0f, float(fSampleRate)));
 		fConst1 = std::exp((0.0f - (200.0f / fConst0)));
-		fConst2 = (1.0f - fConst1);
+		float fConst2 = (1.0f - fConst1);
 		fConst3 = (440.0f * fConst2);
 		fConst4 = (0.00100000005f * fConst2);
 		fConst5 = (0.666666687f * fConst0);
