@@ -239,8 +239,8 @@ coupledStrings3 = (parallelStrings <: (_,(_+_ <: _,_),_ : _,_,(_ : couplingFilte
 
 //==================== PROCESSING ================
 
-process = soundBoard <: mid_notes, high_notes :> +
-    : *(12)
+process = soundBoard <: mid_notes, high_notes
+    :> *(12)
     : stereo
     : inst.reverb2
 with {
