@@ -240,10 +240,6 @@ coupledStrings = (parallelStrings <: (_,(_+_ <: _,_),_ : _,_,(_ : couplingFilter
                 adder(w,x,y,z) = (y <: +(w),+(z)),x ;
         };
 
-//stereoizer is declared in instruments.lib and implement a stereo spacialisation in function of
-//the frequency period in number of samples
-stereo = stereoizer(ma.SR/freq);
-
 //==================== PROCESSING ================
 
 process = soundBoard <: low_notes, high_notes :> +
