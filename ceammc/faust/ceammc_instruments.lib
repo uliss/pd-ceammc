@@ -1,5 +1,5 @@
 declare name "CEAMMC replacement for intruments.lib";
-declare version "0.2";
+declare version "0.3";
 
 si = library("signals.lib");
 de = library("delays.lib");
@@ -9,7 +9,7 @@ reverb2 = _,_ <: *(reverbGain),*(reverbGain),*(1 - reverbGain),*(1 - reverbGain)
     re.zita_rev1_stereo(rdel,f1,f2,t60dc,t60m,fsmax),_,_ <: _,!,_,!,!,_,!,_ : +,+
 with {
     reverbGain = hslider("reverb_gain", 0.137, 0, 1, 0.01) : si.smoo;
-    roomSize = hslider("room_size", 0.36, 0.005, 1, 0.01) * 2 : si.smoo;
+    roomSize = hslider("room_size", 0.36, 0.005, 1, 0.01) * 2;
     rdel = 20;
     f1 = 200;
     f2 = 6000;
