@@ -248,7 +248,7 @@ process = soundBoard <: low_notes, high_notes :> +
     : stereo
     : inst.reverb2
 with {
-    FIRST_HIGH_NOTE = 88;
+    FIRST_HIGH_NOTE = spn.E6;
 
     conditionLowNote = freqn < FIRST_HIGH_NOTE;
     conditionHighNote = freqn >= FIRST_HIGH_NOTE;
