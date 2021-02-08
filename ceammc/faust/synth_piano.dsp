@@ -13,7 +13,7 @@ inst = library("ceammc_instruments.lib");
 
 //==================== GUI SPECIFICATION ================
 
-pitch = hslider("pitch", spn.C3, spn.C1, spn.C7, 0.001);
+pitch = hslider("pitch", spn.C3, spn.A0, spn.C8, 0.001);
 freq = pitch : ba.midikey2hz;
 gain = nentry("gain", 1, 0, 1, 0.01);
 gate = button("gate")>0;
