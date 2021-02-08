@@ -27,7 +27,6 @@ hammerHardness = hslider("hammer_hardness", 0.1, 0, 1, 0.01)*0.1;
 
 //variables to set keybord splitting zone
 DCB2_TURNOFF_KEYNUM = 92;
-FIRST_HIGH_NOTE = 88;
 PEDAL_ENVELOPE_T60 = 7;
 
 //convert an amplitude in db
@@ -235,8 +234,10 @@ coupledStrings = (parallelStrings <: (_,(_+_ <: _,_),_ : _,_,(_ : couplingFilter
                 freq2 = freq - 0.5*hzValue*detuningFactor;
                 delay1 = delayG(freq1,stiffness);
                 delay2 = delayG(freq2,stiffness);
-                parallelStrings(x,y) = _ <: (+(x)*coupledStringLoopGain : seq(i,3,stiffnessAP) : delay1),
-                                (_+y*coupledStringLoopGain : seq(i,3,stiffnessAP) : delay2);
+                parallelStrings(x,y) = _ <: string1, string2 with {
+                    string1 = (+(x)*coupledStringLoopGain : seq(i,3,stiffnessAP) : delay1);
+                    string2 = (_+y*coupledStringLoopGain : seq(i,3,stiffnessAP) : delay2);
+                };
                 adder(w,x,y,z) = (y <: +(w),+(z)),x ;
         };
 
@@ -247,6 +248,8 @@ process = soundBoard <: low_notes, high_notes :> +
     : stereo
     : inst.reverb2
 with {
+    FIRST_HIGH_NOTE = 88;
+
     conditionLowNote = freqn < FIRST_HIGH_NOTE;
     conditionHighNote = freqn >= FIRST_HIGH_NOTE;
 
