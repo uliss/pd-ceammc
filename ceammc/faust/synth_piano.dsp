@@ -246,15 +246,16 @@ stereo = stereoizer(ma.SR/freq);
 
 //==================== PROCESSING ================
 
-conditionLowNote = freqn < FIRST_HIGH_NOTE;
-conditionHighNote = freqn >= FIRST_HIGH_NOTE;
-
 process = soundBoard <: low_notes, high_notes :> +
     : *(12)
     : stereo
     : inst.reverb2
 with {
+    conditionLowNote = freqn < FIRST_HIGH_NOTE;
+    conditionHighNote = freqn >= FIRST_HIGH_NOTE;
+
     low_notes = (*(conditionLowNote)*6 : hammer : dcBlock1 : coupledStrings <: +(eq));
     high_notes = (*(conditionHighNote) : hiPass : dcBlock1 : hammer : dcBlock2a : highBqs : dcBlock2b);
+    stereo = inst.stereoizer(ma.SR/freq);
 };
 

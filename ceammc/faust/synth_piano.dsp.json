@@ -3,7 +3,7 @@
 	"filename": "synth_piano.dsp",
 	"version": "2.28.6",
 	"compile_options": "-lang cpp -scal -ftz 0",
-	"library_list": ["/usr/local/share/faust/instruments.lib","/Users/serge/work/music/pure-data/ceammc/faust/spn.lib","/usr/local/share/faust/basics.lib","/usr/local/share/faust/maths.lib","/usr/local/share/faust/platform.lib","/usr/local/share/faust/noises.lib","/usr/local/share/faust/filters.lib","/usr/local/share/faust/delays.lib","/Users/serge/work/music/pure-data/ceammc/faust/ceammc_instruments.lib","/usr/local/share/faust/signals.lib","/usr/local/share/faust/reverbs.lib","/usr/local/share/faust/routes.lib"],
+	"library_list": ["/usr/local/share/faust/instruments.lib","/Users/serge/work/music/pure-data/ceammc/faust/spn.lib","/usr/local/share/faust/basics.lib","/usr/local/share/faust/maths.lib","/usr/local/share/faust/platform.lib","/usr/local/share/faust/noises.lib","/usr/local/share/faust/filters.lib","/Users/serge/work/music/pure-data/ceammc/faust/ceammc_instruments.lib","/usr/local/share/faust/delays.lib","/usr/local/share/faust/signals.lib","/usr/local/share/faust/reverbs.lib","/usr/local/share/faust/routes.lib"],
 	"include_pathnames": ["/usr/local/share/faust","/usr/local/share/faust","/usr/share/faust","/Users/serge/work/music/pure-data/ceammc/faust","/Users/serge/work/music/pure-data/ceammc/faust"],
 	"inputs": 0,
 	"outputs": 2,
@@ -12,7 +12,7 @@
 		{ "basics.lib/name": "Faust Basic Element Library" },
 		{ "basics.lib/version": "0.1" },
 		{ "ceammc_instruments.lib/name": "CEAMMC replacement for intruments.lib" },
-		{ "ceammc_instruments.lib/version": "0.1" },
+		{ "ceammc_instruments.lib/version": "0.2" },
 		{ "copyright": "Romain Michon" },
 		{ "delays.lib/name": "Faust Delay Library" },
 		{ "delays.lib/version": "0.1" },
@@ -65,30 +65,6 @@
 			"label": "synth.piano",
 			"items": [ 
 				{
-					"type": "vgroup",
-					"label": "Spat",
-					"items": [ 
-						{
-							"type": "hslider",
-							"label": "pan angle",
-							"address": "/synth.piano/Spat/pan_angle",
-							"init": 0.6,
-							"min": 0,
-							"max": 1,
-							"step": 0.01
-						},
-						{
-							"type": "hslider",
-							"label": "spatial width",
-							"address": "/synth.piano/Spat/spatial_width",
-							"init": 0.5,
-							"min": 0,
-							"max": 1,
-							"step": 0.01
-						}
-					]
-				},
-				{
 					"type": "hslider",
 					"label": "brightness",
 					"address": "/synth.piano/brightness",
@@ -131,6 +107,15 @@
 				},
 				{
 					"type": "hslider",
+					"label": "pan",
+					"address": "/synth.piano/pan",
+					"init": 0.6,
+					"min": 0,
+					"max": 1,
+					"step": 0.01
+				},
+				{
+					"type": "hslider",
 					"label": "pitch",
 					"address": "/synth.piano/pitch",
 					"init": 48,
@@ -161,6 +146,15 @@
 					"label": "stiffness",
 					"address": "/synth.piano/stiffness",
 					"init": 0.28,
+					"min": 0,
+					"max": 1,
+					"step": 0.01
+				},
+				{
+					"type": "hslider",
+					"label": "width",
+					"address": "/synth.piano/width",
+					"init": 0.5,
 					"min": 0,
 					"max": 1,
 					"step": 0.01
