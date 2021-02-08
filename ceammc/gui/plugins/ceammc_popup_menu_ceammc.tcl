@@ -199,9 +199,10 @@
     }}
     {synth {
         synth.bee3~ synth.birds~ synth.church_bell~ synth.dubdub~ synth.dx7~
-        synth.eguitar~ synth.fgrain~ synth.glitch~ synth.ks~ synth.marimba~
-        synth.rhodey~ synth.risset_arp~ synth.risset_tone~ synth.russian_bell~
-        synth.shakers~ synth.sitar~ synth.wurley~
+        synth.eguitar~ synth.fgrain~ synth.glitch~ synth.harpsichord~
+        synth.ks~ synth.marimba~ synth.piano~ synth.rhodey~ synth.risset_arp~
+        synth.risset_tone~ synth.russian_bell~ synth.shakers~ synth.sitar~
+        synth.wurley~
     }}
     {system {
         system.colorpanel system.cursor system.exec system.exit system.getenv
