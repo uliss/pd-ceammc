@@ -1863,6 +1863,9 @@
     <entry name="synth.fgrain~" descr="file granulator from STK" ref_view="object">
       <xi:include href="synth.fgrain~.pddoc" parse="xml"/>
     </entry>
+    <entry name="synth.glass_harm~" descr="nonlinear banded waveguide modeled Glass Harmonica" ref_view="object">
+      <xi:include href="synth.glass_harm~.pddoc" parse="xml"/>
+    </entry>
     <entry name="synth.glitch~" descr="Glitch synthesizer by naivesound" ref_view="object">
       <xi:include href="synth.glitch~.pddoc" parse="xml"/>
     </entry>
