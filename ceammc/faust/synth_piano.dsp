@@ -13,8 +13,8 @@ inst = library("ceammc_instruments.lib");
 
 //==================== GUI SPECIFICATION ================
 
-//freq = nentry("freq [1][unit:Hz] [tooltip:Tone frequency]",440,20,20000,1);
-freq = hslider("pitch", spn.C3, spn.C1, spn.C7, 0.001) : ba.midikey2hz;
+pitch = hslider("pitch", spn.C3, spn.C1, spn.C7, 0.001);
+freq = pitch : ba.midikey2hz;
 gain = nentry("gain", 1, 0, 1, 0.01);
 gate = button("gate")>0;
 
@@ -31,10 +31,6 @@ PEDAL_ENVELOPE_T60 = 7;
 
 //convert an amplitude in db
 dbinv(x) = pow(10,0.05*x);
-
-//convert a frequency in a midi note number
-freqToNoteNumber = (log-log(440))/log(2)*12+69+0.5 : int;
-freqn = freq : freqToNoteNumber;
 
 //a counter that restart a every note-on
 cntSample = *(gate)+1~_ : -(1);
@@ -62,8 +58,8 @@ soundBoard = dryTapAmp*no.noise + pedalEnv*no.noise : *(0.5)
                 sustainPedalLevel = ffunction(float getValueSustainPedalLevel(float), "piano.h","");
 
                 pedalEnvCutOffTime = 1.4;
-                noteCutOffTime = freqn : dryTapAmpT60*gain;
-                pedalEnvValue = freqn : sustainPedalLevel*0.2;
+                noteCutOffTime = pitch : dryTapAmpT60*gain;
+                pedalEnvValue = pitch : sustainPedalLevel*0.2;
                 noteEnvValue = 0.15;
                 dryTapAmp = asympT60(noteEnvValue,0,noteCutOffTime,gate);
                 pedalEnv = asympT60pedal(pedalEnvValue,pedalEnvCutOffTime);
@@ -83,11 +79,11 @@ calcHammer = onePole((1-hammerPole)*hammerGain,-hammerPole)
                 loudGain = ffunction(float getValueLoudGain(float), "piano.h","");
                 softGain = ffunction(float getValueSoftGain(float), "piano.h","");
 
-                loudPoleValue = loudPole(freqn) + (brightnessFactor*-0.25) + 0.02;
-                softPoleValue = softPole(freqn);
+                loudPoleValue = loudPole(pitch) + (brightnessFactor*-0.25) + 0.02;
+                softPoleValue = softPole(pitch);
                 normalizedVelocityValue = 1;
-                loudGainValue = loudGain(freqn);
-                softGainValue = softGain(freqn);
+                loudGainValue = loudGain(pitch);
+                softGainValue = softGain(pitch);
                 overallGain = 1;
                 hammerPole = softPoleValue + (loudPoleValue - softPoleValue)*normalizedVelocityValue;
                 hammerGain = overallGain*(softGainValue + (loudGainValue - softGainValue)*normalizedVelocityValue);
@@ -99,7 +95,7 @@ hammer = seq(i,4,calcHammer);
 
 //the values for the dcblockers a1 are stored in an external C++ file
 DCBa1 = ffunction(float getValueDCBa1(float), "piano.h","");
-dCBa1Value = freqn : DCBa1;
+dCBa1Value = pitch : DCBa1;
 dCBb0Value = 1 - dCBa1Value;
 
 dcBlock1 = poleZero((dCBb0Value*0.5),(dCBb0Value*-0.5),dCBa1Value);
@@ -121,17 +117,17 @@ second_partial_factor = ffunction(float getValueSecondPartialFactor(float), "pia
 third_partial_factor = ffunction(float getValueThirdPartialFactor(float), "piano.h","");
 bq4_gEarBalled = ffunction(float getValueBq4_gEarBalled(float), "piano.h","");
 
-r1_1Value = r1_1(freqn)/ma.SR : dbinv;
-r1_2Value = r1_2(freqn)/ma.SR : dbinv;
-r2Value = r2(freqn)/ma.SR : dbinv;
-r3Value = r3(freqn)/ma.SR : dbinv;
-eValue = e(freqn) : dbinv;
-second_partial_factorValue = second_partial_factor(freqn);
-third_partial_factorValue = third_partial_factor(freqn);
+r1_1Value = r1_1(pitch)/ma.SR : dbinv;
+r1_2Value = r1_2(pitch)/ma.SR : dbinv;
+r2Value = r2(pitch)/ma.SR : dbinv;
+r3Value = r3(pitch)/ma.SR : dbinv;
+eValue = e(pitch) : dbinv;
+second_partial_factorValue = second_partial_factor(pitch);
+third_partial_factorValue = third_partial_factor(pitch);
 
 //set biquad gains and coeffs
-gainHighBq(0) = bq4_gEarBalled(freqn)/0.5;
-gainHighBq(1) = bq4_gEarBalled(freqn)/0.5;
+gainHighBq(0) = bq4_gEarBalled(pitch)/0.5;
+gainHighBq(1) = bq4_gEarBalled(pitch)/0.5;
 gainHighBq(2) = 1;
 gainHighBq(3) = 1;
 
@@ -175,9 +171,9 @@ eq = _*filterGain : fi.TF2(b0,b1,b2,a1,a2)
                 strikePosition = ffunction(float getValueStrikePosition(float), "piano.h","");
                 bandwidthFactors = ffunction(float getValueEQBandWidthFactor(float), "piano.h","");
                 eq_gain = ffunction(float getValueEQGain(float), "piano.h","");
-                eq_tuning = freq/strikePosition(freqn);
-                eq_bandwidth = bandwidthFactors(freqn)*freq;
-                filterGain = eq_gain(freqn);
+                eq_tuning = freq/strikePosition(pitch);
+                eq_bandwidth = bandwidthFactors(pitch)*freq;
+                filterGain = eq_gain(pitch);
                 a2 = (eq_bandwidth / ma.SR) * (eq_bandwidth / ma.SR);
                 a1 = -2*(eq_bandwidth / ma.SR)*cos(2*ma.PI*eq_tuning/ma.SR);
                 b0 = 0.5 - 0.5 * a2;
@@ -194,16 +190,16 @@ singleStringPole = ffunction(float getValueSingleStringPole(float), "piano.h",""
 stiffnessCoefficient = ffunction(float getValueStiffnessCoefficient(float), "piano.h","");
 
 //coupling filter parameters
-g = pow(10,((singleStringDecRate(freqn)/freq)/20)); //attenuation per period
-b = singleStringZero(freqn);
-a = singleStringPole(freqn);
+g = pow(10,((singleStringDecRate(pitch)/freq)/20)); //attenuation per period
+b = singleStringZero(pitch);
+a = singleStringPole(pitch);
 tempd = 3*(1-b)-g*(1-a);
 b0Coupling = 2*(g*(1-a)-(1-b))/tempd;
 b1Coupling = 2*(a*(1-b)-g*(1-a)*b)/tempd;
 a1Coupling = (g*(1-a)*b - 3*a*(1-b))/tempd;
 
 //string stiffness
-stiffness = stiffnessFactor*stiffnessCoefficient(freqn);
+stiffness = stiffnessFactor*stiffnessCoefficient(pitch);
 
 stiffnessAP = poleZero(b0s,b1s,a1s)
         with{
@@ -223,13 +219,13 @@ delayG(frequency,stiffnessCoefficient) = de.fdelay(4096,delayLength)
                                                 a1Coupling + 2*b1Coupling, a1Coupling, wT)) / wT;
         };
 
-coupledStrings = (parallelStrings <: (_,(_+_ <: _,_),_ : _,_,(_ : couplingFilter),_ : adder))~(_,_) : !,!,_
+coupledStrings3 = (parallelStrings <: (_,(_+_ <: _,_),_ : _,_,(_ : couplingFilter),_ : adder))~(_,_) : !,!,_
         with{
                 releaseLoopGain = ffunction(float getValueReleaseLoopGain(float), "piano.h","");
                 hz = ffunction(float getValueDetuningHz(float), "piano.h","");
-                coupledStringLoopGain = gate*0.9996 + ((gate-1)*-1)*releaseLoopGain(freqn)*0.9 : si.smoo;
+                coupledStringLoopGain = gate*0.9996 + ((gate-1)*-1)*releaseLoopGain(pitch)*0.9 : si.smoo;
                 couplingFilter = poleZero(b0Coupling,b1Coupling,a1Coupling);
-                hzValue = hz(freqn);
+                hzValue = hz(pitch);
                 freq1 = freq + 0.5*hzValue*detuningFactor;
                 freq2 = freq - 0.5*hzValue*detuningFactor;
                 delay1 = delayG(freq1,stiffness);
@@ -243,17 +239,17 @@ coupledStrings = (parallelStrings <: (_,(_+_ <: _,_),_ : _,_,(_ : couplingFilter
 
 //==================== PROCESSING ================
 
-process = soundBoard <: low_notes, high_notes :> +
+process = soundBoard <: mid_notes, high_notes :> +
     : *(12)
     : stereo
     : inst.reverb2
 with {
     FIRST_HIGH_NOTE = spn.E6;
 
-    conditionLowNote = freqn < FIRST_HIGH_NOTE;
-    conditionHighNote = freqn >= FIRST_HIGH_NOTE;
+    conditionLowNote = pitch < FIRST_HIGH_NOTE;
+    conditionHighNote = pitch >= FIRST_HIGH_NOTE;
 
-    low_notes = (*(conditionLowNote)*6 : hammer : dcBlock1 : coupledStrings <: +(eq));
+    mid_notes = (*(conditionLowNote)*6 : hammer : dcBlock1 : coupledStrings3 <: +(eq));
     high_notes = (*(conditionHighNote) : hiPass : dcBlock1 : hammer : dcBlock2a : highBqs : dcBlock2b);
     stereo = inst.stereoizer(ma.SR/freq);
 };
