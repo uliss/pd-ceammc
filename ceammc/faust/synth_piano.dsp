@@ -239,7 +239,7 @@ coupledStrings3 = (parallelStrings <: (_,(_+_ <: _,_),_ : _,_,(_ : couplingFilte
 
 //==================== PROCESSING ================
 
-process = soundBoard <: mid_notes, high_notes
+process = soundBoard <: low_notes, mid_notes, high_notes
     :> *(12)
     : stereo
     : inst.reverb2
@@ -249,6 +249,7 @@ with {
     midNotes = (pitch >= spn.A2) & (pitch < spn.E6);
     noDampers = pitch >= spn.E6;
 
+    low_notes = (*(lowNotes)*6 : hammer : dcBlock1 : coupledStrings3 <: +(eq));
     mid_notes = (*(midNotes)*6 : hammer : dcBlock1 : coupledStrings3 <: +(eq));
     high_notes = (*(noDampers) : hiPass : dcBlock1 : hammer : dcBlock2a : highBqs : dcBlock2b);
     stereo = inst.stereoizer(ma.SR/freq);
