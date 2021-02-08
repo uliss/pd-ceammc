@@ -29,7 +29,8 @@ endmacro()
 # adds _underscored_ target MODULE_NAME
 macro(ceammc_faust_gen_obj module name)
     set(options JSON VEC FTZ OCPP DOUBLE)
-    cmake_parse_arguments(FAUST_OPT "${options}" "" "" ${ARGN})
+    set(list_opts INCLUDES)
+    cmake_parse_arguments(FAUST_OPT "${options}" "" "${list_opts}" ${ARGN})
 
     set(_args "")
     if(FAUST_OPT_VEC)
@@ -50,6 +51,12 @@ macro(ceammc_faust_gen_obj module name)
 
     if(FAUST_OPT_DOUBLE)
         list(APPEND _args "--double-precision-floats")
+    endif()
+
+    if(FAUST_OPT_INCLUDES)
+        foreach(dir ${FAUST_OPT_INCLUDES})
+            list(APPEND _args "-I" ${dir})
+        endforeach()
     endif()
 
     add_custom_target("faust_${module}_${name}"
