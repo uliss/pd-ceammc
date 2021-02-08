@@ -2,11 +2,10 @@
 #X obj 25 125 synth.piano~;
 #X obj 325 25 inlet;
 #X obj 325 200 route synth.piano;
-#X obj 325 250 route @brightness @detuning @gain @gate
-@hammer_hardness @pan @pitch @reverb_gain @room_size @stiffness
-@width;
+#X obj 325 250 route @brightness @detuning @gate @hammer_hardness @pan
+@pitch @reverb_gain @room_size @stiffness @width;
 #X obj 575 350 print unknown property;
-#X msg 225 75 @brightness 0 \, @detuning 0.1 \, @gain 1 \, @hammer_hardness 0.1 \, @pan 0.6 \, @pitch 48 \, @reverb_gain 0.137 \, @room_size 0.36 \, @stiffness 0.28 \, @width 0.5 \,;
+#X msg 225 75 @brightness 0 \, @detuning 0.1 \, @hammer_hardness 0.1 \, @pan 0.6 \, @pitch 48 \, @reverb_gain 0.137 \, @room_size 0.36 \, @stiffness 0.28 \, @width 0.5 \,;
 #X obj 225 25 msg.onload;
 #X obj 500 550 outlet~;
 #X obj 600 550 outlet~;
@@ -25,58 +24,54 @@ brightness: @label_side top @label_align left @fontsize 10 @presetname
 #X obj 190 270 sync;
 #X obj 145 270 ui.number @size 50 12 @min 0 @max 1 @digits 4;
 #X msg 260 270 @detuning \$1;
-#X obj 12 300 ui.number @size 60 12 @label gain: @label_side top
-@label_align left @fontsize 10 @presetname
-/gui/\$1/synth.piano~/numbox2 @min 0 @max 1 @step 0.01;
-#X msg 260 300 @gain \$1;
-#X obj 12 320 ui.toggle @size 12 12 @label gate @label_side right
+#X obj 12 290 ui.toggle @size 12 12 @label gate @label_side right
 @label_align left @fontsize 10;
-#X msg 260 312 @gate \$1;
-#X obj 12 350 ui.slider @size 125 12 @active_scale 1 @label
+#X msg 260 282 @gate \$1;
+#X obj 12 320 ui.slider @size 125 12 @active_scale 1 @label
 hammer_hardness: @label_side top @label_align left @fontsize 10
-@presetname /gui/\$1/synth.piano~/slider4 @min 0 @max 1;
-#X obj 190 350 sync;
-#X obj 145 350 ui.number @size 50 12 @min 0 @max 1 @digits 4;
-#X msg 260 350 @hammer_hardness \$1;
-#X obj 12 382 ui.slider @size 125 12 @active_scale 1 @label pan:
+@presetname /gui/\$1/synth.piano~/slider3 @min 0 @max 1;
+#X obj 190 320 sync;
+#X obj 145 320 ui.number @size 50 12 @min 0 @max 1 @digits 4;
+#X msg 260 320 @hammer_hardness \$1;
+#X obj 12 352 ui.slider @size 125 12 @active_scale 1 @label pan:
 @label_side top @label_align left @fontsize 10 @presetname
-/gui/\$1/synth.piano~/slider5 @min 0 @max 1;
-#X obj 190 382 sync;
-#X obj 145 382 ui.number @size 50 12 @min 0 @max 1 @digits 4;
-#X msg 260 382 @pan \$1;
-#X obj 12 414 ui.slider @size 125 12 @active_scale 1 @label pitch:
+/gui/\$1/synth.piano~/slider4 @min 0 @max 1;
+#X obj 190 352 sync;
+#X obj 145 352 ui.number @size 50 12 @min 0 @max 1 @digits 4;
+#X msg 260 352 @pan \$1;
+#X obj 12 384 ui.slider @size 125 12 @active_scale 1 @label pitch:
 @label_side top @label_align left @fontsize 10 @presetname
-/gui/\$1/synth.piano~/slider6 @min 21 @max 108;
-#X obj 190 414 sync;
-#X obj 145 414 ui.number @size 50 12 @min 21 @max 108 @digits 2;
-#X msg 260 414 @pitch \$1;
-#X obj 12 446 ui.slider @size 125 12 @active_scale 1 @label
+/gui/\$1/synth.piano~/slider5 @min 21 @max 108;
+#X obj 190 384 sync;
+#X obj 145 384 ui.number @size 50 12 @min 21 @max 108 @digits 2;
+#X msg 260 384 @pitch \$1;
+#X obj 12 416 ui.slider @size 125 12 @active_scale 1 @label
 reverb_gain: @label_side top @label_align left @fontsize 10
-@presetname /gui/\$1/synth.piano~/slider7 @min 0 @max 1;
-#X obj 190 446 sync;
-#X obj 145 446 ui.number @size 50 12 @min 0 @max 1 @digits 4;
-#X msg 260 446 @reverb_gain \$1;
-#X obj 12 478 ui.slider @size 125 12 @active_scale 1 @label room_size:
+@presetname /gui/\$1/synth.piano~/slider6 @min 0 @max 1;
+#X obj 190 416 sync;
+#X obj 145 416 ui.number @size 50 12 @min 0 @max 1 @digits 4;
+#X msg 260 416 @reverb_gain \$1;
+#X obj 12 448 ui.slider @size 125 12 @active_scale 1 @label room_size:
 @label_side top @label_align left @fontsize 10 @presetname
-/gui/\$1/synth.piano~/slider8 @min 0.005 @max 1;
-#X obj 190 478 sync;
-#X obj 145 478 ui.number @size 50 12 @min 0.005 @max 1 @digits 4;
-#X msg 260 478 @room_size \$1;
-#X obj 12 510 ui.slider @size 125 12 @active_scale 1 @label stiffness:
+/gui/\$1/synth.piano~/slider7 @min 0.005 @max 1;
+#X obj 190 448 sync;
+#X obj 145 448 ui.number @size 50 12 @min 0.005 @max 1 @digits 4;
+#X msg 260 448 @room_size \$1;
+#X obj 12 480 ui.slider @size 125 12 @active_scale 1 @label stiffness:
+@label_side top @label_align left @fontsize 10 @presetname
+/gui/\$1/synth.piano~/slider8 @min 0 @max 1;
+#X obj 190 480 sync;
+#X obj 145 480 ui.number @size 50 12 @min 0 @max 1 @digits 4;
+#X msg 260 480 @stiffness \$1;
+#X obj 12 512 ui.slider @size 125 12 @active_scale 1 @label width:
 @label_side top @label_align left @fontsize 10 @presetname
 /gui/\$1/synth.piano~/slider9 @min 0 @max 1;
-#X obj 190 510 sync;
-#X obj 145 510 ui.number @size 50 12 @min 0 @max 1 @digits 4;
-#X msg 260 510 @stiffness \$1;
-#X obj 12 542 ui.slider @size 125 12 @active_scale 1 @label width:
-@label_side top @label_align left @fontsize 10 @presetname
-/gui/\$1/synth.piano~/slider10 @min 0 @max 1;
-#X obj 190 542 sync;
-#X obj 145 542 ui.number @size 50 12 @min 0 @max 1 @digits 4;
-#X msg 260 542 @width \$1;
+#X obj 190 512 sync;
+#X obj 145 512 ui.number @size 50 12 @min 0 @max 1 @digits 4;
+#X msg 260 512 @width \$1;
 #X connect 1 0 2 0;
 #X connect 2 0 3 0;
-#X connect 3 11 4 0;
+#X connect 3 10 4 0;
 #X connect 5 0 3 0;
 #X connect 6 0 5 0;
 #X connect 0 0 7 0;
@@ -100,55 +95,52 @@ reverb_gain: @label_side top @label_align left @fontsize 10
 #X connect 20 0 0 0;
 #X connect 3 2 19 0;
 #X connect 21 0 22 0;
-#X connect 22 0 0 0;
+#X connect 22 0 21 0;
+#X connect 23 0 22 1;
+#X connect 22 1 23 0;
+#X connect 21 0 24 0;
+#X connect 24 0 0 0;
 #X connect 3 3 21 0;
-#X connect 23 0 24 0;
-#X connect 24 0 23 0;
-#X connect 25 0 24 1;
-#X connect 24 1 25 0;
-#X connect 23 0 26 0;
-#X connect 26 0 0 0;
-#X connect 3 4 23 0;
-#X connect 27 0 28 0;
-#X connect 28 0 27 0;
-#X connect 29 0 28 1;
-#X connect 28 1 29 0;
-#X connect 27 0 30 0;
-#X connect 30 0 0 0;
-#X connect 3 5 27 0;
-#X connect 31 0 32 0;
-#X connect 32 0 31 0;
-#X connect 33 0 32 1;
-#X connect 32 1 33 0;
-#X connect 31 0 34 0;
-#X connect 34 0 0 0;
-#X connect 3 6 31 0;
-#X connect 35 0 36 0;
-#X connect 36 0 35 0;
-#X connect 37 0 36 1;
-#X connect 36 1 37 0;
-#X connect 35 0 38 0;
-#X connect 38 0 0 0;
-#X connect 3 7 35 0;
-#X connect 39 0 40 0;
-#X connect 40 0 39 0;
-#X connect 41 0 40 1;
-#X connect 40 1 41 0;
-#X connect 39 0 42 0;
-#X connect 42 0 0 0;
-#X connect 3 8 39 0;
-#X connect 43 0 44 0;
-#X connect 44 0 43 0;
-#X connect 45 0 44 1;
-#X connect 44 1 45 0;
-#X connect 43 0 46 0;
-#X connect 46 0 0 0;
-#X connect 3 9 43 0;
-#X connect 47 0 48 0;
-#X connect 48 0 47 0;
-#X connect 49 0 48 1;
-#X connect 48 1 49 0;
-#X connect 47 0 50 0;
-#X connect 50 0 0 0;
-#X connect 3 10 47 0;
-#X coords 0 -1 1 1 200 362 2 2 200;
+#X connect 25 0 26 0;
+#X connect 26 0 25 0;
+#X connect 27 0 26 1;
+#X connect 26 1 27 0;
+#X connect 25 0 28 0;
+#X connect 28 0 0 0;
+#X connect 3 4 25 0;
+#X connect 29 0 30 0;
+#X connect 30 0 29 0;
+#X connect 31 0 30 1;
+#X connect 30 1 31 0;
+#X connect 29 0 32 0;
+#X connect 32 0 0 0;
+#X connect 3 5 29 0;
+#X connect 33 0 34 0;
+#X connect 34 0 33 0;
+#X connect 35 0 34 1;
+#X connect 34 1 35 0;
+#X connect 33 0 36 0;
+#X connect 36 0 0 0;
+#X connect 3 6 33 0;
+#X connect 37 0 38 0;
+#X connect 38 0 37 0;
+#X connect 39 0 38 1;
+#X connect 38 1 39 0;
+#X connect 37 0 40 0;
+#X connect 40 0 0 0;
+#X connect 3 7 37 0;
+#X connect 41 0 42 0;
+#X connect 42 0 41 0;
+#X connect 43 0 42 1;
+#X connect 42 1 43 0;
+#X connect 41 0 44 0;
+#X connect 44 0 0 0;
+#X connect 3 8 41 0;
+#X connect 45 0 46 0;
+#X connect 46 0 45 0;
+#X connect 47 0 46 1;
+#X connect 46 1 47 0;
+#X connect 45 0 48 0;
+#X connect 48 0 0 0;
+#X connect 3 9 45 0;
+#X coords 0 -1 1 1 200 332 2 2 200;
