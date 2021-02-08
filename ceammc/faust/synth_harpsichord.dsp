@@ -16,7 +16,7 @@ co = library("compressors.lib");
 //==================== GUI SPECIFICATION ================
 
 //freq = nentry("freq [1][unit:Hz] [tooltip:Tone frequency]",440,20,20000,1);
-freq = hslider("pitch", spn.C3, spn.C1, spn.C7, 0.001) : ba.midikey2hz;
+freq = hslider("pitch", spn.C3, spn.C0, spn.C7, 0.001) : ba.midikey2hz;
 btn = ui.fgate;
 gain = btn : ci.clip(0, 1) : si.smoo;
 gate = btn > 0;
@@ -87,10 +87,9 @@ with {
     delayLength = ma.SR/freq;
 
     //one string
-    string = (*(stringLoopGainT)+_ : de.delay(4096,delayLength) : loopFilter : comp)~NLFM;
-
+    string = (*(stringLoopGainT)+_ : de.delay(4096,delayLength) : loopFilter : comp)~NLFM : _;
     comp = co.compressor_mono(2, 100, 10, 50);
-    stereo = inst.stereoizer(ma.SR/freq);
+    stereo = _*4 : inst.stereoizer(ma.SR/freq);
     reverb = inst.reverb2;
 };
 

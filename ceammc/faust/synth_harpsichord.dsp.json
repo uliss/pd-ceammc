@@ -41,7 +41,7 @@
 		{ "filters.lib/allpassnn:author": "Julius O. Smith III" },
 		{ "filters.lib/allpassnn:copyright": "Copyright (C) 2003-2019 by Julius O. Smith III <jos@ccrma.stanford.edu>" },
 		{ "filters.lib/allpassnn:license": "MIT-style STK-4.3 license" },
-		{ "filters.lib/lowpass0_highpass1": "Copyright (C) 2003-2019 by Julius O. Smith III <jos@ccrma.stanford.edu>" },
+		{ "filters.lib/lowpass0_highpass1": "MIT-style STK-4.3 license" },
 		{ "filters.lib/lowpass0_highpass1:author": "Julius O. Smith III" },
 		{ "filters.lib/lowpass:author": "Julius O. Smith III" },
 		{ "filters.lib/lowpass:copyright": "Copyright (C) 2003-2019 by Julius O. Smith III <jos@ccrma.stanford.edu>" },
@@ -145,7 +145,7 @@
 					"label": "pitch",
 					"address": "/synth.harpsichord/pitch",
 					"init": 48,
-					"min": 24,
+					"min": 12,
 					"max": 96,
 					"step": 0.001
 				},
