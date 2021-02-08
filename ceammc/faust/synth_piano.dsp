@@ -209,33 +209,22 @@ stiffnessAP = poleZero(b0s,b1s,a1s)
         };
 
 delayG(frequency,stiffnessCoefficient) = de.fdelay(4096,delayLength)
-        with{
+        with {
                 allPassPhase(a1,WT) = atan2((a1*a1-1.0)*sin(WT),(2.0*a1+(a1*a1+1.0)*cos(WT)));
                 poleZeroPhase(b0,b1,a1,WT) = atan2(-b1*sin(WT)*(1 + a1*cos(WT)) + a1*sin(WT)*(b0 + b1*cos(WT)),
                                                    (b0 + b1*cos(WT))*(1 + a1*cos(WT)) + b1*sin(WT)*a1*sin(WT));
-                wT = frequency*2*ma.PI/ma.SR;
+                freq_corr = frequency;
+                wT = (freq_corr)*2*ma.PI/ma.SR;
                 delayLength = (2*ma.PI + 3*allPassPhase(stiffnessCoefficient, wT) +
                                                 poleZeroPhase((1+2*b0Coupling),
                                                 a1Coupling + 2*b1Coupling, a1Coupling, wT)) / wT;
         };
 
-coupledStrings2 = (parallelStrings <: (_,_,(_ : couplingFilter) : adder))~(_) : !,_
+coupledStrings2 = (parallelStrings <: (couple : flt : adder))~(_,_) : !,!,_
         with{
-                releaseLoopGain = ffunction(float getValueReleaseLoopGain(float), "piano.h","");
-                hz = ffunction(float getValueDetuningHz(float), "piano.h","");
-                coupledStringLoopGain = gate*0.9996 + ((gate-1)*-1)*releaseLoopGain(pitch)*0.9 : si.smoo;
-                couplingFilter = poleZero(b0Coupling,b1Coupling,a1Coupling);
-                hzValue = hz(pitch);
-                freq1 = freq + 0.5*hzValue*detuningFactor;
-                delay1 = delayG(freq1,stiffness);
-                parallelStrings(x) = _ <: string1 with {
-                    string1 = (+(x)*coupledStringLoopGain : seq(i,3,stiffnessAP) : delay1);
-                };
-                adder(w,x,y) = (y + w), x;
-        };
-
-coupledStrings3 = (parallelStrings <: (_,(_+_ <: _,_),_ : _,_,(_ : couplingFilter),_ : adder))~(_,_) : !,!,_
-        with{
+                sum2 = _,_ :> _;
+                couple = _,(sum2 <: _,_),_;
+                flt = _,_,(_ : couplingFilter),_;
                 releaseLoopGain = ffunction(float getValueReleaseLoopGain(float), "piano.h","");
                 hz = ffunction(float getValueDetuningHz(float), "piano.h","");
                 coupledStringLoopGain = gate*0.9996 + ((gate-1)*-1)*releaseLoopGain(pitch)*0.9 : si.smoo;
@@ -252,6 +241,30 @@ coupledStrings3 = (parallelStrings <: (_,(_+_ <: _,_),_ : _,_,(_ : couplingFilte
                 adder(w,x,y,z) = (y <: +(w),+(z)),x ;
         };
 
+coupledStrings3 = (parallelStrings <: (couple : flt : adder))~(_,_,_) : !,!,!,_
+        with{
+                couple = _,(_,_,_ :> _ <: _,_,_),_,_;
+                flt = _,_,_,(_ : couplingFilter),_,_;
+                releaseLoopGain = ffunction(float getValueReleaseLoopGain(float), "piano.h","");
+                hz = ffunction(float getValueDetuningHz(float), "piano.h","");
+                coupledStringLoopGain = gate*0.9996 + ((gate-1)*-1)*releaseLoopGain(pitch)*0.9 : si.smoo;
+                couplingFilter = poleZero(b0Coupling,b1Coupling,a1Coupling);
+                hzValue = hz(pitch);
+                freq0 = freq  + ((pitch - 60) : ba.midikey2hz);
+                freq1 = freq0 + 0.5*hzValue*detuningFactor;
+                freq2 = freq0;
+                freq3 = freq0 - 0.5*hzValue*detuningFactor;
+                delay1 = delayG(freq1,stiffness);
+                delay2 = delayG(freq2,stiffness);
+                delay3 = delayG(freq3,stiffness);
+                parallelStrings(x,y,z) = _ <: string1, string2, string3 : _,_,_ with {
+                    string1 = (+(x)*coupledStringLoopGain : seq(i,3,stiffnessAP) : delay1);
+                    string2 = (_+y*coupledStringLoopGain : seq(i,3,stiffnessAP) : delay2);
+                    string3 = (_+z*coupledStringLoopGain : seq(i,3,stiffnessAP) : delay3);
+                };
+                adder(w,x,y,y0,z,zz) = (y0 <: +(w),+(z),+(zz)), x : _,_,_,_;
+        };
+
 //==================== PROCESSING ================
 
 process = soundBoard <: low_notes, mid_notes, high_notes
@@ -264,8 +277,8 @@ with {
     midNotes = (pitch >= spn.A2) & (pitch < spn.E6);
     noDampers = pitch >= spn.E6;
 
-    low_notes = (*(lowNotes)*9 : hammer : dcBlock1 : coupledStrings2 <: +(eq));
-    mid_notes = (*(midNotes)*6 : hammer : dcBlock1 : coupledStrings3 <: +(eq));
+    low_notes = (*(lowNotes)*7 : hammer : dcBlock1 : coupledStrings2 <: +(eq));
+    mid_notes = (*(midNotes)*5 : hammer : dcBlock1 : coupledStrings3 <: +(eq));
     high_notes = (*(noDampers) : hiPass : dcBlock1 : hammer : dcBlock2a : highBqs : dcBlock2b);
     stereo = inst.stereoizer(ma.SR/freq);
 };
