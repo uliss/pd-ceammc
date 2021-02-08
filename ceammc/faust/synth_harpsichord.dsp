@@ -11,6 +11,7 @@ spn = library("spn.lib");
 inst = library("ceammc_instruments.lib");
 ui = library("ceammc_ui.lib");
 ci = library("ceammc.lib");
+co = library("compressors.lib");
 
 //==================== GUI SPECIFICATION ================
 
@@ -71,22 +72,24 @@ loopFilter = fi.TF2(b0,b1,b2,a1,a2)
                 a2 = loopFiltera2(freq);
 	   };
 
-//delay length as a number of samples
-delayLength = ma.SR/freq;
-
 //----------------------- Algorithm implementation ----------------------------
 
 //envelope for string loop resonance time
 stringLoopGainT = gate*0.9996 + (gate<1)*releaseLoopGain(freq)*0.9 : si.smoo
-		with{
-                        releaseLoopGain = ffunction(float getValueReleaseLoopGain(float), "harpsichord.h","");
-		};
+with {
+    releaseLoopGain = ffunction(float getValueReleaseLoopGain(float), "harpsichord.h","");
+};
 
-//one string
-string = (*(stringLoopGainT)+_ : de.delay(4096,delayLength) : loopFilter)~NLFM;
 
 process = soundBoard : string : stereo : reverb
 with {
+    //delay length as a number of samples
+    delayLength = ma.SR/freq;
+
+    //one string
+    string = (*(stringLoopGainT)+_ : de.delay(4096,delayLength) : loopFilter : comp)~NLFM;
+
+    comp = co.compressor_mono(2, 100, 10, 50);
     stereo = inst.stereoizer(ma.SR/freq);
     reverb = inst.reverb2;
 };
