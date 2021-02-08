@@ -9,14 +9,16 @@ declare description "A commuted WaveGuide piano.";
 import("instruments.lib");
 spn = library("spn.lib");
 inst = library("ceammc_instruments.lib");
+cm = library("ceammc.lib");
 
 
 //==================== GUI SPECIFICATION ================
 
 pitch = hslider("pitch", spn.C3, spn.A0, spn.C8, 0.001);
 freq = pitch : ba.midikey2hz;
-gain = nentry("gain", 1, 0, 1, 0.01);
-gate = button("gate")>0;
+btn = button("gate");
+gain = btn : cm.clip(0, 1);
+gate = btn>0;
 
 brightnessFactor = hslider("brightness", 0, 0, 1, 0.01);
 detuningFactor = hslider("detuning", 0.1, 0, 1, 0.01)*10;

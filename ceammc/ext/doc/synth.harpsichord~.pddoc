@@ -54,7 +54,8 @@
             </inlet>
         </inlets>
         <outlets>
-            <outlet type="audio" />
+            <outlet type="audio">left output</outlet>
+            <outlet type="audio">right output</outlet>
         </outlets>
         <example>
             <pdascii>

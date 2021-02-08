@@ -590,10 +590,10 @@ synth.dx7~		.		~
 synth.eguitar~		.		~
 synth.fgrain~		.		~
 synth.glitch~		.		~
-synth.harpsichord~		.		~
+synth.harpsichord~		.		~~
 synth.ks~		.		~
 synth.marimba~		.		~
-synth.piano~		.		~
+synth.piano~		.		~~
 synth.rhodey~		.		~
 synth.risset_arp~		.		~~
 synth.risset_tone~		.		~

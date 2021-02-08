@@ -22,11 +22,9 @@
             <method name="reset">reset synth</method>
         </methods>
         <properties>
-            <property name="@pitch" type="float" minvalue="24" maxvalue="96" default="48">midi
+            <property name="@pitch" type="float" minvalue="21" maxvalue="108" default="48">midi
             pitch</property>
             <property name="@freq" type="float" units="herz" default="130.813">frequency</property>
-            <property name="@gain" type="float" minvalue="0" maxvalue="1" default="1">strike
-            gain</property>
             <property name="@stiffness" type="float" minvalue="0" maxvalue="1" default="0.28">
             stiffness factor</property>
             <property name="@detuning" type="float" minvalue="0" maxvalue="1" default="0.1">
@@ -41,7 +39,7 @@
             reverb gain</property>
             <property name="@width" type="float" minvalue="0" maxvalue="1" default="0.5">
             spatialization width</property>
-            <property name="@pan" type="float" minvalue="0" maxvalue="1" default="0.5">
+            <property name="@pan" type="float" minvalue="0" maxvalue="1" default="0.6">
             pan angle</property>
             <property name="@gate" type="float" minvalue="0" maxvalue="1" default="0">play trigger
             - 1: on, 0: off</property>
@@ -54,7 +52,8 @@
             </inlet>
         </inlets>
         <outlets>
-            <outlet type="audio" />
+            <outlet type="audio">left output</outlet>
+            <outlet type="audio">right output</outlet>
         </outlets>
         <example>
             <pdascii>
