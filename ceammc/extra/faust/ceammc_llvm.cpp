@@ -167,6 +167,11 @@ namespace faust {
     {
         addOption("-ftz");
         addOption("1");
+        addOption("-exp10");
+        addOption("-mapp");
+        addOption("-vec");
+        addOption("-vs");
+        addOption("64");
 
         if (std::is_same<t_float, double>::value)
             addOption("-double");
