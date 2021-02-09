@@ -73,6 +73,11 @@ namespace faust {
     {
     }
 
+    LlvmDsp::LlvmDsp(LlvmDsp&& dsp)
+        : dsp_(std::move(dsp.dsp_))
+    {
+    }
+
     LlvmDsp::LlvmDsp()
     {
     }

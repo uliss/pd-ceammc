@@ -53,7 +53,11 @@ namespace faust {
         LlvmDsp();
         LlvmDsp(llvm_dsp* dsp);
 
+        LlvmDsp(const LlvmDsp&) = delete;
+        LlvmDsp& operator=(const LlvmDsp&) = delete;
+
     public:
+        LlvmDsp(LlvmDsp&&dsp);
         ~LlvmDsp();
 
         bool isOk() const { return dsp_.get(); }
