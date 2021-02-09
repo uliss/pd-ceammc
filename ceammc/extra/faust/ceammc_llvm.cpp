@@ -32,10 +32,13 @@ namespace faust {
     LlvmDspFactory::LlvmDspFactory(const char* fname)
         : factory_(nullptr, delete_factory)
     {
-        int argc = 0; //(int)faust_opt_manager_get_noptions(x->f_opt_manager);
-        const char** argv = nullptr; //faust_opt_manager_get_options(x->f_opt_manager);
+#if PD_FLOATSIZE == 64
+        const char* args[1] = { "-double" };
+#else
+        const char* args[1] = { "-single" };
+#endif
 
-        auto f = createDSPFactoryFromFile(fname, argc, argv, CURRENT_MACH_TARGET, errors_, OPT_LEVEL);
+        auto f = createDSPFactoryFromFile(fname, 1, args, CURRENT_MACH_TARGET, errors_, OPT_LEVEL);
         factory_.reset(f);
     }
 

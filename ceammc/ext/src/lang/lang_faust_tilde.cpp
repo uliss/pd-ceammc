@@ -14,6 +14,17 @@
 #include "lang_faust_tilde.h"
 #include "ceammc_factory.h"
 
+#ifndef FAUSTFLOAT
+#define FAUSTFLOAT t_float
+#endif
+
+#include "faust/gui/UI.h"
+
+struct faust_ui : public UI {
+};
+
+using FaustUI = faust::PdUI<faust_ui>;
+
 LangFaustTilde::LangFaustTilde(const PdArgs& args)
     : SoundExternal(args)
     , fname_(nullptr)
@@ -21,6 +32,10 @@ LangFaustTilde::LangFaustTilde(const PdArgs& args)
     fname_ = new SymbolProperty("@fname", &s_);
     fname_->setArgIndex(0);
     addProperty(fname_);
+}
+
+LangFaustTilde::~LangFaustTilde() // for std::unique_ptr
+{
 }
 
 void LangFaustTilde::initDone()
@@ -47,24 +62,37 @@ void LangFaustTilde::initDone()
         return;
     }
 
+    dsp_->init(sys_getsr());
     const auto nin = dsp_->numInputs();
     const auto nout = dsp_->numOutputs();
-
-    if (nin == 0)
-        createInlet();
 
     for (size_t i = 0; i < nin; i++)
         createSignalInlet();
 
     for (size_t i = 0; i < nout; i++)
         createSignalOutlet();
+
+    ui_.reset(new FaustUI("test", ""));
+    if (dsp_->buildUI(ui_.get())) {
+        auto ui = static_cast<FaustUI*>(ui_.get());
+        const size_t n_ui = ui->uiCount();
+        OBJ_DBG << "N props: " << n_ui;
+        for (size_t i = 0; i < n_ui; i++) {
+            addProperty(new faust::UIProperty(ui->uiAt(i)));
+        }
+    } else
+        OBJ_ERR << "can't build UI";
 }
 
 void LangFaustTilde::setupDSP(t_signal** in)
 {
     SoundExternal::setupDSP(in);
-    if (dsp_)
+    if (dsp_ && ui_) {
+        auto ui = static_cast<FaustUI*>(ui_.get());
+        std::vector<FAUSTFLOAT> z = ui->uiValues();
         dsp_->init(samplerate());
+        ui->setUIValues(z);
+    }
 }
 
 void LangFaustTilde::processBlock(const t_sample** in, t_sample** out)
@@ -75,7 +103,14 @@ void LangFaustTilde::processBlock(const t_sample** in, t_sample** out)
     dsp_->compute(in, out, blockSize());
 }
 
+void LangFaustTilde::m_reset(t_symbol*, const AtomListView&)
+{
+    if (dsp_factory_ && dsp_)
+        dsp_.get()->clear();
+}
+
 void setup_lang_faust_tilde()
 {
-    SoundExternalFactory<LangFaustTilde> obj("lang.faust~", OBJECT_FACTORY_NO_DEFAULT_INLET);
+    SoundExternalFactory<LangFaustTilde> obj("lang.faust~", OBJECT_FACTORY_DEFAULT);
+    obj.addMethod("reset", &LangFaustTilde::m_reset);
 }

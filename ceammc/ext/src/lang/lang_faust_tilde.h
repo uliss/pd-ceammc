@@ -14,7 +14,9 @@
 #ifndef LANG_FAUST_TILDE_H
 #define LANG_FAUST_TILDE_H
 
+#include "ceammc_faust.h"
 #include "ceammc_sound_external.h"
+
 using namespace ceammc;
 
 #ifdef WITH_FAUST
@@ -22,6 +24,8 @@ using namespace ceammc;
 #include <memory>
 
 using FactoryPtr = std::unique_ptr<faust::LlvmDspFactory>;
+class UI;
+using FaustUIPtr = std::unique_ptr<UI>;
 #endif
 
 class LangFaustTilde : public SoundExternal {
@@ -31,13 +35,17 @@ class LangFaustTilde : public SoundExternal {
 #endif
 
     SymbolProperty* fname_;
+    FaustUIPtr ui_;
 
 public:
     LangFaustTilde(const PdArgs& args);
+    ~LangFaustTilde();
     void initDone() override;
 
     void setupDSP(t_signal** in) override;
     void processBlock(const t_sample** in, t_sample** out) final;
+
+    void m_reset(t_symbol*, const AtomListView&);
 };
 
 void setup_lang_faust_tilde();
