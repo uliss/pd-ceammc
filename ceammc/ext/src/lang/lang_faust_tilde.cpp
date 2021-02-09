@@ -22,6 +22,21 @@
 
 #include "faust/gui/UI.h"
 
+class DspState {
+    int state_;
+
+public:
+    DspState()
+        : state_(canvas_suspend_dsp())
+    {
+    }
+
+    ~DspState()
+    {
+        canvas_resume_dsp(state_);
+    }
+};
+
 static faust::FaustConfig faust_config_base;
 
 struct faust_ui : public UI {
@@ -48,6 +63,9 @@ LangFaustTilde::~LangFaustTilde() // for std::unique_ptr
 
 void LangFaustTilde::initDone()
 {
+    // dps suspend/resume
+    DspState dsp_state_guard;
+
     const std::string fname = findInStdPaths(fname_->value()->s_name);
     if (fname.empty()) {
         OBJ_DBG << "Faust file is not found: " << fname_->value();
@@ -93,6 +111,8 @@ void LangFaustTilde::initDone()
         dsp_factory_.reset();
         return;
     }
+
+    OBJ_DBG << "compiled from source: " << fname;
 
     dsp_->init(sys_getsr());
     const auto nin = dsp_->numInputs();
