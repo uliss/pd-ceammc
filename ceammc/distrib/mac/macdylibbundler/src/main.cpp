@@ -41,7 +41,7 @@ THE SOFTWARE.
  
  */
 
-const std::string VERSION = "0.4.1";
+const std::string VERSION = "git";
 
 
 // FIXME - no memory management is done at all (anyway the program closes immediately so who cares?)
@@ -58,6 +58,7 @@ void showHelp()
     std::cout << "-b, --bundle-deps" << std::endl;
     std::cout << "-d, --dest-dir <directory to send bundled libraries (relative to cwd)>" << std::endl;
     std::cout << "-p, --install-path <'inner' path of bundled libraries (usually relative to executable, by default '@executable_path/../libs/')>" << std::endl;
+    std::cout << "-s, --search-path <directory to add to list of locations searched>" << std::endl;
     std::cout << "-of, --overwrite-files (allow overwriting files in output directory)" << std::endl;
     std::cout << "-od, --overwrite-dir (totally overwrite output directory if it already exists. implies --create-dir)" << std::endl;
     std::cout << "-cd, --create-dir (creates output directory if necessary)" << std::endl;
@@ -120,6 +121,12 @@ int main (int argc, char * const argv[])
         {
             showHelp();
             exit(0);    
+        }
+        if(strcmp(argv[i],"-s")==0 or strcmp(argv[i],"--search-path")==0)
+        {
+            i++;
+            Settings::addSearchPath(argv[i]);
+            continue;
         }
         else if(i>0)
         {
