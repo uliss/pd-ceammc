@@ -1,5 +1,10 @@
-if(WITH_FAUST)
-
-endif()
-
 add_library(ceammc_lang STATIC mod_lang.cpp)
+
+if(WITH_FAUST)
+    target_sources(ceammc_lang PRIVATE lang_faust_tilde.cpp)
+    target_compile_definitions(ceammc_lang PRIVATE WITH_FAUST)
+    target_include_directories(ceammc_lang PUBLIC ${PROJECT_SOURCE_DIR}/ceammc/extra/faust)
+    target_link_libraries(ceammc_lang PRIVATE ceammc_faust)
+else()
+    target_sources(ceammc_lang PRIVATE lang_faust_tilde_stub.cpp)
+endif()
