@@ -16,6 +16,7 @@
 #define FAUSTFLOAT t_sample
 #include "faust/dsp/llvm-dsp.h"
 
+#include <cstring>
 #include <iostream>
 #include <type_traits>
 
@@ -158,7 +159,7 @@ namespace faust {
             dsp_->compute(bs, const_cast<t_float**>(in), pbuf);
 
             for (size_t i = 0; i < N; i++)
-                std::memcpy(out[i], pbuf[i], sizeof(t_float) * bs);
+                memcpy(out[i], pbuf[i], sizeof(t_float) * bs);
         }
     }
 
