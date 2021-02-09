@@ -98,6 +98,7 @@ public:
 
     virtual void displaceWidget(t_glist* window, int dx, int dy) final;
     virtual void deleteWidget(t_glist* window) final;
+    virtual void selectWidget(t_glist* window, bool state) final;
 
     virtual void showWidget(t_glist* window) final;
     virtual void hideWidget(t_glist* window) final;

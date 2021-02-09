@@ -29,7 +29,7 @@ public:
     {
         wb_.w_getrectfn = getRect;
         wb_.w_displacefn = wdisplace;
-        //        wb_.w_selectfn = iemgui_select;
+        wb_.w_selectfn = wselect;
         wb_.w_activatefn = nullptr;
         wb_.w_deletefn = wdelete;
         wb_.w_visfn = wvis;
@@ -54,6 +54,12 @@ public:
     {
         auto proxy = reinterpret_cast<typename SoundExternalFactory<T>::ObjectProxy*>(x);
         proxy->impl->displaceWidget(window, dx, dy);
+    }
+
+    static void wselect(t_gobj* x, t_glist* window, int state)
+    {
+        auto proxy = reinterpret_cast<typename SoundExternalFactory<T>::ObjectProxy*>(x);
+        proxy->impl->selectWidget(window, state);
     }
 
     static void wdelete(t_gobj* x, t_glist* window)
@@ -123,6 +129,11 @@ void WidgetIFace::displaceWidget(t_glist* window, int dx, int dy)
 void WidgetIFace::deleteWidget(t_glist* window)
 {
     canvas_deletelinesfor(window, x_);
+}
+
+void WidgetIFace::selectWidget(t_glist *window, bool state)
+{
+
 }
 
 void WidgetIFace::showWidget(t_glist* window)
