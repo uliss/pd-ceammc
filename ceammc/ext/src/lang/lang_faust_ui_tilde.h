@@ -82,9 +82,11 @@ public:
     WidgetIFace(t_object* x, t_glist* widget_canvas);
     // pure virtual
     virtual ~WidgetIFace() = 0;
+
     virtual Rect<int> getRealRect(t_glist* cnv) const;
     virtual Rect<int> getRect(t_glist* cnv) const;
-    virtual void displace(t_glist* cnv, int dx, int dy);
+
+    virtual void displaceWidget(t_glist* cnv, int dx, int dy);
     virtual void deleteWidget(t_glist* cnv);
 
     // draw functions

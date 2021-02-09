@@ -53,7 +53,7 @@ public:
     static void wdisplace(t_gobj* x, t_glist* cnv, int dx, int dy)
     {
         auto z = reinterpret_cast<typename SoundExternalFactory<T>::ObjectProxy*>(x);
-        z->impl->displace(cnv, dx, dy);
+        z->impl->displaceWidget(cnv, dx, dy);
     }
 
     static void wdelete(t_gobj* x, t_glist* cnv)
@@ -99,7 +99,7 @@ Rect<int> WidgetIFace::getRect(t_glist* cnv) const
     return Rect<int>(text_xpix(x_, cnv), text_ypix(x_, cnv), size_ * z);
 }
 
-void WidgetIFace::displace(t_glist* cnv, int dx, int dy)
+void WidgetIFace::displaceWidget(t_glist* cnv, int dx, int dy)
 {
     x_->te_xpix += dx;
     x_->te_ypix += dy;
