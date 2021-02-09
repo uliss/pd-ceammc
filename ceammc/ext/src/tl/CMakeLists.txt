@@ -1,7 +1,7 @@
 include_directories(../ui/cicm/Sources)
 
 set(TL_SOURCES
-    tl_lexer.lex
+    tl_lexer.l
     tl_parser.y
     tl_lexer.cpp
     tl_parser.cpp
