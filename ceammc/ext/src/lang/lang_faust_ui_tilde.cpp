@@ -32,7 +32,7 @@ public:
         //        wb_.w_selectfn = iemgui_select;
         wb_.w_activatefn = nullptr;
         wb_.w_deletefn = wdelete;
-        //        wb_.w_visfn = iemgui_vis;
+        wb_.w_visfn = wvis;
         //        wb_.w_clickfn = bng_newclick;
         class_setwidget(this->classPointer(), &wb_);
         //        class_setsavefn(bng_class, bng_save);
@@ -40,26 +40,36 @@ public:
     }
 
     /* call this to get a gobj's bounding rectangle in pixels */
-    static void getRect(t_gobj* x, t_glist* cnv, int* x1, int* y1, int* x2, int* y2)
+    static void getRect(t_gobj* x, t_glist* window, int* x1, int* y1, int* x2, int* y2)
     {
         auto z = reinterpret_cast<typename SoundExternalFactory<T>::ObjectProxy*>(x);
-        auto r = z->impl->getRect(cnv);
+        auto r = z->impl->getRect(window);
         *x1 = r.left();
         *y1 = r.top();
         *x2 = r.right();
         *y2 = r.bottom();
     }
 
-    static void wdisplace(t_gobj* x, t_glist* cnv, int dx, int dy)
+    static void wdisplace(t_gobj* x, t_glist* window, int dx, int dy)
     {
-        auto z = reinterpret_cast<typename SoundExternalFactory<T>::ObjectProxy*>(x);
-        z->impl->displaceWidget(cnv, dx, dy);
+        auto proxy = reinterpret_cast<typename SoundExternalFactory<T>::ObjectProxy*>(x);
+        proxy->impl->displaceWidget(window, dx, dy);
     }
 
-    static void wdelete(t_gobj* x, t_glist* cnv)
+    static void wdelete(t_gobj* x, t_glist* window)
     {
-        auto z = reinterpret_cast<typename SoundExternalFactory<T>::ObjectProxy*>(x);
-        z->impl->deleteWidget(cnv);
+        auto proxy = reinterpret_cast<typename SoundExternalFactory<T>::ObjectProxy*>(x);
+        proxy->impl->deleteWidget(window);
+    }
+
+    static void wvis(t_gobj* x, t_glist* window, int flag)
+    {
+        auto proxy = reinterpret_cast<typename SoundExternalFactory<T>::ObjectProxy*>(x);
+
+        if (flag)
+            proxy->impl->showWidget(window);
+        else
+            proxy->impl->hideWidget(window);
     }
 };
 
@@ -99,22 +109,44 @@ Rect<int> WidgetIFace::getRect(t_glist* cnv) const
     return Rect<int>(text_xpix(x_, cnv), text_ypix(x_, cnv), size_ * z);
 }
 
-void WidgetIFace::displaceWidget(t_glist* cnv, int dx, int dy)
+void WidgetIFace::displaceWidget(t_glist* window, int dx, int dy)
 {
     x_->te_xpix += dx;
     x_->te_ypix += dy;
 
     if (glist_isvisible(widget_canvas_)) {
-        drawMove(cnv);
-        canvas_fixlinesfor(cnv, x_);
+        drawMove(window);
+        canvas_fixlinesfor(window, x_);
     }
 }
 
-void WidgetIFace::deleteWidget(t_glist* cnv)
+void WidgetIFace::deleteWidget(t_glist* window)
 {
-    canvas_deletelinesfor(cnv, x_);
+    canvas_deletelinesfor(window, x_);
+}
+
+void WidgetIFace::showWidget(t_glist* window)
+{
+    //    drawNew(glist);
+}
+
+void WidgetIFace::hideWidget(t_glist* window)
+{
+    //    (*x->x_draw)((void*)z, glist, IEM_GUI_DRAW_MODE_NEW);
+    //    else
+    //    {
+    //        (*x->x_draw)((void*)z, glist, IEM_GUI_DRAW_MODE_ERASE);
+    //
+    //    }
+    sys_unqueuegui(x_);
 }
 
 void WidgetIFace::drawMove(t_glist* cnv)
+{
+}
+
+WidgetView::WidgetView(t_glist* window, t_object* obj)
+    : window_(window)
+    , obj_(obj)
 {
 }

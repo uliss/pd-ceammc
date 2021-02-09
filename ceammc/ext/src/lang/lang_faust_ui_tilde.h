@@ -73,6 +73,16 @@ public:
     Size<T> size() const { return Size<T>(width(), height()); }
 };
 
+class WidgetView {
+    t_object* obj_;
+    t_glist* window_;
+
+public:
+    WidgetView(t_glist* window, t_object* obj);
+
+    virtual void move(int dx, int dy) = 0;
+};
+
 class WidgetIFace {
     t_object* x_;
     t_canvas* widget_canvas_;
@@ -83,11 +93,14 @@ public:
     // pure virtual
     virtual ~WidgetIFace() = 0;
 
-    virtual Rect<int> getRealRect(t_glist* cnv) const;
-    virtual Rect<int> getRect(t_glist* cnv) const;
+    virtual Rect<int> getRealRect(t_glist* cnv) const final;
+    virtual Rect<int> getRect(t_glist* cnv) const final;
 
-    virtual void displaceWidget(t_glist* cnv, int dx, int dy);
-    virtual void deleteWidget(t_glist* cnv);
+    virtual void displaceWidget(t_glist* window, int dx, int dy) final;
+    virtual void deleteWidget(t_glist* window) final;
+
+    virtual void showWidget(t_glist* window) final;
+    virtual void hideWidget(t_glist* window) final;
 
     // draw functions
     void drawMove(t_glist* cnv);
