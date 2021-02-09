@@ -184,6 +184,21 @@ namespace faust {
         syncOptions();
     }
 
+    FaustConfig::FaustConfig(const FaustConfig& config)
+        : opts_(config.opts_)
+        , opt_level_(config.opt_level_)
+    {
+        syncOptions();
+    }
+
+    FaustConfig& FaustConfig::operator=(const FaustConfig& config)
+    {
+        opts_ = config.opts_;
+        opt_level_ = config.opt_level_;
+        syncOptions();
+        return *this;
+    }
+
     void FaustConfig::addIncludeDirectory(const std::string& path)
     {
         addOption("-I");

@@ -13,12 +13,15 @@
  *****************************************************************************/
 #include "lang_faust_tilde.h"
 #include "ceammc_factory.h"
+#include "ceammc_format.h"
 
 #ifndef FAUSTFLOAT
 #define FAUSTFLOAT t_float
 #endif
 
 #include "faust/gui/UI.h"
+
+static faust::FaustConfig faust_config_base;
 
 struct faust_ui : public UI {
 };
@@ -28,10 +31,14 @@ using FaustUI = faust::PdUI<faust_ui>;
 LangFaustTilde::LangFaustTilde(const PdArgs& args)
     : SoundExternal(args)
     , fname_(nullptr)
+    , include_dirs_(nullptr)
 {
     fname_ = new SymbolProperty("@fname", &s_);
     fname_->setArgIndex(0);
     addProperty(fname_);
+
+    include_dirs_ = new ListProperty("@include");
+    addProperty(include_dirs_);
 }
 
 LangFaustTilde::~LangFaustTilde() // for std::unique_ptr
@@ -46,7 +53,11 @@ void LangFaustTilde::initDone()
         return;
     }
 
-    dsp_factory_.reset(new faust::LlvmDspFactory(fname.c_str()));
+    faust::FaustConfig cfg = faust_config_base;
+    for (auto& a : include_dirs_->value())
+        cfg.addIncludeDirectory(to_string(a));
+
+    dsp_factory_.reset(new faust::LlvmDspFactory(fname.c_str(), cfg));
     if (!dsp_factory_ || !dsp_factory_->isOk()) {
         OBJ_ERR << "Faust file load error " << fname_->value();
         if (dsp_factory_ && !dsp_factory_->errors().empty())
@@ -129,6 +140,9 @@ void LangFaustTilde::dump() const
 
 void setup_lang_faust_tilde()
 {
+    extern t_class* ceammc_class;
+    faust_config_base.addIncludeDirectory(class_gethelpdir(ceammc_class));
+
     SoundExternalFactory<LangFaustTilde> obj("lang.faust~", OBJECT_FACTORY_DEFAULT);
     obj.addMethod("reset", &LangFaustTilde::m_reset);
 }

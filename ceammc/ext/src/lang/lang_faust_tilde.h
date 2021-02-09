@@ -35,6 +35,7 @@ class LangFaustTilde : public SoundExternal {
 #endif
 
     SymbolProperty* fname_;
+    ListProperty* include_dirs_;
     FaustUIPtr ui_;
 
 public:

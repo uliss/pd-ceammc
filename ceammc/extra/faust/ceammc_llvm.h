@@ -33,8 +33,13 @@ namespace faust {
         std::vector<const char*> copts_;
         int opt_level_;
 
+        FaustConfig(FaustConfig&& config) = delete;
+
     public:
         FaustConfig();
+        FaustConfig(const FaustConfig& config);
+        FaustConfig& operator=(const FaustConfig& config);
+
         size_t numOptions() const { return copts_.size(); }
         const char** options() const { return (const char**)copts_.data(); }
 
