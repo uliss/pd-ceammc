@@ -25,9 +25,17 @@ LangFaustTilde::LangFaustTilde(const PdArgs& args)
 
 void LangFaustTilde::initDone()
 {
-    dsp_factory_.reset(new faust::LlvmDspFactory(fname_->value()->s_name));
+    const std::string fname = findInStdPaths(fname_->value()->s_name);
+    if (fname.empty()) {
+        OBJ_ERR << "Faust file is not found: " << fname_->value();
+        return;
+    }
+
+    dsp_factory_.reset(new faust::LlvmDspFactory(fname.c_str()));
     if (!dsp_factory_ || !dsp_factory_->isOk()) {
-        OBJ_ERR << "can't create factory " << fname_->value();
+        OBJ_ERR << "Faust file load error " << fname_->value();
+        if (dsp_factory_ && !dsp_factory_->errors().empty())
+            OBJ_ERR << dsp_factory_->errors();
         return;
     }
 
@@ -42,18 +50,32 @@ void LangFaustTilde::initDone()
     const auto nin = dsp_->numInputs();
     const auto nout = dsp_->numOutputs();
 
-    for (size_t i = 1; i < nin; i++)
+    if (nin == 0)
+        createInlet();
+
+    for (size_t i = 0; i < nin; i++)
         createSignalInlet();
 
     for (size_t i = 0; i < nout; i++)
         createSignalOutlet();
 }
 
+void LangFaustTilde::setupDSP(t_signal** in)
+{
+    SoundExternal::setupDSP(in);
+    if (dsp_)
+        dsp_->init(samplerate());
+}
+
 void LangFaustTilde::processBlock(const t_sample** in, t_sample** out)
 {
+    if (!dsp_ || !dsp_->isOk())
+        return;
+
+    dsp_->compute(in, out, blockSize());
 }
 
 void setup_lang_faust_tilde()
 {
-    ObjectFactory<LangFaustTilde> obj("lang.faust~");
+    SoundExternalFactory<LangFaustTilde> obj("lang.faust~", OBJECT_FACTORY_NO_DEFAULT_INLET);
 }

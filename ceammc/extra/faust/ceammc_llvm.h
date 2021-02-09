@@ -30,16 +30,19 @@ namespace faust {
 
     class LlvmDspFactory {
         std::unique_ptr<llvm_dsp_factory, void (*)(llvm_dsp_factory*)> factory_;
+        std::string errors_;
 
         LlvmDspFactory(const LlvmDspFactory&) = delete;
         LlvmDspFactory& operator=(const LlvmDspFactory&) = delete;
 
     public:
-        LlvmDspFactory(const char* fname);
+        explicit LlvmDspFactory(const char* fname);
         LlvmDspFactory(LlvmDspFactory&& f);
         ~LlvmDspFactory();
 
         bool isOk() const { return factory_.get(); }
+
+        const std::string& errors() const { return errors_; }
 
         std::unique_ptr<LlvmDsp> createDsp();
     };
@@ -56,7 +59,7 @@ namespace faust {
         LlvmDsp& operator=(const LlvmDsp&) = delete;
 
     public:
-        LlvmDsp(LlvmDsp&&dsp);
+        LlvmDsp(LlvmDsp&& dsp);
         ~LlvmDsp();
 
         bool isOk() const { return dsp_.get(); }

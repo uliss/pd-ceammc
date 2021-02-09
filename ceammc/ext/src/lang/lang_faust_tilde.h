@@ -36,6 +36,7 @@ public:
     LangFaustTilde(const PdArgs& args);
     void initDone() override;
 
+    void setupDSP(t_signal** in) override;
     void processBlock(const t_sample** in, t_sample** out) final;
 };
 

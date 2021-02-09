@@ -16,6 +16,8 @@
 #define FAUSTFLOAT t_sample
 #include "faust/dsp/llvm-dsp.h"
 
+#include <iostream>
+
 constexpr int OPT_LEVEL = -1;
 static const std::string CURRENT_MACH_TARGET;
 
@@ -33,13 +35,13 @@ namespace faust {
         int argc = 0; //(int)faust_opt_manager_get_noptions(x->f_opt_manager);
         const char** argv = nullptr; //faust_opt_manager_get_options(x->f_opt_manager);
 
-        std::string errors;
-        auto f = createDSPFactoryFromFile(fname, argc, argv, CURRENT_MACH_TARGET, errors, OPT_LEVEL);
+        auto f = createDSPFactoryFromFile(fname, argc, argv, CURRENT_MACH_TARGET, errors_, OPT_LEVEL);
         factory_.reset(f);
     }
 
     LlvmDspFactory::LlvmDspFactory(LlvmDspFactory&& f)
         : factory_(std::move(f.factory_))
+        , errors_(std::move(f.errors_))
     {
     }
 
