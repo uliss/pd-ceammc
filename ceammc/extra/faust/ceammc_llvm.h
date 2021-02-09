@@ -50,6 +50,8 @@ namespace faust {
         int optLevel() const { return opt_level_; }
         void setOptLevel(OptimizationLevel lev) { opt_level_ = lev; }
 
+        void addIncludeDirectory(const std::string& path);
+
     private:
         void addOption(const std::string& opt);
         void syncOptions();

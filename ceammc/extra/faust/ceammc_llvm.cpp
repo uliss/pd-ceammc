@@ -165,6 +165,9 @@ namespace faust {
     FaustConfig::FaustConfig()
         : opt_level_(LEVEL_OMAX)
     {
+        opts_.reserve(16);
+        copts_.reserve(16);
+
         addOption("-ftz");
         addOption("1");
         addOption("-exp10");
@@ -178,6 +181,13 @@ namespace faust {
         else
             addOption("-single");
 
+        syncOptions();
+    }
+
+    void FaustConfig::addIncludeDirectory(const std::string& path)
+    {
+        addOption("-I");
+        addOption(path);
         syncOptions();
     }
 
