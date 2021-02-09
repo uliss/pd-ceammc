@@ -312,6 +312,9 @@ done
 section "Copying CEAMMC help files"
 rsync --archive --include='*.pd' --exclude='*' "${SRC_CEAMMC}/ext/doc/" "${BUNDLE_CEAMMC}"
 
+section "Copying Faust libraries"
+rsync --dirs --include='*.lib' --exclude='*' "${SRC_CEAMMC}/extra/faust/faust/libraries/" "${BUNDLE_CEAMMC}/faust"
+
 section "Copying CEAMMC help additional files"
 for f in ${SRC_CEAMMC}/ext/doc/*.@(mod|txt|wav|glitch)
 do
