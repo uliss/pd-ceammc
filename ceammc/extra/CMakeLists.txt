@@ -36,6 +36,10 @@ add_subdirectory(subprocess)
 add_subdirectory(reflex)
 add_subdirectory(glitch)
 
+if(WITH_FAUST)
+    add_subdirectory(faust)
+endif()
+
 set(BUILD_SHARED_LIBS OFF CACHE BOOL "" FORCE)
 set(CMAKE_BUILD_TYPE Release)
 add_subdirectory(fmt)
