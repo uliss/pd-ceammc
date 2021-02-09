@@ -121,6 +121,10 @@ void LangFaustTilde::dump() const
     os << "used libraries: \n";
     if (dsp_factory_)
         dsp_factory_->dumpLibs(os, " - ");
+
+    os << "compile options: ";
+    if (dsp_factory_)
+        dsp_factory_->dumpOpts(os);
 }
 
 void setup_lang_faust_tilde()

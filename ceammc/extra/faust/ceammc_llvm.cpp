@@ -17,8 +17,8 @@
 #include "faust/dsp/llvm-dsp.h"
 
 #include <iostream>
+#include <type_traits>
 
-constexpr int OPT_LEVEL = -1;
 static const std::string CURRENT_MACH_TARGET;
 
 namespace ceammc {
@@ -29,16 +29,17 @@ namespace faust {
         deleteDSPFactory(f);
     }
 
-    LlvmDspFactory::LlvmDspFactory(const char* fname)
+    LlvmDspFactory::LlvmDspFactory(const char* fname, const FaustConfig& config)
         : factory_(nullptr, delete_factory)
     {
-#if PD_FLOATSIZE == 64
-        const char* args[1] = { "-double" };
-#else
-        const char* args[1] = { "-single" };
-#endif
 
-        auto f = createDSPFactoryFromFile(fname, 1, args, CURRENT_MACH_TARGET, errors_, OPT_LEVEL);
+        auto f = createDSPFactoryFromFile(fname,
+            config.numOptions(),
+            config.options(),
+            CURRENT_MACH_TARGET,
+            errors_,
+            config.optLevel());
+
         factory_.reset(f);
     }
 
@@ -71,6 +72,12 @@ namespace faust {
             for (auto& s : factory_->getLibraryList())
                 os << prefix << s << "\n";
         }
+    }
+
+    void LlvmDspFactory::dumpOpts(std::ostream& os) const
+    {
+        if (factory_)
+            os << factory_->getCompileOptions();
     }
 
     void LlvmDspFactory::dumpIncludeDirs(std::ostream& os, const std::string& prefix) const
@@ -153,6 +160,34 @@ namespace faust {
             for (size_t i = 0; i < N; i++)
                 std::memcpy(out[i], pbuf[i], sizeof(t_float) * bs);
         }
+    }
+
+    FaustConfig::FaustConfig()
+        : opt_level_(LEVEL_OMAX)
+    {
+        addOption("-ftz");
+        addOption("1");
+
+        if (std::is_same<t_float, double>::value)
+            addOption("-double");
+        else
+            addOption("-single");
+
+        syncOptions();
+    }
+
+    void FaustConfig::addOption(const std::string& opt)
+    {
+        opts_.push_back(opt);
+        syncOptions();
+    }
+
+    void FaustConfig::syncOptions()
+    {
+        copts_.resize(opts_.size());
+
+        for (size_t i = 0; i < opts_.size(); i++)
+            copts_[i] = opts_[i].c_str();
     }
 
 }

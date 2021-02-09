@@ -19,6 +19,7 @@
 #include <iosfwd>
 #include <memory>
 #include <string>
+#include <vector>
 
 class llvm_dsp;
 class llvm_dsp_factory;
@@ -26,6 +27,33 @@ class UI;
 
 namespace ceammc {
 namespace faust {
+
+    class FaustConfig {
+        std::vector<std::string> opts_;
+        std::vector<const char*> copts_;
+        int opt_level_;
+
+    public:
+        FaustConfig();
+        size_t numOptions() const { return copts_.size(); }
+        const char** options() const { return (const char**)copts_.data(); }
+
+        enum OptimizationLevel {
+            LEVEL_O0 = 0,
+            LEVEL_O1 = 1,
+            LEVEL_O2 = 2,
+            LEVEL_O3 = 3,
+            LEVEL_O4 = 4,
+            LEVEL_OMAX = -1
+        };
+
+        int optLevel() const { return opt_level_; }
+        void setOptLevel(OptimizationLevel lev) { opt_level_ = lev; }
+
+    private:
+        void addOption(const std::string& opt);
+        void syncOptions();
+    };
 
     class LlvmDsp;
 
@@ -37,7 +65,7 @@ namespace faust {
         LlvmDspFactory& operator=(const LlvmDspFactory&) = delete;
 
     public:
-        explicit LlvmDspFactory(const char* fname);
+        explicit LlvmDspFactory(const char* fname, const FaustConfig& config = {});
         LlvmDspFactory(LlvmDspFactory&& f);
         ~LlvmDspFactory();
 
@@ -49,6 +77,7 @@ namespace faust {
 
         void dumpIncludeDirs(std::ostream& os, const std::string& prefix = {}) const;
         void dumpLibs(std::ostream& os, const std::string& prefix = {}) const;
+        void dumpOpts(std::ostream& os) const;
     };
 
     class LlvmDsp {
