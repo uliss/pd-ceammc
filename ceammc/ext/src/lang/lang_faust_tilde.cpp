@@ -141,7 +141,9 @@ void LangFaustTilde::dump() const
 void setup_lang_faust_tilde()
 {
     extern t_class* ceammc_class;
-    faust_config_base.addIncludeDirectory(class_gethelpdir(ceammc_class));
+    std::string path = class_gethelpdir(ceammc_class);
+    path += "/faust";
+    faust_config_base.addIncludeDirectory(path);
 
     SoundExternalFactory<LangFaustTilde> obj("lang.faust~", OBJECT_FACTORY_DEFAULT);
     obj.addMethod("reset", &LangFaustTilde::m_reset);
