@@ -49,6 +49,9 @@ public:
     void m_reset(t_symbol*, const AtomListView&);
 
     void dump() const override;
+
+private:
+    std::string canvasDir() const;
 };
 
 void setup_lang_faust_tilde();

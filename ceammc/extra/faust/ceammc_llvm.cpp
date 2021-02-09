@@ -202,6 +202,9 @@ namespace faust {
 
     void FaustConfig::addIncludeDirectory(const std::string& path)
     {
+        if (path.empty())
+            return;
+
         addOption("-I");
         addOption(path);
         syncOptions();

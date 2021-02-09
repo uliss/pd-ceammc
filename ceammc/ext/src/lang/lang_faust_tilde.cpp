@@ -14,6 +14,7 @@
 #include "lang_faust_tilde.h"
 #include "ceammc_factory.h"
 #include "ceammc_format.h"
+#include "ceammc_platform.h"
 
 #ifndef FAUSTFLOAT
 #define FAUSTFLOAT t_float
@@ -49,13 +50,33 @@ void LangFaustTilde::initDone()
 {
     const std::string fname = findInStdPaths(fname_->value()->s_name);
     if (fname.empty()) {
-        OBJ_ERR << "Faust file is not found: " << fname_->value();
+        OBJ_DBG << "Faust file is not found: " << fname_->value();
         return;
     }
 
     faust::FaustConfig cfg = faust_config_base;
-    for (auto& a : include_dirs_->value())
-        cfg.addIncludeDirectory(to_string(a));
+    const auto canvas_dir = canvasDir();
+    cfg.addIncludeDirectory(canvas_dir);
+
+    // fill includes
+    for (auto& a : include_dirs_->value()) {
+        auto path = to_string(a);
+        // ~/path -> /home/user/path
+        auto dir = platform::expand_tilde_path(path);
+
+        // ./relpath -> /patchdir/relpath
+        if (platform::is_path_relative(dir.c_str()))
+            dir = canvas_dir + '/' + dir;
+
+        if (platform::path_exists(dir.c_str())) {
+            OBJ_DBG << "adding include path: " << dir;
+        } else {
+            OBJ_DBG << "include path not found: " << path << ", skipping";
+            continue;
+        }
+
+        cfg.addIncludeDirectory(dir);
+    }
 
     dsp_factory_.reset(new faust::LlvmDspFactory(fname.c_str(), cfg));
     if (!dsp_factory_ || !dsp_factory_->isOk()) {
@@ -87,7 +108,6 @@ void LangFaustTilde::initDone()
     if (dsp_->buildUI(ui_.get())) {
         auto ui = static_cast<FaustUI*>(ui_.get());
         const size_t n_ui = ui->uiCount();
-        OBJ_DBG << "N props: " << n_ui;
         for (size_t i = 0; i < n_ui; i++) {
             addProperty(new faust::UIProperty(ui->uiAt(i)));
         }
@@ -136,6 +156,12 @@ void LangFaustTilde::dump() const
     os << "compile options: ";
     if (dsp_factory_)
         dsp_factory_->dumpOpts(os);
+}
+
+std::string LangFaustTilde::canvasDir() const
+{
+    auto cnv = canvas();
+    return cnv ? canvas_getdir(cnv)->s_name : std::string();
 }
 
 void setup_lang_faust_tilde()
