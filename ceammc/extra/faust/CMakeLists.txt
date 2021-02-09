@@ -40,6 +40,6 @@ add_library(ceammc_faust STATIC ceammc_llvm.cpp)
 target_link_libraries(ceammc_faust staticlib)
 target_compile_definitions(ceammc_faust PRIVATE ${LLVM_DEFINITIONS})
 target_include_directories(ceammc_faust PRIVATE
-    ${CMAKE_CURRENT_SOURCE_DIR}/faust
+    ${CMAKE_CURRENT_SOURCE_DIR}/faust/architecture
     ${LLVM_INCLUDE_DIRS}
     ${PROJECT_SOURCE_DIR}/src)
