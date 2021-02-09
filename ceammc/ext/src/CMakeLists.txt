@@ -39,7 +39,7 @@ find_package(BISON)
 find_package(FLEX)
 
 set(CEAMMC_EXT_LINK_LIBRARIES ceammc_analyze ceammc_array ceammc_base ceammc_conv ceammc_data ceammc_dyn ceammc_env
-    ceammc_flt ceammc_flow ceammc_fx ceammc_hw ceammc_lfo ceammc_list ceammc_math ceammc_midi
+    ceammc_flt ceammc_flow ceammc_fx ceammc_hw ceammc_lang ceammc_lfo ceammc_list ceammc_math ceammc_midi
     ceammc_misc ceammc_net ceammc_noise ceammc_osc ceammc_preset ceammc_path ceammc_proto ceammc_random
     ceammc_spat ceammc_synth ceammc_system ceammc_string ceammc_tl ceammc_ui ceammc_window
     ceammc_core)
