@@ -109,6 +109,20 @@ void LangFaustTilde::m_reset(t_symbol*, const AtomListView&)
         dsp_.get()->clear();
 }
 
+void LangFaustTilde::dump() const
+{
+    SoundExternal::dump();
+
+    Post os(this);
+    os << "include directories: \n";
+    if (dsp_factory_)
+        dsp_factory_->dumpIncludeDirs(os, " - ");
+
+    os << "used libraries: \n";
+    if (dsp_factory_)
+        dsp_factory_->dumpLibs(os, " - ");
+}
+
 void setup_lang_faust_tilde()
 {
     SoundExternalFactory<LangFaustTilde> obj("lang.faust~", OBJECT_FACTORY_DEFAULT);

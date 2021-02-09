@@ -46,6 +46,8 @@ public:
     void processBlock(const t_sample** in, t_sample** out) final;
 
     void m_reset(t_symbol*, const AtomListView&);
+
+    void dump() const override;
 };
 
 void setup_lang_faust_tilde();

@@ -16,6 +16,7 @@
 
 #include "m_pd.h"
 
+#include <iosfwd>
 #include <memory>
 #include <string>
 
@@ -45,6 +46,9 @@ namespace faust {
         const std::string& errors() const { return errors_; }
 
         std::unique_ptr<LlvmDsp> createDsp();
+
+        void dumpIncludeDirs(std::ostream& os, const std::string& prefix = {}) const;
+        void dumpLibs(std::ostream& os, const std::string& prefix = {}) const;
     };
 
     class LlvmDsp {

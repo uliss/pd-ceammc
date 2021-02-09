@@ -65,6 +65,22 @@ namespace faust {
         return std::unique_ptr<LlvmDsp>(new LlvmDsp(dsp));
     }
 
+    void LlvmDspFactory::dumpLibs(std::ostream& os, const std::string& prefix) const
+    {
+        if (factory_) {
+            for (auto& s : factory_->getLibraryList())
+                os << prefix << s << "\n";
+        }
+    }
+
+    void LlvmDspFactory::dumpIncludeDirs(std::ostream& os, const std::string& prefix) const
+    {
+        if (factory_) {
+            for (auto& s : factory_->getIncludePathnames())
+                os << prefix << s << "\n";
+        }
+    }
+
     LlvmDsp::LlvmDsp(llvm_dsp* dsp)
         : dsp_(dsp)
     {
