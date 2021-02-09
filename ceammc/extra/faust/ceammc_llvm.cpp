@@ -122,8 +122,18 @@ namespace faust {
 
     void LlvmDsp::compute(const t_float** in, t_float** out, size_t bs)
     {
-        if (dsp_)
-            dsp_->compute(bs, (t_float**)in, out);
+        if (dsp_) {
+            const size_t nin = dsp_->getNumInputs();
+            const size_t nout = dsp_->getNumOutputs();
+
+            t_float b0[nin][bs], b1[nout][bs];
+            t_float** inbuf = (t_float**)b0[0];
+            t_float** outbuf = (t_float**)b1[0];
+
+            std::memcpy(inbuf, in, nin * bs * sizeof(t_float));
+            dsp_->compute(bs, inbuf, outbuf);
+            std::memcpy(outbuf, out, nout * bs * sizeof(t_float));
+        }
     }
 
 }
