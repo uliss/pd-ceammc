@@ -70,6 +70,9 @@ LangFaustTilde::~LangFaustTilde() // for std::unique_ptr
 
 void LangFaustTilde::initDone()
 {
+    // time measure
+    const auto clock_begin = std::chrono::steady_clock::now();
+
     // dps suspend/resume
     DspState dsp_state_guard;
 
@@ -140,6 +143,9 @@ void LangFaustTilde::initDone()
         }
     } else
         OBJ_ERR << "can't build UI";
+
+    const auto clock_end = std::chrono::steady_clock::now();
+    OBJ_DBG << "compilation time: " << std::chrono::duration_cast<std::chrono::milliseconds>(clock_end - clock_begin).count() << "ms";
 }
 
 void LangFaustTilde::setupDSP(t_signal** in)
