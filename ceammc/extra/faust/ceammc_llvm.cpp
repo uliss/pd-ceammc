@@ -81,6 +81,11 @@ namespace faust {
             os << factory_->getCompileOptions();
     }
 
+    std::string LlvmDspFactory::name() const
+    {
+        return factory_ ? factory_->getName() : std::string();
+    }
+
     void LlvmDspFactory::dumpIncludeDirs(std::ostream& os, const std::string& prefix) const
     {
         if (factory_) {

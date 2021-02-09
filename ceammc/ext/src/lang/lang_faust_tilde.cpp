@@ -124,7 +124,7 @@ void LangFaustTilde::initDone()
     for (size_t i = 0; i < nout; i++)
         createSignalOutlet();
 
-    ui_.reset(new FaustUI("test", ""));
+    ui_.reset(new FaustUI(dsp_factory_->name(), ""));
     if (dsp_->buildUI(ui_.get())) {
         auto ui = static_cast<FaustUI*>(ui_.get());
         const size_t n_ui = ui->uiCount();

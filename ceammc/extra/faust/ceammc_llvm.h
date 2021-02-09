@@ -85,6 +85,8 @@ namespace faust {
         void dumpIncludeDirs(std::ostream& os, const std::string& prefix = {}) const;
         void dumpLibs(std::ostream& os, const std::string& prefix = {}) const;
         void dumpOpts(std::ostream& os) const;
+
+        std::string name() const;
     };
 
     class LlvmDsp {
