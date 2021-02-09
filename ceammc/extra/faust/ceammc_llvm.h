@@ -40,7 +40,6 @@ namespace faust {
         ~LlvmDspFactory();
 
         bool isOk() const { return factory_.get(); }
-        std::string getTarget() const;
 
         std::unique_ptr<LlvmDsp> createDsp();
     };

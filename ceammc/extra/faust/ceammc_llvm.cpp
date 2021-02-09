@@ -48,14 +48,6 @@ namespace faust {
         factory_.reset();
     }
 
-    std::string LlvmDspFactory::getTarget() const
-    {
-        if (!factory_)
-            return {};
-
-        return factory_->getTarget();
-    }
-
     std::unique_ptr<LlvmDsp> LlvmDspFactory::createDsp()
     {
         if (!factory_)
