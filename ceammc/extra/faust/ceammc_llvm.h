@@ -19,13 +19,17 @@
 #include <memory>
 #include <string>
 
+class llvm_dsp;
+class llvm_dsp_factory;
+class UI;
+
 namespace ceammc {
 namespace faust {
 
-    class LlvmDspInstance;
+    class LlvmDsp;
 
     class LlvmDspFactory {
-        void* factory_;
+        std::unique_ptr<llvm_dsp_factory, void (*)(llvm_dsp_factory*)> factory_;
 
         LlvmDspFactory(const LlvmDspFactory&) = delete;
         LlvmDspFactory& operator=(const LlvmDspFactory&) = delete;
@@ -35,22 +39,35 @@ namespace faust {
         LlvmDspFactory(LlvmDspFactory&& f);
         ~LlvmDspFactory();
 
-        bool isOk() const { return factory_; }
-        void* get() { return factory_; }
+        bool isOk() const { return factory_.get(); }
+        std::string getTarget() const;
 
-//        LlvmDspInstance createInstance() const;
+        std::unique_ptr<LlvmDsp> createDsp();
     };
 
-    class LlvmDspInstance {
-        void* instance_;
-        std::shared_ptr<LlvmDspFactory> factory_;
-        int num_inputs_, num_outputs_;
+    class LlvmDsp {
+        std::unique_ptr<llvm_dsp> dsp_;
+
+        friend class LlvmDspFactory;
+
+        LlvmDsp();
+        LlvmDsp(llvm_dsp* dsp);
 
     public:
-        LlvmDspInstance(const std::shared_ptr<LlvmDspFactory>& f);
-        ~LlvmDspInstance();
+        ~LlvmDsp();
 
-        bool isOk() const { return instance_; }
+        bool isOk() const { return dsp_.get(); }
+
+        size_t numInputs() const;
+        size_t numOutputs() const;
+        double samplerate() const;
+
+        bool buildUI(UI* ui);
+
+        void clear();
+        void init(int sr);
+
+        void compute(const t_float** in, t_float** out, size_t bs);
     };
 
 }

@@ -14,76 +14,114 @@
 #include "ceammc_llvm.h"
 
 #define FAUSTFLOAT t_sample
-#include "faust/dsp/llvm-c-dsp.h"
+#include "faust/dsp/llvm-dsp.h"
 
-constexpr size_t MAXFAUSTSTRING = 2048;
 constexpr int OPT_LEVEL = -1;
-constexpr const char* CURRENT_MACH_TARGET = "";
+static const std::string CURRENT_MACH_TARGET;
 
 namespace ceammc {
 namespace faust {
 
-    LlvmDspFactory::LlvmDspFactory(const char* fname)
-        : factory_(nullptr)
+    static void delete_factory(llvm_dsp_factory* f)
     {
-        char errors[MAXFAUSTSTRING];
-        int noptions = 0; //(int)faust_opt_manager_get_noptions(x->f_opt_manager);
-        char const** options = nullptr; //faust_opt_manager_get_options(x->f_opt_manager);
+        deleteDSPFactory(f);
+    }
 
-        factory_ = createCDSPFactoryFromFile(fname, noptions, options, CURRENT_MACH_TARGET, errors, OPT_LEVEL);
-        if (strnlen(errors, MAXFAUSTSTRING)) {
-            factory_ = nullptr;
-            return;
-        }
+    LlvmDspFactory::LlvmDspFactory(const char* fname)
+        : factory_(nullptr, delete_factory)
+    {
+        int argc = 0; //(int)faust_opt_manager_get_noptions(x->f_opt_manager);
+        const char** argv = nullptr; //faust_opt_manager_get_options(x->f_opt_manager);
+
+        std::string errors;
+        auto f = createDSPFactoryFromFile(fname, argc, argv, CURRENT_MACH_TARGET, errors, OPT_LEVEL);
+        factory_.reset(f);
     }
 
     LlvmDspFactory::LlvmDspFactory(LlvmDspFactory&& f)
-        : factory_(f.factory_)
+        : factory_(std::move(f.factory_))
     {
-        f.factory_ = nullptr;
     }
 
     LlvmDspFactory::~LlvmDspFactory()
     {
-        if (factory_) {
-            const auto f = static_cast<llvm_dsp_factory*>(factory_);
-            deleteCDSPFactory(f);
-        }
+        factory_.reset();
     }
 
-    //    LlvmDspInstance LlvmDspFactory::createInstance() const
-    //    {
-    ////        if
-    //    }
-
-    LlvmDspInstance::LlvmDspInstance(const std::shared_ptr<LlvmDspFactory>& f)
-        : instance_(nullptr)
-        , factory_(f)
-        , num_inputs_(0)
-        , num_outputs_(0)
+    std::string LlvmDspFactory::getTarget() const
     {
-        if (f->isOk()) {
-            auto fptr = static_cast<llvm_dsp_factory*>(factory_->get());
-            instance_ = createCDSPInstance(fptr);
-            if (!instance_) {
-                factory_.reset();
-                return;
-            } else {
-                auto inst = static_cast<llvm_dsp*>(instance_);
+        if (!factory_)
+            return {};
 
-                num_inputs_ = getNumInputsCDSPInstance(inst);
-                num_outputs_ = getNumOutputsCDSPInstance(inst);
-            }
-        }
+        return factory_->getTarget();
     }
 
-    LlvmDspInstance::~LlvmDspInstance()
+    std::unique_ptr<LlvmDsp> LlvmDspFactory::createDsp()
     {
-        if (instance_) {
-            auto inst = static_cast<llvm_dsp*>(instance_);
-            deleteCDSPInstance(inst);
-            instance_ = nullptr;
-        }
+        if (!factory_)
+            return {};
+
+        auto dsp = factory_->createDSPInstance();
+        if (!dsp)
+            return {};
+
+        return std::unique_ptr<LlvmDsp>(new LlvmDsp(dsp));
+    }
+
+    LlvmDsp::LlvmDsp(llvm_dsp* dsp)
+        : dsp_(dsp)
+    {
+    }
+
+    LlvmDsp::LlvmDsp()
+    {
+    }
+
+    LlvmDsp::~LlvmDsp()
+    {
+        dsp_.reset();
+    }
+
+    size_t LlvmDsp::numInputs() const
+    {
+        return dsp_ ? dsp_->getNumInputs() : 0;
+    }
+
+    size_t LlvmDsp::numOutputs() const
+    {
+        return dsp_ ? dsp_->getNumOutputs() : 0;
+    }
+
+    double LlvmDsp::samplerate() const
+    {
+        return dsp_ ? dsp_->getSampleRate() : 0;
+    }
+
+    bool LlvmDsp::buildUI(UI* ui)
+    {
+        if (!dsp_ || !ui)
+            return false;
+
+        dsp_->buildUserInterface(ui);
+        return true;
+    }
+
+    void LlvmDsp::clear()
+    {
+        if (dsp_)
+            dsp_->instanceClear();
+    }
+
+    void LlvmDsp::init(int sr)
+    {
+        if (dsp_)
+            dsp_->init(sr);
+    }
+
+    void LlvmDsp::compute(const t_float** in, t_float** out, size_t bs)
+    {
+        if (dsp_)
+            dsp_->compute(bs, (t_float**)in, out);
     }
 
 }
