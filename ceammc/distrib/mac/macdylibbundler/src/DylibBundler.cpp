@@ -137,7 +137,6 @@ std::string searchFilenameInRpaths(const std::string& rpath_file, const std::str
 
         if (realpath(rpath.c_str(), buffer)) {
             fullpath = buffer;
-            std::cerr << __FUNCTION__ << " " << fullpath << "\n";
         } else {
             std::cerr << "\n/!\\ WARNING : can't get path for '" << rpath_file << "'\n" << "orig " << orig << "\n";
         }
@@ -249,7 +248,6 @@ void collectDependencies(std::string filename)
         // trim useless info, keep only library name
         std::string dep_path = lines[n].substr(1, lines[n].rfind(" (") - 1);
         if (isRpath(dep_path)) {
-            std::cerr << __FUNCTION__ << " " << filename << "\n";
             collectRpathsForFilename(filename);
         }
 
