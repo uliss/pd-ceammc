@@ -23,13 +23,15 @@ ceammc_tl_extension(transport)
 
 add_library(ceammc_tl STATIC mod_tl.h mod_tl.cpp ${TL_SOURCES})
 
-if(BISON_FOUND AND FLEX_FOUND)
+if(BISON_FOUND)
     add_custom_target(tl_parser_gen
-        COMMAND ${FLEX_EXECUTABLE} tl_lexer.lex
+        COMMAND $<TARGET_FILE:reflex-bin> tl_lexer.l
         COMMAND ${BISON_EXECUTABLE} -LC++ tl_parser.y
         WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
     )
 endif()
+
+target_include_directories(ceammc_tl PRIVATE $<TARGET_PROPERTY:reflex,INCLUDE_DIRECTORIES>)
 
 add_custom_target(ceammc_tl_tcl_gen
     COMMAND ${PROJECT_SOURCE_DIR}/ceammc/scripts/filecontent_to_cxx_header.sh tl_cue_fn.tcl
