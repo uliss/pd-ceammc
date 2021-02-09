@@ -49,6 +49,7 @@ namespace faust {
 
     class LlvmDsp {
         std::unique_ptr<llvm_dsp> dsp_;
+        size_t num_outs_ = { 0 };
 
         friend class LlvmDspFactory;
 

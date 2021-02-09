@@ -116,23 +116,26 @@ namespace faust {
 
     void LlvmDsp::init(int sr)
     {
-        if (dsp_)
+        if (dsp_) {
             dsp_->init(sr);
+            num_outs_ = dsp_->getNumOutputs();
+        }
     }
 
     void LlvmDsp::compute(const t_float** in, t_float** out, size_t bs)
     {
         if (dsp_) {
-            const size_t nin = dsp_->getNumInputs();
-            const size_t nout = dsp_->getNumOutputs();
+            const size_t N = num_outs_;
 
-            t_float b0[nin][bs], b1[nout][bs];
-            t_float** inbuf = (t_float**)b0[0];
-            t_float** outbuf = (t_float**)b1[0];
+            t_float buf[N * bs];
+            t_float* pbuf[N];
+            for (size_t i = 0; i < N; i++)
+                pbuf[i] = &buf[i * bs];
 
-            std::memcpy(inbuf, in, nin * bs * sizeof(t_float));
-            dsp_->compute(bs, inbuf, outbuf);
-            std::memcpy(outbuf, out, nout * bs * sizeof(t_float));
+            dsp_->compute(bs, const_cast<t_float**>(in), pbuf);
+
+            for (size_t i = 0; i < N; i++)
+                std::memcpy(out[i], pbuf[i], sizeof(t_float) * bs);
         }
     }
 
