@@ -75,7 +75,14 @@ function dylib_external_fix() {
     dir=$2
 
     echo "\t- fixing @loader_path for $(basename $exec) ..."
-    $DYLIBBUNDLER -x "${exec}" -b -cd -d "${dir}" -p @loader_path/ -of > /dev/null
+    $DYLIBBUNDLER \
+        --fix-file "${exec}" \
+        --bundle-deps \
+        --create-dir \
+        --dest-dir "${dir}" \
+        --install-path @loader_path/ \
+        --overwrite-files \
+        --ignore /usr/local/opt/llvm/lib > /dev/null
 }
 
 function copy()
