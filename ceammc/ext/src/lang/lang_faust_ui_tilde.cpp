@@ -28,10 +28,10 @@ public:
         : SoundExternalFactory<T>(name, flags)
     {
         wb_.w_getrectfn = getRect;
-        wb_.w_displacefn = displace;
+        wb_.w_displacefn = wdisplace;
         //        wb_.w_selectfn = iemgui_select;
         wb_.w_activatefn = nullptr;
-        //        wb_.w_deletefn = iemgui_delete;
+        wb_.w_deletefn = wdelete;
         //        wb_.w_visfn = iemgui_vis;
         //        wb_.w_clickfn = bng_newclick;
         class_setwidget(this->classPointer(), &wb_);
@@ -50,10 +50,16 @@ public:
         *y2 = r.bottom();
     }
 
-    static void displace(t_gobj* x, t_glist* cnv, int dx, int dy)
+    static void wdisplace(t_gobj* x, t_glist* cnv, int dx, int dy)
     {
         auto z = reinterpret_cast<typename SoundExternalFactory<T>::ObjectProxy*>(x);
         z->impl->displace(cnv, dx, dy);
+    }
+
+    static void wdelete(t_gobj* x, t_glist* cnv)
+    {
+        auto z = reinterpret_cast<typename SoundExternalFactory<T>::ObjectProxy*>(x);
+        z->impl->deleteWidget(cnv);
     }
 };
 
@@ -102,6 +108,11 @@ void WidgetIFace::displace(t_glist* cnv, int dx, int dy)
         drawMove(cnv);
         canvas_fixlinesfor(cnv, x_);
     }
+}
+
+void WidgetIFace::deleteWidget(t_glist* cnv)
+{
+    canvas_deletelinesfor(cnv, x_);
 }
 
 void WidgetIFace::drawMove(t_glist* cnv)
