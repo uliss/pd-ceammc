@@ -37,6 +37,7 @@ class LangFaustTilde : public SoundExternal {
     SymbolProperty* fname_;
     ListProperty* include_dirs_;
     FaustUIPtr ui_;
+    std::string full_path_;
 
 public:
     LangFaustTilde(const PdArgs& args);
@@ -47,6 +48,7 @@ public:
     void processBlock(const t_sample** in, t_sample** out) final;
 
     void m_reset(t_symbol*, const AtomListView&);
+    void m_open(t_symbol*, const AtomListView&);
 
     void dump() const override;
 

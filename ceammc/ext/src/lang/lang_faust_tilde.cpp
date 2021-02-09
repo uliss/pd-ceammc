@@ -22,6 +22,13 @@
 
 #include "faust/gui/UI.h"
 
+#ifdef _WIN32
+#include <windows.h>
+#endif
+
+#include <chrono>
+#include <cstdlib>
+
 class DspState {
     int state_;
 
@@ -66,8 +73,8 @@ void LangFaustTilde::initDone()
     // dps suspend/resume
     DspState dsp_state_guard;
 
-    const std::string fname = findInStdPaths(fname_->value()->s_name);
-    if (fname.empty()) {
+    full_path_ = findInStdPaths(fname_->value()->s_name);
+    if (full_path_.empty()) {
         OBJ_DBG << "Faust file is not found: " << fname_->value();
         return;
     }
@@ -96,7 +103,7 @@ void LangFaustTilde::initDone()
         cfg.addIncludeDirectory(dir);
     }
 
-    dsp_factory_.reset(new faust::LlvmDspFactory(fname.c_str(), cfg));
+    dsp_factory_.reset(new faust::LlvmDspFactory(full_path_.c_str(), cfg));
     if (!dsp_factory_ || !dsp_factory_->isOk()) {
         OBJ_ERR << "Faust file load error " << fname_->value();
         if (dsp_factory_ && !dsp_factory_->errors().empty())
@@ -112,7 +119,7 @@ void LangFaustTilde::initDone()
         return;
     }
 
-    OBJ_DBG << "compiled from source: " << fname;
+    OBJ_DBG << "compiled from source: " << full_path_;
 
     dsp_->init(sys_getsr());
     const auto nin = dsp_->numInputs();
@@ -160,6 +167,32 @@ void LangFaustTilde::m_reset(t_symbol*, const AtomListView&)
         dsp_.get()->clear();
 }
 
+void LangFaustTilde::m_open(t_symbol*, const AtomListView&)
+{
+    if (full_path_.empty() || !platform::path_exists(full_path_.c_str())) {
+        OBJ_ERR << "file not exists: " << full_path_;
+        return;
+    }
+
+    char msg[MAXPDSTRING];
+
+#ifdef _WIN32
+    char temp[MAXPDSTRING];
+    sys_bashfilename(full_path_.c_str(), temp);
+    sprintf(msg, "\"%s\"", temp);
+    WinExec(msg, SW_HIDE);
+    return;
+#elif __APPLE__
+    snprintf(msg, sizeof(msg) - 1, "open -t %s", full_path_.c_str());
+    system(msg);
+    return;
+#else
+    snprintf(msg, sizeof(msg) - 1, "xdg-open %s", full_path_.c_str());
+    system(msg);
+    return;
+#endif
+}
+
 void LangFaustTilde::dump() const
 {
     SoundExternal::dump();
@@ -193,4 +226,5 @@ void setup_lang_faust_tilde()
 
     SoundExternalFactory<LangFaustTilde> obj("lang.faust~", OBJECT_FACTORY_DEFAULT);
     obj.addMethod("reset", &LangFaustTilde::m_reset);
+    obj.addMethod("open", &LangFaustTilde::m_open);
 }
