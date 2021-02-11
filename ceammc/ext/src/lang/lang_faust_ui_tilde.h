@@ -146,6 +146,9 @@ public:
         std::tie(y0_, y1_) = std::minmax<T>(y0_, y1_);
     }
 
+    template <typename U>
+    Rect<T> operator*(U x) const { return Rect<T>(x0_ * x, y0_ * x, x1_ * x, y1_ * x); }
+
     T width() const { return x1_ - x0_; }
     T height() const { return y1_ - y0_; }
     T left() const { return x0_; }
@@ -177,8 +180,8 @@ class ViewImplT {
     float zoom_ { 1 };
 
 public:
-    virtual void create(WinId win_id, ViewId id, const PointF& abs_pos, const SizeF& sz, const ModelProps& mdata, const ViewProps& vdata) = 0;
-    virtual void move(WinId win_id, ViewId id, const PointF& abs_pos) = 0;
+    virtual void create(WinId win_id, ViewId id, const RectF& bbox, const ModelProps& mdata, const ViewProps& vdata) = 0;
+    virtual void move(WinId win_id, ViewId id, const RectF& bbox) = 0;
     virtual void erase(WinId win_id, ViewId id) = 0;
     virtual void update(WinId win_id, ViewId id, const ModelProps& mdata, const ViewProps& vdata) = 0;
 
@@ -187,8 +190,8 @@ public:
 };
 
 struct EmptyViewImpl : public ViewImplT<EmptyType, EmptyType, IdType, IdType> {
-    void create(IdType win_id, IdType id, const PointF& abs_pos, const SizeF& sz, const EmptyType& mdata, const EmptyType& vdata) { }
-    void move(IdType win_id, IdType id, const PointF& abs_pos) { }
+    void create(IdType win_id, IdType id, const RectF& bbox, const EmptyType& mdata, const EmptyType& vdata) { }
+    void move(IdType win_id, IdType id, const RectF& bbox) { }
     void erase(IdType win_id, IdType id) { }
     void update(IdType win_id, IdType id, const EmptyType& mdata, const EmptyType& vdata) { }
 };
@@ -272,7 +275,7 @@ public:
 
         ModelProps model_props;
         if (dp_->getProp(prop_id_, model_props))
-            impl_.create(win, id(), pos(), size(), model_props, props_);
+            impl_.create(win, id(), boundRect(), model_props, props_);
     }
 
     void erase() override
@@ -289,7 +292,7 @@ public:
 
     void move(const PointF& pt) override
     {
-        impl_.move(win_id_, id(), pt + pos());
+        impl_.move(win_id_, id(), RectF(pt + pos(), size()));
     }
 
     void zoom(float z) override { impl_.setZoom(z); }
@@ -389,11 +392,18 @@ struct SliderModelProps {
 
 using SliderViewProps = std::tuple<SizeF, bool, int8_t, uint32_t, uint32_t, uint32_t>;
 
-struct TclHSliderImpl : public ViewImplT<SliderModelProps, SliderViewProps, IdType, IdType> {
-    void create(IdType win_id, IdType id, const PointF& abs_pos, const SizeF& sz, const SliderModelProps& mdata, const SliderViewProps& vdata);
-    void move(IdType win_id, IdType id, const PointF& abs_pos);
-    void erase(IdType win_id, IdType id);
-    void update(IdType win_id, IdType id, const SliderModelProps& mdata, const SliderViewProps& vdata);
+template <typename ModelProps, typename ViewProps>
+struct TclViewImpl : public ViewImplT<ModelProps, ViewProps, IdType, IdType> {
+    void erase(IdType win_id, IdType id) override
+    {
+        sys_vgui(".x%lx.c delete #%lx\n", win_id, id);
+    }
+};
+
+struct TclHSliderImpl : public TclViewImpl<SliderModelProps, SliderViewProps> {
+    void create(IdType win_id, IdType id, const RectF& bbox, const SliderModelProps& mdata, const SliderViewProps& vdata) override;
+    void move(IdType win_id, IdType id, const RectF& bbox) override;
+    void update(IdType win_id, IdType id, const SliderModelProps& mdata, const SliderViewProps& vdata) override;
 };
 
 template <typename Data, typename ViewImpl>
@@ -423,11 +433,10 @@ struct LabelViewProps {
     int font_size;
 };
 
-struct TclLabelImpl : public ViewImplT<LabelModelProps, LabelViewProps, IdType, IdType> {
-    void create(IdType win_id, IdType id, const PointF& abs_pos, const SizeF& sz, const LabelModelProps& mdata, const LabelViewProps& vdata);
-    void move(IdType win_id, IdType id, const PointF& abs_pos);
-    void erase(IdType win_id, IdType id);
-    void update(IdType win_id, IdType id, const LabelModelProps& mdata, const LabelViewProps& vdata);
+struct TclLabelImpl : public TclViewImpl<LabelModelProps, LabelViewProps> {
+    void create(IdType win_id, IdType id, const RectF& bbox, const LabelModelProps& mdata, const LabelViewProps& vdata) override;
+    void move(IdType win_id, IdType id, const RectF& bbox) override;
+    void update(IdType win_id, IdType id, const LabelModelProps& mdata, const LabelViewProps& vdata) override;
 };
 
 template <typename Data, typename ViewImpl>
@@ -503,10 +512,10 @@ public:
             v->update();
     }
 
-    void move(float x, float y)
+    void move(const PointF& pos)
     {
         for (auto& v : items_)
-            v->move(PointF(x, y));
+            v->move(pos);
     }
 
     bool getProp(PropId idx, SliderModelProps& dest) const

@@ -157,7 +157,9 @@ void WidgetIFace::displaceWidget(t_glist* window, int dx, int dy)
 
     if (glist_isvisible(widget_parent_)) {
         LIB_ERR << __FUNCTION__;
-        view_.move(x_->te_xpix, x_->te_ypix);
+        PointF pos(text_xpix(x_, window), text_ypix(x_, window));
+        const float rz = 1.0 / glist_getzoom(window);
+        view_.move(pos * rz);
         canvas_fixlinesfor(window, x_);
     }
 }
@@ -208,46 +210,40 @@ void WidgetIFace::setSize(int w, int h)
     //        upda
 }
 
-void TclHSliderImpl::create(IdType win_id, IdType id, const PointF& abs_pos, const SizeF& sz, const SliderModelProps& mdata, const SliderViewProps& vdata)
+void TclHSliderImpl::create(IdType win_id, IdType id, const RectF& bbox, const SliderModelProps& mdata, const SliderViewProps& vdata)
 {
-    Rect<int> bbox(abs_pos * zoom(), sz * zoom());
+    Rect<int> rect(bbox * zoom());
     sys_vgui(".x%lx.c create rectangle %d %d %d %d -fill black -outline grey -width 2 -tags #%lx\n",
-        win_id, bbox.left(), bbox.top(), bbox.right(), bbox.bottom(),
+        win_id, rect.left(), rect.top(), rect.right(), rect.bottom(),
         id);
 }
 
-void TclHSliderImpl::move(IdType win_id, IdType id, const PointF& abs_pos)
+void TclHSliderImpl::move(IdType win_id, IdType id, const RectF& bbox)
 {
-    sys_vgui(".x%lx.c moveto #%lx %d %d\n", win_id, id, (int)abs_pos.x(), (int)abs_pos.y());
-}
-
-void TclHSliderImpl::erase(IdType win_id, IdType id)
-{
-    sys_vgui(".x%lx.c delete #%lx\n", win_id, id);
+    Rect<int> rect(bbox * zoom());
+    sys_vgui(".x%lx.c coords #%lx %d %d %d %d\n", win_id, id,
+        rect.left(), rect.top(), rect.right(), rect.bottom());
 }
 
 void TclHSliderImpl::update(IdType win_id, IdType id, const SliderModelProps& mdata, const SliderViewProps& vdata)
 {
 }
 
-void TclLabelImpl::create(IdType win_id, IdType id, const PointF& abs_pos, const SizeF& sz, const LabelModelProps& mdata, const LabelViewProps& vdata)
+void TclLabelImpl::create(IdType win_id, IdType id, const RectF& bbox, const LabelModelProps& mdata, const LabelViewProps& vdata)
 {
-    Rect<int> bbox(abs_pos * zoom(), sz * zoom());
+    Rect<int> rect(bbox * zoom());
     sys_vgui(".x%lx.c create text %d %d -fill black -text {%s} -font {{%s} %d} -anchor nw -width 0 -tags #%lx\n",
-        win_id, bbox.left(), bbox.top(),
+        win_id, rect.left(), rect.top(),
         mdata.name->s_name,
         vdata.font_family->s_name, int(vdata.font_size * zoom()),
         id);
 }
 
-void TclLabelImpl::move(IdType win_id, IdType id, const PointF& abs_pos)
+void TclLabelImpl::move(IdType win_id, IdType id, const RectF& bbox)
 {
-    sys_vgui(".x%lx.c moveto #%lx %d %d\n", win_id, id, (int)abs_pos.x(), (int)abs_pos.y());
-}
-
-void TclLabelImpl::erase(IdType win_id, IdType id)
-{
-    sys_vgui(".x%lx.c delete #%lx\n", win_id, id);
+    Rect<int> rect(bbox * zoom());
+    sys_vgui(".x%lx.c coords #%lx %d %d\n", win_id, id,
+        rect.left(), rect.top());
 }
 
 void TclLabelImpl::update(IdType win_id, IdType id, const LabelModelProps& mdata, const LabelViewProps& vdata)
