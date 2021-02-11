@@ -156,6 +156,7 @@ void WidgetIFace::displaceWidget(t_glist* window, int dx, int dy)
     x_->te_ypix += dy;
 
     if (glist_isvisible(widget_parent_)) {
+        LIB_ERR << __FUNCTION__;
         view_.move(x_->te_xpix, x_->te_ypix);
         canvas_fixlinesfor(window, x_);
     }
@@ -206,61 +207,6 @@ void WidgetIFace::setSize(int w, int h)
     //    if(visible())
     //        upda
 }
-
-//void TclCanvasSurface::clear(uint64_t obj_id)
-//{
-//    sys_vgui(".x%x erase #%x\n", window(), obj_id);
-//}
-
-//void TclCanvasSurface::move(uint64_t obj_id, float x, float y)
-//{
-//    sys_vgui(".x%x move %f %f #%x\n", window(), obj_id, x, y);
-//}
-
-//void TclCanvasSurface::rect(uint64_t obj_id, const Rect<float>& r)
-//{
-//    sys_vgui(".x%x create rectangle %d %d %d %d -tags {#%x}\n",
-//        window(),
-//        (int)r.left(), (int)r.top(), (int)r.right(), (int)r.bottom(),
-//        obj_id);
-//}
-
-//void TclRemote::move(uint64_t win_id, float x, float y)
-//{
-//    sys_vgui(".x%lx.c moveto #%lx %d %d\n", win_id, objectId(), (int)x, (int)y);
-//    //    sys_vgui("%s_move .x%lx #%lx %d %d\n", prefix(), win_id, objectId(), (int)x, (int)y);
-//}
-
-//void TclRemote::update(uint64_t win_id)
-//{
-//    sys_vgui("%s_update .x%lx #%lx\n", prefix(), win_id, objectId());
-//}
-
-//void TclRemote::erase(uint64_t win_id)
-//{
-//    sys_vgui(".x%lx.c delete #%lx\n", win_id, objectId());
-//    //    sys_vgui("%s_erase .x%lx #%lx\n", prefix(), win_id, objectId());
-//}
-
-//void TclRemote::select(uint64_t win_id, bool state)
-//{
-//    if (state)
-//        sys_vgui(".x%lx.c itemconfig #%lx -outline blue\n", win_id, objectId());
-//    else
-//        sys_vgui(".x%lx.c itemconfig #%lx -outline grey\n", win_id, objectId());
-
-//    //    sys_vgui("%s_select .x%lx #%lx %d\n", prefix(), win_id, objectId(), (int)state);
-//}
-
-//void TclRemote::create(uint64_t win_id, const Rect<float>& pos)
-//{
-//    sys_vgui(".x%lx.c create rectangle %d %d %d %d -fill black -outline grey -width 2 -tags #%lx\n",
-//        win_id,
-//        (int)pos.left(), (int)pos.top(), (int)pos.right(), (int)pos.bottom(),
-//        objectId());
-
-//    //    sys_vgui("%s_create .x%lx #%lx %d\n", prefix(), win_id, objectId());
-//}
 
 void TclHSliderImpl::create(IdType win_id, IdType id, const PointF& abs_pos, const SizeF& sz, const SliderModelProps& mdata, const SliderViewProps& vdata)
 {
