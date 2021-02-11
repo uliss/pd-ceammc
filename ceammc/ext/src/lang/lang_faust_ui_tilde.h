@@ -149,18 +149,11 @@ struct EmptyType {
 
 template <typename ModelProps, typename ViewProps, typename ViewId = IdType, typename WinId = IdType>
 class ViewImplT {
-    WinId win_id_;
-
 public:
-    ViewImplT(WinId wid)
-        : win_id_(wid)
-    {
-    }
-
-    void create(ViewId id, const PointF& abs_pos, const ModelProps& mdata, const ViewProps& vdata) { }
-    void move(ViewId id, const PointF& abs_pos) { }
-    void erase(ViewId id) { }
-    void redraw(ViewId id, const ModelProps& mdata, const ViewProps& vdata) { }
+    void create(WinId win_id, ViewId id, const PointF& abs_pos, const ModelProps& mdata, const ViewProps& vdata) { }
+    void move(WinId win_id, ViewId id, const PointF& abs_pos) { }
+    void erase(WinId win_id, ViewId id) { }
+    void update(WinId win_id, ViewId id, const ModelProps& mdata, const ViewProps& vdata) { }
 };
 
 using EmptyViewImpl = ViewImplT<EmptyType, EmptyType>;
@@ -203,7 +196,7 @@ public:
     RectF boundRect() const { return RectF(pos_, size_); }
 
     // virtual
-    virtual void create() = 0;
+    virtual void create(IdType win) = 0;
     virtual void erase() = 0;
     virtual void update() = 0;
     virtual void move(const PointF&) = 0;
@@ -223,40 +216,42 @@ private:
     ViewImpl impl_;
     ViewProps props_;
 
+    IdType win_id_;
     PropId prop_id_;
 
 public:
     ModelView(DataProvider* dp, IdType win_id, PropId prop_id, const PointF& pos, const ViewProps& vprops)
         : ModelViewBase(pos, { 10, 10 })
         , dp_(dp)
-        , impl_(win_id)
         , props_(vprops)
         , prop_id_(prop_id)
     {
     }
 
-    void create() override
+    void create(IdType win) override
     {
+        win_id_ = win;
+
         ModelProps model_props;
         if (dp_->getProp(prop_id_, model_props))
-            impl_.create(id(), pos(), model_props, props_);
+            impl_.create(win, id(), pos(), model_props, props_);
     }
 
     void erase() override
     {
-        impl_.erase(id());
+        impl_.erase(win_id_, id());
     }
 
     void update() override
     {
         ModelProps model_props;
         if (dp_->getProp(prop_id_, model_props))
-            impl_.redraw(id(), model_props, props_);
+            impl_.update(win_id_, id(), model_props, props_);
     }
 
     void move(const PointF& pos) override
     {
-        impl_.move(id(), pos);
+        impl_.move(win_id_, id(), pos);
     }
 
     void layout() override { }
@@ -291,10 +286,10 @@ public:
         views_.push_back(std::move(b));
     }
 
-    void create() final
+    void create(IdType win) final
     {
         for (auto& v : views_)
-            v->create();
+            v->create(win);
     }
 
     void erase() final
@@ -425,10 +420,10 @@ class FaustMasterView {
     std::vector<const Property*> props_;
 
 public:
-    void create()
+    void create(IdType win)
     {
         for (auto v : items_)
-            v->create();
+            v->create(win);
     }
 
     void erase()
@@ -441,6 +436,12 @@ public:
     {
         for (auto& v : items_)
             v->update();
+    }
+
+    void move(float x, float y)
+    {
+        for (auto& v : items_)
+            v->move(PointF(x, y));
     }
 
     bool getProp(PropId idx, SliderModelProps& dest) const

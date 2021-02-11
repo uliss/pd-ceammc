@@ -151,9 +151,7 @@ void WidgetIFace::displaceWidget(t_glist* window, int dx, int dy)
     x_->te_ypix += dy;
 
     if (glist_isvisible(widget_parent_)) {
-        //        for (auto& v : view_list_)
-        //            v->move(window, x_->te_xpix, x_->te_ypix);
-
+        view_.move(x_->te_xpix, x_->te_ypix);
         canvas_fixlinesfor(window, x_);
     }
 }
@@ -168,21 +166,19 @@ void WidgetIFace::deleteWidget(t_glist* window)
 
 void WidgetIFace::selectWidget(t_glist* window, bool state)
 {
+
     //    for (auto& v : view_list_)
     //        v->select(window, state);
 }
 
 void WidgetIFace::showWidget(t_glist* window)
 {
-    //    for (auto& v : view_list_)
-    //        v->create(window);
+    view_.create(reinterpret_cast<IdType>(window));
 }
 
 void WidgetIFace::hideWidget(t_glist* window)
 {
-
-    //    for (auto& v : view_list_)
-    //        v->erase(window);
+    view_.erase();
 
     sys_unqueuegui(x_);
 }
