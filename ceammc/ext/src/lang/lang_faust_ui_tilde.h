@@ -288,13 +288,11 @@ public:
     }
 
     // virtual
-    virtual void create(IdType win) = 0;
+    virtual void create(IdType win, float scale) = 0;
     virtual void erase() = 0;
     virtual void update() = 0;
     virtual void updateCoords() = 0;
     virtual void layout() = 0;
-
-    virtual void setScale(float) {};
 
     virtual EventStatus onEvent(const PointF& /*pt*/, EventType /*t*/, const EventContext& /*ctx*/) { return STATUS_IGNORE; }
 };
@@ -322,13 +320,15 @@ public:
     {
     }
 
-    void create(IdType win) override
+    void create(IdType win, float scale) override
     {
         win_id_ = win;
 
         ModelProps model_props;
-        if (dp_->getProp(prop_id_, model_props))
+        if (dp_->getProp(prop_id_, model_props)) {
+            impl_.setScale(scale);
             impl_.create(win, id(), absBBox(), model_props, props_);
+        }
     }
 
     void erase() override
@@ -347,8 +347,6 @@ public:
     {
         impl_.updateCoords(win_id_, id(), absBBox());
     }
-
-    void setScale(float sc) override { impl_.setScale(sc); }
 
     void layout() override { }
 };
@@ -380,10 +378,10 @@ public:
         views_.back()->setParent(this);
     }
 
-    void create(IdType win) final
+    void create(IdType win, float scale) final
     {
         for (auto& v : views_)
-            v->create(win);
+            v->create(win, scale);
     }
 
     void erase() final
@@ -409,13 +407,6 @@ public:
         auto orig = this->pos();
         for (auto& v : this->views())
             v->setPos(orig);
-    }
-
-    void setScale(float x) override
-    {
-        ModelViewBase::setScale(x);
-        for (auto& v : views_)
-            v->setScale(x);
     }
 };
 
@@ -577,9 +568,8 @@ public:
 
     void create(IdType win, const PointF& pos, float zoom)
     {
-        vview_.setPos(pos);
-        vview_.setScale(zoom);
-        vview_.create(win);
+        vview_.setPos(pos * (1.0 / zoom));
+        vview_.create(win, zoom);
     }
 
     void erase()

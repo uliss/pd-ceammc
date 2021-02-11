@@ -181,9 +181,9 @@ void WidgetIFace::selectWidget(t_glist* window, bool state)
 void WidgetIFace::showWidget(t_glist* window)
 {
     LIB_ERR << __FUNCTION__;
-    PointF pos = getRect(window).pt0();
-    auto zoom = glist_getzoom(window);
-    view_.create(reinterpret_cast<IdType>(window), pos * (1.0 / zoom), zoom);
+    view_.create(reinterpret_cast<IdType>(window),
+        getRect(window).pt0(),
+        glist_getzoom(window));
 }
 
 void WidgetIFace::hideWidget(t_glist* window)
