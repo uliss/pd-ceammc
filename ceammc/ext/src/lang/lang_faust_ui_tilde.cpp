@@ -87,6 +87,11 @@ LangFaustUiTilde::LangFaustUiTilde(const PdArgs& args)
     , WidgetIFace(this->owner(), canvas())
 {
     setSize(100, 50);
+
+    addProperty(new FloatProperty("@a", 100));
+    addProperty(new FloatProperty("@b", 100));
+
+    buildUI();
 }
 
 LangFaustUiTilde::~LangFaustUiTilde()
@@ -119,7 +124,7 @@ void LangFaustUiTilde::buildUI()
 
 void setup_lang_faust_ui_tilde()
 {
-    UISoundFactory<LangFaustUiTilde> obj("lang.faust_ui~");
+    UISoundFactory<LangFaustUiTilde> obj("ui");
 }
 
 WidgetIFace::WidgetIFace(t_object* x, t_glist* widget_parent)
@@ -158,6 +163,7 @@ void WidgetIFace::displaceWidget(t_glist* window, int dx, int dy)
 
 void WidgetIFace::deleteWidget(t_glist* window)
 {
+    LIB_ERR << __FUNCTION__;
     //    for (auto& v : view_list_)
     //        v->erase(window);
 
@@ -173,11 +179,17 @@ void WidgetIFace::selectWidget(t_glist* window, bool state)
 
 void WidgetIFace::showWidget(t_glist* window)
 {
+    LIB_ERR << __FUNCTION__;
+    PointF pos = getRect(window).pt0();
+    auto zoom = glist_getzoom(window);
+    view_.setZoom(zoom);
+    view_.setPos(pos);
     view_.create(reinterpret_cast<IdType>(window));
 }
 
 void WidgetIFace::hideWidget(t_glist* window)
 {
+    LIB_ERR << __FUNCTION__;
     view_.erase();
 
     sys_unqueuegui(x_);
@@ -249,3 +261,49 @@ void WidgetIFace::setSize(int w, int h)
 
 //    //    sys_vgui("%s_create .x%lx #%lx %d\n", prefix(), win_id, objectId());
 //}
+
+void TclHSliderImpl::create(IdType win_id, IdType id, const PointF& abs_pos, const SizeF& sz, const SliderModelProps& mdata, const SliderViewProps& vdata)
+{
+    Rect<int> bbox(abs_pos * zoom(), sz * zoom());
+    sys_vgui(".x%lx.c create rectangle %d %d %d %d -fill black -outline grey -width 2 -tags #%lx\n",
+        win_id, bbox.left(), bbox.top(), bbox.right(), bbox.bottom(),
+        id);
+}
+
+void TclHSliderImpl::move(IdType win_id, IdType id, const PointF& abs_pos)
+{
+    sys_vgui(".x%lx.c moveto #%lx %d %d\n", win_id, id, (int)abs_pos.x(), (int)abs_pos.y());
+}
+
+void TclHSliderImpl::erase(IdType win_id, IdType id)
+{
+    sys_vgui(".x%lx.c delete #%lx\n", win_id, id);
+}
+
+void TclHSliderImpl::update(IdType win_id, IdType id, const SliderModelProps& mdata, const SliderViewProps& vdata)
+{
+}
+
+void TclLabelImpl::create(IdType win_id, IdType id, const PointF& abs_pos, const SizeF& sz, const LabelModelProps& mdata, const LabelViewProps& vdata)
+{
+    Rect<int> bbox(abs_pos * zoom(), sz * zoom());
+    sys_vgui(".x%lx.c create text %d %d -fill black -text {%s} -font {{%s} %d} -anchor nw -width 0 -tags #%lx\n",
+        win_id, bbox.left(), bbox.top(),
+        mdata.name->s_name,
+        vdata.font_family->s_name, int(vdata.font_size * zoom()),
+        id);
+}
+
+void TclLabelImpl::move(IdType win_id, IdType id, const PointF& abs_pos)
+{
+    sys_vgui(".x%lx.c moveto #%lx %d %d\n", win_id, id, (int)abs_pos.x(), (int)abs_pos.y());
+}
+
+void TclLabelImpl::erase(IdType win_id, IdType id)
+{
+    sys_vgui(".x%lx.c delete #%lx\n", win_id, id);
+}
+
+void TclLabelImpl::update(IdType win_id, IdType id, const LabelModelProps& mdata, const LabelViewProps& vdata)
+{
+}
