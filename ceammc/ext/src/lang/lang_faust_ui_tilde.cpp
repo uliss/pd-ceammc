@@ -86,10 +86,35 @@ LangFaustUiTilde::LangFaustUiTilde(const PdArgs& args)
     : SoundExternal(args)
     , WidgetIFace(this->owner(), canvas())
 {
+    setSize(100, 50);
+}
+
+LangFaustUiTilde::~LangFaustUiTilde()
+{
 }
 
 void LangFaustUiTilde::processBlock(const t_sample** in, t_sample** out)
 {
+}
+
+size_t LangFaustUiTilde::widgetPropCount() const
+{
+    return properties().size();
+}
+
+void LangFaustUiTilde::widgetPropNames(t_symbol** dest) const
+{
+    for (auto p : properties()) {
+        auto psym = dest++;
+        *psym = p->name();
+    }
+}
+
+void LangFaustUiTilde::buildUI()
+{
+    for (auto* p : properties()) {
+        view_.addProperty(p);
+    }
 }
 
 void setup_lang_faust_ui_tilde()
@@ -97,22 +122,27 @@ void setup_lang_faust_ui_tilde()
     UISoundFactory<LangFaustUiTilde> obj("lang.faust_ui~");
 }
 
-WidgetIFace::WidgetIFace(t_object* x, t_glist* widget_canvas)
+WidgetIFace::WidgetIFace(t_object* x, t_glist* widget_parent)
     : x_(x)
-    , widget_canvas_(widget_canvas)
+    , widget_parent_(widget_parent)
+    , widget_canvas_(canvas_getrootfor(widget_parent_))
     , size_(0, 0)
 {
 }
 
-Rect<int> WidgetIFace::getRealRect(_glist* cnv) const
+WidgetIFace::~WidgetIFace()
 {
-    return Rect<int>(text_xpix(x_, cnv), text_ypix(x_, cnv), size_);
 }
 
-Rect<int> WidgetIFace::getRect(t_glist* cnv) const
+Rect<int> WidgetIFace::getRealRect(t_glist* window) const
 {
-    auto z = cnv->gl_zoom;
-    return Rect<int>(text_xpix(x_, cnv), text_ypix(x_, cnv), size_ * z);
+    return Rect<int>(text_xpix(x_, window), text_ypix(x_, window), size_);
+}
+
+Rect<int> WidgetIFace::getRect(t_glist* window) const
+{
+    auto z = window->gl_zoom;
+    return Rect<int>(text_xpix(x_, window), text_ypix(x_, window), size_ * z);
 }
 
 void WidgetIFace::displaceWidget(t_glist* window, int dx, int dy)
@@ -120,44 +150,106 @@ void WidgetIFace::displaceWidget(t_glist* window, int dx, int dy)
     x_->te_xpix += dx;
     x_->te_ypix += dy;
 
-    if (glist_isvisible(widget_canvas_)) {
-        drawMove(window);
+    if (glist_isvisible(widget_parent_)) {
+        //        for (auto& v : view_list_)
+        //            v->move(window, x_->te_xpix, x_->te_ypix);
+
         canvas_fixlinesfor(window, x_);
     }
 }
 
 void WidgetIFace::deleteWidget(t_glist* window)
 {
+    //    for (auto& v : view_list_)
+    //        v->erase(window);
+
     canvas_deletelinesfor(window, x_);
 }
 
-void WidgetIFace::selectWidget(t_glist *window, bool state)
+void WidgetIFace::selectWidget(t_glist* window, bool state)
 {
-
+    //    for (auto& v : view_list_)
+    //        v->select(window, state);
 }
 
 void WidgetIFace::showWidget(t_glist* window)
 {
-    //    drawNew(glist);
+    //    for (auto& v : view_list_)
+    //        v->create(window);
 }
 
 void WidgetIFace::hideWidget(t_glist* window)
 {
-    //    (*x->x_draw)((void*)z, glist, IEM_GUI_DRAW_MODE_NEW);
-    //    else
-    //    {
-    //        (*x->x_draw)((void*)z, glist, IEM_GUI_DRAW_MODE_ERASE);
-    //
-    //    }
+
+    //    for (auto& v : view_list_)
+    //        v->erase(window);
+
     sys_unqueuegui(x_);
 }
 
-void WidgetIFace::drawMove(t_glist* cnv)
+bool WidgetIFace::visible() const
 {
+    return glist_isvisible(widget_parent_);
 }
 
-WidgetView::WidgetView(t_glist* window, t_object* obj)
-    : window_(window)
-    , obj_(obj)
+void WidgetIFace::setSize(int w, int h)
 {
+    size_ = Size<int>(w, h);
+    //    if(visible())
+    //        upda
 }
+
+//void TclCanvasSurface::clear(uint64_t obj_id)
+//{
+//    sys_vgui(".x%x erase #%x\n", window(), obj_id);
+//}
+
+//void TclCanvasSurface::move(uint64_t obj_id, float x, float y)
+//{
+//    sys_vgui(".x%x move %f %f #%x\n", window(), obj_id, x, y);
+//}
+
+//void TclCanvasSurface::rect(uint64_t obj_id, const Rect<float>& r)
+//{
+//    sys_vgui(".x%x create rectangle %d %d %d %d -tags {#%x}\n",
+//        window(),
+//        (int)r.left(), (int)r.top(), (int)r.right(), (int)r.bottom(),
+//        obj_id);
+//}
+
+//void TclRemote::move(uint64_t win_id, float x, float y)
+//{
+//    sys_vgui(".x%lx.c moveto #%lx %d %d\n", win_id, objectId(), (int)x, (int)y);
+//    //    sys_vgui("%s_move .x%lx #%lx %d %d\n", prefix(), win_id, objectId(), (int)x, (int)y);
+//}
+
+//void TclRemote::update(uint64_t win_id)
+//{
+//    sys_vgui("%s_update .x%lx #%lx\n", prefix(), win_id, objectId());
+//}
+
+//void TclRemote::erase(uint64_t win_id)
+//{
+//    sys_vgui(".x%lx.c delete #%lx\n", win_id, objectId());
+//    //    sys_vgui("%s_erase .x%lx #%lx\n", prefix(), win_id, objectId());
+//}
+
+//void TclRemote::select(uint64_t win_id, bool state)
+//{
+//    if (state)
+//        sys_vgui(".x%lx.c itemconfig #%lx -outline blue\n", win_id, objectId());
+//    else
+//        sys_vgui(".x%lx.c itemconfig #%lx -outline grey\n", win_id, objectId());
+
+//    //    sys_vgui("%s_select .x%lx #%lx %d\n", prefix(), win_id, objectId(), (int)state);
+//}
+
+//void TclRemote::create(uint64_t win_id, const Rect<float>& pos)
+//{
+//    sys_vgui(".x%lx.c create rectangle %d %d %d %d -fill black -outline grey -width 2 -tags #%lx\n",
+//        win_id,
+//        (int)pos.left(), (int)pos.top(), (int)pos.right(), (int)pos.bottom(),
+//        objectId());
+
+//    //    sys_vgui("%s_create .x%lx #%lx %d\n", prefix(), win_id, objectId());
+//}
