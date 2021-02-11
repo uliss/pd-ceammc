@@ -117,9 +117,7 @@ void LangFaustUiTilde::widgetPropNames(t_symbol** dest) const
 
 void LangFaustUiTilde::buildUI()
 {
-    for (auto* p : properties()) {
-        view_.addProperty(p);
-    }
+    view_.build(properties());
 }
 
 void setup_lang_faust_ui_tilde()
@@ -185,9 +183,7 @@ void WidgetIFace::showWidget(t_glist* window)
     LIB_ERR << __FUNCTION__;
     PointF pos = getRect(window).pt0();
     auto zoom = glist_getzoom(window);
-    view_.setZoom(zoom);
-    view_.setPos(pos);
-    view_.create(reinterpret_cast<IdType>(window));
+    view_.create(reinterpret_cast<IdType>(window), pos * (1.0 / zoom), zoom);
 }
 
 void WidgetIFace::hideWidget(t_glist* window)
@@ -212,15 +208,17 @@ void WidgetIFace::setSize(int w, int h)
 
 void TclHSliderImpl::create(IdType win_id, IdType id, const RectF& bbox, const SliderModelProps& mdata, const SliderViewProps& vdata)
 {
-    Rect<int> rect(bbox * zoom());
+    Rect<int> rect = transform(bbox);
+
     sys_vgui(".x%lx.c create rectangle %d %d %d %d -fill black -outline grey -width 2 -tags #%lx\n",
         win_id, rect.left(), rect.top(), rect.right(), rect.bottom(),
         id);
 }
 
-void TclHSliderImpl::move(IdType win_id, IdType id, const RectF& bbox)
+void TclHSliderImpl::updateCoords(IdType win_id, IdType id, const RectF& bbox)
 {
-    Rect<int> rect(bbox * zoom());
+    Rect<int> rect = transform(bbox);
+
     sys_vgui(".x%lx.c coords #%lx %d %d %d %d\n", win_id, id,
         rect.left(), rect.top(), rect.right(), rect.bottom());
 }
@@ -231,17 +229,19 @@ void TclHSliderImpl::update(IdType win_id, IdType id, const SliderModelProps& md
 
 void TclLabelImpl::create(IdType win_id, IdType id, const RectF& bbox, const LabelModelProps& mdata, const LabelViewProps& vdata)
 {
-    Rect<int> rect(bbox * zoom());
+    Rect<int> rect = transform(bbox);
+
     sys_vgui(".x%lx.c create text %d %d -fill black -text {%s} -font {{%s} %d} -anchor nw -width 0 -tags #%lx\n",
         win_id, rect.left(), rect.top(),
         mdata.name->s_name,
-        vdata.font_family->s_name, int(vdata.font_size * zoom()),
+        vdata.font_family->s_name, int(vdata.font_size * scale()),
         id);
 }
 
-void TclLabelImpl::move(IdType win_id, IdType id, const RectF& bbox)
+void TclLabelImpl::updateCoords(IdType win_id, IdType id, const RectF& bbox)
 {
-    Rect<int> rect(bbox * zoom());
+    Rect<int> rect = transform(bbox);
+
     sys_vgui(".x%lx.c coords #%lx %d %d\n", win_id, id,
         rect.left(), rect.top());
 }

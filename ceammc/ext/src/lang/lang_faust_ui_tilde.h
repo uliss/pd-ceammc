@@ -140,10 +140,11 @@ public:
         return *this;
     }
 
-    void normalize()
+    Rect<T>& normalize()
     {
         std::tie(x0_, x1_) = std::minmax<T>(x0_, x1_);
         std::tie(y0_, y1_) = std::minmax<T>(y0_, y1_);
+        return *this;
     }
 
     template <typename U>
@@ -160,6 +161,20 @@ public:
 
     Point<T> pt0() const { return Point<T>(x0_, y0_); }
     Point<T> pt1() const { return Point<T>(x1_, y1_); }
+
+    Rect<T>& moveBy(T dx, T dy)
+    {
+        x0_ += dx;
+        x1_ += dx;
+        y0_ += dy;
+        y1_ += dy;
+        return *this;
+    }
+
+    Rect<T> movedBy(T dx, T dy) const
+    {
+        return Rect<T>(x0_ + dx, y0_ + dy, x1_ + dx, y1_ + dy);
+    }
 };
 
 using RectF = Rect<float>;
@@ -177,28 +192,44 @@ struct EmptyType {
 
 template <typename ModelProps, typename ViewProps, typename ViewId = IdType, typename WinId = IdType>
 class ViewImplT {
-    float zoom_ { 1 };
+    float scale_ { 1 };
 
 public:
     virtual void create(WinId win_id, ViewId id, const RectF& bbox, const ModelProps& mdata, const ViewProps& vdata) = 0;
-    virtual void move(WinId win_id, ViewId id, const RectF& bbox) = 0;
     virtual void erase(WinId win_id, ViewId id) = 0;
     virtual void update(WinId win_id, ViewId id, const ModelProps& mdata, const ViewProps& vdata) = 0;
+    virtual void updateCoords(WinId win_id, ViewId id, const RectF& bbox) = 0;
 
-    float zoom() const { return zoom_; };
-    void setZoom(float f) { zoom_ = f; }
+    float scale() const { return scale_; };
+    void setScale(float f) { scale_ = f; }
+
+    PointF transform(const PointF& pt) const
+    {
+        return pt * scale_;
+    }
+
+    SizeF transform(const SizeF& sz) const
+    {
+        return sz * scale_;
+    }
+
+    RectF transform(const RectF& r) const
+    {
+        return r * scale_;
+    }
 };
 
 struct EmptyViewImpl : public ViewImplT<EmptyType, EmptyType, IdType, IdType> {
     void create(IdType win_id, IdType id, const RectF& bbox, const EmptyType& mdata, const EmptyType& vdata) { }
-    void move(IdType win_id, IdType id, const RectF& bbox) { }
     void erase(IdType win_id, IdType id) { }
     void update(IdType win_id, IdType id, const EmptyType& mdata, const EmptyType& vdata) { }
+    void updateCoords(IdType win_id, IdType id, const RectF& bbox) { }
 };
 
 class ModelViewBase {
     PointF pos_;
     SizeF size_;
+    const ModelViewBase* parent_;
 
 public:
     enum EventType {
@@ -223,6 +254,7 @@ public:
     explicit ModelViewBase(const PointF& pos, const SizeF& sz)
         : pos_(pos)
         , size_(sz)
+        , parent_(nullptr)
     {
     }
 
@@ -231,17 +263,38 @@ public:
     IdType id() const { return reinterpret_cast<IdType>(this); }
     const PointF& pos() const { return pos_; }
     const SizeF& size() const { return size_; }
-    RectF boundRect() const { return RectF(pos_, size_); }
+    RectF bbox() const { return RectF(pos_, size_); }
 
     void setPos(const PointF& pos) { pos_ = pos; }
+    void setSize(const SizeF& size) { size_ = size; }
+
+    const ModelViewBase* parent() const { return parent_; }
+    void setParent(const ModelViewBase* p) { parent_ = p; }
+
+    PointF absPos() const
+    {
+        return parent_
+            ? parent_->absPos() + pos_
+            : pos_;
+    }
+
+    RectF absBBox() const
+    {
+        if (parent_) {
+            const auto pabs = parent_->absPos();
+            return bbox().movedBy(pabs.x(), pabs.y());
+        } else
+            return bbox();
+    }
 
     // virtual
     virtual void create(IdType win) = 0;
     virtual void erase() = 0;
     virtual void update() = 0;
-    virtual void move(const PointF&) = 0;
+    virtual void updateCoords() = 0;
     virtual void layout() = 0;
-    virtual void zoom(float z) {};
+
+    virtual void setScale(float) {};
 
     virtual EventStatus onEvent(const PointF& /*pt*/, EventType /*t*/, const EventContext& /*ctx*/) { return STATUS_IGNORE; }
 };
@@ -275,7 +328,7 @@ public:
 
         ModelProps model_props;
         if (dp_->getProp(prop_id_, model_props))
-            impl_.create(win, id(), boundRect(), model_props, props_);
+            impl_.create(win, id(), absBBox(), model_props, props_);
     }
 
     void erase() override
@@ -290,17 +343,14 @@ public:
             impl_.update(win_id_, id(), model_props, props_);
     }
 
-    void move(const PointF& pt) override
+    void updateCoords() override
     {
-        impl_.move(win_id_, id(), RectF(pt + pos(), size()));
+        impl_.updateCoords(win_id_, id(), absBBox());
     }
 
-    void zoom(float z) override { impl_.setZoom(z); }
+    void setScale(float sc) override { impl_.setScale(sc); }
 
     void layout() override { }
-
-    //    ViewImpl& viewImpl() { return impl_; }
-    //    const ViewImpl& viewImpl() const { return impl_; }
 };
 
 template <class Data>
@@ -327,6 +377,7 @@ public:
     virtual void add(ViewPtr&& b)
     {
         views_.push_back(std::move(b));
+        views_.back()->setParent(this);
     }
 
     void create(IdType win) final
@@ -347,24 +398,24 @@ public:
             v->update();
     }
 
-    void move(const PointF& pos) override
+    void updateCoords() override
     {
         for (auto& v : views_)
-            v->move(pos);
+            v->updateCoords();
     }
 
     void layout() override
     {
         auto orig = this->pos();
         for (auto& v : this->views())
-            v->move(orig);
+            v->setPos(orig);
     }
 
-    void zoom(float z) override
+    void setScale(float x) override
     {
-        ModelViewBase::zoom(z);
+        ModelViewBase::setScale(x);
         for (auto& v : views_)
-            v->zoom(z);
+            v->setScale(x);
     }
 };
 
@@ -386,6 +437,24 @@ public:
     }
 };
 
+template <class Data>
+class VGroupView : public GroupView<Data> {
+public:
+    VGroupView(Data* data, const PointF& pos)
+        : GroupView<Data>(data, pos)
+    {
+    }
+
+    void layout() override
+    {
+        auto orig = this->pos();
+        for (auto& v : this->views()) {
+            v->setPos(orig);
+            orig.moveByY(v->size().height());
+        }
+    }
+};
+
 struct SliderModelProps {
     float value, min, max;
 };
@@ -402,8 +471,8 @@ struct TclViewImpl : public ViewImplT<ModelProps, ViewProps, IdType, IdType> {
 
 struct TclHSliderImpl : public TclViewImpl<SliderModelProps, SliderViewProps> {
     void create(IdType win_id, IdType id, const RectF& bbox, const SliderModelProps& mdata, const SliderViewProps& vdata) override;
-    void move(IdType win_id, IdType id, const RectF& bbox) override;
     void update(IdType win_id, IdType id, const SliderModelProps& mdata, const SliderViewProps& vdata) override;
+    void updateCoords(IdType win_id, IdType id, const RectF& bbox) override;
 };
 
 template <typename Data, typename ViewImpl>
@@ -435,8 +504,8 @@ struct LabelViewProps {
 
 struct TclLabelImpl : public TclViewImpl<LabelModelProps, LabelViewProps> {
     void create(IdType win_id, IdType id, const RectF& bbox, const LabelModelProps& mdata, const LabelViewProps& vdata) override;
-    void move(IdType win_id, IdType id, const RectF& bbox) override;
     void update(IdType win_id, IdType id, const LabelModelProps& mdata, const LabelViewProps& vdata) override;
+    void updateCoords(IdType win_id, IdType id, const RectF& bbox) override;
 };
 
 template <typename Data, typename ViewImpl>
@@ -488,34 +557,50 @@ public:
     }
 };
 
+class FaustVGroupView : public VGroupView<FaustMasterView> {
+public:
+    FaustVGroupView(FaustMasterView* master, const PointF& pos)
+        : VGroupView<FaustMasterView>(master, pos)
+    {
+    }
+};
+
 class FaustMasterView {
-    PointF pos_;
-    std::vector<ModelViewBase*> items_;
     std::vector<const Property*> props_;
+    FaustVGroupView vview_;
 
 public:
-    void create(IdType win)
+    FaustMasterView()
+        : vview_(this, {})
     {
-        for (auto v : items_)
-            v->create(win);
+    }
+
+    void create(IdType win, const PointF& pos, float zoom)
+    {
+        vview_.setPos(pos);
+        vview_.setScale(zoom);
+        vview_.create(win);
     }
 
     void erase()
     {
-        for (auto& v : items_)
-            v->erase();
+        vview_.erase();
     }
 
     void update()
     {
-        for (auto& v : items_)
-            v->update();
+        vview_.update();
     }
 
     void move(const PointF& pos)
     {
-        for (auto& v : items_)
-            v->move(pos);
+        vview_.setPos(pos);
+        vview_.updateCoords();
+    }
+
+    void layout()
+    {
+        vview_.layout();
     }
 
     bool getProp(PropId idx, SliderModelProps& dest) const
@@ -524,18 +609,6 @@ public:
             return false;
 
         return true;
-    }
-
-    void layout()
-    {
-        for (auto& v : items_)
-            v->layout();
-    }
-
-    void setZoom(float z)
-    {
-        for (auto& v : items_)
-            v->zoom(z);
     }
 
     bool getProp(PropId idx, LabelModelProps& dest) const
@@ -557,6 +630,14 @@ public:
         return true;
     }
 
+    void build(const std::vector<Property*>& props)
+    {
+        for (auto* p : props)
+            addProperty(p);
+
+        layout();
+    }
+
     void addProperty(const Property* p)
     {
         using ViewPtr = std::unique_ptr<ModelViewBase>;
@@ -566,11 +647,11 @@ public:
 
         switch (p->type()) {
         case PropValueType::FLOAT: {
-            auto hg = new FaustHGroupView(this, pos_);
-            items_.push_back(hg);
-            hg->add(ViewPtr(new FaustHSliderView(this, 0, prop_id, pos_, {})));
-            hg->add(ViewPtr(new FaustLabelView(this, 0, prop_id, pos_, label_vprops)));
+            auto hg = new FaustHGroupView(this, {});
+            hg->add(ViewPtr(new FaustHSliderView(this, 0, prop_id, {}, {})));
+            hg->add(ViewPtr(new FaustLabelView(this, 0, prop_id, {}, label_vprops)));
             hg->layout();
+            vview_.add(ViewPtr(hg));
         } break;
         default:
             break;
@@ -578,8 +659,6 @@ public:
 
         props_.push_back(p);
     }
-
-    void setPos(const PointF& pos) { pos_ = pos; }
 };
 
 class WidgetIFace {
