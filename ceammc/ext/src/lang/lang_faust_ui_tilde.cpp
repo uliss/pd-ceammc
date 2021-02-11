@@ -90,6 +90,7 @@ LangFaustUiTilde::LangFaustUiTilde(const PdArgs& args)
 
     addProperty(new FloatProperty("@a", 100));
     addProperty(new FloatProperty("@b", 100));
+    addProperty(new FloatProperty("@c", -100));
 
     buildUI();
 }

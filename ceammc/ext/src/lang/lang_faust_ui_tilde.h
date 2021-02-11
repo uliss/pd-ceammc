@@ -652,10 +652,6 @@ public:
 };
 
 class WidgetIFace {
-public:
-    //    using WidgetViewPtr = std::unique_ptr<WidgetView>;
-    //    using WidgetViewList = std::vector<WidgetViewPtr>;
-
 private:
     t_object* x_;
     t_glist* widget_parent_;
@@ -664,14 +660,11 @@ private:
 
 protected:
     FaustMasterView view_;
-    //    WidgetViewList view_list_;
 
 public:
     WidgetIFace(t_object* x, t_glist* widget_parent);
     // pure virtual
     virtual ~WidgetIFace();
-
-    //    void addView(WidgetViewPtr&& v);
 
     virtual Rect<int> getRealRect(t_glist* window) const final;
     virtual Rect<int> getRect(t_glist* window) const final;
