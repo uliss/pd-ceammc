@@ -14,6 +14,8 @@
 #ifndef CEAMMC_NUI_SIZE_H
 #define CEAMMC_NUI_SIZE_H
 
+#include "ceammc_nui_point.h"
+
 #include <cstdint>
 
 namespace ceammc {
@@ -33,6 +35,13 @@ namespace ui {
             : w_(w)
             , h_(h)
         {
+        }
+
+        template <typename U>
+        SizeT(const SizeT<U>& sz)
+        {
+            w_ = sz.width();
+            h_ = sz.height();
         }
 
         T width() const { return w_; }
@@ -64,6 +73,16 @@ namespace ui {
         bool operator!=(const SizeT<T>& sz) const
         {
             return !this->operator==(sz);
+        }
+
+        PointT<T> center() const
+        {
+            return PointT<T>(w_ / 2, h_ / 2);
+        }
+
+        PointT<T> leftCenter() const
+        {
+            return PointT<T>(0, h_ / 2);
         }
 
         T area() const { return w_ * h_; }

@@ -14,6 +14,7 @@
 #ifndef LANG_FAUST_UI_TILDE_H
 #define LANG_FAUST_UI_TILDE_H
 
+#include "ceammc_nui.h"
 #include "ceammc_nui_rect.h"
 #include "ceammc_sound_external.h"
 
@@ -155,8 +156,8 @@ private:
     PropId prop_id_;
 
 public:
-    ModelView(DataProvider* dp, IdType win_id, PropId prop_id, const PointF& pos, const ViewProps& vprops)
-        : ModelViewBase(pos, SizeF(10, 10))
+    ModelView(DataProvider* dp, IdType win_id, PropId prop_id, const PointF& pos, const SizeF& sz, const ViewProps& vprops)
+        : ModelViewBase(pos, sz)
         , dp_(dp)
         , props_(vprops)
         , prop_id_(prop_id)
@@ -208,7 +209,7 @@ public:
         : ModelView<Data,
             EmptyType,
             EmptyType,
-            EmptyViewImpl>(data, 0, 0, pos, {})
+            EmptyViewImpl>(data, 0, 0, pos, {}, {})
     {
     }
 
@@ -255,6 +256,8 @@ public:
 
 template <class Data>
 class HGroupView : public GroupView<Data> {
+    float space_ { 3 };
+
 public:
     HGroupView(Data* data, const PointF& pos)
         : GroupView<Data>(data, pos)
@@ -266,13 +269,30 @@ public:
         auto orig = this->pos();
         for (auto& v : this->views()) {
             v->setPos(orig);
+            orig.rx() += space_;
             orig.rx() += v->size().width();
         }
+
+        float b = 0;
+        float r = 0;
+
+        for (auto& v : this->views()) {
+            r = std::max<float>(r, v->bbox().right());
+            b = std::max<float>(b, v->bbox().bottom());
+        }
+
+        auto p = this->pos();
+        this->setSize(SizeF(r - p.x(), b - p.y()));
     }
+
+    float space() const { return space_; }
+    void setSpace(float s) { space_ = s; }
 };
 
 template <class Data>
 class VGroupView : public GroupView<Data> {
+    float space_ { 3 };
+
 public:
     VGroupView(Data* data, const PointF& pos)
         : GroupView<Data>(data, pos)
@@ -284,6 +304,7 @@ public:
         auto orig = this->pos();
         for (auto& v : this->views()) {
             v->setPos(orig);
+            orig.ry() += space_;
             orig.ry() += v->size().height();
         }
     }
@@ -294,12 +315,22 @@ struct SliderModelProps {
 };
 
 struct SliderViewProps {
-    SizeF size;
-    uint32_t bd_color;
-    uint32_t bg_color;
-    uint32_t knob_color;
-    int8_t style_idx;
+    HexColor bd_color { colors::st_border };
+    HexColor bg_color { colors::st_backgr };
+    HexColor kn_color { colors::st_active };
+    int8_t style_idx { 0 };
     bool log_scale;
+
+    SliderViewProps() { }
+
+    SliderViewProps(int8_t style)
+        : style_idx(style)
+    {
+        using sc = StyleCollection;
+        bd_color = sc::color(style, "slider:border"_hash, bd_color);
+        bg_color = sc::color(style, "slider:backgr"_hash, bg_color);
+        kn_color = sc::color(style, "slider:knob"_hash, kn_color);
+    }
 };
 
 template <typename ModelProps, typename ViewProps>
@@ -322,11 +353,11 @@ class HSliderView : public ModelView<Data,
                         SliderViewProps,
                         ViewImpl> {
 public:
-    HSliderView(Data* dp, IdType win_id, PropId prop_idx, const PointF& pos, const SliderViewProps& vprops)
+    HSliderView(Data* dp, IdType win_id, PropId prop_idx, const PointF& pos, const SizeF& sz, const SliderViewProps& vprops)
         : ModelView<Data,
             SliderModelProps,
             SliderViewProps,
-            ViewImpl>(dp, win_id, prop_idx, pos, vprops)
+            ViewImpl>(dp, win_id, prop_idx, pos, sz, vprops)
     {
     }
 };
@@ -355,11 +386,11 @@ class LabelView : public ModelView<Data,
                       LabelViewProps,
                       ViewImpl> {
 public:
-    LabelView(Data* dp, IdType win_id, PropId prop_idx, const PointF& pos, const LabelViewProps& vprops)
+    LabelView(Data* dp, IdType win_id, PropId prop_idx, const PointF& pos, const SizeF& sz, const LabelViewProps& vprops)
         : ModelView<Data,
             LabelModelProps,
             LabelViewProps,
-            ViewImpl>(dp, win_id, prop_idx, pos, vprops)
+            ViewImpl>(dp, win_id, prop_idx, pos, sz, vprops)
     {
     }
 };
@@ -368,16 +399,16 @@ class FaustMasterView;
 
 class FaustHSliderView : public HSliderView<FaustMasterView, TclHSliderImpl> {
 public:
-    FaustHSliderView(FaustMasterView* master, IdType win_id, PropId prop_idx, const PointF& pos, const SliderViewProps& vprops)
-        : HSliderView<FaustMasterView, TclHSliderImpl>(master, win_id, prop_idx, pos, vprops)
+    FaustHSliderView(FaustMasterView* master, IdType win_id, PropId prop_idx, const PointF& pos, const SizeF& sz, const SliderViewProps& vprops)
+        : HSliderView<FaustMasterView, TclHSliderImpl>(master, win_id, prop_idx, pos, sz, vprops)
     {
     }
 };
 
 class FaustLabelView : public LabelView<FaustMasterView, TclLabelImpl> {
 public:
-    FaustLabelView(FaustMasterView* master, IdType win_id, PropId prop_idx, const PointF& pos, const LabelViewProps& vprops)
-        : LabelView<FaustMasterView, TclLabelImpl>(master, win_id, prop_idx, pos, vprops)
+    FaustLabelView(FaustMasterView* master, IdType win_id, PropId prop_idx, const PointF& pos, const SizeF& sz, const LabelViewProps& vprops)
+        : LabelView<FaustMasterView, TclLabelImpl>(master, win_id, prop_idx, pos, sz, vprops)
     {
     }
 };
@@ -491,16 +522,20 @@ public:
     void addProperty(const Property* p)
     {
         using ViewPtr = std::unique_ptr<ModelViewBase>;
+        using SC = StyleCollection;
 
         const LabelViewProps label_vprops { gensym("Helvetica"), &s_, &s_, 16 };
-        const SliderViewProps slider_vprops { SizeF(), 0x000000, 0xFFFFFF, 0xFAFA00, 0, false };
+        const SizeF lbl_size = SC::size(0, "label"_hash, Size(40, 16));
+        const SizeF hsl_size = SC::size(0, "hslider"_hash, Size(100, 16));
+        const SliderViewProps slider_vprops;
+
         PropId prop_id = props_.size();
 
         switch (p->type()) {
         case PropValueType::FLOAT: {
             auto hg = new FaustHGroupView(this, {});
-            hg->add(ViewPtr(new FaustHSliderView(this, 0, prop_id, {}, slider_vprops)));
-            hg->add(ViewPtr(new FaustLabelView(this, 0, prop_id, {}, label_vprops)));
+            hg->add(ViewPtr(new FaustHSliderView(this, 0, prop_id, {}, hsl_size, slider_vprops)));
+            hg->add(ViewPtr(new FaustLabelView(this, 0, prop_id, hsl_size.leftCenter(), lbl_size, label_vprops)));
             hg->layout();
             vview_.add(ViewPtr(hg));
         } break;

@@ -222,7 +222,7 @@ void TclHSliderImpl::create(IdType win_id, IdType id, const RectF& bbox, const S
 
     sys_vgui(".x%lx.c create line %d %d %d %d -fill #%6.6x -width 2 -tags {#%lx_kn}\n",
         win_id, ki.left(), ki.top(), ki.right(), ki.bottom(),
-        vdata.knob_color,
+        vdata.kn_color,
         id);
 }
 

@@ -27,6 +27,11 @@ namespace ui {
         T x0_, y0_, x1_, y1_;
 
     public:
+        RectT()
+            : RectT(0, 0, 0, 0)
+        {
+        }
+
         RectT(T x0, T y0, T x1, T y1)
             : x0_(x0)
             , y0_(y0)

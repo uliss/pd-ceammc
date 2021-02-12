@@ -36,19 +36,23 @@ namespace ui {
     }
 
     namespace colors {
-        HexColor make_rgb(uint8_t r, uint8_t g, uint8_t b, uint8_t alpha = 0xff)
+        static inline HexColor make_rgb(uint8_t r, uint8_t g, uint8_t b, uint8_t opacity = 0x00)
         {
-            return (alpha << 24) | (r << 16) | (g << 8) | b;
+            return (opacity << 24) | (r << 16) | (g << 8) | b;
         }
 
-        constexpr HexColor white = 0xFFFFFFFF;
-        constexpr HexColor black = 0xFF000000;
-        constexpr HexColor dark = 0xFF222222;
+        constexpr HexColor white = 0x00FFFFFF;
+        constexpr HexColor black = 0x00000000;
+        constexpr HexColor dark = 0x00222222;
         constexpr HexColor alpha_mask = 0xFF000000;
         constexpr HexColor rbg_mask = 0x00FFFFFF;
         constexpr HexColor red = 0xFF0000 | alpha_mask;
         constexpr HexColor green = 0x00FF00 | alpha_mask;
         constexpr HexColor blue = 0x0000FF | alpha_mask;
+
+        constexpr HexColor st_border = 0x00222222;
+        constexpr HexColor st_backgr = 0x00FAFAFA;
+        constexpr HexColor st_active = 0x00FA00FA;
     }
 }
 }

@@ -55,6 +55,9 @@ namespace ui {
 
     using StyleKey = size_t;
 
+#define KEY_COLOR_BACKGROUND(el) hasher<std::string>()(#el ":bg")
+#define KEY_COLOR_BORDER(el) hasher<std::string>()(#el ":bd")
+
     class Style {
         std::unordered_map<StyleKey, HexColor> colors;
         std::unordered_map<StyleKey, Size> sizes;
