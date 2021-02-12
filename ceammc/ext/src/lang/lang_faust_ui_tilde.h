@@ -14,172 +14,15 @@
 #ifndef LANG_FAUST_UI_TILDE_H
 #define LANG_FAUST_UI_TILDE_H
 
+#include "ceammc_nui_rect.h"
 #include "ceammc_sound_external.h"
+
 using namespace ceammc;
+using namespace ceammc::ui;
 
 #include <algorithm>
+#include <unordered_map>
 
-template <typename T>
-class Size {
-    T w_, h_;
-
-public:
-    Size()
-        : Size(0, 0)
-    {
-    }
-
-    Size(T w, T h)
-        : w_(w)
-        , h_(h)
-    {
-    }
-
-    template <typename U>
-    Size<T> operator*(U x) const { return Size<T>(w_ * x, h_ * x); }
-
-    T width() const { return w_; }
-    T height() const { return h_; }
-};
-
-template <typename T>
-class Point {
-    T x_, y_;
-
-public:
-    Point()
-        : Point(0, 0)
-    {
-    }
-
-    Point(T x, T y)
-        : x_(x)
-        , y_(y)
-    {
-    }
-
-    template <typename U>
-    Point(const Point<U>& pt)
-        : x_(pt.x())
-        , y_(pt.y())
-    {
-    }
-
-    T x() const { return x_; }
-    T y() const { return y_; }
-
-    void moveByX(T x) { x_ += x; }
-    void moveByY(T y) { y_ += y; }
-
-    Point<T> operator+(const Point<T>& pt) const
-    {
-        return Point<T>(x_ + pt.x_, y_ + pt.y_);
-    }
-
-    template <typename U>
-    Point<T> operator*(U x) const { return Point<T>(x_ * x, y_ * x); }
-};
-
-template <typename T>
-class Rect {
-    T x0_, y0_, x1_, y1_;
-
-public:
-    Rect(T x0, T y0, T x1, T y1)
-        : x0_(x0)
-        , y0_(y0)
-        , x1_(x1)
-        , y1_(y1)
-    {
-    }
-
-    Rect(T x, T y, const Size<T>& sz)
-        : x0_(x)
-        , y0_(y)
-        , x1_(x + sz.width())
-        , y1_(y + sz.height())
-    {
-    }
-
-    Rect(const Point<T>& pt, const Size<T>& sz)
-        : Rect(pt.x(), pt.y(), sz)
-    {
-    }
-
-    template <typename U>
-    Rect(const Point<U>& pt, const Size<U>& sz)
-        : Rect<T>(pt.x(), pt.y(), pt.x() + sz.width(), pt.y() + sz.height())
-    {
-    }
-
-    template <typename U>
-    Rect(const Rect<U>& r)
-    {
-        x0_ = r.left();
-        x1_ = r.right();
-        y0_ = r.top();
-        y1_ = r.bottom();
-    }
-
-    Rect& operator=(const Rect& r)
-    {
-        x0_ = r.x0_;
-        x1_ = r.x1_;
-        y0_ = r.y0_;
-        y1_ = r.y1_;
-        return *this;
-    }
-
-    template <typename U>
-    Rect<T>& operator=(const Rect<U>& r)
-    {
-        x0_ = r.x0_;
-        x1_ = r.x1_;
-        y0_ = r.y0_;
-        y1_ = r.y1_;
-        return *this;
-    }
-
-    Rect<T>& normalize()
-    {
-        std::tie(x0_, x1_) = std::minmax<T>(x0_, x1_);
-        std::tie(y0_, y1_) = std::minmax<T>(y0_, y1_);
-        return *this;
-    }
-
-    template <typename U>
-    Rect<T> operator*(U x) const { return Rect<T>(x0_ * x, y0_ * x, x1_ * x, y1_ * x); }
-
-    T width() const { return x1_ - x0_; }
-    T height() const { return y1_ - y0_; }
-    T left() const { return x0_; }
-    T top() const { return y0_; }
-    T right() const { return x1_; }
-    T bottom() const { return y1_; }
-
-    Size<T> size() const { return Size<T>(width(), height()); }
-
-    Point<T> pt0() const { return Point<T>(x0_, y0_); }
-    Point<T> pt1() const { return Point<T>(x1_, y1_); }
-
-    Rect<T>& moveBy(T dx, T dy)
-    {
-        x0_ += dx;
-        x1_ += dx;
-        y0_ += dy;
-        y1_ += dy;
-        return *this;
-    }
-
-    Rect<T> movedBy(T dx, T dy) const
-    {
-        return Rect<T>(x0_ + dx, y0_ + dy, x1_ + dx, y1_ + dy);
-    }
-};
-
-using RectF = Rect<float>;
-using PointF = Point<float>;
-using SizeF = Size<float>;
 struct EventContext {
     uint32_t key;
     uint8_t button;
@@ -282,7 +125,7 @@ public:
     {
         if (parent_) {
             const auto pabs = parent_->absPos();
-            return bbox().movedBy(pabs.x(), pabs.y());
+            return bbox().moveBy(pabs);
         } else
             return bbox();
     }
@@ -423,7 +266,7 @@ public:
         auto orig = this->pos();
         for (auto& v : this->views()) {
             v->setPos(orig);
-            orig.moveByX(v->size().width());
+            orig.rx() += v->size().width();
         }
     }
 };
@@ -441,7 +284,7 @@ public:
         auto orig = this->pos();
         for (auto& v : this->views()) {
             v->setPos(orig);
-            orig.moveByY(v->size().height());
+            orig.ry() += v->size().height();
         }
     }
 };
@@ -450,7 +293,14 @@ struct SliderModelProps {
     float value, min, max;
 };
 
-using SliderViewProps = std::tuple<SizeF, bool, int8_t, uint32_t, uint32_t, uint32_t>;
+struct SliderViewProps {
+    SizeF size;
+    uint32_t bd_color;
+    uint32_t bg_color;
+    uint32_t knob_color;
+    int8_t style_idx;
+    bool log_scale;
+};
 
 template <typename ModelProps, typename ViewProps>
 struct TclViewImpl : public ViewImplT<ModelProps, ViewProps, IdType, IdType> {
@@ -598,6 +448,16 @@ public:
         if (idx >= props_.size())
             return false;
 
+        auto p = dynamic_cast<const FloatProperty*>(props_[idx]);
+        if (!p)
+            return false;
+
+        dest.value = p->value();
+        if (p->info().hasConstraintsMin() && p->info().hasConstraintsMax()) {
+            dest.max = p->info().maxFloat();
+            dest.min = p->info().minFloat();
+        }
+
         return true;
     }
 
@@ -633,12 +493,13 @@ public:
         using ViewPtr = std::unique_ptr<ModelViewBase>;
 
         const LabelViewProps label_vprops { gensym("Helvetica"), &s_, &s_, 16 };
+        const SliderViewProps slider_vprops { SizeF(), 0x000000, 0xFFFFFF, 0xFAFA00, 0, false };
         PropId prop_id = props_.size();
 
         switch (p->type()) {
         case PropValueType::FLOAT: {
             auto hg = new FaustHGroupView(this, {});
-            hg->add(ViewPtr(new FaustHSliderView(this, 0, prop_id, {}, {})));
+            hg->add(ViewPtr(new FaustHSliderView(this, 0, prop_id, {}, slider_vprops)));
             hg->add(ViewPtr(new FaustLabelView(this, 0, prop_id, {}, label_vprops)));
             hg->layout();
             vview_.add(ViewPtr(hg));
@@ -656,7 +517,7 @@ private:
     t_object* x_;
     t_glist* widget_parent_;
     t_glist* widget_canvas_;
-    Size<int> size_;
+    Size size_;
 
 protected:
     FaustMasterView view_;
@@ -666,8 +527,8 @@ public:
     // pure virtual
     virtual ~WidgetIFace();
 
-    virtual Rect<int> getRealRect(t_glist* window) const final;
-    virtual Rect<int> getRect(t_glist* window) const final;
+    virtual Rect getRealRect(t_glist* window) const final;
+    virtual Rect getRect(t_glist* window) const final;
 
     virtual void displaceWidget(t_glist* window, int dx, int dy) final;
     virtual void deleteWidget(t_glist* window) final;

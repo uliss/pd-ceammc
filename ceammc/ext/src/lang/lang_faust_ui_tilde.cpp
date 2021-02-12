@@ -88,9 +88,9 @@ LangFaustUiTilde::LangFaustUiTilde(const PdArgs& args)
 {
     setSize(100, 50);
 
-    addProperty(new FloatProperty("@a", 100));
-    addProperty(new FloatProperty("@b", 100));
-    addProperty(new FloatProperty("@c", -100));
+    addProperty(new FloatProperty("@a", 100))->setFloatCheck(PropValueConstraints::CLOSED_RANGE, 50, 200);
+    addProperty(new FloatProperty("@b", 100))->setFloatCheck(PropValueConstraints::CLOSED_RANGE, 50, 200);
+    addProperty(new FloatProperty("@c", -100))->setFloatCheck(PropValueConstraints::CLOSED_RANGE, 50, 200);
 
     buildUI();
 }
@@ -138,15 +138,15 @@ WidgetIFace::~WidgetIFace()
 {
 }
 
-Rect<int> WidgetIFace::getRealRect(t_glist* window) const
+Rect WidgetIFace::getRealRect(t_glist* window) const
 {
-    return Rect<int>(text_xpix(x_, window), text_ypix(x_, window), size_);
+    return Rect(text_xpix(x_, window), text_ypix(x_, window), size_);
 }
 
-Rect<int> WidgetIFace::getRect(t_glist* window) const
+Rect WidgetIFace::getRect(t_glist* window) const
 {
     auto z = window->gl_zoom;
-    return Rect<int>(text_xpix(x_, window), text_ypix(x_, window), size_ * z);
+    return Rect(text_xpix(x_, window), text_ypix(x_, window), size_ * z);
 }
 
 void WidgetIFace::displaceWidget(t_glist* window, int dx, int dy)
@@ -202,23 +202,33 @@ bool WidgetIFace::visible() const
 
 void WidgetIFace::setSize(int w, int h)
 {
-    size_ = Size<int>(w, h);
+    size_ = Size(w, h);
     //    if(visible())
     //        upda
 }
 
 void TclHSliderImpl::create(IdType win_id, IdType id, const RectF& bbox, const SliderModelProps& mdata, const SliderViewProps& vdata)
 {
-    Rect<int> rect = transform(bbox);
+    Rect rect = transform(bbox);
 
-    sys_vgui(".x%lx.c create rectangle %d %d %d %d -fill black -outline grey -width 2 -tags #%lx\n",
+    sys_vgui(".x%lx.c create rectangle %d %d %d %d -fill #%6.6x -outline #%6.6x -width 1 -tags {#%lx}\n",
         win_id, rect.left(), rect.top(), rect.right(), rect.bottom(),
+        vdata.bg_color, vdata.bd_color,
+        id);
+
+    const float r = (mdata.value - mdata.min) / (mdata.max - mdata.min);
+    RectF kpt(bbox.width() * r + bbox.left(), bbox.top(), SizeF(0, bbox.height()));
+    Rect ki = transform(kpt);
+
+    sys_vgui(".x%lx.c create line %d %d %d %d -fill #%6.6x -width 2 -tags {#%lx_kn}\n",
+        win_id, ki.left(), ki.top(), ki.right(), ki.bottom(),
+        vdata.knob_color,
         id);
 }
 
 void TclHSliderImpl::updateCoords(IdType win_id, IdType id, const RectF& bbox)
 {
-    Rect<int> rect = transform(bbox);
+    Rect rect = transform(bbox);
 
     sys_vgui(".x%lx.c coords #%lx %d %d %d %d\n", win_id, id,
         rect.left(), rect.top(), rect.right(), rect.bottom());
@@ -230,9 +240,9 @@ void TclHSliderImpl::update(IdType win_id, IdType id, const SliderModelProps& md
 
 void TclLabelImpl::create(IdType win_id, IdType id, const RectF& bbox, const LabelModelProps& mdata, const LabelViewProps& vdata)
 {
-    Rect<int> rect = transform(bbox);
+    Rect rect = transform(bbox);
 
-    sys_vgui(".x%lx.c create text %d %d -fill black -text {%s} -font {{%s} %d} -anchor nw -width 0 -tags #%lx\n",
+    sys_vgui(".x%lx.c create text %d %d -fill black -text {%s} -font {{%s} %d} -anchor nw -width 0 -tags {#%lx}\n",
         win_id, rect.left(), rect.top(),
         mdata.name->s_name,
         vdata.font_family->s_name, int(vdata.font_size * scale()),
@@ -241,7 +251,7 @@ void TclLabelImpl::create(IdType win_id, IdType id, const RectF& bbox, const Lab
 
 void TclLabelImpl::updateCoords(IdType win_id, IdType id, const RectF& bbox)
 {
-    Rect<int> rect = transform(bbox);
+    Rect rect = transform(bbox);
 
     sys_vgui(".x%lx.c coords #%lx %d %d\n", win_id, id,
         rect.left(), rect.top());
