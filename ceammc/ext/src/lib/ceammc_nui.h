@@ -18,6 +18,8 @@
 #include <string>
 #include <unordered_map>
 
+#include "ceammc_nui_color.h"
+#include "ceammc_nui_font.h"
 #include "ceammc_nui_rect.h"
 
 namespace ceammc {
@@ -44,47 +46,36 @@ namespace ui {
     }
 
     inline namespace literals {
-        std::size_t constexpr operator"" _s(const char* s, size_t)
+        std::size_t constexpr operator"" _hash(const char* s, size_t)
         {
             return hasher<std::string>()(s);
         }
     }
 
-    struct Style {
+    class Style {
+    public:
         using Key = size_t;
-        using HexColor = uint32_t;
+
+    private:
         std::unordered_map<Key, HexColor> colors;
-        std::unordered_map<Key, Size> min_sizes;
-        std::unordered_map<Key, Size> max_sizes;
-        std::unordered_map<Key, Size> default_sizes;
+        std::unordered_map<Key, Size> sizes;
+        std::unordered_map<Key, Font> fonts;
 
-        bool hasColor(size_t key) const { return colors.find(key) != colors.end(); }
-        bool getColor(size_t key, HexColor& c) const
-        {
-            auto it = colors.find(key);
-            if (it == colors.end())
-                return false;
+    public:
+        bool hasColor(Key key) const;
+        bool getColor(Key key, HexColor& c) const;
+        HexColor getColorWithDef(Key key, HexColor def) const;
 
-            c = it->second;
-            return true;
-        }
+        bool hasSize(Key key) const;
+        bool getSize(Key key, Size& sz) const;
+        Size getSizeWithDef(Key key, const Size& sz) const;
 
-        HexColor getBorderColor(HexColor def = 0xFFFFFFFF) const
-        {
-            getColor("border_color"_s, def);
-            return def;
-        }
+        bool hasFont(Key key) const;
+        bool getFont(Key key, Font& ft) const;
 
-        bool hasDefaultSize(size_t key) const { return default_sizes.find(key) != default_sizes.end(); }
-        bool getDefaultSize(size_t key, Size& sz) const
-        {
-            auto it = default_sizes.find(key);
-            if (it == default_sizes.end())
-                return false;
-
-            sz = it->second;
-            return true;
-        }
+        bool insertColor(Key key, HexColor c);
+        bool insertSize(Key key, const Size& sz);
+        bool insertFont(Key key, const Font& ft);
     };
 
 }
