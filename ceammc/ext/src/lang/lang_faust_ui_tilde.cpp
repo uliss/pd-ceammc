@@ -118,7 +118,8 @@ void LangFaustUiTilde::widgetPropNames(t_symbol** dest) const
 
 void LangFaustUiTilde::buildUI()
 {
-    view_.build(properties());
+    auto sz = view_.build(properties());
+    setSize(sz.width(), sz.height());
 }
 
 void setup_lang_faust_ui_tilde()
@@ -203,8 +204,6 @@ bool WidgetIFace::visible() const
 void WidgetIFace::setSize(int w, int h)
 {
     size_ = Size(w, h);
-    //    if(visible())
-    //        upda
 }
 
 void TclHSliderImpl::create(IdType win_id, IdType id, const RectF& bbox, const SliderModelProps& mdata, const SliderViewProps& vdata)

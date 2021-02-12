@@ -630,12 +630,13 @@ public:
         return true;
     }
 
-    void build(const std::vector<Property*>& props)
+    Size build(const std::vector<Property*>& props)
     {
         for (auto* p : props)
             addProperty(p);
 
         layout();
+        return vframe_.size();
     }
 
     void addProperty(const Property* p)
