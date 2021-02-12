@@ -15,7 +15,7 @@
 #define CEAMMC_NUI_FONT_H
 
 #include <cstdint>
-#include <string>
+#include <cstring>
 
 namespace ceammc {
 namespace ui {
@@ -32,17 +32,40 @@ namespace ui {
 
     enum class FontVariant : uint8_t {
         NORMAL,
-        SMALL_CAPS
+        SMALLCAPS
     };
 
     constexpr const char* FONT_FAMILY_DEFAULT = "Helvetica";
+    constexpr uint16_t FONT_SIZE_DEFAULT = 8;
 
-    struct Font {
-        std::string family { FONT_FAMILY_DEFAULT };
-        uint16_t size { 8 };
-        FontStyle style { FontStyle::NORMAL };
-        FontWeight weight { FontWeight::NORMAL };
-        FontVariant variant { FontVariant::NORMAL };
+    class Font {
+        static const uint32_t MAX_SIZE = 32;
+
+    private:
+        char family_[MAX_SIZE + 1] { 0 };
+        uint16_t size_;
+        FontStyle style_;
+        FontWeight weight_;
+        FontVariant variant_;
+
+    public:
+        Font(const char* family = FONT_FAMILY_DEFAULT,
+            uint16_t size = FONT_SIZE_DEFAULT)
+            : size_(size)
+            , style_(FontStyle::NORMAL)
+            , weight_(FontWeight::NORMAL)
+            , variant_(FontVariant::NORMAL)
+        {
+            family_[0] = '\0';
+            family_[MAX_SIZE] = '\0';
+            std::strncpy(family_, family, MAX_SIZE);
+        }
+
+        const char* family() const { return family_; }
+        int size() const { return size_; }
+        const char* style() const { return style_ == FontStyle::ITALIC ? "italic" : "normal"; }
+        const char* weight() const { return weight_ == FontWeight::BOLD ? "bold" : "normal"; }
+        const char* variant() const { return variant_ == FontVariant::SMALLCAPS ? "smallcaps" : "normal"; }
     };
 
 }

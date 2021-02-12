@@ -16,12 +16,12 @@
 namespace ceammc {
 namespace ui {
 
-    bool Style::hasColor(size_t key) const
+    bool Style::hasColor(StyleKey key) const
     {
         return colors.find(key) != colors.end();
     }
 
-    bool Style::getColor(size_t key, HexColor& c) const
+    bool Style::getColor(StyleKey key, HexColor& c) const
     {
         auto it = colors.find(key);
         if (it == colors.end())
@@ -31,18 +31,18 @@ namespace ui {
         return true;
     }
 
-    HexColor Style::getColorWithDef(size_t key, HexColor def) const
+    HexColor Style::getColorWithDef(StyleKey key, HexColor def) const
     {
         getColor(key, def);
         return def;
     }
 
-    bool Style::hasSize(size_t key) const
+    bool Style::hasSize(StyleKey key) const
     {
         return sizes.find(key) == sizes.end();
     }
 
-    bool Style::getSize(size_t key, Size& sz) const
+    bool Style::getSize(StyleKey key, Size& sz) const
     {
         auto it = sizes.find(key);
         if (it == sizes.end())
@@ -52,18 +52,18 @@ namespace ui {
         return true;
     }
 
-    Size Style::getSizeWithDef(size_t key, const Size& sz) const
+    Size Style::getSizeWithDef(StyleKey key, const Size& sz) const
     {
         Size res;
         return getSize(key, res) ? res : sz;
     }
 
-    bool Style::hasFont(size_t key) const
+    bool Style::hasFont(StyleKey key) const
     {
         return fonts.find(key) == fonts.end();
     }
 
-    bool Style::getFont(size_t key, Font& ft) const
+    bool Style::getFont(StyleKey key, Font& ft) const
     {
         auto it = fonts.find(key);
         if (it == fonts.end())
@@ -73,7 +73,13 @@ namespace ui {
         return true;
     }
 
-    bool Style::insertColor(size_t key, HexColor c)
+    Font Style::getFontWithDef(StyleKey key, const Font& ft) const
+    {
+        Font res;
+        return getFont(key, res) ? res : ft;
+    }
+
+    bool Style::insertColor(StyleKey key, HexColor c)
     {
         if (hasColor(key))
             return false;
@@ -82,7 +88,7 @@ namespace ui {
         return true;
     }
 
-    bool Style::insertSize(Style::Key key, const Size& sz)
+    bool Style::insertSize(StyleKey key, const Size& sz)
     {
         if (hasSize(key))
             return false;
@@ -91,7 +97,7 @@ namespace ui {
         return true;
     }
 
-    bool Style::insertFont(Style::Key key, const Font& ft)
+    bool Style::insertFont(StyleKey key, const Font& ft)
     {
         if (hasFont(key))
             return false;
@@ -100,5 +106,72 @@ namespace ui {
         return true;
     }
 
+    StyleCollection::StyleCollection()
+    {
+    }
+
+    StyleCollection& StyleCollection::instance()
+    {
+        static StyleCollection instance_;
+        return instance_;
+    }
+
+    const Style* StyleCollection::style(int idx)
+    {
+        return instance().getStyle(idx);
+    }
+
+    HexColor StyleCollection::color(int styleIdx, StyleKey key, HexColor def)
+    {
+        return instance().getColor(styleIdx, key, def);
+    }
+
+    Size StyleCollection::size(int styleIdx, StyleKey key, const Size& def)
+    {
+        return instance().getSize(styleIdx, key, def);
+    }
+
+    Font StyleCollection::font(int styleIdx, StyleKey key, const Font& def)
+    {
+        return instance().getFont(styleIdx, key, def);
+    }
+
+    const Style* StyleCollection::getStyle(int idx) const
+    {
+        if (idx < 0)
+            return 0;
+
+        idx--;
+        return (idx < 0 || idx >= styles_.size())
+            ? &default_
+            : &styles_[idx];
+    }
+
+    HexColor StyleCollection::getColor(int styleIdx, StyleKey key, HexColor def) const
+    {
+        auto st = getStyle(styleIdx);
+        if (!st)
+            return def;
+        else
+            return st->getColorWithDef(key, def);
+    }
+
+    Size StyleCollection::getSize(int styleIdx, StyleKey key, const Size& def) const
+    {
+        auto st = getStyle(styleIdx);
+        if (!st)
+            return def;
+        else
+            return st->getSizeWithDef(key, def);
+    }
+
+    Font StyleCollection::getFont(int styleIdx, StyleKey key, const Font& def) const
+    {
+        auto st = getStyle(styleIdx);
+        if (!st)
+            return def;
+        else
+            return st->getFontWithDef(key, def);
+    }
 }
 }

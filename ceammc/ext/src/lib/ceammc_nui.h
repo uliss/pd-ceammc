@@ -17,6 +17,7 @@
 #include <cstddef>
 #include <string>
 #include <unordered_map>
+#include <vector>
 
 #include "ceammc_nui_color.h"
 #include "ceammc_nui_font.h"
@@ -52,32 +53,51 @@ namespace ui {
         }
     }
 
+    using StyleKey = size_t;
+
     class Style {
-    public:
-        using Key = size_t;
-
-    private:
-        std::unordered_map<Key, HexColor> colors;
-        std::unordered_map<Key, Size> sizes;
-        std::unordered_map<Key, Font> fonts;
+        std::unordered_map<StyleKey, HexColor> colors;
+        std::unordered_map<StyleKey, Size> sizes;
+        std::unordered_map<StyleKey, Font> fonts;
 
     public:
-        bool hasColor(Key key) const;
-        bool getColor(Key key, HexColor& c) const;
-        HexColor getColorWithDef(Key key, HexColor def) const;
+        bool hasColor(StyleKey key) const;
+        bool getColor(StyleKey key, HexColor& c) const;
+        HexColor getColorWithDef(StyleKey key, HexColor def) const;
 
-        bool hasSize(Key key) const;
-        bool getSize(Key key, Size& sz) const;
-        Size getSizeWithDef(Key key, const Size& sz) const;
+        bool hasSize(StyleKey key) const;
+        bool getSize(StyleKey key, Size& sz) const;
+        Size getSizeWithDef(StyleKey key, const Size& sz) const;
 
-        bool hasFont(Key key) const;
-        bool getFont(Key key, Font& ft) const;
+        bool hasFont(StyleKey key) const;
+        bool getFont(StyleKey key, Font& ft) const;
+        Font getFontWithDef(StyleKey key, const Font& ft) const;
 
-        bool insertColor(Key key, HexColor c);
-        bool insertSize(Key key, const Size& sz);
-        bool insertFont(Key key, const Font& ft);
+        bool insertColor(StyleKey key, HexColor c);
+        bool insertSize(StyleKey key, const Size& sz);
+        bool insertFont(StyleKey key, const Font& ft);
     };
 
+    class StyleCollection {
+        StyleCollection(const StyleCollection&) = delete;
+        StyleCollection& operator=(const StyleCollection&) = delete;
+
+        StyleCollection();
+        Style default_;
+        std::vector<Style> styles_;
+
+    public:
+        static StyleCollection& instance();
+        static const Style* style(int idx);
+        static HexColor color(int styleIdx, StyleKey key, HexColor def);
+        static Size size(int styleIdx, StyleKey key, const Size& def);
+        static Font font(int styleIdx, StyleKey key, const Font& def);
+
+        const Style* getStyle(int idx) const;
+        HexColor getColor(int styleIdx, StyleKey key, HexColor def) const;
+        Size getSize(int styleIdx, StyleKey key, const Size& def) const;
+        Font getFont(int styleIdx, StyleKey key, const Font& def) const;
+    };
 }
 }
 
