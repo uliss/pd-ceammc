@@ -440,6 +440,7 @@ class FrameView : public ModelView<Data,
         ViewImpl>;
 
     ViewPtr child_;
+    float pad_ { 2 };
 
 public:
     FrameView(Data* dp, PropId prop_idx, const PointF& pos, const SizeF& sz, const FrameViewProps& vprops)
@@ -473,8 +474,11 @@ public:
 
     void layout() override
     {
+        child_->setPos(PointF(pad_, pad_));
         child_->layout();
-        Base::setSize(child_->size());
+        auto sz = child_->size();
+        sz.enlarge(pad_ * 2, pad_ * 2);
+        Base::setSize(sz);
     }
 
     ViewPtr& child() { return child_; }
@@ -486,6 +490,9 @@ public:
 
     template <typename T>
     T* childPtr() { return static_cast<T*>(child_.get()); }
+
+    float padding() const { return pad_; }
+    void setPadding(float p) { pad_ = p; }
 };
 
 class FaustMasterView;

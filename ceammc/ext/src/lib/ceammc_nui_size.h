@@ -86,6 +86,13 @@ namespace ui {
         }
 
         T area() const { return w_ * h_; }
+
+        SizeT<T>& enlarge(T dw, T dh)
+        {
+            w_ += dw;
+            h_ += dh;
+            return *this;
+        }
     };
 
     using Size = SizeT<int32_t>;
