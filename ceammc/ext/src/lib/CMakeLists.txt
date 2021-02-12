@@ -68,6 +68,7 @@ set(CEAMMC_LIB_SOURCES
     ceammc_music_theory_names.cpp
     ceammc_music_theory_pitch_class.cpp
     ceammc_node_external.cpp
+    ceammc_nui.cpp
     ceammc_numeric.h
     ceammc_object.cpp
     ceammc_object_info.cpp
