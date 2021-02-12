@@ -174,7 +174,7 @@ void WidgetIFace::deleteWidget(t_glist* window)
 
 void WidgetIFace::selectWidget(t_glist* window, bool state)
 {
-
+    view_.select(state);
     //    for (auto& v : view_list_)
     //        v->select(window, state);
 }
@@ -263,12 +263,25 @@ void TclLabelImpl::update(IdType win_id, IdType id, const LabelModelProps& mdata
 
 void TclFrameImpl::create(IdType win_id, IdType id, const RectF& bbox, const FrameModelProps& mdata, const FrameViewProps& vdata)
 {
+    Rect rect = transform(bbox);
+
+    sys_vgui(".x%lx.c create rectangle %d %d %d %d -outline #%6.6x -width 1 -tags {#%lx}\n",
+        win_id, rect.left(), rect.top(), rect.right(), rect.bottom(),
+        mdata.selected ? vdata.sel_color : vdata.bd_color,
+        id);
 }
 
 void TclFrameImpl::update(IdType win_id, IdType id, const FrameModelProps& mdata, const FrameViewProps& vdata)
 {
+    std::cerr << __FUNCTION__ << ": " << (mdata.selected ? vdata.sel_color : vdata.bd_color) << "\n";
+    sys_vgui(".x%lx.c itemconfigure #%lx -outline #%6.6x \n",
+        win_id, id, (mdata.selected ? vdata.sel_color : vdata.bd_color));
 }
 
 void TclFrameImpl::updateCoords(IdType win_id, IdType id, const RectF& bbox)
 {
+    Rect rect = transform(bbox);
+
+    sys_vgui(".x%lx.c coords #%lx %d %d %d %d\n", win_id, id,
+        rect.left(), rect.top(), rect.right(), rect.bottom());
 }

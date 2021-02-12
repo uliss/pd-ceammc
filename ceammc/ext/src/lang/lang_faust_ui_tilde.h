@@ -310,6 +310,17 @@ public:
             orig.ry() += space_;
             orig.ry() += v->size().height();
         }
+
+        float b = 0;
+        float r = 0;
+
+        for (auto& v : this->views()) {
+            r = std::max<float>(r, v->bbox().right());
+            b = std::max<float>(b, v->bbox().bottom());
+        }
+
+        auto p = this->pos();
+        this->setSize(SizeF(r - p.x(), b - p.y()));
     }
 };
 
@@ -405,7 +416,9 @@ struct FrameModelProps {
 struct FrameViewProps {
     HexColor bd_color { colors::st_border };
     HexColor sel_color { colors::blue };
-    FrameViewProps() { }
+    FrameViewProps()
+    {
+    }
 };
 
 struct TclFrameImpl : public TclViewImpl<FrameModelProps, FrameViewProps> {
@@ -527,8 +540,8 @@ public:
 
 class FaustMasterView {
     std::vector<const Property*> props_;
-    FaustFrameView vframe_;
     FrameViewProps vprops_;
+    FaustFrameView vframe_;
     bool selected_ = false;
 
 public:
@@ -645,6 +658,12 @@ public:
         }
 
         props_.push_back(p);
+    }
+
+    void select(bool state)
+    {
+        selected_ = state;
+        update();
     }
 };
 

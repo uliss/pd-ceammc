@@ -46,9 +46,9 @@ namespace ui {
         constexpr HexColor dark = 0x00222222;
         constexpr HexColor alpha_mask = 0xFF000000;
         constexpr HexColor rbg_mask = 0x00FFFFFF;
-        constexpr HexColor red = 0xFF0000 | alpha_mask;
-        constexpr HexColor green = 0x00FF00 | alpha_mask;
-        constexpr HexColor blue = 0x0000FF | alpha_mask;
+        constexpr HexColor red = 0xFF0000;
+        constexpr HexColor green = 0x00FF00;
+        constexpr HexColor blue = 0x0000FF;
 
         constexpr HexColor st_border = 0x00222222;
         constexpr HexColor st_backgr = 0x00FAFAFA;
