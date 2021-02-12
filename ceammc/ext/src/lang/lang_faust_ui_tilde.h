@@ -195,11 +195,11 @@ public:
     void layout() override { }
 };
 
-template <class Data>
+template <class Data, typename ViewImpl>
 class GroupView : public ModelView<Data,
                       EmptyType,
                       EmptyType,
-                      EmptyViewImpl> {
+                      ViewImpl> {
     using ViewPtr = std::unique_ptr<ModelViewBase>;
     using ViewList = std::vector<ViewPtr>;
     ViewList views_;
@@ -255,12 +255,12 @@ public:
 };
 
 template <class Data>
-class HGroupView : public GroupView<Data> {
+class HGroupView : public GroupView<Data, EmptyViewImpl> {
     float space_ { 3 };
 
 public:
     HGroupView(Data* data, const PointF& pos)
-        : GroupView<Data>(data, pos)
+        : GroupView<Data, EmptyViewImpl>(data, pos)
     {
     }
 
@@ -290,12 +290,12 @@ public:
 };
 
 template <class Data>
-class VGroupView : public GroupView<Data> {
+class VGroupView : public GroupView<Data, EmptyViewImpl> {
     float space_ { 3 };
 
 public:
     VGroupView(Data* data, const PointF& pos)
-        : GroupView<Data>(data, pos)
+        : GroupView<Data, EmptyViewImpl>(data, pos)
     {
     }
 
@@ -395,6 +395,43 @@ public:
     }
 };
 
+struct FrameModelProps {
+    bool selected { true };
+};
+
+struct FrameViewProps {
+    HexColor bd_color { colors::st_border };
+    HexColor sel_color { colors::blue };
+    FrameViewProps() { }
+};
+
+struct TclFrameImpl : public TclViewImpl<FrameModelProps, FrameViewProps> {
+    void create(IdType win_id, IdType id, const RectF& bbox, const FrameModelProps& mdata, const FrameViewProps& vdata) override;
+    void update(IdType win_id, IdType id, const FrameModelProps& mdata, const FrameViewProps& vdata) override;
+    void updateCoords(IdType win_id, IdType id, const RectF& bbox) override;
+};
+
+template <typename Data, typename ViewImpl>
+class FrameView : public ModelView<Data,
+                      FrameModelProps,
+                      FrameViewProps,
+                      ViewImpl> {
+
+    using ViewPtr = std::unique_ptr<ModelViewBase>;
+    ViewPtr child_;
+
+public:
+    FrameView(Data* dp, IdType win_id, PropId prop_idx, const PointF& pos, const SizeF& sz, const FrameViewProps& vprops)
+        : ModelView<Data,
+            FrameModelProps,
+            FrameViewProps,
+            ViewImpl>(dp, win_id, prop_idx, pos, sz, vprops)
+    {
+    }
+
+    void setChild(ViewPtr&& v) { child_ = std::move(v); }
+};
+
 class FaustMasterView;
 
 class FaustHSliderView : public HSliderView<FaustMasterView, TclHSliderImpl> {
@@ -413,10 +450,10 @@ public:
     }
 };
 
-class FaustGroupView : public GroupView<FaustMasterView> {
+class FaustGroupView : public GroupView<FaustMasterView, EmptyViewImpl> {
 public:
     FaustGroupView(FaustMasterView* master, const PointF& pos)
-        : GroupView<FaustMasterView>(master, pos)
+        : GroupView<FaustMasterView, EmptyViewImpl>(master, pos)
     {
     }
 };
