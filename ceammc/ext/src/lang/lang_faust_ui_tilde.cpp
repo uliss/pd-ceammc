@@ -92,6 +92,12 @@ LangFaustUiTilde::LangFaustUiTilde(const PdArgs& args)
     addProperty(new FloatProperty("@b", 100))->setFloatCheck(PropValueConstraints::CLOSED_RANGE, 50, 200);
     addProperty(new FloatProperty("@c", -100))->setFloatCheck(PropValueConstraints::CLOSED_RANGE, 50, 200);
 
+    property("@a")->setSuccessFn([this](Property*) {
+        notifyPropUpdate(0);
+    });
+
+    createInlet();
+
     buildUI();
 }
 
@@ -206,6 +212,12 @@ void WidgetIFace::setSize(int w, int h)
     size_ = Size(w, h);
 }
 
+void WidgetIFace::notifyPropUpdate(int idx)
+{
+    LIB_ERR << __FUNCTION__ << " prop changed: " << idx;
+    view_.update(idx);
+}
+
 void TclHSliderImpl::create(IdType win_id, IdType id, const RectF& bbox, const SliderModelProps& mdata, const SliderViewProps& vdata)
 {
     Rect rect = transform(bbox);
@@ -219,10 +231,10 @@ void TclHSliderImpl::create(IdType win_id, IdType id, const RectF& bbox, const S
     RectF kpt(bbox.width() * r + bbox.left(), bbox.top(), SizeF(0, bbox.height()));
     Rect ki = transform(kpt);
 
-    sys_vgui(".x%lx.c create line %d %d %d %d -fill #%6.6x -width 2 -tags {#%lx_kn}\n",
+    sys_vgui(".x%lx.c create line %d %d %d %d -fill #%6.6x -width 2 -tags {#%lx_kn #%lx}\n",
         win_id, ki.left(), ki.top(), ki.right(), ki.bottom(),
         vdata.kn_color,
-        id);
+        id, id);
 }
 
 void TclHSliderImpl::updateCoords(IdType win_id, IdType id, const RectF& bbox)
@@ -233,8 +245,14 @@ void TclHSliderImpl::updateCoords(IdType win_id, IdType id, const RectF& bbox)
         rect.left(), rect.top(), rect.right(), rect.bottom());
 }
 
-void TclHSliderImpl::update(IdType win_id, IdType id, const SliderModelProps& mdata, const SliderViewProps& vdata)
+void TclHSliderImpl::update(IdType win_id, IdType id, const RectF& bbox, const SliderModelProps& mdata, const SliderViewProps& vdata)
 {
+    const float r = (mdata.value - mdata.min) / (mdata.max - mdata.min);
+    RectF kpt(bbox.width() * r + bbox.left(), bbox.top(), SizeF(0, bbox.height()));
+    Rect ki = transform(kpt);
+
+    sys_vgui(".x%lx.c coords #%lx_kn %d %d %d %d\n",
+        win_id, id, ki.left(), ki.top(), ki.right(), ki.bottom());
 }
 
 void TclLabelImpl::create(IdType win_id, IdType id, const RectF& bbox, const LabelModelProps& mdata, const LabelViewProps& vdata)
@@ -256,7 +274,7 @@ void TclLabelImpl::updateCoords(IdType win_id, IdType id, const RectF& bbox)
         rect.left(), rect.top());
 }
 
-void TclLabelImpl::update(IdType win_id, IdType id, const LabelModelProps& mdata, const LabelViewProps& vdata)
+void TclLabelImpl::update(IdType win_id, IdType id, const RectF& bbox, const LabelModelProps& mdata, const LabelViewProps& vdata)
 {
 }
 
@@ -270,7 +288,7 @@ void TclFrameImpl::create(IdType win_id, IdType id, const RectF& bbox, const Fra
         id);
 }
 
-void TclFrameImpl::update(IdType win_id, IdType id, const FrameModelProps& mdata, const FrameViewProps& vdata)
+void TclFrameImpl::update(IdType win_id, IdType id, const RectF& bbox, const FrameModelProps& mdata, const FrameViewProps& vdata)
 {
     std::cerr << __FUNCTION__ << ": " << (mdata.selected ? vdata.sel_color : vdata.bd_color) << "\n";
     sys_vgui(".x%lx.c itemconfigure #%lx -outline #%6.6x \n",

@@ -30,7 +30,10 @@ struct EventContext {
     uint8_t modifiers;
 };
 using IdType = uint64_t;
-using PropId = uint8_t;
+using PropId = int8_t;
+constexpr PropId PROP_ID_ALL = -1;
+constexpr PropId PROP_ID_FRAME = -2;
+
 struct EmptyType {
 };
 
@@ -41,7 +44,7 @@ class ViewImplT {
 public:
     virtual void create(WinId win_id, ViewId id, const RectF& bbox, const ModelProps& mdata, const ViewProps& vdata) = 0;
     virtual void erase(WinId win_id, ViewId id) = 0;
-    virtual void update(WinId win_id, ViewId id, const ModelProps& mdata, const ViewProps& vdata) = 0;
+    virtual void update(WinId win_id, ViewId id, const RectF& bbox, const ModelProps& mdata, const ViewProps& vdata) = 0;
     virtual void updateCoords(WinId win_id, ViewId id, const RectF& bbox) = 0;
 
     float scale() const { return scale_; };
@@ -66,7 +69,7 @@ public:
 struct EmptyViewImpl : public ViewImplT<EmptyType, EmptyType, IdType, IdType> {
     void create(IdType win_id, IdType id, const RectF& bbox, const EmptyType& mdata, const EmptyType& vdata) { }
     void erase(IdType win_id, IdType id) { }
-    void update(IdType win_id, IdType id, const EmptyType& mdata, const EmptyType& vdata) { }
+    void update(IdType win_id, IdType id, const RectF& bbox, const EmptyType& mdata, const EmptyType& vdata) { }
     void updateCoords(IdType win_id, IdType id, const RectF& bbox) { }
 };
 
@@ -134,7 +137,7 @@ public:
     // virtual
     virtual void create(IdType win, float scale) = 0;
     virtual void erase() = 0;
-    virtual void update() = 0;
+    virtual void update(PropId id) = 0;
     virtual void updateCoords() = 0;
     virtual void layout() = 0;
 
@@ -180,11 +183,15 @@ public:
         impl_.erase(win_id_, id());
     }
 
-    void update() override
+    void update(PropId pid) override
     {
+        const bool ok = (pid == PROP_ID_ALL) || (pid == prop_id_);
+        if (!ok)
+            return;
+
         ModelProps model_props;
         if (dp_->getProp(prop_id_, model_props))
-            impl_.update(win_id_, id(), model_props, props_);
+            impl_.update(win_id_, id(), absBBox(), model_props, props_);
     }
 
     void updateCoords() override
@@ -237,10 +244,10 @@ public:
             v->erase();
     }
 
-    void update() final
+    void update(PropId id) final
     {
         for (auto& v : views_)
-            v->update();
+            v->update(id);
     }
 
     void updateCoords() override
@@ -357,7 +364,7 @@ struct TclViewImpl : public ViewImplT<ModelProps, ViewProps, IdType, IdType> {
 
 struct TclHSliderImpl : public TclViewImpl<SliderModelProps, SliderViewProps> {
     void create(IdType win_id, IdType id, const RectF& bbox, const SliderModelProps& mdata, const SliderViewProps& vdata) override;
-    void update(IdType win_id, IdType id, const SliderModelProps& mdata, const SliderViewProps& vdata) override;
+    void update(IdType win_id, IdType id, const RectF& bbox, const SliderModelProps& mdata, const SliderViewProps& vdata) override;
     void updateCoords(IdType win_id, IdType id, const RectF& bbox) override;
 };
 
@@ -390,7 +397,7 @@ struct LabelViewProps {
 
 struct TclLabelImpl : public TclViewImpl<LabelModelProps, LabelViewProps> {
     void create(IdType win_id, IdType id, const RectF& bbox, const LabelModelProps& mdata, const LabelViewProps& vdata) override;
-    void update(IdType win_id, IdType id, const LabelModelProps& mdata, const LabelViewProps& vdata) override;
+    void update(IdType win_id, IdType id, const RectF& bbox, const LabelModelProps& mdata, const LabelViewProps& vdata) override;
     void updateCoords(IdType win_id, IdType id, const RectF& bbox) override;
 };
 
@@ -423,7 +430,7 @@ struct FrameViewProps {
 
 struct TclFrameImpl : public TclViewImpl<FrameModelProps, FrameViewProps> {
     void create(IdType win_id, IdType id, const RectF& bbox, const FrameModelProps& mdata, const FrameViewProps& vdata) override;
-    void update(IdType win_id, IdType id, const FrameModelProps& mdata, const FrameViewProps& vdata) override;
+    void update(IdType win_id, IdType id, const RectF& bbox, const FrameModelProps& mdata, const FrameViewProps& vdata) override;
     void updateCoords(IdType win_id, IdType id, const RectF& bbox) override;
 };
 
@@ -443,8 +450,8 @@ class FrameView : public ModelView<Data,
     float pad_ { 2 };
 
 public:
-    FrameView(Data* dp, PropId prop_idx, const PointF& pos, const SizeF& sz, const FrameViewProps& vprops)
-        : Base(dp, prop_idx, pos, sz, vprops)
+    FrameView(Data* dp, const PointF& pos, const SizeF& sz, const FrameViewProps& vprops)
+        : Base(dp, PROP_ID_FRAME, pos, sz, vprops)
     {
     }
 
@@ -460,10 +467,10 @@ public:
         Base::erase();
     }
 
-    void update() final
+    void update(PropId id) final
     {
-        child_->update();
-        Base::update();
+        child_->update(id);
+        Base::update(id);
     }
 
     void updateCoords() override
@@ -539,8 +546,8 @@ public:
 
 class FaustFrameView : public FrameView<FaustMasterView, TclFrameImpl> {
 public:
-    FaustFrameView(FaustMasterView* master, PropId prop_idx, const PointF& pos, const SizeF& sz, const FrameViewProps& vprops)
-        : FrameView<FaustMasterView, TclFrameImpl>(master, prop_idx, pos, sz, vprops)
+    FaustFrameView(FaustMasterView* master, const PointF& pos, const SizeF& sz, const FrameViewProps& vprops)
+        : FrameView<FaustMasterView, TclFrameImpl>(master, pos, sz, vprops)
     {
     }
 };
@@ -553,7 +560,7 @@ class FaustMasterView {
 
 public:
     FaustMasterView()
-        : vframe_(this, 0, {}, {}, vprops_)
+        : vframe_(this, {}, {}, vprops_)
     {
         using Vp = std::unique_ptr<ModelViewBase>;
         Vp vp(new FaustVGroupView(this, {}));
@@ -571,9 +578,9 @@ public:
         vframe_.erase();
     }
 
-    void update()
+    void update(PropId id)
     {
-        vframe_.update();
+        vframe_.update(id);
     }
 
     void move(const PointF& pos)
@@ -671,7 +678,7 @@ public:
     void select(bool state)
     {
         selected_ = state;
-        update();
+        update(PROP_ID_FRAME);
     }
 };
 
@@ -709,6 +716,8 @@ public:
     bool visible() const;
 
     void setSize(int w, int h);
+
+    void notifyPropUpdate(int idx);
 };
 
 class LangFaustUiTilde : public SoundExternal, public WidgetIFace {
