@@ -156,7 +156,7 @@ private:
     PropId prop_id_;
 
 public:
-    ModelView(DataProvider* dp, IdType win_id, PropId prop_id, const PointF& pos, const SizeF& sz, const ViewProps& vprops)
+    ModelView(DataProvider* dp, PropId prop_id, const PointF& pos, const SizeF& sz, const ViewProps& vprops)
         : ModelViewBase(pos, sz)
         , dp_(dp)
         , props_(vprops)
@@ -193,6 +193,9 @@ public:
     }
 
     void layout() override { }
+
+    ViewImpl& impl() { return impl_; }
+    const ViewImpl& impl() const { return impl_; }
 };
 
 template <class Data, typename ViewImpl>
@@ -209,7 +212,7 @@ public:
         : ModelView<Data,
             EmptyType,
             EmptyType,
-            EmptyViewImpl>(data, 0, 0, pos, {}, {})
+            EmptyViewImpl>(data, 0, pos, {}, {})
     {
     }
 
@@ -353,11 +356,11 @@ class HSliderView : public ModelView<Data,
                         SliderViewProps,
                         ViewImpl> {
 public:
-    HSliderView(Data* dp, IdType win_id, PropId prop_idx, const PointF& pos, const SizeF& sz, const SliderViewProps& vprops)
+    HSliderView(Data* dp, PropId prop_idx, const PointF& pos, const SizeF& sz, const SliderViewProps& vprops)
         : ModelView<Data,
             SliderModelProps,
             SliderViewProps,
-            ViewImpl>(dp, win_id, prop_idx, pos, sz, vprops)
+            ViewImpl>(dp, prop_idx, pos, sz, vprops)
     {
     }
 };
@@ -386,11 +389,11 @@ class LabelView : public ModelView<Data,
                       LabelViewProps,
                       ViewImpl> {
 public:
-    LabelView(Data* dp, IdType win_id, PropId prop_idx, const PointF& pos, const SizeF& sz, const LabelViewProps& vprops)
+    LabelView(Data* dp, PropId prop_idx, const PointF& pos, const SizeF& sz, const LabelViewProps& vprops)
         : ModelView<Data,
             LabelModelProps,
             LabelViewProps,
-            ViewImpl>(dp, win_id, prop_idx, pos, sz, vprops)
+            ViewImpl>(dp, prop_idx, pos, sz, vprops)
     {
     }
 };
@@ -418,34 +421,74 @@ class FrameView : public ModelView<Data,
                       ViewImpl> {
 
     using ViewPtr = std::unique_ptr<ModelViewBase>;
+    using Base = ModelView<Data,
+        FrameModelProps,
+        FrameViewProps,
+        ViewImpl>;
+
     ViewPtr child_;
 
 public:
-    FrameView(Data* dp, IdType win_id, PropId prop_idx, const PointF& pos, const SizeF& sz, const FrameViewProps& vprops)
-        : ModelView<Data,
-            FrameModelProps,
-            FrameViewProps,
-            ViewImpl>(dp, win_id, prop_idx, pos, sz, vprops)
+    FrameView(Data* dp, PropId prop_idx, const PointF& pos, const SizeF& sz, const FrameViewProps& vprops)
+        : Base(dp, prop_idx, pos, sz, vprops)
     {
     }
 
-    void setChild(ViewPtr&& v) { child_ = std::move(v); }
+    void create(IdType win, float scale) final
+    {
+        child_->create(win, scale);
+        Base::create(win, scale);
+    }
+
+    void erase() final
+    {
+        child_->erase();
+        Base::erase();
+    }
+
+    void update() final
+    {
+        child_->update();
+        Base::update();
+    }
+
+    void updateCoords() override
+    {
+        child_->updateCoords();
+        Base::updateCoords();
+    }
+
+    void layout() override
+    {
+        child_->layout();
+        Base::setSize(child_->size());
+    }
+
+    ViewPtr& child() { return child_; }
+    void setChild(ViewPtr&& v)
+    {
+        child_ = std::move(v);
+        child_->setParent(this);
+    }
+
+    template <typename T>
+    T* childPtr() { return static_cast<T*>(child_.get()); }
 };
 
 class FaustMasterView;
 
 class FaustHSliderView : public HSliderView<FaustMasterView, TclHSliderImpl> {
 public:
-    FaustHSliderView(FaustMasterView* master, IdType win_id, PropId prop_idx, const PointF& pos, const SizeF& sz, const SliderViewProps& vprops)
-        : HSliderView<FaustMasterView, TclHSliderImpl>(master, win_id, prop_idx, pos, sz, vprops)
+    FaustHSliderView(FaustMasterView* master, PropId prop_idx, const PointF& pos, const SizeF& sz, const SliderViewProps& vprops)
+        : HSliderView<FaustMasterView, TclHSliderImpl>(master, prop_idx, pos, sz, vprops)
     {
     }
 };
 
 class FaustLabelView : public LabelView<FaustMasterView, TclLabelImpl> {
 public:
-    FaustLabelView(FaustMasterView* master, IdType win_id, PropId prop_idx, const PointF& pos, const SizeF& sz, const LabelViewProps& vprops)
-        : LabelView<FaustMasterView, TclLabelImpl>(master, win_id, prop_idx, pos, sz, vprops)
+    FaustLabelView(FaustMasterView* master, PropId prop_idx, const PointF& pos, const SizeF& sz, const LabelViewProps& vprops)
+        : LabelView<FaustMasterView, TclLabelImpl>(master, prop_idx, pos, sz, vprops)
     {
     }
 };
@@ -474,41 +517,54 @@ public:
     }
 };
 
+class FaustFrameView : public FrameView<FaustMasterView, TclFrameImpl> {
+public:
+    FaustFrameView(FaustMasterView* master, PropId prop_idx, const PointF& pos, const SizeF& sz, const FrameViewProps& vprops)
+        : FrameView<FaustMasterView, TclFrameImpl>(master, prop_idx, pos, sz, vprops)
+    {
+    }
+};
+
 class FaustMasterView {
     std::vector<const Property*> props_;
-    FaustVGroupView vview_;
+    FaustFrameView vframe_;
+    FrameViewProps vprops_;
+    bool selected_ = false;
 
 public:
     FaustMasterView()
-        : vview_(this, {})
+        : vframe_(this, 0, {}, {}, vprops_)
     {
+        using Vp = std::unique_ptr<ModelViewBase>;
+        Vp vp(new FaustVGroupView(this, {}));
+        vframe_.setChild(std::move(vp));
     }
 
     void create(IdType win, const PointF& pos, float zoom)
     {
-        vview_.setPos(pos * (1.0 / zoom));
-        vview_.create(win, zoom);
+        vframe_.setPos(pos * (1.0 / zoom));
+        vframe_.create(win, zoom);
     }
 
     void erase()
     {
-        vview_.erase();
+        vframe_.erase();
     }
 
     void update()
     {
-        vview_.update();
+        vframe_.update();
     }
 
     void move(const PointF& pos)
     {
-        vview_.setPos(pos);
-        vview_.updateCoords();
+        vframe_.setPos(pos);
+        vframe_.updateCoords();
     }
 
     void layout()
     {
-        vview_.layout();
+        vframe_.layout();
     }
 
     bool getProp(PropId idx, SliderModelProps& dest) const
@@ -548,6 +604,12 @@ public:
         return true;
     }
 
+    bool getProp(PropId, FrameModelProps& fp) const
+    {
+        fp.selected = selected_;
+        return true;
+    }
+
     void build(const std::vector<Property*>& props)
     {
         for (auto* p : props)
@@ -561,6 +623,8 @@ public:
         using ViewPtr = std::unique_ptr<ModelViewBase>;
         using SC = StyleCollection;
 
+        auto vg = vframe_.childPtr<FaustVGroupView>();
+
         const LabelViewProps label_vprops { gensym("Helvetica"), &s_, &s_, 16 };
         const SizeF lbl_size = SC::size(0, "label"_hash, Size(40, 16));
         const SizeF hsl_size = SC::size(0, "hslider"_hash, Size(100, 16));
@@ -571,10 +635,10 @@ public:
         switch (p->type()) {
         case PropValueType::FLOAT: {
             auto hg = new FaustHGroupView(this, {});
-            hg->add(ViewPtr(new FaustHSliderView(this, 0, prop_id, {}, hsl_size, slider_vprops)));
-            hg->add(ViewPtr(new FaustLabelView(this, 0, prop_id, hsl_size.leftCenter(), lbl_size, label_vprops)));
+            hg->add(ViewPtr(new FaustHSliderView(this, prop_id, {}, hsl_size, slider_vprops)));
+            hg->add(ViewPtr(new FaustLabelView(this, prop_id, hsl_size.leftCenter(), lbl_size, label_vprops)));
             hg->layout();
-            vview_.add(ViewPtr(hg));
+            vg->add(ViewPtr(hg));
         } break;
         default:
             break;

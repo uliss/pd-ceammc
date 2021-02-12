@@ -260,3 +260,15 @@ void TclLabelImpl::updateCoords(IdType win_id, IdType id, const RectF& bbox)
 void TclLabelImpl::update(IdType win_id, IdType id, const LabelModelProps& mdata, const LabelViewProps& vdata)
 {
 }
+
+void TclFrameImpl::create(IdType win_id, IdType id, const RectF& bbox, const FrameModelProps& mdata, const FrameViewProps& vdata)
+{
+}
+
+void TclFrameImpl::update(IdType win_id, IdType id, const FrameModelProps& mdata, const FrameViewProps& vdata)
+{
+}
+
+void TclFrameImpl::updateCoords(IdType win_id, IdType id, const RectF& bbox)
+{
+}
