@@ -60,7 +60,7 @@ namespace ui {
 
         HexColor bd_color { colors::st_border },
             bg_color { colors::st_backgr },
-            kn_color { colors::black };
+            kn_color { colors::st_active };
 
         int8_t style_idx { 0 };
         bool log_scale { false };
