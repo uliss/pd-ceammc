@@ -77,7 +77,7 @@ namespace ui {
     void TclFrameImpl::update(const RectF& bbox, const FrameProps& data)
     {
         sys_vgui("nui::frame::update_outline %lx %lx %lx"
-                 " {} #%6.6x 1\n",
+                 " #%6.6x\n",
             winId(), widgetId(), this,
             data.selected ? data.sel_color : data.bd_color);
     }
@@ -100,7 +100,7 @@ namespace ui {
             winId(), widgetId(), this,
             rect.left(), rect.top(),
             data.font.family(), int(data.font.size() * scale()),
-            data.txt_color, data.text);
+            data.txt_color, data.text->s_name);
     }
 
     void TclLabelImpl::erase()
