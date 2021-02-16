@@ -26,7 +26,7 @@ namespace ui {
         const float pos = (data.value - data.min) / (data.max - data.min);
         sys_vgui("nui::slider::hcreate %lx %lx %lx"
                  " %d %d %d %d %d"
-                 " %f %f"
+                 " %f %g"
                  " #%6.6x #%6.6x #%6.6x\n",
             winId(), widgetId(), this,
             rect.left(), rect.top(), rect.width(), rect.height(), (int)scale(),
@@ -44,7 +44,7 @@ namespace ui {
         const float pos = (data.value - data.min) / (data.max - data.min);
 
         sys_vgui("nui::slider::hupdate %lx %lx %lx"
-                 " %f %f"
+                 " %f %g"
                  " #%6.6x #%6.6x #%6.6x\n",
             winId(), widgetId(), this,
             pos, data.value,

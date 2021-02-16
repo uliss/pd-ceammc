@@ -34,6 +34,15 @@ proc widget_move { cnv id x y } {
     $c coords $win $x $y
 }
 
+if { [catch {package require tooltip} ] } {
+    proc widget_tooltip { cnv model id msg } {}
+} {
+    proc widget_tooltip { cnv model id msg } {
+        set c [widget_canvas $cnv $model]
+        tooltip::tooltip $c -item $id $msg
+    }
+}
+
 proc item_erase { cnv model tags } {
     set c [widget_canvas $cnv $model]
     $c delete $tags
@@ -115,6 +124,8 @@ namespace eval slider {
         set ky1 [expr $y+$h-1]
         $c create line $kx $ky0 $kx $ky1 \
             -fill $knob_color -width [expr 2*$zoom] -tags [list $ta $tkn]
+
+        ::nui::widget_tooltip $cnv $model $tkn "value: $value"
     }
 
     proc hupdate { cnv model id pos value out_color fill_color knob_color } {
