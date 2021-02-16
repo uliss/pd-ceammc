@@ -50,6 +50,16 @@ namespace ui {
         void updateCoords(const RectF& bbox) final;
     };
 
+    class TclLabelImpl : public TclViewImpl<LabelProps> {
+    public:
+        TclLabelImpl(const ViewId& view_id, PropId prop_id);
+
+        void create(const RectF& bbox, const LabelProps& data) final;
+        void erase() final;
+        void update(const RectF& bbox, const LabelProps& data) final;
+        void updateCoords(const RectF& bbox) final;
+    };
+
 }
 }
 

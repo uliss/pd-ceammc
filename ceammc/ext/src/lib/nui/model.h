@@ -66,7 +66,7 @@ namespace ui {
     };
 
     struct LabelProps {
-        t_symbol* name;
+        t_symbol* text;
         t_symbol* tooltip;
         Font font;
         HexColor bd_color { colors::st_border },

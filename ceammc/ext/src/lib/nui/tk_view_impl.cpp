@@ -100,5 +100,37 @@ namespace ui {
             winId(), tclId(), rect.left(), rect.top());
     }
 
+    TclLabelImpl::TclLabelImpl(const ViewId& view_id, PropId prop_id)
+        : TclViewImpl<LabelProps>(view_id, prop_id)
+    {
+    }
+
+    void TclLabelImpl::create(const RectF& bbox, const LabelProps& data)
+    {
+        Rect rect = transform(bbox);
+
+        sys_vgui("nui::label::create %lx %lx %d %d"
+                 " 0 nw {{%s} %d} #%6.6x {%s}\n",
+            winId(), tclId(), rect.left(), rect.top(),
+            data.font.family(), int(data.font.size() * scale()),
+            data.txt_color, data.text);
+    }
+
+    void TclLabelImpl::erase()
+    {
+        sys_vgui("nui::label::erase %lx %lx\n", winId(), tclId());
+    }
+
+    void TclLabelImpl::update(const RectF& bbox, const LabelProps& data)
+    {
+    }
+
+    void TclLabelImpl::updateCoords(const RectF& bbox)
+    {
+        Rect rect = transform(bbox);
+
+        sys_vgui("nui::label::move %lx %lx %d %d\n",
+            winId(), tclId(), rect.left(), rect.top());
+    }
 }
 }
