@@ -34,13 +34,13 @@ proc widget_move { cnv id x y } {
     $c coords $win $x $y
 }
 
-proc item_erase { cnv tags } {
-    set c [widget_canvas $cnv $id]
+proc item_erase { cnv model tags } {
+    set c [widget_canvas $cnv $model]
     $c delete $tags
 }
 
-proc item_move { cnv tag x y } {
-    set c [widget_canvas $cnv $id]
+proc item_move { cnv model tag x y } {
+    set c [widget_canvas $cnv $model]
 
     lassign [$c coords $tag] x0 y0 x1 y1
     set w [expr $x1-$x0]
@@ -51,44 +51,44 @@ proc item_move { cnv tag x y } {
 namespace eval frame {
     proc tag { id } { return "#f${id}" }
 
-    proc create { cnv id x y w h fill_color out_color width } {
-        set c [::nui::widget_canvas $cnv $id]
+    proc create { cnv model id x y w h fill_color out_color width } {
+        set c [::nui::widget_canvas $cnv $model]
         set t [tag $id]
         $c create rectangle $x $y [expr $x+$w] [expr $y+$h] \
             -fill $fill_color -outline $out_color -width $width -tags $t
     }
 
-    proc update_outline { cnv id color } {
-        set c [::nui::widget_canvas $cnv $id]
+    proc update_outline { cnv model id color } {
+        set c [::nui::widget_canvas $cnv $model]
         set t [tag $id]
         $c itemconfigure $t -outline $color
     }
 
-    proc erase { cnv id } {
-        ::nui::item_erase $cnv [tag $id]
+    proc erase { cnv model id } {
+        ::nui::item_erase $cnv $model [tag $id]
     }
 
-    proc move  { cnv id x y } {
-        ::nui::item_move $cnv [tag $id] $x $y
+    proc move  { cnv model id x y } {
+        ::nui::item_move $cnv $model [tag $id] $x $y
     }
 }
 
 namespace eval label {
     proc tag { id } { return "#l${id}" }
 
-    proc create { cnv id x y width anchor font color txt } {
-        set c [::nui::widget_canvas $cnv $id]
+    proc create { cnv model id x y width anchor font color txt } {
+        set c [::nui::widget_canvas $cnv $model]
         set t [tag $id]
 
         $c create text $x $y -fill $color -text $txt -font $font -anchor $anchor -width $width -tags $t
     }
 
-    proc erase { cnv id } {
-        ::nui::item_erase $cnv [tag $id]
+    proc erase { cnv model id } {
+        ::nui::item_erase $cnv $model [tag $id]
     }
 
-    proc move  { cnv id x y } {
-        ::nui::item_move $cnv [tag $id] $x $y
+    proc move  { cnv model id x y } {
+        ::nui::item_move $cnv $model [tag $id] $x $y
     }
 }
 
@@ -99,8 +99,8 @@ namespace eval slider {
 
     proc knob_xpos { x w pos } { return [expr ($w*$pos)+$x] }
 
-    proc hcreate { cnv id x y w h pos value out_color fill_color knob_color } {
-        set c [::nui::widget_canvas $cnv $id]
+    proc hcreate { cnv model id x y w h pos value out_color fill_color knob_color } {
+        set c [::nui::widget_canvas $cnv $model]
         set ta [tag_all $id]
         set tb [tag_box $id]
         set tkn [tag_knob $id]
@@ -115,8 +115,8 @@ namespace eval slider {
             -fill $knob_color -width 2 -tags [list $ta $tkn]
     }
 
-    proc hupdate { cnv id pos value out_color fill_color knob_color } {
-        set c [::nui::widget_canvas $cnv $id]
+    proc hupdate { cnv model id pos value out_color fill_color knob_color } {
+        set c [::nui::widget_canvas $cnv $model]
         set tb [tag_box $id]
         set tkn [tag_knob $id]
 
@@ -133,13 +133,13 @@ namespace eval slider {
         $c itemconfigure $tkn -fill $knob_color
     }
 
-    proc erase { cnv id } {
+    proc erase { cnv model id } {
         set ta [tag_all $id]
-        ::nui::item_erase $cnv $ta
+        ::nui::item_erase $cnv $model $ta
     }
 
-    proc move  { cnv id x y } {
-        set c [::nui::widget_canvas $cnv $id]
+    proc move  { cnv model id x y } {
+        set c [::nui::widget_canvas $cnv $model]
         set tb [tag_box $id]
         set tkn [tag_knob $id]
 

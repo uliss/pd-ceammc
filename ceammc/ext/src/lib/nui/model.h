@@ -15,6 +15,9 @@
 #define MODEL_H
 
 #include <cstdint>
+#include <stdexcept>
+#include <unordered_map>
+#include <utility>
 
 #include "m_pd.h"
 
@@ -30,11 +33,12 @@ namespace ui {
     using PropId = int16_t;
     constexpr PropId PROP_ID_ALL = -1;
     constexpr PropId PROP_ID_FRAME = -2;
+    constexpr PropId PROP_ID_EMPTY = -3;
 
     template <typename Props>
     class ModelBase {
     public:
-        virtual bool hasProp(PropId id) = 0;
+        virtual bool hasProp(PropId id) const = 0;
         virtual const Props& getProp(PropId id) const = 0;
     };
 
@@ -66,8 +70,8 @@ namespace ui {
     };
 
     struct LabelProps {
-        t_symbol* text;
-        t_symbol* tooltip;
+        t_symbol* text { &s_ };
+        t_symbol* tooltip { &s_ };
         Font font;
         HexColor bd_color { colors::st_border },
             bg_color { colors::st_backgr },
@@ -75,6 +79,7 @@ namespace ui {
 
         int8_t style_idx { 0 };
 
+        LabelProps() { }
         LabelProps(int8_t style);
     };
 
@@ -89,6 +94,21 @@ namespace ui {
 
     class LabelModel : public ModelBase<LabelProps> {
     };
+
+    template <typename Model, typename Props>
+    class ModelList : public Model {
+        std::unordered_map<PropId, Props> props_;
+
+    public:
+        bool hasProp(PropId idx) const override { return idx >= 0 && idx < props_.size(); }
+
+        const Props& getProp(PropId idx) const override { return props_.at(idx); }
+
+        void addModel(PropId idx, const Props& props) { props_.insert(std::make_pair(idx, props)); }
+    };
+
+    using SliderModelList = ModelList<SliderModel, SliderProps>;
+    using LabelModelList = ModelList<LabelModel, LabelProps>;
 }
 }
 

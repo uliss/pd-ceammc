@@ -53,20 +53,27 @@ namespace ui {
     using ModelId = uint64_t;
 
     struct ViewId {
-        WinId win;
-        ModelId model;
+        WinId win { 0 };
+        ModelId model { 0 };
+
+        ViewId(WinId w, ModelId m)
+            : win(w)
+            , model(m)
+        {
+        }
+
+        static ViewId null() { return ViewId(WIN_NONE, 0); }
     };
 
     template <typename ModelData>
     class ViewImpl {
-        ViewId view_id_;
-        PropId prop_id_;
+        WinId window_;
+        ModelId model_;
         float scale_ { 1 };
 
     public:
-        ViewImpl(const ViewId& view_id, PropId prop_id)
-            : view_id_(view_id)
-            , prop_id_(prop_id)
+        ViewImpl()
+            : window_(WIN_NONE)
         {
         }
 
@@ -81,13 +88,13 @@ namespace ui {
         // get
         float scale() const { return scale_; };
         void setScale(float f) { scale_ = f; }
-        PropId propId() const { return prop_id_; }
-        const ViewId& viewId() const { return view_id_; }
-        WinId winId() const { return view_id_.win; }
-        ModelId modelId() const { return view_id_.model; }
+        WinId winId() const { return window_; }
+        ModelId modelId() const { return model_; }
 
         // set
-        void setWinId(WinId win) { view_id_.win = win; }
+        void setWinId(WinId win) { window_ = win; }
+        void setModelId(ModelId id) { model_ = id; }
+        void setModelId(const void* id) { model_ = reinterpret_cast<ModelId>(id); }
 
         // scale transforms
         PointF transform(const PointF& pt) const { return pt * scale_; }
@@ -97,8 +104,6 @@ namespace ui {
 
     class EmptyViewImpl : public ViewImpl<EmptyData> {
     public:
-        EmptyViewImpl();
-
         void create(const RectF& bbox, const EmptyData& data) final;
         void erase() final;
         void update(const RectF& bbox, const EmptyData& data) final;
@@ -161,7 +166,7 @@ namespace ui {
         const PropId prop_id_;
 
     public:
-        ModelView(Model* model, std::unique_ptr<ViewImplT>&& impl, PropId prop_id, const PointF& pos, const SizeF& sz)
+        ModelView(Model* model, std::unique_ptr<ViewImplT> impl, PropId prop_id, const PointF& pos, const SizeF& sz)
             : ViewBase(pos, sz)
             , model_(model)
             , impl_(std::move(impl))
@@ -175,6 +180,7 @@ namespace ui {
                 return;
 
             impl_->setWinId(win);
+            impl_->setModelId(model_);
 
             if (model_->hasProp(prop_id_)) {
                 impl_->setScale(scale);
@@ -218,10 +224,10 @@ namespace ui {
         ViewList views_;
 
     public:
-        GroupView(Model* model, std::unique_ptr<ViewImpl>&& impl, const PointF& pos)
+        GroupView(Model* model, std::unique_ptr<ViewImpl> impl, const PointF& pos)
             : ModelView<Model,
                 EmptyData,
-                ViewImpl>(model, std::move(impl), 0, pos, SizeF())
+                ViewImpl>(model, std::move(impl), PROP_ID_EMPTY, pos, SizeF())
         {
         }
 
@@ -296,7 +302,7 @@ namespace ui {
                             SliderProps,
                             ViewImpl<SliderProps>> {
     public:
-        HSliderView(SliderModel* model, ViewImplPtr<SliderProps>&& impl, PropId prop_idx, const PointF& pos, const SizeF& sz);
+        HSliderView(SliderModel* model, ViewImplPtr<SliderProps> impl, PropId prop_idx, const PointF& pos, const SizeF& sz);
     };
 
     class FrameView : public ModelView<FrameModel,
@@ -311,7 +317,7 @@ namespace ui {
         ViewPtr child_;
 
     public:
-        FrameView(FrameModel* model, ViewImplPtr<FrameProps>&& impl, const PointF& pos, const SizeF& sz);
+        FrameView(FrameModel* model, ViewImplPtr<FrameProps> impl, const PointF& pos, const SizeF& sz);
 
         void create(WinId win, float scale) final;
         void erase() final;
@@ -335,7 +341,7 @@ namespace ui {
         float space_ { 3 };
 
     public:
-        HGroupView(Model* model, std::unique_ptr<ViewImpl>&& impl, const PointF& pos)
+        HGroupView(Model* model, std::unique_ptr<ViewImpl> impl, const PointF& pos)
             : GroupView<Model, ViewImpl>(model, std::move(impl), pos)
         {
         }
@@ -361,7 +367,7 @@ namespace ui {
         float space_ { 3 };
 
     public:
-        VGroupView(Model* model, std::unique_ptr<ViewImpl>&& impl, const PointF& pos)
+        VGroupView(Model* model, std::unique_ptr<ViewImpl> impl, const PointF& pos)
             : GroupView<Model, ViewImpl>(model, std::move(impl), pos)
         {
         }
@@ -381,14 +387,19 @@ namespace ui {
 
     class SimpleVGroupView : public VGroupView<EmptyModel, EmptyViewImpl> {
     public:
-        SimpleVGroupView(const PointF& pos);
+        explicit SimpleVGroupView(const PointF& pos = PointF());
+    };
+
+    class SimpleHGroupView : public HGroupView<EmptyModel, EmptyViewImpl> {
+    public:
+        explicit SimpleHGroupView(const PointF& pos = PointF());
     };
 
     class LabelView : public ModelView<LabelModel,
                           LabelProps,
                           ViewImpl<LabelProps>> {
     public:
-        LabelView(LabelModel* model, ViewImplPtr<LabelProps>&& impl, PropId prop_idx, const PointF& pos, const SizeF& sz);
+        LabelView(LabelModel* model, ViewImplPtr<LabelProps> impl, PropId prop_idx, const PointF& pos, const SizeF& sz);
     };
 }
 }

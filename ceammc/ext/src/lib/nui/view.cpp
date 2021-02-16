@@ -16,11 +16,6 @@
 namespace ceammc {
 namespace ui {
 
-    EmptyViewImpl::EmptyViewImpl()
-        : ViewImpl<EmptyData>({ 0, 0 }, 0)
-    {
-    }
-
     void EmptyViewImpl::create(const RectF& /*bbox*/, const EmptyData& /*data*/) { }
 
     void EmptyViewImpl::erase() { }
@@ -40,14 +35,14 @@ namespace ui {
 
     void ViewBase::layout() { }
 
-    HSliderView::HSliderView(SliderModel* model, ViewImplPtr<SliderProps>&& impl, PropId prop_idx, const PointF& pos, const SizeF& sz)
+    HSliderView::HSliderView(SliderModel* model, ViewImplPtr<SliderProps> impl, PropId prop_idx, const PointF& pos, const SizeF& sz)
         : ModelView<SliderModel,
             SliderProps,
             ViewImpl<SliderProps>>(model, std::move(impl), prop_idx, pos, sz)
     {
     }
 
-    FrameView::FrameView(FrameModel* model, ViewImplPtr<FrameProps>&& impl, const PointF& pos, const SizeF& sz)
+    FrameView::FrameView(FrameModel* model, ViewImplPtr<FrameProps> impl, const PointF& pos, const SizeF& sz)
         : Base(model, std::move(impl), PROP_ID_FRAME, pos, sz)
     {
     }
@@ -86,7 +81,7 @@ namespace ui {
         Base::setSize(sz);
     }
 
-    LabelView::LabelView(LabelModel* model, ViewImplPtr<LabelProps>&& impl, PropId prop_idx, const PointF& pos, const SizeF& sz)
+    LabelView::LabelView(LabelModel* model, ViewImplPtr<LabelProps> impl, PropId prop_idx, const PointF& pos, const SizeF& sz)
         : ModelView<LabelModel,
             LabelProps,
             ViewImpl<LabelProps>>(model, std::move(impl), prop_idx, pos, sz)
@@ -95,6 +90,11 @@ namespace ui {
 
     SimpleVGroupView::SimpleVGroupView(const PointF& pos)
         : VGroupView<EmptyModel, EmptyViewImpl>(nullptr, std::unique_ptr<EmptyViewImpl>(), pos)
+    {
+    }
+
+    SimpleHGroupView::SimpleHGroupView(const PointF& pos)
+        : HGroupView<EmptyModel, EmptyViewImpl>(nullptr, std::unique_ptr<EmptyViewImpl>(), pos)
     {
     }
 

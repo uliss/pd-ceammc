@@ -96,6 +96,10 @@ LangFaustUiTilde::LangFaustUiTilde(const PdArgs& args)
         notifyPropUpdate(0);
     });
 
+    property("@b")->setSuccessFn([this](Property*) {
+        notifyPropUpdate(1);
+    });
+
     createInlet();
 
     buildUI();
@@ -126,11 +130,21 @@ void LangFaustUiTilde::buildUI()
 {
     auto sz = view_.build(properties());
     setSize(sz.width(), sz.height());
+    LIB_ERR << size();
 }
 
 void setup_lang_faust_ui_tilde()
 {
+    static const bool init = tcl_nui_init();
+
     UISoundFactory<LangFaustUiTilde> obj("ui");
+}
+
+static t_symbol* genid(void* x)
+{
+    char buf[64];
+    snprintf(buf, 63, "#%lx", x);
+    return gensym(buf);
 }
 
 WidgetIFace::WidgetIFace(t_object* x, t_glist* widget_parent)
@@ -138,6 +152,8 @@ WidgetIFace::WidgetIFace(t_object* x, t_glist* widget_parent)
     , widget_parent_(widget_parent)
     , widget_canvas_(canvas_getrootfor(widget_parent_))
     , size_(0, 0)
+    , event_proxy_(this, genid(&event_proxy_))
+    , view_(widget_parent)
 {
 }
 
@@ -153,13 +169,17 @@ Rect WidgetIFace::getRealRect(t_glist* window) const
 Rect WidgetIFace::getRect(t_glist* window) const
 {
     auto z = window->gl_zoom;
-    return Rect(text_xpix(x_, window), text_ypix(x_, window), size_ * z);
+    Rect res(text_xpix(x_, window), text_ypix(x_, window), size_ * z);
+    //    LIB_ERR << __FUNCTION__ << res;
+    return res;
 }
 
 void WidgetIFace::displaceWidget(t_glist* window, int dx, int dy)
 {
     x_->te_xpix += dx;
     x_->te_ypix += dy;
+
+    LIB_ERR << __FUNCTION__;
 
     if (glist_isvisible(widget_parent_)) {
         LIB_ERR << __FUNCTION__;
@@ -182,14 +202,12 @@ void WidgetIFace::deleteWidget(t_glist* window)
 void WidgetIFace::selectWidget(t_glist* window, bool state)
 {
     view_.select(state);
-    //    for (auto& v : view_list_)
-    //        v->select(window, state);
 }
 
 void WidgetIFace::showWidget(t_glist* window)
 {
     LIB_ERR << __FUNCTION__;
-    view_.create(reinterpret_cast<IdType>(window),
+    view_.create(reinterpret_cast<WinId>(window),
         getRect(window).pt0(),
         glist_getzoom(window));
 }
@@ -218,87 +236,54 @@ void WidgetIFace::notifyPropUpdate(int idx)
     view_.update(idx);
 }
 
-void TclHSliderImpl::create(IdType win_id, IdType id, const RectF& bbox, const SliderModelProps& mdata, const SliderViewProps& vdata)
+void WidgetIFace::bindEvents()
 {
-    Rect rect = transform(bbox);
-
-    sys_vgui(".x%lx.c create rectangle %d %d %d %d -fill #%6.6x -outline #%6.6x -width 1 -tags {#%lx}\n",
-        win_id, rect.left(), rect.top(), rect.right(), rect.bottom(),
-        vdata.bg_color, vdata.bd_color,
-        id);
-
-    const float r = (mdata.value - mdata.min) / (mdata.max - mdata.min);
-    RectF kpt(bbox.width() * r + bbox.left(), bbox.top(), SizeF(0, bbox.height()));
-    Rect ki = transform(kpt);
-
-    sys_vgui(".x%lx.c create line %d %d %d %d -fill #%6.6x -width 2 -tags {#%lx_kn #%lx}\n",
-        win_id, ki.left(), ki.top(), ki.right(), ki.bottom(),
-        vdata.kn_color,
-        id, id);
+    sys_vgui("::ceammc::ui::mouse_events_bind .%lx.c.w #%lx"
+             "down up move enter leave right_click\n",
+        widget_parent_, &event_proxy_);
 }
 
-void TclHSliderImpl::updateCoords(IdType win_id, IdType id, const RectF& bbox)
+void MouseEvents::onMouseEnter()
 {
-    Rect rect = transform(bbox);
-
-    sys_vgui(".x%lx.c coords #%lx %d %d %d %d\n", win_id, id,
-        rect.left(), rect.top(), rect.right(), rect.bottom());
+    dest_->onMouseEnter();
 }
 
-void TclHSliderImpl::update(IdType win_id, IdType id, const RectF& bbox, const SliderModelProps& mdata, const SliderViewProps& vdata)
+void FaustMasterView::create(WinId win, const PointF& pos, float zoom)
 {
-    const float r = (mdata.value - mdata.min) / (mdata.max - mdata.min);
-    RectF kpt(bbox.width() * r + bbox.left(), bbox.top(), SizeF(0, bbox.height()));
-    Rect ki = transform(kpt);
+    int z = 1;
+    Size subcnv_size = vframe_.size() * zoom;
+    Point p = pos;
 
-    sys_vgui(".x%lx.c coords #%lx_kn %d %d %d %d\n",
-        win_id, id, ki.left(), ki.top(), ki.right(), ki.bottom());
+    sys_vgui("nui::widget_create %lx %lx %d %d %d %d %d\n",
+        win, this, p.x(), p.y(), subcnv_size.width(), subcnv_size.height(), z);
+
+    vframe_.create(win, zoom);
 }
 
-void TclLabelImpl::create(IdType win_id, IdType id, const RectF& bbox, const LabelModelProps& mdata, const LabelViewProps& vdata)
+void FaustMasterView::erase()
 {
-    Rect rect = transform(bbox);
-
-    sys_vgui(".x%lx.c create text %d %d -fill black -text {%s} -font {{%s} %d} -anchor nw -width 0 -tags {#%lx}\n",
-        win_id, rect.left(), rect.top(),
-        mdata.name->s_name,
-        vdata.font_family->s_name, int(vdata.font_size * scale()),
-        id);
+    vframe_.erase();
+    sys_vgui("nui::widget_erase %lx %lx\n", parent_, this);
 }
 
-void TclLabelImpl::updateCoords(IdType win_id, IdType id, const RectF& bbox)
+void FaustMasterView::move(const PointF& pos)
 {
-    Rect rect = transform(bbox);
+    Point p = pos;
 
-    sys_vgui(".x%lx.c coords #%lx %d %d\n", win_id, id,
-        rect.left(), rect.top());
+    sys_vgui("nui::widget_move %lx %lx %d %d\n", parent_, this, p.x(), p.y());
 }
 
-void TclLabelImpl::update(IdType win_id, IdType id, const RectF& bbox, const LabelModelProps& mdata, const LabelViewProps& vdata)
+void FaustMasterView::layout()
 {
+    vframe_.layout();
 }
 
-void TclFrameImpl::create(IdType win_id, IdType id, const RectF& bbox, const FrameModelProps& mdata, const FrameViewProps& vdata)
+Size FaustMasterView::build(const std::vector<Property*>& props)
 {
-    Rect rect = transform(bbox);
+    for (auto* p : props)
+        addProperty(p);
 
-    sys_vgui(".x%lx.c create rectangle %d %d %d %d -outline #%6.6x -width 1 -tags {#%lx}\n",
-        win_id, rect.left(), rect.top(), rect.right(), rect.bottom(),
-        mdata.selected ? vdata.sel_color : vdata.bd_color,
-        id);
-}
-
-void TclFrameImpl::update(IdType win_id, IdType id, const RectF& bbox, const FrameModelProps& mdata, const FrameViewProps& vdata)
-{
-    std::cerr << __FUNCTION__ << ": " << (mdata.selected ? vdata.sel_color : vdata.bd_color) << "\n";
-    sys_vgui(".x%lx.c itemconfigure #%lx -outline #%6.6x \n",
-        win_id, id, (mdata.selected ? vdata.sel_color : vdata.bd_color));
-}
-
-void TclFrameImpl::updateCoords(IdType win_id, IdType id, const RectF& bbox)
-{
-    Rect rect = transform(bbox);
-
-    sys_vgui(".x%lx.c coords #%lx %d %d %d %d\n", win_id, id,
-        rect.left(), rect.top(), rect.right(), rect.bottom());
+    layout();
+    LIB_ERR << vframe_.size();
+    return vframe_.size();
 }
