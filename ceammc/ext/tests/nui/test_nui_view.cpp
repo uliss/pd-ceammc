@@ -25,7 +25,20 @@ TEST_CASE("nui", "[nui]")
     {
         FrameView fv0(0, TestFrameViewImplPtr(new TestFrameViewImpl), 0, PointF(10, 20), SizeF(40, 50));
 
+        fv0.layout();
+
         REQUIRE(fv0.parent() == nullptr);
         REQUIRE(fv0.pos() == PointF(10, 20));
+        REQUIRE(fv0.size() == SizeF(40, 50));
+        REQUIRE(fv0.bbox() == RectF(10, 20, SizeF(40, 50)));
+        REQUIRE(fv0.absPos() == PointF(10, 20));
+        REQUIRE(fv0.absBBox() == RectF(10, 20, SizeF(40, 50)));
+
+        fv0.setChild(ViewPtr(new FrameView(0, TestFrameViewImplPtr(new TestFrameViewImpl), 0, PointF(15, 25), SizeF(30, 20))));
+        auto fv1 = fv0.childPtr<FrameView>();
+
+        REQUIRE(fv1 != nullptr);
+        REQUIRE(fv1->parent() != nullptr);
+        REQUIRE(fv1->parent() == &fv0);
     }
 }

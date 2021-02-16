@@ -73,7 +73,10 @@ namespace ui {
 
     void FrameView::layout()
     {
-        auto pad = model()->getProp(PROP_ID_ALL).padding;
+        if (!child_)
+            return;
+
+        auto pad = model() ? model()->getProp(PROP_ID_ALL).padding : 0;
         child_->setPos(PointF(pad, pad));
         child_->layout();
         auto sz = child_->size();

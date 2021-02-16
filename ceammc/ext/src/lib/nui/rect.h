@@ -234,7 +234,7 @@ namespace ui {
     template <typename T>
     std::ostream& operator<<(std::ostream& os, const RectT<T>& r)
     {
-        os << "Rect: " << r.left() << ' ' << r.top() << ' ' << r.width() << ' ' << r.height();
+        os << "Rect: " << r.left() << ' ' << r.top() << ' ' << r.width() << 'x' << r.height();
         return os;
     }
 }
