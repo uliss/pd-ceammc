@@ -99,7 +99,7 @@ namespace eval slider {
 
     proc knob_xpos { x w pos } { return [expr ($w*$pos)+$x] }
 
-    proc hcreate { cnv model id x y w h pos value out_color fill_color knob_color } {
+    proc hcreate { cnv model id x y w h zoom pos value out_color fill_color knob_color } {
         set c [::nui::widget_canvas $cnv $model]
         set ta [tag_all $id]
         set tb [tag_box $id]
@@ -107,14 +107,14 @@ namespace eval slider {
 
         # draw box
         $c create rectangle $x $y [expr $x+$w] [expr $y+$h] \
-            -fill $fill_color -outline $out_color -width 1 -tags [list $ta $tb]
+            -fill $fill_color -outline $out_color -width $zoom -tags [list $ta $tb]
 
         # draw knob
         set kx [knob_xpos $x $w $pos]
         set ky0 [expr $y+1]
         set ky1 [expr $y+$h-1]
         $c create line $kx $ky0 $kx $ky1 \
-            -fill $knob_color -width 2 -tags [list $ta $tkn]
+            -fill $knob_color -width [expr 2*$zoom] -tags [list $ta $tkn]
     }
 
     proc hupdate { cnv model id pos value out_color fill_color knob_color } {

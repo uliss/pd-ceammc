@@ -25,10 +25,11 @@ namespace ui {
 
         const float pos = (data.value - data.min) / (data.max - data.min);
         sys_vgui("nui::slider::hcreate %lx %lx %lx"
-                 " %d %d %d %d %f %f"
+                 " %d %d %d %d %d"
+                 " %f %f"
                  " #%6.6x #%6.6x #%6.6x\n",
             winId(), widgetId(), this,
-            rect.left(), rect.top(), rect.right(), rect.bottom(),
+            rect.left(), rect.top(), rect.right(), rect.bottom(), (int)scale(),
             pos, data.value,
             data.bg_color, data.bd_color, data.kn_color);
     }
