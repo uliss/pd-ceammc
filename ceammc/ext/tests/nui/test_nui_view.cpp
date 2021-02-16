@@ -112,7 +112,7 @@ TEST_CASE("nui", "[nui]")
         REQUIRE(hg.at(2)->pos() == PointF(35, 0));
         REQUIRE(hg.calcBBox() == RectF(0, 0, SizeF(50, 35)));
 
-        hg.setLayout(new HLayout(10));
+        hg.setSpace(10);
         hg.layout();
         REQUIRE(hg.at(0)->pos() == PointF(0, 0));
         REQUIRE(hg.at(1)->pos() == PointF(40, 0));

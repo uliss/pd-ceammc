@@ -230,9 +230,13 @@ namespace ui {
     };
 
     class VLayout : public LayoutBase {
+        float space_ { 0 };
+
     public:
-        VLayout();
+        VLayout(float space = 5);
         virtual void doLayout(ViewList& items) override;
+        float space() const { return space_; }
+        void setSpace(float space) { space_ = space; }
     };
 
     using LayoutPtr = std::unique_ptr<LayoutBase>;
@@ -393,6 +397,16 @@ namespace ui {
             : GroupView<ViewImpl>(std::move(impl), pos)
         {
             this->setLayout(new VLayout);
+        }
+
+        void setSpace(float space)
+        {
+            if (this->getLayout()) {
+                auto lt = static_cast<VLayout*>(this->getLayout().get());
+                lt->setSpace(space);
+            } else {
+                this->setLayout(new VLayout(space));
+            }
         }
     };
 

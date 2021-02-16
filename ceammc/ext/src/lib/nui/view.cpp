@@ -117,19 +117,18 @@ namespace ui {
         }
     }
 
-    VLayout::VLayout()
+    VLayout::VLayout(float space)
         : LayoutBase()
+        , space_(space)
     {
     }
 
     void VLayout::doLayout(ViewList& items)
     {
-        auto space = 10;
-
         PointF orig;
         for (auto& v : items) {
             v->setPos(orig);
-            orig.ry() += space;
+            orig.ry() += space_;
             orig.ry() += v->size().height();
         }
     }
