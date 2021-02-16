@@ -86,7 +86,11 @@ bool ceammc::pd::addPdPrintDataSupport()
 std::vector<std::string> pd::currentListOfExternals()
 {
     std::vector<std::string> res;
+#if PDINSTANCE == 1
+    t_methodentry* m = pd_objectmaker->c_methods[pd_this->pd_instanceno];
+#else
     t_methodentry* m = pd_objectmaker->c_methods;
+#endif
     if (!m)
         return res;
 
@@ -455,6 +459,11 @@ std::vector<t_symbol*> pd::External::methods() const
 
     t_class* c = obj_->te_g.g_pd;
     for (int i = 0; i < c->c_nmethod; i++) {
+#if PDINSTANCE == 1
+        auto m = &c->c_methods[pd_this->pd_instanceno][i];
+#else
+        auto m = &c->c_methods[i];
+#endif
         auto m = &c->c_methods[i];
         res.push_back(m->me_name);
     }

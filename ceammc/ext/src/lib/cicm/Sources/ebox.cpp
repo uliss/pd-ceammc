@@ -1710,10 +1710,18 @@ void ebox_attr_dump(t_ebox* x)
     // print methods
     for (int i = 0; i < xc->c_nmethod; i++) {
         // ignore property methods
+        #if PDINSTANCE == 1
+        if (xc->c_methods[pd_this->pd_instanceno][i].me_name->s_name[0] == '@')
+            continue;
+        
+        post("[%s] method: %s", name, xc->c_methods[pd_this->pd_instanceno][i].me_name->s_name);
+        #else
         if (xc->c_methods[i].me_name->s_name[0] == '@')
             continue;
-
+        
         post("[%s] method: %s", name, xc->c_methods[i].me_name->s_name);
+        #endif
+        
     }
 
     // print xlets
