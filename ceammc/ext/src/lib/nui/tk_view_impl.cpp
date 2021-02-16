@@ -27,7 +27,7 @@ namespace ui {
         sys_vgui("nui::slider::hcreate %lx %lx %lx"
                  " %d %d %d %d %f %f"
                  " #%6.6x #%6.6x #%6.6x\n",
-            winId(), modelId(), this,
+            winId(), widgetId(), this,
             rect.left(), rect.top(), rect.right(), rect.bottom(),
             pos, data.value,
             data.bg_color, data.bd_color, data.kn_color);
@@ -35,7 +35,7 @@ namespace ui {
 
     void TclHSliderImpl::erase()
     {
-        sys_vgui("nui::slider::erase %lx %lx %lx \n", winId(), modelId(), this);
+        sys_vgui("nui::slider::erase %lx %lx %lx \n", winId(), widgetId(), this);
     }
 
     void TclHSliderImpl::update(const RectF& bbox, const SliderProps& data)
@@ -45,7 +45,7 @@ namespace ui {
         sys_vgui("nui::slider::hupdate %lx %lx %lx"
                  " %f %f"
                  " #%6.6x #%6.6x #%6.6x\n",
-            winId(), modelId(), this,
+            winId(), widgetId(), this,
             pos, data.value,
             data.bg_color, data.bd_color, data.kn_color);
     }
@@ -55,7 +55,7 @@ namespace ui {
         Rect rect = transform(bbox);
 
         sys_vgui("nui::slider::move %lx %lx %lx %d %d\n",
-            winId(), modelId(), this, rect.left(), rect.top());
+            winId(), widgetId(), this, rect.left(), rect.top());
     }
 
     void TclFrameImpl::create(const RectF& bbox, const FrameProps& data)
@@ -64,21 +64,21 @@ namespace ui {
 
         sys_vgui("nui::frame::create %lx %lx %lx"
                  " %d %d %d %d {} #%6.6x 1\n",
-            winId(), modelId(), this,
+            winId(), widgetId(), this,
             rect.left(), rect.top(), rect.width(), rect.height(),
             data.selected ? data.sel_color : data.bd_color);
     }
 
     void TclFrameImpl::erase()
     {
-        sys_vgui("nui::frame::erase %lx %lx %lx\n", winId(), modelId(), this);
+        sys_vgui("nui::frame::erase %lx %lx %lx\n", winId(), widgetId(), this);
     }
 
     void TclFrameImpl::update(const RectF& bbox, const FrameProps& data)
     {
         sys_vgui("nui::frame::update_outline %lx %lx %lx"
                  " {} #%6.6x 1\n",
-            winId(), modelId(), this,
+            winId(), widgetId(), this,
             data.selected ? data.sel_color : data.bd_color);
     }
 
@@ -87,7 +87,7 @@ namespace ui {
         Rect rect = transform(bbox);
 
         sys_vgui("nui::frame::move %lx %lx %lx %d %d\n",
-            winId(), modelId(), this, rect.left(), rect.top());
+            winId(), widgetId(), this, rect.left(), rect.top());
     }
 
     void TclLabelImpl::create(const RectF& bbox, const LabelProps& data)
@@ -97,7 +97,7 @@ namespace ui {
         sys_vgui("nui::label::create %lx %lx %lx"
                  " %d %d"
                  " 0 nw {{%s} %d} #%6.6x {%s}\n",
-            winId(), modelId(), this,
+            winId(), widgetId(), this,
             rect.left(), rect.top(),
             data.font.family(), int(data.font.size() * scale()),
             data.txt_color, data.text);
@@ -105,7 +105,7 @@ namespace ui {
 
     void TclLabelImpl::erase()
     {
-        sys_vgui("nui::label::erase %lx %lx %lx\n", winId(), modelId(), this);
+        sys_vgui("nui::label::erase %lx %lx %lx\n", winId(), widgetId(), this);
     }
 
     void TclLabelImpl::update(const RectF& bbox, const LabelProps& data)
@@ -117,7 +117,7 @@ namespace ui {
         Rect rect = transform(bbox);
 
         sys_vgui("nui::label::move %lx %lx %lx %d %d\n",
-            winId(), modelId(), this, rect.left(), rect.top());
+            winId(), widgetId(), this, rect.left(), rect.top());
     }
 
     bool tcl_nui_init()

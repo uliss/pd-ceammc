@@ -50,30 +50,18 @@ namespace ui {
 
     using WinId = uint64_t;
     constexpr WinId WIN_NONE = 0;
-    using ModelId = uint64_t;
-
-    struct ViewId {
-        WinId win { 0 };
-        ModelId model { 0 };
-
-        ViewId(WinId w, ModelId m)
-            : win(w)
-            , model(m)
-        {
-        }
-
-        static ViewId null() { return ViewId(WIN_NONE, 0); }
-    };
+    using WidgetId = uint64_t;
 
     template <typename ModelData>
     class ViewImpl {
         WinId window_;
-        ModelId model_;
+        WidgetId widget_;
         float scale_ { 1 };
 
     public:
         ViewImpl()
             : window_(WIN_NONE)
+            , widget_(0)
         {
         }
 
@@ -89,12 +77,11 @@ namespace ui {
         float scale() const { return scale_; };
         void setScale(float f) { scale_ = f; }
         WinId winId() const { return window_; }
-        ModelId modelId() const { return model_; }
+        WidgetId widgetId() const { return widget_; }
 
         // set
         void setWinId(WinId win) { window_ = win; }
-        void setModelId(ModelId id) { model_ = id; }
-        void setModelId(const void* id) { model_ = reinterpret_cast<ModelId>(id); }
+        void setWidgetId(WidgetId id) { widget_ = id; }
 
         // scale transforms
         PointF transform(const PointF& pt) const { return pt * scale_; }
@@ -119,7 +106,7 @@ namespace ui {
         ViewBase(const PointF& pos, const SizeF& sz);
         virtual ~ViewBase();
 
-        //    IdType id() const { return reinterpret_cast<IdType>(this); }
+        uint64_t id() const { return reinterpret_cast<uint64_t>(this); }
         const PointF& pos() const { return pos_; }
         const SizeF& size() const { return size_; }
         RectF bbox() const { return RectF(pos_, size_); }
@@ -147,7 +134,7 @@ namespace ui {
         }
 
         // virtual
-        virtual void create(WinId win, float scale) = 0;
+        virtual void create(WinId win, WidgetId wid, float scale) = 0;
         virtual void erase() = 0;
         virtual void update(PropId id) = 0;
         virtual void updateCoords() = 0;
@@ -174,13 +161,13 @@ namespace ui {
         {
         }
 
-        void create(WinId win, float scale) override
+        void create(WinId win, WidgetId widgetId, float scale) override
         {
             if (!impl_)
                 return;
 
             impl_->setWinId(win);
-            impl_->setModelId(model_);
+            impl_->setWidgetId(widgetId);
 
             if (model_->hasProp(prop_id_)) {
                 impl_->setScale(scale);
@@ -240,10 +227,10 @@ namespace ui {
             views_.back()->setParent(this);
         }
 
-        void create(WinId win, float scale) final
+        void create(WinId win, WidgetId wid, float scale) final
         {
             for (auto& v : views_)
-                v->create(win, scale);
+                v->create(win, wid, scale);
         }
 
         void erase() final
@@ -319,7 +306,7 @@ namespace ui {
     public:
         FrameView(FrameModel* model, ViewImplPtr<FrameProps> impl, const PointF& pos, const SizeF& sz);
 
-        void create(WinId win, float scale) final;
+        void create(WinId win, WidgetId wid, float scale) final;
         void erase() final;
         void update(PropId id) final;
         void updateCoords() override;

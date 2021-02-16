@@ -257,7 +257,7 @@ void FaustMasterView::create(WinId win, const PointF& pos, float zoom)
     sys_vgui("nui::widget_create %lx %lx %d %d %d %d %d\n",
         win, this, p.x(), p.y(), subcnv_size.width(), subcnv_size.height(), z);
 
-    vframe_.create(win, zoom);
+    vframe_.create(win, reinterpret_cast<WidgetId>(this), zoom);
 }
 
 void FaustMasterView::erase()

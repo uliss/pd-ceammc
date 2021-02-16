@@ -47,10 +47,10 @@ namespace ui {
     {
     }
 
-    void FrameView::create(WinId win, float scale)
+    void FrameView::create(WinId win, WidgetId wid, float scale)
     {
-        child_->create(win, scale);
-        Base::create(win, scale);
+        child_->create(win, wid, scale);
+        Base::create(win, wid, scale);
     }
 
     void FrameView::erase()
