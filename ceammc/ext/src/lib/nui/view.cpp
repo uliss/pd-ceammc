@@ -93,5 +93,10 @@ namespace ui {
     {
     }
 
+    SimpleVGroupView::SimpleVGroupView(const PointF& pos)
+        : VGroupView<EmptyModel, EmptyViewImpl>(nullptr, std::unique_ptr<EmptyViewImpl>(), pos)
+    {
+    }
+
 }
 }

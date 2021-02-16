@@ -78,6 +78,9 @@ namespace ui {
         LabelProps(int8_t style);
     };
 
+    class EmptyModel : public ModelBase<EmptyData> {
+    };
+
     class FrameModel : public ModelBase<FrameProps> {
     };
 

@@ -171,6 +171,9 @@ namespace ui {
 
         void create(WinId win, float scale) override
         {
+            if (!impl_)
+                return;
+
             impl_->setWinId(win);
 
             if (model_->hasProp(prop_id_)) {
@@ -181,13 +184,14 @@ namespace ui {
 
         void erase() override
         {
-            impl_->erase();
+            if (impl_)
+                impl_->erase();
         }
 
         void update(PropId pid) override
         {
             const bool ok = (pid == PROP_ID_ALL) || (pid == prop_id_);
-            if (!ok)
+            if (!ok || !impl_)
                 return;
 
             if (model_->hasProp(prop_id_))
@@ -196,7 +200,8 @@ namespace ui {
 
         void updateCoords() override
         {
-            impl_->updateCoords(absBBox());
+            if (impl_)
+                impl_->updateCoords(absBBox());
         }
 
         ViewImplT& impl() { return impl_; }
@@ -216,7 +221,7 @@ namespace ui {
         GroupView(Model* model, std::unique_ptr<ViewImpl>&& impl, const PointF& pos)
             : ModelView<Model,
                 EmptyData,
-                ViewImpl>(model, impl, 0, pos, SizeF())
+                ViewImpl>(model, std::move(impl), 0, pos, SizeF())
         {
         }
 
@@ -331,7 +336,7 @@ namespace ui {
 
     public:
         HGroupView(Model* model, std::unique_ptr<ViewImpl>&& impl, const PointF& pos)
-            : GroupView<Model, ViewImpl>(model, impl, pos)
+            : GroupView<Model, ViewImpl>(model, std::move(impl), pos)
         {
         }
 
@@ -357,7 +362,7 @@ namespace ui {
 
     public:
         VGroupView(Model* model, std::unique_ptr<ViewImpl>&& impl, const PointF& pos)
-            : GroupView<Model, ViewImpl>(model, impl, pos)
+            : GroupView<Model, ViewImpl>(model, std::move(impl), pos)
         {
         }
 
@@ -372,6 +377,11 @@ namespace ui {
 
             this->adjustBBox();
         }
+    };
+
+    class SimpleVGroupView : public VGroupView<EmptyModel, EmptyViewImpl> {
+    public:
+        SimpleVGroupView(const PointF& pos);
     };
 
     class LabelView : public ModelView<LabelModel,
