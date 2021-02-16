@@ -109,13 +109,11 @@ namespace ui {
 
     void HLayout::doLayout(ViewList& items)
     {
-        PointF orig;
+        float x = 0;
         for (auto& v : items) {
-            auto p = v->pos();
-            p.rx() = orig.x();
-            v->setPos(p);
-            orig.rx() += space_;
-            orig.rx() += v->size().width();
+            v->setPos(PointF(x, v->y()));
+            x += space_;
+            x += v->size().width();
         }
     }
 

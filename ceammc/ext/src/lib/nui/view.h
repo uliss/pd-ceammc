@@ -118,6 +118,8 @@ namespace ui {
         const PointF& pos() const { return pos_; }
         const SizeF& size() const { return size_; }
         RectF bbox() const { return RectF(pos_, size_); }
+        float x() const { return pos_.x(); }
+        float y() const { return pos_.y(); }
 
         void setPos(const PointF& pos) { pos_ = pos; }
         void setSize(const SizeF& size) { size_ = size; }
