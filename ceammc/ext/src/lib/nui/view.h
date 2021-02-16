@@ -256,8 +256,31 @@ namespace ui {
         void layout() override
         {
             auto orig = this->pos();
-            for (auto& v : this->views())
+            for (auto& v : views_)
                 v->setPos(orig);
+        }
+
+        RectF calcBBox() const
+        {
+            RectF res;
+            if (views_.empty())
+                return res;
+
+            res = views_[0]->bbox();
+            for (size_t i = 1; i < views_.size(); i++)
+                res = res.unite(views_[i]->bbox());
+
+            return res;
+        }
+
+        void adjustBBox()
+        {
+            if (views_.empty())
+                return;
+
+            const RectF bbox = calcBBox();
+            auto p = this->pos();
+            this->setSize(SizeF(bbox.width() - p.x(), bbox.height() - p.y()));
         }
     };
 
@@ -300,6 +323,55 @@ namespace ui {
 
         template <typename T>
         T* childPtr() { return static_cast<T*>(child_.get()); }
+    };
+
+    template <typename Model, typename ViewImpl>
+    class HGroupView : public GroupView<Model, ViewImpl> {
+        float space_ { 3 };
+
+    public:
+        HGroupView(Model* model, std::unique_ptr<ViewImpl>&& impl, const PointF& pos)
+            : GroupView<Model, ViewImpl>(model, impl, pos)
+        {
+        }
+
+        void layout() override
+        {
+            auto orig = this->pos();
+            for (auto& v : this->views()) {
+                v->setPos(orig);
+                orig.rx() += space_;
+                orig.rx() += v->size().width();
+            }
+
+            this->adjustBBox();
+        }
+
+        float space() const { return space_; }
+        void setSpace(float s) { space_ = s; }
+    };
+
+    template <typename Model, typename ViewImpl>
+    class VGroupView : public GroupView<Model, ViewImpl> {
+        float space_ { 3 };
+
+    public:
+        VGroupView(Model* model, std::unique_ptr<ViewImpl>&& impl, const PointF& pos)
+            : GroupView<Model, ViewImpl>(model, impl, pos)
+        {
+        }
+
+        void layout() override
+        {
+            auto orig = this->pos();
+            for (auto& v : this->views()) {
+                v->setPos(orig);
+                orig.ry() += space_;
+                orig.ry() += v->size().height();
+            }
+
+            this->adjustBBox();
+        }
     };
 }
 }
