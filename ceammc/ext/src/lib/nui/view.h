@@ -97,6 +97,14 @@ namespace ui {
         void updateCoords(const RectF& bbox) final;
     };
 
+    template <typename Props>
+    struct EmptyViewImplT : public ViewImpl<Props> {
+        void create(const RectF&, const Props&) final { }
+        void erase() final { }
+        void update(const RectF&, const Props&) final { }
+        void updateCoords(const RectF&) final { }
+    };
+
     class ViewBase {
         PointF pos_;
         SizeF size_;

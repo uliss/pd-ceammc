@@ -148,6 +148,13 @@ namespace ui {
 
     using Point = PointT<int32_t>;
     using PointF = PointT<float>;
+
+    template <typename T>
+    std::ostream& operator<<(std::ostream& os, const PointT<T>& pt)
+    {
+        os << "Point(" << pt.x() << ' ' << pt.y() << ')';
+        return os;
+    }
 }
 }
 
