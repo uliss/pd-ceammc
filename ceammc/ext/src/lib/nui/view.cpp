@@ -111,7 +111,9 @@ namespace ui {
     {
         PointF orig;
         for (auto& v : items) {
-            v->setPos(orig);
+            auto p = v->pos();
+            p.rx() = orig.x();
+            v->setPos(p);
             orig.rx() += space_;
             orig.rx() += v->size().width();
         }

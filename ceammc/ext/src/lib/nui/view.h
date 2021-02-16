@@ -222,7 +222,7 @@ namespace ui {
         float space_ { 0 };
 
     public:
-        HLayout(float space = 10);
+        HLayout(float space = 5);
         virtual void doLayout(ViewList& items) override;
 
         float space() const { return space_; }
@@ -269,6 +269,9 @@ namespace ui {
 
         virtual void add(ViewPtr&& b)
         {
+            if (!b)
+                return;
+
             views_.push_back(std::move(b));
             views_.back()->setParent(this);
         }

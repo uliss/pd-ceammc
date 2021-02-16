@@ -85,7 +85,7 @@ public:
 
         auto vg = vframe_.childPtr<SimpleVGroupView>();
 
-        const SizeF lbl_size = st::size(0, "label"_hash, Size(40, 16));
+        const SizeF lbl_size = st::size(0, "label"_hash, Size(40, 8));
         const SizeF hsl_size = st::size(0, "hslider"_hash, Size(100, 16));
 
         PropId prop_id = reinterpret_cast<PropId>(p);
