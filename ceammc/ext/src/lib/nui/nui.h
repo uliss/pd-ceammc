@@ -19,9 +19,9 @@
 #include <unordered_map>
 #include <vector>
 
-#include "ceammc_nui_color.h"
-#include "ceammc_nui_font.h"
-#include "ceammc_nui_rect.h"
+#include "nui/color.h"
+#include "nui/font.h"
+#include "nui/rect.h"
 
 namespace ceammc {
 namespace ui {

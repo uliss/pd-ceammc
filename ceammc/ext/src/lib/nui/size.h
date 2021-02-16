@@ -14,9 +14,10 @@
 #ifndef CEAMMC_NUI_SIZE_H
 #define CEAMMC_NUI_SIZE_H
 
-#include "ceammc_nui_point.h"
+#include "nui/point.h"
 
 #include <cstdint>
+#include <iostream>
 
 namespace ceammc {
 namespace ui {
@@ -97,6 +98,13 @@ namespace ui {
 
     using Size = SizeT<int32_t>;
     using SizeF = SizeT<float>;
+
+    template <typename T>
+    std::ostream& operator<<(std::ostream& os, const SizeT<T>& sz)
+    {
+        os << "Size: " << sz.width() << 'x' << sz.height();
+        return os;
+    }
 }
 }
 

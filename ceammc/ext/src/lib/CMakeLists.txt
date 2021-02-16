@@ -68,7 +68,6 @@ set(CEAMMC_LIB_SOURCES
     ceammc_music_theory_names.cpp
     ceammc_music_theory_pitch_class.cpp
     ceammc_node_external.cpp
-    ceammc_nui.cpp
     ceammc_numeric.h
     ceammc_object.cpp
     ceammc_object_info.cpp
@@ -291,3 +290,6 @@ add_custom_target(ceammc_cicm_tcl_gen
     COMMAND ${PROJECT_SOURCE_DIR}/ceammc/scripts/filecontent_to_cxx_header.sh cicm/Sources/cicm_common_bind.tcl
     SOURCES cicm/Sources/cicm_common.tcl cicm/Sources/cicm_common_bind.tcl
     WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR})
+
+# new UI library
+add_subdirectory(nui)

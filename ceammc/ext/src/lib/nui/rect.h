@@ -14,8 +14,8 @@
 #ifndef CEAMMC_NUI_RECT_H
 #define CEAMMC_NUI_RECT_H
 
-#include "ceammc_nui_point.h"
-#include "ceammc_nui_size.h"
+#include "nui/point.h"
+#include "nui/size.h"
 
 #include <algorithm>
 
@@ -230,6 +230,13 @@ namespace ui {
 
     using Rect = RectT<int32_t>;
     using RectF = RectT<float>;
+
+    template <typename T>
+    std::ostream& operator<<(std::ostream& os, const RectT<T>& r)
+    {
+        os << "Rect: " << r.left() << ' ' << r.top() << ' ' << r.width() << ' ' << r.height();
+        return os;
+    }
 }
 }
 
