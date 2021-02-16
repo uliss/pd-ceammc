@@ -16,6 +16,7 @@
 
 #include <cstdint>
 #include <utility>
+#include <vector>
 
 #include "nui/model.h"
 #include "nui/rect.h"
@@ -50,7 +51,6 @@ namespace ui {
     using WinId = uint64_t;
     constexpr WinId WIN_NONE = 0;
     using ModelId = uint64_t;
-    using ViewPtr = void*;
 
     struct ViewId {
         WinId win;
@@ -151,6 +151,8 @@ namespace ui {
         virtual EventStatus onEvent(const PointF& /*pt*/, EventType /*t*/, const EventContext& /*ctx*/) { return STATUS_IGNORE; }
     };
 
+    using ViewPtr = std::unique_ptr<ViewBase>;
+
     template <typename Model, typename ModelProps, typename ViewImplT>
     class ModelView : public ViewBase {
         Model* model_;
@@ -203,6 +205,62 @@ namespace ui {
         const Model* model() const { return model_; }
     };
 
+    template <class Model, typename ViewImpl>
+    class GroupView : public ModelView<Model,
+                          EmptyData,
+                          ViewImpl> {
+        using ViewList = std::vector<ViewPtr>;
+        ViewList views_;
+
+    public:
+        GroupView(Model* model, std::unique_ptr<ViewImpl>&& impl, const PointF& pos)
+            : ModelView<Model,
+                EmptyData,
+                ViewImpl>(model, impl, 0, pos, SizeF())
+        {
+        }
+
+        const ViewList& views() const { return views_; }
+        ViewList& views() { return views_; }
+
+        virtual void add(ViewPtr&& b)
+        {
+            views_.push_back(std::move(b));
+            views_.back()->setParent(this);
+        }
+
+        void create(WinId win, float scale) final
+        {
+            for (auto& v : views_)
+                v->create(win, scale);
+        }
+
+        void erase() final
+        {
+            for (auto& v : views_)
+                v->erase();
+        }
+
+        void update(PropId id) final
+        {
+            for (auto& v : views_)
+                v->update(id);
+        }
+
+        void updateCoords() override
+        {
+            for (auto& v : views_)
+                v->updateCoords();
+        }
+
+        void layout() override
+        {
+            auto orig = this->pos();
+            for (auto& v : this->views())
+                v->setPos(orig);
+        }
+    };
+
     template <typename Props>
     using ViewImplPtr = std::unique_ptr<ViewImpl<Props>>;
 
@@ -217,7 +275,6 @@ namespace ui {
                           FrameProps,
                           ViewImpl<FrameProps>> {
 
-        using ViewPtr = std::unique_ptr<ViewBase>;
         using Base = ModelView<FrameModel,
             FrameProps,
             ViewImpl<FrameProps>>;
