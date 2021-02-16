@@ -33,6 +33,7 @@ namespace ui {
         txt_color = sc::color(style, "label:text"_hash, txt_color);
         bd_color = sc::color(style, "label:border"_hash, bd_color);
         bg_color = sc::color(style, "label:backgr"_hash, bg_color);
+        font = sc::font(style, "label"_hash, font);
     }
 
 }
