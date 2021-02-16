@@ -46,7 +46,7 @@ namespace ui {
     struct FrameProps {
         HexColor bd_color { colors::st_border };
         HexColor sel_color { colors::blue };
-        float padding { 10 };
+        float padding { 5 };
         bool selected { true };
 
         FrameProps()

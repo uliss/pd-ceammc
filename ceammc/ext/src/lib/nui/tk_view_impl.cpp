@@ -29,7 +29,7 @@ namespace ui {
                  " %f %f"
                  " #%6.6x #%6.6x #%6.6x\n",
             winId(), widgetId(), this,
-            rect.left(), rect.top(), rect.right(), rect.bottom(), (int)scale(),
+            rect.left(), rect.top(), rect.width(), rect.height(), (int)scale(),
             pos, data.value,
             data.bg_color, data.bd_color, data.kn_color);
     }
