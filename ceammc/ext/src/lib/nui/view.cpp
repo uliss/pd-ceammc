@@ -40,5 +40,51 @@ namespace ui {
 
     void ViewBase::layout() { }
 
+    HSliderView::HSliderView(SliderModel* model, ViewImplPtr<SliderProps>&& impl, PropId prop_idx, const PointF& pos, const SizeF& sz)
+        : ModelView<SliderModel,
+            SliderProps,
+            ViewImpl<SliderProps>>(model, std::move(impl), prop_idx, pos, sz)
+    {
+    }
+
+    FrameView::FrameView(FrameModel* model, ViewImplPtr<FrameProps>&& impl, const PointF& pos, const SizeF& sz)
+        : Base(model, std::move(impl), PROP_ID_FRAME, pos, sz)
+    {
+    }
+
+    void FrameView::create(WinId win, float scale)
+    {
+        child_->create(win, scale);
+        Base::create(win, scale);
+    }
+
+    void FrameView::erase()
+    {
+        child_->erase();
+        Base::erase();
+    }
+
+    void FrameView::update(PropId id)
+    {
+        child_->update(id);
+        Base::update(id);
+    }
+
+    void FrameView::updateCoords()
+    {
+        child_->updateCoords();
+        Base::updateCoords();
+    }
+
+    void FrameView::layout()
+    {
+        auto pad = model()->getProp(PROP_ID_FRAME).padding;
+        child_->setPos(PointF(pad, pad));
+        child_->layout();
+        auto sz = child_->size();
+        sz.enlarge(pad * 2, pad * 2);
+        Base::setSize(sz);
+    }
+
 }
 }

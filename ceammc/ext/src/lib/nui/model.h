@@ -32,7 +32,18 @@ namespace ui {
     class ModelBase {
     public:
         virtual bool hasProp(PropId id) = 0;
-        virtual const Props& getProp(PropId id) = 0;
+        virtual const Props& getProp(PropId id) const = 0;
+    };
+
+    struct FrameProps {
+        HexColor bd_color { colors::st_border };
+        HexColor sel_color { colors::blue };
+        float padding { 2 };
+        bool selected { true };
+
+        FrameProps()
+        {
+        }
     };
 
     struct SliderProps {
@@ -49,6 +60,9 @@ namespace ui {
 
         SliderProps() { }
         SliderProps(int8_t style);
+    };
+
+    class FrameModel : public ModelBase<FrameProps> {
     };
 
     class SliderModel : public ModelBase<SliderProps> {

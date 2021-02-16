@@ -151,21 +151,18 @@ namespace ui {
         virtual EventStatus onEvent(const PointF& /*pt*/, EventType /*t*/, const EventContext& /*ctx*/) { return STATUS_IGNORE; }
     };
 
-    template <typename ViewImpl>
-    using ViewImplPtr = std::unique_ptr<ViewImpl>;
-
     template <typename Model, typename ModelProps, typename ViewImplT>
     class ModelView : public ViewBase {
         Model* model_;
 
-        ViewImplPtr<ViewImplT> impl_;
+        std::unique_ptr<ViewImplT> impl_;
         const PropId prop_id_;
 
     public:
-        ModelView(Model* model, ViewImplT* impl, PropId prop_id, const PointF& pos, const SizeF& sz)
+        ModelView(Model* model, std::unique_ptr<ViewImplT>&& impl, PropId prop_id, const PointF& pos, const SizeF& sz)
             : ViewBase(pos, sz)
             , model_(model)
-            , impl_(impl)
+            , impl_(std::move(impl))
             , prop_id_(prop_id)
         {
         }
@@ -202,18 +199,50 @@ namespace ui {
 
         ViewImplT& impl() { return impl_; }
         const ViewImplT& impl() const { return impl_; }
+
+        const Model* model() const { return model_; }
     };
+
+    template <typename Props>
+    using ViewImplPtr = std::unique_ptr<ViewImpl<Props>>;
 
     class HSliderView : public ModelView<SliderModel,
                             SliderProps,
                             ViewImpl<SliderProps>> {
     public:
-        HSliderView(SliderModel* model, ViewImpl<SliderProps>* impl, PropId prop_idx, const PointF& pos, const SizeF& sz)
-            : ModelView<SliderModel,
-                SliderProps,
-                ViewImpl<SliderProps>>(model, impl, prop_idx, pos, sz)
+        HSliderView(SliderModel* model, ViewImplPtr<SliderProps>&& impl, PropId prop_idx, const PointF& pos, const SizeF& sz);
+    };
+
+    class FrameView : public ModelView<FrameModel,
+                          FrameProps,
+                          ViewImpl<FrameProps>> {
+
+        using ViewPtr = std::unique_ptr<ViewBase>;
+        using Base = ModelView<FrameModel,
+            FrameProps,
+            ViewImpl<FrameProps>>;
+
+    private:
+        ViewPtr child_;
+
+    public:
+        FrameView(FrameModel* model, ViewImplPtr<FrameProps>&& impl, const PointF& pos, const SizeF& sz);
+
+        void create(WinId win, float scale) final;
+        void erase() final;
+        void update(PropId id) final;
+        void updateCoords() override;
+        void layout() override;
+
+        ViewPtr& child() { return child_; }
+        void setChild(ViewPtr&& v)
         {
+            child_ = std::move(v);
+            child_->setParent(this);
         }
+
+        template <typename T>
+        T* childPtr() { return static_cast<T*>(child_.get()); }
     };
 }
 }
