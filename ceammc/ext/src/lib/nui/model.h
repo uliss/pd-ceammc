@@ -33,10 +33,8 @@ namespace ui {
     struct EmptyData {
     };
 
-    using PropId = int16_t;
-    constexpr PropId PROP_ID_ALL = -1;
-    constexpr PropId PROP_ID_FRAME = -2;
-    constexpr PropId PROP_ID_EMPTY = -3;
+    using PropId = uint64_t;
+    constexpr PropId PROP_ID_ALL = 0;
 
     template <typename Props>
     class ModelBase {
@@ -105,7 +103,7 @@ namespace ui {
         std::unordered_map<PropId, Props> props_;
 
     public:
-        bool hasProp(PropId idx) const override { return idx >= 0 && idx < props_.size(); }
+        bool hasProp(PropId idx) const override { return props_.find(idx) != props_.end(); }
 
         const Props& getProp(PropId idx) const override { return props_.at(idx); }
 

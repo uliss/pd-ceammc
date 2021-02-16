@@ -92,12 +92,16 @@ LangFaustUiTilde::LangFaustUiTilde(const PdArgs& args)
     addProperty(new FloatProperty("@b", 100))->setFloatCheck(PropValueConstraints::CLOSED_RANGE, 50, 200);
     addProperty(new FloatProperty("@c", -100))->setFloatCheck(PropValueConstraints::CLOSED_RANGE, 50, 200);
 
-    property("@a")->setSuccessFn([this](Property*) {
-        notifyPropUpdate(0);
+    property("@a")->setSuccessFn([this](Property* p) {
+        notifyPropUpdate(p);
     });
 
-    property("@b")->setSuccessFn([this](Property*) {
-        notifyPropUpdate(1);
+    property("@b")->setSuccessFn([this](Property* p) {
+        notifyPropUpdate(p);
+    });
+
+    property("@c")->setSuccessFn([this](Property* p) {
+        notifyPropUpdate(p);
     });
 
     createInlet();
@@ -230,10 +234,10 @@ void WidgetIFace::setSize(int w, int h)
     size_ = Size(w, h);
 }
 
-void WidgetIFace::notifyPropUpdate(int idx)
+void WidgetIFace::notifyPropUpdate(const Property* p)
 {
-    LIB_ERR << __FUNCTION__ << " prop changed: " << idx;
-    view_.update(idx);
+    LIB_ERR << __FUNCTION__ << " prop changed: " << p;
+    view_.update(p);
 }
 
 void WidgetIFace::bindEvents()

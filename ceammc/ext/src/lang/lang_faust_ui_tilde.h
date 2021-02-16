@@ -37,9 +37,12 @@ class FaustMasterView : public FrameModel {
 
     t_glist* parent_;
 
+private:
+    PropId propFrameId() const { return reinterpret_cast<PropId>(this); }
+
 public:
     FaustMasterView(t_glist* parent = nullptr)
-        : vframe_(this, ViewImplPtr<FrameProps>(new TclFrameImpl), PointF(), SizeF())
+        : vframe_(this, ViewImplPtr<FrameProps>(new TclFrameImpl), propFrameId(), PointF(), SizeF())
         , parent_(parent)
     {
         ViewPtr vp(new SimpleVGroupView);
@@ -50,9 +53,9 @@ public:
 
     void erase();
 
-    void update(PropId id)
+    void update(const void* id)
     {
-        vframe_.update(id);
+        vframe_.update(reinterpret_cast<PropId>(id));
     }
 
     void move(const PointF& pos);
@@ -81,7 +84,7 @@ public:
         const SizeF lbl_size = st::size(0, "label"_hash, Size(40, 16));
         const SizeF hsl_size = st::size(0, "hslider"_hash, Size(100, 16));
 
-        PropId prop_id = props_.size();
+        PropId prop_id = reinterpret_cast<PropId>(p);
 
         switch (p->type()) {
         case PropValueType::FLOAT: {
@@ -109,7 +112,7 @@ public:
     void select(bool state)
     {
         vprops_.selected = state;
-        update(PROP_ID_FRAME);
+        update(this);
     }
 };
 
@@ -181,7 +184,7 @@ public:
     const Size& size() const { return size_; }
     void setSize(int w, int h);
 
-    void notifyPropUpdate(int idx);
+    void notifyPropUpdate(const Property* p);
 
     void bindEvents();
 };

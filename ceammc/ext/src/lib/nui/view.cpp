@@ -42,8 +42,8 @@ namespace ui {
     {
     }
 
-    FrameView::FrameView(FrameModel* model, ViewImplPtr<FrameProps> impl, const PointF& pos, const SizeF& sz)
-        : Base(model, std::move(impl), PROP_ID_FRAME, pos, sz)
+    FrameView::FrameView(FrameModel* model, ViewImplPtr<FrameProps> impl, PropId prop_idx, const PointF& pos, const SizeF& sz)
+        : Base(model, std::move(impl), prop_idx, pos, sz)
     {
     }
 
@@ -73,7 +73,7 @@ namespace ui {
 
     void FrameView::layout()
     {
-        auto pad = model()->getProp(PROP_ID_FRAME).padding;
+        auto pad = model()->getProp(PROP_ID_ALL).padding;
         child_->setPos(PointF(pad, pad));
         child_->layout();
         auto sz = child_->size();

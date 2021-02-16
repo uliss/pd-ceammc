@@ -214,7 +214,7 @@ namespace ui {
         GroupView(Model* model, std::unique_ptr<ViewImpl> impl, const PointF& pos)
             : ModelView<Model,
                 EmptyData,
-                ViewImpl>(model, std::move(impl), PROP_ID_EMPTY, pos, SizeF())
+                ViewImpl>(model, std::move(impl), PROP_ID_ALL, pos, SizeF())
         {
         }
 
@@ -304,7 +304,7 @@ namespace ui {
         ViewPtr child_;
 
     public:
-        FrameView(FrameModel* model, ViewImplPtr<FrameProps> impl, const PointF& pos, const SizeF& sz);
+        FrameView(FrameModel* model, ViewImplPtr<FrameProps> impl, PropId prop_idx, const PointF& pos, const SizeF& sz);
 
         void create(WinId win, WidgetId wid, float scale) final;
         void erase() final;
