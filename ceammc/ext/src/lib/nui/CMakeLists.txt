@@ -3,3 +3,8 @@ add_library(ceammc_nui STATIC
 )
 
 target_include_directories(ceammc_nui PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/..)
+
+add_custom_target(nui_tcl_gen
+    COMMAND ${PROJECT_SOURCE_DIR}/ceammc/scripts/filecontent_to_cxx_header.sh tcl_nui.tcl
+    SOURCES tcl_nui.tcl
+    WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR})

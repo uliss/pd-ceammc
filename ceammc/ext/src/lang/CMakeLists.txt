@@ -12,3 +12,4 @@ if(WITH_FAUST)
 else()
     target_sources(ceammc_lang PRIVATE lang_faust_tilde_stub.cpp)
 endif()
+
