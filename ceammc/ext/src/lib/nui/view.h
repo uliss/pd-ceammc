@@ -325,7 +325,7 @@ namespace ui {
 
     template <typename Model, typename ViewImpl>
     class HGroupView : public GroupView<Model, ViewImpl> {
-        float space_ { 3 };
+        float space_ { 5 };
 
     public:
         HGroupView(Model* model, std::unique_ptr<ViewImpl> impl, const PointF& pos)

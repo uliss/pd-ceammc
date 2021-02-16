@@ -96,7 +96,7 @@ namespace ui {
 
         sys_vgui("nui::label::create %lx %lx %lx"
                  " %d %d"
-                 " 0 nw {{%s} %d} #%6.6x {%s}\n",
+                 " 0 w {{%s} %d} #%6.6x {%s}\n",
             winId(), widgetId(), this,
             rect.left(), rect.top(),
             data.font.family(), int(data.font.size() * scale()),

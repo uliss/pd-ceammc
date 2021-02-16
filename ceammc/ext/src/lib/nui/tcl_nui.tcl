@@ -110,8 +110,10 @@ namespace eval slider {
             -fill $fill_color -outline $out_color -width 1 -tags [list $ta $tb]
 
         # draw knob
-        set knob_x [knob_xpos $x $w $pos]
-        $c create line $knob_x $y $knob_x [expr $y+$h] \
+        set kx [knob_xpos $x $w $pos]
+        set ky0 [expr $y+1]
+        set ky1 [expr $y+$h-1]
+        $c create line $kx $ky0 $kx $ky1 \
             -fill $knob_color -width 2 -tags [list $ta $tkn]
     }
 
