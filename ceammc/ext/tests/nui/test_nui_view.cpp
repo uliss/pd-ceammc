@@ -74,4 +74,51 @@ TEST_CASE("nui", "[nui]")
         REQUIRE(fv0.absPos() == PointF(10, 20));
         REQUIRE(fv0.absBBox() == RectF(10, 20, SizeF(40, 30)));
     }
+
+    SECTION("hgroup")
+    {
+        SimpleHGroupView hg;
+        hg.setPos(PointF(100, 200));
+        REQUIRE(hg.getLayout());
+        REQUIRE(hg.pos() == PointF(100, 200));
+        REQUIRE(hg.size() == SizeF());
+        REQUIRE(hg.bbox() == RectF(100, 200, SizeF(0, 0)));
+
+        REQUIRE(hg.empty());
+        hg.layout();
+
+        hg.add(ViewPtr(new FrameView(0, TestFrameViewImplPtr(new TestFrameViewImpl), 0, PointF(15, 25), SizeF(30, 20))));
+        REQUIRE(!hg.empty());
+        REQUIRE(hg.numItems() == 1);
+        REQUIRE(hg.at(0)->parent() == &hg);
+        REQUIRE(hg.at(0)->pos() == PointF(15, 25));
+        REQUIRE(hg.bbox() == RectF(100, 200, SizeF(0, 0)));
+
+        hg.layout();
+        REQUIRE(hg.at(0)->pos() == PointF(0, 0));
+        REQUIRE(hg.at(0)->size() == SizeF(30, 20));
+        REQUIRE(hg.at(0)->absPos() == PointF(100, 200));
+        REQUIRE(hg.calcBBox() == RectF(0, 0, 30, 20));
+        REQUIRE(hg.bbox() == RectF(100, 200, SizeF(30, 20)));
+
+        hg.add(ViewPtr(new FrameView(0, TestFrameViewImplPtr(new TestFrameViewImpl), 0, PointF(15, 25), SizeF(5, 15))));
+        hg.add(ViewPtr(new FrameView(0, TestFrameViewImplPtr(new TestFrameViewImpl), 0, PointF(15, 25), SizeF(15, 35))));
+        // w = 30 + 5 + 15
+
+        hg.setLayout(new HLayout(0));
+        hg.layout();
+        REQUIRE(hg.at(0)->pos() == PointF(0, 0));
+        REQUIRE(hg.at(1)->pos() == PointF(30, 0));
+        REQUIRE(hg.at(2)->pos() == PointF(35, 0));
+        REQUIRE(hg.calcBBox() == RectF(0, 0, SizeF(50, 35)));
+
+        hg.setLayout(new HLayout(10));
+        hg.layout();
+        REQUIRE(hg.at(0)->pos() == PointF(0, 0));
+        REQUIRE(hg.at(1)->pos() == PointF(40, 0));
+        REQUIRE(hg.at(2)->pos() == PointF(55, 0));
+        REQUIRE(hg.calcBBox() == RectF(0, 0, SizeF(70, 35)));
+
+        hg.setSpace(15);
+    }
 }

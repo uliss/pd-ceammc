@@ -92,13 +92,46 @@ namespace ui {
     }
 
     SimpleVGroupView::SimpleVGroupView(const PointF& pos)
-        : VGroupView<EmptyModel, EmptyViewImpl>(nullptr, std::unique_ptr<EmptyViewImpl>(), pos)
+        : VGroupView<EmptyViewImpl>(std::unique_ptr<EmptyViewImpl>(), pos)
     {
     }
 
     SimpleHGroupView::SimpleHGroupView(const PointF& pos)
-        : HGroupView<EmptyModel, EmptyViewImpl>(nullptr, std::unique_ptr<EmptyViewImpl>(), pos)
+        : HGroupView<EmptyViewImpl>(std::unique_ptr<EmptyViewImpl>(), pos)
     {
+    }
+
+    HLayout::HLayout(float space)
+        : LayoutBase()
+        , space_(space)
+    {
+    }
+
+    void HLayout::doLayout(ViewList& items)
+    {
+        PointF orig;
+        for (auto& v : items) {
+            v->setPos(orig);
+            orig.rx() += space_;
+            orig.rx() += v->size().width();
+        }
+    }
+
+    VLayout::VLayout()
+        : LayoutBase()
+    {
+    }
+
+    void VLayout::doLayout(ViewList& items)
+    {
+        auto space = 10;
+
+        PointF orig;
+        for (auto& v : items) {
+            v->setPos(orig);
+            orig.ry() += space;
+            orig.ry() += v->size().height();
+        }
     }
 
 }

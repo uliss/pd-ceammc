@@ -152,6 +152,7 @@ namespace ui {
     };
 
     using ViewPtr = std::unique_ptr<ViewBase>;
+    using ViewList = std::vector<ViewPtr>;
 
     template <typename Model, typename ModelProps, typename ViewImplT>
     class ModelView : public ViewBase {
@@ -212,23 +213,55 @@ namespace ui {
         void setModel(Model* model) { model_ = model; }
     };
 
-    template <class Model, typename ViewImpl>
-    class GroupView : public ModelView<Model,
+    class LayoutBase {
+    public:
+        virtual void doLayout(ViewList&) { }
+    };
+
+    class HLayout : public LayoutBase {
+        float space_ { 0 };
+
+    public:
+        HLayout(float space = 10);
+        virtual void doLayout(ViewList& items) override;
+
+        float space() const { return space_; }
+        void setSpace(float space) { space_ = space; }
+    };
+
+    class VLayout : public LayoutBase {
+    public:
+        VLayout();
+        virtual void doLayout(ViewList& items) override;
+    };
+
+    using LayoutPtr = std::unique_ptr<LayoutBase>;
+
+    template <typename ViewImpl>
+    class GroupView : public ModelView<EmptyModel,
                           EmptyData,
                           ViewImpl> {
         using ViewList = std::vector<ViewPtr>;
         ViewList views_;
+        LayoutPtr layout_;
 
     public:
-        GroupView(Model* model, std::unique_ptr<ViewImpl> impl, const PointF& pos)
-            : ModelView<Model,
+        GroupView(std::unique_ptr<ViewImpl> impl, const PointF& pos)
+            : ModelView<EmptyModel,
                 EmptyData,
-                ViewImpl>(model, std::move(impl), PROP_ID_ALL, pos, SizeF())
+                ViewImpl>(nullptr, std::move(impl), PROP_ID_ALL, pos, SizeF())
         {
         }
 
         const ViewList& views() const { return views_; }
         ViewList& views() { return views_; }
+        size_t numItems() const { return views_.size(); }
+        bool empty() const { return views_.empty(); }
+        const ViewPtr& at(size_t idx) const { return views_.at(idx); }
+
+        LayoutPtr& getLayout() { return layout_; }
+        const LayoutPtr& getLayout() const { return layout_; }
+        void setLayout(LayoutBase* l) { layout_.reset(l); }
 
         virtual void add(ViewPtr&& b)
         {
@@ -262,9 +295,10 @@ namespace ui {
 
         void layout() override
         {
-            auto orig = this->pos();
-            for (auto& v : views_)
-                v->setPos(orig);
+            if (layout_) {
+                layout_->doLayout(views_);
+                adjustBBox();
+            }
         }
 
         RectF calcBBox() const
@@ -287,7 +321,7 @@ namespace ui {
 
             const RectF bbox = calcBBox();
             auto p = this->pos();
-            this->setSize(SizeF(bbox.width() - p.x(), bbox.height() - p.y()));
+            this->setSize(SizeF(bbox.width(), bbox.height()));
         }
     };
 
@@ -332,61 +366,42 @@ namespace ui {
         T* childPtr() { return static_cast<T*>(child_.get()); }
     };
 
-    template <typename Model, typename ViewImpl>
-    class HGroupView : public GroupView<Model, ViewImpl> {
-        float space_ { 5 };
-
+    template <typename ViewImpl>
+    class HGroupView : public GroupView<ViewImpl> {
     public:
-        HGroupView(Model* model, std::unique_ptr<ViewImpl> impl, const PointF& pos)
-            : GroupView<Model, ViewImpl>(model, std::move(impl), pos)
+        HGroupView(std::unique_ptr<ViewImpl> impl, const PointF& pos)
+            : GroupView<ViewImpl>(std::move(impl), pos)
         {
+            this->setLayout(new HLayout);
         }
 
-        void layout() override
+        void setSpace(float space)
         {
-            auto orig = this->pos();
-            for (auto& v : this->views()) {
-                v->setPos(orig);
-                orig.rx() += space_;
-                orig.rx() += v->size().width();
+            if (this->getLayout()) {
+                auto lt = static_cast<HLayout*>(this->getLayout().get());
+                lt->setSpace(space);
+            } else {
+                this->setLayout(new HLayout(space));
             }
-
-            this->adjustBBox();
-        }
-
-        float space() const { return space_; }
-        void setSpace(float s) { space_ = s; }
-    };
-
-    template <typename Model, typename ViewImpl>
-    class VGroupView : public GroupView<Model, ViewImpl> {
-        float space_ { 3 };
-
-    public:
-        VGroupView(Model* model, std::unique_ptr<ViewImpl> impl, const PointF& pos)
-            : GroupView<Model, ViewImpl>(model, std::move(impl), pos)
-        {
-        }
-
-        void layout() override
-        {
-            auto orig = this->pos();
-            for (auto& v : this->views()) {
-                v->setPos(orig);
-                orig.ry() += space_;
-                orig.ry() += v->size().height();
-            }
-
-            this->adjustBBox();
         }
     };
 
-    class SimpleVGroupView : public VGroupView<EmptyModel, EmptyViewImpl> {
+    template <typename ViewImpl>
+    class VGroupView : public GroupView<ViewImpl> {
+    public:
+        VGroupView(std::unique_ptr<ViewImpl> impl, const PointF& pos)
+            : GroupView<ViewImpl>(std::move(impl), pos)
+        {
+            this->setLayout(new VLayout);
+        }
+    };
+
+    class SimpleVGroupView : public VGroupView<EmptyViewImpl> {
     public:
         explicit SimpleVGroupView(const PointF& pos = PointF());
     };
 
-    class SimpleHGroupView : public HGroupView<EmptyModel, EmptyViewImpl> {
+    class SimpleHGroupView : public HGroupView<EmptyViewImpl> {
     public:
         explicit SimpleHGroupView(const PointF& pos = PointF());
     };
