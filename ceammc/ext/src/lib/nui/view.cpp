@@ -42,7 +42,7 @@ namespace ui {
     {
     }
 
-    FrameView::FrameView(FrameModel* model, ViewImplPtr<FrameProps> impl, PropId prop_idx, const PointF& pos, const SizeF& sz)
+    FrameView::FrameView(FrameModelBase* model, ViewImplPtr<FrameProps> impl, PropId prop_idx, const PointF& pos, const SizeF& sz)
         : Base(model, std::move(impl), prop_idx, pos, sz)
     {
     }

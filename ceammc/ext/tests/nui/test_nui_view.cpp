@@ -19,15 +19,9 @@ using namespace ceammc::ui;
 using TestFrameViewImpl = EmptyViewImplT<FrameProps>;
 using TestFrameViewImplPtr = ViewImplPtr<FrameProps>;
 
-struct TestFrameModel : public FrameModel {
-    FrameProps props;
-    bool hasProp(PropId /*idx*/) const override { return true; }
-    const FrameProps& getProp(PropId /*idx*/) const override { return props; }
-};
-
 TEST_CASE("nui", "[nui]")
 {
-    SECTION("init")
+    SECTION("frame")
     {
         FrameView fv0(0, TestFrameViewImplPtr(new TestFrameViewImpl), 0, PointF(10, 20), SizeF(40, 50));
 
@@ -63,7 +57,7 @@ TEST_CASE("nui", "[nui]")
         REQUIRE(fv1->absBBox() == RectF(10, 20, SizeF(30, 20)));
         REQUIRE(fv0.size() == SizeF(30, 20));
 
-        TestFrameModel model;
+        FrameModel model;
         REQUIRE(model.props.padding == 10);
         model.props.padding = 5;
 

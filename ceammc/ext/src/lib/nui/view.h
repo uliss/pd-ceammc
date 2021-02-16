@@ -301,11 +301,11 @@ namespace ui {
         HSliderView(SliderModel* model, ViewImplPtr<SliderProps> impl, PropId prop_idx, const PointF& pos, const SizeF& sz);
     };
 
-    class FrameView : public ModelView<FrameModel,
+    class FrameView : public ModelView<FrameModelBase,
                           FrameProps,
                           ViewImpl<FrameProps>> {
 
-        using Base = ModelView<FrameModel,
+        using Base = ModelView<FrameModelBase,
             FrameProps,
             ViewImpl<FrameProps>>;
 
@@ -313,7 +313,7 @@ namespace ui {
         ViewPtr child_;
 
     public:
-        FrameView(FrameModel* model, ViewImplPtr<FrameProps> impl, PropId prop_idx, const PointF& pos, const SizeF& sz);
+        FrameView(FrameModelBase* model, ViewImplPtr<FrameProps> impl, PropId prop_idx, const PointF& pos, const SizeF& sz);
 
         void create(WinId win, WidgetId wid, float scale) final;
         void erase() final;

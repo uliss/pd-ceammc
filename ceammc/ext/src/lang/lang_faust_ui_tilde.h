@@ -28,7 +28,7 @@ using namespace ceammc::ui;
 #include <unordered_map>
 #include <utility>
 
-class FaustMasterView : public FrameModel {
+class FaustMasterView : public FrameModelBase {
     std::vector<const Property*> props_;
     FrameProps vprops_;
     FrameView vframe_;

@@ -96,13 +96,19 @@ namespace ui {
     class EmptyModel : public ModelBase<EmptyData> {
     };
 
-    class FrameModel : public ModelBase<FrameProps> {
+    class FrameModelBase : public ModelBase<FrameProps> {
     };
 
     class SliderModel : public ModelBase<SliderProps> {
     };
 
     class LabelModel : public ModelBase<LabelProps> {
+    };
+
+    struct FrameModel : public FrameModelBase {
+        FrameProps props;
+        bool hasProp(PropId /*idx*/) const override { return true; }
+        const FrameProps& getProp(PropId /*idx*/) const override { return props; }
     };
 
     template <typename Model, typename Props>
