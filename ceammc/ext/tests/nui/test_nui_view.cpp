@@ -131,12 +131,12 @@ TEST_CASE("nui", "[nui]")
         hg.setLayout(new VLayout(5));
         hg.layout();
         REQUIRE(hg.at(0)->pos() == PointF(0, 0));
-        REQUIRE(hg.at(1)->pos() == PointF(0, 25));
-        REQUIRE(hg.at(2)->pos() == PointF(0, 45));
+        REQUIRE(hg.at(1)->pos() == PointF(40, 25));
+        REQUIRE(hg.at(2)->pos() == PointF(55, 45));
         REQUIRE(hg.at(0)->size() == SizeF(30, 20));
         REQUIRE(hg.at(1)->size() == SizeF(5, 15));
         REQUIRE(hg.at(2)->size() == SizeF(15, 35));
-        REQUIRE(hg.calcBBox() == RectF(0, 0, SizeF(30, 80)));
+        REQUIRE(hg.calcBBox() == RectF(0, 0, SizeF(70, 80)));
     }
 
     SECTION("nested")

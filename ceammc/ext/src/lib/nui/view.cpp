@@ -125,11 +125,11 @@ namespace ui {
 
     void VLayout::doLayout(ViewList& items)
     {
-        PointF orig;
+        float y = 0;
         for (auto& v : items) {
-            v->setPos(orig);
-            orig.ry() += space_;
-            orig.ry() += v->size().height();
+            v->setPos(PointF(v->x(), y));
+            y += space_;
+            y += v->size().height();
         }
     }
 
