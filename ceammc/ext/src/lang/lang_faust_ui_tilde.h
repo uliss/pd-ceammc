@@ -103,7 +103,6 @@ public:
 
             hg->add(ViewPtr(new HSliderView(&sliders_, HSPtr(new TclHSliderImpl), prop_id, PointF(), hsl_size)));
             hg->add(ViewPtr(new LabelView(&labels_, LPtr(new TclLabelImpl), prop_id, hsl_size.leftCenter(), lbl_size)));
-            hg->layout();
             vg->add(ViewPtr(hg));
         } break;
         default:

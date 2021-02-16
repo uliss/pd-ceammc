@@ -246,14 +246,14 @@ namespace ui {
                           EmptyData,
                           ViewImpl> {
         using ViewList = std::vector<ViewPtr>;
+        using Base = ModelView<EmptyModel, EmptyData, ViewImpl>;
+
         ViewList views_;
         LayoutPtr layout_;
 
     public:
         GroupView(std::unique_ptr<ViewImpl> impl, const PointF& pos)
-            : ModelView<EmptyModel,
-                EmptyData,
-                ViewImpl>(nullptr, std::move(impl), PROP_ID_ALL, pos, SizeF())
+            : Base(nullptr, std::move(impl), PROP_ID_ALL, pos, SizeF())
         {
         }
 
@@ -299,6 +299,9 @@ namespace ui {
 
         void layout() override
         {
+            for (auto& v : views_)
+                v->layout();
+
             if (layout_) {
                 layout_->doLayout(views_);
                 adjustBBox();
