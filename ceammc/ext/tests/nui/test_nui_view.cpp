@@ -110,15 +110,32 @@ TEST_CASE("nui", "[nui]")
         REQUIRE(hg.at(0)->pos() == PointF(0, 0));
         REQUIRE(hg.at(1)->pos() == PointF(30, 0));
         REQUIRE(hg.at(2)->pos() == PointF(35, 0));
+        REQUIRE(hg.at(0)->size() == SizeF(30, 20));
+        REQUIRE(hg.at(1)->size() == SizeF(5, 15));
+        REQUIRE(hg.at(2)->size() == SizeF(15, 35));
         REQUIRE(hg.calcBBox() == RectF(0, 0, SizeF(50, 35)));
+        REQUIRE(hg.bbox() == RectF(100, 200, SizeF(50, 35)));
+        REQUIRE(hg.absBBox() == RectF(100, 200, SizeF(50, 35)));
 
         hg.setSpace(10);
         hg.layout();
         REQUIRE(hg.at(0)->pos() == PointF(0, 0));
         REQUIRE(hg.at(1)->pos() == PointF(40, 0));
         REQUIRE(hg.at(2)->pos() == PointF(55, 0));
+        REQUIRE(hg.at(0)->size() == SizeF(30, 20));
+        REQUIRE(hg.at(1)->size() == SizeF(5, 15));
+        REQUIRE(hg.at(2)->size() == SizeF(15, 35));
         REQUIRE(hg.calcBBox() == RectF(0, 0, SizeF(70, 35)));
+        REQUIRE(hg.absBBox() == RectF(100, 200, SizeF(70, 35)));
 
-        hg.setSpace(15);
+        hg.setLayout(new VLayout(5));
+        hg.layout();
+        REQUIRE(hg.at(0)->pos() == PointF(0, 0));
+        REQUIRE(hg.at(1)->pos() == PointF(0, 25));
+        REQUIRE(hg.at(2)->pos() == PointF(0, 45));
+        REQUIRE(hg.at(0)->size() == SizeF(30, 20));
+        REQUIRE(hg.at(1)->size() == SizeF(5, 15));
+        REQUIRE(hg.at(2)->size() == SizeF(15, 35));
+        REQUIRE(hg.calcBBox() == RectF(0, 0, SizeF(30, 80)));
     }
 }
