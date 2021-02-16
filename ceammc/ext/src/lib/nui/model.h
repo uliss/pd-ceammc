@@ -58,7 +58,7 @@ namespace ui {
             min { 0 },
             max { 1 };
 
-        HexColor bd_color { colors::st_backgr },
+        HexColor bd_color { colors::st_border },
             bg_color { colors::st_backgr },
             kn_color { colors::black };
 
@@ -75,7 +75,7 @@ namespace ui {
         Font font;
         HexColor bd_color { colors::st_border },
             bg_color { colors::st_backgr },
-            txt_color { colors::st_active };
+            txt_color { colors::black };
 
         int8_t style_idx { 0 };
 
