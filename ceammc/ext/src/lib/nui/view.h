@@ -162,7 +162,7 @@ namespace ui {
         const PropId prop_id_;
 
     public:
-        ModelView(Model* model, PropId prop_id, const PointF& pos, const SizeF& sz, ViewImplT* impl)
+        ModelView(Model* model, ViewImplT* impl, PropId prop_id, const PointF& pos, const SizeF& sz)
             : ViewBase(pos, sz)
             , model_(model)
             , impl_(impl)
@@ -208,10 +208,10 @@ namespace ui {
                             SliderProps,
                             ViewImpl<SliderProps>> {
     public:
-        HSliderView(SliderModel* model, PropId prop_idx, const PointF& pos, const SizeF& sz, ViewImpl<SliderProps>* impl)
+        HSliderView(SliderModel* model, ViewImpl<SliderProps>* impl, PropId prop_idx, const PointF& pos, const SizeF& sz)
             : ModelView<SliderModel,
                 SliderProps,
-                ViewImpl<SliderProps>>(model, prop_idx, pos, sz, impl)
+                ViewImpl<SliderProps>>(model, impl, prop_idx, pos, sz)
         {
         }
     };
