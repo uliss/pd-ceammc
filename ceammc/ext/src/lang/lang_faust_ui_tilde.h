@@ -87,7 +87,9 @@ public:
         case PropValueType::FLOAT: {
             auto hg = new SimpleHGroupView;
 
-            sliders_.addModel(prop_id, SliderProps());
+            SliderProps sl;
+            sl.update(p);
+            sliders_.addModel(prop_id, sl);
             LabelProps lp(0);
             lp.text = p->name();
             labels_.addModel(prop_id, lp);

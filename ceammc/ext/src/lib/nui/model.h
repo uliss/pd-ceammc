@@ -25,6 +25,9 @@
 #include "nui/font.h"
 
 namespace ceammc {
+
+class Property;
+
 namespace ui {
 
     struct EmptyData {
@@ -67,6 +70,8 @@ namespace ui {
 
         SliderProps() { }
         SliderProps(int8_t style);
+
+        bool update(const Property* p);
     };
 
     struct LabelProps {
