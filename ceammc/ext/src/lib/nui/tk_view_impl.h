@@ -19,7 +19,28 @@
 namespace ceammc {
 namespace ui {
 
-    class TclHSliderImpl : public ViewImpl<SliderProps> {
+    template <typename Props>
+    class TclViewImpl : public ViewImpl<Props> {
+    public:
+        TclViewImpl(const ViewId& view_id, PropId prop_id)
+            : ViewImpl<Props>(view_id, prop_id)
+        {
+        }
+
+        uint64_t tclId() const { return this->modelId() + this->propId(); }
+    };
+
+    class TclFrameImpl : public TclViewImpl<FrameProps> {
+    public:
+        TclFrameImpl(const ViewId& view_id, PropId prop_id);
+
+        void create(const RectF& bbox, const FrameProps& data) final;
+        void erase() final;
+        void update(const RectF& bbox, const FrameProps& data) final;
+        void updateCoords(const RectF& bbox) final;
+    };
+
+    class TclHSliderImpl : public TclViewImpl<SliderProps> {
     public:
         TclHSliderImpl(const ViewId& view_id, PropId prop_id);
 

@@ -20,7 +20,7 @@ namespace ceammc {
 namespace ui {
 
     TclHSliderImpl::TclHSliderImpl(const ViewId& view_id, PropId prop_id)
-        : ViewImpl<SliderProps>(view_id, prop_id)
+        : TclViewImpl<SliderProps>(view_id, prop_id)
     {
     }
 
@@ -32,7 +32,7 @@ namespace ui {
         sys_vgui("nui::slider::hcreate %lx %lx"
                  " %d %d %d %d %f %f"
                  " #%6.6x #%6.6x #%6.6x\n",
-            winId(), modelId() + propId(),
+            winId(), tclId(),
             rect.left(), rect.top(), rect.right(), rect.bottom(),
             pos, data.value,
             data.bg_color, data.bd_color, data.kn_color);
@@ -40,6 +40,7 @@ namespace ui {
 
     void TclHSliderImpl::erase()
     {
+        sys_vgui("nui::slider::erase %lx %lx\n", winId(), tclId());
     }
 
     void TclHSliderImpl::update(const RectF& bbox, const SliderProps& data)
@@ -49,7 +50,7 @@ namespace ui {
         sys_vgui("nui::slider::hupdate %lx %lx"
                  " %f %f"
                  " #%6.6x #%6.6x #%6.6x\n",
-            winId(), modelId() + propId(),
+            winId(), tclId(),
             pos, data.value,
             data.bg_color, data.bd_color, data.kn_color);
     }
@@ -58,8 +59,45 @@ namespace ui {
     {
         Rect rect = transform(bbox);
 
-        sys_vgui("nui::widget_move %lx %lx %d %d\n",
-            winId(), modelId() + propId(), rect.left(), rect.top());
+        sys_vgui("nui::slider::move %lx %lx %d %d\n",
+            winId(), tclId(), rect.left(), rect.top());
+    }
+
+    TclFrameImpl::TclFrameImpl(const ViewId& view_id, PropId prop_id)
+        : TclViewImpl<FrameProps>(view_id, prop_id)
+    {
+    }
+
+    void TclFrameImpl::create(const RectF& bbox, const FrameProps& data)
+    {
+        Rect rect = transform(bbox);
+
+        sys_vgui("nui::frame::create %lx %lx"
+                 " %d %d %d %d {} #%6.6x 1\n",
+            winId(), tclId(),
+            rect.left(), rect.top(), rect.width(), rect.height(),
+            data.selected ? data.sel_color : data.bd_color);
+    }
+
+    void TclFrameImpl::erase()
+    {
+        sys_vgui("nui::frame::erase %lx %lx\n", winId(), tclId());
+    }
+
+    void TclFrameImpl::update(const RectF& bbox, const FrameProps& data)
+    {
+        sys_vgui("nui::frame::update_outline %lx %lx"
+                 " {} #%6.6x 1\n",
+            winId(), tclId(),
+            data.selected ? data.sel_color : data.bd_color);
+    }
+
+    void TclFrameImpl::updateCoords(const RectF& bbox)
+    {
+        Rect rect = transform(bbox);
+
+        sys_vgui("nui::frame::move %lx %lx %d %d\n",
+            winId(), tclId(), rect.left(), rect.top());
     }
 
 }
