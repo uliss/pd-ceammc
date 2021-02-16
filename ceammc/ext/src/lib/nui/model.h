@@ -54,7 +54,12 @@ namespace ui {
         }
     };
 
-    struct SliderProps {
+    struct PropBase {
+        virtual ~PropBase() { }
+        virtual bool update(const Property* p) = 0;
+    };
+
+    struct SliderProps : public PropBase {
         float value { 0 },
             min { 0 },
             max { 1 };
@@ -69,10 +74,10 @@ namespace ui {
         SliderProps() { }
         SliderProps(int8_t style);
 
-        bool update(const Property* p);
+        bool update(const Property* p) override;
     };
 
-    struct LabelProps {
+    struct LabelProps : public PropBase {
         t_symbol* text { &s_ };
         t_symbol* tooltip { &s_ };
         Font font;
@@ -84,6 +89,8 @@ namespace ui {
 
         LabelProps() { }
         LabelProps(int8_t style);
+
+        bool update(const Property*) override { return true; }
     };
 
     class EmptyModel : public ModelBase<EmptyData> {
@@ -108,6 +115,15 @@ namespace ui {
         const Props& getProp(PropId idx) const override { return props_.at(idx); }
 
         void addModel(PropId idx, const Props& props) { props_.insert(std::make_pair(idx, props)); }
+
+        bool update(PropId idx, const Property* p)
+        {
+            auto it = props_.find(idx);
+            if (it == props_.end())
+                return false;
+
+            return it->second.update(p);
+        }
     };
 
     using SliderModelList = ModelList<SliderModel, SliderProps>;

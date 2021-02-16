@@ -53,9 +53,13 @@ public:
 
     void erase();
 
-    void update(const void* id)
+    void updateModels(const Property* p);
+    void updateViews(const Property* p);
+
+    void update(const Property* p)
     {
-        vframe_.update(reinterpret_cast<PropId>(id));
+        updateModels(p);
+        updateViews(p);
     }
 
     void move(const PointF& pos);
@@ -112,7 +116,7 @@ public:
     void select(bool state)
     {
         vprops_.selected = state;
-        update(this);
+        vframe_.update(propFrameId());
     }
 };
 

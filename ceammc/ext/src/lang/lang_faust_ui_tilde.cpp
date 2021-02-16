@@ -270,6 +270,29 @@ void FaustMasterView::erase()
     sys_vgui("nui::widget_erase %lx %lx\n", parent_, this);
 }
 
+void FaustMasterView::updateModels(const Property* p)
+{
+    if (!p)
+        return;
+
+    const auto pid = reinterpret_cast<PropId>(p);
+
+    if (sliders_.hasProp(pid))
+        sliders_.update(pid, p);
+
+    if (labels_.hasProp(pid))
+        labels_.update(pid, p);
+}
+
+void FaustMasterView::updateViews(const Property* p)
+{
+    if (!p)
+        return;
+
+    const auto pid = reinterpret_cast<PropId>(p);
+    vframe_.update(pid);
+}
+
 void FaustMasterView::move(const PointF& pos)
 {
     Point p = pos;
