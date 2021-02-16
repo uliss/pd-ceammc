@@ -16,7 +16,10 @@
 
 #include <cstdint>
 
+#include "m_pd.h"
+
 #include "nui/color.h"
+#include "nui/font.h"
 
 namespace ceammc {
 namespace ui {
@@ -51,9 +54,9 @@ namespace ui {
             min { 0 },
             max { 1 };
 
-        HexColor bd_color { colors::st_border },
+        HexColor bd_color { colors::st_backgr },
             bg_color { colors::st_backgr },
-            kn_color { colors::st_active };
+            kn_color { colors::black };
 
         int8_t style_idx { 0 };
         bool log_scale { false };
@@ -62,10 +65,26 @@ namespace ui {
         SliderProps(int8_t style);
     };
 
+    struct LabelProps {
+        t_symbol* name;
+        t_symbol* tooltip;
+        Font font;
+        HexColor bd_color { colors::st_border },
+            bg_color { colors::st_backgr },
+            txt_color { colors::st_active };
+
+        int8_t style_idx { 0 };
+
+        LabelProps(int8_t style);
+    };
+
     class FrameModel : public ModelBase<FrameProps> {
     };
 
     class SliderModel : public ModelBase<SliderProps> {
+    };
+
+    class LabelModel : public ModelBase<LabelProps> {
     };
 }
 }

@@ -373,6 +373,13 @@ namespace ui {
             this->adjustBBox();
         }
     };
+
+    class LabelView : public ModelView<LabelModel,
+                          LabelProps,
+                          ViewImpl<LabelProps>> {
+    public:
+        LabelView(LabelModel* model, ViewImplPtr<LabelProps>&& impl, PropId prop_idx, const PointF& pos, const SizeF& sz);
+    };
 }
 }
 

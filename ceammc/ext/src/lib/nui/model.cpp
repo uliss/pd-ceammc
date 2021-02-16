@@ -26,5 +26,14 @@ namespace ui {
         kn_color = sc::color(style, "slider:knob"_hash, kn_color);
     }
 
+    LabelProps::LabelProps(int8_t style)
+        : style_idx(style)
+    {
+        using sc = StyleCollection;
+        txt_color = sc::color(style, "label:text"_hash, txt_color);
+        bd_color = sc::color(style, "label:border"_hash, bd_color);
+        bg_color = sc::color(style, "label:backgr"_hash, bg_color);
+    }
+
 }
 }

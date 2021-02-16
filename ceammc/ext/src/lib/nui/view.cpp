@@ -86,5 +86,12 @@ namespace ui {
         Base::setSize(sz);
     }
 
+    LabelView::LabelView(LabelModel* model, ViewImplPtr<LabelProps>&& impl, PropId prop_idx, const PointF& pos, const SizeF& sz)
+        : ModelView<LabelModel,
+            LabelProps,
+            ViewImpl<LabelProps>>(model, std::move(impl), prop_idx, pos, sz)
+    {
+    }
+
 }
 }
