@@ -209,6 +209,7 @@ namespace ui {
         const ViewImplT& impl() const { return impl_; }
 
         const Model* model() const { return model_; }
+        void setModel(Model* model) { model_ = model; }
     };
 
     template <class Model, typename ViewImpl>

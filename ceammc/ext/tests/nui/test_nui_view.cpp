@@ -19,6 +19,12 @@ using namespace ceammc::ui;
 using TestFrameViewImpl = EmptyViewImplT<FrameProps>;
 using TestFrameViewImplPtr = ViewImplPtr<FrameProps>;
 
+struct TestFrameModel : public FrameModel {
+    FrameProps props;
+    bool hasProp(PropId /*idx*/) const override { return true; }
+    const FrameProps& getProp(PropId /*idx*/) const override { return props; }
+};
+
 TEST_CASE("nui", "[nui]")
 {
     SECTION("init")
@@ -40,5 +46,38 @@ TEST_CASE("nui", "[nui]")
         REQUIRE(fv1 != nullptr);
         REQUIRE(fv1->parent() != nullptr);
         REQUIRE(fv1->parent() == &fv0);
+
+        REQUIRE(fv0.pos() == PointF(10, 20));
+        REQUIRE(fv1->pos() == PointF(15, 25));
+        REQUIRE(fv1->absPos() == PointF(25, 45));
+        REQUIRE(fv1->bbox() == RectF(15, 25, SizeF(30, 20)));
+        REQUIRE(fv1->absBBox() == RectF(25, 45, SizeF(30, 20)));
+        REQUIRE(fv0.size() == SizeF(40, 50));
+
+        fv0.layout();
+
+        REQUIRE(fv0.pos() == PointF(10, 20));
+        REQUIRE(fv1->pos() == PointF(0, 0));
+        REQUIRE(fv1->absPos() == PointF(10, 20));
+        REQUIRE(fv1->bbox() == RectF(0, 0, SizeF(30, 20)));
+        REQUIRE(fv1->absBBox() == RectF(10, 20, SizeF(30, 20)));
+        REQUIRE(fv0.size() == SizeF(30, 20));
+
+        TestFrameModel model;
+        REQUIRE(model.props.padding == 10);
+        model.props.padding = 5;
+
+        fv0.setModel(&model);
+        fv0.layout();
+
+        REQUIRE(fv1->pos() == PointF(5, 5));
+        REQUIRE(fv1->absPos() == PointF(15, 25));
+        REQUIRE(fv1->bbox() == RectF(5, 5, SizeF(30, 20)));
+        REQUIRE(fv1->absBBox() == RectF(15, 25, SizeF(30, 20)));
+        REQUIRE(fv0.pos() == PointF(10, 20));
+        REQUIRE(fv0.size() == SizeF(40, 30));
+        REQUIRE(fv0.bbox() == RectF(10, 20, SizeF(40, 30)));
+        REQUIRE(fv0.absPos() == PointF(10, 20));
+        REQUIRE(fv0.absBBox() == RectF(10, 20, SizeF(40, 30)));
     }
 }
