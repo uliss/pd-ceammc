@@ -257,6 +257,24 @@ namespace ui {
                         default:
                             break;
                         }
+                    } else if (resize_mode_ == RESIZE_HEIGHT) {
+                        switch (selection_) {
+                        case SELECT_CORNER:
+                        case SELECT_BOTTOM:
+                            resizeWidget(Size(size_.width(), pt.y()));
+                            break;
+                        default:
+                            break;
+                        }
+                    } else if (resize_mode_ == RESIZE_WIDTH) {
+                        switch (selection_) {
+                        case SELECT_CORNER:
+                        case SELECT_RIGHT:
+                            resizeWidget(Size(pt.x(), size_.height()));
+                            break;
+                        default:
+                            break;
+                        }
                     }
                 }
             } else { //mouse move
@@ -265,13 +283,14 @@ namespace ui {
                 } else if (top_level_) {
                     selection_ = SELECT_NONE;
 
-                    if (viewSize().nearRightBottom(pt, CURSOR_AREA)) {
+                    const auto vsz = viewSize();
+                    if (vsz.nearRightBottom(pt, CURSOR_AREA) && canResizeBoth()) {
                         selection_ = SELECT_CORNER;
                         setCursor(CURSOR_RIGHT_CORNER);
                         return;
-                    } else if (viewSize().nearBottomSide(pt, CURSOR_AREA)) {
+                    } else if (vsz.nearBottomSide(pt, CURSOR_AREA) && canResizeHeight()) {
                         const auto N = T::numOutlets();
-                        auto i = utils::object_outlet_at_pos(pt, viewSize(), N, zoom());
+                        auto i = utils::object_outlet_at_pos(pt, vsz, N, zoom());
                         if (i >= 0) {
                             setCursor(CURSOR_CIRCLE);
                             return;
@@ -280,7 +299,7 @@ namespace ui {
                             setCursor(CURSOR_BOTTOM);
                         }
 
-                    } else if (viewSize().nearRightSide(pt, CURSOR_AREA)) {
+                    } else if (vsz.nearRightSide(pt, CURSOR_AREA) && canResizeWidth()) {
                         selection_ = SELECT_RIGHT;
                         setCursor(CURSOR_RIGHT_SIDE);
                         return;
@@ -302,6 +321,26 @@ namespace ui {
         bool editModeAccept(uint32_t mod) const
         {
             return !isEdit() || utils::is_platform_control(mod);
+        }
+
+        bool canResizeWidth() const
+        {
+            return resize_mode_ == RESIZE_BOTH
+                || resize_mode_ == RESIZE_LINKED
+                || resize_mode_ == RESIZE_WIDTH;
+        }
+
+        bool canResizeHeight() const
+        {
+            return resize_mode_ == RESIZE_BOTH
+                || resize_mode_ == RESIZE_LINKED
+                || resize_mode_ == RESIZE_HEIGHT;
+        }
+
+        bool canResizeBoth() const
+        {
+            return resize_mode_ == RESIZE_BOTH
+                || resize_mode_ == RESIZE_LINKED;
         }
     };
 }
