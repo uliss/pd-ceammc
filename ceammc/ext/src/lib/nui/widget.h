@@ -244,8 +244,18 @@ namespace ui {
                         //                        sys_vgui("eobj_canvas_motion %s 0\n", x->b_canvas_id->s_name);
                         return;
                     } else if (resize_mode_ == RESIZE_BOTH) {
-                        if (selection_ == SELECT_BOTTOM) {
+                        switch (selection_) {
+                        case SELECT_BOTTOM:
                             resizeWidget(Size(size_.width(), pt.y()));
+                            break;
+                        case SELECT_RIGHT:
+                            resizeWidget(Size(pt.x(), size_.height()));
+                            break;
+                        case SELECT_CORNER:
+                            resizeWidget(Size(pt.x(), pt.y()));
+                            break;
+                        default:
+                            break;
                         }
                     }
                 }
