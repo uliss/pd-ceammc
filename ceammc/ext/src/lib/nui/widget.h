@@ -44,6 +44,7 @@ namespace ui {
         void widget_focus(t_glist* c, t_object* obj);
         bool is_platform_control(uint32_t mod);
         void set_cursor(t_glist* c, t_object* x, CursorFlags cursor);
+        int object_outlet_at_pos(const Point& pos, const Size& bbox, size_t nout, int zoom);
     }
 
     template <typename T>
@@ -213,6 +214,17 @@ namespace ui {
                         selection_ = SELECT_CORNER;
                         setCursor(CURSOR_RIGHT_CORNER);
                         return;
+                    } else if (viewSize().nearBottomSide(pt, CURSOR_AREA)) {
+                        const auto N = T::numOutlets();
+                        auto i = utils::object_outlet_at_pos(pt, viewSize(), N, zoom());
+                        if (i >= 0) {
+                            setCursor(CURSOR_CIRCLE);
+                            return;
+                        } else {
+                            selection_ = SELECT_BOTTOM;
+                            setCursor(CURSOR_BOTTOM);
+                        }
+
                     } else if (viewSize().nearRightSide(pt, CURSOR_AREA)) {
                         selection_ = SELECT_RIGHT;
                         setCursor(CURSOR_RIGHT_SIDE);
@@ -223,8 +235,8 @@ namespace ui {
                     //                    sys_vgui("eobj_canvas_motion %s 0\n", x->b_canvas_id->s_name);
                 }
             }
-            //            LIB_ERR << __FUNCTION__ << ' ' << pt << ", mod: " << mod;
         }
+        //            LIB_ERR << __FUNCTION__ << ' ' << pt << ", mod: " << mod;
 
     private:
         void subscribeMouseEvents()
@@ -237,7 +249,6 @@ namespace ui {
             return !isEdit() || utils::is_platform_control(mod);
         }
     };
-
 }
 }
 

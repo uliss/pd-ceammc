@@ -108,6 +108,12 @@ namespace ui {
             return (pt.x() <= w_ + delta)
                 && (pt.x() >= w_ - delta);
         }
+
+        bool nearBottomSide(const PointT<T>& pt, T delta) const
+        {
+            return (pt.y() <= h_ + delta)
+                && (pt.y() >= h_ - delta);
+        }
     };
 
     using Size = SizeT<int32_t>;

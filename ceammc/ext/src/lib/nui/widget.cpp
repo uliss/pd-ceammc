@@ -160,6 +160,24 @@ namespace ui {
             sys_vgui("nui::widget_cursor %lx %lx %s\n", c, x, cursorTypeToStr(cursor));
         }
 
+        static int outlet_at_x(int x, int w, int outlet_wd, size_t num)
+        {
+            for (size_t i = 0; i < num; i++) {
+                const int outlet_x = (num < 2)
+                    ? 0
+                    : std::round((i / float(num - 1)) * (w - outlet_wd));
+
+                if (x >= outlet_x && x <= outlet_x + outlet_wd)
+                    return i;
+            }
+
+            return -1;
+        }
+
+        int object_outlet_at_pos(const Point& pos, const Size& bbox, size_t nout, int zoom)
+        {
+            return outlet_at_x(pos.x(), bbox.width(), 7 * zoom, nout);
+        }
     }
 }
 }

@@ -26,6 +26,7 @@ LangFaustUiTilde::LangFaustUiTilde(const PdArgs& args)
     addWidgetProperty(new FloatProperty("@c", -100))->setFloatCheck(PropValueConstraints::CLOSED_RANGE, 50, 200);
 
     createInlet();
+    createOutlet();
 }
 
 void LangFaustUiTilde::processBlock(const t_sample** in, t_sample** out)
