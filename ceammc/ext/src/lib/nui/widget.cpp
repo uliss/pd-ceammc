@@ -194,6 +194,15 @@ namespace ui {
             sys_vgui("nui::canvas_motion %lx %lx %d\n", c, obj, mode);
         }
 
+        void canvas_down(t_glist* c, t_object* obj, int mode)
+        {
+            sys_vgui("nui::canvas_down %lx %lx %d\n", c, obj, mode);
+        }
+
+        void canvas_right(_glist* c, t_object* obj)
+        {
+            sys_vgui("nui::canvas_right %lx %lx\n", c, obj);
+        }
     }
 }
 }

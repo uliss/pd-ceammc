@@ -40,12 +40,39 @@ proc widget_h   { h zoom } { expr $h * $zoom + 1 }
 proc widget_tag { id } { return "#${id}" }
 
 proc canvas_motion {cnv id val} {
-    set c [widget_canvas $cnv $id]
+    set c  [pd_canvas $cnv]
     set rx [winfo rootx $c]
     set ry [winfo rooty $c]
     set x  [winfo pointerx .]
     set y  [winfo pointery .]
-    pdtk_canvas_motion [pd_canvas $cnv] [expr $x - $rx] [expr $y - $ry] $val
+    pdtk_canvas_motion $c [expr $x - $rx] [expr $y - $ry] $val
+}
+
+proc canvas_down {cnv id val} {
+    set c  [pd_canvas $cnv]
+    set rx [winfo rootx $c]
+    set ry [winfo rooty $c]
+    set x  [winfo pointerx .]
+    set y  [winfo pointery .]
+    pdtk_canvas_mouse $c [expr $x - $rx] [expr $y - $ry] 0 $val
+}
+
+proc canvas_up {cnv id} {
+    set c  [pd_canvas $cnv]
+    set rx [winfo rootx $c]
+    set ry [winfo rooty $c]
+    set x  [winfo pointerx .]
+    set y  [winfo pointery .]
+    pdtk_canvas_mouseup $c [expr $x - $rx] [expr $y - $ry] 0
+}
+
+proc eobj_canvas_right {cnv id} {
+    set c  [pd_canvas $cnv]
+    set rx [winfo rootx $c]
+    set ry [winfo rooty $c]
+    set x  [winfo pointerx .]
+    set y  [winfo pointery .]
+    pdtk_canvas_rightclick $c [expr $x - $rx] [expr $y - $ry] 0
 }
 
 proc widget_create { cnv id x y w h zoom } {

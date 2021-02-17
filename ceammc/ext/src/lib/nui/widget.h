@@ -33,6 +33,8 @@ namespace ui {
         void canvas_delete_object_lines(const t_glist* c, t_text* x);
         void canvas_update_object_lines(const t_glist* c, t_text* x);
         void canvas_motion(t_glist* c, t_object* obj, int mode);
+        void canvas_down(t_glist* c, t_object* obj, int mode);
+        void canvas_right(t_glist* c, t_object* obj);
         Point object_pos(t_text* x);
         Point object_abs_pos(t_text* x, const t_glist* parent);
         void object_move(t_text* x, int dx, int dy);
@@ -220,6 +222,22 @@ namespace ui {
         {
             if (editModeAccept(mod)) {
                 onMouseDown(pt, abspt, mod);
+            } else {
+                if (selection_ == SELECT_NONE) {
+                    if (mod & KEY_MOD_SHIFT) {
+                        utils::canvas_down(drawCanvas(), T::owner(), 1);
+                    } else if (mod & KEY_MOD_RIGHT) {
+                        utils::canvas_right(drawCanvas(), T::owner());
+                    } else {
+                        utils::canvas_down(drawCanvas(), T::owner(), 0);
+                    }
+                } else {
+                    //                    const float z = x->b_zoom;
+                    //                    t_rect br = x->b_rect;
+                    //                    br.height *= z;
+                    //                    br.width *= z;
+                    //                    x->b_rect_last = br;
+                }
             }
 
             mouse_down_ = true;
@@ -277,7 +295,7 @@ namespace ui {
                         }
                     }
                 } else {
-                    utils::canvas_motion(drawCanvas(), T::owner(), 0);
+                    utils::canvas_motion(drawCanvas(), T::owner(), 1);
                 }
             } else { //mouse move
                 if (editModeAccept(mod)) {
