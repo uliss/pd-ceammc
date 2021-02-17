@@ -34,6 +34,7 @@ namespace ui {
         void canvas_update_object_lines(const t_glist* c, t_text* x);
         void canvas_motion(t_glist* c, t_object* obj, int mode);
         void canvas_down(t_glist* c, t_object* obj, int mode);
+        void canvas_up(t_glist* c, t_object* obj);
         void canvas_right(t_glist* c, t_object* obj);
         Point object_pos(t_text* x);
         Point object_abs_pos(t_text* x, const t_glist* parent);
@@ -131,8 +132,6 @@ namespace ui {
 
             if (isVisible()) {
                 const Point norm_pos = absPos() / zoom();
-                // move model/view
-                //                view_.move(norm_pos);
                 utils::widget_move(drawCanvas(), T::owner(), absPos());
                 utils::canvas_update_object_lines(drawCanvas(), T::owner());
             }
@@ -233,12 +232,6 @@ namespace ui {
                     } else {
                         utils::canvas_down(drawCanvas(), T::owner(), 0);
                     }
-                } else {
-                    //                    const float z = x->b_zoom;
-                    //                    t_rect br = x->b_rect;
-                    //                    br.height *= z;
-                    //                    br.width *= z;
-                    //                    x->b_rect_last = br;
                 }
             }
 
@@ -249,7 +242,10 @@ namespace ui {
         {
             if (editModeAccept(mod)) {
                 onMouseUp(pt, mod);
+            } else {
+                utils::canvas_up(drawCanvas(), T::owner());
             }
+
             mouse_down_ = false;
         }
 

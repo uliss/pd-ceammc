@@ -209,6 +209,11 @@ namespace ui {
             sys_vgui("nui::widget_move %lx %lx %d %d\n", c, obj, pos.x(), pos.y());
         }
 
+        void canvas_up(_glist* c, t_object* obj)
+        {
+            sys_vgui("nui::canvas_up %lx %lx\n", c, obj);
+        }
+
     }
 }
 }
