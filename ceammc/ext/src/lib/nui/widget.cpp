@@ -178,6 +178,15 @@ namespace ui {
         {
             return outlet_at_x(pos.x(), bbox.width(), 7 * zoom, nout);
         }
+
+        void widget_resize(t_glist* c, t_object* obj, const Size& sz)
+        {
+            sys_vgui("nui::widget_resize %lx %lx %d %d\n",
+                c, obj, sz.width(), sz.height());
+
+            canvas_update_object_lines(c, obj);
+        }
+
     }
 }
 }

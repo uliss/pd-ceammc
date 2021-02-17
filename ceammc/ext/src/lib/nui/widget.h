@@ -42,6 +42,7 @@ namespace ui {
         void widget_create(t_glist* c, t_object* obj, const Point& pos, const Size& sz, int zoom);
         void widget_erase(t_glist* c, t_object* obj);
         void widget_focus(t_glist* c, t_object* obj);
+        void widget_resize(t_glist* c, t_object* obj, const Size& sz);
         bool is_platform_control(uint32_t mod);
         void set_cursor(t_glist* c, t_object* x, CursorFlags cursor);
         int object_outlet_at_pos(const Point& pos, const Size& bbox, size_t nout, int zoom);
@@ -159,6 +160,11 @@ namespace ui {
         {
             if (resize_mode_ == RESIZE_NONE)
                 return;
+
+            LIB_ERR << __FUNCTION__ << ' ' << sz;
+            Size new_sz = sz / zoom();
+            setSize(new_sz);
+            utils::widget_resize(drawCanvas(), T::owner(), new_sz);
         }
 
         virtual void hideWidget(t_glist* owner)
@@ -228,16 +234,25 @@ namespace ui {
 
         void mouseMove(const Point& pt, uint32_t mod)
         {
+            const int CURSOR_AREA = 3 * zoom();
+
             if (mouse_down_) { // mouse drag
                 if (editModeAccept(mod)) {
                     onMouseDrag();
                 } else if (top_level_) {
+                    if (selection_ == SELECT_NONE) {
+                        //                        sys_vgui("eobj_canvas_motion %s 0\n", x->b_canvas_id->s_name);
+                        return;
+                    } else if (resize_mode_ == RESIZE_BOTH) {
+                        if (selection_ == SELECT_BOTTOM) {
+                            resizeWidget(Size(size_.width(), pt.y()));
+                        }
+                    }
                 }
             } else { //mouse move
                 if (editModeAccept(mod)) {
                     onMouseMove();
                 } else if (top_level_) {
-                    const int CURSOR_AREA = 3 * zoom();
                     selection_ = SELECT_NONE;
 
                     if (viewSize().nearRightBottom(pt, CURSOR_AREA)) {
