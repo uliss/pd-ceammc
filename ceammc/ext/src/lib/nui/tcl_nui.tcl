@@ -2,6 +2,38 @@ namespace eval ::nui {
 
 proc pd_canvas { cnv } { return ".x${cnv}.c" }
 
+
+namespace eval utils {
+    proc fix_mac_state {n} { if { $n > 256 } { return [expr $n & 0xFF ] } { return $n } }
+
+    proc fix_win32_alt {n} {
+        if { $n & 131072 } {
+            incr n -131072
+            set n [expr $n | 16]
+        }
+        return $n
+    }
+
+    proc fix_win32_state {n} {
+        if { $n & 32 } { incr n -32 }
+        return [expr 0xFF & [fix_win32_alt $n]]
+    }
+
+    proc send_mouse_move {obj x y mod} {
+        switch -- $::windowingsystem {
+            "aqua" {
+                # disable mouse dragging for buttons other then first
+                if { $mod < 512 } { pdsend "$obj mousemove $x $y [fix_mac_state $mod]" }
+            } "win32" {
+                set mod [fix_win32_alt $mod]
+                if { $mod < 512 } { pdsend "$obj mousemove $x $y [fix_win32_state $mod]" }
+            } "default" {
+                pdsend "$obj mousemove $x $y $mod"
+            }
+        }
+    }
+}
+
 proc widget_canvas { cnv id } { return ".x${cnv}.c.cnv${id}" }
 proc widget_window { cnv id } { return ".x${cnv}.c.win${id}" }
 proc widget_w   { w zoom } { expr $w * $zoom + 1 }
@@ -20,18 +52,33 @@ proc widget_create { cnv id x y w h zoom } {
         -highlightthickness 0 -insertborderwidth 0 \
         -state normal -takefocus 1 -insertwidth 0 -confine 0
 
+    $c configure -bg #AAAAAA
+
     [pd_canvas $cnv] create window $x $y -anchor nw -window $c \
         -tags $win -width [expr $w+1] -height [expr $h+1]
 }
 
+proc widget_bg { cnv id color } {
+    set c [widget_canvas $cnv $id]
+    $c configure -bg $color
+}
+
 proc widget_erase { cnv id } {
-    destroy [widget_window $cnv $id]
+    set win [widget_window $cnv $id]
+    set c [widget_canvas $cnv $id]
+
+    [pd_canvas $cnv] delete $win
+    destroy $c
 }
 
 proc widget_move { cnv id x y } {
     set c [pd_canvas $cnv]
     set win [widget_window $cnv $id]
     $c coords $win $x $y
+}
+
+proc widget_focus { cnv id } {
+    focus [widget_canvas $cnv $id]
 }
 
 proc widget_mouse_bind { cnv id target args }  {
@@ -42,8 +89,13 @@ proc widget_mouse_bind { cnv id target args }  {
     }
 }
 
-proc widget_mouse_enter_bind {id obj} { bind $id <Enter> [subst {+pdsend "$obj mouseenter"}] }
-proc widget_mouse_leave_bind {id obj} { bind $id <Leave> [subst {+pdsend "$obj mouseleave"}] }
+proc widget_mouse_move_bind  {id obj} { bind $id <Motion> [subst {+::nui::utils::send_mouse_move $obj %x %y %s}] }
+proc widget_mouse_enter_bind {id obj} { bind $id <Enter>  [subst {+pdsend "$obj mouseenter"}] }
+proc widget_mouse_leave_bind {id obj} { bind $id <Leave>  [subst {+pdsend "$obj mouseleave"}] }
+
+proc widget_mouse_down_bind {id obj} { bind $id <Enter> [subst {+pdsend "$obj mouseenter"}] }
+proc widget_mouse_up_bind {id obj}   { bind $id <Leave> [subst {+pdsend "$obj mouseleave"}] }
+
 
 if { [catch {package require tooltip} ] } {
     proc widget_tooltip { cnv model id msg } {}
