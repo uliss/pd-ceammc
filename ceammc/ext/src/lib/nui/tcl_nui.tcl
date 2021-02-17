@@ -66,7 +66,7 @@ proc canvas_up {cnv id} {
     pdtk_canvas_mouseup $c [expr $x - $rx] [expr $y - $ry] 0
 }
 
-proc eobj_canvas_right {cnv id} {
+proc canvas_right {cnv id} {
     set c  [pd_canvas $cnv]
     set rx [winfo rootx $c]
     set ry [winfo rooty $c]
@@ -154,6 +154,7 @@ proc widget_mouse_down_bind {id obj} {
     }
 }
 
+# sends #obj mouseup X Y MOD
 proc widget_mouse_up_bind {id obj} {
     switch -- $::windowingsystem {
         "aqua" {
@@ -162,6 +163,20 @@ proc widget_mouse_up_bind {id obj} {
             bind $id <ButtonRelease-1> [subst -nocommands {+pdsend "$obj mouseup %x %y [ceammc_fix_win32_state %s]"}]
         } "default" {
             bind $id <ButtonRelease-1> [subst {+pdsend "$obj mouseup %x %y %s"}]
+        }
+    }
+}
+
+# sends #obj rightclick X Y ABSX ABSY MOD
+proc widget_mouse_right_bind {id obj} {
+    switch -- $::windowingsystem {
+        "aqua" {
+            bind $id <ButtonPress-2> [subst {+pdsend "$obj rightclick %x %y %X %Y %s"}]
+            bind $id <Control-ButtonPress-1> [subst {+pdsend "$obj rightclick %x %y %X %Y %s"}]
+        } "win32" {
+            bind $id <ButtonPress-3> [subst -nocommands {+pdsend "$obj rightclick %x %y %X %Y [ceammc_fix_win32_state %s]"}]
+        } "default" {
+            bind $id <ButtonPress-3> [subst {+pdsend "$obj rightclick %x %y %X %Y %s"}]
         }
     }
 }

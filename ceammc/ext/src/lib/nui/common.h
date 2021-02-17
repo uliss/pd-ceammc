@@ -31,6 +31,7 @@ namespace ui {
         UI_FACTORY_FLAG_MOUSE_MOVE = (1 << 8),
         UI_FACTORY_FLAG_MOUSE_DOWN = (1 << 9),
         UI_FACTORY_FLAG_MOUSE_UP = (1 << 10),
+        UI_FACTORY_FLAG_MOUSE_RIGHT = (1 << 11),
         UI_FACTORY_FLAG_DEFAULT = UI_FACTORY_FLAG_VIS
             | UI_FACTORY_FLAG_DISPLACE
             | UI_FACTORY_FLAG_SELECT

@@ -24,6 +24,7 @@ namespace ui {
         mousemove = gensym("mousemove");
         mousedown = gensym("mousedown");
         mouseup = gensym("mouseup");
+        mouseright = gensym("rightclick");
         m_size = gensym("size");
 
         tcl_nui_init();

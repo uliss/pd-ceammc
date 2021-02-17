@@ -50,6 +50,7 @@ void setup_lang_faust_ui_tilde()
     obj.useMouseMove();
     obj.useMouseDown();
     obj.useMouseUp();
+    obj.useMouseRight();
 }
 
 WidgetIFace::WidgetIFace(t_object* x, t_glist* widget_parent)

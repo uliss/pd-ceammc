@@ -332,6 +332,41 @@ namespace ui {
             }
         }
 
+        void mouseRight(const Point& pt, const Point& abspt, uint32_t mod)
+        {
+            // show help menu in all modes (edit/performance) with pressed Shift
+            if (mod & KEY_MOD_SHIFT)
+                return openHelp();
+
+            // show object properties in all modes (edit/performance) with pressed Alt
+            if (mod & KEY_MOD_ALT)
+                return openProperties();
+
+            if (isEdit()) {
+                // in edit mode show standart Pd popup
+                utils::canvas_right(drawCanvas(), T::owner());
+            } else {
+                // in performance mode if widget defines their own popup dialogs: show them
+                // or show standart Pd popup otherwise
+                //                if (c->c_widget.w_rightclick && !(x->b_flags & EBOX_IGNORELOCKCLICK))
+                //                    c->c_widget.w_rightclick(x, { xpos, ypos }, { absx, absy });
+                //                else
+                utils::canvas_right(drawCanvas(), T::owner());
+            }
+        }
+
+        void openHelp()
+        {
+            LIB_ERR << __FUNCTION__;
+            //            return ebox_open_help(x);
+        }
+
+        void openProperties()
+        {
+            LIB_ERR << __FUNCTION__;
+//            return ebox_properties(x, nullptr);
+        }
+
     private:
         void subscribeMouseEvents()
         {
