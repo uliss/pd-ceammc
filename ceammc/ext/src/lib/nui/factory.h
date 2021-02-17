@@ -25,6 +25,10 @@ extern "C" {
 namespace ceammc {
 namespace ui {
 
+    namespace utils {
+        uint32_t platform_modifier(uint32_t mod);
+    }
+
     class SymTable {
         SymTable();
 
@@ -213,7 +217,7 @@ namespace ui {
         static void mouse_move(t_gobj* x, t_floatarg xpos, t_floatarg ypos, t_floatarg mod)
         {
             auto proxy = reinterpret_cast<ObjectProxy*>(x);
-            proxy->impl->mouseMove(Point(xpos, ypos), mod);
+            proxy->impl->mouseMove(Point(xpos, ypos), utils::platform_modifier(mod));
         }
     };
 

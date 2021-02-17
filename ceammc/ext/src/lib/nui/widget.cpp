@@ -114,6 +114,14 @@ namespace ui {
             return glist_getcanvas(c);
         }
 
+        bool is_platform_control(uint32_t mod)
+        {
+#ifdef __WIN32
+            return mod & KEY_MOD_CTRL;
+#else
+            return mod & KEY_MOD_CMD;
+#endif
+        }
     }
 }
 }

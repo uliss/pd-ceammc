@@ -36,6 +36,16 @@ namespace ui {
             | UI_FACTORY_FLAG_SELECT
             | UI_FACTORY_FLAG_DELETE
     };
+
+    enum KeyModFlags {
+        KEY_MOD_NONE = 0, /*!< Nothing. */
+        KEY_MOD_SHIFT = 1, /*!< Shift. */
+        KEY_MOD_MAJ = 2, /*!< Maj. */
+        KEY_MOD_CTRL = 4, /*!< Control. */
+        KEY_MOD_CMD = 8, /*!< Command. */
+        KEY_MOD_ALT = 16, /*!< Alt. */
+        KEY_MOD_RIGHT = 32 /*!< Right click. */
+    };
 }
 }
 

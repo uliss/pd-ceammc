@@ -41,6 +41,7 @@ namespace ui {
         void widget_create(t_glist* c, t_object* obj, const Point& pos, const Size& sz, int zoom);
         void widget_erase(t_glist* c, t_object* obj);
         void widget_focus(t_glist* c, t_object* obj);
+        bool is_platform_control(uint32_t mod);
     }
 
     template <typename T>
@@ -86,10 +87,10 @@ namespace ui {
         void setSize(const Size& sz) { size_ = sz; }
         int zoom() const { return utils::canvas_zoom(T::canvas()); }
         bool isVisible() const { return utils::canvas_is_visible(T::canvas()); }
-        bool isEdit() const { return utils::canvas_is_edit(drawCanvasCache()); }
+        bool isEdit() const { return utils::canvas_is_edit(drawCanvas()); }
 
-        t_glist* drawCanvasCache() const { return draw_canvas_; }
-        void syncDrawCanvasCache() { draw_canvas_ = utils::object_get_draw_canvas(T::canvas()); }
+        t_glist* drawCanvas() const { return draw_canvas_; }
+        void syncDrawCanvas() { draw_canvas_ = utils::object_get_draw_canvas(T::canvas()); }
 
         Rect viewBBox(t_glist* owner) const { return Rect(absPos(), size_ * zoom()); }
 
@@ -102,14 +103,13 @@ namespace ui {
         {
             LIB_ERR << __FUNCTION__;
 
-            syncDrawCanvasCache();
             utils::object_move(T::owner(), dx, dy);
 
             if (isVisible()) {
                 const Point norm_pos = absPos() / zoom();
                 // move model/view
                 //                view_.move(norm_pos);
-                utils::canvas_update_object_lines(drawCanvasCache(), T::owner());
+                utils::canvas_update_object_lines(drawCanvas(), T::owner());
             }
         }
 
@@ -117,32 +117,30 @@ namespace ui {
         {
             LIB_ERR << __FUNCTION__;
 
-            syncDrawCanvasCache();
-            utils::canvas_delete_object_lines(drawCanvasCache(), T::owner());
+            syncDrawCanvas();
+            utils::canvas_delete_object_lines(drawCanvas(), T::owner());
         }
 
         virtual void selectWidget(t_glist* owner, bool state)
         {
             LIB_ERR << __FUNCTION__;
-
-            syncDrawCanvasCache();
         }
 
         virtual void showWidget(t_glist* owner)
         {
             LIB_ERR << __FUNCTION__;
 
-            syncDrawCanvasCache();
-            utils::widget_create(drawCanvasCache(), T::owner(), absPos(), size(), zoom());
-            utils::widget_bind_mouse(drawCanvasCache(), T::owner(), ui_flags_);
+            syncDrawCanvas();
+            utils::widget_create(drawCanvas(), T::owner(), absPos(), size(), zoom());
+            utils::widget_bind_mouse(drawCanvas(), T::owner(), ui_flags_);
         }
 
         virtual void hideWidget(t_glist* owner)
         {
             LIB_ERR << __FUNCTION__;
 
-            syncDrawCanvasCache();
-            utils::widget_erase(drawCanvasCache(), T::owner());
+            syncDrawCanvas();
+            utils::widget_erase(drawCanvas(), T::owner());
         }
 
         virtual void buildUI()
@@ -157,20 +155,21 @@ namespace ui {
         virtual void onMouseEnter() { LIB_ERR << __FUNCTION__; }
         virtual void onMouseLeave() { LIB_ERR << __FUNCTION__; }
         virtual void onMouseMove() { LIB_ERR << __FUNCTION__; }
+        virtual void onMouseDrag() { LIB_ERR << __FUNCTION__; }
 
         void mouseEnter()
         {
-            syncDrawCanvasCache();
+            syncDrawCanvas();
 
             if (!isEdit() && !mouse_down_) {
-                utils::widget_focus(drawCanvasCache(), T::owner());
+                utils::widget_focus(drawCanvas(), T::owner());
                 onMouseEnter();
             }
         }
 
         void mouseLeave()
         {
-            syncDrawCanvasCache();
+            syncDrawCanvas();
 
             if (!isEdit() && !mouse_down_) {
                 onMouseLeave();
@@ -179,6 +178,11 @@ namespace ui {
 
         void mouseMove(const Point& pt, uint32_t mod)
         {
+            if (mouse_down_) { // mouse drag
+                if (editModeAccept(mod)) {
+                }
+            } else { //mouse move
+            }
             LIB_ERR << __FUNCTION__ << ' ' << pt << ", mod: " << mod;
         }
 
@@ -186,6 +190,11 @@ namespace ui {
         void subscribeMouseEvents()
         {
             utils::object_bind(T::owner());
+        }
+
+        bool editModeAccept(uint32_t mod) const
+        {
+            return !isEdit() || utils::is_platform_control(mod);
         }
     };
 
