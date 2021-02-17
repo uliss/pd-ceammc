@@ -14,250 +14,68 @@
 #include "lang_faust_ui_tilde.h"
 #include "ceammc_factory.h"
 
-extern "C" {
-#include "g_canvas.h"
-}
-
-template <typename T>
-class UISoundFactory : public SoundExternalFactory<T> {
-    static t_widgetbehavior wb_;
-
-public:
-    UISoundFactory(const char* name,
-        int flags = OBJECT_FACTORY_DEFAULT | OBJECT_FACTORY_MAIN_SIGNAL_INLET | OBJECT_FACTORY_NO_FLOAT)
-        : SoundExternalFactory<T>(name, flags)
-    {
-        wb_.w_getrectfn = getRect;
-        wb_.w_displacefn = wdisplace;
-        wb_.w_selectfn = wselect;
-        wb_.w_activatefn = nullptr;
-        wb_.w_deletefn = wdelete;
-        wb_.w_visfn = wvis;
-        //        wb_.w_clickfn = bng_newclick;
-        class_setwidget(this->classPointer(), &wb_);
-        //        class_setsavefn(bng_class, bng_save);
-        //        class_setpropertiesfn(bng_class, bng_properties);
-    }
-
-    /* call this to get a gobj's bounding rectangle in pixels */
-    static void getRect(t_gobj* x, t_glist* window, int* x1, int* y1, int* x2, int* y2)
-    {
-        auto z = reinterpret_cast<typename SoundExternalFactory<T>::ObjectProxy*>(x);
-        auto r = z->impl->getRect(window);
-        *x1 = r.left();
-        *y1 = r.top();
-        *x2 = r.right();
-        *y2 = r.bottom();
-    }
-
-    static void wdisplace(t_gobj* x, t_glist* window, int dx, int dy)
-    {
-        auto proxy = reinterpret_cast<typename SoundExternalFactory<T>::ObjectProxy*>(x);
-        proxy->impl->displaceWidget(window, dx, dy);
-    }
-
-    static void wselect(t_gobj* x, t_glist* window, int state)
-    {
-        auto proxy = reinterpret_cast<typename SoundExternalFactory<T>::ObjectProxy*>(x);
-        proxy->impl->selectWidget(window, state);
-    }
-
-    static void wdelete(t_gobj* x, t_glist* window)
-    {
-        auto proxy = reinterpret_cast<typename SoundExternalFactory<T>::ObjectProxy*>(x);
-        proxy->impl->deleteWidget(window);
-    }
-
-    static void wvis(t_gobj* x, t_glist* window, int flag)
-    {
-        auto proxy = reinterpret_cast<typename SoundExternalFactory<T>::ObjectProxy*>(x);
-
-        if (flag)
-            proxy->impl->showWidget(window);
-        else
-            proxy->impl->hideWidget(window);
-    }
-};
-
-template <typename T>
-t_widgetbehavior UISoundFactory<T>::wb_;
+#include "nui/factory.h"
 
 LangFaustUiTilde::LangFaustUiTilde(const PdArgs& args)
-    : SoundExternal(args)
-    , WidgetIFace(this->owner(), canvas())
+    : ui::Widget<SoundExternal>(args)
 {
-    setSize(100, 50);
+    setSize(Size(100, 50));
 
-    addProperty(new FloatProperty("@a", 100))->setFloatCheck(PropValueConstraints::CLOSED_RANGE, 50, 200);
-    addProperty(new FloatProperty("@b", 100))->setFloatCheck(PropValueConstraints::CLOSED_RANGE, 50, 200);
-    addProperty(new FloatProperty("@c", -100))->setFloatCheck(PropValueConstraints::CLOSED_RANGE, 50, 200);
-
-    property("@a")->setSuccessFn([this](Property* p) {
-        notifyPropUpdate(p);
-    });
-
-    property("@b")->setSuccessFn([this](Property* p) {
-        notifyPropUpdate(p);
-    });
-
-    property("@c")->setSuccessFn([this](Property* p) {
-        notifyPropUpdate(p);
-    });
+    addWidgetProperty(new FloatProperty("@a", 100))->setFloatCheck(PropValueConstraints::CLOSED_RANGE, 50, 200);
+    addWidgetProperty(new FloatProperty("@b", 100))->setFloatCheck(PropValueConstraints::CLOSED_RANGE, 50, 200);
+    addWidgetProperty(new FloatProperty("@c", -100))->setFloatCheck(PropValueConstraints::CLOSED_RANGE, 50, 200);
 
     createInlet();
-
-    buildUI();
-}
-
-LangFaustUiTilde::~LangFaustUiTilde()
-{
 }
 
 void LangFaustUiTilde::processBlock(const t_sample** in, t_sample** out)
 {
 }
 
-size_t LangFaustUiTilde::widgetPropCount() const
-{
-    return properties().size();
-}
-
-void LangFaustUiTilde::widgetPropNames(t_symbol** dest) const
-{
-    for (auto p : properties()) {
-        auto psym = dest++;
-        *psym = p->name();
-    }
-}
-
 void LangFaustUiTilde::buildUI()
 {
-    auto sz = view_.build(properties());
-    setSize(sz.width(), sz.height());
+    //    auto sz = view_.build(properties());
+    //    setSize(sz.width(), sz.height());
     LIB_ERR << size();
 }
 
 void setup_lang_faust_ui_tilde()
 {
-    static const bool init = tcl_nui_init();
-
-    UISoundFactory<LangFaustUiTilde> obj("ui");
+    ui::UIFactory<SoundExternalFactory, LangFaustUiTilde> obj("ui");
+    obj.useMouseEnter();
+    obj.useMouseLeave();
+    obj.useMouseMove();
 }
 
 WidgetIFace::WidgetIFace(t_object* x, t_glist* widget_parent)
     : x_(x)
     , widget_parent_(widget_parent)
-    , widget_canvas_(canvas_getrootfor(widget_parent_))
     , size_(0, 0)
-    , event_proxy_(genBindName(this))
+    //    , event_proxy_(genBindName(this))
     , view_(widget_parent)
 {
-    event_proxy_.setMouseEnter([this]() { onMouseEnter(); });
-    event_proxy_.setMouseLeave([this]() { onMouseLeave(); });
+    //    event_proxy_.setMouseEnter([this]() { onMouseEnter(); });
+    //    event_proxy_.setMouseLeave([this]() { onMouseLeave(); });
 }
 
 WidgetIFace::~WidgetIFace()
 {
 }
 
-Rect WidgetIFace::getRealRect(t_glist* window) const
-{
-    return Rect(text_xpix(x_, window), text_ypix(x_, window), size_);
-}
-
-Rect WidgetIFace::getRect(t_glist* window) const
-{
-    auto z = window->gl_zoom;
-    Rect res(text_xpix(x_, window), text_ypix(x_, window), size_ * z);
-    return res;
-}
-
-void WidgetIFace::displaceWidget(t_glist* window, int dx, int dy)
-{
-    x_->te_xpix += dx;
-    x_->te_ypix += dy;
-
-    LIB_ERR << __FUNCTION__;
-
-    if (glist_isvisible(widget_parent_)) {
-        PointF pos(text_xpix(x_, window), text_ypix(x_, window));
-        const float rz = 1.0 / glist_getzoom(window);
-        view_.move(pos * rz);
-        canvas_fixlinesfor(window, x_);
-    }
-}
-
-void WidgetIFace::deleteWidget(t_glist* window)
-{
-    canvas_deletelinesfor(window, x_);
-}
-
 void WidgetIFace::selectWidget(t_glist* window, bool state)
 {
+    show_window_ = window;
     view_.select(state);
-}
-
-void WidgetIFace::showWidget(t_glist* window)
-{
-    view_.create(reinterpret_cast<WinId>(window),
-        getRect(window).pt0(),
-        glist_getzoom(window));
-
-    bindEvents(window);
 }
 
 void WidgetIFace::hideWidget(t_glist* window)
 {
     view_.erase();
-
-    sys_unqueuegui(x_);
-}
-
-void WidgetIFace::onMouseEnter()
-{
-    LIB_ERR << __FUNCTION__;
-}
-
-void WidgetIFace::onMouseLeave()
-{
-    LIB_ERR << __FUNCTION__;
-}
-
-bool WidgetIFace::visible() const
-{
-    return glist_isvisible(widget_parent_);
-}
-
-void WidgetIFace::setSize(int w, int h)
-{
-    size_ = Size(w, h);
 }
 
 void WidgetIFace::notifyPropUpdate(const Property* p)
 {
     view_.update(p);
-}
-
-void WidgetIFace::bindEvents(t_glist* window)
-{
-    sys_vgui("nui::widget_mouse_bind %lx %lx %lx"
-             //             " down up move"
-             " enter leave"
-             //             " right_click"
-             "\n",
-        window, &view_, this);
-}
-
-void FaustMasterView::create(WinId win, const PointF& pos, float zoom)
-{
-    int z = 1;
-    Size subcnv_size = vframe_.size() * zoom;
-    Point p = pos;
-
-    sys_vgui("nui::widget_create %lx %lx %d %d %d %d %d\n",
-        win, this, p.x(), p.y(), subcnv_size.width(), subcnv_size.height(), z);
-
-    vframe_.create(win, reinterpret_cast<WidgetId>(this), zoom);
 }
 
 void FaustMasterView::erase()
@@ -310,3 +128,9 @@ Size FaustMasterView::build(const std::vector<Property*>& props)
     LIB_ERR << vframe_.size();
     return vframe_.size();
 }
+
+void FaustMasterView::focus()
+{
+    sys_vgui("nui::widget_focus %lx %lx\n", parent_, this);
+}
+

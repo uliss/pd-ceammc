@@ -21,7 +21,6 @@
 #include "ceammc_canvas.h"
 #include "ceammc_object.h"
 #include "nui/common.h"
-#include "nui/mouse_event.h"
 #include "nui/rect.h"
 
 namespace ceammc {

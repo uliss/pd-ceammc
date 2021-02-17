@@ -15,11 +15,11 @@
 #define LANG_FAUST_UI_TILDE_H
 
 #include "ceammc_sound_external.h"
-#include "nui/mouse_event.h"
 #include "nui/nui.h"
 #include "nui/rect.h"
 #include "nui/tk_view_impl.h"
 #include "nui/view.h"
+#include "nui/widget.h"
 
 using namespace ceammc;
 using namespace ceammc::ui;
@@ -76,6 +76,7 @@ public:
     }
 
     Size build(const std::vector<Property*>& props);
+    void focus();
 
     void addProperty(const Property* p)
     {
@@ -125,9 +126,9 @@ class WidgetIFace {
 private:
     t_object* x_;
     t_glist* widget_parent_;
-    t_glist* widget_canvas_;
+    t_glist* show_window_;
     Size size_;
-    MouseBind event_proxy_;
+    bool mouse_clicked_ { false };
 
 protected:
     FaustMasterView view_;
@@ -137,46 +138,27 @@ public:
     // pure virtual
     virtual ~WidgetIFace();
 
-    virtual Rect getRealRect(t_glist* window) const final;
-    virtual Rect getRect(t_glist* window) const final;
-
-    virtual void displaceWidget(t_glist* window, int dx, int dy) final;
-    virtual void deleteWidget(t_glist* window) final;
     virtual void selectWidget(t_glist* window, bool state) final;
 
-    virtual void showWidget(t_glist* window) final;
     virtual void hideWidget(t_glist* window) final;
 
-    virtual size_t widgetPropCount() const = 0;
-    virtual void widgetPropNames(t_symbol** dest) const = 0;
-
     const t_glist* widgetParent() const { return widget_parent_; }
-    const t_glist* widgetWindow() const { return widget_canvas_; }
-
-    virtual void onMouseEnter();
-    virtual void onMouseLeave();
-
-    bool visible() const;
-
-    const Size& size() const { return size_; }
-    void setSize(int w, int h);
 
     void notifyPropUpdate(const Property* p);
 
-    void bindEvents(t_glist* window);
+    void bindEvents();
 };
 
-class LangFaustUiTilde : public SoundExternal, public WidgetIFace {
+class LangFaustUiTilde : public ui::Widget<SoundExternal> {
 public:
     LangFaustUiTilde(const PdArgs& args);
-    ~LangFaustUiTilde();
 
     void processBlock(const t_sample** in, t_sample** out) final;
 
-    size_t widgetPropCount() const override;
-    void widgetPropNames(t_symbol** dest) const override;
+    //    size_t widgetPropCount() const override;
+    //    void widgetPropNames(t_symbol** dest) const override;
 
-    void buildUI();
+    void buildUI() override;
 };
 
 void setup_lang_faust_ui_tilde();
