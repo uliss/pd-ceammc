@@ -70,18 +70,12 @@ void WidgetIFace::selectWidget(t_glist* window, bool state)
 
 void WidgetIFace::hideWidget(t_glist* window)
 {
-    view_.erase();
+//    view_.erase();
 }
 
 void WidgetIFace::notifyPropUpdate(const Property* p)
 {
     view_.update(p);
-}
-
-void FaustMasterView::erase()
-{
-    vframe_.erase();
-    sys_vgui("nui::widget_erase %lx %lx\n", parent_, this);
 }
 
 void FaustMasterView::updateModels(const Property* p)
@@ -133,4 +127,3 @@ void FaustMasterView::focus()
 {
     sys_vgui("nui::widget_focus %lx %lx\n", parent_, this);
 }
-

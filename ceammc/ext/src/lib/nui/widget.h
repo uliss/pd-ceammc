@@ -36,9 +36,11 @@ namespace ui {
         Point object_abs_pos(t_text* x, const t_glist* parent);
         void object_move(t_text* x, int dx, int dy);
         void object_bind(t_text* x);
+        t_glist* object_get_draw_canvas(t_glist* c);
         void widget_bind_mouse(t_glist* c, t_object* obj, UIFactoryFlags flags);
         void widget_create(t_glist* c, t_object* obj, const Point& pos, const Size& sz, int zoom);
         void widget_erase(t_glist* c, t_object* obj);
+        void widget_focus(t_glist* c, t_object* obj);
     }
 
     template <typename T>
@@ -46,12 +48,16 @@ namespace ui {
         Size size_;
         std::vector<Property*> widget_props_;
         UIFactoryFlags ui_flags_ { UI_FACTORY_NONE };
+        t_glist* draw_canvas_;
+        bool mouse_down_ = { false };
 
     public:
         Widget(const PdArgs& args)
             : T(args)
         {
             static_assert(std::is_base_of<BaseObject, T>::value, "");
+
+            draw_canvas_ = T::canvas();
         }
 
         void initDone() override
@@ -80,7 +86,10 @@ namespace ui {
         void setSize(const Size& sz) { size_ = sz; }
         int zoom() const { return utils::canvas_zoom(T::canvas()); }
         bool isVisible() const { return utils::canvas_is_visible(T::canvas()); }
-        bool isEdit() const { return utils::canvas_is_edit(T::canvas()); }
+        bool isEdit() const { return utils::canvas_is_edit(drawCanvasCache()); }
+
+        t_glist* drawCanvasCache() const { return draw_canvas_; }
+        void syncDrawCanvasCache() { draw_canvas_ = utils::object_get_draw_canvas(T::canvas()); }
 
         Rect viewBBox(t_glist* owner) const { return Rect(absPos(), size_ * zoom()); }
 
@@ -93,38 +102,47 @@ namespace ui {
         {
             LIB_ERR << __FUNCTION__;
 
+            syncDrawCanvasCache();
             utils::object_move(T::owner(), dx, dy);
 
             if (isVisible()) {
                 const Point norm_pos = absPos() / zoom();
                 // move model/view
                 //                view_.move(norm_pos);
-                utils::canvas_update_object_lines(T::canvas(), T::owner());
+                utils::canvas_update_object_lines(drawCanvasCache(), T::owner());
             }
         }
 
         virtual void deleteWidget(t_glist* owner)
         {
             LIB_ERR << __FUNCTION__;
-            utils::canvas_delete_object_lines(T::canvas(), T::owner());
+
+            syncDrawCanvasCache();
+            utils::canvas_delete_object_lines(drawCanvasCache(), T::owner());
         }
 
         virtual void selectWidget(t_glist* owner, bool state)
         {
             LIB_ERR << __FUNCTION__;
+
+            syncDrawCanvasCache();
         }
 
         virtual void showWidget(t_glist* owner)
         {
             LIB_ERR << __FUNCTION__;
-            utils::widget_create(T::canvas(), T::owner(), absPos(), size(), zoom());
-            utils::widget_bind_mouse(T::canvas(), T::owner(), ui_flags_);
+
+            syncDrawCanvasCache();
+            utils::widget_create(drawCanvasCache(), T::owner(), absPos(), size(), zoom());
+            utils::widget_bind_mouse(drawCanvasCache(), T::owner(), ui_flags_);
         }
 
         virtual void hideWidget(t_glist* owner)
         {
             LIB_ERR << __FUNCTION__;
-            utils::widget_erase(T::canvas(), T::owner());
+
+            syncDrawCanvasCache();
+            utils::widget_erase(drawCanvasCache(), T::owner());
         }
 
         virtual void buildUI()
@@ -136,17 +154,30 @@ namespace ui {
         {
         }
 
-        virtual void onMouseEnter()
+        virtual void onMouseEnter() { LIB_ERR << __FUNCTION__; }
+        virtual void onMouseLeave() { LIB_ERR << __FUNCTION__; }
+        virtual void onMouseMove() { LIB_ERR << __FUNCTION__; }
+
+        void mouseEnter()
         {
-            LIB_ERR << __FUNCTION__;
+            syncDrawCanvasCache();
+
+            if (!isEdit() && !mouse_down_) {
+                utils::widget_focus(drawCanvasCache(), T::owner());
+                onMouseEnter();
+            }
         }
 
-        virtual void onMouseLeave()
+        void mouseLeave()
         {
-            LIB_ERR << __FUNCTION__;
+            syncDrawCanvasCache();
+
+            if (!isEdit() && !mouse_down_) {
+                onMouseLeave();
+            }
         }
 
-        virtual void onMouseMove(const Point& pt, uint32_t mod)
+        void mouseMove(const Point& pt, uint32_t mod)
         {
             LIB_ERR << __FUNCTION__ << ' ' << pt << ", mod: " << mod;
         }

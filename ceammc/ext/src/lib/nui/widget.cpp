@@ -86,7 +86,7 @@ namespace ui {
             if (flags & UI_FACTORY_FLAG_MOUSE_UP)
                 strcat(buf, " up");
 
-            sys_vgui("nui::widget_mouse_bind %lx %lx %lx %s\n", glist_getcanvas(c), obj, obj, buf);
+            sys_vgui("nui::widget_mouse_bind %lx %lx %lx %s\n", c, obj, obj, buf);
         }
 
         void widget_create(t_glist* c, t_object* obj, const Point& pos, const Size& sz, int zoom)
@@ -94,14 +94,24 @@ namespace ui {
             auto sz0 = sz * zoom;
             sys_vgui("nui::widget_create %lx %lx"
                      " %d %d %d %d 1\n",
-                glist_getcanvas(c), obj,
+                c, obj,
                 pos.x(), pos.y(), sz0.width(), sz0.height());
         }
 
         void widget_erase(t_glist* c, t_object* obj)
         {
-            sys_vgui("nui::widget_erase %lx %lx\n", glist_getcanvas(c), obj);
+            sys_vgui("nui::widget_erase %lx %lx\n", c, obj);
             sys_unqueuegui(obj);
+        }
+
+        void widget_focus(t_glist* c, t_object* obj)
+        {
+            sys_vgui("nui::widget_focus %lx %lx\n", c, obj);
+        }
+
+        t_glist* object_get_draw_canvas(t_glist* c)
+        {
+            return glist_getcanvas(c);
         }
 
     }

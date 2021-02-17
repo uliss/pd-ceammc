@@ -51,8 +51,6 @@ public:
 
     void create(WinId win, const PointF& pos, float zoom);
 
-    void erase();
-
     void updateModels(const Property* p);
     void updateViews(const Property* p);
 

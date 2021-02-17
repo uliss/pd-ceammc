@@ -201,19 +201,19 @@ namespace ui {
         static void mouse_enter(t_gobj* x)
         {
             auto proxy = reinterpret_cast<ObjectProxy*>(x);
-            proxy->impl->onMouseEnter();
+            proxy->impl->mouseEnter();
         }
 
         static void mouse_leave(t_gobj* x)
         {
             auto proxy = reinterpret_cast<ObjectProxy*>(x);
-            proxy->impl->onMouseLeave();
+            proxy->impl->mouseLeave();
         }
 
         static void mouse_move(t_gobj* x, t_floatarg xpos, t_floatarg ypos, t_floatarg mod)
         {
             auto proxy = reinterpret_cast<ObjectProxy*>(x);
-            proxy->impl->onMouseMove(Point(xpos, ypos), mod);
+            proxy->impl->mouseMove(Point(xpos, ypos), mod);
         }
     };
 
