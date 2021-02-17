@@ -186,9 +186,13 @@ namespace ui {
         {
             syncDrawCanvas();
 
-            if (!isEdit() && !mouse_down_) {
-                onMouseLeave();
-                //                ebox_set_cursor(x, ECURSOR_LEFT_PTR);
+            if (!mouse_down_) {
+                if (isEdit()) {
+                    setCursor(CURSOR_HAND);
+                } else {
+                    onMouseLeave();
+                    setCursor(CURSOR_LEFT_PTR);
+                }
             }
         }
 
@@ -196,6 +200,7 @@ namespace ui {
         {
             if (mouse_down_) { // mouse drag
                 if (editModeAccept(mod)) {
+                    onMouseDrag();
                 }
             } else { //mouse move
                 if (editModeAccept(mod)) {
@@ -208,13 +213,17 @@ namespace ui {
                         selection_ = SELECT_CORNER;
                         setCursor(CURSOR_RIGHT_CORNER);
                         return;
+                    } else if (viewSize().nearRightSide(pt, CURSOR_AREA)) {
+                        selection_ = SELECT_RIGHT;
+                        setCursor(CURSOR_RIGHT_SIDE);
+                        return;
                     } else {
                         setCursor(CURSOR_HAND);
                     }
                     //                    sys_vgui("eobj_canvas_motion %s 0\n", x->b_canvas_id->s_name);
                 }
             }
-            LIB_ERR << __FUNCTION__ << ' ' << pt << ", mod: " << mod;
+            //            LIB_ERR << __FUNCTION__ << ' ' << pt << ", mod: " << mod;
         }
 
     private:
