@@ -71,9 +71,13 @@ proc widget_erase { cnv id } {
     destroy $c
 }
 
-proc widget_resize { cnv id w h } {
+proc widget_resize { cnv id w h zoom } {
     set win [widget_window $cnv $id]
     set c [widget_canvas $cnv $id]
+
+    set w [widget_w $w $zoom]
+    set h [widget_h $h $zoom]
+
     $c configure -width $w -height $h
     [pd_canvas $cnv] itemconfigure $win -width [expr $w+1] -height [expr $h+1]
 }

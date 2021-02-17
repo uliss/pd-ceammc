@@ -42,7 +42,7 @@ namespace ui {
         void widget_create(t_glist* c, t_object* obj, const Point& pos, const Size& sz, int zoom);
         void widget_erase(t_glist* c, t_object* obj);
         void widget_focus(t_glist* c, t_object* obj);
-        void widget_resize(t_glist* c, t_object* obj, const Size& sz);
+        void widget_resize(t_glist* c, t_object* obj, const Size& sz, int zoom);
         bool is_platform_control(uint32_t mod);
         void set_cursor(t_glist* c, t_object* x, CursorFlags cursor);
         int object_outlet_at_pos(const Point& pos, const Size& bbox, size_t nout, int zoom);
@@ -164,7 +164,7 @@ namespace ui {
             LIB_ERR << __FUNCTION__ << ' ' << sz;
             Size new_sz = sz / zoom();
             setSize(new_sz);
-            utils::widget_resize(drawCanvas(), T::owner(), new_sz);
+            utils::widget_resize(drawCanvas(), T::owner(), size(), zoom());
         }
 
         virtual void hideWidget(t_glist* owner)
