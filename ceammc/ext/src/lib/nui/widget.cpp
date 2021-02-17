@@ -18,10 +18,37 @@ extern "C" {
 #include "g_canvas.h"
 }
 
+#include <array>
 #include <cstring>
 
 namespace ceammc {
 namespace ui {
+
+    namespace {
+        static std::array<const char*, CURSOR_MAX_COUNT> cursor_table = {
+            "left_ptr",
+            "center_ptr",
+            "plus",
+            "hand2",
+            "circle",
+            "X_cursor",
+            "bottom_side",
+            "bottom_right_corner",
+            "right_side",
+            "left_side",
+            "exchange",
+            "xterm",
+            "fleur",
+            "sb_v_double_arrow",
+            "sb_h_double_arrow",
+        };
+
+        static const char* cursorTypeToStr(CursorFlags c)
+        {
+            return cursor_table[c];
+        }
+    }
+
     namespace utils {
         int canvas_zoom(const t_glist* c)
         {
@@ -122,6 +149,17 @@ namespace ui {
             return mod & KEY_MOD_CMD;
 #endif
         }
+
+        bool is_toplevel(t_glist* x)
+        {
+            return glist_istoplevel(x);
+        }
+
+        void set_cursor(t_glist* c, t_object* x, CursorFlags cursor)
+        {
+            sys_vgui("nui::widget_cursor %lx %lx %s\n", c, x, cursorTypeToStr(cursor));
+        }
+
     }
 }
 }

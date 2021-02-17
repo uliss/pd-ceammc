@@ -94,6 +94,14 @@ namespace ui {
             h_ += dh;
             return *this;
         }
+
+        bool nearRightBottom(const PointT<T>& pt, T delta) const
+        {
+            return (pt.x() <= w_ + delta)
+                && (pt.x() >= w_ - delta)
+                && (pt.y() >= h_ - delta)
+                && (pt.y() <= h_ + delta);
+        }
     };
 
     using Size = SizeT<int32_t>;

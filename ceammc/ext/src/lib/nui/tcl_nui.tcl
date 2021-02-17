@@ -89,6 +89,11 @@ proc widget_mouse_bind { cnv id target args }  {
     }
 }
 
+proc widget_cursor { cnv id name }  {
+    set c [widget_canvas $cnv $id]
+    $c configure -cursor $name
+}
+
 proc widget_mouse_move_bind  {id obj} { bind $id <Motion> [subst {+::nui::utils::send_mouse_move $obj %x %y %s}] }
 proc widget_mouse_enter_bind {id obj} { bind $id <Enter>  [subst {+pdsend "$obj mouseenter"}] }
 proc widget_mouse_leave_bind {id obj} { bind $id <Leave>  [subst {+pdsend "$obj mouseleave"}] }

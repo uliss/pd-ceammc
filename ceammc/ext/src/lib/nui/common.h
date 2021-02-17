@@ -38,13 +38,42 @@ namespace ui {
     };
 
     enum KeyModFlags {
-        KEY_MOD_NONE = 0, /*!< Nothing. */
-        KEY_MOD_SHIFT = 1, /*!< Shift. */
-        KEY_MOD_MAJ = 2, /*!< Maj. */
-        KEY_MOD_CTRL = 4, /*!< Control. */
-        KEY_MOD_CMD = 8, /*!< Command. */
-        KEY_MOD_ALT = 16, /*!< Alt. */
-        KEY_MOD_RIGHT = 32 /*!< Right click. */
+        KEY_MOD_NONE = 0,
+        KEY_MOD_SHIFT = 1,
+        KEY_MOD_MAJ = 2,
+        KEY_MOD_CTRL = 4,
+        KEY_MOD_CMD = 8,
+        KEY_MOD_ALT = 16,
+        KEY_MOD_RIGHT = 32
+    };
+
+    enum CursorFlags {
+        CURSOR_LEFT_PTR = 0,
+        CURSOR_CENTER_PTR = 1, /*!< The center_ptr string. */
+        CURSOR_PLUS = 2, /*!< The plus string. */
+        CURSOR_HAND = 3, /*!< The hand2 string. */
+        CURSOR_CIRCLE = 4, /*!< The circle string. */
+        CURSOR_X = 5, /*!< The X_cursor string. */
+        CURSOR_BOTTOM = 6, /*!< The bottom_side string. */
+        CURSOR_RIGHT_CORNER = 7, /*!< The bottom_right_corner string. */
+        CURSOR_RIGHT_SIDE = 8, /*!< The right_side string. */
+        CURSOR_LEFT_SIDE = 9, /*!< The left_side string. */
+        CURSOR_EXCHANGE = 10, /*!< The exchange string. */
+        CURSOR_XTERM = 11, /*!< The xterm string. */
+        CURSOR_MOVE = 12, /*!< The move cursor */
+        CURSOR_VDOUBLE_ARROW = 13, /*!< The sb_v_double_arrow string. */
+        CURSOR_HDOUBLE_ARROW = 14, /*!< The sb_h_double_arrow string. */
+        CURSOR_MAX_COUNT,
+    };
+
+    enum SelectionType {
+        SELECT_NONE = 0,
+        SELECT_OBJ = 1,
+        SELECT_INLET = 2,
+        SELECT_OUTLET = 3,
+        SELECT_BOTTOM = 4,
+        SELECT_CORNER = 5,
+        SELECT_RIGHT = 6
     };
 }
 }

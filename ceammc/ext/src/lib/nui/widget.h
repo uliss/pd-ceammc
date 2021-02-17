@@ -36,12 +36,14 @@ namespace ui {
         Point object_abs_pos(t_text* x, const t_glist* parent);
         void object_move(t_text* x, int dx, int dy);
         void object_bind(t_text* x);
+        bool is_toplevel(t_glist* x);
         t_glist* object_get_draw_canvas(t_glist* c);
         void widget_bind_mouse(t_glist* c, t_object* obj, UIFactoryFlags flags);
         void widget_create(t_glist* c, t_object* obj, const Point& pos, const Size& sz, int zoom);
         void widget_erase(t_glist* c, t_object* obj);
         void widget_focus(t_glist* c, t_object* obj);
         bool is_platform_control(uint32_t mod);
+        void set_cursor(t_glist* c, t_object* x, CursorFlags cursor);
     }
 
     template <typename T>
@@ -49,8 +51,11 @@ namespace ui {
         Size size_;
         std::vector<Property*> widget_props_;
         UIFactoryFlags ui_flags_ { UI_FACTORY_NONE };
-        t_glist* draw_canvas_;
+        t_glist* draw_canvas_ { nullptr };
+        SelectionType selection_ { SELECT_NONE };
+        CursorFlags cursor_ = { CURSOR_LEFT_PTR };
         bool mouse_down_ = { false };
+        bool top_level_ { true };
 
     public:
         Widget(const PdArgs& args)
@@ -85,9 +90,18 @@ namespace ui {
         Point absPos() const { return utils::object_abs_pos(T::owner(), T::canvas()); }
         const Size& size() const { return size_; }
         void setSize(const Size& sz) { size_ = sz; }
+        Size viewSize() const { return size_ * zoom(); }
         int zoom() const { return utils::canvas_zoom(T::canvas()); }
         bool isVisible() const { return utils::canvas_is_visible(T::canvas()); }
         bool isEdit() const { return utils::canvas_is_edit(drawCanvas()); }
+        CursorFlags cursor() const { return cursor_; }
+        void setCursor(CursorFlags cursor)
+        {
+            if (cursor_ != cursor) {
+                cursor_ = cursor;
+                utils::set_cursor(drawCanvas(), T::owner(), cursor_);
+            }
+        }
 
         t_glist* drawCanvas() const { return draw_canvas_; }
         void syncDrawCanvas() { draw_canvas_ = utils::object_get_draw_canvas(T::canvas()); }
@@ -130,6 +144,7 @@ namespace ui {
         {
             LIB_ERR << __FUNCTION__;
 
+            top_level_ = utils::is_toplevel(owner);
             syncDrawCanvas();
             utils::widget_create(drawCanvas(), T::owner(), absPos(), size(), zoom());
             utils::widget_bind_mouse(drawCanvas(), T::owner(), ui_flags_);
@@ -173,6 +188,7 @@ namespace ui {
 
             if (!isEdit() && !mouse_down_) {
                 onMouseLeave();
+                //                ebox_set_cursor(x, ECURSOR_LEFT_PTR);
             }
         }
 
@@ -182,6 +198,21 @@ namespace ui {
                 if (editModeAccept(mod)) {
                 }
             } else { //mouse move
+                if (editModeAccept(mod)) {
+                    onMouseMove();
+                } else if (top_level_) {
+                    const int CURSOR_AREA = 3 * zoom();
+                    selection_ = SELECT_NONE;
+
+                    if (viewSize().nearRightBottom(pt, CURSOR_AREA)) {
+                        selection_ = SELECT_CORNER;
+                        setCursor(CURSOR_RIGHT_CORNER);
+                        return;
+                    } else {
+                        setCursor(CURSOR_HAND);
+                    }
+                    //                    sys_vgui("eobj_canvas_motion %s 0\n", x->b_canvas_id->s_name);
+                }
             }
             LIB_ERR << __FUNCTION__ << ' ' << pt << ", mod: " << mod;
         }
