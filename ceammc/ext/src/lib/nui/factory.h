@@ -37,6 +37,7 @@ namespace ui {
         t_symbol* mouseleave;
         t_symbol* mousemove;
         t_symbol* mousedown;
+        t_symbol* mouseup;
         t_symbol* m_size;
 
         static const SymTable& instance();
@@ -125,6 +126,12 @@ namespace ui {
                     SymTable::instance().mousedown, A_DEFFLOAT, A_DEFFLOAT, A_DEFFLOAT, A_DEFFLOAT, A_DEFFLOAT, 0);
             }
 
+            if (ui_flags_ & UI_FACTORY_FLAG_MOUSE_UP) {
+                class_addmethod(this->classPointer(),
+                    reinterpret_cast<t_method>(mouse_up),
+                    SymTable::instance().mouseup, A_DEFFLOAT, A_DEFFLOAT, A_DEFFLOAT, 0);
+            }
+
             ObjectInitPtr init(new ObjectMouseInit<T>(static_cast<UIFactoryFlags>(ui_flags_)));
             FactoryT::setObjectInit(std::move(init));
 
@@ -137,6 +144,7 @@ namespace ui {
         void useMouseLeave() { ui_flags_ |= UI_FACTORY_FLAG_MOUSE_LEAVE; }
         void useMouseMove() { ui_flags_ |= UI_FACTORY_FLAG_MOUSE_MOVE; }
         void useMouseDown() { ui_flags_ |= UI_FACTORY_FLAG_MOUSE_DOWN; }
+        void useMouseUp() { ui_flags_ |= UI_FACTORY_FLAG_MOUSE_UP; }
 
         /* PureData call this to get a gobj's bounding rectangle in pixels */
         static void widget_rect(t_gobj* x, t_glist* owner, int* x1, int* y1, int* x2, int* y2)
@@ -240,6 +248,11 @@ namespace ui {
         static void mouse_down(t_gobj* x, t_floatarg xpos, t_floatarg ypos, t_floatarg absx, t_floatarg absy, t_floatarg mod)
         {
             proxy(x)->impl->mouseDown(Point(xpos, ypos), Point(absx, absy), utils::platform_modifier(mod));
+        }
+
+        static void mouse_up(t_gobj* x, t_floatarg xpos, t_floatarg ypos, t_floatarg mod)
+        {
+            proxy(x)->impl->mouseUp(Point(xpos, ypos), utils::platform_modifier(mod));
         }
     };
 

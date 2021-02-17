@@ -23,6 +23,7 @@ namespace ui {
         mouseleave = gensym("mouseleave");
         mousemove = gensym("mousemove");
         mousedown = gensym("mousedown");
+        mouseup = gensym("mouseup");
         m_size = gensym("size");
 
         tcl_nui_init();

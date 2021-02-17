@@ -183,6 +183,7 @@ namespace ui {
         virtual void onMouseMove() { LIB_ERR << __FUNCTION__; }
         virtual void onMouseDrag() { LIB_ERR << __FUNCTION__; }
         virtual void onMouseDown(const Point& pt, const Point& abspt, uint32_t mod) { LIB_ERR << __FUNCTION__; }
+        virtual void onMouseUp(const Point& pt, uint32_t mod) { LIB_ERR << __FUNCTION__; }
 
         void mouseEnter()
         {
@@ -213,6 +214,16 @@ namespace ui {
             if (editModeAccept(mod)) {
                 onMouseDown(pt, abspt, mod);
             }
+
+            mouse_down_ = true;
+        }
+
+        void mouseUp(const Point& pt, uint32_t mod)
+        {
+            if (editModeAccept(mod)) {
+                onMouseUp(pt, mod);
+            }
+            mouse_down_ = false;
         }
 
         void mouseMove(const Point& pt, uint32_t mod)
