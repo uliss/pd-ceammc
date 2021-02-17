@@ -59,12 +59,21 @@ enum ObjectFactoryFlags : uint32_t {
 };
 
 template <typename T>
+class ObjectInitT {
+public:
+    virtual ~ObjectInitT() { }
+    virtual void init(T* obj) = 0;
+};
+
+template <typename T>
 class ObjectFactory {
     ObjectFactory(ObjectFactory&) = delete;
     ObjectFactory& operator=(ObjectFactory) = delete;
 
 public:
     using ObjectProxy = PdObject<T>;
+    using ObjectInit = ObjectInitT<T>;
+    using ObjectInitPtr = std::unique_ptr<ObjectInit>;
 
     using PdBangFunction = void (*)(ObjectProxy*);
     using PdFloatFunction = void (*)(ObjectProxy*, t_float);
@@ -408,6 +417,9 @@ public:
         // update this information
         x->impl->updatePropertyDefaults();
 
+        if (initializer_)
+            initializer_->init(x->impl);
+
         // call overloaded init
         x->impl->initDone();
 
@@ -589,6 +601,14 @@ public:
 
     static uint32_t flags() { return flags_; }
 
+    /**
+     * Sets object initializer
+     */
+    static void setObjectInit(ObjectInitPtr&& ptr)
+    {
+        initializer_ = std::move(ptr);
+    }
+
 private:
     template <typename DataT>
     static bool processDataSingleTypedFn(ObjectProxy* x, const Atom& a)
@@ -651,6 +671,8 @@ private:
     static PdArgs::ParseMode parse_args_mode_;
     static PdArgs::ParseMode parse_props_mode_;
 
+    static ObjectInitPtr initializer_;
+
 private:
     PdBangFunction fn_bang_;
     PdFloatFunction fn_float_;
@@ -702,6 +724,9 @@ PdArgs::ParseMode ObjectFactory<T>::parse_args_mode_ = PdArgs::PARSE_EXPR;
 
 template <typename T>
 PdArgs::ParseMode ObjectFactory<T>::parse_props_mode_ = PdArgs::PARSE_EXPR;
+
+template <typename T>
+typename ObjectFactory<T>::ObjectInitPtr ObjectFactory<T>::initializer_;
 
 #define CLASS_ADD_METHOD()
 
