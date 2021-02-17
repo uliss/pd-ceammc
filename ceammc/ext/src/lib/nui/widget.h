@@ -45,6 +45,7 @@ namespace ui {
         void widget_create(t_glist* c, t_object* obj, const Point& pos, const Size& sz, int zoom);
         void widget_erase(t_glist* c, t_object* obj);
         void widget_focus(t_glist* c, t_object* obj);
+        void widget_move(t_glist* c, t_object* obj, const Point& pos);
         void widget_resize(t_glist* c, t_object* obj, const Size& sz, int zoom);
         bool is_platform_control(uint32_t mod);
         void set_cursor(t_glist* c, t_object* x, CursorFlags cursor);
@@ -132,6 +133,7 @@ namespace ui {
                 const Point norm_pos = absPos() / zoom();
                 // move model/view
                 //                view_.move(norm_pos);
+                utils::widget_move(drawCanvas(), T::owner(), absPos());
                 utils::canvas_update_object_lines(drawCanvas(), T::owner());
             }
         }

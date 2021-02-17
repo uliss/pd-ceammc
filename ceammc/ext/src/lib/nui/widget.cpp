@@ -203,6 +203,12 @@ namespace ui {
         {
             sys_vgui("nui::canvas_right %lx %lx\n", c, obj);
         }
+
+        void widget_move(_glist* c, t_object* obj, const Point& pos)
+        {
+            sys_vgui("nui::widget_move %lx %lx %d %d\n", c, obj, pos.x(), pos.y());
+        }
+
     }
 }
 }
