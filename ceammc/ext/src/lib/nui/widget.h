@@ -195,6 +195,12 @@ namespace ui {
         virtual void onMouseDown(const Point& pt, const Point& abspt, uint32_t mod) { LIB_ERR << __FUNCTION__; }
         virtual void onMouseUp(const Point& pt, uint32_t mod) { LIB_ERR << __FUNCTION__; }
 
+        virtual void onRightClick(const Point& pt, const Point& abspt, uint32_t mod)
+        {
+            LIB_ERR << __FUNCTION__;
+            utils::canvas_right(drawCanvas(), T::owner());
+        }
+
         void mouseEnter()
         {
             syncDrawCanvas();
@@ -346,12 +352,7 @@ namespace ui {
                 // in edit mode show standart Pd popup
                 utils::canvas_right(drawCanvas(), T::owner());
             } else {
-                // in performance mode if widget defines their own popup dialogs: show them
-                // or show standart Pd popup otherwise
-                //                if (c->c_widget.w_rightclick && !(x->b_flags & EBOX_IGNORELOCKCLICK))
-                //                    c->c_widget.w_rightclick(x, { xpos, ypos }, { absx, absy });
-                //                else
-                utils::canvas_right(drawCanvas(), T::owner());
+                onRightClick(pt, abspt, mod);
             }
         }
 
@@ -364,7 +365,7 @@ namespace ui {
         void openProperties()
         {
             LIB_ERR << __FUNCTION__;
-//            return ebox_properties(x, nullptr);
+            //            return ebox_properties(x, nullptr);
         }
 
     private:
