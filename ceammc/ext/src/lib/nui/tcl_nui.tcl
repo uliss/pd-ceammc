@@ -2,7 +2,6 @@ namespace eval ::nui {
 
 proc pd_canvas { cnv } { return ".x${cnv}.c" }
 
-
 namespace eval utils {
     proc fix_mac_state {n} { if { $n > 256 } { return [expr $n & 0xFF ] } { return $n } }
 
@@ -39,6 +38,15 @@ proc widget_window { cnv id } { return ".x${cnv}.c.win${id}" }
 proc widget_w   { w zoom } { expr $w * $zoom + 1 }
 proc widget_h   { h zoom } { expr $h * $zoom + 1 }
 proc widget_tag { id } { return "#${id}" }
+
+proc canvas_motion {cnv id val} {
+    set c [widget_canvas $cnv $id]
+    set rx [winfo rootx $c]
+    set ry [winfo rooty $c]
+    set x  [winfo pointerx .]
+    set y  [winfo pointery .]
+    pdtk_canvas_motion [pd_canvas $cnv] [expr $x - $rx] [expr $y - $ry] $val
+}
 
 proc widget_create { cnv id x y w h zoom } {
     set win [widget_window $cnv $id]

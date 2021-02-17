@@ -189,6 +189,11 @@ namespace ui {
             canvas_update_object_lines(c, obj);
         }
 
+        void canvas_motion(t_glist* c, t_object* obj, int mode)
+        {
+            sys_vgui("nui::canvas_motion %lx %lx %d\n", c, obj, mode);
+        }
+
     }
 }
 }

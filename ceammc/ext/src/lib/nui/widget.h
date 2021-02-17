@@ -32,6 +32,7 @@ namespace ui {
         bool canvas_is_edit(const t_glist* c);
         void canvas_delete_object_lines(const t_glist* c, t_text* x);
         void canvas_update_object_lines(const t_glist* c, t_text* x);
+        void canvas_motion(t_glist* c, t_object* obj, int mode);
         Point object_pos(t_text* x);
         Point object_abs_pos(t_text* x, const t_glist* parent);
         void object_move(t_text* x, int dx, int dy);
@@ -241,8 +242,7 @@ namespace ui {
                     onMouseDrag();
                 } else if (top_level_) {
                     if (selection_ == SELECT_NONE) {
-                        //                        sys_vgui("eobj_canvas_motion %s 0\n", x->b_canvas_id->s_name);
-                        return;
+                        return utils::canvas_motion(drawCanvas(), T::owner(), 0);
                     } else if (resize_mode_ == RESIZE_BOTH) {
                         switch (selection_) {
                         case SELECT_BOTTOM:
@@ -276,12 +276,16 @@ namespace ui {
                             break;
                         }
                     }
+                } else {
+                    utils::canvas_motion(drawCanvas(), T::owner(), 0);
                 }
             } else { //mouse move
                 if (editModeAccept(mod)) {
                     onMouseMove();
                 } else if (top_level_) {
                     selection_ = SELECT_NONE;
+
+                    utils::canvas_motion(drawCanvas(), T::owner(), 0);
 
                     const auto vsz = viewSize();
                     if (vsz.nearRightBottom(pt, CURSOR_AREA) && canResizeBoth()) {
@@ -306,11 +310,11 @@ namespace ui {
                     } else {
                         setCursor(CURSOR_HAND);
                     }
-                    //                    sys_vgui("eobj_canvas_motion %s 0\n", x->b_canvas_id->s_name);
+                } else {
+                    utils::canvas_motion(drawCanvas(), T::owner(), 0);
                 }
             }
         }
-        //            LIB_ERR << __FUNCTION__ << ' ' << pt << ", mod: " << mod;
 
     private:
         void subscribeMouseEvents()
