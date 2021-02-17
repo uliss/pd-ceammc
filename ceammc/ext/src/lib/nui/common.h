@@ -75,6 +75,14 @@ namespace ui {
         SELECT_CORNER = 5,
         SELECT_RIGHT = 6
     };
+
+    enum ResizeMode {
+        RESIZE_NONE = 0,
+        RESIZE_LINKED,
+        RESIZE_WIDTH,
+        RESIZE_HEIGHT,
+        RESIZE_BOTH
+    };
 }
 }
 

@@ -55,6 +55,7 @@ namespace ui {
         t_glist* draw_canvas_ { nullptr };
         SelectionType selection_ { SELECT_NONE };
         CursorFlags cursor_ = { CURSOR_LEFT_PTR };
+        ResizeMode resize_mode_ = { RESIZE_NONE };
         bool mouse_down_ = { false };
         bool top_level_ { true };
 
@@ -104,6 +105,9 @@ namespace ui {
             }
         }
 
+        ResizeMode resizeMode() const { return resize_mode_; }
+        void setResizeMode(ResizeMode mode) { resize_mode_ = mode; }
+
         t_glist* drawCanvas() const { return draw_canvas_; }
         void syncDrawCanvas() { draw_canvas_ = utils::object_get_draw_canvas(T::canvas()); }
 
@@ -151,6 +155,12 @@ namespace ui {
             utils::widget_bind_mouse(drawCanvas(), T::owner(), ui_flags_);
         }
 
+        virtual void resizeWidget(const Size& sz)
+        {
+            if (resize_mode_ == RESIZE_NONE)
+                return;
+        }
+
         virtual void hideWidget(t_glist* owner)
         {
             LIB_ERR << __FUNCTION__;
@@ -172,6 +182,7 @@ namespace ui {
         virtual void onMouseLeave() { LIB_ERR << __FUNCTION__; }
         virtual void onMouseMove() { LIB_ERR << __FUNCTION__; }
         virtual void onMouseDrag() { LIB_ERR << __FUNCTION__; }
+        virtual void onMouseDown(const Point& pt, const Point& abspt, uint32_t mod) { LIB_ERR << __FUNCTION__; }
 
         void mouseEnter()
         {
@@ -197,11 +208,19 @@ namespace ui {
             }
         }
 
+        void mouseDown(const Point& pt, const Point& abspt, uint32_t mod)
+        {
+            if (editModeAccept(mod)) {
+                onMouseDown(pt, abspt, mod);
+            }
+        }
+
         void mouseMove(const Point& pt, uint32_t mod)
         {
             if (mouse_down_) { // mouse drag
                 if (editModeAccept(mod)) {
                     onMouseDrag();
+                } else if (top_level_) {
                 }
             } else { //mouse move
                 if (editModeAccept(mod)) {

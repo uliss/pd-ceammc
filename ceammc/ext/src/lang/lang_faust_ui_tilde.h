@@ -138,8 +138,6 @@ public:
 
     virtual void selectWidget(t_glist* window, bool state) final;
 
-    virtual void hideWidget(t_glist* window) final;
-
     const t_glist* widgetParent() const { return widget_parent_; }
 
     void notifyPropUpdate(const Property* p);

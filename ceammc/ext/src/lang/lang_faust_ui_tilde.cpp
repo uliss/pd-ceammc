@@ -27,6 +27,8 @@ LangFaustUiTilde::LangFaustUiTilde(const PdArgs& args)
 
     createInlet();
     createOutlet();
+
+    setResizeMode(RESIZE_BOTH);
 }
 
 void LangFaustUiTilde::processBlock(const t_sample** in, t_sample** out)
@@ -46,17 +48,15 @@ void setup_lang_faust_ui_tilde()
     obj.useMouseEnter();
     obj.useMouseLeave();
     obj.useMouseMove();
+    obj.useMouseDown();
 }
 
 WidgetIFace::WidgetIFace(t_object* x, t_glist* widget_parent)
     : x_(x)
     , widget_parent_(widget_parent)
     , size_(0, 0)
-    //    , event_proxy_(genBindName(this))
     , view_(widget_parent)
 {
-    //    event_proxy_.setMouseEnter([this]() { onMouseEnter(); });
-    //    event_proxy_.setMouseLeave([this]() { onMouseLeave(); });
 }
 
 WidgetIFace::~WidgetIFace()
@@ -67,11 +67,6 @@ void WidgetIFace::selectWidget(t_glist* window, bool state)
 {
     show_window_ = window;
     view_.select(state);
-}
-
-void WidgetIFace::hideWidget(t_glist* window)
-{
-//    view_.erase();
 }
 
 void WidgetIFace::notifyPropUpdate(const Property* p)

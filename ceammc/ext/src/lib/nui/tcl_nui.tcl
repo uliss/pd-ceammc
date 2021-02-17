@@ -98,9 +98,27 @@ proc widget_mouse_move_bind  {id obj} { bind $id <Motion> [subst {+::nui::utils:
 proc widget_mouse_enter_bind {id obj} { bind $id <Enter>  [subst {+pdsend "$obj mouseenter"}] }
 proc widget_mouse_leave_bind {id obj} { bind $id <Leave>  [subst {+pdsend "$obj mouseleave"}] }
 
-proc widget_mouse_down_bind {id obj} { bind $id <Enter> [subst {+pdsend "$obj mouseenter"}] }
-proc widget_mouse_up_bind {id obj}   { bind $id <Leave> [subst {+pdsend "$obj mouseleave"}] }
+proc widget_mouse_down_bind {id obj} {
+    switch -- $::windowingsystem {
+        "win32" {
+            bind $id <ButtonPress-1> [subst -nocommands {+pdsend "$obj mousedown %x %y %X %Y [ceammc_fix_win32_state %s]"}]
+        } "default" {
+            bind $id <ButtonPress-1> [subst {+pdsend "$obj mousedown %x %y %X %Y %s"}]
+        }
+    }
+}
 
+proc widget_mouse_up_bind {id obj} {
+    switch -- $::windowingsystem {
+        "aqua" {
+            bind $id <ButtonRelease-1> [subst -nocommands {+pdsend "$obj mouseup %x %y [ceammc_fix_macos_state %s]"}]
+        } "win32" {
+            bind $id <ButtonRelease-1> [subst -nocommands {+pdsend "$obj mouseup %x %y [ceammc_fix_win32_state %s]"}]
+        } "default" {
+            bind $id <ButtonRelease-1> [subst {+pdsend "$obj mouseup %x %y %s"}]
+        }
+    }
+}
 
 if { [catch {package require tooltip} ] } {
     proc widget_tooltip { cnv model id msg } {}
