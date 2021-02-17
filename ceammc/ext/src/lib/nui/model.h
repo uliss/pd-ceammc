@@ -47,7 +47,7 @@ namespace ui {
         HexColor bd_color { colors::st_border };
         HexColor sel_color { colors::blue };
         float padding { 5 };
-        bool selected { true };
+        bool selected { false };
 
         FrameProps()
         {

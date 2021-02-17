@@ -14,8 +14,8 @@
 #ifndef LANG_FAUST_UI_TILDE_H
 #define LANG_FAUST_UI_TILDE_H
 
-#include "ceammc_proxy.h"
 #include "ceammc_sound_external.h"
+#include "nui/mouse_event.h"
 #include "nui/nui.h"
 #include "nui/rect.h"
 #include "nui/tk_view_impl.h"
@@ -117,34 +117,8 @@ public:
         vprops_.selected = state;
         vframe_.update(propFrameId());
     }
-};
 
-class WidgetIFace;
-
-class MouseEvents : public PdBindObject {
-    WidgetIFace* dest_;
-    static t_class* class_;
-
-public:
-    MouseEvents(WidgetIFace* dest, t_symbol* id)
-        : dest_(dest)
-    {
-        bind(id);
-    }
-
-    void onMouseEnter();
-
-    static void on_mouse_enter(MouseEvents* x, t_symbol* s, int argc, t_atom* argv)
-    {
-        x->onMouseEnter();
-    }
-
-    static void initClass()
-    {
-        class_ = class_new(gensym("proxy mouse"), 0, 0, sizeof(MouseEvents), CLASS_PD, A_NULL);
-        class_addmethod(class_, (t_method)&MouseEvents::on_mouse_enter, gensym("mouseenter"), A_GIMME, A_NULL);
-        class_addmethod(class_, (t_method)&MouseEvents::on_mouse_enter, gensym("mouseleave"), A_GIMME, A_NULL);
-    }
+    t_glist* parent() { return parent_; }
 };
 
 class WidgetIFace {
@@ -153,7 +127,7 @@ private:
     t_glist* widget_parent_;
     t_glist* widget_canvas_;
     Size size_;
-    MouseEvents event_proxy_;
+    MouseBind event_proxy_;
 
 protected:
     FaustMasterView view_;
@@ -179,8 +153,8 @@ public:
     const t_glist* widgetParent() const { return widget_parent_; }
     const t_glist* widgetWindow() const { return widget_canvas_; }
 
-    virtual void onMouseEnter() { }
-    virtual void onMouseLeave() { }
+    virtual void onMouseEnter();
+    virtual void onMouseLeave();
 
     bool visible() const;
 
@@ -189,7 +163,7 @@ public:
 
     void notifyPropUpdate(const Property* p);
 
-    void bindEvents();
+    void bindEvents(t_glist* window);
 };
 
 class LangFaustUiTilde : public SoundExternal, public WidgetIFace {

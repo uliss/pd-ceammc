@@ -144,21 +144,16 @@ void setup_lang_faust_ui_tilde()
     UISoundFactory<LangFaustUiTilde> obj("ui");
 }
 
-static t_symbol* genid(void* x)
-{
-    char buf[64];
-    snprintf(buf, 63, "#%lx", x);
-    return gensym(buf);
-}
-
 WidgetIFace::WidgetIFace(t_object* x, t_glist* widget_parent)
     : x_(x)
     , widget_parent_(widget_parent)
     , widget_canvas_(canvas_getrootfor(widget_parent_))
     , size_(0, 0)
-    , event_proxy_(this, genid(&event_proxy_))
+    , event_proxy_(genBindName(this))
     , view_(widget_parent)
 {
+    event_proxy_.setMouseEnter([this]() { onMouseEnter(); });
+    event_proxy_.setMouseLeave([this]() { onMouseLeave(); });
 }
 
 WidgetIFace::~WidgetIFace()
@@ -174,7 +169,6 @@ Rect WidgetIFace::getRect(t_glist* window) const
 {
     auto z = window->gl_zoom;
     Rect res(text_xpix(x_, window), text_ypix(x_, window), size_ * z);
-    //    LIB_ERR << __FUNCTION__ << res;
     return res;
 }
 
@@ -186,7 +180,6 @@ void WidgetIFace::displaceWidget(t_glist* window, int dx, int dy)
     LIB_ERR << __FUNCTION__;
 
     if (glist_isvisible(widget_parent_)) {
-        LIB_ERR << __FUNCTION__;
         PointF pos(text_xpix(x_, window), text_ypix(x_, window));
         const float rz = 1.0 / glist_getzoom(window);
         view_.move(pos * rz);
@@ -196,10 +189,6 @@ void WidgetIFace::displaceWidget(t_glist* window, int dx, int dy)
 
 void WidgetIFace::deleteWidget(t_glist* window)
 {
-    LIB_ERR << __FUNCTION__;
-    //    for (auto& v : view_list_)
-    //        v->erase(window);
-
     canvas_deletelinesfor(window, x_);
 }
 
@@ -210,18 +199,28 @@ void WidgetIFace::selectWidget(t_glist* window, bool state)
 
 void WidgetIFace::showWidget(t_glist* window)
 {
-    LIB_ERR << __FUNCTION__;
     view_.create(reinterpret_cast<WinId>(window),
         getRect(window).pt0(),
         glist_getzoom(window));
+
+    bindEvents(window);
 }
 
 void WidgetIFace::hideWidget(t_glist* window)
 {
-    LIB_ERR << __FUNCTION__;
     view_.erase();
 
     sys_unqueuegui(x_);
+}
+
+void WidgetIFace::onMouseEnter()
+{
+    LIB_ERR << __FUNCTION__;
+}
+
+void WidgetIFace::onMouseLeave()
+{
+    LIB_ERR << __FUNCTION__;
 }
 
 bool WidgetIFace::visible() const
@@ -236,20 +235,17 @@ void WidgetIFace::setSize(int w, int h)
 
 void WidgetIFace::notifyPropUpdate(const Property* p)
 {
-    LIB_ERR << __FUNCTION__ << " prop changed: " << p;
     view_.update(p);
 }
 
-void WidgetIFace::bindEvents()
+void WidgetIFace::bindEvents(t_glist* window)
 {
-    sys_vgui("::ceammc::ui::mouse_events_bind .%lx.c.w #%lx"
-             "down up move enter leave right_click\n",
-        widget_parent_, &event_proxy_);
-}
-
-void MouseEvents::onMouseEnter()
-{
-    dest_->onMouseEnter();
+    sys_vgui("nui::widget_mouse_bind %lx %lx %lx"
+             //             " down up move"
+             " enter leave"
+             //             " right_click"
+             "\n",
+        window, &view_, this);
 }
 
 void FaustMasterView::create(WinId win, const PointF& pos, float zoom)

@@ -34,6 +34,17 @@ proc widget_move { cnv id x y } {
     $c coords $win $x $y
 }
 
+proc widget_mouse_bind { cnv id target args }  {
+    set c [widget_canvas $cnv $id]
+    foreach name $args {
+        set ev "widget_mouse_${name}_bind"
+        $ev $c "#$target"
+    }
+}
+
+proc widget_mouse_enter_bind {id obj} { bind $id <Enter> [subst {+pdsend "$obj mouseenter"}] }
+proc widget_mouse_leave_bind {id obj} { bind $id <Leave> [subst {+pdsend "$obj mouseleave"}] }
+
 if { [catch {package require tooltip} ] } {
     proc widget_tooltip { cnv model id msg } {}
 } {
