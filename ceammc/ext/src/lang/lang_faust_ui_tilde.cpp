@@ -83,11 +83,11 @@ void FaustMasterView::updateModels(const Property* p)
 
     const auto pid = reinterpret_cast<PropId>(p);
 
-    if (sliders_.hasProp(pid))
-        sliders_.update(pid, p);
+//    if (sliders_.hasProp(pid))
+//        sliders_.update(pid, p);
 
-    if (labels_.hasProp(pid))
-        labels_.update(pid, p);
+//    if (labels_.hasProp(pid))
+//        labels_.update(pid, p);
 }
 
 void FaustMasterView::updateViews(const Property* p)

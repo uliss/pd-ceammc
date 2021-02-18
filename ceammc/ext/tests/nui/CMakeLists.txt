@@ -19,5 +19,5 @@ function(add_nui_test src)
     target_sources(test_nui PRIVATE "test_nui_${src}.cpp")
 endfunction()
 
-
+add_nui_test(model)
 add_nui_test(view)

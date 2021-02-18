@@ -16,6 +16,7 @@
 
 #include "ceammc_sound_external.h"
 #include "nui/nui.h"
+#include "nui/property.h"
 #include "nui/rect.h"
 #include "nui/tk_view_impl.h"
 #include "nui/view.h"
@@ -94,7 +95,7 @@ public:
             auto hg = new SimpleHGroupView;
 
             SliderProps sl;
-            sl.update(p);
+//            .updatedate(p);
             sliders_.addModel(prop_id, sl);
             LabelProps lp(0);
             lp.text = p->name();

@@ -18,6 +18,7 @@
 #include <stdexcept>
 #include <unordered_map>
 #include <utility>
+#include <vector>
 
 #include "m_pd.h"
 
@@ -25,8 +26,6 @@
 #include "nui/font.h"
 
 namespace ceammc {
-
-class Property;
 
 namespace ui {
 
@@ -36,11 +35,132 @@ namespace ui {
     using PropId = uint64_t;
     constexpr PropId PROP_ID_ALL = 0;
 
-    template <typename Props>
-    class ModelBase {
+    template <typename Data>
+    class ModelBase;
+
+    template <typename T>
+    class Observer {
+        ModelBase<T>* model_;
+
     public:
-        virtual bool hasProp(PropId id) const = 0;
-        virtual const Props& getProp(PropId id) const = 0;
+        Observer(ModelBase<T>* model)
+            : model_(model)
+        {
+            if (model_)
+                model_->subscribe(this);
+        }
+
+        ~Observer()
+        {
+            invalidate();
+        }
+
+        ModelBase<T>* model() noexcept { return model_; }
+        const ModelBase<T>* model() const noexcept { return model_; }
+
+        T& data()
+        {
+            if (model_)
+                return model_->data();
+
+            throw std::runtime_error("invalid model");
+        }
+
+        const T& data() const
+        {
+            if (model_)
+                return model_->data();
+
+            throw std::runtime_error("invalid model");
+        }
+
+        void notifyOthers()
+        {
+            if (model_)
+                model_->notify(this);
+        }
+
+        virtual void changed(ModelBase<T>*) = 0;
+
+        void invalidate() noexcept
+        {
+            if (model_) {
+                model_->unsubscribe(this);
+                model_ = nullptr;
+            }
+        }
+    };
+
+    template <typename Data>
+    class ModelBase {
+        std::vector<Observer<Data>*> observers_;
+        Data data_;
+
+        friend class Observer<Data>;
+
+        ModelBase(const ModelBase&) = delete;
+        ModelBase& operator=(const ModelBase&) = delete;
+
+    public:
+        explicit ModelBase(const Data& data = {})
+            : data_(data)
+        {
+        }
+
+        explicit ModelBase(Data&& data)
+            : data_(std::move(data))
+        {
+        }
+
+        virtual ~ModelBase()
+        {
+            for (auto ob : observers_)
+                ob->invalidate();
+        }
+
+        template <typename T, size_t N>
+        T& getT() noexcept
+        {
+            return std::get<N>(data_);
+        }
+
+        template <typename T, size_t N>
+        const T& getT() const noexcept
+        {
+            return std::get<N>(data_);
+        }
+
+        const Data& data() const { return data_; }
+        Data& data() { return data_; }
+        void setData(const Data& data)
+        {
+            data_ = data;
+            notify();
+        }
+
+        void notify(Observer<Data>* except = nullptr)
+        {
+            for (auto ob : observers_) {
+                if (ob == except)
+                    continue;
+
+                ob->changed(this);
+            }
+        }
+
+        bool hasSubscribers() const { return !observers_.empty(); }
+
+    private:
+        void subscribe(Observer<Data>* ob) { observers_.push_back(ob); }
+        void unsubscribe(Observer<Data>* ob)
+        {
+            auto it = std::remove(observers_.begin(), observers_.end(), ob);
+            observers_.erase(it, observers_.end());
+        }
+
+    public:
+        virtual bool hasProp(PropId idx) const { return true; }
+        virtual const Data& getProp(PropId idx) const { throw 1; };
     };
 
     struct FrameProps {
@@ -56,7 +176,6 @@ namespace ui {
 
     struct PropBase {
         virtual ~PropBase() { }
-        virtual bool update(const Property* p) = 0;
     };
 
     struct SliderProps : public PropBase {
@@ -74,7 +193,7 @@ namespace ui {
         SliderProps() { }
         SliderProps(int8_t style);
 
-        bool update(const Property* p) override;
+        //        bool update(const Property* p) override;
     };
 
     struct LabelProps : public PropBase {
@@ -90,7 +209,10 @@ namespace ui {
         LabelProps() { }
         LabelProps(int8_t style);
 
-        bool update(const Property*) override { return true; }
+        //        bool update(const Property*) override { return true; }
+    };
+
+    struct ModelBool : public ModelBase<std::tuple<bool>> {
     };
 
     class EmptyModel : public ModelBase<EmptyData> {
@@ -122,14 +244,14 @@ namespace ui {
 
         void addModel(PropId idx, const Props& props) { props_.insert(std::make_pair(idx, props)); }
 
-        bool update(PropId idx, const Property* p)
-        {
-            auto it = props_.find(idx);
-            if (it == props_.end())
-                return false;
+        //        bool update(PropId idx, const Property* p)
+        //        {
+        //            auto it = props_.find(idx);
+        //            if (it == props_.end())
+        //                return false;
 
-            return it->second.update(p);
-        }
+        //            return it->second.update(p);
+        //        }
     };
 
     using SliderModelList = ModelList<SliderModel, SliderProps>;
