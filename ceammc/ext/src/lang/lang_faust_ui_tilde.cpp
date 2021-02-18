@@ -55,25 +55,8 @@ void setup_lang_faust_ui_tilde()
 
 WidgetIFace::WidgetIFace(t_object* x, t_glist* widget_parent)
     : x_(x)
-    , widget_parent_(widget_parent)
     , size_(0, 0)
-    , view_(widget_parent)
 {
-}
-
-WidgetIFace::~WidgetIFace()
-{
-}
-
-void WidgetIFace::selectWidget(t_glist* window, bool state)
-{
-    show_window_ = window;
-    view_.select(state);
-}
-
-void WidgetIFace::notifyPropUpdate(const Property* p)
-{
-    view_.update(p);
 }
 
 void FaustMasterView::updateModels(const Property* p)
@@ -83,11 +66,11 @@ void FaustMasterView::updateModels(const Property* p)
 
     const auto pid = reinterpret_cast<PropId>(p);
 
-//    if (sliders_.hasProp(pid))
-//        sliders_.update(pid, p);
+    //    if (sliders_.hasProp(pid))
+    //        sliders_.update(pid, p);
 
-//    if (labels_.hasProp(pid))
-//        labels_.update(pid, p);
+    //    if (labels_.hasProp(pid))
+    //        labels_.update(pid, p);
 }
 
 void FaustMasterView::updateViews(const Property* p)
@@ -97,13 +80,6 @@ void FaustMasterView::updateViews(const Property* p)
 
     const auto pid = reinterpret_cast<PropId>(p);
     vframe_.update(pid);
-}
-
-void FaustMasterView::move(const PointF& pos)
-{
-    Point p = pos;
-
-    sys_vgui("nui::widget_move %lx %lx %d %d\n", parent_, this, p.x(), p.y());
 }
 
 void FaustMasterView::layout()
@@ -119,9 +95,4 @@ Size FaustMasterView::build(const std::vector<Property*>& props)
     layout();
     LIB_ERR << vframe_.size();
     return vframe_.size();
-}
-
-void FaustMasterView::focus()
-{
-    sys_vgui("nui::widget_focus %lx %lx\n", parent_, this);
 }

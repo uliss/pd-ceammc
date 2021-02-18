@@ -36,15 +36,12 @@ class FaustMasterView : public FrameModelBase {
     SliderModelList sliders_;
     LabelModelList labels_;
 
-    t_glist* parent_;
-
 private:
     PropId propFrameId() const { return reinterpret_cast<PropId>(this); }
 
 public:
     FaustMasterView(t_glist* parent = nullptr)
         : vframe_(this, ViewImplPtr<FrameProps>(new TclFrameImpl), propFrameId(), PointF(), SizeF())
-        , parent_(parent)
     {
         ViewPtr vp(new SimpleVGroupView);
         vframe_.setChild(std::move(vp));
@@ -60,19 +57,7 @@ public:
         updateModels(p);
         updateViews(p);
     }
-
-    void move(const PointF& pos);
     void layout();
-
-    bool hasProp(PropId idx) const override
-    {
-        return true;
-    }
-
-    const FrameProps& getProp(PropId idx) const override
-    {
-        return vprops_;
-    }
 
     Size build(const std::vector<Property*>& props);
     void focus();
@@ -95,7 +80,7 @@ public:
             auto hg = new SimpleHGroupView;
 
             SliderProps sl;
-//            .updatedate(p);
+            //            .updatedate(p);
             sliders_.addModel(prop_id, sl);
             LabelProps lp(0);
             lp.text = p->name();
@@ -111,39 +96,17 @@ public:
 
         props_.push_back(p);
     }
-
-    void select(bool state)
-    {
-        vprops_.selected = state;
-        vframe_.update(propFrameId());
-    }
-
-    t_glist* parent() { return parent_; }
 };
 
 class WidgetIFace {
 private:
     t_object* x_;
-    t_glist* widget_parent_;
     t_glist* show_window_;
     Size size_;
     bool mouse_clicked_ { false };
 
-protected:
-    FaustMasterView view_;
-
 public:
     WidgetIFace(t_object* x, t_glist* widget_parent);
-    // pure virtual
-    virtual ~WidgetIFace();
-
-    virtual void selectWidget(t_glist* window, bool state) final;
-
-    const t_glist* widgetParent() const { return widget_parent_; }
-
-    void notifyPropUpdate(const Property* p);
-
-    void bindEvents();
 };
 
 class LangFaustUiTilde : public ui::Widget<SoundExternal> {

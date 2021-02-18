@@ -180,10 +180,10 @@ namespace ui {
             impl_->setWinId(win);
             impl_->setWidgetId(widgetId);
 
-            if (model_->hasProp(prop_id_)) {
+//            if (model_->hasProp(prop_id_)) {
                 impl_->setScale(scale);
-                impl_->create(absBBox(), model_->getProp(prop_id_));
-            }
+//                impl_->create(absBBox(), model_->getProp(prop_id_));
+//            }
         }
 
         void erase() override
@@ -198,8 +198,8 @@ namespace ui {
             if (!ok || !impl_)
                 return;
 
-            if (model_->hasProp(prop_id_))
-                impl_->update(absBBox(), model_->getProp(prop_id_));
+//            if (model_->hasProp(prop_id_))
+//                impl_->update(absBBox(), model_->getProp(prop_id_));
         }
 
         void updateCoords() override

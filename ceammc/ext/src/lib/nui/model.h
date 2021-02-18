@@ -157,21 +157,40 @@ namespace ui {
             auto it = std::remove(observers_.begin(), observers_.end(), ob);
             observers_.erase(it, observers_.end());
         }
-
-    public:
-        virtual bool hasProp(PropId idx) const { return true; }
-        virtual const Data& getProp(PropId idx) const { throw 1; };
     };
 
-    struct FrameProps {
-        HexColor bd_color { colors::st_border };
-        HexColor sel_color { colors::blue };
-        float padding { 5 };
-        bool selected { false };
+    enum FramePropsFields {
+        FRAME_DATA_BORDER_COLOR = 0,
+        FRAME_DATA_FILL_COLOR,
+        FRAME_DATA_PADDING,
+        FRAME_DATA_SELECTED
+    };
 
+    struct FrameProps : public std::tuple<
+                            HexColor /*border*/,
+                            HexColor /*fill*/,
+                            int /*padding*/,
+                            bool /*is_selected*/> {
         FrameProps()
         {
+            std::get<FRAME_DATA_BORDER_COLOR>(*this) = colors::st_border;
+            std::get<FRAME_DATA_FILL_COLOR>(*this) = colors::st_backgr;
+            std::get<FRAME_DATA_PADDING>(*this) = 5;
+            std::get<FRAME_DATA_SELECTED>(*this) = false;
         }
+
+        bool isSelected() const { return std::get<FRAME_DATA_SELECTED>(*this); }
+
+        HexColor borderColor() const
+        {
+            return isSelected() ? colors::blue
+                                : std::get<FRAME_DATA_BORDER_COLOR>(*this);
+        }
+
+        int padding() const { return std::get<FRAME_DATA_PADDING>(*this); }
+        void setPadding(int pad) { std::get<FRAME_DATA_PADDING>(*this) = pad; }
+
+        void select(bool value) { std::get<FRAME_DATA_SELECTED>(*this) = value; }
     };
 
     struct PropBase {
@@ -192,8 +211,6 @@ namespace ui {
 
         SliderProps() { }
         SliderProps(int8_t style);
-
-        //        bool update(const Property* p) override;
     };
 
     struct LabelProps : public PropBase {
@@ -208,14 +225,12 @@ namespace ui {
 
         LabelProps() { }
         LabelProps(int8_t style);
-
-        //        bool update(const Property*) override { return true; }
-    };
-
-    struct ModelBool : public ModelBase<std::tuple<bool>> {
     };
 
     class EmptyModel : public ModelBase<EmptyData> {
+    };
+
+    struct ModelBool : public ModelBase<std::tuple<bool>> {
     };
 
     class FrameModelBase : public ModelBase<FrameProps> {
@@ -229,8 +244,6 @@ namespace ui {
 
     struct FrameModel : public FrameModelBase {
         FrameProps props;
-        bool hasProp(PropId /*idx*/) const override { return true; }
-        const FrameProps& getProp(PropId /*idx*/) const override { return props; }
     };
 
     template <typename Model, typename Props>
@@ -238,20 +251,7 @@ namespace ui {
         std::unordered_map<PropId, Props> props_;
 
     public:
-        bool hasProp(PropId idx) const override { return props_.find(idx) != props_.end(); }
-
-        const Props& getProp(PropId idx) const override { return props_.at(idx); }
-
         void addModel(PropId idx, const Props& props) { props_.insert(std::make_pair(idx, props)); }
-
-        //        bool update(PropId idx, const Property* p)
-        //        {
-        //            auto it = props_.find(idx);
-        //            if (it == props_.end())
-        //                return false;
-
-        //            return it->second.update(p);
-        //        }
     };
 
     using SliderModelList = ModelList<SliderModel, SliderProps>;

@@ -67,7 +67,7 @@ namespace ui {
                  " %d %d %d %d {} #%6.6x 1\n",
             winId(), widgetId(), this,
             rect.left(), rect.top(), rect.width(), rect.height(),
-            data.selected ? data.sel_color : data.bd_color);
+            data.borderColor());
     }
 
     void TclFrameImpl::erase()
@@ -80,7 +80,7 @@ namespace ui {
         sys_vgui("nui::frame::update_outline %lx %lx %lx"
                  " #%6.6x\n",
             winId(), widgetId(), this,
-            data.selected ? data.sel_color : data.bd_color);
+            data.borderColor());
     }
 
     void TclFrameImpl::updateCoords(const RectF& bbox)

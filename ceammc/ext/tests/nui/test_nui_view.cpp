@@ -58,8 +58,8 @@ TEST_CASE("nui", "[nui]")
         REQUIRE(fv0.size() == SizeF(30, 20));
 
         FrameModel model;
-        REQUIRE(model.props.padding == 5);
-        model.props.padding = 5;
+        REQUIRE(model.props.padding() == 5);
+        model.props.setPadding(5);
 
         fv0.setModel(&model);
         fv0.layout();
