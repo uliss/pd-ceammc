@@ -53,12 +53,6 @@ void setup_lang_faust_ui_tilde()
     obj.useMouseRight();
 }
 
-WidgetIFace::WidgetIFace(t_object* x, t_glist* widget_parent)
-    : x_(x)
-    , size_(0, 0)
-{
-}
-
 void FaustMasterView::updateModels(const Property* p)
 {
     if (!p)

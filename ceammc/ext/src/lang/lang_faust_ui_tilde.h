@@ -98,17 +98,6 @@ public:
     }
 };
 
-class WidgetIFace {
-private:
-    t_object* x_;
-    t_glist* show_window_;
-    Size size_;
-    bool mouse_clicked_ { false };
-
-public:
-    WidgetIFace(t_object* x, t_glist* widget_parent);
-};
-
 class LangFaustUiTilde : public ui::Widget<SoundExternal> {
 public:
     LangFaustUiTilde(const PdArgs& args);
