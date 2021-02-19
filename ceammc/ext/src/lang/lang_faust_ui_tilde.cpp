@@ -17,13 +17,9 @@
 #include "nui/factory.h"
 
 LangFaustUiTilde::LangFaustUiTilde(const PdArgs& args)
-    : ui::Widget<SoundExternal>(args)
+    : ui::Widget<LangFaustTilde>(args)
 {
     setSize(Size(100, 50));
-
-    addWidgetProperty(new FloatProperty("@a", 100))->setFloatCheck(PropValueConstraints::CLOSED_RANGE, 50, 200);
-    addWidgetProperty(new FloatProperty("@b", 100))->setFloatCheck(PropValueConstraints::CLOSED_RANGE, 50, 200);
-    addWidgetProperty(new FloatProperty("@c", -100))->setFloatCheck(PropValueConstraints::CLOSED_RANGE, 50, 200);
 
     createInlet();
     createOutlet();
@@ -31,13 +27,9 @@ LangFaustUiTilde::LangFaustUiTilde(const PdArgs& args)
     setResizeMode(RESIZE_BOTH);
 }
 
-void LangFaustUiTilde::processBlock(const t_sample** in, t_sample** out)
-{
-}
-
 void LangFaustUiTilde::buildUI()
 {
-    auto sz = vc_.build(widgetProperties());
+    auto sz = vc_.build(faustProperties());
     setSize(sz);
     LIB_ERR << size();
 }

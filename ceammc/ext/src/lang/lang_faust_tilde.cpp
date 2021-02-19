@@ -139,7 +139,9 @@ void LangFaustTilde::initDone()
         auto ui = static_cast<FaustUI*>(ui_.get());
         const size_t n_ui = ui->uiCount();
         for (size_t i = 0; i < n_ui; i++) {
-            addProperty(new faust::UIProperty(ui->uiAt(i)));
+            auto p = new faust::UIProperty(ui->uiAt(i));
+            addProperty(p);
+            faust_properties_.push_back(p);
         }
     } else
         OBJ_ERR << "can't build UI";
@@ -215,6 +217,11 @@ void LangFaustTilde::dump() const
     os << "compile options: ";
     if (dsp_factory_)
         dsp_factory_->dumpOpts(os);
+}
+
+std::vector<Property*>& LangFaustTilde::faustProperties()
+{
+    return faust_properties_;
 }
 
 std::string LangFaustTilde::canvasDir() const

@@ -15,6 +15,7 @@
 #define LANG_FAUST_UI_TILDE_H
 
 #include "ceammc_sound_external.h"
+#include "lang_faust_tilde.h"
 #include "nui/nui.h"
 #include "nui/property.h"
 #include "nui/rect.h"
@@ -55,13 +56,12 @@ public:
     void sendEvent(EventType t, const Point& pos, const EventContext& ctx);
 };
 
-class LangFaustUiTilde : public ui::Widget<SoundExternal> {
+class LangFaustUiTilde : public ui::Widget<LangFaustTilde> {
     FaustMasterView vc_;
 
 public:
     LangFaustUiTilde(const PdArgs& args);
 
-    void processBlock(const t_sample** in, t_sample** out) final;
     void buildUI() override;
 
     void onWidgetShow() override;

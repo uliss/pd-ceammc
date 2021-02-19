@@ -26,18 +26,21 @@ using namespace ceammc;
 using FactoryPtr = std::unique_ptr<faust::LlvmDspFactory>;
 class UI;
 using FaustUIPtr = std::unique_ptr<UI>;
+using FaustDspPtr = std::unique_ptr<faust::LlvmDsp>;
+
 #endif
 
 class LangFaustTilde : public SoundExternal {
-#ifdef WITH_FAUST
-    FactoryPtr dsp_factory_;
-    std::unique_ptr<faust::LlvmDsp> dsp_;
-#endif
-
     SymbolProperty* fname_;
     ListProperty* include_dirs_;
-    FaustUIPtr ui_;
     std::string full_path_;
+    std::vector<Property*> faust_properties_;
+
+#ifdef WITH_FAUST
+    FactoryPtr dsp_factory_;
+    FaustDspPtr dsp_;
+    FaustUIPtr ui_;
+#endif
 
 public:
     LangFaustTilde(const PdArgs& args);
@@ -51,6 +54,9 @@ public:
     void m_open(t_symbol*, const AtomListView&);
 
     void dump() const override;
+
+protected:
+    std::vector<Property*>& faustProperties();
 
 private:
     std::string canvasDir() const;
