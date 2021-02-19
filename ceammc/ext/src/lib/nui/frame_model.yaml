@@ -21,3 +21,6 @@ const:
 - name: select color
   type: HexColor
   value: colors::blue
+- name: min size
+  type: Size
+  value: Size(1, 1)

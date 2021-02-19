@@ -34,7 +34,8 @@ public:
     }
 
     // constants
-    HexColor selectColor() const noexcept { return colors::blue; }
+    static HexColor selectColor() noexcept { return colors::blue; }
+    static Size minSize() noexcept { return Size(1, 1); }
 
     // getters
     Size size() const noexcept { return std::get<FRAME_DATA_SIZE>(*this); }

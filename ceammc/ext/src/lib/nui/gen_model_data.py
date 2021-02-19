@@ -43,7 +43,7 @@ public:
 {% if use_const %}
     // constants
 {% for t, m, v in zip(const_types, const_names, const_values) %}
-    {{t}} {{m}}() const noexcept { return {{v}}; }
+    static {{t}} {{m}}() noexcept { return {{v}}; }
 {% endfor %}
 {% endif %}
 
