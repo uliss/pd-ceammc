@@ -25,10 +25,10 @@ enum SliderDataFields {
 };
 
 class SliderData
-    : public std::tuple<Size, float, float, float, HexColor, HexColor, HexColor, bool, int> {
+    : public std::tuple<Size, t_float, t_float, t_float, HexColor, HexColor, HexColor, bool, int> {
 public:
     SliderData()
-        : std::tuple<Size, float, float, float, HexColor, HexColor, HexColor, bool, int>(Size(100, 16), 0, 0, 1, colors::st_border, colors::st_fill, colors::st_active, false, 0) { }
+        : std::tuple<Size, t_float, t_float, t_float, HexColor, HexColor, HexColor, bool, int>(Size(100, 16), 0, 0, 1, colors::st_border, colors::st_fill, colors::st_active, false, 0) { }
 
     SliderData(int style)
         : SliderData() {
@@ -39,9 +39,9 @@ public:
 
     // getters
     Size size() const noexcept { return std::get<SLIDER_DATA_SIZE>(*this); }
-    float value() const noexcept { return std::get<SLIDER_DATA_VALUE>(*this); }
-    float min() const noexcept { return std::get<SLIDER_DATA_MIN>(*this); }
-    float max() const noexcept { return std::get<SLIDER_DATA_MAX>(*this); }
+    t_float value() const noexcept { return std::get<SLIDER_DATA_VALUE>(*this); }
+    t_float min() const noexcept { return std::get<SLIDER_DATA_MIN>(*this); }
+    t_float max() const noexcept { return std::get<SLIDER_DATA_MAX>(*this); }
     HexColor borderColor() const noexcept { return std::get<SLIDER_DATA_BORDER_COLOR>(*this); }
     HexColor fillColor() const noexcept { return std::get<SLIDER_DATA_FILL_COLOR>(*this); }
     HexColor knobColor() const noexcept { return std::get<SLIDER_DATA_KNOB_COLOR>(*this); }
@@ -50,9 +50,9 @@ public:
 
     // setters
     void setSize(Size v) { std::get<SLIDER_DATA_SIZE>(*this) = v; }
-    void setValue(float v) { std::get<SLIDER_DATA_VALUE>(*this) = v; }
-    void setMin(float v) { std::get<SLIDER_DATA_MIN>(*this) = v; }
-    void setMax(float v) { std::get<SLIDER_DATA_MAX>(*this) = v; }
+    void setValue(t_float v) { std::get<SLIDER_DATA_VALUE>(*this) = v; }
+    void setMin(t_float v) { std::get<SLIDER_DATA_MIN>(*this) = v; }
+    void setMax(t_float v) { std::get<SLIDER_DATA_MAX>(*this) = v; }
     void setBorderColor(HexColor v) { std::get<SLIDER_DATA_BORDER_COLOR>(*this) = v; }
     void setFillColor(HexColor v) { std::get<SLIDER_DATA_FILL_COLOR>(*this) = v; }
     void setKnobColor(HexColor v) { std::get<SLIDER_DATA_KNOB_COLOR>(*this) = v; }

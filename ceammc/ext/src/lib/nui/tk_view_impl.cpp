@@ -84,10 +84,10 @@ namespace ui {
 
         sys_vgui("nui::frame::update %lx %lx %lx"
                  " %d %d"
-                 " #%6.6x #%6.6x\n",
+                 " #%6.6x {}\n",
             winId(), widgetId(), this,
             rect.width(), rect.height(),
-            data.selected() ? data.selectColor() : data.borderColor(), data.fillColor());
+            data.selected() ? data.selectColor() : data.borderColor()/*, data.fillColor()*/);
     }
 
     void TclFrameImpl::updateCoords(const RectF& bbox)

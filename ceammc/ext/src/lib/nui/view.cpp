@@ -24,8 +24,8 @@ namespace ui {
 
     void EmptyViewImpl::updateCoords(const RectF& /*bbox*/) { }
 
-    FrameView::FrameView(FrameModel* model, ViewImplPtr&& impl, const PointF& pos, const SizeF& sz)
-        : ModelView<FrameData>(model, std::move(impl), pos, sz)
+    FrameView::FrameView(FrameModel* model, ViewImplPtr&& impl, const PointF& pos)
+        : ModelView<FrameData>(model, std::move(impl), pos)
     {
     }
 
@@ -72,8 +72,10 @@ namespace ui {
         child_->setParent(this);
     }
 
+    EmptyModel GroupView::empty_model;
+
     GroupView::GroupView(ViewImplPtr&& impl, const PointF& pos)
-        : ModelView<EmptyData>(nullptr, std::move(impl), pos, SizeF())
+        : ModelView<EmptyData>(&empty_model, std::move(impl), pos)
     {
     }
 
@@ -140,7 +142,7 @@ namespace ui {
             return;
 
         const RectF bbox = calcBBox();
-        this->setSize(SizeF(bbox.width(), bbox.height()));
+        size_ = bbox.size();
     }
 
     HGroupView::HGroupView(const PointF& pos)

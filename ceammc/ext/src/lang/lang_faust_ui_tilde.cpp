@@ -37,8 +37,8 @@ void LangFaustUiTilde::processBlock(const t_sample** in, t_sample** out)
 
 void LangFaustUiTilde::buildUI()
 {
-    auto sz = vc_.build(properties());
-    //    setSize(sz.width(), sz.height());
+    auto sz = vc_.build(widgetProperties());
+    setSize(sz);
     LIB_ERR << size();
 }
 
@@ -70,7 +70,7 @@ void setup_lang_faust_ui_tilde()
 
 FaustMasterView::FaustMasterView()
     : model_()
-    , view_(&model_, FrameView::ViewImplPtr(new TclFrameImpl), {}, {})
+    , view_(&model_, FrameView::ViewImplPtr(new TclFrameImpl), {})
 {
 }
 
@@ -82,20 +82,35 @@ Size FaustMasterView::build(const std::vector<Property*>& props)
 {
     view_.setChild(ViewPtr(new VGroupView({})));
     view_.setSize({ 20, 30 });
+
+    for (auto p : props)
+        addProperty(p);
+
+    view_.layout();
+    return view_.size();
 }
 
-void FaustMasterView::addProperty(const Property* p)
+void FaustMasterView::addProperty(Property* p)
 {
+    LIB_ERR << p->name();
     using st = StyleCollection;
-    const SizeF lbl_size = st::size(0, "label"_hash, Size(40, 8));
-    const SizeF hsl_size = st::size(0, "hslider"_hash, Size(100, 16));
+
+    auto vgroup = view_.childPtr<VGroupView>();
 
     switch (p->type()) {
     case PropValueType::FLOAT: {
-        sliders_.emplace_back(new SliderModel(0));
+        auto sm = new SliderModel(0);
+        sliders_.emplace_back(sm);
         labels_.emplace_back(new LabelModel(0));
         labels_.back()->data().setText(p->name());
 
+        ViewPtr sd(new HSliderView(sm, HSliderView::ViewImplPtr(new TclHSliderImpl), {}));
+        vgroup->add(std::move(sd));
+
+        auto fp = dynamic_cast<FloatProperty*>(p);
+        if (fp) {
+            slider_props_.emplace_back(new PropSliderView(fp, sm));
+        }
         //        view_.ViewPtr(new HSliderView(sliders_.back().get(), HSliderView::ViewImplPtr(new TclHSliderImpl), PointF(), hsl_size));
         //        hg->add(ViewPtr(new LabelView(&labels_, LPtr(new TclLabelImpl), prop_id, hsl_size.leftCenter(), lbl_size)));
         //        vg->add(ViewPtr(hg));

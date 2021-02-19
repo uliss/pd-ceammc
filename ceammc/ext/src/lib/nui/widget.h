@@ -21,6 +21,7 @@
 #include "ceammc_canvas.h"
 #include "ceammc_object.h"
 #include "nui/common.h"
+#include "nui/property.h"
 #include "nui/rect.h"
 
 namespace ceammc {
@@ -55,7 +56,7 @@ namespace ui {
 
     template <typename T>
     class Widget : public T {
-        Size size_;
+        ui::SizeProperty* size_;
         std::vector<Property*> widget_props_;
         UIFactoryFlags ui_flags_ { UI_FACTORY_NONE };
         t_glist* draw_canvas_ { nullptr };
@@ -68,10 +69,14 @@ namespace ui {
     public:
         Widget(const PdArgs& args)
             : T(args)
+            , size_(nullptr)
         {
             static_assert(std::is_base_of<BaseObject, T>::value, "");
 
             draw_canvas_ = T::canvas();
+
+            size_ = new ui::SizeProperty("@size", { 10, 10 });
+            T::addProperty(size_);
         }
 
         void initDone() override
@@ -95,10 +100,13 @@ namespace ui {
             return p;
         }
 
+        std::vector<Property*>& widgetProperties() { return widget_props_; }
+        const std::vector<Property*>& widgetProperties() const { return widget_props_; }
+
         Point absPos() const { return utils::object_abs_pos(T::owner(), T::canvas()); }
-        const Size& size() const { return size_; }
-        void setSize(const Size& sz) { size_ = fixNewSize(sz); }
-        Size viewSize() const { return size_ * zoom(); }
+        const Size& size() const { return size_->value(); }
+        void setSize(const Size& sz) { size_->setValue(fixNewSize(sz)); }
+        Size viewSize() const { return size() * zoom(); }
         int zoom() const { return utils::canvas_zoom(T::canvas()); }
         bool isVisible() const { return utils::canvas_is_visible(T::canvas()); }
         bool isEdit() const { return utils::canvas_is_edit(drawCanvas()); }
@@ -117,7 +125,7 @@ namespace ui {
         t_glist* drawCanvas() const { return draw_canvas_; }
         void syncDrawCanvas() { draw_canvas_ = utils::object_get_draw_canvas(T::canvas()); }
 
-        Rect viewBBox(t_glist* owner) const { return Rect(absPos(), size_ * zoom()); }
+        Rect viewBBox(t_glist* owner) const { return Rect(absPos(), viewSize()); }
 
         virtual Size fixNewSize(const Size& sz) { return sz.clippedMin({ 10, 10 }); }
 
@@ -273,10 +281,10 @@ namespace ui {
                     } else if (resize_mode_ == RESIZE_BOTH) {
                         switch (selection_) {
                         case SELECT_BOTTOM:
-                            resizeWidget(Size(size_.width(), pt.y()));
+                            resizeWidget(Size(size_->width(), pt.y()));
                             break;
                         case SELECT_RIGHT:
-                            resizeWidget(Size(pt.x(), size_.height()));
+                            resizeWidget(Size(pt.x(), size_->height()));
                             break;
                         case SELECT_CORNER:
                             resizeWidget(Size(pt.x(), pt.y()));
@@ -288,7 +296,7 @@ namespace ui {
                         switch (selection_) {
                         case SELECT_CORNER:
                         case SELECT_BOTTOM:
-                            resizeWidget(Size(size_.width(), pt.y()));
+                            resizeWidget(Size(size_->width(), pt.y()));
                             break;
                         default:
                             break;
@@ -297,7 +305,7 @@ namespace ui {
                         switch (selection_) {
                         case SELECT_CORNER:
                         case SELECT_RIGHT:
-                            resizeWidget(Size(pt.x(), size_.height()));
+                            resizeWidget(Size(pt.x(), size_->height()));
                             break;
                         default:
                             break;

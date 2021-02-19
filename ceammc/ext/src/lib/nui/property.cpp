@@ -48,5 +48,13 @@ namespace ui {
         l = AtomList((t_float)size_.width(), (t_float)size_.height());
         return true;
     }
+
+    bool SizeProperty::setValue(const Size& sz)
+    {
+        size_ = sz;
+        return true;
+    }
+
+    static SizePropertyObserver<std::tuple<Size>, 0> ob(0, 0);
 }
 }

@@ -143,7 +143,7 @@ namespace ui {
         ViewImplPtr impl_;
 
     public:
-        ModelView(ModelBase<Data>* model, ViewImplPtr&& impl, const PointF& pos, const SizeF& sz)
+        ModelView(ModelBase<Data>* model, ViewImplPtr&& impl, const PointF& pos)
             : Observer<Data>(model)
             , pos_(pos)
             , parent_(nullptr)
@@ -228,6 +228,8 @@ namespace ui {
         ViewList views_;
         LayoutPtr layout_;
 
+        Size size_;
+
     public:
         GroupView(ViewImplPtr&& impl, const PointF& pos);
         const ViewList& views() const { return views_; }
@@ -235,6 +237,9 @@ namespace ui {
         size_t numItems() const { return views_.size(); }
         bool empty() const { return views_.empty(); }
         const ViewPtr& at(size_t idx) const { return views_.at(idx); }
+
+        SizeF size() const override { return size_; }
+        void setSize(const SizeF& sz) override { size_ = sz; }
 
         LayoutPtr& getLayout() { return layout_; }
         const LayoutPtr& getLayout() const { return layout_; }
@@ -249,6 +254,9 @@ namespace ui {
         void updateCoords() override;
         void layout() override;
         RectF calcBBox() const;
+
+    private:
+        static EmptyModel empty_model;
     };
 
     using HSliderView = ModelView<SliderData>;
@@ -258,7 +266,7 @@ namespace ui {
         using Base = ModelView<FrameData>;
 
     public:
-        FrameView(FrameModel* model, ViewImplPtr&& impl, const PointF& pos, const SizeF& sz);
+        FrameView(FrameModel* model, ViewImplPtr&& impl, const PointF& pos);
 
         void create(WinId win, WidgetId wid, float scale) final;
         void erase() final;

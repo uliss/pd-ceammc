@@ -35,14 +35,21 @@ namespace ui {
                 return;
             } else if (p->access() == PropValueAccess::READWRITE) {
                 prop_ = p;
-                prop_->setValue(get());
-                prop_->setSuccessFn([this](Property*) {
-                    this->set(prop_->value());
-                    this->notifyOthers();
-                });
+                prop_->setSuccessFn([this](Property*) { updateModelFromProp(); });
             } else {
                 LIB_ERR << "readonly property: " << p->name()->s_name;
             }
+        }
+
+        void updatePropFromModel()
+        {
+            prop_->setValue(get());
+        }
+
+        void updateModelFromProp()
+        {
+            this->set(prop_->value());
+            this->notifyOthers();
         }
 
         Prop* property() noexcept { return prop_; }
@@ -115,8 +122,13 @@ namespace ui {
         inline const Size& value() const { return size_; }
         inline Size& value() { return size_; }
         bool setValue(const Size& sz);
-        const Size& defaultValue() const;
+
+        int width() const { return size_.width(); }
+        int height() const { return size_.height(); }
     };
+
+    template <typename Data, size_t IDX = 0>
+    using SizePropertyObserver = PropertyObserver<Data, SizeProperty, Size, IDX>;
 }
 }
 

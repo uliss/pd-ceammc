@@ -5,13 +5,13 @@ data:
   init: Size(100, 16)
   style: size
 - name: value
-  type: float
+  type: t_float
   init: 0
 - name: min
-  type: float
+  type: t_float
   init: 0
 - name: max
-  type: float
+  type: t_float
   init: 1
 - name: border color
   type: HexColor

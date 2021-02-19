@@ -31,8 +31,11 @@ class FaustMasterView {
 
     using SliderModelPtr = std::unique_ptr<SliderModel>;
     using LabelModelPtr = std::unique_ptr<LabelModel>;
+    using PropSliderView = FloatPropertyObserver<SliderData, SLIDER_DATA_VALUE>;
+    using PropSliderViewPtr = std::unique_ptr<PropSliderView>;
     std::vector<SliderModelPtr> sliders_;
     std::vector<LabelModelPtr> labels_;
+    std::vector<PropSliderViewPtr> slider_props_;
 
 public:
     FaustMasterView();
@@ -40,7 +43,7 @@ public:
 
     Size build(const std::vector<Property*>& props);
 
-    void addProperty(const Property* p);
+    void addProperty(Property* p);
 
     void create(WinId win, WidgetId id, const Size& sz, int zoom);
     void erase(WinId win, WidgetId id) { }
