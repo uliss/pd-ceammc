@@ -101,6 +101,22 @@ namespace ui {
     template <typename Data, size_t IDX = 0>
     using IntPropertyObserver = PropertyObserver<Data, IntProperty, int, IDX>;
 
+    class SizeProperty : public Property {
+        Size size_;
+
+    public:
+        SizeProperty(const char* name, const Size& init, PropValueAccess access = PropValueAccess::READWRITE);
+        SizeProperty(t_symbol* name, const Size& init, PropValueAccess access = PropValueAccess::READWRITE);
+
+        AtomList get() const override;
+        bool setList(const AtomListView& l) override;
+        bool getList(AtomList& l) const override;
+
+        inline const Size& value() const { return size_; }
+        inline Size& value() { return size_; }
+        bool setValue(const Size& sz);
+        const Size& defaultValue() const;
+    };
 }
 }
 

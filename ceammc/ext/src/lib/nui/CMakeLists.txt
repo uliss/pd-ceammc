@@ -3,6 +3,7 @@ add_library(ceammc_nui STATIC
     model.cpp
     factory.cpp
     layout.cpp
+    property.cpp
     tk_view_impl.cpp
     view.cpp
     widget.cpp
