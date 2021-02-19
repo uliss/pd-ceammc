@@ -59,6 +59,15 @@ namespace ui {
         ModelBase<T>* model() noexcept { return model_; }
         const ModelBase<T>* model() const noexcept { return model_; }
 
+        void setModel(ModelBase<T>* model)
+        {
+            if (model_ != model) {
+                invalidate();
+                model_ = model;
+                model_->subscribe(this);
+            }
+        }
+
         T& data()
         {
             if (model_)

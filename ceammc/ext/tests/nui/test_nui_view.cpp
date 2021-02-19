@@ -61,7 +61,7 @@ TEST_CASE("nui", "[nui]")
         REQUIRE(model.data().padding() == 5);
         model.data().setPadding(5);
 
-//        fv0.setModel(&model);
+        fv0.setModel(&model);
         fv0.layout();
 
         REQUIRE(fv1->pos() == PointF(5, 5));
