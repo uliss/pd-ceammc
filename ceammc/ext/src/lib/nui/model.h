@@ -25,12 +25,14 @@
 
 #include "nui/color.h"
 #include "nui/font.h"
+#include "nui/size.h"
 
 namespace ceammc {
 
 namespace ui {
 
     struct EmptyData {
+        SizeF size() const { return {}; }
     };
 
     using PropId = uint64_t;

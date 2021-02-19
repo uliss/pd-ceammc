@@ -64,10 +64,11 @@ namespace ui {
         Rect rect = transform(bbox);
 
         sys_vgui("nui::frame::create %lx %lx %lx"
-                 " %d %d %d %d {} #%6.6x 1\n",
+                 " %d %d %d %d"
+                 " #%6.6x #%6.6x %d\n",
             winId(), widgetId(), this,
             rect.left(), rect.top(), rect.width(), rect.height(),
-            data.borderColor());
+            data.borderColor(), data.fillColor(), (int)scale());
     }
 
     void TclFrameImpl::erase()
@@ -77,10 +78,14 @@ namespace ui {
 
     void TclFrameImpl::update(const RectF& bbox, const FrameData& data)
     {
-        sys_vgui("nui::frame::update_outline %lx %lx %lx"
-                 " #%6.6x\n",
+        Rect rect = transform(bbox);
+
+        sys_vgui("nui::frame::update %lx %lx %lx"
+                 " %d %d"
+                 " #%6.6x #%6.6x\n",
             winId(), widgetId(), this,
-            data.borderColor());
+            rect.width(), rect.height(),
+            data.selected() ? data.selectColor() : data.borderColor(), data.fillColor());
     }
 
     void TclFrameImpl::updateCoords(const RectF& bbox)

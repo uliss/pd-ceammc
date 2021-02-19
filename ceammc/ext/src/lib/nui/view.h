@@ -114,7 +114,7 @@ namespace ui {
         virtual ~ModelViewBase();
         //
         virtual const PointF& pos() const = 0;
-        virtual const SizeF& size() const = 0;
+        virtual SizeF size() const = 0;
         virtual void setPos(const PointF& pos) = 0;
         virtual void setSize(const SizeF& size) = 0;
         virtual PointF absPos() const = 0;
@@ -139,7 +139,6 @@ namespace ui {
 
     private:
         PointF pos_;
-        SizeF size_;
         const ModelViewBase* parent_;
         ViewImplPtr impl_;
 
@@ -147,7 +146,6 @@ namespace ui {
         ModelView(ModelBase<Data>* model, ViewImplPtr&& impl, const PointF& pos, const SizeF& sz)
             : Observer<Data>(model)
             , pos_(pos)
-            , size_(sz)
             , parent_(nullptr)
             , impl_(std::move(impl))
         {
@@ -157,15 +155,17 @@ namespace ui {
 
         uint64_t id() const { return reinterpret_cast<uint64_t>(this); }
         const PointF& pos() const override { return pos_; }
-        const SizeF& size() const override { return size_; }
-        RectF bbox() const { return RectF(pos_, size_); }
+        SizeF size() const override { return this->data().size(); }
+        RectF bbox() const { return RectF(pos_, size()); }
         float x() const { return pos_.x(); }
         float y() const { return pos_.y(); }
         ViewImplPtr& impl() { return impl_; }
         const ViewImplPtr& impl() const { return impl_; }
 
         void setPos(const PointF& pos) override { pos_ = pos; }
-        void setSize(const SizeF& size) override { size_ = size; }
+        void setSize(const SizeF& size) override
+        { /*size_ = size;*/
+        }
 
         const ModelViewBase* parent() const override { return parent_; }
         void setParent(const ModelViewBase* p) override { parent_ = p; }

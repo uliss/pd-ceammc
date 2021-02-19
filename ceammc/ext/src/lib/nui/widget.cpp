@@ -183,10 +183,8 @@ namespace ui {
 
         void widget_resize(t_glist* c, t_object* obj, const Size& sz, int zoom)
         {
-            auto new_sz = sz * zoom;
-
             sys_vgui("nui::widget_resize %lx %lx %d %d %d\n",
-                c, obj, new_sz.width(), new_sz.height(), zoom);
+                c, obj, sz.width(), sz.height(), zoom);
 
             canvas_update_object_lines(c, obj);
         }

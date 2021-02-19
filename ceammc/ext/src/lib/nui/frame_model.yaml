@@ -1,5 +1,8 @@
 name: Frame
 data:
+- name: size
+  type: Size
+  init: Size(10, 10)
 - name: border color
   type: HexColor
   init: colors::st_border
@@ -8,6 +11,9 @@ data:
   type: HexColor
   init: colors::st_fill
   style: color
+- name: select color
+  type: HexColor
+  init: colors::blue
 - name: padding
   type: int
   init: 5

@@ -207,17 +207,19 @@ proc item_move { cnv model tag x y } {
 namespace eval frame {
     proc tag { id } { return "#f${id}" }
 
-    proc create { cnv model id x y w h fill_color out_color width } {
+    proc create { cnv model id x y w h border_color fill_color width } {
         set c [::nui::widget_canvas $cnv $model]
         set t [tag $id]
         $c create rectangle $x $y [expr $x+$w] [expr $y+$h] \
-            -fill $fill_color -outline $out_color -width $width -tags $t
+            -fill $fill_color -outline $border_color -width $width -tags $t
     }
 
-    proc update_outline { cnv model id color } {
+    proc update { cnv model id w h border_color fill_color } {
         set c [::nui::widget_canvas $cnv $model]
         set t [tag $id]
-        $c itemconfigure $t -outline $color
+        $c itemconfigure $t -outline $border_color -fill $fill_color
+        lassign [$c coords $t] x0 y0 x1 y1
+        $c coords $t $x0 $y0 [expr $x0+$w] [expr $y0+$h]
     }
 
     proc erase { cnv model id } {

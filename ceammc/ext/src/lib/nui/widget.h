@@ -119,45 +119,50 @@ namespace ui {
 
         Rect viewBBox(t_glist* owner) const { return Rect(absPos(), size_ * zoom()); }
 
+        virtual void onWidgetActivation(bool state) { LIB_ERR << __FUNCTION__; }
+        virtual void onWidgetMove(int dx, int dy) { LIB_ERR << __FUNCTION__; }
+        virtual void onWidgetDelete() { LIB_ERR << __FUNCTION__; }
+        virtual void onWidgetSelect(bool state) { LIB_ERR << __FUNCTION__; }
+        virtual void onWidgetShow() { LIB_ERR << __FUNCTION__; }
+        virtual void onWidgetResize(const Size& sz) { LIB_ERR << __FUNCTION__ << ' ' << sz; }
+        virtual void onWidgetHide() { LIB_ERR << __FUNCTION__; }
+
         virtual void activateWidget(t_glist* owner, bool state)
         {
-            LIB_ERR << __FUNCTION__;
+            onWidgetActivation(state);
         }
 
         virtual void displaceWidget(t_glist* owner, int dx, int dy)
         {
-            LIB_ERR << __FUNCTION__;
-
             utils::object_move(T::owner(), dx, dy);
 
             if (isVisible()) {
                 const Point norm_pos = absPos() / zoom();
                 utils::widget_move(drawCanvas(), T::owner(), absPos());
                 utils::canvas_update_object_lines(drawCanvas(), T::owner());
+                onWidgetMove(dx, dy);
             }
         }
 
         virtual void deleteWidget(t_glist* owner)
         {
-            LIB_ERR << __FUNCTION__;
-
             syncDrawCanvas();
             utils::canvas_delete_object_lines(drawCanvas(), T::owner());
+            onWidgetDelete();
         }
 
         virtual void selectWidget(t_glist* owner, bool state)
         {
-            LIB_ERR << __FUNCTION__;
+            onWidgetSelect(state);
         }
 
         virtual void showWidget(t_glist* owner)
         {
-            LIB_ERR << __FUNCTION__;
-
             top_level_ = utils::is_toplevel(owner);
             syncDrawCanvas();
             utils::widget_create(drawCanvas(), T::owner(), absPos(), size(), zoom());
             utils::widget_bind_mouse(drawCanvas(), T::owner(), ui_flags_);
+            onWidgetShow();
         }
 
         virtual void resizeWidget(const Size& sz)
@@ -165,18 +170,17 @@ namespace ui {
             if (resize_mode_ == RESIZE_NONE)
                 return;
 
-            LIB_ERR << __FUNCTION__ << ' ' << sz;
             Size new_sz = sz / zoom();
             setSize(new_sz);
             utils::widget_resize(drawCanvas(), T::owner(), size(), zoom());
+            onWidgetResize(sz);
         }
 
         virtual void hideWidget(t_glist* owner)
         {
-            LIB_ERR << __FUNCTION__;
-
             syncDrawCanvas();
             utils::widget_erase(drawCanvas(), T::owner());
+            onWidgetHide();
         }
 
         virtual void buildUI()

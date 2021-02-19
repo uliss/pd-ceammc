@@ -35,25 +35,33 @@ class FaustMasterView {
     std::vector<LabelModelPtr> labels_;
 
 public:
-    FaustMasterView(t_glist* parent = nullptr)
-        : model_()
-        , view_(&model_, FrameView::ViewImplPtr(new TclFrameImpl), {}, {})
-    {
-    }
-
+    FaustMasterView();
     ~FaustMasterView();
 
     Size build(const std::vector<Property*>& props);
 
     void addProperty(const Property* p);
+
+    void create(WinId win, WidgetId id, const Size& sz, int zoom);
+    void erase(WinId win, WidgetId id) { }
+    void update(WinId win, WidgetId id);
+
+    void setSize(const Size& sz);
+    void select(bool state);
 };
 
 class LangFaustUiTilde : public ui::Widget<SoundExternal> {
+    FaustMasterView vc_;
+
 public:
     LangFaustUiTilde(const PdArgs& args);
 
     void processBlock(const t_sample** in, t_sample** out) final;
     void buildUI() override;
+
+    void onWidgetShow() override;
+    void onWidgetResize(const Size& sz) override;
+    void onWidgetSelect(bool state) override;
 };
 
 void setup_lang_faust_ui_tilde();

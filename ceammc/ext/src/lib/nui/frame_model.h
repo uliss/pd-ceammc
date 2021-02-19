@@ -13,18 +13,20 @@ namespace ceammc {
 namespace ui {
 
 enum FrameDataFields {
+    FRAME_DATA_SIZE,
     FRAME_DATA_BORDER_COLOR,
     FRAME_DATA_FILL_COLOR,
+    FRAME_DATA_SELECT_COLOR,
     FRAME_DATA_PADDING,
     FRAME_DATA_SELECTED,
     FRAME_DATA_STYLE_IDX,
 };
 
 class FrameData
-    : public std::tuple<HexColor, HexColor, int, bool, int> {
+    : public std::tuple<Size, HexColor, HexColor, HexColor, int, bool, int> {
 public:
     FrameData()
-        : std::tuple<HexColor, HexColor, int, bool, int>(colors::st_border, colors::st_fill, 5, false, 0) { }
+        : std::tuple<Size, HexColor, HexColor, HexColor, int, bool, int>(Size(10, 10), colors::st_border, colors::st_fill, colors::blue, 5, false, 0) { }
 
     FrameData(int style)
         : FrameData() {
@@ -33,15 +35,19 @@ public:
     }
 
     // getters
+    Size size() const noexcept { return std::get<FRAME_DATA_SIZE>(*this); }
     HexColor borderColor() const noexcept { return std::get<FRAME_DATA_BORDER_COLOR>(*this); }
     HexColor fillColor() const noexcept { return std::get<FRAME_DATA_FILL_COLOR>(*this); }
+    HexColor selectColor() const noexcept { return std::get<FRAME_DATA_SELECT_COLOR>(*this); }
     int padding() const noexcept { return std::get<FRAME_DATA_PADDING>(*this); }
     bool selected() const noexcept { return std::get<FRAME_DATA_SELECTED>(*this); }
     int style() const noexcept { return std::get<FRAME_DATA_STYLE_IDX>(*this); }
 
     // setters
+    void setSize(Size v) { std::get<FRAME_DATA_SIZE>(*this) = v; }
     void setBorderColor(HexColor v) { std::get<FRAME_DATA_BORDER_COLOR>(*this) = v; }
     void setFillColor(HexColor v) { std::get<FRAME_DATA_FILL_COLOR>(*this) = v; }
+    void setSelectColor(HexColor v) { std::get<FRAME_DATA_SELECT_COLOR>(*this) = v; }
     void setPadding(int v) { std::get<FRAME_DATA_PADDING>(*this) = v; }
     void setSelected(bool v) { std::get<FRAME_DATA_SELECTED>(*this) = v; }
     void setStyle(int v) { std::get<FRAME_DATA_STYLE_IDX>(*this) = v; }
