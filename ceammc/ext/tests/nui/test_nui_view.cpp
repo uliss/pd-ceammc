@@ -16,14 +16,14 @@
 
 using namespace ceammc::ui;
 
-using TestFrameViewImpl = EmptyViewImplT<FrameProps>;
-using TestFrameViewImplPtr = ViewImplPtr<FrameProps>;
+using TestFrameViewImpl = EmptyViewImplT<FrameData>;
 
 TEST_CASE("nui", "[nui]")
 {
     SECTION("frame")
     {
-        FrameView fv0(0, TestFrameViewImplPtr(new TestFrameViewImpl), 0, PointF(10, 20), SizeF(40, 50));
+        using ViewImplPtr = FrameView::ViewImplPtr;
+        FrameView fv0(0, ViewImplPtr(new TestFrameViewImpl), PointF(10, 20), SizeF(40, 50));
 
         fv0.layout();
 
@@ -34,7 +34,7 @@ TEST_CASE("nui", "[nui]")
         REQUIRE(fv0.absPos() == PointF(10, 20));
         REQUIRE(fv0.absBBox() == RectF(10, 20, SizeF(40, 50)));
 
-        fv0.setChild(ViewPtr(new FrameView(0, TestFrameViewImplPtr(new TestFrameViewImpl), 0, PointF(15, 25), SizeF(30, 20))));
+        fv0.setChild(ViewPtr(new FrameView(0, ViewImplPtr(new TestFrameViewImpl), PointF(15, 25), SizeF(30, 20))));
         auto fv1 = fv0.childPtr<FrameView>();
 
         REQUIRE(fv1 != nullptr);
@@ -58,10 +58,10 @@ TEST_CASE("nui", "[nui]")
         REQUIRE(fv0.size() == SizeF(30, 20));
 
         FrameModel model;
-        REQUIRE(model.props.padding() == 5);
-        model.props.setPadding(5);
+        REQUIRE(model.data().padding() == 5);
+        model.data().setPadding(5);
 
-        fv0.setModel(&model);
+//        fv0.setModel(&model);
         fv0.layout();
 
         REQUIRE(fv1->pos() == PointF(5, 5));
@@ -77,8 +77,9 @@ TEST_CASE("nui", "[nui]")
 
     SECTION("hgroup")
     {
-        SimpleHGroupView hg;
-        hg.setPos(PointF(100, 200));
+        using ViewImplPtr = FrameView::ViewImplPtr;
+
+        HGroupView hg(PointF(100, 200));
         REQUIRE(hg.getLayout());
         REQUIRE(hg.pos() == PointF(100, 200));
         REQUIRE(hg.size() == SizeF());
@@ -87,7 +88,7 @@ TEST_CASE("nui", "[nui]")
         REQUIRE(hg.empty());
         hg.layout();
 
-        hg.add(ViewPtr(new FrameView(0, TestFrameViewImplPtr(new TestFrameViewImpl), 0, PointF(15, 25), SizeF(30, 20))));
+        hg.add(ViewPtr(new FrameView(0, ViewImplPtr(new TestFrameViewImpl), PointF(15, 25), SizeF(30, 20))));
         REQUIRE(!hg.empty());
         REQUIRE(hg.numItems() == 1);
         REQUIRE(hg.at(0)->parent() == &hg);
@@ -101,8 +102,8 @@ TEST_CASE("nui", "[nui]")
         REQUIRE(hg.calcBBox() == RectF(0, 25, SizeF(30, 20)));
         REQUIRE(hg.bbox() == RectF(100, 200, SizeF(30, 20)));
 
-        hg.add(ViewPtr(new FrameView(0, TestFrameViewImplPtr(new TestFrameViewImpl), 0, PointF(15, -5), SizeF(5, 15))));
-        hg.add(ViewPtr(new FrameView(0, TestFrameViewImplPtr(new TestFrameViewImpl), 0, PointF(15, 20), SizeF(15, 35))));
+        hg.add(ViewPtr(new FrameView(0, ViewImplPtr(new TestFrameViewImpl), PointF(15, -5), SizeF(5, 15))));
+        hg.add(ViewPtr(new FrameView(0, ViewImplPtr(new TestFrameViewImpl), PointF(15, 20), SizeF(15, 35))));
         // w = 30 + 5 + 15
 
         hg.setLayout(new HLayout(0));
@@ -141,14 +142,14 @@ TEST_CASE("nui", "[nui]")
 
     SECTION("nested")
     {
-        FrameView fv(0, TestFrameViewImplPtr(new TestFrameViewImpl), 0, PointF(10, 20), SizeF(50, 50));
-        fv.setChild(ViewPtr(new SimpleVGroupView));
+        FrameView fv(0, FrameView::ViewImplPtr(new TestFrameViewImpl), PointF(10, 20), SizeF(50, 50));
+        fv.setChild(ViewPtr(new VGroupView({})));
 
-        auto vg = fv.childPtr<SimpleVGroupView>();
+        auto vg = fv.childPtr<VGroupView>();
         REQUIRE(vg);
 
-        vg->add(ViewPtr(new SimpleHGroupView));
-        auto hg = static_cast<SimpleVGroupView*>(vg->at(0).get());
+        vg->add(ViewPtr(new HGroupView({})));
+        auto hg = static_cast<HGroupView*>(vg->at(0).get());
         REQUIRE(hg);
 
         hg->add(ViewPtr());

@@ -19,27 +19,27 @@
 namespace ceammc {
 namespace ui {
 
-    class TclFrameImpl : public ViewImpl<FrameProps> {
+    class TclFrameImpl : public ViewImpl<FrameData> {
     public:
-        void create(const RectF& bbox, const FrameProps& data) final;
+        void create(const RectF& bbox, const FrameData& data) final;
         void erase() final;
-        void update(const RectF& bbox, const FrameProps& data) final;
+        void update(const RectF& bbox, const FrameData& data) final;
         void updateCoords(const RectF& bbox) final;
     };
 
-    class TclHSliderImpl : public ViewImpl<SliderProps> {
+    class TclHSliderImpl : public ViewImpl<SliderData> {
     public:
-        void create(const RectF& bbox, const SliderProps& data) final;
+        void create(const RectF& bbox, const SliderData& data) final;
         void erase() final;
-        void update(const RectF& bbox, const SliderProps& data) final;
+        void update(const RectF& bbox, const SliderData& data) final;
         void updateCoords(const RectF& bbox) final;
     };
 
-    class TclLabelImpl : public ViewImpl<LabelProps> {
+    class TclLabelImpl : public ViewImpl<LabelData> {
     public:
-        void create(const RectF& bbox, const LabelProps& data) final;
+        void create(const RectF& bbox, const LabelData& data) final;
         void erase() final;
-        void update(const RectF& bbox, const LabelProps& data) final;
+        void update(const RectF& bbox, const LabelData& data) final;
         void updateCoords(const RectF& bbox) final;
     };
 

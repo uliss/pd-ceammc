@@ -24,26 +24,8 @@ namespace ui {
 
     void EmptyViewImpl::updateCoords(const RectF& /*bbox*/) { }
 
-    ViewBase::ViewBase(const PointF& pos, const SizeF& sz)
-        : pos_(pos)
-        , size_(sz)
-        , parent_(nullptr)
-    {
-    }
-
-    ViewBase::~ViewBase() { }
-
-    void ViewBase::layout() { }
-
-    HSliderView::HSliderView(SliderModel* model, ViewImplPtr<SliderProps> impl, PropId prop_idx, const PointF& pos, const SizeF& sz)
-        : ModelView<SliderModel,
-            SliderProps,
-            ViewImpl<SliderProps>>(model, std::move(impl), prop_idx, pos, sz)
-    {
-    }
-
-    FrameView::FrameView(FrameModelBase* model, ViewImplPtr<FrameProps> impl, PropId prop_idx, const PointF& pos, const SizeF& sz)
-        : Base(model, std::move(impl), prop_idx, pos, sz)
+    FrameView::FrameView(FrameModel* model, ViewImplPtr&& impl, const PointF& pos, const SizeF& sz)
+        : ModelView<FrameData>(model, std::move(impl), pos, sz)
     {
     }
 
@@ -59,10 +41,10 @@ namespace ui {
         Base::erase();
     }
 
-    void FrameView::update(PropId id)
+    void FrameView::redraw()
     {
-        child_->update(id);
-        Base::update(id);
+        child_->redraw();
+        Base::redraw();
     }
 
     void FrameView::updateCoords()
@@ -84,54 +66,110 @@ namespace ui {
         Base::setSize(sz);
     }
 
-    LabelView::LabelView(LabelModel* model, ViewImplPtr<LabelProps> impl, PropId prop_idx, const PointF& pos, const SizeF& sz)
-        : ModelView<LabelModel,
-            LabelProps,
-            ViewImpl<LabelProps>>(model, std::move(impl), prop_idx, pos, sz)
+    GroupView::GroupView(ViewImplPtr&& impl, const PointF& pos)
+        : ModelView<EmptyData>(nullptr, std::move(impl), pos, SizeF())
     {
     }
 
-    SimpleVGroupView::SimpleVGroupView(const PointF& pos)
-        : VGroupView<EmptyViewImpl>(std::unique_ptr<EmptyViewImpl>(), pos)
+    void GroupView::add(ViewPtr&& b)
     {
+        if (!b)
+            return;
+
+        views_.push_back(std::move(b));
+        views_.back()->setParent(this);
     }
 
-    SimpleHGroupView::SimpleHGroupView(const PointF& pos)
-        : HGroupView<EmptyViewImpl>(std::unique_ptr<EmptyViewImpl>(), pos)
+    void GroupView::create(WinId win, WidgetId wid, float scale)
     {
+        for (auto& v : views_)
+            v->create(win, wid, scale);
     }
 
-    HLayout::HLayout(float space)
-        : LayoutBase()
-        , space_(space)
+    void GroupView::erase()
     {
+        for (auto& v : views_)
+            v->erase();
     }
 
-    void HLayout::doLayout(ViewList& items)
+    void GroupView::redraw()
     {
-        float x = 0;
-        for (auto& v : items) {
-            v->setPos(PointF(x, v->y()));
-            x += space_;
-            x += v->size().width();
+        for (auto& v : views_)
+            v->redraw();
+    }
+
+    void GroupView::updateCoords()
+    {
+        for (auto& v : views_)
+            v->updateCoords();
+    }
+
+    void GroupView::layout()
+    {
+        for (auto& v : views_)
+            v->layout();
+
+        if (layout_) {
+            layout_->doLayout(views_);
+            adjustBBox();
         }
     }
 
-    VLayout::VLayout(float space)
-        : LayoutBase()
-        , space_(space)
+    RectF GroupView::calcBBox() const
     {
+        RectF res;
+        if (views_.empty())
+            return res;
+
+        res = RectF(views_[0]->pos(), views_[0]->size());
+        for (size_t i = 1; i < views_.size(); i++)
+            res = res.unite(RectF(views_[i]->pos(), views_[i]->size()));
+
+        return res;
     }
 
-    void VLayout::doLayout(ViewList& items)
+    void GroupView::adjustBBox()
     {
-        float y = 0;
-        for (auto& v : items) {
-            v->setPos(PointF(v->x(), y));
-            y += space_;
-            y += v->size().height();
+        if (views_.empty())
+            return;
+
+        const RectF bbox = calcBBox();
+        this->setSize(SizeF(bbox.width(), bbox.height()));
+    }
+
+    HGroupView::HGroupView(const PointF& pos)
+        : GroupView(ViewImplPtr(new EmptyViewImpl), pos)
+    {
+        this->setLayout(new HLayout);
+    }
+
+    void HGroupView::setSpace(float space)
+    {
+        if (this->getLayout()) {
+            auto lt = static_cast<HLayout*>(this->getLayout().get());
+            lt->setSpace(space);
+        } else {
+            this->setLayout(new HLayout(space));
         }
     }
+
+    VGroupView::VGroupView(const PointF& pos)
+        : GroupView(ViewImplPtr(new EmptyViewImpl), pos)
+    {
+        this->setLayout(new VLayout);
+    }
+
+    void VGroupView::setSpace(float space)
+    {
+        if (this->getLayout()) {
+            auto lt = static_cast<VLayout*>(this->getLayout().get());
+            lt->setSpace(space);
+        } else {
+            this->setLayout(new VLayout(space));
+        }
+    }
+
+    ModelViewBase::~ModelViewBase() { }
 
 }
 }

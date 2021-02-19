@@ -11,22 +11,44 @@
  * contact the author of this file, or the owner of the project in which
  * this file belongs to.
  *****************************************************************************/
-#include "model.h"
-#include "nui/nui.h"
-#include "nui/frame_model.h"
-#include "nui/slider_model.h"
-#include "nui/label_model.h"
-
-#include "ceammc_log.h"
-#include "ceammc_property.h"
-
-#include <cassert>
+#include "layout.h"
+#include "view.h"
 
 namespace ceammc {
 namespace ui {
 
+    HLayout::HLayout(float space)
+        : LayoutBase()
+        , space_(space)
+    {
+    }
 
+    void HLayout::doLayout(ViewList& items)
+    {
+        float x = 0;
+        for (auto& v : items) {
+            auto p = v->pos();
+            v->setPos(PointF(x, p.y()));
+            x += space_;
+            x += v->size().width();
+        }
+    }
 
+    VLayout::VLayout(float space)
+        : LayoutBase()
+        , space_(space)
+    {
+    }
 
+    void VLayout::doLayout(ViewList& items)
+    {
+        float y = 0;
+        for (auto& v : items) {
+            auto p = v->pos();
+            v->setPos(PointF(p.x(), y));
+            y += space_;
+            y += v->size().height();
+        }
+    }
 }
 }

@@ -1,0 +1,30 @@
+name: Slider
+data:
+- name: size
+  type: Size
+  init: Size(100, 16)
+  style: size
+- name: value
+  type: float
+  init: 0
+- name: min
+  type: float
+  init: 0
+- name: max
+  type: float
+  init: 1
+- name: border color
+  type: HexColor
+  init: colors::st_border
+  style: color
+- name: fill color
+  type: HexColor
+  init: colors::st_fill
+  style: color
+- name: knob color
+  type: HexColor
+  init: colors::st_active
+  style: color
+- name: log scale
+  type: bool
+  init: 'false'

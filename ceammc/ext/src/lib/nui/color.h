@@ -51,8 +51,9 @@ namespace ui {
         constexpr HexColor blue = 0x0000FF;
 
         constexpr HexColor st_border = 0x00222222;
-        constexpr HexColor st_backgr = 0x00FAFAFA;
+        constexpr HexColor st_fill = 0x00FAFAFA;
         constexpr HexColor st_active = 0x00FA00FA;
+        constexpr HexColor st_text = 0x00000000;
     }
 }
 }

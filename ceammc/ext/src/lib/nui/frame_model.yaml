@@ -1,0 +1,16 @@
+name: Frame
+data:
+- name: border color
+  type: HexColor
+  init: colors::st_border
+  style: color
+- name: fill color
+  type: HexColor
+  init: colors::st_fill
+  style: color
+- name: padding
+  type: int
+  init: 5
+- name: selected
+  type: bool
+  init: 'false'

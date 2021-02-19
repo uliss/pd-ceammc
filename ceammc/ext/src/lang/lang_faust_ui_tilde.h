@@ -25,77 +25,27 @@
 using namespace ceammc;
 using namespace ceammc::ui;
 
-#include <algorithm>
-#include <unordered_map>
-#include <utility>
+class FaustMasterView {
+    FrameModel model_;
+    FrameView view_;
 
-class FaustMasterView : public FrameModelBase {
-    std::vector<const Property*> props_;
-    FrameProps vprops_;
-    FrameView vframe_;
-    SliderModelList sliders_;
-    LabelModelList labels_;
-
-private:
-    PropId propFrameId() const { return reinterpret_cast<PropId>(this); }
+    using SliderModelPtr = std::unique_ptr<SliderModel>;
+    using LabelModelPtr = std::unique_ptr<LabelModel>;
+    std::vector<SliderModelPtr> sliders_;
+    std::vector<LabelModelPtr> labels_;
 
 public:
     FaustMasterView(t_glist* parent = nullptr)
-        : vframe_(this, ViewImplPtr<FrameProps>(new TclFrameImpl), propFrameId(), PointF(), SizeF())
+        : model_()
+        , view_(&model_, FrameView::ViewImplPtr(new TclFrameImpl), {}, {})
     {
-        ViewPtr vp(new SimpleVGroupView);
-        vframe_.setChild(std::move(vp));
     }
 
-    void create(WinId win, const PointF& pos, float zoom);
-
-    void updateModels(const Property* p);
-    void updateViews(const Property* p);
-
-    void update(const Property* p)
-    {
-        updateModels(p);
-        updateViews(p);
-    }
-    void layout();
+    ~FaustMasterView();
 
     Size build(const std::vector<Property*>& props);
-    void focus();
 
-    void addProperty(const Property* p)
-    {
-        using st = StyleCollection;
-        using HSPtr = ViewImplPtr<SliderProps>;
-        using LPtr = ViewImplPtr<LabelProps>;
-
-        auto vg = vframe_.childPtr<SimpleVGroupView>();
-
-        const SizeF lbl_size = st::size(0, "label"_hash, Size(40, 8));
-        const SizeF hsl_size = st::size(0, "hslider"_hash, Size(100, 16));
-
-        PropId prop_id = reinterpret_cast<PropId>(p);
-
-        switch (p->type()) {
-        case PropValueType::FLOAT: {
-            auto hg = new SimpleHGroupView;
-
-            SliderProps sl;
-            //            .updatedate(p);
-            sliders_.addModel(prop_id, sl);
-            LabelProps lp(0);
-            lp.text = p->name();
-            labels_.addModel(prop_id, lp);
-
-            hg->add(ViewPtr(new HSliderView(&sliders_, HSPtr(new TclHSliderImpl), prop_id, PointF(), hsl_size)));
-            hg->add(ViewPtr(new LabelView(&labels_, LPtr(new TclLabelImpl), prop_id, hsl_size.leftCenter(), lbl_size)));
-            vg->add(ViewPtr(hg));
-        } break;
-        default:
-            break;
-        }
-
-        props_.push_back(p);
-    }
+    void addProperty(const Property* p);
 };
 
 class LangFaustUiTilde : public ui::Widget<SoundExternal> {
@@ -103,10 +53,6 @@ public:
     LangFaustUiTilde(const PdArgs& args);
 
     void processBlock(const t_sample** in, t_sample** out) final;
-
-    //    size_t widgetPropCount() const override;
-    //    void widgetPropNames(t_symbol** dest) const override;
-
     void buildUI() override;
 };
 

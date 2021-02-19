@@ -53,40 +53,29 @@ void setup_lang_faust_ui_tilde()
     obj.useMouseRight();
 }
 
-void FaustMasterView::updateModels(const Property* p)
+FaustMasterView::~FaustMasterView()
 {
-    if (!p)
-        return;
-
-    const auto pid = reinterpret_cast<PropId>(p);
-
-    //    if (sliders_.hasProp(pid))
-    //        sliders_.update(pid, p);
-
-    //    if (labels_.hasProp(pid))
-    //        labels_.update(pid, p);
 }
 
-void FaustMasterView::updateViews(const Property* p)
+void FaustMasterView::addProperty(const Property* p)
 {
-    if (!p)
-        return;
+    using st = StyleCollection;
+    const SizeF lbl_size = st::size(0, "label"_hash, Size(40, 8));
+    const SizeF hsl_size = st::size(0, "hslider"_hash, Size(100, 16));
 
-    const auto pid = reinterpret_cast<PropId>(p);
-    vframe_.update(pid);
-}
+    switch (p->type()) {
+    case PropValueType::FLOAT: {
+        sliders_.emplace_back(new SliderModel(0));
+        labels_.emplace_back(new LabelModel(0));
+        labels_.back()->data().setText(p->name());
 
-void FaustMasterView::layout()
-{
-    vframe_.layout();
-}
+        //        hg->add(ViewPtr(new HSliderView(&sliders_, HSPtr(new TclHSliderImpl), prop_id, PointF(), hsl_size)));
+        //        hg->add(ViewPtr(new LabelView(&labels_, LPtr(new TclLabelImpl), prop_id, hsl_size.leftCenter(), lbl_size)));
+        //        vg->add(ViewPtr(hg));
+    } break;
+    default:
+        break;
+    }
 
-Size FaustMasterView::build(const std::vector<Property*>& props)
-{
-    for (auto* p : props)
-        addProperty(p);
-
-    layout();
-    LIB_ERR << vframe_.size();
-    return vframe_.size();
+    //    props_.push_back(p);
 }

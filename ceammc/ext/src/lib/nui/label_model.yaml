@@ -1,0 +1,16 @@
+name: Label
+data:
+- name: text
+  type: t_symbol*
+  init: "&s_"
+- name: tooltip
+  type: t_symbol*
+  init: "&s_"
+- name: color
+  type: HexColor
+  init: colors::st_text
+  style: color
+- name: font
+  type: Font
+  init: Font()
+  style: font

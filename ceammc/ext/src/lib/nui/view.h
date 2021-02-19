@@ -18,29 +18,33 @@
 #include <utility>
 #include <vector>
 
+#include "nui/frame_model.h"
+#include "nui/label_model.h"
+#include "nui/layout.h"
 #include "nui/model.h"
 #include "nui/rect.h"
+#include "nui/slider_model.h"
 
 namespace ceammc {
 namespace ui {
 
-    enum EventType {
-        EVENT_MOUSE_DOWN,
-        EVENT_MOUSE_UP,
-        EVENT_MOUSE_DRAG,
-        EVENT_MOUSE_ENTER,
-        EVENT_MOUSE_LEAVE,
-        EVENT_MOUSE_DBL_CLICK,
-        EVENT_POPUP,
-        EVENT_KEY_DOWN,
-        EVENT_KEY_UP
-    };
+    //    enum EventType {
+    //        EVENT_MOUSE_DOWN,
+    //        EVENT_MOUSE_UP,
+    //        EVENT_MOUSE_DRAG,
+    //        EVENT_MOUSE_ENTER,
+    //        EVENT_MOUSE_LEAVE,
+    //        EVENT_MOUSE_DBL_CLICK,
+    //        EVENT_POPUP,
+    //        EVENT_KEY_DOWN,
+    //        EVENT_KEY_UP
+    //    };
 
-    enum EventStatus {
-        STATUS_ACCEPT,
-        STATUS_IGNORE,
-        STATUS_CONTINUE
-    };
+    //    enum EventStatus {
+    //        STATUS_ACCEPT,
+    //        STATUS_IGNORE,
+    //        STATUS_CONTINUE
+    //    };
 
     struct EventContext {
         uint32_t key;
@@ -105,36 +109,75 @@ namespace ui {
         void updateCoords(const RectF&) final { }
     };
 
-    class ViewBase {
+    class ModelViewBase {
+    public:
+        virtual ~ModelViewBase();
+        //
+        virtual const PointF& pos() const = 0;
+        virtual const SizeF& size() const = 0;
+        virtual void setPos(const PointF& pos) = 0;
+        virtual void setSize(const SizeF& size) = 0;
+        virtual PointF absPos() const = 0;
+        virtual RectF absBBox() const = 0;
+        virtual const ModelViewBase* parent() const = 0;
+        virtual void setParent(const ModelViewBase* p) = 0;
+        //
+        virtual void create(WinId win, WidgetId wid, float scale) = 0;
+        virtual void erase() = 0;
+        virtual void redraw() = 0;
+        virtual void updateCoords() = 0;
+        virtual void layout() = 0;
+    };
+
+    using ViewPtr = std::unique_ptr<ModelViewBase>;
+    using ViewList = std::vector<ViewPtr>;
+
+    template <typename Data>
+    class ModelView : public Observer<Data>, public ModelViewBase {
+    public:
+        using ViewImplPtr = std::unique_ptr<ViewImpl<Data>>;
+
+    private:
         PointF pos_;
         SizeF size_;
-        const ViewBase* parent_;
+        const ModelViewBase* parent_;
+        ViewImplPtr impl_;
 
     public:
-        ViewBase(const PointF& pos, const SizeF& sz);
-        virtual ~ViewBase();
+        ModelView(ModelBase<Data>* model, ViewImplPtr&& impl, const PointF& pos, const SizeF& sz)
+            : Observer<Data>(model)
+            , pos_(pos)
+            , size_(sz)
+            , parent_(nullptr)
+            , impl_(std::move(impl))
+        {
+        }
+
+        virtual ~ModelView() { }
 
         uint64_t id() const { return reinterpret_cast<uint64_t>(this); }
-        const PointF& pos() const { return pos_; }
-        const SizeF& size() const { return size_; }
+        const PointF& pos() const override { return pos_; }
+        const SizeF& size() const override { return size_; }
         RectF bbox() const { return RectF(pos_, size_); }
         float x() const { return pos_.x(); }
         float y() const { return pos_.y(); }
+        ViewImplPtr& impl() { return impl_; }
+        const ViewImplPtr& impl() const { return impl_; }
 
-        void setPos(const PointF& pos) { pos_ = pos; }
-        void setSize(const SizeF& size) { size_ = size; }
+        void setPos(const PointF& pos) override { pos_ = pos; }
+        void setSize(const SizeF& size) override { size_ = size; }
 
-        const ViewBase* parent() const { return parent_; }
-        void setParent(const ViewBase* p) { parent_ = p; }
+        const ModelViewBase* parent() const override { return parent_; }
+        void setParent(const ModelViewBase* p) override { parent_ = p; }
 
-        PointF absPos() const
+        PointF absPos() const override
         {
             return parent_
                 ? parent_->absPos() + pos_
                 : pos_;
         }
 
-        RectF absBBox() const
+        RectF absBBox() const override
         {
             if (parent_) {
                 const auto pabs = parent_->absPos();
@@ -144,46 +187,16 @@ namespace ui {
         }
 
         // virtual
-        virtual void create(WinId win, WidgetId wid, float scale) = 0;
-        virtual void erase() = 0;
-        virtual void update(PropId id) = 0;
-        virtual void updateCoords() = 0;
-        virtual void layout();
-
-        virtual EventStatus onEvent(const PointF& /*pt*/, EventType /*t*/, const EventContext& /*ctx*/) { return STATUS_IGNORE; }
-    };
-
-    using ViewPtr = std::unique_ptr<ViewBase>;
-    using ViewList = std::vector<ViewPtr>;
-
-    template <typename Model, typename ModelProps, typename ViewImplT>
-    class ModelView : public ViewBase {
-        Model* model_;
-
-        std::unique_ptr<ViewImplT> impl_;
-        const PropId prop_id_;
-
-    public:
-        ModelView(Model* model, std::unique_ptr<ViewImplT> impl, PropId prop_id, const PointF& pos, const SizeF& sz)
-            : ViewBase(pos, sz)
-            , model_(model)
-            , impl_(std::move(impl))
-            , prop_id_(prop_id)
-        {
-        }
-
-        void create(WinId win, WidgetId widgetId, float scale) override
+        void create(WinId win, WidgetId wid, float scale) override
         {
             if (!impl_)
                 return;
 
             impl_->setWinId(win);
-            impl_->setWidgetId(widgetId);
+            impl_->setWidgetId(wid);
 
-//            if (model_->hasProp(prop_id_)) {
-                impl_->setScale(scale);
-//                impl_->create(absBBox(), model_->getProp(prop_id_));
-//            }
+            impl_->setScale(scale);
+            impl_->create(absBBox(), this->data());
         }
 
         void erase() override
@@ -192,14 +205,10 @@ namespace ui {
                 impl_->erase();
         }
 
-        void update(PropId pid) override
+        void redraw() override
         {
-            const bool ok = (pid == PROP_ID_ALL) || (pid == prop_id_);
-            if (!ok || !impl_)
-                return;
-
-//            if (model_->hasProp(prop_id_))
-//                impl_->update(absBBox(), model_->getProp(prop_id_));
+            if (impl_)
+                impl_->update(absBBox(), this->data());
         }
 
         void updateCoords() override
@@ -208,57 +217,22 @@ namespace ui {
                 impl_->updateCoords(absBBox());
         }
 
-        ViewImplT& impl() { return impl_; }
-        const ViewImplT& impl() const { return impl_; }
+        void layout() override { }
 
-        const Model* model() const { return model_; }
-        void setModel(Model* model) { model_ = model; }
+        void changed(ModelBase<Data>* d) override
+        {
+            redraw();
+        }
     };
 
-    class LayoutBase {
-    public:
-        virtual void doLayout(ViewList&) { }
-    };
-
-    class HLayout : public LayoutBase {
-        float space_ { 0 };
-
-    public:
-        HLayout(float space = 5);
-        virtual void doLayout(ViewList& items) override;
-
-        float space() const { return space_; }
-        void setSpace(float space) { space_ = space; }
-    };
-
-    class VLayout : public LayoutBase {
-        float space_ { 0 };
-
-    public:
-        VLayout(float space = 5);
-        virtual void doLayout(ViewList& items) override;
-        float space() const { return space_; }
-        void setSpace(float space) { space_ = space; }
-    };
-
-    using LayoutPtr = std::unique_ptr<LayoutBase>;
-
-    template <typename ViewImpl>
-    class GroupView : public ModelView<EmptyModel,
-                          EmptyData,
-                          ViewImpl> {
+    class GroupView : public ModelView<EmptyData> {
         using ViewList = std::vector<ViewPtr>;
-        using Base = ModelView<EmptyModel, EmptyData, ViewImpl>;
 
         ViewList views_;
         LayoutPtr layout_;
 
     public:
-        GroupView(std::unique_ptr<ViewImpl> impl, const PointF& pos)
-            : Base(nullptr, std::move(impl), PROP_ID_ALL, pos, SizeF())
-        {
-        }
-
+        GroupView(ViewImplPtr&& impl, const PointF& pos);
         const ViewList& views() const { return views_; }
         ViewList& views() { return views_; }
         size_t numItems() const { return views_.size(); }
@@ -268,102 +242,30 @@ namespace ui {
         LayoutPtr& getLayout() { return layout_; }
         const LayoutPtr& getLayout() const { return layout_; }
         void setLayout(LayoutBase* l) { layout_.reset(l); }
+        void adjustBBox();
 
-        virtual void add(ViewPtr&& b)
-        {
-            if (!b)
-                return;
-
-            views_.push_back(std::move(b));
-            views_.back()->setParent(this);
-        }
-
-        void create(WinId win, WidgetId wid, float scale) final
-        {
-            for (auto& v : views_)
-                v->create(win, wid, scale);
-        }
-
-        void erase() final
-        {
-            for (auto& v : views_)
-                v->erase();
-        }
-
-        void update(PropId id) final
-        {
-            for (auto& v : views_)
-                v->update(id);
-        }
-
-        void updateCoords() override
-        {
-            for (auto& v : views_)
-                v->updateCoords();
-        }
-
-        void layout() override
-        {
-            for (auto& v : views_)
-                v->layout();
-
-            if (layout_) {
-                layout_->doLayout(views_);
-                adjustBBox();
-            }
-        }
-
-        RectF calcBBox() const
-        {
-            RectF res;
-            if (views_.empty())
-                return res;
-
-            res = views_[0]->bbox();
-            for (size_t i = 1; i < views_.size(); i++)
-                res = res.unite(views_[i]->bbox());
-
-            return res;
-        }
-
-        void adjustBBox()
-        {
-            if (views_.empty())
-                return;
-
-            const RectF bbox = calcBBox();
-            auto p = this->pos();
-            this->setSize(SizeF(bbox.width(), bbox.height()));
-        }
-    };
-
-    template <typename Props>
-    using ViewImplPtr = std::unique_ptr<ViewImpl<Props>>;
-
-    class HSliderView : public ModelView<SliderModel,
-                            SliderProps,
-                            ViewImpl<SliderProps>> {
-    public:
-        HSliderView(SliderModel* model, ViewImplPtr<SliderProps> impl, PropId prop_idx, const PointF& pos, const SizeF& sz);
-    };
-
-    class FrameView : public ModelView<FrameModelBase,
-                          FrameProps,
-                          ViewImpl<FrameProps>> {
-
-        using Base = ModelView<FrameModelBase,
-            FrameProps,
-            ViewImpl<FrameProps>>;
-
-    private:
-        ViewPtr child_;
-
-    public:
-        FrameView(FrameModelBase* model, ViewImplPtr<FrameProps> impl, PropId prop_idx, const PointF& pos, const SizeF& sz);
+        virtual void add(ViewPtr&& b);
 
         void create(WinId win, WidgetId wid, float scale) final;
         void erase() final;
-        void update(PropId id) final;
+        void redraw() final;
+        void updateCoords() override;
+        void layout() override;
+        RectF calcBBox() const;
+    };
+
+    using HSliderView = ModelView<SliderData>;
+
+    class FrameView : public ModelView<FrameData> {
+        ViewPtr child_;
+        using Base = ModelView<FrameData>;
+
+    public:
+        FrameView(FrameModel* model, ViewImplPtr&& impl, const PointF& pos, const SizeF& sz);
+
+        void create(WinId win, WidgetId wid, float scale) final;
+        void erase() final;
+        void redraw() final;
         void updateCoords() override;
         void layout() override;
 
@@ -378,62 +280,20 @@ namespace ui {
         T* childPtr() { return static_cast<T*>(child_.get()); }
     };
 
-    template <typename ViewImpl>
-    class HGroupView : public GroupView<ViewImpl> {
+    class HGroupView : public GroupView {
     public:
-        HGroupView(std::unique_ptr<ViewImpl> impl, const PointF& pos)
-            : GroupView<ViewImpl>(std::move(impl), pos)
-        {
-            this->setLayout(new HLayout);
-        }
-
-        void setSpace(float space)
-        {
-            if (this->getLayout()) {
-                auto lt = static_cast<HLayout*>(this->getLayout().get());
-                lt->setSpace(space);
-            } else {
-                this->setLayout(new HLayout(space));
-            }
-        }
+        HGroupView(const PointF& pos);
+        void setSpace(float space);
     };
 
-    template <typename ViewImpl>
-    class VGroupView : public GroupView<ViewImpl> {
+    class VGroupView : public GroupView {
     public:
-        VGroupView(std::unique_ptr<ViewImpl> impl, const PointF& pos)
-            : GroupView<ViewImpl>(std::move(impl), pos)
-        {
-            this->setLayout(new VLayout);
-        }
+        VGroupView(const PointF& pos);
 
-        void setSpace(float space)
-        {
-            if (this->getLayout()) {
-                auto lt = static_cast<VLayout*>(this->getLayout().get());
-                lt->setSpace(space);
-            } else {
-                this->setLayout(new VLayout(space));
-            }
-        }
+        void setSpace(float space);
     };
 
-    class SimpleVGroupView : public VGroupView<EmptyViewImpl> {
-    public:
-        explicit SimpleVGroupView(const PointF& pos = PointF());
-    };
-
-    class SimpleHGroupView : public HGroupView<EmptyViewImpl> {
-    public:
-        explicit SimpleHGroupView(const PointF& pos = PointF());
-    };
-
-    class LabelView : public ModelView<LabelModel,
-                          LabelProps,
-                          ViewImpl<LabelProps>> {
-    public:
-        LabelView(LabelModel* model, ViewImplPtr<LabelProps> impl, PropId prop_idx, const PointF& pos, const SizeF& sz);
-    };
+    using LabelView = ModelView<LabelData>;
 }
 }
 

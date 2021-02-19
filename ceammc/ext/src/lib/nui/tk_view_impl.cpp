@@ -19,19 +19,19 @@
 namespace ceammc {
 namespace ui {
 
-    void TclHSliderImpl::create(const RectF& bbox, const SliderProps& data)
+    void TclHSliderImpl::create(const RectF& bbox, const SliderData& data)
     {
         Rect rect = transform(bbox);
 
-        const float pos = (data.value - data.min) / (data.max - data.min);
+        const float pos = (data.value() - data.min()) / (data.max() - data.min());
         sys_vgui("nui::slider::hcreate %lx %lx %lx"
                  " %d %d %d %d %d"
                  " %f %g"
                  " #%6.6x #%6.6x #%6.6x\n",
             winId(), widgetId(), this,
             rect.left(), rect.top(), rect.width(), rect.height(), (int)scale(),
-            pos, data.value,
-            data.bg_color, data.bd_color, data.kn_color);
+            pos, data.value(),
+            data.fillColor(), data.borderColor(), data.knobColor());
     }
 
     void TclHSliderImpl::erase()
@@ -39,16 +39,16 @@ namespace ui {
         sys_vgui("nui::slider::erase %lx %lx %lx \n", winId(), widgetId(), this);
     }
 
-    void TclHSliderImpl::update(const RectF& bbox, const SliderProps& data)
+    void TclHSliderImpl::update(const RectF& bbox, const SliderData& data)
     {
-        const float pos = (data.value - data.min) / (data.max - data.min);
+        const float pos = (data.value() - data.min()) / (data.max() - data.min());
 
         sys_vgui("nui::slider::hupdate %lx %lx %lx"
                  " %f %g"
                  " #%6.6x #%6.6x #%6.6x\n",
             winId(), widgetId(), this,
-            pos, data.value,
-            data.bg_color, data.bd_color, data.kn_color);
+            pos, data.value(),
+            data.fillColor(), data.borderColor(), data.knobColor());
     }
 
     void TclHSliderImpl::updateCoords(const RectF& bbox)
@@ -59,7 +59,7 @@ namespace ui {
             winId(), widgetId(), this, rect.left(), rect.top());
     }
 
-    void TclFrameImpl::create(const RectF& bbox, const FrameProps& data)
+    void TclFrameImpl::create(const RectF& bbox, const FrameData& data)
     {
         Rect rect = transform(bbox);
 
@@ -75,7 +75,7 @@ namespace ui {
         sys_vgui("nui::frame::erase %lx %lx %lx\n", winId(), widgetId(), this);
     }
 
-    void TclFrameImpl::update(const RectF& bbox, const FrameProps& data)
+    void TclFrameImpl::update(const RectF& bbox, const FrameData& data)
     {
         sys_vgui("nui::frame::update_outline %lx %lx %lx"
                  " #%6.6x\n",
@@ -91,7 +91,7 @@ namespace ui {
             winId(), widgetId(), this, rect.left(), rect.top());
     }
 
-    void TclLabelImpl::create(const RectF& bbox, const LabelProps& data)
+    void TclLabelImpl::create(const RectF& bbox, const LabelData& data)
     {
         Rect rect = transform(bbox);
 
@@ -100,8 +100,8 @@ namespace ui {
                  " 0 w {{%s} %d} #%6.6x {%s}\n",
             winId(), widgetId(), this,
             rect.left(), rect.top(),
-            data.font.family(), int(data.font.size() * scale()),
-            data.txt_color, data.text->s_name);
+            data.font().family(), int(data.font().size() * scale()),
+            data.color(), data.text()->s_name);
     }
 
     void TclLabelImpl::erase()
@@ -109,7 +109,7 @@ namespace ui {
         sys_vgui("nui::label::erase %lx %lx %lx\n", winId(), widgetId(), this);
     }
 
-    void TclLabelImpl::update(const RectF& bbox, const LabelProps& data)
+    void TclLabelImpl::update(const RectF& bbox, const LabelData& data)
     {
     }
 

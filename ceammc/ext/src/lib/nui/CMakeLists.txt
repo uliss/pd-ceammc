@@ -2,6 +2,7 @@ add_library(ceammc_nui STATIC
     nui.cpp
     model.cpp
     factory.cpp
+    layout.cpp
     tk_view_impl.cpp
     view.cpp
     widget.cpp
@@ -14,3 +15,18 @@ add_custom_target(nui_tcl_gen
     COMMAND ${PROJECT_SOURCE_DIR}/ceammc/scripts/filecontent_to_cxx_header.sh tcl_nui.tcl
     SOURCES tcl_nui.tcl
     WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR})
+
+set(MODELS
+    frame_model.yaml
+    label_model.yaml
+    slider_model.yaml
+)
+set(GEN_MODEL ${CMAKE_CURRENT_SOURCE_DIR}/gen_model_data.py)
+
+add_custom_target(nui_model_gen
+    COMMAND ${GEN_MODEL} frame_model.yaml > frame_model.h
+    COMMAND ${GEN_MODEL} slider_model.yaml > slider_model.h
+    COMMAND ${GEN_MODEL} label_model.yaml > label_model.h
+    SOURCES ${MODELS}
+    WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR})
+
