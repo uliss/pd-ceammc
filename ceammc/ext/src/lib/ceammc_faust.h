@@ -70,6 +70,9 @@ namespace faust {
         AtomList get() const override;
         t_float value() const;
         void setValue(t_float v, bool clip = false) const;
+
+        UIElement* uiElement() { return el_; }
+        const UIElement* uiElement() const { return el_; }
     };
 
     static inline void zero_samples(size_t n_ch, size_t bs, t_sample** out)
@@ -502,7 +505,7 @@ namespace faust {
             if (it == unit_map_.end())
                 continue;
 
-             el->setUnits(to_units(it->second));
+            el->setUnits(to_units(it->second));
         }
     }
 
