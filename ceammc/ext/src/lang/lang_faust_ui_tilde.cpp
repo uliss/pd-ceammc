@@ -64,6 +64,9 @@ void setup_lang_faust_ui_tilde()
     obj.useMouseDown();
     obj.useMouseUp();
     obj.useMouseRight();
+
+    obj.addMethod("reset", &LangFaustTilde::m_reset);
+    obj.addMethod("open", &LangFaustTilde::m_open);
 }
 
 FaustMasterView::FaustMasterView()
