@@ -65,7 +65,8 @@ namespace faust {
     class LlvmDsp;
 
     class LlvmDspFactory {
-        std::unique_ptr<llvm_dsp_factory, void (*)(llvm_dsp_factory*)> factory_;
+        using FactoryPtr = std::unique_ptr<llvm_dsp_factory, void (*)(llvm_dsp_factory*)>;
+        FactoryPtr factory_;
         std::string errors_;
 
         LlvmDspFactory(const LlvmDspFactory&) = delete;
