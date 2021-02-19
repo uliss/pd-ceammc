@@ -61,7 +61,8 @@ namespace ui {
 
     void TclFrameImpl::create(const RectF& bbox, const FrameData& data)
     {
-        Rect rect = transform(bbox);
+        const SizeF min(SizeF(data.padding() * 2, data.padding() * 2));
+        const Rect rect = transform(bbox).clippedMin(min);
 
         sys_vgui("nui::frame::create %lx %lx %lx"
                  " %d %d %d %d"
@@ -78,7 +79,8 @@ namespace ui {
 
     void TclFrameImpl::update(const RectF& bbox, const FrameData& data)
     {
-        Rect rect = transform(bbox);
+        const SizeF min(SizeF(data.padding() * 2, data.padding() * 2));
+        const Rect rect = transform(bbox).clippedMin(min);
 
         sys_vgui("nui::frame::update %lx %lx %lx"
                  " %d %d"

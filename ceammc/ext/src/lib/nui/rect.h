@@ -149,6 +149,10 @@ namespace ui {
         T bottom() const { return y1_; }
 
         SizeT<T> size() const { return SizeT<T>(width(), height()); }
+        void setSize(const SizeT<T>& sz) {
+            x1_ = x0_ + sz.width();
+            y1_ = y0_ + sz.height();
+        }
 
         PointT<T> pt0() const { return PointT<T>(x0_, y0_); }
         PointT<T> pt1() const { return PointT<T>(x1_, y1_); }
@@ -225,6 +229,17 @@ namespace ui {
             y0_ += dt.y();
             y1_ += dt.y();
             return *this;
+        }
+
+        RectT<T>& clipMin(const SizeT<T>& min)
+        {
+            setSize(size().clippedMin(min));
+            return *this;
+        }
+
+        RectT<T> clippedMin(const SizeT<T>& min) const
+        {
+            return { pt0(), size().clippedMin(min) };
         }
     };
 
