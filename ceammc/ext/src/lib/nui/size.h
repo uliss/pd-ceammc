@@ -51,6 +51,9 @@ namespace ui {
         void setHeight(T h) { h_ = h; }
         void setWidth(T w) { w_ = w; }
 
+        void setHeight(const SizeT<T>& sz) { h_ = sz.height(); }
+        void setWidth(const SizeT<T>& sz) { w_ = sz.width(); }
+
         void set(T w, T h)
         {
             w_ = w;
