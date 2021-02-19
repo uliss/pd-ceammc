@@ -90,7 +90,7 @@ proc widget_create { cnv id x y w h zoom } {
     $c configure -bg #AAAAAA
 
     [pd_canvas $cnv] create window $x $y -anchor nw -window $c \
-        -tags $win -width [expr $w+1] -height [expr $h+1]
+        -tags $win -width $w -height $h
 }
 
 proc widget_bg { cnv id color } {
@@ -114,7 +114,7 @@ proc widget_resize { cnv id w h zoom } {
     set h [widget_h $h $zoom]
 
     $c configure -width $w -height $h
-    [pd_canvas $cnv] itemconfigure $win -width [expr $w+1] -height [expr $h+1]
+    [pd_canvas $cnv] itemconfigure $win -width $w -height $h
 }
 
 proc widget_move { cnv id x y } {
