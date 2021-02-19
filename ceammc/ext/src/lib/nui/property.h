@@ -31,7 +31,7 @@ namespace ui {
             : Observer<Data>(data)
         {
             if (p == nullptr) {
-                LIB_ERR << "null property pointer";
+                LIB_ERR << __FILE__ << ": null property pointer";
                 return;
             } else if (p->access() == PropValueAccess::READWRITE) {
                 prop_ = p;
@@ -40,7 +40,7 @@ namespace ui {
                     this->notifyOthers();
                 });
             } else {
-                LIB_ERR << "readonly property: " << p->name()->s_name;
+                LIB_ERR << __FILE__ << ": readonly property: " << p->name()->s_name;
             }
         }
 

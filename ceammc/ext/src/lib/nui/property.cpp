@@ -54,7 +54,5 @@ namespace ui {
         size_ = sz;
         return true;
     }
-
-    static SizePropertyObserver<std::tuple<Size>, 0> ob(0, 0);
 }
 }
