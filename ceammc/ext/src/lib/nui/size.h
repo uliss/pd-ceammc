@@ -114,6 +114,21 @@ namespace ui {
             return (pt.y() <= h_ + delta)
                 && (pt.y() >= h_ - delta);
         }
+
+        SizeT<T>& clipMin(const SizeT<T>& min)
+        {
+            w_ = std::max<T>(w_, min.w_);
+            h_ = std::max<T>(h_, min.h_);
+            return *this;
+        }
+
+        SizeT<T> clippedMin(const SizeT<T>& min) const
+        {
+            return {
+                std::max<T>(w_, min.w_),
+                std::max<T>(h_, min.h_)
+            };
+        }
     };
 
     using Size = SizeT<int32_t>;

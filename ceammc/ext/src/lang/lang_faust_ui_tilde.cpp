@@ -103,8 +103,6 @@ void FaustMasterView::addProperty(const Property* p)
     default:
         break;
     }
-
-    //    props_.push_back(p);
 }
 
 void FaustMasterView::create(WinId win, WidgetId id, const Size& sz, int zoom)
@@ -120,7 +118,7 @@ void FaustMasterView::update(WinId win, WidgetId id)
 
 void FaustMasterView::setSize(const Size& sz)
 {
-    model_.data().setSize(sz);
+    model_.data().setSize(sz.clippedMin({1, 1}));
     model_.notify();
 }
 
