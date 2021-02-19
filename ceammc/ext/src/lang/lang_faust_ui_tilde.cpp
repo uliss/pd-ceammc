@@ -20,10 +20,6 @@ LangFaustUiTilde::LangFaustUiTilde(const PdArgs& args)
     : ui::Widget<LangFaustTilde>(args)
 {
     setSize(Size(100, 50));
-
-    createInlet();
-    createOutlet();
-
     setResizeMode(RESIZE_BOTH);
 }
 

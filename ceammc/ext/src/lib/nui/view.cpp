@@ -232,6 +232,7 @@ namespace ui {
             auto vpos = toViewCoords(pos);
             auto value = convert::lin2lin<t_float>(vpos.x(), 0, size().width(), this->data().min(), this->data().max());
             this->data().setValue(value);
+            this->redraw();
             this->notifyOthers();
         } break;
         case EVENT_MOUSE_DRAG:
