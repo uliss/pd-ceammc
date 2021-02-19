@@ -63,7 +63,13 @@ namespace ui {
         child_->layout();
         auto sz = child_->size();
         sz.enlarge(pad * 2, pad * 2);
-        Base::setSize(sz);
+        setSize(sz);
+    }
+
+    void FrameView::setChild(ViewPtr&& v)
+    {
+        child_ = std::move(v);
+        child_->setParent(this);
     }
 
     GroupView::GroupView(ViewImplPtr&& impl, const PointF& pos)

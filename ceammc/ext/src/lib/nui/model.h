@@ -32,7 +32,8 @@ namespace ceammc {
 namespace ui {
 
     struct EmptyData {
-        SizeF size() const { return {}; }
+        static SizeF size() { return {}; }
+        static void setSize(const SizeF&) { }
     };
 
     using PropId = uint64_t;

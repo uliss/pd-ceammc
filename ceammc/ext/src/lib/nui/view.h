@@ -163,10 +163,7 @@ namespace ui {
         const ViewImplPtr& impl() const { return impl_; }
 
         void setPos(const PointF& pos) override { pos_ = pos; }
-        void setSize(const SizeF& size) override
-        { /*size_ = size;*/
-        }
-
+        void setSize(const SizeF& size) override { this->data().setSize(size); }
         const ModelViewBase* parent() const override { return parent_; }
         void setParent(const ModelViewBase* p) override { parent_ = p; }
 
@@ -270,11 +267,7 @@ namespace ui {
         void layout() override;
 
         ViewPtr& child() { return child_; }
-        void setChild(ViewPtr&& v)
-        {
-            child_ = std::move(v);
-            child_->setParent(this);
-        }
+        void setChild(ViewPtr&& v);
 
         template <typename T>
         T* childPtr() { return static_cast<T*>(child_.get()); }
