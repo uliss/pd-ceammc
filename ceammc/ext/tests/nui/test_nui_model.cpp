@@ -100,8 +100,12 @@ TEST_CASE("nui::model", "[nui]")
 
         TestBoolPropObserver bo1(&bp, &bm);
 
-        REQUIRE(bp.value() == true);
+        REQUIRE(bp.value() == false);
         REQUIRE(bm.hasSubscribers());
+        bm.data() = data(true);
+
+        bo1.updatePropFromModel();
+        REQUIRE(bp.value() == true);
         bm.data() = data(true);
 
         REQUIRE(bp.value() == true);
