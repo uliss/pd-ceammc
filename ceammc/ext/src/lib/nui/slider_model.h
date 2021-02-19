@@ -36,6 +36,7 @@ public:
         loadStyle(style);
     }
 
+
     // getters
     Size size() const noexcept { return std::get<SLIDER_DATA_SIZE>(*this); }
     float value() const noexcept { return std::get<SLIDER_DATA_VALUE>(*this); }

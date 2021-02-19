@@ -11,12 +11,13 @@ data:
   type: HexColor
   init: colors::st_fill
   style: color
-- name: select color
-  type: HexColor
-  init: colors::blue
 - name: padding
   type: int
   init: 5
 - name: selected
   type: bool
   init: 'false'
+const:
+- name: select color
+  type: HexColor
+  value: colors::blue

@@ -32,6 +32,7 @@ public:
         loadStyle(style);
     }
 
+
     // getters
     t_symbol* text() const noexcept { return std::get<LABEL_DATA_TEXT>(*this); }
     t_symbol* tooltip() const noexcept { return std::get<LABEL_DATA_TOOLTIP>(*this); }

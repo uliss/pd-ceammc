@@ -40,6 +40,13 @@ public:
         loadStyle(style);
     }
 
+{% if use_const %}
+    // constants
+{% for t, m, v in zip(const_types, const_names, const_values) %}
+    {{t}} {{m}}() const noexcept { return {{v}}; }
+{% endfor %}
+{% endif %}
+
     // getters
 {% for t, m, f in zip(types, getters, fields) %}
     {{t}} {{m}}() const noexcept { return std::get<{{module|upper}}_DATA_{{f|upper}}>(*this); }
@@ -104,6 +111,12 @@ if __name__ == "__main__":
     styles = [x.get('style', 'none') for x in mod['data']]
     use_style = styles.count('none') != len(styles)
 
+    consts = mod.get('const', list())
+    const_names = [camelCase(x['name']) for x in consts]
+    const_types = [x['type'] for x in consts]
+    const_values = [x['value'] for x in consts]
+    use_const = len(const_names) > 0
+
     if use_style:
         fields.append('style_idx')
         getters.append('style')
@@ -122,5 +135,9 @@ if __name__ == "__main__":
         init=init,
         use_style=use_style,
         styles=styles,
+        use_const=use_const,
+        const_names=const_names,
+        const_types=const_types,
+        const_values=const_values,
         zip=zip,
         camelCase=camelCase))
