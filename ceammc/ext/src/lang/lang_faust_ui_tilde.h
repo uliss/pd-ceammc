@@ -32,7 +32,7 @@ class FaustMasterView {
 
     using SliderModelPtr = std::unique_ptr<SliderModel>;
     using LabelModelPtr = std::unique_ptr<LabelModel>;
-    using PropSliderView = FloatPropertyObserver<SliderData, SliderData::VALUE>;
+    using PropSliderView = PropertyObserver<SliderData, faust::UIProperty, t_float, SliderData::VALUE>;
     using PropSliderViewPtr = std::unique_ptr<PropSliderView>;
     std::vector<SliderModelPtr> sliders_;
     std::vector<LabelModelPtr> labels_;
@@ -42,9 +42,9 @@ public:
     FaustMasterView();
     ~FaustMasterView();
 
-    Size build(const std::vector<Property*>& props);
+    Size build(const std::vector<faust::UIProperty*>& props);
 
-    void addProperty(Property* p);
+    void addProperty(faust::UIProperty* p);
 
     void create(WinId win, WidgetId id, const Size& sz, int zoom);
     void erase(WinId win, WidgetId id) { }
@@ -69,6 +69,7 @@ public:
     void onWidgetSelect(bool state) override;
 
     void onMouseDown(const Point& pt, const Point& abspt, uint32_t mod) override;
+    void onMouseDrag(const Point& pt, uint32_t mod) override;
 };
 
 void setup_lang_faust_ui_tilde();

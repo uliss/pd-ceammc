@@ -76,7 +76,7 @@ namespace ui {
 
     EventStatus FrameView::onEvent(EventType t, const PointF& pos, const EventContext& ctx)
     {
-        if (!child_ || !bbox().contains(pos))
+        if (!child_ || !absBBox().contains(pos))
             return EVENT_STATUS_IGNORE;
 
         return child_->onEvent(t, pos, ctx);
@@ -148,7 +148,7 @@ namespace ui {
 
     EventStatus GroupView::onEvent(EventType t, const PointF& pos, const EventContext& ctx)
     {
-        if (!bbox().contains(pos))
+        if (!absBBox().contains(pos))
             return EVENT_STATUS_IGNORE;
 
         int continue_num = 0;
@@ -224,7 +224,7 @@ namespace ui {
 
     EventStatus HSliderView::onEvent(EventType t, const PointF& pos, const EventContext& ctx)
     {
-        if (!bbox().contains(pos))
+        if (!absBBox().contains(pos))
             return EVENT_STATUS_IGNORE;
 
         switch (t) {
@@ -235,7 +235,14 @@ namespace ui {
             this->redraw();
             this->notifyOthers();
         } break;
-        case EVENT_MOUSE_DRAG:
+        case EVENT_MOUSE_DRAG: {
+            auto vpos = toViewCoords(pos);
+            LIB_ERR << vpos;
+            auto value = convert::lin2lin<t_float>(vpos.x(), 0, size().width(), this->data().min(), this->data().max());
+            this->data().setValue(value);
+            this->redraw();
+            this->notifyOthers();
+        } break;
         case EVENT_MOUSE_UP:
             break;
         default:

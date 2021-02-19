@@ -50,6 +50,11 @@ void LangFaustUiTilde::onMouseDown(const Point& pt, const Point& abspt, uint32_t
     vc_.sendEvent(EVENT_MOUSE_DOWN, pt, EventContext());
 }
 
+void LangFaustUiTilde::onMouseDrag(const Point& pt, uint32_t mod)
+{
+    vc_.sendEvent(EVENT_MOUSE_DRAG, pt, EventContext());
+}
+
 void setup_lang_faust_ui_tilde()
 {
     ui::UIFactory<SoundExternalFactory, LangFaustUiTilde> obj("ui");
@@ -71,7 +76,7 @@ FaustMasterView::~FaustMasterView()
 {
 }
 
-Size FaustMasterView::build(const std::vector<Property*>& props)
+Size FaustMasterView::build(const std::vector<faust::UIProperty*>& props)
 {
     view_.setChild(ViewPtr(new VGroupView({})));
     view_.setSize({ 20, 30 });
@@ -83,7 +88,7 @@ Size FaustMasterView::build(const std::vector<Property*>& props)
     return view_.size();
 }
 
-void FaustMasterView::addProperty(Property* p)
+void FaustMasterView::addProperty(faust::UIProperty* p)
 {
     LIB_ERR << p->name();
 
@@ -94,6 +99,11 @@ void FaustMasterView::addProperty(Property* p)
         auto hgroup = new HGroupView({});
 
         auto slm = new SliderModel(0);
+
+        slm->data().setValue(p->value());
+        slm->data().setMin(p->uiElement()->min());
+        slm->data().setMax(p->uiElement()->max());
+
         sliders_.emplace_back(slm);
         ViewPtr slv(new HSliderView(slm, HSliderView::ViewImplPtr(new TclHSliderImpl), {}));
         hgroup->add(std::move(slv));
@@ -106,11 +116,8 @@ void FaustMasterView::addProperty(Property* p)
         ViewPtr lv(new LabelView(lm, LabelView::ViewImplPtr(new TclLabelImpl), {}));
         hgroup->add(std::move(lv));
 
-        auto fp = dynamic_cast<FloatProperty*>(p);
-        if (fp) {
-            slider_props_.emplace_back(new PropSliderView(fp, slm));
-            slider_props_.back()->updateModelFromProp();
-        }
+        slider_props_.emplace_back(new PropSliderView(p, slm));
+        slider_props_.back()->updateModelFromProp();
 
         vgroup->add(ViewPtr(hgroup));
     } break;

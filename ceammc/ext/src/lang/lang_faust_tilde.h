@@ -31,10 +31,14 @@ using FaustDspPtr = std::unique_ptr<faust::LlvmDsp>;
 #endif
 
 class LangFaustTilde : public SoundExternal {
+public:
+    using FaustProperyList = std::vector<faust::UIProperty*>;
+
+private:
     SymbolProperty* fname_;
     ListProperty* include_dirs_;
     std::string full_path_;
-    std::vector<Property*> faust_properties_;
+    FaustProperyList faust_properties_;
 
 #ifdef WITH_FAUST
     FactoryPtr dsp_factory_;
@@ -56,7 +60,7 @@ public:
     void dump() const override;
 
 protected:
-    std::vector<Property*>& faustProperties();
+    FaustProperyList& faustProperties();
 
 private:
     std::string canvasDir() const;

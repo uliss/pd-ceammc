@@ -219,7 +219,7 @@ void LangFaustTilde::dump() const
         dsp_factory_->dumpOpts(os);
 }
 
-std::vector<Property*>& LangFaustTilde::faustProperties()
+LangFaustTilde::FaustProperyList& LangFaustTilde::faustProperties()
 {
     return faust_properties_;
 }

@@ -204,7 +204,7 @@ namespace ui {
         virtual void onMouseEnter() { LIB_ERR << __FUNCTION__; }
         virtual void onMouseLeave() { LIB_ERR << __FUNCTION__; }
         virtual void onMouseMove() { LIB_ERR << __FUNCTION__; }
-        virtual void onMouseDrag() { LIB_ERR << __FUNCTION__; }
+        virtual void onMouseDrag(const Point& pt, uint32_t mod) { LIB_ERR << __FUNCTION__; }
         virtual void onMouseDown(const Point& pt, const Point& abspt, uint32_t mod) { LIB_ERR << __FUNCTION__; }
         virtual void onMouseUp(const Point& pt, uint32_t mod) { LIB_ERR << __FUNCTION__; }
 
@@ -274,7 +274,7 @@ namespace ui {
 
             if (mouse_down_) { // mouse drag
                 if (editModeAccept(mod)) {
-                    onMouseDrag();
+                    onMouseDrag(pt, mod);
                 } else if (top_level_) {
                     if (selection_ == SELECT_NONE) {
                         return utils::canvas_motion(drawCanvas(), T::owner(), 0);
