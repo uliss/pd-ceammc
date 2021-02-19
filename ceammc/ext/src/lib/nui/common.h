@@ -132,6 +132,24 @@ namespace ui {
         ANCHOR_SIDE_BOTTOM_CENTER,
         ANCHOR_CENTER,
     };
+
+    enum EventType {
+        EVENT_MOUSE_DOWN,
+        EVENT_MOUSE_UP,
+        EVENT_MOUSE_DRAG,
+        EVENT_MOUSE_ENTER,
+        EVENT_MOUSE_LEAVE,
+        EVENT_MOUSE_DBL_CLICK,
+        EVENT_POPUP,
+        EVENT_KEY_DOWN,
+        EVENT_KEY_UP
+    };
+
+    enum EventStatus {
+        EVENT_STATUS_ACCEPT,
+        EVENT_STATUS_IGNORE,
+        EVENT_STATUS_CONTINUE
+    };
 }
 }
 

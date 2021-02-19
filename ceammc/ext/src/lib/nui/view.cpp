@@ -136,6 +136,31 @@ namespace ui {
         return res;
     }
 
+    EventStatus GroupView::onEvent(EventType t, const EventContext& ctx)
+    {
+        int continue_num = 0;
+
+        for (auto& v : views_) {
+            auto status = v->onEvent(t, ctx);
+            switch (status) {
+            case EVENT_STATUS_ACCEPT:
+                return status;
+            case EVENT_STATUS_CONTINUE:
+                continue_num++;
+                continue;
+                break;
+            case EVENT_STATUS_IGNORE:
+            default:
+                continue;
+                break;
+            }
+        }
+
+        return (continue_num > 0)
+            ? EVENT_STATUS_CONTINUE
+            : EVENT_STATUS_IGNORE;
+    }
+
     void GroupView::adjustBBox()
     {
         if (views_.empty())

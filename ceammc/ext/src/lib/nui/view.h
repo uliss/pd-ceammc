@@ -18,6 +18,7 @@
 #include <utility>
 #include <vector>
 
+#include "nui/common.h"
 #include "nui/frame_model.h"
 #include "nui/label_model.h"
 #include "nui/layout.h"
@@ -27,24 +28,6 @@
 
 namespace ceammc {
 namespace ui {
-
-    //    enum EventType {
-    //        EVENT_MOUSE_DOWN,
-    //        EVENT_MOUSE_UP,
-    //        EVENT_MOUSE_DRAG,
-    //        EVENT_MOUSE_ENTER,
-    //        EVENT_MOUSE_LEAVE,
-    //        EVENT_MOUSE_DBL_CLICK,
-    //        EVENT_POPUP,
-    //        EVENT_KEY_DOWN,
-    //        EVENT_KEY_UP
-    //    };
-
-    //    enum EventStatus {
-    //        STATUS_ACCEPT,
-    //        STATUS_IGNORE,
-    //        STATUS_CONTINUE
-    //    };
 
     struct EventContext {
         uint32_t key;
@@ -127,6 +110,8 @@ namespace ui {
         virtual void redraw() = 0;
         virtual void updateCoords() = 0;
         virtual void layout() = 0;
+
+        virtual EventStatus onEvent(EventType type, const EventContext& ctx) = 0;
     };
 
     using ViewPtr = std::unique_ptr<ModelViewBase>;
@@ -220,6 +205,8 @@ namespace ui {
         {
             redraw();
         }
+
+        EventStatus onEvent(EventType t, const EventContext& ctx) override { return EVENT_STATUS_IGNORE; }
     };
 
     class GroupView : public ModelView<EmptyData> {
@@ -254,6 +241,8 @@ namespace ui {
         void updateCoords() override;
         void layout() override;
         RectF calcBBox() const;
+
+        EventStatus onEvent(EventType t, const EventContext& ctx) override;
 
     private:
         static EmptyModel empty_model;
