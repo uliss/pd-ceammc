@@ -110,6 +110,7 @@ void FaustMasterView::addProperty(Property* p)
         auto fp = dynamic_cast<FloatProperty*>(p);
         if (fp) {
             slider_props_.emplace_back(new PropSliderView(fp, sm));
+            slider_props_.back()->updateModelFromProp();
         }
         //        view_.ViewPtr(new HSliderView(sliders_.back().get(), HSliderView::ViewImplPtr(new TclHSliderImpl), PointF(), hsl_size));
         //        hg->add(ViewPtr(new LabelView(&labels_, LPtr(new TclLabelImpl), prop_id, hsl_size.leftCenter(), lbl_size)));

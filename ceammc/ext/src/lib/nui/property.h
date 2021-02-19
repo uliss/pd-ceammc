@@ -35,7 +35,10 @@ namespace ui {
                 return;
             } else if (p->access() == PropValueAccess::READWRITE) {
                 prop_ = p;
-                prop_->setSuccessFn([this](Property*) { updateModelFromProp(); });
+                prop_->setSuccessFn([this](Property*) {
+                    updateModelFromProp();
+                    this->notifyOthers();
+                });
             } else {
                 LIB_ERR << "readonly property: " << p->name()->s_name;
             }
@@ -48,8 +51,7 @@ namespace ui {
 
         void updateModelFromProp()
         {
-            this->set(prop_->value());
-            this->notifyOthers();
+            set(prop_->value());
         }
 
         Prop* property() noexcept { return prop_; }
