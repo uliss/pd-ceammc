@@ -51,6 +51,8 @@ public:
 
     void setSize(const Size& sz);
     void select(bool state);
+
+    void sendEvent(EventType t, const Point& pos, const EventContext& ctx);
 };
 
 class LangFaustUiTilde : public ui::Widget<SoundExternal> {
@@ -65,6 +67,8 @@ public:
     void onWidgetShow() override;
     void onWidgetResize(const Size& sz) override;
     void onWidgetSelect(bool state) override;
+
+    void onMouseDown(const Point& pt, const Point& abspt, uint32_t mod) override;
 };
 
 void setup_lang_faust_ui_tilde();

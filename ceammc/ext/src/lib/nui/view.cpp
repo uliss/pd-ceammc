@@ -12,6 +12,8 @@
  * this file belongs to.
  *****************************************************************************/
 #include "view.h"
+#include "ceammc_convert.h"
+#include "ceammc_log.h"
 
 namespace ceammc {
 namespace ui {
@@ -70,6 +72,14 @@ namespace ui {
     {
         child_ = std::move(v);
         child_->setParent(this);
+    }
+
+    EventStatus FrameView::onEvent(EventType t, const PointF& pos, const EventContext& ctx)
+    {
+        if (!child_ || !bbox().contains(pos))
+            return EVENT_STATUS_IGNORE;
+
+        return child_->onEvent(t, pos, ctx);
     }
 
     EmptyModel GroupView::empty_model;
@@ -136,12 +146,15 @@ namespace ui {
         return res;
     }
 
-    EventStatus GroupView::onEvent(EventType t, const EventContext& ctx)
+    EventStatus GroupView::onEvent(EventType t, const PointF& pos, const EventContext& ctx)
     {
+        if (!bbox().contains(pos))
+            return EVENT_STATUS_IGNORE;
+
         int continue_num = 0;
 
         for (auto& v : views_) {
-            auto status = v->onEvent(t, ctx);
+            auto status = v->onEvent(t, pos, ctx);
             switch (status) {
             case EVENT_STATUS_ACCEPT:
                 return status;
@@ -203,5 +216,40 @@ namespace ui {
     }
 
     ModelViewBase::~ModelViewBase() { }
+
+    HSliderView::HSliderView(SliderModel* model, ModelView::ViewImplPtr&& impl, const PointF& pos)
+        : ModelView<SliderData>(model, std::move(impl), pos)
+    {
+    }
+
+    EventStatus HSliderView::onEvent(EventType t, const PointF& pos, const EventContext& ctx)
+    {
+        if (!bbox().contains(pos))
+            return EVENT_STATUS_IGNORE;
+
+        switch (t) {
+        case EVENT_MOUSE_DOWN: {
+            auto vpos = toViewCoords(pos);
+            auto value = convert::lin2lin<t_float>(vpos.x(), 0, size().width(), this->data().min(), this->data().max());
+            this->data().setValue(value);
+            this->notifyOthers();
+        } break;
+        case EVENT_MOUSE_DRAG:
+        case EVENT_MOUSE_UP:
+            break;
+        default:
+            return EVENT_STATUS_IGNORE;
+        }
+
+        LIB_ERR << __FUNCTION__;
+        return EVENT_STATUS_ACCEPT;
+    }
+
+    PointF HSliderView::toViewCoords(const PointF& pt) const
+    {
+        const auto abs = absPos();
+        return { pt.x() - abs.x(), pt.y() - abs.y() };
+    }
+
 }
 }

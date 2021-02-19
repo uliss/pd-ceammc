@@ -57,6 +57,11 @@ void LangFaustUiTilde::onWidgetSelect(bool state)
     vc_.select(state);
 }
 
+void LangFaustUiTilde::onMouseDown(const Point& pt, const Point& abspt, uint32_t mod)
+{
+    vc_.sendEvent(EVENT_MOUSE_DOWN, pt, EventContext());
+}
+
 void setup_lang_faust_ui_tilde()
 {
     ui::UIFactory<SoundExternalFactory, LangFaustUiTilde> obj("ui");
@@ -147,4 +152,9 @@ void FaustMasterView::select(bool state)
 {
     model_.data().setSelected(state);
     model_.notify();
+}
+
+void FaustMasterView::sendEvent(EventType t, const Point& pos, const EventContext& ctx)
+{
+    view_.onEvent(t, pos, ctx);
 }

@@ -111,7 +111,7 @@ namespace ui {
         virtual void updateCoords() = 0;
         virtual void layout() = 0;
 
-        virtual EventStatus onEvent(EventType type, const EventContext& ctx) = 0;
+        virtual EventStatus onEvent(EventType type, const PointF& pos, const EventContext& ctx) = 0;
     };
 
     using ViewPtr = std::unique_ptr<ModelViewBase>;
@@ -206,7 +206,7 @@ namespace ui {
             redraw();
         }
 
-        EventStatus onEvent(EventType t, const EventContext& ctx) override { return EVENT_STATUS_IGNORE; }
+        EventStatus onEvent(EventType t, const PointF& pos, const EventContext& ctx) override { return EVENT_STATUS_IGNORE; }
     };
 
     class GroupView : public ModelView<EmptyData> {
@@ -242,13 +242,19 @@ namespace ui {
         void layout() override;
         RectF calcBBox() const;
 
-        EventStatus onEvent(EventType t, const EventContext& ctx) override;
+        EventStatus onEvent(EventType t, const PointF& pos, const EventContext& ctx) override;
 
     private:
         static EmptyModel empty_model;
     };
 
-    using HSliderView = ModelView<SliderData>;
+    class HSliderView : public ModelView<SliderData> {
+    public:
+        HSliderView(SliderModel* model, ViewImplPtr&& impl, const PointF& pos);
+        EventStatus onEvent(EventType t, const PointF& pos, const EventContext& ctx) override;
+
+        PointF toViewCoords(const PointF& pt) const;
+    };
 
     class FrameView : public ModelView<FrameData> {
         ViewPtr child_;
@@ -268,6 +274,8 @@ namespace ui {
 
         template <typename T>
         T* childPtr() { return static_cast<T*>(child_.get()); }
+
+        EventStatus onEvent(EventType t, const PointF& pos, const EventContext& ctx) override;
     };
 
     class HGroupView : public GroupView {
