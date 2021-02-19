@@ -84,10 +84,9 @@ namespace ui {
             return PointT<T>(w_ / 2, h_ / 2);
         }
 
-        PointT<T> leftCenter() const
-        {
-            return PointT<T>(0, h_ / 2);
-        }
+        PointT<T> leftTop() const { return { 0, 0 }; }
+        PointT<T> leftCenter() const { return PointT<T>(0, h_ / 2); }
+        PointT<T> leftBottom() const { return PointT<T>(0, h_); }
 
         T area() const { return w_ * h_; }
 

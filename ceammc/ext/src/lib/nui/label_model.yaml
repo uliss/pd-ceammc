@@ -22,7 +22,7 @@ data:
   style: font
 - name: anchor
   type: AnchorPosition
-  init: ANCHOR_NORTH_WEST
+  init: ANCHOR_CORNER_LEFT_TOP
 - name: align
   type: TextAlign
   init: TEXT_ALIGN_LEFT

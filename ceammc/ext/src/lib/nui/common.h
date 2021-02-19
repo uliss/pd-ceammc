@@ -122,15 +122,15 @@ namespace ui {
     };
 
     enum AnchorPosition {
-        ANCHOR_NORTH_WEST,
-        ANCHOR_NORTH,
-        ANCHOR_NORTH_EAST,
-        ANCHOR_EAST,
-        ANCHOR_SOUTH_EAST,
-        ANCHOR_SOUTH,
-        ANCHOR_SOUTH_WEST,
-        ANCHOR_WEST,
-        ANCHOR_CENTER
+        ANCHOR_CORNER_LEFT_TOP,
+        ANCHOR_CORNER_LEFT_BOTTOM,
+        ANCHOR_CORNER_RIGHT_TOP,
+        ANCHOR_CORNER_RIGHT_BOTTON,
+        ANCHOR_SIDE_LEFT_CENTER,
+        ANCHOR_SIDE_RIGHT_CENTER,
+        ANCHOR_SIDE_TOP_CENTER,
+        ANCHOR_SIDE_BOTTOM_CENTER,
+        ANCHOR_CENTER,
     };
 }
 }

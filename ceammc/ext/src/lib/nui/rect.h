@@ -149,7 +149,8 @@ namespace ui {
         T bottom() const { return y1_; }
 
         SizeT<T> size() const { return SizeT<T>(width(), height()); }
-        void setSize(const SizeT<T>& sz) {
+        void setSize(const SizeT<T>& sz)
+        {
             x1_ = x0_ + sz.width();
             y1_ = y0_ + sz.height();
         }
@@ -241,6 +242,10 @@ namespace ui {
         {
             return { pt0(), size().clippedMin(min) };
         }
+
+        PointT<T> leftTop() const { return { x0_, y0_ }; }
+        PointT<T> leftCenter() const { return { x0_, (y0_ + y1_) / 2 }; }
+        PointT<T> leftBottom() const { return { x0_, y1_ }; }
     };
 
     using Rect = RectT<int32_t>;

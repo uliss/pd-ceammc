@@ -106,6 +106,7 @@ void FaustMasterView::addProperty(Property* p)
         hgroup->add(std::move(slv));
 
         auto lm = new LabelModel(0);
+        lm->data().setAnchor(ANCHOR_SIDE_LEFT_CENTER);
         lm->data().sizeRef().setHeight(slm->data().size());
         lm->data().setText(p->name());
         labels_.emplace_back(lm);

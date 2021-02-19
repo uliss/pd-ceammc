@@ -28,7 +28,7 @@ public:
     };
 public:
     LabelData()
-        : std::tuple<t_symbol*, t_symbol*, Size, int, HexColor, Font, AnchorPosition, TextAlign, int>(&s_, &s_, Size(40, 10), 0, colors::st_text, Font(), ANCHOR_NORTH_WEST, TEXT_ALIGN_LEFT, 0) { }
+        : std::tuple<t_symbol*, t_symbol*, Size, int, HexColor, Font, AnchorPosition, TextAlign, int>(&s_, &s_, Size(40, 10), 0, colors::st_text, Font(), ANCHOR_CORNER_LEFT_TOP, TEXT_ALIGN_LEFT, 0) { }
 
     LabelData(int style)
         : LabelData() {

@@ -66,10 +66,10 @@ namespace ui {
 
         sys_vgui("nui::frame::create %lx %lx %lx"
                  " %d %d %d %d"
-                 " #%6.6x #%6.6x %d\n",
+                 " #%6.6x {} %d\n",
             winId(), widgetId(), this,
             rect.left(), rect.top(), rect.width(), rect.height(),
-            data.borderColor(), data.fillColor(), (int)scale());
+            data.borderColor(), (int)scale());
     }
 
     void TclFrameImpl::erase()
@@ -87,7 +87,7 @@ namespace ui {
                  " #%6.6x {}\n",
             winId(), widgetId(), this,
             rect.width(), rect.height(),
-            data.selected() ? data.selectColor() : data.borderColor()/*, data.fillColor()*/);
+            data.selected() ? data.selectColor() : data.borderColor() /*, data.fillColor()*/);
     }
 
     void TclFrameImpl::updateCoords(const RectF& bbox)
@@ -101,12 +101,29 @@ namespace ui {
     void TclLabelImpl::create(const RectF& bbox, const LabelData& data)
     {
         Rect rect = transform(bbox);
+        Point pt = rect.size().leftTop();
+
+        const char* anchor = "nw";
+
+        switch (data.anchor()) {
+        case ANCHOR_CORNER_LEFT_TOP:
+            pt = rect.leftTop();
+            anchor = "nw";
+            break;
+        case ANCHOR_SIDE_LEFT_CENTER:
+            pt = rect.leftCenter();
+            anchor = "w";
+            break;
+        default:
+            break;
+        }
 
         sys_vgui("nui::label::create %lx %lx %lx"
                  " %d %d"
-                 " 0 w {{%s} %d} #%6.6x {%s}\n",
+                 " %d %s {{%s} %d} #%6.6x {%s}\n",
             winId(), widgetId(), this,
-            rect.left(), rect.top(),
+            pt.x(), pt.y(),
+            data.textWidth(), anchor,
             data.font().family(), int(data.font().size() * scale()),
             data.color(), data.text()->s_name);
     }
