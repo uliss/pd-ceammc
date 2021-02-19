@@ -12,17 +12,17 @@
 namespace ceammc {
 namespace ui {
 
-enum FrameDataFields {
-    FRAME_DATA_SIZE,
-    FRAME_DATA_BORDER_COLOR,
-    FRAME_DATA_FILL_COLOR,
-    FRAME_DATA_PADDING,
-    FRAME_DATA_SELECTED,
-    FRAME_DATA_STYLE_IDX,
-};
-
 class FrameData
     : public std::tuple<Size, HexColor, HexColor, int, bool, int> {
+public:
+    enum Fields {
+        SIZE,
+        BORDER_COLOR,
+        FILL_COLOR,
+        PADDING,
+        SELECTED,
+        STYLE_IDX,
+    };
 public:
     FrameData()
         : std::tuple<Size, HexColor, HexColor, int, bool, int>(Size(10, 10), colors::st_border, colors::st_fill, 5, false, 0) { }
@@ -37,20 +37,28 @@ public:
     static HexColor selectColor() noexcept { return colors::blue; }
 
     // getters
-    Size size() const noexcept { return std::get<FRAME_DATA_SIZE>(*this); }
-    HexColor borderColor() const noexcept { return std::get<FRAME_DATA_BORDER_COLOR>(*this); }
-    HexColor fillColor() const noexcept { return std::get<FRAME_DATA_FILL_COLOR>(*this); }
-    int padding() const noexcept { return std::get<FRAME_DATA_PADDING>(*this); }
-    bool selected() const noexcept { return std::get<FRAME_DATA_SELECTED>(*this); }
-    int style() const noexcept { return std::get<FRAME_DATA_STYLE_IDX>(*this); }
+    Size size() const noexcept { return std::get<SIZE>(*this); }
+    HexColor borderColor() const noexcept { return std::get<BORDER_COLOR>(*this); }
+    HexColor fillColor() const noexcept { return std::get<FILL_COLOR>(*this); }
+    int padding() const noexcept { return std::get<PADDING>(*this); }
+    bool selected() const noexcept { return std::get<SELECTED>(*this); }
+    int style() const noexcept { return std::get<STYLE_IDX>(*this); }
 
     // setters
-    void setSize(Size v) { std::get<FRAME_DATA_SIZE>(*this) = v; }
-    void setBorderColor(HexColor v) { std::get<FRAME_DATA_BORDER_COLOR>(*this) = v; }
-    void setFillColor(HexColor v) { std::get<FRAME_DATA_FILL_COLOR>(*this) = v; }
-    void setPadding(int v) { std::get<FRAME_DATA_PADDING>(*this) = v; }
-    void setSelected(bool v) { std::get<FRAME_DATA_SELECTED>(*this) = v; }
-    void setStyle(int v) { std::get<FRAME_DATA_STYLE_IDX>(*this) = v; }
+    void setSize(Size v) { std::get<SIZE>(*this) = v; }
+    void setBorderColor(HexColor v) { std::get<BORDER_COLOR>(*this) = v; }
+    void setFillColor(HexColor v) { std::get<FILL_COLOR>(*this) = v; }
+    void setPadding(int v) { std::get<PADDING>(*this) = v; }
+    void setSelected(bool v) { std::get<SELECTED>(*this) = v; }
+    void setStyle(int v) { std::get<STYLE_IDX>(*this) = v; }
+
+    // refs
+    Size& sizeRef() { return std::get<SIZE>(*this); }
+    HexColor& borderColorRef() { return std::get<BORDER_COLOR>(*this); }
+    HexColor& fillColorRef() { return std::get<FILL_COLOR>(*this); }
+    int& paddingRef() { return std::get<PADDING>(*this); }
+    bool& selectedRef() { return std::get<SELECTED>(*this); }
+    int& styleRef() { return std::get<STYLE_IDX>(*this); }
 
     // style
     void loadStyle(int st) {

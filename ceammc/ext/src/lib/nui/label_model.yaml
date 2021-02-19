@@ -6,6 +6,12 @@ data:
 - name: tooltip
   type: t_symbol*
   init: "&s_"
+- name: size
+  type: Size
+  init: Size(40, 10)
+- name: text width
+  type: int
+  init: 0
 - name: color
   type: HexColor
   init: colors::st_text
@@ -14,3 +20,9 @@ data:
   type: Font
   init: Font()
   style: font
+- name: anchor
+  type: AnchorPosition
+  init: ANCHOR_NORTH_WEST
+- name: align
+  type: TextAlign
+  init: TEXT_ALIGN_LEFT

@@ -31,7 +31,7 @@ class FaustMasterView {
 
     using SliderModelPtr = std::unique_ptr<SliderModel>;
     using LabelModelPtr = std::unique_ptr<LabelModel>;
-    using PropSliderView = FloatPropertyObserver<SliderData, SLIDER_DATA_VALUE>;
+    using PropSliderView = FloatPropertyObserver<SliderData, SliderData::VALUE>;
     using PropSliderViewPtr = std::unique_ptr<PropSliderView>;
     std::vector<SliderModelPtr> sliders_;
     std::vector<LabelModelPtr> labels_;

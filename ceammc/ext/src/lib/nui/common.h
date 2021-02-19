@@ -113,6 +113,25 @@ namespace ui {
             return hasher<std::string>()(s);
         }
     }
+
+    enum TextAlign {
+        TEXT_ALIGN_LEFT,
+        TEXT_ALIGN_RIGHT,
+        TEXT_ALIGN_CENTER,
+        TEXT_ALIGN_JUSTIFY,
+    };
+
+    enum AnchorPosition {
+        ANCHOR_NORTH_WEST,
+        ANCHOR_NORTH,
+        ANCHOR_NORTH_EAST,
+        ANCHOR_EAST,
+        ANCHOR_SOUTH_EAST,
+        ANCHOR_SOUTH,
+        ANCHOR_SOUTH_WEST,
+        ANCHOR_WEST,
+        ANCHOR_CENTER
+    };
 }
 }
 

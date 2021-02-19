@@ -93,28 +93,32 @@ Size FaustMasterView::build(const std::vector<Property*>& props)
 void FaustMasterView::addProperty(Property* p)
 {
     LIB_ERR << p->name();
-    using st = StyleCollection;
 
     auto vgroup = view_.childPtr<VGroupView>();
 
     switch (p->type()) {
     case PropValueType::FLOAT: {
-        auto sm = new SliderModel(0);
-        sliders_.emplace_back(sm);
-        labels_.emplace_back(new LabelModel(0));
-        labels_.back()->data().setText(p->name());
+        auto hgroup = new HGroupView({});
 
-        ViewPtr sd(new HSliderView(sm, HSliderView::ViewImplPtr(new TclHSliderImpl), {}));
-        vgroup->add(std::move(sd));
+        auto slm = new SliderModel(0);
+        sliders_.emplace_back(slm);
+        ViewPtr slv(new HSliderView(slm, HSliderView::ViewImplPtr(new TclHSliderImpl), {}));
+        hgroup->add(std::move(slv));
+
+        auto lm = new LabelModel(0);
+        lm->data().setSize(Size(lm->data().size().width(), slm->data().size().height()));
+        lm->data().setText(p->name());
+        labels_.emplace_back(lm);
+        ViewPtr lv(new LabelView(lm, LabelView::ViewImplPtr(new TclLabelImpl), {}));
+        hgroup->add(std::move(lv));
 
         auto fp = dynamic_cast<FloatProperty*>(p);
         if (fp) {
-            slider_props_.emplace_back(new PropSliderView(fp, sm));
+            slider_props_.emplace_back(new PropSliderView(fp, slm));
             slider_props_.back()->updateModelFromProp();
         }
-        //        view_.ViewPtr(new HSliderView(sliders_.back().get(), HSliderView::ViewImplPtr(new TclHSliderImpl), PointF(), hsl_size));
-        //        hg->add(ViewPtr(new LabelView(&labels_, LPtr(new TclLabelImpl), prop_id, hsl_size.leftCenter(), lbl_size)));
-        //        vg->add(ViewPtr(hg));
+
+        vgroup->add(ViewPtr(hgroup));
     } break;
     default:
         break;

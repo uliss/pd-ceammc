@@ -12,19 +12,23 @@
 namespace ceammc {
 namespace ui {
 
-enum LabelDataFields {
-    LABEL_DATA_TEXT,
-    LABEL_DATA_TOOLTIP,
-    LABEL_DATA_COLOR,
-    LABEL_DATA_FONT,
-    LABEL_DATA_STYLE_IDX,
-};
-
 class LabelData
-    : public std::tuple<t_symbol*, t_symbol*, HexColor, Font, int> {
+    : public std::tuple<t_symbol*, t_symbol*, Size, int, HexColor, Font, AnchorPosition, TextAlign, int> {
+public:
+    enum Fields {
+        TEXT,
+        TOOLTIP,
+        SIZE,
+        TEXT_WIDTH,
+        COLOR,
+        FONT,
+        ANCHOR,
+        ALIGN,
+        STYLE_IDX,
+    };
 public:
     LabelData()
-        : std::tuple<t_symbol*, t_symbol*, HexColor, Font, int>(&s_, &s_, colors::st_text, Font(), 0) { }
+        : std::tuple<t_symbol*, t_symbol*, Size, int, HexColor, Font, AnchorPosition, TextAlign, int>(&s_, &s_, Size(40, 10), 0, colors::st_text, Font(), ANCHOR_NORTH_WEST, TEXT_ALIGN_LEFT, 0) { }
 
     LabelData(int style)
         : LabelData() {
@@ -34,18 +38,37 @@ public:
 
 
     // getters
-    t_symbol* text() const noexcept { return std::get<LABEL_DATA_TEXT>(*this); }
-    t_symbol* tooltip() const noexcept { return std::get<LABEL_DATA_TOOLTIP>(*this); }
-    HexColor color() const noexcept { return std::get<LABEL_DATA_COLOR>(*this); }
-    Font font() const noexcept { return std::get<LABEL_DATA_FONT>(*this); }
-    int style() const noexcept { return std::get<LABEL_DATA_STYLE_IDX>(*this); }
+    t_symbol* text() const noexcept { return std::get<TEXT>(*this); }
+    t_symbol* tooltip() const noexcept { return std::get<TOOLTIP>(*this); }
+    Size size() const noexcept { return std::get<SIZE>(*this); }
+    int textWidth() const noexcept { return std::get<TEXT_WIDTH>(*this); }
+    HexColor color() const noexcept { return std::get<COLOR>(*this); }
+    Font font() const noexcept { return std::get<FONT>(*this); }
+    AnchorPosition anchor() const noexcept { return std::get<ANCHOR>(*this); }
+    TextAlign align() const noexcept { return std::get<ALIGN>(*this); }
+    int style() const noexcept { return std::get<STYLE_IDX>(*this); }
 
     // setters
-    void setText(t_symbol* v) { std::get<LABEL_DATA_TEXT>(*this) = v; }
-    void setTooltip(t_symbol* v) { std::get<LABEL_DATA_TOOLTIP>(*this) = v; }
-    void setColor(HexColor v) { std::get<LABEL_DATA_COLOR>(*this) = v; }
-    void setFont(Font v) { std::get<LABEL_DATA_FONT>(*this) = v; }
-    void setStyle(int v) { std::get<LABEL_DATA_STYLE_IDX>(*this) = v; }
+    void setText(t_symbol* v) { std::get<TEXT>(*this) = v; }
+    void setTooltip(t_symbol* v) { std::get<TOOLTIP>(*this) = v; }
+    void setSize(Size v) { std::get<SIZE>(*this) = v; }
+    void setTextWidth(int v) { std::get<TEXT_WIDTH>(*this) = v; }
+    void setColor(HexColor v) { std::get<COLOR>(*this) = v; }
+    void setFont(Font v) { std::get<FONT>(*this) = v; }
+    void setAnchor(AnchorPosition v) { std::get<ANCHOR>(*this) = v; }
+    void setAlign(TextAlign v) { std::get<ALIGN>(*this) = v; }
+    void setStyle(int v) { std::get<STYLE_IDX>(*this) = v; }
+
+    // refs
+    t_symbol*& textRef() { return std::get<TEXT>(*this); }
+    t_symbol*& tooltipRef() { return std::get<TOOLTIP>(*this); }
+    Size& sizeRef() { return std::get<SIZE>(*this); }
+    int& textWidthRef() { return std::get<TEXT_WIDTH>(*this); }
+    HexColor& colorRef() { return std::get<COLOR>(*this); }
+    Font& fontRef() { return std::get<FONT>(*this); }
+    AnchorPosition& anchorRef() { return std::get<ANCHOR>(*this); }
+    TextAlign& alignRef() { return std::get<ALIGN>(*this); }
+    int& styleRef() { return std::get<STYLE_IDX>(*this); }
 
     // style
     void loadStyle(int st) {

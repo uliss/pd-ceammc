@@ -58,7 +58,7 @@ namespace ui {
         if (!child_)
             return;
 
-        auto pad = model() ? model()->getT<int, FRAME_DATA_PADDING>() : 0;
+        auto pad = model() ? model()->getT<int, FrameData::PADDING>() : 0;
         child_->setPos(PointF(pad, pad));
         child_->layout();
         auto sz = child_->size();
@@ -178,6 +178,5 @@ namespace ui {
     }
 
     ModelViewBase::~ModelViewBase() { }
-
 }
 }

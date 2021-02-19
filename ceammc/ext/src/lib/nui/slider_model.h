@@ -12,20 +12,20 @@
 namespace ceammc {
 namespace ui {
 
-enum SliderDataFields {
-    SLIDER_DATA_SIZE,
-    SLIDER_DATA_VALUE,
-    SLIDER_DATA_MIN,
-    SLIDER_DATA_MAX,
-    SLIDER_DATA_BORDER_COLOR,
-    SLIDER_DATA_FILL_COLOR,
-    SLIDER_DATA_KNOB_COLOR,
-    SLIDER_DATA_LOG_SCALE,
-    SLIDER_DATA_STYLE_IDX,
-};
-
 class SliderData
     : public std::tuple<Size, t_float, t_float, t_float, HexColor, HexColor, HexColor, bool, int> {
+public:
+    enum Fields {
+        SIZE,
+        VALUE,
+        MIN,
+        MAX,
+        BORDER_COLOR,
+        FILL_COLOR,
+        KNOB_COLOR,
+        LOG_SCALE,
+        STYLE_IDX,
+    };
 public:
     SliderData()
         : std::tuple<Size, t_float, t_float, t_float, HexColor, HexColor, HexColor, bool, int>(Size(100, 16), 0, 0, 1, colors::st_border, colors::st_fill, colors::st_active, false, 0) { }
@@ -38,26 +38,37 @@ public:
 
 
     // getters
-    Size size() const noexcept { return std::get<SLIDER_DATA_SIZE>(*this); }
-    t_float value() const noexcept { return std::get<SLIDER_DATA_VALUE>(*this); }
-    t_float min() const noexcept { return std::get<SLIDER_DATA_MIN>(*this); }
-    t_float max() const noexcept { return std::get<SLIDER_DATA_MAX>(*this); }
-    HexColor borderColor() const noexcept { return std::get<SLIDER_DATA_BORDER_COLOR>(*this); }
-    HexColor fillColor() const noexcept { return std::get<SLIDER_DATA_FILL_COLOR>(*this); }
-    HexColor knobColor() const noexcept { return std::get<SLIDER_DATA_KNOB_COLOR>(*this); }
-    bool logScale() const noexcept { return std::get<SLIDER_DATA_LOG_SCALE>(*this); }
-    int style() const noexcept { return std::get<SLIDER_DATA_STYLE_IDX>(*this); }
+    Size size() const noexcept { return std::get<SIZE>(*this); }
+    t_float value() const noexcept { return std::get<VALUE>(*this); }
+    t_float min() const noexcept { return std::get<MIN>(*this); }
+    t_float max() const noexcept { return std::get<MAX>(*this); }
+    HexColor borderColor() const noexcept { return std::get<BORDER_COLOR>(*this); }
+    HexColor fillColor() const noexcept { return std::get<FILL_COLOR>(*this); }
+    HexColor knobColor() const noexcept { return std::get<KNOB_COLOR>(*this); }
+    bool logScale() const noexcept { return std::get<LOG_SCALE>(*this); }
+    int style() const noexcept { return std::get<STYLE_IDX>(*this); }
 
     // setters
-    void setSize(Size v) { std::get<SLIDER_DATA_SIZE>(*this) = v; }
-    void setValue(t_float v) { std::get<SLIDER_DATA_VALUE>(*this) = v; }
-    void setMin(t_float v) { std::get<SLIDER_DATA_MIN>(*this) = v; }
-    void setMax(t_float v) { std::get<SLIDER_DATA_MAX>(*this) = v; }
-    void setBorderColor(HexColor v) { std::get<SLIDER_DATA_BORDER_COLOR>(*this) = v; }
-    void setFillColor(HexColor v) { std::get<SLIDER_DATA_FILL_COLOR>(*this) = v; }
-    void setKnobColor(HexColor v) { std::get<SLIDER_DATA_KNOB_COLOR>(*this) = v; }
-    void setLogScale(bool v) { std::get<SLIDER_DATA_LOG_SCALE>(*this) = v; }
-    void setStyle(int v) { std::get<SLIDER_DATA_STYLE_IDX>(*this) = v; }
+    void setSize(Size v) { std::get<SIZE>(*this) = v; }
+    void setValue(t_float v) { std::get<VALUE>(*this) = v; }
+    void setMin(t_float v) { std::get<MIN>(*this) = v; }
+    void setMax(t_float v) { std::get<MAX>(*this) = v; }
+    void setBorderColor(HexColor v) { std::get<BORDER_COLOR>(*this) = v; }
+    void setFillColor(HexColor v) { std::get<FILL_COLOR>(*this) = v; }
+    void setKnobColor(HexColor v) { std::get<KNOB_COLOR>(*this) = v; }
+    void setLogScale(bool v) { std::get<LOG_SCALE>(*this) = v; }
+    void setStyle(int v) { std::get<STYLE_IDX>(*this) = v; }
+
+    // refs
+    Size& sizeRef() { return std::get<SIZE>(*this); }
+    t_float& valueRef() { return std::get<VALUE>(*this); }
+    t_float& minRef() { return std::get<MIN>(*this); }
+    t_float& maxRef() { return std::get<MAX>(*this); }
+    HexColor& borderColorRef() { return std::get<BORDER_COLOR>(*this); }
+    HexColor& fillColorRef() { return std::get<FILL_COLOR>(*this); }
+    HexColor& knobColorRef() { return std::get<KNOB_COLOR>(*this); }
+    bool& logScaleRef() { return std::get<LOG_SCALE>(*this); }
+    int& styleRef() { return std::get<STYLE_IDX>(*this); }
 
     // style
     void loadStyle(int st) {
