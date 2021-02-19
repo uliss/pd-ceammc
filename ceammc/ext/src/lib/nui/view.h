@@ -104,12 +104,15 @@ namespace ui {
         virtual RectF absBBox() const = 0;
         virtual const ModelViewBase* parent() const = 0;
         virtual void setParent(const ModelViewBase* p) = 0;
+        virtual void invalidateCache() = 0;
         //
         virtual void create(WinId win, WidgetId wid, float scale) = 0;
         virtual void erase() = 0;
         virtual void redraw() = 0;
         virtual void updateCoords() = 0;
         virtual void layout() = 0;
+        //
+        virtual bool add(ViewPtr&& b) = 0;
 
         virtual EventStatus onEvent(EventType type, const PointF& pos, const EventContext& ctx) = 0;
     };
@@ -127,12 +130,17 @@ namespace ui {
         const ModelViewBase* parent_;
         ViewImplPtr impl_;
 
+        // position cache
+        mutable PointF parent_abs_pos_cache_;
+        mutable bool parent_cache_needs_update_ : 1;
+
     public:
         ModelView(ModelBase<Data>* model, ViewImplPtr&& impl, const PointF& pos)
             : Observer<Data>(model)
             , pos_(pos)
             , parent_(nullptr)
             , impl_(std::move(impl))
+            , parent_cache_needs_update_(true)
         {
         }
 
@@ -150,22 +158,27 @@ namespace ui {
         void setPos(const PointF& pos) override { pos_ = pos; }
         void setSize(const SizeF& size) override { this->data().setSize(size); }
         const ModelViewBase* parent() const override { return parent_; }
-        void setParent(const ModelViewBase* p) override { parent_ = p; }
+
+        void setParent(const ModelViewBase* p) override
+        {
+            parent_ = p;
+            invalidateCache();
+        }
+
+        bool add(ViewPtr&&) override { return false; };
 
         PointF absPos() const override
         {
-            return parent_
-                ? parent_->absPos() + pos_
-                : pos_;
+            updateParentCache();
+            return pos_ + parent_abs_pos_cache_;
         }
 
-        RectF absBBox() const override
+        RectF absBBox() const override { return { absPos(), size() }; }
+
+        PointF toViewCoords(const PointF& pt) const
         {
-            if (parent_) {
-                const auto pabs = parent_->absPos();
-                return bbox().moveBy(pabs);
-            } else
-                return bbox();
+            const auto pabs = absPos();
+            return { pt.x() - pabs.x(), pt.y() - pabs.y() };
         }
 
         // virtual
@@ -207,6 +220,20 @@ namespace ui {
         }
 
         EventStatus onEvent(EventType t, const PointF& pos, const EventContext& ctx) override { return EVENT_STATUS_IGNORE; }
+
+        void invalidateCache() override { parent_cache_needs_update_ = true; }
+
+    private:
+        void updateParentCache() const
+        {
+            if (parent_cache_needs_update_) {
+                parent_abs_pos_cache_ = parent_
+                    ? parent_->absPos()
+                    : PointF(0, 0);
+
+                parent_cache_needs_update_ = false;
+            }
+        }
     };
 
     class GroupView : public ModelView<EmptyData> {
@@ -226,6 +253,7 @@ namespace ui {
         const ViewPtr& at(size_t idx) const { return views_.at(idx); }
 
         SizeF size() const override { return size_; }
+        void setPos(const PointF& pos) override;
         void setSize(const SizeF& sz) override { size_ = sz; }
 
         LayoutPtr& getLayout() { return layout_; }
@@ -233,7 +261,7 @@ namespace ui {
         void setLayout(LayoutBase* l) { layout_.reset(l); }
         void adjustBBox();
 
-        virtual void add(ViewPtr&& b);
+        bool add(ViewPtr&& b) override;
 
         void create(WinId win, WidgetId wid, float scale) final;
         void erase() final;
@@ -252,8 +280,6 @@ namespace ui {
     public:
         HSliderView(SliderModel* model, ViewImplPtr&& impl, const PointF& pos);
         EventStatus onEvent(EventType t, const PointF& pos, const EventContext& ctx) override;
-
-        PointF toViewCoords(const PointF& pt) const;
     };
 
     class FrameView : public ModelView<FrameData> {
@@ -268,6 +294,8 @@ namespace ui {
         void redraw() final;
         void updateCoords() override;
         void layout() override;
+
+        void setPos(const PointF& pos) override;
 
         ViewPtr& child() { return child_; }
         void setChild(ViewPtr&& v);

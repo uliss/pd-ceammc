@@ -68,6 +68,13 @@ namespace ui {
         setSize(sz);
     }
 
+    void FrameView::setPos(const PointF& pos)
+    {
+        Base::setPos(pos);
+        if (child_)
+            child_->invalidateCache();
+    }
+
     void FrameView::setChild(ViewPtr&& v)
     {
         child_ = std::move(v);
@@ -89,13 +96,22 @@ namespace ui {
     {
     }
 
-    void GroupView::add(ViewPtr&& b)
+    void GroupView::setPos(const PointF& pos)
+    {
+        ModelView<EmptyData>::setPos(pos);
+
+        for (auto& v : views_)
+            v->invalidateCache();
+    }
+
+    bool GroupView::add(ViewPtr&& b)
     {
         if (!b)
-            return;
+            return false;
 
         views_.push_back(std::move(b));
         views_.back()->setParent(this);
+        return true;
     }
 
     void GroupView::create(WinId win, WidgetId wid, float scale)
@@ -252,12 +268,5 @@ namespace ui {
         LIB_ERR << __FUNCTION__;
         return EVENT_STATUS_ACCEPT;
     }
-
-    PointF HSliderView::toViewCoords(const PointF& pt) const
-    {
-        const auto abs = absPos();
-        return { pt.x() - abs.x(), pt.y() - abs.y() };
-    }
-
 }
 }
