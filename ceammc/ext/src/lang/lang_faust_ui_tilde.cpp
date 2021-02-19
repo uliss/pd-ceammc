@@ -118,7 +118,7 @@ void FaustMasterView::update(WinId win, WidgetId id)
 
 void FaustMasterView::setSize(const Size& sz)
 {
-    model_.data().setSize(sz.clippedMin({1, 1}));
+    model_.data().setSize(sz);
     model_.notify();
 }
 

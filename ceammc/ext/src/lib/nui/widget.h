@@ -97,7 +97,7 @@ namespace ui {
 
         Point absPos() const { return utils::object_abs_pos(T::owner(), T::canvas()); }
         const Size& size() const { return size_; }
-        void setSize(const Size& sz) { size_ = sz; }
+        void setSize(const Size& sz) { size_ = fixNewSize(sz); }
         Size viewSize() const { return size_ * zoom(); }
         int zoom() const { return utils::canvas_zoom(T::canvas()); }
         bool isVisible() const { return utils::canvas_is_visible(T::canvas()); }
@@ -118,6 +118,8 @@ namespace ui {
         void syncDrawCanvas() { draw_canvas_ = utils::object_get_draw_canvas(T::canvas()); }
 
         Rect viewBBox(t_glist* owner) const { return Rect(absPos(), size_ * zoom()); }
+
+        virtual Size fixNewSize(const Size& sz) { return sz.clippedMin({ 10, 10 }); }
 
         virtual void onWidgetActivation(bool state) { LIB_ERR << __FUNCTION__; }
         virtual void onWidgetMove(int dx, int dy) { LIB_ERR << __FUNCTION__; }
@@ -170,10 +172,9 @@ namespace ui {
             if (resize_mode_ == RESIZE_NONE)
                 return;
 
-            Size new_sz = sz / zoom();
-            setSize(new_sz);
+            setSize(sz / zoom());
             utils::widget_resize(drawCanvas(), T::owner(), size(), zoom());
-            onWidgetResize(sz);
+            onWidgetResize(size());
         }
 
         virtual void hideWidget(t_glist* owner)
