@@ -38,7 +38,7 @@ void LangFaustUiTilde::onWidgetShow()
 
 void LangFaustUiTilde::onWidgetResize(const Size& sz)
 {
-    vc_.setSize(sz / zoom());
+    vc_.setSize(sz);
 }
 
 void LangFaustUiTilde::onWidgetSelect(bool state)
