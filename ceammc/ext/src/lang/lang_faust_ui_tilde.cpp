@@ -91,6 +91,15 @@ Size FaustMasterView::build(const std::vector<faust::UIProperty*>& props)
     view_.setChild(ViewPtr(new VGroupView({})));
     view_.setSize({ 20, 30 });
 
+    auto lm = new LabelModel(0);
+    lm->data().setAnchor(ANCHOR_CORNER_LEFT_TOP);
+    lm->data().setText(gensym("FAUST"));
+    labels_.emplace_back(lm);
+
+    auto vgroup = view_.childPtr<VGroupView>();
+    ViewPtr lv(new LabelView(lm, LabelView::ViewImplPtr(new TclLabelImpl), {}));
+    vgroup->add(std::move(lv));
+
     for (auto p : props)
         addProperty(p);
 
@@ -102,38 +111,34 @@ void FaustMasterView::addProperty(faust::UIProperty* p)
 {
     LIB_ERR << p->name();
 
+    // create hgroup: control, label
+    auto hgroup = ViewPtr(new HGroupView({}));
+
+    auto slm = new SliderModel(0);
+
+    slm->data().setValue(p->value());
+    slm->data().setMin(p->uiElement()->min());
+    slm->data().setMax(p->uiElement()->max());
+
+    sliders_.emplace_back(slm);
+    ViewPtr slv(new HSliderView(slm, HSliderView::ViewImplPtr(new TclHSliderImpl), {}));
+    hgroup->add(std::move(slv));
+
+    auto lm = new LabelModel(0);
+
+    lm->data().setAnchor(ANCHOR_SIDE_LEFT_CENTER);
+    lm->data().sizeRef().setHeight(slm->data().size());
+    lm->data().setText(p->name());
+
+    labels_.emplace_back(lm);
+    ViewPtr lv(new LabelView(lm, LabelView::ViewImplPtr(new TclLabelImpl), {}));
+    hgroup->add(std::move(lv));
+
+    slider_props_.emplace_back(new PropSliderView(p, slm));
+    slider_props_.back()->updateModelFromProp();
+
     auto vgroup = view_.childPtr<VGroupView>();
-
-    switch (p->type()) {
-    case PropValueType::FLOAT: {
-        auto hgroup = new HGroupView({});
-
-        auto slm = new SliderModel(0);
-
-        slm->data().setValue(p->value());
-        slm->data().setMin(p->uiElement()->min());
-        slm->data().setMax(p->uiElement()->max());
-
-        sliders_.emplace_back(slm);
-        ViewPtr slv(new HSliderView(slm, HSliderView::ViewImplPtr(new TclHSliderImpl), {}));
-        hgroup->add(std::move(slv));
-
-        auto lm = new LabelModel(0);
-        lm->data().setAnchor(ANCHOR_SIDE_LEFT_CENTER);
-        lm->data().sizeRef().setHeight(slm->data().size());
-        lm->data().setText(p->name());
-        labels_.emplace_back(lm);
-        ViewPtr lv(new LabelView(lm, LabelView::ViewImplPtr(new TclLabelImpl), {}));
-        hgroup->add(std::move(lv));
-
-        slider_props_.emplace_back(new PropSliderView(p, slm));
-        slider_props_.back()->updateModelFromProp();
-
-        vgroup->add(ViewPtr(hgroup));
-    } break;
-    default:
-        break;
-    }
+    vgroup->add(std::move(hgroup));
 }
 
 void FaustMasterView::create(WinId win, WidgetId id, const Size& sz, int zoom)
