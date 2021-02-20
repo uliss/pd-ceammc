@@ -23,6 +23,7 @@ set(MODELS
     frame_model.yaml
     label_model.yaml
     slider_model.yaml
+    toggle_model.yaml
 )
 set(GEN_MODEL ${CMAKE_CURRENT_SOURCE_DIR}/gen_model_data.py)
 
@@ -31,6 +32,7 @@ add_custom_target(nui_model_gen
     COMMAND ${GEN_MODEL} frame_model.yaml > frame_model.h
     COMMAND ${GEN_MODEL} label_model.yaml > label_model.h
     COMMAND ${GEN_MODEL} slider_model.yaml > slider_model.h
+    COMMAND ${GEN_MODEL} toggle_model.yaml > toggle_model.h
     SOURCES ${MODELS}
     WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR})
 

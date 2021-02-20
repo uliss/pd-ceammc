@@ -31,12 +31,17 @@ class FaustMasterView {
     BoxView view_;
 
     using SliderModelPtr = std::unique_ptr<SliderModel>;
+    using ToggleModelPtr = std::unique_ptr<ToggleModel>;
     using LabelModelPtr = std::unique_ptr<LabelModel>;
     using PropSliderView = PropertyObserver<SliderData, faust::UIProperty, t_float, SliderData::VALUE>;
     using PropSliderViewPtr = std::unique_ptr<PropSliderView>;
+    using PropToggleView = PropertyObserver<ToggleData, faust::UIProperty, t_float, ToggleData::VALUE>;
+    using PropToggleViewPtr = std::unique_ptr<PropToggleView>;
     std::vector<SliderModelPtr> sliders_;
+    std::vector<ToggleModelPtr> toggles_;
     std::vector<LabelModelPtr> labels_;
     std::vector<PropSliderViewPtr> slider_props_;
+    std::vector<PropToggleViewPtr> toggle_props_;
 
     ModelViewBase* focused_;
 

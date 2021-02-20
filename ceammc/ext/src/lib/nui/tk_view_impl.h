@@ -35,6 +35,14 @@ namespace ui {
         void updateCoords(const RectF& bbox) final;
     };
 
+    class TclToggleImpl : public ViewImpl<ToggleData> {
+    public:
+        void create(const RectF& bbox, const ToggleData& data) final;
+        void erase() final;
+        void update(const RectF& bbox, const ToggleData& data) final;
+        void updateCoords(const RectF& bbox) final;
+    };
+
     class TclHSliderImpl : public ViewImpl<SliderData> {
     public:
         void create(const RectF& bbox, const SliderData& data) final;

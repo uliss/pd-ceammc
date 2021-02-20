@@ -310,5 +310,25 @@ namespace ui {
         else
             return { nullptr, EVENT_STATUS_IGNORE };
     }
+
+    ToggleView::ToggleView(ToggleModel* model, ModelView::ViewImplPtr&& impl, const PointF& pos)
+        : ModelView<ToggleData>(model, std::move(impl), pos)
+    {
+    }
+
+    EventAcceptStatus ToggleView::onEvent(EventType t, const PointF& pos, const EventContext& ctx)
+    {
+        switch (t) {
+        case EVENT_MOUSE_DOWN: {
+            this->data().setValue(this->data().value() ? 0 : 1);
+            this->redraw();
+            this->notifyOthers();
+            return { nullptr, EVENT_STATUS_ACCEPT };
+        }
+        default:
+            return { this, EVENT_STATUS_IGNORE };
+        }
+    }
+
 }
 }

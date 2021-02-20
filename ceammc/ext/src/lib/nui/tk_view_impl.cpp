@@ -14,6 +14,8 @@
 #include "tk_view_impl.h"
 #include "tcl_nui.tcl.h"
 
+#include "ceammc_convert.h"
+
 #include "m_pd.h"
 
 namespace ceammc {
@@ -187,6 +189,44 @@ namespace ui {
 
     void TclBoxImpl::erase()
     {
+    }
+
+    void TclToggleImpl::create(const RectF& bbox, const ToggleData& data)
+    {
+        Rect rect = transform(bbox);
+        auto value = clip01<int>(data.value() > 0);
+
+        sys_vgui("nui::toggle::create %lx %lx %lx"
+                 " %d %d %d %d %d"
+                 " %d"
+                 " #%6.6x #%6.6x #%6.6x\n",
+            winId(), widgetId(), this,
+            rect.left(), rect.top(), rect.width(), rect.height(), (int)scale(),
+            value,
+            data.borderColor(), data.fillColor(), data.knobColor());
+    }
+
+    void TclToggleImpl::erase()
+    {
+    }
+
+    void TclToggleImpl::update(const RectF& bbox, const ToggleData& data)
+    {
+        auto value = clip01<int>(data.value() > 0);
+        sys_vgui("nui::toggle::update %lx %lx %lx"
+                 " %d %d"
+                 " #%6.6x #%6.6x #%6.6x\n",
+            winId(), widgetId(), this,
+            (int)scale(), value,
+            data.borderColor(), data.fillColor(), data.knobColor());
+    }
+
+    void TclToggleImpl::updateCoords(const RectF& bbox)
+    {
+        Rect rect = transform(bbox);
+
+        sys_vgui("nui::toggle::move %lx %lx %lx %d %d\n",
+            winId(), widgetId(), this, rect.left(), rect.top());
     }
 }
 }

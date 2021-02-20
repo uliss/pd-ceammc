@@ -26,6 +26,7 @@
 #include "nui/model.h"
 #include "nui/rect.h"
 #include "nui/slider_model.h"
+#include "nui/toggle_model.h"
 
 namespace ceammc {
 namespace ui {
@@ -289,6 +290,12 @@ namespace ui {
     class HSliderView : public ModelView<SliderData> {
     public:
         HSliderView(SliderModel* model, ViewImplPtr&& impl, const PointF& pos);
+        EventAcceptStatus onEvent(EventType t, const PointF& pos, const EventContext& ctx) override;
+    };
+
+    class ToggleView : public ModelView<ToggleData> {
+    public:
+        ToggleView(ToggleModel* model, ViewImplPtr&& impl, const PointF& pos);
         EventAcceptStatus onEvent(EventType t, const PointF& pos, const EventContext& ctx) override;
     };
 
