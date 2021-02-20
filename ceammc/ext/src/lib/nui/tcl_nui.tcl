@@ -263,7 +263,11 @@ namespace eval box {
     proc create { cnv model id x y w h zoom border_color ctl_color sig_color border_width inlets outlets } {
         set c [::nui::widget_canvas $cnv $model]
         set t [tag $id]
-        $c create rectangle $x $y [expr $x+$w] [expr $y+$h] \
+        set x0 [expr $x+($zoom/2)]
+        set y0 [expr $y+($zoom/2)]
+        set x1 [expr $x+$w]
+        set y1 [expr $y+$h]
+        $c create rectangle $x0 $y0 $x1 $y1 \
             -fill {} -outline $border_color -width $border_width -tags $t
 
         ::nui::xlet::draw_multiple $cnv $model $w $h $zoom $inlets $ctl_color $sig_color false
