@@ -156,12 +156,12 @@ namespace ui {
         const SizeF min(SizeF(5, 5));
         const Rect rect = transform(bbox).clippedMin(min);
 
-        sys_vgui("nui::frame::create %lx %lx %lx"
-                 " %d %d %d %d"
-                 " #%6.6x {} %d\n",
+        sys_vgui("nui::box::create %lx %lx %lx"
+                 " %d %d %d %d %d"
+                 " #%6.6x %d {%s} {%s}\n",
             winId(), widgetId(), this,
-            rect.left(), rect.top(), rect.width(), rect.height(),
-            data.borderColor(), (int)scale());
+            rect.left(), rect.top(), rect.width(), rect.height(), (int)scale(),
+            data.borderColor(), (int)scale(), data.inlets().asString(), data.outlets().asString());
     }
 
     void TclBoxImpl::update(const RectF& bbox, const BoxData& data)

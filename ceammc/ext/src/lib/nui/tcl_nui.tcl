@@ -204,6 +204,91 @@ proc item_move { cnv model tag x y } {
     $c coords $tag $x $y [expr $x+$w] [expr $y+$h]
 }
 
+namespace eval xlet {
+    proc width  { zoom } { expr 6*$zoom + 1 }
+    proc height { type zoom } { if { $type == "_" } { expr $zoom } { expr ($zoom==1) ? 2 : 4 } }
+    proc xpos   { w i n zoom } {
+        set ww [expr $w - [width $zoom]]
+        return [expr round(($ww/($n-1.0)) * $i)]
+    }
+}
+
+namespace eval inlets {
+    proc tag { id } { return "i${id}" }
+    proc tag_idx { id idx } { return "i${id}#${idx}" }
+
+    proc draw_single { cnv id x y zoom type color {idx 0} } {
+        set c [::nui::widget_canvas $cnv $id]
+        set x1 [expr $x + [::nui::xlet::width $zoom]]
+        set y1 [expr $y + [::nui::xlet::height $type $zoom]]
+
+        set tags [tag $id]
+        lappend tags [tag_idx $id $idx]
+
+        $c create rectangle $x $y $x1 $y1 -fill $color -outline $color -width 1 -tags $tags
+        $c raise $tags
+    }
+
+    proc erase_all { cnv id } {
+        set c [::nui::widget_canvas $cnv $id]
+        $c delete [tag $id]
+    }
+
+    proc draw_multiple { cnv id w h zoom str } {
+        erase_all $cnv $id
+
+        set c [::nui::widget_canvas $cnv $id]
+        set n [string length $str]
+
+        if { $n == 1 } {
+            draw_single $cnv $id 0 0 $zoom $str 0
+        } elseif { $n > 1 } {
+            set i 0
+            foreach inlet [split $str {}] {
+                set x [::nui::xlet::xpos $w $i $n $zoom]
+                draw_single $cnv $id $x 0 $zoom $inlet $i
+                incr i
+            }
+        }
+    }
+
+    proc tooltip { cnv id idx str } {
+        set c [::nui::widget_canvas $cnv $id]
+        set win [::nui::widget_window $cnv $id]
+        set tag [tag_idx $id $idx]
+        xlet_tooltip::create $c $win $cnv $tag 1 $str
+    }
+}
+
+namespace eval box {
+    proc tag { id } { return "#b${id}" }
+
+    proc create { cnv model id x y w h zoom border_color line_width inlets outlets } {
+        set c [::nui::widget_canvas $cnv $model]
+        set t [tag $id]
+        $c create rectangle $x $y [expr $x+$w] [expr $y+$h] \
+            -fill {} -outline $border_color -width $line_width -tags $t
+
+        ::nui::inlets::draw_multiple $cnv $model $w $h $zoom $inlets
+    }
+
+    proc update { cnv model id w h border_color fill_color } {
+        set c [::nui::widget_canvas $cnv $model]
+        set t [tag $id]
+        $c itemconfigure $t -outline $border_color -fill $fill_color
+        lassign [$c coords $t] x0 y0 x1 y1
+        $c coords $t $x0 $y0 [expr $x0+$w] [expr $y0+$h]
+    }
+
+    proc erase { cnv model id } {
+        ::nui::item_erase $cnv $model [tag $id]
+    }
+
+    proc move  { cnv model id x y } {
+        ::nui::item_move $cnv $model [tag $id] $x $y
+    }
+}
+
 namespace eval frame {
     proc tag { id } { return "#f${id}" }
 
