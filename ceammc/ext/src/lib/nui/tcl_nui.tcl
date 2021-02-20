@@ -221,14 +221,10 @@ namespace eval inlets {
         set c [::nui::widget_canvas $cnv $id]
         set x1 [expr $x + [::nui::xlet::width $zoom]]
         set y1 [expr $y + [::nui::xlet::height $type $zoom]]
+        set t [tag $id]
 
-        set tags [tag $id]
-        lappend tags [tag_idx $id $idx]
-
-        set color [if {$type == "_"} { return $ctl_color } { return $sig_color }]
-
-        $c create rectangle $x $y $x1 $y1 -fill $color -outline $color -width 1 -tags $tags
-        $c raise $tags
+        if {$type == "_"} { set color $ctl_color } { set color $sig_color }
+        $c create rectangle $x $y $x1 $y1 -fill $color -outline $color -width 1 -tags $t
     }
 
     proc erase_all { cnv id } {
