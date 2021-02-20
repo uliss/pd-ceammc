@@ -120,7 +120,9 @@ namespace ui {
         virtual void updateCoords() = 0;
         virtual void layout() = 0;
         //
-        virtual bool add(ViewPtr&& b) = 0;
+        virtual bool appendChild(ViewPtr&& b) = 0;
+        virtual bool hasChildren() const { return false; }
+        virtual size_t numChildren() const { return 0; }
 
         virtual EventAcceptStatus onEvent(EventType t, const PointF& pos, const EventContext& ctx) { return { nullptr, EVENT_STATUS_IGNORE }; }
         virtual EventAcceptStatus acceptEvent(EventType type, const PointF& pos, const EventContext& ctx);
@@ -174,7 +176,7 @@ namespace ui {
             invalidateCache();
         }
 
-        bool add(ViewPtr&&) override { return false; };
+        bool appendChild(ViewPtr&&) override { return false; };
 
         PointF absPos() const override
         {
@@ -255,8 +257,6 @@ namespace ui {
         GroupView(ViewImplPtr&& impl, const PointF& pos);
         const ViewList& views() const { return views_; }
         ViewList& views() { return views_; }
-        size_t numItems() const { return views_.size(); }
-        bool empty() const { return views_.empty(); }
         const ViewPtr& at(size_t idx) const { return views_.at(idx); }
 
         SizeF size() const override { return size_; }
@@ -268,7 +268,10 @@ namespace ui {
         void setLayout(LayoutBase* l) { layout_.reset(l); }
         void adjustBBox();
 
-        bool add(ViewPtr&& b) override;
+        // children
+        bool appendChild(ViewPtr&& b) override;
+        bool hasChildren() const override { return !views_.empty(); }
+        size_t numChildren() const override { return views_.size(); }
 
         void create(WinId win, WidgetId wid, float scale) final;
         void erase() final;
@@ -305,7 +308,10 @@ namespace ui {
         void setPos(const PointF& pos) override;
 
         ViewPtr& child() { return child_; }
-        void setChild(ViewPtr&& v);
+        bool appendChild(ViewPtr&& v) override;
+
+        bool hasChildren() const override { return child_.get(); }
+        size_t numChildren() const override { return child_.get() ? 1 : 0; }
 
         template <typename T>
         T* childPtr() { return static_cast<T*>(child_.get()); }
@@ -320,10 +326,13 @@ namespace ui {
 
     public:
         BoxView(BoxModel* model, ViewImplPtr&& impl);
-        bool add(ViewPtr&& obj) override;
+        bool appendChild(ViewPtr&& obj) override;
 
         void create(WinId win, WidgetId wid, float scale) final;
         void layout() override;
+
+        template <typename T>
+        T* getChild() { return static_cast<T*>(child_.get()); }
     };
 
     class HGroupView : public GroupView {

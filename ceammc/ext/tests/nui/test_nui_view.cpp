@@ -39,7 +39,7 @@ TEST_CASE("nui", "[nui]")
 
         FrameModel fm1;
         fm1.data().setSize({ 30, 20 });
-        fv0.setChild(ViewPtr(new FrameView(&fm1, ViewImplPtr(new TestFrameViewImpl), PointF(15, 25))));
+        fv0.appendChild(ViewPtr(new FrameView(&fm1, ViewImplPtr(new TestFrameViewImpl), PointF(15, 25))));
         auto fv1 = fv0.childPtr<FrameView>();
 
         REQUIRE(fv1 != nullptr);
@@ -92,15 +92,15 @@ TEST_CASE("nui", "[nui]")
         REQUIRE(hg.size() == SizeF());
         REQUIRE(hg.bbox() == RectF(100, 200, SizeF(0, 0)));
 
-        REQUIRE(hg.empty());
+        REQUIRE(!hg.hasChildren());
         hg.layout();
 
         FrameModel fm0;
         fm0.data().setSize({ 30, 20 });
 
-        hg.add(ViewPtr(new FrameView(&fm0, ViewImplPtr(new TestFrameViewImpl), PointF(15, 25))));
-        REQUIRE(!hg.empty());
-        REQUIRE(hg.numItems() == 1);
+        hg.appendChild(ViewPtr(new FrameView(&fm0, ViewImplPtr(new TestFrameViewImpl), PointF(15, 25))));
+        REQUIRE(hg.hasChildren());
+        REQUIRE(hg.numChildren() == 1);
         REQUIRE(hg.at(0)->parent() == &hg);
         REQUIRE(hg.at(0)->pos() == PointF(15, 25));
         REQUIRE(hg.size() == Size(0, 0));
@@ -116,12 +116,12 @@ TEST_CASE("nui", "[nui]")
 
         FrameModel fm1;
         fm1.data().setSize({ 5, 15 });
-        hg.add(ViewPtr(new FrameView(&fm1, ViewImplPtr(new TestFrameViewImpl), PointF(15, -5))));
+        hg.appendChild(ViewPtr(new FrameView(&fm1, ViewImplPtr(new TestFrameViewImpl), PointF(15, -5))));
         REQUIRE(hg.at(1)->size() == SizeF(5, 15));
 
         FrameModel fm2;
         fm2.data().setSize({ 15, 35 });
-        hg.add(ViewPtr(new FrameView(&fm2, ViewImplPtr(new TestFrameViewImpl), PointF(15, 20))));
+        hg.appendChild(ViewPtr(new FrameView(&fm2, ViewImplPtr(new TestFrameViewImpl), PointF(15, 20))));
         REQUIRE(hg.at(2)->size() == SizeF(15, 35));
         // w = 30 + 5 + 15
 
@@ -162,16 +162,16 @@ TEST_CASE("nui", "[nui]")
     SECTION("nested")
     {
         FrameView fv(0, FrameView::ViewImplPtr(new TestFrameViewImpl), PointF(10, 20));
-        fv.setChild(ViewPtr(new VGroupView({})));
+        fv.appendChild(ViewPtr(new VGroupView({})));
 
         auto vg = fv.childPtr<VGroupView>();
         REQUIRE(vg);
 
-        vg->add(ViewPtr(new HGroupView({})));
+        vg->appendChild(ViewPtr(new HGroupView({})));
         auto hg = static_cast<HGroupView*>(vg->at(0).get());
         REQUIRE(hg);
 
-        hg->add(ViewPtr());
-        REQUIRE(hg->empty());
+        hg->appendChild(ViewPtr());
+        REQUIRE(!hg->hasChildren());
     }
 }

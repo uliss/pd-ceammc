@@ -76,7 +76,7 @@ void setup_lang_faust_ui_tilde()
 
 FaustMasterView::FaustMasterView()
     : model_()
-    , view_(&model_, FrameView::ViewImplPtr(new TclFrameImpl), {})
+    , view_(&model_, BoxView::ViewImplPtr(new EmptyViewImplT<BoxData>))
     , focused_(nullptr)
 {
 }
@@ -88,7 +88,8 @@ FaustMasterView::~FaustMasterView()
 Size FaustMasterView::build(const std::vector<faust::UIProperty*>& props)
 {
     focused_ = nullptr;
-    view_.setChild(ViewPtr(new VGroupView({})));
+    auto vgroup = new VGroupView({});
+    view_.appendChild(ViewPtr(vgroup));
     view_.setSize({ 20, 30 });
 
     auto lm = new LabelModel(0);
@@ -96,9 +97,8 @@ Size FaustMasterView::build(const std::vector<faust::UIProperty*>& props)
     lm->data().setText(gensym("FAUST"));
     labels_.emplace_back(lm);
 
-    auto vgroup = view_.childPtr<VGroupView>();
     ViewPtr lv(new LabelView(lm, LabelView::ViewImplPtr(new TclLabelImpl), {}));
-    vgroup->add(std::move(lv));
+    vgroup->appendChild(std::move(lv));
 
     for (auto p : props)
         addProperty(p);
@@ -122,7 +122,7 @@ void FaustMasterView::addProperty(faust::UIProperty* p)
 
     sliders_.emplace_back(slm);
     ViewPtr slv(new HSliderView(slm, HSliderView::ViewImplPtr(new TclHSliderImpl), {}));
-    hgroup->add(std::move(slv));
+    hgroup->appendChild(std::move(slv));
 
     auto lm = new LabelModel(0);
 
@@ -132,13 +132,13 @@ void FaustMasterView::addProperty(faust::UIProperty* p)
 
     labels_.emplace_back(lm);
     ViewPtr lv(new LabelView(lm, LabelView::ViewImplPtr(new TclLabelImpl), {}));
-    hgroup->add(std::move(lv));
+    hgroup->appendChild(std::move(lv));
 
     slider_props_.emplace_back(new PropSliderView(p, slm));
     slider_props_.back()->updateModelFromProp();
 
-    auto vgroup = view_.childPtr<VGroupView>();
-    vgroup->add(std::move(hgroup));
+    auto vgroup = view_.getChild<VGroupView>();
+    vgroup->appendChild(std::move(hgroup));
 }
 
 void FaustMasterView::create(WinId win, WidgetId id, const Size& sz, int zoom)

@@ -75,10 +75,14 @@ namespace ui {
             child_->invalidateCache();
     }
 
-    void FrameView::setChild(ViewPtr&& v)
+    bool FrameView::appendChild(ViewPtr&& v)
     {
         child_ = std::move(v);
-        child_->setParent(this);
+
+        if (child_)
+            child_->setParent(this);
+
+        return true;
     }
 
     EventAcceptStatus FrameView::acceptEvent(EventType type, const PointF& pos, const EventContext& ctx)
@@ -101,7 +105,7 @@ namespace ui {
             v->invalidateCache();
     }
 
-    bool GroupView::add(ViewPtr&& b)
+    bool GroupView::appendChild(ViewPtr&& b)
     {
         if (!b)
             return false;
@@ -271,7 +275,7 @@ namespace ui {
     {
     }
 
-    bool BoxView::add(ViewPtr&& obj)
+    bool BoxView::appendChild(ViewPtr&& obj)
     {
         child_ = std::move(obj);
         child_->setParent(this);

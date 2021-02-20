@@ -27,8 +27,8 @@ using namespace ceammc;
 using namespace ceammc::ui;
 
 class FaustMasterView {
-    FrameModel model_;
-    FrameView view_;
+    BoxModel model_;
+    BoxView view_;
 
     using SliderModelPtr = std::unique_ptr<SliderModel>;
     using LabelModelPtr = std::unique_ptr<LabelModel>;
