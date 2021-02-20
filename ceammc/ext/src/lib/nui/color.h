@@ -54,6 +54,8 @@ namespace ui {
         constexpr HexColor st_fill = 0x00FAFAFA;
         constexpr HexColor st_active = 0x00FA00FA;
         constexpr HexColor st_text = 0x00000000;
+        constexpr HexColor st_xlet_ctl = 0x00000000;
+        constexpr HexColor st_xlet_sig = 0x00000000;
     }
 }
 }

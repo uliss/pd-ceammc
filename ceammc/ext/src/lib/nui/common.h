@@ -19,6 +19,8 @@
 #include <string>
 #include <type_traits>
 
+#include "m_pd.h"
+
 namespace ceammc {
 namespace ui {
     enum UIFactoryFlags : uint16_t {
@@ -165,6 +167,9 @@ namespace ui {
 
     public:
         Xlets();
+
+        static Xlets fromInlets(t_object* x);
+        static Xlets fromOutlets(t_object* x);
 
         bool append(XletType t);
         size_t size() const { return size_; }

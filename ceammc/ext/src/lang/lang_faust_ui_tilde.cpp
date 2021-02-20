@@ -25,6 +25,7 @@ LangFaustUiTilde::LangFaustUiTilde(const PdArgs& args)
 
 void LangFaustUiTilde::buildUI()
 {
+    vc_.setXlets(Xlets::fromInlets(owner()), Xlets::fromOutlets(owner()));
     auto sz = vc_.build(faustProperties());
     setSize(sz);
     LIB_ERR << size();
@@ -75,8 +76,7 @@ void setup_lang_faust_ui_tilde()
 }
 
 FaustMasterView::FaustMasterView()
-    : model_()
-    , view_(&model_, BoxView::ViewImplPtr(new TclBoxImpl()))
+    : view_(&model_, BoxView::ViewImplPtr(new TclBoxImpl()))
     , focused_(nullptr)
 {
 }
@@ -87,6 +87,7 @@ FaustMasterView::~FaustMasterView()
 
 Size FaustMasterView::build(const std::vector<faust::UIProperty*>& props)
 {
+
     focused_ = nullptr;
     auto vgroup = new VGroupView({});
     view_.appendChild(ViewPtr(vgroup));
@@ -177,4 +178,10 @@ void FaustMasterView::sendEvent(EventType t, const Point& pos, const EventContex
     }
 
     focused_ = st.acceptor;
+}
+
+void FaustMasterView::setXlets(const Xlets& in, const Xlets& out)
+{
+    model_.data().setInlets(in);
+    model_.data().setOutlets(out);
 }

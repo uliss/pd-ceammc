@@ -217,13 +217,15 @@ namespace eval inlets {
     proc tag { id } { return "i${id}" }
     proc tag_idx { id idx } { return "i${id}#${idx}" }
 
-    proc draw_single { cnv id x y zoom type color {idx 0} } {
+    proc draw_single { cnv id x y zoom type idx ctl_color sig_color } {
         set c [::nui::widget_canvas $cnv $id]
         set x1 [expr $x + [::nui::xlet::width $zoom]]
         set y1 [expr $y + [::nui::xlet::height $type $zoom]]
 
         set tags [tag $id]
         lappend tags [tag_idx $id $idx]
+
+        set color [if {$type == "_"} { return $ctl_color } { return $sig_color }]
 
         $c create rectangle $x $y $x1 $y1 -fill $color -outline $color -width 1 -tags $tags
         $c raise $tags
@@ -234,19 +236,19 @@ namespace eval inlets {
         $c delete [tag $id]
     }
 
-    proc draw_multiple { cnv id w h zoom str } {
+    proc draw_multiple { cnv id w h zoom str ctl_color sig_color } {
         erase_all $cnv $id
 
         set c [::nui::widget_canvas $cnv $id]
         set n [string length $str]
 
         if { $n == 1 } {
-            draw_single $cnv $id 0 0 $zoom $str 0
+            draw_single $cnv $id 0 0 $zoom $str 0 $ctl_color $sig_color
         } elseif { $n > 1 } {
             set i 0
             foreach inlet [split $str {}] {
                 set x [::nui::xlet::xpos $w $i $n $zoom]
-                draw_single $cnv $id $x 0 $zoom $inlet $i
+                draw_single $cnv $id $x 0 $zoom $inlet $i $ctl_color $sig_color
                 incr i
             }
         }
@@ -263,21 +265,23 @@ namespace eval inlets {
 namespace eval box {
     proc tag { id } { return "#b${id}" }
 
-    proc create { cnv model id x y w h zoom border_color line_width inlets outlets } {
+    proc create { cnv model id x y w h zoom border_color ctl_color sig_color border_width inlets outlets } {
         set c [::nui::widget_canvas $cnv $model]
         set t [tag $id]
         $c create rectangle $x $y [expr $x+$w] [expr $y+$h] \
-            -fill {} -outline $border_color -width $line_width -tags $t
+            -fill {} -outline $border_color -width $border_width -tags $t
 
-        ::nui::inlets::draw_multiple $cnv $model $w $h $zoom $inlets
+        ::nui::inlets::draw_multiple $cnv $model $w $h $zoom $inlets $ctl_color $sig_color
     }
 
-    proc update { cnv model id w h border_color fill_color } {
+    proc update { cnv model id w h zoom border_color ctl_color sig_color border_width inlets outlets } {
         set c [::nui::widget_canvas $cnv $model]
         set t [tag $id]
-        $c itemconfigure $t -outline $border_color -fill $fill_color
+        $c itemconfigure $t -outline $border_color
         lassign [$c coords $t] x0 y0 x1 y1
         $c coords $t $x0 $y0 [expr $x0+$w] [expr $y0+$h]
+
+        ::nui::inlets::draw_multiple $cnv $model $w $h $zoom $inlets $ctl_color $sig_color
     }
 
     proc erase { cnv model id } {

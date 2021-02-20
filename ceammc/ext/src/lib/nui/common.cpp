@@ -13,6 +13,10 @@
  *****************************************************************************/
 #include "common.h"
 
+extern "C" {
+#include "m_imp.h"
+}
+
 namespace ceammc {
 namespace ui {
 
@@ -20,6 +24,26 @@ namespace ui {
         : size_(0)
     {
         xlets_.fill(0);
+    }
+
+    Xlets Xlets::fromInlets(t_object* x)
+    {
+        Xlets res;
+        const int N_OUT = obj_ninlets(x);
+        for (int i = 0; i < N_OUT; i++)
+            res.append(obj_issignalinlet(x, i) ? XLET_AUDIO : XLET_CONTROL);
+
+        return res;
+    }
+
+    Xlets Xlets::fromOutlets(t_object* x)
+    {
+        Xlets res;
+        const int N_OUT = obj_noutlets(x);
+        for (int i = 0; i < N_OUT; i++)
+            res.append(obj_issignaloutlet(x, i) ? XLET_AUDIO : XLET_CONTROL);
+
+        return res;
     }
 
     bool Xlets::append(XletType t)

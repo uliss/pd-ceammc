@@ -56,6 +56,8 @@ public:
     void select(bool state);
 
     void sendEvent(EventType t, const Point& pos, const EventContext& ctx);
+
+    void setXlets(const Xlets& in, const Xlets& out);
 };
 
 class LangFaustUiTilde : public ui::Widget<LangFaustTilde> {

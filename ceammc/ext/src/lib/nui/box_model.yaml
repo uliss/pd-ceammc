@@ -11,6 +11,14 @@ data:
   type: HexColor
   init: colors::st_fill
   style: color
+- name: xlet control color
+  type: HexColor
+  init: colors::st_xlet_ctl
+  style: color
+- name: xlet signal color
+  type: HexColor
+  init: colors::st_xlet_sig
+  style: color
 - name: selected
   type: bool
   init: 'false'
