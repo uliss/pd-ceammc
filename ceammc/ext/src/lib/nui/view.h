@@ -330,6 +330,7 @@ namespace ui {
 
         void create(WinId win, WidgetId wid, float scale) final;
         void layout() override;
+        EventAcceptStatus acceptEvent(EventType t, const PointF& pos, const EventContext& ctx) override;
 
         template <typename T>
         T* getChild() { return static_cast<T*>(child_.get()); }

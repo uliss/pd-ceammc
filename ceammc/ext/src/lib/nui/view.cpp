@@ -284,7 +284,9 @@ namespace ui {
 
     void BoxView::create(WinId win, WidgetId wid, float scale)
     {
-        child_->create(win, wid, scale);
+        if (child_)
+            child_->create(win, wid, scale);
+
         // NOTE: create box after child to make it upper level
         Base::create(win, wid, scale);
     }
@@ -299,6 +301,14 @@ namespace ui {
         auto sz = child_->size();
         sz.enlarge(padding_ * 2, padding_ * 2);
         setSize(sz);
+    }
+
+    EventAcceptStatus BoxView::acceptEvent(EventType t, const PointF& pos, const EventContext& ctx)
+    {
+        if (child_)
+            return child_->acceptEvent(t, pos, ctx);
+        else
+            return { nullptr, EVENT_STATUS_IGNORE };
     }
 }
 }
