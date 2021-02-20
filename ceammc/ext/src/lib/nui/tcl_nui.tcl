@@ -205,46 +205,45 @@ proc item_move { cnv model tag x y } {
 }
 
 namespace eval xlet {
+    proc tag     { id isout }   { if { $isout } { return "o${id}" }      { return "i${id}" } }
+    proc tag_idx { id n isout } { if { $isout } { return "o${id}#${n}" } { return "i${id}#${n}" } }
     proc width  { zoom } { expr 6*$zoom + 1 }
     proc height { type zoom } { if { $type == "_" } { expr $zoom } { expr ($zoom==1) ? 2 : 4 } }
     proc xpos   { w i n zoom } {
         set ww [expr $w - [width $zoom]]
         return [expr round(($ww/($n-1.0)) * $i)]
     }
-}
+    proc out_ypos { h type zoom } { return [expr $h - [height $type $zoom]] }
 
-namespace eval inlets {
-    proc tag { id } { return "i${id}" }
-    proc tag_idx { id idx } { return "i${id}#${idx}" }
-
-    proc draw_single { cnv id x y zoom type idx ctl_color sig_color } {
+    proc draw_single { cnv id x h zoom type idx ctl_color sig_color isout } {
         set c [::nui::widget_canvas $cnv $id]
+        if { $isout } { set y [out_ypos $h $type $zoom] } { set y 0 }
         set x1 [expr $x + [::nui::xlet::width $zoom]]
         set y1 [expr $y + [::nui::xlet::height $type $zoom]]
-        set t [tag $id]
+        set t [tag $id $isout]
+        lappend t [tag_idx $id $idx $isout]
 
         if {$type == "_"} { set color $ctl_color } { set color $sig_color }
         $c create rectangle $x $y $x1 $y1 -fill $color -outline $color -width 1 -tags $t
     }
 
-    proc erase_all { cnv id } {
+    proc erase_all { cnv id isout } {
         set c [::nui::widget_canvas $cnv $id]
-        $c delete [tag $id]
+        $c delete [tag $id $isout]
     }
 
-    proc draw_multiple { cnv id w h zoom str ctl_color sig_color } {
-        erase_all $cnv $id
-
+    proc draw_multiple { cnv id w h zoom str ctl_color sig_color isout } {
         set c [::nui::widget_canvas $cnv $id]
-        set n [string length $str]
+        $c delete [tag $id $isout]
 
+        set n [string length $str]
         if { $n == 1 } {
-            draw_single $cnv $id 0 0 $zoom $str 0 $ctl_color $sig_color
+            draw_single $cnv $id 0 $h $zoom $str 0 $ctl_color $sig_color $isout
         } elseif { $n > 1 } {
             set i 0
             foreach inlet [split $str {}] {
                 set x [::nui::xlet::xpos $w $i $n $zoom]
-                draw_single $cnv $id $x 0 $zoom $inlet $i $ctl_color $sig_color
+                draw_single $cnv $id $x $h $zoom $inlet $i $ctl_color $sig_color $isout
                 incr i
             }
         }
@@ -267,7 +266,8 @@ namespace eval box {
         $c create rectangle $x $y [expr $x+$w] [expr $y+$h] \
             -fill {} -outline $border_color -width $border_width -tags $t
 
-        ::nui::inlets::draw_multiple $cnv $model $w $h $zoom $inlets $ctl_color $sig_color
+        ::nui::xlet::draw_multiple $cnv $model $w $h $zoom $inlets $ctl_color $sig_color false
+        ::nui::xlet::draw_multiple $cnv $model $w $h $zoom $outlets $ctl_color $sig_color true
     }
 
     proc update { cnv model id w h zoom border_color ctl_color sig_color border_width inlets outlets } {
@@ -277,7 +277,8 @@ namespace eval box {
         lassign [$c coords $t] x0 y0 x1 y1
         $c coords $t $x0 $y0 [expr $x0+$w] [expr $y0+$h]
 
-        ::nui::inlets::draw_multiple $cnv $model $w $h $zoom $inlets $ctl_color $sig_color
+        ::nui::xlet::draw_multiple $cnv $model $w $h $zoom $inlets $ctl_color $sig_color false
+        ::nui::xlet::draw_multiple $cnv $model $w $h $zoom $outlets $ctl_color $sig_color true
     }
 
     proc erase { cnv model id } {
