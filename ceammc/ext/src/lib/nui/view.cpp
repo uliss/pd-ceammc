@@ -253,15 +253,13 @@ namespace ui {
         }
         case EVENT_MOUSE_DRAG: {
             auto vpos = toViewCoords(pos);
-            LIB_ERR << vpos;
-            auto value = convert::lin2lin<t_float>(vpos.x(), 0, size().width(), this->data().min(), this->data().max());
+            auto value = convert::lin2lin_clip<t_float>(vpos.x(), 0, size().width(), this->data().min(), this->data().max());
             this->data().setValue(value);
             this->redraw();
             this->notifyOthers();
             return { this, EVENT_STATUS_ACCEPT };
         }
         case EVENT_MOUSE_UP:
-            LIB_ERR << "mouseup";
             return { nullptr, EVENT_STATUS_ACCEPT };
         default:
             return { this, EVENT_STATUS_IGNORE };
