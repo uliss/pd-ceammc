@@ -14,6 +14,7 @@
 #ifndef COMMON_H
 #define COMMON_H
 
+#include <array>
 #include <cstdint>
 #include <string>
 #include <type_traits>
@@ -149,6 +150,26 @@ namespace ui {
         EVENT_STATUS_ACCEPT,
         EVENT_STATUS_IGNORE,
         EVENT_STATUS_CONTINUE
+    };
+
+    enum XletType : char {
+        XLET_CONTROL = '_',
+        XLET_AUDIO = '~',
+    };
+
+    constexpr size_t UI_MAX_XLET_NUMBER = 30;
+
+    class Xlets {
+        std::array<char, UI_MAX_XLET_NUMBER + 1> xlets_;
+        uint8_t size_;
+
+    public:
+        Xlets();
+
+        bool append(XletType t);
+        size_t size() const { return size_; }
+
+        const char* asString() const { return xlets_.data(); }
     };
 }
 }

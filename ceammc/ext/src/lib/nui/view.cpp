@@ -81,7 +81,7 @@ namespace ui {
         child_->setParent(this);
     }
 
-    EventAcceptStatus FrameView::acceptEvent(EventType type, const PointF &pos, const EventContext &ctx)
+    EventAcceptStatus FrameView::acceptEvent(EventType type, const PointF& pos, const EventContext& ctx)
     {
         return child_->acceptEvent(type, pos, ctx);
     }
@@ -264,6 +264,37 @@ namespace ui {
         default:
             return { this, EVENT_STATUS_IGNORE };
         }
+    }
+
+    BoxView::BoxView(BoxModel* model, ModelView::ViewImplPtr&& impl)
+        : Base(model, std::move(impl), {})
+    {
+    }
+
+    bool BoxView::add(ViewPtr&& obj)
+    {
+        child_ = std::move(obj);
+        child_->setParent(this);
+        return true;
+    }
+
+    void BoxView::create(WinId win, WidgetId wid, float scale)
+    {
+        child_->create(win, wid, scale);
+        // NOTE: create box after child to make it upper level
+        Base::create(win, wid, scale);
+    }
+
+    void BoxView::layout()
+    {
+        if (!child_)
+            return;
+
+        child_->setPos(PointF(padding_, padding_));
+        child_->layout();
+        auto sz = child_->size();
+        sz.enlarge(padding_ * 2, padding_ * 2);
+        setSize(sz);
     }
 }
 }

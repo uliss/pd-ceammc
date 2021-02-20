@@ -18,6 +18,7 @@
 #include <utility>
 #include <vector>
 
+#include "nui/box_model.h"
 #include "nui/common.h"
 #include "nui/frame_model.h"
 #include "nui/label_model.h"
@@ -310,6 +311,19 @@ namespace ui {
         T* childPtr() { return static_cast<T*>(child_.get()); }
 
         EventAcceptStatus acceptEvent(EventType t, const PointF& pos, const EventContext& ctx) override;
+    };
+
+    class BoxView : public ModelView<BoxData> {
+        ViewPtr child_;
+        int padding_ { 0 };
+        using Base = ModelView<BoxData>;
+
+    public:
+        BoxView(BoxModel* model, ViewImplPtr&& impl);
+        bool add(ViewPtr&& obj) override;
+
+        void create(WinId win, WidgetId wid, float scale) final;
+        void layout() override;
     };
 
     class HGroupView : public GroupView {
