@@ -19,6 +19,14 @@
 namespace ceammc {
 namespace ui {
 
+    class TclBoxImpl : public ViewImpl<BoxData> {
+    public:
+        void create(const RectF& bbox, const BoxData& data) final;
+        void update(const RectF& bbox, const BoxData& data) final;
+        void updateCoords(const RectF& bbox) final;
+        void erase() final;
+    };
+
     class TclFrameImpl : public ViewImpl<FrameData> {
     public:
         void create(const RectF& bbox, const FrameData& data) final;

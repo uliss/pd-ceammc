@@ -76,7 +76,7 @@ void setup_lang_faust_ui_tilde()
 
 FaustMasterView::FaustMasterView()
     : model_()
-    , view_(&model_, BoxView::ViewImplPtr(new EmptyViewImplT<BoxData>))
+    , view_(&model_, BoxView::ViewImplPtr(new TclBoxImpl()))
     , focused_(nullptr)
 {
 }
