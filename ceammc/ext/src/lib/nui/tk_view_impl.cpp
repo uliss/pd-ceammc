@@ -31,7 +31,7 @@ namespace ui {
             winId(), widgetId(), this,
             rect.left(), rect.top(), rect.width(), rect.height(), (int)scale(),
             pos, data.value(),
-            data.fillColor(), data.borderColor(), data.knobColor());
+            data.borderColor(), data.fillColor(), data.knobColor());
     }
 
     void TclHSliderImpl::erase()
@@ -48,7 +48,7 @@ namespace ui {
                  " #%6.6x #%6.6x #%6.6x\n",
             winId(), widgetId(), this,
             pos, data.value(),
-            data.fillColor(), data.borderColor(), data.knobColor());
+            data.borderColor(), data.fillColor(), data.knobColor());
     }
 
     void TclHSliderImpl::updateCoords(const RectF& bbox)
