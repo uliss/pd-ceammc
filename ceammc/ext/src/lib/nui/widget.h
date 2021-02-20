@@ -134,6 +134,11 @@ namespace ui {
         virtual void onWidgetDelete() { LIB_ERR << __FUNCTION__; }
         virtual void onWidgetSelect(bool state) { LIB_ERR << __FUNCTION__; }
         virtual void onWidgetShow() { LIB_ERR << __FUNCTION__; }
+
+        /**
+         * called right after widget resize
+         * @param sz - new widget size in model coordinates (without zoom)
+         */
         virtual void onWidgetResize(const Size& sz) { LIB_ERR << __FUNCTION__ << ' ' << sz; }
         virtual void onWidgetHide() { LIB_ERR << __FUNCTION__; }
 
