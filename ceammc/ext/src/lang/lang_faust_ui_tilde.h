@@ -38,6 +38,8 @@ class FaustMasterView {
     std::vector<LabelModelPtr> labels_;
     std::vector<PropSliderViewPtr> slider_props_;
 
+    ModelViewBase* focused_;
+
 public:
     FaustMasterView();
     ~FaustMasterView();
@@ -70,6 +72,7 @@ public:
 
     void onMouseDown(const Point& pt, const Point& abspt, uint32_t mod) override;
     void onMouseDrag(const Point& pt, uint32_t mod) override;
+    void onMouseUp(const Point& pt, uint32_t mod) override;
 };
 
 void setup_lang_faust_ui_tilde();

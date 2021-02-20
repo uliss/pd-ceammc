@@ -55,6 +55,11 @@ void LangFaustUiTilde::onMouseDrag(const Point& pt, uint32_t mod)
     vc_.sendEvent(EVENT_MOUSE_DRAG, pt, EventContext());
 }
 
+void LangFaustUiTilde::onMouseUp(const Point& pt, uint32_t mod)
+{
+    vc_.sendEvent(EVENT_MOUSE_UP, pt, EventContext());
+}
+
 void setup_lang_faust_ui_tilde()
 {
     ui::UIFactory<SoundExternalFactory, LangFaustUiTilde> obj("ui");
@@ -72,6 +77,7 @@ void setup_lang_faust_ui_tilde()
 FaustMasterView::FaustMasterView()
     : model_()
     , view_(&model_, FrameView::ViewImplPtr(new TclFrameImpl), {})
+    , focused_(nullptr)
 {
 }
 
@@ -81,6 +87,7 @@ FaustMasterView::~FaustMasterView()
 
 Size FaustMasterView::build(const std::vector<faust::UIProperty*>& props)
 {
+    focused_ = nullptr;
     view_.setChild(ViewPtr(new VGroupView({})));
     view_.setSize({ 20, 30 });
 
@@ -154,5 +161,15 @@ void FaustMasterView::select(bool state)
 
 void FaustMasterView::sendEvent(EventType t, const Point& pos, const EventContext& ctx)
 {
-    view_.onEvent(t, pos, ctx);
+    EventAcceptStatus st;
+
+    if (focused_) {
+        st = focused_->onEvent(t, pos, ctx);
+    } else {
+        st = view_.acceptEvent(t, pos, ctx);
+        if (st.acceptor && st.status == EVENT_STATUS_ACCEPT)
+            st.acceptor->onEvent(t, pos, ctx);
+    }
+
+    focused_ = st.acceptor;
 }

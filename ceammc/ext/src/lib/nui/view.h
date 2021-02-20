@@ -92,6 +92,13 @@ namespace ui {
         void updateCoords(const RectF&) final { }
     };
 
+    class ModelViewBase;
+
+    struct EventAcceptStatus {
+        ModelViewBase* acceptor;
+        EventStatus status;
+    };
+
     class ModelViewBase {
     public:
         virtual ~ModelViewBase();
@@ -114,7 +121,8 @@ namespace ui {
         //
         virtual bool add(ViewPtr&& b) = 0;
 
-        virtual EventStatus onEvent(EventType type, const PointF& pos, const EventContext& ctx) = 0;
+        virtual EventAcceptStatus onEvent(EventType t, const PointF& pos, const EventContext& ctx) { return { nullptr, EVENT_STATUS_IGNORE }; }
+        virtual EventAcceptStatus acceptEvent(EventType type, const PointF& pos, const EventContext& ctx);
     };
 
     using ViewPtr = std::unique_ptr<ModelViewBase>;
@@ -219,8 +227,6 @@ namespace ui {
             redraw();
         }
 
-        EventStatus onEvent(EventType t, const PointF& pos, const EventContext& ctx) override { return EVENT_STATUS_IGNORE; }
-
         void invalidateCache() override { parent_cache_needs_update_ = true; }
 
     private:
@@ -270,7 +276,7 @@ namespace ui {
         void layout() override;
         RectF calcBBox() const;
 
-        EventStatus onEvent(EventType t, const PointF& pos, const EventContext& ctx) override;
+        EventAcceptStatus acceptEvent(EventType t, const PointF& pos, const EventContext& ctx) override;
 
     private:
         static EmptyModel empty_model;
@@ -279,7 +285,7 @@ namespace ui {
     class HSliderView : public ModelView<SliderData> {
     public:
         HSliderView(SliderModel* model, ViewImplPtr&& impl, const PointF& pos);
-        EventStatus onEvent(EventType t, const PointF& pos, const EventContext& ctx) override;
+        EventAcceptStatus onEvent(EventType t, const PointF& pos, const EventContext& ctx) override;
     };
 
     class FrameView : public ModelView<FrameData> {
@@ -303,7 +309,7 @@ namespace ui {
         template <typename T>
         T* childPtr() { return static_cast<T*>(child_.get()); }
 
-        EventStatus onEvent(EventType t, const PointF& pos, const EventContext& ctx) override;
+        EventAcceptStatus acceptEvent(EventType t, const PointF& pos, const EventContext& ctx) override;
     };
 
     class HGroupView : public GroupView {

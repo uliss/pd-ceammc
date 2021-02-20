@@ -81,12 +81,9 @@ namespace ui {
         child_->setParent(this);
     }
 
-    EventStatus FrameView::onEvent(EventType t, const PointF& pos, const EventContext& ctx)
+    EventAcceptStatus FrameView::acceptEvent(EventType type, const PointF &pos, const EventContext &ctx)
     {
-        if (!child_ || !absBBox().contains(pos))
-            return EVENT_STATUS_IGNORE;
-
-        return child_->onEvent(t, pos, ctx);
+        return child_->acceptEvent(type, pos, ctx);
     }
 
     EmptyModel GroupView::empty_model;
@@ -162,18 +159,15 @@ namespace ui {
         return res;
     }
 
-    EventStatus GroupView::onEvent(EventType t, const PointF& pos, const EventContext& ctx)
+    EventAcceptStatus GroupView::acceptEvent(EventType type, const PointF& pos, const EventContext& ctx)
     {
-        if (!absBBox().contains(pos))
-            return EVENT_STATUS_IGNORE;
-
         int continue_num = 0;
 
         for (auto& v : views_) {
-            auto status = v->onEvent(t, pos, ctx);
-            switch (status) {
+            auto res = v->acceptEvent(type, pos, ctx);
+            switch (res.status) {
             case EVENT_STATUS_ACCEPT:
-                return status;
+                return res;
             case EVENT_STATUS_CONTINUE:
                 continue_num++;
                 continue;
@@ -186,8 +180,8 @@ namespace ui {
         }
 
         return (continue_num > 0)
-            ? EVENT_STATUS_CONTINUE
-            : EVENT_STATUS_IGNORE;
+            ? EventAcceptStatus { nullptr, EVENT_STATUS_CONTINUE }
+            : EventAcceptStatus { nullptr, EVENT_STATUS_IGNORE };
     }
 
     void GroupView::adjustBBox()
@@ -233,16 +227,21 @@ namespace ui {
 
     ModelViewBase::~ModelViewBase() { }
 
+    EventAcceptStatus ModelViewBase::acceptEvent(EventType type, const PointF& pos, const EventContext& ctx)
+    {
+        if (!absBBox().contains(pos))
+            return { nullptr, EVENT_STATUS_IGNORE };
+        else
+            return onEvent(type, pos, ctx);
+    }
+
     HSliderView::HSliderView(SliderModel* model, ModelView::ViewImplPtr&& impl, const PointF& pos)
         : ModelView<SliderData>(model, std::move(impl), pos)
     {
     }
 
-    EventStatus HSliderView::onEvent(EventType t, const PointF& pos, const EventContext& ctx)
+    EventAcceptStatus HSliderView::onEvent(EventType t, const PointF& pos, const EventContext& ctx)
     {
-        if (!absBBox().contains(pos))
-            return EVENT_STATUS_IGNORE;
-
         switch (t) {
         case EVENT_MOUSE_DOWN: {
             auto vpos = toViewCoords(pos);
@@ -250,7 +249,8 @@ namespace ui {
             this->data().setValue(value);
             this->redraw();
             this->notifyOthers();
-        } break;
+            return { this, EVENT_STATUS_ACCEPT };
+        }
         case EVENT_MOUSE_DRAG: {
             auto vpos = toViewCoords(pos);
             LIB_ERR << vpos;
@@ -258,15 +258,14 @@ namespace ui {
             this->data().setValue(value);
             this->redraw();
             this->notifyOthers();
-        } break;
-        case EVENT_MOUSE_UP:
-            break;
-        default:
-            return EVENT_STATUS_IGNORE;
+            return { this, EVENT_STATUS_ACCEPT };
         }
-
-        LIB_ERR << __FUNCTION__;
-        return EVENT_STATUS_ACCEPT;
+        case EVENT_MOUSE_UP:
+            LIB_ERR << "mouseup";
+            return { nullptr, EVENT_STATUS_ACCEPT };
+        default:
+            return { this, EVENT_STATUS_IGNORE };
+        }
     }
 }
 }
