@@ -241,7 +241,7 @@ namespace ui {
         void mouseDown(const Point& pt, const Point& abspt, uint32_t mod)
         {
             if (editModeAccept(mod)) {
-                onMouseDown(pt, abspt, mod);
+                onMouseDown(pt / zoom(), abspt, mod);
             } else {
                 if (selection_ == SELECT_NONE) {
                     if (mod & KEY_MOD_SHIFT) {
@@ -260,7 +260,7 @@ namespace ui {
         void mouseUp(const Point& pt, uint32_t mod)
         {
             if (editModeAccept(mod)) {
-                onMouseUp(pt, mod);
+                onMouseUp(pt / zoom(), mod);
             } else {
                 utils::canvas_up(drawCanvas(), T::owner());
             }
@@ -274,7 +274,7 @@ namespace ui {
 
             if (mouse_down_) { // mouse drag
                 if (editModeAccept(mod)) {
-                    onMouseDrag(pt, mod);
+                    onMouseDrag(pt / zoom(), mod);
                 } else if (top_level_) {
                     if (selection_ == SELECT_NONE) {
                         return utils::canvas_motion(drawCanvas(), T::owner(), 0);
