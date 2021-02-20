@@ -2,7 +2,7 @@ name: Slider
 data:
 - name: size
   type: Size
-  init: Size(100, 16)
+  init: Size(100, 15)
   style: size
 - name: value
   type: t_float

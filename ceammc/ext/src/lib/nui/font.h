@@ -36,7 +36,7 @@ namespace ui {
     };
 
     constexpr const char* FONT_FAMILY_DEFAULT = "Helvetica";
-    constexpr uint16_t FONT_SIZE_DEFAULT = 8;
+    constexpr uint16_t FONT_SIZE_DEFAULT = 10;
 
     class Font {
         static const uint32_t MAX_SIZE = 32;

@@ -28,7 +28,7 @@ public:
     };
 public:
     SliderData()
-        : std::tuple<Size, t_float, t_float, t_float, HexColor, HexColor, HexColor, bool, int>(Size(100, 16), 0, 0, 1, colors::st_border, colors::st_fill, colors::st_active, false, 0) { }
+        : std::tuple<Size, t_float, t_float, t_float, HexColor, HexColor, HexColor, bool, int>(Size(100, 15), 0, 0, 1, colors::st_border, colors::st_fill, colors::st_active, false, 0) { }
 
     SliderData(int style)
         : SliderData() {
@@ -73,7 +73,7 @@ public:
     // style
     void loadStyle(int st) {
         using sc = StyleCollection;
-        setSize(sc::size(st, "slider:size"_hash, Size(100, 16)));
+        setSize(sc::size(st, "slider:size"_hash, Size(100, 15)));
         setBorderColor(sc::color(st, "slider:border_color"_hash, colors::st_border));
         setFillColor(sc::color(st, "slider:fill_color"_hash, colors::st_fill));
         setKnobColor(sc::color(st, "slider:knob_color"_hash, colors::st_active));
