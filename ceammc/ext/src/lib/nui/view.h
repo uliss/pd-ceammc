@@ -334,6 +334,8 @@ namespace ui {
 
         template <typename T>
         T* getChild() { return static_cast<T*>(child_.get()); }
+
+        void setPadding(float pad) { padding_ = pad; }
     };
 
     class HGroupView : public GroupView {

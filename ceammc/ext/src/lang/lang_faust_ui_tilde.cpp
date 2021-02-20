@@ -87,11 +87,11 @@ FaustMasterView::~FaustMasterView()
 
 Size FaustMasterView::build(const std::vector<faust::UIProperty*>& props)
 {
-
     focused_ = nullptr;
     auto vgroup = new VGroupView({});
     view_.appendChild(ViewPtr(vgroup));
     view_.setSize({ 20, 30 });
+    view_.setPadding(5);
 
     auto lm = new LabelModel(0);
     lm->data().setAnchor(ANCHOR_CORNER_LEFT_TOP);
