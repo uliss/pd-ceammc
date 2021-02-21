@@ -250,17 +250,17 @@ namespace ui {
         case EVENT_MOUSE_DOWN: {
             auto vpos = toViewCoords(pos);
             auto value = convert::lin2lin<t_float>(vpos.x(), 0, size().width(), this->data().min(), this->data().max());
-            this->data().setValue(value);
-            this->redraw();
-            this->notifyOthers();
+            data().setValue(value);
+            redraw();
+            notifyOthers();
             return { this, EVENT_STATUS_ACCEPT };
         }
         case EVENT_MOUSE_DRAG: {
             auto vpos = toViewCoords(pos);
             auto value = convert::lin2lin_clip<t_float>(vpos.x(), 0, size().width(), this->data().min(), this->data().max());
-            this->data().setValue(value);
-            this->redraw();
-            this->notifyOthers();
+            data().setValue(value);
+            redraw();
+            notifyOthers();
             return { this, EVENT_STATUS_ACCEPT };
         }
         case EVENT_MOUSE_UP:
