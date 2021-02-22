@@ -21,6 +21,11 @@ LangFaustUiTilde::LangFaustUiTilde(const PdArgs& args)
 {
     setSize(Size(100, 50));
     setResizeMode(RESIZE_BOTH);
+
+    addProperty(new IntProperty("@style", 0))->setSuccessFn([this](Property* p) {
+        auto pi = static_cast<IntProperty*>(p);
+        vc_.loadStyle(pi->value());
+    });
 }
 
 void LangFaustUiTilde::buildUI()
@@ -170,6 +175,24 @@ void FaustMasterView::setXlets(const Xlets& in, const Xlets& out)
 {
     model_.data().setInlets(in);
     model_.data().setOutlets(out);
+}
+
+void FaustMasterView::loadStyle(int st)
+{
+    for (auto& s : sliders_) {
+        s->data().loadStyle(st);
+        s->notify();
+    }
+
+    for (auto& l : labels_) {
+        l->data().loadStyle(st);
+        l->notify();
+    }
+
+    for (auto& t : toggles_) {
+        t->data().loadStyle(st);
+        t->notify();
+    }
 }
 
 void FaustMasterView::createHsliderEntry(faust::UIProperty* p)

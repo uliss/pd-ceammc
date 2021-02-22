@@ -64,6 +64,8 @@ public:
 
     void setXlets(const Xlets& in, const Xlets& out);
 
+    void loadStyle(int st);
+
 private:
     void createHsliderEntry(faust::UIProperty* p);
     void createToggleEntry(faust::UIProperty* p);
