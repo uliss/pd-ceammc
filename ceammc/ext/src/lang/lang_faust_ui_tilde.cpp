@@ -222,7 +222,7 @@ void FaustMasterView::createToggleEntry(faust::UIProperty* p)
     auto lm = new LabelModel(0);
 
     lm->data().setAnchor(ANCHOR_SIDE_LEFT_CENTER);
-        lm->data().sizeRef().setHeight(tgl->data().size());
+    lm->data().sizeRef().setHeight(tgl->data().size());
     lm->data().setText(p->name());
 
     labels_.emplace_back(lm);
