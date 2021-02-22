@@ -63,6 +63,10 @@ public:
     void sendEvent(EventType t, const Point& pos, const EventContext& ctx);
 
     void setXlets(const Xlets& in, const Xlets& out);
+
+private:
+    void createHsliderEntry(faust::UIProperty* p);
+    void createToggleEntry(faust::UIProperty* p);
 };
 
 class LangFaustUiTilde : public ui::Widget<LangFaustTilde> {

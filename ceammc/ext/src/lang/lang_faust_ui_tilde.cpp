@@ -113,56 +113,18 @@ void FaustMasterView::addProperty(faust::UIProperty* p)
     if (!p)
         return;
 
-    LIB_ERR << p->name();
-
-    // create hgroup: control, label
-    auto hgroup = ViewPtr(new HGroupView({}));
-
     switch (p->uiElement()->type()) {
     case faust::UIElementType::UI_NUM_ENTRY:
     case faust::UIElementType::UI_H_SLIDER:
     case faust::UIElementType::UI_V_SLIDER: {
-        auto slm = new SliderModel(0);
-
-        slm->data().setValue(p->value());
-        slm->data().setMin(p->uiElement()->min());
-        slm->data().setMax(p->uiElement()->max());
-
-        sliders_.emplace_back(slm);
-        ViewPtr slv(new HSliderView(slm, HSliderView::ViewImplPtr(new TclHSliderImpl), {}));
-        hgroup->appendChild(std::move(slv));
-
-        slider_props_.emplace_back(new PropSliderView(p, slm));
-        slider_props_.back()->updateModelFromProp();
+        createHsliderEntry(p);
     } break;
     case faust::UIElementType::UI_CHECK_BUTTON: {
-        auto tgl = new ToggleModel(0);
-
-        tgl->data().setValue(p->value());
-
-        toggles_.emplace_back(tgl);
-        ViewPtr tgv(new ToggleView(tgl, ToggleView::ViewImplPtr(new TclToggleImpl), {}));
-        hgroup->appendChild(std::move(tgv));
-
-        toggle_props_.emplace_back(new PropToggleView(p, tgl));
-        toggle_props_.back()->updateModelFromProp();
+        createToggleEntry(p);
     } break;
     default:
         break;
     }
-
-    auto lm = new LabelModel(0);
-
-    lm->data().setAnchor(ANCHOR_SIDE_LEFT_CENTER);
-    //    lm->data().sizeRef().setHeight(slm->data().size());
-    lm->data().setText(p->name());
-
-    labels_.emplace_back(lm);
-    ViewPtr lv(new LabelView(lm, LabelView::ViewImplPtr(new TclLabelImpl), {}));
-    hgroup->appendChild(std::move(lv));
-
-    auto vgroup = view_.getChild<VGroupView>();
-    vgroup->appendChild(std::move(hgroup));
 }
 
 void FaustMasterView::create(WinId win, WidgetId id, const Size& sz, int zoom)
@@ -207,4 +169,66 @@ void FaustMasterView::setXlets(const Xlets& in, const Xlets& out)
 {
     model_.data().setInlets(in);
     model_.data().setOutlets(out);
+}
+
+void FaustMasterView::createHsliderEntry(faust::UIProperty* p)
+{
+    // create hgroup: control, label
+    auto hgroup = ViewPtr(new HGroupView({}));
+
+    auto slm = new SliderModel(0);
+
+    slm->data().setValue(p->value());
+    slm->data().setMin(p->uiElement()->min());
+    slm->data().setMax(p->uiElement()->max());
+
+    sliders_.emplace_back(slm);
+    ViewPtr slv(new HSliderView(slm, HSliderView::ViewImplPtr(new TclHSliderImpl), {}));
+    hgroup->appendChild(std::move(slv));
+
+    slider_props_.emplace_back(new PropSliderView(p, slm));
+    slider_props_.back()->updateModelFromProp();
+
+    auto lm = new LabelModel(0);
+
+    lm->data().setAnchor(ANCHOR_SIDE_LEFT_CENTER);
+    lm->data().sizeRef().setHeight(slm->data().size());
+    lm->data().setText(p->name());
+
+    labels_.emplace_back(lm);
+    ViewPtr lv(new LabelView(lm, LabelView::ViewImplPtr(new TclLabelImpl), {}));
+    hgroup->appendChild(std::move(lv));
+
+    auto vgroup = view_.getChild<VGroupView>();
+    vgroup->appendChild(std::move(hgroup));
+}
+
+void FaustMasterView::createToggleEntry(faust::UIProperty* p)
+{
+    // create hgroup: control, label
+    auto hgroup = ViewPtr(new HGroupView({}));
+
+    auto tgl = new ToggleModel(0);
+
+    tgl->data().setValue(p->value());
+
+    toggles_.emplace_back(tgl);
+    ViewPtr tgv(new ToggleView(tgl, ToggleView::ViewImplPtr(new TclToggleImpl), {}));
+    hgroup->appendChild(std::move(tgv));
+
+    toggle_props_.emplace_back(new PropToggleView(p, tgl));
+    toggle_props_.back()->updateModelFromProp();
+
+    auto lm = new LabelModel(0);
+
+    lm->data().setAnchor(ANCHOR_SIDE_LEFT_CENTER);
+        lm->data().sizeRef().setHeight(tgl->data().size());
+    lm->data().setText(p->name());
+
+    labels_.emplace_back(lm);
+    ViewPtr lv(new LabelView(lm, LabelView::ViewImplPtr(new TclLabelImpl), {}));
+    hgroup->appendChild(std::move(lv));
+
+    auto vgroup = view_.getChild<VGroupView>();
+    vgroup->appendChild(std::move(hgroup));
 }
