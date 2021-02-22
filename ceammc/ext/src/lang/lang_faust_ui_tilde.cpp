@@ -21,13 +21,19 @@ void initFaustStyle()
 {
     using sc = StyleCollection;
     Style st;
-    const HexColor PALLETE0 = 0x1d2d50;
-    const HexColor PALLETE1 = 0x133b5c;
-    const HexColor PALLETE2 = 0x1e5f74;
-    const HexColor PALLETE3 = 0xfcdab7;
+
+    //    const HexColor PALLETE0 = 0x1d2d50;
+    //    const HexColor PALLETE1 = 0x133b5c;
+    //    const HexColor PALLETE2 = 0x1e5f74;
+    //    const HexColor PALLETE3 = 0xfcdab7;
+
+    const HexColor PALLETE0 = 0x222831;
+    const HexColor PALLETE1 = 0x30475e;
+    const HexColor PALLETE2 = 0xf2a365;
+    const HexColor PALLETE3 = 0xececec;
 
     st.insertColor("box:fill_color"_hash, PALLETE1);
-    st.insertColor("box:xlet_signal_color"_hash, PALLETE3);
+//    st.insertColor("box:xlet_signal_color"_hash, PALLETE3);
     st.insertColor("label:color"_hash, PALLETE3);
     st.insertColor("slider:knob_color"_hash, PALLETE3);
     st.insertColor("slider:fill_color"_hash, PALLETE2);
