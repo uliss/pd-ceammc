@@ -42,11 +42,11 @@ namespace ui {
         const float pos = (data.value() - data.min()) / (data.max() - data.min());
         sys_vgui("nui::slider::hcreate %lx %lx %lx"
                  " %d %d %d %d %d"
-                 " %f %g"
+                 " %f %g %g %g"
                  " #%6.6x #%6.6x #%6.6x\n",
             winId(), widgetId(), this,
             rect.left(), rect.top(), rect.width(), rect.height(), (int)scale(),
-            pos, data.value(),
+            pos, data.value(), data.min(), data.max(),
             data.borderColor(), data.fillColor(), data.knobColor());
     }
 
@@ -60,10 +60,10 @@ namespace ui {
         const float pos = (data.value() - data.min()) / (data.max() - data.min());
 
         sys_vgui("nui::slider::hupdate %lx %lx %lx"
-                 " %f %g"
+                 " %f %g %g %g"
                  " #%6.6x #%6.6x #%6.6x\n",
             winId(), widgetId(), this,
-            pos, data.value(),
+            pos, data.value(), data.min(), data.max(),
             data.borderColor(), data.fillColor(), data.knobColor());
     }
 

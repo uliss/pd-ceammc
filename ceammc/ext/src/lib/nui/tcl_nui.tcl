@@ -414,8 +414,6 @@ namespace eval toggle {
         set h [expr $y1-$y0]
         $c delete [tag_knob $id]
         if { $value > 0 } { draw_knob $c $id $knob_color $x0 $y0 $w $h $zoom }
-
-
     }
 }
 
@@ -424,19 +422,30 @@ namespace eval slider {
     proc tag_box  { id } { return "#sl${id}_box" }
     proc tag_fill { id } { return "#sl${id}_fill" }
     proc tag_knob { id } { return "#sl${id}_kn" }
+    proc tag_labels { id } { return "#sl${id}_lbl" }
 
     proc knob_xpos { x w pos } { return [expr ($w*$pos)+$x] }
 
-    proc hcreate { cnv model id x y w h zoom pos value out_color fill_color knob_color } {
+    proc hcreate { cnv model id x y w h zoom pos value min max out_color fill_color knob_color } {
         set c [::nui::widget_canvas $cnv $model]
         set ta [tag_all $id]
         set tb [tag_box $id]
         set tf [tag_fill $id]
         set tkn [tag_knob $id]
+        set tl [tag_labels $id]
 
         # draw fill
         $c create rectangle $x $y [expr $x+$w] [expr $y+$h] \
             -fill $fill_color -outline {} -width $zoom -tags [list $ta $tf]
+
+        # draw min/max
+        $c create text [expr $x+2] [expr $y+($h*0.5)] -text "$min" \
+            -fill $out_color -font {Helvetica 8} -justify left\
+            -anchor w -tags [list $ta $tl]
+
+        $c create text [expr $x+$w-2] [expr $y+($h*0.5)] -text "$max" \
+            -fill $out_color -font {Helvetica 8} -justify right \
+            -anchor e -tags [list $ta $tl]
 
         # draw knob
         set kx [knob_xpos $x $w $pos]
@@ -445,6 +454,7 @@ namespace eval slider {
         $c create line $kx $ky0 $kx $ky1 \
             -fill $knob_color -width [expr 2*$zoom] -tags [list $ta $tkn]
 
+
         # draw box
         $c create rectangle $x $y [expr $x+$w] [expr $y+$h] \
             -fill {} -outline $out_color -width $zoom -tags [list $ta $tb]
@@ -452,7 +462,7 @@ namespace eval slider {
         ::nui::widget_tooltip $cnv $model $tkn "value: $value"
     }
 
-    proc hupdate { cnv model id pos value out_color fill_color knob_color } {
+    proc hupdate { cnv model id pos value min max out_color fill_color knob_color } {
         set c [::nui::widget_canvas $cnv $model]
         set tb [tag_box $id]
         set tf [tag_fill $id]
