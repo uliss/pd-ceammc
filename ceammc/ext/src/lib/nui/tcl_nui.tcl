@@ -347,51 +347,65 @@ namespace eval label {
 }
 
 namespace eval toggle {
-        proc tag_all  { id } { return "#tgl${id}" }
-        proc tag_box  { id } { return "#tgl${id}_box" }
-        proc tag_knob { id } { return "#tgl${id}_kn" }
+    proc tag_all  { id } { return "#tgl${id}" }
+    proc tag_box  { id } { return "#tgl${id}_box" }
+    proc tag_knob { id } { return "#tgl${id}_kn" }
 
+    proc draw_knob { c id color x y w h zoom } {
+        set t [tag_knob $id]
+        set ta [tag_all $id]
+        set xpad [expr floor($w * 0.1)]
+        set ypad [expr floor($h * 0.1)]
+        if {$xpad > 16} { set xpad 16 }
+        if {$ypad > 16} { set ypad 16 }
+
+        if {$zoom == 1} {set corr 1} {set corr -1}
+
+        set x0 [expr $x + $xpad + $corr]
+        set y0 [expr $y + $ypad + $corr]
+        set x1 [expr $x + $w - $xpad]
+        set y1 [expr $y + $h - $ypad]
+        set lw [expr 1 + $zoom]
+
+        if {$w>30} {set lw [expr $lw + $xpad*0.5]}
+
+        $c create line $x0 $y0 $x1 $y1 -fill $color -width $lw -capstyle butt -tags [list $t $ta]
+        $c create line $x0 $y1 $x1 $y0 -fill $color -width $lw -capstyle butt -tags [list $t $ta]
+    }
 
     proc create { cnv model id x y w h zoom value out_color fill_color knob_color } {
         set c [::nui::widget_canvas $cnv $model]
         set ta [tag_all $id]
         set tb [tag_box $id]
-        set tkn [tag_knob $id]
-        set x1 [expr $x + $w]
-        set y1 [expr $y + $h]
-
-        if { $value } {
-            $c create line $x $y $x1 $y1 -fill $knob_color -width [expr 2*$zoom] -tags [list $ta $tkn]
-            $c create line $x $y1 $x1 $y -fill $knob_color -width [expr 2*$zoom] -tags [list $ta $tkn]
-        }
 
         # draw box
         $c create rectangle $x $y [expr $x+$w] [expr $y+$h] \
             -fill $fill_color -outline $out_color -width $zoom -tags [list $ta $tb]
+
+        if { $value } { draw_knob $c $id $knob_color $x $y $w $h $zoom }
     }
 
     proc update { cnv model id zoom value out_color fill_color knob_color } {
         set c [::nui::widget_canvas $cnv $model]
-        set ta [tag_all $id]
         set tb [tag_box $id]
-        set tkn [tag_knob $id]
-
-        lassign [$c coords $tb] x0 y0 x1 y1
-
-        $c delete $tkn
-        if { $value } {
-            $c create line $x0 $y0 $x1 $y1 -fill $knob_color -width [expr 2*$zoom] -tags [list $ta $tkn]
-            $c create line $x0 $y1 $x1 $y0 -fill $knob_color -width [expr 2*$zoom] -tags [list $ta $tkn]
-        }
 
         # update box
         $c itemconfigure $tb -fill $fill_color -outline $out_color
+
+        lassign [$c coords $tb] x0 y0 x1 y1
+        set w [expr $x1-$x0]
+        set h [expr $y1-$y0]
+        $c delete [tag_knob $id]
+        if { $value > 0 } { draw_knob $c $id $knob_color $x0 $y0 $w $h $zoom }
+
+
     }
 }
 
 namespace eval slider {
     proc tag_all  { id } { return "#sl${id}" }
     proc tag_box  { id } { return "#sl${id}_box" }
+    proc tag_fill { id } { return "#sl${id}_fill" }
     proc tag_knob { id } { return "#sl${id}_kn" }
 
     proc knob_xpos { x w pos } { return [expr ($w*$pos)+$x] }
@@ -400,18 +414,23 @@ namespace eval slider {
         set c [::nui::widget_canvas $cnv $model]
         set ta [tag_all $id]
         set tb [tag_box $id]
+        set tf [tag_fill $id]
         set tkn [tag_knob $id]
 
-        # draw box
+        # draw fill
         $c create rectangle $x $y [expr $x+$w] [expr $y+$h] \
-            -fill $fill_color -outline $out_color -width $zoom -tags [list $ta $tb]
+            -fill $fill_color -outline {} -width $zoom -tags [list $ta $tf]
 
         # draw knob
         set kx [knob_xpos $x $w $pos]
         set ky0 [expr $y+1]
-        set ky1 [expr $y+$h-1]
+        set ky1 [expr $y+$h-0.5]
         $c create line $kx $ky0 $kx $ky1 \
             -fill $knob_color -width [expr 2*$zoom] -tags [list $ta $tkn]
+
+        # draw box
+        $c create rectangle $x $y [expr $x+$w] [expr $y+$h] \
+            -fill {} -outline $out_color -width $zoom -tags [list $ta $tb]
 
         ::nui::widget_tooltip $cnv $model $tkn "value: $value"
     }
@@ -419,10 +438,12 @@ namespace eval slider {
     proc hupdate { cnv model id pos value out_color fill_color knob_color } {
         set c [::nui::widget_canvas $cnv $model]
         set tb [tag_box $id]
+        set tf [tag_fill $id]
         set tkn [tag_knob $id]
 
         # update box
-        $c itemconfigure $tb -fill $fill_color -outline $out_color
+        $c itemconfigure $tb -outline $out_color
+        $c itemconfigure $tf -fill $fill_color
 
         lassign [$c coords $tb] x0 y0 x1 y1
         set w [expr $x1-$x0]
@@ -432,6 +453,9 @@ namespace eval slider {
         lassign [$c coords $tkn] x0 y0 x1 y1
         $c coords $tkn $x $y0 $x $y1
         $c itemconfigure $tkn -fill $knob_color
+
+        # update tooltip
+        ::nui::widget_tooltip $cnv $model $tkn "value: $value"
     }
 
     proc erase { cnv model id } {
