@@ -177,7 +177,7 @@ namespace ui {
     int StyleCollection::appendStyle(const Style& st)
     {
         styles_.push_back(st);
-        return styles_.size() + 1;
+        return styles_.size();
     }
 }
 }

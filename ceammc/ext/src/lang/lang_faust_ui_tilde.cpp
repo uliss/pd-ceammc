@@ -17,6 +17,9 @@
 #include "nui/factory.h"
 
 namespace {
+
+static int faustThemeIdx = 0;
+
 void initFaustStyle()
 {
     using sc = StyleCollection;
@@ -27,22 +30,27 @@ void initFaustStyle()
     //    const HexColor PALLETE2 = 0x1e5f74;
     //    const HexColor PALLETE3 = 0xfcdab7;
 
-    const HexColor PALLETE0 = 0x222831;
-    const HexColor PALLETE1 = 0x30475e;
-    const HexColor PALLETE2 = 0xf2a365;
-    const HexColor PALLETE3 = 0xececec;
+    //    const HexColor PALLETE0 = 0x222831;
+    //    const HexColor PALLETE1 = 0x30475e;
+    //    const HexColor PALLETE2 = 0xf2a365;
+    //    const HexColor PALLETE3 = 0xececec;
 
-    st.insertColor("box:fill_color"_hash, PALLETE1);
-//    st.insertColor("box:xlet_signal_color"_hash, PALLETE3);
+    const HexColor PALLETE0 = 0x1d3557;
+    const HexColor PALLETE1 = 0x457b9d;
+    const HexColor PALLETE2 = 0xa8dadc;
+    const HexColor PALLETE3 = 0xf1faee;
+    const HexColor PALLETE4 = 0xe63946; //e63946
+
+    st.insertColor("box:fill_color"_hash, PALLETE0);
     st.insertColor("label:color"_hash, PALLETE3);
-    st.insertColor("slider:knob_color"_hash, PALLETE3);
-    st.insertColor("slider:fill_color"_hash, PALLETE2);
-    st.insertColor("slider:border_color"_hash, PALLETE0);
-    st.insertColor("toggle:knob_color"_hash, PALLETE3);
-    st.insertColor("toggle:fill_color"_hash, PALLETE2);
-    st.insertColor("toggle:border_color"_hash, PALLETE0);
+    st.insertColor("slider:knob_color"_hash, PALLETE4);
+    st.insertColor("slider:fill_color"_hash, PALLETE1);
+    st.insertColor("slider:border_color"_hash, PALLETE2);
+    st.insertColor("toggle:knob_color"_hash, PALLETE4);
+    st.insertColor("toggle:fill_color"_hash, PALLETE1);
+    st.insertColor("toggle:border_color"_hash, PALLETE2);
 
-    sc::instance().appendStyle(st);
+    faustThemeIdx = sc::instance().appendStyle(st);
 }
 }
 
@@ -55,6 +63,7 @@ LangFaustUiTilde::LangFaustUiTilde(const PdArgs& args)
     addProperty(new IntProperty("@style", 0))->setSuccessFn([this](Property* p) {
         auto pi = static_cast<IntProperty*>(p);
         vc_.loadStyle(pi->value());
+        vc_.updateAll();
     });
 }
 
@@ -63,7 +72,6 @@ void LangFaustUiTilde::buildUI()
     vc_.setXlets(Xlets::fromInlets(owner()), Xlets::fromOutlets(owner()));
     auto sz = vc_.build(faustProperties());
     setSize(sz);
-    LIB_ERR << size();
 }
 
 void LangFaustUiTilde::onWidgetShow()
@@ -141,7 +149,9 @@ Size FaustMasterView::build(const std::vector<faust::UIProperty*>& props)
     for (auto p : props)
         addProperty(p);
 
+    loadStyle(faustThemeIdx);
     view_.layout();
+
     return view_.size();
 }
 
@@ -211,22 +221,31 @@ void FaustMasterView::setXlets(const Xlets& in, const Xlets& out)
 
 void FaustMasterView::loadStyle(int st)
 {
-    for (auto& s : sliders_) {
+    LIB_ERR << __FUNCTION__ << " " << st;
+
+    for (auto& s : sliders_)
         s->data().loadStyle(st);
-        s->notify();
-    }
 
-    for (auto& l : labels_) {
+    for (auto& l : labels_)
         l->data().loadStyle(st);
-        l->notify();
-    }
 
-    for (auto& t : toggles_) {
+    for (auto& t : toggles_)
         t->data().loadStyle(st);
-        t->notify();
-    }
 
     model_.data().loadStyle(st);
+}
+
+void FaustMasterView::updateAll()
+{
+    for (auto& s : sliders_)
+        s->notify();
+
+    for (auto& l : labels_)
+        l->notify();
+
+    for (auto& t : toggles_)
+        t->notify();
+
     model_.notify();
 }
 

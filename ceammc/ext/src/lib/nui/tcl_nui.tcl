@@ -423,6 +423,7 @@ namespace eval slider {
     proc tag_fill { id } { return "#sl${id}_fill" }
     proc tag_knob { id } { return "#sl${id}_kn" }
     proc tag_labels { id } { return "#sl${id}_lbl" }
+    proc minmax_font { zoom } { return "Helvetica [expr $zoom*8]" }
 
     proc knob_xpos { x w pos } { return [expr ($w*$pos)+$x] }
 
@@ -440,11 +441,11 @@ namespace eval slider {
 
         # draw min/max
         $c create text [expr $x+2] [expr $y+($h*0.5)] -text "$min" \
-            -fill $out_color -font {Helvetica 8} -justify left\
+            -fill $out_color -font [minmax_font $zoom] -justify left\
             -anchor w -tags [list $ta $tl]
 
         $c create text [expr $x+$w-2] [expr $y+($h*0.5)] -text "$max" \
-            -fill $out_color -font {Helvetica 8} -justify right \
+            -fill $out_color -font [minmax_font $zoom] -justify right \
             -anchor e -tags [list $ta $tl]
 
         # draw knob
@@ -466,11 +467,15 @@ namespace eval slider {
         set c [::nui::widget_canvas $cnv $model]
         set tb [tag_box $id]
         set tf [tag_fill $id]
+        set tl [tag_labels $id]
         set tkn [tag_knob $id]
 
         # update box
         $c itemconfigure $tb -outline $out_color
         $c itemconfigure $tf -fill $fill_color
+
+        # update labels
+        $c itemconfigure $tl -fill $out_color
 
         lassign [$c coords $tb] x0 y0 x1 y1
         set w [expr $x1-$x0]
