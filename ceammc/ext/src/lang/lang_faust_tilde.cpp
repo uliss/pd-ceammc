@@ -140,6 +140,12 @@ void LangFaustTilde::initDone()
         const size_t n_ui = ui->uiCount();
         for (size_t i = 0; i < n_ui; i++) {
             auto p = new faust::UIProperty(ui->uiAt(i));
+            if (hasProperty(p->name())) {
+                OBJ_ERR << "property already exists: " << p->name();
+                delete p;
+                continue;
+            }
+
             addProperty(p);
             faust_properties_.push_back(p);
         }
@@ -221,7 +227,7 @@ void LangFaustTilde::dump() const
 
 void LangFaustTilde::onClick(t_floatarg xpos, t_floatarg ypos, t_floatarg shift, t_floatarg ctrl, t_floatarg alt)
 {
-    if (!shift)
+    if (!alt)
         return;
 
     m_open(gensym("open"), {});
