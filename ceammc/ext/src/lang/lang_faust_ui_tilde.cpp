@@ -123,6 +123,7 @@ void FaustMasterView::addProperty(faust::UIProperty* p)
         createToggleEntry(p);
     } break;
     default:
+        LIB_ERR << "unknown UI type: " << p->uiElement()->type();
         break;
     }
 }

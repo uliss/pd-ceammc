@@ -59,6 +59,8 @@ public:
 
     void dump() const override;
 
+    void onClick(t_floatarg xpos, t_floatarg ypos, t_floatarg shift, t_floatarg ctrl, t_floatarg alt) override;
+
 protected:
     FaustProperyList& faustProperties();
 

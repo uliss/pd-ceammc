@@ -219,6 +219,14 @@ void LangFaustTilde::dump() const
         dsp_factory_->dumpOpts(os);
 }
 
+void LangFaustTilde::onClick(t_floatarg xpos, t_floatarg ypos, t_floatarg shift, t_floatarg ctrl, t_floatarg alt)
+{
+    if (!shift)
+        return;
+
+    m_open(gensym("open"), {});
+}
+
 LangFaustTilde::FaustProperyList& LangFaustTilde::faustProperties()
 {
     return faust_properties_;
@@ -240,4 +248,5 @@ void setup_lang_faust_tilde()
     SoundExternalFactory<LangFaustTilde> obj("lang.faust~", OBJECT_FACTORY_DEFAULT);
     obj.addMethod("reset", &LangFaustTilde::m_reset);
     obj.addMethod("open", &LangFaustTilde::m_open);
+    obj.useClick();
 }
