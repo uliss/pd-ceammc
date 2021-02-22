@@ -173,5 +173,11 @@ namespace ui {
         else
             return st->getFontWithDef(key, def);
     }
+
+    int StyleCollection::appendStyle(const Style& st)
+    {
+        styles_.push_back(st);
+        return styles_.size() + 1;
+    }
 }
 }

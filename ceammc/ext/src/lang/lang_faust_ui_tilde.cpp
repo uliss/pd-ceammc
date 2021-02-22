@@ -16,6 +16,23 @@
 
 #include "nui/factory.h"
 
+namespace {
+void initFaustStyle()
+{
+    using sc = StyleCollection;
+    Style st;
+    st.insertColor("box:fill_color"_hash, 0x133b5c);
+    st.insertColor("slider:knob_color"_hash, 0xfcdab7);
+    st.insertColor("slider:fill_color"_hash, 0x1e5f74);
+    st.insertColor("slider:border_color"_hash, 0x1d2d50);
+    st.insertColor("toggle:knob_color"_hash, 0xfcdab7);
+    st.insertColor("toggle:fill_color"_hash, 0x1e5f74);
+    st.insertColor("toggle:border_color"_hash, 0x1d2d50);
+
+    sc::instance().appendStyle(st);
+}
+}
+
 LangFaustUiTilde::LangFaustUiTilde(const PdArgs& args)
     : ui::Widget<LangFaustTilde>(args)
 {
@@ -78,6 +95,8 @@ void setup_lang_faust_ui_tilde()
 
     obj.addMethod("reset", &LangFaustTilde::m_reset);
     obj.addMethod("open", &LangFaustTilde::m_open);
+
+    initFaustStyle();
 }
 
 FaustMasterView::FaustMasterView()
@@ -193,6 +212,9 @@ void FaustMasterView::loadStyle(int st)
         t->data().loadStyle(st);
         t->notify();
     }
+
+    model_.data().loadStyle(st);
+    model_.notify();
 }
 
 void FaustMasterView::createHsliderEntry(faust::UIProperty* p)

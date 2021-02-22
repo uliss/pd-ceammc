@@ -69,6 +69,8 @@ namespace ui {
         HexColor getColor(int styleIdx, StyleKey key, HexColor def) const;
         Size getSize(int styleIdx, StyleKey key, const Size& def) const;
         Font getFont(int styleIdx, StyleKey key, const Font& def) const;
+
+        int appendStyle(const Style& st);
     };
 }
 }
