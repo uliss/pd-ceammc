@@ -27,6 +27,7 @@
 #include "nui/rect.h"
 #include "nui/slider_model.h"
 #include "nui/toggle_model.h"
+#include "nui/vu_model.h"
 
 namespace ceammc {
 namespace ui {
@@ -298,6 +299,8 @@ namespace ui {
         ToggleView(ToggleModel* model, ViewImplPtr&& impl, const PointF& pos);
         EventAcceptStatus onEvent(EventType t, const PointF& pos, const EventContext& ctx) override;
     };
+
+    using VuView = ModelView<VuData>;
 
     class FrameView : public ModelView<FrameData> {
         ViewPtr child_;

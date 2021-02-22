@@ -33,15 +33,24 @@ class FaustMasterView {
     using SliderModelPtr = std::unique_ptr<SliderModel>;
     using ToggleModelPtr = std::unique_ptr<ToggleModel>;
     using LabelModelPtr = std::unique_ptr<LabelModel>;
+    using VuModelPtr = std::unique_ptr<VuModel>;
     using PropSliderView = PropertyObserver<SliderData, faust::UIProperty, t_float, SliderData::VALUE>;
     using PropSliderViewPtr = std::unique_ptr<PropSliderView>;
     using PropToggleView = PropertyObserver<ToggleData, faust::UIProperty, t_float, ToggleData::VALUE>;
     using PropToggleViewPtr = std::unique_ptr<PropToggleView>;
+    using PropVuView = PropertyObserver<VuData, faust::UIProperty, t_float, VuData::VALUE>;
+    using PropVuViewPtr = std::unique_ptr<PropVuView>;
+
+    // models
     std::vector<SliderModelPtr> sliders_;
     std::vector<ToggleModelPtr> toggles_;
     std::vector<LabelModelPtr> labels_;
+    std::vector<VuModelPtr> vu_;
+
+    // props
     std::vector<PropSliderViewPtr> slider_props_;
     std::vector<PropToggleViewPtr> toggle_props_;
+    std::vector<PropVuViewPtr> vu_props_;
 
     ModelViewBase* focused_;
 
@@ -70,6 +79,7 @@ public:
 private:
     void createHsliderEntry(faust::UIProperty* p);
     void createToggleEntry(faust::UIProperty* p);
+    void createBarEntry(faust::UIProperty* p);
 };
 
 class LangFaustUiTilde : public ui::Widget<LangFaustTilde> {

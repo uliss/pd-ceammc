@@ -169,6 +169,10 @@ void FaustMasterView::addProperty(faust::UIProperty* p)
     case faust::UIElementType::UI_CHECK_BUTTON: {
         createToggleEntry(p);
     } break;
+    case faust::UIElementType::UI_V_BARGRAPH:
+    case faust::UIElementType::UI_H_BARGRAPH:
+        createBarEntry(p);
+        break;
     default:
         LIB_ERR << "unknown UI type: " << p->uiElement()->type();
         break;
@@ -279,6 +283,21 @@ void FaustMasterView::createHsliderEntry(faust::UIProperty* p)
 
     auto vgroup = view_.getChild<VGroupView>();
     vgroup->appendChild(std::move(hgroup));
+}
+
+void FaustMasterView::createBarEntry(faust::UIProperty* p)
+{
+    auto vu = new VuModel(0);
+    vu->data().setValue(p->value());
+
+    vu_.emplace_back(vu);
+    ViewPtr barv(new VuView(vu, VuView::ViewImplPtr(new TclVuImpl), {}));
+
+    vu_props_.emplace_back(new PropVuView(p, vu));
+    vu_props_.back()->updateModelFromProp();
+
+    auto vgroup = view_.getChild<VGroupView>();
+    vgroup->appendChild(std::move(barv));
 }
 
 void FaustMasterView::createToggleEntry(faust::UIProperty* p)

@@ -244,5 +244,21 @@ namespace ui {
         sys_vgui("nui::toggle::move %lx %lx %lx %d %d\n",
             winId(), widgetId(), this, rect.left(), rect.top());
     }
+
+    void TclVuImpl::create(const RectF& bbox, const VuData& data)
+    {
+    }
+
+    void TclVuImpl::erase()
+    {
+    }
+
+    void TclVuImpl::update(const RectF& bbox, const VuData& data)
+    {
+    }
+
+    void TclVuImpl::updateCoords(const RectF& bbox)
+    {
+    }
 }
 }
