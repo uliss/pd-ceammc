@@ -258,13 +258,13 @@ namespace eval xlet {
 }
 
 namespace eval box {
-    proc tag    { id } { return "#b${id}" }
-    proc tag_bg { id } { return "#b${id}_bg" }
+    proc tag_border { id } { return "#b${id}" }
+    proc tag_fill   { id } { return "#b${id}_bg" }
 
     proc create { cnv model id x y w h zoom border_color fill_color ctl_color sig_color border_width inlets outlets } {
         set c [::nui::widget_canvas $cnv $model]
-        set t [tag $id]
-        set tb [tag_bg $id]
+        set tb [tag_border $id]
+        set tf [tag_fill $id]
         # zoomed border correction
         if { $zoom > 1} {
             set x0 [expr $x+($zoom)/2]
@@ -275,12 +275,13 @@ namespace eval box {
         }
         set x1 [expr $x+$w]
         set y1 [expr $y+$h]
-        $c create rectangle $x0 $y0 $x1 $y1 \
-            -fill {} -outline $border_color -width $border_width -tags $t
 
         $c create rectangle $x0 $y0 $x1 $y1 \
-            -fill $fill_color -outline {} -width 0 -tags [list $t $tb]
-        $c lower $tb
+            -fill {} -outline $border_color -width $border_width -tags $tb
+
+        $c create rectangle $x0 $y0 $x1 $y1 \
+            -fill $fill_color -outline {} -width 0 -tags $tf
+        $c lower $tf
 
         ::nui::xlet::draw_multiple $cnv $model $w $h $zoom $inlets $ctl_color $sig_color false
         ::nui::xlet::draw_multiple $cnv $model $w $h $zoom $outlets $ctl_color $sig_color true
@@ -288,13 +289,15 @@ namespace eval box {
 
     proc update { cnv model id w h zoom border_color fill_color ctl_color sig_color border_width inlets outlets } {
         set c [::nui::widget_canvas $cnv $model]
-        set t [tag $id]
-        set tb [tag_bg $id]
-        $c itemconfigure $t -outline $border_color
-        $c itemconfigure $tb -fill $fill_color
-        lassign [$c coords $t] x0 y0 x1 y1
-        $c coords $t $x0 $y0 [expr $x0+$w] [expr $y0+$h]
+        set tb [tag_border $id]
+        set tf [tag_fill $id]
+
+        $c itemconfigure $tb -outline $border_color
+        $c itemconfigure $tf -fill $fill_color
+
+        lassign [$c coords $tb] x0 y0 x1 y1
         $c coords $tb $x0 $y0 [expr $x0+$w] [expr $y0+$h]
+        $c coords $tf $x0 $y0 [expr $x0+$w] [expr $y0+$h]
 
         ::nui::xlet::draw_multiple $cnv $model $w $h $zoom $inlets $ctl_color $sig_color false
         ::nui::xlet::draw_multiple $cnv $model $w $h $zoom $outlets $ctl_color $sig_color true
