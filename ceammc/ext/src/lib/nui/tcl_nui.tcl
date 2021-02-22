@@ -519,7 +519,6 @@ namespace eval slider {
         set tb [tag_box $id]
         set tkn [tag_knob $id]
 
-
         lassign [$c coords $tb] x0 y0 x1 y1
         set w [expr $x1-$x0]
         set h [expr $y1-$y0]
