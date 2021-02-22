@@ -139,13 +139,13 @@ void LangFaustTilde::initDone()
         auto ui = static_cast<FaustUI*>(ui_.get());
         const size_t n_ui = ui->uiCount();
         for (size_t i = 0; i < n_ui; i++) {
-            auto p = new faust::UIProperty(ui->uiAt(i));
-            if (hasProperty(p->name())) {
-                OBJ_ERR << "property already exists: " << p->name();
-                delete p;
+            auto name = ui->uiAt(i)->propInfo().name();
+            if (hasProperty(name)) {
+                OBJ_ERR << "UI control already exists: " << name << ", skipping";
                 continue;
             }
 
+            auto p = new faust::UIProperty(ui->uiAt(i));
             addProperty(p);
             faust_properties_.push_back(p);
         }
