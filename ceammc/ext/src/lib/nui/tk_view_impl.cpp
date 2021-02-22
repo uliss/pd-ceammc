@@ -21,6 +21,20 @@
 namespace ceammc {
 namespace ui {
 
+    namespace {
+        std::pair<Point, const char*> anchorToPos(const Rect& rect, const AnchorPosition an)
+        {
+            switch (an) {
+            case ANCHOR_CORNER_LEFT_TOP:
+                return { rect.leftTop(), "nw" };
+            case ANCHOR_SIDE_LEFT_CENTER:
+                return { rect.leftCenter(), "w" };
+            default:
+                return { rect.leftTop(), "nw" };
+            }
+        }
+    }
+
     void TclHSliderImpl::create(const RectF& bbox, const SliderData& data)
     {
         Rect rect = transform(bbox);
@@ -103,29 +117,15 @@ namespace ui {
     void TclLabelImpl::create(const RectF& bbox, const LabelData& data)
     {
         Rect rect = transform(bbox);
-        Point pt = rect.size().leftTop();
-
-        const char* anchor = "nw";
-
-        switch (data.anchor()) {
-        case ANCHOR_CORNER_LEFT_TOP:
-            pt = rect.leftTop();
-            anchor = "nw";
-            break;
-        case ANCHOR_SIDE_LEFT_CENTER:
-            pt = rect.leftCenter();
-            anchor = "w";
-            break;
-        default:
-            break;
-        }
+        auto anchor = anchorToPos(rect, data.anchor());
+        Point pt = anchor.first;
 
         sys_vgui("nui::label::create %lx %lx %lx"
                  " %d %d"
                  " %d %s {{%s} %d} #%6.6x {%s}\n",
             winId(), widgetId(), this,
             pt.x(), pt.y(),
-            data.textWidth(), anchor,
+            data.textWidth(), anchor.second,
             data.font().family(), int(data.font().size() * scale()),
             data.color(), data.text()->s_name);
     }
@@ -137,6 +137,18 @@ namespace ui {
 
     void TclLabelImpl::update(const RectF& bbox, const LabelData& data)
     {
+        Rect rect = transform(bbox);
+        auto anchor = anchorToPos(rect, data.anchor());
+        Point pt = anchor.first;
+
+        sys_vgui("nui::label::update %lx %lx %lx"
+                 " %d %d"
+                 " %d %s {{%s} %d} #%6.6x {%s}\n",
+            winId(), widgetId(), this,
+            pt.x(), pt.y(),
+            data.textWidth(), anchor.second,
+            data.font().family(), int(data.font().size() * scale()),
+            data.color(), data.text()->s_name);
     }
 
     void TclLabelImpl::updateCoords(const RectF& bbox)
