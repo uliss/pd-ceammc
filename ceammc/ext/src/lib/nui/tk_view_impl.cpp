@@ -160,11 +160,13 @@ namespace ui {
 
         sys_vgui("nui::box::create %lx %lx %lx"
                  " %d %d %d %d %d"
-                 " #%6.6x #%6.6x #%6.6x"
+                 " #%6.6x #%6.6x"
+                 " #%6.6x #%6.6x"
                  " %d {%s} {%s}\n",
             winId(), widgetId(), this,
             rect.left(), rect.top(), rect.width(), rect.height(), (int)scale(),
-            data.borderColor(), data.xletControlColor(), data.xletSignalColor(),
+            data.borderColor(), data.fillColor(),
+            data.xletControlColor(), data.xletSignalColor(),
             (int)scale(), data.inlets().asString(), data.outlets().asString());
     }
 
@@ -175,11 +177,13 @@ namespace ui {
 
         sys_vgui("nui::box::update %lx %lx %lx"
                  " %d %d %d"
-                 " #%6.6x #%6.6x #%6.6x"
+                 " #%6.6x #%6.6x"
+                 " #%6.6x #%6.6x"
                  " %d {%s} {%s}\n",
             winId(), widgetId(), this,
             rect.width(), rect.height(), (int)scale(),
-            data.borderColor(), data.xletControlColor(), data.xletSignalColor(),
+            data.borderColor(), data.fillColor(),
+            data.xletControlColor(), data.xletSignalColor(),
             (int)scale(), data.inlets().asString(), data.outlets().asString());
     }
 

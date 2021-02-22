@@ -21,13 +21,20 @@ void initFaustStyle()
 {
     using sc = StyleCollection;
     Style st;
-    st.insertColor("box:fill_color"_hash, 0x133b5c);
-    st.insertColor("slider:knob_color"_hash, 0xfcdab7);
-    st.insertColor("slider:fill_color"_hash, 0x1e5f74);
-    st.insertColor("slider:border_color"_hash, 0x1d2d50);
-    st.insertColor("toggle:knob_color"_hash, 0xfcdab7);
-    st.insertColor("toggle:fill_color"_hash, 0x1e5f74);
-    st.insertColor("toggle:border_color"_hash, 0x1d2d50);
+    const HexColor PALLETE0 = 0x1d2d50;
+    const HexColor PALLETE1 = 0x133b5c;
+    const HexColor PALLETE2 = 0x1e5f74;
+    const HexColor PALLETE3 = 0xfcdab7;
+
+    st.insertColor("box:fill_color"_hash, PALLETE1);
+    st.insertColor("box:xlet_signal_color"_hash, PALLETE3);
+    st.insertColor("label:color"_hash, PALLETE3);
+    st.insertColor("slider:knob_color"_hash, PALLETE3);
+    st.insertColor("slider:fill_color"_hash, PALLETE2);
+    st.insertColor("slider:border_color"_hash, PALLETE0);
+    st.insertColor("toggle:knob_color"_hash, PALLETE3);
+    st.insertColor("toggle:fill_color"_hash, PALLETE2);
+    st.insertColor("toggle:border_color"_hash, PALLETE0);
 
     sc::instance().appendStyle(st);
 }

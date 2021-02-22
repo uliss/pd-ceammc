@@ -258,11 +258,13 @@ namespace eval xlet {
 }
 
 namespace eval box {
-    proc tag { id } { return "#b${id}" }
+    proc tag    { id } { return "#b${id}" }
+    proc tag_bg { id } { return "#b${id}_bg" }
 
-    proc create { cnv model id x y w h zoom border_color ctl_color sig_color border_width inlets outlets } {
+    proc create { cnv model id x y w h zoom border_color fill_color ctl_color sig_color border_width inlets outlets } {
         set c [::nui::widget_canvas $cnv $model]
         set t [tag $id]
+        set tb [tag_bg $id]
         # zoomed border correction
         if { $zoom > 1} {
             set x0 [expr $x+($zoom)/2]
@@ -276,16 +278,23 @@ namespace eval box {
         $c create rectangle $x0 $y0 $x1 $y1 \
             -fill {} -outline $border_color -width $border_width -tags $t
 
+        $c create rectangle $x0 $y0 $x1 $y1 \
+            -fill $fill_color -outline {} -width 0 -tags [list $t $tb]
+        $c lower $tb
+
         ::nui::xlet::draw_multiple $cnv $model $w $h $zoom $inlets $ctl_color $sig_color false
         ::nui::xlet::draw_multiple $cnv $model $w $h $zoom $outlets $ctl_color $sig_color true
     }
 
-    proc update { cnv model id w h zoom border_color ctl_color sig_color border_width inlets outlets } {
+    proc update { cnv model id w h zoom border_color fill_color ctl_color sig_color border_width inlets outlets } {
         set c [::nui::widget_canvas $cnv $model]
         set t [tag $id]
+        set tb [tag_bg $id]
         $c itemconfigure $t -outline $border_color
+        $c itemconfigure $tb -fill $fill_color
         lassign [$c coords $t] x0 y0 x1 y1
         $c coords $t $x0 $y0 [expr $x0+$w] [expr $y0+$h]
+        $c coords $tb $x0 $y0 [expr $x0+$w] [expr $y0+$h]
 
         ::nui::xlet::draw_multiple $cnv $model $w $h $zoom $inlets $ctl_color $sig_color false
         ::nui::xlet::draw_multiple $cnv $model $w $h $zoom $outlets $ctl_color $sig_color true
