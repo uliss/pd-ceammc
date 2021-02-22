@@ -431,7 +431,14 @@ namespace eval slider {
 
     proc minmax_font { zoom } { return "Helvetica [expr $zoom*8]" }
 
-    proc knob_xpos { x w pos } { return [expr ($w*$pos)+$x] }
+    proc knob_xpos { x w pos zoom } {
+        # keep in sync with knob width!
+        if { $zoom > 1 } {
+            return [expr (($w-$zoom)*$pos)+$x+($zoom/2)]
+        } {
+            return [expr (($w-1)*$pos)+$x+1]
+        }
+    }
 
     proc hcreate { cnv model id x y w h zoom pos value min max out_color fill_color knob_color } {
         set c [::nui::widget_canvas $cnv $model]
@@ -462,7 +469,7 @@ namespace eval slider {
             -anchor center -tags [list $ta $tval]
 
         # draw knob
-        set kx [knob_xpos $x $w $pos]
+        set kx [knob_xpos $x $w $pos $zoom]
         set ky0 [expr $y+1]
         set ky1 [expr $y+$h-0.5]
         $c create line $kx $ky0 $kx $ky1 \
@@ -473,7 +480,7 @@ namespace eval slider {
             -fill {} -outline $out_color -width $zoom -tags [list $ta $tb]
     }
 
-    proc hupdate { cnv model id pos value min max out_color fill_color knob_color } {
+    proc hupdate { cnv model id zoom pos value min max out_color fill_color knob_color } {
         set c [::nui::widget_canvas $cnv $model]
         set tb [tag_box $id]
         set tf [tag_fill $id]
@@ -494,7 +501,7 @@ namespace eval slider {
 
         lassign [$c coords $tb] x0 y0 x1 y1
         set w [expr $x1-$x0]
-        set x [knob_xpos $x0 $w $pos]
+        set x [knob_xpos $x0 $w $pos $zoom]
 
         # update knob
         lassign [$c coords $tkn] x0 y0 x1 y1

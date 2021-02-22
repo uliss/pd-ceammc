@@ -59,10 +59,10 @@ namespace ui {
     {
         const float pos = (data.value() - data.min()) / (data.max() - data.min());
 
-        sys_vgui("nui::slider::hupdate %lx %lx %lx"
+        sys_vgui("nui::slider::hupdate %lx %lx %lx %d"
                  " %f %g %g %g"
                  " #%6.6x #%6.6x #%6.6x\n",
-            winId(), widgetId(), this,
+            winId(), widgetId(), this, (int)scale(),
             pos, data.value(), data.min(), data.max(),
             data.borderColor(), data.fillColor(), data.knobColor());
     }
