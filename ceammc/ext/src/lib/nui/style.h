@@ -39,7 +39,7 @@ namespace ui {
 
         bool hasSize(StyleKey key) const;
         bool getSize(StyleKey key, Size& sz) const;
-        Size getSizeWithDef(StyleKey key, const Size& sz) const;
+        Size getSizeWithDef(StyleKey key, const Size& def) const;
 
         bool hasFont(StyleKey key) const;
         bool getFont(StyleKey key, Font& ft) const;

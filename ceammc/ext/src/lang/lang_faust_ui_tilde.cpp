@@ -50,6 +50,10 @@ void initFaustStyle()
     st.insertColor("toggle:fill_color"_hash, PALLETE1);
     st.insertColor("toggle:border_color"_hash, PALLETE2);
 
+    st.insertSize("slider:size"_hash, Size(100, 10));
+    st.insertSize("bar:size"_hash, Size(100, 4));
+    st.insertSize("label:size"_hash, Size(80, 4));
+
     faustThemeIdx = sc::instance().appendStyle(st);
 }
 }
@@ -133,7 +137,8 @@ void setup_lang_faust_ui_tilde()
 }
 
 FaustMasterView::FaustMasterView()
-    : view_(&model_, BoxView::ViewImplPtr(new TclBoxImpl()))
+    : model_(faustThemeIdx)
+    , view_(&model_, BoxView::ViewImplPtr(new TclBoxImpl()))
     , focused_(nullptr)
 {
 }
@@ -150,7 +155,7 @@ Size FaustMasterView::build(const std::vector<faust::UIProperty*>& props)
     view_.setSize({ 20, 30 });
     view_.setPadding(5);
 
-    auto lm = new LabelModel(0);
+    auto lm = new LabelModel(faustThemeIdx);
     lm->data().setAnchor(ANCHOR_CORNER_LEFT_TOP);
     lm->data().setText(gensym("FAUST"));
     labels_.emplace_back(lm);
@@ -161,7 +166,6 @@ Size FaustMasterView::build(const std::vector<faust::UIProperty*>& props)
     for (auto p : props)
         addProperty(p);
 
-    loadStyle(faustThemeIdx);
     view_.layout();
 
     return view_.size();
@@ -293,7 +297,7 @@ void FaustMasterView::createHsliderEntry(faust::UIProperty* p)
     // create hgroup: control, label
     auto hgroup = ViewPtr(new HGroupView({}));
 
-    auto slm = new SliderModel(0);
+    auto slm = new SliderModel(faustThemeIdx);
 
     slm->data().setValue(p->value());
     slm->data().setMin(p->uiElement()->min());
@@ -306,7 +310,7 @@ void FaustMasterView::createHsliderEntry(faust::UIProperty* p)
     slider_props_.emplace_back(new PropSliderView(p, slm));
     slider_props_.back()->updateModelFromProp();
 
-    auto lm = new LabelModel(0);
+    auto lm = new LabelModel(faustThemeIdx);
 
     lm->data().setAnchor(ANCHOR_SIDE_LEFT_CENTER);
     lm->data().sizeRef().setHeight(slm->data().size());
@@ -322,7 +326,7 @@ void FaustMasterView::createHsliderEntry(faust::UIProperty* p)
 
 void FaustMasterView::createBarEntry(faust::UIProperty* p)
 {
-    auto barm = new BarModel(0);
+    auto barm = new BarModel(faustThemeIdx);
     barm->data().setValue(p->value());
     barm->data().setMin(p->uiElement()->min());
     barm->data().setMax(p->uiElement()->max());
@@ -342,7 +346,7 @@ void FaustMasterView::createToggleEntry(faust::UIProperty* p)
     // create hgroup: control, label
     auto hgroup = ViewPtr(new HGroupView({}));
 
-    auto tgl = new ToggleModel(0);
+    auto tgl = new ToggleModel(faustThemeIdx);
 
     tgl->data().setValue(p->value());
 
@@ -353,7 +357,7 @@ void FaustMasterView::createToggleEntry(faust::UIProperty* p)
     toggle_props_.emplace_back(new PropToggleView(p, tgl));
     toggle_props_.back()->updateModelFromProp();
 
-    auto lm = new LabelModel(0);
+    auto lm = new LabelModel(faustThemeIdx);
 
     lm->data().setAnchor(ANCHOR_SIDE_LEFT_CENTER);
     lm->data().sizeRef().setHeight(tgl->data().size());

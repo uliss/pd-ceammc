@@ -39,7 +39,7 @@ namespace ui {
 
     bool Style::hasSize(StyleKey key) const
     {
-        return sizes.find(key) == sizes.end();
+        return sizes.find(key) != sizes.end();
     }
 
     bool Style::getSize(StyleKey key, Size& sz) const
@@ -52,15 +52,16 @@ namespace ui {
         return true;
     }
 
-    Size Style::getSizeWithDef(StyleKey key, const Size& sz) const
+    Size Style::getSizeWithDef(StyleKey key, const Size& def) const
     {
-        Size res;
-        return getSize(key, res) ? res : sz;
+        Size res(def);
+        getSize(key, res);
+        return res;
     }
 
     bool Style::hasFont(StyleKey key) const
     {
-        return fonts.find(key) == fonts.end();
+        return fonts.find(key) != fonts.end();
     }
 
     bool Style::getFont(StyleKey key, Font& ft) const
