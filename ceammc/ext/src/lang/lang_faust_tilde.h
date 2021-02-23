@@ -21,7 +21,9 @@ using namespace ceammc;
 
 #ifdef WITH_FAUST
 #include "ceammc_llvm.h"
+#include <future>
 #include <memory>
+#include <thread>
 
 using FactoryPtr = std::unique_ptr<faust::LlvmDspFactory>;
 class UI;
@@ -44,6 +46,8 @@ private:
     FactoryPtr dsp_factory_;
     FaustDspPtr dsp_;
     FaustUIPtr ui_;
+
+    std::future<int> run_editor_;
 #endif
 
 public:

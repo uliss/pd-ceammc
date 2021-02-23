@@ -29,6 +29,26 @@
 #include <chrono>
 #include <cstdlib>
 
+static int runEditorCommand(const std::string& path)
+{
+    char msg[MAXPDSTRING];
+
+#ifdef _WIN32
+    char temp[MAXPDSTRING];
+    sys_bashfilename(path.c_str(), temp);
+    sprintf(msg, "\"%s\"", temp);
+    WinExec(msg, SW_HIDE);
+    return 0;
+#elif __APPLE__
+    snprintf(msg, sizeof(msg) - 1, "open -t %s", path.c_str());
+    return system(msg);
+
+#else
+    snprintf(msg, sizeof(msg) - 1, "xdg-open %s", path.c_str());
+    return system(msg);
+#endif
+}
+
 class DspState {
     int state_;
 
@@ -188,23 +208,22 @@ void LangFaustTilde::m_open(t_symbol*, const AtomListView&)
         return;
     }
 
-    char msg[MAXPDSTRING];
+    if (run_editor_.valid()) {
+        try {
+            run_editor_.get();
+        } catch (std::exception& e) {
+            OBJ_ERR << e.what();
+            return;
+        }
+    }
 
-#ifdef _WIN32
-    char temp[MAXPDSTRING];
-    sys_bashfilename(full_path_.c_str(), temp);
-    sprintf(msg, "\"%s\"", temp);
-    WinExec(msg, SW_HIDE);
+    try {
+        run_editor_ = std::async(std::launch::async, runEditorCommand, full_path_);
+    } catch (std::exception& e) {
+        OBJ_ERR << "can't run editor: " << e.what();
+    }
+
     return;
-#elif __APPLE__
-    snprintf(msg, sizeof(msg) - 1, "open -t %s", full_path_.c_str());
-    system(msg);
-    return;
-#else
-    snprintf(msg, sizeof(msg) - 1, "xdg-open %s", full_path_.c_str());
-    system(msg);
-    return;
-#endif
 }
 
 void LangFaustTilde::dump() const
