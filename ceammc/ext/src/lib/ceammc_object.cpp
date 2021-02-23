@@ -80,6 +80,24 @@ t_outlet* BaseObject::outletAt(size_t n)
     return outlets_[n];
 }
 
+void BaseObject::clearOutlets()
+{
+    const bool redraw = owner()->te_binbuf && gobj_shouldvis((t_gobj*)owner(), canvas()) && glist_isvisible(canvas());
+
+    if (redraw)
+        gobj_vis((t_gobj*)owner(), canvas(), 0);
+
+    for (auto& x : outlets_)
+        outlet_free(x);
+
+    outlets_.clear();
+
+    if (redraw) {
+        gobj_vis((t_gobj*)owner(), canvas(), 1);
+        canvas_fixlinesfor(canvas(), owner());
+    }
+}
+
 const char* BaseObject::annotateOutlet(size_t n) const
 {
     auto it = outlet_info_map.find(classPointer());
@@ -490,6 +508,24 @@ void BaseObject::freeInlets()
 size_t BaseObject::numInlets() const
 {
     return pd_.owner ? static_cast<size_t>(obj_ninlets(pd_.owner)) : 0;
+}
+
+void BaseObject::clearInlets()
+{
+    const bool redraw = owner()->te_binbuf && gobj_shouldvis((t_gobj*)owner(), canvas()) && glist_isvisible(canvas());
+
+    if (redraw)
+        gobj_vis((t_gobj*)owner(), canvas(), 0);
+
+    for (auto& x : inlets_)
+        inlet_free(x);
+
+    inlets_.clear();
+
+    if (redraw) {
+        gobj_vis((t_gobj*)owner(), canvas(), 1);
+        canvas_fixlinesfor(canvas(), owner());
+    }
 }
 
 const char* BaseObject::annotateInlet(size_t n) const

@@ -304,6 +304,11 @@ public:
     void reserveInlets(size_t n) { inlets_.reserve(n); }
 
     /**
+     * Removes all created inlets
+     */
+    void clearInlets();
+
+    /**
      * Inlet description
      * @param n - inlet index
      * @return inlet description constant string pointer, 0 if not exists
@@ -331,6 +336,11 @@ public:
      * Reserves space for outlets to reduce memory reallocations
      */
     void reserveOutlets(size_t n) { outlets_.reserve(n); }
+
+    /**
+     * Removes all outlets
+     */
+    void clearOutlets();
 
     /**
      * Outlet description
