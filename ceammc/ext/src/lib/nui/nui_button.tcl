@@ -1,8 +1,8 @@
-namespace eval ui {
+namespace eval ::nui {
 namespace eval button {
-    set tag_all  { id } { return "#btn{$id}" }
-    set tag_box  { id } { return "#btn{$id}_box" }
-    set tag_knob { id } { return "#btn{$id}_kn" }
+    proc tag_all  { id } { return "#btn${id}" }
+    proc tag_box  { id } { return "#btn${id}_box" }
+    proc tag_knob { id } { return "#btn${id}_kn" }
 
     proc create { cnv model id x y w h zoom state border_color fill_color active_color } {
         set c [::nui::widget_canvas $cnv $model]
@@ -37,7 +37,7 @@ namespace eval button {
         set tn [tag_knob $id]
 
         # draw box
-        $c itemconfigure $tb -fill $fill_color -outline $out_color
+        $c itemconfigure $tb -fill $fill_color -outline $border_color
 
         if { $state } {
             $c itemconfigure $tn -fill $active_color -outline $active_color
@@ -45,4 +45,5 @@ namespace eval button {
             $c itemconfigure $tn -fill $fill_color -outline $fill_color
         }
     }
+}
 }

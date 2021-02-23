@@ -17,6 +17,7 @@
 #include "ceammc_clock.h"
 #include "ceammc_sound_external.h"
 #include "lang_faust_tilde.h"
+#include "nui/button_view.h"
 #include "nui/nui.h"
 #include "nui/property.h"
 #include "nui/rect.h"
@@ -35,23 +36,29 @@ class FaustMasterView {
     using ToggleModelPtr = std::unique_ptr<ToggleModel>;
     using LabelModelPtr = std::unique_ptr<LabelModel>;
     using BarModelPtr = std::unique_ptr<BarModel>;
+    using ButtonModelPtr = std::unique_ptr<ButtonModel>;
+
     using PropSliderView = PropertyObserver<SliderData, faust::UIProperty, t_float, SliderData::VALUE>;
     using PropSliderViewPtr = std::unique_ptr<PropSliderView>;
     using PropToggleView = PropertyObserver<ToggleData, faust::UIProperty, t_float, ToggleData::VALUE>;
     using PropToggleViewPtr = std::unique_ptr<PropToggleView>;
     using PropBarView = PropertyObserver<BarData, faust::UIProperty, t_float, BarData::VALUE>;
     using PropVuViewPtr = std::unique_ptr<PropBarView>;
+    using PropButtonView = PropertyObserver<ButtonData, faust::UIProperty, bool, ButtonData::STATE>;
+    using PropButtonViewPtr = std::unique_ptr<PropButtonView>;
 
     // models
     std::vector<SliderModelPtr> sliders_;
     std::vector<ToggleModelPtr> toggles_;
     std::vector<LabelModelPtr> labels_;
     std::vector<BarModelPtr> vu_;
+    std::vector<ButtonModelPtr> buttons_;
 
     // props
     std::vector<PropSliderViewPtr> slider_props_;
     std::vector<PropToggleViewPtr> toggle_props_;
     std::vector<PropVuViewPtr> vu_props_;
+    std::vector<PropButtonViewPtr> button_props_;
 
     ModelViewBase* focused_;
 
@@ -83,6 +90,7 @@ private:
     void createHsliderEntry(faust::UIProperty* p);
     void createToggleEntry(faust::UIProperty* p);
     void createBarEntry(faust::UIProperty* p);
+    void createButtonEntry(faust::UIProperty* p);
 };
 
 class LangFaustUiTilde : public ui::Widget<LangFaustTilde> {

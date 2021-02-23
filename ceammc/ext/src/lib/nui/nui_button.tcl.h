@@ -3,11 +3,11 @@
 #ifndef nui_button_tcl_h_
 #define nui_button_tcl_h_
 const char* nui_button_tcl = 
-"namespace eval ui {\n"
+"namespace eval ::nui {\n"
 "namespace eval button {\n"
-"    set tag_all  { id } { return \"#btn{$id}\" }\n"
-"    set tag_box  { id } { return \"#btn{$id}_box\" }\n"
-"    set tag_knob { id } { return \"#btn{$id}_kn\" }\n"
+"    proc tag_all  { id } { return \"#btn${id}\" }\n"
+"    proc tag_box  { id } { return \"#btn${id}_box\" }\n"
+"    proc tag_knob { id } { return \"#btn${id}_kn\" }\n"
 "    proc create { cnv model id x y w h zoom state border_color fill_color active_color } {\n"
 "        set c [::nui::widget_canvas $cnv $model]\n"
 "        set ta [tag_all $id]\n"
@@ -36,13 +36,14 @@ const char* nui_button_tcl =
 "        set tb [tag_box $id]\n"
 "        set tn [tag_knob $id]\n"
 "        # draw box\n"
-"        $c itemconfigure $tb -fill $fill_color -outline $out_color\n"
+"        $c itemconfigure $tb -fill $fill_color -outline $border_color\n"
 "        if { $state } {\n"
 "            $c itemconfigure $tn -fill $active_color -outline $active_color\n"
 "        } else {\n"
 "            $c itemconfigure $tn -fill $fill_color -outline $fill_color\n"
 "        }\n"
 "    }\n"
+"}\n"
 "}\n"
 ;
 #endif

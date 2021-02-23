@@ -48,7 +48,7 @@ namespace ui {
 
         sys_vgui("nui::button::create %lx %lx %lx"
                  " %d %d %d %d %d %s"
-                 " #%6.6x #%6.6x\n",
+                 " #%6.6x #%6.6x #%6.6x\n",
             winId(), widgetId(), this,
             rect.left(), rect.top(), rect.width(), rect.height(), (int)scale(), data.state() ? "true" : "false",
             data.borderColor(), data.fillColor(), data.activeColor());
@@ -65,7 +65,7 @@ namespace ui {
 
         sys_vgui("nui::button::update %lx %lx %lx"
                  " %d %d %s"
-                 " #%6.6x #%6.6x\n",
+                 " #%6.6x #%6.6x #%6.6x\n",
             winId(), widgetId(), this,
             rect.width(), rect.height(), data.state() ? "true" : "false",
             data.borderColor(), data.fillColor(), data.activeColor());

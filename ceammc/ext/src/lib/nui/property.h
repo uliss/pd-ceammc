@@ -97,7 +97,7 @@ namespace ui {
         void changed(ModelBase<Data>*) override
         {
             if (prop_)
-                prop_->setValue(ref());
+                prop_->setValue(cref());
         }
     };
 

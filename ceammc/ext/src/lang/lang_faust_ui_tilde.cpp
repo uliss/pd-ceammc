@@ -189,6 +189,9 @@ void FaustMasterView::addProperty(faust::UIProperty* p)
     case faust::UIElementType::UI_H_BARGRAPH:
         createBarEntry(p);
         break;
+    case faust::UIElementType::UI_BUTTON:
+        createButtonEntry(p);
+        break;
     default:
         LIB_ERR << "unknown UI type: " << p->uiElement()->type();
         break;
@@ -356,6 +359,36 @@ void FaustMasterView::createToggleEntry(faust::UIProperty* p)
 
     toggle_props_.emplace_back(new PropToggleView(p, tgl));
     toggle_props_.back()->updateModelFromProp();
+
+    auto lm = new LabelModel(faustThemeIdx);
+
+    lm->data().setAnchor(ANCHOR_SIDE_LEFT_CENTER);
+    lm->data().sizeRef().setHeight(tgl->data().size());
+    lm->data().setText(p->name());
+
+    labels_.emplace_back(lm);
+    ViewPtr lv(new LabelView(lm, LabelView::ViewImplPtr(new TclLabelImpl), {}));
+    hgroup->appendChild(std::move(lv));
+
+    auto vgroup = view_.getChild<VGroupView>();
+    vgroup->appendChild(std::move(hgroup));
+}
+
+void FaustMasterView::createButtonEntry(faust::UIProperty* p)
+{
+    // create hgroup: control, label
+    auto hgroup = ViewPtr(new HGroupView({}));
+
+    auto tgl = new ButtonModel(faustThemeIdx);
+
+    tgl->data().setState(p->value());
+
+    buttons_.emplace_back(tgl);
+    ViewPtr tgv(new ButtonView(tgl, ButtonView::ViewImplPtr(new TclButtonImpl), {}));
+    hgroup->appendChild(std::move(tgv));
+
+    button_props_.emplace_back(new PropButtonView(p, tgl));
+    button_props_.back()->updateModelFromProp();
 
     auto lm = new LabelModel(faustThemeIdx);
 
