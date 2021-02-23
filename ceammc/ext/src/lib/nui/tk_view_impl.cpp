@@ -177,7 +177,7 @@ namespace ui {
                  " %d {%s} {%s}\n",
             winId(), widgetId(), this,
             rect.left(), rect.top(), rect.width(), rect.height(), (int)scale(),
-            data.borderColor(), data.fillColor(),
+            data.selected() ? colors::blue : data.borderColor(), data.fillColor(),
             data.xletControlColor(), data.xletSignalColor(),
             (int)scale(), data.inlets().asString(), data.outlets().asString());
     }
@@ -194,7 +194,7 @@ namespace ui {
                  " %d {%s} {%s}\n",
             winId(), widgetId(), this,
             rect.width(), rect.height(), (int)scale(),
-            data.borderColor(), data.fillColor(),
+            data.selected() ? colors::blue : data.borderColor(), data.fillColor(),
             data.xletControlColor(), data.xletSignalColor(),
             (int)scale(), data.inlets().asString(), data.outlets().asString());
     }
