@@ -22,8 +22,8 @@ SoundExternal::SoundExternal(const PdArgs& a)
     , n_in_(a.hasDefaultSignalInlet() ? 1 : 0)
     , n_out_(0)
     , sample_rate_(44100)
-    , in_{}
-    , out_{}
+    , in_ {}
+    , out_ {}
 {
 }
 
@@ -57,6 +57,14 @@ t_outlet* SoundExternal::createSignalOutlet()
     appendOutlet(out);
     n_out_++;
     return out;
+}
+
+void SoundExternal::clearAllXlets()
+{
+    clearInlets();
+    clearOutlets();
+    n_in_ = pdArgs().hasDefaultSignalInlet() ? 1 : 0;
+    n_out_ = 0;
 }
 
 void SoundExternal::dump() const

@@ -51,6 +51,11 @@ public:
     t_outlet* createSignalOutlet();
 
     /**
+     * remove all create control/sound inlets/outlets
+     */
+    void clearAllXlets();
+
+    /**
      * @brief returns current DSP block size
      */
     size_t blockSize() const { return block_size_; }
