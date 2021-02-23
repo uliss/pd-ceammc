@@ -56,6 +56,7 @@ namespace ui {
 
     void TclButtonImpl::erase()
     {
+        sys_vgui("nui::button::erase %lx %lx %lx\n", winId(), widgetId(), this);
     }
 
     void TclButtonImpl::update(const RectF& bbox, const ButtonData& data)

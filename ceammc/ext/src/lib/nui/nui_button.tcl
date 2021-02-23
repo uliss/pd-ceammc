@@ -45,5 +45,10 @@ namespace eval button {
             $c itemconfigure $tn -fill $fill_color -outline $fill_color
         }
     }
+
+    proc erase { cnv model id } {
+        set c [::nui::widget_canvas $cnv $model]
+        $c delete [tag_all $id]
+    }
 }
 }

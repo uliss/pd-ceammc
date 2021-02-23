@@ -43,6 +43,10 @@ const char* nui_button_tcl =
 "            $c itemconfigure $tn -fill $fill_color -outline $fill_color\n"
 "        }\n"
 "    }\n"
+"    proc erase { cnv model id } {\n"
+"        set c [::nui::widget_canvas $cnv $model]\n"
+"        $c delete [tag_all $id]\n"
+"    }\n"
 "}\n"
 "}\n"
 ;
