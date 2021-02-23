@@ -73,6 +73,7 @@ public:
     // style
     void loadStyle(int st) {
         using sc = StyleCollection;
+        setSize(sc::size(st, "label:size"_hash, Size(40, 10)));
         setColor(sc::color(st, "label:color"_hash, colors::st_text));
         setFont(sc::font(st, "label:font"_hash, Font()));
     }

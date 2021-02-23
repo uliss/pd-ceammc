@@ -52,7 +52,7 @@ void initFaustStyle()
 
     st.insertSize("slider:size"_hash, Size(100, 10));
     st.insertSize("bar:size"_hash, Size(100, 4));
-    st.insertSize("label:size"_hash, Size(80, 4));
+    st.insertSize("label:size"_hash, Size(60, 12));
 
     faustThemeIdx = sc::instance().appendStyle(st);
 }

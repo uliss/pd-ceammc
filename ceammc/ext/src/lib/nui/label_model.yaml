@@ -9,6 +9,7 @@ data:
 - name: size
   type: Size
   init: Size(40, 10)
+  style: size
 - name: text width
   type: int
   init: 0
