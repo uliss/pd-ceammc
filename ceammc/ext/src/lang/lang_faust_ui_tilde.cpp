@@ -49,10 +49,15 @@ void initFaustStyle()
     st.insertColor("toggle:knob_color"_hash, PALLETE4);
     st.insertColor("toggle:fill_color"_hash, PALLETE1);
     st.insertColor("toggle:border_color"_hash, PALLETE2);
+    st.insertColor("button:knob_color"_hash, PALLETE4);
+    st.insertColor("button:fill_color"_hash, PALLETE1);
+    st.insertColor("button:border_color"_hash, PALLETE2);
 
-    st.insertSize("slider:size"_hash, Size(100, 10));
+    st.insertSize("slider:size"_hash, Size(100, 12));
     st.insertSize("bar:size"_hash, Size(100, 4));
     st.insertSize("label:size"_hash, Size(60, 12));
+    st.insertSize("button:size"_hash, Size(12, 12));
+    st.insertSize("toggle:size"_hash, Size(12, 12));
 
     faustThemeIdx = sc::instance().appendStyle(st);
 }

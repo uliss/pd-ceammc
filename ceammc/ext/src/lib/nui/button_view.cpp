@@ -51,7 +51,7 @@ namespace ui {
                  " #%6.6x #%6.6x #%6.6x\n",
             winId(), widgetId(), this,
             rect.left(), rect.top(), rect.width(), rect.height(), (int)scale(), data.state() ? "true" : "false",
-            data.borderColor(), data.fillColor(), data.activeColor());
+            data.borderColor(), data.fillColor(), data.knobColor());
     }
 
     void TclButtonImpl::erase()
@@ -68,7 +68,7 @@ namespace ui {
                  " #%6.6x #%6.6x #%6.6x\n",
             winId(), widgetId(), this,
             rect.width(), rect.height(), data.state() ? "true" : "false",
-            data.borderColor(), data.fillColor(), data.activeColor());
+            data.borderColor(), data.fillColor(), data.knobColor());
     }
 
     void TclButtonImpl::updateCoords(const RectF& bbox)

@@ -12,7 +12,7 @@ data:
   type: HexColor
   init: colors::st_fill
   style: color
-- name: active color
+- name: knob color
   type: HexColor
   init: colors::st_active
   style: color

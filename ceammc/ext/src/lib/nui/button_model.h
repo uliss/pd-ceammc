@@ -19,7 +19,7 @@ public:
         SIZE,
         BORDER_COLOR,
         FILL_COLOR,
-        ACTIVE_COLOR,
+        KNOB_COLOR,
         STATE,
         STYLE_IDX,
     };
@@ -38,7 +38,7 @@ public:
     Size const& size() const noexcept { return std::get<SIZE>(*this); }
     HexColor const& borderColor() const noexcept { return std::get<BORDER_COLOR>(*this); }
     HexColor const& fillColor() const noexcept { return std::get<FILL_COLOR>(*this); }
-    HexColor const& activeColor() const noexcept { return std::get<ACTIVE_COLOR>(*this); }
+    HexColor const& knobColor() const noexcept { return std::get<KNOB_COLOR>(*this); }
     bool const& state() const noexcept { return std::get<STATE>(*this); }
     int const& style() const noexcept { return std::get<STYLE_IDX>(*this); }
 
@@ -46,7 +46,7 @@ public:
     void setSize(Size v) { std::get<SIZE>(*this) = v; }
     void setBorderColor(HexColor v) { std::get<BORDER_COLOR>(*this) = v; }
     void setFillColor(HexColor v) { std::get<FILL_COLOR>(*this) = v; }
-    void setActiveColor(HexColor v) { std::get<ACTIVE_COLOR>(*this) = v; }
+    void setKnobColor(HexColor v) { std::get<KNOB_COLOR>(*this) = v; }
     void setState(bool v) { std::get<STATE>(*this) = v; }
     void setStyle(int v) { std::get<STYLE_IDX>(*this) = v; }
 
@@ -54,7 +54,7 @@ public:
     Size& sizeRef() { return std::get<SIZE>(*this); }
     HexColor& borderColorRef() { return std::get<BORDER_COLOR>(*this); }
     HexColor& fillColorRef() { return std::get<FILL_COLOR>(*this); }
-    HexColor& activeColorRef() { return std::get<ACTIVE_COLOR>(*this); }
+    HexColor& knobColorRef() { return std::get<KNOB_COLOR>(*this); }
     bool& stateRef() { return std::get<STATE>(*this); }
     int& styleRef() { return std::get<STYLE_IDX>(*this); }
 
@@ -64,7 +64,7 @@ public:
         setSize(sc::size(st, "button:size"_hash, Size(15, 15)));
         setBorderColor(sc::color(st, "button:border_color"_hash, colors::st_border));
         setFillColor(sc::color(st, "button:fill_color"_hash, colors::st_fill));
-        setActiveColor(sc::color(st, "button:active_color"_hash, colors::st_active));
+        setKnobColor(sc::color(st, "button:knob_color"_hash, colors::st_active));
     }
 };
 
