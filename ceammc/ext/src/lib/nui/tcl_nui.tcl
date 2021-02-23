@@ -418,6 +418,11 @@ namespace eval toggle {
         $c delete [tag_knob $id]
         if { $value > 0 } { draw_knob $c $id $knob_color $x0 $y0 $w $h $zoom }
     }
+
+    proc erase { cnv model id } {
+        set c [::nui::widget_canvas $cnv $model]
+        $c delete [tag_all $id]
+    }
 }
 
 namespace eval slider {

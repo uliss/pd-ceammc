@@ -226,6 +226,7 @@ namespace ui {
 
     void TclToggleImpl::erase()
     {
+        sys_vgui("nui::toggle::erase %lx %lx %lx\n", winId(), widgetId(), this);
     }
 
     void TclToggleImpl::update(const RectF& bbox, const ToggleData& data)
