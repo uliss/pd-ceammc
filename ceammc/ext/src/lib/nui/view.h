@@ -339,6 +339,7 @@ namespace ui {
         bool appendChild(ViewPtr&& obj) override;
 
         void create(WinId win, WidgetId wid, float scale) final;
+        void erase() override;
         void layout() override;
         EventAcceptStatus acceptEvent(EventType t, const PointF& pos, const EventContext& ctx) override;
 

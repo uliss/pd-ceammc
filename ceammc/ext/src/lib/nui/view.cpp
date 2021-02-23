@@ -278,7 +278,10 @@ namespace ui {
     bool BoxView::appendChild(ViewPtr&& obj)
     {
         child_ = std::move(obj);
-        child_->setParent(this);
+
+        if (child_)
+            child_->setParent(this);
+
         return true;
     }
 
@@ -289,6 +292,14 @@ namespace ui {
 
         // NOTE: create box after child to make it upper level
         Base::create(win, wid, scale);
+    }
+
+    void BoxView::erase()
+    {
+        if (child_)
+            child_->erase();
+
+        Base::erase();
     }
 
     void BoxView::layout()
