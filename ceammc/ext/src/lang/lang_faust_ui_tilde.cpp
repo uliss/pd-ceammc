@@ -57,8 +57,8 @@ void initFaustStyle()
 LangFaustUiTilde::LangFaustUiTilde(const PdArgs& args)
     : ui::Widget<LangFaustTilde>(args)
     , clock_([this]() {
-        if (vc_.updateVu()) {
-            clock_.delay(50);
+        if (vc_.updateVu() && pd_getdspstate()) {
+            clock_.delay(80);
         }
     })
 {
@@ -108,6 +108,12 @@ void LangFaustUiTilde::onMouseDrag(const Point& pt, uint32_t mod)
 void LangFaustUiTilde::onMouseUp(const Point& pt, uint32_t mod)
 {
     vc_.sendEvent(EVENT_MOUSE_UP, pt, EventContext());
+}
+
+void LangFaustUiTilde::setupDSP(t_signal** sp)
+{
+    LangFaustTilde::setupDSP(sp);
+    clock_.delay(50);
 }
 
 void setup_lang_faust_ui_tilde()
@@ -270,11 +276,14 @@ bool FaustMasterView::updateVu()
     if (vu_.empty())
         return false;
 
-    for (auto& v : vu_props_)
-        v->updateModelFromProp();
-
-    for (auto& v : vu_)
-        v->notify();
+    for (auto& vu : vu_props_) {
+        const auto pv = vu->property()->value();
+        const auto mv = vu->model()->data().value();
+        if (pv != mv) {
+            vu->model()->data().setValue(pv);
+            vu->notifyOthers();
+        }
+    }
 
     return true;
 }
