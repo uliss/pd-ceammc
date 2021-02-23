@@ -27,6 +27,16 @@ namespace ui {
         EventAcceptStatus onEvent(EventType t, const PointF& pos, const EventContext& ctx) override;
     };
 
+    class TclButtonImpl : public ViewImpl<ButtonData> {
+    public:
+        void create(const RectF& bbox, const ButtonData& data) final;
+        void erase() final;
+        void update(const RectF& bbox, const ButtonData& data) final;
+        void updateCoords(const RectF& bbox) final;
+    };
+
+    void tcl_button_init();
+
 }
 }
 

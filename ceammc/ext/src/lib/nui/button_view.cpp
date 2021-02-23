@@ -12,6 +12,7 @@
  * this file belongs to.
  *****************************************************************************/
 #include "button_view.h"
+#include "nui_button.tcl.h"
 
 namespace ceammc {
 namespace ui {
@@ -40,5 +41,35 @@ namespace ui {
         }
     }
 
+    void TclButtonImpl::create(const RectF& bbox, const ButtonData& data)
+    {
+        const SizeF min(SizeF(5, 5));
+        const Rect rect = transform(bbox).clippedMin(min);
+
+        sys_vgui("nui::button::create %lx %lx %lx"
+                 " %d %d %d %d %d"
+                 " #%6.6x #%6.6x"
+                 " %d {%s} {%s}\n",
+            winId(), widgetId(), this,
+            rect.left(), rect.top(), rect.width(), rect.height(), data.state() ? 1 : 0,
+            data.borderColor(), data.activeColor(), data.activeColor());
+    }
+
+    void TclButtonImpl::erase()
+    {
+    }
+
+    void TclButtonImpl::update(const RectF& bbox, const ButtonData& data)
+    {
+    }
+
+    void TclButtonImpl::updateCoords(const RectF& bbox)
+    {
+    }
+
+    void tcl_button_init()
+    {
+        sys_gui(nui_button_tcl);
+    }
 }
 }

@@ -12,6 +12,7 @@
  * this file belongs to.
  *****************************************************************************/
 #include "tk_view_impl.h"
+#include "button_view.h"
 #include "tcl_nui.tcl.h"
 
 #include "ceammc_convert.h"
@@ -162,6 +163,7 @@ namespace ui {
     bool tcl_nui_init()
     {
         sys_gui(tcl_nui_tcl);
+        tcl_button_init();
         return true;
     }
 
