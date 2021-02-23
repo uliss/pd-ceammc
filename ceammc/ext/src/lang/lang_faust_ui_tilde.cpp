@@ -56,6 +56,11 @@ void initFaustStyle()
 
 LangFaustUiTilde::LangFaustUiTilde(const PdArgs& args)
     : ui::Widget<LangFaustTilde>(args)
+    , clock_([this]() {
+        if (vc_.updateVu()) {
+            clock_.delay(50);
+        }
+    })
 {
     setSize(Size(100, 50));
     setResizeMode(RESIZE_BOTH);
@@ -77,6 +82,7 @@ void LangFaustUiTilde::buildUI()
 void LangFaustUiTilde::onWidgetShow()
 {
     vc_.create((WinId)drawCanvas(), (WidgetId)owner(), size(), zoom());
+    clock_.delay(50);
 }
 
 void LangFaustUiTilde::onWidgetResize(const Size& sz)
@@ -236,6 +242,9 @@ void FaustMasterView::loadStyle(int st)
     for (auto& t : toggles_)
         t->data().loadStyle(st);
 
+    for (auto& vu : vu_)
+        vu->data().loadStyle(st);
+
     model_.data().loadStyle(st);
 }
 
@@ -250,7 +259,24 @@ void FaustMasterView::updateAll()
     for (auto& t : toggles_)
         t->notify();
 
+    for (auto& v : vu_)
+        v->notify();
+
     model_.notify();
+}
+
+bool FaustMasterView::updateVu()
+{
+    if (vu_.empty())
+        return false;
+
+    for (auto& v : vu_props_)
+        v->updateModelFromProp();
+
+    for (auto& v : vu_)
+        v->notify();
+
+    return true;
 }
 
 void FaustMasterView::createHsliderEntry(faust::UIProperty* p)
@@ -287,13 +313,15 @@ void FaustMasterView::createHsliderEntry(faust::UIProperty* p)
 
 void FaustMasterView::createBarEntry(faust::UIProperty* p)
 {
-    auto vu = new VuModel(0);
-    vu->data().setValue(p->value());
+    auto barm = new BarModel(0);
+    barm->data().setValue(p->value());
+    barm->data().setMin(p->uiElement()->min());
+    barm->data().setMax(p->uiElement()->max());
 
-    vu_.emplace_back(vu);
-    ViewPtr barv(new VuView(vu, VuView::ViewImplPtr(new TclVuImpl), {}));
+    vu_.emplace_back(barm);
+    ViewPtr barv(new BarView(barm, BarView::ViewImplPtr(new TclBarImpl), {}));
 
-    vu_props_.emplace_back(new PropVuView(p, vu));
+    vu_props_.emplace_back(new PropBarView(p, barm));
     vu_props_.back()->updateModelFromProp();
 
     auto vgroup = view_.getChild<VGroupView>();

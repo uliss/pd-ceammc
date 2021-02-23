@@ -59,11 +59,11 @@ namespace ui {
         void updateCoords(const RectF& bbox) final;
     };
 
-    class TclVuImpl : public ViewImpl<VuData> {
+    class TclBarImpl : public ViewImpl<BarData> {
     public:
-        void create(const RectF& bbox, const VuData& data) final;
+        void create(const RectF& bbox, const BarData& data) final;
         void erase() final;
-        void update(const RectF& bbox, const VuData& data) final;
+        void update(const RectF& bbox, const BarData& data) final;
         void updateCoords(const RectF& bbox) final;
     };
 

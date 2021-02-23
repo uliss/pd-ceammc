@@ -532,4 +532,28 @@ namespace eval slider {
     }
 }
 
+namespace eval bar {
+    proc tag  { id } { return "#bar${id}" }
+
+    proc hcreate { cnv model id x y w h pos fill_color } {
+        set c [::nui::widget_canvas $cnv $model]
+        set t [tag $id]
+
+        set w [expr $pos*$w]
+        $c create rectangle $x $y [expr $x+$w] [expr $y+$h] \
+            -fill $fill_color -outline $fill_color -width 1 -tags $t
+    }
+
+    proc hupdate { cnv model id w h pos fill_color } {
+        set c [::nui::widget_canvas $cnv $model]
+        set t [tag $id]
+
+        $c itemconfigure $t -fill $fill_color -outline $fill_color
+
+        lassign [$c coords $t] x0 y0 x1 y1
+        set x1 [expr $x0 + $w*$pos]
+        $c coords $t $x0 $y0 $x1 $y1
+    }
+}
+
 }

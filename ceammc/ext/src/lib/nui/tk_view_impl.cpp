@@ -245,19 +245,39 @@ namespace ui {
             winId(), widgetId(), this, rect.left(), rect.top());
     }
 
-    void TclVuImpl::create(const RectF& bbox, const VuData& data)
+    void TclBarImpl::create(const RectF& bbox, const BarData& data)
+    {
+        // cnv model id x y w h pos fill_color
+        Rect rect = transform(bbox);
+        const float pos = (data.value() - data.min()) / (data.max() - data.min());
+
+        sys_vgui("nui::bar::hcreate %lx %lx %lx"
+                 " %d %d %d %d"
+                 " %g"
+                 " #%6.6x\n",
+            winId(), widgetId(), this,
+            rect.left(), rect.top(), rect.width(), rect.height(),
+            pos, data.fillColor());
+    }
+
+    void TclBarImpl::erase()
     {
     }
 
-    void TclVuImpl::erase()
+    void TclBarImpl::update(const RectF& bbox, const BarData& data)
     {
+        // cnv model id w h pos fill_color
+        Rect rect = transform(bbox);
+        const float pos = (data.value() - data.min()) / (data.max() - data.min());
+
+        sys_vgui("nui::bar::hupdate %lx %lx %lx"
+                 " %d %d %g"
+                 " #%6.6x\n",
+            winId(), widgetId(), this,
+            rect.width(), rect.height(), pos, data.fillColor());
     }
 
-    void TclVuImpl::update(const RectF& bbox, const VuData& data)
-    {
-    }
-
-    void TclVuImpl::updateCoords(const RectF& bbox)
+    void TclBarImpl::updateCoords(const RectF& bbox)
     {
     }
 }

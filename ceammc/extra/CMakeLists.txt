@@ -35,7 +35,7 @@ add_subdirectory(stk)
 add_subdirectory(subprocess)
 add_subdirectory(reflex)
 add_subdirectory(glitch)
-add_subdirectory(tcltk)
+#add_subdirectory(tcltk)
 
 if(WITH_FAUST)
     add_subdirectory(faust)

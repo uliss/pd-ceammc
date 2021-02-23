@@ -14,6 +14,7 @@
 #ifndef LANG_FAUST_UI_TILDE_H
 #define LANG_FAUST_UI_TILDE_H
 
+#include "ceammc_clock.h"
 #include "ceammc_sound_external.h"
 #include "lang_faust_tilde.h"
 #include "nui/nui.h"
@@ -33,19 +34,19 @@ class FaustMasterView {
     using SliderModelPtr = std::unique_ptr<SliderModel>;
     using ToggleModelPtr = std::unique_ptr<ToggleModel>;
     using LabelModelPtr = std::unique_ptr<LabelModel>;
-    using VuModelPtr = std::unique_ptr<VuModel>;
+    using BarModelPtr = std::unique_ptr<BarModel>;
     using PropSliderView = PropertyObserver<SliderData, faust::UIProperty, t_float, SliderData::VALUE>;
     using PropSliderViewPtr = std::unique_ptr<PropSliderView>;
     using PropToggleView = PropertyObserver<ToggleData, faust::UIProperty, t_float, ToggleData::VALUE>;
     using PropToggleViewPtr = std::unique_ptr<PropToggleView>;
-    using PropVuView = PropertyObserver<VuData, faust::UIProperty, t_float, VuData::VALUE>;
-    using PropVuViewPtr = std::unique_ptr<PropVuView>;
+    using PropBarView = PropertyObserver<BarData, faust::UIProperty, t_float, BarData::VALUE>;
+    using PropVuViewPtr = std::unique_ptr<PropBarView>;
 
     // models
     std::vector<SliderModelPtr> sliders_;
     std::vector<ToggleModelPtr> toggles_;
     std::vector<LabelModelPtr> labels_;
-    std::vector<VuModelPtr> vu_;
+    std::vector<BarModelPtr> vu_;
 
     // props
     std::vector<PropSliderViewPtr> slider_props_;
@@ -76,6 +77,8 @@ public:
     void loadStyle(int st);
     void updateAll();
 
+    bool updateVu();
+
 private:
     void createHsliderEntry(faust::UIProperty* p);
     void createToggleEntry(faust::UIProperty* p);
@@ -84,6 +87,7 @@ private:
 
 class LangFaustUiTilde : public ui::Widget<LangFaustTilde> {
     FaustMasterView vc_;
+    ClockLambdaFunction clock_;
 
 public:
     LangFaustUiTilde(const PdArgs& args);
