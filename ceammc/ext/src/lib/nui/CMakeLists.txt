@@ -21,6 +21,7 @@ add_custom_target(nui_tcl_gen
 set(MODELS
     bar_model.yaml
     box_model.yaml
+    button_model.yaml
     frame_model.yaml
     label_model.yaml
     slider_model.yaml
@@ -31,6 +32,7 @@ set(GEN_MODEL ${CMAKE_CURRENT_SOURCE_DIR}/gen_model_data.py)
 add_custom_target(nui_model_gen
     COMMAND ${GEN_MODEL} bar_model.yaml > bar_model.h
     COMMAND ${GEN_MODEL} box_model.yaml > box_model.h
+    COMMAND ${GEN_MODEL} button_model.yaml > button_model.h
     COMMAND ${GEN_MODEL} frame_model.yaml > frame_model.h
     COMMAND ${GEN_MODEL} label_model.yaml > label_model.h
     COMMAND ${GEN_MODEL} slider_model.yaml > slider_model.h
