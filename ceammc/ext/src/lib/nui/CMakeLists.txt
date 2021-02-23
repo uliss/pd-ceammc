@@ -1,4 +1,5 @@
 add_library(ceammc_nui STATIC
+    button_view.cpp
     common.cpp
     factory.cpp
     layout.cpp

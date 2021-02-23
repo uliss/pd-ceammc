@@ -13,18 +13,19 @@ namespace ceammc {
 namespace ui {
 
 class ButtonData
-    : public std::tuple<Size, HexColor, HexColor, HexColor, int> {
+    : public std::tuple<Size, HexColor, HexColor, HexColor, bool, int> {
 public:
     enum Fields {
         SIZE,
         BORDER_COLOR,
         FILL_COLOR,
         ACTIVE_COLOR,
+        STATE,
         STYLE_IDX,
     };
 public:
     ButtonData()
-        : std::tuple<Size, HexColor, HexColor, HexColor, int>(Size(15, 15), colors::st_border, colors::st_fill, colors::st_active, 0) { }
+        : std::tuple<Size, HexColor, HexColor, HexColor, bool, int>(Size(15, 15), colors::st_border, colors::st_fill, colors::st_active, false, 0) { }
 
     ButtonData(int style)
         : ButtonData() {
@@ -38,6 +39,7 @@ public:
     HexColor const& borderColor() const noexcept { return std::get<BORDER_COLOR>(*this); }
     HexColor const& fillColor() const noexcept { return std::get<FILL_COLOR>(*this); }
     HexColor const& activeColor() const noexcept { return std::get<ACTIVE_COLOR>(*this); }
+    bool const& state() const noexcept { return std::get<STATE>(*this); }
     int const& style() const noexcept { return std::get<STYLE_IDX>(*this); }
 
     // setters
@@ -45,6 +47,7 @@ public:
     void setBorderColor(HexColor v) { std::get<BORDER_COLOR>(*this) = v; }
     void setFillColor(HexColor v) { std::get<FILL_COLOR>(*this) = v; }
     void setActiveColor(HexColor v) { std::get<ACTIVE_COLOR>(*this) = v; }
+    void setState(bool v) { std::get<STATE>(*this) = v; }
     void setStyle(int v) { std::get<STYLE_IDX>(*this) = v; }
 
     // refs
@@ -52,6 +55,7 @@ public:
     HexColor& borderColorRef() { return std::get<BORDER_COLOR>(*this); }
     HexColor& fillColorRef() { return std::get<FILL_COLOR>(*this); }
     HexColor& activeColorRef() { return std::get<ACTIVE_COLOR>(*this); }
+    bool& stateRef() { return std::get<STATE>(*this); }
     int& styleRef() { return std::get<STYLE_IDX>(*this); }
 
     // style
