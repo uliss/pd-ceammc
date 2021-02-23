@@ -40,15 +40,15 @@ public:
     static HexColor selectColor() noexcept { return colors::blue; }
 
     // getters
-    Size size() const noexcept { return std::get<SIZE>(*this); }
-    HexColor borderColor() const noexcept { return std::get<BORDER_COLOR>(*this); }
-    HexColor fillColor() const noexcept { return std::get<FILL_COLOR>(*this); }
-    HexColor xletControlColor() const noexcept { return std::get<XLET_CONTROL_COLOR>(*this); }
-    HexColor xletSignalColor() const noexcept { return std::get<XLET_SIGNAL_COLOR>(*this); }
-    bool selected() const noexcept { return std::get<SELECTED>(*this); }
-    Xlets inlets() const noexcept { return std::get<INLETS>(*this); }
-    Xlets outlets() const noexcept { return std::get<OUTLETS>(*this); }
-    int style() const noexcept { return std::get<STYLE_IDX>(*this); }
+    Size const& size() const noexcept { return std::get<SIZE>(*this); }
+    HexColor const& borderColor() const noexcept { return std::get<BORDER_COLOR>(*this); }
+    HexColor const& fillColor() const noexcept { return std::get<FILL_COLOR>(*this); }
+    HexColor const& xletControlColor() const noexcept { return std::get<XLET_CONTROL_COLOR>(*this); }
+    HexColor const& xletSignalColor() const noexcept { return std::get<XLET_SIGNAL_COLOR>(*this); }
+    bool const& selected() const noexcept { return std::get<SELECTED>(*this); }
+    Xlets const& inlets() const noexcept { return std::get<INLETS>(*this); }
+    Xlets const& outlets() const noexcept { return std::get<OUTLETS>(*this); }
+    int const& style() const noexcept { return std::get<STYLE_IDX>(*this); }
 
     // setters
     void setSize(Size v) { std::get<SIZE>(*this) = v; }

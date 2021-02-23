@@ -34,11 +34,11 @@ public:
 
 
     // getters
-    Size size() const noexcept { return std::get<SIZE>(*this); }
-    HexColor borderColor() const noexcept { return std::get<BORDER_COLOR>(*this); }
-    HexColor fillColor() const noexcept { return std::get<FILL_COLOR>(*this); }
-    HexColor activeColor() const noexcept { return std::get<ACTIVE_COLOR>(*this); }
-    int style() const noexcept { return std::get<STYLE_IDX>(*this); }
+    Size const& size() const noexcept { return std::get<SIZE>(*this); }
+    HexColor const& borderColor() const noexcept { return std::get<BORDER_COLOR>(*this); }
+    HexColor const& fillColor() const noexcept { return std::get<FILL_COLOR>(*this); }
+    HexColor const& activeColor() const noexcept { return std::get<ACTIVE_COLOR>(*this); }
+    int const& style() const noexcept { return std::get<STYLE_IDX>(*this); }
 
     // setters
     void setSize(Size v) { std::get<SIZE>(*this) = v; }

@@ -37,12 +37,12 @@ public:
     static HexColor selectColor() noexcept { return colors::blue; }
 
     // getters
-    Size size() const noexcept { return std::get<SIZE>(*this); }
-    HexColor borderColor() const noexcept { return std::get<BORDER_COLOR>(*this); }
-    HexColor fillColor() const noexcept { return std::get<FILL_COLOR>(*this); }
-    int padding() const noexcept { return std::get<PADDING>(*this); }
-    bool selected() const noexcept { return std::get<SELECTED>(*this); }
-    int style() const noexcept { return std::get<STYLE_IDX>(*this); }
+    Size const& size() const noexcept { return std::get<SIZE>(*this); }
+    HexColor const& borderColor() const noexcept { return std::get<BORDER_COLOR>(*this); }
+    HexColor const& fillColor() const noexcept { return std::get<FILL_COLOR>(*this); }
+    int const& padding() const noexcept { return std::get<PADDING>(*this); }
+    bool const& selected() const noexcept { return std::get<SELECTED>(*this); }
+    int const& style() const noexcept { return std::get<STYLE_IDX>(*this); }
 
     // setters
     void setSize(Size v) { std::get<SIZE>(*this) = v; }

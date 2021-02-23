@@ -35,12 +35,12 @@ public:
 
 
     // getters
-    Size size() const noexcept { return std::get<SIZE>(*this); }
-    t_float value() const noexcept { return std::get<VALUE>(*this); }
-    t_float min() const noexcept { return std::get<MIN>(*this); }
-    t_float max() const noexcept { return std::get<MAX>(*this); }
-    HexColor fillColor() const noexcept { return std::get<FILL_COLOR>(*this); }
-    int style() const noexcept { return std::get<STYLE_IDX>(*this); }
+    Size const& size() const noexcept { return std::get<SIZE>(*this); }
+    t_float const& value() const noexcept { return std::get<VALUE>(*this); }
+    t_float const& min() const noexcept { return std::get<MIN>(*this); }
+    t_float const& max() const noexcept { return std::get<MAX>(*this); }
+    HexColor const& fillColor() const noexcept { return std::get<FILL_COLOR>(*this); }
+    int const& style() const noexcept { return std::get<STYLE_IDX>(*this); }
 
     // setters
     void setSize(Size v) { std::get<SIZE>(*this) = v; }

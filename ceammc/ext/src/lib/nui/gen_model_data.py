@@ -49,7 +49,7 @@ public:
 
     // getters
 {% for t, m, f in zip(types, getters, fields) %}
-    {{t}} {{m}}() const noexcept { return std::get<{{f|upper}}>(*this); }
+    {{t}} const& {{m}}() const noexcept { return std::get<{{f|upper}}>(*this); }
 {% endfor %}
 
     // setters

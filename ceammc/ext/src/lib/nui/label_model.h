@@ -38,15 +38,15 @@ public:
 
 
     // getters
-    t_symbol* text() const noexcept { return std::get<TEXT>(*this); }
-    t_symbol* tooltip() const noexcept { return std::get<TOOLTIP>(*this); }
-    Size size() const noexcept { return std::get<SIZE>(*this); }
-    int textWidth() const noexcept { return std::get<TEXT_WIDTH>(*this); }
-    HexColor color() const noexcept { return std::get<COLOR>(*this); }
-    Font font() const noexcept { return std::get<FONT>(*this); }
-    AnchorPosition anchor() const noexcept { return std::get<ANCHOR>(*this); }
-    TextAlign align() const noexcept { return std::get<ALIGN>(*this); }
-    int style() const noexcept { return std::get<STYLE_IDX>(*this); }
+    t_symbol* const& text() const noexcept { return std::get<TEXT>(*this); }
+    t_symbol* const& tooltip() const noexcept { return std::get<TOOLTIP>(*this); }
+    Size const& size() const noexcept { return std::get<SIZE>(*this); }
+    int const& textWidth() const noexcept { return std::get<TEXT_WIDTH>(*this); }
+    HexColor const& color() const noexcept { return std::get<COLOR>(*this); }
+    Font const& font() const noexcept { return std::get<FONT>(*this); }
+    AnchorPosition const& anchor() const noexcept { return std::get<ANCHOR>(*this); }
+    TextAlign const& align() const noexcept { return std::get<ALIGN>(*this); }
+    int const& style() const noexcept { return std::get<STYLE_IDX>(*this); }
 
     // setters
     void setText(t_symbol* v) { std::get<TEXT>(*this) = v; }

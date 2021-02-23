@@ -38,15 +38,15 @@ public:
 
 
     // getters
-    Size size() const noexcept { return std::get<SIZE>(*this); }
-    t_float value() const noexcept { return std::get<VALUE>(*this); }
-    t_float min() const noexcept { return std::get<MIN>(*this); }
-    t_float max() const noexcept { return std::get<MAX>(*this); }
-    HexColor borderColor() const noexcept { return std::get<BORDER_COLOR>(*this); }
-    HexColor fillColor() const noexcept { return std::get<FILL_COLOR>(*this); }
-    HexColor knobColor() const noexcept { return std::get<KNOB_COLOR>(*this); }
-    bool logScale() const noexcept { return std::get<LOG_SCALE>(*this); }
-    int style() const noexcept { return std::get<STYLE_IDX>(*this); }
+    Size const& size() const noexcept { return std::get<SIZE>(*this); }
+    t_float const& value() const noexcept { return std::get<VALUE>(*this); }
+    t_float const& min() const noexcept { return std::get<MIN>(*this); }
+    t_float const& max() const noexcept { return std::get<MAX>(*this); }
+    HexColor const& borderColor() const noexcept { return std::get<BORDER_COLOR>(*this); }
+    HexColor const& fillColor() const noexcept { return std::get<FILL_COLOR>(*this); }
+    HexColor const& knobColor() const noexcept { return std::get<KNOB_COLOR>(*this); }
+    bool const& logScale() const noexcept { return std::get<LOG_SCALE>(*this); }
+    int const& style() const noexcept { return std::get<STYLE_IDX>(*this); }
 
     // setters
     void setSize(Size v) { std::get<SIZE>(*this) = v; }
