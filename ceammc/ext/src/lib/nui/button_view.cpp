@@ -47,12 +47,11 @@ namespace ui {
         const Rect rect = transform(bbox).clippedMin(min);
 
         sys_vgui("nui::button::create %lx %lx %lx"
-                 " %d %d %d %d %d"
-                 " #%6.6x #%6.6x"
-                 " %d {%s} {%s}\n",
+                 " %d %d %d %d %d %s"
+                 " #%6.6x #%6.6x\n",
             winId(), widgetId(), this,
-            rect.left(), rect.top(), rect.width(), rect.height(), data.state() ? 1 : 0,
-            data.borderColor(), data.activeColor(), data.activeColor());
+            rect.left(), rect.top(), rect.width(), rect.height(), (int)scale(), data.state() ? "true" : "false",
+            data.borderColor(), data.fillColor(), data.activeColor());
     }
 
     void TclButtonImpl::erase()
@@ -61,6 +60,15 @@ namespace ui {
 
     void TclButtonImpl::update(const RectF& bbox, const ButtonData& data)
     {
+        const SizeF min(SizeF(5, 5));
+        const Rect rect = transform(bbox).clippedMin(min);
+
+        sys_vgui("nui::button::update %lx %lx %lx"
+                 " %d %d %s"
+                 " #%6.6x #%6.6x\n",
+            winId(), widgetId(), this,
+            rect.width(), rect.height(), data.state() ? "true" : "false",
+            data.borderColor(), data.fillColor(), data.activeColor());
     }
 
     void TclButtonImpl::updateCoords(const RectF& bbox)
