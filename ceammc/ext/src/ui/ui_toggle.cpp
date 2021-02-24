@@ -3,13 +3,45 @@
 #include "ceammc_ui.h"
 #include "ui_toggle.tcl.h"
 
+static t_symbol* midi_ctl_sym()
+{
+    static t_symbol* sym = gensym("#ctlin");
+    return sym;
+}
+
+static t_rgba BIND_MIDI_COLOR = hex_to_rgba("#FF3377");
+static t_rgba PICKUP_MIDI_COLOR = hex_to_rgba("#3377FF");
+
 UIToggle::UIToggle()
-    : prop_color_active(rgba_black)
+    : midi_proxy_(this, &UIToggle::onMidiCtrl)
+    , listen_midi_ctrl_(false)
+    , prop_midi_chn(0)
+    , prop_midi_ctl(0)
+    , prop_color_active(rgba_black)
     , prop_value_on_(1)
     , prop_value_off_(0)
     , value_(false)
 {
     createOutlet();
+}
+
+void UIToggle::startListenMidi()
+{
+    listen_midi_ctrl_ = true;
+    midi_proxy_.bind(midi_ctl_sym());
+    LIB_DBG << "move MIDI control to bind";
+
+    asEBox()->b_boxparameters.d_bordercolor = BIND_MIDI_COLOR;
+    asEBox()->b_ready_to_draw = true;
+    redraw();
+}
+
+void UIToggle::stopListenMidi()
+{
+    listen_midi_ctrl_ = false;
+    asEBox()->b_boxparameters.d_bordercolor = prop_color_border;
+    asEBox()->b_ready_to_draw = true;
+    redraw();
 }
 
 t_float UIToggle::value() const
@@ -55,6 +87,17 @@ void UIToggle::onMouseDown(t_object*, const t_pt&, const t_pt& abs_pt, long)
     redrawAll();
 }
 
+void UIToggle::onDblClick(t_object*, const t_pt&, long mod)
+{
+    if (!(mod & EMOD_SHIFT))
+        return;
+
+    if (!listen_midi_ctrl_)
+        startListenMidi();
+    else
+        stopListenMidi();
+}
+
 void UIToggle::onBang()
 {
     flip();
@@ -86,6 +129,38 @@ void UIToggle::storePreset(size_t idx)
     PresetStorage::instance().setFloatValueAt(presetId(), idx, value());
 }
 
+void UIToggle::onMidiCtrl(const AtomListView& l)
+{
+    // invalid format
+    if (l.size() != 3)
+        return;
+
+    const int CTL_NUM = l[0].asInt();
+    const int CTL_CHAN = l[2].asInt();
+    const t_float CTL_VAL = l[1].asFloat();
+
+    if (listen_midi_ctrl_) {
+        stopListenMidi();
+        UI_DBG << "binded to CTL #" << CTL_NUM;
+        prop_midi_ctl = CTL_NUM;
+    } else {
+        // skip all
+        if (prop_midi_ctl == 0)
+            return;
+
+        // skip others
+        if (CTL_NUM != prop_midi_ctl)
+            return;
+
+        if (prop_midi_chn > 0 && CTL_CHAN != prop_midi_chn)
+            return;
+
+        setValue(CTL_VAL > 63);
+        redrawAll();
+        output();
+    }
+}
+
 void UIToggle::redrawAll()
 {
     bg_layer_.invalidate();
@@ -104,7 +179,7 @@ void UIToggle::setup()
     obj.useBang();
     obj.useFloat();
     obj.usePresets();
-    obj.useMouseEvents(UI_MOUSE_DOWN);
+    obj.useMouseEvents(UI_MOUSE_DOWN | UI_MOUSE_DBL_CLICK);
 
     obj.addMethod("set", &UIToggle::m_set);
 
