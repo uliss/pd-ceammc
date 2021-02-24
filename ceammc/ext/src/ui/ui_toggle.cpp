@@ -10,7 +10,6 @@ static t_symbol* midi_ctl_sym()
 }
 
 static t_rgba BIND_MIDI_COLOR = hex_to_rgba("#FF3377");
-static t_rgba PICKUP_MIDI_COLOR = hex_to_rgba("#3377FF");
 
 UIToggle::UIToggle()
     : midi_proxy_(this, &UIToggle::onMidiCtrl)
