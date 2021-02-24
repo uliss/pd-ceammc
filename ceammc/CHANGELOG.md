@@ -54,12 +54,16 @@
   - xdac~
   - prop.ls
   - int->bits
+- MIDI listen/bind added to ui.toggle
 
 ### Changed:
 - using AtomListView instead of AtomList in BaseObject::onInlet method
 - using AtomListView instead of AtomList in UI objects
 - second inlet added to path.ls to set @match property
 - ui.number~ @decimal property renamed to @precision
+
+### Fixed:
+- ui.hgain~/ui.hgain2~ midi bind fixed
 
 
 ## [0.9.1]
