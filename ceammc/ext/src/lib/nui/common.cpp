@@ -55,5 +55,11 @@ namespace ui {
             return false;
     }
 
+    void Xlets::clear()
+    {
+        size_ = 0;
+        xlets_.fill(0);
+    }
+
 }
 }

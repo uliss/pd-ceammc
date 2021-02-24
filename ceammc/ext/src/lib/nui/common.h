@@ -173,6 +173,7 @@ namespace ui {
 
         bool append(XletType t);
         size_t size() const { return size_; }
+        void clear();
 
         const char* asString() const { return xlets_.data(); }
     };
