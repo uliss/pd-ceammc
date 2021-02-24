@@ -98,6 +98,30 @@ void UIToggle::onDblClick(t_object*, const t_pt&, long mod)
         stopListenMidi();
 }
 
+void UIToggle::onPropChange(t_symbol *prop_name)
+{
+    UIObject::onPropChange(prop_name);
+
+    if (prop_name == gensym("midi_control")) {
+        if (prop_midi_ctl != 0) {
+            // info
+            std::ostringstream ss;
+            ss << "binded to MIDI ctl #"
+               << prop_midi_ctl
+               << (prop_midi_chn == 0 ? " on all channels" : " on channel: ");
+
+            if (prop_midi_chn > 0)
+                ss << prop_midi_chn;
+
+            UI_DBG << ss.str();
+            midi_proxy_.bind(midi_ctl_sym());
+        } else
+            midi_proxy_.unbind();
+    }
+
+    redrawAll();
+}
+
 void UIToggle::onBang()
 {
     flip();
@@ -188,6 +212,11 @@ void UIToggle::setup()
 
     obj.addFloatProperty("on_value", _("On value"), 1, &UIToggle::prop_value_on_, _("Main"));
     obj.addFloatProperty("off_value", _("Off value"), 0, &UIToggle::prop_value_off_, _("Main"));
+
+    obj.addProperty("midi_channel", _("MIDI channel"), 0, &UIToggle::prop_midi_chn, "MIDI");
+    obj.setPropertyRange("midi_channel", 0, 16);
+    obj.addProperty("midi_control", _("MIDI control"), 0, &UIToggle::prop_midi_ctl, "MIDI");
+    obj.setPropertyRange("midi_control", 0, 128);
 }
 
 void setup_ui_toggle()

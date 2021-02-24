@@ -30,6 +30,7 @@ public:
     void paint();
     void onMouseDown(t_object*, const t_pt&, const t_pt& abs_pt, long);
     void onDblClick(t_object*, const t_pt&, long mod);
+    void onPropChange(t_symbol* prop_name);
 
     void onBang();
     void onFloat(t_float f);
