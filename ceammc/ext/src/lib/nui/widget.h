@@ -87,7 +87,6 @@ namespace ui {
 
         void setWidgetFlags(UIFactoryFlags flags)
         {
-            LIB_ERR << __FUNCTION__;
             ui_flags_ = flags;
             subscribeMouseEvents();
         }
