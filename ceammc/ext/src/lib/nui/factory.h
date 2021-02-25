@@ -205,8 +205,6 @@ namespace ui {
         {
             auto proxy = reinterpret_cast<ObjectProxy*>(x);
 
-            LIB_ERR << __FUNCTION__ << ' ' << flag;
-
             if (flag)
                 proxy->impl->showWidget(owner);
             else
