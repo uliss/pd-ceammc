@@ -26,8 +26,19 @@
 #include <windows.h>
 #endif
 
+#ifdef HAVE_SYS_TYPES_H
+#include <sys/types.h>
+#endif
+
+#ifdef HAVE_SYS_STAT_H
+#include <sys/stat.h>
+#endif
+
+#include <cerrno>
 #include <chrono>
+#include <cstdio>
 #include <cstdlib>
+#include <cstring>
 
 static int runEditorCommand(const std::string& path)
 {
@@ -49,6 +60,21 @@ static int runEditorCommand(const std::string& path)
 #endif
 }
 
+static time_t getModificationTime(const std::string& path)
+{
+#ifdef _WIN32
+#define stat _stat
+#endif
+    struct stat attrib;
+    int err = stat(path.c_str(), &attrib);
+    if (!err) {
+        return attrib.st_mtime;
+    } else {
+        fprintf(stderr, "stat error for file '%s': %s", path.c_str(), strerror(errno));
+        return 0;
+    }
+}
+
 class DspState {
     int state_;
 
@@ -64,6 +90,28 @@ public:
     }
 };
 
+class ViewState {
+    BaseObject* obj_;
+    bool visible_;
+
+public:
+    ViewState(BaseObject* obj)
+        : obj_(obj)
+    {
+        visible_ = obj_->isVisible();
+        if (visible_)
+            obj_->show(false);
+    }
+
+    ~ViewState()
+    {
+        if (visible_) {
+            obj_->show(true);
+            obj_->fixLines();
+        }
+    }
+};
+
 static faust::FaustConfig faust_config_base;
 
 struct faust_ui : public UI {
@@ -75,13 +123,47 @@ LangFaustTilde::LangFaustTilde(const PdArgs& args)
     : SoundExternal(args)
     , fname_(nullptr)
     , include_dirs_(nullptr)
+    , autocompile_(nullptr)
+    , autocompile_clock_([this]() {
+        if (!mod_time_.valid()) {
+            try {
+                mod_time_ = std::async(std::launch::async, getModificationTime, full_path_);
+            } catch (std::exception& e) {
+                OBJ_ERR << "can't get file modification time: " << e.what();
+                return;
+            }
+        } else {
+            auto rc = mod_time_.wait_for(std::chrono::seconds(0));
+            if (rc == std::future_status::ready) {
+                auto mtime = mod_time_.get();
+                if (mtime != last_mod_time_) {
+                    last_mod_time_ = mtime;
+                    compile();
+                }
+            }
+        }
+
+        if (autocompile_->value())
+            autocompile_clock_.delay(250);
+    })
+    , last_mod_time_(0)
 {
     fname_ = new SymbolProperty("@fname", &s_);
+    fname_->setSuccessFn([this](Property*) { compile(); });
     fname_->setArgIndex(0);
     addProperty(fname_);
 
     include_dirs_ = new ListProperty("@include");
     addProperty(include_dirs_);
+
+    autocompile_ = new BoolProperty("@auto", true);
+    autocompile_->setSuccessFn([this](Property*) {
+        if (autocompile_->value())
+            autocompile_clock_.delay(0);
+        else
+            autocompile_clock_.unset();
+    });
+    addProperty(autocompile_);
 }
 
 LangFaustTilde::~LangFaustTilde() // for std::unique_ptr
@@ -199,35 +281,6 @@ faust::FaustConfig LangFaustTilde::makeFaustConfig()
     return cfg;
 }
 
-void LangFaustTilde::initDone()
-{
-    // time measure
-    const auto clock_begin = std::chrono::steady_clock::now();
-
-    // dps suspend/resume
-    DspState dsp_state_guard;
-
-    full_path_ = findInStdPaths(fname_->value()->s_name);
-    if (full_path_.empty()) {
-        OBJ_DBG << "Faust file is not found: " << fname_->value();
-        return;
-    }
-
-    if (!initFaustDspFactory(makeFaustConfig()))
-        return;
-
-    if (!initFaustDsp())
-        return;
-
-    initInputs();
-    initOutputs();
-
-    createFaustUI();
-
-    const auto clock_end = std::chrono::steady_clock::now();
-    OBJ_DBG << "compilation time: " << std::chrono::duration_cast<std::chrono::milliseconds>(clock_end - clock_begin).count() << "ms";
-}
-
 void LangFaustTilde::setupDSP(t_signal** in)
 {
     LIB_ERR << __FUNCTION__;
@@ -286,35 +339,7 @@ void LangFaustTilde::m_open(t_symbol*, const AtomListView&)
 
 void LangFaustTilde::m_update(t_symbol*, const AtomListView&)
 {
-    LIB_ERR << __FUNCTION__;
-
-    // only redraw xlets
-    const bool visible = isVisible();
-    if (visible)
-        show(false);
-
-    for (auto& p : properties()) {
-        if (dynamic_cast<faust::UIProperty*>(p)) {
-            delete p;
-            p = nullptr;
-        }
-    }
-
-    auto& props = properties();
-    auto it = std::remove_if(props.begin(), props.end(), [](Property* p) { return p == nullptr; });
-    props.erase(it, props.end());
-    faust_properties_.clear();
-
-    dsp_.reset();
-    dsp_factory_.reset();
-    ui_.reset();
-
-    initDone();
-
-    if (visible) {
-        show(true);
-        fixLines();
-    }
+    compile();
 }
 
 void LangFaustTilde::dump() const
@@ -346,6 +371,57 @@ void LangFaustTilde::onClick(t_floatarg xpos, t_floatarg ypos, t_floatarg shift,
 LangFaustTilde::FaustProperyList& LangFaustTilde::faustProperties()
 {
     return faust_properties_;
+}
+
+void LangFaustTilde::compile()
+{
+    ViewState view_guard(this);
+
+    for (auto& p : properties()) {
+        if (dynamic_cast<faust::UIProperty*>(p)) {
+            delete p;
+            p = nullptr;
+        }
+    }
+
+    auto& props = properties();
+    auto it = std::remove_if(props.begin(), props.end(), [](Property* p) { return p == nullptr; });
+    props.erase(it, props.end());
+    faust_properties_.clear();
+
+    dsp_.reset();
+    dsp_factory_.reset();
+    ui_.reset();
+
+    // time measure
+    const auto clock_begin = std::chrono::steady_clock::now();
+
+    // dps suspend/resume
+    DspState dsp_state_guard;
+
+    full_path_ = findInStdPaths(fname_->value()->s_name);
+    if (full_path_.empty()) {
+        OBJ_DBG << "Faust file is not found: " << fname_->value();
+        return;
+    }
+
+    last_mod_time_ = getModificationTime(full_path_);
+    if (autocompile_->value())
+        autocompile_clock_.delay(0);
+
+    if (!initFaustDspFactory(makeFaustConfig()))
+        return;
+
+    if (!initFaustDsp())
+        return;
+
+    initInputs();
+    initOutputs();
+
+    createFaustUI();
+
+    const auto clock_end = std::chrono::steady_clock::now();
+    OBJ_DBG << "compilation time: " << std::chrono::duration_cast<std::chrono::milliseconds>(clock_end - clock_begin).count() << "ms";
 }
 
 std::string LangFaustTilde::canvasDir() const

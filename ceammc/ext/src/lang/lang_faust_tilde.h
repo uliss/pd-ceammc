@@ -14,6 +14,7 @@
 #ifndef LANG_FAUST_TILDE_H
 #define LANG_FAUST_TILDE_H
 
+#include "ceammc_clock.h"
 #include "ceammc_faust.h"
 #include "ceammc_sound_external.h"
 
@@ -21,6 +22,7 @@ using namespace ceammc;
 
 #ifdef WITH_FAUST
 #include "ceammc_llvm.h"
+#include <ctime>
 #include <future>
 #include <memory>
 #include <thread>
@@ -46,14 +48,17 @@ private:
     FactoryPtr dsp_factory_;
     FaustDspPtr dsp_;
     FaustUIPtr ui_;
+    BoolProperty* autocompile_;
+    ClockLambdaFunction autocompile_clock_;
 
+    time_t last_mod_time_;
+    std::future<time_t> mod_time_;
     std::future<int> run_editor_;
 #endif
 
 public:
     LangFaustTilde(const PdArgs& args);
     ~LangFaustTilde();
-    void initDone() override;
 
     void setupDSP(t_signal** in) override;
     void processBlock(const t_sample** in, t_sample** out) final;
@@ -70,6 +75,7 @@ protected:
     FaustProperyList& faustProperties();
 
 private:
+    void compile();
     std::string canvasDir() const;
     void createFaustUI();
     bool initFaustDsp();
