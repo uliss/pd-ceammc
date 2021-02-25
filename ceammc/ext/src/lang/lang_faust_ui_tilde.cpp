@@ -125,6 +125,12 @@ void LangFaustUiTilde::setupDSP(t_signal** sp)
     clock_.delay(50);
 }
 
+void LangFaustUiTilde::m_update(t_symbol* s, const AtomListView& lv)
+{
+    vc_.clearAll();
+    LangFaustTilde::m_update(s, lv);
+}
+
 void setup_lang_faust_ui_tilde()
 {
     ui::UIFactory<SoundExternalFactory, LangFaustUiTilde> obj("ui");
@@ -137,6 +143,7 @@ void setup_lang_faust_ui_tilde()
 
     obj.addMethod("reset", &LangFaustTilde::m_reset);
     obj.addMethod("open", &LangFaustTilde::m_open);
+    obj.addMethod("update", &LangFaustUiTilde::m_update);
 
     initFaustStyle();
 }
@@ -298,6 +305,28 @@ bool FaustMasterView::updateVu()
     }
 
     return true;
+}
+
+void FaustMasterView::clearAll()
+{
+    focused_ = nullptr;
+
+    slider_props_.clear();
+    toggle_props_.clear();
+    vu_props_.clear();
+    button_props_.clear();
+
+    sliders_.clear();
+    toggles_.clear();
+    vu_.clear();
+    buttons_.clear();
+    labels_.clear();
+
+    model_.data().inletsRef().clear();
+    model_.data().outletsRef().clear();
+
+    view_.erase();
+    view_.appendChild(ViewPtr());
 }
 
 void FaustMasterView::createHsliderEntry(faust::UIProperty* p)

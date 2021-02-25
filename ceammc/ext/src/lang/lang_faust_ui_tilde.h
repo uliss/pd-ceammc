@@ -86,6 +86,8 @@ public:
 
     bool updateVu();
 
+    void clearAll();
+
 private:
     void createHsliderEntry(faust::UIProperty* p);
     void createToggleEntry(faust::UIProperty* p);
@@ -111,6 +113,8 @@ public:
     void onMouseUp(const Point& pt, uint32_t mod) override;
 
     void setupDSP(t_signal** sp) override;
+
+    void m_update(t_symbol* s, const AtomListView& lv);
 };
 
 void setup_lang_faust_ui_tilde();
