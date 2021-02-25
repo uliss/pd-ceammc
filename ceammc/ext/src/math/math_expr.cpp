@@ -15,14 +15,12 @@
 #include "ceammc_factory.h"
 #include "ceammc_format.h"
 #include "math_expr_ast.h"
-#include "math_expr_calc.h"
 
 #include <cassert>
 #include <cmath>
 
 MathExpr::MathExpr(const PdArgs& args)
     : BaseObject(args)
-    , ast_(nullptr, ast_free)
 {
     createCbListProperty(
         "@expr",
@@ -42,22 +40,23 @@ MathExpr::~MathExpr() = default;
 
 void MathExpr::onFloat(t_float v)
 {
+    using namespace ceammc::math;
+
     if (!ast_) {
         OBJ_ERR << "NULL AST";
         return;
     }
 
-    if (!ast_ok(ast_.get())) {
+    if (!ast_->isOk()) {
         OBJ_ERR << "invalid AST: not parsed...";
         return;
     }
 
-    ast_clear_vars(ast_.get());
-    ast_bind_var(ast_.get(), 0, v);
+    ast_->clearVars();
+    ast_->bindVar(0, v);
 
-    double res = 0;
-    int err = ast_eval(ast_.get(), &res);
-    if (err) {
+    math_float_t res = 0;
+    if (!ast_->eval(&res)) {
         OBJ_ERR << "eval error";
         return;
     }
@@ -72,15 +71,26 @@ void MathExpr::onInlet(size_t n, const AtomListView& lst)
 
 void MathExpr::onList(const AtomList& lst)
 {
+    using namespace ceammc::math;
+
+    if (!ast_) {
+        OBJ_ERR << "NULL AST";
+        return;
+    }
+
+    if (!ast_->isOk()) {
+        OBJ_ERR << "invalid AST: not parsed...";
+        return;
+    }
+
     //  bind vars
-    ast_clear_vars(ast_.get());
+    ast_->clearVars();
     auto NVARS = std::min<size_t>(10, lst.size());
     for (size_t i = 0; i < NVARS; i++)
-        ast_bind_var(ast_.get(), i, lst[i].asFloat());
+        ast_->bindVar(i, lst[i].asFloat());
 
-    double res = 0;
-    int err = ast_eval(ast_.get(), &res);
-    if (err) {
+    math_float_t res = 0;
+    if (!ast_->eval(&res)) {
         OBJ_ERR << "eval error";
         return;
     }
@@ -90,11 +100,8 @@ void MathExpr::onList(const AtomList& lst)
 
 void MathExpr::updateAST()
 {
-    ast_.reset(ast_new());
-
-    int err = math_expr_parse_ast(ast_.get(), expr_.c_str());
-    if (err)
-        return;
+    ast_.reset(new ceammc::math::Ast);
+    ast_->parse(expr_);
 }
 
 void setup_math_expr()

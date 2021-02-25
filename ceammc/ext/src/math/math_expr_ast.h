@@ -14,71 +14,118 @@
 #ifndef MATH_EXPR_AST_H
 #define MATH_EXPR_AST_H
 
-typedef struct Ast Ast;
-typedef struct Node Node;
+#include "m_pd.h"
 
-typedef double math_float_t;
-typedef math_float_t* math_float_ref_t;
+#include <boost/container/static_vector.hpp>
+#include <boost/variant.hpp>
+#include <string>
 
-typedef math_float_t (*UnaryFloatFunc)(math_float_t);
-typedef math_float_t (*BinaryFloatFunc)(math_float_t, math_float_t);
+namespace ceammc {
+namespace math {
+    using math_float_t = double;
+    using math_float_ref_t = math_float_t*;
+    using UnaryFloatFunc = math_float_t (*)(math_float_t);
+    using BinaryFloatFunc = math_float_t (*)(math_float_t, math_float_t);
 
-#if defined(__cplusplus)
-extern "C" {
-#endif
+    enum UFuncName {
+        UFN_SIN = 0,
+        UFN_COS,
+        UFN_TAN,
+        UFN_SQRT,
+        UFN_EXP,
+        UFN_LN,
+        UFN_LOG2,
+        UFN_LOG10,
+        UFN_ATAN,
+        UFN_ABS,
+        UFN_SIGN,
+        UFN_FACTORIAL,
+        UFN_ROUND,
+        UFN_CEIL,
+        UFN_FLOOR
+    };
 
-Ast* ast_new();
-void ast_free(Ast* tree);
-Node* ast_root(Ast* tree);
-void ast_print(Ast* tree);
-int ast_ok(Ast* tree);
-void ast_invalidate(Ast* tree);
-int ast_eval(Ast* tree, double* res);
-void ast_clear_vars(Ast* tree);
-void ast_bind_var(Ast* tree, int idx, double v);
-double* ast_ref(Ast* tree, int idx);
+    enum BFuncName {
+        BFN_MIN = 0,
+        BFN_MAX,
+        BFN_CMN
+    };
 
-Node* node_add_cont(Node* parent, Node* c);
-Node* node_create_value_float(math_float_t v);
-Node* node_create_ref_float(math_float_ref_t v);
-Node* node_create_cont(Node* c);
-Node* node_create_ufunc(UnaryFloatFunc fn, Node* arg);
-Node* node_create_bfunc(BinaryFloatFunc fn, Node* arg0, Node* arg1);
-Node* node_create_afunc(const char* name, Node* idx);
+    enum ParseError {
+        ERR_UNKNOWN_FUNC = 1000
+    };
 
-typedef enum UFuncName {
-    UFN_SIN = 0,
-    UFN_COS,
-    UFN_TAN,
-    UFN_SQRT,
-    UFN_EXP,
-    UFN_LN,
-    UFN_LOG2,
-    UFN_LOG10,
-    UFN_ATAN,
-    UFN_ABS,
-    UFN_SIGN,
-    UFN_FACTORIAL,
-    UFN_ROUND,
-    UFN_CEIL,
-    UFN_FLOOR
-} UFuncName;
+    UnaryFloatFunc ufnNameToPtr(UFuncName n);
+    BinaryFloatFunc bfnNameToPtr(BFuncName n);
 
-typedef enum BFuncName {
-    BFN_MIN = 0,
-    BFN_MAX,
-    BFN_CMN
-} BFuncName;
+    bool getUnaryFunction(const std::string& n, UnaryFloatFunc& fn);
+    bool getBinaryFunction(const std::string& n, BinaryFloatFunc& fn);
 
-typedef enum ParseError {
-    ERR_UNKNOWN_FUNC = 1000
-} ParseError;
+    enum NodeType {
+        VAL_FLOAT = 0,
+        REF_FLOAT,
+        REF_ARRAY,
+        CONTAINTER,
+        UFUNC,
+        BFUNC
+    };
 
-UnaryFloatFunc ufnNameToPtr(UFuncName n);
-BinaryFloatFunc bfnNameToPtr(BFuncName n);
+    enum NodeName {
+        VALUE = 0,
+        CONTAINER
+    };
 
-#if defined(__cplusplus)
+    using NodeValue = boost::variant<math_float_t, math_float_ref_t, UnaryFloatFunc, BinaryFloatFunc, t_symbol*>;
+
+    class Node;
+    using NodeList = boost::container::static_vector<Node, 4>;
+
+    class Node {
+        NodeValue value_;
+        std::shared_ptr<NodeList> children_;
+        NodeType type_;
+
+    public:
+        Node(NodeType t = VAL_FLOAT);
+
+        bool empty() const;
+        NodeType type() const;
+
+        NodeValue value() const;
+
+        double evalute() const;
+        std::string toString() const;
+        bool add(const Node& n);
+
+    public:
+        static Node createUnaryFunction(UnaryFloatFunc fn, const Node& v);
+        static Node createBinaryFunction(BinaryFloatFunc fn, const Node& v0, const Node& v1);
+        static Node createValue(math_float_t v);
+        static Node createRef(math_float_ref_t v);
+        static Node createArrayFunc(t_symbol* name, const Node& idx);
+        static Node createGroup(const Node& n);
+    };
+
+    constexpr size_t MAX_LOCAL_VARS = 10;
+
+    struct Ast {
+        Node root;
+        double vars[MAX_LOCAL_VARS];
+        bool ok;
+
+        Ast();
+
+        void dump() const;
+        bool isOk() const;
+        void invalidate();
+        bool eval(math_float_t* res) const;
+        void clearVars();
+        bool bindVar(int idx, math_float_t v);
+        math_float_ref_t ref(int idx);
+
+        bool parse(const std::string& expr);
+    };
 }
-#endif
+}
 
 #endif // MATH_EXPR_AST_H

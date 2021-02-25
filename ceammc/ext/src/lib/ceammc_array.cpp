@@ -32,6 +32,18 @@ Array::Array()
 {
 }
 
+Array::Array(Array&& a)
+    : name_(a.name_)
+    , array_(a.array_)
+    , size_(a.size_)
+    , data_(a.data_)
+{
+    a.name_ = &s_;
+    a.array_ = nullptr;
+    a.size_ = 0;
+    a.data_ = nullptr;
+}
+
 Array::Array(t_symbol* name)
     : name_(&s_)
     , array_(nullptr)
@@ -76,6 +88,20 @@ Array& Array::operator=(const Array& array)
     array_ = array.array_;
     size_ = array.size_;
     data_ = array.data_;
+    return *this;
+}
+
+Array& Array::operator=(Array&& array)
+{
+    name_ = array.name_;
+    array_ = array.array_;
+    size_ = array.size_;
+    data_ = array.data_;
+
+    array.name_ = &s_;
+    array.size_ = 0;
+    array.array_ = nullptr;
+    array.data_ = nullptr;
     return *this;
 }
 

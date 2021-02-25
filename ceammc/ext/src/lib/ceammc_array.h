@@ -111,12 +111,14 @@ public:
 
 public:
     Array();
+    Array(Array&& a);
     Array(t_symbol* name);
     Array(const char* name);
     Array(const char* name, std::initializer_list<t_sample> l);
 
     Array(const Array& array);
     Array& operator=(const Array& array);
+    Array& operator=(Array&& array);
 
     /** iterators */
     iterator begin();
