@@ -37,10 +37,10 @@ t_inlet* SoundExternal::createSignalInlet()
 {
     if (n_in_ == MAX_SIG_NUM) {
         OBJ_ERR << "too many inlets: " << n_in_;
-        return 0;
+        return nullptr;
     }
 
-    t_inlet* in = inlet_new(owner(), &owner()->ob_pd, &s_signal, &s_signal);
+    t_inlet* in = signalinlet_new(owner(), 0);
     appendInlet(in);
     n_in_++;
     return in;
@@ -50,7 +50,7 @@ t_outlet* SoundExternal::createSignalOutlet()
 {
     if (n_out_ == MAX_SIG_NUM) {
         OBJ_ERR << "too many outlets: " << n_out_;
-        return 0;
+        return nullptr;
     }
 
     t_outlet* out = outlet_new(owner(), &s_signal);
@@ -59,11 +59,15 @@ t_outlet* SoundExternal::createSignalOutlet()
     return out;
 }
 
-void SoundExternal::clearAllXlets()
+void SoundExternal::clearInlets()
 {
-    clearInlets();
-    clearOutlets();
+    BaseObject::clearInlets();
     n_in_ = pdArgs().hasDefaultSignalInlet() ? 1 : 0;
+}
+
+void SoundExternal::clearOutlets()
+{
+    BaseObject::clearOutlets();
     n_out_ = 0;
 }
 
@@ -106,6 +110,24 @@ void SoundExternal::signalInit(t_signal** sp)
 
     if (old_sr != sample_rate_)
         samplerateChanged(sample_rate_);
+}
+
+bool SoundExternal::popInlet()
+{
+    if (BaseObject::popInlet()) {
+        n_in_ = (pdArgs().hasDefaultSignalInlet() ? 1 : 0) + inlets().size();
+        return true;
+    } else
+        return false;
+}
+
+bool SoundExternal::popOutlet()
+{
+    if (BaseObject::popOutlet()) {
+        n_out_ = outlets().size();
+        return true;
+    } else
+        return false;
 }
 
 }

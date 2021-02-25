@@ -525,12 +525,12 @@ TEST_CASE("BaseObject", "[ceammc::BaseObject]")
         b.addProperty(new IntProperty("int1", 1000));
         b.addProperty(new IntProperty("int1", 10));
         REQUIRE(b.property("int1")->get() == LF(10));
-        REQUIRE(b.properties().size() == 1);
+        REQUIRE(b.getProperties().size() == 1);
 
         Property* p = new BoolProperty("bool1", true);
         b.addProperty(p);
         b.addProperty(p);
-        REQUIRE(b.properties().size() == 2);
+        REQUIRE(b.getProperties().size() == 2);
     }
 
     SECTION("realOutput")

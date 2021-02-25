@@ -51,9 +51,14 @@ public:
     t_outlet* createSignalOutlet();
 
     /**
-     * remove all create control/sound inlets/outlets
+     * remove all created control/sound inlets
      */
-    void clearAllXlets();
+    void clearInlets() override;
+
+    /**
+     * remove all created control/sound inlets
+     */
+    void clearOutlets() override;
 
     /**
      * @brief returns current DSP block size
@@ -113,6 +118,9 @@ protected:
      * @param sp
      */
     void signalInit(t_signal** sp);
+
+    bool popInlet() override;
+    bool popOutlet() override;
 
 private:
     inline void _processBlock()

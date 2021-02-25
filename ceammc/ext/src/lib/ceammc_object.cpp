@@ -80,21 +80,22 @@ t_outlet* BaseObject::outletAt(size_t n)
     return outlets_[n];
 }
 
-void BaseObject::clearOutlets()
+void BaseObject::freeOutlets()
 {
-    const bool redraw = owner()->te_binbuf && gobj_shouldvis((t_gobj*)owner(), canvas()) && glist_isvisible(canvas());
-
-    if (redraw)
-        gobj_vis((t_gobj*)owner(), canvas(), 0);
-
-    for (auto& x : outlets_)
+    for (auto x : outlets_)
         outlet_free(x);
 
     outlets_.clear();
+}
 
-    if (redraw) {
-        gobj_vis((t_gobj*)owner(), canvas(), 1);
-        canvas_fixlinesfor(canvas(), owner());
+void BaseObject::clearOutlets()
+{
+    auto cnv = canvas();
+    auto obj = owner();
+
+    if (cnv && obj) {
+        //        for (auto* x : outlets_)
+        //            canvas_deletelinesforio(cnv, obj, 0, x);
     }
 }
 
@@ -461,6 +462,36 @@ bool BaseObject::queryProperty(t_symbol* key, AtomList& res) const
     return true;
 }
 
+bool BaseObject::popInlet()
+{
+    if (inlets_.empty())
+        return false;
+
+    auto x = inlets_.back();
+    inlets_.pop_back();
+
+    if (canvas() && owner())
+        canvas_deletelinesforio(canvas(), owner(), x, reinterpret_cast<t_outlet*>(x));
+
+    inlet_free(x);
+    return true;
+}
+
+bool BaseObject::popOutlet()
+{
+    if (outlets_.empty())
+        return false;
+
+    auto x = outlets_.back();
+    outlets_.pop_back();
+
+    if (canvas() && owner())
+        canvas_deletelinesforio(canvas(), owner(), reinterpret_cast<t_inlet*>(x), x);
+
+    outlet_free(x);
+    return true;
+}
+
 void BaseObject::initInletDispatchNames()
 {
     char buf[5];
@@ -481,12 +512,6 @@ t_outlet* BaseObject::createOutlet()
     return out;
 }
 
-void BaseObject::freeOutlets()
-{
-    for (auto x : outlets_)
-        outlet_free(x);
-}
-
 t_inlet* BaseObject::createInlet(t_float* v)
 {
     inlets_.push_back(floatinlet_new(pd_.owner, v));
@@ -499,32 +524,30 @@ t_inlet* BaseObject::createInlet(t_symbol** s)
     return inlets_.back();
 }
 
-void BaseObject::freeInlets()
-{
-    for (auto x : inlets_)
-        inlet_free(x);
-}
-
 size_t BaseObject::numInlets() const
 {
     return pd_.owner ? static_cast<size_t>(obj_ninlets(pd_.owner)) : 0;
 }
 
-void BaseObject::clearInlets()
+void BaseObject::freeInlets()
 {
-    const bool redraw = owner()->te_binbuf && gobj_shouldvis((t_gobj*)owner(), canvas()) && glist_isvisible(canvas());
-
-    if (redraw)
-        gobj_vis((t_gobj*)owner(), canvas(), 0);
-
-    for (auto& x : inlets_)
+    for (auto x : inlets_)
         inlet_free(x);
 
     inlets_.clear();
+}
 
-    if (redraw) {
-        gobj_vis((t_gobj*)owner(), canvas(), 1);
-        canvas_fixlinesfor(canvas(), owner());
+void BaseObject::clearInlets()
+{
+    auto cnv = canvas();
+    auto obj = owner();
+
+    if (cnv && obj) {
+        int i = 0;
+        for (auto* x : inlets_) {
+            post("i: %d", i++);
+            //            canvas_deletelinesforio(cnv, obj, x, nullptr);
+        }
     }
 }
 
@@ -957,6 +980,27 @@ void BaseObject::dump() const
             p->name()->s_name,
             to_string(p->get()).c_str());
     }
+}
+
+bool BaseObject::isVisible() const
+{
+    return owner()
+        && canvas()
+        && owner()->te_binbuf
+        && glist_isvisible(const_cast<t_glist*>(canvas()))
+        && gobj_shouldvis((t_gobj*)owner(), const_cast<t_glist*>(canvas()));
+}
+
+void BaseObject::show(bool value)
+{
+    if (owner() && canvas())
+        gobj_vis((t_gobj*)owner(), canvas(), value ? 1 : 0);
+}
+
+void BaseObject::fixLines()
+{
+    if (owner() && canvas())
+        canvas_fixlinesfor(canvas(), owner());
 }
 
 void BaseObject::queryPropNames()

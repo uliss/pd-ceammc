@@ -113,9 +113,9 @@ std::vector<PropertyInfo> ceammc_base_properties(t_object* x)
     }
 
     std::vector<PropertyInfo> res;
-    res.reserve(obj->properties().size());
+    res.reserve(obj->getProperties().size());
 
-    for (auto p : obj->properties()) {
+    for (auto p : obj->getProperties()) {
         if (!p)
             continue;
 
@@ -156,9 +156,9 @@ std::vector<PropertyInfo> ceammc_faust_properties(t_object* x)
 
     auto* obj = reinterpret_cast<FaustObj*>(x)->impl;
     std::vector<PropertyInfo> res;
-    res.reserve(obj->properties().size());
+    res.reserve(obj->getProperties().size());
 
-    for (auto p : obj->properties()) {
+    for (auto p : obj->getProperties()) {
         if (!p)
             continue;
 
