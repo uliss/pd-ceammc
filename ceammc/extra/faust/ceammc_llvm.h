@@ -88,6 +88,9 @@ namespace faust {
         void dumpOpts(std::ostream& os) const;
 
         std::string name() const;
+
+    public:
+        static void deleteAll();
     };
 
     class LlvmDsp {

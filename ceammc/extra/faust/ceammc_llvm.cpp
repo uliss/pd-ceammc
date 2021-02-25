@@ -86,6 +86,11 @@ namespace faust {
         return factory_ ? factory_->getName() : std::string();
     }
 
+    void LlvmDspFactory::deleteAll()
+    {
+        deleteAllDSPFactories();
+    }
+
     void LlvmDspFactory::dumpIncludeDirs(std::ostream& os, const std::string& prefix) const
     {
         if (factory_) {
@@ -148,7 +153,8 @@ namespace faust {
         if (dsp_) {
             dsp_->init(sr);
             num_outs_ = dsp_->getNumOutputs();
-        }
+        } else
+            num_outs_ = 0;
     }
 
     void LlvmDsp::compute(const t_float** in, t_float** out, size_t bs)
