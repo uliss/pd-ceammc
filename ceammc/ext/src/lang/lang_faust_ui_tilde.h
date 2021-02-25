@@ -114,7 +114,9 @@ public:
 
     void setupDSP(t_signal** sp) override;
 
-    void m_update(t_symbol* s, const AtomListView& lv);
+protected:
+    void compile() override;
+    void createCustomUI() override;
 };
 
 void setup_lang_faust_ui_tilde();

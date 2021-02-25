@@ -125,10 +125,15 @@ void LangFaustUiTilde::setupDSP(t_signal** sp)
     clock_.delay(50);
 }
 
-void LangFaustUiTilde::m_update(t_symbol* s, const AtomListView& lv)
+void LangFaustUiTilde::compile()
 {
     vc_.clearAll();
-    LangFaustTilde::m_update(s, lv);
+    LangFaustTilde::compile();
+}
+
+void LangFaustUiTilde::createCustomUI()
+{
+    buildUI();
 }
 
 void setup_lang_faust_ui_tilde()
