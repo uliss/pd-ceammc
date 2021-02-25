@@ -23,6 +23,8 @@ static t_symbol* SYM_LENGTH;
 static t_symbol* SYM_MODE_ON_MOUSE_UP;
 static t_symbol* SYM_MODE_ON_DRAG;
 
+using namespace ui;
+
 static float lin2lin(float v, float x0, float x1, float y0, float y1)
 {
     return convert::lin2lin(clip(v, x0, x1), x0, x1, y0, y1);

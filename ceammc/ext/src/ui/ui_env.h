@@ -14,6 +14,8 @@ enum class SelectType {
     LINE
 };
 
+namespace ui {
+
 struct Node {
     float x, y;
     float curve;
@@ -39,11 +41,13 @@ struct Node {
     static Node fromEnvelope(const EnvelopePoint& pt, size_t total_us, float w, float h, bool fixed_x);
 };
 
-typedef std::vector<Node> NodeList;
+using NodeList = std::vector<Node>;
+
+}
 
 class UIEnv : public UIObject {
     DataTypeEnv env_;
-    NodeList nodes_;
+    ui::NodeList nodes_;
     t_pt cursor_pos_;
     bool draw_cursor_pos_;
     bool draw_cursor_cross_;
