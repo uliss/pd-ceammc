@@ -73,9 +73,10 @@ public:
 
 protected:
     FaustProperyList& faustProperties();
+    virtual void compile();
+    virtual void createCustomUI();
 
 private:
-    void compile();
     std::string canvasDir() const;
     void createFaustUI();
     bool initFaustDsp();

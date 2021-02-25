@@ -419,9 +419,14 @@ void LangFaustTilde::compile()
     initOutputs();
 
     createFaustUI();
+    createCustomUI();
 
     const auto clock_end = std::chrono::steady_clock::now();
     OBJ_DBG << "compilation time: " << std::chrono::duration_cast<std::chrono::milliseconds>(clock_end - clock_begin).count() << "ms";
+}
+
+void LangFaustTilde::createCustomUI()
+{
 }
 
 std::string LangFaustTilde::canvasDir() const
