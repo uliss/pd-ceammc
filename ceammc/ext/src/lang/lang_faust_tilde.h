@@ -60,6 +60,7 @@ public:
 
     void m_reset(t_symbol*, const AtomListView&);
     void m_open(t_symbol*, const AtomListView&);
+    void m_update(t_symbol*, const AtomListView&);
 
     void dump() const override;
 
@@ -70,6 +71,12 @@ protected:
 
 private:
     std::string canvasDir() const;
+    void createFaustUI();
+    bool initFaustDsp();
+    bool initFaustDspFactory(const faust::FaustConfig& cfg);
+    void initInputs();
+    void initOutputs();
+    faust::FaustConfig makeFaustConfig();
 };
 
 void setup_lang_faust_tilde();

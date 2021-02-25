@@ -88,21 +88,91 @@ LangFaustTilde::~LangFaustTilde() // for std::unique_ptr
 {
 }
 
-void LangFaustTilde::initDone()
+void LangFaustTilde::createFaustUI()
 {
-    // time measure
-    const auto clock_begin = std::chrono::steady_clock::now();
+    ui_.reset(new FaustUI(dsp_factory_->name(), ""));
+    if (dsp_->buildUI(ui_.get())) {
+        auto ui = static_cast<FaustUI*>(ui_.get());
+        const size_t n_ui = ui->uiCount();
+        for (size_t i = 0; i < n_ui; i++) {
+            auto name = ui->uiAt(i)->propInfo().name();
+            if (hasProperty(name)) {
+                OBJ_ERR << "UI control already exists: " << name << ", skipping";
+                continue;
+            }
 
-    // dps suspend/resume
-    DspState dsp_state_guard;
+            auto p = new faust::UIProperty(ui->uiAt(i));
+            addProperty(p);
+            faust_properties_.push_back(p);
+        }
+    } else
+        OBJ_ERR << "can't build UI";
+}
 
-    full_path_ = findInStdPaths(fname_->value()->s_name);
-    if (full_path_.empty()) {
-        OBJ_DBG << "Faust file is not found: " << fname_->value();
-        return;
+bool LangFaustTilde::initFaustDsp()
+{
+    dsp_ = dsp_factory_->createDsp();
+    if (!dsp_ || !dsp_->isOk()) {
+        OBJ_ERR << "can't create DSP instance";
+        dsp_.reset();
+        dsp_factory_.reset();
+        return false;
     }
 
-    faust::FaustConfig cfg = faust_config_base;
+    OBJ_DBG << "compiled from source: " << full_path_;
+
+    dsp_->init(sys_getsr());
+    return true;
+}
+
+bool LangFaustTilde::initFaustDspFactory(const faust::FaustConfig& cfg)
+{
+    dsp_factory_.reset(new faust::LlvmDspFactory(full_path_.c_str(), cfg));
+    if (!dsp_factory_ || !dsp_factory_->isOk()) {
+        OBJ_ERR << "Faust file load error " << fname_->value();
+        if (dsp_factory_ && !dsp_factory_->errors().empty())
+            OBJ_ERR << dsp_factory_->errors();
+        return false;
+    }
+
+    return true;
+}
+
+void LangFaustTilde::initInputs()
+{
+    const int n_old = numInputChannels();
+    const int n_new = dsp_->numInputs();
+
+    const int n_add = n_new - n_old;
+
+    if (n_add > 0) {
+        for (int i = 0; i < n_add; i++)
+            createSignalInlet();
+    } else if (n_add < 0) {
+        for (int i = 0; i < (-n_add); i++)
+            popInlet();
+    }
+}
+
+void LangFaustTilde::initOutputs()
+{
+    const int n_old = numOutputChannels();
+    const int n_new = dsp_->numOutputs();
+
+    const int n_add = n_new - n_old;
+
+    if (n_add > 0) {
+        for (int i = 0; i < n_add; i++)
+            createSignalOutlet();
+    } else if (n_add < 0) {
+        for (int i = 0; i < (-n_add); i++)
+            popOutlet();
+    }
+}
+
+faust::FaustConfig LangFaustTilde::makeFaustConfig()
+{
+    auto cfg = faust_config_base;
     const auto canvas_dir = canvasDir();
     cfg.addIncludeDirectory(canvas_dir);
 
@@ -126,51 +196,33 @@ void LangFaustTilde::initDone()
         cfg.addIncludeDirectory(dir);
     }
 
-    dsp_factory_.reset(new faust::LlvmDspFactory(full_path_.c_str(), cfg));
-    if (!dsp_factory_ || !dsp_factory_->isOk()) {
-        OBJ_ERR << "Faust file load error " << fname_->value();
-        if (dsp_factory_ && !dsp_factory_->errors().empty())
-            OBJ_ERR << dsp_factory_->errors();
+    return cfg;
+}
+
+void LangFaustTilde::initDone()
+{
+    // time measure
+    const auto clock_begin = std::chrono::steady_clock::now();
+
+    // dps suspend/resume
+    DspState dsp_state_guard;
+
+    full_path_ = findInStdPaths(fname_->value()->s_name);
+    if (full_path_.empty()) {
+        OBJ_DBG << "Faust file is not found: " << fname_->value();
         return;
     }
 
-    dsp_ = dsp_factory_->createDsp();
-    if (!dsp_ || !dsp_->isOk()) {
-        OBJ_ERR << "can't create DSP instance";
-        dsp_.release();
-        dsp_factory_.reset();
+    if (!initFaustDspFactory(makeFaustConfig()))
         return;
-    }
 
-    OBJ_DBG << "compiled from source: " << full_path_;
+    if (!initFaustDsp())
+        return;
 
-    dsp_->init(sys_getsr());
-    const auto nin = dsp_->numInputs();
-    const auto nout = dsp_->numOutputs();
+    initInputs();
+    initOutputs();
 
-    for (size_t i = 0; i < nin; i++)
-        createSignalInlet();
-
-    for (size_t i = 0; i < nout; i++)
-        createSignalOutlet();
-
-    ui_.reset(new FaustUI(dsp_factory_->name(), ""));
-    if (dsp_->buildUI(ui_.get())) {
-        auto ui = static_cast<FaustUI*>(ui_.get());
-        const size_t n_ui = ui->uiCount();
-        for (size_t i = 0; i < n_ui; i++) {
-            auto name = ui->uiAt(i)->propInfo().name();
-            if (hasProperty(name)) {
-                OBJ_ERR << "UI control already exists: " << name << ", skipping";
-                continue;
-            }
-
-            auto p = new faust::UIProperty(ui->uiAt(i));
-            addProperty(p);
-            faust_properties_.push_back(p);
-        }
-    } else
-        OBJ_ERR << "can't build UI";
+    createFaustUI();
 
     const auto clock_end = std::chrono::steady_clock::now();
     OBJ_DBG << "compilation time: " << std::chrono::duration_cast<std::chrono::milliseconds>(clock_end - clock_begin).count() << "ms";
@@ -178,10 +230,13 @@ void LangFaustTilde::initDone()
 
 void LangFaustTilde::setupDSP(t_signal** in)
 {
+    LIB_ERR << __FUNCTION__;
+
     SoundExternal::setupDSP(in);
+
     if (dsp_ && ui_) {
         auto ui = static_cast<FaustUI*>(ui_.get());
-        std::vector<FAUSTFLOAT> z = ui->uiValues();
+        auto z = ui->uiValues();
         dsp_->init(samplerate());
         ui->setUIValues(z);
     }
@@ -189,7 +244,7 @@ void LangFaustTilde::setupDSP(t_signal** in)
 
 void LangFaustTilde::processBlock(const t_sample** in, t_sample** out)
 {
-    if (!dsp_ || !dsp_->isOk())
+    if (!dsp_)
         return;
 
     dsp_->compute(in, out, blockSize());
@@ -210,7 +265,10 @@ void LangFaustTilde::m_open(t_symbol*, const AtomListView&)
 
     if (run_editor_.valid()) {
         try {
-            run_editor_.get();
+            auto rc = run_editor_.wait_for(std::chrono::seconds(0));
+            if (rc != std::future_status::ready) {
+                OBJ_ERR << "exec error: " << __FUNCTION__;
+            }
         } catch (std::exception& e) {
             OBJ_ERR << e.what();
             return;
@@ -224,6 +282,39 @@ void LangFaustTilde::m_open(t_symbol*, const AtomListView&)
     }
 
     return;
+}
+
+void LangFaustTilde::m_update(t_symbol*, const AtomListView&)
+{
+    LIB_ERR << __FUNCTION__;
+
+    // only redraw xlets
+    const bool visible = isVisible();
+    if (visible)
+        show(false);
+
+    for (auto& p : properties()) {
+        if (dynamic_cast<faust::UIProperty*>(p)) {
+            delete p;
+            p = nullptr;
+        }
+    }
+
+    auto& props = properties();
+    auto it = std::remove_if(props.begin(), props.end(), [](Property* p) { return p == nullptr; });
+    props.erase(it, props.end());
+    faust_properties_.clear();
+
+    dsp_.reset();
+    dsp_factory_.reset();
+    ui_.reset();
+
+    initDone();
+
+    if (visible) {
+        show(true);
+        fixLines();
+    }
 }
 
 void LangFaustTilde::dump() const
@@ -273,5 +364,6 @@ void setup_lang_faust_tilde()
     SoundExternalFactory<LangFaustTilde> obj("lang.faust~", OBJECT_FACTORY_DEFAULT);
     obj.addMethod("reset", &LangFaustTilde::m_reset);
     obj.addMethod("open", &LangFaustTilde::m_open);
+    obj.addMethod("update", &LangFaustTilde::m_update);
     obj.useClick();
 }
