@@ -283,8 +283,6 @@ faust::FaustConfig LangFaustTilde::makeFaustConfig()
 
 void LangFaustTilde::setupDSP(t_signal** in)
 {
-    LIB_ERR << __FUNCTION__;
-
     SoundExternal::setupDSP(in);
 
     if (dsp_ && ui_) {
