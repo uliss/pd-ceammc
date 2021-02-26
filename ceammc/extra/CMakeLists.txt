@@ -26,7 +26,6 @@ if(WITH_EXT_LYONPOTPOURRI)
     add_subdirectory(lyonpotpourri)
 endif()
 
-add_subdirectory(filesentry)
 add_subdirectory(glitch)
 add_subdirectory(midifile)
 add_subdirectory(muparser)
