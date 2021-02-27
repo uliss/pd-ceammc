@@ -166,8 +166,8 @@ void Firmata::processFirmataInput(int cmd)
                 if (pin < 0)
                     continue;
 
-                char buf[6];
-                snprintf(buf, 5, "A%i", pin);
+                char buf[8];
+                snprintf(buf, sizeof(buf)-1, "A%i", pin);
                 anyTo(0, F_RESPONSE_ANALOG_MAPPING, AtomList(gensym(buf), Atom(i)));
             }
         } break;
