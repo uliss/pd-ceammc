@@ -14,6 +14,7 @@
 #ifndef MODEL_H
 #define MODEL_H
 
+#include <algorithm>
 #include <cstdint>
 #include <stdexcept>
 #include <tuple>

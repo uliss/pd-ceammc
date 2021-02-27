@@ -20,6 +20,7 @@ extern "C" {
 
 #include <array>
 #include <cstring>
+#include <cinttypes>
 
 namespace ceammc {
 namespace ui {
@@ -79,7 +80,7 @@ namespace ui {
         void object_bind(t_text* x)
         {
             char buf[32];
-            snprintf(buf, sizeof(buf) - 1, "#%llx", reinterpret_cast<uint64_t>(x));
+            snprintf(buf, sizeof(buf) - 1, "#%" PRIu64 , reinterpret_cast<uint64_t>(x));
             pd_bind(&x->te_g.g_pd, gensym(buf));
         }
 

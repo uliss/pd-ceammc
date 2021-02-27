@@ -33,10 +33,9 @@ namespace faust {
         std::vector<const char*> copts_;
         int opt_level_;
 
-        FaustConfig(FaustConfig&& config) = delete;
-
     public:
         FaustConfig();
+        FaustConfig(FaustConfig&& config);
         FaustConfig(const FaustConfig& config);
         FaustConfig& operator=(const FaustConfig& config);
 
