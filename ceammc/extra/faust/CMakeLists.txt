@@ -19,8 +19,9 @@ set(OLDCPP_BACKEND OFF                            CACHE STRING  "Include old CPP
 set(RUST_BACKEND   OFF                            CACHE STRING  "Include RUST backend"      FORCE)
 set(WASM_BACKEND   OFF                            CACHE STRING  "Include WASM backend"      FORCE)
 
-if(APPLE)
-    find_program(LLVM_CONFIG "llvm-config"
+if(APPLE OR UNIX)
+    find_program(LLVM_CONFIG
+        NAMES "llvm-config" "llvm-config-6.0"
         PATHS /usr/local/opt/llvm/bin)
     if (${LLVM_CONFIG} STREQUAL LLVM_CONFIG-NOTFOUND)
         message (FATAL_ERROR "Cannot find program llvm-config")
