@@ -812,10 +812,10 @@ void XTouchExtender::m_lcd_upper_align(t_symbol* s, const AtomListView& lv)
 void XTouchExtender::m_lcd_upper_enum(t_symbol* s, const AtomListView& lv)
 {
     t_symbol* prefix = lv.symbolAt(0, &s_);
-    char buf[8];
+    char buf[12];
 
     for (int i = 0; i < numLogicChannels(); i++) {
-        snprintf(buf, sizeof(buf), "%s%d", prefix->s_name, i);
+        snprintf(buf, sizeof(buf)-1, "%s%d", prefix->s_name, i);
         display(i).setUpperText(buf);
         syncLogicDisplay(i);
     }
@@ -824,10 +824,10 @@ void XTouchExtender::m_lcd_upper_enum(t_symbol* s, const AtomListView& lv)
 void XTouchExtender::m_lcd_lower_enum(t_symbol* s, const AtomListView& lv)
 {
     t_symbol* prefix = lv.symbolAt(0, &s_);
-    char buf[8];
+    char buf[12];
 
     for (int i = 0; i < numLogicChannels(); i++) {
-        snprintf(buf, sizeof(buf), "%s%d", prefix->s_name, i);
+        snprintf(buf, sizeof(buf)-1, "%s%d", prefix->s_name, i);
         display(i).setLowerText(buf);
         syncLogicDisplay(i);
     }
