@@ -348,6 +348,9 @@ proc init_for_platform {} {
                 # old default font for Tk 8.4 on macOS
                 # since font detection requires 8.5+
                 set ::font_family "Monaco"
+            } else {
+                # hack until DVSM bug is fixed on macOS 10.15+
+                set ::font_family "Menlo"
             }
             option add *DialogWindow*background "#E8E8E8" startupFile
             option add *DialogWindow*Entry.highlightBackground "#E8E8E8" startupFile
@@ -486,8 +489,10 @@ proc get_font_for_size {fsize} {
 # always do a good job of choosing in respect to Pd's needs.  So this chooses
 # from a list of fonts that are known to work well with Pd.
 proc find_default_font {} {
-    set testfonts {"DejaVu Sans Mono" "Bitstream Vera Sans Mono" "Monaco" \
-        "Inconsolata" "Courier 10 Pitch" "Andale Mono" "Droid Sans Mono"}
+    set testfonts {
+        "DejaVu Sans Mono" "Bitstream Vera Sans Mono" "Menlo" "Monaco" \
+        "Inconsolata" "Courier 10 Pitch" "Andale Mono" "Droid Sans Mono"
+    }
     foreach family $testfonts {
         if {[lsearch -exact -nocase [font families] $family] > -1} {
             set ::font_family $family
@@ -588,18 +593,28 @@ proc pdtk_pd_startup {major minor bugfix test
     set ::done_init 1
 }
 
-##### routine to ask user if OK and, if so, send a message on to Pd ######
-proc pdtk_check {mytoplevel message reply_to_pd default} {
+##### routine to ask user if OK and, if so return '1' (or else '0')
+# (this really should be in some other file)
+proc pdtk_yesnodialog {mytoplevel message default} {
     wm deiconify $mytoplevel
     raise $mytoplevel
     if {$::windowingsystem eq "win32"} {
-        set answer [tk_messageBox -message [_ $message] -type yesno -default $default \
-                        -icon question -title [wm title $mytoplevel]]
-    } else {
-        set answer [tk_messageBox -message [_ $message] -type yesno \
-                        -default $default -parent $mytoplevel -icon question]
-    }
+           set answer [tk_messageBox -message [_ $message] -type yesno \
+                                     -default $default -icon question \
+                                     -title [wm title $mytoplevel]]
+       } {
+           set answer [tk_messageBox -message [_ $message] -type yesno \
+                                     -default $default -icon question \
+                                     -parent $mytoplevel]
+       }
     if {$answer eq "yes"} {
+           return 1
+    }
+    return 0
+}
+##### routine to ask user if OK and, if so, send a message on to Pd ######
+proc pdtk_check {mytoplevel message reply_to_pd default} {
+    if {[ pdtk_yesnodialog $mytoplevel $message $default ]} {
         pdsend $reply_to_pd
     }
 }
