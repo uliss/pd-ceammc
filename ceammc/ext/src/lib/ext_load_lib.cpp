@@ -18,6 +18,8 @@
 constexpr const char* setup_sym = "ceammc_setup";
 constexpr const char* sym_list_all = "ceammc_list_all";
 
+fn_type list_objects = nullptr;
+
 #ifdef _WIN32
 #include <libgen.h>
 

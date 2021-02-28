@@ -25,7 +25,8 @@ int main(int, char*[])
     if (!load_ceammc())
         return EXIT_FAILURE;
 
-    list_objects();
+    if (list_objects)
+        list_objects();
 
     return EXIT_SUCCESS;
 }

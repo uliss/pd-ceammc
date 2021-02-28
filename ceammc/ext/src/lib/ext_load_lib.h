@@ -15,7 +15,7 @@
 #define EXT_LOAD_LIB_H
 
 using fn_type = void (*)();
-static fn_type list_objects;
+extern fn_type list_objects;
 
 bool load_ceammc();
 
