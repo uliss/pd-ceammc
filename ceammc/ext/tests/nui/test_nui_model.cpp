@@ -102,11 +102,11 @@ TEST_CASE("nui::model", "[nui]")
 
         REQUIRE(bp.value() == false);
         REQUIRE(bm.hasSubscribers());
-        bm.data() = data(true);
+        bm.data() = data(true, 100);
 
         bo1.updatePropFromModel();
         REQUIRE(bp.value() == true);
-        bm.data() = data(true);
+        bm.data() = data(true, 100);
 
         REQUIRE(bp.value() == true);
         REQUIRE(bm.hasSubscribers());
