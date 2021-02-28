@@ -35,6 +35,7 @@
 
 #line 17 "math_expr.lex"
 
+    # include <cmath>
     # include <cstdlib>
 
     # include "math_expr.location.hpp"
@@ -149,130 +150,130 @@ ceammc::math::MathExprParser::symbol_type ceammc::math::MathExprLexer::lex(void)
               out().put(matcher().input());
             }
             break;
-          case 1: // rule math_expr.lex:40: {space} :
-#line 40 "math_expr.lex"
+          case 1: // rule math_expr.lex:41: {space} :
+#line 41 "math_expr.lex"
 { }
 
             break;
-          case 2: // rule math_expr.lex:42: {bin} :
-#line 42 "math_expr.lex"
+          case 2: // rule math_expr.lex:43: {bin} :
+#line 43 "math_expr.lex"
 { // binary 0x1101101
             return MathExprParser::make_NUM(strtol(text() + 2, NULL, 2), location());
          }
 
             break;
-          case 3: // rule math_expr.lex:46: {hex} :
-#line 46 "math_expr.lex"
+          case 3: // rule math_expr.lex:47: {hex} :
+#line 47 "math_expr.lex"
 { // hex 0xBEEFA24
             return MathExprParser::make_NUM(strtol(text() + 2, NULL, 16), location());
          }
 
             break;
-          case 4: // rule math_expr.lex:50: {double} :
-#line 50 "math_expr.lex"
+          case 4: // rule math_expr.lex:51: {double} :
+#line 51 "math_expr.lex"
 { // double
             return MathExprParser::make_NUM(strtod(text(), NULL), location());
          }
 
             break;
-          case 5: // rule math_expr.lex:54: {ref} :
-#line 54 "math_expr.lex"
+          case 5: // rule math_expr.lex:55: {ref} :
+#line 55 "math_expr.lex"
 { // refs
             auto n = text()[2];
             return MathExprParser::make_REF(n ? (n - '0') : 0, location());
          }
 
             break;
-          case 6: // rule math_expr.lex:59: "$pi" :
-#line 59 "math_expr.lex"
+          case 6: // rule math_expr.lex:60: "$pi" :
+#line 60 "math_expr.lex"
 { return MathExprParser::make_NUM(M_PI, location()); }
             break;
-          case 7: // rule math_expr.lex:60: "$e" :
-#line 60 "math_expr.lex"
+          case 7: // rule math_expr.lex:61: "$e" :
+#line 61 "math_expr.lex"
 { return MathExprParser::make_NUM(M_E, location()); }
 
             break;
-          case 8: // rule math_expr.lex:62: {square_open} :
-#line 62 "math_expr.lex"
+          case 8: // rule math_expr.lex:63: {square_open} :
+#line 63 "math_expr.lex"
 { return MathExprParser::make_SQR_OPEN(location()); }
             break;
-          case 9: // rule math_expr.lex:63: {square_close} :
-#line 63 "math_expr.lex"
+          case 9: // rule math_expr.lex:64: {square_close} :
+#line 64 "math_expr.lex"
 { return MathExprParser::make_SQR_CLOSE(location());}
             break;
-          case 10: // rule math_expr.lex:64: {par_open} :
-#line 64 "math_expr.lex"
+          case 10: // rule math_expr.lex:65: {par_open} :
+#line 65 "math_expr.lex"
 { return MathExprParser::make_PAR_OPEN(location());}
             break;
-          case 11: // rule math_expr.lex:65: {par_close} :
-#line 65 "math_expr.lex"
+          case 11: // rule math_expr.lex:66: {par_close} :
+#line 66 "math_expr.lex"
 { return MathExprParser::make_PAR_CLOSE(location()); }
             break;
-          case 12: // rule math_expr.lex:66: {comma} :
-#line 66 "math_expr.lex"
+          case 12: // rule math_expr.lex:67: {comma} :
+#line 67 "math_expr.lex"
 { return MathExprParser::make_COMMA(location()); }
             break;
-          case 13: // rule math_expr.lex:67: "+" :
-#line 67 "math_expr.lex"
+          case 13: // rule math_expr.lex:68: "+" :
+#line 68 "math_expr.lex"
 { return MathExprParser::make_PLUS(location()); }
             break;
-          case 14: // rule math_expr.lex:68: "-" :
-#line 68 "math_expr.lex"
+          case 14: // rule math_expr.lex:69: "-" :
+#line 69 "math_expr.lex"
 { return MathExprParser::make_MINUS(location()); }
             break;
-          case 15: // rule math_expr.lex:69: "*" :
-#line 69 "math_expr.lex"
+          case 15: // rule math_expr.lex:70: "*" :
+#line 70 "math_expr.lex"
 { return MathExprParser::make_MUL(location()); }
             break;
-          case 16: // rule math_expr.lex:70: "/" :
-#line 70 "math_expr.lex"
+          case 16: // rule math_expr.lex:71: "/" :
+#line 71 "math_expr.lex"
 { return MathExprParser::make_DIV(location()); }
             break;
-          case 17: // rule math_expr.lex:71: "%" :
-#line 71 "math_expr.lex"
+          case 17: // rule math_expr.lex:72: "%" :
+#line 72 "math_expr.lex"
 { return MathExprParser::make_MOD(location()); }
             break;
-          case 18: // rule math_expr.lex:72: "^" :
-#line 72 "math_expr.lex"
+          case 18: // rule math_expr.lex:73: "^" :
+#line 73 "math_expr.lex"
 { return MathExprParser::make_EXP(location()); }
             break;
-          case 19: // rule math_expr.lex:73: "==" :
-#line 73 "math_expr.lex"
+          case 19: // rule math_expr.lex:74: "==" :
+#line 74 "math_expr.lex"
 { return MathExprParser::make_T_EQ(location()); }
             break;
-          case 20: // rule math_expr.lex:74: "~=" :
-#line 74 "math_expr.lex"
+          case 20: // rule math_expr.lex:75: "~=" :
+#line 75 "math_expr.lex"
 { return MathExprParser::make_T_APPROX_EQ(location()); }
             break;
-          case 21: // rule math_expr.lex:75: "!=" :
-#line 75 "math_expr.lex"
+          case 21: // rule math_expr.lex:76: "!=" :
+#line 76 "math_expr.lex"
 { return MathExprParser::make_T_NOT_EQ(location()); }
             break;
-          case 22: // rule math_expr.lex:76: "<=" :
-#line 76 "math_expr.lex"
+          case 22: // rule math_expr.lex:77: "<=" :
+#line 77 "math_expr.lex"
 { return MathExprParser::make_T_LE(location()); }
             break;
-          case 23: // rule math_expr.lex:77: "<" :
-#line 77 "math_expr.lex"
+          case 23: // rule math_expr.lex:78: "<" :
+#line 78 "math_expr.lex"
 { return MathExprParser::make_T_LT(location()); }
             break;
-          case 24: // rule math_expr.lex:78: ">=" :
-#line 78 "math_expr.lex"
+          case 24: // rule math_expr.lex:79: ">=" :
+#line 79 "math_expr.lex"
 { return MathExprParser::make_T_GE(location()); }
             break;
-          case 25: // rule math_expr.lex:79: ">" :
-#line 79 "math_expr.lex"
+          case 25: // rule math_expr.lex:80: ">" :
+#line 80 "math_expr.lex"
 { return MathExprParser::make_T_GT(location()); }
 
             break;
-          case 26: // rule math_expr.lex:81: {symbol}/({par_open}|{square_open}) :
-#line 81 "math_expr.lex"
+          case 26: // rule math_expr.lex:82: {symbol}/({par_open}|{square_open}) :
+#line 82 "math_expr.lex"
 {
                   return MathExprParser::make_SYMBOL(text(), location()); }
 
             break;
-          case 27: // rule math_expr.lex:84: . :
-#line 84 "math_expr.lex"
+          case 27: // rule math_expr.lex:85: . :
+#line 85 "math_expr.lex"
 { return MathExprParser::make_LEXER_ERROR(location());}
 
             break;

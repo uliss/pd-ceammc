@@ -38,6 +38,7 @@
 
 #line 17 "math_expr.lex"
 
+    # include <cmath>
     # include <cstdlib>
 
     # include "math_expr.location.hpp"

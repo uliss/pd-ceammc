@@ -18,6 +18,7 @@
 
 #include <boost/container/static_vector.hpp>
 #include <boost/variant.hpp>
+#include <memory>
 #include <string>
 
 namespace ceammc {

@@ -15,6 +15,7 @@
 /*%option debug*/
 
 %top {
+    # include <cmath>
     # include <cstdlib>
 
     # include "math_expr.location.hpp"

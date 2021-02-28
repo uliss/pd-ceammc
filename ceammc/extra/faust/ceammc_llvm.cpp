@@ -174,6 +174,14 @@ namespace faust {
         }
     }
 
+    FaustConfig::FaustConfig(FaustConfig&& config) :
+        opts_(std::move(config.opts_)),
+        copts_(std::move(config.copts_)),
+        opt_level_(config.opt_level_)
+    {
+
+    }
+
     FaustConfig::FaustConfig()
         : opt_level_(LEVEL_OMAX)
     {
