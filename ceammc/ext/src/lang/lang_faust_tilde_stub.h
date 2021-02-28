@@ -11,30 +11,27 @@
  * contact the author of this file, or the owner of the project in which
  * this file belongs to.
  *****************************************************************************/
-#include "lang_faust_tilde_stub.h"
-#include "ceammc_factory.h"
+#ifndef FAUST_LANG_STUB_TILDE_H
+#define FAUST_LANG_STUB_TILDE_H
 
-LangFaustTilde::LangFaustTilde(const PdArgs& args)
-    : SoundExternal(args)
-{
-    OBJ_LOG << "compiled without Faust support";
-}
+#include "ceammc_sound_external.h"
 
-void LangFaustTilde::processBlock(const t_sample** in, t_sample** out)
-{
-}
+using namespace ceammc;
 
-LangFaustUITilde::LangFaustUITilde(const PdArgs& args)
-    : LangFaustTilde(args)
-{
-}
+class LangFaustTilde : public SoundExternal {
 
-void setup_lang_faust_tilde()
-{
-    SoundExternalFactory<LangFaustTilde> obj("lang.faust~");
-}
+public:
+    LangFaustTilde(const PdArgs& args);
 
-void setup_lang_faust_ui_tilde()
-{
-    SoundExternalFactory<LangFaustUITilde> obj("ui.faust~");
-}
+    void processBlock(const t_sample** in, t_sample** out);
+};
+
+class LangFaustUITilde : public LangFaustTilde {
+public:
+    LangFaustUITilde(const PdArgs& args);
+};
+
+void setup_lang_faust_tilde();
+void setup_lang_faust_ui_tilde();
+
+#endif // FAUST_LANG_STUB_TILDE_H

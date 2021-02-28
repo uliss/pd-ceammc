@@ -1,6 +1,7 @@
 #include "mod_lang.h"
-#include "lang_faust_tilde.h"
-#include "lang_faust_ui_tilde.h"
+
+void setup_lang_faust_tilde();
+void setup_lang_faust_ui_tilde();
 
 void ceammc_lang_setup()
 {
