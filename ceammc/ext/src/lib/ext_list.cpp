@@ -11,42 +11,95 @@
  * contact the author of this file, or the owner of the project in which
  * this file belongs to.
  *****************************************************************************/
-
-#include <algorithm>
-#include <cstdlib>
-#include <iostream>
-#include <iterator>
-#include <set>
-#include <string>
-#include <vector>
-
 #include "m_pd.h"
 
-#include "../mod_init.h"
-#include "ceammc_pd.h"
+#include <cstdlib>
 
-static t_symbol* any = &s_anything;
+using fn_type = void (*)();
+static fn_type list_objects;
+constexpr const char* setup_sym = "ceammc_setup";
+constexpr const char* sym_list_all = "ceammc_list_all";
+
 extern "C" void pd_init();
-t_class* ceammc_class = nullptr;
+static bool load_ceammc();
 
-using namespace std;
+#ifdef _WIN32
+#include <libgen.h>
 
-int main(int argc, char* argv[])
+bool load_ceammc()
+{
+    char dir[MAXPDSTRING] = CEAMMC_LIB;
+    if (!SetDllDirectory(dirname(dir)))
+        error("could not set '%s' as DllDirectory(), '%s' might not load.",
+            dirname, basename);
+    /* now load the DLL for the external */
+    char base[MAXPDSTRING] = CEAMMC_LIB;
+    auto ntdll = LoadLibrary(basename(base));
+    if (!ntdll) {
+        DWORD rc = GetLastError();
+        LPSTR messageBuffer = NULL;
+        size_t size = FormatMessageA(FORMAT_MESSAGE_ALLOCATE_BUFFER | FORMAT_MESSAGE_FROM_SYSTEM | FORMAT_MESSAGE_IGNORE_INSERTS,
+            NULL, rc, MAKELANGID(LANG_NEUTRAL, SUBLANG_DEFAULT), (LPSTR)&messageBuffer, 0, NULL);
+
+        error("%s: couldn't load - %s", CEAMMC_LIB, messageBuffer);
+        //Free the buffer.
+        LocalFree(messageBuffer);
+        return false;
+    }
+    auto fn = (fn_type)GetProcAddress(ntdll, setup_sym);
+    SetDllDirectory(NULL); /* reset DLL dir to nothing */
+    if (!fn)
+        return false;
+
+    (*fn)();
+
+    list_objects = (fn_type)GetProcAddress(ntdll, sym_list_all);
+    if (!list_objects) {
+        fprintf(stderr, "load_object: Symbol \"%s\" not found\n", sym_list_all);
+        return false;
+    }
+
+    return true;
+}
+#else
+#include <dlfcn.h>
+
+bool load_ceammc()
+{
+    auto dlobj = dlopen(CEAMMC_DLL, RTLD_NOW | RTLD_GLOBAL);
+    if (!dlobj) {
+        fprintf(stderr, "%s: %s\n", CEAMMC_DLL, dlerror());
+        return false;
+    }
+
+    auto fn = (fn_type)dlsym(dlobj, setup_sym);
+    if (!fn) {
+        fprintf(stderr, "load_object: Symbol \"%s\" not found\n", setup_sym);
+        return false;
+    }
+
+    (*fn)();
+
+    const char* sym_list_all = "ceammc_list_all";
+    list_objects = (fn_type)dlsym(dlobj, sym_list_all);
+    if (!list_objects) {
+        fprintf(stderr, "load_object: Symbol \"%s\" not found\n", sym_list_all);
+        return false;
+    }
+
+    return true;
+}
+#endif
+
+int main(int, char*[])
 {
     pd_init();
 
-    bool vanilla = argc > 1 && string(argv[1]) == "-v";
-    if (vanilla) {
-        vector<string> l = ceammc::pd::currentListOfExternals();
-        set<string> vanilla_set(l.begin(), l.end());
-        copy(vanilla_set.begin(), vanilla_set.end(), ostream_iterator<string>(cout, "\n"));
-        return EXIT_SUCCESS;
-    }
+    if (!load_ceammc())
+        return EXIT_FAILURE;
 
-    ceammc_init();
-
-    set<string> ceammc_set = ceammc_ext_list();
-    copy(ceammc_set.begin(), ceammc_set.end(), ostream_iterator<string>(cout, "\n"));
+    class_set_extern_dir(&s_);
+    list_objects();
 
     return EXIT_SUCCESS;
 }

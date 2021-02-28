@@ -18,6 +18,9 @@
 
 #include "m_pd.h"
 
+#include <algorithm>
+#include <iostream>
+
 t_class* ceammc_class = 0;
 
 namespace {
@@ -142,4 +145,12 @@ extern "C" CEAMMC_EXTERN void ceammc_setup()
     ceammc_info_message();
     ceammc_new();
     ceammc_init();
+}
+
+extern "C" CEAMMC_EXTERN void ceammc_list_all()
+{
+    using namespace std;
+    auto& ceammc_set = ceammc_ext_list();
+
+    std::copy(ceammc_set.begin(), ceammc_set.end(), ostream_iterator<string>(cout, "\n"));
 }

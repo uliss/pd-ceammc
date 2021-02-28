@@ -255,12 +255,14 @@ endif()
 
 # utilities used while developing
 if(ENABLE_TESTS)
-    add_executable(ext_list ext_list.cpp ../mod_init.cpp)
+    add_executable(ext_list ext_list.cpp)
     target_include_directories(ext_list
         PRIVATE
             "${CMAKE_CURRENT_SOURCE_DIR}"
+            "${PROJECT_BINARY_DIR}" # for config.h
             "${PROJECT_SOURCE_DIR}/src")
-    target_link_libraries(ext_list PRIVATE ${CEAMMC_EXT_LINK_LIBRARIES} puredata-core)
+    target_compile_definitions(ext_list PUBLIC "CEAMMC_DLL=\"$<TARGET_FILE:ceammc>\"")
+    target_link_libraries(ext_list PRIVATE puredata-core)
 
     add_executable(ext_methods ext_methods.cpp ../mod_init.cpp)
     target_include_directories(ext_methods PRIVATE ${CMAKE_CURRENT_SOURCE_DIR})
