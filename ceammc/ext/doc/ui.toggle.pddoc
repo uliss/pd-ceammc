@@ -23,6 +23,11 @@
         <info>
             <par>This is the ceammc counterpart of the vanilla toggle</par>
         </info>
+        <mouse>
+            <event editmode="0" type="left-click">toggles state</event>
+            <event editmode="0" type="double-click" keys="Shift">toggle MIDI-learn mode (red border
+            displayed)</event>
+        </mouse>
         <properties>
             <property name="@value" type="float" default="0" enum="0 1">widget logical
             value</property>
