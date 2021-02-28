@@ -42,3 +42,4 @@ add_custom_target(nui_model_gen
     SOURCES ${MODELS}
     WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR})
 
+target_link_libraries(ceammc_nui PRIVATE ceammc_core puredata-core)
