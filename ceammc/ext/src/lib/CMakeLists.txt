@@ -255,29 +255,31 @@ endif()
 
 # utilities used while developing
 if(ENABLE_TESTS)
+    add_library(ext_load STATIC ext_load_lib.cpp)
+    target_compile_definitions(ext_load PRIVATE "CEAMMC_DLL=\"$<TARGET_FILE:ceammc>\"")
+
     add_executable(ext_list ext_list.cpp)
     target_include_directories(ext_list
         PRIVATE
             "${CMAKE_CURRENT_SOURCE_DIR}"
             "${PROJECT_BINARY_DIR}" # for config.h
             "${PROJECT_SOURCE_DIR}/src")
-    target_compile_definitions(ext_list PUBLIC "CEAMMC_DLL=\"$<TARGET_FILE:ceammc>\"")
-    target_link_libraries(ext_list PRIVATE puredata-core)
+    target_link_libraries(ext_list PRIVATE ext_load puredata-core)
 
     add_executable(ext_methods ext_methods.cpp ../mod_init.cpp)
     target_include_directories(ext_methods PRIVATE ${CMAKE_CURRENT_SOURCE_DIR})
-    target_link_libraries(ext_methods PRIVATE ${CEAMMC_EXT_LINK_LIBRARIES} puredata-core)
+    target_link_libraries(ext_methods PRIVATE ${CEAMMC_EXT_LINK_LIBRARIES} ext_load puredata-core)
 
     add_executable(ext_props ext_props.cpp ../mod_init.cpp)
     target_include_directories(ext_props PRIVATE ${CMAKE_CURRENT_SOURCE_DIR})
-    target_link_libraries(ext_props PRIVATE ${CEAMMC_EXT_LINK_LIBRARIES} puredata-core)
+    target_link_libraries(ext_props PRIVATE ${CEAMMC_EXT_LINK_LIBRARIES} ext_load puredata-core)
 
     add_executable(ext_info ext_info.cpp ../mod_init.cpp)
     target_include_directories(ext_info
         PRIVATE
             ${CMAKE_CURRENT_SOURCE_DIR}
             "$<TARGET_PROPERTY:fmt,INCLUDE_DIRECTORIES>")
-    target_link_libraries(ext_info PRIVATE ${CEAMMC_EXT_LINK_LIBRARIES} puredata-core)
+    target_link_libraries(ext_info PRIVATE ${CEAMMC_EXT_LINK_LIBRARIES} ext_load puredata-core)
 
     if(WIN32)
         target_link_libraries(ext_info PRIVATE soxr)

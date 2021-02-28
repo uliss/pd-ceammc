@@ -1,5 +1,5 @@
 /*****************************************************************************
- * Copyright 2017 Serge Poltavsky. All rights reserved.
+ * Copyright 2021 Serge Poltavsky. All rights reserved.
  *
  * This file may be distributed under the terms of GNU Public License version
  * 3 (GPL v3) as defined by the Free Software Foundation (FSF). A copy of the
@@ -11,21 +11,12 @@
  * contact the author of this file, or the owner of the project in which
  * this file belongs to.
  *****************************************************************************/
-#include "ext_load_lib.h"
-#include "m_pd.h"
+#ifndef EXT_LOAD_LIB_H
+#define EXT_LOAD_LIB_H
 
-#include <cstdlib>
+using fn_type = void (*)();
+static fn_type list_objects;
 
-extern "C" void pd_init();
+bool load_ceammc();
 
-int main(int, char*[])
-{
-    pd_init();
-
-    if (!load_ceammc())
-        return EXIT_FAILURE;
-
-    list_objects();
-
-    return EXIT_SUCCESS;
-}
+#endif // EXT_LOAD_LIB_H
