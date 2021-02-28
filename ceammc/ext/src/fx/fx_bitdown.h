@@ -589,11 +589,9 @@ class fx_bitdown : public fx_bitdown_dsp {
 	}
 	
 	virtual void instanceClear() {
-		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l0 = 0; (l0 < 2); l0 = (l0 + 1)) {
 			iRec1[l0] = 0;
 		}
-		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l1 = 0; (l1 < 2); l1 = (l1 + 1)) {
 			fRec0[l1] = 0.0f;
 		}
@@ -636,7 +634,6 @@ class fx_bitdown : public fx_bitdown_dsp {
 		float fSlow3 = float(int(std::pow(2.0f, (float(fVslider1) + -1.0f))));
 		float fSlow4 = (1.0f / fSlow3);
 		int iSlow5 = (iSlow1 + -1);
-		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int i = 0; (i < count); i = (i + 1)) {
 			float fTemp0 = float(input0[i]);
 			float fTemp1 = (fSlow4 * std::floor((fSlow3 * (iSlow0 ? 0.0f : fTemp0))));

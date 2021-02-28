@@ -547,7 +547,7 @@ class an_rms : public an_rms_dsp {
 		m->declare("filters.lib/integrator:author", "Julius O. Smith III");
 		m->declare("filters.lib/integrator:copyright", "Copyright (C) 2003-2019 by Julius O. Smith III <jos@ccrma.stanford.edu>");
 		m->declare("filters.lib/integrator:license", "MIT-style STK-4.3 license");
-		m->declare("filters.lib/lowpass0_highpass1", "MIT-style STK-4.3 license");
+		m->declare("filters.lib/lowpass0_highpass1", "Copyright (C) 2003-2019 by Julius O. Smith III <jos@ccrma.stanford.edu>");
 		m->declare("filters.lib/name", "Faust Filters Library");
 		m->declare("filters.lib/version", "0.3");
 		m->declare("maths.lib/author", "GRAME");
@@ -609,7 +609,6 @@ class an_rms : public an_rms_dsp {
 	
 	virtual void instanceClear() {
 		IOTA = 0;
-		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l0 = 0; (l0 < 262144); l0 = (l0 + 1)) {
 			fRec0[l0] = 0.0f;
 		}
@@ -646,7 +645,6 @@ class an_rms : public an_rms_dsp {
 		float fSlow0 = std::rint((fConst0 * float(fHslider0)));
 		float fSlow1 = (1.0f / fSlow0);
 		int iSlow2 = int(std::max<float>(0.0f, fSlow0));
-		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int i = 0; (i < count); i = (i + 1)) {
 			fRec0[(IOTA & 262143)] = (fRec0[((IOTA - 1) & 262143)] + an_rms_faustpower2_f(float(input0[i])));
 			output0[i] = FAUSTFLOAT(std::sqrt((fSlow1 * (fRec0[((IOTA - 0) & 262143)] - fRec0[((IOTA - iSlow2) & 262143)]))));

@@ -543,14 +543,12 @@ class fx_chorusSIG0 {
 	}
 	
 	void instanceInitfx_chorusSIG0(int sample_rate) {
-		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l6 = 0; (l6 < 2); l6 = (l6 + 1)) {
 			iRec5[l6] = 0;
 		}
 	}
 	
 	void fillfx_chorusSIG0(int count, float* table) {
-		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int i = 0; (i < count); i = (i + 1)) {
 			iRec5[0] = (iRec5[1] + 1);
 			table[i] = std::sin((9.58738019e-05f * float((iRec5[0] + -1))));
@@ -680,27 +678,21 @@ class fx_chorus : public fx_chorus_dsp {
 	
 	virtual void instanceClear() {
 		IOTA = 0;
-		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l0 = 0; (l0 < 131072); l0 = (l0 + 1)) {
 			fVec0[l0] = 0.0f;
 		}
-		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l1 = 0; (l1 < 2); l1 = (l1 + 1)) {
 			fRec0[l1] = 0.0f;
 		}
-		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l2 = 0; (l2 < 2); l2 = (l2 + 1)) {
 			fRec1[l2] = 0.0f;
 		}
-		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l3 = 0; (l3 < 2); l3 = (l3 + 1)) {
 			fRec2[l3] = 0.0f;
 		}
-		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l4 = 0; (l4 < 2); l4 = (l4 + 1)) {
 			fRec4[l4] = 0.0f;
 		}
-		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l5 = 0; (l5 < 2); l5 = (l5 + 1)) {
 			fRec3[l5] = 0.0f;
 		}
@@ -746,7 +738,6 @@ class fx_chorus : public fx_chorus_dsp {
 		float fSlow2 = (9.99999997e-07f * float(fHslider1));
 		float fSlow3 = (0.00100000005f * float(fHslider2));
 		float fSlow4 = (0.00100000005f * float(fHslider3));
-		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int i = 0; (i < count); i = (i + 1)) {
 			float fTemp0 = float(input0[i]);
 			float fTemp1 = (iSlow0 ? 0.0f : fTemp0);

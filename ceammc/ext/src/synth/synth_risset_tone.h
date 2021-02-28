@@ -544,14 +544,12 @@ class synth_risset_toneSIG0 {
 	}
 	
 	void instanceInitsynth_risset_toneSIG0(int sample_rate) {
-		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l0 = 0; (l0 < 2); l0 = (l0 + 1)) {
 			iRec0[l0] = 0;
 		}
 	}
 	
 	void fillsynth_risset_toneSIG0(int count, float* table) {
-		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int i = 0; (i < count); i = (i + 1)) {
 			iRec0[0] = (iRec0[1] + 1);
 			table[i] = std::sin((9.58738019e-05f * float((iRec0[0] + -1))));
@@ -604,14 +602,12 @@ class synth_risset_toneSIG1 {
 	}
 	
 	void instanceInitsynth_risset_toneSIG1(int sample_rate) {
-		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l3 = 0; (l3 < 2); l3 = (l3 + 1)) {
 			iRec3[l3] = 0;
 		}
 	}
 	
 	void fillsynth_risset_toneSIG1(int count, float* table) {
-		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int i = 0; (i < count); i = (i + 1)) {
 			iRec3[0] = (iRec3[1] + 1);
 			table[i] = std::exp((0.0f - (4.8283f * (1.0f - std::cos((9.58738019e-05f * (float((iRec3[0] + -1)) + -32768.0f)))))));
@@ -740,47 +736,36 @@ class synth_risset_tone : public synth_risset_tone_dsp {
 	}
 	
 	virtual void instanceClear() {
-		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l1 = 0; (l1 < 2); l1 = (l1 + 1)) {
 			fRec2[l1] = 0.0f;
 		}
-		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l2 = 0; (l2 < 2); l2 = (l2 + 1)) {
 			fRec1[l2] = 0.0f;
 		}
-		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l4 = 0; (l4 < 2); l4 = (l4 + 1)) {
 			fRec4[l4] = 0.0f;
 		}
-		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l5 = 0; (l5 < 2); l5 = (l5 + 1)) {
 			fRec5[l5] = 0.0f;
 		}
-		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l6 = 0; (l6 < 2); l6 = (l6 + 1)) {
 			fRec6[l6] = 0.0f;
 		}
-		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l7 = 0; (l7 < 2); l7 = (l7 + 1)) {
 			fRec7[l7] = 0.0f;
 		}
-		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l8 = 0; (l8 < 2); l8 = (l8 + 1)) {
 			fRec8[l8] = 0.0f;
 		}
-		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l9 = 0; (l9 < 2); l9 = (l9 + 1)) {
 			fRec9[l9] = 0.0f;
 		}
-		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l10 = 0; (l10 < 2); l10 = (l10 + 1)) {
 			fRec10[l10] = 0.0f;
 		}
-		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l11 = 0; (l11 < 2); l11 = (l11 + 1)) {
 			fRec11[l11] = 0.0f;
 		}
-		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l12 = 0; (l12 < 2); l12 = (l12 + 1)) {
 			fRec12[l12] = 0.0f;
 		}
@@ -817,28 +802,27 @@ class synth_risset_tone : public synth_risset_tone_dsp {
 		float fSlow0 = float(fHslider0);
 		float fSlow1 = (0.5f * float(fHslider1));
 		float fSlow2 = (fConst2 * float(fHslider2));
-		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int i = 0; (i < count); i = (i + 1)) {
 			fRec2[0] = (fSlow2 + (fRec2[1] - std::floor((fSlow2 + fRec2[1]))));
-			float fTemp0 = std::fmod(fRec2[0], 1.0f);
+			float fTemp0 = std::fmod((fRec2[0] + 0.300000012f), 1.0f);
 			float fTemp1 = (fRec1[1] + (fConst1 * std::pow(2.0f, (0.0833333358f * (std::min<float>(120.0f, std::max<float>(20.0f, (fSlow0 + ((fSlow1 * ((2.0f * fTemp0) + -1.0f)) + 7.0f)))) + -69.0f)))));
 			fRec1[0] = (fTemp1 - std::floor(fTemp1));
 			float fTemp2 = (65536.0f * fTemp0);
 			int iTemp3 = int(fTemp2);
 			float fTemp4 = ftbl1synth_risset_toneSIG1[iTemp3];
-			float fTemp5 = std::fmod((fRec2[0] + 0.100000001f), 1.0f);
+			float fTemp5 = std::fmod((fRec2[0] + 0.200000003f), 1.0f);
 			float fTemp6 = (fRec4[1] + (fConst1 * std::pow(2.0f, (0.0833333358f * (std::min<float>(120.0f, std::max<float>(20.0f, (fSlow0 + ((fSlow1 * ((2.0f * fTemp5) + -1.0f)) + 7.0f)))) + -69.0f)))));
 			fRec4[0] = (fTemp6 - std::floor(fTemp6));
 			float fTemp7 = (65536.0f * fTemp5);
 			int iTemp8 = int(fTemp7);
 			float fTemp9 = ftbl1synth_risset_toneSIG1[iTemp8];
-			float fTemp10 = std::fmod((fRec2[0] + 0.200000003f), 1.0f);
+			float fTemp10 = std::fmod((fRec2[0] + 0.100000001f), 1.0f);
 			float fTemp11 = (fRec5[1] + (fConst1 * std::pow(2.0f, (0.0833333358f * (std::min<float>(120.0f, std::max<float>(20.0f, (fSlow0 + ((fSlow1 * ((2.0f * fTemp10) + -1.0f)) + 7.0f)))) + -69.0f)))));
 			fRec5[0] = (fTemp11 - std::floor(fTemp11));
 			float fTemp12 = (65536.0f * fTemp10);
 			int iTemp13 = int(fTemp12);
 			float fTemp14 = ftbl1synth_risset_toneSIG1[iTemp13];
-			float fTemp15 = std::fmod((fRec2[0] + 0.300000012f), 1.0f);
+			float fTemp15 = std::fmod(fRec2[0], 1.0f);
 			float fTemp16 = (fRec6[1] + (fConst1 * std::pow(2.0f, (0.0833333358f * (std::min<float>(120.0f, std::max<float>(20.0f, (fSlow0 + ((fSlow1 * ((2.0f * fTemp15) + -1.0f)) + 7.0f)))) + -69.0f)))));
 			fRec6[0] = (fTemp16 - std::floor(fTemp16));
 			float fTemp17 = (65536.0f * fTemp15);
@@ -880,7 +864,7 @@ class synth_risset_tone : public synth_risset_tone_dsp {
 			float fTemp47 = (65536.0f * fTemp45);
 			int iTemp48 = int(fTemp47);
 			float fTemp49 = ftbl1synth_risset_toneSIG1[iTemp48];
-			output0[i] = FAUSTFLOAT((0.100000001f * ((((((((((ftbl0synth_risset_toneSIG0[int((65536.0f * fRec1[0]))] * (fTemp4 + ((fTemp2 - std::floor(fTemp2)) * (ftbl1synth_risset_toneSIG1[(iTemp3 + 1)] - fTemp4)))) + (ftbl0synth_risset_toneSIG0[int((65536.0f * fRec4[0]))] * (fTemp9 + ((fTemp7 - std::floor(fTemp7)) * (ftbl1synth_risset_toneSIG1[(iTemp8 + 1)] - fTemp9))))) + (ftbl0synth_risset_toneSIG0[int((65536.0f * fRec5[0]))] * (fTemp14 + ((fTemp12 - std::floor(fTemp12)) * (ftbl1synth_risset_toneSIG1[(iTemp13 + 1)] - fTemp14))))) + (ftbl0synth_risset_toneSIG0[int((65536.0f * fRec6[0]))] * (fTemp19 + ((fTemp17 - std::floor(fTemp17)) * (ftbl1synth_risset_toneSIG1[(iTemp18 + 1)] - fTemp19))))) + (ftbl0synth_risset_toneSIG0[int((65536.0f * fRec7[0]))] * (fTemp24 + ((fTemp22 - std::floor(fTemp22)) * (ftbl1synth_risset_toneSIG1[(iTemp23 + 1)] - fTemp24))))) + (ftbl0synth_risset_toneSIG0[int((65536.0f * fRec8[0]))] * (fTemp29 + ((fTemp27 - std::floor(fTemp27)) * (ftbl1synth_risset_toneSIG1[(iTemp28 + 1)] - fTemp29))))) + (ftbl0synth_risset_toneSIG0[int((65536.0f * fRec9[0]))] * (fTemp34 + ((fTemp32 - std::floor(fTemp32)) * (ftbl1synth_risset_toneSIG1[(iTemp33 + 1)] - fTemp34))))) + (ftbl0synth_risset_toneSIG0[int((65536.0f * fRec10[0]))] * (fTemp39 + ((fTemp37 - std::floor(fTemp37)) * (ftbl1synth_risset_toneSIG1[(iTemp38 + 1)] - fTemp39))))) + (ftbl0synth_risset_toneSIG0[int((65536.0f * fRec11[0]))] * (fTemp44 + ((fTemp42 - std::floor(fTemp42)) * (ftbl1synth_risset_toneSIG1[(iTemp43 + 1)] - fTemp44))))) + (ftbl0synth_risset_toneSIG0[int((65536.0f * fRec12[0]))] * (fTemp49 + ((fTemp47 - std::floor(fTemp47)) * (ftbl1synth_risset_toneSIG1[(iTemp48 + 1)] - fTemp49)))))));
+			output0[i] = FAUSTFLOAT((0.100000001f * ((ftbl0synth_risset_toneSIG0[int((65536.0f * fRec1[0]))] * (fTemp4 + ((fTemp2 - std::floor(fTemp2)) * (ftbl1synth_risset_toneSIG1[(iTemp3 + 1)] - fTemp4)))) + ((ftbl0synth_risset_toneSIG0[int((65536.0f * fRec4[0]))] * (fTemp9 + ((fTemp7 - std::floor(fTemp7)) * (ftbl1synth_risset_toneSIG1[(iTemp8 + 1)] - fTemp9)))) + ((ftbl0synth_risset_toneSIG0[int((65536.0f * fRec5[0]))] * (fTemp14 + ((fTemp12 - std::floor(fTemp12)) * (ftbl1synth_risset_toneSIG1[(iTemp13 + 1)] - fTemp14)))) + ((ftbl0synth_risset_toneSIG0[int((65536.0f * fRec6[0]))] * (fTemp19 + ((fTemp17 - std::floor(fTemp17)) * (ftbl1synth_risset_toneSIG1[(iTemp18 + 1)] - fTemp19)))) + ((((((ftbl0synth_risset_toneSIG0[int((65536.0f * fRec7[0]))] * (fTemp24 + ((fTemp22 - std::floor(fTemp22)) * (ftbl1synth_risset_toneSIG1[(iTemp23 + 1)] - fTemp24)))) + (ftbl0synth_risset_toneSIG0[int((65536.0f * fRec8[0]))] * (fTemp29 + ((fTemp27 - std::floor(fTemp27)) * (ftbl1synth_risset_toneSIG1[(iTemp28 + 1)] - fTemp29))))) + (ftbl0synth_risset_toneSIG0[int((65536.0f * fRec9[0]))] * (fTemp34 + ((fTemp32 - std::floor(fTemp32)) * (ftbl1synth_risset_toneSIG1[(iTemp33 + 1)] - fTemp34))))) + (ftbl0synth_risset_toneSIG0[int((65536.0f * fRec10[0]))] * (fTemp39 + ((fTemp37 - std::floor(fTemp37)) * (ftbl1synth_risset_toneSIG1[(iTemp38 + 1)] - fTemp39))))) + (ftbl0synth_risset_toneSIG0[int((65536.0f * fRec11[0]))] * (fTemp44 + ((fTemp42 - std::floor(fTemp42)) * (ftbl1synth_risset_toneSIG1[(iTemp43 + 1)] - fTemp44))))) + (ftbl0synth_risset_toneSIG0[int((65536.0f * fRec12[0]))] * (fTemp49 + ((fTemp47 - std::floor(fTemp47)) * (ftbl1synth_risset_toneSIG1[(iTemp48 + 1)] - fTemp49)))))))))));
 			fRec2[1] = fRec2[0];
 			fRec1[1] = fRec1[0];
 			fRec4[1] = fRec4[0];

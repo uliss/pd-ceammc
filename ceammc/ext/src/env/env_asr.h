@@ -606,27 +606,21 @@ class env_asr : public env_asr_dsp {
 	}
 	
 	virtual void instanceClear() {
-		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l0 = 0; (l0 < 2); l0 = (l0 + 1)) {
 			fVec0[l0] = 0.0f;
 		}
-		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l1 = 0; (l1 < 2); l1 = (l1 + 1)) {
 			fRec0[l1] = 0.0f;
 		}
-		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l2 = 0; (l2 < 2); l2 = (l2 + 1)) {
 			fRec1[l2] = 0.0f;
 		}
-		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l3 = 0; (l3 < 2); l3 = (l3 + 1)) {
 			fRec2[l3] = 0.0f;
 		}
-		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l4 = 0; (l4 < 2); l4 = (l4 + 1)) {
 			iRec3[l4] = 0;
 		}
-		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l5 = 0; (l5 < 2); l5 = (l5 + 1)) {
 			fRec4[l5] = 0.0f;
 		}
@@ -674,7 +668,6 @@ class env_asr : public env_asr_dsp {
 		float fSlow2 = (9.99999997e-07f * float(fHslider1));
 		int iSlow3 = (fSlow0 == 0.0f);
 		float fSlow4 = (9.99999997e-07f * float(fHslider2));
-		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int i = 0; (i < count); i = (i + 1)) {
 			fVec0[0] = fSlow0;
 			fRec0[0] = (fSlow0 + (fRec0[1] * float((fVec0[1] >= fSlow0))));

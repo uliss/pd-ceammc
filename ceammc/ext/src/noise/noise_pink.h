@@ -585,11 +585,9 @@ class noise_pink : public noise_pink_dsp {
 	}
 	
 	virtual void instanceClear() {
-		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l0 = 0; (l0 < 2); l0 = (l0 + 1)) {
 			iRec1[l0] = 0;
 		}
-		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l1 = 0; (l1 < 4); l1 = (l1 + 1)) {
 			fRec0[l1] = 0.0f;
 		}
@@ -620,13 +618,11 @@ class noise_pink : public noise_pink_dsp {
 	
 	virtual void compute(int count, FAUSTFLOAT** inputs, FAUSTFLOAT** outputs) {
 		FAUSTFLOAT* output0 = outputs[0];
-		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int i = 0; (i < count); i = (i + 1)) {
 			iRec1[0] = ((1103515245 * iRec1[1]) + 12345);
-			fRec0[0] = (((2.49495602f * fRec0[1]) + ((4.65661287e-10f * float(iRec1[0])) + (0.522189379f * fRec0[3]))) - (2.0172658f * fRec0[2]));
+			fRec0[0] = (((4.65661287e-10f * float(iRec1[0])) + ((2.49495602f * fRec0[1]) + (0.522189379f * fRec0[3]))) - (2.0172658f * fRec0[2]));
 			output0[i] = FAUSTFLOAT((((0.0499220341f * fRec0[0]) + (0.0506126992f * fRec0[2])) - ((0.0959935337f * fRec0[1]) + (0.00440878607f * fRec0[3]))));
 			iRec1[1] = iRec1[0];
-			#pragma clang loop vectorize(enable) interleave(enable)
 			for (int j0 = 3; (j0 > 0); j0 = (j0 - 1)) {
 				fRec0[j0] = fRec0[(j0 - 1)];
 			}

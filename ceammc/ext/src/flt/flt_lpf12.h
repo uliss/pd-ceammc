@@ -610,11 +610,9 @@ class flt_lpf12 : public flt_lpf12_dsp {
 	}
 	
 	virtual void instanceClear() {
-		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l0 = 0; (l0 < 2); l0 = (l0 + 1)) {
 			fRec1[l0] = 0.0f;
 		}
-		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l1 = 0; (l1 < 3); l1 = (l1 + 1)) {
 			fRec0[l1] = 0.0f;
 		}
@@ -649,7 +647,6 @@ class flt_lpf12 : public flt_lpf12_dsp {
 		FAUSTFLOAT* input0 = inputs[0];
 		FAUSTFLOAT* output0 = outputs[0];
 		float fSlow0 = (0.00100000005f * float(fVslider0));
-		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int i = 0; (i < count); i = (i + 1)) {
 			fRec1[0] = (fSlow0 + (0.999000013f * fRec1[1]));
 			float fTemp0 = std::tan((fConst0 * fRec1[0]));

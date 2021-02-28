@@ -771,7 +771,7 @@ class flt_filterbank5x1 : public flt_filterbank5x1_dsp {
 		fConst57 = (0.0f - (1.0f / (fConst18 * fConst21)));
 		fConst58 = (0.0f - (2.0f / fConst25));
 		fConst59 = (1.0f / ((fConst15 / fConst12) + 1.0f));
-		fConst60 = (1.0f - (fConst17 / fConst12));
+		fConst60 = (((fConst13 + -1.0f) / fConst12) + 1.0f);
 	}
 	
 	virtual void instanceResetUserInterface() {
@@ -783,127 +783,96 @@ class flt_filterbank5x1 : public flt_filterbank5x1_dsp {
 	}
 	
 	virtual void instanceClear() {
-		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l0 = 0; (l0 < 2); l0 = (l0 + 1)) {
 			fRec0[l0] = 0.0f;
 		}
-		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l1 = 0; (l1 < 2); l1 = (l1 + 1)) {
 			fVec0[l1] = 0.0f;
 		}
-		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l2 = 0; (l2 < 2); l2 = (l2 + 1)) {
 			fRec8[l2] = 0.0f;
 		}
-		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l3 = 0; (l3 < 3); l3 = (l3 + 1)) {
 			fRec7[l3] = 0.0f;
 		}
-		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l4 = 0; (l4 < 2); l4 = (l4 + 1)) {
 			fVec1[l4] = 0.0f;
 		}
-		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l5 = 0; (l5 < 2); l5 = (l5 + 1)) {
 			fRec6[l5] = 0.0f;
 		}
-		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l6 = 0; (l6 < 3); l6 = (l6 + 1)) {
 			fRec5[l6] = 0.0f;
 		}
-		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l7 = 0; (l7 < 2); l7 = (l7 + 1)) {
 			fVec2[l7] = 0.0f;
 		}
-		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l8 = 0; (l8 < 2); l8 = (l8 + 1)) {
 			fRec4[l8] = 0.0f;
 		}
-		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l9 = 0; (l9 < 3); l9 = (l9 + 1)) {
 			fRec3[l9] = 0.0f;
 		}
-		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l10 = 0; (l10 < 2); l10 = (l10 + 1)) {
 			fVec3[l10] = 0.0f;
 		}
-		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l11 = 0; (l11 < 2); l11 = (l11 + 1)) {
 			fRec2[l11] = 0.0f;
 		}
-		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l12 = 0; (l12 < 3); l12 = (l12 + 1)) {
 			fRec1[l12] = 0.0f;
 		}
-		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l13 = 0; (l13 < 2); l13 = (l13 + 1)) {
 			fRec9[l13] = 0.0f;
 		}
-		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l14 = 0; (l14 < 2); l14 = (l14 + 1)) {
 			fRec11[l14] = 0.0f;
 		}
-		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l15 = 0; (l15 < 3); l15 = (l15 + 1)) {
 			fRec10[l15] = 0.0f;
 		}
-		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l16 = 0; (l16 < 2); l16 = (l16 + 1)) {
 			fRec12[l16] = 0.0f;
 		}
-		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l17 = 0; (l17 < 2); l17 = (l17 + 1)) {
 			fRec15[l17] = 0.0f;
 		}
-		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l18 = 0; (l18 < 3); l18 = (l18 + 1)) {
 			fRec14[l18] = 0.0f;
 		}
-		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l19 = 0; (l19 < 3); l19 = (l19 + 1)) {
 			fRec13[l19] = 0.0f;
 		}
-		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l20 = 0; (l20 < 2); l20 = (l20 + 1)) {
 			fRec16[l20] = 0.0f;
 		}
-		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l21 = 0; (l21 < 2); l21 = (l21 + 1)) {
 			fRec20[l21] = 0.0f;
 		}
-		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l22 = 0; (l22 < 3); l22 = (l22 + 1)) {
 			fRec19[l22] = 0.0f;
 		}
-		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l23 = 0; (l23 < 3); l23 = (l23 + 1)) {
 			fRec18[l23] = 0.0f;
 		}
-		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l24 = 0; (l24 < 3); l24 = (l24 + 1)) {
 			fRec17[l24] = 0.0f;
 		}
-		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l25 = 0; (l25 < 2); l25 = (l25 + 1)) {
 			fRec21[l25] = 0.0f;
 		}
-		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l26 = 0; (l26 < 2); l26 = (l26 + 1)) {
 			fRec26[l26] = 0.0f;
 		}
-		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l27 = 0; (l27 < 3); l27 = (l27 + 1)) {
 			fRec25[l27] = 0.0f;
 		}
-		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l28 = 0; (l28 < 3); l28 = (l28 + 1)) {
 			fRec24[l28] = 0.0f;
 		}
-		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l29 = 0; (l29 < 3); l29 = (l29 + 1)) {
 			fRec23[l29] = 0.0f;
 		}
-		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l30 = 0; (l30 < 3); l30 = (l30 + 1)) {
 			fRec22[l30] = 0.0f;
 		}
@@ -954,7 +923,6 @@ class flt_filterbank5x1 : public flt_filterbank5x1_dsp {
 		float fSlow2 = (0.00100000005f * std::pow(10.0f, (0.0500000007f * float(fVslider2))));
 		float fSlow3 = (0.00100000005f * std::pow(10.0f, (0.0500000007f * float(fVslider3))));
 		float fSlow4 = (0.00100000005f * std::pow(10.0f, (0.0500000007f * float(fVslider4))));
-		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int i = 0; (i < count); i = (i + 1)) {
 			fRec0[0] = (fSlow0 + (0.999000013f * fRec0[1]));
 			float fTemp0 = float(input0[i]);

@@ -602,19 +602,15 @@ class env_ar : public env_ar_dsp {
 	}
 	
 	virtual void instanceClear() {
-		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l0 = 0; (l0 < 2); l0 = (l0 + 1)) {
 			iVec0[l0] = 0;
 		}
-		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l1 = 0; (l1 < 2); l1 = (l1 + 1)) {
 			iRec0[l1] = 0;
 		}
-		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l2 = 0; (l2 < 2); l2 = (l2 + 1)) {
 			fRec1[l2] = 0.0f;
 		}
-		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l3 = 0; (l3 < 2); l3 = (l3 + 1)) {
 			fRec2[l3] = 0.0f;
 		}
@@ -657,7 +653,6 @@ class env_ar : public env_ar_dsp {
 		int iSlow0 = int(float(fCheckbox0));
 		float fSlow1 = (9.99999997e-07f * float(fHslider0));
 		float fSlow2 = (9.99999997e-07f * float(fHslider1));
-		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int i = 0; (i < count); i = (i + 1)) {
 			iVec0[0] = iSlow0;
 			iRec0[0] = (((iRec0[1] + (iRec0[1] > 0)) * (iSlow0 <= iVec0[1])) + (iSlow0 > iVec0[1]));

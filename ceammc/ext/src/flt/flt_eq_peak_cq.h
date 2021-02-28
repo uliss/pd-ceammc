@@ -518,10 +518,10 @@ class flt_eq_peak_cq : public flt_eq_peak_cq_dsp {
 	
  private:
 	
-	FAUSTFLOAT fVslider0;
-	float fRec1[2];
 	int fSampleRate;
 	float fConst1;
+	FAUSTFLOAT fVslider0;
+	float fRec1[2];
 	FAUSTFLOAT fVslider1;
 	float fRec2[2];
 	FAUSTFLOAT fVslider2;
@@ -617,25 +617,21 @@ class flt_eq_peak_cq : public flt_eq_peak_cq_dsp {
 	}
 	
 	virtual void instanceResetUserInterface() {
-		fVslider0 = FAUSTFLOAT(0.0f);
-		fVslider1 = FAUSTFLOAT(1000.0f);
+		fVslider0 = FAUSTFLOAT(1000.0f);
+		fVslider1 = FAUSTFLOAT(0.0f);
 		fVslider2 = FAUSTFLOAT(3.0f);
 	}
 	
 	virtual void instanceClear() {
-		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l0 = 0; (l0 < 2); l0 = (l0 + 1)) {
 			fRec1[l0] = 0.0f;
 		}
-		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l1 = 0; (l1 < 2); l1 = (l1 + 1)) {
 			fRec2[l1] = 0.0f;
 		}
-		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l2 = 0; (l2 < 2); l2 = (l2 + 1)) {
 			fRec3[l2] = 0.0f;
 		}
-		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l3 = 0; (l3 < 3); l3 = (l3 + 1)) {
 			fRec0[l3] = 0.0f;
 		}
@@ -661,10 +657,10 @@ class flt_eq_peak_cq : public flt_eq_peak_cq_dsp {
 	
 	virtual void buildUserInterface(UI* ui_interface) {
 		ui_interface->openVerticalBox("flt.eq_peak_cq");
-		ui_interface->declare(&fVslider1, "unit", "Hz");
-		ui_interface->addVerticalSlider("freq", &fVslider1, 1000.0f, 20.0f, 20000.0f, 0.100000001f);
-		ui_interface->declare(&fVslider0, "unit", "db");
-		ui_interface->addVerticalSlider("gain", &fVslider0, 0.0f, -15.0f, 15.0f, 0.100000001f);
+		ui_interface->declare(&fVslider0, "unit", "Hz");
+		ui_interface->addVerticalSlider("freq", &fVslider0, 1000.0f, 20.0f, 20000.0f, 0.100000001f);
+		ui_interface->declare(&fVslider1, "unit", "db");
+		ui_interface->addVerticalSlider("gain", &fVslider1, 0.0f, -15.0f, 15.0f, 0.100000001f);
 		ui_interface->addVerticalSlider("q", &fVslider2, 3.0f, 0.100000001f, 100.0f, 0.100000001f);
 		ui_interface->closeBox();
 	}
@@ -675,23 +671,22 @@ class flt_eq_peak_cq : public flt_eq_peak_cq_dsp {
 		float fSlow0 = (0.00100000005f * float(fVslider0));
 		float fSlow1 = (0.00100000005f * float(fVslider1));
 		float fSlow2 = (0.00100000005f * float(fVslider2));
-		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int i = 0; (i < count); i = (i + 1)) {
 			fRec1[0] = (fSlow0 + (0.999000013f * fRec1[1]));
-			int iTemp0 = (fRec1[0] > 0.0f);
+			float fTemp0 = std::tan((fConst1 * fRec1[0]));
+			float fTemp1 = (1.0f / fTemp0);
 			fRec2[0] = (fSlow1 + (0.999000013f * fRec2[1]));
+			int iTemp2 = (fRec2[0] > 0.0f);
 			fRec3[0] = (fSlow2 + (0.999000013f * fRec3[1]));
-			float fTemp1 = (fRec3[0] * std::sin((fConst2 * fRec2[0])));
-			float fTemp2 = (fConst1 * ((fRec2[0] * std::pow(10.0f, (0.0500000007f * std::fabs(fRec1[0])))) / fTemp1));
-			float fTemp3 = (fConst1 * (fRec2[0] / fTemp1));
-			float fTemp4 = (iTemp0 ? fTemp3 : fTemp2);
-			float fTemp5 = std::tan((fConst1 * fRec2[0]));
-			float fTemp6 = (1.0f / fTemp5);
-			float fTemp7 = (2.0f * (fRec0[1] * (1.0f - (1.0f / flt_eq_peak_cq_faustpower2_f(fTemp5)))));
-			float fTemp8 = (((fTemp6 + fTemp4) / fTemp5) + 1.0f);
-			fRec0[0] = (float(input0[i]) - (((fRec0[2] * (1.0f - ((fTemp4 - fTemp6) / fTemp5))) + fTemp7) / fTemp8));
-			float fTemp9 = (iTemp0 ? fTemp2 : fTemp3);
-			output0[i] = FAUSTFLOAT((((fTemp7 + (fRec0[0] * (((fTemp6 + fTemp9) / fTemp5) + 1.0f))) + (fRec0[2] * (1.0f - ((fTemp9 - fTemp6) / fTemp5)))) / fTemp8));
+			float fTemp3 = (fRec3[0] * std::sin((fConst2 * fRec1[0])));
+			float fTemp4 = (fConst1 * ((fRec1[0] * std::pow(10.0f, (0.0500000007f * std::fabs(fRec2[0])))) / fTemp3));
+			float fTemp5 = (fConst1 * (fRec1[0] / fTemp3));
+			float fTemp6 = (iTemp2 ? fTemp5 : fTemp4);
+			float fTemp7 = (2.0f * (fRec0[1] * (1.0f - (1.0f / flt_eq_peak_cq_faustpower2_f(fTemp0)))));
+			float fTemp8 = (((fTemp1 + fTemp6) / fTemp0) + 1.0f);
+			fRec0[0] = (float(input0[i]) - (((fRec0[2] * (((fTemp1 - fTemp6) / fTemp0) + 1.0f)) + fTemp7) / fTemp8));
+			float fTemp9 = (iTemp2 ? fTemp4 : fTemp5);
+			output0[i] = FAUSTFLOAT((((fTemp7 + (fRec0[0] * (((fTemp1 + fTemp9) / fTemp0) + 1.0f))) + (fRec0[2] * (((fTemp1 - fTemp9) / fTemp0) + 1.0f))) / fTemp8));
 			fRec1[1] = fRec1[0];
 			fRec2[1] = fRec2[0];
 			fRec3[1] = fRec3[0];

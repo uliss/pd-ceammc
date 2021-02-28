@@ -541,14 +541,12 @@ class osc_sinfbSIG0 {
 	}
 	
 	void instanceInitosc_sinfbSIG0(int sample_rate) {
-		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l0 = 0; (l0 < 2); l0 = (l0 + 1)) {
 			iRec1[l0] = 0;
 		}
 	}
 	
 	void fillosc_sinfbSIG0(int count, float* table) {
-		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int i = 0; (i < count); i = (i + 1)) {
 			iRec1[0] = (iRec1[1] + 1);
 			table[i] = std::sin((9.58738019e-05f * float((iRec1[0] + -1))));
@@ -601,14 +599,12 @@ class osc_sinfbSIG1 {
 	}
 	
 	void instanceInitosc_sinfbSIG1(int sample_rate) {
-		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l3 = 0; (l3 < 2); l3 = (l3 + 1)) {
 			iRec4[l3] = 0;
 		}
 	}
 	
 	void fillosc_sinfbSIG1(int count, float* table) {
-		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int i = 0; (i < count); i = (i + 1)) {
 			iRec4[0] = (iRec4[1] + 1);
 			table[i] = std::cos((9.58738019e-05f * float((iRec4[0] + -1))));
@@ -721,15 +717,12 @@ class osc_sinfb : public osc_sinfb_dsp {
 	}
 	
 	virtual void instanceClear() {
-		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l1 = 0; (l1 < 2); l1 = (l1 + 1)) {
 			fRec2[l1] = 0.0f;
 		}
-		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l2 = 0; (l2 < 2); l2 = (l2 + 1)) {
 			fRec3[l2] = 0.0f;
 		}
-		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l4 = 0; (l4 < 2); l4 = (l4 + 1)) {
 			fRec0[l4] = 0.0f;
 		}
@@ -763,7 +756,6 @@ class osc_sinfb : public osc_sinfb_dsp {
 		FAUSTFLOAT* input0 = inputs[0];
 		FAUSTFLOAT* output0 = outputs[0];
 		float fSlow0 = (0.00100000005f * float(fHslider0));
-		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int i = 0; (i < count); i = (i + 1)) {
 			float fTemp0 = (fRec2[1] + (fConst0 * float(input0[i])));
 			fRec2[0] = (fTemp0 - std::floor(fTemp0));

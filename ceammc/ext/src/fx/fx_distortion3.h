@@ -525,10 +525,10 @@ class fx_distortion3 : public fx_distortion3_dsp {
 	float fConst1;
 	FAUSTFLOAT fVslider0;
 	float fConst3;
+	float fConst4;
 	FAUSTFLOAT fVslider1;
 	float fRec4[3];
 	float fVec0[2];
-	float fConst4;
 	float fRec3[2];
 	FAUSTFLOAT fVslider2;
 	float fRec5[2];
@@ -647,35 +647,27 @@ class fx_distortion3 : public fx_distortion3_dsp {
 	}
 	
 	virtual void instanceClear() {
-		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l0 = 0; (l0 < 2); l0 = (l0 + 1)) {
 			fRec0[l0] = 0.0f;
 		}
-		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l1 = 0; (l1 < 3); l1 = (l1 + 1)) {
 			fRec4[l1] = 0.0f;
 		}
-		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l2 = 0; (l2 < 2); l2 = (l2 + 1)) {
 			fVec0[l2] = 0.0f;
 		}
-		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l3 = 0; (l3 < 2); l3 = (l3 + 1)) {
 			fRec3[l3] = 0.0f;
 		}
-		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l4 = 0; (l4 < 2); l4 = (l4 + 1)) {
 			fRec5[l4] = 0.0f;
 		}
-		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l5 = 0; (l5 < 2); l5 = (l5 + 1)) {
 			fRec6[l5] = 0.0f;
 		}
-		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l6 = 0; (l6 < 4); l6 = (l6 + 1)) {
 			fRec2[l6] = 0.0f;
 		}
-		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l7 = 0; (l7 < 3); l7 = (l7 + 1)) {
 			fRec1[l7] = 0.0f;
 		}
@@ -735,7 +727,6 @@ class fx_distortion3 : public fx_distortion3_dsp {
 		float fSlow14 = (0.00100000005f * float(fVslider3));
 		float fSlow15 = (((fSlow3 + -1.41421354f) / fSlow2) + 1.0f);
 		float fSlow16 = (2.0f * (1.0f - (1.0f / fx_distortion3_faustpower2_f(fSlow2))));
-		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int i = 0; (i < count); i = (i + 1)) {
 			float fTemp0 = float(input0[i]);
 			float fTemp1 = (iSlow0 ? 0.0f : fTemp0);
@@ -743,7 +734,7 @@ class fx_distortion3 : public fx_distortion3_dsp {
 			fRec4[0] = (fTemp1 - (fSlow7 * ((fSlow10 * fRec4[2]) + (fSlow11 * fRec4[1]))));
 			float fTemp2 = (fSlow7 * (((fSlow9 * fRec4[0]) + (fSlow12 * fRec4[1])) + (fSlow9 * fRec4[2])));
 			fVec0[0] = fTemp2;
-			fRec3[0] = (fConst3 * ((fTemp2 + fVec0[1]) - (fConst4 * fRec3[1])));
+			fRec3[0] = (0.0f - (fConst3 * ((fConst4 * fRec3[1]) - (fTemp2 + fVec0[1]))));
 			fRec5[0] = (fSlow13 + (0.999000013f * fRec5[1]));
 			float fTemp3 = (fRec3[0] * fRec5[0]);
 			fRec6[0] = (fSlow14 + (0.999000013f * fRec6[1]));
@@ -759,7 +750,6 @@ class fx_distortion3 : public fx_distortion3_dsp {
 			fRec3[1] = fRec3[0];
 			fRec5[1] = fRec5[0];
 			fRec6[1] = fRec6[0];
-			#pragma clang loop vectorize(enable) interleave(enable)
 			for (int j0 = 3; (j0 > 0); j0 = (j0 - 1)) {
 				fRec2[j0] = fRec2[(j0 - 1)];
 			}

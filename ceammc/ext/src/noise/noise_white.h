@@ -570,7 +570,6 @@ class noise_white : public noise_white_dsp {
 	}
 	
 	virtual void instanceClear() {
-		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l0 = 0; (l0 < 2); l0 = (l0 + 1)) {
 			iRec0[l0] = 0;
 		}
@@ -601,7 +600,6 @@ class noise_white : public noise_white_dsp {
 	
 	virtual void compute(int count, FAUSTFLOAT** inputs, FAUSTFLOAT** outputs) {
 		FAUSTFLOAT* output0 = outputs[0];
-		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int i = 0; (i < count); i = (i + 1)) {
 			iRec0[0] = ((1103515245 * iRec0[1]) + 12345);
 			output0[i] = FAUSTFLOAT((4.65661287e-10f * float(iRec0[0])));

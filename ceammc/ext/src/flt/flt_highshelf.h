@@ -596,15 +596,12 @@ class flt_highshelf : public flt_highshelf_dsp {
 	}
 	
 	virtual void instanceClear() {
-		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l0 = 0; (l0 < 2); l0 = (l0 + 1)) {
 			fRec1[l0] = 0.0f;
 		}
-		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l1 = 0; (l1 < 2); l1 = (l1 + 1)) {
 			fRec2[l1] = 0.0f;
 		}
-		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l2 = 0; (l2 < 3); l2 = (l2 + 1)) {
 			fRec0[l2] = 0.0f;
 		}
@@ -642,7 +639,6 @@ class flt_highshelf : public flt_highshelf_dsp {
 		FAUSTFLOAT* output0 = outputs[0];
 		float fSlow0 = (0.00100000005f * float(fVslider0));
 		float fSlow1 = (0.00100000005f * float(fVslider1));
-		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int i = 0; (i < count); i = (i + 1)) {
 			fRec1[0] = (fSlow0 + (0.999000013f * fRec1[1]));
 			float fTemp0 = std::pow(10.0f, (0.0250000004f * fRec1[0]));
@@ -651,11 +647,11 @@ class flt_highshelf : public flt_highshelf_dsp {
 			float fTemp2 = std::cos(fTemp1);
 			float fTemp3 = ((fTemp0 + -1.0f) * fTemp2);
 			float fTemp4 = (std::sqrt(fTemp0) * std::sin(fTemp1));
-			float fTemp5 = (fTemp3 + fTemp4);
-			float fTemp6 = ((fTemp0 + 1.0f) * fTemp2);
-			float fTemp7 = ((fTemp0 + fTemp4) + (1.0f - fTemp3));
-			fRec0[0] = (float(input0[i]) - ((((fTemp0 + (1.0f - fTemp5)) * fRec0[2]) + (2.0f * ((fTemp0 + (-1.0f - fTemp6)) * fRec0[1]))) / fTemp7));
-			output0[i] = FAUSTFLOAT((((((fRec0[0] * fTemp0) * ((fTemp0 + fTemp5) + 1.0f)) + ((fRec0[1] * (0.0f - (2.0f * fTemp0))) * ((fTemp0 + fTemp6) + -1.0f))) + ((fTemp0 * fRec0[2]) * ((fTemp0 + fTemp3) + (1.0f - fTemp4)))) / fTemp7));
+			float fTemp5 = ((fTemp0 + 1.0f) * fTemp2);
+			float fTemp6 = ((fTemp0 + fTemp4) + (1.0f - fTemp3));
+			fRec0[0] = (float(input0[i]) - ((((fTemp0 + (1.0f - (fTemp3 + fTemp4))) * fRec0[2]) + (2.0f * ((fTemp0 + (-1.0f - fTemp5)) * fRec0[1]))) / fTemp6));
+			float fTemp7 = (fTemp0 + fTemp3);
+			output0[i] = FAUSTFLOAT((((((fRec0[0] * fTemp0) * ((fTemp7 + fTemp4) + 1.0f)) + ((fRec0[1] * (0.0f - (2.0f * fTemp0))) * ((fTemp0 + fTemp5) + -1.0f))) + ((fTemp0 * fRec0[2]) * (fTemp7 + (1.0f - fTemp4)))) / fTemp6));
 			fRec1[1] = fRec1[0];
 			fRec2[1] = fRec2[0];
 			fRec0[2] = fRec0[1];

@@ -606,32 +606,25 @@ class osc_saw4 : public osc_saw4_dsp {
 	}
 	
 	virtual void instanceClear() {
-		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l0 = 0; (l0 < 4); l0 = (l0 + 1)) {
 			iVec0[l0] = 0;
 		}
-		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l1 = 0; (l1 < 2); l1 = (l1 + 1)) {
 			fRec0[l1] = 0.0f;
 		}
-		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l2 = 0; (l2 < 2); l2 = (l2 + 1)) {
 			fVec1[l2] = 0.0f;
 		}
-		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l3 = 0; (l3 < 2); l3 = (l3 + 1)) {
 			fVec2[l3] = 0.0f;
 		}
-		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l4 = 0; (l4 < 2); l4 = (l4 + 1)) {
 			fVec3[l4] = 0.0f;
 		}
 		IOTA = 0;
-		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l5 = 0; (l5 < 8192); l5 = (l5 + 1)) {
 			fVec4[l5] = 0.0f;
 		}
-		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l6 = 0; (l6 < 2); l6 = (l6 + 1)) {
 			fRec1[l6] = 0.0f;
 		}
@@ -665,7 +658,6 @@ class osc_saw4 : public osc_saw4_dsp {
 		FAUSTFLOAT* input0 = inputs[0];
 		FAUSTFLOAT* output0 = outputs[0];
 		float fSlow0 = (0.00100000005f * float(fHslider0));
-		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int i = 0; (i < count); i = (i + 1)) {
 			float fTemp0 = float(input0[i]);
 			iVec0[0] = 1;
@@ -682,7 +674,6 @@ class osc_saw4 : public osc_saw4_dsp {
 			fVec4[(IOTA & 8191)] = ((float(iVec0[3]) * (fTemp6 - fVec3[1])) / fTemp1);
 			fRec1[0] = (fSlow0 + (0.999000013f * fRec1[1]));
 			output0[i] = FAUSTFLOAT(((fTemp0 == 0.0f) ? 0.0f : (fConst1 * fVec4[((IOTA - std::max<int>(0, std::min<int>(8191, int((fConst0 * (fRec1[0] / fTemp0)))))) & 8191)])));
-			#pragma clang loop vectorize(enable) interleave(enable)
 			for (int j0 = 3; (j0 > 0); j0 = (j0 - 1)) {
 				iVec0[j0] = iVec0[(j0 - 1)];
 			}

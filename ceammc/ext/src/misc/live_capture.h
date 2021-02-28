@@ -598,19 +598,15 @@ class live_capture : public live_capture_dsp {
 	
 	virtual void instanceClear() {
 		IOTA = 0;
-		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l0 = 0; (l0 < 8388608); l0 = (l0 + 1)) {
 			fVec0[l0] = 0.0f;
 		}
-		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l1 = 0; (l1 < 2); l1 = (l1 + 1)) {
 			iVec1[l1] = 0;
 		}
-		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l2 = 0; (l2 < 2); l2 = (l2 + 1)) {
 			iRec1[l2] = 0;
 		}
-		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l3 = 0; (l3 < 2); l3 = (l3 + 1)) {
 			fRec0[l3] = 0.0f;
 		}
@@ -646,7 +642,6 @@ class live_capture : public live_capture_dsp {
 		float fSlow0 = float(fCheckbox0);
 		float fSlow1 = (1.0f - fSlow0);
 		int iSlow2 = int(fSlow0);
-		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int i = 0; (i < count); i = (i + 1)) {
 			fVec0[(IOTA & 8388607)] = ((fSlow1 * fRec0[1]) + (fSlow0 * float(input0[i])));
 			iVec1[0] = iSlow2;

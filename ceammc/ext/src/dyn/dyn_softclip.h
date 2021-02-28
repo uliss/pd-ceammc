@@ -601,7 +601,6 @@ class dyn_softclip : public dyn_softclip_dsp {
 	virtual void compute(int count, FAUSTFLOAT** inputs, FAUSTFLOAT** outputs) {
 		FAUSTFLOAT* input0 = inputs[0];
 		FAUSTFLOAT* output0 = outputs[0];
-		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int i = 0; (i < count); i = (i + 1)) {
 			float fTemp0 = (std::fabs((2.0f * (std::max<float>(-0.25f, std::min<float>(0.25f, (0.158800006f * float(input0[i])))) + -0.25f))) + -0.5f);
 			float fTemp1 = dyn_softclip_faustpower2_f(fTemp0);

@@ -600,43 +600,33 @@ class fx_freqshift : public fx_freqshift_dsp {
 	}
 	
 	virtual void instanceClear() {
-		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l0 = 0; (l0 < 4); l0 = (l0 + 1)) {
 			fVec0[l0] = 0.0f;
 		}
-		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l1 = 0; (l1 < 3); l1 = (l1 + 1)) {
 			fRec3[l1] = 0.0f;
 		}
-		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l2 = 0; (l2 < 3); l2 = (l2 + 1)) {
 			fRec2[l2] = 0.0f;
 		}
-		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l3 = 0; (l3 < 3); l3 = (l3 + 1)) {
 			fRec1[l3] = 0.0f;
 		}
-		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l4 = 0; (l4 < 3); l4 = (l4 + 1)) {
 			fRec0[l4] = 0.0f;
 		}
-		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l5 = 0; (l5 < 2); l5 = (l5 + 1)) {
 			iRec4[l5] = 0;
 		}
-		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l6 = 0; (l6 < 3); l6 = (l6 + 1)) {
 			fRec8[l6] = 0.0f;
 		}
-		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l7 = 0; (l7 < 3); l7 = (l7 + 1)) {
 			fRec7[l7] = 0.0f;
 		}
-		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l8 = 0; (l8 < 3); l8 = (l8 + 1)) {
 			fRec6[l8] = 0.0f;
 		}
-		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l9 = 0; (l9 < 3); l9 = (l9 + 1)) {
 			fRec5[l9] = 0.0f;
 		}
@@ -670,7 +660,6 @@ class fx_freqshift : public fx_freqshift_dsp {
 		FAUSTFLOAT* input1 = inputs[1];
 		FAUSTFLOAT* output0 = outputs[0];
 		FAUSTFLOAT* output1 = outputs[1];
-		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int i = 0; (i < count); i = (i + 1)) {
 			float fTemp0 = float(input0[i]);
 			fVec0[0] = fTemp0;
@@ -689,7 +678,6 @@ class fx_freqshift : public fx_freqshift_dsp {
 			float fTemp4 = (fRec5[0] * std::cos(fTemp2));
 			output0[i] = FAUSTFLOAT((fTemp3 + fTemp4));
 			output1[i] = FAUSTFLOAT((fTemp3 - fTemp4));
-			#pragma clang loop vectorize(enable) interleave(enable)
 			for (int j0 = 3; (j0 > 0); j0 = (j0 - 1)) {
 				fVec0[j0] = fVec0[(j0 - 1)];
 			}

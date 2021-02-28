@@ -619,35 +619,27 @@ class spat_pan8 : public spat_pan8_dsp {
 	}
 	
 	virtual void instanceClear() {
-		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l0 = 0; (l0 < 2); l0 = (l0 + 1)) {
 			fRec0[l0] = 0.0f;
 		}
-		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l1 = 0; (l1 < 2); l1 = (l1 + 1)) {
 			fRec1[l1] = 0.0f;
 		}
-		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l2 = 0; (l2 < 2); l2 = (l2 + 1)) {
 			fRec2[l2] = 0.0f;
 		}
-		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l3 = 0; (l3 < 2); l3 = (l3 + 1)) {
 			fRec3[l3] = 0.0f;
 		}
-		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l4 = 0; (l4 < 2); l4 = (l4 + 1)) {
 			fRec4[l4] = 0.0f;
 		}
-		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l5 = 0; (l5 < 2); l5 = (l5 + 1)) {
 			fRec5[l5] = 0.0f;
 		}
-		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l6 = 0; (l6 < 2); l6 = (l6 + 1)) {
 			fRec6[l6] = 0.0f;
 		}
-		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l7 = 0; (l7 < 2); l7 = (l7 + 1)) {
 			fRec7[l7] = 0.0f;
 		}
@@ -700,7 +692,6 @@ class spat_pan8 : public spat_pan8_dsp {
 		float fSlow8 = (4.99999987e-05f * (fSlow1 * float(q8_sqrt(float(std::max<float>(0.0f, (1.0f - (8.0f * (fSlow0 * std::fabs((std::fmod((fSlow2 + 0.875f), 1.0f) + -0.5f)))))))))));
 		float fSlow9 = (4.99999987e-05f * (fSlow1 * float(q8_sqrt(float(std::max<float>(0.0f, (1.0f - (8.0f * (fSlow0 * std::fabs((std::fmod((fSlow2 + 0.75f), 1.0f) + -0.5f)))))))))));
 		float fSlow10 = (4.99999987e-05f * (fSlow1 * float(q8_sqrt(float(std::max<float>(0.0f, (1.0f - (8.0f * (fSlow0 * std::fabs((std::fmod((fSlow2 + 0.625f), 1.0f) + -0.5f)))))))))));
-		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int i = 0; (i < count); i = (i + 1)) {
 			float fTemp0 = float(input0[i]);
 			fRec0[0] = (fSlow3 + (0.999899983f * fRec0[1]));

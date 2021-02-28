@@ -594,11 +594,9 @@ class env_follow : public env_follow_dsp {
 	}
 	
 	virtual void instanceClear() {
-		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l0 = 0; (l0 < 2); l0 = (l0 + 1)) {
 			fRec1[l0] = 0.0f;
 		}
-		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l1 = 0; (l1 < 2); l1 = (l1 + 1)) {
 			fRec0[l1] = 0.0f;
 		}
@@ -638,7 +636,6 @@ class env_follow : public env_follow_dsp {
 		float fSlow3 = (0.00100000005f * float(fHslider1));
 		int iSlow4 = (std::fabs(fSlow3) < 1.1920929e-07f);
 		float fSlow5 = (iSlow4 ? 0.0f : std::exp((0.0f - (fConst0 / (iSlow4 ? 1.0f : fSlow3)))));
-		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int i = 0; (i < count); i = (i + 1)) {
 			float fTemp0 = std::fabs(float(input0[i]));
 			float fTemp1 = ((fRec0[1] > fTemp0) ? fSlow5 : fSlow2);

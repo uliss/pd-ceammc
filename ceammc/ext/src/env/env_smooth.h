@@ -598,7 +598,6 @@ class env_smooth : public env_smooth_dsp {
 	}
 	
 	virtual void instanceClear() {
-		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l0 = 0; (l0 < 2); l0 = (l0 + 1)) {
 			fRec0[l0] = 0.0f;
 		}
@@ -637,7 +636,6 @@ class env_smooth : public env_smooth_dsp {
 		int iSlow1 = (std::fabs(fSlow0) < 1.1920929e-07f);
 		float fSlow2 = (iSlow1 ? 0.0f : std::exp((0.0f - (fConst0 / (iSlow1 ? 1.0f : fSlow0)))));
 		float fSlow3 = (float(fCheckbox0) * (1.0f - fSlow2));
-		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int i = 0; (i < count); i = (i + 1)) {
 			fRec0[0] = ((fRec0[1] * fSlow2) + fSlow3);
 			output0[i] = FAUSTFLOAT((float(input0[i]) * fRec0[0]));

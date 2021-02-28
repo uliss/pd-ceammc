@@ -607,16 +607,13 @@ class fx_echo : public fx_echo_dsp {
 	}
 	
 	virtual void instanceClear() {
-		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l0 = 0; (l0 < 2); l0 = (l0 + 1)) {
 			fRec0[l0] = 0.0f;
 		}
-		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l1 = 0; (l1 < 2); l1 = (l1 + 1)) {
 			fRec2[l1] = 0.0f;
 		}
 		IOTA = 0;
-		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l2 = 0; (l2 < 2097152); l2 = (l2 + 1)) {
 			fRec1[l2] = 0.0f;
 		}
@@ -658,7 +655,6 @@ class fx_echo : public fx_echo_dsp {
 		float fSlow1 = (0.00100000005f * float(fHslider0));
 		float fSlow2 = (0.00100000005f * float(fHslider1));
 		int iSlow3 = (int(std::min<float>(fConst1, std::max<float>(0.0f, (fConst2 * std::min<float>(10000.0f, std::max<float>(10.0f, float(fHslider2))))))) + 1);
-		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int i = 0; (i < count); i = (i + 1)) {
 			float fTemp0 = float(input0[i]);
 			float fTemp1 = (iSlow0 ? 0.0f : fTemp0);

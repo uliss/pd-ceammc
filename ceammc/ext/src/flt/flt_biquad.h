@@ -608,7 +608,6 @@ class flt_biquad : public flt_biquad_dsp {
 	}
 	
 	virtual void instanceClear() {
-		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l0 = 0; (l0 < 3); l0 = (l0 + 1)) {
 			fRec0[l0] = 0.0f;
 		}
@@ -645,7 +644,6 @@ class flt_biquad : public flt_biquad_dsp {
 		FAUSTFLOAT* input4 = inputs[4];
 		FAUSTFLOAT* input5 = inputs[5];
 		FAUSTFLOAT* output0 = outputs[0];
-		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int i = 0; (i < count); i = (i + 1)) {
 			fRec0[0] = (float(input0[i]) - ((float(input4[i]) * fRec0[1]) + (float(input5[i]) * fRec0[2])));
 			output0[i] = FAUSTFLOAT((((float(input1[i]) * fRec0[0]) + (float(input2[i]) * fRec0[1])) + (float(input3[i]) * fRec0[2])));

@@ -654,47 +654,36 @@ class synth_ks : public synth_ks_dsp {
 	
 	virtual void instanceClear() {
 		IOTA = 0;
-		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l0 = 0; (l0 < 2048); l0 = (l0 + 1)) {
 			fRec7[l0] = 0.0f;
 		}
-		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l1 = 0; (l1 < 2); l1 = (l1 + 1)) {
 			iRec12[l1] = 0;
 		}
-		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l2 = 0; (l2 < 3); l2 = (l2 + 1)) {
 			fRec11[l2] = 0.0f;
 		}
-		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l3 = 0; (l3 < 2); l3 = (l3 + 1)) {
 			fVec0[l3] = 0.0f;
 		}
-		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l4 = 0; (l4 < 2); l4 = (l4 + 1)) {
 			iRec13[l4] = 0;
 		}
-		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l5 = 0; (l5 < 3); l5 = (l5 + 1)) {
 			fRec15[l5] = 0.0f;
 		}
-		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l6 = 0; (l6 < 3); l6 = (l6 + 1)) {
 			fRec14[l6] = 0.0f;
 		}
-		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l7 = 0; (l7 < 2048); l7 = (l7 + 1)) {
 			fVec1[l7] = 0.0f;
 		}
-		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l8 = 0; (l8 < 2); l8 = (l8 + 1)) {
 			fRec3[l8] = 0.0f;
 		}
-		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l9 = 0; (l9 < 3); l9 = (l9 + 1)) {
 			fRec0[l9] = 0.0f;
 		}
-		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l10 = 0; (l10 < 3); l10 = (l10 + 1)) {
 			fRec1[l10] = 0.0f;
 		}
@@ -786,7 +775,6 @@ class synth_ks : public synth_ks_dsp {
 		float fSlow48 = (((fSlow36 + -1.41421354f) / fSlow35) + 1.0f);
 		float fSlow49 = (2.0f * (1.0f - (1.0f / synth_ks_faustpower2_f(fSlow35))));
 		float fSlow50 = (1.0f / std::max<float>(1.0f, (fConst4 * fSlow31)));
-		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int i = 0; (i < count); i = (i + 1)) {
 			float fTemp0 = (fSlow0 * (fRec1[1] + fRec1[2]));
 			fRec7[(IOTA & 2047)] = fTemp0;
@@ -804,10 +792,9 @@ class synth_ks : public synth_ks_dsp {
 			float fTemp5 = (iSlow22 ? (fSlow38 * ((fRec14[2] + (fRec14[0] + (2.0f * fRec14[1]))) * std::max<float>(0.0f, std::min<float>(fTemp4, (2.0f - fTemp4))))) : (fSlow27 * ((fRec11[2] + (fRec11[0] + (2.0f * fRec11[1]))) * std::max<float>(0.0f, std::min<float>(fTemp3, (2.0f - fTemp3))))));
 			float fTemp6 = (fRec0[2] + fTemp5);
 			fVec1[(IOTA & 2047)] = fTemp6;
-			float fTemp7 = (fSlow9 * fVec1[((IOTA - iSlow11) & 2047)]);
-			float fTemp8 = (fSlow12 * ((((fSlow13 * fVec1[((IOTA - iSlow14) & 2047)]) + (fSlow15 * fVec1[((IOTA - iSlow16) & 2047)])) + (fSlow18 * fVec1[((IOTA - iSlow19) & 2047)])) + (fSlow20 * fVec1[((IOTA - iSlow21) & 2047)])));
-			float fRec9 = (fTemp7 + fTemp8);
-			float fRec10 = (fTemp8 + (fTemp0 + fTemp7));
+			float fTemp7 = ((fSlow9 * fVec1[((IOTA - iSlow11) & 2047)]) + (fSlow12 * ((((fSlow13 * fVec1[((IOTA - iSlow14) & 2047)]) + (fSlow15 * fVec1[((IOTA - iSlow16) & 2047)])) + (fSlow18 * fVec1[((IOTA - iSlow19) & 2047)])) + (fSlow20 * fVec1[((IOTA - iSlow21) & 2047)]))));
+			float fRec9 = fTemp7;
+			float fRec10 = (fTemp0 + fTemp7);
 			fRec3[0] = fRec8;
 			float fRec4 = (fTemp5 + fRec3[1]);
 			float fRec5 = fRec9;

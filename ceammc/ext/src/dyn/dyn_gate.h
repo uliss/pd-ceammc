@@ -607,27 +607,21 @@ class dyn_gate : public dyn_gate_dsp {
 	}
 	
 	virtual void instanceClear() {
-		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l0 = 0; (l0 < 2); l0 = (l0 + 1)) {
 			fRec3[l0] = 0.0f;
 		}
-		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l1 = 0; (l1 < 2); l1 = (l1 + 1)) {
 			fRec4[l1] = 0.0f;
 		}
-		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l2 = 0; (l2 < 2); l2 = (l2 + 1)) {
 			iVec0[l2] = 0;
 		}
-		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l3 = 0; (l3 < 2); l3 = (l3 + 1)) {
 			iRec5[l3] = 0;
 		}
-		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l4 = 0; (l4 < 2); l4 = (l4 + 1)) {
 			fRec1[l4] = 0.0f;
 		}
-		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l5 = 0; (l5 < 2); l5 = (l5 + 1)) {
 			fRec0[l5] = 0.0f;
 		}
@@ -679,7 +673,6 @@ class dyn_gate : public dyn_gate_dsp {
 		float fSlow9 = (iSlow8 ? 0.0f : std::exp((0.0f - (fConst1 / (iSlow8 ? 1.0f : fSlow0)))));
 		int iSlow10 = (std::fabs(fSlow1) < 1.1920929e-07f);
 		float fSlow11 = (iSlow10 ? 0.0f : std::exp((0.0f - (fConst1 / (iSlow10 ? 1.0f : fSlow1)))));
-		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int i = 0; (i < count); i = (i + 1)) {
 			float fTemp0 = float(input0[i]);
 			fRec3[0] = ((fRec3[1] * fSlow4) + (std::fabs(fTemp0) * fSlow5));

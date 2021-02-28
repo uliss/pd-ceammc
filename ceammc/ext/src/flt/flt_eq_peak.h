@@ -620,19 +620,15 @@ class flt_eq_peak : public flt_eq_peak_dsp {
 	}
 	
 	virtual void instanceClear() {
-		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l0 = 0; (l0 < 2); l0 = (l0 + 1)) {
 			fRec1[l0] = 0.0f;
 		}
-		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l1 = 0; (l1 < 2); l1 = (l1 + 1)) {
 			fRec2[l1] = 0.0f;
 		}
-		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l2 = 0; (l2 < 2); l2 = (l2 + 1)) {
 			fRec3[l2] = 0.0f;
 		}
-		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l3 = 0; (l3 < 3); l3 = (l3 + 1)) {
 			fRec0[l3] = 0.0f;
 		}
@@ -673,7 +669,6 @@ class flt_eq_peak : public flt_eq_peak_dsp {
 		float fSlow0 = (0.00100000005f * float(fVslider0));
 		float fSlow1 = (0.00100000005f * float(fVslider1));
 		float fSlow2 = (0.00100000005f * float(fVslider2));
-		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int i = 0; (i < count); i = (i + 1)) {
 			fRec1[0] = (fSlow0 + (0.999000013f * fRec1[1]));
 			float fTemp0 = std::tan((fConst1 * fRec1[0]));

@@ -634,19 +634,15 @@ class synth_dubdub : public synth_dubdub_dsp {
 	}
 	
 	virtual void instanceClear() {
-		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l0 = 0; (l0 < 2); l0 = (l0 + 1)) {
 			fRec1[l0] = 0.0f;
 		}
-		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l1 = 0; (l1 < 2); l1 = (l1 + 1)) {
 			fRec2[l1] = 0.0f;
 		}
-		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l2 = 0; (l2 < 2); l2 = (l2 + 1)) {
 			fRec4[l2] = 0.0f;
 		}
-		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l3 = 0; (l3 < 3); l3 = (l3 + 1)) {
 			fRec0[l3] = 0.0f;
 		}
@@ -689,7 +685,6 @@ class synth_dubdub : public synth_dubdub_dsp {
 		float fSlow5 = (1.0f / fSlow4);
 		float fSlow6 = (0.00100000005f * float(fVslider0));
 		float fSlow7 = (2.0f * (1.0f - (1.0f / synth_dubdub_faustpower2_f(fSlow4))));
-		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int i = 0; (i < count); i = (i + 1)) {
 			fRec1[0] = (fSlow0 + (fConst1 * fRec1[1]));
 			float fTemp0 = (fSlow2 + (fRec2[1] + -1.0f));
@@ -700,7 +695,7 @@ class synth_dubdub : public synth_dubdub_dsp {
 			fRec4[0] = (fSlow6 + (0.999000013f * fRec4[1]));
 			float fTemp3 = (1.0f / fRec4[0]);
 			float fTemp4 = ((fSlow5 * (fSlow5 + fTemp3)) + 1.0f);
-			fRec0[0] = ((0.5f * (fRec1[0] * ((2.0f * fRec3) + -1.0f))) - (((fRec0[2] * ((fSlow5 * (fSlow5 - fTemp3)) + 1.0f)) + (fSlow7 * fRec0[1])) / fTemp4));
+			fRec0[0] = ((0.5f * (fRec1[0] * ((2.0f * fRec3) + -1.0f))) - (((fRec0[2] * (1.0f - (fSlow5 * (fTemp3 - fSlow5)))) + (fSlow7 * fRec0[1])) / fTemp4));
 			output0[i] = FAUSTFLOAT(((fRec0[2] + (fRec0[0] + (2.0f * fRec0[1]))) / fTemp4));
 			fRec1[1] = fRec1[0];
 			fRec2[1] = fRec2[0];

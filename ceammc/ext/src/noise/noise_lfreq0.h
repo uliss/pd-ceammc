@@ -595,23 +595,18 @@ class noise_lfreq0 : public noise_lfreq0_dsp {
 	}
 	
 	virtual void instanceClear() {
-		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l0 = 0; (l0 < 2); l0 = (l0 + 1)) {
 			iVec0[l0] = 0;
 		}
-		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l1 = 0; (l1 < 2); l1 = (l1 + 1)) {
 			fRec1[l1] = 0.0f;
 		}
-		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l2 = 0; (l2 < 2); l2 = (l2 + 1)) {
 			fRec2[l2] = 0.0f;
 		}
-		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l3 = 0; (l3 < 2); l3 = (l3 + 1)) {
 			iRec3[l3] = 0;
 		}
-		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l4 = 0; (l4 < 2); l4 = (l4 + 1)) {
 			fRec0[l4] = 0.0f;
 		}
@@ -647,7 +642,6 @@ class noise_lfreq0 : public noise_lfreq0_dsp {
 		float fSlow0 = (fConst0 * float(fHslider0));
 		float fSlow1 = std::sin(fSlow0);
 		float fSlow2 = std::cos(fSlow0);
-		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int i = 0; (i < count); i = (i + 1)) {
 			iVec0[0] = 1;
 			fRec1[0] = ((fSlow1 * fRec2[1]) + (fSlow2 * fRec1[1]));

@@ -583,7 +583,6 @@ class lfo_square_pos : public lfo_square_pos_dsp {
 	}
 	
 	virtual void instanceClear() {
-		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l0 = 0; (l0 < 2); l0 = (l0 + 1)) {
 			fRec0[l0] = 0.0f;
 		}
@@ -615,7 +614,6 @@ class lfo_square_pos : public lfo_square_pos_dsp {
 	virtual void compute(int count, FAUSTFLOAT** inputs, FAUSTFLOAT** outputs) {
 		FAUSTFLOAT* input0 = inputs[0];
 		FAUSTFLOAT* output0 = outputs[0];
-		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int i = 0; (i < count); i = (i + 1)) {
 			float fTemp0 = (fRec0[1] + (fConst0 * float(input0[i])));
 			fRec0[0] = (fTemp0 - std::floor(fTemp0));

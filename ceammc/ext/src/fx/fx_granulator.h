@@ -545,7 +545,6 @@ class fx_granulatorSIG0 {
 	}
 	
 	void fillfx_granulatorSIG0(int count, float* table) {
-		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int i = 0; (i < count); i = (i + 1)) {
 			table[i] = 0.0f;
 		}
@@ -596,14 +595,12 @@ class fx_granulatorSIG1 {
 	}
 	
 	void instanceInitfx_granulatorSIG1(int sample_rate) {
-		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l8 = 0; (l8 < 2); l8 = (l8 + 1)) {
 			iRec70[l8] = 0;
 		}
 	}
 	
 	void fillfx_granulatorSIG1(int count, float* table) {
-		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int i = 0; (i < count); i = (i + 1)) {
 			iRec70[0] = (iRec70[1] + 1);
 			table[i] = (0.5f * (1.0f - std::cos((0.00614192104f * float((iRec70[0] + -1))))));
@@ -857,539 +854,405 @@ class fx_granulator : public fx_granulator_dsp {
 	}
 	
 	virtual void instanceClear() {
-		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l0 = 0; (l0 < 2); l0 = (l0 + 1)) {
 			iVec0[l0] = 0;
 		}
-		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l1 = 0; (l1 < 2); l1 = (l1 + 1)) {
 			fRec1[l1] = 0.0f;
 		}
-		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l2 = 0; (l2 < 2); l2 = (l2 + 1)) {
 			iRec0[l2] = 0;
 		}
-		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l3 = 0; (l3 < 2); l3 = (l3 + 1)) {
 			fRec4[l3] = 0.0f;
 		}
-		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l4 = 0; (l4 < 2); l4 = (l4 + 1)) {
 			iRec3[l4] = 0;
 		}
-		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l5 = 0; (l5 < 2); l5 = (l5 + 1)) {
 			iRec6[l5] = 0;
 		}
-		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l6 = 0; (l6 < 2); l6 = (l6 + 1)) {
 			iRec5[l6] = 0;
 		}
-		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l7 = 0; (l7 < 2); l7 = (l7 + 1)) {
 			iRec2[l7] = 0;
 		}
-		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l9 = 0; (l9 < 2); l9 = (l9 + 1)) {
 			iRec72[l9] = 0;
 		}
-		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l10 = 0; (l10 < 2); l10 = (l10 + 1)) {
 			iRec71[l10] = 0;
 		}
-		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l11 = 0; (l11 < 2); l11 = (l11 + 1)) {
 			iRec74[l11] = 0;
 		}
-		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l12 = 0; (l12 < 2); l12 = (l12 + 1)) {
 			iRec73[l12] = 0;
 		}
-		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l13 = 0; (l13 < 2); l13 = (l13 + 1)) {
 			iRec76[l13] = 0;
 		}
-		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l14 = 0; (l14 < 2); l14 = (l14 + 1)) {
 			iRec75[l14] = 0;
 		}
-		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l15 = 0; (l15 < 2); l15 = (l15 + 1)) {
 			iRec78[l15] = 0;
 		}
-		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l16 = 0; (l16 < 2); l16 = (l16 + 1)) {
 			iRec77[l16] = 0;
 		}
-		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l17 = 0; (l17 < 2); l17 = (l17 + 1)) {
 			iRec80[l17] = 0;
 		}
-		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l18 = 0; (l18 < 2); l18 = (l18 + 1)) {
 			iRec79[l18] = 0;
 		}
-		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l19 = 0; (l19 < 2); l19 = (l19 + 1)) {
 			iRec82[l19] = 0;
 		}
-		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l20 = 0; (l20 < 2); l20 = (l20 + 1)) {
 			iRec81[l20] = 0;
 		}
-		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l21 = 0; (l21 < 2); l21 = (l21 + 1)) {
 			iRec84[l21] = 0;
 		}
-		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l22 = 0; (l22 < 2); l22 = (l22 + 1)) {
 			iRec83[l22] = 0;
 		}
-		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l23 = 0; (l23 < 2); l23 = (l23 + 1)) {
 			iRec86[l23] = 0;
 		}
-		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l24 = 0; (l24 < 2); l24 = (l24 + 1)) {
 			iRec85[l24] = 0;
 		}
-		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l25 = 0; (l25 < 2); l25 = (l25 + 1)) {
 			iRec88[l25] = 0;
 		}
-		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l26 = 0; (l26 < 2); l26 = (l26 + 1)) {
 			iRec87[l26] = 0;
 		}
-		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l27 = 0; (l27 < 2); l27 = (l27 + 1)) {
 			iRec90[l27] = 0;
 		}
-		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l28 = 0; (l28 < 2); l28 = (l28 + 1)) {
 			iRec89[l28] = 0;
 		}
-		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l29 = 0; (l29 < 2); l29 = (l29 + 1)) {
 			iRec92[l29] = 0;
 		}
-		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l30 = 0; (l30 < 2); l30 = (l30 + 1)) {
 			iRec91[l30] = 0;
 		}
-		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l31 = 0; (l31 < 2); l31 = (l31 + 1)) {
 			iRec94[l31] = 0;
 		}
-		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l32 = 0; (l32 < 2); l32 = (l32 + 1)) {
 			iRec93[l32] = 0;
 		}
-		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l33 = 0; (l33 < 2); l33 = (l33 + 1)) {
 			iRec96[l33] = 0;
 		}
-		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l34 = 0; (l34 < 2); l34 = (l34 + 1)) {
 			iRec95[l34] = 0;
 		}
-		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l35 = 0; (l35 < 2); l35 = (l35 + 1)) {
 			iRec98[l35] = 0;
 		}
-		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l36 = 0; (l36 < 2); l36 = (l36 + 1)) {
 			iRec97[l36] = 0;
 		}
-		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l37 = 0; (l37 < 2); l37 = (l37 + 1)) {
 			iRec100[l37] = 0;
 		}
-		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l38 = 0; (l38 < 2); l38 = (l38 + 1)) {
 			iRec99[l38] = 0;
 		}
-		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l39 = 0; (l39 < 2); l39 = (l39 + 1)) {
 			iRec102[l39] = 0;
 		}
-		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l40 = 0; (l40 < 2); l40 = (l40 + 1)) {
 			iRec101[l40] = 0;
 		}
-		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l41 = 0; (l41 < 2); l41 = (l41 + 1)) {
 			iRec104[l41] = 0;
 		}
-		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l42 = 0; (l42 < 2); l42 = (l42 + 1)) {
 			iRec103[l42] = 0;
 		}
-		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l43 = 0; (l43 < 2); l43 = (l43 + 1)) {
 			iRec106[l43] = 0;
 		}
-		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l44 = 0; (l44 < 2); l44 = (l44 + 1)) {
 			iRec105[l44] = 0;
 		}
-		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l45 = 0; (l45 < 2); l45 = (l45 + 1)) {
 			iRec108[l45] = 0;
 		}
-		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l46 = 0; (l46 < 2); l46 = (l46 + 1)) {
 			iRec107[l46] = 0;
 		}
-		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l47 = 0; (l47 < 2); l47 = (l47 + 1)) {
 			iRec110[l47] = 0;
 		}
-		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l48 = 0; (l48 < 2); l48 = (l48 + 1)) {
 			iRec109[l48] = 0;
 		}
-		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l49 = 0; (l49 < 2); l49 = (l49 + 1)) {
 			iRec112[l49] = 0;
 		}
-		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l50 = 0; (l50 < 2); l50 = (l50 + 1)) {
 			iRec111[l50] = 0;
 		}
-		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l51 = 0; (l51 < 2); l51 = (l51 + 1)) {
 			iRec114[l51] = 0;
 		}
-		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l52 = 0; (l52 < 2); l52 = (l52 + 1)) {
 			iRec113[l52] = 0;
 		}
-		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l53 = 0; (l53 < 2); l53 = (l53 + 1)) {
 			iRec116[l53] = 0;
 		}
-		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l54 = 0; (l54 < 2); l54 = (l54 + 1)) {
 			iRec115[l54] = 0;
 		}
-		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l55 = 0; (l55 < 2); l55 = (l55 + 1)) {
 			iRec118[l55] = 0;
 		}
-		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l56 = 0; (l56 < 2); l56 = (l56 + 1)) {
 			iRec117[l56] = 0;
 		}
-		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l57 = 0; (l57 < 2); l57 = (l57 + 1)) {
 			iRec120[l57] = 0;
 		}
-		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l58 = 0; (l58 < 2); l58 = (l58 + 1)) {
 			iRec119[l58] = 0;
 		}
-		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l59 = 0; (l59 < 2); l59 = (l59 + 1)) {
 			iRec122[l59] = 0;
 		}
-		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l60 = 0; (l60 < 2); l60 = (l60 + 1)) {
 			iRec121[l60] = 0;
 		}
-		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l61 = 0; (l61 < 2); l61 = (l61 + 1)) {
 			iRec124[l61] = 0;
 		}
-		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l62 = 0; (l62 < 2); l62 = (l62 + 1)) {
 			iRec123[l62] = 0;
 		}
-		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l63 = 0; (l63 < 2); l63 = (l63 + 1)) {
 			iRec126[l63] = 0;
 		}
-		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l64 = 0; (l64 < 2); l64 = (l64 + 1)) {
 			iRec125[l64] = 0;
 		}
-		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l65 = 0; (l65 < 2); l65 = (l65 + 1)) {
 			iRec128[l65] = 0;
 		}
-		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l66 = 0; (l66 < 2); l66 = (l66 + 1)) {
 			iRec127[l66] = 0;
 		}
-		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l67 = 0; (l67 < 2); l67 = (l67 + 1)) {
 			iRec130[l67] = 0;
 		}
-		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l68 = 0; (l68 < 2); l68 = (l68 + 1)) {
 			iRec129[l68] = 0;
 		}
-		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l69 = 0; (l69 < 2); l69 = (l69 + 1)) {
 			iRec132[l69] = 0;
 		}
-		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l70 = 0; (l70 < 2); l70 = (l70 + 1)) {
 			iRec131[l70] = 0;
 		}
-		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l71 = 0; (l71 < 2); l71 = (l71 + 1)) {
 			iRec134[l71] = 0;
 		}
-		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l72 = 0; (l72 < 2); l72 = (l72 + 1)) {
 			iRec133[l72] = 0;
 		}
-		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l73 = 0; (l73 < 2); l73 = (l73 + 1)) {
 			iRec136[l73] = 0;
 		}
-		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l74 = 0; (l74 < 2); l74 = (l74 + 1)) {
 			iRec135[l74] = 0;
 		}
-		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l75 = 0; (l75 < 2); l75 = (l75 + 1)) {
 			iRec138[l75] = 0;
 		}
-		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l76 = 0; (l76 < 2); l76 = (l76 + 1)) {
 			iRec137[l76] = 0;
 		}
-		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l77 = 0; (l77 < 2); l77 = (l77 + 1)) {
 			iRec140[l77] = 0;
 		}
-		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l78 = 0; (l78 < 2); l78 = (l78 + 1)) {
 			iRec139[l78] = 0;
 		}
-		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l79 = 0; (l79 < 2); l79 = (l79 + 1)) {
 			iRec142[l79] = 0;
 		}
-		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l80 = 0; (l80 < 2); l80 = (l80 + 1)) {
 			iRec141[l80] = 0;
 		}
-		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l81 = 0; (l81 < 2); l81 = (l81 + 1)) {
 			iRec144[l81] = 0;
 		}
-		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l82 = 0; (l82 < 2); l82 = (l82 + 1)) {
 			iRec143[l82] = 0;
 		}
-		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l83 = 0; (l83 < 2); l83 = (l83 + 1)) {
 			iRec146[l83] = 0;
 		}
-		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l84 = 0; (l84 < 2); l84 = (l84 + 1)) {
 			iRec145[l84] = 0;
 		}
-		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l85 = 0; (l85 < 2); l85 = (l85 + 1)) {
 			iRec148[l85] = 0;
 		}
-		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l86 = 0; (l86 < 2); l86 = (l86 + 1)) {
 			iRec147[l86] = 0;
 		}
-		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l87 = 0; (l87 < 2); l87 = (l87 + 1)) {
 			iRec150[l87] = 0;
 		}
-		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l88 = 0; (l88 < 2); l88 = (l88 + 1)) {
 			iRec149[l88] = 0;
 		}
-		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l89 = 0; (l89 < 2); l89 = (l89 + 1)) {
 			iRec152[l89] = 0;
 		}
-		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l90 = 0; (l90 < 2); l90 = (l90 + 1)) {
 			iRec151[l90] = 0;
 		}
-		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l91 = 0; (l91 < 2); l91 = (l91 + 1)) {
 			iRec154[l91] = 0;
 		}
-		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l92 = 0; (l92 < 2); l92 = (l92 + 1)) {
 			iRec153[l92] = 0;
 		}
-		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l93 = 0; (l93 < 2); l93 = (l93 + 1)) {
 			iRec156[l93] = 0;
 		}
-		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l94 = 0; (l94 < 2); l94 = (l94 + 1)) {
 			iRec155[l94] = 0;
 		}
-		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l95 = 0; (l95 < 2); l95 = (l95 + 1)) {
 			iRec158[l95] = 0;
 		}
-		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l96 = 0; (l96 < 2); l96 = (l96 + 1)) {
 			iRec157[l96] = 0;
 		}
-		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l97 = 0; (l97 < 2); l97 = (l97 + 1)) {
 			iRec160[l97] = 0;
 		}
-		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l98 = 0; (l98 < 2); l98 = (l98 + 1)) {
 			iRec159[l98] = 0;
 		}
-		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l99 = 0; (l99 < 2); l99 = (l99 + 1)) {
 			iRec162[l99] = 0;
 		}
-		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l100 = 0; (l100 < 2); l100 = (l100 + 1)) {
 			iRec161[l100] = 0;
 		}
-		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l101 = 0; (l101 < 2); l101 = (l101 + 1)) {
 			iRec164[l101] = 0;
 		}
-		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l102 = 0; (l102 < 2); l102 = (l102 + 1)) {
 			iRec163[l102] = 0;
 		}
-		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l103 = 0; (l103 < 2); l103 = (l103 + 1)) {
 			iRec166[l103] = 0;
 		}
-		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l104 = 0; (l104 < 2); l104 = (l104 + 1)) {
 			iRec165[l104] = 0;
 		}
-		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l105 = 0; (l105 < 2); l105 = (l105 + 1)) {
 			iRec168[l105] = 0;
 		}
-		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l106 = 0; (l106 < 2); l106 = (l106 + 1)) {
 			iRec167[l106] = 0;
 		}
-		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l107 = 0; (l107 < 2); l107 = (l107 + 1)) {
 			iRec170[l107] = 0;
 		}
-		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l108 = 0; (l108 < 2); l108 = (l108 + 1)) {
 			iRec169[l108] = 0;
 		}
-		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l109 = 0; (l109 < 2); l109 = (l109 + 1)) {
 			iRec172[l109] = 0;
 		}
-		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l110 = 0; (l110 < 2); l110 = (l110 + 1)) {
 			iRec171[l110] = 0;
 		}
-		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l111 = 0; (l111 < 2); l111 = (l111 + 1)) {
 			iRec174[l111] = 0;
 		}
-		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l112 = 0; (l112 < 2); l112 = (l112 + 1)) {
 			iRec173[l112] = 0;
 		}
-		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l113 = 0; (l113 < 2); l113 = (l113 + 1)) {
 			iRec176[l113] = 0;
 		}
-		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l114 = 0; (l114 < 2); l114 = (l114 + 1)) {
 			iRec175[l114] = 0;
 		}
-		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l115 = 0; (l115 < 2); l115 = (l115 + 1)) {
 			iRec178[l115] = 0;
 		}
-		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l116 = 0; (l116 < 2); l116 = (l116 + 1)) {
 			iRec177[l116] = 0;
 		}
-		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l117 = 0; (l117 < 2); l117 = (l117 + 1)) {
 			iRec180[l117] = 0;
 		}
-		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l118 = 0; (l118 < 2); l118 = (l118 + 1)) {
 			iRec179[l118] = 0;
 		}
-		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l119 = 0; (l119 < 2); l119 = (l119 + 1)) {
 			iRec182[l119] = 0;
 		}
-		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l120 = 0; (l120 < 2); l120 = (l120 + 1)) {
 			iRec181[l120] = 0;
 		}
-		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l121 = 0; (l121 < 2); l121 = (l121 + 1)) {
 			iRec184[l121] = 0;
 		}
-		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l122 = 0; (l122 < 2); l122 = (l122 + 1)) {
 			iRec183[l122] = 0;
 		}
-		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l123 = 0; (l123 < 2); l123 = (l123 + 1)) {
 			iRec186[l123] = 0;
 		}
-		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l124 = 0; (l124 < 2); l124 = (l124 + 1)) {
 			iRec185[l124] = 0;
 		}
-		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l125 = 0; (l125 < 2); l125 = (l125 + 1)) {
 			iRec188[l125] = 0;
 		}
-		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l126 = 0; (l126 < 2); l126 = (l126 + 1)) {
 			iRec187[l126] = 0;
 		}
-		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l127 = 0; (l127 < 2); l127 = (l127 + 1)) {
 			iRec190[l127] = 0;
 		}
-		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l128 = 0; (l128 < 2); l128 = (l128 + 1)) {
 			iRec189[l128] = 0;
 		}
-		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l129 = 0; (l129 < 2); l129 = (l129 + 1)) {
 			iRec192[l129] = 0;
 		}
-		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l130 = 0; (l130 < 2); l130 = (l130 + 1)) {
 			iRec191[l130] = 0;
 		}
-		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l131 = 0; (l131 < 2); l131 = (l131 + 1)) {
 			iRec194[l131] = 0;
 		}
-		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l132 = 0; (l132 < 2); l132 = (l132 + 1)) {
 			iRec193[l132] = 0;
 		}
-		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l133 = 0; (l133 < 2); l133 = (l133 + 1)) {
 			iRec196[l133] = 0;
 		}
-		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l134 = 0; (l134 < 2); l134 = (l134 + 1)) {
 			iRec195[l134] = 0;
 		}
@@ -1496,7 +1359,6 @@ class fx_granulator : public fx_granulator_dsp {
 		float fSlow65 = float((59 < iSlow0));
 		float fSlow66 = float((61 < iSlow0));
 		float fSlow67 = float((63 < iSlow0));
-		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int i = 0; (i < count); i = (i + 1)) {
 			iVec0[0] = 1;
 			fRec1[0] = (fSlow3 + (0.999000013f * fRec1[1]));

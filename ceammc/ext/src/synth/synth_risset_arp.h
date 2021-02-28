@@ -544,14 +544,12 @@ class synth_risset_arpSIG0 {
 	}
 	
 	void instanceInitsynth_risset_arpSIG0(int sample_rate) {
-		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l0 = 0; (l0 < 2); l0 = (l0 + 1)) {
 			iRec0[l0] = 0;
 		}
 	}
 	
 	void fillsynth_risset_arpSIG0(int count, float* table) {
-		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int i = 0; (i < count); i = (i + 1)) {
 			iRec0[0] = (iRec0[1] + 1);
 			table[i] = std::sin((9.58738019e-05f * float((iRec0[0] + -1))));
@@ -703,79 +701,60 @@ class synth_risset_arp : public synth_risset_arp_dsp {
 	}
 	
 	virtual void instanceClear() {
-		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l1 = 0; (l1 < 2); l1 = (l1 + 1)) {
 			fRec2[l1] = 0.0f;
 		}
-		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l2 = 0; (l2 < 2); l2 = (l2 + 1)) {
 			fRec3[l2] = 0.0f;
 		}
-		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l3 = 0; (l3 < 2); l3 = (l3 + 1)) {
 			fRec1[l3] = 0.0f;
 		}
-		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l4 = 0; (l4 < 2); l4 = (l4 + 1)) {
 			fRec4[l4] = 0.0f;
 		}
-		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l5 = 0; (l5 < 2); l5 = (l5 + 1)) {
 			fRec5[l5] = 0.0f;
 		}
-		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l6 = 0; (l6 < 2); l6 = (l6 + 1)) {
 			fRec6[l6] = 0.0f;
 		}
-		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l7 = 0; (l7 < 2); l7 = (l7 + 1)) {
 			fRec7[l7] = 0.0f;
 		}
-		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l8 = 0; (l8 < 2); l8 = (l8 + 1)) {
 			fRec8[l8] = 0.0f;
 		}
-		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l9 = 0; (l9 < 2); l9 = (l9 + 1)) {
 			fRec9[l9] = 0.0f;
 		}
-		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l10 = 0; (l10 < 2); l10 = (l10 + 1)) {
 			fRec10[l10] = 0.0f;
 		}
-		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l11 = 0; (l11 < 2); l11 = (l11 + 1)) {
 			fRec11[l11] = 0.0f;
 		}
-		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l12 = 0; (l12 < 2); l12 = (l12 + 1)) {
 			fRec12[l12] = 0.0f;
 		}
-		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l13 = 0; (l13 < 2); l13 = (l13 + 1)) {
 			fRec13[l13] = 0.0f;
 		}
-		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l14 = 0; (l14 < 2); l14 = (l14 + 1)) {
 			fRec14[l14] = 0.0f;
 		}
-		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l15 = 0; (l15 < 2); l15 = (l15 + 1)) {
 			fRec15[l15] = 0.0f;
 		}
-		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l16 = 0; (l16 < 2); l16 = (l16 + 1)) {
 			fRec16[l16] = 0.0f;
 		}
-		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l17 = 0; (l17 < 2); l17 = (l17 + 1)) {
 			fRec17[l17] = 0.0f;
 		}
-		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l18 = 0; (l18 < 2); l18 = (l18 + 1)) {
 			fRec18[l18] = 0.0f;
 		}
-		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l19 = 0; (l19 < 2); l19 = (l19 + 1)) {
 			fRec19[l19] = 0.0f;
 		}
@@ -829,7 +808,6 @@ class synth_risset_arp : public synth_risset_arp_dsp {
 		float fSlow8 = (0.00100000005f * float(fHslider8));
 		float fSlow9 = (0.00100000005f * float(fHslider9));
 		float fSlow10 = (0.00100000005f * float(fHslider10));
-		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int i = 0; (i < count); i = (i + 1)) {
 			fRec2[0] = (fSlow0 + (0.999000013f * fRec2[1]));
 			fRec3[0] = (fSlow1 + (0.999000013f * fRec3[1]));
@@ -857,7 +835,7 @@ class synth_risset_arp : public synth_risset_arp_dsp {
 			float fTemp12 = (((fTemp2 * (((fRec4[0] + (fRec5[0] * fTemp5)) + (fRec6[0] * fTemp8)) + (fRec7[0] * fTemp11))) + ((((fRec8[0] * fTemp4) + (fRec9[0] * fTemp7)) + (fRec10[0] * fTemp10)) + (fRec11[0] * (1.0f - (2.0f * (fTemp3 * (fTemp9 - fTemp11))))))) + 1.0f);
 			fRec12[0] = (fSlow10 + (0.999000013f * fRec12[1]));
 			float fTemp13 = (0.357142866f * fRec12[0]);
-			float fTemp14 = (fRec13[1] + (fConst0 * (fRec2[0] - fTemp0)));
+			float fTemp14 = (fRec13[1] + (fConst0 * (fRec2[0] + fRec3[0])));
 			fRec13[0] = (fTemp14 - std::floor(fTemp14));
 			float fTemp15 = ftbl0synth_risset_arpSIG0[int((65536.0f * fRec13[0]))];
 			float fTemp16 = synth_risset_arp_faustpower2_f(fTemp15);
@@ -869,7 +847,7 @@ class synth_risset_arp : public synth_risset_arp_dsp {
 			float fTemp22 = (fTemp19 + fTemp21);
 			float fTemp23 = ((2.0f * (fTemp16 * fTemp22)) + -1.0f);
 			float fTemp24 = ((2.0f * fTemp23) - fTemp21);
-			float fTemp25 = (((fTemp15 * (((fRec4[0] + (fRec5[0] * fTemp18)) + (fRec6[0] * fTemp21)) + (fRec7[0] * fTemp24))) + ((fRec10[0] * fTemp23) + ((fRec9[0] * fTemp20) + ((fRec8[0] * fTemp17) + (fRec11[0] * (1.0f - (2.0f * (fTemp16 * (fTemp22 - fTemp24))))))))) + 1.0f);
+			float fTemp25 = (((fTemp15 * (((fRec4[0] + (fRec5[0] * fTemp18)) + (fRec6[0] * fTemp21)) + (fRec7[0] * fTemp24))) + ((((fRec8[0] * fTemp17) + (fRec9[0] * fTemp20)) + (fRec10[0] * fTemp23)) + (fRec11[0] * (1.0f - (2.0f * (fTemp16 * (fTemp22 - fTemp24))))))) + 1.0f);
 			float fTemp26 = (0.214285716f * fRec12[0]);
 			float fTemp27 = (fRec14[1] + (fConst0 * fRec2[0]));
 			fRec14[0] = (fTemp27 - std::floor(fTemp27));
@@ -891,13 +869,13 @@ class synth_risset_arp : public synth_risset_arp_dsp {
 			float fTemp42 = synth_risset_arp_faustpower2_f(fTemp41);
 			float fTemp43 = ((2.0f * fTemp42) + -1.0f);
 			float fTemp44 = ((2.0f * fTemp43) + -1.0f);
-			float fTemp45 = (fTemp44 + -1.0f);
-			float fTemp46 = ((2.0f * (fTemp42 * fTemp45)) + 1.0f);
+			float fTemp45 = (1.0f - fTemp44);
+			float fTemp46 = (1.0f - (2.0f * (fTemp42 * fTemp45)));
 			float fTemp47 = ((2.0f * fTemp46) - fTemp44);
-			float fTemp48 = (fTemp45 - fTemp47);
-			float fTemp49 = (-1.0f - (2.0f * (fTemp42 * fTemp48)));
+			float fTemp48 = (fTemp45 + fTemp47);
+			float fTemp49 = ((2.0f * (fTemp42 * fTemp48)) + -1.0f);
 			float fTemp50 = ((2.0f * fTemp49) - fTemp47);
-			float fTemp51 = (((fRec10[0] * fTemp49) + ((fRec8[0] * fTemp43) + ((fTemp41 * (((fRec4[0] + (fRec5[0] * fTemp44)) + (fRec6[0] * fTemp47)) + (fRec7[0] * fTemp50))) + ((fRec9[0] * fTemp46) + (fRec11[0] * ((2.0f * (fTemp42 * (fTemp48 + fTemp50))) + 1.0f)))))) + 1.0f);
+			float fTemp51 = ((((((fRec8[0] * fTemp43) + (fRec9[0] * fTemp46)) + (fRec10[0] * fTemp49)) + (fTemp41 * (((fRec4[0] + (fRec5[0] * fTemp44)) + (fRec6[0] * fTemp47)) + (fRec7[0] * fTemp50)))) + (fRec11[0] * (1.0f - (2.0f * (fTemp42 * (fTemp48 - fTemp50)))))) + 1.0f);
 			float fTemp52 = (0.0714285746f * fRec12[0]);
 			float fTemp53 = (3.0f * fRec3[0]);
 			float fTemp54 = (fRec16[1] + (fConst0 * (fRec2[0] - fTemp53)));
@@ -912,9 +890,9 @@ class synth_risset_arp : public synth_risset_arp_dsp {
 			float fTemp62 = (fTemp59 + fTemp61);
 			float fTemp63 = ((2.0f * (fTemp56 * fTemp62)) + -1.0f);
 			float fTemp64 = ((2.0f * fTemp63) - fTemp61);
-			float fTemp65 = (((fTemp55 * (((fRec4[0] + (fRec5[0] * fTemp58)) + (fRec6[0] * fTemp61)) + (fRec7[0] * fTemp64))) + ((((fRec8[0] * fTemp57) + (fRec9[0] * fTemp60)) + (fRec10[0] * fTemp63)) + (fRec11[0] * (1.0f - (2.0f * (fTemp56 * (fTemp62 - fTemp64))))))) + 1.0f);
+			float fTemp65 = ((((fTemp55 * (((fRec4[0] + (fRec5[0] * fTemp58)) + (fRec6[0] * fTemp61)) + (fRec7[0] * fTemp64))) + (((fRec8[0] * fTemp57) + (fRec9[0] * fTemp60)) + (fRec10[0] * fTemp63))) + (fRec11[0] * (1.0f - (2.0f * (fTemp56 * (fTemp62 - fTemp64)))))) + 1.0f);
 			float fTemp66 = (0.357142866f * fRec12[0]);
-			float fTemp67 = (fRec17[1] + (fConst0 * (fRec2[0] + fRec3[0])));
+			float fTemp67 = (fRec17[1] + (fConst0 * (fRec2[0] - fTemp0)));
 			fRec17[0] = (fTemp67 - std::floor(fTemp67));
 			float fTemp68 = ftbl0synth_risset_arpSIG0[int((65536.0f * fRec17[0]))];
 			float fTemp69 = synth_risset_arp_faustpower2_f(fTemp68);
@@ -940,7 +918,7 @@ class synth_risset_arp : public synth_risset_arp_dsp {
 			float fTemp88 = (fTemp85 + fTemp87);
 			float fTemp89 = ((2.0f * (fTemp82 * fTemp88)) + -1.0f);
 			float fTemp90 = ((2.0f * fTemp89) - fTemp87);
-			float fTemp91 = (((fTemp81 * (((fRec4[0] + (fRec5[0] * fTemp84)) + (fRec6[0] * fTemp87)) + (fRec7[0] * fTemp90))) + ((fRec9[0] * fTemp86) + ((fRec8[0] * fTemp83) + ((fRec10[0] * fTemp89) + (fRec11[0] * (1.0f - (2.0f * (fTemp82 * (fTemp88 - fTemp90))))))))) + 1.0f);
+			float fTemp91 = ((((fTemp81 * (((fRec4[0] + (fRec5[0] * fTemp84)) + (fRec6[0] * fTemp87)) + (fRec7[0] * fTemp90))) + (((fRec8[0] * fTemp83) + (fRec9[0] * fTemp86)) + (fRec10[0] * fTemp89))) + (fRec11[0] * (1.0f - (2.0f * (fTemp82 * (fTemp88 - fTemp90)))))) + 1.0f);
 			float fTemp92 = (1.0f - fRec12[0]);
 			float fTemp93 = (fRec19[1] + (fConst0 * (fRec2[0] + fTemp53)));
 			fRec19[0] = (fTemp93 - std::floor(fTemp93));
@@ -954,10 +932,10 @@ class synth_risset_arp : public synth_risset_arp_dsp {
 			float fTemp101 = (fTemp98 + fTemp100);
 			float fTemp102 = ((2.0f * (fTemp95 * fTemp101)) + -1.0f);
 			float fTemp103 = ((2.0f * fTemp102) - fTemp100);
-			float fTemp104 = (((fRec10[0] * fTemp102) + ((fTemp94 * (((fRec4[0] + (fRec5[0] * fTemp97)) + (fRec6[0] * fTemp100)) + (fRec7[0] * fTemp103))) + (((fRec8[0] * fTemp96) + (fRec9[0] * fTemp99)) + (fRec11[0] * ((2.0f * (fTemp95 * (fTemp103 - fTemp101))) + 1.0f))))) + 1.0f);
+			float fTemp104 = (((fTemp94 * (((fRec4[0] + (fRec5[0] * fTemp97)) + (fRec6[0] * fTemp100)) + (fRec7[0] * fTemp103))) + ((fRec10[0] * fTemp102) + ((fRec9[0] * fTemp99) + ((fRec8[0] * fTemp96) + (fRec11[0] * (1.0f - (2.0f * (fTemp95 * (fTemp101 - fTemp103))))))))) + 1.0f);
 			float fTemp105 = (fRec12[0] + 1.0f);
-			output0[i] = FAUSTFLOAT((0.0500000007f * ((fTemp12 * (fTemp13 + 0.5f)) + ((fTemp25 * (0.5f - fTemp26)) + ((fTemp38 * (fTemp39 + 0.5f)) + ((fTemp51 * (0.5f - fTemp52)) + ((fTemp65 * (0.5f - fTemp66)) + ((fTemp78 * (fTemp79 + 0.5f)) + (0.5f * ((fTemp91 * fTemp92) + (fTemp104 * fTemp105)))))))))));
-			output1[i] = FAUSTFLOAT((0.0500000007f * ((((((((fTemp91 * (1.0f - (0.5f * fTemp92))) + (fTemp65 * (fTemp66 + 0.5f))) + (fTemp25 * (fTemp26 + 0.5f))) + (fTemp51 * (fTemp52 + 0.5f))) + (fTemp38 * (0.5f - fTemp39))) + (fTemp78 * (0.5f - fTemp79))) + (fTemp12 * (0.5f - fTemp13))) + (fTemp104 * (1.0f - (0.5f * fTemp105))))));
+			output0[i] = FAUSTFLOAT((0.0500000007f * ((fTemp12 * (fTemp13 + 0.5f)) + ((fTemp25 * (fTemp26 + 0.5f)) + ((fTemp38 * (fTemp39 + 0.5f)) + ((fTemp51 * (0.5f - fTemp52)) + ((fTemp65 * (0.5f - fTemp66)) + ((fTemp78 * (0.5f - fTemp79)) + (0.5f * ((fTemp91 * fTemp92) + (fTemp104 * fTemp105)))))))))));
+			output1[i] = FAUSTFLOAT((0.0500000007f * ((((((((fTemp91 * (1.0f - (0.5f * fTemp92))) + (fTemp65 * (fTemp66 + 0.5f))) + (fTemp78 * (fTemp79 + 0.5f))) + (fTemp51 * (fTemp52 + 0.5f))) + (fTemp38 * (0.5f - fTemp39))) + (fTemp25 * (0.5f - fTemp26))) + (fTemp12 * (0.5f - fTemp13))) + (fTemp104 * (1.0f - (0.5f * fTemp105))))));
 			fRec2[1] = fRec2[0];
 			fRec3[1] = fRec3[0];
 			fRec1[1] = fRec1[0];

@@ -546,7 +546,6 @@ class synth_russian_bellSIG0 {
 	}
 	
 	void fillsynth_russian_bellSIG0(int count, float* table) {
-		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int i = 0; (i < count); i = (i + 1)) {
 			table[i] = fsynth_russian_bellSIG0Wave0[fsynth_russian_bellSIG0Wave0_idx];
 			fsynth_russian_bellSIG0Wave0_idx = ((1 + fsynth_russian_bellSIG0Wave0_idx) % 350);
@@ -796,53 +795,53 @@ class synth_russian_bell : public synth_russian_bell_dsp {
 		fConst8 = (2.0f * (1.0f - fConst6));
 		fConst9 = (0.0f - (2.0f / fConst5));
 		fConst10 = (0.00200000009f * fConst0);
-		fConst11 = std::cos((6826.99512f / fConst0));
+		fConst11 = std::cos((5509.02148f / fConst0));
 		fConst12 = (1.0f / fConst0);
-		fConst13 = std::cos((6810.5332f / fConst0));
-		fConst14 = std::cos((6800.10303f / fConst0));
-		fConst15 = std::cos((6694.6084f / fConst0));
-		fConst16 = std::cos((5580.86328f / fConst0));
-		fConst17 = std::cos((5575.05127f / fConst0));
-		fConst18 = std::cos((5531.8042f / fConst0));
-		fConst19 = std::cos((5069.01025f / fConst0));
-		fConst20 = std::cos((5028.73486f / fConst0));
-		fConst21 = std::cos((1988.55908f / fConst0));
-		fConst22 = std::cos((1636.26086f / fConst0));
-		fConst23 = std::cos((1627.08105f / fConst0));
-		fConst24 = std::cos((860.746094f / fConst0));
-		fConst25 = std::cos((6963.02588f / fConst0));
-		fConst26 = std::cos((6828.37744f / fConst0));
-		fConst27 = std::cos((4506.48877f / fConst0));
-		fConst28 = std::cos((4504.50977f / fConst0));
-		fConst29 = std::cos((4450.63135f / fConst0));
-		fConst30 = std::cos((4147.06543f / fConst0));
-		fConst31 = std::cos((3643.38672f / fConst0));
-		fConst32 = std::cos((3633.78589f / fConst0));
-		fConst33 = std::cos((3431.61182f / fConst0));
-		fConst34 = std::cos((3400.2085f / fConst0));
-		fConst35 = std::cos((3336.6604f / fConst0));
-		fConst36 = std::cos((3332.97852f / fConst0));
+		fConst13 = std::cos((5069.01025f / fConst0));
+		fConst14 = std::cos((5028.73486f / fConst0));
+		fConst15 = std::cos((4960.34229f / fConst0));
+		fConst16 = std::cos((4956.33984f / fConst0));
+		fConst17 = std::cos((4922.64941f / fConst0));
+		fConst18 = std::cos((4921.9707f / fConst0));
+		fConst19 = std::cos((4876.1665f / fConst0));
+		fConst20 = std::cos((4874.74023f / fConst0));
+		fConst21 = std::cos((4506.48877f / fConst0));
+		fConst22 = std::cos((4504.50977f / fConst0));
+		fConst23 = std::cos((2000.63538f / fConst0));
+		fConst24 = std::cos((1988.55908f / fConst0));
+		fConst25 = std::cos((1636.26086f / fConst0));
+		fConst26 = std::cos((1627.08105f / fConst0));
+		fConst27 = std::cos((860.746094f / fConst0));
+		fConst28 = std::cos((857.598267f / fConst0));
+		fConst29 = std::cos((5580.86328f / fConst0));
+		fConst30 = std::cos((5575.05127f / fConst0));
+		fConst31 = std::cos((5531.8042f / fConst0));
+		fConst32 = std::cos((2856.81982f / fConst0));
+		fConst33 = std::cos((2475.25464f / fConst0));
+		fConst34 = std::cos((2474.64502f / fConst0));
+		fConst35 = std::cos((2937.34521f / fConst0));
+		fConst36 = std::cos((3164.17432f / fConst0));
 		fConst37 = std::cos((3164.44458f / fConst0));
-		fConst38 = std::cos((3164.17432f / fConst0));
-		fConst39 = std::cos((2937.34521f / fConst0));
-		fConst40 = std::cos((2856.81982f / fConst0));
-		fConst41 = std::cos((2475.25464f / fConst0));
-		fConst42 = std::cos((2474.64502f / fConst0));
-		fConst43 = std::cos((2000.63538f / fConst0));
-		fConst44 = std::cos((857.598267f / fConst0));
-		fConst45 = std::cos((5509.02148f / fConst0));
-		fConst46 = std::cos((4874.74023f / fConst0));
-		fConst47 = std::cos((4876.1665f / fConst0));
-		fConst48 = std::cos((4921.9707f / fConst0));
-		fConst49 = std::cos((4922.64941f / fConst0));
-		fConst50 = std::cos((4956.33984f / fConst0));
-		fConst51 = std::cos((4960.34229f / fConst0));
-		fConst52 = std::cos((5760.51855f / fConst0));
-		fConst53 = std::cos((5778.71484f / fConst0));
-		fConst54 = std::cos((5891.65479f / fConst0));
-		fConst55 = std::cos((6186.46191f / fConst0));
-		fConst56 = std::cos((6642.5835f / fConst0));
-		fConst57 = std::cos((6650.4375f / fConst0));
+		fConst38 = std::cos((3332.97852f / fConst0));
+		fConst39 = std::cos((3336.6604f / fConst0));
+		fConst40 = std::cos((3400.2085f / fConst0));
+		fConst41 = std::cos((3431.61182f / fConst0));
+		fConst42 = std::cos((3633.78589f / fConst0));
+		fConst43 = std::cos((3643.38672f / fConst0));
+		fConst44 = std::cos((4147.06543f / fConst0));
+		fConst45 = std::cos((4450.63135f / fConst0));
+		fConst46 = std::cos((5760.51855f / fConst0));
+		fConst47 = std::cos((5778.71484f / fConst0));
+		fConst48 = std::cos((5891.65479f / fConst0));
+		fConst49 = std::cos((6186.46191f / fConst0));
+		fConst50 = std::cos((6642.5835f / fConst0));
+		fConst51 = std::cos((6650.4375f / fConst0));
+		fConst52 = std::cos((6694.6084f / fConst0));
+		fConst53 = std::cos((6800.10303f / fConst0));
+		fConst54 = std::cos((6810.5332f / fConst0));
+		fConst55 = std::cos((6826.99512f / fConst0));
+		fConst56 = std::cos((6828.37744f / fConst0));
+		fConst57 = std::cos((6963.02588f / fConst0));
 		fConst58 = std::cos((7013.10303f / fConst0));
 		fConst59 = std::cos((7219.37988f / fConst0));
 		fConst60 = std::cos((7229.05615f / fConst0));
@@ -861,223 +860,168 @@ class synth_russian_bell : public synth_russian_bell_dsp {
 	}
 	
 	virtual void instanceClear() {
-		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l0 = 0; (l0 < 2); l0 = (l0 + 1)) {
 			iRec3[l0] = 0;
 		}
-		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l1 = 0; (l1 < 3); l1 = (l1 + 1)) {
 			fRec2[l1] = 0.0f;
 		}
-		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l2 = 0; (l2 < 3); l2 = (l2 + 1)) {
 			fRec1[l2] = 0.0f;
 		}
-		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l3 = 0; (l3 < 2); l3 = (l3 + 1)) {
 			fVec0[l3] = 0.0f;
 		}
-		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l4 = 0; (l4 < 2); l4 = (l4 + 1)) {
 			iRec4[l4] = 0;
 		}
-		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l5 = 0; (l5 < 3); l5 = (l5 + 1)) {
 			fRec0[l5] = 0.0f;
 		}
-		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l6 = 0; (l6 < 3); l6 = (l6 + 1)) {
 			fRec5[l6] = 0.0f;
 		}
-		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l7 = 0; (l7 < 3); l7 = (l7 + 1)) {
 			fRec6[l7] = 0.0f;
 		}
-		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l8 = 0; (l8 < 3); l8 = (l8 + 1)) {
 			fRec7[l8] = 0.0f;
 		}
-		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l9 = 0; (l9 < 3); l9 = (l9 + 1)) {
 			fRec8[l9] = 0.0f;
 		}
-		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l10 = 0; (l10 < 3); l10 = (l10 + 1)) {
 			fRec9[l10] = 0.0f;
 		}
-		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l11 = 0; (l11 < 3); l11 = (l11 + 1)) {
 			fRec10[l11] = 0.0f;
 		}
-		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l12 = 0; (l12 < 3); l12 = (l12 + 1)) {
 			fRec11[l12] = 0.0f;
 		}
-		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l13 = 0; (l13 < 3); l13 = (l13 + 1)) {
 			fRec12[l13] = 0.0f;
 		}
-		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l14 = 0; (l14 < 3); l14 = (l14 + 1)) {
 			fRec13[l14] = 0.0f;
 		}
-		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l15 = 0; (l15 < 3); l15 = (l15 + 1)) {
 			fRec14[l15] = 0.0f;
 		}
-		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l16 = 0; (l16 < 3); l16 = (l16 + 1)) {
 			fRec15[l16] = 0.0f;
 		}
-		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l17 = 0; (l17 < 3); l17 = (l17 + 1)) {
 			fRec16[l17] = 0.0f;
 		}
-		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l18 = 0; (l18 < 3); l18 = (l18 + 1)) {
 			fRec17[l18] = 0.0f;
 		}
-		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l19 = 0; (l19 < 3); l19 = (l19 + 1)) {
 			fRec18[l19] = 0.0f;
 		}
-		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l20 = 0; (l20 < 3); l20 = (l20 + 1)) {
 			fRec19[l20] = 0.0f;
 		}
-		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l21 = 0; (l21 < 3); l21 = (l21 + 1)) {
 			fRec20[l21] = 0.0f;
 		}
-		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l22 = 0; (l22 < 3); l22 = (l22 + 1)) {
 			fRec21[l22] = 0.0f;
 		}
-		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l23 = 0; (l23 < 3); l23 = (l23 + 1)) {
 			fRec22[l23] = 0.0f;
 		}
-		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l24 = 0; (l24 < 3); l24 = (l24 + 1)) {
 			fRec23[l24] = 0.0f;
 		}
-		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l25 = 0; (l25 < 3); l25 = (l25 + 1)) {
 			fRec24[l25] = 0.0f;
 		}
-		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l26 = 0; (l26 < 3); l26 = (l26 + 1)) {
 			fRec25[l26] = 0.0f;
 		}
-		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l27 = 0; (l27 < 3); l27 = (l27 + 1)) {
 			fRec26[l27] = 0.0f;
 		}
-		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l28 = 0; (l28 < 3); l28 = (l28 + 1)) {
 			fRec27[l28] = 0.0f;
 		}
-		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l29 = 0; (l29 < 3); l29 = (l29 + 1)) {
 			fRec28[l29] = 0.0f;
 		}
-		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l30 = 0; (l30 < 3); l30 = (l30 + 1)) {
 			fRec29[l30] = 0.0f;
 		}
-		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l31 = 0; (l31 < 3); l31 = (l31 + 1)) {
 			fRec30[l31] = 0.0f;
 		}
-		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l32 = 0; (l32 < 3); l32 = (l32 + 1)) {
 			fRec31[l32] = 0.0f;
 		}
-		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l33 = 0; (l33 < 3); l33 = (l33 + 1)) {
 			fRec32[l33] = 0.0f;
 		}
-		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l34 = 0; (l34 < 3); l34 = (l34 + 1)) {
 			fRec33[l34] = 0.0f;
 		}
-		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l35 = 0; (l35 < 3); l35 = (l35 + 1)) {
 			fRec34[l35] = 0.0f;
 		}
-		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l36 = 0; (l36 < 3); l36 = (l36 + 1)) {
 			fRec35[l36] = 0.0f;
 		}
-		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l37 = 0; (l37 < 3); l37 = (l37 + 1)) {
 			fRec36[l37] = 0.0f;
 		}
-		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l38 = 0; (l38 < 3); l38 = (l38 + 1)) {
 			fRec37[l38] = 0.0f;
 		}
-		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l39 = 0; (l39 < 3); l39 = (l39 + 1)) {
 			fRec38[l39] = 0.0f;
 		}
-		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l40 = 0; (l40 < 3); l40 = (l40 + 1)) {
 			fRec39[l40] = 0.0f;
 		}
-		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l41 = 0; (l41 < 3); l41 = (l41 + 1)) {
 			fRec40[l41] = 0.0f;
 		}
-		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l42 = 0; (l42 < 3); l42 = (l42 + 1)) {
 			fRec41[l42] = 0.0f;
 		}
-		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l43 = 0; (l43 < 3); l43 = (l43 + 1)) {
 			fRec42[l43] = 0.0f;
 		}
-		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l44 = 0; (l44 < 3); l44 = (l44 + 1)) {
 			fRec43[l44] = 0.0f;
 		}
-		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l45 = 0; (l45 < 3); l45 = (l45 + 1)) {
 			fRec44[l45] = 0.0f;
 		}
-		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l46 = 0; (l46 < 3); l46 = (l46 + 1)) {
 			fRec45[l46] = 0.0f;
 		}
-		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l47 = 0; (l47 < 3); l47 = (l47 + 1)) {
 			fRec46[l47] = 0.0f;
 		}
-		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l48 = 0; (l48 < 3); l48 = (l48 + 1)) {
 			fRec47[l48] = 0.0f;
 		}
-		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l49 = 0; (l49 < 3); l49 = (l49 + 1)) {
 			fRec48[l49] = 0.0f;
 		}
-		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l50 = 0; (l50 < 3); l50 = (l50 + 1)) {
 			fRec49[l50] = 0.0f;
 		}
-		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l51 = 0; (l51 < 3); l51 = (l51 + 1)) {
 			fRec50[l51] = 0.0f;
 		}
-		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l52 = 0; (l52 < 3); l52 = (l52 + 1)) {
 			fRec51[l52] = 0.0f;
 		}
-		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l53 = 0; (l53 < 3); l53 = (l53 + 1)) {
 			fRec52[l53] = 0.0f;
 		}
-		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l54 = 0; (l54 < 3); l54 = (l54 + 1)) {
 			fRec53[l54] = 0.0f;
 		}
@@ -1131,191 +1075,191 @@ class synth_russian_bell : public synth_russian_bell_dsp {
 		float fSlow9 = float(fHslider3);
 		float fSlow10 = float(fHslider4);
 		float fSlow11 = float(fHslider5);
-		float fSlow12 = std::pow(0.00100000005f, (fConst12 / (fSlow9 * std::pow((1.0f - (0.904696882f * fSlow10)), fSlow11))));
+		float fSlow12 = std::pow(0.00100000005f, (fConst12 / (fSlow9 * std::pow((1.0f - (0.730042219f * fSlow10)), fSlow11))));
 		float fSlow13 = (fConst11 * (0.0f - (2.0f * fSlow12)));
 		float fSlow14 = synth_russian_bell_faustpower2_f(fSlow12);
 		int iSlow15 = (50 * int(float(fEntry0)));
-		float fSlow16 = ftbl0synth_russian_bellSIG0[(iSlow15 + 43)];
-		float fSlow17 = std::pow(0.00100000005f, (fConst12 / (fSlow9 * std::pow((1.0f - (0.902515411f * fSlow10)), fSlow11))));
+		float fSlow16 = ftbl0synth_russian_bellSIG0[(iSlow15 + 30)];
+		float fSlow17 = std::pow(0.00100000005f, (fConst12 / (fSlow9 * std::pow((1.0f - (0.671732962f * fSlow10)), fSlow11))));
 		float fSlow18 = (fConst13 * (0.0f - (2.0f * fSlow17)));
 		float fSlow19 = synth_russian_bell_faustpower2_f(fSlow17);
-		float fSlow20 = ftbl0synth_russian_bellSIG0[(iSlow15 + 42)];
-		float fSlow21 = std::pow(0.00100000005f, (fConst12 / (fSlow9 * std::pow((1.0f - (0.901133239f * fSlow10)), fSlow11))));
+		float fSlow20 = ftbl0synth_russian_bellSIG0[(iSlow15 + 29)];
+		float fSlow21 = std::pow(0.00100000005f, (fConst12 / (fSlow9 * std::pow((1.0f - (0.666395783f * fSlow10)), fSlow11))));
 		float fSlow22 = (fConst14 * (0.0f - (2.0f * fSlow21)));
 		float fSlow23 = synth_russian_bell_faustpower2_f(fSlow21);
-		float fSlow24 = ftbl0synth_russian_bellSIG0[(iSlow15 + 41)];
-		float fSlow25 = std::pow(0.00100000005f, (fConst12 / (fSlow9 * std::pow((1.0f - (0.887153327f * fSlow10)), fSlow11))));
+		float fSlow24 = ftbl0synth_russian_bellSIG0[(iSlow15 + 28)];
+		float fSlow25 = std::pow(0.00100000005f, (fConst12 / (fSlow9 * std::pow((1.0f - (0.657332599f * fSlow10)), fSlow11))));
 		float fSlow26 = (fConst15 * (0.0f - (2.0f * fSlow25)));
 		float fSlow27 = synth_russian_bell_faustpower2_f(fSlow25);
-		float fSlow28 = ftbl0synth_russian_bellSIG0[(iSlow15 + 40)];
-		float fSlow29 = std::pow(0.00100000005f, (fConst12 / (fSlow9 * std::pow((1.0f - (0.739562511f * fSlow10)), fSlow11))));
+		float fSlow28 = ftbl0synth_russian_bellSIG0[(iSlow15 + 27)];
+		float fSlow29 = std::pow(0.00100000005f, (fConst12 / (fSlow9 * std::pow((1.0f - (0.656802177f * fSlow10)), fSlow11))));
 		float fSlow30 = (fConst16 * (0.0f - (2.0f * fSlow29)));
 		float fSlow31 = synth_russian_bell_faustpower2_f(fSlow29);
-		float fSlow32 = ftbl0synth_russian_bellSIG0[(iSlow15 + 33)];
-		float fSlow33 = std::pow(0.00100000005f, (fConst12 / (fSlow9 * std::pow((1.0f - (0.73879236f * fSlow10)), fSlow11))));
+		float fSlow32 = ftbl0synth_russian_bellSIG0[(iSlow15 + 26)];
+		float fSlow33 = std::pow(0.00100000005f, (fConst12 / (fSlow9 * std::pow((1.0f - (0.652337611f * fSlow10)), fSlow11))));
 		float fSlow34 = (fConst17 * (0.0f - (2.0f * fSlow33)));
 		float fSlow35 = synth_russian_bell_faustpower2_f(fSlow33);
-		float fSlow36 = ftbl0synth_russian_bellSIG0[(iSlow15 + 32)];
-		float fSlow37 = std::pow(0.00100000005f, (fConst12 / (fSlow9 * std::pow((1.0f - (0.733061314f * fSlow10)), fSlow11))));
+		float fSlow36 = ftbl0synth_russian_bellSIG0[(iSlow15 + 25)];
+		float fSlow37 = std::pow(0.00100000005f, (fConst12 / (fSlow9 * std::pow((1.0f - (0.652247667f * fSlow10)), fSlow11))));
 		float fSlow38 = (fConst18 * (0.0f - (2.0f * fSlow37)));
 		float fSlow39 = synth_russian_bell_faustpower2_f(fSlow37);
-		float fSlow40 = ftbl0synth_russian_bellSIG0[(iSlow15 + 31)];
-		float fSlow41 = std::pow(0.00100000005f, (fConst12 / (fSlow9 * std::pow((1.0f - (0.671732962f * fSlow10)), fSlow11))));
+		float fSlow40 = ftbl0synth_russian_bellSIG0[(iSlow15 + 24)];
+		float fSlow41 = std::pow(0.00100000005f, (fConst12 / (fSlow9 * std::pow((1.0f - (0.646177828f * fSlow10)), fSlow11))));
 		float fSlow42 = (fConst19 * (0.0f - (2.0f * fSlow41)));
 		float fSlow43 = synth_russian_bell_faustpower2_f(fSlow41);
-		float fSlow44 = ftbl0synth_russian_bellSIG0[(iSlow15 + 29)];
-		float fSlow45 = std::pow(0.00100000005f, (fConst12 / (fSlow9 * std::pow((1.0f - (0.666395783f * fSlow10)), fSlow11))));
+		float fSlow44 = ftbl0synth_russian_bellSIG0[(iSlow15 + 23)];
+		float fSlow45 = std::pow(0.00100000005f, (fConst12 / (fSlow9 * std::pow((1.0f - (0.645988822f * fSlow10)), fSlow11))));
 		float fSlow46 = (fConst20 * (0.0f - (2.0f * fSlow45)));
 		float fSlow47 = synth_russian_bell_faustpower2_f(fSlow45);
-		float fSlow48 = ftbl0synth_russian_bellSIG0[(iSlow15 + 28)];
-		float fSlow49 = std::pow(0.00100000005f, (fConst12 / (fSlow9 * std::pow((1.0f - (0.263519049f * fSlow10)), fSlow11))));
+		float fSlow48 = ftbl0synth_russian_bellSIG0[(iSlow15 + 22)];
+		float fSlow49 = std::pow(0.00100000005f, (fConst12 / (fSlow9 * std::pow((1.0f - (0.597189009f * fSlow10)), fSlow11))));
 		float fSlow50 = (fConst21 * (0.0f - (2.0f * fSlow49)));
 		float fSlow51 = synth_russian_bell_faustpower2_f(fSlow49);
-		float fSlow52 = ftbl0synth_russian_bellSIG0[(iSlow15 + 4)];
-		float fSlow53 = std::pow(0.00100000005f, (fConst12 / (fSlow9 * std::pow((1.0f - (0.216833338f * fSlow10)), fSlow11))));
+		float fSlow52 = ftbl0synth_russian_bellSIG0[(iSlow15 + 21)];
+		float fSlow53 = std::pow(0.00100000005f, (fConst12 / (fSlow9 * std::pow((1.0f - (0.596926749f * fSlow10)), fSlow11))));
 		float fSlow54 = (fConst22 * (0.0f - (2.0f * fSlow53)));
 		float fSlow55 = synth_russian_bell_faustpower2_f(fSlow53);
-		float fSlow56 = ftbl0synth_russian_bellSIG0[(iSlow15 + 3)];
-		float fSlow57 = std::pow(0.00100000005f, (fConst12 / (fSlow9 * std::pow((1.0f - (0.215616852f * fSlow10)), fSlow11))));
+		float fSlow56 = ftbl0synth_russian_bellSIG0[(iSlow15 + 20)];
+		float fSlow57 = std::pow(0.00100000005f, (fConst12 / (fSlow9 * std::pow((1.0f - (0.265119344f * fSlow10)), fSlow11))));
 		float fSlow58 = (fConst23 * (0.0f - (2.0f * fSlow57)));
 		float fSlow59 = synth_russian_bell_faustpower2_f(fSlow57);
-		float fSlow60 = ftbl0synth_russian_bellSIG0[(iSlow15 + 2)];
-		float fSlow61 = std::pow(0.00100000005f, (fConst12 / (fSlow9 * std::pow((1.0f - (0.114063993f * fSlow10)), fSlow11))));
+		float fSlow60 = ftbl0synth_russian_bellSIG0[(iSlow15 + 5)];
+		float fSlow61 = std::pow(0.00100000005f, (fConst12 / (fSlow9 * std::pow((1.0f - (0.263519049f * fSlow10)), fSlow11))));
 		float fSlow62 = (fConst24 * (0.0f - (2.0f * fSlow61)));
 		float fSlow63 = synth_russian_bell_faustpower2_f(fSlow61);
-		float fSlow64 = ftbl0synth_russian_bellSIG0[(iSlow15 + 1)];
-		float fSlow65 = std::pow(0.00100000005f, (fConst12 / (fSlow9 * std::pow((1.0f - (0.922723353f * fSlow10)), fSlow11))));
+		float fSlow64 = ftbl0synth_russian_bellSIG0[(iSlow15 + 4)];
+		float fSlow65 = std::pow(0.00100000005f, (fConst12 / (fSlow9 * std::pow((1.0f - (0.216833338f * fSlow10)), fSlow11))));
 		float fSlow66 = (fConst25 * (0.0f - (2.0f * fSlow65)));
 		float fSlow67 = synth_russian_bell_faustpower2_f(fSlow65);
-		float fSlow68 = ftbl0synth_russian_bellSIG0[(iSlow15 + 45)];
-		float fSlow69 = std::pow(0.00100000005f, (fConst12 / (fSlow9 * std::pow((1.0f - (0.904880047f * fSlow10)), fSlow11))));
+		float fSlow68 = ftbl0synth_russian_bellSIG0[(iSlow15 + 3)];
+		float fSlow69 = std::pow(0.00100000005f, (fConst12 / (fSlow9 * std::pow((1.0f - (0.215616852f * fSlow10)), fSlow11))));
 		float fSlow70 = (fConst26 * (0.0f - (2.0f * fSlow69)));
 		float fSlow71 = synth_russian_bell_faustpower2_f(fSlow69);
-		float fSlow72 = ftbl0synth_russian_bellSIG0[(iSlow15 + 44)];
-		float fSlow73 = std::pow(0.00100000005f, (fConst12 / (fSlow9 * std::pow((1.0f - (0.597189009f * fSlow10)), fSlow11))));
+		float fSlow72 = ftbl0synth_russian_bellSIG0[(iSlow15 + 2)];
+		float fSlow73 = std::pow(0.00100000005f, (fConst12 / (fSlow9 * std::pow((1.0f - (0.114063993f * fSlow10)), fSlow11))));
 		float fSlow74 = (fConst27 * (0.0f - (2.0f * fSlow73)));
 		float fSlow75 = synth_russian_bell_faustpower2_f(fSlow73);
-		float fSlow76 = ftbl0synth_russian_bellSIG0[(iSlow15 + 21)];
-		float fSlow77 = std::pow(0.00100000005f, (fConst12 / (fSlow9 * std::pow((1.0f - (0.596926749f * fSlow10)), fSlow11))));
+		float fSlow76 = ftbl0synth_russian_bellSIG0[(iSlow15 + 1)];
+		float fSlow77 = std::pow(0.00100000005f, (fConst12 / (fSlow9 * std::pow((1.0f - (0.11364685f * fSlow10)), fSlow11))));
 		float fSlow78 = (fConst28 * (0.0f - (2.0f * fSlow77)));
 		float fSlow79 = synth_russian_bell_faustpower2_f(fSlow77);
-		float fSlow80 = ftbl0synth_russian_bellSIG0[(iSlow15 + 20)];
-		float fSlow81 = std::pow(0.00100000005f, (fConst12 / (fSlow9 * std::pow((1.0f - (0.589786947f * fSlow10)), fSlow11))));
+		float fSlow80 = ftbl0synth_russian_bellSIG0[iSlow15];
+		float fSlow81 = std::pow(0.00100000005f, (fConst12 / (fSlow9 * std::pow((1.0f - (0.739562511f * fSlow10)), fSlow11))));
 		float fSlow82 = (fConst29 * (0.0f - (2.0f * fSlow81)));
 		float fSlow83 = synth_russian_bell_faustpower2_f(fSlow81);
-		float fSlow84 = ftbl0synth_russian_bellSIG0[(iSlow15 + 19)];
-		float fSlow85 = std::pow(0.00100000005f, (fConst12 / (fSlow9 * std::pow((1.0f - (0.549559116f * fSlow10)), fSlow11))));
+		float fSlow84 = ftbl0synth_russian_bellSIG0[(iSlow15 + 33)];
+		float fSlow85 = std::pow(0.00100000005f, (fConst12 / (fSlow9 * std::pow((1.0f - (0.73879236f * fSlow10)), fSlow11))));
 		float fSlow86 = (fConst30 * (0.0f - (2.0f * fSlow85)));
 		float fSlow87 = synth_russian_bell_faustpower2_f(fSlow85);
-		float fSlow88 = ftbl0synth_russian_bellSIG0[(iSlow15 + 18)];
-		float fSlow89 = std::pow(0.00100000005f, (fConst12 / (fSlow9 * std::pow((1.0f - (0.482812792f * fSlow10)), fSlow11))));
+		float fSlow88 = ftbl0synth_russian_bellSIG0[(iSlow15 + 32)];
+		float fSlow89 = std::pow(0.00100000005f, (fConst12 / (fSlow9 * std::pow((1.0f - (0.733061314f * fSlow10)), fSlow11))));
 		float fSlow90 = (fConst31 * (0.0f - (2.0f * fSlow89)));
 		float fSlow91 = synth_russian_bell_faustpower2_f(fSlow89);
-		float fSlow92 = ftbl0synth_russian_bellSIG0[(iSlow15 + 17)];
-		float fSlow93 = std::pow(0.00100000005f, (fConst12 / (fSlow9 * std::pow((1.0f - (0.481540531f * fSlow10)), fSlow11))));
+		float fSlow92 = ftbl0synth_russian_bellSIG0[(iSlow15 + 31)];
+		float fSlow93 = std::pow(0.00100000005f, (fConst12 / (fSlow9 * std::pow((1.0f - (0.378578871f * fSlow10)), fSlow11))));
 		float fSlow94 = (fConst32 * (0.0f - (2.0f * fSlow93)));
 		float fSlow95 = synth_russian_bell_faustpower2_f(fSlow93);
-		float fSlow96 = ftbl0synth_russian_bellSIG0[(iSlow15 + 16)];
-		float fSlow97 = std::pow(0.00100000005f, (fConst12 / (fSlow9 * std::pow((1.0f - (0.454748929f * fSlow10)), fSlow11))));
+		float fSlow96 = ftbl0synth_russian_bellSIG0[(iSlow15 + 8)];
+		float fSlow97 = std::pow(0.00100000005f, (fConst12 / (fSlow9 * std::pow((1.0f - (0.328014761f * fSlow10)), fSlow11))));
 		float fSlow98 = (fConst33 * (0.0f - (2.0f * fSlow97)));
 		float fSlow99 = synth_russian_bell_faustpower2_f(fSlow97);
-		float fSlow100 = ftbl0synth_russian_bellSIG0[(iSlow15 + 15)];
-		float fSlow101 = std::pow(0.00100000005f, (fConst12 / (fSlow9 * std::pow((1.0f - (0.450587422f * fSlow10)), fSlow11))));
+		float fSlow100 = ftbl0synth_russian_bellSIG0[(iSlow15 + 7)];
+		float fSlow101 = std::pow(0.00100000005f, (fConst12 / (fSlow9 * std::pow((1.0f - (0.327933997f * fSlow10)), fSlow11))));
 		float fSlow102 = (fConst34 * (0.0f - (2.0f * fSlow101)));
 		float fSlow103 = synth_russian_bell_faustpower2_f(fSlow101);
-		float fSlow104 = ftbl0synth_russian_bellSIG0[(iSlow15 + 14)];
-		float fSlow105 = std::pow(0.00100000005f, (fConst12 / (fSlow9 * std::pow((1.0f - (0.442166179f * fSlow10)), fSlow11))));
+		float fSlow104 = ftbl0synth_russian_bellSIG0[(iSlow15 + 6)];
+		float fSlow105 = std::pow(0.00100000005f, (fConst12 / (fSlow9 * std::pow((1.0f - (0.389249891f * fSlow10)), fSlow11))));
 		float fSlow106 = (fConst35 * (0.0f - (2.0f * fSlow105)));
 		float fSlow107 = synth_russian_bell_faustpower2_f(fSlow105);
-		float fSlow108 = ftbl0synth_russian_bellSIG0[(iSlow15 + 13)];
-		float fSlow109 = std::pow(0.00100000005f, (fConst12 / (fSlow9 * std::pow((1.0f - (0.441678256f * fSlow10)), fSlow11))));
+		float fSlow108 = ftbl0synth_russian_bellSIG0[(iSlow15 + 9)];
+		float fSlow109 = std::pow(0.00100000005f, (fConst12 / (fSlow9 * std::pow((1.0f - (0.419308752f * fSlow10)), fSlow11))));
 		float fSlow110 = (fConst36 * (0.0f - (2.0f * fSlow109)));
 		float fSlow111 = synth_russian_bell_faustpower2_f(fSlow109);
-		float fSlow112 = ftbl0synth_russian_bellSIG0[(iSlow15 + 12)];
+		float fSlow112 = ftbl0synth_russian_bellSIG0[(iSlow15 + 10)];
 		float fSlow113 = std::pow(0.00100000005f, (fConst12 / (fSlow9 * std::pow((1.0f - (0.419344544f * fSlow10)), fSlow11))));
 		float fSlow114 = (fConst37 * (0.0f - (2.0f * fSlow113)));
 		float fSlow115 = synth_russian_bell_faustpower2_f(fSlow113);
 		float fSlow116 = ftbl0synth_russian_bellSIG0[(iSlow15 + 11)];
-		float fSlow117 = std::pow(0.00100000005f, (fConst12 / (fSlow9 * std::pow((1.0f - (0.419308752f * fSlow10)), fSlow11))));
+		float fSlow117 = std::pow(0.00100000005f, (fConst12 / (fSlow9 * std::pow((1.0f - (0.441678256f * fSlow10)), fSlow11))));
 		float fSlow118 = (fConst38 * (0.0f - (2.0f * fSlow117)));
 		float fSlow119 = synth_russian_bell_faustpower2_f(fSlow117);
-		float fSlow120 = ftbl0synth_russian_bellSIG0[(iSlow15 + 10)];
-		float fSlow121 = std::pow(0.00100000005f, (fConst12 / (fSlow9 * std::pow((1.0f - (0.389249891f * fSlow10)), fSlow11))));
+		float fSlow120 = ftbl0synth_russian_bellSIG0[(iSlow15 + 12)];
+		float fSlow121 = std::pow(0.00100000005f, (fConst12 / (fSlow9 * std::pow((1.0f - (0.442166179f * fSlow10)), fSlow11))));
 		float fSlow122 = (fConst39 * (0.0f - (2.0f * fSlow121)));
 		float fSlow123 = synth_russian_bell_faustpower2_f(fSlow121);
-		float fSlow124 = ftbl0synth_russian_bellSIG0[(iSlow15 + 9)];
-		float fSlow125 = std::pow(0.00100000005f, (fConst12 / (fSlow9 * std::pow((1.0f - (0.378578871f * fSlow10)), fSlow11))));
+		float fSlow124 = ftbl0synth_russian_bellSIG0[(iSlow15 + 13)];
+		float fSlow125 = std::pow(0.00100000005f, (fConst12 / (fSlow9 * std::pow((1.0f - (0.450587422f * fSlow10)), fSlow11))));
 		float fSlow126 = (fConst40 * (0.0f - (2.0f * fSlow125)));
 		float fSlow127 = synth_russian_bell_faustpower2_f(fSlow125);
-		float fSlow128 = ftbl0synth_russian_bellSIG0[(iSlow15 + 8)];
-		float fSlow129 = std::pow(0.00100000005f, (fConst12 / (fSlow9 * std::pow((1.0f - (0.328014761f * fSlow10)), fSlow11))));
+		float fSlow128 = ftbl0synth_russian_bellSIG0[(iSlow15 + 14)];
+		float fSlow129 = std::pow(0.00100000005f, (fConst12 / (fSlow9 * std::pow((1.0f - (0.454748929f * fSlow10)), fSlow11))));
 		float fSlow130 = (fConst41 * (0.0f - (2.0f * fSlow129)));
 		float fSlow131 = synth_russian_bell_faustpower2_f(fSlow129);
-		float fSlow132 = ftbl0synth_russian_bellSIG0[(iSlow15 + 7)];
-		float fSlow133 = std::pow(0.00100000005f, (fConst12 / (fSlow9 * std::pow((1.0f - (0.327933997f * fSlow10)), fSlow11))));
+		float fSlow132 = ftbl0synth_russian_bellSIG0[(iSlow15 + 15)];
+		float fSlow133 = std::pow(0.00100000005f, (fConst12 / (fSlow9 * std::pow((1.0f - (0.481540531f * fSlow10)), fSlow11))));
 		float fSlow134 = (fConst42 * (0.0f - (2.0f * fSlow133)));
 		float fSlow135 = synth_russian_bell_faustpower2_f(fSlow133);
-		float fSlow136 = ftbl0synth_russian_bellSIG0[(iSlow15 + 6)];
-		float fSlow137 = std::pow(0.00100000005f, (fConst12 / (fSlow9 * std::pow((1.0f - (0.265119344f * fSlow10)), fSlow11))));
+		float fSlow136 = ftbl0synth_russian_bellSIG0[(iSlow15 + 16)];
+		float fSlow137 = std::pow(0.00100000005f, (fConst12 / (fSlow9 * std::pow((1.0f - (0.482812792f * fSlow10)), fSlow11))));
 		float fSlow138 = (fConst43 * (0.0f - (2.0f * fSlow137)));
 		float fSlow139 = synth_russian_bell_faustpower2_f(fSlow137);
-		float fSlow140 = ftbl0synth_russian_bellSIG0[(iSlow15 + 5)];
-		float fSlow141 = std::pow(0.00100000005f, (fConst12 / (fSlow9 * std::pow((1.0f - (0.11364685f * fSlow10)), fSlow11))));
+		float fSlow140 = ftbl0synth_russian_bellSIG0[(iSlow15 + 17)];
+		float fSlow141 = std::pow(0.00100000005f, (fConst12 / (fSlow9 * std::pow((1.0f - (0.549559116f * fSlow10)), fSlow11))));
 		float fSlow142 = (fConst44 * (0.0f - (2.0f * fSlow141)));
 		float fSlow143 = synth_russian_bell_faustpower2_f(fSlow141);
-		float fSlow144 = ftbl0synth_russian_bellSIG0[iSlow15];
-		float fSlow145 = std::pow(0.00100000005f, (fConst12 / (fSlow9 * std::pow((1.0f - (0.730042219f * fSlow10)), fSlow11))));
+		float fSlow144 = ftbl0synth_russian_bellSIG0[(iSlow15 + 18)];
+		float fSlow145 = std::pow(0.00100000005f, (fConst12 / (fSlow9 * std::pow((1.0f - (0.589786947f * fSlow10)), fSlow11))));
 		float fSlow146 = (fConst45 * (0.0f - (2.0f * fSlow145)));
 		float fSlow147 = synth_russian_bell_faustpower2_f(fSlow145);
-		float fSlow148 = ftbl0synth_russian_bellSIG0[(iSlow15 + 30)];
-		float fSlow149 = std::pow(0.00100000005f, (fConst12 / (fSlow9 * std::pow((1.0f - (0.645988822f * fSlow10)), fSlow11))));
+		float fSlow148 = ftbl0synth_russian_bellSIG0[(iSlow15 + 19)];
+		float fSlow149 = std::pow(0.00100000005f, (fConst12 / (fSlow9 * std::pow((1.0f - (0.763369977f * fSlow10)), fSlow11))));
 		float fSlow150 = (fConst46 * (0.0f - (2.0f * fSlow149)));
 		float fSlow151 = synth_russian_bell_faustpower2_f(fSlow149);
-		float fSlow152 = ftbl0synth_russian_bellSIG0[(iSlow15 + 22)];
-		float fSlow153 = std::pow(0.00100000005f, (fConst12 / (fSlow9 * std::pow((1.0f - (0.646177828f * fSlow10)), fSlow11))));
+		float fSlow152 = ftbl0synth_russian_bellSIG0[(iSlow15 + 34)];
+		float fSlow153 = std::pow(0.00100000005f, (fConst12 / (fSlow9 * std::pow((1.0f - (0.765781283f * fSlow10)), fSlow11))));
 		float fSlow154 = (fConst47 * (0.0f - (2.0f * fSlow153)));
 		float fSlow155 = synth_russian_bell_faustpower2_f(fSlow153);
-		float fSlow156 = ftbl0synth_russian_bellSIG0[(iSlow15 + 23)];
-		float fSlow157 = std::pow(0.00100000005f, (fConst12 / (fSlow9 * std::pow((1.0f - (0.652247667f * fSlow10)), fSlow11))));
+		float fSlow156 = ftbl0synth_russian_bellSIG0[(iSlow15 + 35)];
+		float fSlow157 = std::pow(0.00100000005f, (fConst12 / (fSlow9 * std::pow((1.0f - (0.78074789f * fSlow10)), fSlow11))));
 		float fSlow158 = (fConst48 * (0.0f - (2.0f * fSlow157)));
 		float fSlow159 = synth_russian_bell_faustpower2_f(fSlow157);
-		float fSlow160 = ftbl0synth_russian_bellSIG0[(iSlow15 + 24)];
-		float fSlow161 = std::pow(0.00100000005f, (fConst12 / (fSlow9 * std::pow((1.0f - (0.652337611f * fSlow10)), fSlow11))));
+		float fSlow160 = ftbl0synth_russian_bellSIG0[(iSlow15 + 36)];
+		float fSlow161 = std::pow(0.00100000005f, (fConst12 / (fSlow9 * std::pow((1.0f - (0.81981498f * fSlow10)), fSlow11))));
 		float fSlow162 = (fConst49 * (0.0f - (2.0f * fSlow161)));
 		float fSlow163 = synth_russian_bell_faustpower2_f(fSlow161);
-		float fSlow164 = ftbl0synth_russian_bellSIG0[(iSlow15 + 25)];
-		float fSlow165 = std::pow(0.00100000005f, (fConst12 / (fSlow9 * std::pow((1.0f - (0.656802177f * fSlow10)), fSlow11))));
+		float fSlow164 = ftbl0synth_russian_bellSIG0[(iSlow15 + 37)];
+		float fSlow165 = std::pow(0.00100000005f, (fConst12 / (fSlow9 * std::pow((1.0f - (0.880259097f * fSlow10)), fSlow11))));
 		float fSlow166 = (fConst50 * (0.0f - (2.0f * fSlow165)));
 		float fSlow167 = synth_russian_bell_faustpower2_f(fSlow165);
-		float fSlow168 = ftbl0synth_russian_bellSIG0[(iSlow15 + 26)];
-		float fSlow169 = std::pow(0.00100000005f, (fConst12 / (fSlow9 * std::pow((1.0f - (0.657332599f * fSlow10)), fSlow11))));
+		float fSlow168 = ftbl0synth_russian_bellSIG0[(iSlow15 + 38)];
+		float fSlow169 = std::pow(0.00100000005f, (fConst12 / (fSlow9 * std::pow((1.0f - (0.881299913f * fSlow10)), fSlow11))));
 		float fSlow170 = (fConst51 * (0.0f - (2.0f * fSlow169)));
 		float fSlow171 = synth_russian_bell_faustpower2_f(fSlow169);
-		float fSlow172 = ftbl0synth_russian_bellSIG0[(iSlow15 + 27)];
-		float fSlow173 = std::pow(0.00100000005f, (fConst12 / (fSlow9 * std::pow((1.0f - (0.763369977f * fSlow10)), fSlow11))));
+		float fSlow172 = ftbl0synth_russian_bellSIG0[(iSlow15 + 39)];
+		float fSlow173 = std::pow(0.00100000005f, (fConst12 / (fSlow9 * std::pow((1.0f - (0.887153327f * fSlow10)), fSlow11))));
 		float fSlow174 = (fConst52 * (0.0f - (2.0f * fSlow173)));
 		float fSlow175 = synth_russian_bell_faustpower2_f(fSlow173);
-		float fSlow176 = ftbl0synth_russian_bellSIG0[(iSlow15 + 34)];
-		float fSlow177 = std::pow(0.00100000005f, (fConst12 / (fSlow9 * std::pow((1.0f - (0.765781283f * fSlow10)), fSlow11))));
+		float fSlow176 = ftbl0synth_russian_bellSIG0[(iSlow15 + 40)];
+		float fSlow177 = std::pow(0.00100000005f, (fConst12 / (fSlow9 * std::pow((1.0f - (0.901133239f * fSlow10)), fSlow11))));
 		float fSlow178 = (fConst53 * (0.0f - (2.0f * fSlow177)));
 		float fSlow179 = synth_russian_bell_faustpower2_f(fSlow177);
-		float fSlow180 = ftbl0synth_russian_bellSIG0[(iSlow15 + 35)];
-		float fSlow181 = std::pow(0.00100000005f, (fConst12 / (fSlow9 * std::pow((1.0f - (0.78074789f * fSlow10)), fSlow11))));
+		float fSlow180 = ftbl0synth_russian_bellSIG0[(iSlow15 + 41)];
+		float fSlow181 = std::pow(0.00100000005f, (fConst12 / (fSlow9 * std::pow((1.0f - (0.902515411f * fSlow10)), fSlow11))));
 		float fSlow182 = (fConst54 * (0.0f - (2.0f * fSlow181)));
 		float fSlow183 = synth_russian_bell_faustpower2_f(fSlow181);
-		float fSlow184 = ftbl0synth_russian_bellSIG0[(iSlow15 + 36)];
-		float fSlow185 = std::pow(0.00100000005f, (fConst12 / (fSlow9 * std::pow((1.0f - (0.81981498f * fSlow10)), fSlow11))));
+		float fSlow184 = ftbl0synth_russian_bellSIG0[(iSlow15 + 42)];
+		float fSlow185 = std::pow(0.00100000005f, (fConst12 / (fSlow9 * std::pow((1.0f - (0.904696882f * fSlow10)), fSlow11))));
 		float fSlow186 = (fConst55 * (0.0f - (2.0f * fSlow185)));
 		float fSlow187 = synth_russian_bell_faustpower2_f(fSlow185);
-		float fSlow188 = ftbl0synth_russian_bellSIG0[(iSlow15 + 37)];
-		float fSlow189 = std::pow(0.00100000005f, (fConst12 / (fSlow9 * std::pow((1.0f - (0.880259097f * fSlow10)), fSlow11))));
+		float fSlow188 = ftbl0synth_russian_bellSIG0[(iSlow15 + 43)];
+		float fSlow189 = std::pow(0.00100000005f, (fConst12 / (fSlow9 * std::pow((1.0f - (0.904880047f * fSlow10)), fSlow11))));
 		float fSlow190 = (fConst56 * (0.0f - (2.0f * fSlow189)));
 		float fSlow191 = synth_russian_bell_faustpower2_f(fSlow189);
-		float fSlow192 = ftbl0synth_russian_bellSIG0[(iSlow15 + 38)];
-		float fSlow193 = std::pow(0.00100000005f, (fConst12 / (fSlow9 * std::pow((1.0f - (0.881299913f * fSlow10)), fSlow11))));
+		float fSlow192 = ftbl0synth_russian_bellSIG0[(iSlow15 + 44)];
+		float fSlow193 = std::pow(0.00100000005f, (fConst12 / (fSlow9 * std::pow((1.0f - (0.922723353f * fSlow10)), fSlow11))));
 		float fSlow194 = (fConst57 * (0.0f - (2.0f * fSlow193)));
 		float fSlow195 = synth_russian_bell_faustpower2_f(fSlow193);
-		float fSlow196 = ftbl0synth_russian_bellSIG0[(iSlow15 + 39)];
+		float fSlow196 = ftbl0synth_russian_bellSIG0[(iSlow15 + 45)];
 		float fSlow197 = std::pow(0.00100000005f, (fConst12 / (fSlow9 * std::pow((1.0f - (0.929359436f * fSlow10)), fSlow11))));
 		float fSlow198 = (fConst58 * (0.0f - (2.0f * fSlow197)));
 		float fSlow199 = synth_russian_bell_faustpower2_f(fSlow197);
@@ -1332,7 +1276,6 @@ class synth_russian_bell : public synth_russian_bell_dsp {
 		float fSlow210 = (fConst61 * (0.0f - (2.0f * fSlow209)));
 		float fSlow211 = synth_russian_bell_faustpower2_f(fSlow209);
 		float fSlow212 = ftbl0synth_russian_bellSIG0[(iSlow15 + 49)];
-		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int i = 0; (i < count); i = (i + 1)) {
 			iRec3[0] = ((1103515245 * iRec3[1]) + 12345);
 			fRec2[0] = ((4.65661287e-10f * float(iRec3[0])) - (fConst4 * ((fConst7 * fRec2[2]) + (fConst8 * fRec2[1]))));
@@ -1391,7 +1334,7 @@ class synth_russian_bell : public synth_russian_bell_dsp {
 			fRec51[0] = (fTemp1 - ((fSlow202 * fRec51[1]) + (fSlow203 * fRec51[2])));
 			fRec52[0] = (fTemp1 - ((fSlow206 * fRec52[1]) + (fSlow207 * fRec52[2])));
 			fRec53[0] = (fTemp1 - ((fSlow210 * fRec53[1]) + (fSlow211 * fRec53[2])));
-			output0[i] = FAUSTFLOAT((0.0199999996f * ((((fRec0[0] - fRec0[2]) * fSlow16) + (((fRec5[0] - fRec5[2]) * fSlow20) + (((fRec6[0] - fRec6[2]) * fSlow24) + (((fRec7[0] - fRec7[2]) * fSlow28) + (((fRec8[0] - fRec8[2]) * fSlow32) + (((fRec9[0] - fRec9[2]) * fSlow36) + (((fRec10[0] - fRec10[2]) * fSlow40) + (((fRec11[0] - fRec11[2]) * fSlow44) + (((fRec12[0] - fRec12[2]) * fSlow48) + (((fRec13[0] - fRec13[2]) * fSlow52) + (((fRec14[0] - fRec14[2]) * fSlow56) + (((fRec15[0] - fRec15[2]) * fSlow60) + (((fRec16[0] - fRec16[2]) * fSlow64) + (((fRec17[0] - fRec17[2]) * fSlow68) + (((fRec18[0] - fRec18[2]) * fSlow72) + (((fRec19[0] - fRec19[2]) * fSlow76) + (((fRec20[0] - fRec20[2]) * fSlow80) + (((fRec21[0] - fRec21[2]) * fSlow84) + (((fRec22[0] - fRec22[2]) * fSlow88) + (((fRec23[0] - fRec23[2]) * fSlow92) + (((fRec24[0] - fRec24[2]) * fSlow96) + (((fRec25[0] - fRec25[2]) * fSlow100) + (((fRec26[0] - fRec26[2]) * fSlow104) + (((fRec27[0] - fRec27[2]) * fSlow108) + (((fRec28[0] - fRec28[2]) * fSlow112) + (((fRec29[0] - fRec29[2]) * fSlow116) + (((fRec30[0] - fRec30[2]) * fSlow120) + (((fRec31[0] - fRec31[2]) * fSlow124) + (((fRec32[0] - fRec32[2]) * fSlow128) + (((fRec33[0] - fRec33[2]) * fSlow132) + (((fRec34[0] - fRec34[2]) * fSlow136) + (((fRec35[0] - fRec35[2]) * fSlow140) + (((fRec36[0] - fRec36[2]) * fSlow144) + (((fRec37[0] - fRec37[2]) * fSlow148) + ((((((((((((((((fRec38[0] - fRec38[2]) * fSlow152) + ((fRec39[0] - fRec39[2]) * fSlow156)) + ((fRec40[0] - fRec40[2]) * fSlow160)) + ((fRec41[0] - fRec41[2]) * fSlow164)) + ((fRec42[0] - fRec42[2]) * fSlow168)) + ((fRec43[0] - fRec43[2]) * fSlow172)) + ((fRec44[0] - fRec44[2]) * fSlow176)) + ((fRec45[0] - fRec45[2]) * fSlow180)) + ((fRec46[0] - fRec46[2]) * fSlow184)) + ((fRec47[0] - fRec47[2]) * fSlow188)) + ((fRec48[0] - fRec48[2]) * fSlow192)) + ((fRec49[0] - fRec49[2]) * fSlow196)) + ((fRec50[0] - fRec50[2]) * fSlow200)) + ((fRec51[0] - fRec51[2]) * fSlow204)) + ((fRec52[0] - fRec52[2]) * fSlow208)))))))))))))))))))))))))))))))))))) + ((fRec53[0] - fRec53[2]) * fSlow212))));
+			output0[i] = FAUSTFLOAT((0.0199999996f * ((((fRec0[0] - fRec0[2]) * fSlow16) + (((fRec5[0] - fRec5[2]) * fSlow20) + (((fRec6[0] - fRec6[2]) * fSlow24) + (((fRec7[0] - fRec7[2]) * fSlow28) + (((fRec8[0] - fRec8[2]) * fSlow32) + (((fRec9[0] - fRec9[2]) * fSlow36) + (((fRec10[0] - fRec10[2]) * fSlow40) + (((fRec11[0] - fRec11[2]) * fSlow44) + (((fRec12[0] - fRec12[2]) * fSlow48) + (((fRec13[0] - fRec13[2]) * fSlow52) + (((fRec14[0] - fRec14[2]) * fSlow56) + (((fRec15[0] - fRec15[2]) * fSlow60) + (((fRec16[0] - fRec16[2]) * fSlow64) + (((fRec17[0] - fRec17[2]) * fSlow68) + (((fRec18[0] - fRec18[2]) * fSlow72) + (((fRec19[0] - fRec19[2]) * fSlow76) + (((fRec20[0] - fRec20[2]) * fSlow80) + ((((((((fRec21[0] - fRec21[2]) * fSlow84) + (((fRec22[0] - fRec22[2]) * fSlow88) + (((fRec23[0] - fRec23[2]) * fSlow92) + (((fRec24[0] - fRec24[2]) * fSlow96) + (((fRec25[0] - fRec25[2]) * fSlow100) + (((fRec26[0] - fRec26[2]) * fSlow104) + ((((((((((((((((((((((fRec27[0] - fRec27[2]) * fSlow108) + ((fRec28[0] - fRec28[2]) * fSlow112)) + ((fRec29[0] - fRec29[2]) * fSlow116)) + ((fRec30[0] - fRec30[2]) * fSlow120)) + ((fRec31[0] - fRec31[2]) * fSlow124)) + ((fRec32[0] - fRec32[2]) * fSlow128)) + ((fRec33[0] - fRec33[2]) * fSlow132)) + ((fRec34[0] - fRec34[2]) * fSlow136)) + ((fRec35[0] - fRec35[2]) * fSlow140)) + ((fRec36[0] - fRec36[2]) * fSlow144)) + ((fRec37[0] - fRec37[2]) * fSlow148)) + ((fRec38[0] - fRec38[2]) * fSlow152)) + ((fRec39[0] - fRec39[2]) * fSlow156)) + ((fRec40[0] - fRec40[2]) * fSlow160)) + ((fRec41[0] - fRec41[2]) * fSlow164)) + ((fRec42[0] - fRec42[2]) * fSlow168)) + ((fRec43[0] - fRec43[2]) * fSlow172)) + ((fRec44[0] - fRec44[2]) * fSlow176)) + ((fRec45[0] - fRec45[2]) * fSlow180)) + ((fRec46[0] - fRec46[2]) * fSlow184)) + ((fRec47[0] - fRec47[2]) * fSlow188)))))))) + ((fRec48[0] - fRec48[2]) * fSlow192)) + ((fRec49[0] - fRec49[2]) * fSlow196)) + ((fRec50[0] - fRec50[2]) * fSlow200)) + ((fRec51[0] - fRec51[2]) * fSlow204)) + ((fRec52[0] - fRec52[2]) * fSlow208))))))))))))))))))) + ((fRec53[0] - fRec53[2]) * fSlow212))));
 			iRec3[1] = iRec3[0];
 			fRec2[2] = fRec2[1];
 			fRec2[1] = fRec2[0];

@@ -585,7 +585,6 @@ class lfo_saw_pos : public lfo_saw_pos_dsp {
 	}
 	
 	virtual void instanceClear() {
-		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l0 = 0; (l0 < 2); l0 = (l0 + 1)) {
 			fRec0[l0] = 0.0f;
 		}
@@ -619,7 +618,6 @@ class lfo_saw_pos : public lfo_saw_pos_dsp {
 		FAUSTFLOAT* input0 = inputs[0];
 		FAUSTFLOAT* output0 = outputs[0];
 		float fSlow0 = float((1 - (2 * (float(fCheckbox0) > 0.5f))));
-		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int i = 0; (i < count); i = (i + 1)) {
 			float fTemp0 = (fRec0[1] + (fConst0 * float(input0[i])));
 			fRec0[0] = (fTemp0 - std::floor(fTemp0));
