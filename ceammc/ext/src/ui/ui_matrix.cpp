@@ -26,6 +26,11 @@ static t_symbol* SYM_OUTPUT_ALL_CELLS;
 
 static const int CELL_MARGIN = 1;
 
+namespace {
+    auto random_seed = std::chrono::system_clock::now().time_since_epoch().count();
+    std::default_random_engine random_gen(random_seed);
+}
+
 UIMatrix::UIMatrix()
     : matrix_()
     , update_all_cells_(false)
@@ -735,13 +740,11 @@ void UIMatrix::m_reset()
 
 void UIMatrix::m_random()
 {
-    auto seed = std::chrono::system_clock::now().time_since_epoch().count();
-    std::default_random_engine gen(seed);
     std::uniform_int_distribution<int> dist(0, 1);
 
     for (int r = 0; r < prop_rows_; r++) {
         for (int c = 0; c < prop_cols_; c++)
-            setCell(r, c, dist(gen));
+            setCell(r, c, dist(random_gen));
     }
 
     // better to redraw all then allocate memory to update list
