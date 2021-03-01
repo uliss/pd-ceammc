@@ -59,6 +59,13 @@ set(AUBIO_SRC
     aubio/src/utils/parameter.c
     aubio/src/utils/scale.c
 #    aubio/src/utils/windll.c
+    aubio/src/effects/pitchshift.h
+    aubio/src/effects/pitchshift_dummy.c
+    aubio/src/effects/pitchshift_rubberband.c
+    aubio/src/effects/rubberband_utils.c
+    aubio/src/effects/timestretch.h
+    aubio/src/effects/timestretch_dummy.c
+    aubio/src/effects/timestretch_rubberband.c
 )
 
 add_library(aubio STATIC ${AUBIO_SRC})
