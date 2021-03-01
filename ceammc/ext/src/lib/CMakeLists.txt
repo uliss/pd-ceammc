@@ -262,13 +262,12 @@ if(ENABLE_TESTS)
     target_include_directories(ext_list
         PRIVATE
             "${CMAKE_CURRENT_SOURCE_DIR}"
-            "${PROJECT_BINARY_DIR}" # for config.h
             "${PROJECT_SOURCE_DIR}/src")
     target_link_libraries(ext_list PRIVATE ext_load puredata-core)
 
-    add_executable(ext_methods ext_methods.cpp ../mod_init.cpp)
-    target_include_directories(ext_methods PRIVATE ${CMAKE_CURRENT_SOURCE_DIR})
-    target_link_libraries(ext_methods PRIVATE ${CEAMMC_EXT_LINK_LIBRARIES} ext_load puredata-core)
+    add_executable(ext_methods ext_methods.cpp)
+    target_include_directories(ext_methods PRIVATE ${CMAKE_CURRENT_SOURCE_DIR} ${PROJECT_SOURCE_DIR}/src)
+    target_link_libraries(ext_methods PRIVATE ext_load puredata-core)
 
     add_executable(ext_props ext_props.cpp ../mod_init.cpp)
     target_include_directories(ext_props PRIVATE ${CMAKE_CURRENT_SOURCE_DIR})

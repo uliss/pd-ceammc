@@ -95,7 +95,7 @@ add_custom_target(ceammc_touch_version
 )
 
 pd_add_external(NAME ceammc
-    FILES ceammc_lib_external.cpp mod_init.cpp
+    FILES ceammc_lib_external.cpp ceammc_lib_listmethods.cpp mod_init.cpp
     INTERNAL True
     LIBRARY ceammc
     LINK ${CEAMMC_EXT_LINK_LIBRARIES})

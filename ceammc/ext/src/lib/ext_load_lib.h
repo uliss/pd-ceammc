@@ -14,8 +14,13 @@
 #ifndef EXT_LOAD_LIB_H
 #define EXT_LOAD_LIB_H
 
+#include <cstdlib>
+
 using fn_type = void (*)();
 extern fn_type list_objects;
+
+using list_methods_fn = bool (*)(int, char*[]);
+extern list_methods_fn list_methods;
 
 bool load_ceammc();
 

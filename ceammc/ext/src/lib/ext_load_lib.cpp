@@ -17,8 +17,10 @@
 
 constexpr const char* setup_sym = "ceammc_setup";
 constexpr const char* sym_list_all = "ceammc_list_all";
+constexpr const char* sym_list_methods = "ceammc_list_methods";
 
 fn_type list_objects = nullptr;
+list_methods_fn list_methods = nullptr;
 
 #ifdef _WIN32
 #include <libgen.h>
@@ -77,10 +79,15 @@ bool load_ceammc()
 
     (*fn)();
 
-    const char* sym_list_all = "ceammc_list_all";
     list_objects = (fn_type)dlsym(dlobj, sym_list_all);
     if (!list_objects) {
         fprintf(stderr, "load_object: Symbol \"%s\" not found\n", sym_list_all);
+        return false;
+    }
+
+    list_methods = (list_methods_fn)dlsym(dlobj, sym_list_methods);
+    if (!list_methods) {
+        fprintf(stderr, "load_object: Symbol \"%s\" not found\n", sym_list_methods);
         return false;
     }
 
