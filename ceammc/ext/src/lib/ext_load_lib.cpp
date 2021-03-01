@@ -28,23 +28,26 @@ list_props_fn list_props = nullptr;
 
 #ifdef _WIN32
 #include <libgen.h>
+#include <windows.h>
+
+constexpr size_t MAXPDSTRING = 1024;
 
 bool load_ceammc()
 {
-    char dir[MAXPDSTRING] = CEAMMC_LIB;
+    char dir[MAXPDSTRING] = CEAMMC_DLL;
     if (!SetDllDirectory(dirname(dir)))
-        error("could not set '%s' as DllDirectory(), '%s' might not load.",
+        fprintf(stderr, "could not set '%s' as DllDirectory(), '%s' might not load.\n",
             dirname, basename);
     /* now load the DLL for the external */
-    char base[MAXPDSTRING] = CEAMMC_LIB;
+    char base[MAXPDSTRING] = CEAMMC_DLL;
     auto ntdll = LoadLibrary(basename(base));
     if (!ntdll) {
         DWORD rc = GetLastError();
         LPSTR messageBuffer = NULL;
-        size_t size = FormatMessageA(FORMAT_MESSAGE_ALLOCATE_BUFFER | FORMAT_MESSAGE_FROM_SYSTEM | FORMAT_MESSAGE_IGNORE_INSERTS,
-            NULL, rc, MAKELANGID(LANG_NEUTRAL, SUBLANG_DEFAULT), (LPSTR)&messageBuffer, 0, NULL);
+        size_t size = FormatMessage(FORMAT_MESSAGE_ALLOCATE_BUFFER | FORMAT_MESSAGE_FROM_SYSTEM | FORMAT_MESSAGE_IGNORE_INSERTS,
+            NULL, rc, MAKELANGID(LANG_ENGLISH, SUBLANG_DEFAULT), (LPSTR)&messageBuffer, 0, NULL);
 
-        error("%s: couldn't load - %s", CEAMMC_LIB, messageBuffer);
+        fprintf(stderr, "%s: couldn't load - %s\n", CEAMMC_DLL, messageBuffer);
         //Free the buffer.
         LocalFree(messageBuffer);
         return false;
@@ -54,8 +57,9 @@ bool load_ceammc()
     if (!fn)
         return false;
 
+    fprintf(stderr, "%s\n", __FUNCTION__);
     (*fn)();
-
+fprintf(stderr, "%s 2\n", __FUNCTION__);
     list_objects = (fn_type)GetProcAddress(ntdll, sym_list_all);
     if (!list_objects) {
         fprintf(stderr, "load_object: Symbol \"%s\" not found\n", sym_list_all);
