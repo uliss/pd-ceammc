@@ -40,6 +40,13 @@
 #include <cstdlib>
 #include <cstring>
 
+enum RunEditorRc {
+    RUN_OK = 0,
+    RUN_FILE_NOT_FOUND = 1000,
+    RUN_NO_ASSOC,
+    RUN_ERR_UNKNOWN
+};
+
 static int runEditorCommand(const std::string& path)
 {
     char msg[MAXPDSTRING];
@@ -48,7 +55,20 @@ static int runEditorCommand(const std::string& path)
     char temp[MAXPDSTRING];
     sys_bashfilename(path.c_str(), temp);
     sprintf(msg, "\"%s\"", temp);
-    WinExec(msg, SW_HIDE);
+    auto rc = reinterpret_cast<uint64_t>(ShellExecute(NULL, "edit", msg, NULL, NULL, SW_SHOWNORMAL));
+    if (rc > 32)
+        return RUN_OK;
+
+    switch(rc) {
+        case ERROR_FILE_NOT_FOUND:
+        case ERROR_PATH_NOT_FOUND:
+            return RUN_FILE_NOT_FOUND;
+        case SE_ERR_NOASSOC:
+            return RUN_NO_ASSOC;
+        default:
+            return RUN_ERR_UNKNOWN;
+    }
+
     return 0;
 #elif __APPLE__
     snprintf(msg, sizeof(msg) - 1, "open -t %s", path.c_str());
@@ -316,9 +336,22 @@ void LangFaustTilde::m_open(t_symbol*, const AtomListView&)
 
     if (run_editor_.valid()) {
         try {
-            auto rc = run_editor_.wait_for(std::chrono::seconds(0));
-            if (rc != std::future_status::ready) {
+            auto st = run_editor_.wait_for(std::chrono::seconds(0));
+            if (st != std::future_status::ready) {
                 OBJ_ERR << "exec error: " << __FUNCTION__;
+            } else {
+                auto rc = run_editor_.get();
+                switch(rc) {
+                case RUN_FILE_NOT_FOUND:
+                    OBJ_DBG << "file not found error";
+                break;
+                case RUN_NO_ASSOC:
+                    OBJ_DBG << "no editor associated with file";
+                break;
+                default:
+                    OBJ_DBG << "result code: " << rc;
+                break;
+                }
             }
         } catch (std::exception& e) {
             OBJ_ERR << e.what();
