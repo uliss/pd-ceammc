@@ -12,9 +12,6 @@
  * this file belongs to.
  *****************************************************************************/
 #include "ext_load_lib.h"
-#include "m_pd.h"
-
-#include <cstdlib>
 
 extern "C" void pd_init();
 

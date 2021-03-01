@@ -262,25 +262,19 @@ if(ENABLE_TESTS)
             "STK_RAWWAVES=\"${PROJECT_SOURCE_DIR}/ceammc/extra/stk/stk/rawwaves\"")
 
     add_executable(ext_list ext_list.cpp)
-    target_include_directories(ext_list
-        PRIVATE
-            "${CMAKE_CURRENT_SOURCE_DIR}"
-            "${PROJECT_SOURCE_DIR}/src")
+    target_include_directories(ext_list PRIVATE ${CMAKE_CURRENT_SOURCE_DIR})
     target_link_libraries(ext_list PRIVATE ext_load puredata-core)
 
     add_executable(ext_methods ext_methods.cpp)
-    target_include_directories(ext_methods PRIVATE ${CMAKE_CURRENT_SOURCE_DIR} ${PROJECT_SOURCE_DIR}/src)
+    target_include_directories(ext_methods PRIVATE ${CMAKE_CURRENT_SOURCE_DIR})
     target_link_libraries(ext_methods PRIVATE ext_load puredata-core)
 
-    add_executable(ext_props ext_props.cpp ../mod_init.cpp)
+    add_executable(ext_props ext_props.cpp)
     target_include_directories(ext_props PRIVATE ${CMAKE_CURRENT_SOURCE_DIR})
-    target_link_libraries(ext_props PRIVATE ${CEAMMC_EXT_LINK_LIBRARIES} ext_load puredata-core)
+    target_link_libraries(ext_props PRIVATE ext_load puredata-core)
 
     add_executable(ext_info ext_info.cpp)
-    target_include_directories(ext_info
-        PRIVATE
-            ${CMAKE_CURRENT_SOURCE_DIR}
-            ${PROJECT_SOURCE_DIR}/src)
+    target_include_directories(ext_info PRIVATE ${CMAKE_CURRENT_SOURCE_DIR})
     target_link_libraries(ext_info PRIVATE ext_load puredata-core)
 
     if(WIN32)

@@ -26,6 +26,9 @@ extern list_methods_fn list_methods;
 using dump_json_fn = bool (*)(int, char*[]);
 extern dump_json_fn dump_json;
 
+using list_props_fn = bool (*)(int, char*[]);
+extern list_props_fn list_props;
+
 bool load_ceammc();
 
 #endif // EXT_LOAD_LIB_H

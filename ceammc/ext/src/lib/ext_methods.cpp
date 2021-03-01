@@ -11,8 +11,6 @@
  * contact the author of this file, or the owner of the project in which
  * this file belongs to.
  *****************************************************************************/
-#include "m_pd.h"
-
 #include "ext_load_lib.h"
 
 extern "C" void pd_init();
