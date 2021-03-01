@@ -276,12 +276,12 @@ if(ENABLE_TESTS)
     target_include_directories(ext_props PRIVATE ${CMAKE_CURRENT_SOURCE_DIR})
     target_link_libraries(ext_props PRIVATE ${CEAMMC_EXT_LINK_LIBRARIES} ext_load puredata-core)
 
-    add_executable(ext_info ext_info.cpp ../mod_init.cpp)
+    add_executable(ext_info ext_info.cpp)
     target_include_directories(ext_info
         PRIVATE
             ${CMAKE_CURRENT_SOURCE_DIR}
-            "$<TARGET_PROPERTY:fmt,INCLUDE_DIRECTORIES>")
-    target_link_libraries(ext_info PRIVATE ${CEAMMC_EXT_LINK_LIBRARIES} ext_load puredata-core)
+            ${PROJECT_SOURCE_DIR}/src)
+    target_link_libraries(ext_info PRIVATE ext_load puredata-core)
 
     if(WIN32)
         target_link_libraries(ext_info PRIVATE soxr)
