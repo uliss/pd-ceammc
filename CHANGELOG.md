@@ -1,10 +1,15 @@
 # CEAMMC Pd distribution changelog
 
+## [2021.03]
+### Added:
+- migration to Pd version 0.51.4
+- **CEAMMC** external library v0.9.2 - [ceammc/CHANGELOG.md](ceammc/CHANGELOG.md)
+
 ## [2020.12]
 ### Added:
 - xlet tooltips support added for ceammc objects
 - coremidi driver added
-- **CEAMMC** external library v0.9,1 - [ceammc/CHANGELOG.md](ceammc/CHANGELOG.md)
+- **CEAMMC** external library v0.9.1 - [ceammc/CHANGELOG.md](ceammc/CHANGELOG.md)
 
 ## [2020.02]
 ### Added:

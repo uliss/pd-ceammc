@@ -17,6 +17,7 @@
   - fx.infrev~ infinite reverb added (port of airwindows Infinity VST OpenSource plugin)
   - fx.fbank5x1~ filterbank added (5 band, one octave) 
   - loadexpr added (supports functions and datatypes)
+  - lang.faust~ external added 
   - midi.cc added (enhanced version of ctlin)
   - midi.clock added
   - midi.kbd added (computer key to midi note converter)
