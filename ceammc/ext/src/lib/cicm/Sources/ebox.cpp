@@ -791,11 +791,11 @@ static void ebox_tk_ids(t_ebox* x, t_canvas* canvas)
 {
     char buffer[MAXPDSTRING];
     x->b_obj.o_canvas = canvas;
-    sprintf(buffer, ".x%" PRIxPTR ".c", reinterpret_cast<uintptr_t>(canvas));
+    sprintf(buffer, ".x%lx.c", canvas);
     x->b_canvas_id = gensym(buffer);
-    sprintf(buffer, "%s.ecanvas%" PRIxPTR, x->b_canvas_id->s_name, reinterpret_cast<uintptr_t>(x));
+    sprintf(buffer, "%s.ecanvas%lx", x->b_canvas_id->s_name, x);
     x->b_drawing_id = gensym(buffer);
-    sprintf(buffer, "all%" PRIxPTR, reinterpret_cast<uintptr_t>(x));
+    sprintf(buffer, "all%lx", x);
     x->b_all_id = gensym(buffer);
 }
 
