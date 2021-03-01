@@ -50,7 +50,7 @@ TEST_CASE("misc.fluid~", "[externals]")
 
     SECTION("load")
     {
-        TestExtFluid t("fluid~", LA("@sf", SF_FILE));
+        TestExtFluid t("fluid~", LA("@sf", "\"" SF_FILE "\""));
         REQUIRE_PROPERTY(t, @sf, SF_FILE);
     }
 }
