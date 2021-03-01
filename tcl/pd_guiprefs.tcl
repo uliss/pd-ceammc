@@ -23,38 +23,41 @@ set ::pd_guiprefs::domain ""
 set ::pd_guiprefs::configdir ""
 set ::pd_guiprefs::recentfiles_is_array false
 
+# ceammc
+set ::pd_guiprefs::suffix ""
+
 #################################################################
 # preferences storage locations
 #
 # legacy
 #   registry
-#    HKEY_CURRENT_USER\Software\Pd-ceammc <key>:<value>
-#    domain: HKEY_CURRENT_USER\Software\Pd-ceammc
+#    HKEY_CURRENT_USER\Software\Pd-ceammc${::pd_guiprefs::suffix} <key>:<value>
+#    domain: HKEY_CURRENT_USER\Software\Pd-ceammc${::pd_guiprefs::suffix}
 #   plist
-#    com.ceammc.pd <key> <value>
-#    domain: com.ceammc.pd
+#    com.ceammc.pd${::pd_guiprefs::suffix} <key> <value>
+#    domain: com.ceammc${::pd_guiprefs::suffix}.pd
 #   linux:
-#    ~/.config/pd-ceammc/<key>.conf
-#    domain: ~/.config/pd-ceammc/
+#    ~/.config/pd/<key>.conf
+#    domain: ~/.config/pd/
 #
 # new
 #   plist
-#    com.ceammc.pd.pd-gui <key> <value>
-#    domain: com.ceammc.pd.pd-gui
+#    com.ceammc.pd${::pd_guiprefs::suffix}.pd-gui <key> <value>
+#    domain: com.ceammc.pd${::pd_guiprefs::suffix}.pd-gui
 #   registry
-#    HKEY_CURRENT_USER\Software\Pd-ceammc <key>:<value>
-#    domain: com.ceammc.pd.pd-gui
+#    HKEY_CURRENT_USER\Software\Pd-ceammc${::pd_guiprefs::suffix} <key>:<value>
+#    domain: com.ceammc.pd${::pd_guiprefs::suffix}.pd-gui
 #   file
-#    Linux: ~/.config/pd/com.ceammc.pd/<key>.conf
+#    Linux: ~/.config/pd/com.ceammc.pd${::pd_guiprefs::suffix}/<key>.conf
 #       - env(XDG_CONFIG_HOME)=~/.config/
 #       - env(PD_CONFIG_DIR)=~/.config/pd/
-#       - domain=com.ceammc.pd.pd-gui
-#    OSX  : ~/Library/Preferences/Pd/com.ceammc.pd/<key>.conf
+#       - domain=com.ceammc.pd${::pd_guiprefs::suffix}.pd-gui
+#    OSX  : ~/Library/Preferences/Pd/com.ceammc.pd${::pd_guiprefs::suffix}/<key>.conf
 #       - env(PD_CONFIG_DIR)=~/Library/Preferences/Pd/
-#       - domain=com.ceammc.pd.pd-gui
-#    W32  : %AppData%\Pd\.config\com.ceammc.pd\<key>.conf
+#       - domain=com.ceammc.pd${::pd_guiprefs::suffix}.pd-gui
+#    W32  : %AppData%\Pd\.config\com.ceammc.pd${::pd_guiprefs::suffix}\<key>.conf
 #       - env(PD_CONFIG_DIR)=%AppData%\Pd\.config
-#       - domain=com.ceammc.pd.pd-gui
+#       - domain=com.ceammc.pd${::pd_guiprefs::suffix}.pd-gui
 #
 #################################################################
 
@@ -65,7 +68,10 @@ set ::pd_guiprefs::recentfiles_is_array false
 # init preferences
 #
 proc ::pd_guiprefs::init {} {
-    set ::pd_guiprefs::domain "com.ceammc.pd.pd-gui"
+    # ceammc
+    if { $::PD_FLOATSIZE == 64 } { set ::pd_guiprefs::suffix "-double" }
+
+    set ::pd_guiprefs::domain "com.ceammc.pd${::pd_guiprefs::suffix}.pd-gui"
 
     switch -- $::platform {
         "Darwin" {
@@ -173,7 +179,7 @@ proc ::pd_guiprefs::init {} {
         }
         "registry" {
             # windows uses registry
-            set ::pd_guiprefs::registrypath "HKEY_CURRENT_USER\\Software\\Pd-ceammc"
+            set ::pd_guiprefs::registrypath "HKEY_CURRENT_USER\\Software\\Pd-ceammc${::pd_guiprefs::suffix}"
             set ::pd_guiprefs::recentfiles_key "RecentDocs"
 
             # ------------------------------------------------------------------------------

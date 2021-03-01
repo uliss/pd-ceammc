@@ -112,6 +112,8 @@ set PD_MAJOR_VERSION 0
 set PD_MINOR_VERSION 0
 set PD_BUGFIX_VERSION 0
 set PD_TEST_VERSION ""
+# ceammc
+set PD_FLOATSIZE 32
 set done_init 0
 
 # for testing which platform we are running on ("aqua", "win32", or "x11")
@@ -563,13 +565,14 @@ proc fit_font_into_metrics {} {
 
 # ------------------------------------------------------------------------------
 # procs called directly by pd
-
-proc pdtk_pd_startup {major minor bugfix test
+# ceammc: floatsize arg added
+proc pdtk_pd_startup {major minor bugfix test floatsize
                       audio_apis midi_apis sys_font sys_fontweight} {
     set ::PD_MAJOR_VERSION $major
     set ::PD_MINOR_VERSION $minor
     set ::PD_BUGFIX_VERSION $bugfix
     set ::PD_TEST_VERSION $test
+    set ::PD_FLOATSIZE $floatsize
     set oldtclversion 0
     set ::audio_apilist $audio_apis
     set ::midi_apilist $midi_apis
