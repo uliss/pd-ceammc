@@ -91,6 +91,9 @@ bool load_ceammc()
         return false;
     }
 
+    if (!getenv("RAWWAVES"))
+        setenv("RAWWAVES", STK_RAWWAVES, 1);
+
     return true;
 }
 #endif

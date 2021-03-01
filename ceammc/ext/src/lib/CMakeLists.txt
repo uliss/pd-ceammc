@@ -256,7 +256,10 @@ endif()
 # utilities used while developing
 if(ENABLE_TESTS)
     add_library(ext_load STATIC ext_load_lib.cpp)
-    target_compile_definitions(ext_load PRIVATE "CEAMMC_DLL=\"$<TARGET_FILE:ceammc>\"")
+    target_compile_definitions(ext_load
+        PRIVATE
+            "CEAMMC_DLL=\"$<TARGET_FILE:ceammc>\""
+            "STK_RAWWAVES=\"${PROJECT_SOURCE_DIR}/ceammc/extra/stk/stk/rawwaves\"")
 
     add_executable(ext_list ext_list.cpp)
     target_include_directories(ext_list

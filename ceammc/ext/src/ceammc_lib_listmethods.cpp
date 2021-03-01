@@ -22,6 +22,10 @@
 #include <string>
 #include <vector>
 
+#ifndef STK_RAWWAVES
+#define STK_RAWWAVES "stk/rawwaves"
+#endif
+
 using namespace ceammc;
 
 extern "C" CEAMMC_EXTERN bool ceammc_list_methods(int argc, char* argv[])
@@ -54,9 +58,10 @@ extern "C" CEAMMC_EXTERN bool ceammc_list_methods(int argc, char* argv[])
     }
 
     // stk rawwaves path
-    if (getenv("RAWWAVES") != nullptr) {
+    if (getenv("RAWWAVES") != nullptr)
         stk::Stk::setRawwavePath(getenv("RAWWAVES"));
-    }
+    else
+        stk::Stk::setRawwavePath(STK_RAWWAVES);
 
     pd::External ext(argv[0], args);
     if (!ext.object()) {
