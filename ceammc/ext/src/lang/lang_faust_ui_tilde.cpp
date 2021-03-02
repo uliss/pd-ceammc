@@ -138,7 +138,7 @@ void LangFaustUiTilde::createCustomUI()
 
 void setup_lang_faust_ui_tilde()
 {
-    ui::UIFactory<SoundExternalFactory, LangFaustUiTilde> obj("ui");
+    ui::UIFactory<SoundExternalFactory, LangFaustUiTilde> obj("ui.faust~");
     obj.useMouseEnter();
     obj.useMouseLeave();
     obj.useMouseMove();
