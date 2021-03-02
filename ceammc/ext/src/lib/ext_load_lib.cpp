@@ -20,11 +20,13 @@ constexpr const char* sym_dump_json = "ceammc_dump_json";
 constexpr const char* sym_list_all = "ceammc_list_externals";
 constexpr const char* sym_list_methods = "ceammc_list_methods";
 constexpr const char* sym_list_props = "ceammc_list_props";
+constexpr const char* sym_list_aliases = "ceammc_list_aliases";
 
 list_objects_fn list_objects = nullptr;
 list_methods_fn list_methods = nullptr;
 dump_json_fn dump_json = nullptr;
 list_props_fn list_props = nullptr;
+list_aliases_fn list_aliases = nullptr;
 
 #ifdef _WIN32
 #include <libgen.h>
@@ -108,6 +110,12 @@ bool load_ceammc()
     list_props = (list_props_fn)dlsym(dlobj, sym_list_props);
     if (!list_props) {
         fprintf(stderr, "load_object: Symbol \"%s\" not found\n", sym_list_props);
+        return false;
+    }
+
+    list_aliases = (list_aliases_fn)dlsym(dlobj, sym_list_aliases);
+    if (!list_aliases) {
+        fprintf(stderr, "load_object: Symbol \"%s\" not found\n", sym_list_aliases);
         return false;
     }
 

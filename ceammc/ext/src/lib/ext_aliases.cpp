@@ -1,5 +1,5 @@
 /*****************************************************************************
- * Copyright 2021 Serge Poltavsky. All rights reserved.
+ * Copyright 2020 Serge Poltavsky. All rights reserved.
  *
  * This file may be distributed under the terms of GNU Public License version
  * 3 (GPL v3) as defined by the Free Software Foundation (FSF). A copy of the
@@ -11,29 +11,22 @@
  * contact the author of this file, or the owner of the project in which
  * this file belongs to.
  *****************************************************************************/
-#ifndef EXT_LOAD_LIB_H
-#define EXT_LOAD_LIB_H
+#include "ext_load_lib.h"
 
-#include <cstdio>
-#include <cstdlib>
+#include <iostream>
+#include <string>
 
-using setup_fn = void (*)();
+extern "C" void pd_init();
 
-using list_objects_fn = void (*)(int);
-extern list_objects_fn list_objects;
+int main(int argc, char* argv[])
+{
+    pd_init();
 
-using list_methods_fn = bool (*)(int, char*[]);
-extern list_methods_fn list_methods;
+    if (!load_ceammc())
+        return EXIT_FAILURE;
 
-using dump_json_fn = bool (*)(int, char*[]);
-extern dump_json_fn dump_json;
+    if (list_aliases)
+        list_aliases();
 
-using list_props_fn = bool (*)(int, char*[]);
-extern list_props_fn list_props;
-
-using list_aliases_fn = void (*)();
-extern list_aliases_fn list_aliases;
-
-bool load_ceammc();
-
-#endif // EXT_LOAD_LIB_H
+    return EXIT_SUCCESS;
+}

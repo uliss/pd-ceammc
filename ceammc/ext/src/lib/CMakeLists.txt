@@ -261,6 +261,10 @@ if(ENABLE_TESTS)
             "CEAMMC_DLL=\"$<TARGET_FILE:ceammc>\""
             "STK_RAWWAVES=\"${PROJECT_SOURCE_DIR}/ceammc/extra/stk/stk/rawwaves\"")
 
+    add_executable(ext_aliases ext_aliases.cpp)
+    target_include_directories(ext_aliases PRIVATE ${CMAKE_CURRENT_SOURCE_DIR})
+    target_link_libraries(ext_aliases PRIVATE ext_load puredata-core)
+
     add_executable(ext_list ext_list.cpp)
     target_include_directories(ext_list PRIVATE ${CMAKE_CURRENT_SOURCE_DIR})
     target_link_libraries(ext_list PRIVATE ext_load puredata-core)

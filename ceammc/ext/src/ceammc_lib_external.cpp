@@ -174,16 +174,36 @@ extern "C" CEAMMC_EXTERN void ceammc_list_externals(int vanilla)
     } else {
         auto& ceammc_set = ceammc_ext_list();
 
-        using Os = ceammc::ObjectInfoStorage;
-        // remove aliases
-        for (auto* c : Os::instance().baseSet()) {
-            if (Os::instance().hasInfo(c)) {
-                for (auto& alias : Os::instance().info(c).aliases)
-                    ceammc_set.erase(alias);
-            }
-        }
-
         std::copy(ceammc_set.begin(), ceammc_set.end(),
             std::ostream_iterator<std::string>(std::cout, "\n"));
     }
+}
+
+static void print_alias(t_class* c)
+{
+    using Os = ceammc::ObjectInfoStorage;
+
+    if (Os::instance().hasInfo(c)) {
+        auto& aliases = Os::instance().info(c).aliases;
+        if (aliases.empty())
+            return;
+
+        std::cout << class_getname(c);
+        for (auto& alias : aliases)
+            std::cout << ' ' << alias;
+
+        std::cout << std::endl;
+    }
+}
+
+extern "C" CEAMMC_EXTERN void ceammc_list_aliases()
+{
+    using namespace std;
+    using Os = ceammc::ObjectInfoStorage;
+
+    for (auto* c : Os::instance().baseSet())
+        print_alias(c);
+
+    for (auto* c : Os::instance().uiSet())
+        print_alias(c);
 }
