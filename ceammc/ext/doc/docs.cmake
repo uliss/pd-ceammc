@@ -475,7 +475,6 @@ set(DOC_FILES
     noise.henon_phase
     noise.henonf
     noise.ikeda
-    noise.jong
     noise.lfreq0~
     noise.lfreq~
     noise.logistic

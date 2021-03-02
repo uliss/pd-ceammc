@@ -1456,9 +1456,6 @@
     <entry name="noise.ikeda" descr="Part of a-chaos library" ref_view="object">
       <xi:include href="noise.ikeda.pddoc" parse="xml"/>
     </entry>
-    <entry name="noise.jong" descr="Part of a-chaos library" ref_view="object">
-      <xi:include href="noise.jong.pddoc" parse="xml"/>
-    </entry>
     <entry name="noise.lfreq0~" descr="sampled/held noise (piecewise constant)" ref_view="object">
       <xi:include href="noise.lfreq0~.pddoc" parse="xml"/>
     </entry>
