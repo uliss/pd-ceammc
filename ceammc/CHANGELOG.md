@@ -41,6 +41,7 @@
   - ui.k alias added for ui.knob
   - ui.vm~ alias added for ui.meter~ (vertical)
   - ui.vsliders alias added for vertical ui.sliders
+  - *ceammc/* prefix added to all global like objects: **ceammc/xfade~**, **ceammc/mix~** etc. 
 - mouse:
   - ui.meter~ change orientation by Ctl/Cmd+double-click in edit mode, like ui.radio and ui.slider
 - arguments:
