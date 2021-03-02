@@ -14,13 +14,11 @@
 
 #include "ceammc.h"
 #include "ceammc_config.h"
+#include "ceammc_object_info.h"
+#include "ceammc_pd.h"
 #include "mod_init.h"
 
 #include "m_pd.h"
-
-extern "C" {
-#include "m_imp.h"
-}
 
 #include <algorithm>
 #include <iostream>
@@ -159,16 +157,8 @@ extern "C" CEAMMC_EXTERN void ceammc_list_externals(int vanilla)
     if (vanilla) {
         std::set<std::string> all_ext;
 
-#ifdef PDINSTANCE
-        auto mlist = pd_objectmaker->c_methods[pd_this->pd_instanceno];
-#else
-        auto mlist = pd_objectmaker->c_methods;
-#endif
-
-        for (int i = 0; i < pd_objectmaker->c_nmethod; i++) {
-            auto m = &mlist[i];
-            all_ext.insert(m->me_name->s_name);
-        }
+        for (auto x : ceammc::pd::currentListOfExternals())
+            all_ext.insert(x);
 
         std::set<std::string> vanilla_ext;
         auto& ceammc_ext = ceammc_ext_list();
@@ -181,9 +171,17 @@ extern "C" CEAMMC_EXTERN void ceammc_list_externals(int vanilla)
 
         std::copy(vanilla_ext.begin(), vanilla_ext.end(),
             std::ostream_iterator<std::string>(std::cout, "\n"));
-
     } else {
         auto& ceammc_set = ceammc_ext_list();
+
+        using Os = ceammc::ObjectInfoStorage;
+        // remove aliases
+        for (auto* c : Os::instance().baseSet()) {
+            if (Os::instance().hasInfo(c)) {
+                for (auto& alias : Os::instance().info(c).aliases)
+                    ceammc_set.erase(alias);
+            }
+        }
 
         std::copy(ceammc_set.begin(), ceammc_set.end(),
             std::ostream_iterator<std::string>(std::cout, "\n"));

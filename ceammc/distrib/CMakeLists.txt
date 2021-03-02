@@ -69,7 +69,6 @@ set(DOC_CHECK_SCRIPTS
     fill_doc_properties.py
     gen_doc_template.py
     list_all_doc_externals.sh
-    update_doc_aliases.py
     update_pddoc.py
 )
 
