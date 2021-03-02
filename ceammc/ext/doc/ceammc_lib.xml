@@ -791,6 +791,11 @@
       <xi:include href="hw.kbd_light.pddoc" parse="xml"/>
     </entry>
   </category>
+  <category name="lang">
+    <entry name="lang.faust~" descr="faust realtime compilation" ref_view="object">
+      <xi:include href="lang.faust~.pddoc" parse="xml"/>
+    </entry>
+  </category>
   <category name="lfo">
     <entry name="lfo.+pulse~" descr="Unit-amplitude nonnegative low frequency pulse train" ref_view="object">
       <xi:include href="lfo.%2Bpulse~.pddoc" parse="xml"/>
@@ -2060,7 +2065,7 @@
     </entry>
   </category>
   <meta>
-    <version>0.9.1</version>
+    <version>0.9.2</version>
     <authors>
       <author>Albert Graef</author>
       <author>Alex Nadzharov</author>

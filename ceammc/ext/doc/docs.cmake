@@ -257,6 +257,7 @@ set(DOC_FILES
     is_odd
     is_pointer
     is_symbol
+    lang.faust~
     lfo.+pulse~
     lfo.+saw~
     lfo.+square~
