@@ -112,6 +112,9 @@
         hw.apple_smc hw.apple_sms hw.arduino hw.cpu_temp hw.display
         hw.kbd_light
     }}
+    {lang {
+        lang.faust~
+    }}
     {lfo {
         lfo.+pulse~ lfo.+saw~ lfo.+square~ lfo.+tri~ lfo.impulse~ lfo.pulse~
         lfo.saw~ lfo.square~ lfo.tri~
