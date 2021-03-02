@@ -21,7 +21,7 @@ set(WASM_BACKEND   OFF                            CACHE STRING  "Include WASM ba
 
 if(APPLE OR UNIX)
     find_program(LLVM_CONFIG
-        NAMES "llvm-config" "llvm-config-6.0"
+        NAMES "llvm-config" "llvm-config-6.0" "llvm-config-9" "llvm-config-10"
         PATHS /usr/local/opt/llvm/bin)
     if (${LLVM_CONFIG} STREQUAL LLVM_CONFIG-NOTFOUND)
         message (FATAL_ERROR "Cannot find program llvm-config")
