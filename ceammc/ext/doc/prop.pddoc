@@ -16,6 +16,9 @@
                 <see>prop.declare</see>
                 <see>patch.props</see>
             </also>
+            <aliases>
+                <alias>ceammc/prop</alias>
+            </aliases>
         </meta>
         <info>
             <par>Property should be declared with [prop.declare]. Min/max limits can be set to

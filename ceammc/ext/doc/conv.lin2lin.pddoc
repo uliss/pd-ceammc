@@ -16,7 +16,9 @@
             </also>
             <since>0.1</since>
             <aliases>
+                <alias>ceammc/lin-&gt;lin</alias>
                 <alias>lin-&gt;lin</alias>
+                <alias>ceammc/l-&gt;l</alias>
                 <alias>l-&gt;l</alias>
             </aliases>
         </meta>

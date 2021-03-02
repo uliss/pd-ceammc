@@ -13,6 +13,7 @@
             <keywords>pass functional</keywords>
             <since>0.3</since>
             <aliases>
+                <alias>ceammc/pass_if</alias>
                 <alias>pass_if</alias>
             </aliases>
             <also>

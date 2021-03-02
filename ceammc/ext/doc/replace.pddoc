@@ -15,6 +15,9 @@
             <also>
                 <see>flow.pass</see>
             </also>
+            <aliases>
+                <alias>ceammc/replace</alias>
+            </aliases>
         </meta>
         <info>
             <par>From/to values can be specified both as @from/@to properties or first and second

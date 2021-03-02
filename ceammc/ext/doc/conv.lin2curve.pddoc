@@ -16,6 +16,7 @@
             </also>
             <since>0.1</since>
             <aliases>
+                <alias>ceammc/lin-&gt;curve</alias>
                 <alias>lin-&gt;curve</alias>
             </aliases>
         </meta>

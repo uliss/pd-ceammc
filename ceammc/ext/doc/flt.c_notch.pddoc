@@ -16,6 +16,7 @@
                 <see>flt.c_lpf</see>
             </also>
             <aliases>
+                <alias>ceammc/notch-&gt;biquad</alias>
                 <alias>notch-&gt;biquad</alias>
             </aliases>
         </meta>

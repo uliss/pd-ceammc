@@ -16,7 +16,9 @@
                 <see>data.list</see>
             </also>
             <aliases>
+                <alias>ceammc/mlist</alias>
                 <alias>mlist</alias>
+                <alias>ceammc/ml</alias>
                 <alias>ml</alias>
             </aliases>
         </meta>

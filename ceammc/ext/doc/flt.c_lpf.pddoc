@@ -16,6 +16,7 @@
                 <see>flt.c_hpf</see>
             </also>
             <aliases>
+                <alias>ceammc/lpf-&gt;biquad</alias>
                 <alias>lpf-&gt;biquad</alias>
             </aliases>
         </meta>

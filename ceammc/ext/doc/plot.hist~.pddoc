@@ -17,6 +17,7 @@
                 <see>plot.response~</see>
             </also>
             <aliases>
+                <alias>ceammc/hist~</alias>
                 <alias>hist~</alias>
             </aliases>
             <since>0.9</since>

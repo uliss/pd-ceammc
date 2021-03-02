@@ -17,6 +17,7 @@
                 <see>hilbert~</see>
             </also>
             <aliases>
+                <alias>ceammc/apf-&gt;biquad</alias>
                 <alias>apf-&gt;biquad</alias>
             </aliases>
         </meta>

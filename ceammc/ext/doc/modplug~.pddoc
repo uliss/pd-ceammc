@@ -12,6 +12,9 @@
             <category>misc</category>
             <keywords>mod player</keywords>
             <since>0.4</since>
+            <aliases>
+                <alias>ceammc/modplug~</alias>
+            </aliases>
         </meta>
         <properties>
             <property name="@done" type="symbol">function called with bang when playing is

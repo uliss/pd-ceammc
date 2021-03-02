@@ -17,6 +17,7 @@
             </also>
             <since>0.1</since>
             <aliases>
+                <alias>ceammc/bpm-&gt;ms</alias>
                 <alias>bpm-&gt;ms</alias>
             </aliases>
         </meta>

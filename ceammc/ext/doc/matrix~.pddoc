@@ -12,6 +12,9 @@
             <category>base</category>
             <keywords>matrix</keywords>
             <since>0.6</since>
+            <aliases>
+                <alias>ceammc/matrix~</alias>
+            </aliases>
         </meta>
         <arguments>
             <argument name="INS" type="int" minvalue="2" maxvalue="16">number of matrix inputs

@@ -13,6 +13,7 @@
             <keywords>flow group</keywords>
             <since>0.3</since>
             <aliases>
+                <alias>ceammc/group</alias>
                 <alias>group</alias>
             </aliases>
         </meta>

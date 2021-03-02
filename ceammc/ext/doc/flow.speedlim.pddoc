@@ -13,6 +13,7 @@
             <keywords>speelim drop</keywords>
             <since>0.5</since>
             <aliases>
+                <alias>ceammc/speedlim</alias>
                 <alias>speedlim</alias>
             </aliases>
         </meta>

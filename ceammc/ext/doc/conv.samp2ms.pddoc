@@ -13,6 +13,7 @@
             <keywords>conv samp</keywords>
             <since>0.8</since>
             <aliases>
+                <alias>ceammc/samp-&gt;ms</alias>
                 <alias>samp-&gt;ms</alias>
             </aliases>
             <also>

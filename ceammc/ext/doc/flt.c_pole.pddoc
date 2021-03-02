@@ -16,6 +16,7 @@
                 <see>flt.c_lpf</see>
             </also>
             <aliases>
+                <alias>ceammc/pole-&gt;biquad</alias>
                 <alias>pole-&gt;biquad</alias>
             </aliases>
         </meta>

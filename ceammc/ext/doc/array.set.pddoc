@@ -12,6 +12,7 @@
             <category>array</category>
             <keywords>array set</keywords>
             <aliases>
+                <alias>ceammc/list-&gt;array</alias>
                 <alias>list-&gt;array</alias>
             </aliases>
             <also>

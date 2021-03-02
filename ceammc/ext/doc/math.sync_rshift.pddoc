@@ -13,6 +13,7 @@
             <keywords>math shift sync</keywords>
             <aliases>
                 <alias>math.&gt;&gt;'</alias>
+                <alias>ceammc/&gt;&gt;'</alias>
                 <alias>&gt;&gt;'</alias>
             </aliases>
             <since>0.9.1</since>

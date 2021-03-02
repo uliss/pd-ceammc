@@ -12,6 +12,9 @@
             <category>misc</category>
             <keywords>mod player midi soundfont fluid</keywords>
             <since>0.6</since>
+            <aliases>
+                <alias>ceammc/fluid~</alias>
+            </aliases>
         </meta>
         <arguments>
             <argument name="SF" type="symbol">soundfont path</argument>

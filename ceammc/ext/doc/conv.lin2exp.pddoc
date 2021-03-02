@@ -17,6 +17,7 @@
             </also>
             <since>0.1</since>
             <aliases>
+                <alias>ceammc/lin-&gt;exp</alias>
                 <alias>lin-&gt;exp</alias>
             </aliases>
         </meta>

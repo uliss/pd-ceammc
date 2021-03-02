@@ -16,6 +16,7 @@
                 <see>conv.phase2rad~</see>
             </also>
             <aliases>
+                <alias>ceammc/rad-&gt;phase~</alias>
                 <alias>rad-&gt;phase~</alias>
             </aliases>
         </meta>

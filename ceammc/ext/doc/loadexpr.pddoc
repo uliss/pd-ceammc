@@ -15,6 +15,9 @@
             <also>
                 <see>loadmsg</see>
             </also>
+            <aliases>
+                <alias>ceammc/loadexpr</alias>
+            </aliases>
         </meta>
         <info>
             <par>like [loadmsg], but support expression calls ans datatype</par>

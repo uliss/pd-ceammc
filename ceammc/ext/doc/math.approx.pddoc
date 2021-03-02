@@ -13,6 +13,7 @@
             <keywords>equal compare approx</keywords>
             <since>0.1</since>
             <aliases>
+                <alias>ceammc/approx</alias>
                 <alias>approx</alias>
             </aliases>
         </meta>

@@ -13,7 +13,9 @@
             <keywords>conv properties</keywords>
             <since>0.7</since>
             <aliases>
+                <alias>ceammc/list-&gt;props</alias>
                 <alias>list-&gt;props</alias>
+                <alias>ceammc/any-&gt;props</alias>
                 <alias>any-&gt;props</alias>
             </aliases>
         </meta>

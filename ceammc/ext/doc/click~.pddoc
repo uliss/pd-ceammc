@@ -12,6 +12,9 @@
             <category>misc</category>
             <keywords>click</keywords>
             <since>0.4</since>
+            <aliases>
+                <alias>ceammc/click~</alias>
+            </aliases>
         </meta>
         <inlets>
             <inlet>

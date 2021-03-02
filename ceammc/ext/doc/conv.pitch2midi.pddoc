@@ -13,6 +13,7 @@
             <keywords>conv pitch midi</keywords>
             <since>0.4</since>
             <aliases>
+                <alias>ceammc/pitch-&gt;midi</alias>
                 <alias>pitch-&gt;midi</alias>
             </aliases>
         </meta>

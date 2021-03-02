@@ -12,6 +12,7 @@
             <category>math</category>
             <keywords>math complex magnitude module</keywords>
             <aliases>
+                <alias>ceammc/cabs~</alias>
                 <alias>cabs~</alias>
             </aliases>
             <since>0.9</since>
