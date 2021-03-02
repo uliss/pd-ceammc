@@ -17,11 +17,11 @@
 
 constexpr const char* setup_sym = "ceammc_setup";
 constexpr const char* sym_dump_json = "ceammc_dump_json";
-constexpr const char* sym_list_all = "ceammc_list_all";
+constexpr const char* sym_list_all = "ceammc_list_externals";
 constexpr const char* sym_list_methods = "ceammc_list_methods";
 constexpr const char* sym_list_props = "ceammc_list_props";
 
-fn_type list_objects = nullptr;
+list_objects_fn list_objects = nullptr;
 list_methods_fn list_methods = nullptr;
 dump_json_fn dump_json = nullptr;
 list_props_fn list_props = nullptr;
@@ -52,15 +52,15 @@ bool load_ceammc()
         LocalFree(messageBuffer);
         return false;
     }
-    auto fn = (fn_type)GetProcAddress(ntdll, setup_sym);
+    auto fn = (setup_fn)GetProcAddress(ntdll, setup_sym);
     SetDllDirectory(NULL); /* reset DLL dir to nothing */
     if (!fn)
         return false;
 
     fprintf(stderr, "%s\n", __FUNCTION__);
     (*fn)();
-fprintf(stderr, "%s 2\n", __FUNCTION__);
-    list_objects = (fn_type)GetProcAddress(ntdll, sym_list_all);
+    fprintf(stderr, "%s 2\n", __FUNCTION__);
+    list_objects = (list_objects_fn)GetProcAddress(ntdll, sym_list_all);
     if (!list_objects) {
         fprintf(stderr, "load_object: Symbol \"%s\" not found\n", sym_list_all);
         return false;
@@ -79,7 +79,7 @@ bool load_ceammc()
         return false;
     }
 
-    auto fn = (fn_type)dlsym(dlobj, setup_sym);
+    auto fn = (setup_fn)dlsym(dlobj, setup_sym);
     if (!fn) {
         fprintf(stderr, "load_object: Symbol \"%s\" not found\n", setup_sym);
         return false;
@@ -87,7 +87,7 @@ bool load_ceammc()
 
     (*fn)();
 
-    list_objects = (fn_type)dlsym(dlobj, sym_list_all);
+    list_objects = (list_objects_fn)dlsym(dlobj, sym_list_all);
     if (!list_objects) {
         fprintf(stderr, "load_object: Symbol \"%s\" not found\n", sym_list_all);
         return false;

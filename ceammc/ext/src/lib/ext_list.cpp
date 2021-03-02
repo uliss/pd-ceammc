@@ -13,17 +13,32 @@
  *****************************************************************************/
 #include "ext_load_lib.h"
 
+#include <iostream>
+#include <string>
+
 extern "C" void pd_init();
 
-int main(int, char*[])
+int main(int argc, char* argv[])
 {
+    bool vanilla = false;
+
+    if (argc > 1) {
+        if (std::string(argv[1]) == "-v") {
+            vanilla = true;
+        } else {
+            std::cerr << "usage: " << argv[0] << " [-v]"
+                      << "\n\t '-v': print vanilla objects" << std::endl;
+            return EXIT_FAILURE;
+        }
+    }
+
     pd_init();
 
     if (!load_ceammc())
         return EXIT_FAILURE;
 
     if (list_objects)
-        list_objects();
+        list_objects(vanilla);
 
     return EXIT_SUCCESS;
 }

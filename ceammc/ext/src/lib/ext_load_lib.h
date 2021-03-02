@@ -17,8 +17,10 @@
 #include <cstdio>
 #include <cstdlib>
 
-using fn_type = void (*)();
-extern fn_type list_objects;
+using setup_fn = void (*)();
+
+using list_objects_fn = void (*)(int);
+extern list_objects_fn list_objects;
 
 using list_methods_fn = bool (*)(int, char*[]);
 extern list_methods_fn list_methods;

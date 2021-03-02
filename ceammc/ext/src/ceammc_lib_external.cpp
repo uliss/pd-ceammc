@@ -18,6 +18,10 @@
 
 #include "m_pd.h"
 
+extern "C" {
+#include "m_imp.h"
+}
+
 #include <algorithm>
 #include <iostream>
 #include <iterator>
@@ -148,11 +152,40 @@ extern "C" CEAMMC_EXTERN void ceammc_setup()
     ceammc_init();
 }
 
-extern "C" CEAMMC_EXTERN void ceammc_list_all()
+extern "C" CEAMMC_EXTERN void ceammc_list_externals(int vanilla)
 {
     using namespace std;
-    auto& ceammc_set = ceammc_ext_list();
 
-    std::copy(ceammc_set.begin(), ceammc_set.end(),
-        std::ostream_iterator<std::string>(std::cout, "\n"));
+    if (vanilla) {
+        std::set<std::string> all_ext;
+
+#ifdef PDINSTANCE
+        auto mlist = pd_objectmaker->c_methods[pd_this->pd_instanceno];
+#else
+        auto mlist = pd_objectmaker->c_methods;
+#endif
+
+        for (int i = 0; i < pd_objectmaker->c_nmethod; i++) {
+            auto m = &mlist[i];
+            all_ext.insert(m->me_name->s_name);
+        }
+
+        std::set<std::string> vanilla_ext;
+        auto& ceammc_ext = ceammc_ext_list();
+
+        std::set_difference(all_ext.begin(), all_ext.end(),
+            ceammc_ext.begin(), ceammc_ext.end(),
+            std::inserter(vanilla_ext, vanilla_ext.begin()));
+
+        vanilla_ext.erase("ceammc");
+
+        std::copy(vanilla_ext.begin(), vanilla_ext.end(),
+            std::ostream_iterator<std::string>(std::cout, "\n"));
+
+    } else {
+        auto& ceammc_set = ceammc_ext_list();
+
+        std::copy(ceammc_set.begin(), ceammc_set.end(),
+            std::ostream_iterator<std::string>(std::cout, "\n"));
+    }
 }
