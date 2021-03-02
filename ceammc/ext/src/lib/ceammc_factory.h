@@ -127,7 +127,7 @@ public:
 
         class_name_ = s_name;
         // add to database
-        ObjectInfoStorage::instance().addBase(c);
+        ObjectInfoStorage::instance().addBase(c, reinterpret_cast<t_newmethod>(createObject));
     }
 
     /** dtor, that finalizes object creation */
@@ -225,8 +225,7 @@ public:
     /** add object alias */
     void addAlias(const char* name)
     {
-        class_addcreator(reinterpret_cast<t_newmethod>(createObject), gensym(name), A_GIMME, A_NULL);
-        ObjectInfoStorage::instance().info(class_).aliases.push_back(name);
+        ObjectInfoStorage::addAlias(name, class_, reinterpret_cast<t_newmethod>(createObject));
     }
 
     /** adds click support */

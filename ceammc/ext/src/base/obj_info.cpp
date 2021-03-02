@@ -44,8 +44,6 @@ void ObjectInfo::m_props(t_symbol* s, const AtomListView&)
             props = ceammc_base_properties(o);
         if (is_ceammc_ui(o))
             props = ceammc_ui_properties(o);
-        if (is_ceammc_faust(o))
-            props = ceammc_faust_properties(o);
 
         for (const PropertyInfo& p : props)
             res.append(p.name());

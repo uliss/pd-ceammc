@@ -477,11 +477,6 @@ bool pd::External::isCeammcUI() const
     return is_ceammc_ui(obj_);
 }
 
-bool pd::External::isCeammcFaust() const
-{
-    return is_ceammc_faust(obj_);
-}
-
 bool pd::External::isCeammcFlext() const
 {
     return is_ceammc_flext(obj_);
@@ -506,8 +501,6 @@ std::vector<PropertyInfo> pd::External::properties() const
         return ceammc_base_properties(obj_);
     else if (isCeammcUI())
         return ceammc_ui_properties(obj_);
-    else if (isCeammcFaust())
-        return ceammc_faust_properties(obj_);
     else
         return {};
 }
