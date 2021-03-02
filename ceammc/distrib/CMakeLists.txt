@@ -64,11 +64,12 @@ endif()
 # documentation check
 set(DOC_CHECK_SCRIPTS
     check_all_pddoc_refs.sh
-    doc_check_methods.sh
-    list_all_doc_externals.sh
     check_doc_external.py
+    doc_check_methods.sh
     fill_doc_properties.py
     gen_doc_template.py
+    list_all_doc_externals.sh
+    update_doc_aliases.py
     update_pddoc.py
 )
 
