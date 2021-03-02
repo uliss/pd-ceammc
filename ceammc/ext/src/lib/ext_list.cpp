@@ -21,7 +21,6 @@ extern "C" void pd_init();
 int main(int argc, char* argv[])
 {
     bool vanilla = false;
-    bool with_aliases = false;
 
     if (argc > 1) {
         if (std::string(argv[1]) == "-v") {
