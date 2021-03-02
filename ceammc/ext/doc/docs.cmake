@@ -477,7 +477,6 @@ set(DOC_FILES
     noise.ikeda
     noise.lfreq0~
     noise.lfreq~
-    noise.logistic
     noise.lorenz
     noise.lyapunov
     noise.navier_stokes
