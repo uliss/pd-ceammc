@@ -60,17 +60,22 @@
         <example>
             <pdascii>
 <![CDATA[
-[open(
+[open(  [ui.knob #x] [ui.knob #y]
+|       |            |
+|       |            |
+|       [@amp $1 #a( [@freq $1 #f(
 |
+|                 [osc.square~ 300]
+|                 |.
+[lang.faust~ faust/ex0.dsp #z]
 |
-|
-| [@fname faust/ex1.dsp, update(
-| |
-[lang.faust~ faust/ex0.dsp]
-|
-[ui.hgain2~]  [ui.dsp~]
+[ui.hgain~]       [ui.dsp~]
 |\
 [dac~]
+[X a->z]
+[X f->z]
+#x @min 0 @max 0.5
+#y @min 0 @max 10
 ]]>
             </pdascii>
         </example>
