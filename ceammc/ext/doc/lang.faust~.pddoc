@@ -12,60 +12,70 @@
             <category>lang</category>
             <keywords>faust</keywords>
             <since>0.9.2</since>
+            <aliases>
+                <alias>ceammc/faust~</alias>
+                <alias>faust~</alias>
+            </aliases>
         </meta>
         <info>
             <a href="https://faust.grame.fr/">https://faust.grame.fr/</a>
         </info>
+        <mouse>
+            <event editmode="0" type="double-click" keys="Alt">open faust dsp file in external
+            editor</event>
+        </mouse>
         <arguments>
-            <argument name="LAYOUT" type="symbol" enum="qwerty names custom">layout name</argument>
-            <argument name="ON" type="int">init on/off state</argument>
+            <argument name="FNAME" type="symbol">path to faust dsp file</argument>
         </arguments>
         <methods>
-            <method name="custom">set custom 
-            <param type="symbol" name="KEYSTR" required="true">key string</param></method>
+            <method name="open">open faust dsp file in external editor</method>
+            <method name="reset">reset object state</method>
+            <method name="update">update faust object, recompile if needed</method>
         </methods>
         <properties>
-            <property name="@octave" type="int" default="4" minvalue="0" maxvalue="8">output
-            octave</property>
-            <property name="@vel" type="float" minvalue="0" maxvalue="127" default="100">output
-            velocity</property>
-            <property name="@layout" type="symbol" enum="qwerty names custom" default="qwerty">
-            current layout</property>
-            <property name="@custom" type="atom" default="[]">custom layout (Dict data
-            type)</property>
-            <property name="@on" type="int" enum="0 1" default="1">on/off state</property>
+            <property name="@fname" type="symbol">path to faust dsp file</property>
+            <property name="@include" type="list">list of faust include directories</property>
+            <property name="@auto" type="int" enum="0 1" default="1">auto update mode. If on -
+            recompiles faust dsp file on change</property>
         </properties>
-        <inlets>
-            <inlet>
+        <inlets dynamic="true">
+            <inlet number="1">
                 <xinfo>control input</xinfo>
             </inlet>
-            <inlet>
-                <xinfo on="int">1 or 0: turn on/off</xinfo>
+            <inlet type="audio" number="2">
+                <xinfo>first faust input</xinfo>
+            </inlet>
+            <inlet type="audio" number="...">
+                <xinfo>... faust input</xinfo>
+            </inlet>
+            <inlet type="audio" number="n+1">
+                <xinfo>n-th faust input</xinfo>
             </inlet>
         </inlets>
-        <outlets>
-            <outlet>MIDI output: NOTE VEL</outlet>
+        <outlets dynamic="true">
+            <outlet type="audio" number="1">first faust output</outlet>
+            <outlet type="audio" number="...">... faust output</outlet>
+            <outlet type="audio" number="n">n-th faust output</outlet>
         </outlets>
         <example>
             <pdascii>
 <![CDATA[
-[ui.tab qwerty names custom @size 200 15]
+[open(  [ui.knob #x] [ui.knob #y]
+|       |            |
+|       |            |
+|       [@amp $1 #a( [@freq $1 #f(
 |
-|            [F]  [custom zxcvbnmasdfghjklqwertyuiop #a(
-|            |
-[@layout $1( [@octave $1(       [T]
-|            |                  |.
-[midi.kbd qwerty @custom \[a:0 s:2 d:4 f:5 g:7\] #x]
+|                 [osc.square~ 300]
+|                 |.
+[lang.faust~ faust/ex0.dsp #z]
 |
-[ui.hk]
-|
-|
-|
-|
-|
-|
-[ui.dt]
-[X a->x]
+[ui.hgain~]       [ui.dsp~]
+|\
+[dac~]
+[X a->z]
+[X f->z]
+#x @min 0 @max 0.5
+#y @min 0 @max 10
 ]]>
             </pdascii>
         </example>
