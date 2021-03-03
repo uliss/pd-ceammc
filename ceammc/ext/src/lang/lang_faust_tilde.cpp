@@ -474,6 +474,7 @@ void setup_lang_faust_tilde()
     faust_config_base.addIncludeDirectory(path);
 
     SoundExternalFactory<LangFaustTilde> obj("lang.faust~", OBJECT_FACTORY_DEFAULT);
+    obj.addAlias("faust~");
     obj.addMethod("reset", &LangFaustTilde::m_reset);
     obj.addMethod("open", &LangFaustTilde::m_open);
     obj.addMethod("update", &LangFaustTilde::m_update);
