@@ -199,8 +199,11 @@ file(GLOB _PDDOC_XML_FILES "*.xml")
 add_custom_target(pddoc_files SOURCES ${_PDDOC_FILES} ${_PDDOC_XML_FILES} ceammc.db ls_missing_doc.py)
 file(GLOB _PDDOC_PD_FILES "*.pd")
 add_custom_target(pddoc_pd_files SOURCES ${_PDDOC_PD_FILES})
+file(GLOB _PDDOC_FAUST_FILES "faust/*")
+add_custom_target(pddoc_faust_files SOURCES ${_PDDOC_FAUST_FILES})
 
 # install HOA library docs and examples
 install(DIRECTORY hoa DESTINATION ${DOC_INSTALL_PATH})
+install(DIRECTORY faust DESTINATION ${DOC_INSTALL_PATH})
 
 add_subdirectory(sound)

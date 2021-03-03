@@ -254,7 +254,7 @@ is_list		.		..
 is_odd		.		..
 is_pointer		.		..
 is_symbol		.		..
-lang.faust~		..		.
+lang.faust~,ceammc/faust~,faust~		?		?
 lfo.+pulse~		~.		~
 lfo.+saw~		~.		~
 lfo.+square~		~.		~

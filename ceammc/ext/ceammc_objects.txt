@@ -139,6 +139,7 @@ ceammc/env2array
 ceammc/env2vline
 ceammc/envelope
 ceammc/expand_env
+ceammc/faust~
 ceammc/fluid~
 ceammc/func
 ceammc/function
@@ -338,6 +339,7 @@ env2array
 env2vline
 envelope
 expand_env
+faust~
 flow.!
 flow.'
 flow.<
