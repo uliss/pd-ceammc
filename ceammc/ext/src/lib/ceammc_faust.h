@@ -93,8 +93,8 @@ namespace faust {
     protected:
         std::vector<t_sample*> faust_buf_;
         size_t faust_bs_;
+        int xfade_, n_xfade_;
         bool active_;
-        int rate_, xfade_, n_xfade_;
 
     public:
         FaustExternalBase(const PdArgs& args);
@@ -297,21 +297,31 @@ namespace faust {
                 addProperty(new UIProperty(ui_->uiAt(i)));
         }
 
+        void initConstants()
+        {
+            const auto BS = blockSize();
+            const auto SR = samplerate();
+
+            std::vector<FAUSTFLOAT> z = ui_->uiValues();
+            /* set the proper sample rate; this requires reinitializing the dsp */
+            dsp_->init(int(SR));
+            ui_->setUIValues(z);
+
+            n_xfade_ = static_cast<int>(SR * xfadeTime() / BS);
+        }
+
+        void samplerateChanged(size_t) override
+        {
+            initConstants();
+        }
+
         void setupDSP(t_signal** sp) override
         {
             FaustExternalBase::setupDSP(sp);
 
-            const size_t BS = blockSize();
-            const size_t SR = samplerate();
-
-            if (rate_ <= 0) {
-                std::vector<FAUSTFLOAT> z = ui_->uiValues();
-                /* set the proper sample rate; this requires reinitializing the dsp */
-                dsp_->init(int(SR));
-                ui_->setUIValues(z);
-            }
-
-            n_xfade_ = static_cast<int>(SR * xfadeTime() / BS);
+            // on first run samplerateChanged() maybe not called
+            if (!n_xfade_)
+                initConstants();
         }
 
         void processBlock(const t_sample** in, t_sample** out) override
