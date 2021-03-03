@@ -66,6 +66,7 @@
 
 ### Fixed:
 - ui.hgain~/ui.hgain2~ midi bind fixed
+- samplerate change for all faust objects
 
 
 ## [0.9.1]
