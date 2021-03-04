@@ -28,7 +28,7 @@ private:
     t_rgba prop_select_color;
     t_float prop_min;
     t_float prop_max;
-    int prop_auto_range;
+    t_symbol* prop_auto_range_mode;
     int prop_auto_count;
     int prop_show_range;
     int prop_count;
@@ -76,6 +76,8 @@ public:
 
     void outputList();
     void normalize();
+    void normalizeMin();
+    void normalizeMax();
 
 private:
     void setRealValueAt(size_t n, t_float v);
@@ -84,8 +86,8 @@ private:
 
     t_float propCount() const;
     void setPropCount(t_float f);
-    t_float propAutoRange() const;
-    void setPropAutoRange(t_float f);
+    AtomList propAutoRangeMode() const;
+    void setPropAutoRangeMode(const AtomListView& lv);
 
     t_float propRange() const;
     AtomList propValue() const;

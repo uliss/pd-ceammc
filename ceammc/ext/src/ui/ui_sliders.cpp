@@ -30,6 +30,10 @@ using namespace ceammc;
 static const int MAX_SLIDERS_NUM = 1024;
 static t_symbol* SYM_SLIDER;
 static t_symbol* SYM_VSLIDERS;
+static t_symbol* SYM_NONE;
+static t_symbol* SYM_BOTH;
+static t_symbol* SYM_MIN;
+static t_symbol* SYM_MAX;
 static decltype(std::chrono::system_clock::now().time_since_epoch().count()) random_seed;
 
 UISliders::UISliders()
@@ -39,7 +43,6 @@ UISliders::UISliders()
     , prop_select_color(rgba_blue)
     , prop_min(0)
     , prop_max(1)
-    , prop_auto_range(0)
     , prop_auto_count(0)
     , prop_show_range(1)
     , prop_count(8)
@@ -257,7 +260,7 @@ bool UISliders::setRealValues(const AtomListView& l)
         return false;
     }
 
-    if (prop_auto_range) {
+    if (prop_auto_range_mode == SYM_BOTH) {
         auto mm = std::minmax_element(l.begin(), l.end(),
             [](const Atom& a, const Atom& b) {
                 return a.toT<t_float>(0) < b.toT<t_float>(0);
@@ -273,6 +276,42 @@ bool UISliders::setRealValues(const AtomListView& l)
 
         prop_min = min;
         prop_max = max;
+        generateTxtLabels();
+    } else if (prop_auto_range_mode == SYM_MAX) {
+        const size_t N = prop_auto_count
+            ? std::min<size_t>(l.size(), MAX_SLIDERS_NUM)
+            : std::min<size_t>(l.size(), prop_count);
+
+        auto amax = std::max_element(l.begin(), l.begin() + N,
+            [](const Atom& a, const Atom& b) { return a.toT<t_float>(0) < b.toT<t_float>(0); });
+
+        auto max = amax->asFloat(1);
+        auto new_range = max - prop_min;
+
+        if (new_range == 0.) {
+            UI_ERR << "zero value range";
+            return false;
+        }
+
+        prop_max = max;
+        generateTxtLabels();
+    } else if (prop_auto_range_mode == SYM_MIN) {
+        const size_t N = prop_auto_count
+            ? std::min<size_t>(l.size(), MAX_SLIDERS_NUM)
+            : std::min<size_t>(l.size(), prop_count);
+
+        auto amin = std::min_element(l.begin(), l.begin() + N,
+            [](const Atom& a, const Atom& b) { return a.toT<t_float>(0) < b.toT<t_float>(0); });
+
+        auto min = amin->asFloat(1);
+        auto new_range = prop_max - min;
+
+        if (new_range == 0.) {
+            UI_ERR << "zero value range";
+            return false;
+        }
+
+        prop_min = min;
         generateTxtLabels();
     } else if (range == 0.f) {
         UI_ERR << "zero value range";
@@ -311,16 +350,32 @@ void UISliders::setPropCount(t_float f)
     redrawAll();
 }
 
-t_float UISliders::propAutoRange() const
+AtomList UISliders::propAutoRangeMode() const
 {
-    return prop_auto_range;
+    return AtomList(prop_auto_range_mode);
 }
 
-void UISliders::setPropAutoRange(t_float f)
+void UISliders::setPropAutoRangeMode(const AtomListView& lv)
 {
-    prop_auto_range = (f) ? 1 : 0;
-    if (prop_auto_range && !isPatchLoading())
+    static t_symbol* opts[] = { SYM_NONE, SYM_BOTH, SYM_MAX, SYM_MIN };
+
+    auto sym = lv.asSymbol();
+    auto it = std::find_if(std::begin(opts), std::end(opts), [sym](t_symbol* s) { return s == sym; });
+    if (it == std::end(opts)) {
+        UI_ERR << SYM_NONE << ", " << SYM_BOTH << ", " << SYM_MAX << ", " << SYM_MIN << " expected, got: " << lv;
+        return;
+    }
+
+    prop_auto_range_mode = *it;
+    if (isPatchLoading())
+        return;
+
+    if (prop_auto_range_mode == SYM_BOTH)
         normalize();
+    else if (prop_auto_range_mode == SYM_MIN)
+        normalizeMin();
+    else if (prop_auto_range_mode == SYM_MAX)
+        normalizeMax();
 }
 
 t_float UISliders::propRange() const
@@ -367,6 +422,56 @@ void UISliders::normalize()
     prop_min = real_min;
     prop_max = real_max;
     setProperty(gensym("min"), Atom(real_min));
+    setProperty(gensym("max"), Atom(real_max));
+}
+
+void UISliders::normalizeMin()
+{
+    if (pos_values_.empty())
+        return;
+
+    auto min = *std::min_element(pos_values_.begin(), pos_values_.end());
+    const t_float range = prop_max - prop_min;
+    const t_float real_min = min * range + prop_min;
+    const t_float new_range = prop_max - real_min;
+
+    if (new_range == 0) {
+        UI_ERR << "normalize error - invalid range: " << new_range;
+        return;
+    }
+
+    for (size_t i = 0; i < pos_values_.size(); i++) {
+        auto old_real_val = (pos_values_[i] * range) + prop_min;
+        auto new_real_val = (old_real_val - real_min) / new_range;
+        pos_values_[i] = clip_max(new_real_val, prop_max);
+    }
+
+    prop_min = real_min;
+    setProperty(gensym("min"), Atom(real_min));
+}
+
+void UISliders::normalizeMax()
+{
+    if (pos_values_.empty())
+        return;
+
+    auto max = *std::max_element(pos_values_.begin(), pos_values_.end());
+    const t_float range = prop_max - prop_min;
+    const t_float real_max = max * range + prop_min;
+    const t_float new_range = real_max - prop_min;
+
+    if (new_range == 0) {
+        UI_ERR << "normalize error - invalid range: " << new_range;
+        return;
+    }
+
+    for (size_t i = 0; i < pos_values_.size(); i++) {
+        auto old_real_val = (pos_values_[i] * range) + prop_min;
+        auto new_real_val = (old_real_val - prop_min) / new_range;
+        pos_values_[i] = new_real_val;
+    }
+
+    prop_max = real_max;
     setProperty(gensym("max"), Atom(real_max));
 }
 
@@ -493,6 +598,10 @@ void UISliders::setup()
 {
     SYM_SLIDER = gensym("slider");
     SYM_VSLIDERS = gensym("ui.vsliders");
+    SYM_NONE = gensym("none");
+    SYM_BOTH = gensym("both");
+    SYM_MIN = gensym("min");
+    SYM_MAX = gensym("max");
 
     sys_gui(ui_sliders_tcl);
 
@@ -520,10 +629,10 @@ void UISliders::setup()
     obj.addFloatProperty("min", _("Minimum Value"), 0., &UISliders::prop_min, "Bounds");
     obj.addFloatProperty("max", _("Maximum Value"), 1., &UISliders::prop_max, "Bounds");
 
-    obj.addProperty("auto_range", _("Auto range"), false, &UISliders::prop_auto_range, "Main");
-    obj.setPropertyAccessor("auto_range", &UISliders::propAutoRange, &UISliders::setPropAutoRange);
-    obj.addProperty("show_range", _("Show range"), true, &UISliders::prop_show_range, "Main");
+    obj.addMenuProperty("auto_range_mode", _("Auto range mode"), "none", &UISliders::prop_auto_range_mode, "none both min max", "Main");
+    obj.setPropertyAccessor("auto_range_mode", &UISliders::propAutoRangeMode, &UISliders::setPropAutoRangeMode);
 
+    obj.addProperty("show_range", _("Show range"), true, &UISliders::prop_show_range, "Main");
     obj.addProperty("auto_count", _("Auto count"), false, &UISliders::prop_auto_count, "Main");
 
     obj.addProperty("range", &UISliders::propRange, 0);
