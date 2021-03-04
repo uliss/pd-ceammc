@@ -39,8 +39,9 @@
             <property name="@max" type="float" default="1">maximum value</property>
             <property name="@range" type="float" readonly="true" default="0">value range</property>
             <property name="@value" type="list" readonly="true">sliders value</property>
-            <property name="@auto_range" type="int" enum="0 1" default="0">if set numbers of
+            <property name="@auto_count" type="int" enum="0 1" default="0">if set numbers of
             sliders equal to input list length</property>
+            <property name="@auto_range" type="int" enum="0 1" default="0">if calculate @min/@max value automatically</property>
             <property name="@show_range" type="int" enum="0 1" default="1">if show slider
             range</property>
             <!-- common -->

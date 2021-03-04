@@ -29,6 +29,7 @@ private:
     t_float prop_min;
     t_float prop_max;
     int prop_auto_range;
+    int prop_auto_count;
     int prop_show_range;
     int prop_count;
     char c_min[16];

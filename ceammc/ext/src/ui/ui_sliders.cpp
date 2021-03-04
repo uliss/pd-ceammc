@@ -40,6 +40,7 @@ UISliders::UISliders()
     , prop_min(0)
     , prop_max(1)
     , prop_auto_range(0)
+    , prop_auto_count(0)
     , prop_show_range(1)
     , prop_count(8)
     , c_min()
@@ -273,14 +274,18 @@ bool UISliders::setRealValues(const AtomListView& l)
         prop_min = min;
         prop_max = max;
         generateTxtLabels();
-        pos_values_.resize(std::min<size_t>(MAX_SLIDERS_NUM, l.size()), min);
-        prop_count = l.size();
     } else if (range == 0.f) {
         UI_ERR << "zero value range";
         return false;
     }
 
+    if (prop_auto_count) {
+        pos_values_.resize(std::min<size_t>(MAX_SLIDERS_NUM, l.size()), prop_min);
+        prop_count = l.size();
+    }
+
     const size_t N = std::min(l.size(), pos_values_.size());
+
     for (size_t i = 0; i < N; i++) {
         t_float f = 0;
 
@@ -518,6 +523,8 @@ void UISliders::setup()
     obj.addProperty("auto_range", _("Auto range"), false, &UISliders::prop_auto_range, "Main");
     obj.setPropertyAccessor("auto_range", &UISliders::propAutoRange, &UISliders::setPropAutoRange);
     obj.addProperty("show_range", _("Show range"), true, &UISliders::prop_show_range, "Main");
+
+    obj.addProperty("auto_count", _("Auto count"), false, &UISliders::prop_auto_count, "Main");
 
     obj.addProperty("range", &UISliders::propRange, 0);
     obj.addProperty("value", &UISliders::propValue, 0);
