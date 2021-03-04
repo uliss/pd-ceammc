@@ -21,6 +21,7 @@
 #include "nui/nui.h"
 #include "nui/property.h"
 #include "nui/rect.h"
+#include "nui/slider_view.h"
 #include "nui/tk_view_impl.h"
 #include "nui/view.h"
 #include "nui/widget.h"
