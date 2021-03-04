@@ -88,8 +88,8 @@ function(make_pddoc_lib)
 
     # extract categories from library XML file and generate their categoryX-help.pd
     add_custom_target(${TARGET_NAME}_pddoc_cat
-        DEPENDS ${DOC_PD_FILES} "${_LIB_NAME}.xml"
-        COMMAND ${PD_CAT2PD} "${_LIB_NAME}.xml"
+        DEPENDS ${DOC_PD_FILES} "${_LIB_NAME}_lib.xml"
+        COMMAND ${PD_CAT2PD} "${_LIB_NAME}_lib.xml"
         WORKING_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}")
     
     # generate all library documentation and xlet database
