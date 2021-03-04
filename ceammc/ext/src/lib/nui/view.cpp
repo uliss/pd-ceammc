@@ -239,37 +239,6 @@ namespace ui {
             return onEvent(type, pos, ctx);
     }
 
-    HSliderView::HSliderView(SliderModel* model, ModelView::ViewImplPtr&& impl, const PointF& pos)
-        : ModelView<SliderData>(model, std::move(impl), pos)
-    {
-    }
-
-    EventAcceptStatus HSliderView::onEvent(EventType t, const PointF& pos, const EventContext& ctx)
-    {
-        switch (t) {
-        case EVENT_MOUSE_DOWN: {
-            auto vpos = toViewCoords(pos);
-            auto value = convert::lin2lin<t_float>(vpos.x(), 0, size().width(), this->data().min(), this->data().max());
-            data().setValue(value);
-            redraw();
-            notifyOthers();
-            return { this, EVENT_STATUS_ACCEPT };
-        }
-        case EVENT_MOUSE_DRAG: {
-            auto vpos = toViewCoords(pos);
-            auto value = convert::lin2lin_clip<t_float>(vpos.x(), 0, size().width(), this->data().min(), this->data().max());
-            data().setValue(value);
-            redraw();
-            notifyOthers();
-            return { this, EVENT_STATUS_ACCEPT };
-        }
-        case EVENT_MOUSE_UP:
-            return { nullptr, EVENT_STATUS_ACCEPT };
-        default:
-            return { this, EVENT_STATUS_IGNORE };
-        }
-    }
-
     BoxView::BoxView(BoxModel* model, ModelView::ViewImplPtr&& impl)
         : Base(model, std::move(impl), {})
     {

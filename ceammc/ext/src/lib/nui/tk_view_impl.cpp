@@ -13,6 +13,8 @@
  *****************************************************************************/
 #include "tk_view_impl.h"
 #include "button_view.h"
+#include "slider_view.h"
+
 #include "tcl_nui_tcl.h"
 
 #include "ceammc_convert.h"
@@ -34,46 +36,6 @@ namespace ui {
                 return { rect.leftTop(), "nw" };
             }
         }
-    }
-
-    void TclHSliderImpl::create(const RectF& bbox, const SliderData& data)
-    {
-        Rect rect = transform(bbox);
-
-        const float pos = (data.value() - data.min()) / (data.max() - data.min());
-        sys_vgui("nui::slider::hcreate %lx %lx %lx"
-                 " %d %d %d %d %d"
-                 " %f %g %g %g"
-                 " #%6.6x #%6.6x #%6.6x\n",
-            winId(), widgetId(), this,
-            rect.left(), rect.top(), rect.width(), rect.height(), (int)scale(),
-            pos, data.value(), data.min(), data.max(),
-            data.borderColor(), data.fillColor(), data.knobColor());
-    }
-
-    void TclHSliderImpl::erase()
-    {
-        sys_vgui("nui::slider::erase %lx %lx %lx \n", winId(), widgetId(), this);
-    }
-
-    void TclHSliderImpl::update(const RectF& bbox, const SliderData& data)
-    {
-        const float pos = (data.value() - data.min()) / (data.max() - data.min());
-
-        sys_vgui("nui::slider::hupdate %lx %lx %lx %d"
-                 " %f %g %g %g"
-                 " #%6.6x #%6.6x #%6.6x\n",
-            winId(), widgetId(), this, (int)scale(),
-            pos, data.value(), data.min(), data.max(),
-            data.borderColor(), data.fillColor(), data.knobColor());
-    }
-
-    void TclHSliderImpl::updateCoords(const RectF& bbox)
-    {
-        Rect rect = transform(bbox);
-
-        sys_vgui("nui::slider::move %lx %lx %lx %d %d\n",
-            winId(), widgetId(), this, rect.left(), rect.top());
     }
 
     void TclFrameImpl::create(const RectF& bbox, const FrameData& data)
@@ -164,6 +126,7 @@ namespace ui {
     {
         tcl_nui_tcl_output();
         tcl_button_init();
+        tcl_hslider_init();
         return true;
     }
 

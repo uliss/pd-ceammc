@@ -4,6 +4,11 @@ add_custom_command(
     OUTPUT  nui_button_tcl.h)
 
 add_custom_command(
+    COMMAND $<TARGET_FILE:tcl2cxx> ${CMAKE_CURRENT_SOURCE_DIR}/nui_slider.tcl > nui_slider_tcl.h
+    DEPENDS nui_slider.tcl
+    OUTPUT  nui_slider_tcl.h)
+
+add_custom_command(
     COMMAND $<TARGET_FILE:tcl2cxx> ${CMAKE_CURRENT_SOURCE_DIR}/tcl_nui.tcl > tcl_nui_tcl.h
     DEPENDS tcl_nui.tcl
     OUTPUT  tcl_nui_tcl.h)
@@ -15,12 +20,14 @@ add_library(ceammc_nui STATIC
     layout.cpp
     model.cpp
     nui.cpp
+    nui_button_tcl.h
+    nui_slider_tcl.h
     property.cpp
+    slider_view.cpp
+    tcl_nui_tcl.h
     tk_view_impl.cpp
     view.cpp
     widget.cpp
-    nui_button_tcl.h
-    tcl_nui_tcl.h
 )
 
 target_include_directories(ceammc_nui PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/..)

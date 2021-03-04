@@ -288,12 +288,6 @@ namespace ui {
         static EmptyModel empty_model;
     };
 
-    class HSliderView : public ModelView<SliderData> {
-    public:
-        HSliderView(SliderModel* model, ViewImplPtr&& impl, const PointF& pos);
-        EventAcceptStatus onEvent(EventType t, const PointF& pos, const EventContext& ctx) override;
-    };
-
     class ToggleView : public ModelView<ToggleData> {
     public:
         ToggleView(ToggleModel* model, ViewImplPtr&& impl, const PointF& pos);

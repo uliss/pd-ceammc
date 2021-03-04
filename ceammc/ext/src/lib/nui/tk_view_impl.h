@@ -43,14 +43,6 @@ namespace ui {
         void updateCoords(const RectF& bbox) final;
     };
 
-    class TclHSliderImpl : public ViewImpl<SliderData> {
-    public:
-        void create(const RectF& bbox, const SliderData& data) final;
-        void erase() final;
-        void update(const RectF& bbox, const SliderData& data) final;
-        void updateCoords(const RectF& bbox) final;
-    };
-
     class TclLabelImpl : public ViewImpl<LabelData> {
     public:
         void create(const RectF& bbox, const LabelData& data) final;
