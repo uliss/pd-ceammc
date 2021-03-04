@@ -63,6 +63,7 @@
 - using AtomListView instead of AtomList in UI objects
 - second inlet added to path.ls to set @match property
 - ui.number~ @decimal property renamed to @precision
+- ui.sliders: @auto_range options split into @auto_range and @auto_count 
 
 ### Fixed:
 - ui.hgain~/ui.hgain2~ midi bind fixed
