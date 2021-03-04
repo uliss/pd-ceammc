@@ -768,11 +768,17 @@ static PropertyInfo attr_to_prop(t_eattr* a)
         }
     } else if (a->type == SYM_ATOM) {
         if (a->size == 1) {
-            res.setType(PropValueType::ATOM);
-            set_constraints(res, a);
+            if (a->sizemax == 0) {
+                res.setType(PropValueType::LIST);
+                if (a->defvals)
+                    res.setDefault(sym_to_list(a->defvals));
+            } else {
+                res.setType(PropValueType::ATOM);
+                set_constraints(res, a);
 
-            if (a->defvals)
-                res.setDefault(Atom(a->defvals));
+                if (a->defvals)
+                    res.setDefault(Atom(a->defvals));
+            }
         } else if (a->size > 1) {
             res.setType(PropValueType::LIST);
             if (a->defvals)
