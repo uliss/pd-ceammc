@@ -59,14 +59,14 @@ static int runEditorCommand(const std::string& path)
     if (rc > 32)
         return RUN_OK;
 
-    switch(rc) {
-        case ERROR_FILE_NOT_FOUND:
-        case ERROR_PATH_NOT_FOUND:
-            return RUN_FILE_NOT_FOUND;
-        case SE_ERR_NOASSOC:
-            return RUN_NO_ASSOC;
-        default:
-            return RUN_ERR_UNKNOWN;
+    switch (rc) {
+    case ERROR_FILE_NOT_FOUND:
+    case ERROR_PATH_NOT_FOUND:
+        return RUN_FILE_NOT_FOUND;
+    case SE_ERR_NOASSOC:
+        return RUN_NO_ASSOC;
+    default:
+        return RUN_ERR_UNKNOWN;
     }
 
     return 0;
@@ -341,16 +341,16 @@ void LangFaustTilde::m_open(t_symbol*, const AtomListView&)
                 OBJ_ERR << "exec error: " << __FUNCTION__;
             } else {
                 auto rc = run_editor_.get();
-                switch(rc) {
+                switch (rc) {
                 case RUN_FILE_NOT_FOUND:
                     OBJ_DBG << "file not found error";
-                break;
+                    break;
                 case RUN_NO_ASSOC:
                     OBJ_DBG << "no editor associated with file";
-                break;
+                    break;
                 default:
                     OBJ_DBG << "result code: " << rc;
-                break;
+                    break;
                 }
             }
         } catch (std::exception& e) {
