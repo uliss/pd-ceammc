@@ -12,7 +12,7 @@
  * this file belongs to.
  *****************************************************************************/
 #include "button_view.h"
-#include "nui_button.tcl.h"
+#include "nui_button_tcl.h"
 
 namespace ceammc {
 namespace ui {
@@ -78,7 +78,7 @@ namespace ui {
 
     void tcl_button_init()
     {
-        sys_gui(nui_button_tcl);
+        nui_button_tcl_output();
     }
 }
 }

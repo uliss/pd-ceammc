@@ -1,3 +1,13 @@
+add_custom_command(
+    COMMAND $<TARGET_FILE:tcl2cxx> ${CMAKE_CURRENT_SOURCE_DIR}/nui_button.tcl > nui_button_tcl.h
+    DEPENDS nui_button.tcl
+    OUTPUT  nui_button_tcl.h)
+
+add_custom_command(
+    COMMAND $<TARGET_FILE:tcl2cxx> ${CMAKE_CURRENT_SOURCE_DIR}/tcl_nui.tcl > tcl_nui_tcl.h
+    DEPENDS tcl_nui.tcl
+    OUTPUT  tcl_nui_tcl.h)
+
 add_library(ceammc_nui STATIC
     button_view.cpp
     common.cpp
@@ -9,26 +19,14 @@ add_library(ceammc_nui STATIC
     tk_view_impl.cpp
     view.cpp
     widget.cpp
+    nui_button_tcl.h
+    tcl_nui_tcl.h
 )
 
 target_include_directories(ceammc_nui PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/..)
+target_include_directories(ceammc_nui PUBLIC ${CMAKE_CURRENT_BINARY_DIR})
 target_include_directories(ceammc_nui PUBLIC ${PROJECT_SOURCE_DIR}/src)
 
-add_custom_target(nui_tcl_gen
-    COMMAND ${PROJECT_SOURCE_DIR}/ceammc/scripts/filecontent_to_cxx_header.sh tcl_nui.tcl
-    COMMAND ${PROJECT_SOURCE_DIR}/ceammc/scripts/filecontent_to_cxx_header.sh nui_button.tcl
-    SOURCES tcl_nui.tcl nui_button.tcl
-    WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR})
-
-set(MODELS
-    bar_model.yaml
-    box_model.yaml
-    button_model.yaml
-    frame_model.yaml
-    label_model.yaml
-    slider_model.yaml
-    toggle_model.yaml
-)
 set(GEN_MODEL ${CMAKE_CURRENT_SOURCE_DIR}/gen_model_data.py)
 
 add_custom_target(nui_model_gen
@@ -39,7 +37,10 @@ add_custom_target(nui_model_gen
     COMMAND ${GEN_MODEL} label_model.yaml > label_model.h
     COMMAND ${GEN_MODEL} slider_model.yaml > slider_model.h
     COMMAND ${GEN_MODEL} toggle_model.yaml > toggle_model.h
-    SOURCES ${MODELS}
     WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR})
 
 target_link_libraries(ceammc_nui PRIVATE ceammc_core puredata-core)
+
+file(GLOB _YAML_FILES "*.yaml")
+file(GLOB _TCL_FILES "*.tcl")
+add_custom_target(nui_model_sources SOURCES ${_YAML_FILES} ${_TCL_FILES})
