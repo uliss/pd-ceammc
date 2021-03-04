@@ -40,10 +40,10 @@
 #include "set_union.h"
 
 void setup_rtree_to_list();
+void setup_data_copy();
 
 void ceammc_data_setup()
 {
-
     setup_set_contains();
     setup_set_difference();
     setup_set_equal();
@@ -53,6 +53,7 @@ void ceammc_data_setup()
     setup_set_union();
     setup_set_symdiff();
 
+    setup_data_copy();
     setup_data_dict();
     setup_data_fifo();
     setup_data_float();
