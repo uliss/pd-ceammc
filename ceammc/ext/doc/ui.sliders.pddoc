@@ -138,25 +138,29 @@
         <example>
             <pdascii>
 <![CDATA[
-[1 2 3 4 5( [0 30(              [F]         [T]
-|           |                   |           |
-|  [B]      [list.seq]          [@count $1( [@auto_range $1(
-|  |        |                   |           |
-|  |        | [F]               |           |
-|  |        | |                 |           |   [select 4(
-|  |        | [set slider 4 $1( |           |   |
-|  |        | |                 |           |   |
-|  |        | |                 |           |   |  /*vertical sliders*/
-|  |        | |                 |           |   |
-[ui.sliders       @max 10  @presetname sl-help  ]  [ui.sliders @size 100 150]
+[1 2 3 4 5(      [F]            [ui.tab none both min max @size 140 15]
+|                |              |
+|        [0 30(  [@count $1 #a( [@auto_range_mode $2 #d(
+|        |
+|   [F]  [list.seq #b] [T]                 [F]
+|   |                  |                   |
+|   [set slider 4 $1(  [@auto_count $1 #c( [select $1 #e(
+|   |
+|   |
+[ui.sliders      @max 10  @presetname sl-help #x]  /*vertical sliders*/
 |
-|
+|                                                  [ui.sliders @size 60 100]
 |
 |
 |
 |
 |
 [ui.dt]
+[X a->x]
+[X b->x]
+[X c->x]
+[X d->x]
+[X e->x]
 ]]>
             </pdascii>
         </example>
