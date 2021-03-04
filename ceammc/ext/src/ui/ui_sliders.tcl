@@ -85,7 +85,7 @@ proc sliders_draw_bars {cnv id w h zoom bar_color active_color vert active args}
             sliders_draw_vbar $c $t $bar_w $h $zoom $bar_color $i $bar
         }
 
-        if { $active >= 0 } {
+        if { $active >= 0 && $active < [llength $args] } {
             set bar [lindex $args $active]
             sliders_draw_vbar $c $t $bar_w $h $zoom $active_color $active $bar
         }
@@ -99,7 +99,7 @@ proc sliders_draw_bars {cnv id w h zoom bar_color active_color vert active args}
             sliders_draw_hbar $c $t $w $bar_h $zoom $bar_color $i $bar
         }
 
-        if { $active >= 0 } {
+        if { $active >= 0 && $active < [llength $args] } {
             set bar [lindex $args $active]
             sliders_draw_hbar $c $t $w $bar_h $zoom $active_color $active $bar
         }
