@@ -5,6 +5,8 @@ set(INCLUDE_EXECUTABLE  OFF CACHE STRING  "Include runtime executable"    FORCE)
 set(INCLUDE_DYNAMIC     OFF CACHE STRING  "Include dynamic library"       FORCE)
 set(INCLUDE_OSC         OFF CACHE STRING  "Include Faust OSC library"     FORCE)
 set(INCLUDE_HTTP        OFF CACHE STRING  "Include Faust HTTPD library"   FORCE)
+set(INCLUDE_EMCC        OFF CACHE STRING  ""   FORCE )
+set(INCLUDE_WASM_GLUE   OFF CACHE STRING  ""   FORCE )
 
 ## Hardcoded backends for faust
 set(ASMJS_BACKEND  OFF                            CACHE STRING  "Include ASMJS backend"     FORCE)
@@ -38,9 +40,16 @@ message(STATUS "Found LLVM ${LLVM_PACKAGE_VERSION}")
 message(STATUS "Using LLVMConfig.cmake in: ${LLVM_DIR}")
 
 add_library(ceammc_faust STATIC ceammc_llvm.cpp)
-target_link_libraries(ceammc_faust staticlib)
+target_link_libraries(ceammc_faust PUBLIC staticlib)
 target_compile_definitions(ceammc_faust PRIVATE ${LLVM_DEFINITIONS})
 target_include_directories(ceammc_faust PRIVATE
     ${CMAKE_CURRENT_SOURCE_DIR}/faust/architecture
     ${LLVM_INCLUDE_DIRS}
     ${PROJECT_SOURCE_DIR}/src)
+
+set(DOC_INSTALL_PATH "${PD_DOC_INSTALL_PATH}/extra/ceammc")
+
+install(DIRECTORY faust/libraries/
+    DESTINATION ${DOC_INSTALL_PATH}/faust
+    FILES_MATCHING PATTERN "*.lib"
+    PERMISSIONS OWNER_READ GROUP_READ WORLD_READ)
