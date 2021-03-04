@@ -33,7 +33,6 @@ namespace faust {
     LlvmDspFactory::LlvmDspFactory(const char* fname, const FaustConfig& config)
         : factory_(nullptr, delete_factory)
     {
-
         auto f = createDSPFactoryFromFile(fname,
             config.numOptions(),
             config.options(),
