@@ -31,6 +31,10 @@ static std::string mybasename(const std::string& name)
     char buf[name.length() + 1];
     strcpy(buf, name.c_str());
     return basename(buf);
+#elif _WIN32
+    return {};
+#else
+    return {};
 #endif
 }
 
