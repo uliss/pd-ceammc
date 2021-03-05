@@ -35,17 +35,23 @@ enum Status {
     ERR_SYNTH
 };
 
-static int do_speech_synth(rw_queue& queue, const std::atomic_bool& run_flag, int SR, const std::string& voice, const std::string& txt)
+static int do_speech_synth(rw_queue& queue,
+    const std::atomic_bool& run_flag,
+    int SR,
+    const std::string& voice,
+    float speed,
+    float pitch,
+    const std::string& txt)
 {
     cst_voice* vc = flite_voice_select(voice.c_str());
     if (!vc)
         return ERR_UNKNOWN_VOICE;
 
     // set features
-    //    feat_set_float(vc->features, "duration_stretch", 1);
+    feat_set_float(vc->features, "duration_stretch", speed);
 
-    //    if (feat.pitch > 0)
-    //        feat_set_float(vc->features, "int_f0_target_mean", feat.pitch);
+    if (pitch > 0)
+        feat_set_float(vc->features, "int_f0_target_mean", pitch);
 
     // render
     cst_wave* wave = flite_text_to_wave(txt.c_str(), vc);
@@ -82,7 +88,15 @@ SpeechFilteTilde::SpeechFilteTilde(const PdArgs& args)
     voice_name_ = new SymbolEnumProperty("@voice", { "kal16", "slt", "rms", "awb" });
     addProperty(voice_name_);
 
+    speed_ = new FloatProperty("@speed", 1);
+    speed_->checkClosedRange(0.5, 4);
+    addProperty(speed_);
+
+    pitch_ = new FloatProperty("@pitch", -1);
+    addProperty(pitch_);
+
     createSignalOutlet();
+    createOutlet();
 }
 
 SpeechFilteTilde::~SpeechFilteTilde()
@@ -94,6 +108,20 @@ SpeechFilteTilde::~SpeechFilteTilde()
             OBJ_LOG << "waiting speech engine to finish...";
         }
     }
+}
+
+void SpeechFilteTilde::onFloat(t_float f)
+{
+    char buf[32];
+    snprintf(buf, sizeof(buf) - 1, "%g", f);
+    sentences_.emplace(buf);
+    checkSynth();
+}
+
+void SpeechFilteTilde::onSymbol(t_symbol* s)
+{
+    sentences_.emplace(s->s_name);
+    checkSynth();
 }
 
 void SpeechFilteTilde::onList(const AtomList& lst)
@@ -157,6 +185,7 @@ void SpeechFilteTilde::checkSynth()
                 }
 
                 run_ = false;
+                floatTo(1, sentences_.size());
             }
         } catch (std::exception& e) {
             OBJ_ERR << e.what();
@@ -176,6 +205,8 @@ void SpeechFilteTilde::checkSynth()
             std::ref(run_),
             (int)sys_getsr(),
             voice_name_->value()->s_name,
+            (float)speed_->value(),
+            (float)pitch_->value(),
             sentences_.front());
 
         sentences_.pop();

@@ -44,6 +44,8 @@ public:
     SpeechFilteTilde(const PdArgs& args);
     ~SpeechFilteTilde();
 
+    void onFloat(t_float f) override;
+    void onSymbol(t_symbol* s) override;
     void onList(const AtomList& lst) override;
 
     void processBlock(const t_sample** in, t_sample** out) override;
