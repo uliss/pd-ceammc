@@ -56,9 +56,13 @@
         <example>
             <pdascii>
 <![CDATA[
-[open(               [osc.square~ 200]
-|                    |.
-[ui.faust~ faust/ex0.dsp]
+[open( [symbol ex1.dsp(    [osc~ 500]
+|      |                   |
+|      [@fname faust/$1(   |
+|      |                   |.
+[ui.faust~ faust/ex0.dsp    ]
+|
+|
 |
 |
 |
