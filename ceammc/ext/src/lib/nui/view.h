@@ -22,7 +22,6 @@
 #include "nui/box_model.h"
 #include "nui/common.h"
 #include "nui/frame_model.h"
-#include "nui/label_model.h"
 #include "nui/layout.h"
 #include "nui/model.h"
 #include "nui/rect.h"
@@ -355,8 +354,6 @@ namespace ui {
 
         void setSpace(float space);
     };
-
-    using LabelView = ModelView<LabelData>;
 }
 }
 

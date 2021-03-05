@@ -13,6 +13,7 @@
  *****************************************************************************/
 #include "tk_view_impl.h"
 #include "button_view.h"
+#include "label_view.h"
 #include "slider_view.h"
 
 #include "tcl_nui_tcl.h"
@@ -23,20 +24,6 @@
 
 namespace ceammc {
 namespace ui {
-
-    namespace {
-        std::pair<Point, const char*> anchorToPos(const Rect& rect, const AnchorPosition an)
-        {
-            switch (an) {
-            case ANCHOR_CORNER_LEFT_TOP:
-                return { rect.leftTop(), "nw" };
-            case ANCHOR_SIDE_LEFT_CENTER:
-                return { rect.leftCenter(), "w" };
-            default:
-                return { rect.leftTop(), "nw" };
-            }
-        }
-    }
 
     void TclFrameImpl::create(const RectF& bbox, const FrameData& data)
     {
@@ -77,56 +64,12 @@ namespace ui {
             winId(), widgetId(), this, rect.left(), rect.top());
     }
 
-    void TclLabelImpl::create(const RectF& bbox, const LabelData& data)
-    {
-        Rect rect = transform(bbox);
-        auto anchor = anchorToPos(rect, data.anchor());
-        Point pt = anchor.first;
-
-        sys_vgui("nui::label::create %lx %lx %lx"
-                 " %d %d"
-                 " %d %s {{%s} %d} #%6.6x {%s}\n",
-            winId(), widgetId(), this,
-            pt.x(), pt.y(),
-            data.textWidth(), anchor.second,
-            data.font().family(), int(data.font().size() * scale()),
-            data.color(), data.text().c_str());
-    }
-
-    void TclLabelImpl::erase()
-    {
-        sys_vgui("nui::label::erase %lx %lx %lx\n", winId(), widgetId(), this);
-    }
-
-    void TclLabelImpl::update(const RectF& bbox, const LabelData& data)
-    {
-        Rect rect = transform(bbox);
-        auto anchor = anchorToPos(rect, data.anchor());
-        Point pt = anchor.first;
-
-        sys_vgui("nui::label::update %lx %lx %lx"
-                 " %d %d"
-                 " %d %s {{%s} %d} #%6.6x {%s}\n",
-            winId(), widgetId(), this,
-            pt.x(), pt.y(),
-            data.textWidth(), anchor.second,
-            data.font().family(), int(data.font().size() * scale()),
-            data.color(), data.text().c_str());
-    }
-
-    void TclLabelImpl::updateCoords(const RectF& bbox)
-    {
-        Rect rect = transform(bbox);
-
-        sys_vgui("nui::label::move %lx %lx %lx %d %d\n",
-            winId(), widgetId(), this, rect.left(), rect.top());
-    }
-
     bool tcl_nui_init()
     {
         tcl_nui_tcl_output();
         tcl_button_init();
         tcl_hslider_init();
+        tcl_label_init();
         return true;
     }
 

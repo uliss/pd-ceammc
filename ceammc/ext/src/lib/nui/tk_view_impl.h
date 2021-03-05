@@ -43,14 +43,6 @@ namespace ui {
         void updateCoords(const RectF& bbox) final;
     };
 
-    class TclLabelImpl : public ViewImpl<LabelData> {
-    public:
-        void create(const RectF& bbox, const LabelData& data) final;
-        void erase() final;
-        void update(const RectF& bbox, const LabelData& data) final;
-        void updateCoords(const RectF& bbox) final;
-    };
-
     class TclBarImpl : public ViewImpl<BarData> {
     public:
         void create(const RectF& bbox, const BarData& data) final;
@@ -60,7 +52,6 @@ namespace ui {
     };
 
     bool tcl_nui_init();
-
 }
 }
 

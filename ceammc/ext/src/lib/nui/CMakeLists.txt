@@ -4,6 +4,11 @@ add_custom_command(
     OUTPUT  nui_button_tcl.h)
 
 add_custom_command(
+    COMMAND $<TARGET_FILE:tcl2cxx> ${CMAKE_CURRENT_SOURCE_DIR}/nui_label.tcl > nui_label_tcl.h
+    DEPENDS nui_label.tcl
+    OUTPUT  nui_label_tcl.h)
+
+add_custom_command(
     COMMAND $<TARGET_FILE:tcl2cxx> ${CMAKE_CURRENT_SOURCE_DIR}/nui_slider.tcl > nui_slider_tcl.h
     DEPENDS nui_slider.tcl
     OUTPUT  nui_slider_tcl.h)
@@ -13,14 +18,17 @@ add_custom_command(
     DEPENDS tcl_nui.tcl
     OUTPUT  tcl_nui_tcl.h)
 
+
 add_library(ceammc_nui STATIC
     button_view.cpp
     common.cpp
     factory.cpp
+    label_view.cpp
     layout.cpp
     model.cpp
     nui.cpp
     nui_button_tcl.h
+    nui_label_tcl.h
     nui_slider_tcl.h
     property.cpp
     slider_view.cpp

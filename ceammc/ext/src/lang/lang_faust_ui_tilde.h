@@ -18,6 +18,7 @@
 #include "ceammc_sound_external.h"
 #include "lang_faust_tilde.h"
 #include "nui/button_view.h"
+#include "nui/label_view.h"
 #include "nui/nui.h"
 #include "nui/property.h"
 #include "nui/rect.h"
