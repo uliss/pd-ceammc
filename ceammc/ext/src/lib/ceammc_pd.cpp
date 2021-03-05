@@ -27,6 +27,15 @@ void pd_init();
 void obj_sendinlet(t_object* x, int n, t_symbol* s, int argc, t_atom* argv);
 }
 
+static t_methodentry* class_methods(t_class* c)
+{
+#ifdef PDINSTANCE
+    return c->c_methods[pd_this->pd_instanceno];
+#else
+    return c->c_methods;
+#endif
+}
+
 #include <exception>
 #include <iostream>
 
@@ -85,12 +94,7 @@ bool ceammc::pd::addPdPrintDataSupport()
 
 std::vector<std::string> pd::currentListOfExternals()
 {
-
-#ifdef PDINSTANCE
-    auto mlist = pd_objectmaker->c_methods[pd_this->pd_instanceno];
-#else
-    auto mlist = pd_objectmaker->c_methods;
-#endif
+    auto mlist = class_methods(pd_objectmaker);
 
     std::vector<std::string> res;
     if (!mlist)
@@ -461,8 +465,8 @@ std::vector<t_symbol*> pd::External::methods() const
 
     t_class* c = obj_->te_g.g_pd;
     for (int i = 0; i < c->c_nmethod; i++) {
-        auto m = &c->c_methods[i];
-        res.push_back(m->me_name);
+        auto& m = class_methods(c)[i];
+        res.push_back(m.me_name);
     }
 
     return res;
