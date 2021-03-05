@@ -1032,6 +1032,7 @@ ui.d	Display GUI object
 ui.dt	Display GUI object
 ui.dsp~	GUI for turning DSP on/off
 ui.env	envelope editor widget
+ui.filter	UI filter object calculator for biquad filter
 ui.filter~	UI filter object based on biquad filter
 ui.gain2~	UI stereo gain control
 ui.hgain2~	UI stereo gain control

@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="ui.filter" type="gui">
+        <title>ui.filter</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>UI filter object calculator for biquad filter</description>
+            <license>GPL3 or later</license>
+            <library>ceammc</library>
+            <category view="link">ui</category>
+            <keywords>ui filter biquad</keywords>
+            <since>0.9.2</since>
+            <also>
+                <see view="link">ui.filter~</see>
+            </also>
+        </meta>
+        <mouse>
+            <event editmode="false" type="left-click">jump to coord under mouse pointer</event>
+            <event editmode="false" type="right-click">opens popup menu for filter type
+            selection</event>
+            <event editmode="false" type="drag">change frequency and Q/gain value</event>
+            <event editmode="false" type="wheel">only for peakEq filter: change Q-factor</event>
+        </mouse>
+        <methods>
+            <method name="biquad">set biquad coefficients (but not changes current filter
+            properties) 
+            <param type="list" name="b0 b1 b2 a1 a2" required="true">coefficients</param></method>
+            <method name="dump">dumps all object info to Pd console window</method>
+            <!-- presets -->
+            <method name="load">loads specified preset 
+            <param type="int" name="IDX" required="true">preset index</param></method>
+            <method name="store">stores specified preset 
+            <param type="int" name="IDX" required="true">preset index</param></method>
+            <method name="clear">clears specified preset 
+            <param type="int" name="IDX" required="true">preset index</param></method>
+            <!-- common-->
+            <method name="pos">set UI element position 
+            <param name="X" type="float" required="true">top left x-coord</param>
+            <param name="Y" type="float" required="true">top right y-coord</param></method>
+        </methods>
+        <properties>
+            <property name="@freq" type="float" default="1000" minvalue="0" maxvalue="20000">filter
+            frequency</property>
+            <property name="@scale" type="symbol" default="lin" enum="lin log rad">frequency
+            scale</property>
+            <property name="@type" type="symbol" default="lpf"
+            enum="lpf hpf bpf bpfq lowshelf highshelf peak notch">frequency scale</property>
+            <property name="@gain" type="float" default="0" minvalue="-24" maxvalue="24"
+            units="decibel">gain (for low/highshelf/peak filters)</property>
+            <property name="@q" type="float" default="0.707107" minvalue="0.015625" maxvalue="64">
+            quality factor</property>
+            <!-- common -->
+            <property name="@presetname" type="symbol" default="(null)">preset name for using with
+            [ui.preset]</property>
+            <property name="@send" type="symbol" default="(null)">send destination</property>
+            <property name="@receive" type="symbol" default="(null)">receive source</property>
+            <property name="@size" type="list" default="300 100">element size (width, height
+            pair)</property>
+            <property name="@pinned" type="int" enum="0 1" default="0">pin mode. if 1 - put element
+            to the lowest level</property>
+            <property name="@mouse_events" type="int" enum="0 1" default="0">mouse events output
+            mode. If on outputs @mouse_down, @mouse_up and @mouse_drag events</property>
+            <property name="@background_color" type="list" default="0.93 0.93 0.93 1">element
+            background color (list of red, green, blue values in 0-1 range)</property>
+            <property name="@border_color" type="list" default="0.6 0.6 0.6 1">border color (list
+            of red, green, blue values in 0-1 range)</property>
+            <property name="@knob_color" type="list" default="0 0.75 1 1">knob color</property>
+            <property name="@grid_color" type="list" default="0.6 0.6 0.6 1">knob color</property>
+            <property name="@plot_color" type="list" default="0 0 0 1">knob color</property>
+            <property name="@fontsize" type="int" minvalue="4" maxvalue="11" default="11">
+            fontsize</property>
+            <property name="@fontname" type="symbol" default="Helvetica">fontname</property>
+            <property name="@fontweight" type="symbol" enum="normal bold" default="normal">font
+            weight</property>
+            <property name="@fontslant" type="symbol" enum="roman italic" default="roman">font
+            slant</property>
+            <!-- label -->
+            <property name="@label" type="symbol" default="(null)">label text</property>
+            <property name="@label_color" type="list" default="0.6 0.6 0.6 1">label color in RGB
+            format within 0-1 range, for example: 0.2 0.4 0.1</property>
+            <property name="@label_inner" type="int" enum="0 1" default="0">label position (1 -
+            inner, 0 - outer).</property>
+            <property name="@label_align" type="symbol" enum="left center right" default="left">
+            label horizontal align</property>
+            <property name="@label_valign" type="symbol" enum="top center bottom" default="top">
+            label vertical align</property>
+            <property name="@label_side" type="symbol" enum="left top right bottom" default="top">
+            label snap side</property>
+            <property name="@label_margins" type="list" default="0 0">label offset in
+            pixels</property>
+        </properties>
+        <inlets>
+            <inlet>
+                <xinfo>control input</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet>list: b0 b1 b2 a1 a2</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[ui.tab lin log rad] [ui.tab lpf hpf bpf bpfq @size 160 15]
+|                    |
+[@scale $2(          [@type $2(
+|                    |
+[ui.filter           ]
+|
+|
+|
+|
+|
+|
+|
+[ui.dt]
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>
