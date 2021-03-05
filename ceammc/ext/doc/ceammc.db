@@ -544,6 +544,7 @@ rtree.to_list,ceammc/rtree->list,rtree->list		.		.
 seq.arp		.		..
 seq.bangs,seq.b		..		..
 seq.counter,ceammc/counter,counter		..		..
+seq.life		.		.
 seq.matrix		..		..
 seq.nbangs,seq.nb		..		..
 seq.phasor		..		..

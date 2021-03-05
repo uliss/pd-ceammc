@@ -1693,6 +1693,9 @@
     <entry name="seq.counter" descr="modulo counter" ref_view="object">
       <xi:include href="seq.counter.pddoc" parse="xml"/>
     </entry>
+    <entry name="seq.life" descr="Conway gamw of life sequencer" ref_view="object">
+      <xi:include href="seq.life.pddoc" parse="xml"/>
+    </entry>
     <entry name="seq.matrix" descr="sequencer control for ui.matrix" ref_view="object">
       <xi:include href="seq.matrix.pddoc" parse="xml"/>
     </entry>

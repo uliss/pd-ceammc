@@ -555,6 +555,7 @@ set(DOC_FILES
     seq.arp
     seq.bangs
     seq.counter
+    seq.life
     seq.matrix
     seq.nbangs
     seq.phasor

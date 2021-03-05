@@ -895,6 +895,7 @@ seq.b	bang sequencer
 seq.counter	modulo counter
 ceammc/counter	modulo counter
 counter	modulo counter
+seq.life	Conway gamw of life sequencer
 seq.matrix	sequencer control for ui.matrix
 seq.nbangs	output specified number of bang with time intervals
 seq.nb	output specified number of bang with time intervals

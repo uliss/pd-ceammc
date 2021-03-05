@@ -28,6 +28,7 @@
   - midi.vrand - velocity randomizer added
   - proto.midi added (raw dataflow midi parser/encoder)
   - route.float (with route.f alias) added
+  - seq.life - conway game of life sequencer
   - system.exit added
   - synth.harpsichord~ added
   - synth.piano~ added
