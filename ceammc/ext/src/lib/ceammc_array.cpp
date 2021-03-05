@@ -300,7 +300,7 @@ bool Array::setYLabels(const AtomList& labels)
 
     auto gl = garray_getglist(array_);
     t_float el_wd = 1;
-    if (gl)
+    if (gl && gl->gl_pixwidth > 0)
         el_wd = t_float(size()) / gl->gl_pixwidth;
 
     AtomList args(std::round(-4 * el_wd));
