@@ -263,6 +263,11 @@ void UINumber::storePreset(size_t idx)
     PresetStorage::instance().setFloatValueAt(presetId(), idx, value_);
 }
 
+void UINumber::interpPreset(t_float idx)
+{
+    onFloat(PresetStorage::instance().floatValueAt(presetId(), idx));
+}
+
 void UINumber::m_plus(t_float f)
 {
     setValue(value_ + f);

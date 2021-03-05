@@ -571,6 +571,11 @@ void UIObjectImpl::handlePresetNameChange()
     }
 }
 
+bool UIObjectImpl::hasPresetInterp() const
+{
+    return false;
+}
+
 size_t UIObjectImpl::numInlets() const
 {
     return obj_ninlets(asPdObject());

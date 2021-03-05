@@ -158,6 +158,7 @@ public:
     void unbindPreset(t_symbol* name);
     void rebindPreset(t_symbol* from, t_symbol* to);
     void handlePresetNameChange();
+    bool hasPresetInterp() const;
 
     // xlets
     size_t numInlets() const;

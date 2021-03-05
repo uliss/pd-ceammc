@@ -89,6 +89,7 @@ public:
     void loadPreset(size_t idx);
     void storePreset(size_t idx);
     void interpPreset(t_float idx);
+    bool hasPresetInterp() const { return true; }
 
     void m_plus(t_float db);
     void m_minus(t_float db);

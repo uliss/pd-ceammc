@@ -1030,7 +1030,10 @@ public:
             idx = atom_getfloat(argv);
         }
 
-        z->interpPreset(idx);
+        if (z->hasPresetInterp())
+            z->interpPreset(idx);
+        else
+            z->loadPreset(static_cast<int>(idx));
     }
 
     static void storePreset(UI* z, t_symbol*, int argc, t_atom* argv)
