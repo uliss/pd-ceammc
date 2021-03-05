@@ -463,6 +463,26 @@ void PresetStorage::storeAll(size_t idx)
     pd_typedmess(SYM_PRESET_ALL->s_thing, SYM_STORE, 1, &a);
 }
 
+void PresetStorage::interpAll(t_float idx)
+{
+    t_symbol* SYM_LOAD = gensym("interp");
+    t_symbol* SYM_PRESET_ALL = gensym(Preset::SYM_PRESET_ALL);
+
+    if (!SYM_PRESET_ALL->s_thing)
+        return;
+
+    if (idx >= maxPresetCount()) {
+        LIB_ERR << "[preset] "
+                << "invalid preset index: " << idx
+                << ". Should be less then: " << maxPresetCount();
+        return;
+    }
+
+    t_atom a;
+    SETFLOAT(&a, idx);
+    pd_typedmess(SYM_PRESET_ALL->s_thing, SYM_LOAD, 1, &a);
+}
+
 void PresetStorage::updateAll()
 {
     t_symbol* SYM_UPDATE = gensym("update");

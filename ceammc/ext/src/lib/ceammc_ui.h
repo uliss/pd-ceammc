@@ -245,6 +245,7 @@ public:
         UIObjectFactory::use_presets = true;
 
         eclass_addmethod(pd_class, UI_METHOD_PTR(loadPreset),      "load",          A_GIMME,  0);
+        eclass_addmethod(pd_class, UI_METHOD_PTR(interpPreset),    "interp",        A_GIMME,  0);
         eclass_addmethod(pd_class, UI_METHOD_PTR(storePreset),     "store",         A_GIMME,  0);
         eclass_addmethod(pd_class, UI_METHOD_PTR(clearPreset),     "clear",         A_GIMME,  0);
 
@@ -1015,6 +1016,21 @@ public:
             return;
 
         z->loadPreset(idx);
+    }
+
+    static void interpPreset(UI* z, t_symbol*, int argc, t_atom* argv)
+    {
+        t_float idx = 0;
+        if (argc > 0) {
+            if (argv->a_type != A_FLOAT) {
+                pd_error(z->asPd(), "[%s] invalid preset index", z->name()->s_name);
+                return;
+            }
+
+            idx = atom_getfloat(argv);
+        }
+
+        z->interpPreset(idx);
     }
 
     static void storePreset(UI* z, t_symbol*, int argc, t_atom* argv)

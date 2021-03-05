@@ -40,5 +40,4 @@ void setup_preset_float()
 {
     PresetIFaceFactory<PresetFloat> obj("preset.float");
     obj.addAlias("preset.f");
-    obj.addMethod("interp", &PresetFloat::m_interp);
 }

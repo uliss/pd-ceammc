@@ -127,6 +127,7 @@ public:
     void loadPreset(size_t idx);
     void storePreset(size_t idx);
     void clearPreset(size_t idx);
+    void interpPreset(t_float idx);
 
     void bangTo(size_t n);
     void floatTo(size_t n, t_float f);

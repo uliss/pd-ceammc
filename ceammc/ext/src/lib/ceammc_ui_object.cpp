@@ -362,6 +362,10 @@ void UIObjectImpl::clearPreset(size_t idx)
     PresetStorage::instance().clearValueAt(presetId(), idx);
 }
 
+void UIObjectImpl::interpPreset(t_float idx)
+{
+}
+
 void UIObjectImpl::bangTo(size_t n)
 {
     if (n >= outlets_.size())

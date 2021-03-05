@@ -63,6 +63,7 @@
       |        | |        |   |
 [F] X [preset.float     f1    ]
 
+[ui.preset]
 ]]>
             </pdascii>
         </example>

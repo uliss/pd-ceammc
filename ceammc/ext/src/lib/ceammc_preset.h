@@ -104,6 +104,7 @@ public:
     void clearAll(size_t idx);
     void loadAll(size_t idx);
     void storeAll(size_t idx);
+    void interpAll(t_float idx);
     void updateAll();
     void duplicateAll();
 
