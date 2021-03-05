@@ -13,7 +13,7 @@ namespace ceammc {
 namespace ui {
 
 class LabelData
-    : public std::tuple<t_symbol*, t_symbol*, Size, int, HexColor, Font, AnchorPosition, TextAlign, int> {
+    : public std::tuple<std::string, t_symbol*, Size, int, HexColor, Font, AnchorPosition, TextAlign, int> {
 public:
     enum Fields {
         TEXT,
@@ -28,7 +28,7 @@ public:
     };
 public:
     LabelData()
-        : std::tuple<t_symbol*, t_symbol*, Size, int, HexColor, Font, AnchorPosition, TextAlign, int>(&s_, &s_, Size(40, 10), 0, colors::st_text, Font(), ANCHOR_CORNER_LEFT_TOP, TEXT_ALIGN_LEFT, 0) { }
+        : std::tuple<std::string, t_symbol*, Size, int, HexColor, Font, AnchorPosition, TextAlign, int>(std::string(), &s_, Size(40, 10), 0, colors::st_text, Font(), ANCHOR_CORNER_LEFT_TOP, TEXT_ALIGN_LEFT, 0) { }
 
     LabelData(int style)
         : LabelData() {
@@ -38,7 +38,7 @@ public:
 
 
     // getters
-    t_symbol* const& text() const noexcept { return std::get<TEXT>(*this); }
+    std::string const& text() const noexcept { return std::get<TEXT>(*this); }
     t_symbol* const& tooltip() const noexcept { return std::get<TOOLTIP>(*this); }
     Size const& size() const noexcept { return std::get<SIZE>(*this); }
     int const& textWidth() const noexcept { return std::get<TEXT_WIDTH>(*this); }
@@ -49,7 +49,7 @@ public:
     int const& style() const noexcept { return std::get<STYLE_IDX>(*this); }
 
     // setters
-    void setText(t_symbol* v) { std::get<TEXT>(*this) = v; }
+    void setText(std::string v) { std::get<TEXT>(*this) = v; }
     void setTooltip(t_symbol* v) { std::get<TOOLTIP>(*this) = v; }
     void setSize(Size v) { std::get<SIZE>(*this) = v; }
     void setTextWidth(int v) { std::get<TEXT_WIDTH>(*this) = v; }
@@ -60,7 +60,7 @@ public:
     void setStyle(int v) { std::get<STYLE_IDX>(*this) = v; }
 
     // refs
-    t_symbol*& textRef() { return std::get<TEXT>(*this); }
+    std::string& textRef() { return std::get<TEXT>(*this); }
     t_symbol*& tooltipRef() { return std::get<TOOLTIP>(*this); }
     Size& sizeRef() { return std::get<SIZE>(*this); }
     int& textWidthRef() { return std::get<TEXT_WIDTH>(*this); }

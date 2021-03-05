@@ -1,8 +1,8 @@
 name: Label
 data:
 - name: text
-  type: t_symbol*
-  init: "&s_"
+  type: std::string
+  init: std::string()
 - name: tooltip
   type: t_symbol*
   init: "&s_"

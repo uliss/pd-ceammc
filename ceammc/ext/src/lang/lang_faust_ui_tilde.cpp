@@ -177,7 +177,7 @@ Size FaustMasterView::build(const std::vector<faust::UIProperty*>& props)
 
     auto lm = new LabelModel(faustThemeIdx);
     lm->data().setAnchor(ANCHOR_CORNER_LEFT_TOP);
-    lm->data().setText(gensym("FAUST"));
+    lm->data().setText("FAUST");
     labels_.emplace_back(lm);
 
     ViewPtr lv(new LabelView(lm, LabelView::ViewImplPtr(new TclLabelImpl), {}));
@@ -359,7 +359,7 @@ void FaustMasterView::createHsliderEntry(faust::UIProperty* p)
 
     lm->data().setAnchor(ANCHOR_SIDE_LEFT_CENTER);
     lm->data().sizeRef().setHeight(slm->data().size());
-    lm->data().setText(p->name());
+    lm->data().setText(p->name()->s_name);
 
     labels_.emplace_back(lm);
     ViewPtr lv(new LabelView(lm, LabelView::ViewImplPtr(new TclLabelImpl), {}));
@@ -406,7 +406,7 @@ void FaustMasterView::createToggleEntry(faust::UIProperty* p)
 
     lm->data().setAnchor(ANCHOR_SIDE_LEFT_CENTER);
     lm->data().sizeRef().setHeight(tgl->data().size());
-    lm->data().setText(p->name());
+    lm->data().setText(p->name()->s_name);
 
     labels_.emplace_back(lm);
     ViewPtr lv(new LabelView(lm, LabelView::ViewImplPtr(new TclLabelImpl), {}));
@@ -436,7 +436,7 @@ void FaustMasterView::createButtonEntry(faust::UIProperty* p)
 
     lm->data().setAnchor(ANCHOR_SIDE_LEFT_CENTER);
     lm->data().sizeRef().setHeight(tgl->data().size());
-    lm->data().setText(p->name());
+    lm->data().setText(p->name()->s_name);
 
     labels_.emplace_back(lm);
     ViewPtr lv(new LabelView(lm, LabelView::ViewImplPtr(new TclLabelImpl), {}));

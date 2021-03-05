@@ -90,7 +90,7 @@ namespace ui {
             pt.x(), pt.y(),
             data.textWidth(), anchor.second,
             data.font().family(), int(data.font().size() * scale()),
-            data.color(), data.text()->s_name);
+            data.color(), data.text().c_str());
     }
 
     void TclLabelImpl::erase()
@@ -111,7 +111,7 @@ namespace ui {
             pt.x(), pt.y(),
             data.textWidth(), anchor.second,
             data.font().family(), int(data.font().size() * scale()),
-            data.color(), data.text()->s_name);
+            data.color(), data.text().c_str());
     }
 
     void TclLabelImpl::updateCoords(const RectF& bbox)
