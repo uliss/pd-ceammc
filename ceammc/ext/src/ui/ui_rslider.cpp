@@ -319,6 +319,29 @@ void UIRSlider::loadPreset(size_t idx)
     onList(PresetStorage::instance().listValueAt(presetId(), idx));
 }
 
+static AtomList interp_lists(const AtomListView& lv0, const AtomListView& lv1, size_t n, float k)
+{
+    Atom res[n];
+
+    for (size_t i = 0; i < n; i++) {
+        auto v0 = lv0.floatAt(i, 0);
+        auto v1 = lv1.floatAt(i, 0);
+        res[i] = v0 * (1 - k) + v1 * k;
+    }
+
+    return AtomList(AtomListView(res, 2));
+}
+
+void UIRSlider::interpPreset(t_float idx)
+{
+    Atom def[2] = { 0.f, 0.f };
+    auto lv0 = PresetStorage::instance().listValueAt(presetId(), static_cast<int>(idx), AtomListView(def, 2));
+    auto lv1 = PresetStorage::instance().listValueAt(presetId(), static_cast<int>(idx) + 1, AtomListView(def, 2));
+
+    float k = (static_cast<float>(idx) - static_cast<int>(idx));
+    onList(interp_lists(lv0, lv1, 2, k));
+}
+
 void UIRSlider::storePreset(size_t idx)
 {
     PresetStorage::instance().setListValueAt(presetId(), idx, propValue());

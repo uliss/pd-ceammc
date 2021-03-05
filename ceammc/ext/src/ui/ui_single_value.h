@@ -58,6 +58,7 @@ public:
 
     void loadPreset(size_t idx);
     void storePreset(size_t idx);
+    void interpPreset(t_float idx);
 
     void m_set(t_float f);
     void m_plus(t_float f);

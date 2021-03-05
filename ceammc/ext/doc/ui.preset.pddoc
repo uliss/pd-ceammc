@@ -97,14 +97,14 @@
 
 [F]
 |
-[load $1(
-|
-| [clear 1(   [clearall(
+[load $1(                 [ui.hsl @min 0 @max 2]
+|                         |
+| [clear 1(   [clearall(  [interp $1 #a(
 | |           |
-| | [store 1( | [write prs.txt(  [loadmsg read prs.txt]
-| | |         | |                |
-| | |         | |                |
-[ui.preset                       ]
+| | [store 1( | [loadmsg read prs.txt]
+| | |         | |
+[ui.preset    #z]
+[X a->z]
 ]]>
             </pdascii>
         </example>

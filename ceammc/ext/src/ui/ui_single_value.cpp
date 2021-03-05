@@ -288,6 +288,12 @@ void UISingleValue::loadPreset(size_t idx)
     onFloat(f);
 }
 
+void UISingleValue::interpPreset(t_float idx)
+{
+    t_float f = PresetStorage::instance().floatValueAt(presetId(), idx);
+    onFloat(f);
+}
+
 void UISingleValue::storePreset(size_t idx)
 {
     PresetStorage::instance().setFloatValueAt(presetId(), idx, value());

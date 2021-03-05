@@ -73,6 +73,7 @@ public:
 
     void loadPreset(size_t idx);
     void storePreset(size_t idx);
+    void interpPreset(t_float idx);
 
 private:
     void adjustValues();
