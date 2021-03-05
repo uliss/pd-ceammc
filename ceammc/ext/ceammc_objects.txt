@@ -944,6 +944,7 @@ spat.pan8~
 spat.zita6x8~
 spat.zita8~
 speech.flite
+speech.flite~
 speedlim
 split
 str

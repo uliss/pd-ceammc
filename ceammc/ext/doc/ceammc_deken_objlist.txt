@@ -778,6 +778,7 @@ ceammc/fluid~	FluidSynth SoundFont 2 player
 modplug~	MOD file player (using libmodplug)
 ceammc/modplug~	MOD file player (using libmodplug)
 speech.flite	render speech to array
+speech.flite~	render speech to array
 loadexpr	send message when patch loads
 ceammc/loadexpr	send message when patch loads
 msg	message constructor

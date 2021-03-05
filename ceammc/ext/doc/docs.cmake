@@ -565,6 +565,7 @@ set(DOC_FILES
     spat.pan8~
     spat.zita6x8~
     speech.flite
+    speech.flite~
     string
     string.contains
     string.ends_with
