@@ -24,7 +24,7 @@ static t_symbol* SYM_OUTPUT_ALL_CELLS;
 #define CELL_TAG_FMT "cell_#%x_%d_%d"
 #define ALL_CELLS_TAG_FMT "cells_#%x"
 
-static const int CELL_MARGIN = 1;
+static const int CELL_MARGIN = 0;
 
 namespace {
     auto random_seed = std::chrono::system_clock::now().time_since_epoch().count();
@@ -106,8 +106,8 @@ void UIMatrix::init(t_symbol* name, const AtomListView& args, bool usePresets)
         prop_rows_ = clip<int>(row, 1, UI_MAX_MATRIX_SIZE);
         int cell_wd = std::max<int>(prop_cols_, prop_rows_) > 8 ? 7 : 10;
 
-        asEBox()->b_rect.width = prop_cols_ * (cell_wd + 2) + 1 * zoom();
-        asEBox()->b_rect.height = prop_rows_ * (cell_wd + 2) + 1 * zoom();
+        asEBox()->b_rect.width = prop_cols_ * (cell_wd + 2);
+        asEBox()->b_rect.height = prop_rows_ * (cell_wd + 2);
     }
 }
 
@@ -275,11 +275,11 @@ void UIMatrix::okSize(t_rect* newrect)
         float cell_w = std::floor(newrect->width / prop_cols_);
         float cell_h = std::floor(newrect->height / prop_rows_);
 
-        newrect->width = cell_w * prop_cols_ + 1;
-        newrect->height = cell_h * prop_rows_ + 1;
+        newrect->width = cell_w * prop_cols_;
+        newrect->height = cell_h * prop_rows_;
     } else {
-        newrect->width = pd_clip_min(newrect->width, 31);
-        newrect->height = pd_clip_min(newrect->height, 31);
+        newrect->width = pd_clip_min(newrect->width, 30);
+        newrect->height = pd_clip_min(newrect->height, 30);
     }
 }
 
