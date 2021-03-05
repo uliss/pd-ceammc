@@ -68,7 +68,7 @@ public:
     FaustMasterView();
     ~FaustMasterView();
 
-    Size build(const std::vector<faust::UIProperty*>& props);
+    Size build(const std::vector<faust::UIProperty*>& props, t_symbol* fname);
 
     void addProperty(faust::UIProperty* p);
 

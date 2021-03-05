@@ -1,4 +1,6 @@
 add_library(ceammc_lang STATIC mod_lang.cpp)
+target_include_directories(ceammc_lang
+    PRIVATE "$<TARGET_PROPERTY:fmt,INCLUDE_DIRECTORIES>")
 
 if(WITH_FAUST)
     target_sources(ceammc_lang PRIVATE

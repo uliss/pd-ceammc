@@ -38,8 +38,10 @@ class LangFaustTilde : public SoundExternal {
 public:
     using FaustProperyList = std::vector<faust::UIProperty*>;
 
-private:
+protected:
     SymbolProperty* fname_;
+
+private:
     ListProperty* include_dirs_;
     std::string full_path_;
     FaustProperyList faust_properties_;

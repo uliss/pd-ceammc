@@ -13,7 +13,9 @@
  *****************************************************************************/
 #include "lang_faust_ui_tilde.h"
 #include "ceammc_factory.h"
+#include "ceammc_platform.h"
 
+#include "fmt/format.h"
 #include "nui/factory.h"
 
 namespace {
@@ -84,7 +86,7 @@ LangFaustUiTilde::LangFaustUiTilde(const PdArgs& args)
 void LangFaustUiTilde::buildUI()
 {
     vc_.setXlets(Xlets::fromInlets(owner()), Xlets::fromOutlets(owner()));
-    auto sz = vc_.build(faustProperties());
+    auto sz = vc_.build(faustProperties(), fname_->value());
     setSize(sz);
 }
 
@@ -167,7 +169,7 @@ FaustMasterView::~FaustMasterView()
 {
 }
 
-Size FaustMasterView::build(const std::vector<faust::UIProperty*>& props)
+Size FaustMasterView::build(const std::vector<faust::UIProperty*>& props, t_symbol* fname)
 {
     focused_ = nullptr;
     auto vgroup = new VGroupView({});
@@ -177,7 +179,8 @@ Size FaustMasterView::build(const std::vector<faust::UIProperty*>& props)
 
     auto lm = new LabelModel(faustThemeIdx);
     lm->data().setAnchor(ANCHOR_CORNER_LEFT_TOP);
-    lm->data().setText("FAUST");
+    lm->data().setText(fmt::format("FAUST: \"{}\"",
+        (fname == &s_) ? std::string() : platform::basename(fname->s_name)));
     labels_.emplace_back(lm);
 
     ViewPtr lv(new LabelView(lm, LabelView::ViewImplPtr(new TclLabelImpl), {}));
