@@ -34,8 +34,8 @@ TEST_CASE("ui.matrix", "[ui.matrix]")
         REQUIRE(t->numOutlets() == 1);
         REQUIRE(t->p_cols() == 8);
         REQUIRE(t->p_rows() == 4);
-        REQUIRE(t->width() == 105);
-        REQUIRE(t->height() == 53);
+        REQUIRE(t->width() == 104);
+        REQUIRE(t->height() == 52);
         REQUIRE_PRESETS(t);
 
         REQUIRE_UI_FLOAT_PROPERTY(t, "cols", 8);
