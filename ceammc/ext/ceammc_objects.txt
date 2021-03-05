@@ -290,6 +290,7 @@ conv.sec2str
 conv.sig2float~
 conv.str2sec
 counter
+data.copy
 data.dict
 data.fifo
 data.float

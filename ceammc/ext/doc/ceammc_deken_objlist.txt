@@ -216,6 +216,7 @@ s->f~	convert signal to floats
 conv.str2sec	converts formatted time to float value in seconds
 ceammc/str->sec	converts formatted time to float value in seconds
 str->sec	converts formatted time to float value in seconds
+data.copy	make copy for any data types: MList, Set etc...
 data.dict	dictionary container: store values by key
 ceammc/dict	dictionary container: store values by key
 dict	dictionary container: store values by key

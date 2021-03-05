@@ -296,6 +296,9 @@
     </entry>
   </category>
   <category name="data">
+    <entry name="data.copy" descr="make copy for any data types: MList, Set etc..." ref_view="object">
+      <xi:include href="data.copy.pddoc" parse="xml"/>
+    </entry>
     <entry name="data.dict" descr="dictionary container: store values by key" ref_view="object">
       <xi:include href="data.dict.pddoc" parse="xml"/>
     </entry>

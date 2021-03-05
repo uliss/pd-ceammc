@@ -78,6 +78,7 @@ set(DOC_FILES
     conv.sec2str
     conv.sig2float~
     conv.str2sec
+    data.copy
     data.fifo
     data.float
     data.dict
