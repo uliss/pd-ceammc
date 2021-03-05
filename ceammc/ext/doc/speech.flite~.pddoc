@@ -19,10 +19,13 @@
         <info>
             <par>Speaks floats, symbols and list to wavetables using flite TTS engine.</par>
         </info>
+        <methods>
+            <method name="stop">stops speech and clear speech queue</method>
+        </methods>
         <properties>
             <property name="@voice" type="symbol" default="kal16" enum="kal16 slt rms awb">default
             voice</property>
-            <property name="@speed" type="float" minvalue="1" maxvalue="4" default="1">speaking
+            <property name="@speed" type="float" minvalue="0.5" maxvalue="4" default="1">speaking
             speed</property>
             <property name="@pitch" type="float" default="-1">voice pitch (-1 - default
             value)</property>
