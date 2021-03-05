@@ -30,30 +30,30 @@
             <method name="clear">clear all cells</method>
             <method name="next">generate next state</method>
             <method name="glider">adds glider
-            <param name="ROW" type="int">row</param>
-            <param name="COL" type="int">column</param></method>
-            <method name="hive">adds horizontal hive
-            <param name="ROW" type="int">row</param>
-            <param name="COL" type="int">column</param></method>
-            <method name="vhive">adds vertical hive
-            <param name="ROW" type="int">row</param>
-            <param name="COL" type="int">column</param></method>
+            <param name="ROW" type="int" required="true">row</param>
+            <param name="COL" type="int" required="true">column</param></method>
+            <method name="hive">adds horizontal bee-hive
+            <param name="ROW" type="int" required="true">row</param>
+            <param name="COL" type="int" required="true">column</param></method>
+            <method name="vhive">adds vertical bee-hive
+            <param name="ROW" type="int" required="true">row</param>
+            <param name="COL" type="int" required="true">column</param></method>
             <method name="rpent">adds R-pentamino
-            <param name="ROW" type="int">row</param>
-            <param name="COL" type="int">column</param></method>
+            <param name="ROW" type="int" required="true">row</param>
+            <param name="COL" type="int" required="true">column</param></method>
             <method name="block">adds block
-            <param name="ROW" type="int">row</param>
-            <param name="COL" type="int">column</param></method>
+            <param name="ROW" type="int" required="true">row</param>
+            <param name="COL" type="int" required="true">column</param></method>
             <method name="oct2">adds octagon
-            <param name="ROW" type="int">row</param>
-            <param name="COL" type="int">column</param></method>
+            <param name="ROW" type="int" required="true">row</param>
+            <param name="COL" type="int" required="true">column</param></method>
             <method name="cell">sets cell value
-            <param name="ROW" type="int">row</param>
-            <param name="COL" type="int">column</param>
-            <param name="VALUE" type="int">column</param></method>
+            <param name="ROW" type="int" required="true">row</param>
+            <param name="COL" type="int" required="true">column</param>
+            <param name="VALUE" type="int" required="true">column</param></method>
             <method name="blinker">adds blinker
-            <param name="ROW" type="int">row</param>
-            <param name="COL" type="int">column</param></method>
+            <param name="ROW" type="int" required="true">row</param>
+            <param name="COL" type="int" required="true">column</param></method>
             <method name="random">fills with random</method>
         </methods>
         <inlets>
@@ -67,9 +67,13 @@
         <example>
             <pdascii>
 <![CDATA[
-[next, bang( [random, bang #a( [glider 2 3, bang #b(
+[T]          [glider 2 3, bang #b( [rpent 5 7, bang #e(
 |
-| [r $0-mtx]
+[metro 500]  [oct2 2 2, bang #c(
+|
+[next, bang( [random, bang #a(
+|
+| [r $0-mtx] [clear, bang #d(
 | |
 | [flow.route *cell] [T]
 | |                  |
@@ -89,6 +93,9 @@
 [s $0-mtx]
 [X a->z]
 [X b->z]
+[X c->z]
+[X d->z]
+[X e->z]
 ]]>
             </pdascii>
         </example>
