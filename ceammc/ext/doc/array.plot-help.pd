@@ -24,13 +24,13 @@
 #X text 245 392 Get/Set array name. Type: symbol.;
 #X msg 110 421 @yauto;
 #X text 245 421 Get/Set calculate y-axis range automatically. Type:
-int. Default value: 0\. Allowed values: 0 \, 1\.;
+int. Default value: 1\. Allowed values: 0 \, 1\.;
 #X msg 110 463 @ymax;
 #X text 245 463 Get/Set minimal y-axis value. Type: float. Default
-value: 1\. Range: -1024\...1024\.;
+value: 1\. Range: -2048\...2048\.;
 #X msg 110 505 @ymin;
 #X text 245 505 Get/Set minimal y-axis value. Type: float. Default
-value: -1\. Range: -1024\...1024\.;
+value: -1\. Range: -2048\...2048\.;
 #X obj 20 557 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 562 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
 0;

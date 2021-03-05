@@ -69,7 +69,7 @@ Type: int. Default value: 64\. Range: 8\...128\.;
 #X msg 110 797 @antialias;
 #X text 245 797 Get/Set use of anti-alias filter. Anti-alias filter
 is used to prevent folding of high frequencies when transposing the
-sample rate with interpolation. Type: int. Default value: 1\. Allowed
+sample rate with interpolation. Type: int. Default value: 0\. Allowed
 values: 0 \, 1\.;
 #X msg 110 869 @dest;
 #X text 245 869 Get/Set destination array. Type: symbol.;
