@@ -222,19 +222,19 @@ void FIRFilter::setCoefficients(const SAMPLETYPE *coeffs, uint newLength, uint u
     assert(newLength > 0);
     if (newLength % 8) ST_THROW_RT_ERROR("FIR filter length not divisible by 8");
 
+    #ifdef SOUNDTOUCH_FLOAT_SAMPLES
+        // scale coefficients already here if using floating samples
+        double scale = 1.0 / ((resultDivider == 0) ? 1 : resultDivider);
+    #else
+        short scale = 1;
+    #endif
+
     lengthDiv8 = newLength / 8;
     length = lengthDiv8 * 8;
     assert(length == newLength);
 
     resultDivFactor = uResultDivFactor;
     resultDivider = (SAMPLETYPE)::pow(2.0, (int)resultDivFactor);
-
-    #ifdef SOUNDTOUCH_FLOAT_SAMPLES
-        // scale coefficients already here if using floating samples
-        double scale = 1.0 / resultDivider;
-    #else
-        short scale = 1;
-    #endif
 
     delete[] filterCoeffs;
     filterCoeffs = new SAMPLETYPE[length];
