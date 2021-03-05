@@ -24,7 +24,7 @@ void PresetList::onList(const AtomList& lst)
     current_value_ = lst;
 }
 
-void PresetList::loadFrom(size_t idx)
+void PresetList::loadFrom(t_float idx)
 {
     current_value_ = loadList(idx, init_->value());
     listTo(0, current_value_);

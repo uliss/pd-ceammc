@@ -36,7 +36,7 @@ public:
     bool copyData(size_t src_idx, size_t dst_idx);
     bool duplicate();
 
-    t_float floatAt(size_t idx, t_float def = 0) const;
+    t_float floatAt(t_float fidx, t_float def = 0) const;
     t_symbol* symbolAt(size_t idx, t_symbol* def = &s_) const;
     AtomListView listAt(size_t idx, const AtomListView& def = AtomListView()) const;
     AtomList anyAt(size_t idx, const AtomList& def = AtomList()) const;
@@ -72,7 +72,7 @@ public:
     size_t maxPresetCount() const;
 
     bool setFloatValueAt(t_symbol* name, size_t presetIdx, t_float v);
-    t_float floatValueAt(t_symbol* name, size_t presetIdx, t_float def = 0) const;
+    t_float floatValueAt(t_symbol* name, t_float presetIdx, t_float def = 0) const;
     bool clearValueAt(t_symbol* name, size_t presetIdx);
 
     bool setSymbolValueAt(t_symbol* name, size_t presetIdx, t_symbol* v);

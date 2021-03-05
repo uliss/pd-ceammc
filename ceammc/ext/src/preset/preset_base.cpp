@@ -131,7 +131,7 @@ void PresetBase::m_store(t_symbol*, const AtomListView& index)
     storeAt(idx);
 }
 
-void PresetBase::loadFrom(size_t idx)
+void PresetBase::loadFrom(t_float idx)
 {
 }
 
@@ -139,7 +139,7 @@ void PresetBase::storeAt(size_t idx)
 {
 }
 
-t_float PresetBase::loadFloat(size_t idx, t_float def)
+t_float PresetBase::loadFloat(t_float idx, t_float def)
 {
     return PresetStorage::instance().floatValueAt(preset_path_, idx, def);
 }
@@ -199,12 +199,26 @@ t_symbol* PresetBase::name()
 
 void PresetBase::m_load(t_symbol*, const AtomListView& index)
 {
-    size_t idx = index.toT<size_t>(0);
+    auto idx = index.intAt(0, 0);
 
     PresetStorage& storage = PresetStorage::instance();
 
-    if (idx >= storage.maxPresetCount()) {
-        OBJ_ERR << "preset index is too big: " << idx << ". Max " << storage.maxPresetCount() << " allowed";
+    if (idx < 0 || idx >= (int)storage.maxPresetCount()) {
+        OBJ_ERR << "invalid preset index: " << idx << ". Max " << storage.maxPresetCount() << " allowed";
+        return;
+    }
+
+    loadFrom(idx);
+}
+
+void PresetBase::m_interp(t_symbol*, const AtomListView& index)
+{
+    auto idx = index.floatAt(0, 0);
+
+    PresetStorage& storage = PresetStorage::instance();
+
+    if (idx < 0 || idx >= storage.maxPresetCount()) {
+        OBJ_ERR << "invalid preset index: " << idx << ". Max " << storage.maxPresetCount() << " allowed";
         return;
     }
 
