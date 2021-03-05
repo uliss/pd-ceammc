@@ -7,7 +7,7 @@
 #X obj 578 11 preset.l;
 #X obj 661 11 preset.list;
 #X obj 210 80 cnv 1 555 50 empty empty empty 17 7 0 10 -257983 -1 0;
-#X text 215 80 Named list preset entry. Can store/load up to 16 various
+#X text 215 80 Named list preset entry. Can store/load up to 256 various
 lists;
 #X msg 155 158 store 0;
 #X msg 290 158 store 1;

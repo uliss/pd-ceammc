@@ -22,7 +22,7 @@
             </aliases>
         </meta>
         <info>
-            <par>Named symbol preset entry. Can store/load up to 16 various symbol values</par>
+            <par>Named symbol preset entry. Can store/load up to 256 various symbol values</par>
         </info>
         <arguments>
             <argument name="ID" type="symbol">preset id (should be unique in most use

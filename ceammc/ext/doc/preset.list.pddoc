@@ -22,7 +22,7 @@
             </aliases>
         </meta>
         <info>
-            <par>Named list preset entry. Can store/load up to 16 various lists</par>
+            <par>Named list preset entry. Can store/load up to 256 various lists</par>
         </info>
         <arguments>
             <argument name="ID" type="symbol">preset id (should be unique in most use
