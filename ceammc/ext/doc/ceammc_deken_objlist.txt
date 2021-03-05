@@ -39,6 +39,8 @@ plot.response~	output amp/phase freq response to impulse
 ceammc.search	ceammc library search object
 function	named function
 func	named function
+ceammc/func	named function
+ceammc/function	named function
 function.call	call named function
 func.call	call named function
 gain~	multislot signal gain

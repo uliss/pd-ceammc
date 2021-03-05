@@ -191,7 +191,7 @@ flt.moog_vcf~		~~		~
 flt.notch~		~		~
 flt.resonbp~		~		~
 fluid~,ceammc/fluid~		.		~~
-function,func		..		..
+function,func,ceammc/func,ceammc/function		..		..
 function.call,func.call		..		.
 fx.bitdown~		~		~
 fx.chorus~		~		~
