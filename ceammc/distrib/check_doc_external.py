@@ -104,11 +104,6 @@ if __name__ == '__main__':
         args.methods = True
         args.spell = True
 
-    ext_list = read_all_externals()
-    if ext_name not in ext_list:
-        print(f"Error: [{ext_name}] is not found in CEAMMC external list")
-        sys.exit(1)
-
     if args.verbose:
         print(f" - checking [{ext_name}] external ...")
 
