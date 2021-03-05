@@ -178,9 +178,8 @@ void SpeechFilteTilde::checkSynth()
                 case ERR_UNKNOWN_VOICE:
                     OBJ_ERR << "unknown voice";
                     break;
-                default:
                 case OK:
-                    OBJ_POST << "OK";
+                default:
                     break;
                 }
 
