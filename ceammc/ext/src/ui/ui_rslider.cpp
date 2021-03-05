@@ -329,7 +329,7 @@ static AtomList interp_lists(const AtomListView& lv0, const AtomListView& lv1, s
         res[i] = v0 * (1 - k) + v1 * k;
     }
 
-    return AtomList(AtomListView(res, 2));
+    return AtomList(AtomListView(res, n));
 }
 
 void UIRSlider::interpPreset(t_float idx)
