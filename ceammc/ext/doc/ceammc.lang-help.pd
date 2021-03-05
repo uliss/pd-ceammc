@@ -4,6 +4,8 @@
 #X obj 79 53 ui.link @title ceammc @url ceammc-help.pd;
 #X obj 30 116 lang.faust~;
 #X text 200 116 faust realtime compilation;
+#X obj 30 143 ui.faust~;
+#X text 200 143 faust compiled ui object;
 #X obj 1 1 cnv 5 740 40 empty empty ceammc::lang 20 20 0 20 -104026
 -4096 0;
 #X obj 1 513 cnv 5 740 40 empty empty empty 17 7 0 10 -203890 -1 0;

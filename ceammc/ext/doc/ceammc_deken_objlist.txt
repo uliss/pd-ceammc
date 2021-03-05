@@ -474,6 +474,7 @@ hw.kbd_light	Get/set keyboard light on some devices
 lang.faust~	faust realtime compilation
 ceammc/faust~	faust realtime compilation
 faust~	faust realtime compilation
+ui.faust~	faust compiled ui object
 lfo.+pulse~	Unit-amplitude nonnegative low frequency pulse train
 lfo.+saw~	Positive unit-amplitude low frequency saw wave
 lfo.+square~	Positive low frequency square wave

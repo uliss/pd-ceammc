@@ -106,6 +106,9 @@ void LangFaustUiTilde::onWidgetSelect(bool state)
 
 void LangFaustUiTilde::onMouseDown(const Point& pt, const Point& abspt, uint32_t mod)
 {
+    if (mod & KEY_MOD_ALT)
+        return m_open(&s_, {});
+
     vc_.sendEvent(EVENT_MOUSE_DOWN, pt, EventContext());
 }
 
