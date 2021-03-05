@@ -625,6 +625,7 @@ set(DOC_FILES
     ui.display
     ui.dsp~
     ui.env
+    ui.faust~
     ui.filter
     ui.filter~
     ui.gain~

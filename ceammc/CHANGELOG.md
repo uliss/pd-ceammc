@@ -37,6 +37,7 @@
   - ui.vkeyboard added (with ui.vk alias for vertical keyboard)
   - ui.filter~ added 
   - ui.filter added (biquad calculator)
+  - ui.faust~ added
 - new aliases:
   - ui.hk alias added for ui.keyboard (horizontal)
   - ui.hm~ alias added for ui.meter~ (horizontal)

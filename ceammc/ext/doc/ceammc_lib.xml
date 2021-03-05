@@ -798,6 +798,9 @@
     <entry name="lang.faust~" descr="faust realtime compilation" ref_view="object">
       <xi:include href="lang.faust~.pddoc" parse="xml"/>
     </entry>
+    <entry name="ui.faust~" descr="faust compiled ui object" ref_view="object">
+      <xi:include href="ui.faust~.pddoc" parse="xml"/>
+    </entry>
   </category>
   <category name="lfo">
     <entry name="lfo.+pulse~" descr="Unit-amplitude nonnegative low frequency pulse train" ref_view="object">
