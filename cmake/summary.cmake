@@ -20,6 +20,7 @@ else()
 message(STATUS "  float precision:     32")
 endif()
 message(STATUS "  build type:          ${CMAKE_BUILD_TYPE}")
+message(STATUS "  PD_INSTANCE:         ${WITH_PD_INSTANCE}")
 
 if("${CMAKE_BUILD_TYPE}" STREQUAL "Debug")
 message(STATUS "  CFLAGS:              ${CMAKE_C_FLAGS_DEBUG} ${CMAKE_C_FLAGS}")
