@@ -480,6 +480,12 @@ void UIGain::loadPreset(size_t idx)
     output();
 }
 
+void UIGain::interpPreset(t_float idx)
+{
+    setDbValue(PresetStorage::instance().floatValueAt(presetId(), idx, -60));
+    output();
+}
+
 void UIGain::storePreset(size_t idx)
 {
     PresetStorage::instance().setFloatValueAt(presetId(), idx, dbValue());
