@@ -581,9 +581,9 @@ void eclass_attr_redirect(t_eclass* c, const char* attrname, t_gotfn fn)
     t_symbol* sel1 = gensym(buf);
 
     for (int i = 0; i < c->c_class.c_nmethod; i++) {
-        t_methodentry* m = &c->c_class.c_methods[i];
-        if (m->me_name == sel0 || m->me_name == sel1)
-            m->me_fun = fn;
+        auto& m = eclass_methods(&c->c_class)[i];
+        if (m.me_name == sel0 || m.me_name == sel1)
+            m.me_fun = fn;
     }
 }
 
@@ -1882,4 +1882,13 @@ void eclass_attr_units(t_eclass* c, t_symbol* attrname, t_symbol* units)
             return;
         }
     }
+}
+
+t_methodentry* eclass_methods(_class *c)
+{
+#ifdef PDINSTANCE
+    return c->c_methods[pd_this->pd_instanceno];
+#else
+    return c->c_methods;
+#endif
 }

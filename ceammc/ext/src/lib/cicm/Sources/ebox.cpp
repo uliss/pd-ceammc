@@ -9,6 +9,7 @@
  */
 
 #include "ebox.h"
+#include "eclass.h"
 #include "egraphics.h"
 #include "eobj.h"
 #include "g_style.h"
@@ -1669,11 +1670,12 @@ void ebox_attr_dump(t_ebox* x)
 
     // print methods
     for (int i = 0; i < xc->c_nmethod; i++) {
+        auto& m = eclass_methods(xc)[i];
         // ignore property methods
-        if (xc->c_methods[i].me_name->s_name[0] == '@')
+        if (m.me_name->s_name[0] == '@')
             continue;
 
-        post("[%s] method: %s", name, xc->c_methods[i].me_name->s_name);
+        post("[%s] method: %s", name, m.me_name->s_name);
     }
 
     // print xlets
