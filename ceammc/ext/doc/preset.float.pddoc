@@ -55,15 +55,16 @@
         <example>
             <pdascii>
 <![CDATA[
-               [store 0(  [store 1(
-               |          |
-      [load 0( | [load 1( |   [ui.hsl]
-      |        | |        |   |
-      |        | |        |   [interp $1(
-      |        | |        |   |
-[F] X [preset.float     f1    ]
+/* change value */
 
-[ui.preset]
+[F] X [preset.float f1]
+
+
+[ui.hsl]
+|
+[interp $1( /*interpolate between first and second preset*/
+|
+[ui.preset] /*Shift+click to store preset*/
 ]]>
             </pdascii>
         </example>

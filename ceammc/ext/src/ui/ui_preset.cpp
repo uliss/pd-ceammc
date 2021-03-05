@@ -174,6 +174,11 @@ void UIPreset::m_load(const AtomListView& lst)
     loadIndex(lst.floatAt(0, 0));
 }
 
+void UIPreset::m_interp(const AtomListView& lst)
+{
+    interpIndex(lst.floatAt(0, 0));
+}
+
 void UIPreset::m_store(const AtomListView& lst)
 {
     storeIndex(lst.floatAt(0, 0));
@@ -297,6 +302,16 @@ void UIPreset::clearIndex(int idx)
     }
 }
 
+void UIPreset::interpIndex(t_float idx)
+{
+    if (idx < 0 || idx >= presets_.size()) {
+        UI_ERR << "invalid preset index: " << idx;
+        return;
+    }
+
+    PresetStorage::instance().interpAll(idx);
+}
+
 void UIPreset::setup()
 {
     SYM_POPUP = gensym("main");
@@ -325,6 +340,7 @@ void UIPreset::setup()
     obj.addMethod("read", &UIPreset::m_read);
     obj.addMethod("store", &UIPreset::m_store);
     obj.addMethod("write", &UIPreset::m_write);
+    obj.addMethod("interp", &UIPreset::m_interp);
 }
 
 void setup_ui_preset()

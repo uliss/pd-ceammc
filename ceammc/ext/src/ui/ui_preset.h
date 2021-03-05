@@ -53,6 +53,7 @@ public:
     void m_clear(const AtomListView& lst);
     void m_clearall(const AtomListView& lst);
     void m_duplicate(const AtomListView& lst);
+    void m_interp(const AtomListView& lst);
     AtomList propCurrent() const;
 
     bool hasPresetAt(size_t n) const { return presets_.test(n); }
@@ -67,6 +68,7 @@ private:
     void loadIndex(int idx);
     void storeIndex(int idx);
     void clearIndex(int idx);
+    void interpIndex(t_float idx);
 };
 
 void setup_ui_preset();
