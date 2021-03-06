@@ -32,7 +32,6 @@ public:
     bool isVertical() const { return width() < height(); }
 
     void paint();
-    void drawItems();
     void okSize(t_rect* newrect);
     void redrawAll();
     void redrawItems();
