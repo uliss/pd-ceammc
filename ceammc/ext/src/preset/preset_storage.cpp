@@ -15,17 +15,12 @@ PresetExternal::PresetExternal(const PdArgs& args)
     : BaseObject(args)
     , patch_dir_(".")
 {
-    createCbProperty("@keys", &PresetExternal::p_keys);
+    createCbListProperty("@keys", []() -> AtomList { return PresetStorage::instance().keys(); });
 
     createOutlet();
 
     if (rootCanvas())
         patch_dir_ = canvas_getdir(rootCanvas())->s_name;
-}
-
-AtomList PresetExternal::p_keys() const
-{
-    return PresetStorage::instance().keys();
 }
 
 void PresetExternal::m_load(t_symbol*, const AtomListView& l)
