@@ -56,6 +56,8 @@ public:
     void m_move(const AtomListView& lv);
     void loadPreset(size_t idx);
     void storePreset(size_t idx);
+    void interpPreset(t_float idx);
+    bool hasPresetInterp() const { return true; }
 
     bool setRealValue(const AtomListView& lv);
     AtomList realValue() const;
