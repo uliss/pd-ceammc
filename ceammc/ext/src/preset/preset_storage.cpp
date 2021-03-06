@@ -34,6 +34,12 @@ void PresetExternal::m_load(t_symbol*, const AtomListView& l)
     PresetStorage::instance().loadAll(idx);
 }
 
+void PresetExternal::m_interp(t_symbol*, const AtomListView& l)
+{
+    t_float idx = l.toT<t_float>(0);
+    PresetStorage::instance().interpAll(idx);
+}
+
 void PresetExternal::m_store(t_symbol*, const AtomListView& l)
 {
     size_t idx = l.toT<size_t>(0);
@@ -91,6 +97,7 @@ void setup_preset_storage()
 {
     ObjectFactory<PresetExternal> obj("preset.storage");
     obj.addMethod("load", &PresetExternal::m_load);
+    obj.addMethod("interp", &PresetExternal::m_interp);
     obj.addMethod("store", &PresetExternal::m_store);
     obj.addMethod("read", &PresetExternal::m_read);
     obj.addMethod("write", &PresetExternal::m_write);

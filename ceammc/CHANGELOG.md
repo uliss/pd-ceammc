@@ -53,6 +53,7 @@
 - methods:
   - *postscript* method added to canvas.top for saving patch to PostScript
   - *interp* method added to ui.preset
+  - *interp* method added to preset.storage
 - presets interpolation added to:
   - ui.knob
   - ui.slider
