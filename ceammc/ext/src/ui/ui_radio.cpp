@@ -474,7 +474,7 @@ void UIRadio::setup()
     obj.outputMouseEvents(MouseEventsOutput::DEFAULT_OFF);
     obj.usePopup();
 
-    obj.setDefaultSize(127, 15);
+    obj.setDefaultSize(120, 15);
     obj.hideLabelInner();
 
     obj.addProperty("active_color", _("Active Color"), DEFAULT_ACTIVE_COLOR, &UIRadio::prop_color_active);
