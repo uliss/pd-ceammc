@@ -68,6 +68,7 @@ add_custom_target(ceammc_ui_tcl_gen
     COMMAND ${TCL_GEN_SCRIPT} ui_keyboard.tcl
     COMMAND ${TCL_GEN_SCRIPT} ui_meter.tcl
     COMMAND ${TCL_GEN_SCRIPT} ui_number_tilde.tcl
+    COMMAND ${TCL_GEN_SCRIPT} ui_radio.tcl
     COMMAND ${TCL_GEN_SCRIPT} ui_sliders.tcl
     COMMAND ${TCL_GEN_SCRIPT} ui_toggle.tcl
     SOURCES
@@ -79,6 +80,7 @@ add_custom_target(ceammc_ui_tcl_gen
         ui_keyboard.tcl
         ui_meter.tcl
         ui_number_tilde.tcl
+        ui_radio.tcl
         ui_sliders.tcl
         ui_toggle.tcl
     WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
