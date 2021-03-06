@@ -67,8 +67,13 @@
         <methods>
             <method name="clear">clear specified preset 
             <param type="int" name="IDX" required="true" minvalue="0">preset index</param></method>
+            <method name="clearall">clear all existing presets</method>
             <method name="load">loads specified preset 
             <param type="int" name="IDX" required="true">preset index</param></method>
+            <method name="interp">loads linearry interpolated value between preset, for example:
+            1.5 means load interpolated value between preset 1 and 2. 
+            <param type="float" name="IDX" required="true">preset interpolation
+            index</param></method>
             <method name="store">stores specified preset 
             <param type="int" name="IDX" required="true">preset index</param></method>
             <method name="read">read presets from file 
