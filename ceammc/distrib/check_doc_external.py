@@ -216,8 +216,7 @@ if __name__ == '__main__':
             # readonly in external
             if p0.get("access", "") == "readonly":
                 # but not in doc
-                if "readonly" not in p1 and p1["readonly"] != "true":
-                    print(p1)
+                if "readonly" not in p1 and p1.get("readonly", "") != "true":
                     cprint(f"DOC [{ext_name}] missing readonly attribute in \"{p}\"", 'magenta')
 
             # readonly in docs
