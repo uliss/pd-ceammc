@@ -54,13 +54,13 @@ mode).;
 #X msg 110 766 @binaural;
 #X text 245 766 alias for @mode binaural.;
 #X msg 110 795 @crop;
-#X text 245 795 Get/Set crop HRIR response. Only in @binaural mode.
-Type: int. Units: samp. Default value: 0\. Range: 0\...512\.;
+#X text 245 795 Get/Set crop HRIR response. Only for @binaural mode.
+Type: int. Units: samp. Default value: 16\. Range: 0\...512\.;
 #X msg 110 837 @irregular;
 #X text 245 837 alias for @mode irregular.;
 #X msg 110 866 @mode;
-#X text 245 866 (readonly) Get decoding mode. Type: symbol. Allowed
-values: regular \, irregular \, binaural.;
+#X text 245 866 (readonly) Get decoding mode. Type: symbol. Default
+value: regular. Allowed values: regular \, irregular \, binaural.;
 #X msg 110 908 @nharm;
 #X text 245 908 (readonly) Get number of circular harmonics. Type:
 int. Default value: 3\. Min value: 1\.;
