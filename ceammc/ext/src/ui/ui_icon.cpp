@@ -318,6 +318,7 @@ void UIIcon::setup()
 
     obj.addProperty("mode", _("Mode"), "button", &UIIcon::prop_mode, "toggle button bang", _("Main"));
     obj.addProperty("enabled", &UIIcon::propEnabled, &UIIcon::propSetEnabled);
+    obj.setPropertyDefaultValue("enabled", "1");
 
     obj.addMethod("set", &UIIcon::m_set);
 }
