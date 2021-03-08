@@ -49,7 +49,7 @@
             [ui.preset]</property>
             <property name="@send" type="symbol" default="(null)">send destination</property>
             <property name="@receive" type="symbol" default="(null)">receive source</property>
-            <property name="@size" type="list" default="127 15">element size (width, height
+            <property name="@size" type="list" default="120 15">element size (width, height
             pair)</property>
             <property name="@pinned" type="int" enum="0 1" default="0">pin mode. if 1 - put element
             to the lowest level</property>
@@ -89,6 +89,7 @@
             <param type="int" name="IDX" required="true">preset index</param></method>
             <method name="clear">clears specified preset 
             <param type="int" name="IDX" required="true">preset index</param></method>
+            <method name="interp">for this object acts as *load*, no interpolation performed</method>
             <!-- common-->
             <method name="pos">set UI element position 
             <param name="X" type="float" required="true">top left x-coord</param>
