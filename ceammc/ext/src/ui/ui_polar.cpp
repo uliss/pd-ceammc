@@ -527,7 +527,6 @@ void UIPolar::setup()
 
     obj.addProperty("radius", &UIPolar::propRadius, &UIPolar::propSetRadius);
     obj.setPropertyRange("radius", 0, 1);
-    obj.setPropertyDefaultValue("radius", "1");
     obj.addProperty("angle", &UIPolar::propAngle, &UIPolar::propSetAngle);
     obj.addProperty("clockwise", _("Clockwise"), true, &UIPolar::prop_clockwise_, _("Main"));
     obj.addProperty("radians", _("Use radians"), false, &UIPolar::prop_radians_, _("Main"));
