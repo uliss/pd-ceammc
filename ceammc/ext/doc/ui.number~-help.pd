@@ -21,7 +21,7 @@
 value: 50\. Range: 20\...1000\.;
 #X msg 110 318 @precision;
 #X text 245 318 Get/Set float precision. Type: int. Default value:
-6\. Range: -1\...16\.;
+6\. Range: 0\...16\.;
 #X msg 110 360 @receive;
 #X text 245 360 Get/Set receive source. Type: symbol. Default value:
 (null).;
