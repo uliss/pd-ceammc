@@ -18,8 +18,7 @@
             </also>
         </meta>
         <properties>
-            <property name="@items" type="list">list of
-            tab names</property>
+            <property name="@items" type="list">list of tab names</property>
             <property name="@toggle" type="int" default="0" enum="0 1">toggle mode. In toggle moe
             multiple selection is possible</property>
             <property name="@orientation" type="int" enum="0 1" default="0">tab orientation. 1 is
@@ -81,7 +80,8 @@
             <param type="int" name="IDX" required="true">preset index</param></method>
             <method name="clear">clears specified preset 
             <param type="int" name="IDX" required="true">preset index</param></method>
-            <method name="interp">for this object acts as *load*, no interpolation performed</method>
+            <method name="interp">for this object acts as *load*, no interpolation
+            performed</method>
             <!-- common-->
             <method name="pos">set UI element position 
             <param name="X" type="float" required="true">top left x-coord</param>

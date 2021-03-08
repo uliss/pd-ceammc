@@ -77,7 +77,7 @@
             <param type="int" name="IDX" required="true">preset index</param></method>
             <method name="clear">clears specified preset 
             <param type="int" name="IDX" required="true">preset index</param></method>
-            <method name="interp">interplolates between presets
+            <method name="interp">interplolates between presets 
             <param type="float" name="IDX" required="true">preset fraction index</param></method>
             <!-- common-->
             <method name="pos">set UI element position 

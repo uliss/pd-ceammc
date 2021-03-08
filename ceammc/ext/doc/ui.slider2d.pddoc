@@ -26,8 +26,10 @@
             <property name="@x_right" type="float" default="1">rightmost x-value</property>
             <property name="@y_top" type="float" default="1">top y-value</property>
             <property name="@y_bottom" type="float" default="-1">bottom y-value</property>
-            <property name="@x_range" type="float" readonly="true" default="2">abs x-value range</property>
-            <property name="@y_range" type="float" readonly="true" default="2">abs y-value range</property>
+            <property name="@x_range" type="float" readonly="true" default="2">abs x-value
+            range</property>
+            <property name="@y_range" type="float" readonly="true" default="2">abs y-value
+            range</property>
             <property name="@x_value" type="float" default="0">slider x-value</property>
             <property name="@y_value" type="float" default="0">slider y-value</property>
             <property name="@show_range" type="int" enum="0 1" default="1">if show slider
@@ -85,7 +87,7 @@
             <param type="int" name="IDX" required="true">preset index</param></method>
             <method name="clear">clears specified preset 
             <param type="int" name="IDX" required="true">preset index</param></method>
-            <method name="interp">interplolates between presets
+            <method name="interp">interplolates between presets 
             <param type="float" name="IDX" required="true">preset fraction index</param></method>
             <!-- common-->
             <method name="pos">set UI element position 
