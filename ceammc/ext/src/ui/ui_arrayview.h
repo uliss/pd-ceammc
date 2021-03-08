@@ -80,7 +80,7 @@ class UIArrayView : public UIObject {
     UILayer wave_layer_;
     ClockMemberFunction<UIArrayView> render_clock_;
     size_t render_index_;
-    long cursor_sample_pos_;
+    t_int cursor_sample_pos_;
     UIFont font_;
     UITextLayout label_top_left_;
     UITextLayout label_top_right_;
@@ -140,8 +140,8 @@ private:
     void drawWaveformSegment(UIPainter& p, int pixel_begin, int pixel_end, const t_rgba& color);
     void output();
 
-    t_float cursorPosSample() const;
-    void setCursorPosSample(t_float pos);
+    t_int cursorPosSample() const;
+    void setCursorPosSample(t_int pos);
 
     t_float cursorPosPhase() const;
     void setCursorPosPhase(t_float phase);
@@ -176,14 +176,14 @@ private:
     EditMode keyMod2EditMode(long mod, int x) const;
 
 public:
-    t_float sizeSamples() const;
+    t_int sizeSamples() const;
     t_float sizeSec() const;
     t_float sizeMs() const;
 
-    AtomList labelTopRight() const;
-    void setLabelTopRight(const AtomListView& lv);
-    AtomList labelBottomRight() const;
-    void setLabelBottomRight(const AtomListView& lv);
+    t_symbol* labelTopRight() const;
+    void setLabelTopRight(t_symbol* s);
+    t_symbol* labelBottomRight() const;
+    void setLabelBottomRight(t_symbol* s);
 
     AtomList propArray() const;
     void propSetArray(const AtomListView& lv);
