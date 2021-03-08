@@ -35,8 +35,8 @@
             range.</property>
             <property name="@radians" type="int" default="0" enum="0 1">using radians instead of
             degrees</property>
-            <property name="@angle" type="float">angle</property>
-            <property name="@radius" type="float" minvalue="0" maxvalue="1">radius</property>
+            <property name="@angle" type="float" default="0">angle</property>
+            <property name="@radius" type="float" minvalue="0" maxvalue="1" default="1">radius</property>
             <!-- common -->
             <property name="@presetname" type="symbol" default="(null)">preset name for using with
             [ui.preset]</property>
@@ -98,6 +98,8 @@
             <param type="int" name="IDX" required="true">preset index</param></method>
             <method name="clear">clears specified preset 
             <param type="int" name="IDX" required="true">preset index</param></method>
+            <method name="interp">interplolates between presets
+            <param type="float" name="IDX" required="true">preset fraction index</param></method>
             <!-- common-->
             <method name="pos">set UI element position 
             <param name="X" type="float" required="true">top left x-coord</param>

@@ -60,6 +60,7 @@ public:
     void m_rotate(t_float angle);
     void loadPreset(size_t idx);
     void storePreset(size_t idx);
+    void interpPreset(t_float idx);
 
     bool setRealValue(const AtomListView& lv);
     AtomList realValue() const;
@@ -68,10 +69,10 @@ public:
 
     void output();
 
-    AtomList propRadius() const;
-    AtomList propAngle() const;
-    void propSetRadius(const AtomListView& lv);
-    void propSetAngle(const AtomListView& lv);
+    t_float propRadius() const;
+    t_float propAngle() const;
+    void propSetRadius(t_float r);
+    void propSetAngle(t_float a);
 
     const char* annotateInlet(int n) const { return "bang: output\n"
                                                     "list: radius angle"; }

@@ -61,6 +61,7 @@
   - ui.sliders
   - ui.rslider
   - ui.number
+  - ui.polar
   - preset.float
 - comma separated messages added to msg.onload (loadmsg)
 - rests support added to conv.pitch->midi

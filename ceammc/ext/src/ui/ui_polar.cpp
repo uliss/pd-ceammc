@@ -423,40 +423,49 @@ void UIPolar::output()
     send(lv);
 }
 
-AtomList UIPolar::propRadius() const
+t_float UIPolar::propRadius() const
 {
-    return AtomList(radius_);
+    return radius_;
 }
 
-AtomList UIPolar::propAngle() const
+t_float UIPolar::propAngle() const
 {
-    return AtomList(realAngle());
+    return realAngle();
 }
 
-void UIPolar::propSetRadius(const AtomListView& lv)
+void UIPolar::propSetRadius(t_float r)
 {
-    t_float r;
-
-    if (lv.empty() || !lv[0].getFloat(&r)) {
-        UI_ERR << "radius float value expected: " << lv;
-        return;
-    }
-
     radius_ = clip<t_float, 0, 1>(r);
     redrawKnob();
 }
 
-void UIPolar::propSetAngle(const AtomListView& lv)
+void UIPolar::propSetAngle(t_float a)
 {
-    t_float a;
-
-    if (lv.empty() || !lv[0].getFloat(&a)) {
-        UI_ERR << "angle float value expected: " << lv;
-        return;
-    }
-
     angle_ = a;
     redrawKnob();
+}
+
+static AtomList interp_lists(const AtomListView& lv0, const AtomListView& lv1, size_t n, float k)
+{
+    Atom res[n];
+
+    for (size_t i = 0; i < n; i++) {
+        auto v0 = lv0.floatAt(i, 0);
+        auto v1 = lv1.floatAt(i, 0);
+        res[i] = v0 * (1 - k) + v1 * k;
+    }
+
+    return AtomList(AtomListView(res, n));
+}
+
+void UIPolar::interpPreset(t_float idx)
+{
+    Atom def[2] = { 0.f, 0.f };
+    auto lv0 = PresetStorage::instance().listValueAt(presetId(), static_cast<int>(idx), AtomListView(def, 2));
+    auto lv1 = PresetStorage::instance().listValueAt(presetId(), static_cast<int>(idx) + 1, AtomListView(def, 2));
+
+    float k = (static_cast<float>(idx) - static_cast<int>(idx));
+    onList(interp_lists(lv0, lv1, 2, k));
 }
 
 void UIPolar::redrawKnob()
