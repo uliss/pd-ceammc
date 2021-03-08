@@ -36,7 +36,7 @@ def read_methods(name):
     # methods starting with . - internal methods
     # methods ending with _aliased - overwritten methods
     def valid_method(x):
-        return (len(x) and x[0] != '@' and x[0] != '.') and (not str(x).endswith("_aliased"))
+        return (len(x) and x[0] != '@') and (not str(x).endswith("_aliased"))
 
     try:
         args = [EXT_METHODS, name]
@@ -90,7 +90,6 @@ def check_spell(obj):
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='CEAMMC Pd documentation checker')
     parser.add_argument('-a', '--all', help='check all', action='store_true')
-    parser.add_argument('-m', '--methods', help='check methods', action='store_true')
     parser.add_argument('-p', '--props', help='check properties', action='store_true')
     parser.add_argument('-s', '--spell', help='check spell', action='store_true')
     parser.add_argument('-v', '--verbose', help='verbose output', action='store_true')
@@ -101,7 +100,6 @@ if __name__ == '__main__':
 
     if args.all:
         args.props = True
-        args.methods = True
         args.spell = True
 
     if args.verbose:
@@ -156,24 +154,25 @@ if __name__ == '__main__':
 
                     doc_props_dict[name]["type"] = p.attrib["type"]
 
-    if args.methods:
-        ext_methods = read_methods(ext_name)
-        # print(doc_methods_set)
-        # print(ext_methods)
-        ignored_methods = {'dump', 'dsp', 'signal', 'mouseup', 'mouseenter', 'dialog', 'iscicm',
-                           'zoom', 'mousewheel', 'mousemove', 'mousedown', 'mouseleave',
-                           'symbol', 'float', 'bang', 'dblclick', 'list', 'dsp_add', 'loadbang',
-                           'click', 'dsp_add_aliased', 'vis', 'popup', 'eobjreadfrom', 'eobjwriteto',
-                           'rightclick', 'key' }
-        undoc_methods_set = ext_methods - doc_methods_set - ignored_methods
-        unknown_methods = doc_methods_set - ext_methods
-        if len(undoc_methods_set):
-            cprint(f"[{ext_name}] undocumented methods: {undoc_methods_set}", 'magenta')
+    ext_methods = read_methods(ext_name)
+    is_ceammc = '.is_cicm?' in ext_methods or '.is_base?' in ext_methods
+    ext_methods = set([x for x in ext_methods if len(x) and x[0] != '.'])
+    # print(doc_methods_set)
+    # print(ext_methods)
+    ignored_methods = {'dump', 'dsp', 'signal', 'mouseup', 'mouseenter', 'dialog',
+                       'zoom', 'mousewheel', 'mousemove', 'mousedown', 'mouseleave',
+                       'symbol', 'float', 'bang', 'dblclick', 'list', 'dsp_add', 'loadbang',
+                       'click', 'dsp_add_aliased', 'vis', 'popup', 'eobjreadfrom', 'eobjwriteto',
+                       'rightclick', 'key' }
+    undoc_methods_set = ext_methods - doc_methods_set - ignored_methods
+    unknown_methods = doc_methods_set - ext_methods
+    if len(undoc_methods_set):
+        cprint(f"[{ext_name}] undocumented methods: {undoc_methods_set}", 'magenta')
 
-        if len(unknown_methods):
-            cprint(f"[{ext_name}] unknown methods in doc: {unknown_methods}", 'yellow')
+    if len(unknown_methods):
+        cprint(f"[{ext_name}] unknown methods in doc: {unknown_methods}", 'yellow')
 
-    if args.props:
+    if args.props and is_ceammc:
         ignored_props = {'@*', '@label', '@label_margins', '@label_valign', '@label_align', '@label_inner', '@label_side', '@label_color'}
 
         ext_props_set, ext_props_dict = read_props(ext_name)
@@ -222,7 +221,7 @@ if __name__ == '__main__':
             # readonly in docs
             if "readonly" in p1 and p1["readonly"]:
                 # but not readonly in external
-                if p0.get("access", "") != "readonly":
+                if p0.get("access", "") not in ("readonly", "initonly"):
                     cprint(f"EXT [{ext_name}] non-readonly attribute in \"{p}\"", 'red')
 
             # units checks
@@ -290,6 +289,9 @@ if __name__ == '__main__':
             if "max" in p0 and "maxvalue" in p1:
                 v0 = str(p0["max"])
                 v1 = str(p1["maxvalue"])
+                if v1 == "2π":
+                    v1 = "6.28319"
+
                 if v0 != v1:
                     cprint(f"[{ext_name}] invalid value for maxvalue attribute \"{p}\": {v0} != {v1}", 'magenta')
 
