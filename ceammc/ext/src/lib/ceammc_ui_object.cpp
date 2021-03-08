@@ -692,9 +692,17 @@ static void set_constraints(PropertyInfo& info, t_eattr* a)
         info.setView(PropValueView::MENU);
         info.setConstraints(PropValueConstraints::ENUM);
 
-        for (size_t i = 0; i < a->itemssize; i++) {
-            if (!info.addEnum(a->itemslist[i]))
-                LIB_ERR << "can't append enum";
+        if (info.type() == PropValueType::SYMBOL) {
+            for (size_t i = 0; i < a->itemssize; i++) {
+                if (!info.addEnum(a->itemslist[i]))
+                    LIB_ERR << "can't append enum";
+            }
+        } else if (info.type() == PropValueType::INTEGER) {
+            for (size_t i = 0; i < a->itemssize; i++) {
+                auto v = std::strtol(a->itemslist[i]->s_name, nullptr, 10);
+                if (!info.addEnum(v))
+                    LIB_ERR << "can't append enum";
+            }
         }
     }
 }
@@ -746,7 +754,6 @@ static PropertyInfo attr_to_prop(t_eattr* a)
 
                 if (a->defvals)
                     res.setDefault(a->defvals->s_name[0] == '1');
-
             } else {
                 res.setType(PropValueType::INTEGER);
                 set_constraints(res, a);
