@@ -519,7 +519,7 @@ void UIKeyboard::setup()
     obj.setPropertyRange("keys", MIN_KEYS, MAX_KEYS);
 
     obj.addProperty("shift", _("Leftmost MIDI note"), 36, &UIKeyboard::prop_shift, _("Main"));
-    obj.setPropertyRange("shift", DEFAULT_SHIFT, MAX_KEYS);
+    obj.setPropertyRange("shift", 6, MAX_KEYS);
 }
 
 void setup_ui_keyboard()
