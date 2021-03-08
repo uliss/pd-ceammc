@@ -290,12 +290,12 @@ AtomList UITab::propSelected() const
     return res;
 }
 
-t_float UITab::propCount() const
+t_int UITab::propCount() const
 {
     return items_.size();
 }
 
-t_float UITab::propCurrent() const
+t_int UITab::propCurrent() const
 {
     if (prop_toggle_mode)
         return -1;
@@ -512,10 +512,10 @@ void UITab::setup()
     obj.setPropertyCategory("items", "Main");
     obj.setPropertyLabel("items", _("Items"));
     obj.setPropertySave("items");
-    obj.addProperty("count", &UITab::propCount, 0);
+    obj.addProperty("count", &UITab::propCount);
 
-    obj.addProperty("selected", &UITab::propSelected, 0);
-    obj.addProperty("current", &UITab::propCurrent, 0);
+    obj.addProperty("selected", &UITab::propSelected);
+    obj.addProperty("current", &UITab::propCurrent);
 
     obj.addProperty(PROP_TEXT_COLOR, _("Text Color"), DEFAULT_TEXT_COLOR, &UITab::prop_color_text);
     obj.addProperty(PROP_ACTIVE_COLOR, _("Active Color"), DEFAULT_ACTIVE_COLOR, &UITab::prop_color_active);

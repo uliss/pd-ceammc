@@ -61,8 +61,8 @@ public:
     AtomList propItems() const;
     void propSetItems(const AtomListView& lv);
     AtomList propSelected() const;
-    t_float propCount() const;
-    t_float propCurrent() const;
+    t_int propCount() const;
+    t_int propCurrent() const;
 
     void m_append(const AtomListView& lv);
     void m_clear();
