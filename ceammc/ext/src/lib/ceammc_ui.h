@@ -64,23 +64,38 @@ class UIObjectFactory {
     std::string name_;
 
 public:
-    typedef void (UI::*bangMethodPtr)();
-    typedef void (UI::*floatMethodPtr)(t_float);
-    typedef void (UI::*listMethodPtr)(const AtomListView&);
-    typedef t_float (UI::*propFloatGet)() const;
-    typedef void (UI::*propFloatSet)(t_float);
-    typedef AtomList (UI::*propListGet)() const;
-    typedef void (UI::*propListSet)(const AtomListView&);
-    typedef std::pair<propFloatGet, propFloatSet> propertyFloatAccess;
-    typedef std::pair<propListGet, propListSet> propertyListAccess;
-    typedef std::is_base_of<UIObject, UI> isControlObject;
-    typedef std::is_base_of<UIDspObject, UI> isDSPObject;
+    using isControlObject = std::is_base_of<UIObject, UI>;
+    using isDSPObject = std::is_base_of<UIDspObject, UI>;
 
-    typedef std::unordered_map<t_symbol*, bangMethodPtr> BangMethodMap;
-    typedef std::unordered_map<t_symbol*, floatMethodPtr> FloatMethodMap;
-    typedef std::unordered_map<t_symbol*, listMethodPtr> ListMethodMap;
-    typedef std::unordered_map<t_symbol*, propertyFloatAccess> FloatPropertyMap;
-    typedef std::unordered_map<t_symbol*, propertyListAccess> ListPropertyMap;
+    using bangMethodPtr = void (UI::*)();
+    using floatMethodPtr = void (UI::*)(t_float);
+    using listMethodPtr = void (UI::*)(const AtomListView&);
+
+    using propBoolGet = bool (UI::*)() const;
+    using propBoolSet = void (UI::*)(bool);
+    using propIntGet = t_int (UI::*)() const;
+    using propIntSet = void (UI::*)(t_int);
+    using propFloatGet = t_float (UI::*)() const;
+    using propFloatSet = void (UI::*)(t_float);
+    using propSymbolGet = t_symbol* (UI::*)() const;
+    using propSymbolSet = void (UI::*)(t_symbol*);
+    using propListGet = AtomList (UI::*)() const;
+    using propListSet = void (UI::*)(const AtomListView&);
+
+    using propertyBoolAccess = std::pair<propBoolGet, propBoolSet>;
+    using propertyIntAccess = std::pair<propIntGet, propIntSet>;
+    using propertyFloatAccess = std::pair<propFloatGet, propFloatSet>;
+    using propertySymbolAccess = std::pair<propSymbolGet, propSymbolSet>;
+    using propertyListAccess = std::pair<propListGet, propListSet>;
+
+    using BangMethodMap = std::unordered_map<t_symbol*, bangMethodPtr>;
+    using FloatMethodMap = std::unordered_map<t_symbol*, floatMethodPtr>;
+    using ListMethodMap = std::unordered_map<t_symbol*, listMethodPtr>;
+    using BoolPropertyMap = std::unordered_map<t_symbol*, propertyBoolAccess>;
+    using IntPropertyMap = std::unordered_map<t_symbol*, propertyIntAccess>;
+    using FloatPropertyMap = std::unordered_map<t_symbol*, propertyFloatAccess>;
+    using SymbolPropertyMap = std::unordered_map<t_symbol*, propertySymbolAccess>;
+    using ListPropertyMap = std::unordered_map<t_symbol*, propertyListAccess>;
 
 public:
     UIObjectFactory(const char* name, long fl = EBOX_GROWINDI, int pd_flags = 0)
@@ -700,18 +715,21 @@ public:
         eclass_attr_category(pd_class, name, cat_name);
     }
 
-    void addProperty(const char* name,
-        t_float (UI::*getter)() const,
-        void (UI::*setter)(t_float))
+    void addProperty(const char* name, propIntGet getter, propIntSet setter = nullptr)
+    {
+        eclass_new_attr_typed(pd_class, name, "int", 1, 0, 0);
+        eclass_attr_invisible(pd_class, name);
+        setPropertyAccessor(name, getter, setter);
+    }
+
+    void addProperty(const char* name, propFloatGet getter, propFloatSet setter = nullptr)
     {
         eclass_new_attr_typed(pd_class, name, "float", 1, 0, 0);
         eclass_attr_invisible(pd_class, name);
         setPropertyAccessor(name, getter, setter);
     }
 
-    void addProperty(const char* name,
-        AtomList (UI::*getter)() const,
-        void (UI::*setter)(const AtomListView&) = 0)
+    void addProperty(const char* name, propListGet getter, propListSet setter = nullptr)
     {
         eclass_new_attr_typed(pd_class, name, "atom", 1, 0, 0);
         eclass_attr_invisible(pd_class, name);
@@ -746,14 +764,21 @@ public:
         eclass_attr_itemlist(pd_class, name, items);
     }
 
-    void setPropertyAccessor(const char* name, t_float (UI::*getter)() const, void (UI::*setter)(t_float))
+    void setPropertyAccessor(const char* name, propIntGet getter, propIntSet setter)
+    {
+        t_err_method m = reinterpret_cast<t_err_method>(setter != nullptr ? intPropSetter : nullptr);
+        eclass_attr_accessor(pd_class, name, (t_err_method)intPropGetter, m);
+        prop_int_map[gensym(name)] = std::make_pair(getter, setter);
+    }
+
+    void setPropertyAccessor(const char* name, propFloatGet getter, propFloatSet setter)
     {
         t_err_method m = reinterpret_cast<t_err_method>(setter != nullptr ? floatPropSetter : nullptr);
         eclass_attr_accessor(pd_class, name, (t_err_method)floatPropGetter, m);
         prop_float_map[gensym(name)] = std::make_pair(getter, setter);
     }
 
-    void setPropertyAccessor(const char* name, AtomList (UI::*getter)() const, void (UI::*setter)(const AtomListView&))
+    void setPropertyAccessor(const char* name, propListGet getter, propListSet setter)
     {
         t_err_method m = reinterpret_cast<t_err_method>(setter != nullptr ? listPropSetter : nullptr);
         eclass_attr_accessor(pd_class, name, (t_err_method)listPropGetter, m);
@@ -1118,6 +1143,47 @@ public:
         z->setDrawParams(params);
     }
 
+    static t_pd_err intPropGetter(UI* z, t_eattr* attr, int* argc, t_atom** argv)
+    {
+        auto it = prop_int_map.find(attr->name);
+        if (it == prop_int_map.end())
+            return 1;
+
+        auto m = it->second.first;
+
+        if (m == 0) {
+            pd_error(z->asPdObject(), "[%s] non-readable property: @%s", z->name()->s_name, attr->name->s_name);
+            argc = 0;
+            *argv = 0;
+            return 1;
+        }
+
+        *argc = 1;
+        *argv = (t_atom*)getbytes(sizeof(t_atom));
+        atom_setfloat(*argv, (z->*m)());
+        return 0;
+    }
+
+    static t_pd_err intPropSetter(UI* z, t_eattr* attr, int argc, t_atom* argv)
+    {
+        auto it = prop_int_map.find(attr->name);
+        if (it == prop_int_map.end())
+            return 1;
+
+        if (argc < 1)
+            return 2;
+
+        auto m = it->second.second;
+
+        if (m == 0) {
+            pd_error(z->asPdObject(), "[%s] readonly property: @%s", z->name()->s_name, attr->name->s_name);
+            return 1;
+        }
+
+        (z->*m)(atom_getfloat(argv));
+        return 0;
+    }
+
     static t_pd_err floatPropGetter(UI* z, t_eattr* attr, int* argc, t_atom** argv)
     {
         auto it = prop_float_map.find(attr->name);
@@ -1223,7 +1289,10 @@ public:
     static BangMethodMap bang_map;
     static FloatMethodMap float_map;
     static ListMethodMap list_map;
+    static BoolPropertyMap prop_bool_map;
+    static IntPropertyMap prop_int_map;
     static FloatPropertyMap prop_float_map;
+    static SymbolPropertyMap prop_symbol_map;
     static ListPropertyMap prop_list_map;
     static t_pt mouse_pos_;
 };
@@ -1250,7 +1319,16 @@ template <class UI>
 typename UIObjectFactory<UI>::ListMethodMap UIObjectFactory<UI>::list_map;
 
 template <class UI>
+typename UIObjectFactory<UI>::BoolPropertyMap UIObjectFactory<UI>::prop_bool_map;
+
+template <class UI>
+typename UIObjectFactory<UI>::IntPropertyMap UIObjectFactory<UI>::prop_int_map;
+
+template <class UI>
 typename UIObjectFactory<UI>::FloatPropertyMap UIObjectFactory<UI>::prop_float_map;
+
+template <class UI>
+typename UIObjectFactory<UI>::SymbolPropertyMap UIObjectFactory<UI>::prop_symbol_map;
 
 template <class UI>
 typename UIObjectFactory<UI>::ListPropertyMap UIObjectFactory<UI>::prop_list_map;
