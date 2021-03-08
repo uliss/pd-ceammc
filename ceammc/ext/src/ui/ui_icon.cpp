@@ -379,15 +379,13 @@ void UIIcon::redrawAll()
     redraw();
 }
 
-AtomList UIIcon::propEnabled() const
+bool UIIcon::propEnabled() const
 {
-    return Atom(is_enabled_ ? 1 : 0.f);
+    return is_enabled_ ? 1 : 0.f;
 }
 
-void UIIcon::propSetEnabled(const AtomListView& lst)
+void UIIcon::propSetEnabled(bool v)
 {
-    bool v = lst.floatAt(0, 0);
-
     if (is_enabled_ != v) {
         is_enabled_ = v;
         redrawAll();

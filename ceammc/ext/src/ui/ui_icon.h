@@ -66,8 +66,8 @@ private:
     void clockTick();
     void redrawAll();
 
-    AtomList propEnabled() const;
-    void propSetEnabled(const AtomListView& lst);
+    bool propEnabled() const;
+    void propSetEnabled(bool value);
 };
 
 void setup_ui_icon();
