@@ -17,13 +17,13 @@
 -49933 0;
 #X msg 110 366 @freq;
 #X text 245 366 Get/Set maximum speed of whistles. Type: float. Units:
-Hz. Default value: 220\. Range: 0\...480\.;
+Hz. Default value: 130.813\. Range: 0\...480\.;
 #X msg 110 408 @gate;
 #X text 245 408 Get/Set synth gate (>0 - play). Type: float. Default
 value: 0\. Range: 0\...1\.;
 #X msg 110 450 @pitch;
-#X text 245 450 Get/Set midi pitch. Type: float. Default value: 57\.
-Range: 36\...84\.;
+#X text 245 450 Get/Set midi pitch. Type: float. Default value: 48\.
+Range: 24\...84\.;
 #X obj 20 502 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 507 cnv 5 73 26 empty empty methods: 4 10 0 14 -262144
 -49933 0;

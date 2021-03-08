@@ -30,6 +30,9 @@
             <param name="NOTE" type="float" required="true">midi note</param>
             <param name="VEL" type="float" minvalue="0" maxvalue="127" required="true">
             velocity</param></method>
+            <method name="cc">control change message
+            <param name="CTL" type="int" required="true">control number</param>
+            <param name="VAL" type="float" required="true">value</param></method>
         </methods>
         <inlets>
             <inlet>
