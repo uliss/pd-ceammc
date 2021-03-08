@@ -13,8 +13,6 @@
  *****************************************************************************/
 #include "ext_load_lib.h"
 
-extern "C" void pd_init();
-
 int main(int argc, char* argv[])
 {
     if (argc < 2) {
@@ -22,7 +20,8 @@ int main(int argc, char* argv[])
         return EXIT_FAILURE;
     }
 
-    pd_init();
+    if (!init_pd())
+        return EXIT_FAILURE;
 
     if (!load_ceammc())
         return EXIT_FAILURE;

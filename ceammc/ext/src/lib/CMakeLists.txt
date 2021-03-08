@@ -256,6 +256,7 @@ endif()
 # utilities used while developing
 if(ENABLE_TESTS)
     add_library(ext_load STATIC ext_load_lib.cpp)
+    target_include_directories(ext_load PRIVATE ${PROJECT_SOURCE_DIR}/src)
     target_compile_definitions(ext_load
         PRIVATE
             "CEAMMC_DLL=\"$<TARGET_FILE:ceammc>\""

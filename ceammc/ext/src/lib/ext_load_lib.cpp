@@ -15,6 +15,12 @@
 
 #include <cstdio>
 
+#include "m_pd.h"
+extern "C" {
+extern void pd_init();
+#include "s_stuff.h"
+}
+
 constexpr const char* setup_sym = "ceammc_setup";
 constexpr const char* sym_dump_json = "ceammc_dump_json";
 constexpr const char* sym_list_all = "ceammc_list_externals";
@@ -125,3 +131,10 @@ bool load_ceammc()
     return true;
 }
 #endif
+
+bool init_pd(int sr)
+{
+    pd_init();
+    sys_setchsr(1, 1, sr);
+    return true;
+}

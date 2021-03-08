@@ -34,6 +34,7 @@ extern list_props_fn list_props;
 using list_aliases_fn = void (*)();
 extern list_aliases_fn list_aliases;
 
+bool init_pd(int sr = 44100);
 bool load_ceammc();
 
 #endif // EXT_LOAD_LIB_H
