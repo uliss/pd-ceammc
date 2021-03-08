@@ -33,6 +33,11 @@
             value</property>
             <property name="@on_value" type="float" default="1">output on value</property>
             <property name="@off_value" type="float" default="0">output off value</property>
+            <!-- midi -->
+            <property name="@midi_channel" type="int" minvalue="0" maxvalue="16" default="0">binded
+            MIDI channel. 0 means listen to all channels</property>
+            <property name="@midi_control" type="int" minvalue="0" maxvalue="128" default="0">
+            binded MIDI controller number. 0 means not binded to any controller.</property>
             <!-- common -->
             <property name="@presetname" type="symbol" default="(null)">preset name for using with
             [ui.preset]</property>
@@ -66,6 +71,7 @@
             <param type="int" name="IDX" required="true">preset index</param></method>
             <method name="clear">clears specified preset 
             <param type="int" name="IDX" required="true">preset index</param></method>
+            <method name="interp">for this object acts as *load*, no interpolation performed</method>
             <!-- common-->
             <method name="pos">set UI element position 
             <param name="X" type="float" required="true">top left x-coord</param>
