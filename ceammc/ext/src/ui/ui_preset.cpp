@@ -213,9 +213,9 @@ void UIPreset::m_duplicate(const AtomListView& lst)
         PresetStorage::instance().duplicateAll();
 }
 
-AtomList UIPreset::propCurrent() const
+t_int UIPreset::propCurrent() const
 {
-    return Atom(selected_index_);
+    return selected_index_;
 }
 
 void UIPreset::indexAdd(const AtomListView& lst)
@@ -326,7 +326,7 @@ void UIPreset::setup()
     obj.addProperty("empty_color", _("Empty Button Color"), "0.86 0.86 0.86 1.", &UIPreset::prop_color_empty);
     obj.addProperty("stored_color", _("Stored Button Color"), "0.5 0.5 0.5 1.", &UIPreset::prop_color_stored);
     obj.addProperty(PROP_ACTIVE_COLOR, _("Active Color"), DEFAULT_ACTIVE_COLOR, &UIPreset::prop_color_active);
-    obj.addProperty("current", &UIPreset::propCurrent, 0);
+    obj.addProperty("current", &UIPreset::propCurrent);
 
     obj.useMouseEvents(UI_MOUSE_DOWN | UI_MOUSE_MOVE | UI_MOUSE_LEAVE);
     obj.usePopup();

@@ -54,7 +54,7 @@ public:
     void m_clearall(const AtomListView& lst);
     void m_duplicate(const AtomListView& lst);
     void m_interp(const AtomListView& lst);
-    AtomList propCurrent() const;
+    t_int propCurrent() const;
 
     bool hasPresetAt(size_t n) const { return presets_.test(n); }
 
