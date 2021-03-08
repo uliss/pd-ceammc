@@ -213,7 +213,7 @@ AtomList UIColorPanel::propColorIndex() const
     return AtomList(picked_x_, picked_y_);
 }
 
-t_float UIColorPanel::propPdColor() const
+t_int UIColorPanel::propPdColor() const
 {
     if (picked_x_ < 0 || picked_y_ < 0)
         return 0;
@@ -251,12 +251,12 @@ AtomList UIColorPanel::propHslColor() const
     return res;
 }
 
-AtomList UIColorPanel::propHexColor() const
+t_symbol* UIColorPanel::propHexColor() const
 {
     if (picked_x_ < 0 || picked_y_ < 0)
-        return AtomList(gensym("#FFFFFF"));
+        return gensym("#FFFFFF");
 
-    return Atom(gensym(rgba_to_hex(colors_[picked_x_][picked_y_])));
+    return gensym(rgba_to_hex(colors_[picked_x_][picked_y_]));
 }
 
 void UIColorPanel::m_set(const AtomListView& lv)
@@ -417,6 +417,7 @@ void UIColorPanel::setup()
     obj.showProperty("matrix");
     obj.setPropertyCategory("matrix", "Basic");
     obj.setPropertyLabel("matrix", _("Matrix Size"));
+    obj.setPropertyDefaultValue("matrix", "24 13");
 
     obj.addFloatProperty("saturation", _("Saturation"), 1., &UIColorPanel::saturation_);
     obj.setPropertyRange("saturation", 0, 1);

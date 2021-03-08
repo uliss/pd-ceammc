@@ -59,10 +59,10 @@ public:
     void propSetMatrixSize(const AtomListView& lv);
     AtomList propColorIndex() const;
 
-    t_float propPdColor() const;
+    t_int propPdColor() const;
     AtomList propRgbColor() const;
     AtomList propHslColor() const;
-    AtomList propHexColor() const;
+    t_symbol* propHexColor() const;
 
     void m_set(const AtomListView& lv);
 
