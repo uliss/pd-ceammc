@@ -715,6 +715,14 @@ public:
         eclass_attr_category(pd_class, name, cat_name);
     }
 
+    void addProperty(const char* name, propBoolGet getter, propBoolSet setter = nullptr)
+    {
+        eclass_new_attr_typed(pd_class, name, "int", 1, 0, 0);
+        eclass_attr_style(pd_class, name, "onoff");
+        eclass_attr_invisible(pd_class, name);
+        setPropertyAccessor(name, getter, setter);
+    }
+
     void addProperty(const char* name, propIntGet getter, propIntSet setter = nullptr)
     {
         eclass_new_attr_typed(pd_class, name, "int", 1, 0, 0);
@@ -764,11 +772,11 @@ public:
         eclass_attr_itemlist(pd_class, name, items);
     }
 
-    void setPropertyAccessor(const char* name, propIntGet getter, propIntSet setter)
+    void setPropertyAccessor(const char* name, propBoolGet getter, propBoolSet setter)
     {
-        t_err_method m = reinterpret_cast<t_err_method>(setter != nullptr ? intPropSetter : nullptr);
-        eclass_attr_accessor(pd_class, name, (t_err_method)intPropGetter, m);
-        prop_int_map[gensym(name)] = std::make_pair(getter, setter);
+        t_err_method m = reinterpret_cast<t_err_method>(setter != nullptr ? boolPropSetter : nullptr);
+        eclass_attr_accessor(pd_class, name, (t_err_method)boolPropGetter, m);
+        prop_bool_map[gensym(name)] = std::make_pair(getter, setter);
     }
 
     void setPropertyAccessor(const char* name, propFloatGet getter, propFloatSet setter)
@@ -778,6 +786,12 @@ public:
         prop_float_map[gensym(name)] = std::make_pair(getter, setter);
     }
 
+    void setPropertyAccessor(const char* name, propIntGet getter, propIntSet setter)
+    {
+        t_err_method m = reinterpret_cast<t_err_method>(setter != nullptr ? intPropSetter : nullptr);
+        eclass_attr_accessor(pd_class, name, (t_err_method)intPropGetter, m);
+        prop_int_map[gensym(name)] = std::make_pair(getter, setter);
+    }
     void setPropertyAccessor(const char* name, propListGet getter, propListSet setter)
     {
         t_err_method m = reinterpret_cast<t_err_method>(setter != nullptr ? listPropSetter : nullptr);
@@ -1141,6 +1155,69 @@ public:
     static void setDrawParams(UI* z, t_edrawparams* params)
     {
         z->setDrawParams(params);
+    }
+
+    static t_pd_err boolPropGetter(UI* z, t_eattr* attr, int* argc, t_atom** argv)
+    {
+        auto it = prop_bool_map.find(attr->name);
+        if (it == prop_bool_map.end())
+            return 1;
+
+        auto m = it->second.first;
+
+        if (m == 0) {
+            pd_error(z->asPdObject(), "[%s] non-readable property: @%s", z->name()->s_name, attr->name->s_name);
+            argc = 0;
+            *argv = 0;
+            return 1;
+        }
+
+        *argc = 1;
+        *argv = (t_atom*)getbytes(sizeof(t_atom));
+        atom_setfloat(*argv, (int)(z->*m)());
+        return 0;
+    }
+
+    static t_pd_err boolPropSetter(UI* z, t_eattr* attr, int argc, t_atom* argv)
+    {
+        auto it = prop_bool_map.find(attr->name);
+        if (it == prop_bool_map.end())
+            return 1;
+
+        if (argc < 1)
+            return 2;
+
+        auto m = it->second.second;
+
+        if (m == 0) {
+            pd_error(z->asPdObject(), "[%s] readonly property: @%s", z->name()->s_name, attr->name->s_name);
+            return 1;
+        }
+
+        int value = -1;
+        if (argv->a_type == A_SYMBOL) {
+            auto sym = atom_getsymbol(argv);
+            if (sym == gensym("true")) {
+                value = 1;
+            } else if (sym == gensym("false")) {
+                value = 0;
+            } else {
+                pd_error(z->asPdObject(),
+                    "[%s] @%s: bool value (0|1|true|false) expected, got '%s'",
+                    z->name()->s_name, attr->name->s_name, sym->s_name);
+                return 1;
+            }
+        } else if(argv->a_type == A_FLOAT) {
+            value = (atom_getfloat(argv) != 0);
+        } else {
+            pd_error(z->asPdObject(),
+                "[%s] @%s: bool value (0|1|true|false) expected",
+                z->name()->s_name, attr->name->s_name);
+            return 1;
+        }
+
+        (z->*m)(value);
+        return 0;
     }
 
     static t_pd_err intPropGetter(UI* z, t_eattr* attr, int* argc, t_atom** argv)

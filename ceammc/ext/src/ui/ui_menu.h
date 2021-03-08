@@ -56,15 +56,15 @@ public:
     void onMouseMove(t_object* view, const t_pt& pt, long modifiers);
     void onMouseLeave(t_object* view, const t_pt& pt, long modifiers);
 
-    t_float propCount() const;
+    t_int propCount() const;
     AtomList propItems() const;
     void propSetItems(const AtomListView& lv);
-    t_float propIndex() const;
-    void propSetIndex(t_float f);
+    t_int propIndex() const;
+    void propSetIndex(t_int f);
     AtomList propValue() const;
     void propSetValue(const AtomListView& lv);
-    t_float propOpen() const;
-    void propSetOpen(t_float v);
+    bool propOpen() const;
+    void propSetOpen(bool v);
     AtomList propTitle() const;
 
     void loadPreset(size_t idx);

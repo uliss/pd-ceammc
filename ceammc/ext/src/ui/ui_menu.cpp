@@ -222,17 +222,17 @@ void UIMenu::onMouseLeave(t_object* view, const t_pt& pt, long modifiers)
     hover_idx_ = -1;
 }
 
-t_float UIMenu::propCount() const
+t_int UIMenu::propCount() const
 {
     return items_.size();
 }
 
-t_float UIMenu::propIndex() const
+t_int UIMenu::propIndex() const
 {
     return current_idx_;
 }
 
-void UIMenu::propSetIndex(t_float f)
+void UIMenu::propSetIndex(t_int f)
 {
     if (f < 0 || f >= items_.size()) {
         UI_ERR << "invalid menu index: " << f;
@@ -259,12 +259,12 @@ void UIMenu::propSetValue(const AtomListView& lst)
     redrawBGLayer();
 }
 
-t_float UIMenu::propOpen() const
+bool UIMenu::propOpen() const
 {
     return is_open_;
 }
 
-void UIMenu::propSetOpen(t_float v)
+void UIMenu::propSetOpen(bool v)
 {
     if (is_open_ != v) {
         is_open_ = v;
