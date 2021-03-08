@@ -30,8 +30,10 @@
             <property name="@inf" type="alias">alias to @r -1, repeats infinitely</property>
             <property name="@once" type="alias">alias to @r 1, play once</property>
             <property name="@i" type="int" readonly="true" default="0">current iteration</property>
-            <property name="@ri" type="int" readonly="true" default="0">current repeat iteration</property>
-            <property name="@mode" type="symbol" enum="wrap fold" default="wrap">repeat counter mode</property>
+            <property name="@ri" type="int" readonly="true" default="0">current repeat
+            iteration</property>
+            <property name="@mode" type="symbol" enum="wrap fold" default="wrap">repeat counter
+            mode</property>
             <property name="@wrap" type="alias">alias to @mode wrap</property>
             <property name="@fold" type="alias">alias to @mode fold</property>
         </properties>
