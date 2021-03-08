@@ -59,6 +59,8 @@ static std::string pddoc_units(const std::string& u)
         { "hz", "herz" },
         { "msec", "millisecond" },
         { "sec", "second" },
+        { "rad", "radian" },
+        { "deg", "degree" }
     };
     auto it = um.find(u);
     if (it == um.end())
