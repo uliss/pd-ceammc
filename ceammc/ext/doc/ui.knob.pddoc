@@ -121,6 +121,8 @@
             <param type="int" name="IDX" required="true">preset index</param></method>
             <method name="clear" category="preset">clears specified preset 
             <param type="int" name="IDX" required="true">preset index</param></method>
+            <method name="interp">interplolates between presets
+            <param type="float" name="IDX" required="true">preset fraction index</param></method>
             <!-- common-->
             <method name="pos" category="basic">set UI element position 
             <param name="X" type="float" required="true">top left x-coord</param>
