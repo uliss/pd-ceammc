@@ -243,17 +243,17 @@ void UIMenu::propSetIndex(t_int f)
     redrawBGLayer();
 }
 
-AtomList UIMenu::propValue() const
+Atom UIMenu::propValue() const
 {
     if (current_idx_ < 0 || current_idx_ >= items_.size())
-        return Atom(&s_);
+        return &s_;
 
     return items_[current_idx_];
 }
 
-void UIMenu::propSetValue(const AtomListView& lst)
+void UIMenu::propSetValue(const Atom& v)
 {
-    if (!selectByValue(lst))
+    if (!selectByValue(v))
         return;
 
     redrawBGLayer();
@@ -272,12 +272,12 @@ void UIMenu::propSetOpen(bool v)
     }
 }
 
-AtomList UIMenu::propTitle() const
+t_symbol* UIMenu::propTitle() const
 {
     if (current_idx_ < 0 || current_idx_ >= labels_.size())
-        return AtomList();
+        return &s_;
 
-    return Atom(gensym(labels_[current_idx_].c_str()));
+    return gensym(labels_[current_idx_].c_str());
 }
 
 void UIMenu::loadPreset(size_t idx)
@@ -352,7 +352,7 @@ void UIMenu::m_set(const AtomListView& lv)
     if (a.isFloat()) {
         propSetIndex(a.asFloat());
     } else if (a.isSymbol()) {
-        propSetValue(lv);
+        propSetValue(a);
     }
 }
 
@@ -549,9 +549,9 @@ void UIMenu::setup()
 
     obj.addProperty("index", &UIMenu::propIndex, &UIMenu::propSetIndex);
     obj.addProperty("value", &UIMenu::propValue, &UIMenu::propSetValue);
-    obj.addProperty("count", &UIMenu::propCount, 0);
+    obj.addProperty("count", &UIMenu::propCount);
     obj.addProperty("open", &UIMenu::propOpen, &UIMenu::propSetOpen);
-    obj.addProperty("title", &UIMenu::propTitle, 0);
+    obj.addProperty("title", &UIMenu::propTitle);
 
     obj.addMethod("append", &UIMenu::m_append);
     obj.addMethod("clear", &UIMenu::m_clear);

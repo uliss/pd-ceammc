@@ -61,11 +61,11 @@ public:
     void propSetItems(const AtomListView& lv);
     t_int propIndex() const;
     void propSetIndex(t_int f);
-    AtomList propValue() const;
-    void propSetValue(const AtomListView& lv);
+    Atom propValue() const;
+    void propSetValue(const Atom& v);
     bool propOpen() const;
     void propSetOpen(bool v);
-    AtomList propTitle() const;
+    t_symbol* propTitle() const;
 
     void loadPreset(size_t idx);
     void storePreset(size_t idx);
