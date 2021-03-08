@@ -321,34 +321,28 @@ void UISlider2D::output()
     send(lv);
 }
 
-AtomList UISlider2D::propXRange() const
+t_float UISlider2D::propXRange() const
 {
-    return AtomList(xRange());
+    return xRange();
 }
 
-AtomList UISlider2D::propYRange() const
+t_float UISlider2D::propYRange() const
 {
-    return AtomList(yRange());
+    return yRange();
 }
 
-AtomList UISlider2D::propXValue() const
+t_float UISlider2D::propXValue() const
 {
-    return AtomList(realXValue());
+    return realXValue();
 }
 
-AtomList UISlider2D::propYValue() const
+t_float UISlider2D::propYValue() const
 {
-    return AtomList(realYValue());
+    return realYValue();
 }
 
-void UISlider2D::propSetXValue(const AtomListView& lv)
+void UISlider2D::propSetXValue(t_float x)
 {
-    t_float x;
-    if (lv.empty() || !lv[0].getFloat(&x)) {
-        UI_ERR << "x float value expected: " << lv;
-        return;
-    }
-
     if (xRange() == 0) {
         UI_ERR << "invalid x-range: " << xRange();
         return;
@@ -359,14 +353,8 @@ void UISlider2D::propSetXValue(const AtomListView& lv)
     redrawKnob();
 }
 
-void UISlider2D::propSetYValue(const AtomListView& lv)
+void UISlider2D::propSetYValue(t_float y)
 {
-    t_float y;
-    if (lv.empty() || !lv[0].getFloat(&y)) {
-        UI_ERR << "y float value expected: " << lv;
-        return;
-    }
-
     if (yRange() == 0) {
         UI_ERR << "invalid y-range: " << yRange();
         return;
@@ -388,8 +376,8 @@ void UISlider2D::setup()
     obj.addFloatProperty("y_top", _("Top Y-value"), 1, &UISlider2D::prop_y_top, "Bounds");
     obj.addFloatProperty("y_bottom", _("Bottom Y-value"), -1, &UISlider2D::prop_y_bottom, "Bounds");
 
-    obj.addProperty("x_range", &UISlider2D::propXRange, 0);
-    obj.addProperty("y_range", &UISlider2D::propYRange, 0);
+    obj.addProperty("x_range", &UISlider2D::propXRange);
+    obj.addProperty("y_range", &UISlider2D::propYRange);
     obj.addProperty("x_value", &UISlider2D::propXValue, &UISlider2D::propSetXValue);
     obj.addProperty("y_value", &UISlider2D::propYValue, &UISlider2D::propSetYValue);
 

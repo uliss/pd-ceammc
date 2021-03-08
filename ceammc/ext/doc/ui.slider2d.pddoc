@@ -26,10 +26,10 @@
             <property name="@x_right" type="float" default="1">rightmost x-value</property>
             <property name="@y_top" type="float" default="1">top y-value</property>
             <property name="@y_bottom" type="float" default="-1">bottom y-value</property>
-            <property name="@x_range" type="float" readonly="true">abs x-value range</property>
-            <property name="@y_range" type="float" readonly="true">abs y-value range</property>
-            <property name="@x_value" type="float">slider x-value</property>
-            <property name="@y_value" type="float">slider y-value</property>
+            <property name="@x_range" type="float" readonly="true" default="2">abs x-value range</property>
+            <property name="@y_range" type="float" readonly="true" default="2">abs y-value range</property>
+            <property name="@x_value" type="float" default="0">slider x-value</property>
+            <property name="@y_value" type="float" default="0">slider y-value</property>
             <property name="@show_range" type="int" enum="0 1" default="1">if show slider
             range</property>
             <property name="@show_grid" type="int" enum="0 1" default="0">if show grid</property>

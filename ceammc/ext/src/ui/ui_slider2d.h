@@ -69,13 +69,13 @@ public:
 
     void output();
 
-    AtomList propXRange() const;
-    AtomList propYRange() const;
+    t_float propXRange() const;
+    t_float propYRange() const;
 
-    AtomList propXValue() const;
-    AtomList propYValue() const;
-    void propSetXValue(const AtomListView& lv);
-    void propSetYValue(const AtomListView& lv);
+    t_float propXValue() const;
+    t_float propYValue() const;
+    void propSetXValue(t_float x);
+    void propSetYValue(t_float y);
 
 public:
     static void setup();
