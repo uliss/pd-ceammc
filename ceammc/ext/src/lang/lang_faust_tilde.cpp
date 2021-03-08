@@ -466,7 +466,7 @@ std::string LangFaustTilde::canvasDir() const
     return cnv ? canvas_getdir(cnv)->s_name : std::string();
 }
 
-void setup_lang_faust_tilde()
+extern "C" void setup_lang0x2efaust_tilde()
 {
     extern t_class* ceammc_class;
     std::string path = class_gethelpdir(ceammc_class);
@@ -474,7 +474,6 @@ void setup_lang_faust_tilde()
     faust_config_base.addIncludeDirectory(path);
 
     SoundExternalFactory<LangFaustTilde> obj("lang.faust~", OBJECT_FACTORY_DEFAULT);
-    obj.addAlias("faust~");
     obj.addMethod("reset", &LangFaustTilde::m_reset);
     obj.addMethod("open", &LangFaustTilde::m_open);
     obj.addMethod("update", &LangFaustTilde::m_update);

@@ -141,23 +141,6 @@ void LangFaustUiTilde::createCustomUI()
     buildUI();
 }
 
-void setup_lang_faust_ui_tilde()
-{
-    ui::UIFactory<SoundExternalFactory, LangFaustUiTilde> obj("ui.faust~");
-    obj.useMouseEnter();
-    obj.useMouseLeave();
-    obj.useMouseMove();
-    obj.useMouseDown();
-    obj.useMouseUp();
-    obj.useMouseRight();
-
-    obj.addMethod("reset", &LangFaustTilde::m_reset);
-    obj.addMethod("open", &LangFaustTilde::m_open);
-    obj.addMethod("update", &LangFaustUiTilde::m_update);
-
-    initFaustStyle();
-}
-
 FaustMasterView::FaustMasterView()
     : model_(faustThemeIdx)
     , view_(&model_, BoxView::ViewImplPtr(new TclBoxImpl()))
@@ -447,4 +430,21 @@ void FaustMasterView::createButtonEntry(faust::UIProperty* p)
 
     auto vgroup = view_.getChild<VGroupView>();
     vgroup->appendChild(std::move(hgroup));
+}
+
+extern "C" void setup_ui0x2efaust_tilde()
+{
+    ui::UIFactory<SoundExternalFactory, LangFaustUiTilde> obj("ui.faust~");
+    obj.useMouseEnter();
+    obj.useMouseLeave();
+    obj.useMouseMove();
+    obj.useMouseDown();
+    obj.useMouseUp();
+    obj.useMouseRight();
+
+    obj.addMethod("reset", &LangFaustTilde::m_reset);
+    obj.addMethod("open", &LangFaustTilde::m_open);
+    obj.addMethod("update", &LangFaustUiTilde::m_update);
+
+    initFaustStyle();
 }

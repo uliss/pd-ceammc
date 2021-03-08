@@ -3,18 +3,40 @@ target_include_directories(ceammc_lang
     PRIVATE "$<TARGET_PROPERTY:fmt,INCLUDE_DIRECTORIES>")
 
 if(WITH_FAUST)
-    target_sources(ceammc_lang PRIVATE
-        lang_faust_tilde.cpp
-        lang_faust_ui_tilde.cpp
-    )
-    target_compile_definitions(ceammc_lang PRIVATE WITH_FAUST)
-    target_include_directories(ceammc_lang PRIVATE ${PROJECT_SOURCE_DIR}/ceammc/extra/faust)
-    target_include_directories(ceammc_lang PRIVATE ${PROJECT_SOURCE_DIR}/ceammc/extra/faust/faust/architecture)
-    target_link_libraries(ceammc_lang PRIVATE
-        ceammc_faust
-        ceammc_nui
-    )
+    pd_add_external(NAME "lang.faust~"
+        FILES lang_faust_tilde.cpp
+        INTERNAL True
+        LIBRARY ceammc
+        LINK ceammc_faust ceammc_core)
+    target_compile_definitions(lang.faust_tilde PRIVATE WITH_FAUST)
+    target_include_directories(lang.faust_tilde
+        PRIVATE
+            "$<TARGET_PROPERTY:fmt,INCLUDE_DIRECTORIES>"
+            ${PROJECT_SOURCE_DIR}/ceammc/extra/faust
+            ${PROJECT_SOURCE_DIR}/ceammc/extra/faust/faust/architecture)
+
+    pd_add_external(NAME "ui.faust~"
+        FILES lang_faust_ui_tilde.cpp
+        INTERNAL True
+        LIBRARY ceammc
+        LINK lang.faust_tilde ceammc_faust ceammc_nui ceammc_core)
+    target_compile_definitions(ui.faust_tilde PRIVATE WITH_FAUST)
+    target_include_directories(ui.faust_tilde
+        PRIVATE
+            "$<TARGET_PROPERTY:fmt,INCLUDE_DIRECTORIES>"
+            ${PROJECT_SOURCE_DIR}/ceammc/extra/faust
+            ${PROJECT_SOURCE_DIR}/ceammc/extra/faust/faust/architecture)
 else()
-    target_sources(ceammc_lang PRIVATE lang_faust_tilde_stub.cpp)
+    pd_add_external(NAME "lang.faust~"
+        FILES lang_faust_tilde_stub.cpp
+        INTERNAL True
+        LIBRARY ceammc
+        LINK ceammc_core)
+
+    pd_add_external(NAME "ui.faust~"
+        FILES lang_faust_ui_tilde_stub.cpp
+        INTERNAL True
+        LIBRARY ceammc
+        LINK ceammc_core)
 endif()
 

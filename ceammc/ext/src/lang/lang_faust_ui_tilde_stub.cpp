@@ -15,16 +15,16 @@
 
 using namespace ceammc;
 
-class LangFaustStub : public BaseObject {
+class FaustUiStub : public BaseObject {
 public:
-    LangFaustStub(const PdArgs& args)
+    FaustUiStub(const PdArgs& args)
         : BaseObject(args)
     {
         createOutlet();
     }
 };
 
-extern "C" void setup_lang0x2efaust_tilde()
+extern "C" void setup_ui0x2efaust_tilde()
 {
-    ObjectFactory<LangFaustStub> obj("lang.faust~");
+    ObjectFactory<FaustUiStub> obj("ui.faust~");
 }
