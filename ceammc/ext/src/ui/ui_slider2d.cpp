@@ -377,7 +377,9 @@ void UISlider2D::setup()
     obj.addFloatProperty("y_bottom", _("Bottom Y-value"), -1, &UISlider2D::prop_y_bottom, "Bounds");
 
     obj.addProperty("x_range", &UISlider2D::propXRange);
+    obj.setPropertyDefaultValue("x_range", "2");
     obj.addProperty("y_range", &UISlider2D::propYRange);
+    obj.setPropertyDefaultValue("y_range", "2");
     obj.addProperty("x_value", &UISlider2D::propXValue, &UISlider2D::propSetXValue);
     obj.addProperty("y_value", &UISlider2D::propYValue, &UISlider2D::propSetYValue);
 
