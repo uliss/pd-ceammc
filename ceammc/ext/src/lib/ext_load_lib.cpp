@@ -38,7 +38,9 @@ list_aliases_fn list_aliases = nullptr;
 #include <libgen.h>
 #include <windows.h>
 
-constexpr size_t MAXPDSTRING = 1024;
+#ifndef MAXPDSTRING
+constexpr size_t MAXPDSTRING = 1000;
+#endif
 
 bool load_ceammc()
 {
