@@ -132,12 +132,12 @@ public:
     }
 };
 
-static faust::FaustConfig faust_config_base;
-
 struct faust_ui : public UI {
 };
 
 using FaustUI = faust::PdUI<faust_ui>;
+
+faust::FaustConfig LangFaustTilde::faust_config_base;
 
 LangFaustTilde::LangFaustTilde(const PdArgs& args)
     : SoundExternal(args)
@@ -399,6 +399,11 @@ void LangFaustTilde::onClick(t_floatarg xpos, t_floatarg ypos, t_floatarg shift,
     m_open(gensym("open"), {});
 }
 
+void LangFaustTilde::addIncludePath(const std::string& path)
+{
+    faust_config_base.addIncludeDirectory(path);
+}
+
 LangFaustTilde::FaustProperyList& LangFaustTilde::faustProperties()
 {
     return faust_properties_;
@@ -466,16 +471,22 @@ std::string LangFaustTilde::canvasDir() const
     return cnv ? canvas_getdir(cnv)->s_name : std::string();
 }
 
-extern "C" void setup_lang0x2efaust_tilde()
-{
-    extern t_class* ceammc_class;
-    std::string path = class_gethelpdir(ceammc_class);
-    path += "/faust";
-    faust_config_base.addIncludeDirectory(path);
+#ifdef _WIN32
+#define EXPORT extern "C" __declspec(dllexport)
+#else
+#define EXPORT extern "C"
+#endif
 
+EXPORT void setup_lang0x2efaust_tilde()
+{
     SoundExternalFactory<LangFaustTilde> obj("lang.faust~", OBJECT_FACTORY_DEFAULT);
     obj.addMethod("reset", &LangFaustTilde::m_reset);
     obj.addMethod("open", &LangFaustTilde::m_open);
     obj.addMethod("update", &LangFaustTilde::m_update);
     obj.useClick();
+
+    obj.classPointer();
+    std::string path = class_gethelpdir(obj.classPointer());
+    path += "/faust";
+    LangFaustTilde::addIncludePath(path);
 }

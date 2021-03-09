@@ -20,7 +20,6 @@
 
 using namespace ceammc;
 
-#ifdef WITH_FAUST
 #include "ceammc_llvm.h"
 #include <ctime>
 #include <future>
@@ -31,8 +30,6 @@ using FactoryPtr = std::unique_ptr<faust::LlvmDspFactory>;
 class UI;
 using FaustUIPtr = std::unique_ptr<UI>;
 using FaustDspPtr = std::unique_ptr<faust::LlvmDsp>;
-
-#endif
 
 class LangFaustTilde : public SoundExternal {
 public:
@@ -46,7 +43,6 @@ private:
     std::string full_path_;
     FaustProperyList faust_properties_;
 
-#ifdef WITH_FAUST
     FactoryPtr dsp_factory_;
     FaustDspPtr dsp_;
     FaustUIPtr ui_;
@@ -56,7 +52,6 @@ private:
     time_t last_mod_time_;
     std::future<time_t> mod_time_;
     std::future<int> run_editor_;
-#endif
 
 public:
     LangFaustTilde(const PdArgs& args);
@@ -73,6 +68,9 @@ public:
 
     void onClick(t_floatarg xpos, t_floatarg ypos, t_floatarg shift, t_floatarg ctrl, t_floatarg alt) override;
 
+public:
+    static void addIncludePath(const std::string& path);
+
 protected:
     FaustProperyList& faustProperties();
     virtual void compile();
@@ -86,6 +84,9 @@ private:
     void initInputs();
     void initOutputs();
     faust::FaustConfig makeFaustConfig();
+
+private:
+    static faust::FaustConfig faust_config_base;
 };
 
 void setup_lang_faust_tilde();

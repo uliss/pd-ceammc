@@ -432,7 +432,13 @@ void FaustMasterView::createButtonEntry(faust::UIProperty* p)
     vgroup->appendChild(std::move(hgroup));
 }
 
-extern "C" void setup_ui0x2efaust_tilde()
+#ifdef _WIN32
+#define EXPORT extern "C"  __declspec(dllexport)
+#else
+#define EXPORT extern "C"
+#endif
+
+EXPORT void setup_ui0x2efaust_tilde()
 {
     ui::UIFactory<SoundExternalFactory, LangFaustUiTilde> obj("ui.faust~");
     obj.useMouseEnter();
@@ -442,9 +448,14 @@ extern "C" void setup_ui0x2efaust_tilde()
     obj.useMouseUp();
     obj.useMouseRight();
 
-    obj.addMethod("reset", &LangFaustTilde::m_reset);
-    obj.addMethod("open", &LangFaustTilde::m_open);
+    obj.addMethod("reset", &LangFaustUiTilde::m_reset);
+    obj.addMethod("open", &LangFaustUiTilde::m_open);
     obj.addMethod("update", &LangFaustUiTilde::m_update);
 
     initFaustStyle();
+
+    obj.classPointer();
+    std::string path = class_gethelpdir(obj.classPointer());
+    path += "/faust";
+    LangFaustUiTilde::addIncludePath(path);
 }

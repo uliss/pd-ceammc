@@ -16,7 +16,7 @@ if(WITH_FAUST)
             ${PROJECT_SOURCE_DIR}/ceammc/extra/faust/faust/architecture)
 
     pd_add_external(NAME "ui.faust~"
-        FILES lang_faust_ui_tilde.cpp
+        FILES lang_faust_ui_tilde.cpp lang_faust_tilde.cpp
         INTERNAL True
         LIBRARY ceammc
         LINK lang.faust_tilde ceammc_faust ceammc_nui ceammc_core)
