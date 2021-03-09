@@ -9,7 +9,7 @@
             <description>faust compiled ui object</description>
             <license>GPL3 or later</license>
             <library>ceammc</library>
-            <category>lang</category>
+            <category view="link">lang</category>
             <keywords>faust</keywords>
             <since>0.9.2</since>
         </meta>
