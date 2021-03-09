@@ -242,7 +242,7 @@ BuiltinFunctionMap::BuiltinFunctionMap()
         return { gensym(venv.c_str()) };
     });
 
-    registerFn(gensym("pi"), [](const AtomList&) -> AtomList { return { m_pi }; });
+    registerFn(gensym("pi"), [](const AtomList& l) -> AtomList { return { m_pi * l.floatAt(0, 1) }; });
     registerFn(gensym("e"), [](const AtomList&) -> AtomList { return { m_exp }; });
     registerFn(gensym("sr"), [](const AtomList&) -> AtomList { return { sys_getsr() }; });
     registerFn(gensym("bs"), [](const AtomList&) -> AtomList { return { (t_float)sys_getblksize() }; });

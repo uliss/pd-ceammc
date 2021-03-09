@@ -16,6 +16,7 @@
             </also>
             <since>0.9</since>
             <aliases>
+                <alias>ceammc/pi~</alias>
                 <alias>pi~</alias>
             </aliases>
         </meta>

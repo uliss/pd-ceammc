@@ -13,6 +13,7 @@
             <keywords>conv bits int</keywords>
             <since>0.9.2</since>
             <aliases>
+                <alias>ceammc/bits-&gt;int</alias>
                 <alias>bits-&gt;int</alias>
             </aliases>
             <also>

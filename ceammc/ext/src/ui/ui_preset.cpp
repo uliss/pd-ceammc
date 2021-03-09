@@ -33,7 +33,7 @@ UIPreset::UIPreset()
             { _("duplicate all"), [this](const t_pt&) { m_duplicate(AtomList()); } } });
 }
 
-void UIPreset::init(t_symbol* name, const AtomList& args, bool usePresets)
+void UIPreset::init(t_symbol* name, const AtomListView& args, bool usePresets)
 {
     UIObject::init(name, args, usePresets);
     bindTo(PresetStorage::instance().SYM_PRESET_UPDATE_INDEX_ADDR);
@@ -174,6 +174,11 @@ void UIPreset::m_load(const AtomListView& lst)
     loadIndex(lst.floatAt(0, 0));
 }
 
+void UIPreset::m_interp(const AtomListView& lst)
+{
+    interpIndex(lst.floatAt(0, 0));
+}
+
 void UIPreset::m_store(const AtomListView& lst)
 {
     storeIndex(lst.floatAt(0, 0));
@@ -208,9 +213,9 @@ void UIPreset::m_duplicate(const AtomListView& lst)
         PresetStorage::instance().duplicateAll();
 }
 
-AtomList UIPreset::propCurrent() const
+t_int UIPreset::propCurrent() const
 {
-    return Atom(selected_index_);
+    return selected_index_;
 }
 
 void UIPreset::indexAdd(const AtomListView& lst)
@@ -297,6 +302,16 @@ void UIPreset::clearIndex(int idx)
     }
 }
 
+void UIPreset::interpIndex(t_float idx)
+{
+    if (idx < 0 || idx >= presets_.size()) {
+        UI_ERR << "invalid preset index: " << idx;
+        return;
+    }
+
+    PresetStorage::instance().interpAll(idx);
+}
+
 void UIPreset::setup()
 {
     SYM_POPUP = gensym("main");
@@ -311,7 +326,7 @@ void UIPreset::setup()
     obj.addProperty("empty_color", _("Empty Button Color"), "0.86 0.86 0.86 1.", &UIPreset::prop_color_empty);
     obj.addProperty("stored_color", _("Stored Button Color"), "0.5 0.5 0.5 1.", &UIPreset::prop_color_stored);
     obj.addProperty(PROP_ACTIVE_COLOR, _("Active Color"), DEFAULT_ACTIVE_COLOR, &UIPreset::prop_color_active);
-    obj.addProperty("current", &UIPreset::propCurrent, 0);
+    obj.addProperty("current", &UIPreset::propCurrent);
 
     obj.useMouseEvents(UI_MOUSE_DOWN | UI_MOUSE_MOVE | UI_MOUSE_LEAVE);
     obj.usePopup();
@@ -325,6 +340,7 @@ void UIPreset::setup()
     obj.addMethod("read", &UIPreset::m_read);
     obj.addMethod("store", &UIPreset::m_store);
     obj.addMethod("write", &UIPreset::m_write);
+    obj.addMethod("interp", &UIPreset::m_interp);
 }
 
 void setup_ui_preset()

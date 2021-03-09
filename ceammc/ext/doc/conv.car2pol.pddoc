@@ -16,6 +16,7 @@
                 <see>conv.pol2car</see>
             </also>
             <aliases>
+                <alias>ceammc/car-&gt;pol</alias>
                 <alias>car-&gt;pol</alias>
             </aliases>
         </meta>

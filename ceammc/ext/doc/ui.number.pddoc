@@ -30,7 +30,7 @@
             <property name="@min" type="float" default="-inf">minimum value</property>
             <property name="@max" type="float" default="+inf">maximum value</property>
             <property name="@value" type="float" default="0">widget value</property>
-            <property name="@digits" type="int" default="-1" minvalue="-1" maxvalue="8">number of
+            <property name="@digits" type="int" default="-1" minvalue="-1" maxvalue="9">number of
             digits. If -1 - no fixed digits used</property>
             <!-- common -->
             <property name="@presetname" type="symbol" default="(null)">preset name for using with
@@ -77,6 +77,8 @@
             <param type="int" name="IDX" required="true">preset index</param></method>
             <method name="clear">clears specified preset 
             <param type="int" name="IDX" required="true">preset index</param></method>
+            <method name="interp">interplolates between presets 
+            <param type="float" name="IDX" required="true">preset fraction index</param></method>
             <!-- common-->
             <method name="pos">set UI element position 
             <param name="X" type="float" required="true">top left x-coord</param>

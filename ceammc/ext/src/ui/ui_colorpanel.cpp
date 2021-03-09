@@ -190,17 +190,17 @@ AtomList UIColorPanel::propMatrixSize() const
     return AtomList(Atom(matrix_x_), Atom(matrix_y_));
 }
 
-void UIColorPanel::propSetMatrixSize(const AtomListView& lst)
+void UIColorPanel::propSetMatrixSize(const AtomListView& lv)
 {
-    bool ok = lst.size() > 1 && lst[0].isFloat() && lst[1].isFloat();
+    bool ok = lv.size() > 1 && lv[0].isFloat() && lv[1].isFloat();
 
     if (!ok) {
         UI_ERR << "matrix size expected: X Y";
         return;
     }
 
-    matrix_x_ = clip<int>(lst[0].asFloat(), 1, 32);
-    matrix_y_ = clip<int>(lst[1].asFloat(), 1, 32);
+    matrix_x_ = clip<int>(lv[0].asFloat(), 1, 32);
+    matrix_y_ = clip<int>(lv[1].asFloat(), 1, 32);
     colors_.assign(matrix_x_, RgbCol(matrix_y_, t_rgba()));
 
     t_rect r = rect();
@@ -213,7 +213,7 @@ AtomList UIColorPanel::propColorIndex() const
     return AtomList(picked_x_, picked_y_);
 }
 
-t_float UIColorPanel::propPdColor() const
+t_int UIColorPanel::propPdColor() const
 {
     if (picked_x_ < 0 || picked_y_ < 0)
         return 0;
@@ -251,29 +251,29 @@ AtomList UIColorPanel::propHslColor() const
     return res;
 }
 
-AtomList UIColorPanel::propHexColor() const
+t_symbol* UIColorPanel::propHexColor() const
 {
     if (picked_x_ < 0 || picked_y_ < 0)
-        return AtomList(gensym("#FFFFFF"));
+        return gensym("#FFFFFF");
 
-    return Atom(gensym(rgba_to_hex(colors_[picked_x_][picked_y_])));
+    return gensym(rgba_to_hex(colors_[picked_x_][picked_y_]));
 }
 
-void UIColorPanel::m_set(const AtomListView& lst)
+void UIColorPanel::m_set(const AtomListView& lv)
 {
-    if (lst.size() < 2) {
+    if (lv.size() < 2) {
         UI_ERR << "color indexes expected: X Y";
         return;
     }
 
     t_float x, y;
-    if (!lst[0].getFloat(&x) || !lst[1].getFloat(&y)) {
+    if (!lv[0].getFloat(&x) || !lv[1].getFloat(&y)) {
         UI_ERR << "color indexes excpected: X Y";
         return;
     }
 
     if (!(0 <= x && x < matrix_x_) || !(0 <= y && y < matrix_y_)) {
-        UI_ERR << "invalid indexes: " << lst;
+        UI_ERR << "invalid indexes: " << lv;
         return;
     }
 
@@ -286,8 +286,8 @@ void UIColorPanel::m_set(const AtomListView& lst)
 
 void UIColorPanel::loadPreset(size_t idx)
 {
-    AtomList lst = PresetStorage::instance().listValueAt(presetId(), idx);
-    m_set(lst);
+    auto lv = PresetStorage::instance().listValueAt(presetId(), idx);
+    m_set(lv);
     output();
 }
 
@@ -417,6 +417,7 @@ void UIColorPanel::setup()
     obj.showProperty("matrix");
     obj.setPropertyCategory("matrix", "Basic");
     obj.setPropertyLabel("matrix", _("Matrix Size"));
+    obj.setPropertyDefaultValue("matrix", "24 13");
 
     obj.addFloatProperty("saturation", _("Saturation"), 1., &UIColorPanel::saturation_);
     obj.setPropertyRange("saturation", 0, 1);

@@ -20,6 +20,8 @@
 #include <algorithm>
 #include <cmath>
 
+using namespace ceammc::select;
+
 class SelectMatch {
 public:
     using Data = SelectLexer::MatchData;

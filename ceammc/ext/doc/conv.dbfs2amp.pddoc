@@ -16,6 +16,7 @@
                 <see>amp-&gt;dbfs</see>
             </also>
             <aliases>
+                <alias>ceammc/dbfs-&gt;amp</alias>
                 <alias>dbfs-&gt;amp</alias>
             </aliases>
         </meta>

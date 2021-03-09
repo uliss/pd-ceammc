@@ -4,7 +4,7 @@
 
 %defines
 %define api.token.prefix {TOK_}
-%define api.namespace {ceammc}
+%define api.namespace {ceammc::select}
 %define api.parser.class {SelectParser}
 %define api.value.type variant
 %define api.token.constructor
@@ -14,7 +14,7 @@
 %debug
 //%define api.value.type {t_interval}
 
-%parse-param { ceammc::SelectLexer& lexer }
+%parse-param { ceammc::select::SelectLexer& lexer }
 
 %code requires {
     # include <stddef.h>
@@ -23,7 +23,9 @@
     # include "ceammc_atom.h"
 
     namespace ceammc {
+    namespace select {
         class SelectLexer;
+    }
     }
 }
 
@@ -137,7 +139,7 @@ EXPRLIST
 
 %%
 
-void ceammc::SelectParser::error(const std::string& err_message)
+void ceammc::select::SelectParser::error(const std::string& err_message)
 {
     lexer.setErrorMsg(err_message);
 }

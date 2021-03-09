@@ -13,6 +13,8 @@
             <keywords>string symbol convert</keywords>
             <since>0.3</since>
             <aliases>
+                <alias>ceammc/string2symbol</alias>
+                <alias>ceammc/str-&gt;sym</alias>
                 <alias>str-&gt;sym</alias>
             </aliases>
         </meta>

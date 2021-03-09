@@ -75,7 +75,14 @@ function dylib_external_fix() {
     dir=$2
 
     echo "\t- fixing @loader_path for $(basename $exec) ..."
-    $DYLIBBUNDLER -x "${exec}" -b -cd -d "${dir}" -p @loader_path/ -of > /dev/null
+    $DYLIBBUNDLER \
+        --fix-file "${exec}" \
+        --bundle-deps \
+        --create-dir \
+        --dest-dir "${dir}" \
+        --install-path @loader_path/ \
+        --overwrite-files \
+        --ignore /usr/local/opt/llvm/lib > /dev/null
 }
 
 function copy()
@@ -303,18 +310,13 @@ do
 done
 
 section "Copying CEAMMC help files"
-for pdhelp in ${SRC_CEAMMC}/ext/doc/*-help.pd
-do
-    copy ${pdhelp} "${BUNDLE_CEAMMC}"
-    chmod 0444 "${BUNDLE_CEAMMC}/$(basename $pdhelp)"
-    pdhelp_base=$(basename $pdhelp | sed 's/-help\.pd$//')
-    extra=`find ${SRC_CEAMMC}/ext/doc -name "${pdhelp_base}.*.pd"`
-    for x in ${extra}
-    do
-        copy ${x} "${BUNDLE_CEAMMC}"
-        chmod 0444 "${BUNDLE_CEAMMC}/$(basename $x)"
-    done
-done
+rsync --archive --include='*.pd' --exclude='*' "${SRC_CEAMMC}/ext/doc/" "${BUNDLE_CEAMMC}"
+
+section "Copying Faust libraries"
+rsync --dirs --include='*.lib' --exclude='*' "${SRC_CEAMMC}/extra/faust/faust/libraries/" "${BUNDLE_CEAMMC}/faust"
+
+section "Copying Faust examples"
+rsync --dirs "${SRC_CEAMMC}/ext/doc/faust/" "${BUNDLE_CEAMMC}/faust"
 
 section "Copying CEAMMC help additional files"
 for f in ${SRC_CEAMMC}/ext/doc/*.@(mod|txt|wav|glitch)

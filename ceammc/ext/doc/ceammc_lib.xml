@@ -42,6 +42,9 @@
     <entry name="array.play~" descr="array player with variable speed and amplitude" ref_view="object">
       <xi:include href="array.play~.pddoc" parse="xml"/>
     </entry>
+    <entry name="array.plot" descr="array data plotter" ref_view="object">
+      <xi:include href="array.plot.pddoc" parse="xml"/>
+    </entry>
     <entry name="array.plot~" descr="plot signal on specified array" ref_view="object">
       <xi:include href="array.plot~.pddoc" parse="xml"/>
     </entry>
@@ -171,7 +174,7 @@
     <entry name="array.p2s" descr="convert array phase [0..1] to sample position" ref_view="object">
       <xi:include href="array.p2s.pddoc" parse="xml"/>
     </entry>
-    <entry name="array.s2p" descr="convert array sample position to relative phase position [0..1]" ref_view="object">
+    <entry name="array.s2p" descr="convert sample position to phase range [0..1]" ref_view="object">
       <xi:include href="array.s2p.pddoc" parse="xml"/>
     </entry>
     <entry name="conv.amp2dbfs" descr="convert from amplitude to decibel full scale" ref_view="object">
@@ -185,6 +188,9 @@
     </entry>
     <entry name="conv.bits2int" descr="convert list of bits to integer" ref_view="object">
       <xi:include href="conv.bits2int.pddoc" parse="xml"/>
+    </entry>
+    <entry name="conv.bits2note" descr="convert list of bits to note events" ref_view="object">
+      <xi:include href="conv.bits2note.pddoc" parse="xml"/>
     </entry>
     <entry name="conv.bits2pos" descr="convert list of bits to list of bit position" ref_view="object">
       <xi:include href="conv.bits2pos.pddoc" parse="xml"/>
@@ -282,11 +288,17 @@
     <entry name="conv.sec2str" descr="converts float time in seconds to formated symbol (or string)" ref_view="object">
       <xi:include href="conv.sec2str.pddoc" parse="xml"/>
     </entry>
+    <entry name="conv.sig2float~" descr="convert signal to floats" ref_view="object">
+      <xi:include href="conv.sig2float~.pddoc" parse="xml"/>
+    </entry>
     <entry name="conv.str2sec" descr="converts formatted time to float value in seconds" ref_view="object">
       <xi:include href="conv.str2sec.pddoc" parse="xml"/>
     </entry>
   </category>
   <category name="data">
+    <entry name="data.copy" descr="make copy for any data types: MList, Set etc..." ref_view="object">
+      <xi:include href="data.copy.pddoc" parse="xml"/>
+    </entry>
     <entry name="data.dict" descr="dictionary container: store values by key" ref_view="object">
       <xi:include href="data.dict.pddoc" parse="xml"/>
     </entry>
@@ -485,6 +497,9 @@
     <entry name="flow.less_eq" descr="numeric stream router, like many [moses]" ref_view="object">
       <xi:include href="flow.less_eq.pddoc" parse="xml"/>
     </entry>
+    <entry name="flow.list2many" descr="routes list element with message selectors" ref_view="object">
+      <xi:include href="flow.list2many.pddoc" parse="xml"/>
+    </entry>
     <entry name="flow.match" descr="route data flow by regexp match" ref_view="object">
       <xi:include href="flow.match.pddoc" parse="xml"/>
     </entry>
@@ -571,11 +586,17 @@
     <entry name="flt.bpf24~" descr="Four pole band-pass butterworth filter" ref_view="object">
       <xi:include href="flt.bpf24~.pddoc" parse="xml"/>
     </entry>
+    <entry name="flt.c_apf" descr="Allpass filter coefficient calculator for biquad" ref_view="object">
+      <xi:include href="flt.c_apf.pddoc" parse="xml"/>
+    </entry>
     <entry name="flt.c_bpf~" descr="BPF coefficient calculator for biquad filter" ref_view="object">
       <xi:include href="flt.c_bpf~.pddoc" parse="xml"/>
     </entry>
     <entry name="flt.c_highshelf~" descr="Highshelf filter coefficient calculator for biquad" ref_view="object">
       <xi:include href="flt.c_highshelf~.pddoc" parse="xml"/>
+    </entry>
+    <entry name="flt.c_hpf" descr="HPF coefficient calculator for biquad filter" ref_view="object">
+      <xi:include href="flt.c_hpf.pddoc" parse="xml"/>
     </entry>
     <entry name="flt.c_hpf~" descr="HPF coefficient calculator for biquad filter" ref_view="object">
       <xi:include href="flt.c_hpf~.pddoc" parse="xml"/>
@@ -583,14 +604,23 @@
     <entry name="flt.c_lowshelf~" descr="Lowshelf filter coefficient calculator for biquad" ref_view="object">
       <xi:include href="flt.c_lowshelf~.pddoc" parse="xml"/>
     </entry>
+    <entry name="flt.c_lpf" descr="LPF coefficient calculator for biquad filter" ref_view="object">
+      <xi:include href="flt.c_lpf.pddoc" parse="xml"/>
+    </entry>
     <entry name="flt.c_lpf~" descr="LPF coefficient calculator for biquad filter" ref_view="object">
       <xi:include href="flt.c_lpf~.pddoc" parse="xml"/>
+    </entry>
+    <entry name="flt.c_notch" descr="Notch filter coefficient calculator for biquad" ref_view="object">
+      <xi:include href="flt.c_notch.pddoc" parse="xml"/>
     </entry>
     <entry name="flt.c_notch~" descr="Band-reject coefficient calculator for biquad filter" ref_view="object">
       <xi:include href="flt.c_notch~.pddoc" parse="xml"/>
     </entry>
     <entry name="flt.c_peak~" descr="Peaking equalizer calculator for biquad" ref_view="object">
       <xi:include href="flt.c_peak~.pddoc" parse="xml"/>
+    </entry>
+    <entry name="flt.c_pole" descr="One-pole coefficient calculator for biquad filter" ref_view="object">
+      <xi:include href="flt.c_pole.pddoc" parse="xml"/>
     </entry>
     <entry name="flt.dcblock2~" descr="stereo DC blocker" ref_view="object">
       <xi:include href="flt.dcblock2~.pddoc" parse="xml"/>
@@ -610,8 +640,14 @@
     <entry name="flt.fb_comb~" descr="feedback comb filter" ref_view="object">
       <xi:include href="flt.fb_comb~.pddoc" parse="xml"/>
     </entry>
+    <entry name="flt.fbank5x1~" descr="5 band one octave butterworth filterbank" ref_view="object">
+      <xi:include href="flt.fbank5x1~.pddoc" parse="xml"/>
+    </entry>
     <entry name="flt.ff_comb~" descr="feed forward comb filter" ref_view="object">
       <xi:include href="flt.ff_comb~.pddoc" parse="xml"/>
+    </entry>
+    <entry name="flt.freqz" descr="compute the frequency response of a digital filter" ref_view="object">
+      <xi:include href="flt.freqz.pddoc" parse="xml"/>
     </entry>
     <entry name="flt.freqz~" descr="compute the frequency response of a digital filter" ref_view="object">
       <xi:include href="flt.freqz~.pddoc" parse="xml"/>
@@ -693,6 +729,9 @@
     <entry name="fx.greyhole~" descr="A complex echo-like effect" ref_view="object">
       <xi:include href="fx.greyhole~.pddoc" parse="xml"/>
     </entry>
+    <entry name="fx.infrev~" descr="port of Infinity VST plugin from airwindows" ref_view="object">
+      <xi:include href="fx.infrev~.pddoc" parse="xml"/>
+    </entry>
     <entry name="fx.looper~" descr="One track looper" ref_view="object">
       <xi:include href="fx.looper~.pddoc" parse="xml"/>
     </entry>
@@ -753,6 +792,17 @@
     </entry>
     <entry name="hw.kbd_light" descr="Get/set keyboard light on some devices" ref_view="object">
       <xi:include href="hw.kbd_light.pddoc" parse="xml"/>
+    </entry>
+    <entry name="hw.serial" descr="serial port device" ref_view="object">
+      <xi:include href="hw.serial.pddoc" parse="xml"/>
+    </entry>
+  </category>
+  <category name="lang">
+    <entry name="lang.faust~" descr="faust realtime compilation" ref_view="object">
+      <xi:include href="lang.faust~.pddoc" parse="xml"/>
+    </entry>
+    <entry name="ui.faust~" descr="faust compiled ui object" ref_view="link">
+      <xi:include href="ui.faust~.pddoc" parse="xml"/>
     </entry>
   </category>
   <category name="lfo">
@@ -1317,11 +1367,20 @@
     <entry name="midi.file" descr="standard midi file SMF reader and writer" ref_view="object">
       <xi:include href="midi.file.pddoc" parse="xml"/>
     </entry>
+    <entry name="midi.kbd" descr="computer keyboard midi" ref_view="object">
+      <xi:include href="midi.kbd.pddoc" parse="xml"/>
+    </entry>
     <entry name="midi.key2str" descr="convert key number to SPN name according to tonality" ref_view="object">
       <xi:include href="midi.key2str.pddoc" parse="xml"/>
     </entry>
+    <entry name="midi.oct" descr="midi octave transpose" ref_view="object">
+      <xi:include href="midi.oct.pddoc" parse="xml"/>
+    </entry>
     <entry name="midi.prg2str" descr="convert GM Instrument number to name (string or symbol)" ref_view="object">
       <xi:include href="midi.prg2str.pddoc" parse="xml"/>
+    </entry>
+    <entry name="midi.sustain" descr="sustain pedal emulation" ref_view="object">
+      <xi:include href="midi.sustain.pddoc" parse="xml"/>
     </entry>
     <entry name="midi.sysex" descr="sysex input messages as list" ref_view="object">
       <xi:include href="midi.sysex.pddoc" parse="xml"/>
@@ -1334,6 +1393,9 @@
     </entry>
     <entry name="midi.vramp" descr="apply crescendo or diminuendo for midi message flow" ref_view="object">
       <xi:include href="midi.vramp.pddoc" parse="xml"/>
+    </entry>
+    <entry name="midi.vrand" descr="midi velocity randomizer" ref_view="object">
+      <xi:include href="midi.vrand.pddoc" parse="xml"/>
     </entry>
   </category>
   <category name="misc">
@@ -1348,6 +1410,9 @@
     </entry>
     <entry name="speech.flite" descr="render speech to array" ref_view="object">
       <xi:include href="speech.flite.pddoc" parse="xml"/>
+    </entry>
+    <entry name="speech.flite~" descr="render speech to array" ref_view="object">
+      <xi:include href="speech.flite~.pddoc" parse="xml"/>
     </entry>
   </category>
   <category name="msg">
@@ -1403,17 +1468,11 @@
     <entry name="noise.ikeda" descr="Part of a-chaos library" ref_view="object">
       <xi:include href="noise.ikeda.pddoc" parse="xml"/>
     </entry>
-    <entry name="noise.jong" descr="Part of a-chaos library" ref_view="object">
-      <xi:include href="noise.jong.pddoc" parse="xml"/>
-    </entry>
     <entry name="noise.lfreq0~" descr="sampled/held noise (piecewise constant)" ref_view="object">
       <xi:include href="noise.lfreq0~.pddoc" parse="xml"/>
     </entry>
     <entry name="noise.lfreq~" descr="noise.lfreq0~ smoothed with no overshoot" ref_view="object">
       <xi:include href="noise.lfreq~.pddoc" parse="xml"/>
-    </entry>
-    <entry name="noise.logistic" descr="Part of a-chaos library" ref_view="object">
-      <xi:include href="noise.logistic.pddoc" parse="xml"/>
     </entry>
     <entry name="noise.lorenz" descr="Part of a-chaos library" ref_view="object">
       <xi:include href="noise.lorenz.pddoc" parse="xml"/>
@@ -1640,6 +1699,9 @@
     <entry name="seq.counter" descr="modulo counter" ref_view="object">
       <xi:include href="seq.counter.pddoc" parse="xml"/>
     </entry>
+    <entry name="seq.life" descr="Conway gamw of life sequencer" ref_view="object">
+      <xi:include href="seq.life.pddoc" parse="xml"/>
+    </entry>
     <entry name="seq.matrix" descr="sequencer control for ui.matrix" ref_view="object">
       <xi:include href="seq.matrix.pddoc" parse="xml"/>
     </entry>
@@ -1815,14 +1877,23 @@
     <entry name="synth.fgrain~" descr="file granulator from STK" ref_view="object">
       <xi:include href="synth.fgrain~.pddoc" parse="xml"/>
     </entry>
+    <entry name="synth.glass_harm~" descr="nonlinear banded waveguide modeled Glass Harmonica" ref_view="object">
+      <xi:include href="synth.glass_harm~.pddoc" parse="xml"/>
+    </entry>
     <entry name="synth.glitch~" descr="Glitch synthesizer by naivesound" ref_view="object">
       <xi:include href="synth.glitch~.pddoc" parse="xml"/>
+    </entry>
+    <entry name="synth.harpsichord~" descr="waveguide commuted harpsichord" ref_view="object">
+      <xi:include href="synth.harpsichord~.pddoc" parse="xml"/>
     </entry>
     <entry name="synth.ks~" descr="Karplus-Strong string" ref_view="object">
       <xi:include href="synth.ks~.pddoc" parse="xml"/>
     </entry>
     <entry name="synth.marimba~" descr="simple marimba physical model implementing a single tone bar connected to tube" ref_view="object">
       <xi:include href="synth.marimba~.pddoc" parse="xml"/>
+    </entry>
+    <entry name="synth.piano~" descr="waveguide commuted piano" ref_view="object">
+      <xi:include href="synth.piano~.pddoc" parse="xml"/>
     </entry>
     <entry name="synth.rhodey~" descr="STK Fender Rhodes electric piano FM synthesis instrument" ref_view="object">
       <xi:include href="synth.rhodey~.pddoc" parse="xml"/>
@@ -1855,6 +1926,9 @@
     </entry>
     <entry name="system.exec" descr="run external command in separate process" ref_view="object">
       <xi:include href="system.exec.pddoc" parse="xml"/>
+    </entry>
+    <entry name="system.exit" descr="quit PureData" ref_view="object">
+      <xi:include href="system.exit.pddoc" parse="xml"/>
     </entry>
     <entry name="system.getenv" descr="Get system environment variables" ref_view="object">
       <xi:include href="system.getenv.pddoc" parse="xml"/>
@@ -1896,6 +1970,9 @@
     <entry name="ui.bang" descr="A bang... that's all" ref_view="link">
       <xi:include href="ui.bang.pddoc" parse="xml"/>
     </entry>
+    <entry name="ui.button" descr="button widget" ref_view="link">
+      <xi:include href="ui.button.pddoc" parse="xml"/>
+    </entry>
     <entry name="ui.colorpanel" descr="colorchooser widget" ref_view="link">
       <xi:include href="ui.colorpanel.pddoc" parse="xml"/>
     </entry>
@@ -1907,6 +1984,12 @@
     </entry>
     <entry name="ui.env" descr="envelope editor widget" ref_view="link">
       <xi:include href="ui.env.pddoc" parse="xml"/>
+    </entry>
+    <entry name="ui.filter" descr="UI filter object calculator for biquad filter" ref_view="link">
+      <xi:include href="ui.filter.pddoc" parse="xml"/>
+    </entry>
+    <entry name="ui.filter~" descr="UI filter object based on biquad filter" ref_view="link">
+      <xi:include href="ui.filter~.pddoc" parse="xml"/>
     </entry>
     <entry name="ui.gain2~" descr="UI stereo gain control" ref_view="link">
       <xi:include href="ui.gain2~.pddoc" parse="xml"/>
@@ -1994,7 +2077,7 @@
     </entry>
   </category>
   <meta>
-    <version>0.9.1</version>
+    <version>0.9.2</version>
     <authors>
       <author>Albert Graef</author>
       <author>Alex Nadzharov</author>
@@ -2011,6 +2094,7 @@
       <author>Pierre Cochard</author>
       <author>Pierre Guillot</author>
       <author>Richard Dudas</author>
+      <author>Romain Michon</author>
       <author>Serge Poltavski</author>
       <author>Serge Poltavsky</author>
       <author>Serge Potlavsky</author>

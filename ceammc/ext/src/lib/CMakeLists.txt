@@ -255,27 +255,32 @@ endif()
 
 # utilities used while developing
 if(ENABLE_TESTS)
-    add_executable(ext_list ext_list.cpp ../mod_init.cpp)
-    target_include_directories(ext_list
+    add_library(ext_load STATIC ext_load_lib.cpp)
+    target_include_directories(ext_load PRIVATE ${PROJECT_SOURCE_DIR}/src)
+    target_compile_definitions(ext_load
         PRIVATE
-            "${CMAKE_CURRENT_SOURCE_DIR}"
-            "${PROJECT_SOURCE_DIR}/src")
-    target_link_libraries(ext_list PRIVATE ${CEAMMC_EXT_LINK_LIBRARIES} puredata-core)
+            "CEAMMC_DLL=\"$<TARGET_FILE:ceammc>\""
+            "STK_RAWWAVES=\"${PROJECT_SOURCE_DIR}/ceammc/extra/stk/stk/rawwaves\"")
 
-    add_executable(ext_methods ext_methods.cpp ../mod_init.cpp)
+    add_executable(ext_aliases ext_aliases.cpp)
+    target_include_directories(ext_aliases PRIVATE ${CMAKE_CURRENT_SOURCE_DIR})
+    target_link_libraries(ext_aliases PRIVATE ext_load puredata-core)
+
+    add_executable(ext_list ext_list.cpp)
+    target_include_directories(ext_list PRIVATE ${CMAKE_CURRENT_SOURCE_DIR})
+    target_link_libraries(ext_list PRIVATE ext_load puredata-core)
+
+    add_executable(ext_methods ext_methods.cpp)
     target_include_directories(ext_methods PRIVATE ${CMAKE_CURRENT_SOURCE_DIR})
-    target_link_libraries(ext_methods PRIVATE ${CEAMMC_EXT_LINK_LIBRARIES} puredata-core)
+    target_link_libraries(ext_methods PRIVATE ext_load puredata-core)
 
-    add_executable(ext_props ext_props.cpp ../mod_init.cpp)
+    add_executable(ext_props ext_props.cpp)
     target_include_directories(ext_props PRIVATE ${CMAKE_CURRENT_SOURCE_DIR})
-    target_link_libraries(ext_props PRIVATE ${CEAMMC_EXT_LINK_LIBRARIES} puredata-core)
+    target_link_libraries(ext_props PRIVATE ext_load puredata-core)
 
-    add_executable(ext_info ext_info.cpp ../mod_init.cpp)
-    target_include_directories(ext_info
-        PRIVATE
-            ${CMAKE_CURRENT_SOURCE_DIR}
-            "$<TARGET_PROPERTY:fmt,INCLUDE_DIRECTORIES>")
-    target_link_libraries(ext_info PRIVATE ${CEAMMC_EXT_LINK_LIBRARIES} puredata-core)
+    add_executable(ext_info ext_info.cpp)
+    target_include_directories(ext_info PRIVATE ${CMAKE_CURRENT_SOURCE_DIR})
+    target_link_libraries(ext_info PRIVATE ext_load puredata-core)
 
     if(WIN32)
         target_link_libraries(ext_info PRIVATE soxr)
@@ -290,3 +295,6 @@ add_custom_target(ceammc_cicm_tcl_gen
     COMMAND ${PROJECT_SOURCE_DIR}/ceammc/scripts/filecontent_to_cxx_header.sh cicm/Sources/cicm_common_bind.tcl
     SOURCES cicm/Sources/cicm_common.tcl cicm/Sources/cicm_common_bind.tcl
     WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR})
+
+# new UI library
+add_subdirectory(nui)

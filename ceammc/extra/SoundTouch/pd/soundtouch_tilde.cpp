@@ -5,7 +5,7 @@
 #include <cmath>
 
 constexpr t_float DEF_PITCH = 0;
-static t_symbol* PROP_ANTIALIAS_LENGTH = gensym("@aalength");
+static t_symbol* PROP_ANTIALIAS_LENGTH;
 
 SoundTouchExt::SoundTouchExt(const PdArgs& a)
     : SoundExternal(a)
@@ -96,5 +96,7 @@ void SoundTouchExt::initSoundTouch()
 
 extern "C" void soundtouch_tilde_setup()
 {
+    PROP_ANTIALIAS_LENGTH = gensym("@aalength");
+
     SoundExternalFactory<SoundTouchExt> obj("soundtouch~");
 }

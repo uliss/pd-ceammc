@@ -50,7 +50,7 @@ bool ConvList2Props::processAnyProps(t_symbol* sel, const AtomListView& lst)
     return false;
 }
 
-void setup_list_to_props()
+void setup_conv_list2props()
 {
     ObjectFactory<ConvList2Props> obj("conv.list2props");
     obj.addAlias("list->props");

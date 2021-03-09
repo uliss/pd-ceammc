@@ -7,6 +7,7 @@ gflt.bpf24~
 gflt.eq10~
 gflt.eq_peak_cq~
 gflt.eq_peak~
+gflt.fbank5x1~
 gflt.highshelf~
 gflt.hpf12~
 gflt.hpf24~
@@ -48,8 +49,11 @@ gsynth.church_bell~
 gsynth.dubdub~
 gsynth.dx7~
 gsynth.eguitar~
+gsynth.glass_harm~
+gsynth.harpsichord~
 gsynth.ks~
 gsynth.marimba~
+gsynth.piano~
 gsynth.risset_arp~
 gsynth.risset_tone~
 gsynth.russian_bell~

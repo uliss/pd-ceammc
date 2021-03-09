@@ -25,7 +25,7 @@
         </properties>
         <methods>
             <method name="reset">reset all notes to off without output</method>
-            <method name="on">turn on incative notes 
+            <method name="on">turn on inactive notes 
             <param name="MODE" type="symbol" enum="first last all random">if =first play first
             inactive note in chord list, if =last play last inactive note in chord list, if =all
             play all inactive notes</param>
@@ -39,6 +39,15 @@
             turn off all active notes</param>
             <param name="NUM" type="int" minvalue="1" default="1">number of notes to turn
             on</param></method>
+            <method name="asr">set arpeggiate mode and run 
+            <param name="STEP" type="float" minvalue="0" units="millisecond" required="true">step
+            duration</param>
+            <param name="ON_MODE" type="symbol" enum="all first last" required="true">on
+            mode</param>
+            <param name="HOLD" type="int" minvalue="1" required="true">number of steps to hold
+            value</param>
+            <param name="OFF_MODE" type="symbol" enum="all first last" required="true">off
+            mode</param></method>
         </methods>
         <inlets>
             <inlet>

@@ -1,0 +1,29 @@
+name: Label
+data:
+- name: text
+  type: std::string
+  init: std::string()
+- name: tooltip
+  type: t_symbol*
+  init: "&s_"
+- name: size
+  type: Size
+  init: Size(40, 10)
+  style: size
+- name: text width
+  type: int
+  init: 0
+- name: color
+  type: HexColor
+  init: colors::st_text
+  style: color
+- name: font
+  type: Font
+  init: Font()
+  style: font
+- name: anchor
+  type: AnchorPosition
+  init: ANCHOR_CORNER_LEFT_TOP
+- name: align
+  type: TextAlign
+  init: TEXT_ALIGN_LEFT

@@ -3,7 +3,7 @@
 
     # include "lex/array_loader.parser.hpp"
 
-    using token = ceammc::ArrayLoaderParser::token;
+    using token = ceammc::al::ArrayLoaderParser::token;
 %}
 
 %class {
@@ -36,15 +36,15 @@
 %}
 
 %option freespace unicode
-%option namespace=ceammc
+%option namespace=ceammc::al
 %option lexer=ArrayLoaderLexer
 %option header-file=array_loader.lexer.h
 %option outfile=array_loader.lexer.cpp
 /*%option graphs-file*/
-%option debug
+/*%option debug*/
 /*%option perf-report*/
-%option bison-cc-namespace="ceammc"
-%option bison-cc-parser="ArrayLoaderParser"
+%option bison-cc-namespace=ceammc::al
+%option bison-cc-parser=ArrayLoaderParser
 %option bison-cc
 %option bison-complete
 %option bison-locations

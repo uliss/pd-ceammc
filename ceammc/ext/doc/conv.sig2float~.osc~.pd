@@ -1,0 +1,16 @@
+#N canvas 0 0 561 472 12;
+#X obj 20 48 inlet;
+#X obj 96 48 loadbang;
+#X obj 96 77 patch.args @from expr($1+1);
+#X obj 96 106 f;
+#X obj 20 135 b;
+#X obj 96 135 osc~;
+#X obj 20 164 env.ar~ 50 500;
+#X obj 20 192 outlet~;
+#X connect 1 0 2 0;
+#X connect 2 0 3 0;
+#X connect 0 0 4 0;
+#X connect 3 0 5 0;
+#X connect 4 0 6 0;
+#X connect 5 0 6 0;
+#X connect 6 0 7 0;

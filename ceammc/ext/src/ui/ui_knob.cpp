@@ -10,10 +10,6 @@
 #include "ceammc_log.h"
 #include "ceammc_preset.h"
 
-extern "C" {
-#include "m_imp.h"
-}
-
 static t_symbol* SYM_PLUS;
 static t_symbol* SYM_MINUS;
 static t_symbol* SYM_MUL;
@@ -56,6 +52,7 @@ void UIKnob::setup()
     UISingleValue::setup();
 
     UIObjectFactory<UIKnob> obj("ui.knob", EBOX_GROWLINK);
+    obj.addAlias("ui.k");
 
     obj.useBang();
     obj.useFloat();

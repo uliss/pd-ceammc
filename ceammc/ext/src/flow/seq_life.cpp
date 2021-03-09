@@ -189,7 +189,7 @@ void setup_seq_life()
     obj.addMethod("next", &SeqLife::m_next);
     obj.addMethod("cell", &SeqLife::m_cell);
     obj.addMethod("clear", &SeqLife::m_clear);
-    obj.addMethod("rand", &SeqLife::m_rand);
+    obj.addMethod("random", &SeqLife::m_rand);
 
     obj.addMethod("blinker", &SeqLife::m_blinker);
     obj.addMethod("block", &SeqLife::m_block);

@@ -16,10 +16,13 @@ endmacro()
 
 ceammc_ui_extension(arrayview)
 ceammc_ui_extension(bang)
+ceammc_ui_extension(button)
 ceammc_ui_extension(colorpanel)
 ceammc_ui_extension(display)
 ceammc_ui_extension(dsp)
 ceammc_ui_extension(env)
+ceammc_ui_extension(filter)
+ceammc_ui_extension(filter_tilde)
 ceammc_ui_extension(gain)
 ceammc_ui_extension(gain2)
 ceammc_ui_extension(icon)
@@ -53,3 +56,32 @@ ceammc_ui_extension(toggle)
 add_library(ceammc_ui STATIC mod_ui.cpp ${UI_SOURCES})
 
 target_link_libraries(ceammc_ui ceammc_env)
+
+set(TCL_GEN_SCRIPT ${PROJECT_SOURCE_DIR}/ceammc/scripts/filecontent_to_cxx_header.sh)
+
+add_custom_target(ceammc_ui_tcl_gen
+    COMMAND ${TCL_GEN_SCRIPT} ui_bang.tcl
+    COMMAND ${TCL_GEN_SCRIPT} ui_button.tcl
+    COMMAND ${TCL_GEN_SCRIPT} ui_display.tcl
+    COMMAND ${TCL_GEN_SCRIPT} ui_dsp.tcl
+    COMMAND ${TCL_GEN_SCRIPT} ui_filter.tcl
+    COMMAND ${TCL_GEN_SCRIPT} ui_keyboard.tcl
+    COMMAND ${TCL_GEN_SCRIPT} ui_meter.tcl
+    COMMAND ${TCL_GEN_SCRIPT} ui_number_tilde.tcl
+    COMMAND ${TCL_GEN_SCRIPT} ui_radio.tcl
+    COMMAND ${TCL_GEN_SCRIPT} ui_sliders.tcl
+    COMMAND ${TCL_GEN_SCRIPT} ui_toggle.tcl
+    SOURCES
+        ui_button.tcl
+        ui_bang.tcl
+        ui_display.tcl
+        ui_dsp.tcl
+        ui_filter.tcl
+        ui_keyboard.tcl
+        ui_meter.tcl
+        ui_number_tilde.tcl
+        ui_radio.tcl
+        ui_sliders.tcl
+        ui_toggle.tcl
+    WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
+)

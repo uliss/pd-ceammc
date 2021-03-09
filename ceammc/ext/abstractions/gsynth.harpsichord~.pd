@@ -1,0 +1,127 @@
+#N canvas 0 0 950 600 12;
+#X obj 25 125 synth.harpsichord~;
+#X obj 325 25 inlet;
+#X obj 325 200 route synth.harpsichord;
+#X obj 325 250 route @gate @modfreq @modtype @nonlin @pan @pitch
+@reverb_gain @room_size @width;
+#X obj 575 350 print unknown property;
+#X msg 225 75 @modfreq 220 \, @modtype 0 \, @nonlin 0 \, @pan 0.6 \, @pitch 48 \, @reverb_gain 0.137 \, @room_size 0.36 \, @width 0.5 \,;
+#X obj 225 25 msg.onload;
+#X obj 500 550 outlet~;
+#X obj 600 550 outlet~;
+#X obj 700 550 outlet ctl;
+#X obj 3 202 cnv 8 198 18 empty empty [synth.harpsichord~] 3 9 0 12
+-104026 -262144 0;
+#X obj 12 226 ui.toggle @size 12 12 @label gate @label_side right
+@label_align left @fontsize 10;
+#X msg 260 218 @gate \$1;
+#X obj 12 256 ui.slider @size 125 12 @active_scale 1 @label
+modfreq(Hz): @label_side top @label_align left @fontsize 10
+@presetname /gui/\$1/synth.harpsichord~/slider1 @min 20 @max 1000;
+#X obj 190 256 sync;
+#X obj 145 256 ui.number @size 50 12 @min 20 @max 1000 @digits 1;
+#X msg 260 256 @modfreq \$1;
+#X obj 12 286 ui.number @size 60 12 @label modtype: @label_side top
+@label_align left @fontsize 10 @presetname
+/gui/\$1/synth.harpsichord~/numbox2 @min 0 @max 4 @step 1;
+#X msg 260 286 @modtype \$1;
+#X obj 12 318 ui.slider @size 125 12 @active_scale 1 @label nonlin:
+@label_side top @label_align left @fontsize 10 @presetname
+/gui/\$1/synth.harpsichord~/slider3 @min 0 @max 1;
+#X obj 190 318 sync;
+#X obj 145 318 ui.number @size 50 12 @min 0 @max 1 @digits 4;
+#X msg 260 318 @nonlin \$1;
+#X obj 12 350 ui.slider @size 125 12 @active_scale 1 @label pan:
+@label_side top @label_align left @fontsize 10 @presetname
+/gui/\$1/synth.harpsichord~/slider4 @min 0 @max 1;
+#X obj 190 350 sync;
+#X obj 145 350 ui.number @size 50 12 @min 0 @max 1 @digits 4;
+#X msg 260 350 @pan \$1;
+#X obj 12 382 ui.slider @size 125 12 @active_scale 1 @label pitch:
+@label_side top @label_align left @fontsize 10 @presetname
+/gui/\$1/synth.harpsichord~/slider5 @min 12 @max 96;
+#X obj 190 382 sync;
+#X obj 145 382 ui.number @size 50 12 @min 12 @max 96 @digits 2;
+#X msg 260 382 @pitch \$1;
+#X obj 12 414 ui.slider @size 125 12 @active_scale 1 @label
+reverb_gain: @label_side top @label_align left @fontsize 10
+@presetname /gui/\$1/synth.harpsichord~/slider6 @min 0 @max 1;
+#X obj 190 414 sync;
+#X obj 145 414 ui.number @size 50 12 @min 0 @max 1 @digits 4;
+#X msg 260 414 @reverb_gain \$1;
+#X obj 12 446 ui.slider @size 125 12 @active_scale 1 @label room_size:
+@label_side top @label_align left @fontsize 10 @presetname
+/gui/\$1/synth.harpsichord~/slider7 @min 0.005 @max 1;
+#X obj 190 446 sync;
+#X obj 145 446 ui.number @size 50 12 @min 0.005 @max 1 @digits 4;
+#X msg 260 446 @room_size \$1;
+#X obj 12 478 ui.slider @size 125 12 @active_scale 1 @label width:
+@label_side top @label_align left @fontsize 10 @presetname
+/gui/\$1/synth.harpsichord~/slider8 @min 0 @max 1;
+#X obj 190 478 sync;
+#X obj 145 478 ui.number @size 50 12 @min 0 @max 1 @digits 4;
+#X msg 260 478 @width \$1;
+#X connect 1 0 2 0;
+#X connect 2 0 3 0;
+#X connect 3 9 4 0;
+#X connect 5 0 3 0;
+#X connect 6 0 5 0;
+#X connect 0 0 7 0;
+#X connect 0 1 8 0;
+#X connect 2 1 9 0;
+#X connect 11 0 12 0;
+#X connect 12 0 0 0;
+#X connect 3 0 11 0;
+#X connect 13 0 14 0;
+#X connect 14 0 13 0;
+#X connect 15 0 14 1;
+#X connect 14 1 15 0;
+#X connect 13 0 16 0;
+#X connect 16 0 0 0;
+#X connect 3 1 13 0;
+#X connect 17 0 18 0;
+#X connect 18 0 0 0;
+#X connect 3 2 17 0;
+#X connect 19 0 20 0;
+#X connect 20 0 19 0;
+#X connect 21 0 20 1;
+#X connect 20 1 21 0;
+#X connect 19 0 22 0;
+#X connect 22 0 0 0;
+#X connect 3 3 19 0;
+#X connect 23 0 24 0;
+#X connect 24 0 23 0;
+#X connect 25 0 24 1;
+#X connect 24 1 25 0;
+#X connect 23 0 26 0;
+#X connect 26 0 0 0;
+#X connect 3 4 23 0;
+#X connect 27 0 28 0;
+#X connect 28 0 27 0;
+#X connect 29 0 28 1;
+#X connect 28 1 29 0;
+#X connect 27 0 30 0;
+#X connect 30 0 0 0;
+#X connect 3 5 27 0;
+#X connect 31 0 32 0;
+#X connect 32 0 31 0;
+#X connect 33 0 32 1;
+#X connect 32 1 33 0;
+#X connect 31 0 34 0;
+#X connect 34 0 0 0;
+#X connect 3 6 31 0;
+#X connect 35 0 36 0;
+#X connect 36 0 35 0;
+#X connect 37 0 36 1;
+#X connect 36 1 37 0;
+#X connect 35 0 38 0;
+#X connect 38 0 0 0;
+#X connect 3 7 35 0;
+#X connect 39 0 40 0;
+#X connect 40 0 39 0;
+#X connect 41 0 40 1;
+#X connect 40 1 41 0;
+#X connect 39 0 42 0;
+#X connect 42 0 0 0;
+#X connect 3 8 39 0;
+#X coords 0 -1 1 1 200 298 2 2 200;

@@ -13,6 +13,7 @@
             <keywords>data set list</keywords>
             <since>0.3</since>
             <aliases>
+                <alias>ceammc/set-&gt;list</alias>
                 <alias>set-&gt;list</alias>
             </aliases>
             <also>

@@ -35,7 +35,6 @@ bool is_ceammc(t_object* x)
 {
     if (is_ceammc_base(x)
         || is_ceammc_ui(x)
-        || is_ceammc_faust(x)
         || is_ceammc_flext(x)
         || is_ceammc_abstraction(x))
         return true;
@@ -57,14 +56,6 @@ bool is_ceammc_ui(t_object* x)
         return false;
 
     return ObjectInfoStorage::instance().findInUI(x->te_g.g_pd);
-}
-
-bool is_ceammc_faust(t_object* x)
-{
-    if (!x)
-        return false;
-
-    return ObjectInfoStorage::instance().findInFaust(x->te_g.g_pd);
 }
 
 bool is_ceammc_flext(t_object* x)
@@ -113,9 +104,9 @@ std::vector<PropertyInfo> ceammc_base_properties(t_object* x)
     }
 
     std::vector<PropertyInfo> res;
-    res.reserve(obj->properties().size());
+    res.reserve(obj->getProperties().size());
 
-    for (auto p : obj->properties()) {
+    for (auto p : obj->getProperties()) {
         if (!p)
             continue;
 
@@ -145,28 +136,6 @@ std::vector<PropertyInfo> ceammc_ui_properties(t_object* x)
         return static_cast<UIDspObject*>(reinterpret_cast<t_edspbox*>(x))->propsInfo();
     else
         return static_cast<UIObject*>(reinterpret_cast<t_ebox*>(x))->propsInfo();
-}
-
-std::vector<PropertyInfo> ceammc_faust_properties(t_object* x)
-{
-    if (!is_ceammc_faust(x))
-        return {};
-
-    using FaustObj = PdObject<faust::FaustExternalBase>;
-
-    auto* obj = reinterpret_cast<FaustObj*>(x)->impl;
-    std::vector<PropertyInfo> res;
-    res.reserve(obj->properties().size());
-
-    for (auto p : obj->properties()) {
-        if (!p)
-            continue;
-
-        p->get();
-        res.push_back(p->infoT());
-    }
-
-    return res;
 }
 
 std::vector<PropertyInfo> ceammc_abstraction_properties(t_object* x)

@@ -283,7 +283,7 @@ public:
     /**
      * Create new envelope from raw list content
      */
-    static DataTypeEnv fromList(const AtomList& lst);
+    static DataTypeEnv fromListView(const AtomListView& lv);
 
     /**
      * Saves envelope to raw list data for usage in e.g. in preset system

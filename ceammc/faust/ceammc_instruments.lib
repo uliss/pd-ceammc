@@ -1,0 +1,30 @@
+declare name "CEAMMC replacement for intruments.lib";
+declare version "0.3";
+
+si = library("signals.lib");
+de = library("delays.lib");
+re = library("reverbs.lib");
+
+reverb2 = _,_ <: *(reverbGain),*(reverbGain),*(1 - reverbGain),*(1 - reverbGain) :
+    re.zita_rev1_stereo(rdel,f1,f2,t60dc,t60m,fsmax),_,_ <: _,!,_,!,!,_,!,_ : +,+
+with {
+    reverbGain = hslider("reverb_gain", 0.137, 0, 1, 0.01) : si.smoo;
+    roomSize = hslider("room_size", 0.36, 0.005, 1, 0.01) * 2;
+    rdel = 20;
+    f1 = 200;
+    f2 = 6000;
+    t60dc = roomSize*3;
+    t60m = roomSize*2;
+    fsmax = 48000;
+};
+
+//stereoizer implement a stereo spacialisation in function of
+//the frequency period in number of samples
+stereoizer(periodDuration) = _ <: _,widthdelay : stereopanner
+    with {
+        W = hslider("width", 0.5, 0, 1, 0.01);
+        A = hslider("pan", 0.6, 0, 1, 0.01);
+        widthdelay = de.delay(4096,W*periodDuration/2);
+        stereopanner = _,_ : *(1.0-A), *(A);
+    };
+

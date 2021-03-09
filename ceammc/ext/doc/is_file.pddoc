@@ -12,6 +12,9 @@
             <category>predicates</category>
             <keywords>predicate filesystem</keywords>
             <since>0.2</since>
+            <aliases>
+                <alias>ceammc/is_file</alias>
+            </aliases>
         </meta>
         <info>
             <par>If relative path is given file searched under patch directory</par>

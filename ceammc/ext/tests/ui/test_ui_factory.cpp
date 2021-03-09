@@ -30,7 +30,7 @@ public:
     bool b;
     t_float f;
     AtomList list;
-    void onList(const AtomList& lst) { list = lst; }
+    void onList(const AtomListView& lv) { list = lv; }
     void onFloat(t_float v) { f = v; }
     void onBang() { b = !b; }
 };

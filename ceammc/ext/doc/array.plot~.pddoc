@@ -13,6 +13,7 @@
             <keywords>array plot</keywords>
             <also>
                 <see view="link">ui.plot~</see>
+                <see>array.plot</see>
             </also>
             <since>0.9</since>
         </meta>
@@ -38,17 +39,14 @@
         <example>
             <pdascii>
 <![CDATA[
-                    [array APL1 size=100 w=200 h=200]
+[ui.dsp~]             [array APL1 size=100 w=200 h=200]
 
-
-
-
-[ui.dsp~]
 
 
 [osc~ 440]   [B]
 |            |.
 [array.plot~ APL1]
+
 
 [B]
 |

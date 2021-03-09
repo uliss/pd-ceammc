@@ -4,7 +4,7 @@
 
 %defines
 %define api.token.prefix {TOK_}
-%define api.namespace {ceammc}
+%define api.namespace {ceammc::al}
 %define api.parser.class {ArrayLoaderParser}
 
 %define parse.error verbose
@@ -15,7 +15,7 @@
 %define api.location.file "array_loader.location.hpp"
 %debug
 
-%parse-param { ceammc::ArrayLoaderLexer& lexer }
+%parse-param { ceammc::al::ArrayLoaderLexer& lexer }
 %parse-param { ceammc::ArrayLoader& loader }
 
 %code requires {
@@ -26,7 +26,9 @@
     # include <vector>
 
     namespace ceammc {
+        namespace al {
         class ArrayLoaderLexer;
+        }
         class ArrayLoader;
     }
 
@@ -208,7 +210,7 @@ expr
 
 %%
 
-void ceammc::ArrayLoaderParser::error(const location& loc, const std::string& err_message)
+void ceammc::al::ArrayLoaderParser::error(const location& loc, const std::string& err_message)
 {
     auto line = lexer.matcher().line();
     lexer.out() << err_message << ':' << std::endl;

@@ -4,6 +4,7 @@ macro(ceammc_data_external mod name)
     list(APPEND DATA_SOURCES "${mod}_${name}.cpp")
 endmacro()
 
+ceammc_data_external(data copy)
 ceammc_data_external(data dict)
 ceammc_data_external(data fifo)
 ceammc_data_external(data float)

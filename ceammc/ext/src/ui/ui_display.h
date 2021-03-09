@@ -40,30 +40,29 @@ class UIDisplay : public UIObject {
     t_rgba prop_active_color;
 
 private:
-    UIFont font_;
-    UITextLayout txt_value_;
-    UITextLayout txt_type_;
-    std::string msg_txt_;
-    t_symbol* msg_type_txt_;
     ClockMemberFunction<UIDisplay> timer_;
+    std::string msg_txt_;
     double last_update_;
-    int type_width_;
+    t_symbol* msg_type_;
+    t_symbol* rid_;
     bool on_bang_;
-    UIMessageType msg_type_;
+    bool auto_;
+    UIMessageType type_;
 
 public:
     UIDisplay();
+    ~UIDisplay();
 
     void paint();
     void okSize(::t_rect* newrect);
-    void init(t_symbol* name, const AtomList& args, bool usePresets);
+    void init(t_symbol* name, const AtomListView& args, bool usePresets);
 
     void onBang();
     void onFloat(t_float f);
     void onSymbol(t_symbol* s);
-    void onList(const AtomListView& lst);
-    void onAny(t_symbol* s, const AtomListView& lst);
-    void onProperty(t_symbol* s, const AtomListView& lst);
+    void onList(const AtomListView& lv);
+    void onAny(t_symbol* s, const AtomListView& lv);
+    void onProperty(t_symbol* s, const AtomListView& lv);
 
     void onDblClick(t_object* view, const t_pt& pt, long modifiers);
 
@@ -79,10 +78,12 @@ public:
     void update();
     void flash();
 
+    void m_resize(const AtomListView& lv);
+
 private:
     void redrawAll();
     void appendFloatToText(t_float f);
-    void setMessage(UIMessageType t, t_symbol* s, const AtomListView& lst);
+    void setMessage(UIMessageType t, t_symbol* s, const AtomListView& lv);
 };
 
 void setup_ui_display();

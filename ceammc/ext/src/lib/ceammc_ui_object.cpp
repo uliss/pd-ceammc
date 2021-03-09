@@ -75,22 +75,6 @@ void UIObjectImpl::invalidateLayer(UILayer* l)
     }
 }
 
-void UIObjectImpl::invalidateBox()
-{
-    ebox_invalidate_border(box_);
-    ebox_invalidate_io(box_);
-}
-
-void UIObjectImpl::invalidateXlets()
-{
-    ebox_invalidate_io(box_);
-}
-
-void UIObjectImpl::invalidateBorder()
-{
-    ebox_invalidate_border(box_);
-}
-
 void UIObjectImpl::initPopupMenu(const std::string& n, std::initializer_list<PopupMenuCallbacks::Entry> args)
 {
     auto it = std::find_if(popup_menu_list_.begin(), popup_menu_list_.end(), [&n](const PopupMenuCallbacks& c) { return c.name() == n; });
@@ -182,7 +166,7 @@ bool UIObjectImpl::isVisible() const
     return box_ && ebox_isvisible(box_);
 }
 
-void UIObjectImpl::init(t_symbol* name, const AtomList& args, bool usePresets)
+void UIObjectImpl::init(t_symbol* name, const AtomListView& args, bool usePresets)
 {
     name_ = name;
     args_ = args;
@@ -219,11 +203,6 @@ void UIObjectImpl::redraw()
     ebox_redraw(box_);
 }
 
-void UIObjectImpl::redrawInnerArea()
-{
-    ebox_redraw_inner(box_);
-}
-
 void UIObjectImpl::redrawBGLayer()
 {
     bg_layer_.invalidate();
@@ -246,7 +225,7 @@ void UIObjectImpl::resize(int w, int h)
 void UIObjectImpl::redrawLayer(UILayer& l)
 {
     invalidateLayer(&l);
-    redrawInnerArea();
+    redraw();
 }
 
 void UIObjectImpl::onMouseMove(t_object* view, const t_pt& pt, long modifiers)
@@ -292,7 +271,6 @@ void UIObjectImpl::okSize(t_rect* newrect)
 
 void UIObjectImpl::setDrawParams(t_edrawparams* params)
 {
-    params->d_borderthickness = 1;
     params->d_bordercolor = prop_color_border;
     params->d_boxfillcolor = prop_color_background;
     params->d_labelcolor = prop_color_label;
@@ -334,10 +312,6 @@ void UIObjectImpl::read(const std::string& fname)
 {
 }
 
-void UIObjectImpl::m_custom(t_symbol* sel, const AtomList& lst)
-{
-}
-
 void UIObjectImpl::onBang()
 {
 }
@@ -350,11 +324,11 @@ void UIObjectImpl::onSymbol(t_symbol* s)
 {
 }
 
-void UIObjectImpl::onList(const AtomListView& lst)
+void UIObjectImpl::onList(const AtomListView& lv)
 {
 }
 
-void UIObjectImpl::onAny(t_symbol* s, const AtomListView& lst)
+void UIObjectImpl::onAny(t_symbol* s, const AtomListView& lv)
 {
     LIB_ERR << "unknown message: " << s->s_name;
 }
@@ -371,7 +345,7 @@ void UIObjectImpl::onData(const AbstractData* ptr)
 {
 }
 
-void UIObjectImpl::onProperty(t_symbol* s, const AtomList& lst)
+void UIObjectImpl::onProperty(t_symbol* s, const AtomListView& lv)
 {
 }
 
@@ -386,6 +360,10 @@ void UIObjectImpl::storePreset(size_t idx)
 void UIObjectImpl::clearPreset(size_t idx)
 {
     PresetStorage::instance().clearValueAt(presetId(), idx);
+}
+
+void UIObjectImpl::interpPreset(t_float idx)
+{
 }
 
 void UIObjectImpl::bangTo(size_t n)
@@ -420,12 +398,12 @@ void UIObjectImpl::atomTo(size_t n, const Atom& a)
     outlet_list(outlets_[n], &s_list, 1, const_cast<t_atom*>(&a.atom()));
 }
 
-void UIObjectImpl::listTo(size_t n, const AtomListView &lst)
+void UIObjectImpl::listTo(size_t n, const AtomListView& lv)
 {
     if (n >= outlets_.size())
         return;
 
-    outlet_list(outlets_[n], &s_list, lst.size(), lst.toPdData());
+    outlet_list(outlets_[n], &s_list, lv.size(), lv.toPdData());
 }
 
 void UIObjectImpl::anyTo(size_t n, t_symbol* s, const AtomListView& args)
@@ -471,18 +449,18 @@ void UIObjectImpl::send(t_symbol* s)
         pd_symbol(send, s);
 }
 
-void UIObjectImpl::send(const AtomListView& lst)
+void UIObjectImpl::send(const AtomListView& lv)
 {
     t_pd* send = ebox_getsender(box_);
     if (send)
-        pd_list(send, &s_list, lst.size(), lst.toPdData());
+        pd_list(send, &s_list, lv.size(), lv.toPdData());
 }
 
-void UIObjectImpl::send(t_symbol* s, const AtomListView& lst)
+void UIObjectImpl::send(t_symbol* s, const AtomListView& lv)
 {
     t_pd* send = ebox_getsender(box_);
     if (send)
-        pd_typedmess(send, s, lst.size(), lst.toPdData());
+        pd_typedmess(send, s, lv.size(), lv.toPdData());
 }
 
 t_rect UIObjectImpl::rect() const
@@ -591,6 +569,11 @@ void UIObjectImpl::handlePresetNameChange()
         // sync
         old_preset_id_ = box_->b_objpreset_id;
     }
+}
+
+bool UIObjectImpl::hasPresetInterp() const
+{
+    return false;
 }
 
 size_t UIObjectImpl::numInlets() const
@@ -709,9 +692,17 @@ static void set_constraints(PropertyInfo& info, t_eattr* a)
         info.setView(PropValueView::MENU);
         info.setConstraints(PropValueConstraints::ENUM);
 
-        for (size_t i = 0; i < a->itemssize; i++) {
-            if (!info.addEnum(a->itemslist[i]))
-                LIB_ERR << "can't append enum";
+        if (info.type() == PropValueType::SYMBOL) {
+            for (size_t i = 0; i < a->itemssize; i++) {
+                if (!info.addEnum(a->itemslist[i]))
+                    LIB_ERR << "can't append enum";
+            }
+        } else if (info.type() == PropValueType::INTEGER) {
+            for (size_t i = 0; i < a->itemssize; i++) {
+                auto v = std::strtol(a->itemslist[i]->s_name, nullptr, 10);
+                if (!info.addEnum(v))
+                    LIB_ERR << "can't append enum";
+            }
         }
     }
 }
@@ -763,7 +754,6 @@ static PropertyInfo attr_to_prop(t_eattr* a)
 
                 if (a->defvals)
                     res.setDefault(a->defvals->s_name[0] == '1');
-
             } else {
                 res.setType(PropValueType::INTEGER);
                 set_constraints(res, a);
@@ -794,11 +784,17 @@ static PropertyInfo attr_to_prop(t_eattr* a)
         }
     } else if (a->type == SYM_ATOM) {
         if (a->size == 1) {
-            res.setType(PropValueType::ATOM);
-            set_constraints(res, a);
+            if (a->sizemax == 0) {
+                res.setType(PropValueType::LIST);
+                if (a->defvals)
+                    res.setDefault(sym_to_list(a->defvals));
+            } else {
+                res.setType(PropValueType::ATOM);
+                set_constraints(res, a);
 
-            if (a->defvals)
-                res.setDefault(Atom(a->defvals));
+                if (a->defvals)
+                    res.setDefault(Atom(a->defvals));
+            }
         } else if (a->size > 1) {
             res.setType(PropValueType::LIST);
             if (a->defvals)

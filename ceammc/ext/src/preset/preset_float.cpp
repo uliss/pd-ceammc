@@ -25,7 +25,7 @@ void PresetFloat::onFloat(t_float f)
     current_value_ = f;
 }
 
-void PresetFloat::loadFrom(size_t idx)
+void PresetFloat::loadFrom(t_float idx)
 {
     current_value_ = loadFloat(idx, init_->value());
     floatTo(0, current_value_);

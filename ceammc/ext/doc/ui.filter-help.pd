@@ -1,0 +1,192 @@
+#N canvas 0 0 785 555 12;
+#X declare -lib ceammc;
+#X obj 414 50 cnv 1 351 23 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 414 50 UI filter object calculator for biquad filter;
+#X obj 1 1 cnv 5 765 40 empty empty ui.filter 20 20 0 20 -104026 -4096
+0;
+#X obj 672 13 ui.link @background_color 0.39216 0.39216 0.39216 @title
+[ui.filter] @url ui.filter-help.pd;
+#X obj 50 118 ui.tab lin log rad;
+#X obj 251 118 ui.tab lpf hpf bpf bpfq @size 160 15;
+#X msg 50 147 @scale \$2;
+#X msg 251 147 @type \$2;
+#X obj 50 176 ui.filter;
+#X obj 50 291 ui.dt;
+#X obj 20 340 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 345 cnv 5 115 26 empty empty mouse_events: 4 10 0 14 -262144
+-49933 0;
+#X text 110 380 Left-click;
+#X text 285 380 jump to coord under mouse pointer.;
+#X text 110 400 Right-click;
+#X text 285 400 opens popup menu for filter type selection.;
+#X text 110 420 Mouse-drag;
+#X text 285 420 change frequency and Q/gain value.;
+#X text 110 440 Mouse-wheel;
+#X text 285 440 only for peakEq filter: change Q-factor.;
+#X obj 20 470 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 475 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
+-49933 0;
+#X msg 110 510 @freq;
+#X text 245 510 Get/Set filter frequency. Type: float. Default value:
+1000\. Range: 0\...20000\.;
+#X msg 110 552 @gain;
+#X text 245 552 Get/Set gain (for low/highshelf/peak filters). Type:
+float. Units: db. Default value: 0\. Range: -24\...24\.;
+#X msg 110 594 @mouse_events;
+#X text 245 594 Get/Set mouse events output mode. If on outputs @mouse_down
+\, @mouse_up and @mouse_drag events. Type: int. Default value: 0\.
+Allowed values: 0 \, 1\.;
+#X msg 110 651 @q;
+#X text 245 651 Get/Set quality factor. Type: float. Default value:
+0.707107\. Range: 0.015625\...64\.;
+#X msg 110 693 @receive;
+#X text 245 693 Get/Set receive source. Type: symbol. Default value:
+(null).;
+#X msg 110 722 @scale;
+#X text 245 722 Get/Set frequency scale. Type: symbol. Default value:
+lin. Allowed values: lin \, log \, rad.;
+#X msg 110 764 @send;
+#X text 245 764 Get/Set send destination. Type: symbol. Default value:
+(null).;
+#X msg 110 806 @type;
+#X text 245 806 Get/Set frequency scale. Type: symbol. Default value:
+lpf. Allowed values: lpf \, hpf \, bpf \, bpfq \, lowshelf \, highshelf
+\, peak \, notch.;
+#X msg 110 863 @background_color;
+#X text 245 863 Get/Set element background color (list of red \, green
+\, blue values in 0-1 range). Type: list. Default value: 0.93 0.93
+0.93 1\.;
+#X msg 110 920 @border_color;
+#X text 245 920 Get/Set border color (list of red \, green \, blue
+values in 0-1 range). Type: list. Default value: 0.6 0.6 0.6 1\.;
+#X msg 110 962 @grid_color;
+#X text 245 962 Get/Set knob color. Type: list. Default value: 0.6
+0.6 0.6 1\.;
+#X msg 110 1004 @knob_color;
+#X text 245 1004 Get/Set knob color. Type: list. Default value: 0 0.75
+1 1\.;
+#X msg 110 1033 @label_color;
+#X text 245 1033 Get/Set label color in RGB format within 0-1 range
+\, for example: 0.2 0.4 0.1\. Type: list. Default value: 0.6 0.6 0.6
+1\.;
+#X msg 110 1090 @plot_color;
+#X text 245 1090 Get/Set knob color. Type: list. Default value: 0 0
+0 1\.;
+#X msg 110 1119 @label;
+#X text 245 1119 Get/Set label text. Type: symbol. Default value: (null).;
+#X msg 110 1148 @label_align;
+#X text 245 1148 Get/Set label horizontal align. Type: symbol. Default
+value: left. Allowed values: left \, center \, right.;
+#X msg 110 1190 @label_inner;
+#X text 245 1190 Get/Set label position (1 - inner \, 0 - outer). Type:
+int. Default value: 0\. Allowed values: 0 \, 1\.;
+#X msg 110 1232 @label_margins;
+#X text 245 1232 Get/Set label offset in pixels. Type: list. Default
+value: 0 0\.;
+#X msg 110 1274 @label_side;
+#X text 245 1274 Get/Set label snap side. Type: symbol. Default value:
+top. Allowed values: left \, top \, right \, bottom.;
+#X msg 110 1316 @label_valign;
+#X text 245 1316 Get/Set label vertical align. Type: symbol. Default
+value: top. Allowed values: top \, center \, bottom.;
+#X msg 110 1358 @fontname;
+#X text 245 1358 Get/Set fontname. Type: symbol. Default value: Helvetica.;
+#X msg 110 1387 @fontsize;
+#X text 245 1387 Get/Set fontsize. Type: int. Default value: 11\. Range:
+4\...11\.;
+#X msg 110 1429 @fontslant;
+#X text 245 1429 Get/Set font slant. Type: symbol. Default value: roman.
+Allowed values: roman \, italic.;
+#X msg 110 1471 @fontweight;
+#X text 245 1471 Get/Set font weight. Type: symbol. Default value:
+normal. Allowed values: normal \, bold.;
+#X msg 110 1513 @pinned;
+#X text 245 1513 Get/Set pin mode. if 1 - put element to the lowest
+level. Type: int. Default value: 0\. Allowed values: 0 \, 1\.;
+#X msg 110 1555 @presetname;
+#X text 245 1555 Get/Set preset name for using with [ui.preset]. Type:
+symbol. Default value: (null).;
+#X msg 110 1597 @size;
+#X text 245 1597 Get/Set element size (width \, height pair). Type:
+list. Default value: 300 100\.;
+#X obj 20 1649 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1654 cnv 5 73 26 empty empty methods: 4 10 0 14 -262144
+-49933 0;
+#X msg 110 1689 biquad;
+#X text 245 1689 set biquad coefficients (but not changes current filter
+properties). Arguments are:;
+#X obj 255 1727 cnv 1 112 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1727 b0 b1 b2 a1 a2: coefficients. Type: list.;
+#X msg 110 1752 clear;
+#X text 245 1752 clears specified preset. Arguments are:;
+#X obj 255 1775 cnv 1 29 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1775 IDX: preset index. Type: int.;
+#X msg 110 1800 interp;
+#X text 245 1800 for this object acts as *load* \, no interpolation
+performed.;
+#X msg 110 1827 load;
+#X text 245 1827 loads specified preset. Arguments are:;
+#X obj 255 1850 cnv 1 29 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1850 IDX: preset index. Type: int.;
+#X msg 110 1875 pos;
+#X text 245 1875 set UI element position. Arguments are:;
+#X obj 255 1898 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1898 X: top left x-coord. Type: float.;
+#X obj 255 1921 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1921 Y: top right y-coord. Type: float.;
+#X msg 110 1946 store;
+#X text 245 1946 stores specified preset. Arguments are:;
+#X obj 255 1969 cnv 1 29 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1969 IDX: preset index. Type: int.;
+#X msg 110 1994 dump;
+#X text 245 1994 dumps all object info to Pd console window.;
+#X obj 20 2031 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 2036 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144
+-49933 0;
+#X text 110 2037 1\.;
+#X text 245 2037 control input.;
+#X obj 20 2067 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 2072 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
+-49933 0;
+#X text 110 2073 1\.;
+#X text 245 2073 list: b0 b1 b2 a1 a2\.;
+#X obj 10 48 ui.link @title index @url ../index-help.pd;
+#X text 51 45 ::;
+#X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;
+#X text 115 45 ::;
+#X obj 131 48 ui.link @title ui @url ceammc.ui-help.pd;
+#X obj 1 2123 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 2126 library: ceammc v0.9.2;
+#X text 591 2138 see also:;
+#X obj 665 2141 ui.link @background_color 0.78431 0.78431 0.78431
+@title [ui.filter~] @url ui.filter~-help.pd;
+#N canvas 10 2145 400 290 info 0;
+#X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
+#X text 10 10 library:;
+#X text 120 10 ceammc;
+#X text 10 32 version:;
+#X text 120 32 0.9.2;
+#X text 10 54 object:;
+#X text 120 54 ui.filter;
+#X text 10 76 category:;
+#X text 120 76 ui;
+#X text 10 98 since:;
+#X text 120 98 0.9.2;
+#X text 10 120 authors:;
+#X text 120 120 Serge Poltavsky;
+#X text 10 142 license:;
+#X text 120 142 GPL3 or later;
+#X text 10 164 keywords:;
+#X text 120 164 ui \, filter \, biquad;
+#X text 10 186 website:;
+#X obj 120 189 ui.link @title https://github.com/uliss/pure-data @url
+https://github.com/uliss/pure-data;
+#X obj 120 208 declare -lib ceammc;
+#X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 120 268 generated by pddoc;
+#X restore 10 2145 pd info;
+#X connect 4 0 6 0;
+#X connect 5 0 7 0;
+#X connect 6 0 8 0;
+#X connect 7 0 8 0;
+#X connect 8 0 9 0;

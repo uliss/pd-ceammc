@@ -14,6 +14,7 @@
             <since>0.6</since>
             <aliases>
                 <alias>flow.mux2~</alias>
+                <alias>ceammc/mux2~</alias>
                 <alias>mux2~</alias>
             </aliases>
             <also>
@@ -69,11 +70,9 @@
 | |  |   |             |
 | |. |.. |...          |....
 [flow.multiplex2~ 2         ]
-|  ^|
-|   |  [ui.slider @size 120 16]
-|   |. |..
-[gain~  2]
-|  ^|.
+*|*
+[ui.hgain2~]
+*|*
 [dac~]
 ]]>
             </pdascii>

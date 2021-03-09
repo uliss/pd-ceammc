@@ -47,17 +47,19 @@ public:
     void paintKnob();
 
     void onBang();
-    void onList(const AtomListView& lst);
+    void onList(const AtomListView& lv);
     void onMouseDown(t_object* view, const t_pt& pt, const t_pt& abs_pt, long modifiers);
     void onMouseDrag(t_object* view, const t_pt& pt, long modifiers);
     void onMouseUp(t_object* view, const t_pt& pt, long modifiers);
 
-    void m_set(const AtomListView& lst);
-    void m_move(const AtomListView& lst);
+    void m_set(const AtomListView& lv);
+    void m_move(const AtomListView& lv);
     void loadPreset(size_t idx);
     void storePreset(size_t idx);
+    void interpPreset(t_float idx);
+    bool hasPresetInterp() const { return true; }
 
-    bool setRealValue(const AtomListView& lst);
+    bool setRealValue(const AtomListView& lv);
     AtomList realValue() const;
     t_float realXValue() const;
     t_float realYValue() const;
@@ -67,13 +69,13 @@ public:
 
     void output();
 
-    AtomList propXRange() const;
-    AtomList propYRange() const;
+    t_float propXRange() const;
+    t_float propYRange() const;
 
-    AtomList propXValue() const;
-    AtomList propYValue() const;
-    void propSetXValue(const AtomListView& lst);
-    void propSetYValue(const AtomListView& lst);
+    t_float propXValue() const;
+    t_float propYValue() const;
+    void propSetXValue(t_float x);
+    void propSetYValue(t_float y);
 
 public:
     static void setup();

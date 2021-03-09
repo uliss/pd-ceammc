@@ -58,17 +58,19 @@
         <example>
             <pdascii>
 <![CDATA[
-[phasor~ 10]
+[phasor~ 10]  [ui.dsp~]
 |
 [*~ 100]
-|             [floatatom]
-[clip~ 0 1]   |
-|             [ratio $1(
-[*~ 20] [bng] |
-|       |     |
+|
+[clip~ 0 1]   [F]
+|             |
+[*~ 20]       [@ratio $1(
+|             |
 [dyn.comp2~ 3 90 10 100 id]
-|    ^|.       ^^|
-[dac~  ]       [print]
+*|*
+[ui.hgain2~]
+*|*
+[dac~]
 ]]>
             </pdascii>
         </example>

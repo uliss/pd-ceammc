@@ -23,8 +23,11 @@ if(WITH_MODPLUG)
 endif()
 
 if(WITH_TTS_FLITE)
-    target_include_directories(ceammc_misc PRIVATE ${FLITE_INCLUDES})
-    target_include_directories(ceammc_misc PRIVATE ${PROJECT_SOURCE_DIR}/ceammc/extra)
+    target_include_directories(ceammc_misc PRIVATE
+        ${FLITE_INCLUDES}
+        ${PROJECT_SOURCE_DIR}/ceammc/extra
+    )
+
     target_link_libraries(ceammc_misc PUBLIC ${FLITE_LIBRARIES})
-    target_sources(ceammc_misc PRIVATE speech_flite.cpp fliterender.cpp)
+    target_sources(ceammc_misc PRIVATE speech_flite.cpp fliterender.cpp speech_flite_tilde.cpp)
 endif()

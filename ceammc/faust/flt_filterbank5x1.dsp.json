@@ -1,0 +1,129 @@
+{
+	"name": "flt.fbank5x1",
+	"filename": "flt_filterbank5x1.dsp",
+	"version": "2.30.12",
+	"compile_options": "-lang cpp -es 1 -scal -ftz 0",
+	"library_list": ["/usr/local/share/faust/filters.lib","/usr/local/share/faust/analyzers.lib","/usr/local/share/faust/maths.lib","/usr/local/share/faust/platform.lib","/usr/local/share/faust/basics.lib","/usr/local/share/faust/signals.lib"],
+	"include_pathnames": ["/usr/local/share/faust","/usr/local/share/faust","/usr/share/faust","/Users/serge/work/music/pure-data/ceammc/faust","/Users/serge/work/music/pure-data/ceammc/faust"],
+	"inputs": 1,
+	"outputs": 5,
+	"meta": [ 
+		{ "analyzers.lib/name": "Faust Analyzer Library" },
+		{ "analyzers.lib/version": "0.1" },
+		{ "basics.lib/name": "Faust Basic Element Library" },
+		{ "basics.lib/version": "0.1" },
+		{ "compile_options": "-lang cpp -es 1 -scal -ftz 0" },
+		{ "filename": "flt_filterbank5x1.dsp" },
+		{ "filters.lib/fir:author": "Julius O. Smith III" },
+		{ "filters.lib/fir:copyright": "Copyright (C) 2003-2019 by Julius O. Smith III <jos@ccrma.stanford.edu>" },
+		{ "filters.lib/fir:license": "MIT-style STK-4.3 license" },
+		{ "filters.lib/highpass:author": "Julius O. Smith III" },
+		{ "filters.lib/highpass:copyright": "Copyright (C) 2003-2019 by Julius O. Smith III <jos@ccrma.stanford.edu>" },
+		{ "filters.lib/highpass_plus_lowpass:author": "Julius O. Smith III" },
+		{ "filters.lib/highpass_plus_lowpass:copyright": "Copyright (C) 2003-2019 by Julius O. Smith III <jos@ccrma.stanford.edu>" },
+		{ "filters.lib/highpass_plus_lowpass:license": "MIT-style STK-4.3 license" },
+		{ "filters.lib/iir:author": "Julius O. Smith III" },
+		{ "filters.lib/iir:copyright": "Copyright (C) 2003-2019 by Julius O. Smith III <jos@ccrma.stanford.edu>" },
+		{ "filters.lib/iir:license": "MIT-style STK-4.3 license" },
+		{ "filters.lib/lowpass0_highpass1": "Copyright (C) 2003-2019 by Julius O. Smith III <jos@ccrma.stanford.edu>" },
+		{ "filters.lib/lowpass0_highpass1:author": "Julius O. Smith III" },
+		{ "filters.lib/lowpass:author": "Julius O. Smith III" },
+		{ "filters.lib/lowpass:copyright": "Copyright (C) 2003-2019 by Julius O. Smith III <jos@ccrma.stanford.edu>" },
+		{ "filters.lib/lowpass:license": "MIT-style STK-4.3 license" },
+		{ "filters.lib/mth_octave_filterbank:author": "Julius O. Smith III" },
+		{ "filters.lib/mth_octave_filterbank:copyright": "Copyright (C) 2003-2019 by Julius O. Smith III <jos@ccrma.stanford.edu>" },
+		{ "filters.lib/mth_octave_filterbank:license": "MIT-style STK-4.3 license" },
+		{ "filters.lib/name": "Faust Filters Library" },
+		{ "filters.lib/tf1:author": "Julius O. Smith III" },
+		{ "filters.lib/tf1:copyright": "Copyright (C) 2003-2019 by Julius O. Smith III <jos@ccrma.stanford.edu>" },
+		{ "filters.lib/tf1:license": "MIT-style STK-4.3 license" },
+		{ "filters.lib/tf1s:author": "Julius O. Smith III" },
+		{ "filters.lib/tf1s:copyright": "Copyright (C) 2003-2019 by Julius O. Smith III <jos@ccrma.stanford.edu>" },
+		{ "filters.lib/tf1s:license": "MIT-style STK-4.3 license" },
+		{ "filters.lib/tf2:author": "Julius O. Smith III" },
+		{ "filters.lib/tf2:copyright": "Copyright (C) 2003-2019 by Julius O. Smith III <jos@ccrma.stanford.edu>" },
+		{ "filters.lib/tf2:license": "MIT-style STK-4.3 license" },
+		{ "filters.lib/tf2s:author": "Julius O. Smith III" },
+		{ "filters.lib/tf2s:copyright": "Copyright (C) 2003-2019 by Julius O. Smith III <jos@ccrma.stanford.edu>" },
+		{ "filters.lib/tf2s:license": "MIT-style STK-4.3 license" },
+		{ "filters.lib/version": "0.3" },
+		{ "maths.lib/author": "GRAME" },
+		{ "maths.lib/copyright": "GRAME" },
+		{ "maths.lib/license": "LGPL with exception" },
+		{ "maths.lib/name": "Faust Math Library" },
+		{ "maths.lib/version": "2.3" },
+		{ "name": "flt.fbank5x1" },
+		{ "platform.lib/name": "Generic Platform Library" },
+		{ "platform.lib/version": "0.1" },
+		{ "signals.lib/name": "Faust Signal Routing Library" },
+		{ "signals.lib/version": "0.0" }
+	],
+	"ui": [ 
+		{
+			"type": "vgroup",
+			"label": "flt.fbank5x1",
+			"items": [ 
+				{
+					"type": "vslider",
+					"label": "f1000",
+					"address": "/flt.fbank5x1/f1000",
+					"meta": [
+						{ "unit": "db" }
+					],
+					"init": 0,
+					"min": -6,
+					"max": 6,
+					"step": 0.1
+				},
+				{
+					"type": "vslider",
+					"label": "f2000",
+					"address": "/flt.fbank5x1/f2000",
+					"meta": [
+						{ "unit": "db" }
+					],
+					"init": 0,
+					"min": -6,
+					"max": 6,
+					"step": 0.1
+				},
+				{
+					"type": "vslider",
+					"label": "f250",
+					"address": "/flt.fbank5x1/f250",
+					"meta": [
+						{ "unit": "db" }
+					],
+					"init": 0,
+					"min": -6,
+					"max": 6,
+					"step": 0.1
+				},
+				{
+					"type": "vslider",
+					"label": "f4000",
+					"address": "/flt.fbank5x1/f4000",
+					"meta": [
+						{ "unit": "db" }
+					],
+					"init": 0,
+					"min": -6,
+					"max": 6,
+					"step": 0.1
+				},
+				{
+					"type": "vslider",
+					"label": "f500",
+					"address": "/flt.fbank5x1/f500",
+					"meta": [
+						{ "unit": "db" }
+					],
+					"init": 0,
+					"min": -6,
+					"max": 6,
+					"step": 0.1
+				}
+			]
+		}
+	]
+}

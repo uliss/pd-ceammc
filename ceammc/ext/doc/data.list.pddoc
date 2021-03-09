@@ -75,9 +75,7 @@
 | |    |  |          |          |
 [data.list                  1 2 3]
 |
-[m set]
-|
-[ (
+[ui.dt]
 ]]>
             </pdascii>
         </example>

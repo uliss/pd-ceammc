@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="flt.c_apf">
+        <title>flt.c_apf</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>Allpass filter coefficient calculator for biquad</description>
+            <license>GPL3 or later</license>
+            <library>ceammc</library>
+            <category>flt</category>
+            <keywords>filter biquad hpf allpass</keywords>
+            <since>0.9.2</since>
+            <also>
+                <see>flt.c_lpf</see>
+                <see>hilbert~</see>
+            </also>
+            <aliases>
+                <alias>ceammc/apf-&gt;biquad</alias>
+                <alias>apf-&gt;biquad</alias>
+            </aliases>
+        </meta>
+        <info>
+            <par>Allpass filter is a signal processing filter that passes all frequencies equally
+            in gain, but changes the phase relationship among various frequencies.</par>
+            <par>Most types of filter reduce the amplitude (i.e. the magnitude) of the signal
+            applied to it for some values of frequency, whereas the all-pass filter allows all
+            frequencies through without changes in level.</par>
+            <par>Calculates coefficients for transfer function: H(z)=(b0 + b1*z⁻¹ + b2*z⁻²)/(1 +
+            a1*z⁻¹ + a2*z⁻²)</par>
+            <wiki name="All-pass_filter">Allpass filter</wiki>
+        </info>
+        <arguments>
+            <argument name="freq" type="float" units="herz" minvalue="0" maxvalue="22050">center
+            frequency</argument>
+        </arguments>
+        <properties>
+            <property name="@freq" type="float" minvalue="0" maxvalue="22050" default="0"
+            units="herz">center frequency</property>
+            <property name="@q" type="float" minvalue="0.01" maxvalue="100" default="0.707107">
+            quality factor: @freq/BANDWIDTH</property>
+            <property name="@rad" type="flag">use angular frequency</property>
+        </properties>
+        <methods>
+            <method name="bw">set bandwidth in octaves 
+            <param type="float" name="OCT" required="true">bandwidth</param></method>
+        </methods>
+        <inlets>
+            <inlet>
+                <xinfo on="float">filter frequency</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet>list: b0 b1 b2 a1 a2</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[ui.hsl]                         [ui.hsl]
+|                                |
+[F]                              [F]
+|                                |
+[math.* expr(sr/2)]              [math.* pi()]
+|                                |
+[flt.c_apf]                      [flt.c_apf @rad]
+|                                |
+[ui.dt @float_width 5]           [ui.dt @float_width 5]
+
+
+
+
+[flt.c_apf.plot]
+]]>
+            </pdascii>
+            <pdascii id="plot">
+<![CDATA[
+[ui.hsl]                       [array CAPF0 size=200 w=300 h=90]
+|
+[F]
+|
+[math.* pi()]
+|
+[flt.c_apf @rad]
+|
+[t b l ]                       [array CAPF1 size=200 w=300 h=90]
+|     ^|
+|    [msg biquad]
+|    |
+[flt.freqz]
+|   ^|
+|   [array.plot CAPF1]
+|
+[array.plot CAPF0 @nan 0]
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

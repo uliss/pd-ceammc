@@ -3,25 +3,30 @@
 
 #include "ceammc_ui_object.h"
 
-#include <unordered_set>
+#include <bitset>
+#include <cstdint>
+#include <initializer_list>
 
 using namespace ceammc;
 
 class UIKeyboard : public UIObject {
-    int keys_;
-    int shift_;
+    static const size_t MAX_KEYS = 88;
+
+    int prop_keys;
+    int prop_shift;
     int current_key_;
     int velocity_;
+    int prop_vertical;
     bool mouse_pressed_;
     t_rgba prop_color_active_;
-    std::unordered_set<int> sustained_keys_;
-    UILayer key_layer_;
+    std::bitset<MAX_KEYS> active_keys_;
 
 public:
     UIKeyboard();
 
-    bool okSize(t_rect* newrect);
+    bool okSize(::t_rect* newrect);
     void paint();
+    void init(t_symbol* name, const AtomListView& args, bool usePresets);
 
     void onMouseDown(t_object* view, const t_pt& pt, const t_pt& abs_pt, long modifiers);
     void onMouseUp(t_object* view, const t_pt& pt, long modifiers);
@@ -31,18 +36,19 @@ public:
     void showPopup(const t_pt& pt, const t_pt& abs_pt);
 
     int findPressedKey(const t_pt& pt) const;
+    void onList(const AtomListView& lv);
 
+    const char* annotateInlet(int n) const;
     const char* annotateOutlet(int n) const;
+
+    void playChord(const std::initializer_list<uint8_t>& keys);
 
 public:
     static void setup();
 
 private:
-    void playChord(const std::unordered_set<int>& keys);
     int realPitch() const;
-    void output();
-    void drawBackground();
-    void drawActive();
+    void outputCurrentKey();
     void releaseAllNotes();
     void resetAllNotes();
 };
@@ -54,8 +60,6 @@ private:
  * @return number
  */
 size_t keyboard_num_white_keys(size_t num_keys);
-
-std::vector<t_pt> white_key_poly(int offset, float black_key_w, float key_h);
 
 void setup_ui_keyboard();
 

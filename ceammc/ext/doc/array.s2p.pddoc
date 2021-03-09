@@ -6,8 +6,7 @@
             <authors>
                 <author>Serge Poltavsky</author>
             </authors>
-            <description>convert array sample position to relative phase position
-            [0..1]</description>
+            <description>convert sample position to phase range [0..1]</description>
             <license>GPL3 or later</license>
             <library>ceammc</library>
             <category>conv</category>
@@ -42,15 +41,15 @@
         <example>
             <pdascii>
 <![CDATA[
-[HS min=0 max=100]       [array array1 size=100 w=100 h=70]
+[HS min=0 max=100]       [array s2p size=100 w=200 h=130]
 |
 [F]
 |
-[array.s->p array1]
+[array.s->p s2p]
 |
 [F]
 |
-[array.p->s array1]
+[array.p->s s2p]
 |
 [F]
 ]]>

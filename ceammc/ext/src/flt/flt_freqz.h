@@ -14,46 +14,22 @@
 #ifndef FLT_FREQZ_H
 #define FLT_FREQZ_H
 
-#include "ceammc_sound_external.h"
-
-#include <complex>
+#include "ceammc_object.h"
 
 using namespace ceammc;
 
-class FltFreqZTilde : public SoundExternal {
+class FltFreqZ : public BaseObject {
     ListProperty *ca_, *cb_;
-    BoolProperty* use_sr_;
+    IntProperty* n_;
     BoolProperty* db_scale_;
     std::vector<t_sample> kb_, ka_;
 
 public:
-    FltFreqZTilde(const PdArgs& args);
+    FltFreqZ(const PdArgs& args);
+    void onBang() override;
+    void dump() const override;
 
-    void processBlock(const t_sample** in, t_sample** out) override;
-
-    std::complex<t_sample> Ajw(t_sample w) const
-    {
-        std::complex<t_sample> a(ka_.front());
-
-        for (int j = 1; j < ka_.size(); j++) {
-            auto ejw = std::complex<t_sample>(0, -j * w);
-            a += ka_[j] * std::exp(ejw);
-        }
-
-        return a;
-    }
-
-    std::complex<t_sample> Bjw(t_sample w) const
-    {
-        std::complex<t_sample> b(kb_.front());
-
-        for (int j = 1; j < kb_.size(); j++) {
-            auto ejw = std::complex<t_sample>(0, -j * w);
-            b += kb_[j] * std::exp(ejw);
-        }
-
-        return b;
-    }
+    void m_biquad(t_symbol* s, const AtomListView& lv);
 };
 
 void setup_flt_freqz();

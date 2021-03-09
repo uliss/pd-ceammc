@@ -116,7 +116,7 @@ void UISingleValue::setValue(t_float v)
     }
 }
 
-void UISingleValue::init(t_symbol* name, const AtomList& args, bool usePresets)
+void UISingleValue::init(t_symbol* name, const AtomListView& args, bool usePresets)
 {
     UIObject::init(name, args, usePresets);
 
@@ -225,13 +225,11 @@ void UISingleValue::onMidiCtrl(const AtomListView& l)
                 setKnobPhase(w);
 
                 asEBox()->b_boxparameters.d_bordercolor = prop_color_border;
-                invalidateBorder();
                 redrawKnob();
                 output();
             } else {
                 asEBox()->b_boxparameters.d_bordercolor = PICKUP_MIDI_COLOR;
-                invalidateBorder();
-                redrawInnerArea();
+                redraw();
             }
 
             return;
@@ -290,6 +288,12 @@ void UISingleValue::loadPreset(size_t idx)
     onFloat(f);
 }
 
+void UISingleValue::interpPreset(t_float idx)
+{
+    t_float f = PresetStorage::instance().floatValueAt(presetId(), idx);
+    onFloat(f);
+}
+
 void UISingleValue::storePreset(size_t idx)
 {
     PresetStorage::instance().setFloatValueAt(presetId(), idx, value());
@@ -336,7 +340,7 @@ void UISingleValue::stopListenMidi()
 void UISingleValue::redrawKnob()
 {
     knob_layer_.invalidate();
-    redrawInnerArea();
+    redraw();
 }
 
 UISingleValue::ScaleMode UISingleValue::scaleMode() const

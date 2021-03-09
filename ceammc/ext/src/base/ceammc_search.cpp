@@ -27,7 +27,6 @@ CeammcSearch::CeammcSearch(const PdArgs& args)
 
     auto& st = ObjectInfoStorage::instance();
     std::copy(st.baseSet().begin(), st.baseSet().end(), std::back_inserter(all_classes_));
-    std::copy(st.faust().begin(), st.faust().end(), std::back_inserter(all_classes_));
     std::copy(st.uiSet().begin(), st.uiSet().end(), std::back_inserter(all_classes_));
     std::copy(st.flextSet().begin(), st.flextSet().end(), std::back_inserter(all_classes_));
 }

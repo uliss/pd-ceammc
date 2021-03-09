@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="system.exit">
+        <title>system.exit</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavski</author>
+            </authors>
+            <description>quit PureData</description>
+            <license>GPL3 or later</license>
+            <library>ceammc</library>
+            <category>system</category>
+            <keywords>quit exit</keywords>
+            <since>0.9.2</since>
+        </meta>
+        <properties>
+            <property name="@delay" type="float" minvalue="0" default="0" units="millisecond">exit
+            PureData after specified delay time</property>
+            <property name="@rc" type="int" default="0">exit code</property>
+            <property name="@auto" type="int" enum="0 1" default="0">close automatically, without
+            incoming call</property>
+        </properties>
+        <methods>
+            <method name="exit">exit PureData 
+            <param name="RC" type="int">exit code, if not specified @rc property
+            used</param></method>
+        </methods>
+        <inlets>
+            <inlet>
+                <xinfo>control input</xinfo>
+            </inlet>
+        </inlets>
+        <outlets />
+        <example>
+            <pdascii>
+<![CDATA[
+[exit 0( /*WARNING: this will close PureData in 1000ms!*/
+|
+|
+[system.exit @delay 1000]
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

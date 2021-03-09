@@ -16,7 +16,7 @@
 #include "test_base.h"
 #include "test_common.h"
 
-using namespace ceammc;
+using namespace ceammc::score;
 
 TEST_CASE("ScoreParser", "[core]")
 {

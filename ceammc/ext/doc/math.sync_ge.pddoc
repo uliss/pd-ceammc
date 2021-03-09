@@ -13,6 +13,7 @@
             <keywords>math sync greater equal compare</keywords>
             <aliases>
                 <alias>math.&gt;='</alias>
+                <alias>ceammc/&gt;='</alias>
                 <alias>&gt;='</alias>
             </aliases>
             <since>0.8</since>

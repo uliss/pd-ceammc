@@ -13,6 +13,7 @@
             <keywords>spat pan</keywords>
             <since>0.6</since>
             <aliases>
+                <alias>ceammc/pan8~</alias>
                 <alias>pan8~</alias>
             </aliases>
             <also>

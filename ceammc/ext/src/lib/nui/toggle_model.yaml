@@ -1,0 +1,21 @@
+name: Toggle
+data:
+- name: size
+  type: Size
+  init: Size(15, 15)
+  style: size
+- name: value
+  type: t_float
+  init: 0
+- name: border color
+  type: HexColor
+  init: colors::st_border
+  style: color
+- name: fill color
+  type: HexColor
+  init: colors::st_fill
+  style: color
+- name: knob color
+  type: HexColor
+  init: colors::st_active
+  style: color

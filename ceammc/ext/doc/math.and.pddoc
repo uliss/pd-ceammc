@@ -15,6 +15,7 @@
                 <see>math.or</see>
             </also>
             <aliases>
+                <alias>ceammc/and</alias>
                 <alias>and</alias>
             </aliases>
             <since>0.2</since>

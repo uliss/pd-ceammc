@@ -17,7 +17,9 @@
                 <see>mtof</see>
             </also>
             <aliases>
+                <alias>ceammc/midi-&gt;freq</alias>
                 <alias>midi-&gt;freq</alias>
+                <alias>ceammc/m-&gt;f</alias>
                 <alias>m-&gt;f</alias>
             </aliases>
         </meta>

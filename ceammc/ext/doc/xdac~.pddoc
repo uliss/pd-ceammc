@@ -12,6 +12,9 @@
             <category>base</category>
             <keywords>base</keywords>
             <since>0.8</since>
+            <aliases>
+                <alias>ceammc/xdac~</alias>
+            </aliases>
         </meta>
         <mouse>
             <event editmode="false" type="left-click">opens audio properties dialog</event>

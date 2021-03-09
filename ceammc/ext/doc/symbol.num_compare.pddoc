@@ -14,6 +14,12 @@
             <keywords>symbol num_compare compare</keywords>
             <since>0.4</since>
         </meta>
+        <arguments>
+            <argument name="WITH" type="symbol">symbol to compare</argument>
+        </arguments>
+        <properties>
+            <property name="@with" type="symbol" default="">symbol to compare</property>
+        </properties>
         <inlets>
             <inlet>
                 <xinfo on="symbol">first compare symbol. Unicode strings also supported</xinfo>
@@ -35,9 +41,7 @@
 |
 [list.sort]
 |
-[msg set]
-|
-[ (
+[ui.dt]
 
 /* numeric sort */
 
@@ -45,9 +49,7 @@
 |
 [list.sort_with] X [symbol.num_compare]
 |
-[msg set]
-|
-[ (
+[ui.dt]
 ]]>
             </pdascii>
         </example>

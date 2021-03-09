@@ -83,6 +83,10 @@ include(config)
 include(sound)
 include(cmake_uninstall)
 
+if(WITH_PD_INSTANCE)
+    add_definitions(-DPD_INSTANCE)
+endif()
+
 if(WITH_CLANG_TIDY)
     find_program(CLANG_TIDY_COMMAND NAMES clang-tidy)
         if(NOT CLANG_TIDY_COMMAND)

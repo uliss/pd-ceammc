@@ -22,6 +22,8 @@
 
 namespace ceammc {
 
+using namespace ceammc::argcheck;
+
 ArgChecker::ArgChecker(const std::string& format)
     : format_(format)
     , os_(&std::cerr)

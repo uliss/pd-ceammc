@@ -12,12 +12,15 @@ extern void setup_synth_church_bell_tilde();
 extern void setup_synth_dubdub_tilde();
 extern void setup_synth_dx7_tilde();
 extern void setup_synth_eguitar_tilde();
+extern void setup_synth_glass_harm_tilde();
 extern void setup_synth_glitch();
 extern void setup_synth_ks_tilde();
+extern void setup_synth_harpsichord_tilde();
 extern void setup_synth_marimba_tilde();
 extern void setup_synth_risset_arp_tilde();
 extern void setup_synth_risset_tone_tilde();
 extern void setup_synth_russian_bell_tilde();
+extern void setup_synth_piano_tilde();
 
 void ceammc_synth_setup()
 {
@@ -35,8 +38,11 @@ void ceammc_synth_setup()
     setup_synth_dubdub_tilde();
     setup_synth_dx7_tilde();
     setup_synth_eguitar_tilde();
+    setup_synth_glass_harm_tilde();
+    setup_synth_harpsichord_tilde();
     setup_synth_ks_tilde();
     setup_synth_marimba_tilde();
+    setup_synth_piano_tilde();
     setup_synth_risset_arp_tilde();
     setup_synth_risset_tone_tilde();
     setup_synth_russian_bell_tilde();

@@ -27,7 +27,7 @@ TEST_CASE("ui.radio", "[ui.radio]")
     {
         TestRadio t("ui.radio");
         REQUIRE(t->numOutlets() == 1);
-        REQUIRE(t->width() == 127);
+        REQUIRE(t->width() == 120);
         REQUIRE(t->height() == 15);
         REQUIRE(t->singleValue() == 0);
         REQUIRE(t->p_numItems() == 8);
@@ -45,7 +45,7 @@ TEST_CASE("ui.radio", "[ui.radio]")
             {
                 TestExtRadio t("ui.hrd");
                 REQUIRE(t.object());
-                REQUIRE(t->width() == 127);
+                REQUIRE(t->width() == 120);
                 REQUIRE(t->height() == 15);
                 REQUIRE(t->p_mode() == 0);
             }
@@ -54,7 +54,7 @@ TEST_CASE("ui.radio", "[ui.radio]")
             {
                 TestExtRadio t("ui.hrd*");
                 REQUIRE(t.object());
-                REQUIRE(t->width() == 127);
+                REQUIRE(t->width() == 120);
                 REQUIRE(t->height() == 15);
                 REQUIRE(t->p_mode() == 1);
             }
@@ -64,7 +64,7 @@ TEST_CASE("ui.radio", "[ui.radio]")
                 TestExtRadio t("ui.vrd");
                 REQUIRE(t.object());
                 REQUIRE(t->width() == 15);
-                REQUIRE(t->height() == 127);
+                REQUIRE(t->height() == 120);
                 REQUIRE(t->p_mode() == 0);
             }
 
@@ -73,7 +73,7 @@ TEST_CASE("ui.radio", "[ui.radio]")
                 TestExtRadio t("ui.vrd*");
                 REQUIRE(t.object());
                 REQUIRE(t->width() == 15);
-                REQUIRE(t->height() == 127);
+                REQUIRE(t->height() == 120);
                 REQUIRE(t->p_mode() == 1);
             }
         }
@@ -83,15 +83,15 @@ TEST_CASE("ui.radio", "[ui.radio]")
     {
         TestRadio t("ui.radio");
         REQUIRE(t->p_numItems() == 8);
-        REQUIRE(t->width() == 127);
+        REQUIRE(t->width() == 120);
         REQUIRE(t->height() == 15);
         REQUIRE_UI_FLOAT_PROPERTY(t, "nitems", 8);
 
         t->setProperty(gensym("nitems"), LF(-1));
 
         REQUIRE(t->p_numItems() == 2);
-        REQUIRE(t->width() == 127);
-        REQUIRE(t->height() == 63);
+        REQUIRE(t->width() == 120);
+        REQUIRE(t->height() == 60);
 
         t->setProperty(gensym("nitems"), LF(0.f));
         REQUIRE(t->p_numItems() == 2);
@@ -101,7 +101,7 @@ TEST_CASE("ui.radio", "[ui.radio]")
         t->setProperty(gensym("nitems"), LF(129));
 
         REQUIRE(t->p_numItems() == 128);
-        REQUIRE(t->width() == 1151);
+        REQUIRE(t->width() == 1024);
         REQUIRE(t->height() == 8);
 
         t->setProperty(gensym("nitems"), LF(128));

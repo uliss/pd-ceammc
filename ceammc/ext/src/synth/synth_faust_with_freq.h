@@ -22,17 +22,21 @@ using namespace ceammc;
 
 template <class T>
 class SynthWithFreq : public T {
+public:
     static t_symbol* PROP_PITCH;
     static t_symbol* PROP_GATE;
+    static t_symbol* PROP_GAIN;
+    static t_symbol* SYM_NOTE;
 
-    faust::UIProperty* pitch_;
-    faust::UIProperty* gate_;
+protected:
+    ceammc::faust::UIProperty* pitch_;
+    ceammc::faust::UIProperty* gate_;
 
 public:
     SynthWithFreq(const PdArgs& args)
         : T(args)
-        , pitch_(static_cast<faust::UIProperty*>(T::property(PROP_PITCH)))
-        , gate_(static_cast<faust::UIProperty*>(T::property(PROP_GATE)))
+        , pitch_(static_cast<ceammc::faust::UIProperty*>(T::property(PROP_PITCH)))
+        , gate_(static_cast<ceammc::faust::UIProperty*>(T::property(PROP_GATE)))
     {
         if (!pitch_ || !gate_)
             OBJ_ERR << "dev error: @pitch and @gate property not found";
@@ -45,6 +49,27 @@ public:
                     return true;
                 })
                 ->setUnits(PropValueUnits::HZ);
+    }
+
+    void onList(const AtomList& lst) override
+    {
+        if (lst.size() != 2) {
+            OBJ_ERR << "list: NOTE VEL expected, got: " << lst;
+            return;
+        }
+
+        m_note(SYM_NOTE, lst.view());
+    }
+
+    const char* annotateInlet(size_t) const override
+    {
+        return "list: NOTE VEL\n"
+               "note NOTE VEL";
+    }
+
+    const char* annotateOutlet(size_t) const override
+    {
+        return "synth output";
     }
 
     void m_note(t_symbol* s, const AtomListView& lv)
@@ -82,6 +107,8 @@ public:
     {
         PROP_PITCH = gensym("@pitch");
         PROP_GATE = gensym("@gate");
+        PROP_GAIN = gensym("@gain");
+        SYM_NOTE = gensym("note");
     }
 };
 
@@ -89,5 +116,9 @@ template <class T>
 t_symbol* SynthWithFreq<T>::PROP_PITCH;
 template <class T>
 t_symbol* SynthWithFreq<T>::PROP_GATE;
+template <class T>
+t_symbol* SynthWithFreq<T>::PROP_GAIN;
+template <class T>
+t_symbol* SynthWithFreq<T>::SYM_NOTE;
 
 #endif // SYNTH_FAUST_WITH_FREQ_H

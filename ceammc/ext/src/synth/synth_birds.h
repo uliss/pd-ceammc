@@ -1,8 +1,8 @@
 /* ------------------------------------------------------------
 author: "Pierre Cochard"
 name: "synth.birds"
-Code generated with Faust 2.28.6 (https://faust.grame.fr)
-Compilation options: -lang cpp -scal -ftz 0
+Code generated with Faust 2.30.12 (https://faust.grame.fr)
+Compilation options: -lang cpp -es 1 -scal -ftz 0
 ------------------------------------------------------------ */
 
 #ifndef  __synth_birds_H__
@@ -90,7 +90,7 @@ class synth_birds_dsp {
          */
         virtual void buildUserInterface(UI* ui_interface) = 0;
     
-        /* Returns the sample rate currently used by the instance */
+        /* Return the sample rate currently used by the instance */
         virtual int getSampleRate() = 0;
     
         /**
@@ -98,28 +98,28 @@ class synth_birds_dsp {
          * - static class 'classInit': static tables initialization
          * - 'instanceInit': constants and instance state initialization
          *
-         * @param sample_rate - the sampling rate in Hertz
+         * @param sample_rate - the sampling rate in Hz
          */
         virtual void init(int sample_rate) = 0;
 
         /**
          * Init instance state
          *
-         * @param sample_rate - the sampling rate in Hertz
+         * @param sample_rate - the sampling rate in Hz
          */
         virtual void instanceInit(int sample_rate) = 0;
-
+    
         /**
          * Init instance constant state
          *
-         * @param sample_rate - the sampling rate in Hertz
+         * @param sample_rate - the sampling rate in Hz
          */
         virtual void instanceConstants(int sample_rate) = 0;
     
         /* Init default control parameters values */
         virtual void instanceResetUserInterface() = 0;
     
-        /* Init instance state (delay lines...) */
+        /* Init instance state (like delay lines...) but keep the control parameter values */
         virtual void instanceClear() = 0;
  
         /**
@@ -192,7 +192,8 @@ class decorator_dsp : public synth_birds_dsp {
 };
 
 /**
- * DSP factory class.
+ * DSP factory class, used with LLVM and Interpreter backends
+ * to create DSP instances from a compiled DSP program.
  */
 
 class dsp_factory {
@@ -346,11 +347,13 @@ struct UI : public UIReal<FAUSTFLOAT>
 #ifndef __meta__
 #define __meta__
 
+/**
+ The base class of Meta handler to be used in synth_birds_dsp::metadata(Meta* m) method to retrieve (key, value) metadata.
+ */
 struct Meta
 {
     virtual ~Meta() {};
     virtual void declare(const char* key, const char* value) = 0;
-    
 };
 
 #endif
@@ -496,6 +499,7 @@ struct synth_birds : public synth_birds_dsp {
 
 #include <algorithm>
 #include <cmath>
+#include <cstdint>
 #include <math.h>
 
 class synth_birdsSIG0 {
@@ -538,14 +542,12 @@ class synth_birdsSIG0 {
 	}
 	
 	void instanceInitsynth_birdsSIG0(int sample_rate) {
-		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l16 = 0; (l16 < 2); l16 = (l16 + 1)) {
 			iRec14[l16] = 0;
 		}
 	}
 	
 	void fillsynth_birdsSIG0(int count, float* table) {
-		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int i = 0; (i < count); i = (i + 1)) {
 			iRec14[0] = (iRec14[1] + 1);
 			table[i] = std::sin((9.58738019e-05f * float((iRec14[0] + -1))));
@@ -580,12 +582,9 @@ class synth_birds : public synth_birds_dsp {
  private:
 	
 	int fSampleRate;
-	float fConst0;
-	float fConst1;
 	float fConst2;
 	float fConst3;
 	int iVec0[3];
-	float fConst4;
 	float fConst5;
 	float fConst6;
 	float fConst7;
@@ -699,8 +698,9 @@ class synth_birds : public synth_birds_dsp {
 		m->declare("basics.lib/version", "0.1");
 		m->declare("ceammc_ui.lib/name", "CEAMMC faust default UI elements");
 		m->declare("ceammc_ui.lib/version", "0.1.2");
+		m->declare("compile_options", "-lang cpp -es 1 -scal -ftz 0");
 		m->declare("filename", "synth_birds.dsp");
-		m->declare("filters.lib/lowpass0_highpass1", "MIT-style STK-4.3 license");
+		m->declare("filters.lib/lowpass0_highpass1", "Copyright (C) 2003-2019 by Julius O. Smith III <jos@ccrma.stanford.edu>");
 		m->declare("filters.lib/lowpass0_highpass1:author", "Julius O. Smith III");
 		m->declare("filters.lib/lowpass:author", "Julius O. Smith III");
 		m->declare("filters.lib/lowpass:copyright", "Copyright (C) 2003-2019 by Julius O. Smith III <jos@ccrma.stanford.edu>");
@@ -715,6 +715,7 @@ class synth_birds : public synth_birds_dsp {
 		m->declare("filters.lib/tf1s:author", "Julius O. Smith III");
 		m->declare("filters.lib/tf1s:copyright", "Copyright (C) 2003-2019 by Julius O. Smith III <jos@ccrma.stanford.edu>");
 		m->declare("filters.lib/tf1s:license", "MIT-style STK-4.3 license");
+		m->declare("filters.lib/version", "0.3");
 		m->declare("maths.lib/author", "GRAME");
 		m->declare("maths.lib/copyright", "GRAME");
 		m->declare("maths.lib/license", "LGPL with exception");
@@ -775,11 +776,11 @@ class synth_birds : public synth_birds_dsp {
 	
 	virtual void instanceConstants(int sample_rate) {
 		fSampleRate = sample_rate;
-		fConst0 = std::min<float>(192000.0f, std::max<float>(1.0f, float(fSampleRate)));
-		fConst1 = (1.0f / std::tan((7853.98145f / fConst0)));
+		float fConst0 = std::min<float>(192000.0f, std::max<float>(1.0f, float(fSampleRate)));
+		float fConst1 = (1.0f / std::tan((7853.98145f / fConst0)));
 		fConst2 = (1.0f / (fConst1 + 1.0f));
 		fConst3 = (1.0f - fConst1);
-		fConst4 = (1.0f / std::tan((9424.77832f / fConst0)));
+		float fConst4 = (1.0f / std::tan((9424.77832f / fConst0)));
 		fConst5 = (1.0f / (fConst4 + 1.0f));
 		fConst6 = (1.0f - fConst4);
 		fConst7 = (0.00100000005f * fConst0);
@@ -853,152 +854,115 @@ class synth_birds : public synth_birds_dsp {
 	}
 	
 	virtual void instanceClear() {
-		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l0 = 0; (l0 < 3); l0 = (l0 + 1)) {
 			iVec0[l0] = 0;
 		}
-		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l1 = 0; (l1 < 2); l1 = (l1 + 1)) {
 			fRec8[l1] = 0.0f;
 		}
-		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l2 = 0; (l2 < 2); l2 = (l2 + 1)) {
 			iRec7[l2] = 0;
 		}
-		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l3 = 0; (l3 < 2); l3 = (l3 + 1)) {
 			iRec9[l3] = 0;
 		}
-		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l4 = 0; (l4 < 2); l4 = (l4 + 1)) {
 			fRec10[l4] = 0.0f;
 		}
-		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l5 = 0; (l5 < 2); l5 = (l5 + 1)) {
 			iVec1[l5] = 0;
 		}
-		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l6 = 0; (l6 < 2); l6 = (l6 + 1)) {
 			fRec6[l6] = 0.0f;
 		}
-		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l7 = 0; (l7 < 4); l7 = (l7 + 1)) {
 			fRec11[l7] = 0.0f;
 		}
-		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l8 = 0; (l8 < 2); l8 = (l8 + 1)) {
 			fRec5[l8] = 0.0f;
 		}
-		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l9 = 0; (l9 < 2); l9 = (l9 + 1)) {
 			iVec2[l9] = 0;
 		}
-		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l10 = 0; (l10 < 2); l10 = (l10 + 1)) {
 			iRec4[l10] = 0;
 		}
-		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l11 = 0; (l11 < 4); l11 = (l11 + 1)) {
 			fRec13[l11] = 0.0f;
 		}
-		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l12 = 0; (l12 < 2); l12 = (l12 + 1)) {
 			fRec12[l12] = 0.0f;
 		}
-		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l13 = 0; (l13 < 2); l13 = (l13 + 1)) {
 			iRec3[l13] = 0;
 		}
-		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l14 = 0; (l14 < 2); l14 = (l14 + 1)) {
 			fRec2[l14] = 0.0f;
 		}
-		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l15 = 0; (l15 < 2); l15 = (l15 + 1)) {
 			fRec1[l15] = 0.0f;
 		}
-		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l17 = 0; (l17 < 4); l17 = (l17 + 1)) {
 			fRec17[l17] = 0.0f;
 		}
-		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l18 = 0; (l18 < 2); l18 = (l18 + 1)) {
 			fRec16[l18] = 0.0f;
 		}
-		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l19 = 0; (l19 < 2); l19 = (l19 + 1)) {
 			iRec22[l19] = 0;
 		}
-		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l20 = 0; (l20 < 2); l20 = (l20 + 1)) {
 			fRec21[l20] = 0.0f;
 		}
-		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l21 = 0; (l21 < 2); l21 = (l21 + 1)) {
 			fRec20[l21] = 0.0f;
 		}
-		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l22 = 0; (l22 < 2); l22 = (l22 + 1)) {
 			fRec19[l22] = 0.0f;
 		}
-		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l23 = 0; (l23 < 2); l23 = (l23 + 1)) {
 			fVec3[l23] = 0.0f;
 		}
-		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l24 = 0; (l24 < 2); l24 = (l24 + 1)) {
 			fVec4[l24] = 0.0f;
 		}
 		IOTA = 0;
-		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l25 = 0; (l25 < 4096); l25 = (l25 + 1)) {
 			fVec5[l25] = 0.0f;
 		}
-		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l26 = 0; (l26 < 2); l26 = (l26 + 1)) {
 			fRec18[l26] = 0.0f;
 		}
-		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l27 = 0; (l27 < 2); l27 = (l27 + 1)) {
 			iRec25[l27] = 0;
 		}
-		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l28 = 0; (l28 < 2); l28 = (l28 + 1)) {
 			fRec24[l28] = 0.0f;
 		}
-		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l29 = 0; (l29 < 2); l29 = (l29 + 1)) {
 			fRec23[l29] = 0.0f;
 		}
-		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l30 = 0; (l30 < 2); l30 = (l30 + 1)) {
 			iRec28[l30] = 0;
 		}
-		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l31 = 0; (l31 < 4); l31 = (l31 + 1)) {
 			fRec30[l31] = 0.0f;
 		}
-		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l32 = 0; (l32 < 2); l32 = (l32 + 1)) {
 			fRec29[l32] = 0.0f;
 		}
-		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l33 = 0; (l33 < 2); l33 = (l33 + 1)) {
 			fRec27[l33] = 0.0f;
 		}
-		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l34 = 0; (l34 < 2); l34 = (l34 + 1)) {
 			fRec26[l34] = 0.0f;
 		}
-		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l35 = 0; (l35 < 2); l35 = (l35 + 1)) {
 			fRec15[l35] = 0.0f;
 		}
-		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l36 = 0; (l36 < 2); l36 = (l36 + 1)) {
 			fVec6[l36] = 0.0f;
 		}
-		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l37 = 0; (l37 < 2); l37 = (l37 + 1)) {
 			fRec0[l37] = 0.0f;
 		}
@@ -1043,7 +1007,6 @@ class synth_birds : public synth_birds_dsp {
 		int iSlow1 = int(float(fCheckbox1));
 		float fSlow2 = (0.00100000005f * float(fHslider0));
 		float fSlow3 = (9.99999975e-06f * float(fHslider1));
-		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int i = 0; (i < count); i = (i + 1)) {
 			iVec0[0] = 1;
 			fRec8[0] = (fSlow2 + (0.999000013f * fRec8[1]));
@@ -1142,7 +1105,7 @@ class synth_birds : public synth_birds_dsp {
 			float fTemp62 = (fConst65 * fTemp4);
 			int iTemp63 = (fTemp39 < fTemp62);
 			fRec27[0] = ((0.999000013f * fRec27[1]) + (0.00100000005f * (iTemp41 ? (iTemp45 ? (iTemp48 ? (iTemp51 ? (iTemp53 ? (iTemp55 ? (iTemp57 ? (iTemp59 ? (iTemp61 ? (iTemp63 ? ((iRec28[0] < 0) ? 0.0f : (iTemp63 ? (fConst67 * (fTemp39 / fTemp4)) : 1.0f)) : (iTemp61 ? ((fConst66 * ((0.0f - (fTemp39 - fTemp62)) / fTemp4)) + 1.0f) : 0.0f)) : (iTemp59 ? (fConst64 * ((fTemp42 * (fTemp39 - fTemp60)) / fTemp4)) : fTemp43)) : (iTemp57 ? (fTemp43 + (fConst62 * ((0.0f - (0.00100000005f * (fTemp42 * (fTemp39 - fTemp58)))) / fTemp4))) : 0.0f)) : (iTemp55 ? (fConst60 * ((fTemp39 - fTemp56) / fTemp4)) : 0.433999985f)) : (iTemp53 ? ((fConst58 * (((fTemp39 - fTemp54) * (fTemp43 + -0.433999985f)) / fTemp4)) + 0.433999985f) : fTemp43)) : (iTemp51 ? (fTemp43 + (fConst56 * ((fTemp49 * (fTemp39 - fTemp52)) / fTemp4))) : 1.0f)) : (iTemp48 ? ((fConst54 * ((fTemp46 * (fTemp39 - fTemp50)) / fTemp4)) + 1.0f) : fTemp43)) : (iTemp45 ? (fTemp43 + (fConst52 * (((fTemp39 - fTemp47) * fTemp49) / fTemp4))) : 1.0f)) : (iTemp41 ? ((fConst50 * (((fTemp39 - fTemp44) * fTemp46) / fTemp4)) + 1.0f) : fTemp43)) : ((fTemp39 < (fConst47 * fTemp4)) ? (fTemp43 + (fConst48 * ((0.0f - (0.00100000005f * (fTemp42 * (fTemp39 - fTemp40)))) / fTemp4))) : 0.0f))));
-			fRec26[0] = (0.0f - (fConst5 * ((fConst6 * fRec26[1]) - (fRec27[0] + fRec27[1]))));
+			fRec26[0] = (fConst5 * ((fRec27[0] + fRec27[1]) - (fConst6 * fRec26[1])));
 			float fTemp64 = (fRec15[1] + (fConst27 * ((fTemp15 * ((fConst28 * ((fRec18[0] * fTemp24) * (fRec23[0] + 1.0f))) + 440.0f)) * (fRec26[0] + 1.0f))));
 			fRec15[0] = (fTemp64 - std::floor(fTemp64));
 			float fTemp65 = (65536.0f * fRec15[0]);
@@ -1162,14 +1125,12 @@ class synth_birds : public synth_birds_dsp {
 			fRec10[1] = fRec10[0];
 			iVec1[1] = iVec1[0];
 			fRec6[1] = fRec6[0];
-			#pragma clang loop vectorize(enable) interleave(enable)
 			for (int j0 = 3; (j0 > 0); j0 = (j0 - 1)) {
 				fRec11[j0] = fRec11[(j0 - 1)];
 			}
 			fRec5[1] = fRec5[0];
 			iVec2[1] = iVec2[0];
 			iRec4[1] = iRec4[0];
-			#pragma clang loop vectorize(enable) interleave(enable)
 			for (int j1 = 3; (j1 > 0); j1 = (j1 - 1)) {
 				fRec13[j1] = fRec13[(j1 - 1)];
 			}
@@ -1177,7 +1138,6 @@ class synth_birds : public synth_birds_dsp {
 			iRec3[1] = iRec3[0];
 			fRec2[1] = fRec2[0];
 			fRec1[1] = fRec1[0];
-			#pragma clang loop vectorize(enable) interleave(enable)
 			for (int j2 = 3; (j2 > 0); j2 = (j2 - 1)) {
 				fRec17[j2] = fRec17[(j2 - 1)];
 			}
@@ -1194,7 +1154,6 @@ class synth_birds : public synth_birds_dsp {
 			fRec24[1] = fRec24[0];
 			fRec23[1] = fRec23[0];
 			iRec28[1] = iRec28[0];
-			#pragma clang loop vectorize(enable) interleave(enable)
 			for (int j3 = 3; (j3 > 0); j3 = (j3 - 1)) {
 				fRec30[j3] = fRec30[(j3 - 1)];
 			}

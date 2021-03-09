@@ -93,17 +93,6 @@ bool fileExists( std::string filename )
     }
 }
 
-void fixLibDependency(string old_lib_path, string new_lib_name, string target_file_name)
-{
-
-    string command = string("install_name_tool -change ") + old_lib_path + string(" ") + Settings::inside_lib_path() + new_lib_name + string(" ") + target_file_name;
-    if( systemp( command ) != 0 )
-    {
-        cerr << "\n\nError : An error occured while trying to fix depency of " << old_lib_path << " in " << target_file_name << endl;
-        exit(1);
-    }
-}
-
 void copyFile(string from, string to)
 {
     bool override = Settings::canOverwriteFiles();
@@ -111,23 +100,23 @@ void copyFile(string from, string to)
     {
         if(fileExists( to ))
         {
-            cerr << "\n\nError : File " << to.c_str() << " already exists. Remove it or enable overriding." << endl;
+            cerr << "\n\nError : File " << to.c_str() << " already exists. Remove it or enable overwriting." << endl;
             exit(1);
         }
     }
-    
+
     string override_permission = string(override ? "-f " : "-n ");
         
     // copy file to local directory
-    string command = string("cp ") + override_permission + from + string(" ") + to;
-    if( systemp( command ) != 0 )
+    string command = string("cp ") + override_permission + string("\"") + from + string("\" \"") + to + string("\"");
+    if( from != to && systemp( command ) != 0 )
     {
         cerr << "\n\nError : An error occured while trying to copy file " << from << " to " << to << endl;
         exit(1);
     }
     
     // give it write permission
-    string command2 = string("chmod +w ") + to;
+    string command2 = string("chmod +w \"") + to + "\"";
     if( systemp( command2 ) != 0 )
     {
         cerr << "\n\nError : An error occured while trying to set write permissions on file " << to << endl;
@@ -176,4 +165,55 @@ int systemp(std::string& cmd)
 {
     std::cout << "    " << cmd.c_str() << std::endl;
     return system(cmd.c_str());
+}
+
+void changeInstallName(const std::string& binary_file, const std::string& old_name, const std::string& new_name)
+{
+    std::string command = std::string("install_name_tool -change \"") + old_name + "\" \"" + new_name + "\" \"" + binary_file + "\"";
+    if( systemp( command ) != 0 )
+    {
+        std::cerr << "\n\nError: An error occured while trying to fix dependencies of " << binary_file << std::endl;
+        exit(1);
+    }
+}
+
+std::string getUserInputDirForFile(const std::string& filename)
+{
+    const int searchPathAmount = Settings::searchPathAmount();
+    for(int n=0; n<searchPathAmount; n++)
+    {
+        auto searchPath = Settings::searchPath(n);
+        if( !searchPath.empty() && searchPath[ searchPath.size()-1 ] != '/' ) searchPath += "/";
+
+        if( !fileExists( searchPath+filename ) ) {
+            continue;
+        } else {
+            std::cerr << (searchPath+filename) << " was found. /!\\ DYLIBBUNDLER MAY NOT CORRECTLY HANDLE THIS DEPENDENCY: Manually check the executable with 'otool -L'" << std::endl;
+            return searchPath;
+        }
+    }
+
+    while (true)
+    {
+        std::cout << "Please specify the directory where this library is located (or enter 'quit' to abort): ";  fflush(stdout);
+
+        std::string prefix;
+        std::cin >> prefix;
+        std::cout << std::endl;
+
+        if(prefix.compare("quit")==0) exit(1);
+
+        if( !prefix.empty() && prefix[ prefix.size()-1 ] != '/' ) prefix += "/";
+
+        if( !fileExists( prefix+filename ) )
+        {
+            std::cerr << (prefix+filename) << " does not exist. Try again" << std::endl;
+            continue;
+        }
+        else
+        {
+            std::cerr << (prefix+filename) << " was found. /!\\ DYLIBBUNDLER MAY NOT CORRECTLY HANDLE THIS DEPENDENCY: Manually check the executable with 'otool -L'" << std::endl;
+            return prefix;
+        }
+    }
 }

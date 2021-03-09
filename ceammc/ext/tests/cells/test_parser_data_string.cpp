@@ -20,7 +20,7 @@
 #include "test_base.h"
 #include "test_common.h"
 
-using namespace ceammc;
+using namespace ceammc::ds;
 
 using ML = DataTypeMList;
 using DD = DataTypeDict;

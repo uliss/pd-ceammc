@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="midi.sustain">
+        <title>midi.sustain</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>sustain pedal emulation</description>
+            <license>GPL3 or later</license>
+            <library>ceammc</library>
+            <category>midi</category>
+            <keywords>midi sustain</keywords>
+            <since>0.9.3</since>
+        </meta>
+        <info>
+            <par>when pedal is on: ignore all note offs</par>
+            <par>when pedal is off: output all sustained notes off</par>
+        </info>
+        <arguments>
+            <argument name="STATE" type="int" minvalue="0" maxvalue="1">initial state</argument>
+        </arguments>
+        <properties>
+            <property name="@on" type="int" enum="0 1" default="0">pedal state</property>
+            <property name="@ctlin" type="int" enum="0 1" default="0">listen to CTL64 from MIDI
+            controller</property>
+        </properties>
+        <inlets>
+            <inlet>
+                <xinfo on="list">MIDI input: NOTE VEL</xinfo>
+            </inlet>
+            <inlet>
+                <xinfo on="float">turn sustain on/off (1/0)</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet>MIDI output: NOTE VEL</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[ui.hk 24]
+|
+|
+|
+|
+|         [T]
+|         |.
+[midi.sustain]
+|
+[ui.hk 24]
+|       |
+|       |
+|       |
+|       |
+[print] [ui.dt]
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

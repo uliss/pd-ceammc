@@ -503,6 +503,7 @@ namespace protocol {
             obj->addMethod("store", &T::m_store);
             obj->addMethod("load", &T::m_load);
             obj->addMethod("update", &T::m_update);
+            obj->addMethod("interp", &T::m_interp);
         }
     };
 }

@@ -13,6 +13,7 @@
             <keywords>reject functional</keywords>
             <since>0.3</since>
             <aliases>
+                <alias>ceammc/reject</alias>
                 <alias>reject</alias>
                 <alias>flow.!</alias>
             </aliases>

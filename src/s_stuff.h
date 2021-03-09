@@ -45,7 +45,7 @@ extern char *sys_guicmd;
 EXTERN int sys_nearestfontsize(int fontsize);
 
 extern int sys_defaultfont;
-EXTERN t_symbol *sys_libdir;    /* library directory for auxilliary files */
+EXTERN t_symbol *sys_libdir;    /* library directory for auxiliary files */
 
 /* s_loader.c */
 
@@ -199,7 +199,7 @@ void sys_setalarm(int microsec);
 #define API_AUDIOUNIT 7
 #define API_ESD 8           /* no idea what this was, probably gone now */
 #define API_DUMMY 9
-#define API_COREMIDI 10
+#define API_COREMIDI 10     /* ceammc */
 
     /* figure out which API should be the default.  The one we judge most
     likely to offer a working device takes precedence so that if you

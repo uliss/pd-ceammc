@@ -161,7 +161,9 @@ void ListWalk::current()
         return;
     }
 
-    if (lst_->value().empty()) {
+    const auto& l = lst_->value();
+
+    if (l.empty()) {
         OBJ_ERR << "empty list";
         return;
     }
@@ -171,23 +173,32 @@ void ListWalk::current()
         if (single_done_)
             return;
 
-        listTo(0, lst_->value().slice(current_pos_, current_pos_ + length_ - 1));
+        listTo(0, l.slice(current_pos_, current_pos_ + length_ - 1));
     }
     //! clip
     else if (walk_mode_->value() == SYM_CLIP) {
-        listTo(0, list::sliceClip(lst_->value(), current_pos_, length_));
+        if (length_ == 1)
+            atomTo(0, *l.clipAt(current_pos_));
+        else
+            listTo(0, list::sliceClip(l, current_pos_, length_));
     }
     //! wrap/loop
     else if (walk_mode_->value() == SYM_WRAP) {
-        listTo(0, list::sliceWrap(lst_->value(), current_pos_, length_));
+        if (length_ == 1)
+            atomTo(0, *l.wrapAt(current_pos_));
+        else
+            listTo(0, list::sliceWrap(l, current_pos_, length_));
     }
     //! fold
     else if (walk_mode_->value() == SYM_FOLD) {
-        listTo(0, list::sliceFold(lst_->value(), current_pos_, length_));
+        if (length_ == 1)
+            atomTo(0, *l.foldAt(current_pos_));
+        else
+            listTo(0, list::sliceFold(l, current_pos_, length_));
     }
 
     // last element
-    if ((current_pos_ + 1) == lst_->value().size())
+    if ((current_pos_ + 1) == l.size())
         bangTo(1);
 }
 

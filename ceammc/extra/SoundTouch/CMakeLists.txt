@@ -15,21 +15,22 @@ set(SOUNDTOUCH_SRC
     soundtouch/source/SoundTouch/cpu_detect_x86.cpp
 )
 
+add_library(soundtouch STATIC ${SOUNDTOUCH_SRC})
+target_include_directories(soundtouch PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/soundtouch/include)
+target_compile_definitions(soundtouch PRIVATE -DSOUNDTOUCH_PREVENT_CLICK_AT_RATE_CROSSOVER)
+
 target_architecture(_TARGET_ARCH)
 if("${_TARGET_ARCH}" STREQUAL "x86_64")
-    list(APPEND SOUNDTOUCH_SRC soundtouch/source/SoundTouch/sse_optimized.cpp)
+    target_sources(soundtouch PRIVATE soundtouch/source/SoundTouch/sse_optimized.cpp)
 elseif("${_TARGET_ARCH}" STREQUAL "i386")
-    add_definitions(-DSOUNDTOUCH_DISABLE_X86_OPTIMIZATIONS)
+    target_compile_definitions(soundtouch PRIVATE -DSOUNDTOUCH_DISABLE_X86_OPTIMIZATIONS)
 else()
-    add_definitions(-DSOUNDTOUCH_DISABLE_X86_OPTIMIZATIONS)
+    target_compile_definitions(soundtouch PRIVATE -DSOUNDTOUCH_DISABLE_X86_OPTIMIZATIONS)
 endif()
 
 if(WIN32 OR MSYS)
-    add_definitions(-DSOUNDTOUCH_DISABLE_X86_OPTIMIZATIONS)
+    target_compile_definitions(soundtouch PRIVATE -DSOUNDTOUCH_DISABLE_X86_OPTIMIZATIONS)
 endif()
-
-include_directories(${CMAKE_CURRENT_SOURCE_DIR}/soundtouch/include)
-add_library(soundtouch STATIC ${SOUNDTOUCH_SRC})
 
 if(UNIX)
     set_target_properties(soundtouch PROPERTIES COMPILE_FLAGS "-fPIC")

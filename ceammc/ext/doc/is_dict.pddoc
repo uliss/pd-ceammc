@@ -15,6 +15,9 @@
             <also>
                 <see>data.dict</see>
             </also>
+            <aliases>
+                <alias>ceammc/is_dict</alias>
+            </aliases>
         </meta>
         <inlets>
             <inlet>

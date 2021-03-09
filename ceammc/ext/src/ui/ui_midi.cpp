@@ -35,10 +35,12 @@ UIMidi::UIMidi()
     , prop_text_color(rgba_black)
     , prop_hex(0)
 {
+    initPopupMenu("main", { { _("Midi Settings"), [](const t_pt&) { openMidiSettingsDialog(); } } });
+
     createOutlet();
 }
 
-void UIMidi::init(t_symbol* name, const AtomList& args, bool usePresets)
+void UIMidi::init(t_symbol* name, const AtomListView& args, bool usePresets)
 {
     UIObject::init(name, args, usePresets);
 
@@ -246,6 +248,11 @@ void UIMidi::onPolyTouch(const AtomListView& lv)
     anyTo(0, SYM_POLYTOUCH, lv);
 }
 
+void UIMidi::openMidiSettingsDialog()
+{
+    sys_gui("pdsend \"pd midi-properties\"\n");
+}
+
 void UIMidi::setup()
 {
     SYM_NOTEIN = gensym("#notein");
@@ -260,6 +267,7 @@ void UIMidi::setup()
     obj.useList();
     obj.setDefaultSize(180, 15);
     obj.hideLabel();
+    obj.usePopup();
     obj.hideFontProps();
 
     obj.addProperty(PROP_TEXT_COLOR, _("Text Color"), DEFAULT_TEXT_COLOR, &UIMidi::prop_text_color);

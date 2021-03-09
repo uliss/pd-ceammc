@@ -19,7 +19,8 @@
             <since>0.4</since>
         </meta>
         <properties>
-            <property name="@from" minvalue="0" type="int" default="0">starting args index</property>
+            <property name="@from" minvalue="0" type="int" default="0">starting args
+            index</property>
         </properties>
         <inlets>
             <inlet>

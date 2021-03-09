@@ -13,6 +13,7 @@
 #include "flow_interval.h"
 #include "flow_less.h"
 #include "flow_less_eq.h"
+#include "flow_list2many.h"
 #include "flow_loop.h"
 #include "flow_mem.h"
 #include "flow_multiplex.h"
@@ -70,6 +71,7 @@ void ceammc_flow_setup()
     setup_flow_interval();
     setup_flow_less();
     setup_flow_less_eq();
+    setup_flow_list2many();
     setup_flow_ring();
     setup_flow_loop();
     setup_flow_match();

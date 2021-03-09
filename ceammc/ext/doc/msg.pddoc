@@ -12,7 +12,10 @@
             <category>msg</category>
             <keywords>msg message</keywords>
             <aliases>
+                <alias>ceammc/msg</alias>
+                <alias>ceammc/m</alias>
                 <alias>m</alias>
+                <alias>ceammc/prepend</alias>
                 <alias>prepend</alias>
             </aliases>
             <since>0.1</since>

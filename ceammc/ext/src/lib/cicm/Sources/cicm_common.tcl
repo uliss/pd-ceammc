@@ -154,6 +154,314 @@ if { [catch {package require tooltip} ] } {
 namespace eval ::ceammc {
 namespace eval ui {
 
+# border
+proc border_tag { id }   { return "bd${id}" }
+proc border_w { w zoom } { expr $w * $zoom }
+proc border_h { h zoom } { expr $h * $zoom }
+
+proc border_x { zoom } { expr ($zoom == 1) ? 0 : 1 }
+proc border_y { zoom } { expr ($zoom == 1) ? 0 : 1 }
+
+proc border_draw { cnv id w h zoom color } {
+    set tag [border_tag $id]
+    set c [widget_canvas $cnv $id]
+    set tags [$c find withtag $tag]
+    # draw params
+
+    set x [border_x $zoom]
+    set y [border_y $zoom]
+    set w [border_w $w $zoom]
+    set h [border_h $h $zoom]
+
+    if { [llength $tags] == 0 } {
+        $c create rectangle $x $y $w $h -outline $color -width $zoom -tags $tag
+    } else {
+        set item [lindex $tags 0]
+        $c coords $item $x $y $w $h
+        $c itemconfigure $item -outline $color -width $zoom
+    }
+
+    $c raise $tag
+}
+
+# xlets
+proc inlets_tag { id } { return "i${id}" }
+proc inlets_tag_idx { id idx } { return "i${id}#${idx}" }
+
+proc inlets_delete { cnv id } {
+    set c [widget_canvas $cnv $id]
+    $c delete [inlets_tag $id]
+}
+
+proc xlet_w { zoom } { expr 6*$zoom + 1 }
+
+proc xlet_h { type zoom } {
+    if { $type == "_" } { expr $zoom } { expr ($zoom==1) ? 2 : 4 }
+}
+
+proc xlet_color { type } {
+    if { $type == "_" } { return "#000000" } { return "#2200AA" }
+}
+
+proc xlet_x { w i n zoom } {
+    set ww [expr $w - [xlet_w $zoom]]
+    return [expr round(($ww/($n-1.0)) * $i)]
+}
+
+proc inlet_draw { cnv id x y zoom type {idx 0} } {
+    set c [widget_canvas $cnv $id]
+    set x1 [expr $x + [xlet_w $zoom]]
+    set y1 [expr $y + [xlet_h $type $zoom]]
+    set color [xlet_color $type]
+
+    set tags [inlets_tag $id]
+    lappend tags [inlets_tag_idx $id $idx]
+
+    $c create rectangle $x $y $x1 $y1 -fill $color -outline $color -width 1 -tags $tags
+    $c raise $tags
+}
+
+proc inlets_draw { cnv id w h zoom str } {
+    inlets_delete $cnv $id
+
+    set c [widget_canvas $cnv $id]
+    set w [border_w $w $zoom]
+    set h [border_h $h $zoom]
+
+    set n [string length $str]
+    if { $n == 1 } {
+        inlet_draw $cnv $id 0 0 $zoom $str 0
+    } elseif { $n > 1 } {
+        set i 0
+        foreach inlet [split $str {}] {
+            set x [xlet_x $w $i $n $zoom]
+            inlet_draw $cnv $id $x 0 $zoom $inlet $i
+            incr i
+        }
+    }
+}
+
+proc inlet_tooltip { cnv id idx str } {
+    set c [widget_canvas $cnv $id]
+    set win [widget_window $cnv $id]
+    set tag [inlets_tag_idx $id $idx]
+    xlet_tooltip::create $c $win $cnv $tag 1 $str
+}
+
+proc outlets_tag { id } { return "o${id}" }
+proc outlets_tag_idx { id idx } { return "o${id}#${idx}" }
+
+proc outlets_delete { cnv id } {
+    set c [widget_canvas $cnv $id]
+    $c delete [outlets_tag $id]
+}
+
+proc outlet_tooltip { cnv id idx str } {
+    set c [widget_canvas $cnv $id]
+    set win [widget_window $cnv $id]
+    set tag [outlets_tag_idx $id $idx]
+    xlet_tooltip::create $c $win $cnv $tag 0 $str
+}
+
+proc outlet_draw { cnv id x y w h zoom type {idx 0} } {
+    set c [widget_canvas $cnv $id]
+    set x1 [expr $x + [xlet_w $zoom]]
+    set y0  [expr $h - [xlet_h $type $zoom]]
+    set y1 [expr $h]
+    set color [xlet_color $type]
+
+    set tags [outlets_tag $id]
+    lappend tags [outlets_tag_idx $id $idx]
+
+    $c create rectangle $x $y0 $x1 $y1 -fill $color -outline $color -width 1 -tags $tags
+    $c raise $tags
+}
+
+proc outlets_draw { cnv id w h zoom str } {
+    outlets_delete $cnv $id
+
+    set c [widget_canvas $cnv $id]
+    set w [border_w $w $zoom]
+    set h [border_h $h $zoom]
+
+    set n [string length $str]
+    if { $n == 1 } {
+        outlet_draw $cnv $id 0 0 $w $h $zoom $str 0
+    } elseif { $n > 1 } {
+        set i 0
+        foreach inlet [split $str {}] {
+            set x [xlet_x $w $i $n $zoom]
+            outlet_draw $cnv $id $x 0 $w $h $zoom $inlet $i
+            incr i
+        }
+    }
+}
+
+# widget
+proc widget_canvas { cnv id } {
+    return "${cnv}.ecanvas${id}"
+}
+
+proc widget_window { cnv id } {
+    return "${cnv}.ewindow${id}"
+}
+
+proc widget_w   { w zoom } { expr $w * $zoom + 1 }
+proc widget_h   { h zoom } { expr $h * $zoom + 1 }
+proc widget_tag { id } { return "${id}_#all" }
+
+proc create_widget { id cnv w h zoom } {
+    namespace eval "ebox$id" {}
+    destroy $cnv
+
+    set w [widget_w $w $zoom]
+    set h [widget_h $h $zoom]
+
+    canvas $cnv -width $w -height $h -bd 0 \
+        -highlightthickness 0 -insertborderwidth 0 \
+        -state normal -takefocus 1 -insertwidth 0 -confine 0
+}
+
+proc create_window { cnv id x y w h zoom } {
+    set win [widget_window $cnv $id]
+    set c [widget_canvas $cnv $id]
+    set w [widget_w $w $zoom]
+    set h [widget_h $h $zoom]
+
+    $cnv create window $x $y -anchor nw -window $c -tags $win -width $w -height $h
+}
+
+proc widget_resize { cnv id w h zoom } {
+    set win [widget_window $cnv $id]
+
+    $cnv itemconfigure $win \
+        -width [widget_w $w $zoom] \
+        -height [widget_h $h $zoom]
+
+    # update border, it should exists
+    set c [widget_canvas $cnv $id]
+    set bd [border_tag $id]
+    set x [border_x $zoom]
+    set y [border_y $zoom]
+    set w [border_w $w $zoom]
+    set h [border_h $h $zoom]
+
+    $c coords $bd $x $y $w $h
+}
+
+proc widget_pos { cnv id x y } {
+    set win [widget_window $cnv $id]
+    $cnv coords $win $x $y
+}
+
+proc widget_move { cnv id x y } {
+    set win [widget_window $cnv $id]
+    $cnv move $win $x $y
+}
+
+proc widget_select { cnv id color } {
+    set c [widget_canvas $cnv $id]
+    set tag [border_tag $id]
+    $c itemconfigure $tag -outline $color
+}
+
+proc widget_lower { cnv id } {
+    lower [widget_canvas $cnv $id]
+}
+
+proc widget_raise { cnv id } {
+    raise [widget_canvas $cnv $id]
+}
+
+proc widget_focus { cnv id } {
+    focus [widget_canvas $cnv $id]
+}
+
+proc widget_delete { cnv id } {
+    destroy %s [widget_canvas $cnv $id]
+}
+
+proc widget_bg { cnv id color } {
+    set c [widget_canvas $cnv $id]
+    $c configure -bg $color
+}
+
+proc label_tag { id } { return "${id}_lbl" }
+proc label_makefont { font size } { return "$font $size roman normal" }
+
+proc label_delete { cnv id inner } {
+    set t [label_tag $id]
+    if { $inner == 1 } {
+        set c [widget_canvas $cnv $id]
+        $c delete $t
+    } else {
+        $cnv delete $t
+    }
+}
+
+proc label_canvas { cnv id inner } {
+    if { $inner == 1 } {
+        return [widget_canvas $cnv $id]
+    } else { return $cnv }
+}
+
+proc label_create { cnv id x y inner anchor align font fontsize color text } {
+    set t [label_tag $id]
+    set all [widget_tag $id]
+    set c [label_canvas $cnv $id $inner]
+
+    $c create text $x $y -anchor $anchor -justify $align \
+        -fill $color -font [label_makefont $font $fontsize] \
+        -text "$text" -tags $t
+}
+
+proc label_pos { cnv id x y inner anchor align } {
+    set t [label_tag $id]
+    set c [label_canvas $cnv $id $inner]
+
+    $c coords $t $x $y
+    $c itemconfigure $t -anchor $anchor -justify $align
+}
+
+proc label_font { cnv id inner font fontsize } {
+    set t [label_tag $id]
+    set c [label_canvas $cnv $id $inner]
+    $c itemconfigure $t -font [label_makefont $font $fontsize]
+}
+
+proc label_color { cnv id inner color } {
+    set t [label_tag $id]
+    set c [label_canvas $cnv $id $inner]
+    $c itemconfigure $t -fill $color
+}
+
+proc label_text { cnv id inner text } {
+    set t [label_tag $id]
+    set c [label_canvas $cnv $id $inner]
+    $c itemconfigure $t -text $text
+}
+
+proc label_inner_sync { cnv id inner } {
+    if { $inner == 1 } {
+        set t [label_tag $id]
+        set c [label_canvas $cnv $id $inner]
+        $c raise $t
+    }
+}
+
+proc mouse_events_bind { cnv id target args }  {
+    set c [widget_canvas $cnv $id]
+    foreach name $args {
+        set ev "ceammc_bind_mouse_$name"
+        $ev $c $target
+    }
+}
+
+proc mouse_cursor { cnv id name }  {
+    set c [widget_canvas $cnv $id]
+    $c configure -cursor $name
+}
+
 # from ttk::bindMouseWheel
 proc bindMouseWheel {bindtag callback} {
     switch -- [tk windowingsystem] {

@@ -22,6 +22,12 @@ static const float SCALE_ALPHA_BLEND = 0.7;
 static t_rgba BIND_MIDI_COLOR = hex_to_rgba("#FF3377");
 static t_rgba PICKUP_MIDI_COLOR = hex_to_rgba("#3377FF");
 
+static t_symbol* midi_ctl_sym()
+{
+    static t_symbol* sym = gensym("#ctlin");
+    return sym;
+}
+
 UIGain::UIGain()
     : midi_proxy_(this, &UIGain::onMidiCtrl)
     , prop_color_knob(rgba_blue)
@@ -145,7 +151,7 @@ void UIGain::output()
     send(dbValue());
 }
 
-void UIGain::init(t_symbol* name, const AtomList& args, bool usePresets)
+void UIGain::init(t_symbol* name, const AtomListView& args, bool usePresets)
 {
     UIDspObject::init(name, args, usePresets);
 
@@ -156,7 +162,7 @@ void UIGain::init(t_symbol* name, const AtomList& args, bool usePresets)
 
     // if listen MIDI
     if (prop_midi_ctl > 0) {
-        midi_proxy_.bind(gensym("#ctlin"));
+        midi_proxy_.bind(midi_ctl_sym());
 
         // init pickup
         if (prop_pickup_midi) {
@@ -203,6 +209,23 @@ void UIGain::onPropChange(t_symbol* prop_name)
 
     // recalc scale color
     prop_color_scale = rgba_color_sum(&prop_color_background, &prop_color_knob, SCALE_ALPHA_BLEND);
+
+    if (prop_name == gensym("midi_control")) {
+        if (prop_midi_ctl != 0) {
+            // info
+            std::ostringstream ss;
+            ss << "binded to MIDI ctl #"
+               << prop_midi_ctl
+               << (prop_midi_chn == 0 ? " on all channels" : " on channel: ");
+
+            if (prop_midi_chn > 0)
+                ss << prop_midi_chn;
+
+            UI_DBG << ss.str();
+            midi_proxy_.bind(midi_ctl_sym());
+        } else
+            midi_proxy_.unbind();
+    }
 
     // redraw
     bg_layer_.invalidate();
@@ -384,8 +407,7 @@ void UIGain::updateIndicators()
         break;
     }
 
-    ebox_invalidate_border(asEBox());
-    redrawInnerArea();
+    redraw();
 }
 
 bool UIGain::isMidiMatched(int num, int ch) const
@@ -453,6 +475,12 @@ void UIGain::setAmpValue(t_float amp)
 }
 
 void UIGain::loadPreset(size_t idx)
+{
+    setDbValue(PresetStorage::instance().floatValueAt(presetId(), idx, -60));
+    output();
+}
+
+void UIGain::interpPreset(t_float idx)
 {
     setDbValue(PresetStorage::instance().floatValueAt(presetId(), idx, -60));
     output();

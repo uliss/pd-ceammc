@@ -57,7 +57,7 @@
             format</property>
             <property name="@send" type="symbol" default="(null)">send destination</property>
             <property name="@receive" type="symbol" default="(null)">receive source</property>
-            <property name="@size" type="list" default="150 18">element size (width, height
+            <property name="@size" type="list" default="80 18">element size (width, height
             pair)</property>
             <property name="@pinned" type="int" enum="0 1" default="0">pin mode. if 1 - put element
             to the lowest level</property>
@@ -94,7 +94,7 @@
 |            |   |          |         |
 |            |   |          |         |
 |            |   |          |         |
-[ui.display            @display_type 1]
+[ui.dt                                ]
 
 
 ]]>

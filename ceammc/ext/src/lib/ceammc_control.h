@@ -16,6 +16,10 @@
 
 #include "m_pd.h"
 
+#ifndef _USE_MATH_DEFINES
+#define _USE_MATH_DEFINES
+#endif
+
 #include <cmath>
 #include <limits>
 
@@ -38,5 +42,60 @@ public:
         return smooth_;
     }
 };
+
+namespace control {
+    template <typename FloatType>
+    struct NoFloatFix {
+        static inline FloatType fix(FloatType v) { return v; }
+    };
+
+    template <typename FloatType>
+    struct FloatFix {
+        static inline FloatType fix(FloatType v)
+        {
+            return std::isnormal(v) ? v : 0;
+        }
+    };
+
+    template <typename FloatType, typename ValueFix = FloatFix<FloatType>>
+    class Smooth {
+    public:
+        explicit Smooth(FloatType z = 0)
+            : z_(z)
+        {
+            setSmoothTime(20, 44100);
+        }
+
+        /**
+         * @param ms - smooth type in milliseconds
+         * @param Fs - sampling frequency
+         */
+        Smooth(FloatType ms, FloatType Fs)
+        {
+            setSmoothTime(ms, Fs);
+        }
+
+        void setSmoothTime(FloatType ms, FloatType Fs)
+        {
+            constexpr FloatType two_pi = 2 * M_PI;
+            a_ = std::exp(-two_pi / (ms * 0.001f * Fs));
+        }
+
+        inline FloatType process(FloatType in)
+        {
+            return operator()(in);
+        }
+
+        inline FloatType operator()(FloatType in)
+        {
+            z_ = (ValueFix::fix(in) * (1 - a_)) + (z_ * a_);
+            return z_;
+        }
+
+    private:
+        FloatType a_ { 0 };
+        FloatType z_ { 0 };
+    };
+}
 }
 #endif // CEAMMC_CONTROL_H

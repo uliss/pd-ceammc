@@ -60,7 +60,7 @@ Source: "{#AppRoot}/extra/*"; Excludes: "*.a"; DestDir: "{app}/extra"; Flags: ig
 Source: "{#AppRoot}/doc/*"; DestDir: "{app}/doc"; Flags: ignoreversion recursesubdirs
 Source: "{#AppRoot}/include/*.h"; DestDir: "{app}/include";
 ; Source: "{#AppRoot}/fonts/DejaVuSerif.ttf"; DestDir: "{fonts}"; FontInstall: "DejaVu Serif"; Flags: onlyifdoesntexist uninsneveruninstall
-Source: "{#AppRoot}/fonts/DejaVuSansMono.ttf"; DestDir: "{fonts}"; FontInstall: "DejaVu Sans Mono"; Flags: onlyifdoesntexist uninsneveruninstall
+Source: "{#AppRoot}/fonts/DejaVuSansMono.ttf"; DestDir: "{commonfonts}"; FontInstall: "DejaVu Sans Mono"; Flags: onlyifdoesntexist uninsneveruninstall
 
 ; NOTE: Don't use "Flags: ignoreversion" on any shared system files
 
@@ -74,7 +74,7 @@ Filename: "{app}\README.TXT"; Description: "View the README file"; Flags: postin
 
 [Registry]
 
-Root: HKCR; Subkey: ".pd";                              ValueData: "{#MyAppVerName}";          Flags: uninsdeletevalue; ValueType: string;  ValueName: ""
-Root: HKCR; Subkey: "{#MyAppVerName}";                     ValueData: "Program {#MyAppVerName}";  Flags: uninsdeletekey;   ValueType: string;  ValueName: ""
-Root: HKCR; Subkey: "{#MyAppVerName}\DefaultIcon";         ValueData: "{app}\{#MyAppExeName},1";                        ValueType: string;  ValueName: ""
-Root: HKCR; Subkey: "{#MyAppVerName}\shell\open\command";  ValueData: """{app}\{#MyAppExeName}"" ""%1""";               ValueType: string;  ValueName: ""
+Root: HKCR; Subkey: ".pd";                                 ValueData: "{#MyAppVerName}";         Flags: uninsdeletevalue; ValueType: string;  ValueName: ""
+Root: HKCR; Subkey: "{#MyAppVerName}";                     ValueData: "Program {#MyAppVerName}"; Flags: uninsdeletekey;   ValueType: string;  ValueName: ""
+Root: HKCR; Subkey: "{#MyAppVerName}\DefaultIcon";         ValueData: "{app}\{#MyAppExeName},1";                          ValueType: string;  ValueName: ""
+Root: HKCR; Subkey: "{#MyAppVerName}\shell\open\command";  ValueData: """{app}\{#MyAppExeName}"" ""%1""";                 ValueType: string;  ValueName: ""

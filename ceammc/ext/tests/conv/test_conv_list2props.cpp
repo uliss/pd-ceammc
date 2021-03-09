@@ -14,7 +14,7 @@
 #include "conv_list2props.h"
 #include "test_conv_base.h"
 
-PD_COMPLETE_TEST_SETUP(ConvList2Props, list, to_props)
+PD_COMPLETE_TEST_SETUP(ConvList2Props, conv, list2props)
 
 TEST_CASE("conv.list2props", "[externals]")
 {

@@ -13,6 +13,7 @@
             <keywords>math reciprocal</keywords>
             <since>0.1</since>
             <aliases>
+                <alias>ceammc/1/x</alias>
                 <alias>1/x</alias>
             </aliases>
         </meta>

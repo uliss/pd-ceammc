@@ -17,6 +17,7 @@
                 <see>pan.cos~</see>
             </also>
             <aliases>
+                <alias>ceammc/pan~</alias>
                 <alias>pan~</alias>
             </aliases>
         </meta>

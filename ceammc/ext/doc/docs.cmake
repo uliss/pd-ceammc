@@ -13,6 +13,7 @@ set(DOC_FILES
     array.minmax
     array.p2s
     array.play~
+    array.plot
     array.plot~
     array.resample
     array.rms
@@ -42,6 +43,7 @@ set(DOC_FILES
     conv.amp2dbfs~
     conv.bits2bang
     conv.bits2int
+    conv.bits2note
     conv.bits2pos
     conv.bpm2hz
     conv.bpm2ms
@@ -74,7 +76,9 @@ set(DOC_FILES
     conv.sec2bpm
     conv.sec2samp
     conv.sec2str
+    conv.sig2float~
     conv.str2sec
+    data.copy
     data.fifo
     data.float
     data.dict
@@ -130,6 +134,7 @@ set(DOC_FILES
     flow.interval
     flow.less
     flow.less_eq
+    flow.list2many
     flow.match
     flow.mem
     flow.multiplex
@@ -156,20 +161,27 @@ set(DOC_FILES
     flt.biquad~
     flt.bpf12~
     flt.bpf24~
+    flt.c_apf
     flt.c_bpf~
     flt.c_highshelf~
+    flt.c_hpf
     flt.c_hpf~
     flt.c_lowshelf~
+    flt.c_lpf
     flt.c_lpf~
+    flt.c_notch
     flt.c_notch~
+    flt.c_pole
     flt.c_peak~
     flt.dcblock2~
     flt.dcblock~
     flt.eq10~
-    flt.eq_peak~
     flt.eq_peak_cq~
+    flt.eq_peak~
     flt.fb_comb~
+    flt.fbank5x1~
     flt.ff_comb~
+    flt.freqz
     flt.freqz~
     flt.highshelf~
     flt.hpf12~
@@ -199,6 +211,7 @@ set(DOC_FILES
     fx.freqshift~
     fx.granulator~
     fx.greyhole~
+    fx.infrev~
     fx.looper~
     fx.pitchshift~
     fx.pitchshift_s~
@@ -234,6 +247,7 @@ set(DOC_FILES
     hw.cpu_temp
     hw.display
     hw.kbd_light
+    hw.serial
     is_any
     is_bang
     is_data
@@ -245,6 +259,7 @@ set(DOC_FILES
     is_odd
     is_pointer
     is_symbol
+    lang.faust~
     lfo.+pulse~
     lfo.+saw~
     lfo.+square~
@@ -434,12 +449,16 @@ set(DOC_FILES
     midi.event2note
     midi.event2prg
     midi.file
+    midi.kbd
     midi.key2str
+    midi.oct
     midi.prg2str
+    midi.sustain
     midi.sysex
     midi.track
     midi.tuning
     midi.vramp
+    midi.vrand
     mix~
     mlist.flatten
     modplug~
@@ -458,10 +477,8 @@ set(DOC_FILES
     noise.henon_phase
     noise.henonf
     noise.ikeda
-    noise.jong
     noise.lfreq0~
     noise.lfreq~
-    noise.logistic
     noise.lorenz
     noise.lyapunov
     noise.navier_stokes
@@ -539,6 +556,7 @@ set(DOC_FILES
     seq.arp
     seq.bangs
     seq.counter
+    seq.life
     seq.matrix
     seq.nbangs
     seq.phasor
@@ -548,6 +566,7 @@ set(DOC_FILES
     spat.pan8~
     spat.zita6x8~
     speech.flite
+    speech.flite~
     string
     string.contains
     string.ends_with
@@ -575,9 +594,12 @@ set(DOC_FILES
     synth.dx7~
     synth.eguitar~
     synth.fgrain~
+    synth.harpsichord~
+    synth.glass_harm~
     synth.glitch~
     synth.ks~
     synth.marimba~
+    synth.piano~
     synth.rhodey~
     synth.risset_arp~
     synth.risset_tone~
@@ -592,6 +614,7 @@ set(DOC_FILES
     system.memsize
     system.memused
     system.exec
+    system.exit
     system.screen_size
     tl.bang
     tl.cue
@@ -600,10 +623,14 @@ set(DOC_FILES
     tl.transport
     ui.aview
     ui.bang
+    ui.button
     ui.colorpanel
     ui.display
     ui.dsp~
     ui.env
+    ui.faust~
+    ui.filter
+    ui.filter~
     ui.gain~
     ui.gain2~
     ui.icon

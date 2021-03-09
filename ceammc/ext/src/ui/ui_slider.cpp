@@ -22,7 +22,7 @@ UISlider::UISlider()
 {
 }
 
-void UISlider::init(t_symbol* name, const AtomList& args, bool usePresets)
+void UISlider::init(t_symbol* name, const AtomListView &args, bool usePresets)
 {
     UISingleValue::init(name, args, usePresets);
     if (name == gensym("ui.hsl")) {
@@ -175,9 +175,6 @@ void UISlider::onDblClick(t_object* view, const t_pt& pt, long modifiers)
 
 void UISlider::redrawKnob()
 {
-    if (prop_active_scale)
-        invalidateXlets();
-
     UISingleValue::redrawKnob();
 }
 

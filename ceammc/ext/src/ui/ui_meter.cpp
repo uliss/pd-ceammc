@@ -14,11 +14,13 @@
 #include "ui_meter.h"
 #include "ceammc_convert.h"
 #include "ceammc_ui.h"
+#include "ui_meter.tcl.h"
 
 static const t_float MIN_DB_VALUE = -90;
-static const int NUM_LEDS = 13;
-static const int LED_STEP = 3;
-static const int RMS_BAR_PADDING = 3;
+
+static t_symbol* SYM_HMETER;
+static t_symbol* SYM_VMETER;
+static t_symbol* SYM_VMETER2;
 
 UIMeter::UIMeter()
     : clock_(this, &UIMeter::clockTick)
@@ -28,7 +30,6 @@ UIMeter::UIMeter()
     , prop_color_hot(rgba_red)
     , prop_color_over(rgba_red)
     , prop_interval_ms(50)
-    , led_layer_(asEBox(), gensym("led_layer"))
     , raw_peak_(0)
     , raw_square_sum_(0)
     , num_samples_(0)
@@ -39,6 +40,16 @@ UIMeter::UIMeter()
     , is_horizontal_(false)
 {
     createOutlet();
+}
+
+void UIMeter::init(t_symbol* name, const AtomListView& args, bool usePresets)
+{
+    UIDspObject::init(name, args, usePresets);
+
+    if (name == SYM_HMETER) {
+        is_horizontal_ = true;
+        std::swap(asEBox()->b_rect.width, asEBox()->b_rect.height);
+    }
 }
 
 void UIMeter::okSize(t_rect* newrect)
@@ -56,113 +67,22 @@ void UIMeter::okSize(t_rect* newrect)
 
 void UIMeter::paint()
 {
-    drawBackground();
-    drawLeds();
-}
+    sys_vgui("ui::meter_delete #%x %s\n",
+        asEBox(), asEBox()->b_drawing_id->s_name);
 
-void UIMeter::drawBackground()
-{
-    const t_rect r = rect();
-    UIPainter p = bg_layer_.painter(r);
-
-    if (!p)
-        return;
-
-    p.setColor(prop_color_border);
-    if (is_horizontal_) {
-        float ratio = r.width / NUM_LEDS;
-        for (int i = 1; i < NUM_LEDS; i++) {
-            float x = roundf(i * ratio);
-            p.drawLine(x, -1, x, r.height + 1);
-        }
-
-    } else {
-        float ratio = r.height / NUM_LEDS;
-        for (int i = 1; i < NUM_LEDS; i++) {
-            float y = roundf(i * ratio);
-            p.drawLine(-1, y, r.width + 1, y);
-        }
-    }
-}
-
-static inline float led2Db(int ledIdx)
-{
-    return -1 * (NUM_LEDS - ledIdx) * LED_STEP;
-}
-
-void UIMeter::drawLeds()
-{
-    const t_rect r = rect();
-    UIPainter p = led_layer_.painter(r);
-    if (!p)
-        return;
-
-    // draw rms
-    for (int i = 0; i < NUM_LEDS; i++) {
-        const float db = led2Db(i);
-
-        if (rms_dbfs_ > db) {
-            const float diff = rms_dbfs_ - db;
-            const bool top = (diff < LED_STEP);
-
-            p.setColor(dbfsToColor(db));
-
-            if (is_horizontal_) {
-                const float led_space = r.width / NUM_LEDS;
-                const int top_offset = roundf((top ? (1 - (diff / LED_STEP)) : 0) * led_space);
-                const int led_x = roundf(i * led_space) + 1;
-                const int next_led_x = roundf((i + 1) * led_space);
-                const int led_w = next_led_x - led_x - top_offset;
-
-                p.drawRect(led_x, RMS_BAR_PADDING, led_w, r.height - 2 * RMS_BAR_PADDING);
-            } else {
-                const float led_space = r.height / NUM_LEDS;
-                const float top_offset = (top ? (1 - (diff / LED_STEP)) : 0) * led_space;
-                const int led_y = roundf((NUM_LEDS - i - 1) * led_space + top_offset) + 1;
-                const int next_led_y = roundf((NUM_LEDS - i) * led_space);
-                const int led_h = next_led_y - led_y;
-
-                p.drawRect(RMS_BAR_PADDING, led_y, r.width - 2 * RMS_BAR_PADDING, led_h);
-            }
-
-            p.fill();
-        }
-    }
-
-    // draw peak
-    p.setColor(dbfsToColor(peak_dbfs_));
-    p.setLineWidth(2);
-    if (is_horizontal_) {
-        float x = convert::lin2lin<float>(peak_dbfs_, -(LED_STEP * NUM_LEDS), 0, 0, r.width);
-        x = std::min<float>(roundf(x), r.width);
-        p.drawLine(x, -1, x, r.height + 1);
-    } else {
-        float y = convert::lin2lin<float>(peak_dbfs_, -(LED_STEP * NUM_LEDS), 0, r.height, 0);
-        y = std::max<float>(0, roundf(y));
-        p.drawLine(-1, y, r.width + 1, y);
-    }
-
-    // draw overload
-    if (overload_) {
-        p.setColor(prop_color_over);
-        if (is_horizontal_) {
-            const float led_space = r.width / NUM_LEDS;
-            const int led_x = roundf((NUM_LEDS - 1) * led_space) + 1;
-            const int next_led_x = roundf(NUM_LEDS * led_space);
-            const int led_w = next_led_x - led_x;
-
-            p.drawRect(led_x, RMS_BAR_PADDING, led_w, r.height - 2 * RMS_BAR_PADDING);
-        } else {
-            const float led_space = r.height / NUM_LEDS;
-            const int led_y = 1;
-            const int next_led_y = roundf(led_space);
-            const int led_h = next_led_y - led_y;
-
-            p.drawRect(RMS_BAR_PADDING, led_y, r.width - 2 * RMS_BAR_PADDING, led_h);
-        }
-
-        p.fill();
-    }
+    sys_vgui("ui::meter_create #%x %s "
+             "%d %d "
+             "#%6.6x #%6.6x #%6.6x #%6.6x #%6.6x #%6.6x "
+             "%.2f %.2f %d\n",
+        asEBox(), asEBox()->b_drawing_id->s_name,
+        (int)width(), (int)height(),
+        rgba_to_hex_int(prop_color_border),
+        rgba_to_hex_int(prop_color_cold),
+        rgba_to_hex_int(prop_color_tepid),
+        rgba_to_hex_int(prop_color_warm),
+        rgba_to_hex_int(prop_color_hot),
+        rgba_to_hex_int(prop_color_over),
+        rms_dbfs_, peak_dbfs_, overload_);
 }
 
 void UIMeter::dspInit()
@@ -199,22 +119,23 @@ void UIMeter::dspProcess(t_sample** ins, long n_ins, t_sample** outs, long n_out
     }
 }
 
-void UIMeter::setup()
+const char* UIMeter::annotateInlet(int) const
 {
-    UIObjectFactory<UIMeter> obj("ui.meter~", EBOX_GROWINDI | EBOX_IGNORELOCKCLICK);
-    obj.addAlias("ui.m~");
-    obj.hideLabelInner();
+    return "signal: input";
+}
 
-    obj.setDefaultSize(15, 120);
+const char* UIMeter::annotateOutlet(int) const
+{
+    return "list: RMS(db) PEAK(db)";
+}
 
-    obj.addColorProperty("cold_color", _("Cold signal color"), "0 0.6 0 1", &UIMeter::prop_color_cold);
-    obj.addColorProperty("tepid_color", _("Tepid signal color"), "0.6 0.73 0 1", &UIMeter::prop_color_tepid);
-    obj.addColorProperty("warm_color", _("Warm signal color"), ".85 .85 0 1", &UIMeter::prop_color_warm);
-    obj.addColorProperty("hot_color", _("Hot signal color"), "1 0.6 0 1", &UIMeter::prop_color_hot);
-    obj.addColorProperty("over_color", _("Overload signal color"), "1 0 0 1", &UIMeter::prop_color_over);
-
-    obj.addIntProperty("interval", _("Refresh interval (ms)"), 50, &UIMeter::prop_interval_ms, _("Main"));
-    obj.setPropertyUnits("interval", "msec");
+void UIMeter::onDblClick(t_object* view, const t_pt&, long)
+{
+    t_canvas* c = reinterpret_cast<t_canvas*>(view);
+    if (c->gl_edit) {
+        is_horizontal_ = !is_horizontal_;
+        resize(height() / zoom(), width() / zoom());
+    }
 }
 
 void UIMeter::calc()
@@ -232,7 +153,6 @@ void UIMeter::calc()
     if (overload_ >= 1000. / prop_interval_ms)
         overload_ = 0;
 
-    led_layer_.invalidate();
     redraw();
 }
 
@@ -262,20 +182,33 @@ void UIMeter::output()
     send(AtomListView(res, 2));
 }
 
-const t_rgba& UIMeter::dbfsToColor(int dbfs) const
+void UIMeter::setup()
 {
-    dbfs = clip<int>(dbfs, -LED_STEP * NUM_LEDS, 0);
+    sys_gui(ui_meter_tcl);
 
-    if (dbfs < -30)
-        return prop_color_cold;
-    else if (dbfs < -21)
-        return prop_color_tepid;
-    else if (dbfs < -12)
-        return prop_color_warm;
-    else if (dbfs < -3)
-        return prop_color_hot;
-    else
-        return prop_color_over;
+    SYM_HMETER = gensym("ui.hm~");
+    SYM_VMETER = gensym("ui.vm~");
+    SYM_VMETER2 = gensym("ui.m~");
+
+    UIObjectFactory<UIMeter> obj("ui.meter~", EBOX_GROWINDI);
+    obj.addAlias(SYM_VMETER->s_name);
+    obj.addAlias(SYM_VMETER2->s_name);
+    obj.addAlias(SYM_HMETER->s_name);
+    obj.useAnnotations();
+    obj.useMouseEvents(UI_MOUSE_DBL_CLICK);
+
+    obj.hideLabelInner();
+
+    obj.setDefaultSize(15, 120);
+
+    obj.addColorProperty("cold_color", _("Cold signal color"), "0 0.6 0 1", &UIMeter::prop_color_cold);
+    obj.addColorProperty("tepid_color", _("Tepid signal color"), "0.6 0.73 0 1", &UIMeter::prop_color_tepid);
+    obj.addColorProperty("warm_color", _("Warm signal color"), ".85 .85 0 1", &UIMeter::prop_color_warm);
+    obj.addColorProperty("hot_color", _("Hot signal color"), "1 0.6 0 1", &UIMeter::prop_color_hot);
+    obj.addColorProperty("over_color", _("Overload signal color"), "1 0 0 1", &UIMeter::prop_color_over);
+
+    obj.addIntProperty("interval", _("Refresh interval (ms)"), 50, &UIMeter::prop_interval_ms, _("Main"));
+    obj.setPropertyUnits("interval", "msec");
 }
 
 void setup_ui_meter()

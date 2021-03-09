@@ -15,6 +15,9 @@
             <also>
                 <see>sig~</see>
             </also>
+            <aliases>
+                <alias>ceammc/nsig~</alias>
+            </aliases>
         </meta>
         <arguments>
             <argument name="NUM" type="float" minvalue="1" maxvalue="12">@n property</argument>
