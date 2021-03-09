@@ -247,6 +247,7 @@ set(DOC_FILES
     hw.cpu_temp
     hw.display
     hw.kbd_light
+    hw.serial
     is_any
     is_bang
     is_data

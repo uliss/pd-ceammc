@@ -793,6 +793,9 @@
     <entry name="hw.kbd_light" descr="Get/set keyboard light on some devices" ref_view="object">
       <xi:include href="hw.kbd_light.pddoc" parse="xml"/>
     </entry>
+    <entry name="hw.serial" descr="serial port device" ref_view="object">
+      <xi:include href="hw.serial.pddoc" parse="xml"/>
+    </entry>
   </category>
   <category name="lang">
     <entry name="lang.faust~" descr="faust realtime compilation" ref_view="object">
