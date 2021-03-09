@@ -11,81 +11,24 @@
  * contact the author of this file, or the owner of the project in which
  * this file belongs to.
  *****************************************************************************/
+#include "ext_load_lib.h"
 
-#include "../mod_init.h"
-#include "ceammc_pd.h"
-#include "ceammc_platform.h"
-#include "m_pd.h"
-#include "stk/stk/include/Stk.h"
-
-#include <algorithm>
-#include <iostream>
-#include <string>
-#include <vector>
-
-static t_symbol* any = &s_anything;
 extern "C" void pd_init();
-t_class* ceammc_class = nullptr;
-
-using namespace std;
-using namespace ceammc;
 
 int main(int argc, char* argv[])
 {
-    pd_init();
-    ceammc_init();
-
     if (argc < 2) {
-        cerr << "usage: " << platform::basename(argv[0]) << " OBJECT_NAME" << endl;
-        return 1;
+        fprintf(stderr, "usage: %s OBJECT_NAME [ARGS...]\n", argv[0]);
+        return EXIT_FAILURE;
     }
 
-    CanvasPtr cnv = PureData::instance().createTopCanvas("/test_canvas");
+    pd_init();
 
-    if (!cnv) {
-        cerr << "can't create root canvas" << endl;
-        return 2;
-    }
+    if (!load_ceammc())
+        return EXIT_FAILURE;
 
-    AtomList args;
-    if (argc > 2) {
-        t_binbuf* b = binbuf_new();
+    if (list_methods && list_methods(argc - 1, argv + 1))
+        return EXIT_SUCCESS;
 
-        std::string str;
-        for (int i = 2; i < argc; i++) {
-            str += argv[i];
-            str += " ";
-        }
-
-        binbuf_text(b, str.c_str(), str.size());
-
-        int n = binbuf_getnatom(b);
-
-        for (int i = 0; i < n; i++)
-            args.append(binbuf_getvec(b)[i]);
-
-        binbuf_free(b);
-    }
-
-    // stk rawwaves path
-    if (getenv("RAWWAVES") != nullptr) {
-        stk::Stk::setRawwavePath(getenv("RAWWAVES"));
-    }
-
-    pd::External ext(argv[1], args);
-    if (!ext.object()) {
-        cerr << "can't create object: " << argv[1] << endl;
-        return 3;
-    }
-
-    vector<string> m_vec;
-    for (auto& m : ext.methods())
-        m_vec.push_back(m->s_name);
-
-    sort(begin(m_vec), end(m_vec));
-
-    for (auto& m : m_vec)
-        cout << m << "\n";
-
-    return 0;
+    return EXIT_FAILURE;
 }

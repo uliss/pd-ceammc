@@ -42,10 +42,19 @@ static PERTHREAD char *sys_prefbuf;
 static PERTHREAD int sys_prefbufsize;
 static PERTHREAD FILE *sys_prefsavefp;
 
+// ceammc
+#if PD_FLOATSIZE == 32
 #define UNIX_CONFIG_FILENAME ".pd_ceammc_settings"
 #define MACOSX_CONFIG_NAME "com.ceammc.pd"
 static const char* WIN_CONFIG_REGNAME = "Software\\Pd-ceammc";
 static const char* WIN_CONFIG_KEYNAME = "Pd-ceammc";
+#else
+#define UNIX_CONFIG_FILENAME ".pd_ceammc_settings_double"
+#define MACOSX_CONFIG_NAME "com.ceammc.pd-double"
+static const char* WIN_CONFIG_REGNAME = "Software\\Pd-ceammc-double";
+static const char* WIN_CONFIG_KEYNAME = "Pd-ceammc-double";
+#endif
+// ceammc end
 
 static void sys_initloadpreferences_file(const char *filename)
 {

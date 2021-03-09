@@ -179,7 +179,7 @@ void UIKeyboard::paint()
     }
 }
 
-void UIKeyboard::init(t_symbol* name, const AtomList& args, bool usePresets)
+void UIKeyboard::init(t_symbol* name, const AtomListView& args, bool usePresets)
 {
     UIObject::init(name, args, usePresets);
 
@@ -268,15 +268,15 @@ void UIKeyboard::onMouseDown(t_object* view, const t_pt& pt, const t_pt& abs_pt,
         if (active_keys_.test(current_key_)) { // remove sustained note
             active_keys_.set(current_key_, false);
             velocity_ = 0;
-            output();
+            outputCurrentKey();
             current_key_ = NO_KEY;
         } else { // add new sustaind note
             active_keys_.set(current_key_, true);
-            output();
+            outputCurrentKey();
             current_key_ = NO_KEY;
         }
     } else {
-        output();
+        outputCurrentKey();
     }
 
     redraw();
@@ -289,7 +289,7 @@ void UIKeyboard::onMouseUp(t_object* view, const t_pt& pt, long modifiers)
 
     velocity_ = 0;
     mouse_pressed_ = false;
-    output();
+    outputCurrentKey();
     current_key_ = NO_KEY;
 
     redraw();
@@ -320,12 +320,12 @@ void UIKeyboard::onMouseDrag(t_object* view, const t_pt& pt, long modifiers)
         // release previous note
         velocity_ = 0;
         current_key_ = prev_pitch;
-        output();
+        outputCurrentKey();
 
         // press new note
         velocity_ = new_velocity;
         current_key_ = new_pitch;
-        output();
+        outputCurrentKey();
 
         redraw();
     }
@@ -350,7 +350,12 @@ void UIKeyboard::playChord(const std::initializer_list<uint8_t>& keys)
             active_keys_.set(kk);
     }
 
-    output();
+    redraw();
+    for (auto k : keys) {
+        t_float kk = current_key_ + k + prop_shift;
+        Atom res[2] = { kk, velocity_ };
+        listTo(0, AtomListView(res, 2));
+    }
 }
 
 int UIKeyboard::findPressedKey(const t_pt& pt) const
@@ -473,7 +478,7 @@ int UIKeyboard::realPitch() const
     return (prop_shift + current_key_);
 }
 
-void UIKeyboard::output()
+void UIKeyboard::outputCurrentKey()
 {
     if (current_key_ == NO_KEY)
         return;
@@ -514,7 +519,7 @@ void UIKeyboard::setup()
     obj.setPropertyRange("keys", MIN_KEYS, MAX_KEYS);
 
     obj.addProperty("shift", _("Leftmost MIDI note"), 36, &UIKeyboard::prop_shift, _("Main"));
-    obj.setPropertyRange("shift", DEFAULT_SHIFT, MAX_KEYS);
+    obj.setPropertyRange("shift", 6, MAX_KEYS);
 }
 
 void setup_ui_keyboard()

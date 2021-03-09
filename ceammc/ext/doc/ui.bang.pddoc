@@ -79,7 +79,7 @@
 <![CDATA[
 [dump(
 |
-[ui.bang @size=40x40 @send=b_out @receive=b_in]
+[ui.bang @size 40 40 @send b_out @receive b_in]
 |
 |      [B]
 |      |

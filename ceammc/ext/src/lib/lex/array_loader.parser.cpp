@@ -1,8 +1,8 @@
-// A Bison parser, made by GNU Bison 3.5.
+// A Bison parser, made by GNU Bison 3.7.4.
 
 // Skeleton implementation for Bison LALR(1) parsers in C++
 
-// Copyright (C) 2002-2015, 2018-2019 Free Software Foundation, Inc.
+// Copyright (C) 2002-2015, 2018-2020 Free Software Foundation, Inc.
 
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -30,11 +30,12 @@
 // This special exception was added by the Free Software Foundation in
 // version 2.2 of Bison.
 
-// Undocumented macros, especially those whose name start with YY_,
-// are private implementation details.  Do not rely on them.
+// DO NOT RELY ON FEATURES THAT ARE NOT DOCUMENTED in the manual,
+// especially those whose name start with YY_ or yy_.  They are
+// private implementation details that can be changed or removed.
 
 // "%code top" blocks.
-#line 37 "array_loader.y"
+#line 39 "array_loader.y"
 
     # undef yylex
     # define yylex lexer.lex
@@ -69,7 +70,7 @@
         return res;
     }
 
-#line 73 "array_loader.parser.cpp"
+#line 74 "array_loader.parser.cpp"
 
 
 
@@ -90,6 +91,7 @@
 #  define YY_(msgid) msgid
 # endif
 #endif
+
 
 // Whether we are compiled with exception support.
 #ifndef YY_EXCEPTIONS
@@ -146,7 +148,7 @@
 # define YY_STACK_PRINT()               \
   do {                                  \
     if (yydebug_)                       \
-      yystack_print_ ();                \
+      yy_stack_print_ ();                \
   } while (false)
 
 #else // !YYDEBUG
@@ -167,53 +169,11 @@
 #define YYRECOVERING()  (!!yyerrstatus_)
 
 #line 7 "array_loader.y"
-namespace ceammc {
-#line 172 "array_loader.parser.cpp"
-
-
-  /* Return YYSTR after stripping away unnecessary quotes and
-     backslashes, so that it's suitable for yyerror.  The heuristic is
-     that double-quoting is unnecessary unless the string contains an
-     apostrophe, a comma, or backslash (other than backslash-backslash).
-     YYSTR is taken from yytname.  */
-  std::string
-  ArrayLoaderParser::yytnamerr_ (const char *yystr)
-  {
-    if (*yystr == '"')
-      {
-        std::string yyr;
-        char const *yyp = yystr;
-
-        for (;;)
-          switch (*++yyp)
-            {
-            case '\'':
-            case ',':
-              goto do_not_strip_quotes;
-
-            case '\\':
-              if (*++yyp != '\\')
-                goto do_not_strip_quotes;
-              else
-                goto append;
-
-            append:
-            default:
-              yyr += *yyp;
-              break;
-
-            case '"':
-              return yyr;
-            }
-      do_not_strip_quotes: ;
-      }
-
-    return yystr;
-  }
-
+namespace ceammc { namespace al {
+#line 174 "array_loader.parser.cpp"
 
   /// Build a parser object.
-  ArrayLoaderParser::ArrayLoaderParser (ceammc::ArrayLoaderLexer& lexer_yyarg, ceammc::ArrayLoader& loader_yyarg)
+  ArrayLoaderParser::ArrayLoaderParser (ceammc::al::ArrayLoaderLexer& lexer_yyarg, ceammc::ArrayLoader& loader_yyarg)
 #if YYDEBUG
     : yydebug_ (false),
       yycdebug_ (&std::cerr),
@@ -231,7 +191,7 @@ namespace ceammc {
   {}
 
   /*---------------.
-  | Symbol types.  |
+  | symbol kinds.  |
   `---------------*/
 
 
@@ -262,13 +222,13 @@ namespace ceammc {
     : state (s)
   {}
 
-  ArrayLoaderParser::symbol_number_type
-  ArrayLoaderParser::by_state::type_get () const YY_NOEXCEPT
+  ArrayLoaderParser::symbol_kind_type
+  ArrayLoaderParser::by_state::kind () const YY_NOEXCEPT
   {
     if (state == empty_state)
-      return empty_symbol;
+      return symbol_kind::S_YYEMPTY;
     else
-      return yystos_[state];
+      return YY_CAST (symbol_kind_type, yystos_[+state]);
   }
 
   ArrayLoaderParser::stack_symbol_type::stack_symbol_type ()
@@ -277,37 +237,37 @@ namespace ceammc {
   ArrayLoaderParser::stack_symbol_type::stack_symbol_type (YY_RVREF (stack_symbol_type) that)
     : super_type (YY_MOVE (that.state), YY_MOVE (that.location))
   {
-    switch (that.type_get ())
+    switch (that.kind ())
     {
-      case 43: // channel_list
+      case symbol_kind::S_channel_list: // channel_list
         value.YY_MOVE_OR_COPY< ChannelList > (YY_MOVE (that.value));
         break;
 
-      case 40: // array_pattern
-      case 41: // var_list
+      case symbol_kind::S_var_list: // var_list
+      case symbol_kind::S_array_pattern: // array_pattern
         value.YY_MOVE_OR_COPY< StringList > (YY_MOVE (that.value));
         break;
 
-      case 20: // FLOAT
-      case 39: // number
+      case symbol_kind::S_FLOAT: // FLOAT
+      case symbol_kind::S_number: // number
         value.YY_MOVE_OR_COPY< double > (YY_MOVE (that.value));
         break;
 
-      case 21: // INT
-      case 37: // time
-      case 38: // smpte
+      case symbol_kind::S_INT: // INT
+      case symbol_kind::S_smpte: // smpte
+      case symbol_kind::S_time: // time
         value.YY_MOVE_OR_COPY< int32_t > (YY_MOVE (that.value));
         break;
 
-      case 3: // SYMBOL
-      case 19: // SMPTE
-      case 42: // var
+      case symbol_kind::S_SYMBOL: // SYMBOL
+      case symbol_kind::S_SMPTE: // SMPTE
+      case symbol_kind::S_var: // var
         value.YY_MOVE_OR_COPY< std::string > (YY_MOVE (that.value));
         break;
 
-      case 22: // UINT
-      case 23: // RANGE_BEGIN
-      case 24: // RANGE_END
+      case symbol_kind::S_UINT: // UINT
+      case symbol_kind::S_RANGE_BEGIN: // RANGE_BEGIN
+      case symbol_kind::S_RANGE_END: // RANGE_END
         value.YY_MOVE_OR_COPY< uint32_t > (YY_MOVE (that.value));
         break;
 
@@ -324,37 +284,37 @@ namespace ceammc {
   ArrayLoaderParser::stack_symbol_type::stack_symbol_type (state_type s, YY_MOVE_REF (symbol_type) that)
     : super_type (s, YY_MOVE (that.location))
   {
-    switch (that.type_get ())
+    switch (that.kind ())
     {
-      case 43: // channel_list
+      case symbol_kind::S_channel_list: // channel_list
         value.move< ChannelList > (YY_MOVE (that.value));
         break;
 
-      case 40: // array_pattern
-      case 41: // var_list
+      case symbol_kind::S_var_list: // var_list
+      case symbol_kind::S_array_pattern: // array_pattern
         value.move< StringList > (YY_MOVE (that.value));
         break;
 
-      case 20: // FLOAT
-      case 39: // number
+      case symbol_kind::S_FLOAT: // FLOAT
+      case symbol_kind::S_number: // number
         value.move< double > (YY_MOVE (that.value));
         break;
 
-      case 21: // INT
-      case 37: // time
-      case 38: // smpte
+      case symbol_kind::S_INT: // INT
+      case symbol_kind::S_smpte: // smpte
+      case symbol_kind::S_time: // time
         value.move< int32_t > (YY_MOVE (that.value));
         break;
 
-      case 3: // SYMBOL
-      case 19: // SMPTE
-      case 42: // var
+      case symbol_kind::S_SYMBOL: // SYMBOL
+      case symbol_kind::S_SMPTE: // SMPTE
+      case symbol_kind::S_var: // var
         value.move< std::string > (YY_MOVE (that.value));
         break;
 
-      case 22: // UINT
-      case 23: // RANGE_BEGIN
-      case 24: // RANGE_END
+      case symbol_kind::S_UINT: // UINT
+      case symbol_kind::S_RANGE_BEGIN: // RANGE_BEGIN
+      case symbol_kind::S_RANGE_END: // RANGE_END
         value.move< uint32_t > (YY_MOVE (that.value));
         break;
 
@@ -363,7 +323,7 @@ namespace ceammc {
     }
 
     // that is emptied.
-    that.type = empty_symbol;
+    that.kind_ = symbol_kind::S_YYEMPTY;
   }
 
 #if YY_CPLUSPLUS < 201103L
@@ -371,37 +331,37 @@ namespace ceammc {
   ArrayLoaderParser::stack_symbol_type::operator= (const stack_symbol_type& that)
   {
     state = that.state;
-    switch (that.type_get ())
+    switch (that.kind ())
     {
-      case 43: // channel_list
+      case symbol_kind::S_channel_list: // channel_list
         value.copy< ChannelList > (that.value);
         break;
 
-      case 40: // array_pattern
-      case 41: // var_list
+      case symbol_kind::S_var_list: // var_list
+      case symbol_kind::S_array_pattern: // array_pattern
         value.copy< StringList > (that.value);
         break;
 
-      case 20: // FLOAT
-      case 39: // number
+      case symbol_kind::S_FLOAT: // FLOAT
+      case symbol_kind::S_number: // number
         value.copy< double > (that.value);
         break;
 
-      case 21: // INT
-      case 37: // time
-      case 38: // smpte
+      case symbol_kind::S_INT: // INT
+      case symbol_kind::S_smpte: // smpte
+      case symbol_kind::S_time: // time
         value.copy< int32_t > (that.value);
         break;
 
-      case 3: // SYMBOL
-      case 19: // SMPTE
-      case 42: // var
+      case symbol_kind::S_SYMBOL: // SYMBOL
+      case symbol_kind::S_SMPTE: // SMPTE
+      case symbol_kind::S_var: // var
         value.copy< std::string > (that.value);
         break;
 
-      case 22: // UINT
-      case 23: // RANGE_BEGIN
-      case 24: // RANGE_END
+      case symbol_kind::S_UINT: // UINT
+      case symbol_kind::S_RANGE_BEGIN: // RANGE_BEGIN
+      case symbol_kind::S_RANGE_END: // RANGE_END
         value.copy< uint32_t > (that.value);
         break;
 
@@ -417,37 +377,37 @@ namespace ceammc {
   ArrayLoaderParser::stack_symbol_type::operator= (stack_symbol_type& that)
   {
     state = that.state;
-    switch (that.type_get ())
+    switch (that.kind ())
     {
-      case 43: // channel_list
+      case symbol_kind::S_channel_list: // channel_list
         value.move< ChannelList > (that.value);
         break;
 
-      case 40: // array_pattern
-      case 41: // var_list
+      case symbol_kind::S_var_list: // var_list
+      case symbol_kind::S_array_pattern: // array_pattern
         value.move< StringList > (that.value);
         break;
 
-      case 20: // FLOAT
-      case 39: // number
+      case symbol_kind::S_FLOAT: // FLOAT
+      case symbol_kind::S_number: // number
         value.move< double > (that.value);
         break;
 
-      case 21: // INT
-      case 37: // time
-      case 38: // smpte
+      case symbol_kind::S_INT: // INT
+      case symbol_kind::S_smpte: // smpte
+      case symbol_kind::S_time: // time
         value.move< int32_t > (that.value);
         break;
 
-      case 3: // SYMBOL
-      case 19: // SMPTE
-      case 42: // var
+      case symbol_kind::S_SYMBOL: // SYMBOL
+      case symbol_kind::S_SMPTE: // SMPTE
+      case symbol_kind::S_var: // var
         value.move< std::string > (that.value);
         break;
 
-      case 22: // UINT
-      case 23: // RANGE_BEGIN
-      case 24: // RANGE_END
+      case symbol_kind::S_UINT: // UINT
+      case symbol_kind::S_RANGE_BEGIN: // RANGE_BEGIN
+      case symbol_kind::S_RANGE_END: // RANGE_END
         value.move< uint32_t > (that.value);
         break;
 
@@ -473,23 +433,21 @@ namespace ceammc {
 #if YYDEBUG
   template <typename Base>
   void
-  ArrayLoaderParser::yy_print_ (std::ostream& yyo,
-                                     const basic_symbol<Base>& yysym) const
+  ArrayLoaderParser::yy_print_ (std::ostream& yyo, const basic_symbol<Base>& yysym) const
   {
     std::ostream& yyoutput = yyo;
     YYUSE (yyoutput);
-    symbol_number_type yytype = yysym.type_get ();
-#if defined __GNUC__ && ! defined __clang__ && ! defined __ICC && __GNUC__ * 100 + __GNUC_MINOR__ <= 408
-    // Avoid a (spurious) G++ 4.8 warning about "array subscript is
-    // below array bounds".
     if (yysym.empty ())
-      std::abort ();
-#endif
-    yyo << (yytype < yyntokens_ ? "token" : "nterm")
-        << ' ' << yytname_[yytype] << " ("
-        << yysym.location << ": ";
-    YYUSE (yytype);
-    yyo << ')';
+      yyo << "empty symbol";
+    else
+      {
+        symbol_kind_type yykind = yysym.kind ();
+        yyo << (yykind < YYNTOKENS ? "token" : "nterm")
+            << ' ' << yysym.name () << " ("
+            << yysym.location << ": ";
+        YYUSE (yykind);
+        yyo << ')';
+      }
   }
 #endif
 
@@ -548,11 +506,11 @@ namespace ceammc {
   ArrayLoaderParser::state_type
   ArrayLoaderParser::yy_lr_goto_state_ (state_type yystate, int yysym)
   {
-    int yyr = yypgoto_[yysym - yyntokens_] + yystate;
+    int yyr = yypgoto_[yysym - YYNTOKENS] + yystate;
     if (0 <= yyr && yyr <= yylast_ && yycheck_[yyr] == yystate)
       return yytable_[yyr];
     else
-      return yydefgoto_[yysym - yyntokens_];
+      return yydefgoto_[yysym - YYNTOKENS];
   }
 
   bool
@@ -612,6 +570,7 @@ namespace ceammc {
   `-----------------------------------------------*/
   yynewstate:
     YYCDEBUG << "Entering state " << int (yystack_[0].state) << '\n';
+    YY_STACK_PRINT ();
 
     // Accept?
     if (yystack_[0].state == yyfinal_)
@@ -625,14 +584,14 @@ namespace ceammc {
   `-----------*/
   yybackup:
     // Try to take a decision without lookahead.
-    yyn = yypact_[yystack_[0].state];
+    yyn = yypact_[+yystack_[0].state];
     if (yy_pact_value_is_default_ (yyn))
       goto yydefault;
 
     // Read a lookahead token.
     if (yyla.empty ())
       {
-        YYCDEBUG << "Reading a token: ";
+        YYCDEBUG << "Reading a token\n";
 #if YY_EXCEPTIONS
         try
 #endif // YY_EXCEPTIONS
@@ -651,10 +610,20 @@ namespace ceammc {
       }
     YY_SYMBOL_PRINT ("Next token is", yyla);
 
+    if (yyla.kind () == symbol_kind::S_YYerror)
+    {
+      // The scanner already issued an error message, process directly
+      // to error recovery.  But do not keep the error token as
+      // lookahead, it is too special and may lead us to an endless
+      // loop in error recovery. */
+      yyla.kind_ = symbol_kind::S_YYUNDEF;
+      goto yyerrlab1;
+    }
+
     /* If the proper action on seeing token YYLA.TYPE is to reduce or
        to detect an error, take that action.  */
-    yyn += yyla.type_get ();
-    if (yyn < 0 || yylast_ < yyn || yycheck_[yyn] != yyla.type_get ())
+    yyn += yyla.kind ();
+    if (yyn < 0 || yylast_ < yyn || yycheck_[yyn] != yyla.kind ())
       {
         goto yydefault;
       }
@@ -674,7 +643,7 @@ namespace ceammc {
       --yyerrstatus_;
 
     // Shift the lookahead token.
-    yypush_ ("Shifting", static_cast<state_type> (yyn), YY_MOVE (yyla));
+    yypush_ ("Shifting", state_type (yyn), YY_MOVE (yyla));
     goto yynewstate;
 
 
@@ -682,7 +651,7 @@ namespace ceammc {
   | yydefault -- do the default action for the current state.  |
   `-----------------------------------------------------------*/
   yydefault:
-    yyn = yydefact_[yystack_[0].state];
+    yyn = yydefact_[+yystack_[0].state];
     if (yyn == 0)
       goto yyerrlab;
     goto yyreduce;
@@ -701,35 +670,35 @@ namespace ceammc {
          when using variants.  */
       switch (yyr1_[yyn])
     {
-      case 43: // channel_list
+      case symbol_kind::S_channel_list: // channel_list
         yylhs.value.emplace< ChannelList > ();
         break;
 
-      case 40: // array_pattern
-      case 41: // var_list
+      case symbol_kind::S_var_list: // var_list
+      case symbol_kind::S_array_pattern: // array_pattern
         yylhs.value.emplace< StringList > ();
         break;
 
-      case 20: // FLOAT
-      case 39: // number
+      case symbol_kind::S_FLOAT: // FLOAT
+      case symbol_kind::S_number: // number
         yylhs.value.emplace< double > ();
         break;
 
-      case 21: // INT
-      case 37: // time
-      case 38: // smpte
+      case symbol_kind::S_INT: // INT
+      case symbol_kind::S_smpte: // smpte
+      case symbol_kind::S_time: // time
         yylhs.value.emplace< int32_t > ();
         break;
 
-      case 3: // SYMBOL
-      case 19: // SMPTE
-      case 42: // var
+      case symbol_kind::S_SYMBOL: // SYMBOL
+      case symbol_kind::S_SMPTE: // SMPTE
+      case symbol_kind::S_var: // var
         yylhs.value.emplace< std::string > ();
         break;
 
-      case 22: // UINT
-      case 23: // RANGE_BEGIN
-      case 24: // RANGE_END
+      case symbol_kind::S_UINT: // UINT
+      case symbol_kind::S_RANGE_BEGIN: // RANGE_BEGIN
+      case symbol_kind::S_RANGE_END: // RANGE_END
         yylhs.value.emplace< uint32_t > ();
         break;
 
@@ -753,236 +722,236 @@ namespace ceammc {
         {
           switch (yyn)
             {
-  case 2:
-#line 101 "array_loader.y"
-                                          { yylhs.value.as < int32_t > () = loader.smpte2samples(0, yystack_[2].value.as < uint32_t > (), yystack_[0].value.as < uint32_t > (), 0); }
-#line 760 "array_loader.parser.cpp"
-    break;
-
-  case 3:
-#line 102 "array_loader.y"
-                                          { yylhs.value.as < int32_t > () = loader.smpte2samples(0, yystack_[4].value.as < uint32_t > (), yystack_[2].value.as < uint32_t > (), yystack_[0].value.as < uint32_t > ()); }
-#line 766 "array_loader.parser.cpp"
-    break;
-
-  case 4:
+  case 2: // smpte: UINT COLON UINT
 #line 103 "array_loader.y"
-                                          { yylhs.value.as < int32_t > () = loader.smpte2samples(yystack_[4].value.as < uint32_t > (), yystack_[2].value.as < uint32_t > (), yystack_[0].value.as < uint32_t > (), 0); }
-#line 772 "array_loader.parser.cpp"
+                                          { yylhs.value.as < int32_t > () = loader.smpte2samples(0, yystack_[2].value.as < uint32_t > (), yystack_[0].value.as < uint32_t > (), 0); }
+#line 729 "array_loader.parser.cpp"
     break;
 
-  case 5:
+  case 3: // smpte: UINT COLON UINT DOT UINT
 #line 104 "array_loader.y"
+                                          { yylhs.value.as < int32_t > () = loader.smpte2samples(0, yystack_[4].value.as < uint32_t > (), yystack_[2].value.as < uint32_t > (), yystack_[0].value.as < uint32_t > ()); }
+#line 735 "array_loader.parser.cpp"
+    break;
+
+  case 4: // smpte: UINT COLON UINT COLON UINT
+#line 105 "array_loader.y"
+                                          { yylhs.value.as < int32_t > () = loader.smpte2samples(yystack_[4].value.as < uint32_t > (), yystack_[2].value.as < uint32_t > (), yystack_[0].value.as < uint32_t > (), 0); }
+#line 741 "array_loader.parser.cpp"
+    break;
+
+  case 5: // smpte: UINT COLON UINT COLON UINT DOT UINT
+#line 106 "array_loader.y"
                                           { yylhs.value.as < int32_t > () = loader.smpte2samples(yystack_[6].value.as < uint32_t > (), yystack_[4].value.as < uint32_t > (), yystack_[2].value.as < uint32_t > (), yystack_[0].value.as < uint32_t > ()); }
-#line 778 "array_loader.parser.cpp"
+#line 747 "array_loader.parser.cpp"
     break;
 
-  case 6:
-#line 108 "array_loader.y"
+  case 6: // number: FLOAT
+#line 110 "array_loader.y"
       { yylhs.value.as < double > () = yystack_[0].value.as < double > (); }
-#line 784 "array_loader.parser.cpp"
+#line 753 "array_loader.parser.cpp"
     break;
 
-  case 7:
-#line 109 "array_loader.y"
+  case 7: // number: INT
+#line 111 "array_loader.y"
            { yylhs.value.as < double > () = yystack_[0].value.as < int32_t > (); }
-#line 790 "array_loader.parser.cpp"
+#line 759 "array_loader.parser.cpp"
     break;
 
-  case 8:
-#line 113 "array_loader.y"
-                      { yylhs.value.as < int32_t > () = yystack_[0].value.as < double > (); }
-#line 796 "array_loader.parser.cpp"
-    break;
-
-  case 9:
-#line 114 "array_loader.y"
-                      { yylhs.value.as < int32_t > () = loader.sec2samples(yystack_[1].value.as < double > ()); }
-#line 802 "array_loader.parser.cpp"
-    break;
-
-  case 10:
+  case 8: // time: number
 #line 115 "array_loader.y"
-                      { yylhs.value.as < int32_t > () = loader.ms2samples(yystack_[1].value.as < double > ()); }
-#line 808 "array_loader.parser.cpp"
+                      { yylhs.value.as < int32_t > () = yystack_[0].value.as < double > (); }
+#line 765 "array_loader.parser.cpp"
     break;
 
-  case 11:
+  case 9: // time: number SEC
 #line 116 "array_loader.y"
-                      { yylhs.value.as < int32_t > () = yystack_[1].value.as < double > (); }
-#line 814 "array_loader.parser.cpp"
+                      { yylhs.value.as < int32_t > () = loader.sec2samples(yystack_[1].value.as < double > ()); }
+#line 771 "array_loader.parser.cpp"
     break;
 
-  case 12:
+  case 10: // time: number MSEC
 #line 117 "array_loader.y"
-                      { yylhs.value.as < int32_t > () = yystack_[0].value.as < int32_t > (); }
-#line 820 "array_loader.parser.cpp"
+                      { yylhs.value.as < int32_t > () = loader.ms2samples(yystack_[1].value.as < double > ()); }
+#line 777 "array_loader.parser.cpp"
     break;
 
-  case 13:
-#line 121 "array_loader.y"
+  case 11: // time: number SAMPLES
+#line 118 "array_loader.y"
+                      { yylhs.value.as < int32_t > () = yystack_[1].value.as < double > (); }
+#line 783 "array_loader.parser.cpp"
+    break;
+
+  case 12: // time: smpte
+#line 119 "array_loader.y"
+                      { yylhs.value.as < int32_t > () = yystack_[0].value.as < int32_t > (); }
+#line 789 "array_loader.parser.cpp"
+    break;
+
+  case 13: // channel_list: INT
+#line 123 "array_loader.y"
                             { yylhs.value.as < ChannelList > () = {yystack_[0].value.as < int32_t > ()}; }
+#line 795 "array_loader.parser.cpp"
+    break;
+
+  case 14: // channel_list: RANGE_BEGIN RANGE_END
+#line 124 "array_loader.y"
+                            { yylhs.value.as < ChannelList > () = generateIntRange(yystack_[1].value.as < uint32_t > (), yystack_[0].value.as < uint32_t > ()); }
+#line 801 "array_loader.parser.cpp"
+    break;
+
+  case 15: // channel_list: channel_list INT
+#line 125 "array_loader.y"
+                            { std::copy(yystack_[1].value.as < ChannelList > ().begin(), yystack_[1].value.as < ChannelList > ().end(), std::back_inserter(yylhs.value.as < ChannelList > ())); yylhs.value.as < ChannelList > ().push_back(yystack_[0].value.as < int32_t > ()); }
+#line 807 "array_loader.parser.cpp"
+    break;
+
+  case 16: // opt: RESIZE
+#line 129 "array_loader.y"
+                                  { loader.setFlagOption(OPT::OPT_RESIZE); }
+#line 813 "array_loader.parser.cpp"
+    break;
+
+  case 17: // opt: NORMALIZE
+#line 130 "array_loader.y"
+                                  { loader.setFlagOption(OPT::OPT_NORMALIZE); }
+#line 819 "array_loader.parser.cpp"
+    break;
+
+  case 18: // opt: BEGIN time
+#line 131 "array_loader.y"
+                                  { if(!loader.setBeginOption(yystack_[0].value.as < int32_t > (), OFFSET::OFF_BEGIN))
+                                        { error(yystack_[0].location, "invalid @begin value"); return 1; }}
 #line 826 "array_loader.parser.cpp"
     break;
 
-  case 14:
-#line 122 "array_loader.y"
-                            { yylhs.value.as < ChannelList > () = generateIntRange(yystack_[1].value.as < uint32_t > (), yystack_[0].value.as < uint32_t > ()); }
-#line 832 "array_loader.parser.cpp"
-    break;
-
-  case 15:
-#line 123 "array_loader.y"
-                            { std::copy(yystack_[1].value.as < ChannelList > ().begin(), yystack_[1].value.as < ChannelList > ().end(), std::back_inserter(yylhs.value.as < ChannelList > ())); yylhs.value.as < ChannelList > ().push_back(yystack_[0].value.as < int32_t > ()); }
-#line 838 "array_loader.parser.cpp"
-    break;
-
-  case 16:
-#line 127 "array_loader.y"
-                                  { loader.setFlagOption(OPT::OPT_RESIZE); }
-#line 844 "array_loader.parser.cpp"
-    break;
-
-  case 17:
-#line 128 "array_loader.y"
-                                  { loader.setFlagOption(OPT::OPT_NORMALIZE); }
-#line 850 "array_loader.parser.cpp"
-    break;
-
-  case 18:
-#line 129 "array_loader.y"
-                                  { if(!loader.setBeginOption(yystack_[0].value.as < int32_t > (), OFFSET::OFF_BEGIN))
-                                        { error(yystack_[0].location, "invalid @begin value"); return 1; }}
-#line 857 "array_loader.parser.cpp"
-    break;
-
-  case 19:
-#line 131 "array_loader.y"
+  case 19: // opt: BEGIN OFFSET_END time
+#line 133 "array_loader.y"
                                   { if(!loader.setBeginOption(yystack_[0].value.as < int32_t > (), OFFSET::OFF_END))
                                         { error(yystack_[1].location, "invalid @begin value"); return 1; }}
-#line 864 "array_loader.parser.cpp"
+#line 833 "array_loader.parser.cpp"
     break;
 
-  case 20:
-#line 133 "array_loader.y"
+  case 20: // opt: END time
+#line 135 "array_loader.y"
                                   { if(!loader.setEndOption(yystack_[0].value.as < int32_t > (), OFFSET::OFF_BEGIN))
                                         { error(yystack_[0].location, "invalid @end value"); return 1; }}
-#line 871 "array_loader.parser.cpp"
+#line 840 "array_loader.parser.cpp"
     break;
 
-  case 21:
-#line 135 "array_loader.y"
+  case 21: // opt: END OFFSET_END time
+#line 137 "array_loader.y"
                                   { if(!loader.setEndOption(yystack_[0].value.as < int32_t > (), OFFSET::OFF_END))
                                         { error(yystack_[1].location, "invalid @end value"); return 1; }}
-#line 878 "array_loader.parser.cpp"
+#line 847 "array_loader.parser.cpp"
     break;
 
-  case 22:
-#line 137 "array_loader.y"
+  case 22: // opt: LENGTH time
+#line 139 "array_loader.y"
                                   { if(!loader.setLengthOption(yystack_[0].value.as < int32_t > ()))
                                         { error(yystack_[0].location, "invalid @length value"); return 1; }}
-#line 885 "array_loader.parser.cpp"
+#line 854 "array_loader.parser.cpp"
     break;
 
-  case 23:
-#line 139 "array_loader.y"
+  case 23: // opt: GAIN number
+#line 141 "array_loader.y"
                                   { if(!loader.setGain(yystack_[0].value.as < double > ()))
                                         { error(yystack_[0].location, "invalid @gain value"); return 1; }}
-#line 892 "array_loader.parser.cpp"
+#line 861 "array_loader.parser.cpp"
     break;
 
-  case 24:
-#line 141 "array_loader.y"
+  case 24: // opt: GAIN number DB
+#line 143 "array_loader.y"
                                   { if(!loader.setGain(ceammc::convert::dbfs2amp(yystack_[1].value.as < double > ())))
                                         { error(yystack_[1].location, "invalid @gain value"); return 1; }}
-#line 899 "array_loader.parser.cpp"
+#line 868 "array_loader.parser.cpp"
     break;
 
-  case 25:
-#line 143 "array_loader.y"
+  case 25: // opt: RESAMPLE
+#line 145 "array_loader.y"
                                   { if(!loader.setResampleRatio(loader.destSamplerate(), loader.srcSampleRate()))
                                         { error(yystack_[0].location, "invalid ratio"); return 1; }}
-#line 906 "array_loader.parser.cpp"
+#line 875 "array_loader.parser.cpp"
     break;
 
-  case 26:
-#line 145 "array_loader.y"
+  case 26: // opt: RESAMPLE number
+#line 147 "array_loader.y"
                                   { if(!loader.setResampleRatio(yystack_[0].value.as < double > () * loader.srcSampleRate(), loader.srcSampleRate()))
                                         { error(yystack_[0].location, "invalid ratio"); return 1; }}
-#line 913 "array_loader.parser.cpp"
+#line 882 "array_loader.parser.cpp"
     break;
 
-  case 27:
-#line 147 "array_loader.y"
+  case 27: // opt: RESAMPLE INT FRAC INT
+#line 149 "array_loader.y"
                                   { if(!loader.setResampleRatio(yystack_[2].value.as < int32_t > (), yystack_[0].value.as < int32_t > ()))
                                         { error(yystack_[2].location, "invalid ratio"); return 1; }}
-#line 920 "array_loader.parser.cpp"
+#line 889 "array_loader.parser.cpp"
     break;
 
-  case 28:
-#line 149 "array_loader.y"
+  case 28: // opt: CHANNELS channel_list
+#line 151 "array_loader.y"
                                   { for(auto& c: yystack_[0].value.as < ChannelList > ())
                                         loader.addChannel(c); }
+#line 896 "array_loader.parser.cpp"
+    break;
+
+  case 29: // opt: ARRAY_OFFSET INT
+#line 153 "array_loader.y"
+                                  { if(!loader.setArrayOffset(yystack_[0].value.as < int32_t > (), OFFSET::OFF_BEGIN))
+                                        { error(yystack_[0].location, "non-negative value expected"); return 1; }}
+#line 903 "array_loader.parser.cpp"
+    break;
+
+  case 30: // opt: ARRAY_OFFSET OFFSET_END
+#line 155 "array_loader.y"
+                                  { loader.setArrayOffset(0, OFFSET::OFF_END); }
+#line 909 "array_loader.parser.cpp"
+    break;
+
+  case 31: // opt: ARRAY_OFFSET OFFSET_END INT
+#line 156 "array_loader.y"
+                                  { loader.setArrayOffset(yystack_[0].value.as < int32_t > (), OFFSET::OFF_END); }
+#line 915 "array_loader.parser.cpp"
+    break;
+
+  case 34: // var: SYMBOL
+#line 165 "array_loader.y"
+      { yylhs.value.as < std::string > () = yystack_[0].value.as < std::string > (); }
+#line 921 "array_loader.parser.cpp"
+    break;
+
+  case 35: // var: UINT
+#line 166 "array_loader.y"
+             { yylhs.value.as < std::string > () = std::to_string(yystack_[0].value.as < uint32_t > ()); }
 #line 927 "array_loader.parser.cpp"
     break;
 
-  case 29:
-#line 151 "array_loader.y"
-                                  { if(!loader.setArrayOffset(yystack_[0].value.as < int32_t > (), OFFSET::OFF_BEGIN))
-                                        { error(yystack_[0].location, "non-negative value expected"); return 1; }}
-#line 934 "array_loader.parser.cpp"
-    break;
-
-  case 30:
-#line 153 "array_loader.y"
-                                  { loader.setArrayOffset(0, OFFSET::OFF_END); }
-#line 940 "array_loader.parser.cpp"
-    break;
-
-  case 31:
-#line 154 "array_loader.y"
-                                  { loader.setArrayOffset(yystack_[0].value.as < int32_t > (), OFFSET::OFF_END); }
-#line 946 "array_loader.parser.cpp"
-    break;
-
-  case 34:
-#line 163 "array_loader.y"
-      { yylhs.value.as < std::string > () = yystack_[0].value.as < std::string > (); }
-#line 952 "array_loader.parser.cpp"
-    break;
-
-  case 35:
-#line 164 "array_loader.y"
-             { yylhs.value.as < std::string > () = std::to_string(yystack_[0].value.as < uint32_t > ()); }
-#line 958 "array_loader.parser.cpp"
-    break;
-
-  case 36:
-#line 168 "array_loader.y"
+  case 36: // var_list: var VAR_DELIM var
+#line 170 "array_loader.y"
                               { yylhs.value.as < StringList > ().push_back(yystack_[2].value.as < std::string > ()); yylhs.value.as < StringList > ().push_back(yystack_[0].value.as < std::string > ()); }
-#line 964 "array_loader.parser.cpp"
+#line 933 "array_loader.parser.cpp"
     break;
 
-  case 37:
-#line 169 "array_loader.y"
+  case 37: // var_list: var_list VAR_DELIM var
+#line 171 "array_loader.y"
                               { std::copy(yystack_[2].value.as < StringList > ().begin(), yystack_[2].value.as < StringList > ().end(), std::back_inserter(yylhs.value.as < StringList > ())); yylhs.value.as < StringList > ().push_back(yystack_[0].value.as < std::string > ()); }
-#line 970 "array_loader.parser.cpp"
+#line 939 "array_loader.parser.cpp"
     break;
 
-  case 38:
-#line 173 "array_loader.y"
-                                                        { yylhs.value.as < StringList > () = generateStringRange(0, 9); }
-#line 976 "array_loader.parser.cpp"
-    break;
-
-  case 39:
-#line 174 "array_loader.y"
-                                                        { yylhs.value.as < StringList > () = yystack_[1].value.as < StringList > (); }
-#line 982 "array_loader.parser.cpp"
-    break;
-
-  case 40:
+  case 38: // array_pattern: PATTERN_BEGIN PATTERN_END
 #line 175 "array_loader.y"
+                                                        { yylhs.value.as < StringList > () = generateStringRange(0, 9); }
+#line 945 "array_loader.parser.cpp"
+    break;
+
+  case 39: // array_pattern: PATTERN_BEGIN var_list PATTERN_END
+#line 176 "array_loader.y"
+                                                        { yylhs.value.as < StringList > () = yystack_[1].value.as < StringList > (); }
+#line 951 "array_loader.parser.cpp"
+    break;
+
+  case 40: // array_pattern: PATTERN_BEGIN UINT RANGE_DELIM UINT PATTERN_END
+#line 177 "array_loader.y"
                                                         {
 
         if(yystack_[3].value.as < uint32_t > () > yystack_[1].value.as < uint32_t > ())
@@ -990,44 +959,44 @@ namespace ceammc {
         else
             yylhs.value.as < StringList > () = generateStringRange(yystack_[3].value.as < uint32_t > (), yystack_[1].value.as < uint32_t > ());
                                                         }
-#line 994 "array_loader.parser.cpp"
+#line 963 "array_loader.parser.cpp"
     break;
 
-  case 41:
-#line 185 "array_loader.y"
+  case 41: // array_name: SYMBOL
+#line 187 "array_loader.y"
                                     { loader.addArray(yystack_[0].value.as < std::string > ()); }
-#line 1000 "array_loader.parser.cpp"
+#line 969 "array_loader.parser.cpp"
     break;
 
-  case 42:
-#line 186 "array_loader.y"
+  case 42: // array_name: SYMBOL array_pattern
+#line 188 "array_loader.y"
                                     {
         for(auto& s: yystack_[0].value.as < StringList > ())
             loader.addArray(yystack_[1].value.as < std::string > () + s);
                                     }
-#line 1009 "array_loader.parser.cpp"
+#line 978 "array_loader.parser.cpp"
     break;
 
-  case 43:
-#line 190 "array_loader.y"
+  case 43: // array_name: array_pattern SYMBOL
+#line 192 "array_loader.y"
                              {
         for(auto& s: yystack_[1].value.as < StringList > ())
             loader.addArray(s + yystack_[0].value.as < std::string > ());
                                     }
-#line 1018 "array_loader.parser.cpp"
+#line 987 "array_loader.parser.cpp"
     break;
 
-  case 44:
-#line 194 "array_loader.y"
+  case 44: // array_name: SYMBOL array_pattern SYMBOL
+#line 196 "array_loader.y"
                                     {
         for(auto& s: yystack_[1].value.as < StringList > ())
             loader.addArray(yystack_[2].value.as < std::string > () + s + yystack_[0].value.as < std::string > ());
                                     }
-#line 1027 "array_loader.parser.cpp"
+#line 996 "array_loader.parser.cpp"
     break;
 
 
-#line 1031 "array_loader.parser.cpp"
+#line 1000 "array_loader.parser.cpp"
 
             default:
               break;
@@ -1044,7 +1013,6 @@ namespace ceammc {
       YY_SYMBOL_PRINT ("-> $$ =", yylhs);
       yypop_ (yylen);
       yylen = 0;
-      YY_STACK_PRINT ();
 
       // Shift the result of the reduction.
       yypush_ (YY_NULLPTR, YY_MOVE (yylhs));
@@ -1060,7 +1028,9 @@ namespace ceammc {
     if (!yyerrstatus_)
       {
         ++yynerrs_;
-        error (yyla.location, yysyntax_error_ (yystack_[0].state, yyla));
+        context yyctx (*this, yyla);
+        std::string msg = yysyntax_error_ (yyctx);
+        error (yyla.location, YY_MOVE (msg));
       }
 
 
@@ -1071,7 +1041,7 @@ namespace ceammc {
            error, discard it.  */
 
         // Return failure if at end of input.
-        if (yyla.type_get () == yyeof_)
+        if (yyla.kind () == symbol_kind::S_YYEOF)
           YYABORT;
         else if (!yyla.empty ())
           {
@@ -1097,6 +1067,7 @@ namespace ceammc {
        this YYERROR.  */
     yypop_ (yylen);
     yylen = 0;
+    YY_STACK_PRINT ();
     goto yyerrlab1;
 
 
@@ -1105,37 +1076,39 @@ namespace ceammc {
   `-------------------------------------------------------------*/
   yyerrlab1:
     yyerrstatus_ = 3;   // Each real token shifted decrements this.
+    // Pop stack until we find a state that shifts the error token.
+    for (;;)
+      {
+        yyn = yypact_[+yystack_[0].state];
+        if (!yy_pact_value_is_default_ (yyn))
+          {
+            yyn += symbol_kind::S_YYerror;
+            if (0 <= yyn && yyn <= yylast_
+                && yycheck_[yyn] == symbol_kind::S_YYerror)
+              {
+                yyn = yytable_[yyn];
+                if (0 < yyn)
+                  break;
+              }
+          }
+
+        // Pop the current state because it cannot handle the error token.
+        if (yystack_.size () == 1)
+          YYABORT;
+
+        yyerror_range[1].location = yystack_[0].location;
+        yy_destroy_ ("Error: popping", yystack_[0]);
+        yypop_ ();
+        YY_STACK_PRINT ();
+      }
     {
       stack_symbol_type error_token;
-      for (;;)
-        {
-          yyn = yypact_[yystack_[0].state];
-          if (!yy_pact_value_is_default_ (yyn))
-            {
-              yyn += yy_error_token_;
-              if (0 <= yyn && yyn <= yylast_ && yycheck_[yyn] == yy_error_token_)
-                {
-                  yyn = yytable_[yyn];
-                  if (0 < yyn)
-                    break;
-                }
-            }
-
-          // Pop the current state because it cannot handle the error token.
-          if (yystack_.size () == 1)
-            YYABORT;
-
-          yyerror_range[1].location = yystack_[0].location;
-          yy_destroy_ ("Error: popping", yystack_[0]);
-          yypop_ ();
-          YY_STACK_PRINT ();
-        }
 
       yyerror_range[2].location = yyla.location;
       YYLLOC_DEFAULT (error_token.location, yyerror_range, 2);
 
       // Shift the error token.
-      error_token.state = static_cast<state_type> (yyn);
+      error_token.state = state_type (yyn);
       yypush_ ("Shifting", YY_MOVE (error_token));
     }
     goto yynewstate;
@@ -1167,6 +1140,7 @@ namespace ceammc {
     /* Do not reclaim the symbols of the rule whose action triggered
        this YYABORT or YYACCEPT.  */
     yypop_ (yylen);
+    YY_STACK_PRINT ();
     while (1 < yystack_.size ())
       {
         yy_destroy_ ("Cleanup: popping", yystack_[0]);
@@ -1200,18 +1174,100 @@ namespace ceammc {
     error (yyexc.location, yyexc.what ());
   }
 
-  // Generate an error message.
+  /* Return YYSTR after stripping away unnecessary quotes and
+     backslashes, so that it's suitable for yyerror.  The heuristic is
+     that double-quoting is unnecessary unless the string contains an
+     apostrophe, a comma, or backslash (other than backslash-backslash).
+     YYSTR is taken from yytname.  */
   std::string
-  ArrayLoaderParser::yysyntax_error_ (state_type yystate, const symbol_type& yyla) const
+  ArrayLoaderParser::yytnamerr_ (const char *yystr)
   {
-    // Number of reported tokens (one for the "unexpected", one per
-    // "expected").
-    std::ptrdiff_t yycount = 0;
-    // Its maximum.
-    enum { YYERROR_VERBOSE_ARGS_MAXIMUM = 5 };
-    // Arguments of yyformat.
-    char const *yyarg[YYERROR_VERBOSE_ARGS_MAXIMUM];
+    if (*yystr == '"')
+      {
+        std::string yyr;
+        char const *yyp = yystr;
 
+        for (;;)
+          switch (*++yyp)
+            {
+            case '\'':
+            case ',':
+              goto do_not_strip_quotes;
+
+            case '\\':
+              if (*++yyp != '\\')
+                goto do_not_strip_quotes;
+              else
+                goto append;
+
+            append:
+            default:
+              yyr += *yyp;
+              break;
+
+            case '"':
+              return yyr;
+            }
+      do_not_strip_quotes: ;
+      }
+
+    return yystr;
+  }
+
+  std::string
+  ArrayLoaderParser::symbol_name (symbol_kind_type yysymbol)
+  {
+    return yytnamerr_ (yytname_[yysymbol]);
+  }
+
+
+
+  // ArrayLoaderParser::context.
+  ArrayLoaderParser::context::context (const ArrayLoaderParser& yyparser, const symbol_type& yyla)
+    : yyparser_ (yyparser)
+    , yyla_ (yyla)
+  {}
+
+  int
+  ArrayLoaderParser::context::expected_tokens (symbol_kind_type yyarg[], int yyargn) const
+  {
+    // Actual number of expected tokens
+    int yycount = 0;
+
+    int yyn = yypact_[+yyparser_.yystack_[0].state];
+    if (!yy_pact_value_is_default_ (yyn))
+      {
+        /* Start YYX at -YYN if negative to avoid negative indexes in
+           YYCHECK.  In other words, skip the first -YYN actions for
+           this state because they are default actions.  */
+        int yyxbegin = yyn < 0 ? -yyn : 0;
+        // Stay within bounds of both yycheck and yytname.
+        int yychecklim = yylast_ - yyn + 1;
+        int yyxend = yychecklim < YYNTOKENS ? yychecklim : YYNTOKENS;
+        for (int yyx = yyxbegin; yyx < yyxend; ++yyx)
+          if (yycheck_[yyx + yyn] == yyx && yyx != symbol_kind::S_YYerror
+              && !yy_table_value_is_error_ (yytable_[yyx + yyn]))
+            {
+              if (!yyarg)
+                ++yycount;
+              else if (yycount == yyargn)
+                return 0;
+              else
+                yyarg[yycount++] = YY_CAST (symbol_kind_type, yyx);
+            }
+      }
+
+    if (yyarg && yycount == 0 && 0 < yyargn)
+      yyarg[0] = symbol_kind::S_YYEMPTY;
+    return yycount;
+  }
+
+
+
+  int
+  ArrayLoaderParser::yy_syntax_error_arguments_ (const context& yyctx,
+                                                 symbol_kind_type yyarg[], int yyargn) const
+  {
     /* There are many possibilities here to consider:
        - If this state is a consistent state with a default action, then
          the only way this function was invoked is if the default action
@@ -1236,35 +1292,26 @@ namespace ceammc {
          one exception: it will still contain any token that will not be
          accepted due to an error action in a later state.
     */
-    if (!yyla.empty ())
-      {
-        symbol_number_type yytoken = yyla.type_get ();
-        yyarg[yycount++] = yytname_[yytoken];
 
-        int yyn = yypact_[yystate];
-        if (!yy_pact_value_is_default_ (yyn))
-          {
-            /* Start YYX at -YYN if negative to avoid negative indexes in
-               YYCHECK.  In other words, skip the first -YYN actions for
-               this state because they are default actions.  */
-            int yyxbegin = yyn < 0 ? -yyn : 0;
-            // Stay within bounds of both yycheck and yytname.
-            int yychecklim = yylast_ - yyn + 1;
-            int yyxend = yychecklim < yyntokens_ ? yychecklim : yyntokens_;
-            for (int yyx = yyxbegin; yyx < yyxend; ++yyx)
-              if (yycheck_[yyx + yyn] == yyx && yyx != yy_error_token_
-                  && !yy_table_value_is_error_ (yytable_[yyx + yyn]))
-                {
-                  if (yycount == YYERROR_VERBOSE_ARGS_MAXIMUM)
-                    {
-                      yycount = 1;
-                      break;
-                    }
-                  else
-                    yyarg[yycount++] = yytname_[yyx];
-                }
-          }
+    if (!yyctx.lookahead ().empty ())
+      {
+        if (yyarg)
+          yyarg[0] = yyctx.token ();
+        int yyn = yyctx.expected_tokens (yyarg ? yyarg + 1 : yyarg, yyargn - 1);
+        return yyn + 1;
       }
+    return 0;
+  }
+
+  // Generate an error message.
+  std::string
+  ArrayLoaderParser::yysyntax_error_ (const context& yyctx) const
+  {
+    // Its maximum.
+    enum { YYARGS_MAX = 5 };
+    // Arguments of yyformat.
+    symbol_kind_type yyarg[YYARGS_MAX];
+    int yycount = yy_syntax_error_arguments_ (yyctx, yyarg, YYARGS_MAX);
 
     char const* yyformat = YY_NULLPTR;
     switch (yycount)
@@ -1289,7 +1336,7 @@ namespace ceammc {
     for (char const* yyp = yyformat; *yyp; ++yyp)
       if (yyp[0] == '%' && yyp[1] == 's' && yyi < yycount)
         {
-          yyres += yytnamerr_ (yyarg[yyi++]);
+          yyres += symbol_name (yyarg[yyi++]);
           ++yyp;
         }
       else
@@ -1305,24 +1352,24 @@ namespace ceammc {
   const signed char
   ArrayLoaderParser::yypact_[] =
   {
-      34,    15,     0,    22,   -28,    26,    53,    51,   -28,   -28,
-      48,    32,    49,   -28,    34,    -2,   -28,   -28,    36,   -28,
-       1,     1,   -28,    -4,   -28,    25,    27,     6,    11,   -28,
-      20,   -16,   -28,    50,   -28,   -28,   -28,   -28,   -28,    30,
-     -28,   -28,     9,    33,    29,   -28,    -4,   -28,    -4,   -28,
-     -28,    39,    43,    44,   -28,   -28,    38,   -28,   -28,   -28,
-     -28,    45,   -28,   -28,   -28,   -28,   -28,    13,   -28,    46,
-      47,    40,   -28,    52,   -28
+      34,    15,     0,    22,   -28,    42,    54,    52,   -28,   -28,
+      23,    48,    32,   -28,    34,    -2,   -28,   -28,    35,     1,
+     -28,     1,   -28,    -4,   -28,    28,    30,     6,    11,   -28,
+      20,   -16,   -28,    53,   -28,   -28,   -28,   -28,   -28,    29,
+     -28,     9,   -28,    33,    31,   -28,    -4,   -28,    -4,   -28,
+     -28,    36,    41,    44,   -28,   -28,    45,   -28,   -28,   -28,
+     -28,    47,   -28,   -28,   -28,   -28,   -28,    13,   -28,    49,
+      50,    38,   -28,    51,   -28
   };
 
   const signed char
   ArrayLoaderParser::yydefact_[] =
   {
        0,    41,     0,     0,    45,    32,     0,    42,    34,    38,
-      35,     0,     0,    43,     0,    47,     1,    44,     0,    39,
-       0,     0,    46,     0,    16,     0,    25,     0,     0,    17,
-       0,     0,    33,     0,    35,    37,    36,     6,     7,     0,
-      22,    12,     8,    23,     7,    26,     0,    18,     0,    20,
+      35,     0,     0,    43,     0,    47,     1,    44,     0,     0,
+      39,     0,    46,     0,    16,     0,    25,     0,     0,    17,
+       0,     0,    33,     0,    35,    36,    37,     6,     7,     0,
+      12,     8,    22,    23,     7,    26,     0,    18,     0,    20,
       13,     0,    28,    30,    29,    40,     0,     9,    10,    11,
       24,     0,    19,    21,    14,    15,    31,     2,    27,     0,
        0,     4,     3,     0,     5
@@ -1331,14 +1378,14 @@ namespace ceammc {
   const signed char
   ArrayLoaderParser::yypgoto_[] =
   {
-     -28,   -27,   -28,    24,    66,   -28,    31,   -28,   -28,   -28,
+     -28,   -28,    27,   -27,   -28,   -28,   -28,    26,   -28,    62,
       56,   -28,   -28
   };
 
   const signed char
   ArrayLoaderParser::yydefgoto_[] =
   {
-      -1,    40,    41,    42,     3,    11,    12,    52,    32,    15,
+      -1,    40,    41,    42,    52,    32,    15,    11,    12,     3,
        4,     5,     6
   };
 
@@ -1348,11 +1395,11 @@ namespace ceammc {
       47,    49,    53,     8,     8,    54,     9,    23,    24,    25,
       26,    27,    28,    29,    30,    31,    37,    38,    39,    62,
        2,    63,    10,    34,    46,    13,    37,    38,    39,    48,
-      14,    37,    38,    39,    57,    58,    59,     1,    19,     2,
-      20,    50,    69,    51,    70,    37,    38,    37,    44,    43,
-      45,    35,    36,    16,    17,    18,    55,    21,    33,    56,
-      67,    60,    61,    64,    65,    66,    68,     7,    71,    72,
-      22,    73,     0,     0,    74
+      18,    37,    38,    39,    57,    58,    59,     1,    20,     2,
+      21,    50,    69,    51,    70,    35,    14,    36,    37,    38,
+      37,    44,    43,    45,    16,    17,    19,    33,    56,    55,
+      64,    60,    65,     7,    61,    66,     0,    67,    68,    73,
+      22,    71,    72,    74
   };
 
   const signed char
@@ -1361,34 +1408,34 @@ namespace ceammc {
       27,    28,    18,     3,     3,    21,     6,     9,    10,    11,
       12,    13,    14,    15,    16,    17,    20,    21,    22,    46,
        5,    48,    22,    22,    18,     3,    20,    21,    22,    18,
-       4,    20,    21,    22,    25,    26,    27,     3,     6,     5,
-       8,    21,    29,    23,    31,    20,    21,    20,    21,    25,
-      26,    20,    21,     0,     3,     7,     6,     8,    22,    29,
-      22,    28,    33,    24,    21,    21,    21,     1,    22,    22,
-      14,    31,    -1,    -1,    22
+       7,    20,    21,    22,    25,    26,    27,     3,     6,     5,
+       8,    21,    29,    23,    31,    19,     4,    21,    20,    21,
+      20,    21,    25,    26,     0,     3,     8,    22,    29,     6,
+      24,    28,    21,     1,    33,    21,    -1,    22,    21,    31,
+      14,    22,    22,    22
   };
 
   const signed char
   ArrayLoaderParser::yystos_[] =
   {
-       0,     3,     5,    40,    46,    47,    48,    40,     3,     6,
-      22,    41,    42,     3,     4,    45,     0,     3,     7,     6,
-       8,     8,    46,     9,    10,    11,    12,    13,    14,    15,
-      16,    17,    44,    22,    22,    42,    42,    20,    21,    22,
-      37,    38,    39,    39,    21,    39,    18,    37,    18,    37,
-      21,    23,    43,    18,    21,     6,    29,    25,    26,    27,
-      28,    33,    37,    37,    24,    21,    21,    22,    21,    29,
+       0,     3,     5,    45,    46,    47,    48,    45,     3,     6,
+      22,    43,    44,     3,     4,    42,     0,     3,     7,     8,
+       6,     8,    46,     9,    10,    11,    12,    13,    14,    15,
+      16,    17,    41,    22,    22,    43,    43,    20,    21,    22,
+      37,    38,    39,    38,    21,    38,    18,    39,    18,    39,
+      21,    23,    40,    18,    21,     6,    29,    25,    26,    27,
+      28,    33,    39,    39,    24,    21,    21,    22,    21,    29,
       31,    22,    22,    31,    22
   };
 
   const signed char
   ArrayLoaderParser::yyr1_[] =
   {
-       0,    36,    38,    38,    38,    38,    39,    39,    37,    37,
-      37,    37,    37,    43,    43,    43,    44,    44,    44,    44,
-      44,    44,    44,    44,    44,    44,    44,    44,    44,    44,
-      44,    44,    45,    45,    42,    42,    41,    41,    40,    40,
-      40,    46,    46,    46,    46,    47,    47,    48
+       0,    36,    37,    37,    37,    37,    38,    38,    39,    39,
+      39,    39,    39,    40,    40,    40,    41,    41,    41,    41,
+      41,    41,    41,    41,    41,    41,    41,    41,    41,    41,
+      41,    41,    42,    42,    43,    43,    44,    44,    45,    45,
+      45,    46,    46,    46,    46,    47,    47,    48
   };
 
   const signed char
@@ -1402,36 +1449,38 @@ namespace ceammc {
   };
 
 
-
+#if YYDEBUG || 1
   // YYTNAME[SYMBOL-NUM] -- String name of the symbol SYMBOL-NUM.
-  // First, the terminals, then, starting at \a yyntokens_, nonterminals.
+  // First, the terminals, then, starting at \a YYNTOKENS, nonterminals.
   const char*
   const ArrayLoaderParser::yytname_[] =
   {
-  "\"end of string\"", "error", "$undefined", "SYMBOL", "ARRAY_DELIM",
-  "PATTERN_BEGIN", "PATTERN_END", "RANGE_DELIM", "VAR_DELIM", "LENGTH",
-  "RESIZE", "GAIN", "RESAMPLE", "BEGIN", "END", "NORMALIZE", "CHANNELS",
-  "ARRAY_OFFSET", "OFFSET_END", "SMPTE", "FLOAT", "INT", "UINT",
-  "RANGE_BEGIN", "RANGE_END", "SEC", "MSEC", "SAMPLES", "DB", "COLON",
-  "\"colon\"", "DOT", "\"dot\"", "FRAC", "\"fraction\"", "LEXER_ERROR",
-  "$accept", "time", "smpte", "number", "array_pattern", "var_list", "var",
-  "channel_list", "opt", "options", "array_name", "array_list", "expr", YY_NULLPTR
+  "\"end of string\"", "error", "\"invalid token\"", "SYMBOL",
+  "ARRAY_DELIM", "PATTERN_BEGIN", "PATTERN_END", "RANGE_DELIM",
+  "VAR_DELIM", "LENGTH", "RESIZE", "GAIN", "RESAMPLE", "BEGIN", "END",
+  "NORMALIZE", "CHANNELS", "ARRAY_OFFSET", "OFFSET_END", "SMPTE", "FLOAT",
+  "INT", "UINT", "RANGE_BEGIN", "RANGE_END", "SEC", "MSEC", "SAMPLES",
+  "DB", "COLON", "\"colon\"", "DOT", "\"dot\"", "FRAC", "\"fraction\"",
+  "LEXER_ERROR", "$accept", "smpte", "number", "time", "channel_list",
+  "opt", "options", "var", "var_list", "array_pattern", "array_name",
+  "array_list", "expr", YY_NULLPTR
   };
+#endif
+
 
 #if YYDEBUG
   const unsigned char
   ArrayLoaderParser::yyrline_[] =
   {
-       0,   101,   101,   102,   103,   104,   108,   109,   113,   114,
-     115,   116,   117,   121,   122,   123,   127,   128,   129,   131,
-     133,   135,   137,   139,   141,   143,   145,   147,   149,   151,
-     153,   154,   158,   159,   163,   164,   168,   169,   173,   174,
-     175,   185,   186,   190,   194,   201,   202,   206
+       0,   103,   103,   104,   105,   106,   110,   111,   115,   116,
+     117,   118,   119,   123,   124,   125,   129,   130,   131,   133,
+     135,   137,   139,   141,   143,   145,   147,   149,   151,   153,
+     155,   156,   160,   161,   165,   166,   170,   171,   175,   176,
+     177,   187,   188,   192,   196,   203,   204,   208
   };
 
-  // Print the state stack on the debug stream.
   void
-  ArrayLoaderParser::yystack_print_ ()
+  ArrayLoaderParser::yy_stack_print_ () const
   {
     *yycdebug_ << "Stack now";
     for (stack_type::const_iterator
@@ -1442,9 +1491,8 @@ namespace ceammc {
     *yycdebug_ << '\n';
   }
 
-  // Report on the debug stream that the rule \a yyrule is going to be reduced.
   void
-  ArrayLoaderParser::yy_reduce_print_ (int yyrule)
+  ArrayLoaderParser::yy_reduce_print_ (int yyrule) const
   {
     int yylno = yyrline_[yyrule];
     int yynrhs = yyr2_[yyrule];
@@ -1460,13 +1508,13 @@ namespace ceammc {
 
 
 #line 7 "array_loader.y"
-} // ceammc
-#line 1465 "array_loader.parser.cpp"
+} } // ceammc::al
+#line 1513 "array_loader.parser.cpp"
 
-#line 209 "array_loader.y"
+#line 211 "array_loader.y"
 
 
-void ceammc::ArrayLoaderParser::error(const location& loc, const std::string& err_message)
+void ceammc::al::ArrayLoaderParser::error(const location& loc, const std::string& err_message)
 {
     auto line = lexer.matcher().line();
     lexer.out() << err_message << ':' << std::endl;

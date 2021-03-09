@@ -167,7 +167,7 @@ void UIArrayView::drawCursor()
     }
 }
 
-void UIArrayView::init(t_symbol* name, const AtomList& args, bool usePresets)
+void UIArrayView::init(t_symbol* name, const AtomListView& args, bool usePresets)
 {
     UIObject::init(name, args, usePresets);
     buffer_.reserve(1000);
@@ -428,15 +428,15 @@ void UIArrayView::m_update()
     render_clock_.delay(RENDER_CHUNK_PERIOD);
 }
 
-void UIArrayView::m_selectSamples(const AtomListView& lst)
+void UIArrayView::m_selectSamples(const AtomListView& lv)
 {
-    if (lst.empty()) {
+    if (lv.empty()) {
         // remove selection
         selection_ = SelectionRange(-1, -1);
         invalidateWaveform();
         redraw();
         return;
-    } else if (lst.size() != 2) {
+    } else if (lv.size() != 2) {
         UI_ERR << "usage: select (BEGIN END) | NONE";
         return;
     }
@@ -445,8 +445,8 @@ void UIArrayView::m_selectSamples(const AtomListView& lst)
         return;
 
     const long N = array_.size();
-    auto& atom_from = lst[0];
-    auto& atom_to = lst[1];
+    auto& atom_from = lv[0];
+    auto& atom_to = lv[1];
 
     long from = -1;
     long to = -1;
@@ -654,12 +654,12 @@ void UIArrayView::output()
     }
 }
 
-t_float UIArrayView::cursorPosSample() const
+t_int UIArrayView::cursorPosSample() const
 {
     return cursor_sample_pos_;
 }
 
-void UIArrayView::setCursorPosSample(t_float pos)
+void UIArrayView::setCursorPosSample(t_int pos)
 {
     if (pos < 0) {
         UI_ERR << "invalid sample value: " << pos;
@@ -932,7 +932,7 @@ void UIArrayView::invalidateCursor()
     cursor_layer_.invalidate();
 }
 
-t_float UIArrayView::sizeSamples() const
+t_int UIArrayView::sizeSamples() const
 {
     if (!array_.open(prop_array))
         return 0;
@@ -954,14 +954,14 @@ t_float UIArrayView::sizeMs() const
     return sizeSec() * 1000;
 }
 
-AtomList UIArrayView::labelTopRight() const
+t_symbol* UIArrayView::labelTopRight() const
 {
-    return Atom(gensym(str_label_top_right_.c_str()));
+    return gensym(str_label_top_right_.c_str());
 }
 
-void UIArrayView::setLabelTopRight(const AtomListView& lst)
+void UIArrayView::setLabelTopRight(t_symbol* s)
 {
-    auto str = to_string(lst);
+    auto str = s->s_name;
     if (str != str_label_top_right_) {
         str_label_top_right_ = str;
         bg_layer_.invalidate();
@@ -969,14 +969,14 @@ void UIArrayView::setLabelTopRight(const AtomListView& lst)
     }
 }
 
-AtomList UIArrayView::labelBottomRight() const
+t_symbol* UIArrayView::labelBottomRight() const
 {
-    return Atom(gensym(str_label_bottom_right_.c_str()));
+    return gensym(str_label_bottom_right_.c_str());
 }
 
-void UIArrayView::setLabelBottomRight(const AtomListView& lst)
+void UIArrayView::setLabelBottomRight(t_symbol* s)
 {
-    auto str = to_string(lst);
+    auto str = s->s_name;
     if (str != str_label_bottom_right_) {
         str_label_bottom_right_ = str;
         bg_layer_.invalidate();
@@ -989,9 +989,9 @@ AtomList UIArrayView::propArray() const
     return Atom(prop_array);
 }
 
-void UIArrayView::propSetArray(const AtomListView& lst)
+void UIArrayView::propSetArray(const AtomListView& lv)
 {
-    t_symbol* name = lst.symbolAt(0, 0);
+    t_symbol* name = lv.symbolAt(0, 0);
     if (!name)
         return;
 
@@ -1040,9 +1040,9 @@ void UIArrayView::setup()
     obj.addProperty("label_top", &UIArrayView::labelTopRight, &UIArrayView::setLabelTopRight);
     obj.addProperty("label_bottom", &UIArrayView::labelBottomRight, &UIArrayView::setLabelBottomRight);
 
-    obj.addProperty("size_samp", &UIArrayView::sizeSamples, 0);
-    obj.addProperty("size_sec", &UIArrayView::sizeSec, 0);
-    obj.addProperty("size_ms", &UIArrayView::sizeMs, 0);
+    obj.addProperty("size_samp", &UIArrayView::sizeSamples);
+    obj.addProperty("size_sec", &UIArrayView::sizeSec);
+    obj.addProperty("size_ms", &UIArrayView::sizeMs);
     obj.setPropertyUnits(gensym("size_samp"), gensym("samp"));
     obj.setPropertyUnits(gensym("size_sec"), gensym("sec"));
     obj.setPropertyUnits(gensym("size_ms"), gensym("msec"));

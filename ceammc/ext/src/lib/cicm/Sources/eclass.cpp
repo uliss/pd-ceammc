@@ -581,9 +581,9 @@ void eclass_attr_redirect(t_eclass* c, const char* attrname, t_gotfn fn)
     t_symbol* sel1 = gensym(buf);
 
     for (int i = 0; i < c->c_class.c_nmethod; i++) {
-        t_methodentry* m = &c->c_class.c_methods[i];
-        if (m->me_name == sel0 || m->me_name == sel1)
-            m->me_fun = fn;
+        auto& m = eclass_methods(&c->c_class)[i];
+        if (m.me_name == sel0 || m.me_name == sel1)
+            m.me_fun = fn;
     }
 }
 
@@ -682,6 +682,76 @@ void eclass_attr_style(t_eclass* c, const char* attrname, const char* style)
     }
 }
 
+static size_t item_count(const char* str, size_t len)
+{
+    enum State {
+        BEGIN,
+        SEP,
+        OTHER
+    };
+
+    auto is_sep = [](char c) { return c == ' ' || c == ','; };
+
+    State st = BEGIN;
+    size_t count = 0;
+
+    for (size_t i = 0; i < len; i++) {
+        char c = str[i];
+        switch (st) {
+        case BEGIN:
+        case SEP:
+            if (!is_sep(c)) {
+                st = OTHER;
+                count++;
+            }
+            break;
+        case OTHER:
+        default:
+            st = is_sep(c) ? SEP : OTHER;
+            break;
+        }
+    }
+
+    return count;
+}
+
+static void fill_items(const char* str, size_t len, t_symbol** itemlist)
+{
+    enum State {
+        BEGIN,
+        SEP,
+        OTHER
+    };
+
+    auto is_sep = [](char c) { return c == ' ' || c == ','; };
+    std::string item;
+
+    State st = BEGIN;
+    size_t from = 0;
+    size_t n = 0;
+
+    for (size_t i = 0; i <= len; i++) {
+        char c = str[i];
+        switch (st) {
+        case BEGIN:
+        case SEP:
+            if (!is_sep(c)) {
+                st = OTHER;
+                from = i;
+            }
+            break;
+        case OTHER:
+        default:
+            if (is_sep(c) || c == '\0') {
+                st = SEP;
+                item.assign(str + from, i - from);
+                itemlist[n++] = gensym(item.c_str());
+            }
+            break;
+        }
+    }
+}
+
 void eclass_attr_itemlist(t_eclass* c, const char* attrname, const char* list)
 {
     constexpr size_t MAX_ITEMS = 256;
@@ -694,21 +764,14 @@ void eclass_attr_itemlist(t_eclass* c, const char* attrname, const char* list)
         if (attr->name != SYM_ATTR)
             continue;
 
-        size_t new_size = 0;
-
         const size_t len = list ? strlen(list) : 0;
-        if (len > 0)
-            new_size++;
+        size_t new_size = item_count(list, len);
 
-        // count separators
-        for (size_t i = 0; i < len; i++) {
-            if (list[i] == ' ' || list[i] == ',')
-                new_size++;
-        }
+        const size_t max_items = (attr->sizemax > 0) ? attr->sizemax : MAX_ITEMS;
 
-        if (new_size > MAX_ITEMS) {
-            error("[%s] to many property items: %d, clipping to %d", c->c_class.c_name->s_name, (int)new_size, (int)MAX_ITEMS);
-            new_size = MAX_ITEMS;
+        if (new_size > max_items) {
+            error("[%s] to many property items: %d, clipping to %d", c->c_class.c_name->s_name, (int)new_size, (int)max_items);
+            new_size = max_items;
         }
 
         // non-empty list
@@ -738,33 +801,7 @@ void eclass_attr_itemlist(t_eclass* c, const char* attrname, const char* list)
 
             // memory alloc is ok
             if (attr->itemslist && attr->itemssize) {
-                char buf[2048] = ""; // rather big cause for ex.: ui.icon items string could be rather long
-                const auto n = std::min<size_t>(len, sizeof(buf) - 1);
-                memcpy(buf, list, n);
-                buf[n] = '\0';
-
-                size_t b = 0;
-                size_t attr_count = 0;
-                for (size_t i = 0; i < n; i++) {
-                    if (buf[i] == ' ' || buf[i] == ',') {
-                        auto l = i - b;
-                        if (l > 0) {
-                            buf[i] = '\0';
-                            if (attr_count < attr->itemssize) {
-                                auto sym = gensym(buf + b);
-                                attr->itemslist[attr_count++] = sym;
-                            }
-                        }
-
-                        b = i + 1;
-                    }
-                }
-
-                // adding last (or single) item
-                if (new_size > 0 && attr_count < attr->itemssize) {
-                    auto sym = gensym(buf + b);
-                    attr->itemslist[attr_count] = sym;
-                }
+                fill_items(list, len, attr->itemslist);
             } else {
                 error("[%s] %s error in @%s", c->c_class.c_name->s_name, __FUNCTION__, attrname);
                 return;
@@ -1882,4 +1919,13 @@ void eclass_attr_units(t_eclass* c, t_symbol* attrname, t_symbol* units)
             return;
         }
     }
+}
+
+t_methodentry* eclass_methods(_class* c)
+{
+#ifdef PDINSTANCE
+    return c->c_methods[pd_this->pd_instanceno];
+#else
+    return c->c_methods;
+#endif
 }

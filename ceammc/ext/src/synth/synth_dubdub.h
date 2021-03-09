@@ -1,7 +1,7 @@
 /* ------------------------------------------------------------
 name: "synth.dubdub"
-Code generated with Faust 2.28.6 (https://faust.grame.fr)
-Compilation options: -lang cpp -scal -ftz 0
+Code generated with Faust 2.30.12 (https://faust.grame.fr)
+Compilation options: -lang cpp -es 1 -scal -ftz 0
 ------------------------------------------------------------ */
 
 #ifndef  __synth_dubdub_H__
@@ -89,7 +89,7 @@ class synth_dubdub_dsp {
          */
         virtual void buildUserInterface(UI* ui_interface) = 0;
     
-        /* Returns the sample rate currently used by the instance */
+        /* Return the sample rate currently used by the instance */
         virtual int getSampleRate() = 0;
     
         /**
@@ -97,28 +97,28 @@ class synth_dubdub_dsp {
          * - static class 'classInit': static tables initialization
          * - 'instanceInit': constants and instance state initialization
          *
-         * @param sample_rate - the sampling rate in Hertz
+         * @param sample_rate - the sampling rate in Hz
          */
         virtual void init(int sample_rate) = 0;
 
         /**
          * Init instance state
          *
-         * @param sample_rate - the sampling rate in Hertz
+         * @param sample_rate - the sampling rate in Hz
          */
         virtual void instanceInit(int sample_rate) = 0;
-
+    
         /**
          * Init instance constant state
          *
-         * @param sample_rate - the sampling rate in Hertz
+         * @param sample_rate - the sampling rate in Hz
          */
         virtual void instanceConstants(int sample_rate) = 0;
     
         /* Init default control parameters values */
         virtual void instanceResetUserInterface() = 0;
     
-        /* Init instance state (delay lines...) */
+        /* Init instance state (like delay lines...) but keep the control parameter values */
         virtual void instanceClear() = 0;
  
         /**
@@ -191,7 +191,8 @@ class decorator_dsp : public synth_dubdub_dsp {
 };
 
 /**
- * DSP factory class.
+ * DSP factory class, used with LLVM and Interpreter backends
+ * to create DSP instances from a compiled DSP program.
  */
 
 class dsp_factory {
@@ -345,11 +346,13 @@ struct UI : public UIReal<FAUSTFLOAT>
 #ifndef __meta__
 #define __meta__
 
+/**
+ The base class of Meta handler to be used in synth_dubdub_dsp::metadata(Meta* m) method to retrieve (key, value) metadata.
+ */
 struct Meta
 {
     virtual ~Meta() {};
     virtual void declare(const char* key, const char* value) = 0;
-    
 };
 
 #endif
@@ -495,6 +498,7 @@ struct synth_dubdub : public synth_dubdub_dsp {
 
 #include <algorithm>
 #include <cmath>
+#include <cstdint>
 #include <math.h>
 
 static float synth_dubdub_faustpower2_f(float value) {
@@ -536,6 +540,7 @@ class synth_dubdub : public synth_dubdub_dsp {
 		m->declare("basics.lib/version", "0.1");
 		m->declare("ceammc_ui.lib/name", "CEAMMC faust default UI elements");
 		m->declare("ceammc_ui.lib/version", "0.1.2");
+		m->declare("compile_options", "-lang cpp -es 1 -scal -ftz 0");
 		m->declare("envelopes.lib/author", "GRAME");
 		m->declare("envelopes.lib/copyright", "GRAME");
 		m->declare("envelopes.lib/license", "LGPL with exception");
@@ -548,7 +553,7 @@ class synth_dubdub : public synth_dubdub_dsp {
 		m->declare("filters.lib/iir:author", "Julius O. Smith III");
 		m->declare("filters.lib/iir:copyright", "Copyright (C) 2003-2019 by Julius O. Smith III <jos@ccrma.stanford.edu>");
 		m->declare("filters.lib/iir:license", "MIT-style STK-4.3 license");
-		m->declare("filters.lib/lowpass0_highpass1", "MIT-style STK-4.3 license");
+		m->declare("filters.lib/lowpass0_highpass1", "Copyright (C) 2003-2019 by Julius O. Smith III <jos@ccrma.stanford.edu>");
 		m->declare("filters.lib/name", "Faust Filters Library");
 		m->declare("filters.lib/resonlp:author", "Julius O. Smith III");
 		m->declare("filters.lib/resonlp:copyright", "Copyright (C) 2003-2019 by Julius O. Smith III <jos@ccrma.stanford.edu>");
@@ -559,6 +564,7 @@ class synth_dubdub : public synth_dubdub_dsp {
 		m->declare("filters.lib/tf2s:author", "Julius O. Smith III");
 		m->declare("filters.lib/tf2s:copyright", "Copyright (C) 2003-2019 by Julius O. Smith III <jos@ccrma.stanford.edu>");
 		m->declare("filters.lib/tf2s:license", "MIT-style STK-4.3 license");
+		m->declare("filters.lib/version", "0.3");
 		m->declare("maths.lib/author", "GRAME");
 		m->declare("maths.lib/copyright", "GRAME");
 		m->declare("maths.lib/license", "LGPL with exception");
@@ -572,7 +578,7 @@ class synth_dubdub : public synth_dubdub_dsp {
 		m->declare("signals.lib/name", "Faust Signal Routing Library");
 		m->declare("signals.lib/version", "0.0");
 		m->declare("spn.lib/name", "Standart Pitch Notation constants");
-		m->declare("spn.lib/version", "0.1");
+		m->declare("spn.lib/version", "0.2");
 		m->declare("synths.lib/name", "Faust Synthesizer Library");
 		m->declare("synths.lib/version", "0.0");
 	}
@@ -628,19 +634,15 @@ class synth_dubdub : public synth_dubdub_dsp {
 	}
 	
 	virtual void instanceClear() {
-		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l0 = 0; (l0 < 2); l0 = (l0 + 1)) {
 			fRec1[l0] = 0.0f;
 		}
-		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l1 = 0; (l1 < 2); l1 = (l1 + 1)) {
 			fRec2[l1] = 0.0f;
 		}
-		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l2 = 0; (l2 < 2); l2 = (l2 + 1)) {
 			fRec4[l2] = 0.0f;
 		}
-		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l3 = 0; (l3 < 3); l3 = (l3 + 1)) {
 			fRec0[l3] = 0.0f;
 		}
@@ -676,14 +678,13 @@ class synth_dubdub : public synth_dubdub_dsp {
 	virtual void compute(int count, FAUSTFLOAT** inputs, FAUSTFLOAT** outputs) {
 		FAUSTFLOAT* output0 = outputs[0];
 		float fSlow0 = (fConst2 * float(fButton0));
-		float fSlow1 = std::max<float>(1.00000001e-07f, std::fabs((440.0f * std::pow(2.0f, (0.0833333358f * (float(fHslider0) + -69.0f))))));
+		float fSlow1 = std::max<float>(1.1920929e-07f, std::fabs((440.0f * std::pow(2.0f, (0.0833333358f * (float(fHslider0) + -69.0f))))));
 		float fSlow2 = (fConst3 * fSlow1);
 		float fSlow3 = (1.0f - (fConst0 / fSlow1));
 		float fSlow4 = std::tan((fConst4 * float(fHslider1)));
 		float fSlow5 = (1.0f / fSlow4);
 		float fSlow6 = (0.00100000005f * float(fVslider0));
 		float fSlow7 = (2.0f * (1.0f - (1.0f / synth_dubdub_faustpower2_f(fSlow4))));
-		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int i = 0; (i < count); i = (i + 1)) {
 			fRec1[0] = (fSlow0 + (fConst1 * fRec1[1]));
 			float fTemp0 = (fSlow2 + (fRec2[1] + -1.0f));
@@ -694,7 +695,7 @@ class synth_dubdub : public synth_dubdub_dsp {
 			fRec4[0] = (fSlow6 + (0.999000013f * fRec4[1]));
 			float fTemp3 = (1.0f / fRec4[0]);
 			float fTemp4 = ((fSlow5 * (fSlow5 + fTemp3)) + 1.0f);
-			fRec0[0] = ((0.5f * (fRec1[0] * ((2.0f * fRec3) + -1.0f))) - (((fRec0[2] * ((fSlow5 * (fSlow5 - fTemp3)) + 1.0f)) + (fSlow7 * fRec0[1])) / fTemp4));
+			fRec0[0] = ((0.5f * (fRec1[0] * ((2.0f * fRec3) + -1.0f))) - (((fRec0[2] * (1.0f - (fSlow5 * (fTemp3 - fSlow5)))) + (fSlow7 * fRec0[1])) / fTemp4));
 			output0[i] = FAUSTFLOAT(((fRec0[2] + (fRec0[0] + (2.0f * fRec0[1]))) / fTemp4));
 			fRec1[1] = fRec1[0];
 			fRec2[1] = fRec2[0];

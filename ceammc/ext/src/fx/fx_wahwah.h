@@ -1,7 +1,7 @@
 /* ------------------------------------------------------------
 name: "fx.wahwah"
-Code generated with Faust 2.28.6 (https://faust.grame.fr)
-Compilation options: -lang cpp -scal -ftz 0
+Code generated with Faust 2.30.12 (https://faust.grame.fr)
+Compilation options: -lang cpp -es 1 -scal -ftz 0
 ------------------------------------------------------------ */
 
 #ifndef  __fx_wahwah_H__
@@ -89,7 +89,7 @@ class fx_wahwah_dsp {
          */
         virtual void buildUserInterface(UI* ui_interface) = 0;
     
-        /* Returns the sample rate currently used by the instance */
+        /* Return the sample rate currently used by the instance */
         virtual int getSampleRate() = 0;
     
         /**
@@ -97,28 +97,28 @@ class fx_wahwah_dsp {
          * - static class 'classInit': static tables initialization
          * - 'instanceInit': constants and instance state initialization
          *
-         * @param sample_rate - the sampling rate in Hertz
+         * @param sample_rate - the sampling rate in Hz
          */
         virtual void init(int sample_rate) = 0;
 
         /**
          * Init instance state
          *
-         * @param sample_rate - the sampling rate in Hertz
+         * @param sample_rate - the sampling rate in Hz
          */
         virtual void instanceInit(int sample_rate) = 0;
-
+    
         /**
          * Init instance constant state
          *
-         * @param sample_rate - the sampling rate in Hertz
+         * @param sample_rate - the sampling rate in Hz
          */
         virtual void instanceConstants(int sample_rate) = 0;
     
         /* Init default control parameters values */
         virtual void instanceResetUserInterface() = 0;
     
-        /* Init instance state (delay lines...) */
+        /* Init instance state (like delay lines...) but keep the control parameter values */
         virtual void instanceClear() = 0;
  
         /**
@@ -191,7 +191,8 @@ class decorator_dsp : public fx_wahwah_dsp {
 };
 
 /**
- * DSP factory class.
+ * DSP factory class, used with LLVM and Interpreter backends
+ * to create DSP instances from a compiled DSP program.
  */
 
 class dsp_factory {
@@ -345,11 +346,13 @@ struct UI : public UIReal<FAUSTFLOAT>
 #ifndef __meta__
 #define __meta__
 
+/**
+ The base class of Meta handler to be used in fx_wahwah_dsp::metadata(Meta* m) method to retrieve (key, value) metadata.
+ */
 struct Meta
 {
     virtual ~Meta() {};
     virtual void declare(const char* key, const char* value) = 0;
-    
 };
 
 #endif
@@ -495,6 +498,7 @@ struct fx_wahwah : public fx_wahwah_dsp {
 
 #include <algorithm>
 #include <cmath>
+#include <cstdint>
 #include <math.h>
 
 class fx_wahwahSIG0 {
@@ -539,7 +543,6 @@ class fx_wahwahSIG0 {
 	}
 	
 	void fillfx_wahwahSIG0(int count, float* table) {
-		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int i = 0; (i < count); i = (i + 1)) {
 			table[i] = 0.0f;
 		}
@@ -575,7 +578,6 @@ class fx_wahwah : public fx_wahwah_dsp {
 	FAUSTFLOAT fHslider1;
 	float fVec1[2];
 	int fSampleRate;
-	float fConst0;
 	float fConst1;
 	FAUSTFLOAT fHslider2;
 	float fRec4[2];
@@ -599,6 +601,7 @@ class fx_wahwah : public fx_wahwah_dsp {
 		m->declare("ceammc.lib/version", "0.1.2");
 		m->declare("ceammc_ui.lib/name", "CEAMMC faust default UI elements");
 		m->declare("ceammc_ui.lib/version", "0.1.2");
+		m->declare("compile_options", "-lang cpp -es 1 -scal -ftz 0");
 		m->declare("filename", "fx_wahwah.dsp");
 		m->declare("filters.lib/fir:author", "Julius O. Smith III");
 		m->declare("filters.lib/fir:copyright", "Copyright (C) 2003-2019 by Julius O. Smith III <jos@ccrma.stanford.edu>");
@@ -611,6 +614,7 @@ class fx_wahwah : public fx_wahwah_dsp {
 		m->declare("filters.lib/tf2:author", "Julius O. Smith III");
 		m->declare("filters.lib/tf2:copyright", "Copyright (C) 2003-2019 by Julius O. Smith III <jos@ccrma.stanford.edu>");
 		m->declare("filters.lib/tf2:license", "MIT-style STK-4.3 license");
+		m->declare("filters.lib/version", "0.3");
 		m->declare("maths.lib/author", "GRAME");
 		m->declare("maths.lib/copyright", "GRAME");
 		m->declare("maths.lib/license", "LGPL with exception");
@@ -668,7 +672,7 @@ class fx_wahwah : public fx_wahwah_dsp {
 		fx_wahwahSIG0* sig0 = newfx_wahwahSIG0();
 		sig0->instanceInitfx_wahwahSIG0(sample_rate);
 		sig0->fillfx_wahwahSIG0(16, ftbl0);
-		fConst0 = std::min<float>(192000.0f, std::max<float>(1.0f, float(fSampleRate)));
+		float fConst0 = std::min<float>(192000.0f, std::max<float>(1.0f, float(fSampleRate)));
 		fConst1 = (60.0f * fConst0);
 		fConst2 = (1413.71667f / fConst0);
 		fConst3 = (2827.43335f / fConst0);
@@ -683,51 +687,39 @@ class fx_wahwah : public fx_wahwah_dsp {
 	}
 	
 	virtual void instanceClear() {
-		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l0 = 0; (l0 < 2); l0 = (l0 + 1)) {
 			iVec0[l0] = 0;
 		}
-		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l1 = 0; (l1 < 2); l1 = (l1 + 1)) {
 			fRec0[l1] = 0.0f;
 		}
-		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l2 = 0; (l2 < 2); l2 = (l2 + 1)) {
 			fVec1[l2] = 0.0f;
 		}
-		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l3 = 0; (l3 < 2); l3 = (l3 + 1)) {
 			fRec4[l3] = 0.0f;
 		}
-		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l4 = 0; (l4 < 2); l4 = (l4 + 1)) {
 			iRec3[l4] = 0;
 		}
-		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l5 = 0; (l5 < 2); l5 = (l5 + 1)) {
 			iVec2[l5] = 0;
 		}
-		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l6 = 0; (l6 < 2); l6 = (l6 + 1)) {
 			fRec5[l6] = 0.0f;
 		}
-		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l7 = 0; (l7 < 2); l7 = (l7 + 1)) {
 			iRec6[l7] = 0;
 		}
-		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l8 = 0; (l8 < 2); l8 = (l8 + 1)) {
 			fRec2[l8] = 0.0f;
 		}
-		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l9 = 0; (l9 < 2); l9 = (l9 + 1)) {
 			fRec7[l9] = 0.0f;
 		}
-		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l10 = 0; (l10 < 2); l10 = (l10 + 1)) {
 			fRec8[l10] = 0.0f;
 		}
-		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l11 = 0; (l11 < 3); l11 = (l11 + 1)) {
 			fRec1[l11] = 0.0f;
 		}
@@ -770,7 +762,6 @@ class fx_wahwah : public fx_wahwah_dsp {
 		float fSlow2 = float(fHslider1);
 		float fSlow3 = (0.00100000005f * float(fHslider2));
 		int iSlow4 = (fSlow2 <= 0.0f);
-		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int i = 0; (i < count); i = (i + 1)) {
 			float fTemp0 = float(input0[i]);
 			float fTemp1 = (iSlow0 ? 0.0f : fTemp0);

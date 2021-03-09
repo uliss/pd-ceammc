@@ -16,6 +16,7 @@
                 <see view="link">tl.cue</see>
             </also>
             <aliases>
+                <alias>ceammc/timeline</alias>
                 <alias>timeline</alias>
             </aliases>
         </meta>

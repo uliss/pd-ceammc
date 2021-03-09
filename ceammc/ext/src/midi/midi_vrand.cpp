@@ -142,6 +142,9 @@ t_float MidiVRrand::generate()
 
 t_float MidiVRrand::velocity(t_float orig)
 {
+    if (orig == 0)
+        return 0;
+
     auto m = mode_->value();
 
     if (m == SYM_ASSIGN)

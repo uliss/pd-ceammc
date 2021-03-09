@@ -2,7 +2,8 @@
 * For information on usage and redistribution, and for a DISCLAIMER OF ALL
 * WARRANTIES, see the file, "LICENSE.txt," in this distribution. */
 /* g_7_guis.h written by Thomas Musil (c) IEM KUG Graz Austria 2000-2001 */
-#pragma once
+
+#ifndef __g_all_guis_h_
 
 #define IEM_GUI_COLNR_WHITE          0
 #define IEM_GUI_COLNR_ML_GREY        1
@@ -317,3 +318,6 @@ EXTERN void iem_inttosymargs(t_iem_init_symargs *symargp, int n);
 EXTERN int iem_symargstoint(t_iem_init_symargs *symargp);
 EXTERN void iem_inttofstyle(t_iem_fstyle_flags *fstylep, int n);
 EXTERN int iem_fstyletoint(t_iem_fstyle_flags *fstylep);
+
+#define __g_all_guis_h_
+#endif /* __g_all_guis_h_ */

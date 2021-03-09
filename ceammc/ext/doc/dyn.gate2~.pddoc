@@ -53,7 +53,6 @@
         <outlets>
             <outlet type="audio">left output signal</outlet>
             <outlet type="audio">right output signal</outlet>
-            <outlet type="control">information output</outlet>
         </outlets>
         <example>
             <pdascii>
@@ -64,10 +63,12 @@
 |    |.
 [*~   ]      [F]
 |            |
-|            [threshold $1(
+|            [@threshold $1(
 |            |
-[dyn.gate2~ 90 id]
-|  ^|.
+[dyn.gate2~ 90]
+*|*
+[ui.hgain2~]
+*|*
 [dac~]
 ]]>
             </pdascii>

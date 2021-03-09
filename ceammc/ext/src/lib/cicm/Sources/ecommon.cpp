@@ -53,14 +53,12 @@ void epd_init(void)
     s_atom = gensym("atom");
     s_obj = gensym("obj");
     s_attr_modified = gensym("attr_modified");
-    s_eboxbd = gensym("eboxbd");
-    s_eboxio = gensym("eboxio");
     s_size = gensym("size");
     s_int = gensym("int");
     s_long = gensym("long");
     s_double = gensym("double");
     s_pinned = gensym("pinned");
-    s_iscicm = gensym("iscicm");
+    s_iscicm = gensym(".is_cicm?");
     s_attr_size = gensym("@size");
     s_color_black_hex = gensym("#000000");
 

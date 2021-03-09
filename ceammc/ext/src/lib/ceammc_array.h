@@ -111,12 +111,14 @@ public:
 
 public:
     Array();
+    Array(Array&& a);
     Array(t_symbol* name);
     Array(const char* name);
     Array(const char* name, std::initializer_list<t_sample> l);
 
     Array(const Array& array);
     Array& operator=(const Array& array);
+    Array& operator=(Array&& array);
 
     /** iterators */
     iterator begin();
@@ -237,11 +239,12 @@ public:
 
     /**
      * @brief setYTicks - set array y ticks
+     * @param y - value to draw big tick
      * @param step - tick value step
      * @param bigN - big tick every bigN, 0 - to disable all ticks
      * @return true on sucess, false on error
      */
-    bool setYTicks(t_float step, size_t bigN);
+    bool setYTicks(t_float y, t_float step, size_t bigN);
 
     /**
      * @brief setYLabels

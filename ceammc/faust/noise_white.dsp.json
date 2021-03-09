@@ -1,13 +1,14 @@
 {
 	"name": "noise_white",
 	"filename": "noise_white.dsp",
-	"version": "2.28.6",
-	"compile_options": "-lang cpp -scal -ftz 0",
+	"version": "2.30.12",
+	"compile_options": "-lang cpp -es 1 -scal -ftz 0",
 	"library_list": ["/usr/local/share/faust/noises.lib"],
 	"include_pathnames": ["/usr/local/share/faust","/usr/local/share/faust","/usr/share/faust","/Users/serge/work/music/pure-data/ceammc/faust","/Users/serge/work/music/pure-data/ceammc/faust"],
 	"inputs": 0,
 	"outputs": 1,
 	"meta": [ 
+		{ "compile_options": "-lang cpp -es 1 -scal -ftz 0" },
 		{ "filename": "noise_white.dsp" },
 		{ "name": "noise_white" },
 		{ "noises.lib/name": "Faust Noise Generator Library" },

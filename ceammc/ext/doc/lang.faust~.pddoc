@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="lang.faust~">
+        <title>lang.faust~</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>faust realtime compilation</description>
+            <license>GPL3 or later</license>
+            <library>ceammc</library>
+            <category>lang</category>
+            <keywords>faust</keywords>
+            <since>0.9.2</since>
+            <aliases>
+                <alias>ceammc/faust~</alias>
+                <alias>faust~</alias>
+            </aliases>
+        </meta>
+        <info>
+            <a href="https://faust.grame.fr/">https://faust.grame.fr/</a>
+        </info>
+        <mouse>
+            <event editmode="0" type="double-click" keys="Alt">open faust dsp file in external
+            editor</event>
+        </mouse>
+        <arguments>
+            <argument name="FNAME" type="symbol">path to faust dsp file</argument>
+        </arguments>
+        <methods>
+            <method name="open">open faust dsp file in external editor</method>
+            <method name="reset">reset object state</method>
+            <method name="update">update faust object, recompile if needed</method>
+        </methods>
+        <properties>
+            <property name="@fname" type="symbol">path to faust dsp file</property>
+            <property name="@include" type="list">list of faust include directories</property>
+            <property name="@auto" type="int" enum="0 1" default="1">auto update mode. If on -
+            recompiles faust dsp file on change</property>
+        </properties>
+        <inlets dynamic="true">
+            <inlet number="1">
+                <xinfo>control input</xinfo>
+            </inlet>
+            <inlet type="audio" number="2">
+                <xinfo>first faust input</xinfo>
+            </inlet>
+            <inlet type="audio" number="...">
+                <xinfo>... faust input</xinfo>
+            </inlet>
+            <inlet type="audio" number="n+1">
+                <xinfo>n-th faust input</xinfo>
+            </inlet>
+        </inlets>
+        <outlets dynamic="true">
+            <outlet type="audio" number="1">first faust output</outlet>
+            <outlet type="audio" number="...">... faust output</outlet>
+            <outlet type="audio" number="n">n-th faust output</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[open(  [ui.knob #x] [ui.knob #y]
+|       |            |
+|       |            |
+|       [@amp $1 #a( [@freq $1 #f(
+|
+|                 [osc.square~ 300]
+|                 |.
+[lang.faust~ faust/ex0.dsp #z]
+|
+[ui.hgain~]       [ui.dsp~]
+|\
+[dac~]
+[X a->z]
+[X f->z]
+#x @min 0 @max 0.5
+#y @min 0 @max 10
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

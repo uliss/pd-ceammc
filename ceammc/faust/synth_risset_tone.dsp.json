@@ -1,8 +1,8 @@
 {
 	"name": "synth.risset_tone",
 	"filename": "synth_risset_tone.dsp",
-	"version": "2.28.6",
-	"compile_options": "-lang cpp -scal -ftz 0",
+	"version": "2.30.12",
+	"compile_options": "-lang cpp -es 1 -scal -ftz 0",
 	"library_list": ["/usr/local/share/faust/stdfaust.lib","/usr/local/share/faust/maths.lib","/usr/local/share/faust/platform.lib","/Users/serge/work/music/pure-data/ceammc/faust/ceammc.lib","/usr/local/share/faust/basics.lib","/usr/local/share/faust/oscillators.lib"],
 	"include_pathnames": ["/usr/local/share/faust","/usr/local/share/faust","/usr/share/faust","/Users/serge/work/music/pure-data/ceammc/faust","/Users/serge/work/music/pure-data/ceammc/faust"],
 	"inputs": 0,
@@ -13,6 +13,7 @@
 		{ "basics.lib/version": "0.1" },
 		{ "ceammc.lib/name": "Ceammc PureData misc utils" },
 		{ "ceammc.lib/version": "0.1.2" },
+		{ "compile_options": "-lang cpp -es 1 -scal -ftz 0" },
 		{ "copyright": "Oliver Larkin" },
 		{ "description": "Jean Claude Risset's endless glissando" },
 		{ "filename": "synth_risset_tone.dsp" },

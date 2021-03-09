@@ -30,7 +30,7 @@ TEST_CASE("ui.display", "[ui.display]")
         REQUIRE_UI_FLOAT_PROPERTY(t, "auto_size", 1);
         REQUIRE_UI_FLOAT_PROPERTY(t, "display_type", 0);
         REQUIRE_UI_FLOAT_PROPERTY(t, "display_events", 1);
-        REQUIRE_UI_LIST_PROPERTY(t, "size", LF(150, 18));
+        REQUIRE_UI_LIST_PROPERTY(t, "size", LF(80, 18));
     }
 
     SECTION("external")

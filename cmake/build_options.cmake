@@ -11,7 +11,8 @@ option(WITH_EXT_LYONPOTPOURRI "Build lyonpotpourri externals" ON)
 option(WITH_EXT_FFTEASE "Build FFTease externals" ON)
 option(WITH_EXT_AUTOTUNE "Build autotune external" ON)
 option(WITH_EXT_FLEXT "Build flext externals" ON)
-
+option(WITH_FAUST "Build faust externals" ON)
+option(WITH_PD_INSTANCE "Build with PD_INSTANCE" OFF)
 
 if(UNIX)
     option(WITH_ASAN "Build with address sanitizer" OFF)

@@ -20,13 +20,12 @@
 using namespace ceammc;
 
 class UINumberTilde : public UIDspObject {
-    ClockMemberFunction<UINumberTilde> clock_;
-    UITextLayout text_;
-    UITextLayout bg_tilde_;
-    UILayer text_layer_;
+    static const size_t BUFSIZE = 32;
+
+    ClockLambdaFunction clock_;
     t_float value_;
     double last_redraw_time_;
-    char text_value_[32];
+    char text_value_[BUFSIZE];
 
 private:
     t_rgba prop_color_text;
@@ -37,7 +36,7 @@ private:
 public:
     UINumberTilde();
 
-    void init(t_symbol* name, const AtomList& args, bool usePresets);
+    void init(t_symbol* name, const AtomListView& args, bool usePresets);
     void okSize(t_rect* newrect);
     void paint();
 

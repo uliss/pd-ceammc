@@ -24,5 +24,6 @@ function(add_flt_test src)
     target_sources(test_ext_flt PRIVATE "test_flt_${src}.cpp")
 endfunction()
 
-
+add_flt_test(freqz)
+add_flt_test(lpf2biquad)
 add_flt_test(median)

@@ -36,9 +36,9 @@ public:
     bool copyData(size_t src_idx, size_t dst_idx);
     bool duplicate();
 
-    t_float floatAt(size_t idx, t_float def = 0) const;
+    t_float floatAt(t_float fidx, t_float def = 0) const;
     t_symbol* symbolAt(size_t idx, t_symbol* def = &s_) const;
-    AtomList listAt(size_t idx, const AtomList& def = AtomList()) const;
+    AtomListView listAt(size_t idx, const AtomListView& def = AtomListView()) const;
     AtomList anyAt(size_t idx, const AtomList& def = AtomList()) const;
 
     bool setFloatAt(size_t idx, t_float v);
@@ -72,14 +72,14 @@ public:
     size_t maxPresetCount() const;
 
     bool setFloatValueAt(t_symbol* name, size_t presetIdx, t_float v);
-    t_float floatValueAt(t_symbol* name, size_t presetIdx, t_float def = 0) const;
+    t_float floatValueAt(t_symbol* name, t_float presetIdx, t_float def = 0) const;
     bool clearValueAt(t_symbol* name, size_t presetIdx);
 
     bool setSymbolValueAt(t_symbol* name, size_t presetIdx, t_symbol* v);
     t_symbol* symbolValueAt(t_symbol* name, size_t presetIdx, t_symbol* def) const;
 
     bool setListValueAt(t_symbol* name, size_t presetIdx, const AtomList& l);
-    AtomList listValueAt(t_symbol* name, size_t presetIdx, const AtomList& def = AtomList()) const;
+    AtomListView listValueAt(t_symbol* name, size_t presetIdx, const AtomListView& def = AtomListView()) const;
 
     bool setAnyValueAt(t_symbol* name, size_t presetIdx, t_symbol* sel, const AtomList& l);
     AtomList anyValueAt(t_symbol* name, size_t presetIdx, const AtomList& def = AtomList()) const;
@@ -104,6 +104,7 @@ public:
     void clearAll(size_t idx);
     void loadAll(size_t idx);
     void storeAll(size_t idx);
+    void interpAll(t_float idx);
     void updateAll();
     void duplicateAll();
 

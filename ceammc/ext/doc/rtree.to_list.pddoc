@@ -13,6 +13,7 @@
             <keywords>rythm rtree openmusic pattern</keywords>
             <since>0.9.1</since>
             <aliases>
+                <alias>ceammc/rtree-&gt;list</alias>
                 <alias>rtree-&gt;list</alias>
             </aliases>
         </meta>

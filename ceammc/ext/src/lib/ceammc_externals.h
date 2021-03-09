@@ -30,7 +30,6 @@ void register_ui_external(t_class* c);
 bool is_ceammc(t_object* x);
 bool is_ceammc_base(t_object* x);
 bool is_ceammc_ui(t_object* x);
-bool is_ceammc_faust(t_object* x);
 bool is_ceammc_flext(t_object* x);
 bool is_ceammc_abstraction(t_object* x);
 
@@ -38,7 +37,6 @@ const BaseObject* ceammc_to_base_object(t_object* x, bool check = true);
 const UIObject* ceammc_to_ui_object(t_object* x, bool check = true);
 std::vector<PropertyInfo> ceammc_base_properties(t_object* x);
 std::vector<PropertyInfo> ceammc_ui_properties(t_object* x);
-std::vector<PropertyInfo> ceammc_faust_properties(t_object* x);
 std::vector<PropertyInfo> ceammc_abstraction_properties(t_object* x);
 
 enum class PropertySetState {

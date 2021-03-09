@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="speech.flite~">
+        <title>speech.flite~</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>render speech to array</description>
+            <license>GPL3 or later</license>
+            <library>ceammc</library>
+            <category>misc</category>
+            <keywords>speak speech flite</keywords>
+            <since>0.9.2</since>
+            <also>
+                <see>speech.flite</see>
+            </also>
+        </meta>
+        <info>
+            <par>Speaks floats, symbols and list to wavetables using flite TTS engine.</par>
+        </info>
+        <methods>
+            <method name="stop">stops speech and clear speech queue</method>
+        </methods>
+        <properties>
+            <property name="@voice" type="symbol" default="kal16" enum="kal16 slt rms awb">default
+            voice</property>
+            <property name="@speed" type="float" minvalue="0.5" maxvalue="4" default="1">speaking
+            speed</property>
+            <property name="@pitch" type="float" default="-1">voice pitch (-1 - default
+            value)</property>
+        </properties>
+        <inlets>
+            <inlet>
+                <xinfo on="float">speak number</xinfo>
+                <xinfo on="symbol">speak text</xinfo>
+                <xinfo on="list">speak text</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet type="audio">output signal</outlet>
+            <outlet>float: number of sentences left to speak</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[T]
+|
+[metro 1000]  [ui.menu kal16 slt rms awb] [ui.knob @min 1 @max 4]
+|             |                           |
+[flow.count]  [@voice $2( [F]             |
+|             |           |               |
+|             |           [@pitch $1(     [@speed $1(
+|             |           |               |
+[speech.flite~                            ]
+|        ^|
+|        [ui.dt]
+|
+[ui.gain~ @size 120 16]   [ui.dsp~]
+|\
+[dac~]
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

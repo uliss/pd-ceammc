@@ -6,7 +6,7 @@
     # include "lex/data_string.location.hpp"
     # include "ceammc_log.h"
 
-    using token = ceammc::DataStringParser::token;
+    using token = ceammc::ds::DataStringParser::token;
 %}
 
 %class {
@@ -23,20 +23,21 @@
 %}
 
 %option freespace unicode
-%option namespace=ceammc
+%option namespace=ceammc::ds
 %option lexer=DataStringLexer
 %option header-file=data_string.lexer.h
 %option outfile=data_string.lexer.cpp
 /*%option graphs-file*/
 /*%option debug*/
 /*%option perf-report*/
-%option bison-cc-namespace="ceammc"
+%option bison-cc-namespace=ceammc::ds
 %option bison-cc-parser="DataStringParser"
 %option bison-cc
 %option bison-complete
 %option bison-locations
 %option noyywrap
 %option reentrant
+%option fast
 
 udec       0 | [1-9] [0-9]*
 int        [-+]? {udec}

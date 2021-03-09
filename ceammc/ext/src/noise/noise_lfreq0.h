@@ -1,7 +1,7 @@
 /* ------------------------------------------------------------
 name: "noise.lfreq0"
-Code generated with Faust 2.28.6 (https://faust.grame.fr)
-Compilation options: -lang cpp -scal -ftz 0
+Code generated with Faust 2.30.12 (https://faust.grame.fr)
+Compilation options: -lang cpp -es 1 -scal -ftz 0
 ------------------------------------------------------------ */
 
 #ifndef  __noise_lfreq0_H__
@@ -89,7 +89,7 @@ class noise_lfreq0_dsp {
          */
         virtual void buildUserInterface(UI* ui_interface) = 0;
     
-        /* Returns the sample rate currently used by the instance */
+        /* Return the sample rate currently used by the instance */
         virtual int getSampleRate() = 0;
     
         /**
@@ -97,28 +97,28 @@ class noise_lfreq0_dsp {
          * - static class 'classInit': static tables initialization
          * - 'instanceInit': constants and instance state initialization
          *
-         * @param sample_rate - the sampling rate in Hertz
+         * @param sample_rate - the sampling rate in Hz
          */
         virtual void init(int sample_rate) = 0;
 
         /**
          * Init instance state
          *
-         * @param sample_rate - the sampling rate in Hertz
+         * @param sample_rate - the sampling rate in Hz
          */
         virtual void instanceInit(int sample_rate) = 0;
-
+    
         /**
          * Init instance constant state
          *
-         * @param sample_rate - the sampling rate in Hertz
+         * @param sample_rate - the sampling rate in Hz
          */
         virtual void instanceConstants(int sample_rate) = 0;
     
         /* Init default control parameters values */
         virtual void instanceResetUserInterface() = 0;
     
-        /* Init instance state (delay lines...) */
+        /* Init instance state (like delay lines...) but keep the control parameter values */
         virtual void instanceClear() = 0;
  
         /**
@@ -191,7 +191,8 @@ class decorator_dsp : public noise_lfreq0_dsp {
 };
 
 /**
- * DSP factory class.
+ * DSP factory class, used with LLVM and Interpreter backends
+ * to create DSP instances from a compiled DSP program.
  */
 
 class dsp_factory {
@@ -345,11 +346,13 @@ struct UI : public UIReal<FAUSTFLOAT>
 #ifndef __meta__
 #define __meta__
 
+/**
+ The base class of Meta handler to be used in noise_lfreq0_dsp::metadata(Meta* m) method to retrieve (key, value) metadata.
+ */
 struct Meta
 {
     virtual ~Meta() {};
     virtual void declare(const char* key, const char* value) = 0;
-    
 };
 
 #endif
@@ -495,6 +498,7 @@ struct noise_lfreq0 : public noise_lfreq0_dsp {
 
 #include <algorithm>
 #include <cmath>
+#include <cstdint>
 #include <math.h>
 
 
@@ -525,12 +529,14 @@ class noise_lfreq0 : public noise_lfreq0_dsp {
 	void metadata(Meta* m) { 
 		m->declare("basics.lib/name", "Faust Basic Element Library");
 		m->declare("basics.lib/version", "0.1");
+		m->declare("compile_options", "-lang cpp -es 1 -scal -ftz 0");
 		m->declare("filename", "noise_lfreq0.dsp");
 		m->declare("filters.lib/lowpass0_highpass1", "Copyright (C) 2003-2019 by Julius O. Smith III <jos@ccrma.stanford.edu>");
 		m->declare("filters.lib/name", "Faust Filters Library");
 		m->declare("filters.lib/nlf2:author", "Julius O. Smith III");
 		m->declare("filters.lib/nlf2:copyright", "Copyright (C) 2003-2019 by Julius O. Smith III <jos@ccrma.stanford.edu>");
 		m->declare("filters.lib/nlf2:license", "MIT-style STK-4.3 license");
+		m->declare("filters.lib/version", "0.3");
 		m->declare("maths.lib/author", "GRAME");
 		m->declare("maths.lib/copyright", "GRAME");
 		m->declare("maths.lib/license", "LGPL with exception");
@@ -589,23 +595,18 @@ class noise_lfreq0 : public noise_lfreq0_dsp {
 	}
 	
 	virtual void instanceClear() {
-		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l0 = 0; (l0 < 2); l0 = (l0 + 1)) {
 			iVec0[l0] = 0;
 		}
-		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l1 = 0; (l1 < 2); l1 = (l1 + 1)) {
 			fRec1[l1] = 0.0f;
 		}
-		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l2 = 0; (l2 < 2); l2 = (l2 + 1)) {
 			fRec2[l2] = 0.0f;
 		}
-		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l3 = 0; (l3 < 2); l3 = (l3 + 1)) {
 			iRec3[l3] = 0;
 		}
-		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l4 = 0; (l4 < 2); l4 = (l4 + 1)) {
 			fRec0[l4] = 0.0f;
 		}
@@ -641,7 +642,6 @@ class noise_lfreq0 : public noise_lfreq0_dsp {
 		float fSlow0 = (fConst0 * float(fHslider0));
 		float fSlow1 = std::sin(fSlow0);
 		float fSlow2 = std::cos(fSlow0);
-		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int i = 0; (i < count); i = (i + 1)) {
 			iVec0[0] = 1;
 			fRec1[0] = ((fSlow1 * fRec2[1]) + (fSlow2 * fRec1[1]));

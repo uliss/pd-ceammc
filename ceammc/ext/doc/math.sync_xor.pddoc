@@ -13,6 +13,7 @@
             <keywords>math sync logical xor</keywords>
             <aliases>
                 <alias>math.^'</alias>
+                <alias>ceammc/^'</alias>
                 <alias>^'</alias>
             </aliases>
             <since>0.8</since>

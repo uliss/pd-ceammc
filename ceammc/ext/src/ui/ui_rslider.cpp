@@ -34,7 +34,7 @@ UIRSlider::UIRSlider()
     createOutlet();
 }
 
-void UIRSlider::init(t_symbol* name, const AtomList& args, bool usePresets)
+void UIRSlider::init(t_symbol* name, const AtomListView& args, bool usePresets)
 {
     UIObject::init(name, args, usePresets);
     vlow_ = convert::lin2lin<t_float>(0.4, 0, 1, prop_min, prop_max);
@@ -82,9 +82,9 @@ void UIRSlider::drawBackground()
     p.setLineWidth(2);
 
     if (is_horizontal_)
-        p.drawLine(-1, r.height * 0.5, r.width + 2, r.height * 0.5);
+        p.drawLine(0, r.height * 0.5, r.width, r.height * 0.5);
     else
-        p.drawLine(r.width * 0.5, -2, r.width * 0.5, r.height + 4);
+        p.drawLine(r.width * 0.5, 0, r.width * 0.5, r.height);
 }
 
 void UIRSlider::drawKnob()
@@ -104,31 +104,32 @@ void UIRSlider::drawKnob()
     float value_high = convert::lin2lin_clip<float>(vhigh_, prop_min, prop_max, 0, 1);
 
     p.setLineWidth(2);
+
     if (is_horizontal_) {
         float x0 = value_low * r.width;
         float x1 = value_high * r.width;
 
         p.setColor(rect_color);
-        p.drawRect(x0, -2, x1 - x0, r.height + 4);
+        p.drawRect(x0, 0, x1 - x0, r.height);
         p.fill();
 
         p.setColor(line_color);
         p.drawLine(x0, r.height * 0.5, x1, r.height * 0.5);
 
         p.setColor(prop_color_knob);
-        p.drawLine(x0, -2, x0, r.height + 4);
-        p.drawLine(x1, -2, x1, r.height + 4);
+        p.drawLine(x0, 0, x0, r.height);
+        p.drawLine(x1, 0, x1, r.height);
     } else {
         p.setColor(rect_color);
-        p.drawRect(-2, value_low * r.height, r.width + 4, value_high * r.height - value_low * r.height);
+        p.drawRect(0, value_low * r.height, r.width, value_high * r.height - value_low * r.height);
         p.fill();
 
         p.setColor(line_color);
         p.drawLine(r.width * 0.5, value_low * r.height, r.width * 0.5, value_high * r.height);
 
         p.setColor(prop_color_knob);
-        p.drawLine(-2, value_low * r.height, r.width + 4, value_low * r.height);
-        p.drawLine(-2, value_high * r.height, r.width + 4, value_high * r.height);
+        p.drawLine(0, value_low * r.height, r.width, value_low * r.height);
+        p.drawLine(0, value_high * r.height, r.width, value_high * r.height);
     }
 }
 
@@ -137,9 +138,9 @@ void UIRSlider::onBang()
     output();
 }
 
-void UIRSlider::onList(const AtomListView& lst)
+void UIRSlider::onList(const AtomListView& lv)
 {
-    if (!setValue(lst))
+    if (!setValue(lv))
         return;
 
     redrawKnob();
@@ -276,9 +277,9 @@ AtomList UIRSlider::propValue() const
     return AtomList(vlow_, vhigh_);
 }
 
-void UIRSlider::propSetValue(const AtomListView& lst)
+void UIRSlider::propSetValue(const AtomListView& lv)
 {
-    if (!setValue(lst))
+    if (!setValue(lv))
         return;
 
     redrawKnob();
@@ -318,6 +319,29 @@ void UIRSlider::loadPreset(size_t idx)
     onList(PresetStorage::instance().listValueAt(presetId(), idx));
 }
 
+static AtomList interp_lists(const AtomListView& lv0, const AtomListView& lv1, size_t n, float k)
+{
+    Atom res[n];
+
+    for (size_t i = 0; i < n; i++) {
+        auto v0 = lv0.floatAt(i, 0);
+        auto v1 = lv1.floatAt(i, 0);
+        res[i] = v0 * (1 - k) + v1 * k;
+    }
+
+    return AtomList(AtomListView(res, n));
+}
+
+void UIRSlider::interpPreset(t_float idx)
+{
+    Atom def[2] = { 0.f, 0.f };
+    auto lv0 = PresetStorage::instance().listValueAt(presetId(), static_cast<int>(idx), AtomListView(def, 2));
+    auto lv1 = PresetStorage::instance().listValueAt(presetId(), static_cast<int>(idx) + 1, AtomListView(def, 2));
+
+    float k = (static_cast<float>(idx) - static_cast<int>(idx));
+    onList(interp_lists(lv0, lv1, 2, k));
+}
+
 void UIRSlider::storePreset(size_t idx)
 {
     PresetStorage::instance().setListValueAt(presetId(), idx, propValue());
@@ -346,20 +370,20 @@ void UIRSlider::output()
     send(AtomListView(res, 2));
 }
 
-bool UIRSlider::setValue(const AtomListView& lst)
+bool UIRSlider::setValue(const AtomListView& lv)
 {
-    if (lst.size() != 2) {
-        UI_ERR << "min max values expected: " << lst;
+    if (lv.size() != 2) {
+        UI_ERR << "min max values expected: " << lv;
         return false;
     }
 
-    const size_t N = lst.size();
+    const size_t N = lv.size();
 
-    if (N > 0 && lst[0].isFloat())
-        vlow_ = clip_any<float>(lst[0].asFloat(), prop_min, prop_max);
+    if (N > 0 && lv[0].isFloat())
+        vlow_ = clip_any<float>(lv[0].asFloat(), prop_min, prop_max);
 
-    if (N > 1 && lst[1].isFloat())
-        vhigh_ = clip_any<float>(lst[1].asFloat(), prop_min, prop_max);
+    if (N > 1 && lv[1].isFloat())
+        vhigh_ = clip_any<float>(lv[1].asFloat(), prop_min, prop_max);
 
     adjustValues();
 

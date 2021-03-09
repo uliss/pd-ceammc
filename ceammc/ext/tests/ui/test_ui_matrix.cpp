@@ -11,15 +11,18 @@
  * contact the author of this file, or the owner of the project in which
  * this file belongs to.
  *****************************************************************************/
-#include "ui_matrix.h"
-#include "ceammc_platform.h"
 #include "test_ui.h"
+
+#include "ceammc_platform.h"
+#include "ui_matrix.h"
 
 #include <ctime>
 #include <fstream>
 #include <random>
 
 UI_COMPLETE_TEST_SETUP(Matrix)
+
+using BitS = BitMatrixRow;
 
 TEST_CASE("ui.matrix", "[ui.matrix]")
 {
@@ -31,8 +34,8 @@ TEST_CASE("ui.matrix", "[ui.matrix]")
         REQUIRE(t->numOutlets() == 1);
         REQUIRE(t->p_cols() == 8);
         REQUIRE(t->p_rows() == 4);
-        REQUIRE(t->width() == 105);
-        REQUIRE(t->height() == 53);
+        REQUIRE(t->width() == 104);
+        REQUIRE(t->height() == 52);
         REQUIRE_PRESETS(t);
 
         REQUIRE_UI_FLOAT_PROPERTY(t, "cols", 8);
@@ -57,7 +60,7 @@ TEST_CASE("ui.matrix", "[ui.matrix]")
     {
         TestMatrix t("ui.matrix", LA("@rows", 2, "@cols", 4));
         t->onList(LF(1, 0.f, 1, 0.f, 0.f, 1, 0.f, 1));
-        REQUIRE(t->asList() == LF(1, 0.f, 1, 0.f, 0.f, 1, 0.f, 1));
+        REQUIRE(t->matrixStr() == "1010\n0101");
 
         REQUIRE(t->cell(0, 0) == 1);
         REQUIRE(t->cell(0, 1) == 0);
@@ -115,11 +118,11 @@ TEST_CASE("ui.matrix", "[ui.matrix]")
         {
             TestMatrix t("ui.matrix", LA("@rows", 2, "@cols", 4));
 
-            REQUIRE(t->row(0) == LF(0, 0, 0, 0));
-            REQUIRE(t->row(1) == LF(0, 0, 0, 0));
+            REQUIRE(t->row(0) == BitS(0b0000));
+            REQUIRE(t->row(1) == BitS(0b0000));
             t->flipRow(0);
-            REQUIRE(t->row(0) == LF(1, 1, 1, 1));
-            REQUIRE(t->row(1) == LF(0, 0, 0, 0));
+            REQUIRE(t->row(0) == BitS(0b1111));
+            REQUIRE(t->row(1) == BitS(0b0000));
         }
 
         SECTION("col")
@@ -142,8 +145,8 @@ TEST_CASE("ui.matrix", "[ui.matrix]")
             TestExtMatrix t("ui.matrix", LA("@cols", 3, "@rows", 2));
 
             t.call("set", LA("list", 1, 1, 1, 0.f, 0.f, 0.f));
-            REQUIRE(t->row(0) == LF(1, 1, 1));
-            REQUIRE(t->row(1) == LF(0, 0, 0));
+            REQUIRE(t->row(0) == BitS(0b111));
+            REQUIRE(t->row(1) == BitS(0b000));
         }
 
         SECTION("pd")
@@ -152,59 +155,59 @@ TEST_CASE("ui.matrix", "[ui.matrix]")
 
             // 0 0 0
             // 0 0 0
-            REQUIRE(t->row(0) == AtomList::zeroes(3));
-            REQUIRE(t->row(1) == AtomList::zeroes(3));
+            REQUIRE(t->row(0) == BitS(0b000));
+            REQUIRE(t->row(1) == BitS(0b000));
 
             // 1 1 1
             // 1 1 1
             t.call("flip");
-            REQUIRE(t->row(0) == AtomList::ones(3));
-            REQUIRE(t->row(1) == AtomList::ones(3));
+            REQUIRE(t->row(0) == BitS(0b111));
+            REQUIRE(t->row(1) == BitS(0b111));
 
             // 1 0 1
             // 1 0 1
             t.call("flip", LA("col", 1));
-            REQUIRE(t->row(0) == LF(1, 0, 1));
-            REQUIRE(t->row(1) == LF(1, 0, 1));
+            REQUIRE(t->row(0) == BitS(0b101));
+            REQUIRE(t->row(1) == BitS(0b101));
 
             // 1 0 1
             // 0 1 0
             t.call("flip", LA("row", 1));
-            REQUIRE(t->row(0) == LF(1, 0, 1));
-            REQUIRE(t->row(1) == LF(0, 1, 0));
+            REQUIRE(t->row(0) == BitS(0b101));
+            REQUIRE(t->row(1) == BitS(0b010));
 
             // 1 0 0
             // 0 1 0
             t.call("flip", LF(0, 2));
-            REQUIRE(t->row(0) == LF(1, 0, 0));
-            REQUIRE(t->row(1) == LF(0, 1, 0));
+            REQUIRE(t->row(0) == BitS(0b100));
+            REQUIRE(t->row(1) == BitS(0b010));
 
             SECTION("invalid")
             {
-                AtomList l = t->asList();
+                auto m = t->matrix();
                 t.call("flip", LF(1));
-                REQUIRE(t->asList() == l);
+                REQUIRE(t->matrix() == m);
                 t.call("flip", LA("???", "???"));
-                REQUIRE(t->asList() == l);
+                REQUIRE(t->matrix() == m);
                 t.call("flip", LF(2, 3));
-                REQUIRE(t->asList() == l);
+                REQUIRE(t->matrix() == m);
                 t.call("flip", LF(2, 1));
-                REQUIRE(t->asList() == l);
+                REQUIRE(t->matrix() == m);
                 t.call("flip", LF(1, 3));
-                REQUIRE(t->asList() == l);
+                REQUIRE(t->matrix() == m);
                 t.call("flip", LA(1, "A"));
-                REQUIRE(t->asList() == l);
+                REQUIRE(t->matrix() == m);
                 t.call("flip", LA("A", 2));
-                REQUIRE(t->asList() == l);
+                REQUIRE(t->matrix() == m);
                 t.call("flip", LA("row", 2));
-                REQUIRE(t->asList() == l);
+                REQUIRE(t->matrix() == m);
                 t.call("flip", LA("row", "??"));
-                REQUIRE(t->asList() == l);
+                REQUIRE(t->matrix() == m);
 
                 t.call("flip", LA("col", 3));
-                REQUIRE(t->asList() == l);
+                REQUIRE(t->matrix() == m);
                 t.call("flip", LA("col", "??"));
-                REQUIRE(t->asList() == l);
+                REQUIRE(t->matrix() == m);
             }
         }
     }
@@ -228,9 +231,9 @@ TEST_CASE("ui.matrix", "[ui.matrix]")
         t->setColumn(4, LF(0, 0));
         t->setColumn(500, LF(0, 0));
 
-        REQUIRE(t->asList() == LF(1, 0, 1, 0, 1, 0, 1, 0));
+        REQUIRE(t->matrixStr() == "1010\n1010");
         t->flipAll();
-        REQUIRE(t->asList() == LF(0, 1, 0, 1, 0, 1, 0, 1));
+        REQUIRE(t->matrixStr() == "0101\n0101");
     }
 
     SECTION("output column")
@@ -269,14 +272,14 @@ TEST_CASE("ui.matrix", "[ui.matrix]")
     {
         TestMatrix t("ui.matrix", LA("@rows", 2, "@cols", 4));
         t->onList(LF(1, 0.f, 1, 0, 0, 1, 0, 1));
-        REQUIRE(t->row(0) == LF(1, 0, 1, 0));
-        REQUIRE(t->row(1) == LF(0, 1, 0, 1));
-        REQUIRE(t->row(2) == LF(0, 0, 0, 0));
+        REQUIRE(t->row(0) == BitS(0b1010));
+        REQUIRE(t->row(1) == BitS(0b0101));
+        REQUIRE(t->row(2) == BitS(0b0000));
 
         t->setRow(0, LF(1, 1, 1, 1));
-        REQUIRE(t->row(0) == LF(1, 1, 1, 1));
+        REQUIRE(t->row(0) == BitS(0b1111));
         t->setRow(1, LF(1, 1, 0, 0));
-        REQUIRE(t->row(1) == LF(1, 1, 0, 0));
+        REQUIRE(t->row(1) == BitS(0b1100));
         t->setRow(2, LF(1, 1, 0, 0));
     }
 
@@ -285,8 +288,8 @@ TEST_CASE("ui.matrix", "[ui.matrix]")
         TestExtMatrix t("ui.matrix", LA("@rows", 2, "@cols", 3));
         t->onList(LF(1, 0, 1, 0, 1, 0));
 
-        REQUIRE(t->row(0) == LF(1, 0, 1));
-        REQUIRE(t->row(1) == LF(0, 1, 0));
+        REQUIRE(t->row(0) == BitS(0b101));
+        REQUIRE(t->row(1) == BitS(0b010));
 
         t.call("get", LA("row", 0.f));
         REQUIRE_OUTPUT_ANY(t, 0, LA("row", 0.f, 1, 0.f, 1));
@@ -310,9 +313,9 @@ TEST_CASE("ui.matrix", "[ui.matrix]")
     {
         TestMatrix t("ui.matrix", LA("@rows", 2, "@cols", 3));
         t->flipAll();
-        REQUIRE(t->asList() == LF(1, 1, 1, 1, 1, 1));
+        REQUIRE(t->matrixStr() == "111\n111");
         t->m_reset();
-        REQUIRE(t->asList() == AtomList::zeroes(6));
+        REQUIRE(t->matrixStr() == "000\n000");
     }
 
     SECTION("output cell")
@@ -429,29 +432,29 @@ TEST_CASE("ui.matrix", "[ui.matrix]")
         t.call("set", LA("cell", 1, 2, 1));
         REQUIRE(t->cell(1, 2));
 
-        AtomList l = t->asList();
+        auto m = t->matrix();
         t.call("set", LA("cell", 1, 0.f));
-        REQUIRE(t->asList() == l);
+        REQUIRE(t->matrix() == m);
 
-        l = t->asList();
+        m = t->matrix();
         t.call("set", LA("cell", 1, -1, 1));
-        REQUIRE(t->asList() == l);
+        REQUIRE(t->matrix() == m);
 
-        l = t->asList();
+        m = t->matrix();
         t.call("set", LA("cell", -1, -1, 1));
-        REQUIRE(t->asList() == l);
+        REQUIRE(t->matrix() == m);
 
-        l = t->asList();
+        m = t->matrix();
         t.call("set", LA("cell", -1, 1, 1));
-        REQUIRE(t->asList() == l);
+        REQUIRE(t->matrix() == m);
 
-        l = t->asList();
+        m = t->matrix();
         t.call("set", LA("cell", 2, 1, 1));
-        REQUIRE(t->asList() == l);
+        REQUIRE(t->matrix() == m);
 
-        l = t->asList();
+        m = t->matrix();
         t.call("set", LA("cell", 1, 4, 1));
-        REQUIRE(t->asList() == l);
+        REQUIRE(t->matrix() == m);
     }
 
     SECTION("set col")
@@ -466,28 +469,28 @@ TEST_CASE("ui.matrix", "[ui.matrix]")
         REQUIRE_NO_OUTPUT(t);
         REQUIRE(t->column(2) == LF(1, 1));
 
-        AtomList l = t->asList();
+        auto m = t->matrix();
         t.call("set", LA("col"));
-        REQUIRE(t->asList() == l);
+        REQUIRE(t->matrix() == m);
 
-        l = t->asList();
+        m = t->matrix();
         t.call("set", LA("col", 1));
-        REQUIRE(t->asList() == l);
+        REQUIRE(t->matrix() == m);
 
         t.call("set", LA("col", 1, 0.f));
         REQUIRE(t->column(1) == LF(0.f, 1));
 
-        l = t->asList();
+        m = t->matrix();
         t.call("set", LA("col", 3, 0.f));
-        REQUIRE(t->asList() == l);
+        REQUIRE(t->matrix() == m);
 
-        l = t->asList();
+        m = t->matrix();
         t.call("set", LA("col", 3, 0.f));
-        REQUIRE(t->asList() == l);
+        REQUIRE(t->matrix() == m);
 
-        l = t->asList();
+        m = t->matrix();
         t.call("set", LA("col", "???", 0.f));
-        REQUIRE(t->asList() == l);
+        REQUIRE(t->matrix() == m);
 
         t.call("set", LA("col", 0.f, 1, 1, 1, 1, 1, 1));
         REQUIRE(t->column(0) == LF(1, 1));
@@ -499,25 +502,25 @@ TEST_CASE("ui.matrix", "[ui.matrix]")
 
         t.call("set", LA("row", 1, 1, 1, 1));
         REQUIRE_NO_OUTPUT(t);
-        REQUIRE(t->row(1) == LF(1, 1, 1));
+        REQUIRE(t->row(1) == BitS(0b111));
 
         // invalid row
-        AtomList l = t->asList();
+        auto m = t->matrix();
         t.call("set", LA("row", 2, 1, 1, 1));
-        REQUIRE(t->asList() == l);
+        REQUIRE(t->matrix() == m);
 
         // missing arguments
-        l = t->asList();
+        m = t->matrix();
         t.call("set", LA("row"));
-        REQUIRE(t->asList() == l);
+        REQUIRE(t->matrix() == m);
 
-        l = t->asList();
+        m = t->matrix();
         t.call("set", LA("row", 1));
-        REQUIRE(t->asList() == l);
+        REQUIRE(t->matrix() == m);
 
-        l = t->asList();
+        m = t->matrix();
         t.call("set", LA("row", 1, 1));
-        REQUIRE(t->asList() == l);
+        REQUIRE(t->matrix() == m);
 
         t.call("set");
         REQUIRE_NO_OUTPUT(t);
@@ -529,31 +532,31 @@ TEST_CASE("ui.matrix", "[ui.matrix]")
     {
         TestExtMatrix t("ui.matrix", LA("@rows", 2, "@cols", 3));
 
-        REQUIRE(t->row(0) == LF(0.f, 0.f, 0.f));
-        REQUIRE(t->row(1) == LF(0.f, 0.f, 0.f));
+        REQUIRE(t->row(0) == BitS(0b000));
+        REQUIRE(t->row(1) == BitS(0b000));
         t.call("store", LF(1));
 
         t->flipRow(0);
-        REQUIRE(t->row(0) == LF(1, 1, 1));
-        REQUIRE(t->row(1) == LF(0.f, 0.f, 0.f));
+        REQUIRE(t->row(0) == BitS(0b111));
+        REQUIRE(t->row(1) == BitS(0b000));
         t.call("store", LF(2));
 
         t->flipRow(1);
-        REQUIRE(t->row(0) == LF(1, 1, 1));
-        REQUIRE(t->row(1) == LF(1, 1, 1));
+        REQUIRE(t->row(0) == BitS(0b111));
+        REQUIRE(t->row(1) == BitS(0b111));
         t.call("store", LF(3));
 
         t.call("load", LF(1));
-        REQUIRE(t->row(0) == LF(0.f, 0.f, 0.f));
-        REQUIRE(t->row(1) == LF(0.f, 0.f, 0.f));
+        REQUIRE(t->row(0) == BitS(0b000));
+        REQUIRE(t->row(1) == BitS(0b000));
 
         t.call("load", LF(2));
-        REQUIRE(t->row(0) == LF(1, 1, 1));
-        REQUIRE(t->row(1) == LF(0.f, 0.f, 0.f));
+        REQUIRE(t->row(0) == BitS(0b111));
+        REQUIRE(t->row(1) == BitS(0b000));
 
         t.call("load", LF(3));
-        REQUIRE(t->row(0) == LF(1, 1, 1));
-        REQUIRE(t->row(1) == LF(1, 1, 1));
+        REQUIRE(t->row(0) == BitS(0b111));
+        REQUIRE(t->row(1) == BitS(0b111));
     }
 
     SECTION("send")
@@ -600,11 +603,11 @@ TEST_CASE("ui.matrix", "[ui.matrix]")
         REQUIRE(buf == "0,1,1");
 
         t->m_reset();
-        REQUIRE(t->asList() == LF(0, 0, 0, 0, 0, 0));
+        REQUIRE(t->matrix() == BitMatrix());
         t.call("read", LA("unknown"));
-        REQUIRE(t->asList() == LF(0, 0, 0, 0, 0, 0));
+        REQUIRE(t->matrix() == BitMatrix());
         t.call("read", LA(FNAME.c_str()));
-        REQUIRE(t->asList() == LF(1, 1, 1, 0, 1, 1));
+        REQUIRE(t->matrixStr() == "111\n011");
 
         {
             char ch[] = { '1', '0', ',', '\n', '.' };
@@ -622,5 +625,34 @@ TEST_CASE("ui.matrix", "[ui.matrix]")
         // crash test
         t.call("read", LA((CWD + "/matrix_data2.txt").c_str()));
         platform::remove(FNAME.c_str());
+    }
+
+    SECTION("presets")
+    {
+        TestExtMatrix t("ui.matrix", LA("@rows", 47, "@cols", 59));
+
+        t.call("random");
+        auto m0 = t->matrix();
+        REQUIRE(m0 != BitMatrix());
+        t.call("store", LF(1));
+
+        t.call("random");
+        auto m1 = t->matrix();
+        REQUIRE(m1 != m0);
+        t.call("store", LF(2));
+
+        t.call("random");
+        auto m2 = t->matrix();
+        REQUIRE(m2 != m1);
+        t.call("store", LF(3));
+
+        t.call("load", LF(1));
+        REQUIRE(t->matrix() == m0);
+
+        t.call("load", LF(2));
+        REQUIRE(t->matrix() == m1);
+
+        t.call("load", LF(3));
+        REQUIRE(t->matrix() == m2);
     }
 }

@@ -12,6 +12,9 @@
             <category>base</category>
             <keywords>sync</keywords>
             <since>0.9.1</since>
+            <aliases>
+                <alias>ceammc/sync</alias>
+            </aliases>
         </meta>
         <arguments>
             <argument name="N" type="int" minvalue="2" maxvalue="8">number of synchronized

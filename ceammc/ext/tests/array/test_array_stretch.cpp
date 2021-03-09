@@ -23,7 +23,7 @@ TEST_CASE("array.stretch", "[externals]")
 
     SECTION("create")
     {
-        ArrayPtr aptr0 = cnv->createArray("array0", 10);
+        ArrayPtr aptr0 = cnv->createArray("array_stretch0", 10);
         ArrayPtr aptr1 = cnv->createArray("array_stretch1", 10);
 
         SECTION("empty")
@@ -39,7 +39,7 @@ TEST_CASE("array.stretch", "[externals]")
             REQUIRE_PROPERTY(t, @sequence, 0.f);
             REQUIRE_PROPERTY(t, @seekwindow, 0.f);
             REQUIRE_PROPERTY(t, @overlap, 8);
-            REQUIRE_PROPERTY(t, @antialias, 1);
+            REQUIRE_PROPERTY(t, @antialias, 0.);
             REQUIRE_PROPERTY(t, @aalength, 64);
             REQUIRE_PROPERTY(t, @speech, 0.f);
 
@@ -70,8 +70,8 @@ TEST_CASE("array.stretch", "[externals]")
 
             SECTION("invalid dest")
             {
-                TObj t("array.stretch", LA("array0", "non-exists"));
-                REQUIRE_PROPERTY(t, @src, "array0");
+                TObj t("array.stretch", LA("array_stretch0", "non-exists"));
+                REQUIRE_PROPERTY(t, @src, "array_stretch0");
                 REQUIRE_PROPERTY(t, @dest, "non-exists");
 
                 WHEN_SEND_BANG_TO(0, t);
@@ -165,8 +165,8 @@ TEST_CASE("array.stretch", "[externals]")
 
     SECTION("array_stretch1")
     {
-        TObj t("array.bpm", LA("array0", "array_stretch1"));
-        ArrayPtr aptr0 = cnv->createArray("array0", 10);
+        TObj t("array.bpm", LA("array_stretch0", "array_stretch1"));
+        ArrayPtr aptr0 = cnv->createArray("array_stretch0", 10);
         ArrayPtr aptr1 = cnv->createArray("array_stretch1", 10);
 
         // array created

@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="fx.infrev~">
+        <title>fx.infrev~</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>port of Infinity VST plugin from airwindows</description>
+            <license>GPL3 or later</license>
+            <library>ceammc</library>
+            <category>fx</category>
+            <keywords>fx reverb airwindows infinity</keywords>
+            <since>0.9.3</since>
+            <also>
+                <see>fx.freeverb~</see>
+                <see>fx.zita_rev1~</see>
+            </also>
+        </meta>
+        <info>
+            <par>Infinity is a MatrixVerb specifically designed to sustain and layer sounds
+            forever.</par>
+            <a href="https://www.airwindows.com/infinity/">More info</a>
+        </info>
+        <arguments>
+            <argument name="SIZE" type="float" minvalue="0" maxvalue="1">room size</argument>
+            <argument name="DRYWET" type="float" minvalue="0" maxvalue="1">proportion of mix
+            between the original (dry) and 'effected' (wet) signals</argument>
+        </arguments>
+        <methods>
+            <method name="reset">reset reverb</method>
+        </methods>
+        <properties>
+            <property name="@size" type="float" minvalue="0" maxvalue="1" default="0.5">room
+            size</property>
+            <property name="@filter" type="float" minvalue="0" maxvalue="1" default="1">filter
+            coefficient</property>
+            <property name="@damp" type="float" minvalue="0" maxvalue="1" default="0">damping of
+            the lowpass comb filter</property>
+            <property name="@drywet" type="float" minvalue="0" maxvalue="1" default="1">proportion
+            of mix between the original (dry) and 'effected' (wet) signals. 0 - dry signal, 1 -
+            wet</property>
+            <property name="@bypass" type="int" enum="0 1" default="0">if set to 1 - bypass
+            'effected' signal</property>
+        </properties>
+        <inlets>
+            <inlet type="audio">
+                <xinfo>input Left signal</xinfo>
+            </inlet>
+            <inlet type="audio">
+                <xinfo>input Right signal</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet type="audio">output Left signal</outlet>
+            <outlet type="audio">output Right signal</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[open %CEAMMC%/guitar1.wav, 1(        [loadmsg 0.5 0.2 0.9 0.7 #c]
+|
+[expand_env] [open %DOC%/sound/voice.wav, 1(
+|            |
+| [reset #a( [expand_env]             [ui.sliders 4 #x]
+|            |                        |
+[readsf~]    [readsf~]                |
+|            |.        [r $0-r #b]    |
+[fx.infrev~ #z]                       |
+*|*                                   |
+[ui.hgain2~]       [ui.dsp~]          [#l2m(
+*|*                                   |
+[dac~]                                [s $0-r]
+[X a->z]
+[X b->z]
+[X c->x]
+#x @size 125 70
+#l2m @filter $1, @damp $2, @size $3, @drywet $4
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

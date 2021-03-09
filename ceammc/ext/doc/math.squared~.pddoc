@@ -13,8 +13,9 @@
             <keywords>math square</keywords>
             <since>0.9</since>
             <aliases>
-                <alias>^2~</alias>
                 <alias>math.^2~</alias>
+                <alias>ceammc/^2~</alias>
+                <alias>^2~</alias>
             </aliases>
         </meta>
         <inlets>

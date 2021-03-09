@@ -13,6 +13,8 @@
             <keywords>sequencer</keywords>
             <since>0.9.1</since>
             <aliases>
+                <alias>ceammc/sequencer</alias>
+                <alias>ceammc/seq</alias>
                 <alias>seq</alias>
             </aliases>
         </meta>

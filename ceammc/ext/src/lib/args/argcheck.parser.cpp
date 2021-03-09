@@ -42,7 +42,7 @@
 
 
 // Unqualified %code blocks.
-#line 41 "argcheck.yy"
+#line 43 "argcheck.yy"
 
     # include <memory>
     # include <string>
@@ -151,11 +151,11 @@
 #define YYRECOVERING()  (!!yyerrstatus_)
 
 #line 7 "argcheck.yy"
-namespace ceammc {
+namespace ceammc { namespace argcheck {
 #line 156 "argcheck.parser.cpp"
 
   /// Build a parser object.
-  ArgCheckParser::ArgCheckParser (ceammc::ArgCheckLexer& lexer_yyarg, ceammc::ArgCheckerNode& n_yyarg)
+  ArgCheckParser::ArgCheckParser (ceammc::argcheck::ArgCheckLexer& lexer_yyarg, ceammc::ArgCheckerNode& n_yyarg)
 #if YYDEBUG
     : yydebug_ (false),
       yycdebug_ (&std::cerr),
@@ -703,19 +703,19 @@ namespace ceammc {
           switch (yyn)
             {
   case 2: // NUMBER: INTEGER
-#line 131 "argcheck.yy"
+#line 133 "argcheck.yy"
               { yylhs.value.as < double > () = yystack_[0].value.as < int > (); }
 #line 709 "argcheck.parser.cpp"
     break;
 
   case 3: // NUMBER: FLOAT
-#line 132 "argcheck.yy"
+#line 134 "argcheck.yy"
             { yylhs.value.as < double > () = yystack_[0].value.as < double > (); }
 #line 715 "argcheck.parser.cpp"
     break;
 
   case 4: // REPEAT: PLUS
-#line 136 "argcheck.yy"
+#line 138 "argcheck.yy"
            {
         yylhs.value.as < std::vector<int> > ().push_back(1);
         }
@@ -723,7 +723,7 @@ namespace ceammc {
     break;
 
   case 5: // REPEAT: ASTERISK
-#line 139 "argcheck.yy"
+#line 141 "argcheck.yy"
                {
         yylhs.value.as < std::vector<int> > ().push_back(0);
         }
@@ -731,7 +731,7 @@ namespace ceammc {
     break;
 
   case 6: // REPEAT: QUESTION
-#line 142 "argcheck.yy"
+#line 144 "argcheck.yy"
                {
         yylhs.value.as < std::vector<int> > ().push_back(0);
         yylhs.value.as < std::vector<int> > ().push_back(1);
@@ -740,7 +740,7 @@ namespace ceammc {
     break;
 
   case 7: // REPEAT: REPEAT_START INTEGER REPEAT_END
-#line 146 "argcheck.yy"
+#line 148 "argcheck.yy"
                                       {
         yylhs.value.as < std::vector<int> > ().push_back(yystack_[1].value.as < int > ());
         yylhs.value.as < std::vector<int> > ().push_back(yystack_[1].value.as < int > ());
@@ -749,7 +749,7 @@ namespace ceammc {
     break;
 
   case 8: // REPEAT: REPEAT_START INTEGER REPEAT_RANGE REPEAT_END
-#line 150 "argcheck.yy"
+#line 152 "argcheck.yy"
                                                    {
         yylhs.value.as < std::vector<int> > ().push_back(yystack_[2].value.as < int > ());
         }
@@ -757,7 +757,7 @@ namespace ceammc {
     break;
 
   case 9: // REPEAT: REPEAT_START INTEGER REPEAT_RANGE INTEGER REPEAT_END
-#line 153 "argcheck.yy"
+#line 155 "argcheck.yy"
                                                            {
         yylhs.value.as < std::vector<int> > ().push_back(yystack_[3].value.as < int > ());
         yylhs.value.as < std::vector<int> > ().push_back(yystack_[1].value.as < int > ());
@@ -766,13 +766,13 @@ namespace ceammc {
     break;
 
   case 10: // ATOM_BOOL: TBOOL
-#line 160 "argcheck.yy"
+#line 162 "argcheck.yy"
             { yylhs.value.as < ArgCheckPtr > ().reset(new ArgIsBool); }
 #line 772 "argcheck.parser.cpp"
     break;
 
   case 11: // ATOM_INT: TINT
-#line 164 "argcheck.yy"
+#line 166 "argcheck.yy"
            {
         yylhs.value.as < ArgCheckPtr > ().reset(new ArgIsInt);
         }
@@ -780,7 +780,7 @@ namespace ceammc {
     break;
 
   case 12: // ATOM_INT: TINT EQ INTEGER
-#line 167 "argcheck.yy"
+#line 169 "argcheck.yy"
                       {
         auto p = new ArgIsInt;
         p->setCheck(ArgIsInt::INT_EQUAL, yystack_[0].value.as < int > ());
@@ -790,7 +790,7 @@ namespace ceammc {
     break;
 
   case 13: // ATOM_INT: TINT NE INTEGER
-#line 172 "argcheck.yy"
+#line 174 "argcheck.yy"
                       {
         auto p = new ArgIsInt;
         p->setCheck(ArgIsInt::INT_NOT_EQUAL, yystack_[0].value.as < int > ());
@@ -800,7 +800,7 @@ namespace ceammc {
     break;
 
   case 14: // ATOM_INT: TINT GT INTEGER
-#line 177 "argcheck.yy"
+#line 179 "argcheck.yy"
                       {
         auto p = new ArgIsInt;
         p->setCheck(ArgIsInt::INT_GREATER, yystack_[0].value.as < int > ());
@@ -810,7 +810,7 @@ namespace ceammc {
     break;
 
   case 15: // ATOM_INT: TINT GE INTEGER
-#line 182 "argcheck.yy"
+#line 184 "argcheck.yy"
                       {
         auto p = new ArgIsInt;
         p->setCheck(ArgIsInt::INT_GREATER_EQUAL, yystack_[0].value.as < int > ());
@@ -820,7 +820,7 @@ namespace ceammc {
     break;
 
   case 16: // ATOM_INT: TINT LT INTEGER
-#line 187 "argcheck.yy"
+#line 189 "argcheck.yy"
                       {
         auto p = new ArgIsInt;
         p->setCheck(ArgIsInt::INT_LESS, yystack_[0].value.as < int > ());
@@ -830,7 +830,7 @@ namespace ceammc {
     break;
 
   case 17: // ATOM_INT: TINT LE INTEGER
-#line 192 "argcheck.yy"
+#line 194 "argcheck.yy"
                       {
         auto p = new ArgIsInt;
         p->setCheck(ArgIsInt::INT_LESS_EQUAL, yystack_[0].value.as < int > ());
@@ -840,7 +840,7 @@ namespace ceammc {
     break;
 
   case 18: // ATOM_INT: TINT INTEGER REPEAT_RANGE INTEGER
-#line 197 "argcheck.yy"
+#line 199 "argcheck.yy"
                                         {
         auto p = new ArgIsInt;
         p->setCheck(ArgIsInt::INT_RANGE, yystack_[2].value.as < int > (), yystack_[0].value.as < int > ());
@@ -850,7 +850,7 @@ namespace ceammc {
     break;
 
   case 19: // ATOM_INT: TINT MODULUS INTEGER EQ INTEGER
-#line 202 "argcheck.yy"
+#line 204 "argcheck.yy"
                                       {
         auto p = new ArgIsInt;
         p->setCheck(ArgIsInt::INT_MOD, yystack_[2].value.as < int > (), yystack_[0].value.as < int > ());
@@ -860,7 +860,7 @@ namespace ceammc {
     break;
 
   case 20: // ATOM_INT: TINT POWER_OF_TWO
-#line 207 "argcheck.yy"
+#line 209 "argcheck.yy"
                         {
         auto p = new ArgIsInt;
         p->setCheck(ArgIsInt::INT_POWER_OF_TWO, 0, 0);
@@ -870,7 +870,7 @@ namespace ceammc {
     break;
 
   case 21: // ATOM_FLOAT: TFLOAT
-#line 215 "argcheck.yy"
+#line 217 "argcheck.yy"
              {
         yylhs.value.as < ArgCheckPtr > ().reset(new ArgIsFloat);
         }
@@ -878,7 +878,7 @@ namespace ceammc {
     break;
 
   case 22: // ATOM_FLOAT: TFLOAT EQ NUMBER
-#line 218 "argcheck.yy"
+#line 220 "argcheck.yy"
                        {
         auto p = new ArgIsFloat;
         p->setCheck(ArgIsFloat::FLOAT_EQUAL, yystack_[0].value.as < double > ());
@@ -888,7 +888,7 @@ namespace ceammc {
     break;
 
   case 23: // ATOM_FLOAT: TFLOAT NE NUMBER
-#line 223 "argcheck.yy"
+#line 225 "argcheck.yy"
                        {
         auto p = new ArgIsFloat;
         p->setCheck(ArgIsFloat::FLOAT_NOT_EQUAL, yystack_[0].value.as < double > ());
@@ -898,7 +898,7 @@ namespace ceammc {
     break;
 
   case 24: // ATOM_FLOAT: TFLOAT GE NUMBER
-#line 228 "argcheck.yy"
+#line 230 "argcheck.yy"
                        {
         auto p = new ArgIsFloat;
         p->setCheck(ArgIsFloat::FLOAT_GREATER_EQUAL, yystack_[0].value.as < double > ());
@@ -908,7 +908,7 @@ namespace ceammc {
     break;
 
   case 25: // ATOM_FLOAT: TFLOAT GT NUMBER
-#line 233 "argcheck.yy"
+#line 235 "argcheck.yy"
                        {
         auto p = new ArgIsFloat;
         p->setCheck(ArgIsFloat::FLOAT_GREATER, yystack_[0].value.as < double > ());
@@ -918,7 +918,7 @@ namespace ceammc {
     break;
 
   case 26: // ATOM_FLOAT: TFLOAT LE NUMBER
-#line 238 "argcheck.yy"
+#line 240 "argcheck.yy"
                        {
         auto p = new ArgIsFloat;
         p->setCheck(ArgIsFloat::FLOAT_LESS_EQUAL, yystack_[0].value.as < double > ());
@@ -928,7 +928,7 @@ namespace ceammc {
     break;
 
   case 27: // ATOM_FLOAT: TFLOAT LT NUMBER
-#line 243 "argcheck.yy"
+#line 245 "argcheck.yy"
                        {
         auto p = new ArgIsFloat;
         p->setCheck(ArgIsFloat::FLOAT_LESS, yystack_[0].value.as < double > ());
@@ -938,7 +938,7 @@ namespace ceammc {
     break;
 
   case 28: // ATOM_FLOAT: TFLOAT NUMBER REPEAT_RANGE NUMBER
-#line 248 "argcheck.yy"
+#line 250 "argcheck.yy"
                                         {
         auto p = new ArgIsFloat;
         p->setCheck(ArgIsFloat::FLOAT_RANGE, yystack_[2].value.as < double > (), yystack_[0].value.as < double > ());
@@ -948,7 +948,7 @@ namespace ceammc {
     break;
 
   case 29: // ATOM_SYMBOL: TSYMBOL
-#line 256 "argcheck.yy"
+#line 258 "argcheck.yy"
               {
         yylhs.value.as < ArgCheckPtr > ().reset(new ArgIsSymbol);
         }
@@ -956,7 +956,7 @@ namespace ceammc {
     break;
 
   case 30: // ATOM_SYMBOL: TSYMBOL EQ STRING
-#line 259 "argcheck.yy"
+#line 261 "argcheck.yy"
                         {
         auto p = new ArgIsSymbol;
         p->setCheck(ArgIsSymbol::SYM_EQUAL, yystack_[0].value.as < std::string > ().c_str());
@@ -966,7 +966,7 @@ namespace ceammc {
     break;
 
   case 31: // ATOM_SYMBOL: TSYMBOL NE STRING
-#line 264 "argcheck.yy"
+#line 266 "argcheck.yy"
                         {
         auto p = new ArgIsSymbol;
         p->setCheck(ArgIsSymbol::SYM_NOT_EQUAL, yystack_[0].value.as < std::string > ().c_str());
@@ -976,7 +976,7 @@ namespace ceammc {
     break;
 
   case 32: // ATOM_SYMBOL: CAPS STRING
-#line 269 "argcheck.yy"
+#line 271 "argcheck.yy"
                   {
         auto p = new ArgIsSymbol;
         p->setCheck(ArgIsSymbol::SYM_BEGINS_WITH, yystack_[0].value.as < std::string > ().c_str());
@@ -986,7 +986,7 @@ namespace ceammc {
     break;
 
   case 33: // ATOM_SYMBOL: TILDE STRING
-#line 274 "argcheck.yy"
+#line 276 "argcheck.yy"
                    {
         auto p = new ArgIsSymbol;
         p->setCheck(ArgIsSymbol::SYM_CONTAINS, yystack_[0].value.as < std::string > ().c_str());
@@ -996,7 +996,7 @@ namespace ceammc {
     break;
 
   case 34: // ATOM_SYMBOL: STRING DOLLAR
-#line 279 "argcheck.yy"
+#line 281 "argcheck.yy"
                     {
         auto p = new ArgIsSymbol;
         p->setCheck(ArgIsSymbol::SYM_ENDS_WITH, yystack_[1].value.as < std::string > ().c_str());
@@ -1006,7 +1006,7 @@ namespace ceammc {
     break;
 
   case 35: // ATOM_SYMBOL: STRING
-#line 284 "argcheck.yy"
+#line 286 "argcheck.yy"
              {
         auto p = new ArgIsSymbol;
         p->setCheck(ArgIsSymbol::SYM_MATCH, yystack_[0].value.as < std::string > ().c_str());
@@ -1016,7 +1016,7 @@ namespace ceammc {
     break;
 
   case 36: // ATOM_DATA: TDATA
-#line 292 "argcheck.yy"
+#line 294 "argcheck.yy"
             {
         yylhs.value.as < ArgCheckPtr > ().reset(new ArgIsData);
         }
@@ -1024,7 +1024,7 @@ namespace ceammc {
     break;
 
   case 37: // ATOM_DATA: TDATA EQ SYMBOL
-#line 295 "argcheck.yy"
+#line 297 "argcheck.yy"
                       {
         auto p = new ArgIsData;
         p->setType(yystack_[0].value.as < std::string > ().c_str());
@@ -1034,55 +1034,55 @@ namespace ceammc {
     break;
 
   case 38: // ATOM_SINGLE: TATOM
-#line 303 "argcheck.yy"
+#line 305 "argcheck.yy"
                   { yylhs.value.as < ArgCheckPtr > ().reset(new ArgIsAtom); }
 #line 1040 "argcheck.parser.cpp"
     break;
 
   case 39: // ATOM_SINGLE: ATOM_DATA
-#line 304 "argcheck.yy"
+#line 306 "argcheck.yy"
       { yylhs.value.as < ArgCheckPtr > () = yystack_[0].value.as < ArgCheckPtr > (); }
 #line 1046 "argcheck.parser.cpp"
     break;
 
   case 40: // ATOM_SINGLE: ATOM_BOOL
-#line 305 "argcheck.yy"
+#line 307 "argcheck.yy"
       { yylhs.value.as < ArgCheckPtr > () = yystack_[0].value.as < ArgCheckPtr > (); }
 #line 1052 "argcheck.parser.cpp"
     break;
 
   case 41: // ATOM_SINGLE: ATOM_FLOAT
-#line 306 "argcheck.yy"
+#line 308 "argcheck.yy"
       { yylhs.value.as < ArgCheckPtr > () = yystack_[0].value.as < ArgCheckPtr > (); }
 #line 1058 "argcheck.parser.cpp"
     break;
 
   case 42: // ATOM_SINGLE: ATOM_INT
-#line 307 "argcheck.yy"
+#line 309 "argcheck.yy"
       { yylhs.value.as < ArgCheckPtr > () = yystack_[0].value.as < ArgCheckPtr > (); }
 #line 1064 "argcheck.parser.cpp"
     break;
 
   case 43: // ATOM_SINGLE: ATOM_SYMBOL
-#line 308 "argcheck.yy"
+#line 310 "argcheck.yy"
       { yylhs.value.as < ArgCheckPtr > () = yystack_[0].value.as < ArgCheckPtr > (); }
 #line 1070 "argcheck.parser.cpp"
     break;
 
   case 44: // ATOM: ATOM_SINGLE
-#line 312 "argcheck.yy"
+#line 314 "argcheck.yy"
       { yylhs.value.as < ArgCheckPtr > () = yystack_[0].value.as < ArgCheckPtr > (); }
 #line 1076 "argcheck.parser.cpp"
     break;
 
   case 45: // ATOM: ATOM_SINGLE REPEAT
-#line 313 "argcheck.yy"
+#line 315 "argcheck.yy"
                          { yylhs.value.as < ArgCheckPtr > () = yystack_[1].value.as < ArgCheckPtr > (); set_repeats(yylhs.value.as < ArgCheckPtr > (), yystack_[0].value.as < std::vector<int> > ()); }
 #line 1082 "argcheck.parser.cpp"
     break;
 
   case 46: // ATOM_OR_SEQ: ATOM_SINGLE OR ATOM_SINGLE
-#line 320 "argcheck.yy"
+#line 322 "argcheck.yy"
                                  {
         yylhs.value.as < ArgCheckPtrList > ().assign({yystack_[2].value.as < ArgCheckPtr > (), yystack_[0].value.as < ArgCheckPtr > ()});
         }
@@ -1090,7 +1090,7 @@ namespace ceammc {
     break;
 
   case 47: // ATOM_OR_SEQ: ATOM_SINGLE OR ATOM_OR_SEQ
-#line 323 "argcheck.yy"
+#line 325 "argcheck.yy"
                                  {
         yylhs.value.as < ArgCheckPtrList > ().push_back(yystack_[2].value.as < ArgCheckPtr > ());
         yylhs.value.as < ArgCheckPtrList > ().insert(std::end(yylhs.value.as < ArgCheckPtrList > ()), std::begin(yystack_[0].value.as < ArgCheckPtrList > ()), std::end(yystack_[0].value.as < ArgCheckPtrList > ()));
@@ -1099,7 +1099,7 @@ namespace ceammc {
     break;
 
   case 48: // GROUP_OR: ATOM_OR_SEQ
-#line 334 "argcheck.yy"
+#line 336 "argcheck.yy"
         {
             yylhs.value.as < ArgCheckPtr > ().reset(new ArgGroupOr);
             for(auto& p: yystack_[0].value.as < ArgCheckPtrList > ()) {
@@ -1110,7 +1110,7 @@ namespace ceammc {
     break;
 
   case 49: // GROUP_OR: GROUP_START ATOM_OR_SEQ GROUP_END
-#line 341 "argcheck.yy"
+#line 343 "argcheck.yy"
         {
             yylhs.value.as < ArgCheckPtr > ().reset(new ArgGroupOr);
             for(auto& p: yystack_[1].value.as < ArgCheckPtrList > ()) {
@@ -1121,7 +1121,7 @@ namespace ceammc {
     break;
 
   case 50: // GROUP_OR: GROUP_START ATOM_OR_SEQ GROUP_END REPEAT
-#line 348 "argcheck.yy"
+#line 350 "argcheck.yy"
         {
             yylhs.value.as < ArgCheckPtr > ().reset(new ArgGroupOr);
             for(auto& p: yystack_[2].value.as < ArgCheckPtrList > ()) {
@@ -1133,7 +1133,7 @@ namespace ceammc {
     break;
 
   case 51: // ATOM_SEQ: ATOM
-#line 358 "argcheck.yy"
+#line 360 "argcheck.yy"
            {
         yylhs.value.as < ArgCheckPtrList > ().push_back(yystack_[0].value.as < ArgCheckPtr > ());
         }
@@ -1141,7 +1141,7 @@ namespace ceammc {
     break;
 
   case 52: // ATOM_SEQ: ATOM SPACE ATOM_SEQ
-#line 361 "argcheck.yy"
+#line 363 "argcheck.yy"
                           {
         yylhs.value.as < ArgCheckPtrList > ().push_back(yystack_[2].value.as < ArgCheckPtr > ());
         yylhs.value.as < ArgCheckPtrList > ().insert(std::end(yylhs.value.as < ArgCheckPtrList > ()), std::begin(yystack_[0].value.as < ArgCheckPtrList > ()), std::end(yystack_[0].value.as < ArgCheckPtrList > ()));
@@ -1150,7 +1150,7 @@ namespace ceammc {
     break;
 
   case 53: // SEQ: ATOM_SEQ
-#line 368 "argcheck.yy"
+#line 370 "argcheck.yy"
                {
         for(auto& p: yystack_[0].value.as < ArgCheckPtrList > ())
             n.insertChild(p);
@@ -1159,7 +1159,7 @@ namespace ceammc {
     break;
 
   case 54: // SEQ: GROUP_OR
-#line 372 "argcheck.yy"
+#line 374 "argcheck.yy"
                {
         n.insertChild(yystack_[0].value.as < ArgCheckPtr > ());
         }
@@ -1167,7 +1167,7 @@ namespace ceammc {
     break;
 
   case 57: // REGEXP: %empty
-#line 383 "argcheck.yy"
+#line 385 "argcheck.yy"
              { }
 #line 1173 "argcheck.parser.cpp"
     break;
@@ -1657,12 +1657,12 @@ namespace ceammc {
   const short
   ArgCheckParser::yyrline_[] =
   {
-       0,   131,   131,   132,   136,   139,   142,   146,   150,   153,
-     160,   164,   167,   172,   177,   182,   187,   192,   197,   202,
-     207,   215,   218,   223,   228,   233,   238,   243,   248,   256,
-     259,   264,   269,   274,   279,   284,   292,   295,   303,   304,
-     305,   306,   307,   308,   312,   313,   320,   323,   333,   340,
-     347,   358,   361,   368,   372,   378,   379,   383,   384
+       0,   133,   133,   134,   138,   141,   144,   148,   152,   155,
+     162,   166,   169,   174,   179,   184,   189,   194,   199,   204,
+     209,   217,   220,   225,   230,   235,   240,   245,   250,   258,
+     261,   266,   271,   276,   281,   286,   294,   297,   305,   306,
+     307,   308,   309,   310,   314,   315,   322,   325,   335,   342,
+     349,   360,   363,   370,   374,   380,   381,   385,   386
   };
 
   void
@@ -1694,13 +1694,13 @@ namespace ceammc {
 
 
 #line 7 "argcheck.yy"
-} // ceammc
+} } // ceammc::argcheck
 #line 1699 "argcheck.parser.cpp"
 
-#line 386 "argcheck.yy"
+#line 388 "argcheck.yy"
 
 
-void ceammc::ArgCheckParser::error(const std::string& err_message)
+void ceammc::argcheck::ArgCheckParser::error(const std::string& err_message)
 {
     std::cerr << "Error: " << err_message << '\n';
     throw std::runtime_error(err_message);

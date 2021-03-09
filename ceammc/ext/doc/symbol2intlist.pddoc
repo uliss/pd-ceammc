@@ -13,6 +13,8 @@
             <keywords>symbol compare</keywords>
             <since>0.9.1</since>
             <aliases>
+                <alias>ceammc/symbol2intlist</alias>
+                <alias>ceammc/sym-&gt;ilist</alias>
                 <alias>sym-&gt;ilist</alias>
             </aliases>
         </meta>
@@ -27,7 +29,7 @@
         <example>
             <pdascii>
 <![CDATA[
-[A( [ABC( [АБВ(
+[A( [ABC( [АБВГД(
 |   |     |
 [symbol   ]
 |

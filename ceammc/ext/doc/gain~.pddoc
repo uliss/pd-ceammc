@@ -12,6 +12,9 @@
             <category>base</category>
             <keywords>gain amplitude decibel</keywords>
             <since>0.6</since>
+            <aliases>
+                <alias>ceammc/gain~</alias>
+            </aliases>
         </meta>
         <arguments>
             <argument name="N" type="int" minvalue="1" maxvalue="16">number of

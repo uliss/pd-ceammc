@@ -13,6 +13,8 @@
             <keywords>envelope vline</keywords>
             <since>0.5</since>
             <aliases>
+                <alias>ceammc/env2vline</alias>
+                <alias>ceammc/env-&gt;vline</alias>
                 <alias>env-&gt;vline</alias>
             </aliases>
             <also>
@@ -62,6 +64,8 @@
 [vline~] [osc~ 1000]
 |        |.
 [*~       ]
+|
+[ui.hgain~]
 |\
 [dac~]
 
@@ -70,15 +74,17 @@
 [line 0 100 1 400 0.2 1000 0.7 2000 0, set_stop_point 2 1, set_stop_point 3 1, bang(
 |
 |
-[envelope] [next( [reset(               [r a2]
-| |        |      |                     |
-| [s a2]   |      |                     [env->array env_b1]
+[envelope] [next( [reset(             [r a2]
+| |        |      |                   |
+| [s a2]   |      |                   [env->array env_b1]
 |          |      |
 [env->vline       ]
 |
 [vline~] [osc~ 1200]                  [array env_b1 w=110 h=80 yr=0..1]
 |        |.
 [*~       ]
+|
+[ui.hgain~]
 |\
 [dac~]
 ]]>

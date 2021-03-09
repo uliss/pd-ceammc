@@ -33,7 +33,7 @@
 
 /**
  ** \file argcheck.parser.hpp
- ** Define the ceammc::parser class.
+ ** Define the ceammc::argcheck::parser class.
  */
 
 // C++ LALR(1) parser skeleton written by Akim Demaille.
@@ -51,7 +51,9 @@
     # include <vector>
 
     namespace ceammc {
+        namespace argcheck {
         class ArgCheckLexer;
+        }
         class ArgCheckerNode;
         class ArgGroupOr;
 
@@ -70,7 +72,7 @@
 #   define YY_NULLPTR nullptr
 # endif
 
-#line 74 "argcheck.parser.hpp"
+#line 76 "argcheck.parser.hpp"
 
 
 # include <cstdlib> // std::abort
@@ -199,8 +201,8 @@
 #endif
 
 #line 7 "argcheck.yy"
-namespace ceammc {
-#line 204 "argcheck.parser.hpp"
+namespace ceammc { namespace argcheck {
+#line 206 "argcheck.parser.hpp"
 
 
 
@@ -896,7 +898,7 @@ switch (yykind)
     };
 
     /// Build a parser object.
-    ArgCheckParser (ceammc::ArgCheckLexer& lexer_yyarg, ceammc::ArgCheckerNode& n_yyarg);
+    ArgCheckParser (ceammc::argcheck::ArgCheckLexer& lexer_yyarg, ceammc::ArgCheckerNode& n_yyarg);
     virtual ~ArgCheckParser ();
 
 #if 201103L <= YY_CPLUSPLUS
@@ -1800,7 +1802,7 @@ switch (yykind)
 
 
     // User arguments.
-    ceammc::ArgCheckLexer& lexer;
+    ceammc::argcheck::ArgCheckLexer& lexer;
     ceammc::ArgCheckerNode& n;
 
   };
@@ -2022,8 +2024,8 @@ switch (yykind)
   }
 
 #line 7 "argcheck.yy"
-} // ceammc
-#line 2027 "argcheck.parser.hpp"
+} } // ceammc::argcheck
+#line 2029 "argcheck.parser.hpp"
 
 
 

@@ -4,8 +4,8 @@ copyright: "(c)GRAME 2006"
 license: "BSD"
 name: "capture"
 version: "1.0"
-Code generated with Faust 2.28.6 (https://faust.grame.fr)
-Compilation options: -lang cpp -scal -ftz 0
+Code generated with Faust 2.30.12 (https://faust.grame.fr)
+Compilation options: -lang cpp -es 1 -scal -ftz 0
 ------------------------------------------------------------ */
 
 #ifndef  __live_capture_H__
@@ -93,7 +93,7 @@ class live_capture_dsp {
          */
         virtual void buildUserInterface(UI* ui_interface) = 0;
     
-        /* Returns the sample rate currently used by the instance */
+        /* Return the sample rate currently used by the instance */
         virtual int getSampleRate() = 0;
     
         /**
@@ -101,28 +101,28 @@ class live_capture_dsp {
          * - static class 'classInit': static tables initialization
          * - 'instanceInit': constants and instance state initialization
          *
-         * @param sample_rate - the sampling rate in Hertz
+         * @param sample_rate - the sampling rate in Hz
          */
         virtual void init(int sample_rate) = 0;
 
         /**
          * Init instance state
          *
-         * @param sample_rate - the sampling rate in Hertz
+         * @param sample_rate - the sampling rate in Hz
          */
         virtual void instanceInit(int sample_rate) = 0;
-
+    
         /**
          * Init instance constant state
          *
-         * @param sample_rate - the sampling rate in Hertz
+         * @param sample_rate - the sampling rate in Hz
          */
         virtual void instanceConstants(int sample_rate) = 0;
     
         /* Init default control parameters values */
         virtual void instanceResetUserInterface() = 0;
     
-        /* Init instance state (delay lines...) */
+        /* Init instance state (like delay lines...) but keep the control parameter values */
         virtual void instanceClear() = 0;
  
         /**
@@ -195,7 +195,8 @@ class decorator_dsp : public live_capture_dsp {
 };
 
 /**
- * DSP factory class.
+ * DSP factory class, used with LLVM and Interpreter backends
+ * to create DSP instances from a compiled DSP program.
  */
 
 class dsp_factory {
@@ -349,11 +350,13 @@ struct UI : public UIReal<FAUSTFLOAT>
 #ifndef __meta__
 #define __meta__
 
+/**
+ The base class of Meta handler to be used in live_capture_dsp::metadata(Meta* m) method to retrieve (key, value) metadata.
+ */
 struct Meta
 {
     virtual ~Meta() {};
     virtual void declare(const char* key, const char* value) = 0;
-    
 };
 
 #endif
@@ -499,6 +502,7 @@ struct live_capture : public live_capture_dsp {
 
 #include <algorithm>
 #include <cmath>
+#include <cstdint>
 #include <math.h>
 
 
@@ -528,6 +532,7 @@ class live_capture : public live_capture_dsp {
 	
 	void metadata(Meta* m) { 
 		m->declare("author", "Grame");
+		m->declare("compile_options", "-lang cpp -es 1 -scal -ftz 0");
 		m->declare("copyright", "(c)GRAME 2006");
 		m->declare("delays.lib/name", "Faust Delay Library");
 		m->declare("delays.lib/version", "0.1");
@@ -593,19 +598,15 @@ class live_capture : public live_capture_dsp {
 	
 	virtual void instanceClear() {
 		IOTA = 0;
-		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l0 = 0; (l0 < 8388608); l0 = (l0 + 1)) {
 			fVec0[l0] = 0.0f;
 		}
-		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l1 = 0; (l1 < 2); l1 = (l1 + 1)) {
 			iVec1[l1] = 0;
 		}
-		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l2 = 0; (l2 < 2); l2 = (l2 + 1)) {
 			iRec1[l2] = 0;
 		}
-		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l3 = 0; (l3 < 2); l3 = (l3 + 1)) {
 			fRec0[l3] = 0.0f;
 		}
@@ -641,7 +642,6 @@ class live_capture : public live_capture_dsp {
 		float fSlow0 = float(fCheckbox0);
 		float fSlow1 = (1.0f - fSlow0);
 		int iSlow2 = int(fSlow0);
-		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int i = 0; (i < count); i = (i + 1)) {
 			fVec0[(IOTA & 8388607)] = ((fSlow1 * fRec0[1]) + (fSlow0 * float(input0[i])));
 			iVec1[0] = iSlow2;

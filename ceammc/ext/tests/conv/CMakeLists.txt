@@ -36,3 +36,5 @@ add_conv_test(lin2exp)
 add_conv_test(lin2lin)
 add_conv_test(lin2lin_tilde)
 add_conv_test(list2props)
+add_conv_test(pitch2midi)
+

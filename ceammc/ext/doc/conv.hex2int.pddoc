@@ -13,6 +13,7 @@
             <keywords>conv int hex</keywords>
             <since>0.9.1</since>
             <aliases>
+                <alias>ceammc/hex-&gt;int</alias>
                 <alias>hex-&gt;int</alias>
             </aliases>
         </meta>

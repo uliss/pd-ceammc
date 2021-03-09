@@ -13,6 +13,7 @@
             <keywords>reject functional</keywords>
             <since>0.3</since>
             <aliases>
+                <alias>ceammc/reject_if</alias>
                 <alias>reject_if</alias>
             </aliases>
             <also>

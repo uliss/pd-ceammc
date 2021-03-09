@@ -37,7 +37,7 @@ public:
     UIIcon();
     ~UIIcon();
 
-    void init(t_symbol* name, const AtomList& args, bool usePresets);
+    void init(t_symbol* name, const AtomListView& args, bool usePresets);
     void onPropChange(t_symbol* prop_name);
     void okSize(t_rect* newrect);
     void paint();
@@ -50,7 +50,7 @@ public:
     void onMouseDown(t_object* view, const t_pt& pt, const t_pt& abs_pt, long modifiers);
     void onMouseUp(t_object* view, const t_pt& pt, long modifiers);
 
-    void m_set(const AtomListView& lst);
+    void m_set(const AtomListView& lv);
 
     void loadPreset(size_t idx);
     void storePreset(size_t idx);
@@ -66,8 +66,8 @@ private:
     void clockTick();
     void redrawAll();
 
-    AtomList propEnabled() const;
-    void propSetEnabled(const AtomListView& lst);
+    bool propEnabled() const;
+    void propSetEnabled(bool value);
 };
 
 void setup_ui_icon();

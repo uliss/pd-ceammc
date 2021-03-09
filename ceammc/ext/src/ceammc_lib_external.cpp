@@ -14,9 +14,15 @@
 
 #include "ceammc.h"
 #include "ceammc_config.h"
+#include "ceammc_object_info.h"
+#include "ceammc_pd.h"
 #include "mod_init.h"
 
 #include "m_pd.h"
+
+#include <algorithm>
+#include <iostream>
+#include <iterator>
 
 t_class* ceammc_class = 0;
 
@@ -142,4 +148,62 @@ extern "C" CEAMMC_EXTERN void ceammc_setup()
     ceammc_info_message();
     ceammc_new();
     ceammc_init();
+}
+
+extern "C" CEAMMC_EXTERN void ceammc_list_externals(int vanilla)
+{
+    using namespace std;
+
+    if (vanilla) {
+        std::set<std::string> all_ext;
+
+        for (auto x : ceammc::pd::currentListOfExternals())
+            all_ext.insert(x);
+
+        std::set<std::string> vanilla_ext;
+        auto& ceammc_ext = ceammc_ext_list();
+
+        std::set_difference(all_ext.begin(), all_ext.end(),
+            ceammc_ext.begin(), ceammc_ext.end(),
+            std::inserter(vanilla_ext, vanilla_ext.begin()));
+
+        vanilla_ext.erase("ceammc");
+
+        std::copy(vanilla_ext.begin(), vanilla_ext.end(),
+            std::ostream_iterator<std::string>(std::cout, "\n"));
+    } else {
+        auto& ceammc_set = ceammc_ext_list();
+
+        std::copy(ceammc_set.begin(), ceammc_set.end(),
+            std::ostream_iterator<std::string>(std::cout, "\n"));
+    }
+}
+
+static void print_alias(t_class* c)
+{
+    using Os = ceammc::ObjectInfoStorage;
+
+    if (Os::instance().hasInfo(c)) {
+        auto& aliases = Os::instance().info(c).aliases;
+        if (aliases.empty())
+            return;
+
+        std::cout << class_getname(c);
+        for (auto& alias : aliases)
+            std::cout << ' ' << alias;
+
+        std::cout << std::endl;
+    }
+}
+
+extern "C" CEAMMC_EXTERN void ceammc_list_aliases()
+{
+    using namespace std;
+    using Os = ceammc::ObjectInfoStorage;
+
+    for (auto* c : Os::instance().baseSet())
+        print_alias(c);
+
+    for (auto* c : Os::instance().uiSet())
+        print_alias(c);
 }

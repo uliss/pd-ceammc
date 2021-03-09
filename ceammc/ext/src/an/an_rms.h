@@ -1,7 +1,7 @@
 /* ------------------------------------------------------------
 name: "an_rms"
-Code generated with Faust 2.28.6 (https://faust.grame.fr)
-Compilation options: -lang cpp -scal -ftz 0
+Code generated with Faust 2.30.12 (https://faust.grame.fr)
+Compilation options: -lang cpp -es 1 -scal -ftz 0
 ------------------------------------------------------------ */
 
 #ifndef  __an_rms_H__
@@ -89,7 +89,7 @@ class an_rms_dsp {
          */
         virtual void buildUserInterface(UI* ui_interface) = 0;
     
-        /* Returns the sample rate currently used by the instance */
+        /* Return the sample rate currently used by the instance */
         virtual int getSampleRate() = 0;
     
         /**
@@ -97,28 +97,28 @@ class an_rms_dsp {
          * - static class 'classInit': static tables initialization
          * - 'instanceInit': constants and instance state initialization
          *
-         * @param sample_rate - the sampling rate in Hertz
+         * @param sample_rate - the sampling rate in Hz
          */
         virtual void init(int sample_rate) = 0;
 
         /**
          * Init instance state
          *
-         * @param sample_rate - the sampling rate in Hertz
+         * @param sample_rate - the sampling rate in Hz
          */
         virtual void instanceInit(int sample_rate) = 0;
-
+    
         /**
          * Init instance constant state
          *
-         * @param sample_rate - the sampling rate in Hertz
+         * @param sample_rate - the sampling rate in Hz
          */
         virtual void instanceConstants(int sample_rate) = 0;
     
         /* Init default control parameters values */
         virtual void instanceResetUserInterface() = 0;
     
-        /* Init instance state (delay lines...) */
+        /* Init instance state (like delay lines...) but keep the control parameter values */
         virtual void instanceClear() = 0;
  
         /**
@@ -191,7 +191,8 @@ class decorator_dsp : public an_rms_dsp {
 };
 
 /**
- * DSP factory class.
+ * DSP factory class, used with LLVM and Interpreter backends
+ * to create DSP instances from a compiled DSP program.
  */
 
 class dsp_factory {
@@ -345,11 +346,13 @@ struct UI : public UIReal<FAUSTFLOAT>
 #ifndef __meta__
 #define __meta__
 
+/**
+ The base class of Meta handler to be used in an_rms_dsp::metadata(Meta* m) method to retrieve (key, value) metadata.
+ */
 struct Meta
 {
     virtual ~Meta() {};
     virtual void declare(const char* key, const char* value) = 0;
-    
 };
 
 #endif
@@ -495,6 +498,7 @@ struct an_rms : public an_rms_dsp {
 
 #include <algorithm>
 #include <cmath>
+#include <cstdint>
 #include <math.h>
 
 static float an_rms_faustpower2_f(float value) {
@@ -535,16 +539,18 @@ class an_rms : public an_rms_dsp {
 		m->declare("basics.lib/version", "0.1");
 		m->declare("ceammc.lib/name", "Ceammc PureData misc utils");
 		m->declare("ceammc.lib/version", "0.1.2");
+		m->declare("compile_options", "-lang cpp -es 1 -scal -ftz 0");
 		m->declare("filename", "an_rms.dsp");
+		m->declare("filters.lib/avg_rect:author", "Dario Sanfilippo and Julius O. Smith III");
+		m->declare("filters.lib/avg_rect:copyright", "Copyright (C) 2020 Dario Sanfilippo        <sanfilippo.dario@gmail.com> and         2003-2020 by Julius O. Smith III <jos@ccrma.stanford.edu>");
+		m->declare("filters.lib/avg_rect:license", "MIT-style STK-4.3 license");
 		m->declare("filters.lib/integrator:author", "Julius O. Smith III");
 		m->declare("filters.lib/integrator:copyright", "Copyright (C) 2003-2019 by Julius O. Smith III <jos@ccrma.stanford.edu>");
 		m->declare("filters.lib/integrator:license", "MIT-style STK-4.3 license");
-		m->declare("filters.lib/lowpass0_highpass1", "MIT-style STK-4.3 license");
+		m->declare("filters.lib/lowpass0_highpass1", "Copyright (C) 2003-2019 by Julius O. Smith III <jos@ccrma.stanford.edu>");
 		m->declare("filters.lib/name", "Faust Filters Library");
+		m->declare("filters.lib/version", "0.3");
 		m->declare("maths.lib/author", "GRAME");
-		m->declare("maths.lib/avg_rect:author", "Dario Sanfilippo and Julius O. Smith III");
-		m->declare("maths.lib/avg_rect:copyright", "Copyright (C) 2020 Dario Sanfilippo        <sanfilippo.dario@gmail.com> and         2003-2020 by Julius O. Smith III <jos@ccrma.stanford.edu>");
-		m->declare("maths.lib/avg_rect:license", "MIT-style STK-4.3 license");
 		m->declare("maths.lib/copyright", "GRAME");
 		m->declare("maths.lib/license", "LGPL with exception");
 		m->declare("maths.lib/name", "Faust Math Library");
@@ -603,7 +609,6 @@ class an_rms : public an_rms_dsp {
 	
 	virtual void instanceClear() {
 		IOTA = 0;
-		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l0 = 0; (l0 < 262144); l0 = (l0 + 1)) {
 			fRec0[l0] = 0.0f;
 		}
@@ -640,7 +645,6 @@ class an_rms : public an_rms_dsp {
 		float fSlow0 = std::rint((fConst0 * float(fHslider0)));
 		float fSlow1 = (1.0f / fSlow0);
 		int iSlow2 = int(std::max<float>(0.0f, fSlow0));
-		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int i = 0; (i < count); i = (i + 1)) {
 			fRec0[(IOTA & 262143)] = (fRec0[((IOTA - 1) & 262143)] + an_rms_faustpower2_f(float(input0[i])));
 			output0[i] = FAUSTFLOAT(std::sqrt((fSlow1 * (fRec0[((IOTA - 0) & 262143)] - fRec0[((IOTA - iSlow2) & 262143)]))));

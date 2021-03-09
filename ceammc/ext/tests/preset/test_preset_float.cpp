@@ -100,7 +100,47 @@ TEST_CASE("preset.float", "[external]")
         p1.m_load(0, LF(0.f));
         REQUIRE_FLOAT_AT_OUTLET(0, p1, 11);
 
-        p1.m_load(0, LF(1.f));
+        p1.m_load(0, LF(0.25));
+        REQUIRE_FLOAT_AT_OUTLET(0, p1, 11);
+
+        p1.m_load(0, LF(0.5));
+        REQUIRE_FLOAT_AT_OUTLET(0, p1, 11);
+
+        p1.m_load(0, LF(0.75));
+        REQUIRE_FLOAT_AT_OUTLET(0, p1, 11);
+
+        p1.m_load(0, LF(1));
         REQUIRE_FLOAT_AT_OUTLET(0, p1, 15);
+
+        p1.m_load(0, LF(1.1));
+        REQUIRE_FLOAT_AT_OUTLET(0, p1, 15);
+
+        //
+        p1.m_interp(0, LF(0.f));
+        REQUIRE_FLOAT_AT_OUTLET(0, p1, 11);
+
+        p1.m_interp(0, LF(0.25));
+        REQUIRE_FLOAT_AT_OUTLET(0, p1, (11 * 0.75 + 15 * 0.25));
+
+        p1.m_interp(0, LF(0.5));
+        REQUIRE_FLOAT_AT_OUTLET(0, p1, (11 + 15) / 2.0);
+
+        p1.m_interp(0, LF(0.75));
+        REQUIRE_FLOAT_AT_OUTLET(0, p1, (11 * 0.25 + 15 * 0.75));
+
+        p1.m_interp(0, LF(1));
+        REQUIRE_FLOAT_AT_OUTLET(0, p1, 15);
+
+        p1.m_interp(0, LF(1.5));
+        REQUIRE_FLOAT_AT_OUTLET(0, p1, 15 / 2.0);
+
+        p1.m_interp(0, LF(2));
+        REQUIRE_FLOAT_AT_OUTLET(0, p1, 0);
+
+        p1.m_interp(0, LF(255));
+        REQUIRE_FLOAT_AT_OUTLET(0, p1, 0);
+
+        p1.m_interp(0, LF(255.5));
+        REQUIRE_FLOAT_AT_OUTLET(0, p1, 0);
     }
 }

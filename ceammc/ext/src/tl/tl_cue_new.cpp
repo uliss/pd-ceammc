@@ -90,7 +90,7 @@ TlCue::~TlCue()
     deleteLine();
 }
 
-void TlCue::init(t_symbol* name, const AtomList& args, bool usePresets)
+void TlCue::init(t_symbol* name, const AtomListView& args, bool usePresets)
 {
     UIObject::init(name, args, usePresets);
     auto ebox = asEBox();
@@ -215,7 +215,7 @@ void TlCue::redrawCues()
     for (size_t i = 0; i < lst->size(); i++) {
         TlCue* c = reinterpret_cast<TlCue*>(lst->at(i)->object());
         c->bg_layer_.invalidate();
-        c->redrawInnerArea();
+        c->redraw();
     }
 }
 

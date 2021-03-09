@@ -226,6 +226,21 @@ public:
     virtual void dump() const;
 
     /**
+     * Checks if object is visible and has canvas
+     */
+    bool isVisible() const;
+
+    /**
+     * Show/hide object
+     */
+    void show(bool value);
+
+    /**
+     * Fix canvas lines for object (after show/changing position/changing xlet number etc.)
+     */
+    void fixLines();
+
+    /**
      * Outputs all properties name
      * @example on message [@*?( outputs message [@* @prop1 @prop2 etc..(
      */
@@ -304,6 +319,11 @@ public:
     void reserveInlets(size_t n) { inlets_.reserve(n); }
 
     /**
+     * Removes all created inlets
+     */
+    virtual void clearInlets();
+
+    /**
      * Inlet description
      * @param n - inlet index
      * @return inlet description constant string pointer, 0 if not exists
@@ -331,6 +351,11 @@ public:
      * Reserves space for outlets to reduce memory reallocations
      */
     void reserveOutlets(size_t n) { outlets_.reserve(n); }
+
+    /**
+     * Removes all outlets
+     */
+    virtual void clearOutlets();
 
     /**
      * Outlet description
@@ -441,7 +466,7 @@ public:
     /**
      * Get list of object properties
      */
-    inline const Properties& properties() const { return props_; }
+    inline const Properties& getProperties() const { return props_; }
 
     /**
      * Outputs atom to specified outlet
@@ -607,6 +632,15 @@ protected:
     void appendInlet(t_inlet* in);
     void appendOutlet(t_outlet* out);
     bool queryProperty(t_symbol* key, AtomList& res) const;
+    inline Properties& properties() { return props_; }
+    inline const Properties& properties() const { return props_; }
+    InletList& inlets() { return inlets_; }
+    const InletList& inlets() const { return inlets_; }
+    OutletList& outlets() { return outlets_; }
+    const OutletList& outlets() const { return outlets_; }
+
+    virtual bool popInlet();
+    virtual bool popOutlet();
 
     static const size_t MAX_XLETS_NUM = 255;
 

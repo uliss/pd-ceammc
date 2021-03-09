@@ -4,7 +4,7 @@
 
 %defines
 %define api.token.prefix {TOK_}
-%define api.namespace {ceammc}
+%define api.namespace {ceammc::score}
 %define api.parser.class {ScoreParser}
 %define api.value.type variant
 %define api.token.constructor
@@ -14,7 +14,7 @@
 %debug
 //%define api.value.type {t_interval}
 
-%parse-param { ceammc::ScoreLexer& lexer }
+%parse-param { ceammc::score::ScoreLexer& lexer }
 
 %code requires {
     # include <array>
@@ -24,7 +24,9 @@
     # include <vector>
 
     namespace ceammc {
-        class ScoreLexer;
+        namespace score {
+            class ScoreLexer;
+        }
 
         namespace scp {
             using OptVal = uint32_t;
@@ -205,7 +207,7 @@ EXPRLIST
 
 %%
 
-void ceammc::ScoreParser::error(const std::string& err_message)
+void ceammc::score::ScoreParser::error(const std::string& err_message)
 {
     std::cerr << err_message << "\n";
 //    lexer.setErrorMsg(err_message);

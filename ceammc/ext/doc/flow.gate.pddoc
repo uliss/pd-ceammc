@@ -16,6 +16,7 @@
                 <see>flow.pass</see>
             </also>
             <aliases>
+                <alias>ceammc/gate</alias>
                 <alias>gate</alias>
             </aliases>
         </meta>

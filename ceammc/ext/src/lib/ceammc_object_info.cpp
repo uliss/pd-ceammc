@@ -70,14 +70,19 @@ std::string ObjectInfoStorage::libStrVersion() const
     return fmt::format("{}.{}", (int)lib_version_.first, (int)lib_version_.second);
 }
 
-void ObjectInfoStorage::addBase(t_class* c)
+void ObjectInfoStorage::addBase(t_class* c, t_newmethod creator)
 {
     base_set_.insert(c);
-}
 
-void ObjectInfoStorage::addFaust(t_class* c)
-{
-    faust_set_.insert(c);
+    // check for global name - add alias if needed
+    std::string name(c->c_name->s_name);
+    if (name.find('.') == std::string::npos) {
+        std::string ceammc_alias("ceammc/");
+        ceammc_alias += name;
+
+        class_addcreator(creator, gensym(ceammc_alias.c_str()), A_GIMME, A_NULL);
+        instance().info(c).aliases.push_back(ceammc_alias);
+    }
 }
 
 void ObjectInfoStorage::addFlext(t_class* c)
@@ -88,6 +93,22 @@ void ObjectInfoStorage::addFlext(t_class* c)
 void ObjectInfoStorage::addUI(t_class* c)
 {
     ui_set_.insert(c);
+}
+
+void ObjectInfoStorage::addAlias(const char* name, t_class* c, t_newmethod creator)
+{
+    std::string alias(name);
+    // find global like alias
+    if (alias.find('.') == std::string::npos) {
+        std::string ceammc_alias("ceammc/");
+        ceammc_alias += alias;
+
+        class_addcreator(creator, gensym(ceammc_alias.c_str()), A_GIMME, A_NULL);
+        instance().info(c).aliases.push_back(ceammc_alias);
+    }
+
+    class_addcreator(creator, gensym(name), A_GIMME, A_NULL);
+    instance().info(c).aliases.push_back(name);
 }
 
 ObjectInfoStorage::Info::Info()

@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="data.copy">
+        <title>data.copy</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>make copy for any data types: MList, Set etc...</description>
+            <license>GPL3 or later</license>
+            <library>ceammc</library>
+            <category>data</category>
+            <keywords>data copy</keywords>
+            <since>0.9.2</since>
+        </meta>
+        <info>
+            <par>Data types, such as MList, are passed by reference, not by value.</par>
+        </info>
+        <inlets>
+            <inlet>
+                <xinfo on="data">input data</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet>data copy</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+/*without copy*/
+
+[B]
+|
+[list.gen 3 #a] [list.gen 3 #c]X[random 10]
+|               |
+|               [mlist #b]
+|               |
+[ui.dt]         [ui.dt]
+[X b->a:1]
+[X a:1->c]
+/*with copy */
+
+[B]
+|
+[list.gen 3 #d] [list.gen 3 #e]X[random 10]
+|               |
+|               [mlist]
+|               |
+|               [data.copy #f]
+|               |
+[ui.dt]         [ui.dt]
+[X f->d:1]
+[X d:1->e]
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

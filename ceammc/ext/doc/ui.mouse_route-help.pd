@@ -66,7 +66,7 @@ value: 0\. Allowed values: 0 \, 1\.;
 #X text 115 45 ::;
 #X obj 131 48 ui.link @title ui @url ceammc.ui-help.pd;
 #X obj 1 858 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 861 library: ceammc v0.9.1;
+#X text 10 861 library: ceammc v0.9.2;
 #X text 467 873 see also:;
 #X obj 541 873 ui.mouse_filter;
 #X obj 665 876 ui.link @background_color 0.78431 0.78431 0.78431
@@ -76,7 +76,7 @@ value: 0\. Allowed values: 0 \, 1\.;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
 #X text 10 32 version:;
-#X text 120 32 0.9.1;
+#X text 120 32 0.9.2;
 #X text 10 54 object:;
 #X text 120 54 ui.mouse_route;
 #X text 10 76 category:;

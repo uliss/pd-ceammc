@@ -13,6 +13,7 @@
             <keywords>conv degree key modus</keywords>
             <since>0.9.1</since>
             <aliases>
+                <alias>ceammc/degree-&gt;key</alias>
                 <alias>degree-&gt;key</alias>
             </aliases>
         </meta>

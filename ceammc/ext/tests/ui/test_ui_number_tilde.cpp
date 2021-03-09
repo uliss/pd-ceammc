@@ -26,7 +26,7 @@ TEST_CASE("ui.number~", "[ui.number~]")
         REQUIRE(t->numInlets() == 1);
         REQUIRE(t->numOutlets() == 1);
         REQUIRE_UI_FLOAT_PROPERTY(t, "interval", 50);
-        REQUIRE_UI_FLOAT_PROPERTY(t, "decimal", 6);
+        REQUIRE_UI_FLOAT_PROPERTY(t, "precision", 6);
     }
 
     SECTION("external")

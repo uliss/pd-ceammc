@@ -12,6 +12,7 @@
             <category>math</category>
             <keywords>math complex division</keywords>
             <aliases>
+                <alias>ceammc/cdiv~</alias>
                 <alias>cdiv~</alias>
             </aliases>
             <since>0.7</since>

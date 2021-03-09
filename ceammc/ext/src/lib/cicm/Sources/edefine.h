@@ -78,10 +78,6 @@ extern t_symbol* s_obj;
 extern t_symbol* s_atom;
 //! The pre-defined attr_modified t_symbol*
 extern t_symbol* s_attr_modified;
-//! The pre-defined eboxbd t_symbol*
-extern t_symbol* s_eboxbd;
-//! The pre-defined eboxio t_symbol*
-extern t_symbol* s_eboxio;
 //! The pre-defined size t_symbol*
 extern t_symbol* s_size;
 //! The pre-defined int t_symbol*
@@ -228,8 +224,7 @@ typedef enum {
     E_SHAPE_OVAL = 0, /*!< This shape is oval. */
     E_SHAPE_ARC = 1, /*!< This shape is arc. */
     E_SHAPE_IMAGE = 2, /*!< This shape is image. */
-    E_SHAPE_RECT = 3, /*!< This shape is rectangle. */
-    E_SHAPE_XLETS = 4 /*!< This shape is xlets. */
+    E_SHAPE_RECT = 3 /*!< This shape is rectangle. */
 } eshape_types;
 
 enum eclip_flags {
@@ -808,7 +803,6 @@ typedef struct t_edrawparams {
     t_rgba d_bordercolor; /*!< The border color. */
     t_rgba d_boxfillcolor; /*!< The background color. */
     t_rgba d_labelcolor; /*!< The label color. */
-    float d_borderthickness; /*!< The border size. */
     bool d_hideiolets; /*!< hide standard iolets, for ui.icon for example */
 } t_edrawparams;
 
@@ -827,7 +821,6 @@ typedef struct t_ebox_ {
 
     t_symbol* b_canvas_id; /*!< The canvas ID. */
     t_symbol* b_drawing_id; /*!< The drawing ID. */
-    t_symbol* b_window_id; /*!< The window ID. */
     t_symbol* b_all_id; /*!< The global ID. */
 
     long b_flags; /*!< The ebox flags. */

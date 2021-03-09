@@ -71,7 +71,7 @@ public:
     void okSize(t_rect* newrect);
     void paint();
 
-    void init(t_symbol* name, const AtomList& args, bool usePresets);
+    void init(t_symbol* name, const AtomListView& args, bool usePresets);
     void dspProcess(t_sample** ins, long n_ins, t_sample** outs, long n_outs, long sampleframes);
     void onPropChange(t_symbol* prop_name);
 
@@ -88,6 +88,8 @@ public:
 
     void loadPreset(size_t idx);
     void storePreset(size_t idx);
+    void interpPreset(t_float idx);
+    bool hasPresetInterp() const { return true; }
 
     void m_plus(t_float db);
     void m_minus(t_float db);

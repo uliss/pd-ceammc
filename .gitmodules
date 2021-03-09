@@ -58,3 +58,6 @@
 [submodule "ceammc/extra/glitch/glitch"]
 	path = ceammc/extra/glitch/glitch
 	url = https://github.com/naivesound/glitch.git
+[submodule "ceammc/extra/faust/faust"]
+	path = ceammc/extra/faust/faust
+	url = https://github.com/grame-cncm/faust.git

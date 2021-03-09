@@ -49,7 +49,6 @@
         </inlets>
         <outlets>
             <outlet type="audio">output signal</outlet>
-            <outlet type="control">information output</outlet>
         </outlets>
         <example>
             <pdascii>
@@ -62,9 +61,9 @@
 |             |
 |             [@threshold $1(
 |             |
-[dyn.gate~ 90 id ]
+[dyn.gate~ 90 ]
 |
-[ui.gain~ @size 120 16] [ui.dsp~]
+[ui.hgain~    ] [ui.dsp~]
 |\
 [dac~]
 ]]>

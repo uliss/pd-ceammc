@@ -6,47 +6,54 @@
             <authors>
                 <author>Serge Poltavsky</author>
             </authors>
-            <description>midi sustain: hold notes</description>
+            <description>sustain pedal emulation</description>
             <license>GPL3 or later</license>
             <library>ceammc</library>
             <category>midi</category>
-            <keywords>midi hold sustain</keywords>
-            <since>0.9.2</since>
+            <keywords>midi sustain</keywords>
+            <since>0.9.3</since>
         </meta>
-        <methods>
-            <method name="reset">reset beat counter</method>
-        </methods>
+        <info>
+            <par>when pedal is on: ignore all note offs</par>
+            <par>when pedal is off: output all sustained notes off</par>
+        </info>
+        <arguments>
+            <argument name="STATE" type="int" minvalue="0" maxvalue="1">initial state</argument>
+        </arguments>
         <properties>
-            <property name="@on" type="int" enum="0 1" default="0">sustain state</property>
-            <property name="@ctlin" type="int" enum="0 1" default="0">listen to MIDI
-            CC64</property>
+            <property name="@on" type="int" enum="0 1" default="0">pedal state</property>
+            <property name="@ctlin" type="int" enum="0 1" default="0">listen to CTL64 from MIDI
+            controller</property>
         </properties>
         <inlets>
             <inlet>
-                <xinfo on="list">NOTE VEL pairs</xinfo>
+                <xinfo on="list">MIDI input: NOTE VEL</xinfo>
             </inlet>
             <inlet>
-                <xinfo on="float">on/off pedal</xinfo>
+                <xinfo on="float">turn sustain on/off (1/0)</xinfo>
             </inlet>
         </inlets>
         <outlets>
-            <outlet>NOTE VEL pairs</outlet>
+            <outlet>MIDI output: NOTE VEL</outlet>
         </outlets>
         <example>
             <pdascii>
 <![CDATA[
-[ui.keyboard @size 155 40 @keys 25]
+[ui.hk 24]
 |
 |
 |
 |
-|           [T]
-|           |.
-[midi.sustain ]
+|         [T]
+|         |.
+[midi.sustain]
 |
-[ui.keyboard @size 155 40 @keys 25]
-
-
+[ui.hk 24]
+|       |
+|       |
+|       |
+|       |
+[print] [ui.dt]
 ]]>
             </pdascii>
         </example>

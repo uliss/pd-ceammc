@@ -1,7 +1,7 @@
 /* ------------------------------------------------------------
 name: "flt_ff_comb"
-Code generated with Faust 2.28.6 (https://faust.grame.fr)
-Compilation options: -lang cpp -scal -ftz 0
+Code generated with Faust 2.30.12 (https://faust.grame.fr)
+Compilation options: -lang cpp -es 1 -scal -ftz 0
 ------------------------------------------------------------ */
 
 #ifndef  __flt_ff_comb_H__
@@ -89,7 +89,7 @@ class flt_ff_comb_dsp {
          */
         virtual void buildUserInterface(UI* ui_interface) = 0;
     
-        /* Returns the sample rate currently used by the instance */
+        /* Return the sample rate currently used by the instance */
         virtual int getSampleRate() = 0;
     
         /**
@@ -97,28 +97,28 @@ class flt_ff_comb_dsp {
          * - static class 'classInit': static tables initialization
          * - 'instanceInit': constants and instance state initialization
          *
-         * @param sample_rate - the sampling rate in Hertz
+         * @param sample_rate - the sampling rate in Hz
          */
         virtual void init(int sample_rate) = 0;
 
         /**
          * Init instance state
          *
-         * @param sample_rate - the sampling rate in Hertz
+         * @param sample_rate - the sampling rate in Hz
          */
         virtual void instanceInit(int sample_rate) = 0;
-
+    
         /**
          * Init instance constant state
          *
-         * @param sample_rate - the sampling rate in Hertz
+         * @param sample_rate - the sampling rate in Hz
          */
         virtual void instanceConstants(int sample_rate) = 0;
     
         /* Init default control parameters values */
         virtual void instanceResetUserInterface() = 0;
     
-        /* Init instance state (delay lines...) */
+        /* Init instance state (like delay lines...) but keep the control parameter values */
         virtual void instanceClear() = 0;
  
         /**
@@ -191,7 +191,8 @@ class decorator_dsp : public flt_ff_comb_dsp {
 };
 
 /**
- * DSP factory class.
+ * DSP factory class, used with LLVM and Interpreter backends
+ * to create DSP instances from a compiled DSP program.
  */
 
 class dsp_factory {
@@ -345,11 +346,13 @@ struct UI : public UIReal<FAUSTFLOAT>
 #ifndef __meta__
 #define __meta__
 
+/**
+ The base class of Meta handler to be used in flt_ff_comb_dsp::metadata(Meta* m) method to retrieve (key, value) metadata.
+ */
 struct Meta
 {
     virtual ~Meta() {};
     virtual void declare(const char* key, const char* value) = 0;
-    
 };
 
 #endif
@@ -495,6 +498,7 @@ struct flt_ff_comb : public flt_ff_comb_dsp {
 
 #include <algorithm>
 #include <cmath>
+#include <cstdint>
 #include <math.h>
 
 
@@ -517,11 +521,6 @@ class flt_ff_comb : public flt_ff_comb_dsp {
 	float fRec0[2];
 	int fSampleRate;
 	float fConst0;
-	int iConst1;
-	int iConst2;
-	int iConst3;
-	int iConst4;
-	int iConst5;
 	float fConst6;
 	
  public:
@@ -529,6 +528,7 @@ class flt_ff_comb : public flt_ff_comb_dsp {
 	void metadata(Meta* m) { 
 		m->declare("basics.lib/name", "Faust Basic Element Library");
 		m->declare("basics.lib/version", "0.1");
+		m->declare("compile_options", "-lang cpp -es 1 -scal -ftz 0");
 		m->declare("delays.lib/name", "Faust Delay Library");
 		m->declare("delays.lib/version", "0.1");
 		m->declare("filename", "flt_ff_comb.dsp");
@@ -537,6 +537,7 @@ class flt_ff_comb : public flt_ff_comb_dsp {
 		m->declare("filters.lib/ff_fcomb:license", "MIT-style STK-4.3 license");
 		m->declare("filters.lib/lowpass0_highpass1", "Copyright (C) 2003-2019 by Julius O. Smith III <jos@ccrma.stanford.edu>");
 		m->declare("filters.lib/name", "Faust Filters Library");
+		m->declare("filters.lib/version", "0.3");
 		m->declare("maths.lib/author", "GRAME");
 		m->declare("maths.lib/copyright", "GRAME");
 		m->declare("maths.lib/license", "LGPL with exception");
@@ -594,11 +595,11 @@ class flt_ff_comb : public flt_ff_comb_dsp {
 	virtual void instanceConstants(int sample_rate) {
 		fSampleRate = sample_rate;
 		fConst0 = std::min<float>(192000.0f, std::max<float>(1.0f, float(fSampleRate)));
-		iConst1 = int(((0.0500000007f * std::max<float>(8000.0f, fConst0)) + -1.0f));
-		iConst2 = ((iConst1 >> 1) | iConst1);
-		iConst3 = ((iConst2 >> 2) | iConst2);
-		iConst4 = ((iConst3 >> 4) | iConst3);
-		iConst5 = ((iConst4 >> 8) | iConst4);
+		int iConst1 = int(((0.0500000007f * std::max<float>(8000.0f, fConst0)) + -1.0f));
+		int iConst2 = ((iConst1 >> 1) | iConst1);
+		int iConst3 = ((iConst2 >> 2) | iConst2);
+		int iConst4 = ((iConst3 >> 4) | iConst3);
+		int iConst5 = ((iConst4 >> 8) | iConst4);
 		fConst6 = (float(((iConst5 >> 16) | iConst5)) + 2.0f);
 	}
 	
@@ -608,11 +609,9 @@ class flt_ff_comb : public flt_ff_comb_dsp {
 	
 	virtual void instanceClear() {
 		IOTA = 0;
-		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l0 = 0; (l0 < 16384); l0 = (l0 + 1)) {
 			fVec0[l0] = 0.0f;
 		}
-		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l1 = 0; (l1 < 2); l1 = (l1 + 1)) {
 			fRec0[l1] = 0.0f;
 		}
@@ -647,7 +646,6 @@ class flt_ff_comb : public flt_ff_comb_dsp {
 		FAUSTFLOAT* input1 = inputs[1];
 		FAUSTFLOAT* output0 = outputs[0];
 		float fSlow0 = (0.00100000005f * float(fHslider0));
-		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int i = 0; (i < count); i = (i + 1)) {
 			float fTemp0 = float(input0[i]);
 			fVec0[(IOTA & 16383)] = fTemp0;

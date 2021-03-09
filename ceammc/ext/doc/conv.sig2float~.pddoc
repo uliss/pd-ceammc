@@ -13,7 +13,9 @@
             <keywords>conv signal float snapshot</keywords>
             <since>0.9.2</since>
             <aliases>
+                <alias>ceammc/sig-&gt;float~</alias>
                 <alias>sig-&gt;float~</alias>
+                <alias>ceammc/s-&gt;f~</alias>
                 <alias>s-&gt;f~</alias>
             </aliases>
             <also>

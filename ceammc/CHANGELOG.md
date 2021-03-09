@@ -3,46 +3,86 @@
 ## [Unreleased]
 ### Added:
 - new objects:
+  - array.plot added
+  - conv.bits2bang (with bits->bang alias) added
+  - conv.bits2int (with bits->int alias) added
+  - conv.bits2note (with bits->note alias) added
+  - conv.bits2pos (with bits->pos alias) added
+  - conv.sig2float (with sig->float~ and s->f~ aliases) added
+  - data.copy added (copy data pointers)
+  - flow.list2many (with list->many alias) added
+  - flt.c_hpf (with hpf->biquad alias) biquad calculator added
+  - flt.c_lpf (with lpf->biquad alias) biquad calculator added
+  - flt.c_notch (with notch->biquad alias) biquad calculator added
+  - flt.c_pole (with pole->biquad alias) biquad calculator added
+  - fx.infrev~ infinite reverb added (port of airwindows Infinity VST OpenSource plugin)
+  - fx.fbank5x1~ filterbank added (5 band, one octave) 
   - loadexpr added (supports functions and datatypes)
+  - lang.faust~ external added 
   - midi.cc added (enhanced version of ctlin)
-  - midi.sysex added (read sysex messages as list)
   - midi.clock added
-  - midi.vrand - velocity randomizer added
+  - midi.kbd added (computer key to midi note converter)
   - midi.oct - octave transposer added
-  - ui.midi added (display for incoming messages)
-  - ui.button added (with ui.btn alias)
+  - midi.sustain - sustain pedal emulation added
+  - midi.sysex added (read sysex messages as list)
+  - midi.vrand - velocity randomizer added
   - proto.midi added (raw dataflow midi parser/encoder)
   - route.float (with route.f alias) added
-  - conv.bits2int (with bits->int alias) added
-  - conv.bits2pos (with bits->pos alias) added
-  - conv.bits2bang (with bits->bang alias) added
-  - conv.bits2note (with bits->note alias) added
-  - conv.sig2float (with sig->float~ and s->f~ aliases) added
-  - ui.vkeyboard added (with ui.vk alias for vertical keyboard)
+  - seq.life - conway game of life sequencer
   - system.exit added
+  - synth.harpsichord~ added
+  - synth.piano~ added
+  - synth.glass_harm~ added
+  - ui.button added (with ui.btn alias)
+  - ui.midi added (display for incoming messages)
+  - ui.vkeyboard added (with ui.vk alias for vertical keyboard)
+  - ui.filter~ added 
+  - ui.filter added (biquad calculator)
+  - ui.faust~ added
 - new aliases:
   - ui.hk alias added for ui.keyboard (horizontal)
+  - ui.hm~ alias added for ui.meter~ (horizontal)
   - ui.k alias added for ui.knob
   - ui.vm~ alias added for ui.meter~ (vertical)
-  - ui.hm~ alias added for ui.meter~ (horizontal)
+  - ui.vsliders alias added for vertical ui.sliders
+  - *ceammc/* prefix added to all global like objects: **ceammc/xfade~**, **ceammc/mix~** etc. 
 - mouse:
   - ui.meter~ change orientation by Ctl/Cmd+double-click in edit mode, like ui.radio and ui.slider
 - arguments:
   - ui.keyboard NKEYS SHIFT arguments added
 - methods:
   - *postscript* method added to canvas.top for saving patch to PostScript
+  - *interp* method added to ui.preset
+  - *interp* method added to preset.storage
+- presets interpolation added to:
+  - ui.knob
+  - ui.slider
+  - ui.slider2d
+  - ui.sliders
+  - ui.rslider
+  - ui.number
+  - ui.polar
+  - preset.float
 - comma separated messages added to msg.onload (loadmsg)
+- rests support added to conv.pitch->midi
 - @from property added to patch.args
 - hex output added to ui.display (@hex and @hex_width properties)
 - xlet tooltips added to:
   - xdac~
   - prop.ls
   - int->bits
+- MIDI listen/bind added to ui.toggle
 
 ### Changed:
 - using AtomListView instead of AtomList in BaseObject::onInlet method
 - using AtomListView instead of AtomList in UI objects
 - second inlet added to path.ls to set @match property
+- ui.number~ @decimal property renamed to @precision
+- ui.sliders: @auto_range options split into @auto_range and @auto_count 
+
+### Fixed:
+- ui.hgain~/ui.hgain2~ midi bind fixed
+- samplerate change for all faust objects
 
 
 ## [0.9.1]

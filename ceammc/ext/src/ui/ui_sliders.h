@@ -19,20 +19,17 @@
 using namespace ceammc;
 
 class UISliders : public UIObject {
-    UIFont txt_font_;
-    UITextLayout txt_min_;
-    UITextLayout txt_max_;
     long select_idx_;
     bool is_vertical_;
     std::vector<t_float> pos_values_;
-    UILayer sliders_layer_;
 
 private:
     t_rgba prop_slider_color;
     t_rgba prop_select_color;
     t_float prop_min;
     t_float prop_max;
-    int prop_auto_range;
+    t_symbol* prop_auto_range_mode;
+    int prop_auto_count;
     int prop_show_range;
     int prop_count;
     char c_min[16];
@@ -41,21 +38,22 @@ private:
 public:
     UISliders();
 
-    void init(t_symbol* name, const AtomList& args, bool usePresets);
+    void init(t_symbol* name, const AtomListView& args, bool usePresets);
 
     void okSize(t_rect* newrect);
     void onPropChange(t_symbol* prop_name);
     void paint();
-    void paintLabels();
     void paintSliders();
 
     void onBang();
-    void onList(const AtomListView& lst);
+    void onList(const AtomListView& lv);
     AtomList realValues() const;
 
     // presets
     void loadPreset(size_t idx);
     void storePreset(size_t idx);
+    void interpPreset(t_float idx);
+    bool hasPresetInterp() const { return true; }
 
     // mouse
     void onMouseDown(t_object* view, const t_pt& pt, const t_pt& abs_pt, long modifiers);
@@ -80,6 +78,8 @@ public:
 
     void outputList();
     void normalize();
+    void normalizeMin();
+    void normalizeMax();
 
 private:
     void setRealValueAt(size_t n, t_float v);
@@ -88,8 +88,8 @@ private:
 
     t_float propCount() const;
     void setPropCount(t_float f);
-    t_float propAutoRange() const;
-    void setPropAutoRange(t_float f);
+    AtomList propAutoRangeMode() const;
+    void setPropAutoRangeMode(const AtomListView& lv);
 
     t_float propRange() const;
     AtomList propValue() const;

@@ -24,7 +24,13 @@ public:
 
     void onList(const AtomList& l) final
     {
-        listTo(0, l.mapFloat(static_cast<FloatUnaryFn>(std::asin)));
+        const auto N = l.size();
+        Atom res[N];
+        for(size_t i = 0; i < N; i++) {
+            res[i] = l[i];
+            res[i].applyFloat(static_cast<FloatUnaryFn>(std::asin));
+        }
+        listTo(0, AtomListView(res, N));
     }
 
 };

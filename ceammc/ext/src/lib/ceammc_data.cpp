@@ -21,6 +21,8 @@
 
 #include <algorithm>
 
+using namespace ceammc::ds;
+
 namespace ceammc {
 
 DataParseResult parseDataList(const AtomList& lst) noexcept

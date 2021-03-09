@@ -14,6 +14,7 @@
             <since>0.6</since>
             <aliases>
                 <alias>flow.demux2~</alias>
+                <alias>ceammc/demux2~</alias>
                 <alias>demux2~</alias>
             </aliases>
             <also>

@@ -2,8 +2,8 @@
 author: "Albert Graef"
 name: "fx.chorus"
 version: "1.0"
-Code generated with Faust 2.28.6 (https://faust.grame.fr)
-Compilation options: -lang cpp -scal -ftz 0
+Code generated with Faust 2.30.12 (https://faust.grame.fr)
+Compilation options: -lang cpp -es 1 -scal -ftz 0
 ------------------------------------------------------------ */
 
 #ifndef  __fx_chorus_H__
@@ -91,7 +91,7 @@ class fx_chorus_dsp {
          */
         virtual void buildUserInterface(UI* ui_interface) = 0;
     
-        /* Returns the sample rate currently used by the instance */
+        /* Return the sample rate currently used by the instance */
         virtual int getSampleRate() = 0;
     
         /**
@@ -99,28 +99,28 @@ class fx_chorus_dsp {
          * - static class 'classInit': static tables initialization
          * - 'instanceInit': constants and instance state initialization
          *
-         * @param sample_rate - the sampling rate in Hertz
+         * @param sample_rate - the sampling rate in Hz
          */
         virtual void init(int sample_rate) = 0;
 
         /**
          * Init instance state
          *
-         * @param sample_rate - the sampling rate in Hertz
+         * @param sample_rate - the sampling rate in Hz
          */
         virtual void instanceInit(int sample_rate) = 0;
-
+    
         /**
          * Init instance constant state
          *
-         * @param sample_rate - the sampling rate in Hertz
+         * @param sample_rate - the sampling rate in Hz
          */
         virtual void instanceConstants(int sample_rate) = 0;
     
         /* Init default control parameters values */
         virtual void instanceResetUserInterface() = 0;
     
-        /* Init instance state (delay lines...) */
+        /* Init instance state (like delay lines...) but keep the control parameter values */
         virtual void instanceClear() = 0;
  
         /**
@@ -193,7 +193,8 @@ class decorator_dsp : public fx_chorus_dsp {
 };
 
 /**
- * DSP factory class.
+ * DSP factory class, used with LLVM and Interpreter backends
+ * to create DSP instances from a compiled DSP program.
  */
 
 class dsp_factory {
@@ -347,11 +348,13 @@ struct UI : public UIReal<FAUSTFLOAT>
 #ifndef __meta__
 #define __meta__
 
+/**
+ The base class of Meta handler to be used in fx_chorus_dsp::metadata(Meta* m) method to retrieve (key, value) metadata.
+ */
 struct Meta
 {
     virtual ~Meta() {};
     virtual void declare(const char* key, const char* value) = 0;
-    
 };
 
 #endif
@@ -497,6 +500,7 @@ struct fx_chorus : public fx_chorus_dsp {
 
 #include <algorithm>
 #include <cmath>
+#include <cstdint>
 #include <math.h>
 
 class fx_chorusSIG0 {
@@ -539,14 +543,12 @@ class fx_chorusSIG0 {
 	}
 	
 	void instanceInitfx_chorusSIG0(int sample_rate) {
-		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l6 = 0; (l6 < 2); l6 = (l6 + 1)) {
 			iRec5[l6] = 0;
 		}
 	}
 	
 	void fillfx_chorusSIG0(int count, float* table) {
-		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int i = 0; (i < count); i = (i + 1)) {
 			iRec5[0] = (iRec5[1] + 1);
 			table[i] = std::sin((9.58738019e-05f * float((iRec5[0] + -1))));
@@ -580,7 +582,6 @@ class fx_chorus : public fx_chorus_dsp {
 	FAUSTFLOAT fHslider0;
 	float fRec0[2];
 	int fSampleRate;
-	float fConst0;
 	float fConst1;
 	FAUSTFLOAT fHslider1;
 	float fRec1[2];
@@ -601,6 +602,7 @@ class fx_chorus : public fx_chorus_dsp {
 		m->declare("ceammc.lib/version", "0.1.2");
 		m->declare("ceammc_ui.lib/name", "CEAMMC faust default UI elements");
 		m->declare("ceammc_ui.lib/version", "0.1.2");
+		m->declare("compile_options", "-lang cpp -es 1 -scal -ftz 0");
 		m->declare("delays.lib/name", "Faust Delay Library");
 		m->declare("delays.lib/version", "0.1");
 		m->declare("filename", "fx_chorus.dsp");
@@ -661,7 +663,7 @@ class fx_chorus : public fx_chorus_dsp {
 	
 	virtual void instanceConstants(int sample_rate) {
 		fSampleRate = sample_rate;
-		fConst0 = std::min<float>(192000.0f, std::max<float>(1.0f, float(fSampleRate)));
+		float fConst0 = std::min<float>(192000.0f, std::max<float>(1.0f, float(fSampleRate)));
 		fConst1 = (0.5f * fConst0);
 		fConst2 = (1.0f / fConst0);
 	}
@@ -676,27 +678,21 @@ class fx_chorus : public fx_chorus_dsp {
 	
 	virtual void instanceClear() {
 		IOTA = 0;
-		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l0 = 0; (l0 < 131072); l0 = (l0 + 1)) {
 			fVec0[l0] = 0.0f;
 		}
-		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l1 = 0; (l1 < 2); l1 = (l1 + 1)) {
 			fRec0[l1] = 0.0f;
 		}
-		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l2 = 0; (l2 < 2); l2 = (l2 + 1)) {
 			fRec1[l2] = 0.0f;
 		}
-		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l3 = 0; (l3 < 2); l3 = (l3 + 1)) {
 			fRec2[l3] = 0.0f;
 		}
-		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l4 = 0; (l4 < 2); l4 = (l4 + 1)) {
 			fRec4[l4] = 0.0f;
 		}
-		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l5 = 0; (l5 < 2); l5 = (l5 + 1)) {
 			fRec3[l5] = 0.0f;
 		}
@@ -742,7 +738,6 @@ class fx_chorus : public fx_chorus_dsp {
 		float fSlow2 = (9.99999997e-07f * float(fHslider1));
 		float fSlow3 = (0.00100000005f * float(fHslider2));
 		float fSlow4 = (0.00100000005f * float(fHslider3));
-		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int i = 0; (i < count); i = (i + 1)) {
 			float fTemp0 = float(input0[i]);
 			float fTemp1 = (iSlow0 ? 0.0f : fTemp0);

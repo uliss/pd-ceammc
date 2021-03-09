@@ -40,7 +40,7 @@ class Hoa2dScope : public UIDspObject {
 public:
     Hoa2dScope();
 
-    void init(t_symbol* s, const AtomList& lst, bool usePresets);
+    void init(t_symbol* s, const AtomListView& args, bool usePresets);
 
     void okSize(t_rect* newrect);
     void paint();

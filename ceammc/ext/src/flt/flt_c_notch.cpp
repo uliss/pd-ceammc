@@ -8,7 +8,7 @@ public:
     FltCNotch(const PdArgs& args)
         : faust_flt_c_notch_tilde(args)
     {
-       bindPositionalArgsToProps({ gensym("@freq"), gensym("@q") });
+        bindPositionalArgsToProps({ gensym("@freq"), gensym("@q") });
     }
 };
 

@@ -60,11 +60,13 @@
 |         [floatatom] [floatatom]
 [*~ 4]    |           |
 |         |           |
-|   [B]   [@ratio $1( [@threshold $1(
-|   |     |           |
-[dyn.comp~ 3 40 10 100 id]
-|\               ^|
-[dac~]           [print]
+|         [@ratio $1( [@threshold $1(
+|         |           |
+[dyn.comp~ 3 40 10 100 id]  [ui.dsp~]
+*|*
+[ui.hgain~]
+|\
+[dac~]
 ]]>
             </pdascii>
         </example>

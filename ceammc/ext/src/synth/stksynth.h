@@ -37,6 +37,7 @@ class StkSynth : public StkBase {
 public:
     StkSynth(const PdArgs& args, stk::Instrmnt* instr);
 
+    void onList(const AtomList& lst) override;
     bool propSetGate(t_float f);
 
     void m_note(t_symbol* s, const AtomListView& lv);

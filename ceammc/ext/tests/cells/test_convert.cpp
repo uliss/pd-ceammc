@@ -376,16 +376,21 @@ TEST_CASE("convert", "[PureData]")
         {
             SECTION("invalid")
             {
-                REQUIRE(spn2midi("") == -1);
-                REQUIRE(spn2midi("C") == -1);
-                REQUIRE(spn2midi("C23") == -1);
-                REQUIRE(spn2midi("C#") == -1);
-                REQUIRE(spn2midi("1") == -1);
+                REQUIRE(spn2midi("") == MIDI_NONE);
+                REQUIRE(spn2midi("C") == 60);
+                REQUIRE(spn2midi("C23") == MIDI_NONE);
+                REQUIRE(spn2midi("C#") == 61);
+                REQUIRE(spn2midi("C#b") == MIDI_NONE);
+                REQUIRE(spn2midi("C?#b") == MIDI_NONE);
+                REQUIRE(spn2midi("1") == MIDI_NONE);
+                REQUIRE(spn2midi("R?") == MIDI_NONE);
             }
 
             REQUIRE(spn2midi("C0") == 12);
             REQUIRE(spn2midi("C1") == 24);
             REQUIRE(spn2midi("C4") == 60);
+            REQUIRE(spn2midi("C") == 60);
+            REQUIRE(spn2midi("Cb") == 59);
             REQUIRE(spn2midi("C#4") == 61);
 
             REQUIRE(spn2midi("A3") == 57);
@@ -397,6 +402,15 @@ TEST_CASE("convert", "[PureData]")
             REQUIRE(spn2midi("E4") == 64);
             REQUIRE(spn2midi("Eb4") == 63);
             REQUIRE(spn2midi("Ebb4") == 62);
+
+            REQUIRE(spn2midi("A3") == 57);
+            REQUIRE(spn2midi("B3") == 59);
+            REQUIRE(spn2midi("C3") == 48);
+            REQUIRE(spn2midi("D3") == 50);
+            REQUIRE(spn2midi("E3") == 52);
+            REQUIRE(spn2midi("F3") == 53);
+            REQUIRE(spn2midi("G3") == 55);
+            REQUIRE(spn2midi("R") == MIDI_REST);
         }
     }
 

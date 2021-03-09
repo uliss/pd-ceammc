@@ -16,6 +16,8 @@
             </also>
             <aliases>
                 <alias view="link">func</alias>
+                <alias view="link">ceammc/func</alias>
+                <alias view="link">ceammc/function</alias>
             </aliases>
             <since>0.3</since>
         </meta>

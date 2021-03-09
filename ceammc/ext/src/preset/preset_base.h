@@ -26,12 +26,12 @@ public:
     t_symbol* path() { return path_; }
     t_symbol* presetPath() { return preset_path_; }
 
-    virtual void loadFrom(size_t idx);
+    virtual void loadFrom(t_float idx);
     virtual void storeAt(size_t idx);
 
-    t_float loadFloat(size_t idx, t_float def = 0.f);
+    t_float loadFloat(t_float idx, t_float def = 0.f);
     t_symbol* loadSymbol(size_t idx, t_symbol* def);
-    AtomList loadList(size_t idx, const AtomList& def = AtomList());
+    AtomListView loadList(size_t idx, const AtomListView& def = {});
     AtomList loadAny(size_t idx, const AtomList& def = AtomList());
 
     void storeFloat(t_float f, size_t idx);
@@ -41,6 +41,7 @@ public:
 
 public:
     void m_load(t_symbol*, const AtomListView& index);
+    void m_interp(t_symbol*, const AtomListView& index);
     void m_store(t_symbol*, const AtomListView& index);
     void m_update(t_symbol*, const AtomListView&);
     void m_clear(t_symbol*, const AtomListView& index);

@@ -29,7 +29,6 @@ class Parser;
 
 namespace ceammc {
 
-#pragma pack(push, 1)
 struct Grain {
 public:
     enum PlayStatus : uint8_t {
@@ -194,7 +193,6 @@ public:
 public:
     static bool initWinTables();
 };
-#pragma pack(pop)
 
 std::ostream& operator<<(std::ostream& os, const Grain& g);
 

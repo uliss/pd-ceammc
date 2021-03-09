@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="flow.list2many">
+        <title>flow.list2many</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>routes list element with message selectors</description>
+            <license>GPL3 or later</license>
+            <library>ceammc</library>
+            <category>flow</category>
+            <keywords>conv map list</keywords>
+            <since>0.9.2</since>
+            <aliases>
+                <alias>ceammc/list-&gt;many</alias>
+                <alias>list-&gt;many</alias>
+            </aliases>
+        </meta>
+        <info>
+            <par>On incoming list (l⁰ l¹ ...) outputs to corresponding outlet message: [s⁰ l⁰(, [s¹
+            l¹( etc...</par>
+        </info>
+        <arguments>
+            <argument name="SEL" type="list">list of selectors</argument>
+        </arguments>
+        <inlets>
+            <inlet>
+                <xinfo on="list">input list</xinfo>
+            </inlet>
+        </inlets>
+        <outlets dynamic="true">
+            <outlet number="1">first element with first selector</outlet>
+            <outlet number="...">... element with ... selector</outlet>
+            <outlet number="n">nth element with nth selector</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[ui.sliders 3 @size 100 60]     /*vanilla analogue*/
+|
+|                               [1 2 3(
+|                               |
+|                               [unpack f f f     ]
+|                               |       ^|      ^^|
+[list->many @a @b @c]           [@a $1( [@b $1( [@c $1(
+|     ^|      ^^|               |       |       |
+|      |      [ui.dt]           [ui.dt] [ui.dt] [ui.dt]
+|      |
+|      [ui.dt]
+|
+[ui.dt]
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

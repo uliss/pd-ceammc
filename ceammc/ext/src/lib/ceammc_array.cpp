@@ -32,6 +32,18 @@ Array::Array()
 {
 }
 
+Array::Array(Array&& a)
+    : name_(a.name_)
+    , array_(a.array_)
+    , size_(a.size_)
+    , data_(a.data_)
+{
+    a.name_ = &s_;
+    a.array_ = nullptr;
+    a.size_ = 0;
+    a.data_ = nullptr;
+}
+
 Array::Array(t_symbol* name)
     : name_(&s_)
     , array_(nullptr)
@@ -76,6 +88,20 @@ Array& Array::operator=(const Array& array)
     array_ = array.array_;
     size_ = array.size_;
     data_ = array.data_;
+    return *this;
+}
+
+Array& Array::operator=(Array&& array)
+{
+    name_ = array.name_;
+    array_ = array.array_;
+    size_ = array.size_;
+    data_ = array.data_;
+
+    array.name_ = &s_;
+    array.size_ = 0;
+    array.array_ = nullptr;
+    array.data_ = nullptr;
     return *this;
 }
 
@@ -247,15 +273,15 @@ bool Array::setYBounds(t_float yBottom, t_float yTop)
     return true;
 }
 
-bool Array::setYTicks(t_float step, size_t bigN)
+bool Array::setYTicks(t_float y, t_float step, size_t bigN)
 {
     static t_symbol* SYM_YTICKS = gensym("yticks");
 
     if (!array_ || !name_->s_thing)
         return false;
 
-    t_atom args[4];
-    SETFLOAT(&args[0], 0);
+    t_atom args[3];
+    SETFLOAT(&args[0], y);
     SETFLOAT(&args[1], step);
     SETFLOAT(&args[2], bigN);
     pd_typedmess(name_->s_thing, SYM_YTICKS, 3, args);
@@ -274,7 +300,7 @@ bool Array::setYLabels(const AtomList& labels)
 
     auto gl = garray_getglist(array_);
     t_float el_wd = 1;
-    if (gl)
+    if (gl && gl->gl_pixwidth > 0)
         el_wd = t_float(size()) / gl->gl_pixwidth;
 
     AtomList args(std::round(-4 * el_wd));

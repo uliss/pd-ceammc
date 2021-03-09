@@ -69,7 +69,7 @@ UISpectroscope::~UISpectroscope()
     freeLabels();
 }
 
-void UISpectroscope::init(t_symbol* name, const AtomList& args, bool usePresets)
+void UISpectroscope::init(t_symbol* name, const AtomListView& args, bool usePresets)
 {
     UIDspObject::init(name, args, usePresets);
     dspSetup(1, 0);
@@ -428,7 +428,7 @@ void UISpectroscope::updateFFT()
     if (t > prop_refresh) {
         last_redraw_time_ = clock_getlogicaltime();
         graph_layer_.invalidate();
-        redrawInnerArea();
+        redraw();
     }
 }
 

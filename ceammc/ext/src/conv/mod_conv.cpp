@@ -63,7 +63,7 @@ void ceammc_conv_setup()
     setup_conv_cc2amp();
     setup_conv_pitch2midi();
     setup_conv_midi2freq();
-    setup_list_to_props();
+    setup_conv_list2props();
 
     setup_conv_angles();
     setup_conv_bits2bang();

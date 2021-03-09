@@ -39,7 +39,6 @@ TEST_CASE("pd external", "[pd::External]")
         REQUIRE_FALSE(t.isCeammc());
         REQUIRE_FALSE(t.isCeammcBase());
         REQUIRE_FALSE(t.isCeammcUI());
-        REQUIRE_FALSE(t.isCeammcFaust());
         REQUIRE_FALSE(t.isCeammcFlext());
         REQUIRE(t.asCeammcBaseObject() == nullptr);
 

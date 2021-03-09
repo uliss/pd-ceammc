@@ -53,7 +53,7 @@ public:
     UISpectroscope();
     ~UISpectroscope();
 
-    void init(t_symbol* name, const AtomList& args, bool usePresets);
+    void init(t_symbol* name, const AtomListView& args, bool usePresets);
     void okSize(t_rect* newrect);
     void onPropChange(t_symbol* prop_name);
     void paint();

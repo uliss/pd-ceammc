@@ -13,12 +13,13 @@
             <keywords>log</keywords>
             <since>0.9.1</since>
             <aliases>
+                <alias>ceammc/logger</alias>
                 <alias>log.error</alias>
                 <alias>log.post</alias>
                 <alias>log.debug</alias>
                 <alias>log.verbose</alias>
-                <alias>log.stderr</alias>
                 <alias>log.stdout</alias>
+                <alias>log.stderr</alias>
             </aliases>
         </meta>
         <arguments>

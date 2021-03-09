@@ -12,6 +12,7 @@
             <category>msg</category>
             <keywords>message loadbang onload</keywords>
             <aliases>
+                <alias>ceammc/loadmsg</alias>
                 <alias>loadmsg</alias>
             </aliases>
             <since>0.7</since>

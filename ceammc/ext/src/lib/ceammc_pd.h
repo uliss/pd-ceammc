@@ -132,7 +132,6 @@ namespace pd {
         bool isCeammc() const;
         bool isCeammcBase() const;
         bool isCeammcUI() const;
-        bool isCeammcFaust() const;
         bool isCeammcFlext() const;
 
         const BaseObject* asCeammcBaseObject() const;

@@ -5,7 +5,7 @@
 
 %defines
 %define api.token.prefix {TOK_}
-%define api.namespace {ceammc}
+%define api.namespace {ceammc::ds}
 %define api.parser.class {DataStringParser}
 %define api.value.type variant
 %define api.token.constructor
@@ -21,7 +21,9 @@
     # include "ceammc_datastorage.h"
 
     namespace ceammc {
+    namespace ds {
         class DataStringLexer;
+    }
     }
 
 # ifndef YY_NULLPTR
@@ -29,7 +31,7 @@
 # endif
 }
 
-%parse-param { ceammc::DataStringLexer& lexer }
+%parse-param { ceammc::ds::DataStringLexer& lexer }
 %parse-param { ceammc::AtomList& result }
 
 %code {
@@ -189,7 +191,7 @@ expr
 
 %%
 
-void ceammc::DataStringParser::error(const location& loc, const std::string& err_message)
+void ceammc::ds::DataStringParser::error(const location& loc, const std::string& err_message)
 {
     lexer.out() << err_message << std::endl;
     lexer.out() << lexer.indent()

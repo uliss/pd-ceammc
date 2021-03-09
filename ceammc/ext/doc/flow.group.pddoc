@@ -13,6 +13,7 @@
             <keywords>flow group</keywords>
             <since>0.3</since>
             <aliases>
+                <alias>ceammc/group</alias>
                 <alias>group</alias>
             </aliases>
         </meta>
@@ -50,9 +51,7 @@
 |    |
 [flow.group @by 5]
 |
-[m set]
-|
-[ (
+[ui.dt]
 ]]>
             </pdascii>
         </example>

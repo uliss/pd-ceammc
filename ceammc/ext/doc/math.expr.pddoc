@@ -49,10 +49,10 @@
 [math.expr sin($f)]
 |
 [prop-> @expr  ]
-|             ^|
-|             [msg set]
-|             |
-[F digits=10] [ (
+|     ^|
+|     [ui.dt]
+|
+[F digits=10]
 
 
 [14 2 1( [1 3 4( /*lists*/

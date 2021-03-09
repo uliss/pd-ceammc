@@ -36,10 +36,11 @@
     }}
     {array {
         array.bpm array.copy array.do array.each array.fill array.hist
-        array.mean array.minmax array.play~ array.plot~ array.resample
-        array.rms array.set array.stddev array.stretch array.sum array.sum2
-        array.variance array.vplay array.window plot.geomspace~ plot.hist~
-        plot.linspace~ plot.logspace~ plot.response~
+        array.mean array.minmax array.play~ array.plot array.plot~
+        array.resample array.rms array.set array.stddev array.stretch
+        array.sum array.sum2 array.variance array.vplay array.window
+        plot.geomspace~ plot.hist~ plot.linspace~ plot.logspace~
+        plot.response~
     }}
     {base {
         ceammc.search function function.call gain~ logger matrix~
@@ -62,8 +63,8 @@
         conv.sec2str conv.sig2float~ conv.str2sec
     }}
     {data {
-        data.dict data.fifo data.float data.int data.list data.mlist data.set
-        data.set2list dict.contains dict.each dict.from_list dict.get
+        data.copy data.dict data.fifo data.float data.int data.list data.mlist
+        data.set data.set2list dict.contains dict.each dict.from_list dict.get
         dict.keys dict.pass dict.reject dict.size dict.to_list dict.values
         mlist.flatten rtree.to_list set.contains set.diff set.equal
         set.intersect set.size set.symdiff set.union
@@ -81,26 +82,27 @@
         expand_env flow.append flow.change flow.count flow.delay
         flow.demultiplex flow.demultiplex2~ flow.demultiplex~ flow.dup
         flow.gate flow.greater flow.greater_eq flow.group flow.interval
-        flow.less flow.less_eq flow.match flow.mem flow.multiplex
-        flow.multiplex2~ flow.multiplex~ flow.once flow.pack flow.pass
-        flow.pass_if flow.pipe flow.queue flow.reject flow.reject_if flow.ring
-        flow.route flow.select flow.space flow.speedlim flow.split flow.stack
-        flow.sync flow.sync_pack flow.tee~ replace route.float
+        flow.less flow.less_eq flow.list2many flow.match flow.mem
+        flow.multiplex flow.multiplex2~ flow.multiplex~ flow.once flow.pack
+        flow.pass flow.pass_if flow.pipe flow.queue flow.reject flow.reject_if
+        flow.ring flow.route flow.select flow.space flow.speedlim flow.split
+        flow.stack flow.sync flow.sync_pack flow.tee~ replace route.float
     }}
     {flt {
-        flt.biquad~ flt.bpf12~ flt.bpf24~ flt.c_bpf~ flt.c_highshelf~
-        flt.c_hpf~ flt.c_lowshelf~ flt.c_lpf~ flt.c_notch~ flt.c_peak~
+        flt.biquad~ flt.bpf12~ flt.bpf24~ flt.c_apf flt.c_bpf~
+        flt.c_highshelf~ flt.c_hpf flt.c_hpf~ flt.c_lowshelf~ flt.c_lpf
+        flt.c_lpf~ flt.c_notch flt.c_notch~ flt.c_peak~ flt.c_pole
         flt.dcblock2~ flt.dcblock~ flt.eq10~ flt.eq_peak_cq~ flt.eq_peak~
-        flt.fb_comb~ flt.ff_comb~ flt.freqz~ flt.highshelf~ flt.hpf12~
-        flt.hpf24~ flt.lowshelf~ flt.lpf12~ flt.lpf24~ flt.median
-        flt.moog_vcf~ flt.notch~ flt.resonbp~
+        flt.fb_comb~ flt.fbank5x1~ flt.ff_comb~ flt.freqz flt.freqz~
+        flt.highshelf~ flt.hpf12~ flt.hpf24~ flt.lowshelf~ flt.lpf12~
+        flt.lpf24~ flt.median flt.moog_vcf~ flt.notch~ flt.resonbp~
     }}
     {fx {
         fx.bitdown~ fx.chorus~ fx.distortion1~ fx.distortion2~ fx.distortion3~
         fx.distortion~ fx.drive~ fx.drone_box~ fx.echo~ fx.flanger~
         fx.freeverb2~ fx.freeverb~ fx.freqshift~ fx.granulator~ fx.greyhole~
-        fx.looper~ fx.pitchshift_s~ fx.pitchshift~ fx.sdelay~ fx.vocoder~
-        fx.wahwah~ fx.zita_rev1~
+        fx.infrev~ fx.looper~ fx.pitchshift_s~ fx.pitchshift~ fx.sdelay~
+        fx.vocoder~ fx.wahwah~ fx.zita_rev1~
     }}
     {global {
         global.dict global.float global.int global.list global.mlist
@@ -109,6 +111,9 @@
     {hw {
         hw.apple_smc hw.apple_sms hw.arduino hw.cpu_temp hw.display
         hw.kbd_light
+    }}
+    {lang {
+        lang.faust~
     }}
     {lfo {
         lfo.+pulse~ lfo.+saw~ lfo.+square~ lfo.+tri~ lfo.impulse~ lfo.pulse~
@@ -155,7 +160,7 @@
     }}
     {midi {
         midi.cc midi.clock midi.ctl2str midi.event2ctl midi.event2note
-        midi.event2prg midi.file midi.key2str midi.oct midi.prg2str
+        midi.event2prg midi.file midi.kbd midi.key2str midi.oct midi.prg2str
         midi.sustain midi.sysex midi.track midi.tuning midi.vramp midi.vrand
     }}
     {misc {
@@ -170,10 +175,9 @@
     {noise {
         noise.baker noise.clifford noise.collatz noise.crackle~ noise.duffing
         noise.ginger noise.henon noise.henon_heilles noise.henon_phase
-        noise.henonf noise.ikeda noise.jong noise.lfreq0~ noise.lfreq~
-        noise.logistic noise.lorenz noise.lyapunov noise.navier_stokes
-        noise.pink~ noise.rossler noise.stein noise.torus noise.verhulst
-        noise.white~
+        noise.henonf noise.ikeda noise.lfreq0~ noise.lfreq~ noise.lorenz
+        noise.lyapunov noise.navier_stokes noise.pink~ noise.rossler
+        noise.stein noise.torus noise.verhulst noise.white~
     }}
     {osc {
         osc.blit~ osc.impulse~ osc.pulse~ osc.saw4~ osc.saw~ osc.sinfb~
@@ -229,12 +233,13 @@
     }}
     {synth {
         synth.bee3~ synth.birds~ synth.church_bell~ synth.dubdub~ synth.dx7~
-        synth.eguitar~ synth.fgrain~ synth.glitch~ synth.ks~ synth.marimba~
-        synth.rhodey~ synth.risset_arp~ synth.risset_tone~ synth.russian_bell~
+        synth.eguitar~ synth.fgrain~ synth.glass_harm~ synth.glitch~
+        synth.harpsichord~ synth.ks~ synth.marimba~ synth.piano~ synth.rhodey~
+        synth.risset_arp~ synth.risset_tone~ synth.russian_bell~
         synth.shakers~ synth.sitar~ synth.wurley~
     }}
     {system {
-        system.colorpanel system.cursor system.exec system.getenv
+        system.colorpanel system.cursor system.exec system.exit system.getenv
         system.hostname system.memsize system.memused system.screen_size
     }}
     {tl {
@@ -242,11 +247,11 @@
     }}
     {ui {
         ui.aview ui.bang ui.button ui.colorpanel ui.display ui.dsp~ ui.env
-        ui.gain2~ ui.gain~ ui.icon ui.incdec ui.keyboard ui.knob ui.label
-        ui.link ui.matrix ui.menu ui.meter~ ui.midi ui.mouse_filter
-        ui.mouse_route ui.number ui.number~ ui.plot~ ui.polar ui.preset
-        ui.radio ui.rslider ui.scope~ ui.slider ui.slider2d ui.sliders
-        ui.spectroscope~ ui.tab ui.toggle
+        ui.filter ui.filter~ ui.gain2~ ui.gain~ ui.icon ui.incdec ui.keyboard
+        ui.knob ui.label ui.link ui.matrix ui.menu ui.meter~ ui.midi
+        ui.mouse_filter ui.mouse_route ui.number ui.number~ ui.plot~ ui.polar
+        ui.preset ui.radio ui.rslider ui.scope~ ui.slider ui.slider2d
+        ui.sliders ui.spectroscope~ ui.tab ui.toggle
     }}
 }
 {extra

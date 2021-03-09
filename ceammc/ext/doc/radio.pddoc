@@ -15,6 +15,9 @@
             <also>
                 <see>hradio</see>
             </also>
+            <aliases>
+                <alias>ceammc/radio</alias>
+            </aliases>
         </meta>
         <arguments>
             <argument name="N" type="int" minvalue="2" maxvalue="24">number of outlets</argument>

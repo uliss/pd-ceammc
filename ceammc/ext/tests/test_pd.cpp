@@ -30,7 +30,7 @@ TEST_CASE("PD", "[PureData]")
         t_ceammc_gensym_info info;
         gensym_info(&info);
 
-        REQUIRE(info.table_size == 1024);
+        REQUIRE(info.table_size == 0x4000);
 
         int sz = info.symbol_count;
 

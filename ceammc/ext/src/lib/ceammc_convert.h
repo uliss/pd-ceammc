@@ -242,8 +242,6 @@ namespace convert {
     float lin2curve(float x, float x0, float x1, float y0, float y1, float curve);
     double lin2curve(double x, double x0, double x1, double y0, double y1, double curve);
 
-    int spn2midi(const char* p);
-
     double lin2sin2(double x, double x0, double x1, double y0, double y1);
     double lin2sigmoid(double x, double x0, double x1, double y0, double y1, double skew = 10);
 
@@ -251,6 +249,13 @@ namespace convert {
     double dbfs2amp(double db);
     float amp2dbfs(float amp);
     double amp2dbfs(double amp);
+
+    enum MidiResult {
+        MIDI_NONE = -1,
+        MIDI_REST = -2,
+    };
+
+    int spn2midi(const char* p);
 
     // 12-TET convert
     float midi2freq(float note, float a_freq = 440.f);

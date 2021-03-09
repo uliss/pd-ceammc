@@ -31,6 +31,7 @@ namespace Settings
 {
     
 bool isPrefixBundled(std::string prefix);
+bool isPrefixIgnored(std::string prefix);
 void ignore_prefix(std::string prefix);
     
 bool canOverwriteFiles();
@@ -54,6 +55,10 @@ std::string fileToFix(const int n);
 
 std::string inside_lib_path();
 void inside_lib_path(std::string p);
+
+void addSearchPath(std::string path);
+int searchPathAmount();
+std::string searchPath(const int n);
 
 }
 #endif

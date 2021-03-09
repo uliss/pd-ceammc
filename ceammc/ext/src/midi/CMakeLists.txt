@@ -14,6 +14,7 @@ ceammc_midi_external(ctl2str)
 ceammc_midi_external(event)
 ceammc_midi_external(event_to_ctl)
 ceammc_midi_external(file)
+ceammc_midi_external(kbd)
 ceammc_midi_external(key2str)
 ceammc_midi_external(octave)
 ceammc_midi_external(prg2str)
@@ -25,7 +26,12 @@ ceammc_midi_external(tuning)
 ceammc_midi_external(velocity_ramp)
 ceammc_midi_external(vrand)
 
-include_directories(${PROJECT_SOURCE_DIR}/ceammc/extra/midifile)
 add_library(ceammc_midi STATIC mod_midi.cpp ${MIDI_SOURCES})
+target_include_directories(ceammc_midi
+    PRIVATE
+        ${PROJECT_SOURCE_DIR}/ceammc/extra/midifile)
 
 target_link_libraries(ceammc_midi midifile)
+
+file(GLOB _MIDI_SRC_FILES "kbd_*.txt" "*.py")
+add_custom_target(ceammc_midi_src SOURCES ${_MIDI_SRC_FILES})

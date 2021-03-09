@@ -13,7 +13,7 @@ class UIDsp : public UIObject {
 
 public:
     UIDsp();
-    void init(t_symbol* name, const AtomList& args, bool);
+    void init(t_symbol* name, const AtomListView& args, bool);
 
     bool okSize(t_rect* newrect);
     void paint();

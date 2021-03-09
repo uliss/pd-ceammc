@@ -34,13 +34,10 @@ namespace tl {
 
     bool TlCmdDriver::parse(const std::string& str)
     {
-        YY_BUFFER_STATE bufferState = yy_scan_string(str.c_str());
-
-        yy::TlCmdParser parser(*this);
+        TlLexer lexer(str);
+        TlParser parser(lexer, *this);
         parser.set_debug_level(trace_parsing);
         int res = parser.parse();
-
-        yy_delete_buffer(bufferState);
         return res == 0;
     }
 
@@ -110,7 +107,7 @@ namespace tl {
         target_->moveToTime(time_ms);
     }
 
-    void TlCmdDriver::error(const yy::location& l, const std::string& m)
+    void TlCmdDriver::error(const TlParser::location_type& l, const std::string& m)
     {
         target_->error(m);
     }

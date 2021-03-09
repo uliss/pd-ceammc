@@ -41,4 +41,6 @@ void setup_array_s2p()
     ObjectFactory<ArraySampleToPhase> obj("array.s2p");
     obj.addAlias("array.s->p");
     obj.addAlias("array.sample->phase");
+    obj.setXletsInfo({ "float: sample position in array" },
+        { "float: position in \\[0..1\\] range" });
 }

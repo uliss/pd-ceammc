@@ -11,42 +11,34 @@
  * contact the author of this file, or the owner of the project in which
  * this file belongs to.
  *****************************************************************************/
+#include "ext_load_lib.h"
 
-#include <algorithm>
-#include <cstdlib>
 #include <iostream>
-#include <iterator>
-#include <set>
 #include <string>
-#include <vector>
 
-#include "m_pd.h"
-
-#include "../mod_init.h"
-#include "ceammc_pd.h"
-
-static t_symbol* any = &s_anything;
 extern "C" void pd_init();
-t_class* ceammc_class = nullptr;
-
-using namespace std;
 
 int main(int argc, char* argv[])
 {
-    pd_init();
+    bool vanilla = false;
 
-    bool vanilla = argc > 1 && string(argv[1]) == "-v";
-    if (vanilla) {
-        vector<string> l = ceammc::pd::currentListOfExternals();
-        set<string> vanilla_set(l.begin(), l.end());
-        copy(vanilla_set.begin(), vanilla_set.end(), ostream_iterator<string>(cout, "\n"));
-        return EXIT_SUCCESS;
+    if (argc > 1) {
+        if (std::string(argv[1]) == "-v") {
+            vanilla = true;
+        } else {
+            std::cerr << "usage: " << argv[0] << " [-v]"
+                      << "\n\t '-v': print vanilla objects" << std::endl;
+            return EXIT_FAILURE;
+        }
     }
 
-    ceammc_init();
+    pd_init();
 
-    set<string> ceammc_set = ceammc_ext_list();
-    copy(ceammc_set.begin(), ceammc_set.end(), ostream_iterator<string>(cout, "\n"));
+    if (!load_ceammc())
+        return EXIT_FAILURE;
+
+    if (list_objects)
+        list_objects(vanilla);
 
     return EXIT_SUCCESS;
 }

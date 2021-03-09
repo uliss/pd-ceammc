@@ -32,15 +32,12 @@ void UIButton::okSize(t_rect* newrect)
 
 void UIButton::paint()
 {
-    sys_vgui("ui::button_delete #%x %s\n",
-        asEBox(), asEBox()->b_drawing_id->s_name);
-
-    sys_vgui("ui::button_create #%x %s "
-             "%d %d "
+    sys_vgui("ui::button_update %s %lx "
+             "%d %d %d "
              "#%6.6x #%6.6x "
              "%d\n",
-        asEBox(), asEBox()->b_drawing_id->s_name,
-        (int)width(), (int)height(),
+        asEBox()->b_canvas_id->s_name, asEBox(),
+        (int)width(), (int)height(), (int)zoom(),
         rgba_to_hex_int(prop_color_border), rgba_to_hex_int(prop_color_active),
         active_ ? 1 : 0);
 }
@@ -73,7 +70,7 @@ void UIButton::on()
     send(prop_value_on);
 
     bg_layer_.invalidate();
-    redrawInnerArea();
+    redraw();
 }
 
 void UIButton::off()
@@ -86,7 +83,7 @@ void UIButton::off()
     send(prop_value_off);
 
     bg_layer_.invalidate();
-    redrawInnerArea();
+    redraw();
 }
 
 void UIButton::setup()

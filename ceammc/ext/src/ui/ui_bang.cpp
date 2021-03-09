@@ -13,6 +13,7 @@
  *****************************************************************************/
 #include "ui_bang.h"
 #include "ceammc_ui.h"
+#include "ui_bang.tcl.h"
 
 UIBang::UIBang()
     : clock_(this, &UIBang::deactivate)
@@ -26,41 +27,16 @@ void UIBang::okSize(t_rect* newrect)
 {
     newrect->width = pd_clip_min(newrect->width, 8);
     newrect->height = pd_clip_min(newrect->height, 8);
-
-    // We defines that the width and the height can't be an even number (to center the bang circle).
-    if ((int)newrect->width % 2 == 0)
-        newrect->width++;
-    if ((int)newrect->height % 2 == 0)
-        newrect->height++;
 }
 
 void UIBang::paint()
 {
-    const auto r = rect();
-    UIPainter p = bg_layer_.painter(r);
-
-    if (!p)
-        return;
-
-    const int box_center = static_cast<int>(floorf(r.width * 0.5f));
-    int circle_radius = static_cast<int>(roundf(box_center * 0.9f));
-
-    // fix for small sizes
-    if (r.width < 20)
-        circle_radius = box_center;
-
-    // align fix
-    if ((box_center - circle_radius) % 2 == 1)
-        circle_radius--;
-
-    p.drawCircle(box_center, box_center, circle_radius);
-    if (active_) {
-        p.setColor(prop_color_active);
-        p.fill();
-    } else {
-        p.setColor(prop_color_border);
-        p.stroke();
-    }
+    sys_vgui("::ui::bang_update %s %lx %d %d %d #%6.6x %d\n",
+        asEBox()->b_canvas_id->s_name, asEBox(),
+        (int)width(), (int)height(), (int)zoom(),
+        active_ ? rgba_to_hex_int(prop_color_active)
+                : rgba_to_hex_int(prop_color_border),
+        (int)active_);
 }
 
 void UIBang::onMouseDown(t_object* view, const t_pt& pt, const t_pt& abs_pt, long modifiers)
@@ -83,7 +59,7 @@ void UIBang::activate()
 {
     active_ = true;
     bg_layer_.invalidate();
-    redrawInnerArea();
+    redraw();
     bangTo(0);
     sendBang();
 }
@@ -92,11 +68,13 @@ void UIBang::deactivate()
 {
     active_ = false;
     bg_layer_.invalidate();
-    redrawInnerArea();
+    redraw();
 }
 
 void UIBang::setup()
 {
+    sys_gui(ui_bang_tcl);
+
     UIObjectFactory<UIBang> obj("ui.bang", EBOX_GROWLINK);
     obj.addAlias("ui.b");
 

@@ -13,6 +13,8 @@
             <keywords>envelope array</keywords>
             <since>0.5</since>
             <aliases>
+                <alias>ceammc/env2array</alias>
+                <alias>ceammc/env-&gt;array</alias>
                 <alias>env-&gt;array</alias>
             </aliases>
             <also>
@@ -50,12 +52,12 @@
 | [adsr 10 40 20 500, bang(   [osc~ 1000] [tabplay~ env_arr]
 | |                           |           |.
 | | [ear 20 -3 500 -8, bang(  [*~          ]
-| | |                         |\
-[envelope]                    [dac~]
-|
-| [@fit( [@raw( [@resize(
+| | |                         |
+[envelope]                    [ui.hgain~]
+|                             |\
+| [@fit( [@raw( [@resize(     [dac~]
 | |      |      |
-[env->array env_arr]
+[env->array env_arr]          [ui.dsp~]
 |
 [F]
 

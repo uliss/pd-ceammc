@@ -26,7 +26,7 @@ void PresetSymbol::initDone()
     current_value_ = init_->value();
 }
 
-void PresetSymbol::loadFrom(size_t idx)
+void PresetSymbol::loadFrom(t_float idx)
 {
     current_value_ = loadSymbol(idx, init_->value());
     symbolTo(0, current_value_);

@@ -1,7 +1,7 @@
 /* ------------------------------------------------------------
 name: "flt.moog_vcf"
-Code generated with Faust 2.28.6 (https://faust.grame.fr)
-Compilation options: -lang cpp -double -ftz 0
+Code generated with Faust 2.30.12 (https://faust.grame.fr)
+Compilation options: -lang cpp -es 1 -double -ftz 0
 ------------------------------------------------------------ */
 
 #ifndef  __flt_moog_vcf_H__
@@ -89,7 +89,7 @@ class flt_moog_vcf_dsp {
          */
         virtual void buildUserInterface(UI* ui_interface) = 0;
     
-        /* Returns the sample rate currently used by the instance */
+        /* Return the sample rate currently used by the instance */
         virtual int getSampleRate() = 0;
     
         /**
@@ -97,28 +97,28 @@ class flt_moog_vcf_dsp {
          * - static class 'classInit': static tables initialization
          * - 'instanceInit': constants and instance state initialization
          *
-         * @param sample_rate - the sampling rate in Hertz
+         * @param sample_rate - the sampling rate in Hz
          */
         virtual void init(int sample_rate) = 0;
 
         /**
          * Init instance state
          *
-         * @param sample_rate - the sampling rate in Hertz
+         * @param sample_rate - the sampling rate in Hz
          */
         virtual void instanceInit(int sample_rate) = 0;
-
+    
         /**
          * Init instance constant state
          *
-         * @param sample_rate - the sampling rate in Hertz
+         * @param sample_rate - the sampling rate in Hz
          */
         virtual void instanceConstants(int sample_rate) = 0;
     
         /* Init default control parameters values */
         virtual void instanceResetUserInterface() = 0;
     
-        /* Init instance state (delay lines...) */
+        /* Init instance state (like delay lines...) but keep the control parameter values */
         virtual void instanceClear() = 0;
  
         /**
@@ -191,7 +191,8 @@ class decorator_dsp : public flt_moog_vcf_dsp {
 };
 
 /**
- * DSP factory class.
+ * DSP factory class, used with LLVM and Interpreter backends
+ * to create DSP instances from a compiled DSP program.
  */
 
 class dsp_factory {
@@ -345,11 +346,13 @@ struct UI : public UIReal<FAUSTFLOAT>
 #ifndef __meta__
 #define __meta__
 
+/**
+ The base class of Meta handler to be used in flt_moog_vcf_dsp::metadata(Meta* m) method to retrieve (key, value) metadata.
+ */
 struct Meta
 {
     virtual ~Meta() {};
     virtual void declare(const char* key, const char* value) = 0;
-    
 };
 
 #endif
@@ -495,6 +498,7 @@ struct flt_moog_vcf : public flt_moog_vcf_dsp {
 
 #include <algorithm>
 #include <cmath>
+#include <cstdint>
 #include <math.h>
 
 static double flt_moog_vcf_faustpower2_f(double value) {
@@ -528,6 +532,7 @@ class flt_moog_vcf : public flt_moog_vcf_dsp {
 	void metadata(Meta* m) { 
 		m->declare("basics.lib/name", "Faust Basic Element Library");
 		m->declare("basics.lib/version", "0.1");
+		m->declare("compile_options", "-lang cpp -es 1 -double -ftz 0");
 		m->declare("filename", "flt_moog_vcf.dsp");
 		m->declare("filters.lib/allpassnnlt:author", "Julius O. Smith III");
 		m->declare("filters.lib/allpassnnlt:copyright", "Copyright (C) 2003-2019 by Julius O. Smith III <jos@ccrma.stanford.edu>");
@@ -537,6 +542,7 @@ class flt_moog_vcf : public flt_moog_vcf_dsp {
 		m->declare("filters.lib/tf2np:author", "Julius O. Smith III");
 		m->declare("filters.lib/tf2np:copyright", "Copyright (C) 2003-2019 by Julius O. Smith III <jos@ccrma.stanford.edu>");
 		m->declare("filters.lib/tf2np:license", "MIT-style STK-4.3 license");
+		m->declare("filters.lib/version", "0.3");
 		m->declare("maths.lib/author", "GRAME");
 		m->declare("maths.lib/copyright", "GRAME");
 		m->declare("maths.lib/license", "LGPL with exception");
@@ -606,23 +612,18 @@ class flt_moog_vcf : public flt_moog_vcf_dsp {
 	}
 	
 	virtual void instanceClear() {
-		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l0 = 0; (l0 < 2); l0 = (l0 + 1)) {
 			fRec0[l0] = 0.0;
 		}
-		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l1 = 0; (l1 < 2); l1 = (l1 + 1)) {
 			fRec3[l1] = 0.0;
 		}
-		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l2 = 0; (l2 < 2); l2 = (l2 + 1)) {
 			fRec1[l2] = 0.0;
 		}
-		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l3 = 0; (l3 < 2); l3 = (l3 + 1)) {
 			fRec6[l3] = 0.0;
 		}
-		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l4 = 0; (l4 < 2); l4 = (l4 + 1)) {
 			fRec4[l4] = 0.0;
 		}
@@ -657,7 +658,6 @@ class flt_moog_vcf : public flt_moog_vcf_dsp {
 		FAUSTFLOAT* input1 = inputs[1];
 		FAUSTFLOAT* output0 = outputs[0];
 		double fSlow0 = (0.0010000000000000009 * double(fVslider0));
-		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int i = 0; (i < count); i = (i + 1)) {
 			double fTemp0 = double(input0[i]);
 			fRec0[0] = (fSlow0 + (0.999 * fRec0[1]));
@@ -667,15 +667,15 @@ class flt_moog_vcf : public flt_moog_vcf_dsp {
 			double fTemp4 = (fTemp2 + 2.0);
 			double fTemp5 = std::tan((fConst0 * std::max<double>(double(input1[i]), 20.0)));
 			double fTemp6 = (1.0 / fTemp5);
-			double fTemp7 = ((fTemp1 + (fTemp2 + ((fTemp4 + fTemp6) / fTemp5))) + 1.0);
+			double fTemp7 = ((fTemp3 + ((fTemp4 + fTemp6) / fTemp5)) + 1.0);
 			double fTemp8 = ((fTemp3 + (1.0 - ((fTemp4 - fTemp6) / fTemp5))) / fTemp7);
-			double fTemp9 = std::max<double>(-0.99990000000000001, std::min<double>(0.99990000000000001, fTemp8));
+			double fTemp9 = std::max<double>(-0.99999999999999978, std::min<double>(0.99999999999999978, fTemp8));
 			double fTemp10 = (1.0 - flt_moog_vcf_faustpower2_f(fTemp9));
 			double fTemp11 = std::sqrt(std::max<double>(0.0, fTemp10));
 			double fTemp12 = ((fTemp0 * fTemp11) - (fTemp9 * fRec1[1]));
 			double fTemp13 = (1.0 / flt_moog_vcf_faustpower2_f(fTemp5));
 			double fTemp14 = (fTemp3 + (1.0 - fTemp13));
-			double fTemp15 = std::max<double>(-0.99990000000000001, std::min<double>(0.99990000000000001, (2.0 * (fTemp14 / (fTemp7 * (fTemp8 + 1.0))))));
+			double fTemp15 = std::max<double>(-0.99999999999999978, std::min<double>(0.99999999999999978, (2.0 * (fTemp14 / (fTemp7 * (fTemp8 + 1.0))))));
 			double fTemp16 = (1.0 - flt_moog_vcf_faustpower2_f(fTemp15));
 			double fTemp17 = std::sqrt(std::max<double>(0.0, fTemp16));
 			fRec3[0] = ((fTemp12 * fTemp17) - (fTemp15 * fRec3[1]));
@@ -683,17 +683,17 @@ class flt_moog_vcf : public flt_moog_vcf_dsp {
 			double fRec2 = fRec3[0];
 			double fTemp18 = (1.0 - (fTemp14 / fTemp7));
 			double fTemp19 = std::sqrt(fTemp10);
-			double fTemp20 = ((((fTemp0 * fTemp9) + (fRec1[1] * fTemp11)) + (2.0 * ((fRec1[0] * fTemp18) / fTemp19))) + ((fRec2 * (0.0 - ((fTemp8 + -1.0) + (2.0 * (fTemp15 * fTemp18))))) / (fTemp19 * std::sqrt(fTemp16))));
+			double fTemp20 = ((((fTemp0 * fTemp9) + (fRec1[1] * fTemp11)) + (2.0 * ((fRec1[0] * fTemp18) / fTemp19))) + ((fRec2 * ((1.0 - fTemp8) - (2.0 * (fTemp15 * fTemp18)))) / (fTemp19 * std::sqrt(fTemp16))));
 			double fTemp21 = (2.0 - fTemp2);
 			double fTemp22 = (1.0 - fTemp2);
 			double fTemp23 = ((fTemp1 + ((fTemp6 + fTemp21) / fTemp5)) + fTemp22);
 			double fTemp24 = (((fTemp1 + ((fTemp6 - fTemp21) / fTemp5)) + fTemp22) / fTemp23);
-			double fTemp25 = std::max<double>(-0.99990000000000001, std::min<double>(0.99990000000000001, fTemp24));
+			double fTemp25 = std::max<double>(-0.99999999999999978, std::min<double>(0.99999999999999978, fTemp24));
 			double fTemp26 = (1.0 - flt_moog_vcf_faustpower2_f(fTemp25));
 			double fTemp27 = std::sqrt(std::max<double>(0.0, fTemp26));
 			double fTemp28 = (((fTemp20 * fTemp27) / fTemp7) - (fTemp25 * fRec4[1]));
 			double fTemp29 = (fTemp1 + (1.0 - (fTemp2 + fTemp13)));
-			double fTemp30 = std::max<double>(-0.99990000000000001, std::min<double>(0.99990000000000001, (2.0 * (fTemp29 / (fTemp23 * (fTemp24 + 1.0))))));
+			double fTemp30 = std::max<double>(-0.99999999999999978, std::min<double>(0.99999999999999978, (2.0 * (fTemp29 / (fTemp23 * (fTemp24 + 1.0))))));
 			double fTemp31 = (1.0 - flt_moog_vcf_faustpower2_f(fTemp30));
 			double fTemp32 = std::sqrt(std::max<double>(0.0, fTemp31));
 			fRec6[0] = ((fTemp28 * fTemp32) - (fTemp30 * fRec6[1]));

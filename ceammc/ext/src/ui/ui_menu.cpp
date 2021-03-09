@@ -32,7 +32,7 @@ UIMenu::UIMenu()
     createOutlet();
 }
 
-void UIMenu::init(t_symbol* name, const AtomList& args, bool usePresets)
+void UIMenu::init(t_symbol* name, const AtomListView& args, bool usePresets)
 {
     UIObject::init(name, args, usePresets);
 
@@ -150,9 +150,9 @@ AtomList UIMenu::propItems() const
     return items_;
 }
 
-void UIMenu::propSetItems(const AtomListView& lst)
+void UIMenu::propSetItems(const AtomListView& lv)
 {
-    items_ = lst;
+    items_ = lv;
     current_idx_ = -1;
     syncLabels();
     setOpen(false);
@@ -222,17 +222,17 @@ void UIMenu::onMouseLeave(t_object* view, const t_pt& pt, long modifiers)
     hover_idx_ = -1;
 }
 
-t_float UIMenu::propCount() const
+t_int UIMenu::propCount() const
 {
     return items_.size();
 }
 
-t_float UIMenu::propIndex() const
+t_int UIMenu::propIndex() const
 {
     return current_idx_;
 }
 
-void UIMenu::propSetIndex(t_float f)
+void UIMenu::propSetIndex(t_int f)
 {
     if (f < 0 || f >= items_.size()) {
         UI_ERR << "invalid menu index: " << f;
@@ -243,28 +243,28 @@ void UIMenu::propSetIndex(t_float f)
     redrawBGLayer();
 }
 
-AtomList UIMenu::propValue() const
+Atom UIMenu::propValue() const
 {
     if (current_idx_ < 0 || current_idx_ >= items_.size())
-        return Atom(&s_);
+        return &s_;
 
     return items_[current_idx_];
 }
 
-void UIMenu::propSetValue(const AtomListView& lst)
+void UIMenu::propSetValue(const Atom& v)
 {
-    if (!selectByValue(lst))
+    if (!selectByValue(v))
         return;
 
     redrawBGLayer();
 }
 
-t_float UIMenu::propOpen() const
+bool UIMenu::propOpen() const
 {
     return is_open_;
 }
 
-void UIMenu::propSetOpen(t_float v)
+void UIMenu::propSetOpen(bool v)
 {
     if (is_open_ != v) {
         is_open_ = v;
@@ -272,12 +272,12 @@ void UIMenu::propSetOpen(t_float v)
     }
 }
 
-AtomList UIMenu::propTitle() const
+t_symbol* UIMenu::propTitle() const
 {
     if (current_idx_ < 0 || current_idx_ >= labels_.size())
-        return AtomList();
+        return &s_;
 
-    return Atom(gensym(labels_[current_idx_].c_str()));
+    return gensym(labels_[current_idx_].c_str());
 }
 
 void UIMenu::loadPreset(size_t idx)
@@ -298,14 +298,14 @@ void UIMenu::storePreset(size_t idx)
     PresetStorage::instance().setFloatValueAt(presetId(), idx, current_idx_);
 }
 
-void UIMenu::m_append(const AtomListView& lst)
+void UIMenu::m_append(const AtomListView& lv)
 {
-    if (lst.size() < 1) {
+    if (lv.size() < 1) {
         UI_ERR << "items expected";
         return;
     }
 
-    items_.append(lst);
+    items_.append(lv);
     syncLabels();
     adjustSize();
     redrawBGLayer();
@@ -341,73 +341,73 @@ void UIMenu::m_delete(t_float f)
     adjustSize();
 }
 
-void UIMenu::m_set(const AtomListView& lst)
+void UIMenu::m_set(const AtomListView& lv)
 {
-    if (lst.size() < 1) {
+    if (lv.size() < 1) {
         UI_ERR << "menu index or item title expected";
         return;
     }
 
-    const Atom& a = lst[0];
+    const Atom& a = lv[0];
     if (a.isFloat()) {
         propSetIndex(a.asFloat());
     } else if (a.isSymbol()) {
-        propSetValue(lst);
+        propSetValue(a);
     }
 }
 
-void UIMenu::m_insert(const AtomListView& lst)
+void UIMenu::m_insert(const AtomListView& lv)
 {
-    bool ok = (lst.size() == 2 && lst[0].isFloat());
+    bool ok = (lv.size() == 2 && lv[0].isFloat());
     if (!ok) {
-        UI_ERR << "invalid arguments: " << lst;
+        UI_ERR << "invalid arguments: " << lv;
         UI_ERR << "usage: insert INDEX VALUE";
         return;
     }
 
-    int idx = lst[0].asInt();
+    int idx = lv[0].asInt();
     if (idx < 0 || idx > items_.size()) {
         UI_ERR << "invalid index: " << idx;
         return;
     }
 
-    items_.insert(idx, lst[1]);
+    items_.insert(idx, lv[1]);
     syncLabels();
     adjustSize();
     redrawBGLayer();
 }
 
-void UIMenu::m_set_item(const AtomListView& lst)
+void UIMenu::m_set_item(const AtomListView& lv)
 {
-    bool ok = (lst.size() == 2 && lst[0].isFloat());
+    bool ok = (lv.size() == 2 && lv[0].isFloat());
     if (!ok) {
-        UI_ERR << "invalid arguments: " << lst;
+        UI_ERR << "invalid arguments: " << lv;
         UI_ERR << "usage: set_item INDEX VALUE";
         return;
     }
 
-    int idx = lst[0].asInt();
+    int idx = lv[0].asInt();
     if (idx < 0 || idx >= items_.size()) {
         UI_ERR << "invalid index: " << idx;
         return;
     }
 
-    items_[idx] = lst[1];
+    items_[idx] = lv[1];
     syncLabels();
     redrawBGLayer();
 }
 
-void UIMenu::m_file_glob(const AtomListView& lst)
+void UIMenu::m_file_glob(const AtomListView& lv)
 {
-    if (lst.size() < 1) {
+    if (lv.size() < 1) {
         UI_ERR << "usage: file_glob PATTERN [PATH]";
         return;
     }
 
     std::string path, pattern;
-    pattern = to_string(lst[0]);
-    if (lst.size() > 1)
-        path = to_string(lst[1]);
+    pattern = to_string(lv[0]);
+    if (lv.size() > 1)
+        path = to_string(lv[1]);
 
     // expand unix $HOME: ~
     path = platform::expand_tilde_path(path);
@@ -481,14 +481,14 @@ int UIMenu::findIndex(int y)
     return res;
 }
 
-bool UIMenu::selectByValue(const AtomListView& lst)
+bool UIMenu::selectByValue(const AtomListView& lv)
 {
-    if (lst.size() < 1) {
+    if (lv.size() < 1) {
         UI_ERR << "item title expected";
         return false;
     }
 
-    std::string title = to_string(lst);
+    std::string title = to_string(lv);
     LabelList::iterator it = std::find(labels_.begin(), labels_.end(), title);
     if (it == labels_.end()) {
         UI_ERR << "item is not found: " << title;
@@ -549,9 +549,9 @@ void UIMenu::setup()
 
     obj.addProperty("index", &UIMenu::propIndex, &UIMenu::propSetIndex);
     obj.addProperty("value", &UIMenu::propValue, &UIMenu::propSetValue);
-    obj.addProperty("count", &UIMenu::propCount, 0);
+    obj.addProperty("count", &UIMenu::propCount);
     obj.addProperty("open", &UIMenu::propOpen, &UIMenu::propSetOpen);
-    obj.addProperty("title", &UIMenu::propTitle, 0);
+    obj.addProperty("title", &UIMenu::propTitle);
 
     obj.addMethod("append", &UIMenu::m_append);
     obj.addMethod("clear", &UIMenu::m_clear);

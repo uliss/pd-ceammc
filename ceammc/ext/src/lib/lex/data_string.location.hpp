@@ -1,4 +1,4 @@
-// A Bison parser, made by GNU Bison 3.7.3.
+// A Bison parser, made by GNU Bison 3.7.4.
 
 // Locations for Bison parsers in C++
 
@@ -32,7 +32,7 @@
 
 /**
  ** \file data_string.location.hpp
- ** Define the ceammc::location class.
+ ** Define the ceammc::ds::location class.
  */
 
 #ifndef YY_YY_DATA_STRING_LOCATION_HPP_INCLUDED
@@ -54,7 +54,7 @@
 # endif
 
 #line 8 "data_string.y"
-namespace ceammc {
+namespace ceammc { namespace ds {
 #line 59 "data_string.location.hpp"
 
   /// A point in a source file.
@@ -300,7 +300,7 @@ namespace ceammc {
   }
 
 #line 8 "data_string.y"
-} // ceammc
+} } // ceammc::ds
 #line 305 "data_string.location.hpp"
 
 #endif // !YY_YY_DATA_STRING_LOCATION_HPP_INCLUDED

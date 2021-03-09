@@ -23,6 +23,8 @@ static t_symbol* SYM_LENGTH;
 static t_symbol* SYM_MODE_ON_MOUSE_UP;
 static t_symbol* SYM_MODE_ON_DRAG;
 
+using namespace ui;
+
 static float lin2lin(float v, float x0, float x1, float y0, float y1)
 {
     return convert::lin2lin(clip(v, x0, x1), x0, x1, y0, y1);
@@ -420,7 +422,7 @@ void UIEnv::onMouseMove(t_object*, const t_pt& pt, long modifiers)
         }
     }
 
-    redrawInnerArea();
+    redraw();
 }
 
 void UIEnv::onMouseDrag(t_object*, const t_pt& pt, long mod)
@@ -461,7 +463,7 @@ void UIEnv::onMouseDrag(t_object*, const t_pt& pt, long mod)
     // no background redraw needed
     envelope_layer_.invalidate();
     cursor_layer_.invalidate();
-    redrawInnerArea();
+    redraw();
 
     if (output_mode_ == SYM_MODE_ON_DRAG)
         outputEnvelope();
@@ -720,40 +722,40 @@ bool UIEnv::selectNode(size_t idx)
     return num_changes > 0;
 }
 
-void UIEnv::m_adsr(const AtomListView& lst)
+void UIEnv::m_adsr(const AtomListView& lv)
 {
-    setNamedEnvelope(SYM_ADSR, lst);
+    setNamedEnvelope(SYM_ADSR, lv);
 }
 
-void UIEnv::m_asr(const AtomListView& lst)
+void UIEnv::m_asr(const AtomListView& lv)
 {
-    setNamedEnvelope(SYM_ASR, lst);
+    setNamedEnvelope(SYM_ASR, lv);
 }
 
-void UIEnv::m_ar(const AtomListView& lst)
+void UIEnv::m_ar(const AtomListView& lv)
 {
-    setNamedEnvelope(SYM_AR, lst);
+    setNamedEnvelope(SYM_AR, lv);
 }
 
-void UIEnv::m_eadsr(const AtomListView& lst)
+void UIEnv::m_eadsr(const AtomListView& lv)
 {
-    setNamedEnvelope(SYM_EADSR, lst);
+    setNamedEnvelope(SYM_EADSR, lv);
 }
 
-void UIEnv::m_easr(const AtomListView& lst)
+void UIEnv::m_easr(const AtomListView& lv)
 {
-    setNamedEnvelope(SYM_EASR, lst);
+    setNamedEnvelope(SYM_EASR, lv);
 }
 
-void UIEnv::m_ear(const AtomListView& lst)
+void UIEnv::m_ear(const AtomListView& lv)
 {
-    setNamedEnvelope(SYM_EAR, lst);
+    setNamedEnvelope(SYM_EAR, lv);
 }
 
-void UIEnv::setNamedEnvelope(t_symbol* env, const AtomListView& args)
+void UIEnv::setNamedEnvelope(t_symbol* env, const AtomListView& lv)
 {
-    if (!env_.setNamedEnvelope(env, args)) {
-        UI_ERR << "unknown envelope: " << Atom(env) + args;
+    if (!env_.setNamedEnvelope(env, lv)) {
+        UI_ERR << "unknown envelope: " << Atom(env) + lv;
         return;
     }
 
@@ -764,8 +766,8 @@ void UIEnv::setNamedEnvelope(t_symbol* env, const AtomListView& args)
 
 void UIEnv::loadPreset(size_t idx)
 {
-    AtomList lst = PresetStorage::instance().listValueAt(presetId(), idx);
-    DataTypeEnv env = DataTypeEnv::fromList(lst);
+    auto lv = PresetStorage::instance().listValueAt(presetId(), idx);
+    DataTypeEnv env = DataTypeEnv::fromListView(lv);
     if (env.empty())
         return;
 

@@ -13,7 +13,9 @@
             <keywords>flow tee separate</keywords>
             <since>0.4</since>
             <aliases>
+                <alias>ceammc/tee~</alias>
                 <alias>tee~</alias>
+                <alias>ceammc/~-&gt;</alias>
                 <alias>~-&gt;</alias>
             </aliases>
         </meta>

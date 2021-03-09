@@ -15,7 +15,7 @@ public:
     void onSymbol(t_symbol* s) override;
     void initDone() override;
 
-    void loadFrom(size_t idx) override;
+    void loadFrom(t_float idx) override;
     void storeAt(size_t idx) override;
 };
 

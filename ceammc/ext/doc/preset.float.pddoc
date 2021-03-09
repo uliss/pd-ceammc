@@ -22,7 +22,7 @@
             </aliases>
         </meta>
         <info>
-            <par>Named float preset entry. Can store/load up to 16 various float values</par>
+            <par>Named float preset entry. Can store/load up to 256 various float values</par>
         </info>
         <arguments>
             <argument name="ID" type="symbol">preset id (should be unique in most use
@@ -42,6 +42,7 @@
             <method name="load">load preset value by specified index and output it</method>
             <method name="store">stores preset value at specified index</method>
             <method name="clear">clear preset at specified index</method>
+            <method name="interp">linearly interpolate between preset indexes and output</method>
         </methods>
         <inlets>
             <inlet>
@@ -54,14 +55,16 @@
         <example>
             <pdascii>
 <![CDATA[
-               [store 0(  [store 1(
-               |          |
-      [load 0( | [load 1( |
-      |        | |        |
-      |        | |        |
-      |        | |        |
-[F] X [preset.float     f1]
+/* change value */
 
+[F] X [preset.float f1]
+
+
+[ui.hsl]
+|
+[interp $1( /*interpolate between first and second preset*/
+|
+[ui.preset] /*Shift+click to store preset*/
 ]]>
             </pdascii>
         </example>
