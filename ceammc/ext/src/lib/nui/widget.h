@@ -129,18 +129,18 @@ namespace ui {
 
         virtual Size fixNewSize(const Size& sz) { return sz.clippedMin({ 10, 10 }); }
 
-        virtual void onWidgetActivation(bool state) { LIB_ERR << __FUNCTION__; }
-        virtual void onWidgetMove(int dx, int dy) { LIB_ERR << __FUNCTION__; }
-        virtual void onWidgetDelete() { LIB_ERR << __FUNCTION__; }
-        virtual void onWidgetSelect(bool state) { LIB_ERR << __FUNCTION__; }
-        virtual void onWidgetShow() { LIB_ERR << __FUNCTION__; }
+        virtual void onWidgetActivation(bool state) { /*LIB_ERR << __FUNCTION__;*/ }
+        virtual void onWidgetMove(int dx, int dy) { /*LIB_ERR << __FUNCTION__;*/ }
+        virtual void onWidgetDelete() { /*LIB_ERR << __FUNCTION__;*/ }
+        virtual void onWidgetSelect(bool state) { /*LIB_ERR << __FUNCTION__;*/ }
+        virtual void onWidgetShow() { /*LIB_ERR << __FUNCTION__;*/ }
 
         /**
          * called right after widget resize
          * @param sz - new widget size in model coordinates (without zoom)
          */
-        virtual void onWidgetResize(const Size& sz) { LIB_ERR << __FUNCTION__ << ' ' << sz; }
-        virtual void onWidgetHide() { LIB_ERR << __FUNCTION__; }
+        virtual void onWidgetResize(const Size& sz) { /*LIB_ERR << __FUNCTION__ << ' ' << sz;*/ }
+        virtual void onWidgetHide() { /*LIB_ERR << __FUNCTION__;*/ }
 
         virtual void activateWidget(t_glist* owner, bool state)
         {
@@ -206,16 +206,16 @@ namespace ui {
         {
         }
 
-        virtual void onMouseEnter() { LIB_ERR << __FUNCTION__; }
-        virtual void onMouseLeave() { LIB_ERR << __FUNCTION__; }
-        virtual void onMouseMove() { LIB_ERR << __FUNCTION__; }
-        virtual void onMouseDrag(const Point& pt, uint32_t mod) { LIB_ERR << __FUNCTION__; }
-        virtual void onMouseDown(const Point& pt, const Point& abspt, uint32_t mod) { LIB_ERR << __FUNCTION__; }
-        virtual void onMouseUp(const Point& pt, uint32_t mod) { LIB_ERR << __FUNCTION__; }
+        virtual void onMouseEnter() { /*LIB_ERR << __FUNCTION__;*/ }
+        virtual void onMouseLeave() { /*LIB_ERR << __FUNCTION__;*/ }
+        virtual void onMouseMove() { /*LIB_ERR << __FUNCTION__;*/ }
+        virtual void onMouseDrag(const Point& pt, uint32_t mod) { /*LIB_ERR << __FUNCTION__;*/ }
+        virtual void onMouseDown(const Point& pt, const Point& abspt, uint32_t mod) { /*LIB_ERR << __FUNCTION__;*/ }
+        virtual void onMouseUp(const Point& pt, uint32_t mod) { /*LIB_ERR << __FUNCTION__;*/ }
 
         virtual void onRightClick(const Point& pt, const Point& abspt, uint32_t mod)
         {
-            LIB_ERR << __FUNCTION__;
+            // LIB_ERR << __FUNCTION__;
             utils::canvas_right(drawCanvas(), T::owner());
         }
 
@@ -319,7 +319,7 @@ namespace ui {
                 } else {
                     utils::canvas_motion(drawCanvas(), T::owner(), 1);
                 }
-            } else { //mouse move
+            } else { // mouse move
                 if (editModeAccept(mod)) {
                     onMouseMove();
                 } else if (top_level_) {
@@ -381,8 +381,8 @@ namespace ui {
 
         void openProperties()
         {
-            LIB_ERR << __FUNCTION__;
-            //            return ebox_properties(x, nullptr);
+            // LIB_ERR << __FUNCTION__;
+            // return ebox_properties(x, nullptr);
         }
 
     private:
