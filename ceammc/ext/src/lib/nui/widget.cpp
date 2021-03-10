@@ -16,6 +16,7 @@
 
 extern "C" {
 #include "g_canvas.h"
+#include "m_imp.h"
 }
 
 #include <array>
@@ -215,6 +216,11 @@ namespace ui {
             sys_vgui("nui::canvas_up %lx %lx\n", c, obj);
         }
 
+        void object_open_help(t_text* x)
+        {
+            auto c = x->te_g.g_pd;
+            open_via_helppath(class_gethelpname(c), class_gethelpdir(c));
+        }
     }
 }
 }

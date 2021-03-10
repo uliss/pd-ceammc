@@ -41,6 +41,7 @@ namespace ui {
         Point object_abs_pos(t_text* x, const t_glist* parent);
         void object_move(t_text* x, int dx, int dy);
         void object_bind(t_text* x);
+        void object_open_help(t_text* x);
         bool is_toplevel(t_glist* x);
         t_glist* object_get_draw_canvas(t_glist* c);
         void widget_bind_mouse(t_glist* c, t_object* obj, UIFactoryFlags flags);
@@ -375,8 +376,7 @@ namespace ui {
 
         void openHelp()
         {
-            LIB_ERR << __FUNCTION__;
-            //            return ebox_open_help(x);
+            utils::object_open_help(T::owner());
         }
 
         void openProperties()
