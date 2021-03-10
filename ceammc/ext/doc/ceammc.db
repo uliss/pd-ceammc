@@ -49,6 +49,7 @@ conv.bpm2ms,ceammc/bpm->ms,bpm->ms		.		.
 conv.bpm2sec,ceammc/bpm->sec,bpm->sec		.		.
 conv.car2pol,ceammc/car->pol,car->pol		.		.
 conv.cc2amp,ceammc/cc->amp,cc->amp		.		.
+conv.dbfs2amp,ceammc/dbfs->amp,dbfs->amp		.		.
 conv.dbfs2amp~,ceammc/dbfs->amp~,dbfs->amp~		~		~
 conv.degree2key,ceammc/degree->key,degree->key		.		.
 conv.hex2int,ceammc/hex->int,hex->int		.		.
