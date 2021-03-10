@@ -139,7 +139,6 @@ ceammc/env2array
 ceammc/env2vline
 ceammc/envelope
 ceammc/expand_env
-ceammc/faust~
 ceammc/fluid~
 ceammc/func
 ceammc/function
@@ -340,7 +339,6 @@ env2array
 env2vline
 envelope
 expand_env
-faust~
 flow.!
 flow.'
 flow.<
@@ -518,7 +516,6 @@ is_pointer
 is_symbol
 l->l
 l->l~
-lang.faust~
 lfo.+pulse~
 lfo.+saw~
 lfo.+square~
@@ -886,6 +883,7 @@ prop~>
 proto.firmata
 proto.hui
 proto.midi
+proto.midi.sysex
 proto.sp.alpaca
 proto.xtouch_ext
 rad->phase
@@ -1035,7 +1033,6 @@ ui.display
 ui.dsp~
 ui.dt
 ui.env
-ui.faust~
 ui.filter
 ui.filter~
 ui.gain2~
