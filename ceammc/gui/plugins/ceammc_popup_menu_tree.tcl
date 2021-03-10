@@ -110,10 +110,10 @@
     }}
     {hw {
         hw.apple_smc hw.apple_sms hw.arduino hw.cpu_temp hw.display
-        hw.kbd_light
+        hw.kbd_light hw.serial
     }}
     {lang {
-        lang.faust~
+        lang.faust~ ui.faust~
     }}
     {lfo {
         lfo.+pulse~ lfo.+saw~ lfo.+square~ lfo.+tri~ lfo.impulse~ lfo.pulse~
@@ -164,7 +164,7 @@
         midi.sustain midi.sysex midi.track midi.tuning midi.vramp midi.vrand
     }}
     {misc {
-        click~ fluid~ modplug~ speech.flite
+        click~ fluid~ modplug~ speech.flite speech.flite~
     }}
     {msg {
         loadexpr msg msg.after msg.onload
@@ -209,8 +209,8 @@
         random.linear random.pw_const random.pw_lin
     }}
     {seq {
-        seq.arp seq.bangs seq.counter seq.matrix seq.nbangs seq.phasor
-        seq.toggles sequencer
+        seq.arp seq.bangs seq.counter seq.life seq.matrix seq.nbangs
+        seq.phasor seq.toggles sequencer
     }}
     {snd {
         snd.file
