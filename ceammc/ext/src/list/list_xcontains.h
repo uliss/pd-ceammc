@@ -30,7 +30,7 @@ public:
     void onList(const AtomList& lst) override;
     void onData(const Atom& d) override;
 
-    void onInlet(size_t n, const AtomList& lst) override;
+    void onInlet(size_t n, const AtomListView& lst) override;
 
 private:
     void contains(const AtomList& v);

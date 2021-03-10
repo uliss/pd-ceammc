@@ -20,6 +20,8 @@
             <par>Used syntax: re2 (like pcre). Some characters are non-supported in Pd. Use `
             instead of backslash, `` instead of `, (( instead of {, )) instead of }, .. instead of
             comma, `: instead of semicolon</par>
+            <par>If you need spaces: you should quote the string, also note that in quoted string `
+            symbol should be escaped like ``.</par>
             <par>For example, all digits: `d+, two or three chars: [a-z]((2..3)) etc.</par>
         </info>
         <arguments>
@@ -43,11 +45,11 @@
             <pdascii>
 <![CDATA[
 [test.mp3( [test.mp4( [FILE.mp2( [ABC( [abc.mp5( [symbol .*`.mp2(
-|          |          |          |     |         |
-|          |          |          |     |         |
-[symbol                                ]         |
-|                                                |.
-[str.match "t.+``.mp\[34\]"                        ]
+|          |          |          |     |               |
+|          |          |          |     |               |
+[symbol                                ] [S digits=10] |
+|                                        |.            |.
+[str.match t.+`.mp\[34\]                                ]
 |
 [ui.dt]
 ]]>

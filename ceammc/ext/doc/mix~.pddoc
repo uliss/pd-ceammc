@@ -12,6 +12,9 @@
             <category>base</category>
             <keywords>mix amplitude decibel</keywords>
             <since>0.6</since>
+            <aliases>
+                <alias>ceammc/mix~</alias>
+            </aliases>
         </meta>
         <arguments>
             <argument name="N" type="int" minvalue="2" maxvalue="16">number of inputs</argument>

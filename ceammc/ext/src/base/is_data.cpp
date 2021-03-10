@@ -31,7 +31,7 @@ void IsData::onList(const AtomList& lst)
         boolTo(0, false);
 }
 
-void IsData::onAny(t_symbol* s, const AtomListView& lst)
+void IsData::onAny(t_symbol* s, const AtomListView&)
 {
     boolTo(0, false);
 }

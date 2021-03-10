@@ -16,6 +16,7 @@
             </also>
             <since>0.1</since>
             <aliases>
+                <alias>ceammc/str-&gt;sec</alias>
                 <alias>str-&gt;sec</alias>
             </aliases>
         </meta>

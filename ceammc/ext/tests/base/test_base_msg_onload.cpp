@@ -98,5 +98,19 @@ TEST_CASE("msg.onload", "[extension]")
             REQUIRE(t.isOutputAnyAt(0));
             REQUIRE(t.outputAnyAt(0) == LA("@a", "@b", "@c"));
         }
+
+        SECTION("commas")
+        {
+            using M = Message;
+            using ML = std::vector<Message>;
+            const auto c = Atom::comma();
+            const auto b = Message::makeBang();
+
+
+            TExt t("msg.onload", AtomList::parseString(", 1, float 2, symbol ABC, 1 2 3, list 4 5 6, any message, @prop 1 2 3,"));
+
+            t->onLoadBang();
+            REQUIRE(t.messagesAt(0) == ML { b, 1, 2, SYM("ABC"), LF(1, 2, 3), LF(4, 5, 6), M(SYM("any"), LA("message")), M(SYM("@prop"), LF(1, 2, 3)) });
+        }
     }
 }

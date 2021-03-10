@@ -1,8 +1,11 @@
 set(FLOW_SOURCES mod_flow.h mod_flow.cpp
+    conway_life.cpp
+    route_float.cpp
     seq_arp.cpp
     seq_bangs.cpp
     seq_base.cpp
     seq_counter.cpp
+    seq_life.cpp
     seq_matrix.cpp
     seq_nbangs.cpp
     seq_phasor.cpp
@@ -30,6 +33,7 @@ ceammc_flow_external(group)
 ceammc_flow_external(interval)
 ceammc_flow_external(less)
 ceammc_flow_external(less_eq)
+ceammc_flow_external(list2many)
 ceammc_flow_external(ring)
 ceammc_flow_external(loop)
 ceammc_flow_external(match)
@@ -58,9 +62,10 @@ ceammc_flow_external(tee_tilde)
 add_library(ceammc_flow STATIC ${FLOW_SOURCES})
 
 target_include_directories(ceammc_flow PUBLIC ${PROJECT_SOURCE_DIR}/src)
-target_include_directories(ceammc_flow PRIVATE $<TARGET_PROPERTY:re2,INCLUDE_DIRECTORIES>)
-target_include_directories(ceammc_flow PRIVATE $<TARGET_PROPERTY:fmt,INCLUDE_DIRECTORIES>)
-target_include_directories(ceammc_flow PRIVATE $<TARGET_PROPERTY:reflex,INCLUDE_DIRECTORIES>)
+target_include_directories(ceammc_flow PRIVATE
+    $<TARGET_PROPERTY:re2,INCLUDE_DIRECTORIES>
+    $<TARGET_PROPERTY:fmt,INCLUDE_DIRECTORIES>
+    $<TARGET_PROPERTY:reflex,INCLUDE_DIRECTORIES>)
 
 target_link_libraries(ceammc_flow PRIVATE ceammc_base) # for function calls
 target_link_libraries(ceammc_flow PRIVATE re2)

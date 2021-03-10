@@ -134,17 +134,17 @@ void FlowSpace::onList(const AtomList& l)
     addClock(fn);
 }
 
-void FlowSpace::onAny(t_symbol* s, const AtomListView& v)
+void FlowSpace::onAny(t_symbol* s, const AtomListView& lv)
 {
     if (packet_count_ == 0)
         packet_sched_.delay(0);
 
-    AtomList l(v); // lambda capture copy
+    AtomList l(lv); // lambda capture copy
     auto fn = [this, s, l]() { anyTo(0, s, l); clockDone(); };
     addClock(fn);
 }
 
-void FlowSpace::m_reset(const AtomListView& lv)
+void FlowSpace::m_reset(const AtomListView&)
 {
     for (auto& c : pipe_)
         c.clock.unset();

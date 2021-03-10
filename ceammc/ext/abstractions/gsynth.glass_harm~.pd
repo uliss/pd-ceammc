@@ -1,0 +1,173 @@
+#N canvas 0 0 950 600 12;
+#X obj 25 125 synth.glass_harm~;
+#X obj 325 25 inlet;
+#X obj 325 200 route synth.glass_harm;
+#X obj 325 250 route @bow_press @gain @gate @integration @modfreq
+@modtype @nonlin @pan @pitch @reverb_gain @room_size @strike @width;
+#X obj 575 350 print unknown property;
+#X msg 225 75 @bow_press 0.2 \, @gain 1 \, @integration 0 \, @modfreq 220 \, @modtype 0 \, @nonlin 0 \, @pan 0.6 \, @pitch 48 \, @reverb_gain 0.137 \, @room_size 0.36 \, @strike 0 \, @width 0.5 \,;
+#X obj 225 25 msg.onload;
+#X obj 500 550 outlet~;
+#X obj 600 550 outlet~;
+#X obj 700 550 outlet ctl;
+#X obj 3 202 cnv 8 198 18 empty empty [synth.glass_harm~] 3 9 0 12
+-104026 -262144 0;
+#X obj 12 238 ui.slider @size 125 12 @active_scale 1 @label bow_press:
+@label_side top @label_align left @fontsize 10 @presetname
+/gui/\$1/synth.glass_harm~/slider0 @min 0 @max 1;
+#X obj 190 238 sync;
+#X obj 145 238 ui.number @size 50 12 @min 0 @max 1 @digits 4;
+#X msg 260 238 @bow_press \$1;
+#X obj 12 270 ui.slider @size 125 12 @active_scale 1 @label gain:
+@label_side top @label_align left @fontsize 10 @presetname
+/gui/\$1/synth.glass_harm~/slider1 @min 0 @max 1;
+#X obj 190 270 sync;
+#X obj 145 270 ui.number @size 50 12 @min 0 @max 1 @digits 4;
+#X msg 260 270 @gain \$1;
+#X obj 12 290 ui.toggle @size 12 12 @label gate @label_side right
+@label_align left @fontsize 10;
+#X msg 260 282 @gate \$1;
+#X obj 12 320 ui.slider @size 125 12 @active_scale 1 @label
+integration: @label_side top @label_align left @fontsize 10
+@presetname /gui/\$1/synth.glass_harm~/slider3 @min 0 @max 1;
+#X obj 190 320 sync;
+#X obj 145 320 ui.number @size 50 12 @min 0 @max 1 @digits 4;
+#X msg 260 320 @integration \$1;
+#X obj 12 352 ui.slider @size 125 12 @active_scale 1 @label
+modfreq(Hz): @label_side top @label_align left @fontsize 10
+@presetname /gui/\$1/synth.glass_harm~/slider4 @min 20 @max 1000;
+#X obj 190 352 sync;
+#X obj 145 352 ui.number @size 50 12 @min 20 @max 1000 @digits 1;
+#X msg 260 352 @modfreq \$1;
+#X obj 12 382 ui.number @size 60 12 @label modtype: @label_side top
+@label_align left @fontsize 10 @presetname
+/gui/\$1/synth.glass_harm~/numbox5 @min 0 @max 4 @step 1;
+#X msg 260 382 @modtype \$1;
+#X obj 12 414 ui.slider @size 125 12 @active_scale 1 @label nonlin:
+@label_side top @label_align left @fontsize 10 @presetname
+/gui/\$1/synth.glass_harm~/slider6 @min 0 @max 1;
+#X obj 190 414 sync;
+#X obj 145 414 ui.number @size 50 12 @min 0 @max 1 @digits 4;
+#X msg 260 414 @nonlin \$1;
+#X obj 12 446 ui.slider @size 125 12 @active_scale 1 @label pan:
+@label_side top @label_align left @fontsize 10 @presetname
+/gui/\$1/synth.glass_harm~/slider7 @min 0 @max 1;
+#X obj 190 446 sync;
+#X obj 145 446 ui.number @size 50 12 @min 0 @max 1 @digits 4;
+#X msg 260 446 @pan \$1;
+#X obj 12 478 ui.slider @size 125 12 @active_scale 1 @label pitch:
+@label_side top @label_align left @fontsize 10 @presetname
+/gui/\$1/synth.glass_harm~/slider8 @min 24 @max 96;
+#X obj 190 478 sync;
+#X obj 145 478 ui.number @size 50 12 @min 24 @max 96 @digits 2;
+#X msg 260 478 @pitch \$1;
+#X obj 12 510 ui.slider @size 125 12 @active_scale 1 @label
+reverb_gain: @label_side top @label_align left @fontsize 10
+@presetname /gui/\$1/synth.glass_harm~/slider9 @min 0 @max 1;
+#X obj 190 510 sync;
+#X obj 145 510 ui.number @size 50 12 @min 0 @max 1 @digits 4;
+#X msg 260 510 @reverb_gain \$1;
+#X obj 12 542 ui.slider @size 125 12 @active_scale 1 @label room_size:
+@label_side top @label_align left @fontsize 10 @presetname
+/gui/\$1/synth.glass_harm~/slider10 @min 0.005 @max 1;
+#X obj 190 542 sync;
+#X obj 145 542 ui.number @size 50 12 @min 0.005 @max 1 @digits 4;
+#X msg 260 542 @room_size \$1;
+#X obj 12 572 ui.number @size 60 12 @label strike: @label_side top
+@label_align left @fontsize 10 @presetname
+/gui/\$1/synth.glass_harm~/numbox11 @min 0 @max 1 @step 1;
+#X msg 260 572 @strike \$1;
+#X obj 12 604 ui.slider @size 125 12 @active_scale 1 @label width:
+@label_side top @label_align left @fontsize 10 @presetname
+/gui/\$1/synth.glass_harm~/slider12 @min 0 @max 1;
+#X obj 190 604 sync;
+#X obj 145 604 ui.number @size 50 12 @min 0 @max 1 @digits 4;
+#X msg 260 604 @width \$1;
+#X connect 1 0 2 0;
+#X connect 2 0 3 0;
+#X connect 3 13 4 0;
+#X connect 5 0 3 0;
+#X connect 6 0 5 0;
+#X connect 0 0 7 0;
+#X connect 0 1 8 0;
+#X connect 2 1 9 0;
+#X connect 11 0 12 0;
+#X connect 12 0 11 0;
+#X connect 13 0 12 1;
+#X connect 12 1 13 0;
+#X connect 11 0 14 0;
+#X connect 14 0 0 0;
+#X connect 3 0 11 0;
+#X connect 15 0 16 0;
+#X connect 16 0 15 0;
+#X connect 17 0 16 1;
+#X connect 16 1 17 0;
+#X connect 15 0 18 0;
+#X connect 18 0 0 0;
+#X connect 3 1 15 0;
+#X connect 19 0 20 0;
+#X connect 20 0 0 0;
+#X connect 3 2 19 0;
+#X connect 21 0 22 0;
+#X connect 22 0 21 0;
+#X connect 23 0 22 1;
+#X connect 22 1 23 0;
+#X connect 21 0 24 0;
+#X connect 24 0 0 0;
+#X connect 3 3 21 0;
+#X connect 25 0 26 0;
+#X connect 26 0 25 0;
+#X connect 27 0 26 1;
+#X connect 26 1 27 0;
+#X connect 25 0 28 0;
+#X connect 28 0 0 0;
+#X connect 3 4 25 0;
+#X connect 29 0 30 0;
+#X connect 30 0 0 0;
+#X connect 3 5 29 0;
+#X connect 31 0 32 0;
+#X connect 32 0 31 0;
+#X connect 33 0 32 1;
+#X connect 32 1 33 0;
+#X connect 31 0 34 0;
+#X connect 34 0 0 0;
+#X connect 3 6 31 0;
+#X connect 35 0 36 0;
+#X connect 36 0 35 0;
+#X connect 37 0 36 1;
+#X connect 36 1 37 0;
+#X connect 35 0 38 0;
+#X connect 38 0 0 0;
+#X connect 3 7 35 0;
+#X connect 39 0 40 0;
+#X connect 40 0 39 0;
+#X connect 41 0 40 1;
+#X connect 40 1 41 0;
+#X connect 39 0 42 0;
+#X connect 42 0 0 0;
+#X connect 3 8 39 0;
+#X connect 43 0 44 0;
+#X connect 44 0 43 0;
+#X connect 45 0 44 1;
+#X connect 44 1 45 0;
+#X connect 43 0 46 0;
+#X connect 46 0 0 0;
+#X connect 3 9 43 0;
+#X connect 47 0 48 0;
+#X connect 48 0 47 0;
+#X connect 49 0 48 1;
+#X connect 48 1 49 0;
+#X connect 47 0 50 0;
+#X connect 50 0 0 0;
+#X connect 3 10 47 0;
+#X connect 51 0 52 0;
+#X connect 52 0 0 0;
+#X connect 3 11 51 0;
+#X connect 53 0 54 0;
+#X connect 54 0 53 0;
+#X connect 55 0 54 1;
+#X connect 54 1 55 0;
+#X connect 53 0 56 0;
+#X connect 56 0 0 0;
+#X connect 3 12 53 0;
+#X coords 0 -1 1 1 200 424 2 2 200;

@@ -5,7 +5,7 @@
 #include <cmath>
 
 constexpr t_float DEF_PITCH = 0;
-static t_symbol* PROP_ANTIALIAS_LENGTH = gensym("@aalength");
+static t_symbol* PROP_ANTIALIAS_LENGTH;
 
 SoundTouchExt::SoundTouchExt(const PdArgs& a)
     : SoundExternal(a)
@@ -74,7 +74,7 @@ void SoundTouchExt::processBlock(const t_sample** in, t_sample** out)
 #endif
 }
 
-void SoundTouchExt::onInlet(size_t, const AtomList& lst)
+void SoundTouchExt::onInlet(size_t, const AtomListView& lst)
 {
     pitch_->set(lst);
 }
@@ -96,5 +96,7 @@ void SoundTouchExt::initSoundTouch()
 
 extern "C" void soundtouch_tilde_setup()
 {
+    PROP_ANTIALIAS_LENGTH = gensym("@aalength");
+
     SoundExternalFactory<SoundTouchExt> obj("soundtouch~");
 }

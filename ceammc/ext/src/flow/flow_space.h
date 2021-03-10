@@ -48,9 +48,9 @@ public:
     void onFloat(t_float f) override;
     void onSymbol(t_symbol* s) override;
     void onList(const AtomList& l) override;
-    void onAny(t_symbol* s, const AtomListView& v) override;
+    void onAny(t_symbol* s, const AtomListView& lv) override;
 
-    void m_reset(const AtomListView& lv);
+    void m_reset(const AtomListView&);
 
 private:
     void packetSchedule();

@@ -30,7 +30,7 @@ public:
 
     void onFloat(t_float f) override;
     void onList(const AtomList& lst) override;
-    void onInlet(size_t n, const AtomList& lst) override;
+    void onInlet(size_t n, const AtomListView& lst) override;
 
     void m_open(t_symbol* s, const AtomList& lst);
     void m_close(t_symbol* s, const AtomList& lst);

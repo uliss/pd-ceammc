@@ -21,7 +21,7 @@ void ListRotate::onList(const AtomList& l)
     listTo(0, list::rotate(l, step_->value() * rotate_dir_));
 }
 
-void ListRotate::onInlet(size_t, const AtomList& step)
+void ListRotate::onInlet(size_t, const AtomListView& step)
 {
     step_->set(step);
 }

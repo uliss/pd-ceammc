@@ -153,7 +153,7 @@ TEST_CASE("list.at", "[externals]")
 
     SECTION("@default")
     {
-        TExt t("list.at", LA(2, "@default", "???"));
+        TExt t("list.at", LA(2, "@default", "\"???\""));
         REQUIRE_THAT(t, hasProperty(&t, "@index", 2));
 
         t.sendList(LF(1, 2, 3));

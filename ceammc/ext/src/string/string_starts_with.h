@@ -25,7 +25,7 @@ class StringStartsWith : public BaseObject {
 public:
     StringStartsWith(const PdArgs& a);
     void onSymbol(t_symbol* s) override;
-    void onInlet(size_t, const AtomList& l) override;
+    void onInlet(size_t, const AtomListView& l) override;
     void onDataT(const StringAtom& str);
 };
 

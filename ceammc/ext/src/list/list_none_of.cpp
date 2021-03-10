@@ -41,12 +41,12 @@ void ListNoneOf::onList(const AtomList& l)
     floatTo(0, none_ ? 1 : 0);
 }
 
-void ListNoneOf::onInlet(size_t n, const AtomList& l)
+void ListNoneOf::onInlet(size_t n, const AtomListView& l)
 {
     if (n != 1 || l.empty())
         return;
 
-    if (l.first()->asInt(0) != 0)
+    if (l[0].asInt(0) != 0)
         none_ = false;
 }
 

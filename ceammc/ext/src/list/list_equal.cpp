@@ -13,7 +13,7 @@ ListEqual::ListEqual(const PdArgs& a)
     addProperty(pattern_);
 }
 
-void ListEqual::onInlet(size_t n, const AtomList& lst)
+void ListEqual::onInlet(size_t n, const AtomListView& lst)
 {
     if (n != 1)
         return;

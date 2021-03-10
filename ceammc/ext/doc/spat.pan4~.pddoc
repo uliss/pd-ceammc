@@ -13,6 +13,7 @@
             <keywords>spat span</keywords>
             <since>0.6</since>
             <aliases>
+                <alias>ceammc/pan4~</alias>
                 <alias>pan4~</alias>
             </aliases>
             <also>

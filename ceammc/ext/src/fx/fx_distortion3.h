@@ -1,7 +1,7 @@
 /* ------------------------------------------------------------
 name: "fx.distortion3"
-Code generated with Faust 2.28.6 (https://faust.grame.fr)
-Compilation options: -lang cpp -scal -ftz 0
+Code generated with Faust 2.30.12 (https://faust.grame.fr)
+Compilation options: -lang cpp -es 1 -scal -ftz 0
 ------------------------------------------------------------ */
 
 #ifndef  __fx_distortion3_H__
@@ -89,7 +89,7 @@ class fx_distortion3_dsp {
          */
         virtual void buildUserInterface(UI* ui_interface) = 0;
     
-        /* Returns the sample rate currently used by the instance */
+        /* Return the sample rate currently used by the instance */
         virtual int getSampleRate() = 0;
     
         /**
@@ -97,28 +97,28 @@ class fx_distortion3_dsp {
          * - static class 'classInit': static tables initialization
          * - 'instanceInit': constants and instance state initialization
          *
-         * @param sample_rate - the sampling rate in Hertz
+         * @param sample_rate - the sampling rate in Hz
          */
         virtual void init(int sample_rate) = 0;
 
         /**
          * Init instance state
          *
-         * @param sample_rate - the sampling rate in Hertz
+         * @param sample_rate - the sampling rate in Hz
          */
         virtual void instanceInit(int sample_rate) = 0;
-
+    
         /**
          * Init instance constant state
          *
-         * @param sample_rate - the sampling rate in Hertz
+         * @param sample_rate - the sampling rate in Hz
          */
         virtual void instanceConstants(int sample_rate) = 0;
     
         /* Init default control parameters values */
         virtual void instanceResetUserInterface() = 0;
     
-        /* Init instance state (delay lines...) */
+        /* Init instance state (like delay lines...) but keep the control parameter values */
         virtual void instanceClear() = 0;
  
         /**
@@ -191,7 +191,8 @@ class decorator_dsp : public fx_distortion3_dsp {
 };
 
 /**
- * DSP factory class.
+ * DSP factory class, used with LLVM and Interpreter backends
+ * to create DSP instances from a compiled DSP program.
  */
 
 class dsp_factory {
@@ -345,11 +346,13 @@ struct UI : public UIReal<FAUSTFLOAT>
 #ifndef __meta__
 #define __meta__
 
+/**
+ The base class of Meta handler to be used in fx_distortion3_dsp::metadata(Meta* m) method to retrieve (key, value) metadata.
+ */
 struct Meta
 {
     virtual ~Meta() {};
     virtual void declare(const char* key, const char* value) = 0;
-    
 };
 
 #endif
@@ -495,6 +498,7 @@ struct fx_distortion3 : public fx_distortion3_dsp {
 
 #include <algorithm>
 #include <cmath>
+#include <cstdint>
 #include <math.h>
 
 static float fx_distortion3_faustpower2_f(float value) {
@@ -518,10 +522,8 @@ class fx_distortion3 : public fx_distortion3_dsp {
 	FAUSTFLOAT fHslider0;
 	float fRec0[2];
 	int fSampleRate;
-	float fConst0;
 	float fConst1;
 	FAUSTFLOAT fVslider0;
-	float fConst2;
 	float fConst3;
 	float fConst4;
 	FAUSTFLOAT fVslider1;
@@ -545,6 +547,7 @@ class fx_distortion3 : public fx_distortion3_dsp {
 		m->declare("ceammc.lib/version", "0.1.2");
 		m->declare("ceammc_ui.lib/name", "CEAMMC faust default UI elements");
 		m->declare("ceammc_ui.lib/version", "0.1.2");
+		m->declare("compile_options", "-lang cpp -es 1 -scal -ftz 0");
 		m->declare("description", "A simple Wavesharper distortion");
 		m->declare("filename", "fx_distortion3.dsp");
 		m->declare("filters.lib/fir:author", "Julius O. Smith III");
@@ -573,6 +576,7 @@ class fx_distortion3 : public fx_distortion3_dsp {
 		m->declare("filters.lib/tf2s:author", "Julius O. Smith III");
 		m->declare("filters.lib/tf2s:copyright", "Copyright (C) 2003-2019 by Julius O. Smith III <jos@ccrma.stanford.edu>");
 		m->declare("filters.lib/tf2s:license", "MIT-style STK-4.3 license");
+		m->declare("filters.lib/version", "0.3");
 		m->declare("id", "distortion3");
 		m->declare("maths.lib/author", "GRAME");
 		m->declare("maths.lib/copyright", "GRAME");
@@ -626,9 +630,9 @@ class fx_distortion3 : public fx_distortion3_dsp {
 	
 	virtual void instanceConstants(int sample_rate) {
 		fSampleRate = sample_rate;
-		fConst0 = std::min<float>(192000.0f, std::max<float>(1.0f, float(fSampleRate)));
+		float fConst0 = std::min<float>(192000.0f, std::max<float>(1.0f, float(fSampleRate)));
 		fConst1 = (3.14159274f / fConst0);
-		fConst2 = (1.0f / std::tan((20520.8828f / fConst0)));
+		float fConst2 = (1.0f / std::tan((20520.8828f / fConst0)));
 		fConst3 = (1.0f / (fConst2 + 1.0f));
 		fConst4 = (1.0f - fConst2);
 	}
@@ -643,35 +647,27 @@ class fx_distortion3 : public fx_distortion3_dsp {
 	}
 	
 	virtual void instanceClear() {
-		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l0 = 0; (l0 < 2); l0 = (l0 + 1)) {
 			fRec0[l0] = 0.0f;
 		}
-		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l1 = 0; (l1 < 3); l1 = (l1 + 1)) {
 			fRec4[l1] = 0.0f;
 		}
-		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l2 = 0; (l2 < 2); l2 = (l2 + 1)) {
 			fVec0[l2] = 0.0f;
 		}
-		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l3 = 0; (l3 < 2); l3 = (l3 + 1)) {
 			fRec3[l3] = 0.0f;
 		}
-		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l4 = 0; (l4 < 2); l4 = (l4 + 1)) {
 			fRec5[l4] = 0.0f;
 		}
-		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l5 = 0; (l5 < 2); l5 = (l5 + 1)) {
 			fRec6[l5] = 0.0f;
 		}
-		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l6 = 0; (l6 < 4); l6 = (l6 + 1)) {
 			fRec2[l6] = 0.0f;
 		}
-		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l7 = 0; (l7 < 3); l7 = (l7 + 1)) {
 			fRec1[l7] = 0.0f;
 		}
@@ -731,7 +727,6 @@ class fx_distortion3 : public fx_distortion3_dsp {
 		float fSlow14 = (0.00100000005f * float(fVslider3));
 		float fSlow15 = (((fSlow3 + -1.41421354f) / fSlow2) + 1.0f);
 		float fSlow16 = (2.0f * (1.0f - (1.0f / fx_distortion3_faustpower2_f(fSlow2))));
-		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int i = 0; (i < count); i = (i + 1)) {
 			float fTemp0 = float(input0[i]);
 			float fTemp1 = (iSlow0 ? 0.0f : fTemp0);
@@ -755,7 +750,6 @@ class fx_distortion3 : public fx_distortion3_dsp {
 			fRec3[1] = fRec3[0];
 			fRec5[1] = fRec5[0];
 			fRec6[1] = fRec6[0];
-			#pragma clang loop vectorize(enable) interleave(enable)
 			for (int j0 = 3; (j0 > 0); j0 = (j0 - 1)) {
 				fRec2[j0] = fRec2[(j0 - 1)];
 			}

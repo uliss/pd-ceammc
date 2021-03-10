@@ -566,7 +566,7 @@ TEST_CASE("DataTypeEnv", "[ceammc::DataTypeEnv]")
         REQUIRE(env.toList() == L());
         env.setASR(10, 20, -10);
 
-        REQUIRE(DataTypeEnv::fromList(env.toList()) == env);
+        REQUIRE(DataTypeEnv::fromListView(env.toList()) == env);
 
         AtomList lst;
         lst.append(S("EnvelopePoint"));
@@ -648,12 +648,12 @@ TEST_CASE("DataTypeEnv", "[ceammc::DataTypeEnv]")
 
     SECTION("fromList")
     {
-        REQUIRE(DataTypeEnv::fromList(L()).empty());
-        REQUIRE(DataTypeEnv::fromList(LF(1, 2)).empty());
-        REQUIRE(DataTypeEnv::fromList(LA("Not an EnvelopePoint", 1, 1, 1, 1, 1, 1)).empty());
-        REQUIRE(DataTypeEnv::fromList(LA("EnvelopePoint", 1, 1, 1, 1, 1, 1)).numPoints() == 1);
+        REQUIRE(DataTypeEnv::fromListView(L()).empty());
+        REQUIRE(DataTypeEnv::fromListView(LF(1, 2)).empty());
+        REQUIRE(DataTypeEnv::fromListView(LA("Not an EnvelopePoint", 1, 1, 1, 1, 1, 1)).empty());
+        REQUIRE(DataTypeEnv::fromListView(LA("EnvelopePoint", 1, 1, 1, 1, 1, 1)).numPoints() == 1);
 
-        DataTypeEnv env = DataTypeEnv::fromList(LA("EnvelopePoint", 1, 100, 1, 1, 1, 1));
+        DataTypeEnv env = DataTypeEnv::fromListView(LA("EnvelopePoint", 1, 100, 1, 1, 1, 1));
         REQUIRE(env.hasPointAtTime(1));
         REQUIRE(env.valueAtTime(1) == 100);
         REQUIRE(env.pointAt(0).type == CURVE_LINE);

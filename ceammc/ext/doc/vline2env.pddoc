@@ -13,6 +13,8 @@
             <keywords>envelope vline</keywords>
             <since>0.6</since>
             <aliases>
+                <alias>ceammc/vline2env</alias>
+                <alias>ceammc/vline-&gt;env</alias>
                 <alias>vline-&gt;env</alias>
             </aliases>
             <also>

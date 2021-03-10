@@ -13,12 +13,14 @@
  *****************************************************************************/
 #include "ui_number_tilde.h"
 #include "ceammc_ui.h"
+#include "ui_number_tilde.tcl.h"
+
+constexpr int MIN_PRECISION = 0;
+constexpr int MAX_PRECISION = 16;
+constexpr int DEF_PRECISION = 6;
 
 UINumberTilde::UINumberTilde()
-    : clock_(this, &UINumberTilde::updateTextValue)
-    , text_(&asEBox()->b_font, ColorRGBA::black(), ETEXT_LEFT, ETEXT_JLEFT, ETEXT_NOWRAP)
-    , bg_tilde_(&asEBox()->b_font, ColorRGBA::black(), ETEXT_CENTER, ETEXT_JCENTER, ETEXT_NOWRAP)
-    , text_layer_(asEBox(), gensym("text_layer"))
+    : clock_([this]() { redraw(); })
     , value_(0)
     , last_redraw_time_(0)
     , text_value_()
@@ -29,7 +31,7 @@ UINumberTilde::UINumberTilde()
 {
 }
 
-void UINumberTilde::init(t_symbol* name, const AtomList& args, bool usePresets)
+void UINumberTilde::init(t_symbol* name, const AtomListView &args, bool usePresets)
 {
     UIDspObject::init(name, args, usePresets);
     dspSetup(1, 1);
@@ -43,37 +45,12 @@ void UINumberTilde::okSize(t_rect* newrect)
 
 void UINumberTilde::paint()
 {
-    const t_rect r = rect();
-
-    // background
-    {
-        UIPainter p = bg_layer_.painter(r);
-        if (p) {
-            const float width = r.height * 0.7f;
-            p.setLineWidth(1);
-            p.setColor(prop_color_border);
-            p.moveTo(width, 0);
-            p.drawLineTo(width, r.height);
-            p.stroke();
-
-            bg_tilde_.setColor(prop_color_active);
-            bg_tilde_.set("~", width / 2, r.height / 2, 0, 0);
-            p.drawText(bg_tilde_);
-        }
-    }
-
-    // value
-    {
-        UIPainter p = text_layer_.painter(r);
-        if (p) {
-            const float y_off = r.height * 0.5;
-            const float x_off = r.height * 0.9;
-
-            text_.setColor(prop_color_text);
-            text_.set(text_value_, x_off, y_off, 0, 0);
-            p.drawText(text_);
-        }
-    }
+    sys_vgui("::ui::number_update %s %lx "
+             "%d %d %d #%6.6x #%6.6x #%6.6x {%s}\n",
+        asEBox()->b_canvas_id->s_name, asEBox(),
+        (int)width(), (int)height(), (int)zoom(),
+        rgba_to_hex_int(prop_color_border), rgba_to_hex_int(prop_color_active), rgba_to_hex_int(prop_color_text),
+        text_value_);
 }
 
 void UINumberTilde::dspProcess(t_sample** ins, long n_ins, t_sample** outs, long n_outs, long sampleframes)
@@ -94,11 +71,29 @@ void UINumberTilde::dspProcess(t_sample** ins, long n_ins, t_sample** outs, long
         out[i + 7] = in[i + 7];
     }
 
-    clock_.delay(0);
+    updateTextValue();
+}
+
+/// note: called from DSP
+void UINumberTilde::updateTextValue()
+{
+    double t = clock_gettimesince(last_redraw_time_);
+    if (t > prop_interval) {
+        char buf[BUFSIZE] = "";
+        sprintf(buf, "%.*f", prop_max_decimal, value_);
+
+        if (strcmp(buf, text_value_) != 0) {
+            memcpy(text_value_, buf, BUFSIZE);
+            last_redraw_time_ = clock_getlogicaltime();
+            clock_.delay(0);
+        }
+    }
 }
 
 void UINumberTilde::setup()
 {
+    sys_gui(ui_number_tilde_tcl);
+
     UIObjectFactory<UINumberTilde> obj("ui.number~", EBOX_GROWINDI | EBOX_IGNORELOCKCLICK);
     obj.addAlias("ui.n~");
     obj.setDefaultSize(80, 15);
@@ -106,8 +101,9 @@ void UINumberTilde::setup()
 
     obj.addColorProperty(PROP_TEXT_COLOR, _("Text color"), "0.9 0.9 0.9 1", &UINumberTilde::prop_color_text);
     obj.addColorProperty(PROP_ACTIVE_COLOR, _("Text color"), DEFAULT_ACTIVE_COLOR, &UINumberTilde::prop_color_active);
-    obj.addIntProperty("decimal", _("Decimal precision"), 6, &UINumberTilde::prop_max_decimal, _("Main"));
-    obj.setPropertyRange("precision", 0, 6);
+    obj.addIntProperty("precision", _("Decimal precision"), DEF_PRECISION, &UINumberTilde::prop_max_decimal, _("Main"));
+    obj.setPropertyRange("precision", MIN_PRECISION, MAX_PRECISION);
+
     obj.addIntProperty("interval", _("Refresh interval (ms)"), 50, &UINumberTilde::prop_interval, _("Main"));
     obj.setPropertyRange("interval", 20, 1000);
     obj.setPropertyUnits("interval", "msec");
@@ -116,40 +112,6 @@ void UINumberTilde::setup()
     obj.setPropertyDefaultValue(PROP_BORDER_COLOR, DEFAULT_TEXT_COLOR);
     obj.hideProperty("send");
     obj.hideProperty("receive");
-}
-
-void UINumberTilde::updateTextValue()
-{
-    double t = clock_gettimesince(last_redraw_time_);
-    if (t > prop_interval) {
-        switch (prop_max_decimal) {
-        case 0:
-            sprintf(text_value_, "%i", (int)value_);
-            break;
-        case 1:
-            sprintf(text_value_, "%.1f", value_);
-            break;
-        case 2:
-            sprintf(text_value_, "%.2f", value_);
-            break;
-        case 3:
-            sprintf(text_value_, "%.3f", value_);
-            break;
-        case 4:
-            sprintf(text_value_, "%.4f", value_);
-            break;
-        case 5:
-            sprintf(text_value_, "%.5f", value_);
-            break;
-        default:
-            sprintf(text_value_, "%.6f", value_);
-            break;
-        }
-
-        last_redraw_time_ = clock_getlogicaltime();
-        text_layer_.invalidate();
-        redrawInnerArea();
-    }
 }
 
 void setup_ui_number_tilde()

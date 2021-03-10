@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="flt.freqz">
+        <title>flt.freqz</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>compute the frequency response of a digital filter</description>
+            <license>GPL3 or later</license>
+            <library>ceammc</library>
+            <category>flt</category>
+            <keywords>filter calc bode frequence response phase plot</keywords>
+            <since>0.9.2</since>
+            <also>
+                <see>flt.freqz~</see>
+            </also>
+        </meta>
+        <info>
+            <par>Given the M-order numerator b and N-order denominator a of a digital filter,
+            compute its frequency response: H(eʲʷ) = B(eʲʷ)/A(eʲʷ) =
+            (b⁰+b¹e⁻ʲʷ+...+bᴹe⁻ʲʷᴹ)/(1+a¹e⁻ʲʷ+...+aᴺe⁻ʲʷᴺ)</par>
+        </info>
+        <arguments>
+            <argument name="N" type="int" minvalue="4" maxvalue="1024">number of points</argument>
+        </arguments>
+        <properties>
+            <property name="@a" type="list">denominator (poles) coefficients. 'a0' always
+            implicitly set to 1, property value set a1...an coefficients</property>
+            <property name="@b" type="list" default="1">numerator (zeros) coefficients</property>
+            <property name="@n" type="int" minvalue="4" maxvalue="1024" default="256">number of
+            points</property>
+            <property name="@db" type="int" enum="0 1" default="0">output amp response in db
+            scale</property>
+        </properties>
+        <methods>
+            <method name="biquad">set 'b' and 'a' coefficients, no output 
+            <param name="b0" type="float" required="true">b0</param>
+            <param name="b1" type="float" required="true">b1</param>
+            <param name="b2" type="float" required="true">b2</param>
+            <param name="a1" type="float" required="true">a1</param>
+            <param name="a2" type="float" required="true">a2</param></method>
+        </methods>
+        <inlets>
+            <inlet>
+                <xinfo on="bang">calculate and output frequency responses</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet>list: amplitude response data</outlet>
+            <outlet>list: phase response data</outlet>
+            <outlet>int: number of points</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[ui.hsl #a]                 [array AMPFZ w=360 h=90]
+|
+[lpf->biquad {i=1,o=1}]
+|  |
+|  [print]
+|
+[t b l]          [T]
+| ^|             |
+| [msg biquad]   [@db $1(   [array PHFZ w=360 h=90]
+| |              |
+[flt.freqz    128]
+|    ^|
+|    [array.plot PHFZ]
+|
+[array.plot AMPFZ]
+#a @min 0 @max 20000 @show_value 1
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

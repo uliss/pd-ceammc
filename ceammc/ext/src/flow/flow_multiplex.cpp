@@ -63,12 +63,12 @@ void FlowMultiplex::onList(const AtomList& l)
     onInlet(0, l);
 }
 
-void FlowMultiplex::onAny(t_symbol* sel, const AtomListView& args)
+void FlowMultiplex::onAny(t_symbol* sel, const AtomListView& lv)
 {
     if (0 != index_->value())
         return;
 
-    anyTo(0, sel, args);
+    anyTo(0, sel, lv);
 }
 
 void FlowMultiplex::onData(const Atom& data)
@@ -79,21 +79,21 @@ void FlowMultiplex::onData(const Atom& data)
     atomTo(0, data);
 }
 
-void FlowMultiplex::onInlet(size_t idx, const AtomList& l)
+void FlowMultiplex::onInlet(size_t idx, const AtomListView& lv)
 {
     if (idx != index_->value())
         return;
 
-    if (l.empty())
+    if (lv.empty())
         bangTo(0);
-    else if (l.isFloat())
-        floatTo(0, l[0].asFloat());
-    else if (l.isSymbol())
-        symbolTo(0, l[0].asSymbol());
-    else if (l[0].isData())
-        atomTo(0, l[0]);
+    else if (lv.isFloat())
+        floatTo(0, lv[0].asFloat());
+    else if (lv.isSymbol())
+        symbolTo(0, lv[0].asSymbol());
+    else if (lv[0].isData())
+        atomTo(0, lv[0]);
     else
-        listTo(0, l);
+        listTo(0, lv);
 }
 
 const char* FlowMultiplex::annotateInlet(size_t n) const
@@ -106,12 +106,12 @@ const char* FlowMultiplex::annotateInlet(size_t n) const
         return nullptr;
 }
 
-void FlowMultiplex::proxy_any(Inlet* x, t_symbol* s, const AtomListView& v)
+void FlowMultiplex::proxy_any(Inlet* x, t_symbol* s, const AtomListView& lv)
 {
     for (size_t i = 0; i < inlets_.size(); i++) {
         if (&inlets_[i] == x) {
             if (i + 1 == index_->value())
-                anyTo(0, s, v);
+                anyTo(0, s, lv);
 
             return;
         }

@@ -23,7 +23,7 @@ class SetContains : public BaseObject {
 public:
     SetContains(const PdArgs& a);
     void onDataT(const SetAtom& set);
-    void onInlet(size_t n, const AtomList& lst) override;
+    void onInlet(size_t n, const AtomListView& lst) override;
 };
 
 void setup_set_contains();

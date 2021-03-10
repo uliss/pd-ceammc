@@ -54,12 +54,12 @@ void FlowDemultiplex::onList(const AtomList& l)
     listTo(index_->value(), l);
 }
 
-void FlowDemultiplex::onAny(t_symbol* s, const AtomListView& l)
+void FlowDemultiplex::onAny(t_symbol* s, const AtomListView& lv)
 {
     if (!checkIndex())
         return;
 
-    anyTo(index_->value(), s, l);
+    anyTo(index_->value(), s, lv);
 }
 
 void FlowDemultiplex::onData(const Atom& d)
@@ -70,7 +70,7 @@ void FlowDemultiplex::onData(const Atom& d)
     atomTo(index_->value(), d);
 }
 
-void FlowDemultiplex::onInlet(size_t /*n*/, const AtomList& l)
+void FlowDemultiplex::onInlet(size_t /*n*/, const AtomListView& l)
 {
     index_->set(l);
 }

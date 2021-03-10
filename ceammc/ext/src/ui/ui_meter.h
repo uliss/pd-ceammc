@@ -29,7 +29,6 @@ class UIMeter : public UIDspObject {
     int prop_interval_ms;
 
 private:
-    UILayer led_layer_;
     t_float raw_peak_;
     double raw_square_sum_;
     size_t num_samples_;
@@ -42,14 +41,18 @@ private:
 public:
     UIMeter();
 
+    void init(t_symbol* name, const AtomListView& args, bool usePresets);
     void okSize(t_rect* newrect);
     void paint();
-    void drawBackground();
-    void drawLeds();
 
     void dspInit();
     void dspOn(double samplerate, long blocksize);
     void dspProcess(t_sample** ins, long n_ins, t_sample** outs, long n_outs, long sampleframes);
+
+    const char* annotateInlet(int n) const;
+    const char* annotateOutlet(int n) const;
+
+    void onDblClick(t_object* view, const t_pt& pt, long modifiers);
 
 public:
     static void setup();
@@ -59,7 +62,6 @@ private:
     void reset();
     void clockTick();
     void output();
-    const t_rgba& dbfsToColor(int db) const;
 };
 
 void setup_ui_meter();

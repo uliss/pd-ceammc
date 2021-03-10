@@ -204,11 +204,11 @@ bool HoaProcessProps::processAnyProps(t_symbol* sel, const AtomListView& lst)
                 } else
                     return true;
             },
-            [this, &out](Property* prop, t_symbol* name, const AtomList&) {
+            [&out](Property* prop, t_symbol* name, const AtomList&) {
                 out.append(name);
                 out.append(prop->get());
             },
-            [this, &out](DataTypeProperty* prop, const std::string& name, const AtomList&) {
+            [&out](DataTypeProperty* prop, const std::string& name, const AtomList&) {
                 out.append(gensym(name.c_str()));
                 propToList(prop, out);
             });

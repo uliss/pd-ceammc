@@ -42,7 +42,7 @@ void ListAllOf::onList(const AtomList& l)
     floatTo(0, all_ ? 1 : 0);
 }
 
-void ListAllOf::onInlet(size_t n, const AtomList& l)
+void ListAllOf::onInlet(size_t n, const AtomListView& l)
 {
     if (n != 1 || l.empty())
         return;
@@ -50,7 +50,7 @@ void ListAllOf::onInlet(size_t n, const AtomList& l)
     if (!all_)
         return;
 
-    if (l.first()->asInt(0) != 1)
+    if (l[0].asInt(0) != 1)
         all_ = false;
 }
 

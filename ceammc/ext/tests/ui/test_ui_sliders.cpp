@@ -30,7 +30,8 @@ TEST_CASE("ui.sliders", "[ui.sliders]")
         REQUIRE_UI_FLOAT_PROPERTY(t, "min", 0);
         REQUIRE_UI_FLOAT_PROPERTY(t, "max", 1);
         REQUIRE_UI_FLOAT_PROPERTY(t, "range", 1);
-        REQUIRE_UI_FLOAT_PROPERTY(t, "auto_range", 0);
+        REQUIRE_UI_LIST_PROPERTY(t, "auto_range_mode", LA("none"));
+        REQUIRE_UI_FLOAT_PROPERTY(t, "auto_count", 0);
         REQUIRE_UI_FLOAT_PROPERTY(t, "show_range", 1);
         REQUIRE_UI_LIST_PROPERTY(t, "size", LF(150, 100));
         REQUIRE_UI_LIST_PROPERTY(t, "value", AtomList::zeroes(8));
@@ -99,9 +100,9 @@ TEST_CASE("ui.sliders", "[ui.sliders]")
 
         SECTION("auto range")
         {
-            TestSliders t("ui.sliders", LA("@auto_range", 1));
+            TestSliders t("ui.sliders", LA("@auto_range_mode", "both", "@auto_count", 1));
             REQUIRE(t->realValues() == AtomList::zeroes(8));
-            t->onList(LF(1, 2, 3, 4, 5));
+            t->onList(AtomList { 1, 2, 3, 4, 5 });
             REQUIRE(t->realValues() == LF(1, 2, 3, 4, 5));
             REQUIRE_UI_FLOAT_PROPERTY(t, "min", 1);
             REQUIRE_UI_FLOAT_PROPERTY(t, "max", 5);
@@ -132,7 +133,7 @@ TEST_CASE("ui.sliders", "[ui.sliders]")
 
         SECTION("auto range")
         {
-            TestSliders t("ui.sliders", LA("@auto_range", 1));
+            TestSliders t("ui.sliders", LA("@auto_range_mode", "both", "@auto_count", 1));
             REQUIRE(t->realValues() == AtomList::zeroes(8));
             t->m_set(LF(1, 2, 3, 4, 5));
             REQUIRE(t->realValues() == LF(1, 2, 3, 4, 5));
@@ -146,6 +147,44 @@ TEST_CASE("ui.sliders", "[ui.sliders]")
             REQUIRE(t->realValues() == LF(-1, 2));
             t->m_set(LF(2, 2));
             REQUIRE(t->realValues() == LF(-1, 2));
+        }
+
+        SECTION("auto count")
+        {
+            TestSliders t("ui.sliders", LA("@auto_count", 1));
+            REQUIRE(t->realValues() == AtomList::zeroes(8));
+            t->m_set(LF(1, 2, 3, 4, 5));
+            REQUIRE(t->realValues() == LF(1, 1, 1, 1, 1));
+            t->m_set(L());
+            REQUIRE(t->realValues() == LF(1, 1, 1, 1, 1));
+            t->m_set(LF(1));
+            REQUIRE(t->realValues() == LF(1));
+            t->m_set(LF(0.5, 0.25));
+            REQUIRE(t->realValues() == LF(0.5, 0.25));
+        }
+
+        SECTION("auto range max")
+        {
+            TestSliders t("ui.sliders", LA("@auto_range_mode", "max", "@count", 3));
+            REQUIRE(t->realValues() == AtomList::zeroes(3));
+            t->m_set(LF(-1, 2, 3, 4));
+            REQUIRE(t->realValues() == LF(0, 2, 3));
+            REQUIRE_UI_FLOAT_PROPERTY(t, "min", 0);
+            REQUIRE_UI_FLOAT_PROPERTY(t, "max", 3);
+            t->m_set(L());
+            REQUIRE(t->realValues() == LF(0, 2, 3));
+        }
+
+        SECTION("auto range min")
+        {
+            TestSliders t("ui.sliders", LA("@auto_range_mode", "min", "@count", 3));
+            REQUIRE(t->realValues() == AtomList::zeroes(3));
+            t->m_set(LF(-1, 2, 3, 4));
+            REQUIRE(t->realValues() == LF(-1, 1, 1));
+            REQUIRE_UI_FLOAT_PROPERTY(t, "min", -1);
+            REQUIRE_UI_FLOAT_PROPERTY(t, "max", 1);
+            t->m_set(L());
+            REQUIRE(t->realValues() == LF(-1, 1, 1));
         }
     }
 
@@ -223,7 +262,7 @@ TEST_CASE("ui.sliders", "[ui.sliders]")
 
         SECTION("onList auto_range")
         {
-            TestExtSliders t("ui.sliders", LA("@auto_range", 1));
+            TestExtSliders t("ui.sliders", LA("@auto_range_mode", "both", "@auto_count", 1));
 
             t.send(L());
             REQUIRE_NO_OUTPUT(t);
@@ -242,6 +281,29 @@ TEST_CASE("ui.sliders", "[ui.sliders]")
             REQUIRE_UI_FLOAT_PROPERTY(t, "count", 2);
             REQUIRE_UI_FLOAT_PROPERTY(t, "min", 1);
             REQUIRE_UI_FLOAT_PROPERTY(t, "max", 2);
+        }
+
+        SECTION("onList auto_count")
+        {
+            TestExtSliders t("ui.sliders", LA("@auto_count", 1));
+
+            t.send(L());
+            REQUIRE_NO_OUTPUT(t);
+            REQUIRE(t->realValues() == AtomList::zeroes(8));
+
+            t.send(LF(100));
+            REQUIRE_OUTPUT_FLOAT(t, 0, 1);
+            REQUIRE(t->realValues() == LF(1));
+
+            t.send(LF(100, 100));
+            REQUIRE_OUTPUT_LIST(t, 0, LF(1, 1));
+            REQUIRE(t->realValues() == LF(1, 1));
+
+            t.send(LF(0, 0.25, 0.5, 1));
+            REQUIRE_OUTPUT_LIST(t, 0, LF(0, 0.25, 0.5, 1));
+            REQUIRE_UI_FLOAT_PROPERTY(t, "count", 4);
+            REQUIRE_UI_FLOAT_PROPERTY(t, "min", 0);
+            REQUIRE_UI_FLOAT_PROPERTY(t, "max", 1);
         }
     }
 
@@ -363,5 +425,11 @@ TEST_CASE("ui.sliders", "[ui.sliders]")
 
         t.mouseDown(10, 25);
         REQUIRE_LIST_WAS_SEND(t, "r1", LX(0.75, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5));
+    }
+
+    SECTION("alias")
+    {
+        TestExtSliders t("ui.vsliders");
+        REQUIRE_UI_LIST_PROPERTY(t, "size", LF(100, 150));
     }
 }

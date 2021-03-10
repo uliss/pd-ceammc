@@ -48,7 +48,7 @@ private:
 public:
     UIRSlider();
 
-    void init(t_symbol* name, const AtomList& args, bool usePresets);
+    void init(t_symbol* name, const AtomListView& args, bool usePresets);
     void onPropChange(t_symbol* prop_name);
     void okSize(t_rect* newrect);
     void paint();
@@ -56,14 +56,14 @@ public:
     void drawKnob();
 
     void onBang();
-    void onList(const AtomList& lst);
+    void onList(const AtomListView& lv);
 
     void onMouseDown(t_object* view, const t_pt& pt, const t_pt& abs_pt, long modifiers);
     void onMouseUp(t_object* view, const t_pt& pt, long modifiers);
     void onMouseDrag(t_object* view, const t_pt& pt, long modifiers);
 
     AtomList propValue() const;
-    void propSetValue(const AtomList& lst);
+    void propSetValue(const AtomListView& lv);
     t_float propLow() const;
     t_float propHigh() const;
     void propSetLow(t_float f);
@@ -73,12 +73,14 @@ public:
 
     void loadPreset(size_t idx);
     void storePreset(size_t idx);
+    void interpPreset(t_float idx);
+    bool hasPresetInterp() const { return true; }
 
 private:
     void adjustValues();
     void redrawKnob();
     void output();
-    bool setValue(const AtomList& lst);
+    bool setValue(const AtomListView& lv);
     EditMode keyMod2EditMode(long mod, float value) const;
 
 public:

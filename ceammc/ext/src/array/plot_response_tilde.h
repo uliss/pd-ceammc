@@ -38,7 +38,7 @@ class PlotResponseTilde : public SoundExternal {
 public:
     PlotResponseTilde(const PdArgs& a);
 
-    void onInlet(size_t, const AtomList&) override;
+    void onInlet(size_t, const AtomListView&) override;
     void processBlock(const t_sample** in, t_sample** out) final;
 };
 

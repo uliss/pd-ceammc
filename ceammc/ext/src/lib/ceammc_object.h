@@ -42,6 +42,14 @@ namespace ceammc {
 
 class PdArgs {
 public:
+    enum ParseMode {
+        PARSE_NONE = 0,
+        PARSE_COPY,
+        PARSE_UNQUOTE,
+        PARSE_EXPR
+    };
+
+public:
     AtomList args;
     t_symbol* className;
     t_object* owner;
@@ -49,9 +57,11 @@ public:
     int flags = { 0 };
     bool noDefaultInlet : 1;
     bool mainSignalInlet : 1;
-    bool noArgsDataParsing : 1;
-    bool ignoreDataParseErrors : 1;
-    bool parsePosPropsOnly : 1;
+    bool parseArgs : 1;
+    ParseMode parseArgsMode : 2;
+    bool parseProps : 1;
+    bool parsePosProps : 1;
+    ParseMode parsePropsMode : 2;
 
     PdArgs(const AtomList& lst, t_symbol* c, t_object* own, t_symbol* alias)
         : args(lst)
@@ -61,9 +71,11 @@ public:
         , flags(0)
         , noDefaultInlet(false)
         , mainSignalInlet(false)
-        , noArgsDataParsing(false)
-        , ignoreDataParseErrors(false)
-        , parsePosPropsOnly(false)
+        , parseArgs(true)
+        , parseArgsMode(PARSE_EXPR)
+        , parseProps(true)
+        , parsePosProps(true)
+        , parsePropsMode(PARSE_EXPR)
     {
     }
 
@@ -82,7 +94,6 @@ class BaseObject {
     InletList inlets_;
     OutletList outlets_;
     Properties props_;
-    AtomListView pos_args_unparsed_;
     AtomList pos_args_parsed_;
     t_symbol* receive_from_;
     t_canvas* cnv_;
@@ -105,6 +116,11 @@ public:
         ARG_SNONPROPERTY,
         ARG_BOOL,
         ARG_BYTE
+    };
+
+    enum PropertyParseFlag {
+        PROP_PARSE = (1 << 0),
+        PROP_PARSE_POS = (1 << 1)
     };
 
 public:
@@ -132,27 +148,41 @@ public:
 private:
     size_t positionalConstantP(size_t pos, size_t def, size_t min, size_t max) const;
 
+    void parseProps(int flags, PdArgs::ParseMode mode);
+
+    bool parsePosProperty(Property* p);
+    bool parseProperty(Property* p, const AtomListView& props, PdArgs::ParseMode mode);
+
 public:
+    /**
+     * Ceammc pd creation args
+     */
+    const PdArgs& pdArgs() const { return pd_; }
+
     /**
      * Return raw object creation arguments unparsed (no $* substitution)
      * @note: all args returned, you are really seldom need this
-     * @see parsedPosArgs() or unparsedPosArgs()
+     * @see parsedPosArgs()
      */
     AtomListView binbufArgs() const;
 
     /**
-     * Unparsed positional arguments
-     * @
+     * Raw pd args
      */
-    const AtomListView& unparsedPosArgs() const { return pos_args_unparsed_; }
+    const AtomList& args() const { return pd_.args; }
 
     /**
-     * Unparsed positional arguments
+     * Parsed positional arguments
      */
     const AtomList& parsedPosArgs() const { return pos_args_parsed_; }
 
     /**
-     * Parse initial constructor arguments and extract properties
+     * Parse creation positional arguments
+     */
+    void parsePosArgs(PdArgs::ParseMode mode);
+
+    /**
+     * parse creation properties
      */
     virtual void parseProperties();
 
@@ -196,6 +226,21 @@ public:
     virtual void dump() const;
 
     /**
+     * Checks if object is visible and has canvas
+     */
+    bool isVisible() const;
+
+    /**
+     * Show/hide object
+     */
+    void show(bool value);
+
+    /**
+     * Fix canvas lines for object (after show/changing position/changing xlet number etc.)
+     */
+    void fixLines();
+
+    /**
      * Outputs all properties name
      * @example on message [@*?( outputs message [@* @prop1 @prop2 etc..(
      */
@@ -216,7 +261,7 @@ public:
      * @param - inlet number, starting form 0
      * @param - incoming message
      */
-    virtual void onInlet(size_t, const AtomList&) {}
+    virtual void onInlet(size_t, const AtomListView&) { }
 
     /**
      * This function called on object click  (should be enabled in factory)
@@ -231,17 +276,17 @@ public:
     /**
      * called when loaded
      */
-    virtual void onLoadBang() {}
+    virtual void onLoadBang() { }
 
     /**
      * called when loaded but not yet connected to parent patch
      */
-    virtual void onInitBang() {}
+    virtual void onInitBang() { }
 
     /**
      * called when about to close
      */
-    virtual void onCloseBang() {}
+    virtual void onCloseBang() { }
 
     /**
      * Creates inlet
@@ -274,6 +319,11 @@ public:
     void reserveInlets(size_t n) { inlets_.reserve(n); }
 
     /**
+     * Removes all created inlets
+     */
+    virtual void clearInlets();
+
+    /**
      * Inlet description
      * @param n - inlet index
      * @return inlet description constant string pointer, 0 if not exists
@@ -301,6 +351,11 @@ public:
      * Reserves space for outlets to reduce memory reallocations
      */
     void reserveOutlets(size_t n) { outlets_.reserve(n); }
+
+    /**
+     * Removes all outlets
+     */
+    virtual void clearOutlets();
 
     /**
      * Outlet description
@@ -411,7 +466,7 @@ public:
     /**
      * Get list of object properties
      */
-    inline const Properties& properties() const { return props_; }
+    inline const Properties& getProperties() const { return props_; }
 
     /**
      * Outputs atom to specified outlet
@@ -574,16 +629,22 @@ protected:
     void freeInlets();
     void freeOutlets();
     void freeProps();
-    const AtomList& args() const { return pd_.args; }
     void appendInlet(t_inlet* in);
     void appendOutlet(t_outlet* out);
     bool queryProperty(t_symbol* key, AtomList& res) const;
+    inline Properties& properties() { return props_; }
+    inline const Properties& properties() const { return props_; }
+    InletList& inlets() { return inlets_; }
+    const InletList& inlets() const { return inlets_; }
+    OutletList& outlets() { return outlets_; }
+    const OutletList& outlets() const { return outlets_; }
+
+    virtual bool popInlet();
+    virtual bool popOutlet();
 
     static const size_t MAX_XLETS_NUM = 255;
 
 private:
-    void extractPositionalArguments();
-
     static XletMap inlet_info_map;
     static XletMap outlet_info_map;
     static std::array<t_symbol*, MAX_XLETS_NUM> inlet_dispatch_names;

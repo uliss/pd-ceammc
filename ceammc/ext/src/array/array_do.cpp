@@ -41,7 +41,7 @@ void ArrayDo::onSymbol(t_symbol* s)
     finish();
 }
 
-void ArrayDo::onInlet(size_t n, const AtomList& l)
+void ArrayDo::onInlet(size_t n, const AtomListView& l)
 {
     if (n != 1 || l.empty())
         return;
@@ -51,14 +51,14 @@ void ArrayDo::onInlet(size_t n, const AtomList& l)
 
 void ArrayDo::output()
 {
-    AtomList lst;
-    lst.fill(0.f, 3);
-    lst[2] = array_.size();
+    Atom res[3];
+    res[2] = array_.size();
+    AtomListView lv(res, 3);
 
     for (idx_ = 0; idx_ < array_.size(); idx_++) {
-        lst[0] = array_.at(idx_);
-        lst[1] = idx_;
-        listTo(1, lst);
+        res[0] = array_.at(idx_);
+        res[1] = idx_;
+        listTo(1, lv);
     }
 }
 

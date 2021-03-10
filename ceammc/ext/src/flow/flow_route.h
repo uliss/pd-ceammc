@@ -31,7 +31,7 @@ public:
     FlowRoute(const PdArgs& args);
 
     void onList(const AtomList& lst) override;
-    void onAny(t_symbol* s, const AtomListView& lst) override;
+    void onAny(t_symbol* s, const AtomListView& lv) override;
     void onData(const Atom& data) override;
 
     const char* annotateOutlet(size_t n) const override;

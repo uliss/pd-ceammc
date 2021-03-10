@@ -22,6 +22,7 @@
         <info>
             <par>Encodes several sources in the circular harmonics domain with distance
             compensation and muting system</par>
+            <par>If nsrc==1 radius and angle controlled with signal values</par>
         </info>
         <arguments>
             <argument name="ORDER" type="int" minvalue="1" maxvalue="63">the order of
@@ -65,6 +66,28 @@
         <example>
             <pdascii>
 <![CDATA[
+/*single source: signal controlled*/
+
+[sig~ 1]  [F]       [phasor~ 0.2]
+|         |         |
+|         [sig~ 1]  [phase->rad~]
+|         |.        |..
+[hoa.map~ 5 1 {w=23,i=3,o=11}]
+*|*
+[hoa.scope~ 5 @gain 4 @size 164 164 {i=11}]
+
+
+
+
+
+
+
+
+
+
+
+/*multiple sources: control via properties*/
+
 [msg.onload        ] /*use Alt+drag to fix radius value*/
 |                  |
 [ui.polar #a]      [ui.polar #b]

@@ -39,7 +39,7 @@ find_package(BISON)
 find_package(FLEX)
 
 set(CEAMMC_EXT_LINK_LIBRARIES ceammc_analyze ceammc_array ceammc_base ceammc_conv ceammc_data ceammc_dyn ceammc_env
-    ceammc_flt ceammc_flow ceammc_fx ceammc_hw ceammc_lfo ceammc_list ceammc_math ceammc_midi
+    ceammc_flt ceammc_flow ceammc_fx ceammc_hw ceammc_lang ceammc_lfo ceammc_list ceammc_math ceammc_midi
     ceammc_misc ceammc_net ceammc_noise ceammc_osc ceammc_preset ceammc_path ceammc_proto ceammc_random
     ceammc_spat ceammc_synth ceammc_system ceammc_string ceammc_tl ceammc_ui ceammc_window
     ceammc_core)
@@ -67,6 +67,7 @@ add_subdirectory(flow)
 add_subdirectory(flt)
 add_subdirectory(fx)
 add_subdirectory(hw)
+add_subdirectory(lang)
 add_subdirectory(lfo)
 add_subdirectory(list)
 add_subdirectory(math)
@@ -94,7 +95,12 @@ add_custom_target(ceammc_touch_version
 )
 
 pd_add_external(NAME ceammc
-    FILES ceammc_lib_external.cpp mod_init.cpp
+    FILES
+        ceammc_lib_external.cpp
+        ceammc_lib_listmethods.cpp
+        ceammc_lib_listprops.cpp
+        ceammc_lib_dumpjson.cpp
+        mod_init.cpp
     INTERNAL True
     LIBRARY ceammc
     LINK ${CEAMMC_EXT_LINK_LIBRARIES})

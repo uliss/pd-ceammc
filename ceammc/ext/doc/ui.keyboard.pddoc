@@ -13,12 +13,18 @@
             <category view="link">ui</category>
             <keywords>ui keyboard</keywords>
             <since>0.1</since>
+            <aliases>
+                <alias view="link">ui.hk</alias>
+                <alias view="link">ui.vkeyboard</alias>
+                <alias view="link">ui.vk</alias>
+            </aliases>
             <also>
                 <see view="link">ui.preset</see>
             </also>
         </meta>
         <info>
             <par>Piano keyboard widget</par>
+            <par>[ui.vkeyboard] and [ui.vk] - aliases for vertical keyboard</par>
         </info>
         <mouse>
             <event editmode="false" type="left-click">play selected note: output [NOTE VELOCITY( on
@@ -35,11 +41,16 @@
             <event editmode="true" type="right-click" keys="Shift">open object help</event>
             <event editmode="true" type="right-click" keys="Alt">open properties dialog</event>
         </mouse>
+        <arguments>
+            <argument name="NKEYS" type="int" minvalue="5" maxvalue="88">number of keys</argument>
+            <argument name="SHIFT" type="int" minvalue="6" maxvalue="88">pitch of starting
+            key</argument>
+        </arguments>
         <properties>
             <property name="@keys" type="int" default="61" minvalue="5" maxvalue="88">number of
             keys</property>
             <property name="@shift" type="int" default="36" minvalue="6" maxvalue="88">MIDI pitch
-            of lefmost key</property>
+            of starting key</property>
             <!-- common -->
             <property name="@send" type="symbol" default="(null)">send destination</property>
             <property name="@receive" type="symbol" default="(null)">receive source</property>
@@ -81,20 +92,20 @@
 <![CDATA[
 [dump(
 |
-[ui.keyboard]
-|
-|
-|
-|
-[unpack f       f]
-|              ^|
-[mtof]         [clip 0 100]
-|              |
-[osc.pulse~]   [/ 1000]
-|       .______/
-[*~     ]
-|
-[ui.gain~ @size 120 16]  [ui.dsp~]
+[ui.keyboard]                                  [ui.vk 24 60]
+|                                              |
+|                                              |
+|                                              |
+|                                              |
+[unpack f       f]                             |
+|              ^|                              |
+[mtof]         [clip 0 100]                    |
+|              |                               |
+[osc.pulse~]   [/ 1000]                        |
+|       .______/                               |
+[*~     ]                                      |
+|                                              |
+[ui.gain~ @size 120 16]  [ui.dsp~]             [ui.dt]
 | \
 [dac~]
 ]]>

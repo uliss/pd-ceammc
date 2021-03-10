@@ -40,16 +40,16 @@ UIScope::UIScope()
 {
     initPopupMenu("scope",
         { { _("Zoom 100%"), [this](const t_pt&) {
-               setProperty(gensym("min"), AtomList(-1));
-               setProperty(gensym("max"), AtomList(1));
+               setProperty(gensym("min"), Atom(-1));
+               setProperty(gensym("max"), Atom(1));
            } },
             { _("Zoom 200%"), [this](const t_pt&) {
-                 setProperty(gensym("min"), AtomList(-0.5));
-                 setProperty(gensym("max"), AtomList(0.5));
+                 setProperty(gensym("min"), Atom(-0.5));
+                 setProperty(gensym("max"), Atom(0.5));
              } },
             { _("Zoom 50%"), [this](const t_pt&) {
-                 setProperty(gensym("min"), AtomList(-2));
-                 setProperty(gensym("max"), AtomList(2));
+                 setProperty(gensym("min"), Atom(-2));
+                 setProperty(gensym("max"), Atom(2));
              } } });
 }
 
@@ -173,18 +173,18 @@ void UIScope::m_scale(t_float f)
         return;
     }
 
-    setProperty(gensym("min"), AtomList(f));
-    setProperty(gensym("max"), AtomList(-f));
+    setProperty(gensym("min"), Atom(f));
+    setProperty(gensym("max"), Atom(-f));
 }
 
 void UIScope::onMouseDown(t_object* view, const t_pt& pt, const t_pt& abs_pt, long modifiers)
 {
     if (modifiers == EMOD_SHIFT) {
-        setProperty(gensym("min"), AtomList(prop_min * 0.8));
-        setProperty(gensym("max"), AtomList(prop_max * 0.8));
+        setProperty(gensym("min"), Atom(prop_min * 0.8));
+        setProperty(gensym("max"), Atom(prop_max * 0.8));
     } else if (modifiers == EMOD_ALT) {
-        setProperty(gensym("min"), AtomList(prop_min * 1.2));
-        setProperty(gensym("max"), AtomList(prop_max * 1.2));
+        setProperty(gensym("min"), Atom(prop_min * 1.2));
+        setProperty(gensym("max"), Atom(prop_max * 1.2));
     }
 }
 
@@ -241,7 +241,7 @@ void UIScope::redrawTick()
     if (t >= prop_refresh) {
         last_redraw_time_ = clock_getlogicaltime();
         scope_layer_.invalidate();
-        redrawInnerArea();
+        redraw();
     }
 }
 

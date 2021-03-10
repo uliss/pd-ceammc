@@ -1,6 +1,7 @@
 #include "canvas_top.h"
 #include "ceammc_canvas.h"
 #include "ceammc_factory.h"
+#include "ceammc_platform.h"
 #include "ceammc_property_callback.h"
 #include "datatype_dict.h"
 
@@ -41,13 +42,36 @@ void CanvasTop::onBang()
     atomTo(0, dict);
 }
 
+void CanvasTop::m_postscript(t_symbol* s, const AtomListView& lv)
+{
+    std::string filename;
+
+    t_symbol* sname = lv.symbolAt(0, &s_);
+    if (sname == &s_) {
+        filename = platform::strip_extension(canvas_info_name(rootCanvas())->s_name);
+        filename += ".ps";
+    } else {
+        filename = sname->s_name;
+    }
+
+    if (filename.empty()) {
+        METHOD_ERR(s) << "empty filename";
+        return;
+    }
+
+    OBJ_DBG << "saving to postscript file: " << filename;
+
+    sys_vgui(".x%lx.c postscript -file {%s}\n", rootCanvas(), filename.c_str());
+}
+
 void setup_canvas_top()
 {
     ObjectFactory<CanvasTop> obj("canvas.top");
+    obj.addMethod("postscript", &CanvasTop::m_postscript);
 
     obj.setDescription("verbose information about top-level canvas");
     obj.addAuthor("Serge Poltavsky");
-    obj.setKeywords({"canvas"});
+    obj.setKeywords({ "canvas" });
     obj.setCategory("patch");
     obj.setSinceVersion(0, 4);
 }

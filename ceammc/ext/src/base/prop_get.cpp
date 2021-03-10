@@ -179,5 +179,5 @@ void setup_prop_get()
                      "click: same as bang");
     obj.useClick();
     obj.noPropsDispatch();
-    obj.noArgsDataParsing();
+    obj.noArgsAndPropsParse();
 }

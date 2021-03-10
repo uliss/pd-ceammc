@@ -15,6 +15,9 @@
                 <see>xfade~</see>
             </also>
             <since>0.6</since>
+            <aliases>
+                <alias>ceammc/xfade2~</alias>
+            </aliases>
         </meta>
         <info>
             <par>control float value in range [0-1) controls xfade between first and second

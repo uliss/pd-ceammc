@@ -20,6 +20,8 @@
 #include <algorithm>
 #include <cmath>
 
+using namespace ceammc::select;
+
 class SelectMatch {
 public:
     using Data = SelectLexer::MatchData;
@@ -37,7 +39,7 @@ FlowSelect::FlowSelect(const PdArgs& args)
 
         addProperty(new AliasProperty<BoolProperty>("@v", keep_value_, true));
 
-        const std::string str = to_string(unparsedPosArgs());
+        const std::string str = to_string(parsedPosArgs());
         SelectLexer l(str);
         SelectParser p(l);
 
@@ -46,13 +48,13 @@ FlowSelect::FlowSelect(const PdArgs& args)
             OBJ_ERR << "parse error: ";
         } else {
             const size_t NM = l.numMatches();
-            OBJ_LOG << "num args: " << unparsedPosArgs().size();
+            OBJ_LOG << "num args: " << parsedPosArgs().size();
             OBJ_LOG << "num matches: " << NM;
 
             reserveOutlets(NM);
             outlet_toolips_.reserve(NM);
 
-            const auto& margs = unparsedPosArgs();
+            const auto& margs = parsedPosArgs();
             const Atom empty(&s_);
 
             for (size_t i = 0; i < NM; i++) {
@@ -355,7 +357,13 @@ void setup_flow_select()
 {
     ObjectFactory<FlowSelect> obj("flow.select");
     obj.addAlias("flow.sel");
-    obj.noArgsDataParsing();
+
+    obj.parseArgs(true);
+    obj.parseProps(true);
+    obj.parsePosProps(false);
+    obj.parseArgsMode(PdArgs::PARSE_COPY);
+    obj.parsePropsMode(PdArgs::PARSE_COPY);
+
     obj.noPropsDispatch();
 
     obj.addInletInfo("input flow");

@@ -30,6 +30,9 @@
                 <xinfo on="symbol">set directory path (symbol or string) and output it content. If
                 not absolute path is given list current patch directory</xinfo>
             </inlet>
+            <inlet>
+                <xinfo on="symbol">set @match property</xinfo>
+            </inlet>
         </inlets>
         <outlets>
             <outlet>list of strings</outlet>
@@ -37,21 +40,13 @@
         <example>
             <pdascii>
 <![CDATA[
-[symbol .( [symbol /(     [B]
+[bang(     [symbol /(     [B]              [S digits=10]
+|          |              |                |.
+|          |              [path.lsdir ~ @match *.aiff]
 |          |              |
-|  [B]     |              [path.lsdir ~ @match *.aiff]
-|  |       |              |
-[path.lsdir ~]            [str.join ' ']
-|                         |
-[str.join ' ']            [str->sym]
-|                         |
-[str->sym]                [msg set]
-|                         |
-|  [ (                    [ (
-|  |
-[msg set]
+[path.lsdir ~]            [ui.dt]
 |
-[ (
+[ui.dt]
 ]]>
             </pdascii>
         </example>

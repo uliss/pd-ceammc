@@ -61,7 +61,7 @@ void ArgIsData::setType(const char* name)
     if (it != types.end()) {
         type_ = it->second;
     } else {
-        LIB_ERR << "unkknown datatype name: " << name_->s_name;
+        LIB_ERR << "unknown datatype name: " << name_->s_name;
     }
 }
 }

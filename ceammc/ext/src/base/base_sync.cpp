@@ -39,11 +39,12 @@ BaseSync::BaseSync(const PdArgs& args)
     }
 
     for (size_t i = 0; i < n_; i++) {
-        createInlet(); createOutlet();
+        createInlet();
+        createOutlet();
     }
 }
 
-void BaseSync::onInlet(size_t idx, const AtomList& lv)
+void BaseSync::onInlet(size_t idx, const AtomListView& lv)
 {
     if (blocked_)
         return;

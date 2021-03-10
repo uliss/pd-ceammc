@@ -1,0 +1,34 @@
+name: Box
+data:
+- name: size
+  type: Size
+  init: Size(10, 10)
+- name: border color
+  type: HexColor
+  init: colors::st_border
+  style: color
+- name: fill color
+  type: HexColor
+  init: colors::st_fill
+  style: color
+- name: xlet control color
+  type: HexColor
+  init: colors::st_xlet_ctl
+  style: color
+- name: xlet signal color
+  type: HexColor
+  init: colors::st_xlet_sig
+  style: color
+- name: selected
+  type: bool
+  init: 'false'
+- name: inlets
+  type: Xlets
+  init: Xlets()
+- name: outlets
+  type: Xlets
+  init: Xlets()
+const:
+- name: select color
+  type: HexColor
+  value: colors::blue

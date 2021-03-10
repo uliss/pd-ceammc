@@ -273,10 +273,9 @@ namespace faust {
     FaustExternalBase::FaustExternalBase(const PdArgs& args)
         : SoundExternal(args)
         , faust_bs_(0)
-        , active_(true)
-        , rate_(44100)
         , xfade_(0)
-        , n_xfade_(static_cast<int>(rate_ * xfadeTime() / 64))
+        , n_xfade_(0)
+        , active_(true)
     {
         createCbBoolProperty(
             "@active",
@@ -452,11 +451,11 @@ namespace faust {
                     return true;
                 }
             } else {
-                LIB_ERR << "[@" << name()->s_name << "] expected +-*/, got: " << lst[0];
+                LIB_ERR << "[" << name()->s_name << "] expected +-*/, got: " << lst[0];
                 return false;
             }
         } else {
-            LIB_ERR << "[@" << name()->s_name << "] float value expected, got: " << lst;
+            LIB_ERR << "[" << name()->s_name << "] float value expected, got: " << lst;
             return false;
         }
     }

@@ -12,6 +12,7 @@
             <category>msg</category>
             <keywords>message loadbang onload</keywords>
             <aliases>
+                <alias>ceammc/loadmsg</alias>
                 <alias>loadmsg</alias>
             </aliases>
             <since>0.7</since>
@@ -25,7 +26,8 @@
             <par>Click on object sends message again.</par>
         </info>
         <arguments>
-            <argument name="ARGS" type="list">message</argument>
+            <argument name="ARGS" type="list">message. Comma separated messages are
+            supported</argument>
         </arguments>
         <inlets />
         <outlets>
@@ -39,7 +41,7 @@
 [loadmsg load message]
 |   |       |
 |   |       |
-[B] [print] [ui.d @display_type 1 @auto_size 0]
+[B] [print] [ui.dt @auto_size 0]
 
 [msg.onload.type]
 ]]>
@@ -73,6 +75,10 @@
 [msg.onload MSG ARG0 @ARG1]
 |
 [ui.d @display_type 1 @auto_size 0]
+
+[msg.onload A \, B \, C]    /*comma separated messages*/
+|
+[print]
 ]]>
             </pdascii>
         </example>

@@ -48,7 +48,7 @@ public:
     MathSyncBase(FloatBinFn fn, const PdArgs& args);
     void onBang() final;
     void onFloat(t_float f) final;
-    void onInlet(size_t n, const AtomList& lst) final;
+    void onInlet(size_t n, const AtomListView& lst) final;
     void onList(const AtomList& lst) final;
 };
 
@@ -61,7 +61,7 @@ public:
     MathSyncBool(BoolBinFn fn, const PdArgs& args);
     void onBang() final;
     void onFloat(t_float f) final;
-    void onInlet(size_t n, const AtomList& lst) final;
+    void onInlet(size_t n, const AtomListView& lst) final;
     void onList(const AtomList& lst) final;
 
 private:

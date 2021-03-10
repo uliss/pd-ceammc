@@ -77,7 +77,7 @@ public:
         onFloat(l[0].asFloat());
     }
 
-    void onInlet(size_t /*n*/, const AtomList& lst) override
+    void onInlet(size_t /*n*/, const AtomListView& lst) override
     {
         proto_set(lst);
     }
@@ -503,6 +503,7 @@ namespace protocol {
             obj->addMethod("store", &T::m_store);
             obj->addMethod("load", &T::m_load);
             obj->addMethod("update", &T::m_update);
+            obj->addMethod("interp", &T::m_interp);
         }
     };
 }

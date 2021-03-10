@@ -80,6 +80,25 @@ t_outlet* BaseObject::outletAt(size_t n)
     return outlets_[n];
 }
 
+void BaseObject::freeOutlets()
+{
+    for (auto x : outlets_)
+        outlet_free(x);
+
+    outlets_.clear();
+}
+
+void BaseObject::clearOutlets()
+{
+    auto cnv = canvas();
+    auto obj = owner();
+
+    if (cnv && obj) {
+        //        for (auto* x : outlets_)
+        //            canvas_deletelinesforio(cnv, obj, 0, x);
+    }
+}
+
 const char* BaseObject::annotateOutlet(size_t n) const
 {
     auto it = outlet_info_map.find(classPointer());
@@ -443,6 +462,36 @@ bool BaseObject::queryProperty(t_symbol* key, AtomList& res) const
     return true;
 }
 
+bool BaseObject::popInlet()
+{
+    if (inlets_.empty())
+        return false;
+
+    auto x = inlets_.back();
+    inlets_.pop_back();
+
+    if (canvas() && owner())
+        canvas_deletelinesforio(canvas(), owner(), x, reinterpret_cast<t_outlet*>(x));
+
+    inlet_free(x);
+    return true;
+}
+
+bool BaseObject::popOutlet()
+{
+    if (outlets_.empty())
+        return false;
+
+    auto x = outlets_.back();
+    outlets_.pop_back();
+
+    if (canvas() && owner())
+        canvas_deletelinesforio(canvas(), owner(), reinterpret_cast<t_inlet*>(x), x);
+
+    outlet_free(x);
+    return true;
+}
+
 void BaseObject::initInletDispatchNames()
 {
     char buf[5];
@@ -456,41 +505,11 @@ void BaseObject::initInletDispatchNames()
     }
 }
 
-void BaseObject::extractPositionalArguments()
-{
-    auto PROP_START = pd_.args.findPos(isProperty);
-    if (PROP_START == 0)
-        return;
-
-    pos_args_unparsed_ = pd_.args.view(0, PROP_START);
-
-    // if not args parsing - just copy raw args
-    if (pd_.noArgsDataParsing) {
-        pos_args_parsed_ = pos_args_unparsed_;
-    } else {
-        auto parse_result = parseDataList(pos_args_unparsed_);
-        if (parse_result) { // parse ok
-            pos_args_parsed_ = parse_result.result();
-        } else {
-            if (!pd_.ignoreDataParseErrors)
-                OBJ_ERR << parse_result.err();
-
-            pos_args_parsed_ = pos_args_unparsed_;
-        }
-    }
-}
-
 t_outlet* BaseObject::createOutlet()
 {
     t_outlet* out = outlet_new(pd_.owner, &s_list);
     outlets_.push_back(out);
     return out;
-}
-
-void BaseObject::freeOutlets()
-{
-    for (auto x : outlets_)
-        outlet_free(x);
 }
 
 t_inlet* BaseObject::createInlet(t_float* v)
@@ -505,15 +524,31 @@ t_inlet* BaseObject::createInlet(t_symbol** s)
     return inlets_.back();
 }
 
+size_t BaseObject::numInlets() const
+{
+    return pd_.owner ? static_cast<size_t>(obj_ninlets(pd_.owner)) : 0;
+}
+
 void BaseObject::freeInlets()
 {
     for (auto x : inlets_)
         inlet_free(x);
+
+    inlets_.clear();
 }
 
-size_t BaseObject::numInlets() const
+void BaseObject::clearInlets()
 {
-    return pd_.owner ? static_cast<size_t>(obj_ninlets(pd_.owner)) : 0;
+    auto cnv = canvas();
+    auto obj = owner();
+
+    if (cnv && obj) {
+        int i = 0;
+        for (auto* x : inlets_) {
+            post("i: %d", i++);
+            //            canvas_deletelinesforio(cnv, obj, x, nullptr);
+        }
+    }
 }
 
 const char* BaseObject::annotateInlet(size_t n) const
@@ -536,7 +571,8 @@ BaseObject::BaseObject(const PdArgs& args)
     , receive_from_(nullptr)
     , cnv_(canvas_getcurrent())
 {
-    extractPositionalArguments();
+    if (pd_.parseArgs)
+        parsePosArgs(pd_.parseArgsMode);
 }
 
 BaseObject::~BaseObject()
@@ -573,112 +609,193 @@ size_t BaseObject::positionalConstantP(size_t pos, size_t def, size_t min, size_
     }
 }
 
+bool BaseObject::parsePosProperty(Property* p)
+{
+    const size_t NARGS = pos_args_parsed_.size();
+
+    const size_t ARG_IDX = p->argIndex();
+    if (p->hasArgIndex() && ARG_IDX < NARGS) {
+        bool ok = false;
+
+        if (p->isList())
+            ok = p->setInit(pos_args_parsed_.view(ARG_IDX));
+        else //  single atom
+            ok = p->setInit(pos_args_parsed_.view(ARG_IDX, 1));
+
+        if (!ok)
+            OBJ_ERR << "can't set property: " << p->name()->s_name;
+
+        return ok;
+    }
+
+    return false;
+}
+
+bool BaseObject::parseProperty(Property* p, const AtomListView& props, PdArgs::ParseMode mode)
+{
+    if (mode == PdArgs::PARSE_NONE)
+        return false;
+
+    const auto name = p->name();
+    const auto NPROPS = props.size();
+
+    for (size_t i = 0; i < NPROPS; i++) {
+        const Atom& a = props[i];
+
+        if (a == name) {
+            size_t nargs = 0; // number of property arguments
+
+            // lookup till next property
+            for (size_t j = i + 1; j < NPROPS; j++, nargs++) {
+                // next property found
+                if (props[j].isProperty())
+                    break;
+            }
+
+            if (nargs > 0) {
+                auto v = props.subView(i + 1, nargs);
+                // optimization: do not parse float, boolean or float list
+                if (v.isFloat() || v.isBool() || v.allOf(isFloat)) {
+                    if (!p->setInit(v)) {
+                        OBJ_ERR << "can't set property: " << name->s_name;
+                        return false;
+                    } else
+                        return true;
+                } else { // have to parse
+                    switch (mode) {
+                    case PdArgs::PARSE_EXPR: {
+                        auto parse_result = parseDataList(v);
+                        if (parse_result) { // parse ok -> init property
+                            if (!p->setInit(parse_result.result().view())) {
+                                OBJ_ERR << "can't set property: " << name->s_name;
+                                return false;
+                            } else
+                                return true;
+                        } else { // parse error
+                            OBJ_ERR << parse_result.err() << v;
+                            return true;
+                        }
+                    } break;
+                    case PdArgs::PARSE_UNQUOTE:
+                        if (!p->setInit(v.parseQuoted().view())) {
+                            OBJ_ERR << "can't set property: " << name->s_name;
+                            return false;
+                        } else
+                            return true;
+                        break;
+                    default:
+
+                        if (!p->setInit(v)) {
+                            OBJ_ERR << "can't set property: " << name->s_name;
+                            return false;
+                        } else
+                            return true;
+
+                        break;
+                    }
+                }
+            } else { // empty args, flags or lists, for example
+                // init property
+                if (!p->setInit({})) {
+                    OBJ_ERR << "can't set property: " << name->s_name;
+                    return false;
+                } else
+                    return true;
+            }
+        } else if (a.isProperty() && !hasProperty(a.asT<t_symbol*>())) {
+            OBJ_ERR << "unknown property in argument list: " << a;
+        }
+    }
+
+    return false;
+}
+
+void BaseObject::parseProps(int flags, PdArgs::ParseMode mode)
+{
+    if (mode == PdArgs::PARSE_NONE)
+        return;
+
+    const auto first_prop = pd_.args.findPos(isProperty);
+    AtomListView prop_args;
+    if (first_prop >= 0)
+        prop_args = pd_.args.view(first_prop);
+
+    for (Property* p : props_) {
+        // skip non-public properties
+        if (p->isReadOnly() || p->isInternal())
+            continue;
+
+        int init_times = 0;
+
+        // process positional args
+        if ((flags & PROP_PARSE_POS) && parsePosProperty(p))
+            init_times++;
+
+        // process normal properties
+        if (prop_args.size() > 0 && (flags & PROP_PARSE) && parseProperty(p, prop_args, mode))
+            init_times++;
+
+        if (init_times > 1) {
+            OBJ_POST << "property '" << p->name()->s_name << "' was set twice: "
+                                                             "from positional and property argumets, using property argument";
+        }
+    }
+}
+
 AtomListView BaseObject::binbufArgs() const
 {
-    if (!owner() || !owner()->te_binbuf)
-        return {};
+    if (!owner() || !owner()->te_binbuf) { // no binbuf: object created not from GUI
+        return pd_.args.view(0); // for test purposes we are returning creation args
+    }
 
-    return AtomListView(binbuf_getvec(owner()->te_binbuf), binbuf_getnatom(owner()->te_binbuf));
+    return AtomListView(binbuf_getvec(owner()->te_binbuf), binbuf_getnatom(owner()->te_binbuf)).subView(1);
 }
 
 void BaseObject::parseProperties()
 {
-    if (pd_.noArgsDataParsing)
+    int flags = 0;
+    if (pd_.parseProps)
+        flags |= PROP_PARSE;
+
+    if (pd_.parsePosProps)
+        flags |= PROP_PARSE_POS;
+
+    if (flags)
+        parseProps(flags, pd_.parsePropsMode);
+}
+
+void BaseObject::parsePosArgs(PdArgs::ParseMode mode)
+{
+    if (mode == PdArgs::PARSE_NONE)
         return;
 
-    const size_t PROP_START = pd_.args.findPos([](const Atom& a) { return a.isProperty(); });
-    const AtomListView props = pd_.args.view(PROP_START);
-    const size_t NPOS_ARGS = pos_args_parsed_.size();
+    auto PROP_START = pd_.args.findPos(isProperty);
+    if (PROP_START == 0) // no positional args
+        return;
 
-    for (Property* p : props_) {
-        if (p->isReadOnly() || p->isInternal())
-            continue;
+    const auto args = pd_.args.view(0, PROP_START);
 
-        bool positional_arg_was_used = false;
-        auto name = p->name();
+    switch (mode) {
+    case PdArgs::PARSE_COPY:
+        pos_args_parsed_ = args;
+        break;
+    case PdArgs::PARSE_UNQUOTE:
+        pos_args_parsed_ = args.parseQuoted();
+        break;
+    case PdArgs::PARSE_EXPR: {
+        auto parse_result = parseDataList(args);
+        if (parse_result) { // parse ok
+            pos_args_parsed_ = parse_result.result();
+        } else {
+            OBJ_ERR << parse_result.err();
 
-        // process positional args
-        const size_t ARG_IDX = p->argIndex();
-        if (p->hasArgIndex() && ARG_IDX < NPOS_ARGS) {
-            bool ok = false;
-
-            if (p->isList())
-                ok = p->setInit(pos_args_parsed_.view(ARG_IDX));
-            else //  single atom
-                ok = p->setInit(pos_args_parsed_.view(ARG_IDX, 1));
-
-            if (!ok)
-                OBJ_ERR << "can't set property: " << name->s_name;
-            else
-                positional_arg_was_used = true;
+            // save as is
+            pos_args_parsed_ = args;
         }
-
-        // only positional properties
-        if (pd_.parsePosPropsOnly)
-            continue;
-
-        const auto NPROPS = props.size();
-
-        // set property from arguments
-        for (size_t i = 0; i < NPROPS; i++) {
-            const Atom& a = props[i];
-            if (a.isProperty() && a.asSymbol() == name) {
-                size_t nargs = 0; // number of property arguments
-
-                // lookup till next property
-                for (size_t j = i + 1; j < NPROPS; j++, nargs++) {
-                    // next property found
-                    if (props[j].isProperty())
-                        break;
-                }
-
-                if (nargs > 0) {
-                    auto v = props.subView(i + 1, nargs);
-                    // optimization: do not parse float, boolean or float list
-                    if (v.isFloat() || v.isBool() || v.allOf(isFloat)) {
-                        if (!p->setInit(v))
-                            OBJ_ERR << "can't set property: " << name->s_name;
-                    } else { // have to parse
-                        auto parse_result = parseDataList(v);
-                        if (parse_result) { // parse ok -> init property
-                            if (!p->setInit(parse_result.result().view()))
-                                OBJ_ERR << "can't set property: " << name->s_name;
-                        } else { // parse error -> try unparsed argument
-                            if (!pd_.ignoreDataParseErrors)
-                                OBJ_ERR << parse_result.err();
-
-                            if (!p->setInit(v))
-                                OBJ_ERR << "can't set property: " << name->s_name;
-                        }
-                    }
-
-                } else { // empty args, flags or lists, for example
-                    // init property
-                    if (!p->setInit({}))
-                        OBJ_ERR << "can't set property: " << name->s_name;
-                }
-
-                // warning if set twice
-                if (positional_arg_was_used) {
-                    OBJ_ERR << "both positional arg [" << int(ARG_IDX) << "] and named property "
-                            << name->s_name << " are defined, using named property value: "
-                            << to_string(p->get());
-                }
-
-                // property done, break inner loop
-                break;
-            }
-        }
-    }
-
-    // check for unknown properties in args
-    if (!pd_.parsePosPropsOnly) {
-        for (const Atom& a : props) {
-            if (a.isProperty() && !hasProperty(a.asSymbol())) {
-                OBJ_ERR << "unknown property in argument list: " << a;
-                continue;
-            }
-        }
+    } break;
+    case PdArgs::PARSE_NONE:
+    default:
+        return;
     }
 }
 
@@ -863,6 +980,27 @@ void BaseObject::dump() const
             p->name()->s_name,
             to_string(p->get()).c_str());
     }
+}
+
+bool BaseObject::isVisible() const
+{
+    return owner()
+        && canvas()
+        && owner()->te_binbuf
+        && glist_isvisible(const_cast<t_glist*>(canvas()))
+        && gobj_shouldvis((t_gobj*)owner(), const_cast<t_glist*>(canvas()));
+}
+
+void BaseObject::show(bool value)
+{
+    if (owner() && canvas())
+        gobj_vis((t_gobj*)owner(), canvas(), value ? 1 : 0);
+}
+
+void BaseObject::fixLines()
+{
+    if (owner() && canvas())
+        canvas_fixlinesfor(canvas(), owner());
 }
 
 void BaseObject::queryPropNames()

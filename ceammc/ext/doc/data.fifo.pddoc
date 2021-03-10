@@ -62,9 +62,7 @@
 |   |  |   | |       | |       |       |        |
 [data.fifo                                     5]
 |                |
-[msg set]        [print]
-|
-[ (
+[ui.dt]          [print]
 ]]>
             </pdascii>
         </example>

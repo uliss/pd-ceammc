@@ -65,7 +65,7 @@ namespace tl {
         void moveToTime(double time_ms);
 
         // Error handling.
-        void error(const yy::location& l, const std::string& m);
+        void error(const TlParser::location_type &l, const std::string& m);
         void error(const std::string& m);
 
         bool trace_scanning;
@@ -73,11 +73,5 @@ namespace tl {
     };
 }
 }
-
-// Tell Flex the lexer's prototype ...
-#define YY_DECL \
-    yy::TlCmdParser::symbol_type yylex(ceammc::tl::TlCmdDriver& driver)
-
-YY_DECL;
 
 #endif // TL_CMD_DRIVER_H

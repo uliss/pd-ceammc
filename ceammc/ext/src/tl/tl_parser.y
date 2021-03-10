@@ -1,43 +1,49 @@
-%skeleton "lalr1.cc" /* -*- C++ -*- */
-%require "3.0.5"
+%skeleton "lalr1.cc"
+%require "3.5"
+%output "tl_parser.cpp"
+
 %defines
-%define parser_class_name {TlCmdParser}
+%define api.token.prefix {TOK_}
+%define api.namespace {ceammc::tl}
+%define api.parser.class {TlParser}
 
 %define api.token.constructor
 %define api.value.type variant
 %define parse.assert
+%define parse.error verbose
+%define parse.trace
 
-%output "tl_parser.cpp"
+%locations
+%define api.location.file "tl.location.hpp"
+%debug
+
+%parse-param { ceammc::tl::TlLexer& lexer }
+%parse-param { ceammc::tl::TlCmdDriver& driver }
 
 %code requires
 {
-#include <string>
-namespace ceammc {
-namespace tl {
-    class TlCmdDriver;
+    # include <string>
+    namespace ceammc {
+        namespace tl {
+            class TlCmdDriver;
+            class TlLexer;
+        }
+    }
 }
-}
+
+%code top {
+    # undef yylex
+    # define yylex lexer.lex
+
+    # include "tl_lexer.h"
 }
 
 // The parsing context.
-%param { ceammc::tl::TlCmdDriver& driver }
-
-%locations
-//%initial-action
-//{
-//  // Initialize the initial location.
-//  @$.begin.filename = @$.end.filename = "";
-//};
-
-%define parse.trace
-%define parse.error verbose
-
 %code
 {
-#include "tl_cmd_driver.h"
+    # include "tl_cmd_driver.h"
 }
 
-%define api.token.prefix {TOK_}
 %token                  END         0	"end of file"
 %token                  SPACE       " "
 %token                  ADD         "add action"
@@ -98,7 +104,7 @@ ms_time:
 
 %%
 
-void yy::TlCmdParser::error(const location_type& l, const std::string& m)
+void ceammc::tl::TlParser::error(const ceammc::tl::TlParser::location_type& l, const std::string& m)
 {
     driver.error(l, m);
 }

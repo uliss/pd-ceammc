@@ -13,6 +13,8 @@
             <keywords>string data</keywords>
             <since>0.3</since>
             <aliases>
+                <alias>ceammc/string</alias>
+                <alias>ceammc/str</alias>
                 <alias>str</alias>
             </aliases>
         </meta>

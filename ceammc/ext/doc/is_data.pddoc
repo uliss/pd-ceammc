@@ -17,6 +17,9 @@
                 <see>is_list</see>
             </also>
             <since>0.6</since>
+            <aliases>
+                <alias>ceammc/is_data</alias>
+            </aliases>
         </meta>
         <properties>
             <property name="@in_list" type="flag" default="0">output '1' is list contains at least

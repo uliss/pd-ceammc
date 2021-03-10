@@ -448,7 +448,7 @@ static HANDLE open_serial(unsigned int com_num, t_comport *x)
     HANDLE          fd;
     COMMTIMEOUTS    timeouts;
     char            buffer[MAX_PATH];
-    float           *baud = &(x->baud);
+    t_float         *baud = &(x->baud);
     DWORD           dw;
     int             i;
     char            *errStr;
@@ -844,7 +844,7 @@ static int open_serial(unsigned int com_num, t_comport *x)
     unsigned int    i;
     struct termios  *old = &(x->oldcom_termio);
     struct termios  *new = &(x->com_termio);
-    float           *baud = &(x->baud);
+    t_float         *baud = &(x->baud);
     glob_t          glob_buffer;
 
     /* if com_num == USE_DEVICENAME, use device name directly, else try port # */

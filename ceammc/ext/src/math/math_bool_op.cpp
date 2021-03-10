@@ -40,7 +40,7 @@ void MathBoolOp::onFloat(t_float f)
     floatTo(0, operate());
 }
 
-void MathBoolOp::onInlet(size_t n, const AtomList& l)
+void MathBoolOp::onInlet(size_t n, const AtomListView& l)
 {
     if (l.empty())
         return;

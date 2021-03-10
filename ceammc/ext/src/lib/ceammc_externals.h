@@ -17,6 +17,7 @@
 #include "ceammc_property_info.h"
 #include "m_pd.h"
 
+#include <boost/optional.hpp>
 #include <vector>
 
 namespace ceammc {
@@ -29,16 +30,31 @@ void register_ui_external(t_class* c);
 bool is_ceammc(t_object* x);
 bool is_ceammc_base(t_object* x);
 bool is_ceammc_ui(t_object* x);
-bool is_ceammc_faust(t_object* x);
 bool is_ceammc_flext(t_object* x);
 bool is_ceammc_abstraction(t_object* x);
 
-const BaseObject* ceammc_to_base_object(t_object* x);
-const UIObject* ceammc_to_ui_object(t_object* x);
+const BaseObject* ceammc_to_base_object(t_object* x, bool check = true);
+const UIObject* ceammc_to_ui_object(t_object* x, bool check = true);
 std::vector<PropertyInfo> ceammc_base_properties(t_object* x);
 std::vector<PropertyInfo> ceammc_ui_properties(t_object* x);
-std::vector<PropertyInfo> ceammc_faust_properties(t_object* x);
 std::vector<PropertyInfo> ceammc_abstraction_properties(t_object* x);
+
+enum class PropertySetState {
+    OK,
+    OTHER_TYPE,
+    ERROR_NOT_FOUND,
+    ERROR_INVALID_TYPE,
+    ERROR_NO_RANGE,
+    ERROR_SET_VALUE,
+    ERROR_ACCESS
+};
+
+PropertySetState ceammc_base_property_set_cc(t_object* x, t_symbol* key, t_float val, bool check = true);
+PropertySetState ceammc_ui_property_set_cc(t_object* x, t_symbol* key, t_float val, bool check = true);
+PropertySetState ceammc_abstraction_property_set_cc(t_object* x, t_symbol* key, t_float val, bool check = true);
+
+PropertySetState ceammc_property_set_cc(t_object* x, t_symbol* key, t_float val);
+const char* ceammc_property_set_cc_str_state(PropertySetState st);
 }
 
 #endif // CEAMMC_EXTERNALS_H

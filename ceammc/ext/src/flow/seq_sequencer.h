@@ -26,7 +26,7 @@ public:
 
     void onBang() override;
     void onFloat(t_float f) override;
-    void onInlet(size_t n, const AtomList& l) override;
+    void onInlet(size_t n, const AtomListView& l) override;
 
     double calcNextTick() const final { return interval_->value(); }
     size_t sequenceSize() const final { return values_->value().size(); }

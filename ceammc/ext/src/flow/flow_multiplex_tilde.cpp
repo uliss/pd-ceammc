@@ -75,7 +75,7 @@ void MultiplexTilde::setupDSP(t_signal** in)
         g.setDurationMs(20, SR);
 }
 
-void MultiplexTilde::onInlet(size_t n, const AtomList& lst)
+void MultiplexTilde::onInlet(size_t n, const AtomListView& lst)
 {
     const int idx = lst.intAt(0, -1);
     const t_float fidx = lst.floatAt(0, -1);

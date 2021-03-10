@@ -48,30 +48,31 @@ public:
     void paintKnob();
 
     void onBang();
-    void onList(const AtomList& lst);
+    void onList(const AtomListView& lv);
     void onMouseDown(t_object* view, const t_pt& pt, const t_pt& abs_pt, long modifiers);
     void onMouseDrag(t_object* view, const t_pt& pt, long modifiers);
     void onMouseUp(t_object* view, const t_pt& pt, long modifiers);
     void onMouseWheel(const t_pt& pt, long modifiers, double delta);
 
-    void m_set(const AtomList& lst);
-    void m_polar(const AtomList& lst);
-    void m_cartesian(const AtomList& lst);
+    void m_set(const AtomListView& lv);
+    void m_polar(const AtomListView& lv);
+    void m_cartesian(const AtomListView& lv);
     void m_rotate(t_float angle);
     void loadPreset(size_t idx);
     void storePreset(size_t idx);
+    void interpPreset(t_float idx);
 
-    bool setRealValue(const AtomList& lst);
+    bool setRealValue(const AtomListView& lv);
     AtomList realValue() const;
     t_float realAngle() const;
     t_float realRadius() const;
 
     void output();
 
-    AtomList propRadius() const;
-    AtomList propAngle() const;
-    void propSetRadius(const AtomList& lst);
-    void propSetAngle(const AtomList& lst);
+    t_float propRadius() const;
+    t_float propAngle() const;
+    void propSetRadius(t_float r);
+    void propSetAngle(t_float a);
 
     const char* annotateInlet(int n) const { return "bang: output\n"
                                                     "list: radius angle"; }

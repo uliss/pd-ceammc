@@ -32,7 +32,7 @@ void SetIntersection::onDataT(const SetAtom& set)
     atomTo(0, SetAtom(DataTypeSet::intersection(*set, set1_)));
 }
 
-void SetIntersection::onInlet(size_t, const AtomList& l)
+void SetIntersection::onInlet(size_t, const AtomListView& l)
 {
     if (l.isA<DataTypeSet>()) {
         set1_ = *l.asD<DataTypeSet>();

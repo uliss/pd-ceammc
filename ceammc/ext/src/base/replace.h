@@ -25,7 +25,7 @@ class Replace : public BaseObject {
 public:
     Replace(const PdArgs& a);
 
-    void onInlet(size_t n, const AtomList& l) final;
+    void onInlet(size_t n, const AtomListView& l) final;
     void onAny(t_symbol* sel, const AtomListView& l) final;
     void onList(const AtomList& l) final;
     void onFloat(t_float v) final;

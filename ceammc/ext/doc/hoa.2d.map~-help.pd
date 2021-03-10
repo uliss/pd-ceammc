@@ -6,102 +6,113 @@
 -4096 0;
 #X obj 576 11 hoa.map~;
 #X obj 660 11 hoa.2d.map~;
-#X obj 210 80 cnv 1 555 50 empty empty empty 17 7 0 10 -257983 -1 0;
+#X obj 210 80 cnv 1 555 75 empty empty empty 17 7 0 10 -257983 -1 0;
 #X text 215 80 Encodes several sources in the circular harmonics domain
 with distance compensation and muting system;
-#X obj 50 158 msg.onload;
-#X text 251 158 use Alt+drag to fix radius value;
-#X obj 50 187 ui.polar @clockwise 0 @direction E @radians 1 @angle 0
+#X text 215 120 If nsrc==1 radius and angle controlled with signal
+values;
+#X text 50 183 single source: signal controlled;
+#X obj 50 212 sig~ 1;
+#X floatatom 146 212 5 0 0 0 - - -;
+#X obj 242 212 phasor~ 0.2;
+#X obj 146 241 sig~ 1;
+#X obj 242 241 phase->rad~;
+#X obj 50 270 hoa.map~ 5 1, f 23;
+#X obj 50 299 hoa.scope~ 5 @gain 4 @size 164 164;
+#X text 50 471 multiple sources: control via properties;
+#X obj 50 500 msg.onload;
+#X text 251 500 use Alt+drag to fix radius value;
+#X obj 50 529 ui.polar @clockwise 0 @direction E @radians 1 @angle 0
 @radius 0.5;
-#X obj 232 187 ui.polar @clockwise 0 @direction E @radians 1 @angle
+#X obj 232 529 ui.polar @clockwise 0 @direction E @radians 1 @angle
 -3.1415 @radius 0.5;
-#X obj 405 245 ui.hrd @nitems 2 @mode 1 @size 41 20;
-#X msg 405 274 0 \$1 \, 1 \$2;
-#X obj 50 302 msg polar 0;
-#X obj 232 302 msg polar 1;
-#X obj 405 302 msg mute;
-#X obj 59 331 sig~ 1;
-#X obj 213 331 sig~ -1;
-#X obj 50 360 hoa.2d.map~ 7 2, f 23;
-#X obj 50 389 hoa.scope~ 7 @gain 4 @size 164 164;
-#X obj 50 576 ui.dsp~;
-#X obj 20 625 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 630 cnv 5 90 26 empty empty arguments: 4 10 0 14 -262144
+#X obj 405 586 ui.hrd @nitems 2 @mode 1 @size 41 20;
+#X msg 405 615 0 \$1 \, 1 \$2;
+#X obj 50 644 msg polar 0;
+#X obj 232 644 msg polar 1;
+#X obj 405 644 msg mute;
+#X obj 59 673 sig~ 1;
+#X obj 213 673 sig~ -1;
+#X obj 50 702 hoa.2d.map~ 7 2, f 23;
+#X obj 50 731 hoa.scope~ 7 @gain 4 @size 164 164;
+#X obj 50 918 ui.dsp~;
+#X obj 20 967 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 972 cnv 5 90 26 empty empty arguments: 4 10 0 14 -262144
 -49933 0;
-#X text 110 665 1\.;
-#X text 150 665 int;
-#X obj 246 666 cnv 1 47 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 665 ORDER: the order of decomposition. Range: 1\...63;
-#X text 110 685 2\.;
-#X text 150 685 int;
-#X obj 246 686 cnv 1 40 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 685 NSRC: number of sources. Min value: 1;
-#X text 110 705 3\.;
-#X text 150 705 symbol;
-#X obj 246 706 cnv 1 40 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 705 MODE: decoding mode.;
-#X obj 20 735 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 740 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
+#X text 110 1007 1\.;
+#X text 150 1007 int;
+#X obj 246 1008 cnv 1 47 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 245 1007 ORDER: the order of decomposition. Range: 1\...63;
+#X text 110 1027 2\.;
+#X text 150 1027 int;
+#X obj 246 1028 cnv 1 40 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 245 1027 NSRC: number of sources. Min value: 1;
+#X text 110 1047 3\.;
+#X text 150 1047 symbol;
+#X obj 246 1048 cnv 1 40 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 245 1047 MODE: decoding mode.;
+#X obj 20 1077 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1082 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
 -49933 0;
-#X msg 110 775 @nsrc;
-#X text 245 775 (readonly) Get number of input sources. Type: int.
+#X msg 110 1117 @nsrc;
+#X text 245 1117 (readonly) Get number of input sources. Type: int.
 Default value: 1\. Range: 1\...63\.;
-#X msg 110 817 @order;
-#X text 245 817 (readonly) Get the order of decomposition. Type: int.
+#X msg 110 1159 @order;
+#X text 245 1159 (readonly) Get the order of decomposition. Type: int.
 Default value: 1\. Range: 1\...63\.;
-#X msg 110 859 @ramp;
-#X text 245 859 Get/Set ramp time. Type: int. Default value: 100\.
+#X msg 110 1201 @ramp;
+#X text 245 1201 Get/Set ramp time. Type: int. Default value: 100\.
 Min value: 0\.;
-#X obj 20 911 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 916 cnv 5 73 26 empty empty methods: 4 10 0 14 -262144
+#X obj 20 1253 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1258 cnv 5 73 26 empty empty methods: 4 10 0 14 -262144
 -49933 0;
-#X msg 110 951 mute;
-#X text 245 951 mute/unmute specified source. Arguments are:;
-#X obj 255 974 cnv 1 29 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 974 IDX: source index. Type: int. Min value: 0\.;
-#X obj 255 997 cnv 1 44 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 997 STATE: mute value. Type: int. Allowed values: 0 \,
+#X msg 110 1293 mute;
+#X text 245 1293 mute/unmute specified source. Arguments are:;
+#X obj 255 1316 cnv 1 29 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1316 IDX: source index. Type: int. Min value: 0\.;
+#X obj 255 1339 cnv 1 44 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1339 STATE: mute value. Type: int. Allowed values: 0 \,
 1\.;
-#X msg 110 1022 polar;
-#X text 245 1022 set source mapping in polar coordinates. Arguments
+#X msg 110 1364 polar;
+#X text 245 1364 set source mapping in polar coordinates. Arguments
 are:;
-#X obj 255 1045 cnv 1 29 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1045 IDX: source index. Type: int. Min value: 0\.;
-#X obj 255 1068 cnv 1 29 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1068 RAD: radius. Type: float. Range: 0\...1\.;
-#X obj 255 1091 cnv 1 29 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1091 RAD: rotation angle. Type: float. Range: 0\...2π.;
-#X obj 20 1126 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1131 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144
+#X obj 255 1387 cnv 1 29 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1387 IDX: source index. Type: int. Min value: 0\.;
+#X obj 255 1410 cnv 1 29 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1410 RAD: radius. Type: float. Range: 0\...1\.;
+#X obj 255 1433 cnv 1 29 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1433 RAD: rotation angle. Type: float. Range: 0\...2π.;
+#X obj 20 1468 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1473 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 1132 1\.;
-#X text 245 1132 first source input.;
-#X text 110 1152 ....;
-#X text 245 1152 ... source input.;
-#X text 110 1172 n.;
-#X text 245 1172 n-th source input.;
-#X obj 20 1202 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1207 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
+#X text 110 1474 1\.;
+#X text 245 1474 first source input.;
+#X text 110 1494 ....;
+#X text 245 1494 ... source input.;
+#X text 110 1514 n.;
+#X text 245 1514 n-th source input.;
+#X obj 20 1544 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1549 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 1208 1\.;
-#X text 245 1208 first harmonic output.;
-#X text 110 1228 ....;
-#X text 245 1228 ... harmonic output.;
-#X text 110 1248 n.;
-#X text 245 1248 n-th harmonic output.;
+#X text 110 1550 1\.;
+#X text 245 1550 first harmonic output.;
+#X text 110 1570 ....;
+#X text 245 1570 ... harmonic output.;
+#X text 110 1590 n.;
+#X text 245 1590 n-th harmonic output.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 115 45 ::;
 #X obj 131 48 ui.link @title spat @url ceammc.spat-help.pd;
-#X obj 1 1298 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 1301 library: ceammc v0.9.1;
-#N canvas 10 1320 400 290 info 0;
+#X obj 1 1640 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1643 library: ceammc v0.9.2;
+#N canvas 10 1662 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
 #X text 10 32 version:;
-#X text 120 32 0.9.1;
+#X text 120 32 0.9.2;
 #X text 10 54 object:;
 #X text 120 54 hoa.2d.map~;
 #X text 10 76 category:;
@@ -121,30 +132,46 @@ https://github.com/uliss/pure-data;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 generated by pddoc;
-#X restore 10 1320 pd info;
-#X connect 7 0 9 0;
-#X connect 7 0 10 0;
-#X connect 11 0 12 0;
-#X connect 9 0 13 0;
-#X connect 10 0 14 0;
-#X connect 12 0 15 0;
-#X connect 16 0 18 0;
-#X connect 17 0 18 1;
-#X connect 18 0 19 0;
-#X connect 18 1 19 1;
-#X connect 18 2 19 2;
-#X connect 18 3 19 3;
-#X connect 18 4 19 4;
-#X connect 18 5 19 5;
-#X connect 18 6 19 6;
-#X connect 18 7 19 7;
-#X connect 18 8 19 8;
-#X connect 18 9 19 9;
-#X connect 18 10 19 10;
-#X connect 18 11 19 11;
-#X connect 18 12 19 12;
-#X connect 18 13 19 13;
-#X connect 18 14 19 14;
-#X connect 13 0 18 0;
-#X connect 14 0 18 0;
-#X connect 15 0 18 0;
+#X restore 10 1662 pd info;
+#X connect 10 0 12 0;
+#X connect 11 0 13 0;
+#X connect 9 0 14 0;
+#X connect 12 0 14 1;
+#X connect 13 0 14 2;
+#X connect 14 0 15 0;
+#X connect 14 1 15 1;
+#X connect 14 2 15 2;
+#X connect 14 3 15 3;
+#X connect 14 4 15 4;
+#X connect 14 5 15 5;
+#X connect 14 6 15 6;
+#X connect 14 7 15 7;
+#X connect 14 8 15 8;
+#X connect 14 9 15 9;
+#X connect 14 10 15 10;
+#X connect 17 0 19 0;
+#X connect 17 0 20 0;
+#X connect 21 0 22 0;
+#X connect 19 0 23 0;
+#X connect 20 0 24 0;
+#X connect 22 0 25 0;
+#X connect 26 0 28 0;
+#X connect 27 0 28 1;
+#X connect 28 0 29 0;
+#X connect 28 1 29 1;
+#X connect 28 2 29 2;
+#X connect 28 3 29 3;
+#X connect 28 4 29 4;
+#X connect 28 5 29 5;
+#X connect 28 6 29 6;
+#X connect 28 7 29 7;
+#X connect 28 8 29 8;
+#X connect 28 9 29 9;
+#X connect 28 10 29 10;
+#X connect 28 11 29 11;
+#X connect 28 12 29 12;
+#X connect 28 13 29 13;
+#X connect 28 14 29 14;
+#X connect 23 0 28 0;
+#X connect 24 0 28 0;
+#X connect 25 0 28 0;

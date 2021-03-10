@@ -41,7 +41,7 @@ void ArrayEach::onSymbol(t_symbol* s)
     finish();
 }
 
-void ArrayEach::onInlet(size_t n, const AtomList& l)
+void ArrayEach::onInlet(size_t n, const AtomListView& l)
 {
     if (n != 1 || l.empty())
         return;

@@ -2,6 +2,7 @@
 
 #include "ui_arrayview.h"
 #include "ui_bang.h"
+#include "ui_button.h"
 #include "ui_colorpanel.h"
 #include "ui_display.h"
 #include "ui_dsp.h"
@@ -17,6 +18,7 @@
 #include "ui_matrix.h"
 #include "ui_menu.h"
 #include "ui_meter.h"
+#include "ui_midi.h"
 #include "ui_mouse_filter.h"
 #include "ui_mouse_route.h"
 #include "ui_number.h"
@@ -34,14 +36,20 @@
 #include "ui_tab.h"
 #include "ui_toggle.h"
 
+void setup_ui_filter();
+void setup_ui_filter_tilde();
+
 void ceammc_ui_setup()
 {
     setup_ui_arrayview();
     setup_ui_bang();
+    setup_ui_button();
     setup_ui_colorpanel();
     setup_ui_display();
     setup_ui_dsp();
     setup_ui_env();
+    setup_ui_filter();
+    setup_ui_filter_tilde();
     setup_ui_gain();
     setup_ui_gain2();
     setup_ui_icon();
@@ -53,6 +61,7 @@ void ceammc_ui_setup()
     setup_ui_matrix();
     setup_ui_menu();
     setup_ui_meter();
+    setup_ui_midi();
     setup_ui_mouse_filter();
     setup_ui_mouse_route();
     setup_ui_number();

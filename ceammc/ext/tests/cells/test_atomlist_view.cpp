@@ -370,4 +370,16 @@ TEST_CASE("AtomListView", "core")
         REQUIRE(v.intGreaterEqualAt(4, 0, 1024) == 1024);
         REQUIRE(v.intGreaterEqualAt(5, 0, 1024) == 1024);
     }
+
+    SECTION("back")
+    {
+        REQUIRE(LF(1, 2, 3, 4, 5).view().back() == 5);
+        REQUIRE(LF(1, 2, 3, 4, 5).view().front() == 1);
+        REQUIRE(LF(1, 2, 3, 4, 5).view().at(0) == 1);
+        REQUIRE(LF(1, 2, 3, 4, 5).view().at(1) == 2);
+        REQUIRE(LF(1, 2, 3, 4, 5).view().at(2) == 3);
+        REQUIRE(LF(1, 2, 3, 4, 5).view().at(3) == 4);
+        REQUIRE(LF(1, 2, 3, 4, 5).view().at(4) == 5);
+        REQUIRE(LF(1, 2, 3, 4, 5).view()[0] == 1);
+    }
 }

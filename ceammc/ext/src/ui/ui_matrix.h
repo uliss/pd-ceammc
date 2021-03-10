@@ -4,14 +4,18 @@
 #include "ceammc_ui_object.h"
 
 #include <bitset>
+#include <cstdint>
+#include <limits>
 #include <memory>
 #include <vector>
 
 using namespace ceammc;
 
-static const size_t UI_MAX_MATRIX_SIZE = 64;
-static const size_t UI_BITSET_SIZE = UI_MAX_MATRIX_SIZE * UI_MAX_MATRIX_SIZE;
-typedef std::bitset<UI_BITSET_SIZE> BitMatrix;
+constexpr size_t UI_MAX_MATRIX_SIZE = std::numeric_limits<uint64_t>::digits;
+constexpr size_t UI_BITSET_SIZE = UI_MAX_MATRIX_SIZE * UI_MAX_MATRIX_SIZE;
+
+using BitMatrix = std::bitset<UI_BITSET_SIZE>;
+using BitMatrixRow = std::bitset<UI_MAX_MATRIX_SIZE>;
 
 class UIMatrix : public UIObject {
     BitMatrix matrix_;
@@ -33,39 +37,37 @@ class UIMatrix : public UIObject {
 public:
     UIMatrix();
 
-    void init(t_symbol* name, const AtomList& args, bool usePresets);
+    void init(t_symbol* name, const AtomListView& args, bool usePresets);
 
     bool cell(size_t row, size_t column) const;
     void setCell(const AtomList& lst);
-    AtomList column(size_t column) const;
-    void setColumn(size_t column, const AtomList& lst);
-    void setColumn(const AtomList& lst);
-    AtomList row(size_t idx) const;
-    void setRow(size_t row, const AtomList& lst);
-    void setRow(const AtomList& lst);
-    void setList(const AtomList& lst);
+    void setColumn(size_t column, const AtomListView& lv);
+    void setColumn(const AtomListView& lv);
+    void setRow(size_t row, const AtomListView& lv);
+    void setRow(const AtomListView& lv);
+    void setList(const AtomListView& lv);
     void flipCell(size_t row, size_t column);
     void flipColumn(size_t col);
     void flipRow(size_t col);
     void flipAll();
-    AtomList asList() const;
 
-    void okSize(t_rect* newrect);
+    void okSize(::t_rect* newrect);
     void paint();
     void create();
     void erase();
     void outputCell(size_t row, size_t column);
-    void outputCell(const AtomList& args);
+    void outputCell(const AtomListView& args);
     void outputCol(size_t column);
-    void outputCol(const AtomList& args);
-    void outputRow(size_t idx);
-    void outputRow(const AtomList& args);
+    void outputCol(const AtomListView& args);
+    void outputRow(size_t row);
+    void outputRow(const AtomListView& args);
     void outputAllCols();
     void outputAllRows();
     void outputAllCells();
+    void outputAllList();
 
     void onBang();
-    void onList(const AtomList& lst);
+    void onList(const AtomListView& lst);
     void onMouseDown(t_object* view, const t_pt& pt, const t_pt& abs_pt, long modifiers);
     void onMouseDrag(t_object* view, const t_pt& pt, long modifiers);
     void onMouseLeave(t_object*, const t_pt&, long);
@@ -77,17 +79,23 @@ public:
     void p_setRows(t_float n);
     void p_setCols(t_float n);
 
-    void m_flip(const AtomList& lst);
+    void m_flip(const AtomListView& lv);
     void m_reset();
     void m_random();
-    void m_get(const AtomList& lst);
-    void m_set(const AtomList& lst);
+    void m_get(const AtomListView& lv);
+    void m_set(const AtomListView& lv);
 
     void loadPreset(size_t idx);
     void storePreset(size_t idx);
 
     void onPropChange(t_symbol* prop_name);
     void onZoom(t_float z);
+
+    // for tests
+    AtomList column(size_t column) const;
+    BitMatrixRow row(size_t idx) const;
+    const BitMatrix& matrix() const { return matrix_; }
+    std::string matrixStr() const;
 
 public:
     static void setup();

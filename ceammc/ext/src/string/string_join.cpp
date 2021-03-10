@@ -51,7 +51,7 @@ void StringJoin::onList(const AtomList& l)
     onBang();
 }
 
-void StringJoin::onInlet(size_t n, const AtomList& l)
+void StringJoin::onInlet(size_t n, const AtomListView& l)
 {
     property("@sep")->set(l);
 }

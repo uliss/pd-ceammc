@@ -55,7 +55,7 @@ void ListApplyTo::onList(const AtomList& lst)
     listTo(0, mapped_);
 }
 
-void ListApplyTo::onInlet(size_t n, const AtomList& lst)
+void ListApplyTo::onInlet(size_t n, const AtomListView& lst)
 {
     switch (n) {
     case 1:

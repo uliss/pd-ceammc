@@ -16,7 +16,7 @@ Replace::Replace(const PdArgs& a)
         ->setArgIndex(1);
 }
 
-void Replace::onInlet(size_t n, const AtomList& l)
+void Replace::onInlet(size_t n, const AtomListView& l)
 {
     if (n == 1)
         from_ = l.empty() ? Atom() : l[0];

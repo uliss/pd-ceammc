@@ -66,7 +66,7 @@ void DemultiplexTilde::setupDSP(t_signal** in)
     }
 }
 
-void DemultiplexTilde::onInlet(size_t /*n*/, const AtomList& lst)
+void DemultiplexTilde::onInlet(size_t /*n*/, const AtomListView& lst)
 {
     const int idx = lst.intAt(0, -1);
     const t_float fidx = lst.floatAt(0, -1);

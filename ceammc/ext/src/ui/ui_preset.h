@@ -36,7 +36,7 @@ private:
 public:
     UIPreset();
 
-    void init(t_symbol* name, const AtomList& args, bool usePresets);
+    void init(t_symbol* name, const AtomListView& args, bool usePresets);
     void okSize(t_rect* newrect);
     void paint();
 
@@ -46,14 +46,15 @@ public:
 
     int buttonIndexAt(float x, float y) const;
 
-    void m_read(const AtomList& lst);
-    void m_write(const AtomList& lst);
-    void m_load(const AtomList& lst);
-    void m_store(const AtomList& lst);
-    void m_clear(const AtomList& lst);
-    void m_clearall(const AtomList& lst);
-    void m_duplicate(const AtomList& lst);
-    AtomList propCurrent() const;
+    void m_read(const AtomListView& lst);
+    void m_write(const AtomListView& lst);
+    void m_load(const AtomListView& lst);
+    void m_store(const AtomListView& lst);
+    void m_clear(const AtomListView& lst);
+    void m_clearall(const AtomListView& lst);
+    void m_duplicate(const AtomListView& lst);
+    void m_interp(const AtomListView& lst);
+    t_int propCurrent() const;
 
     bool hasPresetAt(size_t n) const { return presets_.test(n); }
 
@@ -61,12 +62,13 @@ public:
     static void setup();
 
 private:
-    void indexAdd(const AtomList& lst);
-    void indexRemove(const AtomList& lst);
+    void indexAdd(const AtomListView& lst);
+    void indexRemove(const AtomListView& lst);
     void updateIndexes();
     void loadIndex(int idx);
     void storeIndex(int idx);
     void clearIndex(int idx);
+    void interpIndex(t_float idx);
 };
 
 void setup_ui_preset();

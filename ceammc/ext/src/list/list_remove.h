@@ -26,7 +26,7 @@ class ListRemove : public BaseObject {
 public:
     ListRemove(const PdArgs& args);
 
-    void onInlet(size_t, const AtomList&) final;
+    void onInlet(size_t, const AtomListView&) final;
     void onList(const AtomList& lst) final;
 
     void onDataT(const MListAtom& ml);

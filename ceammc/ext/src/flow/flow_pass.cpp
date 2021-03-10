@@ -52,15 +52,15 @@ void FlowPass::onList(const AtomList& l)
         listTo(0, l);
 }
 
-void FlowPass::onAny(t_symbol* s, const AtomListView& lst)
+void FlowPass::onAny(t_symbol* s, const AtomListView& lv)
 {
     if (pass_list_->value().contains(s))
-        anyTo(0, s, lst);
+        anyTo(0, s, lv);
 }
 
-void FlowPass::onInlet(size_t, const AtomList& l)
+void FlowPass::onInlet(size_t, const AtomListView& lv)
 {
-    pass_list_->set(l);
+    pass_list_->set(lv);
 }
 
 void setup_flow_pass()

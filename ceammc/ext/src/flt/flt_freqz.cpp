@@ -13,23 +13,22 @@
  *****************************************************************************/
 #include "flt_freqz.h"
 #include "ceammc_factory.h"
+#include "ceammc_filter.h"
 
 #include <cmath>
-#include <complex>
 
-static const t_float m_2pi = 2 * std::acos(t_float(-1));
-
-FltFreqZTilde::FltFreqZTilde(const PdArgs& args)
-    : SoundExternal(args)
+FltFreqZ::FltFreqZ(const PdArgs& args)
+    : BaseObject(args)
     , ca_(nullptr)
     , cb_(nullptr)
-    , use_sr_(nullptr)
+    , n_(nullptr)
     , db_scale_(nullptr)
     , kb_ { 1 }
     , ka_ { 1 }
 {
-    createSignalOutlet();
-    createSignalOutlet();
+    createOutlet();
+    createOutlet();
+    createOutlet();
 
     cb_ = new ListProperty("@b", { 1 });
     cb_->setListCheckFn([](const AtomList& l) -> bool { return l.size() > 0 && l.allOf(isFloat); }, "invalid list");
@@ -57,30 +56,64 @@ FltFreqZTilde::FltFreqZTilde(const PdArgs& args)
 
     addProperty(ca_);
 
-    use_sr_ = new BoolProperty("@sr", false);
-    addProperty(use_sr_);
+    n_ = new IntProperty("@n", 256);
+    n_->checkClosedRange(4, 1024);
+    n_->setArgIndex(0);
+    addProperty(n_);
 
     db_scale_ = new BoolProperty("@db", false);
     addProperty(db_scale_);
 }
 
-void FltFreqZTilde::processBlock(const t_sample** in, t_sample** out)
+void FltFreqZ::onBang()
 {
-    const size_t BS = blockSize();
-    const t_float norm = use_sr_->value() ? (m_2pi / (t_sample)samplerate()) : 1;
-    bool db = db_scale_->value();
+    const size_t N = n_->value();
+    const bool db = db_scale_->value();
 
-    for (size_t i = 0; i < BS; i++) {
-        t_sample w = norm * in[0][i];
-        auto Hw = Bjw(w) / Ajw(w);
-        out[0][i] = db ? 20 * std::log(std::abs(Hw)) : std::abs(Hw);
-        out[1][i] = std::arg(Hw);
+    Atom amp[N];
+    Atom phase[N];
+    floatTo(2, N);
+
+    for (size_t i = 0; i < N; i++) {
+        t_float w = flt::freq2ang<t_float>(i, 2 * N);
+        const auto Hw = flt::freqz(w, kb_.begin(), kb_.end(), ka_.begin(), ka_.end());
+
+        amp[i] = db ? 20 * std::log(std::abs(Hw)) : std::abs(Hw);
+        phase[i] = std::arg(Hw);
     }
+
+    listTo(1, AtomListView(phase, N));
+    listTo(0, AtomListView(amp, N));
+}
+
+void FltFreqZ::dump() const
+{
+    BaseObject::dump();
+
+    Post p(this);
+
+    for (size_t i = 0; i < kb_.size(); i++)
+        p << 'b' << i << '=' << kb_[i] << ' ';
+
+    for (size_t i = 0; i < ka_.size(); i++)
+        p << 'a' << i << '=' << ka_[i] << ' ';
+}
+
+void FltFreqZ::m_biquad(t_symbol* s, const AtomListView& lv)
+{
+    if (lv.size() != 5) {
+        METHOD_ERR(s) << "b0 b1 b2 a1 a2 coeffs expected, got: " << lv;
+        return;
+    }
+
+    cb_->set(lv.subView(0, 3));
+    ca_->set(lv.subView(3, 2));
 }
 
 void setup_flt_freqz()
 {
-    SoundExternalFactory<FltFreqZTilde> obj("flt.freqz~");
+    ObjectFactory<FltFreqZ> obj("flt.freqz");
+    obj.addMethod("biquad", &FltFreqZ::m_biquad);
 
     obj.setDescription("compute the frequency response of a digital filter");
     obj.addAuthor("Serge Poltavsky");
@@ -88,6 +121,9 @@ void setup_flt_freqz()
     obj.setCategory("flt");
     obj.setSinceVersion(0, 9);
 
-    FltFreqZTilde::setInletsInfo(obj.classPointer(), { "input freq in \\[0..π\\] or \\[0..sr/2\\] range" });
-    FltFreqZTilde::setOutletsInfo(obj.classPointer(), { "amplitude response", "phase response" });
+    obj.setXletsInfo({ "bang: start calculation" }, {
+                                                        "float: freq response value",
+                                                        "float: phase response value",
+                                                        "int: plot size",
+                                                    });
 }

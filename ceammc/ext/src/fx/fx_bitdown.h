@@ -3,8 +3,8 @@ author: "Viacheslav Lotsmanov (unclechu)"
 copyright: "(c) Viacheslav Lotsmanov, 2015"
 license: "BSD"
 name: "fx.bitdown"
-Code generated with Faust 2.28.6 (https://faust.grame.fr)
-Compilation options: -lang cpp -scal -ftz 0
+Code generated with Faust 2.30.12 (https://faust.grame.fr)
+Compilation options: -lang cpp -es 1 -scal -ftz 0
 ------------------------------------------------------------ */
 
 #ifndef  __fx_bitdown_H__
@@ -92,7 +92,7 @@ class fx_bitdown_dsp {
          */
         virtual void buildUserInterface(UI* ui_interface) = 0;
     
-        /* Returns the sample rate currently used by the instance */
+        /* Return the sample rate currently used by the instance */
         virtual int getSampleRate() = 0;
     
         /**
@@ -100,28 +100,28 @@ class fx_bitdown_dsp {
          * - static class 'classInit': static tables initialization
          * - 'instanceInit': constants and instance state initialization
          *
-         * @param sample_rate - the sampling rate in Hertz
+         * @param sample_rate - the sampling rate in Hz
          */
         virtual void init(int sample_rate) = 0;
 
         /**
          * Init instance state
          *
-         * @param sample_rate - the sampling rate in Hertz
+         * @param sample_rate - the sampling rate in Hz
          */
         virtual void instanceInit(int sample_rate) = 0;
-
+    
         /**
          * Init instance constant state
          *
-         * @param sample_rate - the sampling rate in Hertz
+         * @param sample_rate - the sampling rate in Hz
          */
         virtual void instanceConstants(int sample_rate) = 0;
     
         /* Init default control parameters values */
         virtual void instanceResetUserInterface() = 0;
     
-        /* Init instance state (delay lines...) */
+        /* Init instance state (like delay lines...) but keep the control parameter values */
         virtual void instanceClear() = 0;
  
         /**
@@ -194,7 +194,8 @@ class decorator_dsp : public fx_bitdown_dsp {
 };
 
 /**
- * DSP factory class.
+ * DSP factory class, used with LLVM and Interpreter backends
+ * to create DSP instances from a compiled DSP program.
  */
 
 class dsp_factory {
@@ -348,11 +349,13 @@ struct UI : public UIReal<FAUSTFLOAT>
 #ifndef __meta__
 #define __meta__
 
+/**
+ The base class of Meta handler to be used in fx_bitdown_dsp::metadata(Meta* m) method to retrieve (key, value) metadata.
+ */
 struct Meta
 {
     virtual ~Meta() {};
     virtual void declare(const char* key, const char* value) = 0;
-    
 };
 
 #endif
@@ -498,6 +501,7 @@ struct fx_bitdown : public fx_bitdown_dsp {
 
 #include <algorithm>
 #include <cmath>
+#include <cstdint>
 
 
 #ifndef FAUSTCLASS 
@@ -529,6 +533,7 @@ class fx_bitdown : public fx_bitdown_dsp {
 		m->declare("category", "Distortion");
 		m->declare("ceammc_ui.lib/name", "CEAMMC faust default UI elements");
 		m->declare("ceammc_ui.lib/version", "0.1.2");
+		m->declare("compile_options", "-lang cpp -es 1 -scal -ftz 0");
 		m->declare("copyright", "(c) Viacheslav Lotsmanov, 2015");
 		m->declare("filename", "fx_bitdown.dsp");
 		m->declare("license", "BSD");
@@ -584,11 +589,9 @@ class fx_bitdown : public fx_bitdown_dsp {
 	}
 	
 	virtual void instanceClear() {
-		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l0 = 0; (l0 < 2); l0 = (l0 + 1)) {
 			iRec1[l0] = 0;
 		}
-		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l1 = 0; (l1 < 2); l1 = (l1 + 1)) {
 			fRec0[l1] = 0.0f;
 		}
@@ -631,7 +634,6 @@ class fx_bitdown : public fx_bitdown_dsp {
 		float fSlow3 = float(int(std::pow(2.0f, (float(fVslider1) + -1.0f))));
 		float fSlow4 = (1.0f / fSlow3);
 		int iSlow5 = (iSlow1 + -1);
-		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int i = 0; (i < count); i = (i + 1)) {
 			float fTemp0 = float(input0[i]);
 			float fTemp1 = (fSlow4 * std::floor((fSlow3 * (iSlow0 ? 0.0f : fTemp0))));

@@ -14,6 +14,8 @@ enum class SelectType {
     LINE
 };
 
+namespace ui {
+
 struct Node {
     float x, y;
     float curve;
@@ -39,11 +41,13 @@ struct Node {
     static Node fromEnvelope(const EnvelopePoint& pt, size_t total_us, float w, float h, bool fixed_x);
 };
 
-typedef std::vector<Node> NodeList;
+using NodeList = std::vector<Node>;
+
+}
 
 class UIEnv : public UIObject {
     DataTypeEnv env_;
-    NodeList nodes_;
+    ui::NodeList nodes_;
     t_pt cursor_pos_;
     bool draw_cursor_pos_;
     bool draw_cursor_cross_;
@@ -81,14 +85,14 @@ public:
     int findNearestNode(float x, float y) const;
     bool selectNode(size_t idx);
 
-    void m_adsr(const AtomList& lst);
-    void m_asr(const AtomList& lst);
-    void m_ar(const AtomList& lst);
-    void m_eadsr(const AtomList& lst);
-    void m_easr(const AtomList& lst);
-    void m_ear(const AtomList& lst);
+    void m_adsr(const AtomListView& lv);
+    void m_asr(const AtomListView& lv);
+    void m_ar(const AtomListView& lv);
+    void m_eadsr(const AtomListView& lv);
+    void m_easr(const AtomListView& lv);
+    void m_ear(const AtomListView& lv);
 
-    void setNamedEnvelope(t_symbol* env, const AtomList& args);
+    void setNamedEnvelope(t_symbol* env, const AtomListView& lv);
 
     void loadPreset(size_t idx);
     void storePreset(size_t idx);

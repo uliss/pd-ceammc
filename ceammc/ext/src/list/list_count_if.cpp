@@ -28,7 +28,7 @@ void ListCountIf::onList(const AtomList& lst)
     onBang();
 }
 
-void ListCountIf::onInlet(size_t n, const AtomList& l)
+void ListCountIf::onInlet(size_t n, const AtomListView& l)
 {
     if (n != 1)
         return;

@@ -35,17 +35,17 @@ UIMouseFilter::UIMouseFilter(const PdArgs& args)
     createOutlet();
 }
 
-bool UIMouseFilter::processAnyProps(t_symbol* sel, const AtomListView& lst)
+bool UIMouseFilter::processAnyProps(t_symbol* sel, const AtomListView& lv)
 {
     BoolProperty* p = dynamic_cast<BoolProperty*>(property(sel));
     if (p) {
         if (p->value())
-            closed_ = !lst.boolAt(0, false);
+            closed_ = !lv.boolAt(0, false);
         else
             return true;
 
     } else if (!closed_) {
-        anyTo(0, sel, lst);
+        anyTo(0, sel, lv);
     }
 
     return true;
@@ -75,10 +75,10 @@ void UIMouseFilter::onList(const AtomList& l)
         listTo(0, l);
 }
 
-void UIMouseFilter::onAny(t_symbol* s, const AtomListView& l)
+void UIMouseFilter::onAny(t_symbol* s, const AtomListView& lv)
 {
     if (!closed_)
-        anyTo(0, s, l);
+        anyTo(0, s, lv);
 }
 
 void UIMouseFilter::onData(const Atom& data)

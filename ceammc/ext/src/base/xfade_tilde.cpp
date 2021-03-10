@@ -94,7 +94,7 @@ void XFadeTilde::processBlock(const t_sample** in, t_sample** out)
     }
 }
 
-void XFadeTilde::onInlet(size_t n, const AtomList& lst)
+void XFadeTilde::onInlet(size_t n, const AtomListView& lst)
 {
     typedef std::function<t_float(t_float, t_float)> XFadeCurveFunction;
     typedef std::pair<t_symbol*, XFadeCurveFunction> XFadeCurvePair;

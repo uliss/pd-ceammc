@@ -59,21 +59,21 @@ void FlowPassIf::onList(const AtomList& l)
         listTo(0, l);
 }
 
-void FlowPassIf::onAny(t_symbol* s, const AtomListView& l)
+void FlowPassIf::onAny(t_symbol* s, const AtomListView& lv)
 {
     pass_ = 0;
-    anyTo(1, s, l);
+    anyTo(1, s, lv);
 
     if (pass_)
-        anyTo(0, s, l);
+        anyTo(0, s, lv);
 }
 
-void FlowPassIf::onInlet(size_t n, const AtomList& l)
+void FlowPassIf::onInlet(size_t n, const AtomListView& lv)
 {
-    if (n != 1 || l.empty())
+    if (n != 1 || lv.empty())
         return;
 
-    pass_ = (l.toT<size_t>(0) == 1) ? 1 : 0;
+    pass_ = (lv.toT<size_t>(0) == 1) ? 1 : 0;
 }
 
 void setup_flow_pass_if()

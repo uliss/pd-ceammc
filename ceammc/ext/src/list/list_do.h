@@ -24,7 +24,7 @@ class ListDo : public ListBase {
 public:
     ListDo(const PdArgs& a);
     void onList(const AtomList& l) override;
-    void onInlet(size_t n, const AtomList& l) override;
+    void onInlet(size_t n, const AtomListView& l) override;
 };
 
 void setup_list_do();

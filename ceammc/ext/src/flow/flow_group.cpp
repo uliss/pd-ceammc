@@ -56,7 +56,7 @@ void FlowGroup::onData(const Atom& d)
     atoms_.append(d);
 }
 
-void FlowGroup::onInlet(size_t, const AtomList& l)
+void FlowGroup::onInlet(size_t, const AtomListView& l)
 {
     group_size_->set(l);
 }

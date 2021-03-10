@@ -27,7 +27,7 @@ public:
     StringSubstr(const PdArgs& a);
     void onDataT(const StringAtom& str);
     void onSymbol(t_symbol* s) override;
-    void onInlet(size_t n, const AtomList& l) override;
+    void onInlet(size_t n, const AtomListView& l) override;
 };
 
 void setup_string_substr();

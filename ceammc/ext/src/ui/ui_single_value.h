@@ -46,18 +46,20 @@ public:
     t_float value() const;
     void setValue(t_float v);
 
-    void init(t_symbol* name, const AtomList& args, bool usePresets);
+    void init(t_symbol* name, const AtomListView& args, bool usePresets);
     void onPropChange(t_symbol* prop_name);
     void output();
     void setDrawParams(t_edrawparams* params);
 
     void onBang();
     void onFloat(t_float f);
-    void onMidiCtrl(const AtomList& l);
+    void onMidiCtrl(const AtomListView& l);
     void onDblClick(t_object*, const t_pt&, long mod);
 
     void loadPreset(size_t idx);
     void storePreset(size_t idx);
+    void interpPreset(t_float idx);
+    bool hasPresetInterp() const { return true; }
 
     void m_set(t_float f);
     void m_plus(t_float f);

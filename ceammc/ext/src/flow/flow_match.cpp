@@ -55,11 +55,11 @@ void FlowMatch::initDone()
     createOutlet();
 }
 
-void FlowMatch::onInlet(size_t idx, const AtomList& l)
+void FlowMatch::onInlet(size_t idx, const AtomListView& lv)
 {
     if (idx < re_.size()) {
         delete re_[idx];
-        re_[idx] = new re2::RE2(regexp::escape(to_string(l)));
+        re_[idx] = new re2::RE2(regexp::escape(to_string(lv)));
     }
 }
 
@@ -82,7 +82,7 @@ void FlowMatch::onSymbol(t_symbol* s)
     symbolTo(N, s);
 }
 
-void FlowMatch::onAny(t_symbol* s, const AtomListView& l)
+void FlowMatch::onAny(t_symbol* s, const AtomListView& lv)
 {
     const size_t N = re_.size();
     assert(N + 1 == numOutlets());
@@ -90,15 +90,15 @@ void FlowMatch::onAny(t_symbol* s, const AtomListView& l)
     for (size_t i = 0; i < N; i++) {
         if (RE2::FullMatch(s->s_name, *re_[i])) {
             if (cut_->value())
-                anyTo(i, l);
+                anyTo(i, lv);
             else
-                anyTo(i, s, l);
+                anyTo(i, s, lv);
 
             return;
         }
     }
 
-    anyTo(N, s, l);
+    anyTo(N, s, lv);
 }
 
 void FlowMatch::onDataT(const StringAtom& s)

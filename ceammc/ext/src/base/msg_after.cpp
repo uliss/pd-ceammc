@@ -53,9 +53,9 @@ void MessageAfter::onList(const AtomList& lst)
     run();
 }
 
-void MessageAfter::onAny(t_symbol* s, const AtomListView& lst)
+void MessageAfter::onAny(t_symbol* s, const AtomListView& lv)
 {
-    anyTo(0, s, lst);
+    anyTo(0, s, lv);
     run();
 }
 

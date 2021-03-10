@@ -3,7 +3,6 @@
 
 #include "ceammc_atomlist.h"
 #include "ceammc_cicm.h"
-//#include "ceammc_data.h"
 #include "ceammc_property_info.h"
 
 #include <initializer_list>
@@ -39,7 +38,7 @@ public:
 
 class UIObjectImpl {
     t_ebox* const box_;
-    AtomList args_;
+    AtomListView args_;
     std::unordered_set<t_symbol*> binded_signals_;
     std::vector<UILayer*> layer_stack_;
     t_symbol* name_;
@@ -54,9 +53,6 @@ protected:
     void appendToLayerList(UILayer* l);
     void prependToLayerList(UILayer* l);
     void invalidateLayer(UILayer* l);
-    void invalidateBox();
-    void invalidateXlets();
-    void invalidateBorder();
     void initPopupMenu(const std::string& n, std::initializer_list<PopupMenuCallbacks::Entry> args);
     void showDefaultPopupMenu(const t_pt& pt, const t_pt& abs_pt);
     void showPopupMenu(const std::string& n, const t_pt& pt, const t_pt& abs_pt);
@@ -81,10 +77,10 @@ public:
     bool isPatchLoading() const;
     bool isPatchEdited() const;
     bool isVisible() const;
-    const AtomList& args() const { return args_; }
-    AtomList& args() { return args_; }
+    const AtomListView& args() const { return args_; }
+    AtomListView& args() { return args_; }
 
-    void init(t_symbol* name, const AtomList& args, bool usePresets);
+    void init(t_symbol* name, const AtomListView& args, bool usePresets);
     t_symbol* name() const;
     t_symbol* presetId();
 
@@ -93,7 +89,6 @@ public:
     void erase();
 
     void redraw();
-    void redrawInnerArea();
     void redrawBGLayer();
     void redrawLayer(UILayer& l);
 
@@ -119,35 +114,34 @@ public:
     void write(const std::string& fname);
     void read(const std::string& fname);
 
-    void m_custom(t_symbol* sel, const AtomList& lst);
-
     void onBang();
     void onFloat(t_float f);
     void onSymbol(t_symbol* s);
-    void onList(const AtomList& lst);
-    void onAny(t_symbol* s, const AtomListView& lst);
+    void onList(const AtomListView& lst);
+    void onAny(t_symbol* s, const AtomListView& lv);
     void onKey(int k, long modifiers);
     void onKeyFilter(int k, long modifiers);
     void onData(const AbstractData* ptr);
-    void onProperty(t_symbol* s, const AtomList& lst);
+    void onProperty(t_symbol* s, const AtomListView& lv);
 
     void loadPreset(size_t idx);
     void storePreset(size_t idx);
     void clearPreset(size_t idx);
+    void interpPreset(t_float idx);
 
     void bangTo(size_t n);
     void floatTo(size_t n, t_float f);
     void symbolTo(size_t n, t_symbol* s);
     void atomTo(size_t n, const Atom& a);
-    void listTo(size_t n, const AtomList& lst);
-    void anyTo(size_t n, t_symbol* s, const AtomList& args);
-    void anyTo(size_t n, const AtomList& msg);
+    void listTo(size_t n, const AtomListView& lv);
+    void anyTo(size_t n, t_symbol* s, const AtomListView& args);
+    void anyTo(size_t n, const AtomListView& msg);
 
     void sendBang();
     void send(t_float f);
     void send(t_symbol* s);
-    void send(const AtomList& lst);
-    void send(t_symbol* s, const AtomList& lst);
+    void send(const AtomListView& lv);
+    void send(t_symbol* s, const AtomListView& lv);
 
     t_rect rect() const;
     float x() const;
@@ -164,6 +158,7 @@ public:
     void unbindPreset(t_symbol* name);
     void rebindPreset(t_symbol* from, t_symbol* to);
     void handlePresetNameChange();
+    bool hasPresetInterp() const;
 
     // xlets
     size_t numInlets() const;
@@ -171,13 +166,14 @@ public:
     const std::vector<t_outlet*>& outlets() const { return outlets_; }
     t_outlet* createOutlet();
     const char* annotateInlet(int n) const;
-    const char* annotateOutlet(int n) const;;
+    const char* annotateOutlet(int n) const;
 
     bool hasProperty(t_symbol* name) const;
     bool getProperty(t_symbol* name, t_float& f) const;
     bool getProperty(t_symbol* name, AtomList& lst) const;
-    void setProperty(t_symbol* name, const AtomList& lst);
+    bool setProperty(t_symbol* name, const AtomListView& lv);
     std::vector<PropertyInfo> propsInfo() const;
+    boost::optional<PropertyInfo> propertyInfo(t_symbol* name) const;
 
     // bind to global dispatcher
     void bindTo(t_symbol* s);

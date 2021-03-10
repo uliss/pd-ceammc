@@ -30,7 +30,7 @@ public:
 
     void onFloat(t_float f) override;
     void onList(const AtomList& lst) override;
-    void onInlet(size_t n, const AtomList& lst) override;
+    void onInlet(size_t n, const AtomListView& lst) override;
 
 private:
     const Atom* at(int pos) const;

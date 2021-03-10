@@ -65,7 +65,7 @@ typedef struct _midiqelem
 
 #define MIDIQSIZE 1024
 
-#ifdef __MACH__
+#ifdef __APPLE__
 #define CEAMMC_MIDI 1
 #endif
 
@@ -100,7 +100,7 @@ int sys_midiapi =
     /* this is our current estimate for at what "system" real time the
     current logical time's output should occur. */
 static double sys_dactimeminusrealtime;
-    /* same for input, should be schduler advance earlier. */
+    /* same for input, should be scheduler advance earlier. */
 static double sys_adctimeminusrealtime;
 
 static double sys_newdactimeminusrealtime = -1e20;
@@ -522,8 +522,8 @@ void sys_pollmidiqueue(void)
 
 /******************** dialog window and device listing ********************/
 
-#define MAXNDEV 20
-#define DEVDESCSIZE 80
+#define MAXNDEV 128
+#define DEVDESCSIZE 1024
 
 #define DEVONSET 1  /* To agree with command line flags, normally start at 1 */
 

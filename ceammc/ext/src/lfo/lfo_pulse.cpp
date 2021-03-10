@@ -14,7 +14,7 @@ public:
         bindPositionalArgToProperty(1, SYM_PROP_DUTY);
     }
 
-    void onInlet(size_t n, const AtomList&) override
+    void onInlet(size_t n, const AtomListView&) override
     {
         dsp_->instanceClear();
     }

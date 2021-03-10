@@ -23,6 +23,11 @@ extern "C" {
 
 #define DEFDACBLKSIZE 64
 
+Descr::Descr(t_int i)
+{
+    snprintf(txt_, sizeof(txt_) - 1, "%d", (int)i);
+}
+
 static std::vector<t_int> parseRange(const std::string& str)
 {
     std::vector<t_int> res;
@@ -78,6 +83,10 @@ BaseDac::BaseDac(const PdArgs& args)
         }
     }
 
+    vec_str_.reserve(vec_.size());
+    for (auto& i : vec_)
+        vec_str_.emplace_back(i);
+
     for (size_t i = 1; i < vec_.size(); i++)
         createSignalInlet();
 }
@@ -114,15 +123,23 @@ void BaseDac::onClick(t_floatarg xpos, t_floatarg ypos, t_floatarg shift, t_floa
     sys_gui("pdsend \"pd audio-properties\"\n");
 }
 
+const char* BaseDac::annotateInlet(size_t n) const
+{
+    return (n < vec_.size()) ? vec_str_[n].txt()
+                             : "";
+}
+
 void setup_base_dac()
 {
     SoundExternalFactory<BaseDac> obj("xdac~");
     obj.useClick();
-    obj.noArgsDataParsing();
+    obj.parseProps(false);
+    obj.parsePosProps(false);
+    obj.parseArgsMode(PdArgs::PARSE_COPY);
 
     obj.setDescription("dac~ with channel ranges");
     obj.addAuthor("Serge Poltavsky");
-    obj.setKeywords({"base"});
+    obj.setKeywords({ "base" });
     obj.setCategory("base");
     obj.setSinceVersion(0, 8);
 }

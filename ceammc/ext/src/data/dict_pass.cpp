@@ -26,7 +26,7 @@ DictPass::DictPass(const PdArgs& args)
     createOutlet();
 }
 
-void DictPass::onInlet(size_t, const AtomList& lst)
+void DictPass::onInlet(size_t, const AtomListView& lst)
 {
     keys_->set(lst);
 }

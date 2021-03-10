@@ -25,7 +25,7 @@ public:
     MathDiv(const PdArgs& args);
     void onFloat(t_float f) override;
     void onList(const AtomList& lst) override;
-    void onInlet(const size_t n, const AtomList& lst) override;
+    void onInlet(const size_t n, const AtomListView& lst) override;
 
 private:
     bool zeroCheck() const;

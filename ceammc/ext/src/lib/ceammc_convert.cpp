@@ -25,9 +25,9 @@ std::string ceammc::convert::time::sec2str(float sec, bool ms)
     int fraq = abs(static_cast<int>(modff(sec, &isec) * 1000));
     int psec = abs(static_cast<int>(sec));
 
-    const int BUFSIZE = 30;
+    const int BUFSIZE = 32;
     char buf[BUFSIZE];
-    char ms_buf[5];
+    char ms_buf[16];
 
     char* buf_ptr = buf;
     if (sec < 0) {
@@ -39,7 +39,7 @@ std::string ceammc::convert::time::sec2str(float sec, bool ms)
     int m = (psec % 3600) / 60;
     int s = psec % 60;
     if (ms) {
-        snprintf(ms_buf, sizeof(ms_buf), ".%03d", fraq);
+        snprintf(ms_buf, sizeof(ms_buf)-1, ".%03d", fraq);
     }
 
     snprintf(buf_ptr, BUFSIZE - 2, "%02d:%02d:%02d%s", h, m, s, ms ? ms_buf : "");

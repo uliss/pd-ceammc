@@ -24,7 +24,7 @@ void ListDo::onList(const AtomList& l)
     listTo(0, mapped_list_);
 }
 
-void ListDo::onInlet(size_t n, const AtomList& l)
+void ListDo::onInlet(size_t n, const AtomListView& l)
 {
     if (n != 1)
         return;

@@ -1,4 +1,4 @@
-// A Bison parser, made by GNU Bison 3.7.3.
+// A Bison parser, made by GNU Bison 3.7.4.
 
 // Skeleton interface for Bison LALR(1) parsers in C++
 
@@ -33,7 +33,7 @@
 
 /**
  ** \file score.parser.hpp
- ** Define the ceammc::parser class.
+ ** Define the ceammc::score::parser class.
  */
 
 // C++ LALR(1) parser skeleton written by Akim Demaille.
@@ -54,7 +54,9 @@
     # include <vector>
 
     namespace ceammc {
-        class ScoreLexer;
+        namespace score {
+            class ScoreLexer;
+        }
 
         namespace scp {
             using OptVal = uint32_t;
@@ -116,7 +118,7 @@
     using Bar = ceammc::scp::Bar;
     using BarList = std::vector<Bar>;
 
-#line 120 "score.parser.hpp"
+#line 122 "score.parser.hpp"
 
 # include <cassert>
 # include <cstdlib> // std::abort
@@ -250,8 +252,8 @@
 #endif
 
 #line 7 "score.y"
-namespace ceammc {
-#line 255 "score.parser.hpp"
+namespace ceammc { namespace score {
+#line 257 "score.parser.hpp"
 
 
 
@@ -665,7 +667,7 @@ namespace ceammc {
       /// Copy constructor.
       basic_symbol (const basic_symbol& that);
 
-      /// Constructor for valueless symbols, and symbols from each type.
+      /// Constructors for typed symbols.
 #if 201103L <= YY_CPLUSPLUS
       basic_symbol (typename Base::kind_type t)
         : Base (t)
@@ -675,6 +677,7 @@ namespace ceammc {
         : Base (t)
       {}
 #endif
+
 #if 201103L <= YY_CPLUSPLUS
       basic_symbol (typename Base::kind_type t, Bar&& v)
         : Base (t)
@@ -686,6 +689,7 @@ namespace ceammc {
         , value (v)
       {}
 #endif
+
 #if 201103L <= YY_CPLUSPLUS
       basic_symbol (typename Base::kind_type t, BarList&& v)
         : Base (t)
@@ -697,6 +701,7 @@ namespace ceammc {
         , value (v)
       {}
 #endif
+
 #if 201103L <= YY_CPLUSPLUS
       basic_symbol (typename Base::kind_type t, KeyId&& v)
         : Base (t)
@@ -708,6 +713,7 @@ namespace ceammc {
         , value (v)
       {}
 #endif
+
 #if 201103L <= YY_CPLUSPLUS
       basic_symbol (typename Base::kind_type t, KeyOption&& v)
         : Base (t)
@@ -719,6 +725,7 @@ namespace ceammc {
         , value (v)
       {}
 #endif
+
 #if 201103L <= YY_CPLUSPLUS
       basic_symbol (typename Base::kind_type t, Options&& v)
         : Base (t)
@@ -730,6 +737,7 @@ namespace ceammc {
         , value (v)
       {}
 #endif
+
 #if 201103L <= YY_CPLUSPLUS
       basic_symbol (typename Base::kind_type t, Signature&& v)
         : Base (t)
@@ -741,6 +749,7 @@ namespace ceammc {
         , value (v)
       {}
 #endif
+
 #if 201103L <= YY_CPLUSPLUS
       basic_symbol (typename Base::kind_type t, int&& v)
         : Base (t)
@@ -895,59 +904,48 @@ switch (yykind)
 #if 201103L <= YY_CPLUSPLUS
       symbol_type (int tok)
         : super_type(token_type (tok))
-      {
-        YY_ASSERT (tok == token::TOK_YYEOF || tok == token::TOK_YYerror || tok == token::TOK_YYUNDEF || tok == token::TOK_SPACE || tok == token::TOK_PIPE || tok == token::TOK_CHANGE || tok == token::TOK_FERMATA);
-      }
 #else
       symbol_type (int tok)
         : super_type(token_type (tok))
-      {
-        YY_ASSERT (tok == token::TOK_YYEOF || tok == token::TOK_YYerror || tok == token::TOK_YYUNDEF || tok == token::TOK_SPACE || tok == token::TOK_PIPE || tok == token::TOK_CHANGE || tok == token::TOK_FERMATA);
-      }
 #endif
+      {
+        YY_ASSERT (tok == token::TOK_YYEOF
+                   || (token::TOK_YYerror <= tok && tok <= token::TOK_FERMATA));
+      }
 #if 201103L <= YY_CPLUSPLUS
       symbol_type (int tok, KeyId v)
         : super_type(token_type (tok), std::move (v))
-      {
-        YY_ASSERT (tok == token::TOK_KEY);
-      }
 #else
       symbol_type (int tok, const KeyId& v)
         : super_type(token_type (tok), v)
+#endif
       {
         YY_ASSERT (tok == token::TOK_KEY);
       }
-#endif
 #if 201103L <= YY_CPLUSPLUS
       symbol_type (int tok, Signature v)
         : super_type(token_type (tok), std::move (v))
-      {
-        YY_ASSERT (tok == token::TOK_RATIO);
-      }
 #else
       symbol_type (int tok, const Signature& v)
         : super_type(token_type (tok), v)
+#endif
       {
         YY_ASSERT (tok == token::TOK_RATIO);
       }
-#endif
 #if 201103L <= YY_CPLUSPLUS
       symbol_type (int tok, int v)
         : super_type(token_type (tok), std::move (v))
-      {
-        YY_ASSERT (tok == token::TOK_REPEAT || tok == token::TOK_AT || tok == token::TOK_INT || tok == token::TOK_BAR_CHECK || tok == token::TOK_BEAT_DIVISION);
-      }
 #else
       symbol_type (int tok, const int& v)
         : super_type(token_type (tok), v)
-      {
-        YY_ASSERT (tok == token::TOK_REPEAT || tok == token::TOK_AT || tok == token::TOK_INT || tok == token::TOK_BAR_CHECK || tok == token::TOK_BEAT_DIVISION);
-      }
 #endif
+      {
+        YY_ASSERT ((token::TOK_REPEAT <= tok && tok <= token::TOK_BEAT_DIVISION));
+      }
     };
 
     /// Build a parser object.
-    ScoreParser (ceammc::ScoreLexer& lexer_yyarg);
+    ScoreParser (ceammc::score::ScoreLexer& lexer_yyarg);
     virtual ~ScoreParser ();
 
 #if 201103L <= YY_CPLUSPLUS
@@ -1536,7 +1534,7 @@ switch (yykind)
 
 
     // User arguments.
-    ceammc::ScoreLexer& lexer;
+    ceammc::score::ScoreLexer& lexer;
 
   };
 
@@ -1755,8 +1753,8 @@ switch (yykind)
   }
 
 #line 7 "score.y"
-} // ceammc
-#line 1760 "score.parser.hpp"
+} } // ceammc::score
+#line 1758 "score.parser.hpp"
 
 
 

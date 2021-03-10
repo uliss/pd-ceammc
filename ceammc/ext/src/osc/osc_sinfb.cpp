@@ -13,7 +13,7 @@ public:
         bindPositionalArgToProperty(1, gensym("@feedback"));
     }
 
-    void onInlet(size_t n, const AtomList&) override
+    void onInlet(size_t n, const AtomListView&) override
     {
         dsp_->instanceClear();
     }

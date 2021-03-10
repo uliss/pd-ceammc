@@ -7,6 +7,7 @@
 #include <algorithm>
 #include <cassert>
 #include <chrono>
+#include <cstdint>
 #include <cstdio>
 #include <fstream>
 #include <limits>
@@ -23,7 +24,12 @@ static t_symbol* SYM_OUTPUT_ALL_CELLS;
 #define CELL_TAG_FMT "cell_#%x_%d_%d"
 #define ALL_CELLS_TAG_FMT "cells_#%x"
 
-static const int CELL_MARGIN = 1;
+static const int CELL_MARGIN = 0;
+
+namespace {
+    auto random_seed = std::chrono::system_clock::now().time_since_epoch().count();
+    std::default_random_engine random_gen(random_seed);
+}
 
 UIMatrix::UIMatrix()
     : matrix_()
@@ -88,7 +94,7 @@ UIMatrix::UIMatrix()
              } } });
 }
 
-void UIMatrix::init(t_symbol* name, const AtomList& args, bool usePresets)
+void UIMatrix::init(t_symbol* name, const AtomListView& args, bool usePresets)
 {
     UIObject::init(name, args, usePresets);
 
@@ -100,8 +106,8 @@ void UIMatrix::init(t_symbol* name, const AtomList& args, bool usePresets)
         prop_rows_ = clip<int>(row, 1, UI_MAX_MATRIX_SIZE);
         int cell_wd = std::max<int>(prop_cols_, prop_rows_) > 8 ? 7 : 10;
 
-        asEBox()->b_rect.width = prop_cols_ * (cell_wd + 2) + 1 * zoom();
-        asEBox()->b_rect.height = prop_rows_ * (cell_wd + 2) + 1 * zoom();
+        asEBox()->b_rect.width = prop_cols_ * (cell_wd + 2);
+        asEBox()->b_rect.height = prop_rows_ * (cell_wd + 2);
     }
 }
 
@@ -142,79 +148,93 @@ AtomList UIMatrix::column(size_t col) const
     return res;
 }
 
-void UIMatrix::setColumn(size_t col, const AtomList& lst)
+void UIMatrix::setColumn(size_t col, const AtomListView& lv)
 {
-    size_t t = std::min<size_t>(lst.size(), prop_rows_);
+    size_t t = std::min<size_t>(lv.size(), prop_rows_);
     for (size_t row = 0; row < t; row++)
-        setCell(row, col, lst[row].asFloat() != 0);
+        setCell(row, col, lv[row].asFloat() != 0);
 }
 
-void UIMatrix::setColumn(const AtomList& lst)
+void UIMatrix::setColumn(const AtomListView& lv)
 {
-    if (lst.size() < 2) {
-        UI_ERR << "column index and values are expected: " << lst;
+    if (lv.size() < 2) {
+        UI_ERR << "column index and values are expected: " << lv;
         return;
     }
 
-    int idx = lst[0].asInt(-1);
+    int idx = lv[0].asInt(-1);
 
     if (idx < 0 || idx >= prop_cols_) {
         UI_ERR << "invalid column index: " << idx;
         return;
     }
 
-    setColumn(idx, lst.slice(1));
+    setColumn(idx, lv.subView(1));
 }
 
-AtomList UIMatrix::row(size_t idx) const
+BitMatrixRow UIMatrix::row(size_t idx) const
 {
-    AtomList res;
-    res.fill(Atom(0.f), prop_cols_);
+    BitMatrixRow res;
 
-    for (int i = 0; i < prop_cols_; i++) {
-        if (cell(idx, i))
-            res[i] = Atom(1);
+    for (int c = 0; c < prop_cols_; c++)
+        res[prop_cols_ - (c + 1)] = matrix_[idx * UI_MAX_MATRIX_SIZE + c];
+
+    return res;
+}
+
+std::string UIMatrix::matrixStr() const
+{
+    std::string res;
+    res.reserve(prop_cols_ * prop_rows_);
+
+    for (int r = 0; r < prop_rows_; r++) {
+        for (int c = 0; c < prop_cols_; c++) {
+            res += cell(r, c) ? '1' : '0';
+        }
+
+        if (r + 1 != prop_rows_)
+            res += '\n';
     }
 
     return res;
 }
 
-void UIMatrix::setRow(size_t row, const AtomList& lst)
+void UIMatrix::setRow(size_t row, const AtomListView& lv)
 {
-    size_t t = std::min<size_t>(lst.size(), prop_cols_);
+    size_t t = std::min<size_t>(lv.size(), prop_cols_);
 
     for (size_t col = 0; col < t; col++)
-        setCell(row, col, lst[col].asFloat() != 0);
+        setCell(row, col, lv[col].asFloat() != 0);
 }
 
-void UIMatrix::setRow(const AtomList& lst)
+void UIMatrix::setRow(const AtomListView& lv)
 {
-    if (lst.size() < 2) {
-        UI_ERR << "row index and values are expected: " << lst;
+    if (lv.size() < 2) {
+        UI_ERR << "row index and values are expected: " << lv;
         return;
     }
 
-    int idx = lst[0].asInt(-1);
+    int idx = lv[0].asInt(-1);
 
     if (idx < 0 || idx >= prop_rows_) {
         UI_ERR << "invalid row index: " << idx;
         return;
     }
 
-    setRow(idx, lst.slice(1));
+    setRow(idx, lv.subView(1));
 }
 
-void UIMatrix::setList(const AtomList& lst)
+void UIMatrix::setList(const AtomListView& lv)
 {
-    if (lst.size() != prop_cols_ * prop_rows_)
+    if (lv.size() != prop_cols_ * prop_rows_)
         UI_DBG << "warning: list size is not equal number of matrix cells";
 
-    const size_t total = std::min<size_t>(lst.size(), prop_cols_ * prop_rows_);
+    const size_t total = std::min<size_t>(lv.size(), prop_cols_ * prop_rows_);
     for (size_t i = 0; i < total; i++) {
         size_t col = i % prop_cols_;
         size_t row = i / prop_cols_;
 
-        setCell(row, col, lst[i].asFloat() != 0);
+        setCell(row, col, lv[i].asFloat() != 0);
     }
 }
 
@@ -246,21 +266,6 @@ void UIMatrix::flipAll()
     update_all_cells_ = true;
 }
 
-AtomList UIMatrix::asList() const
-{
-    AtomList res;
-    res.fill(Atom(0.f), prop_cols_ * prop_rows_);
-
-    for (size_t r = 0; r < prop_rows_; r++) {
-        for (size_t c = 0; c < prop_cols_; c++) {
-            if (cell(r, c))
-                res[r * prop_cols_ + c] = Atom(1);
-        }
-    }
-
-    return res;
-}
-
 void UIMatrix::okSize(t_rect* newrect)
 {
     if (!isPatchLoading()) {
@@ -270,11 +275,11 @@ void UIMatrix::okSize(t_rect* newrect)
         float cell_w = std::floor(newrect->width / prop_cols_);
         float cell_h = std::floor(newrect->height / prop_rows_);
 
-        newrect->width = cell_w * prop_cols_ + 1;
-        newrect->height = cell_h * prop_rows_ + 1;
+        newrect->width = cell_w * prop_cols_;
+        newrect->height = cell_h * prop_rows_;
     } else {
-        newrect->width = pd_clip_min(newrect->width, 31);
-        newrect->height = pd_clip_min(newrect->height, 31);
+        newrect->width = pd_clip_min(newrect->width, 30);
+        newrect->height = pd_clip_min(newrect->height, 30);
     }
 }
 
@@ -302,8 +307,8 @@ void UIMatrix::drawActiveCells()
 
     // update all cells on flag set (on total flip)
     if (update_all_cells_) {
-        for (size_t col = 0; col < prop_cols_; col++) {
-            for (size_t row = 0; row < prop_rows_; row++) {
+        for (int col = 0; col < prop_cols_; col++) {
+            for (int row = 0; row < prop_rows_; row++) {
                 sys_vgui("%s itemconfigure " CELL_TAG_FMT " -fill #%6.6x\n",
                     asEBox()->b_drawing_id->s_name,
                     asEBox(),
@@ -319,8 +324,8 @@ void UIMatrix::drawActiveCells()
 
     // reset only active cells
     if (reset_all_cells_) {
-        for (size_t col = 0; col < prop_cols_; col++) {
-            for (size_t row = 0; row < prop_rows_; row++) {
+        for (int col = 0; col < prop_cols_; col++) {
+            for (int row = 0; row < prop_rows_; row++) {
                 if (!cell(row, col))
                     continue;
 
@@ -429,17 +434,17 @@ void UIMatrix::erase()
 
 void UIMatrix::outputCell(size_t row, size_t col)
 {
-    AtomList args;
-    args.reserve(3);
-    args.append(row);
-    args.append(col);
-    args.append(cell(row, col) ? 1 : 0);
+    const size_t N = 3;
+    Atom args[N];
+    args[0] = row;
+    args[1] = col;
+    args[2] = cell(row, col) ? 1 : 0;
 
-    anyTo(0, SYM_CELL, args);
-    send(SYM_CELL, args);
+    anyTo(0, SYM_CELL, AtomListView(args, N));
+    send(SYM_CELL, AtomListView(args, N));
 }
 
-void UIMatrix::outputCell(const AtomList& args)
+void UIMatrix::outputCell(const AtomListView& args)
 {
     if (args.size() != 2) {
         UI_ERR << "usage: get cell ROW COL";
@@ -459,15 +464,19 @@ void UIMatrix::outputCell(const AtomList& args)
 
 void UIMatrix::outputCol(size_t col)
 {
-    AtomList lst;
-    lst.reserve(prop_rows_ + 1);
-    lst.append(Atom(col));
-    lst.append(column(col));
-    anyTo(0, SYM_COL, lst);
-    send(SYM_COL, lst);
+    const auto N = prop_rows_ + 1;
+    Atom res[N];
+    res[0] = col;
+
+    for (int i = 0; i < prop_rows_; i++)
+        res[i + 1] = cell(i, col) ? 1 : 0;
+
+    AtomListView lv(res, N);
+    anyTo(0, SYM_COL, lv);
+    send(SYM_COL, lv);
 }
 
-void UIMatrix::outputCol(const AtomList& args)
+void UIMatrix::outputCol(const AtomListView& args)
 {
     if (args.empty()) {
         UI_ERR << "column index expected";
@@ -484,17 +493,22 @@ void UIMatrix::outputCol(const AtomList& args)
     outputCol(size_t(idx));
 }
 
-void UIMatrix::outputRow(size_t idx)
+void UIMatrix::outputRow(size_t row)
 {
-    AtomList lst;
-    lst.reserve(prop_cols_ + 1);
-    lst.append(Atom(idx));
-    lst.append(row(idx));
-    anyTo(0, SYM_ROW, lst);
-    send(SYM_ROW, lst);
+    const auto N = prop_cols_ + 1;
+    Atom res[N];
+    res[0] = row;
+
+    for (int i = 0; i < prop_cols_; i++)
+        res[i + 1] = cell(row, i) ? 1 : 0;
+
+    AtomListView lv(res, N);
+
+    anyTo(0, SYM_ROW, lv);
+    send(SYM_ROW, lv);
 }
 
-void UIMatrix::outputRow(const AtomList& args)
+void UIMatrix::outputRow(const AtomListView& args)
 {
     if (args.empty()) {
         UI_ERR << "row index expected";
@@ -513,22 +527,39 @@ void UIMatrix::outputRow(const AtomList& args)
 
 void UIMatrix::outputAllCols()
 {
-    for (size_t col = 0; col < prop_cols_; col++)
+    for (int col = 0; col < prop_cols_; col++)
         outputCol(col);
 }
 
 void UIMatrix::outputAllRows()
 {
-    for (size_t i = 0; i < prop_rows_; i++)
+    for (int i = 0; i < prop_rows_; i++)
         outputRow(i);
 }
 
 void UIMatrix::outputAllCells()
 {
-    for (size_t row = 0; row < prop_rows_; row++) {
-        for (size_t col = 0; col < prop_cols_; col++)
+    for (int row = 0; row < prop_rows_; row++) {
+        for (int col = 0; col < prop_cols_; col++)
             outputCell(row, col);
     }
+}
+
+void UIMatrix::outputAllList()
+{
+    const int N = prop_cols_ * prop_rows_;
+    if (N < 1)
+        return;
+
+    Atom res[N];
+
+    for (int r = 0; r < prop_rows_; r++) {
+        for (int c = 0; c < prop_cols_; c++) {
+            res[r * prop_cols_ + c] = cell(r, c);
+        }
+    }
+
+    listTo(0, AtomListView(res, N));
 }
 
 void UIMatrix::onBang()
@@ -536,13 +567,14 @@ void UIMatrix::onBang()
     outputAllCells();
 }
 
-void UIMatrix::onList(const AtomList& lst)
+void UIMatrix::onList(const AtomListView& lst)
 {
     setList(lst);
     outputAllCells();
+    drawActiveCells();
 }
 
-void UIMatrix::onMouseDown(t_object* view, const t_pt& pt, const t_pt& abs_pt, long modifiers)
+void UIMatrix::onMouseDown(t_object* /*view*/, const t_pt& pt, const t_pt& /*abs_pt*/, long /*modifiers*/)
 {
     auto c = cellAt(pt);
     mouse_current_col_ = c.first;
@@ -555,7 +587,7 @@ void UIMatrix::onMouseDown(t_object* view, const t_pt& pt, const t_pt& abs_pt, l
     }
 }
 
-void UIMatrix::onMouseDrag(t_object* view, const t_pt& pt, long modifiers)
+void UIMatrix::onMouseDrag(t_object* /*view*/, const t_pt& pt, long /*modifiers*/)
 {
     auto c = cellAt(pt);
     int col = c.first;
@@ -629,8 +661,8 @@ void UIMatrix::write(const std::string& fname)
         return;
     }
 
-    for (size_t row = 0; row < prop_rows_; row++) {
-        for (size_t col = 0; col < prop_cols_; col++) {
+    for (int row = 0; row < prop_rows_; row++) {
+        for (int col = 0; col < prop_cols_; col++) {
             if (col != 0)
                 ofs.put(',');
 
@@ -644,29 +676,29 @@ void UIMatrix::write(const std::string& fname)
         UI_ERR << "error while writing to file: " << quote(fname);
 }
 
-void UIMatrix::m_flip(const AtomList& lst)
+void UIMatrix::m_flip(const AtomListView& lv)
 {
-    if (lst.empty()) {
+    if (lv.empty()) {
         flipAll();
-    } else if (lst.size() == 2) {
-        if (lst[0].isSymbol()) {
-            t_symbol* s = lst[0].asSymbol();
+    } else if (lv.size() == 2) {
+        if (lv[0].isSymbol()) {
+            t_symbol* s = lv[0].asSymbol();
 
             if (s == SYM_COL) {
-                int col = lst[1].asInt(-1);
+                int col = lv[1].asInt(-1);
 
                 if (col < 0 || col >= prop_cols_) {
-                    UI_ERR << "invalid column index: " << lst[1];
+                    UI_ERR << "invalid column index: " << lv[1];
                     return;
                 }
 
                 flipColumn(col);
 
             } else if (s == SYM_ROW) {
-                int row = lst[1].asInt(-1);
+                int row = lv[1].asInt(-1);
 
                 if (row < 0 || row >= prop_rows_) {
-                    UI_ERR << "invalid row index: " << lst[1];
+                    UI_ERR << "invalid row index: " << lv[1];
                     return;
                 }
 
@@ -677,12 +709,12 @@ void UIMatrix::m_flip(const AtomList& lst)
             }
         }
 
-        if (lst[0].isFloat()) {
-            int row = lst[0].asInt(-1);
-            int col = lst[1].asInt(-1);
+        if (lv[0].isFloat()) {
+            int row = lv[0].asInt(-1);
+            int col = lv[1].asInt(-1);
 
             if (row < 0 || row >= prop_rows_ || col < 0 || col >= prop_cols_) {
-                UI_ERR << "invalid indexes: " << lst;
+                UI_ERR << "invalid indexes: " << lv;
                 return;
             }
 
@@ -708,28 +740,28 @@ void UIMatrix::m_reset()
 
 void UIMatrix::m_random()
 {
-    auto seed = std::chrono::system_clock::now().time_since_epoch().count();
-    std::default_random_engine gen(seed);
     std::uniform_int_distribution<int> dist(0, 1);
 
-    for (size_t i = 0; i < matrix_.size(); i++)
-        matrix_.set(i, dist(gen));
+    for (int r = 0; r < prop_rows_; r++) {
+        for (int c = 0; c < prop_cols_; c++)
+            setCell(r, c, dist(random_gen));
+    }
 
     // better to redraw all then allocate memory to update list
     update_all_cells_ = true;
     drawActiveCells();
 }
 
-void UIMatrix::m_get(const AtomList& lst)
+void UIMatrix::m_get(const AtomListView& lv)
 {
-    if (lst.empty() || !lst[0].isSymbol()) {
+    if (lv.empty() || !lv[0].isSymbol()) {
         UI_ERR << "missing arguments: ";
         UI_ERR << "    usage: get col|row|cell|list|cols|rows|cells [ARGS]";
         return;
     }
 
-    t_symbol* sel = lst[0].asSymbol();
-    const AtomList args = lst.slice(1);
+    t_symbol* sel = lv[0].asSymbol();
+    const auto args = lv.subView(1);
 
     if (sel == SYM_CELL) {
         outputCell(args);
@@ -738,7 +770,7 @@ void UIMatrix::m_get(const AtomList& lst)
     } else if (sel == SYM_ROW) {
         outputRow(args);
     } else if (sel == SYM_LIST) {
-        listTo(0, asList());
+        outputAllList();
     } else if (sel == SYM_OUTPUT_ALL_COLS) {
         outputAllCols();
     } else if (sel == SYM_OUTPUT_ALL_ROWS) {
@@ -752,16 +784,16 @@ void UIMatrix::m_get(const AtomList& lst)
     }
 }
 
-void UIMatrix::m_set(const AtomList& lst)
+void UIMatrix::m_set(const AtomListView& lv)
 {
-    if (lst.empty() || !lst[0].isSymbol()) {
+    if (lv.empty() || !lv[0].isSymbol()) {
         UI_ERR << "missing arguments: ";
         UI_ERR << "    usage: set col|row|cell|list [ARGS]";
         return;
     }
 
-    t_symbol* sel = lst[0].asSymbol();
-    const AtomList args = lst.slice(1);
+    t_symbol* sel = lv[0].asSymbol();
+    const auto args = lv.subView(1);
 
     if (sel == SYM_CELL) {
         setCell(args);
@@ -782,12 +814,60 @@ void UIMatrix::m_set(const AtomList& lst)
 
 void UIMatrix::loadPreset(size_t idx)
 {
-    onList(PresetStorage::instance().listValueAt(presetId(), idx));
+    auto lv = PresetStorage::instance().listValueAt(presetId(), idx);
+
+    using u16 = uint16_t;
+    constexpr u16 NBITS = 16;
+    assert(prop_rows_ > 0 && prop_cols_ > 0);
+
+    const u16 nr = prop_rows_; // number of rows
+    const u16 nc = prop_cols_;
+    const u16 nw = ((nc - 1) / NBITS) + 1; // number of row words
+    const u16 N = nw * nr;
+
+    const u16 NT = std::min<u16>(lv.size(), N);
+    for (u16 i = 0; i < NT; i++) {
+        u16 word = lv[i].asT<int>();
+        u16 ri = i / nw;
+        u16 wi = i % nw;
+
+        for (u16 bi = 0; bi < NBITS; bi++) {
+            bool v = word & (1 << bi);
+            setCell(ri, wi * NBITS + bi, v);
+        }
+    }
 }
 
 void UIMatrix::storePreset(size_t idx)
 {
-    PresetStorage::instance().setListValueAt(presetId(), idx, asList());
+    using u16 = std::uint16_t;
+    constexpr u16 NBITS = 16;
+
+    assert(prop_rows_ > 0 && prop_cols_ > 0);
+
+    const u16 nr = prop_rows_; // number of rows
+    const u16 nc = prop_cols_;
+    const u16 nw = ((nc - 1) / NBITS) + 1; // number of row words
+
+    AtomList res;
+    res.reserve(prop_rows_ * nw);
+
+    for (u16 r = 0; r < nr; r++) {
+        u16 words[nw];
+        memset(words, 0, sizeof(words));
+
+        for (u16 c = 0; c < nc; c++) {
+            auto v = cell(r, c);
+            const u16 wi = u16(c) / NBITS;
+            const u16 bi = u16(c) % NBITS;
+            words[wi] |= (v << bi);
+        }
+
+        for (u16 wi = 0; wi < nw; wi++)
+            res.append(words[wi]);
+    }
+
+    PresetStorage::instance().setListValueAt(presetId(), idx, res);
 }
 
 void UIMatrix::updateCellsCoords()

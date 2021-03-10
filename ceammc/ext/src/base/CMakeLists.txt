@@ -12,6 +12,7 @@ set(BASE_SOURCES
     expand_env.cpp
     function.cpp
     function_call.cpp
+    load_expr.cpp
     load_msg.cpp
     metro_pattern.cpp
     metro_random.cpp

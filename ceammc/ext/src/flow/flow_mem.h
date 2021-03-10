@@ -33,7 +33,7 @@ public:
     FlowMem(const PdArgs& a);
     void initDone() override;
 
-    void onInlet(size_t, const AtomList& v) override;
+    void onInlet(size_t, const AtomListView& v) override;
 
     void proxy_any(InletProxy<FlowMem>* x, t_symbol* s, const AtomListView& v);
 

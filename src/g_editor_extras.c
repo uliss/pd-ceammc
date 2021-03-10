@@ -636,6 +636,7 @@ void canvas_triggerize(t_glist*cnv)
         canvas_dirty(cnv, 1);
             /* fix display of connections, objects,... */
         canvas_redraw(cnv);
+        glist_redraw(cnv);
             /* if we inserted an object, allow the user to change it now */
         if(tr->tr_editgobj)
             gobj_activate(tr->tr_editgobj, cnv, 1);

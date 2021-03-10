@@ -43,7 +43,7 @@
 |
 [dict.contains c d e]
 |
-[ui.display]
+[ui.dt]
 ]]>
             </pdascii>
         </example>

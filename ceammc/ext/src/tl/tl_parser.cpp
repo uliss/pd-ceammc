@@ -1,8 +1,8 @@
-// A Bison parser, made by GNU Bison 3.0.5.
+// A Bison parser, made by GNU Bison 3.7.4.
 
 // Skeleton implementation for Bison LALR(1) parsers in C++
 
-// Copyright (C) 2002-2015, 2018 Free Software Foundation, Inc.
+// Copyright (C) 2002-2015, 2018-2020 Free Software Foundation, Inc.
 
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -30,30 +30,32 @@
 // This special exception was added by the Free Software Foundation in
 // version 2.2 of Bison.
 
+// DO NOT RELY ON FEATURES THAT ARE NOT DOCUMENTED in the manual,
+// especially those whose name start with YY_ or yy_.  They are
+// private implementation details that can be changed or removed.
 
-// First part of user declarations.
+// "%code top" blocks.
+#line 34 "tl_parser.y"
 
-#line 37 "tl_parser.cpp" // lalr1.cc:406
+    # undef yylex
+    # define yylex lexer.lex
 
-# ifndef YY_NULLPTR
-#  if defined __cplusplus && 201103L <= __cplusplus
-#   define YY_NULLPTR nullptr
-#  else
-#   define YY_NULLPTR 0
-#  endif
-# endif
+    # include "tl_lexer.h"
+
+#line 46 "tl_parser.cpp"
+
+
+
 
 #include "tl_parser.hpp"
 
-// User implementation prologue.
 
-#line 51 "tl_parser.cpp" // lalr1.cc:414
 // Unqualified %code blocks.
-#line 36 "tl_parser.y" // lalr1.cc:415
+#line 43 "tl_parser.y"
 
-#include "tl_cmd_driver.h"
+    # include "tl_cmd_driver.h"
 
-#line 57 "tl_parser.cpp" // lalr1.cc:415
+#line 59 "tl_parser.cpp"
 
 
 #ifndef YY_
@@ -65,6 +67,16 @@
 # endif
 # ifndef YY_
 #  define YY_(msgid) msgid
+# endif
+#endif
+
+
+// Whether we are compiled with exception support.
+#ifndef YY_EXCEPTIONS
+# if defined __GNUC__ && !defined __EXCEPTIONS
+#  define YY_EXCEPTIONS 0
+# else
+#  define YY_EXCEPTIONS 1
 # endif
 #endif
 
@@ -85,12 +97,9 @@
         {                                                               \
           (Current).begin = (Current).end = YYRHSLOC (Rhs, 0).end;      \
         }                                                               \
-    while (/*CONSTCOND*/ false)
+    while (false)
 # endif
 
-
-// Suppress unused-variable warnings by "using" E.
-#define YYUSE(E) ((void) (E))
 
 // Enable debugging if requested.
 #if YYDEBUG
@@ -117,7 +126,7 @@
 # define YY_STACK_PRINT()               \
   do {                                  \
     if (yydebug_)                       \
-      yystack_print_ ();                \
+      yy_stack_print_ ();                \
   } while (false)
 
 #else // !YYDEBUG
@@ -137,156 +146,126 @@
 #define YYERROR         goto yyerrorlab
 #define YYRECOVERING()  (!!yyerrstatus_)
 
-
-namespace yy {
-#line 143 "tl_parser.cpp" // lalr1.cc:481
-
-  /* Return YYSTR after stripping away unnecessary quotes and
-     backslashes, so that it's suitable for yyerror.  The heuristic is
-     that double-quoting is unnecessary unless the string contains an
-     apostrophe, a comma, or backslash (other than backslash-backslash).
-     YYSTR is taken from yytname.  */
-  std::string
-  TlCmdParser::yytnamerr_ (const char *yystr)
-  {
-    if (*yystr == '"')
-      {
-        std::string yyr = "";
-        char const *yyp = yystr;
-
-        for (;;)
-          switch (*++yyp)
-            {
-            case '\'':
-            case ',':
-              goto do_not_strip_quotes;
-
-            case '\\':
-              if (*++yyp != '\\')
-                goto do_not_strip_quotes;
-              // Fall through.
-            default:
-              yyr += *yyp;
-              break;
-
-            case '"':
-              return yyr;
-            }
-      do_not_strip_quotes: ;
-      }
-
-    return yystr;
-  }
-
+#line 7 "tl_parser.y"
+namespace ceammc { namespace tl {
+#line 152 "tl_parser.cpp"
 
   /// Build a parser object.
-  TlCmdParser::TlCmdParser (ceammc::tl::TlCmdDriver& driver_yyarg)
-    :
+  TlParser::TlParser (ceammc::tl::TlLexer& lexer_yyarg, ceammc::tl::TlCmdDriver& driver_yyarg)
 #if YYDEBUG
-      yydebug_ (false),
+    : yydebug_ (false),
       yycdebug_ (&std::cerr),
+#else
+    :
 #endif
+      lexer (lexer_yyarg),
       driver (driver_yyarg)
   {}
 
-  TlCmdParser::~TlCmdParser ()
+  TlParser::~TlParser ()
   {}
 
+  TlParser::syntax_error::~syntax_error () YY_NOEXCEPT YY_NOTHROW
+  {}
 
   /*---------------.
-  | Symbol types.  |
+  | symbol kinds.  |
   `---------------*/
 
 
 
   // by_state.
-  TlCmdParser::by_state::by_state ()
+  TlParser::by_state::by_state () YY_NOEXCEPT
     : state (empty_state)
   {}
 
-  TlCmdParser::by_state::by_state (const by_state& other)
-    : state (other.state)
+  TlParser::by_state::by_state (const by_state& that) YY_NOEXCEPT
+    : state (that.state)
   {}
 
   void
-  TlCmdParser::by_state::clear ()
+  TlParser::by_state::clear () YY_NOEXCEPT
   {
     state = empty_state;
   }
 
   void
-  TlCmdParser::by_state::move (by_state& that)
+  TlParser::by_state::move (by_state& that)
   {
     state = that.state;
     that.clear ();
   }
 
-  TlCmdParser::by_state::by_state (state_type s)
+  TlParser::by_state::by_state (state_type s) YY_NOEXCEPT
     : state (s)
   {}
 
-  TlCmdParser::symbol_number_type
-  TlCmdParser::by_state::type_get () const
+  TlParser::symbol_kind_type
+  TlParser::by_state::kind () const YY_NOEXCEPT
   {
     if (state == empty_state)
-      return empty_symbol;
+      return symbol_kind::S_YYEMPTY;
     else
-      return yystos_[state];
+      return YY_CAST (symbol_kind_type, yystos_[+state]);
   }
 
-  TlCmdParser::stack_symbol_type::stack_symbol_type ()
+  TlParser::stack_symbol_type::stack_symbol_type ()
   {}
 
-  TlCmdParser::stack_symbol_type::stack_symbol_type (const stack_symbol_type& that)
-    : super_type (that.state, that.location)
+  TlParser::stack_symbol_type::stack_symbol_type (YY_RVREF (stack_symbol_type) that)
+    : super_type (YY_MOVE (that.state), YY_MOVE (that.location))
   {
-    switch (that.type_get ())
+    switch (that.kind ())
     {
-      case 13: // "float number"
-      case 17: // "time in any format"
-      case 18: // "time in msec"
-      case 26: // time
-      case 27: // ms_time
-        value.copy< double > (that.value);
+      case symbol_kind::S_FLOAT: // "float number"
+      case symbol_kind::S_17_time_in_any_format_: // "time in any format"
+      case symbol_kind::S_18_time_in_msec_: // "time in msec"
+      case symbol_kind::S_time: // time
+      case symbol_kind::S_ms_time: // ms_time
+        value.YY_MOVE_OR_COPY< double > (YY_MOVE (that.value));
         break;
 
-      case 10: // "integer number"
-        value.copy< long > (that.value);
+      case symbol_kind::S_INT: // "integer number"
+        value.YY_MOVE_OR_COPY< long > (YY_MOVE (that.value));
         break;
 
-      case 14: // "word"
-      case 15: // "unit"
-      case 16: // "clock time in format 00:00:00.000"
-        value.copy< std::string > (that.value);
+      case symbol_kind::S_WORD: // "word"
+      case symbol_kind::S_UNIT: // "unit"
+      case symbol_kind::S_CLOCK_TIME: // "clock time in format 00:00:00.000"
+        value.YY_MOVE_OR_COPY< std::string > (YY_MOVE (that.value));
         break;
 
       default:
         break;
     }
 
+#if 201103L <= YY_CPLUSPLUS
+    // that is emptied.
+    that.state = empty_state;
+#endif
   }
 
-  TlCmdParser::stack_symbol_type::stack_symbol_type (state_type s, symbol_type& that)
-    : super_type (s, that.location)
+  TlParser::stack_symbol_type::stack_symbol_type (state_type s, YY_MOVE_REF (symbol_type) that)
+    : super_type (s, YY_MOVE (that.location))
   {
-    switch (that.type_get ())
+    switch (that.kind ())
     {
-      case 13: // "float number"
-      case 17: // "time in any format"
-      case 18: // "time in msec"
-      case 26: // time
-      case 27: // ms_time
-        value.move< double > (that.value);
+      case symbol_kind::S_FLOAT: // "float number"
+      case symbol_kind::S_17_time_in_any_format_: // "time in any format"
+      case symbol_kind::S_18_time_in_msec_: // "time in msec"
+      case symbol_kind::S_time: // time
+      case symbol_kind::S_ms_time: // ms_time
+        value.move< double > (YY_MOVE (that.value));
         break;
 
-      case 10: // "integer number"
-        value.move< long > (that.value);
+      case symbol_kind::S_INT: // "integer number"
+        value.move< long > (YY_MOVE (that.value));
         break;
 
-      case 14: // "word"
-      case 15: // "unit"
-      case 16: // "clock time in format 00:00:00.000"
-        value.move< std::string > (that.value);
+      case symbol_kind::S_WORD: // "word"
+      case symbol_kind::S_UNIT: // "unit"
+      case symbol_kind::S_CLOCK_TIME: // "clock time in format 00:00:00.000"
+        value.move< std::string > (YY_MOVE (that.value));
         break;
 
       default:
@@ -294,30 +273,31 @@ namespace yy {
     }
 
     // that is emptied.
-    that.type = empty_symbol;
+    that.kind_ = symbol_kind::S_YYEMPTY;
   }
 
-  TlCmdParser::stack_symbol_type&
-  TlCmdParser::stack_symbol_type::operator= (const stack_symbol_type& that)
+#if YY_CPLUSPLUS < 201103L
+  TlParser::stack_symbol_type&
+  TlParser::stack_symbol_type::operator= (const stack_symbol_type& that)
   {
     state = that.state;
-    switch (that.type_get ())
+    switch (that.kind ())
     {
-      case 13: // "float number"
-      case 17: // "time in any format"
-      case 18: // "time in msec"
-      case 26: // time
-      case 27: // ms_time
+      case symbol_kind::S_FLOAT: // "float number"
+      case symbol_kind::S_17_time_in_any_format_: // "time in any format"
+      case symbol_kind::S_18_time_in_msec_: // "time in msec"
+      case symbol_kind::S_time: // time
+      case symbol_kind::S_ms_time: // ms_time
         value.copy< double > (that.value);
         break;
 
-      case 10: // "integer number"
+      case symbol_kind::S_INT: // "integer number"
         value.copy< long > (that.value);
         break;
 
-      case 14: // "word"
-      case 15: // "unit"
-      case 16: // "clock time in format 00:00:00.000"
+      case symbol_kind::S_WORD: // "word"
+      case symbol_kind::S_UNIT: // "unit"
+      case symbol_kind::S_CLOCK_TIME: // "clock time in format 00:00:00.000"
         value.copy< std::string > (that.value);
         break;
 
@@ -329,10 +309,44 @@ namespace yy {
     return *this;
   }
 
+  TlParser::stack_symbol_type&
+  TlParser::stack_symbol_type::operator= (stack_symbol_type& that)
+  {
+    state = that.state;
+    switch (that.kind ())
+    {
+      case symbol_kind::S_FLOAT: // "float number"
+      case symbol_kind::S_17_time_in_any_format_: // "time in any format"
+      case symbol_kind::S_18_time_in_msec_: // "time in msec"
+      case symbol_kind::S_time: // time
+      case symbol_kind::S_ms_time: // ms_time
+        value.move< double > (that.value);
+        break;
+
+      case symbol_kind::S_INT: // "integer number"
+        value.move< long > (that.value);
+        break;
+
+      case symbol_kind::S_WORD: // "word"
+      case symbol_kind::S_UNIT: // "unit"
+      case symbol_kind::S_CLOCK_TIME: // "clock time in format 00:00:00.000"
+        value.move< std::string > (that.value);
+        break;
+
+      default:
+        break;
+    }
+
+    location = that.location;
+    // that is emptied.
+    that.state = empty_state;
+    return *this;
+  }
+#endif
 
   template <typename Base>
   void
-  TlCmdParser::yy_destroy_ (const char* yymsg, basic_symbol<Base>& yysym) const
+  TlParser::yy_destroy_ (const char* yymsg, basic_symbol<Base>& yysym) const
   {
     if (yymsg)
       YY_SYMBOL_PRINT (yymsg, yysym);
@@ -341,166 +355,165 @@ namespace yy {
 #if YYDEBUG
   template <typename Base>
   void
-  TlCmdParser::yy_print_ (std::ostream& yyo,
-                                     const basic_symbol<Base>& yysym) const
+  TlParser::yy_print_ (std::ostream& yyo, const basic_symbol<Base>& yysym) const
   {
     std::ostream& yyoutput = yyo;
     YYUSE (yyoutput);
-    symbol_number_type yytype = yysym.type_get ();
-    // Avoid a (spurious) G++ 4.8 warning about "array subscript is
-    // below array bounds".
     if (yysym.empty ())
-      std::abort ();
-    yyo << (yytype < yyntokens_ ? "token" : "nterm")
-        << ' ' << yytname_[yytype] << " ("
-        << yysym.location << ": ";
-    switch (yytype)
+      yyo << "empty symbol";
+    else
+      {
+        symbol_kind_type yykind = yysym.kind ();
+        yyo << (yykind < YYNTOKENS ? "token" : "nterm")
+            << ' ' << yysym.name () << " ("
+            << yysym.location << ": ";
+        switch (yykind)
     {
-            case 10: // "integer number"
-
-#line 60 "tl_parser.y" // lalr1.cc:635
-        { yyoutput << yysym.value.template as< long > (); }
-#line 364 "tl_parser.cpp" // lalr1.cc:635
+      case symbol_kind::S_INT: // "integer number"
+#line 66 "tl_parser.y"
+                 { yyoutput << yysym.value.template as < long > (); }
+#line 376 "tl_parser.cpp"
         break;
 
-      case 13: // "float number"
-
-#line 60 "tl_parser.y" // lalr1.cc:635
-        { yyoutput << yysym.value.template as< double > (); }
-#line 371 "tl_parser.cpp" // lalr1.cc:635
+      case symbol_kind::S_FLOAT: // "float number"
+#line 66 "tl_parser.y"
+                 { yyoutput << yysym.value.template as < double > (); }
+#line 382 "tl_parser.cpp"
         break;
 
-      case 14: // "word"
-
-#line 60 "tl_parser.y" // lalr1.cc:635
-        { yyoutput << yysym.value.template as< std::string > (); }
-#line 378 "tl_parser.cpp" // lalr1.cc:635
+      case symbol_kind::S_WORD: // "word"
+#line 66 "tl_parser.y"
+                 { yyoutput << yysym.value.template as < std::string > (); }
+#line 388 "tl_parser.cpp"
         break;
 
-      case 15: // "unit"
-
-#line 60 "tl_parser.y" // lalr1.cc:635
-        { yyoutput << yysym.value.template as< std::string > (); }
-#line 385 "tl_parser.cpp" // lalr1.cc:635
+      case symbol_kind::S_UNIT: // "unit"
+#line 66 "tl_parser.y"
+                 { yyoutput << yysym.value.template as < std::string > (); }
+#line 394 "tl_parser.cpp"
         break;
 
-      case 16: // "clock time in format 00:00:00.000"
-
-#line 60 "tl_parser.y" // lalr1.cc:635
-        { yyoutput << yysym.value.template as< std::string > (); }
-#line 392 "tl_parser.cpp" // lalr1.cc:635
+      case symbol_kind::S_CLOCK_TIME: // "clock time in format 00:00:00.000"
+#line 66 "tl_parser.y"
+                 { yyoutput << yysym.value.template as < std::string > (); }
+#line 400 "tl_parser.cpp"
         break;
 
-      case 17: // "time in any format"
-
-#line 60 "tl_parser.y" // lalr1.cc:635
-        { yyoutput << yysym.value.template as< double > (); }
-#line 399 "tl_parser.cpp" // lalr1.cc:635
+      case symbol_kind::S_17_time_in_any_format_: // "time in any format"
+#line 66 "tl_parser.y"
+                 { yyoutput << yysym.value.template as < double > (); }
+#line 406 "tl_parser.cpp"
         break;
 
-      case 18: // "time in msec"
-
-#line 60 "tl_parser.y" // lalr1.cc:635
-        { yyoutput << yysym.value.template as< double > (); }
-#line 406 "tl_parser.cpp" // lalr1.cc:635
+      case symbol_kind::S_18_time_in_msec_: // "time in msec"
+#line 66 "tl_parser.y"
+                 { yyoutput << yysym.value.template as < double > (); }
+#line 412 "tl_parser.cpp"
         break;
 
-      case 26: // time
-
-#line 60 "tl_parser.y" // lalr1.cc:635
-        { yyoutput << yysym.value.template as< double > (); }
-#line 413 "tl_parser.cpp" // lalr1.cc:635
+      case symbol_kind::S_time: // time
+#line 66 "tl_parser.y"
+                 { yyoutput << yysym.value.template as < double > (); }
+#line 418 "tl_parser.cpp"
         break;
 
-      case 27: // ms_time
-
-#line 60 "tl_parser.y" // lalr1.cc:635
-        { yyoutput << yysym.value.template as< double > (); }
-#line 420 "tl_parser.cpp" // lalr1.cc:635
+      case symbol_kind::S_ms_time: // ms_time
+#line 66 "tl_parser.y"
+                 { yyoutput << yysym.value.template as < double > (); }
+#line 424 "tl_parser.cpp"
         break;
-
 
       default:
         break;
     }
-    yyo << ')';
+        yyo << ')';
+      }
   }
 #endif
 
   void
-  TlCmdParser::yypush_ (const char* m, state_type s, symbol_type& sym)
-  {
-    stack_symbol_type t (s, sym);
-    yypush_ (m, t);
-  }
-
-  void
-  TlCmdParser::yypush_ (const char* m, stack_symbol_type& s)
+  TlParser::yypush_ (const char* m, YY_MOVE_REF (stack_symbol_type) sym)
   {
     if (m)
-      YY_SYMBOL_PRINT (m, s);
-    yystack_.push (s);
+      YY_SYMBOL_PRINT (m, sym);
+    yystack_.push (YY_MOVE (sym));
   }
 
   void
-  TlCmdParser::yypop_ (unsigned n)
+  TlParser::yypush_ (const char* m, state_type s, YY_MOVE_REF (symbol_type) sym)
+  {
+#if 201103L <= YY_CPLUSPLUS
+    yypush_ (m, stack_symbol_type (s, std::move (sym)));
+#else
+    stack_symbol_type ss (s, sym);
+    yypush_ (m, ss);
+#endif
+  }
+
+  void
+  TlParser::yypop_ (int n)
   {
     yystack_.pop (n);
   }
 
 #if YYDEBUG
   std::ostream&
-  TlCmdParser::debug_stream () const
+  TlParser::debug_stream () const
   {
     return *yycdebug_;
   }
 
   void
-  TlCmdParser::set_debug_stream (std::ostream& o)
+  TlParser::set_debug_stream (std::ostream& o)
   {
     yycdebug_ = &o;
   }
 
 
-  TlCmdParser::debug_level_type
-  TlCmdParser::debug_level () const
+  TlParser::debug_level_type
+  TlParser::debug_level () const
   {
     return yydebug_;
   }
 
   void
-  TlCmdParser::set_debug_level (debug_level_type l)
+  TlParser::set_debug_level (debug_level_type l)
   {
     yydebug_ = l;
   }
 #endif // YYDEBUG
 
-  TlCmdParser::state_type
-  TlCmdParser::yy_lr_goto_state_ (state_type yystate, int yysym)
+  TlParser::state_type
+  TlParser::yy_lr_goto_state_ (state_type yystate, int yysym)
   {
-    int yyr = yypgoto_[yysym - yyntokens_] + yystate;
+    int yyr = yypgoto_[yysym - YYNTOKENS] + yystate;
     if (0 <= yyr && yyr <= yylast_ && yycheck_[yyr] == yystate)
       return yytable_[yyr];
     else
-      return yydefgoto_[yysym - yyntokens_];
+      return yydefgoto_[yysym - YYNTOKENS];
   }
 
   bool
-  TlCmdParser::yy_pact_value_is_default_ (int yyvalue)
+  TlParser::yy_pact_value_is_default_ (int yyvalue)
   {
     return yyvalue == yypact_ninf_;
   }
 
   bool
-  TlCmdParser::yy_table_value_is_error_ (int yyvalue)
+  TlParser::yy_table_value_is_error_ (int yyvalue)
   {
     return yyvalue == yytable_ninf_;
   }
 
   int
-  TlCmdParser::parse ()
+  TlParser::operator() ()
   {
-    // State.
+    return parse ();
+  }
+
+  int
+  TlParser::parse ()
+  {
     int yyn;
     /// Length of the RHS of the rule being reduced.
     int yylen = 0;
@@ -518,9 +531,9 @@ namespace yy {
     /// The return value of parse ().
     int yyresult;
 
-    // FIXME: This shoud be completely indented.  It is not yet to
-    // avoid gratuitous conflicts when merging into the master branch.
+#if YY_EXCEPTIONS
     try
+#endif // YY_EXCEPTIONS
       {
     YYCDEBUG << "Starting parse\n";
 
@@ -530,48 +543,70 @@ namespace yy {
        location values to have been already stored, initialize these
        stacks with a primary value.  */
     yystack_.clear ();
-    yypush_ (YY_NULLPTR, 0, yyla);
+    yypush_ (YY_NULLPTR, 0, YY_MOVE (yyla));
 
-    // A new symbol was pushed on the stack.
+  /*-----------------------------------------------.
+  | yynewstate -- push a new symbol on the stack.  |
+  `-----------------------------------------------*/
   yynewstate:
-    YYCDEBUG << "Entering state " << yystack_[0].state << '\n';
+    YYCDEBUG << "Entering state " << int (yystack_[0].state) << '\n';
+    YY_STACK_PRINT ();
 
     // Accept?
     if (yystack_[0].state == yyfinal_)
-      goto yyacceptlab;
+      YYACCEPT;
 
     goto yybackup;
 
-    // Backup.
-  yybackup:
 
+  /*-----------.
+  | yybackup.  |
+  `-----------*/
+  yybackup:
     // Try to take a decision without lookahead.
-    yyn = yypact_[yystack_[0].state];
+    yyn = yypact_[+yystack_[0].state];
     if (yy_pact_value_is_default_ (yyn))
       goto yydefault;
 
     // Read a lookahead token.
     if (yyla.empty ())
       {
-        YYCDEBUG << "Reading a token: ";
+        YYCDEBUG << "Reading a token\n";
+#if YY_EXCEPTIONS
         try
+#endif // YY_EXCEPTIONS
           {
-            symbol_type yylookahead (yylex (driver));
+            symbol_type yylookahead (yylex ());
             yyla.move (yylookahead);
           }
+#if YY_EXCEPTIONS
         catch (const syntax_error& yyexc)
           {
+            YYCDEBUG << "Caught exception: " << yyexc.what() << '\n';
             error (yyexc);
             goto yyerrlab1;
           }
+#endif // YY_EXCEPTIONS
       }
     YY_SYMBOL_PRINT ("Next token is", yyla);
 
+    if (yyla.kind () == symbol_kind::S_YYerror)
+    {
+      // The scanner already issued an error message, process directly
+      // to error recovery.  But do not keep the error token as
+      // lookahead, it is too special and may lead us to an endless
+      // loop in error recovery. */
+      yyla.kind_ = symbol_kind::S_YYUNDEF;
+      goto yyerrlab1;
+    }
+
     /* If the proper action on seeing token YYLA.TYPE is to reduce or
        to detect an error, take that action.  */
-    yyn += yyla.type_get ();
-    if (yyn < 0 || yylast_ < yyn || yycheck_[yyn] != yyla.type_get ())
-      goto yydefault;
+    yyn += yyla.kind ();
+    if (yyn < 0 || yylast_ < yyn || yycheck_[yyn] != yyla.kind ())
+      {
+        goto yydefault;
+      }
 
     // Reduce or error.
     yyn = yytable_[yyn];
@@ -588,20 +623,22 @@ namespace yy {
       --yyerrstatus_;
 
     // Shift the lookahead token.
-    yypush_ ("Shifting", yyn, yyla);
+    yypush_ ("Shifting", state_type (yyn), YY_MOVE (yyla));
     goto yynewstate;
+
 
   /*-----------------------------------------------------------.
   | yydefault -- do the default action for the current state.  |
   `-----------------------------------------------------------*/
   yydefault:
-    yyn = yydefact_[yystack_[0].state];
+    yyn = yydefact_[+yystack_[0].state];
     if (yyn == 0)
       goto yyerrlab;
     goto yyreduce;
 
+
   /*-----------------------------.
-  | yyreduce -- Do a reduction.  |
+  | yyreduce -- do a reduction.  |
   `-----------------------------*/
   yyreduce:
     yylen = yyr2_[yyn];
@@ -613,22 +650,22 @@ namespace yy {
          when using variants.  */
       switch (yyr1_[yyn])
     {
-      case 13: // "float number"
-      case 17: // "time in any format"
-      case 18: // "time in msec"
-      case 26: // time
-      case 27: // ms_time
-        yylhs.value.build< double > ();
+      case symbol_kind::S_FLOAT: // "float number"
+      case symbol_kind::S_17_time_in_any_format_: // "time in any format"
+      case symbol_kind::S_18_time_in_msec_: // "time in msec"
+      case symbol_kind::S_time: // time
+      case symbol_kind::S_ms_time: // ms_time
+        yylhs.value.emplace< double > ();
         break;
 
-      case 10: // "integer number"
-        yylhs.value.build< long > ();
+      case symbol_kind::S_INT: // "integer number"
+        yylhs.value.emplace< long > ();
         break;
 
-      case 14: // "word"
-      case 15: // "unit"
-      case 16: // "clock time in format 00:00:00.000"
-        yylhs.value.build< std::string > ();
+      case symbol_kind::S_WORD: // "word"
+      case symbol_kind::S_UNIT: // "unit"
+      case symbol_kind::S_CLOCK_TIME: // "clock time in format 00:00:00.000"
+        yylhs.value.emplace< std::string > ();
         break;
 
       default:
@@ -638,127 +675,133 @@ namespace yy {
 
       // Default location.
       {
-        slice<stack_symbol_type, stack_type> slice (yystack_, yylen);
-        YYLLOC_DEFAULT (yylhs.location, slice, yylen);
+        stack_type::slice range (yystack_, yylen);
+        YYLLOC_DEFAULT (yylhs.location, range, yylen);
         yyerror_range[1].location = yylhs.location;
       }
 
       // Perform the reduction.
       YY_REDUCE_PRINT (yyn);
+#if YY_EXCEPTIONS
       try
+#endif // YY_EXCEPTIONS
         {
           switch (yyn)
             {
-  case 7:
-#line 72 "tl_parser.y" // lalr1.cc:856
-    { driver.addAbsEvent("", yystack_[0].value.as< double > ()); }
-#line 656 "tl_parser.cpp" // lalr1.cc:856
+  case 7: // add_command: "add action" time
+#line 78 "tl_parser.y"
+                                { driver.addAbsEvent("", yystack_[0].value.as < double > ()); }
+#line 695 "tl_parser.cpp"
     break;
 
-  case 8:
-#line 73 "tl_parser.y" // lalr1.cc:856
-    { driver.addAbsEvent(yystack_[1].value.as< std::string > (), yystack_[0].value.as< double > ()); }
-#line 662 "tl_parser.cpp" // lalr1.cc:856
+  case 8: // add_command: "add action" "word" time
+#line 79 "tl_parser.y"
+                                { driver.addAbsEvent(yystack_[1].value.as < std::string > (), yystack_[0].value.as < double > ()); }
+#line 701 "tl_parser.cpp"
     break;
 
-  case 9:
-#line 74 "tl_parser.y" // lalr1.cc:856
-    { driver.addRelEvent(yystack_[3].value.as< std::string > (), -yystack_[2].value.as< double > (), yystack_[0].value.as< std::string > ()); }
-#line 668 "tl_parser.cpp" // lalr1.cc:856
+  case 9: // add_command: "add action" "word" time BEFORE "word"
+#line 80 "tl_parser.y"
+                                { driver.addRelEvent(yystack_[3].value.as < std::string > (), -yystack_[2].value.as < double > (), yystack_[0].value.as < std::string > ()); }
+#line 707 "tl_parser.cpp"
     break;
 
-  case 10:
-#line 75 "tl_parser.y" // lalr1.cc:856
-    { driver.addRelEvent(yystack_[3].value.as< std::string > (), yystack_[2].value.as< double > (), yystack_[0].value.as< std::string > ()); }
-#line 674 "tl_parser.cpp" // lalr1.cc:856
+  case 10: // add_command: "add action" "word" time AFTER "word"
+#line 81 "tl_parser.y"
+                                { driver.addRelEvent(yystack_[3].value.as < std::string > (), yystack_[2].value.as < double > (), yystack_[0].value.as < std::string > ()); }
+#line 713 "tl_parser.cpp"
     break;
 
-  case 11:
-#line 78 "tl_parser.y" // lalr1.cc:856
-    { driver.removeEvent(yystack_[0].value.as< std::string > ()); }
-#line 680 "tl_parser.cpp" // lalr1.cc:856
+  case 11: // remove_command: "remove action" "word"
+#line 84 "tl_parser.y"
+                                { driver.removeEvent(yystack_[0].value.as < std::string > ()); }
+#line 719 "tl_parser.cpp"
     break;
 
-  case 12:
-#line 79 "tl_parser.y" // lalr1.cc:856
-    { driver.removeEventAtPos(yystack_[0].value.as< long > ()); }
-#line 686 "tl_parser.cpp" // lalr1.cc:856
+  case 12: // remove_command: "remove action" "integer number"
+#line 85 "tl_parser.y"
+                                { driver.removeEventAtPos(yystack_[0].value.as < long > ()); }
+#line 725 "tl_parser.cpp"
     break;
 
-  case 13:
-#line 82 "tl_parser.y" // lalr1.cc:856
-    { driver.removeEventAtTime(yystack_[0].value.as< double > ()); }
-#line 692 "tl_parser.cpp" // lalr1.cc:856
+  case 13: // remove_command_at: "remove at specified time ms" time
+#line 88 "tl_parser.y"
+                                { driver.removeEventAtTime(yystack_[0].value.as < double > ()); }
+#line 731 "tl_parser.cpp"
     break;
 
-  case 14:
-#line 84 "tl_parser.y" // lalr1.cc:856
-    { driver.clearAll(); }
-#line 698 "tl_parser.cpp" // lalr1.cc:856
+  case 14: // clear_command: "clear action"
+#line 90 "tl_parser.y"
+                                { driver.clearAll(); }
+#line 737 "tl_parser.cpp"
     break;
 
-  case 15:
-#line 87 "tl_parser.y" // lalr1.cc:856
-    { driver.moveToEvent(yystack_[0].value.as< std::string > ()); }
-#line 704 "tl_parser.cpp" // lalr1.cc:856
+  case 15: // move_command: "move to named event" "word"
+#line 93 "tl_parser.y"
+                                { driver.moveToEvent(yystack_[0].value.as < std::string > ()); }
+#line 743 "tl_parser.cpp"
     break;
 
-  case 16:
-#line 88 "tl_parser.y" // lalr1.cc:856
-    { driver.moveToEvent(yystack_[0].value.as< long > ()); }
-#line 710 "tl_parser.cpp" // lalr1.cc:856
+  case 16: // move_command: "move to named event" "integer number"
+#line 94 "tl_parser.y"
+                                { driver.moveToEvent(yystack_[0].value.as < long > ()); }
+#line 749 "tl_parser.cpp"
     break;
 
-  case 17:
-#line 89 "tl_parser.y" // lalr1.cc:856
-    { driver.moveToTime(yystack_[0].value.as< double > ()); }
-#line 716 "tl_parser.cpp" // lalr1.cc:856
+  case 17: // move_command: "move to time" time
+#line 95 "tl_parser.y"
+                                { driver.moveToTime(yystack_[0].value.as < double > ()); }
+#line 755 "tl_parser.cpp"
     break;
 
-  case 18:
-#line 92 "tl_parser.y" // lalr1.cc:856
-    { yylhs.value.as< double > () = driver.parseClock(yystack_[0].value.as< std::string > ()); }
-#line 722 "tl_parser.cpp" // lalr1.cc:856
+  case 18: // time: "clock time in format 00:00:00.000"
+#line 98 "tl_parser.y"
+                                { yylhs.value.as < double > () = driver.parseClock(yystack_[0].value.as < std::string > ()); }
+#line 761 "tl_parser.cpp"
     break;
 
-  case 19:
-#line 93 "tl_parser.y" // lalr1.cc:856
-    { yylhs.value.as< double > () = double(yystack_[0].value.as< double > ()); }
-#line 728 "tl_parser.cpp" // lalr1.cc:856
+  case 19: // time: ms_time
+#line 99 "tl_parser.y"
+                                { yylhs.value.as < double > () = double(yystack_[0].value.as < double > ()); }
+#line 767 "tl_parser.cpp"
     break;
 
-  case 20:
-#line 96 "tl_parser.y" // lalr1.cc:856
-    { yylhs.value.as< double > () = driver.parseTime(yystack_[1].value.as< long > (), yystack_[0].value.as< std::string > ()); }
-#line 734 "tl_parser.cpp" // lalr1.cc:856
+  case 20: // ms_time: "integer number" "unit"
+#line 102 "tl_parser.y"
+                                { yylhs.value.as < double > () = driver.parseTime(yystack_[1].value.as < long > (), yystack_[0].value.as < std::string > ()); }
+#line 773 "tl_parser.cpp"
     break;
 
-  case 21:
-#line 97 "tl_parser.y" // lalr1.cc:856
-    { yylhs.value.as< double > () = driver.parseTime(yystack_[1].value.as< double > (), yystack_[0].value.as< std::string > ()); }
-#line 740 "tl_parser.cpp" // lalr1.cc:856
+  case 21: // ms_time: "float number" "unit"
+#line 103 "tl_parser.y"
+                                { yylhs.value.as < double > () = driver.parseTime(yystack_[1].value.as < double > (), yystack_[0].value.as < std::string > ()); }
+#line 779 "tl_parser.cpp"
     break;
 
 
-#line 744 "tl_parser.cpp" // lalr1.cc:856
+#line 783 "tl_parser.cpp"
+
             default:
               break;
             }
         }
+#if YY_EXCEPTIONS
       catch (const syntax_error& yyexc)
         {
+          YYCDEBUG << "Caught exception: " << yyexc.what() << '\n';
           error (yyexc);
           YYERROR;
         }
+#endif // YY_EXCEPTIONS
       YY_SYMBOL_PRINT ("-> $$ =", yylhs);
       yypop_ (yylen);
       yylen = 0;
-      YY_STACK_PRINT ();
 
       // Shift the result of the reduction.
-      yypush_ (YY_NULLPTR, yylhs);
+      yypush_ (YY_NULLPTR, YY_MOVE (yylhs));
     }
     goto yynewstate;
+
 
   /*--------------------------------------.
   | yyerrlab -- here on detecting error.  |
@@ -768,7 +811,9 @@ namespace yy {
     if (!yyerrstatus_)
       {
         ++yynerrs_;
-        error (yyla.location, yysyntax_error_ (yystack_[0].state, yyla));
+        context yyctx (*this, yyla);
+        std::string msg = yysyntax_error_ (yyctx);
+        error (yyla.location, YY_MOVE (msg));
       }
 
 
@@ -779,7 +824,7 @@ namespace yy {
            error, discard it.  */
 
         // Return failure if at end of input.
-        if (yyla.type_get () == yyeof_)
+        if (yyla.kind () == symbol_kind::S_YYEOF)
           YYABORT;
         else if (!yyla.empty ())
           {
@@ -796,68 +841,81 @@ namespace yy {
   | yyerrorlab -- error raised explicitly by YYERROR.  |
   `---------------------------------------------------*/
   yyerrorlab:
-
-    /* Pacify compilers like GCC when the user code never invokes
-       YYERROR and the label yyerrorlab therefore never appears in user
-       code.  */
+    /* Pacify compilers when the user code never invokes YYERROR and
+       the label yyerrorlab therefore never appears in user code.  */
     if (false)
-      goto yyerrorlab;
+      YYERROR;
+
     /* Do not reclaim the symbols of the rule whose action triggered
        this YYERROR.  */
     yypop_ (yylen);
     yylen = 0;
+    YY_STACK_PRINT ();
     goto yyerrlab1;
+
 
   /*-------------------------------------------------------------.
   | yyerrlab1 -- common code for both syntax error and YYERROR.  |
   `-------------------------------------------------------------*/
   yyerrlab1:
     yyerrstatus_ = 3;   // Each real token shifted decrements this.
+    // Pop stack until we find a state that shifts the error token.
+    for (;;)
+      {
+        yyn = yypact_[+yystack_[0].state];
+        if (!yy_pact_value_is_default_ (yyn))
+          {
+            yyn += symbol_kind::S_YYerror;
+            if (0 <= yyn && yyn <= yylast_
+                && yycheck_[yyn] == symbol_kind::S_YYerror)
+              {
+                yyn = yytable_[yyn];
+                if (0 < yyn)
+                  break;
+              }
+          }
+
+        // Pop the current state because it cannot handle the error token.
+        if (yystack_.size () == 1)
+          YYABORT;
+
+        yyerror_range[1].location = yystack_[0].location;
+        yy_destroy_ ("Error: popping", yystack_[0]);
+        yypop_ ();
+        YY_STACK_PRINT ();
+      }
     {
       stack_symbol_type error_token;
-      for (;;)
-        {
-          yyn = yypact_[yystack_[0].state];
-          if (!yy_pact_value_is_default_ (yyn))
-            {
-              yyn += yyterror_;
-              if (0 <= yyn && yyn <= yylast_ && yycheck_[yyn] == yyterror_)
-                {
-                  yyn = yytable_[yyn];
-                  if (0 < yyn)
-                    break;
-                }
-            }
-
-          // Pop the current state because it cannot handle the error token.
-          if (yystack_.size () == 1)
-            YYABORT;
-
-          yyerror_range[1].location = yystack_[0].location;
-          yy_destroy_ ("Error: popping", yystack_[0]);
-          yypop_ ();
-          YY_STACK_PRINT ();
-        }
 
       yyerror_range[2].location = yyla.location;
       YYLLOC_DEFAULT (error_token.location, yyerror_range, 2);
 
       // Shift the error token.
-      error_token.state = yyn;
-      yypush_ ("Shifting", error_token);
+      error_token.state = state_type (yyn);
+      yypush_ ("Shifting", YY_MOVE (error_token));
     }
     goto yynewstate;
 
-    // Accept.
+
+  /*-------------------------------------.
+  | yyacceptlab -- YYACCEPT comes here.  |
+  `-------------------------------------*/
   yyacceptlab:
     yyresult = 0;
     goto yyreturn;
 
-    // Abort.
+
+  /*-----------------------------------.
+  | yyabortlab -- YYABORT comes here.  |
+  `-----------------------------------*/
   yyabortlab:
     yyresult = 1;
     goto yyreturn;
 
+
+  /*-----------------------------------------------------.
+  | yyreturn -- parsing is finished, return the result.  |
+  `-----------------------------------------------------*/
   yyreturn:
     if (!yyla.empty ())
       yy_destroy_ ("Cleanup: discarding lookahead", yyla);
@@ -865,6 +923,7 @@ namespace yy {
     /* Do not reclaim the symbols of the rule whose action triggered
        this YYABORT or YYACCEPT.  */
     yypop_ (yylen);
+    YY_STACK_PRINT ();
     while (1 < yystack_.size ())
       {
         yy_destroy_ ("Cleanup: popping", yystack_[0]);
@@ -873,11 +932,12 @@ namespace yy {
 
     return yyresult;
   }
+#if YY_EXCEPTIONS
     catch (...)
       {
         YYCDEBUG << "Exception caught: cleaning lookahead and stack\n";
         // Do not try to display the values of the reclaimed symbols,
-        // as their printer might throw an exception.
+        // as their printers might throw an exception.
         if (!yyla.empty ())
           yy_destroy_ (YY_NULLPTR, yyla);
 
@@ -888,26 +948,109 @@ namespace yy {
           }
         throw;
       }
+#endif // YY_EXCEPTIONS
   }
 
   void
-  TlCmdParser::error (const syntax_error& yyexc)
+  TlParser::error (const syntax_error& yyexc)
   {
     error (yyexc.location, yyexc.what ());
   }
 
-  // Generate an error message.
+  /* Return YYSTR after stripping away unnecessary quotes and
+     backslashes, so that it's suitable for yyerror.  The heuristic is
+     that double-quoting is unnecessary unless the string contains an
+     apostrophe, a comma, or backslash (other than backslash-backslash).
+     YYSTR is taken from yytname.  */
   std::string
-  TlCmdParser::yysyntax_error_ (state_type yystate, const symbol_type& yyla) const
+  TlParser::yytnamerr_ (const char *yystr)
   {
-    // Number of reported tokens (one for the "unexpected", one per
-    // "expected").
-    size_t yycount = 0;
-    // Its maximum.
-    enum { YYERROR_VERBOSE_ARGS_MAXIMUM = 5 };
-    // Arguments of yyformat.
-    char const *yyarg[YYERROR_VERBOSE_ARGS_MAXIMUM];
+    if (*yystr == '"')
+      {
+        std::string yyr;
+        char const *yyp = yystr;
 
+        for (;;)
+          switch (*++yyp)
+            {
+            case '\'':
+            case ',':
+              goto do_not_strip_quotes;
+
+            case '\\':
+              if (*++yyp != '\\')
+                goto do_not_strip_quotes;
+              else
+                goto append;
+
+            append:
+            default:
+              yyr += *yyp;
+              break;
+
+            case '"':
+              return yyr;
+            }
+      do_not_strip_quotes: ;
+      }
+
+    return yystr;
+  }
+
+  std::string
+  TlParser::symbol_name (symbol_kind_type yysymbol)
+  {
+    return yytnamerr_ (yytname_[yysymbol]);
+  }
+
+
+
+  // TlParser::context.
+  TlParser::context::context (const TlParser& yyparser, const symbol_type& yyla)
+    : yyparser_ (yyparser)
+    , yyla_ (yyla)
+  {}
+
+  int
+  TlParser::context::expected_tokens (symbol_kind_type yyarg[], int yyargn) const
+  {
+    // Actual number of expected tokens
+    int yycount = 0;
+
+    int yyn = yypact_[+yyparser_.yystack_[0].state];
+    if (!yy_pact_value_is_default_ (yyn))
+      {
+        /* Start YYX at -YYN if negative to avoid negative indexes in
+           YYCHECK.  In other words, skip the first -YYN actions for
+           this state because they are default actions.  */
+        int yyxbegin = yyn < 0 ? -yyn : 0;
+        // Stay within bounds of both yycheck and yytname.
+        int yychecklim = yylast_ - yyn + 1;
+        int yyxend = yychecklim < YYNTOKENS ? yychecklim : YYNTOKENS;
+        for (int yyx = yyxbegin; yyx < yyxend; ++yyx)
+          if (yycheck_[yyx + yyn] == yyx && yyx != symbol_kind::S_YYerror
+              && !yy_table_value_is_error_ (yytable_[yyx + yyn]))
+            {
+              if (!yyarg)
+                ++yycount;
+              else if (yycount == yyargn)
+                return 0;
+              else
+                yyarg[yycount++] = YY_CAST (symbol_kind_type, yyx);
+            }
+      }
+
+    if (yyarg && yycount == 0 && 0 < yyargn)
+      yyarg[0] = symbol_kind::S_YYEMPTY;
+    return yycount;
+  }
+
+
+
+  int
+  TlParser::yy_syntax_error_arguments_ (const context& yyctx,
+                                                 symbol_kind_type yyarg[], int yyargn) const
+  {
     /* There are many possibilities here to consider:
        - If this state is a consistent state with a default action, then
          the only way this function was invoked is if the default action
@@ -926,41 +1069,32 @@ namespace yy {
        - Of course, the expected token list depends on states to have
          correct lookahead information, and it depends on the parser not
          to perform extra reductions after fetching a lookahead from the
-         scanner and before detecting a syntax error.  Thus, state
-         merging (from LALR or IELR) and default reductions corrupt the
-         expected token list.  However, the list is correct for
-         canonical LR with one exception: it will still contain any
-         token that will not be accepted due to an error action in a
-         later state.
+         scanner and before detecting a syntax error.  Thus, state merging
+         (from LALR or IELR) and default reductions corrupt the expected
+         token list.  However, the list is correct for canonical LR with
+         one exception: it will still contain any token that will not be
+         accepted due to an error action in a later state.
     */
-    if (!yyla.empty ())
+
+    if (!yyctx.lookahead ().empty ())
       {
-        int yytoken = yyla.type_get ();
-        yyarg[yycount++] = yytname_[yytoken];
-        int yyn = yypact_[yystate];
-        if (!yy_pact_value_is_default_ (yyn))
-          {
-            /* Start YYX at -YYN if negative to avoid negative indexes in
-               YYCHECK.  In other words, skip the first -YYN actions for
-               this state because they are default actions.  */
-            int yyxbegin = yyn < 0 ? -yyn : 0;
-            // Stay within bounds of both yycheck and yytname.
-            int yychecklim = yylast_ - yyn + 1;
-            int yyxend = yychecklim < yyntokens_ ? yychecklim : yyntokens_;
-            for (int yyx = yyxbegin; yyx < yyxend; ++yyx)
-              if (yycheck_[yyx + yyn] == yyx && yyx != yyterror_
-                  && !yy_table_value_is_error_ (yytable_[yyx + yyn]))
-                {
-                  if (yycount == YYERROR_VERBOSE_ARGS_MAXIMUM)
-                    {
-                      yycount = 1;
-                      break;
-                    }
-                  else
-                    yyarg[yycount++] = yytname_[yyx];
-                }
-          }
+        if (yyarg)
+          yyarg[0] = yyctx.token ();
+        int yyn = yyctx.expected_tokens (yyarg ? yyarg + 1 : yyarg, yyargn - 1);
+        return yyn + 1;
       }
+    return 0;
+  }
+
+  // Generate an error message.
+  std::string
+  TlParser::yysyntax_error_ (const context& yyctx) const
+  {
+    // Its maximum.
+    enum { YYARGS_MAX = 5 };
+    // Arguments of yyformat.
+    symbol_kind_type yyarg[YYARGS_MAX];
+    int yycount = yy_syntax_error_arguments_ (yyctx, yyarg, YYARGS_MAX);
 
     char const* yyformat = YY_NULLPTR;
     switch (yycount)
@@ -981,11 +1115,11 @@ namespace yy {
 
     std::string yyres;
     // Argument number.
-    size_t yyi = 0;
+    std::ptrdiff_t yyi = 0;
     for (char const* yyp = yyformat; *yyp; ++yyp)
       if (yyp[0] == '%' && yyp[1] == 's' && yyi < yycount)
         {
-          yyres += yytnamerr_ (yyarg[yyi++]);
+          yyres += symbol_name (yyarg[yyi++]);
           ++yyp;
         }
       else
@@ -994,12 +1128,12 @@ namespace yy {
   }
 
 
-  const signed char TlCmdParser::yypact_ninf_ = -9;
+  const signed char TlParser::yypact_ninf_ = -9;
 
-  const signed char TlCmdParser::yytable_ninf_ = -1;
+  const signed char TlParser::yytable_ninf_ = -1;
 
   const signed char
-  TlCmdParser::yypact_[] =
+  TlParser::yypact_[] =
   {
       12,    -8,    -7,    -9,    13,    -1,    -1,     4,    -9,    -9,
       -9,    -9,    -9,    -4,     7,    -1,    -9,    -9,    -9,    -9,
@@ -1007,8 +1141,8 @@ namespace yy {
       11,    -9,    -9
   };
 
-  const unsigned char
-  TlCmdParser::yydefact_[] =
+  const signed char
+  TlParser::yydefact_[] =
   {
        0,     0,     0,    14,     0,     0,     0,     0,     2,     3,
        4,     6,     5,     0,     0,     0,    18,     7,    19,    12,
@@ -1017,19 +1151,19 @@ namespace yy {
   };
 
   const signed char
-  TlCmdParser::yypgoto_[] =
+  TlParser::yypgoto_[] =
   {
       -9,    -9,    -9,    -9,    -9,    -9,    -9,    -5,    -9
   };
 
   const signed char
-  TlCmdParser::yydefgoto_[] =
+  TlParser::yydefgoto_[] =
   {
       -1,     7,     8,     9,    10,    11,    12,    17,    18
   };
 
-  const unsigned char
-  TlCmdParser::yytable_[] =
+  const signed char
+  TlParser::yytable_[] =
   {
       23,    24,    13,    19,    25,    14,    15,    20,    16,    13,
       28,    26,    14,    29,    30,    16,     1,     2,     3,     4,
@@ -1037,15 +1171,15 @@ namespace yy {
   };
 
   const signed char
-  TlCmdParser::yycheck_[] =
+  TlParser::yycheck_[] =
   {
        5,     6,    10,    10,     0,    13,    14,    14,    16,    10,
       15,    15,    13,    11,    12,    16,     4,     5,     6,     7,
        8,     9,    15,    10,    14,    14,    -1,    14
   };
 
-  const unsigned char
-  TlCmdParser::yystos_[] =
+  const signed char
+  TlParser::yystos_[] =
   {
        0,     4,     5,     6,     7,     8,     9,    20,    21,    22,
       23,    24,    25,    10,    13,    14,    16,    26,    27,    10,
@@ -1053,16 +1187,16 @@ namespace yy {
       12,    14,    14
   };
 
-  const unsigned char
-  TlCmdParser::yyr1_[] =
+  const signed char
+  TlParser::yyr1_[] =
   {
        0,    19,    20,    20,    20,    20,    20,    21,    21,    21,
       21,    22,    22,    23,    24,    25,    25,    25,    26,    26,
       27,    27
   };
 
-  const unsigned char
-  TlCmdParser::yyr2_[] =
+  const signed char
+  TlParser::yyr2_[] =
   {
        0,     2,     1,     1,     1,     1,     1,     2,     3,     5,
        5,     2,     2,     2,     1,     2,     2,     2,     1,     1,
@@ -1070,49 +1204,50 @@ namespace yy {
   };
 
 
-
+#if YYDEBUG || 1
   // YYTNAME[SYMBOL-NUM] -- String name of the symbol SYMBOL-NUM.
-  // First, the terminals, then, starting at \a yyntokens_, nonterminals.
+  // First, the terminals, then, starting at \a YYNTOKENS, nonterminals.
   const char*
-  const TlCmdParser::yytname_[] =
+  const TlParser::yytname_[] =
   {
-  "\"end of file\"", "error", "$undefined", "\" \"", "\"add action\"",
-  "\"remove action\"", "\"clear action\"", "\"move to named event\"",
-  "\"move to time\"", "\"remove at specified time ms\"",
-  "\"integer number\"", "AFTER", "BEFORE", "\"float number\"", "\"word\"",
-  "\"unit\"", "\"clock time in format 00:00:00.000\"",
-  "\"time in any format\"", "\"time in msec\"", "$accept", "command",
-  "add_command", "remove_command", "remove_command_at", "clear_command",
-  "move_command", "time", "ms_time", YY_NULLPTR
+  "\"end of file\"", "error", "\"invalid token\"", "\" \"",
+  "\"add action\"", "\"remove action\"", "\"clear action\"",
+  "\"move to named event\"", "\"move to time\"",
+  "\"remove at specified time ms\"", "\"integer number\"", "AFTER",
+  "BEFORE", "\"float number\"", "\"word\"", "\"unit\"",
+  "\"clock time in format 00:00:00.000\"", "\"time in any format\"",
+  "\"time in msec\"", "$accept", "command", "add_command",
+  "remove_command", "remove_command_at", "clear_command", "move_command",
+  "time", "ms_time", YY_NULLPTR
   };
+#endif
+
 
 #if YYDEBUG
-  const unsigned char
-  TlCmdParser::yyrline_[] =
+  const signed char
+  TlParser::yyrline_[] =
   {
-       0,    65,    65,    66,    67,    68,    69,    72,    73,    74,
-      75,    78,    79,    82,    84,    87,    88,    89,    92,    93,
-      96,    97
+       0,    71,    71,    72,    73,    74,    75,    78,    79,    80,
+      81,    84,    85,    88,    90,    93,    94,    95,    98,    99,
+     102,   103
   };
 
-  // Print the state stack on the debug stream.
   void
-  TlCmdParser::yystack_print_ ()
+  TlParser::yy_stack_print_ () const
   {
     *yycdebug_ << "Stack now";
     for (stack_type::const_iterator
            i = yystack_.begin (),
            i_end = yystack_.end ();
          i != i_end; ++i)
-      *yycdebug_ << ' ' << i->state;
+      *yycdebug_ << ' ' << int (i->state);
     *yycdebug_ << '\n';
   }
 
-  // Report on the debug stream that the rule \a yyrule is going to be reduced.
   void
-  TlCmdParser::yy_reduce_print_ (int yyrule)
+  TlParser::yy_reduce_print_ (int yyrule) const
   {
-    unsigned yylno = yyrline_[yyrule];
+    int yylno = yyrline_[yyrule];
     int yynrhs = yyr2_[yyrule];
     // Print the symbols being reduced, and their result.
     *yycdebug_ << "Reducing stack by rule " << yyrule - 1
@@ -1125,13 +1260,14 @@ namespace yy {
 #endif // YYDEBUG
 
 
+#line 7 "tl_parser.y"
+} } // ceammc::tl
+#line 1266 "tl_parser.cpp"
 
-} // yy
-#line 1131 "tl_parser.cpp" // lalr1.cc:1163
-#line 99 "tl_parser.y" // lalr1.cc:1164
+#line 105 "tl_parser.y"
 
 
-void yy::TlCmdParser::error(const location_type& l, const std::string& m)
+void ceammc::tl::TlParser::error(const ceammc::tl::TlParser::location_type& l, const std::string& m)
 {
     driver.error(l, m);
 }

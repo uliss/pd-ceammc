@@ -62,7 +62,7 @@ void ListPrepend::onDataT(const MListAtom& ml)
     atomTo(0, res);
 }
 
-void ListPrepend::onInlet(size_t n, const AtomList& lst)
+void ListPrepend::onInlet(size_t n, const AtomListView& lst)
 {
     lst_ = lst;
 }

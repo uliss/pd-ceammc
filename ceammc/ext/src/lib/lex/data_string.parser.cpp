@@ -1,4 +1,4 @@
-// A Bison parser, made by GNU Bison 3.7.3.
+// A Bison parser, made by GNU Bison 3.7.4.
 
 // Skeleton implementation for Bison LALR(1) parsers in C++
 
@@ -42,7 +42,7 @@
 
 
 // Unqualified %code blocks.
-#line 35 "data_string.y"
+#line 37 "data_string.y"
 
     # include <memory>
     # include <string>
@@ -223,11 +223,11 @@
 #define YYRECOVERING()  (!!yyerrstatus_)
 
 #line 8 "data_string.y"
-namespace ceammc {
+namespace ceammc { namespace ds {
 #line 228 "data_string.parser.cpp"
 
   /// Build a parser object.
-  DataStringParser::DataStringParser (ceammc::DataStringLexer& lexer_yyarg, ceammc::AtomList& result_yyarg)
+  DataStringParser::DataStringParser (ceammc::ds::DataStringLexer& lexer_yyarg, ceammc::AtomList& result_yyarg)
 #if YYDEBUG
     : yydebug_ (false),
       yycdebug_ (&std::cerr),
@@ -787,115 +787,115 @@ namespace ceammc {
           switch (yyn)
             {
   case 2: // atom: NULL
-#line 151 "data_string.y"
+#line 153 "data_string.y"
                               { yylhs.value.as < ceammc::Atom > () = ceammc::Atom(); }
 #line 793 "data_string.parser.cpp"
     break;
 
   case 3: // atom: COMMA
-#line 152 "data_string.y"
+#line 154 "data_string.y"
                               { yylhs.value.as < ceammc::Atom > () = ceammc::Atom(gensym(",")); }
 #line 799 "data_string.parser.cpp"
     break;
 
   case 4: // atom: FLOAT
-#line 153 "data_string.y"
+#line 155 "data_string.y"
                               { yylhs.value.as < ceammc::Atom > () = ceammc::Atom(yystack_[0].value.as < double > ()); }
 #line 805 "data_string.parser.cpp"
     break;
 
   case 5: // atom: SYMBOL
-#line 154 "data_string.y"
+#line 156 "data_string.y"
                               { yylhs.value.as < ceammc::Atom > () = ceammc::Atom(gensym(yystack_[0].value.as < const char* > ())); }
 #line 811 "data_string.parser.cpp"
     break;
 
   case 6: // atom: STRING
-#line 155 "data_string.y"
+#line 157 "data_string.y"
                               { yylhs.value.as < ceammc::Atom > () = createSimpleString(yystack_[0].value.as < std::string > ()); }
 #line 817 "data_string.parser.cpp"
     break;
 
   case 7: // atom: DATA_TYPE_STRING STRING
-#line 156 "data_string.y"
+#line 158 "data_string.y"
                               { yylhs.value.as < ceammc::Atom > () = createDataString(yystack_[0].value.as < std::string > ()); }
 #line 823 "data_string.parser.cpp"
     break;
 
   case 8: // atom: data
-#line 157 "data_string.y"
+#line 159 "data_string.y"
       { yylhs.value.as < ceammc::Atom > () = yystack_[0].value.as < ceammc::Atom > (); }
 #line 829 "data_string.parser.cpp"
     break;
 
   case 9: // atom_list: %empty
-#line 161 "data_string.y"
+#line 163 "data_string.y"
                        { yylhs.value.as < ceammc::AtomList > () = ceammc::AtomList(); }
 #line 835 "data_string.parser.cpp"
     break;
 
   case 10: // atom_list: atom_list atom
-#line 162 "data_string.y"
+#line 164 "data_string.y"
                        { yylhs.value.as < ceammc::AtomList > ().append(yystack_[1].value.as < ceammc::AtomList > ()); yylhs.value.as < ceammc::AtomList > ().append(yystack_[0].value.as < ceammc::Atom > ()); }
 #line 841 "data_string.parser.cpp"
     break;
 
   case 11: // atom_list: atom_list function_call
-#line 163 "data_string.y"
+#line 165 "data_string.y"
                               { yylhs.value.as < ceammc::AtomList > ().append(yystack_[1].value.as < ceammc::AtomList > ()); yylhs.value.as < ceammc::AtomList > ().append(yystack_[0].value.as < ceammc::AtomList > ()); }
 #line 847 "data_string.parser.cpp"
     break;
 
   case 12: // pair: KEY atom_list
-#line 167 "data_string.y"
+#line 169 "data_string.y"
                       { yylhs.value.as < ceammc::DictEntry > () = { yystack_[1].value.as < std::string > (), yystack_[0].value.as < ceammc::AtomList > () }; }
 #line 853 "data_string.parser.cpp"
     break;
 
   case 13: // pair_list: %empty
-#line 171 "data_string.y"
+#line 173 "data_string.y"
                      { yylhs.value.as < ceammc::Dict > () = Dict(); }
 #line 859 "data_string.parser.cpp"
     break;
 
   case 14: // pair_list: pair_list pair
-#line 172 "data_string.y"
+#line 174 "data_string.y"
                      { yylhs.value.as < ceammc::Dict > ().insert(yylhs.value.as < ceammc::Dict > ().end(), yystack_[1].value.as < ceammc::Dict > ().begin(), yystack_[1].value.as < ceammc::Dict > ().end()); yylhs.value.as < ceammc::Dict > ().push_back(yystack_[0].value.as < ceammc::DictEntry > ()); }
 #line 865 "data_string.parser.cpp"
     break;
 
   case 15: // function_call: FUNC_CALL OPEN_LIST_BRACKET atom_list CLOSE_LIST_BRACKET
-#line 176 "data_string.y"
+#line 178 "data_string.y"
                                                                  { yylhs.value.as < ceammc::AtomList > () = callFunction(yystack_[3].value.as < std::string > (), yystack_[1].value.as < ceammc::AtomList > ()); }
 #line 871 "data_string.parser.cpp"
     break;
 
   case 16: // data: OPEN_DICT_BRACKET pair_list CLOSE_DICT_BRACKET
-#line 180 "data_string.y"
+#line 182 "data_string.y"
                                                                  { yylhs.value.as < ceammc::Atom > () = createDataDict(yystack_[1].value.as < ceammc::Dict > ()); }
 #line 877 "data_string.parser.cpp"
     break;
 
   case 17: // data: DATA_TYPE OPEN_DICT_BRACKET pair_list CLOSE_DICT_BRACKET
-#line 181 "data_string.y"
+#line 183 "data_string.y"
                                                                  { yylhs.value.as < ceammc::Atom > () = createFromDict(yystack_[3].value.as < std::string > (), yystack_[1].value.as < ceammc::Dict > ()); }
 #line 883 "data_string.parser.cpp"
     break;
 
   case 18: // data: OPEN_LIST_BRACKET atom_list CLOSE_LIST_BRACKET
-#line 182 "data_string.y"
+#line 184 "data_string.y"
                                                                  { yylhs.value.as < ceammc::Atom > () = createDataList(yystack_[1].value.as < ceammc::AtomList > ()); }
 #line 889 "data_string.parser.cpp"
     break;
 
   case 19: // data: DATA_TYPE OPEN_LIST_BRACKET atom_list CLOSE_LIST_BRACKET
-#line 183 "data_string.y"
+#line 185 "data_string.y"
                                                                  { yylhs.value.as < ceammc::Atom > () = createFromList(yystack_[3].value.as < std::string > (), yystack_[1].value.as < ceammc::AtomList > ()); }
 #line 895 "data_string.parser.cpp"
     break;
 
   case 20: // expr: atom_list
-#line 187 "data_string.y"
+#line 189 "data_string.y"
                 { result.append(yystack_[0].value.as < ceammc::AtomList > ()); }
 #line 901 "data_string.parser.cpp"
     break;
@@ -1356,9 +1356,9 @@ namespace ceammc {
   const unsigned char
   DataStringParser::yyrline_[] =
   {
-       0,   151,   151,   152,   153,   154,   155,   156,   157,   161,
-     162,   163,   167,   171,   172,   176,   180,   181,   182,   183,
-     187
+       0,   153,   153,   154,   155,   156,   157,   158,   159,   163,
+     164,   165,   169,   173,   174,   178,   182,   183,   184,   185,
+     189
   };
 
   void
@@ -1390,13 +1390,13 @@ namespace ceammc {
 
 
 #line 8 "data_string.y"
-} // ceammc
+} } // ceammc::ds
 #line 1395 "data_string.parser.cpp"
 
-#line 190 "data_string.y"
+#line 192 "data_string.y"
 
 
-void ceammc::DataStringParser::error(const location& loc, const std::string& err_message)
+void ceammc::ds::DataStringParser::error(const location& loc, const std::string& err_message)
 {
     lexer.out() << err_message << std::endl;
     lexer.out() << lexer.indent()

@@ -32,13 +32,13 @@ Hoa2dScope::Hoa2dScope()
 {
 }
 
-void Hoa2dScope::init(t_symbol* s, const AtomList& lst, bool usePresets)
+void Hoa2dScope::init(t_symbol* s, const AtomListView& args, bool usePresets)
 {
-    UIDspObject::init(s, lst, usePresets);
+    UIDspObject::init(s, args, usePresets);
 
     // first positional argument handling
-    if (!lst.empty() && lst[0].isFloat())
-        propSetOrder(clip<t_float>(lst[0].asFloat(), HOA_MIN_ORDER, HOA_MAX_ORDER));
+    if (!args.empty() && args[0].isFloat())
+        propSetOrder(clip<t_float>(args[0].asFloat(), HOA_MIN_ORDER, HOA_MAX_ORDER));
 
     dspSetup(nharm_, 0);
 }
@@ -101,7 +101,7 @@ void Hoa2dScope::tick()
     scope_->process(&in_buf_[0]);
 
     harm_layer_.invalidate();
-    redrawInnerArea();
+    redraw();
     if (canvas_dspstate)
         clock_.delay(prop_refresh_);
 }

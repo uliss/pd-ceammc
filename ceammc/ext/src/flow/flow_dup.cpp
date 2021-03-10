@@ -57,7 +57,7 @@ void FlowDup::onAny(t_symbol* s, const AtomListView& lv)
         anyTo(0, s, lv);
 }
 
-void FlowDup::onInlet(size_t n, const AtomList& l)
+void FlowDup::onInlet(size_t n, const AtomListView& l)
 {
     times_->set(l);
 }

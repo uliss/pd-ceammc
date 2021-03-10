@@ -13,6 +13,7 @@
 #include "flow_interval.h"
 #include "flow_less.h"
 #include "flow_less_eq.h"
+#include "flow_list2many.h"
 #include "flow_loop.h"
 #include "flow_mem.h"
 #include "flow_multiplex.h"
@@ -49,6 +50,9 @@ void setup_seq_nbangs();
 void setup_seq_phasor();
 void setup_seq_sequencer();
 void setup_seq_toggles();
+void setup_seq_life();
+
+void setup_route_float();
 
 void ceammc_flow_setup()
 {
@@ -67,6 +71,7 @@ void ceammc_flow_setup()
     setup_flow_interval();
     setup_flow_less();
     setup_flow_less_eq();
+    setup_flow_list2many();
     setup_flow_ring();
     setup_flow_loop();
     setup_flow_match();
@@ -100,4 +105,7 @@ void ceammc_flow_setup()
     setup_seq_phasor();
     setup_seq_sequencer();
     setup_seq_toggles();
+    setup_seq_life();
+
+    setup_route_float();
 }

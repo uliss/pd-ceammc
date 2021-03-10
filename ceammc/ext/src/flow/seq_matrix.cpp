@@ -82,7 +82,7 @@ void SeqMatrixBase::onFloat(t_float f)
     }
 }
 
-void SeqMatrixBase::onInlet(size_t n, const AtomList& l)
+void SeqMatrixBase::onInlet(size_t n, const AtomListView& l)
 {
     if (l.empty())
         reset();
@@ -93,18 +93,18 @@ void SeqMatrixBase::onInlet(size_t n, const AtomList& l)
 void SeqMatrixBase::outputTick()
 {
     Atom l0[2] = { sequenceCounter(), sequenceSize() };
-    anyTo(1, SYM_IDX, AtomListView(&l0->atom(), 2));
+    anyTo(1, SYM_IDX, AtomListView(l0, 2));
 
     anyTo(0, PROP_CURRENT_COL, Atom(sequenceCounter()));
 
     Atom l1[2] = { SYM_COL, sequenceCounter() };
-    anyTo(0, SYM_GET, AtomListView(&l1->atom(), 2));
+    anyTo(0, SYM_GET, AtomListView(l1, 2));
 }
 
 void SeqMatrixBase::outputRepeat(size_t ridx)
 {
     Atom l[2] = { ridx, numRepeats() };
-    anyTo(1, SYM_REPEAT_IDX, AtomListView(&l->atom(), 2));
+    anyTo(1, SYM_REPEAT_IDX, AtomListView(l, 2));
 }
 
 void SeqMatrixBase::outputRepeatDone()

@@ -54,15 +54,15 @@ void FlowOnce::onList(const AtomList& lst)
     }
 }
 
-void FlowOnce::onAny(t_symbol* s, const AtomListView& lst)
+void FlowOnce::onAny(t_symbol* s, const AtomListView& lv)
 {
     if (pass_) {
-        anyTo(0, s, lst);
+        anyTo(0, s, lv);
         pass_ = false;
     }
 }
 
-void FlowOnce::onInlet(size_t, const AtomList&)
+void FlowOnce::onInlet(size_t, const AtomListView&)
 {
     pass_ = true;
 }

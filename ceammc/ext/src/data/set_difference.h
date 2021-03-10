@@ -26,7 +26,7 @@ public:
     SetDifference(const PdArgs& a);
     void onList(const AtomList& l) override;
     void onDataT(const SetAtom& set);
-    void onInlet(size_t, const AtomList& l) override;
+    void onInlet(size_t, const AtomListView& l) override;
 };
 
 void setup_set_difference();

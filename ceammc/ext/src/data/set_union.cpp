@@ -32,7 +32,7 @@ void SetUnion::onDataT(const SetAtom& set)
     atomTo(0, SetAtom(DataTypeSet::set_union(*set, set1_)));
 }
 
-void SetUnion::onInlet(size_t, const AtomList& lst)
+void SetUnion::onInlet(size_t, const AtomListView& lst)
 {
     if (lst.isA<DataTypeSet>())
         set1_ = *lst.asD<DataTypeSet>();

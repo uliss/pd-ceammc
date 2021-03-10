@@ -14,7 +14,7 @@ public:
     void parseProperties() override;
 
     void onList(const AtomList& lst) override;
-    void onInlet(size_t n, const AtomList& lst) override;
+    void onInlet(size_t n, const AtomListView& lst) override;
 };
 
 void setup_list_search();

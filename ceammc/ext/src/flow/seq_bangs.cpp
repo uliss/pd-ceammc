@@ -73,7 +73,7 @@ void SeqBangsBase::onBang()
     start();
 }
 
-void SeqBangsBase::onInlet(size_t n, const AtomList& l)
+void SeqBangsBase::onInlet(size_t n, const AtomListView& l)
 {
     pattern_->set(l);
 }
@@ -92,7 +92,7 @@ double SeqBangsBase::calcNextTick() const
 void SeqBangsBase::outputTick()
 {
     Atom l[2] = { sequenceCounter(), sequenceSize() };
-    anyTo(1, SYM_IDX, AtomListView(&l->atom(), 2));
+    anyTo(1, SYM_IDX, AtomListView(l, 2));
     anyTo(1, SYM_EVENT_DUR, Atom(calcNextTick()));
 
     bangTo(0);
@@ -101,7 +101,7 @@ void SeqBangsBase::outputTick()
 void SeqBangsBase::outputRepeat(size_t ridx)
 {
     Atom l[2] = { ridx, numRepeats() };
-    anyTo(1, SYM_REPEAT_IDX, AtomListView(&l->atom(), 2));
+    anyTo(1, SYM_REPEAT_IDX, AtomListView(l, 2));
 }
 
 void SeqBangsBase::outputRepeatDone()

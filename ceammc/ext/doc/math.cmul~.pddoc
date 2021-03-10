@@ -12,6 +12,7 @@
             <category>math</category>
             <keywords>math complex multiplication</keywords>
             <aliases>
+                <alias>ceammc/cmul~</alias>
                 <alias>cmul~</alias>
             </aliases>
             <since>0.7</since>

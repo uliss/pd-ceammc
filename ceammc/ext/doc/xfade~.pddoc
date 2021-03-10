@@ -12,6 +12,9 @@
             <category>base</category>
             <keywords>crossfade xfade</keywords>
             <since>0.6</since>
+            <aliases>
+                <alias>ceammc/xfade~</alias>
+            </aliases>
         </meta>
         <info>
             <par>control float value in range [0-1) controls xfade between first and second

@@ -1,0 +1,19 @@
+name: Bar
+data:
+- name: size
+  type: Size
+  init: Size(100, 6)
+  style: size
+- name: value
+  type: t_float
+  init: 0
+- name: min
+  type: t_float
+  init: 0
+- name: max
+  type: t_float
+  init: 1
+- name: fill color
+  type: HexColor
+  init: colors::st_fill
+  style: color

@@ -2,13 +2,13 @@
 #include "ceammc_convert.h"
 #include "ceammc_preset.h"
 #include "ceammc_ui.h"
+#include "ui_radio.tcl.h"
 
 #include <cassert>
 #include <chrono>
 #include <random>
 
 static const int MAX_ITEMS = 128;
-static const char* MENU_NAME_CHECKLIST = "checklist-menu";
 static t_symbol* SYM_PROP_NITEMS;
 
 void setup_ui_radio()
@@ -32,7 +32,7 @@ UIRadio::UIRadio()
             { _("random"), [this](const t_pt&) { if(prop_checklist_mode_) m_random(); } } });
 }
 
-void UIRadio::init(t_symbol* name, const AtomList& args, bool usePresets)
+void UIRadio::init(t_symbol* name, const AtomListView& args, bool usePresets)
 {
     static t_symbol* SYM_VRD = gensym("ui.vrd");
     static t_symbol* SYM_VRD_MULT = gensym("ui.vrd*");
@@ -47,14 +47,14 @@ void UIRadio::init(t_symbol* name, const AtomList& args, bool usePresets)
 
     // check checklist mode
     if (name == SYM_VRD_MULT || name == SYM_HRD_MULT || name == SYM_RADIO_MULT)
-        setProperty(gensym("mode"), { 1 });
+        setProperty(gensym("mode"), Atom(1));
 
     // has positional arguments
     int n = args.intAt(0, -1);
     if (n > 0) {
         prop_nitems_ = clip<int>(n, 2, MAX_ITEMS);
         const int dim1 = 15;
-        const int dim2 = ((dim1 + 1) * prop_nitems_) - 1;
+        const int dim2 = dim1 * prop_nitems_;
         if (isVertical()) {
             asEBox()->b_rect.width = dim1;
             asEBox()->b_rect.height = dim2;
@@ -78,7 +78,7 @@ void UIRadio::init(t_symbol* name, const AtomList& args, bool usePresets)
 
             prop_nitems_ = clip<int>(args[inext].asInt(0), 2, MAX_ITEMS);
             int h = 15;
-            int w = ((h + 1) * prop_nitems_) - 1;
+            int w = h * prop_nitems_;
             if (isVertical())
                 std::swap(h, w);
 
@@ -116,14 +116,14 @@ void UIRadio::onFloat(t_float f)
     redrawItems();
 }
 
-void UIRadio::onList(const AtomList& lst)
+void UIRadio::onList(const AtomListView& lv)
 {
     if (!prop_checklist_mode_) {
-        UI_ERR << "no lists expected in single mode: " << lst;
+        UI_ERR << "no lists expected in single mode: " << lv;
         return;
     }
 
-    setListValue(lst);
+    setListValue(lv);
     output();
     redrawItems();
 }
@@ -223,17 +223,17 @@ AtomList UIRadio::p_value() const
     return prop_checklist_mode_ ? listValue() : Atom(singleValue());
 }
 
-void UIRadio::p_setValue(const AtomList& lst)
+void UIRadio::p_setValue(const AtomListView& lv)
 {
     if (prop_checklist_mode_)
-        setListValue(lst);
+        setListValue(lv);
     else {
-        if (lst.empty()) {
+        if (lv.empty()) {
             UI_ERR << "radio index expected";
             return;
         }
 
-        setSingleValue(lst[0].asFloat());
+        setSingleValue(lv[0].asFloat());
     }
 
     redrawItems();
@@ -339,8 +339,8 @@ void UIRadio::m_minus(t_float f)
 void UIRadio::loadPreset(size_t idx)
 {
     if (prop_checklist_mode_) {
-        AtomList lst = PresetStorage::instance().listValueAt(presetId(), idx);
-        onList(lst);
+        auto lv = PresetStorage::instance().listValueAt(presetId(), idx);
+        onList(lv);
     } else {
         t_float f = PresetStorage::instance().floatValueAt(presetId(), idx);
         onFloat(f);
@@ -372,11 +372,11 @@ AtomList UIRadio::listValue() const
     return lst;
 }
 
-void UIRadio::setListValue(const AtomList& lst)
+void UIRadio::setListValue(const AtomListView& lv)
 {
-    size_t total = std::min<size_t>(lst.size(), prop_nitems_);
+    size_t total = std::min<size_t>(lv.size(), prop_nitems_);
     for (size_t i = 0; i < total; i++)
-        items_.set(i, lst[i].asFloat());
+        items_.set(i, lv[i].asFloat());
 }
 
 void UIRadio::output()
@@ -385,115 +385,34 @@ void UIRadio::output()
         floatTo(0, idx_);
         send(idx_);
     } else {
-        AtomList v = listValue();
-        listTo(0, v);
-        send(v);
+        Atom res[prop_nitems_];
+        for (int i = 0; i < prop_nitems_; i++)
+            res[i] = Atom(items_[i]);
+
+        auto lv = AtomListView(res, prop_nitems_);
+        listTo(0, lv);
+        send(lv);
     }
 }
 
 void UIRadio::paint()
 {
-    drawBackground();
-    drawItems();
-}
-
-void UIRadio::drawBackground()
-{
-    const t_rect r = rect();
-    UIPainter p = bg_layer_.painter(r);
-
-    if (!p)
-        return;
-
-    p.setLineWidth(1);
-    p.setColor(prop_color_border);
-
-    if (isVertical()) {
-        const int cell_size = r.width + zoom();
-        for (int i = 1; i < prop_nitems_; i++) {
-            int y = i * cell_size - zoom();
-            p.drawLine(-1, y, r.width, y);
-        }
-    } else {
-        const int cell_size = r.height + zoom();
-        for (int i = 1; i < prop_nitems_; i++) {
-            int x = i * cell_size - zoom();
-            p.drawLine(x, -1, x, r.height);
-        }
+    char states[prop_nitems_ + 1];
+    for (int i = 0; i < prop_nitems_; i++) {
+        if (prop_checklist_mode_)
+            states[i] = items_[i] ? '1' : '0';
+        else
+            states[i] = (i == idx_) ? '1' : '0';
     }
-}
+    states[prop_nitems_] = '\0';
 
-void UIRadio::drawItems()
-{
-    const t_rect r = rect();
-    UIPainter p = items_layer_.painter(r);
-
-    if (!p)
-        return;
-
-    p.setColor(prop_color_active);
-    const int cell_size = isVertical() ? r.width : r.height;
-
-    // draw crosses
-    if (prop_checklist_mode_) {
-        p.setLineWidth(2);
-
-        if (isVertical()) {
-            for (int i = 0; i < prop_nitems_; i++) {
-                if (items_[i]) {
-                    const int offset = i * (cell_size + zoom());
-
-                    const int x0 = 1;
-                    const int y0 = offset + 1;
-                    const int x1 = cell_size - 1;
-                    const int y1 = offset + cell_size - 1;
-
-                    // draw cross
-                    p.drawLine(x0, y0, x1, y1);
-                    p.drawLine(x0, y1, x1, y0);
-                }
-            }
-        } else {
-            for (int i = 0; i < prop_nitems_; i++) {
-                if (items_[i]) {
-                    const int offset = i * (cell_size + zoom());
-
-                    const int x0 = offset + 1;
-                    const int y0 = 1;
-                    const int x1 = offset + cell_size - 1;
-                    const int y1 = cell_size - 1;
-
-                    // draw cross
-                    p.drawLine(x0, y0, x1, y1);
-                    p.drawLine(x0, y1, x1, y0);
-                }
-            }
-        }
-    } else {
-        // draw knobs
-        const int knob_offset = std::max((static_cast<int>(roundf(cell_size * 0.16f)) / 2) * 2, 2);
-        const int knob_size = cell_size - knob_offset * 2 - 1;
-        const float cell_offset = (cell_size - knob_size) / 2;
-
-        if (isVertical()) {
-            for (int i = 0; i < prop_nitems_; i++) {
-                if (i == idx_) {
-                    float y = i * (cell_size + zoom()) + cell_offset;
-                    p.drawRect(cell_offset, y, knob_size, knob_size);
-                    p.fill();
-                }
-            }
-
-        } else {
-            for (int i = 0; i < prop_nitems_; i++) {
-                if (i == idx_) {
-                    float x = i * (cell_size + zoom()) + cell_offset;
-                    p.drawRect(x, cell_offset, knob_size, knob_size);
-                    p.fill();
-                }
-            }
-        }
-    }
+    sys_vgui("ui::radio_update %s %lx %d %d %d"
+             " {%c} {%c} {%s}"
+             " #%6.6x #%6.6x\n",
+        asEBox()->b_canvas_id->s_name, asEBox(),
+        (int)width(), (int)height(), (int)zoom(),
+        (isVertical() ? 'v' : 'h'), (prop_checklist_mode_ ? '*' : '.'), states,
+        rgba_to_hex_int(prop_color_active), rgba_to_hex_int(prop_color_border));
 }
 
 void UIRadio::okSize(t_rect* newrect)
@@ -505,12 +424,12 @@ void UIRadio::okSize(t_rect* newrect)
     //        newrect->width = pd_clip_min(newrect->width, 8);
     //    } else {
     if (isVertical()) {
-        const float box_size = pd_clip_min(static_cast<int>(newrect->height / prop_nitems_), 8);
-        newrect->height = prop_nitems_ * (box_size + 1) - 1;
+        const int box_size = pd_clip_min(static_cast<int>(newrect->height / prop_nitems_), 8);
+        newrect->height = prop_nitems_ * box_size;
         newrect->width = box_size;
     } else {
-        const float box_size = pd_clip_min(static_cast<int>(newrect->width / prop_nitems_), 8);
-        newrect->width = prop_nitems_ * (box_size + 1) - 1;
+        const int box_size = pd_clip_min(static_cast<int>(newrect->width / prop_nitems_), 8);
+        newrect->width = prop_nitems_ * box_size;
         newrect->height = box_size;
     }
     //    }
@@ -520,13 +439,13 @@ void UIRadio::redrawAll()
 {
     bg_layer_.invalidate();
     items_layer_.invalidate();
-    redrawInnerArea();
+    redraw();
 }
 
 void UIRadio::redrawItems()
 {
     items_layer_.invalidate();
-    redrawInnerArea();
+    redraw();
 }
 
 void UIRadio::onPropChange(t_symbol* prop_name)
@@ -536,6 +455,8 @@ void UIRadio::onPropChange(t_symbol* prop_name)
 
 void UIRadio::setup()
 {
+    sys_vgui(ui_radio_tcl);
+
     SYM_PROP_NITEMS = gensym("@nitems");
 
     UIObjectFactory<UIRadio> obj("ui.radio");
@@ -553,7 +474,7 @@ void UIRadio::setup()
     obj.outputMouseEvents(MouseEventsOutput::DEFAULT_OFF);
     obj.usePopup();
 
-    obj.setDefaultSize(127, 15);
+    obj.setDefaultSize(120, 15);
     obj.hideLabelInner();
 
     obj.addProperty("active_color", _("Active Color"), DEFAULT_ACTIVE_COLOR, &UIRadio::prop_color_active);

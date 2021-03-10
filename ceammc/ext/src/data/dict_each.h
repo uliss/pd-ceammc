@@ -27,7 +27,7 @@ class DictEach : public DictBase {
 
 public:
     DictEach(const PdArgs& args);
-    void onInlet(size_t n, const AtomList& lst) override;
+    void onInlet(size_t n, const AtomListView& lst) override;
     void onDataT(const DictAtom& dict) override;
 };
 

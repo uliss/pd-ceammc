@@ -40,7 +40,7 @@ void ListRemoveIf::onList(const AtomList& l)
     listTo(0, res);
 }
 
-void ListRemoveIf::onInlet(size_t n, const AtomList& l)
+void ListRemoveIf::onInlet(size_t n, const AtomListView& l)
 {
     if (l.empty())
         return;

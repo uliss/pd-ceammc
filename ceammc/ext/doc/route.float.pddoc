@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="route.float">
+        <title>route.float</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>separate float messages from other types</description>
+            <license>GPL3 or later</license>
+            <library>ceammc</library>
+            <category>flow</category>
+            <keywords>route</keywords>
+            <since>0.9.2</since>
+            <aliases>
+                <alias>route.f</alias>
+            </aliases>
+        </meta>
+        <info>
+            <par>to get properties use *prop.get* object, cause all messages (including property
+            requests) are passed thru</par>
+        </info>
+        <properties>
+            <property name="@strict" type="int" enum="0 1" default="0">strict mode. By default list
+            with single float treated as float. Set to true to disable this behavior</property>
+        </properties>
+        <inlets>
+            <inlet>
+                <xinfo on="float">float to first outlet</xinfo>
+                <xinfo on="bang">bang to second outlet</xinfo>
+                <xinfo on="symbol">symbol to second outlet</xinfo>
+                <xinfo on="list">list to second outlet</xinfo>
+                <xinfo on="any">any to second outlet</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet>float output</outlet>
+            <outlet>other messages</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[F]  [bang( [S digits=10 #a]
+|    |
+|    |   [list 1 2 3(   [T]
+|    |   |              |
+|    |   |  [list 123(  [prop.set @strict]
+|    |   |  |           |
+|    |   |  | [@any(    |
+|    |   |  | |         |
+[route.float          #z]
+|       ^|
+[F]     [ui.dt]
+
+[X a->z]
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

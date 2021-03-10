@@ -46,7 +46,7 @@ void uDMX::onList(const AtomList& lst)
     udmx_->send(data, channel_->value());
 }
 
-void uDMX::onInlet(size_t n, const AtomList& lst)
+void uDMX::onInlet(size_t n, const AtomListView& lst)
 {
     channel_->set(lst);
 }

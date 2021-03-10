@@ -61,7 +61,7 @@ void StringMatch::doMatch(const char* str)
     boolTo(0, RE2::FullMatch(str, *re_));
 }
 
-void StringMatch::onInlet(size_t n, const AtomList& l)
+void StringMatch::onInlet(size_t n, const AtomListView& l)
 {
     if (l.empty())
         return;
@@ -95,4 +95,6 @@ void setup_string_match()
     ObjectFactory<StringMatch> obj("string.match");
     obj.processData<DataTypeString>();
     obj.addAlias("str.match");
+    obj.parseArgsMode(PdArgs::PARSE_UNQUOTE);
+    obj.parsePropsMode(PdArgs::PARSE_UNQUOTE);
 }

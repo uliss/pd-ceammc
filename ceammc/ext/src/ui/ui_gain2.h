@@ -20,7 +20,7 @@ class UIGain2 : public UIGain {
 public:
     UIGain2();
 
-    void init(t_symbol* name, const AtomList& args, bool usePresets);
+    void init(t_symbol* name, const AtomListView& args, bool usePresets);
     void dspProcess(t_sample** ins, long n_ins, t_sample** outs, long n_outs, long sampleframes);
 
 public:

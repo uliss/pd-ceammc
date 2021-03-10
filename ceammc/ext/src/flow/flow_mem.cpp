@@ -61,7 +61,7 @@ void FlowMem::initDone()
     createInlet();
 }
 
-void FlowMem::onInlet(size_t, const AtomList& v)
+void FlowMem::onInlet(size_t, const AtomListView& v)
 {
     const auto ttl = ttl_->value();
 

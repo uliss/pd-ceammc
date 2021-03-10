@@ -81,7 +81,7 @@ void FlowRoute::onList(const AtomList& lst)
     listTo(n_, lst);
 }
 
-void FlowRoute::onAny(t_symbol* s, const AtomListView& lst)
+void FlowRoute::onAny(t_symbol* s, const AtomListView& lv)
 {
     // iterate from end
     for (size_t i = n_; i > 0; i--) {
@@ -90,12 +90,12 @@ void FlowRoute::onAny(t_symbol* s, const AtomListView& lst)
 
         if (s == r.sel) {
             if (r.keep)
-                anyTo(IDX, s, lst);
+                anyTo(IDX, s, lv);
             else {
-                if (!lst.empty() && lst[0].isSymbol())
-                    anyTo(IDX, lst[0].asT<t_symbol*>(), lst.subView(1));
+                if (!lv.empty() && lv[0].isSymbol())
+                    anyTo(IDX, lv[0].asT<t_symbol*>(), lv.subView(1));
                 else
-                    listTo(IDX, lst);
+                    listTo(IDX, lv);
             }
 
             return;
@@ -103,7 +103,7 @@ void FlowRoute::onAny(t_symbol* s, const AtomListView& lst)
     }
 
     // no match
-    anyTo(n_, s, lst);
+    anyTo(n_, s, lv);
 }
 
 void FlowRoute::onData(const Atom& data)
@@ -186,7 +186,7 @@ void setup_flow_route()
     obj.processData();
     obj.addInletInfo("input messages");
     obj.noPropsDispatch();
-    obj.noArgsDataParsing();
+    obj.noArgsAndPropsParse();
     obj.useDefaultPdFloatFn();
     obj.useDefaultPdSymbolFn();
 }

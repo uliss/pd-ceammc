@@ -243,22 +243,22 @@ public:
         size_t release_us, float release_curve);
 
     // linear envelopes
-    bool setAR(const AtomList& lst);
-    bool setASR(const AtomList& lst);
-    bool setADSR(const AtomList& lst);
+    bool setAR(const AtomListView& lst);
+    bool setASR(const AtomListView& lst);
+    bool setADSR(const AtomListView& lst);
 
     // exponential envelopes
-    bool setEAR(const AtomList& lst);
-    bool setEASR(const AtomList& lst);
-    bool setEADSR(const AtomList& lst);
+    bool setEAR(const AtomListView& lst);
+    bool setEASR(const AtomListView& lst);
+    bool setEADSR(const AtomListView& lst);
 
-    bool setStep(const AtomList& lst);
-    bool setLine(const AtomList& lst);
-    bool setExponential(const AtomList& lst);
-    bool setSin2(const AtomList& lst);
-    bool setSigmoid(const AtomList& lst);
+    bool setStep(const AtomListView& lst);
+    bool setLine(const AtomListView& lst);
+    bool setExponential(const AtomListView& lst);
+    bool setSin2(const AtomListView& lst);
+    bool setSigmoid(const AtomListView& lst);
 
-    bool setNamedEnvelope(t_symbol* name, const AtomList& args);
+    bool setNamedEnvelope(t_symbol* name, const AtomListView& args);
     bool isNamedEnvelope(t_symbol* name) const;
 
     DataTypeEnv* clone() const;
@@ -283,7 +283,7 @@ public:
     /**
      * Create new envelope from raw list content
      */
-    static DataTypeEnv fromList(const AtomList& lst);
+    static DataTypeEnv fromListView(const AtomListView& lv);
 
     /**
      * Saves envelope to raw list data for usage in e.g. in preset system

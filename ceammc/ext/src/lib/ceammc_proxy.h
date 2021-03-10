@@ -115,7 +115,7 @@ t_class* PdFloatProxy<T>::proxy_class_ = nullptr;
 template <class T>
 class PdListProxy : public PdBindObject {
 public:
-    typedef void (T::*ProxyFnPtr)(const AtomList&);
+    typedef void (T::*ProxyFnPtr)(const AtomListView&);
 
     PdListProxy(T* o, ProxyFnPtr p)
         : owner_(o)
@@ -131,15 +131,15 @@ public:
         pd_free((t_pd*)tmp);
     }
 
-    void onList(const AtomList& l)
+    void onList(const AtomListView& lv)
     {
-        (owner_->*method_ptr_)(l);
+        (owner_->*method_ptr_)(lv);
     }
 
 public:
     static void on_list(PdListProxy* p, t_symbol*, int argc, t_atom* argv)
     {
-        p->onList(AtomList(argc, argv));
+        p->onList(AtomListView(argv, argc));
     }
 
     static void initClass()

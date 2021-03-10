@@ -17,6 +17,8 @@
                 <see>env-&gt;vline</see>
             </also>
             <aliases>
+                <alias>ceammc/envelope</alias>
+                <alias>ceammc/env</alias>
                 <alias>env</alias>
             </aliases>
         </meta>

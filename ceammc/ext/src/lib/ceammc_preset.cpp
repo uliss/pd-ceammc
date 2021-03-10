@@ -1,4 +1,5 @@
 #include "ceammc_preset.h"
+#include "ceammc_convert.h"
 #include "ceammc_format.h"
 #include "ceammc_log.h"
 #include "ceammc_platform.h"
@@ -75,7 +76,7 @@ bool PresetStorage::setListValueAt(t_symbol* name, size_t presetIdx, const AtomL
     return param->setListAt(presetIdx, l);
 }
 
-AtomList PresetStorage::listValueAt(t_symbol* name, size_t presetIdx, const AtomList& def) const
+AtomListView PresetStorage::listValueAt(t_symbol* name, size_t presetIdx, const AtomListView& def) const
 {
     auto it = params_.find(name);
     if (it == params_.end())
@@ -100,7 +101,7 @@ AtomList PresetStorage::anyValueAt(t_symbol* name, size_t presetIdx, const AtomL
     return it->second->anyAt(presetIdx, def);
 }
 
-t_float PresetStorage::floatValueAt(t_symbol* name, size_t presetIdx, t_float def) const
+t_float PresetStorage::floatValueAt(t_symbol* name, t_float presetIdx, t_float def) const
 {
     auto it = params_.find(name);
     if (it == params_.end())
@@ -300,7 +301,7 @@ bool PresetStorage::read(const char* path)
                 setSymbolValueAt(name, index, line[3].asSymbol());
             } else {
                 AtomList lst = line.slice(3);
-                if (lst.last() && lst.last()->isNone())
+                if (lst.last() && lst.last()->isSemicolon())
                     lst.remove(lst.size() - 1);
 
                 if (sel == SYM_WITH_SPACES) {
@@ -462,6 +463,26 @@ void PresetStorage::storeAll(size_t idx)
     pd_typedmess(SYM_PRESET_ALL->s_thing, SYM_STORE, 1, &a);
 }
 
+void PresetStorage::interpAll(t_float idx)
+{
+    t_symbol* SYM_LOAD = gensym("interp");
+    t_symbol* SYM_PRESET_ALL = gensym(Preset::SYM_PRESET_ALL);
+
+    if (!SYM_PRESET_ALL->s_thing)
+        return;
+
+    if (idx >= maxPresetCount()) {
+        LIB_ERR << "[preset] "
+                << "invalid preset index: " << idx
+                << ". Should be less then: " << maxPresetCount();
+        return;
+    }
+
+    t_atom a;
+    SETFLOAT(&a, idx);
+    pd_typedmess(SYM_PRESET_ALL->s_thing, SYM_LOAD, 1, &a);
+}
+
 void PresetStorage::updateAll()
 {
     t_symbol* SYM_UPDATE = gensym("update");
@@ -602,20 +623,40 @@ bool Preset::duplicate()
     return true;
 }
 
-t_float Preset::floatAt(size_t idx, t_float def) const
+t_float Preset::floatAt(t_float fidx, t_float def) const
 {
-    if (idx >= data_.size())
+    if (fidx < 0)
         return def;
 
-    if (data_[idx].isFloat()) {
+    auto idx = static_cast<size_t>(fidx);
+    if (idx >= data_.size() || !data_[idx].isFloat())
+        return def;
+
+    const bool is_int = (fidx == idx);
+    if (is_int) {
         const auto v = data_[idx].atomValue().asFloat();
+        return (std::isnan(v) || std::isinf(v)) ? def : v;
+    } else {
+        const auto i0 = idx;
+        const auto i1 = std::min<size_t>(idx + 1, data_.size() - 1);
+        const auto v0 = data_[i0].atomValue().asFloat();
+        const auto v1 = data_[i1].atomValue().asFloat();
 
-        if (std::isnan(v) || std::isinf(v))
+        const bool nan0 = std::isnan(v0) || std::isinf(v0);
+        const bool nan1 = std::isnan(v1) || std::isinf(v1);
+
+        if (nan0 && !nan1)
+            return v1;
+        else if (!nan0 && nan1)
+            return v0;
+        else if (nan0 && nan1)
             return def;
-        else
-            return v;
-    } else
-        return def;
+        else {
+            // assert (fidx > idx)
+            t_float frac = fidx - t_float(idx);
+            return ((1 - frac) * v0) + frac * v1;
+        }
+    }
 }
 
 bool Preset::setFloatAt(size_t idx, t_float v)
@@ -665,12 +706,12 @@ t_symbol* Preset::symbolAt(size_t idx, t_symbol* def) const
     return data_[idx].isSymbol() ? data_[idx].atomValue().asSymbol() : def;
 }
 
-AtomList Preset::listAt(size_t idx, const AtomList& def) const
+AtomListView Preset::listAt(size_t idx, const AtomListView& def) const
 {
     if (idx >= data_.size())
         return def;
 
-    return data_[idx].isList() ? data_[idx].listValue() : def;
+    return data_[idx].isList() ? data_[idx].listValue().view() : def;
 }
 
 AtomList Preset::anyAt(size_t idx, const AtomList& def) const

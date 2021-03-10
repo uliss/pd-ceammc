@@ -41,14 +41,14 @@ private:
 public:
     UITab();
 
-    void init(t_symbol* name, const AtomList& args, bool usePresets);
+    void init(t_symbol* name, const AtomListView& args, bool usePresets);
     void okSize(t_rect* newrect);
     void paint();
 
     void onBang();
     void onFloat(t_float f);
     void onSymbol(t_symbol* s);
-    void onAny(t_symbol* s, const AtomList& lst);
+    void onAny(t_symbol* s, const AtomListView&);
 
     void onMouseDown(t_object* view, const t_pt& pt, const t_pt& abs_pt, long modifiers);
     void onMouseUp(t_object* view, const t_pt& pt, long modifiers);
@@ -59,17 +59,17 @@ public:
     void storePreset(size_t idx);
 
     AtomList propItems() const;
-    void propSetItems(const AtomList& lst);
+    void propSetItems(const AtomListView& lv);
     AtomList propSelected() const;
-    t_float propCount() const;
-    t_float propCurrent() const;
+    t_int propCount() const;
+    t_int propCurrent() const;
 
-    void m_append(const AtomList& lst);
+    void m_append(const AtomListView& lv);
     void m_clear();
     void m_delete(t_float f);
-    void m_insert(const AtomList& lst);
-    void m_select(const AtomList& lst);
-    void m_set_item(const AtomList& lst);
+    void m_insert(const AtomListView& lv);
+    void m_select(const AtomListView& lv);
+    void m_set_item(const AtomListView& lv);
 
 private:
     bool isSelected(size_t idx) const;

@@ -43,45 +43,45 @@ private:
 public:
     UIMenu();
 
-    void init(t_symbol* name, const AtomList& args, bool usePresets);
+    void init(t_symbol* name, const AtomListView& args, bool usePresets);
     void okSize(t_rect* newrect);
     void paint();
 
     void onBang();
     void onFloat(t_float f);
     void onSymbol(t_symbol* s);
-    void onAny(t_symbol* s, const AtomList& lst);
+    void onAny(t_symbol* s, const AtomListView&);
 
     void onMouseDown(t_object* view, const t_pt& pt, const t_pt& abs_pt, long modifiers);
     void onMouseMove(t_object* view, const t_pt& pt, long modifiers);
     void onMouseLeave(t_object* view, const t_pt& pt, long modifiers);
 
-    t_float propCount() const;
+    t_int propCount() const;
     AtomList propItems() const;
-    void propSetItems(const AtomList& lst);
-    t_float propIndex() const;
-    void propSetIndex(t_float f);
-    AtomList propValue() const;
-    void propSetValue(const AtomList& lst);
-    t_float propOpen() const;
-    void propSetOpen(t_float v);
-    AtomList propTitle() const;
+    void propSetItems(const AtomListView& lv);
+    t_int propIndex() const;
+    void propSetIndex(t_int f);
+    Atom propValue() const;
+    void propSetValue(const Atom& v);
+    bool propOpen() const;
+    void propSetOpen(bool v);
+    t_symbol* propTitle() const;
 
     void loadPreset(size_t idx);
     void storePreset(size_t idx);
 
-    void m_append(const AtomList& lst);
+    void m_append(const AtomListView& lv);
     void m_clear();
     void m_delete(t_float idx);
-    void m_set(const AtomList& lst);
-    void m_insert(const AtomList& lst);
-    void m_set_item(const AtomList& lst);
-    void m_file_glob(const AtomList& lst);
+    void m_set(const AtomListView& lv);
+    void m_insert(const AtomListView& lv);
+    void m_set_item(const AtomListView& lv);
+    void m_file_glob(const AtomListView& lv);
 
 private:
     void syncLabels();
     int findIndex(int y);
-    bool selectByValue(const AtomList& lst);
+    bool selectByValue(const AtomListView& lv);
     void output();
     void setOpen(bool v = true);
     void adjustSize();

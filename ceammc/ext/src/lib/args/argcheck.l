@@ -3,22 +3,23 @@
     # include <memory>
 
     # include "argcheck.parser.hpp"
-    using token = ceammc::ArgCheckParser::token;
+    using token = ceammc::argcheck::ArgCheckParser::token;
 %}
 
 %option freespace unicode
-%option namespace=ceammc
+%option namespace=ceammc::argcheck
 %option lexer=ArgCheckLexer
 %option header-file=argcheck.lexer.h
 %option outfile=argcheck.lexer.cpp
 /*%option graphs-file*/
 /*%option debug*/
-%option bison-cc-namespace="ceammc"
-%option bison-cc-parser="ArgCheckParser"
+%option bison-cc-namespace=ceammc::argcheck
+%option bison-cc-parser=ArgCheckParser
 %option bison-cc
 %option bison-complete
 %option noyywrap
 %option reentrant
+%option fast
 
 udec     0 | [1-9] \d*
 int      [-+]? {udec}
@@ -27,8 +28,9 @@ float    {int} {frac}?
 
 space    [ \t\n]+
 symbol   [a-zA-Z_.] [a-zA-Z_.0-9]*
-range    \.\./({int}|])
+range    \.\./({float}|])
 int_range {int}\.\.{int}
+float_range {float}\.\.{float}
 squote    '
 dquote   \"
 sqstring {squote} ([^{squote}]|`{squote})* {squote}
@@ -41,6 +43,7 @@ a               { return token::TATOM; }
 b               { return token::TBOOL; }
 d               { return token::TDATA; }
 f               { return token::TFLOAT; }
+f/{float_range} { return token::TFLOAT; } // to prevent {symbol} longest match in f2..4 case
 s               { return token::TSYMBOL; }
 i               { return token::TINT; } // for simple i types
 i/{int_range}   { return token::TINT; } // to prevent {symbol} longest match in i2..4 case
@@ -67,7 +70,6 @@ i/{int_range}   { return token::TINT; } // to prevent {symbol} longest match in 
 {range}         { return token::REPEAT_RANGE; }
 {int}           { return ArgCheckParser::make_INTEGER(std::strtol(text(), 0, 10)); }
 {float}         { return ArgCheckParser::make_FLOAT(std::strtod(text(), 0)); }
-{symbol}        { return ArgCheckParser::make_SYMBOL(text()); }
 
 {sqstring}      {
                     const auto N = strlen(text()) - 2;
@@ -79,7 +81,9 @@ i/{int_range}   { return token::TINT; } // to prevent {symbol} longest match in 
                     return ArgCheckParser::make_STRING(std::string(text() + 1, N));
                 }
 
-<*> .           { return token::LEXER_ERR; /* error */ }
+
+{symbol}        { return ArgCheckParser::make_SYMBOL(text()); }
+<*> .           { return ArgCheckParser::make_SYMBOL(text()); }
 
 %%
 

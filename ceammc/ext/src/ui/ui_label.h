@@ -37,19 +37,19 @@ public:
     void okSize(t_rect* newrect);
     void paint();
     void setDrawParams(t_edrawparams* params);
-    void init(t_symbol* name, const AtomList& args, bool usePresets);
+    void init(t_symbol* name, const AtomListView& args, bool usePresets);
 
     void onBang();
-    void onList(const AtomList& lst);
-    void onAny(t_symbol* s, const AtomList& lst);
+    void onList(const AtomListView& lv);
+    void onAny(t_symbol* s, const AtomListView& lv);
     void onData(const Atom& data);
 
-    void m_clear(const AtomList&);
-    void m_append(const AtomList& lst);
-    void m_prepend(const AtomList& lst);
+    void m_clear(const AtomListView&);
+    void m_append(const AtomListView& lv);
+    void m_prepend(const AtomListView& lv);
 
     AtomList propGetText() const;
-    void propSetText(const AtomList& lst);
+    void propSetText(const AtomListView& lv);
 
     const std::string& text() const;
 

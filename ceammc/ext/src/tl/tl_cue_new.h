@@ -38,14 +38,14 @@ public:
     TlCue();
     ~TlCue();
 
-    void init(t_symbol* name, const AtomList& args, bool usePresets);
+    void init(t_symbol* name, const AtomListView& args, bool usePresets);
     void okSize(t_rect* newrect);
     void paint();
     void updatePos();
     void onZoom(t_float z);
     void onPropChange(t_symbol* prop_name);
 
-    void m_updateLine(const AtomList& l);
+    void m_updateLine(const AtomListView& l);
     void syncXPos();
     bool updateCues();
 

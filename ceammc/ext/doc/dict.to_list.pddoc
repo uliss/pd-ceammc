@@ -16,6 +16,7 @@
                 <see>data.dict</see>
             </also>
             <aliases>
+                <alias>ceammc/dict-&gt;list</alias>
                 <alias>dict-&gt;list</alias>
             </aliases>
         </meta>

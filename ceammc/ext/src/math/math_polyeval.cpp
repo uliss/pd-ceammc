@@ -71,7 +71,7 @@ void MathPolyEval::onList(const AtomList& v)
     listTo(0, res);
 }
 
-void MathPolyEval::onInlet(size_t n, const AtomList& lst)
+void MathPolyEval::onInlet(size_t n, const AtomListView& lst)
 {
     propSetCoeffs(lst);
 }

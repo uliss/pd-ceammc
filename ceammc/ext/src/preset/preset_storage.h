@@ -11,9 +11,8 @@ class PresetExternal : public BaseObject {
 public:
     PresetExternal(const PdArgs& args);
 
-    AtomList p_keys() const;
-
     void m_load(t_symbol*, const AtomListView& l);
+    void m_interp(t_symbol*, const AtomListView& l);
     void m_store(t_symbol*, const AtomListView& l);
     void m_clear(t_symbol*, const AtomListView& l);
     void m_write(t_symbol*, const AtomListView& fname);

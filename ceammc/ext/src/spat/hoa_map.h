@@ -16,6 +16,22 @@
 
 #include "hoa_common.h"
 
+template <size_t N>
+class XletInfoN {
+    char txt_[N];
+
+public:
+    template <class... Args>
+    XletInfoN(const char* fmt, Args... args)
+    {
+        snprintf(txt_, N - 1, fmt, args...);
+    }
+
+    const char* txt() const { return txt_; }
+};
+
+using MapXletInfo = XletInfoN<8>;
+
 class HoaMap : public HoaBase {
     IntProperty* nins_;
     FloatProperty* ramp_;
@@ -27,11 +43,13 @@ class HoaMap : public HoaBase {
     Buffer out_buf_;
 
     std::vector<t_sample> lines_vec_;
+    std::vector<MapXletInfo> in_info_;
 
 public:
     HoaMap(const PdArgs& args);
 
-    void parseProperties() final;
+    void initDone() final;
+
     void setupDSP(t_signal** sp) final;
     void blockSizeChanged(size_t bs) override;
     void processBlock(const t_sample** in, t_sample** out) final;
@@ -41,6 +59,8 @@ public:
 
     void m_polar(t_symbol* s, const AtomListView& l);
     void m_mute(t_symbol* s, const AtomListView& l);
+
+    const char* annotateInlet(size_t n) const final;
 
 private:
     static t_int* dspPerformMultiSource(t_int* w)

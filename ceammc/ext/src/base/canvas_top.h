@@ -9,6 +9,8 @@ class CanvasTop : public BaseObject {
 public:
     CanvasTop(const PdArgs& a);
     void onBang() override;
+
+    void m_postscript(t_symbol* s, const AtomListView& lv);
 };
 
 void setup_canvas_top();

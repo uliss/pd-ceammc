@@ -37,7 +37,7 @@ private:
 public:
     SeqCounter(const PdArgs& args);
     void onBang() override;
-    void onInlet(size_t n, const AtomList& l) override;
+    void onInlet(size_t n, const AtomListView& l) override;
 
     void m_reset(t_symbol*, const AtomListView& lv);
 

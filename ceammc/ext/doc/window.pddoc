@@ -13,6 +13,8 @@
             <keywords>window</keywords>
             <since>0.4</since>
             <aliases>
+                <alias>ceammc/window</alias>
+                <alias>ceammc/win</alias>
                 <alias>win</alias>
             </aliases>
         </meta>

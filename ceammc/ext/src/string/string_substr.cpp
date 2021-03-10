@@ -41,7 +41,7 @@ void StringSubstr::onSymbol(t_symbol* s)
     onDataT(StringAtom(s));
 }
 
-void StringSubstr::onInlet(size_t n, const AtomList& l)
+void StringSubstr::onInlet(size_t n, const AtomListView& l)
 {
     if (n == 1)
         from_->set(l);

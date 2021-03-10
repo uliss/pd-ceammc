@@ -94,6 +94,18 @@ StkSynth::StkSynth(const PdArgs& args, stk::Instrmnt* instr)
         [this](t_float p) -> bool { return freq_->setValue(convert::midi2freq(p)); });
 }
 
+void StkSynth::onList(const AtomList& lst)
+{
+    static t_symbol* SYM_NOTE = gensym("note");
+
+    if (lst.size() != 2) {
+        OBJ_ERR << "list: NOTE VEL expected, got: " << lst;
+        return;
+    }
+
+    m_note(SYM_NOTE, lst.view());
+}
+
 bool StkSynth::propSetGate(t_float f)
 {
     if (f > 0)

@@ -143,7 +143,7 @@ public:
         dispatch();
     }
 
-    void onInlet(size_t n, const AtomList& lst) override
+    void onInlet(size_t n, const AtomListView& lst) override
     {
         InletArgSetter arg_setter(arguments_);
         // note: InletArgSetter is designed for ClassMethod and has 1-based argument count

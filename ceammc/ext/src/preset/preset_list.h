@@ -12,7 +12,7 @@ public:
     void initDone() override;
 
     void onList(const AtomList& lst) override;
-    void loadFrom(size_t idx) override;
+    void loadFrom(t_float idx) override;
     void storeAt(size_t idx) override;
 };
 

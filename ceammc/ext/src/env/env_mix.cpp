@@ -29,7 +29,7 @@ void EnvMix::onFloat(t_float v)
     atomTo(0, env);
 }
 
-void EnvMix::onInlet(size_t n, const AtomList& lst)
+void EnvMix::onInlet(size_t n, const AtomListView& lst)
 {
     if (n == 1 || n == 2) {
         if (!lst.isA<DataTypeEnv>()) {

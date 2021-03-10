@@ -27,6 +27,15 @@ void pd_init();
 void obj_sendinlet(t_object* x, int n, t_symbol* s, int argc, t_atom* argv);
 }
 
+static t_methodentry* class_methods(t_class* c)
+{
+#ifdef PDINSTANCE
+    return c->c_methods[pd_this->pd_instanceno];
+#else
+    return c->c_methods;
+#endif
+}
+
 #include <exception>
 #include <iostream>
 
@@ -85,15 +94,16 @@ bool ceammc::pd::addPdPrintDataSupport()
 
 std::vector<std::string> pd::currentListOfExternals()
 {
+    auto mlist = class_methods(pd_objectmaker);
+
     std::vector<std::string> res;
-    t_methodentry* m = pd_objectmaker->c_methods;
-    if (!m)
+    if (!mlist)
         return res;
 
     res.reserve(pd_objectmaker->c_nmethod);
 
     for (int i = 0; i < pd_objectmaker->c_nmethod; i++)
-        res.push_back(m[i].me_name->s_name);
+        res.push_back(mlist[i].me_name->s_name);
 
     return res;
 }
@@ -455,8 +465,8 @@ std::vector<t_symbol*> pd::External::methods() const
 
     t_class* c = obj_->te_g.g_pd;
     for (int i = 0; i < c->c_nmethod; i++) {
-        auto m = &c->c_methods[i];
-        res.push_back(m->me_name);
+        auto& m = class_methods(c)[i];
+        res.push_back(m.me_name);
     }
 
     return res;
@@ -475,11 +485,6 @@ bool pd::External::isCeammcBase() const
 bool pd::External::isCeammcUI() const
 {
     return is_ceammc_ui(obj_);
-}
-
-bool pd::External::isCeammcFaust() const
-{
-    return is_ceammc_faust(obj_);
 }
 
 bool pd::External::isCeammcFlext() const
@@ -506,8 +511,6 @@ std::vector<PropertyInfo> pd::External::properties() const
         return ceammc_base_properties(obj_);
     else if (isCeammcUI())
         return ceammc_ui_properties(obj_);
-    else if (isCeammcFaust())
-        return ceammc_faust_properties(obj_);
     else
         return {};
 }
@@ -528,8 +531,6 @@ CanvasPtr PureData::createTopCanvas(const char* name, const AtomList& args)
     l.append(Atom(10)); // font size
 
     auto ccnv = canvas_getcurrent();
-
-    LIB_DBG << "canvas_getcurrent(): " << ccnv;
 
     if (ccnv) {
         canvas_unsetcurrent(ccnv);
@@ -554,9 +555,6 @@ CanvasPtr PureData::createTopCanvas(const char* name, const AtomList& args)
         return ptr;
 
     cnv->gl_loading = 0;
-
-    LIB_DBG << "canvas_new(): " << cnv;
-    LIB_DBG << "canvas_getcurrent(): " << canvas_getcurrent() << "\n";
 
     ptr.reset(new Canvas(cnv));
     return ptr;

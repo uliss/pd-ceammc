@@ -20,7 +20,7 @@
         <properties>
             <property name="@items" type="list">list of menu items</property>
             <property name="@index" type="int" default="0">current menu item index</property>
-            <property name="@value" type="symbol">current menu item value</property>
+            <property name="@value" type="atom">current menu item value</property>
             <property name="@count" type="int" readonly="true" default="0">number of menu
             items</property>
             <property name="@max_length" type="int" minvalue="10" maxvalue="1024" default="100">
@@ -78,6 +78,8 @@
             <param type="int" name="IDX" required="true">preset index</param></method>
             <method name="store">stores specified preset 
             <param type="int" name="IDX" required="true">preset index</param></method>
+            <method name="interp">for this object acts as *load*, no interpolation
+            performed</method>
             <!-- common-->
             <method name="pos">set UI element position 
             <param name="X" type="float" required="true">top left x-coord</param>

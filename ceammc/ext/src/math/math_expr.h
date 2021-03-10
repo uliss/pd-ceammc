@@ -20,9 +20,13 @@
 
 using namespace ceammc;
 
-struct symrec;
-struct Ast;
-using AstPtr = std::unique_ptr<Ast, void (*)(Ast*)>;
+namespace ceammc {
+namespace math {
+    class Ast;
+}
+}
+
+using AstPtr = std::unique_ptr<ceammc::math::Ast>;
 
 class MathExpr : public BaseObject {
     std::string expr_;
@@ -33,7 +37,7 @@ public:
     ~MathExpr();
 
     void onFloat(t_float v) override;
-    void onInlet(size_t n, const AtomList& lst) override;
+    void onInlet(size_t n, const AtomListView& lst) override;
     void onList(const AtomList& lst) override;
 
 private:

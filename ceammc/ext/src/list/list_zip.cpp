@@ -104,7 +104,7 @@ void ListZip::onList(const AtomList& l)
     onBang();
 }
 
-void ListZip::onInlet(size_t n, const AtomList& l)
+void ListZip::onInlet(size_t n, const AtomListView& l)
 {
     if (n >= n_->value()) {
         OBJ_ERR << "invalid inlet index: " << n << ", total inlet count = " << n_;

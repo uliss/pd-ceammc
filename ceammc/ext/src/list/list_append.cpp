@@ -50,7 +50,7 @@ void ListAppend::onData(const Atom& d)
     onList(d);
 }
 
-void ListAppend::onInlet(size_t n, const AtomList& lst)
+void ListAppend::onInlet(size_t n, const AtomListView& lst)
 {
     lst_->set(lst);
 }

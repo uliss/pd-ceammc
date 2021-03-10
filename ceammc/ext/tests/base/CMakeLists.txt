@@ -27,6 +27,7 @@ endfunction()
 
 add_base_test(canvas_current)
 add_base_test(canvas_top)
+add_base_test(dac)
 add_base_test(expand_env)
 add_base_test(function)
 add_base_test(gain)

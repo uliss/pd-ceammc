@@ -41,7 +41,7 @@ void ListResample::onList(const AtomList& lst)
     listTo(0, res);
 }
 
-void ListResample::onInlet(size_t n, const AtomList& lst)
+void ListResample::onInlet(size_t n, const AtomListView& lst)
 {
     ratio_->set(lst);
 }

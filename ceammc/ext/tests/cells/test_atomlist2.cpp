@@ -969,10 +969,19 @@ TEST_CASE("AtomList2", "[ceammc::AtomList]")
 
     SECTION("parseString")
     {
+        const Atom c = Atom::comma();
+        const Atom s = Atom::semicolon();
+
         REQUIRE(AtomList::parseString("") == L());
         REQUIRE(AtomList::parseString("1 2 3") == LF(1, 2, 3));
         REQUIRE(AtomList::parseString("a b c 2.5") == LA("a", "b", "c", 2.5));
         REQUIRE(AtomList::parseString("\" \"") == LA("\"", "\""));
+        REQUIRE(AtomList::parseString("1,2,3") == LA(1, c, 2, c, 3));
+        REQUIRE(AtomList::parseString("1;2;3") == LA(1, s, 2, s, 3));
+
+        AtomList l(c, s);
+        REQUIRE(l[0].isComma());
+        REQUIRE(l[1].isSemicolon());
     }
 
     SECTION("contains list")

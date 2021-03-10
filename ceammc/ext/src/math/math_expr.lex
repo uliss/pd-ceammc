@@ -1,146 +1,87 @@
-/* mfcalc.l */
+/* math_expr.lex */
+%option freespace
+%option namespace=ceammc::math
+%option lexer=MathExprLexer
+%option header-file=math_expr.lexer.h
+%option outfile=math_expr.lexer.cpp
+%option bison-cc-namespace=ceammc::math
+%option bison-cc-parser=MathExprParser
+%option bison-cc
+%option bison-complete
+%option bison-locations
 %option noyywrap
-%option prefix="math_expr_"
-%option outfile="lex.math_expr.c"
+%option reentrant
+%option fast
+/*%option debug*/
 
-%{
-    # include <math.h>
+%top {
+    # include <cmath>
+    # include <cstdlib>
 
-    # include "math_expr_calc.h"
-    # include "math_expr.tab.h"
+    # include "math_expr.location.hpp"
+    # include "math_expr.parser.hpp"
+
+    using token = ceammc::math::MathExprParser::token;
 %}
+
+space           [ \t]+
+bin             0b[0-1]+
+hex             0x[0-9A-Fa-f]+
+double          [0-9]*\.?[0-9]+
+ref             \$f[0-9]*
+square_open     \[
+square_close    \]
+par_open        \(
+par_close       \)
+comma           ,
+symbol          [a-zA-Z][^)(\]\[]+
 
 %%
 
-0b[0-1]+ { // binary 0x1101101
-    math_expr_lval.val = strtol(math_expr_text + 2, NULL, 2);
-    return T_NUM;
-}
+{space}  { }
 
-0x[0-9A-Fa-f]+ { // hex 0xBEEFA24
-    math_expr_lval.val = strtol(math_expr_text, NULL, 16);
-    return T_NUM;
-}
+{bin}    { // binary 0x1101101
+            return MathExprParser::make_NUM(strtol(text() + 2, NULL, 2), location());
+         }
 
-[0-9]*\.?[0-9]+ { // double
-    sscanf (math_expr_text, "%lf", &math_expr_lval.val);
-    return T_NUM;
-}
+{hex}    { // hex 0xBEEFA24
+            return MathExprParser::make_NUM(strtol(text() + 2, NULL, 16), location());
+         }
 
-$f[0-9]* { // refs
-    char n = math_expr_text[2];
+{double} { // double
+            return MathExprParser::make_NUM(strtod(text(), NULL), location());
+         }
 
-    if(n == '\0')
-        math_expr_lval.val = 0;
-    else
-        math_expr_lval.val = n - '0';
+{ref}    { // refs
+            auto n = text()[2];
+            return MathExprParser::make_REF(n ? (n - '0') : 0, location());
+         }
 
-    return T_REF;
-}
+"$pi"    { return MathExprParser::make_NUM(M_PI, location()); }
+"$e"     { return MathExprParser::make_NUM(M_E, location()); }
 
-"==" { return T_EQ; }
-"~=" { return T_APPROX_EQ; }
-"!=" { return T_NOT_EQ; }
-"<=" { return T_LE; }
-"<"  { return T_LT; }
-">=" { return T_GE; }
-">"  { return T_GT; }
+{square_open}   { return MathExprParser::make_SQR_OPEN(location()); }
+{square_close}  { return MathExprParser::make_SQR_CLOSE(location());}
+{par_open}      { return MathExprParser::make_PAR_OPEN(location());}
+{par_close}     { return MathExprParser::make_PAR_CLOSE(location()); }
+{comma}         { return MathExprParser::make_COMMA(location()); }
+"+"             { return MathExprParser::make_PLUS(location()); }
+"-"             { return MathExprParser::make_MINUS(location()); }
+"*"             { return MathExprParser::make_MUL(location()); }
+"/"             { return MathExprParser::make_DIV(location()); }
+"%"             { return MathExprParser::make_MOD(location()); }
+"^"             { return MathExprParser::make_EXP(location()); }
+"=="            { return MathExprParser::make_T_EQ(location()); }
+"~="            { return MathExprParser::make_T_APPROX_EQ(location()); }
+"!="            { return MathExprParser::make_T_NOT_EQ(location()); }
+"<="            { return MathExprParser::make_T_LE(location()); }
+"<"             { return MathExprParser::make_T_LT(location()); }
+">="            { return MathExprParser::make_T_GE(location()); }
+">"             { return MathExprParser::make_T_GT(location()); }
 
-$pi { // PI
-    math_expr_lval.val = M_PI;
-    return T_NUM;
-}
+{symbol}/({par_open}|{square_open}) {
+                  return MathExprParser::make_SYMBOL(text(), location()); }
 
-$e { // E
-    math_expr_lval.val = M_E;
-    return T_NUM;
-}
-
-[a-zA-Z][a-zA-Z0-9]*[\[] {
-    math_expr_lval.txt = math_expr_text;
-    return T_ARRAY_BEGIN;
-}
-
-"]" { return T_ARRAY_END; }
-
-[a-z][a-z_0-9]* {
-    if(strcmp(math_expr_text, "sin") == 0) {
-        math_expr_lval.val = UFN_SIN;
-        return T_UFUNC;
-    }
-    else if(strcmp(math_expr_text, "cos") == 0) {
-        math_expr_lval.val = UFN_COS;
-        return T_UFUNC;
-    }
-    else if(strcmp(math_expr_text, "tan") == 0) {
-        math_expr_lval.val = UFN_TAN;
-        return T_UFUNC;
-    }
-    else if(strcmp(math_expr_text, "sqrt") == 0) {
-        math_expr_lval.val = UFN_SQRT;
-        return T_UFUNC;
-    }
-    else if(strcmp(math_expr_text, "ln") == 0) {
-        math_expr_lval.val = UFN_LN;
-        return T_UFUNC;
-    }
-    else if(strcmp(math_expr_text, "log2") == 0) {
-        math_expr_lval.val = UFN_LOG2;
-        return T_UFUNC;
-    }
-    else if(strcmp(math_expr_text, "log10") == 0) {
-        math_expr_lval.val = UFN_LOG10;
-        return T_UFUNC;
-    }
-    else if(strcmp(math_expr_text, "exp") == 0) {
-        math_expr_lval.val = UFN_EXP;
-        return T_UFUNC;
-    }
-    else if(strcmp(math_expr_text, "atan") == 0) {
-        math_expr_lval.val = UFN_ATAN;
-        return T_UFUNC;
-    }
-    else if(strcmp(math_expr_text, "max") == 0) {
-        math_expr_lval.val = BFN_MAX;
-        return T_BFUNC;
-    }
-    else if(strcmp(math_expr_text, "min") == 0) {
-        math_expr_lval.val = BFN_MIN;
-        return T_BFUNC;
-    }
-    else if(strcmp(math_expr_text, "abs") == 0) {
-        math_expr_lval.val = UFN_ABS;
-        return T_UFUNC;
-    }
-    else if(strcmp(math_expr_text, "sign") == 0) {
-        math_expr_lval.val = UFN_SIGN;
-        return T_UFUNC;
-    }
-    else if(strcmp(math_expr_text, "fact") == 0) {
-        math_expr_lval.val = UFN_FACTORIAL;
-        return T_UFUNC;
-    }
-    else if(strcmp(math_expr_text, "round") == 0) {
-        math_expr_lval.val = UFN_ROUND;
-        return T_UFUNC;
-    }
-    else if(strcmp(math_expr_text, "ceil") == 0) {
-        math_expr_lval.val = UFN_CEIL;
-        return T_UFUNC;
-    }
-    else if(strcmp(math_expr_text, "floor") == 0) {
-        math_expr_lval.val = UFN_FLOOR;
-        return T_UFUNC;
-    }
-
-    math_expr_lval.val = ERR_UNKNOWN_FUNC;
-    return T_ERROR;
-}
-
-[ \t]*
-
-.|\n {
-    return *math_expr_text;
-}
+<*> .           { return MathExprParser::make_LEXER_ERROR(location());}
 
 %%

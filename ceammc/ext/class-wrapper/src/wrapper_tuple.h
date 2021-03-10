@@ -643,7 +643,7 @@ public:
     {
     }
 
-    ErrorMsg setNthArg(size_t n, const AtomList& lst)
+    ErrorMsg setNthArg(size_t n, const AtomListView& lst)
     {
         try {
             if (n < N) {
@@ -670,25 +670,25 @@ public:
     }
 
 public:
-    static ErrorMsg inletArgFromAtomList(float& f, const AtomList& lst)
+    static ErrorMsg inletArgFromAtomList(float& f, const AtomListView& lst)
     {
         if (!lst.isFloat())
             return ErrorMsg::err("float value expected");
 
-        f = atomlistToValue<float>(lst, 0);
+        f = lst.asFloat();
         return ErrorMsg::ok();
     }
 
-    static ErrorMsg inletArgFromAtomList(double& f, const AtomList& lst)
+    static ErrorMsg inletArgFromAtomList(double& f, const AtomListView& lst)
     {
         if (!lst.isFloat())
             return ErrorMsg::err("float value expected");
 
-        f = atomlistToValue<float>(lst, 0);
+        f = lst.asFloat();
         return ErrorMsg::ok();
     }
 
-    static ErrorMsg inletArgFromAtomList(bool& b, const AtomList& lst)
+    static ErrorMsg inletArgFromAtomList(bool& b, const AtomListView& lst)
     {
         static t_symbol* SYM_TRUE = gensym("true");
         static t_symbol* SYM_FALSE = gensym("false");
@@ -718,16 +718,16 @@ public:
         return ErrorMsg::ok();
     }
 
-    static ErrorMsg inletArgFromAtomList(int& i, const AtomList& lst)
+    static ErrorMsg inletArgFromAtomList(int& i, const AtomListView& lst)
     {
         if (!lst.isFloat())
             return ErrorMsg::err("integer value expected");
 
-        i = atomlistToValue<int>(lst, 0);
+        i = lst.asInt();
         return ErrorMsg::ok();
     }
 
-    static ErrorMsg inletArgFromAtomList(std::vector<int>& v, const AtomList& lst)
+    static ErrorMsg inletArgFromAtomList(std::vector<int>& v, const AtomListView& lst)
     {
         v.clear();
 
@@ -737,7 +737,7 @@ public:
         return ErrorMsg::ok();
     }
 
-    static ErrorMsg inletArgFromAtomList(std::vector<float>& v, const AtomList& lst)
+    static ErrorMsg inletArgFromAtomList(std::vector<float>& v, const AtomListView& lst)
     {
         v.clear();
 
@@ -747,7 +747,7 @@ public:
         return ErrorMsg::ok();
     }
 
-    static ErrorMsg inletArgFromAtomList(std::vector<double>& v, const AtomList& lst)
+    static ErrorMsg inletArgFromAtomList(std::vector<double>& v, const AtomListView& lst)
     {
         v.clear();
 
@@ -757,7 +757,7 @@ public:
         return ErrorMsg::ok();
     }
 
-    static ErrorMsg inletArgFromAtomList(std::vector<std::string>& v, const AtomList& lst)
+    static ErrorMsg inletArgFromAtomList(std::vector<std::string>& v, const AtomListView& lst)
     {
         v.clear();
 
@@ -767,7 +767,7 @@ public:
         return ErrorMsg::ok();
     }
 
-    static ErrorMsg inletArgFromAtomList(unsigned int& i, const AtomList& lst)
+    static ErrorMsg inletArgFromAtomList(unsigned int& i, const AtomListView& lst)
     {
         if (!lst.isFloat())
             return ErrorMsg::err("integer value expected");
@@ -778,20 +778,20 @@ public:
             return ErrorMsg::err(ss.str());
         }
 
-        i = atomlistToValue<size_t>(lst, 0);
+        i = lst.asInt();
         return ErrorMsg::ok();
     }
 
-    static ErrorMsg inletArgFromAtomList(long& i, const AtomList& lst)
+    static ErrorMsg inletArgFromAtomList(long& i, const AtomListView& lst)
     {
         if (!lst.isFloat())
             return ErrorMsg::err("integer value expected");
 
-        i = atomlistToValue<int>(lst, 0);
+        i = lst.asInt();
         return ErrorMsg::ok();
     }
 
-    static ErrorMsg inletArgFromAtomList(unsigned long& i, const AtomList& lst)
+    static ErrorMsg inletArgFromAtomList(unsigned long& i, const AtomListView& lst)
     {
         if (!lst.isFloat())
             return ErrorMsg::err("integer value expected");
@@ -802,17 +802,17 @@ public:
             return ErrorMsg::err(ss.str());
         }
 
-        i = atomlistToValue<size_t>(lst, 0);
+        i = lst.asInt();
         return ErrorMsg::ok();
     }
 
-    static ErrorMsg inletArgFromAtomList(std::string& str, const AtomList& lst)
+    static ErrorMsg inletArgFromAtomList(std::string& str, const AtomListView& lst)
     {
         str = ceammc::to_string(lst, " ");
         return ErrorMsg::ok();
     }
 
-    static ErrorMsg inletArgFromAtomList(Atom& a, const AtomList& lst)
+    static ErrorMsg inletArgFromAtomList(Atom& a, const AtomListView& lst)
     {
         if (lst.size() != 1) {
             std::ostringstream ss;
@@ -824,13 +824,13 @@ public:
         return ErrorMsg::ok();
     }
 
-    static ErrorMsg inletArgFromAtomList(AtomList& l, const AtomList& lst)
+    static ErrorMsg inletArgFromAtomList(AtomList& l, const AtomListView& lst)
     {
         l = lst;
         return ErrorMsg::ok();
     }
 
-    static ErrorMsg inletArgFromAtomList(t_symbol*& s, const AtomList& lst)
+    static ErrorMsg inletArgFromAtomList(t_symbol*& s, const AtomListView& lst)
     {
         if (lst.size() != 1 || !lst[0].isSymbol()) {
             std::ostringstream ss;
@@ -843,7 +843,7 @@ public:
     }
 
     template <typename T>
-    static ErrorMsg inletArgFromAtomList(T& t, const AtomList& lst)
+    static ErrorMsg inletArgFromAtomList(T& t, const AtomListView& lst)
     {
         // list initializers
         if (!lst.isData()) {

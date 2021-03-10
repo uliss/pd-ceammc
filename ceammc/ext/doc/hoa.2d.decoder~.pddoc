@@ -45,13 +45,13 @@
         <properties>
             <property name="@order" type="int" minvalue="1" maxvalue="63" default="1"
             readonly="true">the order of decomposition</property>
-            <property name="@mode" type="symbol" enum="regular irregular binaural" readonly="true">
+            <property name="@mode" type="symbol" default="regular" enum="regular irregular binaural" readonly="true">
             decoding mode</property>
             <property name="@regular" type="alias">alias for @mode regular</property>
             <property name="@irregular" type="alias">alias for @mode irregular</property>
             <property name="@binaural" type="alias">alias for @mode binaural</property>
             <property name="@crop" type="int" minvalue="0" units="sample" maxvalue="512"
-            default="0">crop HRIR response. Only in @binaural mode.</property>
+            default="16">crop HRIR response. Only for @binaural mode.</property>
             <property name="@offset" type="float" units="degree" default="0">rotation of
             loudspeakers. Only available for @regular and @irregular mode.</property>
             <property name="@angles" type="list" units="degree">angles of loudspeakers. Only

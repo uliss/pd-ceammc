@@ -23,6 +23,8 @@
 
 namespace ceammc {
 
+using namespace ceammc::al;
+
 ArrayLoader::ArrayLoader()
     : err_(&std::cerr)
     , log_(&std::cout)

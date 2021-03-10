@@ -73,7 +73,7 @@ void SeqPhasorBase::onFloat(t_float f)
     on_->set(Atom(f));
 }
 
-void SeqPhasorBase::onInlet(size_t n, const AtomList& l)
+void SeqPhasorBase::onInlet(size_t n, const AtomListView& l)
 {
     resetSequenceCounter();
 }

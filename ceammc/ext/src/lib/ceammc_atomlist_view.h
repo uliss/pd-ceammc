@@ -30,6 +30,7 @@ class AtomListView {
 public:
     AtomListView() noexcept;
     AtomListView(const t_atom* a, size_t n) noexcept;
+    AtomListView(const Atom* a, size_t n) noexcept;
     AtomListView(const Atom& a) noexcept;
     AtomListView(const AtomList& l) noexcept;
 
@@ -118,7 +119,7 @@ public:
     /** returns first atom in view, no range check */
     const Atom& front() const { return *data_; }
     /** returns last atom in view, no range check */
-    const Atom& back() const { return data_[n_]; }
+    const Atom& back() const { return data_[n_ - 1]; }
     /** returns atom at specified position in view, no range check */
     const Atom& at(size_t pos) const { return data_[pos]; }
     /** returns atom at specified position in view, no range check */

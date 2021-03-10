@@ -13,6 +13,8 @@
             <keywords>symbol any</keywords>
             <since>0.9.1</since>
             <aliases>
+                <alias>ceammc/symbol2any</alias>
+                <alias>ceammc/sym-&gt;any</alias>
                 <alias>sym-&gt;any</alias>
             </aliases>
         </meta>

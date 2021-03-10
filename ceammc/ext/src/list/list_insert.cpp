@@ -59,7 +59,7 @@ void ListInsert::onList(const AtomList& lst)
     listTo(0, res);
 }
 
-void ListInsert::onInlet(size_t n, const AtomList& lst)
+void ListInsert::onInlet(size_t n, const AtomListView& lst)
 {
     switch (n) {
     case 1:

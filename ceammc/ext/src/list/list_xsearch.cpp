@@ -70,7 +70,7 @@ void ListXSearch::onData(const Atom& a)
     search(a);
 }
 
-void ListXSearch::onInlet(size_t n, const AtomList& lst)
+void ListXSearch::onInlet(size_t n, const AtomListView& lst)
 {
     property("@value")->set(lst);
 }

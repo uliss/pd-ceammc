@@ -84,14 +84,16 @@ void UILabel::setDrawParams(t_edrawparams* params)
     params->d_boxfillcolor = prop_color_background;
 }
 
-void UILabel::init(t_symbol* name, const AtomList& args, bool usePresets)
+void UILabel::init(t_symbol* name, const AtomListView& args, bool usePresets)
 {
     UIObject::init(name, args, usePresets);
 
-    int pos = args.findPos(isProperty);
+    auto it = std::find_if(args.begin(), args.end(), isProperty);
+    auto pos = std::distance(args.begin(), it);
+
     if (pos > 0) {
-        setProperty(SYM_TEXT, args.slice(0, pos - 1));
-    } else if (pos < 0 && args.size() > 0) {
+        setProperty(SYM_TEXT, args.subView(0, pos));
+    } else if (it == args.end() && args.size() > 0) {
         setProperty(SYM_TEXT, args);
     }
 }
@@ -101,15 +103,15 @@ void UILabel::onBang()
     // should be empty
 }
 
-void UILabel::onList(const AtomList& lst)
+void UILabel::onList(const AtomListView& lv)
 {
-    text_str_ = to_string(lst, " ");
+    text_str_ = to_string(lv, " ");
     redrawBGLayer();
 }
 
-void UILabel::onAny(t_symbol* s, const AtomList& lst)
+void UILabel::onAny(t_symbol* s, const AtomListView& lv)
 {
-    text_str_ = to_string(Atom(s) + lst, " ");
+    text_str_ = to_string(Atom(s) + lv, " ");
     redrawBGLayer();
 }
 
@@ -119,15 +121,15 @@ void UILabel::onData(const Atom& data)
     redrawBGLayer();
 }
 
-void UILabel::m_clear(const AtomList&)
+void UILabel::m_clear(const AtomListView&)
 {
     text_str_ = "";
     redrawBGLayer();
 }
 
-void UILabel::m_append(const AtomList& lst)
+void UILabel::m_append(const AtomListView& lv)
 {
-    std::string s = to_string(lst);
+    std::string s = to_string(lv);
     if (s.empty())
         return;
 
@@ -136,9 +138,9 @@ void UILabel::m_append(const AtomList& lst)
     redrawBGLayer();
 }
 
-void UILabel::m_prepend(const AtomList& lst)
+void UILabel::m_prepend(const AtomListView& lv)
 {
-    std::string s = to_string(lst);
+    std::string s = to_string(lv);
     if (s.empty())
         return;
 
@@ -199,10 +201,10 @@ AtomList UILabel::propGetText() const
     return prop_text;
 }
 
-void UILabel::propSetText(const AtomList& lst)
+void UILabel::propSetText(const AtomListView& lv)
 {
-    text_str_ = to_string(lst, " ");
-    prop_text = lst;
+    text_str_ = to_string(lv, " ");
+    prop_text = lv;
 }
 
 const std::string& UILabel::text() const

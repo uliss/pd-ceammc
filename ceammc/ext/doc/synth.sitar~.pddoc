@@ -30,14 +30,17 @@
             <param name="NOTE" type="float" required="true">midi note</param>
             <param name="VEL" type="float" minvalue="0" maxvalue="127" required="true">
             velocity</param></method>
+            <method name="cc">control change message
+            <param name="CTL" type="int" required="true">control number</param>
+            <param name="VAL" type="float" required="true">value</param></method>
         </methods>
         <inlets>
             <inlet>
-                <xinfo>control inlet</xinfo>
+                <xinfo on="list">NOTE VEL</xinfo>
             </inlet>
         </inlets>
         <outlets>
-            <outlet type="audio" />
+            <outlet type="audio">synth output</outlet>
         </outlets>
         <example>
             <pdascii>

@@ -164,7 +164,8 @@ bool ProtoSpAlpaca::fsm_output_digital()
 
     const uint8_t n = in_cmd_[0] >> 1;
     const uint8_t x = in_cmd_[0] & 1;
-    anyTo(0, SYM_DIGITAL, { t_float(n), t_float(x) });
+    Atom res[2] = { t_float(n), t_float(x) };
+    anyTo(0, SYM_DIGITAL, AtomListView(res, 2));
     return true;
 }
 
@@ -175,7 +176,8 @@ bool ProtoSpAlpaca::fsm_output_analog()
 
     const uint8_t n = in_cmd_[0] >> 1;
     const uint16_t v = (uint16_t(in_cmd_[2]) << 7) | in_cmd_[1];
-    anyTo(0, SYM_ANALOG, { t_float(n), t_float(v) });
+    Atom res[2] = { t_float(n), t_float(v) };
+    anyTo(0, SYM_ANALOG, AtomListView(res, 2));
     return true;
 }
 
@@ -187,7 +189,8 @@ bool ProtoSpAlpaca::fsm_output_analog_raw()
     const uint8_t n = in_cmd_[0] >> 1;
     const uint16_t v1 = (uint16_t(in_cmd_[2]) << 7) | in_cmd_[1];
     const uint16_t v2 = (uint16_t(in_cmd_[4]) << 7) | in_cmd_[3];
-    anyTo(0, SYM_ANALOG_RAW, { t_float(n), t_float(v1), t_float(v2) });
+    Atom res[3] = { t_float(n), t_float(v1), t_float(v2) };
+    anyTo(0, SYM_ANALOG_RAW, AtomListView(res, 3));
     return true;
 }
 
@@ -233,8 +236,8 @@ bool ProtoSpAlpaca::fsm_output_response()
                     break;
                 }
 
-                AtomList l(Atom(argv[1]), s);
-                anyTo(0, SYM_MODE, l);
+                Atom res[2] = { argv[1], s };
+                anyTo(0, SYM_MODE, AtomListView(res, 2));
             }
         }
 
@@ -259,7 +262,7 @@ bool ProtoSpAlpaca::fsm_output_response()
     return true;
 }
 
-void ProtoSpAlpaca::m_clear(t_symbol* s, const AtomListView& l)
+void ProtoSpAlpaca::m_clear(t_symbol* s, const AtomListView&)
 {
     floatTo(0, CMD_START);
     floatTo(0, CMD_TARGET | CMD_TARGET_MATRIX);
@@ -267,16 +270,16 @@ void ProtoSpAlpaca::m_clear(t_symbol* s, const AtomListView& l)
     floatTo(0, CMD_END);
 }
 
-void ProtoSpAlpaca::m_col(t_symbol* s, const AtomListView& l)
+void ProtoSpAlpaca::m_col(t_symbol* s, const AtomListView& lv)
 {
     // args example: 2 0 1 1 0 1 1
     // 3rd col with values 0 1 1 0 1 1
-    if (l.size() < 2) {
-        METHOD_ERR(s) << "COL_IDX VALUE [VALUE..] expected: " << l;
+    if (lv.size() < 2) {
+        METHOD_ERR(s) << "COL_IDX VALUE [VALUE..] expected: " << lv;
         return;
     }
 
-    int col = l.intAt(0, 0);
+    int col = lv.intAt(0, 0);
     if (col < 0 || col > 7) {
         METHOD_ERR(s) << "invalid column index range: " << col << "; 0 <= x < 8 expected";
         return;
@@ -289,9 +292,9 @@ void ProtoSpAlpaca::m_col(t_symbol* s, const AtomListView& l)
     // pack first 4 elements of list in format 0 1 1 0 to bits
     int top_part = 0;
     const size_t LEFT_OFF = 1;
-    const size_t LEFT_N = std::min<size_t>(4 + LEFT_OFF, l.size());
+    const size_t LEFT_N = std::min<size_t>(4 + LEFT_OFF, lv.size());
     for (size_t i = LEFT_OFF; i < LEFT_N; i++) {
-        auto v = l[i].asFloat(0);
+        auto v = lv[i].asFloat(0);
         if (v != 0)
             top_part |= (1 << (i - LEFT_OFF));
     }
@@ -301,9 +304,9 @@ void ProtoSpAlpaca::m_col(t_symbol* s, const AtomListView& l)
     // pack  4 elements of list in format 0 1 1 0 to bits
     int bottom_part = 0;
     const size_t RIGHT_OFF = 5;
-    const size_t RIGHT_N = std::min<size_t>(4 + RIGHT_OFF, l.size());
+    const size_t RIGHT_N = std::min<size_t>(4 + RIGHT_OFF, lv.size());
     for (size_t i = RIGHT_OFF; i < RIGHT_N; i++) {
-        auto v = l[i].asFloat(0);
+        auto v = lv[i].asFloat(0);
         if (v != 0)
             bottom_part |= (1 << (i - RIGHT_OFF));
     }
@@ -357,7 +360,7 @@ void ProtoSpAlpaca::m_row(t_symbol* s, const AtomListView& l)
     floatTo(0, CMD_END);
 }
 
-void ProtoSpAlpaca::m_fill(t_symbol* s, const AtomListView& l)
+void ProtoSpAlpaca::m_fill(t_symbol* s, const AtomListView&)
 {
     floatTo(0, CMD_START);
     floatTo(0, CMD_TARGET | CMD_TARGET_MATRIX);
@@ -365,7 +368,7 @@ void ProtoSpAlpaca::m_fill(t_symbol* s, const AtomListView& l)
     floatTo(0, CMD_END);
 }
 
-void ProtoSpAlpaca::m_get_version(t_symbol* s, const AtomListView& l)
+void ProtoSpAlpaca::m_get_version(t_symbol* s, const AtomListView&)
 {
     floatTo(0, CMD_START);
     floatTo(0, CMD_TARGET | CMD_TARGET_DEVICE);
@@ -373,7 +376,7 @@ void ProtoSpAlpaca::m_get_version(t_symbol* s, const AtomListView& l)
     floatTo(0, CMD_END);
 }
 
-void ProtoSpAlpaca::m_invert(t_symbol* s, const AtomListView& l)
+void ProtoSpAlpaca::m_invert(t_symbol* s, const AtomListView&)
 {
     floatTo(0, CMD_START);
     floatTo(0, CMD_TARGET | CMD_TARGET_MATRIX);
@@ -381,9 +384,9 @@ void ProtoSpAlpaca::m_invert(t_symbol* s, const AtomListView& l)
     floatTo(0, CMD_END);
 }
 
-void ProtoSpAlpaca::m_str(t_symbol* s, const AtomListView& l)
+void ProtoSpAlpaca::m_str(t_symbol* s, const AtomListView& lv)
 {
-    auto str = to_string(l);
+    auto str = to_string(lv);
     if (str.empty()) {
         METHOD_ERR(s) << "empty string";
         return;
@@ -394,14 +397,14 @@ void ProtoSpAlpaca::m_str(t_symbol* s, const AtomListView& l)
         return;
     }
 
-    m_clear(s, l);
+    m_clear(s, lv);
 
     drawChar(toupper(str[0]), 0);
     if (str.size() > 1)
         drawChar(toupper(str[1]), 4);
 }
 
-void ProtoSpAlpaca::m_sync(t_symbol* s, const AtomListView& l)
+void ProtoSpAlpaca::m_sync(t_symbol* s, const AtomListView&)
 {
     floatTo(0, CMD_START);
     floatTo(0, CMD_TARGET | CMD_TARGET_DEVICE);

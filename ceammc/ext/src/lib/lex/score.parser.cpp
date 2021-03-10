@@ -1,4 +1,4 @@
-// A Bison parser, made by GNU Bison 3.7.3.
+// A Bison parser, made by GNU Bison 3.7.4.
 
 // Skeleton implementation for Bison LALR(1) parsers in C++
 
@@ -42,7 +42,7 @@
 
 
 // Unqualified %code blocks.
-#line 90 "score.y"
+#line 92 "score.y"
 
     # undef yylex
     # define yylex lexer.lex
@@ -122,11 +122,11 @@
 #define YYRECOVERING()  (!!yyerrstatus_)
 
 #line 7 "score.y"
-namespace ceammc {
+namespace ceammc { namespace score {
 #line 127 "score.parser.cpp"
 
   /// Build a parser object.
-  ScoreParser::ScoreParser (ceammc::ScoreLexer& lexer_yyarg)
+  ScoreParser::ScoreParser (ceammc::score::ScoreLexer& lexer_yyarg)
 #if YYDEBUG
     : yydebug_ (false),
       yycdebug_ (&std::cerr),
@@ -673,61 +673,61 @@ namespace ceammc {
           switch (yyn)
             {
   case 2: // BAR_POS: %empty
-#line 120 "score.y"
+#line 122 "score.y"
              { yylhs.value.as < int > () = 0; }
 #line 679 "score.parser.cpp"
     break;
 
   case 3: // BAR_POS: AT
-#line 121 "score.y"
+#line 123 "score.y"
              { yylhs.value.as < int > () = yystack_[0].value.as < int > (); }
 #line 685 "score.parser.cpp"
     break;
 
   case 4: // OPT: FERMATA
-#line 125 "score.y"
+#line 127 "score.y"
                               { yylhs.value.as < KeyOption > () = { KeyId('F', 0), Option() }; }
 #line 691 "score.parser.cpp"
     break;
 
   case 5: // OPT: BAR_CHECK
-#line 126 "score.y"
+#line 128 "score.y"
                               { yylhs.value.as < KeyOption > () = { KeyId('B', 0), Option(Option::NONE, yystack_[0].value.as < int > (), 0) }; }
 #line 697 "score.parser.cpp"
     break;
 
   case 6: // OPT: BEAT_DIVISION
-#line 127 "score.y"
+#line 129 "score.y"
                               { yylhs.value.as < KeyOption > () = { KeyId('D', 0), Option(Option::NONE, yystack_[0].value.as < int > (), 0) }; }
 #line 703 "score.parser.cpp"
     break;
 
   case 7: // OPT: KEY INT BAR_POS
-#line 128 "score.y"
+#line 130 "score.y"
                               { yylhs.value.as < KeyOption > () = { yystack_[2].value.as < KeyId > (), Option(Option::SET, yystack_[1].value.as < int > (), yystack_[0].value.as < int > ()) }; }
 #line 709 "score.parser.cpp"
     break;
 
   case 8: // OPT: KEY INT CHANGE BAR_POS
-#line 129 "score.y"
+#line 131 "score.y"
                               { yylhs.value.as < KeyOption > () = { yystack_[3].value.as < KeyId > (), Option(Option::CHANGE_BEGIN, yystack_[2].value.as < int > (), yystack_[0].value.as < int > ()) }; }
 #line 715 "score.parser.cpp"
     break;
 
   case 9: // OPT: KEY CHANGE INT BAR_POS
-#line 130 "score.y"
+#line 132 "score.y"
                               { yylhs.value.as < KeyOption > () = { yystack_[3].value.as < KeyId > (), Option(Option::CHANGE_END, yystack_[1].value.as < int > (), yystack_[0].value.as < int > ()) }; }
 #line 721 "score.parser.cpp"
     break;
 
   case 10: // OPT_LIST: %empty
-#line 134 "score.y"
+#line 136 "score.y"
                          {  }
 #line 727 "score.parser.cpp"
     break;
 
   case 11: // OPT_LIST: OPT_LIST SPACE OPT
-#line 135 "score.y"
+#line 137 "score.y"
                          {
         yylhs.value.as < Options > () = yystack_[2].value.as < Options > ();
 
@@ -771,25 +771,25 @@ namespace ceammc {
     break;
 
   case 12: // BAR_CONTENT: RATIO OPT_LIST
-#line 177 "score.y"
+#line 179 "score.y"
                      { yylhs.value.as < Bar > ().sig = yystack_[1].value.as < Signature > (); yylhs.value.as < Bar > ().opts = yystack_[0].value.as < Options > (); }
 #line 777 "score.parser.cpp"
     break;
 
   case 13: // BAR: PIPE BAR_CONTENT PIPE
-#line 181 "score.y"
+#line 183 "score.y"
                             { yylhs.value.as < Bar > () = yystack_[1].value.as < Bar > (); }
 #line 783 "score.parser.cpp"
     break;
 
   case 14: // EXPR: BAR
-#line 185 "score.y"
+#line 187 "score.y"
                   { yylhs.value.as < BarList > ().push_back(yystack_[0].value.as < Bar > ()); }
 #line 789 "score.parser.cpp"
     break;
 
   case 15: // EXPR: REPEAT BAR
-#line 186 "score.y"
+#line 188 "score.y"
                   {
         yylhs.value.as < BarList > ().push_back(yystack_[0].value.as < Bar > ());
         const Bar b{ yystack_[0].value.as < Bar > ().sig, {} };
@@ -801,19 +801,19 @@ namespace ceammc {
     break;
 
   case 16: // EXPRLIST: %empty
-#line 196 "score.y"
+#line 198 "score.y"
              { }
 #line 807 "score.parser.cpp"
     break;
 
   case 17: // EXPRLIST: EXPR
-#line 197 "score.y"
+#line 199 "score.y"
            { lexer.bars.reserve(yystack_[0].value.as < BarList > ().size()); for(auto& b: yystack_[0].value.as < BarList > ()) lexer.bars.push_back(b); }
 #line 813 "score.parser.cpp"
     break;
 
   case 18: // EXPRLIST: EXPRLIST SPACE EXPR
-#line 198 "score.y"
+#line 200 "score.y"
                           {
         lexer.bars.reserve(yystack_[0].value.as < BarList > ().size());
 
@@ -1258,8 +1258,8 @@ namespace ceammc {
   const unsigned char
   ScoreParser::yyrline_[] =
   {
-       0,   120,   120,   121,   125,   126,   127,   128,   129,   130,
-     134,   135,   177,   181,   185,   186,   196,   197,   198
+       0,   122,   122,   123,   127,   128,   129,   130,   131,   132,
+     136,   137,   179,   183,   187,   188,   198,   199,   200
   };
 
   void
@@ -1291,13 +1291,13 @@ namespace ceammc {
 
 
 #line 7 "score.y"
-} // ceammc
+} } // ceammc::score
 #line 1296 "score.parser.cpp"
 
-#line 206 "score.y"
+#line 208 "score.y"
 
 
-void ceammc::ScoreParser::error(const std::string& err_message)
+void ceammc::score::ScoreParser::error(const std::string& err_message)
 {
     std::cerr << err_message << "\n";
 //    lexer.setErrorMsg(err_message);

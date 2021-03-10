@@ -39,7 +39,7 @@ void SetEqual::onDataT(const SetAtom& set)
     boolTo(0, set == set1_);
 }
 
-void SetEqual::onInlet(size_t, const AtomList& l)
+void SetEqual::onInlet(size_t, const AtomListView& l)
 {
     property("@subj")->set(l);
 }

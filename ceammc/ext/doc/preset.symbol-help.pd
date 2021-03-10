@@ -7,8 +7,8 @@
 #X obj 564 11 preset.s;
 #X obj 646 11 preset.symbol;
 #X obj 210 80 cnv 1 555 50 empty empty empty 17 7 0 10 -257983 -1 0;
-#X text 215 80 Named symbol preset entry. Can store/load up to 16 various
-symbol values;
+#X text 215 80 Named symbol preset entry. Can store/load up to 256
+various symbol values;
 #X msg 242 158 store 0;
 #X msg 347 158 store 1;
 #X msg 155 187 load 0;
@@ -67,7 +67,7 @@ Type: symbol.;
 #X text 115 45 ::;
 #X obj 131 48 ui.link @title preset @url ceammc.preset-help.pd;
 #X obj 1 830 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 833 library: ceammc v0.9.1;
+#X text 10 833 library: ceammc v0.9.2;
 #X text 370 845 see also:;
 #X obj 444 845 preset.storage;
 #X obj 560 845 preset.float;
@@ -77,7 +77,7 @@ Type: symbol.;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
 #X text 10 32 version:;
-#X text 120 32 0.9.1;
+#X text 120 32 0.9.2;
 #X text 10 54 object:;
 #X text 120 54 preset.symbol;
 #X text 10 76 category:;

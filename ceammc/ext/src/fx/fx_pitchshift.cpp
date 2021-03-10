@@ -12,7 +12,7 @@ public:
         createInlet();
     }
 
-    void onInlet(size_t, const AtomList& l) override
+    void onInlet(size_t, const AtomListView& l) override
     {
         setProperty(gensym("@pitch"), l);
     }

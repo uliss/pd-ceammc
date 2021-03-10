@@ -19,6 +19,7 @@
 #include "ceammc_args.h"
 #include "ceammc_atomlist.h"
 #include "ceammc_atomlist_view.h"
+#include "ceammc_data.h"
 #include "datatype_string.h"
 
 #include "catch.hpp"
@@ -416,6 +417,17 @@ TEST_CASE("args", "[core]")
                 ArgChecker ck("f=1[3] f=2");
                 REQUIRE(ck.check(LF(1, 1, 1, 2)));
             }
+
+            SECTION("f0..1")
+            {
+                ArgChecker ck("f0..1");
+                REQUIRE(ck.check(LF(0)));
+                REQUIRE(ck.check(LF(0.5)));
+                REQUIRE(ck.check(LF(1)));
+                REQUIRE_FALSE(ck.check(LF(-0.5)));
+                REQUIRE_FALSE(ck.check(LF(1.1)));
+                REQUIRE_FALSE(ck.check(LA("ABC")));
+            }
         }
 
         SECTION("symbol")
@@ -441,7 +453,7 @@ TEST_CASE("args", "[core]")
 
             SECTION("s s=abc")
             {
-                ArgChecker ck("s s=abc");
+                ArgChecker ck("s s='abc'");
                 REQUIRE(ck.check(LA("a", "abc")));
                 REQUIRE(ck.check(LA("b", "abc")));
                 REQUIRE_FALSE(ck.check(LA("a")));
@@ -452,7 +464,7 @@ TEST_CASE("args", "[core]")
 
             SECTION("s s!=abc")
             {
-                ArgChecker ck("s s!=abc");
+                ArgChecker ck("s s!='abc'");
                 REQUIRE(ck.check(LA("a", "abD")));
                 REQUIRE(ck.check(LA("b", "abV")));
                 REQUIRE_FALSE(ck.check(LA("b", "abc")));
@@ -463,7 +475,7 @@ TEST_CASE("args", "[core]")
 
             SECTION("^abc")
             {
-                ArgChecker ck("^abc");
+                ArgChecker ck("^'abc'");
                 REQUIRE(ck.check(LA("abc")));
                 REQUIRE(ck.check(LA("abcd")));
                 REQUIRE(ck.check(LA("abcd0")));
@@ -474,7 +486,7 @@ TEST_CASE("args", "[core]")
 
             SECTION("~abc")
             {
-                ArgChecker ck("~abc");
+                ArgChecker ck("~'abc'");
                 REQUIRE(ck.check(LA("abc")));
                 REQUIRE(ck.check(LA("abcd")));
                 REQUIRE(ck.check(LA("aaaabcd")));
@@ -485,7 +497,7 @@ TEST_CASE("args", "[core]")
 
             SECTION(".abc$")
             {
-                ArgChecker ck(".wav$");
+                ArgChecker ck("'.wav'$");
                 REQUIRE(ck.check(LA(".wav")));
                 REQUIRE(ck.check(LA("1.wav")));
                 REQUIRE_FALSE(ck.check(LA("1.wave")));
@@ -751,6 +763,7 @@ TEST_CASE("args", "[core]")
             ArgChecker ck("d=String");
             REQUIRE_FALSE(ck.check(LF(1)));
             REQUIRE_FALSE(ck.check(LA("abc")));
+            REQUIRE(ck.check(StringAtom("asd")));
         }
     }
 

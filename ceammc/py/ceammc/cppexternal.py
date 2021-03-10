@@ -206,7 +206,7 @@ class MathUnaryCppExternal(CppExternal):
 
         self.func_name = func_name
         setattr(self, 'code_float', "floatTo(0, std::{0}(f));".format(func_name));
-        setattr(self, 'code_list', "listTo(0, l.mapFloat(static_cast<FloatUnaryFn>(std::{0})));".format(func_name));
+        setattr(self, 'code_list', "const auto N = l.size();\n{1}Atom res[N];\n{1}for(size_t i = 0; i < N; i++) {{\n{2}res[i] = l[i];\n{2}res[i].applyFloat(static_cast<FloatUnaryFn>(std::{0}));\n{1}}}\n{1}listTo(0, AtomListView(res, N));".format(func_name, 8 * ' ', 12 * ' '));
 
 
 class MathUnaryCppExternalTilde(CppSoundExternal):

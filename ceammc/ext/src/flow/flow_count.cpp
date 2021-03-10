@@ -58,7 +58,7 @@ void FlowCount::onData(const Atom&)
     tick();
 }
 
-void FlowCount::onInlet(size_t, const AtomList&)
+void FlowCount::onInlet(size_t, const AtomListView&)
 {
     counter_->setValue(default_value_);
 }

@@ -284,7 +284,8 @@ void ArrayVlinePlay::output()
         clock_.delay(dur_ms);
 
         floatTo(0, begin);
-        listTo(0, AtomList(Atom(end), Atom(dur_ms)));
+        Atom res[2] = { end, dur_ms };
+        listTo(0, AtomListView(res, 2));
     }
 }
 

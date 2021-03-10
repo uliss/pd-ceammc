@@ -27,7 +27,7 @@ DictContains::DictContains(const PdArgs& args)
     createOutlet();
 }
 
-void DictContains::onInlet(size_t n, const AtomList& lst)
+void DictContains::onInlet(size_t n, const AtomListView& lst)
 {
     keys_->set(lst);
 }
@@ -50,7 +50,6 @@ void DictContains::onDataT(const DictAtom& dict)
 void setup_dict_contains()
 {
     ObjectFactory<DictContains> obj("dict.contains");
-    obj.parseOnlyPositionalProps(true);
     obj.processData<DataTypeDict>();
 
     obj.setDescription("predicate to check if dict contains a keys");

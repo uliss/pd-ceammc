@@ -31,9 +31,9 @@ public:
     void onBang() override;
     void onFloat(t_float f) override;
 
-    void m_button(t_symbol* s, const AtomListView& args);
-    void m_motion(t_symbol* s, const AtomListView& args);
-    void m_wheel(t_symbol* s, const AtomListView& args);
+    void m_button(t_symbol* s, const AtomListView& lv);
+    void m_motion(t_symbol* s, const AtomListView& lv);
+    void m_wheel(t_symbol* s, const AtomListView& lv);
 
 private:
     void clockTick();

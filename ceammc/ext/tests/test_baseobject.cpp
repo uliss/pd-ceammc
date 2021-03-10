@@ -55,7 +55,7 @@ public:
         createOutlet();
     }
 
-    void onInlet(size_t n, const AtomList& l)
+    void onInlet(size_t n, const AtomListView& l)
     {
         last_inlet = n;
         last_inlet_data = l;
@@ -241,9 +241,8 @@ TEST_CASE("BaseObject", "[ceammc::BaseObject]")
         {
             BaseObject b(PdArgs(LA("@p1", 1, "@p2", 2, 3), gensym("testname"), 0, gensym("testname")));
             REQUIRE(b.parsedPosArgs() == L());
-            REQUIRE(b.unparsedPosArgs().isNull());
             // synthehic test
-            REQUIRE(b.binbufArgs() == L());
+            REQUIRE(b.binbufArgs() == LA("@p1", 1, "@p2", 2, 3));
 
             b.addProperty(new FloatProperty("@p1", -1));
             b.addProperty(new ListProperty("@p2"));
@@ -261,9 +260,8 @@ TEST_CASE("BaseObject", "[ceammc::BaseObject]")
         {
             BaseObject b(PdArgs(LA(1, 2, "a", "b", "c"), gensym("testname"), 0, gensym("testname")));
             REQUIRE(b.parsedPosArgs() == LA(1, 2, "a", "b", "c"));
-            REQUIRE(b.unparsedPosArgs() == LA(1, 2, "a", "b", "c"));
             // synthehic test
-            REQUIRE(b.binbufArgs() == L());
+            REQUIRE(b.binbufArgs() == LA(1, 2, "a", "b", "c"));
 
             b.addProperty(new FloatProperty("@p1", -1));
             b.addProperty(new ListProperty("@p2"));
@@ -276,16 +274,14 @@ TEST_CASE("BaseObject", "[ceammc::BaseObject]")
             REQUIRE_PROPERTY(b, @p3, -1);
 
             REQUIRE(b.parsedPosArgs() == LA(1, 2, "a", "b", "c"));
-            REQUIRE(b.unparsedPosArgs() == LA(1, 2, "a", "b", "c"));
         }
 
         SECTION("props and raw args")
         {
             BaseObject b(PdArgs(LA(1, 2, "@p1", "@p2", "c"), gensym("testname"), 0, gensym("testname")));
             REQUIRE(b.parsedPosArgs() == LF(1, 2));
-            REQUIRE(b.unparsedPosArgs() == LF(1, 2));
             // synthehic test
-            REQUIRE(b.binbufArgs() == L());
+            REQUIRE(b.binbufArgs() == LA(1, 2, "@p1", "@p2", "c"));
 
             b.addProperty(new FloatProperty("@p1", -1));
             b.addProperty(new ListProperty("@p2"));
@@ -296,21 +292,20 @@ TEST_CASE("BaseObject", "[ceammc::BaseObject]")
             REQUIRE(b.property(gensym("@p2"))->get() == LA("c"));
 
             REQUIRE(b.parsedPosArgs() == LF(1, 2));
-            REQUIRE(b.unparsedPosArgs() == LF(1, 2));
         }
 
         SECTION("args, functions and quotes")
         {
             BaseObject b(PdArgs(LA(1, 2, "bs()", "\"a", "string\""), gensym("testname"), 0, gensym("testname")));
             REQUIRE(b.parsedPosArgs() == LA(1, 2, 64, "a string"));
-            REQUIRE(b.unparsedPosArgs() == LA(1, 2, "bs()", "\"a", "string\""));
+            REQUIRE(b.args() == LA(1, 2, "bs()", "\"a", "string\""));
         }
 
         SECTION("args, functions and quotes")
         {
             BaseObject b(PdArgs(LA(1, 2, "expr(20*20)", "\"@a\""), gensym("testname"), 0, gensym("testname")));
             REQUIRE(b.parsedPosArgs() == LA(1, 2, 400, "@a"));
-            REQUIRE(b.unparsedPosArgs() == LA(1, 2, "expr(20*20)", "\"@a\""));
+            REQUIRE(b.args() == LA(1, 2, "expr(20*20)", "\"@a\""));
         }
     }
 
@@ -396,14 +391,14 @@ TEST_CASE("BaseObject", "[ceammc::BaseObject]")
         REQUIRE(b3.canvas() == cnv2->pd_canvas());
         REQUIRE(b3.findInStdPaths("unknown") == "");
         REQUIRE(b3.findInStdPaths("snd_mono_48k.wav") == TEST_DATA_DIR "/snd_mono_48k.wav");
-
     }
 
     SECTION("findInStdPaths")
     {
         setup_test_extd();
 
-        SECTION("abstraction") {
+        SECTION("abstraction")
+        {
             External x0("test_std_path0");
             REQUIRE(x0.object());
             REQUIRE(x0.numInlets() == 1);
@@ -425,7 +420,8 @@ TEST_CASE("BaseObject", "[ceammc::BaseObject]")
             REQUIRE(o0.msg().atomValue().asSymbol() == gensym(TEST_DATA_DIR "/snd_mono_48k.wav"));
         }
 
-        SECTION("subpatch") {
+        SECTION("subpatch")
+        {
             External x0("test_std_path1");
             REQUIRE(x0.object());
             REQUIRE(x0.numInlets() == 1);
@@ -447,7 +443,8 @@ TEST_CASE("BaseObject", "[ceammc::BaseObject]")
             REQUIRE(o0.msg().atomValue().asSymbol() == gensym(TEST_DATA_DIR "/snd_mono_48k.wav"));
         }
 
-        SECTION("subpatch abstraction") {
+        SECTION("subpatch abstraction")
+        {
             External x0("test_std_path2");
             REQUIRE(x0.object());
             REQUIRE(x0.numInlets() == 1);
@@ -469,7 +466,8 @@ TEST_CASE("BaseObject", "[ceammc::BaseObject]")
             REQUIRE(o0.msg().atomValue().asSymbol() == gensym(TEST_DATA_DIR "/snd_mono_48k.wav"));
         }
 
-        SECTION("abstraction") {
+        SECTION("abstraction")
+        {
             External x0("base/test_std_path3");
             REQUIRE(x0.object());
             REQUIRE(x0.numInlets() == 1);
@@ -497,7 +495,8 @@ TEST_CASE("BaseObject", "[ceammc::BaseObject]")
             REQUIRE(o0.msg().atomValue().asSymbol() == gensym(TEST_DATA_DIR "/base/../snd_mono_48k.wav"));
         }
 
-        SECTION("abstraction") {
+        SECTION("abstraction")
+        {
             External x0("base/test_std_path4");
             REQUIRE(x0.object());
             REQUIRE(x0.numInlets() == 1);
@@ -526,12 +525,12 @@ TEST_CASE("BaseObject", "[ceammc::BaseObject]")
         b.addProperty(new IntProperty("int1", 1000));
         b.addProperty(new IntProperty("int1", 10));
         REQUIRE(b.property("int1")->get() == LF(10));
-        REQUIRE(b.properties().size() == 1);
+        REQUIRE(b.getProperties().size() == 1);
 
         Property* p = new BoolProperty("bool1", true);
         b.addProperty(p);
         b.addProperty(p);
-        REQUIRE(b.properties().size() == 2);
+        REQUIRE(b.getProperties().size() == 2);
     }
 
     SECTION("realOutput")
@@ -669,6 +668,8 @@ TEST_CASE("BaseObject", "[ceammc::BaseObject]")
             SECTION("empty")
             {
                 TestExtEXT_C t("ext.c");
+                REQUIRE(t->parsedPosArgs() == L());
+
                 REQUIRE_PROPERTY(t, @c, 101);
                 REQUIRE_PROPERTY(t, @d, 101);
                 REQUIRE_PROPERTY(t, @s, "empty");
@@ -681,6 +682,13 @@ TEST_CASE("BaseObject", "[ceammc::BaseObject]")
                 SECTION("1")
                 {
                     TestExtEXT_C t("ext.c", 0xBEEF);
+                    REQUIRE(t->args() == LF(0xBEEF));
+                    REQUIRE(t->pdArgs().parseArgs);
+                    REQUIRE(t->pdArgs().parseProps);
+                    REQUIRE(t->pdArgs().parsePosProps);
+                    REQUIRE(t->parsedPosArgs() == LF(0xBEEF));
+                    t->parseProperties();
+
                     REQUIRE_PROPERTY(t, @c, 0xBEEF);
                     REQUIRE_PROPERTY(t, @d, 101);
                     REQUIRE_PROPERTY(t, @s, "empty");

@@ -11,8 +11,8 @@
  * contact the author of this file, or the owner of the project in which
  * this file belongs to.
  *****************************************************************************/
-#include "mix.h"
 #include "ceammc_pd.h"
+#include "mix.h"
 #include "test_sound.h"
 
 #include <algorithm>
@@ -195,5 +195,10 @@ TEST_CASE("mix~", "[externals]")
     {
         TestMix t("mix~", LA(2, "@value", 1, 1), true);
         REQUIRE_PROPERTY_LIST(t, @value, LX(1, 1));
+    }
+
+    SECTION("alias")
+    {
+        TestMix t("ceammc/mix~");
     }
 }

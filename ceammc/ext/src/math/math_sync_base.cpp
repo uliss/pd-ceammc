@@ -53,7 +53,7 @@ void MathSyncBase::onFloat(t_float f)
     onBang();
 }
 
-void MathSyncBase::onInlet(size_t n, const AtomList& lst)
+void MathSyncBase::onInlet(size_t n, const AtomListView& lst)
 {
     if (n != 1)
         return;
@@ -98,7 +98,7 @@ void MathSyncBool::onFloat(t_float f)
     onBang();
 }
 
-void MathSyncBool::onInlet(size_t n, const AtomList& lst)
+void MathSyncBool::onInlet(size_t n, const AtomListView& lst)
 {
     if (n != 1)
         return;

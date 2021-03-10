@@ -14,6 +14,7 @@
             <keywords>pitchtrack</keywords>
             <since>0.7</since>
             <aliases>
+                <alias>ceammc/helmholtz~</alias>
                 <alias>helmholtz~</alias>
             </aliases>
             <also>

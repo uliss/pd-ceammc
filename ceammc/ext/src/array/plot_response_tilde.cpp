@@ -38,10 +38,13 @@ PlotResponseTilde::PlotResponseTilde(const PdArgs& a)
             imag_[i] = std::arg(z);
         }
 
-        if (use_sr_->value())
-            listTo(2, { (t_float)N / 2, 0., sys_getsr() / 2, 0 });
-        else
-            listTo(2, { (t_float)N / 2, 0., std::acos(-1), gensym("pi") });
+        if (use_sr_->value()) {
+            Atom out[4] = { (t_float)N / 2, 0., sys_getsr() / 2, 0. };
+            listTo(2, AtomListView(out, 4));
+        } else {
+            Atom out[4] = { (t_float)N / 2, 0., std::acos(-1), gensym("pi") };
+            listTo(2, AtomListView(out, 4));
+        }
     })
 {
     n_ = new IntProperty("@n", 512);
@@ -63,7 +66,7 @@ PlotResponseTilde::PlotResponseTilde(const PdArgs& a)
     createOutlet();
 }
 
-void PlotResponseTilde::onInlet(size_t, const AtomList&)
+void PlotResponseTilde::onInlet(size_t, const AtomListView&)
 {
     clock_.unset();
     phase_ = 0;

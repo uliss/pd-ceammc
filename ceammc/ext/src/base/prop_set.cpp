@@ -24,7 +24,7 @@ PropSet::PropSet(const PdArgs& args)
 
 void PropSet::parseProperties() {}
 
-void PropSet::onInlet(size_t n, const AtomList& lst)
+void PropSet::onInlet(size_t n, const AtomListView& lst)
 {
     // inlet index correction
     if (n-- == 0)

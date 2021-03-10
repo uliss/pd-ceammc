@@ -11,88 +11,87 @@
 #X floatatom 146 162 5 0 0 0 - - -;
 #X floatatom 261 162 5 0 0 0 - - -;
 #X obj 50 176 *~ 4;
-#X obj 88 205 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
--1;
 #X msg 146 205 @ratio \$1;
 #X msg 261 205 @threshold \$1;
 #X obj 50 234 dyn.comp~ 3 40 10 100 id;
-#X obj 50 262 dac~;
-#X obj 213 262 print;
-#X obj 20 311 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 316 cnv 5 90 26 empty empty arguments: 4 10 0 14 -262144
+#X obj 318 234 ui.dsp~;
+#X obj 50 262 ui.hgain~;
+#X obj 50 291 dac~;
+#X obj 20 340 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 345 cnv 5 90 26 empty empty arguments: 4 10 0 14 -262144
 -49933 0;
-#X text 110 351 1\.;
-#X text 150 351 float;
-#X obj 246 352 cnv 1 45 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 351 ratio: compression ratio (1 = no compression \, >1
+#X text 110 380 1\.;
+#X text 150 380 float;
+#X obj 246 381 cnv 1 45 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 245 380 ratio: compression ratio (1 = no compression \, >1
 means compression). Min value: 1;
-#X text 110 386 2\.;
-#X text 150 386 float;
-#X obj 246 387 cnv 1 108 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 386 threshold(db): level threshold above which compression
+#X text 110 415 2\.;
+#X text 150 415 float;
+#X obj 246 416 cnv 1 108 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 245 415 threshold(db): level threshold above which compression
 kicks in (100 dB = max level). Range: 0\...100;
-#X text 110 421 3\.;
-#X text 150 421 float;
-#X obj 246 422 cnv 1 85 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 421 attack(ms): attack time = time constant when level
+#X text 110 450 3\.;
+#X text 150 450 float;
+#X obj 246 451 cnv 1 85 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 245 450 attack(ms): attack time = time constant when level
 & compression going up.;
-#X text 110 456 4\.;
-#X text 150 456 float;
-#X obj 246 457 cnv 1 91 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 456 release(ms): release time = time constant coming out
+#X text 110 485 4\.;
+#X text 150 485 float;
+#X obj 246 486 cnv 1 91 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 245 485 release(ms): release time = time constant coming out
 of compression.;
-#X text 110 491 5\.;
-#X text 150 491 symbol;
-#X obj 246 492 cnv 1 23 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 491 ID: object ID for OSC control path.;
-#X obj 20 521 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 526 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
+#X text 110 520 5\.;
+#X text 150 520 symbol;
+#X obj 246 521 cnv 1 23 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 245 520 ID: object ID for OSC control path.;
+#X obj 20 550 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 555 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
 -49933 0;
-#X msg 110 561 @active;
-#X text 245 561 Get/Set on/off dsp processing. Type: int. Default value:
+#X msg 110 590 @active;
+#X text 245 590 Get/Set on/off dsp processing. Type: int. Default value:
 1\. Allowed values: 0 \, 1\.;
-#X msg 110 603 @attack;
-#X text 245 603 Get/Set time constant when level & compression going
+#X msg 110 632 @attack;
+#X text 245 632 Get/Set time constant when level & compression going
 up. Type: float. Units: ms. Default value: 10\. Range: 1\...100\.;
-#X msg 110 645 @ratio;
-#X text 245 645 Get/Set compression ratio (1 = no compression \, >1
+#X msg 110 674 @ratio;
+#X text 245 674 Get/Set compression ratio (1 = no compression \, >1
 means compression). Type: float. Default value: 1\. Range: 1\...10\.;
-#X msg 110 702 @release;
-#X text 245 702 Get/Set release time = time constant coming out of
+#X msg 110 731 @release;
+#X text 245 731 Get/Set release time = time constant coming out of
 compression. Type: float. Units: ms. Default value: 50\. Range: 1\...500\.;
-#X msg 110 759 @threshold;
-#X text 245 759 Get/Set level threshold above which compression kicks
+#X msg 110 788 @threshold;
+#X text 245 788 Get/Set level threshold above which compression kicks
 in (100 dB = max level). Type: float. Units: db. Default value: 100\.
 Range: 0\...100\.;
-#X obj 20 826 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 831 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
+#X obj 20 855 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 860 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
-#X text 110 832 1\.;
-#X text 245 832 input signal.;
-#X text 150 852 *bang*;
-#X text 245 852 outputs object internal state to rightmost outlet.;
-#X obj 20 882 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 887 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
+#X text 110 861 1\.;
+#X text 245 861 input signal.;
+#X text 150 881 *bang*;
+#X text 245 881 outputs object internal state to rightmost outlet.;
+#X obj 20 911 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 916 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 888 1\.;
-#X text 245 888 output signal.;
-#X text 110 908 2\.;
-#X text 245 908 information output.;
+#X text 110 917 1\.;
+#X text 245 917 output signal.;
+#X text 110 937 2\.;
+#X text 245 937 information output.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 115 45 ::;
 #X obj 131 48 ui.link @title dyn @url ceammc.dyn-help.pd;
-#X obj 1 958 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 961 library: ceammc v0.9.1;
-#X text 593 973 see also:;
-#X obj 667 973 dyn.comp2~;
-#N canvas 10 980 400 290 info 0;
+#X obj 1 987 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 990 library: ceammc v0.9.2;
+#X text 593 1002 see also:;
+#X obj 667 1002 dyn.comp2~;
+#N canvas 10 1009 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
 #X text 10 32 version:;
-#X text 120 32 0.9.1;
+#X text 120 32 0.9.2;
 #X text 10 54 object:;
 #X text 120 54 dyn.comp~;
 #X text 10 76 category:;
@@ -111,16 +110,15 @@ https://github.com/uliss/pure-data;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 generated by pddoc;
-#X restore 10 980 pd info;
+#X restore 10 1009 pd info;
 #X connect 4 0 6 0;
 #X connect 5 0 6 1;
 #X connect 6 0 9 0;
-#X connect 7 0 11 0;
-#X connect 8 0 12 0;
-#X connect 9 0 13 0;
-#X connect 10 0 13 0;
-#X connect 11 0 13 0;
-#X connect 12 0 13 0;
-#X connect 13 0 14 0;
-#X connect 13 0 14 1;
-#X connect 13 1 15 0;
+#X connect 7 0 10 0;
+#X connect 8 0 11 0;
+#X connect 9 0 12 0;
+#X connect 10 0 12 0;
+#X connect 11 0 12 0;
+#X connect 12 0 14 0;
+#X connect 14 0 15 0;
+#X connect 14 0 15 1;

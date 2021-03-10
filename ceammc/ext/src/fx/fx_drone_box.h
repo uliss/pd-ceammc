@@ -3,8 +3,8 @@ author: "Oli Larkin (contact@olilarkin.co.uk)"
 copyright: "Oliver Larkin"
 name: "fx.drone_box"
 version: "0.1"
-Code generated with Faust 2.28.6 (https://faust.grame.fr)
-Compilation options: -lang cpp -scal -ftz 0
+Code generated with Faust 2.30.12 (https://faust.grame.fr)
+Compilation options: -lang cpp -es 1 -scal -ftz 0
 ------------------------------------------------------------ */
 
 #ifndef  __fx_drone_box_H__
@@ -92,7 +92,7 @@ class fx_drone_box_dsp {
          */
         virtual void buildUserInterface(UI* ui_interface) = 0;
     
-        /* Returns the sample rate currently used by the instance */
+        /* Return the sample rate currently used by the instance */
         virtual int getSampleRate() = 0;
     
         /**
@@ -100,28 +100,28 @@ class fx_drone_box_dsp {
          * - static class 'classInit': static tables initialization
          * - 'instanceInit': constants and instance state initialization
          *
-         * @param sample_rate - the sampling rate in Hertz
+         * @param sample_rate - the sampling rate in Hz
          */
         virtual void init(int sample_rate) = 0;
 
         /**
          * Init instance state
          *
-         * @param sample_rate - the sampling rate in Hertz
+         * @param sample_rate - the sampling rate in Hz
          */
         virtual void instanceInit(int sample_rate) = 0;
-
+    
         /**
          * Init instance constant state
          *
-         * @param sample_rate - the sampling rate in Hertz
+         * @param sample_rate - the sampling rate in Hz
          */
         virtual void instanceConstants(int sample_rate) = 0;
     
         /* Init default control parameters values */
         virtual void instanceResetUserInterface() = 0;
     
-        /* Init instance state (delay lines...) */
+        /* Init instance state (like delay lines...) but keep the control parameter values */
         virtual void instanceClear() = 0;
  
         /**
@@ -194,7 +194,8 @@ class decorator_dsp : public fx_drone_box_dsp {
 };
 
 /**
- * DSP factory class.
+ * DSP factory class, used with LLVM and Interpreter backends
+ * to create DSP instances from a compiled DSP program.
  */
 
 class dsp_factory {
@@ -348,11 +349,13 @@ struct UI : public UIReal<FAUSTFLOAT>
 #ifndef __meta__
 #define __meta__
 
+/**
+ The base class of Meta handler to be used in fx_drone_box_dsp::metadata(Meta* m) method to retrieve (key, value) metadata.
+ */
 struct Meta
 {
     virtual ~Meta() {};
     virtual void declare(const char* key, const char* value) = 0;
-    
 };
 
 #endif
@@ -498,6 +501,7 @@ struct fx_drone_box : public fx_drone_box_dsp {
 
 #include <algorithm>
 #include <cmath>
+#include <cstdint>
 #include <math.h>
 
 
@@ -520,7 +524,6 @@ class fx_drone_box : public fx_drone_box_dsp {
 	int fSampleRate;
 	float fConst0;
 	float fConst1;
-	float fConst2;
 	float fConst3;
 	FAUSTFLOAT fHslider1;
 	float fRec2[2];
@@ -550,6 +553,7 @@ class fx_drone_box : public fx_drone_box_dsp {
 		m->declare("ceammc.lib/version", "0.1.2");
 		m->declare("ceammc_ui.lib/name", "CEAMMC faust default UI elements");
 		m->declare("ceammc_ui.lib/version", "0.1.2");
+		m->declare("compile_options", "-lang cpp -es 1 -scal -ftz 0");
 		m->declare("copyright", "Oliver Larkin");
 		m->declare("delays.lib/name", "Faust Delay Library");
 		m->declare("delays.lib/version", "0.1");
@@ -611,7 +615,7 @@ class fx_drone_box : public fx_drone_box_dsp {
 		fSampleRate = sample_rate;
 		fConst0 = std::min<float>(192000.0f, std::max<float>(1.0f, float(fSampleRate)));
 		fConst1 = std::exp((0.0f - (200.0f / fConst0)));
-		fConst2 = (1.0f - fConst1);
+		float fConst2 = (1.0f - fConst1);
 		fConst3 = (440.0f * fConst2);
 		fConst4 = (0.00100000005f * fConst2);
 		fConst5 = (0.666666687f * fConst0);
@@ -627,48 +631,37 @@ class fx_drone_box : public fx_drone_box_dsp {
 	}
 	
 	virtual void instanceClear() {
-		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l0 = 0; (l0 < 2); l0 = (l0 + 1)) {
 			fRec0[l0] = 0.0f;
 		}
-		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l1 = 0; (l1 < 2); l1 = (l1 + 1)) {
 			fRec2[l1] = 0.0f;
 		}
-		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l2 = 0; (l2 < 2); l2 = (l2 + 1)) {
 			fRec3[l2] = 0.0f;
 		}
 		IOTA = 0;
-		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l3 = 0; (l3 < 8192); l3 = (l3 + 1)) {
 			fVec0[l3] = 0.0f;
 		}
-		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l4 = 0; (l4 < 2); l4 = (l4 + 1)) {
 			fRec1[l4] = 0.0f;
 		}
-		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l5 = 0; (l5 < 8192); l5 = (l5 + 1)) {
 			fVec1[l5] = 0.0f;
 		}
-		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l6 = 0; (l6 < 2); l6 = (l6 + 1)) {
 			fRec4[l6] = 0.0f;
 		}
-		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l7 = 0; (l7 < 8192); l7 = (l7 + 1)) {
 			fVec2[l7] = 0.0f;
 		}
-		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l8 = 0; (l8 < 2); l8 = (l8 + 1)) {
 			fRec5[l8] = 0.0f;
 		}
-		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l9 = 0; (l9 < 8192); l9 = (l9 + 1)) {
 			fVec3[l9] = 0.0f;
 		}
-		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int l10 = 0; (l10 < 2); l10 = (l10 + 1)) {
 			fRec6[l10] = 0.0f;
 		}
@@ -711,7 +704,6 @@ class fx_drone_box : public fx_drone_box_dsp {
 		float fSlow1 = (0.00100000005f * float(fHslider0));
 		float fSlow2 = (fConst3 * std::pow(2.0f, (0.0833333358f * (float(fHslider1) + -69.0f))));
 		float fSlow3 = (fConst4 * float(fHslider2));
-		#pragma clang loop vectorize(enable) interleave(enable)
 		for (int i = 0; (i < count); i = (i + 1)) {
 			float fTemp0 = float(input0[i]);
 			float fTemp1 = (iSlow0 ? 0.0f : fTemp0);

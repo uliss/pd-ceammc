@@ -65,7 +65,7 @@ void FlowPack::onSymbol(t_symbol* s)
     output(0);
 }
 
-void FlowPack::onInlet(size_t idx, const AtomList& l)
+void FlowPack::onInlet(size_t idx, const AtomListView& l)
 {
     const size_t N = msg_->value().size();
 
@@ -98,18 +98,18 @@ void FlowPack::onList(const AtomList& l)
     output(0);
 }
 
-void FlowPack::onAny(t_symbol* s, const AtomListView& l)
+void FlowPack::onAny(t_symbol* s, const AtomListView& lv)
 {
     const size_t N = msg_->value().size();
 
-    if ((l.size() + 1) > N)
-        OBJ_ERR << "too many atoms in message: " << (l.size() + 1);
+    if ((lv.size() + 1) > N)
+        OBJ_ERR << "too many atoms in message: " << (lv.size() + 1);
 
-    const size_t NMIN = std::min<size_t>(l.size() + 1, N);
+    const size_t NMIN = std::min<size_t>(lv.size() + 1, N);
 
     msg_->value()[0] = s;
     for (size_t i = 1; i < NMIN; i++)
-        msg_->value()[i] = l[i - 1];
+        msg_->value()[i] = lv[i - 1];
 
     anyTo(0, msg_->value());
 }

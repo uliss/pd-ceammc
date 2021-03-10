@@ -74,7 +74,7 @@ void SeqCounter::onBang()
         nextConst();
 }
 
-void SeqCounter::onInlet(size_t n, const AtomList& l)
+void SeqCounter::onInlet(size_t n, const AtomListView& l)
 {
     if (l.empty())
         reset();

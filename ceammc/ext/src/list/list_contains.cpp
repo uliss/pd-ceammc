@@ -70,7 +70,7 @@ void ListContains::onDataT(const MListAtom& ml)
     onList(ml->data());
 }
 
-void ListContains::onInlet(size_t n, const AtomList& lst)
+void ListContains::onInlet(size_t n, const AtomListView& lst)
 {
     switch (mode_) {
     case MODE_ALL:

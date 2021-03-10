@@ -61,7 +61,7 @@ Gain::Gain(const PdArgs& args)
     addProperty(smooth_);
 }
 
-void Gain::onInlet(size_t n, const AtomList& lst)
+void Gain::onInlet(size_t n, const AtomListView& lst)
 {
     if (!checkArgs(lst, ARG_FLOAT))
         return;

@@ -3,6 +3,7 @@
 
 #ifdef CEAMMC_HAVE_TTS_FLITE
 #include "speech_flite.h"
+#include "speech_flite_tilde.h"
 #endif
 
 #ifdef WITH_MODPLUG
@@ -26,6 +27,7 @@ void ceammc_misc_setup()
 #endif
 
 #ifdef CEAMMC_HAVE_TTS_FLITE
-setup_misc_speech_flite();
+    setup_misc_speech_flite();
+    setup_misc_speech_filte_tilde();
 #endif
 }

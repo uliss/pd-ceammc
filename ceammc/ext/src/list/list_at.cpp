@@ -33,7 +33,7 @@ ListAt::ListAt(const PdArgs& a)
     addProperty(default_);
 }
 
-void ListAt::onInlet(size_t idx, const AtomList& l)
+void ListAt::onInlet(size_t idx, const AtomListView& l)
 {
     if (idx != 1)
         return;

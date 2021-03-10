@@ -74,35 +74,36 @@ void SystemCursor::onFloat(t_float f)
     }
 }
 
-void SystemCursor::m_button(t_symbol* s, const AtomListView& args)
+void SystemCursor::m_button(t_symbol* s, const AtomListView& lv)
 {
     static t_symbol* SYM = gensym("button");
 
     if (is_polling_)
-        anyTo(0, SYM, args);
+        anyTo(0, SYM, lv);
 }
 
-void SystemCursor::m_motion(t_symbol* s, const AtomListView& args)
+void SystemCursor::m_motion(t_symbol* s, const AtomListView& lv)
 {
     static t_symbol* SYM = gensym("motion");
 
     if (!relative_->value()) {
-        anyTo(0, SYM, args);
+        anyTo(0, SYM, lv);
     } else {
-        if (checkArgs(args, ARG_FLOAT, ARG_FLOAT)) {
+        if (checkArgs(lv, ARG_FLOAT, ARG_FLOAT)) {
             t_canvas* cnv = canvas_getrootfor(canvas());
             auto r = canvas_info_rect(cnv);
-            anyTo(0, SYM, { args[0].asFloat() - r.x, args[1].asFloat() - r.y });
+            Atom res[2] = { lv[0].asFloat() - r.x, lv[1].asFloat() - r.y };
+            anyTo(0, SYM, AtomListView(res, 2));
         }
     }
 }
 
-void SystemCursor::m_wheel(t_symbol* s, const AtomListView& args)
+void SystemCursor::m_wheel(t_symbol* s, const AtomListView& lv)
 {
     static t_symbol* SYM = gensym("mousewheel");
 
     if (is_polling_)
-        anyTo(0, SYM, args);
+        anyTo(0, SYM, lv);
 }
 
 void SystemCursor::clockTick()

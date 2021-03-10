@@ -22,14 +22,26 @@ LoadMsg::LoadMsg(const PdArgs& args)
 
 void LoadMsg::output()
 {
-    if (args().empty())
+    const auto msg = binbufArgs();
+
+    if (msg.empty())
         bangTo(0);
-    else if (args().size() == 1 && args()[0].isFloat())
-        floatTo(0, args()[0].asT<t_float>());
-    else if (args().size() > 0 && args()[0].isSymbol())
-        anyTo(0, args()[0].asT<t_symbol*>(), args().slice(1));
-    else
-        listTo(0, args());
+    else if (msg.isFloat())
+        floatTo(0, msg[0].asT<t_float>());
+    else {
+        size_t msg_start = 0;
+        for (size_t i = 0; i < msg.size(); i++) {
+            auto& a = msg[i];
+            if (a.isComma()) {
+                const auto mpart = msg.subView(msg_start, i - msg_start);
+                doOutput(mpart);
+                msg_start = i + 1;
+            }
+        }
+
+        if (msg_start < msg.size())
+            doOutput(msg.subView(msg_start, msg.size() - msg_start));
+    }
 }
 
 void LoadMsg::onClick(t_floatarg /*xpos*/, t_floatarg /*ypos*/, t_floatarg /*shift*/, t_floatarg /*ctrl*/, t_floatarg /*alt*/)
@@ -42,6 +54,24 @@ void LoadMsg::onLoadBang()
     output();
 }
 
+void LoadMsg::doOutput(const AtomListView& lv)
+{
+    if (lv.empty())
+        bangTo(0);
+    else if (lv.isFloat())
+        floatTo(0, lv[0].asT<t_float>()); //
+    else if (lv.size() > 1 && lv[0] == &s_float) // explicit float: float 123
+        floatTo(0, lv[1].asFloat());
+    else if (lv.size() > 1 && lv[0] == &s_symbol) // symbol A B C
+        symbolTo(0, lv[1].asSymbol());
+    else if (lv.size() > 1 && lv[0].isFloat()) // implicit list: 1 2 3
+        listTo(0, lv);
+    else if (lv.size() > 1 && lv[0] == &s_list) // explicit list: list 1 2 3
+        listTo(0, lv.subView(1));
+    else
+        anyTo(0, lv);
+}
+
 void setup_load_msg()
 {
     ObjectFactory<LoadMsg> obj("msg.onload", OBJECT_FACTORY_NO_DEFAULT_INLET);
@@ -49,7 +79,7 @@ void setup_load_msg()
     obj.useClick();
     obj.useLoadBang();
     obj.noPropsDispatch();
-    obj.noArgsDataParsing();
+    obj.noArgsAndPropsParse();
 
     obj.setDescription("send message when patch loads");
     obj.addAuthor("Serge Poltavsky");

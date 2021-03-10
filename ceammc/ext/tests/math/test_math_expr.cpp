@@ -32,7 +32,7 @@ TEST_CASE("math.expr", "[externals]")
     SECTION("init")
     {
         {
-            TObj t("math.expr");
+            TExt t("math.expr");
             REQUIRE(t.numInlets() == 2);
             REQUIRE(t.numOutlets() == 1);
 
@@ -40,14 +40,14 @@ TEST_CASE("math.expr", "[externals]")
         }
 
         {
-            TObj t("math.expr", LA("$pi+", "$f"));
+            TExt t("math.expr", LA("$pi+", "$f"));
             REQUIRE_PROPERTY(t, @expr, "$pi+$f");
         }
     }
 
     SECTION("do")
     {
-        TObj t("math.expr", LA("$f", "+10"));
+        TObj t("math.expr", LA("10"));
 
         WHEN_SEND_FLOAT_TO(0, t, 0.f);
         REQUIRE_FLOAT_AT_OUTLET(0, t, 10);
@@ -70,6 +70,9 @@ TEST_CASE("math.expr", "[externals]")
         REQUIRE_EXPR(t, "1+2*3", 3, 7);
         REQUIRE_EXPR(t, "(1+2)*3", 3, 9);
         REQUIRE_EXPR(t, "$pi", 3, 3.1415926);
+        REQUIRE_EXPR(t, "$pi+1", 3, 4.1415926);
+        REQUIRE_EXPR(t, "$pi+$f", 3, 6.1415926);
+        REQUIRE_EXPR(t, "$pi+$f0", 4, 7.1415926);
         REQUIRE_EXPR(t, "$f", 3, 3);
         REQUIRE_EXPR(t, "$e", 3, 2.7182817459);
         REQUIRE_EXPR(t, "sin(0)", 100, 0);
@@ -209,6 +212,7 @@ TEST_CASE("math.expr", "[externals]")
 
         REQUIRE_EXPR(t, "arr1[0]", 1, 100);
         REQUIRE_EXPR(t, "arr1[1]", 1, -3);
+        REQUIRE_EXPR(t, "arr1[1+1-2+(100*(3-3))]", 1, 100);
         REQUIRE_EXPR(t, "arr1[10]", 1, 0);
     }
 }

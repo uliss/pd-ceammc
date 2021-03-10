@@ -46,8 +46,11 @@ void ArrayMinMax::perform()
     if (minmax.first == array_.end())
         return;
 
-    listTo(1, AtomList(minmax.first - array_.begin(), minmax.second - array_.begin()));
-    listTo(0, AtomList(*minmax.first, *minmax.second));
+    Atom out0[2] = { minmax.first - array_.begin(), minmax.second - array_.begin() };
+    listTo(1, AtomListView(out0, 2));
+
+    Atom out1[2] = { *minmax.first, *minmax.second };
+    listTo(0, AtomListView(out1, 2));
 }
 
 void setup_array_minmax()

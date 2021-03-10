@@ -26,7 +26,7 @@ DictReject::DictReject(const PdArgs& args)
     createOutlet();
 }
 
-void DictReject::onInlet(size_t, const AtomList& lst)
+void DictReject::onInlet(size_t, const AtomListView& lst)
 {
     keys_->set(lst);
 }

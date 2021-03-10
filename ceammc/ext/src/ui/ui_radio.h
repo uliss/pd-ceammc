@@ -21,19 +21,17 @@ class UIRadio : public UIObject {
 public:
     UIRadio();
 
-    void init(t_symbol* name, const AtomList& args, bool usePresets);
+    void init(t_symbol* name, const AtomListView& args, bool usePresets);
 
     int singleValue() const;
     void setSingleValue(int idx);
     AtomList listValue() const;
-    void setListValue(const AtomList& lst);
+    void setListValue(const AtomListView& lv);
 
     void output();
     bool isVertical() const { return width() < height(); }
 
     void paint();
-    void drawBackground();
-    void drawItems();
     void okSize(t_rect* newrect);
     void redrawAll();
     void redrawItems();
@@ -41,7 +39,7 @@ public:
 
     void onBang();
     void onFloat(t_float f);
-    void onList(const AtomList& lst);
+    void onList(const AtomListView& lv);
     void onMouseDown(t_object*, const t_pt& pt, const t_pt& abs_pt, long mod);
     void onMouseDrag(t_object* view, const t_pt& pt, long mod);
     void onDblClick(t_object* view, const t_pt& pt, long modifiers);
@@ -56,7 +54,7 @@ public:
     t_float p_mode() const;
     void p_setMode(t_float p_mode);
     AtomList p_value() const;
-    void p_setValue(const AtomList& lst);
+    void p_setValue(const AtomListView& lv);
 
     // methods
     void m_flip();
@@ -69,6 +67,7 @@ public:
 
 public:
     static void setup();
+
 private:
     int click2Cell(const t_pt& pt) const;
 };

@@ -24,7 +24,7 @@ public:
     PropSet(const PdArgs& args);
 
     void parseProperties() override;
-    void onInlet(size_t n, const AtomList& lst) override;
+    void onInlet(size_t n, const AtomListView& lst) override;
     const char* annotateInlet(size_t n) const override;
 
 private:
