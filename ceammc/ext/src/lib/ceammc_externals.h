@@ -51,7 +51,6 @@ enum class PropertySetState {
 
 PropertySetState ceammc_base_property_set_cc(t_object* x, t_symbol* key, t_float val, bool check = true);
 PropertySetState ceammc_ui_property_set_cc(t_object* x, t_symbol* key, t_float val, bool check = true);
-PropertySetState ceammc_faust_property_set_cc(t_object* x, t_symbol* key, t_float val, bool check = true);
 PropertySetState ceammc_abstraction_property_set_cc(t_object* x, t_symbol* key, t_float val, bool check = true);
 
 PropertySetState ceammc_property_set_cc(t_object* x, t_symbol* key, t_float val);

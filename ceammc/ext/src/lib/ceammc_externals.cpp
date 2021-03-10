@@ -225,7 +225,7 @@ PropertySetState ceammc_base_property_set_cc(t_object* x, t_symbol* key, t_float
     if (!obj)
         return PPS::OTHER_TYPE;
 
-    for (auto& p : obj->properties())
+    for (auto& p : obj->getProperties())
         LIB_ERR << p->name()->s_name;
 
     auto prop = obj->property(key);
@@ -285,38 +285,6 @@ PropertySetState ceammc_ui_property_set_cc(t_object* x, t_symbol* key, t_float v
         return PPS::ERROR_SET_VALUE;
 }
 
-PropertySetState ceammc_faust_property_set_cc(t_object* x, t_symbol* key, t_float val, bool check)
-{
-    using PSS = PropertySetState;
-    using FaustObj = PdObject<faust::FaustExternalBase>;
-
-    if (check && !is_ceammc_faust(x))
-        return PSS::OTHER_TYPE;
-
-    auto* obj = reinterpret_cast<FaustObj*>(x)->impl;
-    auto prop = obj->property(key);
-    if (!prop)
-        return PSS::ERROR_NOT_FOUND;
-
-    auto& info = prop->infoT();
-    // check rw
-    if (!info.isReadWrite())
-        return PSS::ERROR_ACCESS;
-
-    if (!info.isNumeric())
-        return PSS::ERROR_INVALID_TYPE;
-
-    auto newval = rangeValueFromCC(info, val);
-    if (!newval)
-        return PSS::ERROR_NO_RANGE;
-
-    Atom a(*newval);
-    if (prop->set(AtomListView(a)))
-        return PSS::OK;
-    else
-        return PSS::ERROR_SET_VALUE;
-}
-
 PropertySetState ceammc_abstraction_property_set_cc(t_object* x, t_symbol* key, t_float val, bool check)
 {
     using PSS = PropertySetState;
@@ -334,12 +302,6 @@ PropertySetState ceammc_property_set_cc(t_object* x, t_symbol* key, t_float val)
     LIB_ERR << "ui prop";
 
     res = ceammc_ui_property_set_cc(x, key, val, true);
-    if (res == PropertySetState::OK || res != PropertySetState::OTHER_TYPE)
-        return res;
-
-    LIB_ERR << "faust prop";
-
-    res = ceammc_faust_property_set_cc(x, key, val, true);
     if (res == PropertySetState::OK || res != PropertySetState::OTHER_TYPE)
         return res;
 
