@@ -56,6 +56,7 @@ private:
 public:
     LangFaustTilde(const PdArgs& args);
     ~LangFaustTilde();
+    void initDone() override;
 
     void setupDSP(t_signal** in) override;
     void processBlock(const t_sample** in, t_sample** out) final;
@@ -88,7 +89,5 @@ private:
 private:
     static faust::FaustConfig faust_config_base;
 };
-
-void setup_lang_faust_tilde();
 
 #endif // LANG_FAUST_TILDE_H

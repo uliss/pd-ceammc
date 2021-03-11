@@ -121,6 +121,4 @@ protected:
     void createCustomUI() override;
 };
 
-void setup_lang_faust_ui_tilde();
-
 #endif // LANG_FAUST_UI_TILDE_H

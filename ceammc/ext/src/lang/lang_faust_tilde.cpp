@@ -40,6 +40,11 @@
 #include <cstdlib>
 #include <cstring>
 
+extern "C" {
+int ceammc_init_done();
+void ceammc_setup();
+}
+
 enum RunEditorRc {
     RUN_OK = 0,
     RUN_FILE_NOT_FOUND = 1000,
@@ -169,7 +174,7 @@ LangFaustTilde::LangFaustTilde(const PdArgs& args)
     , last_mod_time_(0)
 {
     fname_ = new SymbolProperty("@fname", &s_);
-    fname_->setSuccessFn([this](Property*) { compile(); });
+    fname_->setSuccessFn([this](Property*) { if(!isPatchLoading()) compile(); });
     fname_->setArgIndex(0);
     addProperty(fname_);
 
@@ -188,6 +193,12 @@ LangFaustTilde::LangFaustTilde(const PdArgs& args)
 
 LangFaustTilde::~LangFaustTilde() // for std::unique_ptr
 {
+}
+
+void LangFaustTilde::initDone()
+{
+    SoundExternal::initDone();
+    compile();
 }
 
 void LangFaustTilde::createFaustUI()
@@ -479,6 +490,9 @@ std::string LangFaustTilde::canvasDir() const
 
 EXPORT void setup_lang0x2efaust_tilde()
 {
+    if (!ceammc_init_done())
+        ceammc_setup();
+
     SoundExternalFactory<LangFaustTilde> obj("lang.faust~", OBJECT_FACTORY_DEFAULT);
     obj.addMethod("reset", &LangFaustTilde::m_reset);
     obj.addMethod("open", &LangFaustTilde::m_open);

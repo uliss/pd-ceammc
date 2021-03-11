@@ -7,7 +7,7 @@ if(WITH_FAUST)
         FILES lang_faust_tilde.cpp
         INTERNAL True
         LIBRARY ceammc
-        LINK ceammc_faust ceammc_core)
+        LINK ceammc ceammc_faust ceammc_core)
     target_compile_definitions(lang.faust_tilde PRIVATE WITH_FAUST)
     target_include_directories(lang.faust_tilde
         PRIVATE
@@ -19,7 +19,7 @@ if(WITH_FAUST)
         FILES lang_faust_ui_tilde.cpp lang_faust_tilde.cpp
         INTERNAL True
         LIBRARY ceammc
-        LINK lang.faust_tilde ceammc_faust ceammc_nui ceammc_core)
+        LINK ceammc lang.faust_tilde ceammc_faust ceammc_nui ceammc_core)
     target_compile_definitions(ui.faust_tilde PRIVATE WITH_FAUST)
     target_include_directories(ui.faust_tilde
         PRIVATE

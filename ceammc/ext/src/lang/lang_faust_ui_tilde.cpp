@@ -18,6 +18,11 @@
 #include "fmt/format.h"
 #include "nui/factory.h"
 
+extern "C" {
+int ceammc_init_done();
+void ceammc_setup();
+}
+
 namespace {
 
 static int faustThemeIdx = 0;
@@ -440,6 +445,9 @@ void FaustMasterView::createButtonEntry(faust::UIProperty* p)
 
 EXPORT void setup_ui0x2efaust_tilde()
 {
+    if (!ceammc_init_done())
+        ceammc_setup();
+
     ui::UIFactory<SoundExternalFactory, LangFaustUiTilde> obj("ui.faust~");
     obj.useMouseEnter();
     obj.useMouseLeave();
