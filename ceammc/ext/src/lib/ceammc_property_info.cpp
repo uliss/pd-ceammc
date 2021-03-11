@@ -662,7 +662,7 @@ bool PropertyInfo::addEnums(std::initializer_list<int> i_list)
     return true;
 }
 
-bool PropertyInfo::addEnums(std::initializer_list<t_symbol*> s_list)
+bool PropertyInfo::addEnums(std::initializer_list<t_symbol*> args)
 {
     if (!hasEnumLimit()) {
         PROP_LOG() << "no enum constraints";
@@ -673,8 +673,8 @@ bool PropertyInfo::addEnums(std::initializer_list<t_symbol*> s_list)
         if (!enum_)
             enum_.reset(new AtomList);
 
-        enum_->reserve(s_list.size() + 1);
-        for (auto s : s_list)
+        enum_->reserve(args.size() + 1);
+        for (auto s : args)
             enum_->append(Atom(s));
 
         return true;

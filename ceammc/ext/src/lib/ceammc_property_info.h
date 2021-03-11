@@ -256,7 +256,7 @@ public:
     bool addEnum(t_symbol* s) CEAMMC_WARN_UNUSED;
     bool addEnum(const Atom& a) CEAMMC_WARN_UNUSED;
     bool addEnums(std::initializer_list<int> i_list) CEAMMC_WARN_UNUSED;
-    bool addEnums(std::initializer_list<t_symbol*> s_list) CEAMMC_WARN_UNUSED;
+    bool addEnums(std::initializer_list<t_symbol*> args) CEAMMC_WARN_UNUSED;
     bool addEnums(std::initializer_list<const char*> c_list) CEAMMC_WARN_UNUSED;
     bool addEnums(std::initializer_list<Atom> a_list) CEAMMC_WARN_UNUSED;
     void clearEnum();
