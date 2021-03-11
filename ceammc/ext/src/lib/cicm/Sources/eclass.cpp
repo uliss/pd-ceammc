@@ -74,7 +74,11 @@ static const char* SYM_DSP = "dsp";
 static const char* SYM_DSP_ADD = "dsp_add";
 static const char* SYM_DSP_ADD64 = "dsp_add";
 
+#ifdef PD_INSTANCE
+#define GSYM(name) t_symbol* G_##name = gensym(name)
+#else
 #define GSYM(name) static t_symbol* G_##name = gensym(name)
+#endif
 
 enum CategoryType {
     CAT_BASE = 0,
