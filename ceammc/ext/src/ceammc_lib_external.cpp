@@ -24,7 +24,7 @@
 #include <iostream>
 #include <iterator>
 
-t_class* ceammc_class = 0;
+t_class* ceammc_class = nullptr;
 
 namespace {
 
@@ -115,6 +115,11 @@ void ceammc_cords(t_object* x, t_symbol* s)
     if (s == gensym("lower"))
         sys_vgui("[tkcanvas_name $::focused_window] lower cord\n");
 }
+}
+
+extern "C" CEAMMC_EXTERN int ceammc_init_done()
+{
+    return ceammc_class == nullptr ? 0 : 1;
 }
 
 extern "C" CEAMMC_EXTERN void ceammc_setup()
