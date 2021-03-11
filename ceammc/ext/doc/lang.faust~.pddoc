@@ -12,10 +12,6 @@
             <category>lang</category>
             <keywords>faust</keywords>
             <since>0.9.2</since>
-            <aliases>
-                <alias>ceammc/faust~</alias>
-                <alias>faust~</alias>
-            </aliases>
         </meta>
         <info>
             <a href="https://faust.grame.fr/">https://faust.grame.fr/</a>
