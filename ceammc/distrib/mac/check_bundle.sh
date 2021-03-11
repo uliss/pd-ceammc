@@ -17,7 +17,7 @@ if [ ! -d $BUNDLE ]; then
 	exit 1
 fi
 
-find $BUNDLE -name *.d_fat | while read external
+find $BUNDLE -name *.d_amd64 -o -name *.dylib | while read external
 do
 	short_name=$(basename $external)
     dep=$(otool -L $external | grep -v -e '/System/Library' \
