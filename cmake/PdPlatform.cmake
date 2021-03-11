@@ -214,18 +214,6 @@ if(APPLE)
     message(STATUS "found Tcl/Tk version: ${TK_VERSION}")
 
     add_custom_command(
-        OUTPUT ${MAKE_BUNDLE_SCRIPT}
-        COMMAND ${CMAKE_COMMAND}
-            -DPROJECT_SOURCE_DIR="${PROJECT_SOURCE_DIR}"
-            -DPROJECT_BINARY_DIR="${PROJECT_BINARY_DIR}"
-            -DBUNDLE=${BUNDLE_FULL_PATH}
-            -DWISH_APP=${WISH_APP}
-            -DTK_VERSION=${TK_VERSION}
-            -DLEAPMOTION_LIBRARY=${LEAPMOTION_LIBRARY}
-            -DDYLIBBUNDLER="${CMAKE_BINARY_DIR}/ceammc/distrib/mac/dylibbundler"
-            -P ${PROJECT_SOURCE_DIR}/cmake/cmake_build_mac.cmake)
-
-    add_custom_command(
         OUTPUT ${BUNDLE_FULL_PATH}
         COMMAND sh ${MAKE_BUNDLE_SCRIPT}
         COMMAND ${CMAKE_COMMAND}
@@ -235,7 +223,24 @@ if(APPLE)
 
     # app target
     # `make app` creates MacOSX bundle
-    add_custom_target(app DEPENDS ${MAKE_BUNDLE_SCRIPT} ${BUNDLE_FULL_PATH})
+    add_custom_target(app)
+
+    add_custom_command(TARGET app PRE_BUILD
+        COMMAND ${CMAKE_COMMAND}
+            -DPROJECT_SOURCE_DIR="${PROJECT_SOURCE_DIR}"
+            -DPROJECT_BINARY_DIR="${PROJECT_BINARY_DIR}"
+            -DBUNDLE=${BUNDLE_FULL_PATH}
+            -DWISH_APP=${WISH_APP}
+            -DTK_VERSION=${TK_VERSION}
+            -DLEAPMOTION_LIBRARY=${LEAPMOTION_LIBRARY}
+            -DDYLIBBUNDLER="${CMAKE_BINARY_DIR}/ceammc/distrib/mac/dylibbundler"
+            -P ${PROJECT_SOURCE_DIR}/cmake/cmake_build_mac.cmake
+        COMMAND ${CMAKE_COMMAND} -E rm -rf ${BUNDLE_FULL_PATH}
+        COMMAND sh ${MAKE_BUNDLE_SCRIPT}
+        COMMAND ${CMAKE_COMMAND}
+            -DBUNDLE=${BUNDLE_FULL_PATH}
+            -P ${PROJECT_SOURCE_DIR}/cmake/bundle.cmake
+        )
 
     add_custom_target(codesign
         COMMAND sh ${PROJECT_SOURCE_DIR}/mac/codesign.sh ${BUNDLE_FULL_PATH}
