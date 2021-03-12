@@ -29,7 +29,7 @@ public:
     void okSize(t_rect* newrect);
     void paint();
     void onMouseDown(t_object*, const t_pt&, const t_pt& abs_pt, long);
-    void onDblClick(t_object*, const t_pt&, long mod);
+    void onDblClick(t_object* x, const t_pt& pt, long mod);
     void onPropChange(t_symbol* prop_name);
 
     void onBang();

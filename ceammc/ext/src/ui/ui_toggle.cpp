@@ -86,10 +86,10 @@ void UIToggle::onMouseDown(t_object*, const t_pt&, const t_pt& abs_pt, long)
     redrawAll();
 }
 
-void UIToggle::onDblClick(t_object*, const t_pt&, long mod)
+void UIToggle::onDblClick(t_object* x, const t_pt& pt, long mod)
 {
     if (!(mod & EMOD_SHIFT))
-        return;
+        return onMouseDown(x, pt, pt, mod);
 
     if (!listen_midi_ctrl_)
         startListenMidi();
