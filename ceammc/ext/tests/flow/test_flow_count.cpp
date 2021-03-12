@@ -46,62 +46,69 @@ TEST_CASE("flow.count", "[externals]")
 
     SECTION("process")
     {
-        TObj t("flow.count");
+        TExt t("flow.count");
         REQUIRE_PROPERTY(t, @value, 0.f);
 
         // bang
-        WHEN_SEND_BANG_TO(0, t);
+        t.sendBang();
         REQUIRE_FLOAT_AT_OUTLET(0, t, 1);
-        WHEN_SEND_BANG_TO(0, t);
+        t.sendBang();
         REQUIRE_FLOAT_AT_OUTLET(0, t, 2);
         REQUIRE_PROPERTY(t, @value, 2);
 
         // float
-        WHEN_SEND_FLOAT_TO(0, t, 22);
+        t << 22;
         REQUIRE_FLOAT_AT_OUTLET(0, t, 3);
-        WHEN_SEND_FLOAT_TO(0, t, 22);
+        t << 22;
         REQUIRE_FLOAT_AT_OUTLET(0, t, 4);
 
         // symbol
-        WHEN_SEND_SYMBOL_TO(0, t, "A");
+        t << "A";
         REQUIRE_FLOAT_AT_OUTLET(0, t, 5);
-        WHEN_SEND_SYMBOL_TO(0, t, "A");
+        t << "A";
         REQUIRE_FLOAT_AT_OUTLET(0, t, 6);
 
         // list
-        WHEN_SEND_LIST_TO(0, t, LF(1, 2, 3));
+        t << LF(1, 2, 3);
         REQUIRE_FLOAT_AT_OUTLET(0, t, 7);
 
         // any
-        WHEN_SEND_ANY_TO(t, "test", LA("A"));
+        t.sendMessage("test", LA("A"));
         REQUIRE_FLOAT_AT_OUTLET(0, t, 8);
 
         // data
-        WHEN_SEND_DATA_TO(0, t, IntData(123));
+        t << IntA(123);
         REQUIRE_FLOAT_AT_OUTLET(0, t, 9);
         REQUIRE_PROPERTY(t, @value, 9);
 
-        t.storeAllMessageCount();
-        t.sendBang(1);
-        REQUIRE_NO_MSG(t);
+        t.sendBangTo(1);
+        REQUIRE(!t.hasOutputAt(0));
         REQUIRE_PROPERTY(t, @value, 0.);
     }
 
     SECTION("reset init")
     {
-        TObj t("flow.count", LF(2));
+        TExt t("flow.count", LF(2));
         REQUIRE_PROPERTY(t, @value, 2);
 
-        WHEN_SEND_BANG_TO(0, t);
+        t.sendBang();
         REQUIRE_FLOAT_AT_OUTLET(0, t, 3);
-        WHEN_SEND_BANG_TO(0, t);
+        t.sendBang();
         REQUIRE_FLOAT_AT_OUTLET(0, t, 4);
-        WHEN_SEND_BANG_TO(0, t);
+        t.sendBang();
         REQUIRE_FLOAT_AT_OUTLET(0, t, 5);
 
-        t.sendBang(1);
-        WHEN_SEND_BANG_TO(0, t);
+        t.sendBangTo(1);
+        t.sendBang();
         REQUIRE_FLOAT_AT_OUTLET(0, t, 3);
+
+        t.sendFloatTo(100, 1);
+        t.sendBang();
+        REQUIRE_FLOAT_AT_OUTLET(0, t, 101);
+
+        t.sendMessageTo(Message(gensym("@value"), LF(25)), 1);
+        t.sendBang();
+        REQUIRE_FLOAT_AT_OUTLET(0, t, 26);
     }
 
     SECTION("pd ext")
