@@ -20,7 +20,7 @@
 using namespace ceammc;
 
 class UIBang : public UIObject {
-    ClockMemberFunction<UIBang> clock_;
+    ClockLambdaFunction clock_;
     bool active_;
 
 private:

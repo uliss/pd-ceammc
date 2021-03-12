@@ -16,7 +16,7 @@
 #include "ui_bang.tcl.h"
 
 UIBang::UIBang()
-    : clock_(this, &UIBang::deactivate)
+    : clock_([this]() { if(active_) deactivate(); })
     , active_(false)
     , prop_color_active(rgba_blue)
 {
@@ -42,11 +42,13 @@ void UIBang::paint()
 void UIBang::onMouseDown(t_object* view, const t_pt& pt, const t_pt& abs_pt, long modifiers)
 {
     activate();
+    clock_.delay(100);
 }
 
 void UIBang::onMouseUp(t_object* view, const t_pt& pt, long modifiers)
 {
-    deactivate();
+    if (active_)
+        deactivate();
 }
 
 void UIBang::onAny(t_symbol* s, const AtomListView&)
