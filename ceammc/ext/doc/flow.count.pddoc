@@ -18,7 +18,7 @@
         </arguments>
         <properties>
             <property name="@value" type="int" minvalue="0" default="0">current counter
-            state</property>
+            state. Can be set via message to second(!) inlet or [prop.set] object.</property>
         </properties>
         <inlets>
             <inlet>
@@ -26,6 +26,8 @@
             </inlet>
             <inlet>
                 <xinfo on="bang">reset counter to init value</xinfo>
+                <xinfo on="int">set current value</xinfo>
+                <xinfo>@value X - set current value</xinfo>
             </inlet>
         </inlets>
         <outlets>
@@ -36,11 +38,11 @@
 <![CDATA[
 [T]
 |
-[metro 300]
-|
-|      [bang(
-|      |.
-[flow.count]
+[metro 300]   [F]
+|             |
+|      [bang( [@value $1(
+|      |.     |.
+[flow.count    ]
 |
 [F]
 ]]>

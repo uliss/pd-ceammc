@@ -15,12 +15,18 @@
 #define FLOW_COUNT_H
 
 #include "ceammc_object.h"
+#include "ceammc_proxy.h"
 
 using namespace ceammc;
 
 class FlowCount : public BaseObject {
+public:
+    using Inlet = InletProxy<FlowCount>;
+
+private:
     IntProperty* counter_;
     int default_value_;
+    Inlet proxy_;
 
 public:
     FlowCount(const PdArgs& a);
@@ -31,10 +37,11 @@ public:
     void onList(const AtomList& l) override;
     void onAny(t_symbol* s, const AtomListView& l) override;
     void onData(const Atom&) override;
-    void onInlet(size_t, const AtomListView&) override;
 
     bool processAnyProps(t_symbol* s, const AtomListView&) override;
     void initDone() override;
+
+    void onInletAny(Inlet* inl, t_symbol* s, const AtomListView& lv);
 
 private:
     void tick();
