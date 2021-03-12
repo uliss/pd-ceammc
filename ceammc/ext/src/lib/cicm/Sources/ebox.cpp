@@ -2384,7 +2384,7 @@ static void ebox_newzoom(t_ebox* x)
 
 float ebox_getzoom(t_ebox* x)
 {
-    return x->b_zoom;
+    return x->b_zoom < 1 ? 1 : x->b_zoom;
 }
 
 float ebox_getzoomfontsize(t_ebox* x)
