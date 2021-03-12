@@ -51,18 +51,18 @@
 <![CDATA[
 [ui.tab qwerty names custom @size 200 15]
 |
-|            [F]  [custom zxcvbnmasdfghjklqwertyuiop #a(
+|            [F]                 [custom zxcvbnmasdfghjklqwertyuiop #a(
 |            |
-[@layout $1( [@octave $1(       [T]
-|            |                  |.
+[@layout $1( [@octave $1(        [T]
+|            |                   |.
 [midi.kbd qwerty @custom \[a:0 s:2 d:4 f:5 g:7\] #x]
 |
 [ui.hk]
-|
-|
-|
-|
-|
+| |
+| |
+| |
+| |
+| [print]
 |
 [ui.dt]
 [X a->x]

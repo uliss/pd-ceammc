@@ -10,12 +10,13 @@
 custom one;
 #X obj 50 158 ui.tab qwerty names custom @size 200 15;
 #X floatatom 174 187 5 0 0 0 - - -;
-#X msg 222 187 custom zxcvbnmasdfghjklqwertyuiop;
+#X msg 366 187 custom zxcvbnmasdfghjklqwertyuiop;
 #X msg 50 216 @layout \$1;
 #X msg 174 216 @octave \$1;
-#X obj 357 216 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1;
+#X obj 366 216 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1;
 #X obj 50 245 midi.kbd qwerty @custom \[a:0 s:2 d:4 f:5 g:7\];
 #X obj 50 274 ui.hk;
+#X obj 69 345 print;
 #X obj 50 374 ui.dt;
 #X obj 20 423 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 428 cnv 5 90 26 empty empty arguments: 4 10 0 14 -262144
@@ -105,4 +106,5 @@ https://github.com/uliss/pure-data;
 #X connect 11 0 12 1;
 #X connect 12 0 13 0;
 #X connect 13 0 14 0;
+#X connect 13 0 15 0;
 #X connect 8 0 12 0;
