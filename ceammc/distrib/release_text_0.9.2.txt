@@ -1,0 +1,41 @@
+# pan 0
+# voice awb
+.say Hello
+# voice slt
+.say this is PureData ceammc release 0.9.2
+# voice awb
+.say it's main features are:
+.say speech.flite~ object that you hearing right now
+.say new user interface objects are added:
+.say ui.filter~, ui.button, ui.midi
+# voice slt
+.say For example, with ui.filter~ you can interactively control signal filtering
+.say Let's hear white noise
+.sleep 1000
+# filter gain 0.15
+# filter main @freq 20000
+.sleep 1000
+# pan 1
+.say now we apply low-pass filter with corner frequency 1000 herz
+.sleep 1000
+# filter main @freq 1000
+.say now we change frequency to 3000 herz
+# filter main @freq 3000
+.sleep 1000
+.say now we change filter type to high-pass filter
+# filter main @type hpf
+.sleep 1000
+# filter gain 0
+# pan 0
+.say ceammc prefix added to all global like objects: ceammc/gate etc.
+.say preset interpolation added
+.sleep 1000
+.say let's select first preset
+# preset load 0
+.sleep 1000
+.say now we select second preset
+# preset load 1
+.say and now we are interpolating between this to presets in two seconds
+.preset interp 1 0 2000
+.say Good buy and have a good patching
+

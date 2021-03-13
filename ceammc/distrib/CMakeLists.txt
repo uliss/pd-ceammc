@@ -81,3 +81,31 @@ endforeach()
 add_custom_target(ceammc_doc_check_methods
     COMMAND ${PROJECT_BINARY_DIR}/doc_check_methods.sh
     WORKING_DIRECTORY ${PROJECT_BINARY_DIR})
+
+# ceammc release patch files
+set(RELEASE_TEXT "release_text_${CEAMMC_LIB_VERSION}.txt")
+set(RELEASE_QLIST "release_qlist_${CEAMMC_LIB_VERSION}.txt")
+set(RELEASE_TEMPLATE "template.release.pd")
+set(RELEASE_PATCH "release_${CEAMMC_LIB_VERSION}.pd")
+configure_file(${RELEASE_TEMPLATE} ${CMAKE_CURRENT_SOURCE_DIR}/${RELEASE_PATCH} @ONLY)
+add_custom_target(release_patch
+    COMMAND ${CMAKE_CURRENT_SOURCE_DIR}/make_release_patch.py ${RELEASE_TEXT} > "${CMAKE_CURRENT_SOURCE_DIR}/${RELEASE_QLIST}"
+    SOURCES make_release_patch.py ${RELEASE_TEXT} ${RELEASE_TEMPLATE}
+    WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR})
+
+if(WIN32)
+    set(DOC_INSTALL_PATH "extra/ceammc")
+else()
+    set(DOC_INSTALL_PATH "${PD_DOC_INSTALL_PATH}/extra/ceammc")
+endif()
+
+install(FILES ${RELEASE_QLIST} ${RELEASE_TEXT}
+    DESTINATION ${DOC_INSTALL_PATH}
+    PERMISSIONS OWNER_READ GROUP_READ WORLD_READ)
+file(GLOB _RELEASE_FILES "release_*.pd")
+foreach(f ${_RELEASE_FILES})
+    install(FILES ${f}
+        DESTINATION ${DOC_INSTALL_PATH}
+        PERMISSIONS OWNER_READ GROUP_READ WORLD_READ)
+endforeach()
+
