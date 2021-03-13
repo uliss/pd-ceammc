@@ -36,6 +36,13 @@
 .say now we select second preset
 # preset load 1
 .say and now we are interpolating between this to presets in two seconds
-.preset interp 1 0 2000
-.say Good buy and have a good patching
+#preset interp 1 0 2000
+.sleep 1000
+.say we added seq.life: game of life sequencer
+.say let's start it
+#life 1
+.say this ocsillator figure: octagone
+.sleep 1000
+#life 0
+.say although this life is never end we have to say good buy and wish you a good patching
 
