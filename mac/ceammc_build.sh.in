@@ -13,6 +13,8 @@ BUNDLE="@BUNDLE@"
 WISH_APP="@WISH_APP@"
 TK_VERSION="@TK_VERSION@"
 LIB_LEAPMOTION="@LEAPMOTION_LIBRARY@"
+CEAMMC_LIB_VERSION="@CEAMMC_LIB_VERSION@"
+CEAMMC_RELEASE_PATCH="release_@CEAMMC_LIB_VERSION@.pd"
 
 # relative dir names
 PD_APP="$(basename $BUNDLE)"
@@ -338,6 +340,7 @@ rm -f "${BUNDLE_CEAMMC}/index-help.pd"
 rm -f "${BUNDLE_EXTRA}/index-help.pd"
 copy $SRC_DIR/ceammc/ext/doc/index-help.pd "${BUNDLE_EXTRA}"
 chmod 0444 "${BUNDLE_EXTRA}/index-help.pd"
+copy $SRC_DIR/ceammc/distrib/${CEAMMC_RELEASE_PATCH} "${BUNDLE_CEAMMC}"
 
 section "Copying CEAMMC about file"
 cat $BUILD_DIR/ceammc/ext/doc/about.pd | sed "s/%GIT_BRANCH%/$GIT_BRANCH/g" | \

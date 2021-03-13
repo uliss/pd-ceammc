@@ -73,6 +73,7 @@ set(CMAKE_CXX_STANDARD 11)
 
 list(APPEND CMAKE_MODULE_PATH ${PROJECT_SOURCE_DIR}/cmake)
 include(version)
+include(ceammc/external_version.cmake)
 include(build_options)
 include(install_paths)
 find_package(LeapMotion)
