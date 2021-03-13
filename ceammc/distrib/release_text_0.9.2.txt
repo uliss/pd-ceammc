@@ -16,19 +16,19 @@
 # filter main @freq 20000
 .sleep 1000
 # pan 1
-# speech @pitch 50
+# speech @pitch 100
 .say now we apply low-pass filter with corner frequency 1000 herz
 .sleep 1000
 # filter main @freq 1000
 .say now we change frequency to 3000 herz
 # filter main @freq 3000
 .sleep 1000
+# speech @pitch 300
 .say now we change filter type to high-pass filter
-# speech @pitch 200
 # filter main @type hpf
 .sleep 1000
 # filter gain 0
-# speech @pitch -1
+# speech @pitch 100
 # pan 0
 .say ceammc prefix added to all global like objects: ceammc/gate etc.
 .say preset interpolation added
