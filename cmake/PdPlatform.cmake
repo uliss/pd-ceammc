@@ -201,7 +201,7 @@ if(APPLE)
     configure_file(${PROJECT_SOURCE_DIR}/ceammc/gui/Info.plist ${PROJECT_BINARY_DIR}/dist/Info.plist)
 
     # tk versions later then 8.6.8 have problems with russian keyboard shortcuts
-    set(TK_VERSION "8.6.6")
+    set(TK_VERSION "8.6.10")
     set(EMBEDDED_WISH "${PROJECT_SOURCE_DIR}/mac/Wish-${TK_VERSION}.app")
 
     if(EXISTS ${EMBEDDED_WISH})
@@ -234,6 +234,7 @@ if(APPLE)
             -DTK_VERSION=${TK_VERSION}
             -DLEAPMOTION_LIBRARY=${LEAPMOTION_LIBRARY}
             -DDYLIBBUNDLER="${CMAKE_BINARY_DIR}/ceammc/distrib/mac/dylibbundler"
+            -DCEAMMC_LIB_VERSION=${CEAMMC_LIB_VERSION}
             -P ${PROJECT_SOURCE_DIR}/cmake/cmake_build_mac.cmake
         COMMAND ${CMAKE_COMMAND} -E rm -rf ${BUNDLE_FULL_PATH}
         COMMAND sh ${MAKE_BUNDLE_SCRIPT}
@@ -241,6 +242,9 @@ if(APPLE)
             -DBUNDLE=${BUNDLE_FULL_PATH}
             -P ${PROJECT_SOURCE_DIR}/cmake/bundle.cmake
         )
+
+    add_custom_target(dev_ceammc
+        COMMAND ${CMAKE_COMMAND} -E copy $<TARGET_FILE:ceammc> ${BUNDLE_FULL_PATH}/Contents/Resources/extra/ceammc/)
 
     add_custom_target(codesign
         COMMAND sh ${PROJECT_SOURCE_DIR}/mac/codesign.sh ${BUNDLE_FULL_PATH}
