@@ -1,6 +1,6 @@
 # CEAMMC external library changelog
 
-## [Unreleased]
+## [0.9.2]
 ### Added:
 - new objects:
   - array.plot added
