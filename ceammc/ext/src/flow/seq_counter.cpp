@@ -212,7 +212,6 @@ void setup_seq_counter()
     SYM_FOLD = gensym("fold");
 
     ObjectFactory<SeqCounter> obj("seq.counter");
-    obj.addAlias("counter");
 
     obj.addMethod("reset", &SeqCounter::m_reset);
 
