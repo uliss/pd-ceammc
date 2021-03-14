@@ -1696,7 +1696,7 @@
     <entry name="seq.bangs" descr="bang sequencer" ref_view="object">
       <xi:include href="seq.bangs.pddoc" parse="xml"/>
     </entry>
-    <entry name="seq.counter" descr="modulo counter" ref_view="object">
+    <entry name="seq.counter" descr="sequencer counter" ref_view="object">
       <xi:include href="seq.counter.pddoc" parse="xml"/>
     </entry>
     <entry name="seq.life" descr="Conway gamw of life sequencer" ref_view="object">

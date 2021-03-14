@@ -6,16 +6,12 @@
             <authors>
                 <author>Serge Poltavsky</author>
             </authors>
-            <description>modulo counter</description>
+            <description>sequencer counter</description>
             <license>GPL3 or later</license>
             <library>ceammc</library>
             <category>seq</category>
             <keywords>counter modulo</keywords>
             <since>0.9.1</since>
-            <aliases>
-                <alias>ceammc/counter</alias>
-                <alias>counter</alias>
-            </aliases>
         </meta>
         <arguments>
             <argument name="FROM" type="int">start value</argument>
@@ -57,7 +53,7 @@
 <![CDATA[
 [bng]             [bng]         [bng]
 |                 |             |.
-[counter 1 4]     [counter 1 4 @r 2]/*repeat two times*/
+[seq.counter 1 4] [seq.counter 1 4 @r 2]/*repeat two times*/
 |                 |             ^|
 [F]               [F]           [route done]
                                 |       ^|

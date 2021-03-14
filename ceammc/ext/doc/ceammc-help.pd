@@ -1217,7 +1217,7 @@ value;
 #X obj 30 16689 seq.bangs;
 #X text 200 16689 bang sequencer;
 #X obj 30 16716 seq.counter;
-#X text 200 16716 modulo counter;
+#X text 200 16716 sequencer counter;
 #X obj 30 16743 seq.life;
 #X text 200 16743 Conway gamw of life sequencer;
 #X obj 30 16770 seq.matrix;

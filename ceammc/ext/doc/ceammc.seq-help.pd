@@ -7,7 +7,7 @@
 #X obj 30 143 seq.bangs;
 #X text 200 143 bang sequencer;
 #X obj 30 170 seq.counter;
-#X text 200 170 modulo counter;
+#X text 200 170 sequencer counter;
 #X obj 30 197 seq.life;
 #X text 200 197 Conway gamw of life sequencer;
 #X obj 30 224 seq.matrix;

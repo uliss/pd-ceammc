@@ -892,9 +892,7 @@ random.pw_lin	piecewise linear random distribution
 seq.arp	sequence arpeggiator
 seq.bangs	bang sequencer
 seq.b	bang sequencer
-seq.counter	modulo counter
-ceammc/counter	modulo counter
-counter	modulo counter
+seq.counter	sequencer counter
 seq.life	Conway gamw of life sequencer
 seq.matrix	sequencer control for ui.matrix
 seq.nbangs	output specified number of bang with time intervals
