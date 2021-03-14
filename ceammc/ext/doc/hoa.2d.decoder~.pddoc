@@ -45,8 +45,8 @@
         <properties>
             <property name="@order" type="int" minvalue="1" maxvalue="63" default="1"
             readonly="true">the order of decomposition</property>
-            <property name="@mode" type="symbol" default="regular" enum="regular irregular binaural" readonly="true">
-            decoding mode</property>
+            <property name="@mode" type="symbol" default="regular"
+            enum="regular irregular binaural" readonly="true">decoding mode</property>
             <property name="@regular" type="alias">alias for @mode regular</property>
             <property name="@irregular" type="alias">alias for @mode irregular</property>
             <property name="@binaural" type="alias">alias for @mode binaural</property>

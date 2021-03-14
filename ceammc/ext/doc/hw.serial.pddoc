@@ -14,14 +14,15 @@
             <since>0.5</since>
         </meta>
         <arguments>
-            <argument name="RATE" type="int" enum="110 300 600 1200 2400 4800 9600,
-            14400 19200 28800 38400 56000 57600 115200">serial baud rate</argument>
+            <argument name="RATE" type="int"
+            enum="110 300 600 1200 2400 4800 9600, 14400 19200 28800 38400 56000 57600 115200">
+            serial baud rate</argument>
             <argument name="PORT" type="symbol">serial device or port name, eg.: COM3 on Windows,
             /dev/ttyACM0 on Linux and /dev/cu.usbmodem411 on MacOSX</argument>
         </arguments>
         <properties>
-            <property name="@port" type="symbol">name of serial port, eg.:
-            COM3 on Windows, /dev/ttyACM0 on Linux and /dev/cu.usbmodem411 on MacOSX</property>
+            <property name="@port" type="symbol">name of serial port, eg.: COM3 on Windows,
+            /dev/ttyACM0 on Linux and /dev/cu.usbmodem411 on MacOSX</property>
             <property name="@rate" type="int" default="57600" minvalue="0">serial baud rate.
             Standard value supported by most serial ports: 110, 300, 600, 1200, 2400, 4800, 9600,
             14400, 19200, 28800, 38400, 56000, 57600, 115200</property>

@@ -24,7 +24,8 @@
             minimal y-axis value</property>
             <property name="@yauto" type="int" enum="0 1" default="1">calculate y-axis range
             automatically</property>
-            <property name="@nan" type="float" default="+inf">value to replace nan on plot</property>
+            <property name="@nan" type="float" default="+inf">value to replace nan on
+            plot</property>
         </properties>
         <inlets>
             <inlet>

@@ -17,8 +17,8 @@
             <argument name="N" type="int" minvalue="0">counter init value</argument>
         </arguments>
         <properties>
-            <property name="@value" type="int" minvalue="0" default="0">current counter
-            state. Can be set via message to second(!) inlet or [prop.set] object.</property>
+            <property name="@value" type="int" minvalue="0" default="0">current counter state. Can
+            be set via message to second(!) inlet or [prop.set] object.</property>
         </properties>
         <inlets>
             <inlet>
