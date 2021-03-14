@@ -23,8 +23,6 @@ struct icon_entry;
 
 class UIIcon : public UIObject {
     ClockMemberFunction<UIIcon> clock_;
-    UILayer image_layer_;
-    t_eimage* image_;
     icon_entry* current_;
     t_symbol* prop_icon;
     t_symbol* prop_mode;
@@ -35,14 +33,11 @@ class UIIcon : public UIObject {
 
 public:
     UIIcon();
-    ~UIIcon();
 
     void init(t_symbol* name, const AtomListView& args, bool usePresets);
     void onPropChange(t_symbol* prop_name);
     void okSize(t_rect* newrect);
     void paint();
-    void drawBackground();
-    void drawImage();
 
     void onBang();
     void onFloat(t_float f);

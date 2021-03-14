@@ -15,6 +15,7 @@
 #include "ceammc_preset.h"
 #include "ceammc_ui.h"
 #include "icons/generated_icons.h"
+#include "ui_icon.tcl.h"
 
 #include <sstream>
 
@@ -59,8 +60,6 @@ static AtomList allIcons()
 
 UIIcon::UIIcon()
     : clock_(this, &UIIcon::clockTick)
-    , image_layer_(asEBox(), gensym("image_layer"))
-    , image_(0)
     , current_(&icons_list[0])
     , prop_icon(gensym("help"))
     , prop_mode(SYM_MODE_BUTTON)
@@ -69,28 +68,13 @@ UIIcon::UIIcon()
     , is_active_(false)
     , is_enabled_(true)
 {
-    auto ver = eclass_tcl_version();
-    if (ver.first == 8 && ver.second < 6) {
-        std::ostringstream ss;
-        ss << "too old TCL version (" << ver.first << '.' << ver.second
-           << "). PNG icons are not supported";
-        throw std::runtime_error(ss.str());
-    }
-
     createOutlet();
-}
-
-UIIcon::~UIIcon()
-{
-    eimage_destroy(image_);
 }
 
 void UIIcon::init(t_symbol* name, const AtomListView& args, bool usePresets)
 {
     UIObject::init(name, args, usePresets);
     asEBox()->b_boxparameters.d_hideiolets = true;
-
-    image_ = eimage_create(icon_default_24, 0, 0, ETEXT_UP_LEFT);
 
     if (args.size() > 0 && args[0].isSymbol() && !args[0].isProperty())
         m_set(args[0]);
@@ -131,57 +115,22 @@ void UIIcon::okSize(t_rect* newrect)
     newrect->height = prop_size;
 }
 
-static int sizeToIdx(int s)
-{
-    switch (s) {
-    case 18:
-        return 0;
-    case 24:
-        return 1;
-    case 36:
-        return 2;
-    case 48:
-        return 3;
-    default:
-        return 1;
-    }
-}
-
 void UIIcon::paint()
 {
-    drawBackground();
-    drawImage();
-}
+    char name[32] = {};
+    int size = pd_clip_max(prop_size * zoom(), 48);
+    snprintf(name, sizeof(name) - 1, "%s_%d", current_->name->s_name, size);
 
-void UIIcon::drawBackground()
-{
-    const auto r = rect();
-
-    UIPainter p = bg_layer_.painter(r);
-    if (!p)
-        return;
-
+    int color = 0;
     if (!is_enabled_)
-        p.fillLayer(COLOR_DISABLED);
+        color = rgba_to_hex_int(COLOR_DISABLED);
     else
-        p.fillLayer(is_active_ ? prop_color_active : prop_color_background);
-}
+        color = rgba_to_hex_int(is_active_ ? prop_color_active : prop_color_background);
 
-void UIIcon::drawImage()
-{
-    const auto r = rect();
-    UIPainter p = image_layer_.painter(r);
-
-    if (!p)
-        return;
-
-    if (image_ && current_) {
-        // zoom icons 18 and 24 pix
-        int idx = (prop_size <= 24) ? prop_size * zoom() : prop_size;
-        eimage_set_base64_data(image_, current_->data[sizeToIdx(idx)]);
-        egraphics_image(p.layer(), 0, 0, image_);
-        egraphics_stroke(p.layer());
-    }
+    sys_vgui("::ui::icon::update %s %lx %d %d {%s} #%6.6x\n",
+        asEBox()->b_canvas_id->s_name, asEBox(),
+        (int)width(), (int)height(),
+        name, color);
 }
 
 void UIIcon::onBang()
@@ -283,7 +232,6 @@ void UIIcon::m_set(const AtomListView& lv)
     prop_icon = entry->name;
     current_ = entry;
 
-    image_layer_.invalidate();
     redraw();
 }
 
@@ -338,7 +286,6 @@ void UIIcon::updateIconProp()
     if (isSpecialIcon())
         resize(SPEC_SIZE, SPEC_SIZE);
 
-    image_layer_.invalidate();
     redraw();
 }
 
@@ -376,7 +323,6 @@ void UIIcon::clockTick()
 void UIIcon::redrawAll()
 {
     bg_layer_.invalidate();
-    image_layer_.invalidate();
     redraw();
 }
 
@@ -395,30 +341,22 @@ void UIIcon::propSetEnabled(bool v)
 
 void setup_ui_icon()
 {
-// on MacOSX with Tcl 8.6 where's crash on image scale
-// there's build script "build_deps.sh" in ceammc/distrib/mac, that applies patch
-// to prevent this crash. So this check is required while running on vanilla Pd as external library.
-// Because current vanilla version now is not 0.47.1.
-#ifdef __APPLE__
-    int major = 0, minor = 0, bugfix = 0;
-    sys_getversion(&major, &minor, &bugfix);
-    bool ok = (major == PD_MAJOR_VERSION)
-        && (minor == PD_MINOR_VERSION)
-        && (bugfix == PD_BUGFIX_VERSION);
-
-    if (!ok) {
-        LIB_ERR << "[ui.icon] is not compatible with your distribution version: "
-                << major << '.' << minor << '.' << bugfix;
-        return;
-    }
-#endif
-
     SYM_CEAMMC = gensym("ceammc");
     SYM_MODE_BANG = gensym("bang");
     SYM_MODE_BUTTON = gensym("button");
     SYM_MODE_TOGGLE = gensym("toggle");
 
     init_icon_list();
+
+    sys_gui(ui_icon_tcl);
+
+    for (auto& i : icons_list) {
+        if (!i.name)
+            break;
+
+        sys_vgui("::ui::icon::create_image %s {%s} {%s} {%s} {%s}\n",
+            i.name->s_name, i.data[0], i.data[1], i.data[2], i.data[3]);
+    }
 
     UIIcon::setup();
 }

@@ -65,6 +65,7 @@ add_custom_target(ceammc_ui_tcl_gen
     COMMAND ${TCL_GEN_SCRIPT} ui_display.tcl
     COMMAND ${TCL_GEN_SCRIPT} ui_dsp.tcl
     COMMAND ${TCL_GEN_SCRIPT} ui_filter.tcl
+    COMMAND ${TCL_GEN_SCRIPT} ui_icon.tcl
     COMMAND ${TCL_GEN_SCRIPT} ui_keyboard.tcl
     COMMAND ${TCL_GEN_SCRIPT} ui_meter.tcl
     COMMAND ${TCL_GEN_SCRIPT} ui_number_tilde.tcl
@@ -72,11 +73,12 @@ add_custom_target(ceammc_ui_tcl_gen
     COMMAND ${TCL_GEN_SCRIPT} ui_sliders.tcl
     COMMAND ${TCL_GEN_SCRIPT} ui_toggle.tcl
     SOURCES
-        ui_button.tcl
         ui_bang.tcl
+        ui_button.tcl
         ui_display.tcl
         ui_dsp.tcl
         ui_filter.tcl
+        ui_icon.tcl
         ui_keyboard.tcl
         ui_meter.tcl
         ui_number_tilde.tcl
