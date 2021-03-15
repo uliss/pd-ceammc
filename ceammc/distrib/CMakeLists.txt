@@ -33,6 +33,9 @@ if(APPLE)
         COMMAND ${PROJECT_BINARY_DIR}/dist/install_external.sh
         SOURCES ${CMAKE_CURRENT_SOURCE_DIR}/mac/install_external.sh
         DEPENDS ceammc_lib)
+
+    add_custom_target(dev_rmext
+        COMMAND ${CMAKE_COMMAND} -E rm -rf "$ENV{HOME}/Documents/Pd/externals/ceammc")
 endif()
 
 if(UNIX AND NOT APPLE)

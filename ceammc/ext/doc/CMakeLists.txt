@@ -207,3 +207,16 @@ install(DIRECTORY hoa DESTINATION ${DOC_INSTALL_PATH})
 install(DIRECTORY faust DESTINATION ${DOC_INSTALL_PATH})
 
 add_subdirectory(sound)
+
+find_program(RSYNC_EXEC rsync)
+
+if(APPLE)
+    if(RSYNC_EXEC)
+        # note: trailing slash after CMAKE_CURRENT_SOURCE_DIR is important!
+        add_custom_target(dev_pddoc
+            COMMAND ${RSYNC_EXEC} -av --include '*.pd' --exclude '*'
+                ${CMAKE_CURRENT_SOURCE_DIR}/
+                ${BUNDLE_FULL_PATH}/Contents/Resources/extra/ceammc
+            DEPENDS ceammc_pddoc)
+    endif()
+endif()
