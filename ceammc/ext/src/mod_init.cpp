@@ -129,7 +129,6 @@ void ceammc_init()
     using namespace std;
 
     const auto is_ceammc = getenv("is_ceammc");
-
     if (is_ceammc && strcmp(is_ceammc, "true") == 0) {
         if (text_widgetbehavior.w_visfn && text_widgetbehavior.w_visfn != ceammc_vis_fn) {
             ceammc_pd_vanilla_visfn = text_widgetbehavior.w_visfn;
@@ -137,14 +136,14 @@ void ceammc_init()
             wb->w_visfn = ceammc_vis_fn;
         }
 
-        if (!ceammc::pd::addPdPrintDataSupport())
-            pd_error(nullptr, "can't add datatype printing support to vanilla [print] object");
-
         ceammc::ceammc_tcl_init_tooltips();
         post("[ceammc] distribution: internal ceammc");
     } else {
         post("[ceammc] distribution: external deken");
     }
+
+    if (!ceammc::pd::addPdPrintDataSupport())
+        pd_error(nullptr, "can't add datatype printing support to vanilla [print] object");
 
     // setup env variables
     setup_env_doc_path();
