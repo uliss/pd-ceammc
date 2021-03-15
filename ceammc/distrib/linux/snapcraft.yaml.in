@@ -9,7 +9,7 @@ description: |
 icon: ceammc/gui/icons/puredata-ceammc.png
 grade: stable
 confinement: strict
-base: core18
+base: core20
 
 architectures:
     - build-on: amd64
