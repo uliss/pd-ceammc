@@ -27,7 +27,7 @@ ARG_ICON_SIZE=72
 
 APP_BUNDLE_PATH=$1
 APP_BUNDLE_NAME=$(basename ${APP_BUNDLE_PATH})
-ARG_DMG_NAME="Pd_$2"
+ARG_DMG_NAME=$(basename $2)
 SRC_PATH="$3"
 
 if [ $# -eq 3 ]; then

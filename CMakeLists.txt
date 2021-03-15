@@ -72,9 +72,10 @@ enable_language(CXX C)
 set(CMAKE_CXX_STANDARD 11)
 
 list(APPEND CMAKE_MODULE_PATH ${PROJECT_SOURCE_DIR}/cmake)
-include(version)
-include(ceammc/external_version.cmake)
+
 include(build_options)
+include(ceammc/external_version.cmake)
+include(version)
 include(install_paths)
 find_package(LeapMotion)
 include(PdPlatform)

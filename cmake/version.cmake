@@ -7,16 +7,26 @@ set(PD_TEXT_VERSION_FULL  "${PD_TEXT_VERSION_SHORT}_${PD_BUILD_SUFFIX}")
 
 set(CEAMMC_DISTRIB_VERSION "2021.03")
 
-set(PD_MACOSX_BUNDLE_VERSION ${PD_TEXT_VERSION_SHORT})
-
-if(WITH_DOUBLE_PRECISION)
-    set(PD_MACOSX_BUNDLE_SUFFIX "ceammc_${CEAMMC_DISTRIB_VERSION}-double")
-else()
-    set(PD_MACOSX_BUNDLE_SUFFIX "ceammc_${CEAMMC_DISTRIB_VERSION}")
-endif()
-
-
 if(APPLE)
    exec_program(sw_vers ARGS -productVersion OUTPUT_VARIABLE MACOSX_VERSION)
    string(REGEX MATCH "[0-9]+.[0-9]+" MACOSX_VERSION ${MACOSX_VERSION})
+
+   if(WITH_DOUBLE_PRECISION)
+       set(PD_MACOSX_BUNDLE_SUFFIX "ceammc_${CEAMMC_DISTRIB_VERSION}-double")
+       set(PD_FLOAT_SIZE 64)
+   else()
+       set(PD_MACOSX_BUNDLE_SUFFIX "ceammc_${CEAMMC_DISTRIB_VERSION}")
+       set(PD_FLOAT_SIZE 32)
+   endif()
+
+   set(PD_MACOSX_APP "Pd-${PD_MACOSX_BUNDLE_SUFFIX}-macosx-${MACOSX_VERSION}.app")
+   set(PD_MACOSX_DMG "Pd-${PD_MACOSX_BUNDLE_SUFFIX}-macosx-${MACOSX_VERSION}.dmg")
+
+   if(WITH_PD_INSTANCE)
+       set(MT_SUFFIX "-mt")
+   else()
+       set(MT_SUFFIX "")
+   endif()
+
+   set(CEAMMC_EXTERNAL_NAME "ceammc-${CEAMMC_LIB_VERSION}-macosx-${MACOSX_VERSION}-pd-${PD_TEXT_VERSION_SHORT}-f${PD_FLOAT_SIZE}${MT_SUFFIX}.tar.gz")
 endif()
