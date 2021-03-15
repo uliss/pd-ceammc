@@ -20,6 +20,7 @@ if(APPLE)
    endif()
 
    set(PD_MACOSX_APP "Pd-${PD_MACOSX_BUNDLE_SUFFIX}-macosx-${MACOSX_VERSION}.app")
+   set(PD_MACOSX_ZIP "Pd-${PD_MACOSX_BUNDLE_SUFFIX}-macosx-${MACOSX_VERSION}.zip")
    set(PD_MACOSX_DMG "Pd-${PD_MACOSX_BUNDLE_SUFFIX}-macosx-${MACOSX_VERSION}.dmg")
 
    if(WITH_PD_INSTANCE)

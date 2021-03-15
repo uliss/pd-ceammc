@@ -244,6 +244,11 @@ if(APPLE)
             -P ${PROJECT_SOURCE_DIR}/cmake/bundle.cmake
         )
 
+    add_custom_target(app-zip
+        COMMAND ${CMAKE_COMMAND} -E tar "cf" ${PD_MACOSX_ZIP} --format=zip
+           "${BUNDLE_FULL_PATH}"
+           WORKING_DIRECTORY ${PROJECT_BINARY_DIR}/dist)
+
     add_custom_target(dev_ceammc
         COMMAND ${CMAKE_COMMAND} -E copy $<TARGET_FILE:ceammc> ${BUNDLE_FULL_PATH}/Contents/Resources/extra/ceammc/)
 
