@@ -43,6 +43,11 @@ void ceammc_info_message()
          "       path: %s\n"
          "       version: %s\n"
          "       url: %s\n"
+#ifdef PD_INSTANCE
+        "        pd instance: true\n"
+#else
+        "        pd instance: false\n"
+#endif
          "       license: GPL-3\n"
          "       build date: '%s'\n",
         sizeof(void*) * 8,
