@@ -125,6 +125,7 @@ parts:
             - libxcb1-dev
             - x11proto-dev
             - lsb-release
+            - llvm-dev
         stage-packages:
             - libsndfile1
             - libfftw3-single3
@@ -139,3 +140,5 @@ parts:
             - libxtables12
             - libxcb-randr0
             - libice6
+            - llvm-runtime
+            - llvm
