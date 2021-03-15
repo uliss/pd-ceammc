@@ -18,7 +18,7 @@ if(APPLE)
     set(DYLIBBUNDLER ${CMAKE_CURRENT_BINARY_DIR}/dylibbundler)
     set(CEAMMC_EXTERNAL_FULL_PATH "${PROJECT_BINARY_DIR}/dist/${CEAMMC_EXTERNAL_NAME}")
 
-    set(BUNDLE "Pd-${PD_MACOSX_BUNDLE_SUFFIX}.app")
+    set(BUNDLE ${PD_MACOSX_APP})
     set(BUNDLE_FULL_PATH "${PROJECT_BINARY_DIR}/dist/${BUNDLE}")
     set(PD_BUNDLE_FULL_PATH ${BUNDLE_FULL_PATH}/Contents/Resources/bin/pd)
 
@@ -38,15 +38,9 @@ if(APPLE)
     add_custom_target(github_release_ext
         COMMAND ${PROJECT_BINARY_DIR}/dist/github_upload_release.sh ${CEAMMC_EXTERNAL_FULL_PATH})
 
+    add_custom_target(github_release_dmg
+        COMMAND ${PROJECT_BINARY_DIR}/dist/github_upload_release.sh ${PROJECT_BINARY_DIR}/dist/${PD_MACOSX_DMG})
 
-    find_program(GPGENV_EXE NAMES gpgenv)
-
-    if(GPGENV_EXE)
-        add_custom_target(deploy
-            COMMAND
-                ${PROJECT_BINARY_DIR}/dist/github_upload_release.sh
-                "${PROJECT_BINARY_DIR}/Pd_${PD_MACOSX_BUNDLE_SUFFIX}-macosx-${MACOSX_VERSION}.dmg"
-            WORKING_DIRECTORY ${PROJECT_SOURCE_DIR}
-            DEPENDS dmg src-zip src-tar ceammc_lib)
-    endif()
+    add_custom_target(github_release_app_zip
+        COMMAND ${PROJECT_BINARY_DIR}/dist/github_upload_release.sh ${PROJECT_BINARY_DIR}/dist/${PD_MACOSX_ZIP})
 endif()
