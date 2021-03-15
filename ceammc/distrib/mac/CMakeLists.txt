@@ -16,13 +16,18 @@ if(APPLE)
     endif()
 
     set(DYLIBBUNDLER ${CMAKE_CURRENT_BINARY_DIR}/dylibbundler)
+    if(WITH_PD_INSTANCE)
+        set(MT_SUFFIX "-mt")
+    else()
+        set(MT_SUFFIX "")
+    endif()
 
     execute_process(
         COMMAND sw_vers -productVersion
         COMMAND cut -f1,2 -d.
         OUTPUT_VARIABLE SYSVER
         OUTPUT_STRIP_TRAILING_WHITESPACE)
-    set(CEAMMC_EXTERNAL_NAME "ceammc-${CEAMMC_LIB_VERSION}-macosx-${SYSVER}-pd-${PD_TEXT_VERSION_SHORT}-f${PD_FLOAT_SIZE}.tar.gz")
+    set(CEAMMC_EXTERNAL_NAME "ceammc-${CEAMMC_LIB_VERSION}-macosx-${SYSVER}-pd-${PD_TEXT_VERSION_SHORT}-f${PD_FLOAT_SIZE}${MT_SUFFIX}.tar.gz")
     set(CEAMMC_EXTERNAL_FULL_PATH "${PROJECT_BINARY_DIR}/dist/${CEAMMC_EXTERNAL_NAME}")
 
     set(BUNDLE "Pd-${PD_MACOSX_BUNDLE_SUFFIX}.app")
@@ -41,4 +46,7 @@ if(APPLE)
     configure_file(save_postscript.sh ${PROJECT_BINARY_DIR}/scripts/save_postscript.sh @ONLY)
     configure_file(save_example.sh ${PROJECT_BINARY_DIR}/scripts/save_example.sh @ONLY)
     configure_file(wish_activate.sh ${PROJECT_BINARY_DIR}/scripts/wish_activate.sh @ONLY)
+
+    add_custom_target(github_release_ext
+        COMMAND ${PROJECT_BINARY_DIR}/dist/github_upload_release.sh ${CEAMMC_EXTERNAL_FULL_PATH})
 endif()
