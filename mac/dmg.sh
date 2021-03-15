@@ -27,12 +27,12 @@ ARG_ICON_SIZE=72
 
 APP_BUNDLE_PATH=$1
 APP_BUNDLE_NAME=$(basename ${APP_BUNDLE_PATH})
-ARG_DMG_NAME=$(basename $2)
+ARG_DMG_PATH="$2"
 SRC_PATH="$3"
 
 if [ $# -eq 3 ]; then
-        echo "Bundle path set to ${APP_BUNDLE_PATH}";
-        echo "DMG name set to ${ARG_DMG_NAME}";
+        echo "Bundle path is set to ${APP_BUNDLE_PATH}";
+        echo "DMG path is set to ${ARG_DMG_PATH}";
         echo "Source path set to ${SRC_PATH}";
 else
         echo "Error! Bundle path is not specified."
@@ -87,15 +87,6 @@ else
 fi
 
 DMG_NAME_TMP="${APP_BUNDLE_NAME%.*}_tmp.dmg"
-
-if [ "${ARG_DMG_NAME}" ]; then
-        DMG_NAME_BASE=${ARG_DMG_NAME}
-else
-        DMG_NAME_BASE=${APP_BUNDLE_NAME%.*}
-fi
-
-DMG_NAME="${DMG_NAME_BASE}${DMG_NAME_SUFFIX}.dmg"
-
 CODESIGN_IDENTITY=${ARG_CODESIGN_ID}
 
 if [ "${CODESIGN_IDENTITY}" ]; then
@@ -225,7 +216,7 @@ echo "    * Detaching ${device}..."
 hdiutil detach -force ${device}
 rm -f ${DMG_NAME}
 echo "    * Converting..."
-hdiutil convert "${DMG_NAME_TMP}" -format UDZO -imagekey zlib-level=9 -o "${DMG_NAME}"
+hdiutil convert "${DMG_NAME_TMP}" -format UDZO -imagekey zlib-level=9 -o "${ARG_DMG_PATH}"
 echo "done!"
 
 echo -n "*** Removing temporary image... "
