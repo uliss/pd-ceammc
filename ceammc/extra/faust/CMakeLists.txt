@@ -21,7 +21,7 @@ set(OLDCPP_BACKEND OFF                            CACHE STRING  "Include old CPP
 set(RUST_BACKEND   OFF                            CACHE STRING  "Include RUST backend"      FORCE)
 set(WASM_BACKEND   OFF                            CACHE STRING  "Include WASM backend"      FORCE)
 
-if(APPLE)
+if(APPLE OR UNIX)
     set(LLVM_DIR /usr/local/opt/llvm/lib/cmake/llvm CACHE STRING "" FORCE)
     find_package(LLVM REQUIRED CONFIG)
     message(STATUS "Found LLVM ${LLVM_PACKAGE_VERSION}")
