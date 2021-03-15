@@ -36,7 +36,7 @@ inline int int_version(int maj, int min, int fix)
 void ceammc_info_message()
 {
     post("\nCEAMMC library\n"
-         "       Centre for Electroacoustic Music Moscow Conservatory, © 2016-2020\n"
+         "       Centre for Electroacoustic Music Moscow Conservatory, © 2016-2021\n"
          "       authors: Serge Poltavsky and Alex Nadzharov\n"
          "       arch: %d-bit\n"
          "       precision: %s\n"
