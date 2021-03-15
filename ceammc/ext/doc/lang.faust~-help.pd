@@ -4,7 +4,8 @@
 #X text 561 50 faust realtime compilation;
 #X obj 1 1 cnv 5 765 40 empty empty lang.faust~ 20 20 0 20 -104026
 -4096 0;
-#X obj 660 11 lang.faust~;
+#X obj 658 13 ui.link @background_color 0.39216 0.39216 0.39216 @title
+[lang.faust~] @url lang.faust~-help.pd;
 #X obj 210 80 cnv 1 555 33 empty empty empty 17 7 0 10 -257983 -1 0;
 #X obj 215 80 ui.link @background_color 0.98039 0.98039 0.98039 @title
 https://faust.grame.fr/ @url https://faust.grame.fr/;

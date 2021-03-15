@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <pddoc version="1.0">
-    <object name="lang.faust~">
+    <object name="lang.faust~" type="gui">
         <title>lang.faust~</title>
         <meta>
             <authors>
@@ -9,7 +9,7 @@
             <description>faust realtime compilation</description>
             <license>GPL3 or later</license>
             <library>ceammc</library>
-            <category>lang</category>
+            <category view="link">lang</category>
             <keywords>faust</keywords>
             <since>0.9.2</since>
         </meta>

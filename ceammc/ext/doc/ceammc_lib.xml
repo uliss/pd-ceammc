@@ -798,7 +798,7 @@
     </entry>
   </category>
   <category name="lang">
-    <entry name="lang.faust~" descr="faust realtime compilation" ref_view="object">
+    <entry name="lang.faust~" descr="faust realtime compilation" ref_view="link">
       <xi:include href="lang.faust~.pddoc" parse="xml"/>
     </entry>
     <entry name="ui.faust~" descr="faust compiled ui object" ref_view="link">
