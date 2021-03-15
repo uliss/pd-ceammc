@@ -2,10 +2,7 @@
 
 BIN_DIR="@PROJECT_BINARY_DIR@"
 DIST_DIR="@PROJECT_BINARY_DIR@/dist"
-VERSION="@CEAMMC_LIB_VERSION@"
-FLOATSIZE="f@PD_FLOAT_SIZE@"
-SYSVER=$(sw_vers | grep ProductVersion | cut -f2 | cut -f1,2 -d.)
-OUTFILE="ceammc-${VERSION}-macosx-${SYSVER}-pd-@PD_TEXT_VERSION_SHORT@-${FLOATSIZE}.tar.gz"
+OUTFILE="@CEAMMC_EXTERNAL_NAME@"
 TAR_PATH="${BIN_DIR}/dist/${OUTFILE}"
 DEST="${HOME}/Documents/Pd/externals"
 

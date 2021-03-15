@@ -9,9 +9,32 @@ if(APPLE)
     file(GLOB _BUILD_SCRIPTS "*.sh")
     add_custom_target(ceammc_distrib_mac_sources SOURCES ${_BUILD_SCRIPTS})
 
+    if(WITH_DOUBLE_PRECISION)
+        set(PD_FLOAT_SIZE 64)
+    else()
+        set(PD_FLOAT_SIZE 32)
+    endif()
+
+    set(DYLIBBUNDLER ${CMAKE_CURRENT_BINARY_DIR}/dylibbundler)
+
+    execute_process(
+        COMMAND sw_vers -productVersion
+        COMMAND cut -f1,2 -d.
+        OUTPUT_VARIABLE SYSVER
+        OUTPUT_STRIP_TRAILING_WHITESPACE)
+    set(CEAMMC_EXTERNAL_NAME "ceammc-${CEAMMC_LIB_VERSION}-macosx-${SYSVER}-pd-${PD_TEXT_VERSION_SHORT}-f${PD_FLOAT_SIZE}.tar.gz")
+    set(CEAMMC_EXTERNAL_FULL_PATH "${PROJECT_BINARY_DIR}/dist/${CEAMMC_EXTERNAL_NAME}")
+
     set(BUNDLE "Pd-${PD_MACOSX_BUNDLE_SUFFIX}.app")
     set(BUNDLE_FULL_PATH "${PROJECT_BINARY_DIR}/dist/${BUNDLE}")
     set(PD_BUNDLE_FULL_PATH ${BUNDLE_FULL_PATH}/Contents/Resources/bin/pd)
+
+    configure_file(${CMAKE_CURRENT_SOURCE_DIR}/make_lib_mac.sh
+                   ${PROJECT_BINARY_DIR}/dist/make_lib_mac.sh @ONLY)
+    configure_file(${CMAKE_CURRENT_SOURCE_DIR}/github_upload_release.sh
+                   ${PROJECT_BINARY_DIR}/dist/github_upload_release.sh @ONLY)
+    configure_file(${CMAKE_CURRENT_SOURCE_DIR}/install_external.sh
+                   ${PROJECT_BINARY_DIR}/dist/install_external.sh @ONLY)
 
     configure_file(gen_examples.sh ${PROJECT_BINARY_DIR}/scripts/gen_examples.sh @ONLY)
     configure_file(ps_to_png.sh ${PROJECT_BINARY_DIR}/scripts/ps_to_png.sh @ONLY)

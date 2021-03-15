@@ -44,7 +44,14 @@ REPO="pure-data"
 NAME=$(basename $FILE)
 DIR=$(dirname $FILE)
 
+gpgenv exec github-asset "$USER/$REPO" list $TAG | grep "$NAME" > /dev/null
 
-echo "uploading release FILE ($TAG) to github..."
+if [ $? == 0 ]
+then
+    echo "remove old '$NAME' from github..."
+    gpgenv exec github-asset "$USER/$REPO" delete $TAG "$NAME"
+fi
+
+echo "uploading release '$NAME' ($TAG) to github..."
 
 gpgenv exec github-asset "$USER/$REPO" upload $TAG "$FILE"
