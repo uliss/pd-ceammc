@@ -36,7 +36,11 @@ namespace ui {
     };
 
     constexpr const char* FONT_FAMILY_DEFAULT = "Helvetica";
+#ifdef __WIN32
+    constexpr uint16_t FONT_SIZE_DEFAULT = 8;
+#else
     constexpr uint16_t FONT_SIZE_DEFAULT = 10;
+#endif
 
     class Font {
         static const uint32_t MAX_SIZE = 32;

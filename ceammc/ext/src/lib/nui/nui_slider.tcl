@@ -8,7 +8,15 @@ namespace eval slider {
     proc tag_max { id } { return "#sl${id}_max" }
     proc tag_value { id } { return "#sl${id}_val" }
 
-    proc minmax_font { zoom } { return "Helvetica [expr $zoom*8]" }
+    switch -- $::windowingsystem {
+        "aqua" {
+            proc minmax_font { zoom } { return "Helvetica [expr $zoom*8]" }
+        } "x11" {
+            proc minmax_font { zoom } { return "Helvetica [expr $zoom*7]" }
+        } "win32" {
+            proc minmax_font { zoom } { return "Verdana [expr $zoom*6]" }
+        }
+    }
 
     proc knob_xpos { x w pos zoom } {
         # keep in sync with knob width!
