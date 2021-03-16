@@ -7,8 +7,6 @@ git:
 addons:
   apt:
     update: true
-    sources:
-    # - ubuntu-toolchain-r-test
     packages:
       - libasound2-dev
       - libmodplug-dev
