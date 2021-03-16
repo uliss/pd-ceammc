@@ -43,10 +43,10 @@ apps:
             - removable-media # for alsa device access
         #desktop: ceammc/distrib/linux/snap/pd-ceammc.desktop
     pdsend:
-        command: lib/pd_ceammc/bin/pdsend
+        command: usr/lib/pd_ceammc/bin/pdsend
         plugs: [ network ]
     pdreceive:
-        command: lib/pd_ceammc/bin/pdreceive
+        command: usr/lib/pd_ceammc/bin/pdreceive
         plugs: [ network ]
 
 parts:
