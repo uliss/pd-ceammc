@@ -67,13 +67,26 @@
         <example>
             <pdascii>
 <![CDATA[
-[\[a: abc\] \[bpm: 100\], bang( [bang(
-|                               |
-|                               [local.dict d1]
-|                               |
-[local.dict d1]                 [ui.display @display_type 1]
+[\[a: abc bpm: 100\], bang( [bang(
+|                           |
+|                           [local.dict d1]
+|                           |
+[local.dict d1]             [ui.dt]
 |
-[ui.display @display_type 1]
+[ui.dt]
+
+[local.dict.subpatch]
+]]>
+            </pdascii>
+            <pdascii id="subpatch">
+<![CDATA[
+/*dict from parent patch is not visible in subpatch*/
+
+[bang(
+|
+[local.dict d1]
+|
+[ui.dt]
 ]]>
             </pdascii>
         </example>

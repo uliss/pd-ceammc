@@ -9,95 +9,96 @@
 #X obj 210 80 cnv 1 555 50 empty empty empty 17 7 0 10 -257983 -1 0;
 #X text 215 80 Defines local scope dict variable \, accessed by ID
 name and available only within its patch (canvas);
-#X msg 50 158 [a: abc] [bpm: 100] \, bang;
-#X msg 357 158 bang;
-#X obj 357 187 local.dict d1;
+#X msg 50 158 [a: abc bpm: 100] \, bang;
+#X msg 318 158 bang;
+#X obj 318 187 local.dict d1;
 #X obj 50 216 local.dict d1;
-#X obj 357 216 ui.display @display_type 1;
-#X obj 50 245 ui.display @display_type 1;
-#X obj 20 294 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 299 cnv 5 90 26 empty empty arguments: 4 10 0 14 -262144
+#X obj 318 216 ui.dt;
+#X obj 50 245 ui.dt;
+#X obj 50 274 local.dict.subpatch;
+#X obj 20 323 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 328 cnv 5 90 26 empty empty arguments: 4 10 0 14 -262144
 -49933 0;
-#X text 110 334 1\.;
-#X text 150 334 symbol;
-#X obj 246 335 cnv 1 23 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 334 ID: object ID.;
-#X obj 20 364 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 369 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
+#X text 110 363 1\.;
+#X text 150 363 symbol;
+#X obj 246 364 cnv 1 23 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 245 363 ID: object ID.;
+#X obj 20 393 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 398 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
 -49933 0;
-#X msg 110 404 @empty;
-#X text 245 404 (readonly) Get 1 if dict is empty \, otherwise 0\.
+#X msg 110 433 @empty;
+#X text 245 433 (readonly) Get 1 if dict is empty \, otherwise 0\.
 Type: int. Default value: 1\. Allowed values: 0 \, 1\.;
-#X msg 110 446 @keys;
-#X text 245 446 (readonly) Get keys of dictionary. Type: list.;
-#X msg 110 475 @size;
-#X text 245 475 (readonly) Get number of entries in dictionary. Type:
+#X msg 110 475 @keys;
+#X text 245 475 (readonly) Get keys of dictionary. Type: list.;
+#X msg 110 504 @size;
+#X text 245 504 (readonly) Get number of entries in dictionary. Type:
 int. Default value: 0\. Min value: 0\.;
-#X obj 20 527 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 532 cnv 5 73 26 empty empty methods: 4 10 0 14 -262144
+#X obj 20 556 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 561 cnv 5 73 26 empty empty methods: 4 10 0 14 -262144
 -49933 0;
-#X msg 110 567 add;
-#X text 245 567 adds entry to dictionary. Arguments are:;
-#X obj 255 590 cnv 1 29 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 590 KEY: entry key. Type: atom.;
-#X obj 255 613 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 613 VAL: single value or list. Type: list.;
-#X msg 110 638 clear;
-#X text 245 638 removes all dict values. No output.;
-#X msg 110 665 get_key;
-#X text 245 665 get entry from dictionary. Arguments are:;
-#X obj 255 688 cnv 1 29 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 688 KEY: entry key. Type: atom.;
-#X msg 110 713 read;
-#X text 245 713 read dict from JSON file. Arguments are:;
-#X obj 255 736 cnv 1 36 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 736 PATH: file path. Type: symbol.;
-#X msg 110 761 remove;
-#X text 245 761 remove entry from dictionary. Arguments are:;
-#X obj 255 784 cnv 1 29 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 784 KEY: entry key. Type: atom.;
-#X msg 110 809 set;
-#X text 245 809 set dict content without output.;
-#X msg 110 836 set_key;
-#X text 245 836 change entry in dictionary. If it's not exists \, do
+#X msg 110 596 add;
+#X text 245 596 adds entry to dictionary. Arguments are:;
+#X obj 255 619 cnv 1 29 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 619 KEY: entry key. Type: atom.;
+#X obj 255 642 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 642 VAL: single value or list. Type: list.;
+#X msg 110 667 clear;
+#X text 245 667 removes all dict values. No output.;
+#X msg 110 694 get_key;
+#X text 245 694 get entry from dictionary. Arguments are:;
+#X obj 255 717 cnv 1 29 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 717 KEY: entry key. Type: atom.;
+#X msg 110 742 read;
+#X text 245 742 read dict from JSON file. Arguments are:;
+#X obj 255 765 cnv 1 36 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 765 PATH: file path. Type: symbol.;
+#X msg 110 790 remove;
+#X text 245 790 remove entry from dictionary. Arguments are:;
+#X obj 255 813 cnv 1 29 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 813 KEY: entry key. Type: atom.;
+#X msg 110 838 set;
+#X text 245 838 set dict content without output.;
+#X msg 110 865 set_key;
+#X text 245 865 change entry in dictionary. If it's not exists \, do
 nothing. Arguments are:;
-#X obj 255 874 cnv 1 29 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 874 KEY: key. Type: atom.;
-#X obj 255 897 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 897 VAL: single value or list. Type: list.;
-#X msg 110 922 write;
-#X text 245 922 write dict as JSON file. Arguments are:;
-#X obj 255 945 cnv 1 36 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 945 PATH: file path. Type: symbol.;
-#X msg 110 970 [....];
-#X text 245 970 sets new content without output.;
-#X obj 20 1007 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1012 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144
+#X obj 255 903 cnv 1 29 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 903 KEY: key. Type: atom.;
+#X obj 255 926 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 926 VAL: single value or list. Type: list.;
+#X msg 110 951 write;
+#X text 245 951 write dict as JSON file. Arguments are:;
+#X obj 255 974 cnv 1 36 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 974 PATH: file path. Type: symbol.;
+#X msg 110 999 [....];
+#X text 245 999 sets new content without output.;
+#X obj 20 1036 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1041 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 1013 1\.;
-#X text 150 1013 *bang*;
-#X text 245 1013 output current dictionary value.;
-#X text 150 1033 *list*;
-#X text 245 1033 set dict from list. Key-value pairs are expected.
+#X text 110 1042 1\.;
+#X text 150 1042 *bang*;
+#X text 245 1042 output current dictionary value.;
+#X text 150 1062 *list*;
+#X text 245 1062 set dict from list. Key-value pairs are expected.
 [1 2 3 4( becames dict with keys: 1 and 3 \, values: 2 and 4\. No output.;
-#X text 150 1068 *data:dict*;
-#X text 245 1068 set and output new dict.;
-#X obj 20 1098 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1103 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
+#X text 150 1097 *data:dict*;
+#X text 245 1097 set and output new dict.;
+#X obj 20 1127 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1132 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 1104 1\.;
-#X text 245 1104 dict output.;
+#X text 110 1133 1\.;
+#X text 245 1133 dict output.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 115 45 ::;
 #X obj 131 48 ui.link @title local @url ceammc.local-help.pd;
-#X obj 1 1154 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 1157 library: ceammc v0.9.2;
-#X text 506 1169 see also:;
-#X obj 580 1169 data.dict;
-#X obj 660 1169 global.dict;
-#N canvas 10 1176 400 290 info 0;
+#X obj 1 1183 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1186 library: ceammc v0.9.2;
+#X text 506 1198 see also:;
+#X obj 580 1198 data.dict;
+#X obj 660 1198 global.dict;
+#N canvas 10 1205 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
@@ -121,7 +122,7 @@ https://github.com/uliss/pure-data;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 generated by pddoc;
-#X restore 10 1176 pd info;
+#X restore 10 1205 pd info;
 #X connect 8 0 9 0;
 #X connect 7 0 10 0;
 #X connect 9 0 11 0;

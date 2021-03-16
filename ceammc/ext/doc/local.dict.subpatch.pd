@@ -1,0 +1,7 @@
+#N canvas 0 0 453 213 12;
+#X text 20 48 dict from parent patch is not visible in subpatch;
+#X msg 20 77 bang;
+#X obj 20 106 local.dict d1;
+#X obj 20 135 ui.dt;
+#X connect 1 0 2 0;
+#X connect 2 0 3 0;
