@@ -19,7 +19,6 @@ ARG_ICON=
 ARG_BACKGROUND=
 ARG_COORDS=
 ARG_SIZE="640:480"
-ARG_VOL_NAME="PureData_$(basename $2)"
 ARG_TMP_DIR="./tmp"
 ARG_ADD_VERSION=
 ARG_CODESIGN_ID=
@@ -27,6 +26,7 @@ ARG_ICON_SIZE=72
 
 APP_BUNDLE_PATH=$1
 APP_BUNDLE_NAME=$(basename ${APP_BUNDLE_PATH})
+ARG_VOL_NAME=${APP_BUNDLE_NAME%.app}
 ARG_DMG_PATH="$2"
 SRC_PATH="$3"
 
@@ -43,6 +43,8 @@ if [ ! -e "${APP_BUNDLE_PATH}" ]; then
         echo "Error! Bundle \"${APP_BUNDLE_PATH}\" does not exist!"
         exit 1
 fi
+
+rm -f "${ARG_DMG_PATH}"
 
 TARGET_DIR=${ARG_DIR}
 
