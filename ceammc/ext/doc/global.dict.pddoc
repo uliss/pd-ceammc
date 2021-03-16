@@ -21,7 +21,7 @@
             </aliases>
         </meta>
         <info>
-            <par>Defines global scope dict variable, accessed by ID name and available fro
+            <par>Defines global scope dict variable, accessed by ID name and available from
             everywhere</par>
         </info>
         <arguments>
@@ -65,15 +65,26 @@
             <outlet>dict output</outlet>
         </outlets>
         <example>
-            <pdascii>
+            <pdascii id="main">
 <![CDATA[
-[\[a: abc\] \[bpm: 100\], bang( [bang(
+[\[a: a b c bpm: 100\], bang(   [bang(
 |                               |
 |                               [global.dict d1]
 |                               |
-[global.dict d1]                [ui.display @display_type 1]
+[global.dict d1]                [ui.dt]
 |
-[ui.display @display_type 1]
+[ui.dt]
+
+[global.dict.subpatch]
+]]>
+            </pdascii>
+            <pdascii id="subpatch">
+<![CDATA[
+[bang(
+|
+[global.dict d1]
+|
+[ui.dt]
 ]]>
             </pdascii>
         </example>
