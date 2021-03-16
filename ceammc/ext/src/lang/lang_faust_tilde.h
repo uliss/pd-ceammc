@@ -87,7 +87,7 @@ private:
     faust::FaustConfig makeFaustConfig();
 
 private:
-    static faust::FaustConfig faust_config_base;
+    static faust::FaustConfig& faust_config_base();
 };
 
 #endif // LANG_FAUST_TILDE_H

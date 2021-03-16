@@ -142,7 +142,11 @@ struct faust_ui : public UI {
 
 using FaustUI = faust::PdUI<faust_ui>;
 
-faust::FaustConfig LangFaustTilde::faust_config_base;
+faust::FaustConfig& LangFaustTilde::faust_config_base()
+{
+    static faust::FaustConfig config_;
+    return config_;
+}
 
 LangFaustTilde::LangFaustTilde(const PdArgs& args)
     : SoundExternal(args)
@@ -181,7 +185,7 @@ LangFaustTilde::LangFaustTilde(const PdArgs& args)
     include_dirs_ = new ListProperty("@include");
     addProperty(include_dirs_);
 
-    autocompile_ = new BoolProperty("@auto", true);
+    autocompile_ = new BoolProperty("@auto", false);
     autocompile_->setSuccessFn([this](Property*) {
         if (autocompile_->value())
             autocompile_clock_.delay(0);
@@ -285,7 +289,7 @@ void LangFaustTilde::initOutputs()
 
 faust::FaustConfig LangFaustTilde::makeFaustConfig()
 {
-    auto cfg = faust_config_base;
+    auto cfg = faust_config_base();
     const auto canvas_dir = canvasDir();
     cfg.addIncludeDirectory(canvas_dir);
 
@@ -412,7 +416,7 @@ void LangFaustTilde::onClick(t_floatarg xpos, t_floatarg ypos, t_floatarg shift,
 
 void LangFaustTilde::addIncludePath(const std::string& path)
 {
-    faust_config_base.addIncludeDirectory(path);
+    faust_config_base().addIncludeDirectory(path);
 }
 
 LangFaustTilde::FaustProperyList& LangFaustTilde::faustProperties()
