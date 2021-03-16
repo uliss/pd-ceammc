@@ -43,4 +43,10 @@ if(APPLE)
 
     add_custom_target(github_release_app_zip
         COMMAND ${PROJECT_BINARY_DIR}/dist/github_upload_release.sh ${PROJECT_BINARY_DIR}/dist/${PD_MACOSX_ZIP})
+
+    add_custom_target(github_release_all
+        DEPENDS github_release_ext github_release_app_zip github_release_dmg)
+
+    add_custom_target(dev_build_all
+        DEPENDS dev_touch_version all ceammc_lib dmg)
 endif()

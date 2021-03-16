@@ -6,3 +6,4 @@ dev targets:
   * dev_run    - build target `dev_ceammc` then run via command line app in './dist' folder 
   * dev_open   - build target `dev_ceammc` then open app bundle in './dist' folder 
   * dev_touch_version - touch external info file, to update compilation date/time in load message
+  * dev_build_all     - build targets: `ceammc_lib`, `app`, `app-zip` and `dmg`
