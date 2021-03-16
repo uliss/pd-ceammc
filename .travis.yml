@@ -1,5 +1,5 @@
 language: cpp
-dist: xenial
+dist: bionic
 sudo: required
 git:
   depth: 5
@@ -8,10 +8,8 @@ addons:
   apt:
     update: true
     sources:
-      - ubuntu-toolchain-r-test
+    # - ubuntu-toolchain-r-test
     packages:
-      - gcc-7
-      - g++-7
       - libasound2-dev
       - libmodplug-dev
       - libavahi-compat-libdnssd-dev
@@ -41,7 +39,6 @@ matrix:
 
 before_install:
 - ./ceammc/scripts/travis_before_install.sh
-- if [ "$CXX" = "g++" ]; then export CXX="g++-7" CC="gcc-7"; fi
 
 before_script:
 - ./ceammc/scripts/travis_configure.sh
