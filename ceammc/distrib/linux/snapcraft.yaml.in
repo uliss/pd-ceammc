@@ -94,6 +94,7 @@ parts:
         plugin: cmake
         cmake-parameters:
             - -DCMAKE_BUILD_TYPE=Release
+            - -DCMAKE_INSTALL_PREFIX=/usr
             - -DWITH_PORTAUDIO=OFF
             - -DWITH_BENCHMARK=OFF
             - -DWITH_ALSA_AUDIO=ON
