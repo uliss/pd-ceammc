@@ -190,6 +190,9 @@ public:
 
 public:
     static void setup();
+
+private:
+    bool openArray() const;
 };
 
 void setup_ui_arrayview();

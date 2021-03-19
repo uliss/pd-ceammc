@@ -497,7 +497,7 @@ void UIArrayView::m_selectSamples(const AtomListView& lv)
 
 bool UIArrayView::quickRender()
 {
-    if (!array_.open(prop_array)) {
+    if (!openArray()) {
         render_clock_.unset();
         return false;
     }
@@ -851,7 +851,7 @@ void UIArrayView::setSelectPosSec(const AtomListView& pos)
 
 bool UIArrayView::isValidArray()
 {
-    if (prop_array == 0 || !array_.open(prop_array)) {
+    if (prop_array == 0 || !openArray()) {
         UI_ERR << "invalid array: " << prop_array;
         return false;
     }
@@ -934,7 +934,7 @@ void UIArrayView::invalidateCursor()
 
 t_int UIArrayView::sizeSamples() const
 {
-    if (!array_.open(prop_array))
+    if (!openArray())
         return 0;
 
     return array_.size();
@@ -996,7 +996,7 @@ void UIArrayView::propSetArray(const AtomListView& lv)
         return;
 
     prop_array = name;
-    array_.open(prop_array);
+    openArray();
     m_update();
 }
 
@@ -1049,6 +1049,21 @@ void UIArrayView::setup()
 
     obj.addMethod("update", &UIArrayView::m_update);
     obj.addMethod("select", &UIArrayView::m_selectSamples);
+}
+
+bool UIArrayView::openArray() const
+{
+    if (!prop_array)
+        return false;
+
+    std::string name = prop_array->s_name;
+    for (auto& c : name) {
+        if (c == '#')
+            c = '$';
+    }
+
+    auto array_name = canvas_realizedollar(canvas(), gensym(name.c_str()));
+    return array_.open(array_name);
 }
 
 void setup_ui_arrayview()
