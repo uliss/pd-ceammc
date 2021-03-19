@@ -35,6 +35,11 @@ enum EditMode {
     CHANGE_RANGE_RIGHT
 };
 
+enum class ErrorMessageMode {
+    HIDE,
+    SHOW
+};
+
 class SelectionRange {
     typedef std::pair<long, long> Range;
     Range range_;
@@ -164,7 +169,7 @@ private:
     AtomList selectPosSec() const;
     void setSelectPosSec(const AtomListView& pos);
 
-    bool isValidArray();
+    bool isValidArray(ErrorMessageMode msg = ErrorMessageMode::SHOW);
 
     void invalidateWaveform();
     void invalidateCursor();

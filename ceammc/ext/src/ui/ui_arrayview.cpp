@@ -147,7 +147,7 @@ void UIArrayView::drawCursor()
     if (!p)
         return;
 
-    if (!isValidArray())
+    if (!isValidArray(ErrorMessageMode::HIDE))
         return;
 
     float x = roundf((cursor_sample_pos_ * r.width) / (array_.size() - 1));
@@ -220,7 +220,7 @@ void UIArrayView::onZoom(t_float z)
 
 void UIArrayView::onMouseDown(t_object* view, const t_pt& pt, const t_pt& abs_pt, long modifiers)
 {
-    if (!isValidArray())
+    if (!isValidArray(ErrorMessageMode::HIDE))
         return;
 
     auto x = clip<float>(pt.x, 0, width());
@@ -293,7 +293,7 @@ void UIArrayView::onMouseUp(t_object* view, const t_pt& pt, long modifiers)
 
 void UIArrayView::onMouseMove(t_object* view, const t_pt& pt, long modifiers)
 {
-    if (!isValidArray())
+    if (!isValidArray(ErrorMessageMode::HIDE))
         return;
 
     auto x = clip<float>(pt.x, 0, width());
@@ -336,7 +336,7 @@ void UIArrayView::onMouseLeave(t_object* view, const t_pt& pt, long modifiers)
 
 void UIArrayView::onMouseDrag(t_object* view, const t_pt& pt, long modifiers)
 {
-    if (!isValidArray())
+    if (!isValidArray(ErrorMessageMode::HIDE))
         return;
 
     const size_t N = array_.size();
@@ -849,10 +849,12 @@ void UIArrayView::setSelectPosSec(const AtomListView& pos)
     setSelectPosMs(AtomList(pos) * 1000.f);
 }
 
-bool UIArrayView::isValidArray()
+bool UIArrayView::isValidArray(ErrorMessageMode msg)
 {
     if (prop_array == 0 || !openArray()) {
-        UI_ERR << "invalid array: " << prop_array;
+        if (msg == ErrorMessageMode::SHOW)
+            UI_ERR << "invalid array: " << prop_array;
+
         return false;
     }
 
@@ -1056,13 +1058,16 @@ bool UIArrayView::openArray() const
     if (!prop_array)
         return false;
 
-    std::string name = prop_array->s_name;
-    for (auto& c : name) {
-        if (c == '#')
-            c = '$';
+    const auto N = strlen(prop_array->s_name);
+
+    // on stack string
+    char str[N + 1];
+    for (size_t i = 0; i < (N + 1); i++) { // copy C-string ending
+        char c = prop_array->s_name[i];
+        str[i] = (c == '#') ? '$' : c;
     }
 
-    auto array_name = canvas_realizedollar(canvas(), gensym(name.c_str()));
+    auto array_name = canvas_realizedollar(canvas(), gensym(str));
     return array_.open(array_name);
 }
 
