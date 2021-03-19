@@ -155,12 +155,10 @@ ProtoMpv::ProtoMpv(const PdArgs& args)
 
 ProtoMpv::~ProtoMpv()
 {
-    while (queue_.pop()) {
-        ;
-    }
-
     sig_quit_ = true;
-    ipc_result_.get();
+
+    if (ipc_result_.valid())
+        ipc_result_.get();
 }
 
 void ProtoMpv::m_pause(t_symbol* s, const AtomListView& lv)
