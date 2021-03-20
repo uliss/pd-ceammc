@@ -7,7 +7,10 @@ set(ARDUINO_SOURCES
 
 add_library(hw_arduino STATIC ${ARDUINO_SOURCES})
 
-include_directories(${CMAKE_SOURCE_DIR}/ceammc/extra/serial/serial/include)
-include_directories(${PROJECT_SOURCE_DIR}/ceammc/extra) # for readerwriterqueue
-
 target_link_libraries(hw_arduino serial ceammc_core)
+target_include_directories(hw_arduino
+    PRIVATE
+        ${CMAKE_SOURCE_DIR}/ceammc/extra/serial/serial/include
+        ${PROJECT_SOURCE_DIR}/ceammc/extra # for readerwriterqueue
+        ${PROJECT_BINARY_DIR} # for config.h
+)

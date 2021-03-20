@@ -14,6 +14,7 @@
 #include "fmt/format.h"
 #include "sys_pipe.h"
 
+#include "config.h"
 #ifdef HAVE_UNISTD_H
 #include <unistd.h>
 #endif
@@ -26,8 +27,6 @@
 #include <climits>
 #include <cstring>
 #include <iostream>
-
-#define NDEBUG
 
 namespace ceammc {
 namespace sys {

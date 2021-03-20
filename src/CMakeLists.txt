@@ -4,6 +4,8 @@ if(UNIX)
     add_definitions("-DINSTALL_PREFIX=\"${CMAKE_INSTALL_PREFIX}\"")
 endif()
 
+add_definitions(-include ${PROJECT_BINARY_DIR}/config.h)
+
 set(M_SRC m_atom.c
     m_binbuf.c
     m_class.c

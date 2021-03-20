@@ -64,9 +64,15 @@ if(WITH_TTS_FLITE)
     list(APPEND FLITE_LIBRARIES flite)
 endif()
 
+# 64bit arch
 if(CMAKE_SIZEOF_VOID_P EQUAL 8)
-    set(PD_LONGINTTYPE "long long")
+    check_type_size("long" LONG_INT_SIZE)
+    check_type_size("long long" LONG_LONG_SIZE)
+    if(${LONG_INT_SIZE} EQUAL 8)
+        add_definitions(-DPD_LONGINTTYPE=long)
+    elseif(${LONG_LONG_SIZE} EQUAL 8)
+        add_definitions(-DPD_LONGINTTYPE=long\ long)
+    endif()
 endif()
 
 configure_file(${PROJECT_SOURCE_DIR}/config.h.in ${PROJECT_BINARY_DIR}/config.h)
-add_definitions(-include ${PROJECT_BINARY_DIR}/config.h)

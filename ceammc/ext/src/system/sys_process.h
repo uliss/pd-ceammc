@@ -14,6 +14,7 @@
 #ifndef SYS_PROCESS_H
 #define SYS_PROCESS_H
 
+#include "config.h"
 #ifdef HAVE_SYS_TYPES_H
 #include <sys/types.h>
 #endif

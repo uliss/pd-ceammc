@@ -3,8 +3,8 @@
 #include "ceammc_thread.h"
 #include "serial/serial.h"
 
-#include <errno.h>
-#include <string.h>
+#include <cerrno>
+#include <cstring>
 
 #include <algorithm>
 #include <iostream>

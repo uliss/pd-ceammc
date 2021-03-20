@@ -47,6 +47,10 @@ ceammc_hw_external(serial)
 
 add_library(ceammc_hw STATIC mod_hw.cpp ${HW_SOURCES})
 target_link_libraries(ceammc_hw hw_arduino ${HW_LINK_LIBRARIES})
+target_include_directories(ceammc_hw
+    PRIVATE
+        ${PROJECT_BINARY_DIR} # for config.h
+)
 
 #if(WITH_EXPERIMENTAL)
 #    add_definitions(-DWITH_LIBUSB_01)

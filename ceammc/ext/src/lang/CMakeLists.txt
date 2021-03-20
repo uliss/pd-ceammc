@@ -12,6 +12,7 @@ if(WITH_FAUST)
     target_include_directories(lang.faust_tilde
         PRIVATE
             "$<TARGET_PROPERTY:fmt,INCLUDE_DIRECTORIES>"
+            ${PROJECT_BINARY_DIR} # for config.h
             ${PROJECT_SOURCE_DIR}/ceammc/extra/faust
             ${PROJECT_SOURCE_DIR}/ceammc/extra/faust/faust/architecture)
 
@@ -24,6 +25,7 @@ if(WITH_FAUST)
     target_include_directories(ui.faust_tilde
         PRIVATE
             "$<TARGET_PROPERTY:fmt,INCLUDE_DIRECTORIES>"
+            ${PROJECT_BINARY_DIR} # for config.h
             ${PROJECT_SOURCE_DIR}/ceammc/extra/faust
             ${PROJECT_SOURCE_DIR}/ceammc/extra/faust/faust/architecture)
 else()

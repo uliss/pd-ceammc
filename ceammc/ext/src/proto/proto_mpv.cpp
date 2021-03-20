@@ -25,8 +25,11 @@ ProtoMpv::ProtoMpv(const PdArgs& args)
     , mpv_ipc_path_(nullptr)
     , clock_([this]() {
         std::string msg;
-        if (queue_from_mpv_.try_dequeue(msg))
-            OBJ_DBG << msg;
+        while (queue_from_mpv_.try_dequeue(msg)) {
+            DictAtom res;
+            if (res->fromJSON(msg))
+                atomTo(0, res);
+        }
 
         clock_.delay(500);
     })

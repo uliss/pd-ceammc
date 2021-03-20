@@ -1,7 +1,3 @@
-include_directories(${CMAKE_BINARY_DIR})
-include_directories(${PROJECT_SOURCE_DIR}/ceammc/extra) # for readerwriterqueue
-include_directories(${PROJECT_SOURCE_DIR}/ceammc/extra/subprocess/tiny-process-library)
-
 set(SYSTEM_SOURCES
     sys_pipe.h
     sys_process.h
@@ -39,7 +35,13 @@ ceammc_system_extension(memused)
 ceammc_system_extension(screen_size)
 
 add_library(ceammc_system STATIC mod_system.cpp ${SYSTEM_SOURCES})
-target_include_directories(ceammc_system PRIVATE $<TARGET_PROPERTY:fmt,INCLUDE_DIRECTORIES>)
+target_include_directories(ceammc_system
+    PRIVATE
+        ${CMAKE_BINARY_DIR} # for config.h
+        ${PROJECT_SOURCE_DIR}/ceammc/extra # for readerwriterqueue
+        ${PROJECT_SOURCE_DIR}/ceammc/extra/subprocess/tiny-process-library
+        $<TARGET_PROPERTY:fmt,INCLUDE_DIRECTORIES>
+)
 
 if(UNIX)
     target_sources(ceammc_system PRIVATE
@@ -51,4 +53,4 @@ elseif(WIN32)
     target_sources(ceammc_system PRIVATE sys_process_win.cpp)
 endif()
 
-target_link_libraries(ceammc_system tiny-process-library)
+target_link_libraries(ceammc_system PRIVATE tiny-process-library)

@@ -12,7 +12,7 @@ target_include_directories(tcl2cxx
     PRIVATE
         $<TARGET_PROPERTY:reflex,INCLUDE_DIRECTORIES>
         ${CMAKE_CURRENT_BINARY_DIR}
-        ${PROJECT_BINARY_DIR}
+        ${PROJECT_BINARY_DIR} # for config.h
 )
 
 target_link_libraries(tcl2cxx PUBLIC reflex)

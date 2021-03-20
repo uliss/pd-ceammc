@@ -21,6 +21,8 @@
 #include "config.h"
 #include "tcl2cxx_lexer.h"
 
+#include "config.h"
+
 #ifdef HAVE_LIBGEN_H
 #include <libgen.h>
 #endif

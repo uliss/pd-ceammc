@@ -50,6 +50,7 @@ set(WITH_FLOAT 1)
 
 # General configuration file
 configure_file(${CMAKE_CURRENT_SOURCE_DIR}/config.cmake ${CMAKE_CURRENT_BINARY_DIR}/config.h)
+add_definitions(-include ${PROJECT_BINARY_DIR}/config.h)
 
 include_directories (
     ${GLIB_INCLUDES}
@@ -203,7 +204,6 @@ add_executable(fluidsynth_make_table
     fluidsynth/src/gentables/gen_rvoice_dsp.c
     fluidsynth/src/gentables/make_tables.c
     fluidsynth/src/gentables/make_tables.h)
-target_link_libraries(fluidsynth_make_table m)
 
 add_custom_command(OUTPUT fluid_conv_tables.c
     DEPENDS fluidsynth_make_table

@@ -115,5 +115,3 @@
 
 /* Define to 1 if you have the inet_ntop() function. */
 #cmakedefine HAVE_INETNTOP @HAVE_INETNTOP@
-
-#cmakedefine PD_LONGINTTYPE @PD_LONGINTTYPE@

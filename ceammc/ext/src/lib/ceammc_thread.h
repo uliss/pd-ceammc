@@ -5,7 +5,10 @@
 #include <future>
 #include <memory>
 
+#include "config.h"
+#ifdef HAVE_PTHREAD_H
 #include <pthread.h>
+#endif
 
 #include "ceammc_clock.h"
 #include "ceammc_object.h"

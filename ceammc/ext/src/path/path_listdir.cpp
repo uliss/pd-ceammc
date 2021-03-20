@@ -2,12 +2,12 @@
 #include "ceammc_factory.h"
 #include "ceammc_format.h"
 #include "ceammc_platform.h"
-#include "config.h"
 #include "datatype_string.h"
 
 #include <cerrno>
 #include <cstring>
 
+#include "config.h"
 #ifdef HAVE_DIRENT_H
 #include <dirent.h>
 #else

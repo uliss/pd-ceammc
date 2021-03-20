@@ -5,6 +5,7 @@
 #include <iostream>
 #include <string>
 
+#include "config.h"
 #ifdef HAVE_UNISTD_H
 #include <unistd.h>
 #endif

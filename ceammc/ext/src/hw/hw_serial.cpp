@@ -19,8 +19,12 @@
 #include <array>
 #include <boost/optional.hpp>
 #include <deque>
-#include <fcntl.h>
 #include <mutex>
+
+#include "config.h"
+#ifdef HAVE_FCNTL_H
+#include <fcntl.h>
+#endif
 
 namespace ceammc {
 
