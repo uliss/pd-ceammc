@@ -1,6 +1,6 @@
 add_subdirectory(firmata)
 
-add_library(ceammc_proto STATIC mod_proto.cpp)
+add_library(ceammc_proto STATIC mod_proto.cpp mpv_ipc.cpp)
 
 function(ceammc_proto_external name)
     target_sources(ceammc_proto PRIVATE "proto_${name}.cpp")

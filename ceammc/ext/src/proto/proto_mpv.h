@@ -14,22 +14,20 @@
 #ifndef PROTO_MPV_H
 #define PROTO_MPV_H
 
-#include <atomic>
-#include <future>
-
 #include "ceammc_clock.h"
 #include "ceammc_data.h"
 #include "ceammc_object.h"
+#include "mpv_ipc.h"
 #include "readerwriterqueue.h"
 using namespace ceammc;
-
-using CommandQueue = moodycamel::ReaderWriterQueue<std::string, 10>;
 
 class ProtoMpv : public BaseObject {
     SymbolProperty* mpv_ipc_path_;
     std::atomic_bool sig_quit_;
-    std::future<int> ipc_result_;
-    CommandQueue queue_;
+    mpv::MpvIpcFuture ipc_result_;
+    mpv::StringQueue queue_to_mpv_;
+    mpv::StringQueue queue_from_mpv_;
+    ClockLambdaFunction clock_;
 
 public:
     ProtoMpv(const PdArgs& args);

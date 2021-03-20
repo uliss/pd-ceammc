@@ -17,140 +17,26 @@
 #include "datatype_dict.h"
 #include "datatype_string.h"
 
-#include <cerrno>
-#include <chrono>
 #include <cstdio>
 #include <stdexcept>
-
-#ifdef HAVE_FCNTL_H
-#include <fcntl.h>
-#endif
-
-#ifdef HAVE_UNISTD_H
-#include <unistd.h>
-#endif
-
-#ifdef HAVE_SYS_STAT_H
-#include <sys/stat.h>
-#include <sys/un.h>
-#endif
-
-#ifdef HAVE_SYS_SOCKET_H
-#include <sys/socket.h>
-#endif
-
-int writeToIpc(const std::string& ipc_name, CommandQueue& queue, std::atomic_bool& quit)
-{
-    // check if IPC named socket
-    struct stat statbuf;
-    if (stat(ipc_name.c_str(), &statbuf) != 0)
-        throw std::runtime_error(std::string("fstat: ") + strerror(errno));
-
-    if (!S_ISSOCK(statbuf.st_mode))
-        throw std::runtime_error("not a socket");
-
-    // create the socket
-    auto sock = socket(PF_LOCAL, SOCK_STREAM, 0);
-    if (sock < 0)
-        throw std::runtime_error(std::string("open: ") + strerror(errno));
-
-    // bind a name to the socket
-    sockaddr_un addr;
-    addr.sun_family = PF_LOCAL;
-    strncpy(addr.sun_path, ipc_name.c_str(), sizeof(addr.sun_path));
-    addr.sun_path[sizeof(addr.sun_path) - 1] = '\0';
-    auto size = SUN_LEN(&addr);
-
-    // connect to the socket (non-blocking)
-    if (connect(sock, reinterpret_cast<struct sockaddr*>(&addr), size) < 0) {
-        close(sock);
-        throw std::runtime_error(std::string("connect: ") + strerror(errno));
-    }
-
-    // get flags
-    int fd_flags = 0;
-    fd_flags = fcntl(sock, F_GETFL);
-    if (fd_flags < 0) {
-        close(sock);
-        throw std::runtime_error(std::string("fcntl get: ") + strerror(errno));
-    }
-
-    // set non-blocking
-    fd_flags |= O_NONBLOCK;
-    if (fcntl(sock, F_SETFL, fd_flags) < 0) {
-        close(sock);
-        throw std::runtime_error(std::string("fcntl set: ") + strerror(errno));
-    }
-
-    std::string cmd;
-    while (!quit) {
-        if (queue.try_dequeue(cmd)) {
-            // new command arrived
-            cmd += '\n';
-            const auto N = cmd.length();
-            std::cerr << "cmd: " << cmd << std::flush;
-            size_t written_total = 0;
-            // write command
-            while (!quit) {
-                int written_now = write(sock, cmd.c_str() + written_total, N - written_total);
-                if (written_now < 0) {
-                    if (errno == EAGAIN) {
-                        std::this_thread::sleep_for(std::chrono::milliseconds(1));
-                        continue;
-                    } else {
-                        close(sock);
-                        throw std::runtime_error(std::string("write: ") + strerror(errno));
-                    }
-                } else {
-                    written_total += written_now;
-                    if (written_total >= N)
-                        break;
-                }
-            }
-
-            int ntimes = 0;
-            // read output
-            while (!quit) {
-                char ch = 0;
-                auto st = read(sock, &ch, sizeof(char));
-                if (st == 0 || ch == '\n') { // EOF or new line
-                    std::cerr << std::endl;
-                    break;
-                } else if (st < 0 && errno == EAGAIN) { // non-blocking read wait
-                    if (ntimes++ < 10) {
-                        std::this_thread::sleep_for(std::chrono::milliseconds(5));
-                        continue;
-                    } else {
-                        close(sock);
-                        throw std::runtime_error(std::string("too many times"));
-                    }
-                } else if (st < 0) { // read error
-                    close(sock);
-                    throw std::runtime_error(std::string("read: ") + strerror(errno));
-                } else {
-                    std::cerr << ch;
-                }
-            }
-        }
-
-        std::this_thread::sleep_for(std::chrono::milliseconds(20));
-    }
-
-    if (close(sock) != 0)
-        throw std::runtime_error(std::string("close: ") + strerror(errno));
-
-    return 0;
-}
 
 ProtoMpv::ProtoMpv(const PdArgs& args)
     : BaseObject(args)
     , mpv_ipc_path_(nullptr)
+    , clock_([this]() {
+        std::string msg;
+        if (queue_from_mpv_.try_dequeue(msg))
+            OBJ_DBG << msg;
+
+        clock_.delay(500);
+    })
 {
     mpv_ipc_path_ = new SymbolProperty("@ipc", &s_);
     mpv_ipc_path_->setArgIndex(0);
     addProperty(mpv_ipc_path_);
 
     createOutlet();
+    clock_.delay(500);
 }
 
 ProtoMpv::~ProtoMpv()
@@ -172,13 +58,13 @@ void ProtoMpv::m_pause(t_symbol* s, const AtomListView& lv)
         write(p_off);
 }
 
-void ProtoMpv::m_stop(t_symbol* s, const AtomListView& lv)
+void ProtoMpv::m_stop(t_symbol* s, const AtomListView&)
 {
     constexpr const char* s_stop = R"({ "command": ["stop"] })";
     write(s_stop);
 }
 
-void ProtoMpv::m_quit(t_symbol* s, const AtomListView& lv)
+void ProtoMpv::m_quit(t_symbol* s, const AtomListView&)
 {
     constexpr const char* s_quit = R"({ "command\": ["quit"] })";
     write(s_quit);
@@ -229,12 +115,17 @@ bool ProtoMpv::write(const char* str)
         OBJ_LOG << "write to mpv: " << str;
 
         if (ipc_result_.valid()) {
-            queue_.enqueue(str);
+            queue_to_mpv_.enqueue(str);
             return true;
         } else {
             sig_quit_ = false;
-            queue_.enqueue(str);
-            ipc_result_ = std::async(std::launch::async, writeToIpc, mpv_ipc_path_->value()->s_name, std::ref(queue_), std::ref(sig_quit_));
+            queue_to_mpv_.enqueue(str);
+            ipc_result_ = std::async(std::launch::async,
+                mpv::mpv_ipc,
+                mpv_ipc_path_->value()->s_name,
+                std::ref(queue_to_mpv_),
+                std::ref(queue_from_mpv_),
+                std::ref(sig_quit_));
             return true;
         }
     } catch (std::exception& e) {
