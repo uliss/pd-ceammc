@@ -25,6 +25,11 @@
 #include <unistd.h>
 #endif
 
+#ifdef HAVE_IO_H
+#include <io.h>
+#define close _close
+#endif
+
 extern "C" {
 typedef void (*t_fdpollfn)(void* ptr, int fd);
 EXTERN void sys_addpollfn(int fd, t_fdpollfn fn, void* ptr);
