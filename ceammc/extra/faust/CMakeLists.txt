@@ -24,15 +24,19 @@ set(WASM_BACKEND   OFF                            CACHE STRING  "Include WASM ba
 if(APPLE OR UNIX)
     set(LLVM_DIR /usr/local/opt/llvm/lib/cmake/llvm CACHE STRING "" FORCE)
     set(INCLUDE_LLVM OFF CACHE BOOL "" FORCE)
+elseif(WIN32)
+    set(INCLUDE_LLVM ON CACHE BOOL "" FORCE)
+    set(SELF_CONTAINED_LIBRARY ON CACHE BOOL "" FORCE)
 endif()
 
+set(INCLUDE_STATIC ON CACHE BOOL "" FORCE)
 set(USE_LLVM_CONFIG OFF CACHE BOOL "" FORCE)
 find_package(LLVM REQUIRED CONFIG)
 message(STATUS "Found LLVM ${LLVM_PACKAGE_VERSION}")
 message(STATUS "Using LLVMConfig.cmake in: ${LLVM_DIR}")
 
 ## Call the faust cmakelist.txt
-add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/faust/build EXCLUDE_FROM_ALL)
+add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/faust/build)
 
 add_library(ceammc_faust STATIC ceammc_llvm.cpp)
 target_link_libraries(ceammc_faust PRIVATE staticlib)
