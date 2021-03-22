@@ -35,6 +35,9 @@ check_include_file(sys/time.h HAVE_SYS_TIME_H)
 check_include_file(sys/types.h HAVE_SYS_TYPES_H)
 check_include_file(sys/un.h HAVE_SYS_UN_H)
 check_include_file(unistd.h HAVE_UNISTD_H)
+check_include_file(windows.h HAVE_WINDOWS_H)
+check_include_file(io.h HAVE_IO_H)
+
 
 check_function_exists(nanosleep HAVE_NANOSLEEP)
 check_function_exists(setenv HAVE_SETENV)
