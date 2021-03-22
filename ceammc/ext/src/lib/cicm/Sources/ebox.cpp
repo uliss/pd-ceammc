@@ -666,7 +666,9 @@ static void ebox_attrprocess_default(t_ebox* x)
             }
         }
 
-        eobj_attr_setvalueof(&x->b_obj, c->c_attr[i]->name, int(N), defv);
+        bool readonly = (c->c_attr[i]->getter) && (!c->c_attr[i]->setter);
+        if (!readonly)
+            eobj_attr_setvalueof(&x->b_obj, c->c_attr[i]->name, int(N), defv);
     }
 }
 
