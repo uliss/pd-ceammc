@@ -221,7 +221,7 @@ add_custom_command(OUTPUT fluid_conv_tables.c
     WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR})
 
 add_custom_target(fluid_gen_tables DEPENDS "${CMAKE_CURRENT_BINARY_DIR}/fluid_conv_tables.c")
-target_link_libraries(fluid_gen_tables m)
+target_link_libraries(fluidsynth_make_table PRIVATE m)
 add_dependencies(fluidsynth fluid_gen_tables)
 
 if(UNIX)
