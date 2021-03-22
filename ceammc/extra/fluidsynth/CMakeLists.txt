@@ -173,8 +173,18 @@ configure_file(${CMAKE_CURRENT_SOURCE_DIR}/fluidsynth/include/fluidsynth.cmake
                  ${public_main_HEADER})
 
 # install soundfonts
-install(FILES fluidsynth/sf2/VintageDreamsWaves-v2.sf2 DESTINATION ${CEAMMC_INSTALL_PATH}/sf2 PERMISSIONS OWNER_READ GROUP_READ WORLD_READ)
-install(FILES fluidsynth/sf2/COPYRIGHT.txt DESTINATION ${CEAMMC_INSTALL_PATH}/sf2 PERMISSIONS OWNER_READ GROUP_READ WORLD_READ)
+install(
+    FILES
+        fluidsynth/sf2/VintageDreamsWaves-v2.sf2
+    DESTINATION
+        ${CEAMMC_INSTALL_PATH}/sf2
+    PERMISSIONS OWNER_READ GROUP_READ WORLD_READ)
+install(
+    FILES
+        fluidsynth/sf2/COPYRIGHT.txt
+    DESTINATION
+        ${CEAMMC_INSTALL_PATH}/sf2
+    PERMISSIONS OWNER_READ GROUP_READ WORLD_READ)
 
 add_library(fluidsynth STATIC
     ${config_SOURCES}
@@ -211,6 +221,7 @@ add_custom_command(OUTPUT fluid_conv_tables.c
     WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR})
 
 add_custom_target(fluid_gen_tables DEPENDS "${CMAKE_CURRENT_BINARY_DIR}/fluid_conv_tables.c")
+target_link_libraries(fluid_gen_tables m)
 add_dependencies(fluidsynth fluid_gen_tables)
 
 if(UNIX)
