@@ -31,7 +31,7 @@ namespace ceammc {
 static const int DEFAULT_TIMEOUT = 5;
 
 enum SerialTaskError {
-    NO_ERROR = 0,
+    ERR_NO_ERROR = 0,
     ERR_PORT_NOT_FOUND = 1,
     ERR_PORT_CONNECTION,
     ERR_EXCEPTION,
