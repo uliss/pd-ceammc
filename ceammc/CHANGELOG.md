@@ -1,5 +1,15 @@
 # CEAMMC external library changelog
 
+## [Unreleased]
+### Added:
+- new properties:
+  - @select_ms, @select_sec, @select_phase and @select_samp to array.play~
+    to make possible direct connection of ui.aview with array.play~
+    
+### Changed:
+- properties:
+  - @cursor_ms, @cursor_sec in array.play~ make writeable
+
 ## [0.9.2]
 ### Added:
 - new objects:

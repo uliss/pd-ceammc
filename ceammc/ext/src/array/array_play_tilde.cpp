@@ -131,9 +131,16 @@ ArrayPlayTilde::ArrayPlayTilde(const PdArgs& args)
     cursor_->setSuccessFn([this](Property*) { pos_ = cursor_->value(); });
     addProperty(cursor_);
 
-    createCbFloatProperty("@cursor_sec", [this]() -> t_float { return cursor_->seconds(sys_getsr()); })
+    createCbFloatProperty(
+        "@cursor_sec",
+        [this]() -> t_float { return cursor_->seconds(sys_getsr()); },
+        [this](t_float pos) -> bool { return cursor_->setSeconds(pos, sys_getsr()); })
         ->setUnits(PropValueUnits::SEC);
-    createCbFloatProperty("@cursor_ms", [this]() -> t_float { return cursor_->ms(sys_getsr()); })
+
+    createCbFloatProperty(
+        "@cursor_ms",
+        [this]() -> t_float { return cursor_->ms(sys_getsr()); },
+        [this](t_float pos) -> bool { return cursor_->setMs(pos, sys_getsr()); })
         ->setUnits(PropValueUnits::MSEC);
 
     createCbFloatProperty(
@@ -150,6 +157,48 @@ ArrayPlayTilde::ArrayPlayTilde(const PdArgs& args)
         });
 
     createCbIntProperty("@state", [this]() { return state_; });
+
+    createCbListProperty(
+        "@select_phase",
+        [this]() -> AtomList { return { begin_->phase(), end_->phase() }; },
+        [this](const AtomList& pos) -> bool {
+            return begin_->setPhase(pos.floatAt(0, 0))
+                && end_->setPhase(pos.floatAt(1, -1));
+        })
+        ->setListCheckFn([](const AtomList& l) -> bool { return l.size() == 2 && l[0].isFloat() && l[1].isFloat(); });
+
+    {
+        auto p = createCbListProperty(
+            "@select_sec",
+            [this]() -> AtomList { return { begin_->seconds(sys_getsr()), end_->seconds(sys_getsr()) }; },
+            [this](const AtomList& pos) -> bool { return begin_->setSeconds(pos.floatAt(0, 0), sys_getsr())
+                                                      && end_->setSeconds(pos.floatAt(1, -1), sys_getsr()); });
+
+        p->setListCheckFn([](const AtomList& l) -> bool { return l.size() == 2 && l[0].isFloat() && l[1].isFloat(); });
+        p->setUnits(PropValueUnits::SEC);
+    }
+
+    {
+        auto p = createCbListProperty(
+            "@select_ms",
+            [this]() -> AtomList { return { begin_->ms(sys_getsr()), end_->seconds(sys_getsr()) }; },
+            [this](const AtomList& pos) -> bool { return begin_->setMs(pos.floatAt(0, 0), sys_getsr())
+                                                      && end_->setMs(pos.floatAt(1, -1), sys_getsr()); });
+
+        p->setListCheckFn([](const AtomList& l) -> bool { return l.size() == 2 && l[0].isFloat() && l[1].isFloat(); });
+        p->setUnits(PropValueUnits::MSEC);
+    }
+
+    {
+        auto p = createCbListProperty(
+            "@select_samp",
+            [this]() -> AtomList { return { begin_->samples(), end_->samples() }; },
+            [this](const AtomList& pos) -> bool { return begin_->setSamples(pos.floatAt(0, 0))
+                                                      && end_->setSamples(pos.floatAt(1, -1)); });
+
+        p->setListCheckFn([](const AtomList& l) -> bool { return l.size() == 2 && l[0].isFloat() && l[1].isFloat(); });
+        p->setUnits(PropValueUnits::SAMP);
+    }
 
     createSignalOutlet();
     createOutlet();
@@ -193,7 +242,7 @@ void ArrayPlayTilde::onFloat(t_float pos)
 void ArrayPlayTilde::setupDSP(t_signal** sig)
 {
     ArraySoundBase::setupDSP(sig);
-    if (checkArray() && cursor_->samples() >= array_.size())
+    if (checkArray() && cursor_->value() >= array_.size())
         resetPlayPosition();
 }
 
