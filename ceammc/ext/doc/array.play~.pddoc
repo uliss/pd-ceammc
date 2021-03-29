@@ -42,18 +42,22 @@
             output format</property>
             <property name="@state" type="int" default="0" readonly="true">playing state. 0:
             stopped, 1: playing, 2: paused.</property>
-            <property name="@cursor_ms" type="float" default="0"
-            units="millisecond">current play position</property>
-            <property name="@cursor_sec" type="float" default="0" units="second">
-            current play position</property>
+            <property name="@cursor_ms" type="float" default="0" units="millisecond">current play
+            position</property>
+            <property name="@cursor_sec" type="float" default="0" units="second">current play
+            position</property>
             <property name="@cursor_phase" type="float" default="0">current play
             position</property>
             <property name="@cursor_samp" type="float" default="0" units="sample">current play
             position</property>
-            <property name="@select_samp" type="list" default="0 0" units="sample">selection range</property>
-            <property name="@select_ms" type="list" default="0 0" units="millisecond">selection range</property>
-            <property name="@select_sec" type="list" default="0 0" units="second">selection range</property>
-            <property name="@select_phase" type="list" default="0 0">selection range in [0, 1] range</property>
+            <property name="@select_samp" type="list" default="0 0" units="sample">selection
+            range</property>
+            <property name="@select_ms" type="list" default="0 0" units="millisecond">selection
+            range</property>
+            <property name="@select_sec" type="list" default="0 0" units="second">selection
+            range</property>
+            <property name="@select_phase" type="list" default="0 0">selection range in [0, 1]
+            range</property>
         </properties>
         <methods>
             <method name="play">start playback from current play position</method>
