@@ -264,7 +264,6 @@ conv.cc2amp
 conv.dbfs2amp
 conv.dbfs2amp~
 conv.degree2key
-conv.dollar
 conv.hex2int
 conv.int2bits
 conv.lin2curve
@@ -341,6 +340,7 @@ env2vline
 envelope
 expand_env
 flow.!
+flow.$$
 flow.'
 flow.<
 flow.<=
@@ -358,6 +358,7 @@ flow.demultiplex~
 flow.demux
 flow.demux2~
 flow.demux~
+flow.dollar
 flow.dup
 flow.gate
 flow.greater
@@ -785,7 +786,6 @@ ms->samp
 ms->samp~
 msg
 msg.after
-msg.dollar
 msg.onload
 mux2~
 mux~

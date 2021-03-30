@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="flow.dollar">
+        <title>flow.dollar</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>data flow dollar converter</description>
+            <license>GPL3 or later</license>
+            <library>ceammc</library>
+            <category>flow</category>
+            <keywords>dollar</keywords>
+            <since>0.9.3</since>
+            <aliases>
+                <alias>flow.$$</alias>
+            </aliases>
+        </meta>
+        <inlets>
+            <inlet>
+                <xinfo>input flow</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet>outputs flow with realized dollar atoms</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[load file to \\\\$0-array @resize(
+|
+[flow.dollar]
+|
+[ui.dt]
+
+[flow.dollar.args A B]
+]]>
+            </pdascii>
+            <pdascii id="args">
+<![CDATA[
+[some args \\\\$0 \\\\$1 \\\\$2 \\\\$3(
+|
+[flow.dollar]
+|
+[ui.dt]
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

@@ -126,6 +126,7 @@ set(DOC_FILES
     flow.demultiplex
     flow.demultiplex2~
     flow.demultiplex~
+    flow.dollar
     flow.dup
     flow.gate
     flow.greater

@@ -473,6 +473,9 @@
     <entry name="flow.demultiplex~" descr="audio stream demultiplexer" ref_view="object">
       <xi:include href="flow.demultiplex~.pddoc" parse="xml"/>
     </entry>
+    <entry name="flow.dollar" descr="data flow dollar converter" ref_view="object">
+      <xi:include href="flow.dollar.pddoc" parse="xml"/>
+    </entry>
     <entry name="flow.dup" descr="message duplicator" ref_view="object">
       <xi:include href="flow.dup.pddoc" parse="xml"/>
     </entry>

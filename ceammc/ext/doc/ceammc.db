@@ -124,6 +124,7 @@ flow.delay,flow.del		..		.
 flow.demultiplex,flow.demux		..		?
 flow.demultiplex2~,flow.demux2~,ceammc/demux2~,demux2~		~~.		?
 flow.demultiplex~,flow.demux~,ceammc/demux~,demux~		~.		?
+flow.dollar,flow.$$		.		.
 flow.dup		..		.
 flow.gate,ceammc/gate,gate		..		.
 flow.greater,flow.>		.		?

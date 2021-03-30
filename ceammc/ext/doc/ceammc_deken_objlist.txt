@@ -314,6 +314,8 @@ flow.demultiplex~	audio stream demultiplexer
 flow.demux~	audio stream demultiplexer
 ceammc/demux~	audio stream demultiplexer
 demux~	audio stream demultiplexer
+flow.dollar	data flow dollar converter
+flow.$$	data flow dollar converter
 flow.dup	message duplicator
 flow.gate	control flow gate. [spigot] analog
 ceammc/gate	control flow gate. [spigot] analog
