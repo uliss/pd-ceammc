@@ -14,6 +14,6 @@ echo "TCL86_TM_PATH:   $TCL86_TM_PATH"
 echo "LD_LIBRARY_PATH: $LD_LIBRARY_PATH"
 echo "PATH:            $PATH"
 
-env "TCL8.6_TM_PATH=$TCL86_TM_PATH" $SNAP/lib/pd_ceammc/bin/pd $@
+env "TCL8.6_TM_PATH=$TCL86_TM_PATH" $SNAP/usr/lib/pd_ceammc/bin/pd $@
 
 
