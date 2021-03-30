@@ -711,6 +711,24 @@ TEST_CASE("args", "[core]")
                 REQUIRE(ck.check(LF(1, 2)));
                 REQUIRE_FALSE(ck.check(LF(1, 10)));
             }
+
+            SECTION("(s='abc' | s='def')")
+            {
+                ArgChecker ck("(s='abc'|s='def')");
+                REQUIRE(ck.check(LA("abc")));
+                REQUIRE(ck.check(LA("def")));
+                REQUIRE_FALSE(ck.check(LA("a")));
+                REQUIRE_FALSE(ck.check(LA("bcd")));
+            }
+
+            SECTION("(s=\"abc\" | s=\"def\")")
+            {
+                ArgChecker ck("(s=\"abc\"|s=\"def\")");
+                REQUIRE(ck.check(LA("abc")));
+                REQUIRE(ck.check(LA("def")));
+                REQUIRE_FALSE(ck.check(LA("a")));
+                REQUIRE_FALSE(ck.check(LA("bcd")));
+            }
         }
 
         SECTION("\"b+\"")

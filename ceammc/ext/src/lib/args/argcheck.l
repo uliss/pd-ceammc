@@ -29,12 +29,16 @@ float    {int} {frac}?
 space    [ \t\n]+
 symbol   [a-zA-Z_.] [a-zA-Z_.0-9]*
 range    \.\./({float}|])
-int_range {int}\.\.{int}
+int_range   {int}\.\.{int}
 float_range {float}\.\.{float}
 squote    '
-dquote   \"
-sqstring {squote} ([^{squote}]|`{squote})* {squote}
-dqstring {dquote} ([^{dquote}]|`{dquote})* {dquote}
+escsqt    `'
+nonsqt    [^']
+dquote    \"
+escdqt    `\"
+nondqt    [^"]
+sqstring {squote} ({escsqt}|{nonsqt})* {squote}
+dqstring {dquote} ({escdqt}|{nondqt})* {dquote}
 
 
 %%
