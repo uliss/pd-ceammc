@@ -1,7 +1,7 @@
 ---
 os: Visual Studio 2019
 
-version: 2021.03.{build}
+version: 2021.04.{build}
 
 clone_depth: 2
 
