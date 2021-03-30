@@ -12,6 +12,7 @@
  * this file belongs to.
  *****************************************************************************/
 #include "proto_mpv.h"
+#include "ceammc_args.h"
 #include "ceammc_factory.h"
 #include "ceammc_format.h"
 #include "datatype_dict.h"
@@ -44,10 +45,7 @@ ProtoMpv::ProtoMpv(const PdArgs& args)
 
 ProtoMpv::~ProtoMpv()
 {
-    sig_quit_ = true;
-
-    if (ipc_result_.valid())
-        ipc_result_.get();
+    quit();
 }
 
 void ProtoMpv::m_pause(t_symbol* s, const AtomListView& lv)
@@ -61,15 +59,23 @@ void ProtoMpv::m_pause(t_symbol* s, const AtomListView& lv)
         write(p_off);
 }
 
-void ProtoMpv::m_stop(t_symbol* s, const AtomListView&)
+void ProtoMpv::m_play(t_symbol* s, const AtomListView& lv)
 {
-    constexpr const char* s_stop = R"({ "command": ["stop"] })";
-    write(s_stop);
+    m_pause(s, AtomListView(Atom(0.)));
+}
+
+void ProtoMpv::m_stop(t_symbol* s, const AtomListView& lv)
+{
+    constexpr const char* s_stop = R"({ "command": ["stop" %s] })";
+
+    char buf[MAXPDSTRING];
+    snprintf(buf, sizeof(buf) - 1, s_stop, lv.boolAt(0, false) ? ", \"keep-playlist\"" : "");
+    write(buf);
 }
 
 void ProtoMpv::m_quit(t_symbol* s, const AtomListView&)
 {
-    constexpr const char* s_quit = R"({ "command\": ["quit"] })";
+    constexpr const char* s_quit = R"({ "command": ["quit"] })";
     write(s_quit);
 }
 
@@ -94,6 +100,50 @@ void ProtoMpv::m_load(t_symbol* s, const AtomListView& lv)
     }
     msg += "\"]}\n";
     write(msg.c_str());
+}
+
+void ProtoMpv::m_next(t_symbol* s, const AtomListView& lv)
+{
+    constexpr const char* s_stop = R"({ "command": ["playlist-next", "%s"] })";
+
+    char buf[MAXPDSTRING];
+    snprintf(buf, sizeof(buf) - 1, s_stop, lv.boolAt(0, false) ? "weak" : "force");
+    write(buf);
+}
+
+void ProtoMpv::m_seek(t_symbol* s, const AtomListView& lv)
+{
+    static ArgChecker args("i (s='abs'|s='rel'|s='percent'|s='%')?");
+    if (!args.check(lv)) {
+        METHOD_ERR(s) << "SECONDS [abs|rel|percent|%] expected, got: " << lv;
+        return;
+    }
+
+    constexpr const char* s_seek = R"({ "command": ["seek", %d, "%s"] })";
+
+    auto mode = lv.symbolAt(1, gensym("rel"));
+    const char* s_mode = "relative";
+    if (mode == gensym("rel"))
+        s_mode = "relative";
+    else if (mode == gensym("abs"))
+        s_mode = "absolute";
+    else if (mode == gensym("percent"))
+        s_mode = "absolute-percent";
+    else if (mode == gensym("%"))
+        s_mode = "absolute-percent";
+
+    char buf[MAXPDSTRING];
+    snprintf(buf, sizeof(buf) - 1, s_seek, lv.intAt(0, 0), s_mode);
+    write(buf);
+}
+
+void ProtoMpv::m_prev(t_symbol* s, const AtomListView& lv)
+{
+    constexpr const char* s_stop = R"({ "command": ["playlist-prev", "%s"] })";
+
+    char buf[MAXPDSTRING];
+    snprintf(buf, sizeof(buf) - 1, s_stop, lv.boolAt(0, false) ? "weak" : "force");
+    write(buf);
 }
 
 void ProtoMpv::onDataT(const DictAtom& dict)
@@ -137,6 +187,19 @@ bool ProtoMpv::write(const char* str)
     }
 }
 
+void ProtoMpv::quit()
+{
+    sig_quit_ = true;
+
+    if (ipc_result_.valid()) {
+        try {
+            ipc_result_.wait_for(std::chrono::seconds(1));
+        } catch (std::exception& e) {
+            OBJ_ERR << e.what();
+        }
+    }
+}
+
 void setup_proto_mpv()
 {
     ObjectFactory<ProtoMpv> obj("proto.mpv");
@@ -144,4 +207,10 @@ void setup_proto_mpv()
 
     obj.addMethod("load", &ProtoMpv::m_load);
     obj.addMethod("pause", &ProtoMpv::m_pause);
+    obj.addMethod("stop", &ProtoMpv::m_stop);
+    obj.addMethod("play", &ProtoMpv::m_play);
+    obj.addMethod("quit", &ProtoMpv::m_quit);
+    obj.addMethod("prev", &ProtoMpv::m_prev);
+    obj.addMethod("next", &ProtoMpv::m_next);
+    obj.addMethod("seek", &ProtoMpv::m_seek);
 }

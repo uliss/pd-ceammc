@@ -532,6 +532,7 @@ set(DOC_FILES
     prop.split
     proto.firmata
     proto.midi
+    proto.mpv
     proto.xtouch_ext
     proto.sp.alpaca
     radio

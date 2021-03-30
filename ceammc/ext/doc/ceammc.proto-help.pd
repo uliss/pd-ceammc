@@ -6,10 +6,12 @@
 #X text 200 116 Firmata Arduino protocol support;
 #X obj 30 143 proto.midi;
 #X text 200 143 raw midi encoder/parser;
-#X obj 30 170 proto.sp.alpaca;
-#X text 200 170 protocol parser for Arduino-based CEAMMC footswitch;
-#X obj 30 197 proto.xtouch_ext;
-#X text 200 197 Behringer XTouch Extender XMidi protocol;
+#X obj 30 170 proto.mpv;
+#X text 200 170 mpv video player control;
+#X obj 30 197 proto.sp.alpaca;
+#X text 200 197 protocol parser for Arduino-based CEAMMC footswitch;
+#X obj 30 224 proto.xtouch_ext;
+#X text 200 224 Behringer XTouch Extender XMidi protocol;
 #X obj 1 1 cnv 5 740 40 empty empty ceammc::proto 20 20 0 20 -104026
 -4096 0;
 #X obj 1 513 cnv 5 740 40 empty empty empty 17 7 0 10 -203890 -1 0;

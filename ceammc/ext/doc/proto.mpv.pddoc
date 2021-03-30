@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="proto.mpv">
+        <title>proto.mpv</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>mpv video player control</description>
+            <license>GPL3 or later</license>
+            <library>ceammc</library>
+            <category>proto</category>
+            <keywords>mpv mplayer</keywords>
+            <since>0.9.3</since>
+        </meta>
+        <methods>
+            <method name="stop">stop playback and clear playlist.
+            With default settings, this is essentially like quit.
+            Useful for the client API: playback can be stopped without terminating the player.
+            <param name="KEEP_PLIST" type="int" enum="0 1">if 1 - do not clear the playlist</param>
+            </method>
+            <method name="quit">exit the player</method>
+            <method name="seek">change the playback position. By default, seeks by a relative amount of seconds
+            <param name="time" type="symbol" enum="rel abs percent %">*rel*: relative (default),
+            seek relative to current position (a negative value seeks backwards).
+            *abs*: absolute, seek to a given time (a negative value starts from the end of the file).
+            *percent* or *%*: seek to a given percent position.</param>
+            </method>
+        </methods>
+        <inlets>
+            <inlet>
+                <xinfo>commands</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet>mpv output</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+/*start mpv player*/
+
+[list mpv --player-operation-mode=pseudo-gui --input-ipc-server=/tmp/mpvsocket --pause --no-audio --idle --no-osc(
+|
+|
+|
+[system.exec]
+
+/*choose video file*/
+
+[bng]
+|
+[openpanel] [T]        [quit #a(
+|           |
+[load $1(   [pause $1( [stop 1( [play #b(
+|           |          |
+|           |          |  [seek 10( [seek -10(
+|           |          |  |         |
+[proto.mpv /tmp/mpvsocket         #x]
+|
+[print]
+
+[X a->x]
+[X b->x]
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>
