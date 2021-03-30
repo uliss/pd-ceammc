@@ -13,6 +13,7 @@
  *****************************************************************************/
 #include "symbol_to_any.h"
 #include "ceammc_factory.h"
+#include "datatype_string.h"
 
 SymbolToAny::SymbolToAny(const PdArgs& args)
     : BaseObject(args)
@@ -22,7 +23,20 @@ SymbolToAny::SymbolToAny(const PdArgs& args)
 
 void SymbolToAny::onSymbol(t_symbol* s)
 {
-    const auto lst = AtomList::parseString(s->s_name);
+    parse(s->s_name);
+}
+
+void SymbolToAny::onDataT(const StringAtom& str)
+{
+    if (!str)
+        return;
+
+    parse(str->str().c_str());
+}
+
+void SymbolToAny::parse(const char* str)
+{
+    const auto lst = AtomList::parseString(str);
 
     if (lst.empty())
         anyTo(0, &s_bang, AtomListView {});
@@ -35,5 +49,8 @@ void SymbolToAny::onSymbol(t_symbol* s)
 void setup_symbol_to_any()
 {
     ObjectFactory<SymbolToAny> obj("symbol2any");
+    obj.processData<DataTypeString>();
     obj.addAlias("sym->any");
+    obj.addAlias("str->any");
+    obj.addAlias("string2any");
 }

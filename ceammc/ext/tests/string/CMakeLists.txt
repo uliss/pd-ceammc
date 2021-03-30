@@ -27,7 +27,9 @@ endfunction()
 target_sources(test_ext_string PRIVATE
     test_symbol_equal.cpp
     test_symbol_num_compare.cpp
-    test_symbol_to_int.cpp)
+    test_symbol_to_any.cpp
+    test_symbol_to_int.cpp
+)
 
 # test list
 add_string_test(contains)

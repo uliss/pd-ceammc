@@ -14,6 +14,7 @@
 #ifndef SYMBOL_TO_ANY_H
 #define SYMBOL_TO_ANY_H
 
+#include "ceammc_data.h"
 #include "ceammc_object.h"
 using namespace ceammc;
 
@@ -21,6 +22,10 @@ class SymbolToAny : public BaseObject {
 public:
     SymbolToAny(const PdArgs& args);
     void onSymbol(t_symbol* s) override;
+    void onDataT(const StringAtom& str);
+
+private:
+    void parse(const char* str);
 };
 
 void setup_symbol_to_any();
