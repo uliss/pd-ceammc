@@ -3,9 +3,7 @@
 [![Coverage Status](https://coveralls.io/repos/github/uliss/pure-data/badge.svg?branch=ceammc)](https://coveralls.io/github/uliss/pure-data?branch=ceammc)
 [![pd-ceammc](https://snapcraft.io/pd-ceammc/badge.svg)](https://snapcraft.io/pd-ceammc)
 
-[ ![Download](https://api.bintray.com/packages/uliss/ceammc/PureData/images/download.svg?version=v2020.12) ](https://bintray.com/uliss/ceammc/PureData/v2020.12/link)
-
-CEAMMC PureData distribution 2020.12
+CEAMMC PureData distribution 2021.04
 ------------------------------------
 
 General purpose Pd distribution and library used for work and education purposes in Centre of electoacoustic music of Moscow Conservatory (CEAMMC) and ZIL-electro studio.
@@ -18,7 +16,7 @@ Key concepts
    - All the externals are grouped by their function. This is different from the traditional approach but this aims to simplify the learning process and makes the language itself more clear.
    - Higher level set of objects for education and handy use in work process: oscillators, filters etc.
    - Library adds several features to basic Pd API. It is written in C++ and covered with tests.
-   - Inclusion of some modern techniques. Library v0.9.1 includes comprehensive set of objects that work with lists and include some concepts from functional programming.
+   - Inclusion of some modern techniques. Library v0.9.3 includes comprehensive set of objects that work with lists and include some concepts from functional programming.
 
 ChangeLog:
 ----------
