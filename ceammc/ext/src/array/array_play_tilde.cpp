@@ -45,7 +45,7 @@ FSM ArrayPlayTilde::fsm_ = {
             return STATE_STOPPED;
         },
         [](ArrayPlayTilde* ap) -> PlayState { // play->play
-            Error(ap).stream() << "already playing";
+            Debug(ap).stream() << "already playing";
             return STATE_PLAYING;
         },
         [](ArrayPlayTilde* ap) -> PlayState { // play->pause
