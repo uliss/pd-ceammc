@@ -17,7 +17,9 @@
             </also>
         </meta>
         <info>
+            <par>Use backtick ` instead of backslash in regexp syntax</par>
             <par>if you want to match property - use double quotes in arg list: "@prop+"</par>
+            <a href="https://github.com/google/re2">Regexp library: RE2</a>
         </info>
         <arguments>
             <argument name="RE_LST" type="list" required="true">list of regular
@@ -59,13 +61,74 @@
 |      |      |       |       |               |
 [symbol                       ]               [flow.match "@p.+"]
 |                                             |
-[S digits=16]                                 [ui.display @display_type 1]
-|
+[S digits=16] [freq3 X( [amp4 Y(              [ui.dt]
+|             |         |
+|             |         |
 [flow.match freq`d amp`d]
-|              ^|     ^^|
-|               |       |
-[S]           [S]       [ui.display @display_type 1]
+|          ^|        ^^|
+|           |          |
+[ui.dt]     [ui.dt]    [ui.dt]
+
+[flow.match.syntax]
 ]]>
+            </pdascii>
+            <pdascii id="syntax">
+/***general***/
+
+/*`  - escape symbol (instead of \\) */
+/*(( - open curly braces (not allowed character in Pd)*/
+/*)) - close curly braces (not allowed character in Pd)*/
+
+/***kinds of single-character expressions***/
+
+/*any character:           */ 	    /*.*/
+/*character class:         */       /*[xyz]*/
+/*negated character class: */       /*[^xyz]*/
+/*Perl character class:    */       /*`d*/
+/*negated Perl character class: */  /*`D*/
+
+/***composites***/
+
+/*xy  */            /*x followed by y   */
+/*x|y */            /*x or y (prefer x) */
+
+/***repetitions***/
+
+/*x*       */       /*zero or more x, prefer more         */
+/*x+       */       /*one or more x, prefer more          */
+/*x?       */       /*zero or one x, prefer one           */
+/*x((n`.m))*/       /*n or n+1 or ... or m x, prefer more */
+/*x((n`.)) */       /*n or more x, prefer more            */
+/*x((n))   */       /*exactly n x                         */
+/*x*?      */       /*zero or more x, prefer fewer        */
+/*x+?      */       /*one or more x, prefer fewer         */
+/*x??      */       /*zero or one x, prefer zero          */
+
+/***empty strings***/
+
+/*^        */       /*at beginning of text                                                   */
+/*$        */       /*at end of text (like `z)                                               */
+/*`A       */       /*at beginning of text                                                   */
+/*`b       */       /*at ASCII word boundary (`w on one side and `W, `A, or `z on the other) */
+
+/*`B       */       /*not at ASCII word boundary                                             */
+/*`z       */       /*at end of text                                                         */
+
+/***escape sequences***/
+
+/*`*           */   /*literal *, for any punctuation character * */
+/*`123         */   /*octal character code (up to three digits)  */
+/*`x7F 	       */   /*hex character code (exactly two digits)    */
+/*`x((10FFFF)) */   /*hex character code*/
+
+/***perl character classes (all ASCII-only)***/
+
+/*`d */             /*digits (≡ [0-9])                           */
+/*`D */             /*not digits (≡ [^0-9])                      */
+/*`s */             /*whitespace                                 */
+/*`S */             /*not whitespace                             */
+/*`w */             /*word characters (≡ [0-9A-Za-z_])           */
+/*`W */             /*not word characters (≡ [^0-9A-Za-z_])      */
             </pdascii>
         </example>
     </object>

@@ -141,4 +141,5 @@ void setup_flow_match()
 {
     ObjectFactory<FlowMatch> obj("flow.match");
     obj.processData<DataTypeString>();
+    obj.parseArgsMode(PdArgs::PARSE_UNQUOTE);
 }
