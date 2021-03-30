@@ -4,6 +4,7 @@
 ### Added:
 - new objects:
   - flow.dollar (with flow.$$ alias) for dollar arg expand
+  - proto.mpv - to control MPV video player
 - new properties:
   - @select_ms, @select_sec, @select_phase and @select_samp to array.play~
     to make possible direct connection of ui.aview with array.play~

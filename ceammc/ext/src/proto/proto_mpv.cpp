@@ -107,7 +107,7 @@ void ProtoMpv::m_next(t_symbol* s, const AtomListView& lv)
     constexpr const char* s_stop = R"({ "command": ["playlist-next", "%s"] })";
 
     char buf[MAXPDSTRING];
-    snprintf(buf, sizeof(buf) - 1, s_stop, lv.boolAt(0, false) ? "weak" : "force");
+    snprintf(buf, sizeof(buf) - 1, s_stop, lv.boolAt(0, false) ? "force" : "weak");
     write(buf);
 }
 
@@ -137,12 +137,35 @@ void ProtoMpv::m_seek(t_symbol* s, const AtomListView& lv)
     write(buf);
 }
 
+void ProtoMpv::m_text(t_symbol* s, const AtomListView& lv)
+{
+    static ArgChecker args("i a+");
+    if (!args.check(lv)) {
+        METHOD_ERR(s) << "usage: DURATION_MS text...";
+        return;
+    }
+
+    constexpr const char* s_stop = R"({ "command": ["show-text", "%s", %d] })";
+
+    char buf[MAXPDSTRING];
+    snprintf(buf, sizeof(buf) - 1, s_stop, to_string(lv.subView(1)).c_str(), lv.intAt(0, 0));
+    write(buf);
+}
+
+void ProtoMpv::m_fullscreen(t_symbol* s, const AtomListView& lv)
+{
+    constexpr const char* p_on = R"({ "command": ["set_property", "fullscreen", true] })";
+    constexpr const char* p_off = R"({ "command": ["set_property", "fullscreen", false] })";
+
+    write(lv.boolAt(0, true) ? p_on : p_off);
+}
+
 void ProtoMpv::m_prev(t_symbol* s, const AtomListView& lv)
 {
     constexpr const char* s_stop = R"({ "command": ["playlist-prev", "%s"] })";
 
     char buf[MAXPDSTRING];
-    snprintf(buf, sizeof(buf) - 1, s_stop, lv.boolAt(0, false) ? "weak" : "force");
+    snprintf(buf, sizeof(buf) - 1, s_stop, lv.boolAt(0, false) ? "force" : "weak");
     write(buf);
 }
 
@@ -213,4 +236,6 @@ void setup_proto_mpv()
     obj.addMethod("prev", &ProtoMpv::m_prev);
     obj.addMethod("next", &ProtoMpv::m_next);
     obj.addMethod("seek", &ProtoMpv::m_seek);
+    obj.addMethod("text", &ProtoMpv::m_text);
+    obj.addMethod("fullscreen", &ProtoMpv::m_fullscreen);
 }

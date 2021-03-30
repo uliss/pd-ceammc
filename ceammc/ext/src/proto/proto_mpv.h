@@ -41,6 +41,8 @@ public:
     void m_next(t_symbol* s, const AtomListView& lv);
     void m_prev(t_symbol* s, const AtomListView& lv);
     void m_seek(t_symbol* s, const AtomListView& lv);
+    void m_text(t_symbol* s, const AtomListView& lv);
+    void m_fullscreen(t_symbol* s, const AtomListView& lv);
 
     void onDataT(const DictAtom& dict);
 

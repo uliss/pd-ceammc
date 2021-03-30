@@ -5,62 +5,114 @@
 #X obj 1 1 cnv 5 765 40 empty empty proto.mpv 20 20 0 20 -104026 -4096
 0;
 #X obj 675 11 proto.mpv;
-#X text 50 118 start mpv player;
-#X msg 50 147 list mpv --player-operation-mode=pseudo-gui --input-ipc-server=/tmp/mpvsocket --pause --no-audio --idle --no-osc;
-#X obj 50 205 system.exec;
-#X text 50 234 choose video file;
-#X obj 50 262 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
+#X obj 210 80 cnv 1 555 58 empty empty empty 17 7 0 10 -257983 -1 0;
+#X text 215 80 MPV video player control;
+#X obj 215 105 ui.link @background_color 0.98039 0.98039 0.98039
+@title mpv.io @url https://mpv.io/;
+#X text 50 166 start mpv player;
+#X msg 50 195 list mpv --player-operation-mode=pseudo-gui --input-ipc-server=/tmp/mpvsocket --pause --no-audio --idle --no-osc;
+#X obj 50 253 system.exec;
+#X text 50 282 choose video file;
+#X obj 50 310 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
 -1;
-#X obj 50 291 openpanel;
-#X obj 165 291 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1;
-#X msg 270 291 quit;
-#X msg 50 320 load \$1;
-#X msg 165 320 pause \$1;
-#X msg 270 320 stop 1;
-#X msg 357 320 play;
-#X msg 299 349 seek 10;
-#X msg 395 349 seek -10;
-#X obj 50 378 proto.mpv /tmp/mpvsocket;
-#X obj 50 406 print;
-#X obj 20 455 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 460 cnv 5 73 26 empty empty methods: 4 10 0 14 -262144
+#X obj 50 339 openpanel;
+#X obj 165 339 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1;
+#X msg 270 339 quit;
+#X msg 366 339 text 3000 A simple OSD title;
+#X msg 50 368 load \$1;
+#X msg 165 368 pause \$1;
+#X msg 270 368 stop;
+#X msg 366 368 play;
+#X msg 299 397 seek 10 rel;
+#X msg 434 397 seek -10 rel;
+#X obj 50 426 proto.mpv /tmp/mpvsocket;
+#X obj 50 454 print;
+#X obj 20 503 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 508 cnv 5 90 26 empty empty arguments: 4 10 0 14 -262144
 -49933 0;
-#X msg 110 495 quit;
-#X text 245 495 exit the player.;
-#X msg 110 522 seek;
-#X text 245 522 change the playback position. By default \, seeks by
-a relative amount of seconds. Arguments are:;
-#X obj 255 560 cnv 1 47 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 560 [time]: *rel*: relative (default) \, seek relative
+#X text 110 543 1\.;
+#X text 150 543 symbol;
+#X obj 246 544 cnv 1 31 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 245 543 IPC: path to IPC local socket.;
+#X obj 20 573 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 578 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
+-49933 0;
+#X msg 110 613 @ipc;
+#X text 245 613 Get/Set path to IPC local socket. Type: symbol.;
+#X obj 20 652 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 657 cnv 5 73 26 empty empty methods: 4 10 0 14 -262144
+-49933 0;
+#X msg 110 692 fullscreen;
+#X text 245 692 set MPV fullscreen mode. Arguments are:;
+#X obj 255 715 cnv 1 31 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 715 [ON]: 1: switch to fullscreen mode \, 0: switch to
+window mode. Type: int. Allowed values: 0 \, 1\.;
+#X msg 110 755 load;
+#X text 245 755 load file. Arguments are:;
+#X obj 255 778 cnv 1 36 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 778 PATH: path to media file. Type: symbol.;
+#X msg 110 803 next;
+#X text 245 803 go to the next entry on the playlist. Arguments are:;
+#X obj 255 826 cnv 1 54 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 826 [FORCE]: 0: if the last file on the playlist is currently
+played \, do nothing. 1: terminate playback if there are no more files
+on the playlist. Type: int. Allowed values: 0 \, 1\.;
+#X msg 110 881 pause;
+#X text 245 881 resume/stop playing. Arguments are:;
+#X obj 255 904 cnv 1 54 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 904 [PAUSE]: 1: stop playing \, 0: resume playing. Type:
+int. Allowed values: 0 \, 1\.;
+#X msg 110 944 play;
+#X text 245 944 start play current file.;
+#X msg 110 971 prev;
+#X text 245 971 go to the previous entry on the playlist. Arguments
+are:;
+#X obj 255 994 cnv 1 54 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 994 [FORCE]: 0: if the first file on the playlist is currently
+played \, do nothing. 1: terminate playback if the first file is being
+played. Type: int. Allowed values: 0 \, 1\.;
+#X msg 110 1049 quit;
+#X text 245 1049 exit the player.;
+#X msg 110 1076 seek;
+#X text 245 1076 change the playback position. By default \, seeks
+by a relative amount of seconds. Arguments are:;
+#X obj 255 1114 cnv 1 47 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1114 [time]: *rel*: relative (default) \, seek relative
 to current position (a negative value seeks backwards). *abs*: absolute
 \, seek to a given time (a negative value starts from the end of the
 file). *percent* or *%*: seek to a given percent position. Type: symbol.
 Allowed values: rel \, abs \, percent \, %.;
-#X msg 110 645 stop;
-#X text 245 645 stop playback and clear playlist. With default settings
+#X msg 110 1199 stop;
+#X text 245 1199 stop playback and clear playlist. With default settings
 \, this is essentially like quit. Useful for the client API: playback
 can be stopped without terminating the player. Arguments are:;
-#X obj 255 698 cnv 1 93 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 698 [KEEP_PLIST]: if 1 - do not clear the playlist. Type:
+#X obj 255 1252 cnv 1 93 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1252 [KEEP_PLIST]: if 1 - do not clear the playlist. Type:
 int. Allowed values: 0 \, 1\.;
-#X obj 20 748 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 753 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
-0;
-#X text 110 754 1\.;
-#X text 245 754 commands.;
-#X obj 20 784 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 789 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
+#X msg 110 1292 text;
+#X text 245 1292 show OSD (on screen dispaly) text. Arguments are:;
+#X obj 255 1315 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1315 DUR: show time in milliseconds. Type: int.;
+#X obj 255 1338 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1338 TXT: text. Type: list.;
+#X obj 20 1373 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1378 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 790 1\.;
-#X text 245 790 mpv output.;
+#X text 110 1379 1\.;
+#X text 245 1379 commands.;
+#X obj 20 1409 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1414 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
+-49933 0;
+#X text 110 1415 1\.;
+#X text 245 1415 mpv output.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 115 45 ::;
 #X obj 131 48 ui.link @title proto @url ceammc.proto-help.pd;
-#X obj 1 840 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 843 library: ceammc v0.9.2;
-#N canvas 10 862 400 290 info 0;
+#X obj 1 1465 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1468 library: ceammc v0.9.2;
+#N canvas 10 1487 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
@@ -84,16 +136,17 @@ https://github.com/uliss/pure-data;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 generated by pddoc;
-#X restore 10 862 pd info;
-#X connect 5 0 6 0;
+#X restore 10 1487 pd info;
 #X connect 8 0 9 0;
-#X connect 9 0 12 0;
-#X connect 10 0 13 0;
-#X connect 12 0 18 0;
-#X connect 13 0 18 0;
-#X connect 14 0 18 0;
-#X connect 16 0 18 0;
-#X connect 17 0 18 0;
-#X connect 18 0 19 0;
-#X connect 11 0 18 0;
-#X connect 15 0 18 0;
+#X connect 11 0 12 0;
+#X connect 12 0 16 0;
+#X connect 13 0 17 0;
+#X connect 16 0 22 0;
+#X connect 17 0 22 0;
+#X connect 18 0 22 0;
+#X connect 20 0 22 0;
+#X connect 21 0 22 0;
+#X connect 22 0 23 0;
+#X connect 14 0 22 0;
+#X connect 19 0 22 0;
+#X connect 15 0 22 0;
