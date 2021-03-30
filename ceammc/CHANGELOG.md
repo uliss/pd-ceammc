@@ -1,6 +1,6 @@
 # CEAMMC external library changelog
 
-## [Unreleased]
+## [0.9.3]
 ### Added:
 - new objects:
   - flow.dollar (with flow.$$ alias) for dollar arg expand
