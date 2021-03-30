@@ -171,7 +171,7 @@ bool ArrayLoader::loadArrays(const sound::SoundFilePtr& file, bool redraw)
             t_word* vecs = reinterpret_cast<t_word*>(&arr.at(ARRAY_OFFSET));
             long read = file->read(vecs, SRC_LEN, channel, begin_, DEST_LEN);
 
-            if (read != DEST_LEN) {
+            if (read == 0) {
                 err() << fmt::format("can't read {} samples to array '{}'\n", DEST_LEN, name);
                 return false;
             }
