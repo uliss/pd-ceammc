@@ -160,6 +160,21 @@ void ProtoMpv::m_fullscreen(t_symbol* s, const AtomListView& lv)
     write(lv.boolAt(0, true) ? p_on : p_off);
 }
 
+void ProtoMpv::m_playlist(t_symbol* s, const AtomListView& lv)
+{
+    static ArgChecker args("s (s='replace'|s='append')?");
+    if (!args.check(lv)) {
+        METHOD_ERR(s) << "usage: PATH [replace|append]";
+        return;
+    }
+
+    constexpr const char* str = R"({ "command": ["loadlist", "%s", "%s"] })";
+
+    char buf[MAXPDSTRING];
+    snprintf(buf, sizeof(buf) - 1, str, lv.symbolAt(0, &s_)->s_name, lv.symbolAt(1, gensym("replace"))->s_name);
+    write(buf);
+}
+
 void ProtoMpv::m_prev(t_symbol* s, const AtomListView& lv)
 {
     constexpr const char* s_stop = R"({ "command": ["playlist-prev", "%s"] })";
@@ -238,4 +253,5 @@ void setup_proto_mpv()
     obj.addMethod("seek", &ProtoMpv::m_seek);
     obj.addMethod("text", &ProtoMpv::m_text);
     obj.addMethod("fullscreen", &ProtoMpv::m_fullscreen);
+    obj.addMethod("playlist", &ProtoMpv::m_playlist);
 }

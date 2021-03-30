@@ -38,6 +38,12 @@
             <method name="load">load file
             <param name="PATH" type="symbol" required="true">path to media file</param>
             </method>
+            <method name="playlist">load playlist
+            <param name="PATH" type="symbol" required="true">path to playlist file</param>
+            <param name="MODE" type="symbol" enum="replace append">replace:
+            stop playback and replace the internal playlist with the new one (default).
+            append: append the new playlist at the end of the current internal playlist</param>
+            </method>
             <method name="next">go to the next entry on the playlist.
             <param name="FORCE" type="int" enum="0 1">0: if the last file on the playlist is currently played, do nothing.
             1: terminate playback if there are no more files on the playlist</param>
@@ -84,9 +90,9 @@
 |
 [openpanel] [T]        [quit #a( [text 3000 A simple OSD title #c(
 |           |
-[load $1(   [pause $1( [stop(    [play #b(
-|           |          |
-|           |          |  [seek 10 rel( [seek -10 rel(
+[load $1(   [pause $1( [stop(    [play #b(             [T]
+|           |          |                               |
+|           |          |  [seek 10 rel( [seek -10 rel( [fullscreen $1 #d(
 |           |          |  |             |
 [proto.mpv /tmp/mpvsocket             #x]
 |
@@ -95,6 +101,7 @@
 [X a->x]
 [X b->x]
 [X c->x]
+[X d->x]
 ]]>
             </pdascii>
         </example>

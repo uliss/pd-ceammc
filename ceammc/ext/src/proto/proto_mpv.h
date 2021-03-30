@@ -43,6 +43,7 @@ public:
     void m_seek(t_symbol* s, const AtomListView& lv);
     void m_text(t_symbol* s, const AtomListView& lv);
     void m_fullscreen(t_symbol* s, const AtomListView& lv);
+    void m_playlist(t_symbol* s, const AtomListView& lv);
 
     void onDataT(const DictAtom& dict);
 

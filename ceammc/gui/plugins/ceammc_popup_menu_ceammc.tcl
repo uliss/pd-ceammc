@@ -171,7 +171,7 @@
         prop.split
     }}
     {proto {
-        proto.firmata proto.midi proto.sp.alpaca proto.xtouch_ext
+        proto.firmata proto.midi proto.mpv proto.sp.alpaca proto.xtouch_ext
     }}
     {random {
         random.atom random.discrete random.float random.gauss random.int
