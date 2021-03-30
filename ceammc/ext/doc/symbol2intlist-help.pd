@@ -13,7 +13,7 @@
 #X msg 146 118 АБВГД;
 #X obj 50 147 symbol;
 #X obj 50 176 symbol2intlist;
-#X obj 50 205 ui.d @display_type 1;
+#X obj 50 205 ui.dt;
 #X obj 20 254 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 259 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
 0;

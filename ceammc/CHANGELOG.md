@@ -5,6 +5,8 @@
 - new properties:
   - @select_ms, @select_sec, @select_phase and @select_samp to array.play~
     to make possible direct connection of ui.aview with array.play~
+- new aliases:
+  - str->any and string2any for symbol2any (string support added)
     
 ### Changed:
 - properties:

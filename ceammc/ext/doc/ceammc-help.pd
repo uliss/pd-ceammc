@@ -1327,7 +1327,7 @@ harmonics;
 #X obj 30 18202 symbol.num_compare;
 #X text 200 18202 numeric symbol compare;
 #X obj 30 18229 symbol2any;
-#X text 200 18229 converts symbol to message;
+#X text 200 18229 converts symbol or string to message;
 #X obj 30 18256 symbol2intlist;
 #X text 200 18256 converts symbol to list of character codes;
 #X obj 20 18283 cnv 5 57 31 empty empty synth 4 13 0 17 -262144 -49933

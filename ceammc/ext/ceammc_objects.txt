@@ -124,7 +124,6 @@ ceammc/cdiv~
 ceammc/cexp~
 ceammc/click~
 ceammc/cmul~
-ceammc/counter
 ceammc/dbfs->amp
 ceammc/dbfs->amp~
 ceammc/degree->key
@@ -220,9 +219,11 @@ ceammc/sig->float~
 ceammc/speedlim
 ceammc/split
 ceammc/str
+ceammc/str->any
 ceammc/str->sec
 ceammc/str->sym
 ceammc/string
+ceammc/string2any
 ceammc/string2symbol
 ceammc/sym->any
 ceammc/sym->ilist
@@ -263,6 +264,7 @@ conv.cc2amp
 conv.dbfs2amp
 conv.dbfs2amp~
 conv.degree2key
+conv.dollar
 conv.hex2int
 conv.int2bits
 conv.lin2curve
@@ -288,7 +290,6 @@ conv.sec2samp
 conv.sec2str
 conv.sig2float~
 conv.str2sec
-counter
 data.copy
 data.dict
 data.fifo
@@ -784,6 +785,7 @@ ms->samp
 ms->samp~
 msg
 msg.after
+msg.dollar
 msg.onload
 mux2~
 mux~
@@ -884,6 +886,7 @@ proto.firmata
 proto.hui
 proto.midi
 proto.midi.sysex
+proto.mpv
 proto.sp.alpaca
 proto.xtouch_ext
 rad->phase
@@ -946,6 +949,7 @@ speech.flite~
 speedlim
 split
 str
+str->any
 str->sec
 str->sym
 str.contains
@@ -973,6 +977,7 @@ string.replace
 string.split
 string.starts_with
 string.substr
+string2any
 string2symbol
 sym->any
 sym->ilist

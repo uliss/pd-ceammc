@@ -9,7 +9,7 @@
 #X obj 30 170 symbol.num_compare;
 #X text 200 170 numeric symbol compare;
 #X obj 30 197 symbol2any;
-#X text 200 197 converts symbol to message;
+#X text 200 197 converts symbol or string to message;
 #X obj 30 224 symbol2intlist;
 #X text 200 224 converts symbol to list of character codes;
 #X obj 1 1 cnv 5 740 40 empty empty ceammc::symbol 20 20 0 20 -104026

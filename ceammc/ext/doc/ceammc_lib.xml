@@ -1848,7 +1848,7 @@
     <entry name="symbol.num_compare" descr="numeric symbol compare" ref_view="object">
       <xi:include href="symbol.num_compare.pddoc" parse="xml"/>
     </entry>
-    <entry name="symbol2any" descr="converts symbol to message" ref_view="object">
+    <entry name="symbol2any" descr="converts symbol or string to message" ref_view="object">
       <xi:include href="symbol2any.pddoc" parse="xml"/>
     </entry>
     <entry name="symbol2intlist" descr="converts symbol to list of character codes" ref_view="object">

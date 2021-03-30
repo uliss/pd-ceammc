@@ -977,10 +977,11 @@ str->sym	converts string to symbol
 symbol.equal	check symbols for equality
 symbol.length	number of characters in symbol (unicode supported)
 symbol.num_compare	numeric symbol compare
-symbol2any	converts symbol to message
-ceammc/symbol2any	converts symbol to message
-ceammc/sym->any	converts symbol to message
-sym->any	converts symbol to message
+symbol2any	converts symbol or string to message
+ceammc/symbol2any	converts symbol or string to message
+ceammc/sym->any	converts symbol or string to message
+sym->any	converts symbol or string to message
+str->any	converts symbol or string to message
 symbol2intlist	converts symbol to list of character codes
 ceammc/symbol2intlist	converts symbol to list of character codes
 ceammc/sym->ilist	converts symbol to list of character codes

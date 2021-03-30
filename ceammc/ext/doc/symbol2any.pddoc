@@ -6,7 +6,7 @@
             <authors>
                 <author>Serge Poltavsky</author>
             </authors>
-            <description>converts symbol to message</description>
+            <description>converts symbol or string to message</description>
             <license>GPL3 or later</license>
             <library>ceammc</library>
             <category>symbol</category>
@@ -16,11 +16,13 @@
                 <alias>ceammc/symbol2any</alias>
                 <alias>ceammc/sym-&gt;any</alias>
                 <alias>sym-&gt;any</alias>
+                <alias>str-&gt;any</alias>
             </aliases>
         </meta>
         <inlets>
             <inlet>
                 <xinfo on="symbol">symbol</xinfo>
+                <xinfo on="data:string">string</xinfo>
             </inlet>
         </inlets>
         <outlets>
@@ -29,6 +31,8 @@
         <example>
             <pdascii>
 <![CDATA[
+/* enter some words separated with spaces */
+
 [S digits=40]
 |
 [sym->any]

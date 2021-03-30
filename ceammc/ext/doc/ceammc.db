@@ -582,7 +582,7 @@ string2symbol,ceammc/string2symbol,ceammc/str->sym,str->sym		.		.
 symbol.equal		..		.
 symbol.length		.		.
 symbol.num_compare		..		.
-symbol2any,ceammc/symbol2any,ceammc/sym->any,sym->any		.		.
+symbol2any,ceammc/symbol2any,ceammc/sym->any,sym->any,str->any		.		.
 symbol2intlist,ceammc/symbol2intlist,ceammc/sym->ilist,sym->ilist		.		.
 sync,ceammc/sync		?		?
 synth.bee3~		.		~
