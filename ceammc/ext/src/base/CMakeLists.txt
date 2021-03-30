@@ -69,6 +69,6 @@ target_compile_definitions(ceammc_base PUBLIC -DWITH_SND_FILE)
 target_sources(ceammc_base PRIVATE snd_file.cpp)
 target_include_directories(ceammc_base PRIVATE "$<TARGET_PROPERTY:fmt,INCLUDE_DIRECTORIES>")
 
-# separate extension:
+# separate external:
 # because it use CEAMMC Pd API
 ceammc_cxx_extension(debug gensym)
