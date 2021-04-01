@@ -14,6 +14,20 @@ if(WITH_FLUIDSYNTH)
     target_sources(ceammc_misc PRIVATE fluid.cpp)
 endif()
 
+find_package(PkgConfig QUIET)
+
+if(WITH_SFIZZ)
+    pkg_check_modules(SFIZZ "sfizz" REQUIRED)
+else()
+    pkg_check_modules(SFIZZ "sfizz")
+endif()
+
+if(SFIZZ_FOUND)
+    target_include_directories(ceammc_misc PRIVATE ${SFIZZ_INCLUDE_DIRS})
+    target_link_libraries(ceammc_misc PUBLIC ${SFIZZ_LIBRARIES})
+    target_sources(ceammc_misc PRIVATE sfizz_tilde.cpp)
+endif()
+
 if(WITH_MODPLUG)
     find_package(ModPlug REQUIRED)
     target_include_directories(ceammc_misc PRIVATE ${MODPLUG_INCLUDES})
