@@ -48,7 +48,7 @@
         <methods>
             <method name="note">play note (CHANNEL, KEY, VELOCITY or KEY, VELOCITY
             expected)</method>
-            <method name="cc">control change (CHANNEL, KEY, VALUE or KEY, VALUE expected)</method>
+            <method name="cc">control change (CHANNEL, CCNUM, VALUE or CCNUM, VALUE expected)</method>
             <method name="prog">program change (CHANNEL, PROGRAM expected)</method>
             <method name="bank">set instrument bank number on a MIDI channel (CHANNEL, BANK
             expected)</method>
