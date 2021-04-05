@@ -14,6 +14,7 @@ ceammc_path_external(dirname)
 ceammc_path_external(exists)
 ceammc_path_external(is_dir)
 ceammc_path_external(listdir)
+ceammc_path_external(normalize)
 ceammc_path_external(search)
 
 
