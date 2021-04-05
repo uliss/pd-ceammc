@@ -16,5 +16,6 @@ ceammc_path_external(is_dir)
 ceammc_path_external(listdir)
 ceammc_path_external(normalize)
 ceammc_path_external(search)
+ceammc_path_external(split)
 
 
