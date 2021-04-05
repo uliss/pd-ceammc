@@ -14,6 +14,8 @@
 #ifndef FILE_SIZE_H
 #define FILE_SIZE_H
 
+#include "ceammc_data.h"
+#include "datatype_string.h"
 #include "path_async_base.h"
 using namespace ceammc;
 
@@ -23,6 +25,7 @@ class FileSize : public PathAsyncBase<int> {
 public:
     FileSize(const PdArgs& args);
     void onSymbol(t_symbol* s) override;
+    void onDataT(const StringAtom& s);
 
 private:
     void processResult() override;

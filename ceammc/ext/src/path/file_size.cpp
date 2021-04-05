@@ -14,6 +14,9 @@
 #include "file_size.h"
 #include "ceammc_factory.h"
 
+#include "filesystem.hpp"
+namespace fs = ghc::filesystem;
+
 FileSize::FileSize(const PdArgs& args)
     : PathAsyncBase(args)
 {
@@ -23,6 +26,12 @@ FileSize::FileSize(const PdArgs& args)
 void FileSize::onSymbol(t_symbol* s)
 {
     file_ = s->s_name;
+    runTask();
+}
+
+void FileSize::onDataT(const StringAtom& s)
+{
+    file_ = s->str();
     runTask();
 }
 
@@ -36,9 +45,9 @@ FileSize::FutureResult FileSize::createTask()
     return std::async(
         taskLaunchType(),
         [](const std::string& path) -> int {
-            path::DataTypePath p(path);
-            if (p.is_regular_file())
-                return p.file_size();
+            fs::path p(path);
+            if (fs::is_regular_file(p))
+                return fs::file_size(p);
 
             throw std::runtime_error("can't get file size: " + path);
         },
@@ -48,4 +57,5 @@ FileSize::FutureResult FileSize::createTask()
 void setup_file_size()
 {
     ObjectFactory<FileSize> obj("file.size");
+    obj.processData<DataTypeString>();
 }

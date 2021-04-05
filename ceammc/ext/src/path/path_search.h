@@ -14,10 +14,11 @@
 #ifndef PATH_SEARCH_H
 #define PATH_SEARCH_H
 
+#include "ceammc_data.h"
 #include "path_async_base.h"
 using namespace ceammc;
 
-class PathSearch : public PathAsyncBase<path::DataTypePath> {
+class PathSearch : public PathAsyncBase<std::string> {
     ListProperty* paths_;
     BoolProperty* recursive_;
     std::atomic_bool search_stop_;
@@ -28,7 +29,7 @@ public:
     ~PathSearch();
 
     void onSymbol(t_symbol* s) override;
-    void onDataT(const PathAtom& a);
+    void onDataT(const StringAtom& a);
 
 private:
     void processResult() override;

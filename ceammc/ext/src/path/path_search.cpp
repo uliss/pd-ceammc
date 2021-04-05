@@ -15,6 +15,7 @@
 #include "ceammc_canvas.h"
 #include "ceammc_factory.h"
 #include "ceammc_platform.h"
+#include "datatype_string.h"
 
 #include <exception>
 #include <iostream>
@@ -23,15 +24,16 @@ extern "C" {
 #include "s_stuff.h"
 }
 
-static path::DataTypePath searchFileTask(
+#include "filesystem.hpp"
+namespace fs = ghc::filesystem;
+
+static std::string searchFileTask(
     const std::vector<std::string>& user_paths,
     const std::vector<std::string>& sys_paths,
     const std::string& file,
     bool recursive,
     std::atomic_bool& quit)
 {
-    namespace fs = ghc::filesystem;
-
     std::vector<std::string> relative_user_paths;
 
     for (auto& p : user_paths) {
@@ -48,7 +50,7 @@ static path::DataTypePath searchFileTask(
 
             if (fs::exists(fpath)) {
                 std::cerr << "found in user: " << fpath << "\n";
-                return path::DataTypePath(fpath);
+                return fpath.string();
             } else if (recursive) {
                 for (auto& entry : fs::recursive_directory_iterator(user_path)) {
                     if (quit)
@@ -62,7 +64,7 @@ static path::DataTypePath searchFileTask(
                     std::cerr << "trying user recursive path: " << fpath << "\n";
                     if (fs::exists(fpath)) {
                         std::cerr << "found in user resursive: " << fpath << "\n";
-                        return path::DataTypePath(fpath);
+                        return fpath.string();
                     }
                 }
             }
@@ -84,7 +86,7 @@ static path::DataTypePath searchFileTask(
 
             if (ghc::filesystem::exists(path)) {
                 std::cerr << "found in standard: " << path << "\n";
-                return path::DataTypePath(path);
+                return path.string();
             } else if (relative_user_paths.size() > 0) {
                 for (const auto& rpath : relative_user_paths) {
                     ghc::filesystem::path path(p);
@@ -93,7 +95,7 @@ static path::DataTypePath searchFileTask(
 
                     if (ghc::filesystem::exists(path)) {
                         std::cerr << "found in relative: " << path << "\n";
-                        return path::DataTypePath(path);
+                        return path.string();
                     }
                 }
             }
@@ -131,9 +133,9 @@ void PathSearch::onSymbol(t_symbol* s)
     runTask();
 }
 
-void PathSearch::onDataT(const PathAtom& a)
+void PathSearch::onDataT(const StringAtom& a)
 {
-    needle_ = a->toString();
+    needle_ = a->str();
     runTask();
 }
 
@@ -143,7 +145,7 @@ void PathSearch::processResult()
         OBJ_ERR << "file not found";
         bangTo(1);
     } else {
-        symbolTo(0, gensym(result().toString().c_str()));
+        symbolTo(0, gensym(result().c_str()));
     }
 }
 
@@ -194,5 +196,5 @@ void setup_path_search()
     ObjectFactory<PathSearch> obj("path.search");
     obj.parseArgsMode(PdArgs::PARSE_UNQUOTE);
     obj.parsePosProps(PdArgs::PARSE_UNQUOTE);
-    obj.processData<path::DataTypePath>();
+    obj.processData<DataTypeString>();
 }
