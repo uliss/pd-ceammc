@@ -1,14 +1,19 @@
-include_directories(${CMAKE_BINARY_DIR})
-set(PATH_SOURCES "")
+add_library(ceammc_path STATIC
+    mod_path.cpp
+    datatype_path.cpp
+    file_size.cpp
+)
+target_include_directories(ceammc_path PRIVATE ${CMAKE_BINARY_DIR})
 
-macro(ceammc_path_extension name)
-    list(APPEND PATH_SOURCES "path_${name}.cpp")
-endmacro()
+function(ceammc_path_external name)
+    target_sources(ceammc_path PRIVATE "path_${name}.cpp")
+endfunction()
 
-ceammc_path_extension(exists)
-ceammc_path_extension(dirname)
-ceammc_path_extension(basename)
-ceammc_path_extension(listdir)
-ceammc_path_extension(is_dir)
+ceammc_path_external(basename)
+ceammc_path_external(dirname)
+ceammc_path_external(exists)
+ceammc_path_external(is_dir)
+ceammc_path_external(listdir)
+ceammc_path_external(search)
 
-add_library(ceammc_path STATIC mod_path.cpp ${PATH_SOURCES})
+
