@@ -19,6 +19,8 @@
 using namespace ceammc;
 
 class LoadMsg : public BaseObject {
+    AtomList raw_args_;
+
 public:
     LoadMsg(const PdArgs& args);
     void output();
@@ -27,6 +29,9 @@ public:
     void onLoadBang() override;
 
     virtual void doOutput(const AtomListView& lv);
+
+private:
+    void realizeDollars();
 };
 
 void setup_load_msg();
