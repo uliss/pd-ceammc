@@ -720,7 +720,7 @@ void XTouchExtender::m_lcd_upper(t_symbol* s, const AtomListView& lv)
 
     const auto ch = getLogicChannel(lv);
     if (ch < 0) {
-        METHOD_ERR(s) << "invalid channel: " << lv[0];
+        METHOD_ERR(s) << "invalid scene channel: " << lv[0];
         return;
     }
 
@@ -737,7 +737,7 @@ void XTouchExtender::m_lcd_lower(t_symbol* s, const AtomListView& lv)
 
     const auto ch = getLogicChannel(lv);
     if (ch < 0) {
-        METHOD_ERR(s) << "invalid channel: " << lv[0];
+        METHOD_ERR(s) << "invalid scene channel: " << lv[0];
         return;
     }
 
@@ -754,7 +754,7 @@ void XTouchExtender::m_lcd(t_symbol* s, const AtomListView& lv)
 
     const auto ch = getLogicChannel(lv);
     if (ch < 0) {
-        METHOD_ERR(s) << "invalid channel: " << lv[0];
+        METHOD_ERR(s) << "invalid scene channel: " << lv[0];
         return;
     }
 
@@ -815,7 +815,7 @@ void XTouchExtender::m_lcd_upper_enum(t_symbol* s, const AtomListView& lv)
     char buf[12];
 
     for (int i = 0; i < numLogicChannels(); i++) {
-        snprintf(buf, sizeof(buf)-1, "%s%d", prefix->s_name, i);
+        snprintf(buf, sizeof(buf) - 1, "%s%d", prefix->s_name, i);
         display(i).setUpperText(buf);
         syncLogicDisplay(i);
     }
@@ -827,7 +827,7 @@ void XTouchExtender::m_lcd_lower_enum(t_symbol* s, const AtomListView& lv)
     char buf[12];
 
     for (int i = 0; i < numLogicChannels(); i++) {
-        snprintf(buf, sizeof(buf)-1, "%s%d", prefix->s_name, i);
+        snprintf(buf, sizeof(buf) - 1, "%s%d", prefix->s_name, i);
         display(i).setLowerText(buf);
         syncLogicDisplay(i);
     }
@@ -988,7 +988,7 @@ void XTouchExtender::m_apply_fn(t_symbol* s, const AtomListView& lv, std::functi
     } else {
         const auto ch = getLogicChannel(lv);
         if (ch < 0) {
-            METHOD_ERR(s) << "invalid channel: " << lv[0];
+            METHOD_ERR(s) << "invalid scene channel: " << lv[0];
             return;
         }
 
@@ -1002,7 +1002,7 @@ void XTouchExtender::m_apply_fn(t_symbol* s, const AtomListView& lv, std::functi
 
             // idx >= 0
             const auto idx = ch + i - 1;
-            fn(calcLogicIdx(idx), lv[i]);
+            fn(idx, lv[i]);
         }
     }
 }
