@@ -625,14 +625,16 @@ class lfo_saw_pos : public lfo_saw_pos_dsp {
 	virtual void compute(int count, FAUSTFLOAT** inputs, FAUSTFLOAT** outputs) {
 		FAUSTFLOAT* input0 = inputs[0];
 		FAUSTFLOAT* output0 = outputs[0];
-		float fSlow0 = float((1 - (2 * (float(fCheckbox0) > 0.5f))));
-		int iSlow1 = ((float(fCheckbox1) > 0.5f) == 0);
-		float fSlow2 = float(fHslider0);
+		int iSlow0 = (float(fCheckbox0) > 0.5f);
+		float fSlow1 = float((iSlow0 == 1));
+		float fSlow2 = float(((2 * (iSlow0 == 0)) + -1));
+		int iSlow3 = ((float(fCheckbox1) > 0.5f) == 0);
+		float fSlow4 = float(fHslider0);
 		for (int i = 0; (i < count); i = (i + 1)) {
 			float fTemp0 = float(input0[i]);
 			float fTemp1 = ((fTemp0 == 0.0f) ? 3.40282347e+38f : (fConst0 / fTemp0));
-			fRec0[0] = std::fmod((fRec0[1] + float((iSlow1 * ((2 * (fTemp1 >= 0.0f)) + -1)))), fTemp1);
-			output0[i] = FAUSTFLOAT((0.5f * ((fSlow0 * ((2.0f * std::fmod(((std::fmod((fRec0[0] + (fSlow2 * fTemp1)), fTemp1) / std::fabs(fTemp1)) + 2.0f), 1.0f)) + -1.0f)) + 1.0f)));
+			fRec0[0] = std::fmod((fRec0[1] + float((iSlow3 * ((2 * (fTemp1 >= 0.0f)) + -1)))), fTemp1);
+			output0[i] = FAUSTFLOAT((fSlow1 + (fSlow2 * std::fmod(((std::fmod((fRec0[0] + (fSlow4 * fTemp1)), fTemp1) / std::fabs(fTemp1)) + 2.0f), 1.0f))));
 			fRec0[1] = fRec0[0];
 		}
 	}

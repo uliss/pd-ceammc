@@ -28,11 +28,8 @@ with {
     saw = lfo_saw_raw(period_samp, init_samp, pause_bool) : norm;
 };
 
-lfo_saw(freq_hz, init_phase, pause_bool) = saw
-with {
-    saw = lfo_saw_raw(period_samp, init_phase, pause_bool);
-    period_samp = float(ma.SR)/freq_hz;
-    init_samp = period_samp * init_phase;
+lfo_saw(freq_hz, init_phase, pause_bool) = lfo_saw_pos(freq_hz, init_phase, pause_bool) : lin2lin(0, 1, -1, 1);
 
-};
+invert(toggle) = *((toggle==0)*2 - 1);
 
+invert_pos(toggle) = *((toggle==0)*2 - 1) : +(toggle==1);
