@@ -73,6 +73,7 @@
 ]]>
             </pdascii>
             <pdascii id="syntax">
+<![CDATA[
 /***general***/
 
 /*`  - escape symbol (instead of \\) */
@@ -81,7 +82,7 @@
 
 /***kinds of single-character expressions***/
 
-/*any character:           */ 	    /*.*/
+/*any character:           */       /*.*/
 /*character class:         */       /*[xyz]*/
 /*negated character class: */       /*[^xyz]*/
 /*Perl character class:    */       /*`d*/
@@ -118,7 +119,7 @@
 
 /*`*           */   /*literal *, for any punctuation character * */
 /*`123         */   /*octal character code (up to three digits)  */
-/*`x7F 	       */   /*hex character code (exactly two digits)    */
+/*`x7F         */   /*hex character code (exactly two digits)    */
 /*`x((10FFFF)) */   /*hex character code*/
 
 /***perl character classes (all ASCII-only)***/
@@ -129,6 +130,7 @@
 /*`S */             /*not whitespace                             */
 /*`w */             /*word characters (≡ [0-9A-Za-z_])           */
 /*`W */             /*not word characters (≡ [^0-9A-Za-z_])      */
+]]>
             </pdascii>
         </example>
     </object>
