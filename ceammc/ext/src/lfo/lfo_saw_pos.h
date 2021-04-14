@@ -633,8 +633,13 @@ class lfo_saw_pos : public lfo_saw_pos_dsp {
 		for (int i = 0; (i < count); i = (i + 1)) {
 			float fTemp0 = float(input0[i]);
 			float fTemp1 = ((fTemp0 == 0.0f) ? 3.40282347e+38f : (fConst0 / fTemp0));
-			fRec0[0] = std::fmod((fRec0[1] + float((iSlow3 * ((2 * (fTemp1 >= 0.0f)) + -1)))), fTemp1);
-			output0[i] = FAUSTFLOAT((fSlow1 + (fSlow2 * std::fmod(((std::fmod((fRec0[0] + (fSlow4 * fTemp1)), fTemp1) / std::fabs(fTemp1)) + 2.0f), 1.0f))));
+			float fTemp2 = (fRec0[1] + float((iSlow3 * ((2 * (fTemp1 >= 0.0f)) + -1))));
+			float fTemp3 = std::fabs(fTemp1);
+			float fTemp4 = float((fTemp2 < 0.0f));
+			fRec0[0] = (fTemp2 + (fTemp3 * (fTemp4 - float(((fTemp2 + (fTemp3 * fTemp4)) >= fTemp3)))));
+			float fTemp5 = (fRec0[0] + (fSlow4 * fTemp1));
+			float fTemp6 = float((fTemp5 < 0.0f));
+			output0[i] = FAUSTFLOAT((fSlow1 + (fSlow2 * std::fmod(((fTemp5 + (fTemp3 * (fTemp6 - float(((fTemp5 + (fTemp3 * fTemp6)) >= fTemp3))))) / fTemp3), 1.0f))));
 			fRec0[1] = fRec0[0];
 		}
 	}

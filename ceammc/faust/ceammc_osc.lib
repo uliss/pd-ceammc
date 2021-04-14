@@ -6,14 +6,20 @@ ba = library("basics.lib");
 
 lin2lin(x0, x1, y0, y1) = _ : (-(x0)) / (x1 - x0) * (y1 - y0) + y0;
 
-// range [0..period_samp)
-lfo_saw_raw(period_samp, init_samp, pause_bool) = ((_,period_samp : fmod) ~ step) : +(init_samp) : wrap with {
+// range [0..abs(period_samp))
+lfo_saw_raw(period_samp, init_samp, pause_bool) = ((_ : wrap_both) ~ step) : +(init_samp) : wrap_both with {
     is_playing = (pause_bool == 0);
-    dir = ((period_samp >= 0)*2) - 1;
-    incr = (is_playing) * dir;
+    is_pos = period_samp >= 0;
+    is_neg = period_samp < 0;
+    dir = (is_pos*2) - 1; // 1 or -1
+    incr = (is_playing) * dir; // 1, 0 or -1
 
     step = +(incr);
-    wrap = _,period_samp : fmod;
+    abs_period = abs(period_samp); // >= 0
+
+    wrap_zero(v) = v + (abs_period*(v<0)); // keep >= 0
+    wrap_max(v) = v - (abs_period*(v>=abs_period)); // keep < abs_period
+    wrap_both = wrap_zero : wrap_max; // keep in [0..abs_period)
 };
 
 lfo_saw_pos(freq_hz, init_phase, pause_bool) = saw
@@ -23,9 +29,7 @@ with {
     period_samp = ba.if(zero_freq, ma.INFINITY, float(ma.SR)/freq_hz);
     init_samp = period_samp * init_phase;
 
-    norm = /(abs(period_samp)) : +(2) : (_,1:fmod);
-
-    saw = lfo_saw_raw(period_samp, init_samp, pause_bool) : norm;
+    saw = lfo_saw_raw(period_samp, init_samp, pause_bool) / abs(period_samp) : (_,1) : fmod;
 };
 
 lfo_saw(freq_hz, init_phase, pause_bool) = lfo_saw_pos(freq_hz, init_phase, pause_bool) : lin2lin(0, 1, -1, 1);
