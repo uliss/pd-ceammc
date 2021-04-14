@@ -515,17 +515,16 @@ class lfo_square_pos : public lfo_square_pos_dsp {
 	
  private:
 	
-	FAUSTFLOAT fCheckbox0;
+	FAUSTFLOAT fHslider0;
+	float fVec0[2];
 	int fSampleRate;
 	float fConst0;
+	FAUSTFLOAT fCheckbox0;
 	float fRec0[2];
-	FAUSTFLOAT fHslider0;
 	
  public:
 	
 	void metadata(Meta* m) { 
-		m->declare("basics.lib/name", "Faust Basic Element Library");
-		m->declare("basics.lib/version", "0.1");
 		m->declare("ceammc_osc.lib/name", "CEAMMC faust oscillators");
 		m->declare("ceammc_osc.lib/version", "0.1");
 		m->declare("compile_options", "-lang cpp -es 1 -scal -ftz 0");
@@ -580,17 +579,20 @@ class lfo_square_pos : public lfo_square_pos_dsp {
 	
 	virtual void instanceConstants(int sample_rate) {
 		fSampleRate = sample_rate;
-		fConst0 = std::min<float>(192000.0f, std::max<float>(1.0f, float(fSampleRate)));
+		fConst0 = (1.0f / std::min<float>(192000.0f, std::max<float>(1.0f, float(fSampleRate))));
 	}
 	
 	virtual void instanceResetUserInterface() {
-		fCheckbox0 = FAUSTFLOAT(0.0f);
 		fHslider0 = FAUSTFLOAT(0.0f);
+		fCheckbox0 = FAUSTFLOAT(0.0f);
 	}
 	
 	virtual void instanceClear() {
 		for (int l0 = 0; (l0 < 2); l0 = (l0 + 1)) {
-			fRec0[l0] = 0.0f;
+			fVec0[l0] = 0.0f;
+		}
+		for (int l1 = 0; (l1 < 2); l1 = (l1 + 1)) {
+			fRec0[l1] = 0.0f;
 		}
 	}
 	
@@ -622,18 +624,14 @@ class lfo_square_pos : public lfo_square_pos_dsp {
 	virtual void compute(int count, FAUSTFLOAT** inputs, FAUSTFLOAT** outputs) {
 		FAUSTFLOAT* input0 = inputs[0];
 		FAUSTFLOAT* output0 = outputs[0];
-		int iSlow0 = ((float(fCheckbox0) > 0.5f) == 0);
-		float fSlow1 = float(fHslider0);
+		float fSlow0 = float(fHslider0);
+		float fSlow1 = (fConst0 * float(((float(fCheckbox0) > 0.5f) == 0)));
 		for (int i = 0; (i < count); i = (i + 1)) {
-			float fTemp0 = float(input0[i]);
-			float fTemp1 = ((fTemp0 == 0.0f) ? 3.40282347e+38f : (fConst0 / fTemp0));
-			float fTemp2 = (fRec0[1] + float((iSlow0 * ((2 * (fTemp1 >= 0.0f)) + -1))));
-			float fTemp3 = std::fabs(fTemp1);
-			float fTemp4 = float((fTemp2 < 0.0f));
-			fRec0[0] = (fTemp2 + (fTemp3 * (fTemp4 - float(((fTemp2 + (fTemp3 * fTemp4)) >= fTemp3)))));
-			float fTemp5 = (fRec0[0] + (fSlow1 * fTemp1));
-			float fTemp6 = float((fTemp5 < 0.0f));
-			output0[i] = FAUSTFLOAT(float((std::fmod(((fTemp5 + (fTemp3 * (fTemp6 - float(((fTemp5 + (fTemp3 * fTemp6)) >= fTemp3))))) / fTemp3), 1.0f) <= 0.5f)));
+			fVec0[0] = fSlow0;
+			float fTemp0 = (fRec0[1] + (fSlow1 * float(input0[i])));
+			fRec0[0] = (fSlow0 + (fTemp0 - (fVec0[1] + std::floor((fSlow0 + (fTemp0 - fVec0[1]))))));
+			output0[i] = FAUSTFLOAT(float((fRec0[0] <= 0.5f)));
+			fVec0[1] = fVec0[0];
 			fRec0[1] = fRec0[0];
 		}
 	}
