@@ -34,6 +34,14 @@ with {
 
 lfo_saw(freq_hz, init_phase, pause_bool) = lfo_saw_pos(freq_hz, init_phase, pause_bool) : lin2lin(0, 1, -1, 1);
 
+// pulse
+lfo_pulse_pos(freq, duty, init_phase, pause) = float(lfo_saw_pos(freq, init_phase, pause) <= duty);
+
+// square
+lfo_square_pos(freq, init_phase, pause) = lfo_pulse_pos(freq, 0.5, init_phase, pause);
+lfo_square(freq, init_phase, pause) = 2*lfo_square_pos(freq, init_phase, pause) - 1;
+
+
 invert(toggle) = *((toggle==0)*2 - 1);
 
 invert_pos(toggle) = *((toggle==0)*2 - 1) : +(toggle==1);
