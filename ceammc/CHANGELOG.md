@@ -3,7 +3,7 @@
 ## [Unreleased]
 ### Added:
 - loadmsg - dollar arg support added
-- lfo.+saw @phase and @pause properties added
+- lfo.+saw reset method added and @phase, @pause properties
 
 ## [0.9.3]
 ### Added:
