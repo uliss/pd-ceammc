@@ -1,5 +1,10 @@
 # CEAMMC external library changelog
 
+## [Unreleased]
+### Added:
+- loadmsg - dollar arg support added
+- lfo.+saw @phase and @pause properties added
+
 ## [0.9.3]
 ### Added:
 - new objects:
