@@ -3,8 +3,11 @@
 ## [Unreleased]
 ### Added:
 - loadmsg - dollar arg support added
-- lfo objects:
-  - lfo.+saw~, lfo.saw~, lfo.+tri~ reset method added and @phase, @pause properties
+- new properties:
+  - lfo.+saw~, lfo.saw~, lfo.+tri~: @phase and @pause properties added
+- new methods:
+  - seq.phasor: [phase( method added to set current phase
+  - lfo.+saw~, lfo.saw~, lfo.+tri~: [reset( method added to reset to initial phase value (@phase) 
 
 ## [0.9.3]
 ### Added:
