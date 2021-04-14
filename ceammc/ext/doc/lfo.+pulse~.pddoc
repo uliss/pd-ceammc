@@ -25,9 +25,16 @@
         <properties>
             <property name="@duty" type="float" minvalue="0" maxvalue="1" default="0.5">duty
             cycle</property>
+            <property name="@pause" type="int" enum="0 1" default="0">pause oscillator at current
+            value</property>
+            <property name="@phase" type="float" minvalue="0" maxvalue="1" default="0">initial
+            phase</property>
             <property name="@active" type="int" enum="0 1" default="1">on/off dsp
             processing</property>
         </properties>
+        <methods>
+            <method name="reset">reset to initial state</method>
+        </methods>
         <inlets>
             <inlet type="audio">
                 <xinfo>frequency in Hz</xinfo>
