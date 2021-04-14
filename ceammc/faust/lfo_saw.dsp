@@ -1,7 +1,12 @@
-import("stdfaust.lib");
+declare name "lfo.saw";
 
-process = zero_mean_saw with {
+osc = library("ceammc_osc.lib");
+ma = library("maths.lib");
+
+process(freq) = saw with {
+    pause = checkbox("pause") > 0.5;
+    init_phase = hslider("phase", 0, 0, 1, 0.001);
     iv = checkbox("invert") > 0.5;
-    iv1 = 1 - 2 * iv;
-    zero_mean_saw = os.lf_sawpos * 2 - 1 : * (iv1);
+
+    saw = osc.lfo_saw(freq, init_phase, pause) : osc.invert(iv);
 };

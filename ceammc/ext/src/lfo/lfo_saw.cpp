@@ -23,4 +23,6 @@ public:
 void setup_lfo_saw_tilde()
 {
     SoundExternalFactory<LfoSaw> obj("lfo.saw~");
+    obj.addMethod("reset", &LfoSaw::m_reset);
+    obj.setXletsInfo({ "freq in hz", "bang: reset phase" }, { "saw in \\[-1,+1\\] range" });
 }
