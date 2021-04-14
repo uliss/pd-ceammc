@@ -24,17 +24,24 @@
         <properties>
             <property name="@active" type="int" enum="0 1" default="1">on/off dsp
             processing</property>
+            <property name="@pause" type="int" enum="0 1" default="0">pause oscillator at current
+            value</property>
+            <property name="@phase" type="float" minvalue="0" maxvalue="1" default="0">initial
+            phase</property>
         </properties>
+        <methods>
+            <method name="reset">reset to initial state</method>
+        </methods>
         <inlets>
             <inlet type="audio">
-                <xinfo>frequency in Hz</xinfo>
+                <xinfo>frequency in Hz (can be negative or zero)</xinfo>
             </inlet>
             <inlet>
                 <xinfo on="bang">reset phase</xinfo>
             </inlet>
         </inlets>
         <outlets>
-            <outlet type="audio">triangle wave in [0-1] range</outlet>
+            <outlet type="audio">triangle wave in [0-1) range</outlet>
         </outlets>
         <example>
             <pdascii>
@@ -45,7 +52,7 @@
 |  ._______/
 [*~]
 |
-[ui.gain~ @size 120 14]  [ui.dsp~]
+[ui.hgain~]      [ui.dsp~]
 |\
 [dac~]
 ]]>
