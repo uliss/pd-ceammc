@@ -266,6 +266,7 @@ set(DOC_FILES
     lfo.+square~
     lfo.+tri~
     lfo.impulse~
+    lfo.mosc~
     lfo.saw~
     lfo.square~
     lfo.tri~

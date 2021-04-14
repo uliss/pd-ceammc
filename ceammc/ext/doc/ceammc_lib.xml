@@ -824,6 +824,9 @@
     <entry name="lfo.impulse~" descr="Unit-amplitude low-frequency impulse train" ref_view="object">
       <xi:include href="lfo.impulse~.pddoc" parse="xml"/>
     </entry>
+    <entry name="lfo.mosc~" descr="multi-oscillator with various waveforms" ref_view="object">
+      <xi:include href="lfo.mosc~.pddoc" parse="xml"/>
+    </entry>
     <entry name="lfo.pulse~" descr="Full-range unit-amplitude low frequency pulse train" ref_view="object">
       <xi:include href="lfo.pulse~.pddoc" parse="xml"/>
     </entry>

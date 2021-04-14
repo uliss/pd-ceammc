@@ -8,6 +8,7 @@ process(freq) = wave with {
     pause = checkbox("pause") > 0.5;
     init_phase = hslider("phase", 0, 0, 1, 0.001);
     duty = hslider("duty", 0.5, 0, 1, 0.01);
+    windex = nentry("windex", 0, 0, 10, 1);
 
     psin = osc.lfo_sin_pos(freq, init_phase, pause);
     psaw = osc.lfo_saw_pos(freq, init_phase, pause);
@@ -20,6 +21,6 @@ process(freq) = wave with {
     sqr = osc.lfo_square(freq, init_phase, pause);
     pulse = osc.lfo_pulse(freq, duty, init_phase, pause);
 
-    wave = ba.selectmulti(ma.SR/100, (wsin,saw,tri,sqr,pulse,psin,psaw,ptri,psqr,ppulse), nentry("wave", 0, 0, 10, 1));
+    wave = ba.selectmulti(ma.SR/20, (wsin,saw,tri,sqr,pulse,psin,psaw,ptri,psqr,ppulse), windex);
 };
 

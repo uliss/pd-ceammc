@@ -481,6 +481,7 @@ lfo.+saw~	Positive unit-amplitude low frequency saw wave
 lfo.+square~	Positive low frequency square wave
 lfo.+tri~	Positive unit-amplitude low frequency triangle wave
 lfo.impulse~	Unit-amplitude low-frequency impulse train
+lfo.mosc~	multi-oscillator with various waveforms
 lfo.pulse~	Full-range unit-amplitude low frequency pulse train
 lfo.saw~	Full-range unit-amplitude low frequency saw
 lfo.square~	Zero-mean unit-amplitude low frequency square wave

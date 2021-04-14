@@ -12,14 +12,16 @@
 #X text 200 197 Positive unit-amplitude low frequency triangle wave;
 #X obj 30 224 lfo.impulse~;
 #X text 200 224 Unit-amplitude low-frequency impulse train;
-#X obj 30 251 lfo.pulse~;
-#X text 200 251 Full-range unit-amplitude low frequency pulse train;
-#X obj 30 278 lfo.saw~;
-#X text 200 278 Full-range unit-amplitude low frequency saw;
-#X obj 30 305 lfo.square~;
-#X text 200 305 Zero-mean unit-amplitude low frequency square wave;
-#X obj 30 332 lfo.tri~;
-#X text 200 332 Zero-mean unit-amplitude low frequency triangle wave;
+#X obj 30 251 lfo.mosc~;
+#X text 200 251 multi-oscillator with various waveforms;
+#X obj 30 278 lfo.pulse~;
+#X text 200 278 Full-range unit-amplitude low frequency pulse train;
+#X obj 30 305 lfo.saw~;
+#X text 200 305 Full-range unit-amplitude low frequency saw;
+#X obj 30 332 lfo.square~;
+#X text 200 332 Zero-mean unit-amplitude low frequency square wave;
+#X obj 30 359 lfo.tri~;
+#X text 200 359 Zero-mean unit-amplitude low frequency triangle wave;
 #X obj 1 1 cnv 5 740 40 empty empty ceammc::lfo 20 20 0 20 -104026
 -4096 0;
 #X obj 1 513 cnv 5 740 40 empty empty empty 17 7 0 10 -203890 -1 0;

@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="lfo.mosc~">
+        <title>lfo.mosc~</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>multi-oscillator with various waveforms</description>
+            <license>GPL3 or later</license>
+            <library>ceammc</library>
+            <category>lfo</category>
+            <keywords>lfo oscillator</keywords>
+            <since>0.9.3</since>
+            <also>
+                <see>lfo.square~</see>
+                <see>lfo.saw~</see>
+            </also>
+        </meta>
+        <info>
+            <par>switching between waveforms is interpolated and takes 50ms.</par>
+        </info>
+        <arguments>
+            <argument name="freq" type="float" units="herz">frequency</argument>
+        </arguments>
+        <properties>
+            <property name="@duty" type="float" minvalue="0" maxvalue="1" default="0.5">duty
+            cycle for pulse waveform</property>
+            <property name="@pause" type="int" enum="0 1" default="0">pause oscillator at current
+            value</property>
+            <property name="@phase" type="float" minvalue="0" maxvalue="1" default="0">initial
+            phase</property>
+            <property name="@windex" type="int" minvalue="0" maxvalue="9" default="0">waveform index (counting from 0): sin,
+            saw, tri, sqr, pulse, +sin, +saw, +tri, +sqr, +pulse.</property>
+            <property name="@active" type="int" enum="0 1" default="1">on/off dsp
+            processing</property>
+        </properties>
+        <methods>
+            <method name="reset">reset to initial state</method>
+        </methods>
+        <inlets>
+            <inlet type="audio">
+                <xinfo>frequency in Hz</xinfo>
+            </inlet>
+            <inlet>
+                <xinfo on="bang">reset phase</xinfo>
+                <xinfo on="int">select waveform</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet type="audio">oscillator output</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[F]          [bang #c(     [ui.menu #b]
+|                          |
+|            [ui.hrd #d]   [@wave $2(
+|                          |
+[lfo.mosc~ 30 @duty 0.1  #z]
+|
+[ui.scope~]
+
+
+
+
+
+
+
+[ui.dsp~]
+#b sin saw tri sqr pulse +sin +saw +tri +sqr +pulse
+[X c->z:1]
+[X d->z:1]
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>
