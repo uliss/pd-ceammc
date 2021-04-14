@@ -1,0 +1,38 @@
+declare name "CEAMMC faust oscillators";
+declare version "0.1";
+
+ma = library("maths.lib");
+ba = library("basics.lib");
+
+lin2lin(x0, x1, y0, y1) = _ : (-(x0)) / (x1 - x0) * (y1 - y0) + y0;
+
+// range [0..period_samp)
+lfo_saw_raw(period_samp, init_samp, pause_bool) = ((_,period_samp : fmod) ~ step) : +(init_samp) : wrap with {
+    is_playing = (pause_bool == 0);
+    dir = ((period_samp >= 0)*2) - 1;
+    incr = (is_playing) * dir;
+
+    step = +(incr);
+    wrap = _,period_samp : fmod;
+};
+
+lfo_saw_pos(freq_hz, init_phase, pause_bool) = saw
+with {
+    zero_freq = (freq_hz == 0);
+    neg_freq = (freq_hz < 0);
+    period_samp = ba.if(zero_freq, ma.INFINITY, float(ma.SR)/freq_hz);
+    init_samp = period_samp * init_phase;
+
+    norm = /(abs(period_samp)) : +(2) : (_,1:fmod);
+
+    saw = lfo_saw_raw(period_samp, init_samp, pause_bool) : norm;
+};
+
+lfo_saw(freq_hz, init_phase, pause_bool) = saw
+with {
+    saw = lfo_saw_raw(period_samp, init_phase, pause_bool);
+    period_samp = float(ma.SR)/freq_hz;
+    init_samp = period_samp * init_phase;
+
+};
+

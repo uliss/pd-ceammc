@@ -1,5 +1,5 @@
 /* ------------------------------------------------------------
-name: "lfo_saw_pos"
+name: "lfo.saw_pos"
 Code generated with Faust 2.30.12 (https://faust.grame.fr)
 Compilation options: -lang cpp -es 1 -scal -ftz 0
 ------------------------------------------------------------ */
@@ -516,13 +516,19 @@ class lfo_saw_pos : public lfo_saw_pos_dsp {
  private:
 	
 	FAUSTFLOAT fCheckbox0;
+	FAUSTFLOAT fCheckbox1;
 	int fSampleRate;
 	float fConst0;
 	float fRec0[2];
+	FAUSTFLOAT fHslider0;
 	
  public:
 	
 	void metadata(Meta* m) { 
+		m->declare("basics.lib/name", "Faust Basic Element Library");
+		m->declare("basics.lib/version", "0.1");
+		m->declare("ceammc_osc.lib/name", "CEAMMC faust oscillators");
+		m->declare("ceammc_osc.lib/version", "0.1");
 		m->declare("compile_options", "-lang cpp -es 1 -scal -ftz 0");
 		m->declare("filename", "lfo_saw_pos.dsp");
 		m->declare("maths.lib/author", "GRAME");
@@ -530,9 +536,7 @@ class lfo_saw_pos : public lfo_saw_pos_dsp {
 		m->declare("maths.lib/license", "LGPL with exception");
 		m->declare("maths.lib/name", "Faust Math Library");
 		m->declare("maths.lib/version", "2.3");
-		m->declare("name", "lfo_saw_pos");
-		m->declare("oscillators.lib/name", "Faust Oscillator Library");
-		m->declare("oscillators.lib/version", "0.1");
+		m->declare("name", "lfo.saw_pos");
 		m->declare("platform.lib/name", "Generic Platform Library");
 		m->declare("platform.lib/version", "0.1");
 	}
@@ -577,11 +581,13 @@ class lfo_saw_pos : public lfo_saw_pos_dsp {
 	
 	virtual void instanceConstants(int sample_rate) {
 		fSampleRate = sample_rate;
-		fConst0 = (1.0f / std::min<float>(192000.0f, std::max<float>(1.0f, float(fSampleRate))));
+		fConst0 = std::min<float>(192000.0f, std::max<float>(1.0f, float(fSampleRate)));
 	}
 	
 	virtual void instanceResetUserInterface() {
 		fCheckbox0 = FAUSTFLOAT(0.0f);
+		fCheckbox1 = FAUSTFLOAT(0.0f);
+		fHslider0 = FAUSTFLOAT(0.0f);
 	}
 	
 	virtual void instanceClear() {
@@ -609,8 +615,10 @@ class lfo_saw_pos : public lfo_saw_pos_dsp {
 	}
 	
 	virtual void buildUserInterface(UI* ui_interface) {
-		ui_interface->openVerticalBox("lfo_saw_pos");
+		ui_interface->openVerticalBox("lfo.saw_pos");
 		ui_interface->addCheckButton("invert", &fCheckbox0);
+		ui_interface->addCheckButton("pause", &fCheckbox1);
+		ui_interface->addHorizontalSlider("phase", &fHslider0, 0.0f, 0.0f, 1.0f, 0.00100000005f);
 		ui_interface->closeBox();
 	}
 	
@@ -618,10 +626,13 @@ class lfo_saw_pos : public lfo_saw_pos_dsp {
 		FAUSTFLOAT* input0 = inputs[0];
 		FAUSTFLOAT* output0 = outputs[0];
 		float fSlow0 = float((1 - (2 * (float(fCheckbox0) > 0.5f))));
+		int iSlow1 = ((float(fCheckbox1) > 0.5f) == 0);
+		float fSlow2 = float(fHslider0);
 		for (int i = 0; (i < count); i = (i + 1)) {
-			float fTemp0 = (fRec0[1] + (fConst0 * float(input0[i])));
-			fRec0[0] = (fTemp0 - std::floor(fTemp0));
-			output0[i] = FAUSTFLOAT((0.5f * ((fSlow0 * ((2.0f * fRec0[0]) + -1.0f)) + 1.0f)));
+			float fTemp0 = float(input0[i]);
+			float fTemp1 = ((fTemp0 == 0.0f) ? 3.40282347e+38f : (fConst0 / fTemp0));
+			fRec0[0] = std::fmod((fRec0[1] + float((iSlow1 * ((2 * (fTemp1 >= 0.0f)) + -1)))), fTemp1);
+			output0[i] = FAUSTFLOAT((0.5f * ((fSlow0 * ((2.0f * std::fmod(((std::fmod((fRec0[0] + (fSlow2 * fTemp1)), fTemp1) / std::fabs(fTemp1)) + 2.0f), 1.0f)) + -1.0f)) + 1.0f)));
 			fRec0[1] = fRec0[0];
 		}
 	}
