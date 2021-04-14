@@ -189,6 +189,7 @@ ceammc/pan8~
 ceammc/pan~
 ceammc/pass
 ceammc/pass_if
+ceammc/path
 ceammc/phase->rad
 ceammc/phase->rad~
 ceammc/pi
@@ -215,6 +216,7 @@ ceammc/sec->str
 ceammc/seq
 ceammc/sequencer
 ceammc/set->list
+ceammc/sfizz~
 ceammc/sig->float~
 ceammc/speedlim
 ceammc/split
@@ -339,6 +341,7 @@ env2array
 env2vline
 envelope
 expand_env
+file.size
 flow.!
 flow.$$
 flow.'
@@ -523,6 +526,7 @@ lfo.+saw~
 lfo.+square~
 lfo.+tri~
 lfo.impulse~
+lfo.mosc~
 lfo.pulse~
 lfo.saw~
 lfo.square~
@@ -846,12 +850,14 @@ patch.args
 patch.deps
 patch.props
 patch.tree
+path
 path.basename
 path.dirname
 path.exists
 path.is_dir
 path.ls
 path.lsdir
+path.search
 phase->rad
 phase->rad~
 pi
@@ -903,6 +909,7 @@ random.int
 random.linear
 random.pw_const
 random.pw_lin
+rb.pitchshift~
 reject
 reject_if
 replace
@@ -938,6 +945,7 @@ set.intersect
 set.size
 set.symdiff
 set.union
+sfizz~
 sig->float~
 snd.file
 spat.pan4~
