@@ -122,6 +122,27 @@ t_float SeqPhasorBase::value() const
     return t_float(phase_) / n;
 }
 
+void SeqPhasorBase::m_phase(t_symbol* s, const AtomListView& lv)
+{
+    if (!checkArgs(lv, ARG_FLOAT, s))
+        return;
+
+    const int is_closed = !open_range_->value();
+    auto ph = lv.floatAt(0, 0);
+
+    if (ph < 0 || ph > 1) {
+        METHOD_ERR(s) << "phase value in [0..1" << (is_closed ? ']' : ')') << " range expected, got: " << ph;
+        return;
+    }
+
+    // wrap open range 1 to 0
+    if (!is_closed && ph == 1)
+        ph = 0;
+
+    const auto n = steps_->value() - is_closed;
+    phase_ = n * ph;
+}
+
 void SeqPhasorBase::next()
 {
     if (invert_->value()) {
@@ -157,6 +178,7 @@ t_float SeqPhasorBase::calcNextTick() const
 void setup_seq_phasor()
 {
     SequencerIFaceFactory<ObjectFactory, SeqPhasor> obj("seq.phasor");
+    obj.addMethod("phase", &SeqPhasor::m_phase);
 
     obj.setXletsInfo(
         { "float: 1|0 - start/stop phasor",

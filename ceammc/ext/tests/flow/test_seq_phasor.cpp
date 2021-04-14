@@ -135,5 +135,53 @@ TEST_CASE("seq.phasor", "[externals]")
             t->tick();
             REQUIRE(t->value() == Approx(2 / 4.0));
         }
+
+        SECTION("phase")
+        {
+            TExt t("seq.phasor", LA(1, "@steps", 5));
+            REQUIRE_PROPERTY(t, @steps, 5);
+
+            t->reset();
+            REQUIRE(t->value() == Approx(0 / 4.0));
+
+            t.call("phase", LF(0));
+            REQUIRE(t->value() == Approx(0));
+
+            t.call("phase", LF(0.25));
+            REQUIRE(t->value() == Approx(1 / 4.0));
+
+            t.call("phase", LF(0.5));
+            REQUIRE(t->value() == Approx(2 / 4.0));
+
+            t.call("phase", LF(0.75));
+            REQUIRE(t->value() == Approx(3 / 4.0));
+
+            t.call("phase", LF(1));
+            REQUIRE(t->value() == Approx(1));
+        }
+
+        SECTION("phase @open")
+        {
+            TExt t("seq.phasor", LA(1, "@steps", 4, "@open", 1));
+            REQUIRE_PROPERTY(t, @steps, 4);
+
+            t->reset();
+            REQUIRE(t->value() == Approx(0 / 4.0));
+
+            t.call("phase", LF(0));
+            REQUIRE(t->value() == Approx(0));
+
+            t.call("phase", LF(0.25));
+            REQUIRE(t->value() == Approx(1 / 4.0));
+
+            t.call("phase", LF(0.5));
+            REQUIRE(t->value() == Approx(2 / 4.0));
+
+            t.call("phase", LF(0.75));
+            REQUIRE(t->value() == Approx(3 / 4.0));
+
+            t.call("phase", LF(1));
+            REQUIRE(t->value() == Approx(0));
+        }
     }
 }
