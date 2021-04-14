@@ -631,9 +631,9 @@ class lfo_tri : public lfo_tri_dsp {
 			float fTemp3 = std::fabs(fTemp1);
 			float fTemp4 = float((fTemp2 < 0.0f));
 			fRec0[0] = (fTemp2 + (fTemp3 * (fTemp4 - float(((fTemp2 + (fTemp3 * fTemp4)) >= fTemp3)))));
-			float fTemp5 = (fRec0[0] + (fSlow1 * fTemp1));
-			float fTemp6 = float((fTemp5 < 0.0f));
-			output0[i] = FAUSTFLOAT(((2.0f * (1.0f - std::fabs(((2.0f * std::fmod(((fTemp5 + (fTemp3 * (fTemp6 - float(((fTemp5 + (fTemp3 * fTemp6)) >= fTemp3))))) / fTemp3), 1.0f)) + -1.0f)))) + -1.0f));
+			float fTemp5 = (fSlow1 * fTemp1);
+			float fTemp6 = float(((fRec0[0] + fTemp5) < 0.0f));
+			output0[i] = FAUSTFLOAT(((2.0f * (1.0f - std::fabs(((2.0f * std::fmod(((fRec0[0] + (fTemp5 + (fTemp3 * (fTemp6 - float(((fRec0[0] + (fTemp5 + (fTemp3 * fTemp6))) >= fTemp3)))))) / fTemp3), 1.0f)) + -1.0f)))) + -1.0f));
 			fRec0[1] = fRec0[0];
 		}
 	}

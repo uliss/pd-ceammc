@@ -32,14 +32,20 @@ with {
     saw = lfo_saw_raw(period_samp, init_samp, pause_bool) / abs(period_samp) : (_,1) : fmod;
 };
 
-lfo_saw(freq_hz, init_phase, pause_bool) = lfo_saw_pos(freq_hz, init_phase, pause_bool) : lin2lin(0, 1, -1, 1);
+lfo_saw(freq_hz, init_phase, pause_bool) = 2.0 * lfo_saw_pos(freq_hz, init_phase, pause_bool) - 1.0;
 
 // pulse
 lfo_pulse_pos(freq, duty, init_phase, pause) = float(lfo_saw_pos(freq, init_phase, pause) <= duty);
+lfo_pulse(freq, duty, init_phase, pause) = 2.0 * lfo_pulse_pos(freq, duty, init_phase, pause) - 1.0;
 
 // square
 lfo_square_pos(freq, init_phase, pause) = lfo_pulse_pos(freq, 0.5, init_phase, pause);
-lfo_square(freq, init_phase, pause) = 2*lfo_square_pos(freq, init_phase, pause) - 1;
+lfo_square(freq, init_phase, pause) = 2.0 * lfo_square_pos(freq, init_phase, pause) - 1.0;
+
+// triangle
+lfo_tri_pos(freq, init_phase, pause) = 1 - abs(lfo_saw(freq, init_phase, pause));
+lfo_tri(freq, init_phase, pause) = 2.0 * lfo_tri_pos(freq, init_phase, pause) - 1.0;
+
 
 
 invert(toggle) = *((toggle==0)*2 - 1);

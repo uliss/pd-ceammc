@@ -515,11 +515,11 @@ class lfo_tri_pos : public lfo_tri_pos_dsp {
 	
  private:
 	
-	FAUSTFLOAT fCheckbox0;
+	FAUSTFLOAT fHslider0;
 	int fSampleRate;
 	float fConst0;
+	FAUSTFLOAT fCheckbox0;
 	float fRec0[2];
-	FAUSTFLOAT fHslider0;
 	
  public:
 	
@@ -584,8 +584,8 @@ class lfo_tri_pos : public lfo_tri_pos_dsp {
 	}
 	
 	virtual void instanceResetUserInterface() {
-		fCheckbox0 = FAUSTFLOAT(0.0f);
 		fHslider0 = FAUSTFLOAT(0.0f);
+		fCheckbox0 = FAUSTFLOAT(0.0f);
 	}
 	
 	virtual void instanceClear() {
@@ -622,18 +622,18 @@ class lfo_tri_pos : public lfo_tri_pos_dsp {
 	virtual void compute(int count, FAUSTFLOAT** inputs, FAUSTFLOAT** outputs) {
 		FAUSTFLOAT* input0 = inputs[0];
 		FAUSTFLOAT* output0 = outputs[0];
-		int iSlow0 = ((float(fCheckbox0) > 0.5f) == 0);
-		float fSlow1 = float(fHslider0);
+		float fSlow0 = float(fHslider0);
+		int iSlow1 = ((float(fCheckbox0) > 0.5f) == 0);
 		for (int i = 0; (i < count); i = (i + 1)) {
 			float fTemp0 = float(input0[i]);
 			float fTemp1 = ((fTemp0 == 0.0f) ? 3.40282347e+38f : (fConst0 / fTemp0));
-			float fTemp2 = (fRec0[1] + float((iSlow0 * ((2 * (fTemp1 >= 0.0f)) + -1))));
-			float fTemp3 = std::fabs(fTemp1);
-			float fTemp4 = float((fTemp2 < 0.0f));
-			fRec0[0] = (fTemp2 + (fTemp3 * (fTemp4 - float(((fTemp2 + (fTemp3 * fTemp4)) >= fTemp3)))));
-			float fTemp5 = (fSlow1 * fTemp1);
-			float fTemp6 = float(((fRec0[0] + fTemp5) < 0.0f));
-			output0[i] = FAUSTFLOAT((1.0f - std::fabs(((2.0f * std::fmod(((fRec0[0] + (fTemp5 + (fTemp3 * (fTemp6 - float(((fRec0[0] + (fTemp5 + (fTemp3 * fTemp6))) >= fTemp3)))))) / fTemp3), 1.0f)) + -1.0f))));
+			float fTemp2 = (fSlow0 * fTemp1);
+			float fTemp3 = (fRec0[1] + float((iSlow1 * ((2 * (fTemp1 >= 0.0f)) + -1))));
+			float fTemp4 = std::fabs(fTemp1);
+			float fTemp5 = float((fTemp3 < 0.0f));
+			fRec0[0] = (fTemp3 + (fTemp4 * (fTemp5 - float(((fTemp3 + (fTemp4 * fTemp5)) >= fTemp4)))));
+			float fTemp6 = float(((fRec0[0] + fTemp2) < 0.0f));
+			output0[i] = FAUSTFLOAT((1.0f - std::fabs(((2.0f * std::fmod(((fTemp2 + (fRec0[0] + (fTemp4 * (fTemp6 - float(((fTemp2 + (fRec0[0] + (fTemp4 * fTemp6))) >= fTemp4)))))) / fTemp4), 1.0f)) + -1.0f))));
 			fRec0[1] = fRec0[0];
 		}
 	}
