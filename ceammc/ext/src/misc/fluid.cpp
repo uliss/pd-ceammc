@@ -20,6 +20,8 @@
 
 #define PROP_ERR() LogPdObject(owner(), LOG_ERROR).stream() << errorPrefix()
 
+constexpr const char* DEFAULT_SOUNDFONT = "sf2/WaveSine.sf2";
+
 class FluidSynthProperty : public Property {
 public:
     using FluidFnGetter = std::function<t_float(fluid_synth_t*)>;
@@ -225,6 +227,15 @@ Fluid::~Fluid()
     delete_fluid_synth(synth_);
 }
 
+void Fluid::initDone()
+{
+    SoundExternal::initDone();
+
+    // load default soundfont
+    if (sound_font_ == &s_)
+        propSetSoundFont(gensym(DEFAULT_SOUNDFONT));
+}
+
 void Fluid::onList(const AtomList& lst)
 {
     m_note(&s_, lst);
@@ -249,13 +260,15 @@ bool Fluid::propSetSoundFont(t_symbol* s)
         return false;
     }
 
-    std::string filename = findInStdPaths(s->s_name);
+    std::string filename = findInStdPaths((s == gensym("default"))
+            ? DEFAULT_SOUNDFONT
+            : s->s_name);
 
     if (filename.empty()) {
         filename = platform::find_in_exernal_dir(owner(), s->s_name);
 
         if (filename.empty()) {
-            OBJ_ERR << "sound font is not found: " << s;
+            OBJ_ERR << "soundfont is not found: " << s;
             return false;
         }
     }
@@ -318,13 +331,13 @@ void Fluid::m_cc(t_symbol* s, const AtomListView& lst)
         int key = lst[1].asInt();
         int vel = lst[2].asInt();
 
-        fluid_synth_cc(synth_, chan - 1, key, vel);
+        fluid_synth_cc(synth_, chan, key, vel);
     } else if (lst.size() == 2 && lst[0].isFloat() && lst[1].isFloat()) {
         int key = lst[0].asInt();
         int vel = lst[1].asInt();
         fluid_synth_cc(synth_, 0, key, vel);
     } else {
-        METHOD_ERR(s) << "CHAN KEY VAL or KEY VAL expected: " << lst;
+        METHOD_ERR(s) << "CHAN CCNUM VAL or CCNUM VAL expected: " << lst;
     }
 }
 

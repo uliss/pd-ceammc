@@ -16,11 +16,16 @@
                 <alias>ceammc/fluid~</alias>
             </aliases>
         </meta>
+        <info>
+            <par>If no soundfont specified: default soundfont is loaded</par>
+            <par>It is WaveSine.sf2, simple sine synth</par>
+        </info>
         <arguments>
             <argument name="SF" type="symbol">soundfont path</argument>
         </arguments>
         <properties>
-            <property name="@sf" type="symbol">soundfont path</property>
+            <property name="@sf" type="symbol">soundfont path, you can use **default** value to
+            load default soundfont</property>
             <property name="@version" type="symbol" readonly="true" default="2.0.0">FluidSynth
             version</property>
             <property name="@soundfonts" type="list" readonly="true">list of found
@@ -82,13 +87,12 @@
 |            |
 [msg note 1] [prog 1 $1(
 |            |
-| [dump(     | [loadbang]
-| |          | |
+| [dump(     |
 | |          | [@sf sf2/VintageDreamsWaves-v2.sf2(
 | |          | |
 [fluid~        ]
 | ^|
-[ui.gain~ @size 120 16]  [ui.dsp~]
+[ui.hgain~]    [ui.dsp~]
 | \
 [dac~]
 ]]>

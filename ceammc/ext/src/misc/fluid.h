@@ -38,6 +38,8 @@ public:
     Fluid(const PdArgs& args);
     ~Fluid() override;
 
+    void initDone() override;
+
     void onList(const AtomList& lst) final;
 
     void setupDSP(t_signal** sp) final;

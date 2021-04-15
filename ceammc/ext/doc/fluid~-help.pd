@@ -5,115 +5,118 @@
 #X obj 1 1 cnv 5 765 40 empty empty fluid~ 20 20 0 20 -104026 -4096 0;
 #X obj 576 11 ceammc/fluid~;
 #X obj 696 11 fluid~;
-#X obj 50 118 ui.keyboard;
-#X obj 174 190 hradio 15 1 0 8 empty empty empty 17 7 0 10 -262144 -1
+#X obj 210 80 cnv 1 555 60 empty empty empty 17 7 0 10 -257983 -1 0;
+#X text 215 80 If no soundfont specified: default soundfont is loaded;
+#X text 215 105 It is WaveSine.sf2 \, simple sine synth;
+#X obj 50 168 ui.keyboard;
+#X obj 174 240 hradio 15 1 0 8 empty empty empty 17 7 0 10 -262144 -1
 -1 0;
-#X obj 50 219 msg note 1;
-#X msg 174 219 prog 1 \$1;
-#X msg 69 248 dump;
-#X obj 194 248 loadbang;
-#X msg 194 277 @sf sf2/VintageDreamsWaves-v2.sf2;
-#X obj 50 305 fluid~;
-#X obj 50 334 ui.gain~ @size 120 16;
-#X obj 290 334 ui.dsp~;
-#X obj 50 363 dac~;
-#X obj 20 412 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 417 cnv 5 90 26 empty empty arguments: 4 10 0 14 -262144
+#X obj 50 269 msg note 1;
+#X msg 174 269 prog 1 \$1;
+#X msg 69 298 dump;
+#X msg 194 312 @sf sf2/VintageDreamsWaves-v2.sf2;
+#X obj 50 341 fluid~;
+#X obj 50 370 ui.hgain~;
+#X obj 194 370 ui.dsp~;
+#X obj 50 399 dac~;
+#X obj 20 448 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 453 cnv 5 90 26 empty empty arguments: 4 10 0 14 -262144
 -49933 0;
-#X text 110 452 1\.;
-#X text 150 452 symbol;
-#X obj 246 453 cnv 1 24 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 452 SF: soundfont path.;
-#X obj 20 482 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 487 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
+#X text 110 488 1\.;
+#X text 150 488 symbol;
+#X obj 246 489 cnv 1 24 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 245 488 SF: soundfont path.;
+#X obj 20 518 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 523 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
 -49933 0;
-#X msg 110 522 @avoices;
-#X text 245 522 (readonly) Get number of active voices. Type: float.
+#X msg 110 558 @avoices;
+#X text 245 558 (readonly) Get number of active voices. Type: float.
 Default value: 0\.;
-#X msg 110 564 @bufsize;
-#X text 245 564 (readonly) Get internal buffer size. Type: float. Units:
+#X msg 110 600 @bufsize;
+#X text 245 600 (readonly) Get internal buffer size. Type: float. Units:
 samp. Default value: 0\.;
-#X msg 110 606 @gain;
-#X text 245 606 Get/Set output gain. Type: float. Default value: 0\.
+#X msg 110 642 @gain;
+#X text 245 642 Get/Set output gain. Type: float. Default value: 0\.
 Range: 0\...10\.;
-#X msg 110 648 @poly;
-#X text 245 648 Get/Set max number of voices. Type: float. Default
+#X msg 110 684 @poly;
+#X text 245 684 Get/Set max number of voices. Type: float. Default
 value: 0\. Range: 1\...1024\.;
-#X msg 110 690 @reverb_damp;
-#X text 245 690 Get/Set reverberation damp. Type: float. Default value:
+#X msg 110 726 @reverb_damp;
+#X text 245 726 Get/Set reverberation damp. Type: float. Default value:
 0\.;
-#X msg 110 719 @reverb_level;
-#X text 245 719 Get/Set reverberation level. Type: float. Default value:
+#X msg 110 755 @reverb_level;
+#X text 245 755 Get/Set reverberation level. Type: float. Default value:
 0\.;
-#X msg 110 748 @reverb_room;
-#X text 245 748 Get/Set reverberation room size. Type: float. Default
+#X msg 110 784 @reverb_room;
+#X text 245 784 Get/Set reverberation room size. Type: float. Default
 value: 0\.;
-#X msg 110 790 @reverb_width;
-#X text 245 790 Get/Set reverberation spread width. Type: float. Default
+#X msg 110 826 @reverb_width;
+#X text 245 826 Get/Set reverberation spread width. Type: float. Default
 value: 0\.;
-#X msg 110 832 @sf;
-#X text 245 832 Get/Set soundfont path. Type: symbol.;
-#X msg 110 861 @version;
-#X text 245 861 (readonly) Get FluidSynth version. Type: symbol. Default
+#X msg 110 868 @sf;
+#X text 245 868 Get/Set soundfont path \, you can use **default** value
+to load default soundfont. Type: symbol.;
+#X msg 110 910 @version;
+#X text 245 910 (readonly) Get FluidSynth version. Type: symbol. Default
 value: 2.0.0\.;
-#X msg 110 903 @soundfonts;
-#X text 245 903 (readonly) Get list of found soundfonts. Type: list.;
-#X obj 20 942 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 947 cnv 5 73 26 empty empty methods: 4 10 0 14 -262144
+#X msg 110 952 @soundfonts;
+#X text 245 952 (readonly) Get list of found soundfonts. Type: list.;
+#X obj 20 991 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 996 cnv 5 73 26 empty empty methods: 4 10 0 14 -262144
 -49933 0;
-#X msg 110 982 bank;
-#X text 245 982 set instrument bank number on a MIDI channel (CHANNEL
+#X msg 110 1031 bank;
+#X text 245 1031 set instrument bank number on a MIDI channel (CHANNEL
 \, BANK expected).;
-#X msg 110 1022 bend;
-#X text 245 1022 pitchband change (CHANNEL \, VALUE expected).;
-#X msg 110 1049 cc;
-#X text 245 1049 control change (CHANNEL \, CCNUM \, VALUE or CCNUM
+#X msg 110 1071 bend;
+#X text 245 1071 pitchband change (CHANNEL \, VALUE expected).;
+#X msg 110 1098 cc;
+#X text 245 1098 control change (CHANNEL \, CCNUM \, VALUE or CCNUM
 \, VALUE expected).;
-#X msg 110 1089 gen;
-#X text 245 1089 set a SoundFont generator (effect) value on a MIDI
+#X msg 110 1138 gen;
+#X text 245 1138 set a SoundFont generator (effect) value on a MIDI
 channel in real-time (CHANNEL \, PARAM \, VALUE or PARAM \, VALUE expected).;
-#X msg 110 1129 note;
-#X text 245 1129 play note (CHANNEL \, KEY \, VELOCITY or KEY \, VELOCITY
+#X msg 110 1178 note;
+#X text 245 1178 play note (CHANNEL \, KEY \, VELOCITY or KEY \, VELOCITY
 expected).;
-#X msg 110 1156 notes_off;
-#X text 245 1156 turn off all notes on a MIDI channel (put them into
+#X msg 110 1205 notes_off;
+#X text 245 1205 turn off all notes on a MIDI channel (put them into
 release phase). Arguments are:;
-#X obj 255 1194 cnv 1 62 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1194 [CHAN=0]: MIDI channel. Type: int.;
-#X msg 110 1219 panic;
-#X text 245 1219 send MIDI system reset command (big red 'panic' button)
+#X obj 255 1243 cnv 1 62 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1243 [CHAN=0]: MIDI channel. Type: int.;
+#X msg 110 1268 panic;
+#X text 245 1268 send MIDI system reset command (big red 'panic' button)
 \, turns off notes \, resets controllers and restores initial basic
 channel configuration.;
-#X msg 110 1274 prog;
-#X text 245 1274 program change (CHANNEL \, PROGRAM expected).;
-#X msg 110 1301 reset;
-#X text 245 1301 reset all synth channels.;
-#X msg 110 1328 sounds_off;
-#X text 245 1328 immediately stop all notes on a MIDI channel (skips
+#X msg 110 1323 prog;
+#X text 245 1323 program change (CHANNEL \, PROGRAM expected).;
+#X msg 110 1350 reset;
+#X text 245 1350 reset all synth channels.;
+#X msg 110 1377 sounds_off;
+#X text 245 1377 immediately stop all notes on a MIDI channel (skips
 release phase). Arguments are:;
-#X obj 255 1366 cnv 1 62 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1366 [CHAN=0]: MIDI channel. Type: int.;
-#X obj 20 1401 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1406 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144
+#X obj 255 1415 cnv 1 62 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1415 [CHAN=0]: MIDI channel. Type: int.;
+#X obj 20 1450 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1455 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 1407 1\.;
-#X text 150 1407 *symbol*;
-#X text 245 1407 load mod file.;
-#X obj 20 1437 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1442 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
+#X text 110 1456 1\.;
+#X text 150 1456 *symbol*;
+#X text 245 1456 load mod file.;
+#X obj 20 1486 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1491 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 1443 1\.;
-#X text 245 1443 left channel and property output.;
-#X text 110 1463 2\.;
-#X text 245 1463 right channel.;
+#X text 110 1492 1\.;
+#X text 245 1492 left channel and property output.;
+#X text 110 1512 2\.;
+#X text 245 1512 right channel.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 115 45 ::;
 #X obj 131 48 ui.link @title misc @url ceammc.misc-help.pd;
-#X obj 1 1513 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 1516 library: ceammc v0.9.3;
-#N canvas 10 1535 400 290 info 0;
+#X obj 1 1562 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1565 library: ceammc v0.9.3;
+#N canvas 10 1584 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
@@ -137,15 +140,14 @@ https://github.com/uliss/pure-data;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 generated by pddoc;
-#X restore 10 1535 pd info;
-#X connect 5 0 7 0;
-#X connect 6 0 8 0;
-#X connect 10 0 11 0;
-#X connect 7 0 12 0;
-#X connect 9 0 12 0;
-#X connect 8 0 12 0;
-#X connect 11 0 12 0;
-#X connect 12 0 13 0;
-#X connect 12 1 13 0;
-#X connect 13 0 15 0;
-#X connect 13 0 15 1;
+#X restore 10 1584 pd info;
+#X connect 8 0 10 0;
+#X connect 9 0 11 0;
+#X connect 10 0 14 0;
+#X connect 12 0 14 0;
+#X connect 11 0 14 0;
+#X connect 13 0 14 0;
+#X connect 14 0 15 0;
+#X connect 14 1 15 0;
+#X connect 15 0 17 0;
+#X connect 15 0 17 1;

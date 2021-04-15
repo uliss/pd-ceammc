@@ -13,6 +13,7 @@
 - misc:
   - flow.space: float to right inlet sets @delay property
   - WaveSine.sf2: simple sine waveform SF2 soundfont added
+  - fluid~ loads WaveSine.sf2 font by default
   
 ### Fixed:
 - flow.space: reset message fix - can not use object after reset
