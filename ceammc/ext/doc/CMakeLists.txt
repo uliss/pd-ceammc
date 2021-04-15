@@ -207,6 +207,7 @@ install(DIRECTORY hoa DESTINATION ${DOC_INSTALL_PATH})
 install(DIRECTORY faust DESTINATION ${DOC_INSTALL_PATH})
 
 add_subdirectory(sound)
+add_subdirectory(sf2)
 
 find_program(RSYNC_EXEC rsync)
 
