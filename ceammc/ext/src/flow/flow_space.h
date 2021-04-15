@@ -52,6 +52,8 @@ public:
 
     void m_reset(const AtomListView&);
 
+    void setInterval(t_float f);
+
 private:
     void packetSchedule();
     void clockDone();

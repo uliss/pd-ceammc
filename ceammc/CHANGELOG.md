@@ -10,7 +10,9 @@
 - new methods:
   - seq.phasor: [phase( method added to set current phase
   - lfo.+saw~, lfo.saw~, lfo.+tri~, lfo.tri~, lfo.+square~, lfo.square~, lfo.+pulse~, lfo.pulse~: [reset( method added to reset to initial phase value (@phase) 
-
+- misc:
+  - flow.space: float to right inlet sets @delay property
+  
 ## [0.9.3]
 ### Added:
 - new objects:

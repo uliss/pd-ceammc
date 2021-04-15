@@ -29,6 +29,7 @@
                 <xinfo>messages</xinfo>
             </inlet>
             <inlet>
+                <xinfo on="float">set space interval (ms)</xinfo>
                 <xinfo>reset: cancel all scheduled outputs</xinfo>
             </inlet>
         </inlets>
