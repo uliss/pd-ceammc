@@ -13,6 +13,9 @@
 - misc:
   - flow.space: float to right inlet sets @delay property
   
+### Fixed:
+- flow.space: reset message fix - can not use object after reset
+  
 ## [0.9.3]
 ### Added:
 - new objects:

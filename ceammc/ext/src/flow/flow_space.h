@@ -51,6 +51,9 @@ public:
     void onAny(t_symbol* s, const AtomListView& lv) override;
 
     void m_reset(const AtomListView&);
+    void m_prop_delay(const AtomListView& lv);
+    void m_prop_done(const AtomListView& lv);
+
 
     void setInterval(t_float f);
 
