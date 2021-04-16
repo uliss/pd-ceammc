@@ -20,7 +20,8 @@
         </meta>
         <arguments>
             <argument name="freq" type="float" units="herz">frequency</argument>
-            <argument name="invert" type="float" minvalue="0" maxvalue="1">wave inversion</argument>
+            <argument name="invert" type="float" minvalue="0" maxvalue="1">wave
+            inversion</argument>
         </arguments>
         <properties>
             <property name="@invert" type="int" enum="0 1" default="0">wave inversion</property>
