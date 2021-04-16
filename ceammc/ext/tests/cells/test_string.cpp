@@ -203,6 +203,27 @@ TEST_CASE("ceammc_string", "[PureData]")
         REQUIRE(utf8_to_lower(utf8_to_upper("abcde 12345 çå").c_str()) == "abcde 12345 çå");
     }
 
+    SECTION("utf8_insert")
+    {
+        REQUIRE(utf8_insert("", 0, "") == "");
+        REQUIRE(utf8_insert("a", 0, "") == "a");
+        REQUIRE(utf8_insert("", 0, "Ф") == "Ф");
+        REQUIRE(utf8_insert("абвгд", 0, "АБВ") == "АБВабвгд");
+        REQUIRE(utf8_insert("абвгд", 1, "АБВ") == "аАБВбвгд");
+        REQUIRE(utf8_insert("абвгд", 2, "АБВ") == "абАБВвгд");
+        REQUIRE(utf8_insert("абвгд", 3, "АБВ") == "абвАБВгд");
+        REQUIRE(utf8_insert("абвгд", 4, "АБВ") == "абвгАБВд");
+        REQUIRE(utf8_insert("абвгд", 5, "АБВ") == "абвгдАБВ");
+        REQUIRE(utf8_insert("абвгд", -1, "АБВ") == "абвгдАБВ");
+        REQUIRE(utf8_insert("абвгд", -2, "АБВ") == "абвгАБВд");
+        REQUIRE(utf8_insert("абвгд", -3, "АБВ") == "абвАБВгд");
+        REQUIRE(utf8_insert("абвгд", -4, "АБВ") == "абАБВвгд");
+        REQUIRE(utf8_insert("абвгд", -5, "АБВ") == "аАБВбвгд");
+        REQUIRE(utf8_insert("абвгд", -6, "АБВ") == "АБВабвгд");
+        REQUIRE_THROWS(utf8_insert("абвгд", 6, "АБВ"), std::exception());
+        REQUIRE_THROWS(utf8_insert("абвгд", -7, "АБВ"), std::exception());
+    }
+
     SECTION("starts_with")
     {
         REQUIRE(starts_with("abc", ""));

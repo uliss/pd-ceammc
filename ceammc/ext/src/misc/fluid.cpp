@@ -246,6 +246,7 @@ void Fluid::setupDSP(t_signal** sp)
     SoundExternal::setupDSP(sp);
 
     if (synth_) {
+        fluid_synth_all_sounds_off(synth_, -1);
         fluid_settings_t* s = fluid_synth_get_settings(synth_);
         if (fluid_settings_setnum(s, "synth.sample-rate", samplerate()) != FLUID_OK) {
             OBJ_ERR << "can't set samplerate: " << samplerate();
