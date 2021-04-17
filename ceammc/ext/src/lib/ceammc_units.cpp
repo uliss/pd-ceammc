@@ -140,7 +140,7 @@ FreqValue::ParseResult FreqValue::parse(const AtomListView& lv)
 
         int rc = lexer.parseSingle();
         if (rc < 0)
-            return UnitParseError("invalid frequency");
+            return UnitParseError(fmt::format("invalid frequency: '{}'", to_string(lv)));
         else {
             auto& v = lexer.values.back();
 
@@ -156,7 +156,7 @@ FreqValue::ParseResult FreqValue::parse(const AtomListView& lv)
                     return FreqValue(v.val.dbl_val, Units::MS);
             }
             default:
-                return UnitParseError("invalid frequency");
+                return UnitParseError(fmt::format("invalid frequency: '{}'", to_string(lv)));
             }
         }
     } else if (lv.isFloat())
