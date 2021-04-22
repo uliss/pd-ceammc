@@ -1,0 +1,180 @@
+/*****************************************************************************
+ * Copyright 2021 Serge Poltavsky. All rights reserved.
+ *
+ * This file may be distributed under the terms of GNU Public License version
+ * 3 (GPL v3) as defined by the Free Software Foundation (FSF). A copy of the
+ * license should have been included with this file, or the project in which
+ * this file belongs to. You may also find the details of GPL v3 at:
+ * http://www.gnu.org/licenses/gpl-3.0.txt
+ *
+ * If you have any questions regarding the use of this file, feel free to
+ * contact the author of this file, or the owner of the project in which
+ * this file belongs to.
+ *****************************************************************************/
+#include "proto_midi_cc.h"
+#include "ceammc_convert.h"
+#include "ceammc_factory.h"
+
+#include <tuple>
+
+enum {
+    CC_BANK_SELECT = 0,
+    CC_MOD_WHEEL_COARSE = 1,
+    //
+    CC_PAN_POSITION_COARSE = 10,
+    CC_RPN_COARSE = 101,
+    CC_RPN_FINE = 100,
+    CC_DATA_ENTRY_COARSE = 6,
+    CC_DATA_ENTRY_FINE = 38,
+    CC_DATA_INCREMENT = 96,
+    CC_DATA_DECREMENT = 97,
+};
+
+constexpr const char* SEL_BANK_SELECT = "bankselect";
+constexpr const char* SEL_MOD_WHEEL_COARSE = "modwheel~";
+constexpr const char* SEL_PAN_POSITION_COARSE = "panpos~";
+constexpr const char* SEL_RPN_COARSE = "rpn~";
+constexpr const char* SEL_RPN_FINE = "rpn.";
+constexpr const char* SEL_RPN = "rpn";
+constexpr const char* SEL_RPN_RESET = "rpn_reset";
+
+static std::tuple<uint8_t, uint8_t> floatToBit14(t_float v)
+{
+    constexpr int16_t IN_MIN = -0x2000;
+    constexpr int16_t IN_MAX = 0x1fff;
+
+    const auto ival = clip<int16_t, IN_MIN, IN_MAX>(v);
+    const auto uval = static_cast<uint16_t>(ival - IN_MIN);
+    const uint8_t lsb = 0x7F & uval;
+    const uint8_t msb = 0x7F & (uval >> 7);
+
+    return { lsb, msb };
+}
+
+ProtoMidiCC::ProtoMidiCC(const PdArgs& args)
+    : BaseObject(args)
+    , mod_wheel0_(0)
+    , mod_wheel1_(0)
+    , pan_pos0_(0)
+    , pan_pos1_(0)
+    , rpn0_(0)
+    , rpn1_(0)
+{
+    createOutlet();
+
+    using midi::Byte;
+    parser_.setControlChangeFn([this](Byte b, Byte c, Byte v) {
+        onCC(b, c, v);
+    });
+}
+
+void ProtoMidiCC::onFloat(t_float f)
+{
+    if (f < 0 || f > 0xff) {
+        OBJ_ERR << "byte value expected in 0-255 range, got: " << f;
+        return;
+    }
+
+    auto res = parser_.push(f);
+    if (res.err != midi::MidiParser::NO_ERROR) {
+        OBJ_ERR << res.errStr();
+    }
+}
+
+void ProtoMidiCC::onList(const AtomList& lst)
+{
+    for (auto& a : lst)
+        onFloat(a.asT<t_float>());
+}
+
+void ProtoMidiCC::m_bend_sens(t_symbol* s, const AtomListView& lv)
+{
+    if (!checkArgs(lv, ARG_FLOAT, s))
+        return;
+
+    auto f = lv[0].asT<t_float>();
+    const int semitones = int(f);
+    const int cents = std::round((f - (int)f) * 100);
+    if (semitones < 0) {
+        METHOD_ERR(s) << "invalid semitone range: " << semitones;
+        return;
+    }
+
+    sendCC(0, midi::RPNParser::CC_RPN_COARSE, 0);
+    sendCC(0, midi::RPNParser::CC_RPN_FINE, 0);
+    sendCC(0, midi::RPNParser::CC_DATA_ENTRY_COARSE, semitones);
+    sendCC(0, midi::RPNParser::CC_DATA_ENTRY_FINE, cents);
+}
+
+void ProtoMidiCC::m_tune_bank_select(t_symbol* s, const AtomListView& lv)
+{
+    if (!checkArgs(lv, ARG_BYTE, s))
+        return;
+
+    sendCC(0, midi::RPNParser::CC_RPN_COARSE, 0);
+    sendCC(0, midi::RPNParser::CC_RPN_FINE, midi::RPNParser::RPN_CHANNEL_TUNING_BANK_SELECT);
+    sendCC(0, midi::RPNParser::CC_DATA_ENTRY_COARSE, 0);
+    sendCC(0, midi::RPNParser::CC_DATA_ENTRY_FINE, lv[0].asInt());
+}
+
+void ProtoMidiCC::m_tune_prog_change(t_symbol* s, const AtomListView& lv)
+{
+    if (!checkArgs(lv, ARG_BYTE, s))
+        return;
+
+    sendCC(0, midi::RPNParser::CC_RPN_COARSE, 0);
+    sendCC(0, midi::RPNParser::CC_RPN_FINE, midi::RPNParser::RPN_CHANNEL_TUNING_PROG_CHANGE);
+    sendCC(0, midi::RPNParser::CC_DATA_ENTRY_COARSE, 0);
+    sendCC(0, midi::RPNParser::CC_DATA_ENTRY_FINE, lv[0].asInt());
+}
+
+void ProtoMidiCC::onCC(int b, int c, int v)
+{
+    switch (c) {
+    case CC_BANK_SELECT:
+        return anyTo(0, gensym(SEL_BANK_SELECT), Atom(v));
+    case CC_MOD_WHEEL_COARSE:
+        mod_wheel0_ = v;
+        return anyTo(0, gensym(SEL_MOD_WHEEL_COARSE), Atom(v));
+    case CC_PAN_POSITION_COARSE:
+        pan_pos0_ = v;
+        return anyTo(0, gensym(SEL_PAN_POSITION_COARSE), Atom(v));
+    case CC_RPN_COARSE:
+    case CC_RPN_FINE:
+    case CC_DATA_ENTRY_COARSE:
+    case CC_DATA_ENTRY_FINE:
+    case CC_DATA_INCREMENT:
+    case CC_DATA_DECREMENT: {
+        auto res = rpn_parser_.push(c, v);
+        if (res.err != midi::RPNParser::NO_ERROR) {
+            rpn_parser_.reset();
+            OBJ_ERR << "RPN parser error: ";
+        } else if (res.state == midi::RPNParser::ST_DONE) {
+            rpn_parser_.reset();
+            if (res.rpn == midi::RPNParser::RPN_RESET) {
+                return anyTo(0, gensym(SEL_RPN_RESET), AtomListView());
+            } else {
+                Atom val[2];
+                val[0] = res.rpn;
+                val[1] = res.value;
+                return anyTo(0, gensym(SEL_RPN), AtomListView(val, 2));
+            }
+        }
+    } break;
+    }
+}
+
+void ProtoMidiCC::sendCC(int chan, int cc, int v)
+{
+    floatTo(0, 0xB0 | (0xF & chan));
+    floatTo(0, 0x7F & cc);
+    floatTo(0, 0x7F & v);
+}
+
+void setup_proto_midi_cc()
+{
+    ObjectFactory<ProtoMidiCC> obj("proto.midi.cc");
+    obj.addMethod("bendsens", &ProtoMidiCC::m_bend_sens);
+    obj.addMethod("tunebanksel", &ProtoMidiCC::m_tune_bank_select);
+    obj.addMethod("tuneprogchange", &ProtoMidiCC::m_tune_prog_change);
+}
