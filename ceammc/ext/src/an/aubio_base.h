@@ -31,6 +31,7 @@ struct FVecDeleter {
 
 using FVecPtr = std::unique_ptr<fvec_t, FVecDeleter>;
 using OnsetPtr = std::shared_ptr<aubio_onset_t>;
+using TempoPtr = std::unique_ptr<aubio_tempo_t, void(*)(aubio_tempo_t*)>;
 
 class HopSizeProperty : public IntProperty {
     IntProperty* bs_;
