@@ -73,19 +73,23 @@
         <example>
             <pdascii>
 <![CDATA[
-[open %CEAMMC%/guitar1.wav, 1(
+[loadmsg load sound/loop_breakbeat.flac to antmp @resize]
 |
-[expand_env]
-|
-[readsf~]
+[snd.file] [table antmp]
+
+[B #a]  [stop(
+|       |
+[tabplay~ antmp #b]
 |  |
 |  [an.tempo~]    [ui.dsp~]
-|  |     ^|
-|  [F]   [F]
+|  |      ^|
+|  [F]    [F]
 |
 [ui.hgain~]
 |\
 [dac~]
+
+[X b:1->a]
 ]]>
             </pdascii>
         </example>
