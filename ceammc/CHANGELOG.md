@@ -7,6 +7,7 @@
   - lfo.mosc~: LFO oscillator with various waveform and runtime change between them. Sin, saw, square, pulse, triangle and positive variants of above.
   - fx.secho~: enchanced version of echo that does not click on delay change
   - an.tempo~: tempo analizer based on Aubio library
+  - fx.recho~: reverse 1 second echo added
 - new properties:
   - lfo.+saw~, lfo.saw~, lfo.+tri~, lfo.tri~, lfo.+square~, lfo.square~, lfo.+pulse~, lfo.pulse~: @phase and @pause properties added
   - ui.knob: @show_value property added
