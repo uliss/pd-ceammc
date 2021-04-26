@@ -40,12 +40,15 @@ AubioTempoTilde::AubioTempoTilde(const PdArgs& args)
     buffer_size_->setUnitsSamp();
     buffer_size_->setInitOnly();
     buffer_size_->setArgIndex(0);
+    addProperty(buffer_size_);
 
     hop_size_ = new HopSizeProperty(buffer_size_);
     hop_size_->setArgIndex(2);
+    addProperty(hop_size_);
 
     method_ = new OnsetMethodProperty();
     method_->setArgIndex(1);
+    addProperty(method_);
 
     addProperty(new SymbolEnumAlias("@hfc", method_, gensym("hfc")));
     addProperty(new SymbolEnumAlias("@energy", method_, gensym("energy")));
@@ -68,7 +71,7 @@ AubioTempoTilde::AubioTempoTilde(const PdArgs& args)
         [this]() -> t_float { return aubio_tempo_get_silence(tempo_.get()); },
         [this](t_float t) -> bool { return aubio_tempo_set_silence(tempo_.get(), t) == AUBIO_OK; });
     silence_threshold_->setUnits(PropValueUnits::DB);
-    silence_threshold_->setFloatCheck(PropValueConstraints::CLOSED_RANGE, -80, 0);
+    silence_threshold_->setFloatCheck(PropValueConstraints::CLOSED_RANGE, -90, 0);
     addProperty(silence_threshold_);
 
     auto delay = createCbFloatProperty(
@@ -166,7 +169,7 @@ void AubioTempoTilde::samplerateChanged(size_t sr)
 
 void AubioTempoTilde::clock_tick()
 {
-    floatTo(2, last_confidence_);
+    floatTo(1, last_confidence_);
     floatTo(0, last_bpm_);
 }
 
@@ -198,4 +201,5 @@ void AubioTempoTilde::restoreSteadyProperties()
 void setup_an_tempo_tilde()
 {
     SoundExternalFactory<AubioTempoTilde> obj("an.tempo~");
+    obj.setXletsInfo({ "input signal" }, { "float: BPM value", "float: detection confidence" });
 }
