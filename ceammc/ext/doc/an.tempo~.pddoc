@@ -75,11 +75,11 @@
 <![CDATA[
 [loadmsg load sound/loop_breakbeat.flac to antmp @resize]
 |
-[snd.file] [table antmp]
-
-[B #a]  [stop(
-|       |
-[tabplay~ antmp #b]
+[snd.file] [table antmp] [ui.hsl @show_value 1 @min 0.1 @max 2.5]
+                         |
+[B #a]  [stop(           [@speed $1(
+|       |                |
+[array.play~ antmp     #b]
 |  |
 |  [an.tempo~]    [ui.dsp~]
 |  |      ^|
@@ -89,7 +89,7 @@
 |\
 [dac~]
 
-[X b:1->a]
+[X b:2->a]
 ]]>
             </pdascii>
         </example>
