@@ -11,7 +11,7 @@
             <library>ceammc</library>
             <category>fx</category>
             <keywords>fx echo reversed</keywords>
-            <since>0.6</since>
+            <since>0.9.3</since>
             <also>
                 <see>fx.echo~</see>
             </also>
