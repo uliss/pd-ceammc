@@ -744,6 +744,9 @@
     <entry name="fx.pitchshift~" descr="simple pitch shifter based on 2 delay lines" ref_view="object">
       <xi:include href="fx.pitchshift~.pddoc" parse="xml"/>
     </entry>
+    <entry name="fx.recho~" descr="reversed echo effect" ref_view="object">
+      <xi:include href="fx.recho~.pddoc" parse="xml"/>
+    </entry>
     <entry name="fx.sdelay~" descr="smooth delay with a feedback control" ref_view="object">
       <xi:include href="fx.sdelay~.pddoc" parse="xml"/>
     </entry>

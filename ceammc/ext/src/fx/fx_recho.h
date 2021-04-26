@@ -639,9 +639,9 @@ class fx_recho : public fx_recho_dsp {
 			fVec0[(IOTA & 65535)] = fTemp1;
 			fRec0[0] = (fSlow1 + (0.999000013f * fRec0[1]));
 			iRec1[0] = (iRec1[1] + 2);
-			int iTemp2 = (iRec1[0] & 47999);
+			int iTemp2 = (iRec1[0] & 65535);
 			float fTemp3 = float(iTemp2);
-			output0[i] = FAUSTFLOAT((iSlow0 ? fTemp0 : ((fTemp1 * (1.0f - fRec0[0])) + (8.33333324e-05f * (((fRec0[0] * fTemp3) * fVec0[((IOTA - std::min<int>(48000, std::max<int>(0, iTemp2))) & 65535)]) * (1.0f - (2.08333331e-05f * fTemp3)))))));
+			output0[i] = FAUSTFLOAT((iSlow0 ? fTemp0 : ((fTemp1 * (1.0f - fRec0[0])) + (6.10351562e-05f * (((fRec0[0] * fTemp3) * fVec0[((IOTA - std::min<int>(65536, std::max<int>(0, iTemp2))) & 65535)]) * (1.0f - (1.52587891e-05f * fTemp3)))))));
 			IOTA = (IOTA + 1);
 			fRec0[1] = fRec0[0];
 			iRec1[1] = iRec1[0];

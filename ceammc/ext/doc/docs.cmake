@@ -216,6 +216,7 @@ set(DOC_FILES
     fx.looper~
     fx.pitchshift~
     fx.pitchshift_s~
+    fx.recho~
     fx.sdelay~
     fx.vocoder~
     fx.wahwah~
