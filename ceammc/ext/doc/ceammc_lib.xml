@@ -13,6 +13,9 @@
     <entry name="an.rms~" descr="root mean square with moving-average algorithm." ref_view="object">
       <xi:include href="an.rms~.pddoc" parse="xml"/>
     </entry>
+    <entry name="an.tempo~" descr="tempo detector" ref_view="object">
+      <xi:include href="an.tempo~.pddoc" parse="xml"/>
+    </entry>
   </category>
   <category name="array">
     <entry name="array.bpm" descr="BPM calculator" ref_view="object">

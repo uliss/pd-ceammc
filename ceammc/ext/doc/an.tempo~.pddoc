@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="an.tempo~">
+        <title>an.tempo~</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>tempo detector</description>
+            <license>GPL3 or later</license>
+            <library>ceammc</library>
+            <category>an</category>
+            <keywords>tempo aubio bpm</keywords>
+            <since>0.9.3</since>
+        </meta>
+        <info>
+            <par>Tempo detector based on aubio library</par>
+            <a href="https://aubio.org/">https://aubio.org</a>
+        </info>
+        <arguments>
+            <argument name="BS" type="int" minvalue="64" units="sample">buffer size</argument>
+            <argument name="METHOD" type="symbol" enum="1">onset detection method</argument>
+            <argument name="HS" type="int" minvalue="0">hop size (by default
+            buffer_size/2)</argument>
+        </arguments>
+        <methods>
+            <method name="reset">reset onset last frame and total frames counters</method>
+        </methods>
+        <properties>
+            <property name="@bs" type="int" minvalue="64" default="1024" units="sample">buffer
+            size</property>
+            <property name="@hs" type="int" minvalue="0" default="0" units="sample">hop size. 0
+            means @bs/2</property>
+            <property name="@method" type="symbol"
+            enum="specflux phase energy hfc kl complex default specdiff wphase rolloff spread kurtosis skewness complexdomain decrease slope centroid"
+            default="default">onset method. Default is hfc.</property>
+            <property name="@hfc" type="alias">alias to @method hfc. High Frequency Content onset
+            detection</property>
+            <property name="@energy" type="alias">alias to @method energy. Energy based onset
+            detection function</property>
+            <property name="@complex" type="alias">alias to @method complex. Complex Domain Method
+            onset detection function</property>
+            <property name="@phase" type="alias">alias to @method phase. Phase Based Method onset
+            detection function</property>
+            <property name="@wphase" type="alias">alias to @method phase.Weighted Phase Deviation
+            onset detection function</property>
+            <property name="@specdiff" type="alias">alias to @method specdiff. Spectral difference
+            method onset detection function</property>
+            <property name="@kl" type="alias">alias to @method kl. Kullback-Liebler onset detection
+            function</property>
+            <property name="@mkl" type="alias">alias to @method mkl. Modified Kullback-Liebler
+            onset detection function</property>
+            <property name="@specflux" type="alias">alias to @method specflux. Spectral
+            Flux</property>
+            <property name="@threshold" type="float" default="0.3">peak picking
+            threshold</property>
+            <property name="@silence" type="float" units="decibel" default="-90" minvalue="-90"
+            maxvalue="0">onset detection silence threshold</property>
+            <property name="@delay" type="float" minvalue="0" default="0"
+            units="millisecond">constant system delay to take back from detection time</property>
+            <property name="@active" type="int" default="1" enum="0 1">audio processing
+            state</property>
+        </properties>
+        <inlets>
+            <inlet type="audio">
+                <xinfo>input signal</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet>bang if onset detected</outlet>
+            <outlet>output time of the latest onset detected in millisecond</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[open %CEAMMC%/guitar1.wav, 1(
+|
+[expand_env]
+|
+[readsf~]
+|  |
+|  [an.tempo~]    [ui.dsp~]
+|  |     ^|
+|  [F]   [F]
+|
+[ui.hgain~]
+|\
+[dac~]
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

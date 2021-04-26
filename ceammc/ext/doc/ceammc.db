@@ -2,6 +2,7 @@ an.onset		.		.
 an.onset~		~		..
 an.pitchtrack~,ceammc/helmholtz~,helmholtz~		~		~..
 an.rms~		~		~
+an.tempo~		~		..
 array.bpm		.		.
 array.copy		.		.
 array.do		..		..

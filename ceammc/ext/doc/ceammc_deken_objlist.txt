@@ -4,6 +4,7 @@ an.pitchtrack~	pitch tracker
 ceammc/helmholtz~	pitch tracker
 helmholtz~	pitch tracker
 an.rms~	root mean square with moving-average algorithm.
+an.tempo~	tempo detector
 array.bpm	BPM calculator
 array.copy	copy samples from one array to another
 array.do	iterate and modify array content via side-chain
