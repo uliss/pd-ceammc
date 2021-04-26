@@ -102,8 +102,8 @@
         fx.bitdown~ fx.chorus~ fx.distortion1~ fx.distortion2~ fx.distortion3~
         fx.distortion~ fx.drive~ fx.drone_box~ fx.echo~ fx.flanger~
         fx.freeverb2~ fx.freeverb~ fx.freqshift~ fx.granulator~ fx.greyhole~
-        fx.infrev~ fx.looper~ fx.pitchshift_s~ fx.pitchshift~ fx.sdelay~
-        fx.vocoder~ fx.wahwah~ fx.zita_rev1~
+        fx.infrev~ fx.looper~ fx.pitchshift_s~ fx.pitchshift~ fx.recho~
+        fx.sdelay~ fx.vocoder~ fx.wahwah~ fx.zita_rev1~
     }}
     {global {
         global.dict global.float global.int global.list global.mlist
@@ -117,8 +117,8 @@
         lang.faust~ ui.faust~
     }}
     {lfo {
-        lfo.+pulse~ lfo.+saw~ lfo.+square~ lfo.+tri~ lfo.impulse~ lfo.pulse~
-        lfo.saw~ lfo.square~ lfo.tri~
+        lfo.+pulse~ lfo.+saw~ lfo.+square~ lfo.+tri~ lfo.impulse~ lfo.mosc~
+        lfo.pulse~ lfo.saw~ lfo.square~ lfo.tri~
     }}
     {list {
         list.^at list.^contains list.^search list.all_of list.any_of

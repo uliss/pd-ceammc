@@ -31,6 +31,7 @@ an.onset
 an.onset~
 an.pitchtrack~
 an.rms~
+an.tempo~
 and
 any->props
 apf->biquad
@@ -459,7 +460,9 @@ fx.infrev~
 fx.looper~
 fx.pitchshift_s~
 fx.pitchshift~
+fx.recho~
 fx.sdelay~
+fx.secho~
 fx.vocoder~
 fx.wahwah~
 fx.zita_rev1~
@@ -891,6 +894,7 @@ prop~>
 proto.firmata
 proto.hui
 proto.midi
+proto.midi.cc
 proto.midi.sysex
 proto.mpv
 proto.sp.alpaca
