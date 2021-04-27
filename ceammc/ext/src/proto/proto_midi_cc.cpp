@@ -33,26 +33,12 @@ enum {
 constexpr const char* SEL_BANK_SELECT = "bankselect";
 constexpr const char* SEL_MOD_WHEEL_COARSE = "modwheel~";
 constexpr const char* SEL_PAN_POSITION_COARSE = "panpos~";
-constexpr const char* SEL_RPN_COARSE = "rpn~";
-constexpr const char* SEL_RPN_FINE = "rpn.";
 constexpr const char* SEL_RPN = "rpn";
 constexpr const char* SEL_RPN_RESET = "rpn_reset";
 
-static std::tuple<uint8_t, uint8_t> floatToBit14(t_float v)
-{
-    constexpr int16_t IN_MIN = -0x2000;
-    constexpr int16_t IN_MAX = 0x1fff;
-
-    const auto ival = clip<int16_t, IN_MIN, IN_MAX>(v);
-    const auto uval = static_cast<uint16_t>(ival - IN_MIN);
-    const uint8_t lsb = 0x7F & uval;
-    const uint8_t msb = 0x7F & (uval >> 7);
-
-    return { lsb, msb };
-}
-
 ProtoMidiCC::ProtoMidiCC(const PdArgs& args)
     : BaseObject(args)
+    , as_list_(nullptr)
     , mod_wheel0_(0)
     , mod_wheel1_(0)
     , pan_pos0_(0)
@@ -62,10 +48,19 @@ ProtoMidiCC::ProtoMidiCC(const PdArgs& args)
 {
     createOutlet();
 
+    as_list_ = new FlagProperty("@list");
+    addProperty(as_list_);
+
     using midi::Byte;
     parser_.setControlChangeFn([this](Byte b, Byte c, Byte v) {
         onCC(b, c, v);
     });
+}
+
+void ProtoMidiCC::initDone()
+{
+    if (as_list_->value())
+        buffer_.reserve(32);
 }
 
 void ProtoMidiCC::onFloat(t_float f)
@@ -89,21 +84,25 @@ void ProtoMidiCC::onList(const AtomList& lst)
 
 void ProtoMidiCC::m_bend_sens(t_symbol* s, const AtomListView& lv)
 {
-    if (!checkArgs(lv, ARG_FLOAT, s))
+    if (!checkArgs(lv, ARG_FLOAT)) {
+        METHOD_ERR(s) << "sensivity in semitones expected, got: " << lv;
         return;
+    }
 
     auto f = lv[0].asT<t_float>();
     const int semitones = int(f);
     const int cents = std::round((f - (int)f) * 100);
     if (semitones < 0) {
-        METHOD_ERR(s) << "invalid semitone range: " << semitones;
+        METHOD_ERR(s) << "non-negative value expected, got: " << lv;
         return;
     }
 
+    sendCCBegin();
     sendCC(0, midi::RPNParser::CC_RPN_COARSE, 0);
-    sendCC(0, midi::RPNParser::CC_RPN_FINE, 0);
+    sendCC(0, midi::RPNParser::CC_RPN_FINE, midi::RPNParser::RPN_PITCH_BEND_SENSIVITY);
     sendCC(0, midi::RPNParser::CC_DATA_ENTRY_COARSE, semitones);
     sendCC(0, midi::RPNParser::CC_DATA_ENTRY_FINE, cents);
+    sendCCEnd();
 }
 
 void ProtoMidiCC::m_tune_bank_select(t_symbol* s, const AtomListView& lv)
@@ -111,10 +110,12 @@ void ProtoMidiCC::m_tune_bank_select(t_symbol* s, const AtomListView& lv)
     if (!checkArgs(lv, ARG_BYTE, s))
         return;
 
+    sendCCBegin();
     sendCC(0, midi::RPNParser::CC_RPN_COARSE, 0);
     sendCC(0, midi::RPNParser::CC_RPN_FINE, midi::RPNParser::RPN_CHANNEL_TUNING_BANK_SELECT);
     sendCC(0, midi::RPNParser::CC_DATA_ENTRY_COARSE, 0);
     sendCC(0, midi::RPNParser::CC_DATA_ENTRY_FINE, lv[0].asInt());
+    sendCCEnd();
 }
 
 void ProtoMidiCC::m_tune_prog_change(t_symbol* s, const AtomListView& lv)
@@ -122,10 +123,31 @@ void ProtoMidiCC::m_tune_prog_change(t_symbol* s, const AtomListView& lv)
     if (!checkArgs(lv, ARG_BYTE, s))
         return;
 
+    sendCCBegin();
     sendCC(0, midi::RPNParser::CC_RPN_COARSE, 0);
     sendCC(0, midi::RPNParser::CC_RPN_FINE, midi::RPNParser::RPN_CHANNEL_TUNING_PROG_CHANGE);
     sendCC(0, midi::RPNParser::CC_DATA_ENTRY_COARSE, 0);
     sendCC(0, midi::RPNParser::CC_DATA_ENTRY_FINE, lv[0].asInt());
+    sendCCEnd();
+}
+
+void ProtoMidiCC::sendCCBegin()
+{
+    if (as_list_->value())
+        buffer_.clear();
+}
+
+void ProtoMidiCC::sendCCEnd()
+{
+    if (as_list_->value()) {
+        const auto N = buffer_.size();
+        Atom buf[N];
+        for (size_t i = 0; i < N; i++)
+            buf[i] = buffer_[i];
+
+        listTo(0, AtomListView(buf, N));
+        buffer_.clear();
+    }
 }
 
 void ProtoMidiCC::onCC(int b, int c, int v)
@@ -161,14 +183,22 @@ void ProtoMidiCC::onCC(int b, int c, int v)
             }
         }
     } break;
+    default:
+        break;
     }
 }
 
 void ProtoMidiCC::sendCC(int chan, int cc, int v)
 {
-    floatTo(0, 0xB0 | (0xF & chan));
-    floatTo(0, 0x7F & cc);
-    floatTo(0, 0x7F & v);
+    if (as_list_->value()) {
+        buffer_.push_back(0xB0 | (0xF & chan));
+        buffer_.push_back(0x7F & cc);
+        buffer_.push_back(0x7F & v);
+    } else {
+        floatTo(0, 0xB0 | (0xF & chan));
+        floatTo(0, 0x7F & cc);
+        floatTo(0, 0x7F & v);
+    }
 }
 
 void setup_proto_midi_cc()

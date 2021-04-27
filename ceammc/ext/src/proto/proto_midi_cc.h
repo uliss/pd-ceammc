@@ -22,6 +22,8 @@ using namespace ceammc;
 #include <cstdint>
 
 class ProtoMidiCC : public BaseObject {
+    FlagProperty* as_list_;
+    std::vector<uint8_t> buffer_;
     midi::MidiParser parser_;
     midi::RPNParser rpn_parser_;
     uint8_t mod_wheel0_, mod_wheel1_;
@@ -30,6 +32,7 @@ class ProtoMidiCC : public BaseObject {
 
 public:
     ProtoMidiCC(const PdArgs& args);
+    void initDone() override;
 
     void onFloat(t_float f) override;
     void onList(const AtomList& lst) override;
@@ -39,6 +42,8 @@ public:
     void m_tune_prog_change(t_symbol* s, const AtomListView& lv);
 
 private:
+    void sendCCBegin();
+    void sendCCEnd();
     void onCC(int b, int c, int v);
     void sendCC(int chan, int cc, int v);
 };
