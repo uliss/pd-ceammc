@@ -14,12 +14,27 @@
 #ifndef PROTO_MIDI_CC_H
 #define PROTO_MIDI_CC_H
 
+#include <cstdint>
+
 #include "ceammc_object.h"
 #include "proto_midi_cc_rpn_parser.h"
 #include "proto_midi_parser.h"
 using namespace ceammc;
 
-#include <cstdint>
+enum {
+    CC_BANK_SELECT = 0,
+    CC_MOD_WHEEL_COARSE = 1,
+    //
+    CC_PAN_POSITION_COARSE = 10,
+    CC_PAN_POSITION_FINE = 42,
+    CC_RPN_COARSE = 101,
+    CC_RPN_FINE = 100,
+    CC_DATA_ENTRY_COARSE = 6,
+
+    CC_DATA_ENTRY_FINE = 38,
+    CC_DATA_INCREMENT = 96,
+    CC_DATA_DECREMENT = 97,
+};
 
 class ProtoMidiCC : public BaseObject {
     FlagProperty* as_list_;
@@ -47,11 +62,15 @@ public:
 private:
     void sendCCBegin();
     void sendCCEnd();
-    void onCC(int b, int c, int v);
+    void onCC(int chan, int cc, int v);
     void sendCC(int chan, int cc, int v);
 
     void sendTuneFine(float cents, int chan = 0);
     void sendTuneCoarse(int semi, int chan = 0);
+
+    void handlePanPositionFine(int chan);
+    void handlePanPositionCoarse(int chan);
+    void handlePanPosition(int chan);
 };
 
 void setup_proto_midi_cc();

@@ -137,4 +137,16 @@ TEST_CASE("proto.midi.cc", "[externals]")
         t0.call("tunesemi", -10, 16);
         REQUIRE_FALSE(t1.hasOutput());
     }
+
+    SECTION("pan")
+    {
+        TExt t("proto.midi.cc");
+        t << LF(0xB1, CC_PAN_POSITION_COARSE, 0x40);
+        REQUIRE(t.messagesAt(0) == ML { M("pan~", 1, 0x40), M("pan:i", 1, 0x2000), M("pan:f", 1, 0) });
+        t << LF(0xB1, CC_PAN_POSITION_COARSE, 0x0);
+        REQUIRE(t.messagesAt(0) == ML { M("pan~", 1, 0x0), M("pan:i", 1, 0), M("pan:f", 1, -1) });
+        t << LF(0xB1, CC_PAN_POSITION_COARSE, 0x7F);
+        t << LF(0xB1, CC_PAN_POSITION_FINE, 0x7F);
+        REQUIRE(t.messagesAt(0) == ML { M("pan.", 1, 0x7F), M("pan:i", 1, 0x3FFF), M("pan:f", 1, 1) });
+    }
 }

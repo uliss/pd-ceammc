@@ -19,22 +19,12 @@
 #include <cmath>
 #include <tuple>
 
-enum {
-    CC_BANK_SELECT = 0,
-    CC_MOD_WHEEL_COARSE = 1,
-    //
-    CC_PAN_POSITION_COARSE = 10,
-    CC_RPN_COARSE = 101,
-    CC_RPN_FINE = 100,
-    CC_DATA_ENTRY_COARSE = 6,
-    CC_DATA_ENTRY_FINE = 38,
-    CC_DATA_INCREMENT = 96,
-    CC_DATA_DECREMENT = 97,
-};
-
 constexpr const char* SEL_BANK_SELECT = "bankselect";
 constexpr const char* SEL_MOD_WHEEL_COARSE = "modwheel~";
-constexpr const char* SEL_PAN_POSITION_COARSE = "panpos~";
+constexpr const char* SEL_PAN_POSITION_INT = "pan:i";
+constexpr const char* SEL_PAN_POSITION_FLOAT = "pan:f";
+constexpr const char* SEL_PAN_POSITION_COARSE = "pan~";
+constexpr const char* SEL_PAN_POSITION_FINE = "pan.";
 constexpr const char* SEL_RPN = "rpn";
 constexpr const char* SEL_RPN_RESET = "rpn_reset";
 
@@ -199,39 +189,48 @@ void ProtoMidiCC::sendCCEnd()
     }
 }
 
-void ProtoMidiCC::onCC(int b, int c, int v)
+void ProtoMidiCC::onCC(int chan, int cc, int v)
 {
-    switch (c) {
+    switch (cc) {
     case CC_BANK_SELECT:
         return anyTo(0, gensym(SEL_BANK_SELECT), Atom(v));
     case CC_MOD_WHEEL_COARSE:
         mod_wheel0_ = v;
         return anyTo(0, gensym(SEL_MOD_WHEEL_COARSE), Atom(v));
-    case CC_PAN_POSITION_COARSE:
+    case CC_PAN_POSITION_COARSE: {
         pan_pos0_ = v;
-        return anyTo(0, gensym(SEL_PAN_POSITION_COARSE), Atom(v));
+        handlePanPositionCoarse(chan);
+        handlePanPosition(chan);
+        return;
+    }
+    case CC_PAN_POSITION_FINE: {
+        pan_pos1_ = v;
+        handlePanPositionFine(chan);
+        handlePanPosition(chan);
+        return;
+    }
     case CC_RPN_COARSE:
     case CC_RPN_FINE:
     case CC_DATA_ENTRY_COARSE:
     case CC_DATA_ENTRY_FINE:
     case CC_DATA_INCREMENT:
     case CC_DATA_DECREMENT: {
-        if (b < 0 || b > 15) {
-            OBJ_ERR << "invalid midi channel value: " << b;
+        if (chan < 0 || chan > 15) {
+            OBJ_ERR << "invalid midi channel value: " << chan;
             return;
         }
 
-        auto res = rpn_parser_[b].push(c, v);
+        auto res = rpn_parser_[chan].push(cc, v);
         if (res.err != midi::RPNParser::NO_ERROR) {
-            rpn_parser_[b].reset();
+            rpn_parser_[chan].reset();
             OBJ_ERR << "RPN parser error: ";
         } else if (res.state == midi::RPNParser::ST_DONE) {
-            rpn_parser_[b].reset();
+            rpn_parser_[chan].reset();
             if (res.rpn == midi::RPNParser::RPN_RESET) {
-                return anyTo(0, gensym(SEL_RPN_RESET), AtomListView(Atom(b)));
+                return anyTo(0, gensym(SEL_RPN_RESET), AtomListView(Atom(chan)));
             } else {
                 Atom val[3];
-                val[0] = b;
+                val[0] = chan;
                 val[1] = res.rpn;
                 val[2] = res.value;
                 return anyTo(0, gensym(SEL_RPN), AtomListView(val, 3));
@@ -278,6 +277,31 @@ void ProtoMidiCC::sendTuneCoarse(int semi, int chan)
     sendCC(chan, midi::RPNParser::CC_DATA_ENTRY_COARSE, semi + 64);
     sendCC(chan, midi::RPNParser::CC_DATA_ENTRY_FINE, 0);
     sendCCEnd();
+}
+
+void ProtoMidiCC::handlePanPositionCoarse(int chan)
+{
+    const Atom data[2] = { chan, pan_pos0_ };
+    anyTo(0, gensym(SEL_PAN_POSITION_COARSE), AtomListView(data, 2));
+}
+
+void ProtoMidiCC::handlePanPositionFine(int chan)
+{
+    const Atom data[2] = { chan, pan_pos1_ };
+    anyTo(0, gensym(SEL_PAN_POSITION_FINE), AtomListView(data, 2));
+}
+
+void ProtoMidiCC::handlePanPosition(int chan)
+{
+    const int val14bit = (pan_pos0_ << 7) | pan_pos1_;
+    Atom data[2] = { chan, val14bit };
+    anyTo(0, gensym(SEL_PAN_POSITION_INT), AtomListView(data, 2));
+
+    const auto valf = (val14bit <= 0x2000)
+        ? (val14bit - 0x2000) / t_float(0x2000)
+        : (val14bit - 0x2000) / t_float(0x1FFF);
+    data[1] = valf;
+    anyTo(0, gensym(SEL_PAN_POSITION_FLOAT), AtomListView(data, 2));
 }
 
 void setup_proto_midi_cc()
