@@ -143,16 +143,39 @@ void ProtoMidiCC::m_tune_fine(t_symbol* s, const AtomListView& lv)
         return;
     }
 
-    const int val = std::round(convert::lin2lin_clip<t_float>(tune, -100, 100, 0, 0x3FFF));
-    const uint16_t msb = 0x7F & (val >> 7);
-    const uint16_t lsb = 0x7F & val;
+    sendTuneFine(tune);
+}
 
-    sendCCBegin();
-    sendCC(0, midi::RPNParser::CC_RPN_COARSE, 0);
-    sendCC(0, midi::RPNParser::CC_RPN_FINE, midi::RPNParser::RRN_CHANNEL_TUNING_FINE);
-    sendCC(0, midi::RPNParser::CC_DATA_ENTRY_COARSE, msb);
-    sendCC(0, midi::RPNParser::CC_DATA_ENTRY_FINE, lsb);
-    sendCCEnd();
+void ProtoMidiCC::m_tune_coarse(t_symbol* s, const AtomListView& lv)
+{
+    if (!checkArgs(lv, ARG_INT, s))
+        return;
+
+    const int tune = lv[0].asT<int>();
+    if (tune < -64 || tune > 63) {
+        METHOD_ERR(s) << "expected coarse tuning (in semitones) in [-64..+63] range, got: " << lv;
+        return;
+    }
+
+    sendTuneCoarse(tune);
+}
+
+void ProtoMidiCC::m_tune_semi(t_symbol* s, const AtomListView& lv)
+{
+    if (!checkArgs(lv, ARG_FLOAT, s))
+        return;
+
+    const auto tune = lv[0].asT<t_float>();
+    if (tune < -64 || tune > 63) {
+        METHOD_ERR(s) << "expected tuning (in semitones) in [-64..+63.0] range, got: " << lv;
+        return;
+    }
+
+    t_float semi = 0;
+    const t_float cents = std::modf(tune, &semi) * 100;
+
+    sendTuneCoarse(semi);
+    sendTuneFine(cents);
 }
 
 void ProtoMidiCC::sendCCBegin()
@@ -225,6 +248,30 @@ void ProtoMidiCC::sendCC(int chan, int cc, int v)
     }
 }
 
+void ProtoMidiCC::sendTuneFine(float cents)
+{
+    const int val = std::round(convert::lin2lin_clip<t_float>(cents, -100, 100, 0, 0x3FFF));
+    const uint16_t msb = 0x7F & (val >> 7);
+    const uint16_t lsb = 0x7F & val;
+
+    sendCCBegin();
+    sendCC(0, midi::RPNParser::CC_RPN_COARSE, 0);
+    sendCC(0, midi::RPNParser::CC_RPN_FINE, midi::RPNParser::RRN_CHANNEL_TUNING_FINE);
+    sendCC(0, midi::RPNParser::CC_DATA_ENTRY_COARSE, msb);
+    sendCC(0, midi::RPNParser::CC_DATA_ENTRY_FINE, lsb);
+    sendCCEnd();
+}
+
+void ProtoMidiCC::sendTuneCoarse(int semi)
+{
+    sendCCBegin();
+    sendCC(0, midi::RPNParser::CC_RPN_COARSE, 0);
+    sendCC(0, midi::RPNParser::CC_RPN_FINE, midi::RPNParser::RRN_CHANNEL_TUNING_COARSE);
+    sendCC(0, midi::RPNParser::CC_DATA_ENTRY_COARSE, semi + 64);
+    sendCC(0, midi::RPNParser::CC_DATA_ENTRY_FINE, 0);
+    sendCCEnd();
+}
+
 void setup_proto_midi_cc()
 {
     ObjectFactory<ProtoMidiCC> obj("proto.midi.cc");
@@ -232,4 +279,6 @@ void setup_proto_midi_cc()
     obj.addMethod("tunebank", &ProtoMidiCC::m_tune_bank_select);
     obj.addMethod("tuneprog", &ProtoMidiCC::m_tune_prog_change);
     obj.addMethod("tunefine", &ProtoMidiCC::m_tune_fine);
+    obj.addMethod("tunecoarse", &ProtoMidiCC::m_tune_coarse);
+    obj.addMethod("tunesemi", &ProtoMidiCC::m_tune_semi);
 }

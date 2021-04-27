@@ -41,12 +41,17 @@ public:
     void m_tune_bank_select(t_symbol* s, const AtomListView& lv);
     void m_tune_prog_change(t_symbol* s, const AtomListView& lv);
     void m_tune_fine(t_symbol* s, const AtomListView& lv);
+    void m_tune_coarse(t_symbol* s, const AtomListView& lv);
+    void m_tune_semi(t_symbol* s, const AtomListView& lv);
 
 private:
     void sendCCBegin();
     void sendCCEnd();
     void onCC(int b, int c, int v);
     void sendCC(int chan, int cc, int v);
+
+    void sendTuneFine(float cents);
+    void sendTuneCoarse(int semi);
 };
 
 void setup_proto_midi_cc();
