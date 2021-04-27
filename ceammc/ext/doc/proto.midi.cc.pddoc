@@ -14,24 +14,6 @@
             <since>0.9.4</since>
         </meta>
         <methods>
-            <!-- note on -->
-            <method name="note">alias to [noteon(</method>
-            <method name="noteon">send Note On message 
-            <param type="int" minvalue="0" maxvalue="15" required="true" name="CH">midi
-            channel</param>
-            <param type="int" minvalue="0" maxvalue="127" required="true" name="NOTE">midi
-            note</param>
-            <param type="int" minvalue="0" maxvalue="127" required="true" name="VEL">
-            velocity</param></method>
-            <!-- note off -->
-            <method name="noteoff">send Note Off message 
-            <param type="int" minvalue="0" maxvalue="15" required="true" name="CH">midi
-            channel</param>
-            <param type="int" minvalue="0" maxvalue="127" required="true" name="NOTE">midi
-            note</param>
-            <param type="int" minvalue="0" maxvalue="127" required="true" name="VEL">
-            velocity</param></method>
-            <!-- cc -->
             <method name="cc">send Control Change message 
             <param type="int" minvalue="0" maxvalue="15" required="true" name="CH">midi
             channel</param>
@@ -39,63 +21,6 @@
             number</param>
             <param type="int" minvalue="0" maxvalue="127" required="true" name="VAL">control
             value</param></method>
-            <!-- program -->
-            <method name="program">send Program Change message 
-            <param type="int" minvalue="0" maxvalue="15" required="true" name="CH">midi
-            channel</param>
-            <param type="int" minvalue="0" maxvalue="127" required="true" name="N">program
-            number</param></method>
-            <!-- aftertouch -->
-            <method name="aftertouch">send After Touch (Mono) message 
-            <param type="int" minvalue="0" maxvalue="15" required="true" name="CH">midi
-            channel</param>
-            <param type="int" minvalue="0" maxvalue="127" required="true" name="VEL">
-            velocity</param></method>
-            <!-- polytouch -->
-            <method name="polytouch">send After Touch (Poly) message 
-            <param type="int" minvalue="0" maxvalue="15" required="true" name="CH">midi
-            channel</param>
-            <param type="int" minvalue="0" maxvalue="127" required="true" name="NOTE">midi
-            note</param>
-            <param type="int" minvalue="0" maxvalue="127" required="true" name="VEL">
-            velocity</param></method>
-            <!-- pitch wheel -->
-            <method name="pitchwheel">send Pitch Wheel message 
-            <param type="int" minvalue="0" maxvalue="15" required="true" name="CH">midi
-            channel</param>
-            <param type="int" minvalue="-8192" maxvalue="8191" required="true" name="VAL">
-            value</param></method>
-            <!-- sysex -->
-            <method name="sysex">send SysEx message (0xF0) 
-            <param type="list" minvalue="0" maxvalue="127" required="true" name="BYTES">sysex
-            message body</param></method>
-            <!-- midi system common -->
-            <!-- timecode -->
-            <method name="timecode">send midi timecode as series of MTC quarter frame messages
-            (0xF1) 
-            <param type="atom" required="true" name="TIME">time value. Various formats can be used:
-            100sec, 1h, 20.5min or 01:12:34.11.</param>
-            <param type="float" enum="24 25 29.97 30" required="true" name="FPS">
-            framerate</param></method>
-            <!-- songpos -->
-            <method name="songpos">send Song Position Pointer message (0xF2) 
-            <param type="int" minvalue="0" required="true" name="IDX">position</param>
-            <param type="int" enum="1 2 4 8 16" default="16" required="false" name="DUR">position
-            duration. By default is sixteen note.</param></method>
-            <!-- songsel -->
-            <method name="songsel">send Song Select message (0xF3) 
-            <param type="int" minvalue="0" maxvalue="127" required="true" name="IDX">song
-            index</param></method>
-            <!-- tunerequest -->
-            <method name="tunerequest">send Tune Request message (0xF6)</method>
-            <!-- midi system realtime -->
-            <method name="clock">send Timing Clock realtime message (0xF8)</method>
-            <method name="tick">send Timing Tick realtime message (0xF9)</method>
-            <method name="start">send Start realtime message (0xFA)</method>
-            <method name="stop">send Stop realtime message (0xFC)</method>
-            <method name="continue">send Continue realtime message (0xFB)</method>
-            <method name="activesense">send Active Sense realtime message (0xFE)</method>
-            <method name="sysreset">send System Reset realtime message (0xFF)</method>
         </methods>
         <inlets>
             <inlet>

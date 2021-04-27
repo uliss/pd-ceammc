@@ -136,6 +136,39 @@ TEST_CASE("proto.midi.cc", "[externals]")
 
         t0.call("tunesemi", -10, 16);
         REQUIRE_FALSE(t1.hasOutput());
+
+        t0.call("pan:i", 2, 0x2000);
+        REQUIRE(t1.messagesAt(0) == ML {
+                    M("pan~", 2, 0x40),
+                    M("pan:i", 2, 0x2000),
+                    M("pan:f", 2, 0),
+                    M("pan.", 2, 0),
+                    M("pan:i", 2, 0x2000),
+                    M("pan:f", 2, 0),
+                });
+        t1.clearAll();
+
+        t0.call("pan:f", 2, 1);
+        REQUIRE(t1.messagesAt(0) == ML {
+                    M("pan~", 2, 0x7F),
+                    M("pan:i", 2, 0x7f << 7),
+                    M("pan:f", 2, t0->bit14ToPan(0x7F, 0)),
+                    M("pan.", 2, 0x7F),
+                    M("pan:i", 2, 0x3fff),
+                    M("pan:f", 2, 1),
+                });
+        t1.clearAll();
+
+        t0.call("pan:f", 2, -1);
+        REQUIRE(t1.messagesAt(0) == ML {
+                    M("pan~", 2, 0),
+                    M("pan:i", 2, 0x7F),
+                    M("pan:f", 2, t0->bit14ToPan(0, 0x7F)),
+                    M("pan.", 2, 0),
+                    M("pan:i", 2, 0),
+                    M("pan:f", 2, -1),
+                });
+        t1.clearAll();
     }
 
     SECTION("pan")

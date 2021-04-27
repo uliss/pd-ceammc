@@ -17,7 +17,7 @@
 #include "ceammc_factory.h"
 
 #include <cmath>
-#include <tuple>
+#include <utility>
 
 constexpr const char* SEL_BANK_SELECT = "bankselect";
 constexpr const char* SEL_MOD_WHEEL_COARSE = "modwheel~";
@@ -170,6 +170,140 @@ void ProtoMidiCC::m_tune_semi(t_symbol* s, const AtomListView& lv)
     sendTuneFine(cents, chan);
 }
 
+void ProtoMidiCC::m_pan_fine(t_symbol* s, const AtomListView& lv)
+{
+    auto usage = [&]() { METHOD_ERR(s) << "usage: CHAN VALUE, got: " << lv; };
+
+    if (!checkArgs(lv, ARG_INT, ARG_INT)) {
+        usage();
+        return;
+    }
+
+    const auto chan = lv.intAt(0, 0);
+    const auto value = lv.intAt(1, 0);
+
+    if (!checkChan(chan)) {
+        usage();
+        return;
+    }
+
+    if (!checkByteValue(value)) {
+        usage();
+        return;
+    }
+
+    sendCCBegin();
+    sendCC(chan, CC_PAN_POSITION_FINE, value);
+    sendCCEnd();
+}
+
+void ProtoMidiCC::m_pan_coarse(t_symbol* s, const AtomListView& lv)
+{
+    auto usage = [&]() { METHOD_ERR(s) << "usage: CHAN VALUE, got: " << lv; };
+
+    if (!checkArgs(lv, ARG_INT, ARG_INT)) {
+        usage();
+        return;
+    }
+
+    const auto chan = lv.intAt(0, 0);
+    const auto value = lv.intAt(1, 0);
+
+    if (!checkChan(chan)) {
+        usage();
+        return;
+    }
+
+    if (!checkByteValue(value)) {
+        usage();
+        return;
+    }
+
+    sendCCBegin();
+    sendCC(chan, CC_PAN_POSITION_COARSE, value);
+    sendCCEnd();
+}
+
+void ProtoMidiCC::m_pan_float(t_symbol* s, const AtomListView& lv)
+{
+    auto usage = [&]() { METHOD_ERR(s) << "usage: CHAN VALUE[-1..+1], got: " << lv; };
+
+    if (!checkArgs(lv, ARG_INT, ARG_FLOAT)) {
+        usage();
+        return;
+    }
+
+    const auto chan = lv.intAt(0, 0);
+    const auto value = lv.floatAt(1, 0);
+
+    if (!checkChan(chan)) {
+        usage();
+        return;
+    }
+
+    sendCCBegin();
+    const auto data = panToBit14(value);
+    sendCC(chan, CC_PAN_POSITION_COARSE, data.first);
+    sendCC(chan, CC_PAN_POSITION_FINE, data.second);
+    sendCCEnd();
+}
+
+void ProtoMidiCC::m_pan_int(t_symbol* s, const AtomListView& lv)
+{
+    auto usage = [&]() { METHOD_ERR(s) << "usage: CHAN PAN|(MSB LSB), got: " << lv; };
+
+    int chan = 0;
+    int msb = 0;
+    int lsb = 0;
+
+    if (lv.size() == 2 && lv[0].isInteger() && lv[1].isInteger()) {
+        chan = lv.intAt(0, 0);
+        const int value = lv.intAt(1, 0);
+
+        if (!checkChan(chan)) {
+            usage();
+            return;
+        }
+
+        if (value < 0 || value > 0x3FFF) {
+            METHOD_ERR(s) << "invalid pan value, expected int in [0..0x3FFF] range, got: " << value;
+            usage();
+            return;
+        }
+
+        msb = 0x7F & (value >> 7);
+        lsb = 0x7F & value;
+
+    } else if (lv.size() == 3 && lv[0].isInteger() && lv[1].isInteger() && lv[2].isInteger()) {
+        chan = lv.intAt(0, 0);
+
+        if (!checkChan(chan)) {
+            usage();
+            return;
+        }
+
+        msb = lv.intAt(1, 0);
+        if (!checkByteValue(msb)) {
+            usage();
+            return;
+        }
+
+        lsb = lv.intAt(2, 0);
+        if (!checkByteValue(lsb)) {
+            usage();
+            return;
+        }
+    } else {
+        usage();
+        return;
+    }
+
+    sendCCBegin();
+    sendCC(chan, CC_PAN_POSITION_COARSE, msb);
+    sendCC(chan, CC_PAN_POSITION_FINE, lsb);
+    sendCCEnd();
+}
+
 void ProtoMidiCC::sendCCBegin()
 {
     if (as_list_->value())
@@ -297,11 +431,47 @@ void ProtoMidiCC::handlePanPosition(int chan)
     Atom data[2] = { chan, val14bit };
     anyTo(0, gensym(SEL_PAN_POSITION_INT), AtomListView(data, 2));
 
-    const auto valf = (val14bit <= 0x2000)
-        ? (val14bit - 0x2000) / t_float(0x2000)
-        : (val14bit - 0x2000) / t_float(0x1FFF);
-    data[1] = valf;
+    data[1] = bit14ToPan(pan_pos0_, pan_pos1_);
     anyTo(0, gensym(SEL_PAN_POSITION_FLOAT), AtomListView(data, 2));
+}
+
+bool ProtoMidiCC::checkChan(int chan) const
+{
+    if (chan < 0 || chan > 15) {
+        OBJ_ERR << "invalid midi channel, expected int in [0..15] range, got: " << chan;
+        return false;
+    } else
+        return true;
+}
+
+bool ProtoMidiCC::checkByteValue(int value) const
+{
+    if (value < 0 || value > 0x7F) {
+        OBJ_ERR << "invalid value, expected int in [0..127] range, got: " << value;
+        return false;
+    } else
+        return true;
+}
+
+std::pair<uint8_t, uint8_t> ProtoMidiCC::panToBit14(t_float v)
+{
+    v = clip<t_float, -1, 1>(v);
+    const uint16_t pan = (v <= 0)
+        ? std::round((1 + v) * 0x2000)
+        : std::round(0x1fff * v + 0x2000);
+
+    const uint8_t msb = 0x7F & (pan >> 7);
+    const uint8_t lsb = 0x7F & pan;
+
+    return { msb, lsb };
+}
+
+t_float ProtoMidiCC::bit14ToPan(uint8_t msb, uint8_t lsb)
+{
+    const uint16_t bit14 = (msb << 7) | lsb;
+    return (bit14 <= 0x2000)
+        ? (bit14 - 0x2000) / t_float(0x2000)
+        : (bit14 - 0x2000) / t_float(0x1FFF);
 }
 
 void setup_proto_midi_cc()
@@ -313,4 +483,9 @@ void setup_proto_midi_cc()
     obj.addMethod("tunefine", &ProtoMidiCC::m_tune_fine);
     obj.addMethod("tunecoarse", &ProtoMidiCC::m_tune_coarse);
     obj.addMethod("tunesemi", &ProtoMidiCC::m_tune_semi);
+
+    obj.addMethod(SEL_PAN_POSITION_COARSE, &ProtoMidiCC::m_pan_coarse);
+    obj.addMethod(SEL_PAN_POSITION_FINE, &ProtoMidiCC::m_pan_fine);
+    obj.addMethod(SEL_PAN_POSITION_FLOAT, &ProtoMidiCC::m_pan_float);
+    obj.addMethod(SEL_PAN_POSITION_INT, &ProtoMidiCC::m_pan_int);
 }

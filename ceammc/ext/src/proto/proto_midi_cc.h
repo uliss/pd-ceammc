@@ -59,6 +59,15 @@ public:
     void m_tune_coarse(t_symbol* s, const AtomListView& lv);
     void m_tune_semi(t_symbol* s, const AtomListView& lv);
 
+    void m_pan_fine(t_symbol* s, const AtomListView& lv);
+    void m_pan_coarse(t_symbol* s, const AtomListView& lv);
+    void m_pan_float(t_symbol* s, const AtomListView& lv);
+    void m_pan_int(t_symbol* s, const AtomListView& lv);
+
+public:
+    static std::pair<uint8_t, uint8_t> panToBit14(t_float v);
+    static t_float bit14ToPan(uint8_t msb, uint8_t lsb);
+
 private:
     void sendCCBegin();
     void sendCCEnd();
@@ -71,6 +80,9 @@ private:
     void handlePanPositionFine(int chan);
     void handlePanPositionCoarse(int chan);
     void handlePanPosition(int chan);
+
+    bool checkChan(int chan) const;
+    bool checkByteValue(int value) const;
 };
 
 void setup_proto_midi_cc();
