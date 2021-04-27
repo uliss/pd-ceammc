@@ -527,7 +527,7 @@ TEST_CASE("ui.knob", "[ui.knob]")
             + LA("@label_inner", "@label_margins", "@label_side", "@label_valign",
                 "@max", "@midi_channel", "@midi_control")
             + LA("@midi_pickup", "@min", "@mouse_events", "@pinned", "@presetname", "@receive",
-                "@scale", "@scale_color", "@send", "@show_range", "@size", "@value");
+                "@scale", "@scale_color", "@send", "@show_range", "@show_value", "@size", "@value");
         REQUIRE(props == desired);
 
         t.call("@max?", LA("@min?", "@xxx?", "", "@non", "unknown", 100, "@receive?"));
