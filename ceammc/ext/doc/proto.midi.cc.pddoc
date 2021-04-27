@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <pddoc version="1.0">
-    <object name="proto.midi">
-        <title>proto.midi</title>
+    <object name="proto.midi.cc">
+        <title>proto.midi.cc</title>
         <meta>
             <authors>
                 <author>Serge Poltavsky</author>
             </authors>
-            <description>raw midi encoder/parser</description>
+            <description>raw midi CC encoder/parser</description>
             <license>GPL3 or later</license>
             <library>ceammc</library>
             <category>proto</category>
             <keywords>parser midi</keywords>
-            <since>0.9.2</since>
+            <since>0.9.4</since>
         </meta>
         <methods>
             <!-- note on -->

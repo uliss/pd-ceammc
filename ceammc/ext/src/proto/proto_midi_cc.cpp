@@ -15,6 +15,7 @@
 #include "ceammc_convert.h"
 #include "ceammc_factory.h"
 
+#include <cmath>
 #include <tuple>
 
 enum {
@@ -131,6 +132,29 @@ void ProtoMidiCC::m_tune_prog_change(t_symbol* s, const AtomListView& lv)
     sendCCEnd();
 }
 
+void ProtoMidiCC::m_tune_fine(t_symbol* s, const AtomListView& lv)
+{
+    if (!checkArgs(lv, ARG_FLOAT, s))
+        return;
+
+    const float tune = lv[0].asT<t_float>();
+    if (tune < -100 || tune > 100) {
+        METHOD_ERR(s) << "expected fine tuning (in cents) in [-100..+100] range, got: " << lv;
+        return;
+    }
+
+    const int val = std::round(convert::lin2lin_clip<t_float>(tune, -100, 100, 0, 0x3FFF));
+    const uint16_t msb = 0x7F & (val >> 7);
+    const uint16_t lsb = 0x7F & val;
+
+    sendCCBegin();
+    sendCC(0, midi::RPNParser::CC_RPN_COARSE, 0);
+    sendCC(0, midi::RPNParser::CC_RPN_FINE, midi::RPNParser::RRN_CHANNEL_TUNING_FINE);
+    sendCC(0, midi::RPNParser::CC_DATA_ENTRY_COARSE, msb);
+    sendCC(0, midi::RPNParser::CC_DATA_ENTRY_FINE, lsb);
+    sendCCEnd();
+}
+
 void ProtoMidiCC::sendCCBegin()
 {
     if (as_list_->value())
@@ -207,4 +231,5 @@ void setup_proto_midi_cc()
     obj.addMethod("bendsens", &ProtoMidiCC::m_bend_sens);
     obj.addMethod("tunebank", &ProtoMidiCC::m_tune_bank_select);
     obj.addMethod("tuneprog", &ProtoMidiCC::m_tune_prog_change);
+    obj.addMethod("tunefine", &ProtoMidiCC::m_tune_fine);
 }
