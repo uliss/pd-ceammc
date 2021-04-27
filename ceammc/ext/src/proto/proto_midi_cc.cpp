@@ -12,6 +12,7 @@
  * this file belongs to.
  *****************************************************************************/
 #include "proto_midi_cc.h"
+#include "ceammc_args.h"
 #include "ceammc_convert.h"
 #include "ceammc_factory.h"
 
@@ -162,20 +163,21 @@ void ProtoMidiCC::m_tune_coarse(t_symbol* s, const AtomListView& lv)
 
 void ProtoMidiCC::m_tune_semi(t_symbol* s, const AtomListView& lv)
 {
-    if (!checkArgs(lv, ARG_FLOAT, s))
-        return;
+    static ArgChecker chk("f-64..63 i0..15?");
 
-    const auto tune = lv[0].asT<t_float>();
-    if (tune < -64 || tune > 63) {
-        METHOD_ERR(s) << "expected tuning (in semitones) in [-64..+63.0] range, got: " << lv;
+    if (!chk.check(lv)) {
+        METHOD_ERR(s) << "usage: TUNE[-64..63] CHAN[0..15]?, got: " << lv;
         return;
     }
+
+    const auto tune = lv.floatAt(0, 0);
+    const int chan = lv.intAt(1, 0);
 
     t_float semi = 0;
     const t_float cents = std::modf(tune, &semi) * 100;
 
-    sendTuneCoarse(semi);
-    sendTuneFine(cents);
+    sendTuneCoarse(semi, chan);
+    sendTuneFine(cents, chan);
 }
 
 void ProtoMidiCC::sendCCBegin()
@@ -214,19 +216,25 @@ void ProtoMidiCC::onCC(int b, int c, int v)
     case CC_DATA_ENTRY_FINE:
     case CC_DATA_INCREMENT:
     case CC_DATA_DECREMENT: {
-        auto res = rpn_parser_.push(c, v);
+        if (b < 0 || b > 15) {
+            OBJ_ERR << "invalid midi channel value: " << b;
+            return;
+        }
+
+        auto res = rpn_parser_[b].push(c, v);
         if (res.err != midi::RPNParser::NO_ERROR) {
-            rpn_parser_.reset();
+            rpn_parser_[b].reset();
             OBJ_ERR << "RPN parser error: ";
         } else if (res.state == midi::RPNParser::ST_DONE) {
-            rpn_parser_.reset();
+            rpn_parser_[b].reset();
             if (res.rpn == midi::RPNParser::RPN_RESET) {
-                return anyTo(0, gensym(SEL_RPN_RESET), AtomListView());
+                return anyTo(0, gensym(SEL_RPN_RESET), AtomListView(Atom(b)));
             } else {
-                Atom val[2];
-                val[0] = res.rpn;
-                val[1] = res.value;
-                return anyTo(0, gensym(SEL_RPN), AtomListView(val, 2));
+                Atom val[3];
+                val[0] = b;
+                val[1] = res.rpn;
+                val[2] = res.value;
+                return anyTo(0, gensym(SEL_RPN), AtomListView(val, 3));
             }
         }
     } break;
@@ -248,27 +256,27 @@ void ProtoMidiCC::sendCC(int chan, int cc, int v)
     }
 }
 
-void ProtoMidiCC::sendTuneFine(float cents)
+void ProtoMidiCC::sendTuneFine(float cents, int chan)
 {
     const int val = std::round(convert::lin2lin_clip<t_float>(cents, -100, 100, 0, 0x3FFF));
     const uint16_t msb = 0x7F & (val >> 7);
     const uint16_t lsb = 0x7F & val;
 
     sendCCBegin();
-    sendCC(0, midi::RPNParser::CC_RPN_COARSE, 0);
-    sendCC(0, midi::RPNParser::CC_RPN_FINE, midi::RPNParser::RRN_CHANNEL_TUNING_FINE);
-    sendCC(0, midi::RPNParser::CC_DATA_ENTRY_COARSE, msb);
-    sendCC(0, midi::RPNParser::CC_DATA_ENTRY_FINE, lsb);
+    sendCC(chan, midi::RPNParser::CC_RPN_COARSE, 0);
+    sendCC(chan, midi::RPNParser::CC_RPN_FINE, midi::RPNParser::RRN_CHANNEL_TUNING_FINE);
+    sendCC(chan, midi::RPNParser::CC_DATA_ENTRY_COARSE, msb);
+    sendCC(chan, midi::RPNParser::CC_DATA_ENTRY_FINE, lsb);
     sendCCEnd();
 }
 
-void ProtoMidiCC::sendTuneCoarse(int semi)
+void ProtoMidiCC::sendTuneCoarse(int semi, int chan)
 {
     sendCCBegin();
-    sendCC(0, midi::RPNParser::CC_RPN_COARSE, 0);
-    sendCC(0, midi::RPNParser::CC_RPN_FINE, midi::RPNParser::RRN_CHANNEL_TUNING_COARSE);
-    sendCC(0, midi::RPNParser::CC_DATA_ENTRY_COARSE, semi + 64);
-    sendCC(0, midi::RPNParser::CC_DATA_ENTRY_FINE, 0);
+    sendCC(chan, midi::RPNParser::CC_RPN_COARSE, 0);
+    sendCC(chan, midi::RPNParser::CC_RPN_FINE, midi::RPNParser::RRN_CHANNEL_TUNING_COARSE);
+    sendCC(chan, midi::RPNParser::CC_DATA_ENTRY_COARSE, semi + 64);
+    sendCC(chan, midi::RPNParser::CC_DATA_ENTRY_FINE, 0);
     sendCCEnd();
 }
 

@@ -64,71 +64,77 @@ TEST_CASE("proto.midi.cc", "[externals]")
         REQUIRE_FALSE(t1.hasOutput());
 
         t0.call("bendsens", 0.0);
-        REQUIRE(t1.messagesAt(0) == ML { M("rpn", 0, 0) });
+        REQUIRE(t1.messagesAt(0) == ML { M("rpn", 0, 0, 0) });
         t1.clearAll();
 
         t0.call("bendsens", 1);
-        REQUIRE(t1.messagesAt(0) == ML { M("rpn", 0, 0x1 << 7) });
+        REQUIRE(t1.messagesAt(0) == ML { M("rpn", 0, 0, 0x1 << 7) });
         t1.clearAll();
 
         t0.call("bendsens", 1.5);
-        REQUIRE(t1.messagesAt(0) == ML { M("rpn", 0, (0x1 << 7) | 50) });
+        REQUIRE(t1.messagesAt(0) == ML { M("rpn", 0, 0, (0x1 << 7) | 50) });
         t1.clearAll();
 
         t0.call("bendsens", 1.75);
-        REQUIRE(t1.messagesAt(0) == ML { M("rpn", 0, (0x1 << 7) | 75) });
+        REQUIRE(t1.messagesAt(0) == ML { M("rpn", 0, 0, (0x1 << 7) | 75) });
         t1.clearAll();
 
         t0.call("tunebank", 1);
-        REQUIRE(t1.messagesAt(0) == ML { M("rpn", 4, 1) });
+        REQUIRE(t1.messagesAt(0) == ML { M("rpn", 0, 4, 1) });
         t1.clearAll();
 
         t0.call("tunebank", 35);
-        REQUIRE(t1.messagesAt(0) == ML { M("rpn", 4, 35) });
+        REQUIRE(t1.messagesAt(0) == ML { M("rpn", 0, 4, 35) });
         t1.clearAll();
 
         t0.call("tuneprog", 35);
-        REQUIRE(t1.messagesAt(0) == ML { M("rpn", 3, 35) });
+        REQUIRE(t1.messagesAt(0) == ML { M("rpn", 0, 3, 35) });
         t1.clearAll();
 
         t0.call("tunefine", 0);
-        REQUIRE(t1.messagesAt(0) == ML { M("rpn", 1, 0x2000) });
+        REQUIRE(t1.messagesAt(0) == ML { M("rpn", 0, 1, 0x2000) });
         t1.clearAll();
 
         t0.call("tunefine", -50);
-        REQUIRE(t1.messagesAt(0) == ML { M("rpn", 1, 0x1000) });
+        REQUIRE(t1.messagesAt(0) == ML { M("rpn", 0, 1, 0x1000) });
         t1.clearAll();
 
         t0.call("tunefine", -100);
-        REQUIRE(t1.messagesAt(0) == ML { M("rpn", 1, 0) });
+        REQUIRE(t1.messagesAt(0) == ML { M("rpn", 0, 1, 0) });
         t1.clearAll();
 
         t0.call("tunefine", 100);
-        REQUIRE(t1.messagesAt(0) == ML { M("rpn", 1, 0x3FFF) });
+        REQUIRE(t1.messagesAt(0) == ML { M("rpn", 0, 1, 0x3FFF) });
         t1.clearAll();
 
         t0.call("tunefine", 50);
-        REQUIRE(t1.messagesAt(0) == ML { M("rpn", 1, 0x2FFF) });
+        REQUIRE(t1.messagesAt(0) == ML { M("rpn", 0, 1, 0x2FFF) });
         t1.clearAll();
 
         t0.call("tunefine", -15);
-        REQUIRE(t1.messagesAt(0) == ML { M("rpn", 1, 0x2000 - 1229) });
+        REQUIRE(t1.messagesAt(0) == ML { M("rpn", 0, 1, 0x2000 - 1229) });
         t1.clearAll();
 
         t0.call("tunecoarse", 0);
-        REQUIRE(t1.messagesAt(0) == ML { M("rpn", 2, 64 << 7) });
+        REQUIRE(t1.messagesAt(0) == ML { M("rpn", 0, 2, 64 << 7) });
         t1.clearAll();
 
         t0.call("tunecoarse", 5);
-        REQUIRE(t1.messagesAt(0) == ML { M("rpn", 2, 69 << 7) });
+        REQUIRE(t1.messagesAt(0) == ML { M("rpn", 0, 2, 69 << 7) });
         t1.clearAll();
 
         t0.call("tunesemi", 1.5);
-        REQUIRE(t1.messagesAt(0) == ML { M("rpn", 2, 65 << 7), M("rpn", 1, 0x2FFF) });
+        REQUIRE(t1.messagesAt(0) == ML { M("rpn", 0, 2, 65 << 7), M("rpn", 0, 1, 0x2FFF) });
         t1.clearAll();
 
         t0.call("tunesemi", -2.5);
-        REQUIRE(t1.messagesAt(0) == ML { M("rpn", 2, 62 << 7), M("rpn", 1, 0x1000) });
+        REQUIRE(t1.messagesAt(0) == ML { M("rpn", 0, 2, 62 << 7), M("rpn", 0, 1, 0x1000) });
         t1.clearAll();
+
+        t0.call("tunesemi", -200);
+        REQUIRE_FALSE(t1.hasOutput());
+
+        t0.call("tunesemi", -10, 16);
+        REQUIRE_FALSE(t1.hasOutput());
     }
 }

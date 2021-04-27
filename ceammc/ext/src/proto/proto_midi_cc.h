@@ -25,7 +25,7 @@ class ProtoMidiCC : public BaseObject {
     FlagProperty* as_list_;
     std::vector<uint8_t> buffer_;
     midi::MidiParser parser_;
-    midi::RPNParser rpn_parser_;
+    midi::RPNParser rpn_parser_[16];
     uint8_t mod_wheel0_, mod_wheel1_;
     uint8_t pan_pos0_, pan_pos1_;
     uint8_t rpn0_, rpn1_;
@@ -50,8 +50,8 @@ private:
     void onCC(int b, int c, int v);
     void sendCC(int chan, int cc, int v);
 
-    void sendTuneFine(float cents);
-    void sendTuneCoarse(int semi);
+    void sendTuneFine(float cents, int chan = 0);
+    void sendTuneCoarse(int semi, int chan = 0);
 };
 
 void setup_proto_midi_cc();
