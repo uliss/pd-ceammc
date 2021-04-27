@@ -15,12 +15,12 @@
 #define FLUID_H
 
 #include "ceammc_sound_external.h"
+#include "proto/proto_midi_parser.h"
 
 using namespace ceammc;
 
 struct _fluid_synth_t;
 typedef struct _fluid_synth_t fluid_synth_t;
-typedef struct _fluid_player_t fluid_player_t;
 
 class FluidSynthProperty;
 
@@ -34,6 +34,7 @@ class Fluid : public SoundExternal {
 
     FluidSynthProperty* gain_;
     FluidSynthProperty* polyphony_;
+    midi::MidiParser midi_parser_;
 
 public:
     Fluid(const PdArgs& args);
@@ -66,6 +67,9 @@ public:
     void m_get_bend_sens(t_symbol* s, const AtomListView& lv);
     void m_set_bend_sens(t_symbol* s, const AtomListView& lv);
 
+    void m_tune_cent(t_symbol* s, const AtomListView& lv);
+    void m_tune_semi(t_symbol* s, const AtomListView& lv);
+
     void m_tune_set_octave(t_symbol* s, const AtomListView& lv);
     void m_tune_select(t_symbol* s, const AtomListView& lv);
 
@@ -73,6 +77,7 @@ public:
 
 private:
     void select_tune(int bank, int prog);
+    void bindMidiParser();
 };
 
 void setup_misc_fluid();

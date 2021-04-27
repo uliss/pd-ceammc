@@ -217,6 +217,8 @@ Fluid::Fluid(const PdArgs& args)
     createCbIntProperty("@n", [this]() {
         return (!synth_) ? 0 : fluid_synth_count_midi_channels(synth_);
     });
+
+    bindMidiParser();
 }
 
 Fluid::~Fluid()
@@ -559,6 +561,68 @@ void Fluid::m_set_bend_sens(t_symbol* s, const AtomListView& lv)
     }
 }
 
+void Fluid::m_tune_cent(t_symbol* s, const AtomListView& lv)
+{
+    if (!checkArgs(lv, ARG_INT, ARG_FLOAT)) {
+        METHOD_ERR(s) << "CHANNEL:int TUNE(cents:float) expected, got: " << lv;
+        return;
+    }
+
+    if (!synth_)
+        return;
+
+    const auto chan = lv.intAt(0, 0);
+    const auto value = lv.floatAt(1, 0);
+
+    if (chan < 0 || chan > 16) {
+        METHOD_ERR(s) << "channel in [0..16] range expected, got: " << chan;
+        return;
+    }
+
+    if (value < -100 || value > 100) {
+        METHOD_ERR(s) << "tune in [-100..100.0] range expected, got: " << chan;
+        return;
+    }
+
+    if (FLUID_OK != fluid_synth_set_gen(synth_, chan, GEN_FINETUNE, value)) {
+        METHOD_ERR(s) << "can't set fine tuning: " << chan << ' ' << value;
+        return;
+    }
+}
+
+void Fluid::m_tune_semi(t_symbol* s, const AtomListView& lv)
+{
+    if (!checkArgs(lv, ARG_INT, ARG_FLOAT)) {
+        METHOD_ERR(s) << "CHANNEL:int TUNE(semitones:float) expected, got: " << lv;
+        return;
+    }
+
+    if (!synth_)
+        return;
+
+    const auto chan = lv.intAt(0, 0);
+    const t_float value = lv.floatAt(1, 0);
+
+    if (chan < 0 || chan > 16) {
+        METHOD_ERR(s) << "channel in [0..16] range expected, got: " << chan;
+        return;
+    }
+
+    if (value < -64 || value > 63) {
+        METHOD_ERR(s) << "tune in [-64..63] range expected, got: " << chan;
+        return;
+    }
+
+    t_float semi = 0;
+    const t_float cents = std::modf(value, &semi) * 100;
+
+    if (FLUID_OK != fluid_synth_set_gen(synth_, chan, GEN_COARSETUNE, semi)
+        || FLUID_OK != fluid_synth_set_gen(synth_, chan, GEN_FINETUNE, cents)) {
+        METHOD_ERR(s) << "can't set semitone tuning: " << lv;
+        return;
+    }
+}
+
 void Fluid::m_tune_set_octave(t_symbol* s, const AtomListView& lv)
 {
     static ArgChecker chk("i i s f f f f f f f f f f f f b?");
@@ -597,6 +661,17 @@ void Fluid::m_tune_select(t_symbol* s, const AtomListView& lv)
     int prog = lv.intAt(1, 0);
 
     select_tune(bank, prog);
+}
+
+void Fluid::m_midi(t_symbol* s, const AtomListView& lv)
+{
+    for (auto& byte : lv) {
+        if (byte.isFloat()) {
+            auto res = midi_parser_.push(byte.asT<int>());
+            if (res.err != midi::MidiParser::NO_ERROR)
+                METHOD_ERR(s) << res.errStr();
+        }
+    }
 }
 
 void Fluid::dump() const
@@ -663,6 +738,47 @@ void Fluid::select_tune(int bank, int prog)
         OBJ_ERR << "cant select tuning: " << bank << ':' << prog;
 }
 
+void Fluid::bindMidiParser()
+{
+    midi_parser_.setNoteOnFn([this](int chan, int note, int vel) {
+        if (synth_)
+            fluid_synth_noteon(synth_, chan, note, vel);
+    });
+
+    midi_parser_.setNoteOffFn([this](int chan, int note, int) {
+        if (synth_)
+            fluid_synth_noteoff(synth_, chan, note);
+    });
+
+    midi_parser_.setControlChangeFn([this](int chan, int cc, int val) {
+        if (!synth_)
+            return;
+
+        if (FLUID_OK != fluid_synth_cc(synth_, chan, cc, val))
+            OBJ_ERR << "CC failed: " << chan << ' ' << cc << ' ' << val;
+    });
+
+    midi_parser_.setAfterTouchFn([this](int chan, int val) {
+        if (synth_)
+            fluid_synth_channel_pressure(synth_, chan, val);
+    });
+
+    midi_parser_.setPolyTouchFn([this](int chan, int key, int val) {
+        if (synth_)
+            fluid_synth_key_pressure(synth_, chan, key, val);
+    });
+
+    midi_parser_.setProgramChangeFn([this](int chan, int prog) {
+        if (synth_)
+            fluid_synth_program_change(synth_, chan, prog);
+    });
+
+    midi_parser_.setPitchWheelFn([this](int chan, int msb, int lsb) {
+        if (synth_)
+            fluid_synth_pitch_bend(synth_, chan, (msb << 7) | lsb);
+    });
+}
+
 void Fluid::processBlock(const t_sample** in, t_sample** out)
 {
     if (synth_ == nullptr)
@@ -703,9 +819,12 @@ void setup_misc_fluid()
     obj.addMethod("notes_off", &Fluid::m_notesOff);
     obj.addMethod("sounds_off", &Fluid::m_soundsOff);
     obj.addMethod("sysex", &Fluid::m_sysex);
+    obj.addMethod("midi", &Fluid::m_midi);
 
     obj.addMethod("bendsens?", &Fluid::m_get_bend_sens);
     obj.addMethod("bendsens", &Fluid::m_set_bend_sens);
     obj.addMethod("tune12", &Fluid::m_tune_set_octave);
     obj.addMethod("tunesel", &Fluid::m_tune_select);
+    obj.addMethod("tunecent", &Fluid::m_tune_cent);
+    obj.addMethod("tunesemi", &Fluid::m_tune_semi);
 }

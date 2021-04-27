@@ -13,6 +13,13 @@ if(WITH_FLUIDSYNTH)
     target_include_directories(ceammc_misc PRIVATE ${FLUIDSYNTH_INCLUDES})
     target_include_directories(ceammc_misc PRIVATE ${FLUIDSYNTH_INCLUDES}/../src)
     target_link_libraries(ceammc_misc PUBLIC ${FLUIDSYNTH_LIBRARIES})
+    target_include_directories(ceammc_misc
+        PRIVATE
+        ${FLUIDSYNTH_INCLUDES}
+        ${FLUIDSYNTH_INCLUDES}/../src
+        PUBLIC
+        ${PROJECT_SOURCE_DIR}/ceammc/ext/src)
+    target_link_libraries(ceammc_misc PUBLIC ${FLUIDSYNTH_LIBRARIES} ceammc_proto)
     target_sources(ceammc_misc PRIVATE fluid.cpp)
 endif()
 
