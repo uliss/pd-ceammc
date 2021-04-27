@@ -205,6 +205,6 @@ void setup_proto_midi_cc()
 {
     ObjectFactory<ProtoMidiCC> obj("proto.midi.cc");
     obj.addMethod("bendsens", &ProtoMidiCC::m_bend_sens);
-    obj.addMethod("tunebanksel", &ProtoMidiCC::m_tune_bank_select);
-    obj.addMethod("tuneprogchange", &ProtoMidiCC::m_tune_prog_change);
+    obj.addMethod("tunebank", &ProtoMidiCC::m_tune_bank_select);
+    obj.addMethod("tuneprog", &ProtoMidiCC::m_tune_prog_change);
 }

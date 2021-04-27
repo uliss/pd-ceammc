@@ -78,5 +78,17 @@ TEST_CASE("proto.midi.cc", "[externals]")
         t0.call("bendsens", 1.75);
         REQUIRE(t1.messagesAt(0) == ML { M("rpn", 0, (0x1 << 7) | 75) });
         t1.clearAll();
+
+        t0.call("tunebank", 1);
+        REQUIRE(t1.messagesAt(0) == ML { M("rpn", 4, 1) });
+        t1.clearAll();
+
+        t0.call("tunebank", 35);
+        REQUIRE(t1.messagesAt(0) == ML { M("rpn", 4, 35) });
+        t1.clearAll();
+
+        t0.call("tuneprog", 35);
+        REQUIRE(t1.messagesAt(0) == ML { M("rpn", 3, 35) });
+        t1.clearAll();
     }
 }
