@@ -41,7 +41,7 @@ TEST_CASE("misc.fluid~", "[externals]")
         REQUIRE_PROPERTY_FLOAT(t, @reverb_width, 0.5);
         REQUIRE_PROPERTY_FLOAT(t, @reverb_level, 0.9);
 
-        REQUIRE_PROPERTY_FLOAT(t, @gain, 0.6);
+        REQUIRE_PROPERTY_FLOAT(t, @gain, 0.2);
         REQUIRE_PROPERTY(t, @poly, 256);
 
         REQUIRE_PROPERTY(t, @avoices, 0);

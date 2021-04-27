@@ -20,6 +20,7 @@ using namespace ceammc;
 
 struct _fluid_synth_t;
 typedef struct _fluid_synth_t fluid_synth_t;
+typedef struct _fluid_player_t fluid_player_t;
 
 class FluidSynthProperty;
 
@@ -59,8 +60,19 @@ public:
     void m_reset(t_symbol* s, const AtomListView& lst);
     void m_notesOff(t_symbol* s, const AtomListView& lst);
     void m_soundsOff(t_symbol* s, const AtomListView& lst);
+    void m_sysex(t_symbol* s, const AtomListView& lv);
+    void m_midi(t_symbol* s, const AtomListView& lv);
+
+    void m_get_bend_sens(t_symbol* s, const AtomListView& lv);
+    void m_set_bend_sens(t_symbol* s, const AtomListView& lv);
+
+    void m_tune_set_octave(t_symbol* s, const AtomListView& lv);
+    void m_tune_select(t_symbol* s, const AtomListView& lv);
 
     void dump() const override;
+
+private:
+    void select_tune(int bank, int prog);
 };
 
 void setup_misc_fluid();

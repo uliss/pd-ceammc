@@ -12,11 +12,12 @@
  * this file belongs to.
  *****************************************************************************/
 #include "fluid.h"
+#include "ceammc_args.h"
 #include "ceammc_factory.h"
 #include "ceammc_platform.h"
 
-#include "../src/sfloader/fluid_sfont.h"
 #include "fluidsynth.h"
+#include "sfloader/fluid_sfont.h"
 
 #define PROP_ERR() LogPdObject(owner(), LOG_ERROR).stream() << errorPrefix()
 
@@ -105,9 +106,6 @@ Fluid::Fluid(const PdArgs& args)
 
     // settings:
     fluid_settings_setnum(settings, "synth.midi-channels", 16);
-    fluid_settings_setnum(settings, "synth.polyphony", 256);
-    fluid_settings_setnum(settings, "synth.gain", 0.6);
-    fluid_settings_setnum(settings, "synth.sample-rate", 44100);
 
     // Create fluidsynth instance:
     synth_ = new_fluid_synth(settings);
@@ -215,6 +213,10 @@ Fluid::Fluid(const PdArgs& args)
 
         addProperty(p);
     }
+
+    createCbIntProperty("@n", [this]() {
+        return (!synth_) ? 0 : fluid_synth_count_midi_channels(synth_);
+    });
 }
 
 Fluid::~Fluid()
@@ -247,10 +249,7 @@ void Fluid::setupDSP(t_signal** sp)
 
     if (synth_) {
         fluid_synth_all_sounds_off(synth_, -1);
-        fluid_settings_t* s = fluid_synth_get_settings(synth_);
-        if (fluid_settings_setnum(s, "synth.sample-rate", samplerate()) != FLUID_OK) {
-            OBJ_ERR << "can't set samplerate: " << samplerate();
-        }
+        fluid_synth_set_sample_rate(synth_, samplerate());
     }
 }
 
@@ -448,6 +447,158 @@ void Fluid::m_soundsOff(t_symbol* s, const AtomListView& lst)
     fluid_synth_all_sounds_off(synth_, chan - 1);
 }
 
+void Fluid::m_sysex(t_symbol* s, const AtomListView& lv)
+{
+    if (!synth_)
+        return;
+
+    const auto N = lv.size();
+    char data[N];
+    for (size_t i = 0; i < N; i++)
+        data[i] = lv[i].asT<int>();
+
+    char small_reply[512];
+    int reply_len = 512;
+
+    auto res = fluid_synth_sysex(synth_, data, N, small_reply, &reply_len, nullptr, 0);
+
+    if (reply_len != 0 && res == FLUID_FAILED) {
+        METHOD_ERR(s) << "length";
+
+        char big_reply[reply_len];
+        auto res = fluid_synth_sysex(synth_, data, N, big_reply, &reply_len, nullptr, 0);
+        if (res == FLUID_OK) {
+            Atom res[reply_len];
+            for (int i = 0; i < reply_len; i++)
+                res[i] = big_reply[i];
+
+            anyTo(0, gensym("sysex"), AtomListView(res, reply_len));
+        }
+    } else if (res == FLUID_OK) {
+        METHOD_ERR(s) << "ok";
+
+        if (reply_len > 0) {
+            Atom res[reply_len];
+            for (int i = 0; i < reply_len; i++)
+                res[i] = small_reply[i];
+
+            anyTo(0, gensym("sysex"), AtomListView(res, reply_len));
+        } else {
+            METHOD_ERR(s) << "no reply: " << reply_len;
+        }
+    } else
+        METHOD_ERR(s) << "sysex message not handled: " << lv;
+}
+
+void Fluid::m_get_bend_sens(t_symbol* s, const AtomListView& lv)
+{
+    constexpr int ALL_CHANNELS = -1;
+
+    if (synth_ == nullptr)
+        return;
+
+    // by default: first channel
+    int chan = lv.intAt(0, 1) - 1;
+    int sens = 0;
+    const int n = fluid_synth_count_midi_channels(synth_);
+
+    if (chan == ALL_CHANNELS) {
+        int sens = 0;
+        Atom res[n];
+
+        for (int i = 0; i < n; i++) {
+            if (fluid_synth_get_pitch_wheel_sens(synth_, i, &sens) == FLUID_FAILED) {
+                METHOD_ERR(s) << "can't get pitch bend sensivity from channel [" << i << "]";
+                return;
+            }
+
+            res[i] = sens;
+        }
+
+        anyTo(0, gensym("bendsens"), AtomListView(res, n));
+
+    } else if (chan >= 0 && chan < n) {
+        if (fluid_synth_get_pitch_wheel_sens(synth_, chan, &sens) == FLUID_FAILED) {
+            METHOD_ERR(s) << "can't get pitch bend sensivity for channel [" << chan << "]";
+            return;
+        }
+
+        Atom val(sens);
+        anyTo(0, gensym("bendsens"), val);
+    } else {
+        METHOD_ERR(s) << "invalid channel: " << chan;
+    }
+}
+
+void Fluid::m_set_bend_sens(t_symbol* s, const AtomListView& lv)
+{
+    constexpr int ALL_CHANNELS = -1;
+
+    if (synth_ == nullptr)
+        return;
+
+    // by default: first channel
+    int chan = lv.intAt(0, 1) - 1;
+    int val = lv.intAt(1, 0);
+    const int n = fluid_synth_count_midi_channels(synth_);
+
+    if (chan == ALL_CHANNELS) {
+        for (int i = 0; i < n; i++) {
+            if (fluid_synth_pitch_wheel_sens(synth_, chan, val) != FLUID_OK) {
+                METHOD_ERR(s) << "can't set pitch bend sensivity for channel [" << i << "]: " << val;
+                return;
+            }
+        }
+    } else if (chan >= 0 && chan < n) {
+        if (fluid_synth_pitch_wheel_sens(synth_, chan, val) != FLUID_OK) {
+            METHOD_ERR(s) << "can't set pitch bend sensivity for channel [" << chan << "]: " << val;
+            return;
+        }
+    } else {
+        METHOD_ERR(s) << "invalid channel: " << chan;
+    }
+}
+
+void Fluid::m_tune_set_octave(t_symbol* s, const AtomListView& lv)
+{
+    static ArgChecker chk("i i s f f f f f f f f f f f f b?");
+
+    if (!synth_)
+        return;
+
+    Error err(this);
+    chk.setOut(err);
+    if (!chk.check(lv))
+        return;
+
+    int tune_bank = lv[0].asInt();
+    int tune_prog = lv[1].asInt();
+    t_symbol* name = lv[2].asSymbol(gensym("unknown"));
+    double pitches[12] = { 0 };
+    for (size_t i = 0; i < 12 && (i + 3) < lv.size(); i++)
+        pitches[i] = lv[i + 3].asT<t_float>();
+
+    for (auto& p : pitches)
+        OBJ_DBG << p;
+
+    auto rc = fluid_synth_activate_octave_tuning(synth_, tune_bank, tune_prog, name->s_name, pitches, 1);
+    if (rc != FLUID_OK) {
+        METHOD_ERR(s) << "can't set tuning: " << lv;
+        return;
+    }
+
+    if (lv.boolAt(15, false))
+        select_tune(tune_bank, tune_prog);
+}
+
+void Fluid::m_tune_select(t_symbol* s, const AtomListView& lv)
+{
+    int bank = lv.intAt(0, 0);
+    int prog = lv.intAt(1, 0);
+
+    select_tune(bank, prog);
+}
+
 void Fluid::dump() const
 {
     SoundExternal::dump();
@@ -503,6 +654,15 @@ void Fluid::dump() const
     OBJ_DBG << "gain: " << fluid_synth_get_gain(synth_);
 }
 
+void Fluid::select_tune(int bank, int prog)
+{
+    if (!synth_)
+        return;
+
+    if (FLUID_OK != fluid_synth_activate_tuning(synth_, 0, bank, prog, 1))
+        OBJ_ERR << "cant select tuning: " << bank << ':' << prog;
+}
+
 void Fluid::processBlock(const t_sample** in, t_sample** out)
 {
     if (synth_ == nullptr)
@@ -542,4 +702,10 @@ void setup_misc_fluid()
     obj.addMethod("reset", &Fluid::m_reset);
     obj.addMethod("notes_off", &Fluid::m_notesOff);
     obj.addMethod("sounds_off", &Fluid::m_soundsOff);
+    obj.addMethod("sysex", &Fluid::m_sysex);
+
+    obj.addMethod("bendsens?", &Fluid::m_get_bend_sens);
+    obj.addMethod("bendsens", &Fluid::m_set_bend_sens);
+    obj.addMethod("tune12", &Fluid::m_tune_set_octave);
+    obj.addMethod("tunesel", &Fluid::m_tune_select);
 }

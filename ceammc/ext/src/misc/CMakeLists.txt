@@ -7,6 +7,7 @@ ceammc_misc_external(live capture)
 
 add_library(ceammc_misc STATIC mod_misc.cpp ${MISC_SOURCES})
 target_compile_definitions(ceammc_misc PRIVATE -DFAUST_MACRO)
+target_include_directories(ceammc_misc PRIVATE ${PROJECT_SOURCE_DIR}/ceammc/extra/aubio)
 
 if(WITH_FLUIDSYNTH)
     target_include_directories(ceammc_misc PRIVATE ${FLUIDSYNTH_INCLUDES})
