@@ -156,6 +156,19 @@ MidiParser::Result MidiParser::push(Byte byte)
     }
 }
 
+MidiParser::Result MidiParser::push(std::initializer_list<Byte> bytes)
+{
+    Result res { state_, NO_ERROR };
+
+    for (auto b : bytes) {
+        res = push(b);
+        if (res.err != NO_ERROR)
+            return res;
+    }
+
+    return res;
+}
+
 MidiParser::Result MidiParser::resetError(MidiParser::Error err)
 {
     State st = state_;
@@ -179,13 +192,16 @@ void MidiParser::runCallbacks()
 
     switch (state_) {
     case STATE_NOTE_ON:
-        CALL3(noteon_cb_, data_)
+        if (noteon_cb_)
+            noteon_cb_(0xF & data_[0], 0x7F & data_[1], 0x7F & data_[2]);
         break;
     case STATE_NOTE_OFF:
-        CALL3(noteoff_cb_, data_)
+        if (noteoff_cb_)
+            noteoff_cb_(0xF & data_[0], 0x7F & data_[1], 0x7F & data_[2]);
         break;
     case STATE_CONTROLCHANGE:
-        CALL3(cc_cb_, data_)
+        if (cc_cb_)
+            cc_cb_(0xF & data_[0], 0x7F & data_[1], 0x7F & data_[2]);
         break;
     case STATE_POLYAFTERTOUCH:
         CALL3(poly_cb_, data_)
