@@ -79,71 +79,87 @@ value: 2.0.0\.;
 #X text 245 1180 set a SoundFont generator (effect) value on a MIDI
 channel in real-time (CHANNEL \, PARAM \, VALUE or PARAM \, VALUE expected).;
 #X msg 110 1220 hold;
-#X text 245 1220 hold (sustain) pedal \, ignore note release when active
-\, release all notes when set to off. Arguments are:;
+#X text 245 1220 hold (sustain \, right) pedal \, ignore note release
+when active \, release all notes when set to off. Arguments are:;
 #X obj 255 1258 cnv 1 36 23 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 255 1258 CHAN: MIDI channel. Type: int. Range: 0\...15\.;
 #X obj 255 1281 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 255 1281 VAL: pedal state. Type: int. Allowed values: 0 \,
 1\.;
-#X msg 110 1306 note;
-#X text 245 1306 play note (CHANNEL \, KEY \, VELOCITY or KEY \, VELOCITY
+#X msg 110 1306 legato;
+#X text 245 1306 enable or disable legato/smooth transitions between
+consecutive notes. Arguments are:;
+#X obj 255 1344 cnv 1 36 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1344 CHAN: MIDI channel. Type: int. Range: 0\...15\.;
+#X obj 255 1367 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1367 VAL: pedal state. Type: int. Allowed values: 0 \,
+1\.;
+#X msg 110 1392 note;
+#X text 245 1392 play note (CHANNEL \, KEY \, VELOCITY or KEY \, VELOCITY
 expected).;
-#X msg 110 1333 notes_off;
-#X text 245 1333 turn off all notes on a MIDI channel (put them into
+#X msg 110 1419 notes_off;
+#X text 245 1419 turn off all notes on a MIDI channel (put them into
 release phase). Arguments are:;
-#X obj 255 1371 cnv 1 62 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1371 [CHAN=0]: MIDI channel. Type: int.;
-#X msg 110 1396 pan;
-#X text 245 1396 set channel panning. Arguments are:;
-#X obj 255 1419 cnv 1 36 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1419 CHAN: MIDI channel. Type: int. Range: 0\...15\.;
-#X obj 255 1442 cnv 1 28 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1442 PAN: pan value \, -1: left \, 0: center \, 1: right.
+#X obj 255 1457 cnv 1 62 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1457 [CHAN=0]: MIDI channel. Type: int.;
+#X msg 110 1482 pan;
+#X text 245 1482 set channel panning. Arguments are:;
+#X obj 255 1505 cnv 1 36 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1505 CHAN: MIDI channel. Type: int. Range: 0\...15\.;
+#X obj 255 1528 cnv 1 28 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1528 PAN: pan value \, -1: left \, 0: center \, 1: right.
 Type: float. Range: -1\...1\.;
-#X msg 110 1482 panic;
-#X text 245 1482 send MIDI system reset command (big red 'panic' button)
+#X msg 110 1568 panic;
+#X text 245 1568 send MIDI system reset command (big red 'panic' button)
 \, turns off notes \, resets controllers and restores initial basic
 channel configuration.;
-#X msg 110 1537 prog;
-#X text 245 1537 program change (CHANNEL \, PROGRAM expected).;
-#X msg 110 1564 reset;
-#X text 245 1564 reset all synth channels.;
-#X msg 110 1591 sostenuto;
-#X text 245 1591 sostenuto pedal \, hold notes pressed before pedal
-activation \, new notes are passed untouched. Release holded notes
-when set to off. Arguments are:;
-#X obj 255 1644 cnv 1 36 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1644 CHAN: MIDI channel. Type: int. Range: 0\...15\.;
-#X obj 255 1667 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1667 VAL: pedal state. Type: int. Allowed values: 0 \,
+#X msg 110 1623 prog;
+#X text 245 1623 program change (CHANNEL \, PROGRAM expected).;
+#X msg 110 1650 reset;
+#X text 245 1650 reset all synth channels.;
+#X msg 110 1677 soft;
+#X text 245 1677 soft (left) pedal \, activate the soft strike effect.
+Arguments are:;
+#X obj 255 1715 cnv 1 36 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1715 CHAN: MIDI channel. Type: int. Range: 0\...15\.;
+#X obj 255 1738 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1738 VAL: pedal state. Type: int. Allowed values: 0 \,
 1\.;
-#X msg 110 1692 sounds_off;
-#X text 245 1692 immediately stop all notes on a MIDI channel (skips
+#X msg 110 1763 sostenuto;
+#X text 245 1763 sostenuto (middle) pedal \, hold notes pressed before
+pedal activation \, new notes are passed untouched. Release holded
+notes when set to off. Arguments are:;
+#X obj 255 1816 cnv 1 36 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1816 CHAN: MIDI channel. Type: int. Range: 0\...15\.;
+#X obj 255 1839 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1839 VAL: pedal state. Type: int. Allowed values: 0 \,
+1\.;
+#X msg 110 1864 sounds_off;
+#X text 245 1864 immediately stop all notes on a MIDI channel (skips
 release phase). Arguments are:;
-#X obj 255 1730 cnv 1 62 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1730 [CHAN=0]: MIDI channel. Type: int.;
-#X obj 20 1765 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1770 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144
+#X obj 255 1902 cnv 1 62 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1902 [CHAN=0]: MIDI channel. Type: int.;
+#X obj 20 1937 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1942 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 1771 1\.;
-#X text 150 1771 *symbol*;
-#X text 245 1771 load mod file.;
-#X obj 20 1801 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1806 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
+#X text 110 1943 1\.;
+#X text 150 1943 *symbol*;
+#X text 245 1943 load mod file.;
+#X obj 20 1973 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1978 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 1807 1\.;
-#X text 245 1807 left channel and property output.;
-#X text 110 1827 2\.;
-#X text 245 1827 right channel.;
+#X text 110 1979 1\.;
+#X text 245 1979 left channel and property output.;
+#X text 110 1999 2\.;
+#X text 245 1999 right channel.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 115 45 ::;
 #X obj 131 48 ui.link @title misc @url ceammc.misc-help.pd;
-#X obj 1 1877 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 1880 library: ceammc v0.9.3;
-#N canvas 10 1899 400 290 info 0;
+#X obj 1 2049 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 2052 library: ceammc v0.9.3;
+#N canvas 10 2071 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
@@ -167,7 +183,7 @@ https://github.com/uliss/pure-data;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 generated by pddoc;
-#X restore 10 1899 pd info;
+#X restore 10 2071 pd info;
 #X connect 8 0 10 0;
 #X connect 9 0 11 0;
 #X connect 10 0 14 0;

@@ -84,9 +84,19 @@
             <param name="CHAN" type="int" minvalue="0" maxvalue="15" required="true">MIDI
             channel</param>
             <param name="VAL" type="int" enum="0 1" required="true">pedal state</param></method>
-            <!-- sustenuto -->
+            <!-- sostenuto -->
             <method name="sostenuto">sostenuto (middle) pedal, hold notes pressed before pedal
             activation, new notes are passed untouched. Release holded notes when set to off 
+            <param name="CHAN" type="int" minvalue="0" maxvalue="15" required="true">MIDI
+            channel</param>
+            <param name="VAL" type="int" enum="0 1" required="true">pedal state</param></method>
+            <!-- soft -->
+            <method name="soft">soft (left) pedal, activate the soft strike effect
+            <param name="CHAN" type="int" minvalue="0" maxvalue="15" required="true">MIDI
+            channel</param>
+            <param name="VAL" type="int" enum="0 1" required="true">pedal state</param></method>
+            <!-- legato -->
+            <method name="legato">enable or disable legato/smooth transitions between consecutive notes
             <param name="CHAN" type="int" minvalue="0" maxvalue="15" required="true">MIDI
             channel</param>
             <param name="VAL" type="int" enum="0 1" required="true">pedal state</param></method>
