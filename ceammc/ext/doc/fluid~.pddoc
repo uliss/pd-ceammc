@@ -40,7 +40,8 @@
             <property name="@reverb_damp" type="float" default="0">reverberation damp</property>
             <property name="@poly" type="float" minvalue="1" maxvalue="1024" default="0">max number
             of voices</property>
-            <property name="@avoices" type="float" default="0" readonly="true">number midi channels</property>
+            <property name="@avoices" type="float" default="0" readonly="true">number midi
+            channels</property>
             <property name="@n" type="int" default="16" readonly="true">number of active
             voices</property>
             <property name="@bufsize" units="sample" type="float" default="0" readonly="true">
@@ -71,6 +72,11 @@
             <method name="sounds_off">immediately stop all notes on a MIDI channel (skips release
             phase). 
             <param name="CHAN" type="int" default="0">MIDI channel</param></method>
+            <method name="pan">set channel panning 
+            <param name="CHAN" type="int" minvalue="0" maxvalue="15" required="true">MIDI
+            channel</param>
+            <param name="PAN" type="float" minvalue="-1" maxvalue="1" required="true">pan value,
+            -1: left, 0: center, 1: right</param></method>
         </methods>
         <outlets>
             <outlet type="audio">left channel and property output</outlet>
