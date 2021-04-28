@@ -49,7 +49,7 @@ const char* ui_knob_tcl =
 "    set y0 [expr round($k*$h)+$zoom + $yoff]\n"
 "    set x1 [expr round($w-($k*$w))]\n"
 "    set y1 [expr round($h-($k*$h)) + $yoff]\n"
-"    set phase_norm [expr 1-($value/($vmax-$vmin))]\n"
+"    set phase_norm [expr ($vmax-$value)/($vmax-$vmin)]\n"
 "    if {$active_scale} {\n"
 "        set a -45\n"
 "        set b [expr 270 * $phase_norm]\n"

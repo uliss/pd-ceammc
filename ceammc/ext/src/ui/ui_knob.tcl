@@ -57,7 +57,7 @@ proc update {cnv id w h zoom vmin vmax value show_range show_value active_scale 
     set x1 [expr round($w-($k*$w))]
     set y1 [expr round($h-($k*$h)) + $yoff]
 
-    set phase_norm [expr 1-($value/($vmax-$vmin))]
+    set phase_norm [expr ($vmax-$value)/($vmax-$vmin)]
 
     if {$active_scale} {
         set a -45
