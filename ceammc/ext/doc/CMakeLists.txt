@@ -55,21 +55,7 @@ else()
                  --xlet-db "${CMAKE_CURRENT_SOURCE_DIR}/ceammc.db"
                 "${fname_pddoc}" ${fname}
             COMMAND ${CMAKE_COMMAND} -E copy_if_different ${fname} ${CMAKE_CURRENT_SOURCE_DIR}
-            VERBATIM)
-
-        # extra doc files
-        file(GLOB _xfiles "${CMAKE_CURRENT_BINARY_DIR}/${f}.*.pd")
-        # check each extrafile
-        foreach(_xfile ${_xfiles})
-            if(NOT ${_xfile} MATCHES "-help\.pd$")
-                list(APPEND DOC_PD_FILES ${_xfile})
-                add_custom_command(
-                    OUTPUT "${_xfile}"
-                    DEPENDS "${fname_pddoc}"
-                    COMMAND ${CMAKE_COMMAND} -E copy_if_different ${_xfile} ${CMAKE_CURRENT_SOURCE_DIR}
-                    VERBATIM)
-            endif()
-        endforeach()
+            VERBATIM COMMAND find ${CMAKE_CURRENT_BINARY_DIR} -name "${f}.*.pd" -exec cp {} ${CMAKE_CURRENT_SOURCE_DIR} ";")
     endforeach()
 
     add_custom_command(
