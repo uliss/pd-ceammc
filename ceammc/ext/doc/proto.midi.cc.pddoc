@@ -14,13 +14,25 @@
             <since>0.9.4</since>
         </meta>
         <methods>
-            <method name="cc">send Control Change message 
-            <param type="int" minvalue="0" maxvalue="15" required="true" name="CH">midi
+            <!-- pan messages -->
+            <method name="pan:f">send CC Pan messages (coarse and fine)
+            <param type="int" minvalue="0" maxvalue="15" required="true" name="CHAN">midi
             channel</param>
-            <param type="int" minvalue="0" maxvalue="127" required="true" name="CTL">control
-            number</param>
-            <param type="int" minvalue="0" maxvalue="127" required="true" name="VAL">control
-            value</param></method>
+            <param type="float" minvalue="-1" maxvalue="1" required="true" name="PAN">
+            pan value. -1 means left, 0: center, +1: right</param></method>
+            <method name="pan~">send Pan CC coarse message
+            <param type="int" minvalue="0" maxvalue="15" required="true" name="CHAN">midi
+            channel</param>
+            <param type="int" minvalue="0" maxvalue="127" required="true" name="PAN">
+            pan value</param></method>
+            <method name="pan.">send Pan CC fine message
+            <param type="int" minvalue="0" maxvalue="15" required="true" name="CHAN">midi
+            channel</param>
+            <param type="int" minvalue="0" maxvalue="127" required="true" name="PAN">
+            pan value</param></method>
+            <method name="pan:i">send Pan CC message. Args: CHAN PAN(0..0x3fff) or CHAN MSB(0..127) LSB(0..127).
+            In case of 14 bit value 0 means left, 0x2000: center and 0x3fff: right</method>
+            <!-- -->
         </methods>
         <inlets>
             <inlet>
@@ -29,27 +41,34 @@
             </inlet>
         </inlets>
         <outlets>
-            <outlet>float: raw midi output or parsed messages with selector (output format same as
+            <outlet>float: raw midi output or parsed messages with selector (output format is the same as
             for corresponding methods)</outlet>
         </outlets>
         <example>
             <pdascii>
 <![CDATA[
-[midiin]  [S digits=20]
-|         |
-|         [sym->any]
-|         |
-[proto.midi]
-|
-[route.float]
-|  |       ^|
-|  [print] [ui.dt]
-|
-|     [T]
-|     |.
-[gate 0]
-|
-[midiout]
+[proto.midi.cc.pan]
+]]>
+            </pdascii>
+            <pdascii id="pan">
+<![CDATA[
+[T]                  [ui.k @min -1 @max 1 @show_value 1]
+|                    |
+[metro 250]          |
+|                    |
+[60(                 |
+|                    |
+[makenote 127 200]   [pan:f 0 $1(
+*|*                  |
+[pack f f]           [proto.midi.cc]
+|                    |
+[msg note]           [msg midi]
+|                    |
+[fluid~              ]
+*|*
+[ui.hgain2~]   [ui.dsp~]
+*|*
+[dac~]
 ]]>
             </pdascii>
         </example>
