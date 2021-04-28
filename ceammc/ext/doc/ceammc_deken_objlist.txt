@@ -881,6 +881,7 @@ prop->	separate properties from dataflow
 @->	separate properties from dataflow
 proto.firmata	Firmata Arduino protocol support
 proto.midi	raw midi encoder/parser
+proto.midi.cc	raw midi CC encoder/parser
 proto.mpv	mpv video player control
 proto.sp.alpaca	protocol parser for Arduino-based CEAMMC footswitch
 proto.xtouch_ext	Behringer XTouch Extender XMidi protocol

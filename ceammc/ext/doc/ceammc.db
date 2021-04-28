@@ -533,6 +533,7 @@ prop.set,p.set		?		.
 prop.split,prop->,@->		.		?
 proto.firmata		.		.
 proto.midi		.		.
+proto.midi.cc		.		.
 proto.mpv		.		.
 proto.sp.alpaca		.		.
 proto.xtouch_ext		.		..
