@@ -13,6 +13,7 @@
  *****************************************************************************/
 #include "fluid.h"
 #include "ceammc_args.h"
+#include "ceammc_convert.h"
 #include "ceammc_factory.h"
 #include "ceammc_platform.h"
 
@@ -663,6 +664,18 @@ void Fluid::m_tune_select(t_symbol* s, const AtomListView& lv)
     select_tune(bank, prog);
 }
 
+void Fluid::m_pan(t_symbol* s, const AtomListView& lv)
+{
+    if (!synth_)
+        return;
+
+    const auto chan = lv.intAt(0, 0);
+    const auto pan = convert::lin2lin_clip<float, -1, 1>(lv.floatAt(1, 0), -500, 500);
+
+    if (FLUID_OK != fluid_synth_set_gen(synth_, chan, GEN_PAN, pan))
+        METHOD_ERR(s) << "can't set pan: " << lv;
+}
+
 void Fluid::m_midi(t_symbol* s, const AtomListView& lv)
 {
     for (auto& byte : lv) {
@@ -827,4 +840,6 @@ void setup_misc_fluid()
     obj.addMethod("tunesel", &Fluid::m_tune_select);
     obj.addMethod("tunecent", &Fluid::m_tune_cent);
     obj.addMethod("tunesemi", &Fluid::m_tune_semi);
+
+    obj.addMethod("pan", &Fluid::m_pan);
 }

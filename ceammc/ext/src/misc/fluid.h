@@ -73,6 +73,8 @@ public:
     void m_tune_set_octave(t_symbol* s, const AtomListView& lv);
     void m_tune_select(t_symbol* s, const AtomListView& lv);
 
+    void m_pan(t_symbol* s, const AtomListView& lv);
+
     void dump() const override;
 
 private:
