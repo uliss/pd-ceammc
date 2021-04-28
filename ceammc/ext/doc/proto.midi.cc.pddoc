@@ -56,9 +56,9 @@
 |                    |
 [metro 250]          |
 |                    |
-[60(                 |
+[80(                 |
 |                    |
-[makenote 127 200]   [pan:f 0 $1(
+[makenote 127 50]   [pan:f 0 $1(
 *|*                  |
 [pack f f]           [proto.midi.cc]
 |                    |
