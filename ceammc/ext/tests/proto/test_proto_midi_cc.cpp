@@ -169,6 +169,18 @@ TEST_CASE("proto.midi.cc", "[externals]")
                     M("pan:f", 2, -1),
                 });
         t1.clearAll();
+
+        t0.call("hold", 0, 0);
+        REQUIRE(t1.messagesAt(0) == ML { M("hold", 0, 0) });
+        t1.clearAll();
+
+        t0.call("hold", 2, 1);
+        REQUIRE(t1.messagesAt(0) == ML { M("hold", 2, 1) });
+        t1.clearAll();
+
+        t0.call("sostenuto", 3, 1);
+        REQUIRE(t1.messagesAt(0) == ML { M("sostenuto", 3, 1) });
+        t1.clearAll();
     }
 
     SECTION("pan")

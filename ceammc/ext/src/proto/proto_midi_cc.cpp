@@ -27,6 +27,8 @@ constexpr const char* SEL_PAN_POSITION_COARSE = "pan~";
 constexpr const char* SEL_PAN_POSITION_FINE = "pan.";
 constexpr const char* SEL_RPN = "rpn";
 constexpr const char* SEL_RPN_RESET = "rpn_reset";
+constexpr const char* SEL_HOLD_PEDAL = "hold";
+constexpr const char* SEL_SOSTENUTO_PEDAL = "sostenuto";
 
 ProtoMidiCC::ProtoMidiCC(const PdArgs& args)
     : BaseObject(args)
@@ -304,6 +306,50 @@ void ProtoMidiCC::m_pan_int(t_symbol* s, const AtomListView& lv)
     sendCCEnd();
 }
 
+void ProtoMidiCC::m_hold_pedal(t_symbol* s, const AtomListView& lv)
+{
+    auto usage = [&]() { METHOD_ERR(s) << "usage: CHAN VALUE(0|1), got: " << lv; };
+
+    if (!checkArgs(lv, ARG_INT, ARG_BOOL)) {
+        usage();
+        return;
+    }
+
+    int chan = lv[0].asInt();
+    int on = lv[1].asBool();
+
+    if (!checkChan(chan)) {
+        usage();
+        return;
+    }
+
+    sendCCBegin();
+    sendCC(chan, CC_HOLD_PEDAL, on ? 127 : 0);
+    sendCCEnd();
+}
+
+void ProtoMidiCC::m_sostenuto_pedal(t_symbol* s, const AtomListView& lv)
+{
+    auto usage = [&]() { METHOD_ERR(s) << "usage: CHAN VALUE(0|1), got: " << lv; };
+
+    if (!checkArgs(lv, ARG_INT, ARG_BOOL)) {
+        usage();
+        return;
+    }
+
+    int chan = lv[0].asInt();
+    int on = lv[1].asBool();
+
+    if (!checkChan(chan)) {
+        usage();
+        return;
+    }
+
+    sendCCBegin();
+    sendCC(chan, CC_SOSTENUTO_PEDAL, on ? 127 : 0);
+    sendCCEnd();
+}
+
 void ProtoMidiCC::sendCCBegin()
 {
     if (as_list_->value())
@@ -342,6 +388,14 @@ void ProtoMidiCC::onCC(int chan, int cc, int v)
         handlePanPositionFine(chan);
         handlePanPosition(chan);
         return;
+    }
+    case CC_HOLD_PEDAL: {
+        Atom data[2] = { chan, v > 63 };
+        return anyTo(0, gensym(SEL_HOLD_PEDAL), AtomListView(data, 2));
+    }
+    case CC_SOSTENUTO_PEDAL: {
+        Atom data[2] = { chan, v > 63 };
+        return anyTo(0, gensym(SEL_SOSTENUTO_PEDAL), AtomListView(data, 2));
     }
     case CC_RPN_COARSE:
     case CC_RPN_FINE:
@@ -488,4 +542,7 @@ void setup_proto_midi_cc()
     obj.addMethod(SEL_PAN_POSITION_FINE, &ProtoMidiCC::m_pan_fine);
     obj.addMethod(SEL_PAN_POSITION_FLOAT, &ProtoMidiCC::m_pan_float);
     obj.addMethod(SEL_PAN_POSITION_INT, &ProtoMidiCC::m_pan_int);
+
+    obj.addMethod(SEL_HOLD_PEDAL, &ProtoMidiCC::m_hold_pedal);
+    obj.addMethod(SEL_SOSTENUTO_PEDAL, &ProtoMidiCC::m_sostenuto_pedal);
 }

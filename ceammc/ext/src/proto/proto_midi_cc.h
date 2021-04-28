@@ -27,6 +27,8 @@ enum {
     //
     CC_PAN_POSITION_COARSE = 10,
     CC_PAN_POSITION_FINE = 42,
+    CC_HOLD_PEDAL = 64,
+    CC_SOSTENUTO_PEDAL = 66,
     CC_RPN_COARSE = 101,
     CC_RPN_FINE = 100,
     CC_DATA_ENTRY_COARSE = 6,
@@ -63,6 +65,9 @@ public:
     void m_pan_coarse(t_symbol* s, const AtomListView& lv);
     void m_pan_float(t_symbol* s, const AtomListView& lv);
     void m_pan_int(t_symbol* s, const AtomListView& lv);
+
+    void m_hold_pedal(t_symbol* s, const AtomListView& lv);
+    void m_sostenuto_pedal(t_symbol* s, const AtomListView& lv);
 
 public:
     static std::pair<uint8_t, uint8_t> panToBit14(t_float v);
