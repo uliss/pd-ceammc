@@ -15,23 +15,24 @@
         </meta>
         <methods>
             <!-- pan messages -->
-            <method name="pan:f">send CC Pan messages (coarse and fine)
+            <method name="pan:f">send CC Pan messages (coarse and fine) 
             <param type="int" minvalue="0" maxvalue="15" required="true" name="CHAN">midi
             channel</param>
-            <param type="float" minvalue="-1" maxvalue="1" required="true" name="PAN">
-            pan value. -1 means left, 0: center, +1: right</param></method>
-            <method name="pan~">send Pan CC coarse message
+            <param type="float" minvalue="-1" maxvalue="1" required="true" name="PAN">pan value. -1
+            means left, 0: center, +1: right</param></method>
+            <method name="pan~">send Pan CC coarse message 
             <param type="int" minvalue="0" maxvalue="15" required="true" name="CHAN">midi
             channel</param>
-            <param type="int" minvalue="0" maxvalue="127" required="true" name="PAN">
-            pan value</param></method>
-            <method name="pan.">send Pan CC fine message
+            <param type="int" minvalue="0" maxvalue="127" required="true" name="PAN">pan
+            value</param></method>
+            <method name="pan.">send Pan CC fine message 
             <param type="int" minvalue="0" maxvalue="15" required="true" name="CHAN">midi
             channel</param>
-            <param type="int" minvalue="0" maxvalue="127" required="true" name="PAN">
-            pan value</param></method>
-            <method name="pan:i">send Pan CC message. Args: CHAN PAN(0..0x3fff) or CHAN MSB(0..127) LSB(0..127).
-            In case of 14 bit value 0 means left, 0x2000: center and 0x3fff: right</method>
+            <param type="int" minvalue="0" maxvalue="127" required="true" name="PAN">pan
+            value</param></method>
+            <method name="pan:i">send Pan CC message. Args: CHAN PAN(0..0x3fff) or CHAN MSB(0..127)
+            LSB(0..127). In case of 14 bit value 0 means left, 0x2000: center and 0x3fff:
+            right</method>
             <!-- -->
         </methods>
         <inlets>
@@ -41,8 +42,8 @@
             </inlet>
         </inlets>
         <outlets>
-            <outlet>float: raw midi output or parsed messages with selector (output format is the same as
-            for corresponding methods)</outlet>
+            <outlet>float: raw midi output or parsed messages with selector (output format is the
+            same as for corresponding methods)</outlet>
         </outlets>
         <example>
             <pdascii>

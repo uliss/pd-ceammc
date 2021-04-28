@@ -17,7 +17,7 @@
             </also>
         </meta>
         <arguments>
-<!--            <argument name="time" type="float" minvalue="10" maxvalue="10000" units="millisecond">
+            <!--            <argument name="time" type="float" minvalue="10" maxvalue="10000" units="millisecond">
             echo time</argument>
             <argument name="feedback" type="float" minvalue="0" maxvalue="0.8">feedback
             coefficient</argument>-->
@@ -26,7 +26,7 @@
             <method name="reset">reset to initial state</method>
         </methods>
         <properties>
-<!--            <property name="@delay" type="float" minvalue="10" maxvalue="10000" units="millisecond"
+            <!--            <property name="@delay" type="float" minvalue="10" maxvalue="10000" units="millisecond"
             default="500">echo time</property>
             <property name="@feedback" type="float" minvalue="0" maxvalue="0.99" default="0.3">
             feedback coefficient</property>-->
