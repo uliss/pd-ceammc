@@ -40,7 +40,8 @@
             <property name="@reverb_damp" type="float" default="0">reverberation damp</property>
             <property name="@poly" type="float" minvalue="1" maxvalue="1024" default="0">max number
             of voices</property>
-            <property name="@avoices" type="float" default="0" readonly="true">number of active
+            <property name="@avoices" type="float" default="0" readonly="true">number midi channels</property>
+            <property name="@n" type="int" default="16" readonly="true">number of active
             voices</property>
             <property name="@bufsize" units="sample" type="float" default="0" readonly="true">
             internal buffer size</property>
