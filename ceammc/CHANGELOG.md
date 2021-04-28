@@ -17,6 +17,8 @@
   - lfo.+saw~, lfo.saw~, lfo.+tri~, lfo.tri~, lfo.+square~, lfo.square~, lfo.+pulse~, lfo.pulse~: [reset( method added to reset to initial phase value (@phase)
   - fluid~: 
     - pan: set synth pan normalized to \[-1..+1\] range
+    - hold: hold (sustain, right) pedal support
+    - sostenuto: sostenuto (middle) pedal support
 - misc:
   - flow.space: float to right inlet sets @delay property
   - WaveSine.sf2: simple sine waveform SF2 soundfont added

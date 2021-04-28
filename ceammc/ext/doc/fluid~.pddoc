@@ -72,11 +72,24 @@
             <method name="sounds_off">immediately stop all notes on a MIDI channel (skips release
             phase). 
             <param name="CHAN" type="int" default="0">MIDI channel</param></method>
+            <!-- pan -->
             <method name="pan">set channel panning 
             <param name="CHAN" type="int" minvalue="0" maxvalue="15" required="true">MIDI
             channel</param>
             <param name="PAN" type="float" minvalue="-1" maxvalue="1" required="true">pan value,
             -1: left, 0: center, 1: right</param></method>
+            <!-- hold -->
+            <method name="hold">hold (sustain, right) pedal, ignore note release when active,
+            release all notes when set to off. 
+            <param name="CHAN" type="int" minvalue="0" maxvalue="15" required="true">MIDI
+            channel</param>
+            <param name="VAL" type="int" enum="0 1" required="true">pedal state</param></method>
+            <!-- sustenuto -->
+            <method name="sostenuto">sostenuto (middle) pedal, hold notes pressed before pedal
+            activation, new notes are passed untouched. Release holded notes when set to off 
+            <param name="CHAN" type="int" minvalue="0" maxvalue="15" required="true">MIDI
+            channel</param>
+            <param name="VAL" type="int" enum="0 1" required="true">pedal state</param></method>
         </methods>
         <outlets>
             <outlet type="audio">left channel and property output</outlet>

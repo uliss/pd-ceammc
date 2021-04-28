@@ -676,6 +676,40 @@ void Fluid::m_pan(t_symbol* s, const AtomListView& lv)
         METHOD_ERR(s) << "can't set pan: " << lv;
 }
 
+void Fluid::m_hold_pedal(t_symbol* s, const AtomListView& lv)
+{
+    if (!synth_)
+        return;
+
+    if (!checkArgs(lv, ARG_INT, ARG_BOOL)) {
+        METHOD_ERR(s) << "CHAN VALUE(0|1) expected, got: " << lv;
+        return;
+    }
+
+    const auto chan = lv.intAt(0, 0);
+    const auto on = lv.boolAt(1, 0);
+
+    if (FLUID_OK != fluid_synth_cc(synth_, chan, 0x40, on ? 127 : 0))
+        METHOD_ERR(s) << "can't set hold pedal: " << lv;
+}
+
+void Fluid::m_sostenuto_pedal(t_symbol* s, const AtomListView& lv)
+{
+    if (!synth_)
+        return;
+
+    if (!checkArgs(lv, ARG_INT, ARG_BOOL)) {
+        METHOD_ERR(s) << "CHAN VALUE(0|1) expected, got: " << lv;
+        return;
+    }
+
+    const auto chan = lv.intAt(0, 0);
+    const auto on = lv.boolAt(1, 0);
+
+    if (FLUID_OK != fluid_synth_cc(synth_, chan, 0x42, on ? 127 : 0))
+        METHOD_ERR(s) << "can't set sostenuto pedal: " << lv;
+}
+
 void Fluid::m_midi(t_symbol* s, const AtomListView& lv)
 {
     for (auto& byte : lv) {
@@ -842,4 +876,6 @@ void setup_misc_fluid()
     obj.addMethod("tunesemi", &Fluid::m_tune_semi);
 
     obj.addMethod("pan", &Fluid::m_pan);
+    obj.addMethod("hold", &Fluid::m_hold_pedal);
+    obj.addMethod("sostenuto", &Fluid::m_sostenuto_pedal);
 }

@@ -74,6 +74,8 @@ public:
     void m_tune_select(t_symbol* s, const AtomListView& lv);
 
     void m_pan(t_symbol* s, const AtomListView& lv);
+    void m_hold_pedal(t_symbol* s, const AtomListView& lv);
+    void m_sostenuto_pedal(t_symbol* s, const AtomListView& lv);
 
     void dump() const override;
 
