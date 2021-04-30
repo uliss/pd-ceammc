@@ -3,7 +3,7 @@
 	"filename": "fx_reverb_duck.dsp",
 	"version": "2.30.12",
 	"compile_options": "-lang cpp -es 1 -scal -ftz 0",
-	"library_list": ["/usr/local/share/faust/reverbs.lib","/usr/local/share/faust/signals.lib","/usr/local/share/faust/delays.lib","/usr/local/share/faust/maths.lib","/usr/local/share/faust/platform.lib","/usr/local/share/faust/filters.lib","/usr/local/share/faust/basics.lib","/usr/local/share/faust/routes.lib","/usr/local/share/faust/analyzers.lib","/Users/serge/work/music/pure-data/ceammc/faust/ceammc.lib"],
+	"library_list": ["/usr/local/share/faust/reverbs.lib","/usr/local/share/faust/delays.lib","/usr/local/share/faust/maths.lib","/usr/local/share/faust/platform.lib","/usr/local/share/faust/signals.lib","/usr/local/share/faust/filters.lib","/usr/local/share/faust/basics.lib","/usr/local/share/faust/routes.lib","/usr/local/share/faust/analyzers.lib","/Users/serge/work/music/pure-data/ceammc/faust/ceammc.lib"],
 	"include_pathnames": ["/usr/local/share/faust","/usr/local/share/faust","/usr/share/faust","/Users/serge/work/music/pure-data/ceammc/faust","/Users/serge/work/music/pure-data/ceammc/faust"],
 	"inputs": 1,
 	"outputs": 1,
@@ -69,8 +69,8 @@
 				},
 				{
 					"type": "vslider",
-					"label": "decay_low",
-					"address": "/fx_reverb_duck/decay_low",
+					"label": "decay",
+					"address": "/fx_reverb_duck/decay",
 					"meta": [
 						{ "scale": "log" },
 						{ "style": "knob" },
@@ -80,33 +80,6 @@
 					"min": 1,
 					"max": 6,
 					"step": 0.1
-				},
-				{
-					"type": "vslider",
-					"label": "decay_mid",
-					"address": "/fx_reverb_duck/decay_mid",
-					"meta": [
-						{ "scale": "log" },
-						{ "style": "knob" },
-						{ "unit": "sec" }
-					],
-					"init": 4,
-					"min": 1,
-					"max": 6,
-					"step": 0.1
-				},
-				{
-					"type": "vslider",
-					"label": "delay",
-					"address": "/fx_reverb_duck/delay",
-					"meta": [
-						{ "style": "knob" },
-						{ "unit": "ms" }
-					],
-					"init": 60,
-					"min": 20,
-					"max": 100,
-					"step": 1
 				},
 				{
 					"type": "vslider",
@@ -123,23 +96,12 @@
 					"step": 1
 				},
 				{
-					"type": "vslider",
-					"label": "freq_low",
-					"address": "/fx_reverb_duck/freq_low",
-					"meta": [
-						{ "scale": "log" },
-						{ "style": "knob" },
-						{ "unit": "Hz" }
-					],
-					"init": 200,
-					"min": 50,
-					"max": 1000,
-					"step": 1
-				},
-				{
 					"type": "hslider",
 					"label": "level",
 					"address": "/fx_reverb_duck/level",
+					"meta": [
+						{ "unit": "db" }
+					],
 					"init": 0.5,
 					"min": 0,
 					"max": 56,
