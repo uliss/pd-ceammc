@@ -21,6 +21,10 @@ extern void setup_synth_risset_arp_tilde();
 extern void setup_synth_risset_tone_tilde();
 extern void setup_synth_russian_bell_tilde();
 extern void setup_synth_piano_tilde();
+extern void setup_synth_english_bell_tilde();
+extern void setup_synth_standard_bell_tilde();
+extern void setup_synth_french_bell_tilde();
+extern void setup_synth_german_bell_tilde();
 
 void ceammc_synth_setup()
 {
@@ -46,6 +50,10 @@ void ceammc_synth_setup()
     setup_synth_risset_arp_tilde();
     setup_synth_risset_tone_tilde();
     setup_synth_russian_bell_tilde();
+    setup_synth_english_bell_tilde();
+    setup_synth_standard_bell_tilde();
+    setup_synth_french_bell_tilde();
+    setup_synth_german_bell_tilde();
 
     // Glitch
     setup_synth_glitch();
