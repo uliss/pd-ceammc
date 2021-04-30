@@ -15,6 +15,7 @@
 #define SFIZZ_TILDE_H
 
 #include "ceammc_data.h"
+#include "ceammc_property_enum.h"
 #include "ceammc_sound_external.h"
 #include "datatype_dict.h"
 #include "sfizz.hpp"
@@ -25,6 +26,7 @@ class SfizzTilde : public SoundExternal {
     SymbolProperty* sf_path_;
     DictAtom cc_lables_;
     DictAtom key_lables_;
+    SymbolEnumProperty* tuning_;
 
 public:
     SfizzTilde(const PdArgs& args);
@@ -38,6 +40,8 @@ public:
     void m_cc(t_symbol* s, const AtomListView& lv);
     void m_bend(t_symbol* s, const AtomListView& lv);
     void m_soundsOff(t_symbol*, const AtomListView&);
+
+    void m_tune_set_octave(t_symbol* s, const AtomListView& lv);
 
 private:
     void updateLabels();
