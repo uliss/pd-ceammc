@@ -25,6 +25,7 @@ void setup_fx_vocoder_tilde();
 void setup_fx_wahwah_tilde();
 void setup_fx_zita_rev1_tilde();
 void setup_fx_infrev_tilde();
+void setup_fx_reverb_duck_tilde();
 
 void ceammc_fx_setup()
 {
@@ -43,10 +44,12 @@ void ceammc_fx_setup()
     setup_fx_freqshift_tilde();
     setup_fx_granulator_tilde();
     setup_fx_greyhole_tilde();
+    setup_fx_infrev_tilde();
     setup_fx_looper();
-    setup_fx_pitchshift_tilde();
     setup_fx_pitchshift_sig_tilde();
+    setup_fx_pitchshift_tilde();
     setup_fx_recho_tilde();
+    setup_fx_reverb_duck_tilde();
     setup_fx_sdelay_tilde();
     setup_fx_secho_tilde();
     setup_fx_vocoder_tilde();
