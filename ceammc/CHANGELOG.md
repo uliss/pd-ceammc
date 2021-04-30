@@ -28,6 +28,7 @@
   
 ### Fixed:
 - flow.space: reset message fix - can not use object after reset
+- ui.midi: fixed missing binding to Program Change and After Touch events
   
 ## [0.9.3]
 ### Added:

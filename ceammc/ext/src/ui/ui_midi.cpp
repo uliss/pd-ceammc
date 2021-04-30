@@ -49,9 +49,11 @@ void UIMidi::init(t_symbol* name, const AtomListView& args, bool usePresets)
     // note: here, not in constructor!
     ctlin_.bind(SYM_CTLIN);
     note_.bind(SYM_NOTEIN);
+    touch_.bind(SYM_TOUCHIN);
     polyt_.bind(SYM_POLYTOUCH);
     bend_.bind(SYM_BENDIN);
     sysex_.bind(SYM_SYSEX);
+    pgm_.bind(SYM_PGMIN);
 }
 
 void UIMidi::okSize(t_rect* newrect)
