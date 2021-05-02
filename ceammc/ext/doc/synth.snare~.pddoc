@@ -45,17 +45,20 @@
         <example>
             <pdascii>
 <![CDATA[
-[T]
-|
-[metro 100]
-|
-[random.f 0.3 0.95]
-|
-[synth.snare~]
+[T]                 [ui.k #a]    [ui.k #b]
+|                   |            |
+[metro 100]         |            |
+|                   |            |
+[random.f 0.3 0.95] [@attack $1( [@release $1(
+|                   |            |
+[synth.snare~                    ]
 |
 [ui.hgain~]     [ui.dsp~]
 | \
 [dac~]
+
+#a @show_value 1 @min 1 @max 10
+#b @show_value 1 @min 20 @max 200
 ]]>
             </pdascii>
         </example>
