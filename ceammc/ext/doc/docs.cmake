@@ -567,6 +567,7 @@ set(DOC_FILES
     seq.nbangs
     seq.phasor
     seq.toggles
+    sfizz~
     snd.file
     spat.pan4~
     spat.pan8~

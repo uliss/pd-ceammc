@@ -565,6 +565,7 @@ set.intersect		..		.
 set.size		.		.
 set.symdiff		..		.
 set.union		..		.
+sfizz~,ceammc/sfizz~		.		~~
 snd.file		.		.
 spat.pan4~,ceammc/pan4~,pan4~		~		~~~~
 spat.pan8~,ceammc/pan8~,pan8~		~		~~~~~~~~

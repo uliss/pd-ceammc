@@ -1423,6 +1423,9 @@
     <entry name="modplug~" descr="MOD file player (using libmodplug)" ref_view="object">
       <xi:include href="modplug~.pddoc" parse="xml"/>
     </entry>
+    <entry name="sfizz~" descr="SFZ format sample player" ref_view="object">
+      <xi:include href="sfizz~.pddoc" parse="xml"/>
+    </entry>
     <entry name="speech.flite" descr="render speech to array" ref_view="object">
       <xi:include href="speech.flite.pddoc" parse="xml"/>
     </entry>
