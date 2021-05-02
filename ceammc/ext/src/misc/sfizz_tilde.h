@@ -38,10 +38,24 @@ public:
 
     void m_note(t_symbol* s, const AtomListView& lv);
     void m_cc(t_symbol* s, const AtomListView& lv);
-    void m_bend(t_symbol* s, const AtomListView& lv);
     void m_soundsOff(t_symbol*, const AtomListView&);
 
     void m_tune_set_octave(t_symbol* s, const AtomListView& lv);
+
+    /**
+     * @note value in 0..0x3fff range with 0x2000 center
+     */
+    void m_bend(t_symbol* s, const AtomListView& lv);
+
+    /**
+     * @note value in -0x2000..0x1fff range with 0x0 center
+     */
+    void m_bend_int(t_symbol* s, const AtomListView& lv);
+
+    /**
+     * @note value in -1..+1 range with 0 center
+     */
+    void m_bend_float(t_symbol* s, const AtomListView& lv);
 
 private:
     void updateLabels();

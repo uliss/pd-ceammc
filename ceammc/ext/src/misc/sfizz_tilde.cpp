@@ -156,13 +156,66 @@ void SfizzTilde::m_cc(t_symbol* s, const AtomListView& lv)
 
 void SfizzTilde::m_bend(t_symbol* s, const AtomListView& lv)
 {
-    if (lv.size() == 2 && lv[0].isFloat() && lv[1].isFloat()) {
-        int chan = lv[0].asInt();
-        int val = lv[1].asInt();
-        sfz_.pitchWheel(0, val);
-    } else {
-        METHOD_ERR(s) << "CHAN VAL expected: " << lv;
+    int val = 0;
+
+    if (checkArgs(lv, ARG_FLOAT, ARG_FLOAT))
+        val = lv[1].asInt();
+    else if (checkArgs(lv, ARG_FLOAT))
+        val = lv[0].asInt();
+    else {
+        METHOD_ERR(s) << "CHAN? VAL expected: " << lv;
+        return;
     }
+
+    if (val < 0 || val > 0x3FFF) {
+        METHOD_ERR(s) << "value is out of range [0..0x3FFF]: " << val;
+        return;
+    }
+
+    val -= 0x2000;
+    sfz_.pitchWheel(0, val);
+}
+
+void SfizzTilde::m_bend_int(t_symbol* s, const AtomListView& lv)
+{
+    int val = 0;
+
+    if (checkArgs(lv, ARG_FLOAT, ARG_FLOAT))
+        val = lv[1].asInt();
+    else if (checkArgs(lv, ARG_FLOAT))
+        val = lv[0].asInt();
+    else {
+        METHOD_ERR(s) << "CHAN? VAL expected: " << lv;
+        return;
+    }
+
+    if (val < -0x2000 || val > 0x1FFF) {
+        METHOD_ERR(s) << "value is out of range [-0x2000..0x1FFF]: " << val;
+        return;
+    }
+
+    sfz_.pitchWheel(0, val);
+}
+
+void SfizzTilde::m_bend_float(t_symbol* s, const AtomListView& lv)
+{
+    int val = 0;
+
+    if (checkArgs(lv, ARG_FLOAT, ARG_FLOAT))
+        val = lv[1].asFloat();
+    else if (checkArgs(lv, ARG_FLOAT))
+        val = lv[0].asFloat();
+    else {
+        METHOD_ERR(s) << "CHAN? VAL expected: " << lv;
+        return;
+    }
+
+    if (val < -1 || val > 1) {
+        METHOD_ERR(s) << "value is out of range [-1..+1]: " << val;
+        return;
+    }
+
+    sfz_.pitchWheel(0, val * 0x2000);
 }
 
 void SfizzTilde::m_soundsOff(t_symbol*, const AtomListView&)
@@ -218,6 +271,8 @@ void setup_misc_sfizz_tilde()
     obj.addMethod("note", &SfizzTilde::m_note);
     obj.addMethod("cc", &SfizzTilde::m_cc);
     obj.addMethod("bend", &SfizzTilde::m_bend);
+    obj.addMethod("bend:i", &SfizzTilde::m_bend_int);
+    obj.addMethod("bend:f", &SfizzTilde::m_bend_float);
     obj.addMethod("sounds_off", &SfizzTilde::m_soundsOff);
     obj.addMethod("tune12", &SfizzTilde::m_tune_set_octave);
 }
