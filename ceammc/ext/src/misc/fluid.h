@@ -24,6 +24,9 @@ typedef struct _fluid_synth_t fluid_synth_t;
 
 class FluidSynthProperty;
 
+/**
+ * @note MIDI channels are 1-based in PureData
+ */
 class Fluid : public SoundExternal {
     fluid_synth_t* synth_;
     t_symbol* sound_font_;
@@ -55,7 +58,6 @@ public:
     void m_cc(t_symbol* s, const AtomListView& lst);
     void m_prog(t_symbol* s, const AtomListView& lst);
     void m_bank(t_symbol* s, const AtomListView& lst);
-    void m_bend(t_symbol* s, const AtomListView& lst);
     void m_gen(t_symbol* s, const AtomListView& lst);
     void m_panic(t_symbol* s, const AtomListView& lst);
     void m_reset(t_symbol* s, const AtomListView& lst);
@@ -81,9 +83,26 @@ public:
 
     void dump() const override;
 
+    /**
+     * @note bend value in 0..0x3fff range, with center: 0x2000
+     */
+    void m_bend(t_symbol* s, const AtomListView& lv);
+
+    /**
+     * @note bend value in -0x2000..0x1fff range, with center: 0
+     */
+    void m_bend_int(t_symbol* s, const AtomListView& lv);
+
+    /**
+     * @note bend value in -1..+1 range, with center: 0
+     */
+    void m_bend_float(t_symbol* s, const AtomListView& lv);
+
 private:
     void select_tune(int bank, int prog);
     void bindMidiParser();
+
+    void set_bend(int chan, int value);
 };
 
 void setup_misc_fluid();

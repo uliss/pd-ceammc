@@ -379,18 +379,93 @@ void Fluid::m_bank(t_symbol* s, const AtomListView& lst)
     }
 }
 
-void Fluid::m_bend(t_symbol* s, const AtomListView& lst)
+void Fluid::set_bend(int chan, int value)
 {
-    if (synth_ == nullptr)
+    if (!synth_)
         return;
 
-    if (lst.size() == 2 && lst[0].isFloat() && lst[1].isFloat()) {
-        int chan = lst[0].asInt();
-        int val = lst[1].asInt();
-        fluid_synth_pitch_bend(synth_, chan - 1, val);
-    } else {
-        METHOD_ERR(s) << "CHAN VAL expected: " << lst;
+    if (chan < 0 || chan > 16) {
+        OBJ_ERR << "invalid midi channel: " << chan;
+        return;
     }
+
+    fluid_synth_pitch_bend(synth_, clip<int, 0, 0x3FFF>(chan), value);
+}
+
+void Fluid::m_bend(t_symbol* s, const AtomListView& lv)
+{
+    int chan = 0;
+    int val = 0;
+
+    if (checkArgs(lv, ARG_FLOAT, ARG_FLOAT)) {
+        chan = lv[0].asInt() - 1;
+        val = lv[1].asInt();
+    } else if (checkArgs(lv, ARG_FLOAT)) {
+        val = lv[0].asInt();
+    } else {
+        METHOD_ERR(s) << "[CHAN]? VAL expected: " << lv;
+        return;
+    }
+
+    if (val < 0 || val > 0x3FFF) {
+        METHOD_ERR(s) << "value is out of range [0..0x3FFF]: " << val;
+        return;
+    }
+
+    set_bend(chan, val);
+}
+
+void Fluid::m_bend_int(t_symbol* s, const AtomListView& lv)
+{
+    int chan = 0;
+    int val = 0;
+
+    if (checkArgs(lv, ARG_FLOAT, ARG_FLOAT)) {
+        chan = lv[0].asInt() - 1;
+        val = lv[1].asInt();
+    } else if (checkArgs(lv, ARG_FLOAT)) {
+        val = lv[0].asInt();
+    } else {
+        METHOD_ERR(s) << "[CHAN]? VAL expected: " << lv;
+        return;
+    }
+
+    if (val < -0x2000 || val > 0x1FFF) {
+        METHOD_ERR(s) << "value is out of range [-0x2000..0x1FFF]: " << val;
+        return;
+    }
+
+    val += 0x2000;
+
+    set_bend(chan, val);
+}
+
+void Fluid::m_bend_float(t_symbol* s, const AtomListView& lv)
+{
+    int chan = 0;
+    t_float val = 0;
+
+    if (checkArgs(lv, ARG_FLOAT, ARG_FLOAT)) {
+        chan = lv[0].asInt() - 1;
+        val = lv[1].asFloat();
+    } else if (checkArgs(lv, ARG_FLOAT)) {
+        val = lv[0].asFloat();
+    } else {
+        METHOD_ERR(s) << "[CHAN]? VAL expected: " << lv;
+        return;
+    }
+
+    if (val < -1 || val > 1) {
+        METHOD_ERR(s) << "value is out of range [-1..+1]: " << val;
+        return;
+    }
+
+    if (val <= 0)
+        val = convert::lin2lin_clip<t_float, -1, 0>(val, 0, 0x2000);
+    else
+        val = convert::lin2lin_clip<t_float, 0, 1>(val, 0x2000, 0x3fff);
+
+    set_bend(chan, val);
 }
 
 void Fluid::m_gen(t_symbol* s, const AtomListView& lst)
@@ -894,6 +969,8 @@ void setup_misc_fluid()
     obj.addMethod("prog", &Fluid::m_prog);
     obj.addMethod("bank", &Fluid::m_bank);
     obj.addMethod("bend", &Fluid::m_bend);
+    obj.addMethod("bend:i", &Fluid::m_bend_int);
+    obj.addMethod("bend:f", &Fluid::m_bend_float);
     obj.addMethod("gen", &Fluid::m_gen);
     obj.addMethod("panic", &Fluid::m_panic);
     obj.addMethod("reset", &Fluid::m_reset);

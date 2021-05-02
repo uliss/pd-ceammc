@@ -60,7 +60,21 @@
             <method name="prog">program change (CHANNEL, PROGRAM expected)</method>
             <method name="bank">set instrument bank number on a MIDI channel (CHANNEL, BANK
             expected)</method>
-            <method name="bend">pitchband change (CHANNEL, VALUE expected)</method>
+            <method name="bend">pitchband change 
+            <param name="CHANNEL" required="false" type="int" default="1" minvalue="1"
+            maxvalue="16">MIDI channel: 1..16</param>
+            <param name="VALUE" required="true" type="int" minvalue="0" maxvalue="16383">value in
+            0..0x3fff range, with 0x2000 center.</param></method>
+            <method name="bend:i">pitchband change 
+            <param name="CHANNEL" required="false" type="int" default="1" minvalue="1"
+            maxvalue="16">MIDI channel: 1..16</param>
+            <param name="VALUE" required="true" type="int" minvalue="-8192" maxvalue="8191">value
+            in -0x2000..0x1fff range, with 0 center.</param></method>
+            <method name="bend:f">pitchband change 
+            <param name="CHANNEL" required="false" type="int" default="1" minvalue="1"
+            maxvalue="16">MIDI channel: 1..16</param>
+            <param name="VALUE" required="true" type="float" minvalue="-1" maxvalue="1">value in
+            -1..+1 range, with 0 center.</param></method>
             <method name="gen">set a SoundFont generator (effect) value on a MIDI channel in
             real-time (CHANNEL, PARAM, VALUE or PARAM, VALUE expected)</method>
             <method name="panic">send MIDI system reset command (big red 'panic' button), turns off
