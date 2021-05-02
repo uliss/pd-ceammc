@@ -29,6 +29,7 @@ BaseSpring::BaseSpring(const PdArgs& args)
         const auto v = value_->value();
         const auto delta = v - start_value_;
         if (std::abs(delta) < EPSILON) {
+            bangTo(1);
             floatTo(0, v);
             state_ = STATE_INIT;
             return;
@@ -43,6 +44,7 @@ BaseSpring::BaseSpring(const PdArgs& args)
                 t_ += ms_left;
                 clock_.delay(ms_left);
             } else {
+                bangTo(1);
                 floatTo(0, v);
                 state_ = STATE_INIT;
             }
@@ -53,6 +55,7 @@ BaseSpring::BaseSpring(const PdArgs& args)
 {
     createInlet();
     createOutlet();
+    createOutlet();
 
     value_ = new FloatProperty("@value", 0);
     value_->setArgIndex(0);
@@ -61,7 +64,7 @@ BaseSpring::BaseSpring(const PdArgs& args)
     total_time_ = new FloatProperty("@time", 10 * TAU);
     total_time_->setArgIndex(1);
     total_time_->setUnits(PropValueUnits::MSEC);
-    total_time_->checkClosedRange(TAU, 5000);
+    total_time_->checkClosedRange(TAU, 100 * TAU);
     addProperty(total_time_);
 
     createCbIntProperty(
@@ -138,5 +141,5 @@ void BaseSpring::handleMouse(bool on)
 void setup_base_spring()
 {
     ObjectFactory<BaseSpring> obj("spring");
-    obj.setXletsInfo({ "float: in value", "float: set target value" }, { "float: out value" });
+    obj.setXletsInfo({ "float: in value", "float: set target value" }, { "float: out value", "bang: on done" });
 }

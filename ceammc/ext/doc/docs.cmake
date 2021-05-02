@@ -573,6 +573,7 @@ set(DOC_FILES
     spat.zita6x8~
     speech.flite
     speech.flite~
+    spring
     string
     string.contains
     string.ends_with

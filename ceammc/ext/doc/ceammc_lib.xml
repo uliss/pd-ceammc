@@ -137,6 +137,9 @@
     <entry name="radio" descr="float index to outlet values as radio switch" ref_view="object">
       <xi:include href="radio.pddoc" parse="xml"/>
     </entry>
+    <entry name="spring" descr="float value &quot;spring&quot;" ref_view="object">
+      <xi:include href="spring.pddoc" parse="xml"/>
+    </entry>
     <entry name="sync" descr="value synchronization" ref_view="object">
       <xi:include href="sync.pddoc" parse="xml"/>
     </entry>

@@ -571,6 +571,7 @@ spat.pan8~,ceammc/pan8~,pan8~		~		~~~~~~~~
 spat.zita6x8~		~~~~~~		~~~~~~~~
 speech.flite		..		.
 speech.flite~		.		~.
+spring,ceammc/spring		..		..
 string,ceammc/string,ceammc/str,str		.		.
 string.contains,str.contains		..		.
 string.ends_with,str.ends_with		..		.
