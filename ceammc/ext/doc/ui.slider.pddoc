@@ -25,6 +25,10 @@
         <info>
             <par>[ui.hsl] is alias for horizontal slider, [ui.vsl] - for vertical</par>
         </info>
+        <arguments>
+            <argument name="min" type="float">min value</argument>
+            <argument name="max" type="float">max value</argument>
+        </arguments>
         <mouse>
             <event editmode="true" type="drag" keys="Cmd">changes the slider value</event>
             <event editmode="true" type="double-click" keys="Cmd">changes slider

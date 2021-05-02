@@ -23,6 +23,9 @@
     - [sostenuto(: sostenuto (middle) pedal support
     - [soft(: soft (left) pedal support
     - [legato(: legato pedal support
+- new creation args:
+  - ui.knob: MIN MAX float creation args added
+  - ui.slider: MIN MAX float creation args added
 - misc:
   - flow.space: float to right inlet sets @delay property
   - WaveSine.sf2: simple sine waveform SF2 soundfont added

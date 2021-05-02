@@ -648,4 +648,21 @@ TEST_CASE("ui.knob", "[ui.knob]")
         t.call("@border_color", LF(0.75, 0.5, 0.25));
         REQUIRE_UI_LIST_PROPERTY(t, "border_color", LF(0.75, 0.5, 0.25, 1));
     }
+
+    SECTION("pos args")
+    {
+        SECTION("min")
+        {
+            TestExtKnob t("ui.knob", LF(-10));
+            REQUIRE_UI_FLOAT_PROPERTY(t, "min", -10);
+            REQUIRE_UI_FLOAT_PROPERTY(t, "max", 1);
+        }
+
+        SECTION("minmax")
+        {
+            TestExtKnob t("ui.knob", LF(-10, 5.5));
+            REQUIRE_UI_FLOAT_PROPERTY(t, "min", -10);
+            REQUIRE_UI_FLOAT_PROPERTY(t, "max", 5.5);
+        }
+    }
 }

@@ -23,6 +23,10 @@
         <info>
             <par>Simple knob widget with default range 0-1.</par>
         </info>
+        <arguments>
+            <argument name="min" type="float">min value</argument>
+            <argument name="max" type="float">max value</argument>
+        </arguments>
         <mouse>
             <event editmode="false" type="drag">change the knob value (with ⇧ change
             slowly)</event>

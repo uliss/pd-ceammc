@@ -123,6 +123,15 @@ void UISingleValue::init(t_symbol* name, const AtomListView& args, bool usePrese
     if (prop_midi_chn > 0 || prop_midi_ctl > 0)
         midi_proxy_.bind(midi_ctl_sym());
 
+    // process min positional args
+    const auto has_min = args.size() > 0 && args[0].isFloat();
+    if (has_min)
+        prop_min = args[0].asT<t_float>();
+
+    // process max positional args
+    if (has_min && args.size() > 1 && args[1].isFloat())
+        prop_max = args[1].asT<t_float>();
+
     prop_value = prop_min;
 }
 
