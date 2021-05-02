@@ -3,6 +3,7 @@
 #include "base_click.h"
 #include "base_dac.h"
 #include "base_log.h"
+#include "base_spring.h"
 #include "canvas_current.h"
 #include "canvas_top.h"
 #include "ceammc_search.h"
@@ -83,6 +84,7 @@ void ceammc_base_setup()
     setup_base_prop();
     setup_base_radio();
     setup_base_replace();
+    setup_base_spring();
     setup_base_sync();
     setup_base_xfade2_tilde();
     setup_base_xfade_tilde();

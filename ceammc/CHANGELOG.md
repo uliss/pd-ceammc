@@ -9,6 +9,7 @@
   - an.tempo~: tempo analizer based on Aubio library
   - proto.midi.cc: parser for MIDI control change messages
   - fx.recho~: reverse ~1 second echo added
+  - spring: return to specified value in specified time
 - new properties:
   - lfo.+saw~, lfo.saw~, lfo.+tri~, lfo.tri~, lfo.+square~, lfo.square~, lfo.+pulse~, lfo.pulse~: @phase and @pause properties added
   - ui.knob: @show_value property added
