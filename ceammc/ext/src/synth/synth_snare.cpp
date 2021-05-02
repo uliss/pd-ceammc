@@ -8,6 +8,7 @@ class SynthSnare : public faust_synth_snare_tilde {
     UIProperty* gate_;
     UIProperty* attack_;
     UIProperty* decay_;
+    UIProperty* release_;
     ClockLambdaFunction clock_;
 
 public:
@@ -16,6 +17,7 @@ public:
         , gate_(findProperty("@gate"))
         , attack_(findProperty("@attack"))
         , decay_(findProperty("@decay"))
+        , release_(findProperty("@release"))
         , clock_([this]() { gate_->setValue(0); })
     {
     }
@@ -26,13 +28,18 @@ public:
             return;
 
         gate_->setValue(1);
-        clock_.delay(attack_->value() + attack_->value() + 10);
+        clock_.delay(std::ceil(envLength() + 2));
     }
 
 private:
     UIProperty* findProperty(const char* name)
     {
         return static_cast<UIProperty*>(property(gensym(name)));
+    }
+
+    t_float envLength() const
+    {
+        return attack_->value() + decay_->value() + release_->value();
     }
 };
 

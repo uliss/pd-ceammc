@@ -39,7 +39,8 @@ process = snare * amp with {
     gate = checkbox("gate");
     trigger = (gate>gate');
 
-    amp = gate  : cm.clip(0, 1) : ba.latch(trigger);
+    // using gate value as amplitude: sample and hold it on gate open
+    amp = gate  : cm.clip(0, 1) : ba.latch(trigger) : *(ba.db2linear(-20));
 
     lpf(freq) = fi.lowpass(3,freq);
     hpf(freq) = fi.highpass(3,freq);
@@ -48,13 +49,15 @@ process = snare * amp with {
     hpnoise = no.noise : hpf(523);
     // att = 0.0005; // attack-time in seconds
     att = vslider("attack", 0.05, 0.03, 100, 0.01) : cm.time_pd2faust;
-    dec = vslider("decay", 0.1, 0.01, 20, 0.01) : cm.time_pd2faust;
+    dec = vslider("decay", 0.1, 0.01, 100, 0.01) : cm.time_pd2faust;
+    rel = vslider("release", 0.075, 0.055, 100, 0.01) : cm.time_pd2faust;
+    rel_diff = 0.025;
 
     perc(att,rel,trigger) = adsr(att,dec,1.0,rel,envgate(att,trigger));
     sinosc0(freq) = os.oscrs(freq); // SinOsc at phase fi.zero
 
-    snare = (0.25 + sinosc0(330)) * perc(att,0.055,trigger)
-          + (0.25 + sinosc0(185)) * perc(att,0.075,trigger)
+    snare = (0.25 + sinosc0(330)) * perc(att,rel,trigger)
+          + (0.25 + sinosc0(185)) * perc(att,rel - rel_diff,trigger)
           + 0.2 * lpnoise * perc(att,0.2,trigger)
           + 0.2 * hpnoise * perc(att,0.183,trigger);
 };
