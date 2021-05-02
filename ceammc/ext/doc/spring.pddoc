@@ -22,11 +22,11 @@
         </arguments>
         <properties>
             <property name="@value" type="float" default="0">target value</property>
-            <property name="@time" type="float" minvalue="25" maxvalue="2500" default="250" units="millisecond">
-            time to reach target value</property>
+            <property name="@time" type="float" minvalue="25" maxvalue="2500" default="250"
+            units="millisecond">time to reach target value</property>
             <property name="@accel" type="float" minvalue="-6" maxvalue="6" default="0">
-            acceleration factor, 0: means linear motion (no acceleration),
-            >0: begin fast, then slow down, &lt;0: begin slow, then speed up</property>
+            acceleration factor, 0: means linear motion (no acceleration), &gt;0: begin fast, then
+            slow down, &lt;0: begin slow, then speed up</property>
         </properties>
         <inlets>
             <inlet>
