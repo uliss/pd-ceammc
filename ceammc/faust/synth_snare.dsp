@@ -48,16 +48,19 @@ process = snare * amp with {
     lpnoise = no.noise : lpf(7040);
     hpnoise = no.noise : hpf(523);
     // att = 0.0005; // attack-time in seconds
-    att = vslider("attack", 0.05, 0.03, 100, 0.01) : cm.time_pd2faust;
-    dec = vslider("decay", 0.1, 0.01, 100, 0.01) : cm.time_pd2faust;
-    rel = vslider("release", 0.075, 0.055, 100, 0.01) : cm.time_pd2faust;
-    rel_diff = 0.025;
+    att = vslider("attack [unit:ms]", 0.5, 0.3, 100, 0.01) : cm.time_pd2faust;
+    dec = vslider("decay [unit:ms]", 1, 1, 100, 0.01) : cm.time_pd2faust;
+    release = vslider("release [unit:ms]", 200, 10, 1000, 0.01);
+    rel_nlo = release : cm.time_pd2faust;
+    rel_nhi = rel_nlo * 0.915;
+    rel_shi = rel_nlo * 0.275;
+    rel_slo = rel_nlo * 0.375;
 
     perc(att,rel,trigger) = adsr(att,dec,1.0,rel,envgate(att,trigger));
     sinosc0(freq) = os.oscrs(freq); // SinOsc at phase fi.zero
 
-    snare = (0.25 + sinosc0(330)) * perc(att,rel,trigger)
-          + (0.25 + sinosc0(185)) * perc(att,rel - rel_diff,trigger)
-          + 0.2 * lpnoise * perc(att,0.2,trigger)
-          + 0.2 * hpnoise * perc(att,0.183,trigger);
+    snare = (0.25 + sinosc0(330)) * perc(att,rel_shi,trigger)
+          + (0.25 + sinosc0(185)) * perc(att,rel_slo,trigger)
+          + 0.2 * lpnoise * perc(att,rel_nlo,trigger)
+          + 0.2 * hpnoise * perc(att,rel_nhi,trigger);
 };

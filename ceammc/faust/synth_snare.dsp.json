@@ -66,8 +66,11 @@
 					"type": "vslider",
 					"label": "attack",
 					"address": "/synth.snare/attack",
-					"init": 0.05,
-					"min": 0.03,
+					"meta": [
+						{ "unit": "ms" }
+					],
+					"init": 0.5,
+					"min": 0.3,
 					"max": 100,
 					"step": 0.01
 				},
@@ -75,8 +78,11 @@
 					"type": "vslider",
 					"label": "decay",
 					"address": "/synth.snare/decay",
-					"init": 0.1,
-					"min": 0.01,
+					"meta": [
+						{ "unit": "ms" }
+					],
+					"init": 1,
+					"min": 1,
 					"max": 100,
 					"step": 0.01
 				},
@@ -89,9 +95,12 @@
 					"type": "vslider",
 					"label": "release",
 					"address": "/synth.snare/release",
-					"init": 0.075,
-					"min": 0.055,
-					"max": 100,
+					"meta": [
+						{ "unit": "ms" }
+					],
+					"init": 200,
+					"min": 10,
+					"max": 1000,
 					"step": 0.01
 				}
 			]

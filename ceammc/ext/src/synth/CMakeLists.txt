@@ -1,8 +1,8 @@
 set(SYNTH_SOURCES)
 set(SYNTH_STK_SOURCES
-    faust_synth_stk.cpp
     faust_synth_harpsichord.cpp
     faust_synth_piano.cpp
+    faust_synth_stk.cpp
     stksynth.cpp
     synth_bthree.cpp
     synth_fgrain.cpp
@@ -34,6 +34,7 @@ ceammc_synth_obj(risset_arp)
 ceammc_synth_obj(risset_tone)
 ceammc_synth_obj(russian_bell)
 ceammc_synth_obj(standard_bell)
+ceammc_synth_obj(snare)
 
 list(APPEND SYNTH_SOURCES "synth_dx7.cpp")
 ceammc_faust_gen_obj(synth dx7 JSON OCPP)
