@@ -1014,6 +1014,7 @@ synth.risset_tone~	Jean Claude Risset's endless glissando
 synth.russian_bell~	russian church bell modal model
 synth.shakers~	various percussion sounds from STK library
 synth.sitar~	STK sitar
+synth.snare~	Snare drum synth from Guitarix project
 synth.wurley~	Wurlitzer electric piano FM synthesis instrument
 system.colorpanel	System color panel dialog popup
 system.cursor	Output cursor motion, mousewheel and buttonclicks
