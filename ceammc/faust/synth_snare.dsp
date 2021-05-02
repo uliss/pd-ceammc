@@ -40,7 +40,7 @@ process = snare * amp with {
     trigger = (gate>gate');
 
     // using gate value as amplitude: sample and hold it on gate open
-    amp = gate  : cm.clip(0, 1) : ba.latch(trigger) : *(ba.db2linear(-20));
+    amp = gate  : cm.clip(0, 1) : ba.latch(trigger) : *(ba.db2linear(-12));
 
     lpf(freq) = fi.lowpass(3,freq);
     hpf(freq) = fi.highpass(3,freq);

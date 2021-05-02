@@ -1934,6 +1934,9 @@
     <entry name="synth.sitar~" descr="STK sitar" ref_view="object">
       <xi:include href="synth.sitar~.pddoc" parse="xml"/>
     </entry>
+    <entry name="synth.snare~" descr="Snare drum synth from Guitarix project" ref_view="object">
+      <xi:include href="synth.snare~.pddoc" parse="xml"/>
+    </entry>
     <entry name="synth.wurley~" descr="Wurlitzer electric piano FM synthesis instrument" ref_view="object">
       <xi:include href="synth.wurley~.pddoc" parse="xml"/>
     </entry>

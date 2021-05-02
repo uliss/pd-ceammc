@@ -613,6 +613,7 @@ set(DOC_FILES
     synth.russian_bell~
     synth.shakers~
     synth.sitar~
+    synth.snare~
     synth.wurley~
     system.colorpanel
     system.cursor

@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="synth.snare~">
+        <title>synth.snare~</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>Snare drum synth from Guitarix project</description>
+            <license>GPL3 or later</license>
+            <library>ceammc</library>
+            <category>synth</category>
+            <keywords>synth snare drum</keywords>
+            <since>0.9.4</since>
+        </meta>
+        <properties>
+            <property name="@gate" type="float" minvalue="0" maxvalue="1" default="0">play trigger
+            &gt;0: on, 0: off. To set output gain to 0.5 you can 0.5 as trigger value</property>
+            <property name="@active" type="int" enum="0 1" default="1">on/off dsp
+            processing</property>
+        </properties>
+        <methods>
+            <method name="cc">Control change 
+            <param name="CTL" type="int" required="true">control number</param>
+            <param name="VAL" type="float" required="true">value</param></method>
+            <method name="note">note on/off message 
+            <param name="NOTE" type="float" required="true">midi note</param>
+            <param name="VEL" type="float" minvalue="0" maxvalue="127" required="true">
+            velocity</param></method>
+        </methods>
+        <inlets>
+            <inlet>
+                <xinfo on="bang">play with default duration and full gain</xinfo>
+                <xinfo on="float">play with default duration and specified gain</xinfo>
+                <xinfo on="list">GAIN(0..1) DUR(ms) pair expected</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet type="audio">synth output</outlet>
+            <outlet type="control">bang after release</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[T]
+|
+[metro 100]
+|
+[random.f 0.3 0.95]
+|
+[synth.snare~]
+|
+[ui.hgain~]     [ui.dsp~]
+| \
+[dac~]
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>
