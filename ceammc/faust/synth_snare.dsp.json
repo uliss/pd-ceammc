@@ -1,0 +1,91 @@
+{
+	"name": "synth.snare",
+	"filename": "synth_snare.dsp",
+	"version": "2.30.12",
+	"compile_options": "-lang cpp -es 1 -scal -ftz 0",
+	"library_list": ["/usr/local/share/faust/stdfaust.lib","/usr/local/share/faust/oscillators.lib","/usr/local/share/faust/filters.lib","/Users/serge/work/music/pure-data/ceammc/faust/ceammc.lib","/usr/local/share/faust/maths.lib","/usr/local/share/faust/platform.lib","/usr/local/share/faust/noises.lib","/usr/local/share/faust/basics.lib"],
+	"include_pathnames": ["/usr/local/share/faust","/usr/local/share/faust","/usr/share/faust","/Users/serge/work/music/pure-data/ceammc/faust","/Users/serge/work/music/pure-data/ceammc/faust"],
+	"inputs": 0,
+	"outputs": 1,
+	"meta": [ 
+		{ "basics.lib/name": "Faust Basic Element Library" },
+		{ "basics.lib/version": "0.1" },
+		{ "ceammc.lib/name": "Ceammc PureData misc utils" },
+		{ "ceammc.lib/version": "0.1.2" },
+		{ "compile_options": "-lang cpp -es 1 -scal -ftz 0" },
+		{ "filename": "synth_snare.dsp" },
+		{ "filters.lib/fir:author": "Julius O. Smith III" },
+		{ "filters.lib/fir:copyright": "Copyright (C) 2003-2019 by Julius O. Smith III <jos@ccrma.stanford.edu>" },
+		{ "filters.lib/fir:license": "MIT-style STK-4.3 license" },
+		{ "filters.lib/highpass:author": "Julius O. Smith III" },
+		{ "filters.lib/highpass:copyright": "Copyright (C) 2003-2019 by Julius O. Smith III <jos@ccrma.stanford.edu>" },
+		{ "filters.lib/iir:author": "Julius O. Smith III" },
+		{ "filters.lib/iir:copyright": "Copyright (C) 2003-2019 by Julius O. Smith III <jos@ccrma.stanford.edu>" },
+		{ "filters.lib/iir:license": "MIT-style STK-4.3 license" },
+		{ "filters.lib/lowpass0_highpass1": "Copyright (C) 2003-2019 by Julius O. Smith III <jos@ccrma.stanford.edu>" },
+		{ "filters.lib/lowpass0_highpass1:author": "Julius O. Smith III" },
+		{ "filters.lib/lowpass:author": "Julius O. Smith III" },
+		{ "filters.lib/lowpass:copyright": "Copyright (C) 2003-2019 by Julius O. Smith III <jos@ccrma.stanford.edu>" },
+		{ "filters.lib/lowpass:license": "MIT-style STK-4.3 license" },
+		{ "filters.lib/name": "Faust Filters Library" },
+		{ "filters.lib/nlf2:author": "Julius O. Smith III" },
+		{ "filters.lib/nlf2:copyright": "Copyright (C) 2003-2019 by Julius O. Smith III <jos@ccrma.stanford.edu>" },
+		{ "filters.lib/nlf2:license": "MIT-style STK-4.3 license" },
+		{ "filters.lib/tf1:author": "Julius O. Smith III" },
+		{ "filters.lib/tf1:copyright": "Copyright (C) 2003-2019 by Julius O. Smith III <jos@ccrma.stanford.edu>" },
+		{ "filters.lib/tf1:license": "MIT-style STK-4.3 license" },
+		{ "filters.lib/tf1s:author": "Julius O. Smith III" },
+		{ "filters.lib/tf1s:copyright": "Copyright (C) 2003-2019 by Julius O. Smith III <jos@ccrma.stanford.edu>" },
+		{ "filters.lib/tf1s:license": "MIT-style STK-4.3 license" },
+		{ "filters.lib/tf2:author": "Julius O. Smith III" },
+		{ "filters.lib/tf2:copyright": "Copyright (C) 2003-2019 by Julius O. Smith III <jos@ccrma.stanford.edu>" },
+		{ "filters.lib/tf2:license": "MIT-style STK-4.3 license" },
+		{ "filters.lib/tf2s:author": "Julius O. Smith III" },
+		{ "filters.lib/tf2s:copyright": "Copyright (C) 2003-2019 by Julius O. Smith III <jos@ccrma.stanford.edu>" },
+		{ "filters.lib/tf2s:license": "MIT-style STK-4.3 license" },
+		{ "filters.lib/version": "0.3" },
+		{ "maths.lib/author": "GRAME" },
+		{ "maths.lib/copyright": "GRAME" },
+		{ "maths.lib/license": "LGPL with exception" },
+		{ "maths.lib/name": "Faust Math Library" },
+		{ "maths.lib/version": "2.3" },
+		{ "name": "synth.snare" },
+		{ "noises.lib/name": "Faust Noise Generator Library" },
+		{ "noises.lib/version": "0.0" },
+		{ "oscillators.lib/name": "Faust Oscillator Library" },
+		{ "oscillators.lib/version": "0.1" },
+		{ "platform.lib/name": "Generic Platform Library" },
+		{ "platform.lib/version": "0.1" }
+	],
+	"ui": [ 
+		{
+			"type": "vgroup",
+			"label": "synth.snare",
+			"items": [ 
+				{
+					"type": "vslider",
+					"label": "attack",
+					"address": "/synth.snare/attack",
+					"init": 0.05,
+					"min": 0.03,
+					"max": 100,
+					"step": 0.01
+				},
+				{
+					"type": "vslider",
+					"label": "decay",
+					"address": "/synth.snare/decay",
+					"init": 0.1,
+					"min": 0.01,
+					"max": 20,
+					"step": 0.01
+				},
+				{
+					"type": "checkbox",
+					"label": "gate",
+					"address": "/synth.snare/gate"
+				}
+			]
+		}
+	]
+}
