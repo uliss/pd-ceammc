@@ -220,7 +220,7 @@ void UIKeyboard::init(t_symbol* name, const AtomListView& args, bool usePresets)
     }
 
     // check if first argument is not property
-    if (args.size() > 2 && args[0].isFloat()) {
+    if (args.size() > 1 && args[0].isFloat()) {
         // key shift
         prop_shift = args.intAt(1, DEFAULT_SHIFT);
     }
