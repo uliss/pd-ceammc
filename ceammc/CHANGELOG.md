@@ -12,6 +12,7 @@
   - spring: return to specified value in specified time
   - synth.snare~: snare drum
   - sfizz~: SFZ 2.0 format sample player
+  - flow.float: float pass flow object added
 - new properties:
   - lfo.+saw~, lfo.saw~, lfo.+tri~, lfo.tri~, lfo.+square~, lfo.square~, lfo.+pulse~, lfo.pulse~: @phase and @pause properties added
   - ui.knob: @show_value property added

@@ -127,6 +127,7 @@ flow.demultiplex2~,flow.demux2~,ceammc/demux2~,demux2~		~~.		?
 flow.demultiplex~,flow.demux~,ceammc/demux~,demux~		~.		?
 flow.dollar,flow.$$		.		.
 flow.dup		..		.
+flow.float,flow.f		.		.
 flow.gate,ceammc/gate,gate		..		.
 flow.greater,flow.>		.		?
 flow.greater_eq,flow.>=		.		?

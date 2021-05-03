@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="flow.float">
+        <title>flow.float</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>pass floats</description>
+            <license>GPL3 or later</license>
+            <library>ceammc</library>
+            <category>flow</category>
+            <keywords>pass</keywords>
+            <since>0.9.4</since>
+            <aliases>
+                <alias>flow.f</alias>
+            </aliases>
+        </meta>
+        <inlets>
+            <inlet>
+                <xinfo on="float">passed float</xinfo>
+                <xinfo on="bang">ignored</xinfo>
+                <xinfo on="symbol">ignored</xinfo>
+                <xinfo on="list">ignored</xinfo>
+                <xinfo on="any">ignored</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet>passed float</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[F]   [symbol ABC(
+|     |
+| [B] | [1 2 3( [@a 1 2 3( [any msg(
+| |   | |       |          |
+[flow.f                    ]
+|
+[ui.dt]
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

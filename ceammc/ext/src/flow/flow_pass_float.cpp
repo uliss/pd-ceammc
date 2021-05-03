@@ -27,7 +27,9 @@ void FlowPassFloat::onFloat(t_float f)
 
 void setup_flow_pass_float()
 {
-    ObjectFactory<FlowPassFloat> obj("flow.pass_float");
+    ObjectFactory<FlowPassFloat> obj("flow.float");
     obj.addAlias("flow.f");
     obj.noPropsDispatch();
+
+    obj.setXletsInfo({ "float" }, { "float" });
 }

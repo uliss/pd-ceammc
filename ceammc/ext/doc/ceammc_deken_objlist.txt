@@ -320,6 +320,8 @@ demux~	audio stream demultiplexer
 flow.dollar	data flow dollar converter
 flow.$$	data flow dollar converter
 flow.dup	message duplicator
+flow.float	pass floats
+flow.f	pass floats
 flow.gate	control flow gate. [spigot] analog
 ceammc/gate	control flow gate. [spigot] analog
 gate	control flow gate. [spigot] analog

@@ -129,6 +129,7 @@ set(DOC_FILES
     flow.demultiplex~
     flow.dollar
     flow.dup
+    flow.float
     flow.gate
     flow.greater
     flow.greater_eq
