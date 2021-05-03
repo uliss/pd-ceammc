@@ -17,21 +17,9 @@
             </aliases>
         </meta>
         <arguments>
-            <argument name="SF" type="symbol">soundfont path or builtin waveform name: #sine, #tri, #saw, #square, #noise</argument>
+            <argument name="SF" type="symbol">soundfont path or builtin waveform name: #sine, #tri,
+            #saw, #square, #noise</argument>
         </arguments>
-        <properties>
-            <property name="@sf" type="symbol">soundfont path or builtin waveform name: #sine, #tri, #saw, #square, #noise</property>
-            <property name="@poly" type="int" minvalue="1" maxvalue="1024" default="64">max number
-            of voices</property>
-            <property name="@avoices" type="int" default="0" readonly="true">number midi
-            channels</property>
-            <property name="@freq" type="float" default="440" units="herz">A4 standard tuning</property>
-        </properties>
-        <inlets>
-            <inlet>
-                <xinfo on="symbol">load mod file</xinfo>
-            </inlet>
-        </inlets>
         <methods>
             <method name="note">play note (CHANNEL, KEY, VELOCITY or KEY, VELOCITY
             expected)</method>
@@ -96,6 +84,25 @@
             channel</param>
             <param name="VAL" type="int" enum="0 1" required="true">pedal state</param></method>
         </methods>
+        <properties>
+            <property name="@sf" type="symbol">soundfont path or builtin waveform name: #sine,
+            #tri, #saw, #square, #noise</property>
+            <property name="@poly" type="int" minvalue="1" maxvalue="1024" default="64">max number
+            of voices</property>
+            <property name="@avoices" type="int" default="0" readonly="true">number midi
+            channels</property>
+            <property name="@freq" type="float" default="440" units="herz">A4 standard
+            tuning</property>
+            <property name="@key_labels" readonly="true" type="atom" default="[]">dict of control
+            key labels</property>
+            <property name="@cc_labels" readonly="true" type="atom" default="[]">dict of controller
+            labels</property>
+        </properties>
+        <inlets>
+            <inlet>
+                <xinfo on="symbol">load mod file</xinfo>
+            </inlet>
+        </inlets>
         <outlets>
             <outlet type="audio">left channel and property output</outlet>
             <outlet type="audio">right channel</outlet>
