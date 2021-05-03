@@ -15,6 +15,40 @@
 #include "ceammc_args.h"
 #include "ceammc_factory.h"
 
+#include <algorithm>
+#include <array>
+#include <string>
+
+static bool is_builtin(const char* name)
+{
+    static const std::array<std::string, 6> internals = {
+        "#sine",
+        "#saw",
+        "#square",
+        "#tri",
+        "#noise",
+        "#silence",
+    };
+
+    if (name[0] != '#')
+        return false;
+
+    return std::find(internals.begin(), internals.end(), name) != internals.end();
+}
+
+static std::string builtin_sfz(const char* name)
+{
+    char buf[32] = {};
+    snprintf(buf, sizeof(buf) - 1,
+        R"(<region>
+sample=*%s
+ampeg_attack=0.05
+ampeg_release=0.1
+)",
+        name + 1 /*skip initial symbol '#'*/);
+    return buf;
+}
+
 SfizzTilde::SfizzTilde(const PdArgs& args)
     : SoundExternal(args)
     , sf_path_(nullptr)
@@ -23,13 +57,22 @@ SfizzTilde::SfizzTilde(const PdArgs& args)
     addProperty(sf_path_);
     sf_path_->setArgIndex(0);
     sf_path_->setSymbolCheckFn([this](t_symbol* path) -> bool {
-        return !findInStdPaths(path->s_name).empty();
+        return !findInStdPaths(path->s_name).empty() || is_builtin(path->s_name);
     });
     sf_path_->setSuccessFn([this](Property*) {
-        auto path = findInStdPaths(sf_path_->value()->s_name);
-        if (!sfz_.loadSfzFile(path)) {
-            OBJ_ERR << "can't load soundfont: " << sf_path_->value();
-            return;
+        const auto sym_path = sf_path_->value()->s_name;
+        if (sym_path[0] == '#') {
+            if (!sfz_.loadSfzString(&sym_path[1], builtin_sfz(sym_path))) {
+                OBJ_ERR << "can't load virtual soundfont: " << sf_path_->value() << '\n'
+                        << builtin_sfz(sym_path);
+                return;
+            }
+        } else {
+            auto path = findInStdPaths(sym_path);
+            if (!sfz_.loadSfzFile(path)) {
+                OBJ_ERR << "can't load soundfont: " << sf_path_->value();
+                return;
+            }
         }
         updateLabels();
     });
@@ -266,7 +309,7 @@ void SfizzTilde::updateLabels()
 
 void setup_misc_sfizz_tilde()
 {
-    SoundExternalFactory<SfizzTilde> obj("sfizz~");
+    SoundExternalFactory<SfizzTilde> obj("sfizz~", OBJECT_FACTORY_DEFAULT);
 
     obj.addMethod("note", &SfizzTilde::m_note);
     obj.addMethod("cc", &SfizzTilde::m_cc);

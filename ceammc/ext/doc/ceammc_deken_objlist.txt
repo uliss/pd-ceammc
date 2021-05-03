@@ -783,6 +783,8 @@ fluid~	FluidSynth SoundFont 2 player
 ceammc/fluid~	FluidSynth SoundFont 2 player
 modplug~	MOD file player (using libmodplug)
 ceammc/modplug~	MOD file player (using libmodplug)
+sfizz~	SFZ format sample player
+ceammc/sfizz~	SFZ format sample player
 speech.flite	render speech to array
 speech.flite~	render speech to array
 loadexpr	send message when patch loads

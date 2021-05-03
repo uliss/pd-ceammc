@@ -17,11 +17,10 @@
             </aliases>
         </meta>
         <arguments>
-            <argument name="SF" type="symbol">soundfont path</argument>
+            <argument name="SF" type="symbol">soundfont path or builtin waveform name: #sine, #tri, #saw, #square, #noise</argument>
         </arguments>
         <properties>
-            <property name="@sf" type="symbol">soundfont path, you can use **default** value to
-            load default soundfont</property>
+            <property name="@sf" type="symbol">soundfont path or builtin waveform name: #sine, #tri, #saw, #square, #noise</property>
             <property name="@poly" type="int" minvalue="1" maxvalue="1024" default="64">max number
             of voices</property>
             <property name="@avoices" type="int" default="0" readonly="true">number midi
@@ -108,17 +107,12 @@
 |
 |
 |
-|            [hradio]
-|            |
-[msg note 1] [prog 1 $1(
-|            |
-| [dump(     |
-| |          | [@sf sf2/VintageDreamsWaves-v2.sf2(
-| |          | |
-[fluid~        ]
-| ^|
-[ui.hgain~]    [ui.dsp~]
-| \
+[msg note]
+|
+[sfizz~ #sine]
+*|*
+[ui.hgain2~]       [ui.dsp~]
+*|*
 [dac~]
 ]]>
             </pdascii>
