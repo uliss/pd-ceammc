@@ -30,13 +30,6 @@ class FluidSynthProperty;
 class Fluid : public SoundExternal {
     fluid_synth_t* synth_;
     t_symbol* sound_font_;
-    FluidSynthProperty* reverb_room_;
-    FluidSynthProperty* reverb_damp_;
-    FluidSynthProperty* reverb_width_;
-    FluidSynthProperty* reverb_level_;
-
-    FluidSynthProperty* gain_;
-    FluidSynthProperty* polyphony_;
     midi::MidiParser midi_parser_;
 
 public:

@@ -32,6 +32,8 @@
             soundfonts</property>
             <property name="@gain" type="float" minvalue="0" maxvalue="10" default="0">output
             gain</property>
+            <property name="@volume" type="float" minvalue="-60" maxvalue="10" default="0"
+            units="decibel">output volume (same as @gain but in db)</property>
             <property name="@reverb_level" type="float" default="0">reverberation level</property>
             <property name="@reverb_room" type="float" default="0">reverberation room
             size</property>

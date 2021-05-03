@@ -15,6 +15,7 @@
 - new properties:
   - lfo.+saw~, lfo.saw~, lfo.+tri~, lfo.tri~, lfo.+square~, lfo.square~, lfo.+pulse~, lfo.pulse~: @phase and @pause properties added
   - ui.knob: @show_value property added
+  - fluid~: @volume property added to set output level in db
 - new methods:
   - seq.phasor: [phase( method added to set current phase
   - lfo.+saw~, lfo.saw~, lfo.+tri~, lfo.tri~, lfo.+square~, lfo.square~, lfo.+pulse~, lfo.pulse~: [reset( method added to reset to initial phase value (@phase)

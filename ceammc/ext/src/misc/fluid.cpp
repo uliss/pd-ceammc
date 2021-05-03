@@ -89,12 +89,6 @@ Fluid::Fluid(const PdArgs& args)
     : SoundExternal(args)
     , synth_(nullptr)
     , sound_font_(&s_)
-    , reverb_room_(nullptr)
-    , reverb_damp_(nullptr)
-    , reverb_width_(nullptr)
-    , reverb_level_(nullptr)
-    , gain_(nullptr)
-    , polyphony_(nullptr)
 {
     createSignalOutlet();
     createSignalOutlet();
@@ -124,7 +118,7 @@ Fluid::Fluid(const PdArgs& args)
 
     createCbProperty("@soundfonts", &Fluid::propSoundFonts);
 
-    reverb_room_ = new FluidSynthProperty(
+    auto reverb_room = new FluidSynthProperty(
         "@reverb_room", synth_,
         [](fluid_synth_t* synth) -> t_float {
             return fluid_synth_get_reverb_roomsize(synth);
@@ -132,9 +126,9 @@ Fluid::Fluid(const PdArgs& args)
         [](fluid_synth_t* synth, t_float v) -> bool {
             return fluid_synth_set_reverb_roomsize(synth, v) == FLUID_OK;
         });
-    addProperty(reverb_room_);
+    addProperty(reverb_room);
 
-    reverb_damp_ = new FluidSynthProperty(
+    auto reverb_damp = new FluidSynthProperty(
         "@reverb_damp", synth_,
         [](fluid_synth_t* synth) -> t_float {
             return fluid_synth_get_reverb_damp(synth);
@@ -142,9 +136,9 @@ Fluid::Fluid(const PdArgs& args)
         [](fluid_synth_t* synth, t_float v) -> bool {
             return fluid_synth_set_reverb_damp(synth, v) == FLUID_OK;
         });
-    addProperty(reverb_damp_);
+    addProperty(reverb_damp);
 
-    reverb_width_ = new FluidSynthProperty(
+    auto reverb_width = new FluidSynthProperty(
         "@reverb_width", synth_,
         [](fluid_synth_t* synth) -> t_float {
             return fluid_synth_get_reverb_width(synth);
@@ -152,9 +146,9 @@ Fluid::Fluid(const PdArgs& args)
         [](fluid_synth_t* synth, t_float v) -> bool {
             return fluid_synth_set_reverb_width(synth, v) == FLUID_OK;
         });
-    addProperty(reverb_width_);
+    addProperty(reverb_width);
 
-    reverb_level_ = new FluidSynthProperty(
+    auto reverb_level = new FluidSynthProperty(
         "@reverb_level", synth_,
         [](fluid_synth_t* synth) -> t_float {
             return fluid_synth_get_reverb_level(synth);
@@ -162,9 +156,10 @@ Fluid::Fluid(const PdArgs& args)
         [](fluid_synth_t* synth, t_float v) -> bool {
             return fluid_synth_set_reverb_level(synth, v) == FLUID_OK;
         });
-    addProperty(reverb_level_);
+    addProperty(reverb_level);
 
-    gain_ = new FluidSynthProperty(
+    // @gain
+    auto gain = new FluidSynthProperty(
         "@gain", synth_,
         [](fluid_synth_t* synth) -> t_float {
             return fluid_synth_get_gain(synth);
@@ -174,12 +169,23 @@ Fluid::Fluid(const PdArgs& args)
             return true;
         });
 
-    if (gain_->infoT().setConstraints(PropValueConstraints::CLOSED_RANGE))
-        (void)gain_->infoT().setRangeFloat(0, 10);
+    if (gain->infoT().setConstraints(PropValueConstraints::CLOSED_RANGE))
+        (void)gain->infoT().setRangeFloat(0, 10);
 
-    addProperty(gain_);
+    addProperty(gain);
 
-    polyphony_ = new FluidSynthProperty(
+    // @volume
+    auto volume = new FluidSynthProperty(
+        "@volume", synth_,
+        [](fluid_synth_t* synth) -> t_float { return convert::amp2dbfs(fluid_synth_get_gain(synth)); },
+        [](fluid_synth_t* synth, t_float v) -> bool {
+            fluid_synth_set_gain(synth, convert::dbfs2amp(v));
+            return true;
+        });
+    volume->setUnits(PropValueUnits::DB);
+    addProperty(volume);
+
+    auto polyphony = new FluidSynthProperty(
         "@poly", synth_,
         [](fluid_synth_t* synth) -> t_float {
             return fluid_synth_get_polyphony(synth);
@@ -188,10 +194,10 @@ Fluid::Fluid(const PdArgs& args)
             return fluid_synth_set_polyphony(synth, v) == FLUID_OK;
         });
 
-    if (polyphony_->infoT().setConstraints(PropValueConstraints::CLOSED_RANGE))
-        (void)polyphony_->infoT().setRangeFloat(1, 1024);
+    if (polyphony->infoT().setConstraints(PropValueConstraints::CLOSED_RANGE))
+        (void)polyphony->infoT().setRangeFloat(1, 1024);
 
-    addProperty(polyphony_);
+    addProperty(polyphony);
 
     {
         auto p = new FluidSynthProperty(
