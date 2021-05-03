@@ -13,6 +13,7 @@
  *****************************************************************************/
 #include "sfizz_tilde.h"
 #include "ceammc_args.h"
+#include "ceammc_convert.h"
 #include "ceammc_factory.h"
 
 #include <algorithm>
@@ -88,6 +89,11 @@ SfizzTilde::SfizzTilde(const PdArgs& args)
         [this]() { return sfz_.getVolume(); },
         [this](t_float v) { sfz_.setVolume(v); return true; })
         ->setUnits(PropValueUnits::DB);
+
+    createCbFloatProperty(
+        "@gain",
+        [this]() { return convert::dbfs2amp(sfz_.getVolume()); },
+        [this](t_float v) { sfz_.setVolume(convert::amp2dbfs(v)); return true; });
 
     createCbIntProperty(
         "@poly",
