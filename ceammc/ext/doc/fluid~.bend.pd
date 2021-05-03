@@ -1,4 +1,4 @@
-#N canvas 0 0 573 357 12;
+#N canvas 0 0 573 385 12;
 #X obj 20 48 ui.keyboard 25 48;
 #X obj 212 77 loadmsg 1;
 #X obj 212 106 ui.hsl -1 1 @show_value 1 @mouse_events 1;

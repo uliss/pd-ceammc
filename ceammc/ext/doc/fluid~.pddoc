@@ -117,6 +117,9 @@
             <param name="CHAN" type="int" minvalue="0" maxvalue="15" required="true">MIDI
             channel</param>
             <param name="VAL" type="int" enum="0 1" required="true">pedal state</param></method>
+            <!-- MIDI -->
+            <method name="midi">send raw midi message to synth
+            <param name="BYTES" type="list" required="true">list of bytes</param></method>
         </methods>
         <outlets>
             <outlet type="audio">left channel and property output</outlet>
@@ -144,6 +147,8 @@
 [dac~]
 
 [fluid~.bend]
+
+[fluid~.midi]
 ]]>
             </pdascii>
             <pdascii id="bend">
@@ -165,6 +170,21 @@
 [dac~]
 
 #a @show_value 1 @mouse_events 1
+]]>
+            </pdascii>
+            <pdascii id="midi">
+<![CDATA[
+/*play MIDI keyboard with default Sine tone sample*/
+
+[midiin]
+|
+[msg midi]
+|
+[fluid~]
+*|*
+[ui.hgain2~]    [ui.dsp~]
+*|*
+[dac~]
 ]]>
             </pdascii>
         </example>
