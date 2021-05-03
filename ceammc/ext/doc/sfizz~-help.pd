@@ -12,159 +12,160 @@
 #X obj 232 248 ui.dsp~;
 #X obj 50 277 dac~;
 #X obj 50 305 sfizz~.freq;
-#X obj 20 354 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 359 cnv 5 90 26 empty empty arguments: 4 10 0 14 -262144
+#X obj 50 334 sfizz~.bend;
+#X obj 20 383 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 388 cnv 5 90 26 empty empty arguments: 4 10 0 14 -262144
 -49933 0;
-#X text 110 394 1\.;
-#X text 150 394 symbol;
-#X obj 246 395 cnv 1 24 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 394 SF: soundfont path or builtin waveform name: #sine
+#X text 110 423 1\.;
+#X text 150 423 symbol;
+#X obj 246 424 cnv 1 24 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 245 423 SF: soundfont path or builtin waveform name: #sine
 \, #tri \, #saw \, #square \, #noise.;
-#X obj 20 439 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 444 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
+#X obj 20 468 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 473 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
 -49933 0;
-#X msg 110 479 @avoices;
-#X text 245 479 (readonly) Get number midi channels. Type: int. Default
+#X msg 110 508 @avoices;
+#X text 245 508 (readonly) Get number midi channels. Type: int. Default
 value: 0\.;
-#X msg 110 521 @freq;
-#X text 245 521 Get/Set A4 standard tuning. Type: float. Units: Hz.
+#X msg 110 550 @freq;
+#X text 245 550 Get/Set A4 standard tuning. Type: float. Units: Hz.
 Default value: 440\.;
-#X msg 110 563 @gain;
-#X text 245 563 Get/Set output gain (same as @value but in amp units).
+#X msg 110 592 @gain;
+#X text 245 592 Get/Set output gain (same as @value but in amp units).
 Type: float. Default value: 0.429042\. Range: 0\...10\.;
-#X msg 110 605 @poly;
-#X text 245 605 Get/Set max number of voices. Type: int. Default value:
+#X msg 110 634 @poly;
+#X text 245 634 Get/Set max number of voices. Type: int. Default value:
 64\. Range: 1\...1024\.;
-#X msg 110 647 @sf;
-#X text 245 647 Get/Set soundfont path or builtin waveform name: #sine
+#X msg 110 676 @sf;
+#X text 245 676 Get/Set soundfont path or builtin waveform name: #sine
 \, #tri \, #saw \, #square \, #noise. Type: symbol.;
-#X msg 110 689 @volume;
-#X text 245 689 Get/Set output volume (same as @gain but in db). Type:
+#X msg 110 718 @volume;
+#X text 245 718 Get/Set output volume (same as @gain but in db). Type:
 float. Units: db. Default value: -7.35\. Range: -60\...10\.;
-#X msg 110 731 @cc_labels;
-#X text 245 731 (readonly) Get dict of controller labels. Type: atom.
+#X msg 110 760 @cc_labels;
+#X text 245 760 (readonly) Get dict of controller labels. Type: atom.
 Default value: [].;
-#X msg 110 773 @key_labels;
-#X text 245 773 (readonly) Get dict of control key labels. Type: atom.
+#X msg 110 802 @key_labels;
+#X text 245 802 (readonly) Get dict of control key labels. Type: atom.
 Default value: [].;
-#X obj 20 825 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 830 cnv 5 73 26 empty empty methods: 4 10 0 14 -262144
+#X obj 20 854 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 859 cnv 5 73 26 empty empty methods: 4 10 0 14 -262144
 -49933 0;
-#X msg 110 865 bank;
-#X text 245 865 set instrument bank number on a MIDI channel (CHANNEL
+#X msg 110 894 bank;
+#X text 245 894 set instrument bank number on a MIDI channel (CHANNEL
 \, BANK expected).;
-#X msg 110 905 bend;
-#X text 245 905 pitchband change. Arguments are:;
-#X obj 255 928 cnv 1 85 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 928 [CHANNEL=1]: MIDI channel: 1\..16\. Type: int. Range:
+#X msg 110 934 bend;
+#X text 245 934 pitchband change. Arguments are:;
+#X obj 255 957 cnv 1 85 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 957 [CHANNEL=1]: MIDI channel: 1\..16\. Type: int. Range:
 1\...16\.;
-#X obj 255 966 cnv 1 45 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 966 VALUE: value in 0\..0x3fff range \, with 0x2000 center.
+#X obj 255 995 cnv 1 45 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 995 VALUE: value in 0\..0x3fff range \, with 0x2000 center.
 Type: int. Range: 0\...16383\.;
-#X msg 110 1006 bend:f;
-#X text 245 1006 pitchband change. Arguments are:;
-#X obj 255 1029 cnv 1 85 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1029 [CHANNEL=1]: MIDI channel: 1\..16\. Type: int. Range:
+#X msg 110 1035 bend:f;
+#X text 245 1035 pitchband change. Arguments are:;
+#X obj 255 1058 cnv 1 85 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1058 [CHANNEL=1]: MIDI channel: 1\..16\. Type: int. Range:
 1\...16\.;
-#X obj 255 1067 cnv 1 45 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1067 VALUE: value in -1\..+1 range \, with 0 center. Type:
+#X obj 255 1096 cnv 1 45 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1096 VALUE: value in -1\..+1 range \, with 0 center. Type:
 float. Range: -1\...1\.;
-#X msg 110 1107 bend:i;
-#X text 245 1107 pitchband change. Arguments are:;
-#X obj 255 1130 cnv 1 85 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1130 [CHANNEL=1]: MIDI channel: 1\..16\. Type: int. Range:
+#X msg 110 1136 bend:i;
+#X text 245 1136 pitchband change. Arguments are:;
+#X obj 255 1159 cnv 1 85 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1159 [CHANNEL=1]: MIDI channel: 1\..16\. Type: int. Range:
 1\...16\.;
-#X obj 255 1168 cnv 1 45 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1168 VALUE: value in -0x2000\..0x1fff range \, with 0 center.
+#X obj 255 1197 cnv 1 45 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1197 VALUE: value in -0x2000\..0x1fff range \, with 0 center.
 Type: int. Range: -8192\...8191\.;
-#X msg 110 1208 cc;
-#X text 245 1208 control change (CHANNEL \, CCNUM \, VALUE or CCNUM
+#X msg 110 1237 cc;
+#X text 245 1237 control change (CHANNEL \, CCNUM \, VALUE or CCNUM
 \, VALUE expected).;
-#X msg 110 1248 gen;
-#X text 245 1248 set a SoundFont generator (effect) value on a MIDI
+#X msg 110 1277 gen;
+#X text 245 1277 set a SoundFont generator (effect) value on a MIDI
 channel in real-time (CHANNEL \, PARAM \, VALUE or PARAM \, VALUE expected).;
-#X msg 110 1288 hold;
-#X text 245 1288 hold (sustain \, right) pedal \, ignore note release
+#X msg 110 1317 hold;
+#X text 245 1317 hold (sustain \, right) pedal \, ignore note release
 when active \, release all notes when set to off. Arguments are:;
-#X obj 255 1326 cnv 1 36 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1326 CHAN: MIDI channel. Type: int. Range: 0\...15\.;
-#X obj 255 1349 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1349 VAL: pedal state. Type: int. Allowed values: 0 \,
+#X obj 255 1355 cnv 1 36 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1355 CHAN: MIDI channel. Type: int. Range: 0\...15\.;
+#X obj 255 1378 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1378 VAL: pedal state. Type: int. Allowed values: 0 \,
 1\.;
-#X msg 110 1374 legato;
-#X text 245 1374 enable or disable legato/smooth transitions between
+#X msg 110 1403 legato;
+#X text 245 1403 enable or disable legato/smooth transitions between
 consecutive notes. Arguments are:;
-#X obj 255 1412 cnv 1 36 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1412 CHAN: MIDI channel. Type: int. Range: 0\...15\.;
-#X obj 255 1435 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1435 VAL: pedal state. Type: int. Allowed values: 0 \,
+#X obj 255 1441 cnv 1 36 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1441 CHAN: MIDI channel. Type: int. Range: 0\...15\.;
+#X obj 255 1464 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1464 VAL: pedal state. Type: int. Allowed values: 0 \,
 1\.;
-#X msg 110 1460 note;
-#X text 245 1460 play note (CHANNEL \, KEY \, VELOCITY or KEY \, VELOCITY
+#X msg 110 1489 note;
+#X text 245 1489 play note (CHANNEL \, KEY \, VELOCITY or KEY \, VELOCITY
 expected).;
-#X msg 110 1487 notes_off;
-#X text 245 1487 turn off all notes on a MIDI channel (put them into
+#X msg 110 1516 notes_off;
+#X text 245 1516 turn off all notes on a MIDI channel (put them into
 release phase). Arguments are:;
-#X obj 255 1525 cnv 1 62 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1525 [CHAN=0]: MIDI channel. Type: int.;
-#X msg 110 1550 pan;
-#X text 245 1550 set channel panning. Arguments are:;
-#X obj 255 1573 cnv 1 36 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1573 CHAN: MIDI channel. Type: int. Range: 0\...15\.;
-#X obj 255 1596 cnv 1 28 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1596 PAN: pan value \, -1: left \, 0: center \, 1: right.
+#X obj 255 1554 cnv 1 62 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1554 [CHAN=0]: MIDI channel. Type: int.;
+#X msg 110 1579 pan;
+#X text 245 1579 set channel panning. Arguments are:;
+#X obj 255 1602 cnv 1 36 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1602 CHAN: MIDI channel. Type: int. Range: 0\...15\.;
+#X obj 255 1625 cnv 1 28 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1625 PAN: pan value \, -1: left \, 0: center \, 1: right.
 Type: float. Range: -1\...1\.;
-#X msg 110 1636 panic;
-#X text 245 1636 send MIDI system reset command (big red 'panic' button)
+#X msg 110 1665 panic;
+#X text 245 1665 send MIDI system reset command (big red 'panic' button)
 \, turns off notes \, resets controllers and restores initial basic
 channel configuration.;
-#X msg 110 1691 prog;
-#X text 245 1691 program change (CHANNEL \, PROGRAM expected).;
-#X msg 110 1718 reset;
-#X text 245 1718 reset all synth channels.;
-#X msg 110 1745 soft;
-#X text 245 1745 soft (left) pedal \, activate the soft strike effect.
+#X msg 110 1720 prog;
+#X text 245 1720 program change (CHANNEL \, PROGRAM expected).;
+#X msg 110 1747 reset;
+#X text 245 1747 reset all synth channels.;
+#X msg 110 1774 soft;
+#X text 245 1774 soft (left) pedal \, activate the soft strike effect.
 Arguments are:;
-#X obj 255 1783 cnv 1 36 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1783 CHAN: MIDI channel. Type: int. Range: 0\...15\.;
-#X obj 255 1806 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1806 VAL: pedal state. Type: int. Allowed values: 0 \,
+#X obj 255 1812 cnv 1 36 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1812 CHAN: MIDI channel. Type: int. Range: 0\...15\.;
+#X obj 255 1835 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1835 VAL: pedal state. Type: int. Allowed values: 0 \,
 1\.;
-#X msg 110 1831 sostenuto;
-#X text 245 1831 sostenuto (middle) pedal \, hold notes pressed before
+#X msg 110 1860 sostenuto;
+#X text 245 1860 sostenuto (middle) pedal \, hold notes pressed before
 pedal activation \, new notes are passed untouched. Release holded
 notes when set to off. Arguments are:;
-#X obj 255 1884 cnv 1 36 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1884 CHAN: MIDI channel. Type: int. Range: 0\...15\.;
-#X obj 255 1907 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1907 VAL: pedal state. Type: int. Allowed values: 0 \,
+#X obj 255 1913 cnv 1 36 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1913 CHAN: MIDI channel. Type: int. Range: 0\...15\.;
+#X obj 255 1936 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1936 VAL: pedal state. Type: int. Allowed values: 0 \,
 1\.;
-#X msg 110 1932 sounds_off;
-#X text 245 1932 immediately stop all notes on a MIDI channel (skips
+#X msg 110 1961 sounds_off;
+#X text 245 1961 immediately stop all notes on a MIDI channel (skips
 release phase). Arguments are:;
-#X obj 255 1970 cnv 1 62 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1970 [CHAN=0]: MIDI channel. Type: int.;
-#X obj 20 2005 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 2010 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144
+#X obj 255 1999 cnv 1 62 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1999 [CHAN=0]: MIDI channel. Type: int.;
+#X obj 20 2034 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 2039 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 2011 1\.;
-#X text 150 2011 *symbol*;
-#X text 245 2011 load mod file.;
-#X obj 20 2041 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 2046 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
+#X text 110 2040 1\.;
+#X text 150 2040 *symbol*;
+#X text 245 2040 load mod file.;
+#X obj 20 2070 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 2075 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 2047 1\.;
-#X text 245 2047 left channel and property output.;
-#X text 110 2067 2\.;
-#X text 245 2067 right channel.;
+#X text 110 2076 1\.;
+#X text 245 2076 left channel and property output.;
+#X text 110 2096 2\.;
+#X text 245 2096 right channel.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 115 45 ::;
 #X obj 131 48 ui.link @title misc @url ceammc.misc-help.pd;
-#X obj 1 2117 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 2120 library: ceammc v0.9.3;
-#N canvas 10 2139 400 290 info 0;
+#X obj 1 2146 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 2149 library: ceammc v0.9.3;
+#N canvas 10 2168 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
@@ -188,7 +189,7 @@ https://github.com/uliss/pure-data;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 generated by pddoc;
-#X restore 10 2139 pd info;
+#X restore 10 2168 pd info;
 #X connect 5 0 6 0;
 #X connect 6 0 7 0;
 #X connect 7 0 8 0;

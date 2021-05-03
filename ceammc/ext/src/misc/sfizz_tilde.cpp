@@ -248,7 +248,7 @@ void SfizzTilde::m_bend_int(t_symbol* s, const AtomListView& lv)
 
 void SfizzTilde::m_bend_float(t_symbol* s, const AtomListView& lv)
 {
-    int val = 0;
+    t_float val = 0;
 
     if (checkArgs(lv, ARG_FLOAT, ARG_FLOAT))
         val = lv[1].asFloat();
