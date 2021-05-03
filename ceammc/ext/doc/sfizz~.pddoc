@@ -25,6 +25,7 @@
             of voices</property>
             <property name="@avoices" type="int" default="0" readonly="true">number midi
             channels</property>
+            <property name="@freq" type="float" default="440" units="herz">A4 standard tuning</property>
         </properties>
         <inlets>
             <inlet>
@@ -109,7 +110,27 @@
 |
 [msg note]
 |
-[sfizz~ #sine]
+[sfizz~ \#sine]
+*|*
+[ui.hgain2~]       [ui.dsp~]
+*|*
+[dac~]
+
+[sfizz~.freq]
+]]>
+            </pdascii>
+            <pdascii id="freq">
+<![CDATA[
+/*low-A tuning*/
+
+[ui.keyboard 25 48]
+|
+|
+|
+|
+[msg note]
+|
+[sfizz~ \#sine @freq 415]
 *|*
 [ui.hgain2~]       [ui.dsp~]
 *|*
