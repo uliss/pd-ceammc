@@ -27,7 +27,9 @@ void ceammc_misc_setup()
     setup_misc_fluid();
 #endif
 
+#ifdef WITH_SFIZZ
     setup_misc_sfizz_tilde();
+#endif
 
 #ifdef CEAMMC_HAVE_TTS_FLITE
     setup_misc_speech_flite();
