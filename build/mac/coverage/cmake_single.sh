@@ -11,4 +11,4 @@ cmake -G Ninja -DWITH_COVERAGE=ON \
     -DWITH_EXT_LYONPOTPOURRI=OFF \
     -DWITH_EXT_AUTOTUNE=OFF \
     -DWITH_FFTW=OFF \
-    ../../..
+    ../../../..
