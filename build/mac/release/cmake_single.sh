@@ -10,5 +10,5 @@ cmake -G Ninja \
 	-DLEAPMOTION_ROOT=~/work/src/LeapSDK \
 	-DENABLE_TESTS=ON \
 	-DWITH_BENCHMARK=ON\
-	../../../../../..
+	../../../..
 

@@ -1,0 +1,13 @@
+#!/bin/bash
+
+cmake -G Ninja \
+	-DCMAKE_BUILD_TYPE=Debug \
+	-DWITH_FLUIDSYNTH=ON \
+	-DWITH_DOUBLE_PRECISION=ON \
+	-DARCH=x86_64 \
+	-DLEAPMOTION_ROOT=~/work/src/LeapSDK \
+	-DENABLE_TESTS=ON \
+	-DWITH_BENCHMARK=ON\
+	-DWITH_FAUST=ON\
+	../../../..
+
