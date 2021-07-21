@@ -1,5 +1,6 @@
 /* ------------------------------------------------------------
 name: "fx.echo"
+version: "0.2"
 Code generated with Faust 2.30.12 (https://faust.grame.fr)
 Compilation options: -lang cpp -es 1 -scal -ftz 0
 ------------------------------------------------------------ */
@@ -552,6 +553,7 @@ class fx_echo : public fx_echo_dsp {
 		m->declare("platform.lib/version", "0.1");
 		m->declare("signals.lib/name", "Faust Signal Routing Library");
 		m->declare("signals.lib/version", "0.0");
+		m->declare("version", "0.2");
 	}
 
 	virtual int getNumInputs() {
@@ -654,7 +656,7 @@ class fx_echo : public fx_echo_dsp {
 		int iSlow0 = int(float(fCheckbox0));
 		float fSlow1 = (0.00100000005f * float(fHslider0));
 		float fSlow2 = (0.00100000005f * float(fHslider1));
-		int iSlow3 = (int(std::min<float>(fConst1, std::max<float>(0.0f, (fConst2 * std::min<float>(10000.0f, std::max<float>(10.0f, float(fHslider2))))))) + 1);
+		int iSlow3 = (int(std::min<float>(fConst1, std::max<float>(0.0f, (fConst2 * float(fHslider2))))) + 1);
 		for (int i = 0; (i < count); i = (i + 1)) {
 			float fTemp0 = float(input0[i]);
 			float fTemp1 = (iSlow0 ? 0.0f : fTemp0);

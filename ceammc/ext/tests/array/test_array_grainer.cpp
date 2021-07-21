@@ -29,31 +29,12 @@ TEST_CASE("array.grainer", "[externals]")
 
     SECTION("GrainPool")
     {
-        auto& gp = GrainPool::instance();
-        REQUIRE(gp.capacity() == 2048);
-
-        Grain* g0 = gp.allocate();
-        REQUIRE(g0);
-        REQUIRE(gp.capacity() == 2047);
-        REQUIRE(g0->startInSamples() == 0);
-        REQUIRE(g0->endInSamples() == 0);
-        REQUIRE(g0->lengthInSamples() == 0);
-
-        Grain* g1 = gp.allocate(10, 20, 40);
-        REQUIRE(g1);
-        REQUIRE(gp.capacity() == 2046);
-        REQUIRE(g1->arrayPosInSamples() == 10);
-        REQUIRE(g1->lengthInSamples() == 20);
-        REQUIRE(g1->startInSamples() == 40);
-        REQUIRE(g1->endInSamples() == 60);
-
-        g1->setSpeed(2);
-        REQUIRE(g1->lengthInSamples() == 10);
-        g1->setSpeed(0.5);
-        REQUIRE(g1->lengthInSamples() == 40);
-
-        gp.free(g0);
-        REQUIRE(gp.capacity() == 2047);
+        GrainCloud c;
+        auto g = c.appendGrain(20, 40, 3);
+        REQUIRE(g);
+        REQUIRE(g->arrayPosInSamples() == 20);
+        REQUIRE(g->lengthInSamples() == 40);
+        REQUIRE(g->timeBefore() == 3);
     }
 
     SECTION("Grain")
@@ -65,77 +46,77 @@ TEST_CASE("array.grainer", "[externals]")
         REQUIRE(aptr->at(2) == 2);
         REQUIRE(aptr->at(3) == 3);
 
-        Grain* g = GrainPool::instance().allocate(3, 7, 6);
+        GrainCloud c;
+        Grain* g = c.appendGrain(3, 7, 6);
         // 0 1 2 3 4 5 6 7 8 9 10...
         // . . . 3 4 5 6 7 8 9 10 0
         REQUIRE(g);
         REQUIRE(g->speed() == 1);
-        REQUIRE(g->lengthInSamples() == 7);
+        REQUIRE(g->durationInSamples() == 7);
         REQUIRE(g->endInSamples() == 13);
-        REQUIRE(g->pan() == 0);
-        REQUIRE(g->panNorm() == 0.5);
-        REQUIRE(g->panOverflow() == Grain::PAN_OVERFLOW_CLIP);
-        REQUIRE(g->winType() == Grain::WIN_RECT);
+        REQUIRE(g->pan() == 0.5);
+        REQUIRE(g->panOverflow() == GRAIN_PROP_OVERFLOW_CLIP);
+        REQUIRE(g->winType() == GRAIN_WIN_RECT);
         g->setPan(-1);
-        REQUIRE(g->pan() == -1);
-        REQUIRE(g->panNorm() == 0);
+        REQUIRE(g->pan() == 0);
 
         constexpr size_t BS = 4;
+        constexpr size_t SR = 48000;
         t_sample buf0[BS] = { 0 };
         t_sample buf1[BS] = { 0 };
         t_sample* buf[] = { buf0, buf1 };
 
         // invalid grain state
-        REQUIRE(g->playStatus() == Grain::FINISHED);
-        g->process(aptr->begin(), aptr->size(), buf, BS);
+        REQUIRE(g->playStatus() == GRAIN_FINISHED);
+        g->process(aptr->begin(), aptr->size(), buf, BS, SR);
         REQUIRE(std::all_of(std::begin(buf0), std::end(buf0), [](t_sample s) { return s == 0; }));
-        REQUIRE(g->playStatus() == Grain::FINISHED);
+        REQUIRE(g->playStatus() == GRAIN_FINISHED);
 
         // out of range play position
         g->start(aptr->size());
-        g->process(aptr->begin(), aptr->size(), buf, BS);
+        g->process(aptr->begin(), aptr->size(), buf, BS, SR);
         REQUIRE(std::all_of(std::begin(buf0), std::end(buf0), [](t_sample s) { return s == 0; }));
-        REQUIRE(g->playStatus() == Grain::FINISHED);
+        REQUIRE(g->playStatus() == GRAIN_FINISHED);
 
         // play out of block
         g->start(0);
-        g->process(aptr->begin(), aptr->size(), buf, BS);
+        g->process(aptr->begin(), aptr->size(), buf, BS, SR);
         REQUIRE(std::all_of(std::begin(buf0), std::end(buf0), [](t_sample s) { return s == 0; }));
-        REQUIRE(g->playStatus() == Grain::PLAYING);
+        REQUIRE(g->playStatus() == GRAIN_PLAYING);
 
         // play 0, 0, 3, 4
         g->start(BS);
-        g->process(aptr->begin(), aptr->size(), buf, BS);
+        g->process(aptr->begin(), aptr->size(), buf, BS, SR);
         REQUIRE(buf0[0] == 0);
         REQUIRE(buf0[1] == 0);
         REQUIRE(buf0[2] == 3);
         REQUIRE(buf0[3] == 4);
-        REQUIRE(g->playStatus() == Grain::PLAYING);
+        REQUIRE(g->playStatus() == GRAIN_PLAYING);
 
         // play again - 0, 0, 3, 4
         g->start(BS);
-        g->process(aptr->begin(), aptr->size(), buf, BS);
+        g->process(aptr->begin(), aptr->size(), buf, BS, SR);
         REQUIRE(buf0[0] == 0);
         REQUIRE(buf0[1] == 0);
         REQUIRE(buf0[2] == 6);
         REQUIRE(buf0[3] == 8);
-        REQUIRE(g->playStatus() == Grain::PLAYING);
+        REQUIRE(g->playStatus() == GRAIN_PLAYING);
 
         std::fill(std::begin(buf0), std::end(buf0), 0);
-        g->process(aptr->begin(), aptr->size(), buf, BS);
+        g->process(aptr->begin(), aptr->size(), buf, BS, SR);
         REQUIRE(buf0[0] == 5);
         REQUIRE(buf0[1] == 6);
         REQUIRE(buf0[2] == 7);
         REQUIRE(buf0[3] == 8);
-        REQUIRE(g->playStatus() == Grain::PLAYING);
+        REQUIRE(g->playStatus() == GRAIN_PLAYING);
 
         std::fill(std::begin(buf0), std::end(buf0), 0);
-        g->process(aptr->begin(), aptr->size(), buf, BS);
+        g->process(aptr->begin(), aptr->size(), buf, BS, SR);
         REQUIRE(buf0[0] == 9);
         REQUIRE(buf0[1] == 0);
         REQUIRE(buf0[2] == 0);
         REQUIRE(buf0[3] == 0);
-        REQUIRE(g->playStatus() == Grain::FINISHED);
+        REQUIRE(g->playStatus() == GRAIN_FINISHED);
     }
 
     SECTION("Grain window")
@@ -143,28 +124,29 @@ TEST_CASE("array.grainer", "[externals]")
         ArrayPtr aptr = cnv->createArray("array_g01", 20);
         aptr->fillWith(1);
 
-        Grain* g = GrainPool::instance().allocate(0, 9, 0);
+        GrainCloud c;
+        Grain* g = c.appendGrain(0, 9, 0);
+
         REQUIRE(g);
         REQUIRE(g->speed() == 1);
-        REQUIRE(g->lengthInSamples() == 9);
+        REQUIRE(g->durationInSamples() == 9);
         REQUIRE(g->endInSamples() == 9);
-        REQUIRE(g->pan() == 0);
-        REQUIRE(g->panNorm() == 0.5);
-        REQUIRE(g->panOverflow() == Grain::PAN_OVERFLOW_CLIP);
-        REQUIRE(g->winType() == Grain::WIN_RECT);
+        REQUIRE(g->pan() == 0.5);
+        REQUIRE(g->panOverflow() == GRAIN_PROP_OVERFLOW_CLIP);
+        REQUIRE(g->winType() == GRAIN_WIN_RECT);
         g->setPan(-1);
-        g->setWinType(Grain::WIN_TRIANGLE);
-        REQUIRE(g->pan() == -1);
-        REQUIRE(g->panNorm() == 0);
-        REQUIRE(g->winType() == Grain::WIN_TRIANGLE);
+        g->setWinType(GRAIN_WIN_TRI);
+        REQUIRE(g->pan() == 0);
+        REQUIRE(g->winType() == GRAIN_WIN_TRI);
 
         constexpr size_t BS = 20;
+        constexpr size_t SR = 48000;
         t_sample buf0[BS] = { 0 };
         t_sample buf1[BS] = { 0 };
         t_sample* buf[] = { buf0, buf1 };
 
         g->start(0);
-        g->process(aptr->begin(), aptr->size(), buf, BS);
+        g->process(aptr->begin(), aptr->size(), buf, BS, SR);
 
         REQUIRE(buf0[0] == 0);
         REQUIRE(buf0[1] == 0.25);
@@ -181,31 +163,22 @@ TEST_CASE("array.grainer", "[externals]")
     {
         GrainCloud gc;
 
-        auto g0 = GrainPool::instance().allocate(100, 10, 11);
-        gc.addGrain(g0);
-        REQUIRE(g0->startInSamples() == 11);
+        auto g0 = gc.appendGrain(100, 10, 11);
+        REQUIRE(g0->timeBefore() == 11);
         REQUIRE(g0->endInSamples() == 21);
         REQUIRE(gc.size() == 1);
-        REQUIRE(gc.grains()[0].time_samp == 11);
-        REQUIRE(gc.offset() == 11);
-        REQUIRE(gc.length() == 10);
+        REQUIRE(gc.grains()[0]->timeBefore() == 11);
 
-        auto g1 = GrainPool::instance().allocate(100, 10, 100);
-        gc.addGrain(g1);
-        REQUIRE(gc.grains()[0].time_samp == 11);
-        REQUIRE(gc.grains()[1].time_samp == 100);
+        auto g1 = gc.appendGrain(100, 10, 100);
+        REQUIRE(gc.grains()[0]->timeBefore() == 11);
+        REQUIRE(gc.grains()[1]->timeBefore() == 100);
         REQUIRE(gc.size() == 2);
-        REQUIRE(gc.offset() == 11);
-        REQUIRE(gc.length() == 99);
 
-        auto g2 = GrainPool::instance().allocate(100, 10, 60);
-        gc.addGrain(g2);
-        REQUIRE(gc.grains()[0].time_samp == 11);
-        REQUIRE(gc.grains()[1].time_samp == 60);
-        REQUIRE(gc.grains()[2].time_samp == 100);
+        auto g2 = gc.appendGrain(100, 10, 60);
+        REQUIRE(gc.grains()[0]->timeBefore() == 11);
+        REQUIRE(gc.grains()[1]->timeBefore() == 100);
+        REQUIRE(gc.grains()[2]->timeBefore() == 60);
         REQUIRE(gc.size() == 3);
-        REQUIRE(gc.offset() == 11);
-        REQUIRE(gc.length() == 99);
     }
 
     SECTION("do single grain")
@@ -271,103 +244,121 @@ TEST_CASE("array.grainer", "[externals]")
         float speed = 0;
 
 #define MSG_GRAIN(t, str) t.m_grain(gensym("grain"), AtomList::parseString(str));
-#define GET_SPEED(t) t.cloud().grains().back().grain->speed()
-#define GRAIN_DONE(t) t.cloud().grains().back().grain->done()
+
+#define REQUIRE_SPEED(t, v)                               \
+    {                                                     \
+        REQUIRE(t.cloud().grains().size() > 0);           \
+        REQUIRE(t.cloud().grains().back()->speed() == v); \
+    }
+
+#define GRAIN_DONE(t)                                    \
+    {                                                    \
+        REQUIRE(t.cloud().grains().size() > 0);          \
+        REQUIRE(t.cloud().grains().back()->done() == 0); \
+    }
+
 #define CLEAR(t) t.m_clear(&s_, {})
 
         t.m_grain(&s_, AtomList::parseString("@speed 2.5"));
-        REQUIRE(GET_SPEED(t) == 2.5);
+        REQUIRE_SPEED(t, 2.5);
         t.m_clear(&s_, {});
 
         t.m_grain(&s_, AtomList::parseString("@speed -4"));
-        REQUIRE(GET_SPEED(t) == -4);
+        REQUIRE_SPEED(t, -4);
         t.m_clear(&s_, {});
 
         t.m_grain(&s_, AtomList::parseString("@speed -10"));
-        REQUIRE(GET_SPEED(t) == -10);
+        REQUIRE_SPEED(t, -10);
         t.m_clear(&s_, {});
 
         t.m_grain(&s_, AtomList::parseString("@speed 10"));
-        REQUIRE(GET_SPEED(t) == 10);
+        REQUIRE_SPEED(t, 10);
         t.m_clear(&s_, {});
 
         t.m_grain(&s_, AtomList::parseString("@speed 10.1"));
-        REQUIRE(GET_SPEED(t) == 10);
+        REQUIRE_SPEED(t, 10);
         t.m_clear(&s_, {});
 
         t.m_grain(&s_, AtomList::parseString("@speed -10.1"));
-        REQUIRE(GET_SPEED(t) == -10);
+        REQUIRE_SPEED(t, -10);
         t.m_clear(&s_, {});
 
-        t.m_grain(&s_, AtomList::parseString("@speed random 1 2"));
-        speed = GET_SPEED(t);
+        t.m_grain(&s_, AtomList::parseString("@speed =1.5"));
+        REQUIRE_SPEED(t, 1.5);
+        t.m_clear(&s_, {});
+
+        t.m_grain(&s_, AtomList::parseString("@speed +=2.5"));
+        REQUIRE_SPEED(t, 3.5);
+        t.m_clear(&s_, {});
+
+        t.m_grain(&s_, AtomList::parseString("@speed $pi"));
+        REQUIRE_SPEED(t, Approx(std::acos(-1)));
+        t.m_clear(&s_, {});
+
+        t.m_grain(&s_, AtomList::parseString("@speed -2*$pi"));
+        REQUIRE_SPEED(t, Approx(-2 * std::acos(-1)));
+        t.m_clear(&s_, {});
+
+        t.m_grain(&s_, AtomList::parseString("@speed rand(1\\,2)"));
+        REQUIRE(t.cloud().grains().size() > 0);
+        speed = t.cloud().grains().back()->speed();
         REQUIRE(speed >= 1);
         REQUIRE(speed <= 2);
         t.m_clear(&s_, {});
 
-        MSG_GRAIN(t, "@speed 5 @speed ondone add 0.5");
-        REQUIRE(GET_SPEED(t) == 5);
+        MSG_GRAIN(t, "@speed 5 @speed ondone +=0.5");
+        REQUIRE_SPEED(t, 5);
         GRAIN_DONE(t);
-        REQUIRE(GET_SPEED(t) == 5.5);
+        REQUIRE_SPEED(t, 5.5);
         GRAIN_DONE(t);
-        REQUIRE(GET_SPEED(t) == 6);
+        REQUIRE_SPEED(t, 6);
         CLEAR(t);
 
-        MSG_GRAIN(t, "@speed 5 @speed ondone add 40");
-        REQUIRE(GET_SPEED(t) == 5);
+        MSG_GRAIN(t, "@speed 5 @speed ondone +=40");
+        REQUIRE_SPEED(t, 5);
         GRAIN_DONE(t);
-        REQUIRE(GET_SPEED(t) == 10);
+        REQUIRE_SPEED(t, 10);
         CLEAR(t);
 
-        MSG_GRAIN(t, "@speed 5 @speed ondone add -0.5");
-        REQUIRE(GET_SPEED(t) == 5);
+        MSG_GRAIN(t, "@speed 5 @speed ondone -=0.5");
+        REQUIRE_SPEED(t, 5);
         GRAIN_DONE(t);
-        REQUIRE(GET_SPEED(t) == 4.5);
+        REQUIRE_SPEED(t, 4.5);
         CLEAR(t);
 
-        MSG_GRAIN(t, "@speed 5 @speed ondone set -2");
-        REQUIRE(GET_SPEED(t) == 5);
+        MSG_GRAIN(t, "@speed 5 @speed ondone -2");
+        REQUIRE_SPEED(t, 5);
         GRAIN_DONE(t);
-        REQUIRE(GET_SPEED(t) == -2);
+        REQUIRE_SPEED(t, -2);
         GRAIN_DONE(t);
-        REQUIRE(GET_SPEED(t) == -2);
+        REQUIRE_SPEED(t, -2);
         CLEAR(t);
 
         GrainRandom::seed(0);
-        MSG_GRAIN(t, "@speed 5 @speed ondone set random 2 5");
-        REQUIRE(GET_SPEED(t) == 5);
+        MSG_GRAIN(t, "@speed 5 @speed ondone rand(2\\,5)");
+        REQUIRE_SPEED(t, 5);
         GRAIN_DONE(t);
-        REQUIRE(GET_SPEED(t) == Approx(3.64644));
+        REQUIRE_SPEED(t, Approx(3.64644));
         GRAIN_DONE(t);
-        REQUIRE(GET_SPEED(t) == Approx(3.77853));
+        REQUIRE_SPEED(t, Approx(3.77853));
         CLEAR(t);
     }
 
-    SECTION("Grain @speed ondone")
+    SECTION("Grain @speed expr")
     {
         TExt t("array.grainer~", LA("array_g1"));
-        MSG_GRAIN(t, "@speed range -1 1");
-        REQUIRE(t.cloud().grains().back().grain->speedRange() == std::pair<float, float>(-1, 1));
+        MSG_GRAIN(t, "@speed 2^3");
+        REQUIRE_SPEED(t, 8);
 
-        MSG_GRAIN(t, "@speed range 3 1");
-        REQUIRE(t.cloud().grains().back().grain->speedRange() == std::pair<float, float>(1, 3));
-    }
-
-    SECTION("Grain @speed set expr")
-    {
-        TExt t("array.grainer~", LA("array_g1"));
-        MSG_GRAIN(t, "@speed expr 2^3");
-        REQUIRE(GET_SPEED(t) == 8);
-
-        MSG_GRAIN(t, "@speed expr $sr/10000");
-        REQUIRE(GET_SPEED(t) == Approx(4.8));
+        MSG_GRAIN(t, "@speed $sr/10000");
+        REQUIRE_SPEED(t, Approx(4.8));
     }
 
     SECTION("Grain @speed -1")
     {
         TExt t("array.grainer~", LA("array_g1"));
         MSG_GRAIN(t, "@at 0 @l 20 @speed -1 @pan mode none");
-        REQUIRE(GET_SPEED(t) == -1);
+        REQUIRE_SPEED(t, -1);
 
         TestSignal<0, 2> s0;
 
@@ -385,21 +376,11 @@ TEST_CASE("array.grainer", "[externals]")
 
     SECTION("Grain @amp")
     {
-#define GET_AMP(t) t.cloud().grains().back().grain->amplitude()
+#define GET_AMP(t) t.cloud().grains().back()->amplitude()
 
         TExt t("array.grainer~", LA("array_g1"));
         MSG_GRAIN(t, "@amp 0.5");
         REQUIRE(GET_AMP(t) == 0.5);
-    }
-
-    SECTION("Grain @amp random")
-    {
-        GrainRandom::seed(0);
-
-        TExt t("array.grainer~", LA("array_g1"));
-        MSG_GRAIN(t, "@amp range 1 20 @amp random 10 20");
-        REQUIRE(GET_AMP(t) == Approx(15.48814));
-        REQUIRE(t.cloud().grains().back().grain->amplitudeRange() == std::pair<float, float>(1, 20));
     }
 
     SECTION("Grain @amp ondone set")
@@ -407,9 +388,9 @@ TEST_CASE("array.grainer", "[externals]")
         GrainRandom::seed(0);
 
         TExt t("array.grainer~", LA("array_g1"));
-        MSG_GRAIN(t, "@amp ondone set 0.5");
+        MSG_GRAIN(t, "@amp ondone 0.5");
         REQUIRE(GET_AMP(t) == 1);
-        t.cloud().grains().back().grain->done();
+        t.cloud().grains().back()->done();
         REQUIRE(GET_AMP(t) == 0.5);
     }
 
@@ -418,45 +399,172 @@ TEST_CASE("array.grainer", "[externals]")
         GrainRandom::seed(0);
 
         TExt t("array.grainer~", LA("array_g1"));
-        MSG_GRAIN(t, "@amp ondone set random 0.5 0.75");
+        MSG_GRAIN(t, "@amp ondone rand(0.5\\,0.75)");
         REQUIRE(GET_AMP(t) == 1);
-        t.cloud().grains().back().grain->done();
+        t.cloud().grains().back()->done();
         REQUIRE(GET_AMP(t) == Approx(0.6372));
-        t.cloud().grains().back().grain->done();
+        t.cloud().grains().back()->done();
         REQUIRE(GET_AMP(t) == Approx(0.64821));
     }
 
     SECTION("Grain @amp ondone add expr")
     {
         TExt t("array.grainer~", LA("array_g1"));
-        MSG_GRAIN(t, "@amp ondone add expr 1/4");
+        MSG_GRAIN(t, "@amp ondone +=-1/4");
         REQUIRE(GET_AMP(t) == 1);
-        t.cloud().grains().back().grain->done();
-        REQUIRE(GET_AMP(t) == Approx(1.25));
-        t.cloud().grains().back().grain->done();
-        REQUIRE(GET_AMP(t) == Approx(1.5));
+        t.cloud().grains().back()->done();
+        REQUIRE(GET_AMP(t) == Approx(0.75));
+        t.cloud().grains().back()->done();
+        REQUIRE(GET_AMP(t) == Approx(0.5));
     }
 
-    SECTION("Grain @amp ondone set expr")
+    SECTION("Grain @amp ondone expr")
     {
         TExt t("array.grainer~", LA("array_g1"));
-        MSG_GRAIN(t, "@amp ondone set expr $n/4");
+        MSG_GRAIN(t, "@amp ondone =$n/4");
         REQUIRE(GET_AMP(t) == 1);
-        t.cloud().grains().back().grain->done();
+        t.cloud().grains().back()->done();
         REQUIRE(GET_AMP(t) == Approx(0.25));
-        t.cloud().grains().back().grain->done();
+        t.cloud().grains().back()->done();
         REQUIRE(GET_AMP(t) == Approx(0.5));
-        t.cloud().grains().back().grain->done();
+        t.cloud().grains().back()->done();
         REQUIRE(GET_AMP(t) == Approx(0.75));
     }
 
-    SECTION("Grain @amp ondone set expr")
+    SECTION("Grain @amp ondone")
     {
         TExt t("array.grainer~", LA("array_g1"));
-        t.m_fill(&s_, AtomList::parseString("2 @at 3 @speed 2 @l 14 @when 20"));
+
+        t.m_fill(&s_, AtomList::parseString("2 @at 3 @speed 2 @l $A @tb 20 @amp ondone *=0.5 @tag abc"));
         REQUIRE(t.cloud().grains().size() == 2);
-        REQUIRE(t.cloud().grains().back().grain->arrayPosInSamples() == 3);
-        REQUIRE(t.cloud().grains().back().grain->lengthInSamples() == 7);
-        REQUIRE(t.cloud().grains().back().grain->startInSamples() == 20);
+        REQUIRE(t.cloud().grains().back()->arrayPosInSamples() == 3);
+        REQUIRE(t.cloud().grains().back()->lengthInSamples() == 128);
+        REQUIRE(t.cloud().grains().back()->durationInSamples() == 64);
+        REQUIRE(t.cloud().grains().back()->timeBefore() == 20);
+        REQUIRE(t.cloud().grains().back()->speed() == 2);
+        REQUIRE(t.cloud().grains().back()->amplitude() == 1);
+
+        t.cloud().grains().back()->done();
+        REQUIRE(t.cloud().grains().back()->amplitude() == 0.5);
+        t.cloud().grains().back()->done();
+        REQUIRE(t.cloud().grains().back()->amplitude() == 0.25);
+    }
+
+    SECTION("Grain @time")
+    {
+#define GET_TIME(t) t.cloud().grains().back()->timeBefore()
+
+        TExt t("array.grainer~", LA("array_g1"));
+
+        MSG_GRAIN(t, "@at 1 @len 5 @tb 16");
+        REQUIRE(t.cloud().size() == 1);
+        REQUIRE(t.cloud().grains().back()->speed() == 1);
+        REQUIRE(t.cloud().grains().back()->arrayPosInSamples() == 1);
+        REQUIRE(t.cloud().grains().back()->lengthInSamples() == 5);
+        REQUIRE(t.cloud().grains().back()->timeBefore() == 16);
+        REQUIRE(GET_TIME(t) == 16);
+
+        MSG_GRAIN(t, "@at 2 @amp $gi*0.75 @tb $A/2");
+        REQUIRE(t.cloud().size() == 2);
+        REQUIRE(GET_TIME(t) == 64);
+        REQUIRE(GET_AMP(t) == 0.75);
+
+        MSG_GRAIN(t, "@at 4 @len 16 @tb 1024 @speed ondone $gi+1");
+        REQUIRE(t.cloud().size() == 3);
+        t.dump();
+
+        t.cloud().grains().back()->done();
+        REQUIRE(t.cloud().grains().back()->speed() == 3);
+    }
+
+    SECTION("grain tags")
+    {
+        TExt t("array.grainer~", LA("array_g1"));
+
+        MSG_GRAIN(t, "@len 5 @tag t1");
+        MSG_GRAIN(t, "@len 6 @tag t1");
+        MSG_GRAIN(t, "@len 7 @tag t1");
+
+        MSG_GRAIN(t, "@len 5 @tag t2 @amp 0.1");
+        MSG_GRAIN(t, "@len 6 @tag t2 @amp 0.2");
+        MSG_GRAIN(t, "@len 7 @tag t2 @amp 0.3");
+
+        REQUIRE(t.cloud().size() == 6);
+
+#define MSG_SET(t, str) t.m_set(gensym("set"), AtomList::parseString(str));
+
+        MSG_SET(t, "t2 @len 16");
+
+        for (auto g : t.cloud().grains()) {
+            if (g->tag() == SYM("t2")) {
+                REQUIRE(g->lengthInSamples() == 16);
+            } else {
+                REQUIRE(g->lengthInSamples() != 16);
+            }
+        }
+
+        MSG_SET(t, "* @len 25");
+        for (auto g : t.cloud().grains()) {
+            REQUIRE(g->lengthInSamples() == 25);
+        }
+    }
+
+    SECTION("grain ID")
+    {
+        TExt t("array.grainer~", LA("array_g1"));
+
+        MSG_GRAIN(t, "@len 5");
+        MSG_GRAIN(t, "@len 6");
+        MSG_GRAIN(t, "@len 7");
+
+        MSG_GRAIN(t, "@len 5 @amp 0.1");
+        MSG_GRAIN(t, "@len 6 @amp 0.2");
+        MSG_GRAIN(t, "@len 7 @amp 0.3");
+
+        REQUIRE(t.cloud().size() == 6);
+
+#define MSG_SET(t, str) t.m_set(gensym("set"), AtomList::parseString(str));
+#define MSG_CLEAR(t, str) t.m_clear(gensym("clear"), AtomList::parseString(str));
+
+        MSG_SET(t, "-1 @len 16");
+        MSG_SET(t, "0 @len 10");
+        MSG_SET(t, "1 @len 20");
+        MSG_SET(t, "2 @len 30");
+        MSG_SET(t, "3 @len 40");
+        MSG_SET(t, "4 @len 50");
+        MSG_SET(t, "5 @len 60");
+        MSG_SET(t, "6 @len 70");
+
+#define GET_LEN_AT(t, i) t.cloud().grains().at(i)->lengthInSamples()
+
+        REQUIRE(GET_LEN_AT(t, 0) == 10);
+        REQUIRE(GET_LEN_AT(t, 1) == 20);
+        REQUIRE(GET_LEN_AT(t, 2) == 30);
+        REQUIRE(GET_LEN_AT(t, 3) == 40);
+        REQUIRE(GET_LEN_AT(t, 4) == 50);
+        REQUIRE(GET_LEN_AT(t, 5) == 60);
+
+        t.dump();
+
+        MSG_CLEAR(t, "2");
+        REQUIRE(t.cloud().size() == 5);
+
+        REQUIRE(GET_LEN_AT(t, 0) == 10);
+        REQUIRE(GET_LEN_AT(t, 1) == 20);
+        REQUIRE(GET_LEN_AT(t, 2) == 40);
+        REQUIRE(GET_LEN_AT(t, 3) == 50);
+        REQUIRE(GET_LEN_AT(t, 4) == 60);
+    }
+
+    SECTION("mod")
+    {
+        TExt t("array.grainer~", LA("array_g1"));
+        MSG_GRAIN(t, "@amp mod 0..1 sin(100)");
+        MSG_GRAIN(t, "@speed mod -1..1 saw(100)");
+        MSG_GRAIN(t, "@speed mod -1..1 tri(100)");
+        MSG_GRAIN(t, "@speed mod -1..1 sqr(100)");
+        MSG_GRAIN(t, "@speed mod none");
+
+        REQUIRE(t.cloud().size() == 5);
     }
 }

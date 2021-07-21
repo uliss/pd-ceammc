@@ -57,23 +57,23 @@ mid-frequency band. Range: 1\...8;
 #X msg 110 787 @bypass;
 #X text 245 787 Get/Set if set to 1 - bypass 'effected' signal. Type:
 int. Default value: 0\. Allowed values: 0 \, 1\.;
-#X msg 110 829 @decay_low;
-#X text 245 829 Get/Set time (in seconds) to decay 60dB in low-frequency
-band. Type: float. Units: sec. Default value: 3\. Range: 1\...60\.;
-#X msg 110 886 @decay_mid;
-#X text 245 886 Get/Set time (in seconds) to decay 60dB in mid-frequency
-band. Type: float. Units: sec. Default value: 2\. Range: 1\...60\.;
-#X msg 110 943 @delay;
-#X text 245 943 Get/Set a delay of 20 to 100 ms operating on the 'wet'
-signal. Large values will provide the impression of a larger room.
-Type: float. Units: ms. Default value: 60\. Range: 20\...100\.;
-#X msg 110 1015 @drywet;
-#X text 245 1015 Get/Set Ratio between processed signal (wet) and source
-signal. Type: float. Default value: 1\. Range: 0\...1\.;
-#X msg 110 1057 @dump_hf;
-#X text 245 1057 Get/Set Frequency (Hz) at which the high-frequency
+#X msg 110 829 @damp_hf;
+#X text 245 829 Get/Set Frequency (Hz) at which the high-frequency
 T60 is half the middle-band's T60\. Type: float. Units: Hz. Default
 value: 6000\. Range: 1500\...47040\.;
+#X msg 110 886 @decay_low;
+#X text 245 886 Get/Set time (in seconds) to decay 60dB in low-frequency
+band. Type: float. Units: sec. Default value: 3\. Range: 1\...60\.;
+#X msg 110 943 @decay_mid;
+#X text 245 943 Get/Set time (in seconds) to decay 60dB in mid-frequency
+band. Type: float. Units: sec. Default value: 2\. Range: 1\...60\.;
+#X msg 110 1000 @delay;
+#X text 245 1000 Get/Set a delay of 20 to 100 ms operating on the 'wet'
+signal. Large values will provide the impression of a larger room.
+Type: float. Units: ms. Default value: 60\. Range: 20\...100\.;
+#X msg 110 1072 @drywet;
+#X text 245 1072 Get/Set Ratio between processed signal (wet) and source
+signal. Type: float. Default value: 1\. Range: 0\...1\.;
 #X msg 110 1114 @fr_ldecay;
 #X text 245 1114 Get/Set time (in seconds) to decay 60dB in low-frequency
 band. Type: float. Units: sec. Default value: 40\. Range: 0\...60\.;

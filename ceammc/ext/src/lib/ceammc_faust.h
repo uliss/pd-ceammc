@@ -71,6 +71,8 @@ namespace faust {
         t_float value() const;
         void setValue(t_float v, bool clip = false) const;
 
+        bool getFloat(t_float& res) const override;
+
         UIElement* uiElement() { return el_; }
         const UIElement* uiElement() const { return el_; }
     };

@@ -4,10 +4,15 @@ macro(ceammc_misc_external mod name)
 endmacro()
 
 ceammc_misc_external(live capture)
+ceammc_misc_external(aubio pitchshift_tilde)
 
 add_library(ceammc_misc STATIC mod_misc.cpp ${MISC_SOURCES})
 target_compile_definitions(ceammc_misc PRIVATE -DFAUST_MACRO)
-target_include_directories(ceammc_misc PRIVATE ${PROJECT_SOURCE_DIR}/ceammc/extra/aubio)
+target_include_directories(ceammc_misc
+    PRIVATE
+        ${PROJECT_SOURCE_DIR}/ceammc/extra/aubio
+        "$<TARGET_PROPERTY:fmt,INCLUDE_DIRECTORIES>"
+)
 
 if(WITH_FLUIDSYNTH)
     target_include_directories(ceammc_misc
@@ -30,6 +35,7 @@ endif()
 
 if(SFIZZ_FOUND)
     target_include_directories(ceammc_misc PRIVATE ${SFIZZ_INCLUDE_DIRS})
+    target_compile_definitions(ceammc_misc PRIVATE -DWITH_SFIZZ)
     target_link_libraries(ceammc_misc PUBLIC ${SFIZZ_LIBRARIES})
     target_sources(ceammc_misc PRIVATE sfizz_tilde.cpp)
 endif()

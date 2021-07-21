@@ -43,6 +43,8 @@ void setup_list_reverse();
 void setup_list_rldecode();
 void setup_list_rlencode();
 void setup_list_rotate();
+void setup_list_rundiff();
+void setup_list_runsum();
 void setup_list_search();
 void setup_list_separate();
 void setup_list_seq();
@@ -109,6 +111,8 @@ void ceammc_list_setup()
     setup_list_rlencode();
     setup_list_rotate();
     setup_list_route();
+    setup_list_rundiff();
+    setup_list_runsum();
     setup_list_search();
     setup_list_separate();
     setup_list_seq();

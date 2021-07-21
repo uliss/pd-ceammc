@@ -4,15 +4,26 @@
 ### Added:
 - loadmsg - dollar arg support added
 - new objects:
+  - array.circular~: circular buffer write/read for arrays
   - lfo.mosc~: LFO oscillator with various waveform and runtime change between them. Sin, saw, square, pulse, triangle and positive variants of above.
   - fx.secho~: enchanced version of echo that does not click on delay change
   - an.tempo~: tempo analizer based on Aubio library
   - proto.midi.cc: parser for MIDI control change messages
-  - fx.recho~: reverse ~1 second echo added
+  - fx.recho~: reverse echo fx added
+  - fx.echo2~: stereo echo with ping-pong delay added
+  - fx.shimmer~: shimmer reverb added
+  - fx.room~: room reverb added
   - spring: return to specified value in specified time
   - synth.snare~: snare drum
+  - synth.kick~: low kick
+  - synth.risset_bell~
+  - synth.tube_bell~: STK TubeBell FM instrument added
   - sfizz~: SFZ 2.0 format sample player
   - flow.float: float pass flow object added
+  - list.runsum: running sum (cumulative sum or partial sum)
+  - list.rundiff: running difference (adjacent difference or partial difference)
+  - file.size: aync/sync filesize requests
+  - spat.zita8~: 8-channel spat reverb added
 - new properties:
   - lfo.+saw~, lfo.saw~, lfo.+tri~, lfo.tri~, lfo.+square~, lfo.square~, lfo.+pulse~, lfo.pulse~: @phase and @pause properties added
   - ui.knob: @show_value property added
@@ -32,11 +43,20 @@
 - misc:
   - flow.space: float to right inlet sets @delay property
   - WaveSine.sf2: simple sine waveform SF2 soundfont added
+  - waves.sf2: sine, saw, tri, square waveforms SF2 soundfont added
   - fluid~ loads WaveSine.sf2 font by default
+  - math.*: any message support, multiply float atoms only
+  - Up/Down key support for ui.number
   
 ### Fixed:
 - flow.space: reset message fix - can not use object after reset
 - ui.midi: fixed missing binding to Program Change and After Touch events
+- ui.gain2~: missing popup menu fixes
+- ui.gain2~: missing mouse wheel support fixed
+
+### Changed:
+- fx.looper~: @loop_bang is ON by default
+- fx.zita_rev1~: property typo fixed, @dump_hf changed to @damp_hf
   
 ## [0.9.3]
 ### Added:

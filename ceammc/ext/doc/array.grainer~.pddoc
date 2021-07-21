@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="array.grainer~">
+        <title>array.grainer~</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>array granulator</description>
+            <license>GPL3 or later</license>
+            <library>ceammc</library>
+            <category>array</category>
+            <keywords>array grain particle granular</keywords>
+            <also>
+                <see>array.each</see>
+            </also>
+            <since>0.9.2</since>
+        </meta>
+        <info>
+            <par>Grain properties:</par>
+            <par>@at - grain position in source array (in samples)</par>
+            <par>@l - grain length (in samples)</par>
+            <par>@amp - grain amplitude in 0..256 range</par>
+            <par>@s - grain speed in -10..10 range</par>
+            <par>@p - grain pan in 0..1 range</par>
+            <par>@w - grain window: rect, tri or hann</par>
+            <par>@tb - time before grain start (in samples)</par>
+            <par>@ta - time after grain done (in samples)</par>
+            <par>@r - grain number of repeats (-1: infinite)</par>
+            <par>@tag - grain tag</par>
+        </info>
+        <arguments>
+            <argument name="NAME" type="symbol">array name</argument>
+        </arguments>
+        <methods>
+            <method name="clear">remove grain(s) 
+            <param name="SUBJ" type="atom" required="false">if '*' or ommited: remove all grains,
+            if '.': remove finished grains only, if float: remove grain with corresponding #id, if
+            symbol: remove grains with corresponding tag</param></method>
+            <method name="set">set grain(s) properties 
+            <param name="SUBJ" type="atom" required="true">if '*': set for all grains, if float:
+            set for grain with specified #id, if symbol: set for grains with specified tag</param>
+            <param name="PROPS" type="list" required="true">grain properties</param></method>
+            <method name="grain">create single grain 
+            <param name="PROPS" type="list" required="true">grain properties</param></method>
+            <method name="append">append several grains 
+            <param name="N" type="int" required="true" minvalue="1">number of grains</param>
+            <param name="PROPS" type="list" required="true">grain properties</param></method>
+            <method name="fill">fill with grains (remove all existing grains before) 
+            <param name="N" type="int" required="true" minvalue="1">number of grains</param>
+            <param name="PROPS" type="list" required="true">grain properties</param></method>
+        </methods>
+        <properties>
+            <property name="@array" type="symbol" default="">array name</property>
+        </properties>
+        <inlets>
+            <inlet>
+                <xinfo>control inlet</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet type="audio">left output</outlet>
+            <outlet type="audio">right output</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[fill 80 @l 300ms @at rand\()*1s @at ondone +=100ms @pan ondone rand\() @s ondone choice\(1\,-0.5) @tb rand\()*400ms @w hann(
+|
+|
+|
+|
+| [clear(
+| |
+[array.grainer~ agr0]  [ui.dsp~]
+*|*
+[ui.hgain2~]
+*|*
+[dac~]
+
+[table agr0]
+
+[msg.onload load guitar1.wav to agr0 @resize]
+|
+[snd.file]
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

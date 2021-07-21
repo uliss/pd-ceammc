@@ -499,7 +499,63 @@ struct fx_recho : public fx_recho_dsp {
 #include <algorithm>
 #include <cmath>
 #include <cstdint>
+#include <math.h>
 
+class fx_rechoSIG0 {
+	
+  private:
+	
+	
+  public:
+	
+	int getNumInputsfx_rechoSIG0() {
+		return 0;
+	}
+	int getNumOutputsfx_rechoSIG0() {
+		return 1;
+	}
+	int getInputRatefx_rechoSIG0(int channel) {
+		int rate;
+		switch ((channel)) {
+			default: {
+				rate = -1;
+				break;
+			}
+		}
+		return rate;
+	}
+	int getOutputRatefx_rechoSIG0(int channel) {
+		int rate;
+		switch ((channel)) {
+			case 0: {
+				rate = 0;
+				break;
+			}
+			default: {
+				rate = -1;
+				break;
+			}
+		}
+		return rate;
+	}
+	
+	void instanceInitfx_rechoSIG0(int sample_rate) {
+	}
+	
+	void fillfx_rechoSIG0(int count, float* table) {
+		for (int i = 0; (i < count); i = (i + 1)) {
+			table[i] = 0.0f;
+		}
+	}
+
+};
+
+static fx_rechoSIG0* newfx_rechoSIG0() { return (fx_rechoSIG0*)new fx_rechoSIG0(); }
+static void deletefx_rechoSIG0(fx_rechoSIG0* dsp) { delete dsp; }
+
+static float fx_recho_faustpower2_f(float value) {
+	return (value * value);
+}
 
 #ifndef FAUSTCLASS 
 #define FAUSTCLASS fx_recho
@@ -515,16 +571,31 @@ class fx_recho : public fx_recho_dsp {
  private:
 	
 	FAUSTFLOAT fCheckbox0;
-	int IOTA;
-	float fVec0[65536];
 	FAUSTFLOAT fHslider0;
 	float fRec0[2];
-	int iRec1[2];
+	float ftbl0[96000];
+	FAUSTFLOAT fHslider1;
+	float fRec2[2];
+	int iRec3[2];
 	int fSampleRate;
+	float fConst1;
+	FAUSTFLOAT fHslider2;
+	float ftbl1[96000];
+	float fConst2;
+	float fConst3;
+	float fConst4;
+	float fConst5;
+	float fConst6;
+	float fRec6[2];
+	float fRec5[2];
+	float fRec4[2];
+	float fRec1[2];
 	
  public:
 	
 	void metadata(Meta* m) { 
+		m->declare("analyzers.lib/name", "Faust Analyzer Library");
+		m->declare("analyzers.lib/version", "0.1");
 		m->declare("basics.lib/name", "Faust Basic Element Library");
 		m->declare("basics.lib/version", "0.1");
 		m->declare("ceammc.lib/name", "Ceammc PureData misc utils");
@@ -532,12 +603,26 @@ class fx_recho : public fx_recho_dsp {
 		m->declare("ceammc_ui.lib/name", "CEAMMC faust default UI elements");
 		m->declare("ceammc_ui.lib/version", "0.1.2");
 		m->declare("compile_options", "-lang cpp -es 1 -scal -ftz 0");
-		m->declare("delays.lib/name", "Faust Delay Library");
-		m->declare("delays.lib/version", "0.1");
+		m->declare("compressors.lib/compression_gain_mono:author", "Julius O. Smith III");
+		m->declare("compressors.lib/compression_gain_mono:copyright", "Copyright (C) 2014-2020 by Julius O. Smith III <jos@ccrma.stanford.edu>");
+		m->declare("compressors.lib/compression_gain_mono:license", "MIT-style STK-4.3 license");
+		m->declare("compressors.lib/compressor_lad_mono:author", "Julius O. Smith III");
+		m->declare("compressors.lib/compressor_lad_mono:copyright", "Copyright (C) 2014-2020 by Julius O. Smith III <jos@ccrma.stanford.edu>");
+		m->declare("compressors.lib/compressor_lad_mono:license", "MIT-style STK-4.3 license");
+		m->declare("compressors.lib/compressor_mono:author", "Julius O. Smith III");
+		m->declare("compressors.lib/compressor_mono:copyright", "Copyright (C) 2014-2020 by Julius O. Smith III <jos@ccrma.stanford.edu>");
+		m->declare("compressors.lib/compressor_mono:license", "MIT-style STK-4.3 license");
+		m->declare("compressors.lib/name", "Faust Compressor Effect Library");
+		m->declare("compressors.lib/version", "0.1");
 		m->declare("filename", "fx_recho.dsp");
-		m->declare("misceffects.lib/name", "Misc Effects Library");
-		m->declare("misceffects.lib/version", "2.0");
+		m->declare("maths.lib/author", "GRAME");
+		m->declare("maths.lib/copyright", "GRAME");
+		m->declare("maths.lib/license", "LGPL with exception");
+		m->declare("maths.lib/name", "Faust Math Library");
+		m->declare("maths.lib/version", "2.3");
 		m->declare("name", "fx.recho");
+		m->declare("platform.lib/name", "Generic Platform Library");
+		m->declare("platform.lib/version", "0.1");
 		m->declare("signals.lib/name", "Faust Signal Routing Library");
 		m->declare("signals.lib/version", "0.0");
 	}
@@ -582,23 +667,49 @@ class fx_recho : public fx_recho_dsp {
 	
 	virtual void instanceConstants(int sample_rate) {
 		fSampleRate = sample_rate;
+		fx_rechoSIG0* sig0 = newfx_rechoSIG0();
+		sig0->instanceInitfx_rechoSIG0(sample_rate);
+		sig0->fillfx_rechoSIG0(96000, ftbl0);
+		float fConst0 = std::min<float>(192000.0f, std::max<float>(1.0f, float(fSampleRate)));
+		fConst1 = (0.00100000005f * fConst0);
+		sig0->instanceInitfx_rechoSIG0(sample_rate);
+		sig0->fillfx_rechoSIG0(96000, ftbl1);
+		fConst2 = (0.000500000024f * fConst0);
+		fConst3 = std::exp((0.0f - (0.200000003f / fConst0)));
+		fConst4 = (1.0f - fConst3);
+		fConst5 = std::exp((0.0f - (0.100000001f / fConst0)));
+		fConst6 = std::exp((0.0f - (0.0199999996f / fConst0)));
+		deletefx_rechoSIG0(sig0);
 	}
 	
 	virtual void instanceResetUserInterface() {
 		fCheckbox0 = FAUSTFLOAT(0.0f);
 		fHslider0 = FAUSTFLOAT(1.0f);
+		fHslider1 = FAUSTFLOAT(0.29999999999999999f);
+		fHslider2 = FAUSTFLOAT(500.0f);
 	}
 	
 	virtual void instanceClear() {
-		IOTA = 0;
-		for (int l0 = 0; (l0 < 65536); l0 = (l0 + 1)) {
-			fVec0[l0] = 0.0f;
+		for (int l0 = 0; (l0 < 2); l0 = (l0 + 1)) {
+			fRec0[l0] = 0.0f;
 		}
 		for (int l1 = 0; (l1 < 2); l1 = (l1 + 1)) {
-			fRec0[l1] = 0.0f;
+			fRec2[l1] = 0.0f;
 		}
 		for (int l2 = 0; (l2 < 2); l2 = (l2 + 1)) {
-			iRec1[l2] = 0;
+			iRec3[l2] = 0;
+		}
+		for (int l3 = 0; (l3 < 2); l3 = (l3 + 1)) {
+			fRec6[l3] = 0.0f;
+		}
+		for (int l4 = 0; (l4 < 2); l4 = (l4 + 1)) {
+			fRec5[l4] = 0.0f;
+		}
+		for (int l5 = 0; (l5 < 2); l5 = (l5 + 1)) {
+			fRec4[l5] = 0.0f;
+		}
+		for (int l6 = 0; (l6 < 2); l6 = (l6 + 1)) {
+			fRec1[l6] = 0.0f;
 		}
 	}
 	
@@ -623,8 +734,11 @@ class fx_recho : public fx_recho_dsp {
 	virtual void buildUserInterface(UI* ui_interface) {
 		ui_interface->openVerticalBox("fx.recho");
 		ui_interface->addCheckButton("bypass", &fCheckbox0);
+		ui_interface->declare(&fHslider2, "unit", "ms");
+		ui_interface->addHorizontalSlider("delay", &fHslider2, 500.0f, 0.0f, 2000.0f, 0.100000001f);
 		ui_interface->declare(&fHslider0, "style", "knob");
 		ui_interface->addHorizontalSlider("drywet", &fHslider0, 1.0f, 0.0f, 1.0f, 0.00999999978f);
+		ui_interface->addHorizontalSlider("feedback", &fHslider1, 0.300000012f, 0.0f, 0.99000001f, 0.00100000005f);
 		ui_interface->closeBox();
 	}
 	
@@ -633,18 +747,42 @@ class fx_recho : public fx_recho_dsp {
 		FAUSTFLOAT* output0 = outputs[0];
 		int iSlow0 = int(float(fCheckbox0));
 		float fSlow1 = (0.00100000005f * float(fHslider0));
+		float fSlow2 = (0.00100000005f * float(fHslider1));
+		float fSlow3 = float(fHslider2);
+		int iSlow4 = int(std::min<float>(96000.0f, (fConst1 * fSlow3)));
+		int iSlow5 = (2 * iSlow4);
+		float fSlow6 = (3.14159274f / float(iSlow4));
+		int iSlow7 = int((fConst2 * fSlow3));
 		for (int i = 0; (i < count); i = (i + 1)) {
 			float fTemp0 = float(input0[i]);
 			float fTemp1 = (iSlow0 ? 0.0f : fTemp0);
-			fVec0[(IOTA & 65535)] = fTemp1;
 			fRec0[0] = (fSlow1 + (0.999000013f * fRec0[1]));
-			iRec1[0] = (iRec1[1] + 2);
-			int iTemp2 = (iRec1[0] & 65535);
-			float fTemp3 = float(iTemp2);
-			output0[i] = FAUSTFLOAT((iSlow0 ? fTemp0 : ((fTemp1 * (1.0f - fRec0[0])) + (6.10351562e-05f * (((fRec0[0] * fTemp3) * fVec0[((IOTA - std::min<int>(65536, std::max<int>(0, iTemp2))) & 65535)]) * (1.0f - (1.52587891e-05f * fTemp3)))))));
-			IOTA = (IOTA + 1);
+			fRec2[0] = (fSlow2 + (0.999000013f * fRec2[1]));
+			float fTemp2 = (fTemp1 + (fRec2[0] * fRec1[1]));
+			iRec3[0] = (iRec3[1] + 1);
+			int iTemp3 = (iRec3[0] % iSlow5);
+			ftbl0[((iTemp3 > iSlow4) ? (iSlow5 - iTemp3) : iTemp3)] = fTemp2;
+			int iTemp4 = (iRec3[0] + 1);
+			int iTemp5 = (iTemp4 % iSlow5);
+			int iTemp6 = ((iSlow7 + iRec3[0]) % iSlow5);
+			ftbl1[((iTemp6 > iSlow4) ? (iSlow5 - iTemp6) : iTemp6)] = fTemp2;
+			int iTemp7 = (iSlow7 + iTemp4);
+			int iTemp8 = (iTemp7 % iSlow5);
+			float fTemp9 = ((ftbl0[((iTemp5 > iSlow4) ? (iSlow5 - iTemp5) : iTemp5)] * fx_recho_faustpower2_f(std::sin((fSlow6 * float((iTemp4 % iSlow4)))))) + (ftbl1[((iTemp8 > iSlow4) ? (iSlow5 - iTemp8) : iTemp8)] * fx_recho_faustpower2_f(std::sin((fSlow6 * float((iTemp7 % iSlow4)))))));
+			float fTemp10 = std::fabs(fTemp9);
+			float fTemp11 = ((fRec5[1] > fTemp10) ? fConst6 : fConst5);
+			fRec6[0] = ((fRec6[1] * fTemp11) + (fTemp10 * (1.0f - fTemp11)));
+			fRec5[0] = fRec6[0];
+			fRec4[0] = ((fConst3 * fRec4[1]) + (fConst4 * (0.0f - (0.800000012f * std::max<float>(((20.0f * std::log10(fRec5[0])) + 3.0f), 0.0f)))));
+			fRec1[0] = (fTemp9 * std::pow(10.0f, (0.0500000007f * fRec4[0])));
+			output0[i] = FAUSTFLOAT((iSlow0 ? fTemp0 : ((fTemp1 * (1.0f - fRec0[0])) + (fRec0[0] * fRec1[0]))));
 			fRec0[1] = fRec0[0];
-			iRec1[1] = iRec1[0];
+			fRec2[1] = fRec2[0];
+			iRec3[1] = iRec3[0];
+			fRec6[1] = fRec6[0];
+			fRec5[1] = fRec5[0];
+			fRec4[1] = fRec4[0];
+			fRec1[1] = fRec1[0];
 		}
 	}
 

@@ -92,9 +92,10 @@ namespace units {
         void setValue(double value) { value_ = value; }
 
         virtual UnitType type() const = 0;
-        virtual bool isTime() const = 0;
-        virtual bool isFraction() const = 0;
-        virtual bool isFrequency() const { return false; };
+        bool isTime() const { return type() == UnitType::TIME; };
+        bool isFraction() const { return type() == UnitType::FRACTION; };
+        bool isFrequency() const { return type() == UnitType::FREQ; };
+        bool isDistance() const { return type() == UnitType::DISTANCE; };
     };
 
     class FractionValue : public UnitValue {
@@ -152,8 +153,6 @@ namespace units {
         }
 
         UnitType type() const final { return UnitType::FRACTION; }
-        bool isTime() const final { return false; }
-        bool isFraction() const final { return true; }
 
     public:
         static ParseResult parse(const AtomListView& lv);
@@ -162,6 +161,31 @@ namespace units {
     private:
         double denom_ = { 1 };
         Units units_;
+    };
+
+    class BpmValue : public UnitValue {
+    public:
+        using ParseResult = Either<BpmValue>;
+
+    private:
+        double beatlen_ { 0.25 };
+
+    public:
+        BpmValue(double bpm, double beatlen = 0.25)
+            : UnitValue(bpm)
+            , beatlen_(beatlen)
+        {
+        }
+
+        double beatlen() const { return beatlen_; }
+
+        double herz() const { return value() / 60.0; }
+
+        UnitType type() const final { return UnitType::FREQ; }
+
+    public:
+        static ParseResult parse(const AtomListView& lv);
+        static ParseResult parse(const Atom& a);
     };
 
     class TimeValue : public UnitValue {
@@ -217,7 +241,7 @@ namespace units {
             case SMPTE: {
                 const int ms = static_cast<int>(value());
                 const int sec = ms / 1000;
-                const int frames = ms % 1000;
+                const int frames = (ms % 1000) / 10;
                 return 1000 * (sec + frames / fr_);
             }
             default:
@@ -283,8 +307,6 @@ namespace units {
         }
 
         UnitType type() const final { return UnitType::TIME; }
-        bool isFraction() const final { return false; }
-        bool isTime() const final { return true; }
 
     public:
         static ParseResult parse(const AtomListView& lv);
@@ -320,6 +342,22 @@ namespace units {
             }
             default:
                 return value();
+            }
+        }
+
+        double toBpm() const
+        {
+            switch (units_) {
+            case BPM:
+                return value();
+            case MS: {
+                if (value() == 0)
+                    throw std::runtime_error("zero interval");
+                else
+                    return 60000 / value();
+            }
+            default:
+                return value() * 60;
             }
         }
 
@@ -378,12 +416,10 @@ namespace units {
 
         Units units() const { return units_; }
         UnitType type() const final { return UnitType::FREQ; }
-        bool isFraction() const final { return false; }
-        bool isTime() const final { return false; }
-        bool isFrequency() const final { return true; }
 
     public:
         static ParseResult parse(const AtomListView& lv);
+        static ParseResult parse(const Atom& atom);
 
     private:
         Units units_;

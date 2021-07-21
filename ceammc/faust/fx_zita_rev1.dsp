@@ -24,7 +24,7 @@ with {
 
     rdel = vslider("delay [unit:ms] [style:knob]", 60, 20, 100, 1) : si.smoo;
     f1 = vslider("freq_low [unit:Hz] [style:knob] [scale:log]", 200, 50, 1000, 1);
-    f2 = vslider("dump_hf [unit:Hz] [style:knob] [scale:log]", 6000, 1500, 0.49 * fsmax, 1);
+    f2 = vslider("damp_hf [unit:Hz] [style:knob] [scale:log]", 6000, 1500, 0.49 * fsmax, 1);
 
     t60dc = ba.if(ui_freeze, ui_freeze_t60dc, ui_t60dc);
     t60m = ba.if(ui_freeze, ui_freeze_t60m, ui_t60m);

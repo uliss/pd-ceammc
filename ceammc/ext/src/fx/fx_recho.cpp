@@ -8,6 +8,10 @@ public:
     FxREcho(const PdArgs& args)
         : faust_fx_recho_tilde(args)
     {
+        static t_symbol* SYM_PROP_DELAY = gensym("@delay");
+        static t_symbol* SYM_PROP_FEEDBACK = gensym("@feedback");
+
+        bindPositionalArgsToProps({ SYM_PROP_DELAY, SYM_PROP_FEEDBACK });
     }
 };
 

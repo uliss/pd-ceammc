@@ -5,10 +5,12 @@ set(DOC_FILES
     an.rms~
     an.tempo~
     array.bpm
+    array.circular~
     array.copy
     array.do
     array.each
     array.fill
+    array.grainer~
     array.hist
     array.mean
     array.minmax
@@ -120,6 +122,7 @@ set(DOC_FILES
     env2vline
     vline2env
     expand_env
+    file.size
     flow.append
     flow.change
     flow.count
@@ -208,6 +211,7 @@ set(DOC_FILES
     fx.drive~
     fx.drone_box~
     fx.echo~
+    fx.echo2~
     fx.flanger~
     fx.freeverb2~
     fx.freeverb~
@@ -219,7 +223,10 @@ set(DOC_FILES
     fx.pitchshift~
     fx.pitchshift_s~
     fx.recho~
+    fx.room~
     fx.sdelay~
+    fx.shimmer~
+    fx.tapiir~
     fx.vocoder~
     fx.wahwah~
     fx.zita_rev1~
@@ -320,6 +327,8 @@ set(DOC_FILES
     list.rlencode
     list.rotate
     list.route
+    list.rundiff
+    list.runsum
     list.search
     list.separate
     list.set
@@ -572,6 +581,7 @@ set(DOC_FILES
     snd.file
     spat.pan4~
     spat.pan8~
+    spat.zita8~
     spat.zita6x8~
     speech.flite
     speech.flite~
@@ -606,13 +616,16 @@ set(DOC_FILES
     synth.harpsichord~
     synth.glass_harm~
     synth.glitch~
+    synth.kick~
     synth.ks~
     synth.marimba~
     synth.piano~
     synth.rhodey~
     synth.risset_arp~
+    synth.risset_bell~
     synth.risset_tone~
     synth.russian_bell~
+    synth.tube_bell~
     synth.shakers~
     synth.sitar~
     synth.snare~

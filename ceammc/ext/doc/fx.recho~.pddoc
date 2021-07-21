@@ -11,25 +11,25 @@
             <library>ceammc</library>
             <category>fx</category>
             <keywords>fx echo reversed</keywords>
-            <since>0.9.3</since>
+            <since>0.9.4</since>
             <also>
                 <see>fx.echo~</see>
             </also>
         </meta>
         <arguments>
-            <!--            <argument name="time" type="float" minvalue="10" maxvalue="10000" units="millisecond">
+            <argument name="time" type="float" minvalue="0" maxvalue="2000" units="millisecond">
             echo time</argument>
-            <argument name="feedback" type="float" minvalue="0" maxvalue="0.8">feedback
-            coefficient</argument>-->
+            <argument name="feedback" type="float" minvalue="0" maxvalue="0.99">feedback
+            coefficient</argument>
         </arguments>
         <methods>
             <method name="reset">reset to initial state</method>
         </methods>
         <properties>
-            <!--            <property name="@delay" type="float" minvalue="10" maxvalue="10000" units="millisecond"
+            <property name="@delay" type="float" minvalue="0" maxvalue="2000" units="millisecond"
             default="500">echo time</property>
             <property name="@feedback" type="float" minvalue="0" maxvalue="0.99" default="0.3">
-            feedback coefficient</property>-->
+            feedback coefficient</property>
             <property name="@drywet" type="float" minvalue="0" maxvalue="1" default="1">proportion
             of mix between the original (dry) and 'effected' (wet) signals. 0 - dry signal, 1 -
             wet</property>
@@ -55,7 +55,7 @@
 |
 [readsf~]
 |
-[fx.recho~]
+[fx.recho~ 1000 @drywet 0.3]
 |
 [ui.hgain~]     [ui.dsp~]
 |\

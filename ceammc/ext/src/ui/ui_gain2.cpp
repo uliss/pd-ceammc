@@ -90,8 +90,9 @@ void UIGain2::setup()
     obj.usePresets();
     obj.useBang();
 
-    obj.useMouseEvents(UI_MOUSE_DOWN | UI_MOUSE_DRAG | UI_MOUSE_DBL_CLICK);
+    obj.useMouseEvents(UI_MOUSE_DOWN | UI_MOUSE_DRAG | UI_MOUSE_DBL_CLICK | UI_MOUSE_WHEEL);
     obj.outputMouseEvents(MouseEventsOutput::DEFAULT_OFF);
+    obj.usePopup();
 
     obj.addMethod("+", &UIGain2::m_plus);
     obj.addMethod("-", &UIGain2::m_minus);

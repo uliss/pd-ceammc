@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="synth.kick~">
+        <title>synth.kick~</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>low-kick synth from Guitarix project</description>
+            <license>GPL3 or later</license>
+            <library>ceammc</library>
+            <category>synth</category>
+            <keywords>synth kick</keywords>
+            <since>0.9.4</since>
+        </meta>
+        <properties>
+            <property name="@gate" type="float" minvalue="0" maxvalue="1" default="0">play trigger
+            &gt;0: on, 0: off. To set output gain to 0.5 you can 0.5 as trigger value</property>
+            <property name="@active" type="int" enum="0 1" default="1">on/off dsp
+            processing</property>
+            <property name="@attack" type="float" minvalue="0.3" maxvalue="100" default="0.5"
+            units="millisecond">attack time</property>
+            <property name="@release" type="float" minvalue="10" maxvalue="1000" default="200"
+            units="millisecond">release time</property>
+            <property name="@envwait" type="int" enum="0 1" default="0">ignore new notes until
+            previous note is not finished release time</property>
+        </properties>
+        <methods>
+            <method name="reset">reset synth</method>
+        </methods>
+        <inlets>
+            <inlet>
+                <xinfo on="bang">play with default duration and full gain</xinfo>
+                <xinfo on="float">play with default duration and specified gain</xinfo>
+                <xinfo on="list">GAIN(0..1) DUR(ms) pair expected</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet type="audio">synth output</outlet>
+            <outlet type="control">bang after release finished</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[T]                 [ui.k #a]  [ui.k #b]
+|                   |          |
+[metro 100]         |          |
+|                   |          |
+[random.f 0.3 0.95] [@freq $1( [@attack $1(
+|                   |          |
+[synth.kick~                   ]
+|
+[ui.hgain~]     [ui.dsp~]
+| \
+[dac~]
+
+#a 20 2000 @show_value 1
+#b 1 50 @show_value 1
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

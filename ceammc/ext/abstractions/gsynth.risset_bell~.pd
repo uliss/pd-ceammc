@@ -1,0 +1,65 @@
+#N canvas 0 0 950 600 12;
+#X obj 25 125 synth.risset_bell~;
+#X obj 325 25 inlet;
+#X obj 325 200 route synth.risset_bell;
+#X obj 325 250 route @dur @freq @gate @pfreq;
+#X obj 575 350 print unknown property;
+#X msg 225 75 @dur 5000 \, @freq 440 \, @pfreq 1 \,;
+#X obj 225 25 msg.onload;
+#X obj 500 550 outlet~;
+#X obj 600 550 outlet ctl;
+#X obj 3 202 cnv 8 198 18 empty empty [synth.risset_bell~] 3 9 0 12
+-104026 -262144 0;
+#X obj 12 238 ui.slider @size 125 12 @active_scale 1 @label dur(ms):
+@label_side top @label_align left @fontsize 10 @presetname
+/gui/\$1/synth.risset_bell~/slider0 @min 10 @max 600000;
+#X obj 190 238 sync;
+#X obj 145 238 ui.number @size 50 12 @min 10 @max 600000 @digits 2;
+#X msg 260 238 @dur \$1;
+#X obj 12 270 ui.slider @size 125 12 @active_scale 1 @label freq(Hz):
+@label_side top @label_align left @fontsize 10 @presetname
+/gui/\$1/synth.risset_bell~/slider1 @min 1 @max 10000;
+#X obj 190 270 sync;
+#X obj 145 270 ui.number @size 50 12 @min 1 @max 10000 @digits 0;
+#X msg 260 270 @freq \$1;
+#X obj 12 290 ui.toggle @size 12 12 @label gate @label_side right
+@label_align left @fontsize 10;
+#X msg 260 282 @gate \$1;
+#X obj 12 320 ui.slider @size 125 12 @active_scale 1 @label pfreq:
+@label_side top @label_align left @fontsize 10 @presetname
+/gui/\$1/synth.risset_bell~/slider3 @min 0 @max 10;
+#X obj 190 320 sync;
+#X obj 145 320 ui.number @size 50 12 @min 0 @max 10 @digits 3;
+#X msg 260 320 @pfreq \$1;
+#X connect 1 0 2 0;
+#X connect 2 0 3 0;
+#X connect 3 4 4 0;
+#X connect 5 0 3 0;
+#X connect 6 0 5 0;
+#X connect 0 0 7 0;
+#X connect 2 1 8 0;
+#X connect 10 0 11 0;
+#X connect 11 0 10 0;
+#X connect 12 0 11 1;
+#X connect 11 1 12 0;
+#X connect 10 0 13 0;
+#X connect 13 0 0 0;
+#X connect 3 0 10 0;
+#X connect 14 0 15 0;
+#X connect 15 0 14 0;
+#X connect 16 0 15 1;
+#X connect 15 1 16 0;
+#X connect 14 0 17 0;
+#X connect 17 0 0 0;
+#X connect 3 1 14 0;
+#X connect 18 0 19 0;
+#X connect 19 0 0 0;
+#X connect 3 2 18 0;
+#X connect 20 0 21 0;
+#X connect 21 0 20 0;
+#X connect 22 0 21 1;
+#X connect 21 1 22 0;
+#X connect 20 0 23 0;
+#X connect 23 0 0 0;
+#X connect 3 3 20 0;
+#X coords 0 -1 1 1 200 140 2 2 200;

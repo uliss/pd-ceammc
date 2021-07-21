@@ -15,8 +15,11 @@
             <aliases>
                 <alias>ceammc/symbol2any</alias>
                 <alias>ceammc/sym-&gt;any</alias>
+                <alias>ceammc/str-&gt;any</alias>
+                <alias>ceammc/string2any</alias>
                 <alias>sym-&gt;any</alias>
                 <alias>str-&gt;any</alias>
+                <alias>string2any</alias>
             </aliases>
         </meta>
         <inlets>
@@ -31,7 +34,7 @@
         <example>
             <pdascii>
 <![CDATA[
-/* enter some words separated with spaces */
+/* enter some words separated by spaces */
 
 [S digits=40]
 |

@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="fx.room~">
+        <title>fx.room~</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>Gardners room emulation algorithms</description>
+            <license>GPL3 or later</license>
+            <library>ceammc</library>
+            <category>fx</category>
+            <keywords>fx room reverb</keywords>
+            <since>0.9.4</since>
+        </meta>
+        <arguments>
+            <argument name="size" type="float" minvalue="0" maxvalue="2000" units="millisecond">
+            echo time</argument>
+            <argument name="diffusion" type="float" minvalue="0" maxvalue="0.99">feedback
+            coefficient</argument>
+        </arguments>
+        <methods>
+            <method name="reset">reset to initial state</method>
+        </methods>
+        <properties>
+            <property name="@predelay" type="float" minvalue="1" maxvalue="200" default="20"
+            units="millisecond">pre delay</property>
+            <property name="@fb" type="float" minvalue="0" maxvalue="1" default="0.3">feedback
+            coefficient</property>
+            <property name="@hfdamp" type="float" minvalue="0" maxvalue="1" default="1">damping
+            factor for high frequencies</property>
+            <property name="@size" type="float" minvalue="0" maxvalue="3" default="1">room size (1:
+            small, 2: medium, 3: large)</property>
+            <property name="@drywet" type="float" minvalue="0" maxvalue="1" default="0.5">
+            proportion of mix between the original (dry) and 'effected' (wet) signals. 0 - dry
+            signal, 1 - wet</property>
+            <property name="@bypass" type="int" enum="0 1" default="0">if set to 1 - bypass
+            'effected' signal</property>
+            <property name="@active" type="int" enum="0 1" default="1">on/off dsp
+            processing</property>
+        </properties>
+        <inlets>
+            <inlet type="audio">
+                <xinfo>input signal</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet type="audio">output signal</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[T]
+|
+[metro 250]
+|
+[60(
+|
+[makenote 127 100]
+*|*
+[pack f f]        [ui.hsl 0 3 @show_value 1]
+|                 |
+[synth.eguitar~]  [@size $1(
+|                 |
+[fx.room~         ]
+|
+[ui.hgain~]     [ui.dsp~]
+|\
+[dac~]
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

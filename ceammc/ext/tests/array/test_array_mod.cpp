@@ -80,9 +80,13 @@ TEST_CASE("array.mod", "[externals]")
         REQUIRE(p.samples() == 30);
 
         // phase
+        REQUIRE(p.setList(AtomList::parseString("0*")));
+        REQUIRE(p.samples() == 0);
         REQUIRE(p.setList(AtomList::parseString("0.0*")));
         REQUIRE(p.samples() == 0);
-        REQUIRE(p.setList(AtomList::parseString("0.5*")));
+        REQUIRE(p.setList(AtomList::parseString("1*")));
+        REQUIRE(p.samples() == 999);
+        REQUIRE(p.setList(LA("0.5*")));
         REQUIRE(p.samples() == 999.0 * 0.5);
         REQUIRE(p.setList(AtomList::parseString("1.0*")));
         REQUIRE(p.samples() == 999);

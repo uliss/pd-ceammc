@@ -1,0 +1,792 @@
+{
+	"name": "tapiir",
+	"filename": "fx_tapiir.dsp",
+	"version": "2.30.12",
+	"compile_options": "-lang cpp -es 1 -scal -ftz 0",
+	"library_list": ["/usr/local/share/faust/signals.lib","/usr/local/share/faust/basics.lib","/usr/local/share/faust/delays.lib","/Users/serge/work/music/pure-data/ceammc/faust/ceammc.lib","/usr/local/share/faust/maths.lib","/usr/local/share/faust/platform.lib"],
+	"include_pathnames": ["/usr/local/share/faust","/usr/local/share/faust","/usr/share/faust","/Users/serge/work/music/pure-data/ceammc/faust","/Users/serge/work/music/pure-data/ceammc/faust"],
+	"inputs": 2,
+	"outputs": 2,
+	"meta": [ 
+		{ "author": "Grame" },
+		{ "basics.lib/name": "Faust Basic Element Library" },
+		{ "basics.lib/version": "0.1" },
+		{ "ceammc.lib/name": "Ceammc PureData misc utils" },
+		{ "ceammc.lib/version": "0.1.2" },
+		{ "compile_options": "-lang cpp -es 1 -scal -ftz 0" },
+		{ "copyright": "(c)GRAME 2006" },
+		{ "delays.lib/name": "Faust Delay Library" },
+		{ "delays.lib/version": "0.1" },
+		{ "filename": "fx_tapiir.dsp" },
+		{ "license": "BSD" },
+		{ "maths.lib/author": "GRAME" },
+		{ "maths.lib/copyright": "GRAME" },
+		{ "maths.lib/license": "LGPL with exception" },
+		{ "maths.lib/name": "Faust Math Library" },
+		{ "maths.lib/version": "2.3" },
+		{ "name": "tapiir" },
+		{ "platform.lib/name": "Generic Platform Library" },
+		{ "platform.lib/version": "0.1" },
+		{ "signals.lib/name": "Faust Signal Routing Library" },
+		{ "signals.lib/version": "0.0" },
+		{ "version": "1.0" }
+	],
+	"ui": [ 
+		{
+			"type": "vgroup",
+			"label": "tapiir",
+			"items": [ 
+				{
+					"type": "tgroup",
+					"label": "0x00",
+					"items": [ 
+						{
+							"type": "vslider",
+							"label": "tap0.delay",
+							"address": "/tapiir/0x00/tap0.delay",
+							"meta": [
+								{ "unit": "ms" }
+							],
+							"init": 0,
+							"min": 0,
+							"max": 5000,
+							"step": 0.01
+						},
+						{
+							"type": "vslider",
+							"label": "tap0.fb0",
+							"address": "/tapiir/0x00/tap0.fb0",
+							"init": 0,
+							"min": 0,
+							"max": 1,
+							"step": 0.1
+						},
+						{
+							"type": "vslider",
+							"label": "tap0.fb1",
+							"address": "/tapiir/0x00/tap0.fb1",
+							"init": 0,
+							"min": 0,
+							"max": 1,
+							"step": 0.1
+						},
+						{
+							"type": "vslider",
+							"label": "tap0.fb2",
+							"address": "/tapiir/0x00/tap0.fb2",
+							"init": 0,
+							"min": 0,
+							"max": 1,
+							"step": 0.1
+						},
+						{
+							"type": "vslider",
+							"label": "tap0.fb3",
+							"address": "/tapiir/0x00/tap0.fb3",
+							"init": 0,
+							"min": 0,
+							"max": 1,
+							"step": 0.1
+						},
+						{
+							"type": "vslider",
+							"label": "tap0.fb4",
+							"address": "/tapiir/0x00/tap0.fb4",
+							"init": 0,
+							"min": 0,
+							"max": 1,
+							"step": 0.1
+						},
+						{
+							"type": "vslider",
+							"label": "tap0.fb5",
+							"address": "/tapiir/0x00/tap0.fb5",
+							"init": 0,
+							"min": 0,
+							"max": 1,
+							"step": 0.1
+						},
+						{
+							"type": "vslider",
+							"label": "tap0.gain",
+							"address": "/tapiir/0x00/tap0.gain",
+							"meta": [
+								{ "unit": "db" }
+							],
+							"init": 0,
+							"min": -60,
+							"max": 0,
+							"step": 0.1
+						},
+						{
+							"type": "vslider",
+							"label": "tap0.in0",
+							"address": "/tapiir/0x00/tap0.in0",
+							"init": 1,
+							"min": 0,
+							"max": 1,
+							"step": 0.1
+						},
+						{
+							"type": "vslider",
+							"label": "tap0.in1",
+							"address": "/tapiir/0x00/tap0.in1",
+							"init": 1,
+							"min": 0,
+							"max": 1,
+							"step": 0.1
+						},
+						{
+							"type": "vslider",
+							"label": "tap1.delay",
+							"address": "/tapiir/0x00/tap1.delay",
+							"meta": [
+								{ "unit": "ms" }
+							],
+							"init": 0,
+							"min": 0,
+							"max": 5000,
+							"step": 0.01
+						},
+						{
+							"type": "vslider",
+							"label": "tap1.fb0",
+							"address": "/tapiir/0x00/tap1.fb0",
+							"init": 0,
+							"min": 0,
+							"max": 1,
+							"step": 0.1
+						},
+						{
+							"type": "vslider",
+							"label": "tap1.fb1",
+							"address": "/tapiir/0x00/tap1.fb1",
+							"init": 0,
+							"min": 0,
+							"max": 1,
+							"step": 0.1
+						},
+						{
+							"type": "vslider",
+							"label": "tap1.fb2",
+							"address": "/tapiir/0x00/tap1.fb2",
+							"init": 0,
+							"min": 0,
+							"max": 1,
+							"step": 0.1
+						},
+						{
+							"type": "vslider",
+							"label": "tap1.fb3",
+							"address": "/tapiir/0x00/tap1.fb3",
+							"init": 0,
+							"min": 0,
+							"max": 1,
+							"step": 0.1
+						},
+						{
+							"type": "vslider",
+							"label": "tap1.fb4",
+							"address": "/tapiir/0x00/tap1.fb4",
+							"init": 0,
+							"min": 0,
+							"max": 1,
+							"step": 0.1
+						},
+						{
+							"type": "vslider",
+							"label": "tap1.fb5",
+							"address": "/tapiir/0x00/tap1.fb5",
+							"init": 0,
+							"min": 0,
+							"max": 1,
+							"step": 0.1
+						},
+						{
+							"type": "vslider",
+							"label": "tap1.gain",
+							"address": "/tapiir/0x00/tap1.gain",
+							"meta": [
+								{ "unit": "db" }
+							],
+							"init": 0,
+							"min": -60,
+							"max": 0,
+							"step": 0.1
+						},
+						{
+							"type": "vslider",
+							"label": "tap1.in0",
+							"address": "/tapiir/0x00/tap1.in0",
+							"init": 1,
+							"min": 0,
+							"max": 1,
+							"step": 0.1
+						},
+						{
+							"type": "vslider",
+							"label": "tap1.in1",
+							"address": "/tapiir/0x00/tap1.in1",
+							"init": 1,
+							"min": 0,
+							"max": 1,
+							"step": 0.1
+						},
+						{
+							"type": "vslider",
+							"label": "tap2.delay",
+							"address": "/tapiir/0x00/tap2.delay",
+							"meta": [
+								{ "unit": "ms" }
+							],
+							"init": 0,
+							"min": 0,
+							"max": 5000,
+							"step": 0.01
+						},
+						{
+							"type": "vslider",
+							"label": "tap2.fb0",
+							"address": "/tapiir/0x00/tap2.fb0",
+							"init": 0,
+							"min": 0,
+							"max": 1,
+							"step": 0.1
+						},
+						{
+							"type": "vslider",
+							"label": "tap2.fb1",
+							"address": "/tapiir/0x00/tap2.fb1",
+							"init": 0,
+							"min": 0,
+							"max": 1,
+							"step": 0.1
+						},
+						{
+							"type": "vslider",
+							"label": "tap2.fb2",
+							"address": "/tapiir/0x00/tap2.fb2",
+							"init": 0,
+							"min": 0,
+							"max": 1,
+							"step": 0.1
+						},
+						{
+							"type": "vslider",
+							"label": "tap2.fb3",
+							"address": "/tapiir/0x00/tap2.fb3",
+							"init": 0,
+							"min": 0,
+							"max": 1,
+							"step": 0.1
+						},
+						{
+							"type": "vslider",
+							"label": "tap2.fb4",
+							"address": "/tapiir/0x00/tap2.fb4",
+							"init": 0,
+							"min": 0,
+							"max": 1,
+							"step": 0.1
+						},
+						{
+							"type": "vslider",
+							"label": "tap2.fb5",
+							"address": "/tapiir/0x00/tap2.fb5",
+							"init": 0,
+							"min": 0,
+							"max": 1,
+							"step": 0.1
+						},
+						{
+							"type": "vslider",
+							"label": "tap2.gain",
+							"address": "/tapiir/0x00/tap2.gain",
+							"meta": [
+								{ "unit": "db" }
+							],
+							"init": 0,
+							"min": -60,
+							"max": 0,
+							"step": 0.1
+						},
+						{
+							"type": "vslider",
+							"label": "tap2.in0",
+							"address": "/tapiir/0x00/tap2.in0",
+							"init": 1,
+							"min": 0,
+							"max": 1,
+							"step": 0.1
+						},
+						{
+							"type": "vslider",
+							"label": "tap2.in1",
+							"address": "/tapiir/0x00/tap2.in1",
+							"init": 1,
+							"min": 0,
+							"max": 1,
+							"step": 0.1
+						},
+						{
+							"type": "vslider",
+							"label": "tap3.delay",
+							"address": "/tapiir/0x00/tap3.delay",
+							"meta": [
+								{ "unit": "ms" }
+							],
+							"init": 0,
+							"min": 0,
+							"max": 5000,
+							"step": 0.01
+						},
+						{
+							"type": "vslider",
+							"label": "tap3.fb0",
+							"address": "/tapiir/0x00/tap3.fb0",
+							"init": 0,
+							"min": 0,
+							"max": 1,
+							"step": 0.1
+						},
+						{
+							"type": "vslider",
+							"label": "tap3.fb1",
+							"address": "/tapiir/0x00/tap3.fb1",
+							"init": 0,
+							"min": 0,
+							"max": 1,
+							"step": 0.1
+						},
+						{
+							"type": "vslider",
+							"label": "tap3.fb2",
+							"address": "/tapiir/0x00/tap3.fb2",
+							"init": 0,
+							"min": 0,
+							"max": 1,
+							"step": 0.1
+						},
+						{
+							"type": "vslider",
+							"label": "tap3.fb3",
+							"address": "/tapiir/0x00/tap3.fb3",
+							"init": 0,
+							"min": 0,
+							"max": 1,
+							"step": 0.1
+						},
+						{
+							"type": "vslider",
+							"label": "tap3.fb4",
+							"address": "/tapiir/0x00/tap3.fb4",
+							"init": 0,
+							"min": 0,
+							"max": 1,
+							"step": 0.1
+						},
+						{
+							"type": "vslider",
+							"label": "tap3.fb5",
+							"address": "/tapiir/0x00/tap3.fb5",
+							"init": 0,
+							"min": 0,
+							"max": 1,
+							"step": 0.1
+						},
+						{
+							"type": "vslider",
+							"label": "tap3.gain",
+							"address": "/tapiir/0x00/tap3.gain",
+							"meta": [
+								{ "unit": "db" }
+							],
+							"init": 0,
+							"min": -60,
+							"max": 0,
+							"step": 0.1
+						},
+						{
+							"type": "vslider",
+							"label": "tap3.in0",
+							"address": "/tapiir/0x00/tap3.in0",
+							"init": 1,
+							"min": 0,
+							"max": 1,
+							"step": 0.1
+						},
+						{
+							"type": "vslider",
+							"label": "tap3.in1",
+							"address": "/tapiir/0x00/tap3.in1",
+							"init": 1,
+							"min": 0,
+							"max": 1,
+							"step": 0.1
+						},
+						{
+							"type": "vslider",
+							"label": "tap4.delay",
+							"address": "/tapiir/0x00/tap4.delay",
+							"meta": [
+								{ "unit": "ms" }
+							],
+							"init": 0,
+							"min": 0,
+							"max": 5000,
+							"step": 0.01
+						},
+						{
+							"type": "vslider",
+							"label": "tap4.fb0",
+							"address": "/tapiir/0x00/tap4.fb0",
+							"init": 0,
+							"min": 0,
+							"max": 1,
+							"step": 0.1
+						},
+						{
+							"type": "vslider",
+							"label": "tap4.fb1",
+							"address": "/tapiir/0x00/tap4.fb1",
+							"init": 0,
+							"min": 0,
+							"max": 1,
+							"step": 0.1
+						},
+						{
+							"type": "vslider",
+							"label": "tap4.fb2",
+							"address": "/tapiir/0x00/tap4.fb2",
+							"init": 0,
+							"min": 0,
+							"max": 1,
+							"step": 0.1
+						},
+						{
+							"type": "vslider",
+							"label": "tap4.fb3",
+							"address": "/tapiir/0x00/tap4.fb3",
+							"init": 0,
+							"min": 0,
+							"max": 1,
+							"step": 0.1
+						},
+						{
+							"type": "vslider",
+							"label": "tap4.fb4",
+							"address": "/tapiir/0x00/tap4.fb4",
+							"init": 0,
+							"min": 0,
+							"max": 1,
+							"step": 0.1
+						},
+						{
+							"type": "vslider",
+							"label": "tap4.fb5",
+							"address": "/tapiir/0x00/tap4.fb5",
+							"init": 0,
+							"min": 0,
+							"max": 1,
+							"step": 0.1
+						},
+						{
+							"type": "vslider",
+							"label": "tap4.gain",
+							"address": "/tapiir/0x00/tap4.gain",
+							"meta": [
+								{ "unit": "db" }
+							],
+							"init": 0,
+							"min": -60,
+							"max": 0,
+							"step": 0.1
+						},
+						{
+							"type": "vslider",
+							"label": "tap4.in0",
+							"address": "/tapiir/0x00/tap4.in0",
+							"init": 1,
+							"min": 0,
+							"max": 1,
+							"step": 0.1
+						},
+						{
+							"type": "vslider",
+							"label": "tap4.in1",
+							"address": "/tapiir/0x00/tap4.in1",
+							"init": 1,
+							"min": 0,
+							"max": 1,
+							"step": 0.1
+						},
+						{
+							"type": "vslider",
+							"label": "tap5.delay",
+							"address": "/tapiir/0x00/tap5.delay",
+							"meta": [
+								{ "unit": "ms" }
+							],
+							"init": 0,
+							"min": 0,
+							"max": 5000,
+							"step": 0.01
+						},
+						{
+							"type": "vslider",
+							"label": "tap5.fb0",
+							"address": "/tapiir/0x00/tap5.fb0",
+							"init": 0,
+							"min": 0,
+							"max": 1,
+							"step": 0.1
+						},
+						{
+							"type": "vslider",
+							"label": "tap5.fb1",
+							"address": "/tapiir/0x00/tap5.fb1",
+							"init": 0,
+							"min": 0,
+							"max": 1,
+							"step": 0.1
+						},
+						{
+							"type": "vslider",
+							"label": "tap5.fb2",
+							"address": "/tapiir/0x00/tap5.fb2",
+							"init": 0,
+							"min": 0,
+							"max": 1,
+							"step": 0.1
+						},
+						{
+							"type": "vslider",
+							"label": "tap5.fb3",
+							"address": "/tapiir/0x00/tap5.fb3",
+							"init": 0,
+							"min": 0,
+							"max": 1,
+							"step": 0.1
+						},
+						{
+							"type": "vslider",
+							"label": "tap5.fb4",
+							"address": "/tapiir/0x00/tap5.fb4",
+							"init": 0,
+							"min": 0,
+							"max": 1,
+							"step": 0.1
+						},
+						{
+							"type": "vslider",
+							"label": "tap5.fb5",
+							"address": "/tapiir/0x00/tap5.fb5",
+							"init": 0,
+							"min": 0,
+							"max": 1,
+							"step": 0.1
+						},
+						{
+							"type": "vslider",
+							"label": "tap5.gain",
+							"address": "/tapiir/0x00/tap5.gain",
+							"meta": [
+								{ "unit": "db" }
+							],
+							"init": 0,
+							"min": -60,
+							"max": 0,
+							"step": 0.1
+						},
+						{
+							"type": "vslider",
+							"label": "tap5.in0",
+							"address": "/tapiir/0x00/tap5.in0",
+							"init": 1,
+							"min": 0,
+							"max": 1,
+							"step": 0.1
+						},
+						{
+							"type": "vslider",
+							"label": "tap5.in1",
+							"address": "/tapiir/0x00/tap5.in1",
+							"init": 1,
+							"min": 0,
+							"max": 1,
+							"step": 0.1
+						}
+					]
+				},
+				{
+					"type": "vslider",
+					"label": "out0.gain",
+					"address": "/tapiir/out0.gain",
+					"meta": [
+						{ "unit": "db" }
+					],
+					"init": 0,
+					"min": -60,
+					"max": 0,
+					"step": 0.1
+				},
+				{
+					"type": "vslider",
+					"label": "out0.in0",
+					"address": "/tapiir/out0.in0",
+					"init": 0,
+					"min": 0,
+					"max": 1,
+					"step": 0.1
+				},
+				{
+					"type": "vslider",
+					"label": "out0.in1",
+					"address": "/tapiir/out0.in1",
+					"init": 0,
+					"min": 0,
+					"max": 1,
+					"step": 0.1
+				},
+				{
+					"type": "vslider",
+					"label": "out0.tap0",
+					"address": "/tapiir/out0.tap0",
+					"init": 0,
+					"min": 0,
+					"max": 1,
+					"step": 0.1
+				},
+				{
+					"type": "vslider",
+					"label": "out0.tap1",
+					"address": "/tapiir/out0.tap1",
+					"init": 0,
+					"min": 0,
+					"max": 1,
+					"step": 0.1
+				},
+				{
+					"type": "vslider",
+					"label": "out0.tap2",
+					"address": "/tapiir/out0.tap2",
+					"init": 0,
+					"min": 0,
+					"max": 1,
+					"step": 0.1
+				},
+				{
+					"type": "vslider",
+					"label": "out0.tap3",
+					"address": "/tapiir/out0.tap3",
+					"init": 0,
+					"min": 0,
+					"max": 1,
+					"step": 0.1
+				},
+				{
+					"type": "vslider",
+					"label": "out0.tap4",
+					"address": "/tapiir/out0.tap4",
+					"init": 0,
+					"min": 0,
+					"max": 1,
+					"step": 0.1
+				},
+				{
+					"type": "vslider",
+					"label": "out0.tap5",
+					"address": "/tapiir/out0.tap5",
+					"init": 0,
+					"min": 0,
+					"max": 1,
+					"step": 0.1
+				},
+				{
+					"type": "vslider",
+					"label": "out1.gain",
+					"address": "/tapiir/out1.gain",
+					"meta": [
+						{ "unit": "db" }
+					],
+					"init": 0,
+					"min": -60,
+					"max": 0,
+					"step": 0.1
+				},
+				{
+					"type": "vslider",
+					"label": "out1.in0",
+					"address": "/tapiir/out1.in0",
+					"init": 0,
+					"min": 0,
+					"max": 1,
+					"step": 0.1
+				},
+				{
+					"type": "vslider",
+					"label": "out1.in1",
+					"address": "/tapiir/out1.in1",
+					"init": 0,
+					"min": 0,
+					"max": 1,
+					"step": 0.1
+				},
+				{
+					"type": "vslider",
+					"label": "out1.tap0",
+					"address": "/tapiir/out1.tap0",
+					"init": 0,
+					"min": 0,
+					"max": 1,
+					"step": 0.1
+				},
+				{
+					"type": "vslider",
+					"label": "out1.tap1",
+					"address": "/tapiir/out1.tap1",
+					"init": 0,
+					"min": 0,
+					"max": 1,
+					"step": 0.1
+				},
+				{
+					"type": "vslider",
+					"label": "out1.tap2",
+					"address": "/tapiir/out1.tap2",
+					"init": 0,
+					"min": 0,
+					"max": 1,
+					"step": 0.1
+				},
+				{
+					"type": "vslider",
+					"label": "out1.tap3",
+					"address": "/tapiir/out1.tap3",
+					"init": 0,
+					"min": 0,
+					"max": 1,
+					"step": 0.1
+				},
+				{
+					"type": "vslider",
+					"label": "out1.tap4",
+					"address": "/tapiir/out1.tap4",
+					"init": 0,
+					"min": 0,
+					"max": 1,
+					"step": 0.1
+				},
+				{
+					"type": "vslider",
+					"label": "out1.tap5",
+					"address": "/tapiir/out1.tap5",
+					"init": 0,
+					"min": 0,
+					"max": 1,
+					"step": 0.1
+				}
+			]
+		}
+	]
+}

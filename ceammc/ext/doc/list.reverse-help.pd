@@ -10,7 +10,7 @@
 #X msg 338 118 (5 4 3 2 1) \, bang;
 #X obj 338 147 ml;
 #X obj 50 176 list.reverse;
-#X obj 50 205 ui.display @display_type 1;
+#X obj 50 205 ui.dt;
 #X obj 20 254 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 259 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
 0;

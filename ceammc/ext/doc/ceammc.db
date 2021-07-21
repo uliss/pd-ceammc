@@ -4,10 +4,12 @@ an.pitchtrack~,ceammc/helmholtz~,helmholtz~		~		~..
 an.rms~		~		~
 an.tempo~		~		..
 array.bpm		.		.
+array.circular~		~~~		~
 array.copy		.		.
 array.do		..		..
 array.each		..		..
 array.fill		.		.
+array.grainer~		.		~~
 array.hist		.		.
 array.mean		.		.
 array.minmax		.		..
@@ -118,6 +120,7 @@ env2array,ceammc/env2array,ceammc/env->array,env->array		.		.
 env2vline,ceammc/env2vline,ceammc/env->vline,env->vline		.		.
 envelope,ceammc/envelope,ceammc/env,env		.		.
 expand_env,ceammc/expand_env		.		.
+file.size		.		.
 flow.append		..		.
 flow.change		.		.
 flow.count		..		.
@@ -205,6 +208,7 @@ fx.distortion3~		~		~
 fx.distortion~		~		~
 fx.drive~		~		~
 fx.drone_box~		~		~
+fx.echo2~		~~		~~
 fx.echo~		~		~
 fx.flanger~		~		~
 fx.freeverb2~		~~		~~
@@ -217,7 +221,10 @@ fx.looper~		~		~.
 fx.pitchshift_s~		~~		~
 fx.pitchshift~		~.		~
 fx.recho~		~		~
+fx.room~		~		~
 fx.sdelay~		~		~
+fx.shimmer~		~~		~~
+fx.tapiir~		~~		~~
 fx.vocoder~		~~		~
 fx.wahwah~		~		~
 fx.zita_rev1~		~~		~~
@@ -318,6 +325,8 @@ list.rldecode,list.unwrap		..		.
 list.rlencode,list.wrap		.		..
 list.rotate,list.<<,list.>>		..		.
 list.route		.		?
+list.rundiff		.		.
+list.runsum		.		.
 list.search		..		.
 list.separate,list.sep		.		..
 list.seq		.		.
@@ -571,6 +580,7 @@ snd.file		.		.
 spat.pan4~,ceammc/pan4~,pan4~		~		~~~~
 spat.pan8~,ceammc/pan8~,pan8~		~		~~~~~~~~
 spat.zita6x8~		~~~~~~		~~~~~~~~
+spat.zita8~		~		~~~~~~~~
 speech.flite		..		.
 speech.flite~		.		~.
 spring,ceammc/spring		..		..
@@ -591,7 +601,7 @@ string2symbol,ceammc/string2symbol,ceammc/str->sym,str->sym		.		.
 symbol.equal		..		.
 symbol.length		.		.
 symbol.num_compare		..		.
-symbol2any,ceammc/symbol2any,ceammc/sym->any,sym->any,str->any		.		.
+symbol2any,ceammc/symbol2any,ceammc/sym->any,ceammc/str->any,ceammc/string2any,sym->any,str->any,string2any		.		.
 symbol2intlist,ceammc/symbol2intlist,ceammc/sym->ilist,sym->ilist		.		.
 sync,ceammc/sync		?		?
 synth.bee3~		.		~
@@ -604,16 +614,19 @@ synth.fgrain~		.		~
 synth.glass_harm~		.		~~
 synth.glitch~		.		~
 synth.harpsichord~		.		~~
+synth.kick~		.		~.
 synth.ks~		.		~
 synth.marimba~		.		~
 synth.piano~		.		~~
 synth.rhodey~		.		~
 synth.risset_arp~		.		~~
+synth.risset_bell~		.		~
 synth.risset_tone~		.		~
 synth.russian_bell~		.		~
 synth.shakers~		.		~
 synth.sitar~		.		~
 synth.snare~		.		~.
+synth.tube_bell~		.		~
 synth.wurley~		.		~
 system.colorpanel		.		.
 system.cursor		.		.

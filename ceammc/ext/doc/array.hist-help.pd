@@ -26,7 +26,8 @@
 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0;
 #X coords 0 1 512 -1 330 100 1;
 #X restore 50 143 graph;
-#X obj 386 143 ui.sliders @size 40 100 @receive ahist-r @auto_range 1;
+#X obj 386 143 ui.sliders @size 40 100 @receive ahist-r @auto_count 1
+@auto_range_mode max;
 #X obj 50 259 loadbang;
 #X msg 50 287 uniform -1 -0.2;
 #X msg 222 287 gauss 0.5 0.2;

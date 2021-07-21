@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="fx.shimmer~">
+        <title>fx.shimmer~</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>shimmer reverb effect effect</description>
+            <license>GPL3 or later</license>
+            <library>ceammc</library>
+            <category>fx</category>
+            <keywords>fx echo shimmer reverb</keywords>
+            <since>0.9.4</since>
+        </meta>
+        <arguments>
+            <argument name="size" type="float" minvalue="0" maxvalue="2000" units="millisecond">
+            echo time</argument>
+            <argument name="diffusion" type="float" minvalue="0" maxvalue="0.99">feedback
+            coefficient</argument>
+        </arguments>
+        <methods>
+            <method name="reset">reset to initial state</method>
+        </methods>
+        <properties>
+            <property name="@decay_low" type="float" minvalue="1" maxvalue="8" default="3"
+            units="second">time (in seconds) to decay 60dB in low-frequency band</property>
+            <property name="@decay_mid" type="float" minvalue="1" maxvalue="8" default="2"
+            units="second">time (in seconds) to decay 60dB in mid-frequency band</property>
+            <property name="@freq_low" type="float" minvalue="50" maxvalue="1000" default="200"
+            units="herz">Crossover frequency (Hz) separating low and middle frequencies</property>
+            <property name="@damp_hf" type="float" minvalue="1500" maxvalue="47040" default="6000"
+            units="herz">Frequency (Hz) at which the high-frequency T60 is half the middle-band's
+            T60</property>
+            <property name="@envelope" type="float" minvalue="0.1" maxvalue="3" default="1"
+            units="second">amplitude-envelope time-constant going down</property>
+            <property name="@shift" type="float" minvalue="-12" maxvalue="12" default="0"
+            units="semitone">frequency shifting</property>
+            <property name="@depth" type="float" minvalue="0" maxvalue="1" default="0">pitchshift
+            modulation amplitude</property>
+            <property name="@speed" type="float" minvalue="0.1" maxvalue="10" default="0.1"
+            units="herz">pitchshift modulation frequency</property>
+            <property name="@control" type="float" minvalue="0" maxvalue="1" default="0.5">envelope
+            follower to pitch shifter influence coefficient</property>
+            <property name="@ps_drywet" type="float" minvalue="0" maxvalue="1" default="0.5">
+            proportion of mix between original and pitchshift signal in shimmer feedback</property>
+            <property name="@mode" type="int" minvalue="-3" maxvalue="3" default="0">correlation
+            between pitchshift</property>
+            <property name="@drywet" type="float" minvalue="0" maxvalue="1" default="0.5">
+            proportion of mix between the original (dry) and 'effected' (wet) signals. 0 - dry
+            signal, 1 - wet</property>
+            <property name="@bypass" type="int" enum="0 1" default="0">if set to 1 - bypass
+            'effected' signal</property>
+            <property name="@active" type="int" enum="0 1" default="1">on/off dsp
+            processing</property>
+        </properties>
+        <inlets>
+            <inlet type="audio">
+                <xinfo>input signal</xinfo>
+            </inlet>
+            <inlet type="audio">
+                <xinfo>input signal</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet type="audio">output signal</outlet>
+            <outlet type="audio">output signal</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[T]
+|
+[metro 250]
+|
+[60(
+|
+[makenote 127 100]
+*|*
+[pack f f]
+|
+[synth.eguitar~]
+|
+[fx.shimmer~]
+*|*
+[ui.hgain2~]     [ui.dsp~]
+*|*
+[dac~]
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

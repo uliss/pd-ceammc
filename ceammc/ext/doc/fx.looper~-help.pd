@@ -44,7 +44,7 @@ to stop. Type: float. Units: ms. Default value: 20\. Min value: 0\.;
 sec. Default value: 0\. Min value: 0\.;
 #X msg 110 646 @loop_bang;
 #X text 245 646 Get/Set output bang on each loop start. Type: int.
-Default value: 0\. Allowed values: 0 \, 1\.;
+Default value: 1\. Allowed values: 0 \, 1\.;
 #X msg 110 688 @loop_smooth;
 #X text 245 688 Get/Set time of lin fadein/fadeout applied to recorded
 loop for smooth playing. Type: float. Units: ms. Default value: 10\.

@@ -1,0 +1,1052 @@
+#N canvas 0 0 950 600 12;
+#X obj 25 125 tapiir~;
+#X obj 25 25 inlet~;
+#X obj 125 25 inlet~;
+#X obj 525 25 inlet;
+#X obj 525 200 route tapiir;
+#X obj 525 250 route @tap0.delay @tap0.fb0 @tap0.fb1 @tap0.fb2
+@tap0.fb3 @tap0.fb4 @tap0.fb5 @tap0.gain @tap0.in0 @tap0.in1
+@tap1.delay @tap1.fb0 @tap1.fb1 @tap1.fb2 @tap1.fb3 @tap1.fb4
+@tap1.fb5 @tap1.gain @tap1.in0 @tap1.in1 @tap2.delay @tap2.fb0
+@tap2.fb1 @tap2.fb2 @tap2.fb3 @tap2.fb4 @tap2.fb5 @tap2.gain @tap2.in0
+@tap2.in1 @tap3.delay @tap3.fb0 @tap3.fb1 @tap3.fb2 @tap3.fb3
+@tap3.fb4 @tap3.fb5 @tap3.gain @tap3.in0 @tap3.in1 @tap4.delay
+@tap4.fb0 @tap4.fb1 @tap4.fb2 @tap4.fb3 @tap4.fb4 @tap4.fb5 @tap4.gain
+@tap4.in0 @tap4.in1 @tap5.delay @tap5.fb0 @tap5.fb1 @tap5.fb2
+@tap5.fb3 @tap5.fb4 @tap5.fb5 @tap5.gain @tap5.in0 @tap5.in1
+@out0.gain @out0.in0 @out0.in1 @out0.tap0 @out0.tap1 @out0.tap2
+@out0.tap3 @out0.tap4 @out0.tap5 @out1.gain @out1.in0 @out1.in1
+@out1.tap0 @out1.tap1 @out1.tap2 @out1.tap3 @out1.tap4 @out1.tap5;
+#X obj 775 350 print unknown property;
+#X msg 425 75 @tap0.delay 0 \, @tap0.fb0 0 \, @tap0.fb1 0 \, @tap0.fb2 0 \, @tap0.fb3 0 \, @tap0.fb4 0 \, @tap0.fb5 0 \, @tap0.gain 0 \, @tap0.in0 1 \, @tap0.in1 1 \, @tap1.delay 0 \, @tap1.fb0 0 \, @tap1.fb1 0 \, @tap1.fb2 0 \, @tap1.fb3 0 \, @tap1.fb4 0 \, @tap1.fb5 0 \, @tap1.gain 0 \, @tap1.in0 1 \, @tap1.in1 1 \, @tap2.delay 0 \, @tap2.fb0 0 \, @tap2.fb1 0 \, @tap2.fb2 0 \, @tap2.fb3 0 \, @tap2.fb4 0 \, @tap2.fb5 0 \, @tap2.gain 0 \, @tap2.in0 1 \, @tap2.in1 1 \, @tap3.delay 0 \, @tap3.fb0 0 \, @tap3.fb1 0 \, @tap3.fb2 0 \, @tap3.fb3 0 \, @tap3.fb4 0 \, @tap3.fb5 0 \, @tap3.gain 0 \, @tap3.in0 1 \, @tap3.in1 1 \, @tap4.delay 0 \, @tap4.fb0 0 \, @tap4.fb1 0 \, @tap4.fb2 0 \, @tap4.fb3 0 \, @tap4.fb4 0 \, @tap4.fb5 0 \, @tap4.gain 0 \, @tap4.in0 1 \, @tap4.in1 1 \, @tap5.delay 0 \, @tap5.fb0 0 \, @tap5.fb1 0 \, @tap5.fb2 0 \, @tap5.fb3 0 \, @tap5.fb4 0 \, @tap5.fb5 0 \, @tap5.gain 0 \, @tap5.in0 1 \, @tap5.in1 1 \, @out0.gain 0 \, @out0.in0 0 \, @out0.in1 0 \, @out0.tap0 0 \, @out0.tap1 0 \, @out0.tap2 0 \, @out0.tap3 0 \, @out0.tap4 0 \, @out0.tap5 0 \, @out1.gain 0 \, @out1.in0 0 \, @out1.in1 0 \, @out1.tap0 0 \, @out1.tap1 0 \, @out1.tap2 0 \, @out1.tap3 0 \, @out1.tap4 0 \, @out1.tap5 0 \,;
+#X obj 425 25 msg.onload;
+#X obj 500 550 outlet~;
+#X obj 600 550 outlet~;
+#X obj 700 550 outlet ctl;
+#X obj 3 202 cnv 8 198 18 empty empty [tapiir~] 3 9 0 12 -104026
+-262144 0;
+#X obj 12 238 ui.slider @size 125 12 @active_scale 1 @label
+tap0.delay(ms): @label_side top @label_align left @fontsize 10
+@presetname /gui/\$1/tapiir~/slider0 @min 0 @max 5000;
+#X obj 190 238 sync;
+#X obj 145 238 ui.number @size 50 12 @min 0 @max 5000 @digits 0;
+#X msg 260 238 @tap0.delay \$1;
+#X obj 12 270 ui.slider @size 125 12 @active_scale 1 @label tap0.fb0:
+@label_side top @label_align left @fontsize 10 @presetname
+/gui/\$1/tapiir~/slider1 @min 0 @max 1;
+#X obj 190 270 sync;
+#X obj 145 270 ui.number @size 50 12 @min 0 @max 1 @digits 4;
+#X msg 260 270 @tap0.fb0 \$1;
+#X obj 12 302 ui.slider @size 125 12 @active_scale 1 @label tap0.fb1:
+@label_side top @label_align left @fontsize 10 @presetname
+/gui/\$1/tapiir~/slider2 @min 0 @max 1;
+#X obj 190 302 sync;
+#X obj 145 302 ui.number @size 50 12 @min 0 @max 1 @digits 4;
+#X msg 260 302 @tap0.fb1 \$1;
+#X obj 12 334 ui.slider @size 125 12 @active_scale 1 @label tap0.fb2:
+@label_side top @label_align left @fontsize 10 @presetname
+/gui/\$1/tapiir~/slider3 @min 0 @max 1;
+#X obj 190 334 sync;
+#X obj 145 334 ui.number @size 50 12 @min 0 @max 1 @digits 4;
+#X msg 260 334 @tap0.fb2 \$1;
+#X obj 12 366 ui.slider @size 125 12 @active_scale 1 @label tap0.fb3:
+@label_side top @label_align left @fontsize 10 @presetname
+/gui/\$1/tapiir~/slider4 @min 0 @max 1;
+#X obj 190 366 sync;
+#X obj 145 366 ui.number @size 50 12 @min 0 @max 1 @digits 4;
+#X msg 260 366 @tap0.fb3 \$1;
+#X obj 12 398 ui.slider @size 125 12 @active_scale 1 @label tap0.fb4:
+@label_side top @label_align left @fontsize 10 @presetname
+/gui/\$1/tapiir~/slider5 @min 0 @max 1;
+#X obj 190 398 sync;
+#X obj 145 398 ui.number @size 50 12 @min 0 @max 1 @digits 4;
+#X msg 260 398 @tap0.fb4 \$1;
+#X obj 12 430 ui.slider @size 125 12 @active_scale 1 @label tap0.fb5:
+@label_side top @label_align left @fontsize 10 @presetname
+/gui/\$1/tapiir~/slider6 @min 0 @max 1;
+#X obj 190 430 sync;
+#X obj 145 430 ui.number @size 50 12 @min 0 @max 1 @digits 4;
+#X msg 260 430 @tap0.fb5 \$1;
+#X obj 12 462 ui.slider @size 125 12 @active_scale 1 @label
+tap0.gain(db): @label_side top @label_align left @fontsize 10
+@presetname /gui/\$1/tapiir~/slider7 @min -60 @max 0;
+#X obj 190 462 sync;
+#X obj 145 462 ui.number @size 50 12 @min -60 @max 0 @digits 2;
+#X msg 260 462 @tap0.gain \$1;
+#X obj 12 494 ui.slider @size 125 12 @active_scale 1 @label tap0.in0:
+@label_side top @label_align left @fontsize 10 @presetname
+/gui/\$1/tapiir~/slider8 @min 0 @max 1;
+#X obj 190 494 sync;
+#X obj 145 494 ui.number @size 50 12 @min 0 @max 1 @digits 4;
+#X msg 260 494 @tap0.in0 \$1;
+#X obj 12 526 ui.slider @size 125 12 @active_scale 1 @label tap0.in1:
+@label_side top @label_align left @fontsize 10 @presetname
+/gui/\$1/tapiir~/slider9 @min 0 @max 1;
+#X obj 190 526 sync;
+#X obj 145 526 ui.number @size 50 12 @min 0 @max 1 @digits 4;
+#X msg 260 526 @tap0.in1 \$1;
+#X obj 12 558 ui.slider @size 125 12 @active_scale 1 @label
+tap1.delay(ms): @label_side top @label_align left @fontsize 10
+@presetname /gui/\$1/tapiir~/slider10 @min 0 @max 5000;
+#X obj 190 558 sync;
+#X obj 145 558 ui.number @size 50 12 @min 0 @max 5000 @digits 0;
+#X msg 260 558 @tap1.delay \$1;
+#X obj 12 590 ui.slider @size 125 12 @active_scale 1 @label tap1.fb0:
+@label_side top @label_align left @fontsize 10 @presetname
+/gui/\$1/tapiir~/slider11 @min 0 @max 1;
+#X obj 190 590 sync;
+#X obj 145 590 ui.number @size 50 12 @min 0 @max 1 @digits 4;
+#X msg 260 590 @tap1.fb0 \$1;
+#X obj 12 622 ui.slider @size 125 12 @active_scale 1 @label tap1.fb1:
+@label_side top @label_align left @fontsize 10 @presetname
+/gui/\$1/tapiir~/slider12 @min 0 @max 1;
+#X obj 190 622 sync;
+#X obj 145 622 ui.number @size 50 12 @min 0 @max 1 @digits 4;
+#X msg 260 622 @tap1.fb1 \$1;
+#X obj 12 654 ui.slider @size 125 12 @active_scale 1 @label tap1.fb2:
+@label_side top @label_align left @fontsize 10 @presetname
+/gui/\$1/tapiir~/slider13 @min 0 @max 1;
+#X obj 190 654 sync;
+#X obj 145 654 ui.number @size 50 12 @min 0 @max 1 @digits 4;
+#X msg 260 654 @tap1.fb2 \$1;
+#X obj 12 686 ui.slider @size 125 12 @active_scale 1 @label tap1.fb3:
+@label_side top @label_align left @fontsize 10 @presetname
+/gui/\$1/tapiir~/slider14 @min 0 @max 1;
+#X obj 190 686 sync;
+#X obj 145 686 ui.number @size 50 12 @min 0 @max 1 @digits 4;
+#X msg 260 686 @tap1.fb3 \$1;
+#X obj 12 718 ui.slider @size 125 12 @active_scale 1 @label tap1.fb4:
+@label_side top @label_align left @fontsize 10 @presetname
+/gui/\$1/tapiir~/slider15 @min 0 @max 1;
+#X obj 190 718 sync;
+#X obj 145 718 ui.number @size 50 12 @min 0 @max 1 @digits 4;
+#X msg 260 718 @tap1.fb4 \$1;
+#X obj 12 750 ui.slider @size 125 12 @active_scale 1 @label tap1.fb5:
+@label_side top @label_align left @fontsize 10 @presetname
+/gui/\$1/tapiir~/slider16 @min 0 @max 1;
+#X obj 190 750 sync;
+#X obj 145 750 ui.number @size 50 12 @min 0 @max 1 @digits 4;
+#X msg 260 750 @tap1.fb5 \$1;
+#X obj 12 782 ui.slider @size 125 12 @active_scale 1 @label
+tap1.gain(db): @label_side top @label_align left @fontsize 10
+@presetname /gui/\$1/tapiir~/slider17 @min -60 @max 0;
+#X obj 190 782 sync;
+#X obj 145 782 ui.number @size 50 12 @min -60 @max 0 @digits 2;
+#X msg 260 782 @tap1.gain \$1;
+#X obj 12 814 ui.slider @size 125 12 @active_scale 1 @label tap1.in0:
+@label_side top @label_align left @fontsize 10 @presetname
+/gui/\$1/tapiir~/slider18 @min 0 @max 1;
+#X obj 190 814 sync;
+#X obj 145 814 ui.number @size 50 12 @min 0 @max 1 @digits 4;
+#X msg 260 814 @tap1.in0 \$1;
+#X obj 12 846 ui.slider @size 125 12 @active_scale 1 @label tap1.in1:
+@label_side top @label_align left @fontsize 10 @presetname
+/gui/\$1/tapiir~/slider19 @min 0 @max 1;
+#X obj 190 846 sync;
+#X obj 145 846 ui.number @size 50 12 @min 0 @max 1 @digits 4;
+#X msg 260 846 @tap1.in1 \$1;
+#X obj 12 878 ui.slider @size 125 12 @active_scale 1 @label
+tap2.delay(ms): @label_side top @label_align left @fontsize 10
+@presetname /gui/\$1/tapiir~/slider20 @min 0 @max 5000;
+#X obj 190 878 sync;
+#X obj 145 878 ui.number @size 50 12 @min 0 @max 5000 @digits 0;
+#X msg 260 878 @tap2.delay \$1;
+#X obj 12 910 ui.slider @size 125 12 @active_scale 1 @label tap2.fb0:
+@label_side top @label_align left @fontsize 10 @presetname
+/gui/\$1/tapiir~/slider21 @min 0 @max 1;
+#X obj 190 910 sync;
+#X obj 145 910 ui.number @size 50 12 @min 0 @max 1 @digits 4;
+#X msg 260 910 @tap2.fb0 \$1;
+#X obj 12 942 ui.slider @size 125 12 @active_scale 1 @label tap2.fb1:
+@label_side top @label_align left @fontsize 10 @presetname
+/gui/\$1/tapiir~/slider22 @min 0 @max 1;
+#X obj 190 942 sync;
+#X obj 145 942 ui.number @size 50 12 @min 0 @max 1 @digits 4;
+#X msg 260 942 @tap2.fb1 \$1;
+#X obj 12 974 ui.slider @size 125 12 @active_scale 1 @label tap2.fb2:
+@label_side top @label_align left @fontsize 10 @presetname
+/gui/\$1/tapiir~/slider23 @min 0 @max 1;
+#X obj 190 974 sync;
+#X obj 145 974 ui.number @size 50 12 @min 0 @max 1 @digits 4;
+#X msg 260 974 @tap2.fb2 \$1;
+#X obj 12 1006 ui.slider @size 125 12 @active_scale 1 @label tap2.fb3:
+@label_side top @label_align left @fontsize 10 @presetname
+/gui/\$1/tapiir~/slider24 @min 0 @max 1;
+#X obj 190 1006 sync;
+#X obj 145 1006 ui.number @size 50 12 @min 0 @max 1 @digits 4;
+#X msg 260 1006 @tap2.fb3 \$1;
+#X obj 12 1038 ui.slider @size 125 12 @active_scale 1 @label tap2.fb4:
+@label_side top @label_align left @fontsize 10 @presetname
+/gui/\$1/tapiir~/slider25 @min 0 @max 1;
+#X obj 190 1038 sync;
+#X obj 145 1038 ui.number @size 50 12 @min 0 @max 1 @digits 4;
+#X msg 260 1038 @tap2.fb4 \$1;
+#X obj 12 1070 ui.slider @size 125 12 @active_scale 1 @label tap2.fb5:
+@label_side top @label_align left @fontsize 10 @presetname
+/gui/\$1/tapiir~/slider26 @min 0 @max 1;
+#X obj 190 1070 sync;
+#X obj 145 1070 ui.number @size 50 12 @min 0 @max 1 @digits 4;
+#X msg 260 1070 @tap2.fb5 \$1;
+#X obj 12 1102 ui.slider @size 125 12 @active_scale 1 @label
+tap2.gain(db): @label_side top @label_align left @fontsize 10
+@presetname /gui/\$1/tapiir~/slider27 @min -60 @max 0;
+#X obj 190 1102 sync;
+#X obj 145 1102 ui.number @size 50 12 @min -60 @max 0 @digits 2;
+#X msg 260 1102 @tap2.gain \$1;
+#X obj 12 1134 ui.slider @size 125 12 @active_scale 1 @label tap2.in0:
+@label_side top @label_align left @fontsize 10 @presetname
+/gui/\$1/tapiir~/slider28 @min 0 @max 1;
+#X obj 190 1134 sync;
+#X obj 145 1134 ui.number @size 50 12 @min 0 @max 1 @digits 4;
+#X msg 260 1134 @tap2.in0 \$1;
+#X obj 12 1166 ui.slider @size 125 12 @active_scale 1 @label tap2.in1:
+@label_side top @label_align left @fontsize 10 @presetname
+/gui/\$1/tapiir~/slider29 @min 0 @max 1;
+#X obj 190 1166 sync;
+#X obj 145 1166 ui.number @size 50 12 @min 0 @max 1 @digits 4;
+#X msg 260 1166 @tap2.in1 \$1;
+#X obj 12 1198 ui.slider @size 125 12 @active_scale 1 @label
+tap3.delay(ms): @label_side top @label_align left @fontsize 10
+@presetname /gui/\$1/tapiir~/slider30 @min 0 @max 5000;
+#X obj 190 1198 sync;
+#X obj 145 1198 ui.number @size 50 12 @min 0 @max 5000 @digits 0;
+#X msg 260 1198 @tap3.delay \$1;
+#X obj 12 1230 ui.slider @size 125 12 @active_scale 1 @label tap3.fb0:
+@label_side top @label_align left @fontsize 10 @presetname
+/gui/\$1/tapiir~/slider31 @min 0 @max 1;
+#X obj 190 1230 sync;
+#X obj 145 1230 ui.number @size 50 12 @min 0 @max 1 @digits 4;
+#X msg 260 1230 @tap3.fb0 \$1;
+#X obj 12 1262 ui.slider @size 125 12 @active_scale 1 @label tap3.fb1:
+@label_side top @label_align left @fontsize 10 @presetname
+/gui/\$1/tapiir~/slider32 @min 0 @max 1;
+#X obj 190 1262 sync;
+#X obj 145 1262 ui.number @size 50 12 @min 0 @max 1 @digits 4;
+#X msg 260 1262 @tap3.fb1 \$1;
+#X obj 12 1294 ui.slider @size 125 12 @active_scale 1 @label tap3.fb2:
+@label_side top @label_align left @fontsize 10 @presetname
+/gui/\$1/tapiir~/slider33 @min 0 @max 1;
+#X obj 190 1294 sync;
+#X obj 145 1294 ui.number @size 50 12 @min 0 @max 1 @digits 4;
+#X msg 260 1294 @tap3.fb2 \$1;
+#X obj 12 1326 ui.slider @size 125 12 @active_scale 1 @label tap3.fb3:
+@label_side top @label_align left @fontsize 10 @presetname
+/gui/\$1/tapiir~/slider34 @min 0 @max 1;
+#X obj 190 1326 sync;
+#X obj 145 1326 ui.number @size 50 12 @min 0 @max 1 @digits 4;
+#X msg 260 1326 @tap3.fb3 \$1;
+#X obj 12 1358 ui.slider @size 125 12 @active_scale 1 @label tap3.fb4:
+@label_side top @label_align left @fontsize 10 @presetname
+/gui/\$1/tapiir~/slider35 @min 0 @max 1;
+#X obj 190 1358 sync;
+#X obj 145 1358 ui.number @size 50 12 @min 0 @max 1 @digits 4;
+#X msg 260 1358 @tap3.fb4 \$1;
+#X obj 12 1390 ui.slider @size 125 12 @active_scale 1 @label tap3.fb5:
+@label_side top @label_align left @fontsize 10 @presetname
+/gui/\$1/tapiir~/slider36 @min 0 @max 1;
+#X obj 190 1390 sync;
+#X obj 145 1390 ui.number @size 50 12 @min 0 @max 1 @digits 4;
+#X msg 260 1390 @tap3.fb5 \$1;
+#X obj 12 1422 ui.slider @size 125 12 @active_scale 1 @label
+tap3.gain(db): @label_side top @label_align left @fontsize 10
+@presetname /gui/\$1/tapiir~/slider37 @min -60 @max 0;
+#X obj 190 1422 sync;
+#X obj 145 1422 ui.number @size 50 12 @min -60 @max 0 @digits 2;
+#X msg 260 1422 @tap3.gain \$1;
+#X obj 12 1454 ui.slider @size 125 12 @active_scale 1 @label tap3.in0:
+@label_side top @label_align left @fontsize 10 @presetname
+/gui/\$1/tapiir~/slider38 @min 0 @max 1;
+#X obj 190 1454 sync;
+#X obj 145 1454 ui.number @size 50 12 @min 0 @max 1 @digits 4;
+#X msg 260 1454 @tap3.in0 \$1;
+#X obj 12 1486 ui.slider @size 125 12 @active_scale 1 @label tap3.in1:
+@label_side top @label_align left @fontsize 10 @presetname
+/gui/\$1/tapiir~/slider39 @min 0 @max 1;
+#X obj 190 1486 sync;
+#X obj 145 1486 ui.number @size 50 12 @min 0 @max 1 @digits 4;
+#X msg 260 1486 @tap3.in1 \$1;
+#X obj 12 1518 ui.slider @size 125 12 @active_scale 1 @label
+tap4.delay(ms): @label_side top @label_align left @fontsize 10
+@presetname /gui/\$1/tapiir~/slider40 @min 0 @max 5000;
+#X obj 190 1518 sync;
+#X obj 145 1518 ui.number @size 50 12 @min 0 @max 5000 @digits 0;
+#X msg 260 1518 @tap4.delay \$1;
+#X obj 12 1550 ui.slider @size 125 12 @active_scale 1 @label tap4.fb0:
+@label_side top @label_align left @fontsize 10 @presetname
+/gui/\$1/tapiir~/slider41 @min 0 @max 1;
+#X obj 190 1550 sync;
+#X obj 145 1550 ui.number @size 50 12 @min 0 @max 1 @digits 4;
+#X msg 260 1550 @tap4.fb0 \$1;
+#X obj 12 1582 ui.slider @size 125 12 @active_scale 1 @label tap4.fb1:
+@label_side top @label_align left @fontsize 10 @presetname
+/gui/\$1/tapiir~/slider42 @min 0 @max 1;
+#X obj 190 1582 sync;
+#X obj 145 1582 ui.number @size 50 12 @min 0 @max 1 @digits 4;
+#X msg 260 1582 @tap4.fb1 \$1;
+#X obj 12 1614 ui.slider @size 125 12 @active_scale 1 @label tap4.fb2:
+@label_side top @label_align left @fontsize 10 @presetname
+/gui/\$1/tapiir~/slider43 @min 0 @max 1;
+#X obj 190 1614 sync;
+#X obj 145 1614 ui.number @size 50 12 @min 0 @max 1 @digits 4;
+#X msg 260 1614 @tap4.fb2 \$1;
+#X obj 12 1646 ui.slider @size 125 12 @active_scale 1 @label tap4.fb3:
+@label_side top @label_align left @fontsize 10 @presetname
+/gui/\$1/tapiir~/slider44 @min 0 @max 1;
+#X obj 190 1646 sync;
+#X obj 145 1646 ui.number @size 50 12 @min 0 @max 1 @digits 4;
+#X msg 260 1646 @tap4.fb3 \$1;
+#X obj 12 1678 ui.slider @size 125 12 @active_scale 1 @label tap4.fb4:
+@label_side top @label_align left @fontsize 10 @presetname
+/gui/\$1/tapiir~/slider45 @min 0 @max 1;
+#X obj 190 1678 sync;
+#X obj 145 1678 ui.number @size 50 12 @min 0 @max 1 @digits 4;
+#X msg 260 1678 @tap4.fb4 \$1;
+#X obj 12 1710 ui.slider @size 125 12 @active_scale 1 @label tap4.fb5:
+@label_side top @label_align left @fontsize 10 @presetname
+/gui/\$1/tapiir~/slider46 @min 0 @max 1;
+#X obj 190 1710 sync;
+#X obj 145 1710 ui.number @size 50 12 @min 0 @max 1 @digits 4;
+#X msg 260 1710 @tap4.fb5 \$1;
+#X obj 12 1742 ui.slider @size 125 12 @active_scale 1 @label
+tap4.gain(db): @label_side top @label_align left @fontsize 10
+@presetname /gui/\$1/tapiir~/slider47 @min -60 @max 0;
+#X obj 190 1742 sync;
+#X obj 145 1742 ui.number @size 50 12 @min -60 @max 0 @digits 2;
+#X msg 260 1742 @tap4.gain \$1;
+#X obj 12 1774 ui.slider @size 125 12 @active_scale 1 @label tap4.in0:
+@label_side top @label_align left @fontsize 10 @presetname
+/gui/\$1/tapiir~/slider48 @min 0 @max 1;
+#X obj 190 1774 sync;
+#X obj 145 1774 ui.number @size 50 12 @min 0 @max 1 @digits 4;
+#X msg 260 1774 @tap4.in0 \$1;
+#X obj 12 1806 ui.slider @size 125 12 @active_scale 1 @label tap4.in1:
+@label_side top @label_align left @fontsize 10 @presetname
+/gui/\$1/tapiir~/slider49 @min 0 @max 1;
+#X obj 190 1806 sync;
+#X obj 145 1806 ui.number @size 50 12 @min 0 @max 1 @digits 4;
+#X msg 260 1806 @tap4.in1 \$1;
+#X obj 12 1838 ui.slider @size 125 12 @active_scale 1 @label
+tap5.delay(ms): @label_side top @label_align left @fontsize 10
+@presetname /gui/\$1/tapiir~/slider50 @min 0 @max 5000;
+#X obj 190 1838 sync;
+#X obj 145 1838 ui.number @size 50 12 @min 0 @max 5000 @digits 0;
+#X msg 260 1838 @tap5.delay \$1;
+#X obj 12 1870 ui.slider @size 125 12 @active_scale 1 @label tap5.fb0:
+@label_side top @label_align left @fontsize 10 @presetname
+/gui/\$1/tapiir~/slider51 @min 0 @max 1;
+#X obj 190 1870 sync;
+#X obj 145 1870 ui.number @size 50 12 @min 0 @max 1 @digits 4;
+#X msg 260 1870 @tap5.fb0 \$1;
+#X obj 12 1902 ui.slider @size 125 12 @active_scale 1 @label tap5.fb1:
+@label_side top @label_align left @fontsize 10 @presetname
+/gui/\$1/tapiir~/slider52 @min 0 @max 1;
+#X obj 190 1902 sync;
+#X obj 145 1902 ui.number @size 50 12 @min 0 @max 1 @digits 4;
+#X msg 260 1902 @tap5.fb1 \$1;
+#X obj 12 1934 ui.slider @size 125 12 @active_scale 1 @label tap5.fb2:
+@label_side top @label_align left @fontsize 10 @presetname
+/gui/\$1/tapiir~/slider53 @min 0 @max 1;
+#X obj 190 1934 sync;
+#X obj 145 1934 ui.number @size 50 12 @min 0 @max 1 @digits 4;
+#X msg 260 1934 @tap5.fb2 \$1;
+#X obj 12 1966 ui.slider @size 125 12 @active_scale 1 @label tap5.fb3:
+@label_side top @label_align left @fontsize 10 @presetname
+/gui/\$1/tapiir~/slider54 @min 0 @max 1;
+#X obj 190 1966 sync;
+#X obj 145 1966 ui.number @size 50 12 @min 0 @max 1 @digits 4;
+#X msg 260 1966 @tap5.fb3 \$1;
+#X obj 12 1998 ui.slider @size 125 12 @active_scale 1 @label tap5.fb4:
+@label_side top @label_align left @fontsize 10 @presetname
+/gui/\$1/tapiir~/slider55 @min 0 @max 1;
+#X obj 190 1998 sync;
+#X obj 145 1998 ui.number @size 50 12 @min 0 @max 1 @digits 4;
+#X msg 260 1998 @tap5.fb4 \$1;
+#X obj 12 2030 ui.slider @size 125 12 @active_scale 1 @label tap5.fb5:
+@label_side top @label_align left @fontsize 10 @presetname
+/gui/\$1/tapiir~/slider56 @min 0 @max 1;
+#X obj 190 2030 sync;
+#X obj 145 2030 ui.number @size 50 12 @min 0 @max 1 @digits 4;
+#X msg 260 2030 @tap5.fb5 \$1;
+#X obj 12 2062 ui.slider @size 125 12 @active_scale 1 @label
+tap5.gain(db): @label_side top @label_align left @fontsize 10
+@presetname /gui/\$1/tapiir~/slider57 @min -60 @max 0;
+#X obj 190 2062 sync;
+#X obj 145 2062 ui.number @size 50 12 @min -60 @max 0 @digits 2;
+#X msg 260 2062 @tap5.gain \$1;
+#X obj 12 2094 ui.slider @size 125 12 @active_scale 1 @label tap5.in0:
+@label_side top @label_align left @fontsize 10 @presetname
+/gui/\$1/tapiir~/slider58 @min 0 @max 1;
+#X obj 190 2094 sync;
+#X obj 145 2094 ui.number @size 50 12 @min 0 @max 1 @digits 4;
+#X msg 260 2094 @tap5.in0 \$1;
+#X obj 12 2126 ui.slider @size 125 12 @active_scale 1 @label tap5.in1:
+@label_side top @label_align left @fontsize 10 @presetname
+/gui/\$1/tapiir~/slider59 @min 0 @max 1;
+#X obj 190 2126 sync;
+#X obj 145 2126 ui.number @size 50 12 @min 0 @max 1 @digits 4;
+#X msg 260 2126 @tap5.in1 \$1;
+#X obj 12 2158 ui.slider @size 125 12 @active_scale 1 @label
+out0.gain(db): @label_side top @label_align left @fontsize 10
+@presetname /gui/\$1/tapiir~/slider60 @min -60 @max 0;
+#X obj 190 2158 sync;
+#X obj 145 2158 ui.number @size 50 12 @min -60 @max 0 @digits 2;
+#X msg 260 2158 @out0.gain \$1;
+#X obj 12 2190 ui.slider @size 125 12 @active_scale 1 @label out0.in0:
+@label_side top @label_align left @fontsize 10 @presetname
+/gui/\$1/tapiir~/slider61 @min 0 @max 1;
+#X obj 190 2190 sync;
+#X obj 145 2190 ui.number @size 50 12 @min 0 @max 1 @digits 4;
+#X msg 260 2190 @out0.in0 \$1;
+#X obj 12 2222 ui.slider @size 125 12 @active_scale 1 @label out0.in1:
+@label_side top @label_align left @fontsize 10 @presetname
+/gui/\$1/tapiir~/slider62 @min 0 @max 1;
+#X obj 190 2222 sync;
+#X obj 145 2222 ui.number @size 50 12 @min 0 @max 1 @digits 4;
+#X msg 260 2222 @out0.in1 \$1;
+#X obj 12 2254 ui.slider @size 125 12 @active_scale 1 @label
+out0.tap0: @label_side top @label_align left @fontsize 10 @presetname
+/gui/\$1/tapiir~/slider63 @min 0 @max 1;
+#X obj 190 2254 sync;
+#X obj 145 2254 ui.number @size 50 12 @min 0 @max 1 @digits 4;
+#X msg 260 2254 @out0.tap0 \$1;
+#X obj 12 2286 ui.slider @size 125 12 @active_scale 1 @label
+out0.tap1: @label_side top @label_align left @fontsize 10 @presetname
+/gui/\$1/tapiir~/slider64 @min 0 @max 1;
+#X obj 190 2286 sync;
+#X obj 145 2286 ui.number @size 50 12 @min 0 @max 1 @digits 4;
+#X msg 260 2286 @out0.tap1 \$1;
+#X obj 12 2318 ui.slider @size 125 12 @active_scale 1 @label
+out0.tap2: @label_side top @label_align left @fontsize 10 @presetname
+/gui/\$1/tapiir~/slider65 @min 0 @max 1;
+#X obj 190 2318 sync;
+#X obj 145 2318 ui.number @size 50 12 @min 0 @max 1 @digits 4;
+#X msg 260 2318 @out0.tap2 \$1;
+#X obj 12 2350 ui.slider @size 125 12 @active_scale 1 @label
+out0.tap3: @label_side top @label_align left @fontsize 10 @presetname
+/gui/\$1/tapiir~/slider66 @min 0 @max 1;
+#X obj 190 2350 sync;
+#X obj 145 2350 ui.number @size 50 12 @min 0 @max 1 @digits 4;
+#X msg 260 2350 @out0.tap3 \$1;
+#X obj 12 2382 ui.slider @size 125 12 @active_scale 1 @label
+out0.tap4: @label_side top @label_align left @fontsize 10 @presetname
+/gui/\$1/tapiir~/slider67 @min 0 @max 1;
+#X obj 190 2382 sync;
+#X obj 145 2382 ui.number @size 50 12 @min 0 @max 1 @digits 4;
+#X msg 260 2382 @out0.tap4 \$1;
+#X obj 12 2414 ui.slider @size 125 12 @active_scale 1 @label
+out0.tap5: @label_side top @label_align left @fontsize 10 @presetname
+/gui/\$1/tapiir~/slider68 @min 0 @max 1;
+#X obj 190 2414 sync;
+#X obj 145 2414 ui.number @size 50 12 @min 0 @max 1 @digits 4;
+#X msg 260 2414 @out0.tap5 \$1;
+#X obj 12 2446 ui.slider @size 125 12 @active_scale 1 @label
+out1.gain(db): @label_side top @label_align left @fontsize 10
+@presetname /gui/\$1/tapiir~/slider69 @min -60 @max 0;
+#X obj 190 2446 sync;
+#X obj 145 2446 ui.number @size 50 12 @min -60 @max 0 @digits 2;
+#X msg 260 2446 @out1.gain \$1;
+#X obj 12 2478 ui.slider @size 125 12 @active_scale 1 @label out1.in0:
+@label_side top @label_align left @fontsize 10 @presetname
+/gui/\$1/tapiir~/slider70 @min 0 @max 1;
+#X obj 190 2478 sync;
+#X obj 145 2478 ui.number @size 50 12 @min 0 @max 1 @digits 4;
+#X msg 260 2478 @out1.in0 \$1;
+#X obj 12 2510 ui.slider @size 125 12 @active_scale 1 @label out1.in1:
+@label_side top @label_align left @fontsize 10 @presetname
+/gui/\$1/tapiir~/slider71 @min 0 @max 1;
+#X obj 190 2510 sync;
+#X obj 145 2510 ui.number @size 50 12 @min 0 @max 1 @digits 4;
+#X msg 260 2510 @out1.in1 \$1;
+#X obj 12 2542 ui.slider @size 125 12 @active_scale 1 @label
+out1.tap0: @label_side top @label_align left @fontsize 10 @presetname
+/gui/\$1/tapiir~/slider72 @min 0 @max 1;
+#X obj 190 2542 sync;
+#X obj 145 2542 ui.number @size 50 12 @min 0 @max 1 @digits 4;
+#X msg 260 2542 @out1.tap0 \$1;
+#X obj 12 2574 ui.slider @size 125 12 @active_scale 1 @label
+out1.tap1: @label_side top @label_align left @fontsize 10 @presetname
+/gui/\$1/tapiir~/slider73 @min 0 @max 1;
+#X obj 190 2574 sync;
+#X obj 145 2574 ui.number @size 50 12 @min 0 @max 1 @digits 4;
+#X msg 260 2574 @out1.tap1 \$1;
+#X obj 12 2606 ui.slider @size 125 12 @active_scale 1 @label
+out1.tap2: @label_side top @label_align left @fontsize 10 @presetname
+/gui/\$1/tapiir~/slider74 @min 0 @max 1;
+#X obj 190 2606 sync;
+#X obj 145 2606 ui.number @size 50 12 @min 0 @max 1 @digits 4;
+#X msg 260 2606 @out1.tap2 \$1;
+#X obj 12 2638 ui.slider @size 125 12 @active_scale 1 @label
+out1.tap3: @label_side top @label_align left @fontsize 10 @presetname
+/gui/\$1/tapiir~/slider75 @min 0 @max 1;
+#X obj 190 2638 sync;
+#X obj 145 2638 ui.number @size 50 12 @min 0 @max 1 @digits 4;
+#X msg 260 2638 @out1.tap3 \$1;
+#X obj 12 2670 ui.slider @size 125 12 @active_scale 1 @label
+out1.tap4: @label_side top @label_align left @fontsize 10 @presetname
+/gui/\$1/tapiir~/slider76 @min 0 @max 1;
+#X obj 190 2670 sync;
+#X obj 145 2670 ui.number @size 50 12 @min 0 @max 1 @digits 4;
+#X msg 260 2670 @out1.tap4 \$1;
+#X obj 12 2702 ui.slider @size 125 12 @active_scale 1 @label
+out1.tap5: @label_side top @label_align left @fontsize 10 @presetname
+/gui/\$1/tapiir~/slider77 @min 0 @max 1;
+#X obj 190 2702 sync;
+#X obj 145 2702 ui.number @size 50 12 @min 0 @max 1 @digits 4;
+#X msg 260 2702 @out1.tap5 \$1;
+#X connect 1 0 0 0;
+#X connect 2 0 0 1;
+#X connect 3 0 4 0;
+#X connect 4 0 5 0;
+#X connect 5 78 6 0;
+#X connect 7 0 5 0;
+#X connect 8 0 7 0;
+#X connect 0 0 9 0;
+#X connect 0 1 10 0;
+#X connect 4 1 11 0;
+#X connect 13 0 14 0;
+#X connect 14 0 13 0;
+#X connect 15 0 14 1;
+#X connect 14 1 15 0;
+#X connect 13 0 16 0;
+#X connect 16 0 0 0;
+#X connect 5 0 13 0;
+#X connect 17 0 18 0;
+#X connect 18 0 17 0;
+#X connect 19 0 18 1;
+#X connect 18 1 19 0;
+#X connect 17 0 20 0;
+#X connect 20 0 0 0;
+#X connect 5 1 17 0;
+#X connect 21 0 22 0;
+#X connect 22 0 21 0;
+#X connect 23 0 22 1;
+#X connect 22 1 23 0;
+#X connect 21 0 24 0;
+#X connect 24 0 0 0;
+#X connect 5 2 21 0;
+#X connect 25 0 26 0;
+#X connect 26 0 25 0;
+#X connect 27 0 26 1;
+#X connect 26 1 27 0;
+#X connect 25 0 28 0;
+#X connect 28 0 0 0;
+#X connect 5 3 25 0;
+#X connect 29 0 30 0;
+#X connect 30 0 29 0;
+#X connect 31 0 30 1;
+#X connect 30 1 31 0;
+#X connect 29 0 32 0;
+#X connect 32 0 0 0;
+#X connect 5 4 29 0;
+#X connect 33 0 34 0;
+#X connect 34 0 33 0;
+#X connect 35 0 34 1;
+#X connect 34 1 35 0;
+#X connect 33 0 36 0;
+#X connect 36 0 0 0;
+#X connect 5 5 33 0;
+#X connect 37 0 38 0;
+#X connect 38 0 37 0;
+#X connect 39 0 38 1;
+#X connect 38 1 39 0;
+#X connect 37 0 40 0;
+#X connect 40 0 0 0;
+#X connect 5 6 37 0;
+#X connect 41 0 42 0;
+#X connect 42 0 41 0;
+#X connect 43 0 42 1;
+#X connect 42 1 43 0;
+#X connect 41 0 44 0;
+#X connect 44 0 0 0;
+#X connect 5 7 41 0;
+#X connect 45 0 46 0;
+#X connect 46 0 45 0;
+#X connect 47 0 46 1;
+#X connect 46 1 47 0;
+#X connect 45 0 48 0;
+#X connect 48 0 0 0;
+#X connect 5 8 45 0;
+#X connect 49 0 50 0;
+#X connect 50 0 49 0;
+#X connect 51 0 50 1;
+#X connect 50 1 51 0;
+#X connect 49 0 52 0;
+#X connect 52 0 0 0;
+#X connect 5 9 49 0;
+#X connect 53 0 54 0;
+#X connect 54 0 53 0;
+#X connect 55 0 54 1;
+#X connect 54 1 55 0;
+#X connect 53 0 56 0;
+#X connect 56 0 0 0;
+#X connect 5 10 53 0;
+#X connect 57 0 58 0;
+#X connect 58 0 57 0;
+#X connect 59 0 58 1;
+#X connect 58 1 59 0;
+#X connect 57 0 60 0;
+#X connect 60 0 0 0;
+#X connect 5 11 57 0;
+#X connect 61 0 62 0;
+#X connect 62 0 61 0;
+#X connect 63 0 62 1;
+#X connect 62 1 63 0;
+#X connect 61 0 64 0;
+#X connect 64 0 0 0;
+#X connect 5 12 61 0;
+#X connect 65 0 66 0;
+#X connect 66 0 65 0;
+#X connect 67 0 66 1;
+#X connect 66 1 67 0;
+#X connect 65 0 68 0;
+#X connect 68 0 0 0;
+#X connect 5 13 65 0;
+#X connect 69 0 70 0;
+#X connect 70 0 69 0;
+#X connect 71 0 70 1;
+#X connect 70 1 71 0;
+#X connect 69 0 72 0;
+#X connect 72 0 0 0;
+#X connect 5 14 69 0;
+#X connect 73 0 74 0;
+#X connect 74 0 73 0;
+#X connect 75 0 74 1;
+#X connect 74 1 75 0;
+#X connect 73 0 76 0;
+#X connect 76 0 0 0;
+#X connect 5 15 73 0;
+#X connect 77 0 78 0;
+#X connect 78 0 77 0;
+#X connect 79 0 78 1;
+#X connect 78 1 79 0;
+#X connect 77 0 80 0;
+#X connect 80 0 0 0;
+#X connect 5 16 77 0;
+#X connect 81 0 82 0;
+#X connect 82 0 81 0;
+#X connect 83 0 82 1;
+#X connect 82 1 83 0;
+#X connect 81 0 84 0;
+#X connect 84 0 0 0;
+#X connect 5 17 81 0;
+#X connect 85 0 86 0;
+#X connect 86 0 85 0;
+#X connect 87 0 86 1;
+#X connect 86 1 87 0;
+#X connect 85 0 88 0;
+#X connect 88 0 0 0;
+#X connect 5 18 85 0;
+#X connect 89 0 90 0;
+#X connect 90 0 89 0;
+#X connect 91 0 90 1;
+#X connect 90 1 91 0;
+#X connect 89 0 92 0;
+#X connect 92 0 0 0;
+#X connect 5 19 89 0;
+#X connect 93 0 94 0;
+#X connect 94 0 93 0;
+#X connect 95 0 94 1;
+#X connect 94 1 95 0;
+#X connect 93 0 96 0;
+#X connect 96 0 0 0;
+#X connect 5 20 93 0;
+#X connect 97 0 98 0;
+#X connect 98 0 97 0;
+#X connect 99 0 98 1;
+#X connect 98 1 99 0;
+#X connect 97 0 100 0;
+#X connect 100 0 0 0;
+#X connect 5 21 97 0;
+#X connect 101 0 102 0;
+#X connect 102 0 101 0;
+#X connect 103 0 102 1;
+#X connect 102 1 103 0;
+#X connect 101 0 104 0;
+#X connect 104 0 0 0;
+#X connect 5 22 101 0;
+#X connect 105 0 106 0;
+#X connect 106 0 105 0;
+#X connect 107 0 106 1;
+#X connect 106 1 107 0;
+#X connect 105 0 108 0;
+#X connect 108 0 0 0;
+#X connect 5 23 105 0;
+#X connect 109 0 110 0;
+#X connect 110 0 109 0;
+#X connect 111 0 110 1;
+#X connect 110 1 111 0;
+#X connect 109 0 112 0;
+#X connect 112 0 0 0;
+#X connect 5 24 109 0;
+#X connect 113 0 114 0;
+#X connect 114 0 113 0;
+#X connect 115 0 114 1;
+#X connect 114 1 115 0;
+#X connect 113 0 116 0;
+#X connect 116 0 0 0;
+#X connect 5 25 113 0;
+#X connect 117 0 118 0;
+#X connect 118 0 117 0;
+#X connect 119 0 118 1;
+#X connect 118 1 119 0;
+#X connect 117 0 120 0;
+#X connect 120 0 0 0;
+#X connect 5 26 117 0;
+#X connect 121 0 122 0;
+#X connect 122 0 121 0;
+#X connect 123 0 122 1;
+#X connect 122 1 123 0;
+#X connect 121 0 124 0;
+#X connect 124 0 0 0;
+#X connect 5 27 121 0;
+#X connect 125 0 126 0;
+#X connect 126 0 125 0;
+#X connect 127 0 126 1;
+#X connect 126 1 127 0;
+#X connect 125 0 128 0;
+#X connect 128 0 0 0;
+#X connect 5 28 125 0;
+#X connect 129 0 130 0;
+#X connect 130 0 129 0;
+#X connect 131 0 130 1;
+#X connect 130 1 131 0;
+#X connect 129 0 132 0;
+#X connect 132 0 0 0;
+#X connect 5 29 129 0;
+#X connect 133 0 134 0;
+#X connect 134 0 133 0;
+#X connect 135 0 134 1;
+#X connect 134 1 135 0;
+#X connect 133 0 136 0;
+#X connect 136 0 0 0;
+#X connect 5 30 133 0;
+#X connect 137 0 138 0;
+#X connect 138 0 137 0;
+#X connect 139 0 138 1;
+#X connect 138 1 139 0;
+#X connect 137 0 140 0;
+#X connect 140 0 0 0;
+#X connect 5 31 137 0;
+#X connect 141 0 142 0;
+#X connect 142 0 141 0;
+#X connect 143 0 142 1;
+#X connect 142 1 143 0;
+#X connect 141 0 144 0;
+#X connect 144 0 0 0;
+#X connect 5 32 141 0;
+#X connect 145 0 146 0;
+#X connect 146 0 145 0;
+#X connect 147 0 146 1;
+#X connect 146 1 147 0;
+#X connect 145 0 148 0;
+#X connect 148 0 0 0;
+#X connect 5 33 145 0;
+#X connect 149 0 150 0;
+#X connect 150 0 149 0;
+#X connect 151 0 150 1;
+#X connect 150 1 151 0;
+#X connect 149 0 152 0;
+#X connect 152 0 0 0;
+#X connect 5 34 149 0;
+#X connect 153 0 154 0;
+#X connect 154 0 153 0;
+#X connect 155 0 154 1;
+#X connect 154 1 155 0;
+#X connect 153 0 156 0;
+#X connect 156 0 0 0;
+#X connect 5 35 153 0;
+#X connect 157 0 158 0;
+#X connect 158 0 157 0;
+#X connect 159 0 158 1;
+#X connect 158 1 159 0;
+#X connect 157 0 160 0;
+#X connect 160 0 0 0;
+#X connect 5 36 157 0;
+#X connect 161 0 162 0;
+#X connect 162 0 161 0;
+#X connect 163 0 162 1;
+#X connect 162 1 163 0;
+#X connect 161 0 164 0;
+#X connect 164 0 0 0;
+#X connect 5 37 161 0;
+#X connect 165 0 166 0;
+#X connect 166 0 165 0;
+#X connect 167 0 166 1;
+#X connect 166 1 167 0;
+#X connect 165 0 168 0;
+#X connect 168 0 0 0;
+#X connect 5 38 165 0;
+#X connect 169 0 170 0;
+#X connect 170 0 169 0;
+#X connect 171 0 170 1;
+#X connect 170 1 171 0;
+#X connect 169 0 172 0;
+#X connect 172 0 0 0;
+#X connect 5 39 169 0;
+#X connect 173 0 174 0;
+#X connect 174 0 173 0;
+#X connect 175 0 174 1;
+#X connect 174 1 175 0;
+#X connect 173 0 176 0;
+#X connect 176 0 0 0;
+#X connect 5 40 173 0;
+#X connect 177 0 178 0;
+#X connect 178 0 177 0;
+#X connect 179 0 178 1;
+#X connect 178 1 179 0;
+#X connect 177 0 180 0;
+#X connect 180 0 0 0;
+#X connect 5 41 177 0;
+#X connect 181 0 182 0;
+#X connect 182 0 181 0;
+#X connect 183 0 182 1;
+#X connect 182 1 183 0;
+#X connect 181 0 184 0;
+#X connect 184 0 0 0;
+#X connect 5 42 181 0;
+#X connect 185 0 186 0;
+#X connect 186 0 185 0;
+#X connect 187 0 186 1;
+#X connect 186 1 187 0;
+#X connect 185 0 188 0;
+#X connect 188 0 0 0;
+#X connect 5 43 185 0;
+#X connect 189 0 190 0;
+#X connect 190 0 189 0;
+#X connect 191 0 190 1;
+#X connect 190 1 191 0;
+#X connect 189 0 192 0;
+#X connect 192 0 0 0;
+#X connect 5 44 189 0;
+#X connect 193 0 194 0;
+#X connect 194 0 193 0;
+#X connect 195 0 194 1;
+#X connect 194 1 195 0;
+#X connect 193 0 196 0;
+#X connect 196 0 0 0;
+#X connect 5 45 193 0;
+#X connect 197 0 198 0;
+#X connect 198 0 197 0;
+#X connect 199 0 198 1;
+#X connect 198 1 199 0;
+#X connect 197 0 200 0;
+#X connect 200 0 0 0;
+#X connect 5 46 197 0;
+#X connect 201 0 202 0;
+#X connect 202 0 201 0;
+#X connect 203 0 202 1;
+#X connect 202 1 203 0;
+#X connect 201 0 204 0;
+#X connect 204 0 0 0;
+#X connect 5 47 201 0;
+#X connect 205 0 206 0;
+#X connect 206 0 205 0;
+#X connect 207 0 206 1;
+#X connect 206 1 207 0;
+#X connect 205 0 208 0;
+#X connect 208 0 0 0;
+#X connect 5 48 205 0;
+#X connect 209 0 210 0;
+#X connect 210 0 209 0;
+#X connect 211 0 210 1;
+#X connect 210 1 211 0;
+#X connect 209 0 212 0;
+#X connect 212 0 0 0;
+#X connect 5 49 209 0;
+#X connect 213 0 214 0;
+#X connect 214 0 213 0;
+#X connect 215 0 214 1;
+#X connect 214 1 215 0;
+#X connect 213 0 216 0;
+#X connect 216 0 0 0;
+#X connect 5 50 213 0;
+#X connect 217 0 218 0;
+#X connect 218 0 217 0;
+#X connect 219 0 218 1;
+#X connect 218 1 219 0;
+#X connect 217 0 220 0;
+#X connect 220 0 0 0;
+#X connect 5 51 217 0;
+#X connect 221 0 222 0;
+#X connect 222 0 221 0;
+#X connect 223 0 222 1;
+#X connect 222 1 223 0;
+#X connect 221 0 224 0;
+#X connect 224 0 0 0;
+#X connect 5 52 221 0;
+#X connect 225 0 226 0;
+#X connect 226 0 225 0;
+#X connect 227 0 226 1;
+#X connect 226 1 227 0;
+#X connect 225 0 228 0;
+#X connect 228 0 0 0;
+#X connect 5 53 225 0;
+#X connect 229 0 230 0;
+#X connect 230 0 229 0;
+#X connect 231 0 230 1;
+#X connect 230 1 231 0;
+#X connect 229 0 232 0;
+#X connect 232 0 0 0;
+#X connect 5 54 229 0;
+#X connect 233 0 234 0;
+#X connect 234 0 233 0;
+#X connect 235 0 234 1;
+#X connect 234 1 235 0;
+#X connect 233 0 236 0;
+#X connect 236 0 0 0;
+#X connect 5 55 233 0;
+#X connect 237 0 238 0;
+#X connect 238 0 237 0;
+#X connect 239 0 238 1;
+#X connect 238 1 239 0;
+#X connect 237 0 240 0;
+#X connect 240 0 0 0;
+#X connect 5 56 237 0;
+#X connect 241 0 242 0;
+#X connect 242 0 241 0;
+#X connect 243 0 242 1;
+#X connect 242 1 243 0;
+#X connect 241 0 244 0;
+#X connect 244 0 0 0;
+#X connect 5 57 241 0;
+#X connect 245 0 246 0;
+#X connect 246 0 245 0;
+#X connect 247 0 246 1;
+#X connect 246 1 247 0;
+#X connect 245 0 248 0;
+#X connect 248 0 0 0;
+#X connect 5 58 245 0;
+#X connect 249 0 250 0;
+#X connect 250 0 249 0;
+#X connect 251 0 250 1;
+#X connect 250 1 251 0;
+#X connect 249 0 252 0;
+#X connect 252 0 0 0;
+#X connect 5 59 249 0;
+#X connect 253 0 254 0;
+#X connect 254 0 253 0;
+#X connect 255 0 254 1;
+#X connect 254 1 255 0;
+#X connect 253 0 256 0;
+#X connect 256 0 0 0;
+#X connect 5 60 253 0;
+#X connect 257 0 258 0;
+#X connect 258 0 257 0;
+#X connect 259 0 258 1;
+#X connect 258 1 259 0;
+#X connect 257 0 260 0;
+#X connect 260 0 0 0;
+#X connect 5 61 257 0;
+#X connect 261 0 262 0;
+#X connect 262 0 261 0;
+#X connect 263 0 262 1;
+#X connect 262 1 263 0;
+#X connect 261 0 264 0;
+#X connect 264 0 0 0;
+#X connect 5 62 261 0;
+#X connect 265 0 266 0;
+#X connect 266 0 265 0;
+#X connect 267 0 266 1;
+#X connect 266 1 267 0;
+#X connect 265 0 268 0;
+#X connect 268 0 0 0;
+#X connect 5 63 265 0;
+#X connect 269 0 270 0;
+#X connect 270 0 269 0;
+#X connect 271 0 270 1;
+#X connect 270 1 271 0;
+#X connect 269 0 272 0;
+#X connect 272 0 0 0;
+#X connect 5 64 269 0;
+#X connect 273 0 274 0;
+#X connect 274 0 273 0;
+#X connect 275 0 274 1;
+#X connect 274 1 275 0;
+#X connect 273 0 276 0;
+#X connect 276 0 0 0;
+#X connect 5 65 273 0;
+#X connect 277 0 278 0;
+#X connect 278 0 277 0;
+#X connect 279 0 278 1;
+#X connect 278 1 279 0;
+#X connect 277 0 280 0;
+#X connect 280 0 0 0;
+#X connect 5 66 277 0;
+#X connect 281 0 282 0;
+#X connect 282 0 281 0;
+#X connect 283 0 282 1;
+#X connect 282 1 283 0;
+#X connect 281 0 284 0;
+#X connect 284 0 0 0;
+#X connect 5 67 281 0;
+#X connect 285 0 286 0;
+#X connect 286 0 285 0;
+#X connect 287 0 286 1;
+#X connect 286 1 287 0;
+#X connect 285 0 288 0;
+#X connect 288 0 0 0;
+#X connect 5 68 285 0;
+#X connect 289 0 290 0;
+#X connect 290 0 289 0;
+#X connect 291 0 290 1;
+#X connect 290 1 291 0;
+#X connect 289 0 292 0;
+#X connect 292 0 0 0;
+#X connect 5 69 289 0;
+#X connect 293 0 294 0;
+#X connect 294 0 293 0;
+#X connect 295 0 294 1;
+#X connect 294 1 295 0;
+#X connect 293 0 296 0;
+#X connect 296 0 0 0;
+#X connect 5 70 293 0;
+#X connect 297 0 298 0;
+#X connect 298 0 297 0;
+#X connect 299 0 298 1;
+#X connect 298 1 299 0;
+#X connect 297 0 300 0;
+#X connect 300 0 0 0;
+#X connect 5 71 297 0;
+#X connect 301 0 302 0;
+#X connect 302 0 301 0;
+#X connect 303 0 302 1;
+#X connect 302 1 303 0;
+#X connect 301 0 304 0;
+#X connect 304 0 0 0;
+#X connect 5 72 301 0;
+#X connect 305 0 306 0;
+#X connect 306 0 305 0;
+#X connect 307 0 306 1;
+#X connect 306 1 307 0;
+#X connect 305 0 308 0;
+#X connect 308 0 0 0;
+#X connect 5 73 305 0;
+#X connect 309 0 310 0;
+#X connect 310 0 309 0;
+#X connect 311 0 310 1;
+#X connect 310 1 311 0;
+#X connect 309 0 312 0;
+#X connect 312 0 0 0;
+#X connect 5 74 309 0;
+#X connect 313 0 314 0;
+#X connect 314 0 313 0;
+#X connect 315 0 314 1;
+#X connect 314 1 315 0;
+#X connect 313 0 316 0;
+#X connect 316 0 0 0;
+#X connect 5 75 313 0;
+#X connect 317 0 318 0;
+#X connect 318 0 317 0;
+#X connect 319 0 318 1;
+#X connect 318 1 319 0;
+#X connect 317 0 320 0;
+#X connect 320 0 0 0;
+#X connect 5 76 317 0;
+#X connect 321 0 322 0;
+#X connect 322 0 321 0;
+#X connect 323 0 322 1;
+#X connect 322 1 323 0;
+#X connect 321 0 324 0;
+#X connect 324 0 0 0;
+#X connect 5 77 321 0;
+#X coords 0 -1 1 1 200 2522 2 2 200;

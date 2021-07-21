@@ -52,4 +52,5 @@ void setup_list_rldecode()
 {
     ObjectFactory<ListRLDecode> obj("list.rldecode");
     obj.addAlias("list.unwrap");
+    obj.setXletsInfo({ "list: entries", "list: repeats" }, { "list: result list" });
 }

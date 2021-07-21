@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="file.size">
+        <title>file.size</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>output file size</description>
+            <license>GPL3 or later</license>
+            <library>ceammc</library>
+            <category>path</category>
+            <keywords>path file size</keywords>
+            <since>0.9.4</since>
+        </meta>
+        <info>
+            <par>Note: by default filesize request performed asynchronously, so there's a (usually)
+            short delay between input and output</par>
+        </info>
+        <properties>
+            <property name="@async" type="int" enum="0 1" default="1">async mode</property>
+            <property name="@sync" type="alias">alias for @async 0</property>
+        </properties>
+        <inlets>
+            <inlet>
+                <xinfo on="symbol">file path</xinfo>
+                <xinfo on="data:string">file path</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet>float: size in bytes</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[bang(      [symbol %CEAMMC%/guitar1.wav(
+|           |
+[openpanel] [expand_env]
+|           |
+[file.size  ]
+|
+[ui.dt]
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

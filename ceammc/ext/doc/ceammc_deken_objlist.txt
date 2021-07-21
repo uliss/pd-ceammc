@@ -6,10 +6,12 @@ helmholtz~	pitch tracker
 an.rms~	root mean square with moving-average algorithm.
 an.tempo~	tempo detector
 array.bpm	BPM calculator
+array.circular~	circular buffer for arrays
 array.copy	copy samples from one array to another
 array.do	iterate and modify array content via side-chain
 array.each	process each array elements via side-chain
 array.fill	fill array with single value or pattern
+array.grainer~	array granulator
 array.hist	calculates array histogram
 array.mean	calculates array arithmetic mean value
 array.minmax	find array min and max element value
@@ -450,6 +452,7 @@ fx.distortion3~	simple distortion #3 from Guitarix effects set
 fx.distortion~	cubic nonlinearity distortion
 fx.drive~	Guitarix drive effect
 fx.drone_box~	mono sympathetic resonance generator
+fx.echo2~	stereo echo effect
 fx.echo~	simple echo effect
 fx.flanger~	mono flanging effect
 fx.freeverb2~	freeverb2 - stereo version of freeverb
@@ -462,7 +465,10 @@ fx.looper~	One track looper
 fx.pitchshift_s~	signal version of fx.pitchshift~
 fx.pitchshift~	simple pitch shifter based on 2 delay lines
 fx.recho~	reversed echo effect
+fx.room~	Gardners room emulation algorithms
 fx.sdelay~	smooth delay with a feedback control
+fx.shimmer~	shimmer reverb effect effect
+fx.tapiir~	multi-tap delay
 fx.vocoder~	very simple vocoder where the spectrum of the modulation signal is analyzed using a 32-band filter bank
 fx.wahwah~	digitized CryBaby wah pedal
 fx.zita_rev1~	Zita stereo reverb
@@ -548,6 +554,8 @@ list.rotate	rotates list
 list.<<	rotates list
 list.>>	rotates list
 list.route	acts like [route] but for lists
+list.rundiff	running difference
+list.runsum	running sum
 list.search	search specified items in input list
 list.separate	sends list elements one by one separately
 list.sep	sends list elements one by one separately
@@ -842,6 +850,7 @@ canvas.top	verbose information about top-level canvas
 patch.args	Get patch or subpatch arguments
 patch.deps	patch dependencies: used objects and abstractions
 patch.tree	patch tree
+file.size	output file size
 path.basename	outputs filename portion of pathname
 path.dirname	outputs directory portion of pathname
 path.exists	checks if given path exists
@@ -955,6 +964,7 @@ spat.pan8~	GMEM SPAT: 8-outputs spatializer
 ceammc/pan8~	GMEM SPAT: 8-outputs spatializer
 pan8~	GMEM SPAT: 8-outputs spatializer
 spat.zita6x8~	spat with 6 inputs sources to 8 channel output
+spat.zita8~	8 channel reverb spatializer
 string	string constructor
 ceammc/string	string constructor
 ceammc/str	string constructor
@@ -993,8 +1003,11 @@ symbol.num_compare	numeric symbol compare
 symbol2any	converts symbol or string to message
 ceammc/symbol2any	converts symbol or string to message
 ceammc/sym->any	converts symbol or string to message
+ceammc/str->any	converts symbol or string to message
+ceammc/string2any	converts symbol or string to message
 sym->any	converts symbol or string to message
 str->any	converts symbol or string to message
+string2any	converts symbol or string to message
 symbol2intlist	converts symbol to list of character codes
 ceammc/symbol2intlist	converts symbol to list of character codes
 ceammc/sym->ilist	converts symbol to list of character codes
@@ -1009,16 +1022,19 @@ synth.fgrain~	file granulator from STK
 synth.glass_harm~	nonlinear banded waveguide modeled Glass Harmonica
 synth.glitch~	Glitch synthesizer by naivesound
 synth.harpsichord~	waveguide commuted harpsichord
+synth.kick~	low-kick synth from Guitarix project
 synth.ks~	Karplus-Strong string
 synth.marimba~	simple marimba physical model implementing a single tone bar connected to tube
 synth.piano~	waveguide commuted piano
 synth.rhodey~	STK Fender Rhodes electric piano FM synthesis instrument
 synth.risset_arp~	Jean Claude Risset's harmonic arpeggio effect
+synth.risset_bell~	Jean Claude Risset's bell synth
 synth.risset_tone~	Jean Claude Risset's endless glissando
 synth.russian_bell~	russian church bell modal model
 synth.shakers~	various percussion sounds from STK library
 synth.sitar~	STK sitar
 synth.snare~	Snare drum synth from Guitarix project
+synth.tube_bell~	STK tubular bell (orchestral chime) FM synthesis instrument
 synth.wurley~	Wurlitzer electric piano FM synthesis instrument
 system.colorpanel	System color panel dialog popup
 system.cursor	Output cursor motion, mousewheel and buttonclicks

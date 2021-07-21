@@ -61,6 +61,20 @@
 				},
 				{
 					"type": "vslider",
+					"label": "damp_hf",
+					"address": "/fx.zita_rev1/damp_hf",
+					"meta": [
+						{ "scale": "log" },
+						{ "style": "knob" },
+						{ "unit": "Hz" }
+					],
+					"init": 6000,
+					"min": 1500,
+					"max": 47040,
+					"step": 1
+				},
+				{
+					"type": "vslider",
 					"label": "decay_low",
 					"address": "/fx.zita_rev1/decay_low",
 					"meta": [
@@ -111,20 +125,6 @@
 					"min": 0,
 					"max": 1,
 					"step": 0.01
-				},
-				{
-					"type": "vslider",
-					"label": "dump_hf",
-					"address": "/fx.zita_rev1/dump_hf",
-					"meta": [
-						{ "scale": "log" },
-						{ "style": "knob" },
-						{ "unit": "Hz" }
-					],
-					"init": 6000,
-					"min": 1500,
-					"max": 47040,
-					"step": 1
 				},
 				{
 					"type": "hslider",

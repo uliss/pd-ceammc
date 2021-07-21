@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="list.rundiff">
+        <title>list.rundiff</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>running difference</description>
+            <license>GPL3 or later</license>
+            <library>ceammc</library>
+            <category>list</category>
+            <keywords>list running difference partial cumulative</keywords>
+            <since>0.9.4</since>
+            <also>
+                <see>list.runsum</see>
+            </also>
+        </meta>
+        <info>
+            <par>Computes the adjacent difference of the elements of the input list</par>
+            <par>• y0 = x0</par>
+            <par>• y1 = x1 - x0</par>
+            <par>• y2 = x2 - x1</par>
+            <par>• y3 = x3 - x2</par>
+            <par>etc...</par>
+        </info>
+        <inlets>
+            <inlet>
+                <xinfo on="list">input list</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet>result list</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[ui.sliders @size 150 80]
+|
+|
+|
+|
+|
+[list.rundiff]
+|
+[ui.dt]
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>
