@@ -71,7 +71,7 @@ TEST_CASE("array.mod", "[externals]")
         REQUIRE(p.setList(AtomList::parseString("-25ms")));
         REQUIRE(p.samples() == 975);
         REQUIRE(p.setList(AtomList::parseString("0.01_min")));
-        REQUIRE(p.samples() == 600);
+        REQUIRE(p.samples() == Approx(600));
 
         REQUIRE(p.setList(AtomList::parseString("20samp")));
         REQUIRE(p.samples() == 20);
