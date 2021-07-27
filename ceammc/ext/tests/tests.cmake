@@ -90,9 +90,7 @@ if(${WITH_COVERAGE})
         add_custom_target(lcov_init COMMAND ${LCOV_EXE} --directory ${PROJECT_BINARY_DIR}/ceammc --capture --initial --output-file ceammc_base.lcov)
         add_custom_target(lcov_exec
             COMMAND ${LCOV_EXE} --directory ${PROJECT_BINARY_DIR}/ceammc --capture --output-file ceammc_test.lcov
-            COMMAND ${LCOV_EXE} --add-tracefile ceammc_base.lcov --add-tracefile ceammc_test.lcov
-                --output-file ceammc_total.lcov
-            COMMAND ${LCOV_EXE} --remove ceammc_total.lcov '/usr/*' '/Library/*' '/opt*' '/System*'
+            COMMAND ${LCOV_EXE} --remove ceammc_test.lcov '/usr/*' '/Library/*' '/opt*' '/System*'
                 '${PROJECT_SOURCE_DIR}/build*'
                 '${PROJECT_SOURCE_DIR}/ceammc/extra*'
                 --output-file ceammc_filtered.lcov)
