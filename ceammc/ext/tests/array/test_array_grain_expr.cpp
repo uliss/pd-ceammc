@@ -692,6 +692,14 @@ TEST_CASE("array_grain", "[externals]")
 
             REQUIRE(p.parse(AtomList::parseString("@w trpz")));
             REQUIRE(g.winType() == GRAIN_WIN_TRPZ);
+
+            REQUIRE(p.parse(AtomList::parseString("@w trpz(2)")));
+            REQUIRE(g.winType() == GRAIN_WIN_TRPZ);
+            REQUIRE(g.winParam() == 2);
+
+            REQUIRE(p.parse(AtomList::parseString("@w trpz(2000.25)")));
+            REQUIRE(g.winType() == GRAIN_WIN_TRPZ);
+            REQUIRE(g.winParam() == 2000);
         }
 
         SECTION("tag")
