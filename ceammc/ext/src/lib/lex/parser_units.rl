@@ -2,6 +2,7 @@
 
 # include <cstdint>
 # include <cstring>
+# include <cstdio>
 
 namespace ceammc {
 namespace parser {
@@ -72,8 +73,14 @@ bool UnitsFullMatch::parse(const char* str)
     const bool ok = cs >= %%{ write first_final; }%%;
     if (ok) {
         unit_.value = num_.fval;
-        if  (type_ == TYPE_RATIO)
+        if  (type_ == TYPE_RATIO) {
+            if (num_.iden == 0) {
+                fprintf(stderr, "division by zero: %s\n", str);
+                return false;
+            }
+
             unit_.value = double(num_.inum) / double(num_.iden);
+        }
         else if(type_ == TYPE_INT)
             unit_.value = num_.ival;
 
