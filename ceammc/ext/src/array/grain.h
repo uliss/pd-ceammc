@@ -295,7 +295,6 @@ public:
 
     // pan
     float pan() const { return pan_; }
-    void addPan(float pan);
     void setPan(float pan);
 
     GrainPropOverflow panOverflow() const { return pan_overflow_; }
@@ -307,7 +306,6 @@ public:
     // amplitude
     float amplitude() const { return amp_; }
     void setAmplitude(float amp);
-    void setAmpRandom(float min, float max);
 
     std::pair<t_sample, t_sample> panSample(t_sample in) const
     {

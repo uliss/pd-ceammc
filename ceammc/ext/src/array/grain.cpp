@@ -93,11 +93,6 @@ void Grain::setSpeed(float s)
     play_speed_ = clip<float>(s, MIN_SPEED, MAX_SPEED);
 }
 
-void Grain::addPan(float pan)
-{
-    setPan(pan_ + pan);
-}
-
 void Grain::setPan(float pan)
 {
     switch (pan_overflow_) {
@@ -127,11 +122,6 @@ void Grain::setPanMode(GrainPan m)
 void Grain::setAmplitude(float amp)
 {
     amp_ = clip<float, 0, 256>(amp);
-}
-
-void Grain::setAmpRandom(float min, float max)
-{
-    setAmplitude(GrainRandom::urandf(min, max));
 }
 
 void Grain::start(size_t playPosSamp)
