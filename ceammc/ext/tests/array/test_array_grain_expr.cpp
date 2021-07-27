@@ -689,6 +689,9 @@ TEST_CASE("array_grain", "[externals]")
 
             REQUIRE(p.parse(AtomList::parseString("@w hann")));
             REQUIRE(g.winType() == GRAIN_WIN_HANN);
+
+            REQUIRE(p.parse(AtomList::parseString("@w trpz")));
+            REQUIRE(g.winType() == GRAIN_WIN_TRPZ);
         }
 
         SECTION("tag")

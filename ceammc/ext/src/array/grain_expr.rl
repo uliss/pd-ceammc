@@ -186,6 +186,7 @@ main := |*
   'hann'      =>  { pushToken(TK_HANN); };
   'rect'      =>  { pushToken(TK_RECT); };
   'tri'       =>  { pushToken(TK_TRI); };
+  'trpz'      =>  { pushToken(TK_TRPZ); };
   'ondone'    =>  { pushToken(TK_ONDONE); };
   'overflow'  =>  { pushToken(TK_OVERFLOW); };
   'mode'      =>  { pushToken(TK_MODE); };

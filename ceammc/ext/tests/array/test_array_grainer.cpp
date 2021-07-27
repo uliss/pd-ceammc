@@ -157,6 +157,24 @@ TEST_CASE("array.grainer", "[externals]")
         REQUIRE(buf0[6] == 0.5);
         REQUIRE(buf0[7] == 0.25);
         REQUIRE(buf0[8] == 0);
+
+        g->setWinType(GRAIN_WIN_TRPZ);
+        REQUIRE(g->winType() == GRAIN_WIN_TRPZ);
+        std::fill_n(buf0, BS, 0);
+        std::fill_n(buf1, BS, 0);
+
+        g->start(0);
+        g->process(aptr->begin(), aptr->size(), buf, BS, SR);
+
+        REQUIRE(buf0[0] == 0);
+        REQUIRE(buf0[1] == Approx(0.44444));
+        REQUIRE(buf0[2] == Approx(0.88889));
+        REQUIRE(buf0[3] == 1);
+        REQUIRE(buf0[4] == 1);
+        REQUIRE(buf0[5] == 1);
+        REQUIRE(buf0[6] == Approx(0.88889));
+        REQUIRE(buf0[7] == Approx(0.44444));
+        REQUIRE(buf0[8] == 0);
     }
 
     SECTION("GrainCloud")

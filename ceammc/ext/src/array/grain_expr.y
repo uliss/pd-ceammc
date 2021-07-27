@@ -59,6 +59,8 @@ ondone  ::= .
 wintype(A) ::= HANN.  { A.val = ceammc::GRAIN_WIN_HANN; }
 wintype(A) ::= RECT.  { A.val = ceammc::GRAIN_WIN_RECT; }
 wintype(A) ::= TRI.   { A.val = ceammc::GRAIN_WIN_TRI; }
+wintype(A) ::= TRPZ OPENP DOUBLE CLOSEP.
+                      { A.val = ceammc::GRAIN_WIN_TRPZ; }
 
 prop_pan  ::= PROP_PAN overflow.
 prop_pan  ::= PROP_PAN mode.
