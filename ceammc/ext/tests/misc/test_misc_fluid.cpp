@@ -33,7 +33,6 @@ TEST_CASE("misc.fluid~", "[externals]")
         REQUIRE(t.numInlets() == 1);
         REQUIRE(t.numOutlets() == 2);
         REQUIRE(t.numOutputChannels() == 2);
-        REQUIRE_PROPERTY(t, @version, "2.0.0");
         REQUIRE_PROPERTY(t, @sf, "");
         REQUIRE_PROPERTY_LIST(t, @soundfonts, L());
         REQUIRE_PROPERTY_FLOAT(t, @reverb_room, 0.2);
