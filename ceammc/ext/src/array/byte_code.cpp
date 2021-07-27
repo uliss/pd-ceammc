@@ -72,6 +72,7 @@ static const char* op_str[] = {
     "$11",
     "$12",
     "$13",
+    "$max",
 };
 
 static const char* toString(ByteCodeOp op)
@@ -365,7 +366,7 @@ int ByteCode::evalOp(int i, ValueStack& stack) const
     case OP_FOLD1: {
         MIN_STACK_SIZE(2);
         auto w = wrapFloatMax(stack[1], 2 * stack[0]);
-        stack[1] = std::min<float>(2 * stack[0] - w, w);;
+        stack[1] = std::min<float>(2 * stack[0] - w, w);
         stack.unsafePop();
         return 1;
     }

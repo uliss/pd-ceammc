@@ -111,8 +111,11 @@ enum ByteCodeOp : uint8_t {
     OP_CONST11,
     OP_CONST12,
     OP_CONST13,
+    OP_CONSTMAX,
     OP_MAX_
 };
+
+constexpr const size_t OP_NUM_CONST = OP_CONSTMAX - OP_CONST0;
 
 enum ByteCodeErr {
     OP_ERR_UNKNOWN_OP = -1,
@@ -131,13 +134,12 @@ using BcValueType = double;
 
 class ByteCode {
     static const int MAX_LEN { 128 };
-    static const int NUM_CONST { 13 };
     static const int STACK_SIZE { 16 };
 
     using ValueStack = StaticStack<BcValueType, STACK_SIZE>;
 
     std::array<BcOpType, MAX_LEN> bc_;
-    std::array<BcValueType, NUM_CONST> const_;
+    std::array<BcValueType, OP_NUM_CONST> const_;
     uint16_t bp_ { 0 };
     ByteCodeAssignType assign_type_;
 
