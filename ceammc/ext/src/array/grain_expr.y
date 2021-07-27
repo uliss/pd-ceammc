@@ -56,12 +56,18 @@ prop    ::= PROP_REPEATS.     { p->startProp(ceammc::GRAIN_PROP_REPEATS); }
 ondone  ::= ONDONE.           { p->setCalcMoment(ceammc::GRAIN_CALC_ONDONE); }
 ondone  ::= .
 
-wintype(A) ::= HANN.  { A.val = ceammc::GRAIN_WIN_HANN; p->setWinParam(0); }
-wintype(A) ::= RECT.  { A.val = ceammc::GRAIN_WIN_RECT; p->setWinParam(0); }
-wintype(A) ::= TRI.   { A.val = ceammc::GRAIN_WIN_TRI;  p->setWinParam(0); }
-wintype(A) ::= TRPZ.  { A.val = ceammc::GRAIN_WIN_TRPZ; p->setWinParam(0); }
-wintype(A) ::= TRPZ OPENP DOUBLE(B) CLOSEP.
-                      { A.val = ceammc::GRAIN_WIN_TRPZ; p->setWinParam(B.val); }
+wintype(A) ::= HANN.    { A.val = ceammc::GRAIN_WIN_HANN; p->setWinParam(0); }
+wintype(A) ::= RECT.    { A.val = ceammc::GRAIN_WIN_RECT; p->setWinParam(0); }
+wintype(A) ::= TRI.     { A.val = ceammc::GRAIN_WIN_TRI;  p->setWinParam(0); }
+wintype(A) ::= TRPZ.    { A.val = ceammc::GRAIN_WIN_TRPZ; p->setWinParam(0); }
+wintype(A) ::= TRPZ    OPENP DOUBLE(B) CLOSEP.
+                        { A.val = ceammc::GRAIN_WIN_TRPZ; p->setWinParam(B.val); }
+wintype(A) ::= LINUP.   { A.val = ceammc::GRAIN_WIN_LINUP; p->setWinParam(0); }
+wintype(A) ::= LINUP   OPENP DOUBLE(B) CLOSEP.
+                        { A.val = ceammc::GRAIN_WIN_LINUP; p->setWinParam(B.val); }
+wintype(A) ::= LINDOWN. { A.val = ceammc::GRAIN_WIN_LINDOWN; p->setWinParam(0); }
+wintype(A) ::= LINDOWN OPENP DOUBLE(B) CLOSEP.
+                        { A.val = ceammc::GRAIN_WIN_LINDOWN; p->setWinParam(B.val); }
 
 prop_pan  ::= PROP_PAN overflow.
 prop_pan  ::= PROP_PAN mode.

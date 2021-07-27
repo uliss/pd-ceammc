@@ -302,6 +302,16 @@ GrainState Grain::process(ArrayIterator in, size_t in_size, t_sample** buf, uint
                 else if (pos > length_ - RAMP_SAMP - 1)
                     value *= convert::lin2lin_clip<t_sample>(length_ - pos - 1, 0, RAMP_SAMP, 0, 1);
             } break;
+            case GRAIN_WIN_LINUP: {
+                const auto pos = currentLogicPlayPos();
+                const int param = (win_param_ <= 0) ? 64 : win_param_;
+                const auto RAMP_DOWN_SAMP = std::min<double>(param, length_ * 0.125);
+                const double ramp_down = length_ - RAMP_DOWN_SAMP - 1;
+                if (pos > ramp_down)
+                    value *= convert::lin2lin_clip<t_sample>(length_ - pos - 1, 0, RAMP_DOWN_SAMP, 0, 1);
+                else
+                    value *= convert::lin2lin_clip<t_sample>(pos, 0, ramp_down, 0, 1);
+            } break;
             default:
                 break;
             }

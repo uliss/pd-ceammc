@@ -58,6 +58,8 @@ enum GrainWindowType : uint8_t {
     GRAIN_WIN_TRI,
     GRAIN_WIN_HANN,
     GRAIN_WIN_TRPZ,
+    GRAIN_WIN_LINUP,
+    GRAIN_WIN_LINDOWN,
 };
 
 enum GrainState : uint8_t {
@@ -205,7 +207,7 @@ private:
     GrainPropOverflow pan_overflow_ : 2;
     GrainPan pan_mode_ : 2;
     GrainInterp play_interp_ : 2;
-    GrainWindowType win_type_ : 2;
+    GrainWindowType win_type_ : 3;
 
     Grain(const Grain&) = delete;
     Grain& operator=(const Grain&) = delete;
